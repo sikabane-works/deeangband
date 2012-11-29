@@ -3138,7 +3138,6 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	char creature_name[MAX_NLEN];
 	creature_desc(creature_name, creature_ptr, 0);
 
-	/* Initialize */
 	(*dp) = 0;
 
 	/* Global direction */
@@ -3255,7 +3254,6 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	char creature_name[MAX_NLEN];
 	creature_desc(creature_name, creature_ptr, 0);
 
-	/* Initialize */
 	(*dp) = 0;
 
 	/* Global direction */

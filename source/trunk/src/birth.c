@@ -5050,22 +5050,9 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 		/*** Autoroll ***/
 
-		if(autoroller || autochara)
-		{
-			/* Clear fields */
-			auto_round = 0L;
-		}
-
-		/* Initialize */
-		if(autoroller)
-		{
-			if(!get_stat_limits(creature_ptr)) return FALSE;
-		}
-
-		if(autochara)
-		{
-			if(!get_chara_limits(creature_ptr)) return FALSE;
-		}
+		if(autoroller || autochara) auto_round = 0L;
+		if(autoroller) if(!get_stat_limits(creature_ptr)) return FALSE;
+		if(autochara) if(!get_chara_limits(creature_ptr)) return FALSE;
 
 		/* Clear */
 		clear_from(0);

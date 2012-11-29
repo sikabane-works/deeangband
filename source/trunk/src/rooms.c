@@ -179,7 +179,6 @@ static void check_room_boundary(floor_type *floor_ptr, int x1, int y1, int x2, i
 	int count, x, y;
 	bool old_is_floor, new_is_floor;
 
-	/* Initialize */
 	count = 0;
 
 	old_is_floor = get_floor(floor_ptr, x1 - 1, y1);
@@ -4274,7 +4273,6 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 		{
 			/* Get distances to two closest centers */
 
-			/* initialize */
 			min1 = distance(x, y, center[0].x, center[0].y);
 			min2 = distance(x, y, center[1].x, center[1].y);
 
@@ -4345,7 +4343,6 @@ static void build_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2)
 	/* Check if rectangle has no width */
 	if((x1 == x2) || (y1 == y2)) return;
 
-	/* initialize */
 	if(x1 > x2)
 	{
 		/* Swap boundaries if in wrong order */

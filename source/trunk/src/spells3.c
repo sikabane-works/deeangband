@@ -160,7 +160,6 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 
 	if(randint1(100) > power) return; // "Skill" test
 
-	/* Initialize */
 	ny = m_ptr->fy;
 	nx = m_ptr->fx;
 

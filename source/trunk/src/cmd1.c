@@ -2945,13 +2945,10 @@ void run_step(creature_type *creature_ptr, int dir)
 #else
 			msg_print("You cannot run in that direction.");
 #endif
-
 			disturb(player_ptr, 0, 0);
-
 			return;
 		}
 
-		/* Initialize */
 		run_init(creature_ptr, dir);
 	}
 
@@ -2969,7 +2966,6 @@ void run_step(creature_type *creature_ptr, int dir)
 	/* Decrease the run counter */
 	if(--creature_ptr->running <= 0) return;
 
-	/* Take time */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Move the player, using the "pickup" flag */
