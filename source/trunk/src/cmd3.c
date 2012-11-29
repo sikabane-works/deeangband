@@ -60,8 +60,6 @@ void do_cmd_inven(creature_type *creature_ptr)
 	if(command_new == ESCAPE)
 	{
 		int wid, hgt;
-
-		/* Get size */
 		Term_get_size(&wid, &hgt);
 
 		/* Reset stuff */
@@ -125,8 +123,6 @@ void do_cmd_equip(creature_type *creature_ptr)
 	if(command_new == ESCAPE)
 	{
 		int wid, hgt;
-
-		/* Get size */
 		Term_get_size(&wid, &hgt);
 
 		/* Reset stuff */
@@ -1362,14 +1358,10 @@ void do_cmd_look(creature_type *creature_ptr)
 void do_cmd_locate(creature_type *creature_ptr)
 {
 	int		dir, y1, x1, y2, x2;
-
 	char	tmp_val[80];
-
 	char	out_val[160];
-
 	int wid, hgt;
 
-	/* Get size */
 	get_screen_size(&wid, &hgt);
 
 

@@ -1297,7 +1297,6 @@ void do_cmd_messages(int num_now)
 	int wid, hgt;
 	int num_lines;
 
-	/* Get size */
 	Term_get_size(&wid, &hgt);
 
 	/* Number of message lines in a screen */
@@ -7094,8 +7093,6 @@ static void browser_cursor(char ch, int *column, int *grp_cur, int grp_cnt,
 	{
 		int browser_rows;
 		int wid, hgt;
-
-		/* Get size */
 		Term_get_size(&wid, &hgt);
 
 		browser_rows = hgt - 8;
@@ -7469,8 +7466,6 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 	int wid, hgt;
 
 	byte mode;
-
-	/* Get size */
 	Term_get_size(&wid, &hgt);
 
 	browser_rows = hgt - 8;
@@ -7952,8 +7947,6 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 	int wid, hgt;
 
 	byte mode;
-
-	/* Get size */
 	Term_get_size(&wid, &hgt);
 
 	browser_rows = hgt - 8;
@@ -8317,7 +8310,6 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 	C_WIPE(attr_old, F_LIT_MAX, byte);
 	C_WIPE(char_old, F_LIT_MAX, byte);
 
-	/* Get size */
 	Term_get_size(&wid, &hgt);
 
 	browser_rows = hgt - 8;

@@ -2297,8 +2297,6 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 	char floor_label[52 + 1];
 
 	bool dont_need_to_show_weights = TRUE;
-
-	/* Get size */
 	Term_get_size(&wid, &hgt);
 
 	/* Default length */

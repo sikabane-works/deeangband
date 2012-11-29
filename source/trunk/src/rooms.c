@@ -5340,7 +5340,6 @@ static bool build_type10(floor_type *floor_ptr)
 {
 	int y0, x0, xsize, ysize, vtype;
 
-	/* Get size */
 	/* big enough to look good, small enough to be fairly common. */
 	xsize = randint1(20) + 12;
 	ysize = randint1(20) + 12;

@@ -1124,8 +1124,6 @@ void get_screen_size(int *wid_p, int *hgt_p)
 void panel_bounds_center(void)
 {
 	int wid, hgt;
-
-	/* Get size */
 	get_screen_size(&wid, &hgt);
 
 	panel_row_max = panel_row_min + hgt - 1;
@@ -1213,8 +1211,6 @@ bool change_panel(int dy, int dx)
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	int y, x;
 	int wid, hgt;
-
-	/* Get size */
 	get_screen_size(&wid, &hgt);
 
 	/* Apply the motion */
@@ -3420,16 +3416,13 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 				if(ee > 100000L) ee = 100000L;
 #ifdef JP
 				msg_print("更に経験を積んだような気がする。");
+				reward = "経験値を得た";
 #else
 				msg_print("You feel more experienced.");
+				reward = "experience";
 #endif
 
 				gain_exp(creature_ptr, ee);
-#ifdef JP
-				reward = "経験値を得た";
-#else
-				reward = "experience";
-#endif
 			}
 			break;
 
@@ -3643,9 +3636,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "summoning hostile creatures";
 #endif
 			for (dummy = 0; dummy < randint1(5) + 1; dummy++)
-			{
 				(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
-			}
 			break;
 
 		case REW_H_SUMMON:
@@ -4127,8 +4118,6 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	int wid, hgt;
-
-	/* Get size */
 	get_screen_size(&wid, &hgt);
 
 	x = creature_ptr->fx;

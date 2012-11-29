@@ -1655,7 +1655,6 @@ void prt_map(creature_type *watcher_ptr)
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(watcher_ptr);
 
-	/* Get size */
 	Term_get_size(&wid, &hgt);
 
 	/* Remove map offset */
@@ -1924,7 +1923,6 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	if(watcher_ptr->floor_id) floor_ptr = GET_FLOOR_PTR(watcher_ptr);
 	else floor_ptr = GET_FLOOR_PTR(player_ptr);
 
-	/* Get size */
 	Term_get_size(&wid, &hgt);
 	hgt -= 2;
 	wid -= 14;
