@@ -820,7 +820,7 @@ static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 
 static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
-	char weapon_name[MAX_NLEN], atk_name[MAX_NLEN], tar_name[MAX_NLEN];
+	char weapon_name[MAX_NLEN], attacker_name[MAX_NLEN], target_name[MAX_NLEN];
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
@@ -911,16 +911,16 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 				{
 #ifdef JP
-					msg_format("%sは%sに金的膝蹴りをくらわした！", atk_name, tar_name);
+					msg_format("%sは%sに金的膝蹴りをくらわした！", attacker_name, target_name);
 #else
 					//TODO
-					msg_format("%s hit %s in the groin with your knee!", atk_name, tar_name);
+					msg_format("%s hit %s in the groin with your knee!", attacker_name, target_name);
 #endif
 					sound(SOUND_PAIN);
 					special_effect = MA_KNEE;
 				}
 			}
-			else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, atk_name, tar_name);
+			else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, attacker_name, target_name);
 		}
 
 		else if(ma_ptr->effect == MA_SLOW)
@@ -930,20 +930,20 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 				{
 #ifdef JP
-					msg_format("%sは%sの足首に関節蹴りをくらわした！", atk_name, tar_name);
+					msg_format("%sは%sの足首に関節蹴りをくらわした！", attacker_name, target_name);
 #else
 					//TODO
-					msg_format("You kick %s in the ankle.", tar_name);
+					msg_format("You kick %s in the ankle.", target_name);
 #endif
 				}
 				special_effect = MA_SLOW;
 			}
-			else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, tar_name);
+			else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, target_name);
 		}
 		else
 		{
 			if(ma_ptr->effect) stun_effect = (ma_ptr->effect / 2) + randint1(ma_ptr->effect / 2);
-			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, atk_name, tar_name);
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, attacker_name, target_name);
 		}
 
 		if(attacker_ptr->posture & KAMAE_SUZAKU) weight = 4;
@@ -958,9 +958,9 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		if((special_effect == MA_KNEE) && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
 		{
 #ifdef JP
-			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format("%^sは苦痛にうめいている！", tar_name);
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format("%^sは苦痛にうめいている！", target_name);
 #else
-			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format("%^s moans in agony!", tar_name);
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format("%^s moans in agony!", target_name);
 #endif
 			stun_effect = 7 + randint1(13);
 			resist_stun /= 3;
@@ -972,9 +972,9 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
-					msg_format("%^sは足をひきずり始めた。", tar_name);
+					msg_format("%^sは足をひきずり始めた。", target_name);
 #else
-					msg_format("%^s starts limping slower.", tar_name);
+					msg_format("%^s starts limping slower.", target_name);
 #endif
 				target_ptr->speed -= 10;
 			}
@@ -988,18 +988,18 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
-						msg_format("%^sはフラフラになった。", tar_name);
+						msg_format("%^sはフラフラになった。", target_name);
 #else
-						msg_format("%^s is stunned.", tar_name);
+						msg_format("%^s is stunned.", target_name);
 #endif
 				}
 				else
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
-						msg_format("%^sはさらにフラフラになった。", tar_name);
+						msg_format("%^sはさらにフラフラになった。", target_name);
 #else
-						msg_format("%^s is more stunned.", tar_name);
+						msg_format("%^s is more stunned.", target_name);
 #endif
 				}
 			}

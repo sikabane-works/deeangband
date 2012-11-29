@@ -2144,14 +2144,14 @@ static void you_died(cptr hit_from)
 
 	if(floor_ptr->fight_arena_mode)
 	{
-		cptr tar_name = species_name + species_info[arena_info[arena_number].species_idx].name;
+		cptr target_name = species_name + species_info[arena_info[arena_number].species_idx].name;
 #ifdef JP
-		msg_format("あなたは%sの前に敗れ去った。", tar_name);
+		msg_format("あなたは%sの前に敗れ去った。", target_name);
 #else
-		msg_format("You are beaten by %s.", tar_name);
+		msg_format("You are beaten by %s.", target_name);
 #endif
 		msg_print(NULL);
-		if(record_arena) do_cmd_write_nikki(DIARY_ARENA, -1 - arena_number, tar_name);
+		if(record_arena) do_cmd_write_nikki(DIARY_ARENA, -1 - arena_number, target_name);
 	}
 	else
 	{
@@ -2364,8 +2364,8 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	int old_chp = target_ptr->chp;
 	species_type    *species_ptr = &species_info[target_ptr->species_idx];
 	bool fear = FALSE;
-	char atk_name[100];
-	char tar_name[100];
+	char attacker_name[100];
+	char target_name[100];
 	char tmp[100];
 
 	// Innocent until proven otherwise
@@ -2376,10 +2376,10 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	// for Player
 	int warning = (target_ptr->mhp * hitpoint_warn / 10);
 
-	if(attacker_ptr) creature_desc(atk_name, attacker_ptr, CD_TRUE_NAME);
-	else atk_name[0] = '\0';
-	if(target_ptr) creature_desc(tar_name, target_ptr, CD_TRUE_NAME);
-	else tar_name[0] = '\0';
+	if(attacker_ptr) creature_desc(attacker_name, attacker_ptr, CD_TRUE_NAME);
+	else attacker_name[0] = '\0';
+	if(target_ptr) creature_desc(target_name, target_ptr, CD_TRUE_NAME);
+	else target_name[0] = '\0';
 
 	if(!has_trait(target_ptr, TRAIT_KILL_EXP))
 	{
@@ -2546,9 +2546,9 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		int count = 0;
 
 	#ifdef JP
-		msg_format("%^sは死の間際に恐ろしい血の呪いを%^sにかけた！", tar_name, atk_name);
+		msg_format("%^sは死の間際に恐ろしい血の呪いを%^sにかけた！", target_name, attacker_name);
 	#else
-		msg_format("On death and dying, %^s puts a terrible blood curse on %^s!", tar_name, atk_name);
+		msg_format("On death and dying, %^s puts a terrible blood curse on %^s!", target_name, attacker_name);
 	#endif
 		curse_equipment(attacker_ptr, 100, 50);	
 		do stop_ty = activate_ty_curse(attacker_ptr, stop_ty, &count);
@@ -2638,7 +2638,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			}
 	
 			/* Extract creature name */
-			creature_desc(tar_name, target_ptr, CD_TRUE_NAME);
+			creature_desc(target_name, target_ptr, CD_TRUE_NAME);
 		
 			if(has_trait(target_ptr, TRAIT_CAN_SPEAK))
 			{
@@ -2646,7 +2646,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	
 				// Dump a message
 				if(!get_rnd_line(game_messages[MESSAGE_FILES_DEATH], target_ptr->species_idx, line_got))	
-					msg_format("%^s %s", tar_name, line_got);
+					msg_format("%^s %s", target_name, line_got);
 	
 	#ifdef WORLD_SCORE
 				if(target_ptr->species_idx == SPECIES_SERPENT)
@@ -2679,7 +2679,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			}
 	
 			sound(SOUND_KILL); // Make a sound	
-			if(note) msg_format("%^s%s", tar_name, note); // Death by Missile/Spell attack	
+			if(note) msg_format("%^s%s", target_name, note); // Death by Missile/Spell attack	
 			
 			else if(!target_ptr->see_others) // Death by physical attack -- invisible creature
 			{
@@ -2687,13 +2687,13 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				{
 	#ifdef JP
 					if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK))
-						msg_format("%sはせっかくだから%sを殺した。", atk_name, tar_name);
+						msg_format("%sはせっかくだから%sを殺した。", attacker_name, target_name);
 					else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
-						msg_format("%sは%sを殺した。「ごめんね～」", atk_name, tar_name);
+						msg_format("%sは%sを殺した。「ごめんね～」", attacker_name, target_name);
 					else
-						msg_format("%sは%sを殺した。", atk_name, tar_name);
+						msg_format("%sは%sを殺した。", attacker_name, target_name);
 	#else
-						msg_format("%s have killed %s.", atk_name, tar_name);
+						msg_format("%s have killed %s.", attacker_name, target_name);
 	#endif
 				}
 			}
@@ -2708,18 +2708,18 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				/* Special note at death */
 				if(explode)
 	#ifdef JP
-					msg_format("%sは爆発して粉々になった。", tar_name);
+					msg_format("%sは爆発して粉々になった。", target_name);
 	#else
-					msg_format("%^s explodes into tiny shreds.", tar_name);
+					msg_format("%^s explodes into tiny shreds.", target_name);
 	#endif
 				else
 				{
 	#ifdef JP
-					if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("せっかくだから%sを倒した。", tar_name);
-					else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK)) msg_format("%s！お許し下さい！", tar_name);
-					else msg_format("%sを倒した。", tar_name);
+					if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("せっかくだから%sを倒した。", target_name);
+					else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK)) msg_format("%s！お許し下さい！", target_name);
+					else msg_format("%sを倒した。", target_name);
 	#else
-					msg_format("You have destroyed %s.", tar_name);
+					msg_format("You have destroyed %s.", target_name);
 	#endif
 				}
 			}
@@ -2730,15 +2730,15 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 					{
 #ifdef JP
-						if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("%sはせっかくだから%sを葬り去った。", atk_name, tar_name);
+						if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("%sはせっかくだから%sを葬り去った。", attacker_name, target_name);
 						else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
 						{
-							msg_format("%sは%sを葬り去った。", atk_name, tar_name);
-							msg_format("%s！お許し下さい！", tar_name);
+							msg_format("%sは%sを葬り去った。", attacker_name, target_name);
+							msg_format("%s！お許し下さい！", target_name);
 						}
-						else msg_format("%sは%sを葬り去った。", atk_name, tar_name);
+						else msg_format("%sは%sを葬り去った。", attacker_name, target_name);
 #else
-						msg_format("%s have slain %s.", atk_name, tar_name);
+						msg_format("%s have slain %s.", attacker_name, target_name);
 #endif
 					}
 				}
@@ -2746,9 +2746,9 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
-						msg_format("%sは死んだ。", tar_name);
+						msg_format("%sは死んだ。", target_name);
 #else
-						msg_format("%s died.", tar_name);
+						msg_format("%s died.", target_name);
 #endif
 				}
 	
@@ -2761,9 +2761,9 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 					if((kubi_species_idx[i] == target_ptr->species_idx) && !(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
 					{
 	#ifdef JP
-						msg_format("%sの首には賞金がかかっている。", tar_name);
+						msg_format("%sの首には賞金がかかっている。", target_name);
 	#else
-						msg_format("There is a price on %s's head.", tar_name);
+						msg_format("There is a price on %s's head.", target_name);
 	#endif
 						break;
 					}
@@ -2809,18 +2809,18 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	#if 0
 		if(attacker_ptr->riding && (attacker_ptr->riding == m_idx) && (damage > 0))
 		{
-			char tar_name[80];
+			char target_name[80];
 	
 			/* Extract creature name */
-			creature_desc(tar_name, target_ptr, 0);
+			creature_desc(target_name, target_ptr, 0);
 	
 			if(target_ptr->chp > target_ptr->mhp/3) damage = (damage + 1) / 2;
 			if(do_thrown_from_riding(target_ptr, (damage > 200) ? 200 : damage, FALSE))
 			{
 	#ifdef JP
-					msg_format("%^sに振り落とされた！", tar_name);
+					msg_format("%^sに振り落とされた！", target_name);
 	#else
-					msg_format("%^s has thrown you off!", tar_name);
+					msg_format("%^s has thrown you off!", target_name);
 	#endif
 			}
 		}
