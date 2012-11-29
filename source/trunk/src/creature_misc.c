@@ -851,7 +851,7 @@ bool has_trait(creature_type *creature_ptr, int type)
 	return FALSE;
 }
 
-int calc_damage(creature_type *creature_ptr, int damage, int type, bool message, bool average)
+int calc_damage(creature_type *target_ptr, int damage, int type, bool message, bool average)
 {
 	char creature_name[NAME_BUFFER_SIZE];
 	cptr note;
@@ -879,48 +879,50 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 	return (dam);
 	*/
 
-	if(message) creature_desc(creature_name, creature_ptr, 0);
+	//if(attacker_ptr && has_trait(attacker_ptr, TRAIT_BLUFF)) return 0;
+
+	if(message) creature_desc(creature_name, target_ptr, 0);
 
 	switch(type)
 	{
 
 	case DO_EFFECT_MELEE:
-		t = (250 - creature_ptr->ac - creature_ptr->to_ac) * 1000 / 250;
+		t = (250 - target_ptr->ac - target_ptr->to_ac) * 1000 / 250;
 		t = MAX(40, t);
 		break;
 
 	case DO_EFFECT_FIRE:
-		if(has_trait(creature_ptr, TRAIT_HURT_FIRE)) t *= 2;
-		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
-		if(creature_ptr->posture & KATA_KOUKIJIN) t += t / 3;
-		if(creature_ptr->resist_fire > 0) t /= 3;
+		if(has_trait(target_ptr, TRAIT_HURT_FIRE)) t *= 2;
+		if(has_trait(target_ptr, TRAIT_VULN_ELEM)) t += t / 2;
+		if(target_ptr->posture & KATA_KOUKIJIN) t += t / 3;
+		if(target_ptr->resist_fire > 0) t /= 3;
 		break;
 
 	case DO_EFFECT_COLD:
-		if(has_trait(creature_ptr, TRAIT_HURT_COLD)) t *= 2;
-		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
-		if(creature_ptr->posture & KATA_KOUKIJIN) t += t / 3;
-		if(creature_ptr->resist_cold > 0) t /= 3;
+		if(has_trait(target_ptr, TRAIT_HURT_COLD)) t *= 2;
+		if(has_trait(target_ptr, TRAIT_VULN_ELEM)) t += t / 2;
+		if(target_ptr->posture & KATA_KOUKIJIN) t += t / 3;
+		if(target_ptr->resist_cold > 0) t /= 3;
 		break;
 
 	case DO_EFFECT_ELEC:
-		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
-		if(creature_ptr->posture & KATA_KOUKIJIN) t += t / 3;
-		if(creature_ptr->resist_elec > 0) t /= 3;
+		if(has_trait(target_ptr, TRAIT_VULN_ELEM)) t += t / 2;
+		if(target_ptr->posture & KATA_KOUKIJIN) t += t / 3;
+		if(target_ptr->resist_elec > 0) t /= 3;
 		break;
 
 	case DO_EFFECT_ACID:
-		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
-		if(creature_ptr->posture & KATA_KOUKIJIN) t += t / 3;
-		if(creature_ptr->resist_acid > 0) t /= 3;
+		if(has_trait(target_ptr, TRAIT_VULN_ELEM)) t += t / 2;
+		if(target_ptr->posture & KATA_KOUKIJIN) t += t / 3;
+		if(target_ptr->resist_acid > 0) t /= 3;
 		break;
 
 	case DO_EFFECT_POIS:
-		if(creature_ptr->resist_pois > 0) t /= 3;
+		if(target_ptr->resist_pois > 0) t /= 3;
 		break;
 
 	case DO_EFFECT_ARROW:
-		if(!has_trait(creature_ptr, TRAIT_BLIND) && has_trait(creature_ptr, TRAIT_ZANTETSU_EFFECT))
+		if(!has_trait(target_ptr, TRAIT_BLIND) && has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
 		{
 #ifdef JP
 			if(message) msg_print("矢を斬り捨てた！");
@@ -932,7 +934,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 		break;
 
 	case DO_EFFECT_LITE:
-		if(has_trait(creature_ptr, TRAIT_HURT_LITE))
+		if(has_trait(target_ptr, TRAIT_HURT_LITE))
 		{
 #ifdef JP
 			msg_print("光で肉体が焦がされた！");
@@ -941,53 +943,53 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 #endif
 			t *= 2;
 		}
-		if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) t *= 2;
-		if(creature_ptr->resist_lite > 0) t = t * 4 / 9;
+		if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) t *= 2;
+		if(target_ptr->resist_lite > 0) t = t * 4 / 9;
 		break;
 
 	case DO_EFFECT_DARK:
-		if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) t = 0;
-		if(creature_ptr->resist_dark > 0) t = t * 4 / 9;
+		if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) t = 0;
+		if(target_ptr->resist_dark > 0) t = t * 4 / 9;
 		break;
 
 	case DO_EFFECT_LITE_WEAK:
-		if(!has_trait(creature_ptr, TRAIT_HURT_LITE)) t = 0;
+		if(!has_trait(target_ptr, TRAIT_HURT_LITE)) t = 0;
 		break;
 
 	case DO_EFFECT_NETHER:
-		if(creature_ptr->resist_dark > 0) t = t * 2 / 3;
+		if(target_ptr->resist_dark > 0) t = t * 2 / 3;
 		//TODO Evil x0.5
 		break;
 
 	case DO_EFFECT_WATER:
-		if(creature_ptr->resist_water > 0) t = t * 5 / 9;
+		if(target_ptr->resist_water > 0) t = t * 5 / 9;
 		break;
 
 	case DO_EFFECT_PLASMA:
 		break;
 
 	case DO_EFFECT_SHARDS:
-		if(creature_ptr->resist_shard > 0) t = t * 2 / 3;
+		if(target_ptr->resist_shard > 0) t = t * 2 / 3;
 		break;
 
 	case DO_EFFECT_SOUND:
-		if(creature_ptr->resist_sound > 0) t = t * 5 / 9;
+		if(target_ptr->resist_sound > 0) t = t * 5 / 9;
 		break;
 
 	case DO_EFFECT_CHAOS:
-		if(creature_ptr->resist_chaos > 0) t = t * 2 / 3;
+		if(target_ptr->resist_chaos > 0) t = t * 2 / 3;
 		break;
 
 	case DO_EFFECT_NEXUS:
-		if(creature_ptr->resist_nexus > 0) t = t * 2 / 3;
+		if(target_ptr->resist_nexus > 0) t = t * 2 / 3;
 		break;
 
 	case DO_EFFECT_DISENCHANT:
-		if(creature_ptr->resist_disen > 0) t = t * 2 / 3;
+		if(target_ptr->resist_disen > 0) t = t * 2 / 3;
 		break;
 
 	case DO_EFFECT_KILL_WALL:
-		if(!has_trait(creature_ptr, TRAIT_HURT_ROCK)) t = 0;
+		if(!has_trait(target_ptr, TRAIT_HURT_ROCK)) t = 0;
 		break;
 
 	case DO_EFFECT_FORCE:
@@ -997,10 +999,10 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 		break;
 
 	case DO_EFFECT_TIME:
-		if(has_trait(creature_ptr, TRAIT_RES_TIME))
+		if(has_trait(target_ptr, TRAIT_RES_TIME))
 		{
 			t *= 4 / 9;
-			if(is_player(creature_ptr) && message)
+			if(is_player(target_ptr) && message)
 			{
 #ifdef JP
 				msg_format("%sは時間が通り過ぎていく様子を感じた。", creature_name);
@@ -1012,19 +1014,19 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 		break;
 
 	case DO_EFFECT_GRAVITY:
-		if(has_trait(creature_ptr, TRAIT_CAN_FLY)) t = (t * 2) / 3;
+		if(has_trait(target_ptr, TRAIT_CAN_FLY)) t = (t * 2) / 3;
 		break;
 
 	case DO_EFFECT_HOLY_FIRE:
-		t = t * calc_punishment_slay(creature_ptr, ALIGNMENT_GOOD) / 100;
+		t = t * calc_punishment_slay(target_ptr, ALIGNMENT_GOOD) / 100;
 		break;
 
 	case DO_EFFECT_HELL_FIRE:
-		t = t * calc_punishment_slay(creature_ptr, ALIGNMENT_EVIL) / 100;
+		t = t * calc_punishment_slay(target_ptr, ALIGNMENT_EVIL) / 100;
 		break;
 
 	case DO_EFFECT_DISP_LIVING:
-		if(!creature_living(creature_ptr)) t = 0;
+		if(!creature_living(target_ptr)) t = 0;
 		break;
 
 	case DO_EFFECT_NUKE:
@@ -1037,24 +1039,24 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 		break;
 
 	case DO_EFFECT_DISINTEGRATE:
-		if(has_trait(creature_ptr, TRAIT_HURT_ROCK)) t *= 2;
+		if(has_trait(target_ptr, TRAIT_HURT_ROCK)) t *= 2;
 		break;
 
 	case DO_EFFECT_ROCKET:
-		if(creature_ptr->resist_shard > 0) t = t / 2;
+		if(target_ptr->resist_shard > 0) t = t / 2;
 		break;
 
 	case DO_EFFECT_DEATH_RAY:
-		if(has_trait(creature_ptr, TRAIT_UNDEAD) || has_trait(creature_ptr, TRAIT_DEMON) || has_trait(creature_ptr, TRAIT_NONLIVING)) t = 0;
+		if(has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_DEMON) || has_trait(target_ptr, TRAIT_NONLIVING)) t = 0;
 		break;
 
 	default:
 		break;
 	}
 
-	if(has_trait(creature_ptr, TRAIT_RES_ALL)) t /= 100;
+	if(has_trait(target_ptr, TRAIT_RES_ALL)) t /= 100;
 	
-	if(has_trait(creature_ptr, TRAIT_MULTI_SHADOW))
+	if(has_trait(target_ptr, TRAIT_MULTI_SHADOW))
 	{
 		if(!!average && (turn & 1)) t = 0;
 		else t /= 2;
@@ -1100,7 +1102,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 #endif
 		}
 
-		if(t < 800 && t >= 1200) msg_format("%s%s", creature_ptr->name, note);
+		if(t < 800 && t >= 1200) msg_format("%s%s", target_ptr->name, note);
 	}
 
 	return damage * t / 1000;

@@ -2390,7 +2390,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	{
 		expdam = (target_ptr->chp > damage) ? damage : target_ptr->chp;
 		if(has_trait(target_ptr, TRAIT_HEAL)) expdam = (expdam + 1) / 10;
-
 		if(attacker_ptr) get_exp_from_mon(attacker_ptr, expdam, target_ptr);
 
 		/* Genocided by chaos patron */
@@ -2410,7 +2409,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		if(&creature_list[attacker_ptr->riding] == target_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
-	if(attacker_ptr && has_trait(attacker_ptr, TRAIT_BLUFF)) return 0;
 
 	/* Genocided by chaos patron */
 	//TODO CHECK
