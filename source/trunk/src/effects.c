@@ -2416,17 +2416,11 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 	if(gameover) return 0;
 
-	if(target_ptr->sutemi) damage *= 2;
-	if(target_ptr->posture & KATA_IAI) damage += (damage + 4) / 5;
-
 	if(damage_type != DAMAGE_USELIFE)
 	{
 		/* Disturb */
 		disturb(player_ptr, 1, 0);
-		if(auto_more)
-		{
-			target_ptr->now_damaged = TRUE;
-		}
+		if(auto_more) target_ptr->now_damaged = TRUE;
 	}
 
 	if(monspell >= 0) learn_trait(target_ptr, monspell);

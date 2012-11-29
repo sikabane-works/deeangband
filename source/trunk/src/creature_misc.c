@@ -859,6 +859,9 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 
 	if(attacker_ptr && has_trait(attacker_ptr, TRAIT_BLUFF)) return 0; // No damage
 
+	if(target_ptr->sutemi) damage *= 2;
+	if(target_ptr->posture & KATA_IAI) damage += (damage + 4) / 5;
+
 	if(has_trait(target_ptr, TRAIT_INVULNERABLE))
 	{
 		if(!average)
