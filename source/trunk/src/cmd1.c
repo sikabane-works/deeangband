@@ -1949,7 +1949,6 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #else
 				msg_format("%^s is in your way!", m_name);
 #endif
-
 				cancel_tactical_action(creature_ptr);
 				oktomove = FALSE;
 			}

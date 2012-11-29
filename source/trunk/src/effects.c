@@ -2578,8 +2578,9 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		damage += target_ptr->chp;
 		target_ptr->chp = 0;
 	}
+	target_ptr->chp -= damage;
 
-	if(floor_ptr->wild_mode && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp/5)))
+	if(floor_ptr->wild_mode && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp / 5)))
 		change_wild_mode(player_ptr);
 
 	if(gameover) you_died(hit_from);
@@ -2732,12 +2733,9 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				else
 				{
 	#ifdef JP
-					if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK))
-						msg_format("せっかくだから%sを倒した。", tar_name);
-					else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
-						msg_format("%s！お許し下さい！", tar_name);
-					else
-						msg_format("%sを倒した。", tar_name);
+					if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("せっかくだから%sを倒した。", tar_name);
+					else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK)) msg_format("%s！お許し下さい！", tar_name);
+					else msg_format("%sを倒した。", tar_name);
 	#else
 					msg_format("You have destroyed %s.", tar_name);
 	#endif
@@ -2750,17 +2748,15 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 					{
 #ifdef JP
-						if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK))
-							msg_format("%sはせっかくだから%sを葬り去った。", atk_name, tar_name);
+						if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("%sはせっかくだから%sを葬り去った。", atk_name, tar_name);
 						else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
 						{
 							msg_format("%sは%sを葬り去った。", atk_name, tar_name);
 							msg_format("%s！お許し下さい！", tar_name);
 						}
-						else
-							msg_format("%sは%sを葬り去った。", atk_name, tar_name);
+						else msg_format("%sは%sを葬り去った。", atk_name, tar_name);
 #else
-							msg_format("%s have slain %s.", atk_name, tar_name);
+						msg_format("%s have slain %s.", atk_name, tar_name);
 #endif
 					}
 				}
