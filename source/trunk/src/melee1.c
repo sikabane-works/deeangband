@@ -38,8 +38,8 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			msg_print("You are suddenly very hot!");
 #endif
 
-			aura_damage = calc_damage(attacker_ptr, aura_damage, DO_EFFECT_FIRE, FALSE, FALSE);
-			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			aura_damage = calc_damage(target_ptr, attacker_ptr, aura_damage, DO_EFFECT_FIRE, FALSE, FALSE);
+			take_damage_to_creature(target_ptr, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_FIRE);
 			handle_stuff();
@@ -2113,7 +2113,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if(((randint1(attacker_ptr->lev*2+300) > (ac+200)) || one_in_(13)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
-					int tmp_damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
+					int tmp_damage = calc_damage(attacker_ptr, target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
 #ifdef JP
 					msg_print("クリティカルヒット！");
 #else
@@ -2128,7 +2128,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_HURT:
 			{
 				obvious = TRUE;	// Obvious
-				damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
+				damage = calc_damage(attacker_ptr, target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				break;
 			}
@@ -2814,7 +2814,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_SHATTER:
 			{
 				obvious = TRUE;
-				damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
+				damage = calc_damage(attacker_ptr, target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				//TODO if(damage > 23 || explode) earthquake_aux(attacker_ptr->fy, attacker_ptr->fx, 8, m_idx);
 				break;

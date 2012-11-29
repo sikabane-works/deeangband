@@ -851,7 +851,7 @@ bool has_trait(creature_type *creature_ptr, int type)
 	return FALSE;
 }
 
-int calc_damage(creature_type *target_ptr, int damage, int type, bool message, bool average)
+int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int damage, int type, bool message, bool average)
 {
 	char creature_name[NAME_BUFFER_SIZE];
 	cptr note;

@@ -2414,7 +2414,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	//TODO CHECK
 	//if(!m_idx) return TRUE;
 
-
 	if(gameover) return 0;
 
 	if(target_ptr->sutemi) damage *= 2;

@@ -1609,7 +1609,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	if(have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
 	{
-		int damage = calc_damage(creature_ptr, randint0(50) + 20, DO_EFFECT_CHAOS, FALSE, FALSE);	
+		int damage = calc_damage(NULL, creature_ptr, randint0(50) + 20, DO_EFFECT_CHAOS, FALSE, FALSE);	
 #ifdef JP
 		msg_print("混沌に身を蝕まれた！");
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
@@ -1635,7 +1635,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		if(damage)
 		{
 
-			damage = calc_damage(creature_ptr, damage, DO_EFFECT_FIRE, FALSE, FALSE);
+			damage = calc_damage(NULL, creature_ptr, damage, DO_EFFECT_FIRE, FALSE, FALSE);
 
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = damage / 5;
 
@@ -1676,7 +1676,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		if(damage)
 		{
 			cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
-			damage = calc_damage(creature_ptr, damage, DO_EFFECT_POIS, FALSE, FALSE);
+			damage = calc_damage(NULL, creature_ptr, damage, DO_EFFECT_POIS, FALSE, FALSE);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1701,7 +1701,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		if(damage)
 		{
 			cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
-			damage = calc_damage(creature_ptr, damage, DO_EFFECT_ACID, FALSE, FALSE);
+			damage = calc_damage(NULL, creature_ptr, damage, DO_EFFECT_ACID, FALSE, FALSE);
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 #ifdef JP
 			msg_format("%sに焼かれた！", name);
@@ -1740,37 +1740,37 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		if(has_trait(steed_ptr, TRAIT_AURA_FIRE) && !has_trait(creature_ptr, TRAIT_IM_FIRE))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
-			damage = calc_damage(creature_ptr, damage, DO_EFFECT_FIRE, FALSE, FALSE);
+			damage = calc_damage(steed_ptr, creature_ptr, damage, DO_EFFECT_FIRE, FALSE, FALSE);
 #ifdef JP
 			msg_print("熱い！");
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", NULL, -1);
+			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", NULL, -1);
 #else
 			msg_print("It's hot!");
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
+			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
 #endif
 		}
 		if(has_trait(steed_ptr, TRAIT_AURA_ELEC) && !has_trait(creature_ptr, TRAIT_IM_ELEC))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
-			damage = calc_damage(creature_ptr, damage, DO_EFFECT_ELEC, FALSE, FALSE);
+			damage = calc_damage(steed_ptr, creature_ptr, damage, DO_EFFECT_ELEC, FALSE, FALSE);
 #ifdef JP
 			msg_print("痛い！");
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", NULL, -1);
+			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", NULL, -1);
 #else
 			msg_print("It hurts!");
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
+			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
 #endif
 		}
 		if(has_trait(steed_ptr, TRAIT_AURA_COLD) && !has_trait(creature_ptr, TRAIT_IM_COLD))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
-			damage = calc_damage(creature_ptr, damage, DO_EFFECT_COLD, FALSE, FALSE);
+			damage = calc_damage(steed_ptr, creature_ptr, damage, DO_EFFECT_COLD, FALSE, FALSE);
 #ifdef JP
 			msg_print("冷たい！");
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", NULL, -1);
+			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", NULL, -1);
 #else
 			msg_print("It's cold!");
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Cold aura", NULL, -1);
+			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, "Cold aura", NULL, -1);
 #endif
 		}
 	}
