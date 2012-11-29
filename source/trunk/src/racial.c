@@ -563,7 +563,7 @@ bool choose_kata(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	if(creature_ptr->timed_trait[TRAIT_AFRAID])
+	if(has_trait(creature_ptr, TRAIT_AFRAID))
 	{
 #ifdef JP
 		msg_print("‘Ì‚ªk‚¦‚Ä\‚¦‚ç‚ê‚È‚¢I");

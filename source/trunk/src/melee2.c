@@ -2434,7 +2434,7 @@ static void process_nonplayer(int m_idx)
 		creature_ptr->sc_flag2 &= ~SC_FLAG2_NOFLOW;
 
 	/* If we haven't done anything, try casting a spell again */
-	if(!do_turn && !do_move && !creature_ptr->timed_trait[TRAIT_AFRAID] && !is_riding_mon && aware)
+	if(!do_turn && !do_move && !has_trait(creature_ptr, TRAIT_AFRAID) && !is_riding_mon && aware)
 	{
 		// Try to cast spell again
 		if(species_ptr->freq_spell && randint1(100) <= species_ptr->freq_spell)
@@ -2757,7 +2757,7 @@ void creature_process_init(void)
 		if(creature_ptr->timed_trait[TRAIT_SLOW]) mproc_add(creature_ptr, MTIMED_SLOW);
 		if(has_trait(creature_ptr, TRAIT_STUN)) mproc_add(creature_ptr, MTIMED_STUNNED);
 		if(has_trait(creature_ptr, TRAIT_CONFUSED)) mproc_add(creature_ptr, MTIMED_CONFUSED);
-		if(creature_ptr->timed_trait[TRAIT_AFRAID]) mproc_add(creature_ptr, MTIMED_MONFEAR);
+		if(has_trait(creature_ptr, TRAIT_AFRAID)) mproc_add(creature_ptr, MTIMED_MONFEAR);
 		if(has_trait(creature_ptr, TRAIT_INVULNERABLE)) mproc_add(creature_ptr, MTIMED_INVULNER);
 	}
 }

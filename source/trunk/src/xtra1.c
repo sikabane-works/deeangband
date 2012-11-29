@@ -439,7 +439,7 @@ static void prt_status(creature_type *creature_ptr)
 	if(IS_OPPOSE_POIS(creature_ptr)) ADD_FLG(BAR_RESPOIS);
 	if(creature_ptr->timed_trait[TRAIT_WORD_RECALL]) ADD_FLG(BAR_RECALL); // Word of Recall
 	if(creature_ptr->timed_trait[TRAIT_ALTER_REALITY]) ADD_FLG(BAR_ALTER); // Alter realiry
-	if(creature_ptr->timed_trait[TRAIT_AFRAID]) ADD_FLG(BAR_AFRAID); // Afraid
+	if(has_trait(creature_ptr, TRAIT_AFRAID)) ADD_FLG(BAR_AFRAID); // Afraid
 	if(creature_ptr->timed_trait[TRAIT_RES_TIME]) ADD_FLG(BAR_RESTIME); // Resist time
 	if(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]) ADD_FLG(BAR_MULTISHADOW);
 	if(creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE]) ADD_FLG(BAR_ATTKCONF); // Confusing Hands
@@ -1327,7 +1327,7 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 		if(has_trait(target_ptr, TRAIT_INVULNERABLE)) attr = TERM_WHITE;
 		else if(target_ptr->timed_trait[TRAIT_PARALYZED]) attr = TERM_BLUE;
 		else if(target_ptr->timed_trait[TRAIT_SLEPT]) attr = TERM_BLUE;
-		else if(target_ptr->timed_trait[TRAIT_AFRAID]) attr = TERM_VIOLET;
+		else if(has_trait(target_ptr, TRAIT_AFRAID)) attr = TERM_VIOLET;
 
 		else if(pct >= 100) attr = TERM_L_GREEN;
 		else if(pct >= 60) attr = TERM_YELLOW;

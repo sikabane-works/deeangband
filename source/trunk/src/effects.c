@@ -392,7 +392,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 	/* Open */
 	if(v)
 	{
-		if(!creature_ptr->timed_trait[TRAIT_AFRAID])
+		if(!has_trait(creature_ptr, TRAIT_AFRAID))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -429,7 +429,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 	/* Shut */
 	else
 	{
-		if(creature_ptr->timed_trait[TRAIT_AFRAID])
+		if(has_trait(creature_ptr, TRAIT_AFRAID))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{			
@@ -469,7 +469,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 		/* Open */
 			if(v)
 			{
-				if(!creature_ptr->timed_trait[TRAIT_AFRAID])
+				if(!has_trait(creature_ptr, TRAIT_AFRAID))
 				{
 					mproc_add(creature_ptr, MTIMED_MONFEAR);
 					notice = TRUE;
@@ -479,7 +479,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 		/* Shut */
 		else
 		{
-			if(creature_ptr->timed_trait[TRAIT_AFRAID])
+			if(has_trait(creature_ptr, TRAIT_AFRAID))
 			{
 				mproc_remove(creature_ptr, MTIMED_MONFEAR);
 				notice = TRUE;
@@ -1630,7 +1630,7 @@ bool heal_creature(creature_type *creature_ptr, int num)
 			}
 		}
 
-		if(creature_ptr->timed_trait[TRAIT_AFRAID]) (void)set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
+		if(has_trait(creature_ptr, TRAIT_AFRAID)) (void)set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 		return TRUE;
 	}
 
@@ -2440,10 +2440,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				msg_print("The attack penetrates your shield of invulnerability!");
 #endif
 			}
-			else
-			{
-				return 0;
-			}
+			else return 0;
 		}
 
 		if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
@@ -2831,11 +2828,11 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	
 	}
 		
-	if(target_ptr->timed_trait[TRAIT_AFRAID] && (damage > 0)) // Mega-Hack -- Pain cancels fear
+	if(has_trait(target_ptr, TRAIT_AFRAID) && (damage > 0)) // Mega-Hack -- Pain cancels fear
 		add_timed_trait(target_ptr, TRAIT_AFRAID, -randint1(damage), FALSE);
 
 	// Sometimes a creature gets scared by damage
-	if(!target_ptr->timed_trait[TRAIT_AFRAID] && !has_trait(target_ptr, TRAIT_FEARLESS))
+	if(!has_trait(target_ptr, TRAIT_AFRAID) && !has_trait(target_ptr, TRAIT_FEARLESS))
 	{
 		int percentage = (100L * target_ptr->chp) / target_ptr->mhp; // Percentage of fully healthy
 	
@@ -2844,7 +2841,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		if((randint1(10) >= percentage) || ((damage >= target_ptr->chp) && (randint0(100) < 80))) fear = TRUE;
 	}
 
-	if(fear && !target_ptr->timed_trait[TRAIT_AFRAID])
+	if(fear && !has_trait(target_ptr, TRAIT_AFRAID))
 	{
 		/* XXX XXX XXX Hack -- Add some timed fear */
 		int percentage = (100L * target_ptr->chp) / target_ptr->mhp;

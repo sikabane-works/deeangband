@@ -156,7 +156,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			{
 				fuiuchi = TRUE;
 			}
-			else if(target_ptr->timed_trait[TRAIT_AFRAID] && target_ptr->see_others)
+			else if(has_trait(target_ptr, TRAIT_AFRAID) && target_ptr->see_others)
 			{
 				stab_fleeing = TRUE;
 			}
