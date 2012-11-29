@@ -1475,7 +1475,7 @@ int calc_weapon_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr)
 
 int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *weapon_ptr)
 {
-	return 10;
+	return 100;
 }
 
 int calc_special_melee_cost(creature_type *creature_ptr, special_blow_type *special_ptr)

@@ -1328,7 +1328,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 			case MELEE_TYPE_SPECIAL_4TH:
 				special_ptr = &attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST];
 				action_cost[i] = calc_special_melee_cost(attacker_ptr, special_ptr);
-				if(attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST].d_dice > 0 && action_cost[i] <= action_power)
+				if(attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST].effect > 0 && action_cost[i] <= action_power)
 				{
 					select_weight[action_num] = calc_special_melee_priority(attacker_ptr, special_ptr);
 					select_list[action_num] = i;
