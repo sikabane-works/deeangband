@@ -1406,7 +1406,7 @@ act = "はトロルの血を求めている！";
 			break;
 		case 5:
 #ifdef JP
-act = "は非常に不安定になったようだ。";
+			act = "は非常に不安定になったようだ。";
 #else
 			act = "seems very unstable now.";
 #endif

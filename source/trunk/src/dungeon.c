@@ -4859,10 +4859,6 @@ void process_player(creature_type *creature_ptr)
 			process_player_command(creature_ptr);
 		}
 
-		/* Paralyzed or Knocked Out */
-		else if(has_trait(creature_ptr, TRAIT_PARALYZED) || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
-			cost_tactical_energy(creature_ptr, 100); // Take a turn
-
 		/* Resting */
 		else if(creature_ptr->action == ACTION_REST)
 		{

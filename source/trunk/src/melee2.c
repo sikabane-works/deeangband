@@ -1631,8 +1631,7 @@ static void process_nonplayer(int m_idx)
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
 	if(is_pet(player_ptr, creature_ptr) &&
 	    (((has_trait(creature_ptr, TRAIT_UNIQUE) || has_trait(creature_ptr, TRAIT_NAZGUL)) &&
-	      creature_has_hostile_align(creature_ptr, player_ptr))
-	     || (has_trait(creature_ptr, TRAIT_RES_ALL))))
+	      creature_has_hostile_align(creature_ptr, player_ptr)) || (has_trait(creature_ptr, TRAIT_RES_ALL))))
 	{
 		gets_angry = TRUE;
 	}
@@ -2542,15 +2541,21 @@ static void process_creature(int i)
 	creature_food_digest(creature_ptr); // food digest
 	creature_lack_food(creature_ptr); // Getting Faint from lack food
 
-	do_creature_speaking(creature_ptr);
-
-	if(has_trait(creature_ptr, TRAIT_QUANTUM)) do_quantum_creature_feature(creature_ptr); // Quantum creatures are odd
-
-	if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
-	else if(CURRENT_FLOOR_PTR == floor_ptr)
+	/* Paralyzed or Knocked Out */
+	if(has_trait(creature_ptr, TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT) ||  (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
 	{
-		process_nonplayer(i); // Process non player creature
-		cost_tactical_energy(creature_ptr, 100); // Use up "some" energy
+		cost_tactical_energy(creature_ptr, 100); // Take a turn
+	}
+	else
+	{
+		do_creature_speaking(creature_ptr);
+		if(has_trait(creature_ptr, TRAIT_QUANTUM)) do_quantum_creature_feature(creature_ptr); // Quantum creatures are odd
+		if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
+		else if(CURRENT_FLOOR_PTR == floor_ptr) 
+		{
+			cost_tactical_energy(creature_ptr, 200); // Take a turn
+			process_nonplayer(i);
+		}
 	}
 
 	reset_target(creature_ptr);
