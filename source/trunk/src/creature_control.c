@@ -4108,7 +4108,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 {
 	int             i, j;
 	species_type    *species_ptr = &species_info[species_idx];
-	creature_type   *m_ptr;
+	creature_type   *servant_ptr;
 
 	if(!(mode & PC_NO_KAGE) && one_in_(SHADOW_GENERATE_RATE)) mode |= PC_KAGE;
 
@@ -4116,22 +4116,22 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 	i = place_creature_one(summoner_ptr, floor_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
 	if(i == max_creature_idx) return FALSE;
 
-	m_ptr = &creature_list[i];
+	servant_ptr = &creature_list[i];
 
 	i = 0;
-	while(i < MAX_UNDERLINGS && m_ptr->underling_id[i])
+	while(i < MAX_UNDERLINGS && servant_ptr->underling_id[i])
 	{
 		int n = 0; 
-		for(j = 0; j < m_ptr->underling_num[i]; j++)
+		for(j = 0; j < servant_ptr->underling_num[i]; j++)
 		{
 			int nx, ny, d = 8;
 
 			scatter(floor_ptr, &ny, &nx, y, x, d, 0);			// Pick a location
 			if(!cave_empty_bold2(floor_ptr, ny, nx)) continue;	// Require empty grids
 
-			if(place_creature_one(summoner_ptr, floor_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx) n++;
+			if(place_creature_one(summoner_ptr, floor_ptr, ny, nx, servant_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx) n++;
 		}
-		m_ptr->underling_num[i] -= n;
+		servant_ptr->underling_num[i] -= n;
 		i++;
 	}
 

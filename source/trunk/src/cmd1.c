@@ -1006,10 +1006,8 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 				msg_print("A small dart hits you!");
 #endif
-
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
-
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
 			}
 			else
@@ -1019,7 +1017,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 				msg_print("A small dart barely misses you.");
 #endif
-
 			}
 			break;
 		}
@@ -1033,10 +1030,8 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 				msg_print("A small dart hits you!");
 #endif
-
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
-
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
 			}
 			else
@@ -1046,7 +1041,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 				msg_print("A small dart barely misses you.");
 #endif
-
 			}
 			break;
 		}
@@ -1072,7 +1066,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 				msg_print("A small dart barely misses you.");
 #endif
-
 			}
 			break;
 		}
@@ -1130,14 +1123,11 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		case TRAP_TRAPS:
 		{
 #ifdef JP
-msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
+			msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #else
 			msg_print("There is a bright flash of light!");
 #endif
-
-			/* Make some new traps */
 			project(NULL, 0, 1, y, x, 0, DO_EFFECT_MAKE_TRAP, PROJECT_HIDE | PROJECT_JUMP | PROJECT_GRID, -1);
-
 			break;
 		}
 
@@ -1198,9 +1188,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 						evil_idx = hack_m_idx_ii;
 
 					if(summon_specific(0, y1, x1, lev, TRAIT_S_ARMAGE_GOOD, (PC_NO_PET)))
-					{
 						good_idx = hack_m_idx_ii;
-					}
 
 					/* Let them fight each other */
 					if(evil_idx && good_idx)
@@ -1230,10 +1218,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 
 			/* Summon Piranhas */
 			num = 1 + floor_ptr->floor_level/20;
-			for (i = 0; i < num; i++)
-			{
-				(void)summon_specific(0, y, x, floor_ptr->floor_level, TRAIT_S_PIRANHAS, (PC_ALLOW_GROUP | PC_NO_PET));
-			}
+			for (i = 0; i < num; i++) (void)summon_specific(0, y, x, floor_ptr->floor_level, TRAIT_S_PIRANHAS, (PC_ALLOW_GROUP | PC_NO_PET));
 			break;
 		}
 
@@ -1302,20 +1287,15 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 			if(get_check("If you start walking the Pattern, you must walk the whole way. Ok? "))
 #endif
 				return TRUE;
-			else
-				return FALSE;
+			else return FALSE;
 		}
-		else
-			return TRUE;
+		else return TRUE;
 	}
 	else if((pattern_type_new == PATTERN_TILE_OLD) ||
 		 (pattern_type_new == PATTERN_TILE_END) ||
 		 (pattern_type_new == PATTERN_TILE_WRECKED))
 	{
-		if(is_pattern_tile_cur)
-		{
-			return TRUE;
-		}
+		if(is_pattern_tile_cur) return TRUE;
 		else
 		{
 #ifdef JP
@@ -1323,19 +1303,14 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 #else
 			msg_print("You must start walking the Pattern from the startpoint.");
 #endif
-
 			return FALSE;
 		}
 	}
-	else if((pattern_type_new == PATTERN_TILE_TELEPORT) ||
-		 (pattern_type_cur == PATTERN_TILE_TELEPORT))
-	{
+	else if((pattern_type_new == PATTERN_TILE_TELEPORT) || (pattern_type_cur == PATTERN_TILE_TELEPORT))
 		return TRUE;
-	}
 	else if(pattern_type_cur == PATTERN_TILE_START)
 	{
-		if(is_pattern_tile_new)
-			return TRUE;
+		if(is_pattern_tile_new) return TRUE;
 		else
 		{
 #ifdef JP
@@ -1358,13 +1333,9 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 #else
 			msg_print("You may not step off from the Pattern.");
 #endif
-
 			return FALSE;
 		}
-		else
-		{
-			return TRUE;
-		}
+		else return TRUE;
 	}
 	else
 	{
@@ -1527,8 +1498,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 			else if(creature_ptr->cur_lite <= 0) set_superstealth(creature_ptr, TRUE);
 		}
 
-		if((creature_ptr->action == ACTION_HAYAGAKE) &&
-		    (!have_flag(f_ptr->flags, FF_PROJECT) ||
+		if((creature_ptr->action == ACTION_HAYAGAKE) && (!have_flag(f_ptr->flags, FF_PROJECT) ||
 		     (!has_trait(creature_ptr, TRAIT_CAN_FLY) && have_flag(f_ptr->flags, FF_DEEP))))
 		{
 
@@ -1554,23 +1524,14 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		}
 
 		/* Spontaneous Searching */
-		if((creature_ptr->skill_fos >= 50) || (0 == randint0(50 - creature_ptr->skill_fos)))
-		{
-			search(creature_ptr);
-		}
+		if((creature_ptr->skill_fos >= 50) || (0 == randint0(50 - creature_ptr->skill_fos))) search(creature_ptr);
 
 		/* Continuous Searching */
-		if(creature_ptr->action == ACTION_SEARCH)
-		{
-			search(creature_ptr);
-		}
+		if(creature_ptr->action == ACTION_SEARCH) search(creature_ptr);
 	}
 
 	// Handle "objects"
-	if(!(mpe_mode & MCE_DONT_PICKUP))
-	{
-		carry(creature_ptr, (mpe_mode & MCE_DO_PICKUP) ? TRUE : FALSE);
-	}
+	if(!(mpe_mode & MCE_DONT_PICKUP)) carry(creature_ptr, (mpe_mode & MCE_DO_PICKUP) ? TRUE : FALSE);
 
 	// Handle "store doors"
 	if(have_flag(f_ptr->flags, FF_STORE) && !(mpe_mode & MCE_NO_ENTER))
@@ -1668,7 +1629,6 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	}
 
 	creature_ptr->depth = floor_ptr->floor_level;
-
 	return creature_bold(creature_ptr, ny, nx) && !gameover && !subject_change_floor;
 }
 
@@ -1703,7 +1663,7 @@ bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 		if(has_trait(creature_ptr, TRAIT_NO_CONF)) return TRUE;
 		break;
 	case TRAP_POISON:
-		if(creature_ptr->resist_pois) return TRUE;
+		if(has_trait(creature_ptr, TRAIT_RES_POIS)) return TRUE;
 		break;
 	case TRAP_SLEEP:
 		if(has_trait(creature_ptr, TRAIT_FREE_ACTION)) return TRUE;
@@ -1713,15 +1673,11 @@ bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 	return FALSE;
 }
 
-
-/*
- * Determine if a "boundary" grid is "floor mimic"
- */
+// Determine if a "boundary" grid is "floor mimic"
 #define boundary_floor(C, F, MF) \
 	((C)->mimic && permanent_wall(F) && \
 	 (have_flag((MF)->flags, FF_MOVE) || have_flag((MF)->flags, FF_CAN_FLY)) && \
-	 have_flag((MF)->flags, FF_PROJECT) && \
-	 !have_flag((MF)->flags, FF_OPEN))
+	 have_flag((MF)->flags, FF_PROJECT) && !have_flag((MF)->flags, FF_OPEN))
 
 static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap, int x, int y)
 {
@@ -1837,7 +1793,6 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 		/* "Blocked" message appears later */
 		//can_enter = FALSE;
 	}
-
 }
 
 static void plus_move_cost(creature_type *creature_ptr, int x, int y)
@@ -1861,16 +1816,11 @@ static void plus_move_cost(creature_type *creature_ptr, int x, int y)
 }
 
 
-
-/*
- * Walk player in the given direction, with the given "pickup" flag.
- *
- * This routine should (probably) always induce energy expenditure.
- *
- * Note that moving will *always* take a turn, and will *always* hit
- * any creature which might be in the destination grid.  Previously,
- * moving into walls was "free" and did NOT hit invisible creatures.
- */
+// Walk player in the given direction, with the given "pickup" flag.
+// This routine should (probably) always induce energy expenditure.
+// Note that moving will *always* take a turn, and will *always* hit
+// any creature which might be in the destination grid.  Previously,
+// moving into walls was "free" and did NOT hit invisible creatures.
 void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap)
 {
 	// Find the result of moving
@@ -1882,7 +1832,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
-	creature_type *m_ptr;
+	creature_type *target_ptr;
 
 	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 	species_type *riding_r_ptr = &species_info[creature_ptr->riding ? steed_ptr->species_idx : 0]; 
@@ -1900,7 +1850,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	exit_area(creature_ptr, dir, do_pickup, break_trap, x, y);
 
 	/* Get the creature */
-	m_ptr = &creature_list[c_ptr->creature_idx];
+	target_ptr = &creature_list[c_ptr->creature_idx];
 
 	/* Player can not walk through "walls"... */
 	/* unless in Shadow Form */
@@ -1908,24 +1858,24 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		(!can_enter || !have_flag(f_ptr->flags, FF_LOS)) && !have_flag(f_ptr->flags, FF_PERMANENT);
 
 	/* Hack -- attack creatures */
-	if(c_ptr->creature_idx && (m_ptr->see_others || can_enter || can_kill_walls))
+	if(c_ptr->creature_idx && (target_ptr->see_others || can_enter || can_kill_walls))
 	{
-		species_type *species_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 		/* Attack -- only if we can see it OR it is not in a wall */
-		if(!is_hostile(m_ptr) &&
-		    !(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_HALLUCINATION) || !m_ptr->see_others || has_trait(creature_ptr, TRAIT_STUN) ||
+		if(!is_hostile(target_ptr) &&
+		    !(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_HALLUCINATION) || !target_ptr->see_others || has_trait(creature_ptr, TRAIT_STUN) ||
 		    has_trait(creature_ptr, TRAIT_BERS_RAGE) && has_trait(creature_ptr, TRAIT_S_HERO)) &&
 		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (can_enter || can_kill_walls))
 		{
 			
-			(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0); // Disturb the creature
-			creature_desc(m_name, m_ptr, 0); // Extract creature name (or "it")
+			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0); // Disturb the creature
+			creature_desc(m_name, target_ptr, 0); // Extract creature name (or "it")
 
-			if(m_ptr->see_others)
+			if(target_ptr->see_others)
 			{
 				/* Auto-Recall if possible and visible */
-				if(!has_trait(creature_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
+				if(!has_trait(creature_ptr, TRAIT_HALLUCINATION)) species_type_track(target_ptr->ap_species_idx);
 
 				/* Track a new creature */
 				health_track(c_ptr->creature_idx);
