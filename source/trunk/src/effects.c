@@ -2488,12 +2488,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		}
 	} /* not if LOSELIFE USELIFE */
 
-	if(is_player(target_ptr))
-	{
-		if(target_ptr->chp < 0) gameover = TRUE;
-		play_redraw |= (PR_HP | PW_PLAYER);
-		handle_stuff();
-	}
 
 /*	TODO  sad by killed pet
 		
@@ -2561,6 +2555,13 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		target_ptr->chp = 0;
 	}
 	target_ptr->chp -= damage;
+
+	if(is_player(target_ptr))
+	{
+		if(target_ptr->chp < 0) gameover = TRUE;
+		play_redraw |= (PR_HP | PW_PLAYER);
+		handle_stuff();
+	}
 
 	if(floor_ptr->wild_mode && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp / 5)))
 		change_wild_mode(player_ptr);
