@@ -4019,7 +4019,7 @@ static void process_player_command(creature_type *creature_ptr)
 #endif
 					cancel_tactical_action(creature_ptr);
 				}
-				else if(creature_ptr->timed_trait[TRAIT_S_HERO] && (creature_ptr->class_idx != CLASS_BERSERKER))
+				else if(has_trait(creature_ptr, TRAIT_S_HERO) && (creature_ptr->class_idx != CLASS_BERSERKER))
 				{
 #ifdef JP
 					msg_format("‹¶íŽm‰»‚µ‚Ä‚¢‚Ä“ª‚ª‰ñ‚ç‚È‚¢I");
@@ -4673,7 +4673,7 @@ static void pack_overflow(creature_type *creature_ptr)
 
 void do_creature_riding_control(creature_type *creature_ptr)
 {
-	if(creature_ptr->riding && !creature_ptr->timed_trait[TRAIT_CONFUSED] && !has_trait(creature_ptr, TRAIT_BLIND))
+	if(creature_ptr->riding && !has_trait(creature_ptr, TRAIT_CONFUSED) && !has_trait(creature_ptr, TRAIT_BLIND))
 	{
 		creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 
@@ -5324,47 +5324,15 @@ static void cheat_death(void)
 #endif
 	msg_print(NULL);
 
-	// Restore hit points
-	player_ptr->chp = player_ptr->mhp;
-	player_ptr->chp_frac = 0;
+	heal_creature(player_ptr, player_ptr->mhp);
+	inc_mana(player_ptr, player_ptr->msp);
 
 	if(player_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
 		for (i = 0; i < EATER_EXT*2; i++)
-		{
 			player_ptr->class_skills.old_skills.magic_num1[i] = player_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE;
-		}
 		for (; i < EATER_EXT*3; i++)
-		{
 			player_ptr->class_skills.old_skills.magic_num1[i] = 0;
-		}
-	}
-
-	/* Restore spell points */
-	player_ptr->csp = player_ptr->msp;
-	player_ptr->csp_frac = 0;
-
-	/* Hack -- cancel recall */
-	if(has_trait(player_ptr, TRAIT_WORD_RECALL))
-	{
-#ifdef JP
-		msg_print("’£‚è‚Â‚ß‚½‘å‹C‚ª—¬‚ê‹Ž‚Á‚½...");
-#else
-		msg_print("A tension leaves the air around you...");
-#endif
-		msg_print(NULL);
-
-		/* Hack -- Prevent recall */
-		player_ptr->timed_trait[TRAIT_WORD_RECALL] = 0;
-		play_redraw |= (PR_STATUS);
-	}
-
-	/* Hack -- cancel alter */
-	if(player_ptr->timed_trait[TRAIT_ALTER_REALITY])
-	{
-		/* Hack -- Prevent alter */
-		player_ptr->timed_trait[TRAIT_ALTER_REALITY] = 0;
-		play_redraw |= (PR_STATUS);
 	}
 
 #ifdef JP
@@ -5419,11 +5387,8 @@ void waited_report_score(void)
 		quit(0);
 
 	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
-
 	update_creature(player_ptr, TRUE);
-
 	gameover = TRUE;
-
 	start_time = (u32b)time(NULL);
 
 	/* No suspending now */	
