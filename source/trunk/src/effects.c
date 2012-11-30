@@ -2194,34 +2194,18 @@ static void you_died(cptr hit_from)
 		else
 		{
 			char buf[24];	
-			if(floor_ptr->fight_arena_mode)
+			
 #ifdef JP
-				strcpy(buf,"アリーナ");
-#else
-				strcpy(buf,"in the Arena");
-#endif
-			else if(!floor_ptr->floor_level)
-#ifdef JP
-				strcpy(buf,"地上");
-#else
-				strcpy(buf,"on the surface");
-#endif
-			else if(q_idx && (is_fixed_quest_idx(q_idx) && !(q_idx == QUEST_SERPENT)))
-#ifdef JP
-				strcpy(buf,"クエスト");
-#else
-				strcpy(buf,"in a quest");
-#endif
-			else
-#ifdef JP
-				sprintf(buf,"%d階", floor_ptr->floor_level);
-#else
-				sprintf(buf,"level %d", floor_ptr->floor_level);
-#endif
-
-#ifdef JP
+			if(floor_ptr->fight_arena_mode) strcpy(buf,"アリーナ");
+			else if(!floor_ptr->floor_level) strcpy(buf,"地上");
+			else if(q_idx && (is_fixed_quest_idx(q_idx) && !(q_idx == QUEST_SERPENT))) strcpy(buf,"クエスト");
+			else sprintf(buf,"%d階", floor_ptr->floor_level);
 			sprintf(tmp, "%sで%sに殺された。", buf, gameover_from);
 #else
+			if(floor_ptr->fight_arena_mode) strcpy(buf,"in the Arena");
+			else if(!floor_ptr->floor_level) strcpy(buf,"on the surface");
+			else if(q_idx && (is_fixed_quest_idx(q_idx) && !(q_idx == QUEST_SERPENT))) strcpy(buf,"in a quest");
+			else sprintf(buf,"level %d", floor_ptr->floor_level);
 			sprintf(tmp, "killed by %s %s.", gameover_from, buf);
 #endif
 			do_cmd_write_nikki(DIARY_BUNSHOU, 0, tmp);
@@ -2229,16 +2213,13 @@ static void you_died(cptr hit_from)
 
 #ifdef JP
 		do_cmd_write_nikki(DIARY_GAMESTART, 1, "-------- ゲームオーバー --------");
-#else
-		do_cmd_write_nikki(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
-#endif
 		do_cmd_write_nikki(DIARY_BUNSHOU, 1, "\n\n\n\n");
-
 		flush();
-
-#ifdef JP
 		if(get_check_strict("画面を保存しますか？", CHECK_NO_HISTORY)) do_cmd_save_screen(player_ptr);
 #else
+		do_cmd_write_nikki(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
+		do_cmd_write_nikki(DIARY_BUNSHOU, 1, "\n\n\n\n");
+		flush();
 		if(get_check_strict("Dump the screen? ", CHECK_NO_HISTORY)) do_cmd_save_screen(player_ptr);
 #endif
 
@@ -2335,8 +2316,6 @@ static void you_died(cptr hit_from)
 				/* Make screen dump */
 				screen_dump = make_screen_dump();
 #endif
-
-				/* Wait a key press */
 				(void)inkey();
 			}
 			else
@@ -2373,8 +2352,10 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	int         i;
 	int         expdam;
 
-	// for Player
-	int warning = (target_ptr->mhp * hitpoint_warn / 10);
+	int warning = (target_ptr->mhp * hitpoint_warn / 10); // for Warning
+
+	if(gameover) return 0;
+
 
 	if(attacker_ptr) creature_desc(attacker_name, attacker_ptr, CD_TRUE_NAME);
 	else attacker_name[0] = '\0';
@@ -2404,12 +2385,9 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		if(&creature_list[attacker_ptr->riding] == target_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
-
 	/* Genocided by chaos patron */
 	//TODO CHECK
 	//if(!m_idx) return TRUE;
-
-	if(gameover) return 0;
 
 	if(damage_type != DAMAGE_USELIFE)
 	{
@@ -2567,30 +2545,26 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		change_wild_mode(player_ptr);
 
 	if(gameover) you_died(hit_from);
-
 	else
 	{
 		if(target_ptr->chp < 0) // It is dead now
 		{
 	
-			if(has_trait(target_ptr, TRAIT_TANUKI))
+			if(has_trait(target_ptr, TRAIT_TANUKI)) // You might have unmasked Tanuki first time
 			{
-				/* You might have unmasked Tanuki first time */
 				species_ptr = &species_info[target_ptr->species_idx];
 				target_ptr->ap_species_idx = target_ptr->species_idx;
 				if(species_ptr->r_sights < MAX_SHORT) species_ptr->r_sights++;
 			}
 	
-			if(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON)
+			if(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON) // You might have unmasked Chameleon first time
 			{
-				/* You might have unmasked Chameleon first time */
 				species_ptr = real_species_ptr(target_ptr);
 				if(species_ptr->r_sights < MAX_SHORT) species_ptr->r_sights++;
 			}
 	
-			if(!(target_ptr->smart & SM_CLONED))
+			if(!(target_ptr->smart & SM_CLONED)) // When the player kills a Unique, it stays dead
 			{
-				/* When the player kills a Unique, it stays dead */
 				if(has_trait(target_ptr, TRAIT_UNIQUE))
 				{
 					species_ptr->max_num = 0;
@@ -2648,19 +2622,11 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				// Dump a message
 				if(!get_rnd_line(game_messages[MESSAGE_FILES_DEATH], target_ptr->species_idx, line_got))	
 					msg_format("%^s %s", target_name, line_got);
-	
-	#ifdef WORLD_SCORE
-				if(target_ptr->species_idx == SPECIES_SERPENT)
-				{
-					// Make screen dump
-					screen_dump = make_screen_dump();
-				}
-	#endif
 			}
 	
 			for (i = 0; i < MAX_SPECIAL_BLOWS; i++) // TODO
 			{
-				if(target_ptr->blow[i].d_dice != 0) innocent = FALSE; /* Murderer! */
+				if(target_ptr->blow[i].d_dice != 0) innocent = FALSE; // Murderer!
 				if((target_ptr->blow[i].effect == RBE_EAT_ITEM) || (target_ptr->blow[i].effect == RBE_EAT_GOLD))
 					thief = TRUE; // Thief!
 			}
