@@ -3578,6 +3578,12 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 
 			creature_ptr->see_infra += trait_info[i].infra;
 
+			creature_ptr->ac += trait_info[i].ac;
+			creature_ptr->ev += trait_info[i].ev;
+			creature_ptr->vo += trait_info[i].vo;
+			creature_ptr->dis_ac += trait_info[i].ac;
+			creature_ptr->dis_ev += trait_info[i].ev;
+			creature_ptr->dis_vo += trait_info[i].vo;
 		}
 	}
 
