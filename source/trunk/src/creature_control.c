@@ -3730,19 +3730,12 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	/* Force creature to wait for player, unless in Nightmare mode */
 	if(has_trait(creature_ptr, TRAIT_FORCE_SLEEP) && !curse_of_Iluvatar)
 	{
-		/* Creature is still being nice */
 		creature_ptr->sc_flag |= (SC_FLAG_NICE);
-
-		/* Must repair creatures */
 		repair_creatures = TRUE;
 	}
 
 	/* Hack -- see "process_creatures()" */
-	if(c_ptr->creature_idx < hack_m_idx)
-	{
-		/* Creature is still being born */
-		creature_ptr->sc_flag |= (SC_FLAG_BORN);
-	}
+	if(c_ptr->creature_idx < hack_m_idx) creature_ptr->sc_flag |= (SC_FLAG_BORN);
 
 /*TODO
 	if(is_self_ld_creature(creature_ptr))

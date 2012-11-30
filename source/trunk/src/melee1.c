@@ -1262,10 +1262,10 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 	creature_desc(target_name, target_ptr, 0);
 	creature_desc(attacker_name, attacker_ptr, 0);
 
-	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW))
+	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW) && is_player(attacker_ptr))
 	{
 #if JP 
-		msg_format("%s‚ÍUŒ‚‚·‚éè’i‚ğ‚Á‚Ä‚¢‚È‚¢B", attacker_name);
+		msg_format("%s‚ÍUŒ‚‚Å‚«‚È‚¢B", attacker_name);
 #else
 		//TODO msg_format("%s don't have attack method.", attacker_name);
 #endif
@@ -1354,7 +1354,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 
 		if(!action_num)	
 		{
-			if(tried_num <= 0)
+			if(tried_num <= 0 && is_player(attacker_ptr))
 			{
 #if JP 
 				msg_format("%s‚ÍUŒ‚‚·‚éè’i‚ğ‚Á‚Ä‚¢‚È‚¢B", attacker_name);
