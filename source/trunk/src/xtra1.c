@@ -3419,7 +3419,6 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 #else
 			msg_print("You feel relieved to put down your heavy bow.");
 #endif
-
 		}
 
 		/* Save it */
@@ -3582,53 +3581,15 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 		}
 	}
 
-	{
-
-		if(has_trait(creature_ptr, TRAIT_ELEC_TOUC))
-		{
-			//TODO creature_ptr->sh_elec = TRUE;
-		}
-
 		if(has_trait(creature_ptr, TRAIT_FIRE_BODY))
 		{
 			//TODO creature_ptr->sh_fire = TRUE;
 			creature_ptr->lite = TRUE;
 		}
 
-		if(has_trait(creature_ptr, TRAIT_WART_SKIN))
-		{
-			creature_ptr->stat_add[STAT_CHA] -= 20;
-			creature_ptr->to_ac += 5;
-			creature_ptr->dis_to_ac += 5;
-		}
-
-		if(has_trait(creature_ptr, TRAIT_SCALES))
-		{
-			creature_ptr->stat_add[STAT_CHA] -= 10;
-			creature_ptr->to_ac += 10;
-			creature_ptr->dis_to_ac += 10;
-		}
-
-		if(has_trait(creature_ptr, TRAIT_IRON_SKIN))
-		{
-			creature_ptr->stat_add[STAT_DEX] -= 10;
-			creature_ptr->to_ac += 25;
-			creature_ptr->dis_to_ac += 25;
-		}
-
 		if(has_trait(creature_ptr, TRAIT_WINGS))
 		{
 			//TODO creature_ptr->levitation = TRUE;
-		}
-
-		if(has_trait(creature_ptr, TRAIT_LIMBER))
-		{
-			creature_ptr->stat_add[STAT_DEX] += 30;
-		}
-
-		if(has_trait(creature_ptr, TRAIT_ARTHRITIS))
-		{
-			creature_ptr->stat_add[STAT_DEX] -= 30;
 		}
 
 		if(has_trait(creature_ptr, TRAIT_MOTION))
@@ -3641,7 +3602,6 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 		{
 			creature_ptr->stat_add[STAT_CHA] = 0;
 		}
-	}
 }
 
 
