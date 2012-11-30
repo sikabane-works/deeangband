@@ -394,6 +394,7 @@ struct species_type
 
 	s16b ac;				// Armour Class
 	s16b ev;				// Evasion
+	s16b vo;				// Vol
 
 	s16b sleep;				/* Inactive counter (base) */
 	byte alert_range;				/* Area affect radius (1-100) */

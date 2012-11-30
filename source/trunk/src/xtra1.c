@@ -2610,18 +2610,12 @@ static void set_class_bonuses(creature_type *creature_ptr)
 				creature_ptr->speed += 3;
 				if(!has_trait(creature_ptr, TRAIT_AGILE_RACE)) creature_ptr->speed += (creature_ptr->lev) / 10;
 				creature_ptr->skill_stl += (creature_ptr->lev)/10;
-
 			}
 			if((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 0)->k_idx || creature_ptr->can_melee[0]) &&
 			    (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[1]))
 			{
-				creature_ptr->to_ac += creature_ptr->lev/2+5;
-				creature_ptr->dis_to_ac += creature_ptr->lev/2+5;
-			}
-
-			if(creature_ptr->lev > 44)
-			{
-				play_redraw |= PR_STATUS;
+				creature_ptr->to_ac += creature_ptr->lev / 2 + 5;
+				creature_ptr->dis_to_ac += creature_ptr->lev / 2 + 5;
 			}
 
 			break;
@@ -3724,14 +3718,12 @@ static void set_melee_status(creature_type *creature_ptr)
 				// TODO Extra shots
 
 				/* Hack -- Rangers love Bows */
-				if((creature_ptr->class_idx == CLASS_RANGER) &&
-				    (creature_ptr->tval_ammo == TV_ARROW))
+				if((creature_ptr->class_idx == CLASS_RANGER) && (creature_ptr->tval_ammo == TV_ARROW))
 				{
 					creature_ptr->num_fire += (creature_ptr->lev * 4);
 				}
 
-				if((creature_ptr->class_idx == CLASS_CAVALRY) &&
-				    (creature_ptr->tval_ammo == TV_ARROW))
+				if((creature_ptr->class_idx == CLASS_CAVALRY) && (creature_ptr->tval_ammo == TV_ARROW))
 				{
 					creature_ptr->num_fire += (creature_ptr->lev * 3);
 				}
@@ -3748,21 +3740,13 @@ static void set_melee_status(creature_type *creature_ptr)
 				 * Addendum -- also "Reward" high level warriors,
 				 * with _any_ missile weapon -- TY
 				 */
-				if(creature_ptr->class_idx == CLASS_WARRIOR &&
-				   (creature_ptr->tval_ammo <= TV_BOLT) &&
-				   (creature_ptr->tval_ammo >= TV_SHOT))
-				{
+				if(creature_ptr->class_idx == CLASS_WARRIOR && (creature_ptr->tval_ammo <= TV_BOLT) && (creature_ptr->tval_ammo >= TV_SHOT))
 					creature_ptr->num_fire += (creature_ptr->lev * 2);
-				}
-				if((creature_ptr->class_idx == CLASS_ROGUE) &&
-				    (creature_ptr->tval_ammo == TV_SHOT))
-				{
+				if((creature_ptr->class_idx == CLASS_ROGUE) && (creature_ptr->tval_ammo == TV_SHOT))
 					creature_ptr->num_fire += (creature_ptr->lev * 4);
-				}
 
 				/* Snipers love Cross bows */
-				if((creature_ptr->class_idx == CLASS_SNIPER) &&
-					(creature_ptr->tval_ammo == TV_BOLT))
+				if((creature_ptr->class_idx == CLASS_SNIPER) && (creature_ptr->tval_ammo == TV_BOLT))
 				{
 					creature_ptr->to_hit_b += (10 + (creature_ptr->lev / 5));
 					creature_ptr->dis_to_hit_b += (10 + (creature_ptr->lev / 5));
@@ -3849,9 +3833,7 @@ static void set_melee_status(creature_type *creature_ptr)
 		}
 
 		if(bow_ptr->k_idx && !creature_ptr->heavy_wield[i])
-		{
 			creature_ptr->skill_dig += (bow_ptr->weight / 10); // Boost digging skill by weapon weight
-		}
 
 		// Assume okay
 		// Priest weapon penalty for non-blessed edged weapons
@@ -4094,9 +4076,7 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 	}
 
 	if(creature_ptr->dr >= 0)
-	{
 		for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] += creature_ptr->dr / 4 * 10;
-	}
 
 	if(creature_ptr->dr >= 0) creature_ptr->speed += adj_dr_speed[creature_ptr->dr];
 }
@@ -4117,10 +4097,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 		creature_ptr->speed = (s16b)(speed * (creature_ptr->skill_exp[SKILL_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
 		if(creature_ptr->speed < 0) creature_ptr->speed = 0;
 	}
-	else
-	{
-		creature_ptr->speed = speed;
-	}
+	else creature_ptr->speed = speed;
 
 	creature_ptr->speed += (creature_ptr->skill_exp[SKILL_RIDING] + creature_ptr->lev *160L) / 3200;
 
@@ -4702,17 +4679,13 @@ void window_stuff(creature_type *subjectivity_ptr)
 	}
 }
 
-
-/*
- * Handle "update" and "play_redraw" and "play_window"
- */
+// Handle "update" and "play_redraw" and "play_window"
 void handle_stuff(void)
 {
 	if(player_ptr->creature_update) update_creature(player_ptr, TRUE);
 	if(play_redraw) redraw_stuff(player_ptr);
 	if(play_window) window_stuff(player_ptr);
 }
-
 
 s16b empty_hands(creature_type *creature_ptr, bool riding_control)
 {

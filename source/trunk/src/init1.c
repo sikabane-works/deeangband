@@ -3176,6 +3176,7 @@ enum SPECIES_TYPE {
 	SPECIES_INFO_IS,
 	SPECIES_INFO_AC,
 	SPECIES_INFO_EV,
+	SPECIES_INFO_VO,
 	SPECIES_INFO_ALERT,
 	SPECIES_INFO_STR,
 	SPECIES_INFO_INT,
@@ -3242,6 +3243,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"VIS",
 	"AC",
 	"EV",
+	"VO",
 	"ALERT",
 	"STR",
 	"INT",
@@ -3485,6 +3487,16 @@ errr parse_species_info_csv(char *buf, header *head)
 			case SPECIES_INFO_AC:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_ptr->ac = (s16b)b;
+				break;
+
+			case SPECIES_INFO_EV:
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+				species_ptr->ev = (s16b)b;
+				break;
+
+			case SPECIES_INFO_VO:
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+				species_ptr->vo = (s16b)b;
 				break;
 
 			case SPECIES_INFO_ALERT:
@@ -3736,11 +3748,6 @@ errr parse_species_info_csv(char *buf, header *head)
 			case SPECIES_INFO_TAIL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_ptr->slot_tail = (s16b)b;
-				break;
-
-			case SPECIES_INFO_EV:
-				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_ptr->ev = (s16b)b;
 				break;
 
 			default:
