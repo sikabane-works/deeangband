@@ -30,9 +30,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v)
 		if(!creature_ptr->timed_trait[type])
 		{
 			if(is_seen(player_ptr, creature_ptr))
-			{
-				//TODO message
-			}
+				msg_format("%sは%sの特性を得た。", creature_ptr->name, trait_info[type].title);
 			notice = TRUE;
 		}
 	}
@@ -41,9 +39,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v)
 		if(creature_ptr->timed_trait[type])
 		{
 			if(is_seen(player_ptr, creature_ptr))
-			{
-				//TODO message
-			}
+				msg_format("%sは%sの特性を失った。", creature_ptr->name, trait_info[type].title);
 			notice = TRUE;
 		}
 	}
@@ -75,9 +71,7 @@ bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_d
 		if(!creature_ptr->timed_trait[type])
 		{
 			if(is_seen(player_ptr, creature_ptr))
-			{
-				//TODO message
-			}
+				msg_format("%sは%sの特性を得た。", creature_ptr->name, trait_info[type].title);
 			notice = TRUE;
 		}
 	}
@@ -86,9 +80,7 @@ bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_d
 		if(creature_ptr->timed_trait[type])
 		{
 			if(is_seen(player_ptr, creature_ptr))
-			{
-				//TODO message
-			}
+				msg_format("%sは%sの特性を失った。", creature_ptr->name, trait_info[type].title);
 			notice = TRUE;
 		}
 	}
