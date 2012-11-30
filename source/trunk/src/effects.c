@@ -3096,43 +3096,29 @@ bool choose_ele_attack(creature_type *creature_ptr)
 	num = (creature_ptr->lev - 20) / 5;
 
 #ifdef JP
-		      c_prt(TERM_RED, "        a) èƒä¸", 2, 14);
-#else
-		      c_prt(TERM_RED, "        a) Fire Brand", 2, 14);
-#endif
-
-#ifdef JP
+	c_prt(TERM_RED, "        a) èƒä¸", 2, 14);
 	if(num >= 2) c_prt(TERM_L_WHITE,"        b) ìÄåã", 3, 14);
-#else
-	if(num >= 2) c_prt(TERM_L_WHITE,"        b) Cold Brand", 3, 14);
-#endif
 	else prt("", 3, 14);
-
-#ifdef JP
 	if(num >= 3) c_prt(TERM_GREEN, "        c) ì≈éE", 4, 14);
-#else
-	if(num >= 3) c_prt(TERM_GREEN, "        c) Poison Brand", 4, 14);
-#endif
 	else prt("", 4, 14);
-
-#ifdef JP
 	if(num >= 4) c_prt(TERM_L_DARK, "        d) ónâ", 5, 14);
-#else
-	if(num >= 4) c_prt(TERM_L_DARK, "        d) Acid Brand", 5, 14);
-#endif
 	else prt("", 5, 14);
-
-#ifdef JP
 	if(num >= 5) c_prt(TERM_BLUE, "        e) ìdåÇ", 6, 14);
-#else
-	if(num >= 5) c_prt(TERM_BLUE, "        e) Elec Brand", 6, 14);
-#endif
 	else prt("", 6, 14);
-
+#else
+	c_prt(TERM_RED, "        a) Fire Brand", 2, 14);
+	if(num >= 2) c_prt(TERM_L_WHITE,"        b) Cold Brand", 3, 14);
+	else prt("", 3, 14);
+	if(num >= 3) c_prt(TERM_GREEN, "        c) Poison Brand", 4, 14);
+	else prt("", 4, 14);
+	if(num >= 4) c_prt(TERM_L_DARK, "        d) Acid Brand", 5, 14);
+	else prt("", 5, 14);
+	if(num >= 5) c_prt(TERM_BLUE, "        e) Elec Brand", 6, 14);
+	else prt("", 6, 14);
+#endif
 	prt("", 7, 14);
 	prt("", 8, 14);
 	prt("", 9, 14);
-
 	prt("", 1, 0);
 #ifdef JP
 	prt("        Ç«ÇÃå≥ëfçUåÇÇÇµÇ‹Ç∑Ç©ÅH", 1, 14);
@@ -3180,34 +3166,19 @@ bool choose_ele_immune(creature_type *creature_ptr, int turn)
 
 #ifdef JP
 	c_prt(TERM_RED, "        a) âŒâä", 2, 14);
-#else
-	c_prt(TERM_RED, "        a) Immune Fire", 2, 14);
-#endif
-
-#ifdef JP
 	c_prt(TERM_L_WHITE,"        b) ó‚ãC", 3, 14);
-#else
-	c_prt(TERM_L_WHITE,"        b) Immune Cold", 3, 14);
-#endif
-
-#ifdef JP
 	c_prt(TERM_L_DARK, "        c) é_", 4, 14);
-#else
-	c_prt(TERM_L_DARK, "        c) Immune Acid", 4, 14);
-#endif
-
-#ifdef JP
 	c_prt(TERM_BLUE, "        d) ìdåÇ", 5, 14);
 #else
+	c_prt(TERM_RED, "        a) Immune Fire", 2, 14);
+	c_prt(TERM_L_WHITE,"        b) Immune Cold", 3, 14);
+	c_prt(TERM_L_DARK, "        c) Immune Acid", 4, 14);
 	c_prt(TERM_BLUE, "        d) Immune Elec", 5, 14);
 #endif
-
-
 	prt("", 6, 14);
 	prt("", 7, 14);
 	prt("", 8, 14);
 	prt("", 9, 14);
-
 	prt("", 1, 0);
 #ifdef JP
 	prt("        Ç«ÇÃå≥ëfÇÃñ∆âuÇÇ¬ÇØÇ‹Ç∑Ç©ÅH", 1, 14);
@@ -3235,7 +3206,6 @@ bool choose_ele_immune(creature_type *creature_ptr, int turn)
 		screen_load();
 		return FALSE;
 	}
-	/* Load screen */
 	screen_load();
 	return TRUE;
 }
