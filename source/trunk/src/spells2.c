@@ -1551,9 +1551,9 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		creature_desc(target_name, target_ptr, 0);
 		if(see_m) msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED], target_name);
 
-		if(has_trait(target_ptr, TRAIT_PARALYZED))
+		if(has_trait(target_ptr, TRAIT_SLEPT))
 		{
-			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
+			(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0);
 			if(target_ptr->see_others || target_ptr->hear_noise)
 			{
 #ifdef JP
@@ -2555,20 +2555,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 			if(has_trait(m_ptr, TRAIT_SMART)) chance = 100; // Smart creatures always wake up
 
 			if(m_ptr->timed_trait[TRAIT_SLEPT] && (randint0(100) < chance)) // Sometimes creatures wake up
-			{
-				(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0); // Wake up!
-				if(m_ptr->see_others || m_ptr->hear_noise) // Notice the "waking up"
-				{
-					char m_name[MAX_NLEN];
-					creature_desc(m_name, m_ptr, 0); // Acquire the creature name
-					// Dump a message
-#ifdef JP
-					msg_format("%^s‚ª–Ú‚ğŠo‚Ü‚µ‚½B", m_name);
-#else
-					msg_format("%^s wakes up.", m_name);
-#endif
-				}
-			}
+				(void)set_timed_trait_aux(m_ptr, TRAIT_SLEPT, 0, TRUE); // Wake up!
 		}
 
 		note_spot(floor_ptr, y, x); // Note

@@ -5326,6 +5326,8 @@ static void cheat_death(void)
 
 	heal_creature(player_ptr, player_ptr->mhp);
 	inc_mana(player_ptr, player_ptr->msp);
+	(void)set_food(player_ptr, PY_FOOD_MAX - 1);
+	reset_timed_trait(player_ptr);
 
 	if(player_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
@@ -5341,14 +5343,7 @@ static void cheat_death(void)
 	(void)strcpy(gameover_from, "Cheating death");
 #endif
 
-	/* Do not die */
 	gameover = FALSE;
-
-	/* Hack -- Healing */
-	reset_timed_trait(player_ptr);
-
-	/* Hack -- Prevent starvation */
-	(void)set_food(player_ptr, PY_FOOD_MAX - 1);
 
 	CURRENT_FLOOR_PTR->floor_level = 0;
 	leaving_quest = 0;
@@ -5861,29 +5856,16 @@ void play_game(bool new_game)
 	/* Nothing loaded */
 	if(!character_loaded)
 	{
-		/* Make new player */
 		new_game = TRUE;
-
-		/* Prepare to init the RNG */
 		Rand_quick = TRUE;
-
-		/* Initialize the saved floors data */
 		init_saved_floors(FALSE);
 	}
 
 	/* Old game is loaded.  But new game is requested. */
-	else if(new_game)
-	{
-		/* Initialize the saved floors data */
-		init_saved_floors(TRUE);
-	}
+	else if(new_game) init_saved_floors(TRUE);
 
 	/* Process old character */
-	if(!new_game)
-	{
-		/* Process the player name */
-		set_creature_name(FALSE, player_ptr);
-	}
+	if(!new_game) set_creature_name(FALSE, player_ptr);
 
 	/* Init the RNG */
 	if(Rand_quick)
@@ -5949,7 +5931,6 @@ void play_game(bool new_game)
 
 			if(gameover || !player_ptr->fy || !player_ptr->fx)
 			{
-
 				init_saved_floors(TRUE); // Initialize the saved floors data
 				player_ptr->fy = player_ptr->fx = 10; // Avoid crash in update_view()
 			}

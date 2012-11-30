@@ -1492,18 +1492,14 @@ msg_print("属性付加に失敗した。");
  */
 static bool vanish_dungeon(floor_type *floor_ptr)
 {
-
 	int          y, x;
 	cave_type    *c_ptr;
 	feature_type *f_ptr;
 	creature_type *m_ptr;
-	char         m_name[MAX_NLEN];
 
 	/* Prevent vasishing of quest levels and town */
 	if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
-	{
 		return FALSE;
-	}
 
 	/* Scan all normal grids */
 	for (y = 1; y < floor_ptr->height - 1; y++)
@@ -1519,27 +1515,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 			c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY);
 
 			m_ptr = &creature_list[c_ptr->creature_idx];
-
-			/* Awake creature */
-			if(c_ptr->creature_idx && m_ptr->timed_trait[TRAIT_PARALYZED])
-			{
-				/* Reset sleep counter */
-				(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
-
-				/* Notice the "waking up" */
-				if(m_ptr->see_others || m_ptr->hear_noise)
-				{
-					/* Acquire the creature name */
-					creature_desc(m_name, m_ptr, 0);
-
-					/* Dump a message */
-#ifdef JP
-					msg_format("%^sが目を覚ました。", m_name);
-#else
-					msg_format("%^s wakes up.", m_name);
-#endif
-				}
-			}
+			(void)set_timed_trait_aux(m_ptr, TRAIT_SLEPT, 0, TRUE);
 
 			/* Process all walls, doors and patterns */
 			if(have_flag(f_ptr->flags, FF_HURT_DISI)) cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
