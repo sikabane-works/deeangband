@@ -1131,77 +1131,19 @@ bool set_food(creature_type *creature_ptr, int v)
 	/* Hack -- Force good values */
 	v = (v > 20000) ? 20000 : (v < 0) ? 0 : v;
 
-	/* Fainting / Starving */
-	if(creature_ptr->food < PY_FOOD_FAINT)
-	{
-		old_aux = 0;
-	}
+	if(creature_ptr->food < PY_FOOD_FAINT) old_aux = 0;
+	else if(creature_ptr->food < PY_FOOD_WEAK) old_aux = 1;
+	else if(creature_ptr->food < PY_FOOD_ALERT) old_aux = 2;
+	else if(creature_ptr->food < PY_FOOD_FULL) old_aux = 3;
+	else if(creature_ptr->food < PY_FOOD_MAX) old_aux = 4;
+	else old_aux = 5;
 
-	/* Weak */
-	else if(creature_ptr->food < PY_FOOD_WEAK)
-	{
-		old_aux = 1;
-	}
-
-	/* Hungry */
-	else if(creature_ptr->food < PY_FOOD_ALERT)
-	{
-		old_aux = 2;
-	}
-
-	/* Normal */
-	else if(creature_ptr->food < PY_FOOD_FULL)
-	{
-		old_aux = 3;
-	}
-
-	/* Full */
-	else if(creature_ptr->food < PY_FOOD_MAX)
-	{
-		old_aux = 4;
-	}
-
-	/* Gorged */
-	else
-	{
-		old_aux = 5;
-	}
-
-	/* Fainting / Starving */
-	if(v < PY_FOOD_FAINT)
-	{
-		new_aux = 0;
-	}
-
-	/* Weak */
-	else if(v < PY_FOOD_WEAK)
-	{
-		new_aux = 1;
-	}
-
-	/* Hungry */
-	else if(v < PY_FOOD_ALERT)
-	{
-		new_aux = 2;
-	}
-
-	/* Normal */
-	else if(v < PY_FOOD_FULL)
-	{
-		new_aux = 3;
-	}
-
-	/* Full */
-	else if(v < PY_FOOD_MAX)
-	{
-		new_aux = 4;
-	}
-
-	/* Gorged */
-	else
-	{
-		new_aux = 5;
-	}
+	if(v < PY_FOOD_FAINT) new_aux = 0;
+	else if(v < PY_FOOD_WEAK) new_aux = 1;
+	else if(v < PY_FOOD_ALERT) new_aux = 2;
+	else if(v < PY_FOOD_FULL) new_aux = 3;
+	else if(v < PY_FOOD_MAX) new_aux = 4;
+	else new_aux = 5;
 
 	/* Food increase */
 	if(new_aux > old_aux)
@@ -1538,12 +1480,10 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
  */
 bool res_stat(creature_type *creature_ptr, int stat)
 {
-	/* Restore if needed */
+	// Restore if needed
 	if(creature_ptr->stat_cur[stat] != creature_ptr->stat_max[stat])
 	{
-		/* Restore */
 		creature_ptr->stat_cur[stat] = creature_ptr->stat_max[stat];
-
 		creature_ptr->creature_update |= (CRU_BONUS);
 
 		/* Redisplay the stats later */
@@ -1630,7 +1570,7 @@ bool heal_creature(creature_type *creature_ptr, int num)
 			}
 		}
 
-		if(has_trait(creature_ptr, TRAIT_AFRAID)) (void)set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
+		if(has_trait(creature_ptr, TRAIT_AFRAID)) (void)add_timed_trait(creature_ptr, TRAIT_AFRAID, -10, TRUE);
 		return TRUE;
 	}
 
