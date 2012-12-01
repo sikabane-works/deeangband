@@ -273,10 +273,7 @@
 #define CAPITALIZE_USER_NAME
 
 
-
-/*
- * OPTION: Person to bother if something goes wrong.
- */
+// OPTION: Person to bother if something goes wrong.
 // #define MAINTAINER "rr9@angband.org"
 // #define MAINTAINER "echizen@users.sourceforge.jp"
 #define MAINTAINER "deskull@users.sourceforge.jp"

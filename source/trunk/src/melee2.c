@@ -2715,11 +2715,7 @@ int get_mproc_idx(creature_type *creature_ptr, int mproc_type)
 	creature_type **cur_mproc_list = mproc_list[mproc_type];
 	int i;
 
-	for (i = mproc_max[mproc_type] - 1; i >= 0; i--)
-	{
-		if(cur_mproc_list[i] == creature_ptr) return i;
-	}
-
+	for (i = mproc_max[mproc_type] - 1; i >= 0; i--) if(cur_mproc_list[i] == creature_ptr) return i;
 	return -1;
 }
 
@@ -2757,9 +2753,9 @@ void creature_process_init(void)
 		// Ignore "dead" creatures
 		if(!creature_ptr->species_idx) continue;
 
-		if(creature_ptr->timed_trait[TRAIT_PARALYZED]) mproc_add(creature_ptr, MTIMED_CSLEEP);
-		if(creature_ptr->timed_trait[TRAIT_FAST]) mproc_add(creature_ptr, MTIMED_FAST);
-		if(creature_ptr->timed_trait[TRAIT_SLOW]) mproc_add(creature_ptr, MTIMED_SLOW);
+		if(has_trait(creature_ptr, TRAIT_TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT)) mproc_add(creature_ptr, MTIMED_CSLEEP);
+		if(has_trait(creature_ptr, TRAIT_FAST)) mproc_add(creature_ptr, MTIMED_FAST);
+		if(has_trait(creature_ptr, TRAIT_SLOW)) mproc_add(creature_ptr, MTIMED_SLOW);
 		if(has_trait(creature_ptr, TRAIT_STUN)) mproc_add(creature_ptr, MTIMED_STUNNED);
 		if(has_trait(creature_ptr, TRAIT_CONFUSED)) mproc_add(creature_ptr, MTIMED_CONFUSED);
 		if(has_trait(creature_ptr, TRAIT_AFRAID)) mproc_add(creature_ptr, MTIMED_MONFEAR);
