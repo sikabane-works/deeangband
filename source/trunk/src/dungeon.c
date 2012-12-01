@@ -3356,18 +3356,12 @@ static void process_world(void)
 	}
 
 	sunrise_and_sunset(floor_ptr);
-
-	/*** Shuffle the Storekeepers (Deleted Old Feature by Deskull)***/
-
 	/*** Process the creatures ***/
 
 	/* Check for creature generation. */
 	if(one_in_(dungeon_info[floor_ptr->dun_type].max_m_alloc_chance) &&
-		!floor_ptr->fight_arena_mode && !floor_ptr->quest && !floor_ptr->gamble_arena_mode)
-	{
-		/* Make a new creature */
+		!floor_ptr->fight_arena_mode && !floor_ptr->quest && !floor_ptr->gamble_arena_mode) // Make a new creature
 		(void)alloc_creature(floor_ptr, player_ptr, MAX_SIGHT + 5, 0);
-	}
 
 	/* Hack -- Check for creature regeneration */
 	if(!(turn % (TURNS_PER_TICK*10)) && !floor_ptr->gamble_arena_mode) regen_creatures(player_ptr);
@@ -3397,37 +3391,18 @@ static void process_world(void)
 
 			switch (min / 15)
 			{
-			case 0:
+			
 #ifdef JP
-				msg_print("遠くで不気味な鐘の音が鳴った。");
+			case 0: msg_print("遠くで不気味な鐘の音が鳴った。"); break;
+			case 1: msg_print("遠くで鐘が二回鳴った。"); break;
+			case 2: msg_print("遠くで鐘が三回鳴った。"); break;
+			case 3: msg_print("遠くで鐘が四回鳴った。"); break;
 #else
-				msg_print("You hear a distant bell toll ominously.");
+			case 0: msg_print("You hear a distant bell toll ominously."); break;
+			case 1: msg_print("A distant bell sounds twice."); break;
+			case 2: msg_print("A distant bell sounds three times."); break;
+			case 3: msg_print("A distant bell tolls four times."); break;
 #endif
-				break;
-
-			case 1:
-#ifdef JP
-				msg_print("遠くで鐘が二回鳴った。");
-#else
-				msg_print("A distant bell sounds twice.");
-#endif
-				break;
-
-			case 2:
-#ifdef JP
-				msg_print("遠くで鐘が三回鳴った。");
-#else
-				msg_print("A distant bell sounds three times.");
-#endif
-				break;
-
-			case 3:
-#ifdef JP
-				msg_print("遠くで鐘が四回鳴った。");
-#else
-				msg_print("A distant bell tolls four times.");
-#endif
-				break;
 			}
 		}
 
@@ -3442,7 +3417,6 @@ static void process_world(void)
 #else
 			msg_print("A distant bell tolls many times, fading into an deathly silence.");
 #endif
-
 			activate_ty_curse(player_ptr, FALSE, &count);
 		}
 	}
