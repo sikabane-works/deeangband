@@ -2709,7 +2709,6 @@ void process_creatures(void)
 	}
 }
 
-
 int get_mproc_idx(creature_type *creature_ptr, int mproc_type)
 {
 	creature_type **cur_mproc_list = mproc_list[mproc_type];
@@ -2718,7 +2717,6 @@ int get_mproc_idx(creature_type *creature_ptr, int mproc_type)
 	for (i = mproc_max[mproc_type] - 1; i >= 0; i--) if(cur_mproc_list[i] == creature_ptr) return i;
 	return -1;
 }
-
 
 void mproc_add(creature_type *creature_ptr, int mproc_type)
 {
@@ -2760,77 +2758,3 @@ void creature_process_init(void)
 	}
 }
 
-bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_player)
-{
-	creature_type *m_ptr = &creature_list[hack_m_idx];  /* the world creature */
-	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
-
-	if(the_world) return FALSE;
-
-	if(vs_player)
-	{
-		char m_name[MAX_NLEN];
-		creature_desc(m_name, m_ptr, 0);
-
-		if(who == 1)
-#ifdef JP
-			msg_print("「『ザ・ワールド』！時は止まった！」");
-#else
-			msg_format("%s yells 'The World! Time has stopped!'", m_name);
-#endif
-		else if(who == 3)
-#ifdef JP
-			msg_print("「時よ！」");
-#else
-			msg_format("%s yells 'Time!'", m_name);
-#endif
-		else msg_print("hek!");
-
-		msg_print(NULL);
-	}
-
-	// This creature cast spells
-	the_world = hack_m_idx;
-
-	if(vs_player) do_cmd_redraw();
-
-	while(num--)
-	{
-		if(!m_ptr->species_idx) break;
-		// TODO the world process process_nonplayer(the_world);
-
-		reset_target(m_ptr);
-
-		/* Notice stuff */
-		if(player_ptr->creature_update) notice_stuff(player_ptr);
-		if(player_ptr->creature_update) update_creature(player_ptr, TRUE);
-		if(play_redraw) redraw_stuff(player_ptr);
-		if(play_window) window_stuff(player_ptr);
-
-		/* Delay */
-		if(vs_player) Term_xtra(TERM_XTRA_DELAY, 500);
-	}
-
-	play_redraw |= (PR_MAP);
-
-	// Update creatures
-	player_ptr->creature_update |= (PU_CREATURES);
-
-	/* Window stuff */
-	play_window |= (PW_OVERHEAD | PW_DUNGEON);
-
-	the_world = 0;
-	if(vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(floor_ptr, MAX_RANGE, player_ptr->fy, player_ptr->fx, m_ptr->fy, m_ptr->fx)))
-	{
-#ifdef JP
-		msg_print("「時は動きだす…」");
-#else
-		msg_print("You feel time flowing around you once more.");
-#endif
-		msg_print(NULL);
-	}
-
-	handle_stuff();
-
-	return TRUE;
-}

@@ -1027,7 +1027,6 @@ extern int get_mproc_idx(creature_type *creature_ptr, int mproc_type);
 extern void creature_process_init(void);
 extern u32b get_curse(int power, object_type *object_ptr);
 extern void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance);
-extern bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_player);
 extern void creature_gain_exp(int m_idx, int s_idx);
 extern void mproc_add(creature_type *creature_ptr, int mproc_type);
 extern void mproc_remove(creature_type *creature_ptr, int mproc_type);
