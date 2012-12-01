@@ -1805,12 +1805,12 @@ static void display_player_middle(creature_type *creature_ptr)
 	object_type *bow_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 0);
 
 	int tmul = 0;
-	int i, j, e;
+	int i, j, k, e;
 
 #ifdef JP
-	c_put_str(TERM_WHITE, "種別    命中 威力   行動コスト", 14, 1);
+	c_put_str(TERM_WHITE, "種別    命中 威力     AP  優先", 14, 1);
 #else
-	c_put_str(TERM_WHITE, "Type    Hit  Damage     APCost", 14, 1);
+	c_put_str(TERM_WHITE, "Type    Hit  Damage   AP  優先", 14, 1);
 #endif
 
 	for(i = 0; i < MAX_WEAPONS; i++)
@@ -1819,10 +1819,12 @@ static void display_player_middle(creature_type *creature_ptr)
 		{
 			object_type *weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i);
 			j = calc_weapon_melee_cost(creature_ptr, weapon_ptr);
+			k = calc_weapon_melee_priority(creature_ptr, weapon_ptr);
 			c_put_str(TERM_L_BLUE, mention_use_ptr(creature_ptr, weapon_ptr), 15 + melee_num, 1);
 			c_put_str(TERM_YELLOW, format("%+4d", creature_ptr->to_hit[i]), 15 + melee_num, 9);
 			c_put_str(TERM_YELLOW, format("%dd%d%+d", weapon_ptr->dd, weapon_ptr->ds, creature_ptr->to_damage[i]), 15 + melee_num, 14);
-			c_put_str(TERM_YELLOW, format("%3d", j), 15 + melee_num, 28);
+			c_put_str(TERM_YELLOW, format("%3d", j), 15 + melee_num, 22);
+			c_put_str(TERM_YELLOW, format("%4d", k), 15 + melee_num, 27);
 			melee_num++;
 		}
 	}
@@ -1831,11 +1833,13 @@ static void display_player_middle(creature_type *creature_ptr)
 	{
 		if(creature_ptr->blow[i].method)
 		{
-			j = 15;
+			j = calc_special_melee_cost(creature_ptr, &creature_ptr->blow[i]);
+			k = calc_special_melee_priority(creature_ptr, &creature_ptr->blow[i]);
 			c_put_str(TERM_L_GREEN, rbm_name[creature_ptr->blow[i].method], 15 + melee_num, 1);
 			c_put_str(TERM_YELLOW, format("+???"), 15 + melee_num, 9);
 			c_put_str(TERM_YELLOW, format("%dd%d", creature_ptr->blow[i].d_dice, creature_ptr->blow[i].d_side), 15 + melee_num, 14);
-			c_put_str(TERM_YELLOW, format("%3d", j), 15 + melee_num, 28);
+			c_put_str(TERM_YELLOW, format("%3d", j), 15 + melee_num, 22);
+			c_put_str(TERM_YELLOW, format("%4d", k), 15 + melee_num, 27);
 			melee_num++;
 		}
 	}
