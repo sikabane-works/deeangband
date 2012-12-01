@@ -1025,7 +1025,6 @@ extern bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr
 extern void process_creatures(void);
 extern int get_mproc_idx(creature_type *creature_ptr, int mproc_type);
 extern void creature_process_init(void);
-extern void process_creatures_mtimed(creature_type *creature_ptr, int mtimed_idx);
 extern u32b get_curse(int power, object_type *object_ptr);
 extern void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance);
 extern bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_player);

@@ -2747,13 +2747,10 @@ void creature_process_init(void)
 	// Process the creatures (backwards)
 	for (i = creature_max - 1; i >= 1; i--)
 	{
-		// Access the creature
-		creature_ptr = &creature_list[i];
+		creature_ptr = &creature_list[i]; // Access the creature
+		if(!creature_ptr->species_idx) continue; // Ignore "dead" creatures
 
-		// Ignore "dead" creatures
-		if(!creature_ptr->species_idx) continue;
-
-		if(has_trait(creature_ptr, TRAIT_TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT)) mproc_add(creature_ptr, MTIMED_CSLEEP);
+		if(has_trait(creature_ptr, TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT)) mproc_add(creature_ptr, MTIMED_CSLEEP);
 		if(has_trait(creature_ptr, TRAIT_FAST)) mproc_add(creature_ptr, MTIMED_FAST);
 		if(has_trait(creature_ptr, TRAIT_SLOW)) mproc_add(creature_ptr, MTIMED_SLOW);
 		if(has_trait(creature_ptr, TRAIT_STUN)) mproc_add(creature_ptr, MTIMED_STUNNED);
@@ -2762,157 +2759,6 @@ void creature_process_init(void)
 		if(has_trait(creature_ptr, TRAIT_INVULNERABLE)) mproc_add(creature_ptr, MTIMED_INVULNER);
 	}
 }
-
-#if 0
-static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_type *creature_ptr, int mtimed_idx)
-{
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-
-	if(!is_valid_creature(creature_ptr)) return;
-
-	switch (mtimed_idx)
-	{
-	case MTIMED_CSLEEP:
-	{
-		species_type *species_ptr = &species_info[creature_ptr->species_idx];
-		u32b csleep_noise;
-
-		bool test = FALSE;	// Assume does not wake up
-		if(mtimed_idx == MTIMED_CSLEEP) csleep_noise = (1L << (30 - watcher_ptr->skill_stl));	// calculate the "player noise"
-
-		if(creature_ptr->cdis < AAF_LIMIT)	// Hack -- Require proximity
-		{
-			// Handle "sensing radius"
-			if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? ((species_ptr->alert_range > MAX_SIGHT) ? MAX_SIGHT : species_ptr->alert_range) : species_ptr->alert_range))
-			{
-				test = TRUE;	// We may wake up
-			}
-
-			// Handle "sight" and "aggravation"
-			else if((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(creature_ptr->fy, creature_ptr->fx)))
-			{
-				test = TRUE;	// We may wake up
-			}
-		}
-
-		if(test)
-		{
-			u32b notice = randint0(1024);
-
-			/* Nightmare creatures are more alert */
-			if(curse_of_Iluvatar) notice /= 2;
-
-			/* Hack -- See if creature "notices" player */
-			if((notice * notice * notice) <= csleep_noise)
-			{
-				/* Hack -- amount of "waking" */
-				/* Wake up faster near the player */
-				int d = (creature_ptr->cdis < AAF_LIMIT / 2) ? (AAF_LIMIT / creature_ptr->cdis) : 1;
-
-				/* Hack -- amount of "waking" is affected by speed of player */
-				d = (d * SPEED_TO_ENERGY(watcher_ptr->speed)) / 10;
-				if(d < 0) d = 1;
-
-				/* Creature wakes up "a little bit" */
-
-				/* Still asleep */
-				if(!set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] - d))
-				{
-					/* Notice the "not waking up" */
-					if(is_original_ap_and_seen(watcher_ptr, creature_ptr))
-					{
-						/* Hack -- Count the ignores */
-						if(species_ptr->r_ignore < MAX_UCHAR) species_ptr->r_ignore++;
-					}
-				}
-
-				/* Just woke up */
-				else
-				{
-					/* Notice the "waking up" */
-					if(creature_ptr->see_others || creature_ptr->hear_noise)
-					{
-						char m_name[MAX_NLEN];
-
-						/* Acquire the creature name */
-						creature_desc(m_name, creature_ptr, 0);
-
-						/* Dump a message */
-#ifdef JP
-						msg_format("%^s‚ª–Ú‚ðŠo‚Ü‚µ‚½B", m_name);
-#else
-						msg_format("%^s wakes up.", m_name);
-#endif
-					}
-
-					if(is_original_ap_and_seen(watcher_ptr, creature_ptr))
-					{
-						/* Hack -- Count the wakings */
-						if(species_ptr->r_wake < MAX_UCHAR) species_ptr->r_wake++;
-					}
-				}
-			}
-		}
-		break;
-	}
-
-
-
-	case MTIMED_FAST:
-		/* Reduce by one, note if expires */
-		set_timed_trait(creature_ptr, TRAIT_FAST, creature_ptr->timed_trait[TRAIT_FAST] - 1);
-		break;
-
-	case MTIMED_SLOW:
-		/* Reduce by one, note if expires */
-		set_timed_trait_aux(creature_ptr, TRAIT_SLOW, creature_ptr->timed_trait[TRAIT_SLOW] - 1, FALSE);
-		break;
-
-	case MTIMED_STUNNED:
-	{
-		int rlev = species_info[creature_ptr->species_idx].level;
-		/* Recover from stun */
-		set_timed_trait(creature_ptr, TRAIT_STUN, (randint0(10000) <= rlev * rlev) ? 0 : (creature_ptr->timed_trait[TRAIT_STUN] - 1));
-		break;
-	}
-
-	case MTIMED_CONFUSED:
-		/* Reduce the confusion */
-		set_timed_trait(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] - randint1(species_info[creature_ptr->species_idx].level / 20 + 1));
-		break;
-
-	case MTIMED_MONFEAR:
-		/* Reduce the fear */
-		set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] - randint1(species_info[creature_ptr->species_idx].level / 20 + 1));
-		break;
-
-	case MTIMED_INVULNER:
-		set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, has_trait(creature_ptr, TRAIT_INVULNERABLE) - 1, TRUE);
-		break;
-	}
-}
-#endif
-
-/*
- * Process the counters of creatures (once per 10 game turns)
- *
- * These functions are to process creatures' counters same as player's.
- */
-#if 0
-void process_creatures_mtimed(creature_type *creature_ptr, int mtimed_idx)
-{
-	int  i;
-	creature_type **cur_mproc_list = mproc_list[mtimed_idx];
-
-
-	/* Process the creatures (backwards) */
-	for (i = mproc_max[mtimed_idx] - 1; i >= 0; i--)
-	{
-		/* Access the creature */
-		process_creatures_mtimed_aux(creature_ptr, cur_mproc_list[i], mtimed_idx);
-	}
-}
-#endif
 
 bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_player)
 {
@@ -2957,11 +2803,8 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 
 		/* Notice stuff */
 		if(player_ptr->creature_update) notice_stuff(player_ptr);
-
 		if(player_ptr->creature_update) update_creature(player_ptr, TRUE);
-
 		if(play_redraw) redraw_stuff(player_ptr);
-
 		if(play_window) window_stuff(player_ptr);
 
 		/* Delay */
