@@ -4877,9 +4877,9 @@ void process_player(creature_type *creature_ptr)
 		{
 			/* Use some energy */
 			if(creature_ptr->time_stopper || creature_ptr->energy_need > 400) // The Randomness is irrelevant
-				creature_ptr->energy_need += creature_ptr->energy_need * TURNS_PER_TICK / 10;
+				cost_tactical_energy(creature_ptr, creature_ptr->energy_need * TURNS_PER_TICK / 10);
 			else // There is some randomness of needed energy
-				creature_ptr->energy_need += (s16b)((s32b)creature_ptr->energy_need * ENERGY_NEED(100) / 100L);
+				cost_tactical_energy(creature_ptr->energy_need, creature_ptr->energy_need);
 			
 			if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) play_redraw |= (PR_MAP); // Hack -- constant hallucination
 

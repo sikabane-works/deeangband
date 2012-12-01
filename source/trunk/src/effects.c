@@ -252,7 +252,7 @@ void reset_timed_trait(creature_type *creature_ptr)
 	creature_ptr->posture = 0L;
 	creature_ptr->time_stopper = FALSE;
 
-	while(creature_ptr->energy_need < 0) creature_ptr->energy_need += ENERGY_NEED(100);
+	while(creature_ptr->energy_need < 0) cost_tactical_energy(creature_ptr, 100);
 
 	if(creature_ptr->class_idx == CLASS_BARD)
 	{
@@ -300,7 +300,7 @@ void dispel_creature(creature_type *creature_ptr)
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-		creature_ptr->energy_need += ENERGY_NEED(100);
+		cost_tactical_energy(creature_ptr, 100);
 	}
 }
 
