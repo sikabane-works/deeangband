@@ -2708,24 +2708,3 @@ void process_creatures(void)
 		}
 	}
 }
-
-int get_mproc_idx(creature_type *creature_ptr, int mproc_type)
-{
-	creature_type **cur_mproc_list = mproc_list[mproc_type];
-	int i;
-
-	for (i = mproc_max[mproc_type] - 1; i >= 0; i--) if(cur_mproc_list[i] == creature_ptr) return i;
-	return -1;
-}
-
-void mproc_add(creature_type *creature_ptr, int mproc_type)
-{
-	if(mproc_max[mproc_type] < max_creature_idx) mproc_list[mproc_type][mproc_max[mproc_type]++] = creature_ptr;
-}
-
-
-void mproc_remove(creature_type *creature_ptr, int mproc_type)
-{
-	int mproc_idx = get_mproc_idx(creature_ptr, mproc_type);
-	if(mproc_idx >= 0) mproc_list[mproc_type][mproc_idx] = mproc_list[mproc_type][--mproc_max[mproc_type]];
-}

@@ -1019,19 +1019,15 @@ extern bool load_floor(floor_type *sf_ptr, u32b mode);
 extern bool is_melee_limitation_field(floor_type *floor_ptr);
 extern bool close_combat(creature_type *attacker_ptr, int y, int x, int mode);
 
-/* melee2.c */
+// melee2.c
 extern void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable);
 extern bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt, bool *fear, bool *dead);
 extern void process_creatures(void);
-extern int get_mproc_idx(creature_type *creature_ptr, int mproc_type);
 extern u32b get_curse(int power, object_type *object_ptr);
 extern void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance);
 extern void creature_gain_exp(int m_idx, int s_idx);
-extern void mproc_add(creature_type *creature_ptr, int mproc_type);
-extern void mproc_remove(creature_type *creature_ptr, int mproc_type);
 
-
-/* creature1.c */
+// creature1.c
 extern void roff_top(int species_idx);
 extern void screen_roff(creature_type *creature_ptr);
 extern void display_roff(int species_idx);
