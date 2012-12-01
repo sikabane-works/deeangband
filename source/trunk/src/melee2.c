@@ -2257,7 +2257,7 @@ static void process_nonplayer(int m_idx)
 			if(have_flag(f_ptr->flags, FF_TREE))
 			{
 				if(!has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_WILD_WOOD))
-					cost_tactical_energy(creature_ptr, 50)
+					cost_tactical_energy(creature_ptr, 50);
 			}
 
 			if(!is_riding_mon)
