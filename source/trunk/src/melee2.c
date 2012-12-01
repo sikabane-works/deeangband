@@ -2509,9 +2509,8 @@ static void process_creature(int i)
 
 	if(creature_ptr->cdis >= AAF_LIMIT) return; // Hack -- Require proximity
 
-	// Flow by smell is allowed
+	// Smell and Noise
 	if(!player_ptr->no_flowed) creature_ptr->sc_flag2 &= ~SC_FLAG2_NOFLOW;
-
 	if(is_player(creature_ptr) && creature_ptr->hear_noise && !ignore_unview)
 	{
 #ifdef JP
@@ -2520,17 +2519,15 @@ static void process_creature(int i)
 		msg_print("You hear noise.");
 #endif
 	}
-
 	creature_ptr->hear_noise = FALSE;	// Clear creature fighting indicator
 
+	// Digest cost
 	speed = creature_ptr->speed;
-
-	if(curse_of_Iluvatar) speed += 5; // Creatures move quickly in curse of Iluvatar mode
+	if(curse_of_Iluvatar && !is_player(creature_ptr)) speed += 5; // Creatures move quickly in curse of Iluvatar mode
 	creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this creature some energy
 	if(creature_ptr->energy_need > 0) return; // Not enough energy to move
 
 	hack_m_idx = i; // Save global index
-
 	gamble_arena_limitation();
 
 	do_creature_mutation(creature_ptr);
@@ -2542,10 +2539,8 @@ static void process_creature(int i)
 	creature_lack_food(creature_ptr); // Getting Faint from lack food
 
 	/* Paralyzed or Knocked Out */
-	if(has_trait(creature_ptr, TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT) ||  (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
-	{
+	if(has_trait(creature_ptr, TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT) || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
 		cost_tactical_energy(creature_ptr, 100); // Take a turn
-	}
 	else
 	{
 		do_creature_speaking(creature_ptr);
@@ -2641,42 +2636,6 @@ static void process_creature(int i)
 void process_creatures(void)
 {
 	int             i;
-	species_type    *species_ptr;
-	int             old_species_window_idx;
-
-	u32b    old_r_flags1 = 0L;
-	u32b    old_r_flags2 = 0L;
-	u32b    old_r_flags3 = 0L;
-	u32b    old_r_flags4 = 0L;
-	u32b    old_r_flags5 = 0L;
-	u32b    old_r_flags6 = 0L;
-	u32b    old_r_flags10 = 0L;
-
-	byte    old_r_blows0 = 0;
-	byte    old_r_blows1 = 0;
-	byte    old_r_blows2 = 0;
-	byte    old_r_blows3 = 0;
-
-	byte    old_r_cast_spell = 0;
-
-	/* Memorize old race */
-	old_species_window_idx = species_window_idx;
-
-	/* Acquire knowledge */
-	if(species_window_idx)
-	{
-		/* Acquire current creature */
-		species_ptr = &species_info[species_window_idx];
-
-		/* Memorize blows */
-		old_r_blows0 = species_ptr->r_blows[0];
-		old_r_blows1 = species_ptr->r_blows[1];
-		old_r_blows2 = species_ptr->r_blows[2];
-		old_r_blows3 = species_ptr->r_blows[3];
-
-		/* Memorize castings */
-		old_r_cast_spell = species_ptr->r_cast_spell;
-	}
 
 	// Process the creatures (backwards)
 	for (i = creature_max - 1; i >= 1; i--)
@@ -2685,26 +2644,5 @@ void process_creatures(void)
 
 		if(!playing || gameover) break; // Hack -- notice death or departure
 		if(subject_change_floor) break; // Notice leaving
-	}
-
-	hack_m_idx = 0; // Reset global index
-
-	/* Tracking a creature race (the same one we were before) */
-	if(species_window_idx && (species_window_idx == old_species_window_idx))
-	{
-		/* Acquire creature race */
-		species_ptr = &species_info[species_window_idx];
-
-		/* Check for knowledge change */
-		if(
-			(old_r_blows0 != species_ptr->r_blows[0]) ||
-			(old_r_blows1 != species_ptr->r_blows[1]) ||
-			(old_r_blows2 != species_ptr->r_blows[2]) ||
-			(old_r_blows3 != species_ptr->r_blows[3]) ||
-			(old_r_cast_spell != species_ptr->r_cast_spell))
-		{
-			/* Window stuff */
-			play_window |= (PW_MONSTER);
-		}
 	}
 }

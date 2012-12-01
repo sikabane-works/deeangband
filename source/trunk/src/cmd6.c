@@ -3327,8 +3327,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	}
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(has_trait_object(object_ptr, i))
-			do_active_trait(creature_ptr, i, FALSE);
+		if(has_trait_object(object_ptr, i)) do_active_trait(creature_ptr, i, FALSE);
 
 	/* Hack -- Dragon Scale Mail can be activated as well */
 	if(object_ptr->tval == TV_DRAG_ARMOR)
@@ -3389,11 +3388,9 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			{
 				chance = randint0(2);
 #ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。",
-					   ((chance == 1 ? "轟音" : "破片")));
+				msg_format("あなたは%sのブレスを吐いた。", ((chance == 1 ? "轟音" : "破片")));
 #else
-				msg_format("You breathe %s.",
-					   ((chance == 1 ? "sound" : "shards")));
+				msg_format("You breathe %s.", ((chance == 1 ? "sound" : "shards")));
 #endif
 
 				cast_ball(creature_ptr, (chance == 1 ? DO_EFFECT_SOUND : DO_EFFECT_SHARDS),
@@ -3407,14 +3404,10 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				chance = randint0(4);
 #ifdef JP
 				msg_format("あなたは%sのブレスを吐いた",
-					   ((chance == 1) ? "カオス" :
-					    ((chance == 2) ? "劣化" :
-					     ((chance == 3) ? "轟音" : "破片"))));
+					   ((chance == 1) ? "カオス" : ((chance == 2) ? "劣化" : ((chance == 3) ? "轟音" : "破片"))));
 #else
 				msg_format("You breathe %s.",
-					   ((chance == 1) ? "chaos" :
-					    ((chance == 2) ? "disenchantment" :
-					     ((chance == 3) ? "sound" : "shards"))));
+					   ((chance == 1) ? "chaos" : ((chance == 2) ? "disenchantment" : ((chance == 3) ? "sound" : "shards"))));
 #endif
 
 				cast_ball(creature_ptr, ((chance == 1) ? DO_EFFECT_CHAOS :
@@ -3429,11 +3422,9 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			{
 				chance = randint0(2);
 #ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。",
-					   ((chance == 0 ? "閃光" : "暗黒")));
+				msg_format("あなたは%sのブレスを吐いた。", ((chance == 0 ? "閃光" : "暗黒")));
 #else
-				msg_format("You breathe %s.",
-					   ((chance == 0 ? "light" : "darkness")));
+				msg_format("You breathe %s.", ((chance == 0 ? "light" : "darkness")));
 #endif
 
 				cast_ball(creature_ptr, (chance == 0 ? DO_EFFECT_LITE : DO_EFFECT_DARK), dir, 200, -2);
