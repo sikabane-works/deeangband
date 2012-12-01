@@ -5720,9 +5720,6 @@ static void play_loop(void)
 		/* Not leaving dungeon */
 		subject_change_dungeon = FALSE;
 
-		/* Initialize creature process */
-		creature_process_init();
-
 		turn_loop(floor_ptr, load_game); // Process the level, Turn loop
 
 		// Inside a quest and non-unique questor?

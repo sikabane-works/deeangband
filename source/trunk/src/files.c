@@ -6187,9 +6187,6 @@ msg_print("©“®ƒZ[ƒu’†");
 #endif
 
 	//TODO update_creature(creature_ptr, TRUE);
-
-	/* Initialize creature process */
-	creature_process_init();
 }
 
 

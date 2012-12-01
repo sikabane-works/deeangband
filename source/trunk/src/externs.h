@@ -1024,7 +1024,6 @@ extern void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp,
 extern bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt, bool *fear, bool *dead);
 extern void process_creatures(void);
 extern int get_mproc_idx(creature_type *creature_ptr, int mproc_type);
-extern void creature_process_init(void);
 extern u32b get_curse(int power, object_type *object_ptr);
 extern void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance);
 extern void creature_gain_exp(int m_idx, int s_idx);
