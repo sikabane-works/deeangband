@@ -3071,21 +3071,15 @@ void c_roff(byte a, cptr str)
 			break;
 		}
 
-		/* Clean up the char */
+		/* Clean up the char / Wrap words as needed */
+
 #ifdef JP
 		ch = ((k_flag || isprint(*s) ) ? *s : ' ');
-#else
-		ch = (isprint(*s) ? *s : ' ');
-#endif
-
-
-		/* Wrap words as needed */
-#ifdef JP
 		if(( x >= ( (k_flag) ? w - 2 : w - 1 ) ) && (ch != ' '))
 #else
+		ch = (isprint(*s) ? *s : ' ');
 		if((x >= w - 1) && (ch != ' '))
 #endif
-
 		{
 			int i, n = 0;
 

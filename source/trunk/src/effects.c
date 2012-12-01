@@ -268,11 +268,9 @@ void dispel_creature(creature_type *creature_ptr)
 {
 	reset_timed_trait(creature_ptr);
 
-	/* Cancel glowing hands */
+	// Cancel glowing hands
 	if(creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
-	{
 		set_timed_trait_aux(creature_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
-	}
 
 	if(MUSIC_SINGING_ANY(creature_ptr) || HEX_SPELLING_ANY(creature_ptr))
 	{
@@ -1950,22 +1948,18 @@ void do_poly_self(creature_type *creature_ptr)
 #else
 				sprintf(effect_msg, "deformed ");
 #endif
-
 			}
 		}
 
 		while ((power > randint0(20)) && one_in_(10))
-		{
-			
+		{		
 			power -= 10; // Polymorph into a less mutated form
-
 			if(!lose_trait(creature_ptr, 0))
 #ifdef JP
 				msg_print("Šï–­‚È‚­‚ç‚¢•’Ê‚É‚È‚Á‚½‹C‚ª‚·‚éB");
 #else
 				msg_print("You feel oddly normal.");
 #endif
-
 		}
 
 		/*
@@ -1988,7 +1982,6 @@ void do_poly_self(creature_type *creature_ptr)
 
 			change_race(creature_ptr, new_race, effect_msg);
 		}
-
 	}
 
 	if((power > randint0(30)) && one_in_(6))

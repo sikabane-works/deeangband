@@ -824,7 +824,6 @@ static void add_autopick_list(autopick_type *entry)
 		/* Increase size of list */
 		max_max_autopick += MAX_AUTOPICK_DEFAULT;
 
-		/* Allocate */
 		C_MAKE(autopick_list, max_max_autopick, autopick_type);
 
 		/* Copy from old list to new list */
@@ -1725,7 +1724,6 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 
 				/* Describe the object */
 				object_desc(object_name, object_ptr, 0);
-
 #ifdef JP
 				msg_format("ザックには%sを入れる隙間がない。", object_name);
 #else

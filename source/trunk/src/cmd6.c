@@ -2803,18 +2803,6 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 			break;
 		}
 
-		case SV_ROD_RESTORATION:
-		{
-			do_active_trait(creature_ptr, TRAIT_RESTORE_ALL, TRUE);
-			break;
-		}
-
-		case SV_ROD_SPEED:
-		{
-			if(set_timed_trait(creature_ptr, TRAIT_FAST, randint1(30) + 15)) ident = TRUE;
-			break;
-		}
-
 		case SV_ROD_PESTICIDE:
 		{
 			if(dispel_creatures(creature_ptr, 4)) ident = TRUE;

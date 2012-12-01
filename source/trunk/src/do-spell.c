@@ -10456,13 +10456,11 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				object_flags(object_ptr, flgs);
 				if(have_flag(flgs, TRAIT_SUPER_VORPAL))
 				{
-					/* vorpal blade */
 					basedam *= 5;
 					basedam /= 3;
 				}
 				else if(have_flag(flgs, TRAIT_VORPAL))
 				{
-					/* vorpal flag only */
 					basedam *= 11;
 					basedam /= 9;
 				}
