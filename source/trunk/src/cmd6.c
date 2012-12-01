@@ -2362,12 +2362,6 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 		}
 
-		case SV_WAND_STONE_TO_MUD:
-		{
-			if(wall_to_mud(creature_ptr, dir)) ident = TRUE;
-			break;
-		}
-
 		case SV_WAND_LITE:
 		{
 #ifdef JP
@@ -2939,12 +2933,6 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 			break;
 		}
 
-		case SV_ROD_STONE_TO_MUD:
-		{
-			if(wall_to_mud(creature_ptr, dir)) ident = TRUE;
-			break;
-		}
-
 		case SV_ROD_AGGRAVATE:
 		{
 			aggravate_creatures(creature_ptr);
@@ -3233,7 +3221,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	object_ptr = GET_ITEM(creature_ptr, item);
-
 	cost_tactical_energy(creature_ptr, 100); // Take a turn
 
 	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
@@ -3246,7 +3233,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	chance = creature_ptr->skill_dev; // Base chance of success
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
 
-	fail = lev+5;
+	fail = lev + 5;
 	if(chance > fail) fail -= (chance - fail) * 2;
 	else chance -= (fail - chance)*2;
 	if(fail < USE_DEVICE) fail = USE_DEVICE;
@@ -3439,7 +3426,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 #else
 				msg_print("You breathe the elements.");
 #endif
-
 				cast_ball(creature_ptr, DO_EFFECT_MISSILE, dir, 300, -3);
 				object_ptr->timeout = randint0(200) + 200;
 				break;
@@ -4370,16 +4356,13 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	if(randint0(100) < chance)
 	{
 		if(flush_failure) flush();
-
 #ifdef JP
-msg_print("Žô•¶‚ð‚¤‚Ü‚­¥‚¦‚ç‚ê‚È‚©‚Á‚½I");
+		msg_print("Žô•¶‚ð‚¤‚Ü‚­¥‚¦‚ç‚ê‚È‚©‚Á‚½I");
 #else
 		msg_format("You failed to get the magic off!");
 #endif
-
 		sound(SOUND_FAIL);
 		cost_tactical_energy(creature_ptr, 100);
-
 		return;
 	}
 	else
