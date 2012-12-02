@@ -3289,16 +3289,14 @@ static void display_player_stat_info(creature_type *creature_ptr)
 	/* Process equipment */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		/* Access object */
 		object_ptr = &creature_ptr->inventory[i];
-
 		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		/* Acquire "known" flags */
 		object_flags_known(object_ptr, flgs);
 
 		/* Initialize color based of sign of pval. */
-		for (stat = 0; stat < 6; stat++)
+		for (stat = 0; stat < STAT_MAX; stat++)
 		{
 			/* Default */
 			a = TERM_SLATE;
@@ -3310,13 +3308,10 @@ static void display_player_stat_info(creature_type *creature_ptr)
 				/* Default */
 				c = '*';
 
-				/* Good */
+				// Good
 				if(object_ptr->pval > 0)
 				{
-					/* Good */
 					a = TERM_L_GREEN;
-
-					/* Label boost */
 					if(object_ptr->pval < 10) c = '0' + object_ptr->pval;
 				}
 
@@ -3326,10 +3321,9 @@ static void display_player_stat_info(creature_type *creature_ptr)
 					a = TERM_GREEN;
 				}
 
-				/* Bad */
+				// Bad
 				if(object_ptr->pval < 0)
 				{
-					/* Bad */
 					a = TERM_RED;
 
 					/* Label boost */
@@ -3357,7 +3351,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 	player_flags(flgs, creature_ptr);
 
 	/* Check stats */
-	for (stat = 0; stat < 6; stat++)
+	for (stat = 0; stat < STAT_MAX; stat++)
 	{
 		/* Default */
 		a = TERM_SLATE;
@@ -3436,7 +3430,6 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		
 		if(buf[0] == '\0') display_player_one_line(ENTRY_AUTH, "------", TERM_L_DARK);
 		else display_player_one_line(ENTRY_AUTH, buf, TERM_L_BLUE);
-
 
 
 		// Age, Height, Weight, Social

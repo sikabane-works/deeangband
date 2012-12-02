@@ -1724,7 +1724,7 @@ void get_bloody_moon_flags(object_type *object_ptr)
 	for (i = 0; i < 2; i++)
 	{
 		int tmp = randint0(11);
-		if(tmp < 6) add_flag(object_ptr->trait_flags, STAT_STR + tmp);
+		if(tmp < STAT_MAX) add_flag(object_ptr->trait_flags, STAT_STR + tmp);
 		else add_flag(object_ptr->trait_flags, TRAIT_STEALTH + tmp - 6);
 	}
 }

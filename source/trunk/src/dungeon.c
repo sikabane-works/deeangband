@@ -2741,7 +2741,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 		if(IS_ROD(object_ptr) && (object_ptr->timeout))
 		{
 			/* Determine how many rods are charging. */
-			int temp = (object_ptr->timeout + (object_kind_ptr->pval - 1)) / object_kind_ptr->pval;
+			int temp = (object_ptr->timeout + (object_kind_ptr->pval - 1)) / (object_kind_ptr->pval + 1);
 			if(temp > object_ptr->number) temp = object_ptr->number;
 
 			/* Decrease timeout by that number. */
@@ -2758,10 +2758,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 			}
 
 			/* One of the stack of rod is charged */
-			else if(object_ptr->timeout % object_kind_ptr->pval)
-			{
-				changed = TRUE;
-			}
+			else if(object_ptr->timeout % object_kind_ptr->pval) changed = TRUE;
 		}
 	}
 
@@ -2776,10 +2773,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	/* Process objects on floor */
 	for (i = 1; i < object_max; i++)
 	{
-		/* Access object */
 		object_type *object_ptr = &object_list[i];
-
-		/* Skip dead objects */
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Recharge rods on the ground.  No messages. */

@@ -8837,7 +8837,7 @@ static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 		else fprintf(fff, "Your current Life Rating is ???.\n\n");
 		fprintf(fff, "Limits of maximum stats\n\n");
 #endif
-		for (v_nr = 0; v_nr < 6; v_nr++)
+		for (v_nr = 0; v_nr < STAT_MAX; v_nr++)
 		{
 			if((creature_ptr->knowledge & KNOW_STAT) || creature_ptr->stat_max[v_nr] == creature_ptr->stat_max_max[v_nr])
 			{

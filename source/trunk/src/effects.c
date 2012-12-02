@@ -1916,7 +1916,7 @@ void do_poly_self(creature_type *creature_ptr)
 			/* Harmful deformity */
 			power -= 15;
 
-			while (tmp < 6)
+			while (tmp < STAT_MAX)
 			{
 				if(one_in_(2))
 				{
@@ -1998,7 +1998,7 @@ void do_poly_self(creature_type *creature_ptr)
 #endif
 		}
 
-		while (tmp < 6)
+		while (tmp < STAT_MAX)
 		{
 			(void)dec_stat(creature_ptr, tmp, randint1(6) + 6, one_in_(3));
 			tmp++;

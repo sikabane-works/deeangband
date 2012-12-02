@@ -98,7 +98,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	info[i++] = "Limits of maximum stats";
 #endif
 
-	for (v_nr = 0; v_nr < 6; v_nr++)
+	for (v_nr = 0; v_nr < STAT_MAX; v_nr++)
 	{
 		char stat_desc[80];
 		int n = creature_ptr->stat_mod_max_max[v_nr];

@@ -2033,7 +2033,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 
-			for (k = 0;k < 6; k++)
+			for (k = 0; k < 6; k++)
 				summon_specific(caster_ptr, target_row, target_col, user_level, TRAIT_S_HI_UNDEAD, (mode | u_mode));
 			break;
 		}

@@ -199,9 +199,9 @@ void check_experience(creature_type *creature_ptr)
 							choice = inkey();
 							if((choice >= 'a') && (choice <= 'f')) break;
 						}
-						for(n = 0; n < 6; n++)
+						for(n = 0; n < STAT_MAX; n++)
 							if(n != choice - 'a')
-								prt("",n+2,14);
+								prt("", n + 2,14);
 #ifdef JP
 						if(get_check("よろしいですか？")) break;
 #else
@@ -3860,10 +3860,8 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 				}
 				break;
 			default:
-				for (dummy = 0; dummy < 6; dummy++)
-				{
+				for (dummy = 0; dummy < STAT_MAX; dummy++)
 					(void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
-				}
 #ifdef JP
 				reward = "全能力値が下がった。";
 #else

@@ -4097,13 +4097,13 @@ static bool get_stat_limits(creature_type *creature_ptr)
 	
 	/* Get a minimum stat */
 	cs = 0;
-	os = 6;
+	os = STAT_MAX;
 	while (TRUE)
 	{
 		/* Move Cursol */
 		if(cs != os)
 		{
-			if(os == 6)
+			if(os == STAT_MAX)
 			{
 #ifdef JP
 				c_put_str(TERM_WHITE, "Œˆ’è‚·‚é", 21, 35);
@@ -4111,10 +4111,10 @@ static bool get_stat_limits(creature_type *creature_ptr)
 				c_put_str(TERM_WHITE, "Accept", 21, 35);
 #endif
 			}
-			else if(os < 6)
+			else if(os < STAT_MAX)
 				c_put_str(TERM_WHITE, cur, 14 + os, 10);
 			
-			if(cs == 6)
+			if(cs == STAT_MAX)
 			{
 #ifdef JP
 				c_put_str(TERM_YELLOW, "Œˆ’è‚·‚é", 21, 35);
@@ -4181,11 +4181,11 @@ static bool get_stat_limits(creature_type *creature_ptr)
 			break;
 		case '2':
 		case 'j':
-			if(cs < 6) cs++;
+			if(cs < STAT_MAX) cs++;
 			break;
 		case '4':
 		case 'h':
-			if(cs != 6)
+			if(cs != STAT_MAX)
 			{
 				if(cval[cs] == 3)
 				{
