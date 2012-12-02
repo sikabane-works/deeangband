@@ -1522,9 +1522,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			switch (caster_ptr->species_idx)
 			{
-			case SPECIES_OHMU:
-				// Moved to process_nonplayer(), like multiplication 
-				return FALSE;
 
 			case SPECIES_BANORLUPART:
 				{

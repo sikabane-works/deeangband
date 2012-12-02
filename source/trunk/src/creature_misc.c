@@ -847,6 +847,7 @@ bool has_trait(creature_type *creature_ptr, int type)
 	if(has_trait_from_class(creature_ptr, type)) return TRUE;
 	if(has_trait_from_chara(creature_ptr, type)) return TRUE;
 	if(has_trait_from_inventory(creature_ptr, type)) return TRUE;
+	if(creature_ptr->timed_trait[type]) return TRUE;
 
 	return FALSE;
 }

@@ -4606,7 +4606,7 @@ bool process_warning(creature_type *target_ptr, int xx, int yy)
 
 			attacker_ptr = &creature_list[c_ptr->creature_idx];
 
-			if(attacker_ptr->timed_trait[TRAIT_PARALYZED]) continue;
+			if(has_trait(attacker_ptr, TRAIT_PARALYZED) || has_trait(attacker_ptr, TRAIT_SLEPT)) continue;
 			if(!is_hostile(attacker_ptr)) continue;
 
 			species_ptr = &species_info[attacker_ptr->species_idx];
@@ -4643,14 +4643,12 @@ bool process_warning(creature_type *target_ptr, int xx, int yy)
 #ifdef JP
 			else strcpy(object_name, "体"); /* Warning ability without item */
 			msg_format("%sが鋭く震えた！", object_name);
+			disturb(target_ptr, 0, 0);
+			return get_check("本当にこのまま進むか？");
 #else
 			else strcpy(object_name, "body"); /* Warning ability without item */
 			msg_format("Your %s pulsates sharply!", object_name);
-#endif
 			disturb(target_ptr, 0, 0);
-#ifdef JP
-			return get_check("本当にこのまま進むか？");
-#else
 			return get_check("Really want to go ahead? ");
 #endif
 		}
@@ -4658,8 +4656,7 @@ bool process_warning(creature_type *target_ptr, int xx, int yy)
 	else old_damage = old_damage / 2;
 
 	c_ptr = &floor_ptr->cave[yy][xx];
-	if(((!easy_disarm && is_trap(c_ptr->feat))
-		|| (c_ptr->mimic && is_trap(c_ptr->feat))) && !one_in_(13))
+	if(((!easy_disarm && is_trap(c_ptr->feat)) || (c_ptr->mimic && is_trap(c_ptr->feat))) && !one_in_(13))
 	{
 		object_type *object_ptr = choose_warning_item(target_ptr);
 
@@ -4667,14 +4664,12 @@ bool process_warning(creature_type *target_ptr, int xx, int yy)
 #ifdef JP
 		else strcpy(object_name, "体"); /* Warning ability without item */
 		msg_format("%sが震えた！", object_name);
+		disturb(target_ptr, 0, 0);
+		return get_check("本当にこのまま進むか？");
 #else
 		else strcpy(object_name, "body"); /* Warning ability without item */
 		msg_format("Your %s pulsates!", object_name);
-#endif
 		disturb(target_ptr, 0, 0);
-#ifdef JP
-		return get_check("本当にこのまま進むか？");
-#else
 		return get_check("Really want to go ahead? ");
 #endif
 	}
@@ -4693,13 +4688,9 @@ static bool item_tester_hook_melee_ammo(creature_type *creature_ptr, object_type
 	case TV_BOLT:
 	case TV_ARROW:
 	case TV_SHOT:
-		{
 			return TRUE;
-		}
 	case TV_SWORD:
-		{
 			if(object_ptr->sval != SV_DOKUBARI) return TRUE;
-		}
 	}
 
 	return FALSE;

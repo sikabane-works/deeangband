@@ -2091,9 +2091,9 @@ static void you_died(cptr hit_from)
 		{
 			char dummy[1024];
 #ifdef JP
-			sprintf(dummy, "%s%s%s", !player_ptr->timed_trait[TRAIT_PARALYZED] ? "" : has_trait(player_ptr, TRAIT_FREE_ACTION) ? "’¤‘œó‘Ô‚Å" : "–ƒáƒó‘Ô‚Å", player_ptr->timed_trait[TRAIT_HALLUCINATION] ? "Œ¶Šo‚É˜c‚ñ‚¾" : "", hit_from);
+			sprintf(dummy, "%s%s%s", !has_trait(player_ptr, TRAIT_PARALYZED) ? "" : has_trait(player_ptr, TRAIT_FREE_ACTION) ? "’¤‘œó‘Ô‚Å" : "–ƒáƒó‘Ô‚Å", player_ptr->timed_trait[TRAIT_HALLUCINATION] ? "Œ¶Šo‚É˜c‚ñ‚¾" : "", hit_from);
 #else
-			sprintf(dummy, "%s%s", hit_from, !player_ptr->timed_trait[TRAIT_PARALYZED] ? "" : " while helpless");
+			sprintf(dummy, "%s%s", hit_from, !has_trait(player_ptr, TRAIT_PARALYZED) ? "" : " while helpless");
 #endif
 			my_strcpy(gameover_from, dummy, sizeof gameover_from);
 		}

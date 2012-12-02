@@ -4635,7 +4635,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 		if(has_trait(steed_ptr, TRAIT_PARALYZED))
 		{
 			char steed_name[MAX_NLEN];
-			(void)set_timed_trait(steed_ptr, TRAIT_PARALYZED, 0);
+			(void)set_timed_trait_aux(steed_ptr, TRAIT_PARALYZED, 0, FALSE);
 			creature_desc(steed_name, steed_ptr, 0);
 #ifdef JP
 			msg_format("%^sÇãNÇ±ÇµÇΩÅB", steed_name);

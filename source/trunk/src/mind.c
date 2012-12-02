@@ -2080,7 +2080,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 
 
 		/* Hack -- Bypass free action */
-		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));
+		(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, randint1(5 * oops + 1), TRUE);
 
 		/* Damage WIS (possibly permanently) */
 		if(randint0(100) < 50)

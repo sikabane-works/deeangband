@@ -1816,11 +1816,12 @@ bool do_riding(creature_type *rider_ptr, bool force)
 			return FALSE;
 		}
 
-		if(has_trait(steed_ptr, TRAIT_PARALYZED))
+		if(has_trait(steed_ptr, TRAIT_PARALYZED) || has_trait(steed_ptr, TRAIT_SLEPT))
 		{
 			char steed_name[80];
 			creature_desc(steed_name, steed_ptr, 0);
 			(void)set_timed_trait(steed_ptr, TRAIT_PARALYZED, 0);
+			(void)set_timed_trait(steed_ptr, TRAIT_SLEPT, 0);
 #ifdef JP
 			msg_format("%sÇãNÇ±ÇµÇΩÅB", steed_name);
 #else

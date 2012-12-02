@@ -2697,12 +2697,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				else
 				{
 					if(!has_trait(target_ptr, TRAIT_PARALYZED))
-					{
 						if(set_timed_trait(target_ptr, TRAIT_PARALYZED, 3 + randint1(attacker_ptr->lev)))
-						{
 							obvious = TRUE;
-						}
-					}
 				}
 
 				/* Learn about the player */
