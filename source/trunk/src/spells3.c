@@ -38,23 +38,17 @@ static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, 
 }
 
 
-/*
- * Teleport a creature, normally up to "dis" grids away.
- *
- * Attempt to move the creature at least "dis/2" grids away.
- *
- * But allow variation to prevent infinite loops.
- */
+
+// Teleport a creature, normally up to "dis" grids away.
+// Attempt to move the creature at least "dis/2" grids away.
+// But allow variation to prevent infinite loops.
 bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int oy, ox, d, i, min, m_idx;
 	int tries = 0;
 	int ny = 0, nx = 0;
-
 	bool look = TRUE;
-
-
 
 	if(!creature_ptr->species_idx) return FALSE;
 
@@ -111,7 +105,6 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 		if(tries > MAX_TRIES) return FALSE;
 	}
 
-	/* Sound */
 	sound(SOUND_TPOTHER);
 
 	/* Update the old location */
@@ -139,7 +132,6 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	update_creature_view(player_ptr, m_idx, TRUE);
 
 	lite_spot(floor_ptr, oy, ox);
-
 	lite_spot(floor_ptr, ny, nx);
 
 	if(is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
@@ -212,7 +204,6 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 
 	if(attempts < 1) return;
 
-	/* Sound */
 	sound(SOUND_TPOTHER);
 
 	/* Update the old location */
@@ -229,7 +220,6 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	update_creature_view(player_ptr, m_idx, TRUE);
 
 	lite_spot(floor_ptr, oy, ox);
-
 	lite_spot(floor_ptr, ny, nx);
 
 	if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
@@ -259,9 +249,7 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u3
 		if(!creature_can_cross_terrain(creature_ptr, c_ptr->feat, 0)) return FALSE;
 
 		if(have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP))
-		{
 			if(!has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_CAN_SWIM)) return FALSE;
-		}
 
 		if(have_flag(f_ptr->flags, FF_LAVA) && !has_trait(creature_ptr, TRAIT_IM_FIRE) && !IS_INVULN(creature_ptr))
 		{
@@ -273,7 +261,6 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u3
 		}
 
 	}
-
 	return TRUE;
 }
 
@@ -318,7 +305,6 @@ bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 #else
 		msg_print("A mysterious force prevents you from teleporting!");
 #endif
-
 		return FALSE;
 	}
 
@@ -382,10 +368,7 @@ bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 			/* Calculate distance */
 			d = distance(creature_ptr->fy, creature_ptr->fx, y, x);
 
-			/* Skip too far locations */
 			if(d > dis) continue;
-
-			/* Skip too close locations */
 			if(d < min) continue;
 
 			/* This grid was picked up? */
@@ -399,7 +382,6 @@ bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 
 	if(creature_bold(creature_ptr, y, x)) return FALSE;
 
-	/* Sound */
 	sound(SOUND_TELEPORT);
 
 #ifdef JP
@@ -535,7 +517,6 @@ void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
 		}
 	}
 
-	/* Sound */
 	sound(SOUND_TELEPORT);
 
 	/* Move the player */
@@ -793,7 +774,6 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 		delete_species_idx(&creature_list[m_idx]);
 	}
 
-	/* Sound */
 	sound(SOUND_TPLEVEL);
 }
 

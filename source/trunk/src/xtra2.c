@@ -125,7 +125,6 @@ void check_experience(creature_type *creature_ptr)
 			do_cmd_write_nikki(DIARY_LEVELUP, creature_ptr->lev, NULL);
 		}
 
-		/* Sound */
 		sound(SOUND_LEVEL);
 
 		if(is_player(creature_ptr))

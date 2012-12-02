@@ -2106,7 +2106,6 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			}
 		}
 
-		/* Sound */
 		if(!boundary_floor(c_ptr, f_ptr, mimic_f_ptr)) sound(SOUND_HITWALL);
 	}
 

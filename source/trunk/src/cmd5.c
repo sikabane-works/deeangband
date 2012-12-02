@@ -852,7 +852,6 @@ void do_cmd_study(creature_type *creature_ptr)
 
 	cost_tactical_energy(creature_ptr, 100);
 
-	/* Sound */
 	sound(SOUND_STUDY);
 
 	/* One less spell available */

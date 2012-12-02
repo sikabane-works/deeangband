@@ -2679,7 +2679,6 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 
-	/* Sound */
 	sound(SOUND_ZAP);
 
 	for(i = 0; i < MAX_TRAITS; i++)

@@ -3387,7 +3387,6 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 	/* Draw the spot */
 	lite_spot(floor_ptr, by, bx);
 
-	/* Sound */
 	sound(SOUND_DROP);
 
 	/* Mega-Hack -- no message if "dropped" by player */

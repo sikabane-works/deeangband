@@ -2290,7 +2290,6 @@ static void process_nonplayer(int m_idx)
 			}
 			else
 			{
-				/* Sound */
 				/* sound(SOUND_WALK); */
 
 				/* Move the player */

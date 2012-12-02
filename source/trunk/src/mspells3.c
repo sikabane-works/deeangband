@@ -890,7 +890,6 @@ void learn_trait(creature_type *creature_ptr, int trait_index)
 #endif
 		gain_exp(creature_ptr, trait_info[trait_index].base_level * trait_info[trait_index].mp_cost);
 
-		/* Sound */
 		sound(SOUND_STUDY);
 
 		creature_ptr->new_mane = TRUE;

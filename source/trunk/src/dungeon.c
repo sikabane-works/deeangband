@@ -2912,7 +2912,6 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				}
 			}
 
-			/* Sound */
 			sound(SOUND_TPLEVEL);
 		}
 	}
@@ -2960,7 +2959,6 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 #endif
 			}
 
-			/* Sound */
 			sound(SOUND_TPLEVEL);
 		}
 	}
