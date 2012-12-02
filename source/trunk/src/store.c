@@ -1351,40 +1351,22 @@ static void mass_produce(store_type *st_ptr, object_type *object_ptr)
 		}
 	}
 
-
-	/* Pick a discount */
-	if(cost < 5)
-	{
-		discount = 0;
-	}
-	else if(one_in_(25))
-	{
-		discount = 25;
-	}
-	else if(one_in_(150))
-	{
-		discount = 50;
-	}
-	else if(one_in_(300))
-	{
-		discount = 75;
-	}
-	else if(one_in_(500))
-	{
-		discount = 90;
-	}
-
+	// Pick a discount
+	if(cost < 5) discount = 0;
+	else if(one_in_(25)) discount = 25;
+	else if(one_in_(150)) discount = 50;
+	else if(one_in_(300)) discount = 75;
+	else if(one_in_(500)) discount = 90;
 
 	if(object_ptr->art_name)
 	{
 		if(cheat_peek && discount)
 		{
 #ifdef JP
-msg_print("ランダムアーティファクトは値引きなし。");
+			msg_print("ランダムアーティファクトは値引きなし。");
 #else
 			msg_print("No discount on random artifacts.");
 #endif
-
 		}
 		discount = 0;
 	}
@@ -1396,70 +1378,64 @@ msg_print("ランダムアーティファクトは値引きなし。");
 	object_ptr->number = size - (size * discount / 100);
 
 	/* Ensure that mass-produced rods and wands get the correct pvals. */
-	if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND))
-	{
-		object_ptr->pval *= object_ptr->number;
-	}
+	if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND)) object_ptr->pval *= object_ptr->number;
 }
 
 
 
-/*
- * Determine if a store item can "absorb" another item
- *
- * See "object_similar()" for the same function for the "player"
- */
-static bool store_object_similar(object_type *object_ptr, object_type *j_ptr)
+// Determine if a store item can "absorb" another item
+// See "object_similar()" for the same function for the "player"
+static bool store_object_similar(object_type *object1_ptr, object_type *object2_ptr)
 {
 	int i;
 
 	/* Hack -- Identical items cannot be stacked */
-	if(object_ptr == j_ptr) return SUCCESS;
+	if(object1_ptr == object2_ptr) return FALSE;
 
 	/* Different objects cannot be stacked */
-	if(object_ptr->k_idx != j_ptr->k_idx) return SUCCESS;
+	if(object1_ptr->k_idx != object2_ptr->k_idx) return FALSE;
 
 	/* Different Size cannot be stacked */
-	if(object_ptr->size_lower != j_ptr->size_lower || 
-		object_ptr->size_upper != j_ptr->size_upper || 
-		object_ptr->to_size != j_ptr->to_size) return SUCCESS;
+	if(object1_ptr->size_lower != object2_ptr->size_lower || 
+		object1_ptr->size_upper != object2_ptr->size_upper || 
+		object1_ptr->to_size != object2_ptr->to_size) return FALSE;
 
 	/* Different charges (etc) cannot be stacked, unless wands or rods. */
-	if((object_ptr->pval != j_ptr->pval) && (object_ptr->tval != TV_WAND) && (object_ptr->tval != TV_ROD)) return SUCCESS;
+	if((object1_ptr->pval != object2_ptr->pval) && (object1_ptr->tval != TV_WAND) && (object1_ptr->tval != TV_ROD)) return FALSE;
 
 	/* Require many identical values */
-	if(object_ptr->to_hit != j_ptr->to_hit) return SUCCESS;
-	if(object_ptr->to_damage != j_ptr->to_damage) return SUCCESS;
-	if(object_ptr->to_ac != j_ptr->to_ac) return SUCCESS;
+	if(object1_ptr->to_hit != object2_ptr->to_hit) return FALSE;
+	if(object1_ptr->to_damage != object2_ptr->to_damage) return FALSE;
+	if(object1_ptr->to_ac != object2_ptr->to_ac) return FALSE;
 
 	/* Require identical "ego-item" names */
-	if(object_ptr->name2 != j_ptr->name2) return SUCCESS;
+	if(object1_ptr->name2 != object2_ptr->name2) return FALSE;
 
 	/* Artifacts don't stack! */
-	if(object_is_artifact_aux(object_ptr) || object_is_artifact_aux(j_ptr)) return SUCCESS;
+	if(object_is_artifact_aux(object1_ptr) || object_is_artifact_aux(object2_ptr)) return FALSE;
 
 	/* Hack -- Identical trait_flags! */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		if(object_ptr->trait_flags[i] != j_ptr->trait_flags[i]) return SUCCESS;
+		if(object1_ptr->trait_flags[i] != object2_ptr->trait_flags[i]) return FALSE;
 
 	/* Hack -- Never stack "powerful" items */
-	if(object_ptr->xtra1 || j_ptr->xtra1) return SUCCESS;
+	if(object1_ptr->xtra1 || object2_ptr->xtra1) return FALSE;
 
 	/* Hack -- Never stack recharging items */
-	if(object_ptr->timeout || j_ptr->timeout) return SUCCESS;
+	if(object1_ptr->timeout || object2_ptr->timeout) return FALSE;
 
 	/* Require many identical values */
-	if(object_ptr->ac != j_ptr->ac)   return SUCCESS;
-	if(object_ptr->dd != j_ptr->dd)   return SUCCESS;
-	if(object_ptr->ds != j_ptr->ds)   return SUCCESS;
+	if(object1_ptr->ac != object2_ptr->ac)   return FALSE;
+	if(object1_ptr->dd != object2_ptr->dd)   return FALSE;
+	if(object1_ptr->ds != object2_ptr->ds)   return FALSE;
 
 	/* Hack -- Never stack chests */
-	if(object_ptr->tval == TV_CHEST) return SUCCESS;
-	if(object_ptr->tval == TV_STATUE) return SUCCESS;
-	if(object_ptr->tval == TV_CAPTURE) return SUCCESS;
+	if(object1_ptr->tval == TV_CHEST) return FALSE;
+	if(object1_ptr->tval == TV_STATUE) return FALSE;
+	if(object1_ptr->tval == TV_CAPTURE) return FALSE;
 
 	/* Require matching discounts */
-	if(object_ptr->discount != j_ptr->discount) return SUCCESS;
+	if(object1_ptr->discount != object2_ptr->discount) return FALSE;
 
 	/* They match, so they must be similar */
 	return TRUE;
@@ -1471,8 +1447,7 @@ static bool store_object_similar(object_type *object_ptr, object_type *j_ptr)
  */
 static void store_object_absorb(object_type *object_ptr, object_type *j_ptr)
 {
-	int max_num = IS_ROD(object_ptr) ?
-		MIN(99, MAX_SHORT / object_kind_info[object_ptr->k_idx].pval) : 99;
+	int max_num = IS_ROD(object_ptr) ? MIN(99, MAX_SHORT / object_kind_info[object_ptr->k_idx].pval) : 99;
 	int total = object_ptr->number + j_ptr->number;
 	int diff = (total > max_num) ? total - max_num : 0;
 
@@ -1481,15 +1456,11 @@ static void store_object_absorb(object_type *object_ptr, object_type *j_ptr)
 
 	/* Hack -- if rods are stacking, add the pvals (maximum timeouts) together. -LM- */
 	if(IS_ROD(object_ptr))
-	{
 		object_ptr->pval += j_ptr->pval * (j_ptr->number - diff) / j_ptr->number;
-	}
 
 	/* Hack -- if wands are stacking, combine the charges. -LM- */
 	if(object_ptr->tval == TV_WAND)
-	{
 		object_ptr->pval += j_ptr->pval * (j_ptr->number - diff) / j_ptr->number;
-	}
 }
 
 
@@ -1567,7 +1538,6 @@ static int store_check_num(store_type *st_ptr, object_type *object_ptr)
 	return 0;
 }
 
-
 static bool is_blessed(object_type *object_ptr)
 {
 	u32b flgs[TRAIT_FLAG_MAX];
@@ -1576,13 +1546,8 @@ static bool is_blessed(object_type *object_ptr)
 	else return FALSE;
 }
 
-
-
-/*
- * Determine if the current store will purchase the given item
- *
- * Note that a shop-keeper must refuse to buy "worthless" items
- */
+// Determine if the current store will purchase the given item
+// Note that a shop-keeper must refuse to buy "worthless" items
 static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Hack -- The Home is simple */
@@ -1809,7 +1774,6 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 		/* Combine the items in the home (backwards) */
 		for (i = st_ptr->stock_num - 1; i > 0; i--)
 		{
-			/* Get the item */
 			object_ptr = &st_ptr->stock[i];
 
 			/* Skip empty items */
@@ -1820,7 +1784,6 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 			{
 				int max_num;
 
-				/* Get the item */
 				j_ptr = &st_ptr->stock[j];
 
 				/* Skip empty items */
@@ -1892,7 +1855,6 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 	/* Re-order the items in the home (forwards) */
 	for (i = 0; i < st_ptr->stock_num; i++)
 	{
-		/* Get the item */
 		object_ptr = &st_ptr->stock[i];
 
 		/* Skip empty slots */
@@ -2002,15 +1964,11 @@ static int home_carry(creature_type *creature_ptr, store_type *st_ptr, object_ty
 
 	/* Check existing slots to see if we must "slide" */
 	for (slot = 0; slot < st_ptr->stock_num; slot++)
-	{
 		if(object_sort_comp(creature_ptr, object_ptr, value, &st_ptr->stock[slot])) break;
-	}
 
 	/* Slide the others up */
 	for (i = st_ptr->stock_num; i > slot; i--)
-	{
 		st_ptr->stock[i] = st_ptr->stock[i-1];
-	}
 
 	/* More stuff now */
 	st_ptr->stock_num++;
@@ -2138,7 +2096,6 @@ static void store_item_increase(store_type *st_ptr, int item, int num)
 	int 		cnt;
 	object_type *object_ptr;
 
-	/* Get the item */
 	object_ptr = &st_ptr->stock[item];
 
 	/* Verify the number */
@@ -2159,8 +2116,6 @@ static void store_item_optimize(store_type *st_ptr, int item)
 {
 	int 		j;
 	object_type *object_ptr;
-
-	/* Get the item */
 	object_ptr = &st_ptr->stock[item];
 
 	/* Must exist */
@@ -2174,9 +2129,7 @@ static void store_item_optimize(store_type *st_ptr, int item)
 
 	/* Slide everyone */
 	for (j = item; j < st_ptr->stock_num; j++)
-	{
 		st_ptr->stock[j] = st_ptr->stock[j + 1];
-	}
 
 	/* Nuke the final slot */
 	object_wipe(&st_ptr->stock[j]);
@@ -2453,7 +2406,6 @@ static void display_entry(store_type *st_ptr, creature_type *creature_ptr, int p
 
 	int maxwid = 75;
 
-	/* Get the item */
 	object_ptr = &st_ptr->stock[pos];
 
 	/* Get the "offset" */

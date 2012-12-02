@@ -857,7 +857,6 @@ static char *analyze_font(char *path, int *wp, int *hp)
 	(*wp) = wid;
 	(*hp) = hgt;
 
-	/* Result */
 	return (p);
 }
 #endif
@@ -1612,7 +1611,6 @@ static bool init_graphics(void)
 		can_use_graphics = arg_graphics;
 	}
 
-	/* Result */
 	return (can_use_graphics);
 }
 
@@ -1632,7 +1630,6 @@ static bool init_sound(void)
 		can_use_sound = TRUE;
 	}
 
-	/* Result */
 	return (can_use_sound);
 }
 #endif /* USE_SOUND */

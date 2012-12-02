@@ -764,7 +764,6 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 		chest_death(FALSE, floor_ptr, y, x, object_idx);
 	}
 
-	/* Result */
 	return (more);
 }
 
@@ -965,7 +964,6 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 		sound(SOUND_OPENDOOR);
 	}
 
-	/* Result */
 	return (more);
 }
 
@@ -1134,7 +1132,6 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 		}
 	}
 
-	/* Result */
 	return (more);
 }
 
@@ -1415,7 +1412,6 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 		if(randint0(100) < 25) search(creature_ptr);
 	}
 
-	/* Result */
 	return more;
 }
 
@@ -1573,7 +1569,6 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 		sound(SOUND_OPENDOOR);
 	}
 
-	/* Result */
 	return TRUE;
 }
 
@@ -1684,7 +1679,6 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 		chest_trap(creature_ptr, y, x, object_idx);
 	}
 
-	/* Result */
 	return (more);
 }
 
@@ -1781,7 +1775,6 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 		walk_creature(creature_ptr, dir, easy_disarm, FALSE);
 	}
 
-	/* Result */
 	return (more);
 }
 
@@ -1976,7 +1969,6 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 		(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, 1 + randint0(2), FALSE);
 	}
 
-	/* Result */
 	return (more);
 }
 

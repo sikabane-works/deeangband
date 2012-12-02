@@ -4859,7 +4859,6 @@ static s16b poly_species_idx(int pre_species_idx)
 		break;
 	}
 
-	/* Result */
 	return (after_species_idx);
 }
 

@@ -352,7 +352,6 @@ static char *object_desc_chr(char *t, char c)
 	/* Terminate */
 	*t = '\0';
 
-	/* Result */
 	return (t);
 }
 
@@ -369,7 +368,6 @@ static char *object_desc_str(char *t, cptr s)
 	/* Terminate */
 	*t = '\0';
 
-	/* Result */
 	return (t);
 }
 
@@ -402,7 +400,6 @@ static char *object_desc_num(char *t, uint n)
 	/* Terminate */
 	*t = '\0';
 
-	/* Result */
 	return (t);
 }
 
@@ -558,7 +555,6 @@ static char *object_desc_int(char *t, sint v)
 	/* Terminate */
 	*t = '\0';
 
-	/* Result */
 	return (t);
 }
 

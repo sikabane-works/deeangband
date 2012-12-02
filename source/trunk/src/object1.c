@@ -2212,7 +2212,6 @@ if(other_query_flag && !verify(creature_ptr, "–{“–‚É", k)) continue;
 		command_cmd = 0; /* Hack -- command_cmd is no longer effective */
 	}
 
-	/* Result */
 	return (item);
 }
 
@@ -2261,7 +2260,6 @@ int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode)
 		if(mode & 0x04) break;
 	}
 
-	/* Result */
 	return num;
 }
 
@@ -2344,7 +2342,6 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 		/* Get the index */
 		i = floor_list[out_index[j]];
 
-		/* Get the item */
 		object_ptr = &object_list[i];
 
 		/* Clear the line */
@@ -3623,7 +3620,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 		command_cmd = 0; /* Hack -- command_cmd is no longer effective */
 	}
 
-	/* Result */
 	return (item);
 }
 

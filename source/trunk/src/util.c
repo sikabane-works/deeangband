@@ -1669,7 +1669,6 @@ static sint macro_find_ready(cptr pat)
 		s = t;
 	}
 
-	/* Result */
 	return (n);
 }
 
@@ -3507,7 +3506,6 @@ bool get_string(cptr prompt, char *buf, int len)
 	/* Clear prompt */
 	prt("", 0, 0);
 
-	/* Result */
 	return (res);
 }
 

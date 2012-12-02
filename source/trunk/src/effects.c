@@ -450,7 +450,6 @@ bool set_afraid(creature_type *creature_ptr, int v)
 
 		handle_stuff();
 
-		/* Result */
 		return TRUE;
 
 		}
@@ -566,7 +565,6 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
-	/* Result */
 	return TRUE;
 }
 
@@ -778,7 +776,6 @@ bool set_stun(creature_type *creature_ptr, int v)
 
 	handle_stuff();
 
-	/* Result */
 	return TRUE;
 	}
 	else
@@ -1082,7 +1079,6 @@ bool set_cut(creature_type *creature_ptr, int v)
 
 	handle_stuff();
 
-	/* Result */
 	return TRUE;
 }
 #endif
@@ -1304,7 +1300,6 @@ bool set_food(creature_type *creature_ptr, int v)
 
 	handle_stuff();
 
-	/* Result */
 	return TRUE;
 }
 

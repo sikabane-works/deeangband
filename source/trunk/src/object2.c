@@ -618,7 +618,6 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 	}
 
 
-	/* Result */
 	return (table[i].index);
 }
 
@@ -3405,7 +3404,6 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 
 	/* XXX XXX XXX */
 
-	/* Result */
 	return (object_idx);
 }
 
@@ -4237,7 +4235,6 @@ void reorder_pack(creature_type *creature_ptr)
 		/* Mega-Hack -- allow "proper" over-flow */
 		if((i == INVEN_TOTAL) && (creature_ptr->inven_cnt == INVEN_TOTAL)) break;
 
-		/* Get the item */
 		object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip empty slots */

@@ -1103,7 +1103,6 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 	/* Save */
 	(*sp) = s;
 
-	/* Result */
 	return (v);
 }
 
@@ -1247,7 +1246,6 @@ static errr process_pref_file_aux(cptr name, int preftype)
 	/* Close the file */
 	my_fclose(fp);
 
-	/* Result */
 	return (err);
 }
 
@@ -7116,7 +7114,6 @@ errr process_autopick_file(cptr name)
 
 	err = process_pref_file_aux(buf, PREF_TYPE_AUTOPICK);
 
-	/* Result */
 	return (err);
 }
 
@@ -7134,7 +7131,6 @@ errr process_histpref_file(cptr name)
 
 	err = process_pref_file_aux(buf, PREF_TYPE_HISTPREF);
 
-	/* Result */
 	return (err);
 }
 

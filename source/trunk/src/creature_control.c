@@ -1251,7 +1251,6 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 		}
 	}
 
-	/* Result */
 	/* Since okay is int, "return (okay);" is not correct. */
 	return (bool)(okay ? TRUE : FALSE);
 }

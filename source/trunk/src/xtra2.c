@@ -1797,7 +1797,6 @@ static s16b target_pick(int y1, int x1, int dy, int dx)
 		b_i = i; b_v = v;
 	}
 
-	/* Result */
 	return (b_i);
 }
 

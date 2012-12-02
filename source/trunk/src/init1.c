@@ -7429,7 +7429,6 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 	/* Save */
 	(*sp) = s;
 
-	/* Result */
 	return (v);
 }
 

@@ -453,7 +453,6 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 		}
 	}
 
-	/* Result */
 	return detect;
 }
 
@@ -479,7 +478,6 @@ bool detect_traps(creature_type *creature_ptr, int range, bool known)
 #endif
 	}
 
-	/* Result */
 	return detect;
 }
 
@@ -503,7 +501,6 @@ bool detect_doors(creature_type *creature_ptr, int range)
 #endif
 	}
 
-	/* Result */
 	return detect;
 }
 
@@ -527,7 +524,6 @@ bool detect_stairs(creature_type *creature_ptr, int range)
 #endif
 	}
 
-	/* Result */
 	return detect;
 }
 
@@ -551,7 +547,6 @@ bool detect_treasure(creature_type *creature_ptr, int range)
 #endif
 	}
 
-	/* Result */
 	return detect;
 }
 
@@ -617,7 +612,6 @@ bool detect_objects_gold(creature_type *creature_ptr, int range)
 		detect = TRUE;
 	}
 
-	/* Result */
 	return (detect);
 }
 
@@ -684,7 +678,6 @@ bool detect_objects_normal(creature_type *creature_ptr, int range)
 		detect = TRUE;
 	}
 
-	/* Result */
 	return (detect);
 }
 
@@ -837,7 +830,6 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 
 	}
 
-	/* Result */
 	return (flag);
 }
 
@@ -906,7 +898,6 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 
 	}
 
-	/* Result */
 	return (flag);
 }
 
@@ -980,7 +971,6 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 
 	}
 
-	/* Result */
 	return (flag);
 }
 
@@ -1049,7 +1039,6 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 
 	}
 
-	/* Result */
 	return (flag);
 }
 
@@ -1116,7 +1105,6 @@ bool detect_creatures_mind(creature_type *creature_ptr, int range)
 
 	}
 
-	/* Result */
 	return (flag);
 }
 
@@ -1185,7 +1173,6 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 
 	}
 
-	/* Result */
 	return (flag);
 }
 
@@ -1276,7 +1263,6 @@ bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_fla
 		msg_print(NULL);
 	}
 
-	/* Result */
 	return (flag);
 }
 
@@ -1301,7 +1287,6 @@ bool detect_all(creature_type *creature_ptr, int range)
 	if(detect_creatures_invis(creature_ptr, range)) detect = TRUE;
 	if(detect_creatures_normal(creature_ptr, range)) detect = TRUE;
 
-	/* Result */
 	return (detect);
 }
 
@@ -1898,7 +1883,6 @@ bool probing(floor_type *floor_ptr)
 
 	}
 
-	/* Result */
 	return (probe);
 }
 
