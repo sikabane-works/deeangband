@@ -2288,7 +2288,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 				show_gold_on_floor = FALSE;
 				*/
 
-				/* Prompt */
 #ifdef JP
 				sprintf(out_val, "%s %dŒÂ‚ÌƒAƒCƒeƒ€%s%s [Enter‚ÅŸ‚Ö, %s]", s1, floor_num, s2, s3, info);
 #else

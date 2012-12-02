@@ -285,7 +285,6 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 		{
 			char tmp_val[160];
 
-			/* Prompt */
 #ifdef JP
 			(void) strnfmt(tmp_val, 78, "%sÇégÇ¢Ç‹Ç∑Ç©ÅH", do_spell(creature_ptr, REALM_HISSATSU, j, SPELL_NAME));
 #else

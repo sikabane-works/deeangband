@@ -241,7 +241,6 @@ put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
 		{
 			char tmp_val[160];
 
-			/* Prompt */
 #ifdef JP
 			(void) strnfmt(tmp_val, 78, "%s‚ð‚Ü‚Ë‚Ü‚·‚©H", racial_powers[creature_ptr->mane_spell[i]].name);
 #else

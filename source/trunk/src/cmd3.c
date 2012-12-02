@@ -651,7 +651,6 @@ void do_cmd_destroy(creature_type *creature_ptr)
 		{
 			char i;
 
-			/* Prompt */
 			prt(out_val, 0, 0);
 
 			i = inkey();

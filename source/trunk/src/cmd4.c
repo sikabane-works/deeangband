@@ -1076,7 +1076,6 @@ void do_cmd_nikki(creature_type *player_ptr)
 		prt("Command: ", 18, 0);
 #endif
 
-		/* Prompt */
 		i = inkey();
 
 		if(i == ESCAPE) break;
@@ -1213,7 +1212,6 @@ void do_cmd_change_name(creature_type *creature_ptr)
 		display_creature_status(mode, creature_ptr);
 
 
-		/* Prompt */
 #ifdef JP
 		Term_putstr(2, 23, -1, TERM_WHITE,
 			    "['c'で名前変更, 'f'でファイルへ書出, 'h'でモード変更, ESCで終了]");
@@ -1389,7 +1387,6 @@ void do_cmd_messages(int num_now)
 		{
 		/* Hack -- handle show */
 		case '=':
-			/* Prompt */
 #ifdef JP
 			prt("強調: ", hgt - 1, 0);
 #else
@@ -1414,7 +1411,6 @@ void do_cmd_messages(int num_now)
 			{
 				int z;
 
-				/* Prompt */
 #ifdef JP
 				prt("検索: ", hgt - 1, 0);
 #else
@@ -2996,7 +2992,6 @@ void do_cmd_macros(void)
 			/* Dump the macros */
 			(void)macro_dump(tmp);
 
-			/* Prompt */
 #ifdef JP
 			msg_print("マクロを追加しました。");
 #else
@@ -3010,7 +3005,6 @@ void do_cmd_macros(void)
 		{
 			int k;
 
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: マクロの確認", 16, 0);
 #else
@@ -3018,7 +3012,6 @@ void do_cmd_macros(void)
 #endif
 
 
-			/* Prompt */
 #ifdef JP
 			prt("トリガーキー: ", 18, 0);
 #else
@@ -3035,7 +3028,6 @@ void do_cmd_macros(void)
 			/* Nothing found */
 			if(k < 0)
 			{
-				/* Prompt */
 #ifdef JP
 				msg_print("そのキーにはマクロは定義されていません。");
 #else
@@ -3056,7 +3048,6 @@ void do_cmd_macros(void)
 				/* Display the current action */
 				prt(buf, 22, 0);
 
-				/* Prompt */
 #ifdef JP
 				msg_print("マクロを確認しました。");
 #else
@@ -3069,7 +3060,6 @@ void do_cmd_macros(void)
 		/* Create a macro */
 		else if(i == '4')
 		{
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: マクロの作成", 16, 0);
 #else
@@ -3077,7 +3067,6 @@ void do_cmd_macros(void)
 #endif
 
 
-			/* Prompt */
 #ifdef JP
 			prt("トリガーキー: ", 18, 0);
 #else
@@ -3098,7 +3087,6 @@ void do_cmd_macros(void)
 			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
 #endif
 
-			/* Prompt */
 #ifdef JP
 			prt("マクロ行動: ", 20, 0);
 #else
@@ -3118,7 +3106,6 @@ void do_cmd_macros(void)
 				/* Link the macro */
 				macro_add(buf, macro__buf);
 
-				/* Prompt */
 #ifdef JP
 				msg_print("マクロを追加しました。");
 #else
@@ -3131,7 +3118,6 @@ void do_cmd_macros(void)
 		/* Remove a macro */
 		else if(i == '5')
 		{
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: マクロの削除", 16, 0);
 			prt("トリガーキー: ", 18, 0);
@@ -3146,7 +3132,6 @@ void do_cmd_macros(void)
 			/* Link the macro */
 			macro_add(buf, buf);
 
-			/* Prompt */
 #ifdef JP
 			msg_print("マクロを削除しました。");
 #else
@@ -3158,7 +3143,6 @@ void do_cmd_macros(void)
 		/* Save keymaps */
 		else if(i == '6')
 		{
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: キー配置をファイルに追加する", 16, 0);
 			prt("ファイル: ", 18, 0);
@@ -3176,7 +3160,6 @@ void do_cmd_macros(void)
 			/* Dump the macros */
 			(void)keymap_dump(tmp);
 
-			/* Prompt */
 #ifdef JP
 			msg_print("キー配置を追加しました。");
 #else
@@ -3207,7 +3190,6 @@ void do_cmd_macros(void)
 			/* Nothing found */
 			if(!act)
 			{
-				/* Prompt */
 #ifdef JP
 				msg_print("キー配置は定義されていません。");
 #else
@@ -3228,7 +3210,6 @@ void do_cmd_macros(void)
 				/* Display the current action */
 				prt(buf, 22, 0);
 
-				/* Prompt */
 #ifdef JP
 				msg_print("キー配置を確認しました。");
 #else
@@ -3262,7 +3243,6 @@ void do_cmd_macros(void)
 			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
 #endif
 
-			/* Prompt */
 #ifdef JP
 			prt("行動: ", 20, 0);
 #else
@@ -3285,7 +3265,6 @@ void do_cmd_macros(void)
 				/* Make new keymap */
 				keymap_act[mode][(byte)(buf[0])] = string_make(macro__buf);
 
-				/* Prompt */
 #ifdef JP
 				msg_print("キー配置を追加しました。");
 #else
@@ -3315,7 +3294,6 @@ void do_cmd_macros(void)
 			/* Make new keymap */
 			keymap_act[mode][(byte)(buf[0])] = NULL;
 
-			/* Prompt */
 #ifdef JP
 			msg_print("キー配置を削除しました。");
 #else
@@ -3465,7 +3443,6 @@ void do_cmd_visuals(void)
 		/* Ask for a choice */
 		print_visuals_menu(NULL);
 
-		/* Prompt */
 		i = inkey();
 
 		if(i == ESCAPE) break;
@@ -3499,7 +3476,6 @@ void do_cmd_visuals(void)
 		{
 			static cptr mark = "Creature attr/chars";
 
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: クリーチャーの[色/文字]をファイルに書き出します", 15, 0);
 			prt("ファイル: ", 17, 0);
@@ -3560,14 +3536,12 @@ void do_cmd_visuals(void)
 		{
 			static cptr mark = "Object attr/chars";
 
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: アイテムの[色/文字]をファイルに書き出します", 15, 0);
 #else
 			prt("Command: Dump object attr/chars", 15, 0);
 #endif
 
-			/* Prompt */
 #ifdef JP
 			prt("ファイル: ", 17, 0);
 #else
@@ -3643,14 +3617,12 @@ void do_cmd_visuals(void)
 		{
 			static cptr mark = "Feature attr/chars";
 
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: 地形の[色/文字]をファイルに書き出します", 15, 0);
 #else
 			prt("Command: Dump feature attr/chars", 15, 0);
 #endif
 
-			/* Prompt */
 #ifdef JP
 			prt("ファイル: ", 17, 0);
 #else
@@ -3772,7 +3744,6 @@ void do_cmd_visuals(void)
 				Term_putstr(40, 20, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
 
-				/* Prompt */
 #ifdef JP
 				Term_putstr(0, 22, -1, TERM_WHITE,
 					    "コマンド (n/N/^N/a/A/^A/c/C/^C/v/V/^V): ");
@@ -3895,7 +3866,6 @@ void do_cmd_visuals(void)
 				Term_putstr(40, 20, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
 
-				/* Prompt */
 #ifdef JP
 				Term_putstr(0, 22, -1, TERM_WHITE,
 					    "コマンド (n/N/^N/a/A/^A/c/C/^C/v/V/^V): ");
@@ -4012,7 +3982,6 @@ void do_cmd_visuals(void)
 				Term_putstr(40, 20, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
 
-				/* Prompt */
 #ifdef JP
 				Term_putstr(0, 22, -1, TERM_WHITE,
 					    "コマンド (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): ");
@@ -4165,7 +4134,6 @@ void do_cmd_colors(void)
 		prt("Command: ", 8, 0);
 #endif
 
-		/* Prompt */
 		i = inkey();
 
 		if(i == ESCAPE) break;
@@ -4173,7 +4141,6 @@ void do_cmd_colors(void)
 		/* Load a 'pref' file */
 		if(i == '1')
 		{
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: ユーザー設定ファイルをロードします", 8, 0);
 			prt("ファイル: ", 10, 0);
@@ -4203,7 +4170,6 @@ void do_cmd_colors(void)
 		{
 			static cptr mark = "Colors";
 
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: カラーの設定をファイルに書き出します", 8, 0);
 			prt("ファイル: ", 10, 0);
@@ -4279,7 +4245,6 @@ void do_cmd_colors(void)
 		{
 			static byte a = 0;
 
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: カラーの設定を変更します", 8, 0);
 #else
@@ -7602,7 +7567,6 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			display_visual_list(max + 3, 7, browser_rows-1, wid - (max + 3), attr_top, char_left);
 		}
 
-		/* Prompt */
 #ifdef JP
 		prt(format("<方向>%s%s%s, ESC",
 			(!visual_list && !visual_only) ? ", 'r'でステータス" : "",
@@ -8111,7 +8075,6 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 			flavor_object_kind_ptr = object_kind_ptr;
 		}
 
-		/* Prompt */
 #ifdef JP
 		prt(format("<方向>%s%s%s, ESC",
 			(!visual_list && !visual_only) ? ", 'r'で詳細を見る" : "",
@@ -8464,7 +8427,6 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 			display_visual_list(max + 3, 7, browser_rows-1, wid - (max + 3), attr_top, char_left);
 		}
 
-		/* Prompt */
 #ifdef JP
 		prt(format("<方向>%s, 'd'で標準光源効果%s, ESC",
 			visual_list ? ", ENTERで決定, 'a'で対象明度変更" : ", 'v'でシンボル変更",
@@ -9621,7 +9583,6 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 			prt("(i) Display auto pick/destroy", 14, 5);
 		}
 #endif
-		/* Prompt */
 #ifdef JP
 		prt("-続く-", 17, 8);
 		prt("ESC) 抜ける", 21, 1);
@@ -9636,7 +9597,6 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 		prt("Command: ", 20, 0);
 #endif
 
-		/* Prompt */
 		i = inkey();
 
 		if(i == ESCAPE) break;

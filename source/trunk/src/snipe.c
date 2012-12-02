@@ -354,7 +354,6 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 		{
 			char tmp_val[160];
 
-			/* Prompt */
 #ifdef JP
 			(void) strnfmt(tmp_val, 78, "%s‚ğg‚¢‚Ü‚·‚©H", snipe_powers[i].name);
 #else

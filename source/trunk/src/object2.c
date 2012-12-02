@@ -5797,7 +5797,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			{
 				char tmp_val[160];
 
-				/* Prompt */
 #ifdef JP
 				(void) strnfmt(tmp_val, 78, "%s‚ğ•t‰Á‚µ‚Ü‚·‚©H ", essence_info[num[i]].add_name);
 #else

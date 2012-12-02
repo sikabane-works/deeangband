@@ -4154,7 +4154,6 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			{
 				char tmp_val[160];
 
-				/* Prompt */
 #ifdef JP
 				(void) strnfmt(tmp_val, 78, "%s‚ğg‚¢‚Ü‚·‚©H ", object_kind_name + object_kind_info[lookup_kind(tval ,i)].name);
 #else

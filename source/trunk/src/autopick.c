@@ -5846,7 +5846,6 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 		/* Erase line */
 		Term_erase(0, tb->cy - tb->upper + 1, tb->wid);
 
-		/* Prompt */
 #ifdef JP
 		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, "P:<トリガーキー>: ");
 #else
@@ -5873,7 +5872,6 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 		/* Erase line */
 		Term_erase(0, tb->cy - tb->upper + 1, tb->wid);
 
-		/* Prompt */
 #ifdef JP
 		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, format("C:%d:<コマンドキー>: ", (rogue_like_commands ? KEYMAP_MODE_ROGUE : KEYMAP_MODE_ORIG)));
 #else

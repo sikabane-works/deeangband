@@ -274,7 +274,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 				need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, use_realm);
 			}
 
-			/* Prompt */
 #ifdef JP
 			jverb1( prompt, jverb_buf );
 			/* 英日切り替え機能に対応 */
@@ -2403,7 +2402,6 @@ void do_cmd_pet(creature_type *master_ptr)
 			/* Verify it */
 			if(ask)
 			{
-				/* Prompt */
 #ifdef JP
 				strnfmt(buf, 78, "%sを使いますか？ ", power_desc[i]);
 #else

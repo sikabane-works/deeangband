@@ -2619,7 +2619,6 @@ void do_cmd_spoilers(void)
 		prt("(4) Full Creature Info (mon-info.spo)", 8, 5);
 		prt("(5) Creature Evolution Info (mon-evol.spo)", 9, 5);
 
-		/* Prompt */
 #ifdef JP
 		prt("ƒRƒ}ƒ“ƒh:", 18, 0);
 #else

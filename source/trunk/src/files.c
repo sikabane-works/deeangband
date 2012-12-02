@@ -6579,7 +6579,6 @@ prt("リターンキーでキャラクターを見ます。ESCで中断します。", 22, 0);
 	{
 		char out_val[160];
 
-		/* Prompt */
 #ifdef JP
 put_str("ファイルネーム: ", 23, 0);
 #else

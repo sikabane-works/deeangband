@@ -628,7 +628,6 @@ put_str("MP ¸—¦ Œø‰Ê", y, x + 33);
 		{
 			char tmp_val[160];
 
-			/* Prompt */
 #ifdef JP
 			(void) strnfmt(tmp_val, 78, "%s‚Ì–‚–@‚ğ¥‚¦‚Ü‚·‚©H", racial_powers[spellnum[i]].name);
 #else

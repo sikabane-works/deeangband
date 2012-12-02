@@ -1236,7 +1236,6 @@ static bool verify(creature_type *creature_ptr, cptr prompt, int item)
 	object_ptr = GET_ITEM(creature_ptr, item);
 	object_desc(object_name, object_ptr, 0);
 
-	/* Prompt */
 #ifdef JP
 	(void)sprintf(out_val, "%s%s‚Å‚·‚©? ", prompt, object_name);
 #else

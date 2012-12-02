@@ -176,7 +176,6 @@ void screen_roff(creature_type *creature_ptr)
 			display_creature_status(m, creature_ptr);
 		}
 
-		/* Prompt */
 #ifdef JP
 		Term_putstr(2, 23, -1, TERM_WHITE,
 		    "['h'でモード変更, ESCで終了]");

@@ -700,7 +700,6 @@ static void pattern_teleport(creature_type *creature_ptr)
 			min_level = dungeon_info[floor_ptr->dun_type].mindepth;
 		}
 
-		/* Prompt */
 #ifdef JP
 		sprintf(ppp, "テレポート先:(%d-%d)", min_level, max_level);
 #else

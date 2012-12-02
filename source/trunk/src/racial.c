@@ -81,10 +81,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 
 	while (TRUE)
 	{
-		if(!get_com(com, &ch, TRUE))
-		{
-			return FALSE;
-		}
+		if(!get_com(com, &ch, TRUE)) return FALSE;
 		if(ch == 'S' || ch == 's')
 		{
 			ext = 1;
@@ -699,19 +696,12 @@ static int racial_chance(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	int sum = 0;
 	int stat = creature_ptr->stat_cur[pd_ptr->stat];
 
-	/* No chance for success */
-	if((creature_ptr->lev < min_level) || creature_ptr->timed_trait[TRAIT_CONFUSED])
-	{
-		return SUCCESS;
-	}
+	if((creature_ptr->lev < min_level) || creature_ptr->timed_trait[TRAIT_CONFUSED]) return SUCCESS;
 
 	if(difficulty == 0) return 100;
 
 	/* Calculate difficulty */
-	if(has_trait(creature_ptr, TRAIT_STUN))
-	{
-		difficulty += creature_ptr->timed_trait[TRAIT_STUN];
-	}
+	if(has_trait(creature_ptr, TRAIT_STUN)) difficulty += creature_ptr->timed_trait[TRAIT_STUN];
 	else if(creature_ptr->lev > min_level)
 	{
 		int lev_adj = ((creature_ptr->lev - min_level) / 3);
@@ -731,10 +721,8 @@ static int racial_chance(creature_type *creature_ptr, power_desc_type *pd_ptr)
 			sum += (val <= difficulty) ? val : difficulty;
 	}
 
-	if(difficulty == 0)
-		return (100);
-	else
-		return (((sum * 100) / difficulty) / stat);
+	if(difficulty == 0) return (100);
+	else return (((sum * 100) / difficulty) / stat);
 }
 
 
@@ -764,12 +752,10 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 #else
 		msg_format("You need to attain level %d to use this power.", min_level);
 #endif
-
 		cancel_tactical_action(creature_ptr);
 		return 0;
 	}
 
-	/* Too confused */
 	else if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
@@ -777,12 +763,10 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 #else
 		msg_print("You are too confused to use this power.");
 #endif
-
 		cancel_tactical_action(creature_ptr);
 		return 0;
 	}
 
-	/* Risk death? */
 	else if(creature_ptr->chp < use_hp)
 	{
 #ifdef JP
@@ -800,10 +784,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 
 	if(difficulty)
 	{
-		if(has_trait(creature_ptr, TRAIT_STUN))
-		{
-			difficulty += creature_ptr->timed_trait[TRAIT_STUN];
-		}
+		if(has_trait(creature_ptr, TRAIT_STUN)) difficulty += creature_ptr->timed_trait[TRAIT_STUN];
 		else if(creature_ptr->lev > min_level)
 		{
 			int lev_adj = ((creature_ptr->lev - min_level) / 3);
@@ -855,9 +836,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		case CLASS_PRIEST:
 		{
 			if(is_good_realm(creature_ptr->realm1))
-			{
 				if(!bless_weapon(creature_ptr)) return FALSE;
-			}
 			else
 			{
 				(void)dispel_creatures(creature_ptr, plev * 4);
@@ -928,9 +907,9 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				}
 				else
 #ifdef JP
-					msg_print("変換に失敗した。");
+				msg_print("変換に失敗した。");
 #else
-					msg_print("You failed to convert.");
+				msg_print("You failed to convert.");
 #endif
 			}
 
@@ -1760,15 +1739,12 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				}
 
 				stop_mouth(creature_ptr);
-
 #ifdef JP
 				msg_format("あなたは%sのブレスを吐いた。", Type_desc);
 #else
 				msg_format("You breathe %s.", Type_desc);
 #endif
-
-				cast_ball(creature_ptr, Type, dir, plev * 2,
-				    -(plev / 15) - 1);
+				cast_ball(creature_ptr, Type, dir, plev * 2, -(plev / 15) - 1);
 			}
 			break;
 
@@ -2214,7 +2190,6 @@ prt("                            Lv   MP 失率                            Lv   MP
 			else
 			{
 				ask = FALSE; /* Can't uppercase digits */
-
 				i = choice - '0' + 26;
 			}
 		}
@@ -2231,9 +2206,8 @@ prt("                            Lv   MP 失率                            Lv   MP
 		{
 			char tmp_val[160];
 
-			/* Prompt */
 #ifdef JP
-(void) strnfmt(tmp_val, 78, "%sを使いますか？ ", power_desc[i].name);
+			(void) strnfmt(tmp_val, 78, "%sを使いますか？ ", power_desc[i].name);
 #else
 			(void)strnfmt(tmp_val, 78, "Use %s? ", power_desc[i].name);
 #endif

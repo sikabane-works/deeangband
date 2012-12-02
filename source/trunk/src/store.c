@@ -3623,7 +3623,6 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 	/* And then restrict it to the current page */
 	if(i > store_bottom) i = store_bottom;
 
-	/* Prompt */
 #ifdef JP
 	/* ブラックマーケットの時は別のメッセージ */
 	if(is_home(st_ptr))
@@ -4398,7 +4397,6 @@ static void store_examine(store_type *st_ptr)
 	/* And then restrict it to the current page */
 	if(i > store_bottom) i = store_bottom;
 
-	/* Prompt */
 #ifdef JP
 sprintf(out_val, "どれを調べますか？");
 #else
@@ -4480,7 +4478,6 @@ static void museum_remove_object(store_type *st_ptr, creature_type *creature_ptr
 	/* And then restrict it to the current page */
 	if(i > store_bottom) i = store_bottom;
 
-	/* Prompt */
 #ifdef JP
 	sprintf(out_val, "どのアイテムの展示をやめさせますか？");
 #else
@@ -4658,7 +4655,6 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 					//display_creature_status(mode, creature_ptr);
 				}
 
-				/* Prompt */
 #ifdef JP
 				Term_putstr(2, 23, -1, TERM_WHITE,
 					    "['h'でモード変更, ESCで終了]");
@@ -5111,7 +5107,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 			prt("w/t) Wear/Take off equipment", 22 + xtra_stock, 56);
 		}
 #endif
-		/* Prompt */
 #ifdef JP
 		prt("コマンド:", 20 + xtra_stock, 0);
 #else

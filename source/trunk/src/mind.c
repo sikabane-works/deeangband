@@ -781,7 +781,6 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 		{
 			char tmp_val[160];
 
-			/* Prompt */
 #ifdef JP
 (void) strnfmt(tmp_val, 78, "%s‚ğg‚¢‚Ü‚·‚©H", spell.name);
 #else
