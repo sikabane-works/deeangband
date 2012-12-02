@@ -812,10 +812,7 @@ int choose_dungeon(cptr note, int y, int x)
 
 		if(!dungeon_info[i].maxdepth) continue;
 		if(!max_dlv[i]) continue;
-		if(dungeon_info[i].final_guardian)
-		{
-			if(!species_info[dungeon_info[i].final_guardian].max_num) seiha = TRUE;
-		}
+		if(dungeon_info[i].final_guardian) if(!species_info[dungeon_info[i].final_guardian].max_num) seiha = TRUE;
 		else if(max_dlv[i] == dungeon_info[i].maxdepth) seiha = TRUE;
 
 #ifdef JP
@@ -882,11 +879,10 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 	if(floor_ptr->fight_arena_mode || ironman_downward)
 	{
 #ifdef JP
-msg_print("何も起こらなかった。");
+		msg_print("何も起こらなかった。");
 #else
 		msg_print("Nothing happens.");
 #endif
-
 		return TRUE;
 	}
 
@@ -923,7 +919,7 @@ if(get_check("ここは最深到達階より浅い階です。この階に戻って来ますか？ "))
 		}
 		creature_ptr->timed_trait[TRAIT_WORD_RECALL] = turns;
 #ifdef JP
-msg_print("回りの大気が張りつめてきた...");
+		msg_print("回りの大気が張りつめてきた...");
 #else
 		msg_print("The air about you becomes charged...");
 #endif
@@ -1071,7 +1067,6 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 
 		creature_ptr->creature_update |= (CRU_BONUS);
 
-		/* Window stuff */
 		play_window |= (PW_EQUIP | PW_PLAYER);
 
 		calc_android_exp(creature_ptr);
@@ -1580,7 +1575,6 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 
 	play_redraw |= (PR_MAP);
 
-	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	return TRUE;
@@ -2043,7 +2037,6 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 
 		creature_ptr->creature_update |= (CRU_BONUS);
 
-		/* Window stuff */
 		play_window |= (PW_EQUIP);
 
 		/* Count the uncursings */
@@ -2174,7 +2167,6 @@ msg_format("%sを＄%d の金に変えた。", object_name, price);
 
 		play_redraw |= (PR_GOLD);
 
-		/* Window stuff */
 		play_window |= (PW_PLAYER);
 
 	}
@@ -2323,7 +2315,6 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	calc_android_exp(creature_ptr);
@@ -2540,7 +2531,6 @@ bool identify_item(creature_type *creature_ptr, object_type *object_ptr)
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	strcpy(record_object_name, object_name);
@@ -3168,7 +3158,6 @@ msg_format("乱暴な魔法のために%sが壊れた！", object_name);
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	/* Window stuff */
 	play_window |= (PW_INVEN);
 
 	/* Something was done */
@@ -3241,7 +3230,6 @@ msg_format("%s から邪悪なオーラが消えた。",
 
 		creature_ptr->creature_update |= (CRU_BONUS);
 
-		/* Window stuff */
 		play_window |= (PW_EQUIP);
 	}
 
@@ -3342,7 +3330,6 @@ msg_format("%s は劣化した！",
 
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	/* Window stuff */
 	play_window |= (PW_EQUIP | PW_PLAYER);
 
 	calc_android_exp(creature_ptr);
@@ -4711,7 +4698,6 @@ bool curse_armor(creature_type *creature_ptr)
 		// Recalculate bonuses and mana
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_MANA);
 
-		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 	}
 

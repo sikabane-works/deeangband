@@ -306,7 +306,6 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 	/* Show choices */
 	play_window |= (PW_SPELL);
 
-	/* Window stuff */
 	window_stuff(player_ptr);
 
 
@@ -405,7 +404,6 @@ msg_print("ÇlÇoÇ™ë´ÇËÇ‹ÇπÇÒÅB");
 
 	play_redraw |= (PR_MANA);
 
-	/* Window stuff */
 	play_window |= (PW_PLAYER);
 	play_window |= (PW_SPELL);
 }

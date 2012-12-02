@@ -892,7 +892,6 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 	/* Combine the pack */
 	creature_ptr->creature_update |= (CRU_COMBINE);
 
-	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP);
 
 	/* .や$の関係で, 再計算が必要なはず -- henkma */
@@ -957,7 +956,6 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 		/* Combine the pack */
 		creature_ptr->creature_update |= (CRU_COMBINE);
 
-		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* .や$の関係で, 再計算が必要なはず -- henkma */
@@ -1441,7 +1439,6 @@ void do_cmd_locate(creature_type *creature_ptr)
 
 	play_redraw |= (PR_MAP);
 
-	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	handle_stuff();

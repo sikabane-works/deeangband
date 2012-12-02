@@ -2262,7 +2262,6 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 
 			play_redraw |= (PR_HP | PR_MANA);
 
-			/* Window stuff */
 			play_window |= (PW_PLAYER | PW_SPELL);
 		}
 	}

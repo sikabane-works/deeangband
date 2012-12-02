@@ -802,7 +802,6 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 	/* Show choices */
 	play_window |= (PW_SPELL);
 
-	/* Window stuff */
 	window_stuff(player_ptr);
 
 	/* Abort if needed */
@@ -996,7 +995,6 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		// Update creatures
 		creature_ptr->creature_update |= (PU_CREATURES);
 
-		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		handle_stuff();
@@ -2133,7 +2131,6 @@ msg_print("自分の精神を攻撃してしまった！");
 
 	play_redraw |= (PR_MANA);
 
-	/* Window stuff */
 	play_window |= (PW_PLAYER);
 	play_window |= (PW_SPELL);
 }

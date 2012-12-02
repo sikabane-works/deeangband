@@ -309,7 +309,6 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP);
 }
 
@@ -915,7 +914,6 @@ static void regenhp(creature_type *creature_ptr, int percent)
 	{
 		play_redraw |= (PR_HP);
 
-		/* Window stuff */
 		play_window |= (PW_PLAYER);
 
 		wild_regen = 20;
@@ -1002,7 +1000,6 @@ static void regenmana(creature_type * creature_ptr, int percent)
 	{
 		play_redraw |= (PR_MANA);
 
-		/* Window stuff */
 		play_window |= (PW_PLAYER);
 		play_window |= (PW_SPELL);
 
@@ -1144,7 +1141,6 @@ static void regen_captured_creatures(creature_type *creature_ptr)
 		/* Combine pack */
 		creature_ptr->creature_update |= (CRU_COMBINE);
 
-		/* Window stuff */
 		play_window |= (PW_INVEN);
 		play_window |= (PW_EQUIP);
 		wild_regen = 20;
@@ -1157,7 +1153,6 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	/* Hack -- notice interesting fuel steps */
 	if((object_ptr->xtra4 < 100) || (!(object_ptr->xtra4 % 100)))
 	{
-		/* Window stuff */
 		play_window |= (PW_EQUIP);
 	}
 
@@ -1324,7 +1319,6 @@ bool psychometry(creature_type *creature_ptr)
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	/* Valid "tval" codes */
@@ -1466,7 +1460,6 @@ static void check_music(creature_type *creature_ptr)
 			// Update creatures
 			creature_ptr->creature_update |= (PU_CREATURES);
 
-			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
@@ -2718,7 +2711,6 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	/* Notice changes */
 	if(changed)
 	{
-		/* Window stuff */
 		play_window |= (PW_EQUIP);
 		wild_regen = 20;
 	}
@@ -2764,7 +2756,6 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	/* Notice changes */
 	if(changed)
 	{
-		/* Window stuff */
 		play_window |= (PW_INVEN);
 		wild_regen = 20;
 	}
@@ -3300,7 +3291,6 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 
 			play_redraw |= (PR_MAP);
 
-			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 			//TODO
@@ -5921,13 +5911,10 @@ void play_game(bool new_game)
 
 	Term_xtra(TERM_XTRA_REACT, 0);
 
-	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 
-	/* Window stuff */
 	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
-	/* Window stuff */
 	window_stuff(player_ptr);
 
 	/* Set or clear "rogue_like_commands" if requested */

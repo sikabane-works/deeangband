@@ -2442,7 +2442,6 @@ static void process_nonplayer(int m_idx)
 		/* Update some things */
 		creature_ptr->creature_update |= (PU_FLOW);
 
-		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 	}
 

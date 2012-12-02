@@ -295,7 +295,6 @@ void dispel_creature(creature_type *creature_ptr)
 		// Update creatures
 		creature_ptr->creature_update |= (PU_CREATURES);
 
-		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		cost_tactical_energy(creature_ptr, 100);

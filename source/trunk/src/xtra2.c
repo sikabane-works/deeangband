@@ -97,7 +97,6 @@ void check_experience(creature_type *creature_ptr)
 
 		play_redraw |= (PR_LEV | PR_TITLE);
 
-		/* Window stuff */
 		play_window |= (PW_PLAYER);
 
 		handle_stuff();
@@ -141,7 +140,6 @@ void check_experience(creature_type *creature_ptr)
 
 		play_redraw |= (PR_LEV | PR_TITLE | PR_EXP);
 
-		/* Window stuff */
 		play_window |= (PW_PLAYER | PW_SPELL | PW_INVEN);
 
 		creature_ptr->level_up = TRUE;
@@ -249,7 +247,6 @@ void check_experience(creature_type *creature_ptr)
 
 		play_redraw |= (PR_LEV | PR_TITLE);
 
-		/* Window stuff */
 		play_window |= (PW_PLAYER | PW_SPELL);
 
 		handle_stuff();
@@ -1185,10 +1182,8 @@ void resize_map(void)
 */
 void redraw_window(void)
 {
-	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 
-	/* Window stuff */
 	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	/* Hack -- update */
@@ -1353,7 +1348,6 @@ void verify_panel(creature_type *creature_ptr)
 
 	play_redraw |= (PR_MAP);
 
-	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 }
 
@@ -2711,7 +2705,6 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 
 					play_redraw |= (PR_MAP);
 
-					/* Window stuff */
 					play_window |= (PW_OVERHEAD);
 
 					handle_stuff();
@@ -4170,7 +4163,6 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 
 					play_redraw |= (PR_MAP);
 
-					/* Window stuff */
 					play_window |= (PW_OVERHEAD);
 
 					handle_stuff();
@@ -4258,7 +4250,6 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 
 	play_redraw |= (PR_MAP);
 
-	/* Window stuff */
 	play_window |= (PW_OVERHEAD);
 
 	handle_stuff();

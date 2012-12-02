@@ -1203,7 +1203,6 @@ void toggle_inven_equip(void)
 			window_flag[j] &= ~(PW_INVEN);
 			window_flag[j] |= (PW_EQUIP);
 
-			/* Window stuff */
 			play_window |= (PW_EQUIP);
 		}
 
@@ -1214,7 +1213,6 @@ void toggle_inven_equip(void)
 			window_flag[j] &= ~(PW_EQUIP);
 			window_flag[j] |= (PW_INVEN);
 
-			/* Window stuff */
 			play_window |= (PW_INVEN);
 		}
 	}
@@ -2194,7 +2192,6 @@ if(other_query_flag && !verify(creature_ptr, "–{“–‚É", k)) continue;
 	/* Update */
 	play_window |= (PW_INVEN | PW_EQUIP);
 
-	/* Window stuff */
 	window_stuff(player_ptr);
 
 
@@ -3603,7 +3600,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 	/* Update */
 	play_window |= (PW_INVEN | PW_EQUIP);
 
-	/* Window stuff */
 	window_stuff(player_ptr);
 
 
@@ -3710,7 +3706,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 
 			play_redraw |= (PR_GOLD);
 
-			/* Window stuff */
 			play_window |= (PW_PLAYER);
 
 			/* Delete the gold */

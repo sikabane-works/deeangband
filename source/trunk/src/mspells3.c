@@ -649,7 +649,6 @@ put_str("MP ¸—¦ Œø‰Ê", y, x + 33);
 	/* Show choices */
 	play_window |= (PW_SPELL);
 
-	/* Window stuff */
 	window_stuff(player_ptr);
 
 	/* Abort if needed */
@@ -865,7 +864,6 @@ msg_print("‘Ì‚ğˆ«‚­‚µ‚Ä‚µ‚Ü‚Á‚½I");
 	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
-	/* Window stuff */
 	play_redraw |= (PR_MANA);
 	play_window |= (PW_PLAYER);
 	play_window |= (PW_SPELL);

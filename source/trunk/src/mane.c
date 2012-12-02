@@ -262,7 +262,6 @@ put_str("é∏ó¶ å¯â ", y, x + 36);
 	/* Show choices */
 	play_window |= (PW_SPELL);
 
-	/* Window stuff */
 	window_stuff(player_ptr);
 
 	/* Abort if needed */
@@ -373,7 +372,6 @@ msg_print("Ç‡ÇÃÇ‹ÇÀÇ…é∏îsÇµÇΩÅI");
 	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
-	/* Window stuff */
 	play_redraw |= (PR_IMITATION);
 	play_window |= (PW_PLAYER);
 	play_window |= (PW_SPELL);

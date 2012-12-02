@@ -243,7 +243,6 @@ void compact_objects(int size)
 
 		play_redraw |= (PR_MAP);
 
-		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 	}
 
@@ -1352,7 +1351,6 @@ bool can_player_destroy_object(creature_type *creature_ptr, object_type *object_
 		/* Combine the pack */
 		creature_ptr->creature_update |= (CRU_COMBINE);
 
-		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
 
 		return FALSE;
@@ -3864,7 +3862,6 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 
 			creature_ptr->creature_update |= (CRU_BONUS);
 
-			/* Window stuff */
 			play_window |= (PW_INVEN);
 
 			return (j);
@@ -3944,7 +3941,6 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 	/* Combine and Reorder pack */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	/* Window stuff */
 	play_window |= (PW_INVEN);
 
 	/* Return the slot */
@@ -4270,7 +4266,6 @@ void reorder_pack(creature_type *creature_ptr)
 		/* Insert the moving item */
 		object_copy(&creature_ptr->inventory[j], quest_ptr);
 
-		/* Window stuff */
 		play_window |= (PW_INVEN);
 	}
 
@@ -5402,7 +5397,6 @@ static void drain_essence(creature_type *creature_ptr)
 	/* Combine the pack */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	/* Window stuff */
 	play_window |= (PW_INVEN);
 }
 
@@ -6089,7 +6083,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	/* Combine the pack */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	/* Window stuff */
 	play_window |= (PW_INVEN);
 }
 
@@ -6142,7 +6135,6 @@ static void erase_essence(creature_type *creature_ptr)
 	/* Combine the pack */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	/* Window stuff */
 	play_window |= (PW_INVEN);
 }
 

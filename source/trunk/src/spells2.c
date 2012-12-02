@@ -866,7 +866,6 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 			/* Update creature recall window */
 			if(species_window_idx == m_ptr->species_idx)
 			{
-				/* Window stuff */
 				play_window |= (PW_MONSTER);
 			}
 
@@ -940,7 +939,6 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 				/* Update creature recall window */
 				if(species_window_idx == m_ptr->species_idx)
 				{
-					/* Window stuff */
 					play_window |= (PW_MONSTER);
 				}
 			}
@@ -1009,7 +1007,6 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 			/* Update creature recall window */
 			if(species_window_idx == m_ptr->species_idx)
 			{
-				/* Window stuff */
 				play_window |= (PW_MONSTER);
 			}
 
@@ -1075,7 +1072,6 @@ bool detect_creatures_mind(creature_type *creature_ptr, int range)
 			/* Update creature recall window */
 			if(species_window_idx == m_ptr->species_idx)
 			{
-				/* Window stuff */
 				play_window |= (PW_MONSTER);
 			}
 
@@ -1141,7 +1137,6 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 			/* Update creature recall window */
 			if(species_window_idx == m_ptr->species_idx)
 			{
-				/* Window stuff */
 				play_window |= (PW_MONSTER);
 			}
 
@@ -1220,7 +1215,6 @@ bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_fla
 				/* Update creature recall window */
 				if(species_window_idx == m_ptr->species_idx)
 				{
-					/* Window stuff */
 					play_window |= (PW_MONSTER);
 				}
 			}
@@ -1578,7 +1572,6 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 	play_redraw |= (PR_HP);
 
-	/* Window stuff */
 	play_window |= (PW_PLAYER);
 
 	/* Handle */
@@ -2162,7 +2155,6 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 
 		play_redraw |= (PR_MAP);
 
-		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		if(caster_ptr->posture & NINJA_S_STEALTH)

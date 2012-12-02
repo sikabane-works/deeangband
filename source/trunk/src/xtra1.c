@@ -2332,7 +2332,6 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 		/* Display hitpoints (later) */
 		play_redraw |= (PR_HP);
 
-		/* Window stuff */
 		play_window |= (PW_PLAYER);
 	}
 }

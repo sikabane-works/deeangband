@@ -2228,7 +2228,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						/* Combine / Reorder the pack */
 						target_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-						/* Window stuff */
 						play_window |= (PW_INVEN);
 
 						break;
@@ -2308,7 +2307,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 					play_redraw |= (PR_GOLD);
 
-					/* Window stuff */
 					play_window |= (PW_PLAYER);
 
 					/* Blink away */
@@ -2486,7 +2484,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						obvious = TRUE;
 					}
 
-					/* Window stuff */
 					play_window |= (PW_EQUIP);
 				}
 

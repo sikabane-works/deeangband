@@ -2894,7 +2894,6 @@ void msg_print(cptr msg)
 	/* Memorize the tail */
 	/* if(character_generated) message_add(t); */
 
-	/* Window stuff */
 	play_window |= (PW_MESSAGE);
 	window_stuff(player_ptr);
 

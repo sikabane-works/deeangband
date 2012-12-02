@@ -308,7 +308,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
-	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
@@ -425,7 +424,6 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 			floor_item_charges(0 - item);
 		}
 
-		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Don't eat a staff/wand itself */
@@ -1116,7 +1114,6 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 		gain_exp(caster_ptr, (lev + (caster_ptr->lev >> 1)) / caster_ptr->lev);
 	}
 
-	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
@@ -1764,7 +1761,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		gain_exp(caster_ptr, (lev + (caster_ptr->lev >> 1)) / caster_ptr->lev);
 	}
 
-	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
@@ -2246,7 +2242,6 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
-	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	if(!use_charge) return;	// Hack -- some uses are "free"
@@ -3361,7 +3356,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			}
 		}
 
-		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
 
 		return;

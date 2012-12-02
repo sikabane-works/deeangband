@@ -3900,7 +3900,6 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 
 			creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
 
-			/* Window stuff */
 			play_window |= (PW_EQUIP);
 		}
 		else

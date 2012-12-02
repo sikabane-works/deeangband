@@ -1481,7 +1481,6 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 
 		creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_DISTANCE);	// Update stuff
 
-		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		/* Remove "unsafe" flag */

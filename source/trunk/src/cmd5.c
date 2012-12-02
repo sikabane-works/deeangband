@@ -120,7 +120,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 	/* Show choices */
 	play_window |= (PW_SPELL);
 
-	/* Window stuff */
 	window_stuff(player_ptr);
 
 	/* Build a prompt (accept all spells) */
@@ -303,7 +302,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 	/* Show choices */
 	play_window |= (PW_SPELL);
 
-	/* Window stuff */
 	window_stuff(player_ptr);
 
 
@@ -1246,7 +1244,6 @@ void do_cmd_cast(creature_type *creature_ptr)
 
 	play_redraw |= (PR_MANA);
 
-	/* Window stuff */
 	play_window |= (PW_PLAYER);
 	play_window |= (PW_SPELL);
 }
@@ -1669,7 +1666,6 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 
 	creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 
-	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	play_redraw |= (PR_EXTRA);

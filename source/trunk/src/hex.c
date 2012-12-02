@@ -193,7 +193,6 @@ void check_hex(creature_type *creature_ptr)
 			// Update creatures
 			creature_ptr->creature_update |= (PU_CREATURES);
 
-			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 		}
 	}

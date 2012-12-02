@@ -59,7 +59,6 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 	creature_ptr->creature_update |= (CRU_HP);
 	play_redraw |= (PR_HP);
 
-	/* Window stuff */
 	play_window |= (PW_PLAYER);
 
 	handle_stuff();
@@ -864,7 +863,6 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 		/* Combine / Reorder the pack (later) */
 		caster_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 	}
 }
