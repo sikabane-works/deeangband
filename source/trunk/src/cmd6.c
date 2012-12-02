@@ -2858,62 +2858,6 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 			break;
 		}
 
-		case SV_ROD_ACID_BOLT:
-		{
-			cast_bolt_or_beam(creature_ptr, 10, DO_EFFECT_ACID, dir, diceroll(6 + creature_ptr->lev / 7, 8));
-			ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_ELEC_BOLT:
-		{
-			cast_bolt_or_beam(creature_ptr, 10, DO_EFFECT_ELEC, dir, diceroll(4 + creature_ptr->lev / 9, 8));
-			ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_FIRE_BOLT:
-		{
-			cast_bolt_or_beam(creature_ptr, 10, DO_EFFECT_FIRE, dir, diceroll(7 + creature_ptr->lev / 6, 8));
-			ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_COLD_BOLT:
-		{
-			cast_bolt_or_beam(creature_ptr, 10, DO_EFFECT_COLD, dir, diceroll(5 + creature_ptr->lev / 8, 8));
-			ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_ACID_BALL:
-		{
-			cast_ball(creature_ptr, DO_EFFECT_ACID, dir, 60 + creature_ptr->lev, 2);
-			ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_ELEC_BALL:
-		{
-			cast_ball(creature_ptr, DO_EFFECT_ELEC, dir, 40 + creature_ptr->lev, 2);
-			ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_FIRE_BALL:
-		{
-			cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 70 + creature_ptr->lev, 2);
-			ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_COLD_BALL:
-		{
-			cast_ball(creature_ptr, DO_EFFECT_COLD, dir, 50 + creature_ptr->lev, 2);
-			ident = TRUE;
-			break;
-		}
-
 		case SV_ROD_HAVOC:
 		{
 			call_chaos(creature_ptr);
