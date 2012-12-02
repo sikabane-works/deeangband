@@ -1784,13 +1784,11 @@ static void put_initial_status(creature_type *creature_ptr)
  */
 static void show_help(cptr helpfile)
 {
-	/* Save screen */
 	screen_save();
 
 	/* Peruse the help file */
 	(void)show_file(TRUE, helpfile, NULL, 0, 0);
 
-	/* Load screen */
 	screen_load();
 }
 

@@ -3535,7 +3535,6 @@ static void process_menus(WORD wCmd)
 				/* Forget the high score fd */
 				highscore_fd = -1;
 
-				/* Load screen */
 				screen_load();
 
 				/* Hack - Flush it */

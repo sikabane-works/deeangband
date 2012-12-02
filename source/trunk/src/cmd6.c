@@ -1732,7 +1732,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		char object_name[MAX_NLEN];
 		char buf[1024];
 
-		/* Save screen */
 		screen_save();
 
 		q=format("book-%d_jp.txt",object_ptr->sval);
@@ -1746,7 +1745,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		/* Peruse the help file */
 		(void)show_file(TRUE, buf, object_name, 0, 0);
 
-		/* Load screen */
 		screen_load();
 
 		used_up=FALSE;

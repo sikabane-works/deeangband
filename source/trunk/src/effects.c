@@ -3015,7 +3015,6 @@ bool choose_ele_attack(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	/* Save screen */
 	screen_save();
 
 	num = (creature_ptr->lev - 20) / 5;
@@ -3073,7 +3072,6 @@ bool choose_ele_attack(creature_type *creature_ptr)
 		screen_load();
 		return FALSE;
 	}
-	/* Load screen */
 	screen_load();
 	return TRUE;
 }
@@ -3086,7 +3084,6 @@ bool choose_ele_immune(creature_type *creature_ptr, int turn)
 {
 	char choice;
 
-	/* Save screen */
 	screen_save();
 
 #ifdef JP

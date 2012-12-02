@@ -2874,7 +2874,6 @@ void do_cmd_macros(void)
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	/* Save screen */
 	screen_save();
 
 
@@ -3359,7 +3358,6 @@ void do_cmd_macros(void)
 		msg_print(NULL);
 	}
 
-	/* Load screen */
 	screen_load();
 }
 

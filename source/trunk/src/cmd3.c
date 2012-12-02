@@ -26,7 +26,6 @@ void do_cmd_inven(creature_type *creature_ptr)
 
 	if(easy_floor) command_wrk = (USE_INVEN);
 
-	/* Save screen */
 	screen_save();
 
 	/* Display the inventory */
@@ -52,7 +51,6 @@ void do_cmd_inven(creature_type *creature_ptr)
 	/* Get a new command */
 	command_new = inkey();
 
-	/* Load screen */
 	screen_load();
 
 

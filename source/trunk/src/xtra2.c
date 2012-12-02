@@ -2279,7 +2279,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			{
 				int i, object_idx;
 
-				/* Save screen */
 				screen_save();
 
 				/* Display */
@@ -2291,11 +2290,9 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 				/* Prompt */
 #ifdef JP
-				sprintf(out_val, "%s %d個のアイテム%s%s [Enterで次へ, %s]",
-					s1, floor_num, s2, s3, info);
+				sprintf(out_val, "%s %d個のアイテム%s%s [Enterで次へ, %s]", s1, floor_num, s2, s3, info);
 #else
-				sprintf(out_val, "%s%s%sa pile of %d items [Enter,%s]",
-					s1, s2, s3, floor_num, info);
+				sprintf(out_val, "%s%s%sa pile of %d items [Enter,%s]", s1, s2, s3, floor_num, info);
 #endif
 				prt(out_val, 0, 0);
 
@@ -2303,14 +2300,10 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 				/* Wait */
 				query = inkey();
 
-				/* Load screen */
 				screen_load();
 
 				/* Exit unless 'Enter' */
-				if(query != '\n' && query != '\r')
-				{
-					return query;
-				}
+				if(query != '\n' && query != '\r') return query;
 
 				/* Get the object being moved. */
 				object_idx = c_ptr->object_idx;
@@ -2381,27 +2374,14 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			/* Change the intro */
 #ifdef JP
 			s1 = "それは";
-#else
-			s1 = "It is ";
-#endif
-
-
-			/* Plurals */
-#ifdef JP
 			if(object_ptr->number != 1) s1 = "それらは";
-#else
-			if(object_ptr->number != 1) s1 = "They are ";
-#endif
-
-
-			/* Preposition */
-#ifdef JP
 			s2 = "の上";
 			s3 = "に見える";
 #else
+			s1 = "It is ";
+			if(object_ptr->number != 1) s1 = "They are ";
 			s2 = "on ";
 #endif
-
 		}
 	}
 
@@ -2457,9 +2437,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 			/* Hack -- special handling for building doors */
 			else if(have_flag(f_ptr->flags, FF_BLDG) && !floor_ptr->fight_arena_mode)
-			{
 				name = building[f_ptr->subtype].name;
-			}
 			else if(have_flag(f_ptr->flags, FF_ENTRANCE))
 			{
 #ifdef JP
@@ -2469,9 +2447,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 #endif
 			}
 			else if(have_flag(f_ptr->flags, FF_TOWN))
-			{
 				name = town[c_ptr->special].name;
-			}
 			else if(floor_ptr->wild_mode && (feat == feat_floor))
 			{
 #ifdef JP
@@ -2480,11 +2456,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 				name = "road";
 #endif
 			}
-			else
-			{
-				name = feature_name + f_ptr->name;
-			}
-
+			else name = feature_name + f_ptr->name;
 
 			// Pick a prefix
 			if(*s2 && ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
@@ -4340,10 +4312,7 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 		/* Get a command (or Cancel) */
 		if(!get_com(p, &command, TRUE)) break;
 
-		if(use_menu)
-		{
-			if(command == '\r') command = 't';
-		}  
+		if(use_menu && command == '\r') command = 't';
 
 		/* Convert various keys to "standard" keys */
 		switch (command)
@@ -4407,7 +4376,6 @@ void show_alignment(char* buf, creature_type *creature_ptr)
 #ifdef JP
 	sprintf(buf, "善[%d]/悪[%d]/秩序[%d]/混沌[%d]/天秤[%d]",
 		creature_ptr->good_rank, creature_ptr->evil_rank, creature_ptr->order_rank, creature_ptr->chaos_rank, creature_ptr->balance_rank);
-
 #else
 	sprintf(buf, "Good[%d]/Evil[%d]/Order[%d]/Chaos[%d]/Balance[%d]",
 		creature_ptr->good_rank, creature_ptr->evil_rank, creature_ptr->order_rank, creature_ptr->chaos_rank, creature_ptr->balance_rank);
@@ -4427,10 +4395,7 @@ int weapon_exp_level(int weapon_exp)
 	else return EXP_LEVEL_MASTER;
 }
 
-
-/*
-* Return proficiency level of riding
-*/
+// Return proficiency level of riding
 int riding_exp_level(int riding_exp)
 {
 	if(riding_exp < RIDING_EXP_BEGINNER) return EXP_LEVEL_UNSKILLED;
@@ -4440,10 +4405,7 @@ int riding_exp_level(int riding_exp)
 	else return EXP_LEVEL_MASTER;
 }
 
-
-/*
-* Return proficiency level of spells
-*/
+// Return proficiency level of spells
 int spell_exp_level(int spell_exp)
 {
 	if(spell_exp < SPELL_EXP_BEGINNER) return EXP_LEVEL_UNSKILLED;

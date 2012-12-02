@@ -5758,7 +5758,6 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
  */
 void do_cmd_help(void)
 {
-	/* Save screen */
 	screen_save();
 
 	/* Peruse the main help file */
@@ -5769,7 +5768,6 @@ void do_cmd_help(void)
 #endif
 
 
-	/* Load screen */
 	screen_load();
 }
 
@@ -6598,13 +6596,11 @@ put_str("ファイルネーム: ", 23, 0);
 		/* Return means "show on screen" */
 		if(!out_val[0]) break;
 
-		/* Save screen */
 		screen_save();
 
 		/* Dump a character file */
 		(void)file_character(out_val);
 
-		/* Load screen */
 		screen_load();
 	}
 

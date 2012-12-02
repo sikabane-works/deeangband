@@ -1659,7 +1659,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	/* Hack -- start out in "display" mode */
 	if(command_see)
 	{
-		/* Save screen */
 		screen_save();
 	}
 
@@ -1862,10 +1861,8 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 				/* Hack -- Fix screen */
 				if(command_see)
 				{
-					/* Load screen */
 					screen_load();
 
-					/* Save screen */
 					screen_save();
 				}
 
@@ -1945,14 +1942,12 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 					/* Flip flag */
 					command_see = FALSE;
 
-					/* Load screen */
 					screen_load();
 				}
 
 				/* Show the list */
 				else
 				{
-					/* Save screen */
 					screen_save();
 
 					/* Flip flag */
@@ -1973,10 +1968,8 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 				/* Hack -- Fix screen */
 				if(command_see)
 				{
-					/* Load screen */
 					screen_load();
 
-					/* Save screen */
 					screen_save();
 				}
 
@@ -2181,7 +2174,6 @@ if(other_query_flag && !verify(creature_ptr, "–{“–‚É", k)) continue;
 	/* Fix the screen if necessary */
 	if(command_see)
 	{
-		/* Load screen */
 		screen_load();
 
 		/* Hack -- Cancel "display" */
@@ -2655,7 +2647,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 	/* Hack -- start out in "display" mode */
 	if(command_see)
 	{
-		/* Save screen */
 		screen_save();
 	}
 
@@ -3056,10 +3047,8 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 				/* Hack -- Fix screen */
 				if(command_see)
 				{
-					/* Load screen */
 					screen_load();
 
-					/* Save screen */
 					screen_save();
 				}
 
@@ -3117,10 +3106,8 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 				/* Hack -- Fix screen */
 				if(command_see)
 				{
-					/* Load screen */
 					screen_load();
 
-					/* Save screen */
 					screen_save();
 				}
 
@@ -3201,14 +3188,12 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 					/* Flip flag */
 					command_see = FALSE;
 
-					/* Load screen */
 					screen_load();
 				}
 
 				/* Show the list */
 				else
 				{
-					/* Save screen */
 					screen_save();
 
 					/* Flip flag */
@@ -3249,10 +3234,8 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 				/* Hack -- Fix screen */
 				if(command_see)
 				{
-					/* Load screen */
 					screen_load();
 
-					/* Save screen */
 					screen_save();
 				}
 
@@ -3299,10 +3282,8 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 				/* Hack -- Fix screen */
 				if(command_see)
 				{
-					/* Load screen */
 					screen_load();
 
-					/* Save screen */
 					screen_save();
 				}
 
@@ -3351,10 +3332,8 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 				/* Hack -- Fix screen */
 				if(command_see)
 				{
-					/* Load screen */
 					screen_load();
 
-					/* Save screen */
 					screen_save();
 				}
 
@@ -3607,7 +3586,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 	/* Fix the screen if necessary */
 	if(command_see)
 	{
-		/* Load screen */
 		screen_load();
 
 		/* Hack -- Cancel "display" */

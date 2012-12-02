@@ -439,7 +439,6 @@ bool choose_kamae(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	/* Save screen */
 	screen_save();
 
 #ifdef JP
@@ -573,7 +572,6 @@ bool choose_kata(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	/* Save screen */
 	screen_save();
 
 #ifdef JP
