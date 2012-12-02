@@ -2473,7 +2473,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					object_ptr->xtra4 -= (250 + (s16b)randint1(250));
 					if(object_ptr->xtra4 < 1) object_ptr->xtra4 = 1;
 
-					/* Notice */
 					if(!has_trait(target_ptr, TRAIT_BLIND))
 					{
 #ifdef JP

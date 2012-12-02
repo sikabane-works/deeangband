@@ -814,7 +814,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 
 				c_ptr->mimic = old_mimic;
 
-				/* Notice */
 				note_spot(floor_ptr, y, x);
 
 				lite_spot(floor_ptr, y, x);
@@ -915,7 +914,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			c_ptr->info |= CAVE_OBJECT;
 			c_ptr->mimic = feat_glyph;
 
-			/* Notice */
 			note_spot(floor_ptr, y, x);
 
 			lite_spot(floor_ptr, y, x);
@@ -993,7 +991,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			{
 				c_ptr->info |= (CAVE_GLOW);
 
-				/* Notice */
 				note_spot(floor_ptr, y, x);
 
 				lite_spot(floor_ptr, y, x);
@@ -1056,7 +1053,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 					/* Forget */
 					c_ptr->info &= ~(CAVE_MARK);
 
-					/* Notice */
 					note_spot(floor_ptr, y, x);
 				}
 
@@ -1064,7 +1060,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 
 				update_local_illumination(floor_ptr, y, x);
 
-				/* Notice */
 				if(creature_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
 
 				/* Mega-Hack -- Update the creature in the affected grid */
@@ -1513,7 +1508,6 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 						/* Identify */
 						object_known(object_ptr);
 
-						/* Notice */
 						if(known && (object_ptr->marked & OM_FOUND))
 						{
 #ifdef JP

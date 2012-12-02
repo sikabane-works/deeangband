@@ -1797,7 +1797,6 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	else if(have_flag(f_ptr->flags, FF_MIRROR))
 		c_ptr->info |= (CAVE_GLOW | CAVE_OBJECT);
 
-	/* Notice */
 	note_spot(floor_ptr, y, x);
 
 	lite_spot(floor_ptr, y, x);

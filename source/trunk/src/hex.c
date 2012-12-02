@@ -57,9 +57,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 
 	/* Stop all spells */
 	else if((creature_ptr->class_skills.old_skills.magic_num2[0] == 1) || (creature_ptr->lev < 35))
-	{
 		return stop_hex_spell_all(creature_ptr);
-	}
 	else
 	{
 #ifdef JP
@@ -216,9 +214,7 @@ void check_hex(creature_type *creature_ptr)
 	for (spell = 0; spell < 32; spell++)
 	{
 		if(HEX_SPELLING(creature_ptr, spell))
-		{
 			do_spell(creature_ptr, REALM_HEX, spell, SPELL_CONT);
-		}
 	}
 }
 
@@ -226,14 +222,9 @@ void check_hex(creature_type *creature_ptr)
 bool hex_spell_fully(creature_type *creature_ptr)
 {
 	int k_max = 0;
-
 	k_max = (creature_ptr->lev / 15) + 1;
-
-
 	k_max = MIN(k_max, HEX_MAX_KEEP);
-
 	if(creature_ptr->class_skills.old_skills.magic_num2[0] < k_max) return FALSE;
-
 	return TRUE;
 }
 

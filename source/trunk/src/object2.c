@@ -2981,7 +2981,6 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj
 		/* Place the object */
 		c_ptr->object_idx = object_idx;
 
-		/* Notice */
 		note_spot(floor_ptr, y, x);
 
 		lite_spot(floor_ptr, y, x);
@@ -3089,7 +3088,6 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 		/* Place the object */
 		c_ptr->object_idx = object_idx;
 
-		/* Notice */
 		note_spot(floor_ptr, y, x);
 
 		lite_spot(floor_ptr, y, x);
@@ -3518,7 +3516,6 @@ void disclose_grid(floor_type *floor_ptr, int y, int x)
 		/* No longer hidden */
 		c_ptr->mimic = 0;
 
-		/* Notice */
 		note_spot(floor_ptr, y, x);
 
 		lite_spot(floor_ptr, y, x);

@@ -4566,7 +4566,6 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 	/* Update the creature */
 	if(cave_ptr->creature_idx) update_creature_view(player_ptr, cave_ptr->creature_idx, FALSE);
 
-	/* Notice */
 	note_spot(floor_ptr, y, x);
 
 	lite_spot(floor_ptr, y, x);
@@ -4606,7 +4605,6 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 				/* Update the creature */
 				if(cc_ptr->creature_idx) update_creature_view(player_ptr, cc_ptr->creature_idx, FALSE);
 
-				/* Notice */
 				note_spot(floor_ptr, yy, xx);
 
 				lite_spot(floor_ptr, yy, xx);
@@ -4759,7 +4757,6 @@ void remove_mirror(creature_type *creature_ptr, int y, int x)
 		update_local_illumination(floor_ptr, y, x);
 	}
 
-	/* Notice */
 	note_spot(floor_ptr, y, x);
 
 	lite_spot(floor_ptr, y, x);

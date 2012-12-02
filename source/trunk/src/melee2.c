@@ -2013,7 +2013,6 @@ static void process_nonplayer(int m_idx)
 				/* Allow movement */
 				do_move = TRUE;
 
-				/* Notice */
 				note_spot(floor_ptr, ny, nx);
 			}
 		}

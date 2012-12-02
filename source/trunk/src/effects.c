@@ -732,7 +732,6 @@ bool set_stun(creature_type *creature_ptr, int v)
 		/* Hex */
 		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
-		/* Notice */
 		notice = TRUE;
 	}
 
@@ -757,7 +756,6 @@ bool set_stun(creature_type *creature_ptr, int v)
 			break;
 		}
 
-		/* Notice */
 		notice = TRUE;
 	}
 
@@ -1018,7 +1016,6 @@ bool set_cut(creature_type *creature_ptr, int v)
 			break;
 		}
 
-		/* Notice */
 		notice = TRUE;
 
 		if(randint1(1000) < v || one_in_(16))
@@ -1060,7 +1057,6 @@ bool set_cut(creature_type *creature_ptr, int v)
 			break;
 		}
 
-		/* Notice */
 		notice = TRUE;
 	}
 

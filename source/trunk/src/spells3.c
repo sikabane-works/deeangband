@@ -30,9 +30,7 @@ static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, 
 	if(is_explosive_rune_grid(c_ptr)) return FALSE;
 
 	if(!(mode & TELEPORT_PASSIVE))
-	{
 		if(!creature_can_cross_terrain(creature_ptr, c_ptr->feat, 0)) return FALSE;
-	}
 
 	return TRUE;
 }
@@ -1064,15 +1062,11 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 #else
 		msg_format("Your %s (%c) %s disenchanted!", object_name, index_to_label(t), ((object_ptr->number != 1) ? "were" : "was"));
 #endif
-
 		creature_ptr->creature_update |= (CRU_BONUS);
-
 		play_window |= (PW_EQUIP | PW_PLAYER);
-
 		calc_android_exp(creature_ptr);
 	}
 
-	/* Notice */
 	return TRUE;
 }
 
@@ -1884,7 +1878,6 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info |= CAVE_OBJECT;
 	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].mimic = feat_glyph;
 
-	/* Notice */
 	note_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
@@ -4735,7 +4728,6 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);	// Window stuff
 	}
 
-	/* Notice */
 	return TRUE;
 }
 
@@ -4775,7 +4767,6 @@ bool brand_bolts(creature_type *creature_ptr)
 	msg_print("The fiery enchantment failed.");
 #endif
 
-	/* Notice */
 	return TRUE;
 }
 
