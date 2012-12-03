@@ -3094,28 +3094,6 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 			}
 		}
 
-		/* Resistance flags */
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_ACID))   creature_ptr->resist_acid += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_ELEC))   creature_ptr->resist_elec += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_FIRE))   creature_ptr->resist_fire += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_COLD))   creature_ptr->resist_cold += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_POIS))   creature_ptr->resist_pois += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_SOUN))  creature_ptr->resist_sound += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_LITE))   creature_ptr->resist_lite += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_DARK))   creature_ptr->resist_dark += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO))  creature_ptr->resist_chaos += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_DISE))  creature_ptr->resist_disen += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_SHAR)) creature_ptr->resist_shard += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_NEXU))  creature_ptr->resist_nexus += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_NETH)) creature_ptr->resist_neth += 1;
-		if(have_flag(object_ptr->trait_flags, TRAIT_RES_TIME)) creature_ptr->resist_time += 1;
-
-		if(has_trait(creature_ptr, TRAIT_LOW_MAGIC))
-		{
-			if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) creature_ptr->to_m_chance += 10;
-			else creature_ptr->to_m_chance += 3;
-		}
-
 		if(object_ptr->tval == TV_CAPTURE) continue;
 
 		// AC/EV/VO bonuses
@@ -3599,6 +3577,12 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 		{
 			creature_ptr->stat_add[STAT_CHA] = 0;
 		}
+
+		if(has_trait(creature_ptr, TRAIT_LOW_MAGIC))
+		{
+			creature_ptr->to_m_chance += 5;
+		}
+
 }
 
 
