@@ -2529,8 +2529,6 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->dis_to_ac += race1_ptr->ac_s_base + (race1_ptr->ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
 	}
 
-	set_resistance(creature_ptr);
-
 	//TODO RACE_SPRITE creature_ptr->levitation = TRUE;
 
 	if(has_trait(creature_ptr, TRAIT_AGILE_RACE)) creature_ptr->speed += creature_ptr->lev / 8;

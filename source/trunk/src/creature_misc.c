@@ -430,36 +430,6 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 	return;
 }
 
-void set_resistance(creature_type *creature_ptr)
-{
-	if(has_trait(creature_ptr, TRAIT_RES_FIRE)) creature_ptr->resist_fire += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_COLD)) creature_ptr->resist_cold += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_ELEC)) creature_ptr->resist_elec += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_ACID)) creature_ptr->resist_acid += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_POIS)) creature_ptr->resist_pois += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_LITE)) creature_ptr->resist_lite += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_DARK)) creature_ptr->resist_dark += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_SHAR)) creature_ptr->resist_shard += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_SOUN)) creature_ptr->resist_sound += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_NETH)) creature_ptr->resist_neth += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_CHAO)) creature_ptr->resist_chaos += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_DISE)) creature_ptr->resist_disen += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_WALL)) creature_ptr->resist_force += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_NEXU)) creature_ptr->resist_nexus += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_INER)) creature_ptr->resist_inertia += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_TIME)) creature_ptr->resist_time += 1;
-	if(has_trait(creature_ptr, TRAIT_RES_GRAV)) creature_ptr->resist_gravity += 1;
-
-	//TODO if(has_trait(creature_ptr, TRAIT_RES_TELE)) creature_ptr->resist_tele += 1;
-
-	//TODO if(has_trait(creature_ptr, TRAIT_RES_ALL)) has_trait(creature_ptr, TRAIT_RES_ALL) += 1;
-
-	//TODO if(has_trait(creature_ptr, TRAIT_NO_BLIND)) has_trait(creature_ptr, TRAIT_NO_BLIND) += TRUE;
-	//TODO if(has_trait(creature_ptr, TRAIT_NO_FEAR)) creature_ptr->resist_fear += TRUE;
-	if(has_trait(creature_ptr, TRAIT_NO_STUN)); //TODO
-	if(has_trait(creature_ptr, TRAIT_NO_SLEEP)); //TODO
-}
-
 void initialize_skill(creature_type *creature_ptr)
 {
 	int i, tmp_cls;
