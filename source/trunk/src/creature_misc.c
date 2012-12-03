@@ -742,6 +742,19 @@ bool has_trait(creature_type *creature_ptr, int type)
 	return FALSE;
 }
 
+int has_trait_num(creature_type *creature_ptr, int type)
+{
+	int num = 0;
+	if(!creature_ptr) return 0;
+	if(has_trait_from_species(creature_ptr, type)) num++;
+	if(has_trait_from_class(creature_ptr, type)) num++;
+	if(has_trait_from_chara(creature_ptr, type)) num++;
+	if(has_trait_from_inventory(creature_ptr, type)) num++;
+	if(creature_ptr->timed_trait[type]) return num++;
+
+	return num;
+}
+
 int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int damage, int type, bool message, bool average)
 {
 	char creature_name[NAME_BUFFER_SIZE];
