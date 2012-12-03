@@ -784,33 +784,38 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		break;
 
 	case DO_EFFECT_FIRE:
+		if(has_trait(target_ptr, TRAIT_IM_FIRE)) t = 0;
 		if(has_trait(target_ptr, TRAIT_HURT_FIRE)) t *= 2;
 		if(has_trait(target_ptr, TRAIT_VULN_ELEM)) t += t / 2;
 		if(target_ptr->posture & KATA_KOUKIJIN) t += t / 3;
-		if(target_ptr->resist_fire > 0) t /= 3;
+		if(has_trait(target_ptr, TRAIT_RES_FIRE)) t /= 3;
 		break;
 
 	case DO_EFFECT_COLD:
+		if(has_trait(target_ptr, TRAIT_IM_COLD)) t = 0;
 		if(has_trait(target_ptr, TRAIT_HURT_COLD)) t *= 2;
 		if(has_trait(target_ptr, TRAIT_VULN_ELEM)) t += t / 2;
 		if(target_ptr->posture & KATA_KOUKIJIN) t += t / 3;
-		if(target_ptr->resist_cold > 0) t /= 3;
+		if(has_trait(target_ptr, TRAIT_RES_COLD)) t /= 3;
 		break;
 
 	case DO_EFFECT_ELEC:
+		if(has_trait(target_ptr, TRAIT_IM_ELEC)) t = 0;
 		if(has_trait(target_ptr, TRAIT_VULN_ELEM)) t += t / 2;
 		if(target_ptr->posture & KATA_KOUKIJIN) t += t / 3;
-		if(target_ptr->resist_elec > 0) t /= 3;
+		if(has_trait(target_ptr, TRAIT_RES_ELEC)) t /= 3;
 		break;
 
 	case DO_EFFECT_ACID:
+		if(has_trait(target_ptr, TRAIT_IM_ACID)) t = 0;
 		if(has_trait(target_ptr, TRAIT_VULN_ELEM)) t += t / 2;
 		if(target_ptr->posture & KATA_KOUKIJIN) t += t / 3;
-		if(target_ptr->resist_acid > 0) t /= 3;
+		if(has_trait(target_ptr, TRAIT_RES_ACID)) t /= 3;
 		break;
 
 	case DO_EFFECT_POIS:
-		if(target_ptr->resist_pois > 0) t /= 3;
+		if(has_trait(target_ptr, TRAIT_IM_POIS)) t = 0;
+		if(has_trait(target_ptr, TRAIT_RES_POIS)) t /= 3;
 		break;
 
 	case DO_EFFECT_ARROW:
@@ -836,12 +841,12 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 			t *= 2;
 		}
 		if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) t *= 2;
-		if(target_ptr->resist_lite > 0) t = t * 4 / 9;
+		if(has_trait(target_ptr, TRAIT_RES_LITE)) t = t * 4 / 9;
 		break;
 
 	case DO_EFFECT_DARK:
 		if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) t = 0;
-		if(target_ptr->resist_dark > 0) t = t * 4 / 9;
+		if(has_trait(target_ptr, TRAIT_RES_DARK)) t = t * 4 / 9;
 		break;
 
 	case DO_EFFECT_LITE_WEAK:
@@ -849,19 +854,19 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		break;
 
 	case DO_EFFECT_NETHER:
-		if(target_ptr->resist_dark > 0) t = t * 2 / 3;
+		if(has_trait(target_ptr, TRAIT_RES_NETH)) t = t * 2 / 3;
 		//TODO Evil x0.5
 		break;
 
 	case DO_EFFECT_WATER:
-		if(target_ptr->resist_water > 0) t = t * 5 / 9;
+		if(has_trait(target_ptr, TRAIT_RES_WATE)) t = t * 5 / 9;
 		break;
 
 	case DO_EFFECT_PLASMA:
 		break;
 
 	case DO_EFFECT_SHARDS:
-		if(target_ptr->resist_shard > 0) t = t * 2 / 3;
+		if(has_trait(target_ptr, TRAIT_RES_SHAR)) t = t * 2 / 3;
 		break;
 
 	case DO_EFFECT_SOUND:

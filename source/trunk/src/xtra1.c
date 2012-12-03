@@ -3481,7 +3481,7 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 		if(creature_ptr->riding_two_handed)
 		{
 #ifdef JP
-		msg_format("%s馬を操れない。", (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
+			msg_format("%s馬を操れない。", (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
 #else
 			msg_print("You are using both hand for fighting, and you can't control a riding pet.");
 #endif
@@ -3501,13 +3501,11 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_WANT_LIGHT_WEIGHT) && (monk_armour_aux != monk_notify_aux))
 	{
 		if(heavy_armor(creature_ptr))
-		{
 #ifdef JP
             msg_print("装備が重くてバランスを取れない。");
 #else
 			msg_print("The weight of your armor disrupts your balance.");
 #endif
-		}
 		else
 #ifdef JP
             msg_print("バランスがとれるようになった。");
