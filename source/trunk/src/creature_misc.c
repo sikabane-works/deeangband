@@ -491,17 +491,6 @@ void initialize_skill(creature_type *creature_ptr)
 
 }
 
-
-bool is_has_dark_2_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_HAS_DARK_2);	
-}
-
-bool is_has_dark_2_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_HAS_DARK_2]);
-}
-
 bool is_lighting_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_SELF_LITE_1) || has_trait(creature_ptr, TRAIT_SELF_LITE_2) ||
@@ -517,13 +506,13 @@ bool is_lighting_species(species_type *species_ptr)
 bool is_darken_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_SELF_DARK_1) || has_trait(creature_ptr, TRAIT_SELF_DARK_2) ||
-		   has_trait(creature_ptr, TRAIT_HAS_DARK_1) || is_has_dark_2_creature(creature_ptr);
+		   has_trait(creature_ptr, TRAIT_HAS_DARK_1) || has_trait(creature_ptr, TRAIT_HAS_DARK_1);
 }
 
 bool is_darken_species(species_type *species_ptr)
 {
 	return has_trait_species(species_ptr, TRAIT_SELF_DARK_1) || has_trait_species(species_ptr, TRAIT_SELF_DARK_2) ||
-		   has_trait_species(species_ptr, TRAIT_HAS_DARK_1) || is_has_dark_2_species(species_ptr);
+		   has_trait_species(species_ptr, TRAIT_HAS_DARK_1) || has_trait_species(species_ptr, TRAIT_HAS_DARK_1);
 }
 
 bool is_self_ld_creature(creature_type *creature_ptr)
@@ -541,13 +530,13 @@ bool is_self_ld_species(species_type *species_ptr)
 bool is_has_ld_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_HAS_LITE_1) || has_trait(creature_ptr, TRAIT_HAS_LITE_2) ||
-		   has_trait(creature_ptr, TRAIT_HAS_DARK_1) || is_has_dark_2_creature(creature_ptr);
+		   has_trait(creature_ptr, TRAIT_HAS_DARK_1) || has_trait(creature_ptr, TRAIT_HAS_DARK_1);
 }
 
 bool is_has_ld_species(species_type *species_ptr)
 {
 	return has_trait_species(species_ptr, TRAIT_HAS_LITE_1) || has_trait_species(species_ptr, TRAIT_HAS_LITE_2) ||
-		   has_trait_species(species_ptr, TRAIT_HAS_DARK_1) || is_has_dark_2_species(species_ptr);
+		   has_trait_species(species_ptr, TRAIT_HAS_DARK_1) || has_trait_species(species_ptr, TRAIT_HAS_DARK_1);
 }
 
 bool is_variable_race_species(species_type *species_ptr)
