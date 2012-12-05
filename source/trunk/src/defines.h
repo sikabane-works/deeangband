@@ -1643,27 +1643,9 @@
 #define CHECK_NO_HISTORY  0x04
 #define CHECK_DEFAULT_Y   0x08
 
-
-/*
- * Some bit-flags for the "smart" field
- */
-#define SM_OPP_ACID             0x00010000
-#define SM_OPP_ELEC             0x00020000
-#define SM_OPP_FIRE             0x00040000
-#define SM_OPP_COLD             0x00080000
-#define SM_OPP_POIS             0x00100000
-#define SM_OPP_XXX1             0x00200000 /* (unused) */
+// Some bit-flags for the "smart" field
 #define SM_CLONED               0x00400000 /* XXX Cloned */
 #define SM_PET                  0x00800000 /* XXX Pet */
-#define SM_IMM_ACID             0x01000000
-#define SM_IMM_ELEC             0x02000000
-#define SM_IMM_FIRE             0x04000000
-#define SM_IMM_COLD             0x08000000
-//#define SM_FRIENDLY             0x10000000 /* XXX Friendly */
-#define SM_IMM_REFLECT          0x20000000
-#define SM_IMM_FREE             0x40000000
-#define SM_IMM_MANA             0x80000000
-
 
 /*
  * Bit flags for the "get_item" function
