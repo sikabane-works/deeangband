@@ -2946,12 +2946,12 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	}
 
 	/* Hack -- Hero/Shero -> Res fear */
-	if(IS_HERO(creature_ptr) || creature_ptr->timed_trait[TRAIT_S_HERO])
+	if(has_trait(creature_ptr, TRAIT_HERO) || has_trait(creature_ptr, TRAIT_S_HERO))
 	{
 		//TODO creature_ptr->resist_fear = TRUE;
 	}
 
-	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES] || (GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)))
+	if(has_trait(creature_ptr, TRAIT_ULTRA_RES) || has_trait(creature_ptr, TRAIT_POSTURE_MUSOU))
 	{
 		//creature_ptr->see_inv = TRUE;
 		//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;
@@ -2967,20 +2967,20 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//has_trait(creature_ptr, TRAIT_SUSTAIN_CON) = TRUE;
 		//has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = TRUE;
 		//has_trait(creature_ptr, TRAIT_SUSTAIN_CHR) = TRUE;
-		creature_ptr->resist_acid = TRUE;
-		creature_ptr->resist_elec = TRUE;
-		creature_ptr->resist_fire = TRUE;
-		creature_ptr->resist_cold = TRUE;
-		creature_ptr->resist_pois = TRUE;
+		//TODO creature_ptr->resist_acid = TRUE;
+		//TODO creature_ptr->resist_elec = TRUE;
+		//TODO creature_ptr->resist_fire = TRUE;
+		//TODO creature_ptr->resist_cold = TRUE;
+		//TODO creature_ptr->resist_pois = TRUE;
 		//TODO creature_ptr->resist_conf = TRUE;
-		creature_ptr->resist_sound = TRUE;
-		creature_ptr->resist_lite = TRUE;
-		creature_ptr->resist_dark = TRUE;
-		creature_ptr->resist_chaos = TRUE;
-		creature_ptr->resist_disen = TRUE;
-		creature_ptr->resist_shard = TRUE;
+		//TODO creature_ptr->resist_sound = TRUE;
+		//TODO creature_ptr->resist_lite = TRUE;
+		//TODO creature_ptr->resist_dark = TRUE;
+		//TODO creature_ptr->resist_chaos = TRUE;
+		//TODO creature_ptr->resist_disen = TRUE;
+		//TODO creature_ptr->resist_shard = TRUE;
 		//has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
-		creature_ptr->resist_neth = TRUE;
+		//TODO creature_ptr->resist_neth = TRUE;
 		//TODO creature_ptr->resist_fear = TRUE;
 		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 		//TODO creature_ptr->sh_fire = TRUE;
