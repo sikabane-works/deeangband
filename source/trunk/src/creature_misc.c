@@ -16,7 +16,7 @@ int estimate_level(species_type *species_ptr)
 	if(has_trait_raw(&species_ptr->flags, TRAIT_ANDROID)) table = creature_exp_a;
 	else table = creature_exp;
 
-	for(i = 1; i < PY_MAX_LEVEL; i++)
+	for(i = 1; i < CREATURE_MAX_LEVEL; i++)
 	{
 		if(exp <= table[i-1] * factor / 100) break;
 	}
@@ -279,10 +279,10 @@ void set_hitdice(creature_type * creature_ptr)
 void set_base_hp(creature_type *creature_ptr)
 {
 	/* Minimum hitpoints at highest level */
-	int min_value = creature_ptr->hitdice + ((PY_MAX_LEVEL + 2) * (creature_ptr->hitdice + 1)) * 3 / 8;
+	int min_value = creature_ptr->hitdice + ((CREATURE_MAX_LEVEL + 2) * (creature_ptr->hitdice + 1)) * 3 / 8;
 
 	/* Maximum hitpoints at highest level */
-	int max_value = creature_ptr->hitdice + ((PY_MAX_LEVEL + 2) * (creature_ptr->hitdice + 1)) * 5 / 8;
+	int max_value = creature_ptr->hitdice + ((CREATURE_MAX_LEVEL + 2) * (creature_ptr->hitdice + 1)) * 5 / 8;
 
 	int i;
 
@@ -301,14 +301,14 @@ void set_base_hp(creature_type *creature_ptr)
 		}
 
 		/* Roll the hitpoint values */
-		for (i = 1; i < PY_MAX_LEVEL; i++)
+		for (i = 1; i < CREATURE_MAX_LEVEL; i++)
 		{
 			creature_ptr->base_hp[i] = creature_ptr->base_hp[i - 1] + (s16b)randint1(creature_ptr->hitdice);
 		}
 
 		/* Require "valid" hitpoints at highest level */
-		if((creature_ptr->base_hp[PY_MAX_LEVEL - 1] >= min_value) &&
-		    (creature_ptr->base_hp[PY_MAX_LEVEL - 1] <= max_value)) break;
+		if((creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] >= min_value) &&
+		    (creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] <= max_value)) break;
 	}
 }
 

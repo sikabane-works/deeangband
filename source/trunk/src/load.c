@@ -786,7 +786,7 @@ static void load_quick_start(species_type *species_ptr)
 	for (i = 0; i < STAT_MAX; i++) rd_s16b(&species_ptr->stat_max[i]);
 	for (i = 0; i < STAT_MAX; i++) rd_s16b(&species_ptr->stat_max_max[i]);
 
-	for (i = 0; i < PY_MAX_LEVEL; i++) rd_s16b(&species_ptr->base_hp[i]);
+	for (i = 0; i < CREATURE_MAX_LEVEL; i++) rd_s16b(&species_ptr->base_hp[i]);
 
 	rd_s16b(&species_ptr->patron_idx);
 	rd_s16b(&species_ptr->father_idx);
@@ -899,7 +899,7 @@ static void rd_creature(creature_type *creature_ptr)
 	// Read creature's HP array
 
 	rd_u16b(&tmp16u);
-	if(tmp16u > PY_MAX_LEVEL) note(format("Too many (%u) hitpoint entries!", tmp16u));
+	if(tmp16u > CREATURE_MAX_LEVEL) note(format("Too many (%u) hitpoint entries!", tmp16u));
 	for (i = 0; i < tmp16u; i++) rd_s16b(&creature_ptr->base_hp[i]);
 
 	for (i = 0; i < 8; i++) rd_s32b(&creature_ptr->authority[i]);

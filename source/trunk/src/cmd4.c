@@ -8782,9 +8782,9 @@ static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 	
 	if(fff)
 	{
-		percent = (int)(((long)creature_ptr->base_hp[PY_MAX_LEVEL - 1] * 200L) /
+		percent = (int)(((long)creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] * 200L) /
 			(2 * creature_ptr->hitdice +
-			((PY_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
+			((CREATURE_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
 
 #ifdef JP
 		if(creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "Œ»İ‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100\n\n", percent);

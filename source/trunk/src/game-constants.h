@@ -36,7 +36,7 @@
 #define PY_MAX_GOLD      999999999L      // Maximum gold
 #define PY_MORTAL_LIMIT_LEVEL 30         // Limit Level of Mortal
 #define PY_DIVINE_LIMIT_LEVEL 30         // Limit Level of Divine
-#define PY_MAX_LEVEL (PY_MORTAL_LIMIT_LEVEL + PY_DIVINE_LIMIT_LEVEL) // Maximum level
+#define CREATURE_MAX_LEVEL (PY_MORTAL_LIMIT_LEVEL + PY_DIVINE_LIMIT_LEVEL) // Maximum level
 
 #define WEIGHT_LIMIT_LIGHT	25
 #define WEIGHT_LIMIT_MIDDLE	50

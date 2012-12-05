@@ -59,9 +59,9 @@ void creature_knowledge(creature_type *creature_ptr)
 
 	strcpy(Dummy, "");
 
-	percent = (int)(((long)creature_ptr->base_hp[PY_MAX_LEVEL - 1] * 200L) /
+	percent = (int)(((long)creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] * 200L) /
 		(2 * creature_ptr->hitdice +
-		((PY_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
+		((CREATURE_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
 
 #ifdef JP
 	sprintf(Dummy, "Œ»İ‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);

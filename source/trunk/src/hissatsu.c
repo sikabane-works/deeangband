@@ -70,7 +70,7 @@ cptr            p = "•KŽEŒ•";
 
 	for (i = 0; i < 32; i++)
 	{
-		if(technic_info[TECHNIC_HISSATSU][i].slevel <= PY_MAX_LEVEL)
+		if(technic_info[TECHNIC_HISSATSU][i].slevel <= CREATURE_MAX_LEVEL)
 		{
 			sentaku[num] = i;
 			num++;
@@ -200,7 +200,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 				{
 					spell = technic_info[TECHNIC_HISSATSU][i];
 
-					if(spell.slevel > PY_MAX_LEVEL) continue;
+					if(spell.slevel > CREATURE_MAX_LEVEL) continue;
 					line++;
 					if(!(creature_ptr->spell_learned1 >> i)) break;
 

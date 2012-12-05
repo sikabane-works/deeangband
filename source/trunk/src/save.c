@@ -373,7 +373,7 @@ static void save_quick_start(species_type *species_ptr)
 	for (i = 0; i < STAT_MAX; i++) wr_s16b(species_ptr->stat_max[i]);
 	for (i = 0; i < STAT_MAX; i++) wr_s16b(species_ptr->stat_max_max[i]);
 
-	for (i = 0; i < PY_MAX_LEVEL; i++) wr_s16b(species_ptr->base_hp[i]);
+	for (i = 0; i < CREATURE_MAX_LEVEL; i++) wr_s16b(species_ptr->base_hp[i]);
 
 	wr_s16b(species_ptr->patron_idx);
 	wr_s16b(species_ptr->father_idx);
@@ -472,7 +472,7 @@ static void wr_creature(creature_type *creature_ptr)
 
 	wr_s16b(creature_ptr->depth);
 
-	tmp16u = PY_MAX_LEVEL;
+	tmp16u = CREATURE_MAX_LEVEL;
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++)
 	{

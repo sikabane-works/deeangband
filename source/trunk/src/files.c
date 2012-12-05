@@ -6334,7 +6334,7 @@ static void print_tomb(creature_type *creature_ptr)
 		}
 
 		/* King or Queen */
-		if(creature_ptr->total_winner || (creature_ptr->lev > PY_MAX_LEVEL))
+		if(creature_ptr->total_winner || (creature_ptr->lev > CREATURE_MAX_LEVEL))
 		{
 #ifdef JP
 			/* ‰p“úØ‚è‘Ö‚¦ */

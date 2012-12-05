@@ -1451,12 +1451,12 @@ static errr traits_precondition_splits(traits_precondition *flags_pre_ptr, char 
 		{
 			if(sscanf(s, "%[^:]:%d", &flag_aux, &b) == 2)
 			{
-				c = PY_MAX_LEVEL + 1;
+				c = CREATURE_MAX_LEVEL + 1;
 			}
 			else if(sscanf(s, "%s", &flag_aux) == 1)
 			{
 				b = 1;
-				c = PY_MAX_LEVEL + 1;
+				c = CREATURE_MAX_LEVEL + 1;
 			}
 			else
 				return PARSE_ERROR_GENERIC;

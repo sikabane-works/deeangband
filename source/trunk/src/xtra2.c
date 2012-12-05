@@ -57,7 +57,7 @@ void check_experience(creature_type *creature_ptr)
 	bool android = (has_trait(creature_ptr, TRAIT_ANDROID) ? TRUE : FALSE);
 	int  old_lev = creature_ptr->lev;
 
-	if(creature_ptr->max_lev > PY_MAX_LEVEL) creature_ptr->max_lev = PY_MAX_LEVEL;
+	if(creature_ptr->max_lev > CREATURE_MAX_LEVEL) creature_ptr->max_lev = CREATURE_MAX_LEVEL;
 
 	/* Hack -- lower limit */
 	if(creature_ptr->exp < 0) creature_ptr->exp = 0;
@@ -1089,7 +1089,7 @@ void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *targe
 	s64b_mul(&new_exp, &new_exp_frac, 0, target_ptr->lev * target_ptr->lev);
 	s64b_div(&new_exp, &new_exp_frac, 0, 1 + attacker_ptr->lev);
 
-	if(attacker_ptr->lev != PY_MAX_LEVEL)
+	if(attacker_ptr->lev != CREATURE_MAX_LEVEL)
 		exp_limit = (creature_exp[attacker_ptr->lev+1] - creature_exp[attacker_ptr->lev]) / (5 + attacker_ptr->lev / 10);
 	else
 		exp_limit = (creature_exp[attacker_ptr->lev] * 2) / (5 + attacker_ptr->lev / 10);

@@ -3044,7 +3044,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 			if(race_info[i].race_category == RACE_RARITY_RARE) weight[n] /= 40;
 			if(race_info[i].race_category == RACE_RARITY_LEGENDARY) weight[n] /= 200;
 
-			for(lev = 0; lev < PY_MAX_LEVEL || creature_exp[lev] * 2 <= species_ptr->exp; lev++);
+			for(lev = 0; lev < CREATURE_MAX_LEVEL || creature_exp[lev] * 2 <= species_ptr->exp; lev++);
 			if(lev < race_info[i].lev) weight[n] /= ((race_info[i].lev - lev) * (race_info[i].lev - lev));  
 
 			if(species_ptr->dr < race_info[i].dr) weight[n] /= ((race_info[i].dr - species_ptr->dr) * (race_info[i].dr - species_ptr->dr));

@@ -374,7 +374,7 @@ struct species_type
 
 	s16b stat_max[STAT_MAX];			/* Current modified stats */
 	s16b stat_max_max[STAT_MAX];		/* Maximal "maximal" stat values */
-	s16b base_hp[PY_MAX_LEVEL];
+	s16b base_hp[CREATURE_MAX_LEVEL];
 
 	s32b karmas[MAX_KARMA];
 
@@ -1289,7 +1289,7 @@ struct creature_type
 	s16b concent;      // Sniper's concentration level 
 	u16b total_friends; // number of servent.
 
-	s16b base_hp[PY_MAX_LEVEL];
+	s16b base_hp[CREATURE_MAX_LEVEL];
 	cptr last_message;        // Last message on death or retirement 
 	char history[HISTORY_ROW][HISTORY_COL];  	  // Textual "history" for the Player 
 
