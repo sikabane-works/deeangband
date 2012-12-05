@@ -1365,8 +1365,6 @@ struct creature_type
 
 	u32b cursed;         // Player is cursed 
 
-	bool lite;		// Permanent light 
-
 	s16b to_damaged[MAX_WEAPONS];		// Extra dice/sides
 	s16b to_damages[MAX_WEAPONS];
 	s16b to_hit[MAX_WEAPONS];		// Bonus to hit (wield)

@@ -2432,7 +2432,7 @@ static void calc_lite(creature_type *creature_ptr)
 	 * check if the player doesn't have light radius, 
 	 * but does weakly glow as an intrinsic.
 	 */
-	if(creature_ptr->cur_lite <= 0 && creature_ptr->lite) creature_ptr->cur_lite++;
+	//TODO if(creature_ptr->cur_lite <= 0 && creature_ptr->lite) creature_ptr->cur_lite++;
 
 	if(creature_ptr->cur_lite > 14) creature_ptr->cur_lite = 14;
 	if(creature_ptr->cur_lite < 0) creature_ptr->cur_lite = 0;
@@ -2648,7 +2648,7 @@ static void set_character_bonuses(creature_type *creature_ptr)
 
 	if(creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
-		if(creature_ptr->class_idx != CLASS_NINJA) creature_ptr->lite = TRUE;
+		//TODO if(creature_ptr->class_idx != CLASS_NINJA) creature_ptr->lite = TRUE;
 		creature_ptr->speed += (creature_ptr->lev) / 8 + 5; // Munchkin become faster
 	}
 
@@ -2960,7 +2960,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//creature_ptr->levitation = TRUE;
 		//creature_ptr->hold_life = TRUE;
 		//TODO creature_ptr->telepathy = TRUE;
-		creature_ptr->lite = TRUE;
+		//creature_ptr->lite = TRUE;
 		//has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
 		//has_trait(creature_ptr, TRAIT_SUSTAIN_INT) = TRUE;
 		//has_trait(creature_ptr, TRAIT_SUSTAIN_WIS) = TRUE;
@@ -3269,7 +3269,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 
 	// Clear all the flags
 	creature_ptr->cursed = 0L;
-	creature_ptr->lite = FALSE;
 
 	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = -1;
 	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
@@ -3533,7 +3532,7 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 		if(has_trait(creature_ptr, TRAIT_FIRE_BODY))
 		{
 			//TODO creature_ptr->sh_fire = TRUE;
-			creature_ptr->lite = TRUE;
+			//TODO creature_ptr->lite = TRUE;
 		}
 
 		if(has_trait(creature_ptr, TRAIT_WINGS))

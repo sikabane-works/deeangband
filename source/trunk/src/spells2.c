@@ -240,15 +240,6 @@ void creature_knowledge(creature_type *creature_ptr)
 
 	}
 
-	if(creature_ptr->lite)
-	{
-#ifdef JP
-		info[i++] = "‚ ‚È‚½‚Ìg‘Ì‚ÍŒõ‚Á‚Ä‚¢‚éB";
-#else
-		info[i++] = "You are carrying a permanent light.";
-#endif
-	}
-
 	//TODO old pval status
 
 	/* Access the current weapon */
