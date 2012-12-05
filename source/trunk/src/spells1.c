@@ -1798,7 +1798,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_INERTIA:
-		if(!target_ptr->resist_inertia) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_INER)) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
 		break;
 
 		// 21

@@ -3935,11 +3935,11 @@ static void set_melee_status(creature_type *creature_ptr)
 		{
 			creature_ptr->to_ac -= 50;
 			creature_ptr->dis_to_ac -= 50;
-			creature_ptr->resist_acid = TRUE;
-			creature_ptr->resist_fire = TRUE;
-			creature_ptr->resist_elec = TRUE;
-			creature_ptr->resist_cold = TRUE;
-			creature_ptr->resist_pois = TRUE;
+			//TODO creature_ptr->resist_acid = TRUE;
+			//TODO creature_ptr->resist_fire = TRUE;
+			//TODO creature_ptr->resist_elec = TRUE;
+			//TODO creature_ptr->resist_cold = TRUE;
+			//TODO creature_ptr->resist_pois = TRUE;
 			//TODO creature_ptr->sh_fire = TRUE;
 			//TODO creature_ptr->sh_elec = TRUE;
 			//TODO creature_ptr->sh_cold = TRUE;
