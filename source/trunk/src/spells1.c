@@ -1737,7 +1737,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_PLASMA:
-		if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)), TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_SOUN)) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)), TRUE);
 		if(!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
 			inven_damage(target_ptr, set_acid_destroy, 3);
 		break;
@@ -1745,7 +1745,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//10
 
 	case DO_EFFECT_WATER:		
-		if(!target_ptr->resist_sound) add_timed_trait(target_ptr, TRAIT_STUN, randint1(40), TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_SOUN)) add_timed_trait(target_ptr, TRAIT_STUN, randint1(40), TRUE);
 		if(!has_trait(target_ptr, TRAIT_NO_CONF)) add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(5) + 5, TRUE);
 		if(one_in_(5)) inven_damage(target_ptr, set_cold_destroy, 3);
 		break;
@@ -1780,13 +1780,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// 15
 
 	case DO_EFFECT_SHARDS:
-		if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, dam, TRUE);
-		if(!target_ptr->resist_shard || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
+		if(!has_trait(target_ptr, TRAIT_RES_SHAR)) (void)add_timed_trait(target_ptr, TRAIT_CUT, dam, TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_SHAR) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
 		break;
 
 	case DO_EFFECT_SOUND:
-		if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
-		if(!target_ptr->resist_sound || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
+		if(!has_trait(target_ptr, TRAIT_RES_SOUN)) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_SOUN) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
 		break;
 
 	case DO_EFFECT_CONFUSION:
@@ -1794,7 +1794,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_FORCE:
-		if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_SOUN)) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
 		break;
 
 	case DO_EFFECT_INERTIA:
@@ -1804,7 +1804,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// 21
 
 	case DO_EFFECT_METEOR:
-		if(!target_ptr->resist_shard || one_in_(13))
+		if(!has_trait(target_ptr, TRAIT_RES_SHAR) || one_in_(13))
 		{
 			if(!has_trait(target_ptr, TRAIT_IM_FIRE)) inven_damage(target_ptr, set_fire_destroy, 2);
 			inven_damage(target_ptr, set_cold_destroy, 2);
@@ -1814,15 +1814,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_ICE:
 		if(!(IS_OPPOSE_COLD(target_ptr) && target_ptr->resist_cold))
 			inven_damage(target_ptr, set_cold_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
-		if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, diceroll(5, 8), TRUE);
-		if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(15), TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_SHAR)) (void)add_timed_trait(target_ptr, TRAIT_CUT, diceroll(5, 8), TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_SOUN)) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(15), TRUE);
 		if((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
 			if(!has_trait(target_ptr, TRAIT_IM_COLD)) inven_damage(target_ptr, set_cold_destroy, 3);
 		break;
 
 	case DO_EFFECT_CHAOS:
 			if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(20) + 10, TRUE);
-			if(!target_ptr->resist_chaos)
+			if(!has_trait(target_ptr, TRAIT_RES_CHAO))
 			{
 				(void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint1(10), TRUE);
 				if(one_in_(3))
@@ -1835,10 +1835,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					(void)gain_trait(target_ptr, 0, TRUE);
 				}
 			}
-			if(!target_ptr->resist_neth && !target_ptr->resist_chaos)
+			if(!target_ptr->resist_neth && !has_trait(target_ptr, TRAIT_RES_CHAO))
 				drain_exp(target_ptr, 5000 + (target_ptr->exp / 100), 500 + (target_ptr->exp / 1000), 75);
 
-			if(!target_ptr->resist_chaos || one_in_(9))
+			if(!has_trait(target_ptr, TRAIT_RES_CHAO) || one_in_(9))
 			{
 				inven_damage(target_ptr, set_elec_destroy, 2);
 				inven_damage(target_ptr, set_fire_destroy, 2);
@@ -2242,9 +2242,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ROCKET:
-		if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
-		else if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, dam / 2, TRUE);
-		if(!target_ptr->resist_shard || one_in_(12)) inven_damage(target_ptr, set_cold_destroy, 3);
+		if(!has_trait(target_ptr, TRAIT_RES_SOUN)) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
+		else if(!has_trait(target_ptr, TRAIT_RES_SHAR)) (void)add_timed_trait(target_ptr, TRAIT_CUT, dam / 2, TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_SHAR) || one_in_(12)) inven_damage(target_ptr, set_cold_destroy, 3);
 		break;
 
 		//57-58
@@ -2751,7 +2751,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_WIS);
 			*/
 
-			if(!target_ptr->resist_chaos) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
+			if(!has_trait(target_ptr, TRAIT_RES_CHAO)) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
 		break;
 
 	case DO_EFFECT_CAUSE_1:
