@@ -2138,7 +2138,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(explode) break;
 
 				// Take "poison" effect
-				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+				if(!has_trait(target_ptr, TRAIT_RES_POIS) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 					if(add_timed_trait(target_ptr, TRAIT_POISONED, randint1(attacker_ptr->lev) + 5, FALSE)) obvious = TRUE;
 
 				/* Take some damage */
@@ -2860,12 +2860,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
-				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)))
+				if(!has_trait(target_ptr, TRAIT_RES_POIS))
 				{
 					if(set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint1(attacker_ptr->lev) + 5))
-					{
 						obvious = TRUE;
-					}
 				}
 
 				/* Damage CON (10% chance)*/

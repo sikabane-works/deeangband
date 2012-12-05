@@ -2979,7 +2979,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->resist_chaos = TRUE;
 		creature_ptr->resist_disen = TRUE;
 		creature_ptr->resist_shard = TRUE;
-		creature_ptr->resist_nexus = TRUE;
 		//has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 		creature_ptr->resist_neth = TRUE;
 		//TODO creature_ptr->resist_fear = TRUE;
@@ -3282,7 +3281,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->resist_chaos = FALSE;
 	creature_ptr->resist_disen = FALSE;
 	creature_ptr->resist_shard = FALSE;
-	creature_ptr->resist_nexus = FALSE;
 	//TODO has_trait(creature_ptr, TRAIT_NO_BLIND) = FALSE;
 	creature_ptr->resist_neth = FALSE;
 	creature_ptr->resist_time = FALSE;

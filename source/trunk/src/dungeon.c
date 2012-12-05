@@ -1571,7 +1571,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 		if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0)->tval &&
 			(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0)->name2 != EGO_LITE_DARKNESS) &&
-			!creature_ptr->resist_lite)
+			!has_trait(creature_ptr, TRAIT_RES_LITE))
 		{
 			object_type * object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 			char object_name [MAX_NLEN];
@@ -2003,7 +2003,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_RTELEPORT) && (randint1(5000) == 88))
 	{
-		if(!creature_ptr->resist_nexus && !has_trait(creature_ptr, TRAIT_VTELEPORT) &&
+		if(!has_trait(creature_ptr, TRAIT_RES_NEXU) && !has_trait(creature_ptr, TRAIT_VTELEPORT) &&
 			!has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 		{
 			disturb(player_ptr, 0, 0);
