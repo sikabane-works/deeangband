@@ -96,41 +96,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 	/* Cheat if requested */
 	if(smart_cheat)
 	{
-		/* Know basic info */
-		if(caster_ptr->resist_acid) smart |= (SM_RES_ACID);
-		if(IS_OPPOSE_ACID(caster_ptr)) smart |= (SM_OPP_ACID);
-		//if(caster_ptr->immune_acid) smart |= (SM_IMM_ACID);
-		if(caster_ptr->resist_elec) smart |= (SM_RES_ELEC);
-		if(IS_OPPOSE_ELEC(caster_ptr)) smart |= (SM_OPP_ELEC);
-		//if(caster_ptr->immune_elec) smart |= (SM_IMM_ELEC);
-		if(caster_ptr->resist_fire) smart |= (SM_RES_FIRE);
-		if(IS_OPPOSE_FIRE(caster_ptr)) smart |= (SM_OPP_FIRE);
-		//if(caster_ptr->immune_fire) smart |= (SM_IMM_FIRE);
-		if(caster_ptr->resist_cold) smart |= (SM_RES_COLD);
-		if(IS_OPPOSE_COLD(caster_ptr)) smart |= (SM_OPP_COLD);
-		//if(caster_ptr->immune_cold) smart |= (SM_IMM_COLD);
-
-		/* Know poison info */
-		if(caster_ptr->resist_pois) smart |= (SM_RES_POIS);
-		if(IS_OPPOSE_POIS(caster_ptr)) smart |= (SM_OPP_POIS);
-
-		/* Know special resistances */
-		if(caster_ptr->resist_neth) smart |= (SM_RES_NETH);
-		if(caster_ptr->resist_lite) smart |= (SM_RES_LITE);
-		if(caster_ptr->resist_dark) smart |= (SM_RES_DARK);
-		if(has_trait(caster_ptr, TRAIT_FEARLESS)) smart |= (SM_RES_FEAR);
-		if(has_trait(caster_ptr, TRAIT_NO_CONF)) smart |= (SM_RES_CONF);
-		if(caster_ptr->resist_chaos) smart |= (SM_RES_CHAOS);
-		if(caster_ptr->resist_disen) smart |= (SM_RES_DISEN);
-		if(has_trait(caster_ptr, TRAIT_NO_BLIND)) smart |= (SM_RES_BLIND);
-		if(caster_ptr->resist_nexus) smart |= (SM_RES_NEXUS);
-		if(caster_ptr->resist_sound) smart |= (SM_RES_SOUND);
-		if(caster_ptr->resist_shard) smart |= (SM_RES_SHARD);
-		//if(caster_ptr->reflect) smart |= (SM_IMM_REFLECT);
-
-		/* Know bizarre "resistances" */
-		if(has_trait(caster_ptr, TRAIT_FREE_ACTION)) smart |= (SM_IMM_FREE);
-		if(!caster_ptr->msp) smart |= (SM_IMM_MANA);
+		//TODO
 	}
 
 
