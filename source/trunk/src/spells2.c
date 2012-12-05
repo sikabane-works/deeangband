@@ -2137,13 +2137,9 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 #else
 			msg_print("There is a searing blast of light!");
 #endif
-
-			/* Blind the player */
-			if(!has_trait(caster_ptr, TRAIT_NO_BLIND) && !caster_ptr->resist_lite)
-			{
-				/* Become blind */
-				(void)set_timed_trait(caster_ptr, TRAIT_BLIND, caster_ptr->timed_trait[TRAIT_BLIND] + 10 + randint1(10));
-			}
+			// Blind the player
+			if(!has_trait(caster_ptr, TRAIT_NO_BLIND) && !has_trait(caster_ptr, TRAIT_RES_LITE))
+				(void)add_timed_trait(caster_ptr, TRAIT_BLIND, 10 + randint1(10), TRUE);
 		}
 
 		forget_flow(floor_ptr);

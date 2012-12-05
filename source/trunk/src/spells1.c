@@ -1707,27 +1707,27 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ELEC:
-		if(!(IS_OPPOSE_ELEC(target_ptr) && target_ptr->resist_elec))
+		if(!has_trait(target_ptr, TRAIT_OPP_ELEC))
 			inven_damage(target_ptr, set_elec_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		break;
 
 	case DO_EFFECT_POIS:
-		if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois))
+		if(!has_trait(target_ptr, TRAIT_RES_POIS))
 			add_timed_trait(target_ptr, TRAIT_POISONED, 10, TRUE);
 		break;
 
 	case DO_EFFECT_ACID:
-		if(!(IS_OPPOSE_ACID(target_ptr) && target_ptr->resist_acid))
+		if(!!has_trait(target_ptr, TRAIT_OPP_ACID))
 			inven_damage(target_ptr, set_acid_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		break;
 
 	case DO_EFFECT_COLD:
-		if(!(IS_OPPOSE_COLD(target_ptr) && target_ptr->resist_cold))
+		if(!!has_trait(target_ptr, TRAIT_OPP_COLD))
 			inven_damage(target_ptr, set_cold_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		break;
 
 	case DO_EFFECT_FIRE:
-		if(!(IS_OPPOSE_FIRE(target_ptr) && target_ptr->resist_fire))
+		if(!!has_trait(target_ptr, TRAIT_OPP_FIRE))
 			inven_damage(target_ptr, set_fire_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		break;
 
