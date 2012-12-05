@@ -1554,7 +1554,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	// (Vampires) Take damage from sunlight
 	if(has_trait(creature_ptr, TRAIT_HURT_LITE))
 	{
-		if(!floor_ptr->floor_level && !creature_ptr->resist_lite && !IS_INVULN(creature_ptr) && is_daytime())
+		if(!floor_ptr->floor_level && !has_trait(creature_ptr, TRAIT_RES_LITE) && !IS_INVULN(creature_ptr) && is_daytime())
 		{
 			if((floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{

@@ -883,19 +883,19 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		break;
 
 	case DO_EFFECT_SOUND:
-		if(target_ptr->resist_sound > 0) t = t * 5 / 9;
+		if(has_trait(target_ptr, TRAIT_RES_SOUN)) t = t * 5 / 9;
 		break;
 
 	case DO_EFFECT_CHAOS:
-		if(target_ptr->resist_chaos > 0) t = t * 2 / 3;
+		if(has_trait(target_ptr, TRAIT_RES_CHAO)) t = t * 2 / 3;
 		break;
 
 	case DO_EFFECT_NEXUS:
-		if(target_ptr->resist_nexus > 0) t = t * 2 / 3;
+		if(has_trait(target_ptr, TRAIT_RES_NEXU)) t = t * 2 / 3;
 		break;
 
 	case DO_EFFECT_DISENCHANT:
-		if(target_ptr->resist_disen > 0) t = t * 2 / 3;
+		if(has_trait(target_ptr, TRAIT_RES_DISE)) t = t * 2 / 3;
 		break;
 
 	case DO_EFFECT_KILL_WALL:
