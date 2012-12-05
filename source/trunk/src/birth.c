@@ -2470,7 +2470,7 @@ void creature_wipe(creature_type *creature_ptr)
 
 
 	/* Hack -- Well fed player */
-	creature_ptr->food = PY_FOOD_FULL - 1;
+	creature_ptr->food = CREATURE_FOOD_FULL - 1;
 
 	/* Wipe the spells */
 	if(creature_ptr->class_idx == CLASS_SORCERER)

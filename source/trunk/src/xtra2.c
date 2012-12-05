@@ -36,9 +36,9 @@ void set_experience(creature_type *creature_ptr)
 	if(creature_ptr->max_exp > creature_ptr->max_max_exp) creature_ptr->max_max_exp = creature_ptr->max_exp;
 
 	if(creature_ptr->dr >= 0)
-		creature_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL + creature_ptr->dr;
+		creature_ptr->max_lev = CREATURE_MORTAL_LIMIT_LEVEL + creature_ptr->dr;
 	else
-		creature_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL;
+		creature_ptr->max_lev = CREATURE_MORTAL_LIMIT_LEVEL;
 
 	// Gain levels while possible
 	while ((creature_ptr->lev < creature_ptr->max_lev) &&
@@ -81,9 +81,9 @@ void check_experience(creature_type *creature_ptr)
 	handle_stuff();
 
 	if(creature_ptr->dr >= 0)
-		creature_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL + creature_ptr->dr;
+		creature_ptr->max_lev = CREATURE_MORTAL_LIMIT_LEVEL + creature_ptr->dr;
 	else
-		creature_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL;
+		creature_ptr->max_lev = CREATURE_MORTAL_LIMIT_LEVEL;
 
 	/* Lose levels while possible */
 	while ((creature_ptr->lev > 1) &&

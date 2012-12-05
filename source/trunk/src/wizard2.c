@@ -1264,7 +1264,7 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 	do_active_trait(creature_ptr, TRAIT_RESTORE_ALL, TRUE);
 
 	// No longer hungry
-	(void)set_food(creature_ptr, PY_FOOD_MAX - 1);
+	(void)set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
 }
 
 /*

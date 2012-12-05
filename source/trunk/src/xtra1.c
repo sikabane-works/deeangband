@@ -768,7 +768,7 @@ static void prt_hunger(creature_type *creature_ptr)
 	char *expression;
 	char tmp[30];
 
-	if(creature_ptr->food < PY_FOOD_FAINT)
+	if(creature_ptr->food < CREATURE_FOOD_FAINT)
 	{
 		color = TERM_RED;
 #ifdef JP
@@ -780,7 +780,7 @@ static void prt_hunger(creature_type *creature_ptr)
 #endif
 
 	}
-	else if(creature_ptr->food < PY_FOOD_WEAK)
+	else if(creature_ptr->food < CREATURE_FOOD_WEAK)
 	{
 		color = TERM_ORANGE;
 #ifdef JP
@@ -792,7 +792,7 @@ static void prt_hunger(creature_type *creature_ptr)
 #endif
 
 	}
-	else if(creature_ptr->food < PY_FOOD_ALERT)
+	else if(creature_ptr->food < CREATURE_FOOD_ALERT)
 	{
 		color = TERM_YELLOW;
 #ifdef JP
@@ -803,13 +803,13 @@ static void prt_hunger(creature_type *creature_ptr)
 		c_put_str(TERM_YELLOW, "Hungry", ROW_HUNGRY, COL_HUNGRY);
 #endif
 	}
-	else if(creature_ptr->food < PY_FOOD_FULL)
+	else if(creature_ptr->food < CREATURE_FOOD_FULL)
 	{
 		color = TERM_L_GREEN;
 		expression = "      ";
 		c_put_str(TERM_L_GREEN, "      ", ROW_HUNGRY, COL_HUNGRY);
 	}
-	else if(creature_ptr->food < PY_FOOD_MAX)
+	else if(creature_ptr->food < CREATURE_FOOD_MAX)
 	{
 		color = TERM_L_GREEN;
 #ifdef JP
@@ -2828,7 +2828,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	int i;
 	object_type *object_ptr;
 
-	if(creature_ptr->food >= PY_FOOD_MAX) creature_ptr->speed -= 10; // Bloating slows the player down
+	if(creature_ptr->food >= CREATURE_FOOD_MAX) creature_ptr->speed -= 10; // Bloating slows the player down
 
 	// Hex bonuses
 	if(creature_ptr->realm1 == REALM_HEX)

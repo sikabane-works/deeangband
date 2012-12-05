@@ -1212,7 +1212,7 @@ static void creature_speaking(creature_type *creature_ptr)
 
 static void creature_lack_food(creature_type *creature_ptr)
 {
-	if((creature_ptr->food < PY_FOOD_FAINT))
+	if((creature_ptr->food < CREATURE_FOOD_FAINT))
 	{
 		// Faint occasionally
 		if(!creature_ptr->timed_trait[TRAIT_PARALYZED] && (randint0(100) < 10))
@@ -1227,10 +1227,10 @@ static void creature_lack_food(creature_type *creature_ptr)
 		}
 
 		// Starve to death (slowly)
-		if(creature_ptr->food < PY_FOOD_STARVE)
+		if(creature_ptr->food < CREATURE_FOOD_STARVE)
 		{
 			// Calculate damage
-			int dam = (PY_FOOD_STARVE - creature_ptr->food) / 10;
+			int dam = (CREATURE_FOOD_STARVE - creature_ptr->food) / 10;
 
 			// Take damage
 #ifdef JP
@@ -1249,7 +1249,7 @@ static void creature_food_digest(creature_type *creature_ptr)
 	if(!floor_ptr->gamble_arena_mode)
 	{
 		// Digest quickly when gorged
-		if(creature_ptr->food >= PY_FOOD_MAX)
+		if(creature_ptr->food >= CREATURE_FOOD_MAX)
 			(void)set_food(creature_ptr, creature_ptr->food - 100);
 
 		// Digest normally -- Every 50 game turns

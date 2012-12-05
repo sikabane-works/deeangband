@@ -416,7 +416,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_SATIATE:
-		(void)set_food(caster_ptr, PY_FOOD_MAX - 1);
+		(void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1);
 		break;
 
 	case TRAIT_DESTROY_DOOR_TRAP:
@@ -919,7 +919,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_SALT_WATER:
-		if(!has_trait(caster_ptr, TRAIT_NONLIVING)) (void)set_food(caster_ptr, PY_FOOD_STARVE - 1); // Only living creatures get thirsty
+		if(!has_trait(caster_ptr, TRAIT_NONLIVING)) (void)set_food(caster_ptr, CREATURE_FOOD_STARVE - 1); // Only living creatures get thirsty
 		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
 		(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] + 4);
 		break;
@@ -2602,7 +2602,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				dummy = user_level + randint1(user_level) * MAX(1, user_level / 10);   // Dmg
 				if(drain_life(caster_ptr, dir, dummy))
 				{
-					if(caster_ptr->food < PY_FOOD_FULL)
+					if(caster_ptr->food < CREATURE_FOOD_FULL)
 						// No heal if we are "full"
 						(void)heal_creature(caster_ptr, dummy);
 					else
@@ -2617,8 +2617,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					// Don't ever get more than "Full" this way
 					// But if we ARE Gorged, it won't cure us
 					dummy = caster_ptr->food + MIN(5000, 100 * dummy);
-					if(caster_ptr->food < PY_FOOD_MAX) // Not gorged already
-						(void)set_food(caster_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
+					if(caster_ptr->food < CREATURE_FOOD_MAX) // Not gorged already
+						(void)set_food(caster_ptr, dummy >= CREATURE_FOOD_MAX ? CREATURE_FOOD_MAX - 1 : dummy);
 				}
 				else
 #ifdef JP

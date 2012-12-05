@@ -4634,7 +4634,7 @@ int town_store_id[20][10] =
 
 char authority_rank_disp[6][3] = {"E", "D", "C", "B", "A", "S"};
 
-int divine_capacity[PY_DIVINE_LIMIT_LEVEL + 1] = 
+int divine_capacity[CREATURE_DIVINE_LIMIT_LEVEL + 1] = 
 {
 	10,
 

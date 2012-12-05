@@ -1112,18 +1112,18 @@ bool set_food(creature_type *creature_ptr, int v)
 	/* Hack -- Force good values */
 	v = (v > 20000) ? 20000 : (v < 0) ? 0 : v;
 
-	if(creature_ptr->food < PY_FOOD_FAINT) old_aux = 0;
-	else if(creature_ptr->food < PY_FOOD_WEAK) old_aux = 1;
-	else if(creature_ptr->food < PY_FOOD_ALERT) old_aux = 2;
-	else if(creature_ptr->food < PY_FOOD_FULL) old_aux = 3;
-	else if(creature_ptr->food < PY_FOOD_MAX) old_aux = 4;
+	if(creature_ptr->food < CREATURE_FOOD_FAINT) old_aux = 0;
+	else if(creature_ptr->food < CREATURE_FOOD_WEAK) old_aux = 1;
+	else if(creature_ptr->food < CREATURE_FOOD_ALERT) old_aux = 2;
+	else if(creature_ptr->food < CREATURE_FOOD_FULL) old_aux = 3;
+	else if(creature_ptr->food < CREATURE_FOOD_MAX) old_aux = 4;
 	else old_aux = 5;
 
-	if(v < PY_FOOD_FAINT) new_aux = 0;
-	else if(v < PY_FOOD_WEAK) new_aux = 1;
-	else if(v < PY_FOOD_ALERT) new_aux = 2;
-	else if(v < PY_FOOD_FULL) new_aux = 3;
-	else if(v < PY_FOOD_MAX) new_aux = 4;
+	if(v < CREATURE_FOOD_FAINT) new_aux = 0;
+	else if(v < CREATURE_FOOD_WEAK) new_aux = 1;
+	else if(v < CREATURE_FOOD_ALERT) new_aux = 2;
+	else if(v < CREATURE_FOOD_FULL) new_aux = 3;
+	else if(v < CREATURE_FOOD_MAX) new_aux = 4;
 	else new_aux = 5;
 
 	/* Food increase */

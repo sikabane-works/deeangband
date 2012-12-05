@@ -20,7 +20,7 @@ int estimate_level(species_type *species_ptr)
 	{
 		if(exp <= table[i-1] * factor / 100) break;
 	}
-	i = i > PY_MORTAL_LIMIT_LEVEL + species_ptr->dr ? PY_MORTAL_LIMIT_LEVEL + species_ptr->dr : i;
+	i = i > CREATURE_MORTAL_LIMIT_LEVEL + species_ptr->dr ? CREATURE_MORTAL_LIMIT_LEVEL + species_ptr->dr : i;
 	return i;
 }
 

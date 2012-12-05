@@ -1299,7 +1299,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				dummy = plev + randint1(plev) * MAX(1, plev / 10);   // Dmg
 				if(drain_life(creature_ptr, dir, dummy))
 				{
-					if(creature_ptr->food < PY_FOOD_FULL)
+					if(creature_ptr->food < CREATURE_FOOD_FULL)
 						// No heal if we are "full"
 						(void)heal_creature(creature_ptr, dummy);
 					else
@@ -1314,8 +1314,8 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 					// Don't ever get more than "Full" this way
 					// But if we ARE Gorged, it won't cure us
 					dummy = creature_ptr->food + MIN(5000, 100 * dummy);
-					if(creature_ptr->food < PY_FOOD_MAX)   /* Not gorged already
-						(void)set_food(creature_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
+					if(creature_ptr->food < CREATURE_FOOD_MAX)   /* Not gorged already
+						(void)set_food(creature_ptr, dummy >= CREATURE_FOOD_MAX ? CREATURE_FOOD_MAX - 1 : dummy);
 				}
 				else
 #ifdef JP
@@ -1830,7 +1830,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				dummy = plev + randint1(plev) * MAX(1, plev / 10);   // Dmg
 				if(drain_life(creature_ptr, dir, dummy))
 				{
-					if(creature_ptr->food < PY_FOOD_FULL)
+					if(creature_ptr->food < CREATURE_FOOD_FULL)
 						// No heal if we are "full"
 						(void)heal_creature(creature_ptr, dummy);
 					else
@@ -1845,8 +1845,8 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 					// Don't ever get more than "Full" this way
 					// But if we ARE Gorged, it won't cure us
 					dummy = creature_ptr->food + MIN(5000, 100 * dummy);
-					if(creature_ptr->food < PY_FOOD_MAX)   // Not gorged already
-						(void)set_food(creature_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
+					if(creature_ptr->food < CREATURE_FOOD_MAX)   // Not gorged already
+						(void)set_food(creature_ptr, dummy >= CREATURE_FOOD_MAX ? CREATURE_FOOD_MAX - 1 : dummy);
 				}
 				else
 #ifdef JP

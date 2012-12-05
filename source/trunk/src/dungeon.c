@@ -893,7 +893,7 @@ static void regenhp(creature_type *creature_ptr, int percent)
 	* 'percent' is the Regen factor in unit (1/2^16)
 	*/
 	new_chp = 0;
-	new_chp_frac = (creature_ptr->mhp * percent + PY_REGEN_HPBASE);
+	new_chp_frac = (creature_ptr->mhp * percent + CREATURE_REGEN_HPBASE);
 
 	/* Convert the unit (1/2^16) to (1/2^32) */
 	s64b_LSHIFT(new_chp, new_chp_frac, 16);
@@ -934,9 +934,9 @@ static void regenmana(creature_type * creature_ptr, int percent)
 	*/
 	if(creature_ptr->csp > creature_ptr->msp)
 	{
-		/* PY_REGEN_NORMAL is the Regen factor in unit (1/2^16) */
+		/* CREATURE_REGEN_NORMAL is the Regen factor in unit (1/2^16) */
 		s32b decay = 0;
-		u32b decay_frac = (creature_ptr->msp * 32 * PY_REGEN_NORMAL + PY_REGEN_MNBASE);
+		u32b decay_frac = (creature_ptr->msp * 32 * CREATURE_REGEN_NORMAL + CREATURE_REGEN_MNBASE);
 
 		/* Convert the unit (1/2^16) to (1/2^32) */
 		s64b_LSHIFT(decay, decay_frac, 16);
@@ -957,7 +957,7 @@ static void regenmana(creature_type * creature_ptr, int percent)
 	{
 		/* (percent/100) is the Regen factor in unit (1/2^16) */
 		s32b new_mana = 0;
-		u32b new_mana_frac = (creature_ptr->msp * percent / 100 + PY_REGEN_MNBASE);
+		u32b new_mana_frac = (creature_ptr->msp * percent / 100 + CREATURE_REGEN_MNBASE);
 
 		/* Convert the unit (1/2^16) to (1/2^32) */
 		s64b_LSHIFT(new_mana, new_mana_frac, 16);
@@ -977,9 +977,9 @@ static void regenmana(creature_type * creature_ptr, int percent)
 	/* Reduce mana (even when the player has excess mana) */
 	if(percent < 0)
 	{
-		/* PY_REGEN_NORMAL is the Regen factor in unit (1/2^16) */
+		/* CREATURE_REGEN_NORMAL is the Regen factor in unit (1/2^16) */
 		s32b reduce_mana = 0;
-		u32b reduce_mana_frac = (creature_ptr->msp * PY_REGEN_NORMAL + PY_REGEN_MNBASE);
+		u32b reduce_mana_frac = (creature_ptr->msp * CREATURE_REGEN_NORMAL + CREATURE_REGEN_MNBASE);
 
 		/* Convert the unit (1/2^16) to (1/2^32) */
 		s64b_LSHIFT(reduce_mana, reduce_mana_frac, 16);
@@ -1513,7 +1513,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	bool cave_no_regen = FALSE;
 	int upkeep_factor = 0;
 	int upkeep_regen;
-	int regen_amount = PY_REGEN_NORMAL;	// Default regeneration
+	int regen_amount = CREATURE_REGEN_NORMAL;	// Default regeneration
 
 	if(!is_valid_creature(creature_ptr)) return;
 
@@ -1810,12 +1810,12 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	/*** handle regeneration ***/
 
 	// Getting Weak
-	if(creature_ptr->food < PY_FOOD_WEAK)
+	if(creature_ptr->food < CREATURE_FOOD_WEAK)
 	{
 		// Lower regeneration
-		if(creature_ptr->food < PY_FOOD_STARVE) regen_amount = 0;
-		else if(creature_ptr->food < PY_FOOD_FAINT) regen_amount = PY_REGEN_FAINT;
-		else regen_amount = PY_REGEN_WEAK;
+		if(creature_ptr->food < CREATURE_FOOD_STARVE) regen_amount = 0;
+		else if(creature_ptr->food < CREATURE_FOOD_FAINT) regen_amount = CREATURE_REGEN_FAINT;
+		else regen_amount = CREATURE_REGEN_WEAK;
 	}
 
 	// Are we walking the pattern?
@@ -2335,7 +2335,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		msg_print("Your stomach roils, and you lose your lunch!");
 #endif
 		msg_print(NULL);
-		set_food(creature_ptr, PY_FOOD_WEAK);
+		set_food(creature_ptr, CREATURE_FOOD_WEAK);
 		if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
 		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 	}
@@ -3798,7 +3798,7 @@ static void process_player_command(creature_type *creature_ptr)
 			if(!floor_ptr->wild_mode && !floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
 			{
 
-				if(creature_ptr->food < PY_FOOD_WEAK)
+				if(creature_ptr->food < CREATURE_FOOD_WEAK)
 				{
 #ifdef JP
 					msg_print("‚»‚Ì‘O‚ÉHŽ–‚ð‚Æ‚ç‚È‚¢‚ÆB");
@@ -5277,7 +5277,7 @@ static void cheat_death(void)
 
 	heal_creature(player_ptr, player_ptr->mhp);
 	inc_mana(player_ptr, player_ptr->msp);
-	(void)set_food(player_ptr, PY_FOOD_MAX - 1);
+	(void)set_food(player_ptr, CREATURE_FOOD_MAX - 1);
 	reset_timed_trait(player_ptr);
 
 	if(player_ptr->class_idx == CLASS_MAGIC_EATER)

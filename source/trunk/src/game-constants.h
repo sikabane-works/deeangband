@@ -31,12 +31,12 @@
 #define MAX_STEALTH 100
 #define MIN_STEALTH   0
 
-#define CREATURE_MAX_EXP 99999999L       // Maximum exp
+#define CREATURE_MAX_EXP 99999999L
 
-#define PY_MAX_GOLD      999999999L      // Maximum gold
-#define PY_MORTAL_LIMIT_LEVEL 30         // Limit Level of Mortal
-#define PY_DIVINE_LIMIT_LEVEL 30         // Limit Level of Divine
-#define CREATURE_MAX_LEVEL (PY_MORTAL_LIMIT_LEVEL + PY_DIVINE_LIMIT_LEVEL) // Maximum level
+#define CREATURE_MAX_GOLD      999999999L
+#define CREATURE_MORTAL_LIMIT_LEVEL 30
+#define CREATURE_DIVINE_LIMIT_LEVEL 30
+#define CREATURE_MAX_LEVEL (CREATURE_MORTAL_LIMIT_LEVEL + CREATURE_DIVINE_LIMIT_LEVEL)
 
 #define WEIGHT_LIMIT_LIGHT	25
 #define WEIGHT_LIMIT_MIDDLE	50
@@ -69,21 +69,21 @@
 /*
  * Player "food" crucial values
  */
-#define PY_FOOD_MAX     15000   /* Food value (Bloated) */
-#define PY_FOOD_FULL    10000   /* Food value (Normal) */
-#define PY_FOOD_ALERT   2000    /* Food value (Hungry) */
-#define PY_FOOD_WEAK    1000    /* Food value (Weak) */
-#define PY_FOOD_FAINT   500     /* Food value (Fainting) */
-#define PY_FOOD_STARVE  100     /* Food value (Starving) */
+#define CREATURE_FOOD_MAX     15000   /* Food value (Bloated) */
+#define CREATURE_FOOD_FULL    10000   /* Food value (Normal) */
+#define CREATURE_FOOD_ALERT   2000    /* Food value (Hungry) */
+#define CREATURE_FOOD_WEAK    1000    /* Food value (Weak) */
+#define CREATURE_FOOD_FAINT   500     /* Food value (Fainting) */
+#define CREATURE_FOOD_STARVE  100     /* Food value (Starving) */
 
 /*
  * Player regeneration constants
  */
-#define PY_REGEN_NORMAL         197     /* Regen factor*2^16 when full */
-#define PY_REGEN_WEAK           98      /* Regen factor*2^16 when weak */
-#define PY_REGEN_FAINT          33      /* Regen factor*2^16 when fainting */
-#define PY_REGEN_HPBASE         1442    /* Min amount hp regen*2^16 */
-#define PY_REGEN_MNBASE         524     /* Min amount mana regen*2^16 */
+#define CREATURE_REGEN_NORMAL         197     /* Regen factor*2^16 when full */
+#define CREATURE_REGEN_WEAK           98      /* Regen factor*2^16 when weak */
+#define CREATURE_REGEN_FAINT          33      /* Regen factor*2^16 when fainting */
+#define CREATURE_REGEN_HPBASE         1442    /* Min amount hp regen*2^16 */
+#define CREATURE_REGEN_MNBASE         524     /* Min amount mana regen*2^16 */
 
 /*
  * Total number of inventory slots (hard-coded).

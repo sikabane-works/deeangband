@@ -1137,7 +1137,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(desc) return "Satisfies hunger.";
 #endif    
 		{
-			if(cast) set_food(creature_ptr, PY_FOOD_MAX - 1);
+			if(cast) set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
 		}
 		break;
 
@@ -4282,8 +4282,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 					dam = caster_ptr->food + MIN(5000, 100 * dam);
 
 					/* Not gorged already */
-					if(caster_ptr->food < PY_FOOD_MAX)
-						set_food(caster_ptr, dam >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dam);
+					if(caster_ptr->food < CREATURE_FOOD_MAX)
+						set_food(caster_ptr, dam >= CREATURE_FOOD_MAX ? CREATURE_FOOD_MAX - 1 : dam);
 				}
 			}
 		}
@@ -6162,7 +6162,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				set_food(caster_ptr, PY_FOOD_MAX - 1);
+				set_food(caster_ptr, CREATURE_FOOD_MAX - 1);
 			}
 		}
 		break;
@@ -6431,7 +6431,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				set_food(creature_ptr, PY_FOOD_MAX - 1);
+				set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
 			}
 		}
 		break;

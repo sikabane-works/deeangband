@@ -2423,7 +2423,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 	switch (cmd)
 	{
 		case BUILDING_FUNCTION_FOOD: /* Buy food & drink */
-			if(creature_ptr->food >= PY_FOOD_FULL)
+			if(creature_ptr->food >= CREATURE_FOOD_FULL)
 			{
 #ifdef JP
 				msg_print("ç°ÇÕñûï†ÇæÅB");
@@ -2439,7 +2439,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 			msg_print("The barkeep gives you some gruel and a beer.");
 #endif
 
-			(void)set_food(creature_ptr, PY_FOOD_MAX - 1);
+			(void)set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
 			break;
 
 		case BUILDING_FUNCTION_REST:

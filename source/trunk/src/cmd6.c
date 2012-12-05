@@ -322,7 +322,7 @@ msg_print("‚ ‚È‚½‚Ì‚æ‚¤‚ÈŽÒ‚É‚Æ‚Á‚ÄH—Æ‚È‚Ç‹Í‚©‚È‰h—{‚É‚µ‚©‚È‚ç‚È‚¢B");
 		msg_print("Mere victuals hold scant sustenance for a being such as yourself.");
 #endif
 
-		if(creature_ptr->food < PY_FOOD_ALERT)   // Hungry
+		if(creature_ptr->food < CREATURE_FOOD_ALERT)   // Hungry
 #ifdef JP
 msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 #else
@@ -443,7 +443,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 #else
 		msg_format("%^s is burnt to ashes.  You absorb its vitality!", object_name);
 #endif
-		(void)set_food(creature_ptr, PY_FOOD_MAX - 1);
+		(void)set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
 	}
 	else if(has_trait(creature_ptr, TRAIT_SKELETON))
 	{
@@ -490,7 +490,7 @@ msg_print("¶ŽÒ‚ÌH•¨‚Í‚ ‚È‚½‚É‚Æ‚Á‚Ä‚Ù‚Æ‚ñ‚Ç‰h—{‚É‚È‚ç‚È‚¢B");
 	else if(object_ptr->tval == TV_FOOD && object_ptr->sval == SV_FOOD_WAYBREAD)
 	{
 		/* Waybread is always fully satisfying. */
-		set_food(creature_ptr, MAX(creature_ptr->food, PY_FOOD_MAX - 1));
+		set_food(creature_ptr, MAX(creature_ptr->food, CREATURE_FOOD_MAX - 1));
 	}
 	else
 	{
@@ -1141,7 +1141,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 #else
 		msg_print("You are moistened.");
 #endif
-		set_food(caster_ptr, MIN(caster_ptr->food + quest_ptr->pval + MAX(0, quest_ptr->pval * 10) + 2000, PY_FOOD_MAX - 1));
+		set_food(caster_ptr, MIN(caster_ptr->food + quest_ptr->pval + MAX(0, quest_ptr->pval * 10) + 2000, CREATURE_FOOD_MAX - 1));
 	}
 	else
 	{
@@ -1512,7 +1512,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 
 		case SV_SCROLL_SATISFY_HUNGER:
 		{
-			if(set_food(caster_ptr, PY_FOOD_MAX - 1)) ident = TRUE;
+			if(set_food(caster_ptr, CREATURE_FOOD_MAX - 1)) ident = TRUE;
 			break;
 		}
 
