@@ -4471,7 +4471,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_CHAOS:
-		if(target_ptr->resist_chaos) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
+		if(has_trait(target_ptr, TRAIT_RES_CHAO)) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
 		break;
 
 	case DO_EFFECT_NETHER:
@@ -4487,15 +4487,15 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISENCHANT:
-		if(target_ptr->resist_disen) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
+		if(has_trait(target_ptr, TRAIT_RES_DISE)) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
 		break;
 
 	case DO_EFFECT_NEXUS:
-		if(target_ptr->resist_nexus) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
+		if(has_trait(target_ptr, TRAIT_RES_NEXU)) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
 		break;
 
 	case DO_EFFECT_TIME:
-		if(target_ptr->resist_time) dam /= 2; /* Worst case of 4 / (d4 + 7) */
+		if(has_trait(target_ptr, TRAIT_RES_TIME)) dam /= 2; /* Worst case of 4 / (d4 + 7) */
 		break;
 
 	case DO_EFFECT_GRAVITY:
@@ -4507,8 +4507,8 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_NUKE:
-		if(target_ptr->resist_pois) dam = (2 * dam + 2) / 5;
-		if(IS_OPPOSE_POIS(target_ptr)) dam = (2 * dam + 2) / 5;
+		if(has_trait(target_ptr, TRAIT_RES_POIS)) dam = (2 * dam + 2) / 5;
+		if(has_trait(target_ptr, TRAIT_OPP_POIS)) dam = (2 * dam + 2) / 5;
 		break;
 
 	case DO_EFFECT_DEATH_RAY:

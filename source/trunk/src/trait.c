@@ -1741,7 +1741,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_TELE_LEVEL:
 		{
-			if(target_ptr->resist_nexus)
+			if(has_trait(target_ptr, TRAIT_RES_NEXU))
 			{
 				msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 			}

@@ -1850,15 +1850,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISENCHANT:
-		if(!target_ptr->resist_disen) (void)apply_disenchant(target_ptr, 0);
+		if(!has_trait(target_ptr, TRAIT_RES_DISE)) (void)apply_disenchant(target_ptr, 0);
 		break;
 
 	case DO_EFFECT_NEXUS:
-		if(!target_ptr->resist_nexus) apply_nexus(caster_ptr);
+		if(!has_trait(target_ptr, TRAIT_RES_NEXU)) apply_nexus(caster_ptr);
 		break;
 
 	case DO_EFFECT_TIME:
-		if(!target_ptr->resist_time)
+		if(!has_trait(target_ptr, TRAIT_RES_TIME))
 		{
 			switch (randint1(10))
 			{
@@ -2221,7 +2221,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// 56
 
 	case DO_EFFECT_NUKE:
-		if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois))
+		if(!(IS_OPPOSE_POIS(target_ptr) || has_trait(target_ptr, TRAIT_RES_POIS)))
 		{
 			add_timed_trait(target_ptr, TRAIT_POISONED, randint0(dam) + 10, TRUE);
 			if(one_in_(5)) // 6

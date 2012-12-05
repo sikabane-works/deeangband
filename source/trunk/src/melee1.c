@@ -2149,7 +2149,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(explode) break;
 
 				/* Allow complete resist */
-				if(!target_ptr->resist_disen && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+				if(!has_trait(target_ptr, TRAIT_RES_DISE) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 					/* Apply disenchantment */
 					if(apply_disenchant(target_ptr, 0))
@@ -2882,7 +2882,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_TIME:
 			{
 				if(explode) break;
-				if(!target_ptr->resist_time && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+				if(!has_trait(target_ptr, TRAIT_RES_TIME) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 					switch (randint1(10))
 					{
