@@ -3270,28 +3270,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	// Clear all the flags
 	creature_ptr->cursed = 0L;
 	creature_ptr->lite = FALSE;
-	creature_ptr->resist_acid = FALSE;
-	creature_ptr->resist_elec = FALSE;
-	creature_ptr->resist_fire = FALSE;
-	creature_ptr->resist_cold = FALSE;
-	creature_ptr->resist_pois = FALSE;
-	creature_ptr->resist_sound = FALSE;
-	creature_ptr->resist_lite = FALSE;
-	creature_ptr->resist_dark = FALSE;
-	creature_ptr->resist_chaos = FALSE;
-	creature_ptr->resist_disen = FALSE;
-	creature_ptr->resist_shard = FALSE;
-	//TODO has_trait(creature_ptr, TRAIT_NO_BLIND) = FALSE;
-	creature_ptr->resist_neth = FALSE;
-	creature_ptr->resist_time = FALSE;
-	//TODO creature_ptr->resist_fear = FALSE;
-	//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = FALSE;
-	//TODO creature_ptr->sh_fire = FALSE;
-	//TODO creature_ptr->sh_elec = FALSE;
-	//TODO creature_ptr->sh_cold = FALSE;
-	//TODO has_trait(creature_ptr, TRAIT_ANTI_MAGIC) = FALSE;
-	//has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) = FALSE;
-	//creature_ptr->see_nocto = FALSE;
 
 	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = -1;
 	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];

@@ -1738,7 +1738,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_PLASMA:
 		if(!has_trait(target_ptr, TRAIT_RES_SOUN)) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)), TRUE);
-		if(!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
+		if(!(has_trait(target_ptr, TRAIT_RES_FIRE) || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
 			inven_damage(target_ptr, set_acid_destroy, 3);
 		break;
 
@@ -1812,11 +1812,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ICE:
-		if(!(IS_OPPOSE_COLD(target_ptr) && target_ptr->resist_cold))
+		if(!(IS_OPPOSE_COLD(target_ptr) && has_trait(target_ptr, TRAIT_RES_COLD)))
 			inven_damage(target_ptr, set_cold_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		if(!has_trait(target_ptr, TRAIT_RES_SHAR)) (void)add_timed_trait(target_ptr, TRAIT_CUT, diceroll(5, 8), TRUE);
 		if(!has_trait(target_ptr, TRAIT_RES_SOUN)) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(15), TRUE);
-		if((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
+		if((!(has_trait(target_ptr, TRAIT_RES_COLD) || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
 			if(!has_trait(target_ptr, TRAIT_IM_COLD)) inven_damage(target_ptr, set_cold_destroy, 3);
 		break;
 
