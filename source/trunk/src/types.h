@@ -866,10 +866,7 @@ struct magic_table_type
 };
 
 
-/*
- * Player sex info
- */
-
+// Creature sex info
 typedef struct sex_type sex_type;
 
 struct sex_type
@@ -1365,26 +1362,6 @@ struct creature_type
 
 	u32b equipping_weight;	// Total weight being carried 
 	u32b carrying_weight;	// Total weight being carried 
-
-	s16b resist_acid;	// Resist acid 
-	s16b resist_elec;	// Resist lightning 
-	s16b resist_fire;	// Resist fire 
-	s16b resist_cold;	// Resist cold 
-	s16b resist_pois;	// Resist poison 
-	s16b resist_sound;	 // Resist sound 
-	s16b resist_lite;	 // Resist light 
-	s16b resist_dark;	 // Resist darkness 
-	s16b resist_chaos;	 // Resist chaos 
-	s16b resist_disen;	 // Resist disenchant 
-	s16b resist_shard;	 // Resist shards 
-	s16b resist_nexus;	 // Resist nexus 
-	s16b resist_neth;	 // Resist nether 
-	s16b resist_time;	 // Resist time 
-	s16b resist_plazma;  // Resist plazma 
-	s16b resist_gravity; // Resist gravity 
-	s16b resist_inertia; // Resist inartia 
-	s16b resist_force;   // Resist force 
-	s16b resist_water;   // Resist water 
 
 	u32b cursed;         // Player is cursed 
 
