@@ -676,7 +676,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 				if(set_timed_trait_aux(caster_ptr, TRAIT_CONFUSED, randint0(20) + 15, TRUE))
 					effected = TRUE;
 
-			if(!caster_ptr->resist_chaos)
+			if(!has_trait(caster_ptr, TRAIT_RES_CHAO))
 			{
 				if(one_in_(2))
 				{
@@ -1068,7 +1068,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			msg_print(NULL);
 			caster_ptr->timed_trait[TRAIT_TSUYOSHI] = 1;
 			(void)set_timed_trait_aux(caster_ptr, TRAIT_TSUYOSHI, 0, TRUE);
-			if(!caster_ptr->resist_chaos) (void)add_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 50 + randint1(50), FALSE);
+			if(!has_trait(caster_ptr, TRAIT_RES_CHAO)) (void)add_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 50 + randint1(50), FALSE);
 			effected = TRUE;
 			break;
 		
@@ -1272,7 +1272,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 	{
 		case SV_SCROLL_DARKNESS:
 		{
-			if(!(has_trait(caster_ptr, TRAIT_NO_BLIND)) && !(caster_ptr->resist_dark))
+			if(!(has_trait(caster_ptr, TRAIT_NO_BLIND)) && !has_trait(caster_ptr, TRAIT_RES_DARK))
 				(void)add_timed_trait(caster_ptr, TRAIT_BLIND, 3 + randint1(5), FALSE);
 			if(unlite_area(caster_ptr, 10, 3)) ident = TRUE;
 			break;

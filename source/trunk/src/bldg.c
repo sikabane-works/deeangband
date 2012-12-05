@@ -2297,7 +2297,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 			(void)add_timed_trait(watcher_ptr, TRAIT_CONFUSED, randint0(4) + 4, FALSE);
-		if(!watcher_ptr->resist_chaos && one_in_(3) && !has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
+		if(!has_trait(watcher_ptr, TRAIT_RES_CHAO) && one_in_(3) && !has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
 			(void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, FALSE);
 		return;
 	}
@@ -2317,7 +2317,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		if(!has_trait(watcher_ptr, TRAIT_FREE_ACTION)) (void)add_timed_trait(watcher_ptr, TRAIT_PARALYZED, randint0(4) + 4, FALSE);
 		while (!saving_throw(watcher_ptr, SAVING_VO, power, 0)) (void)do_dec_stat(watcher_ptr, STAT_INT);
 		while (!saving_throw(watcher_ptr, SAVING_VO, power, 0)) (void)do_dec_stat(watcher_ptr, STAT_WIS);
-		if(!watcher_ptr->resist_chaos) (void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150, FALSE);
+		if(!has_trait(watcher_ptr, TRAIT_RES_CHAO)) (void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150, FALSE);
 		return;
 	}
 
