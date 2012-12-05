@@ -1751,7 +1751,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_LITE:
-		if(!blind && !target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND))
+		if(!blind && !has_trait(target_ptr, TRAIT_RES_LITE) && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND))
 			(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
 		if(has_trait(target_ptr, TRAIT_WRAITH_FORM))
 		{
@@ -1768,7 +1768,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DARK:
-		if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND))
+		if(!has_trait(target_ptr, TRAIT_RES_DARK), !blind && !has_trait(target_ptr, TRAIT_NO_BLIND))
 			(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
 		break;
 
@@ -1835,7 +1835,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					(void)gain_trait(target_ptr, 0, TRUE);
 				}
 			}
-			if(!target_ptr->resist_neth && !has_trait(target_ptr, TRAIT_RES_CHAO))
+			if(!has_trait(target_ptr, TRAIT_RES_NETH) && !has_trait(target_ptr, TRAIT_RES_CHAO))
 				drain_exp(target_ptr, 5000 + (target_ptr->exp / 100), 500 + (target_ptr->exp / 1000), 75);
 
 			if(!has_trait(target_ptr, TRAIT_RES_CHAO) || one_in_(9))
@@ -1846,7 +1846,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_NETHER:
-		if(!target_ptr->resist_neth) drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
+		if(!has_trait(target_ptr, TRAIT_RES_NETH)) drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
 		break;
 
 	case DO_EFFECT_DISENCHANT:
@@ -1927,7 +1927,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 			teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
 			if(!has_trait(target_ptr, TRAIT_CAN_FLY)) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
-			if(!(target_ptr->resist_sound || has_trait(target_ptr, TRAIT_CAN_FLY)))
+			if(!(has_trait(target_ptr, TRAIT_RES_SOUN) || has_trait(target_ptr, TRAIT_CAN_FLY)))
 				(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
 		if(!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
 		break;

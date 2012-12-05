@@ -4436,7 +4436,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_LITE:
-		if(target_ptr->resist_lite) dam /= 2; /* Worst case of 4 / (d4 + 7) */
+		if(has_trait(target_ptr, TRAIT_RES_LITE)) dam /= 2; /* Worst case of 4 / (d4 + 7) */
 		//TODO if(IS_RACE(target_ptr, VAMPIRE) || (target_ptr->mimic_race_idx == MIMIC_VAMPIRE)) dam *= 2;
 		if(IS_RACE(target_ptr, RACE_S_FAIRY)) dam = dam * 4 / 3;
 
@@ -4455,15 +4455,15 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		ignore_wraith_form = TRUE;
 		}
 		*/
-		if(target_ptr->resist_dark) dam /= 2; /* Worst case of 4 / (d4 + 7) */
+		if(has_trait(target_ptr, TRAIT_RES_DARK)) dam /= 2; /* Worst case of 4 / (d4 + 7) */
 		break;
 
 	case DO_EFFECT_SHARDS:
-		if(target_ptr->resist_shard) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
+		if(has_trait(target_ptr, TRAIT_RES_SHAR)) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
 		break;
 
 	case DO_EFFECT_SOUND:
-		if(target_ptr->resist_sound) dam = dam * 5 / 8; /* Worst case of 5 / (d4 + 7) */
+		if(has_trait(target_ptr, TRAIT_RES_SOUN)) dam = dam * 5 / 8; /* Worst case of 5 / (d4 + 7) */
 		break;
 
 	case DO_EFFECT_CONFUSION:
@@ -4483,7 +4483,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		ignore_wraith_form = TRUE;
 		}
 		*/
-		if(target_ptr->resist_neth) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
+		if(has_trait(target_ptr, TRAIT_RES_NETH)) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
 		break;
 
 	case DO_EFFECT_DISENCHANT:
@@ -4503,7 +4503,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ROCKET:
-		if(target_ptr->resist_shard) dam /= 2;
+		if(has_trait(target_ptr, TRAIT_RES_SHAR)) dam /= 2;
 		break;
 
 	case DO_EFFECT_NUKE:

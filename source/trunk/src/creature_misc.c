@@ -953,7 +953,7 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		break;
 
 	case DO_EFFECT_ROCKET:
-		if(target_ptr->resist_shard > 0) t = t / 2;
+		if(has_trait(target_ptr, TRAIT_RES_SHAR)) t = t / 2;
 		break;
 
 	case DO_EFFECT_DEATH_RAY:

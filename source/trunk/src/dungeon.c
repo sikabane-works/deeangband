@@ -2019,7 +2019,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_ALCOHOL) && (randint1(6400) == 321))
 	{
-		if(!has_trait(creature_ptr, TRAIT_NO_CONF) && !creature_ptr->resist_chaos)
+		if(!has_trait(creature_ptr, TRAIT_NO_CONF) && !has_trait(creature_ptr, TRAIT_RES_CHAO))
 		{
 			disturb(player_ptr, 0, 0);
 			play_redraw |= PR_EXTRA;
@@ -2030,7 +2030,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #endif
 		}
 		if(!has_trait(creature_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint0(20) + 15, TRUE);
-		if(!creature_ptr->resist_chaos)
+		if(!has_trait(creature_ptr, TRAIT_RES_CHAO))
 		{
 			if(one_in_(20))
 			{
@@ -2064,7 +2064,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_HALLU) && (randint1(6400) == 42))
 	{
-		if(!creature_ptr->resist_chaos)
+		if(!has_trait(creature_ptr, TRAIT_RES_CHAO))
 		{
 			disturb(player_ptr, 0, 0);
 			play_redraw |= PR_EXTRA;
