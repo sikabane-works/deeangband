@@ -2338,11 +2338,8 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	/* Else gain permanent insanity */
 	if(has_trait(watcher_ptr, TRAIT_MORONIC) && has_trait(watcher_ptr, TRAIT_BERS_RAGE) &&
 		(has_trait(watcher_ptr, TRAIT_COWARDICE) || has_trait(watcher_ptr, TRAIT_FEARLESS)) &&
-		(has_trait(watcher_ptr, TRAIT_HALLU) || watcher_ptr->resist_chaos))
-	{
-		/* The poor bastard already has all possible insanities! */
+		(has_trait(watcher_ptr, TRAIT_HALLU) || has_trait(watcher_ptr, TRAIT_RES_CHAO)))
 		return;
-	}
 
 	while (!happened)
 	{
@@ -2388,7 +2385,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 			}
 			case 3:
 			{
-				if(!has_trait(watcher_ptr, TRAIT_HALLU) && !watcher_ptr->resist_chaos)
+				if(!has_trait(watcher_ptr, TRAIT_HALLU) && !has_trait(watcher_ptr, TRAIT_RES_CHAO))
 				{
 					get_mutative_trait(watcher_ptr, TRAIT_HALLU);
 					happened = TRUE;

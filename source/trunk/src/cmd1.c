@@ -893,7 +893,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 					dam = dam * 2;
 					(void)add_timed_trait(creature_ptr, TRAIT_CUT, randint1(dam), TRUE);
 
-					if(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr))
+					if(has_trait(creature_ptr, TRAIT_RES_POIS))
 					{
 #ifdef JP
 						msg_print("‚µ‚©‚µ“Å‚Ì‰e‹¿‚Í‚È‚©‚Á‚½I");
@@ -1094,7 +1094,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 			msg_print("A pungent green gas surrounds you!");
 #endif
-			if(!creature_ptr->resist_pois && !IS_OPPOSE_POIS(creature_ptr)) (void)add_timed_trait(creature_ptr, TRAIT_POISONED, randint0(20) + 10, TRUE);
+			if(!has_trait(creature_ptr, TRAIT_RES_POIS)) (void)add_timed_trait(creature_ptr, TRAIT_POISONED, randint0(20) + 10, TRUE);
 			break;
 
 		case TRAP_SLEEP:

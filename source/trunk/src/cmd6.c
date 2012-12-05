@@ -80,7 +80,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		switch (object_ptr->sval)
 		{
 			case SV_FOOD_POISON:
-				if(!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
+				if(!has_trait(creature_ptr, TRAIT_RES_POIS))
 					if(add_timed_trait(creature_ptr, TRAIT_POISONED, randint0(10) + 10, TRUE))
 						ident = TRUE;
 				break;
@@ -104,7 +104,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				break;
 
 			case SV_FOOD_HALLUCINATION:
-				if(!creature_ptr->resist_chaos)
+				if(!has_trait(creature_ptr, TRAIT_RES_CHAO))
 					if(add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, randint0(250) + 250, TRUE))
 						ident = TRUE;
 				break;
@@ -659,7 +659,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 #endif
 
 		case SV_POTION_POISON:
-			if(!(caster_ptr->resist_pois || IS_OPPOSE_POIS(caster_ptr)))
+			if(!has_trait(caster_ptr, TRAIT_RES_POIS))
 				if(add_timed_trait(caster_ptr, TRAIT_POISONED, randint0(15) + 10, TRUE))
 					effected = TRUE;
 			break;

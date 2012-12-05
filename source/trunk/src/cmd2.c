@@ -481,7 +481,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #else
 		msg_print("A puff of green gas surrounds you!");
 #endif
-		if(!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
+		if(!has_trait(creature_ptr, TRAIT_RES_POIS))
 			(void)add_timed_trait(creature_ptr, TRAIT_POISONED, 10 + randint1(20), TRUE);
 	}
 
