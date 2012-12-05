@@ -62,10 +62,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 #else
 			msg_print("You are suddenly very cold!");
 #endif
-
-			if(IS_OPPOSE_COLD(attacker_ptr)) aura_damage = (aura_damage + 2) / 3;
-			if(attacker_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
-
+			aura_damage = calc_damage(target_ptr, attacker_ptr, aura_damage, DO_EFFECT_COLD, TRUE, FALSE);
 			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_COLD);
 			handle_stuff();
@@ -83,16 +80,13 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			/* Hack -- Get the "died from" name */
 			creature_desc(aura_dam, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
-			if(has_trait(attacker_ptr, TRAIT_ANDROID)) aura_damage += aura_damage / 3;
-			if(IS_OPPOSE_ELEC(attacker_ptr)) aura_damage = (aura_damage + 2) / 3;
-			if(attacker_ptr->resist_elec) aura_damage = (aura_damage + 2) / 3;
-
 #ifdef JP
 			msg_print("“dŒ‚‚ð‚­‚ç‚Á‚½I");
 #else
 			msg_print("You get zapped!");
 #endif
 
+			aura_damage = calc_damage(target_ptr, attacker_ptr, aura_damage, DO_EFFECT_ELEC, TRUE, FALSE);
 			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_ELEC);
 			handle_stuff();
@@ -857,14 +851,14 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		int special_effect = 0, stun_effect = 0, times = 0, max_times;
 		int min_level = 1;
 		martial_arts *ma_ptr = &ma_blows[0], *old_ptr = &ma_blows[0];
-		int resist_stun = 0;
+		int res_stun = 0;
 		int weight = 8;
 
-		if(has_trait(target_ptr, TRAIT_UNIQUE)) resist_stun += 88;
-		if(has_trait(target_ptr, TRAIT_NO_STUN)) resist_stun += 66;
-		if(has_trait(target_ptr, TRAIT_NO_CONF)) resist_stun += 33;
-		if(has_trait(target_ptr, TRAIT_NO_SLEEP)) resist_stun += 33;
-		if(has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_NONLIVING)) resist_stun += 66;
+		if(has_trait(target_ptr, TRAIT_UNIQUE)) res_stun += 88;
+		if(has_trait(target_ptr, TRAIT_NO_STUN)) res_stun += 66;
+		if(has_trait(target_ptr, TRAIT_NO_CONF)) res_stun += 33;
+		if(has_trait(target_ptr, TRAIT_NO_SLEEP)) res_stun += 33;
+		if(has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_NONLIVING)) res_stun += 66;
 
 		if(attacker_ptr->posture & KAMAE_BYAKKO) max_times = (attacker_ptr->lev < 3 ? 1 : attacker_ptr->lev / 3);
 		else if(attacker_ptr->posture & KAMAE_SUZAKU) max_times = 1;
@@ -963,7 +957,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format("%^s moans in agony!", target_name);
 #endif
 			stun_effect = 7 + randint1(13);
-			resist_stun /= 3;
+			res_stun /= 3;
 		}
 
 		else if((special_effect == MA_SLOW) && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
@@ -982,7 +976,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 
 		if(stun_effect && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
 		{
-			if(attacker_ptr->lev > randint1(species_ptr->level + resist_stun + 10))
+			if(attacker_ptr->lev > randint1(species_ptr->level + res_stun + 10))
 			{
 				if(set_timed_trait(target_ptr, TRAIT_STUN, stun_effect + target_ptr->timed_trait[TRAIT_STUN]))
 				{
