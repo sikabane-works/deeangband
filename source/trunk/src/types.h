@@ -867,56 +867,6 @@ struct magic_table_type
 
 
 /*
- * Resist Info
- */
-typedef struct resist resist;
-
-struct resist
-{
-	int resist_acid;	/* Resist acid */
-	int resist_elec;	/* Resist lightning */
-	int resist_fire;	/* Resist fire */
-	int resist_cold;	/* Resist cold */
-	int resist_pois;	/* Resist poison */
-
-	int resist_conf;	 /* Resist confusion */
-	int resist_sound;	 /* Resist sound */
-	int resist_lite;	 /* Resist light */
-	int resist_dark;	 /* Resist darkness */
-	int resist_chaos;	 /* Resist chaos */
-	int resist_disen;	 /* Resist disenchant */
-	int resist_shard;	 /* Resist shards */
-	int resist_nexus;	 /* Resist nexus */
-	int resist_blind;	 /* Resist blindness */
-	int resist_neth;	 /* Resist nether */
-	int resist_fear;	 /* Resist fear */
-	int resist_time;	 /* Resist time */
-	int resist_plazma;   /* Resist plazma */
-	int resist_gravity;  /* Resist gravity */
-	int resist_inertia;
-	int resist_force;    /* Resist force */
-	int resist_water;    /* Resist water */
-	int resist_ultimate; /* Resist ultimate */
-
-	int free_action;     /* Free Action */
-	int levitation;      /* Levitation */
-	int hold_life;		 /* Hold Life */
-	int regenerate;      /* Regenerate */
-	int slow_digest;     /* Slow Digest */
-	int see_invisible;	 /* See Invisible */
-
-	int sustain_str;
-	int sustain_int;
-	int sustain_wis;
-	int sustain_dex;
-	int sustain_con;
-	int sustain_cha;
-
-};
-
-
-
-/*
  * Player sex info
  */
 
