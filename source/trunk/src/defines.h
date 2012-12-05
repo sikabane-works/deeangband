@@ -1647,22 +1647,6 @@
 /*
  * Some bit-flags for the "smart" field
  */
-#define SM_RES_ACID             0x00000001
-#define SM_RES_ELEC             0x00000002
-#define SM_RES_FIRE             0x00000004
-#define SM_RES_COLD             0x00000008
-#define SM_RES_POIS             0x00000010
-#define SM_RES_NETH             0x00000020
-#define SM_RES_LITE             0x00000040
-#define SM_RES_DARK             0x00000080
-#define SM_RES_FEAR             0x00000100
-#define SM_RES_CONF             0x00000200
-#define SM_RES_CHAOS            0x00000400
-#define SM_RES_DISEN            0x00000800
-#define SM_RES_BLIND            0x00001000
-#define SM_RES_NEXUS            0x00002000
-#define SM_RES_SOUND            0x00004000
-#define SM_RES_SHARD            0x00008000
 #define SM_OPP_ACID             0x00010000
 #define SM_OPP_ELEC             0x00020000
 #define SM_OPP_FIRE             0x00040000
