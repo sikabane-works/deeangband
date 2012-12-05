@@ -2283,7 +2283,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool 
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 			(void)add_timed_trait(watcher_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
-		if(!watcher_ptr->resist_chaos && one_in_(3))
+		if(!has_trait(watcher_ptr, TRAIT_RES_CHAO) && one_in_(3))
 			(void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
 		return;
 	}
@@ -2303,7 +2303,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool 
 			(void)add_timed_trait(watcher_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE);
 		//TODO saving_throw while (randint0(100) > watcher_ptr->skill_rob) (void)do_dec_stat(watcher_ptr, STAT_INT);
 		//TODO saving_throw while (randint0(100) > watcher_ptr->skill_rob) (void)do_dec_stat(watcher_ptr, STAT_WIS);
-		if(!watcher_ptr->resist_chaos)
+		if(!has_trait(watcher_ptr, TRAIT_RES_CHAO))
 			(void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
 		return;
 	}
@@ -2326,7 +2326,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 	/* Else gain permanent insanity */
 	if(has_trait(watcher_ptr, TRAIT_MORONIC) &&
 		(has_trait(watcher_ptr, TRAIT_COWARDICE) || has_trait(watcher_ptr, TRAIT_FEARLESS)) &&
-		(has_trait(watcher_ptr, TRAIT_HALLU) || (watcher_ptr->resist_chaos)))
+		(has_trait(watcher_ptr, TRAIT_HALLU) || has_trait(watcher_ptr, TRAIT_RES_CHAO)))
 	{
 		/* The poor bastard already has all possible insanities! */
 		return;
@@ -2414,7 +2414,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 			case 19:
 			case 20:
 			case 21:
-				if(!has_trait(watcher_ptr, TRAIT_HALLU) && !watcher_ptr->resist_chaos)
+				if(!has_trait(watcher_ptr, TRAIT_HALLU) && !has_trait(watcher_ptr, TRAIT_RES_CHAO))
 				{
 #ifdef JP
 					msg_print("幻覚をひき起こす精神錯乱に陥った！");

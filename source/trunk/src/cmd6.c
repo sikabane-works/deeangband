@@ -1592,7 +1592,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		{
 			cast_ball(caster_ptr, DO_EFFECT_FIRE, 0, 666, 4);
 			/* Note: "Double" damage since it is centered on the player ... */
-			if(!(IS_OPPOSE_FIRE(caster_ptr) || caster_ptr->resist_fire || has_trait(caster_ptr, TRAIT_IM_FIRE)))
+			if(!has_trait(caster_ptr, TRAIT_RES_FIRE) || has_trait(caster_ptr, TRAIT_IM_FIRE))
 #ifdef JP
 				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "‰Š‚ÌŠª•¨", NULL, -1);
 #else
@@ -1606,7 +1606,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		case SV_SCROLL_ICE:
 		{
 			cast_ball(caster_ptr, DO_EFFECT_ICE, 0, 777, 4);
-			if(!(IS_OPPOSE_COLD(caster_ptr) || caster_ptr->resist_cold || has_trait(caster_ptr, TRAIT_IM_COLD)))
+			if(!has_trait(caster_ptr, TRAIT_RES_COLD) || has_trait(caster_ptr, TRAIT_IM_COLD))
 #ifdef JP
 				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "•X‚ÌŠª•¨", NULL, -1);
 #else
@@ -1620,7 +1620,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		case SV_SCROLL_CHAOS:
 		{
 			cast_ball(caster_ptr, DO_EFFECT_CHAOS, 0, 1000, 4);
-			if(!caster_ptr->resist_chaos)
+			if(!has_trait(caster_ptr, TRAIT_RES_CHAO))
 #ifdef JP
 				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ƒƒOƒ‹ƒX‚ÌŠª•¨", NULL, -1);
 #else
@@ -1845,7 +1845,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 	switch (sval)
 	{
 		case SV_STAFF_DARKNESS:
-			if(!(has_trait(creature_ptr, TRAIT_NO_BLIND)) && !(creature_ptr->resist_dark))
+			if(!(has_trait(creature_ptr, TRAIT_NO_BLIND)) && !has_trait(creature_ptr, TRAIT_RES_DARK))
 				if(add_timed_trait(creature_ptr, TRAIT_BLIND, 3 + randint1(5), FALSE)) ident = TRUE;
 			if(unlite_area(creature_ptr, 10, 3)) ident = TRUE;
 			break;
