@@ -1012,7 +1012,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			/* Make some gold */
 			if(!make_gold(floor_ptr, quest_ptr, 0, get_coin_type(dead_ptr->species_idx))) continue;
 
-			/* XXX XXX XXX */
 			dump_gold++;
 		}
 
@@ -1022,7 +1021,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			/* Make an object */
 			if(!make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, NULL)) continue;
 
-			/* XXX XXX XXX */
 			dump_item++;
 		}
 
@@ -4248,7 +4246,6 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 	/* Check for confusion */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		/* XXX XXX XXX */
 		/* Random direction */
 		dir = ddd[randint0(8)];
 	}

@@ -1862,7 +1862,6 @@ bool warding_glyph(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	/* XXX XXX XXX */
 	if(!cave_clean_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
 	{
 #ifdef JP

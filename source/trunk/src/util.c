@@ -703,7 +703,6 @@ errr fd_kill(cptr file)
 	/* Remove */
 	(void)remove(buf);
 
-	/* XXX XXX XXX */
 	return SUCCESS;
 }
 
@@ -725,7 +724,6 @@ errr fd_move(cptr file, cptr what)
 	/* Rename */
 	(void)rename(buf, aux);
 
-	/* XXX XXX XXX */
 	return SUCCESS;
 }
 
@@ -764,7 +762,6 @@ errr fd_copy(cptr file, cptr what)
 	fd_close(src_fd);
 	fd_close(dst_fd);
 
-	/* XXX XXX XXX */
 	return SUCCESS;
 }
 
@@ -1016,7 +1013,6 @@ errr fd_close(int fd)
 	/* Close */
 	(void)close(fd);
 
-	/* XXX XXX XXX */
 	return SUCCESS;
 }
 

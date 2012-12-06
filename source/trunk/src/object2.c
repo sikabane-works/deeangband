@@ -3397,7 +3397,6 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 
 	}
 
-	/* XXX XXX XXX */
 
 	return (object_idx);
 }

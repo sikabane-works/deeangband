@@ -1667,13 +1667,9 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		/* Nothing to recall */
 		if(!cheat_know && !species_ptr->r_sights) continue;
 
-		/* Require non-unique creatures if needed */
+		// Require special creatures if needed
 		if(norm && has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
-
-		/* Require unique creatures if needed */
 		if(uniq && !has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
-
-		/* Require ridable creatures if needed */
 		if(ride && !has_trait_species(species_ptr, TRAIT_RIDING)) continue;
 
 		/* XTRA HACK WHATSEARCH */
@@ -1715,7 +1711,6 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	{
 		/* Free the "who" array */
 		C_KILL(who, max_species_idx, u16b);
-
 		return;
 	}
 

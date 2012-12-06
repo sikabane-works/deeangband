@@ -1034,7 +1034,6 @@ static void term_getsize(term_data *td)
 	rc.top = 0;
 	rc.bottom = rc.top + hgt;
 
-	/* XXX XXX XXX */
 	/* rc.right += 1; */
 	/* rc.bottom += 1; */
 
@@ -4245,14 +4244,12 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 	/* Handle message */
 	switch (uMsg)
 	{
-		/* XXX XXX XXX */
 		case WM_NCCREATE:
 		{
 			SetWindowLong(hWnd, 0, (LONG)(my_td));
 			break;
 		}
 
-		/* XXX XXX XXX */
 		case WM_CREATE:
 		{
 			return 0;
@@ -4674,14 +4671,12 @@ LRESULT FAR PASCAL AngbandListProc(HWND hWnd, UINT uMsg,
 	/* Process message */
 	switch (uMsg)
 	{
-		/* XXX XXX XXX */
 		case WM_NCCREATE:
 		{
 			SetWindowLong(hWnd, 0, (LONG)(my_td));
 			break;
 		}
 
-		/* XXX XXX XXX */
 		case WM_CREATE:
 		{
 			return 0;
@@ -4854,7 +4849,6 @@ LRESULT FAR PASCAL AngbandSaverProc(HWND hWnd, UINT uMsg,
 	/* Process */
 	switch (uMsg)
 	{
-		/* XXX XXX XXX */
 		case WM_NCCREATE:
 		{
 			break;
