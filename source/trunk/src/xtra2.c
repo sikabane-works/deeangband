@@ -1371,98 +1371,37 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 	perc = 100L * m_ptr->chp / m_ptr->mhp;
 
 	/* Healthy creatures */
-	if(m_ptr->chp >= m_ptr->mhp)
-	{
-		/* No damage */
+	
 #ifdef JP
-		desc = living ? "無傷" : "無ダメージ";
+	if(m_ptr->chp >= m_ptr->mhp) desc = living ? "無傷" : "無ダメージ";
+	else if(perc >= 60) desc = living ? "軽傷" : "小ダメージ";
+	else if(perc >= 25) desc = living ? "負傷" : "中ダメージ";
+	else if(perc >= 10) desc = living ? "重傷" : "大ダメージ";
+	else desc = living ? "半死半生" : "倒れかけ";
 #else
-		desc = living ? "unhurt" : "undamaged";
+	if(m_ptr->chp >= m_ptr->mhp) desc = living ? "unhurt" : "undamaged";
+	else if(perc >= 60) desc = living ? "somewhat wounded" : "somewhat damaged";
+	else if(perc >= 25) desc = living ? "wounded" : "damaged";
+	else if(perc >= 10) desc = living ? "badly wounded" : "badly damaged";
+	else desc = living ? "almost dead" : "almost destroyed";
 #endif
-
-	}
-
-	else if(perc >= 60)
-	{
-#ifdef JP
-		desc = living ? "軽傷" : "小ダメージ";
-#else
-		desc = living ? "somewhat wounded" : "somewhat damaged";
-#endif
-
-	}
-
-	else if(perc >= 25)
-	{
-#ifdef JP
-		desc = living ? "負傷" : "中ダメージ";
-#else
-		desc = living ? "wounded" : "damaged";
-#endif
-
-	}
-
-	else if(perc >= 10)
-	{
-#ifdef JP
-		desc = living ? "重傷" : "大ダメージ";
-#else
-		desc = living ? "badly wounded" : "badly damaged";
-#endif
-
-	}
-
-	else 
-	{
-#ifdef JP
-		desc = living ? "半死半生" : "倒れかけ";
-#else
-		desc = living ? "almost dead" : "almost destroyed";
-#endif
-	}
-
 
 	/* Need attitude information? */
 	if(!(mode & 0x01))
-	{
-		/* Full information is not needed */
 		attitude = "";
-	}
-	else if(is_pet(player_ptr, m_ptr))
-	{
 #ifdef JP
-		attitude = ", ペット";
+	else if(is_pet(player_ptr, m_ptr)) attitude = ", ペット";
+	else if(is_friendly(player_ptr, m_ptr)) attitude = ", 友好的";
 #else
-		attitude = ", pet";
+	else if(is_pet(player_ptr, m_ptr)) attitude = ", pet";
+	else if(is_friendly(player_ptr, m_ptr)) attitude = ", friendly";
 #endif
-	}
-	else if(is_friendly(player_ptr, m_ptr))
-	{
-#ifdef JP
-		attitude = ", 友好的";
-#else
-		attitude = ", friendly";
-#endif
-	}
-	else
-	{
-#ifdef JP
-		attitude = "";
-#else
-		attitude = "";
-#endif
-	}
+	else attitude = "";
 
-
-	/* Clone creature? */
 	if(has_trait(m_ptr, TRAIT_CLONED))
-	{
 		clone = ", clone";
-	}
 	else
-	{
 		clone = "";
-	}
 
 	/* Display creature's level --- idea borrowed from ToME */
 	if(ap_r_ptr->r_tkills && !has_trait(m_ptr, TRAIT_KAGE))
@@ -1473,9 +1412,7 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 			return format("Lv%d, %s%s%s", ap_r_ptr->level, desc, attitude, clone);
 	}
 	else 
-	{
 		return format("Lv???, %s%s%s", desc, attitude, clone);
-	}
 }
 
 
