@@ -1449,12 +1449,12 @@ void aggravate_creatures(creature_type *creature_ptr)
 		if(m_ptr->cdis < MAX_SIGHT * 2)
 		{
 			/* Wake up */
-			if(m_ptr->timed_trait[TRAIT_PARALYZED])
+			if(has_trait(m_ptr, TRAIT_SLEPT))
 			{
-				(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
+				(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0);
 				sleep = TRUE;
 			}
-			if(!is_pet(player_ptr, m_ptr)) m_ptr->sc_flag2 |= SC_FLAG2_NOPET;
+			if(!is_pet(player_ptr, m_ptr)) set_timed_trait_aux(m_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
 		}
 
 		/* Speed up creatures in line of sight */
@@ -1462,7 +1462,7 @@ void aggravate_creatures(creature_type *creature_ptr)
 		{
 			if(!is_pet(player_ptr, m_ptr))
 			{
-				(void)set_timed_trait(m_ptr, TRAIT_FAST, m_ptr->timed_trait[TRAIT_FAST] + 100);
+				(void)set_timed_trait_aux(m_ptr, TRAIT_FAST, 100, TRUE);
 				speed = TRUE;
 			}
 		}

@@ -1881,7 +1881,6 @@
 #define SC_FLAG_BORN      0x10    // Creature is still being born
 #define SC_FLAG_NICE      0x20    // Creature is still being nice
 
-#define SC_FLAG2_NOPET     0x02    // Cannot make creature pet
 #define SC_FLAG2_NOGENO    0x04    // Cannot genocide
 #define SC_FLAG2_CHAMELEON 0x08    // Creature is chameleon
 #define SC_FLAG2_NOFLOW    0x10    // Creature is in no_flow_by_smell mode

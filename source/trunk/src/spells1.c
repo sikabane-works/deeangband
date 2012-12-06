@@ -2352,7 +2352,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		/* Attempt a saving throw */
 		if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_UNDEAD)) ||
-			(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
+			has_trait(target_ptr, TRAIT_NO_PET) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
@@ -2392,7 +2392,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL)) dam = dam * 2 / 3;
 
 		if(has_trait(target_ptr, TRAIT_QUESTOR) || !has_trait(target_ptr, TRAIT_ANIMAL) ||
-			(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || has_trait(target_ptr, TRAIT_NO_CONF) ||
+			has_trait(target_ptr, TRAIT_NO_PET) || has_trait(target_ptr, TRAIT_NO_CONF) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
 			if(has_trait(target_ptr, TRAIT_NO_CONF) && is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
@@ -2869,7 +2869,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			dam = dam * 2 / 3;
 
 		/* Attempt a saving throw */
-		if((has_trait(target_ptr, TRAIT_QUESTOR)) || (target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
+		if((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_NO_PET) ||
 			!creature_living(target_ptr) || ((target_ptr->lev * 2+10) > randint1(dam)))
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
@@ -3009,7 +3009,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		/* Attempt a saving throw */
 		if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_DEMON)) ||
-			(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			has_trait(target_ptr, TRAIT_NO_PET) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
@@ -3204,7 +3204,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				/* Attempt a saving throw */
 				else if((has_trait(target_ptr, TRAIT_QUESTOR)) || (has_trait(target_ptr, TRAIT_UNIQUE)) ||
-					(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || (has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
+					has_trait(target_ptr, TRAIT_NO_PET) || (has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
 					((target_ptr->lev * 2+10) > randint1(dam)))
 				{
 					if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
