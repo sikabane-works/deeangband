@@ -1291,42 +1291,16 @@ void verify_panel(creature_type *creature_ptr)
 		prow_min = panel_row_min;
 		pcol_min = panel_col_min;
 
-		/* Scroll screen when 2 grids from top/bottom edge */
-		if(y > panel_row_max - 2)
-		{
-			while (y > prow_min + hgt-1 - 2)
-			{
-				prow_min += (hgt / 2);
-			}
-		}
-
-		if(y < panel_row_min + 2)
-		{
-			while (y < prow_min + 2)
-			{
-				prow_min -= (hgt / 2);
-			}
-		}
+		// Scroll screen when 2 grids from top/bottom edge
+		if(y > panel_row_max - 2) while (y > prow_min + hgt-1 - 2) prow_min += (hgt / 2);
+		if(y < panel_row_min + 2) while (y < prow_min + 2) prow_min -= (hgt / 2);
 
 		if(prow_min > max_prow_min) prow_min = max_prow_min;
 		if(prow_min < 0) prow_min = 0;
 
-		/* Scroll screen when 4 grids from left/right edge */
-		if(x > panel_col_max - 4)
-		{
-			while (x > pcol_min + wid-1 - 4)
-			{
-				pcol_min += (wid / 2);
-			}
-		}
-
-		if(x < panel_col_min + 4)
-		{
-			while (x < pcol_min + 4)
-			{
-				pcol_min -= (wid / 2);
-			}
-		}
+		// Scroll screen when 4 grids from left/right edge
+		if(x > panel_col_max - 4) while (x > pcol_min + wid-1 - 4) pcol_min += (wid / 2);
+		if(x < panel_col_min + 4) while (x < pcol_min + 4) pcol_min -= (wid / 2);
 
 		if(pcol_min > max_pcol_min) pcol_min = max_pcol_min;
 		if(pcol_min < 0) pcol_min = 0;
@@ -1447,7 +1421,6 @@ void ang_sort_aux(vptr u, vptr v, int p, int q,
 		/* Done partition */
 		if(a >= b) break;
 
-		/* Swap */
 		(*ang_sort_swap)(u, v, a, b);
 
 		/* Advance */

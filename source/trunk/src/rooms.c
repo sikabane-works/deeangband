@@ -2120,7 +2120,6 @@ static void ang_sort_swap_nest_info(vptr u, vptr v, int a, int b)
 	/* Unused */
 	(void)v;
 
-	/* Swap */
 	holder = nest_info[a];
 	nest_info[a] = nest_info[b];
 	nest_info[b] = holder;

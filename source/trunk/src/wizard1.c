@@ -2446,7 +2446,6 @@ static void ang_sort_swap_evol_tree(vptr u, vptr v, int a, int b)
 	/* Unused */
 	(void)v;
 
-	/* Swap */
 	holder = evol_tree[a];
 	evol_tree[a] = evol_tree[b];
 	evol_tree[b] = holder;

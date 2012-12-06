@@ -6056,7 +6056,6 @@ static void ang_sort_art_swap(vptr u, vptr v, int a, int b)
 	/* Unused */
 	(void)v;
 
-	/* Swap */
 	holder = who[a];
 	who[a] = who[b];
 	who[b] = holder;

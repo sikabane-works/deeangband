@@ -686,7 +686,6 @@ static void ang_sort_swap_cave_temp(vptr u, vptr v, int a, int b)
 	/* Unused */
 	(void)v;
 
-	/* Swap */
 	holder = who[a];
 	who[a] = who[b];
 	who[b] = holder;

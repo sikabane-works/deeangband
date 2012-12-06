@@ -2551,7 +2551,6 @@ errr Term_exchange(void)
 		term_win_init(Term->tmp, w, h);
 	}
 
-	/* Swap */
 	exchanger = Term->scr;
 	Term->scr = Term->tmp;
 	Term->tmp = exchanger;
