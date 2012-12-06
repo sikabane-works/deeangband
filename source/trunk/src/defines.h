@@ -1878,8 +1878,6 @@
 // Special Creature Flags (all temporary)
 #define SC_FLAG_VIEW      0x01    // Creature is in line of sight
 #define SC_FLAG_TEMP      0x02    // Creature is marked for project_hack()
-#define SC_FLAG_XXX2      0x04    // (unused)
-#define SC_FLAG_XXX3      0x08    // (unused)
 #define SC_FLAG_BORN      0x10    // Creature is still being born
 #define SC_FLAG_NICE      0x20    // Creature is still being nice
 
