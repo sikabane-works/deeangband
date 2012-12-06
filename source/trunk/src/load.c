@@ -831,6 +831,7 @@ static void rd_creature(creature_type *creature_ptr)
 	// Class/Race/Chara/Gender/Spells
 	rd_s16b(&creature_ptr->species_idx);
 	rd_s16b(&creature_ptr->ap_species_idx);
+	rd_s16b(&creature_ptr->camp_idx);
 	rd_s16b(&creature_ptr->race_idx1);
 	rd_s16b(&creature_ptr->race_idx2);
 	rd_s16b(&creature_ptr->mimic_race_idx);

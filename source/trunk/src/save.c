@@ -409,6 +409,7 @@ static void wr_creature(creature_type *creature_ptr)
 	// Race/Class/Gender/Spells
 	wr_s16b(creature_ptr->species_idx);
 	wr_s16b(creature_ptr->ap_species_idx);
+	wr_s16b(creature_ptr->camp_idx);
 	wr_s16b(creature_ptr->race_idx1);
 	wr_s16b(creature_ptr->race_idx2);
 	wr_s16b(creature_ptr->mimic_race_idx);
