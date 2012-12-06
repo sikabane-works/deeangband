@@ -1343,19 +1343,13 @@ void verify_panel(creature_type *creature_ptr)
 	if(disturb_panel && !center_player) disturb(player_ptr, 0, 0);
 
 	panel_bounds_center();
-
 	creature_ptr->creature_update |= (PU_CREATURES);
-
 	play_redraw |= (PR_MAP);
-
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 }
 
-
-/*
-* Creature health description
-*/
-cptr look_mon_desc(creature_type *m_ptr, u32b mode)
+// Creature health description
+cptr look_creature_desc(creature_type *m_ptr, u32b mode)
 {
 	species_type *ap_r_ptr = &species_info[m_ptr->ap_species_idx];
 	bool         living;
@@ -2075,9 +2069,9 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			evaluate_creature_exp(creature_ptr, acount, m_ptr);
 
 #ifdef JP
-			sprintf(out_val, "[%s]%s%s(%s)%s%s [rév %s%s]", acount, s1, m_name, look_mon_desc(m_ptr, 0x01), s2, s3, x_info, info);
+			sprintf(out_val, "[%s]%s%s(%s)%s%s [rév %s%s]", acount, s1, m_name, look_creature_desc(m_ptr, 0x01), s2, s3, x_info, info);
 #else
-			sprintf(out_val, "[%s]%s%s%s%s(%s) [r, %s%s]", acount, s1, s2, s3, m_name, look_mon_desc(m_ptr, 0x01), x_info, info);
+			sprintf(out_val, "[%s]%s%s%s%s(%s) [r, %s%s]", acount, s1, s2, s3, m_name, look_creature_desc(m_ptr, 0x01), x_info, info);
 #endif
 
 			prt(out_val, 0, 0);

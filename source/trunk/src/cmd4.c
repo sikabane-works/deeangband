@@ -6786,7 +6786,7 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 		{
 			t_friends++;
 			creature_desc(pet_name, pet_ptr, CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-			fprintf(fff, "%s (%s)\n", pet_name, look_mon_desc(pet_ptr, 0x00));
+			fprintf(fff, "%s (%s)\n", pet_name, look_creature_desc(pet_ptr, 0x00));
 		}
 	}
 
