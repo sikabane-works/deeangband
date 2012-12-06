@@ -3171,6 +3171,7 @@ enum SPECIES_TYPE {
 	SPECIES_INFO_E_NAME,
 	SPECIES_INFO_SYM,
 	SPECIES_INFO_COL,
+	SPECIES_INFO_CAMP,
 	SPECIES_INFO_RACE1,
 	SPECIES_INFO_RACE2,
 	SPECIES_INFO_CLASS,
@@ -3238,6 +3239,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"E_NAME",
 	"SYM",
 	"COL",
+	"CAMP",
 	"RACE1",
 	"RACE2",
 	"CLASS",
@@ -3386,6 +3388,9 @@ errr parse_species_info_csv(char *buf, header *head)
 			case SPECIES_INFO_COL:
 				species_ptr->d_attr = color_char_to_acttr(tmp[0]);
 				species_ptr->x_attr = color_char_to_acttr(tmp[0]);
+				break;
+
+			case SPECIES_INFO_CAMP:
 				break;
 
 			case SPECIES_INFO_RACE1:
