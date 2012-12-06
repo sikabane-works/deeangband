@@ -3703,7 +3703,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		get_mutative_trait(creature_ptr, TRAIT_KAGE);
 	}
 
-	if(mode & PC_NO_PET) creature_ptr->sc_flag2 |= SC_FLAG2_NOPET;
+	if(mode & PC_NO_PET) set_timed_trait_aux(creature_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
 	else if(summoner_ptr) set_pet(summoner_ptr, creature_ptr); // Pet?
 
 	// TODO reimpelment Friendly Creature.
@@ -4458,7 +4458,7 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 	if(!creature_scatter(creature_ptr->species_idx, &y, &x, floor_ptr, creature_ptr->fy, creature_ptr->fx, 1))
 		return FALSE;
 
-	if(creature_ptr->sc_flag2 & SC_FLAG2_NOPET) mode |= PC_NO_PET;
+	if(has_trait(creature_ptr, TRAIT_NO_PET)) mode |= PC_NO_PET;
 
 	/* Create a new creature (awake, no groups) */
 	if(!place_creature_species(creature_ptr, floor_ptr, y, x, creature_ptr->species_idx, (mode | PC_NO_KAGE | PC_MULTIPLY)))
@@ -4468,7 +4468,7 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 	if(clone || has_trait(creature_ptr, TRAIT_CLONED))
 	{
 		set_timed_trait_aux(&creature_list[hack_m_idx_ii], TRAIT_CLONED, PERMAMENT_TIMED, FALSE);
-		creature_list[hack_m_idx_ii].sc_flag2 |= SC_FLAG2_NOPET;
+		set_timed_trait_aux(&creature_list[hack_m_idx_ii], TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
 	}
 
 	return TRUE;
