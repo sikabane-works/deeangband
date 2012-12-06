@@ -1262,19 +1262,15 @@ static void generate_floor_creature_arena(floor_type *floor_ptr)
 
 	// Then place some floors
 	for (y = qy + 1; y < qy + SCREEN_HGT - 1; y++)
-	{
 		for (x = qx + 1; x < qx + SCREEN_WID - 1; x++)
-		{
 			floor_ptr->cave[y][x].feat = feat_floor; // Create empty floor
-		}
-	}
 
 	build_battle(floor_ptr, player_ptr);
 
 	for(i = 0; i < 4;i ++)
 	{
 		place_creature_species(player_ptr, floor_ptr, player_ptr->fy + 8 + (i / 2) * 4, player_ptr->fx - 2 + (i % 2) * 4, battle_creature[i], (PC_NO_KAGE | PC_NO_PET));
-		set_camp(&creature_list[floor_ptr->cave[player_ptr->fy + 8 + (i / 2) * 4][player_ptr->fx - 2 + (i % 2) * 4].creature_idx]);
+		//TODO set_camp(&creature_list[floor_ptr->cave[player_ptr->fy + 8 + (i / 2) * 4][player_ptr->fx - 2 + (i % 2) * 4].creature_idx]);
 	}
 
 	for(i = 1; i < creature_max; i++)

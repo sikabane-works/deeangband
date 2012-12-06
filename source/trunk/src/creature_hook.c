@@ -438,12 +438,6 @@ creature_hook_type get_creature_hook2(int y, int x)
 	else return (creature_hook_type)creature_hook_floor;
 }
 
-
-void set_camp(creature_type *m_ptr)
-{
-	//TODO m_ptr->smart |= SM_FRIENDLY;
-}
-
 void set_pet(creature_type *master_ptr, creature_type *m_ptr)
 {
 	if(!is_pet(master_ptr, m_ptr)) check_pets_num_and_align(master_ptr, m_ptr, TRUE);
