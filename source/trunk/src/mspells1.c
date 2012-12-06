@@ -84,11 +84,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 	/* Update acquired knowledge */
 	if(smart_learn)
 	{
-		/* Hack -- Occasionally forget player status */
 		//TODO if(caster_ptr->smart && (randint0(100) < 1)) caster_ptr->smart &= (SM_FRIENDLY | SM_PET | SM_CLONED);
-
-		/* Use the memorized flags */
-		smart = caster_ptr->smart;
 	}
 
 

@@ -1441,8 +1441,6 @@ struct creature_type
 
 	u16b nickname;		// Creature's Nickname 
 
-	u32b smart;			// Field for "smart_learn" 
-
 	s16b parent_m_idx;
 
 	u16b underling_id[MAX_UNDERLINGS];	    // Underling ID 
