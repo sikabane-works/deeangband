@@ -609,13 +609,6 @@ creature_type *creature_list;
 store_type *st_list;
 
 /*
- * The array to process dungeon creatures [max_creature_idx]
- */
-creature_type **mproc_list[MAX_MTIMED];
-s16b mproc_max[MAX_MTIMED]; // Number of creatures to be processed
-
-
-/*
  * Maximum number of towns
  */
 u16b max_towns;

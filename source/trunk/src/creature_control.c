@@ -933,9 +933,6 @@ void wipe_creature_list(int floor_id)
 	creature_max = 1;
 	creature_cnt = 0;
 
-	/* Reset "mproc_max[]" */
-	for (i = 0; i < MAX_MTIMED; i++) mproc_max[i] = 0;
-
 	/* Hack -- no more target */
 	target_who = 0;
 	pet_t_m_idx = 0;

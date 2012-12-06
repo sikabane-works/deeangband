@@ -401,8 +401,6 @@ extern object_type *object_list;
 extern object_type object_null;
 extern creature_type *creature_list;
 extern store_type *st_list;
-extern creature_type **mproc_list[MAX_MTIMED];
-extern s16b mproc_max[MAX_MTIMED];
 extern u16b max_towns;
 extern town_type *town;
 extern u16b start_point_size;
