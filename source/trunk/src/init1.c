@@ -443,9 +443,7 @@ static cptr trait_info_type[] =
 	NULL
 };
 
-/*
- * Character Blow Methods
- */
+// Character Blow Methods
 static cptr species_info_blow_method[] =
 {
 	"",
@@ -475,6 +473,23 @@ static cptr species_info_blow_method[] =
 	"WAIL",
 	"SPORE",
 	NULL
+};
+
+static cptr camp_flags[] =
+{
+	"STIGMATIC",
+	"RUFFIAN",
+	"NATIVE",
+	"UTUMNO",
+	"MORDOR",
+	"AVARI",
+	"NUMENOR",
+	"ISENGARD",
+	"VALINOR",
+	"AMBER",
+	"AM_CHAOS",
+	"WH_CHAOS",
+	"EC_CHAOS",
 };
 
 
