@@ -5088,11 +5088,7 @@ static void init_stuff(void)
 	/* Get the path */
 	for (; i > 0; i--)
 	{
-		if(path[i] == '\\')
-		{
-			/* End of path */
-			break;
-		}
+		if(path[i] == '\\') break;
 	}
 
 	/* Add "lib" to the path */
@@ -5110,15 +5106,9 @@ static void init_stuff(void)
 
 	/* Allow missing 'edit' directory */
 	if(!check_dir(ANGBAND_DIR_EDIT))
-	{
-		/* Must have 'data'! */
 		validate_dir(ANGBAND_DIR_DATA, TRUE);
-	}
 	else
-	{
-		/* Don't need 'data' */
 		validate_dir(ANGBAND_DIR_DATA, FALSE);
-	}
 
 	validate_dir(ANGBAND_DIR_FILE, TRUE);
 	validate_dir(ANGBAND_DIR_HELP, FALSE);
@@ -5128,13 +5118,7 @@ static void init_stuff(void)
 	validate_dir(ANGBAND_DIR_USER, TRUE);
 	validate_dir(ANGBAND_DIR_XTRA, TRUE);
 
-	/* Build the filename */
-#ifdef JP
-	path_build(path, sizeof(path), ANGBAND_DIR_FILE, "news_j.txt");
-#else
-	path_build(path, sizeof(path), ANGBAND_DIR_FILE, "news.txt");
-#endif
-
+	path_build(path, sizeof(path), ANGBAND_DIR_FILE, message_files[MESSAGE_FILES_GAME_NEWS]);
 
 	/* Hack -- Validate the "news.txt" file */
 	validate_file(path);

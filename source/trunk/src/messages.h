@@ -116,45 +116,47 @@ static const cptr desc_moan[] =
 static const cptr message_files[]=
 {
 #ifdef JP
+	"news_j.txt",
 	"a_cursed_j.txt",
 	"a_low_j.txt",
 	"a_med_j.txt",
 	"a_high_j.txt",
-	"w_cursed_j.txt",
 
+	"w_cursed_j.txt",
 	"w_low_j.txt",
 	"w_med_j.txt",
 	"w_high_j.txt",
 	"chainswd_j.txt",
-	"error_j.txt",
 
+	"error_j.txt",
 	"death_j.txt",
 	"seppuku_j.txt",
 	"monfear_j.txt",
 	"monpet_j.txt",
-	"monfrien_j.txt",
 
+	"monfrien_j.txt",
 	"monspeak_j.txt",
 	"rumor_j.txt",
 #else
+	"news.txt",
 	"a_cursed.txt",
 	"a_low.txt",
 	"a_med.txt",
 	"a_high.txt",
-	"w_cursed.txt",
 
+	"w_cursed.txt",
 	"w_low.txt",
 	"w_med.txt",
 	"w_high.txt",
 	"chainswd.txt",
-	"error.txt",
 
+	"error.txt",
 	"death.txt",
 	"seppuku.txt",
 	"monfear.txt",
 	"monpet.txt",
-	"monfrien.txt",
 
+	"monfrien.txt",
 	"monspeak.txt",
 	"rumor.txt",
 #endif
@@ -162,6 +164,7 @@ static const cptr message_files[]=
 
 enum MESSAGE_FILES
 {
+	MESSAGE_FILES_GAME_NEWS,
 	MESSAGE_FILES_ARMOUR_CURSED_ARTIFACT,
 	MESSAGE_FILES_ARMOUR_LOW_ARTIFACT,
 	MESSAGE_FILES_ARMOUR_MED_ARTIFACT,
