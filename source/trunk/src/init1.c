@@ -3391,6 +3391,11 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_CAMP:
+				if(sscanf(tmp, "%d", &b) == 1)
+					species_ptr->camp = (s16b)b;
+				else 
+					if(grab_one_index(&b, camp_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
+				species_ptr->camp = (s16b)b;
 				break;
 
 			case SPECIES_INFO_RACE1:

@@ -352,6 +352,7 @@ struct species_type
 	s16b species_idx;			    /* Species index */
 	s16b ap_species_idx;		    /* Species appearance index */
 
+	s16b camp;
 	s16b race_idx1;                 /* Race index 1*/
 	s16b race_idx2;                 /* Race index 2*/
 	u32b sub_race[8];               /* Sub-Race index */
