@@ -1439,7 +1439,6 @@ void aggravate_creatures(creature_type *creature_ptr)
 	{
 		creature_type    *m_ptr = &creature_list[i];
 
-
 		if(!m_ptr->species_idx) continue;
 
 		/* Skip aggravating creature (or player) */
@@ -1497,7 +1496,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	else if(m_idx == user_ptr->riding) resist = TRUE;
 	else if((floor_ptr->quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) resist = TRUE;
 	else if(player_cast && (target_ptr->lev * 2 > randint0(power))) resist = TRUE;
-	else if(player_cast && (target_ptr->sc_flag2 & SC_FLAG2_NOGENO)) resist = TRUE;
+	else if(player_cast && has_trait(target_ptr, TRAIT_NO_GENOCIDE)) resist = TRUE;
 
 	// Delete the creature
 	else
@@ -1545,7 +1544,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 			}
 			set_hostile(user_ptr, target_ptr);
 		}
-		if(one_in_(13)) target_ptr->sc_flag2 |= SC_FLAG2_NOGENO;
+		if(one_in_(13)) set_timed_trait_aux(target_ptr, TRAIT_NO_GENOCIDE, PERMAMENT_TIMED, FALSE);
 	}
 
 	if(player_cast)

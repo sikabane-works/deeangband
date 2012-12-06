@@ -2953,7 +2953,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			if(is_enemy_of_good_creature(target_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
 				!floor_ptr->fight_arena_mode && !floor_ptr->quest &&
 				(caster_ptr->lev < randint1(caster_ptr->lev)) &&
-				!(target_ptr->sc_flag2 & SC_FLAG2_NOGENO))
+				!has_trait(target_ptr, TRAIT_NO_GENOCIDE))
 			{
 				if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 				{
@@ -2976,7 +2976,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #else
 				msg_print("Your invocation is ineffectual!");
 #endif
-				if(one_in_(13)) target_ptr->sc_flag2 |= SC_FLAG2_NOGENO;
+				if(one_in_(13)) set_timed_trait_aux(target_ptr, TRAIT_NO_GENOCIDE, PERMAMENT_TIMED, FALSE);
 			}
 		}
 		break;
