@@ -5187,8 +5187,7 @@ static void init_stuff(void)
 }
 
 
-int FAR PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst,
-		       LPSTR lpCmdLine, int nCmdShow)
+int FAR PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
 {
 	int i;
 
@@ -5385,10 +5384,7 @@ int FAR PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst,
 		DispatchMessage(&msg);
 	}
 
-
 	quit(NULL);
-
-
 	return SUCCESS;
 }
 

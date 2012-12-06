@@ -1881,7 +1881,6 @@ static char inkey_aux(void)
 			/* Excessive delay */
 			if(w >= 100) break;
 
-			/* Delay */
 			Term_xtra(TERM_XTRA_DELAY, w);
 		}
 	}
@@ -2170,7 +2169,6 @@ char inkey(void)
 					/* Excessive delay */
 					if(w >= 100) break;
 
-					/* Delay */
 					Term_xtra(TERM_XTRA_DELAY, w);
 				}
 			}
@@ -2189,7 +2187,6 @@ char inkey(void)
 			/* Strip this key */
 			ch = 0;
 
-			/* Continue */
 			continue;
 		}
 
@@ -4464,7 +4461,6 @@ prt(format("‰ñ”: %d", command_arg), 0, 0);
 					/* Clear count */
 					command_arg = 0;
 
-					/* Continue */
 					continue;
 				}
 			}
@@ -4512,7 +4508,6 @@ prt(format("‰ñ”: %d", command_arg), 0, 0);
 			/* Start using the buffer */
 			inkey_next = request_command_buffer;
 
-			/* Continue */
 			continue;
 		}
 

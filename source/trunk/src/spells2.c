@@ -1487,6 +1487,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	creature_type *target_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	bool         resist = FALSE;
+	char target_name[MAX_NLEN];
 
 	if(is_pet(player_ptr, target_ptr) && !player_cast) return FALSE;
 
@@ -1503,8 +1504,6 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	{
 		if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 		{
-			char target_name[MAX_NLEN];
-
 			creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
 			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
 		}
@@ -1515,7 +1514,6 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	if(resist && player_cast)
 	{
 		bool see_m = is_seen(user_ptr, target_ptr);
-		char target_name[MAX_NLEN];
 
 		creature_desc(target_name, target_ptr, 0);
 		if(see_m) msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED], target_name);
@@ -1559,9 +1557,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 	/* Visual feedback */
 	move_cursor_relative(user_ptr->fy, user_ptr->fx);
-
 	play_redraw |= (PR_HP);
-
 	play_window |= (PW_PLAYER);
 
 	/* Handle */
@@ -1570,7 +1566,6 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	/* Fresh */
 	Term_fresh();
 
-	/* Delay */
 	Term_xtra(TERM_XTRA_DELAY, msec);
 
 	return !resist;

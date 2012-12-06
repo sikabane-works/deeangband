@@ -152,9 +152,7 @@ quit("setregid(): ê≥ÇµÇ≠ãñâ¬Ç™éÊÇÍÇ‹ÇπÇÒÅI");
  * We save pointers to the tokens in "tokens", and return the number found.
  *
  * Hack -- Attempt to handle the 'c' character formalism
- *
  * Hack -- An empty buffer, or a final delimeter, yields an "empty" token.
- *
  * Hack -- We will always extract at least one token
  */
 s16b tokenize(char *buf, s16b num, char **tokens, int mode)
@@ -1174,7 +1172,6 @@ static errr process_pref_file_aux(cptr name, int preftype)
 			/* Set flag */
 			bypass = (streq(v, "0") ? TRUE : FALSE);
 
-			/* Continue */
 			continue;
 		}
 
@@ -1210,7 +1207,6 @@ static errr process_pref_file_aux(cptr name, int preftype)
 			/* Set back depth level */
 			depth_count--;
 
-			/* Continue */
 			continue;
 		}
 
@@ -2324,8 +2320,7 @@ static void known_obj_immunity(u32b flgs[TRAIT_FLAG_MAX], creature_type *creatur
 	int i;
 
 	/* Clear */
-	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		flgs[i] = 0L;
+	for (i = 0; i < TRAIT_FLAG_MAX; i++) flgs[i] = 0L;
 
 	/* Check equipment */
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -2354,8 +2349,7 @@ static void player_immunity(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_p
 	int i;
 
 	/* Clear */
-	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		flgs[i] = 0L;
+	for (i = 0; i < TRAIT_FLAG_MAX; i++) flgs[i] = 0L;
 
 	/* TODO 
 	if(IS_RACE(creature_ptr, RACE_LICH))
@@ -2588,8 +2582,6 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 		c_put_str(TERM_YELLOW, "#", row + 0, col + 31);
 	if(has_trait(creature_ptr, TRAIT_IM_ACID))
 		c_put_str(TERM_YELLOW, "*", row + 0, col * 31);
-	if(creature_ptr->timed_trait[TRAIT_IM_FIRE])
-		c_put_str(TERM_WHITE, "*", row + 0, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
 	//elec
@@ -2597,7 +2589,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_ELEC))
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_ELEC) ? TERM_L_RED : TERM_WHITE), "+", row + 1, col + 31);
-	if(has_trait(creature_ptr, TRAIT_RES_ELEC))
+	if(has_trait(creature_ptr, TRAIT_OPP_ELEC))
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_ELEC) ? TERM_ORANGE : TERM_YELLOW), "#", row + 1, col + 31);
 	if(has_trait(creature_ptr, TRAIT_IM_ELEC))
 		c_put_str(TERM_YELLOW, "*", row + 1, col * 31);
@@ -2612,7 +2604,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_FIRE))
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_FIRE) ? TERM_L_RED : TERM_WHITE), "+", row + 2, col + 31);
-	if(has_trait(creature_ptr, TRAIT_RES_FIRE))
+	if(has_trait(creature_ptr, TRAIT_OPP_FIRE))
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_FIRE) ? TERM_ORANGE : TERM_YELLOW), "#", row + 2, col + 31);
 	if(has_trait(creature_ptr, TRAIT_IM_FIRE))
 		c_put_str(TERM_YELLOW, "*", row + 2, col * 31);
@@ -2787,9 +2779,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 */
 }
 
-/*
- * Special display, part 3
- */
+// Special display, part 3
 static void display_creature_flag_info3(creature_type *creature_ptr)
 {
 	int row;
@@ -3117,8 +3107,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 
 		for(j = 0; j < max_trait_idx; j++)
 		{
-			if(has_trait(creature_ptr, j))
-				r_adj += trait_info[j].adj[i];
+			if(has_trait(creature_ptr, j)) r_adj += trait_info[j].adj[i];
 		}
 
 		e_adj = 0; // Calculate equipment adjustment
@@ -3180,11 +3169,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 20);
 
 		}
-		else
-		{
-			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 20);
-		}
-
+		else c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 20);
 
 		if(creature_ptr->class_idx != INDEX_NONE && has_status(creature_ptr, i))
 		{
@@ -3196,10 +3181,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 			else if(class_info[creature_ptr->class_idx].c_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 23);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 23);
 		}
-		else
-		{
-			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 23);
-		}
+		else c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 23);
 
 		//authority bonus
 		if((creature_ptr->patron_idx != INDEX_NONE || creature_ptr->dr >= 0) && has_status(creature_ptr, i))
@@ -3224,10 +3206,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 			else if(p_adj < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 26);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 26);
 		}
-		else
-		{
-			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 26);
-		}
+		else c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 26);
 
 		if(creature_ptr->chara_idx != INDEX_NONE && has_status(creature_ptr, i))
 		{
@@ -3236,10 +3215,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 			else if(chara_info[creature_ptr->chara_idx].a_adj[i] < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 29);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 29);
 		}
-		else
-		{
-			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 29);
-		}
+		else c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 29);
 
 		if(has_status(creature_ptr, i))
 		{
@@ -3248,10 +3224,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 			else if(e_adj < 0) c_put_str(TERM_L_RED, buf, row + i+1, stat_col + 32);
 			else c_put_str(TERM_L_DARK, buf, row + i+1, stat_col + 32);
 		}
-		else
-		{
-			c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 32);
-		}
+		else c_put_str(TERM_L_DARK, " --", row + i+1, stat_col + 32);
 
 		if(has_status(creature_ptr, i))
 		{
@@ -3757,17 +3730,12 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		prt(out_val, 0, 0);
 	}
 
-	/* Special */
 	else if(mode == DISPLAY_CR_STATUS_VARIOUS1)
 	{
-		/* See "http://www.cs.berkeley.edu/~davidb/angband.html" */
-
-		/* Dump the info */
 		display_player_stat_info(creature_ptr);
 		display_creature_flag_info1(creature_ptr);
 	}
 
-	/* Special */
 	else if(mode == DISPLAY_CR_STATUS_VARIOUS2)
 	{
 		display_creature_flag_info2(creature_ptr);
@@ -3829,11 +3797,7 @@ static void dump_aux_display_creature_status(creature_type *creature_ptr, FILE *
 		while ((x > 0) && (buf[x-1] == ' ')) buf[--x] = '\0';
 
 		/* End the row */
-#ifdef JP
 		fprintf(fff, "%s\n", buf);
-#else
-		fprintf(fff, "%s\n", buf);
-#endif
 
 	}
 
@@ -3967,10 +3931,8 @@ static void dump_aux_display_creature_status(creature_type *creature_ptr, FILE *
 			(void)(Term_what(x, y, &a, &c));
 
 			/* Dump it (Ignore equippy tile graphic) */
-			if(a < 128)
-				buf[x] = c;
-			else
-				buf[x] = ' ';
+			if(a < 128) buf[x] = c;
+			else buf[x] = ' ';
 		}
 
 		/* End the string */

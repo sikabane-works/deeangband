@@ -1770,7 +1770,6 @@ errr parse_feature_info(char *buf, header *head)
 				/* Start at next entry */
 				s = t;
 
-				/* Continue */
 				continue;
 			}
 
@@ -1783,7 +1782,6 @@ errr parse_feature_info(char *buf, header *head)
 				/* Start at next entry */
 				s = t;
 
-				/* Continue */
 				continue;
 			}
 
@@ -7499,7 +7497,6 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, 
 			/* Set flag */
 			bypass = (streq(v, "0") ? TRUE : FALSE);
 
-			/* Continue */
 			continue;
 		}
 
