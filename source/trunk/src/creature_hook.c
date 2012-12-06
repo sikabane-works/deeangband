@@ -451,7 +451,7 @@ void set_pet(creature_type *master_ptr, creature_type *m_ptr)
 	/* Check for quest completion */
 	check_quest_completion(master_ptr, m_ptr);
 
-	m_ptr->smart |= SM_PET;
+	//TODO m_ptr->master_creature_idx = GET_CREATURE(master_ptr);
 	if(!(is_enemy_of_evil_creature(m_ptr) && is_enemy_of_good_creature(m_ptr)))
 		m_ptr->sub_align = SUB_ALIGN_NEUTRAL;
 }
@@ -465,7 +465,7 @@ void set_hostile(creature_type *master_ptr, creature_type *m_ptr)
 	if(floor_ptr->gamble_arena_mode) return;
 	if(is_pet(master_ptr, m_ptr)) check_pets_num_and_align(master_ptr, m_ptr, FALSE);
 
-	m_ptr->smart &= ~SM_PET;
+	m_ptr->master_creature_idx = 0;
 	//TODO m_ptr->smart &= ~SM_FRIENDLY;
 }
 

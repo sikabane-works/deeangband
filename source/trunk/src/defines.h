@@ -1643,9 +1643,6 @@
 #define CHECK_NO_HISTORY  0x04
 #define CHECK_DEFAULT_Y   0x08
 
-// Some bit-flags for the "smart" field
-#define SM_PET                  0x00800000 /* XXX Pet */
-
 /*
  * Bit flags for the "get_item" function
  */
@@ -1960,7 +1957,7 @@
 
 #define is_friendly_idx(IDX) (bool)((IDX) > 0 && is_friendly(playet_ptr, &creature_list[(IDX)]))
 
-#define is_pet(B, A) (bool)(((A)->smart & SM_PET) ? TRUE : FALSE)
+#define is_pet(B, A) (bool)(((A)->master_creature_idx) ? TRUE : FALSE)
 #define is_hostile(A) (bool)((is_friendly(player_ptr, A) || is_pet(player_ptr, A)) ? FALSE : TRUE)
 
 // Hack -- Determine creature race appearance index is same as race index
