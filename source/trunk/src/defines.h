@@ -2939,9 +2939,7 @@ enum GRAPHICS_MODE
 #define SKEY_TOP    	  0xf007
 #define SKEY_BOTTOM 	  0xf008
 
-/*
- * Bit flags for move_creature()
- */
+// Bit flags for move_creature()
 #define MCE_STAYING			0x00000001
 #define MCE_FORGET_FLOW		0x00000002
 #define MCE_HANDLE_STUFF	0x00000004
@@ -2952,17 +2950,6 @@ enum GRAPHICS_MODE
 #define MCE_DONT_SWAP_MON	0x00000080
 #define MCE_NO_ENTER		0x00000100
 #define MCE_NO_SEE			0x00000200
-
-#define MTIMED_CSLEEP   0 /* Creature is sleeping */
-#define MTIMED_FAST     1 /* Creature is temporarily fast */
-#define MTIMED_SLOW     2 /* Creature is temporarily slow */
-#define MTIMED_STUNNED  3 /* Creature is stunned */
-#define MTIMED_CONFUSED 4 /* Creature is confused */
-#define MTIMED_MONFEAR  5 /* Creature is afraid */
-#define MTIMED_INVULNER 6 /* Creature is temporarily invulnerable */
-
-#define MAX_MTIMED      7
-
 
 /*
  * Bit flags for screen_object()
@@ -2992,10 +2979,6 @@ enum GRAPHICS_MODE
 #define CREATURE_OBS_ALIGNMENT		110
 
 #define NO_FLAGS 0 // no flags
-
-#define CAMP_PLAYER   0
-#define CAMP_DUNGEON  1
-
 
 // use add_outfit() and under fuctions.
 #define ADD_OUTFIT_EQUIP                0x00000001

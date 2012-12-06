@@ -1420,12 +1420,6 @@ static errr init_other(void)
 	C_MAKE(creature_list, max_creature_idx, creature_type);
 	player_ptr = &creature_list[1];
 
-	// Allocate and Wipe the creature process list
-	for (i = 0; i < MAX_MTIMED; i++)
-	{
-		C_MAKE(mproc_list[i], max_creature_idx, creature_type *);
-	}
-
 	// Allocate and Wipe the max dungeon level
 	C_MAKE(max_dlv, max_dungeon_idx, s16b);
 
