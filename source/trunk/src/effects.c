@@ -22,7 +22,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v)
 {
 	bool notice = FALSE;
 
-	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v; // Hack -- Force good values
+	v = (v > PERMAMENT_TIMED) ? PERMAMENT_TIMED : (v < 0) ? 0 : v; // Hack -- Force good values
 	if(IS_DEAD(creature_ptr)) return FALSE;
 
 	if(v)
@@ -58,7 +58,7 @@ bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_d
 {
 	bool notice = FALSE;
 
-	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v; // Hack -- Force good values
+	v = (v > PERMAMENT_TIMED) ? PERMAMENT_TIMED : (v < 0) ? 0 : v; // Hack -- Force good values
 
 	if(IS_DEAD(creature_ptr)) return FALSE;
 

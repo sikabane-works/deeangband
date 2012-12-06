@@ -1896,8 +1896,8 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	//*** Timeout Various Things ***//
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(creature_ptr->timed_trait[i] > 0)
-			(void)set_timed_trait(creature_ptr, i, creature_ptr->timed_trait[i] - dec_count);
+		if(creature_ptr->timed_trait[i] > 0 && creature_ptr->timed_trait[i] < PERMAMENT_TIMED)
+			(void)set_timed_trait_aux(creature_ptr, i, creature_ptr->timed_trait[i] - dec_count, TRUE);
 
 	// Handle "sleep"
 	if(has_trait(creature_ptr, TRAIT_SLEPT))
