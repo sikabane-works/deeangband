@@ -2314,7 +2314,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
@@ -2324,7 +2324,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
 		{
@@ -2357,7 +2357,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
@@ -2366,7 +2366,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
 		{
@@ -2398,7 +2398,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(has_trait(target_ptr, TRAIT_NO_CONF) && is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
@@ -2407,7 +2407,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
 		{
@@ -2874,7 +2874,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
@@ -2883,7 +2883,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
 		{
@@ -3013,7 +3013,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
@@ -3022,7 +3022,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
 		{
@@ -3207,7 +3207,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					has_trait(target_ptr, TRAIT_NO_PET) || (has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
 					((target_ptr->lev * 2+10) > randint1(dam)))
 				{
-					if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+					if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 				}
 				else
 				{

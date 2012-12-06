@@ -3703,7 +3703,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		get_mutative_trait(creature_ptr, TRAIT_KAGE);
 	}
 
-	if(mode & PC_NO_PET) set_timed_trait_aux(creature_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+	if(mode & PC_NO_PET) set_timed_trait_aux(creature_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 	else if(summoner_ptr) set_pet(summoner_ptr, creature_ptr); // Pet?
 
 	// TODO reimpelment Friendly Creature.
@@ -4467,8 +4467,8 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 	/* Hack -- Transfer "clone" flag */
 	if(clone || has_trait(creature_ptr, TRAIT_CLONED))
 	{
-		set_timed_trait_aux(&creature_list[hack_m_idx_ii], TRAIT_CLONED, PERMAMENT_TIMED, FALSE);
-		set_timed_trait_aux(&creature_list[hack_m_idx_ii], TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+		set_timed_trait_aux(&creature_list[hack_m_idx_ii], TRAIT_CLONED, PERMANENT_TIMED, FALSE);
+		set_timed_trait_aux(&creature_list[hack_m_idx_ii], TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 	}
 
 	return TRUE;

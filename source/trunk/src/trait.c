@@ -2976,7 +2976,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #else
 				msg_print("Your invocation is ineffectual!");
 #endif
-				if(one_in_(13)) set_timed_trait_aux(target_ptr, TRAIT_NO_GENOCIDE, PERMAMENT_TIMED, FALSE);
+				if(one_in_(13)) set_timed_trait_aux(target_ptr, TRAIT_NO_GENOCIDE, PERMANENT_TIMED, FALSE);
 			}
 		}
 		break;

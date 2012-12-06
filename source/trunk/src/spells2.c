@@ -1453,7 +1453,7 @@ void aggravate_creatures(creature_type *creature_ptr)
 				(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0);
 				sleep = TRUE;
 			}
-			if(!is_pet(player_ptr, m_ptr)) set_timed_trait_aux(m_ptr, TRAIT_NO_PET, PERMAMENT_TIMED, FALSE);
+			if(!is_pet(player_ptr, m_ptr)) set_timed_trait_aux(m_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 
 		/* Speed up creatures in line of sight */
@@ -1544,7 +1544,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 			}
 			set_hostile(user_ptr, target_ptr);
 		}
-		if(one_in_(13)) set_timed_trait_aux(target_ptr, TRAIT_NO_GENOCIDE, PERMAMENT_TIMED, FALSE);
+		if(one_in_(13)) set_timed_trait_aux(target_ptr, TRAIT_NO_GENOCIDE, PERMANENT_TIMED, FALSE);
 	}
 
 	if(player_cast)
