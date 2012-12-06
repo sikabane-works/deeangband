@@ -1745,8 +1745,12 @@ static void put_initial_status(creature_type *creature_ptr)
 
 #ifdef JP
 		put_str("種族  :                                                                         ", 1, 1);
+		put_str("職業  :                                                                         ", 2, 1);
+		put_str("主神  :                                                                         ", 3, 1);
 #else
 		put_str("Race  :                                                                         ", 1, 1);
+		put_str("Class :                                                                         ", 2, 1);
+		put_str("Patron:                                                                         ", 3, 1);
 #endif
 	if(creature_ptr->race_idx1 != INDEX_NONE)
 	{
@@ -1754,22 +1758,12 @@ static void put_initial_status(creature_type *creature_ptr)
 		c_put_str(TERM_L_BLUE, race, 1, 9);
 	}
 
-#ifdef JP
-		put_str("職業  :                                                                         ", 2, 1);
-#else
-		put_str("Class :                                                                         ", 2, 1);
-#endif
 	if(creature_ptr->class_idx != INDEX_NONE)
 	{
 		cls = desc_class_name(creature_ptr, CD_SUB_CLASS | CD_REALM);
 		c_put_str(TERM_L_BLUE, cls, 2, 9);
 	}
 
-#ifdef JP
-		put_str("主神  :                                                                         ", 3, 1);
-#else
-		put_str("Patron:                                                                         ", 3, 1);
-#endif
 	if(creature_ptr->patron_idx != INDEX_NONE)
 	{
 		c_put_str(TERM_L_BLUE, species_name + species_info[creature_ptr->patron_idx].name, 3, 9);
@@ -4008,14 +4002,10 @@ static bool get_stat_limits(creature_type *creature_ptr)
 #ifdef JP
 	put_str("最低限得たい能力値を設定して下さい。", 10, 10);
 	put_str("2/8で項目選択、4/6で値の増減、Enterで次へ", 11, 10);
+	put_str("         基本値  種族 職業 性格     合計値  最大値", 13, 10);
 #else
 	put_str("Set minimum stats.", 10, 10);
 	put_str("2/8 for Select, 4/6 for Change value, Enter for Goto next", 11, 10);
-#endif
-	
-#ifdef JP
-	put_str("         基本値  種族 職業 性格     合計値  最大値", 13, 10);
-#else
 	put_str("           Base   Rac  Cla  Per      Total  Maximum", 13, 10);
 #endif
 
@@ -4039,49 +4029,11 @@ static bool get_stat_limits(creature_type *creature_ptr)
 
 		/* Save the maximum */
 		mval[i] = m;
-
-		/* Above 18 */
-		if(m > 18)
-		{
-#ifdef JP
-			sprintf(cur, "18/%02d", (m - 18));
-#else
-			sprintf(cur, "18/%02d", (m - 18));
-#endif
-		}
-		
-		/* From 3 to 18 */
-		else
-		{
-#ifdef JP
-			sprintf(cur, "%2d", m);
-#else
-			sprintf(cur, "%2d", m);
-#endif
-		}
+		sprintf(cur, "%2d", m / 10);
 
 		/* Obtain the current stat */
 		m = adjust_stat(cval[i], j);
-
-		/* Above 18 */
-		if(m > 18)
-		{
-#ifdef JP
-			sprintf(inp, "18/%02d", (m - 18));
-#else
-			sprintf(inp, "18/%02d", (m - 18));
-#endif
-		}
-		
-		/* From 3 to 18 */
-		else
-		{
-#ifdef JP
-			sprintf(inp, "%2d", m);
-#else
-			sprintf(inp, "%2d", m);
-#endif
-		}
+		sprintf(inp, "%2d", m / 10);
 
 		/* Prepare a prompt */
 		//TODO

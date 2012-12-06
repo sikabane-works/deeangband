@@ -3984,46 +3984,21 @@ static void dump_aux_pet(creature_type *creature_ptr, FILE *fff)
 	{
 #ifdef JP
 		fprintf(fff, "\n\n  [ペットへの命令]\n");
-#else
-		fprintf(fff, "\n\n  [Command for Pets]\n");
-#endif
-
-#ifdef JP
 		fprintf(fff, "\n ドアを開ける:                       %s", (creature_ptr->pet_extra_flags & PF_OPEN_DOORS) ? "ON" : "OFF");
-#else
-		fprintf(fff, "\n Pets open doors:                    %s", (creature_ptr->pet_extra_flags & PF_OPEN_DOORS) ? "ON" : "OFF");
-#endif
-
-#ifdef JP
 		fprintf(fff, "\n アイテムを拾う:                     %s", (creature_ptr->pet_extra_flags & PF_PICKUP_ITEMS) ? "ON" : "OFF");
-#else
-		fprintf(fff, "\n Pets pick up items:                 %s", (creature_ptr->pet_extra_flags & PF_PICKUP_ITEMS) ? "ON" : "OFF");
-#endif
-
-#ifdef JP
 		fprintf(fff, "\n テレポート系魔法を使う:             %s", (creature_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
-#else
-		fprintf(fff, "\n Allow teleport:                     %s", (creature_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
-#endif
-
-#ifdef JP
 		fprintf(fff, "\n 攻撃魔法を使う:                     %s", (creature_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
-#else
-		fprintf(fff, "\n Allow cast attack spell:            %s", (creature_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
-#endif
-
-#ifdef JP
 		fprintf(fff, "\n 召喚魔法を使う:                     %s", (creature_ptr->pet_extra_flags & PF_TRAIT_S_SPELL) ? "ON" : "OFF");
-#else
-		fprintf(fff, "\n Allow cast summon spell:            %s", (creature_ptr->pet_extra_flags & PF_TRAIT_S_SPELL) ? "ON" : "OFF");
-#endif
-
-#ifdef JP
 		fprintf(fff, "\n プレイヤーを巻き込む範囲魔法を使う: %s", (creature_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
 #else
+		fprintf(fff, "\n\n  [Command for Pets]\n");
+		fprintf(fff, "\n Pets open doors:                    %s", (creature_ptr->pet_extra_flags & PF_OPEN_DOORS) ? "ON" : "OFF");
+		fprintf(fff, "\n Pets pick up items:                 %s", (creature_ptr->pet_extra_flags & PF_PICKUP_ITEMS) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow teleport:                     %s", (creature_ptr->pet_extra_flags & PF_TELEPORT) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow cast attack spell:            %s", (creature_ptr->pet_extra_flags & PF_ATTACK_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow cast summon spell:            %s", (creature_ptr->pet_extra_flags & PF_TRAIT_S_SPELL) ? "ON" : "OFF");
 		fprintf(fff, "\n Allow involve player in area spell: %s", (creature_ptr->pet_extra_flags & PF_BALL_SPELL) ? "ON" : "OFF");
 #endif
-
 		fputc('\n', fff);
 	}
 }
