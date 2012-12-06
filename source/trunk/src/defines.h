@@ -1644,7 +1644,6 @@
 #define CHECK_DEFAULT_Y   0x08
 
 // Some bit-flags for the "smart" field
-#define SM_CLONED               0x00400000 /* XXX Cloned */
 #define SM_PET                  0x00800000 /* XXX Pet */
 
 /*

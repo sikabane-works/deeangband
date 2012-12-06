@@ -4465,9 +4465,9 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 		return FALSE;
 
 	/* Hack -- Transfer "clone" flag */
-	if(clone || (creature_ptr->smart & SM_CLONED))
+	if(clone || has_trait(creature_ptr, TRAIT_CLONED))
 	{
-		creature_list[hack_m_idx_ii].smart |= SM_CLONED;
+		set_timed_trait_aux(&creature_list[hack_m_idx_ii], TRAIT_CLONED, PERMAMENT_TIMED, FALSE);
 		creature_list[hack_m_idx_ii].sc_flag2 |= SC_FLAG2_NOPET;
 	}
 

@@ -603,7 +603,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	bool do_gold = FALSE; // TODO
 	bool do_item = FALSE; // TODO
-	bool cloned = (dead_ptr->smart & SM_CLONED) ? TRUE : FALSE;
+	bool cloned = has_trait(dead_ptr, TRAIT_CLONED) ? TRUE : FALSE;
 
 	object_type forge;
 	object_type *quest_ptr;
@@ -1455,7 +1455,7 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 
 
 	/* Clone creature? */
-	if(m_ptr->smart & SM_CLONED)
+	if(has_trait(m_ptr, TRAIT_CLONED))
 	{
 		clone = ", clone";
 	}

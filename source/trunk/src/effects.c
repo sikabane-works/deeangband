@@ -65,9 +65,7 @@ bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_d
 	if(v)
 	{
 		if(creature_ptr->timed_trait[type] && !do_dec)
-		{
 			if(creature_ptr->timed_trait[type] > v) return FALSE;
-		}
 		if(!creature_ptr->timed_trait[type])
 		{
 			if(is_seen(player_ptr, creature_ptr))
@@ -2478,7 +2476,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				if(species_ptr->r_sights < MAX_SHORT) species_ptr->r_sights++;
 			}
 	
-			if(!(target_ptr->smart & SM_CLONED)) // When the player kills a Unique, it stays dead
+			if(!has_trait(target_ptr, TRAIT_CLONED)) // When the player kills a Unique, it stays dead
 			{
 				if(has_trait(target_ptr, TRAIT_UNIQUE))
 				{
@@ -2553,9 +2551,9 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			{
 				char note_buf[160];
 	#ifdef JP
-				sprintf(note_buf, "%s%s", species_name + species_ptr->name, (target_ptr->smart & SM_CLONED) ? "(クローン)" : "");
+				sprintf(note_buf, "%s%s", species_name + species_ptr->name, has_trait(target_ptr, TRAIT_CLONED) ? "(クローン)" : "");
 	#else
-				sprintf(note_buf, "%s%s", species_name + species_ptr->name, (target_ptr->smart & SM_CLONED) ? "(Clone)" : "");
+				sprintf(note_buf, "%s%s", species_name + species_ptr->name, has_trait(target_ptr, TRAIT_CLONED) ? "(Clone)" : "");
 	#endif
 				do_cmd_write_nikki(DIARY_UNIQUE, 0, note_buf);
 			}
@@ -2636,7 +2634,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	
 			}
 
-			if(has_trait(target_ptr, TRAIT_UNIQUE) && !(target_ptr->smart & SM_CLONED))
+			if(has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_CLONED))
 			{
 				for (i = 0; i < MAX_BOUNTY; i++)
 				{
