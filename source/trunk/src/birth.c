@@ -2388,11 +2388,7 @@ void creature_wipe(creature_type *creature_ptr)
 	creature_ptr->equip_cnt = 0;
 
 	/* Clear the creature_ptr->inventory */
-	for (i = 0; i < INVEN_TOTAL; i++)
-	{
-		object_wipe(&creature_ptr->inventory[i]);
-	}
-
+	for (i = 0; i < INVEN_TOTAL; i++) object_wipe(&creature_ptr->inventory[i]);
 
 	/* Hack -- Well fed player */
 	creature_ptr->food = CREATURE_FOOD_FULL - 1;
@@ -2476,8 +2472,7 @@ void determine_random_questor(quest_type *quest_ptr)
 	species_type *species_ptr;
 	int i = 0;
 
-	get_species_num_prep_trait(NULL,
-		t_need(1, TRAIT_UNIQUE),
+	get_species_num_prep_trait(NULL, t_need(1, TRAIT_UNIQUE),
 		t_except(4, TRAIT_QUESTOR, TRAIT_FRIENDLY, TRAIT_AQUATIC, TRAIT_WILD_ONLY), 0);
 
 	do
@@ -2608,10 +2603,7 @@ static void wield_all(creature_type *creature_ptr, u32b flags)
 { 
 	int item;
 	/* Scan through the slots backwards */ 
-	for (item = INVEN_TOTAL - 1; item >= 0; item--) 
-	{
-		wield_one(creature_ptr, item, flags);
- 	} 
+	for (item = INVEN_TOTAL - 1; item >= 0; item--) wield_one(creature_ptr, item, flags);
 	return; 
 } 
 
@@ -2634,9 +2626,7 @@ void add_outfit(creature_type *creature_ptr, object_type *object_ptr, u32b flags
 	autopick_alter_item(creature_ptr, slot, FALSE);
 
 	if(!(flags & ADD_OUTFIT_MULTIPLE_FENCING) && object_is_weapon(object_ptr))
-	{
 		if(get_equip_weapon_num(creature_ptr) >= 1) return;
-	}
 
 	/* Now try wielding everything */ 
 	if(flags & ADD_OUTFIT_EQUIP) wield_all(creature_ptr, flags); 
@@ -2659,10 +2649,12 @@ void race_detail(int code)
 	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
 	put_str("‚Ìåí‘°C³", base, 24+strlen(race_info[code].title));
 	put_str("˜r—Í    ’m”\    Œ«‚³    Ší—p    ‘Ï‹v    –£—Í     ŒoŒ±   ", base+1, 24);
+	put_str("Šî‘bƒŒƒxƒ‹:   Šî‘b_Ši:", base, 53);
 #else
 	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
 	put_str("'s Main-Race modification", base, 24+strlen(race_info[code].title));
 	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
+	put_str("Base Level:   Base DR :", base, 53);
 #endif
 
 	sprintf(buf, "%+3d>%+3d %+3d>%+3d %+3d>%+3d %+3d>%+3d %+3d>%+3d %+3d>%+3d  %+4d%% ",
@@ -2680,12 +2672,6 @@ void race_detail(int code)
 	c_put_str(TERM_L_WHITE, ">", base+2, 50);
 	c_put_str(TERM_L_WHITE, ">", base+2, 58);
 	c_put_str(TERM_L_WHITE, ">", base+2, 66);
-
-#ifdef JP
-	put_str("Šî‘bƒŒƒxƒ‹:   Šî‘b_Ši:", base, 53);
-#else
-	put_str("Base Level:   Base DR :", base, 53);
-#endif
 
 	sprintf(buf, "%2d", race_info[code].lev);
 	c_put_str(TERM_L_BLUE, buf, base, 64);
@@ -2706,10 +2692,7 @@ void race_detail(int code)
 		if(!e)
 			if(t[0] == 0) e = TRUE;
 
-		if(e)
-		{
-			prt("                                                                       ", base+4 + i, 24);
-		}
+		if(e) prt("                                                                       ", base+4 + i, 24);
 		else
 		{
 			prt(t, base+4 + i, 24);
@@ -2756,13 +2739,9 @@ void subrace_detail(int code)
 		e = FALSE;
 		for (i = 0; i < 18; i++)
 		{
-			if(!e)
-				if(t[0] == 0) e = TRUE;
+			if(!e) if(t[0] == 0) e = TRUE;
 
-			if(e)
-			{
-				prt("                                                                       ", base+4 + i, 24);
-			}
+			if(e) prt("                                                                       ", base+4 + i, 24);
 			else
 			{
 				prt(t, base+4 + i, 24);
@@ -2825,8 +2804,7 @@ void class_detail(int code)
 	e = FALSE;
 	for (i = 0; i < 18; i++)
 	{
-		if(!e)
-			if(t[0] == 0) e = TRUE;
+		if(!e) if(t[0] == 0) e = TRUE;
 		else
 		{
 			prt(t, base+4 + i, 24);
@@ -2844,8 +2822,7 @@ void chara_detail(int code)
 	char buf[100], temp[58*18];
 	cptr t;
 
-	for (i = 0; i < 22; i++)
-		prt("                                                                       ", base + i, 24);
+	for (i = 0; i < 22; i++) prt("                                                                       ", base + i, 24);
 	if(code < 0) return;
 
 #ifdef JP
@@ -5145,31 +5122,15 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			Term_addch(TERM_WHITE, b1);
 #ifdef JP
 			Term_addstr(-1, TERM_WHITE, "'r' Ÿ‚Ì”’l");
-#else
-			Term_addstr(-1, TERM_WHITE, "'r'eroll");
-#endif
-
-#ifdef JP
 			if(prev) Term_addstr(-1, TERM_WHITE, ", 'p' ‘O‚Ì”’l");
-#else
-			if(prev) Term_addstr(-1, TERM_WHITE, ", 'p'previous");
-#endif
-
-#ifdef JP
 			if(mode) Term_addstr(-1, TERM_WHITE, ", 'h' ‚»‚Ì‘¼‚Ìî•ñ");
-#else
-			if(mode) Term_addstr(-1, TERM_WHITE, ", 'h' Misc.");
-#endif
-
-#ifdef JP
 			else Term_addstr(-1, TERM_WHITE, ", 'h' ¶‚¢—§‚¿‚ğ•\¦");
-#else
-			else Term_addstr(-1, TERM_WHITE, ", 'h'istory");
-#endif
-
-#ifdef JP
 			Term_addstr(-1, TERM_WHITE, ", Enter ‚±‚Ì”’l‚ÉŒˆ’è");
 #else
+			Term_addstr(-1, TERM_WHITE, "'r'eroll");
+			if(prev) Term_addstr(-1, TERM_WHITE, ", 'p'previous");
+			if(mode) Term_addstr(-1, TERM_WHITE, ", 'h' Misc.");
+			else Term_addstr(-1, TERM_WHITE, ", 'h'istory");
 			Term_addstr(-1, TERM_WHITE, ", or Enter to accept");
 #endif
 

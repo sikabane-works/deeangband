@@ -3750,14 +3750,14 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 		if(!(summon_named_creature(0, floor_ptr, y, x, quest_ptr->pval, !(object_is_cursed(quest_ptr)) ? PC_FORCE_PET : 0L)))
 #ifdef JP
-msg_print("人形は捻じ曲がり砕け散ってしまった！");
+			msg_print("人形は捻じ曲がり砕け散ってしまった！");
 #else
 			msg_print("The Figurine writhes and then shatters.");
 #endif
 
 		else if(object_is_cursed(quest_ptr))
 #ifdef JP
-msg_print("これはあまり良くない気がする。");
+			msg_print("これはあまり良くない気がする。");
 #else
 			msg_print("You have a bad feeling about this.");
 #endif

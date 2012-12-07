@@ -1298,12 +1298,9 @@ bool psychometry(creature_type *creature_ptr)
 	}
 
 #ifdef JP
-	msg_format("%s‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
-		object_name, game_inscriptions[feel]);
+	msg_format("%s‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...", object_name, game_inscriptions[feel]);
 #else
-	msg_format("You feel that the %s %s %s...",
-		object_name, ((object_ptr->number == 1) ? "is" : "are"),
-		game_inscriptions[feel]);
+	msg_format("You feel that the %s %s %s...", object_name, ((object_ptr->number == 1) ? "is" : "are"), game_inscriptions[feel]);
 #endif
 
 
