@@ -2925,7 +2925,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		floor_ptr->num_repro += MAX_REPRO;
 		break;
 
-
 	case TRAIT_DAZZLE:
 		stun_creatures(caster_ptr, user_level * 4);
 		confuse_creatures(caster_ptr, user_level * 4);
@@ -2995,6 +2994,38 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			cast_bolt(caster_ptr, DO_EFFECT_COLD, 2 * user_level, 0, FALSE);
 		}
 		break;
+
+	case TRAIT_ENLIGHTENMENT:
+#ifdef JP
+			msg_print("自分の置かれている状況が脳裏に浮かんできた...");
+#else
+			msg_print("An image of your surroundings forms in your mind...");
+#endif
+			wiz_lite(floor_ptr, caster_ptr, FALSE);
+			effected = TRUE;
+			break;
+
+	case TRAIT_STAR_ENLIGHTENMENT:
+#ifdef JP
+			msg_print("更なる啓蒙を感じた...");
+#else
+			msg_print("You begin to feel more enlightened...");
+#endif
+			msg_print(NULL);
+			wiz_lite(floor_ptr, caster_ptr, FALSE);
+			(void)do_inc_stat(caster_ptr, STAT_INT);
+			(void)do_inc_stat(caster_ptr, STAT_WIS);
+			(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
+			(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT);
+			(void)detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
+			identify_pack(caster_ptr);
+			creature_knowledge(caster_ptr);
+			effected = TRUE;
+			break;
+
 
 		/* XXX_XXX_XXX Hack!  TRAIT_LAUNCHER is negative, see above */
 

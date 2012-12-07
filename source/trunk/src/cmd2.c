@@ -2295,7 +2295,6 @@ void do_cmd_run(creature_type *creature_ptr)
 #else
 		msg_print("You are too confused!");
 #endif
-
 		return;
 	}
 

@@ -316,15 +316,15 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	{
 		// Reduced nutritional benefit
 		(void)set_food(creature_ptr, creature_ptr->food + (object_ptr->pval / 10));
-#ifdef JP
-msg_print("Ç†Ç»ÇΩÇÃÇÊÇ§Ç»é“Ç…Ç∆Ç¡ÇƒêHó∆Ç»Ç«ãÕÇ©Ç»âhó{Ç…ÇµÇ©Ç»ÇÁÇ»Ç¢ÅB");
+#ifdef JP	
+		msg_print("Ç†Ç»ÇΩÇÃÇÊÇ§Ç»é“Ç…Ç∆Ç¡ÇƒêHó∆Ç»Ç«ãÕÇ©Ç»âhó{Ç…ÇµÇ©Ç»ÇÁÇ»Ç¢ÅB");
 #else
 		msg_print("Mere victuals hold scant sustenance for a being such as yourself.");
 #endif
 
 		if(creature_ptr->food < CREATURE_FOOD_ALERT)   // Hungry
 #ifdef JP
-msg_print("Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI");
+			msg_print("Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI");
 #else
 			msg_print("Your hunger can only be satisfied with fresh blood!");
 #endif
@@ -412,17 +412,9 @@ msg_print("Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI");
 #endif
 		}
 
-		/* Describe charges in the pack */
-		if(item >= 0)
-		{
-			inven_item_charges(creature_ptr, item);
-		}
-
-		/* Describe charges on the floor */
-		else
-		{
-			floor_item_charges(0 - item);
-		}
+		// Describe charges in the pack / on the floor
+		if(item >= 0) inven_item_charges(creature_ptr, item);
+		else floor_item_charges(0 - item);
 
 		play_window |= (PW_INVEN | PW_EQUIP);
 
@@ -455,7 +447,7 @@ msg_print("Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI");
 			object_type *quest_ptr = &forge;
 
 #ifdef JP
-msg_print("êHÇ◊ï®Ç™ÉAÉSÇëfí ÇËÇµÇƒóéÇøÇΩÅI");
+			msg_print("êHÇ◊ï®Ç™ÉAÉSÇëfí ÇËÇµÇƒóéÇøÇΩÅI");
 #else
 			msg_print("The food falls through your jaws!");
 #endif
@@ -480,11 +472,10 @@ msg_print("êHÇ◊ï®Ç™ÉAÉSÇëfí ÇËÇµÇƒóéÇøÇΩÅI");
 	else if(has_trait(creature_ptr, TRAIT_NONLIVING) || has_trait(creature_ptr, TRAIT_UNDEAD) || has_trait(creature_ptr, TRAIT_DEMON))
 	{
 #ifdef JP
-msg_print("ê∂é“ÇÃêHï®ÇÕÇ†Ç»ÇΩÇ…Ç∆Ç¡ÇƒÇŸÇ∆ÇÒÇ«âhó{Ç…Ç»ÇÁÇ»Ç¢ÅB");
+		msg_print("ê∂é“ÇÃêHï®ÇÕÇ†Ç»ÇΩÇ…Ç∆Ç¡ÇƒÇŸÇ∆ÇÒÇ«âhó{Ç…Ç»ÇÁÇ»Ç¢ÅB");
 #else
 		msg_print("The food of mortals is poor sustenance for you.");
 #endif
-
 		set_food(creature_ptr, creature_ptr->food + ((object_ptr->pval) / 20));
 	}
 	else if(object_ptr->tval == TV_FOOD && object_ptr->sval == SV_FOOD_WAYBREAD)
@@ -498,15 +489,13 @@ msg_print("ê∂é“ÇÃêHï®ÇÕÇ†Ç»ÇΩÇ…Ç∆Ç¡ÇƒÇŸÇ∆ÇÒÇ«âhó{Ç…Ç»ÇÁÇ»Ç¢ÅB");
 		(void)set_food(creature_ptr, creature_ptr->food + object_ptr->pval);
 	}
 
-	/* Destroy a food in the pack */
+	// Destroy a food in the pack / on the floor
 	if(item >= 0)
 	{
 		inven_item_increase(creature_ptr, item, -1);
 		inven_item_describe(creature_ptr, item);
 		inven_item_optimize(creature_ptr, item);
 	}
-
-	/* Destroy a food on the floor */
 	else
 	{
 		floor_item_increase(0 - item, -1);
@@ -959,38 +948,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			if(do_inc_stat(caster_ptr, STAT_DEX)) effected = TRUE;
 			if(do_inc_stat(caster_ptr, STAT_CON)) effected = TRUE;
 			if(do_inc_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-			break;
-
-		case SV_POTION_ENLIGHTENMENT:
-#ifdef JP
-			msg_print("é©ï™ÇÃíuÇ©ÇÍÇƒÇ¢ÇÈèÛãµÇ™î]ó†Ç…ïÇÇ©ÇÒÇ≈Ç´ÇΩ...");
-#else
-			msg_print("An image of your surroundings forms in your mind...");
-#endif
-			wiz_lite(floor_ptr, caster_ptr, FALSE);
-			effected = TRUE;
-			break;
-
-		case SV_POTION_STAR_ENLIGHTENMENT:
-#ifdef JP
-			msg_print("çXÇ»ÇÈå[ñ÷Çä¥Ç∂ÇΩ...");
-#else
-			msg_print("You begin to feel more enlightened...");
-#endif
-
-			msg_print(NULL);
-			wiz_lite(floor_ptr, caster_ptr, FALSE);
-			(void)do_inc_stat(caster_ptr, STAT_INT);
-			(void)do_inc_stat(caster_ptr, STAT_WIS);
-			(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
-			identify_pack(caster_ptr);
-			creature_knowledge(caster_ptr);
-			effected = TRUE;
 			break;
 
 		case SV_POTION_SELF_KNOWLEDGE:
