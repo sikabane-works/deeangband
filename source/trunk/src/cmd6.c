@@ -816,13 +816,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0)) effected = TRUE;
 			break;
 
-		case SV_POTION_SPEED:
-			if(!has_trait(caster_ptr, TRAIT_FAST))
-				if(set_timed_trait_aux(caster_ptr, TRAIT_FAST, randint1(25) + 15, TRUE)) effected = TRUE;
-			else
-				(void)add_timed_trait(caster_ptr, TRAIT_FAST, 5, TRUE);
-			break;
-
 		case SV_POTION_RESIST_HEAT:
 			if(add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(10) + 10, TRUE))
 				effected = TRUE;
