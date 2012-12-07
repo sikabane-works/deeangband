@@ -816,16 +816,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0)) effected = TRUE;
 			break;
 
-		case SV_POTION_RESIST_HEAT:
-			if(add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(10) + 10, TRUE))
-				effected = TRUE;
-			break;
-
-		case SV_POTION_RESIST_COLD:
-			if(add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(10) + 10, TRUE))
-				effected = TRUE;
-			break;
-
 		case SV_POTION_LIFE:
 #ifdef JP
 			msg_print("ëÃíÜÇ…ê∂ñΩóÕÇ™ñûÇøÇ†Ç”ÇÍÇƒÇ´ÇΩÅI");
@@ -965,15 +955,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 				gain_exp(caster_ptr, ee);
 				effected = TRUE;
 			}
-			break;
-
-		case SV_POTION_RESISTANCE:
-			(void)add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(20) + 20, TRUE);
-			(void)add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(20) + 20, TRUE);
-			(void)add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, TRUE);
-			(void)add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, TRUE);
-			(void)add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(20) + 20, TRUE);
-			effected = TRUE;
 			break;
 
 		case SV_POTION_CURING:
