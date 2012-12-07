@@ -711,7 +711,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 					have_nightmare(caster_ptr, get_species_num(floor_ptr, MAX_DEPTH));
 					reset_species_preps();
 				}
-				if(add_timed_trait(caster_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE))
+				if(add_timed_trait(caster_ptr, TRAIT_SLEPT, randint0(4) + 4, TRUE))
 					effected = TRUE;
 			}
 			break;
@@ -880,10 +880,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 				effected = TRUE;
 			}
 			if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE)) effected = TRUE;
-			break;
-
-		case SV_POTION_RESTORE_EXP:
-			if(restore_exp(caster_ptr)) effected = TRUE;
 			break;
 
 		case SV_POTION_RES_STR:
