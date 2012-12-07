@@ -2047,57 +2047,6 @@ static bool get_creature_realms(creature_type *creature_ptr, species_type *speci
 	return TRUE;
 }
 
-/*
- * Returns adjusted stat -JK-  Algorithm by -JWT-
- */
-static int adjust_stat(int value, int amount)
-{
-	int i;
-
-	/* Negative amounts */
-	if(amount < 0)
-	{
-		/* Apply penalty */
-		for (i = 0; i < (0 - amount); i++)
-		{
-			if(value >= 18+10)
-			{
-				value -= 10;
-			}
-			else if(value > 18)
-			{
-				value = 18;
-			}
-			else if(value > 3)
-			{
-				value--;
-			}
-		}
-	}
-
-	/* Positive amounts */
-	else if(amount > 0)
-	{
-		/* Apply reward */
-		for (i = 0; i < amount; i++)
-		{
-			if(value < 18)
-			{
-				value++;
-			}
-			else
-			{
-				value += 10;
-			}
-		}
-	}
-
-	/* Return the result */
-	return (value);
-}
-
-
-
 
 /*
  * Roll for a characters stats
@@ -2390,11 +2339,9 @@ static void birth_put_stats(creature_type *creature_ptr)
 				j = race_info[creature_ptr->race_idx1].r_s_adj[i] + race_info[creature_ptr->race_idx2].r_s_adj[i];
 
 			j += class_info[creature_ptr->class_idx].c_adj[i] + chara_info[creature_ptr->chara_idx].a_adj[i];
-			/* Obtain the current stat */
-			m = adjust_stat(creature_ptr->stat_max[i], j);
 
 			// Put the stat
-			cnv_stat(m, buf);
+			cnv_stat(j, buf);
 			c_put_str(TERM_L_GREEN, buf, 3 + i, col + 24);
 
 			if(stat_match[i]) // Put the percent
@@ -4024,16 +3971,10 @@ static bool get_stat_limits(creature_type *creature_ptr)
 		
 		j += class_info[creature_ptr->class_idx].c_adj[i] + chara_info[creature_ptr->chara_idx].a_adj[i];
 
-		/* Obtain the "maximal" stat */
-		m = adjust_stat(17, j);
-
 		/* Save the maximum */
-		mval[i] = m;
-		sprintf(cur, "%2d", m / 10);
-
-		/* Obtain the current stat */
-		m = adjust_stat(cval[i], j);
-		sprintf(inp, "%2d", m / 10);
+		mval[i] = j;
+		sprintf(cur, "%2d", j / 10);
+		sprintf(inp, "%2d", j / 10);
 
 		/* Prepare a prompt */
 		//TODO
@@ -4078,7 +4019,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 				j = race_info[creature_ptr->race_idx1].r_adj[cs] + class_info[creature_ptr->class_idx].c_adj[cs] + chara_info[creature_ptr->chara_idx].a_adj[cs];
 
 				/* Obtain the current stat */
-				m = adjust_stat(cval[cs], j);
+				m = j;
 				
 				/* Above 18 */
 				if(m > 18)
@@ -5080,11 +5021,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 						chara_info[creature_ptr->chara_idx].a_adj[i] +
 						species_ptr->stat_max[i] / STAT_FRACTION - 10;
 
-				// Obtain the current stat
-				m = adjust_stat(stat_limit[i], j);
-
 				// Put the stat
-				cnv_stat(m, buf);
+				cnv_stat(j, buf);
 				c_put_str(TERM_L_BLUE, buf, 3+i, col+5);
 			}
 		}
