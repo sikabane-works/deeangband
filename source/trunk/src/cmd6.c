@@ -1157,8 +1157,6 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_quaff, 0)) return;
-
-	/* Quaff the potion */
 	do_cmd_quaff_potion_aux(creature_ptr, item);
 }
 
