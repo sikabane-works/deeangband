@@ -2267,18 +2267,16 @@ static void set_exp(creature_type *creature_ptr, species_type *species_ptr)
 	creature_ptr->exp = creature_ptr->max_exp = creature_ptr->max_max_exp = exp2;
 }
 
-/*
- * Computes character's age
- * by henkma (get_ahw)
- * Modified by deskull in D'angband.
- */
+
+// Computes character's age
+// by henkma (get_ahw)
+// Modified by deskull in D'angband.
 static void set_age(creature_type *creature_ptr)
 {
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
 	if(species_ptr->age <= 0)
 	{
-		/* Get character's age */
 		creature_ptr->age = race_info[creature_ptr->race_idx1].b_age + race_info[creature_ptr->race_idx2].b_age;
 		creature_ptr->age += randint0((race_info[creature_ptr->race_idx1].m_age + race_info[creature_ptr->race_idx2].m_age)/2);
 	}
@@ -2289,9 +2287,7 @@ static void set_age(creature_type *creature_ptr)
 }
 
 
-/*
- * Get the player's starting money
- */
+// Get the player's starting money
 static void get_money(creature_type *creature_ptr)
 {
 	int gold;
@@ -2313,18 +2309,15 @@ static void get_money(creature_type *creature_ptr)
 
 
 
-/*
- * Display stat values, subset of "put_stats()"
- *
- * See 'display_creature_status()' for screen layout constraints.
- */
+
+// Display stat values, subset of "put_stats()"
+// See 'display_creature_status()' for screen layout constraints.
 static void birth_put_stats(creature_type *creature_ptr)
 {
-	int i, j, m, p;
+	int i, j, p;
 	int col;
 	byte attr;
 	char buf[80];
-
 
 	if(autoroller)
 	{
@@ -2346,15 +2339,10 @@ static void birth_put_stats(creature_type *creature_ptr)
 
 			if(stat_match[i]) // Put the percent
 			{
-				if(stat_match[i] > 1000000L)
-				{
-					/* Prevent overflow */
+				if(stat_match[i] > 1000000L) // Prevent overflow
 					p = stat_match[i] / (auto_round / 1000L);
-				}
 				else
-				{
 					p = 1000L * stat_match[i] / auto_round;
-				}
 			
 				attr = (p < 100) ? TERM_YELLOW : TERM_L_GREEN;
 				sprintf(buf, "%3d.%d%%", p/10, p%10);
@@ -2369,7 +2357,6 @@ static void birth_put_stats(creature_type *creature_ptr)
 #else
 				c_put_str(TERM_RED, "(NONE)", 3+i, col+13);
 #endif
-
 			}
 		}
 	}
@@ -2390,10 +2377,7 @@ void creature_wipe(creature_type *creature_ptr)
 	(void)WIPE(creature_ptr, creature_type);
 
 	/* Wipe the history */
-	for (i = 0; i < HISTORY_ROW; i++)
-	{
-		strcpy(creature_ptr->history[i], "");
-	}
+	for (i = 0; i < HISTORY_ROW; i++) strcpy(creature_ptr->history[i], "");
 
 	/* No weight */
 	creature_ptr->carrying_weight = 0;
@@ -2438,10 +2422,7 @@ void creature_wipe(creature_type *creature_ptr)
 	creature_ptr->pet_extra_flags = (PF_TELEPORT | PF_ATTACK_SPELL | PF_TRAIT_S_SPELL);
 
 	/* Wipe the recall depths */
-	for (i = 0; i < max_dungeon_idx; i++)
-	{
-		max_dlv[i] = 0;
-	}
+	for (i = 0; i < max_dungeon_idx; i++) max_dlv[i] = 0;
 
 	creature_ptr->visit = 1;
 
@@ -2469,6 +2450,7 @@ void creature_wipe(creature_type *creature_ptr)
 
 	creature_ptr->recall_dungeon = DUNGEON_GALGALS;
 
+	creature_ptr->camp_idx = INDEX_NONE;
 	creature_ptr->race_idx1 = INDEX_NONE;
 	creature_ptr->race_idx2 = INDEX_NONE;
 	creature_ptr->mimic_race_idx = INDEX_NONE;
@@ -5003,7 +4985,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			// Put the minimal stats
 			for (i = 0; i < STAT_MAX; i++)
 			{
-				int j, m;
+				int j;
 
 				// Label stats
 				put_str(stat_names[i], 3 + i, col);
