@@ -1347,38 +1347,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
 			break;
 
-		case RACE_HOBBIT:
-			{
-				object_type *quest_ptr;
-				object_type forge;
-
-				/* Get local object */
-				quest_ptr = &forge;
-
-				/* Create the food ration */
-				object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
-
-				/* Drop the object from heaven */
-				(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);
-#ifdef JP
-				msg_print("食事を料理して作った。");
-#else
-				msg_print("You cook some food.");
-#endif
-
-			}
-			break;
-
-		case RACE_GNOME:
-#ifdef JP
-			msg_print("パッ！");
-#else
-			msg_print("Blink!");
-#endif
-
-			teleport_player(creature_ptr, 10, 0L);
-			break;
-
 		case RACE_ORC:
 #ifdef JP
 			msg_print("勇気を出した。");
