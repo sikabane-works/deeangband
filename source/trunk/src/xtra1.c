@@ -3381,7 +3381,6 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 #else
 				msg_print("You have trouble wielding such a heavy weapon.");
 #endif
-
 			}
 			else if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 			{
@@ -3390,7 +3389,6 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 #else
 				msg_print("You have no trouble wielding your weapon.");
 #endif
-
 			}
 			else if(creature_ptr->heavy_wield[1-i])
 			{
@@ -3399,7 +3397,6 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 #else
 				msg_print("You have still trouble wielding a heavy weapon.");
 #endif
-
 			}
 			else
 			{
@@ -3543,18 +3540,10 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 		if(has_trait(creature_ptr, TRAIT_MOTION))
 		{
 			//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;
-			creature_ptr->skill_stl += 1;
 		}
 
-		if(has_trait(creature_ptr, TRAIT_ILL_NORM))
-		{
-			creature_ptr->stat_add[STAT_CHA] = 0;
-		}
-
-		if(has_trait(creature_ptr, TRAIT_LOW_MAGIC))
-		{
-			creature_ptr->to_m_chance += 5;
-		}
+		if(has_trait(creature_ptr, TRAIT_ILL_NORM)) creature_ptr->stat_add[STAT_CHA] = 0;
+		if(has_trait(creature_ptr, TRAIT_LOW_MAGIC)) creature_ptr->to_m_chance += 5;
 
 }
 
