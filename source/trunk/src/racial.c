@@ -1435,22 +1435,9 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 			msg_print("You examine your surroundings.");
 #endif
-
 			(void)detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
 			(void)detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
 			(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
-			break;
-
-		case RACE_DARK_ELF:
-			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-#ifdef JP
-			msg_print("マジック・ミサイルを放った。");
-#else
-			msg_print("You cast a magic missile.");
-#endif
-
-			cast_bolt_or_beam(creature_ptr, 10, DO_EFFECT_MISSILE, dir,
-			    diceroll(3 + ((plev - 1) / 5), 4));
 			break;
 
 		case RACE_DRACONIAN:
