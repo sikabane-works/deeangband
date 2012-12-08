@@ -1665,32 +1665,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 			msg_print("You concentrate and your eyes glow red...");
 #endif
-
 			cast_bolt(creature_ptr, DO_EFFECT_PSI, plev, 0, FALSE);
-			break;
-
-		case RACE_IMP:
-			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-			if(plev >= 30)
-			{
-#ifdef JP
-				msg_print("ファイア・ボールを放った。");
-#else
-				msg_print("You cast a ball of fire.");
-#endif
-
-				cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, plev, 2);
-			}
-			else
-			{
-#ifdef JP
-				msg_print("ファイア・ボルトを放った。");
-#else
-				msg_print("You cast a bolt of fire.");
-#endif
-
-				cast_bolt(creature_ptr, DO_EFFECT_FIRE, plev, 0, FALSE);
-			}
 			break;
 
 			/*
@@ -1916,9 +1891,7 @@ msg_print("混乱していて特殊能力を使えません！");
 	}
 
 	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
-	{
 		set_action(creature_ptr, ACTION_NONE);
-	}
 
 	/* Nothing chosen yet */
 	flag = FALSE;
@@ -1928,14 +1901,14 @@ msg_print("混乱していて特殊能力を使えません！");
 
 	/* Build a prompt */
 #ifdef JP
-(void) strnfmt(out_val, 78, "(特殊能力 %c-%c, *'で一覧, ESCで中断) どの特殊能力を使いますか？",
+	(void) strnfmt(out_val, 78, "(特殊能力 %c-%c, *'で一覧, ESCで中断) どの特殊能力を使いますか？",
 #else
 	(void)strnfmt(out_val, 78, "(Powers %c-%c, *=List, ESC=exit) Use which power? ",
 #endif
 
 		I2A(0), (num <= 26) ? I2A(num - 1) : '0' + num - 27);
 
-if(!repeat_pull(&i) || i<0 || i>=num) {
+	if(!repeat_pull(&i) || i<0 || i>=num) {
 
 	if(use_menu) screen_save();
 	 /* Get a spell from the user */
@@ -2019,20 +1992,14 @@ if(!repeat_pull(&i) || i<0 || i>=num) {
 				if(!use_menu) screen_save();
 
 				/* Print header(s) */
-				if(num < 18)
+				
 #ifdef JP
-prt("                            Lv   MP 失率", y++, x);
+				if(num < 18) prt("                            Lv   MP 失率", y++, x);
+				else prt("                            Lv   MP 失率                            Lv   MP 失率", y++, x);
 #else
-					prt("                            Lv Cost Fail", y++, x);
+				if(num < 18) prt("                            Lv Cost Fail", y++, x);
+				else prt("                            Lv Cost Fail                            Lv Cost Fail", y++, x);
 #endif
-
-				else
-#ifdef JP
-prt("                            Lv   MP 失率                            Lv   MP 失率", y++, x);
-#else
-					prt("                            Lv Cost Fail                            Lv Cost Fail", y++, x);
-#endif
-
 
 				/* Print list */
 				while (ctr < num)
@@ -2058,9 +2025,7 @@ prt("                            Lv   MP 失率                            Lv   MP
 							letter = '0' + ctr - 26;
 						sprintf(dummy, " %c) ",letter);
 					}
-					strcat(dummy, format("%-23.23s %2d %4d %3d%%",
-						power_desc[ctr].name, power_desc[ctr].level, power_desc[ctr].cost,
-						100 - racial_chance(creature_ptr, &power_desc[ctr])));
+					strcat(dummy, format("%-23.23s %2d %4d %3d%%", power_desc[ctr].name, power_desc[ctr].level, power_desc[ctr].cost, 100 - racial_chance(creature_ptr, &power_desc[ctr])));
 					prt(dummy, y1, x1);
 					ctr++;
 				}
@@ -2082,10 +2047,7 @@ prt("                            Lv   MP 失率                            Lv   MP
 
 		if(!use_menu)
 		{
-			if(choice == '\r' && num == 1)
-			{
-				choice = 'a';
-			}
+			if(choice == '\r' && num == 1) choice = 'a';
 
 			if(isalpha(choice))
 			{
@@ -2121,7 +2083,6 @@ prt("                            Lv   MP 失率                            Lv   MP
 #else
 			(void)strnfmt(tmp_val, 78, "Use %s? ", power_desc[i].name);
 #endif
-
 
 			/* Belay that order */
 			if(!get_check(tmp_val)) continue;
@@ -2171,7 +2132,6 @@ prt("                            Lv   MP 失率                            Lv   MP
 			else creature_ptr->csp -= actual_racial_cost;
 
 			play_redraw |= (PR_HP | PR_MANA);
-
 			play_window |= (PW_PLAYER | PW_SPELL);
 		}
 	}
