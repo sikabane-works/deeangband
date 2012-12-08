@@ -1745,37 +1745,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			break;
 			
 
-		case RACE_SPRITE:
-#ifdef JP
-			msg_print("あなたは魔法の粉を投げつけた...");
-#else
-			msg_print("You throw some magic dust...");
-#endif
-
-			if(plev < 25) sleep_creatures_touch(creature_ptr);
-			else (void)sleep_creatures(creature_ptr);
-			break;
-
-		case RACE_DEMON:
-		case RACE_BALROG:
-			{
-				int type = (one_in_(2) ? DO_EFFECT_NETHER : DO_EFFECT_FIRE);
-				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-				stop_mouth(creature_ptr);
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。",((type == DO_EFFECT_NETHER) ? "地獄" : "火炎"));
-#else
-				msg_format("You breathe %s.",((type == DO_EFFECT_NETHER) ? "nether" : "fire"));
-#endif
-
-				cast_ball(creature_ptr, type, dir, plev * 3, -(plev / 15) - 1);
-			}
-			break;
-
-		case RACE_KUTAR:
-			(void)set_timed_trait_aux(creature_ptr, TRAIT_TSUBURERU, randint1(20) + 30, FALSE);
-			break;
-
 /*TODO
 		case RACE_ANDROID:
 			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
