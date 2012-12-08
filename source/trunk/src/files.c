@@ -3011,11 +3011,31 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 
 static void display_creature_trait(creature_type *creature_ptr)
 {
+	int i = 0, n = 0;
+
+	for(i = 0; i < MAX_TRAITS; i++)
+	{
+		if(has_trait(creature_ptr, i))
+			c_put_str(TERM_WHITE, trait_info[i].title, n + 2, 1);
+		n++;
+	}
+
+	if(n)
+	{
 #if JP
-	c_put_str(TERM_YELLOW, "‚ ‚È‚½‚É‚Í“Á•Ê‚È“Á«‚ª‚È‚¢", 1, 1);
+		c_put_str(TERM_YELLOW, "‚ ‚È‚½‚É‚ÍˆÈ‰º‚Ì“Á«‚ª‚ ‚é", 1, 1);
 #elif
-	c_put_str(TERM_YELLOW, "You have no trait", 1, 1);
+		c_put_str(TERM_YELLOW, "You have trait...", 1, 1);
 #endif
+	}
+	else
+	{
+#if JP
+		c_put_str(TERM_YELLOW, "‚ ‚È‚½‚É‚Í“Á•Ê‚È“Á«‚ª‚È‚¢", 1, 1);
+#elif
+		c_put_str(TERM_YELLOW, "You have no trait", 1, 1);
+#endif
+	}
 }
 
 static void display_creature_underings(creature_type *creature_ptr)
