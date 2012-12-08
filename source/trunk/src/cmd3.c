@@ -95,14 +95,11 @@ void do_cmd_equip(creature_type *creature_ptr)
 	format_weight(buf1, creature_ptr->equipping_weight);
 	format_weight(buf2, calc_equipping_weight_limit(creature_ptr));
 
-	/* Build a prompt */
 #ifdef JP
-	sprintf(out_val, "装備重量： %s/%s (%ld%%). コマンド: ",
-		buf1, buf2,
+	sprintf(out_val, "装備重量： %s/%s (%ld%%). コマンド: ", buf1, buf2,
 	    (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr));
 #else
-	sprintf(out_val, "Equipping Weight %s/%s (%ld%%). Command: ",
-		buf1, buf2,
+	sprintf(out_val, "Equipping Weight %s/%s (%ld%%). Command: ", buf1, buf2,
 	    (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr));
 #endif
 

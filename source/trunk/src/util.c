@@ -3705,13 +3705,11 @@ s16b get_quantity(cptr prompt, int max)
 	/* Build a prompt if needed */
 	if(!prompt)
 	{
-		/* Build a prompt */
 #ifdef JP
 		sprintf(tmp, "‚¢‚­‚Â‚Å‚·‚© (1-%d): ", max);
 #else
 		sprintf(tmp, "Quantity (1-%d): ", max);
 #endif
-
 
 		/* Use that prompt */
 		prompt = tmp;

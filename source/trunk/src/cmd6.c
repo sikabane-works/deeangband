@@ -3707,9 +3707,8 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	/* Nothing chosen yet */
 	flag = FALSE;
 
-	/* Build a prompt */
 #ifdef JP
-(void) strnfmt(out_val, 78, "('*'で一覧, ESCで中断) どの魔力を使いますか？");
+	(void) strnfmt(out_val, 78, "('*'で一覧, ESCで中断) どの魔力を使いますか？");
 #else
 	(void)strnfmt(out_val, 78, "(*=List, ESC=exit) Use which power? ");
 #endif

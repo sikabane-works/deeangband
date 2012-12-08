@@ -3825,13 +3825,11 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Describe the object */
 			object_desc(object_name, object_ptr, 0);
 
-			/* Build a prompt */
 #ifdef JP
 			(void) sprintf(out_val, "%s‚ğE‚¢‚Ü‚·‚©? ", object_name);
 #else
 			(void) sprintf(out_val, "Pick up %s? ", object_name);
 #endif
-
 
 			/* Ask the user to confirm */
 			if(!get_check(out_val))

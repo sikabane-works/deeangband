@@ -5535,7 +5535,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		/* No redraw yet */
 		redraw = FALSE;
 
-		/* Build a prompt */
 #ifdef JP
 		(void) strnfmt(out_val, 78, "('*'‚Åˆê——, ESC‚Å’†’f) ‚Ç‚Ì”\—Í‚ğ•t‰Á‚µ‚Ü‚·‚©H");
 #else

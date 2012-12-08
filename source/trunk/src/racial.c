@@ -1696,7 +1696,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
-msg_print("混乱していて特殊能力を使えません！");
+		msg_print("混乱していて特殊能力を使えません！");
 #else
 		msg_print("You are too confused to use any powers!");
 #endif
@@ -1714,13 +1714,11 @@ msg_print("混乱していて特殊能力を使えません！");
 	/* No redraw yet */
 	redraw = FALSE;
 
-	/* Build a prompt */
 #ifdef JP
 	(void) strnfmt(out_val, 78, "(特殊能力 %c-%c, *'で一覧, ESCで中断) どの特殊能力を使いますか？",
 #else
-	(void)strnfmt(out_val, 78, "(Powers %c-%c, *=List, ESC=exit) Use which power? ",
+	(void) strnfmt(out_val, 78, "(Powers %c-%c, *=List, ESC=exit) Use which power? ",
 #endif
-
 		I2A(0), (num <= 26) ? I2A(num - 1) : '0' + num - 27);
 
 	if(!repeat_pull(&i) || i<0 || i>=num) {
