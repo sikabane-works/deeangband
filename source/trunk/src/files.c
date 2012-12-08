@@ -2318,8 +2318,6 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *creat
 static void known_obj_immunity(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_ptr)
 {
 	int i;
-
-	/* Clear */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++) flgs[i] = 0L;
 
 	/* Check equipment */
@@ -3015,8 +3013,7 @@ static void display_creature_trait(creature_type *creature_ptr)
 
 	for(i = 0; i < MAX_TRAITS; i++)
 	{
-		if(has_trait(creature_ptr, i))
-			c_put_str(TERM_WHITE, trait_info[i].title, n + 2, 1);
+		if(has_trait(creature_ptr, i)) c_put_str(TERM_WHITE, trait_info[i].title, n + 2, 1);
 		n++;
 	}
 

@@ -4904,7 +4904,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		if(autoroller) if(!get_stat_limits(creature_ptr)) return FALSE;
 		if(autochara) if(!get_chara_limits(creature_ptr)) return FALSE;
 
-		/* Clear */
 		clear_from(0);
 
 		/* Reset turn; before auto-roll and after choosing race */

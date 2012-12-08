@@ -3059,37 +3059,25 @@ void do_cmd_macros(void)
 		{
 #ifdef JP
 			prt("コマンド: マクロの作成", 16, 0);
-#else
-			prt("Command: Create a macro", 16, 0);
-#endif
-
-
-#ifdef JP
 			prt("トリガーキー: ", 18, 0);
 #else
+			prt("Command: Create a macro", 16, 0);
 			prt("Trigger: ", 18, 0);
 #endif
-
 
 			/* Get a macro trigger */
 			do_cmd_macro_aux(buf);
 
-			/* Clear */
 			clear_from(20);
 
 			/* Help message */
 #ifdef JP
 			c_prt(TERM_L_RED, "カーソルキーの左右でカーソル位置を移動。BackspaceかDeleteで一文字削除。", 22, 0);
-#else
-			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
-#endif
-
-#ifdef JP
 			prt("マクロ行動: ", 20, 0);
 #else
+			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
 			prt("Action: ", 20, 0);
 #endif
-
 
 			/* Convert to text */
 			ascii_to_text(tmp, macro__buf);
@@ -3192,7 +3180,6 @@ void do_cmd_macros(void)
 #else
 				msg_print("Found no keymap.");
 #endif
-
 			}
 
 			/* Found one */
@@ -3230,22 +3217,16 @@ void do_cmd_macros(void)
 			/* Get a keymap trigger */
 			do_cmd_macro_aux_keymap(buf);
 
-			/* Clear */
 			clear_from(20);
 
 			/* Help message */
 #ifdef JP
 			c_prt(TERM_L_RED, "カーソルキーの左右でカーソル位置を移動。BackspaceかDeleteで一文字削除。", 22, 0);
-#else
-			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
-#endif
-
-#ifdef JP
 			prt("行動: ", 20, 0);
 #else
+			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
 			prt("Action: ", 20, 0);
 #endif
-
 
 			/* Convert to text */
 			ascii_to_text(tmp, macro__buf);
