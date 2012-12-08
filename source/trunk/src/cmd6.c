@@ -841,36 +841,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			effected = TRUE;
 			break;
 
-		case SV_POTION_RESTORE_MANA:
-			if(caster_ptr->class_idx == CLASS_MAGIC_EATER)
-			{
-				int i;
-				for (i = 0; i < EATER_EXT*2; i++)
-				{
-					caster_ptr->class_skills.old_skills.magic_num1[i] += (caster_ptr->class_skills.old_skills.magic_num2[i] < 10) ? EATER_CHARGE * 3 : caster_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE/3;
-					if(caster_ptr->class_skills.old_skills.magic_num1[i] > caster_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE) caster_ptr->class_skills.old_skills.magic_num1[i] = caster_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE;
-				}
-				for (; i < EATER_EXT*3; i++)
-				{
-					int k_idx = lookup_kind(TV_ROD, i-EATER_EXT*2);
-					caster_ptr->class_skills.old_skills.magic_num1[i] -= ((caster_ptr->class_skills.old_skills.magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : caster_ptr->class_skills.old_skills.magic_num2[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
-					if(caster_ptr->class_skills.old_skills.magic_num1[i] < 0) caster_ptr->class_skills.old_skills.magic_num1[i] = 0;
-				}
-				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
-				play_window |= (PW_PLAYER);
-				effected = TRUE;
-			}
-			else if(caster_ptr->csp < caster_ptr->msp)
-			{
-				caster_ptr->csp = caster_ptr->msp;
-				caster_ptr->csp_frac = 0;
-				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
-
-				play_redraw |= (PR_MANA | PW_PLAYER | PW_SPELL);
-				effected = TRUE;
-			}
-			if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE)) effected = TRUE;
-			break;
 
 		case SV_POTION_RES_STR:
 			if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE;

@@ -910,11 +910,12 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			else if(caster_ptr->csp < caster_ptr->msp)
 			{
-				caster_ptr->csp = caster_ptr->msp;
-				caster_ptr->csp_frac = 0;
+				inc_mana(caster_ptr, caster_ptr->msp);
 				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
 				play_redraw |= (PR_MANA | PW_PLAYER | PW_SPELL);
+				effected = TRUE;
 			}
+			if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
 			break;
 		}
 
