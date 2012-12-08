@@ -3099,16 +3099,11 @@ static void display_player_stat_info(creature_type *creature_ptr)
 	{
 		int r_adj, cl_adj, p_adj = 0;
 
-		//TODO MIMIC
-		if(IS_PURE(creature_ptr))
-			r_adj = race_info[creature_ptr->race_idx1].r_adj[i];
-		else
-			r_adj = race_info[creature_ptr->race_idx1].r_s_adj[i] + race_info[creature_ptr->race_idx2].r_s_adj[i];
+		if(IS_MIMICED(creature_ptr)) r_adj = race_info[creature_ptr->mimic_race_idx].r_adj[i];
+		else if(IS_PURE(creature_ptr)) r_adj = race_info[creature_ptr->race_idx1].r_adj[i];
+		else r_adj = race_info[creature_ptr->race_idx1].r_s_adj[i] + race_info[creature_ptr->race_idx2].r_s_adj[i];
 
-		for(j = 0; j < max_trait_idx; j++)
-		{
-			if(has_trait(creature_ptr, j)) r_adj += trait_info[j].adj[i];
-		}
+		for(j = 0; j < max_trait_idx; j++) if(has_trait(creature_ptr, j)) r_adj += trait_info[j].adj[i];
 
 		e_adj = 0; // Calculate equipment adjustment
 
