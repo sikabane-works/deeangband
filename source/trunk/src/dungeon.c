@@ -5143,19 +5143,8 @@ void extract_option_vars(void)
 		/* Set the "default" options */
 		if(option_info[i].o_var)
 		{
-			/* Set */
-			if(option_flag[os] & (1L << ob))
-			{
-				/* Set */
-				(*option_info[i].o_var) = TRUE;
-			}
-
-			/* Clear */
-			else
-			{
-				/* Clear */
-				(*option_info[i].o_var) = FALSE;
-			}
+			if(option_flag[os] & (1L << ob)) (*option_info[i].o_var) = TRUE;
+			else (*option_info[i].o_var) = FALSE;
 		}
 	}
 }

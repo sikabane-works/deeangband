@@ -306,19 +306,8 @@ static void wr_options(void)
 		/* Process real entries */
 		if(option_info[i].o_var)
 		{
-			/* Set */
-			if(*option_info[i].o_var)
-			{
-				/* Set */
-				option_flag[os] |= (1L << ob);
-			}
-
-			/* Clear */
-			else
-			{
-				/* Clear */
-				option_flag[os] &= ~(1L << ob);
-			}
+			if(*option_info[i].o_var) option_flag[os] |= (1L << ob);
+			else option_flag[os] &= ~(1L << ob);
 		}
 	}
 

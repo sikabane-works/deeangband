@@ -2345,8 +2345,6 @@ static void known_obj_immunity(u32b flgs[TRAIT_FLAG_MAX], creature_type *creatur
 static void player_immunity(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_ptr)
 {
 	int i;
-
-	/* Clear */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++) flgs[i] = 0L;
 
 	/* TODO 
@@ -2373,10 +2371,7 @@ static void tim_player_immunity(u32b flgs[TRAIT_FLAG_MAX], creature_type *creatu
 static void player_vuln_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_ptr)
 {
 	int i;
-
-	/* Clear */
-	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		flgs[i] = 0L;
+	for (i = 0; i < TRAIT_FLAG_MAX; i++) flgs[i] = 0L;
 
 	if(has_trait(creature_ptr, TRAIT_VULN_ELEM) || (creature_ptr->posture & KATA_KOUKIJIN))
 	{

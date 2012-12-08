@@ -4236,7 +4236,6 @@ void do_cmd_colors(void)
 				cptr name;
 				byte j;
 
-				/* Clear */
 				clear_from(10);
 
 				/* Exhibit the normal colors */
