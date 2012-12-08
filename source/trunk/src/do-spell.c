@@ -11222,7 +11222,6 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				}
 
-				/* Reset */
 				creature_ptr->class_skills.old_skills.magic_num2[1] = 0;
 				creature_ptr->class_skills.old_skills.magic_num2[2] = 0;
 				creature_ptr->class_skills.old_skills.magic_num1[2] = 0;

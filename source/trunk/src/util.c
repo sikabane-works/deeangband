@@ -2789,7 +2789,6 @@ void msg_print(cptr msg)
 		/* Forget it */
 		msg_flag = FALSE;
 
-		/* Reset */
 		p = 0;
 	}
 
@@ -4340,8 +4339,6 @@ void request_command(creature_type *guest_ptr, int shopping)
 		if(cmd == '0')
 		{
 			int old_arg = command_arg;
-
-			/* Reset */
 			command_arg = 0;
 
 			/* Begin the input */
@@ -4806,7 +4803,6 @@ void repeat_check(void)
 	/* Repeat Last Command */
 	if(command_cmd == 'n')
 	{
-		/* Reset */
 		repeat__idx = 0;
 
 		/* Get the command */
@@ -4820,7 +4816,6 @@ void repeat_check(void)
 	/* Start saving new command */
 	else
 	{
-		/* Reset */
 		repeat__cnt = 0;
 		repeat__idx = 0;
 
@@ -5522,20 +5517,9 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 		}
 	}
 
-	if(mode & GET_SE_AUTO_HEIGHT)
-	{
-		h = MAX(h, num + 1);
-	}
-
-	if(mode & GET_SE_RIGHT)
-	{
-		x = Term->wid - w;
-	}
-
-	if(mode & GET_SE_BOTTOM)
-	{
-		y = Term->hgt - h;
-	}
+	if(mode & GET_SE_AUTO_HEIGHT) h = MAX(h, num + 1);
+	if(mode & GET_SE_RIGHT) x = Term->wid - w;
+	if(mode & GET_SE_BOTTOM) y = Term->hgt - h;
 
 	page_num = num <= h ? 1 : (num - 1) / h + 1;
 	if(num <= 0 || num <= default_se || w < 8) return -1;
@@ -5610,10 +5594,7 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 
 		if(c == '\r') return se_ptr[se].code;
 		if(c >= 'a' && c < 'a' + h && !se_ptr[h*(page-1)+c-'a'].key) return se_ptr[h*(page-1)+c-'a'].code;
-		for (i = 0; i < num; i++)
-		{
-			if(se_ptr[i].key && se_ptr[i].key == c) return se_ptr[i].code;
-		}
+		for (i = 0; i < num; i++) if(se_ptr[i].key && se_ptr[i].key == c) return se_ptr[i].code;
 
 		page = se / h + 1;
 
@@ -5623,6 +5604,7 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 
 int get_multi_selection(selection *se_ptr, int num, int y, int x, int h, int w, void(*detail)(int), u32b *ret)
 {
+	//TODO
 	int i, se = 0, page = 1, offset;
 	int page_num = num / h + 1;
 	char buf[80];
@@ -5701,16 +5683,10 @@ int get_multi_selection(selection *se_ptr, int num, int y, int x, int h, int w, 
 				selected_num++;
 			}
 		}
-		if(c == ESCAPE)
-		{
-			return selected_num;
-		}
+		if(c == ESCAPE) return selected_num;
 
 		if(c >= 'a' && c < 'a' + h && !se_ptr[h*(page-1)+c-'a'].key) return se_ptr[h*(page-1)+c-'a'].code;
-		for (i = 0; i < num; i++)
-		{
-			if(se_ptr[i].key && se_ptr[i].key == c) return se_ptr[i].code;
-		}
+		for (i = 0; i < num; i++) if(se_ptr[i].key && se_ptr[i].key == c) return se_ptr[i].code;
 
 		page = se / h + 1;
 

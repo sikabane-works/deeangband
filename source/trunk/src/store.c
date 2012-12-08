@@ -5096,8 +5096,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 #else
 				msg_print("Your pack is so full that you flee your home...");
 #endif
-
-
 				/* Leave */
 				leave_store = TRUE;
 			}
@@ -5112,14 +5110,11 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 
 				char object_name[MAX_NLEN];
 
-
-				/* Give a message */
 #ifdef JP
 				msg_print("ザックからアイテムがあふれてしまった！");
 #else
 				msg_print("Your pack overflows!");
 #endif
-
 
 				/* Get local object */
 				quest_ptr = &forge;

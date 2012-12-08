@@ -4047,15 +4047,12 @@ void do_cmd_visuals(void)
 		/* Reset visuals */
 		case 'R':
 		case 'r':
-			/* Reset */
 			reset_visuals();
-
 #ifdef JP
 			msg_print("画面上の[色/文字]を初期値にリセットしました。");
 #else
 			msg_print("Visual attr/char tables reset.");
 #endif
-
 			need_redraw = TRUE;
 			break;
 

@@ -3924,16 +3924,8 @@ static void set_melee_status(creature_type *creature_ptr)
 			creature_ptr->dis_to_damage[0] += (creature_ptr->lev / 6);
 		}
 
-		if(creature_ptr->posture & KAMAE_BYAKKO)
+		if(creature_ptr->posture & KAMAE_SEIRYU)
 		{
-			creature_ptr->to_ac -= 40;
-			creature_ptr->dis_to_ac -= 40;
-			
-		}
-		else if(creature_ptr->posture & KAMAE_SEIRYU)
-		{
-			creature_ptr->to_ac -= 50;
-			creature_ptr->dis_to_ac -= 50;
 			//TODO creature_ptr->resist_acid = TRUE;
 			//TODO creature_ptr->resist_fire = TRUE;
 			//TODO creature_ptr->resist_elec = TRUE;
@@ -3946,8 +3938,6 @@ static void set_melee_status(creature_type *creature_ptr)
 		}
 		else if(creature_ptr->posture & KAMAE_GENBU)
 		{
-			creature_ptr->to_ac += (creature_ptr->lev*creature_ptr->lev)/50;
-			creature_ptr->dis_to_ac += (creature_ptr->lev*creature_ptr->lev)/50;
 			//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 		}
 		else if(creature_ptr->posture & KAMAE_SUZAKU)

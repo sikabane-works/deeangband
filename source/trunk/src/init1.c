@@ -1832,7 +1832,6 @@ errr parse_feature_info(char *buf, header *head)
 		}
 		else
 		{
-			/* Reset */
 			f_ptr->state[i].action = 0;
 
 			/* Parse this entry */

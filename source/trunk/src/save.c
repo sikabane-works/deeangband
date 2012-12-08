@@ -1334,17 +1334,14 @@ int load_player(void)
 #if !defined(MACINTOSH) && !defined(WINDOWS) && !defined(VM)
 
 	/* XXX XXX XXX Fix this */
-
 	/* Verify the existance of the savefile */
 	if(access(savefile, 0) < 0)
 	{
-		/* Give a message */
 #ifdef JP
 		msg_print("セーブファイルがありません。");
 #else
 		msg_print("Savefile does not exist.");
 #endif
-
 		msg_print(NULL);
 
 		/* Allow this */
