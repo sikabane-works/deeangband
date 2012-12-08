@@ -1743,9 +1743,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_TELE_LEVEL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_NEXU))
-			{
 				msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
-			}
 			{
 #ifdef JP
 				msg_print("記憶が薄れてしまった。");
@@ -1807,6 +1805,32 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_ANIM_DEAD:
 		animate_dead(caster_ptr, caster_ptr->fy, caster_ptr->fx);
 		break;
+
+
+	case TRAIT_SELF_DETONATIONS:
+#ifdef JP
+			msg_print("体の中で激しい爆発が起きた！");
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "爆発の薬", NULL, -1);
+#else
+			msg_print("Massive explosions rupture your body!");
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "a potion of Detonation", NULL, -1);
+#endif
+
+			(void)add_timed_trait(caster_ptr, TRAIT_STUN, 75, TRUE);
+			(void)add_timed_trait(caster_ptr, TRAIT_CUT, 5000, TRUE);
+			effected = TRUE;
+			break;
+
+	case TRAIT_SELF_DEATH:
+#ifdef JP
+			msg_print("死の予感が体中を駆けめぐった。");
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, "死の薬", NULL, -1);
+#else
+			msg_print("A feeling of Death flows through your body.");
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", NULL, -1);
+#endif
+			effected = TRUE;
+			break;
 
 	case TRAIT_S_KIN:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;

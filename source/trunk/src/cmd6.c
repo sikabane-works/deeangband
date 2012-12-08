@@ -771,31 +771,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			if(do_dec_stat(caster_ptr, STAT_CHA)) effected = TRUE;
 			break;
 
-		case SV_POTION_DETONATIONS:
-#ifdef JP
-			msg_print("‘Ì‚Ì’†‚ÅŒƒ‚µ‚¢”š”­‚ª‹N‚«‚½I");
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "”š”­‚Ì–ò", NULL, -1);
-#else
-			msg_print("Massive explosions rupture your body!");
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "a potion of Detonation", NULL, -1);
-#endif
-
-			(void)add_timed_trait(caster_ptr, TRAIT_STUN, 75, TRUE);
-			(void)add_timed_trait(caster_ptr, TRAIT_CUT, 5000, TRUE);
-			effected = TRUE;
-			break;
-
-		case SV_POTION_DEATH:
-#ifdef JP
-			msg_print("€‚Ì—\Š´‚ª‘Ì’†‚ğ‹ì‚¯‚ß‚®‚Á‚½B");
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, "€‚Ì–ò", NULL, -1);
-#else
-			msg_print("A feeling of Death flows through your body.");
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", NULL, -1);
-#endif
-			effected = TRUE;
-			break;
-
 		case SV_POTION_INFRAVISION:
 			if(add_timed_trait(caster_ptr, TRAIT_SEE_INFRA, 100 + randint1(100), TRUE)) effected = TRUE;
 			break;
