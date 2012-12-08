@@ -1357,30 +1357,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			break;
 
-		case RACE_TROLL:
-#ifdef JP
-			msg_print("うがぁぁ！");
-#else
-			msg_print("RAAAGH!");
-#endif
-
-			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-			(void)set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 10 + randint1(plev), FALSE);
-			(void)heal_creature(creature_ptr, 30);
-			break;
-
-		case RACE_BARBARIAN:
-#ifdef JP
-			msg_print("うぉぉおお！");
-#else
-			msg_print("Raaagh!");
-#endif
-
-			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-			(void)set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 10 + randint1(plev), FALSE);
-			(void)heal_creature(creature_ptr, 30);
-			break;
-
 		case RACE_OGRE:
 #ifdef JP
 			msg_print("爆発のルーンを慎重に仕掛けた...");
