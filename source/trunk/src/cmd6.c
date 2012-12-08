@@ -816,64 +816,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			effected = TRUE;
 			break;
 
-
-		case SV_POTION_RES_STR:
-			if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE;
-			break;
-
-		case SV_POTION_RES_INT:
-			if(do_res_stat(caster_ptr, STAT_INT)) effected = TRUE;
-			break;
-
-		case SV_POTION_RES_WIS:
-			if(do_res_stat(caster_ptr, STAT_WIS)) effected = TRUE;
-			break;
-
-		case SV_POTION_RES_DEX:
-			if(do_res_stat(caster_ptr, STAT_DEX)) effected = TRUE;
-			break;
-
-		case SV_POTION_RES_CON:
-			if(do_res_stat(caster_ptr, STAT_CON)) effected = TRUE;
-			break;
-
-		case SV_POTION_RES_CHR:
-			if(do_res_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-			break;
-
-		case SV_POTION_INC_STR:
-			if(do_inc_stat(caster_ptr, STAT_STR)) effected = TRUE;
-			break;
-
-		case SV_POTION_INC_INT:
-			if(do_inc_stat(caster_ptr, STAT_INT)) effected = TRUE;
-			break;
-
-		case SV_POTION_INC_WIS:
-			if(do_inc_stat(caster_ptr, STAT_WIS)) effected = TRUE;
-			break;
-
-		case SV_POTION_INC_DEX:
-			if(do_inc_stat(caster_ptr, STAT_DEX)) effected = TRUE;
-			break;
-
-		case SV_POTION_INC_CON:
-			if(do_inc_stat(caster_ptr, STAT_CON)) effected = TRUE;
-			break;
-
-		case SV_POTION_INC_CHR:
-			if(do_inc_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-			break;
-
-		case SV_POTION_AUGMENTATION:
-			if(do_inc_stat(caster_ptr, STAT_STR)) effected = TRUE;
-			if(do_inc_stat(caster_ptr, STAT_INT)) effected = TRUE;
-			if(do_inc_stat(caster_ptr, STAT_WIS)) effected = TRUE;
-			if(do_inc_stat(caster_ptr, STAT_DEX)) effected = TRUE;
-			if(do_inc_stat(caster_ptr, STAT_CON)) effected = TRUE;
-			if(do_inc_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-			break;
-
 		case SV_POTION_SELF_KNOWLEDGE:
 #ifdef JP
 			msg_print("é©ï™é©êgÇÃÇ±Ç∆Ç™è≠ÇµÇÕï™Ç©Ç¡ÇΩãCÇ™Ç∑ÇÈ...");

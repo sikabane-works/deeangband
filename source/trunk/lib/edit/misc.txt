@@ -12,8 +12,8 @@ M:WX:240
 # Maximum y size of the wilderness
 M:WY:161
 
-# Maximum number of creature_flags_info.csv
-M:C:801
+# Maximum number of trait_info.csv
+M:C:813
 
 # Maximum number of species_info.txt
 M:R:1438
