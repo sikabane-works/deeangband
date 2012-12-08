@@ -2353,7 +2353,6 @@ static bool noneedtobargain(store_type *st_ptr, s32b minprice)
 	/* Reward good haggles, punish bad haggles, notice price */
 	if(good > ((3 * bad) + (5 + (minprice/50)))) return TRUE;
 
-	/* Return the flag */
 	return FALSE;
 }
 

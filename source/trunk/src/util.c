@@ -2976,7 +2976,6 @@ void c_put_str(byte attr, cptr str, int row, int col)
  */
 void put_str(cptr str, int row, int col)
 {
-	/* Spawn */
 	Term_putstr(col, row, -1, TERM_WHITE, str);
 }
 
@@ -3000,7 +2999,6 @@ void c_prt(byte attr, cptr str, int row, int col)
  */
 void prt(cptr str, int row, int col)
 {
-	/* Spawn */
 	c_prt(TERM_WHITE, str, row, col);
 }
 
@@ -3178,7 +3176,6 @@ void c_roff(byte a, cptr str)
  */
 void roff(cptr str)
 {
-	/* Spawn */
 	c_roff(TERM_WHITE, str);
 }
 
@@ -3620,10 +3617,7 @@ bool get_check_strict(cptr prompt, int mode)
 		bell();
 	}
 
-	/* Erase the prompt */
 	prt("", 0, 0);
-
-	/* Return the flag */
 	return flag;
 }
 

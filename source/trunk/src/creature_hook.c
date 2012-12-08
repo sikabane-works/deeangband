@@ -44,7 +44,6 @@ void (*hook_c_roff)(byte attr, cptr str) = c_roff;
 
 static void hooked_roff(cptr str)
 {
-	/* Spawn */
 	hook_c_roff(TERM_WHITE, str);
 }
 

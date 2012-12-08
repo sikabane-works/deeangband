@@ -649,12 +649,8 @@ void do_cmd_destroy(creature_type *creature_ptr)
 			char i;
 
 			prt(out_val, 0, 0);
-
 			i = inkey();
-
-			/* Erase the prompt */
 			prt("", 0, 0);
-
 
 			if(i == 'y' || i == 'Y')
 			{

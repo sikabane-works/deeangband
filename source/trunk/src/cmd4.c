@@ -2468,7 +2468,6 @@ void do_cmd_options(void)
 			case 'W':
 			case 'w':
 			{
-				/* Spawn */
 				do_cmd_options_win();
 				play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL |
 						  PW_PLAYER | PW_MESSAGE | PW_OVERHEAD |
