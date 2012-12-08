@@ -1369,40 +1369,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			(void)heal_creature(creature_ptr, 30);
 			break;
 
-		case RACE_AMBERITE:
-			if(command == -1)
-			{
-#ifdef JP
-				msg_print("あなたは歩き周り始めた。");
-#else
-				msg_print("You start walking around. ");
-#endif
-				alter_reality(creature_ptr);
-			}
-			else if(command == -2)
-			{
-#ifdef JP
-				msg_print("あなたは「パターン」を心に描いてその上を歩いた...");
-#else
-				msg_print("You picture the Pattern in your mind and walk it...");
-#endif
-
-				(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
-				(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
-				(void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-				(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
-				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
-				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-				(void)do_res_stat(creature_ptr, STAT_STR);
-				(void)do_res_stat(creature_ptr, STAT_INT);
-				(void)do_res_stat(creature_ptr, STAT_WIS);
-				(void)do_res_stat(creature_ptr, STAT_DEX);
-				(void)do_res_stat(creature_ptr, STAT_CON);
-				(void)do_res_stat(creature_ptr, STAT_CHA);
-				(void)restore_exp(creature_ptr);
-			}
-			break;
-
 		case RACE_BARBARIAN:
 #ifdef JP
 			msg_print("うぉぉおお！");
