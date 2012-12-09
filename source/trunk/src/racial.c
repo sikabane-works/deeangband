@@ -1705,7 +1705,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 		return;
 	}
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN))
 		set_action(creature_ptr, ACTION_NONE);
 
 	/* Nothing chosen yet */

@@ -539,7 +539,7 @@ void do_cmd_eat_food(creature_type *creature_ptr)
 	int         item;
 	cptr        q, s;
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
+	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
 #ifdef JP
 	q = "どれを食べますか? ";
@@ -1003,7 +1003,7 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 	int  item;
 	cptr q, s;
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
+	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
 #ifdef JP
 	q = "どの薬を飲みますか? ";
@@ -1605,7 +1605,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	int  item;
 	cptr q, s;
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
+	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
 	/* Check some conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND))
@@ -2087,7 +2087,7 @@ void do_cmd_use_staff(creature_type *creature_ptr)
 {
 	int  item;
 	cptr q, s;
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
+	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
 #ifdef JP
 	q = "どの杖を使いますか? ";
@@ -2518,7 +2518,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
 	int     item;
 	cptr    q, s;
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
+	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
 #ifdef JP
 	q = "どの魔法棒で狙いますか? ";
@@ -2817,7 +2817,7 @@ void do_cmd_zap_rod(creature_type *creature_ptr)
 	int item;
 	cptr q, s;
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
+	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
 #ifdef JP
 	q = "どのロッドを振りますか? ";
@@ -3408,7 +3408,7 @@ void do_cmd_activate(creature_type *creature_ptr)
 	cptr    q, s;
 
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
+	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
 #ifdef JP
 	q = "どのアイテムを始動させますか? ";
@@ -3481,7 +3481,7 @@ void do_cmd_use(creature_type *creature_ptr)
 	object_type *object_ptr;
 	cptr        q, s;
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
+	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
 #ifdef JP
 	q = "どれを使いますか？";
