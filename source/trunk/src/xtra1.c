@@ -2913,7 +2913,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 	}
 
-	if(creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
+	if(has_trait(creature_ptr, TRAIT_MAGIC_DEF))
 	{
 		//has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 		//TODO creature_ptr->resist_conf = TRUE;
@@ -2923,7 +2923,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	}
 
 	/* Temporary "Beserk" */
-	if(creature_ptr->timed_trait[TRAIT_S_HERO])
+	if(has_trait(creature_ptr, TRAIT_S_HERO))
 	{
 		creature_ptr->to_hit[0] += 12;
 		creature_ptr->to_hit[1] += 12;
@@ -2981,15 +2981,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//TODO creature_ptr->sh_fire = TRUE;
 		//TODO creature_ptr->sh_elec = TRUE;
 		//TODO creature_ptr->sh_cold = TRUE;
-		creature_ptr->to_ac += 100;
-		creature_ptr->dis_to_ac += 100;
-	}
-
-
-	if(creature_ptr->timed_trait[TRAIT_TSUYOSHI])
-	{
-		creature_ptr->stat_add[STAT_STR] += 40;
-		creature_ptr->stat_add[STAT_CON] += 40;
 	}
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_WALL))
