@@ -3210,7 +3210,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!caster_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
+				if(!has_trait(caster_ptr, TRAIT_CONFUSING_MELEE))
 				{
 					set_timed_trait_aux(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE);
 					play_redraw |= (PR_STATUS);

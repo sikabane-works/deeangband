@@ -1516,7 +1516,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	creature_desc(creature_name, creature_ptr, 0);
 
-	if(creature_ptr->timed_trait[TRAIT_POISONED] && !IS_INVULN(creature_ptr)) // Take damage from poison
+	if(has_trait(creature_ptr, TRAIT_POISONED) && !IS_INVULN(creature_ptr)) // Take damage from poison
 	{
 #ifdef JP
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "“Å", NULL, -1);
@@ -1526,7 +1526,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	}
 
 	/* Take damage from cuts */
-	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT) && !IS_INVULN(creature_ptr))
+	if(has_trait(creature_ptr, TRAIT_CUT) && !IS_INVULN(creature_ptr))
 	{
 		int dam;
 

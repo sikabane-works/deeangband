@@ -1215,7 +1215,7 @@ static void creature_lack_food(creature_type *creature_ptr)
 	if((creature_ptr->food < CREATURE_FOOD_FAINT))
 	{
 		// Faint occasionally
-		if(!creature_ptr->timed_trait[TRAIT_PARALYZED] && (randint0(100) < 10))
+		if(!has_trait(creature_ptr, TRAIT_PARALYZED) && (randint0(100) < 10))
 		{
 #ifdef JP
 			msg_print("‚ ‚Ü‚è‚É‚à‹ó• ‚Å‹Câ‚µ‚Ä‚µ‚Ü‚Á‚½B");
@@ -2080,7 +2080,7 @@ static void process_nonplayer(int m_idx)
 			/* In anti-melee dungeon, stupid or confused creature takes useless turn */
 			if(do_move && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
 			{
-				if(!creature_ptr->timed_trait[TRAIT_CONFUSED])
+				if(!has_trait(creature_ptr, TRAIT_CONFUSED))
 				{
 					if(!has_trait(creature_ptr, TRAIT_STUPID)) do_move = FALSE;
 					else
