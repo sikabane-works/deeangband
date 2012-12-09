@@ -2661,16 +2661,13 @@ static void set_character_bonuses(creature_type *creature_ptr)
 
 static void set_posture_bonuses(creature_type *creature_ptr)
 {
-	int i;
 	u32b limit;
 	int empty_hands_status = empty_hands(creature_ptr, TRUE);
 
 	if(creature_ptr->posture & KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU)
 	{
 		if(!(empty_hands_status & EMPTY_HAND_RARM))
-		{
 			set_action(creature_ptr, ACTION_NONE);
-		}
 	}
 
 	if(has_trait(creature_ptr, TRAIT_WANT_LIGHT_WEIGHT) && !heavy_armor(creature_ptr))
@@ -2707,38 +2704,6 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 			creature_ptr->dis_to_ac += (creature_ptr->lev / 3);
 		}
 		*/
-		if(creature_ptr->posture & KAMAE_BYAKKO)
-		{
-			creature_ptr->stat_add[STAT_STR] += 20;
-			creature_ptr->stat_add[STAT_DEX] += 20;
-			creature_ptr->stat_add[STAT_CON] -= 30;
-		}
-		else if(creature_ptr->posture & KAMAE_SEIRYU)
-		{
-		}
-		else if(creature_ptr->posture & KAMAE_GENBU)
-		{
-			creature_ptr->stat_add[STAT_INT] -= 10;
-			creature_ptr->stat_add[STAT_WIS] -= 10;
-			creature_ptr->stat_add[STAT_DEX] -= 20;
-			creature_ptr->stat_add[STAT_CON] += 30;
-		}
-		else if(creature_ptr->posture & KAMAE_SUZAKU)
-		{
-			creature_ptr->stat_add[STAT_STR] -= 20;
-			creature_ptr->stat_add[STAT_INT] += 10;
-			creature_ptr->stat_add[STAT_WIS] += 10;
-			creature_ptr->stat_add[STAT_DEX] += 20;
-			creature_ptr->stat_add[STAT_CON] -= 20;
-			creature_ptr->speed += 10;
-		}
-	}
-
-	if(has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN))
-	{
-		for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_add[i] += 50;
-		creature_ptr->to_ac -= 50;
-		creature_ptr->dis_to_ac -= 50;
 	}
 
 	limit = calc_carrying_weight_limit(creature_ptr);
