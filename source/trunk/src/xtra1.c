@@ -2734,7 +2734,7 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 		}
 	}
 
-	if(creature_ptr->posture & KATA_KOUKIJIN)
+	if(has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN))
 	{
 		for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_add[i] += 50;
 		creature_ptr->to_ac -= 50;

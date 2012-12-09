@@ -2373,7 +2373,7 @@ static void player_vuln_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature
 	int i;
 	for (i = 0; i < TRAIT_FLAG_MAX; i++) flgs[i] = 0L;
 
-	if(has_trait(creature_ptr, TRAIT_VULN_ELEM) || (creature_ptr->posture & KATA_KOUKIJIN))
+	if(has_trait(creature_ptr, TRAIT_VULN_ELEM) || (has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)))
 	{
 		add_flag(flgs, TRAIT_RES_ACID);
 		add_flag(flgs, TRAIT_RES_ELEC);

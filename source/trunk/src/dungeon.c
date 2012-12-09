@@ -881,7 +881,7 @@ static void regenhp(creature_type *creature_ptr, int percent)
 	u32b new_chp_frac;
 	s32b old_chp;
 
-	if(creature_ptr->posture & KATA_KOUKIJIN) return;
+	if(has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) return;
 	if(creature_ptr->action == ACTION_HAYAGAKE) return;
 
 	/* Save the old hitpoints */
@@ -1831,7 +1831,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	upkeep_factor = calculate_upkeep_servant(creature_ptr);
 
 	/* No regeneration while special action */
-	if((creature_ptr->action == ACTION_LEARN) || (creature_ptr->action == ACTION_HAYAGAKE) || (creature_ptr->posture & KATA_KOUKIJIN))
+	if((creature_ptr->action == ACTION_LEARN) || (creature_ptr->action == ACTION_HAYAGAKE) || (has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)))
 		upkeep_factor += 100;
 
 	/* Regenerate the mana */

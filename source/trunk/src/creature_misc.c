@@ -816,7 +816,7 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		if(has_trait(target_ptr, TRAIT_IM_FIRE)) t = 0;
 		if(has_trait(target_ptr, TRAIT_HURT_FIRE)) t *= 2;
 		if(has_trait(target_ptr, TRAIT_VULN_ELEM)) t += t / 2;
-		if(target_ptr->posture & KATA_KOUKIJIN) t += t / 3;
+		if(has_trait(target_ptr, TRAIT_POSTURE_KOUKIJIN)) t += t / 3;
 		if(has_trait(target_ptr, TRAIT_RES_FIRE)) t /= 3;
 		break;
 
@@ -824,21 +824,21 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		if(has_trait(target_ptr, TRAIT_IM_COLD)) t = 0;
 		if(has_trait(target_ptr, TRAIT_HURT_COLD)) t *= 2;
 		if(has_trait(target_ptr, TRAIT_VULN_ELEM)) t += t / 2;
-		if(target_ptr->posture & KATA_KOUKIJIN) t += t / 3;
+		if(has_trait(target_ptr, TRAIT_POSTURE_KOUKIJIN)) t += t / 3;
 		if(has_trait(target_ptr, TRAIT_RES_COLD)) t /= 3;
 		break;
 
 	case DO_EFFECT_ELEC:
 		if(has_trait(target_ptr, TRAIT_IM_ELEC)) t = 0;
 		if(has_trait(target_ptr, TRAIT_VULN_ELEM)) t += t / 2;
-		if(target_ptr->posture & KATA_KOUKIJIN) t += t / 3;
+		if(has_trait(target_ptr, TRAIT_POSTURE_KOUKIJIN)) t += t / 3;
 		if(has_trait(target_ptr, TRAIT_RES_ELEC)) t /= 3;
 		break;
 
 	case DO_EFFECT_ACID:
 		if(has_trait(target_ptr, TRAIT_IM_ACID)) t = 0;
 		if(has_trait(target_ptr, TRAIT_VULN_ELEM)) t += t / 2;
-		if(target_ptr->posture & KATA_KOUKIJIN) t += t / 3;
+		if(has_trait(target_ptr, TRAIT_POSTURE_KOUKIJIN)) t += t / 3;
 		if(has_trait(target_ptr, TRAIT_RES_ACID)) t /= 3;
 		break;
 
