@@ -2937,11 +2937,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->dis_to_hit_b  -= 12;
 		creature_ptr->dis_to_damage[0] += 3+(creature_ptr->lev/5);
 		creature_ptr->dis_to_damage[1] += 3+(creature_ptr->lev/5);
-		creature_ptr->skill_stl -= 7;
-		creature_ptr->skill_dev -= 20;
-		creature_ptr->skill_srh -= 15;
-		creature_ptr->skill_fos -= 15;
-		creature_ptr->skill_tht -= 20;
 		creature_ptr->skill_dig += 30;
 	}
 
