@@ -750,12 +750,22 @@ bool has_trait(creature_type *creature_ptr, int type)
 
 int has_trait_num(creature_type *creature_ptr, int type)
 {
-	int num = 0;
+	int num = 0, i;
+	object_type *object_ptr;
+
 	if(!creature_ptr) return 0;
 	if(has_trait_from_species(creature_ptr, type)) num++;
 	if(has_trait_from_class(creature_ptr, type)) num++;
 	if(has_trait_from_chara(creature_ptr, type)) num++;
-	if(has_trait_from_inventory(creature_ptr, type)) num++;
+
+	for(i = 0; i < INVEN_TOTAL; i++)
+	{
+		object_ptr = &creature_ptr->inventory[i];
+		if(!is_valid_object(object_ptr)) continue;
+		if(!IS_EQUIPPED(object_ptr)) continue;
+		if(has_trait_object(object_ptr, type)) return num++;
+	}
+
 	if(has_trait_from_timed(creature_ptr, type)) return num++;
 
 	return num;
