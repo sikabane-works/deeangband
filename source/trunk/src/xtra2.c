@@ -2021,7 +2021,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 				/* Command */
 				query = inkey();
 
-				/* Restore */
 				screen_load();
 
 				/* Normal commands */

@@ -1420,7 +1420,6 @@ static void fix_inven(creature_type *creature_ptr)
 		/* Fresh */
 		Term_fresh();
 
-		/* Restore */
 		Term_activate(old);
 	}
 }
@@ -1476,7 +1475,6 @@ static void fix_spell(creature_type *creature_ptr)
 		/* Fresh */
 		Term_fresh();
 
-		/* Restore */
 		Term_activate(old);
 	}
 }
@@ -1511,7 +1509,6 @@ static void fix_player(creature_type *player_ptr)
 		/* Fresh */
 		Term_fresh();
 
-		/* Restore */
 		Term_activate(old);
 	}
 }
@@ -1561,7 +1558,6 @@ static void fix_message(void)
 		/* Fresh */
 		Term_fresh();
 
-		/* Restore */
 		Term_activate(old);
 	}
 }
@@ -1603,7 +1599,6 @@ static void fix_overhead(creature_type *watcher_ptr)
 			Term_fresh();
 		}
 
-		/* Restore */
 		Term_activate(old);
 	}
 }
@@ -1635,7 +1630,6 @@ static void fix_dungeon(creature_type *creature_ptr)
 		/* Fresh */
 		Term_fresh();
 
-		/* Restore */
 		Term_activate(old);
 	}
 }
@@ -1668,7 +1662,6 @@ static void fix_creature(creature_type *creature_ptr)
 		/* Fresh */
 		Term_fresh();
 
-		/* Restore */
 		Term_activate(old);
 	}
 }
@@ -1701,7 +1694,6 @@ static void fix_object(creature_type *creature_ptr)
 		/* Fresh */
 		Term_fresh();
 
-		/* Restore */
 		Term_activate(old);
 	}
 }
@@ -1904,7 +1896,6 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 			if(message) msg_format("You have forgotten the %s of %s.", p, do_spell(creature_ptr, which, j%32, SPELL_NAME));
 #endif
 
-
 			/* One more can be learned */
 			creature_ptr->new_spells++;
 		}
@@ -1928,10 +1919,8 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 		/* Access the spell */
 		if(!is_magic((j < 32) ? creature_ptr->realm1 : creature_ptr->realm2))
 		{
-			if(j < 32)
-				s_ptr = &technic_info[creature_ptr->realm1 - MIN_TECHNIC][j];
-			else
-				s_ptr = &technic_info[creature_ptr->realm2 - MIN_TECHNIC][j%32];
+			if(j < 32) s_ptr = &technic_info[creature_ptr->realm1 - MIN_TECHNIC][j];
+			else s_ptr = &technic_info[creature_ptr->realm2 - MIN_TECHNIC][j%32];
 		}
 		else if(j < 32)
 			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm1-1][j];
@@ -2013,24 +2002,19 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 		if(creature_ptr->new_spells)
 		{
 #ifdef JP
-			if( creature_ptr->new_spells < 10 ){
+			if( creature_ptr->new_spells < 10 )
 				if(message) msg_format("あと %d つの%sを学べる。", creature_ptr->new_spells, p);
-			} else {
+			else
 				if(message) msg_format("あと %d 個の%sを学べる。", creature_ptr->new_spells, p);
-			}
 #else
-			if(message) msg_format("You can learn %d more %s%s.",
-				   creature_ptr->new_spells, p,
-				   (creature_ptr->new_spells != 1) ? "s" : "");
+			if(message) msg_format("You can learn %d more %s%s.", creature_ptr->new_spells, p, (creature_ptr->new_spells != 1) ? "s" : "");
 #endif
-
 		}
 
 		/* Save the new_spells value */
 		creature_ptr->old_spells = creature_ptr->new_spells;
 
 		play_redraw |= (PR_STUDY);
-
 		play_window |= (PW_OBJECT);
 	}
 }
@@ -3186,6 +3170,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	// Clear the Displayed/Real armor class and evasion
 	creature_ptr->dis_ac = creature_ptr->ac = 0;
 	creature_ptr->dis_ev = creature_ptr->ev = 0;
+	creature_ptr->dis_vo = creature_ptr->vo = 0;
 
 	creature_ptr->dis_to_hit_b = creature_ptr->to_hit_b = 0;
 	creature_ptr->dis_to_ac = creature_ptr->to_ac = 0;

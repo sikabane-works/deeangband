@@ -3492,23 +3492,19 @@ static bool research_creature(creature_type *creature_ptr)
 
 	/* Get a character, or abort */
 #ifdef JP
-if(!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):", &sym, FALSE)) 
+	if(!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):", &sym, FALSE)) 
 #else
 	if(!get_com("Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): ", &sym, FALSE))
 #endif
 
 	{
-		/* Restore */
 		screen_load();
 
 		return FALSE;
 	}
 
 	/* Find that character info, and describe it */
-	for (i = 0; ident_info[i]; ++i)
-	{
-		if(sym == ident_info[i][0]) break;
-	}
+	for (i = 0; ident_info[i]; ++i) if(sym == ident_info[i][0]) break;
 
 		/* XTRA HACK WHATSEARCH */
 	if(sym == KTRL('A'))
@@ -3549,7 +3545,6 @@ if(!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前)
 		{
 			temp[0]=0;
 
-			/* Restore */
 			screen_load();
 
 			return FALSE;
@@ -3638,7 +3633,6 @@ if(!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前)
 		/* Free the "who" array */
 		C_KILL(who, max_species_idx, u16b);
 
-		/* Restore */
 		screen_load();
 
 		return FALSE;
@@ -3746,7 +3740,6 @@ Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
 	/* Free the "who" array */
 	C_KILL(who, max_species_idx, u16b);
 
-	/* Restore */
 	screen_load();
 
 	return (!notpicked);

@@ -1719,7 +1719,6 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	/* Query */
 	query = inkey();
 
-	/* Restore */
 	prt(buf, 0, 0);
 
 	why = 2;
@@ -1792,11 +1791,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 			query = inkey();
 
 			/* Unrecall */
-			if(recall)
-			{
-				/* Restore */
-				screen_load();
-			}
+			if(recall) screen_load();
 
 			/* Normal commands */
 			if(query != 'r') break;

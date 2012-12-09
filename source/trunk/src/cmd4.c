@@ -1178,7 +1178,6 @@ void do_cmd_redraw(void)
 		/* Refresh */
 		Term_fresh();
 
-		/* Restore */
 		Term_activate(old);
 	}
 }
@@ -2225,7 +2224,6 @@ static void do_cmd_options_win(void)
 		/* Refresh */
 		Term_fresh();
 
-		/* Restore */
 		Term_activate(old);
 	}
 }

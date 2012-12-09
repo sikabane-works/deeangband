@@ -2073,7 +2073,6 @@ static errr Term_xtra_win_react(void)
 
 			Term_redraw();
 
-			/* Restore */
 			Term_activate(old);
 		}
 	}
