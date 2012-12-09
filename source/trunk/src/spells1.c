@@ -3485,7 +3485,7 @@ static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, in
 	project_creature_aux(caster_ptr, target_ptr, typ, dam, spell, see_s_msg);
 	revenge_store(player_ptr, get_damage); // Hex - revenge damage stored
 
-	if((target_ptr->timed_trait[TRAIT_EYE_EYE] || HEX_SPELLING(target_ptr, HEX_EYE_FOR_EYE)) && (get_damage > 0) && !gameover && (caster_ptr != NULL))
+	if((has_trait(target_ptr, TRAIT_EYE_EYE) || HEX_SPELLING(target_ptr, HEX_EYE_FOR_EYE)) && (get_damage > 0) && !gameover && (caster_ptr != NULL))
 	{
 #ifdef JP
 		msg_format("UŒ‚‚ª%sŽ©g‚ð‚Â‚¯‚½I", caster_ptr->name);

@@ -2083,10 +2083,7 @@ static void process_nonplayer(int m_idx)
 				if(!has_trait(creature_ptr, TRAIT_CONFUSED))
 				{
 					if(!has_trait(creature_ptr, TRAIT_STUPID)) do_move = FALSE;
-					else
-					{
-						if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_50);
-					}
+					else if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_50);
 				}
 			}
 

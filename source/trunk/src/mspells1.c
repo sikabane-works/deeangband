@@ -404,11 +404,11 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 {
 	if(IS_INVULN(target_ptr)) return TRUE;	// Invulnabilty (including the song)	
 	if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) return TRUE;	// Wraith form
-	if(target_ptr->timed_trait[TRAIT_SHIELD]) return TRUE;	// Shield
-	if(target_ptr->timed_trait[TRAIT_MAGIC_DEF]) return TRUE;	// Magic defence
-	if(target_ptr->timed_trait[TRAIT_MULTI_SHADOW]) return TRUE;	// Multi Shadow
-	if(target_ptr->timed_trait[TRAIT_DUST_ROBE]) return TRUE;	// Robe of dust
-	if(target_ptr->timed_trait[TRAIT_S_HERO] && (target_ptr->class_idx != CLASS_BERSERKER)) return TRUE;	// Berserk Strength
+	if(has_trait(target_ptr, TRAIT_SHIELD)) return TRUE;	// Shield
+	if(has_trait(target_ptr, TRAIT_MAGIC_DEF)) return TRUE;	// Magic defence
+	if(has_trait(target_ptr, TRAIT_MULTI_SHADOW)) return TRUE;	// Multi Shadow
+	if(has_trait(target_ptr, TRAIT_DUST_ROBE)) return TRUE;	// Robe of dust
+	if(has_trait(target_ptr, TRAIT_S_HERO) && (target_ptr->class_idx != CLASS_BERSERKER)) return TRUE;	// Berserk Strength
 
 	if(has_trait(caster_ptr, TRAIT_BR_ACID))
 		if(!has_trait(target_ptr, TRAIT_IM_ACID) && (target_ptr->timed_trait[TRAIT_RES_ACID] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return TRUE;
