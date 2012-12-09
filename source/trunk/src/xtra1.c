@@ -1417,7 +1417,6 @@ static void fix_inven(creature_type *creature_ptr)
 		/* Display inventory */
 		display_inven(creature_ptr);
 
-		/* Fresh */
 		Term_fresh();
 
 		Term_activate(old);
@@ -1472,7 +1471,6 @@ static void fix_spell(creature_type *creature_ptr)
 		/* Display spell list */
 		display_spell_list(creature_ptr);
 
-		/* Fresh */
 		Term_fresh();
 
 		Term_activate(old);
@@ -1506,7 +1504,6 @@ static void fix_player(creature_type *player_ptr)
 		/* Display player */
 		display_creature_status(0, player_ptr);
 
-		/* Fresh */
 		Term_fresh();
 
 		Term_activate(old);
@@ -1555,7 +1552,6 @@ static void fix_message(void)
 			Term_erase(x, y, 255);
 		}
 
-		/* Fresh */
 		Term_fresh();
 
 		Term_activate(old);
@@ -1595,7 +1591,6 @@ static void fix_overhead(creature_type *watcher_ptr)
 		{
 			display_map(watcher_ptr, &cy, &cx);
 
-			/* Fresh */
 			Term_fresh();
 		}
 
@@ -1627,7 +1622,6 @@ static void fix_dungeon(creature_type *creature_ptr)
 
 		display_dungeon(creature_ptr);
 
-		/* Fresh */
 		Term_fresh();
 
 		Term_activate(old);
@@ -1659,7 +1653,6 @@ static void fix_creature(creature_type *creature_ptr)
 		/* Display creature race info */
 		if(species_window_idx) display_roff(species_window_idx);
 
-		/* Fresh */
 		Term_fresh();
 
 		Term_activate(old);
@@ -1691,7 +1684,6 @@ static void fix_object(creature_type *creature_ptr)
 		/* Display creature race info */
 		if(play_window_object_kind_idx) display_koff(creature_ptr, play_window_object_kind_idx);
 
-		/* Fresh */
 		Term_fresh();
 
 		Term_activate(old);

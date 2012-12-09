@@ -1563,7 +1563,6 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	/* Handle */
 	handle_stuff();
 
-	/* Fresh */
 	Term_fresh();
 
 	Term_xtra(TERM_XTRA_DELAY, msec);
