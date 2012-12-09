@@ -862,6 +862,7 @@ extern bool has_trait_from_chara(creature_type *creature_ptr, int type);
 extern bool has_trait_from_inventory(creature_type *creature_ptr, int type);
 extern bool has_trait_from_species(creature_type *creature_ptr, int type);
 
+extern bool has_trait_from_timed(creature_type *creature_ptr, int type);
 extern bool has_trait_species(species_type *species_ptr, int type);
 extern bool has_trait_object(object_type *object_ptr, int type);
 extern bool has_trait(creature_type *creature_ptr, int type);

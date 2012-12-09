@@ -711,6 +711,12 @@ bool has_trait_from_inventory(creature_type *creature_ptr, int type)
 	return FALSE;
 }
 
+bool has_trait_from_timed(creature_type *creature_ptr, int type)
+{
+	if(creature_ptr->timed_trait[type]) return TRUE;
+	return FALSE;
+}
+
 bool has_trait_species(species_type *species_ptr, int type)
 {
 	if(species_ptr->flags.add_lev[type])
@@ -750,7 +756,7 @@ int has_trait_num(creature_type *creature_ptr, int type)
 	if(has_trait_from_class(creature_ptr, type)) num++;
 	if(has_trait_from_chara(creature_ptr, type)) num++;
 	if(has_trait_from_inventory(creature_ptr, type)) num++;
-	if(creature_ptr->timed_trait[type]) return num++;
+	if(has_trait_from_timed(creature_ptr, type)) return num++;
 
 	return num;
 }
