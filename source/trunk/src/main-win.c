@@ -2065,7 +2065,6 @@ static errr Term_xtra_win_react(void)
 		/* Update resized windows */
 		if((td->cols != (uint)td->t.wid) || (td->rows != (uint)td->t.hgt))
 		{
-			/* Activate */
 			Term_activate(&td->t);
 
 			/* Hack -- Resize the term */
@@ -3909,7 +3908,6 @@ static void process_menus(WORD wCmd)
 			/* Toggle "arg_sound" */
 			arg_bigtile = !arg_bigtile;
 
-			/* Activate */
 			Term_activate(&td->t);
 
 			/* Resize the term */
@@ -4549,7 +4547,6 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 							normsize.y = td->rows;
 						}
 
-						/* Activate */
 						Term_activate(&td->t);
 
 						/* Resize the term */
@@ -4735,13 +4732,11 @@ LRESULT FAR PASCAL AngbandListProc(HWND hWnd, UINT uMsg,
 				td->cols = cols;
 				td->rows = rows;
 
-				/* Activate */
 				Term_activate(&td->t);
 
 				/* Resize the term */
 				Term_resize(td->cols, td->rows);
 
-				/* Activate */
 				Term_activate(old_term);
 
 				InvalidateRect(td->w, NULL, TRUE);

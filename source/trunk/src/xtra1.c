@@ -1411,14 +1411,12 @@ static void fix_inven(creature_type *creature_ptr)
 		/* No relevant flags */
 		if(!(window_flag[j] & (PW_INVEN))) continue;
 
-		/* Activate */
 		Term_activate(angband_term[j]);
 
 		/* Display inventory */
 		display_inven(creature_ptr);
 
 		Term_fresh();
-
 		Term_activate(old);
 	}
 }
@@ -1465,14 +1463,12 @@ static void fix_spell(creature_type *creature_ptr)
 		/* No relevant flags */
 		if(!(window_flag[j] & (PW_SPELL))) continue;
 
-		/* Activate */
 		Term_activate(angband_term[j]);
 
 		/* Display spell list */
 		display_spell_list(creature_ptr);
 
 		Term_fresh();
-
 		Term_activate(old);
 	}
 }
@@ -1496,7 +1492,6 @@ static void fix_player(creature_type *player_ptr)
 		/* No relevant flags */
 		if(!(window_flag[j] & (PW_PLAYER))) continue;
 
-		/* Activate */
 		Term_activate(angband_term[j]);
 
 		update_play_time();
@@ -1534,9 +1529,7 @@ static void fix_message(void)
 		/* No relevant flags */
 		if(!(window_flag[j] & (PW_MESSAGE))) continue;
 
-		/* Activate */
 		Term_activate(angband_term[j]);
-
 		Term_get_size(&w, &h);
 
 		/* Dump messages */
@@ -1544,8 +1537,6 @@ static void fix_message(void)
 		{
 			/* Dump the message on the appropriate line */
 			Term_putstr(0, (h - 1) - i, -1, (byte)((i < now_message) ? TERM_WHITE : TERM_SLATE), message_str((s16b)i));
-
-			/* Cursor */
 			Term_locate(&x, &y);
 
 			/* Clear to end of line */
@@ -1553,7 +1544,6 @@ static void fix_message(void)
 		}
 
 		Term_fresh();
-
 		Term_activate(old);
 	}
 }
@@ -1582,7 +1572,6 @@ static void fix_overhead(creature_type *watcher_ptr)
 		/* No relevant flags */
 		if(!(window_flag[j] & (PW_OVERHEAD))) continue;
 
-		/* Activate */
 		Term_activate(angband_term[j]);
 
 		/* Full map in too small window is useless  */
@@ -1617,7 +1606,6 @@ static void fix_dungeon(creature_type *creature_ptr)
 		/* No relevant flags */
 		if(!(window_flag[j] & (PW_DUNGEON))) continue;
 
-		/* Activate */
 		Term_activate(angband_term[j]);
 
 		display_dungeon(creature_ptr);
@@ -1646,15 +1634,12 @@ static void fix_creature(creature_type *creature_ptr)
 
 		/* No relevant flags */
 		if(!(window_flag[j] & (PW_MONSTER))) continue;
-
-		/* Activate */
 		Term_activate(angband_term[j]);
 
 		/* Display creature race info */
 		if(species_window_idx) display_roff(species_window_idx);
 
 		Term_fresh();
-
 		Term_activate(old);
 	}
 }
@@ -1678,7 +1663,6 @@ static void fix_object(creature_type *creature_ptr)
 		/* No relevant flags */
 		if(!(window_flag[j] & (PW_OBJECT))) continue;
 
-		/* Activate */
 		Term_activate(angband_term[j]);
 
 		/* Display creature race info */

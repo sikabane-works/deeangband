@@ -1170,7 +1170,6 @@ void do_cmd_redraw(void)
 		/* Dead window */
 		if(!angband_term[j]) continue;
 
-		/* Activate */
 		Term_activate(angband_term[j]);
 
 		Term_redraw();
@@ -2215,7 +2214,6 @@ static void do_cmd_options_win(void)
 		/* Ignore non-changes */
 		if(window_flag[j] == old_flag[j]) continue;
 
-		/* Activate */
 		Term_activate(angband_term[j]);
 
 		/* Erase */
