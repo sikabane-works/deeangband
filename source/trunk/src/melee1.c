@@ -1386,7 +1386,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 		case MELEE_TYPE_SPECIAL_2ND:
 		case MELEE_TYPE_SPECIAL_3RD:
 		case MELEE_TYPE_SPECIAL_4TH:
-			special_melee(attacker_ptr, target_ptr, i - MELEE_TYPE_SPECIAL_1ST, &fear);
+			special_melee(attacker_ptr, target_ptr, i - MELEE_TYPE_SPECIAL_1ST);
 			break;
 
 		case MELEE_TYPE_BARE_HAND:
@@ -1444,9 +1444,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 	}
 
 	if((attacker_ptr->posture & KATA_IAI) && ((mode != HISSATSU_IAI) || dead))
-	{
 		set_action(attacker_ptr, ACTION_NONE);
-	}
 
 	return dead;
 }
@@ -1524,7 +1522,7 @@ static int check_hit(creature_type *target_ptr, int power, int level, int stun)
 }
 
 // Attack the player via physical attacks.
-bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt, bool *fear)
+bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt)
 {
 	species_type *species_ptr = &species_info[attacker_ptr->species_idx];
 	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_id];
@@ -3404,7 +3402,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		msg_format("Your counterattack to %s!", attacker_name);
 #endif
 		close_combat(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_COUNTER);
-		fear = FALSE;
 
 		play_redraw |= (PR_MANA);
 	}
