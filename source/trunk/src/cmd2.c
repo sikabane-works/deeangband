@@ -2410,8 +2410,6 @@ void do_cmd_rest(creature_type *creature_ptr)
 	play_redraw |= (PR_STATE);
 
 	handle_stuff();
-
-	/* Refresh */
 	Term_fresh();
 }
 

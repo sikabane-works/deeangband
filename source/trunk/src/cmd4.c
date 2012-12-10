@@ -1174,7 +1174,6 @@ void do_cmd_redraw(void)
 
 		Term_redraw();
 
-		/* Refresh */
 		Term_fresh();
 
 		Term_activate(old);
@@ -2216,12 +2215,9 @@ static void do_cmd_options_win(void)
 
 		Term_activate(angband_term[j]);
 
-		/* Erase */
 		Term_clear();
 
-		/* Refresh */
 		Term_fresh();
-
 		Term_activate(old);
 	}
 }

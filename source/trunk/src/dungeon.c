@@ -5594,7 +5594,6 @@ static void play_loop(void)
 
 		handle_stuff(); // Handle "update" and "play_redraw" and "play_window"
 
-		/* Refresh */
 		Term_fresh();
 
 		if(quest_num && (is_fixed_quest_idx(quest_num) &&

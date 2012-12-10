@@ -1579,10 +1579,8 @@ static void fix_overhead(creature_type *watcher_ptr)
 		if(wid > COL_MAP + 2 && hgt > ROW_MAP + 2)
 		{
 			display_map(watcher_ptr, &cy, &cx);
-
 			Term_fresh();
 		}
-
 		Term_activate(old);
 	}
 }
@@ -1607,11 +1605,8 @@ static void fix_dungeon(creature_type *creature_ptr)
 		if(!(window_flag[j] & (PW_DUNGEON))) continue;
 
 		Term_activate(angband_term[j]);
-
 		display_dungeon(creature_ptr);
-
 		Term_fresh();
-
 		Term_activate(old);
 	}
 }
@@ -1669,7 +1664,6 @@ static void fix_object(creature_type *creature_ptr)
 		if(play_window_object_kind_idx) display_koff(creature_ptr, play_window_object_kind_idx);
 
 		Term_fresh();
-
 		Term_activate(old);
 	}
 }
@@ -1716,13 +1710,9 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 	num_allowed = (adj_mag_study[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] * levels / 2);
 
 	if((creature_ptr->class_idx != CLASS_SAMURAI) && (magic_info[creature_ptr->class_idx].spell_book != TV_LIFE_BOOK))
-	{
 		bonus = 4;
-	}
 	if(creature_ptr->class_idx == CLASS_SAMURAI)
-	{
 		num_allowed = 32;
-	}
 	else if(creature_ptr->realm2 == REALM_NONE)
 	{
 		num_allowed = (num_allowed+1)/2;
@@ -1741,8 +1731,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 	for (j = 0; j < (REALM_MAGIC_NUMBER * 2); j++)
 	{
 		/* Count known spells */
-		if((j < 32) ? (creature_ptr->spell_forgotten1 & (1L << j)) :
-		    (creature_ptr->spell_forgotten2 & (1L << (j - 32))))
+		if((j < 32) ? (creature_ptr->spell_forgotten1 & (1L << j)) : (creature_ptr->spell_forgotten2 & (1L << (j - 32))))
 		{
 			num_boukyaku++;
 		}
@@ -2324,44 +2313,24 @@ static void calc_lite(creature_type *creature_ptr)
 		{
 			if(object_ptr->name2 == EGO_LITE_DARKNESS)
 			{
-				if(object_ptr->sval == SV_LITE_TORCH)
-				{
-					creature_ptr->cur_lite -= 2;
-				}
-
-				// Lanterns (with fuel) provide more lite
-				else if(object_ptr->sval == SV_LITE_LANTERN)
-				{
-					creature_ptr->cur_lite -= 2;
-				}
-
-				else if(object_ptr->sval == SV_LITE_FEANOR)
-				{
-					creature_ptr->cur_lite -= 3;
-				}
+				if(object_ptr->sval == SV_LITE_TORCH) creature_ptr->cur_lite -= 2;
+				else if(object_ptr->sval == SV_LITE_LANTERN) creature_ptr->cur_lite -= 2;
+				else if(object_ptr->sval == SV_LITE_FEANOR) creature_ptr->cur_lite -= 3;
 			}
 			/* Torches (with fuel) provide some lite */
 			else if((object_ptr->sval == SV_LITE_TORCH) && (object_ptr->xtra4 > 0))
-			{
 				creature_ptr->cur_lite += 2;
-			}
 
 			/* Lanterns (with fuel) provide more lite */
 			else if((object_ptr->sval == SV_LITE_LANTERN) && (object_ptr->xtra4 > 0))
-			{
 				creature_ptr->cur_lite += 2;
-			}
 
 			else if(object_ptr->sval == SV_LITE_FEANOR || object_ptr->sval == SV_LITE_UDUN)
-			{
 				creature_ptr->cur_lite += 3;
-			}
 
 			/* Artifact Lites provide permanent, bright, lite */
 			else if(object_is_fixed_artifact(object_ptr))
-			{
 				creature_ptr->cur_lite += 4;
-			}
 
 			if(object_ptr->name2 == EGO_LITE_SHINE) creature_ptr->cur_lite++;
 		}
@@ -2408,8 +2377,7 @@ static void calc_lite(creature_type *creature_ptr)
 		/* Remember the old lite */
 		creature_ptr->old_lite = creature_ptr->cur_lite;
 
-		if((creature_ptr->cur_lite > 0) && (creature_ptr->posture & NINJA_S_STEALTH))
-			set_superstealth(creature_ptr, FALSE);
+		if((creature_ptr->cur_lite > 0) && (creature_ptr->posture & NINJA_S_STEALTH)) set_superstealth(creature_ptr, FALSE);
 	}
 }
 

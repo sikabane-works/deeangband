@@ -1171,7 +1171,6 @@ void resize_map(void)
 	*/
 	if(can_save) move_cursor_relative(player_ptr->fy, player_ptr->fx);
 
-	/* Refresh */
 	Term_fresh();
 }
 

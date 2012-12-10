@@ -6066,7 +6066,6 @@ msg_print("自動セーブ中");
 
 	/* Clear messages */
 	msg_print(NULL);
-
 	handle_stuff();
 
 #ifdef JP
@@ -6075,8 +6074,6 @@ msg_print("自動セーブ中");
 	prt("Saving game...", 0, 0);
 #endif
 
-
-	/* Refresh */
 	Term_fresh();
 
 	/* The player is not dead */
@@ -6104,13 +6101,10 @@ msg_print("自動セーブ中");
 #else
 		prt("Saving game... failed!", 0, 0);
 #endif
-
 	}
 
 	/* Allow suspend again */
 	signals_handle_tstp();
-
-	/* Refresh */
 	Term_fresh();
 
 #ifdef JP
@@ -6163,8 +6157,7 @@ long total_points(creature_type *player_ptr)
 	if(mult < 5) mult = 5;
 
 	for (i = 0; i < max_dungeon_idx; i++)
-		if(max_dlv[i] > max_dl)
-			max_dl = max_dlv[i];
+		if(max_dlv[i] > max_dl) max_dl = max_dlv[i];
 
 	point_l = (player_ptr->max_exp + (100 * max_dl));
 	point_h = point_l / 0x10000L;
