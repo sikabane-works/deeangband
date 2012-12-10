@@ -3734,7 +3734,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 /*TODO
 	if(is_self_ld_creature(creature_ptr))
 		creature_ptr->creature_update |= (PU_SPECIES_LITE);
-	else if(is_has_ld_creature(creature_ptr) && !creature_ptr->timed_trait[TRAIT_PARALYZED])
+	else if(is_has_ld_creature(creature_ptr) && !has_trait(creature_ptr, TRAIT_PARALYZED))
 		creature_ptr->creature_update |= (PU_SPECIES_LITE);
 */
 

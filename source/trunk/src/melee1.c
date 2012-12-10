@@ -796,7 +796,7 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 
 static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 {
-	creature_type    *m_ptr = &creature_list[m_idx];
+	creature_type   *m_ptr = &creature_list[m_idx];
 	species_type    *species_ptr = &species_info[m_ptr->species_idx];
 }
 
