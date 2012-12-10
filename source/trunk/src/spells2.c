@@ -1785,26 +1785,22 @@ bool probing(floor_type *floor_ptr)
 				m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
 				m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
 #endif
-			if(species_ptr->next_species_idx)
-			{
-				strcat(buf, format("%d/%d ", m_ptr->exp, species_ptr->next_exp));
-			}
-			else
-			{
-				strcat(buf, "xxx ");
-			}
+			if(species_ptr->next_species_idx) strcat(buf, format("%d/%d ", m_ptr->exp, species_ptr->next_exp));
+			else strcat(buf, "xxx ");
 
 #ifdef JP
-			if(m_ptr->timed_trait[TRAIT_PARALYZED]) strcat(buf,"‡–° ");
-			if(m_ptr->timed_trait[TRAIT_STUN]) strcat(buf,"žNžO ");
-			if(m_ptr->timed_trait[TRAIT_AFRAID]) strcat(buf,"‹°•| ");
-			if(m_ptr->timed_trait[TRAIT_CONFUSED]) strcat(buf,"¬— ");
+			if(has_trait(m_ptr, TRAIT_PARALYZED)) strcat(buf,"–ƒáƒ ");
+			if(has_trait(m_ptr, TRAIT_SLEPT)) strcat(buf,"‡–° ");
+			if(has_trait(m_ptr, TRAIT_STUN)) strcat(buf,"žNžO ");
+			if(has_trait(m_ptr, TRAIT_AFRAID)) strcat(buf,"‹°•| ");
+			if(has_trait(m_ptr, TRAIT_CONFUSED)) strcat(buf,"¬— ");
 			if(has_trait(m_ptr, TRAIT_INVULNERABLE)) strcat(buf,"–³“G ");
 #else
-			if(m_ptr->timed_trait[TRAIT_PARALYZED]) strcat(buf,"sleeping ");
-			if(m_ptr->timed_trait[TRAIT_STUN]) strcat(buf,"stunned ");
-			if(m_ptr->timed_trait[TRAIT_AFRAID]) strcat(buf,"scared ");
-			if(m_ptr->timed_trait[TRAIT_CONFUSED]) strcat(buf,"confused ");
+			if(has_trait(m_ptr, TRAIT_PARALYZED)) strcat(buf,"paralyzed ");
+			if(has_trait(m_ptr, TRAIT_SLEPT)) strcat(buf,"slept ");
+			if(has_trait(m_ptr, TRAIT_STUN)) strcat(buf,"stunned ");
+			if(has_trait(m_ptr, TRAIT_AFRAID)) strcat(buf,"scared ");
+			if(has_trait(m_ptr, TRAIT_CONFUSED)) strcat(buf,"confused ");
 			if(has_trait(m_ptr, TRAIT_INVULNERABLE)) strcat(buf,"invulnerable ");
 #endif
 			buf[strlen(buf)-1] = '\0';
