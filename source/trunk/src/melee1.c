@@ -668,8 +668,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 }
 
-
-static void natural_attack(creature_type *attacker_ptr, creature_type *target_ptr, int attack, bool *fear, bool *mdeath)
+static void natural_attack(creature_type *attacker_ptr, creature_type *target_ptr, int attack, bool *fear)
 {
 	int             k, bonus, chance;
 	int             n_weight = 0;
@@ -788,8 +787,6 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 			take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL, NULL, -1);
 			break;
 		}
-		*mdeath = (target_ptr->species_idx == 0);
-		touch_zap_player(attacker_ptr, target_ptr);
 	}
 	else // Attack misses
 	{
@@ -1401,23 +1398,23 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 			break;
 
 		case MELEE_TYPE_HORNS:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_HORNS, &fear, &dead);
+			natural_attack(attacker_ptr, target_ptr, TRAIT_HORNS, &fear);
 			break;
 
 		case MELEE_TYPE_BEAK:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_BEAK, &fear, &dead);
+			natural_attack(attacker_ptr, target_ptr, TRAIT_BEAK, &fear);
 			break;
 
 		case MELEE_TYPE_SCOR_TAIL:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_SCOR_TAIL, &fear, &dead);
+			natural_attack(attacker_ptr, target_ptr, TRAIT_SCOR_TAIL, &fear);
 			break;
 
 		case MELEE_TYPE_TRUNK:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_TRUNK, &fear, &dead);
+			natural_attack(attacker_ptr, target_ptr, TRAIT_TRUNK, &fear);
 			break;
 
 		case MELEE_TYPE_TENTACLES:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_TENTACLES, &fear, &dead);
+			natural_attack(attacker_ptr, target_ptr, TRAIT_TENTACLES, &fear);
 			break;
 
 		}
