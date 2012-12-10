@@ -1391,7 +1391,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 		case MELEE_TYPE_SPECIAL_2ND:
 		case MELEE_TYPE_SPECIAL_3RD:
 		case MELEE_TYPE_SPECIAL_4TH:
-			special_melee(attacker_ptr, target_ptr, i - MELEE_TYPE_SPECIAL_1ST, &fear, &dead);
+			special_melee(attacker_ptr, target_ptr, i - MELEE_TYPE_SPECIAL_1ST, &fear);
 			break;
 
 		case MELEE_TYPE_BARE_HAND:
@@ -1529,7 +1529,7 @@ static int check_hit(creature_type *target_ptr, int power, int level, int stun)
 }
 
 // Attack the player via physical attacks.
-bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt, bool *fear, bool *dead)
+bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt, bool *fear)
 {
 	species_type *species_ptr = &species_info[attacker_ptr->species_idx];
 	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_id];
@@ -2873,7 +2873,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #else
 						msg_print("You feel strange sickness.");
 #endif
-
 						obvious = TRUE;
 					}
 				}
@@ -2895,7 +2894,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #else
 							msg_print("You feel life has clocked back.");
 #endif
-
 							lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE);
 							break;
 						}
@@ -2907,19 +2905,19 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 							switch (stat)
 							{
 #ifdef JP
-					case STAT_STR: act = "‹­‚­"; break;
-					case STAT_INT: act = "‘–¾‚Å"; break;
-					case STAT_WIS: act = "Œ«–¾‚Å"; break;
-					case STAT_DEX: act = "Ší—p‚Å"; break;
-					case STAT_CON: act = "Œ’N‚Å"; break;
-					case STAT_CHA: act = "”ü‚µ‚­"; break;
+								case STAT_STR: act = "‹­‚­"; break;
+								case STAT_INT: act = "‘–¾‚Å"; break;
+								case STAT_WIS: act = "Œ«–¾‚Å"; break;
+								case STAT_DEX: act = "Ší—p‚Å"; break;
+								case STAT_CON: act = "Œ’N‚Å"; break;
+								case STAT_CHA: act = "”ü‚µ‚­"; break;
 #else
-					case STAT_STR: act = "strong"; break;
-					case STAT_INT: act = "bright"; break;
-					case STAT_WIS: act = "wise"; break;
-					case STAT_DEX: act = "agile"; break;
-					case STAT_CON: act = "hale"; break;
-					case STAT_CHA: act = "beautiful"; break;
+								case STAT_STR: act = "strong"; break;
+								case STAT_INT: act = "bright"; break;
+								case STAT_WIS: act = "wise"; break;
+								case STAT_DEX: act = "agile"; break;
+								case STAT_CON: act = "hale"; break;
+								case STAT_CHA: act = "beautiful"; break;
 #endif
 
 							}
@@ -2929,8 +2927,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #else
 							msg_format("You're not as %s as you used to be...", act);
 #endif
-
-
 							target_ptr->stat_cur[stat] = (target_ptr->stat_cur[stat] * 3) / 4;
 							if(target_ptr->stat_cur[stat] < 3) target_ptr->stat_cur[stat] = 3;
 							target_ptr->creature_update |= (CRU_BONUS);
@@ -2944,8 +2940,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #else
 							msg_print("You're not as powerful as you used to be...");
 #endif
-
-
 							for (k = 0; k < STAT_MAX; k++)
 							{
 								target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
@@ -3047,17 +3041,9 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		/* Hack -- only one of cut or stun */
 		if(do_cut && do_stun)
 		{
-			/* Cancel cut */
-			if(randint0(100) < 50)
-			{
-				do_cut = 0;
-			}
-
-			/* Cancel stun */
-			else
-			{
-				do_stun = 0;
-			}
+			// Cancel cut or stun
+			if(randint0(100) < 50) do_cut = 0;
+			else do_stun = 0;
 		}
 
 		/* Handle cut */
@@ -3115,16 +3101,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			sound(SOUND_EXPLODE);
 
 			take_damage_to_creature(attacker_ptr, attacker_ptr, 0, attacker_ptr->chp + 1, NULL, NULL, -1);
-			if(attacker_ptr->species_idx == 0)
-			{
-				blinked = FALSE;
-				*dead = TRUE;
-			}
+			if(attacker_ptr->species_idx == 0) blinked = FALSE;
 		}
 
 		if(touched)
 		{
-			if(has_trait(target_ptr, TRAIT_AURA_FIRE) && !*dead && !IS_DEAD(target_ptr))
+			if(has_trait(target_ptr, TRAIT_AURA_FIRE) && !IS_DEAD(target_ptr))
 			{
 				if(!has_trait(attacker_ptr, TRAIT_RES_SHAR))
 				{
@@ -3137,11 +3119,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					msg_format("%^s is suddenly very hot!", attacker_name);
 					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " turns into a pile of ash.", -1);
 #endif
-					if(attacker_ptr->species_idx == 0)
-					{
-						blinked = FALSE;
-						*dead = TRUE;
-					}
+					if(attacker_ptr->species_idx == 0) blinked = FALSE;
 				}
 				else
 				{
@@ -3150,7 +3128,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if(has_trait(target_ptr, TRAIT_AURA_ELEC) && !*dead && !IS_DEAD(target_ptr))
+			if(has_trait(target_ptr, TRAIT_AURA_ELEC) && !IS_DEAD(target_ptr))
 			{
 				if(!has_trait(attacker_ptr, TRAIT_RES_ELEC))
 				{
@@ -3163,11 +3141,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					msg_format("%^s gets zapped!", attacker_name);
 					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " turns into a pile of cinder.", -1);
 #endif
-					if(attacker_ptr->species_idx == 0)
-					{
-						blinked = FALSE;
-						*dead = TRUE;
-					}
+					if(attacker_ptr->species_idx == 0) blinked = FALSE;
 				}
 				else
 				{
@@ -3176,7 +3150,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if(has_trait(target_ptr, TRAIT_AURA_COLD) && !*dead && !IS_DEAD(target_ptr))
+			if(has_trait(target_ptr, TRAIT_AURA_COLD) && !IS_DEAD(target_ptr))
 			{
 				if(!has_trait(attacker_ptr, TRAIT_RES_COLD))
 				{
@@ -3189,11 +3163,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					msg_format("%^s is very cold!", attacker_name);
 					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " was frozen.", -1);
 #endif
-					if(attacker_ptr->species_idx == 0)
-					{
-						blinked = FALSE;
-						*dead = TRUE;
-					}
+					if(attacker_ptr->species_idx == 0) blinked = FALSE;
 				}
 				else
 				{
@@ -3203,7 +3173,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 
 			/* by henkma */
-			if(target_ptr->timed_trait[TRAIT_DUST_ROBE] && !*dead && !IS_DEAD(target_ptr))
+			if(target_ptr->timed_trait[TRAIT_DUST_ROBE] && !IS_DEAD(target_ptr))
 			{
 				if(!has_trait(attacker_ptr, TRAIT_RES_SHAR))
 				{
@@ -3216,11 +3186,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					msg_format("%^s gets zapped!", attacker_name);
 					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " had torn to pieces.", -1);
 #endif
-					if(attacker_ptr->species_idx == 0)
-					{
-						blinked = FALSE;
-						*dead = TRUE;
-					}
+					if(attacker_ptr->species_idx == 0) blinked = FALSE;
 				}
 				else
 				{
@@ -3234,7 +3200,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if(target_ptr->timed_trait[TRAIT_HOLY_AURA] && !*dead && !IS_DEAD(target_ptr))
+			if(target_ptr->timed_trait[TRAIT_HOLY_AURA] && !IS_DEAD(target_ptr))
 			{
 				if(is_enemy_of_good_creature(target_ptr))
 				{
@@ -3249,11 +3215,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						msg_format("%^s is injured by holy power!", attacker_name);
 						take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
-						if(attacker_ptr->species_idx == 0)
-						{
-							blinked = FALSE;
-							*dead = TRUE;
-						}
+						if(attacker_ptr->species_idx == 0) blinked = FALSE;
 						if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 					}
 					else
@@ -3263,12 +3225,11 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if(target_ptr->timed_trait[TRAIT_AURA_MANA] && !*dead && !IS_DEAD(target_ptr))
+			if(target_ptr->timed_trait[TRAIT_AURA_MANA] && !IS_DEAD(target_ptr))
 			{
 				if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
 				{
 					int dam = diceroll(2, 6);
-
 #ifdef JP
 					msg_format("%^s‚ª‰s‚¢“¬‹C‚ÌƒI[ƒ‰‚Å‚Â‚¢‚½I", attacker_name);
 					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "‚Í“|‚ê‚½B", -1);
@@ -3276,11 +3237,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					msg_format("%^s is injured by the Force", attacker_name);
 					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
-					if(attacker_ptr->species_idx == 0)
-					{
-						blinked = FALSE;
-						*dead = TRUE;
-					}
+					if(attacker_ptr->species_idx == 0) blinked = FALSE;
 				}
 				else
 				{
@@ -3288,7 +3245,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if(HEX_SPELLING(target_ptr, HEX_SHADOW_CLOAK) && !*dead && !IS_DEAD(target_ptr))
+			if(HEX_SPELLING(target_ptr, HEX_SHADOW_CLOAK) && !IS_DEAD(target_ptr))
 			{
 				int dam = 1;
 				object_type *object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 0);
@@ -3312,11 +3269,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					msg_format("Enveloped shadows attack %^s.", attacker_name);
 					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
-					if(attacker_ptr->species_idx == 0)
-					{
-						blinked = FALSE;
-						*dead = TRUE;
-					}
+					if(attacker_ptr->species_idx == 0) blinked = FALSE;
 					/* TODO
 					else // creature does not dead
 					{
@@ -3447,7 +3400,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}
 
-	if((target_ptr->counter || (target_ptr->posture & KATA_MUSOU)) && !*dead && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))
+	if((target_ptr->counter || (target_ptr->posture & KATA_MUSOU)) && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))
 	{
 		char attacker_name[MAX_NLEN];
 		creature_desc(attacker_name, attacker_ptr, 0);
@@ -3465,7 +3418,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	}
 
 	/* Blink away */
-	if(blinked && !*dead && !IS_DEAD(target_ptr))
+	if(blinked && !IS_DEAD(target_ptr))
 	{
 		if(teleport_barrier(target_ptr, attacker_ptr))
 		{
