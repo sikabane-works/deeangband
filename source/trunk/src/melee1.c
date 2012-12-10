@@ -3173,7 +3173,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 
 			/* by henkma */
-			if(target_ptr->timed_trait[TRAIT_DUST_ROBE] && !IS_DEAD(target_ptr))
+			if(has_trait(target_ptr, TRAIT_DUST_ROBE) && !IS_DEAD(target_ptr))
 			{
 				if(!has_trait(attacker_ptr, TRAIT_RES_SHAR))
 				{
@@ -3200,7 +3200,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if(target_ptr->timed_trait[TRAIT_HOLY_AURA] && !IS_DEAD(target_ptr))
+			if(has_trait(target_ptr, TRAIT_HOLY_AURA) && !IS_DEAD(target_ptr))
 			{
 				if(is_enemy_of_good_creature(target_ptr))
 				{
@@ -3225,7 +3225,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if(target_ptr->timed_trait[TRAIT_AURA_MANA] && !IS_DEAD(target_ptr))
+			if(has_trait(target_ptr, TRAIT_AURA_MANA) && !IS_DEAD(target_ptr))
 			{
 				if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
 				{
@@ -3239,10 +3239,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #endif
 					if(attacker_ptr->species_idx == 0) blinked = FALSE;
 				}
-				else
-				{
-					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				}
+				else if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 			}
 
 			if(HEX_SPELLING(target_ptr, HEX_SHADOW_CLOAK) && !IS_DEAD(target_ptr))
