@@ -2594,10 +2594,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Increase "confused" */
 				if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
-					if(set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(attacker_ptr->lev)))
-					{
+					if(add_timed_trait(target_ptr, TRAIT_CONFUSED, 3 + randint1(attacker_ptr->lev), TRUE))
 						obvious = TRUE;
-					}
 				}
 
 				/* Learn about the player */
@@ -2641,10 +2639,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				*/
 				else
 				{
-					if(set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(attacker_ptr->lev)))
-					{
-						obvious = TRUE;
-					}
+					if(add_timed_trait(target_ptr, TRAIT_AFRAID, 3 + randint1(attacker_ptr->lev), TRUE)) obvious = TRUE;
 				}
 
 				/* Learn about the player */
@@ -2842,10 +2837,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 				if(!has_trait(target_ptr, TRAIT_RES_POIS))
-				{
-					if(set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint1(attacker_ptr->lev) + 5))
-						obvious = TRUE;
-				}
+					if(add_timed_trait(target_ptr, TRAIT_POISONED, randint1(attacker_ptr->lev) + 5, TRUE)) obvious = TRUE;
 
 				/* Damage CON (10% chance)*/
 				if((randint1(100) < 11) && !has_trait(target_ptr, TRAIT_ANDROID))
@@ -3079,7 +3071,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 
 			/* Apply the stun */
-			if(k) (void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + k);
+			if(k) (void)add_timed_trait(target_ptr, TRAIT_STUN, k, TRUE);
 		}
 
 		if(explode)
