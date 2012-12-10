@@ -85,10 +85,7 @@ static int highscore_add(high_score *score)
 {
 	int			i, slot;
 	bool		done = FALSE;
-
 	high_score		the_score, tmpscore;
-
-
 
 	if(highscore_fd < 0) return (-1);
 
@@ -174,12 +171,11 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 	/* Show per_screen per page, until "done" */
 	for (k = from, place = k+1; k < i; k += per_screen)
 	{
-		/* Clear screen */
 		Term_clear();
 
 		/* Title */
 #ifdef JP
-put_str("                D\'angband: 勇者の殿堂", 0, 0);
+		put_str("                D\'angband: 勇者の殿堂", 0, 0);
 #else
 		put_str("                D\'angband Hall of Fame", 0, 0);
 #endif
@@ -240,10 +236,7 @@ sprintf(tmp_val, "( %d 位以下 )", k + 1);
 
 			/* Hack -- extract the gold and such */
 			user = the_score.uid;
-			while(isspace(*user))
-			{
-				user++;
-			}
+			while(isspace(*user)) user++;
 
 			when = the_score.day;
 #if JP
@@ -260,8 +253,7 @@ sprintf(tmp_val, "( %d 位以下 )", k + 1);
 			/* Clean up standard encoded form of "when" */
 			if((*when == '@') && strlen(when) == 9)
 			{
-				sprintf(tmp_val, "%.4s-%.2s-%.2s",
-					when + 1, when + 5, when + 7);
+				sprintf(tmp_val, "%.4s-%.2s-%.2s", when + 1, when + 5, when + 7);
 				when = tmp_val;
 			}
 
@@ -282,7 +274,7 @@ sprintf(tmp_val, "( %d 位以下 )", k + 1);
 
 			/* Append a "maximum level" */
 #ifdef JP
-if(mlev > clev) strcat(out_val, format(" (最高%d)", mlev));
+			if(mlev > clev) strcat(out_val, format(" (最高%d)", mlev));
 #else
 			if(mlev > clev) strcat(out_val, format(" (Max %d)", mlev));
 #endif
@@ -303,21 +295,11 @@ if(mlev > clev) strcat(out_val, format(" (最高%d)", mlev));
 
 			/* 死亡原因をオリジナルより細かく表示 */
 			if(streq(the_score.how, "yet"))
-			{
-				sprintf(out_val, "              まだ生きている (%d%s)",
-				       cdun, "階");
-			}
-			else
-			if(streq(the_score.how, "ripe"))
-			{
-				sprintf(out_val, "              勝利の後に引退 (%d%s)",
-					cdun, "階");
-			}
+				sprintf(out_val, "              まだ生きている (%d%s)", cdun, "階");
+			else if(streq(the_score.how, "ripe"))
+				sprintf(out_val, "              勝利の後に引退 (%d%s)", cdun, "階");
 			else if(streq(the_score.how, "Seppuku"))
-			{
-				sprintf(out_val, "              勝利の後に切腹 (%d%s)",
-					cdun, "階");
-			}
+				sprintf(out_val, "              勝利の後に切腹 (%d%s)", cdun, "階");
 			else
 			{
 				codeconv(the_score.how);
@@ -357,24 +339,19 @@ if(mlev > clev) strcat(out_val, format(" (最高%d)", mlev));
 					sprintf(buf, "%d%s/%.5s", 19 + (when[6] < '8'), when + 6, when);
 					when = buf;
 				}
-				sprintf(out_val,
-						"              (ユーザー:%s, 日付:%s, 金:%s, ターン:%s)",
-						user, when, gold, aged);
+				sprintf(out_val, "              (ユーザー:%s, 日付:%s, 金:%s, ターン:%s)", user, when, gold, aged);
 			}
 
 #else
-			sprintf(out_val,
-				"               (User %s, Date %s, Gold %s, Turn %s).",
-				user, when, gold, aged);
+			sprintf(out_val, "               (User %s, Date %s, Gold %s, Turn %s).", user, when, gold, aged);
 #endif
 
 			c_put_str(attr, out_val, n*4 + 5, 0);
 		}
 
-
 		/* Wait for response */
 #ifdef JP
-prt("[ ESCで中断, その他のキーで続けます ]", hgt - 1, 21);
+		prt("[ ESCで中断, その他のキーで続けます ]", hgt - 1, 21);
 #else
 		prt("[Press ESC to quit, any other key to continue.]", hgt - 1, 17);
 #endif
@@ -404,15 +381,12 @@ void display_scores(int from, int to)
 	/* Open the binary high score file, for reading */
 	highscore_fd = fd_open(buf, O_RDONLY);
 
-
 #ifdef JP
-if(highscore_fd < 0) quit("スコア・ファイルが使用できません。");
+	if(highscore_fd < 0) quit("スコア・ファイルが使用できません。");
 #else
 	if(highscore_fd < 0) quit("Score file unavailable.");
 #endif
 
-
-	/* Clear screen */
 	Term_clear();
 
 	/* Display the scores */
@@ -542,10 +516,7 @@ errr top_twenty(creature_type *player_ptr)
 		strcat(the_score.how, "...");
 #endif
 	}
-	else
-	{
-		strcpy(the_score.how, gameover_from);
-	}
+	else strcpy(the_score.how, gameover_from);
 
 	/* Grab permissions */
 	safe_setuid_grab();
@@ -572,12 +543,8 @@ errr top_twenty(creature_type *player_ptr)
 
 	if(err) return FAILURE;
 
-
 	/* Hack -- Display the top fifteen scores */
-	if(j < 10)
-	{
-		display_scores_aux(0, 15, j, NULL);
-	}
+	if(j < 10) display_scores_aux(0, 15, j, NULL);
 
 	/* Display the scores surrounding the player */
 	else
@@ -605,7 +572,7 @@ errr predict_score(creature_type *player_ptr)
 	if(highscore_fd < 0)
 	{
 #ifdef JP
-msg_print("スコア・ファイルが使用できません。");
+		msg_print("スコア・ファイルが使用できません。");
 #else
 		msg_print("Score file unavailable.");
 #endif
@@ -667,10 +634,7 @@ msg_print("スコア・ファイルが使用できません。");
 
 
 	/* Hack -- Display the top fifteen scores */
-	if(j < 10)
-	{
-		display_scores_aux(0, 15, j, &the_score);
-	}
+	if(j < 10) display_scores_aux(0, 15, j, &the_score);
 
 	/* Display some "useful" scores */
 	else
@@ -691,7 +655,6 @@ msg_print("スコア・ファイルが使用できません。");
  */
 void show_highclass(creature_type *creature_ptr)
 {
-
 	register int i = 0, j, m = 0;
 	int pr, clev/*, al*/;
 	high_score the_score;
@@ -707,11 +670,10 @@ void show_highclass(creature_type *creature_ptr)
 	if(highscore_fd < 0)
 	{
 #ifdef JP
-msg_print("スコア・ファイルが使用できません。");
+		msg_print("スコア・ファイルが使用できません。");
 #else
 		msg_print("Score file unavailable.");
 #endif
-
 		msg_print(NULL);
 		return;
 	}
@@ -733,11 +695,9 @@ msg_print("スコア・ファイルが使用できません。");
 		clev = atoi(the_score.cur_lev);
 
 #ifdef JP
-		sprintf(out_val, "   %3d) %sの%s (レベル %2d)",
-		    (m + 1), race_info[pr].title,the_score.who, clev);
+		sprintf(out_val, "   %3d) %sの%s (レベル %2d)", (m + 1), race_info[pr].title,the_score.who, clev);
 #else
-		sprintf(out_val, "%3d) %s the %s (Level %2d)",
-		    (m + 1), the_score.who, race_info[pr].title, clev);
+		sprintf(out_val, "%3d) %s the %s (Level %2d)", (m + 1), the_score.who, race_info[pr].title, clev);
 #endif
 
 		prt(out_val, (m + 7), 0);
@@ -785,7 +745,7 @@ void race_score(creature_type *player_ptr, int race_num)
 
 	/* rr9: TODO - pluralize the race */
 #ifdef JP
-sprintf(tmp_str,"最高の%s", race_info[race_num].title);
+	sprintf(tmp_str,"最高の%s", race_info[race_num].title);
 #else
 	sprintf(tmp_str,"The Greatest of all the %s", race_info[race_num].title);
 #endif
@@ -811,10 +771,7 @@ msg_print("スコア・ファイルが使用できません。");
 
 	if(highscore_seek(0)) return;
 
-	for (i = 0; i < MAX_HISCORES; i++)
-	{
-		if(highscore_read(&the_score)) break;
-	}
+	for (i = 0; i < MAX_HISCORES; i++) if(highscore_read(&the_score)) break;
 
 	m = 0;
 	j = 0;
@@ -829,15 +786,10 @@ msg_print("スコア・ファイルが使用できません。");
 		if(pr == race_num)
 		{
 #ifdef JP
-		sprintf(out_val, "   %3d) %sの%s (レベル %2d)",
-			    (m + 1), race_info[pr].title, 
-				the_score.who,clev);
+			sprintf(out_val, "   %3d) %sの%s (レベル %2d)", (m + 1), race_info[pr].title, the_score.who,clev);
 #else
-			sprintf(out_val, "%3d) %s the %s (Level %3d)",
-			    (m + 1), the_score.who,
-			race_info[pr].title, clev);
+			sprintf(out_val, "%3d) %s the %s (Level %3d)", (m + 1), the_score.who, race_info[pr].title, clev);
 #endif
-
 			prt(out_val, (m + 7), 0);
 			m++;
 			lastlev = clev;
@@ -849,8 +801,8 @@ msg_print("スコア・ファイルが使用できません。");
 	if((player_ptr->race_idx1 == race_num) && (player_ptr->lev >= lastlev))
 	{
 #ifdef JP
-	sprintf(out_val, "あなた) %sの%s (レベル %2d)",
-		     race_info[player_ptr->race_idx1].title,player_ptr->name, player_ptr->lev);
+		sprintf(out_val, "あなた) %sの%s (レベル %2d)",
+		     race_info[player_ptr->race_idx1].title, player_ptr->name, player_ptr->lev);
 #else
 		sprintf(out_val, "You) %s the %s (Level %3d)",
 		    player_ptr->name, race_info[player_ptr->race_idx1].title, player_ptr->lev);
@@ -924,7 +876,6 @@ void kingly(creature_type *player_ptr)
 	/* Hack -- Instant Gold */
 	player_ptr->au += 10000000L;
 
-	/* Clear screen */
 	Term_clear();
 
 	/* Display a crown */

@@ -1051,7 +1051,6 @@ void do_cmd_nikki(creature_type *player_ptr)
 	/* Interact until done */
 	while (1)
 	{
-		/* Clear screen */
 		Term_clear();
 
 
@@ -1310,7 +1309,6 @@ void do_cmd_messages(int num_now)
 	/* Save the screen */
 	screen_save();
 
-	/* Clear screen */
 	Term_clear();
 
 	/* Process requests until done */
@@ -1589,7 +1587,6 @@ static void do_cmd_options_cheat(cptr info)
 	int		i, k = 0, n = CHEAT_MAX;
 	char	buf[80];
 
-	/* Clear screen */
 	Term_clear();
 
 	/* Interact with the player */
@@ -1767,7 +1764,6 @@ static void do_cmd_options_autosave(cptr info)
 	int     i, k = 0, n = 2;
 	char	buf[80];
 
-	/* Clear screen */
 	Term_clear();
 
 	/* Interact with the player */
@@ -1919,7 +1915,6 @@ void do_cmd_options_aux(int page, cptr info)
 	}
 
 
-	/* Clear screen */
 	Term_clear();
 
 	/* Interact with the player */
@@ -2075,7 +2070,6 @@ static void do_cmd_options_win(void)
 	}
 
 
-	/* Clear screen */
 	Term_clear();
 
 	/* Interact */
@@ -2297,7 +2291,6 @@ void do_cmd_options(void)
 		/* Does not list cheat option when cheat option is off */
 		if(!noscore && !allow_debug_opts) n--;
 
-		/* Clear screen */
 		Term_clear();
 
 		/* Why are we here */
@@ -2865,7 +2858,6 @@ void do_cmd_macros(void)
 	/* Process requests until done */
 	while (1)
 	{
-		/* Clear screen */
 		Term_clear();
 
 #ifdef JP
@@ -3407,7 +3399,6 @@ void do_cmd_visuals(void)
 	/* Interact until done */
 	while (1)
 	{
-		/* Clear screen */
 		Term_clear();
 
 		/* Ask for a choice */
@@ -3763,7 +3754,6 @@ void do_cmd_visuals(void)
 				case 'v':
 					do_cmd_knowledge_creatures(&need_redraw, TRUE, r);
 
-					/* Clear screen */
 					Term_clear();
 					print_visuals_menu(choice_msg);
 					break;
@@ -3885,7 +3875,6 @@ void do_cmd_visuals(void)
 				case 'v':
 					do_cmd_knowledge_objects(&need_redraw, TRUE, k);
 
-					/* Clear screen */
 					Term_clear();
 					print_visuals_menu(choice_msg);
 					break;
@@ -4008,7 +3997,6 @@ void do_cmd_visuals(void)
 				case 'v':
 					do_cmd_knowledge_features(&need_redraw, TRUE, f, &lighting_level);
 
-					/* Clear screen */
 					Term_clear();
 					print_visuals_menu(choice_msg);
 					break;
@@ -9482,7 +9470,6 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 	/* Interact until done */
 	while (1)
 	{
-		/* Clear screen */
 		Term_clear();
 
 		/* Ask for a choice */

@@ -4536,7 +4536,6 @@ static void draw_text_editor(text_body_type *tb)
 	{
 		tb->dirty_flags |= (DIRTY_ALL | DIRTY_MODE);
 
-		/* Clear screen */
 		Term_clear();
 	}
 

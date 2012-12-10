@@ -2621,7 +2621,6 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 	char buf[80];
 
 
-	/* Clear screen */
 	Term_clear();
 
 	/* The "Home" is special */

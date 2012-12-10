@@ -5232,7 +5232,6 @@ bool ask_quick_start(creature_type *creature_ptr)
 	if(!quick_ok) return FALSE;
 
 
-	/* Clear screen */
 	Term_clear();
 
 	/* Extra info */

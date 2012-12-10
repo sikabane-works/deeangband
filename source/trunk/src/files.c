@@ -5301,7 +5301,6 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 	/* start from bottom when reverse mode */
 	if(line == -1) line = ((size-1)/rows)*rows;
 
-	/* Clear screen */
 	Term_clear();
 
 	/* Display the file */
@@ -6241,7 +6240,6 @@ static void print_tomb(creature_type *creature_ptr)
 		int    extra_line = 0;
 #endif
 
-		/* Clear screen */
 		Term_clear();
 
 		/* Build the filename */
@@ -6498,11 +6496,9 @@ static void show_info(creature_type *creature_ptr)
 	/* Flush messages */
 	msg_print(NULL);
 
-
-	/* Describe options */
 #ifdef JP
-prt("キャラクターの記録をファイルに書き出すことができます。", 21, 0);
-prt("リターンキーでキャラクターを見ます。ESCで中断します。", 22, 0);
+	prt("キャラクターの記録をファイルに書き出すことができます。", 21, 0);
+	prt("リターンキーでキャラクターを見ます。ESCで中断します。", 22, 0);
 #else
 	prt("You may now dump a character record to one or more files.", 21, 0);
 	prt("Then, hit RETURN to see the character, or ESC to abort.", 22, 0);
@@ -6515,7 +6511,7 @@ prt("リターンキーでキャラクターを見ます。ESCで中断します。", 22, 0);
 		char out_val[160];
 
 #ifdef JP
-put_str("ファイルネーム: ", 23, 0);
+		put_str("ファイルネーム: ", 23, 0);
 #else
 		put_str("Filename: ", 23, 0);
 #endif
@@ -6563,7 +6559,7 @@ prt("何かキーを押すとさらに情報が続きます (ESCで中断): ", 23, 0);
 		Term_clear();
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
 #ifdef JP
-prt("装備していたアイテム: -続く-", 0, 0);
+		prt("装備していたアイテム: -続く-", 0, 0);
 #else
 		prt("You are using: -more-", 0, 0);
 #endif
@@ -6577,7 +6573,7 @@ prt("装備していたアイテム: -続く-", 0, 0);
 		Term_clear();
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
 #ifdef JP
-prt("持っていたアイテム: -続く-", 0, 0);
+		prt("持っていたアイテム: -続く-", 0, 0);
 #else
 		prt("You are carrying: -more-", 0, 0);
 #endif
@@ -6621,7 +6617,7 @@ prt("持っていたアイテム: -続く-", 0, 0);
 
 				// Caption
 #ifdef JP
-prt(format("我が家に置いてあったアイテム ( %d ページ): -続く-", k+1), 0, 0);
+				prt(format("我が家に置いてあったアイテム ( %d ページ): -続く-", k+1), 0, 0);
 #else
 				prt(format("Your home contains (page %d): -more-", k+1), 0, 0);
 #endif
@@ -6638,7 +6634,6 @@ prt(format("我が家に置いてあったアイテム ( %d ページ): -続く-", k+1), 0, 0);
 
 static bool check_score(creature_type *player_ptr)
 {
-	/* Clear screen */
 	Term_clear();
 
 	/* No score file */
@@ -6795,7 +6790,6 @@ if(!save_player()) msg_print("セーブ失敗！");
 		/* Show more info */
 		show_info(player_ptr);
 
-		/* Clear screen */
 		Term_clear();
 
 		if(check_score(player_ptr))

@@ -606,7 +606,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 		//TODO reimplement get item process.
 	}
-	/* Player misses */
+
+	// MISS
 	else
 	{
 		backstab = FALSE; /* Clumsy! */
@@ -634,7 +635,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 #else
 			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
 #endif
-
 			redraw_stuff(player_ptr);
 		}
 		else
@@ -1291,6 +1291,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 
 	do
 	{
+		if(IS_DEAD(target_ptr)) break;
 		action_num = 0;
 
 		for(i = 0; i < MAX_MELEE_TYPE; i++)
@@ -1424,7 +1425,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 		tried_num++;
 		action_power -= action_cost[i];
 
-	} while(tried_num < 10 && !dead);
+	} while(tried_num < 10 && !IS_DEAD(target_ptr));
 
 	if(!tried_num)
 	{
@@ -1583,10 +1584,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 	blinked = FALSE; // Assume no blink
 	if(!method) return FALSE; // Hack -- no more attacks
-	
+
 	if(!playing || IS_DEAD(target_ptr)) return FALSE; // Stop if player is dead or gone
 	if(distance(target_ptr->fy, target_ptr->fx, attacker_ptr->fy, attacker_ptr->fx) > 1) return FALSE;
-	
+
 	if(subject_change_floor) return FALSE; // Handle "leaving"
 
 	if(method == RBM_SHOOT) return FALSE;
@@ -3485,17 +3486,11 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		}
 	}
 
-
 	/* Always notice cause of death */
 	if(IS_DEAD(target_ptr) && (species_ptr->r_deaths < MAX_SHORT) && !floor_ptr->fight_arena_mode)
-	{
 		species_ptr->r_deaths++;
-	}
 
-	if(target_ptr->posture & KATA_IAI)
-	{
-		set_action(target_ptr, ACTION_NONE);
-	}
+	if(has_trait(attacker_ptr, TRAIT_POSTURE_IAI)) set_action(target_ptr, ACTION_NONE);
 
 	/* Assume we attacked */
 	return TRUE;

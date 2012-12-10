@@ -1449,7 +1449,6 @@ int load_player(void)
 		sf_extra = vvv[3];
 
 
-		/* Clear screen */
 		Term_clear();
 
 		/* Attempt to load */
