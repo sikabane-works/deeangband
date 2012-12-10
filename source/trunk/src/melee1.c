@@ -540,6 +540,47 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(target_ptr->mhp < 1) target_ptr->mhp = 1;
 		weak = TRUE;
 	}
+	// MISS
+	else
+	{
+		backstab = FALSE; /* Clumsy! */
+		fuiuchi = FALSE; /* Clumsy! */
+
+		if((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE) && one_in_(3))
+		{
+			sound(SOUND_HIT);
+
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+			{
+#ifdef JP
+				msg_format("%s‚Í%s‚ÌUŒ‚‚ğ‚©‚í‚µ‚½B", target_name, attacker_name);
+				msg_print("U‚è‰ñ‚µ‚½‘åŠ™‚ª©•ª©g‚É•Ô‚Á‚Ä‚«‚½I");
+#else
+				msg_format("%^s misses %s.", target_name, attacker_name);
+				msg_print("Your scythe returns to you!");
+#endif
+			}
+
+			//TODO Death Scythe damage.
+			k = 0;
+#ifdef JP
+			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_FORCE, k, "€‚Ì‘åŠ™", NULL, -1);
+#else
+			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
+#endif
+			redraw_stuff(player_ptr);
+		}
+		else
+		{
+			sound(SOUND_MISS);
+#ifdef JP
+			msg_format("%s‚Í%s‚ÌUŒ‚‚ğ‚©‚í‚µ‚½B", target_name, attacker_name);
+#else
+			msg_format("%^s misses %s.", target_name, attacker_name);
+#endif
+		}
+	}
+
 	can_drain = FALSE;
 	drain_result = 0;
 
@@ -603,46 +644,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		//TODO reimplement get item process.
 	}
 
-	// MISS
-	else
-	{
-		backstab = FALSE; /* Clumsy! */
-		fuiuchi = FALSE; /* Clumsy! */
-
-		if((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE) && one_in_(3))
-		{
-			sound(SOUND_HIT);
-
-			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-			{
-#ifdef JP
-				msg_format("%s‚Í%s‚ÌUŒ‚‚ğ‚©‚í‚µ‚½B", target_name, attacker_name);
-				msg_print("U‚è‰ñ‚µ‚½‘åŠ™‚ª©•ª©g‚É•Ô‚Á‚Ä‚«‚½I");
-#else
-				msg_format("%^s misses %s.", target_name, attacker_name);
-				msg_print("Your scythe returns to you!");
-#endif
-			}
-
-			//TODO Death Scythe damage.
-			k = 0;
-#ifdef JP
-			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_FORCE, k, "€‚Ì‘åŠ™", NULL, -1);
-#else
-			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
-#endif
-			redraw_stuff(player_ptr);
-		}
-		else
-		{
-			sound(SOUND_MISS);
-#ifdef JP
-			msg_format("%s‚Í%s‚ÌUŒ‚‚ğ‚©‚í‚µ‚½B", target_name, attacker_name);
-#else
-			msg_format("%^s misses %s.", target_name, attacker_name);
-#endif
-		}
-	}
 	backstab = FALSE;
 	fuiuchi = FALSE;
 
@@ -2890,19 +2891,19 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 							switch (stat)
 							{
 #ifdef JP
-								case STAT_STR: act = "‹­‚­"; break;
-								case STAT_INT: act = "‘–¾‚Å"; break;
-								case STAT_WIS: act = "Œ«–¾‚Å"; break;
-								case STAT_DEX: act = "Ší—p‚Å"; break;
-								case STAT_CON: act = "Œ’N‚Å"; break;
-								case STAT_CHA: act = "”ü‚µ‚­"; break;
+					case STAT_STR: act = "‹­‚­"; break;
+					case STAT_INT: act = "‘–¾‚Å"; break;
+					case STAT_WIS: act = "Œ«–¾‚Å"; break;
+					case STAT_DEX: act = "Ší—p‚Å"; break;
+					case STAT_CON: act = "Œ’N‚Å"; break;
+					case STAT_CHA: act = "”ü‚µ‚­"; break;
 #else
-								case STAT_STR: act = "strong"; break;
-								case STAT_INT: act = "bright"; break;
-								case STAT_WIS: act = "wise"; break;
-								case STAT_DEX: act = "agile"; break;
-								case STAT_CON: act = "hale"; break;
-								case STAT_CHA: act = "beautiful"; break;
+					case STAT_STR: act = "strong"; break;
+					case STAT_INT: act = "bright"; break;
+					case STAT_WIS: act = "wise"; break;
+					case STAT_DEX: act = "agile"; break;
+					case STAT_CON: act = "hale"; break;
+					case STAT_CHA: act = "beautiful"; break;
 #endif
 
 							}
