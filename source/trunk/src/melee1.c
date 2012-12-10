@@ -99,7 +99,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 *
 * If no "weapon" is available, then "punch" the creature one time.
 */
-static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *mdeath, s16b hand, int mode)
 {
 	int		num = 0, k, bonus, chance;
 
@@ -591,8 +591,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 #else
 				msg_format("%^s changes!", target_name);
 #endif
-
-				*fear = FALSE;
 				weak = FALSE;
 			}
 			else msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
@@ -1379,7 +1377,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 		case MELEE_TYPE_WEAPON_6TH:
 		case MELEE_TYPE_WEAPON_7TH:
 		case MELEE_TYPE_WEAPON_8TH:
-			if(attacker_ptr->can_melee[i]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &dead, i + MELEE_TYPE_WEAPON_1ST, mode);
+			if(attacker_ptr->can_melee[i]) weapon_attack(attacker_ptr, target_ptr, y, x, &dead, i + MELEE_TYPE_WEAPON_1ST, mode);
 			break;
 
 		case MELEE_TYPE_SPECIAL_1ST:
