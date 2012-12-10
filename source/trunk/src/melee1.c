@@ -668,14 +668,12 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 }
 
-static void natural_attack(creature_type *attacker_ptr, creature_type *target_ptr, int attack, bool *fear)
+static void natural_attack(creature_type *attacker_ptr, creature_type *target_ptr, int attack)
 {
 	int             k, bonus, chance;
 	int             n_weight = 0;
 	char            target_name[MAX_NLEN];
-
 	int             dss, ddd;
-
 	cptr            atk_desc;
 
 	switch (attack)
@@ -1360,7 +1358,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 		i = uneven_rand(select_list, select_weight, action_num);
 
 		// Hack -- Apply "protection from evil"
-		if((target_ptr->timed_trait[TRAIT_PROT_EVIL] > 0) && is_enemy_of_good_creature(target_ptr) && (target_ptr->lev >= attacker_ptr->lev) && ((randint0(100) + target_ptr->lev) > 50))
+		if(has_trait(target_ptr, TRAIT_PROT_EVIL) && is_enemy_of_good_creature(target_ptr) && (target_ptr->lev >= attacker_ptr->lev) && ((randint0(100) + target_ptr->lev) > 50))
 		{
 			//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr)) species_ptr->r_flags3 |= RF3_EVIL; // Remember the Evil-ness
 #ifdef JP
@@ -1398,23 +1396,23 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 			break;
 
 		case MELEE_TYPE_HORNS:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_HORNS, &fear);
+			natural_attack(attacker_ptr, target_ptr, TRAIT_HORNS);
 			break;
 
 		case MELEE_TYPE_BEAK:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_BEAK, &fear);
+			natural_attack(attacker_ptr, target_ptr, TRAIT_BEAK);
 			break;
 
 		case MELEE_TYPE_SCOR_TAIL:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_SCOR_TAIL, &fear);
+			natural_attack(attacker_ptr, target_ptr, TRAIT_SCOR_TAIL);
 			break;
 
 		case MELEE_TYPE_TRUNK:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_TRUNK, &fear);
+			natural_attack(attacker_ptr, target_ptr, TRAIT_TRUNK);
 			break;
 
 		case MELEE_TYPE_TENTACLES:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_TENTACLES, &fear);
+			natural_attack(attacker_ptr, target_ptr, TRAIT_TENTACLES);
 			break;
 
 		}
