@@ -99,7 +99,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 *
 * If no "weapon" is available, then "punch" the creature one time.
 */
-static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *mdeath, s16b hand, int mode)
+static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, s16b hand, int mode)
 {
 	int		num = 0, k, bonus, chance;
 
@@ -452,9 +452,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL, NULL, -1); // Damage, check for fear and death
 
-		if(gameover);
+		if(IS_DEAD(target_ptr));
 		{
-			*mdeath = TRUE;
 			if((attacker_ptr->class_idx == CLASS_BERSERKER) && attacker_ptr->energy_need)
 			{
 				//TODO
@@ -576,7 +575,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			msg_format("%^s disappears!", target_name);
 #endif
 			teleport_away(&creature_list[c_ptr->creature_idx], 50, TELEPORT_PASSIVE);
-			*mdeath = TRUE;
 		}
 	}
 
@@ -648,7 +646,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	backstab = FALSE;
 	fuiuchi = FALSE;
 
-	if(weak && !(*mdeath))
+	if(weak && !IS_DEAD(target_ptr))
 	{
 #ifdef JP
 		msg_format("%s‚ÍŽã‚­‚È‚Á‚½‚æ‚¤‚¾B", target_name);
@@ -658,11 +656,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	}
 
 	// Mega-Hack -- apply earthquake brand
-	if(do_quake)
-	{
-		earthquake(target_ptr, attacker_ptr->fy, attacker_ptr->fx, 10);
-		if(!floor_ptr->cave[y][x].creature_idx) *mdeath = TRUE;
-	}
+	if(do_quake) earthquake(target_ptr, attacker_ptr->fy, attacker_ptr->fx, 10);
 
 }
 
@@ -1377,7 +1371,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 		case MELEE_TYPE_WEAPON_6TH:
 		case MELEE_TYPE_WEAPON_7TH:
 		case MELEE_TYPE_WEAPON_8TH:
-			if(attacker_ptr->can_melee[i]) weapon_attack(attacker_ptr, target_ptr, y, x, &dead, i + MELEE_TYPE_WEAPON_1ST, mode);
+			if(attacker_ptr->can_melee[i]) weapon_attack(attacker_ptr, target_ptr, y, x, i + MELEE_TYPE_WEAPON_1ST, mode);
 			break;
 
 		case MELEE_TYPE_SPECIAL_1ST:
