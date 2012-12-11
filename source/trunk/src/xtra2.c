@@ -3616,15 +3616,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_print("'Rise, my servant!'");
 			reward = "healing";
 #endif
-			restore_exp(creature_ptr);
-			(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
-			(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
-			(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
-			(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
-			(void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-			(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
-			heal_creature(creature_ptr, 5000);
-			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)do_res_stat(creature_ptr, dummy);
+			do_active_trait(creature_ptr, TRAIT_TRUE_HEALING2, TRUE);
 			break;
 
 		case REW_CURSE_WP:
