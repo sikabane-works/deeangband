@@ -1723,27 +1723,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			break;
 		}
 
-		case SV_STAFF_CURING:
-		{
-			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0)) ident = TRUE;
-			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
-			break;
-		}
-
-		case SV_STAFF_HEALING:
-		{
-			if(heal_creature(creature_ptr, 300)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
-			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
-			break;
-		}
-
 		case SV_STAFF_THE_MAGI:
 		{
 			if(do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
@@ -2529,27 +2508,6 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 		{
 			probing(GET_FLOOR_PTR(creature_ptr));
 			ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_CURING:
-		{
-			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0)) ident = TRUE;
-			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_HEALING:
-		{
-			if(heal_creature(creature_ptr, 500)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
-			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 		}
 

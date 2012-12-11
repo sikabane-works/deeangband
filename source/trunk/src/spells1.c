@@ -1970,10 +1970,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_OLD_HEAL:
-		(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
-		(void)set_timed_trait(target_ptr, TRAIT_STUN, 0);
-		(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, 0);
-		(void)set_timed_trait(target_ptr, TRAIT_AFRAID, 0);
+		(void)set_timed_trait_aux(target_ptr, TRAIT_PARALYZED, 0, TRUE);
+		(void)set_timed_trait_aux(target_ptr, TRAIT_STUN, 0, TRUE);
+		(void)set_timed_trait_aux(target_ptr, TRAIT_CONFUSED, 0, TRUE);
+		(void)set_timed_trait_aux(target_ptr, TRAIT_AFRAID, 0, TRUE);
 		(void)heal_creature(target_ptr, dam);
 
 		// Redraw (later) if needed

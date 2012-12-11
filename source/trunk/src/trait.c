@@ -834,18 +834,18 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BECOME_HERO:
-		if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
 		if(add_timed_trait(caster_ptr, TRAIT_HERO, randint1(25) + 25, TRUE)) effected = TRUE;
 		if(heal_creature(caster_ptr, 10)) effected = TRUE;
 		break;
 
 	case TRAIT_CURING:
-		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_POISONED, 0, TRUE);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_CONFUSED, 0, TRUE);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_BLIND, 0, TRUE);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_STUN, 0, TRUE);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_CUT, 0, TRUE);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
 		break;
 
 	case TRAIT_CHANGE_BRAND:
@@ -855,7 +855,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_SHIKO:
-		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_HERO, randint1(20) + 20, FALSE);
 		dispel_evil(caster_ptr, caster_ptr->lev * 3);
 		break;
