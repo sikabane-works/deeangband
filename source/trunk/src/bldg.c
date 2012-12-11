@@ -2506,9 +2506,9 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 				}
 				else
 				{
-					set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
-					set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
-					set_timed_trait(creature_ptr, TRAIT_STUN, 0);
+					set_timed_trait_aux(creature_ptr, TRAIT_BLIND, 0, TRUE);
+					set_timed_trait_aux(creature_ptr, TRAIT_CONFUSED, 0, TRUE);
+					set_timed_trait_aux(creature_ptr, TRAIT_STUN, 0, TRUE);
 					creature_ptr->chp = creature_ptr->mhp;
 					creature_ptr->csp = creature_ptr->msp;
 
@@ -3879,11 +3879,11 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		break;
 	case BUILDING_FUNCTION_HEALING: /* needs work */
 		heal_creature(creature_ptr, 200);
-		set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
-		set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
-		set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
-		set_timed_trait(creature_ptr, TRAIT_CUT, 0);
-		set_timed_trait(creature_ptr, TRAIT_STUN, 0);
+		set_timed_trait_aux(creature_ptr, TRAIT_POISONED, 0, TRUE);
+		set_timed_trait_aux(creature_ptr, TRAIT_BLIND, 0, TRUE);
+		set_timed_trait_aux(creature_ptr, TRAIT_CONFUSED, 0, TRUE);
+		set_timed_trait_aux(creature_ptr, TRAIT_CUT, 0, TRUE);
+		set_timed_trait_aux(creature_ptr, TRAIT_STUN, 0, TRUE);
 		paid = TRUE;
 		break;
 

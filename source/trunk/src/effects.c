@@ -85,7 +85,7 @@ bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_d
 
 	creature_ptr->timed_trait[type] = v; // Use the value
 
-	if(have_posture(creature_ptr) && type == TRAIT_AFRAID)
+	if(have_posture(creature_ptr) && type == TRAIT_AFRAID && v > 0)
 	{
 		if(is_seen(player_ptr, creature_ptr))
 		{
@@ -1676,7 +1676,7 @@ void do_poly_wounds(creature_type *creature_ptr)
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, change / 2, "a polymorphed wound", NULL, -1);
 #endif
 		}
-		set_timed_trait(creature_ptr, TRAIT_CUT, change);
+		set_timed_trait_aux(creature_ptr, TRAIT_CUT, change, FALSE);
 	}
 	else add_timed_trait(creature_ptr, TRAIT_CUT, change / 2, FALSE);
 }

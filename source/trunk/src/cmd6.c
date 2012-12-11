@@ -854,11 +854,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			if(set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0)) effected = TRUE;
 			break;
 
-		case SV_POTION_INVULNERABILITY:
-			(void)add_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, TRUE);
-			effected = TRUE;
-			break;
-
 		case SV_POTION_NEW_LIFE:
 			do_cmd_rerate(caster_ptr, FALSE);
 			get_max_stats(caster_ptr);
