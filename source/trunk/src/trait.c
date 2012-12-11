@@ -1832,6 +1832,31 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			effected = TRUE;
 			break;
 
+	case TRAIT_TRUE_HEALING2:
+#ifdef JP
+			msg_print("体中に生命力が満ちあふれてきた！");
+#else
+			msg_print("You feel life flow through your body!");
+#endif
+			(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
+			(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);
+			(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0);
+			(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
+			(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
+			(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
+			(void)do_res_stat(caster_ptr, STAT_STR);
+			(void)do_res_stat(caster_ptr, STAT_CON);
+			(void)do_res_stat(caster_ptr, STAT_DEX);
+			(void)do_res_stat(caster_ptr, STAT_WIS);
+			(void)do_res_stat(caster_ptr, STAT_INT);
+			(void)do_res_stat(caster_ptr, STAT_CHA);
+			restore_exp(caster_ptr);
+			(void)set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE);
+			update_creature(caster_ptr, TRUE);
+			heal_creature(caster_ptr, 5000);
+			effected = TRUE;
+			break;
+
 	case TRAIT_S_KIN:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = 0; k < 4; k++) (void)summon_kin_player(caster_ptr, user_level, target_row, target_col, (PC_FORCE_PET | PC_ALLOW_GROUP));

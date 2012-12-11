@@ -791,31 +791,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0)) effected = TRUE;
 			break;
 
-		case SV_POTION_LIFE:
-#ifdef JP
-			msg_print("‘Ì’†‚É¶–½—Í‚ª–‚¿‚ ‚Ó‚ê‚Ä‚«‚½I");
-#else
-			msg_print("You feel life flow through your body!");
-#endif
-			(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
-			(void)do_res_stat(caster_ptr, STAT_STR);
-			(void)do_res_stat(caster_ptr, STAT_CON);
-			(void)do_res_stat(caster_ptr, STAT_DEX);
-			(void)do_res_stat(caster_ptr, STAT_WIS);
-			(void)do_res_stat(caster_ptr, STAT_INT);
-			(void)do_res_stat(caster_ptr, STAT_CHA);
-			restore_exp(caster_ptr);
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE);
-			update_creature(caster_ptr, TRUE);
-			heal_creature(caster_ptr, 5000);
-			effected = TRUE;
-			break;
-
 		case SV_POTION_SELF_KNOWLEDGE:
 #ifdef JP
 			msg_print("©•ª©g‚Ì‚±‚Æ‚ª­‚µ‚Í•ª‚©‚Á‚½‹C‚ª‚·‚é...");
