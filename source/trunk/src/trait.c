@@ -1385,10 +1385,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 			}
 			*/
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
-			}
+			else (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
 			learn_trait(target_ptr, TRAIT_CONF);
 			update_smart_learn(caster_ptr, DRS_CONF);
 			break;
@@ -2708,12 +2705,12 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		alter_reality(caster_ptr);
 
 	case TRAIT_PATTERN_WALK:
-		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_POISONED, 0, TRUE);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_STUN, 0, TRUE);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_CUT, 0, TRUE);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_BLIND, 0, TRUE);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 		(void)do_res_stat(caster_ptr, STAT_STR);
 		(void)do_res_stat(caster_ptr, STAT_INT);
 		(void)do_res_stat(caster_ptr, STAT_WIS);
