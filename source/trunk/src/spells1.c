@@ -3495,7 +3495,7 @@ static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, in
 		msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
 #endif
 		project(0, 0, 0, caster_ptr->fy, caster_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
-		if(caster_ptr->timed_trait[TRAIT_EYE_EYE]) add_timed_trait(player_ptr, TRAIT_EYE_EYE, -5, TRUE);
+		if(has_trait(caster_ptr, TRAIT_EYE_EYE)) add_timed_trait(player_ptr, TRAIT_EYE_EYE, -5, TRUE);
 	}
 
 	if(target_ptr->riding && dam > 0) do_thrown_from_ridingdam_p = (dam > 200) ? 200 : dam;
@@ -4219,7 +4219,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 							if(m_ptr->see_others)
 							{
 								/* Hack -- auto-recall */
-								if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
+								if(!has_trait(caster_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
 
 								/* Hack - auto-track */
 								health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
@@ -4245,7 +4245,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 					if(m_ptr->see_others)
 					{
 						/* Hack -- auto-recall */
-						if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
+						if(!has_trait(caster_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
 
 						/* Hack - auto-track */
 						health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
@@ -4377,7 +4377,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 					if(m_ptr->see_others)
 					{
 						/* Hack -- auto-recall */
-						if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
+						if(!has_trait(caster_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
 
 						/* Hack - auto-track */
 						health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
@@ -4901,7 +4901,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 				if(m_ptr->see_others)
 				{
 					/* Hack -- auto-recall */
-					if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
+					if(!has_trait(caster_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
 
 					/* Hack - auto-track */
 					if(m_ptr->see_others) health_track(floor_ptr->cave[y][x].creature_idx);

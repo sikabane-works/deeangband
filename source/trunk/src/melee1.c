@@ -864,7 +864,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			while ((min_level > attacker_ptr->lev) || (randint1(attacker_ptr->lev) < ma_ptr->chance));
 
 			/* keep the highest level attack available we found */
-			if((ma_ptr->min_level > old_ptr->min_level) && !attacker_ptr->timed_trait[TRAIT_STUN] && !attacker_ptr->timed_trait[TRAIT_CONFUSED])
+			if((ma_ptr->min_level > old_ptr->min_level) && !has_trait(attacker_ptr, TRAIT_STUN) && !has_trait(attacker_ptr, TRAIT_CONFUSED))
 			{
 				old_ptr = ma_ptr;
 
@@ -1021,7 +1021,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 	creature_desc(attacker_name, attacker_ptr, 0);
 
 	if(IS_FEMALE(target_ptr) && has_trait(target_ptr, TRAIT_HUMANOID) &&
-		!(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(attacker_ptr, TRAIT_HALLUCINATION) || !target_ptr->see_others))
+		!(has_trait(attacker_ptr, TRAIT_STUN) || has_trait(attacker_ptr, TRAIT_CONFUSED) || has_trait(attacker_ptr, TRAIT_HALLUCINATION) || !target_ptr->see_others))
 	{
 		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
 		for(i = 0; i < n; i++)
@@ -1042,7 +1042,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 
 static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if(attacker_ptr->timed_trait[TRAIT_AFRAID]) // Handle player fear
+	if(has_trait(attacker_ptr, TRAIT_AFRAID)) // Handle player fear
 	{
 		char attacker_name[100];
 		char target_name[100];
@@ -1128,7 +1128,7 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 
 static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if(!is_hostile(target_ptr) && !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(attacker_ptr, TRAIT_HALLUCINATION) || attacker_ptr->timed_trait[TRAIT_S_HERO] || !target_ptr->see_others))
+	if(!is_hostile(target_ptr) && !has_trait(attacker_ptr, TRAIT_STUN) || has_trait(attacker_ptr, TRAIT_CONFUSED) || has_trait(attacker_ptr, TRAIT_HALLUCINATION) || has_trait(attacker_ptr, TRAIT_S_HERO) || !target_ptr->see_others)
 	{
 		char attacker_name[100];
 		char target_name[100];

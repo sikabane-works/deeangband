@@ -1752,8 +1752,6 @@ bool probing(floor_type *floor_ptr)
 			creature_desc(m_name, m_ptr, CD_IGNORE_HALLU | CD_INDEF_HIDDEN);
 
 			speed = m_ptr->speed;
-			if(m_ptr->timed_trait[TRAIT_FAST]) speed += 10;
-			if(m_ptr->timed_trait[TRAIT_SLOW]) speed -= 10;
 
 			/* Get the creature's alignment */
 			/* TODO: New Alignment View */
