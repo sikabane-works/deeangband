@@ -1372,16 +1372,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			(void)wall_to_mud(creature_ptr, dir);
 			break;
 
-		case RACE_TITAN:
-#ifdef JP
-			msg_print("ìGÇí≤ç∏ÇµÇΩ...");
-#else
-			msg_print("You examine your foes...");
-#endif
-
-			probing(floor_ptr);
-			break;
-
 		case RACE_CYCLOPS:
 			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 #ifdef JP

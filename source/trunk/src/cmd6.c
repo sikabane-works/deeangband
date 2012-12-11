@@ -1756,13 +1756,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			break;
 		}
 
-		case SV_STAFF_PROBING:
-		{
-			probing(floor_ptr);
-			ident = TRUE;
-			break;
-		}
-
 		case SV_STAFF_DISPEL_EVIL:
 		{
 			if(dispel_evil(creature_ptr, 80)) ident = TRUE;
@@ -2500,13 +2493,6 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 		case SV_ROD_DETECTION:
 		{
 			detect_all(creature_ptr, DETECT_RAD_DEFAULT);
-			ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_PROBING:
-		{
-			probing(GET_FLOOR_PTR(creature_ptr));
 			ident = TRUE;
 			break;
 		}
