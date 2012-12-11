@@ -2190,91 +2190,6 @@ static void display_player_various(creature_type * creature_ptr)
 
 
 
-/*
- * Obtain the "flags" for the player as if he was an item
- */
-static void player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_ptr)
-{
-	// TODO
-}
-
-
-static void tim_player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_ptr)
-{
-	int i;
-
-	// Clear
-	for (i = 0; i < TRAIT_FLAG_MAX; i++) flgs[i] = 0L;
-
-	if(IS_HERO(creature_ptr) || has_trait(creature_ptr, TRAIT_S_HERO)) add_flag(flgs, TRAIT_FEARLESS);
-	if(has_trait(creature_ptr, TRAIT_SEE_INVISIBLE))add_flag(flgs, TRAIT_SEE_INVISIBLE);
-	if(has_trait(creature_ptr, TRAIT_REGENERATE)) add_flag(flgs, TRAIT_REGENERATE);
-	if(IS_TIM_ESP(creature_ptr)) add_flag(flgs, TRAIT_ESP);
-	if(IS_FAST(creature_ptr) || has_trait(creature_ptr, TRAIT_SLOW)) add_flag(flgs, TRAIT_SPEED);
-
-	if(IS_OPPOSE_POIS(creature_ptr)) add_flag(flgs, TRAIT_RES_POIS);
-
-	if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) add_flag(flgs, TRAIT_REFLECTING);
-
-	/* by henkma */
-	if(creature_ptr->timed_trait[TRAIT_REFLECTING]) add_flag(flgs, TRAIT_REFLECTING);
-
-	if(creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
-	{
-		add_flag(flgs, TRAIT_NO_BLIND);
-		add_flag(flgs, TRAIT_NO_CONF);
-		add_flag(flgs, TRAIT_REFLECTING);
-		add_flag(flgs, TRAIT_FREE_ACTION);
-		add_flag(flgs, TRAIT_LEVITATION);
-	}
-
-	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES])
-	{
-		add_flag(flgs, TRAIT_FEARLESS);
-		add_flag(flgs, TRAIT_RES_LITE);
-		add_flag(flgs, TRAIT_RES_DARK);
-		add_flag(flgs, TRAIT_NO_BLIND);
-		add_flag(flgs, TRAIT_NO_CONF);
-		add_flag(flgs, TRAIT_RES_SOUN);
-		add_flag(flgs, TRAIT_RES_SHAR);
-		add_flag(flgs, TRAIT_RES_NETH);
-		add_flag(flgs, TRAIT_RES_NEXU);
-		add_flag(flgs, TRAIT_RES_CHAO);
-		add_flag(flgs, TRAIT_RES_DISE);
-		add_flag(flgs, TRAIT_REFLECTING);
-		add_flag(flgs, TRAIT_HOLD_LIFE);
-		add_flag(flgs, TRAIT_FREE_ACTION);
-		add_flag(flgs, TRAIT_AURA_FIRE);
-		add_flag(flgs, TRAIT_AURA_ELEC);
-		add_flag(flgs, TRAIT_AURA_COLD);
-		add_flag(flgs, TRAIT_LEVITATION);
-		add_flag(flgs, TRAIT_LITE);
-		add_flag(flgs, TRAIT_SEE_INVISIBLE);
-		add_flag(flgs, TRAIT_ESP);
-		add_flag(flgs, TRAIT_SLOW_DIGEST);
-		add_flag(flgs, TRAIT_REGENERATE);
-		add_flag(flgs, TRAIT_SUSTAIN_STR);
-		add_flag(flgs, TRAIT_SUSTAIN_INT);
-		add_flag(flgs, TRAIT_SUSTAIN_WIS);
-		add_flag(flgs, TRAIT_SUSTAIN_DEX);
-		add_flag(flgs, TRAIT_SUSTAIN_CON);
-		add_flag(flgs, TRAIT_SUSTAIN_CHR);
-	}
-
-	/* Hex bonuses */
-	if(creature_ptr->realm1 == REALM_HEX)
-	{
-		if(HEX_SPELLING(creature_ptr, HEX_DEMON_AURA))
-		{
-			add_flag(flgs, TRAIT_AURA_FIRE);
-			add_flag(flgs, TRAIT_REGENERATE);
-		}
-		if(HEX_SPELLING(creature_ptr, HEX_ICE_ARMOR)) add_flag(flgs, TRAIT_AURA_COLD);
-		if(HEX_SPELLING(creature_ptr, HEX_SHOCK_CLOAK)) add_flag(flgs, TRAIT_AURA_ELEC);
-	}
-}
-
-
 /* Mode flags for displaying player flags */
 #define DP_CURSE   0x01
 #define DP_IMM     0x02
@@ -2518,8 +2433,6 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	all_player_flags f;
 
 	/* Extract flags and store */
-	player_flags(f.player_flags, creature_ptr);
-	tim_player_flags(f.tim_player_flags, creature_ptr);
 	player_immunity(f.player_imm, creature_ptr);
 	tim_player_immunity(f.tim_player_imm, creature_ptr);
 	known_obj_immunity(f.known_obj_imm, creature_ptr);
@@ -2721,8 +2634,6 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	all_player_flags f;
 
 	/* Extract flags and store */
-	player_flags(f.player_flags, creature_ptr);
-	tim_player_flags(f.tim_player_flags, creature_ptr);
 	player_immunity(f.player_imm, creature_ptr);
 	tim_player_immunity(f.tim_player_imm, creature_ptr);
 	known_obj_immunity(f.known_obj_imm, creature_ptr);
@@ -2781,8 +2692,6 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	all_player_flags f;
 
 	/* Extract flags and store */
-	player_flags(f.player_flags, creature_ptr);
-	tim_player_flags(f.tim_player_flags, creature_ptr);
 	player_immunity(f.player_imm, creature_ptr);
 	tim_player_immunity(f.tim_player_imm, creature_ptr);
 	known_obj_immunity(f.known_obj_imm, creature_ptr);
@@ -2907,8 +2816,6 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 	all_player_flags f;
 
 	/* Extract flags and store */
-	player_flags(f.player_flags, creature_ptr);
-	tim_player_flags(f.tim_player_flags, creature_ptr);
 	player_immunity(f.player_imm, creature_ptr);
 	tim_player_immunity(f.tim_player_imm, creature_ptr);
 	known_obj_immunity(f.known_obj_imm, creature_ptr);
@@ -3324,9 +3231,6 @@ static void display_player_stat_info(creature_type *creature_ptr)
 		/* Advance */
 		col++;
 	}
-
-	/* Player flags */
-	player_flags(flgs, creature_ptr);
 
 	/* Check stats */
 	for (stat = 0; stat < STAT_MAX; stat++)
