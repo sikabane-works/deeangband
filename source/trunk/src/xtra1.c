@@ -1054,12 +1054,12 @@ static void prt_speed(creature_type *creature_ptr)
 		if(creature_ptr->riding)
 		{
 			creature_type *m_ptr = &creature_list[creature_ptr->riding];
-			if(m_ptr->timed_trait[TRAIT_FAST] && !m_ptr->timed_trait[TRAIT_SLOW]) attr = TERM_L_BLUE;
-			else if(m_ptr->timed_trait[TRAIT_SLOW] && !m_ptr->timed_trait[TRAIT_FAST]) attr = TERM_VIOLET;
+			if(has_trait(m_ptr, TRAIT_FAST) && !has_trait(m_ptr, TRAIT_SLOW)) attr = TERM_L_BLUE;
+			else if(has_trait(m_ptr, TRAIT_SLOW) && !has_trait(m_ptr, TRAIT_FAST)) attr = TERM_VIOLET;
 			else attr = TERM_GREEN;
 		}
-		else if((is_fast && !creature_ptr->timed_trait[TRAIT_SLOW]) || creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]) attr = TERM_YELLOW;
-		else if(creature_ptr->timed_trait[TRAIT_SLOW] && !is_fast) attr = TERM_VIOLET;
+		else if((is_fast && !has_trait(creature_ptr, TRAIT_SLOW)) || has_trait(creature_ptr, TRAIT_LIGHT_SPEED)) attr = TERM_YELLOW;
+		else if(has_trait(creature_ptr, TRAIT_SLOW) && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_GREEN;
 #ifdef JP
 		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? "æ”n" : "‰Á‘¬"), i);
