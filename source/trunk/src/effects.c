@@ -1,13 +1,13 @@
 /* File: effects.c */
 
 /*
- * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * 2012 modified by Deskull for D'angband
- *
- * This software may be copied and distributed for educational, research,
- * and not for profit purposes provided that this copyright and statement
- * are included in all such copies.  Other copyrights may also apply.
- */
+* Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+* 2012 modified by Deskull for D'angband
+*
+* This software may be copied and distributed for educational, research,
+* and not for profit purposes provided that this copyright and statement
+* are included in all such copies.  Other copyrights may also apply.
+*/
 
 /* Purpose: effects of various "objects" */
 
@@ -50,7 +50,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v)
 	if(!notice) return FALSE;	// Nothing to notice
 	if(disturb_state) disturb(player_ptr, 0, 0); // Disturb
 	handle_stuff();
-	
+
 	return TRUE;	// Result
 }
 
@@ -85,11 +85,30 @@ bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_d
 
 	creature_ptr->timed_trait[type] = v; // Use the value
 
+	if(have_posture(creature_ptr) && type == TRAIT_AFRAID)
+	{
+		if(is_seen(player_ptr, creature_ptr))
+		{
+#ifdef JP
+			msg_format("%sの型が崩れた。", creature_ptr->name);
+#else
+			msg_format("%s%s posture gets loose.", creature_ptr->name, is_player(creature_ptr) ? "r": "'s");
+#endif
+		}
+		creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
+		creature_ptr->creature_update |= (CRU_BONUS);
+		creature_ptr->creature_update |= (PU_CREATURES);
+		play_redraw |= (PR_STATE);
+		play_redraw |= (PR_STATUS);
+		creature_ptr->action = ACTION_NONE;
+	}
+
+
 	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS);	// Redraw status bar
 	if(!notice) return FALSE;	// Nothing to notice
 	if(disturb_state) disturb(player_ptr, 0, 0); // Disturb
 	handle_stuff();
-	
+
 	return TRUE;	// Result
 }
 
@@ -105,7 +124,7 @@ void set_action(creature_type *creature_ptr, int typ)
 	{
 		switch (prev_typ)
 		{
-			case ACTION_SEARCH:
+		case ACTION_SEARCH:
 			{
 #ifdef JP
 				msg_print("探索をやめた。");
@@ -115,12 +134,12 @@ void set_action(creature_type *creature_ptr, int typ)
 				play_redraw |= (PR_SPEED);
 				break;
 			}
-			case ACTION_REST:
+		case ACTION_REST:
 			{
 				creature_ptr->resting = 0;
 				break;
 			}
-			case ACTION_LEARN:
+		case ACTION_LEARN:
 			{
 #ifdef JP
 				msg_print("学習をやめた。");
@@ -130,7 +149,7 @@ void set_action(creature_type *creature_ptr, int typ)
 				creature_ptr->new_mane = FALSE;
 				break;
 			}
-			case ACTION_KAMAE:
+		case ACTION_KAMAE:
 			{
 #ifdef JP
 				msg_print("構えをといた。");
@@ -140,7 +159,7 @@ void set_action(creature_type *creature_ptr, int typ)
 				creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
 				break;
 			}
-			case ACTION_KATA:
+		case ACTION_KATA:
 			{
 #ifdef JP
 				msg_print("型を崩した。");
@@ -152,7 +171,7 @@ void set_action(creature_type *creature_ptr, int typ)
 				play_redraw |= (PR_STATUS);
 				break;
 			}
-			case ACTION_SING:
+		case ACTION_SING:
 			{
 #ifdef JP
 				msg_print("歌うのをやめた。");
@@ -161,7 +180,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #endif
 				break;
 			}
-			case ACTION_HAYAGAKE:
+		case ACTION_HAYAGAKE:
 			{
 #ifdef JP
 				msg_print("足が重くなった。");
@@ -170,7 +189,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #endif
 				break;
 			}
-			case ACTION_SPELL:
+		case ACTION_SPELL:
 			{
 #ifdef JP
 				msg_print("呪文の詠唱を中断した。");
@@ -189,7 +208,7 @@ void set_action(creature_type *creature_ptr, int typ)
 
 	switch (creature_ptr->action)
 	{
-		case ACTION_SEARCH:
+	case ACTION_SEARCH:
 		{
 #ifdef JP
 			msg_print("注意深く歩き始めた。");
@@ -199,7 +218,7 @@ void set_action(creature_type *creature_ptr, int typ)
 			play_redraw |= (PR_SPEED);
 			break;
 		}
-		case ACTION_LEARN:
+	case ACTION_LEARN:
 		{
 #ifdef JP
 			msg_print("学習を始めた。");
@@ -208,7 +227,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #endif
 			break;
 		}
-		case ACTION_FISH:
+	case ACTION_FISH:
 		{
 #ifdef JP
 			msg_print("水面に糸を垂らした．．．");
@@ -217,7 +236,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #endif
 			break;
 		}
-		case ACTION_HAYAGAKE:
+	case ACTION_HAYAGAKE:
 		{
 #ifdef JP
 			msg_print("足が羽のように軽くなった。");
@@ -226,7 +245,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #endif
 			break;
 		}
-		default:
+	default:
 		{
 			break;
 		}
@@ -300,196 +319,65 @@ void dispel_creature(creature_type *creature_ptr)
 }
 
 /*
- * TODO:confused process.
- */
+* TODO:confused process.
+*/
 #if 0
-			if(creature_ptr->action == ACTION_LEARN)
-			{
-				if(is_seen(player_ptr, creature_ptr))
-				{
-#ifdef JP
-					msg_format("%sは学習が続けられない！", name);
-#else
-					msg_format("%s cannot continue Learning!", name);
-#endif
-				}
-				creature_ptr->new_mane = FALSE;
-
-				play_redraw |= (PR_STATE);
-				creature_ptr->action = ACTION_NONE;
-			}
-			if(creature_ptr->action == ACTION_KAMAE)
-			{
-				if(is_seen(player_ptr, creature_ptr))
-				{
-#ifdef JP
-					msg_format("%sの構えがとけた。", name);
-#else
-					msg_foamat("%s%s posture gets loose.", name, is_player(creature_ptr) ? "r" : "'s");
-#endif
-				}
-				creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
-				creature_ptr->creature_update |= (CRU_BONUS);
-				play_redraw |= (PR_STATE);
-				creature_ptr->action = ACTION_NONE;
-			}
-			else if(creature_ptr->action == ACTION_KATA)
-			{
-				if(is_seen(player_ptr, creature_ptr))
-				{
-#ifdef JP
-					msg_format("%sの型は崩れた。", name);
-#else
-					msg_format("%s%s posture gets loose.", name, is_player(creature_ptr) _ "r", : "'s");
-#endif
-				}
-				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
-				creature_ptr->creature_update |= (CRU_BONUS);
-				creature_ptr->creature_update |= (PU_CREATURES);
-				play_redraw |= (PR_STATE);
-				play_redraw |= (PR_STATUS);
-				creature_ptr->action = ACTION_NONE;
-			}
-
-			/* Sniper */
-			if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
-
-			/* Hex */
-			if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
-
-#endif
-
-
-/*
- * Set "creature_ptr->timed_trait[TRAIT_AFRAID]", notice observable changes
- */
-#if 0
-bool set_afraid(creature_type *creature_ptr, int v)
+if(creature_ptr->action == ACTION_LEARN)
 {
-	bool notice = FALSE;
-	bool name[80];
-
-	creature_desc(name, creature_ptr, 0);
-
-	/* Hack -- Force good values */
-	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
-
-	if(IS_DEAD(creature_ptr)) return FALSE;
-
-	/* Open */
-	if(v)
+	if(is_seen(player_ptr, creature_ptr))
 	{
-		if(!has_trait(creature_ptr, TRAIT_AFRAID))
-		{
-			if(is_seen(player_ptr, creature_ptr))
-			{
 #ifdef JP
-				msg_format("%sは恐怖に陥った！", name);
+		msg_format("%sは学習が続けられない！", name);
 #else
-				msg_format("%s %s terrified!", name, is_player(creature_ptr) ? "are" : "is" );
+		msg_format("%s cannot continue Learning!", name);
 #endif
-			}
-
-			if(have_posture(creature_ptr))
-			{
-				if(is_seen(player_ptr, creature_ptr))
-				{
-#ifdef JP
-					msg_format("%sの型が崩れた。", name);
-#else
-					msg_format("%s%s posture gets loose.", name, is_player(creature_ptr) ? "r": "'s");
-#endif
-				}
-				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
-				creature_ptr->creature_update |= (CRU_BONUS);
-				creature_ptr->creature_update |= (PU_CREATURES);
-				play_redraw |= (PR_STATE);
-				play_redraw |= (PR_STATUS);
-				creature_ptr->action = ACTION_NONE;
-			}
-
-			notice = TRUE;
-			creature_ptr->counter = FALSE;
-		}
 	}
+	creature_ptr->new_mane = FALSE;
 
-	/* Shut */
-	else
-	{
-		if(has_trait(creature_ptr, TRAIT_AFRAID))
-		{
-			if(is_seen(player_ptr, creature_ptr))
-			{			
-#ifdef JP
-				msg_format("%sは恐怖を振り払った。", name);
-#else
-				msg_format("%s feel%s bolder now.", name, is_player(creature_ptr) ? "" : "s" );
-#endif
-			}
-
-			notice = TRUE;
-		}
-	}
-
-
-	//TODO
-	if(is_player(creature_ptr))
-	{
-		/* Use the value */
-		creature_ptr->timed_trait[TRAIT_AFRAID] = v;
-
-		play_redraw |= (PR_STATUS);
-
-		/* Nothing to notice */
-		if(!notice) return FALSE;
-
-		if(disturb_state) disturb(player_ptr, 0, 0);
-
-		handle_stuff();
-
-		return TRUE;
-
-		}
-		else
-		{
-		/* Open */
-			if(v)
-			{
-				if(!has_trait(creature_ptr, TRAIT_AFRAID))
-				{
-					mproc_add(creature_ptr, MTIMED_MONFEAR);
-					notice = TRUE;
-				}
-			}
-
-		/* Shut */
-		else
-		{
-			if(has_trait(creature_ptr, TRAIT_AFRAID))
-			{
-				mproc_remove(creature_ptr, MTIMED_MONFEAR);
-				notice = TRUE;
-			}
-		}
-
-		/* Use the value */
-		creature_ptr->timed_trait[TRAIT_AFRAID] = v;
-
-		if(!notice) return FALSE;
-
-		if(creature_ptr->see_others)
-		{
-			/* Update health bar as needed */
-			if(&creature_list[npc_status_id] == creature_ptr) play_redraw |= (PR_HEALTH);
-			if(&creature_list[creature_ptr->riding] == creature_ptr) play_redraw |= (PR_UHEALTH);
-		}
-
-		return TRUE;
-
-	}
-
+	play_redraw |= (PR_STATE);
+	creature_ptr->action = ACTION_NONE;
 }
+if(creature_ptr->action == ACTION_KAMAE)
+{
+	if(is_seen(player_ptr, creature_ptr))
+	{
+#ifdef JP
+		msg_format("%sの構えがとけた。", name);
+#else
+		msg_foamat("%s%s posture gets loose.", name, is_player(creature_ptr) ? "r" : "'s");
 #endif
+	}
+	creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
+	creature_ptr->creature_update |= (CRU_BONUS);
+	play_redraw |= (PR_STATE);
+	creature_ptr->action = ACTION_NONE;
+}
+else if(creature_ptr->action == ACTION_KATA)
+{
+	if(is_seen(player_ptr, creature_ptr))
+	{
+#ifdef JP
+		msg_format("%sの型は崩れた。", name);
+#else
+		msg_format("%s%s posture gets loose.", name, is_player(creature_ptr) _ "r", : "'s");
+#endif
+	}
+	creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
+	creature_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (PU_CREATURES);
+	play_redraw |= (PR_STATE);
+	play_redraw |= (PR_STATUS);
+	creature_ptr->action = ACTION_NONE;
+}
+
+/* Sniper */
+if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
+
+/* Hex */
+if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
+
+#endif
+
 
 bool set_superstealth(creature_type *creature_ptr, bool set)
 {
@@ -519,9 +407,9 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 				if(is_seen(player_ptr, creature_ptr))
 				{
 #ifdef JP
-				msg_print("敵の目から影の中に覆い隠された！");
+					msg_print("敵の目から影の中に覆い隠された！");
 #else
-				msg_print("You are mantled in shadow from ordinary eyes!");
+					msg_print("You are mantled in shadow from ordinary eyes!");
 #endif
 				}
 				creature_ptr->monlite = creature_ptr->old_monlite = FALSE;
@@ -566,10 +454,10 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 }
 
 /*
- * Set "creature_ptr->timed_trait[TRAIT_STUN]", notice observable changes
- *
- * Note the special code to only notice "range" changes.
- */
+* Set "creature_ptr->timed_trait[TRAIT_STUN]", notice observable changes
+*
+* Note the special code to only notice "range" changes.
+*/
 #if 0
 bool set_stun(creature_type *creature_ptr, int v)
 {
@@ -586,219 +474,219 @@ bool set_stun(creature_type *creature_ptr, int v)
 	//TODO
 	if(is_player(creature_ptr))
 	{
-	if(has_trait(creature_ptr, TRAIT_NO_STUN) || ((creature_ptr->class_idx == CLASS_BERSERKER) && (creature_ptr->lev > 34))) v = 0;
+		if(has_trait(creature_ptr, TRAIT_NO_STUN) || ((creature_ptr->class_idx == CLASS_BERSERKER) && (creature_ptr->lev > 34))) v = 0;
 
-	/* Knocked out */
-	if(creature_ptr->timed_trait[TRAIT_STUN] > 100)
-	{
-		old_aux = 3;
-	}
-
-	/* Heavy stun */
-	else if(creature_ptr->timed_trait[TRAIT_STUN] > 50)
-	{
-		old_aux = 2;
-	}
-
-	/* Stun */
-	else if(creature_ptr->timed_trait[TRAIT_STUN] > 0)
-	{
-		old_aux = 1;
-	}
-
-	/* None */
-	else
-	{
-		old_aux = 0;
-	}
-
-	/* Knocked out */
-	if(v > 100)
-	{
-		new_aux = 3;
-	}
-
-	/* Heavy stun */
-	else if(v > 50)
-	{
-		new_aux = 2;
-	}
-
-	/* Stun */
-	else if(v > 0)
-	{
-		new_aux = 1;
-	}
-
-	/* None */
-	else
-	{
-		new_aux = 0;
-	}
-
-	/* Increase cut */
-	if(new_aux > old_aux)
-	{
-		/* Describe the state */
-		switch (new_aux)
+		/* Knocked out */
+		if(creature_ptr->timed_trait[TRAIT_STUN] > 100)
 		{
-			/* Stun */
+			old_aux = 3;
+		}
+
+		/* Heavy stun */
+		else if(creature_ptr->timed_trait[TRAIT_STUN] > 50)
+		{
+			old_aux = 2;
+		}
+
+		/* Stun */
+		else if(creature_ptr->timed_trait[TRAIT_STUN] > 0)
+		{
+			old_aux = 1;
+		}
+
+		/* None */
+		else
+		{
+			old_aux = 0;
+		}
+
+		/* Knocked out */
+		if(v > 100)
+		{
+			new_aux = 3;
+		}
+
+		/* Heavy stun */
+		else if(v > 50)
+		{
+			new_aux = 2;
+		}
+
+		/* Stun */
+		else if(v > 0)
+		{
+			new_aux = 1;
+		}
+
+		/* None */
+		else
+		{
+			new_aux = 0;
+		}
+
+		/* Increase cut */
+		if(new_aux > old_aux)
+		{
+			/* Describe the state */
+			switch (new_aux)
+			{
+				/* Stun */
 			case 1:
-			if(is_seen(player_ptr, creature_ptr))
-			{
+				if(is_seen(player_ptr, creature_ptr))
+				{
 #ifdef JP
-				msg_print("意識がもうろうとしてきた。");
+					msg_print("意識がもうろうとしてきた。");
 #else
-				msg_print("You have been stunned.");
+					msg_print("You have been stunned.");
 #endif
-			}
+				}
 
-			break;
+				break;
 
-			/* Heavy stun */
+				/* Heavy stun */
 			case 2:
-			if(is_seen(player_ptr, creature_ptr))
-			{
+				if(is_seen(player_ptr, creature_ptr))
+				{
 #ifdef JP
-				msg_print("意識がひどくもうろうとしてきた。");
+					msg_print("意識がひどくもうろうとしてきた。");
 #else
-				msg_print("You have been heavily stunned.");
+					msg_print("You have been heavily stunned.");
 #endif
-			}
+				}
 
-			break;
+				break;
 
-			/* Knocked out */
+				/* Knocked out */
 			case 3:
-			if(is_seen(player_ptr, creature_ptr))
-			{
+				if(is_seen(player_ptr, creature_ptr))
+				{
 #ifdef JP
-				msg_print("頭がクラクラして意識が遠のいてきた。");
+					msg_print("頭がクラクラして意識が遠のいてきた。");
 #else
-				msg_print("You have been knocked out.");
+					msg_print("You have been knocked out.");
 #endif
+				}
+				break;
 			}
-			break;
+
+			if(randint1(1000) < v || one_in_(16))
+			{
+				if(is_seen(player_ptr, creature_ptr))
+				{
+#ifdef JP
+					msg_print("割れるような頭痛がする。");
+#else
+					msg_print("A vicious blow hits your head.");
+#endif
+				}
+
+				if(one_in_(3))
+				{
+					if(!has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) (void)do_dec_stat(creature_ptr, STAT_INT);
+					if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
+				}
+				else if(one_in_(2))
+				{
+					if(!has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) (void)do_dec_stat(creature_ptr, STAT_INT);
+				}
+				else
+				{
+					if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
+				}
+			}
+			if(have_posture(creature_ptr))
+			{
+				if(is_seen(player_ptr, creature_ptr))
+				{
+#ifdef JP
+					msg_print("型が崩れた。");
+#else
+					msg_print("Your posture gets loose.");
+#endif
+				}
+				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
+				creature_ptr->creature_update |= (CRU_BONUS);
+				creature_ptr->creature_update |= (PU_CREATURES);
+				play_redraw |= (PR_STATE);
+				play_redraw |= (PR_STATUS);
+				creature_ptr->action = ACTION_NONE;
+			}
+
+			/* Sniper */
+			if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
+
+			/* Hex */
+			if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
+
+			notice = TRUE;
 		}
 
-		if(randint1(1000) < v || one_in_(16))
+		/* Decrease cut */
+		else if(new_aux < old_aux)
 		{
-			if(is_seen(player_ptr, creature_ptr))
+			/* Describe the state */
+			switch (new_aux)
 			{
-#ifdef JP
-				msg_print("割れるような頭痛がする。");
-#else
-				msg_print("A vicious blow hits your head.");
-#endif
-			}
-
-			if(one_in_(3))
-			{
-				if(!has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) (void)do_dec_stat(creature_ptr, STAT_INT);
-				if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
-			}
-			else if(one_in_(2))
-			{
-				if(!has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) (void)do_dec_stat(creature_ptr, STAT_INT);
-			}
-			else
-			{
-				if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
-			}
-		}
-		if(have_posture(creature_ptr))
-		{
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("型が崩れた。");
-#else
-				msg_print("Your posture gets loose.");
-#endif
-			}
-			creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
-			creature_ptr->creature_update |= (CRU_BONUS);
-			creature_ptr->creature_update |= (PU_CREATURES);
-			play_redraw |= (PR_STATE);
-			play_redraw |= (PR_STATUS);
-			creature_ptr->action = ACTION_NONE;
-		}
-
-		/* Sniper */
-		if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
-
-		/* Hex */
-		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
-
-		notice = TRUE;
-	}
-
-	/* Decrease cut */
-	else if(new_aux < old_aux)
-	{
-		/* Describe the state */
-		switch (new_aux)
-		{
-			/* None */
+				/* None */
 			case 0:
-			if(is_seen(player_ptr, creature_ptr))
-			{
+				if(is_seen(player_ptr, creature_ptr))
+				{
 #ifdef JP
-				msg_print("やっと朦朧状態から回復した。");
+					msg_print("やっと朦朧状態から回復した。");
 #else
-				msg_print("You are no longer stunned.");
+					msg_print("You are no longer stunned.");
 #endif
+				}
+
+				if(disturb_state) disturb(player_ptr, 0, 0);
+				break;
 			}
 
-			if(disturb_state) disturb(player_ptr, 0, 0);
-			break;
+			notice = TRUE;
 		}
 
-		notice = TRUE;
-	}
+		/* Use the value */
+		creature_ptr->timed_trait[TRAIT_STUN] = v;
 
-	/* Use the value */
-	creature_ptr->timed_trait[TRAIT_STUN] = v;
+		/* No change */
+		if(!notice) return FALSE;
 
-	/* No change */
-	if(!notice) return FALSE;
+		if(disturb_state) disturb(player_ptr, 0, 0);
 
-	if(disturb_state) disturb(player_ptr, 0, 0);
+		creature_ptr->creature_update |= (CRU_BONUS);
 
-	creature_ptr->creature_update |= (CRU_BONUS);
+		play_redraw |= (PR_STUN);
 
-	play_redraw |= (PR_STUN);
+		handle_stuff();
 
-	handle_stuff();
-
-	return TRUE;
+		return TRUE;
 	}
 	else
 	{
-	/* Open */
-	if(v)
-	{
-		if(!creature_ptr->timed_trait[TRAIT_STUN])
+		/* Open */
+		if(v)
 		{
-			mproc_add(creature_ptr, MTIMED_STUNNED);
-			notice = TRUE;
+			if(!creature_ptr->timed_trait[TRAIT_STUN])
+			{
+				mproc_add(creature_ptr, MTIMED_STUNNED);
+				notice = TRUE;
+			}
 		}
-	}
 
-	/* Shut */
-	else
-	{
-		if(has_trait(creature_ptr, TRAIT_STUN))
+		/* Shut */
+		else
 		{
-			mproc_remove(creature_ptr, MTIMED_STUNNED);
-			notice = TRUE;
+			if(has_trait(creature_ptr, TRAIT_STUN))
+			{
+				mproc_remove(creature_ptr, MTIMED_STUNNED);
+				notice = TRUE;
+			}
 		}
-	}
 
-	/* Use the value */
-	creature_ptr->timed_trait[TRAIT_STUN] = v;
+		/* Use the value */
+		creature_ptr->timed_trait[TRAIT_STUN] = v;
 
-	return notice;
+		return notice;
 
 	}
 }
@@ -806,10 +694,10 @@ bool set_stun(creature_type *creature_ptr, int v)
 
 
 /*
- * Set cut, notice observable changes
- *
- * Note the special code to only notice "range" changes.
- */
+* Set cut, notice observable changes
+*
+* Note the special code to only notice "range" changes.
+*/
 #if 0
 bool set_cut(creature_type *creature_ptr, int v)
 {
@@ -927,7 +815,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 		switch (new_aux)
 		{
 			/* Graze */
-			case 1:
+		case 1:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -940,7 +828,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 			break;
 
 			/* Light cut */
-			case 2:
+		case 2:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -953,7 +841,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 			break;
 
 			/* Bad cut */
-			case 3:
+		case 3:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -966,7 +854,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 			break;
 
 			/* Nasty cut */
-			case 4:
+		case 4:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -978,7 +866,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 			break;
 
 			/* Severe cut */
-			case 5:
+		case 5:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -990,7 +878,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 			break;
 
 			/* Deep gash */
-			case 6:
+		case 6:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1002,7 +890,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 			break;
 
 			/* Mortal wound */
-			case 7:
+		case 7:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1041,7 +929,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 		switch (new_aux)
 		{
 			/* None */
-			case 0:
+		case 0:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1078,27 +966,27 @@ bool set_cut(creature_type *creature_ptr, int v)
 
 
 /*
- * Set "creature_ptr->food", notice observable changes
- *
- * The "creature_ptr->food" variable can get as large as 20000, allowing the
- * addition of the most "filling" item, Elvish Waybread, which adds
- * 7500 food units, without overflowing the 32767 maximum limit.
- *
- * Perhaps we should disturb the player with various messages,
- * especially messages about hunger status changes.  XXX XXX XXX
- *
- * Digestion of food is handled in "dungeon.c", in which, normally,
- * the player digests about 20 food units per 100 game turns, more
- * when "fast", more when "regenerating", less with "slow digestion",
- * but when the player is "gorged", he digests 100 food units per 10
- * game turns, or a full 1000 food units per 100 game turns.
- *
- * Note that the player's speed is reduced by 10 units while gorged,
- * so if the player eats a single food ration (5000 food units) when
- * full (15000 food units), he will be gorged for (5000/100)*10 = 500
- * game turns, or 500/(100/5) = 25 player turns (if nothing else is
- * affecting the player speed).
- */
+* Set "creature_ptr->food", notice observable changes
+*
+* The "creature_ptr->food" variable can get as large as 20000, allowing the
+* addition of the most "filling" item, Elvish Waybread, which adds
+* 7500 food units, without overflowing the 32767 maximum limit.
+*
+* Perhaps we should disturb the player with various messages,
+* especially messages about hunger status changes.  XXX XXX XXX
+*
+* Digestion of food is handled in "dungeon.c", in which, normally,
+* the player digests about 20 food units per 100 game turns, more
+* when "fast", more when "regenerating", less with "slow digestion",
+* but when the player is "gorged", he digests 100 food units per 10
+* game turns, or a full 1000 food units per 100 game turns.
+*
+* Note that the player's speed is reduced by 10 units while gorged,
+* so if the player eats a single food ration (5000 food units) when
+* full (15000 food units), he will be gorged for (5000/100)*10 = 500
+* game turns, or 500/(100/5) = 25 player turns (if nothing else is
+* affecting the player speed).
+*/
 bool set_food(creature_type *creature_ptr, int v)
 {
 	int old_aux, new_aux;
@@ -1131,7 +1019,7 @@ bool set_food(creature_type *creature_ptr, int v)
 		switch (new_aux)
 		{
 			/* Weak */
-			case 1:
+		case 1:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1144,7 +1032,7 @@ bool set_food(creature_type *creature_ptr, int v)
 			break;
 
 			/* Hungry */
-			case 2:
+		case 2:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1157,7 +1045,7 @@ bool set_food(creature_type *creature_ptr, int v)
 			break;
 
 			/* Normal */
-			case 3:
+		case 3:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1169,7 +1057,7 @@ bool set_food(creature_type *creature_ptr, int v)
 			break;
 
 			/* Full */
-			case 4:
+		case 4:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1182,7 +1070,7 @@ bool set_food(creature_type *creature_ptr, int v)
 			break;
 
 			/* Bloated */
-			case 5:
+		case 5:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1205,7 +1093,7 @@ bool set_food(creature_type *creature_ptr, int v)
 		switch (new_aux)
 		{
 			/* Fainting / Starving */
-			case 0:
+		case 0:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1218,7 +1106,7 @@ bool set_food(creature_type *creature_ptr, int v)
 			break;
 
 			/* Weak */
-			case 1:
+		case 1:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1231,7 +1119,7 @@ bool set_food(creature_type *creature_ptr, int v)
 			break;
 
 			/* Hungry */
-			case 2:
+		case 2:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1244,7 +1132,7 @@ bool set_food(creature_type *creature_ptr, int v)
 			break;
 
 			/* Normal */
-			case 3:
+		case 3:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1257,7 +1145,7 @@ bool set_food(creature_type *creature_ptr, int v)
 			break;
 
 			/* Full */
-			case 4:
+		case 4:
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
@@ -1297,11 +1185,11 @@ bool set_food(creature_type *creature_ptr, int v)
 }
 
 /*
- * Increases a stat by one randomized level             -RAK-
- *
- * Note that this function (used by stat potions) now restores
- * the stat BEFORE increasing it.
- */
+* Increases a stat by one randomized level             -RAK-
+*
+* Note that this function (used by stat potions) now restores
+* the stat BEFORE increasing it.
+*/
 bool inc_stat(creature_type *creature_ptr, int stat)
 {
 	int value, gain;
@@ -1335,17 +1223,17 @@ bool inc_stat(creature_type *creature_ptr, int stat)
 
 
 /*
- * Decreases a stat by an amount indended to vary from 0 to 100 percent.
- *
- * Amount could be a little higher in extreme cases to mangle very high
- * stats from massive assaults.  -CWS
- *
- * Note that "permanent" means that the *given* amount is permanent,
- * not that the new value becomes permanent.  This may not work exactly
- * as expected, due to "weirdness" in the algorithm, but in general,
- * if your stat is already drained, the "max" value will not drop all
- * the way down to the "cur" value.
- */
+* Decreases a stat by an amount indended to vary from 0 to 100 percent.
+*
+* Amount could be a little higher in extreme cases to mangle very high
+* stats from massive assaults.  -CWS
+*
+* Note that "permanent" means that the *given* amount is permanent,
+* not that the new value becomes permanent.  This may not work exactly
+* as expected, due to "weirdness" in the algorithm, but in general,
+* if your stat is already drained, the "max" value will not drop all
+* the way down to the "cur" value.
+*/
 bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 {
 	int cur, max, loss, same, res = FALSE;
@@ -1454,8 +1342,8 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 
 
 /*
- * Restore a stat.  Return TRUE only if this actually makes a difference.
- */
+* Restore a stat.  Return TRUE only if this actually makes a difference.
+*/
 bool res_stat(creature_type *creature_ptr, int stat)
 {
 	// Restore if needed
@@ -1541,9 +1429,9 @@ bool heal_creature(creature_type *creature_ptr, int num)
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
-			msg_print("ひじょうに気分が良くなった。");
+				msg_print("ひじょうに気分が良くなった。");
 #else
-			msg_print("You feel very good.");
+				msg_print("You feel very good.");
 #endif
 			}
 		}
@@ -1577,8 +1465,8 @@ static cptr desc_stat_pos[] =
 
 
 /*
- * Array of stat "descriptions"
- */
+* Array of stat "descriptions"
+*/
 static cptr desc_stat_neg[] =
 {
 #ifdef JP
@@ -1605,12 +1493,12 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 
 	switch (stat) // Access the "sustain"
 	{
-		case STAT_STR: if(has_trait(creature_ptr, TRAIT_SUSTAIN_STR)) sust = TRUE; break;
-		case STAT_INT: if(has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) sust = TRUE; break;
-		case STAT_WIS: if(has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) sust = TRUE; break;
-		case STAT_DEX: if(has_trait(creature_ptr, TRAIT_SUSTAIN_DEX)) sust = TRUE; break;
-		case STAT_CON: if(has_trait(creature_ptr, TRAIT_SUSTAIN_CON)) sust = TRUE; break;
-		case STAT_CHA: if(has_trait(creature_ptr, TRAIT_SUSTAIN_CHR)) sust = TRUE; break;
+	case STAT_STR: if(has_trait(creature_ptr, TRAIT_SUSTAIN_STR)) sust = TRUE; break;
+	case STAT_INT: if(has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) sust = TRUE; break;
+	case STAT_WIS: if(has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) sust = TRUE; break;
+	case STAT_DEX: if(has_trait(creature_ptr, TRAIT_SUSTAIN_DEX)) sust = TRUE; break;
+	case STAT_CON: if(has_trait(creature_ptr, TRAIT_SUSTAIN_CON)) sust = TRUE; break;
+	case STAT_CHA: if(has_trait(creature_ptr, TRAIT_SUSTAIN_CHR)) sust = TRUE; break;
 	}
 
 	if(sust && (!curse_of_Iluvatar || randint0(13))) // Sustain
@@ -1622,7 +1510,7 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 #else
 			msg_format("You feel %s for a moment, but the feeling passes.",
 #endif
-			desc_stat_neg[stat]);
+				desc_stat_neg[stat]);
 		}
 		return TRUE; // Notice effect
 	}
@@ -1639,7 +1527,7 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 		}
 		return TRUE; // Notice effect
 	}
-	
+
 	return FALSE; // Nothing obvious
 }
 
@@ -1667,7 +1555,7 @@ bool do_inc_stat(creature_type *creature_ptr, int stat)
 {
 	bool res;
 	res = res_stat(creature_ptr, stat); // Restore strength
-	
+
 	if(inc_stat(creature_ptr, stat)) // Attempt to increase
 	{
 		if(is_seen(player_ptr, creature_ptr))
@@ -1680,7 +1568,7 @@ bool do_inc_stat(creature_type *creature_ptr, int stat)
 		}
 		return TRUE;
 	}
-	
+
 	if(res) // Restoration worked
 	{
 		if(is_seen(player_ptr, creature_ptr))
@@ -1699,8 +1587,8 @@ bool do_inc_stat(creature_type *creature_ptr, int stat)
 
 
 /*
- * Restores any drained experience
- */
+* Restores any drained experience
+*/
 bool restore_exp(creature_type *creature_ptr)
 {
 	/* Restore experience */
@@ -1852,7 +1740,7 @@ void do_poly_self(creature_type *creature_ptr)
 
 	if((power > randint0(20)) && one_in_(3) && (!has_trait(creature_ptr, TRAIT_ANDROID)))
 	{
-	
+
 		power -= 10; // Some form of racial polymorph...
 
 		if((power > randint0(5)) && one_in_(4)) // sex change
@@ -1951,9 +1839,9 @@ void do_poly_self(creature_type *creature_ptr)
 		}
 
 		/*
-		 * Restrict the race choices by exp penalty so
-		 * weak polymorph always means weak race
-		 */
+		* Restrict the race choices by exp penalty so
+		* weak polymorph always means weak race
+		*/
 		if(power < 0)
 			goalexpfact = 100;
 		else
@@ -2107,7 +1995,7 @@ static void you_died(cptr hit_from)
 		else
 		{
 			char buf[24];	
-			
+
 #ifdef JP
 			if(floor_ptr->fight_arena_mode) strcpy(buf,"アリーナ");
 			else if(!floor_ptr->floor_level) strcpy(buf,"地上");
@@ -2241,14 +2129,14 @@ static void you_died(cptr hit_from)
 
 
 /*
- * Decreases players hit points and sets death flag if necessary
- *
- * XXX XXX XXX Invulnerability needs to be changed into a "shield"
- *
- * XXX XXX XXX Hack -- this function allows the user to save (or quit)
- * the game when he dies, since the "You die." message is shown before
- * setting the player to "dead".
- */
+* Decreases players hit points and sets death flag if necessary
+*
+* XXX XXX XXX Invulnerability needs to be changed into a "shield"
+*
+* XXX XXX XXX Hack -- this function allows the user to save (or quit)
+* the game when he dies, since the "You die." message is shown before
+* setting the player to "dead".
+*/
 
 int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
@@ -2380,48 +2268,48 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	} /* not if LOSELIFE USELIFE */
 
 
-/*	TODO  sad by killed pet
-		
-		if(target_ptr->chp < 0) // Dead creature
-		{
-			bool sad = FALSE;
+	/*	TODO  sad by killed pet
 
-			if(is_pet(player_ptr, target_ptr) && !(target_ptr->see_others))
-				sad = TRUE;
+	if(target_ptr->chp < 0) // Dead creature
+	{
+	bool sad = FALSE;
 
-			
-			if(known && note) // Give detailed messages if destroyed
-			{
-				creature_desc(target_name, target_ptr, CD_TRUE_NAME);
-				if(see_s_msg)
-				{
-					msg_format("%^s%s", target_name, note);
-				}
-				else
-				{
-					player_ptr->hear_noise = TRUE;	//TODO check all creature
-				}
-			}
+	if(is_pet(player_ptr, target_ptr) && !(target_ptr->see_others))
+	sad = TRUE;
 
-			//TODO
-			//if(caster_ptr != caster_ptr) creature_gain_exp(caster_ptr, who, target_ptr->species_idx);
 
-			
-			creature_dead_effect(player_ptr, target_ptr, FALSE); // Generate treasure, etc
+	if(known && note) // Give detailed messages if destroyed
+	{
+	creature_desc(target_name, target_ptr, CD_TRUE_NAME);
+	if(see_s_msg)
+	{
+	msg_format("%^s%s", target_name, note);
+	}
+	else
+	{
+	player_ptr->hear_noise = TRUE;	//TODO check all creature
+	}
+	}
 
-			// Delete the creature
-			delete_species_idx(target_ptr);
+	//TODO
+	//if(caster_ptr != caster_ptr) creature_gain_exp(caster_ptr, who, target_ptr->species_idx);
 
-			if(sad)
-			{
-#ifdef JP
-				msg_print("少し悲しい気分がした。");
-#else
-				msg_print("You feel sad for a moment.");
-#endif
-			}
-		}
-*/
+
+	creature_dead_effect(player_ptr, target_ptr, FALSE); // Generate treasure, etc
+
+	// Delete the creature
+	delete_species_idx(target_ptr);
+
+	if(sad)
+	{
+	#ifdef JP
+	msg_print("少し悲しい気分がした。");
+	#else
+	msg_print("You feel sad for a moment.");
+	#endif
+	}
+	}
+	*/
 
 	// Curse of Amberites
 	if(has_trait(target_ptr, TRAIT_DYING_CURSE_OF_BLOOD))
@@ -2430,11 +2318,11 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		bool stop_ty = FALSE;
 		int count = 0;
 
-	#ifdef JP
+#ifdef JP
 		msg_format("%^sは死の間際に恐ろしい血の呪いを%^sにかけた！", target_name, attacker_name);
-	#else
+#else
 		msg_format("On death and dying, %^s puts a terrible blood curse on %^s!", target_name, attacker_name);
-	#endif
+#endif
 		curse_equipment(attacker_ptr, 100, 50);	
 		do stop_ty = activate_ty_curse(attacker_ptr, stop_ty, &count);
 		while (--curses);
@@ -2462,26 +2350,26 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	{
 		if(target_ptr->chp < 0) // It is dead now
 		{
-	
+
 			if(has_trait(target_ptr, TRAIT_TANUKI)) // You might have unmasked Tanuki first time
 			{
 				species_ptr = &species_info[target_ptr->species_idx];
 				target_ptr->ap_species_idx = target_ptr->species_idx;
 				if(species_ptr->r_sights < MAX_SHORT) species_ptr->r_sights++;
 			}
-	
+
 			if(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON) // You might have unmasked Chameleon first time
 			{
 				species_ptr = real_species_ptr(target_ptr);
 				if(species_ptr->r_sights < MAX_SHORT) species_ptr->r_sights++;
 			}
-	
+
 			if(!has_trait(target_ptr, TRAIT_CLONED)) // When the player kills a Unique, it stays dead
 			{
 				if(has_trait(target_ptr, TRAIT_UNIQUE))
 				{
 					species_ptr->max_num = 0;
-	
+
 					/* Mega-Hack -- Banor & Lupart */
 					if((target_ptr->species_idx == SPECIES_BANOR) || (target_ptr->species_idx == SPECIES_LUPART))
 					{
@@ -2502,105 +2390,105 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 						if(species_info[SPECIES_LUPART].r_tkills < MAX_SHORT) species_info[SPECIES_LUPART].r_tkills++;
 					}
 				}
-	
+
 				// When the player kills a Nazgul, it stays dead
 				else if(has_trait_species(species_ptr, TRAIT_NAZGUL)) species_ptr->max_num--;
 			}
-	
+
 			/* Count all creatures killed */
 			if(species_ptr->r_akills < MAX_SHORT) species_ptr->r_akills++;
-	
+
 			/* Recall even invisible uniques or winners */
 			if((target_ptr->see_others && !has_trait(attacker_ptr, TRAIT_HALLUCINATION)) || has_trait(target_ptr, TRAIT_UNIQUE))
 			{
 				/* Count kills this life */
 				if(has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].r_pkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_pkills++;
 				else if(species_ptr->r_pkills < MAX_SHORT) species_ptr->r_pkills++;
-	
+
 				/* Count kills in all lives */
 				if(has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].r_tkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_tkills++;
 				else if(species_ptr->r_tkills < MAX_SHORT) species_ptr->r_tkills++;
-	
+
 				/* Hack -- Auto-recall */
 				species_type_track(target_ptr->ap_species_idx);
 			}
-	
+
 			/* Extract creature name */
 			creature_desc(target_name, target_ptr, CD_TRUE_NAME);
-		
+
 			if(has_trait(target_ptr, TRAIT_CAN_SPEAK))
 			{
 				char line_got[1024];
-	
+
 				// Dump a message
 				if(!get_rnd_line(game_messages[MESSAGE_FILES_DEATH], target_ptr->species_idx, line_got))	
 					msg_format("%^s %s", target_name, line_got);
 			}
-	
+
 			for (i = 0; i < MAX_SPECIAL_BLOWS; i++) // TODO
 			{
 				if(target_ptr->blow[i].d_dice != 0) innocent = FALSE; // Murderer!
 				if((target_ptr->blow[i].effect == RBE_EAT_ITEM) || (target_ptr->blow[i].effect == RBE_EAT_GOLD))
 					thief = TRUE; // Thief!
 			}
-	
+
 			/* The new law says it is illegal to live in the dungeon */
 			if(species_ptr->level != 0) innocent = FALSE;
-			
+
 			if(has_trait(target_ptr, TRAIT_UNIQUE) && record_destroy_uniq)
 			{
 				char note_buf[160];
-	#ifdef JP
+#ifdef JP
 				sprintf(note_buf, "%s%s", species_name + species_ptr->name, has_trait(target_ptr, TRAIT_CLONED) ? "(クローン)" : "");
-	#else
+#else
 				sprintf(note_buf, "%s%s", species_name + species_ptr->name, has_trait(target_ptr, TRAIT_CLONED) ? "(Clone)" : "");
-	#endif
+#endif
 				do_cmd_write_nikki(DIARY_UNIQUE, 0, note_buf);
 			}
-	
+
 			sound(SOUND_KILL); // Make a sound	
 			if(note) msg_format("%^s%s", target_name, note); // Death by Missile/Spell attack	
-			
+
 			else if(!target_ptr->see_others) // Death by physical attack -- invisible creature
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 				{
-	#ifdef JP
+#ifdef JP
 					if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK))
 						msg_format("%sはせっかくだから%sを殺した。", attacker_name, target_name);
 					else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
 						msg_format("%sは%sを殺した。「ごめんね～」", attacker_name, target_name);
 					else
 						msg_format("%sは%sを殺した。", attacker_name, target_name);
-	#else
-						msg_format("%s have killed %s.", attacker_name, target_name);
-	#endif
+#else
+					msg_format("%s have killed %s.", attacker_name, target_name);
+#endif
 				}
 			}
-	
+
 			else if(!creature_living(attacker_ptr)) // Death by Physical attack -- non-living creature
 			{
 				int i;
 				bool explode = FALSE;
-	
+
 				for (i = 0; i < MAX_SPECIAL_BLOWS; i++) if(target_ptr->blow[i].method == RBM_EXPLODE) explode = TRUE;
-	
+
 				/* Special note at death */
 				if(explode)
-	#ifdef JP
+#ifdef JP
 					msg_format("%sは爆発して粉々になった。", target_name);
-	#else
+#else
 					msg_format("%^s explodes into tiny shreds.", target_name);
-	#endif
+#endif
 				else
 				{
-	#ifdef JP
+#ifdef JP
 					if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("せっかくだから%sを倒した。", target_name);
 					else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK)) msg_format("%s！お許し下さい！", target_name);
 					else msg_format("%sを倒した。", target_name);
-	#else
+#else
 					msg_format("You have destroyed %s.", target_name);
-	#endif
+#endif
 				}
 			}
 			else // Death by Physical attack -- living creature
@@ -2631,7 +2519,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 						msg_format("%s died.", target_name);
 #endif
 				}
-	
+
 			}
 
 			if(has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_CLONED))
@@ -2640,74 +2528,74 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				{
 					if((kubi_species_idx[i] == target_ptr->species_idx) && !(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
 					{
-	#ifdef JP
+#ifdef JP
 						msg_format("%sの首には賞金がかかっている。", target_name);
-	#else
+#else
 						msg_format("There is a price on %s's head.", target_name);
-	#endif
+#endif
 						break;
 					}
 				}
 			}
-	
+
 			/* Generate treasure */
 			creature_dead_effect(attacker_ptr, target_ptr, TRUE);
-	
+
 			/* Mega hack : replace IKETA to BIKETAL */
 			if((target_ptr->species_idx == SPECIES_IKETA) &&
-			    !(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode))
+				!(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode))
 			{
 				int dummy_y = target_ptr->fy;
 				int dummy_x = target_ptr->fx;
 				u32b mode = 0L;
-	
+
 				if(is_pet(player_ptr, target_ptr)) mode |= PC_FORCE_PET;
-	
+
 				delete_species_idx(target_ptr);
-	
+
 				if(summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BIKETAL, mode))
 				{
-	#ifdef JP
+#ifdef JP
 					msg_print("「ハァッハッハッハ！！私がバイケタルだ！！」");
-	#else
+#else
 					msg_print("Uwa-hahaha!  *I* am Biketal!");
-	#endif
+#endif
 				}
 			}
 			else delete_species_idx(target_ptr); // Delete the creature
-	
+
 			/* Prevent bug of chaos patron's reward */
 			if(has_trait(target_ptr, TRAIT_KILL_EXP))
 				get_exp_from_mon(attacker_ptr, (long)target_ptr->mhp * 2, target_ptr);
 			else
 				get_exp_from_mon(attacker_ptr, ((long)target_ptr->mhp + 1L) * 9L / 10L, target_ptr);
-	
+
 			fear = FALSE; // Not afraid	
 			return TRUE; // Creature is dead
 		}
-		
-	#if 0
+
+#if 0
 		if(attacker_ptr->riding && (attacker_ptr->riding == m_idx) && (damage > 0))
 		{
 			char target_name[80];
-	
+
 			/* Extract creature name */
 			creature_desc(target_name, target_ptr, 0);
-	
+
 			if(target_ptr->chp > target_ptr->mhp/3) damage = (damage + 1) / 2;
 			if(do_thrown_from_riding(target_ptr, (damage > 200) ? 200 : damage, FALSE))
 			{
-	#ifdef JP
-					msg_format("%^sに振り落とされた！", target_name);
-	#else
-					msg_format("%^s has thrown you off!", target_name);
-	#endif
+#ifdef JP
+				msg_format("%^sに振り落とされた！", target_name);
+#else
+				msg_format("%^s has thrown you off!", target_name);
+#endif
 			}
 		}
-	#endif
-	
+#endif
+
 	}
-		
+
 	if(has_trait(target_ptr, TRAIT_AFRAID) && (damage > 0)) // Mega-Hack -- Pain cancels fear
 		add_timed_trait(target_ptr, TRAIT_AFRAID, -randint1(damage), FALSE);
 
@@ -2715,7 +2603,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	if(!has_trait(target_ptr, TRAIT_AFRAID) && !has_trait(target_ptr, TRAIT_FEARLESS))
 	{
 		int percentage = (100L * target_ptr->chp) / target_ptr->mhp; // Percentage of fully healthy
-	
+
 		// Run (sometimes) if at 10% or less of max hit points,
 		// or (usually) when hit for half its current hit points
 		if((randint1(10) >= percentage) || ((damage >= target_ptr->chp) && (randint0(100) < 80))) fear = TRUE;
@@ -2735,30 +2623,30 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	{
 		/* Hack -- bell on first notice */
 		if(old_chp > warning) bell();
-	
+
 		sound(SOUND_WARN);
-	
+
 		if(record_danger && (old_chp > warning))
 		{
 			if(has_trait(target_ptr, TRAIT_HALLUCINATION) && damage_type == DAMAGE_ATTACK)
-	#ifdef JP
+#ifdef JP
 				hit_from = "何か";
-				sprintf(tmp,"%sによってピンチに陥った。",hit_from);
-	#else
+			sprintf(tmp,"%sによってピンチに陥った。",hit_from);
+#else
 				hit_from = "something";
-				sprintf(tmp,"A critical situation because of %s.",hit_from);
-	#endif
+			sprintf(tmp,"A critical situation because of %s.",hit_from);
+#endif
 			do_cmd_write_nikki(DIARY_BUNSHOU, 0, tmp);
 		}
-	
+
 		if(auto_more) target_ptr->now_damaged = TRUE; // stop auto_more even if DAMAGE_USELIFE
-	
-	#ifdef JP
+
+#ifdef JP
 		msg_print("*** 警告:低ヒット・ポイント！ ***");
-	#else
+#else
 		msg_print("*** LOW HITPOINT WARNING! ***");
-	#endif
-	
+#endif
+
 		msg_print(NULL);
 		flush();
 	}
@@ -2768,24 +2656,24 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 void dec_mana(creature_type *creature_ptr, int val)
 {		
-		creature_ptr->csp -= val;
-		if(creature_ptr->csp < 0) creature_ptr->csp = creature_ptr->csp_frac = 0; // Limit
+	creature_ptr->csp -= val;
+	if(creature_ptr->csp < 0) creature_ptr->csp = creature_ptr->csp_frac = 0; // Limit
 }
 
 void inc_mana(creature_type *creature_ptr, int val)
 {		
-		creature_ptr->csp += val;
-		if(creature_ptr->csp >= creature_ptr->msp)
-		{
-			creature_ptr->csp = creature_ptr->msp;
-			creature_ptr->csp_frac = 0;
-		}
+	creature_ptr->csp += val;
+	if(creature_ptr->csp >= creature_ptr->msp)
+	{
+		creature_ptr->csp = creature_ptr->msp;
+		creature_ptr->csp_frac = 0;
+	}
 }
 
 
 /*
- * Gain experience
- */
+* Gain experience
+*/
 void gain_exp_64(creature_type *creature_ptr, s32b amount, u32b amount_frac)
 {
 	if(IS_DEAD(creature_ptr)) return;
@@ -2810,8 +2698,8 @@ void gain_exp_64(creature_type *creature_ptr, s32b amount, u32b amount_frac)
 
 
 /*
- * Gain experience
- */
+* Gain experience
+*/
 void gain_exp(creature_type *creature_ptr, s32b amount)
 {
 	gain_exp_64(creature_ptr, amount, 0L);
@@ -2838,7 +2726,7 @@ void calc_android_exp(creature_type *creature_ptr)
 		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		if(slot == INVEN_SLOT_RING || slot == INVEN_SLOT_AMULET || slot == INVEN_SLOT_LITE)
-		   continue;
+			continue;
 
 		if(!is_valid_object(object_ptr)) continue;
 
@@ -2889,12 +2777,12 @@ void calc_android_exp(creature_type *creature_ptr)
 		if((object_ptr->tval == TV_DRAG_ARMOR) || (object_ptr->tval == TV_CARD)) level /= 2;
 
 		if(object_is_artifact(object_ptr) || object_is_ego(object_ptr) ||
-		    (object_ptr->tval == TV_DRAG_ARMOR) ||
-		    ((object_ptr->tval == TV_HELM) && (object_ptr->sval == SV_DRAGON_HELM)) ||
-		    ((object_ptr->tval == TV_SHIELD) && (object_ptr->sval == SV_DRAGON_SHIELD)) ||
-		    ((object_ptr->tval == TV_GLOVES) && (object_ptr->sval == SV_SET_OF_DRAGON_GLOVES)) ||
-		    ((object_ptr->tval == TV_BOOTS) && (object_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE)) ||
-		    ((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DIAMOND_EDGE)))
+			(object_ptr->tval == TV_DRAG_ARMOR) ||
+			((object_ptr->tval == TV_HELM) && (object_ptr->sval == SV_DRAGON_HELM)) ||
+			((object_ptr->tval == TV_SHIELD) && (object_ptr->sval == SV_DRAGON_SHIELD)) ||
+			((object_ptr->tval == TV_GLOVES) && (object_ptr->sval == SV_SET_OF_DRAGON_GLOVES)) ||
+			((object_ptr->tval == TV_BOOTS) && (object_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE)) ||
+			((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DIAMOND_EDGE)))
 		{
 			if(level > 65) level = 35 + (level - 65) / 5;
 			else if(level > 35) level = 25 + (level - 35) / 3;
@@ -2923,8 +2811,8 @@ void calc_android_exp(creature_type *creature_ptr)
 
 
 /*
- * Lose experience
- */
+* Lose experience
+*/
 void lose_exp(creature_type *creature_ptr, s32b amount)
 {
 	if(has_trait(creature_ptr, TRAIT_ANDROID)) return;
@@ -2941,9 +2829,9 @@ void lose_exp(creature_type *creature_ptr, s32b amount)
 
 
 /*
- * Drain experience
- * If resisted to draining, return FALSE
- */
+* Drain experience
+* If resisted to draining, return FALSE
+*/
 bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life_prob)
 {
 	/* Androids and their mimics are never drained */
@@ -2985,8 +2873,8 @@ bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life
 
 
 /*
- * Choose a warrior-mage elemental attack. -LM-
- */
+* Choose a warrior-mage elemental attack. -LM-
+*/
 bool choose_ele_attack(creature_type *creature_ptr)
 {
 	int num;
@@ -3066,8 +2954,8 @@ bool choose_ele_attack(creature_type *creature_ptr)
 
 
 /*
- * Choose a elemental immune. -LM-
- */
+* Choose a elemental immune. -LM-
+*/
 bool choose_ele_immune(creature_type *creature_ptr, int turn)
 {
 	char choice;
