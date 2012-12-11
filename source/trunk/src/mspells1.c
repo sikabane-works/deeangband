@@ -411,19 +411,19 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	if(has_trait(target_ptr, TRAIT_S_HERO) && (target_ptr->class_idx != CLASS_BERSERKER)) return TRUE;	// Berserk Strength
 
 	if(has_trait(caster_ptr, TRAIT_BR_ACID))
-		if(!has_trait(target_ptr, TRAIT_IM_ACID) && (target_ptr->timed_trait[TRAIT_RES_ACID] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return TRUE;
+		if(!has_trait(target_ptr, TRAIT_IM_ACID) && has_trait_from_timed(target_ptr, TRAIT_RES_ACID) || MUSIC_SINGING(target_ptr, MUSIC_RESIST)) return TRUE;
 
 	if(has_trait(caster_ptr, TRAIT_BR_FIRE))
-		if(!has_trait(target_ptr, TRAIT_IM_FIRE) && (target_ptr->timed_trait[TRAIT_RES_FIRE] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return TRUE;
+		if(!has_trait(target_ptr, TRAIT_IM_FIRE) && has_trait_from_timed(target_ptr, TRAIT_RES_FIRE) || MUSIC_SINGING(target_ptr, MUSIC_RESIST)) return TRUE;
 
 	if(has_trait(caster_ptr, TRAIT_BR_ELEC))
-		if(!has_trait(target_ptr, TRAIT_IM_ELEC) && (target_ptr->timed_trait[TRAIT_RES_ELEC] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return TRUE;
+		if(!has_trait(target_ptr, TRAIT_IM_ELEC) && has_trait_from_timed(target_ptr, TRAIT_RES_ELEC) || MUSIC_SINGING(target_ptr, MUSIC_RESIST)) return TRUE;
 
 	if(has_trait(caster_ptr, TRAIT_BR_COLD))
-		if(!has_trait(target_ptr, TRAIT_IM_COLD) && (target_ptr->timed_trait[TRAIT_RES_COLD] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return TRUE;
+		if(!has_trait(target_ptr, TRAIT_IM_COLD) && has_trait_from_timed(target_ptr, TRAIT_RES_COLD) || MUSIC_SINGING(target_ptr, MUSIC_RESIST)) return TRUE;
 
 	if(has_trait(caster_ptr, TRAIT_BR_POIS) || has_trait(caster_ptr, TRAIT_BR_NUKE))
-		if(target_ptr->timed_trait[TRAIT_RES_POIS] || MUSIC_SINGING(caster_ptr, MUSIC_RESIST)) return TRUE;
+		if(has_trait_from_timed(target_ptr, TRAIT_RES_POIS) || MUSIC_SINGING(caster_ptr, MUSIC_RESIST)) return TRUE;
 
 	if(target_ptr->timed_trait[TRAIT_ULTRA_RES]) return TRUE;	// Ultimate resistance
 	if(target_ptr->timed_trait[TRAIT_TSUYOSHI]) return TRUE;	// Potion of Neo Tsuyosi special

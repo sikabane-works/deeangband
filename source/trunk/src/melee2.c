@@ -215,7 +215,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	if(m_ptr->cdis > MAX_SIGHT + 5) return FALSE;
 
 	/* All "afraid" creatures will run away */
-	if(m_ptr->timed_trait[TRAIT_AFRAID]) return TRUE;
+	if(has_trait(m_ptr, TRAIT_AFRAID)) return TRUE;
 
 	/* Nearby creatures will not become terrified */
 	if(m_ptr->cdis <= 5) return FALSE;
@@ -1522,7 +1522,7 @@ static void process_nonplayer(int m_idx)
 		}
 	}
 
-	if((creature_ptr->sc_flag2 & SC_FLAG2_CHAMELEON) && one_in_(13) && !creature_ptr->timed_trait[TRAIT_PARALYZED])
+	if((creature_ptr->sc_flag2 & SC_FLAG2_CHAMELEON) && one_in_(13) && !has_trait(creature_ptr, TRAIT_PARALYZED) && !has_trait(creature_ptr, TRAIT_SLEPT))
 	{
 		set_new_species(creature_ptr, FALSE, 0, MONEGO_NONE);
 		species_ptr = &species_info[creature_ptr->species_idx];

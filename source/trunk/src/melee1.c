@@ -994,7 +994,7 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
-	if(attacker_ptr->timed_trait[TRAIT_CONFUSING_MELEE]) // Cancel glowing hands
+	if(has_trait(attacker_ptr, TRAIT_CONFUSING_MELEE)) // Cancel glowing hands
 	{
 		set_timed_trait_aux(attacker_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
 		if(is_seen(player_ptr, attacker_ptr)) play_redraw |= (PR_STATUS);
