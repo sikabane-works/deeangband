@@ -747,30 +747,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			effected = TRUE;
 			break;
 
-		case SV_POTION_DEC_STR:
-			if(do_dec_stat(caster_ptr, STAT_STR)) effected = TRUE;
-			break;
-
-		case SV_POTION_DEC_INT:
-			if(do_dec_stat(caster_ptr, STAT_INT)) effected = TRUE;
-			break;
-
-		case SV_POTION_DEC_WIS:
-			if(do_dec_stat(caster_ptr, STAT_WIS)) effected = TRUE;
-			break;
-
-		case SV_POTION_DEC_DEX:
-			if(do_dec_stat(caster_ptr, STAT_DEX)) effected = TRUE;
-			break;
-
-		case SV_POTION_DEC_CON:
-			if(do_dec_stat(caster_ptr, STAT_CON)) effected = TRUE;
-			break;
-
-		case SV_POTION_DEC_CHR:
-			if(do_dec_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-			break;
-
 		case SV_POTION_INFRAVISION:
 			if(add_timed_trait(caster_ptr, TRAIT_SEE_INFRA, 100 + randint1(100), TRUE)) effected = TRUE;
 			break;

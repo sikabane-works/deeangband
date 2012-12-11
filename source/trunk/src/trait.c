@@ -3124,6 +3124,29 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			if(do_inc_stat(caster_ptr, STAT_CHA)) effected = TRUE;
 			break;
 
+		case TRAIT_DEC_STR:
+			if(do_dec_stat(caster_ptr, STAT_STR)) effected = TRUE;
+			break;
+
+		case TRAIT_DEC_INT:
+			if(do_dec_stat(caster_ptr, STAT_INT)) effected = TRUE;
+			break;
+
+		case TRAIT_DEC_WIS:
+			if(do_dec_stat(caster_ptr, STAT_WIS)) effected = TRUE;
+			break;
+
+		case TRAIT_DEC_DEX:
+			if(do_dec_stat(caster_ptr, STAT_DEX)) effected = TRUE;
+			break;
+
+		case TRAIT_DEC_CON:
+			if(do_dec_stat(caster_ptr, STAT_CON)) effected = TRUE;
+			break;
+
+		case TRAIT_DEC_CHR:
+			if(do_dec_stat(caster_ptr, STAT_CHA)) effected = TRUE;
+			break;
 
 		/* XXX_XXX_XXX Hack!  TRAIT_LAUNCHER is negative, see above */
 
