@@ -759,10 +759,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			if(set_timed_trait_aux(caster_ptr, TRAIT_POISONED, caster_ptr->timed_trait[TRAIT_POISONED] / 2, TRUE)) effected = TRUE;
 			break;
 
-		case SV_POTION_CURE_POISON:
-			if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0)) effected = TRUE;
-			break;
-
 		case SV_POTION_BOLDNESS:
 			if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0)) effected = TRUE;
 			break;
@@ -773,7 +769,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 #else
 			msg_print("You begin to know yourself a little better...");
 #endif
-
 			msg_print(NULL);
 			creature_knowledge(caster_ptr);
 			effected = TRUE;

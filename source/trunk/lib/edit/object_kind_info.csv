@@ -311,7 +311,7 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,STR,INT,WIS,DEX,CON,CHA,
 267,赤外線視力,白い,Infra-vision,White,!,w,INVENTORY,POTION,0,0,0,0,0,0,0,0,0,0,24,0,3,0,1,100,20,0,0,0,0,0,,1d1,0,0,0,0,,0,3/1,,それは飲むと一時的に赤外線視力を強める。,It gives temporary infravision when you quaff it.,#JZ#
 263,透明物体感知,煙った,Detect Invisible,Smoky,!,D,INVENTORY,POTION,0,0,0,0,0,0,0,0,0,0,25,0,3,0,1,100,50,0,0,0,0,0,,1d1,0,0,0,0,,0,3/1,,それは飲むと一時的に透明なものが見える能力を得る。,It gives temporary see invisible when you quaff it.,
 264,減毒,橙色の,Slow Poison,Tangerine,!,o,INVENTORY,POTION,0,0,0,0,0,0,0,0,0,0,26,0,1,0,1,100,25,0,0,0,0,0,,1d1,0,0,0,0,,0,1/1,,それは飲むと毒を和らげる。,It reduces poison when you quaff it.,
-265,解毒,スミレ色の,Neutralize Poison,Violet,!,v,INVENTORY,POTION,0,0,0,0,0,0,0,0,0,0,27,0,5,0,1,100,75,0,0,0,0,0,,1d1,0,0,0,0,,0,5/1,,それは飲むと毒を癒す。,It cures poison when you quaff it.,
+265,解毒,スミレ色の,Neutralize Poison,Violet,!,v,INVENTORY,POTION,0,0,0,0,0,0,0,0,0,0,27,0,5,0,1,100,75,0,0,0,0,0,,1d1,0,0,0,0,,0,5/1,REMOVE_POISON,それは飲むと毒を癒す。,It cures poison when you quaff it.,
 259,恐いもの知らず,紫色の,Boldness,Purple,!,v,INVENTORY,POTION,0,0,0,0,0,0,0,0,0,0,28,0,1,0,1,100,10,0,0,0,0,0,,1d1,0,0,0,0,,0,1/1,,それは飲むと恐怖を取り除く。,It removes fear when you quaff it.,
 249,スピード,マゼンタ色の,Speed,Magenta,!,r,INVENTORY,POTION,0,0,0,0,0,0,0,0,0,0,29,0,1,0,1,100,75,0,0,0,0,0,,1d1,0,0,0,0,,0,1/1:40/1:60/1,HASTE,それは飲むと一時的に加速する。,It hastes you temporarily when you quaff it.,
 261,耐火,赤斑の,Resist Heat,Red Speckled,!,r,INVENTORY,POTION,0,0,0,0,0,0,0,0,0,0,30,0,1,0,1,100,30,0,0,0,0,0,,1d1,0,0,0,0,,0,1/1,MAGIC_RES_FIRE,それは飲むと一時的に火炎の耐性を得る。装備による耐性に累積する。,You get temporary resistance to fire when you quaff it. This resistance is cumulative with equipment.,
