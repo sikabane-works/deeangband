@@ -1448,9 +1448,9 @@ void aggravate_creatures(creature_type *creature_ptr)
 		if(m_ptr->cdis < MAX_SIGHT * 2)
 		{
 			/* Wake up */
-			if(has_trait(m_ptr, TRAIT_SLEPT))
+			if(has_trait_from_timed(m_ptr, TRAIT_SLEPT))
 			{
-				(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0);
+				(void)set_timed_trait_aux(m_ptr, TRAIT_SLEPT, 0, TRUE);
 				sleep = TRUE;
 			}
 			if(!is_pet(player_ptr, m_ptr)) set_timed_trait_aux(m_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
@@ -2282,7 +2282,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 								if(is_player(target_ptr)) msg_print("You are bashed by rubble!");
 #endif
 								damage = diceroll(10, 4);
-								(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(50));
+								(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(50), TRUE);
 								break;
 							}
 						case 3:
@@ -2293,7 +2293,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 								if(is_player(target_ptr)) msg_print("You are crushed between the floor and ceiling!");
 #endif
 								damage = diceroll(10, 4);
-								(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(50));
+								(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(50), TRUE);
 								break;
 							}
 						}
@@ -3437,9 +3437,9 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 #endif
 
 				if(has_trait(creature_ptr, TRAIT_FREE_ACTION))
-					set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(3));
+					add_timed_trait(creature_ptr, TRAIT_PARALYZED, randint1(3), TRUE);
 				else
-					set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(13));
+					add_timed_trait(creature_ptr, TRAIT_PARALYZED, randint1(13), TRUE);
 				stop_ty = TRUE;
 			}
 			if(!one_in_(6)) break;
