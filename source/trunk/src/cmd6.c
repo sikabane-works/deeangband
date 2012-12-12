@@ -834,10 +834,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			{
 				do
 				{
-					if(one_in_(2))
-					{
-						if(gain_trait(caster_ptr, 0, TRUE)) effected = TRUE;
-					}
+					if(one_in_(2)) if(gain_trait(caster_ptr, 0, TRUE)) effected = TRUE;
 					else if(lose_trait(caster_ptr, 0)) effected = TRUE;
 				} while(!effected || one_in_(2));
 			}
@@ -852,7 +849,6 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 #else
 		msg_print("Some of the fluid falls through your jaws!");
 #endif
-
 		(void)potion_smash_effect(0, caster_ptr->fy, caster_ptr->fx, quest_ptr->k_idx);
 	}
 
@@ -883,10 +879,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 #endif
 			set_food(caster_ptr, caster_ptr->food + 5000);
 		}
-		else
-		{
-			set_food(caster_ptr, caster_ptr->food + ((quest_ptr->pval) / 20));
-		}
+		else set_food(caster_ptr, caster_ptr->food + ((quest_ptr->pval) / 20));
 	}
 
 	if(IS_RACE(caster_ptr, RACE_ENT))
@@ -898,10 +891,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 #endif
 		set_food(caster_ptr, MIN(caster_ptr->food + quest_ptr->pval + MAX(0, quest_ptr->pval * 10) + 2000, CREATURE_FOOD_MAX - 1));
 	}
-	else
-	{
-		(void)set_food(caster_ptr, caster_ptr->food + quest_ptr->pval);
-	}
+	else (void)set_food(caster_ptr, caster_ptr->food + quest_ptr->pval);
 
 	//TODO
 	/*
@@ -927,10 +917,8 @@ static bool item_tester_hook_quaff(creature_type *creature_ptr, object_type *obj
 	if(object_ptr->tval == TV_POTION) return TRUE;
 
 	if(has_trait(creature_ptr, TRAIT_FLASK_DRINKER))
-	{
 		if(object_ptr->tval == TV_FLASK && object_ptr->sval == SV_FLASK_OIL)
 			return TRUE;
-	}
 
 	return FALSE;
 }
@@ -1107,20 +1095,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		case SV_SCROLL_TRAP_CREATION:
 		{
 			if(trap_creation(caster_ptr, caster_ptr->fy, caster_ptr->fx)) ident = TRUE;
-			break;
-		}
-
-		case SV_SCROLL_PHASE_DOOR:
-		{
-			teleport_player(caster_ptr, 10, 0L);
-			ident = TRUE;
-			break;
-		}
-
-		case SV_SCROLL_TELEPORT:
-		{
-			teleport_player(caster_ptr, 100, 0L);
-			ident = TRUE;
 			break;
 		}
 
