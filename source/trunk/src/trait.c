@@ -336,22 +336,22 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_HEAL:
 		if(heal_creature(caster_ptr, 300)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_STUN, 0)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_CUT, 0)) effected = TRUE;
-		if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_CONFUSED, 0, TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_POISONED, 0, TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_STUN, 0, TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_CUT, 0, TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
 		break;
 
 	case TRAIT_TRUE_HEALING:
 		if(heal_creature(caster_ptr, 1200)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_STUN, 0)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_CUT, 0)) effected = TRUE;
-		if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_CONFUSED, 0, TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_POISONED, 0, TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_STUN, 0, TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_CUT, 0, TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
 		break;
 
 	case TRAIT_GET_ESP:
@@ -373,11 +373,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		//TODO Remove duplicated process
 	case TRAIT_FAST:
 	case TRAIT_HASTE:
-		if(set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20))
+		if(set_timed_trait_aux(caster_ptr, TRAIT_FAST, randint1(20) + 20, TRUE))
 			break;
 
 	case TRAIT_HASTE_2:
-		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(75) + 75);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_FAST, randint1(75) + 75, TRUE);
 		break;
 
 	case TRAIT_WRAITH_FORM:
@@ -577,7 +577,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_REMOVE_FEAR:
-		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 		break;
 
 	case TRAIT_GETAWAY:
@@ -924,8 +924,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_SALT_WATER:
 		if(!has_trait(caster_ptr, TRAIT_NONLIVING)) (void)set_food(caster_ptr, CREATURE_FOOD_STARVE - 1); // Only living creatures get thirsty
-		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] + 4);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_POISONED, 0, TRUE);
+		(void)add_timed_trait(caster_ptr, TRAIT_PARALYZED, 4, TRUE);
 		break;
 
 	case TRAIT_SHRIEK:
