@@ -176,7 +176,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				break;
 
 			case SV_FOOD_CURE_POISON:
-				if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
+				if(set_timed_trait_aux(creature_ptr, TRAIT_POISONED, 0, TRUE)) ident = TRUE;
 				break;
 
 			case SV_FOOD_CURE_BLINDNESS:
@@ -262,7 +262,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				msg_print("That tastes good.");
 #endif
 
-				(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_POISONED, 0, TRUE);
 				(void)heal_creature(creature_ptr, diceroll(4, 8));
 				ident = TRUE;
 				break;
@@ -1686,11 +1686,11 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			if(dispel_evil(creature_ptr, 150)) ident = TRUE;
 			k = 3 * creature_ptr->lev;
 			if(set_timed_trait_aux(creature_ptr, TRAIT_PROT_EVIL, (magic ? 0 : creature_ptr->timed_trait[TRAIT_PROT_EVIL]) + randint1(25) + k, FALSE)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_POISONED, 0, TRUE)) ident = TRUE;
 			if(set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE)) ident = TRUE;
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_STUN, 0, TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_CUT, 0, TRUE)) ident = TRUE;
 			break;
 		}
 
