@@ -1105,20 +1105,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			break;
 		}
 
-		case SV_SCROLL_WORD_OF_RECALL:
-		{
-			if(!word_of_recall(caster_ptr, randint0(21) + 15)) used_up = FALSE;
-			ident = TRUE;
-			break;
-		}
-
-		case SV_SCROLL_IDENTIFY:
-		{
-			if(!ident_spell(caster_ptr, FALSE)) used_up = FALSE;
-			ident = TRUE;
-			break;
-		}
-
 		case SV_SCROLL_STAR_IDENTIFY:
 		{
 			if(!identify_fully(caster_ptr, FALSE)) used_up = FALSE;
