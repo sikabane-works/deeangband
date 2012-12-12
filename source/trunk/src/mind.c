@@ -1921,8 +1921,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 #else
 						msg_print("Weird visions seem to dance before your eyes...");
 #endif
-
-						set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, has_trait(creature_ptr, TRAIT_HALLUCINATION) + 5 + randint1(10));
+						add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 5 + randint1(10), TRUE);
 					}
 					else if(b < 45)
 					{
@@ -1931,12 +1930,11 @@ void do_cmd_mind(creature_type *creature_ptr)
 #else
 						msg_print("Your brain is addled!");
 #endif
-
-						set_timed_trait(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint1(8));
+						add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint1(8), TRUE);
 					}
 					else if(b < 90)
 					{
-						set_timed_trait(creature_ptr, TRAIT_STUN, creature_ptr->timed_trait[TRAIT_STUN] + randint1(8));
+						add_timed_trait(creature_ptr, TRAIT_STUN, randint1(8), TRUE);
 					}
 					else
 					{
@@ -1975,7 +1973,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 						msg_print("Your brain is addled!");
 #endif
 
-						set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, has_trait(creature_ptr, TRAIT_HALLUCINATION) + 5 + randint1(10));
+						add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 5 + randint1(10), TRUE);
 					}
 					else
 					{
