@@ -1868,7 +1868,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (can_enter || can_kill_walls))
 		{
 			
-			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0); // Disturb the creature
+			(void)set_timed_trait_aux(target_ptr, TRAIT_PARALYZED, 0, TRUE); // Disturb the creature
 			creature_desc(m_name, target_ptr, 0); // Extract creature name (or "it")
 
 			if(target_ptr->see_others)

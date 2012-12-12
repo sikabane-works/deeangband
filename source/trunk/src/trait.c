@@ -668,8 +668,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					msg_print(game_messages[GAME_MESSAGE_FAILED_PERILOUS_IDENTIFY]);
 
 					// Confusing.
-					(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));					
-					(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + randint1(5 * oops + 1));
+					(void)set_timed_trait_aux(caster_ptr, TRAIT_PARALYZED, randint1(5 * oops + 1), TRUE);					
+					(void)set_timed_trait_aux(caster_ptr, TRAIT_CONFUSED, randint1(5 * oops + 1), TRUE);
 				}
 
 				play_redraw |= (PR_MANA); // Redraw mana
@@ -1331,9 +1331,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			else
 			*/
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
-			}
+			else (void)set_timed_trait_aux(target_ptr, TRAIT_AFRAID, randint0(4) + 4, TRUE);
 			learn_trait(target_ptr, TRAIT_SCARE);
 			update_smart_learn(caster_ptr, DRS_FEAR);
 			break;
@@ -1356,7 +1354,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			else
 			*/
 			{
-				(void)set_timed_trait(target_ptr, TRAIT_BLIND, 12 + randint0(4));
+				(void)add_timed_trait(target_ptr, TRAIT_BLIND, 12 + randint0(4), TRUE);
 			}
 			learn_trait(target_ptr, TRAIT_BLIND);
 			update_smart_learn(caster_ptr, DRS_BLIND);
@@ -1434,9 +1432,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			else
 			*/
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, has_trait(target_ptr, TRAIT_PARALYZED) + randint0(4) + 4);
-			}
+			else (void)add_timed_trait(target_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE);
 			learn_trait(target_ptr, TRAIT_HOLD);
 			update_smart_learn(caster_ptr, DRS_FREE);
 			break;
@@ -2724,7 +2720,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BERSERK:
-		if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
 		if(add_timed_trait(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, TRUE)) effected = TRUE;
 		if(heal_creature(caster_ptr, 30)) effected = TRUE;
 		break;
