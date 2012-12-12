@@ -966,7 +966,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		{
 			if(attacker_ptr->lev > randint1(species_ptr->level + res_stun + 10))
 			{
-				if(set_timed_trait(target_ptr, TRAIT_STUN, stun_effect + target_ptr->timed_trait[TRAIT_STUN]))
+				if(add_timed_trait(target_ptr, TRAIT_STUN, stun_effect, TRUE))
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -2566,7 +2566,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Increase "blind" */
 				if(!has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
-					if(set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + 10 + randint1(attacker_ptr->lev)))
+					if(add_timed_trait(target_ptr, TRAIT_BLIND, 10 + randint1(attacker_ptr->lev), TRUE))
 					{
 #ifdef JP
 						if(attacker_ptr->species_idx == SPECIES_DIO) msg_print("「どうだッ！この血の目潰しはッ！」");
@@ -3046,7 +3046,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 
 			/* Apply the cut */
-			if(k) (void)set_timed_trait(target_ptr, TRAIT_CUT, GET_TIMED_TRAIT(target_ptr, TRAIT_CUT) + k);
+			if(k) (void)add_timed_trait(target_ptr, TRAIT_CUT, k, TRUE);
 		}
 
 		/* Handle stun */
