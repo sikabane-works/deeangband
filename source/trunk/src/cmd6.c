@@ -1112,23 +1112,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			break;
 		}
 
-		case SV_SCROLL_REMOVE_CURSE:
-		{
-			if(remove_curse(caster_ptr)) 
-			{
-				msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
-				ident = TRUE;
-			}
-			break;
-		}
-
-		case SV_SCROLL_STAR_REMOVE_CURSE:
-		{
-			if(remove_all_curse(caster_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
-			ident = TRUE;
-			break;
-		}
-
 		case SV_SCROLL_ENCHANT_ARMOR:
 		{
 			ident = TRUE;
@@ -1175,12 +1158,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		{
 			ident = TRUE;
 			if(!mundane_spell(caster_ptr, FALSE)) used_up = FALSE;
-			break;
-		}
-
-		case SV_SCROLL_LIGHT:
-		{
-			if(lite_area(caster_ptr, diceroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
@@ -1581,25 +1558,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			teleport_player(creature_ptr, 100, 0L);
 			ident = TRUE;
 			break;
-
-		case SV_STAFF_REMOVE_CURSE:
-		{
-			if(remove_curse(creature_ptr))
-			{
-				if(magic) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
-				else if(!has_trait(creature_ptr, TRAIT_BLIND))
-				{
-#ifdef JP
-					msg_print("èÒÇÕàÍèuÉuÉãÅ[Ç…ãPÇ¢ÇΩ...");
-#else
-					msg_print("The staff glows blue for a moment...");
-#endif
-
-				}
-				ident = TRUE;
-			}
-			break;
-		}
 
 		case SV_STAFF_STARLITE:
 		{

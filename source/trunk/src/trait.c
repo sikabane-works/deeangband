@@ -886,6 +886,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		(void)restore_exp(caster_ptr);
 		break;
 
+	case TRAIT_REMOVE_CURSE_1:
+		if(remove_curse(caster_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
+
 	case TRAIT_REMOVE_CURSE_2:
 		if(remove_all_curse(caster_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
 
