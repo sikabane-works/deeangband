@@ -331,7 +331,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		//TODO Remove duplicated process
 	case TRAIT_REGAL_HEAL_OF_AMBER:
 		(void)heal_creature(caster_ptr, 700);
-		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_CUT, 0, TRUE);
 		break;
 
 	case TRAIT_HEAL:

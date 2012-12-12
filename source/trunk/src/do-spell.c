@@ -2544,8 +2544,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				heal_creature(caster_ptr, diceroll(dice, sides));
-				set_timed_trait(caster_ptr, TRAIT_CUT, 0);
-				set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
+				set_timed_trait_aux(caster_ptr, TRAIT_CUT, 0, TRUE);
+				set_timed_trait_aux(caster_ptr, TRAIT_POISONED, 0, TRUE);
 			}
 		}
 		break;
@@ -2739,9 +2739,9 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				heal_creature(caster_ptr, heal);
-				set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-				set_timed_trait(caster_ptr, TRAIT_CUT, 0);
-				set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
+				set_timed_trait_aux(caster_ptr, TRAIT_STUN, 0, TRUE);
+				set_timed_trait_aux(caster_ptr, TRAIT_CUT, 0, TRUE);
+				set_timed_trait_aux(caster_ptr, TRAIT_POISONED, 0, TRUE);
 			}
 		}
 		break;
@@ -4345,7 +4345,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, randint1(base) + base, FALSE);
 				heal_creature(caster_ptr, 30);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 			}
 		}
 		break;
@@ -4415,7 +4415,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, FALSE);
 				heal_creature(caster_ptr, 30);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 				set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base);
 			}
 		}
@@ -5945,7 +5945,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
+				set_timed_trait_aux(caster_ptr, TRAIT_POISONED, 0, TRUE);
 			}
 		}
 		break;
@@ -6496,7 +6496,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 10);
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 			}
 		}
 		break;
@@ -6620,7 +6620,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 30);
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 			}
 		}
 		break;
@@ -7515,7 +7515,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
 				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
 				set_timed_trait_aux(caster_ptr, TRAIT_AURA_FIRE, dur, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 				break;
 			}
 		}
@@ -7678,7 +7678,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				set_timed_trait_aux(caster_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
 				heal_creature(caster_ptr, 10);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 			}
 		}
 		break;
@@ -7914,7 +7914,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 			}
 		}
 		break;
@@ -8211,7 +8211,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				dispel_evil(creature_ptr, randint1(dam_sides));
 				heal_creature(creature_ptr, heal);
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 				set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				set_timed_trait(creature_ptr, TRAIT_STUN, 0);
 				set_timed_trait(creature_ptr, TRAIT_CUT, 0);
@@ -8425,7 +8425,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 10);
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 			}
 		}
 		break;
@@ -8609,7 +8609,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
 				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base);
 				set_timed_trait_aux(creature_ptr, TRAIT_PROT_EVIL, randint1(base) + base, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 			}
 		}
 		break;
@@ -8885,7 +8885,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 
 			(void)heal_creature(caster_ptr, 10);
-			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+			(void)set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 
 			caster_ptr->creature_update |= (CRU_HP);
 
@@ -9540,7 +9540,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			msg_print("You chant a powerful, heroic call to arms...");
 #endif
 			(void)heal_creature(caster_ptr, 10);
-			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+			(void)set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 
 			caster_ptr->creature_update |= (CRU_HP);
 
@@ -9593,8 +9593,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cont)
 			{
 				heal_creature(caster_ptr, diceroll(dice, sides));
-				set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-				set_timed_trait(caster_ptr, TRAIT_CUT, 0);
+				set_timed_trait_aux(caster_ptr, TRAIT_STUN, 0, TRUE);
+				set_timed_trait_aux(caster_ptr, TRAIT_CUT, 0, TRUE);
 			}
 		}
 

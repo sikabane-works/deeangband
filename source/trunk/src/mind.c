@@ -915,7 +915,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 9:
 		/* Adrenaline */
-		set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
+		set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 		set_timed_trait(creature_ptr, TRAIT_STUN, 0);
 
 		/*

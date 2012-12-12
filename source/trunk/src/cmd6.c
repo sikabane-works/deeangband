@@ -184,7 +184,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				break;
 
 			case SV_FOOD_CURE_PARANOIA:
-				if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
+				if(set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE)) ident = TRUE;
 				break;
 
 			case SV_FOOD_CURE_CONFUSION:
@@ -760,7 +760,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_BOLDNESS:
-			if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0)) effected = TRUE;
+			if(set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
 			break;
 
 		case SV_POTION_SELF_KNOWLEDGE:
@@ -793,10 +793,10 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 		case SV_POTION_CURING:
 			if(heal_creature(caster_ptr, 50)) effected = TRUE;
 			if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0)) effected = TRUE;
+			if(set_timed_trait_aux(caster_ptr, TRAIT_POISONED, 0, TRUE)) effected = TRUE;
 			if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_STUN, 0)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_CUT, 0)) effected = TRUE;
+			if(set_timed_trait_aux(caster_ptr, TRAIT_STUN, 0, TRUE)) effected = TRUE;
+			if(set_timed_trait_aux(caster_ptr, TRAIT_CUT, 0, TRUE)) effected = TRUE;
 			if(set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0)) effected = TRUE;
 			break;
 
@@ -1687,7 +1687,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			k = 3 * creature_ptr->lev;
 			if(set_timed_trait_aux(creature_ptr, TRAIT_PROT_EVIL, (magic ? 0 : creature_ptr->timed_trait[TRAIT_PROT_EVIL]) + randint1(25) + k, FALSE)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE)) ident = TRUE;
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
