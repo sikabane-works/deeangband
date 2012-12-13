@@ -4797,23 +4797,6 @@ void message_pain(int m_idx, int dam)
 	}
 }
 
-// Learn about an "observed" resistance.
-void update_smart_learn(creature_type *learner_ptr, int what)
-{
-	species_type *species_ptr = &species_info[learner_ptr->species_idx];
-
-	/* Not allowed to learn */
-	if(!smart_learn) return;
-
-	/* Too stupid to learn anything */
-	if(has_trait(learner_ptr, TRAIT_STUPID)) return;
-
-	/* Not intelligent, only learn sometimes */
-	if(!has_trait(learner_ptr, TRAIT_SMART) && (randint0(100) < 50)) return;
-
-	//TODO reimplement smart learning.
-}
-
 bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, int x)
 {
 

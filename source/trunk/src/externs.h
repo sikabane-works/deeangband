@@ -1079,7 +1079,6 @@ extern bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int
 extern bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int type, u32b mode);
 extern bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, int oy, int ox, int species_idx, u32b mode);
 extern bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode);
-extern void update_smart_learn(creature_type *learner_ptr, int what);
 extern void set_new_species(creature_type *creature_ptr, bool born, int species_idx, int creature_ego_idx);
 extern bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, int x);
 extern void creature_drop_carried_objects(creature_type *m_ptr);

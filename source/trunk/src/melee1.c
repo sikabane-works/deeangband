@@ -2122,7 +2122,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				/* Learn about the player */
-				//TODO update_smart_learn(m_idx, DRS_POIS);
 
 				break;
 			}
@@ -2146,7 +2145,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1); // Take some damage
 
 				/* Learn about the player */
-				//TODO update_smart_learn(m_idx, DRS_DISEN);
 
 				break;
 			}
@@ -2485,7 +2483,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				update_creature(target_ptr, TRUE);
 
 				/* Learn about the player */
-				//TODO update_smart_learn(m_idx, DRS_ACID);
 
 				break;
 			}
@@ -2504,7 +2501,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				//project_creature(
 
 				/* Learn about the player */
-				//TODO update_smart_learn(m_idx, DRS_ELEC);
 
 				break;
 			}
@@ -2527,7 +2523,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				//fire_dam(target_ptr, damage);
 
 				/* Learn about the player */
-				//TODO update_smart_learn(m_idx, DRS_FIRE);
 
 				break;
 			}
@@ -2547,7 +2542,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				//TODO get_damage += cold_dam(target_ptr, damage, ddesc, -1);
 
 				/* Learn about the player */
-				//TODO update_smart_learn(m_idx, DRS_COLD);
 
 				break;
 			}
@@ -2574,7 +2568,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 
 				/* Learn about the player */
-				//TODO update_smart_learn(m_idx, DRS_BLIND);
 
 				break;
 			}
@@ -2595,7 +2588,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 
 				/* Learn about the player */
-				//TODO update_smart_learn(m_idx, DRS_CONF);
 
 				break;
 			}
@@ -2639,7 +2631,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 
 				/* Learn about the player */
-				//TODO update_smart_learn(m_idx, DRS_FEAR);
 
 				break;
 			}
@@ -2674,7 +2665,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 
 				/* Learn about the player */
-				//TODO update_smart_learn(m_idx, DRS_FREE);
 
 				break;
 			}
@@ -3006,7 +2996,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 
 				/* Learn about the player */
-				//TODO update_smart_learn(m_idx, DRS_MANA);
 
 				break;
 			}
