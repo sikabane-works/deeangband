@@ -2040,44 +2040,9 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 		}
 
-		case SV_WAND_STINKING_CLOUD:
-		{
-			cast_ball(creature_ptr, DO_EFFECT_POIS, dir, 12 + creature_ptr->lev / 4, 2);
-			ident = TRUE;
-			break;
-		}
-
 		case SV_WAND_CHARM_MONSTER:
 		{
 			if(charm_creature(creature_ptr, dir, MAX(20, creature_ptr->lev)))
-			ident = TRUE;
-			break;
-		}
-
-		case SV_WAND_ACID_BALL:
-		{
-			cast_ball(creature_ptr, DO_EFFECT_ACID, dir, 60 + 3 * creature_ptr->lev / 4, 2);
-			ident = TRUE;
-			break;
-		}
-
-		case SV_WAND_ELEC_BALL:
-		{
-			cast_ball(creature_ptr, DO_EFFECT_ELEC, dir, 40 + 3 * creature_ptr->lev / 4, 2);
-			ident = TRUE;
-			break;
-		}
-
-		case SV_WAND_FIRE_BALL:
-		{
-			cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 70 + 3 * creature_ptr->lev / 4, 2);
-			ident = TRUE;
-			break;
-		}
-
-		case SV_WAND_COLD_BALL:
-		{
-			cast_ball(creature_ptr, DO_EFFECT_COLD, dir, 50 + 3 * creature_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
