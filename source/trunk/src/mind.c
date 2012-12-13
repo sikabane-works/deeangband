@@ -841,7 +841,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 			b = detect_all(creature_ptr, DETECT_RAD_DEFAULT);
 
 		if((plev > 24) && (plev < 40))
-			set_timed_trait_aux(creature_ptr, TRAIT_ESP, plev, FALSE);
+			set_timed_trait(creature_ptr, TRAIT_ESP, plev, FALSE);
 
 #ifdef JP
 		if(!b) msg_print("ˆÀ‘S‚È‹C‚ª‚·‚éB");
@@ -886,12 +886,12 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 6:
 		/* Character Armour */
-		set_timed_trait_aux(creature_ptr, TRAIT_SHIELD, plev, FALSE);
-		if(plev > 14) set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, plev, FALSE);
-		if(plev > 19) set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, plev, FALSE);
-		if(plev > 24) set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, plev, FALSE);
-		if(plev > 29) set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, plev, FALSE);
-		if(plev > 34) set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, plev, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_SHIELD, plev, FALSE);
+		if(plev > 14) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ACID, plev, FALSE);
+		if(plev > 19) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, plev, FALSE);
+		if(plev > 24) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_COLD, plev, FALSE);
+		if(plev > 29) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ELEC, plev, FALSE);
+		if(plev > 34) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_POIS, plev, FALSE);
 		break;
 	case 7:
 		/* Psychometry */
@@ -915,8 +915,8 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 9:
 		/* Adrenaline */
-		set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
-		set_timed_trait_aux(creature_ptr, TRAIT_STUN, 0, TRUE);
+		set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE);
+		set_timed_trait(creature_ptr, TRAIT_STUN, 0, TRUE);
 
 		/*
 		* Only heal when Adrenalin Channeling is not active. We check
@@ -925,8 +925,8 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		if(!IS_FAST(creature_ptr) || !IS_HERO(creature_ptr)) heal_creature(creature_ptr, plev);
 
 		b = 10 + randint1((plev * 3) / 2);
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, b, FALSE);
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_FAST, b, TRUE);
+		(void)set_timed_trait(creature_ptr, TRAIT_HERO, b, FALSE);
+		(void)set_timed_trait(creature_ptr, TRAIT_FAST, b, TRUE);
 		break;
 
 	case 10:
@@ -1020,14 +1020,14 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		(void)lite_area(creature_ptr, diceroll(2, (plev / 2)), (plev / 10) + 1);
 		break;
 	case 2:
-		set_timed_trait_aux(creature_ptr, TRAIT_LEVITATION, randint1(30) + 30 + boost / 5, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_LEVITATION, randint1(30) + 30 + boost / 5, FALSE);
 		break;
 	case 3:
 		if(!get_aim_dir(creature_ptr, plev / 8 + 3, &dir)) return FALSE;
 		cast_beam(creature_ptr, plev / 8 + 3, DO_EFFECT_MISSILE, diceroll(5 + ((plev - 1) / 5) + boost / 10, 5), 0, FALSE);
 		break;
 	case 4:
-		set_timed_trait_aux(creature_ptr, TRAIT_RESIST_MAGIC, randint1(20) + 20 + boost / 5, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_RESIST_MAGIC, randint1(20) + 20 + boost / 5, FALSE);
 		break;
 	case 5:
 #ifdef JP
@@ -1054,7 +1054,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		else return TRUE;
 		break;
 	case 6:
-		set_timed_trait_aux(creature_ptr, TRAIT_AURA_MANA, randint1(plev / 2) + 15 + boost / 7, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_AURA_MANA, randint1(plev / 2) + 15 + boost / 7, FALSE);
 		break;
 	case 7:
 		{
@@ -1172,7 +1172,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_MANA, diceroll(10 + (plev / 2) + boost * 3 / 10, 15), 0, FALSE);
 		break;
 	case 13:
-		set_timed_trait_aux(creature_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16 + boost / 20, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16 + boost / 20, FALSE);
 		break;
 	default:
 #ifdef JP
@@ -1220,7 +1220,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		tmp = is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ? 4 : 0;
 		if( plev + tmp > 4) detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
 		if( plev + tmp > 18) detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT);
-		if( plev + tmp > 28) set_timed_trait_aux(creature_ptr, TRAIT_ESP, plev,FALSE);
+		if( plev + tmp > 28) set_timed_trait(creature_ptr, TRAIT_ESP, plev,FALSE);
 		if( plev + tmp > 38) map_area(creature_ptr, DETECT_RAD_MAP);
 		if( tmp == 0 && plev < 5 ){
 #ifdef JP
@@ -1266,7 +1266,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 		/* robe of dust */
 	case 6:
-		set_timed_trait_aux(creature_ptr, TRAIT_DUST_ROBE,  20+randint1(20),FALSE);
+		set_timed_trait(creature_ptr, TRAIT_DUST_ROBE,  20+randint1(20),FALSE);
 		break;
 		/* banishing mirror */
 	case 7:
@@ -1301,9 +1301,9 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		/* shield of water */
 	case 12:
 		tmp = 20+randint1(20);
-		set_timed_trait_aux(creature_ptr, TRAIT_SHIELD, tmp, FALSE);
-		if(plev > 31) set_timed_trait_aux(creature_ptr, TRAIT_REFLECTING, tmp, FALSE);
-		if(plev > 39) set_timed_trait_aux(creature_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_SHIELD, tmp, FALSE);
+		if(plev > 31) set_timed_trait(creature_ptr, TRAIT_REFLECTING, tmp, FALSE);
+		if(plev > 39) set_timed_trait(creature_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
 		break;
 		/* super ray */
 	case 13:
@@ -1345,7 +1345,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		return word_of_recall(creature_ptr, randint0(21) + 15);
 
 	case 18:
-		set_timed_trait_aux(creature_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
+		set_timed_trait(creature_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
 		break;
 
 	case 19:
@@ -1357,7 +1357,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 		/* mirror of Ruffnor */
 	case 20:
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, randint1(4)+4,FALSE);
+		(void)set_timed_trait(creature_ptr, TRAIT_INVULNERABLE, randint1(4)+4,FALSE);
 		break;
 	default:
 #ifdef JP
@@ -1574,12 +1574,12 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 	case 7:
 		return ident_spell(creature_ptr, FALSE);
 	case 8:
-		set_timed_trait_aux(creature_ptr, TRAIT_LEVITATION, randint1(20) + 20, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_LEVITATION, randint1(20) + 20, FALSE);
 		break;
 	case 9:
 		cast_ball(creature_ptr, DO_EFFECT_FIRE, 0, 50+plev, plev/10+2);
 		teleport_player(creature_ptr, 30, 0L);
-		set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, plev, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, plev, FALSE);
 		break;
 	case 10:
 		return rush_attack(creature_ptr, NULL);
@@ -1663,7 +1663,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			m_ptr->fx = tx;
 
 			/* Wake the creature up */
-			(void)set_timed_trait_aux(m_ptr, TRAIT_PARALYZED, 0, TRUE);
+			(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0, TRUE);
 
 			/* Update the creature (new location) */
 			update_creature_view(player_ptr, m_idx, TRUE);
@@ -1698,8 +1698,8 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 		explosive_rune(creature_ptr);
 		break;
 	case 16:
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_PASS_WALL, randint1(plev/2) + plev/2, FALSE);
-		set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, plev, FALSE);
+		(void)set_timed_trait(creature_ptr, TRAIT_PASS_WALL, randint1(plev/2) + plev/2, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ACID, plev, FALSE);
 		break;
 	case 17:
 		cast_ball(creature_ptr, DO_EFFECT_POIS, 0, 75+plev*2/3, plev/5+2);
@@ -1728,7 +1728,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			break;
 		}
 	case 19:
-		set_timed_trait_aux(creature_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
+		set_timed_trait(creature_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
 		break;
 	default:
 #ifdef JP

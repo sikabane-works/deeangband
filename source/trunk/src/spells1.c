@@ -1755,7 +1755,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
 		if(has_trait(target_ptr, TRAIT_WRAITH_FORM))
 		{
-			set_timed_trait_aux(target_ptr, TRAIT_WRAITH_FORM, 0, TRUE);
+			set_timed_trait(target_ptr, TRAIT_WRAITH_FORM, 0, TRUE);
 			play_redraw |= PR_MAP;
 			caster_ptr->creature_update |= (PU_CREATURES);
 			play_window |= PW_OVERHEAD | PW_DUNGEON | PR_STATUS;
@@ -1965,10 +1965,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_OLD_HEAL:
-		(void)set_timed_trait_aux(target_ptr, TRAIT_PARALYZED, 0, TRUE);
-		(void)set_timed_trait_aux(target_ptr, TRAIT_STUN, 0, TRUE);
-		(void)set_timed_trait_aux(target_ptr, TRAIT_CONFUSED, 0, TRUE);
-		(void)set_timed_trait_aux(target_ptr, TRAIT_AFRAID, 0, TRUE);
+		(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0, TRUE);
+		(void)set_timed_trait(target_ptr, TRAIT_STUN, 0, TRUE);
+		(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, 0, TRUE);
+		(void)set_timed_trait(target_ptr, TRAIT_AFRAID, 0, TRUE);
 		(void)heal_creature(target_ptr, dam);
 
 		// Redraw (later) if needed
@@ -2309,7 +2309,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
@@ -2319,7 +2319,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
 		{
@@ -2352,7 +2352,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
@@ -2361,7 +2361,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
 		{
@@ -2393,7 +2393,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(has_trait(target_ptr, TRAIT_NO_CONF) && is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
@@ -2402,7 +2402,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
 		{
@@ -2869,7 +2869,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
@@ -2878,7 +2878,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
 		{
@@ -3008,7 +3008,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
@@ -3017,7 +3017,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-			if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
 		{
@@ -3158,7 +3158,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//94-95
 
 	case DO_EFFECT_STAR_HEAL:
-		(void)set_timed_trait_aux(target_ptr, TRAIT_PARALYZED, 0, TRUE); // Wake up
+		(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0, TRUE); // Wake up
 
 		if(target_ptr->mhp < target_ptr->mmhp)
 		{
@@ -3202,7 +3202,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					has_trait(target_ptr, TRAIT_NO_PET) || (has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
 					((target_ptr->lev * 2+10) > randint1(dam)))
 				{
-					if(one_in_(4)) set_timed_trait_aux(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+					if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 				}
 				else
 				{

@@ -176,19 +176,19 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				break;
 
 			case SV_FOOD_CURE_POISON:
-				if(set_timed_trait_aux(creature_ptr, TRAIT_POISONED, 0, TRUE)) ident = TRUE;
+				if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE)) ident = TRUE;
 				break;
 
 			case SV_FOOD_CURE_BLINDNESS:
-				if(set_timed_trait_aux(creature_ptr, TRAIT_BLIND, 0, TRUE)) ident = TRUE;
+				if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0, TRUE)) ident = TRUE;
 				break;
 
 			case SV_FOOD_CURE_PARANOIA:
-				if(set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE)) ident = TRUE;
+				if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE)) ident = TRUE;
 				break;
 
 			case SV_FOOD_CURE_CONFUSION:
-				if(set_timed_trait_aux(creature_ptr, TRAIT_CONFUSED, 0, TRUE)) ident = TRUE;
+				if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0, TRUE)) ident = TRUE;
 				break;
 
 			case SV_FOOD_CURE_SERIOUS:
@@ -262,7 +262,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				msg_print("That tastes good.");
 #endif
 
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_POISONED, 0, TRUE);
+				(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE);
 				(void)heal_creature(creature_ptr, diceroll(4, 8));
 				ident = TRUE;
 				break;
@@ -661,8 +661,8 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 
 		case SV_POTION_CONFUSION:
 			if(!has_trait(caster_ptr, TRAIT_NO_CONF))
-				set_timed_trait_aux(caster_ptr, TRAIT_DRUNKING_FIST, randint0(20) + 15, TRUE);
-				if(set_timed_trait_aux(caster_ptr, TRAIT_CONFUSED, randint0(20) + 15, TRUE))
+				set_timed_trait(caster_ptr, TRAIT_DRUNKING_FIST, randint0(20) + 15, TRUE);
+				if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, randint0(20) + 15, TRUE))
 					effected = TRUE;
 
 			if(!has_trait(caster_ptr, TRAIT_RES_CHAO))
@@ -756,11 +756,11 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_SLOW_POISON:
-			if(set_timed_trait_aux(caster_ptr, TRAIT_POISONED, caster_ptr->timed_trait[TRAIT_POISONED] / 2, TRUE)) effected = TRUE;
+			if(set_timed_trait(caster_ptr, TRAIT_POISONED, caster_ptr->timed_trait[TRAIT_POISONED] / 2, TRUE)) effected = TRUE;
 			break;
 
 		case SV_POTION_BOLDNESS:
-			if(set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
+			if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
 			break;
 
 		case SV_POTION_SELF_KNOWLEDGE:
@@ -792,12 +792,12 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 
 		case SV_POTION_CURING:
 			if(heal_creature(caster_ptr, 50)) effected = TRUE;
-			if(set_timed_trait_aux(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
-			if(set_timed_trait_aux(caster_ptr, TRAIT_POISONED, 0, TRUE)) effected = TRUE;
-			if(set_timed_trait_aux(caster_ptr, TRAIT_CONFUSED, 0, TRUE)) effected = TRUE;
-			if(set_timed_trait_aux(caster_ptr, TRAIT_STUN, 0, TRUE)) effected = TRUE;
-			if(set_timed_trait_aux(caster_ptr, TRAIT_CUT, 0, TRUE)) effected = TRUE;
-			if(set_timed_trait_aux(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE)) effected = TRUE;
+			if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
+			if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE)) effected = TRUE;
+			if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE)) effected = TRUE;
+			if(set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE)) effected = TRUE;
+			if(set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE)) effected = TRUE;
+			if(set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE)) effected = TRUE;
 			break;
 
 		case SV_POTION_NEW_LIFE:
@@ -809,7 +809,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_NEO_TSUYOSHI:
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
+			(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
 			(void)add_timed_trait(caster_ptr, TRAIT_TSUYOSHI, randint1(100) + 100, TRUE);
 			effected = TRUE;
 			break;
@@ -822,7 +822,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 #endif
 			msg_print(NULL);
 			caster_ptr->timed_trait[TRAIT_TSUYOSHI] = 1;
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_TSUYOSHI, 0, TRUE);
+			(void)set_timed_trait(caster_ptr, TRAIT_TSUYOSHI, 0, TRUE);
 			if(!has_trait(caster_ptr, TRAIT_RES_CHAO)) (void)add_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 50 + randint1(50), FALSE);
 			effected = TRUE;
 			break;
@@ -1219,7 +1219,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			break;
 
 		case SV_SCROLL_MONSTER_CONFUSION:
-			if(set_timed_trait_aux(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE)) ident = TRUE;
+			if(set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE)) ident = TRUE;
 			break;
 
 		case SV_SCROLL_PROTECTION_FROM_EVIL:
@@ -1647,7 +1647,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
 				play_redraw |= (PR_MANA | PW_PLAYER | PW_SPELL);
 			}
-			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -1679,12 +1679,12 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		{
 			if(dispel_evil(creature_ptr, 150)) ident = TRUE;
 			k = 3 * creature_ptr->lev;
-			if(set_timed_trait_aux(creature_ptr, TRAIT_PROT_EVIL, (magic ? 0 : creature_ptr->timed_trait[TRAIT_PROT_EVIL]) + randint1(25) + k, FALSE)) ident = TRUE;
-			if(set_timed_trait_aux(creature_ptr, TRAIT_POISONED, 0, TRUE)) ident = TRUE;
-			if(set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_PROT_EVIL, (magic ? 0 : creature_ptr->timed_trait[TRAIT_PROT_EVIL]) + randint1(25) + k, FALSE)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE)) ident = TRUE;
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
-			if(set_timed_trait_aux(creature_ptr, TRAIT_STUN, 0, TRUE)) ident = TRUE;
-			if(set_timed_trait_aux(creature_ptr, TRAIT_CUT, 0, TRUE)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0, TRUE)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0, TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -2984,7 +2984,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 200, -2);
 				if(object_ptr->sval == SV_RING_FLAMES)
 				{
-					(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, FALSE);
+					(void)set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, FALSE);
 					object_ptr->timeout = 200;
 				}
 				else object_ptr->timeout = 250;
@@ -2995,7 +2995,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				cast_ball(creature_ptr, DO_EFFECT_COLD, dir, 200, -2);
 				if(object_ptr->sval == SV_RING_ICE)
 				{
-					(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
+					(void)set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
 					object_ptr->timeout = 200;
 				}
 				else object_ptr->timeout = 250;

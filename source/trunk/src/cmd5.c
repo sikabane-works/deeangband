@@ -1820,8 +1820,8 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		{
 			char steed_name[80];
 			creature_desc(steed_name, steed_ptr, 0);
-			(void)set_timed_trait_aux(steed_ptr, TRAIT_PARALYZED, 0, TRUE);
-			(void)set_timed_trait_aux(steed_ptr, TRAIT_SLEPT, 0, TRUE);
+			(void)set_timed_trait(steed_ptr, TRAIT_PARALYZED, 0, TRUE);
+			(void)set_timed_trait(steed_ptr, TRAIT_SLEPT, 0, TRUE);
 #ifdef JP
 			msg_format("%sÇãNÇ±ÇµÇΩÅB", steed_name);
 #else

@@ -1354,7 +1354,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You play tough.");
 #endif
 
-			(void)set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
+			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 			break;
 
 		case RACE_OGRE:

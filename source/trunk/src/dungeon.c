@@ -1894,13 +1894,13 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 
 	for(i = 0; i < MAX_TRAITS; i++)
 		if(creature_ptr->timed_trait[i] > 0 && creature_ptr->timed_trait[i] < PERMANENT_TIMED)
-			(void)set_timed_trait_aux(creature_ptr, i, creature_ptr->timed_trait[i] - dec_count, TRUE);
+			(void)set_timed_trait(creature_ptr, i, creature_ptr->timed_trait[i] - dec_count, TRUE);
 
 	// Handle "sleep"
 	if(has_trait(creature_ptr, TRAIT_SLEPT))
 	{
 		if(creature_ptr->see_others || creature_ptr->hear_noise)
-			(void)set_timed_trait_aux(creature_ptr, TRAIT_SLEEP, 0, TRUE);	// Handle aggravation Reset sleep counter
+			(void)set_timed_trait(creature_ptr, TRAIT_SLEEP, 0, TRUE);	// Handle aggravation Reset sleep counter
 
 		// TODO -- Count the wakings
 		//if(is_original_ap_and_seen(player_ptr, creature_ptr) && (species_ptr->r_wake < MAX_UCHAR))
@@ -1981,8 +1981,8 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		msg_print("RAAAAGHH!");
 		msg_print("You feel a fit of rage coming over you!");
 #endif
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 10 + randint1(creature_ptr->lev), FALSE);
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
+		(void)set_timed_trait(creature_ptr, TRAIT_S_HERO, 10 + randint1(creature_ptr->lev), FALSE);
+		(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_COWARDICE) && (randint1(3000) == 13))
@@ -2127,7 +2127,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			msg_print("You feel less energetic.");
 #endif
 
-			if(has_trait(creature_ptr, TRAIT_FAST)) set_timed_trait_aux(creature_ptr, TRAIT_FAST, 0, TRUE);
+			if(has_trait(creature_ptr, TRAIT_FAST)) set_timed_trait(creature_ptr, TRAIT_FAST, 0, TRUE);
 			else add_timed_trait(creature_ptr, TRAIT_SLOW, randint1(30) + 10, FALSE);
 		}
 		else
@@ -2137,7 +2137,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 			msg_print("You feel more energetic.");
 #endif
-			if(has_trait(creature_ptr, TRAIT_SLOW)) set_timed_trait_aux(creature_ptr, TRAIT_SLOW, 0, TRUE);
+			if(has_trait(creature_ptr, TRAIT_SLOW)) set_timed_trait(creature_ptr, TRAIT_SLOW, 0, TRUE);
 			else add_timed_trait(creature_ptr, TRAIT_FAST, randint1(30) + 10, FALSE);
 		}
 		msg_print(NULL);
@@ -2246,7 +2246,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		msg_print("You feel insubstantial!");
 #endif
 		msg_print(NULL);
-		set_timed_trait_aux(creature_ptr, TRAIT_WRAITH_FORM, randint1(creature_ptr->lev / 2) + (creature_ptr->lev / 2), FALSE);
+		set_timed_trait(creature_ptr, TRAIT_WRAITH_FORM, randint1(creature_ptr->lev / 2) + (creature_ptr->lev / 2), FALSE);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_POLY_WOUND) && one_in_(3000))
@@ -2311,7 +2311,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 			msg_print("Your mind feels cloudy!");
 #endif
-			set_timed_trait_aux(creature_ptr, TRAIT_ESP, 0, FALSE);
+			set_timed_trait(creature_ptr, TRAIT_ESP, 0, FALSE);
 		}
 		else
 		{
@@ -2353,7 +2353,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #endif
 
 		msg_print(NULL);
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, randint1(8) + 8, FALSE);
+		(void)set_timed_trait(creature_ptr, TRAIT_INVULNERABLE, randint1(8) + 8, FALSE);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_SP_TO_HP_PASSIVE) && one_in_(2000))
@@ -4633,7 +4633,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 		if(has_trait(steed_ptr, TRAIT_PARALYZED))
 		{
 			char steed_name[MAX_NLEN];
-			(void)set_timed_trait_aux(steed_ptr, TRAIT_PARALYZED, 0, FALSE);
+			(void)set_timed_trait(steed_ptr, TRAIT_PARALYZED, 0, FALSE);
 			creature_desc(steed_name, steed_ptr, 0);
 #ifdef JP
 			msg_format("%^s‚ð‹N‚±‚µ‚½B", steed_name);
@@ -4644,7 +4644,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 		if(has_trait(steed_ptr, TRAIT_STUN))
 		{
-			if(set_timed_trait_aux(steed_ptr, TRAIT_STUN, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_STUN] - 1), TRUE))
+			if(set_timed_trait(steed_ptr, TRAIT_STUN, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_STUN] - 1), TRUE))
 			{
 				char steed_name[MAX_NLEN];
 				creature_desc(steed_name, steed_ptr, 0);
@@ -4658,7 +4658,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 		if(has_trait(steed_ptr, TRAIT_CONFUSED))
 		{
-			if(set_timed_trait_aux(steed_ptr, TRAIT_CONFUSED, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_CONFUSED] - 1), TRUE))
+			if(set_timed_trait(steed_ptr, TRAIT_CONFUSED, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_CONFUSED] - 1), TRUE))
 			{
 				char steed_name[MAX_NLEN];
 				creature_desc(steed_name, steed_ptr, 0);
@@ -4673,7 +4673,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 		if(has_trait(steed_ptr, TRAIT_AFRAID))
 		{
-			if(set_timed_trait_aux(steed_ptr, TRAIT_AFRAID, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_AFRAID] - 1), TRUE))
+			if(set_timed_trait(steed_ptr, TRAIT_AFRAID, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_AFRAID] - 1), TRUE))
 			{
 				char steed_name[MAX_NLEN];
 				creature_desc(steed_name, steed_ptr, 0);

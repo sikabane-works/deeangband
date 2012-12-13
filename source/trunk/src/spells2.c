@@ -1450,10 +1450,10 @@ void aggravate_creatures(creature_type *creature_ptr)
 			/* Wake up */
 			if(has_trait_from_timed(m_ptr, TRAIT_SLEPT))
 			{
-				(void)set_timed_trait_aux(m_ptr, TRAIT_SLEPT, 0, TRUE);
+				(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0, TRUE);
 				sleep = TRUE;
 			}
-			if(!is_pet(player_ptr, m_ptr)) set_timed_trait_aux(m_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+			if(!is_pet(player_ptr, m_ptr)) set_timed_trait(m_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 
 		/* Speed up creatures in line of sight */
@@ -1461,7 +1461,7 @@ void aggravate_creatures(creature_type *creature_ptr)
 		{
 			if(!is_pet(player_ptr, m_ptr))
 			{
-				(void)set_timed_trait_aux(m_ptr, TRAIT_FAST, 100, TRUE);
+				(void)set_timed_trait(m_ptr, TRAIT_FAST, 100, TRUE);
 				speed = TRUE;
 			}
 		}
@@ -1520,7 +1520,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 		if(has_trait(target_ptr, TRAIT_SLEPT))
 		{
-			(void)set_timed_trait_aux(target_ptr, TRAIT_SLEPT, 0, TRUE);
+			(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
 			if(target_ptr->see_others || target_ptr->hear_noise)
 			{
 #ifdef JP
@@ -1542,7 +1542,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 			}
 			set_hostile(user_ptr, target_ptr);
 		}
-		if(one_in_(13)) set_timed_trait_aux(target_ptr, TRAIT_NO_GENOCIDE, PERMANENT_TIMED, FALSE);
+		if(one_in_(13)) set_timed_trait(target_ptr, TRAIT_NO_GENOCIDE, PERMANENT_TIMED, FALSE);
 	}
 
 	if(player_cast)
@@ -2505,7 +2505,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 			if(has_trait(m_ptr, TRAIT_SMART)) chance = 100; // Smart creatures always wake up
 
 			if(m_ptr->timed_trait[TRAIT_SLEPT] && (randint0(100) < chance)) // Sometimes creatures wake up
-				(void)set_timed_trait_aux(m_ptr, TRAIT_SLEPT, 0, TRUE); // Wake up!
+				(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0, TRUE); // Wake up!
 		}
 
 		note_spot(floor_ptr, y, x); // Note
@@ -3089,7 +3089,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 	target_ptr = &creature_list[c_ptr->creature_idx];
 	species_ptr = &species_info[target_ptr->species_idx];
 
-	(void)set_timed_trait_aux(target_ptr, TRAIT_PARALYZED, 0, TRUE);
+	(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0, TRUE);
 
 	if(has_trait(target_ptr, TRAIT_RES_TELE))
 	{

@@ -172,7 +172,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	}
 
 	// Disturb the creature
-	(void)set_timed_trait_aux(target_ptr, TRAIT_SLEPT, 0, FALSE);
+	(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, FALSE);
 
 	// Extract attacker and target name (or "it")
 	creature_desc(attacker_name, attacker_ptr, 0);
@@ -996,7 +996,7 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 
 	if(has_trait(attacker_ptr, TRAIT_CONFUSING_MELEE)) // Cancel glowing hands
 	{
-		set_timed_trait_aux(attacker_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
+		set_timed_trait(attacker_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
 		if(is_seen(player_ptr, attacker_ptr)) play_redraw |= (PR_STATUS);
 	}
 
@@ -1064,7 +1064,7 @@ static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 #endif
 		}
 
-		(void)set_timed_trait_aux(target_ptr, TRAIT_SLEPT, 0, TRUE); // Disturb the creature
+		(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE); // Disturb the creature
 		return TRUE; // Done
 	}
 	return FALSE;
@@ -2669,7 +2669,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				else
 				{
 					if(!has_trait(target_ptr, TRAIT_PARALYZED))
-						if(set_timed_trait_aux(target_ptr, TRAIT_PARALYZED, 3 + randint1(attacker_ptr->lev), TRUE))
+						if(set_timed_trait(target_ptr, TRAIT_PARALYZED, 3 + randint1(attacker_ptr->lev), TRUE))
 							obvious = TRUE;
 				}
 
@@ -3368,7 +3368,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		msg_format("The attack of %s has wounded %s!", attacker_name, attacker_name_self);
 #endif
 		project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
-		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}
 
 	if((target_ptr->counter || (target_ptr->posture & KATA_MUSOU)) && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))

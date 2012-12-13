@@ -1484,7 +1484,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 			c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY);
 
 			m_ptr = &creature_list[c_ptr->creature_idx];
-			(void)set_timed_trait_aux(m_ptr, TRAIT_SLEPT, 0, TRUE);
+			(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0, TRUE);
 
 			/* Process all walls, doors and patterns */
 			if(have_flag(f_ptr->flags, FF_HURT_DISI)) cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);

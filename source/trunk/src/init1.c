@@ -6765,7 +6765,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				place_creature_species(NULL, floor_ptr, *y, *x, creature_index, (PC_ALLOW_SLEEP | PC_NO_KAGE));
 				if(clone)
 				{
-					set_timed_trait_aux(&creature_list[hack_m_idx_ii], TRAIT_CLONED, PERMANENT_TIMED, FALSE);
+					set_timed_trait(&creature_list[hack_m_idx_ii], TRAIT_CLONED, PERMANENT_TIMED, FALSE);
 
 					/* Make alive again for real unique creature */
 					species_info[creature_index].cur_num = old_cur_num;

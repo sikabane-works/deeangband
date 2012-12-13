@@ -15,46 +15,10 @@
 
 bool add_timed_trait(creature_type *creature_ptr, int type, int v, bool message)
 {
-	return set_timed_trait_aux(creature_ptr, type, creature_ptr->timed_trait[type] + v, message);
+	return set_timed_trait(creature_ptr, type, creature_ptr->timed_trait[type] + v, message);
 }
 
-bool set_timed_trait(creature_type *creature_ptr, int type, int v)
-{
-	bool notice = FALSE;
-
-	v = (v > PERMANENT_TIMED) ? PERMANENT_TIMED : (v < 0) ? 0 : v; // Hack -- Force good values
-	if(IS_DEAD(creature_ptr)) return FALSE;
-
-	if(v)
-	{
-		if(!creature_ptr->timed_trait[type])
-		{
-			if(is_seen(player_ptr, creature_ptr))
-				msg_format("%s‚Í%s‚Ì“Á«‚ð“¾‚½B", creature_ptr->name, trait_info[type].title);
-			notice = TRUE;
-		}
-	}
-	else
-	{
-		if(creature_ptr->timed_trait[type])
-		{
-			if(is_seen(player_ptr, creature_ptr))
-				msg_format("%s‚Í%s‚Ì“Á«‚ðŽ¸‚Á‚½B", creature_ptr->name, trait_info[type].title);
-			notice = TRUE;
-		}
-	}
-
-	creature_ptr->timed_trait[type] = v; // Use the value
-
-	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS);	// Redraw status bar
-	if(!notice) return FALSE;	// Nothing to notice
-	if(disturb_state) disturb(player_ptr, 0, 0); // Disturb
-	handle_stuff();
-
-	return TRUE;	// Result
-}
-
-bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_dec)
+bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
@@ -287,7 +251,7 @@ void dispel_creature(creature_type *creature_ptr)
 
 	// Cancel glowing hands
 	if(creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
-		set_timed_trait_aux(creature_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
+		set_timed_trait(creature_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
 
 	if(MUSIC_SINGING_ANY(creature_ptr) || HEX_SPELLING_ANY(creature_ptr))
 	{
@@ -1676,7 +1640,7 @@ void do_poly_wounds(creature_type *creature_ptr)
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, change / 2, "a polymorphed wound", NULL, -1);
 #endif
 		}
-		set_timed_trait_aux(creature_ptr, TRAIT_CUT, change, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_CUT, change, FALSE);
 	}
 	else add_timed_trait(creature_ptr, TRAIT_CUT, change / 2, FALSE);
 }
@@ -2174,7 +2138,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		//if(!target_ptr->species_idx) m_idx = 0;
 	}
 
-	(void)set_timed_trait_aux(target_ptr, TRAIT_SLEPT, 0, TRUE);
+	(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
 
 	if(attacker_ptr)
 	{
@@ -2613,7 +2577,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	{
 		/* XXX XXX XXX Hack -- Add some timed fear */
 		int percentage = (100L * target_ptr->chp) / target_ptr->mhp;
-		(void)set_timed_trait_aux(target_ptr, TRAIT_AFRAID, (randint1(10) + (((damage >= target_ptr->chp) && (percentage > 7)) ? 20 : ((11 - percentage) * 5))), TRUE);
+		(void)set_timed_trait(target_ptr, TRAIT_AFRAID, (randint1(10) + (((damage >= target_ptr->chp) && (percentage > 7)) ? 20 : ((11 - percentage) * 5))), TRUE);
 	}
 
 	/* Hitpoint warning */
@@ -2927,15 +2891,15 @@ bool choose_ele_attack(creature_type *creature_ptr)
 	choice = inkey();
 
 	if((choice == 'a') || (choice == 'A')) 
-		set_timed_trait_aux(creature_ptr, TRAIT_FIRE_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
+		set_timed_trait(creature_ptr, TRAIT_FIRE_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
 	else if(((choice == 'b') || (choice == 'B')) && (num >= 2))
-		set_timed_trait_aux(creature_ptr, TRAIT_COLD_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
+		set_timed_trait(creature_ptr, TRAIT_COLD_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
 	else if(((choice == 'c') || (choice == 'C')) && (num >= 3))
-		set_timed_trait_aux(creature_ptr, TRAIT_ELEC_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
+		set_timed_trait(creature_ptr, TRAIT_ELEC_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
 	else if(((choice == 'd') || (choice == 'D')) && (num >= 4))
-		set_timed_trait_aux(creature_ptr, TRAIT_ACID_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
+		set_timed_trait(creature_ptr, TRAIT_ACID_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
 	else if(((choice == 'e') || (choice == 'E')) && (num >= 5))
-		set_timed_trait_aux(creature_ptr, TRAIT_POIS_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
+		set_timed_trait(creature_ptr, TRAIT_POIS_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
 	else
 	{
 #ifdef JP
@@ -2985,13 +2949,13 @@ bool choose_ele_immune(creature_type *creature_ptr, int turn)
 	choice = inkey();
 
 	if((choice == 'a') || (choice == 'A')) 
-		set_timed_trait_aux(creature_ptr, TRAIT_IM_FIRE, turn, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_IM_FIRE, turn, FALSE);
 	else if((choice == 'b') || (choice == 'B'))
-		set_timed_trait_aux(creature_ptr, TRAIT_IM_COLD, turn, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_IM_COLD, turn, FALSE);
 	else if((choice == 'c') || (choice == 'C'))
-		set_timed_trait_aux(creature_ptr, TRAIT_IM_ACID, turn, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_IM_ACID, turn, FALSE);
 	else if((choice == 'd') || (choice == 'D'))
-		set_timed_trait_aux(creature_ptr, TRAIT_IM_ELEC, turn, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_IM_ELEC, turn, FALSE);
 	else
 	{
 #ifdef JP

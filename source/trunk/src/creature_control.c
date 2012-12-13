@@ -3703,7 +3703,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		get_mutative_trait(creature_ptr, TRAIT_KAGE);
 	}
 
-	if(mode & PC_NO_PET) set_timed_trait_aux(creature_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+	if(mode & PC_NO_PET) set_timed_trait(creature_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 	else if(summoner_ptr) set_pet(summoner_ptr, creature_ptr); // Pet?
 
 	// TODO reimpelment Friendly Creature.
@@ -3711,10 +3711,10 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if((mode & PC_ALLOW_SLEEP) && species_ptr->sleep && !curse_of_Iluvatar) // Enforce sleeping if needed
 	{
 		int val = species_ptr->sleep;
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_SLEPT, (val * 2) + randint1(val * 10), FALSE);
+		(void)set_timed_trait(creature_ptr, TRAIT_SLEPT, (val * 2) + randint1(val * 10), FALSE);
 	}
 
-	if(mode & PC_HASTE) (void)set_timed_trait_aux(creature_ptr, TRAIT_FAST, 100, FALSE);
+	if(mode & PC_HASTE) (void)set_timed_trait(creature_ptr, TRAIT_FAST, 100, FALSE);
 
 	// Give a random starting energy
 	if(!curse_of_Iluvatar) creature_ptr->energy_need = ENERGY_NEED(100) - (s16b)randint0(100);
@@ -4467,8 +4467,8 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 	/* Hack -- Transfer "clone" flag */
 	if(clone || has_trait(creature_ptr, TRAIT_CLONED))
 	{
-		set_timed_trait_aux(&creature_list[hack_m_idx_ii], TRAIT_CLONED, PERMANENT_TIMED, FALSE);
-		set_timed_trait_aux(&creature_list[hack_m_idx_ii], TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+		set_timed_trait(&creature_list[hack_m_idx_ii], TRAIT_CLONED, PERMANENT_TIMED, FALSE);
+		set_timed_trait(&creature_list[hack_m_idx_ii], TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 	}
 
 	return TRUE;
