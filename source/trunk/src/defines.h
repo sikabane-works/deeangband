@@ -2727,26 +2727,6 @@ enum GRAPHICS_MODE
 #define SLF_SECOND     	 0x0001  /* Called from another save/load function */
 #define SLF_NO_KILL      0x0002  /* Don't kill temporal files */
 
-/*
- * Flags for wr_creature()/rd_creature()
- */
-#define SAVE_SPECIES_AP_SPECIES_IDX     0x00000001
-#define SAVE_SPECIES_SUB_ALIGN    0x00000002
-#define SAVE_SPECIES_CSLEEP       0x00000004
-#define SAVE_SPECIES_FAST         0x00000008
-#define SAVE_SPECIES_SLOW         0x00000010
-#define SAVE_SPECIES_STUNNED      0x00000020
-#define SAVE_SPECIES_CONFUSED     0x00000040
-#define SAVE_SPECIES_MONFEAR      0x00000080
-#define SAVE_SPECIES_TARGET_Y     0x00000100
-#define SAVE_SPECIES_TARGET_X     0x00000200
-#define SAVE_SPECIES_INVULNER     0x00000400
-#define SAVE_SPECIES_SMART        0x00000800
-#define SAVE_SPECIES_EXP          0x00001000
-#define SAVE_SPECIES_MFLAG2       0x00002000
-#define SAVE_SPECIES_NICKNAME     0x00004000
-#define SAVE_SPECIES_PARENT       0x00008000
-
 /* Sub-alignment flags for neutral creatures */
 #define SUB_ALIGN_NEUTRAL 0x0000
 #define SUB_ALIGN_EVIL    0x0001
