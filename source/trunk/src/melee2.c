@@ -2162,7 +2162,7 @@ static void process_nonplayer(int m_idx)
 				did_move_body = TRUE;
 
 				/* Wake up the moved creature */
-				(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, 0);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_PARALYZED, 0, TRUE);
 
 				/* XXX XXX XXX Message */
 			}

@@ -180,7 +180,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				break;
 
 			case SV_FOOD_CURE_BLINDNESS:
-				if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
+				if(set_timed_trait_aux(creature_ptr, TRAIT_BLIND, 0, TRUE)) ident = TRUE;
 				break;
 
 			case SV_FOOD_CURE_PARANOIA:
@@ -188,7 +188,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				break;
 
 			case SV_FOOD_CURE_CONFUSION:
-				if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
+				if(set_timed_trait_aux(creature_ptr, TRAIT_CONFUSED, 0, TRUE)) ident = TRUE;
 				break;
 
 			case SV_FOOD_CURE_SERIOUS:
@@ -792,12 +792,12 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 
 		case SV_POTION_CURING:
 			if(heal_creature(caster_ptr, 50)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0)) effected = TRUE;
+			if(set_timed_trait_aux(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
 			if(set_timed_trait_aux(caster_ptr, TRAIT_POISONED, 0, TRUE)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0)) effected = TRUE;
+			if(set_timed_trait_aux(caster_ptr, TRAIT_CONFUSED, 0, TRUE)) effected = TRUE;
 			if(set_timed_trait_aux(caster_ptr, TRAIT_STUN, 0, TRUE)) effected = TRUE;
 			if(set_timed_trait_aux(caster_ptr, TRAIT_CUT, 0, TRUE)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0)) effected = TRUE;
+			if(set_timed_trait_aux(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE)) effected = TRUE;
 			break;
 
 		case SV_POTION_NEW_LIFE:

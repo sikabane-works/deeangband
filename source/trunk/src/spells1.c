@@ -1755,12 +1755,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
 		if(has_trait(target_ptr, TRAIT_WRAITH_FORM))
 		{
-			set_timed_trait(target_ptr, TRAIT_WRAITH_FORM, 0);
-#ifdef JP
-			msg_print("‘MŒõ‚Ì‚½‚ß”ñ•¨Ž¿“I‚È‰e‚Ì‘¶Ý‚Å‚¢‚ç‚ê‚È‚­‚È‚Á‚½B");
-#else
-			msg_print("The light forces you out of your incorporeal shadow form.");
-#endif
+			set_timed_trait_aux(target_ptr, TRAIT_WRAITH_FORM, 0, TRUE);
 			play_redraw |= PR_MAP;
 			caster_ptr->creature_update |= (PU_CREATURES);
 			play_window |= PW_OVERHEAD | PW_DUNGEON | PR_STATUS;

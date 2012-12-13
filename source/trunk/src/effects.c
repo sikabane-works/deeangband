@@ -2613,9 +2613,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	{
 		/* XXX XXX XXX Hack -- Add some timed fear */
 		int percentage = (100L * target_ptr->chp) / target_ptr->mhp;
-		(void)set_timed_trait(target_ptr, TRAIT_AFRAID, (randint1(10) +
-			(((damage >= target_ptr->chp) && (percentage > 7)) ?
-			20 : ((11 - percentage) * 5))));
+		(void)set_timed_trait_aux(target_ptr, TRAIT_AFRAID, (randint1(10) + (((damage >= target_ptr->chp) && (percentage > 7)) ? 20 : ((11 - percentage) * 5))), TRUE);
 	}
 
 	/* Hitpoint warning */

@@ -676,7 +676,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 
 			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), game_messages[GAME_MESSAGE_PERILOUS_SECRET], NULL, -1);
-			if(one_in_(5)) (void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + randint1(10));
+			if(one_in_(5)) (void)add_timed_trait(caster_ptr, TRAIT_CONFUSED, randint1(10), TRUE);
 			if(one_in_(20)) take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), game_messages[GAME_MESSAGE_PERILOUS_SECRET], NULL, -1);
 			break;
 		}

@@ -925,10 +925,10 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		if(!IS_FAST(creature_ptr) || !IS_HERO(creature_ptr)) heal_creature(creature_ptr, plev);
 
 		b = 10 + randint1((plev * 3) / 2);
-		set_timed_trait_aux(creature_ptr, TRAIT_HERO, b, FALSE);
-		/* Haste */
-		(void)set_timed_trait(creature_ptr, TRAIT_FAST, b);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, b, FALSE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_FAST, b, TRUE);
 		break;
+
 	case 10:
 		/* Telekinesis */
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
