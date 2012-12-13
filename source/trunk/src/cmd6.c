@@ -2047,37 +2047,9 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 		}
 
-		case SV_WAND_MAGIC_MISSILE:
-		{
-			cast_bolt_or_beam(creature_ptr, 20, DO_EFFECT_MISSILE, dir, diceroll(2 + creature_ptr->lev / 10, 6));
-			ident = TRUE;
-			break;
-		}
-
-		case SV_WAND_ACID_BOLT:
-		{
-			cast_bolt_or_beam(creature_ptr, 20, DO_EFFECT_ACID, dir, diceroll(6 + creature_ptr->lev / 7, 8));
-			ident = TRUE;
-			break;
-		}
-
 		case SV_WAND_CHARM_MONSTER:
 		{
 			if(charm_creature(creature_ptr, dir, MAX(20, creature_ptr->lev)))
-			ident = TRUE;
-			break;
-		}
-
-		case SV_WAND_FIRE_BOLT:
-		{
-			cast_bolt_or_beam(creature_ptr, 20, DO_EFFECT_FIRE, dir, diceroll(7 + creature_ptr->lev / 6, 8));
-			ident = TRUE;
-			break;
-		}
-
-		case SV_WAND_COLD_BOLT:
-		{
-			cast_bolt_or_beam(creature_ptr, 20, DO_EFFECT_COLD, dir, diceroll(5 + creature_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}
