@@ -2,6 +2,7 @@
 // 2012 D'angband  game-contants.h
 
 #define EARTHQUAKE_MAX_RANGE 12
+#define MAX_TELEPORT_DISTANCE 200
 
 #define ENERGY_VARIANCE	25
 

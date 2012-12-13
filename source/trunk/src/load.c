@@ -394,51 +394,6 @@ static errr rd_inventory(creature_type *creature_ptr)
 	return SUCCESS;
 }
 
-/*
- * Old creature bit flags of racial resistances
- */
-#define RF3_IM_ACID         0x00010000  /* Resist acid a lot */
-#define RF3_IM_ELEC         0x00020000  /* Resist elec a lot */
-#define RF3_IM_FIRE         0x00040000  /* Resist fire a lot */
-#define RF3_IM_COLD         0x00080000  /* Resist cold a lot */
-#define RF3_IM_POIS         0x00100000  /* Resist poison a lot */
-#define RF3_RES_TELE        0x00200000  /* Resist teleportation */
-#define RF3_RES_NETH        0x00400000  /* Resist nether a lot */
-#define RF3_RES_WATE        0x00800000  /* Resist water */
-#define RF3_RES_PLAS        0x01000000  /* Resist plasma */
-#define RF3_RES_NEXU        0x02000000  /* Resist nexus */
-#define RF3_RES_DISE        0x04000000  /* Resist disenchantment */
-#define RF3_RES_ALL         0x08000000  /* Resist all */
-
-#define MOVE_RF3_TO_RFR(R_PTR,RF3,RFR) \
-{\
-	if((R_PTR)->r_flags3 & (RF3)) \
-	{ \
-		(R_PTR)->r_flags3 &= ~(RF3); \
-		(R_PTR)->r_flags10 |= (RFR); \
-	} \
-}
-
-#define RF4_BR_TO_RFR(R_PTR,RF4_BR,RFR) \
-{\
-	if((R_PTR)->r_flags4 & (RF4_BR)) \
-	{ \
-		(R_PTR)->r_flags10 |= (RFR); \
-	} \
-}
-
-#define RF4_BR_LITE         0x00004000  /* Breathe Lite */
-#define RF4_BR_DARK         0x00008000  /* Breathe Dark */
-#define RF4_BR_CONF         0x00010000  /* Breathe Confusion */
-#define RF4_BR_SOUN         0x00020000  /* Breathe Sound */
-#define RF4_BR_CHAO         0x00040000  /* Breathe Chaos */
-#define RF4_BR_TIME         0x00200000  /* Breathe Time */
-#define RF4_BR_INER         0x00400000  /* Breathe Inertia */
-#define RF4_BR_GRAV         0x00800000  /* Breathe Gravity */
-#define RF4_BR_SHAR         0x01000000  /* Breathe Shards */
-#define RF4_BR_WALL         0x04000000  /* Breathe Force */
-
-
 
 /*
  * Add the item "object_ptr" to the inventory of the "Home"

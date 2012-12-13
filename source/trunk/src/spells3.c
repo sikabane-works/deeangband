@@ -280,7 +280,6 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u3
  * of candidates has equal possibility to be choosen as a destination.
  */
 
-#define MAX_TELEPORT_DISTANCE 200
 
 bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 {
