@@ -1890,8 +1890,6 @@
 #define RACE_FLAG_MAX		((MAX_RACES - 1) / 32) + 1
 #define AUTHORITY_FLAG_MAX	((MAX_AUTHORITY - 1) / 32) + 1
 
-#define MAX_CURSE 17
-
 #define TRC_SPECIAL_MASK (TRAIT_TY_CURSE) 
 //TRC_AGGRAVATE)
 
@@ -1991,7 +1989,6 @@
  */
 #define term_screen     (angband_term[0])
 
-
 #define object_is_aware(T) (object_kind_info[(T)->k_idx].aware) // Determine if a given inventory item is "aware"
 #define object_is_tried(T) (object_kind_info[(T)->k_idx].tried) // Determine if a given inventory item is "tried"
 
@@ -2036,39 +2033,33 @@
 /*
  * Convert an "attr"/"char" pair into a "pict" (P)
  */
-#define PICT(A,C) \
-	((((u16b)(A)) << 8) | ((byte)(C)))
+#define PICT(A,C) ((((u16b)(A)) << 8) | ((byte)(C)))
 
 /*
  * Convert a "pict" (P) into an "attr" (A)
  */
-#define PICT_A(P) \
-	((byte)((P) >> 8))
+#define PICT_A(P) ((byte)((P) >> 8))
 
 /*
  * Convert a "pict" (P) into an "char" (C)
  */
-#define PICT_C(P) \
-	((char)((byte)(P)))
+#define PICT_C(P) ((char)((byte)(P)))
 
 
 /*
  * Convert a "location" (Y,X) into a "grid" (G)
  */
-#define GRID(Y,X) \
-	(256 * (Y) + (X))
+#define GRID(Y,X) (256 * (Y) + (X))
 
 /*
  * Convert a "grid" (G) into a "location" (Y)
  */
-#define GRID_Y(G) \
-	((int)((G) / 256U))
+#define GRID_Y(G) ((int)((G) / 256U))
 
 /*
  * Convert a "grid" (G) into a "location" (X)
  */
-#define GRID_X(G) \
-	((int)((G) % 256U))
+#define GRID_X(G) ((int)((G) % 256U))
 
 
 // Determines if a map location is fully inside the outer walls
@@ -2190,18 +2181,15 @@
 
 /*
  * Determine if a "legal" grid is "permanent"
- *
  * Line 1 -- permanent flag
  */
-#define cave_perma_bold(FLOOR, Y, X) \
-	(cave_have_flag_bold((FLOOR), (Y), (X), FF_PERMANENT))
+#define cave_perma_bold(FLOOR, Y, X) (cave_have_flag_bold((FLOOR), (Y), (X), FF_PERMANENT))
 
 
 /*
  * Grid based version of "cave_empty_bold()"
  */
-#define cave_empty_grid(C) \
-	(cave_have_flag_grid((C), FF_PLACE) && !((C)->creature_idx))
+#define cave_empty_grid(C) (cave_have_flag_grid((C), FF_PLACE) && !((C)->creature_idx))
 
 // Does creature exist here?
 #define EXIST_CREATURE(FLOOR, Y, X) ((FLOOR)->cave[(Y)][(X)].creature_idx != 0)
@@ -2209,8 +2197,7 @@
 /*
  * Grid based version of "cave_perma_bold()"
  */
-#define cave_perma_grid(C) \
-	(cave_have_flag_grid((C), FF_PERMANENT))
+#define cave_perma_grid(C) (cave_have_flag_grid((C), FF_PERMANENT))
 
 
 #define pattern_tile(FLOOR, Y, X) (cave_have_flag_bold((FLOOR), (Y), (X), FF_PATTERN))
@@ -2226,19 +2213,15 @@
 
 /*
  * Determine if a "legal" grid is within "los" of the player
- *
  * Note the use of comparison to zero to force a "boolean" result
  */
-#define player_has_los_grid(C) \
-    (((C)->info & (CAVE_VIEW)) != 0)
+#define player_has_los_grid(C) (((C)->info & (CAVE_VIEW)) != 0)
 
 /*
  * Determine if a "legal" grid is within "los" of the player
- *
  * Note the use of comparison to zero to force a "boolean" result
  */
-#define player_has_los_bold(Y, X) \
-    (((GET_FLOOR_PTR(player_ptr)->cave[Y][X].info & (CAVE_VIEW)) != 0) || floor_ptr->gamble_arena_mode)
+#define player_has_los_bold(Y, X) (((GET_FLOOR_PTR(player_ptr)->cave[Y][X].info & (CAVE_VIEW)) != 0) || floor_ptr->gamble_arena_mode)
 
 
 /*
@@ -2365,7 +2348,6 @@ enum GRAPHICS_MODE
 #define NO_TOWN 255
 
 #define MAX_MANE 16
-#define MAX_MONSPELLS 96
 
 #define MONSPELL_TYPE_BOLT 1
 #define MONSPELL_TYPE_BALL 2
