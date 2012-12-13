@@ -1606,7 +1606,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				int v = randint1(base) + base;
-				set_timed_trait(creature_ptr, TRAIT_FAST, v);
+				set_timed_trait_aux(creature_ptr, TRAIT_FAST, v, FALSE);
 				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, v, FALSE);
 				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, v, FALSE);
 				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, v, FALSE);
@@ -1932,7 +1932,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sides) + base);
+				set_timed_trait_aux(caster_ptr, TRAIT_FAST, randint1(sides) + base, TRUE);
 			}
 		}
 		break;
@@ -4416,7 +4416,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 				set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, FALSE);
 				heal_creature(caster_ptr, 30);
 				set_timed_trait_aux(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-				set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base);
+				set_timed_trait_aux(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base, TRUE);
 			}
 		}
 		break;
@@ -6052,7 +6052,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				heal_creature(caster_ptr, diceroll(dice, sides));
-				set_timed_trait(caster_ptr, TRAIT_CUT, (caster_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
+				set_timed_trait_aux(caster_ptr, TRAIT_CUT, (caster_ptr->timed_trait[TRAIT_CUT] / 2) - 50, TRUE);
 			}
 		}
 		break;

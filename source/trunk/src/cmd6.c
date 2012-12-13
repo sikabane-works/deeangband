@@ -809,7 +809,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_NEO_TSUYOSHI:
-			(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
+			(void)set_timed_trait_aux(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
 			(void)add_timed_trait(caster_ptr, TRAIT_TSUYOSHI, randint1(100) + 100, TRUE);
 			effected = TRUE;
 			break;
@@ -1660,12 +1660,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		case SV_STAFF_SLOW_MONSTERS:
 		{
 			if(slow_creatures(creature_ptr)) ident = TRUE;
-			break;
-		}
-
-		case SV_STAFF_SPEED:
-		{
-			if(set_timed_trait(creature_ptr, TRAIT_FAST, randint1(30) + 15)) ident = TRUE;
 			break;
 		}
 

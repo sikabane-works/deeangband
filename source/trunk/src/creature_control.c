@@ -3711,7 +3711,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if((mode & PC_ALLOW_SLEEP) && species_ptr->sleep && !curse_of_Iluvatar) // Enforce sleeping if needed
 	{
 		int val = species_ptr->sleep;
-		(void)set_timed_trait(creature_ptr, TRAIT_SLEPT, (val * 2) + randint1(val * 10));
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_SLEPT, (val * 2) + randint1(val * 10), FALSE);
 	}
 
 	if(mode & PC_HASTE) (void)set_timed_trait_aux(creature_ptr, TRAIT_FAST, 100, FALSE);
