@@ -6679,7 +6679,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 				set_timed_trait_aux(creature_ptr, TRAIT_POISONED, 0, TRUE);
 				set_timed_trait_aux(creature_ptr, TRAIT_STUN, 0, TRUE);
 				set_timed_trait_aux(creature_ptr, TRAIT_CUT, 0, TRUE);
-				set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
+				set_timed_trait_aux(creature_ptr, TRAIT_HALLUCINATION, 0, TRUE);
 			}
 		}
 		break;
@@ -6791,7 +6791,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(sides) + base);
+				set_timed_trait_aux(creature_ptr, TRAIT_FAST, randint1(sides) + base, TRUE);
 			}
 		}
 		break;
@@ -8607,7 +8607,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				}
 				set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
 				set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base);
+				set_timed_trait_aux(creature_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base, FALSE);
 				set_timed_trait_aux(creature_ptr, TRAIT_PROT_EVIL, randint1(base) + base, FALSE);
 				set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 			}

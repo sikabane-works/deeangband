@@ -1899,7 +1899,8 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	// Handle "sleep"
 	if(has_trait(creature_ptr, TRAIT_SLEPT))
 	{
-		if(creature_ptr->see_others || creature_ptr->hear_noise) (void)set_timed_trait(creature_ptr, TRAIT_SLEEP, 0);	// Handle aggravation Reset sleep counter
+		if(creature_ptr->see_others || creature_ptr->hear_noise)
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_SLEEP, 0, TRUE);	// Handle aggravation Reset sleep counter
 
 		// TODO -- Count the wakings
 		//if(is_original_ap_and_seen(player_ptr, creature_ptr) && (species_ptr->r_wake < MAX_UCHAR))
@@ -2065,7 +2066,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		{
 			disturb(player_ptr, 0, 0);
 			play_redraw |= PR_EXTRA;
-			(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, has_trait(creature_ptr, TRAIT_HALLUCINATION) + randint0(50) + 20);
+			(void)add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, randint0(50) + 20, TRUE);
 		}
 	}
 
@@ -2126,7 +2127,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			msg_print("You feel less energetic.");
 #endif
 
-			if(has_trait(creature_ptr, TRAIT_FAST)) set_timed_trait(creature_ptr, TRAIT_FAST, 0);
+			if(has_trait(creature_ptr, TRAIT_FAST)) set_timed_trait_aux(creature_ptr, TRAIT_FAST, 0, TRUE);
 			else add_timed_trait(creature_ptr, TRAIT_SLOW, randint1(30) + 10, FALSE);
 		}
 		else
