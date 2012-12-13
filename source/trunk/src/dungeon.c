@@ -4643,7 +4643,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 		if(has_trait(steed_ptr, TRAIT_STUN))
 		{
-			if(set_timed_trait(steed_ptr, TRAIT_STUN, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_STUN] - 1)))
+			if(set_timed_trait_aux(steed_ptr, TRAIT_STUN, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_STUN] - 1), TRUE))
 			{
 				char steed_name[MAX_NLEN];
 				creature_desc(steed_name, steed_ptr, 0);
@@ -4657,7 +4657,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 		if(has_trait(steed_ptr, TRAIT_CONFUSED))
 		{
-			if(set_timed_trait(steed_ptr, TRAIT_CONFUSED, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_CONFUSED] - 1)))
+			if(set_timed_trait_aux(steed_ptr, TRAIT_CONFUSED, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_CONFUSED] - 1), TRUE))
 			{
 				char steed_name[MAX_NLEN];
 				creature_desc(steed_name, steed_ptr, 0);
@@ -4672,7 +4672,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 		if(has_trait(steed_ptr, TRAIT_AFRAID))
 		{
-			if(set_timed_trait(steed_ptr, TRAIT_AFRAID, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_AFRAID] - 1)))
+			if(set_timed_trait_aux(steed_ptr, TRAIT_AFRAID, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_AFRAID] - 1), TRUE))
 			{
 				char steed_name[MAX_NLEN];
 				creature_desc(steed_name, steed_ptr, 0);

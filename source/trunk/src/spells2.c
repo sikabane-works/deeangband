@@ -1520,7 +1520,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 		if(has_trait(target_ptr, TRAIT_SLEPT))
 		{
-			(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0);
+			(void)set_timed_trait_aux(target_ptr, TRAIT_SLEPT, 0, TRUE);
 			if(target_ptr->see_others || target_ptr->hear_noise)
 			{
 #ifdef JP
@@ -3089,7 +3089,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 	target_ptr = &creature_list[c_ptr->creature_idx];
 	species_ptr = &species_info[target_ptr->species_idx];
 
-	(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
+	(void)set_timed_trait_aux(target_ptr, TRAIT_PARALYZED, 0, TRUE);
 
 	if(has_trait(target_ptr, TRAIT_RES_TELE))
 	{

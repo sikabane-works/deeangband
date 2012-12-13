@@ -3163,7 +3163,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//94-95
 
 	case DO_EFFECT_STAR_HEAL:
-		(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0); // Wake up
+		(void)set_timed_trait_aux(target_ptr, TRAIT_PARALYZED, 0, TRUE); // Wake up
 
 		if(target_ptr->mhp < target_ptr->mmhp)
 		{

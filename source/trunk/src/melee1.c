@@ -1011,9 +1011,6 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 }
 
 
-
-
-
 static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 {
 	int i, n;
@@ -1067,7 +1064,7 @@ static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 #endif
 		}
 
-		(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0); // Disturb the creature
+		(void)set_timed_trait_aux(target_ptr, TRAIT_SLEPT, 0, TRUE); // Disturb the creature
 		return TRUE; // Done
 	}
 	return FALSE;
@@ -1107,8 +1104,7 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 			int targetlevel = target_ptr->lev;
 			int inc = 0;
 
-			if((cur / 200 - 5) < targetlevel)
-				inc += 1;
+			if((cur / 200 - 5) < targetlevel) inc += 1;
 
 			// Extra experience
 			if((cur / 100) < ridinglevel)

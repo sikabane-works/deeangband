@@ -1663,7 +1663,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			m_ptr->fx = tx;
 
 			/* Wake the creature up */
-			(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
+			(void)set_timed_trait_aux(m_ptr, TRAIT_PARALYZED, 0, TRUE);
 
 			/* Update the creature (new location) */
 			update_creature_view(player_ptr, m_idx, TRUE);
