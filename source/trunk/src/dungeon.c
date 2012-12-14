@@ -1116,24 +1116,7 @@ static void regen_captured_creatures(creature_type *creature_ptr)
 
 		species_ptr = &species_info[object_ptr->pval];
 
-		/* Allow regeneration (if needed) */
-		if(object_ptr->xtra4 < object_ptr->xtra5)
-		{
-			/* Hack -- Base regeneration */
-			frac = object_ptr->xtra5 / 100;
-
-			/* Hack -- Minimal regeneration rate */
-			if(!frac) if(one_in_(2)) frac = 1;
-
-			/* Hack -- Some creatures regenerate quickly */
-			if(has_trait(creature_ptr, TRAIT_REGENERATE)) frac *= 2;
-
-			/* Hack -- Regenerate */
-			object_ptr->xtra4 += frac;
-
-			/* Do not over-regenerate */
-			if(object_ptr->xtra4 > object_ptr->xtra5) object_ptr->xtra4 = object_ptr->xtra5;
-		}
+		//TODO for new feature Allow regeneration (if needed)
 	}
 
 	if(heal)

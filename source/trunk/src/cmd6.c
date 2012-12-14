@@ -2935,10 +2935,10 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			if(!get_rep_dir2(creature_ptr, &dir)) return;
 			if(species_can_enter(floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], &species_info[object_ptr->pval], 0))
 			{
+				//TODO CAPTURE
 				if(place_creature_species(creature_ptr, floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], object_ptr->pval, (PC_FORCE_PET | PC_NO_KAGE)))
 				{
 					if(object_ptr->xtra3) creature_list[hack_m_idx_ii].speed = object_ptr->xtra3;
-					if(object_ptr->xtra5) creature_list[hack_m_idx_ii].mmhp = object_ptr->xtra5;
 					if(object_ptr->xtra4) creature_list[hack_m_idx_ii].chp = object_ptr->xtra4;
 					creature_list[hack_m_idx_ii].mhp = creature_list[hack_m_idx_ii].mmhp;
 					if(object_ptr->inscription)
@@ -2998,7 +2998,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 					object_ptr->pval = 0;
 					object_ptr->xtra3 = 0;
 					object_ptr->xtra4 = 0;
-					object_ptr->xtra5 = 0;
 					success = TRUE;
 				}
 			}

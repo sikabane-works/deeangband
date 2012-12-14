@@ -234,7 +234,6 @@ struct artifact_type
 
 	byte xtra3;			/* Extra info */
 	s16b xtra4;			/* Extra info */
-	s16b xtra5;			/* Extra info */
 
 	s16b ap_rate;		// AP rate
 
@@ -640,7 +639,6 @@ struct object_type
 
 	byte xtra3;			/* Extra info */
 	s16b xtra4;			/* Extra info */
-	s16b xtra5;			/* Extra info */
 
 	s16b to_hit;		// Plusses to hit
 	s16b to_damage;		// Plusses to damage

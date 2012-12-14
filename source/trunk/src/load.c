@@ -296,7 +296,6 @@ static void rd_object(object_type *object_ptr)
 	// Special powers
 	rd_byte(&object_ptr->xtra3);
 	rd_s16b(&object_ptr->xtra4);
-	rd_s16b(&object_ptr->xtra5);
 
 	rd_byte(&object_ptr->feeling);
 
