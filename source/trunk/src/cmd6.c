@@ -2016,12 +2016,6 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 		}
 
-		case SV_WAND_DRAIN_LIFE:
-		{
-			if(drain_life(creature_ptr, dir, 80 + creature_ptr->lev)) ident = TRUE;
-			break;
-		}
-
 		case SV_WAND_POLYMORPH:
 		{
 			if(poly_creature(creature_ptr, dir)) ident = TRUE;
@@ -2344,12 +2338,6 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 		case SV_ROD_SLOW_MONSTER:
 		{
 			if(slow_creature(creature_ptr, dir)) ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_DRAIN_LIFE:
-		{
-			if(drain_life(creature_ptr, dir, 70 + 3 * creature_ptr->lev / 2)) ident = TRUE;
 			break;
 		}
 
