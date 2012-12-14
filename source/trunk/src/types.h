@@ -232,7 +232,6 @@ struct artifact_type
 
 	s16b floor_id;          /* Leaved on this location last time */
 
-	byte xtra2;			/* Extra info index */
 	byte xtra3;			/* Extra info */
 	s16b xtra4;			/* Extra info */
 	s16b xtra5;			/* Extra info */
@@ -639,7 +638,6 @@ struct object_type
 	byte name1;			/* Artifact type, if any */
 	u16b name2;			/* Ego-Item type, if any */
 
-	byte xtra2;			/* Extra info index */
 	byte xtra3;			/* Extra info */
 	s16b xtra4;			/* Extra info */
 	s16b xtra5;			/* Extra info */

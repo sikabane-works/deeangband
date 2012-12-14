@@ -2655,7 +2655,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 	sound(SOUND_ZAP); // Sound
 
-	if(object_ptr->art_name && object_ptr->xtra2)
+	if(object_ptr->art_name)
 	{
 		(void)activate_object(creature_ptr, object_ptr);
 		play_window |= (PW_INVEN | PW_EQUIP); // Window stuff

@@ -1566,10 +1566,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	if(a_cursed) curse_artifact(owner_ptr, object_ptr);
 
 	if(!a_cursed && one_in_(object_is_armour(object_ptr) ? ACTIVATION_CHANCE * 2 : ACTIVATION_CHANCE))
-	{
-		object_ptr->xtra2 = 0;
 		give_activation_power(object_ptr, artifact_bias);
-	}
 
 	if(object_is_armour(object_ptr))
 	{
@@ -1809,7 +1806,6 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a
 	quest_ptr->to_hit = a_ptr->to_hit;
 	quest_ptr->to_damage = a_ptr->to_damage;
 	quest_ptr->weight = a_ptr->weight;
-	quest_ptr->xtra2 = a_ptr->xtra2;
 	quest_ptr->xtra3 = a_ptr->xtra3;
 	quest_ptr->xtra4 = a_ptr->xtra4;
 	quest_ptr->xtra5 = a_ptr->xtra5;

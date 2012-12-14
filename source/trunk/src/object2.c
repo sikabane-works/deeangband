@@ -929,7 +929,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	/* Also, give some extra for activatable powers... */
 	//TODO:TR_ACTIVATE if(object_ptr->art_name && (have_flag(object_ptr->trait_flags, TR_ACTIVATE)))
 	{
-		int type = object_ptr->xtra2;
+		/*
 
 		if(0);
 		//if(type == ACT_SUNLIGHT) total += 250;
@@ -941,11 +941,11 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		//else if(type == ACT_BO_FIRE_1) total += 250;
 		//else if(type == ACT_BA_COLD_1) total += 750;
 		//else if(type == ACT_BA_FIRE_1) total += 1000;
-		else if(type == TRAIT_DRAIN_LIFE1) total += 500;
+		//else if(type == TRAIT_DRAIN_LIFE1) total += 500;
 		//else if(type == ACT_BA_COLD_2) total += 1250;
 		//else if(type == ACT_BA_ELEC_2) total += 1500;
-		else if(type == TRAIT_DRAIN_LIFE2) total += 750;
-		else if(type == TRAIT_VAMPIRIC_DRAIN_1) total += 1000;
+		//else if(type == TRAIT_DRAIN_LIFE2) total += 750;
+		//else if(type == TRAIT_VAMPIRIC_DRAIN_1) total += 1000;
 		//else if(type == TRAIT_BO_MANA) total += 1000;
 		//else if(type == ACT_BA_FIRE_2) total += 1750;
 		//else if(type == ACT_BA_COLD_3) total += 2500;
@@ -1006,6 +1006,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if(type == TRAIT_DIMENSION_DOOR) total += 10000;
 		else if(type == TRAIT_ACTIVE_TELEPORT) total += 2000;
 		else if(type == TRAIT_RECALL) total += 7500;
+		*/
 	}
 
 	return total;

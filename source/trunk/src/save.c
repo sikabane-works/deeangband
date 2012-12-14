@@ -132,7 +132,6 @@ static void wr_object(object_type *object_ptr)
 
 	wr_s16b(object_ptr->held_m_idx);
 
-	wr_byte(object_ptr->xtra2);
 	wr_byte(object_ptr->xtra3);
 	wr_s16b(object_ptr->xtra4);
 	wr_s16b(object_ptr->xtra5);

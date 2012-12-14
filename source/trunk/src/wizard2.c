@@ -488,8 +488,8 @@ static void wiz_display_item(object_type *object_ptr)
 	prt(format("name1 = %-4d  name2 = %-4d  cost = %ld",
 		   object_ptr->name1, object_ptr->name2, (long)object_value_real(object_ptr)), 7, j);
 
-	prt(format("ident = %04x  xtra2 = %-4d  timeout = %-d",
-		   object_ptr->ident, object_ptr->xtra2, object_ptr->timeout), 8, j);
+	prt(format("ident = %04x  timeout = %-d",
+		   object_ptr->ident, object_ptr->timeout), 8, j);
 
 	prt(format("xtra3 = %-4d  xtra4 = %-4d  xtra5 = %-4d  cursed  = %-d",
 		   object_ptr->xtra3, object_ptr->xtra4, object_ptr->xtra5, object_ptr->curse_flags[0]), 9, j);
