@@ -421,7 +421,7 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,STR,INT,WIS,DEX,CON,CHA,
 378,害虫駆除,象牙の,Pesticide,Ivory,-0,w,INVENTORY,ROD,0,0,0,0,0,0,0,0,0,0,12,0,3,0,6,100,1000,2,0,0,0,0,,1d1,0,0,0,0,,0,13/8:25/2,,それは振ると視界内のモンスターに4のダメージを与える。,It does 4 damage to all monsters in sight when you zap it.,##### Special Books (note resistances) ######JZ#
 364,テレポート・アウェイ,タングステンの,Teleport Other,Tungsten,-0,w,INVENTORY,ROD,0,0,0,0,0,0,0,0,0,0,13,0,45,0,6,100,1400,25,0,0,0,0,,1d1,0,0,0,0,,0,23/8:45/2,,それは振るとモンスターをテレポートさせるビームを放つ。,It fires a beam teleports all monsters on the line when you zap it.,
 365,トラップ解除,ジルコンの,Disarming,Zirconium,-0,W,INVENTORY,ROD,0,0,0,0,0,0,0,0,0,0,14,0,35,0,6,100,2100,22,0,0,0,0,,1d1,0,0,0,0,,0,18/4:35/1,,それは振るとトラップを破壊するビームを放つ。,It fires a beam destroys all traps on the line when you zap it.,
-356,光,マグネシウムの,Light,Magnesium,-0,W,INVENTORY,ROD,0,0,0,0,0,0,0,0,0,0,15,0,10,0,6,100,500,9,0,0,0,0,,1d1,0,0,0,0,,0,5/4:10/1,,それは振ると光線を放つ。,It fires a line of light when you zap it.,
+356,光,マグネシウムの,Light,Magnesium,-0,W,INVENTORY,ROD,0,0,0,0,0,0,0,0,0,0,15,0,10,0,6,100,500,9,0,0,0,0,,1d1,0,0,0,0,,0,5/4:10/1,LITE_LINE,それは振ると光線を放つ。,It fires a line of light when you zap it.,
 362,スリープ・モンスター,ブリキの,Sleep Monster,Tin,-0,W,INVENTORY,ROD,0,0,0,0,0,0,0,0,0,0,16,0,30,0,6,100,1500,18,0,0,0,0,,1d1,0,0,0,0,,0,15/4:30/1,,それは振ると1体のモンスターを眠らせる。,It puts a monster to sleep when you zap it.,
 361,スロウ・モンスター,鋼鉄の,Slow Monster,Steel,-0,W,INVENTORY,ROD,0,0,0,0,0,0,0,0,0,0,17,0,30,0,6,100,1500,20,0,0,0,0,,1d1,0,0,0,0,,0,15/4:30/1,,それは振ると1体のモンスターを減速させる。,It slows a monster down when you zap it.,
 363,生命力吸収,チタンの,Drain Life,Titanium,-0,w,INVENTORY,ROD,0,0,0,0,0,0,0,0,0,0,18,0,75,0,6,100,3600,23,0,0,0,0,,1d1,0,0,0,0,,0,38/16:75/4,,それは振るとダメージ70+3*レベル/2の生命力を削る矢を放つ。,It fires a bolt of drain life (damage: 70+3*level/2) when you zap it.,
@@ -629,7 +629,7 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,STR,INT,WIS,DEX,CON,CHA,
 286,トラップ解除,銅メッキの,Disarming,Copper-Plated,-0,U,INVENTORY,WAND,0,0,0,0,0,0,0,0,0,0,4,10,20,0,4,100,700,0,0,0,0,0,,1d1,0,0,0,0,,0,20/1,,それは使うとトラップを破壊するビームを放つ。,It fires a beam destroys all traps on the line when you use it.,
 281,トラップ/ドア破壊,ブリキの,Trap/Door Destruction,Tin,-0,W,INVENTORY,WAND,0,0,0,0,0,0,0,0,0,0,5,15,10,0,4,100,100,0,0,0,0,0,,1d1,0,0,0,0,,0,10/1,,それは使うとトラップやドアを破壊するビームを放つ。,It fires a beam destroys all traps and doors on the line when you use it.,
 273,岩石溶解,金の,Stone to Mud,Gold,-0,y,INVENTORY,WAND,0,0,0,0,0,0,0,0,0,0,6,12,10,0,4,100,300,0,0,0,0,0,,1d1,0,0,0,0,,0,10/1:40/1,STONE_TO_MUD,それは使うとドアや岩石や壁を溶かす。,"It turns a door, rock, wall square to mud when you use it.",
-269,光,アルミの,Light,Aluminum,-0,B,INVENTORY,WAND,0,0,0,0,0,0,0,0,0,0,7,17,3,0,4,100,200,0,0,0,0,0,,1d1,0,0,0,0,,0,3/1,,それは使うと光線を放つ。,It fires a line of light when you use it.,#JZ#
+269,光,アルミの,Light,Aluminum,-0,B,INVENTORY,WAND,0,0,0,0,0,0,0,0,0,0,7,17,3,0,4,100,200,0,0,0,0,0,,1d1,0,0,0,0,,0,3/1,LITE_LINE,それは使うと光線を放つ。,It fires a line of light when you use it.,#JZ#
 279,スリープ・モンスター,銀の,Sleep Monster,Silver,-0,W,INVENTORY,WAND,0,0,0,0,0,0,0,0,0,0,8,16,5,0,4,100,500,0,0,0,0,0,,1d1,0,0,0,0,,0,5/1,,それは使うと1体のモンスターを眠らせる。,It puts a monster to sleep when you use it.,
 277,スロウ・モンスター,ニッケルの,Slow Monster,Nickel,-0,U,INVENTORY,WAND,0,0,0,0,0,0,0,0,0,0,9,17,5,0,4,100,500,0,0,0,0,0,,1d1,0,0,0,0,,0,2/1,,それは使うと1体のモンスターを減速させる。,It slows a monster down when you use it.,
 278,パニック・モンスター,錆びた,Confuse Monster,Rusty,-0,r,INVENTORY,WAND,0,0,0,0,0,0,0,0,0,0,10,15,5,0,4,100,500,0,0,0,0,0,,1d1,0,0,0,0,,0,3/1,,それは使うと1体のモンスターを混乱させる。,It confuses a monster when you use it.,

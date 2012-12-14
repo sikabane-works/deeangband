@@ -1992,18 +1992,6 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 		}
 
-		case SV_WAND_LITE:
-		{
-#ifdef JP
-			msg_print("Â‚­‹P‚­Œõü‚ª•ú‚½‚ê‚½B");
-#else
-			msg_print("A line of blue shimmering light appears.");
-#endif
-			(void)lite_line(creature_ptr, dir);
-			ident = TRUE;
-			break;
-		}
-
 		case SV_WAND_SLEEP_MONSTER:
 		{
 			if(sleep_creature(creature_ptr, dir)) ident = TRUE;
@@ -2344,19 +2332,6 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 		case SV_ROD_DISARMING:
 		{
 			if(disarm_trap(creature_ptr, dir)) ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_LITE:
-		{
-#ifdef JP
-			msg_print("Â‚­‹P‚­Œõü‚ª•ú‚½‚ê‚½B");
-#else
-			msg_print("A line of blue shimmering light appears.");
-#endif
-
-			(void)lite_line(creature_ptr, dir);
-			ident = TRUE;
 			break;
 		}
 

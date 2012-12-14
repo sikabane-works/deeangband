@@ -3095,6 +3095,16 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			if(do_dec_stat(caster_ptr, STAT_CHA)) effected = TRUE;
 			break;
 
+		case TRAIT_LITE_LINE:
+#ifdef JP
+			msg_print("青く輝く光線が放たれた。");
+#else
+			msg_print("A line of blue shimmering light appears.");
+#endif
+			(void)lite_line(caster_ptr, dir);
+			effected = TRUE;
+			break;
+
 		/* XXX_XXX_XXX Hack!  TRAIT_LAUNCHER is negative, see above */
 
 	case 3: /* TRAIT_LAUNCHER */
