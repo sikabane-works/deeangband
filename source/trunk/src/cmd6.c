@@ -1161,13 +1161,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			break;
 		}
 
-		case SV_SCROLL_MAPPING:
-		{
-			map_area(caster_ptr, DETECT_RAD_MAP);
-			ident = TRUE;
-			break;
-		}
-
 		case SV_SCROLL_DETECT_GOLD:
 		{
 			if(detect_treasure(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
@@ -1587,13 +1580,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 				project(creature_ptr, 0, 0, y, x, diceroll(6 + creature_ptr->lev / 8, 10), DO_EFFECT_LITE_WEAK,
 						  (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}
-			ident = TRUE;
-			break;
-		}
-
-		case SV_STAFF_MAPPING:
-		{
-			map_area(creature_ptr, DETECT_RAD_MAP);
 			ident = TRUE;
 			break;
 		}
@@ -2293,13 +2279,6 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 		case SV_ROD_IDENTIFY:
 		{
 			if(!ident_spell(creature_ptr, FALSE)) *use_charge = FALSE;
-			ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_MAPPING:
-		{
-			map_area(creature_ptr, DETECT_RAD_MAP);
 			ident = TRUE;
 			break;
 		}
