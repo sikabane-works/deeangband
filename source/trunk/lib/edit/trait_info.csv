@@ -684,7 +684,7 @@ ID,ID2,SPELL,PRE_ID,ANTI_ID,NAME,E_NAME,STR,INT,WIS,DEX,CON,CHA,AC,EV,VO,DIS,DEV
 682,MAGIC_RES_ELEC,SELF,-1,-1,一時的電撃耐性,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,電撃への耐性がついた気がする！,You feel resistant to electricity!,電撃への耐性が薄れた気がする。,You feel less resistant to electricity.,,,,
 683,MAGIC_RES_ACID,SELF,-1,-1,一時的酸耐性,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,酸への耐性がついた気がする！,You feel resistant to acid!,酸への耐性が薄れた気がする。,You feel less resistant to acid.,,,,
 684,MAGIC_RES_POIS,SELF,-1,-1,一時的毒耐性,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,毒への耐性がついた気がする！,You feel resistant to poison!,毒への耐性が薄れた気がする。,You feel less resistant to poison.,,,,
-685,XXX0685,0,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,
+685,DETECT_TRAPS,SELF,-1,-1,トラップ感知,Detect Traps,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,
 686,MAGIC_CHARGE_2,SELF,-1,-1,魔力充填2,Magic Charge 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,
 687,MAGIC_CHARGE_EX,SELF,-1,-1,魔力充填EX,Magic Charge Extra,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,
 688,GET_ESP,SELF,-1,-1,時限ESP,Timed ESP,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,

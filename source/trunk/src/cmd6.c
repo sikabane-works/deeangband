@@ -1174,12 +1174,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			break;
 		}
 
-		case SV_SCROLL_DETECT_TRAP:
-		{
-			if(detect_traps(caster_ptr, DETECT_RAD_DEFAULT, known)) ident = TRUE;
-			break;
-		}
-
 		case SV_SCROLL_DETECT_DOOR:
 		{
 			if(detect_doors(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
@@ -1594,12 +1588,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		case SV_STAFF_DETECT_ITEM:
 		{
 			if(detect_objects_normal(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			break;
-		}
-
-		case SV_STAFF_DETECT_TRAP:
-		{
-			if(detect_traps(creature_ptr, DETECT_RAD_DEFAULT, known)) ident = TRUE;
 			break;
 		}
 
@@ -2263,11 +2251,6 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 	/* Analyze the rod */
 	switch (sval)
 	{
-		case SV_ROD_DETECT_TRAP:
-		{
-			if(detect_traps(creature_ptr, DETECT_RAD_DEFAULT, (bool)(dir ? FALSE : TRUE))) ident = TRUE;
-			break;
-		}
 
 		case SV_ROD_DETECT_DOOR:
 		{
