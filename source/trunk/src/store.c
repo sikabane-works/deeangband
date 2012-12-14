@@ -1418,9 +1418,6 @@ static bool store_object_similar(object_type *object1_ptr, object_type *object2_
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		if(object1_ptr->trait_flags[i] != object2_ptr->trait_flags[i]) return FALSE;
 
-	/* Hack -- Never stack "powerful" items */
-	if(object1_ptr->xtra1 || object2_ptr->xtra1) return FALSE;
-
 	/* Hack -- Never stack recharging items */
 	if(object1_ptr->timeout || object2_ptr->timeout) return FALSE;
 

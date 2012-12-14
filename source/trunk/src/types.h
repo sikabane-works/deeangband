@@ -232,7 +232,6 @@ struct artifact_type
 
 	s16b floor_id;          /* Leaved on this location last time */
 
-	byte xtra1;			/* Extra info type (now unused) */
 	byte xtra2;			/* Extra info index */
 	byte xtra3;			/* Extra info */
 	s16b xtra4;			/* Extra info */
@@ -640,7 +639,6 @@ struct object_type
 	byte name1;			/* Artifact type, if any */
 	u16b name2;			/* Ego-Item type, if any */
 
-	byte xtra1;			/* Extra info type (now unused) */
 	byte xtra2;			/* Extra info index */
 	byte xtra3;			/* Extra info */
 	s16b xtra4;			/* Extra info */
@@ -652,7 +650,7 @@ struct object_type
 	s16b to_ev;			// Plusses to EV
 	s16b to_vo;			// Plusses to VO
 	s16b bow_mul;		// Multiply of Bow Damage
-	s16b bow_energy;	// Energt Cost of Bow
+	s16b bow_energy;	// Energy Cost of Bow
 
 	s16b size_upper;	/* Size Upper */
 	s16b size_lower;    /* Size Lower */

@@ -1809,7 +1809,6 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a
 	quest_ptr->to_hit = a_ptr->to_hit;
 	quest_ptr->to_damage = a_ptr->to_damage;
 	quest_ptr->weight = a_ptr->weight;
-	quest_ptr->xtra1 = a_ptr->xtra1;
 	quest_ptr->xtra2 = a_ptr->xtra2;
 	quest_ptr->xtra3 = a_ptr->xtra3;
 	quest_ptr->xtra4 = a_ptr->xtra4;
