@@ -2118,18 +2118,6 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 		}
 
-		case SV_WAND_ROCKETS:
-		{
-#ifdef JP
-			msg_print("ロケットを発射した！");
-#else
-			msg_print("You launch a rocket!");
-#endif
-			fire_rocket(creature_ptr, DO_EFFECT_ROCKET, dir, 250 + creature_ptr->lev * 3, 2);
-			ident = TRUE;
-			break;
-		}
-
 		case SV_WAND_STRIKING:
 		{
 			cast_bolt(creature_ptr, DO_EFFECT_METEOR, diceroll(15 + creature_ptr->lev / 3, 13), 0, -1);
