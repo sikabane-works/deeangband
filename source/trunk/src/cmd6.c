@@ -1610,21 +1610,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			break;
 		}
 
-		case SV_STAFF_THE_MAGI:
-		{
-			if(do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
-			if(creature_ptr->csp < creature_ptr->msp)
-			{
-				creature_ptr->csp = creature_ptr->msp;
-				creature_ptr->csp_frac = 0;
-				ident = TRUE;
-				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
-				play_redraw |= (PR_MANA | PW_PLAYER | PW_SPELL);
-			}
-			if(set_timed_trait(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
-			break;
-		}
-
 		case SV_STAFF_SLEEP_MONSTERS:
 		{
 			if(sleep_creatures(creature_ptr)) ident = TRUE;
@@ -1653,7 +1638,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		{
 			if(dispel_evil(creature_ptr, 150)) ident = TRUE;
 			k = 3 * creature_ptr->lev;
-			if(set_timed_trait(creature_ptr, TRAIT_PROT_EVIL, (magic ? 0 : creature_ptr->timed_trait[TRAIT_PROT_EVIL]) + randint1(25) + k, FALSE)) ident = TRUE;
+			if(add_timed_trait(creature_ptr, TRAIT_PROT_EVIL, (magic ? 0 : randint1(25) + k, 0), TRUE)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE)) ident = TRUE;
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
