@@ -1972,12 +1972,6 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 		}
 
-		case SV_WAND_SLOW_MONSTER:
-		{
-			if(slow_creature(creature_ptr, dir)) ident = TRUE;
-			break;
-		}
-
 		case SV_WAND_CONFUSE_MONSTER:
 		{
 			if(confuse_creature(creature_ptr, dir, creature_ptr->lev)) ident = TRUE;
@@ -2294,12 +2288,6 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 		case SV_ROD_SLEEP_MONSTER:
 		{
 			if(sleep_creature(creature_ptr, dir)) ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_SLOW_MONSTER:
-		{
-			if(slow_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
