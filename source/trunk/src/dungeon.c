@@ -2363,14 +2363,9 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(wounds > 0)
 		{
 			int healing = creature_ptr->chp;
-
-			if(healing > wounds)
-			{
-				healing = wounds;
-			}
+			if(healing > wounds) healing = wounds;
 			inc_mana(creature_ptr, healing);
 
-			play_redraw |= (PR_MANA);
 #ifdef JP
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, healing, "“ª‚É¸‚Á‚½ŒŒ", NULL, -1);
 #else

@@ -913,7 +913,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			{
 				inc_mana(caster_ptr, caster_ptr->msp);
 				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
-				play_redraw |= (PR_MANA | PW_PLAYER | PW_SPELL);
+				play_redraw |= (PW_PLAYER | PW_SPELL);
 				effected = TRUE;
 			}
 			if(set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
@@ -2217,15 +2217,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #else
 			int gain_sp = take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
 #endif
-			if(gain_sp)
-			{
-				inc_mana(caster_ptr, gain_sp);
-				if(caster_ptr->csp > caster_ptr->msp)
-				{
-					caster_ptr->csp = caster_ptr->msp;
-					caster_ptr->csp_frac = 0;
-				}
-			}
+			if(gain_sp) inc_mana(caster_ptr, gain_sp);
 			else
 #ifdef JP
 				msg_print("変換に失敗した。");
@@ -2353,9 +2345,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			msg_print("You feel your head clear a little.");
 #endif
 			inc_mana(caster_ptr, 3 + caster_ptr->lev / 20);
-
-			// Redraw mana
-			play_redraw |= (PR_MANA);
 			break;
 		}
 
@@ -2432,9 +2421,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			msg_print("You concentrate to charge your power.");
 #endif
 			inc_mana(caster_ptr, caster_ptr->msp / 2);
-
-			// Redraw mana
-			play_redraw |= (PR_MANA);
 		}
 
 	case TRAIT_LEARNING:
@@ -2539,7 +2525,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				msg_print("You feel your head clear a little.");
 #endif
 				inc_mana(caster_ptr, caster_ptr->lev * caster_ptr->lev / 100);
-				play_redraw |= (PR_MANA);	// Redraw mana
 			}
 			else
 			{

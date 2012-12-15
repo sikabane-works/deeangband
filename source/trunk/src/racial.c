@@ -913,7 +913,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 			}
 
-			play_redraw |= (PR_HP | PR_MANA);
+			play_redraw |= (PR_HP);
 
 			break;
 		}
@@ -977,8 +977,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You feel your head clear a little.");
 #endif
 			inc_mana(creature_ptr, 3 + creature_ptr->lev/20);
-
-			play_redraw |= (PR_MANA);
 			break;
 		}
 		case CLASS_TOURIST:
@@ -1072,8 +1070,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				msg_print("You concentrate to charge your power.");
 #endif
 				inc_mana(creature_ptr, creature_ptr->msp / 2);
-
-				play_redraw |= (PR_MANA);
 			}
 			else if(command == -4)
 			{
@@ -1200,8 +1196,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 					msg_print("You feel your head clear a little.");
 #endif
 					inc_mana(creature_ptr, 5 + creature_ptr->lev * creature_ptr->lev / 100);
-
-					play_redraw |= (PR_MANA);
 				}
 				else
 				{

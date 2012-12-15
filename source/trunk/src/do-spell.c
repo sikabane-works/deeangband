@@ -11816,7 +11816,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE))
 			{
-				/* Nothing */
+				// Nothing
 			}
 			else if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
 			{
