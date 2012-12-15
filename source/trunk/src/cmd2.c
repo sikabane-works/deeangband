@@ -2671,7 +2671,6 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			if((have_flag(object_ptr->trait_flags, TRAIT_FORCE_WEAPON)) && (attacker_ptr->csp > (attacker_ptr->msp / 30)))
 			{
 				dec_mana(attacker_ptr, 1 + (attacker_ptr->msp / 30));
-				play_redraw |= (PR_MANA);
 				mult = mult * 5 / 2;
 			}
 			break;

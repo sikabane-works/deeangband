@@ -384,16 +384,14 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			if((mode == HISSATSU_HAGAN) && has_trait(target_ptr, TRAIT_HURT_ROCK))
 			{
 				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-				{
 					reveal_creature_info(target_ptr, TRAIT_HURT_ROCK);
-				}
+
 				if(mult == 10) mult = 40;
 				else if(mult < 60) mult = 60;
 			}
 			if((attacker_ptr->class_idx != CLASS_SAMURAI) && (have_flag(flgs, TRAIT_FORCE_WEAPON)) && (attacker_ptr->csp > (object_ptr->dd * object_ptr->ds / 5)))
 			{
 				dec_mana(attacker_ptr, 1 + (object_ptr->dd * object_ptr->ds / 5));
-				play_redraw |= (PR_MANA);
 				mult = mult * 3 / 2 + 20;
 			}
 			break;

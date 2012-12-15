@@ -2076,9 +2076,8 @@ void do_cmd_mind(creature_type *creature_ptr)
 		msg_print("You faint from the effort!");
 #endif
 
-
 		/* Hack -- Bypass free action */
-		(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, randint1(5 * oops + 1), TRUE);
+		(void)add_timed_trait(creature_ptr, TRAIT_SLEPT, randint1(5 * oops + 1), TRUE);
 
 		/* Damage WIS (possibly permanently) */
 		if(randint0(100) < 50)
@@ -2091,13 +2090,10 @@ void do_cmd_mind(creature_type *creature_ptr)
 			msg_print("You have damaged your mind!");
 #endif
 
-
 			/* Reduce constitution */
 			(void)dec_stat(creature_ptr, STAT_WIS, 15 + randint1(10), perm);
 		}
 	}
-
-	play_redraw |= (PR_MANA);
 
 	play_window |= (PW_PLAYER);
 	play_window |= (PW_SPELL);

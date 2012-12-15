@@ -2619,7 +2619,8 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 void dec_mana(creature_type *creature_ptr, int val)
 {		
 	creature_ptr->csp -= val;
-	if(creature_ptr->csp < 0) creature_ptr->csp = creature_ptr->csp_frac = 0; // Limit
+	if(creature_ptr->csp < 0) creature_ptr->csp = creature_ptr->csp_frac = 0;
+	if(is_player(creature_ptr)) play_redraw |= (PR_MANA);
 }
 
 void inc_mana(creature_type *creature_ptr, int val)

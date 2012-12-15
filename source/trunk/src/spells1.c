@@ -2523,18 +2523,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = NULL;
 #ifdef JP
 				msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
+				msg_print("超能力パワーを吸いとられた！");
 #else
 				msg_format("%^s%s corrupted mind backlashes your attack!", target_name, (seen ? "'s" : "s"));
+				msg_print("Your psychic energy is drained!");
 #endif
 				creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-#ifdef JP
-					msg_print("超能力パワーを吸いとられた！");
-#else
-					msg_print("Your psychic energy is drained!");
-#endif
-					dec_mana(caster_ptr, diceroll(5, dam) / 2);
-					play_redraw |= PR_MANA;
-					play_window |= PW_SPELL;
+				dec_mana(caster_ptr, diceroll(5, dam) / 2);
+				play_window |= PW_SPELL;
 			}
 			dam = 0;
 
@@ -2722,9 +2718,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 			if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
 			if(!has_trait(target_ptr, TRAIT_RES_CHAO) && one_in_(3)) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
-
 			dec_mana(target_ptr, 50);
-			play_redraw |= PR_MANA;
 		break;
 
 	case DO_EFFECT_BRAIN_SMASH:
@@ -2734,7 +2728,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			msg_print("Your mind is blasted by psionic energy.");
 #endif
 			dec_mana(target_ptr, 100);
-			play_redraw |= PR_MANA;
 
 			if(!has_trait(target_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(target_ptr, TRAIT_BLIND, 8 + randint0(8), TRUE);
 			if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);

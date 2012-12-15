@@ -2974,19 +2974,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					msg_print("The attack hits Shadow, you are unharmed!");
 #endif
 				}
-				else
-				{
-					do_cut = 0;
-
-					target_ptr->csp -= damage;
-					if(target_ptr->csp < 0)
-					{
-						target_ptr->csp = 0;
-						target_ptr->csp_frac = 0;
-					}
-
-					play_redraw |= (PR_MANA);
-				}
+				else do_cut = 0;
 
 				/* Learn about the player */
 

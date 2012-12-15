@@ -1242,8 +1242,6 @@ void do_cmd_cast(creature_type *creature_ptr)
 		}
 	}
 
-	play_redraw |= (PR_MANA);
-
 	play_window |= (PW_PLAYER);
 	play_window |= (PW_SPELL);
 }

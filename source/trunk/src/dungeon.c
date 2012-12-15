@@ -2627,8 +2627,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 		msg_format("Your %s drains mana from you!", object_name);
 #endif
-		dec_mana( creature_ptr, creature_ptr->lev);
-		play_redraw |= PR_MANA;
+		dec_mana(creature_ptr, creature_ptr->lev);
 	}
 
 	/* Rarely, take damage from the Jewel of Judgement */
