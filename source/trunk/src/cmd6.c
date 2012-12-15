@@ -1541,11 +1541,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 					ident = TRUE;
 			break;
 
-		case SV_STAFF_TELEPORTATION:
-			teleport_player(creature_ptr, 100, 0L);
-			ident = TRUE;
-			break;
-
 		case SV_STAFF_STARLITE:
 		{
 			int num = diceroll(5, 3);

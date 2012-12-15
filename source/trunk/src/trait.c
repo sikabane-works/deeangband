@@ -2637,7 +2637,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 
-
 	case TRAIT_CREATE_FOOD:
 		{
 			object_type *quest_ptr;
@@ -2691,14 +2690,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_POISON_DART:
 		cast_bolt(caster_ptr, DO_EFFECT_POIS, user_level, 0, FALSE);
-		break;
-
-	case TRAIT_FIRE_BALL:
-		cast_ball(caster_ptr, DO_EFFECT_FIRE, dir, user_level, 2);
-		break;
-
-	case TRAIT_FIRE_BOLT:
-		cast_bolt(caster_ptr, DO_EFFECT_FIRE, user_level, 0, FALSE);
 		break;
 
 	case TRAIT_HOLDING_DUST:
