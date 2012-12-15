@@ -112,7 +112,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_1:
-		for (i = 0; i < 3 ;i++) if(drain_life(caster_ptr, dir, 50)) heal_creature(caster_ptr, 50);
+		for (i = 0; i < 3; i++) if(drain_life(caster_ptr, dir, 50)) heal_creature(caster_ptr, 50);
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_2:
@@ -314,17 +314,17 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_RESTORE_LIFE:
-		(void)restore_exp(caster_ptr);
+		if(restore_exp(caster_ptr)) effected = TRUE;
 		break;
 
 	case TRAIT_RESTORE_ALL:
-		(void)do_res_stat(caster_ptr, STAT_STR);
-		(void)do_res_stat(caster_ptr, STAT_INT);
-		(void)do_res_stat(caster_ptr, STAT_WIS);
-		(void)do_res_stat(caster_ptr, STAT_DEX);
-		(void)do_res_stat(caster_ptr, STAT_CON);
-		(void)do_res_stat(caster_ptr, STAT_CHA);
-		(void)restore_exp(caster_ptr);
+		if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE;
+		if(do_res_stat(caster_ptr, STAT_INT)) effected = TRUE;
+		if(do_res_stat(caster_ptr, STAT_WIS)) effected = TRUE;
+		if(do_res_stat(caster_ptr, STAT_DEX)) effected = TRUE;
+		if(do_res_stat(caster_ptr, STAT_CON)) effected = TRUE;
+		if(do_res_stat(caster_ptr, STAT_CHA)) effected = TRUE;
+		if(restore_exp(caster_ptr)) effected = TRUE;
 		break;
 
 		//TODO Remove duplicated process
@@ -362,11 +362,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_MAGIC_RES_ELEMENT:
-		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(40) + 40, FALSE);
-		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(40) + 40, FALSE);
-		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(40) + 40, FALSE);
-		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(40) + 40, FALSE);
-		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(40) + 40, FALSE);
+		if(set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(40) + 40, FALSE)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(40) + 40, FALSE)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(40) + 40, FALSE)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(40) + 40, FALSE)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(40) + 40, FALSE)) effected = TRUE;
 		break;
 
 		//TODO Remove duplicated process

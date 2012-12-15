@@ -1330,19 +1330,21 @@ bool res_stat(creature_type *creature_ptr, int stat)
 bool heal_creature(creature_type *creature_ptr, int num)
 {
 	int vir;
+
 	// TODO: Add Karma of Vitality feature.
+
 	vir = 0;
 	if(vir) num = num * (creature_ptr->karmas[vir - 1] + 1250) / 1250;
 
 	if(creature_ptr->chp < creature_ptr->mhp) // Healing needed
 	{
-		creature_ptr->chp += num; // Gain hitpoints
+		creature_ptr->chp += num;
 		if(creature_ptr->chp >= creature_ptr->mhp) // Enforce maximum
 		{
 			creature_ptr->chp = creature_ptr->mhp;
 			creature_ptr->chp_frac = 0;
 		}
-		play_redraw |= (PR_HP | PW_PLAYER);
+		if(is_player(creature_ptr)) play_redraw |= (PR_HP | PW_PLAYER);
 
 		//TODO change message.
 		/* Heal 0-4 */
