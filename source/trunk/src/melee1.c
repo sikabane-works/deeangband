@@ -2548,7 +2548,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_BLIND:
 			{
-				/* Take damage */
 				get_damage += take_damage_to_creature(NULL, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr)) break;
@@ -2575,7 +2574,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_CONFUSE:
 			{
 				if(explode) break;
-				/* Take damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr)) break;
@@ -2594,7 +2592,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_TERRIFY:
 			{
-				/* Take damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr)) break;
@@ -2637,7 +2634,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_PARALYZE:
 			{
-				/* Take damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr)) break;
@@ -2781,7 +2777,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Obvious */
 				obvious = TRUE;
 
-				/* Take damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 				(void)drain_exp(target_ptr, d, d / 10, 95);
@@ -2926,7 +2921,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Obvious */
 				obvious = TRUE;
 
-				/* Take damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
@@ -2984,7 +2978,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				{
 					do_cut = 0;
 
-					/* Take damage */
 					target_ptr->csp -= damage;
 					if(target_ptr->csp < 0)
 					{

@@ -1690,7 +1690,6 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	{
 		if(creature_ptr->carrying_weight > calc_carrying_weight_limit(creature_ptr))
 		{
-			/* Take damage */
 #ifdef JP
 			msg_print("“M‚ê‚Ä‚¢‚éI");
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->lev), "“M‚ê", NULL, -1);

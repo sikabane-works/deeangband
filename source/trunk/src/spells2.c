@@ -1405,18 +1405,13 @@ bool dispel_living(creature_type *caster_ptr, int dam)
 	return (project_hack(caster_ptr, DO_EFFECT_DISP_LIVING, dam));
 }
 
-/*
-* Dispel demons
-*/
+// Dispel demons
 bool dispel_demons(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, DO_EFFECT_DISP_DEMON, dam));
 }
 
-
-/*
-* Crusade
-*/
+// Crusade
 bool crusade(creature_type *creature_ptr)
 {
 	return (project_hack(creature_ptr, DO_EFFECT_CRUSADE, creature_ptr->lev*4));
@@ -1547,7 +1542,6 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 	if(player_cast)
 	{
-		/* Take damage */
 #ifdef JP
 		take_damage_to_creature(NULL, user_ptr, DAMAGE_GENO, randint1(dam_side), format("%^s‚Ìô•¶‚ğ¥‚¦‚½”æ˜J", spell_name), NULL, -1);
 #else
