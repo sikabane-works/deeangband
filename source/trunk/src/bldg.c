@@ -1184,7 +1184,6 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 	}
 	else
 	{
-		/* No money */
 		if(creature_ptr->au < 1)
 		{
 #ifdef JP
@@ -1255,8 +1254,6 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 #else
 				msg_print("Ok, we'll start with 1 gold.");
 #endif
-
-
 				wager = 1;
 			}
 			msg_print(NULL);
@@ -3992,44 +3989,29 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	/* Winner? */
 	if(quest[QUEST_AOY].status == QUEST_STATUS_REWARDED)
 	{
-		/* Total winner */
 		creature_ptr->total_winner = TRUE;
-
 		play_redraw |= (PR_TITLE);
 
+		// Congratulations
 #ifdef JP
 		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "見事にD\'angbandの勝利者となった！");
-#else
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
-#endif
-
 		if(creature_ptr->patron_idx != INDEX_NONE)
 		{
-#ifdef JP
 			msg_format("%sからの声が響いた。", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("『よくやった、我がしもべよ！』");
-#else
-			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
-			msg_print("'Thou art donst well, my devotee!'");
-#endif
 		}
-
-		/* Congratulations */
-#ifdef JP
 		msg_print("*** おめでとう ***");
-#else
-		msg_print("*** CONGRATULATIONS ***");
-#endif
-
-#ifdef JP
 		msg_print("あなたはゲームをコンプリートしました。");
-#else
-		msg_print("You have won the game!");
-#endif
-
-#ifdef JP
 		msg_print("準備が整ったら引退(自殺コマンド)しても結構です。");
 #else
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
+		if(creature_ptr->patron_idx != INDEX_NONE)
+		{
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
+			msg_print("'Thou art donst well, my devotee!'");
+		}
+		msg_print("*** CONGRATULATIONS ***");
+		msg_print("You have won the game!");
 		msg_print("You may retire (commit suicide) when you are ready.");
 #endif
 
