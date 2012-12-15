@@ -7872,7 +7872,7 @@ And you will win The Can of Toys!
 TOUCH:LOSE_WIS",,,NEVER_MOVE|INVISIBLE|COLD_BLOOD|PASS_WALL|CAN_FLY|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP,,この世に未練がある冒険者の魂のなれの果てだ。,"A lost soul of an adventurer still lingering in this world.
 ",,,,,
 1013,『ロレント』,Rolento,p,u,0,HUMAN,HUMAN,0x02,WARRIOR,NONE,NIMBLE,NONE,NONE,38,7,50,4000,0,0,0,0,NONE,NONE,0,40,70,0,0,0,4,19,19,19,19,19,19,180,0,81,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:8d4
-KICK:HURT:8d4",,,FORCE_MAXHP|CAN_SPEAK|NO_CONF|NO_SLEEP|NO_STUN|FEARLESS|HAS_LITE_2|RES_TELE|RAND_50|ESCORT|IM_FIRE|UNIQUE|OPEN_DOOR|BASH_DOOR|SMART|BA_FIRE|HASTE|SPECIAL,,Take no prisoner!,Take no prisoner!,"
+KICK:HURT:8d4",,,FORCE_MAXHP|CAN_SPEAK|NO_CONF|NO_SLEEP|NO_STUN|FEARLESS|HAS_LITE_2|RES_TELE|RAND_50|ESCORT|IM_FIRE|UNIQUE|OPEN_DOOR|BASH_DOOR|SMART|BA_FIRE|HASTE|GRENADE,,Take no prisoner!,Take no prisoner!,"
  ファイナルファイトから。残像が付く速い動きで手榴弾ばら撒く軍人風の人。
  ファイアボール(ロケットの方がいい？ ;-)のメッセージは「手榴弾を投げた」にする。
  できればhackして「２ターン後に自動的に爆発する完全ランダム移動の手榴弾」を召喚さす。

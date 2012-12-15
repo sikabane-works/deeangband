@@ -1535,6 +1535,25 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				break;
 		}
 
+			case TRAIT_GRENADE:
+#ifdef JP
+				if(blind) msg_format("%^sが何か大量に投げた。", caster_name);
+				else msg_format("%^sは手榴弾をばらまいた。", caster_name);
+#else
+				if(blind) msg_format("%^s spreads something.", caster_name);
+				else msg_format("%^s throws some hand grenades.", caster_name);
+#endif
+
+				{
+					int num = 1 + randint1(3);
+
+					for (k = 0; k < num; k++)
+					{
+						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
+					}
+				}
+				break;
+
 	case TRAIT_SPECIAL:
 		{
 			switch (caster_ptr->species_idx)
@@ -1600,25 +1619,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 					break;
 				}
-
-			case SPECIES_ROLENTO:
-#ifdef JP
-				if(blind) msg_format("%^sが何か大量に投げた。", caster_name);
-				else msg_format("%^sは手榴弾をばらまいた。", caster_name);
-#else
-				if(blind) msg_format("%^s spreads something.", caster_name);
-				else msg_format("%^s throws some hand grenades.", caster_name);
-#endif
-
-				{
-					int num = 1 + randint1(3);
-
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
-					}
-				}
-				break;
 
 			}
 			break;
