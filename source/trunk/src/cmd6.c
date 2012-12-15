@@ -1218,17 +1218,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			ident = TRUE;
 			break;
 
-		case SV_SCROLL_STAR_DESTRUCTION:
-			if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + randint0(5), FALSE))
-				ident = TRUE;
-			else
-#ifdef JP
-				msg_print("ƒ_ƒ“ƒWƒ‡ƒ“‚ª—h‚ê‚½...");
-#else
-				msg_print("The dungeon trembles...");
-#endif
-			break;
-
 		case SV_SCROLL_DISPEL_UNDEAD:
 			if(dispel_undead(caster_ptr, 80)) ident = TRUE;
 			break;
@@ -1653,14 +1642,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 #else
 				msg_print("The dungeon trembles.");
 #endif
-			break;
-		}
-
-		case SV_STAFF_DESTRUCTION:
-		{
-			if(destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE))
-				ident = TRUE;
-
 			break;
 		}
 
