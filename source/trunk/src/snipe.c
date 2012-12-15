@@ -388,77 +388,77 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 }
 
 
-int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *m_ptr)
+int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *target_ptr)
 {
-	species_type *species_ptr = &species_info[m_ptr->species_idx];
-	bool seen = is_seen(creature_ptr, m_ptr);
+	species_type *species_ptr = &species_info[target_ptr->species_idx];
+	bool seen = is_seen(creature_ptr, target_ptr);
 
 	switch (creature_ptr->snipe_type)
 	{
 	case SP_LITE:
-		if(has_trait(m_ptr, TRAIT_HURT_LITE))
+		if(has_trait(target_ptr, TRAIT_HURT_LITE))
 		{
 			int n = 20 + creature_ptr->concent;
-			reveal_creature_info(m_ptr, TRAIT_HURT_LITE);
+			reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
 			if(mult < n) mult = n;
 		}
 		break;
 	case SP_FIRE:
-		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_FIRE_RATE);
-		if(!has_trait(m_ptr, TRAIT_RES_FIRE))
+		reveal_creature_info(target_ptr, INFO_TYPE_RESIST_FIRE_RATE);
+		if(!has_trait(target_ptr, TRAIT_RES_FIRE))
 		{
 			int n = 15 + (creature_ptr->concent * 3);
 			if(mult < n) mult = n;
 		}
 		break;
 	case SP_COLD:
-		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_COLD_RATE);
-		if(!has_trait(m_ptr, TRAIT_RES_COLD))
+		reveal_creature_info(target_ptr, INFO_TYPE_RESIST_COLD_RATE);
+		if(!has_trait(target_ptr, TRAIT_RES_COLD))
 		{
 			int n = 15 + (creature_ptr->concent * 3);
 			if(mult < n) mult = n;
 		}
 		break;
 	case SP_ELEC:
-		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_ELEC_RATE);
-		if(!has_trait(m_ptr, TRAIT_RES_ELEC))
+		reveal_creature_info(target_ptr, INFO_TYPE_RESIST_ELEC_RATE);
+		if(!has_trait(target_ptr, TRAIT_RES_ELEC))
 		{
 			int n = 18 + (creature_ptr->concent * 4);
 			if(mult < n) mult = n;
 		}
 		break;
 	case SP_KILL_WALL:
-		if(has_trait(m_ptr, TRAIT_HURT_ROCK))
+		if(has_trait(target_ptr, TRAIT_HURT_ROCK))
 		{
 			int n = 15 + (creature_ptr->concent * 2);
-			reveal_creature_info(m_ptr, TRAIT_HURT_ROCK);
+			reveal_creature_info(target_ptr, TRAIT_HURT_ROCK);
 			if(mult < n) mult = n;
 		}
-		else if(has_trait(m_ptr, TRAIT_NONLIVING))
+		else if(has_trait(target_ptr, TRAIT_NONLIVING))
 		{
 			int n = 15 + (creature_ptr->concent * 2);
-			reveal_creature_info(m_ptr, TRAIT_NONLIVING);
+			reveal_creature_info(target_ptr, TRAIT_NONLIVING);
 			if(mult < n) mult = n;
 		}
 		break;
 	case SP_EVILNESS:
-		if(is_enemy_of_evil_creature(m_ptr))
+		if(is_enemy_of_evil_creature(target_ptr))
 		{
 			int n = 15 + (creature_ptr->concent * 4);
-			reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
+			reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 			if(mult < n) mult = n;
 		}
 		break;
 	case SP_HOLYNESS:
-		if(is_enemy_of_good_creature(m_ptr))
+		if(is_enemy_of_good_creature(target_ptr))
 		{
 			int n = 12 + (creature_ptr->concent * 3);
-			reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
+			reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 
-			if(has_trait(m_ptr, TRAIT_HURT_LITE))
+			if(has_trait(target_ptr, TRAIT_HURT_LITE))
 			{
 				n += (creature_ptr->concent * 3);
-				reveal_creature_info(m_ptr, TRAIT_HURT_LITE);
+				reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
 			}
 			if(mult < n) mult = n;
 		}

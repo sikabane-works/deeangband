@@ -730,12 +730,9 @@ struct option_type
 	bool	*o_var;
 
 	byte	o_norm;
-
 	byte	o_page;
-
 	byte	o_set;
 	byte	o_bit;
-
 	cptr	o_text;
 	cptr	o_desc;
 };
@@ -1075,18 +1072,12 @@ typedef struct chara_type chara_type;
 struct chara_type
 {
 	cptr title;			/* Type of chara */
+	u32b name;			/* Name (offset) */
+	u32b text;			/* text (offset) */
 
 #ifdef JP
 	cptr E_title;		/* English */
-#endif
-
-	u32b name;			/* Name (offset) */
-#ifdef JP
 	u32b E_name;        /* English (offset) */
-#endif
-
-	u32b text;			/* text (offset) */
-#ifdef JP
 	u32b E_text;        /* English (offset) */
 #endif
 

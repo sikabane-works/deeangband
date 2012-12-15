@@ -1793,10 +1793,10 @@ extern bool browsing_movie;
 /* for travel */
 extern travel_type travel;
 
-/* snipe.c */
+// snipe.c
 extern void reset_concentration(creature_type *creature_ptr, bool msg);
 extern void display_snipe_list(creature_type *creature_ptr);
-extern int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *m_ptr);
+extern int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *target_ptr);
 extern void do_cmd_snipe(creature_type *creature_ptr);
 extern void do_cmd_snipe_browse(creature_type *creature_ptr);
 extern int boost_concentration_damage(creature_type *creature_ptr, int tdam);

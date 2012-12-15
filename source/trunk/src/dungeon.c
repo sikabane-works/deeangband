@@ -1092,14 +1092,12 @@ static void regen_creatures(creature_type *creature_ptr)
 }
 
 
-/*
-* Regenerate the captured creatures (once per 30 game turns)
-*
-* XXX XXX XXX Should probably be done during creature turns.
-*/
+
+// Regenerate the captured creatures (once per 30 game turns)
+// XXX XXX XXX Should probably be done during creature turns.
 static void regen_captured_creatures(creature_type *creature_ptr)
 {
-	int i, frac;
+	int i;
 	bool heal = FALSE;
 
 	/* Regenerate everyone */
