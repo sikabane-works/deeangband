@@ -398,12 +398,12 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		detect_all(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 
-	case TRAIT_IDENTIFY_TRUE:
-		identify_fully(caster_ptr, FALSE);
+	case TRAIT_IDENTIFY:
+		if(ident_spell(caster_ptr, FALSE)) return TRUE;
 		break;
 
-	case TRAIT_IDENTIFY:
-		if(!ident_spell(caster_ptr, FALSE)) return FALSE;
+	case TRAIT_IDENTIFY_TRUE:
+		if(identify_fully(caster_ptr, FALSE)) return TRUE;
 		break;
 
 	case TRAIT_EXPLOSIVE_RUNE:

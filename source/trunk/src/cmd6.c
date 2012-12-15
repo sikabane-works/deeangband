@@ -1218,10 +1218,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			ident = TRUE;
 			break;
 
-		case SV_SCROLL_TRAP_DOOR_DESTRUCTION:
-			if(destroy_doors_touch(caster_ptr)) ident = TRUE;
-			break;
-
 		case SV_SCROLL_STAR_DESTRUCTION:
 			if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + randint0(5), FALSE))
 				ident = TRUE;
@@ -1231,8 +1227,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 #else
 				msg_print("The dungeon trembles...");
 #endif
-
-
 			break;
 
 		case SV_SCROLL_DISPEL_UNDEAD:
