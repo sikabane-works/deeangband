@@ -253,7 +253,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			}
 #endif
 
-
 			case SV_FOOD_WAYBREAD:
 			{
 #ifdef JP
@@ -261,7 +260,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 #else
 				msg_print("That tastes good.");
 #endif
-
 				(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE);
 				(void)heal_creature(creature_ptr, diceroll(4, 8));
 				ident = TRUE;
@@ -270,15 +268,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 #ifdef JP
 			case SV_FOOD_PINT_OF_ALE:
-			{
-				msg_print("のどごし爽やかだ。");
-				ident = TRUE;
-				break;
-			}
-
 			case SV_FOOD_PINT_OF_WINE:
 			{
-				msg_print("That tastes good.");
+				msg_print("のどごし爽やかだ。");
 				ident = TRUE;
 				break;
 			}
@@ -1019,18 +1011,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			break;
 		}
 
-		case SV_SCROLL_AGGRAVATE_MONSTER:
-		{
-#ifdef JP
-			msg_print("カン高くうなる様な音が辺りを覆った。");
-#else
-			msg_print("There is a high pitched humming noise.");
-#endif
-			aggravate_creatures(caster_ptr);
-			ident = TRUE;
-			break;
-		}
-
 		case SV_SCROLL_CURSE_ARMOR:
 		{
 			if(curse_armor(caster_ptr)) ident = TRUE;
@@ -1303,7 +1283,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 				case 2:
 					err = get_rnd_line(message_files[MESSAGE_FILES_ERROR], 0, Rumor);
 					break;
-
 				case 3:
 				case 4:
 				case 5:
@@ -2259,12 +2238,6 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 			break;
 		}
 
-		case SV_ROD_AGGRAVATE:
-		{
-			aggravate_creatures(creature_ptr);
-			ident = TRUE;
-			break;
-		}
 	}
 	return ident;
 }
