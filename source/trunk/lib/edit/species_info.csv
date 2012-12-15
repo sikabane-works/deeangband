@@ -1520,7 +1520,7 @@ STING:POISON:1d6",,,FORCE_SLEEP|IM_POIS|CAN_FLY|OPEN_DOOR|BASH_DOOR|MOVE_BODY|WI
 JZ#(コメント)訳は 紫月閑丸さん",,,,
 335,大鷲,Great eagle,B,u,0,BIRD,BIRD,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,35,2,50,450,0,0,0,0,NONE,NONE,0,25,20,65,0,0,20,17,17,17,17,17,17,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:6d3
 CLAW:HURT:6d3
-BITE:HURT:3d6",,,CAN_FLY|WILD_ONLY|WILD_MOUNTAIN|WILD_VOLCANO|RIDING|SPECIAL,,"マンウェに遣わされた偉大な大鷲は人の言葉を話し、
+BITE:HURT:3d6",,,CAN_FLY|WILD_ONLY|WILD_MOUNTAIN|WILD_VOLCANO|RIDING|ACROBAT,,"マンウェに遣わされた偉大な大鷲は人の言葉を話し、
 マイアールと同じ魂を持っていると言われる。
 この大鷲はその一族の一員である。","An agent of supernatural beings, this creature looks like a 
 huge eagle.
@@ -1794,7 +1794,7 @@ JZ#アルベリヒの息子であり、グンター王の異父弟にあたります。奸計に
 JZ#よってジークフリードを殺害し、指環を奪った犯人です。 by 久留さん",,,,
 384,疾翼『メネルドール』,Meneldor the Swift,B,u,0,BIRD,BIRD,0x02,NONE,NONE,ORDINARY,NONE,NONE,38,1,50,7000,0,0,0,0,NONE,NONE,2,30,20,65,0,0,20,19,19,19,19,19,19,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:7d5
 CLAW:HURT:7d5
-BITE:HURT:5d7",,,CAN_FLY|UNIQUE|FORCE_MAXHP|WILD_ONLY|WILD_MOUNTAIN|WILD_VOLCANO|RIDING|SPECIAL|S_KIN,,"マンウェに遣わされた偉大な大鷲は人の言葉を話し、
+BITE:HURT:5d7",,,CAN_FLY|UNIQUE|FORCE_MAXHP|WILD_ONLY|WILD_MOUNTAIN|WILD_VOLCANO|RIDING|ACROBAT|S_KIN,,"マンウェに遣わされた偉大な大鷲は人の言葉を話し、
 マイアールと同じ魂を持っていると言われる。
 メネルドールは一族の中でグワイヒアとその弟ランドローバルに継いで速く、
 疾翼と呼ばれる。","An agent of supernatural beings, this creature looks like a 
@@ -1950,7 +1950,7 @@ CLAW:LOSE_CON:2d6",,,UNIQUE|ZOMBIE|CAN_SPEAK|ESCORTS|ESCORT|FORCE_MAXHP|COLD_BLO
 ",JZ#,,,,
 410,風早彦『グワイヒア』,Gwaihir the Windlord,B,u,0,BIRD,BIRD,0x02,NONE,NONE,ORDINARY,NONE,NONE,40,1,50,8000,0,0,0,0,NONE,NONE,3,32,20,65,0,0,20,19,19,19,19,19,19,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:15d5
 CLAW:HURT:15d5
-BITE:HURT:5d10",,,CAN_FLY|UNIQUE|FORCE_MAXHP|WILD_ONLY|WILD_MOUNTAIN|WILD_VOLCANO|RIDING|SPECIAL|S_KIN,,"マンウェに遣わされた偉大な大鷲は人の言葉を話し、
+BITE:HURT:5d10",,,CAN_FLY|UNIQUE|FORCE_MAXHP|WILD_ONLY|WILD_MOUNTAIN|WILD_VOLCANO|RIDING|ACROBAT|S_KIN,,"マンウェに遣わされた偉大な大鷲は人の言葉を話し、
 マイアールと同じ魂を持っていると言われる。
 グワイヒアは大鷲の王であり、一族の中で最も強く、速い。
 これが風の支配者と呼ばれる所以である。","An agent of supernatural beings, this creature looks like a 
@@ -2401,7 +2401,7 @@ BITE:HURT:11d2
 BITE:HURT:22d1",,,FORCE_MAXHP|TAKE_ITEM|UNIQUE|MOVE_BODY|WILD_OCEAN|BASH_DOOR|IM_COLD|IM_ELEC|IM_POIS|RES_WATE|AQUATIC|NO_CONF|NO_SLEEP|,,史上最大のホオジロザメで、今にもあなたを食べようとしている！,"The biggest white shark who has ever lived, it is hunting for you now! ",JZ#,,,,
 468,大鷲王『ソロンドール』,Thorondor,B,u,0,BIRD,MAIAR,0x02,WARRIOR,1090,ORDINARY,NONE,NONE,55,1,50,22222,0,0,0,0,NONE,NONE,13,32,20,65,0,0,20,23,23,23,23,23,23,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:16d5
 CLAW:HURT:16d5
-BITE:HURT:6d10",,,CAN_FLY|UNIQUE|ESCORT|ESCORTS|FORCE_MAXHP|WILD_ONLY|WILD_MOUNTAIN|WILD_VOLCANO|RIDING|SPECIAL|S_KIN,,"マンウェに遣わされた偉大な大鷲は人の言葉を話し、
+BITE:HURT:6d10",,,CAN_FLY|UNIQUE|ESCORT|ESCORTS|FORCE_MAXHP|WILD_ONLY|WILD_MOUNTAIN|WILD_VOLCANO|RIDING|ACROBAT|S_KIN,,"マンウェに遣わされた偉大な大鷲は人の言葉を話し、
 マイアールと同じ魂を持っていると言われる。
 ソロンドールは全ての大鷲のうちで最初に現われた者であり、最強かつ最大の王だ。
 その巨大な体を前にすればモルゴスの卑小な召使い達は逃げ惑うことしか出来無い。","An agent of supernatural being, Thorondor is the lord of eagles.

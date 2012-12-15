@@ -1467,6 +1467,74 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		handle_stuff();
 		break;
 
+	case TRAIT_ACROBAT:
+		{
+				if(one_in_(3)) // direct
+				{
+#ifdef JP
+					msg_format("%^sは突然視界から消えた!", caster_name);
+#else
+					msg_format("%^s suddenly go out of your sight!", caster_name);
+#endif
+					teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
+					caster_ptr->creature_update |= (PU_CREATURES);
+				}
+				else
+				{
+					int get_damage = 0;
+
+#ifdef JP
+					msg_format("%^sがあなたを掴んで空中から投げ落とした。", caster_name);
+#else
+					msg_format("%^s holds you, and drops from the sky.", caster_name);
+#endif
+					damage = diceroll(4, 8);
+					teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+
+					sound(SOUND_FALL);
+
+					if(has_trait(target_ptr, TRAIT_CAN_FLY))
+					{
+#ifdef JP
+						msg_print("あなたは静かに着地した。");
+#else
+						msg_print("You float gently down to the ground.");
+#endif
+					}
+					else
+					{
+#ifdef JP
+						msg_print("あなたは地面に叩きつけられた。");
+#else
+						msg_print("You crashed into the ground.");
+#endif
+						damage += diceroll(6, 8);
+					}
+
+					// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
+
+					get_damage = take_damage_to_creature(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
+					if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
+					{
+#ifdef JP
+						msg_format("攻撃が%s自身を傷つけた！", caster_name);
+#else
+						char caster_name_self[80];
+
+						// hisself 
+						creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
+
+						msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
+#endif
+						project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
+						set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+					}
+
+					if(target_ptr->riding) close_combat(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
+				}
+				break;
+		}
+
 	case TRAIT_SPECIAL:
 		{
 			switch (caster_ptr->species_idx)
@@ -1552,73 +1620,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				}
 				break;
 
-			default:
-				if(one_in_(3)) // TODO direct
-				{
-#ifdef JP
-					msg_format("%^sは突然視界から消えた!", caster_name);
-#else
-					msg_format("%^s suddenly go out of your sight!", caster_name);
-#endif
-					teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
-					caster_ptr->creature_update |= (PU_CREATURES);
-				}
-				else
-				{
-					int get_damage = 0;
-
-#ifdef JP
-					msg_format("%^sがあなたを掴んで空中から投げ落とした。", caster_name);
-#else
-					msg_format("%^s holds you, and drops from the sky.", caster_name);
-#endif
-					damage = diceroll(4, 8);
-					teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
-
-					sound(SOUND_FALL);
-
-					if(has_trait(target_ptr, TRAIT_CAN_FLY))
-					{
-#ifdef JP
-						msg_print("あなたは静かに着地した。");
-#else
-						msg_print("You float gently down to the ground.");
-#endif
-					}
-					else
-					{
-#ifdef JP
-						msg_print("あなたは地面に叩きつけられた。");
-#else
-						msg_print("You crashed into the ground.");
-#endif
-						damage += diceroll(6, 8);
-					}
-
-					// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
-
-					get_damage = take_damage_to_creature(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
-					if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
-					{
-#ifdef JP
-						msg_format("攻撃が%s自身を傷つけた！", caster_name);
-#else
-						char caster_name_self[80];
-
-						// hisself 
-						creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
-
-						msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
-#endif
-						project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
-						set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
-					}
-
-					if(target_ptr->riding) close_combat(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
-				}
-				break;
 			}
 			break;
+
 		}
 
 	case TRAIT_TELE_TO:
