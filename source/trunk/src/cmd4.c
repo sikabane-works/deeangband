@@ -3285,13 +3285,7 @@ void do_cmd_macros(void)
 			/* Extract an action */
 			text_to_acscii(macro__buf, buf);
 		}
-
-		else
-		{
-			bell();
-		}
-
-		/* Flush messages */
+		else bell();
 		msg_print(NULL);
 	}
 
@@ -4039,7 +4033,6 @@ void do_cmd_visuals(void)
 			break;
 		}
 
-		/* Flush messages */
 		msg_print(NULL);
 	}
 
@@ -4267,13 +4260,7 @@ void do_cmd_colors(void)
 			}
 		}
 
-		/* Unknown option */
-		else
-		{
-			bell();
-		}
-
-		/* Flush messages */
+		else bell();
 		msg_print(NULL);
 	}
 

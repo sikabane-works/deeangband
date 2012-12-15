@@ -1078,155 +1078,64 @@ void set_unreached_race_level_penalty(creature_type *creature_ptr)
 
 bool has_breath_flags(traits_precondition *flags_pre_ptr)
 {
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_FIRE)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_COLD)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_ELEC)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_POIS)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_NETH)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_LITE)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_DARK)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_CONF)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_SOUN)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_CHAO)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_NEXU)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_SHAR)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_TIME)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_INER)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_GRAV)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_PLAS)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_WALL)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_MANA)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_NUKE)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BR_DISI)) return TRUE;
+	//TODO reimplement
 	return FALSE;
 }
 
 bool has_summon_flags(traits_precondition *flags_pre_ptr)
 {
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_KIN)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_CYBER)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_MONSTER)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_MONSTERS)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_ANT)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_SPIDER)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_HOUND)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_HYDRA)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_ANGEL)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_DEMON)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_UNDEAD)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_DRAGON)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_HI_UNDEAD)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_HI_DRAGON)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_AMBERITES)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_S_UNIQUE)) return TRUE;
+	//TODO reimplement
 	return FALSE;
 }
 
 bool has_big_ball_flags(traits_precondition *flags_pre_ptr)
 {
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BA_CHAO)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BA_DARK)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BA_LITE)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BA_WATE)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BA_MANA)) return TRUE;
+	//TODO reimplement
 	return FALSE;
 }
 
 bool has_ball_flags(traits_precondition *flags_pre_ptr)
 {
-	if(has_big_ball_flags(flags_pre_ptr)) return TRUE;
-	if(has_breath_flags(flags_pre_ptr)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_ROCKET)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BA_NUKE)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BA_ACID)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BA_ELEC)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BA_FIRE)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BA_COLD)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BA_POIS)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BA_NETH)) return TRUE;	
+	//TODO reimplement
 	return FALSE;
 }
 
 bool has_beam_flags(traits_precondition *flags_pre_ptr)
 {
-	if(has_trait_raw(flags_pre_ptr, TRAIT_PSY_SPEAR)) return TRUE;	
+	//TODO reimplement
 	return FALSE;
 }
 
 bool has_bolt_flags(traits_precondition *flags_pre_ptr)
 {
-	if(has_trait_raw(flags_pre_ptr, TRAIT_ROCKET)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_SHOOT)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BO_ACID)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BO_ELEC)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BO_FIRE)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BO_COLD)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BO_NETH)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BO_WATE)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BO_MANA)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BO_PLAS)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BO_ICEE)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_MISSILE)) return TRUE;	
+	//TODO reimplement
 	return FALSE;
 }
 
 bool has_intelligence_skill_flags(traits_precondition *flags_pre_ptr)
 {
-	if(has_summon_flags(flags_pre_ptr)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_DISPEL)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_HOLD)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_SLOW)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_CONF)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BLIND)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_SCARE)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BLINK)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_ACTIVE_TELEPORT)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_TELE_LEVEL)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_TELE_AWAY)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_HEAL)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_INVULNER)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_HASTE)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_TRAPS)) return TRUE;	
+	//TODO reimplement
 	return FALSE;
 }
 
 bool has_riding_disable_skill_flags(traits_precondition *flags_pre_ptr)
 {
+	//TODO reimplement
+	/*
 	if(has_trait_raw(flags_pre_ptr, TRAIT_SHRIEK)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_BLINK)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_ACTIVE_TELEPORT)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_TRAPS)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_DARKNESS)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_SPECIAL)) return TRUE;	
+	*/
 	return FALSE;
 }
 
 
 bool has_attack_skill_flags(traits_precondition *flags_pre_ptr)
 {
-	if(has_bolt_flags(flags_pre_ptr)) return TRUE;
-	if(has_beam_flags(flags_pre_ptr)) return TRUE;
-	if(has_ball_flags(flags_pre_ptr)) return TRUE;
-	if(has_trait_raw(flags_pre_ptr, TRAIT_DISPEL)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_DRAIN_MANA)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_MIND_BLAST)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BRAIN_SMASH)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_CAUSE_1)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_CAUSE_2)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_CAUSE_3)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_CAUSE_4)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_SCARE)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_BLIND)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_CONF)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_SLOW)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_HOLD)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_HAND_DOOM)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_TELE_TO)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_TELE_AWAY)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_TELE_LEVEL)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_DARKNESS)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_TRAPS)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_FORGET)) return TRUE;	
+	//TODO reimplement
 	return FALSE;
 }
 

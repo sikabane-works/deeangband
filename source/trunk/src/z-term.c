@@ -10,9 +10,7 @@
 
 /* Purpose: a generic, efficient, terminal window package -BEN- */
 #include "angband.h"
-
 #include "z-term.h"
-
 #include "z-virt.h"
 
 /* Special flags in the attr data */
@@ -1264,13 +1262,11 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 #endif
 		/* Handle unchanged grids */
 #ifdef JP
-		if((na == oa) && (nc == oc) &&
-		    (!kanji || (scr_aa[x + 1] == old_aa[x + 1] &&
+		if((na == oa) && (nc == oc) && (!kanji || (scr_aa[x + 1] == old_aa[x + 1] &&
 				scr_cc[x + 1] == old_cc[x + 1])))
 #else
 		if((na == oa) && (nc == oc))
 #endif
-
 		{
 			/* Flush */
 			if(fn)
