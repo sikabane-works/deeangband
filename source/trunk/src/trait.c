@@ -426,6 +426,10 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		wall_to_mud(caster_ptr, dir);
 		break;
 
+	case TRAIT_STAR_DESTROY:
+		if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + randint0(5), FALSE)) effected = TRUE;
+		break;
+
 	case TRAIT_MAGIC_CHARGE_2:
 		recharge(caster_ptr, 130);
 		break;
