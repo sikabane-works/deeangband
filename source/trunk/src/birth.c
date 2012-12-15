@@ -5071,7 +5071,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 		if(!auto_generate && (autoroller || autochara)) sound(SOUND_LEVEL);
 
-		/* Flush input */
 		flush();
 
 		/*** Display ***/

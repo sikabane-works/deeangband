@@ -2716,8 +2716,6 @@ static void do_cmd_macro_aux(char *buf)
 
 	char tmp[1024];
 
-
-	/* Flush */
 	flush();
 
 	/* Do not process macros */
@@ -2745,7 +2743,6 @@ static void do_cmd_macro_aux(char *buf)
 	/* Terminate */
 	buf[n] = '\0';
 
-	/* Flush */
 	flush();
 
 

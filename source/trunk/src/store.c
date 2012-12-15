@@ -5052,9 +5052,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		 */
 		need_redraw_store_inv = (creature_ptr->creature_update & CRU_BONUS) ? TRUE : FALSE;
 
-		/* Notice stuff */
 		notice_stuff(creature_ptr);
-
 		handle_stuff();
 
 		/* XXX XXX XXX Pack Overflow */
@@ -5156,8 +5154,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 
 //	town_num = old_town_num;
 
-
-	/* Free turn XXX XXX XXX */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Hack -- Cancel automatic command */
@@ -5169,7 +5165,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 	/* Allow expanding macros */
 	//get_com_no_macros = FALSE;
 
-	/* Flush messages XXX XXX XXX */
 	msg_print(NULL);
 
 	/*

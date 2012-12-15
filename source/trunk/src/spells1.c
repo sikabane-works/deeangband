@@ -3525,11 +3525,8 @@ int dist_to_line(int y, int x, int y1, int x1, int y2, int x2)
 
 
 
-/*
-* XXX XXX XXX
-* Modified version of los() for calculation of disintegration balls.
-* Disintegration effects are stopped by permanent walls.
-*/
+// Modified version of los() for calculation of disintegration balls.
+// Disintegration effects are stopped by permanent walls.
 bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 {
 	/* Delta */

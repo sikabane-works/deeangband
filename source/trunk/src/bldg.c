@@ -17,21 +17,12 @@ static bool leave_bldg = FALSE;
 
 static bool is_owner(creature_type *creature_ptr, building_type *bldg)
 {
-	if(bldg->member_class[creature_ptr->class_idx] == BUILDING_OWNER)
-	{
-		return TRUE;
-	}
-
-	if(bldg->member_race[creature_ptr->race_idx1] == BUILDING_OWNER)
-	{
-		return TRUE;
-	}
+	if(bldg->member_class[creature_ptr->class_idx] == BUILDING_OWNER) return TRUE;
+	if(bldg->member_race[creature_ptr->race_idx1] == BUILDING_OWNER) return TRUE;
 
 	if((is_magic(creature_ptr->realm1) && (bldg->member_realm[creature_ptr->realm1] == BUILDING_OWNER)) ||
 		(is_magic(creature_ptr->realm2) && (bldg->member_realm[creature_ptr->realm2] == BUILDING_OWNER)))
-	{
 		return TRUE;
-	}
 
 	return FALSE;
 }
@@ -39,31 +30,19 @@ static bool is_owner(creature_type *creature_ptr, building_type *bldg)
 
 static bool is_member(creature_type *creature_ptr, building_type *bldg)
 {
-	if(bldg->member_class[creature_ptr->class_idx])
-	{
-		return TRUE;
-	}
-
-	if(bldg->member_race[creature_ptr->race_idx1])
-	{
-		return TRUE;
-	}
+	if(bldg->member_class[creature_ptr->class_idx]) return TRUE;
+	if(bldg->member_race[creature_ptr->race_idx1]) return TRUE;
 
 	if((is_magic(creature_ptr->realm1) && bldg->member_realm[creature_ptr->realm1]) ||
 	    (is_magic(creature_ptr->realm2) && bldg->member_realm[creature_ptr->realm2]))
-	{
 		return TRUE;
-	}
 
 
 	if(creature_ptr->class_idx == CLASS_SORCERER)
 	{
 		int i;
 		bool OK = FALSE;
-		for (i = 0; i < MAX_MAGIC; i++)
-		{
-			if(bldg->member_realm[i+1]) OK = TRUE;
-		}
+		for (i = 0; i < MAX_MAGIC; i++) if(bldg->member_realm[i+1]) OK = TRUE;
 		return OK;
 	}
 	return FALSE;
@@ -93,10 +72,7 @@ static void building_prt_gold(creature_type *creature_ptr)
 	prt(tmp_str, 23, 68);
 }
 
-
-/*
- * Display a building.
- */
+// Display a building.
 static void show_building(creature_type *creature_ptr, building_type* bldg)
 {
 	char buff[20];
@@ -240,20 +216,18 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 				prt("アリーナの優勝者！", 5, 0);
 				prt("おめでとう！あなたは全ての敵を倒しました。", 7, 0); 
 				prt("賞金として $1,000,000 が与えられます。", 8, 0);
+				prt("", 10, 0);
+				prt("", 11, 0);
+				msg_print("スペースキーで続行");
 #else
 				prt("               Arena Victor!", 5, 0);
 				prt("Congratulations!  You have defeated all before you.", 7, 0);
 				prt("For that, receive the prize: 1,000,000 gold pieces", 8, 0);
-#endif
-
 				prt("", 10, 0);
 				prt("", 11, 0);
-				creature_ptr->au += 1000000L;
-#ifdef JP
-				msg_print("スペースキーで続行");
-#else
 				msg_print("Press the space bar to continue");
 #endif
+				creature_ptr->au += 1000000L;
 
 				msg_print(NULL);
 				arena_number++;
@@ -264,14 +238,11 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 				{
 #ifdef JP
 					msg_print("君のために最強の挑戦者を用意しておいた。");
-#else
-					msg_print("The strongest challenger is waiting for you.");
-#endif
-
 					msg_print(NULL);
-#ifdef JP
 					if(get_check("挑戦するかね？"))
 #else
+					msg_print("The strongest challenger is waiting for you.");
+					msg_print(NULL);
 					if(get_check("Do you fight? "))
 #endif
 					{
@@ -297,7 +268,6 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 #else
 					msg_print("You enter the arena briefly and bask in your glory.");
 #endif
-
 					msg_print(NULL);
 				}
 			}
@@ -361,10 +331,7 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 	}
 }
 
-
-/*
- * display fruit for dice slots
- */
+// display fruit for dice slots
 static void display_fruit(int row, int col, int fruit)
 {
 	switch (fruit)
@@ -1833,7 +1800,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 			if(wager > creature_ptr->au)
 			{
 #ifdef JP
-msg_print("おい！金が足りないじゃないか！出ていけ！");
+				msg_print("おい！金が足りないじゃないか！出ていけ！");
 #else
 				msg_print("Hey! You don't have the gold - get out of here!");
 #endif
@@ -1890,30 +1857,19 @@ static void today_target(creature_type *creature_ptr)
 
 #ifdef JP
 	c_put_str(TERM_YELLOW, "本日の賞金首", 5, 10);
-#else
-	prt("Wanted creature that changes from day to day", 5, 10);
-#endif
-
-#ifdef JP
 	sprintf(buf,"ターゲット： %s",species_name + species_ptr->name);
-#else
-	sprintf(buf,"target: %s",species_name + species_ptr->name);
-
-#endif
 	c_put_str(TERM_YELLOW, buf, 6, 10);
-#ifdef JP
 	sprintf(buf,"死体 ---- $%d",species_ptr->level * 50 + 100);
-#else
-	sprintf(buf,"corpse   ---- $%d",species_ptr->level * 50 + 100);
-#endif
-	prt(buf, 8, 10);
-
-#ifdef JP
 	sprintf(buf,"骨   ---- $%d",species_ptr->level * 30 + 60);
 #else
+	prt("Wanted creature that changes from day to day", 5, 10);
+	sprintf(buf,"target: %s",species_name + species_ptr->name);
+	c_put_str(TERM_YELLOW, buf, 6, 10);
+	sprintf(buf,"corpse   ---- $%d",species_ptr->level * 50 + 100);
 	sprintf(buf,"skeleton ---- $%d",species_ptr->level * 30 + 60);
 #endif
 
+	prt(buf, 8, 10);
 	prt(buf, 9, 10);
 }
 
@@ -1921,17 +1877,17 @@ static void tsuchinoko(void)
 {
 	clear_bldg(4,18);
 #ifdef JP
-c_put_str(TERM_YELLOW, "一獲千金の大チャンス！！！", 5, 10);
-c_put_str(TERM_YELLOW, "ターゲット：幻の珍獣「ツチノコ」", 6, 10);
-c_put_str(TERM_WHITE, "生け捕り ---- $1,000,000", 8, 10);
-c_put_str(TERM_WHITE, "死体     ----   $200,000", 9, 10);
-c_put_str(TERM_WHITE, "骨       ----   $100,000", 10, 10);
+	c_put_str(TERM_YELLOW, "一獲千金の大チャンス！！！", 5, 10);
+	c_put_str(TERM_YELLOW, "ターゲット：幻の珍獣「ツチノコ」", 6, 10);
+	c_put_str(TERM_WHITE, "生け捕り ---- $1,000,000", 8, 10);
+	c_put_str(TERM_WHITE, "死体     ----   $200,000", 9, 10);
+	c_put_str(TERM_WHITE, "骨       ----   $100,000", 10, 10);
 #else
-c_put_str(TERM_YELLOW, "Big chance to quick money!!!", 5, 10);
-c_put_str(TERM_YELLOW, "target: the rarest animal 'Tsuchinoko'", 6, 10);
-c_put_str(TERM_WHITE, "catch alive ---- $1,000,000", 8, 10);
-c_put_str(TERM_WHITE, "corpse      ----   $200,000", 9, 10);
-c_put_str(TERM_WHITE, "bones       ----   $100,000", 10, 10);
+	c_put_str(TERM_YELLOW, "Big chance to quick money!!!", 5, 10);
+	c_put_str(TERM_YELLOW, "target: the rarest animal 'Tsuchinoko'", 6, 10);
+	c_put_str(TERM_WHITE, "catch alive ---- $1,000,000", 8, 10);
+	c_put_str(TERM_WHITE, "corpse      ----   $200,000", 9, 10);
+	c_put_str(TERM_WHITE, "bones       ----   $100,000", 10, 10);
 #endif
 }
 
@@ -2285,8 +2241,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	msg_format("You behold the %s visage of %s!",
 #endif
 
-				  horror_desc[randint0(MAX_SAN_HORROR)], desc);
-
+	horror_desc[randint0(MAX_SAN_HORROR)], desc);
 	reveal_species_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
 
 	/* Mind blast */
@@ -3752,8 +3707,6 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	int bcost;
 	bool paid = FALSE;
 	int amt;
-
-	/* Flush messages XXX XXX XXX */
 	msg_flag = FALSE;
 	msg_print(NULL);
 
@@ -3980,11 +3933,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 
 	}
 
-	if(paid)
-	{
-		creature_ptr->au -= bcost;
-	}
-
+	if(paid) creature_ptr->au -= bcost;
 
 	/* Winner? */
 	if(quest[QUEST_AOY].status == QUEST_STATUS_REWARDED)
@@ -4017,7 +3966,6 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 
 		// Angband
 		reveal_wilderness(70, 27);
-
 		creature_ptr->dr = 1;
 
 	}
@@ -4187,16 +4135,12 @@ void do_cmd_bldg(creature_type *creature_ptr)
 			}
 		}
 
-		if(validcmd)
-			bldg_process_player_command(creature_ptr, bldg, i);
+		if(validcmd) bldg_process_player_command(creature_ptr, bldg, i);
 
-		/* Notice stuff */
 		notice_stuff(creature_ptr);
-
 		handle_stuff();
 	}
 
-	/* Flush messages XXX XXX XXX */
 	msg_flag = FALSE;
 	msg_print(NULL);
 

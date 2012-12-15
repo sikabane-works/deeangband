@@ -2198,7 +2198,6 @@ void do_cmd_view_map(creature_type *creature_ptr)
 	prt("Please wait...", 0, 0);
 #endif
 
-	/* Flush */
 	Term_fresh();
 
 	/* Clear the screen */

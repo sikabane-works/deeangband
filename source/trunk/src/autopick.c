@@ -4938,7 +4938,6 @@ static bool insert_macro_line(text_body_type *tb)
 	char buf[1024];
 	int i, n = 0;
 
-	/* Flush */
 	flush();
 
 	/* Do not process macros */
@@ -4966,7 +4965,6 @@ static bool insert_macro_line(text_body_type *tb)
 	/* Terminate */
 	buf[n] = '\0';
 
-	/* Flush */
 	flush();
 
 	/* Convert the trigger */
@@ -5015,19 +5013,9 @@ static bool insert_keymap_line(text_body_type *tb)
 	int mode;
 	cptr act;
 
-	/* Roguelike */
-	if(rogue_like_commands)
-	{
-		mode = KEYMAP_MODE_ROGUE;
-	}
+	if(rogue_like_commands) mode = KEYMAP_MODE_ROGUE;
+	else mode = KEYMAP_MODE_ORIG;
 
-	/* Original */
-	else
-	{
-		mode = KEYMAP_MODE_ORIG;
-	}
-
-	/* Flush */
 	flush();
 
 	/* Get a key */
