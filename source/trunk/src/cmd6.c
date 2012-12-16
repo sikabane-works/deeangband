@@ -116,61 +116,31 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				break;
 
 			case SV_FOOD_WEAKNESS:
-#ifdef JP
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
-#else
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
-#endif
 				(void)do_dec_stat(creature_ptr, STAT_STR);
 				ident = TRUE;
 				break;
 
 			case SV_FOOD_SICKNESS:
-#ifdef JP
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
-#else
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
-#endif
 				(void)do_dec_stat(creature_ptr, STAT_CON);
 				ident = TRUE;
 				break;
 
 			case SV_FOOD_STUPIDITY:
-#ifdef JP
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
-#else
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
-#endif
 				(void)do_dec_stat(creature_ptr, STAT_INT);
 				ident = TRUE;
 				break;
 
 			case SV_FOOD_NAIVETY:
-#ifdef JP
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
-#else
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
-#endif
 				(void)do_dec_stat(creature_ptr, STAT_WIS);
 				ident = TRUE;
 				break;
 
 			case SV_FOOD_UNHEALTH:
-#ifdef JP
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
-#else
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
-#endif
 				(void)do_dec_stat(creature_ptr, STAT_CON);
 				ident = TRUE;
 				break;
 
 			case SV_FOOD_DISEASE:
-#ifdef JP
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
-#else
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
-#endif
 				(void)do_dec_stat(creature_ptr, STAT_STR);
 				ident = TRUE;
 				break;
