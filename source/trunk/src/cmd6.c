@@ -56,7 +56,7 @@
 
 static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 {
-	int ident, lev;
+	int ident, lev, i;
 	object_type *object_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -73,6 +73,10 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 	/* Object level */
 	lev = object_kind_info[object_ptr->k_idx].level;
+
+	for(i = 0; i < MAX_TRAITS; i++)
+		if(has_trait_object(object_ptr, i))
+			do_active_trait(creature_ptr, i, TRUE);
 
 	if(object_ptr->tval == TV_FOOD)
 	{
@@ -113,36 +117,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 					if(add_timed_trait(creature_ptr, TRAIT_PARALYZED, randint0(10) + 10, TRUE))
 						ident = TRUE;
-				break;
-
-			case SV_FOOD_WEAKNESS:
-				(void)do_dec_stat(creature_ptr, STAT_STR);
-				ident = TRUE;
-				break;
-
-			case SV_FOOD_SICKNESS:
-				(void)do_dec_stat(creature_ptr, STAT_CON);
-				ident = TRUE;
-				break;
-
-			case SV_FOOD_STUPIDITY:
-				(void)do_dec_stat(creature_ptr, STAT_INT);
-				ident = TRUE;
-				break;
-
-			case SV_FOOD_NAIVETY:
-				(void)do_dec_stat(creature_ptr, STAT_WIS);
-				ident = TRUE;
-				break;
-
-			case SV_FOOD_UNHEALTH:
-				(void)do_dec_stat(creature_ptr, STAT_CON);
-				ident = TRUE;
-				break;
-
-			case SV_FOOD_DISEASE:
-				(void)do_dec_stat(creature_ptr, STAT_STR);
-				ident = TRUE;
 				break;
 
 			case SV_FOOD_CURE_POISON:
@@ -512,8 +486,6 @@ void do_cmd_eat_food(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_eatable, 0)) return;
-
-	/* Eat the object */
 	do_cmd_eat_food_aux(creature_ptr, item);
 }
 
