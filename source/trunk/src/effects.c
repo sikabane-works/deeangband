@@ -2299,6 +2299,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		damage += target_ptr->chp;
 		target_ptr->chp = 0;
 	}
+
 	target_ptr->chp -= damage;
 
 	if(is_player(target_ptr))

@@ -1129,13 +1129,9 @@ void do_cmd_cast(creature_type *creature_ptr)
 			{
 #ifdef JP
 				msg_print("’É‚¢I");
-#else
-				msg_print("It hurts!");
-#endif
-
-#ifdef JP
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(object_ptr->sval + 1, 6), "ˆÃ•–‚–@‚Ì‹t—¬", NULL, -1);
 #else
+				msg_print("It hurts!");
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(object_ptr->sval + 1, 6), "a miscast Death spell", NULL, -1);
 #endif
 

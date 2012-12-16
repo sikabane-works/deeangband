@@ -851,7 +851,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 					(void)add_timed_trait(creature_ptr, TRAIT_CUT, randint1(dam), TRUE);
 				}
 
-				/* Take the damage */
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 			break;
@@ -906,7 +905,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 						(void)add_timed_trait(creature_ptr, TRAIT_POISONED, randint1(dam), TRUE);
 					}
 				}
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1); // Take the damage
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 
 			break;

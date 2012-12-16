@@ -2153,12 +2153,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_STOP_HEX:
-		{
-			bool retval = stop_hex_spell(caster_ptr);
-			if(retval) cost_tactical_energy(caster_ptr, 10);
-			return (retval);
-			break;
-		}
+		if(stop_hex_spell(caster_ptr)) cost_tactical_energy(caster_ptr, 10);
+		break;
 
 	case TRAIT_EAT_MAGIC:
 		if(!eat_magic(caster_ptr, caster_ptr->lev * 2)) return FALSE;
@@ -2209,7 +2205,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_HOLY_LANCE:
 	case TRAIT_HELL_LANCE:
 		{
-
 			cast_beam(caster_ptr, MAX_RANGE_SUB, is_good_realm(caster_ptr->realm1) ? DO_EFFECT_HOLY_FIRE : DO_EFFECT_HELL_FIRE, user_level * 3, 0, FALSE);
 			break;
 		}
@@ -2230,8 +2225,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #endif
 			break;
 
-			// Redraw mana and hp
-			play_redraw |= (PR_HP | PR_MANA);
 			break;
 
 		}
