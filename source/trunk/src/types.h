@@ -399,9 +399,6 @@ struct species_type
 	byte alert_range;				/* Area affect radius (1-100) */
 	s16b speed;				/* Speed (normally 0) */
 
-	s32b enable_i_race[8];      /* Enable Intelligence Race */
-	s32b enable_ego[8];         /* Enable Ego */
-
 	u16b underling_id[MAX_UNDERLINGS];	    /* Underling ID */
 	u16b underling_d_num[MAX_UNDERLINGS];	    /* Dice Number of Underlings */
 	u16b underling_d_side[MAX_UNDERLINGS];	    /* Dice Side of Underlings */
@@ -712,14 +709,10 @@ struct alloc_entry
  * Available "options"
  *
  *	- Address of actual option variable (or NULL)
- *
  *	- Normal Value (TRUE or FALSE)
- *
  *	- Option Page Number (or zero)
- *
  *	- Savefile Set (or zero)
  *	- Savefile Bit in that set
- *
  *	- Textual name (or NULL)
  *	- Textual description
  */
