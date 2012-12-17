@@ -398,7 +398,6 @@ void display_scores(int from, int to)
 	/* Forget the high score fd */
 	highscore_fd = -1;
 
-	/* Quit */
 	quit(NULL);
 }
 

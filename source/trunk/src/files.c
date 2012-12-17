@@ -7183,9 +7183,8 @@ static void handle_signal_simple(int sig)
 		/* Close stuff */
 		close_game();
 
-		/* Quit */
 #ifdef JP
-quit("強制終了");
+		quit("強制終了");
 #else
 		quit("interrupt");
 #endif
@@ -7218,9 +7217,8 @@ quit("強制終了");
 		/* Close stuff */
 		close_game();
 
-		/* Quit */
 #ifdef JP
-quit("強制終了");
+		quit("強制終了");
 #else
 		quit("interrupt");
 #endif
@@ -7348,7 +7346,6 @@ Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ成功！");
 	/* Flush output */
 	Term_fresh();
 
-	/* Quit */
 #ifdef JP
 	quit("ソフトのバグ");
 #else

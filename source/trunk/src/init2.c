@@ -513,7 +513,6 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 			//msg_format("構文 '%s'。", buf);
 			//msg_print(NULL);
 
-			// Quit
 			quit(format("'%s.csv'ファイルにエラー", filename));
 #else
 			/* Error string */
@@ -524,7 +523,6 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 			msg_format("Parsing '%s'.", buf);
 			msg_print(NULL);
 
-			/* Quit */
 			quit(format("Error in '%s.csv' file.", filename));
 #endif
 		}
@@ -749,7 +747,6 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 			msg_format("構文 '%s'。", buf);
 			msg_print(NULL);
 
-			// Quit
 			quit(format("'%s.txt'ファイルにエラー", filename));
 #else
 			/* Error string */
@@ -760,7 +757,6 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 			msg_format("Parsing '%s'.", buf);
 			msg_print(NULL);
 
-			/* Quit */
 			quit(format("Error in '%s.txt' file.", filename));
 #endif
 

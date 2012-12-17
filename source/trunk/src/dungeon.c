@@ -5897,7 +5897,6 @@ void play_game(bool new_game)
 	/* Close stuff */
 	close_game();
 
-	/* Quit */
 	quit(NULL);
 }
 

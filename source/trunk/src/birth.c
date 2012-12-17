@@ -5137,7 +5137,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			
 			c = inkey();	// Prompt and get a command
 
-			if(c == 'Q') birth_quit();							// Quit
+			if(c == 'Q') birth_quit();
 			if(c == 'S') return FALSE;						// Start over
 			if(c == '\r' || c == '\n' || c == ESCAPE) break;	// Escape accepts the roll
 			if((c == ' ') || (c == 'r')) break;	// Reroll this character
@@ -5216,7 +5216,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	
 	c = inkey();	// Get a key
 
-	if(c == 'Q') birth_quit();		// Quit
+	if(c == 'Q') birth_quit();
 	if(c == 'S') return FALSE;	// Start over
 	return TRUE;					// Accept
 }
