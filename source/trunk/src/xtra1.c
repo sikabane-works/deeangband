@@ -3760,26 +3760,26 @@ static void set_melee_status(creature_type *creature_ptr)
 	// Actual Modifier Bonuses (Un-inflate stat bonuses)
 	for(i = 0; i < MAX_WEAPONS; i++)
 	{
-		creature_ptr->to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) );
-		creature_ptr->to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
-		creature_ptr->to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
+		creature_ptr->to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]));
+		creature_ptr->to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]));
+		creature_ptr->to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]));
 
-		creature_ptr->dis_to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) );
-		creature_ptr->dis_to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
-		creature_ptr->dis_to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
+		creature_ptr->dis_to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]));
+		creature_ptr->dis_to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]));
+		creature_ptr->dis_to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]));
 	}
 
-	creature_ptr->to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) );
-	creature_ptr->to_damage_m  += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) );
-	creature_ptr->to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
-	creature_ptr->to_hit_m  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
-	creature_ptr->to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
-	creature_ptr->to_hit_m  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
+	creature_ptr->to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]));
+	creature_ptr->to_damage_m  += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]));
+	creature_ptr->to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]));
+	creature_ptr->to_hit_m  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]));
+	creature_ptr->to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]));
+	creature_ptr->to_hit_m  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]));
 
 	// Displayed Modifier Bonuses (Un-inflate stat bonuses)
-	creature_ptr->dis_to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) );
-	creature_ptr->dis_to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
-	creature_ptr->dis_to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
+	creature_ptr->dis_to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]));
+	creature_ptr->dis_to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]));
+	creature_ptr->dis_to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]));
 
 	// Different calculation for monks with empty hands
 	if((empty_hands_status & EMPTY_HAND_RARM) && !creature_ptr->can_melee[1])

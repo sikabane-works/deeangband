@@ -1796,6 +1796,8 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a
 	/* Extract the fields */
 	quest_ptr->pval = a_ptr->pval;
 	quest_ptr->ac = a_ptr->ac;
+	quest_ptr->ev = a_ptr->ev;
+	quest_ptr->vo = a_ptr->vo;
 	quest_ptr->size_lower = a_ptr->size_lower; 
 	quest_ptr->size_upper = a_ptr->size_upper; 
 	quest_ptr->dd = a_ptr->dd;
