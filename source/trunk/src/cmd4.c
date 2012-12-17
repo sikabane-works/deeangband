@@ -1240,7 +1240,7 @@ void do_cmd_change_name(creature_type *creature_ptr)
 		}
 
 		else if(c == 'h') mode++; // Toggle mode
-		else bell(); // Oops
+		else bell();
 		msg_print(NULL); // Flush messages
 	}
 

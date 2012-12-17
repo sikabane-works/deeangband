@@ -635,7 +635,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			else msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 
 			target_ptr = &creature_list[c_ptr->creature_idx];	// Hack -- Get new creature
-			creature_desc(target_name, target_ptr, 0);			// Oops, we need a different name...
+			creature_desc(target_name, target_ptr, 0);			// We need a different name...
 		}
 	}
 	else if(has_trait_object(weapon_ptr, TRAIT_SEIZING_ATTACK))

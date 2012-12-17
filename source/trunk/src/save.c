@@ -1527,7 +1527,7 @@ int load_player(void)
 			/* Count lives */
 			sf_lives++;
 
-			return 0;
+			return SUCCESS;
 		}
 
 		// A character was loaded
@@ -1541,10 +1541,8 @@ int load_player(void)
 			counts_write(1, play_time);
 		}
 
-		// Success
-		return 0;
+		return SUCCESS;
 	}
-
 
 #ifdef VERIFY_SAVEFILE
 
@@ -1563,7 +1561,6 @@ int load_player(void)
 
 #endif
 
-
 #ifdef JP
 	msg_format("エラー(%s)がバージョン%d.%d.%d 用セーブファイル読み込中に発生。", what, ver_major, ver_minor, ver_patch);
 #else
@@ -1571,7 +1568,7 @@ int load_player(void)
 #endif
 	msg_print(NULL);
 
-	return err; // Oops
+	return err;
 }
 
 

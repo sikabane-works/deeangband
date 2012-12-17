@@ -1346,17 +1346,12 @@ static void do_cmd_wiz_creature_list(void)
 
 			// Toggle mode
 			else if(k == 'h') mode = (mode++ % 9);
-
-			// Oops
 			else bell();
-
-			// Flush messages
 			msg_print(NULL);
 		}
 	}
 
 	screen_load();
-
 	free(ce);
 }
 

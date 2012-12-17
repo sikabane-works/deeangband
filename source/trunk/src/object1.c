@@ -1614,10 +1614,11 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	if(!allow_floor && (i1 > i2) && (e1 > e2))
 	{
 		command_see = FALSE; // Cancel creature_ptr->command_see
-		oops = TRUE; // Oops
-		done = TRUE; // Done
+		oops = TRUE;
+		done = TRUE;
 
-		if(select_the_force) {
+		if(select_the_force)
+		{
 		    *cp = INVEN_FORCE;
 		    item = TRUE;
 		}
