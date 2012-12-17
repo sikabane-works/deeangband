@@ -953,12 +953,20 @@ struct race_type
 	s32b balance;
 
 	byte infra;			/* Infra-vision	range */
-	int ac_base;
-	int ac_plus;
+	s16b ac_base;
+	s16b ac_plus;
+	s16b ev_base;
+	s16b ev_plus;
+	s16b vo_base;
+	s16b vo_plus;
 
 	byte sub_infra;			/* Infra-vision	range */
-	int ac_s_base;
-	int ac_s_plus;
+	s16b ac_s_base;
+	s16b ac_s_plus;
+	s16b ev_s_base;
+	s16b ev_s_plus;
+	s16b vo_s_base;
+	s16b vo_s_plus;
 
 	u32b choice;        /* Legal class choices */
 
