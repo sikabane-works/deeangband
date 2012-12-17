@@ -993,7 +993,6 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 					v = "OFF";
 			}
 
-			/* Race1 */
 			else if(streq(b+1, "RACE1"))
 			{
 #ifdef JP
@@ -1003,7 +1002,6 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 #endif
 			}
 
-			/* Race2 */
 			else if(streq(b+1, "RACE2"))
 			{
 #ifdef JP
@@ -1013,7 +1011,6 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 #endif
 			}
 
-			/* Class */
 			else if(streq(b+1, "CLASS"))
 			{
 #ifdef JP
@@ -1023,7 +1020,6 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 #endif
 			}
 
-			/* Player */
 			else if(streq(b+1, "PLAYER"))
 			{
 				static char tmp_playespecies_name[128];
@@ -1044,7 +1040,6 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 				v = tmp_playespecies_name;
 			}
 
-			/* First realm */
 			else if(streq(b+1, "REALM1"))
 			{
 #ifdef JP
@@ -1054,7 +1049,6 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 #endif
 			}
 
-			/* Second realm */
 			else if(streq(b+1, "REALM2"))
 			{
 #ifdef JP
@@ -1064,14 +1058,12 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 #endif
 			}
 
-			/* Level */
 			else if(streq(b+1, "LEVEL"))
 			{
 				sprintf(tmp, "%02d", creature_ptr->lev);
 				v = tmp;
 			}
 
-			/* Autopick auto-register is in-use or not? */
 			else if(streq(b+1, "AUTOREGISTER"))
 			{
 				if(creature_ptr->autopick_autoregister)
@@ -1080,7 +1072,6 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 					v = "0";
 			}
 
-			/* Money */
 			else if(streq(b+1, "MONEY"))
 			{
 				sprintf(tmp, "%09d", creature_ptr->au);
@@ -1089,18 +1080,11 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 		}
 
 		/* Constant */
-		else
-		{
-			v = b;
-		}
+		else v = b;
 	}
 
-	/* Save */
 	(*fp) = f;
-
-	/* Save */
 	(*sp) = s;
-
 	return (v);
 }
 
@@ -3500,10 +3484,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		put_str("(Creature Profile)", 2, 25);
 #endif
 
-		for (i = 0; i < HISTORY_ROW; i++)
-		{
-			put_str(creature_ptr->history[i], i + 4, 3);
-		}
+		for (i = 0; i < HISTORY_ROW; i++) put_str(creature_ptr->history[i], i + 4, 3);
 
 		*statmsg = '\0';
 
@@ -3610,12 +3591,10 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		format_weight(buf2, calc_carrying_weight_limit(creature_ptr));
 
 #ifdef JP
-		sprintf(out_val, "所持重量： %s/%s (%ld%%)",
-			buf1, buf2,
+		sprintf(out_val, "所持重量： %s/%s (%ld%%)", buf1, buf2,
 		    (creature_ptr->carrying_weight * 100) / calc_carrying_weight_limit(creature_ptr));
 #else
-		sprintf(out_val, "Carrying Weight %s/%s (%ld%%). Command: ",
-			buf1, buf2,
+		sprintf(out_val, "Carrying Weight %s/%s (%ld%%). Command: ", buf1, buf2,
 		    (creature_ptr->carrying_weight * 100) / calc_carrying_weight_limit(creature_ptr));
 #endif
 
@@ -3629,12 +3608,10 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		format_weight(buf2, calc_equipping_weight_limit(creature_ptr));
 
 #ifdef JP
-		sprintf(out_val, "装備重量： %s/%s (%ld%%)",
-			buf1, buf2,
+		sprintf(out_val, "装備重量： %s/%s (%ld%%)", buf1, buf2,
 		    (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr));
 #else
-		sprintf(out_val, "Equipping Weight %s/%s (%ld%%). Command: ",
-			buf1, buf2,
+		sprintf(out_val, "Equipping Weight %s/%s (%ld%%). Command: ", buf1, buf2,
 		    (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr));
 #endif
 
@@ -3647,30 +3624,11 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		display_creature_flag_info1(creature_ptr);
 	}
 
-	else if(mode == DISPLAY_CR_STATUS_VARIOUS2)
-	{
-		display_creature_flag_info2(creature_ptr);
-	}
-
-	else if(mode == DISPLAY_CR_STATUS_VARIOUS3)
-	{
-		display_creature_flag_info3(creature_ptr);
-	}
-
-	else if(mode == DISPLAY_CR_STATUS_VARIOUS4)
-	{
-		display_creature_flag_info4(creature_ptr);
-	}
-
-	else if(mode == DISPLAY_CR_STATUS_MUTATION)
-	{
-		display_creature_trait(creature_ptr);
-	}
-
-	else if(mode == DISPLAY_CR_STATUS_UNDERINGS)
-	{
-		display_creature_underings(creature_ptr);
-	}
+	else if(mode == DISPLAY_CR_STATUS_VARIOUS2) display_creature_flag_info2(creature_ptr);
+	else if(mode == DISPLAY_CR_STATUS_VARIOUS3) display_creature_flag_info3(creature_ptr);
+	else if(mode == DISPLAY_CR_STATUS_VARIOUS4) display_creature_flag_info4(creature_ptr);
+	else if(mode == DISPLAY_CR_STATUS_MUTATION) display_creature_trait(creature_ptr);
+	else if(mode == DISPLAY_CR_STATUS_UNDERINGS) display_creature_underings(creature_ptr);
 
 }
 
@@ -4574,16 +4532,11 @@ static void dump_aux_karmas(creature_type *creature_ptr, FILE *fff)
 
 #ifdef JP
 	fprintf(fff, "\n\n  [プレイヤーの業]\n\n");
-#else
-	fprintf(fff, "\n\n  [Virtues]\n\n");
-#endif
-
-#ifdef JP
 	fprintf(fff, "属性 : %s\n", buf);
 #else
+	fprintf(fff, "\n\n  [Virtues]\n\n");
 	fprintf(fff, "Your alighnment : %s\n", buf);
 #endif
-
 	fprintf(fff, "\n");
 	dump_karmas(creature_ptr, fff);
 }
@@ -4632,8 +4585,7 @@ static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 				strcpy(object_name, "(wielding with two-hands)");
 #endif
 
-			fprintf(fff, "%c) %s\n",
-				index_to_label(i), object_name);
+			fprintf(fff, "%c) %s\n", index_to_label(i), object_name);
 		}
 		fprintf(fff, "\n\n");
 	}
@@ -4752,11 +4704,9 @@ static void dump_aux_home_museum(FILE *fff)
 errr make_character_dump(creature_type *creature_ptr, FILE *fff)
 {
 #ifdef JP
-	fprintf(fff, "  [D\'angband %d.%d.%d キャラクタ情報]\n\n",
-		VER_MAJOR, VER_MINOR, VER_PATCH);
+	fprintf(fff, "  [D\'angband %d.%d.%d キャラクタ情報]\n\n", VER_MAJOR, VER_MINOR, VER_PATCH);
 #else
-	fprintf(fff, "  [D\'angband %d.%d.%d Character Dump]\n\n",
-		VER_MAJOR, VER_MINOR, VER_PATCH);
+	fprintf(fff, "  [D\'angband %d.%d.%d Character Dump]\n\n", VER_MAJOR, VER_MINOR, VER_PATCH);
 #endif
 
 	update_play_time();
@@ -4784,7 +4734,7 @@ errr make_character_dump(creature_type *creature_ptr, FILE *fff)
 	fprintf(fff, "  [Check Sum: \"%s\"]\n\n", get_check_sum());
 #endif
 
-	return 0;
+	return SUCCESS;
 }
 
 /*
@@ -4822,9 +4772,6 @@ errr file_character(cptr name)
 #else
 		(void)sprintf(out_val, "Replace existing file %s? ", buf);
 #endif
-
-
-		/* Ask */
 		if(get_check_strict(out_val, CHECK_NO_HISTORY)) fd = -1;
 	}
 
@@ -4851,9 +4798,8 @@ errr file_character(cptr name)
 	/* Close it */
 	my_fclose(fff);
 
-
 #ifdef JP
-msg_print("キャラクタ情報のファイルへの書き出しに成功しました。");
+	msg_print("キャラクタ情報のファイルへの書き出しに成功しました。");
 #else
 	msg_print("Character dump successful.");
 #endif
@@ -5071,7 +5017,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	/* Hack XXX XXX XXX */
 	if(what)
 	{
-		/* Caption */
 		strcpy(caption, what);
 
 		/* Access the "file" */
@@ -5084,14 +5029,11 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	/* Look in "help" */
 	if(!fff)
 	{
-		/* Caption */
 #ifdef JP
 		sprintf(caption, "ヘルプ・ファイル'%s'", name);
 #else
 		sprintf(caption, "Help file '%s'", name);
 #endif
-
-
 		/* Build the filename */
 		path_build(path, sizeof(path), ANGBAND_DIR_HELP, name);
 
@@ -5102,7 +5044,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	/* Look in "info" */
 	if(!fff)
 	{
-		/* Caption */
 #ifdef JP
 		sprintf(caption, "スポイラー・ファイル'%s'", name);
 #else
@@ -5122,10 +5063,8 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		path_build(path, sizeof(path), ANGBAND_DIR, name);
 
 		for (i = 0; path[i]; i++)
-			if('\\' == path[i])
-				path[i] = PATH_SEP[0];
+			if('\\' == path[i]) path[i] = PATH_SEP[0];
 
-		/* Caption */
 #ifdef JP
 		sprintf(caption, "スポイラー・ファイル'%s'", name);
 #else

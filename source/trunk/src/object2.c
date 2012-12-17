@@ -4381,197 +4381,6 @@ object_type *choose_warning_item(creature_type *caster_ptr)
 	return number ? &caster_ptr->inventory[choices[randint0(number)]] : NULL;
 }
 
-/* Calculate spell damages */
-static void spell_dam_estimation(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam, int limit, int *max)
-{
-	species_type *species_ptr = &species_info[caster_ptr->species_idx];
-	int          rlev = species_ptr->level;
-	bool         ignore_wraith_form = FALSE;
-
-	if(limit) dam = (dam > limit) ? limit : dam;
-
-	/* Vulnerability, resistance and immunity */
-	switch (typ)
-	{
-	case DO_EFFECT_ELEC:
-		dam = calc_damage(caster_ptr, target_ptr, dam, DO_EFFECT_ELEC, FALSE, FALSE);
-		if(dam <= 0) ignore_wraith_form = TRUE;
-		break;
-
-	case DO_EFFECT_POIS:
-		dam = calc_damage(caster_ptr, target_ptr, dam, DO_EFFECT_POIS, FALSE, FALSE);
-		if(dam <= 0) ignore_wraith_form = TRUE;
-		break;
-
-	case DO_EFFECT_ACID:
-		dam = calc_damage(caster_ptr, target_ptr, dam, DO_EFFECT_ACID, FALSE, FALSE);
-		if(dam <= 0) ignore_wraith_form = TRUE;
-		break;
-
-	case DO_EFFECT_COLD:
-	case DO_EFFECT_ICE:
-		dam = calc_damage(caster_ptr, target_ptr, dam, DO_EFFECT_COLD, FALSE, FALSE);
-		if(dam <= 0) ignore_wraith_form = TRUE;
-		break;
-
-	case DO_EFFECT_FIRE:
-		dam = calc_damage(caster_ptr, target_ptr, dam, DO_EFFECT_FIRE, FALSE, FALSE);
-		if(dam <= 0) ignore_wraith_form = TRUE;
-		break;
-
-	case DO_EFFECT_PSY_SPEAR:
-		ignore_wraith_form = TRUE;
-		break;
-
-	case DO_EFFECT_ARROW:
-		/*
-		if(!has_trait(target_ptr, TRAIT_BLIND) &&
-		((target_ptr->inventory[].k_idx && (target_ptr->inventory[].name1 == ART_ZANTETSU)) ||
-		(target_ptr->inventory[].k_idx && (target_ptr->inventory[].name1 == ART_ZANTETSU))))
-		{
-		dam = 0;
-		ignore_wraith_form = TRUE;
-		}
-		*/
-		break;
-
-	case DO_EFFECT_LITE:
-		if(has_trait(target_ptr, TRAIT_RES_LITE)) dam /= 2; /* Worst case of 4 / (d4 + 7) */
-		//TODO if(IS_RACE(target_ptr, VAMPIRE) || (target_ptr->mimic_race_idx == MIMIC_VAMPIRE)) dam *= 2;
-		if(IS_RACE(target_ptr, RACE_S_FAIRY)) dam = dam * 4 / 3;
-
-		/*
-		* Cannot use "ignore_wraith_form" strictly (for "random one damage")
-		* "dam *= 2;" for later "dam /= 2"
-		*/
-		if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) dam *= 2;
-		break;
-
-	case DO_EFFECT_DARK:
-		//TODO if(IS_RACE(target_ptr, VAMPIRE) || (target_ptr->mimic_race_idx == MIMIC_VAMPIRE) || has_trait(target_ptr, TRAIT_WRAITH_FORM))
-		/*
-		{
-		dam = 0;
-		ignore_wraith_form = TRUE;
-		}
-		*/
-		if(has_trait(target_ptr, TRAIT_RES_DARK)) dam /= 2; /* Worst case of 4 / (d4 + 7) */
-		break;
-
-	case DO_EFFECT_SHARDS:
-		if(has_trait(target_ptr, TRAIT_RES_SHAR)) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
-		break;
-
-	case DO_EFFECT_SOUND:
-		if(has_trait(target_ptr, TRAIT_RES_SOUN)) dam = dam * 5 / 8; /* Worst case of 5 / (d4 + 7) */
-		break;
-
-	case DO_EFFECT_CONFUSION:
-		if(has_trait(target_ptr, TRAIT_NO_CONF)) dam = dam * 5 / 8; /* Worst case of 5 / (d4 + 7) */
-		break;
-
-	case DO_EFFECT_CHAOS:
-		if(has_trait(target_ptr, TRAIT_RES_CHAO)) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
-		break;
-
-	case DO_EFFECT_NETHER:
-		//TODO
-		/*
-		if(LICH)
-		{
-		dam = 0;
-		ignore_wraith_form = TRUE;
-		}
-		*/
-		if(has_trait(target_ptr, TRAIT_RES_NETH)) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
-		break;
-
-	case DO_EFFECT_DISENCHANT:
-		if(has_trait(target_ptr, TRAIT_RES_DISE)) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
-		break;
-
-	case DO_EFFECT_NEXUS:
-		if(has_trait(target_ptr, TRAIT_RES_NEXU)) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
-		break;
-
-	case DO_EFFECT_TIME:
-		if(has_trait(target_ptr, TRAIT_RES_TIME)) dam /= 2; /* Worst case of 4 / (d4 + 7) */
-		break;
-
-	case DO_EFFECT_GRAVITY:
-		if(has_trait(target_ptr, TRAIT_CAN_FLY)) dam = (dam * 2) / 3;
-		break;
-
-	case DO_EFFECT_ROCKET:
-		if(has_trait(target_ptr, TRAIT_RES_SHAR)) dam /= 2;
-		break;
-
-	case DO_EFFECT_NUKE:
-		if(has_trait(target_ptr, TRAIT_RES_POIS)) dam = (2 * dam + 2) / 5;
-		if(has_trait(target_ptr, TRAIT_OPP_POIS)) dam = (2 * dam + 2) / 5;
-		break;
-
-	case DO_EFFECT_DEATH_RAY:
-		if(has_trait(caster_ptr, TRAIT_NONLIVING) && has_trait(caster_ptr, TRAIT_UNDEAD))
-		{
-			dam = 0;
-			ignore_wraith_form = TRUE;
-			break;
-		}
-		break;
-
-	case DO_EFFECT_HOLY_FIRE:
-		if(target_ptr->good_rank > 10) dam /= 2;
-		else if(target_ptr->evil_rank > 10) dam *= 2;
-		break;
-
-	case DO_EFFECT_HELL_FIRE:
-		if(target_ptr->good_rank > 10) dam *= 2;
-		break;
-
-	case DO_EFFECT_MIND_BLAST:
-	case DO_EFFECT_BRAIN_SMASH:
-		/*if(100 + rlev / 2 <= MAX(5, target_ptr->skill_rob))
-		{
-		dam = 0;
-		ignore_wraith_form = TRUE;
-		}
-		*/
-		break;
-
-	case DO_EFFECT_CAUSE_1:
-	case DO_EFFECT_CAUSE_2:
-	case DO_EFFECT_CAUSE_3:
-	case DO_EFFECT_HAND_DOOM:
-		/* TODO saving_throw 
-		if(100 + rlev / 2 <= target_ptr->skill_rob)
-		{
-		dam = 0;
-		ignore_wraith_form = TRUE;
-		}
-		*/
-		break;
-
-	case DO_EFFECT_CAUSE_4:
-		/* TODO saving_throw
-		if((100 + rlev / 2 <= target_ptr->skill_rob) && (caster_ptr->species_idx != SPECIES_KENSHIROU))
-		{
-		dam = 0;
-		ignore_wraith_form = TRUE;
-		}
-		*/
-		break;
-	}
-
-	if(has_trait(target_ptr, TRAIT_WRAITH_FORM) && !ignore_wraith_form)
-	{
-		dam /= 2;
-		if(!dam) dam = 1;
-	}
-
-	if(dam > *max) *max = dam;
-}
-
 // Calculate blow damages
 static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, special_blow_type *blow_ptr)
 {
@@ -5152,26 +4961,23 @@ static void display_essence(creature_type *creature_ptr)
 	int i, num = 0;
 
 	screen_save();
-	for (i = 1; i < 22; i++)
-	{
-		prt("",i,0);
-	}
+	for (i = 1; i < 22; i++) prt("",i,0);
+
 #ifdef JP
 	prt("エッセンス   個数     エッセンス   個数     エッセンス   個数", 1, 8);
+	prt("現在所持しているエッセンス", 0, 0);
 #else
 	prt("Essence      Num      Essence      Num      Essence      Num ", 1, 8);
+	prt("List of all essences you have.", 0, 0);
 #endif
+
 	for (i = 0; essence_name[i]; i++)
 	{
 		if(!essence_name[i][0]) continue;
 		prt(format("%-11s %5d", essence_name[i], creature_ptr->class_skills.old_skills.magic_num1[i]), 2+num%21, 8+num/21*22);
 		num++;
 	}
-#ifdef JP
-	prt("現在所持しているエッセンス", 0, 0);
-#else
-	prt("List of all essences you have.", 0, 0);
-#endif
+
 	(void)inkey();
 	screen_load();
 	return;
@@ -5430,11 +5236,12 @@ static int choose_essence(void)
 		while(!mode)
 		{
 			int i;
-			for (i = 0; i < mode_max; i++)
 #ifdef JP
+			for (i = 0; i < mode_max; i++)
 				prt(format(" %s %s", (menu_line == 1+i) ? "》" : "  ", menu_name[i]), 2 + i, 14);
 			prt("どの種類のエッセンス付加を行いますか？", 0, 0);
 #else
+			for (i = 0; i < mode_max; i++)
 				prt(format(" %s %s", (menu_line == 1+i) ? "> " : "  ", menu_name[i]), 2 + i, 14);
 			prt("Choose from menu.", 0, 0);
 #endif
