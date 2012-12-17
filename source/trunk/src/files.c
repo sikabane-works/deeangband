@@ -5086,7 +5086,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	{
 		/* Caption */
 #ifdef JP
-sprintf(caption, "ヘルプ・ファイル'%s'", name);
+		sprintf(caption, "ヘルプ・ファイル'%s'", name);
 #else
 		sprintf(caption, "Help file '%s'", name);
 #endif
@@ -5143,7 +5143,6 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 #else
 		msg_format("Cannot open '%s'.", name);
 #endif
-
 		msg_print(NULL);
 
 		return TRUE;
@@ -5285,7 +5284,6 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 		{
 			/* Clear rest of line */
 			Term_erase(0, i + 2, 255);
-
 			i++;
 		}
 
@@ -5298,30 +5296,11 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 			continue;
 		}
 
-
 		/* Show a general "title" */
 		if(show_version)
-		{
-			prt(format(
-#ifdef JP
-				"[D\'angband %d.%d.%d, %s, %d/%d]",
-#else
-				"[D\'angband %d.%d.%d, %s, Line %d/%d]",
-#endif
-
-			   VER_MAJOR, VER_MINOR, VER_PATCH,
-			   caption, line, size), 0, 0);
-		}
+			prt(format("[D\'angband %d.%d.%d, %s, %d/%d]", VER_MAJOR, VER_MINOR, VER_PATCH, caption, line, size), 0, 0);
 		else
-		{
-			prt(format(
-#ifdef JP
-				"[%s, %d/%d]",
-#else
-				"[%s, Line %d/%d]",
-#endif
-				caption, line, size), 0, 0);
-		}
+			prt(format("[%s, %d/%d]", caption, line, size), 0, 0);
 
 		/* Prompt -- small files */
 		if(size <= rows)
@@ -5598,24 +5577,17 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 }
 
 
-/*
- * Peruse the On-Line-Help
- */
+// Peruse the On-Line-Help
 void do_cmd_help(void)
 {
 	screen_save();
-
-	/* Peruse the main help file */
 #ifdef JP
 	(void)show_file(TRUE, "jhelp.hlp", NULL, 0, 0);
 #else
 	(void)show_file(TRUE, "help.hlp", NULL, 0, 0);
 #endif
-
-
 	screen_load();
 }
-
 
 /*
  * Process the player name.
@@ -5658,7 +5630,7 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 		{
 			/* Illegal characters */
 #ifdef JP
-quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", creature_ptr->name);
+			quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", creature_ptr->name);
 #else
 			quit_fmt("The name '%s' contains control chars!", creature_ptr->name);
 #endif
@@ -5819,8 +5791,7 @@ void get_name(creature_type *creature_ptr)
 
 	strcpy(tmp,chara_info[creature_ptr->chara_idx].title);
 #ifdef JP
-	if(chara_info[creature_ptr->chara_idx].no == 1)
-		strcat(tmp,"の");
+	if(chara_info[creature_ptr->chara_idx].no) strcat(tmp,"の");
 #else
 	strcat(tmp, " ");
 #endif
@@ -5843,27 +5814,20 @@ void do_cmd_suicide(creature_type *creature_ptr)
 {
 	int i;
 
-	/* Flush input */
 	flush();
-
-	/* Verify Retirement */
-	if(creature_ptr->total_winner)
+	if(creature_ptr->total_winner) // Verify Retirement
 	{
-		/* Verify */
 #ifdef JP
-if(!get_check_strict("引退しますか? ", CHECK_NO_HISTORY)) return;
+		if(!get_check_strict("引退しますか? ", CHECK_NO_HISTORY)) return;
 #else
 		if(!get_check_strict("Do you want to retire? ", CHECK_NO_HISTORY)) return;
 #endif
 
 	}
-
-	/* Verify Suicide */
 	else
 	{
-		/* Verify */
 #ifdef JP
-if(!get_check("本当に自殺しますか？")) return;
+		if(!get_check("本当に自殺しますか？")) return;
 #else
 		if(!get_check("Do you really want to commit suicide? ")) return;
 #endif
@@ -5997,7 +5961,7 @@ msg_print("自動セーブ中");
 		prt("Saving game... done.", 0, 0);
 #endif
 	}
-	else // Save failed (oops)
+	else // Save failed
 	{
 #ifdef JP
 		prt("ゲームをセーブしています... 失敗！", 0, 0);
@@ -6737,7 +6701,6 @@ if(!save_player()) msg_print("セーブ失敗！");
 		prt("Press Return (or Escape).", 0, 40);
 #endif
 
-
 		/* Predict score (or ESCAPE) */
 		if(inkey() != ESCAPE) predict_score(player_ptr);
 	}
@@ -6793,25 +6756,14 @@ void exit_game_panic(creature_type *player_ptr)
 	/* Indicate panic save */
 #ifdef JP
 	(void)strcpy(gameover_from, "(緊急セーブ)");
-#else
-	(void)strcpy(gameover_from, "(panic save)");
-#endif
-
-
-	/* Panic save, or get worried */
-#ifdef JP
 	if(!save_player()) quit("緊急セーブ失敗！");
-#else
-	if(!save_player()) quit("panic save failed!");
-#endif
-
-
-	/* Successful panic save */
-#ifdef JP
 	quit("緊急セーブ成功！");
 #else
+	(void)strcpy(gameover_from, "(panic save)");
+	if(!save_player()) quit("panic save failed!");
 	quit("panic save succeeded!");
 #endif
+
 }
 
 
@@ -7241,7 +7193,6 @@ static void handle_signal_simple(int sig)
 		Term_putstr(0, 0, -1, TERM_WHITE, "Contemplating suicide!");
 #endif
 
-
 		/* Flush */
 		Term_fresh();
 	}
@@ -7274,7 +7225,6 @@ static void handle_signal_abort(int sig)
 	/* Nothing to save, just quit */
 	if(!character_generated || character_saved) quit(NULL);
 
-
 	forget_lite(CURRENT_FLOOR_PTR);
 	forget_view(CURRENT_FLOOR_PTR);
 	clear_creature_lite(CURRENT_FLOOR_PTR);
@@ -7282,25 +7232,13 @@ static void handle_signal_abort(int sig)
 	/* Clear the bottom line */
 	Term_erase(0, hgt - 1, 255);
 
-	/* Give a warning */
-	Term_putstr(0, hgt - 1, -1, TERM_RED,
 #ifdef JP
-		"恐ろしいソフトのバグが飛びかかってきた！");
-#else
-		"A gruesome software bug LEAPS out at you!");
-#endif
-
-
-#ifdef JP
+	Term_putstr(0, hgt - 1, -1, TERM_RED, "恐ろしいソフトのバグが飛びかかってきた！");
 	Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ...");
-#else
-	Term_putstr(45, hgt - 1, -1, TERM_RED, "Panic save...");
-#endif
-
-
-#ifdef JP
 	do_cmd_write_nikki(DIARY_GAMESTART, 0, "----ゲーム異常終了----");
 #else
+	Term_putstr(0, hgt - 1, -1, TERM_RED, "A gruesome software bug LEAPS out at you!");
+	Term_putstr(45, hgt - 1, -1, TERM_RED, "Panic save...");
 	do_cmd_write_nikki(DIARY_GAMESTART, 0, "---- Panic Save and Abort Game ----");
 #endif
 
@@ -7312,7 +7250,7 @@ static void handle_signal_abort(int sig)
 
 	/* Panic save */
 #ifdef JP
-(void)strcpy(gameover_from, "(緊急セーブ)");
+	(void)strcpy(gameover_from, "(緊急セーブ)");
 #else
 	(void)strcpy(gameover_from, "(panic save)");
 #endif
@@ -7321,18 +7259,16 @@ static void handle_signal_abort(int sig)
 	/* Forbid suspend */
 	signals_ignore_tstp();
 
-	/* Attempt to save */
+	// Attempt to save
 	if(save_player())
 	{
 #ifdef JP
-Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ成功！");
+		Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ成功！");
 #else
 		Term_putstr(45, hgt - 1, -1, TERM_RED, "Panic save succeeded!");
 #endif
 
 	}
-
-	/* Save failed */
 	else
 	{
 #ifdef JP

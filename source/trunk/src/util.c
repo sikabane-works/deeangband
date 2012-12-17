@@ -129,8 +129,7 @@ void usespecies_name(char *buf, int id)
 		return;
 	}
 
-	/* Oops.  Hack -- default to "PLAYER" */
-	strcpy(buf, "PLAYER");
+	strcpy(buf, "PLAYER"); // Default Name
 }
 
 #endif /* SET_UID */

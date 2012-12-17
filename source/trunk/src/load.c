@@ -586,8 +586,6 @@ static void rd_options(void)
 	u32b mask[8];
 
 
-	/*** Oops ***/
-
 	/* Ignore old options */
 	strip_bytes(16);
 

@@ -250,14 +250,9 @@ static errr wr_randomizer(void)
 static void wr_options(void)
 {
 	int i;
-
 	u16b c;
 
-
-	/*** Oops ***/
-
 	for (i = 0; i < 4; i++) wr_u32b(0L);
-
 
 	/*** Special Options ***/
 
@@ -919,11 +914,7 @@ static bool wr_floors(creature_type *player_ptr)
 	return TRUE; 
 }
 
-
-
-/*
- * Actually write a save-file
- */
+// Actually write a save-file
 static bool wr_savefile_new(void)
 {
 	int        i, j;
@@ -1124,12 +1115,8 @@ static bool wr_savefile_new(void)
 	return TRUE;
 }
 
-
-/*
- * Medium level player saver
- *
- * XXX XXX XXX Angband 2.8.0 will use "fd" instead of "fff" if possible
- */
+// Medium level player saver
+// XXX XXX XXX Angband 2.8.0 will use "fd" instead of "fff" if possible
 static bool save_player_aux(char *name)
 {
 	bool ok = FALSE;
@@ -1364,7 +1351,7 @@ int load_player(void)
 		/* Check for lock */
 		fkk = my_fopen(temp, "r");
 
-		/* Oops, lock exists */
+		// lock exists
 		if(fkk)
 		{
 			/* Close the file */
