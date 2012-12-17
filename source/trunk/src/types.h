@@ -1580,13 +1580,13 @@ struct building_type
 	char owner_race[60];            // proprietor race
 	s16b owner_id;                  // owner_id
 
-	char act_names[8][30];          // action names
-	s32b member_costs[8];           // Costs for class members of building
-	s32b other_costs[8];		    // Costs for nonguild members
-	char letters[8];                // action letters
-	s16b actions[8];                // action codes
-	s16b action_restr[8];           // action restrictions
-	s16b action_misc[8];            // action misc
+	char act_names[MAX_BUILDING_ACTION][30];          // action names
+	s32b member_costs[MAX_BUILDING_ACTION];           // Costs for class members of building
+	s32b other_costs[MAX_BUILDING_ACTION];		    // Costs for nonguild members
+	char letters[MAX_BUILDING_ACTION];                // action letters
+	s16b actions[MAX_BUILDING_ACTION];                // action codes
+	s16b action_restr[MAX_BUILDING_ACTION];           // action restrictions
+	s16b action_misc[MAX_BUILDING_ACTION];            // action misc
 
 	s16b member_class[MAX_CLASS];   // which classes are part of guild
 	s16b member_race[MAX_RACES];    // which classes are part of guild

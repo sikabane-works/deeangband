@@ -1530,6 +1530,7 @@
 #define MAX_GOLD        18      /* Number of "gold" entries */
 
 
+
 /*** General flag values ***/
 
 
