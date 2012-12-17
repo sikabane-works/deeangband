@@ -1248,7 +1248,6 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if(one_in_(12)) type = TRAIT_BANISH_EVIL;
 			else if(one_in_(11)) type = TRAIT_DISPEL_EVIL_1;
 			else if(one_in_(10)) type = TRAIT_PROT_EVIL;
-			else if(one_in_(9)) type = TRAIT_TRUE_HEALING;
 			else if(one_in_(8)) type = TRAIT_HEAL;
 			else if(one_in_(7)) type = TRAIT_RESTORE_ALL;
 			else if(one_in_(6)) type = TRAIT_RESTORE_LIFE;
@@ -1390,7 +1389,6 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_PROTECT_RUNE:
 				chance = 25;
 				break;
-			case TRAIT_TRUE_HEALING:
 			case TRAIT_HASTE_2:
 			case TRAIT_DIMENSION_DOOR:
 				chance = 10;

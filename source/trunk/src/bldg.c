@@ -3745,6 +3745,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	case BUILDING_FUNCTION_NOTHING:
 		/* Do nothing */
 		break;
+
 	case BUILDING_FUNCTION_STORE:
 		store_process(creature_ptr, &st_list[bldg->action_misc[i]]);
 		show_building(creature_ptr, bldg);
@@ -3752,25 +3753,31 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	case BUILDING_FUNCTION_RESEARCH_ITEM:
 		paid = identify_fully(creature_ptr, FALSE);
 		break;
+
 	case BUILDING_FUNCTION_TOWN_HISTORY:
 		town_history();
 		break;
+
 	case BUILDING_FUNCTION_RACE_LEGENDS:
 		race_legends(creature_ptr);
 		break;
+
 	case BUILDING_FUNCTION_QUEST:
 		castle_quest(creature_ptr);
 		break;
+
 	case BUILDING_FUNCTION_KING_LEGENDS:
 	case BUILDING_FUNCTION_ARENA_LEGENDS:
 	case BUILDING_FUNCTION_LEGENDS:
 		show_highclass(creature_ptr);
 		break;
+
 	case BUILDING_FUNCTION_POSTER:
 	case BUILDING_FUNCTION_ARENA_RULES:
 	case BUILDING_FUNCTION_ARENA:
 		arena_comm(creature_ptr, bact);
 		break;
+
 	case BUILDING_FUNCTION_IN_BETWEEN:
 	case BUILDING_FUNCTION_CRAPS:
 	case BUILDING_FUNCTION_SPIN_WHEEL:
@@ -3779,35 +3786,44 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	case BUILDING_FUNCTION_POKER:
 		gamble_comm(creature_ptr, bact);
 		break;
+
 	case BUILDING_FUNCTION_REST:
 	case BUILDING_FUNCTION_RUMORS:
 	case BUILDING_FUNCTION_FOOD:
 		paid = inn_comm(creature_ptr, bact);
 		break;
+
 	case BUILDING_FUNCTION_RESEARCH_MONSTER:
 		paid = research_creature(creature_ptr);
 		break;
+
 	case BUILDING_FUNCTION_COMPARE_WEAPONS:
 		//DELETED
 		break;
+
 	case BUILDING_FUNCTION_ENCHANT_WEAPON:
 		//TODO item_tester_hook = object_allow_enchant_melee_weapon;
 		enchant_item(creature_ptr, bcost, 1, 1, 0, 0);
 		break;
+
 	case BUILDING_FUNCTION_ENCHANT_ARMOR:
 		//TODO item_tester_hook = object_is_armour;
 		enchant_item(creature_ptr, bcost, 0, 0, 1, 0);
 		break;
+
 	case BUILDING_FUNCTION_RESIZE_ARMOR:
 		//TODO item_tester_hook = object_is_armour;
 		//resize_item(creature_ptr);
 		break;
+
 	case BUILDING_FUNCTION_RECHARGE:
 		building_recharge(creature_ptr);
 		break;
+
 	case BUILDING_FUNCTION_RECHARGE_ALL:
 		building_recharge_all(creature_ptr);
 		break;
+
 	case BUILDING_FUNCTION_IDENTS: /* needs work */
 #ifdef JP
 		if(!get_check("持ち物を全て鑑定してよろしいですか？")) break;
@@ -3818,15 +3834,17 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		identify_pack(creature_ptr);
 		msg_print("Your possessions have been identified.");
 #endif
-
 		paid = TRUE;
 		break;
+
 	case BUILDING_FUNCTION_IDENT_ONE: /* needs work */
 		paid = ident_spell(creature_ptr, FALSE);
 		break;
+
 	case BUILDING_FUNCTION_LEARN:
 		do_cmd_study(creature_ptr);
 		break;
+
 	case BUILDING_FUNCTION_HEALING: /* needs work */
 		heal_creature(creature_ptr, 200);
 		set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE);
@@ -3845,12 +3863,15 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		//TODO item_tester_hook = item_tester_hook_ammo;
 		enchant_item(creature_ptr, bcost, 1, 1, 0, 0);
 		break;
+
 	case BUILDING_FUNCTION_ENCHANT_BOW:
 		enchant_item(creature_ptr, bcost, 1, 1, 0, TV_BOW);
 		break;
+
 	case BUILDING_FUNCTION_RECALL:
 		if(word_of_recall(creature_ptr, 1)) paid = TRUE;
 		break;
+
 	case BUILDING_FUNCTION_TELEPORT_LEVEL:
 	{
 		int select_dungeon;
@@ -3895,25 +3916,32 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		}
 		break;
 	}
+
 	case BUILDING_FUNCTION_LOSE_MUTATION:
 		msg_print("(再実装中)");
 		/*TODO :: reimplement*/
 		break;
+
 	case BUILDING_FUNCTION_BATTLE:
 		kakutoujou(creature_ptr);
 		break;
+
 	case BUILDING_FUNCTION_TSUCHINOKO:
 		tsuchinoko();
 		break;
+
 	case BUILDING_FUNCTION_KUBI:
 		shoukinkubi();
 		break;
+
 	case BUILDING_FUNCTION_TARGET:
 		today_target(creature_ptr);
 		break;
+
 	case BUILDING_FUNCTION_KANKIN:
 		kankin(creature_ptr);
 		break;
+
 	case BUILDING_FUNCTION_HEIKOUKA:
 #ifdef JP
 		msg_print("平衡化の儀式を行なった。");
@@ -3923,6 +3951,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		/*TODO:: Delete feature? */
 		paid = TRUE;
 		break;
+
 	case BUILDING_FUNCTION_TELE_TOWN:
 		paid = tele_town(creature_ptr);
 		break;
@@ -3935,41 +3964,8 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 
 	if(paid) creature_ptr->au -= bcost;
 
-	/* Winner? */
-	if(quest[QUEST_AOY].status == QUEST_STATUS_REWARDED)
-	{
-		creature_ptr->total_winner = TRUE;
-		play_redraw |= (PR_TITLE);
-
-		// Congratulations
-#ifdef JP
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "見事にD\'angbandの勝利者となった！");
-		if(creature_ptr->patron_idx != INDEX_NONE)
-		{
-			msg_format("%sからの声が響いた。", species_name + species_info[creature_ptr->patron_idx].name);
-			msg_print("『よくやった、我がしもべよ！』");
-		}
-		msg_print("*** おめでとう ***");
-		msg_print("あなたはゲームをコンプリートしました。");
-		msg_print("準備が整ったら引退(自殺コマンド)しても結構です。");
-#else
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
-		if(creature_ptr->patron_idx != INDEX_NONE)
-		{
-			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
-			msg_print("'Thou art donst well, my devotee!'");
-		}
-		msg_print("*** CONGRATULATIONS ***");
-		msg_print("You have won the game!");
-		msg_print("You may retire (commit suicide) when you are ready.");
-#endif
-
-		// Angband
-		reveal_wilderness(70, 27);
-		creature_ptr->dr = 1;
-
-	}
-
+	// Winner
+	if(quest[QUEST_AOY].status == QUEST_STATUS_REWARDED) become_winner(creature_ptr);
 }
 
 // Enter quest level

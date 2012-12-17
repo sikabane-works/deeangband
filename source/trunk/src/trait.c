@@ -343,8 +343,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		if(set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
 		break;
 
+	/* Remove
 	case TRAIT_TRUE_HEALING:
-		if(heal_creature(caster_ptr, 1200)) effected = TRUE;
+		if(heal_creature(caster_ptr, )) effected = TRUE;
 		if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
 		if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE)) effected = TRUE;
 		if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE)) effected = TRUE;
@@ -352,6 +353,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		if(set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE)) effected = TRUE;
 		if(set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
 		break;
+	*/
 
 	case TRAIT_GET_ESP:
 		(void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE);
@@ -370,7 +372,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 		//TODO Remove duplicated process
-	case TRAIT_FAST:
 	case TRAIT_HASTE:
 		if(set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20, TRUE))
 			break;

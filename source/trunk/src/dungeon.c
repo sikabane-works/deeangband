@@ -820,7 +820,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 	switch (pattern_type)
 	{
 	case PATTERN_TILE_END:
-		do_active_trait(creature_ptr, TRAIT_TRUE_HEALING, TRUE);
+		do_active_trait(creature_ptr, TRAIT_SELF_HEALING_100D100, TRUE);
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx, feat_pattern_old);
 
 #ifdef JP
@@ -6022,5 +6022,37 @@ void world_wipe()
 	now_message = 0;
 	start_time = (u32b)time(NULL) - 1;
 	record_object_name[0] = '\0';
+
+}
+
+void become_winner(creature_type *creature_ptr)
+{
+		creature_ptr->total_winner = TRUE;
+		play_redraw |= (PR_TITLE);
+		// Congratulations
+#ifdef JP
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "見事にD\'angbandの勝利者となった！");
+		if(creature_ptr->patron_idx != INDEX_NONE)
+		{
+			msg_format("%sからの声が響いた。", species_name + species_info[creature_ptr->patron_idx].name);
+			msg_print("『よくやった、我がしもべよ！』");
+		}
+		msg_print("*** おめでとう ***");
+		msg_print("あなたはゲームをコンプリートしました。");
+		msg_print("準備が整ったら引退(自殺コマンド)しても結構です。");
+#else
+		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
+		if(creature_ptr->patron_idx != INDEX_NONE)
+		{
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
+			msg_print("'Thou art donst well, my devotee!'");
+		}
+		msg_print("*** CONGRATULATIONS ***");
+		msg_print("You have won the game!");
+		msg_print("You may retire (commit suicide) when you are ready.");
+#endif
+
+		// Angband
+		reveal_wilderness(70, 27);
 
 }

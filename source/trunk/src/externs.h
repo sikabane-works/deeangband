@@ -629,6 +629,7 @@ extern void init_dungeon_quests(void);
 extern void save_prev_data(creature_type *creature_ptr, species_type *species_ptr);
 extern void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool swap);
 extern void world_wipe(void);
+extern void become_winner(creature_type *creature_ptr);
 
 // cave.c
 extern int distance(int y1, int x1, int y2, int x2);
