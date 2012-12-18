@@ -289,6 +289,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_RESTORE_LIFE:
+	case TRAIT_RESTORE_LEVEL:
 		if(restore_exp(caster_ptr)) effected = TRUE;
 		break;
 
@@ -412,6 +413,10 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		recharge(caster_ptr, 130);
 		break;
 
+	case TRAIT_MAGIC_CHARGE_EX:
+		if(!recharge(caster_ptr, 1000)) return FALSE;
+		break;
+
 	case TRAIT_MIDAS_TCH:
 		(void)alchemy(caster_ptr);
 		break;
@@ -497,10 +502,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_ELEMENTAL_BREATH:
-		{
-			cast_ball(caster_ptr, DO_EFFECT_MISSILE, dir, 300, 4);
-			break;
-		}
+		cast_ball(caster_ptr, DO_EFFECT_MISSILE, dir, 300, 4);
+		break;
 
 	case TRAIT_MULTI_BLESS_1:
 		{
@@ -527,10 +530,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_SLEEP:
 		sleep_creatures_touch(caster_ptr);
-		break;
-
-	case TRAIT_RESTORE_LEVEL:
-		restore_exp(caster_ptr);
 		break;
 
 	case TRAIT_BO_FIRE_MINI:
@@ -668,9 +667,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		confuse_creatures(caster_ptr, 3 * caster_ptr->lev / 2);
 		break;
 
-	case TRAIT_MAGIC_CHARGE_EX:
-		if(!recharge(caster_ptr, 1000)) return FALSE;
-		break;
 
 		/*
 		case ART_MURAMASA:
