@@ -131,14 +131,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0, TRUE)) ident = TRUE;
 				break;
 
-			case SV_FOOD_RESTORE_STR:
-				if(do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
-				break;
-
-			case SV_FOOD_RESTORE_CON:
-				if(do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
-				break;
-
 #ifdef JP
 			/* それぞれの食べ物の感想をオリジナルより細かく表現 */
 			case SV_FOOD_BISCUIT:

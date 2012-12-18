@@ -1329,84 +1329,92 @@ bool res_stat(creature_type *creature_ptr, int stat)
 // Increase players hit points, notice effects
 bool heal_creature(creature_type *creature_ptr, int num)
 {
-	int vir;
+	int rest = 0;
+	int rec_hp = 0, rec_rate = 0;
+	bool effected = FALSE;
 
-	// TODO: Add Karma of Vitality feature.
-
-	vir = 0;
-	if(vir) num = num * (creature_ptr->karmas[vir - 1] + 1250) / 1250;
-
-	if(creature_ptr->chp < creature_ptr->mhp) // Healing needed
+	if(creature_ptr->chp < creature_ptr->mhp)
 	{
+		rec_hp = num;
 		creature_ptr->chp += num;
 		if(creature_ptr->chp >= creature_ptr->mhp) // Enforce maximum
 		{
+			rec_hp -= (creature_ptr->chp - creature_ptr->mhp);
 			creature_ptr->chp = creature_ptr->mhp;
 			creature_ptr->chp_frac = 0;
 		}
-		if(is_player(creature_ptr)) play_redraw |= (PR_HP | PW_PLAYER);
-
-		//TODO change message.
-		/* Heal 0-4 */
-		if(num < 5)
-		{
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("少し気分が良くなった。");
-#else
-				msg_print("You feel a little better.");
-#endif
-			}
-
-		}
-
-		/* Heal 5-14 */
-		else if(num < 15)
-		{
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("気分が良くなった。");
-#else
-				msg_print("You feel better.");
-#endif
-			}
-
-		}
-
-		/* Heal 15-34 */
-		else if(num < 35)
-		{
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("とても気分が良くなった。");
-#else
-				msg_print("You feel much better.");
-#endif
-			}
-
-		}
-
-		/* Heal 35+ */
-		else
-		{
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("ひじょうに気分が良くなった。");
-#else
-				msg_print("You feel very good.");
-#endif
-			}
-		}
-
-		if(has_trait(creature_ptr, TRAIT_AFRAID)) (void)add_timed_trait(creature_ptr, TRAIT_AFRAID, -10, TRUE);
-		return TRUE;
+		effected = TRUE;
 	}
 
-	return FALSE;
+	if(is_player(creature_ptr)) play_redraw |= (PR_HP | PW_PLAYER);
+	rec_rate = rec_hp * creature_ptr->mhp / 100;
+
+	if(rec_rate < 5)
+	{
+		if(is_seen(player_ptr, creature_ptr))
+		{
+#ifdef JP
+			msg_print("少し気分が良くなった。");
+#else
+			msg_print("You feel a little better.");
+#endif
+		}
+	}
+	else if(rec_rate < 15)
+	{
+		if(is_seen(player_ptr, creature_ptr))
+		{
+#ifdef JP
+			msg_print("気分が良くなった。");
+#else
+			msg_print("You feel better.");
+#endif
+		}
+
+	}
+	else if(rec_rate < 35)
+	{
+		if(is_seen(player_ptr, creature_ptr))
+		{
+#ifdef JP
+			msg_print("とても気分が良くなった。");
+#else
+			msg_print("You feel much better.");
+#endif
+		}
+
+	}
+	else
+	{
+		if(is_seen(player_ptr, creature_ptr))
+		{
+#ifdef JP
+			msg_print("ひじょうに気分が良くなった。");
+#else
+			msg_print("You feel very good.");
+#endif
+		}
+	}
+
+	/* TODO
+	if(has_trait(creature_ptr, TRAIT_AFRAID)) (void)add_timed_trait(creature_ptr, TRAIT_AFRAID, -10, TRUE);
+
+	(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
+	(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE);
+	(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE);
+	(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
+	(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
+	(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
+	(void)do_res_stat(caster_ptr, STAT_STR);
+	(void)do_res_stat(caster_ptr, STAT_CON);
+	(void)do_res_stat(caster_ptr, STAT_DEX);
+	(void)do_res_stat(caster_ptr, STAT_WIS);
+	(void)do_res_stat(caster_ptr, STAT_INT);
+	(void)do_res_stat(caster_ptr, STAT_CHA);
+	restore_exp(creature_ptr);
+	*/
+
+	return effected;
 }
 
 // Array of stat "descriptions"
