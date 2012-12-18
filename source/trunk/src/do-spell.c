@@ -258,7 +258,7 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 	else if(die < 106) (void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
 	else if(die < 108) symbol_genocide(creature_ptr, plev+50, TRUE);
 	else if(die < 110) dispel_creatures(creature_ptr, 120);
-	else // RARE
+	else
 	{
 		dispel_creatures(creature_ptr, 150);
 		slow_creatures(creature_ptr);
@@ -1003,12 +1003,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = 10;
 
 			if(info) return info_heal(dice, sides, 0);
-
-			if(cast)
-			{
-				heal_creature(creature_ptr, diceroll(dice, sides));
-				add_timed_trait(creature_ptr, TRAIT_CUT, -10, TRUE);
-			}
+			if(cast) heal_creature(creature_ptr, diceroll(dice, sides));
 		}
 		break;
 
@@ -1100,18 +1095,12 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Cure Medium Wounds";
 		if(desc) return "Heals cut and HP more.";
 #endif
-    
-		{
+   		{
 			int dice = 4;
 			int sides = 10;
 
 			if(info) return info_heal(dice, sides, 0);
-
-			if(cast)
-			{
-				heal_creature(creature_ptr, diceroll(dice, sides));
-				set_timed_trait(creature_ptr, TRAIT_CUT, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 20, TRUE);
-			}
+			if(cast) heal_creature(creature_ptr, diceroll(dice, sides));
 		}
 		break;
 
@@ -1193,15 +1182,8 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			int dice = 8;
 			int sides = 10;
-
 			if(info) return info_heal(dice, sides, 0);
-
-			if(cast)
-			{
-				heal_creature(creature_ptr, diceroll(dice, sides));
-				set_timed_trait(creature_ptr, TRAIT_STUN, 0, TRUE);
-				set_timed_trait(creature_ptr, TRAIT_CUT, 0, TRUE);
-			}
+			if(cast) heal_creature(creature_ptr, diceroll(dice, sides));
 		}
 		break;
 
@@ -1276,15 +1258,8 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
     
 		{
 			int heal = 300;
-
 			if(info) return info_heal(0, 0, heal);
-
-			if(cast)
-			{
-				heal_creature(creature_ptr, heal);
-				set_timed_trait(creature_ptr, TRAIT_STUN, 0, TRUE);
-				set_timed_trait(creature_ptr, TRAIT_CUT, 0, TRUE);
-			}
+			if(cast) heal_creature(creature_ptr, heal);
 		}
 		break;
 
@@ -1567,12 +1542,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(desc) return "The greatest healing magic. Heals all HP, cut and stun.";
 #endif
 		if(info) return info_heal(0, 0, 2000);
-		if(cast)
-		{
-			heal_creature(creature_ptr, 2000);
-			set_timed_trait(creature_ptr, TRAIT_STUN, 0, TRUE);
-			set_timed_trait(creature_ptr, TRAIT_CUT, 0, TRUE);
-		}
+		if(cast) heal_creature(creature_ptr, 2000);
 		break;
 
 	case 30:
@@ -2540,13 +2510,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 8;
 
 			if(info) return info_heal(dice, sides, 0);
-
-			if(cast)
-			{
-				heal_creature(caster_ptr, diceroll(dice, sides));
-				set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
-				set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-			}
+			if(cast) heal_creature(caster_ptr, diceroll(dice, sides));
 		}
 		break;
 
@@ -2733,16 +2697,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int heal = 500;
-
 			if(info) return info_heal(0, 0, heal);
-
-			if(cast)
-			{
-				heal_creature(caster_ptr, heal);
-				set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
-				set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
-				set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-			}
+			if(cast) heal_creature(caster_ptr, heal);
 		}
 		break;
 
@@ -4267,18 +4223,6 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 				if(drain_life(caster_ptr, dir, dam))
 				{
 					heal_creature(caster_ptr, dam);
-
-					/*
-					 * Gain nutritional sustenance:
-					 * 150/hp drained
-					 *
-					 * A Food ration gives 5000
-					 * food points (by contrast)
-					 * Don't ever get more than
-					 * "Full" this way But if we
-					 * ARE Gorged, it won't cure
-					 * us
-					 */
 					dam = caster_ptr->food + MIN(5000, 100 * dam);
 
 					/* Not gorged already */
@@ -5818,14 +5762,8 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 2;
 			int sides = 8;
-
 			if(info) return info_heal(dice, sides, 0);
-
-			if(cast)
-			{
-				heal_creature(caster_ptr, diceroll(dice, sides));
-				add_timed_trait(caster_ptr, TRAIT_CUT, -10, TRUE);
-			}
+			if(cast) heal_creature(caster_ptr, diceroll(dice, sides));
 		}
 		break;
 

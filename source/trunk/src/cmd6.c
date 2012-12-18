@@ -696,13 +696,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_CURING:
-			if(heal_creature(caster_ptr, 50)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE)) effected = TRUE;
+			effected |= (heal_creature(caster_ptr, 50));
 			break;
 
 		case SV_POTION_NEW_LIFE:
@@ -1509,11 +1503,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			if(dispel_evil(creature_ptr, 150)) ident = TRUE;
 			k = 3 * creature_ptr->lev;
 			if(add_timed_trait(creature_ptr, TRAIT_PROT_EVIL, (magic ? 0 : randint1(25) + k, 0), TRUE)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE)) ident = TRUE;
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0, TRUE)) ident = TRUE;
-			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0, TRUE)) ident = TRUE;
 			break;
 		}
 

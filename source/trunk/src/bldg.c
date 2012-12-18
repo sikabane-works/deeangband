@@ -3845,14 +3845,8 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		do_cmd_study(creature_ptr);
 		break;
 
-	case BUILDING_FUNCTION_HEALING: /* needs work */
-		heal_creature(creature_ptr, 200);
-		set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE);
-		set_timed_trait(creature_ptr, TRAIT_BLIND, 0, TRUE);
-		set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0, TRUE);
-		set_timed_trait(creature_ptr, TRAIT_CUT, 0, TRUE);
-		set_timed_trait(creature_ptr, TRAIT_STUN, 0, TRUE);
-		paid = TRUE;
+	case BUILDING_FUNCTION_HEALING:
+		paid = heal_creature(creature_ptr, 200);
 		break;
 
 	case BUILDING_FUNCTION_RESTORE: // needs work
