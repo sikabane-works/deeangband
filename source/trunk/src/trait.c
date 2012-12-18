@@ -329,9 +329,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		if(heal_creature(caster_ptr, 300)) effected = TRUE;
 		break;
 
-	//case TRAIT_TRUE_HEALING:
-	//	if(heal_creature(caster_ptr, 1200)) effected = TRUE;
-	//	break;
+		//case TRAIT_TRUE_HEALING:
+		//	if(heal_creature(caster_ptr, 1200)) effected = TRUE;
+		//	break;
 
 	case TRAIT_GET_ESP:
 		(void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE);
@@ -363,6 +363,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 		//TODO Remove duplicated process
+	case TRAIT_ILLUMINE:
 	case TRAIT_LIGHT_AREA:
 	case TRAIT_ILLUMINATION:
 		effected = lite_area(caster_ptr, diceroll(2, 15), 3);
@@ -1420,90 +1421,90 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_ACROBAT:
 		{
-				if(one_in_(3)) // direct
+			if(one_in_(3)) // direct
+			{
+#ifdef JP
+				msg_format("%^sは突然視界から消えた!", caster_name);
+#else
+				msg_format("%^s suddenly go out of your sight!", caster_name);
+#endif
+				teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
+				caster_ptr->creature_update |= (PU_CREATURES);
+			}
+			else
+			{
+				int get_damage = 0;
+
+#ifdef JP
+				msg_format("%^sがあなたを掴んで空中から投げ落とした。", caster_name);
+#else
+				msg_format("%^s holds you, and drops from the sky.", caster_name);
+#endif
+				damage = diceroll(4, 8);
+				teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+
+				sound(SOUND_FALL);
+
+				if(has_trait(target_ptr, TRAIT_CAN_FLY))
 				{
 #ifdef JP
-					msg_format("%^sは突然視界から消えた!", caster_name);
+					msg_print("あなたは静かに着地した。");
 #else
-					msg_format("%^s suddenly go out of your sight!", caster_name);
+					msg_print("You float gently down to the ground.");
 #endif
-					teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
-					caster_ptr->creature_update |= (PU_CREATURES);
 				}
 				else
 				{
-					int get_damage = 0;
-
 #ifdef JP
-					msg_format("%^sがあなたを掴んで空中から投げ落とした。", caster_name);
+					msg_print("あなたは地面に叩きつけられた。");
 #else
-					msg_format("%^s holds you, and drops from the sky.", caster_name);
+					msg_print("You crashed into the ground.");
 #endif
-					damage = diceroll(4, 8);
-					teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
-
-					sound(SOUND_FALL);
-
-					if(has_trait(target_ptr, TRAIT_CAN_FLY))
-					{
-#ifdef JP
-						msg_print("あなたは静かに着地した。");
-#else
-						msg_print("You float gently down to the ground.");
-#endif
-					}
-					else
-					{
-#ifdef JP
-						msg_print("あなたは地面に叩きつけられた。");
-#else
-						msg_print("You crashed into the ground.");
-#endif
-						damage += diceroll(6, 8);
-					}
-
-					// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
-
-					get_damage = take_damage_to_creature(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
-					if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
-					{
-#ifdef JP
-						msg_format("攻撃が%s自身を傷つけた！", caster_name);
-#else
-						char caster_name_self[80];
-
-						// hisself 
-						creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
-
-						msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
-#endif
-						project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
-						set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
-					}
-
-					if(target_ptr->riding) close_combat(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
+					damage += diceroll(6, 8);
 				}
-				break;
+
+				// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
+
+				get_damage = take_damage_to_creature(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
+				if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
+				{
+#ifdef JP
+					msg_format("攻撃が%s自身を傷つけた！", caster_name);
+#else
+					char caster_name_self[80];
+
+					// hisself 
+					creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
+
+					msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
+#endif
+					project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
+					set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+				}
+
+				if(target_ptr->riding) close_combat(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
+			}
+			break;
 		}
 
-			case TRAIT_GRENADE:
+	case TRAIT_GRENADE:
 #ifdef JP
-				if(blind) msg_format("%^sが何か大量に投げた。", caster_name);
-				else msg_format("%^sは手榴弾をばらまいた。", caster_name);
+		if(blind) msg_format("%^sが何か大量に投げた。", caster_name);
+		else msg_format("%^sは手榴弾をばらまいた。", caster_name);
 #else
-				if(blind) msg_format("%^s spreads something.", caster_name);
-				else msg_format("%^s throws some hand grenades.", caster_name);
+		if(blind) msg_format("%^s spreads something.", caster_name);
+		else msg_format("%^s throws some hand grenades.", caster_name);
 #endif
 
-				{
-					int num = 1 + randint1(3);
+		{
+			int num = 1 + randint1(3);
 
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
-					}
-				}
-				break;
+			for (k = 0; k < num; k++)
+			{
+				count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
+			}
+		}
+		break;
 
 	case TRAIT_SPECIAL:
 		{
@@ -1659,50 +1660,50 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			break;
 		}
 
-			/*
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-			msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
-			}
-			else
-			{
-			teleport_level(target_ptr, 0);
-			}
-			learn_trait(target_ptr, TRAIT_TELE_LEVEL);
-			break;
-			}
-			{
-			int target_m_idx;
-			creature_type *target_ptr;
-			species_type *species_ptr;
+		/*
+		else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+		{
+		msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
+		}
+		else
+		{
+		teleport_level(target_ptr, 0);
+		}
+		learn_trait(target_ptr, TRAIT_TELE_LEVEL);
+		break;
+		}
+		{
+		int target_m_idx;
+		creature_type *target_ptr;
+		species_type *species_ptr;
 
-			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-			if(!target_m_idx) break;
-			if(!player_has_los_bold(target_row, target_col)) break;
-			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-			target_ptr = &creature_list[target_m_idx];
-			species_ptr = &species_info[target_ptr->species_idx];
-			creature_desc(target_name, target_ptr, 0);
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
+		target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+		if(!target_m_idx) break;
+		if(!player_has_los_bold(target_row, target_col)) break;
+		if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
+		target_ptr = &creature_list[target_m_idx];
+		species_ptr = &species_info[target_ptr->species_idx];
+		creature_desc(target_name, target_ptr, 0);
 
-			if(has_trait(target_ptr, TRAIT_RES_NEXU) || has_trait(target_ptr, TRAIT_RES_TELE) ||
-			has_trait(target_ptr, TRAIT_QUESTOR) || (target_ptr->lev + randint1(50) > user_level + randint1(60)))
-			{
-			msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
-			}
-			else teleport_level(caster_ptr, target_m_idx);
-			break;
-			}
+		if(has_trait(target_ptr, TRAIT_RES_NEXU) || has_trait(target_ptr, TRAIT_RES_TELE) ||
+		has_trait(target_ptr, TRAIT_QUESTOR) || (target_ptr->lev + randint1(50) > user_level + randint1(60)))
+		{
+		msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
+		}
+		else teleport_level(caster_ptr, target_m_idx);
+		break;
+		}
 
-			case TRAIT_FORGET:
-			{
-			/* TODO saving_throw
-			if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-			msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
-			}
-			else if(lose_all_info(target_ptr))
-			*/
+		case TRAIT_FORGET:
+		{
+		/* TODO saving_throw
+		if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+		{
+		msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
+		}
+		else if(lose_all_info(target_ptr))
+		*/
 
 	case TRAIT_ANIM_DEAD:
 		animate_dead(caster_ptr, caster_ptr->fy, caster_ptr->fx);
@@ -1711,28 +1712,28 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_SELF_DETONATIONS:
 #ifdef JP
-			msg_print("体の中で激しい爆発が起きた！");
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "爆発の薬", NULL, -1);
+		msg_print("体の中で激しい爆発が起きた！");
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "爆発の薬", NULL, -1);
 #else
-			msg_print("Massive explosions rupture your body!");
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "a potion of Detonation", NULL, -1);
+		msg_print("Massive explosions rupture your body!");
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "a potion of Detonation", NULL, -1);
 #endif
 
-			(void)add_timed_trait(caster_ptr, TRAIT_STUN, 75, TRUE);
-			(void)add_timed_trait(caster_ptr, TRAIT_CUT, 5000, TRUE);
-			effected = TRUE;
-			break;
+		(void)add_timed_trait(caster_ptr, TRAIT_STUN, 75, TRUE);
+		(void)add_timed_trait(caster_ptr, TRAIT_CUT, 5000, TRUE);
+		effected = TRUE;
+		break;
 
 	case TRAIT_SELF_DEATH:
 #ifdef JP
-			msg_print("死の予感が体中を駆けめぐった。");
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, "死の薬", NULL, -1);
+		msg_print("死の予感が体中を駆けめぐった。");
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, "死の薬", NULL, -1);
 #else
-			msg_print("A feeling of Death flows through your body.");
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", NULL, -1);
+		msg_print("A feeling of Death flows through your body.");
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", NULL, -1);
 #endif
-			effected = TRUE;
-			break;
+		effected = TRUE;
+		break;
 
 	case TRAIT_S_KIN:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
@@ -1854,16 +1855,16 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_S_CYBER:
 		{
-		int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		if(max_cyber > 4) max_cyber = 4;
-		for (k = 0; k < max_cyber; k++) summon_specific(caster_ptr, target_row, target_col, user_level, TRAIT_S_CYBER, mode);
+			int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
+			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
+			if(max_cyber > 4) max_cyber = 4;
+			for (k = 0; k < max_cyber; k++) summon_specific(caster_ptr, target_row, target_col, user_level, TRAIT_S_CYBER, mode);
 #ifdef JP
-		if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
+			if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
 #else
-		if(blind && count) msg_print("You hear heavy steps nearby.");
+			if(blind && count) msg_print("You hear heavy steps nearby.");
 #endif
-		break;
+			break;
 		}
 
 	case TRAIT_S_MONSTER:
@@ -2014,25 +2015,25 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 
 	case TRAIT_S_HI_DRAGON:
-			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			if(blind && count)
-			{
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
+		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		if(blind && count)
+		{
 #ifdef JP
-				msg_print("多くの力強いものが間近に現れた音が聞こえる。");
+			msg_print("多くの力強いものが間近に現れた音が聞こえる。");
 #else
-				msg_print("You hear many powerful things appear nearby.");
+			msg_print("You hear many powerful things appear nearby.");
 #endif
-			}
-			break;
+		}
+		break;
 
 	case TRAIT_S_AMBERITES:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 #ifdef JP
-			msg_print("不死の者が近くに現れるのが聞こえた。");
+		msg_print("不死の者が近くに現れるのが聞こえた。");
 #else
-			msg_print("You hear immortal beings appear nearby.");
+		msg_print("You hear immortal beings appear nearby.");
 #endif
 		break;
 
@@ -2043,9 +2044,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		if(blind && count)
 		{
 #ifdef JP
-//			msg_format("多くの%sが間近に現れた音が聞こえる。", uniques_are_summoned ? "力強いもの" : "もの");
+			//			msg_format("多くの%sが間近に現れた音が聞こえる。", uniques_are_summoned ? "力強いもの" : "もの");
 #else
-//			msg_format("You hear many %s appear nearby.", uniques_are_summoned ? "powerful things" : "things");
+			//			msg_format("You hear many %s appear nearby.", uniques_are_summoned ? "powerful things" : "things");
 #endif
 		}
 		break;
@@ -2544,21 +2545,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_SHADOW_SHIFT:
 		alter_reality(caster_ptr);
 
-	case TRAIT_PATTERN_WALK:
-		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-		(void)do_res_stat(caster_ptr, STAT_STR);
-		(void)do_res_stat(caster_ptr, STAT_INT);
-		(void)do_res_stat(caster_ptr, STAT_WIS);
-		(void)do_res_stat(caster_ptr, STAT_DEX);
-		(void)do_res_stat(caster_ptr, STAT_CON);
-		(void)do_res_stat(caster_ptr, STAT_CHA);
-		(void)restore_exp(caster_ptr);
-		break;
 
 	case TRAIT_BERSERK:
 		if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
@@ -2722,10 +2708,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		(void)teleport_swap(caster_ptr, dir);
 		break;
 
-	case TRAIT_ILLUMINE:
-		(void)lite_area(caster_ptr, diceroll(2, (user_level / 2)), (user_level / 10) + 1);
-		break;
-
 	case TRAIT_DET_CURSE:
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
@@ -2876,176 +2858,193 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_ENLIGHTENMENT:
 #ifdef JP
-			msg_print("自分の置かれている状況が脳裏に浮かんできた...");
+		msg_print("自分の置かれている状況が脳裏に浮かんできた...");
 #else
-			msg_print("An image of your surroundings forms in your mind...");
+		msg_print("An image of your surroundings forms in your mind...");
 #endif
-			wiz_lite(floor_ptr, caster_ptr, FALSE);
-			effected = TRUE;
-			break;
+		wiz_lite(floor_ptr, caster_ptr, FALSE);
+		effected = TRUE;
+		break;
 
 	case TRAIT_STAR_ENLIGHTENMENT:
 #ifdef JP
-			msg_print("更なる啓蒙を感じた...");
+		msg_print("更なる啓蒙を感じた...");
 #else
-			msg_print("You begin to feel more enlightened...");
+		msg_print("You begin to feel more enlightened...");
 #endif
-			msg_print(NULL);
-			wiz_lite(floor_ptr, caster_ptr, FALSE);
-			(void)do_inc_stat(caster_ptr, STAT_INT);
-			(void)do_inc_stat(caster_ptr, STAT_WIS);
-			(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
-			identify_pack(caster_ptr);
-			creature_knowledge(caster_ptr);
-			effected = TRUE;
-			break;
+		msg_print(NULL);
+		wiz_lite(floor_ptr, caster_ptr, FALSE);
+		(void)do_inc_stat(caster_ptr, STAT_INT);
+		(void)do_inc_stat(caster_ptr, STAT_WIS);
+		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
+		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
+		(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
+		(void)detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
+		(void)detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT);
+		(void)detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
+		identify_pack(caster_ptr);
+		creature_knowledge(caster_ptr);
+		effected = TRUE;
+		break;
 
-		case TRAIT_RES_STR:
-			if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE;
-			break;
+	case TRAIT_RES_STR:
+		if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE;
+		break;
 
-		case TRAIT_RES_INT:
-			if(do_res_stat(caster_ptr, STAT_INT)) effected = TRUE;
-			break;
+	case TRAIT_RES_INT:
+		if(do_res_stat(caster_ptr, STAT_INT)) effected = TRUE;
+		break;
 
-		case TRAIT_RES_WIS:
-			if(do_res_stat(caster_ptr, STAT_WIS)) effected = TRUE;
-			break;
+	case TRAIT_RES_WIS:
+		if(do_res_stat(caster_ptr, STAT_WIS)) effected = TRUE;
+		break;
 
-		case TRAIT_RES_DEX:
-			if(do_res_stat(caster_ptr, STAT_DEX)) effected = TRUE;
-			break;
+	case TRAIT_RES_DEX:
+		if(do_res_stat(caster_ptr, STAT_DEX)) effected = TRUE;
+		break;
 
-		case TRAIT_RES_CON:
-			if(do_res_stat(caster_ptr, STAT_CON)) effected = TRUE;
-			break;
+	case TRAIT_RES_CON:
+		if(do_res_stat(caster_ptr, STAT_CON)) effected = TRUE;
+		break;
 
-		case TRAIT_RES_CHR:
-			if(do_res_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-			break;
+	case TRAIT_RES_CHR:
+		if(do_res_stat(caster_ptr, STAT_CHA)) effected = TRUE;
+		break;
 
-		case TRAIT_INC_STR:
-			if(do_inc_stat(caster_ptr, STAT_STR)) effected = TRUE;
-			break;
+	case TRAIT_INC_STR:
+		if(do_inc_stat(caster_ptr, STAT_STR)) effected = TRUE;
+		break;
 
-		case TRAIT_INC_INT:
-			if(do_inc_stat(caster_ptr, STAT_INT)) effected = TRUE;
-			break;
+	case TRAIT_INC_INT:
+		if(do_inc_stat(caster_ptr, STAT_INT)) effected = TRUE;
+		break;
 
-		case TRAIT_INC_WIS:
-			if(do_inc_stat(caster_ptr, STAT_WIS)) effected = TRUE;
-			break;
+	case TRAIT_INC_WIS:
+		if(do_inc_stat(caster_ptr, STAT_WIS)) effected = TRUE;
+		break;
 
-		case TRAIT_INC_DEX:
-			if(do_inc_stat(caster_ptr, STAT_DEX)) effected = TRUE;
-			break;
+	case TRAIT_INC_DEX:
+		if(do_inc_stat(caster_ptr, STAT_DEX)) effected = TRUE;
+		break;
 
-		case TRAIT_INC_CON:
-			if(do_inc_stat(caster_ptr, STAT_CON)) effected = TRUE;
-			break;
+	case TRAIT_INC_CON:
+		if(do_inc_stat(caster_ptr, STAT_CON)) effected = TRUE;
+		break;
 
-		case TRAIT_INC_CHR:
-			if(do_inc_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-			break;
+	case TRAIT_INC_CHR:
+		if(do_inc_stat(caster_ptr, STAT_CHA)) effected = TRUE;
+		break;
 
-		case TRAIT_DEC_STR:
-			if(do_dec_stat(caster_ptr, STAT_STR)) effected = TRUE;
-			break;
+	case TRAIT_DEC_STR:
+		if(do_dec_stat(caster_ptr, STAT_STR)) effected = TRUE;
+		break;
 
-		case TRAIT_DEC_INT:
-			if(do_dec_stat(caster_ptr, STAT_INT)) effected = TRUE;
-			break;
+	case TRAIT_DEC_INT:
+		if(do_dec_stat(caster_ptr, STAT_INT)) effected = TRUE;
+		break;
 
-		case TRAIT_DEC_WIS:
-			if(do_dec_stat(caster_ptr, STAT_WIS)) effected = TRUE;
-			break;
+	case TRAIT_DEC_WIS:
+		if(do_dec_stat(caster_ptr, STAT_WIS)) effected = TRUE;
+		break;
 
-		case TRAIT_DEC_DEX:
-			if(do_dec_stat(caster_ptr, STAT_DEX)) effected = TRUE;
-			break;
+	case TRAIT_DEC_DEX:
+		if(do_dec_stat(caster_ptr, STAT_DEX)) effected = TRUE;
+		break;
 
-		case TRAIT_DEC_CON:
-			if(do_dec_stat(caster_ptr, STAT_CON)) effected = TRUE;
-			break;
+	case TRAIT_DEC_CON:
+		if(do_dec_stat(caster_ptr, STAT_CON)) effected = TRUE;
+		break;
 
-		case TRAIT_DEC_CHR:
-			if(do_dec_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-			break;
+	case TRAIT_DEC_CHR:
+		if(do_dec_stat(caster_ptr, STAT_CHA)) effected = TRUE;
+		break;
 
-		case TRAIT_LITE_LINE:
+	case TRAIT_LITE_LINE:
 #ifdef JP
-			msg_print("青く輝く光線が放たれた。");
+		msg_print("青く輝く光線が放たれた。");
 #else
-			msg_print("A line of blue shimmering light appears.");
+		msg_print("A line of blue shimmering light appears.");
 #endif
-			(void)lite_line(caster_ptr, dir);
-			effected = TRUE;
-			break;
+		(void)lite_line(caster_ptr, dir);
+		effected = TRUE;
+		break;
 
-		case TRAIT_FOOD_POISONING_6D6:
+	case TRAIT_FOOD_POISONING_6D6:
 #ifdef JP
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
 #else
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
 #endif
 		break;
 
-		case TRAIT_FOOD_POISONING_8D8:
+	case TRAIT_FOOD_POISONING_8D8:
 #ifdef JP
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
 #else
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
 #endif
 		break;
 
-		case TRAIT_FOOD_POISONING_10D10:
+	case TRAIT_FOOD_POISONING_10D10:
 #ifdef JP
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
 #else
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
 #endif
 		break;
 
-		case TRAIT_SELF_HEALING_2D8:
-			effected = heal_creature(caster_ptr, diceroll(2, 8));
-			break;
+	case TRAIT_SELF_HEALING_2D8:
+		effected = heal_creature(caster_ptr, diceroll(2, 8));
+		break;
 
-		case TRAIT_SELF_HEALING_4D8:
-			effected = heal_creature(caster_ptr, diceroll(4, 8));
-			break;
+	case TRAIT_SELF_HEALING_4D8:
+		effected = heal_creature(caster_ptr, diceroll(4, 8));
+		break;
 
-		case TRAIT_SELF_HEALING_6D8:
-			effected = heal_creature(caster_ptr, diceroll(6, 8));
-			break;
+	case TRAIT_SELF_HEALING_6D8:
+		effected = heal_creature(caster_ptr, diceroll(6, 8));
+		break;
 
-		case TRAIT_SELF_HEALING_10D10:
-			effected = heal_creature(caster_ptr, diceroll(10, 10));
-			break;
+	case TRAIT_SELF_HEALING_10D10:
+		effected = heal_creature(caster_ptr, diceroll(10, 10));
+		break;
 
-		case TRAIT_SELF_HEALING_20D20:
-			effected = heal_creature(caster_ptr, diceroll(20, 20));
-			break;
+	case TRAIT_SELF_HEALING_20D20:
+		effected = heal_creature(caster_ptr, diceroll(20, 20));
+		break;
 
-		case TRAIT_SELF_HEALING_50D20:
-			effected = heal_creature(caster_ptr, diceroll(50, 20));
-			break;
+	case TRAIT_SELF_HEALING_50D20:
+		effected = heal_creature(caster_ptr, diceroll(50, 20));
+		break;
 
-		case TRAIT_SELF_HEALING_80D20:
-			effected = heal_creature(caster_ptr, diceroll(80, 20));
-			break;
+	case TRAIT_SELF_HEALING_80D20:
+		effected = heal_creature(caster_ptr, diceroll(80, 20));
+		break;
 
-		case TRAIT_SELF_HEALING_30D100:
-			effected = heal_creature(caster_ptr, diceroll(30, 100));
-			break;
+	case TRAIT_SELF_HEALING_30D100:
+		effected = heal_creature(caster_ptr, diceroll(30, 100));
+		break;
 
-		case TRAIT_SELF_HEALING_100D100:
-			effected = heal_creature(caster_ptr, diceroll(100, 100));
-			break;
+	case TRAIT_SELF_HEALING_100D100:
+		effected = heal_creature(caster_ptr, diceroll(100, 100));
+		break;
+
+	case TRAIT_PATTERN_WALK:
+		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
+		(void)do_res_stat(caster_ptr, STAT_STR);
+		(void)do_res_stat(caster_ptr, STAT_INT);
+		(void)do_res_stat(caster_ptr, STAT_WIS);
+		(void)do_res_stat(caster_ptr, STAT_DEX);
+		(void)do_res_stat(caster_ptr, STAT_CON);
+		(void)do_res_stat(caster_ptr, STAT_CHA);
+		(void)restore_exp(caster_ptr);
+		break;
+
 
 	case 3: /* TRAIT_LAUNCHER */
 		/* Gives a multiplier of 2 at first, up to 3 at 40th */
