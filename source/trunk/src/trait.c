@@ -1788,28 +1788,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			break;
 
 	case TRAIT_TRUE_HEALING2:
-#ifdef JP
-			msg_print("体中に生命力が満ちあふれてきた！");
-#else
-			msg_print("You feel life flow through your body!");
-#endif
-			(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-			(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE);
-			(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE);
-			(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
-			(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
-			(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
-			(void)do_res_stat(caster_ptr, STAT_STR);
-			(void)do_res_stat(caster_ptr, STAT_CON);
-			(void)do_res_stat(caster_ptr, STAT_DEX);
-			(void)do_res_stat(caster_ptr, STAT_WIS);
-			(void)do_res_stat(caster_ptr, STAT_INT);
-			(void)do_res_stat(caster_ptr, STAT_CHA);
-			restore_exp(caster_ptr);
-			(void)set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE);
-			update_creature(caster_ptr, TRUE);
-			heal_creature(caster_ptr, 5000);
-			effected = TRUE;
+			effected = heal_creature(caster_ptr, 5000);
 			break;
 
 	case TRAIT_S_KIN:
@@ -3109,6 +3088,41 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #endif
 		break;
 
+		case TRAIT_SELF_HEALING_2D8:
+			effected = heal_creature(caster_ptr, diceroll(2, 8));
+			break;
+
+		case TRAIT_SELF_HEALING_4D8:
+			effected = heal_creature(caster_ptr, diceroll(4, 8));
+			break;
+
+		case TRAIT_SELF_HEALING_6D8:
+			effected = heal_creature(caster_ptr, diceroll(6, 8));
+			break;
+
+		case TRAIT_SELF_HEALING_10D10:
+			effected = heal_creature(caster_ptr, diceroll(10, 10));
+			break;
+
+		case TRAIT_SELF_HEALING_20D20:
+			effected = heal_creature(caster_ptr, diceroll(20, 20));
+			break;
+
+		case TRAIT_SELF_HEALING_50D20:
+			effected = heal_creature(caster_ptr, diceroll(50, 20));
+			break;
+
+		case TRAIT_SELF_HEALING_80D20:
+			effected = heal_creature(caster_ptr, diceroll(80, 20));
+			break;
+
+		case TRAIT_SELF_HEALING_30D100:
+			effected = heal_creature(caster_ptr, diceroll(30, 100));
+			break;
+
+		case TRAIT_SELF_HEALING_100D100:
+			effected = heal_creature(caster_ptr, diceroll(100, 100));
+			break;
 
 	case 3: /* TRAIT_LAUNCHER */
 		/* Gives a multiplier of 2 at first, up to 3 at 40th */
