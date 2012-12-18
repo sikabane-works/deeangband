@@ -284,31 +284,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			break;
 		}
 
-	case TRAIT_CURE_LIGHT_WOUNDS:
-		if(heal_creature(caster_ptr, diceroll(2, 8))) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
-		if(add_timed_trait(caster_ptr, TRAIT_CUT, -10, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
-		break;
-
-	case TRAIT_CURE_MEDIUM_WOUNDS:
-		if(heal_creature(caster_ptr, diceroll(4, 8))) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_CUT, (caster_ptr->timed_trait[TRAIT_CUT] / 2) - 50, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
-		break;
-
-	case TRAIT_CURE_CRITICAL_WOUNDS:
-		if(heal_creature(caster_ptr, diceroll(6, 8))) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
-		break;
-
 	case TRAIT_REMOVE_POISON:
 		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
 		break;
@@ -326,33 +301,36 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		if(do_res_stat(caster_ptr, STAT_CHA)) effected = TRUE;
 		break;
 
-		//TODO Remove duplicated process
+	case TRAIT_CURING:
+		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
+		(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
+		break;
+
+	case TRAIT_CURE_OF_AESCULAPIUS:
+		(void)do_res_stat(caster_ptr, STAT_STR);
+		(void)do_res_stat(caster_ptr, STAT_INT);
+		(void)do_res_stat(caster_ptr, STAT_WIS);
+		(void)do_res_stat(caster_ptr, STAT_DEX);
+		(void)do_res_stat(caster_ptr, STAT_CON);
+		(void)do_res_stat(caster_ptr, STAT_CHA);
+		(void)restore_exp(caster_ptr);
+		break;
+
 	case TRAIT_REGAL_HEAL_OF_AMBER:
 		(void)heal_creature(caster_ptr, 700);
-		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
 		break;
 
 	case TRAIT_HEAL:
 		if(heal_creature(caster_ptr, 300)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
 		break;
 
-	/* Remove
-	case TRAIT_TRUE_HEALING:
-		if(heal_creature(caster_ptr, )) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE)) effected = TRUE;
-		if(set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
-		break;
-	*/
+	//case TRAIT_TRUE_HEALING:
+	//	if(heal_creature(caster_ptr, 1200)) effected = TRUE;
+	//	break;
 
 	case TRAIT_GET_ESP:
 		(void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE);
@@ -539,17 +517,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_HEAVENLY_CHOIR:
-		{
-			(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-			(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
-			(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
-			(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE);
-			(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE);
-			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-			(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(25) + 25, TRUE);
-			(void)heal_creature(caster_ptr, 777);
-			break;
-		}
+		(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(25) + 25, TRUE);
+		(void)heal_creature(caster_ptr, 777);
+		break;
 
 	case TRAIT_LAY_OF_FEAR:
 		turn_creatures(caster_ptr, 40 + caster_ptr->lev);
@@ -841,15 +811,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		if(heal_creature(caster_ptr, 10)) effected = TRUE;
 		break;
 
-	case TRAIT_CURING:
-		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
-		(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
-		break;
-
 	case TRAIT_CHANGE_BRAND:
 		//get_bloody_moon_flags(object_ptr);
 		if(has_trait(caster_ptr, TRAIT_ANDROID)) calc_android_exp(caster_ptr);
@@ -877,16 +838,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			break;
 		}
-
-	case TRAIT_CURE_OF_AESCULAPIUS:
-		(void)do_res_stat(caster_ptr, STAT_STR);
-		(void)do_res_stat(caster_ptr, STAT_INT);
-		(void)do_res_stat(caster_ptr, STAT_WIS);
-		(void)do_res_stat(caster_ptr, STAT_DEX);
-		(void)do_res_stat(caster_ptr, STAT_CON);
-		(void)do_res_stat(caster_ptr, STAT_CHA);
-		(void)restore_exp(caster_ptr);
-		break;
 
 	case TRAIT_REMOVE_CURSE_1:
 		if(remove_curse(caster_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
@@ -1785,10 +1736,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", NULL, -1);
 #endif
 			effected = TRUE;
-			break;
-
-	case TRAIT_TRUE_HEALING2:
-			effected = heal_creature(caster_ptr, 5000);
 			break;
 
 	case TRAIT_S_KIN:
