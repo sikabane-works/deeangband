@@ -1327,16 +1327,15 @@ bool res_stat(creature_type *creature_ptr, int stat)
 }
 
 // Increase players hit points, notice effects
-bool heal_creature(creature_type *creature_ptr, int num)
+bool heal_creature(creature_type *creature_ptr, int healing_power)
 {
-	int rest = 0;
 	int rec_hp = 0, rec_rate = 0;
 	bool effected = FALSE;
 
 	if(creature_ptr->chp < creature_ptr->mhp)
 	{
-		rec_hp = num;
-		creature_ptr->chp += num;
+		rec_hp = healing_power;
+		creature_ptr->chp += healing_power;
 		if(creature_ptr->chp >= creature_ptr->mhp) // Enforce maximum
 		{
 			rec_hp -= (creature_ptr->chp - creature_ptr->mhp);
@@ -1349,7 +1348,7 @@ bool heal_creature(creature_type *creature_ptr, int num)
 	if(is_player(creature_ptr)) play_redraw |= (PR_HP | PW_PLAYER);
 	rec_rate = rec_hp * creature_ptr->mhp / 100;
 
-	if(is_seen(player_ptr, creature_ptr))
+	if(is_seen(player_ptr, creature_ptr) && rec_hp)
 	{
 #ifdef JP
 		if(rec_rate < 5) msg_print("­‚µ‹C•ª‚ª—Ç‚­‚È‚Á‚½B");
@@ -1364,22 +1363,24 @@ bool heal_creature(creature_type *creature_ptr, int num)
 #endif
 	}
 
-	/* TODO
-	if(has_trait(creature_ptr, TRAIT_AFRAID)) (void)add_timed_trait(creature_ptr, TRAIT_AFRAID, -10, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_AFRAID, healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_POISONED, healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_BLIND, healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_CONFUSED, healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_PARALYZED, healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_SLEPT, healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_STUN, healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_CUT, healing_power, TRUE);
 
-	(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-	(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0, TRUE);
-	(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0, TRUE);
-	(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
-	(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
-	(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
-	(void)do_res_stat(caster_ptr, STAT_STR);
-	(void)do_res_stat(caster_ptr, STAT_CON);
-	(void)do_res_stat(caster_ptr, STAT_DEX);
-	(void)do_res_stat(caster_ptr, STAT_WIS);
-	(void)do_res_stat(caster_ptr, STAT_INT);
-	(void)do_res_stat(caster_ptr, STAT_CHA);
-	restore_exp(creature_ptr);
+	/* TODO
+	effected |= do_res_stat(creature_ptr, STAT_STR);
+	effected |= do_res_stat(creature_ptr, STAT_CON);
+	effected |= do_res_stat(creature_ptr, STAT_DEX);
+	effected |= do_res_stat(creature_ptr, STAT_WIS);
+	effected |= do_res_stat(creature_ptr, STAT_INT);
+	effected |= do_res_stat(creature_ptr, STAT_CHA);
+	effected |= restore_exp(creature_ptr);
 	*/
 
 	return effected;
