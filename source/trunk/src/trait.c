@@ -2169,24 +2169,22 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #else
 				msg_print("You don't see any creature in this direction");
 #endif
-
 				msg_print(NULL);
 			}
 			break;
 		}
 
 	case TRAIT_SCAN_CREATURE:
-		{
-			probing(floor_ptr);
-			break;
-		}
+		probing(floor_ptr);
+		break;
 
 	case TRAIT_HOLY_LANCE:
+		cast_beam(caster_ptr, MAX_RANGE_SUB, DO_EFFECT_HOLY_FIRE, user_level * 3, 0, FALSE);
+		break;
+
 	case TRAIT_HELL_LANCE:
-		{
-			cast_beam(caster_ptr, MAX_RANGE_SUB, is_good_realm(caster_ptr->realm1) ? DO_EFFECT_HOLY_FIRE : DO_EFFECT_HELL_FIRE, user_level * 3, 0, FALSE);
-			break;
-		}
+		cast_beam(caster_ptr, MAX_RANGE_SUB, DO_EFFECT_HELL_FIRE, user_level * 3, 0, FALSE);
+		break;
 
 	case TRAIT_HP_TO_SP_ACTIVE:
 		{
@@ -2203,44 +2201,29 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				msg_print("You failed to convert.");
 #endif
 			break;
-
-			break;
-
 		}
 
 	case TRAIT_SP_TO_HP_ACTIVE:
+		if(caster_ptr->csp >= caster_ptr->lev / 5)
 		{
-			if(caster_ptr->csp >= caster_ptr->lev / 5)
-			{
-				caster_ptr->csp -= caster_ptr->lev / 5;
-				heal_creature(caster_ptr, caster_ptr->lev);
-			}
-			else
-#ifdef JP
-				msg_print("変換に失敗した。");
-#else
-				msg_print("You failed to convert.");
-#endif
-
-			// Redraw mana and hp
-			play_redraw |= (PR_HP | PR_MANA);
-			break;
+			dec_mana(caster_ptr, caster_ptr->lev / 5); 
+			heal_creature(caster_ptr, caster_ptr->lev);
 		}
+		else
+#ifdef JP
+			msg_print("変換に失敗した。");
+#else
+			msg_print("You failed to convert.");
+#endif
+		break;
 
 	case TRAIT_CONFUSING_LIGHT:
-		{
-#ifdef JP
-			msg_print("辺りを睨んだ...");
-#else
-			msg_print("You glare nearby creatures...");
-#endif
-			slow_creatures(caster_ptr);
-			stun_creatures(caster_ptr, caster_ptr->lev * 4);
-			confuse_creatures(caster_ptr, caster_ptr->lev * 4);
-			turn_creatures(caster_ptr, caster_ptr->lev * 4);
-			stasis_creatures(caster_ptr, caster_ptr->lev * 4);
-			break;
-		}
+		slow_creatures(caster_ptr);
+		stun_creatures(caster_ptr, caster_ptr->lev * 4);
+		confuse_creatures(caster_ptr, caster_ptr->lev * 4);
+		turn_creatures(caster_ptr, caster_ptr->lev * 4);
+		stasis_creatures(caster_ptr, caster_ptr->lev * 4);
+		break;
 
 	case TRAIT_DOUBLE_ATTACK:
 		{
@@ -2329,11 +2312,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_DOUBLE_REVENGE:
-		{
-			handle_stuff();
-			if(!do_cmd_mane(caster_ptr, TRUE)) return FALSE;
-			break;
-		}
+		if(!do_cmd_mane(caster_ptr, TRUE)) return FALSE;
+		break;
 
 	case TRAIT_DOMINATE_LIVE:
 		(void)cast_ball_hide(caster_ptr, DO_EFFECT_CONTROL_LIVING, dir, caster_ptr->lev, 0);
