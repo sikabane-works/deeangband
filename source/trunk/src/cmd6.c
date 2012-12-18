@@ -139,15 +139,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				if(do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
 				break;
 
-			case SV_FOOD_RESTORING:
-				if(do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
-				if(do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
-				if(do_res_stat(creature_ptr, STAT_WIS)) ident = TRUE;
-				if(do_res_stat(creature_ptr, STAT_DEX)) ident = TRUE;
-				if(do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
-				if(do_res_stat(creature_ptr, STAT_CHA)) ident = TRUE;
-				break;
-
 #ifdef JP
 			/* それぞれの食べ物の感想をオリジナルより細かく表現 */
 			case SV_FOOD_BISCUIT:

@@ -324,7 +324,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		if(do_res_stat(caster_ptr, STAT_DEX)) effected = TRUE;
 		if(do_res_stat(caster_ptr, STAT_CON)) effected = TRUE;
 		if(do_res_stat(caster_ptr, STAT_CHA)) effected = TRUE;
-		if(restore_exp(caster_ptr)) effected = TRUE;
 		break;
 
 		//TODO Remove duplicated process
