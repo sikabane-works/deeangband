@@ -5986,12 +5986,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 8;
 
 			if(info) return info_heal(dice, sides, 0);
-
-			if(cast)
-			{
-				heal_creature(caster_ptr, diceroll(dice, sides));
-				set_timed_trait(caster_ptr, TRAIT_CUT, (caster_ptr->timed_trait[TRAIT_CUT] / 2) - 50, TRUE);
-			}
+			if(cast) heal_creature(caster_ptr, diceroll(dice, sides));
 		}
 		break;
 
@@ -8149,10 +8144,6 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				dispel_evil(creature_ptr, randint1(dam_sides));
 				heal_creature(creature_ptr, heal);
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE);
-				set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE);
-				set_timed_trait(creature_ptr, TRAIT_STUN, 0, TRUE);
-				set_timed_trait(creature_ptr, TRAIT_CUT, 0, TRUE);
 			}
 		}
 		break;
@@ -8726,11 +8717,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 6;
 
 			if(info) return info_heal(dice, sides, 0);
-
-			if(cont)
-			{
-				heal_creature(caster_ptr, diceroll(dice, sides));
-			}
+			if(cont) heal_creature(caster_ptr, diceroll(dice, sides));
 		}
 
 		break;
@@ -8824,7 +8811,6 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			(void)heal_creature(caster_ptr, 10);
 			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-
 			caster_ptr->creature_update |= (CRU_HP);
 
 			start_singing(caster_ptr, spell, MUSIC_HERO);
@@ -9479,7 +9465,6 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			(void)heal_creature(caster_ptr, 10);
 			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-
 			caster_ptr->creature_update |= (CRU_HP);
 
 			start_singing(caster_ptr, spell, MUSIC_SHERO);
@@ -9527,13 +9512,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 10;
 
 			if(info) return info_heal(dice, sides, 0);
-
-			if(cont)
-			{
-				heal_creature(caster_ptr, diceroll(dice, sides));
-				set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
-				set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
-			}
+			if(cont) heal_creature(caster_ptr, diceroll(dice, sides));
 		}
 
 		break;
@@ -10909,11 +10888,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			msg_print("You feel better and better.");
 #endif
 		}
-		if(cast || cont)
-		{
-			heal_creature(creature_ptr, diceroll(1, 10));
-			add_timed_trait(creature_ptr, TRAIT_CUT, -10, TRUE);
-		}
+		if(cast || cont) heal_creature(creature_ptr, diceroll(1, 10));
 		break;
 
 	case 2:
@@ -11211,11 +11186,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			msg_print("You feel better and better.");
 #endif
 		}
-		if(cast || cont)
-		{
-			heal_creature(creature_ptr, diceroll(2, 10));
-			set_timed_trait(creature_ptr, TRAIT_CUT, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 10, TRUE);
-		}
+		if(cast || cont) heal_creature(creature_ptr, diceroll(2, 10));
 		break;
 
 	case 10:
@@ -11388,13 +11359,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			msg_print("You feel better and better.");
 #endif
 		}
-		if(cast || cont)
-		{
-			heal_creature(creature_ptr, diceroll(4, 10));
-			set_timed_trait(creature_ptr, TRAIT_STUN, 0, TRUE);
-			set_timed_trait(creature_ptr, TRAIT_CUT, 0, TRUE);
-			set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE);
-		}
+		if(cast || cont) heal_creature(creature_ptr, diceroll(4, 10));
 		break;
 
 	case 18:
