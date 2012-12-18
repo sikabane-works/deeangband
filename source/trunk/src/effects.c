@@ -1349,51 +1349,19 @@ bool heal_creature(creature_type *creature_ptr, int num)
 	if(is_player(creature_ptr)) play_redraw |= (PR_HP | PW_PLAYER);
 	rec_rate = rec_hp * creature_ptr->mhp / 100;
 
-	if(rec_rate < 5)
+	if(is_seen(player_ptr, creature_ptr))
 	{
-		if(is_seen(player_ptr, creature_ptr))
-		{
 #ifdef JP
-			msg_print("少し気分が良くなった。");
+		if(rec_rate < 5) msg_print("少し気分が良くなった。");
+		else if(rec_rate < 15) msg_print("気分が良くなった。");
+		else if(rec_rate < 35) msg_print("とても気分が良くなった。");
+		else msg_print("ひじょうに気分が良くなった。");
 #else
-			msg_print("You feel a little better.");
+		if(rec_rate < 5) msg_print("You feel a little better.");
+		else if(rec_rate < 15) msg_print("You feel better.");
+		else if(rec_rate < 35) msg_print("You feel much better.");
+		else msg_print("You feel very good.");
 #endif
-		}
-	}
-	else if(rec_rate < 15)
-	{
-		if(is_seen(player_ptr, creature_ptr))
-		{
-#ifdef JP
-			msg_print("気分が良くなった。");
-#else
-			msg_print("You feel better.");
-#endif
-		}
-
-	}
-	else if(rec_rate < 35)
-	{
-		if(is_seen(player_ptr, creature_ptr))
-		{
-#ifdef JP
-			msg_print("とても気分が良くなった。");
-#else
-			msg_print("You feel much better.");
-#endif
-		}
-
-	}
-	else
-	{
-		if(is_seen(player_ptr, creature_ptr))
-		{
-#ifdef JP
-			msg_print("ひじょうに気分が良くなった。");
-#else
-			msg_print("You feel very good.");
-#endif
-		}
 	}
 
 	/* TODO
