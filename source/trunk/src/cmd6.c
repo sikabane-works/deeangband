@@ -119,10 +119,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 						ident = TRUE;
 				break;
 
-			case SV_FOOD_CURE_POISON:
-				if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE)) ident = TRUE;
-				break;
-
 			case SV_FOOD_CURE_BLINDNESS:
 				if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0, TRUE)) ident = TRUE;
 				break;
@@ -133,10 +129,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_CURE_CONFUSION:
 				if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0, TRUE)) ident = TRUE;
-				break;
-
-			case SV_FOOD_CURE_SERIOUS:
-				if(heal_creature(creature_ptr, diceroll(4, 8))) ident = TRUE;
 				break;
 
 			case SV_FOOD_RESTORE_STR:
@@ -204,10 +196,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 #else
 				msg_print("That tastes good.");
 #endif
-				(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE);
-				(void)heal_creature(creature_ptr, diceroll(4, 8));
-				ident = TRUE;
-				break;
 			}
 
 #ifdef JP
