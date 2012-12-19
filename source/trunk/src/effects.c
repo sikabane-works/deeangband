@@ -448,7 +448,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 
 	if(IS_DEAD(creature_ptr)) return FALSE;
 
-	if(has_trait(creature_ptr, TRAIT_NO_STUN) || ((creature_ptr->class_idx == CLASS_BERSERKER) && (creature_ptr->lev > 34))) v = 0;
+	if(has_trait(creature_ptr, TRAIT_NO_STUN)) v = 0;
 
 	if(creature_ptr->timed_trait[TRAIT_STUN] > 100) old_aux = 3;
 	else if(creature_ptr->timed_trait[TRAIT_STUN] > 50) old_aux = 2;
