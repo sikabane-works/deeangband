@@ -30,7 +30,6 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 
 	if(IS_DEAD(creature_ptr)) return FALSE;
 
-
 	if(type == TRAIT_STUN)
 	{
 		if(creature_ptr->timed_trait[TRAIT_STUN] > 100) old_aux = 3;
@@ -202,7 +201,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 
 	creature_ptr->timed_trait[type] = v; // Use the value
 
-	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS);
+	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS | PR_CUT | PR_STUN);
 	if(!notice) return FALSE;
 	if(disturb_state) disturb(player_ptr, 0, 0);
 	handle_stuff();
@@ -547,47 +546,6 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 
 	return TRUE;
 }
-
-/*
-* Set "creature_ptr->timed_trait[TRAIT_STUN]", notice observable changes
-* Note the special code to only notice "range" changes.
-*/
-#if 0
-bool set_stun(creature_type *creature_ptr, int v)
-{
-
-
-
-
-	creature_ptr->creature_update |= (CRU_BONUS);
-	play_redraw |= (PR_STUN);
-	handle_stuff();
-	return TRUE;
-}
-}
-#endif
-
-
-/*
-* Set cut, notice observable changes
-*
-* Note the special code to only notice "range" changes.
-*/
-#if 0
-bool set_cut(creature_type *creature_ptr, int v)
-{
-
-
-	/* No change */
-	if(!notice) return FALSE;
-	if(disturb_state) disturb(player_ptr, 0, 0);
-	creature_ptr->creature_update |= (CRU_BONUS);
-	play_redraw |= (PR_CUT);
-	handle_stuff();
-
-	return TRUE;
-}
-#endif
 
 
 /*
@@ -1004,11 +962,10 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP
-			msg_format("%sなった気がしたが、すぐに元に戻った。",
+			msg_format("%sなった気がしたが、すぐに元に戻った。", desc_stat_neg[stat]);
 #else
-			msg_format("You feel %s for a moment, but the feeling passes.",
+			msg_format("You feel %s for a moment, but the feeling passes.", desc_stat_neg[stat]);
 #endif
-				desc_stat_neg[stat]);
 		}
 		return TRUE; // Notice effect
 	}
@@ -1044,7 +1001,6 @@ bool do_res_stat(creature_type *creature_ptr, int stat)
 		}
 		return TRUE;
 	}
-
 	return FALSE;
 }
 
@@ -1083,13 +1039,9 @@ bool do_inc_stat(creature_type *creature_ptr, int stat)
 	return FALSE; // Nothing obvious
 }
 
-
-/*
-* Restores any drained experience
-*/
+// Restores any drained experience
 bool restore_exp(creature_type *creature_ptr)
 {
-	/* Restore experience */
 	if(creature_ptr->exp < creature_ptr->max_exp)
 	{
 		if(is_seen(player_ptr, creature_ptr))
@@ -1101,17 +1053,10 @@ bool restore_exp(creature_type *creature_ptr)
 #endif
 		}
 
-		/* Restore the experience */
 		creature_ptr->exp = creature_ptr->max_exp;
-
-		/* Check the experience */
 		check_experience(creature_ptr);
-
-		/* Did something */
 		return TRUE;
 	}
-
-	/* No effect */
 	return FALSE;
 }
 
@@ -1176,7 +1121,7 @@ void do_poly_wounds(creature_type *creature_ptr)
 		}
 		set_timed_trait(creature_ptr, TRAIT_CUT, change, FALSE);
 	}
-	else add_timed_trait(creature_ptr, TRAIT_CUT, change / 2, FALSE);
+	else set_timed_trait(creature_ptr, TRAIT_CUT, change / 2, FALSE);
 }
 
 // Change player race
