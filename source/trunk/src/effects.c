@@ -86,6 +86,41 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		}
 	}
 
+	if(type == TRAIT_CUT && new_aux > old_aux && is_seen(player_ptr, creature_ptr))
+	{
+		switch (new_aux)
+		{
+#ifdef JP
+		case 1: msg_print("かすり傷を負ってしまった。"); break;
+		case 2: msg_print("軽い傷を負ってしまった。"); break;
+		case 3: msg_print("ひどい傷を負ってしまった。"); break;
+		case 4: msg_print("大変な傷を負ってしまった。"); break;
+		case 5: msg_print("重大な傷を負ってしまった。"); break;
+		case 6: msg_print("ひどい深手を負ってしまった。"); break;
+		case 7: msg_print("致命的な傷を負ってしまった。"); break;
+#else
+		case 1: msg_print("You have been given a graze."); break;
+		case 2: msg_print("You have been given a light cut."); break;
+		case 3: msg_print("You have been given a bad cut."); break;
+		case 4: msg_print("You have been given a nasty cut."); break;
+		case 5: msg_print("You have been given a severe cut."); break;
+		case 6: msg_print("You have been given a deep gash."); break;
+		case 7: msg_print("You have been given a mortal wound."); break;
+#endif
+		}
+		notice = TRUE;
+	}
+	else if(type == TRAIT_CUT && new_aux == 0)
+	{
+#ifdef JP
+		msg_format("やっと%s。", has_trait(creature_ptr, TRAIT_ANDROID) ? "怪我が直った" : "出血が止まった");
+#else
+		msg_print("You are no longer bleeding.");
+#endif
+		notice = TRUE;
+	}
+
+
 	if(have_posture(creature_ptr) && v > 0 && (type == TRAIT_AFRAID || type == TRAIT_STUN))
 	{
 		if(is_seen(player_ptr, creature_ptr))
@@ -560,70 +595,12 @@ bool set_stun(creature_type *creature_ptr, int v)
 bool set_cut(creature_type *creature_ptr, int v)
 {
 
-	if(new_aux > old_aux && is_seen(player_ptr, creature_ptr))
-	{
-		/* Describe the state */
-		switch (new_aux)
-		{
-#ifdef JP
-		case 1: msg_print("かすり傷を負ってしまった。"); break;
-		case 2: msg_print("軽い傷を負ってしまった。"); break;
-		case 3: msg_print("ひどい傷を負ってしまった。"); break;
-		case 4: msg_print("大変な傷を負ってしまった。"); break;
-		case 5: msg_print("重大な傷を負ってしまった。"); break;
-		case 6: msg_print("ひどい深手を負ってしまった。"); break;
-		case 7: msg_print("致命的な傷を負ってしまった。"); break;
-#else
-		case 1: msg_print("You have been given a graze."); break;
-		case 2: msg_print("You have been given a light cut."); break;
-		case 3: msg_print("You have been given a bad cut."); break;
-		case 4: msg_print("You have been given a nasty cut."); break;
-		case 5: msg_print("You have been given a severe cut."); break;
-		case 6: msg_print("You have been given a deep gash."); break;
-		case 7: msg_print("You have been given a mortal wound."); break;
-#endif
-		}
-
-		notice = TRUE;
-
-	}
-
-	/* Decrease cut */
-	else if(new_aux < old_aux)
-	{
-		/* Describe the state */
-		switch (new_aux)
-		{
-			/* None */
-		case 0:
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_format("やっと%s。", has_trait(creature_ptr, TRAIT_ANDROID) ? "怪我が直った" : "出血が止まった");
-#else
-				msg_print("You are no longer bleeding.");
-#endif
-			}
-
-			if(disturb_state) disturb(player_ptr, 0, 0);
-			break;
-		}
-
-		notice = TRUE;
-	}
-
-	/* Use the value */
-	creature_ptr->timed_trait[TRAIT_CUT] = v;
 
 	/* No change */
 	if(!notice) return FALSE;
-
 	if(disturb_state) disturb(player_ptr, 0, 0);
-
 	creature_ptr->creature_update |= (CRU_BONUS);
-
 	play_redraw |= (PR_CUT);
-
 	handle_stuff();
 
 	return TRUE;
