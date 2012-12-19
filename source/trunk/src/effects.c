@@ -120,6 +120,32 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		notice = TRUE;
 	}
 
+	if(type == TRAIT_STUN && new_aux > old_aux && is_seen(player_ptr, creature_ptr))
+	{
+		switch (new_aux)
+		{			
+#ifdef JP
+			case 1: msg_print("意識がもうろうとしてきた。"); break;
+			case 2: msg_print("意識がひどくもうろうとしてきた。"); break;
+			case 3: msg_print("頭がクラクラして意識が遠のいてきた。"); break;
+#else
+			case 1: msg_print("You have been stunned."); break;
+			case 2: msg_print("You have been heavily stunned."); break;
+			case 3: msg_print("You have been knocked out."); break;
+#endif
+		}
+		notice = TRUE;
+	}
+	else if(type == TRAIT_STUN && new_aux == 0)
+	{
+#ifdef JP
+		msg_print("やっと朦朧状態から回復した。");
+#else
+		msg_print("You are no longer stunned.");
+#endif
+		if(disturb_state) disturb(player_ptr, 0, 0);
+		notice = TRUE;
+	}
 
 	if(have_posture(creature_ptr) && v > 0 && (type == TRAIT_AFRAID || type == TRAIT_STUN))
 	{
@@ -531,51 +557,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 {
 
 
-	/* Increase cut */
-	if(new_aux > old_aux && is_seen(player_ptr, creature_ptr))
-	{
-		/* Describe the state */
-		switch (new_aux)
-		{			
-#ifdef JP
-			case 1: msg_print("意識がもうろうとしてきた。"); break;
-			case 2: msg_print("意識がひどくもうろうとしてきた。"); break;
-			case 3: msg_print("頭がクラクラして意識が遠のいてきた。"); break;
-#else
-			case 1: msg_print("You have been stunned."); break;
-			case 2: msg_print("You have been heavily stunned."); break;
-			case 3: msg_print("You have been knocked out."); break;
-#endif
-		}
 
-
-
-		notice = TRUE;
-	}
-
-	/* Decrease cut */
-	else if(new_aux < old_aux)
-	{
-		/* Describe the state */
-		switch (new_aux)
-		{
-			/* None */
-		case 0:
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("やっと朦朧状態から回復した。");
-#else
-				msg_print("You are no longer stunned.");
-#endif
-			}
-
-			if(disturb_state) disturb(player_ptr, 0, 0);
-			break;
-		}
-
-		notice = TRUE;
-	}
 
 	creature_ptr->creature_update |= (CRU_BONUS);
 	play_redraw |= (PR_STUN);
