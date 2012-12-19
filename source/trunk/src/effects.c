@@ -86,7 +86,6 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		}
 	}
 
-
 	if(have_posture(creature_ptr) && v > 0 && (type == TRAIT_AFRAID || type == TRAIT_STUN))
 	{
 		if(is_seen(player_ptr, creature_ptr))
@@ -103,11 +102,14 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		play_redraw |= (PR_STATE);
 		play_redraw |= (PR_STATUS);
 		creature_ptr->action = ACTION_NONE;
+
+		if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE); // Sniper
+		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr); // Hex
 	}
 
 	if(type == TRAIT_STUN && randint1(1000) < v || one_in_(16))
 	{
-		#ifdef JP
+#ifdef JP
 		if(is_player(creature_ptr)) msg_print("割れるような頭痛がする。");
 #else
 		if(is_player(creature_ptr)) msg_print("A vicious blow hits your head.");
@@ -119,6 +121,22 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		}
 		else if(one_in_(2)) if(!has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) (void)do_dec_stat(creature_ptr, STAT_INT);
 		else if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
+	}
+
+	if(type == TRAIT_CUT && randint1(1000) < v || one_in_(16))
+	{
+		if(!has_trait(creature_ptr, TRAIT_SUSTAIN_CHR))
+		{
+			if(is_seen(player_ptr, creature_ptr))
+			{
+#ifdef JP
+				msg_print("ひどい傷跡が残ってしまった。");
+#else
+				msg_print("You have been horribly scarred.");
+#endif
+			}
+			do_dec_stat(creature_ptr, STAT_CHA);
+		}
 	}
 
 	creature_ptr->timed_trait[type] = v; // Use the value
@@ -135,10 +153,7 @@ void set_action(creature_type *creature_ptr, int typ)
 {
 	int prev_typ = creature_ptr->action;
 
-	if(typ == prev_typ)
-	{
-		return;
-	}
+	if(typ == prev_typ) return;
 	else
 	{
 		switch (prev_typ)
@@ -498,29 +513,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 #endif
 		}
 
-		if(have_posture(creature_ptr))
-		{
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("型が崩れた。");
-#else
-				msg_print("Your posture gets loose.");
-#endif
-			}
-			creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
-			creature_ptr->creature_update |= (CRU_BONUS);
-			creature_ptr->creature_update |= (PU_CREATURES);
-			play_redraw |= (PR_STATE);
-			play_redraw |= (PR_STATUS);
-			creature_ptr->action = ACTION_NONE;
-		}
 
-		/* Sniper */
-		if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
-
-		/* Hex */
-		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 		notice = TRUE;
 	}
@@ -549,20 +542,9 @@ bool set_stun(creature_type *creature_ptr, int v)
 		notice = TRUE;
 	}
 
-	/* Use the value */
-	creature_ptr->timed_trait[TRAIT_STUN] = v;
-
-	/* No change */
-	if(!notice) return FALSE;
-
-	if(disturb_state) disturb(player_ptr, 0, 0);
-
 	creature_ptr->creature_update |= (CRU_BONUS);
-
 	play_redraw |= (PR_STUN);
-
 	handle_stuff();
-
 	return TRUE;
 }
 }
@@ -577,16 +559,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 #if 0
 bool set_cut(creature_type *creature_ptr, int v)
 {
-	int old_aux, new_aux;
-	bool notice = FALSE;
 
-	/* Hack -- Force good values */
-	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
-
-	if(IS_DEAD(creature_ptr)) return FALSE;
-
-
-	/* Increase cut */
 	if(new_aux > old_aux && is_seen(player_ptr, creature_ptr))
 	{
 		/* Describe the state */
@@ -613,21 +586,6 @@ bool set_cut(creature_type *creature_ptr, int v)
 
 		notice = TRUE;
 
-		if(randint1(1000) < v || one_in_(16))
-		{
-			if(!has_trait(creature_ptr, TRAIT_SUSTAIN_CHR))
-			{
-				if(is_seen(player_ptr, creature_ptr))
-				{
-#ifdef JP
-					msg_print("ひどい傷跡が残ってしまった。");
-#else
-					msg_print("You have been horribly scarred.");
-#endif
-				}
-				do_dec_stat(creature_ptr, STAT_CHA);
-			}
-		}
 	}
 
 	/* Decrease cut */
