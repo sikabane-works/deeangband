@@ -21,10 +21,49 @@ bool add_timed_trait(creature_type *creature_ptr, int type, int v, bool message)
 bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 {
 	bool notice = FALSE;
+	int old_aux, new_aux;
+
+	if(type == TRAIT_STUN && has_trait(creature_ptr, TRAIT_NO_STUN)) v = 0;
+	if(type == TRAIT_CUT && has_trait(creature_ptr, TRAIT_UNDEAD) && has_trait(creature_ptr, TRAIT_NONLIVING)) v = 0;
 
 	v = (v > PERMANENT_TIMED) ? PERMANENT_TIMED : (v < 0) ? 0 : v; // Hack -- Force good values
 
 	if(IS_DEAD(creature_ptr)) return FALSE;
+
+
+	if(type == TRAIT_STUN)
+	{
+		if(creature_ptr->timed_trait[TRAIT_STUN] > 100) old_aux = 3;
+		else if(creature_ptr->timed_trait[TRAIT_STUN] > 50) old_aux = 2;
+		else if(creature_ptr->timed_trait[TRAIT_STUN] > 0) old_aux = 1;
+		else old_aux = 0;
+
+		if(v > 100) new_aux = 3;
+		else if(v > 50) new_aux = 2;
+		else if(v > 0) new_aux = 1;
+		else new_aux = 0;
+	}
+
+	if(type == TRAIT_CUT)
+	{
+		if(creature_ptr->timed_trait[TRAIT_CUT] > 1000) old_aux = 7;
+		else if(creature_ptr->timed_trait[TRAIT_CUT] > 200) old_aux = 6;
+		else if(creature_ptr->timed_trait[TRAIT_CUT] > 100) old_aux = 5;
+		else if(creature_ptr->timed_trait[TRAIT_CUT] > 50) old_aux = 4;
+		else if(creature_ptr->timed_trait[TRAIT_CUT] > 25) old_aux = 3;
+		else if(creature_ptr->timed_trait[TRAIT_CUT] > 10) old_aux = 2;
+		else if(creature_ptr->timed_trait[TRAIT_CUT] > 0) old_aux = 1;
+		else old_aux = 0;
+
+		if(v > 1000) new_aux = 7;
+		else if(v > 200) new_aux = 6;
+		else if(v > 100) new_aux = 5;
+		else if(v > 50) new_aux = 4;
+		else if(v > 25) new_aux = 3;
+		else if(v > 10) new_aux = 2;
+		else if(v > 0) new_aux = 1;
+		else new_aux = 0;
+	}
 
 	if(v)
 	{
@@ -440,25 +479,7 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 #if 0
 bool set_stun(creature_type *creature_ptr, int v)
 {
-	int old_aux, new_aux;
-	bool notice = FALSE;
 
-	/* Hack -- Force good values */
-	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
-
-	if(IS_DEAD(creature_ptr)) return FALSE;
-
-	if(has_trait(creature_ptr, TRAIT_NO_STUN)) v = 0;
-
-	if(creature_ptr->timed_trait[TRAIT_STUN] > 100) old_aux = 3;
-	else if(creature_ptr->timed_trait[TRAIT_STUN] > 50) old_aux = 2;
-	else if(creature_ptr->timed_trait[TRAIT_STUN] > 0) old_aux = 1;
-	else old_aux = 0;
-
-	if(v > 100) new_aux = 3;
-	else if(v > 50) new_aux = 2;
-	else if(v > 0) new_aux = 1;
-	else new_aux = 0;
 
 	/* Increase cut */
 	if(new_aux > old_aux && is_seen(player_ptr, creature_ptr))
@@ -564,26 +585,6 @@ bool set_cut(creature_type *creature_ptr, int v)
 
 	if(IS_DEAD(creature_ptr)) return FALSE;
 
-	if(has_trait(creature_ptr, TRAIT_UNDEAD) && has_trait(creature_ptr, TRAIT_NONLIVING))
-		v = 0;
-
-	if(creature_ptr->timed_trait[TRAIT_CUT] > 1000) old_aux = 7;
-	else if(creature_ptr->timed_trait[TRAIT_CUT] > 200) old_aux = 6;
-	else if(creature_ptr->timed_trait[TRAIT_CUT] > 100) old_aux = 5;
-	else if(creature_ptr->timed_trait[TRAIT_CUT] > 50) old_aux = 4;
-	else if(creature_ptr->timed_trait[TRAIT_CUT] > 25) old_aux = 3;
-	else if(creature_ptr->timed_trait[TRAIT_CUT] > 10) old_aux = 2;
-	else if(creature_ptr->timed_trait[TRAIT_CUT] > 0) old_aux = 1;
-	else old_aux = 0;
-
-	if(v > 1000) new_aux = 7;
-	else if(v > 200) new_aux = 6;
-	else if(v > 100) new_aux = 5;
-	else if(v > 50) new_aux = 4;
-	else if(v > 25) new_aux = 3;
-	else if(v > 10) new_aux = 2;
-	else if(v > 0) new_aux = 1;
-	else new_aux = 0;
 
 	/* Increase cut */
 	if(new_aux > old_aux && is_seen(player_ptr, creature_ptr))
