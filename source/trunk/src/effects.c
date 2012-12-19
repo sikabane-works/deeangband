@@ -951,6 +951,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 * game turns, or 500/(100/5) = 25 player turns (if nothing else is
 * affecting the player speed).
 */
+
 bool set_food(creature_type *creature_ptr, int v)
 {
 	int old_aux, new_aux;
@@ -976,10 +977,9 @@ bool set_food(creature_type *creature_ptr, int v)
 	else if(v < CREATURE_FOOD_MAX) new_aux = 4;
 	else new_aux = 5;
 
-	/* Food increase */
+	// Food increase
 	if(new_aux > old_aux)
 	{
-		/* Describe the state */
 		switch (new_aux)
 		{	
 #ifdef JP
@@ -996,73 +996,33 @@ bool set_food(creature_type *creature_ptr, int v)
 		case 5: if(is_seen(player_ptr, creature_ptr)) msg_print("You have gorged yourself!"); break;
 #endif
 		}
-
-		/* Change */
 		notice = TRUE;
 	}
 
-	/* Food decrease */
+	// Food decrease
 	else if(new_aux < old_aux)
 	{
 		if(is_seen(player_ptr, creature_ptr))
 		{
-
-			/* Describe the state */
 			switch (new_aux)
 			{
-				/* Fainting / Starving */
-			case 0:
 #ifdef JP
-				msg_print("あまりにも空腹で気を失ってしまった！");
+			case 0: msg_print("あまりにも空腹で気を失ってしまった！"); break;
+			case 1: msg_print("お腹が空いて倒れそうだ。"); break;
+			case 2: msg_print("お腹が空いてきた。"); break;
+			case 3: msg_print("満腹感がなくなった。"); break;
+			case 4: msg_print("やっとお腹がきつくなくなった。"); break;
 #else
-				msg_print("You are getting faint from hunger!");
+			case 0: msg_print("You are getting faint from hunger!"); break;
+			case 1: msg_print("You are getting weak from hunger!"); break;
+			case 2: msg_print("You are getting hungry."); break;
+			case 3: msg_print("You are no longer full."); break;
+			case 4: msg_print("You are no longer gorged."); break;
 #endif
-				break;
-
-				/* Weak */
-			case 1:
-#ifdef JP
-				msg_print("お腹が空いて倒れそうだ。");
-#else
-				msg_print("You are getting weak from hunger!");
-#endif
-
-				break;
-
-				/* Hungry */
-			case 2:
-#ifdef JP
-				msg_print("お腹が空いてきた。");
-#else
-				msg_print("You are getting hungry.");
-#endif
-				break;
-
-				/* Normal */
-			case 3:
-#ifdef JP
-				msg_print("満腹感がなくなった。");
-#else
-				msg_print("You are no longer full.");
-#endif
-				break;
-
-				/* Full */
-			case 4:
-#ifdef JP
-				msg_print("やっとお腹がきつくなくなった。");
-#else
-				msg_print("You are no longer gorged.");
-#endif
-				break;
-
 			}
 		}
 
-		if(floor_ptr->wild_mode && (new_aux < 2))
-		{
-			change_wild_mode(creature_ptr);
-		}
+		if(floor_ptr->wild_mode && (new_aux < 2)) change_wild_mode(creature_ptr);
 
 		/* Change */
 		notice = TRUE;
@@ -1073,13 +1033,10 @@ bool set_food(creature_type *creature_ptr, int v)
 
 	/* Nothing to notice */
 	if(!notice) return FALSE;
-
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
 	creature_ptr->creature_update |= (CRU_BONUS);
-
 	play_redraw |= (PR_HUNGER);
-
 	handle_stuff();
 
 	return TRUE;
