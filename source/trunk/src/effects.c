@@ -981,47 +981,20 @@ bool set_food(creature_type *creature_ptr, int v)
 	{
 		/* Describe the state */
 		switch (new_aux)
-		{
-		case 1:
+		{	
 #ifdef JP
-			if(is_seen(player_ptr, creature_ptr)) msg_print("まだ空腹で倒れそうだ。");
+		case 1: if(is_seen(player_ptr, creature_ptr)) msg_print("まだ空腹で倒れそうだ。"); break;
+		case 2: if(is_seen(player_ptr, creature_ptr)) msg_print("まだ空腹だ。"); break;
+		case 3: if(is_seen(player_ptr, creature_ptr)) msg_print("空腹感がおさまった。"); break;
+		case 4: if(is_seen(player_ptr, creature_ptr)) msg_print("満腹だ！"); break;
+		case 5: if(is_seen(player_ptr, creature_ptr)) msg_print("食べ過ぎだ！"); break;
 #else
-			if(is_seen(player_ptr, creature_ptr)) msg_print("You are still weak.");
+		case 1: if(is_seen(player_ptr, creature_ptr)) msg_print("You are still weak."); break;
+		case 2: if(is_seen(player_ptr, creature_ptr)) msg_print("You are still hungry."); break;
+		case 3: if(is_seen(player_ptr, creature_ptr)) msg_print("You are no longer hungry."); break;
+		case 4: if(is_seen(player_ptr, creature_ptr)) msg_print("You are full!"); break;
+		case 5: if(is_seen(player_ptr, creature_ptr)) msg_print("You have gorged yourself!"); break;
 #endif
-			break;
-
-		case 2:
-#ifdef JP
-			if(is_seen(player_ptr, creature_ptr)) msg_print("まだ空腹だ。");
-#else
-			if(is_seen(player_ptr, creature_ptr)) msg_print("You are still hungry.");
-#endif
-			break;
-
-		case 3:
-#ifdef JP
-			if(is_seen(player_ptr, creature_ptr)) msg_print("空腹感がおさまった。");
-#else
-			if(is_seen(player_ptr, creature_ptr)) msg_print("You are no longer hungry.");
-#endif
-			break;
-
-		case 4:
-#ifdef JP
-			if(is_seen(player_ptr, creature_ptr)) msg_print("満腹だ！");
-#else
-			if(is_seen(player_ptr, creature_ptr)) msg_print("You are full!");
-#endif
-			break;
-
-		case 5:
-#ifdef JP
-			if(is_seen(player_ptr, creature_ptr)) msg_print("食べ過ぎだ！");
-#else
-			if(is_seen(player_ptr, creature_ptr)) msg_print("You have gorged yourself!");
-#endif
-			break;
-
 		}
 
 		/* Change */
