@@ -47,9 +47,8 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		}
 	}
 
-	creature_ptr->timed_trait[type] = v; // Use the value
 
-	if(have_posture(creature_ptr) && type == TRAIT_AFRAID && v > 0)
+	if(have_posture(creature_ptr) && v > 0 && (type == TRAIT_AFRAID || type == TRAIT_STUN))
 	{
 		if(is_seen(player_ptr, creature_ptr))
 		{
@@ -67,13 +66,30 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		creature_ptr->action = ACTION_NONE;
 	}
 
+	if(type == TRAIT_STUN && randint1(1000) < v || one_in_(16))
+	{
+		#ifdef JP
+		if(is_player(creature_ptr)) msg_print("Š„‚ê‚é‚æ‚¤‚È“ª’É‚ª‚·‚éB");
+#else
+		if(is_player(creature_ptr)) msg_print("A vicious blow hits your head.");
+#endif
+		if(one_in_(3))
+		{
+			if(!has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) (void)do_dec_stat(creature_ptr, STAT_INT);
+			if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
+		}
+		else if(one_in_(2)) if(!has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) (void)do_dec_stat(creature_ptr, STAT_INT);
+		else if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
+	}
 
-	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS);	// Redraw status bar
-	if(!notice) return FALSE;	// Nothing to notice
-	if(disturb_state) disturb(player_ptr, 0, 0); // Disturb
+	creature_ptr->timed_trait[type] = v; // Use the value
+
+	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS);
+	if(!notice) return FALSE;
+	if(disturb_state) disturb(player_ptr, 0, 0);
 	handle_stuff();
 
-	return TRUE;	// Result
+	return TRUE;
 }
 
 void set_action(creature_type *creature_ptr, int typ)
@@ -419,7 +435,6 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 
 /*
 * Set "creature_ptr->timed_trait[TRAIT_STUN]", notice observable changes
-*
 * Note the special code to only notice "range" changes.
 */
 #if 0
@@ -433,24 +448,24 @@ bool set_stun(creature_type *creature_ptr, int v)
 
 	if(IS_DEAD(creature_ptr)) return FALSE;
 
-		if(has_trait(creature_ptr, TRAIT_NO_STUN) || ((creature_ptr->class_idx == CLASS_BERSERKER) && (creature_ptr->lev > 34))) v = 0;
+	if(has_trait(creature_ptr, TRAIT_NO_STUN) || ((creature_ptr->class_idx == CLASS_BERSERKER) && (creature_ptr->lev > 34))) v = 0;
 
-		if(creature_ptr->timed_trait[TRAIT_STUN] > 100) old_aux = 3;
-		else if(creature_ptr->timed_trait[TRAIT_STUN] > 50) old_aux = 2;
-		else if(creature_ptr->timed_trait[TRAIT_STUN] > 0) old_aux = 1;
-		else old_aux = 0;
+	if(creature_ptr->timed_trait[TRAIT_STUN] > 100) old_aux = 3;
+	else if(creature_ptr->timed_trait[TRAIT_STUN] > 50) old_aux = 2;
+	else if(creature_ptr->timed_trait[TRAIT_STUN] > 0) old_aux = 1;
+	else old_aux = 0;
 
-		if(v > 100) new_aux = 3;
-		else if(v > 50) new_aux = 2;
-		else if(v > 0) new_aux = 1;
-		else new_aux = 0;
+	if(v > 100) new_aux = 3;
+	else if(v > 50) new_aux = 2;
+	else if(v > 0) new_aux = 1;
+	else new_aux = 0;
 
-		/* Increase cut */
-		if(new_aux > old_aux && is_seen(player_ptr, creature_ptr))
-		{
-			/* Describe the state */
-			switch (new_aux)
-			{			
+	/* Increase cut */
+	if(new_aux > old_aux && is_seen(player_ptr, creature_ptr))
+	{
+		/* Describe the state */
+		switch (new_aux)
+		{			
 #ifdef JP
 			case 1: msg_print("ˆÓ¯‚ª‚à‚¤‚ë‚¤‚Æ‚µ‚Ä‚«‚½B"); break;
 			case 2: msg_print("ˆÓ¯‚ª‚Ğ‚Ç‚­‚à‚¤‚ë‚¤‚Æ‚µ‚Ä‚«‚½B"); break;
@@ -460,100 +475,75 @@ bool set_stun(creature_type *creature_ptr, int v)
 			case 2: msg_print("You have been heavily stunned."); break;
 			case 3: msg_print("You have been knocked out."); break;
 #endif
-			}
-
-			if(randint1(1000) < v || one_in_(16))
-			{
-				if(is_seen(player_ptr, creature_ptr))
-				{
-#ifdef JP
-					msg_print("Š„‚ê‚é‚æ‚¤‚È“ª’É‚ª‚·‚éB");
-#else
-					msg_print("A vicious blow hits your head.");
-#endif
-				}
-
-				if(one_in_(3))
-				{
-					if(!has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) (void)do_dec_stat(creature_ptr, STAT_INT);
-					if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
-				}
-				else if(one_in_(2))
-				{
-					if(!has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) (void)do_dec_stat(creature_ptr, STAT_INT);
-				}
-				else
-				{
-					if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
-				}
-			}
-			if(have_posture(creature_ptr))
-			{
-				if(is_seen(player_ptr, creature_ptr))
-				{
-#ifdef JP
-					msg_print("Œ^‚ª•ö‚ê‚½B");
-#else
-					msg_print("Your posture gets loose.");
-#endif
-				}
-				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
-				creature_ptr->creature_update |= (CRU_BONUS);
-				creature_ptr->creature_update |= (PU_CREATURES);
-				play_redraw |= (PR_STATE);
-				play_redraw |= (PR_STATUS);
-				creature_ptr->action = ACTION_NONE;
-			}
-
-			/* Sniper */
-			if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
-
-			/* Hex */
-			if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
-
-			notice = TRUE;
 		}
 
-		/* Decrease cut */
-		else if(new_aux < old_aux)
+		if(have_posture(creature_ptr))
 		{
-			/* Describe the state */
-			switch (new_aux)
+			if(is_seen(player_ptr, creature_ptr))
 			{
-				/* None */
-			case 0:
-				if(is_seen(player_ptr, creature_ptr))
-				{
 #ifdef JP
-					msg_print("‚â‚Á‚ÆNOó‘Ô‚©‚ç‰ñ•œ‚µ‚½B");
+				msg_print("Œ^‚ª•ö‚ê‚½B");
 #else
-					msg_print("You are no longer stunned.");
+				msg_print("Your posture gets loose.");
 #endif
-				}
-
-				if(disturb_state) disturb(player_ptr, 0, 0);
-				break;
 			}
-
-			notice = TRUE;
+			creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
+			creature_ptr->creature_update |= (CRU_BONUS);
+			creature_ptr->creature_update |= (PU_CREATURES);
+			play_redraw |= (PR_STATE);
+			play_redraw |= (PR_STATUS);
+			creature_ptr->action = ACTION_NONE;
 		}
 
-		/* Use the value */
-		creature_ptr->timed_trait[TRAIT_STUN] = v;
+		/* Sniper */
+		if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
 
-		/* No change */
-		if(!notice) return FALSE;
+		/* Hex */
+		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
-		if(disturb_state) disturb(player_ptr, 0, 0);
-
-		creature_ptr->creature_update |= (CRU_BONUS);
-
-		play_redraw |= (PR_STUN);
-
-		handle_stuff();
-
-		return TRUE;
+		notice = TRUE;
 	}
+
+	/* Decrease cut */
+	else if(new_aux < old_aux)
+	{
+		/* Describe the state */
+		switch (new_aux)
+		{
+			/* None */
+		case 0:
+			if(is_seen(player_ptr, creature_ptr))
+			{
+#ifdef JP
+				msg_print("‚â‚Á‚ÆNOó‘Ô‚©‚ç‰ñ•œ‚µ‚½B");
+#else
+				msg_print("You are no longer stunned.");
+#endif
+			}
+
+			if(disturb_state) disturb(player_ptr, 0, 0);
+			break;
+		}
+
+		notice = TRUE;
+	}
+
+	/* Use the value */
+	creature_ptr->timed_trait[TRAIT_STUN] = v;
+
+	/* No change */
+	if(!notice) return FALSE;
+
+	if(disturb_state) disturb(player_ptr, 0, 0);
+
+	creature_ptr->creature_update |= (CRU_BONUS);
+
+	play_redraw |= (PR_STUN);
+
+	handle_stuff();
+
+	return TRUE;
+}
 }
 #endif
 
