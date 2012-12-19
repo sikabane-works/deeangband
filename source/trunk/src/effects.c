@@ -982,68 +982,46 @@ bool set_food(creature_type *creature_ptr, int v)
 		/* Describe the state */
 		switch (new_aux)
 		{
-			/* Weak */
 		case 1:
-			if(is_seen(player_ptr, creature_ptr))
-			{
 #ifdef JP
-				msg_print("まだ空腹で倒れそうだ。");
+			if(is_seen(player_ptr, creature_ptr)) msg_print("まだ空腹で倒れそうだ。");
 #else
-				msg_print("You are still weak.");
+			if(is_seen(player_ptr, creature_ptr)) msg_print("You are still weak.");
 #endif
-			}
-
 			break;
 
-			/* Hungry */
 		case 2:
-			if(is_seen(player_ptr, creature_ptr))
-			{
 #ifdef JP
-				msg_print("まだ空腹だ。");
+			if(is_seen(player_ptr, creature_ptr)) msg_print("まだ空腹だ。");
 #else
-				msg_print("You are still hungry.");
+			if(is_seen(player_ptr, creature_ptr)) msg_print("You are still hungry.");
 #endif
-			}
-
 			break;
 
-			/* Normal */
 		case 3:
-			if(is_seen(player_ptr, creature_ptr))
-			{
 #ifdef JP
-				msg_print("空腹感がおさまった。");
+			if(is_seen(player_ptr, creature_ptr)) msg_print("空腹感がおさまった。");
 #else
-				msg_print("You are no longer hungry.");
+			if(is_seen(player_ptr, creature_ptr)) msg_print("You are no longer hungry.");
 #endif
-			}
 			break;
 
-			/* Full */
 		case 4:
-			if(is_seen(player_ptr, creature_ptr))
-			{
 #ifdef JP
-				msg_print("満腹だ！");
+			if(is_seen(player_ptr, creature_ptr)) msg_print("満腹だ！");
 #else
-				msg_print("You are full!");
+			if(is_seen(player_ptr, creature_ptr)) msg_print("You are full!");
 #endif
-			}
-
 			break;
 
-			/* Bloated */
 		case 5:
-			if(is_seen(player_ptr, creature_ptr))
-			{
 #ifdef JP
-				msg_print("食べ過ぎだ！");
+			if(is_seen(player_ptr, creature_ptr)) msg_print("食べ過ぎだ！");
 #else
-				msg_print("You have gorged yourself!");
+			if(is_seen(player_ptr, creature_ptr)) msg_print("You have gorged yourself!");
 #endif
-			}
 			break;
+
 		}
 
 		/* Change */
@@ -1053,73 +1031,59 @@ bool set_food(creature_type *creature_ptr, int v)
 	/* Food decrease */
 	else if(new_aux < old_aux)
 	{
-		/* Describe the state */
-		switch (new_aux)
+		if(is_seen(player_ptr, creature_ptr))
 		{
-			/* Fainting / Starving */
-		case 0:
-			if(is_seen(player_ptr, creature_ptr))
+
+			/* Describe the state */
+			switch (new_aux)
 			{
+				/* Fainting / Starving */
+			case 0:
 #ifdef JP
 				msg_print("あまりにも空腹で気を失ってしまった！");
 #else
 				msg_print("You are getting faint from hunger!");
 #endif
-			}
+				break;
 
-			break;
-
-			/* Weak */
-		case 1:
-			if(is_seen(player_ptr, creature_ptr))
-			{
+				/* Weak */
+			case 1:
 #ifdef JP
 				msg_print("お腹が空いて倒れそうだ。");
 #else
 				msg_print("You are getting weak from hunger!");
 #endif
-			}
 
-			break;
+				break;
 
-			/* Hungry */
-		case 2:
-			if(is_seen(player_ptr, creature_ptr))
-			{
+				/* Hungry */
+			case 2:
 #ifdef JP
 				msg_print("お腹が空いてきた。");
 #else
 				msg_print("You are getting hungry.");
 #endif
-			}
+				break;
 
-			break;
-
-			/* Normal */
-		case 3:
-			if(is_seen(player_ptr, creature_ptr))
-			{
+				/* Normal */
+			case 3:
 #ifdef JP
 				msg_print("満腹感がなくなった。");
 #else
 				msg_print("You are no longer full.");
 #endif
-			}
+				break;
 
-			break;
-
-			/* Full */
-		case 4:
-			if(is_seen(player_ptr, creature_ptr))
-			{
+				/* Full */
+			case 4:
 #ifdef JP
 				msg_print("やっとお腹がきつくなくなった。");
 #else
 				msg_print("You are no longer gorged.");
 #endif
-			}
+				break;
 
-			break;
+			}
 		}
 
 		if(floor_ptr->wild_mode && (new_aux < 2))
