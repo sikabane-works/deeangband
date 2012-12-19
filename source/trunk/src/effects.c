@@ -676,194 +676,47 @@ bool set_cut(creature_type *creature_ptr, int v)
 	if(has_trait(creature_ptr, TRAIT_UNDEAD) && has_trait(creature_ptr, TRAIT_NONLIVING))
 		v = 0;
 
-	/* Mortal wound */
-	if(creature_ptr->timed_trait[TRAIT_CUT] > 1000)
-	{
-		old_aux = 7;
-	}
+	if(creature_ptr->timed_trait[TRAIT_CUT] > 1000) old_aux = 7;
+	else if(creature_ptr->timed_trait[TRAIT_CUT] > 200) old_aux = 6;
+	else if(creature_ptr->timed_trait[TRAIT_CUT] > 100) old_aux = 5;
+	else if(creature_ptr->timed_trait[TRAIT_CUT] > 50) old_aux = 4;
+	else if(creature_ptr->timed_trait[TRAIT_CUT] > 25) old_aux = 3;
+	else if(creature_ptr->timed_trait[TRAIT_CUT] > 10) old_aux = 2;
+	else if(creature_ptr->timed_trait[TRAIT_CUT] > 0) old_aux = 1;
+	else old_aux = 0;
 
-	/* Deep gash */
-	else if(creature_ptr->timed_trait[TRAIT_CUT] > 200)
-	{
-		old_aux = 6;
-	}
-
-	/* Severe cut */
-	else if(creature_ptr->timed_trait[TRAIT_CUT] > 100)
-	{
-		old_aux = 5;
-	}
-
-	/* Nasty cut */
-	else if(creature_ptr->timed_trait[TRAIT_CUT] > 50)
-	{
-		old_aux = 4;
-	}
-
-	/* Bad cut */
-	else if(creature_ptr->timed_trait[TRAIT_CUT] > 25)
-	{
-		old_aux = 3;
-	}
-
-	/* Light cut */
-	else if(creature_ptr->timed_trait[TRAIT_CUT] > 10)
-	{
-		old_aux = 2;
-	}
-
-	/* Graze */
-	else if(creature_ptr->timed_trait[TRAIT_CUT] > 0)
-	{
-		old_aux = 1;
-	}
-
-	/* None */
-	else
-	{
-		old_aux = 0;
-	}
-
-	/* Mortal wound */
-	if(v > 1000)
-	{
-		new_aux = 7;
-	}
-
-	/* Deep gash */
-	else if(v > 200)
-	{
-		new_aux = 6;
-	}
-
-	/* Severe cut */
-	else if(v > 100)
-	{
-		new_aux = 5;
-	}
-
-	/* Nasty cut */
-	else if(v > 50)
-	{
-		new_aux = 4;
-	}
-
-	/* Bad cut */
-	else if(v > 25)
-	{
-		new_aux = 3;
-	}
-
-	/* Light cut */
-	else if(v > 10)
-	{
-		new_aux = 2;
-	}
-
-	/* Graze */
-	else if(v > 0)
-	{
-		new_aux = 1;
-	}
-
-	/* None */
-	else
-	{
-		new_aux = 0;
-	}
+	if(v > 1000) new_aux = 7;
+	else if(v > 200) new_aux = 6;
+	else if(v > 100) new_aux = 5;
+	else if(v > 50) new_aux = 4;
+	else if(v > 25) new_aux = 3;
+	else if(v > 10) new_aux = 2;
+	else if(v > 0) new_aux = 1;
+	else new_aux = 0;
 
 	/* Increase cut */
-	if(new_aux > old_aux)
+	if(new_aux > old_aux && is_seen(player_ptr, creature_ptr))
 	{
 		/* Describe the state */
 		switch (new_aux)
 		{
-			/* Graze */
-		case 1:
-			if(is_seen(player_ptr, creature_ptr))
-			{
 #ifdef JP
-				msg_print("かすり傷を負ってしまった。");
+		case 1: msg_print("かすり傷を負ってしまった。"); break;
+		case 2: msg_print("軽い傷を負ってしまった。"); break;
+		case 3: msg_print("ひどい傷を負ってしまった。"); break;
+		case 4: msg_print("大変な傷を負ってしまった。"); break;
+		case 5: msg_print("重大な傷を負ってしまった。"); break;
+		case 6: msg_print("ひどい深手を負ってしまった。"); break;
+		case 7: msg_print("致命的な傷を負ってしまった。"); break;
 #else
-				msg_print("You have been given a graze.");
+		case 1: msg_print("You have been given a graze."); break;
+		case 2: msg_print("You have been given a light cut."); break;
+		case 3: msg_print("You have been given a bad cut."); break;
+		case 4: msg_print("You have been given a nasty cut."); break;
+		case 5: msg_print("You have been given a severe cut."); break;
+		case 6: msg_print("You have been given a deep gash."); break;
+		case 7: msg_print("You have been given a mortal wound."); break;
 #endif
-			}
-
-			break;
-
-			/* Light cut */
-		case 2:
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("軽い傷を負ってしまった。");
-#else
-				msg_print("You have been given a light cut.");
-#endif
-			}
-
-			break;
-
-			/* Bad cut */
-		case 3:
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("ひどい傷を負ってしまった。");
-#else
-				msg_print("You have been given a bad cut.");
-#endif
-			}
-
-			break;
-
-			/* Nasty cut */
-		case 4:
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("大変な傷を負ってしまった。");
-#else
-				msg_print("You have been given a nasty cut.");
-#endif
-			}
-			break;
-
-			/* Severe cut */
-		case 5:
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("重大な傷を負ってしまった。");
-#else
-				msg_print("You have been given a severe cut.");
-#endif
-			}
-			break;
-
-			/* Deep gash */
-		case 6:
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("ひどい深手を負ってしまった。");
-#else
-				msg_print("You have been given a deep gash.");
-#endif
-			}
-			break;
-
-			/* Mortal wound */
-		case 7:
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("致命的な傷を負ってしまった。");
-#else
-				msg_print("You have been given a mortal wound.");
-#endif
-			}
-			break;
 		}
 
 		notice = TRUE;
