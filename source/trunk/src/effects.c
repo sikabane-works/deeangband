@@ -428,109 +428,38 @@ bool set_stun(creature_type *creature_ptr, int v)
 	int old_aux, new_aux;
 	bool notice = FALSE;
 
-
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
 
 	if(IS_DEAD(creature_ptr)) return FALSE;
 
-
-	//TODO
-	if(is_player(creature_ptr))
-	{
 		if(has_trait(creature_ptr, TRAIT_NO_STUN) || ((creature_ptr->class_idx == CLASS_BERSERKER) && (creature_ptr->lev > 34))) v = 0;
 
-		/* Knocked out */
-		if(creature_ptr->timed_trait[TRAIT_STUN] > 100)
-		{
-			old_aux = 3;
-		}
+		if(creature_ptr->timed_trait[TRAIT_STUN] > 100) old_aux = 3;
+		else if(creature_ptr->timed_trait[TRAIT_STUN] > 50) old_aux = 2;
+		else if(creature_ptr->timed_trait[TRAIT_STUN] > 0) old_aux = 1;
+		else old_aux = 0;
 
-		/* Heavy stun */
-		else if(creature_ptr->timed_trait[TRAIT_STUN] > 50)
-		{
-			old_aux = 2;
-		}
-
-		/* Stun */
-		else if(creature_ptr->timed_trait[TRAIT_STUN] > 0)
-		{
-			old_aux = 1;
-		}
-
-		/* None */
-		else
-		{
-			old_aux = 0;
-		}
-
-		/* Knocked out */
-		if(v > 100)
-		{
-			new_aux = 3;
-		}
-
-		/* Heavy stun */
-		else if(v > 50)
-		{
-			new_aux = 2;
-		}
-
-		/* Stun */
-		else if(v > 0)
-		{
-			new_aux = 1;
-		}
-
-		/* None */
-		else
-		{
-			new_aux = 0;
-		}
+		if(v > 100) new_aux = 3;
+		else if(v > 50) new_aux = 2;
+		else if(v > 0) new_aux = 1;
+		else new_aux = 0;
 
 		/* Increase cut */
-		if(new_aux > old_aux)
+		if(new_aux > old_aux && is_seen(player_ptr, creature_ptr))
 		{
 			/* Describe the state */
 			switch (new_aux)
-			{
-				/* Stun */
-			case 1:
-				if(is_seen(player_ptr, creature_ptr))
-				{
+			{			
 #ifdef JP
-					msg_print("意識がもうろうとしてきた。");
+			case 1: msg_print("意識がもうろうとしてきた。"); break;
+			case 2: msg_print("意識がひどくもうろうとしてきた。"); break;
+			case 3: msg_print("頭がクラクラして意識が遠のいてきた。"); break;
 #else
-					msg_print("You have been stunned.");
+			case 1: msg_print("You have been stunned."); break;
+			case 2: msg_print("You have been heavily stunned."); break;
+			case 3: msg_print("You have been knocked out."); break;
 #endif
-				}
-
-				break;
-
-				/* Heavy stun */
-			case 2:
-				if(is_seen(player_ptr, creature_ptr))
-				{
-#ifdef JP
-					msg_print("意識がひどくもうろうとしてきた。");
-#else
-					msg_print("You have been heavily stunned.");
-#endif
-				}
-
-				break;
-
-				/* Knocked out */
-			case 3:
-				if(is_seen(player_ptr, creature_ptr))
-				{
-#ifdef JP
-					msg_print("頭がクラクラして意識が遠のいてきた。");
-#else
-					msg_print("You have been knocked out.");
-#endif
-				}
-				break;
 			}
 
 			if(randint1(1000) < v || one_in_(16))
@@ -625,34 +554,6 @@ bool set_stun(creature_type *creature_ptr, int v)
 
 		return TRUE;
 	}
-	else
-	{
-		/* Open */
-		if(v)
-		{
-			if(!creature_ptr->timed_trait[TRAIT_STUN])
-			{
-				mproc_add(creature_ptr, MTIMED_STUNNED);
-				notice = TRUE;
-			}
-		}
-
-		/* Shut */
-		else
-		{
-			if(has_trait(creature_ptr, TRAIT_STUN))
-			{
-				mproc_remove(creature_ptr, MTIMED_STUNNED);
-				notice = TRUE;
-			}
-		}
-
-		/* Use the value */
-		creature_ptr->timed_trait[TRAIT_STUN] = v;
-
-		return notice;
-
-	}
 }
 #endif
 
@@ -733,7 +634,6 @@ bool set_cut(creature_type *creature_ptr, int v)
 					msg_print("You have been horribly scarred.");
 #endif
 				}
-
 				do_dec_stat(creature_ptr, STAT_CHA);
 			}
 		}
