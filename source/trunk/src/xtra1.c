@@ -1118,73 +1118,24 @@ static void prt_cut(creature_type *creature_ptr)
 {
 	int c = creature_ptr->timed_trait[TRAIT_CUT];
 
-	if(c > 1000)
-	{
 #ifdef JP
-		c_put_str(TERM_L_RED, "ívñΩèù      ", ROW_CUT, COL_CUT);
+	if(c > 1000) c_put_str(TERM_L_RED, "ívñΩèù      ", ROW_CUT, COL_CUT);
+	else if(c > 200) c_put_str(TERM_RED, "Ç–Ç«Ç¢ê[éË  ", ROW_CUT, COL_CUT);
+	else if(c > 100) c_put_str(TERM_RED, "èdèù        ", ROW_CUT, COL_CUT);
+	else if(c > 50) c_put_str(TERM_ORANGE, "ëÂïœÇ»èù    ", ROW_CUT, COL_CUT);
+	else if(c > 25) c_put_str(TERM_ORANGE, "Ç–Ç«Ç¢èù    ", ROW_CUT, COL_CUT);
+	else if(c > 10) c_put_str(TERM_YELLOW, "åyèù        ", ROW_CUT, COL_CUT);
+	else if(c) c_put_str(TERM_YELLOW, "Ç©Ç∑ÇËèù    ", ROW_CUT, COL_CUT);
 #else
-		c_put_str(TERM_L_RED, "Mortal wound", ROW_CUT, COL_CUT);
+	if(c > 1000) c_put_str(TERM_L_RED, "Mortal wound", ROW_CUT, COL_CUT);
+	else if(c > 200) c_put_str(TERM_RED, "Deep gash   ", ROW_CUT, COL_CUT);
+	else if(c > 100) c_put_str(TERM_RED, "Severe cut  ", ROW_CUT, COL_CUT);
+	else if(c > 50) c_put_str(TERM_ORANGE, "Nasty cut   ", ROW_CUT, COL_CUT);
+	else if(c > 25) c_put_str(TERM_ORANGE, "Bad cut     ", ROW_CUT, COL_CUT);
+	else if(c > 10) c_put_str(TERM_YELLOW, "Light cut   ", ROW_CUT, COL_CUT);
+	else if(c) c_put_str(TERM_YELLOW, "Graze       ", ROW_CUT, COL_CUT);
 #endif
-
-	}
-	else if(c > 200)
-	{
-#ifdef JP
-		c_put_str(TERM_RED, "Ç–Ç«Ç¢ê[éË  ", ROW_CUT, COL_CUT);
-#else
-		c_put_str(TERM_RED, "Deep gash   ", ROW_CUT, COL_CUT);
-#endif
-
-	}
-	else if(c > 100)
-	{
-#ifdef JP
-		c_put_str(TERM_RED, "èdèù        ", ROW_CUT, COL_CUT);
-#else
-		c_put_str(TERM_RED, "Severe cut  ", ROW_CUT, COL_CUT);
-#endif
-
-	}
-	else if(c > 50)
-	{
-#ifdef JP
-		c_put_str(TERM_ORANGE, "ëÂïœÇ»èù    ", ROW_CUT, COL_CUT);
-#else
-		c_put_str(TERM_ORANGE, "Nasty cut   ", ROW_CUT, COL_CUT);
-#endif
-
-	}
-	else if(c > 25)
-	{
-#ifdef JP
-		c_put_str(TERM_ORANGE, "Ç–Ç«Ç¢èù    ", ROW_CUT, COL_CUT);
-#else
-		c_put_str(TERM_ORANGE, "Bad cut     ", ROW_CUT, COL_CUT);
-#endif
-
-	}
-	else if(c > 10)
-	{
-#ifdef JP
-		c_put_str(TERM_YELLOW, "åyèù        ", ROW_CUT, COL_CUT);
-#else
-		c_put_str(TERM_YELLOW, "Light cut   ", ROW_CUT, COL_CUT);
-#endif
-
-	}
-	else if(c)
-	{
-#ifdef JP
-		c_put_str(TERM_YELLOW, "Ç©Ç∑ÇËèù    ", ROW_CUT, COL_CUT);
-#else
-		c_put_str(TERM_YELLOW, "Graze       ", ROW_CUT, COL_CUT);
-#endif
-
-	}
-	else
-	{
-		put_str("            ", ROW_CUT, COL_CUT);
-	}
+	else put_str("            ", ROW_CUT, COL_CUT);
 }
 
 
