@@ -412,8 +412,6 @@ struct species_type
 
 	s32b exp;				/* Exp value for kill */
 
-	s16b extra;				/* Unused (for now) */
-
 	byte freq_spell;		/* Spell frequency */
 
 	traits_precondition flags;
@@ -456,12 +454,6 @@ struct species_type
 	byte r_cast_spell;		/* Max number of other spells seen */
 
 	byte r_blows[MAX_SPECIAL_BLOWS];		/* Number of times each blow type was seen */
-
-	//u32b r_flags4;			/* Observed racial flags */
-	//u32b r_flags5;			/* Observed racial flags */
-	//u32b r_flags6;			/* Observed racial flags */
-	/* u32b r_flags7; */			/* Observed racial flags */
-	//u32b r_flags10;			/* Observed racial resistance flags */
 
 	s16b slot_hand;
 	s16b slot_ring;

@@ -488,12 +488,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 
 		// Parse the file
 		err = init_info_csv(fp, buf, head, head->parse_info_txt);
-
-		/*
-		if(!err &&head->parse_reprocess){
-			err = head->parse_reprocess(head);
-		}
-		*/
+		if(!err &&head->parse_reprocess) err = head->parse_reprocess(head);
 
 		/* Close it */
 		my_fclose(fp);

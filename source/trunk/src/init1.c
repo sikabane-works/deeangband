@@ -4127,10 +4127,14 @@ static int cfeature_info_csv_code[TRAIT_INFO_CSV_COLUMNS];
 
 errr reprocess_trait(header *head)
 {
+	/*
 	int i;
 	for(i = 0; i < max_trait_idx; i++)
+	{
 		traits_precondition_splits(&trait_info[i].alias, trait_info[i].alias_text + trait_tmp);
+	}
 
+	*/
 	return PARSE_ERROR_NONE;
 }
 
@@ -4200,7 +4204,6 @@ errr parse_trait_csv(char *buf, header *head)
 				case TRAIT_INFO_ALIAS:
 					if(!add_tmp(&trait_ptr->alias_text, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
-					break;
 				break;
 
 				case TRAIT_INFO_STR:
