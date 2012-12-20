@@ -1554,13 +1554,9 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 			msg_print(game_messages[GAME_MESSAGE_FAILED_PICKING]);
 		}
 	}
-
-	/* Closed door */
 	else
 	{
-		/* Open the door */
 		cave_alter_feat(floor_ptr, y, x, FF_OPEN);
-
 		sound(SOUND_OPENDOOR);
 	}
 
@@ -1601,48 +1597,22 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	/* Always have a small chance of success */
 	if(j < 2) j = 2;
 
-	/* Must find the trap first. */
-	if(!object_is_known(object_ptr))
-	{
 #ifdef JP
-		msg_print("トラップが見あたらない。");
+	if(!object_is_known(object_ptr)) msg_print("トラップが見あたらない。");
+	else if(object_ptr->pval <= 0) msg_print("箱にはトラップが仕掛けられていない。");
+	else if(!chest_traps[object_ptr->pval]) msg_print("箱にはトラップが仕掛けられていない。");
 #else
-		msg_print("I don't see any traps.");
+	if(!object_is_known(object_ptr)) msg_print("I don't see any traps.");
+	else if(object_ptr->pval <= 0) msg_print("The chest is not trapped.");
+	else if(!chest_traps[object_ptr->pval]) msg_print("The chest is not trapped.");
 #endif
-
-	}
-
-	/* Already disarmed/unlocked */
-	else if(object_ptr->pval <= 0)
-	{
-#ifdef JP
-		msg_print("箱にはトラップが仕掛けられていない。");
-#else
-		msg_print("The chest is not trapped.");
-#endif
-
-	}
-
-	/* No traps to find. */
-	else if(!chest_traps[object_ptr->pval])
-	{
-#ifdef JP
-		msg_print("箱にはトラップが仕掛けられていない。");
-#else
-		msg_print("The chest is not trapped.");
-#endif
-
-	}
-
-	/* Success (get a lot of experience) */
-	else if(randint0(100) < j)
+	else if(randint0(100) < j) // Success (get a lot of experience)
 	{
 #ifdef JP
 		msg_print("箱に仕掛けられていたトラップを解除した。");
 #else
 		msg_print("You have disarmed the chest.");
 #endif
-
 		gain_exp(creature_ptr, object_ptr->pval);
 		object_ptr->pval = (0 - object_ptr->pval);
 	}
@@ -1669,7 +1639,6 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 #else
 		msg_print("You set off a trap!");
 #endif
-
 		sound(SOUND_FAIL);
 		chest_trap(creature_ptr, y, x, object_idx);
 	}

@@ -685,16 +685,12 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 {
 	int cur, max, loss, same, res = FALSE;
 
-	/* Acquire current value */
 	cur = creature_ptr->stat_cur[stat];
 	max = creature_ptr->stat_max[stat];
-
 	same = (cur == max);
 
-	/* Damage "current" value */
 	if(cur > 30)
 	{
-		/* Handle "low" values */
 		if(cur <= 180)
 		{
 			if(amount > 90) cur -= 10;
@@ -702,43 +698,22 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 			if(amount > 20) cur -= 10;
 			cur -= 10;
 		}
-
-		/* Handle "high" values */
 		else
 		{
-			/* Hack -- Decrement by a random amount between one-quarter */
-			/* and one-half of the stat bonus times the percentage, with a */
-			/* minimum damage of half the percentage. -CWS */
 			loss = (((cur - 180) / 2 + 1) / 2 + 1);
-
-
 			if(loss < 1) loss = 1;
-
-			/* Randomize the loss */
 			loss = ((randint1(loss) + loss) * amount) / 100;
-
-			/* Maximal loss */
-			if(loss < amount/2) loss = amount/2;
-
-			/* Lose some points */
+			if(loss < amount / 2) loss = amount / 2;
 			cur = cur - loss;
-
-			/* Hack -- Only reduce stat to 17 sometimes */
 			if(cur < 180) cur = (amount <= 20) ? 180 : 170;
 		}
 
-		/* Prevent illegal values */
 		if(cur < 30) cur = 30;
-
-		/* Something happened */
 		if(cur != creature_ptr->stat_cur[stat]) res = TRUE;
 	}
 
-	/* Damage "max" value */
 	if(permanent && (max > 3))
 	{
-
-		/* Handle "low" values */
 		if(max <= 180)
 		{
 			if(amount > 90) max -= 10;
@@ -747,40 +722,25 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 			max -= 10;
 		}
 
-		/* Handle "high" values */
 		else
 		{
-			/* Hack -- Decrement by a random amount between one-quarter */
-			/* and one-half of the stat bonus times the percentage, with a */
-			/* minimum damage of half the percentage. -CWS */
 			loss = (((max - 180) / 2 + 1) / 2 + 1);
 			loss = ((randint1(loss) + loss) * amount) / 100;
 			if(loss < amount / 2) loss = amount / 2;
-
-			/* Lose some points */
 			max = max - loss;
-
-			/* Hack -- Only reduce stat to 17 sometimes */
 			if(max < 180) max = (amount <= 200) ? 180 : 170;
 		}
 
-		/* Hack -- keep it clean */
 		if(same || (max < cur)) max = cur;
-
-		/* Something happened */
 		if(max != creature_ptr->stat_max[stat]) res = TRUE;
 	}
 
-	/* Apply changes */
 	if(res)
 	{
-		/* Actually set the stat to its new value. */
 		creature_ptr->stat_cur[stat] = cur;
 		creature_ptr->stat_max[stat] = max;
 
-		/* Redisplay the stats later */
-		play_redraw |= (PR_STATS);
-
+		if(is_player(creature_ptr)) play_redraw |= (PR_STATS);
 		creature_ptr->creature_update |= (CRU_BONUS);
 	}
 
@@ -788,24 +748,16 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 }
 
 
-/*
-* Restore a stat.  Return TRUE only if this actually makes a difference.
-*/
+// Restore a stat.  Return TRUE only if this actually makes a difference.
 bool res_stat(creature_type *creature_ptr, int stat)
 {
-	// Restore if needed
 	if(creature_ptr->stat_cur[stat] != creature_ptr->stat_max[stat])
 	{
 		creature_ptr->stat_cur[stat] = creature_ptr->stat_max[stat];
 		creature_ptr->creature_update |= (CRU_BONUS);
-
-		/* Redisplay the stats later */
-		play_redraw |= (PR_STATS);
-
+		if(is_player(creature_ptr)) play_redraw |= (PR_STATS);
 		return TRUE;
 	}
-
-	/* Nothing to restore */
 	return FALSE;
 }
 
@@ -819,7 +771,7 @@ bool heal_creature(creature_type *creature_ptr, int healing_power)
 	{
 		rec_hp = healing_power;
 		creature_ptr->chp += healing_power;
-		if(creature_ptr->chp >= creature_ptr->mhp) // Enforce maximum
+		if(creature_ptr->chp >= creature_ptr->mhp)
 		{
 			rec_hp -= (creature_ptr->chp - creature_ptr->mhp);
 			creature_ptr->chp = creature_ptr->mhp;
@@ -846,15 +798,15 @@ bool heal_creature(creature_type *creature_ptr, int healing_power)
 #endif
 	}
 
-	effected |= add_timed_trait(creature_ptr, TRAIT_AFRAID, healing_power, TRUE);
-	effected |= add_timed_trait(creature_ptr, TRAIT_POISONED, healing_power, TRUE);
-	effected |= add_timed_trait(creature_ptr, TRAIT_BLIND, healing_power, TRUE);
-	effected |= add_timed_trait(creature_ptr, TRAIT_CONFUSED, healing_power, TRUE);
-	effected |= add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, healing_power, TRUE);
-	effected |= add_timed_trait(creature_ptr, TRAIT_PARALYZED, healing_power, TRUE);
-	effected |= add_timed_trait(creature_ptr, TRAIT_SLEPT, healing_power, TRUE);
-	effected |= add_timed_trait(creature_ptr, TRAIT_STUN, healing_power, TRUE);
-	effected |= add_timed_trait(creature_ptr, TRAIT_CUT, healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_AFRAID, -healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_POISONED, -healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_BLIND, -healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_CONFUSED, -healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, -healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_PARALYZED, -healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_SLEPT, -healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_STUN, -healing_power, TRUE);
+	effected |= add_timed_trait(creature_ptr, TRAIT_CUT, -healing_power, TRUE);
 
 	/* TODO
 	effected |= do_res_stat(creature_ptr, STAT_STR);
@@ -1344,13 +1296,10 @@ static void you_died(cptr hit_from)
 	char death_message[1024];
 	bool android = has_trait(player_ptr, TRAIT_ANDROID);
 
-	//TODO
-	/*
-	#ifdef JP       // 死んだ時に強制終了して死を回避できなくしてみた by Habu
+	#ifdef JP // 死んだ時に強制終了して死を回避できなくしてみた by Habu
 	if(!cheat_save)
-	if(!save_player()) msg_print("セーブ失敗！");
+	if(!save_player()) msg_print("Save error.");
 	#endif
-	*/
 
 	sound(SOUND_DEATH); // Sound
 	subject_change_floor = TRUE; // Leaving	
@@ -1468,18 +1417,11 @@ static void you_died(cptr hit_from)
 			}
 #ifdef JP
 			while (winning_seppuku && !get_check_strict("よろしいですか？", CHECK_NO_HISTORY));
+			if(death_message[0] == '\0') strcpy(death_message, format("あなたは%sました。", android ? "壊れ" : "死に"));
 #else
 			while (winning_seppuku && !get_check_strict("Are you sure? ", CHECK_NO_HISTORY));
+			if(death_message[0] == '\0') strcpy(death_message, android ? "You are broken." : "You die.");
 #endif
-
-			if(death_message[0] == '\0')
-			{
-#ifdef JP
-				strcpy(death_message, format("あなたは%sました。", android ? "壊れ" : "死に"));
-#else
-				strcpy(death_message, android ? "You are broken." : "You die.");
-#endif
-			}
 			else player_ptr->last_message = string_make(death_message);
 
 #ifdef JP
