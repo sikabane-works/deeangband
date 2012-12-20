@@ -1117,7 +1117,6 @@ static void prt_imitation(creature_type *creature_ptr)
 static void prt_cut(creature_type *creature_ptr)
 {
 	int c = creature_ptr->timed_trait[TRAIT_CUT];
-
 #ifdef JP
 	if(c > 1000) c_put_str(TERM_L_RED, "’v–½      ", ROW_CUT, COL_CUT);
 	else if(c > 200) c_put_str(TERM_RED, "‚Ð‚Ç‚¢[Žè  ", ROW_CUT, COL_CUT);
@@ -1143,38 +1142,16 @@ static void prt_cut(creature_type *creature_ptr)
 static void prt_stun(creature_type *creature_ptr)
 {
 	int s = creature_ptr->timed_trait[TRAIT_STUN];
-
-	if(s > 100)
-	{
 #ifdef JP
-		c_put_str(TERM_RED, "ˆÓŽ¯•s–¾—Ä  ", ROW_STUN, COL_STUN);
-#else
-		c_put_str(TERM_RED, "Knocked out ", ROW_STUN, COL_STUN);
+	if(s > 100) c_put_str(TERM_RED, "ˆÓŽ¯•s–¾—Ä  ", ROW_STUN, COL_STUN);
+	else if(s > 50) c_put_str(TERM_ORANGE, "‚Ð‚Ç‚­žNžO  ", ROW_STUN, COL_STUN);
+	else if(s) c_put_str(TERM_ORANGE, "žNžO        ", ROW_STUN, COL_STUN);
+#else 
+	if(s > 100) c_put_str(TERM_RED, "Knocked out ", ROW_STUN, COL_STUN);
+	else if(s > 50) c_put_str(TERM_ORANGE, "Heavy stun  ", ROW_STUN, COL_STUN);
+	else if(s) c_put_str(TERM_ORANGE, "Stun        ", ROW_STUN, COL_STUN);
 #endif
-
-	}
-	else if(s > 50)
-	{
-#ifdef JP
-		c_put_str(TERM_ORANGE, "‚Ð‚Ç‚­žNžO  ", ROW_STUN, COL_STUN);
-#else
-		c_put_str(TERM_ORANGE, "Heavy stun  ", ROW_STUN, COL_STUN);
-#endif
-
-	}
-	else if(s)
-	{
-#ifdef JP
-		c_put_str(TERM_ORANGE, "žNžO        ", ROW_STUN, COL_STUN);
-#else
-		c_put_str(TERM_ORANGE, "Stun        ", ROW_STUN, COL_STUN);
-#endif
-
-	}
-	else
-	{
-		put_str("            ", ROW_STUN, COL_STUN);
-	}
+	else put_str("            ", ROW_STUN, COL_STUN);
 }
 
 
@@ -1273,30 +1250,16 @@ static void prt_frame_basic(creature_type *creature_ptr)
 	//TODO	//health_redraw(creature_ptr, FALSE);
 }
 
-
-/*
- * Display extra info (mostly below map)
- */
+// Display extra info (mostly below map)
 static void prt_frame_extra(creature_type *creature_ptr)
 {
-	/* Cut/Stun */
 	prt_cut(creature_ptr);
 	prt_stun(creature_ptr);
-
-	/* Food */
 	prt_hunger(creature_ptr);
-
-	/* State */
 	prt_state(creature_ptr);
-
-	/* Speed */
 	prt_speed(creature_ptr);
-
-	/* Study spells */
 	prt_study(creature_ptr);
-
 	prt_imitation(creature_ptr);
-
 	prt_status(creature_ptr);
 }
 
