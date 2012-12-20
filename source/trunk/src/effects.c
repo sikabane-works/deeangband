@@ -146,7 +146,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		notice = TRUE;
 	}
 
-	if(have_posture(creature_ptr) && v > 0 && (type == TRAIT_AFRAID || type == TRAIT_STUN))
+	if(have_posture(creature_ptr) && v > 0 && (type == TRAIT_AFRAID || type == TRAIT_STUN || type == TRAIT_CONFUSED))
 	{
 		if(is_seen(player_ptr, creature_ptr))
 		{
@@ -165,6 +165,12 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 
 		if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE); // Sniper
 		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr); // Hex
+	}
+
+	if(v > 0 && type == TRAIT_CONFUSED)
+	{
+		if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
+		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 	}
 
 	if(type == TRAIT_STUN && randint1(1000) < v || one_in_(16))
@@ -446,29 +452,7 @@ if(creature_ptr->action == ACTION_KAMAE)
 	play_redraw |= (PR_STATE);
 	creature_ptr->action = ACTION_NONE;
 }
-else if(creature_ptr->action == ACTION_KATA)
-{
-	if(is_seen(player_ptr, creature_ptr))
-	{
-#ifdef JP
-		msg_format("%s‚ÌŒ^‚Í•ö‚ê‚½B", name);
-#else
-		msg_format("%s%s posture gets loose.", name, is_player(creature_ptr) _ "r", : "'s");
-#endif
-	}
-	creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
-	creature_ptr->creature_update |= (CRU_BONUS);
-	creature_ptr->creature_update |= (PU_CREATURES);
-	play_redraw |= (PR_STATE);
-	play_redraw |= (PR_STATUS);
-	creature_ptr->action = ACTION_NONE;
-}
 
-/* Sniper */
-if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
-
-/* Hex */
-if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 #endif
 
