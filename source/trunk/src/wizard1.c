@@ -51,6 +51,7 @@ static cptr attr_to_text(species_type *species_ptr)
 	case TERM_L_BLUE:  return "L.Blue";
 	case TERM_L_UMBER: return "L.Umber";
 	}
+	return "";
 }
 
 

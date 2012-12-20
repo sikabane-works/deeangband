@@ -1472,6 +1472,7 @@ struct trait_type
 	s16b anti_id;
 	char title[50];
 	char e_title[50];
+	u32b alias[TRAIT_FLAG_MAX];
 	byte effect_type;
 	s16b adj[STAT_MAX];
 	s16b ac;
