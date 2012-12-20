@@ -4031,6 +4031,7 @@ enum TRAIT_INFO
   TRAIT_INFO_ID2, 
   TRAIT_INFO_NAME,
   TRAIT_INFO_E_NAME,
+  TRAIT_INFO_ALIAS,
   TRAIT_INFO_STR,
   TRAIT_INFO_INT,
   TRAIT_INFO_WIS,
@@ -4080,6 +4081,7 @@ static cptr cfeature_info_csv_list[TRAIT_INFO_CSV_COLUMNS] =
 	"ID2",
 	"NAME",
 	"E_NAME",
+	"ALIAS",
 	"STR",
 	"INT",
 	"WIS",
@@ -4128,9 +4130,7 @@ errr reprocess_trait(header *head)
 {
 	int i;
 	for(i = 0; i < max_trait_idx; i++)
-	{
 		traits_precondition_splits(&trait_info[i].flags, head->tmp_ptr);
-	}
 
 	return PARSE_ERROR_NONE;
 }
@@ -4196,6 +4196,9 @@ errr parse_trait_csv(char *buf, header *head)
 
 				case TRAIT_INFO_E_NAME:
 					strcpy(trait_ptr->e_title, tmp);
+				break;
+
+				case TRAIT_INFO_ALIAS:
 				break;
 
 				case TRAIT_INFO_STR:
