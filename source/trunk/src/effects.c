@@ -169,6 +169,39 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 
 	if(v > 0 && type == TRAIT_CONFUSED)
 	{
+
+		if(creature_ptr->action == ACTION_LEARN)
+		{
+			if(is_seen(player_ptr, creature_ptr))
+			{
+#ifdef JP
+				msg_format("学習が続けられない！");
+#else
+				msg_format("You cannot continue Learning!");
+#endif
+			}
+			creature_ptr->new_mane = FALSE;
+
+			play_redraw |= (PR_STATE);
+			creature_ptr->action = ACTION_NONE;
+		}
+
+		if(creature_ptr->action == ACTION_KAMAE)
+		{
+			if(is_seen(player_ptr, creature_ptr))
+			{
+#ifdef JP
+				msg_format("構えがとけた。");
+#else
+				msg_foamat("Your posture gets loose.");
+#endif
+			}
+			creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
+			creature_ptr->creature_update |= (CRU_BONUS);
+			play_redraw |= (PR_STATE);
+			creature_ptr->action = ACTION_NONE;
+		}
+
 		if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
 		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 	}
@@ -418,45 +451,6 @@ void dispel_creature(creature_type *creature_ptr)
 	}
 }
 
-/*
-* TODO:confused process.
-*/
-#if 0
-if(creature_ptr->action == ACTION_LEARN)
-{
-	if(is_seen(player_ptr, creature_ptr))
-	{
-#ifdef JP
-		msg_format("%sは学習が続けられない！", name);
-#else
-		msg_format("%s cannot continue Learning!", name);
-#endif
-	}
-	creature_ptr->new_mane = FALSE;
-
-	play_redraw |= (PR_STATE);
-	creature_ptr->action = ACTION_NONE;
-}
-if(creature_ptr->action == ACTION_KAMAE)
-{
-	if(is_seen(player_ptr, creature_ptr))
-	{
-#ifdef JP
-		msg_format("%sの構えがとけた。", name);
-#else
-		msg_foamat("%s%s posture gets loose.", name, is_player(creature_ptr) ? "r" : "'s");
-#endif
-	}
-	creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
-	creature_ptr->creature_update |= (CRU_BONUS);
-	play_redraw |= (PR_STATE);
-	creature_ptr->action = ACTION_NONE;
-}
-
-
-#endif
-
-
 bool set_superstealth(creature_type *creature_ptr, bool set)
 {
 	bool notice = FALSE;
@@ -495,12 +489,10 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 
 			notice = TRUE;
 
-			/* Use the value */
 			creature_ptr->posture |= NINJA_S_STEALTH;
 		}
 	}
 
-	/* Shut */
 	else
 	{
 		if(creature_ptr->posture & NINJA_S_STEALTH)
@@ -515,19 +507,13 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 			}
 
 			notice = TRUE;
-
-			/* Use the value */
 			creature_ptr->posture &= ~(NINJA_S_STEALTH);
 		}
 	}
 
-	/* Nothing to notice */
 	if(!notice) return FALSE;
-
 	play_redraw |= (PR_STATUS);
-
 	if(disturb_state) disturb(player_ptr, 0, 0);
-
 	return TRUE;
 }
 
