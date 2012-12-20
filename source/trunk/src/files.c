@@ -4264,52 +4264,26 @@ static void dump_aux_options(creature_type *creature_ptr, FILE *fff)
  */
 static void dump_aux_arena(FILE *fff)
 {
-	if(arena_number < 0)
-	{
+
 #ifdef JP
-		fprintf(fff, "\n “¬‹Zê: %d‰ñí‚Å%s‚Ì‘O‚É”s–k\n", -arena_number,
+	if(arena_number < 0) fprintf(fff, "\n “¬‹Zê: %d‰ñí‚Å%s‚Ì‘O‚É”s–k\n", -arena_number,
 			species_name + species_info[arena_info[-1 - arena_number].species_idx].name);
+	else if(arena_number > MAX_ARENA_MONS + 2) fprintf(fff, "\n “¬‹Zê: ^‚Ìƒ`ƒƒƒ“ƒsƒIƒ“\n");
+	else if(arena_number > MAX_ARENA_MONS - 1) fprintf(fff, "\n “¬‹Zê: ƒ`ƒƒƒ“ƒsƒIƒ“\n");
+	else fprintf(fff, "\n “¬‹Zê: %2dŸ\n", (arena_number > MAX_ARENA_MONS ? MAX_ARENA_MONS : arena_number));
 #else
-		fprintf(fff, "\n Arena: Defeated by %s in the %d%s fight\n",
+	if(arena_number < 0) fprintf(fff, "\n Arena: Defeated by %s in the %d%s fight\n",
 			species_name + species_info[arena_info[-1 - arena_number].species_idx].name,
 			-arena_number, get_ordinal_number_suffix(-arena_number));
+	else if(arena_number > MAX_ARENA_MONS + 2) fprintf(fff, "\n Arena: True Champion\n");
+	else if(arena_number > MAX_ARENA_MONS - 1) fprintf(fff, "\n Arena: Champion\n");
+	else fprintf(fff, "\n Arena: %2d Victor%s\n", (arena_number > MAX_ARENA_MONS ? MAX_ARENA_MONS : arena_number), (arena_number > 1) ? "ies" : "y");
 #endif
-	}
-
-	else if(arena_number > MAX_ARENA_MONS + 2)
-	{
-#ifdef JP
-		fprintf(fff, "\n “¬‹Zê: ^‚Ìƒ`ƒƒƒ“ƒsƒIƒ“\n");
-#else
-		fprintf(fff, "\n Arena: True Champion\n");
-#endif
-	}
-
-	else if(arena_number > MAX_ARENA_MONS - 1)
-	{
-#ifdef JP
-		fprintf(fff, "\n “¬‹Zê: ƒ`ƒƒƒ“ƒsƒIƒ“\n");
-#else
-		fprintf(fff, "\n Arena: Champion\n");
-#endif
-	}
-
-	else
-	{
-#ifdef JP
-		fprintf(fff, "\n “¬‹Zê: %2dŸ\n", (arena_number > MAX_ARENA_MONS ? MAX_ARENA_MONS : arena_number));
-#else
-		fprintf(fff, "\n Arena: %2d Victor%s\n", (arena_number > MAX_ARENA_MONS ? MAX_ARENA_MONS : arena_number), (arena_number > 1) ? "ies" : "y");
-#endif
-	}
 
 	fprintf(fff, "\n");
 }
 
 
-/*
- *
- */
 static void dump_aux_creatures(FILE *fff)
 {
 	/* Creatures slain */
