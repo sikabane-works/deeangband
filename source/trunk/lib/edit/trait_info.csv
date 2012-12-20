@@ -741,7 +741,7 @@ ID,ID2,SPELL,PRE_ID,ANTI_ID,NAME,E_NAME,ALIAS,STR,INT,WIS,DEX,CON,CHA,AC,EV,VO,D
 739,LEARNING,POSTURE,-1,-1,技能学習,Undefined,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,
 740,POSTURE_GENBU,POSTURE,-1,-1,玄武の構え,Undefined,,0,-1,-1,-2,3,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,
 741,POSTURE_BYAKKO,POSTURE,-1,-1,白虎の構え,Undefined,,2,2,0,0,-3,0,-40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,
-742,POSTURE_SEIRYU,POSTURE,-1,-1,青龍の構え,Undefined,,0,0,0,0,0,0,-50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,
+742,POSTURE_SEIRYU,POSTURE,-1,-1,青龍の構え,Undefined,RES_FIRE|RES_COLD|RES_ELEC|RES_ACID|RES_POIS,0,0,0,0,0,0,-50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,
 743,POSTURE_SUZAKU,POSTURE,-1,-1,朱雀の構え,Undefined,,-2,1,1,2,-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0,0,,0,,,,,,,,,,
 744,POSTURE_IAI,POSTURE,-1,-1,居合,Undefined,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,
 745,POSTURE_FUUJIN,POSTURE,-1,-1,風塵,Undefined,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,0,,,,,,,,,,

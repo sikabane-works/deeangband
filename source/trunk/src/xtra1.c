@@ -3680,11 +3680,6 @@ static void set_melee_status(creature_type *creature_ptr)
 
 		if(creature_ptr->posture & KAMAE_SEIRYU)
 		{
-			//TODO creature_ptr->resist_acid = TRUE;
-			//TODO creature_ptr->resist_fire = TRUE;
-			//TODO creature_ptr->resist_elec = TRUE;
-			//TODO creature_ptr->resist_cold = TRUE;
-			//TODO creature_ptr->resist_pois = TRUE;
 			//TODO creature_ptr->sh_fire = TRUE;
 			//TODO creature_ptr->sh_elec = TRUE;
 			//TODO creature_ptr->sh_cold = TRUE;

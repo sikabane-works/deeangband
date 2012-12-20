@@ -2069,7 +2069,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == OBJECT_KIND_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
+			if(j == OBJECT_KIND_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN;
 		}
 		return PARSE_ERROR_NONE;
 	}
@@ -2530,7 +2530,7 @@ errr parse_artifact_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == ARTIFACT_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
+			if(j == ARTIFACT_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN;
 		}
 		return PARSE_ERROR_NONE;
 	}
@@ -2885,7 +2885,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == OBJECT_EGO_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
+			if(j == OBJECT_EGO_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN;
 		}
 		return PARSE_ERROR_NONE;
 	}
@@ -3330,7 +3330,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == SPECIES_INFO_CSV_COLUMNS) return PARSE_ERROR_GENERIC; /* ERROR */
+			if(j == SPECIES_INFO_CSV_COLUMNS) return PARSE_ERROR_GENERIC;
 		}
 		return PARSE_ERROR_NONE;
 	}
@@ -3933,7 +3933,7 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == ST_INFO_CSV_COLUMNS) return PARSE_ERROR_GENERIC; /* ERROR */
+			if(j == ST_INFO_CSV_COLUMNS) return PARSE_ERROR_GENERIC;
 		}
 		return PARSE_ERROR_NONE;
 	}
@@ -4163,7 +4163,7 @@ errr parse_trait_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == TRAIT_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
+			if(j == TRAIT_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN;
 		}
 		return PARSE_ERROR_NONE;
 	}
@@ -4199,6 +4199,9 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_INFO_ALIAS:
+					if(!add_tmp(&trait_ptr->get_text, head, tmp))
+						return PARSE_ERROR_OUT_OF_MEMORY;
+					break;
 				break;
 
 				case TRAIT_INFO_STR:
@@ -4622,7 +4625,7 @@ errr parse_race_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == RC_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
+			if(j == RC_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN;
 		}
 		return PARSE_ERROR_NONE;
 	}
@@ -5137,7 +5140,7 @@ errr parse_class_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == CL_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
+			if(j == CL_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN;
 		}
 		return PARSE_ERROR_NONE;
 	}
@@ -5462,7 +5465,7 @@ errr parse_chara_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == CH_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
+			if(j == CH_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN;
 		}
 		return PARSE_ERROR_NONE;
 	}
@@ -6086,7 +6089,7 @@ errr parse_authority_info_csv(char *buf, header *head)
 					break;
 				}
 			}
-			if(j == AU_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
+			if(j == AU_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN;
 		}
 		return PARSE_ERROR_NONE;
 	}
