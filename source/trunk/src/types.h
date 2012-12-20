@@ -1472,7 +1472,7 @@ struct trait_type
 	s16b anti_id;
 	char title[50];
 	char e_title[50];
-	u32b alias[TRAIT_FLAG_MAX];
+	traits_precondition alias;
 	byte effect_type;
 	s16b adj[STAT_MAX];
 	s16b ac;
@@ -1499,6 +1499,7 @@ struct trait_type
 	s32b lost_text;
 	s32b E_lost_text;
 	s32b activate_text;
+	s32b alias_text;
 	s32b blind_activate_text;
 	traits_precondition flags;
 

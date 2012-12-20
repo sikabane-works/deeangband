@@ -2351,7 +2351,6 @@ errr parse_object_kind_csv(char *buf, header *head)
 				if(0 != traits_precondition_splits(&object_kind_ptr->add_creature_traits, tmp))
 					return PARSE_ERROR_GENERIC;
 				break;
-				break;
 
 			case OK_INFO_DESCRIPTION:
 				// Store the text
@@ -4130,7 +4129,7 @@ errr reprocess_trait(header *head)
 {
 	int i;
 	for(i = 0; i < max_trait_idx; i++)
-		traits_precondition_splits(&trait_info[i].flags, head->tmp_ptr);
+		traits_precondition_splits(&trait_info[i].alias, trait_info[i].alias_text + trait_tmp);
 
 	return PARSE_ERROR_NONE;
 }
@@ -4199,7 +4198,7 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_INFO_ALIAS:
-					if(!add_tmp(&trait_ptr->get_text, head, tmp))
+					if(!add_tmp(&trait_ptr->alias_text, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
