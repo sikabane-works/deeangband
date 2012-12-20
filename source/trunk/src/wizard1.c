@@ -28,36 +28,12 @@ static FILE *fff = NULL;
  */
 static cptr attr_to_text(species_type *species_ptr)
 {
-#ifdef JP000
-	if(has_trait_species(species_ptr, TRAIT_ATTR_CLEAR))	return "透明な";
-	if(has_trait_species(species_ptr, TRAIT_ATTR_MULTI))	return "万色の";
-	if(has_trait_species(species_ptr, TRAIT_ATTR_SEMIRAND))	return "準ランダムな";
-#else
 	if(has_trait_species(species_ptr, TRAIT_ATTR_CLEAR))	return "Clear";
 	if(has_trait_species(species_ptr, TRAIT_ATTR_MULTI))	return "Multi";
 	if(has_trait_species(species_ptr, TRAIT_ATTR_SEMIRAND))	return "S.Rand";
-#endif
 
 	switch (species_ptr->d_attr)
 	{
-#ifdef JP000
-	case TERM_DARK:    return "XXX";
-	case TERM_WHITE:   return "白い";
-	case TERM_SLATE:   return "青灰色の";
-	case TERM_ORANGE:  return "オレンジの";
-	case TERM_RED:     return "赤い";
-	case TERM_GREEN:   return "緑の";
-	case TERM_BLUE:    return "青い";
-	case TERM_UMBER:   return "琥珀色の";
-	case TERM_L_DARK:  return "灰色の";
-	case TERM_L_WHITE: return "明青灰色の";
-	case TERM_VIOLET:  return "紫の";
-	case TERM_YELLOW:  return "黄色い";
-	case TERM_L_RED:   return "明い赤の";
-	case TERM_L_GREEN: return "明い緑の";
-	case TERM_L_BLUE:  return "明い青の";
-	case TERM_L_UMBER: return "明い琥珀色の";
-#else
 	case TERM_DARK:    return "xxx";
 	case TERM_WHITE:   return "White";
 	case TERM_SLATE:   return "Slate";
@@ -74,14 +50,7 @@ static cptr attr_to_text(species_type *species_ptr)
 	case TERM_L_GREEN: return "L.Green";
 	case TERM_L_BLUE:  return "L.Blue";
 	case TERM_L_UMBER: return "L.Umber";
-#endif
 	}
-
-#ifdef JP000
-	return "変な";
-#else
-	return "Icky";
-#endif
 }
 
 
