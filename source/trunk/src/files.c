@@ -4207,118 +4207,52 @@ static void dump_aux_recall(creature_type *creature_ptr, FILE *fff)
  */
 static void dump_aux_options(creature_type *creature_ptr, FILE *fff)
 {
+
 #ifdef JP
 	fprintf(fff, "\n  [オプション設定]\n");
-#else
-	fprintf(fff, "\n  [Option Settings]\n");
-#endif
+	if(preserve_mode) fprintf(fff, "\n 保存モード:         ON");
+	else fprintf(fff, "\n 保存モード:         OFF");
 
+	if(ironman_small_levels) fprintf(fff, "\n 小さいダンジョン:   ALWAYS");
+	else if(small_levels) fprintf(fff, "\n 小さいダンジョン:   ENABLED");
+	else if(always_small_levels) fprintf(fff, "\n 小さいダンジョン:   ON");
+	else fprintf(fff, "\n 小さいダンジョン:   OFF");
 
-	if(preserve_mode)
-#ifdef JP
-		fprintf(fff, "\n 保存モード:         ON");
-#else
-		fprintf(fff, "\n Preserve Mode:      ON");
-#endif
+	if(ironman_shops) fprintf(fff, "\n 店なし:             ON");
+	if(ironman_downward) fprintf(fff, "\n 階段を上がれない:   ON");
+	if(ironman_rooms) fprintf(fff, "\n 普通でない部屋:     ON");
+	if(curse_of_Iluvatar) fprintf(fff, "\n 悪夢モード:         ON");
 
-	else
-#ifdef JP
-		fprintf(fff, "\n 保存モード:         OFF");
-#else
-		fprintf(fff, "\n Preserve Mode:      OFF");
-#endif
-
-
-	if(ironman_small_levels)
-#ifdef JP
-		fprintf(fff, "\n 小さいダンジョン:   ALWAYS");
-#else
-		fprintf(fff, "\n Small Levels:       ALWAYS");
-#endif
-
-	else if(always_small_levels)
-#ifdef JP
-		fprintf(fff, "\n 小さいダンジョン:   ON");
-#else
-		fprintf(fff, "\n Small Levels:       ON");
-#endif
-
-	else if(small_levels)
-#ifdef JP
-		fprintf(fff, "\n 小さいダンジョン:   ENABLED");
-#else
-		fprintf(fff, "\n Small Levels:       ENABLED");
-#endif
-
-	else
-#ifdef JP
-		fprintf(fff, "\n 小さいダンジョン:   OFF");
-#else
-		fprintf(fff, "\n Small Levels:       OFF");
-#endif
-
-
-	if(ironman_shops)
-#ifdef JP
-		fprintf(fff, "\n 店なし:             ON");
-#else
-		fprintf(fff, "\n No Shops:           ON");
-#endif
-
-
-	if(ironman_downward)
-#ifdef JP
-		fprintf(fff, "\n 階段を上がれない:   ON");
-#else
-		fprintf(fff, "\n Diving Only:        ON");
-#endif
-
-
-	if(ironman_rooms)
-#ifdef JP
-		fprintf(fff, "\n 普通でない部屋:     ON");
-#else
-		fprintf(fff, "\n Unusual Rooms:      ON");
-#endif
-
-
-	if(curse_of_Iluvatar)
-#ifdef JP
-		fprintf(fff, "\n 悪夢モード:         ON");
-#else
-		fprintf(fff, "\n Nightmare Mode:     ON");
-#endif
-
-
-	if(ironman_empty_levels)
-#ifdef JP
-		fprintf(fff, "\n アリーナ:           ALWAYS");
-#else
-		fprintf(fff, "\n Arena Levels:       ALWAYS");
-#endif
-
-	else if(empty_levels)
-#ifdef JP
-		fprintf(fff, "\n アリーナ:           ENABLED");
-#else
-		fprintf(fff, "\n Arena Levels:       ENABLED");
-#endif
-
-	else
-#ifdef JP
-		fprintf(fff, "\n アリーナ:           OFF");
-#else
-		fprintf(fff, "\n Arena Levels:       OFF");
-#endif
-
+	if(ironman_empty_levels) fprintf(fff, "\n アリーナ:           ALWAYS");
+	else if(empty_levels) fprintf(fff, "\n アリーナ:           ENABLED");
+	else fprintf(fff, "\n アリーナ:           OFF");
 
 	fputc('\n', fff);
 
-	if(noscore)
-#ifdef JP
-		fprintf(fff, "\n 何か不正なことをしてしまっています。\n");
+	if(noscore) fprintf(fff, "\n 何か不正なことをしてしまっています。\n");
+
 #else
-		fprintf(fff, "\n You have done something illegal.\n");
+	fprintf(fff, "\n  [Option Settings]\n");
+	if(preserve_mode) fprintf(fff, "\n Preserve Mode:      ON");
+	else fprintf(fff, "\n Preserve Mode:      OFF");
+
+	if(ironman_small_levels) fprintf(fff, "\n Small Levels:       ALWAYS");
+	else if(always_small_levels) fprintf(fff, "\n Small Levels:       ON");
+	else if(small_levels) fprintf(fff, "\n Small Levels:       ENABLED");
+	else fprintf(fff, "\n Small Levels:       OFF");
+
+	if(ironman_shops) fprintf(fff, "\n No Shops:           ON");
+	if(ironman_downward) fprintf(fff, "\n Diving Only:        ON");
+	if(ironman_rooms) fprintf(fff, "\n Unusual Rooms:      ON");
+	if(curse_of_Iluvatar) fprintf(fff, "\n Nightmare Mode:     ON");
+	if(ironman_empty_levels) fprintf(fff, "\n Arena Levels:       ALWAYS");
+	else if(empty_levels) fprintf(fff, "\n Arena Levels:       ENABLED");
+	else fprintf(fff, "\n Arena Levels:       OFF");
+
+	fputc('\n', fff);
+
+	if(noscore) fprintf(fff, "\n You have done something illegal.\n");
+
 #endif
 
 	fputc('\n', fff);
