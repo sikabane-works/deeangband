@@ -856,7 +856,7 @@ static void prt_state(creature_type *creature_ptr)
 		if(command_rep > 999)
 		{
 #ifdef JP
-sprintf(text, "%2d00", command_rep / 100);
+			sprintf(text, "%2d00", command_rep / 100);
 #else
 			(void)sprintf(text, "%2d00", command_rep / 100);
 #endif
@@ -865,7 +865,7 @@ sprintf(text, "%2d00", command_rep / 100);
 		else
 		{
 #ifdef JP
-sprintf(text, "  %2d", command_rep);
+			sprintf(text, "  %2d", command_rep);
 #else
 			(void)sprintf(text, "  %2d", command_rep);
 #endif
@@ -878,26 +878,10 @@ sprintf(text, "  %2d", command_rep);
 	{
 		switch(creature_ptr->action)
 		{
-			case ACTION_SEARCH:
-			{
-#ifdef JP
-				strcpy(text, "íTçı");
-#else
-				strcpy(text, "Sear");
-#endif
-				break;
-			}
 			case ACTION_REST:
 			{
 				int i;
-
-				/* Start with "Rest" */
-#ifdef JP
 				strcpy(text, "    ");
-#else
-				strcpy(text, "    ");
-#endif
-
 
 				/* Extensive (timed) rest */
 				if(creature_ptr->resting >= 1000)
@@ -947,25 +931,23 @@ sprintf(text, "  %2d", command_rep);
 				}
 				break;
 			}
-			case ACTION_LEARN:
-			{
+			
 #ifdef JP
-				strcpy(text, "äwèK");
+			case ACTION_SEARCH: strcpy(text, "íTçı"); break;
+			case ACTION_LEARN: strcpy(text, "äwèK"); break;
+			case ACTION_FISH: strcpy(text, "íﬁÇË"); break;
+			case ACTION_SING: strcpy(text, "âÃ  "); break;
+			case ACTION_HAYAGAKE: strcpy(text, "ë¨ãÏ"); break;
+			case ACTION_SPELL: strcpy(text, "ârè•"); break;
 #else
-				strcpy(text, "lear");
+			case ACTION_SEARCH: strcpy(text, "Sear"); break;
+			case ACTION_LEARN: strcpy(text, "lear"); break;
+			case ACTION_FISH: strcpy(text, "fish"); break;
+			case ACTION_SING: strcpy(text, "Sing"); break;
+			case ACTION_HAYAGAKE: strcpy(text, "Fast"); break;
+			case ACTION_SPELL: strcpy(text, "Spel"); break;
 #endif
-				if(creature_ptr->new_mane) attr = TERM_L_RED;
-				break;
-			}
-			case ACTION_FISH:
-			{
-#ifdef JP
-				strcpy(text, "íﬁÇË");
-#else
-				strcpy(text, "fish");
-#endif
-				break;
-			}
+
 			case ACTION_KAMAE:
 			{
 				int i;
@@ -981,6 +963,7 @@ sprintf(text, "  %2d", command_rep);
 				strcpy(text, kamae_shurui[i].desc);
 				break;
 			}
+
 			case ACTION_KATA:
 			{
 				int i;
@@ -989,33 +972,7 @@ sprintf(text, "  %2d", command_rep);
 				strcpy(text, kata_shurui[i].desc);
 				break;
 			}
-			case ACTION_SING:
-			{
-#ifdef JP
-				strcpy(text, "âÃ  ");
-#else
-				strcpy(text, "Sing");
-#endif
-				break;
-			}
-			case ACTION_HAYAGAKE:
-			{
-#ifdef JP
-				strcpy(text, "ë¨ãÏ");
-#else
-				strcpy(text, "Fast");
-#endif
-				break;
-			}
-			case ACTION_SPELL:
-			{
-#ifdef JP
-				strcpy(text, "ârè•");
-#else
-				strcpy(text, "Spel");
-#endif
-				break;
-			}
+
 			default:
 			{
 				strcpy(text, "    ");

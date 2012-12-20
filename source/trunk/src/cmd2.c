@@ -1700,14 +1700,8 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 #else
 		msg_format("You have disarmed the %s.", name);
 #endif
-
-		/* Reward */
 		gain_exp(creature_ptr, power);
-
-		/* Remove the trap */
 		cave_alter_feat(floor_ptr, y, x, FF_DISARM);
-
-		/* Move the player onto the trap */
 		walk_creature(creature_ptr, dir, easy_disarm, FALSE);
 	}
 
@@ -1715,19 +1709,14 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	else if((i > 5) && (randint1(i) > 5))
 	{
 		if(flush_failure) flush();
-
 #ifdef JP
 		msg_format("%s‚Ì‰ğœ‚É¸”s‚µ‚½B", name);
 #else
 		msg_format("You failed to disarm the %s.", name);
 #endif
-
-		/* We may keep trying */
 		more = TRUE;
 	}
-
-	/* Failure -- Set off the trap */
-	else
+	else // Failure -- Set off the trap
 	{
 #ifdef JP
 		msg_format("%s‚ğì“®‚³‚¹‚Ä‚µ‚Ü‚Á‚½I", name);
@@ -1812,7 +1801,6 @@ void do_cmd_disarm(creature_type *creature_ptr)
 #else
 			msg_print("You see nothing there to disarm.");
 #endif
-
 		}
 
 		/* Creature in the way */
@@ -1893,15 +1881,10 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 
 		/* Break down the door */
 		if((randint0(100) < 50) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
-		{
 			cave_alter_feat(floor_ptr, y, x, FF_BASH);
-		}
 
 		/* Open the door */
-		else
-		{
-			cave_alter_feat(floor_ptr, y, x, FF_OPEN);
-		}
+		else cave_alter_feat(floor_ptr, y, x, FF_OPEN);
 
 		/* Hack -- Fall through the door */
 		walk_creature(creature_ptr, dir, FALSE, FALSE);
@@ -1915,10 +1898,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 #else
 		msg_format("The %s holds firm.", name);
 #endif
-
-
-		/* Allow repeated bashing */
-		more = TRUE;
+		more = TRUE; // Allow repeated bashing
 	}
 
 	/* High dexterity yields coolness */
