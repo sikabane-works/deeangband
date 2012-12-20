@@ -624,15 +624,17 @@ static void prt_gold(creature_type *creature_ptr)
 }
 
 
-// Prints current AC and EV
-static void prt_ac_ev(creature_type *creature_ptr)
+// Prints current AC, EV and VO
+static void prt_ac_ev_vo(creature_type *creature_ptr)
 {
 	char tmp[32];
-	put_str(" AC(     )  EV(     )", ROW_AC, COL_AC);
-	sprintf(tmp, "%5d", creature_ptr->dis_ac + creature_ptr->dis_to_ac);
-	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 4);
-	sprintf(tmp, "%5d", creature_ptr->dis_ev + creature_ptr->dis_to_ev);
-	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 15);
+	put_str("AC:    EV:    VO:", ROW_AC, COL_AC);
+	sprintf(tmp, "%3d", creature_ptr->dis_ac + creature_ptr->dis_to_ac);
+	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 3);
+	sprintf(tmp, "%3d", creature_ptr->dis_ev + creature_ptr->dis_to_ev);
+	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 10);
+	sprintf(tmp, "%3d", creature_ptr->dis_vo + creature_ptr->dis_to_vo);
+	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 17);
 }
 
 /*
@@ -1241,7 +1243,7 @@ static void prt_frame_basic(creature_type *creature_ptr)
 	prt_exp(creature_ptr);
 
 	for (i = 0; i < STAT_MAX; i++) prt_stat(creature_ptr, i);
-	prt_ac_ev(creature_ptr);
+	prt_ac_ev_vo(creature_ptr);
 	prt_hp(creature_ptr);
 	prt_sp(creature_ptr);
 	prt_gold(creature_ptr);
@@ -4202,7 +4204,7 @@ void redraw_stuff(creature_type *subjectivity_ptr)
 	if(play_redraw & (PR_ARMOR))
 	{
 		play_redraw &= ~(PR_ARMOR);
-		prt_ac_ev(subjectivity_ptr);
+		prt_ac_ev_vo(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_HP))

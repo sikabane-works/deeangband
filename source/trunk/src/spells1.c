@@ -1515,7 +1515,6 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 #else
 							msg_print("Click!");
 #endif
-
 							obvious = TRUE;
 						}
 					}
@@ -1613,7 +1612,6 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 #else
 					msg_format("The %s%s", object_name, note_kill);
 #endif
-
 				}
 
 				k_idx = object_ptr->k_idx;
@@ -2939,8 +2937,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else if(effect == 3)
 			{
 				/* Attempt a saving throw */
-				if(has_trait(target_ptr, TRAIT_UNIQUE) ||
-					has_trait(target_ptr, TRAIT_NO_SLEEP) ||
+				if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_SLEEP) ||
 					(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					if(has_trait(target_ptr, TRAIT_NO_SLEEP))
