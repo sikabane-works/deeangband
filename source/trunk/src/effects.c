@@ -426,20 +426,15 @@ void dispel_creature(creature_type *creature_ptr)
 	{
 #ifdef JP
 		cptr str = (MUSIC_SINGING_ANY(creature_ptr)) ? "‰Ì" : "Žô•¶";
+		msg_format("%s‚ª“rØ‚ê‚½B", str);
 #else
 		cptr str = (MUSIC_SINGING_ANY(creature_ptr)) ? "singing" : "spelling";
+		msg_format("Your %s is interrupted.", str);
 #endif
 		creature_ptr->class_skills.old_skills.magic_num1[1] = creature_ptr->class_skills.old_skills.magic_num1[0];
 		creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
-#ifdef JP
-		msg_format("%s‚ª“rØ‚ê‚½B", str);
-#else
-		msg_format("Your %s is interrupted.", str);
-#endif
 		creature_ptr->action = ACTION_NONE;
-
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
-
 		play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 		// Update creatures

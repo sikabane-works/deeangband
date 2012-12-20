@@ -1230,19 +1230,16 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 #ifdef JP
 			sprintf(tmp_str, "ゲーム前の所持金: %9ld", oldgold);
+			prt(tmp_str, 20, 2);
+			sprintf(tmp_str, "現在の掛け金:     %9ld", wager);
+			prt(tmp_str, 21, 2);
 #else
 			sprintf(tmp_str, "Gold before game: %9ld", oldgold);
-#endif
-
 			prt(tmp_str, 20, 2);
-
-#ifdef JP
-			sprintf(tmp_str, "現在の掛け金:     %9ld", wager);
-#else
 			sprintf(tmp_str, "Current Wager:    %9ld", wager);
+			prt(tmp_str, 21, 2);
 #endif
 
-			prt(tmp_str, 21, 2);
 
 			// Prevent savefile-scumming of the casino
 			Rand_value = (u32b)time(NULL);
@@ -1258,29 +1255,24 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 				switch (cmd)
 				{
 				 case BUILDING_FUNCTION_IN_BETWEEN: /* Game of In-Between */
-#ifdef JP
-					c_put_str(TERM_GREEN, "イン・ビトイーン",5,2);
-#else
-					c_put_str(TERM_GREEN, "In Between", 5, 2);
-#endif
-
 					odds = 4;
 					win = FALSE;
 					roll1 = randint1(10);
 					roll2 = randint1(10);
 					choice = randint1(10);
 #ifdef JP
+					c_put_str(TERM_GREEN, "イン・ビトイーン",5,2);
 					sprintf(tmp_str, "黒ダイス: %d        黒ダイス: %d", roll1, roll2);
 					prt(tmp_str, 8, 3);
 					sprintf(tmp_str, "赤ダイス: %d", choice);
 #else
+					c_put_str(TERM_GREEN, "In Between", 5, 2);
 					sprintf(tmp_str, "Black die: %d       Black Die: %d", roll1, roll2);
 					prt(tmp_str, 8, 3);
 					sprintf(tmp_str, "Red die: %d", choice);
 #endif
 					prt(tmp_str, 11, 14);
-					if(((choice > roll1) && (choice < roll2)) ||
-						((choice < roll1) && (choice > roll2)))
+					if(((choice > roll1) && (choice < roll2)) || ((choice < roll1) && (choice > roll2)))
 						win = TRUE;
 					break;
 				case BUILDING_FUNCTION_CRAPS:  /* Game of Craps */
