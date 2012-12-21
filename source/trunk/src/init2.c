@@ -296,18 +296,10 @@ static errr check_modification_date(int fd, cptr template_file)
 	}
 
 	/* Access stats on raw file */
-	else if(fstat(fd, &raw_stat))
-	{
-		/* Error */
-		return (-1);
-	}
+	else if(fstat(fd, &raw_stat)) return (-1);
 
 	/* Ensure text file is not newer than raw file */
-	else if(txt_stat.st_mtime > raw_stat.st_mtime)
-	{
-		/* Reprocess text file */
-		return (-1);
-	}
+	else if(txt_stat.st_mtime > raw_stat.st_mtime) return (-1);
 
 	return SUCCESS;
 }
@@ -336,7 +328,6 @@ static errr init_info_raw(int fd, header *head)
 	    (test.head_size != head->head_size) ||
 	    (test.info_size != head->info_size))
 	{
-		/* Error */
 		return (-1);
 	}
 
@@ -608,7 +599,6 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		/* Close it */
 		(void)fd_close(fd);
 
-		/* Error */
 #ifdef JP
 		if(err) quit(format("'%s_j.raw'ファイルを解析できません。", filename));
 #else
@@ -837,7 +827,6 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		/* Close it */
 		(void)fd_close(fd);
 
-		/* Error */
 #ifdef JP
 		if(err) quit(format("'%s_j.raw'ファイルを解析できません。", filename));
 #else

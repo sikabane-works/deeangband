@@ -1405,7 +1405,6 @@ void do_cmd_locate(creature_type *creature_ptr)
 			/* Extract the action (if any) */
 			dir = get_keymap_dir(command);
 
-			/* Error */
 			if(!dir) bell();
 		}
 

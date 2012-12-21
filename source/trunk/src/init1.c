@@ -1527,7 +1527,6 @@ static errr grab_one_feat_flag(feature_type *f_ptr, cptr what)
 	msg_format("Unknown feature flag '%s'.", what);
 #endif
 
-	/* Error */
 	return PARSE_ERROR_GENERIC;
 }
 
@@ -1556,7 +1555,6 @@ static errr grab_one_feat_action(feature_type *f_ptr, cptr what, int count)
 	msg_format("Unknown feature action '%s'.", what);
 #endif
 
-	/* Error */
 	return PARSE_ERROR_GENERIC;
 }
 
