@@ -4112,9 +4112,12 @@ void update_creature(creature_type *creature_ptr, bool message)
 }
 
 
-/*
- * Handle "play_redraw"
- */
+// Handle "play_redraw"
+void prepare_redraw(u32b flags)
+{
+	play_redraw |= flags;
+}
+
 void redraw_stuff(creature_type *creature_ptr)
 {
 	if(!play_redraw) return;
