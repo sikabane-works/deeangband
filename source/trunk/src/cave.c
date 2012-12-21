@@ -2119,17 +2119,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	  /* Clear old display */
 	  Term_putstr(0, y, 12, 0, "            ");
 
-	  if(match_autopick != -1)
-#if 1
-		  display_shortened_item_name(watcher_ptr, autopick_obj, y);
-#else
-	  {
-		  char buf[13] = "\0";
-		  strncpy(buf,autopick_list[match_autopick].name,12);
-		  buf[12] = '\0';
-		  put_str(buf,y,0); 
-	  }
-#endif
+	  if(match_autopick != -1) display_shortened_item_name(watcher_ptr, autopick_obj, y);
 
 	}
 
@@ -2543,8 +2533,6 @@ void forget_lite(floor_type *floor_ptr)
 
 
 /*
- * XXX XXX XXX
- *
  * This macro allows us to efficiently add a grid to the "lite" array,
  * note that we are never called for illegal grids, or for grids which
  * have already been placed into the "lite" array, and we are never

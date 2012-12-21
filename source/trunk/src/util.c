@@ -922,7 +922,6 @@ errr fd_seek(int fd, huge n)
  */
 errr fd_chop(int fd, huge n)
 {
-	/* XXX XXX */
 	n = n ? n : 0;
 
 	/* Verify the fd */
