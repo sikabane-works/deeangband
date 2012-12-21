@@ -1395,8 +1395,8 @@ static void you_died(cptr hit_from)
 		}
 		else
 		{
-			if(winning_seppuku) get_rnd_line(message_files[MESSAGE_FILES_SEPPUKU], 0, death_message);
-			else get_rnd_line(message_files[MESSAGE_FILES_DEATH], 0, death_message);
+			if(winning_seppuku) get_rnd_line(text_files[TEXT_FILES_SEPPUKU], 0, death_message);
+			else get_rnd_line(text_files[TEXT_FILES_DEATH], 0, death_message);
 
 			do
 			{
@@ -1768,7 +1768,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				char line_got[1024];
 
 				// Dump a message
-				if(!get_rnd_line(game_messages[MESSAGE_FILES_DEATH], target_ptr->species_idx, line_got))	
+				if(!get_rnd_line(game_messages[TEXT_FILES_DEATH], target_ptr->species_idx, line_got))	
 					msg_format("%^s %s", target_name, line_got);
 			}
 

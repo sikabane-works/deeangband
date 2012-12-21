@@ -271,7 +271,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				if((weapon_ptr->name1 == ART_CHAINSWORD) && !one_in_(2))
 				{
 					char chainsword_noise[1024];
-					if(!get_rnd_line(message_files[MESSAGE_FILES_CHAINSWORD], 0, chainsword_noise))
+					if(!get_rnd_line(text_files[TEXT_FILES_CHAINSWORD], 0, chainsword_noise))
 						msg_print(chainsword_noise);
 				}
 

@@ -987,7 +987,7 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 		int count = 0;
 
 		sound(SOUND_ILLEGAL);
-		if(!get_rnd_line(game_messages[MESSAGE_FILES_ERROR], 0, error_m))
+		if(!get_rnd_line(game_messages[TEXT_FILES_ERROR], 0, error_m))
 		msg_print(error_m);
 		msg_print(NULL);
 

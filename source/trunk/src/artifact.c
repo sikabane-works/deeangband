@@ -1424,19 +1424,19 @@ static void get_random_name(char *return_name, bool armour, int power, int artif
 			case 1:
 				switch (power)
 				{
-					case 0:  filename = message_files[MESSAGE_FILES_ARMOUR_CURSED_ARTIFACT]; break;
-					case 1:  filename = message_files[MESSAGE_FILES_ARMOUR_LOW_ARTIFACT]; break;
-					case 2:  filename = message_files[MESSAGE_FILES_ARMOUR_MED_ARTIFACT]; break;
-					default: filename = message_files[MESSAGE_FILES_ARMOUR_HIGH_ARTIFACT]; break;
+					case 0:  filename = text_files[TEXT_FILES_ARMOUR_CURSED_ARTIFACT]; break;
+					case 1:  filename = text_files[TEXT_FILES_ARMOUR_LOW_ARTIFACT]; break;
+					case 2:  filename = text_files[TEXT_FILES_ARMOUR_MED_ARTIFACT]; break;
+					default: filename = text_files[TEXT_FILES_ARMOUR_HIGH_ARTIFACT]; break;
 				}
 				break;
 			default:
 				switch (power)
 				{
-					case 0:  filename = message_files[MESSAGE_FILES_WEAPON_CURSED_ARTIFACT]; break;
-					case 1:  filename = message_files[MESSAGE_FILES_WEAPON_LOW_ARTIFACT]; break;
-					case 2:  filename = message_files[MESSAGE_FILES_WEAPON_MED_ARTIFACT]; break;
-					default: filename = message_files[MESSAGE_FILES_WEAPON_HIGH_ARTIFACT]; break;
+					case 0:  filename = text_files[TEXT_FILES_WEAPON_CURSED_ARTIFACT]; break;
+					case 1:  filename = text_files[TEXT_FILES_WEAPON_LOW_ARTIFACT]; break;
+					case 2:  filename = text_files[TEXT_FILES_WEAPON_MED_ARTIFACT]; break;
+					default: filename = text_files[TEXT_FILES_WEAPON_HIGH_ARTIFACT]; break;
 				}
 		}
 
