@@ -521,12 +521,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		}
 
 		/*** Make final retouch on fake tags ***/
-
-		if(head->retouch)
-		{
-			(*head->retouch)(head);
-		}
-
+		if(head->retouch) (*head->retouch)(head);
 
 		/*** Dump the binary image file ***/
 
@@ -584,6 +579,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		if(name) C_KILL(head->name_ptr, FAKE_NAME_SIZE, char);
 		if(text) C_KILL(head->text_ptr, FAKE_TEXT_SIZE, char);
 		if(tag)  C_KILL(head->tag_ptr, FAKE_TAG_SIZE, char);
+		if(tmp)  C_KILL(head->tmp_ptr, FAKE_TAG_SIZE, char);
 
 		/*** Load the binary image file ***/
 
@@ -625,6 +621,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 	if(name) (*name) = head->name_ptr;
 	if(text) (*text) = head->text_ptr;
 	if(tag)  (*tag)  = head->tag_ptr;
+	if(tmp)  (*tmp)  = head->tmp_ptr;
 
 	return SUCCESS;
 }

@@ -809,7 +809,6 @@ static parse_special_melee(special_blow_type *blow_ptr, char *tmp)
 
 /*
  * Add a text to the text-storage and store offset to it.
- *
  * Returns FALSE when there isn't enough space available to store
  * the text.
  */
@@ -837,11 +836,9 @@ static bool add_text(u32b *offset, header *head, cptr buf, bool normal_text)
 		if(head->text_size > 0 &&
 #ifdef JP
 		    (*(head->text_ptr + head->text_size - 1) != ' ') &&
-		    ((head->text_size == 1) || !iskanji(*(head->text_ptr + head->text_size - 2))) && 
-		    (buf[0] != ' ') && !iskanji(buf[0])
+		    ((head->text_size == 1) || !iskanji(*(head->text_ptr + head->text_size - 2))) && (buf[0] != ' ') && !iskanji(buf[0])
 #else
-		    (*(head->text_ptr + head->text_size - 1) != ' ') &&
-		    (buf[0] != ' ')
+		    (*(head->text_ptr + head->text_size - 1) != ' ') && (buf[0] != ' ')
 #endif
 		    )
 		{
@@ -895,16 +892,9 @@ static bool add_name(u32b *offset, header *head, cptr buf)
 // Add temporary buffer for reprocess
 static bool add_tmp(u32b *offset, header *head, cptr buf)
 {
-	/* Hack -- Verify space */
-	if(head->tmp_size + strlen(buf) + 8 > FAKE_TMP_BUFFER_SIZE)
-		return FALSE;
-
-	/* New name? */
-	if(*offset == 0)
-	{
-		/* Advance and save the name index */
-		*offset = ++head->tmp_size;
-	}
+	// Hack -- Verify space
+	if(head->tmp_size + strlen(buf) + 8 > FAKE_TMP_BUFFER_SIZE) return FAILURE;
+	if(*offset == 0) *offset = ++head->tmp_size; // Advance and save the name index
 
 	/* Append chars to the names */
 	strcpy(head->tmp_ptr + head->tmp_size, buf);
@@ -912,7 +902,7 @@ static bool add_tmp(u32b *offset, header *head, cptr buf)
 	/* Advance the index */
 	head->tmp_size += strlen(buf);
 
-	return TRUE;
+	return SUCCESS;
 }
 
 
@@ -4202,7 +4192,7 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_INFO_ALIAS:
-					if(!add_tmp(&trait_ptr->alias_text, head, tmp))
+					if(add_tmp(&trait_ptr->alias_text, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
