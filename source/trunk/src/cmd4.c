@@ -4229,7 +4229,6 @@ void do_cmd_colors(void)
 		msg_print(NULL);
 	}
 
-
 	screen_load();
 }
 

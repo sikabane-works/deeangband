@@ -137,6 +137,7 @@ static const cptr message_files[]=
 	"monfrien_j.txt",
 	"monspeak_j.txt",
 	"rumor_j.txt",
+	"news_j.txt",
 #else
 	"news.txt",
 	"a_cursed.txt",
@@ -159,6 +160,7 @@ static const cptr message_files[]=
 	"monfrien.txt",
 	"monspeak.txt",
 	"rumor.txt",
+	"news.txt",
 #endif
 };
 
@@ -185,6 +187,7 @@ enum MESSAGE_FILES
 
 	MESSAGE_FILES_CREATURE_SPEAK,
 	MESSAGE_FILES_RUMOR,
+	MESSAGE_FILES_NEWS,
 };
 
 static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
