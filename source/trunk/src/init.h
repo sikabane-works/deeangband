@@ -64,7 +64,7 @@ struct header
 	u32b text_size;		// Size of the "text" array in bytes
 	u32b tmp_size;		// Size of the "tmp" array in bytes
 	u32b tag_size;		// Size of the "tag" array in bytes
-	void *infobject_ptr;
+	void *object_ptr;
 	char *name_ptr;
 	char *text_ptr;
 	char *tmp_ptr;

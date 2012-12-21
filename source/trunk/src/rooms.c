@@ -6237,7 +6237,7 @@ bool generate_rooms(floor_type *floor_ptr)
 	int dun_rooms = DUN_ROOTRAIT_MAX * area_size / 100;
 
 	/* Assume normal cave */
-	room_info_type *room_infobject_ptr = room_info_normal;
+	room_info_type *room_object_ptr = room_info_normal;
 
 	/*
 	 * Initialize probability list.
@@ -6245,13 +6245,13 @@ bool generate_rooms(floor_type *floor_ptr)
 	for (i = 0; i < ROOM_T_MAX; i++)
 	{
 		/* No rooms allowed above their minimum depth. */
-		if(floor_ptr->floor_level < room_infobject_ptr[i].min_level)
+		if(floor_ptr->floor_level < room_object_ptr[i].min_level)
 		{
 			prob_list[i] = 0;
 		}
 		else
 		{
-			prob_list[i] = room_infobject_ptr[i].prob[level_index];
+			prob_list[i] = room_object_ptr[i].prob[level_index];
 		}
 	}
 

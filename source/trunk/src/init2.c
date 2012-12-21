@@ -337,10 +337,10 @@ static errr init_info_raw(int fd, header *head)
 
 
 	/* Allocate the "*_info" array */
-	C_MAKE(head->infobject_ptr, head->info_size, char);
+	C_MAKE(head->object_ptr, head->info_size, char);
 
 	/* Read the "*_info" array */
-	fd_read(fd, head->infobject_ptr, head->info_size);
+	fd_read(fd, head->object_ptr, head->info_size);
 
 
 	if(head->name_size)
@@ -452,7 +452,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		/*** Make the fake arrays ***/
 
 		/* Allocate the "*_info" array */
-		C_MAKE(head->infobject_ptr, head->info_size, char);
+		C_MAKE(head->object_ptr, head->info_size, char);
 
 		/* Hack -- make "fake" arrays */
 		if(name) C_MAKE(head->name_ptr, FAKE_NAME_SIZE, char);
@@ -460,7 +460,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		if(tmp)  C_MAKE(head->tmp_ptr, FAKE_TMP_BUFFER_SIZE, char);
 		if(tag)  C_MAKE(head->tag_ptr, FAKE_TAG_SIZE, char);
 
-		if(info) (*info) = head->infobject_ptr;
+		if(info) (*info) = head->object_ptr;
 		if(name) (*name) = head->name_ptr;
 		if(text) (*text) = head->text_ptr;
 		if(tmp)  (*tmp)  = head->tmp_ptr;
@@ -541,22 +541,12 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		/* Dump to the file */
 		if(fd >= 0)
 		{
-			/* Dump it */
 			fd_write(fd, (cptr)(head), head->head_size);
-
-			/* Dump the "*_info" array */
-			fd_write(fd, head->infobject_ptr, head->info_size);
-
-			/* Dump the "*_name" array */
+			fd_write(fd, head->object_ptr, head->info_size);
 			fd_write(fd, head->name_ptr, head->name_size);
-
-			/* Dump the "*_text" array */
 			fd_write(fd, head->text_ptr, head->text_size);
-
-			/* Dump the "*_tag" array */
 			fd_write(fd, head->tag_ptr, head->tag_size);
 
-			/* Close */
 			(void)fd_close(fd);
 		}
 
@@ -564,7 +554,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		/*** Kill the fake arrays ***/
 
 		/* Free the "*_info" array */
-		//TODO C_KILL(head->infobject_ptr, head->info_size, char);
+		//TODO C_KILL(head->object_ptr, head->info_size, char);
 
 		/* Hack -- Free the "fake" arrays */
 		if(name) C_KILL(head->name_ptr, FAKE_NAME_SIZE, char);
@@ -607,7 +597,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 
 	}
 
-	if(info) (*info) = head->infobject_ptr;
+	if(info) (*info) = head->object_ptr;
 	if(name) (*name) = head->name_ptr;
 	if(text) (*text) = head->text_ptr;
 	if(tag)  (*tag)  = head->tag_ptr;
@@ -677,14 +667,14 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		/*** Make the fake arrays ***/
 
 		/* Allocate the "*_info" array */
-		C_MAKE(head->infobject_ptr, head->info_size, char);
+		C_MAKE(head->object_ptr, head->info_size, char);
 
 		/* Hack -- make "fake" arrays */
 		if(name) C_MAKE(head->name_ptr, FAKE_NAME_SIZE, char);
 		if(text) C_MAKE(head->text_ptr, FAKE_TEXT_SIZE, char);
 		if(tag)  C_MAKE(head->tag_ptr, FAKE_TAG_SIZE, char);
 
-		if(info) (*info) = head->infobject_ptr;
+		if(info) (*info) = head->object_ptr;
 		if(name) (*name) = head->name_ptr;
 		if(text) (*text) = head->text_ptr;
 		if(tag)  (*tag)  = head->tag_ptr;
@@ -769,22 +759,13 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		/* Dump to the file */
 		if(fd >= 0)
 		{
-			/* Dump it */
 			fd_write(fd, (cptr)(head), head->head_size);
-
-			/* Dump the "*_info" array */
-			fd_write(fd, head->infobject_ptr, head->info_size);
-
-			/* Dump the "*_name" array */
+			fd_write(fd, head->object_ptr, head->info_size);
 			fd_write(fd, head->name_ptr, head->name_size);
-
-			/* Dump the "*_text" array */
 			fd_write(fd, head->text_ptr, head->text_size);
-
-			/* Dump the "*_tag" array */
 			fd_write(fd, head->tag_ptr, head->tag_size);
+			// skip "tmp" array.
 
-			/* Close */
 			(void)fd_close(fd);
 		}
 
@@ -792,7 +773,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		/*** Kill the fake arrays ***/
 
 		/* Free the "*_info" array */
-		C_KILL(head->infobject_ptr, head->info_size, char);
+		C_KILL(head->object_ptr, head->info_size, char);
 
 		/* Hack -- Free the "fake" arrays */
 		if(name) C_KILL(head->name_ptr, FAKE_NAME_SIZE, char);
@@ -835,7 +816,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 
 	}
 
-	if(info) (*info) = head->infobject_ptr;
+	if(info) (*info) = head->object_ptr;
 	if(name) (*name) = head->name_ptr;
 	if(text) (*text) = head->text_ptr;
 	if(tag)  (*tag)  = head->tag_ptr;
@@ -1815,7 +1796,6 @@ void init_angband(void)
 			Term_putstr(0, i++, -1, TERM_WHITE, buf);
 		}
 
-		/* Close */
 		my_fclose(fp);
 	}
 	sprintf(ver, "[Ver.%d.%d.%d]", VER_MAJOR, VER_MINOR, VER_PATCH);

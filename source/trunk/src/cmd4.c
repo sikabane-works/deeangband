@@ -318,10 +318,7 @@ static void close_auto_dump(void)
 
 	/* End of dump */
 	fprintf(auto_dump_stream, "%s (%d)\n", footer_mark_str, auto_dump_line_num);
-
-	/* Close */
 	my_fclose(auto_dump_stream);
-
 	return;
 }
 
@@ -2696,9 +2693,7 @@ static errr macro_dump(cptr fname)
 		auto_dump_printf("\n");
 	}
 
-	/* Close */
 	close_auto_dump();
-
 	return SUCCESS;
 }
 
@@ -2827,9 +2822,7 @@ static errr keymap_dump(cptr fname)
 		auto_dump_printf("C:%d:%s\n", mode, key);
 	}
 
-	/* Close */
 	close_auto_dump();
-
 	return SUCCESS;
 }
 
@@ -3471,7 +3464,6 @@ void do_cmd_visuals(void)
 					(byte)(species_ptr->x_attr), (byte)(species_ptr->x_char));
 			}
 
-			/* Close */
 			close_auto_dump();
 
 #ifdef JP
@@ -3552,7 +3544,6 @@ void do_cmd_visuals(void)
 					(byte)(object_kind_ptr->x_attr), (byte)(object_kind_ptr->x_char));
 			}
 
-			/* Close */
 			close_auto_dump();
 
 #ifdef JP
@@ -3621,7 +3612,6 @@ void do_cmd_visuals(void)
 					(byte)(f_ptr->x_attr[F_LIT_DARK]), (byte)(f_ptr->x_char[F_LIT_DARK]));
 			}
 
-			/* Close */
 			close_auto_dump();
 
 #ifdef JP
@@ -4174,7 +4164,6 @@ void do_cmd_colors(void)
 				auto_dump_printf("V:%d:0x%02X:0x%02X:0x%02X:0x%02X\n\n", i, kv, rv, gv, bv);
 			}
 
-			/* Close */
 			close_auto_dump();
 
 #ifdef JP

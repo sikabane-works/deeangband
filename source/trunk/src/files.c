@@ -5975,7 +5975,6 @@ static void print_tomb(creature_type *creature_ptr)
 				put_str(buf, i++, 0);
 			}
 
-			/* Close */
 			my_fclose(fp);
 		}
 

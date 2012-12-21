@@ -1008,8 +1008,6 @@ errr fd_close(int fd)
 {
 	/* Verify the fd */
 	if(fd < 0) return (-1);
-
-	/* Close */
 	(void)close(fd);
 
 	return SUCCESS;
