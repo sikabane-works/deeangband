@@ -938,7 +938,7 @@ static void start_singing(creature_type *creature_ptr, int spell, int song)
 
 	set_action(creature_ptr, ACTION_SING);
 	creature_ptr->creature_update |= (CRU_BONUS);
-	play_redraw |= (PR_STATUS);
+	prepare_redraw(PR_STATUS);
 }
 
 
@@ -971,7 +971,7 @@ void stop_singing(creature_type *creature_ptr)
 
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	play_redraw |= (PR_STATUS);
+	prepare_redraw(PR_STATUS);
 }
 
 
@@ -3169,7 +3169,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 				if(!has_trait(caster_ptr, TRAIT_CONFUSING_MELEE))
 				{
 					set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE);
-					play_redraw |= (PR_STATUS);
+					prepare_redraw(PR_STATUS);
 				}
 			}
 		}
@@ -9582,7 +9582,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("You recall the valor of Fingolfin's challenge to the Dark Lord...");
 #endif
 
-				play_redraw |= (PR_MAP);
+				prepare_redraw(PR_MAP);
 		
 				// Update creatures
 				caster_ptr->creature_update |= (PU_CREATURES);
@@ -9601,7 +9601,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 				msg_print("The invulnerability wears off.");
 #endif
-				play_redraw |= (PR_MAP);
+				prepare_redraw(PR_MAP);
 
 				// Update creatures
 				caster_ptr->creature_update |= (PU_CREATURES);
@@ -10582,7 +10582,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				if(!mdeath) break;
 				command_dir = 0;
 
-				play_redraw |= PR_MANA;
+				prepare_redraw(PR_MANA);
 				handle_stuff(caster_ptr);
 			}
 			while (caster_ptr->csp > mana_cost_per_creature);
@@ -11680,7 +11680,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				if(creature_ptr->class_skills.old_skills.magic_num2) creature_ptr->action = ACTION_NONE;
 
 				creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
-				play_redraw |= (PR_EXTRA);
+				prepare_redraw(PR_EXTRA);
 
 				return "";
 			}
@@ -11965,7 +11965,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 	if(!info)
 	{
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
-		play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
+		prepare_redraw(PR_EXTRA | PR_HP | PR_MANA);
 	}
 
 	return "";

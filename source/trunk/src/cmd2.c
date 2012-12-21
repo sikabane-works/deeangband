@@ -328,7 +328,7 @@ void do_cmd_search(creature_type *creature_ptr)
 		/* Set repeat count */
 		command_rep = command_arg - 1;
 
-		play_redraw |= (PR_STATE);
+		prepare_redraw(PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -1008,7 +1008,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		/* Set repeat count */
 		command_rep = command_arg - 1;
 
-		play_redraw |= (PR_STATE);
+		prepare_redraw(PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -1160,7 +1160,7 @@ void do_cmd_close(creature_type *creature_ptr)
 		/* Set repeat count */
 		command_rep = command_arg - 1;
 
-		play_redraw |= (PR_STATE);
+		prepare_redraw(PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -1435,7 +1435,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 	if(command_arg)
 	{
 		command_rep = command_arg - 1; // Set repeat count
-		play_redraw |= (PR_STATE); // Redraw the state
+		prepare_redraw(PR_STATE); // Redraw the state
 		command_arg = 0; // Cancel the arg
 	}
 
@@ -1769,7 +1769,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		/* Set repeat count */
 		command_rep = command_arg - 1;
 
-		play_redraw |= (PR_STATE);
+		prepare_redraw(PR_STATE);
 
 		/* Cancel the arg */
 		command_arg = 0;
@@ -1942,7 +1942,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 	if(command_arg) // Allow repeated command
 	{
 		command_rep = command_arg - 1;
-		play_redraw |= (PR_STATE);
+		prepare_redraw(PR_STATE);
 		command_arg = 0;
 	}
 
@@ -2016,7 +2016,7 @@ void do_cmd_alter(creature_type *creature_ptr)
 	if(command_arg) // Allow repeated command
 	{
 		command_rep = command_arg - 1;
-		play_redraw |= (PR_STATE);
+		prepare_redraw(PR_STATE);
 		command_arg = 0;
 	}
 
@@ -2176,7 +2176,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	if(command_arg) // Allow repeated command
 	{
 		command_rep = command_arg - 1;
-		play_redraw |= (PR_STATE);
+		prepare_redraw(PR_STATE);
 		command_arg = 0;
 	}
 
@@ -2274,7 +2274,7 @@ void do_cmd_stay(creature_type *creature_ptr, bool pickup)
 	if(command_arg)
 	{
 		command_rep = command_arg - 1;
-		play_redraw |= (PR_STATE);
+		prepare_redraw(PR_STATE);
 		command_arg = 0;
 	}
 
@@ -2356,7 +2356,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	play_redraw |= (PR_STATE);
+	prepare_redraw(PR_STATE);
 
 	handle_stuff(creature_ptr);
 	Term_fresh();
@@ -3463,7 +3463,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	if(IS_EQUIPPED(object_ptr))
 	{
 		equiped_item = TRUE;
-		play_redraw |= (PR_EQUIPPY);
+		prepare_redraw(PR_EQUIPPY);
 	}
 
 	/* Take a turn */

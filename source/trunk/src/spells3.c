@@ -920,7 +920,7 @@ if(get_check("‚±‚±‚ÍÅ[“ž’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
 #else
 		msg_print("The air about you becomes charged...");
 #endif
-		play_redraw |= (PR_STATUS);
+		prepare_redraw(PR_STATUS);
 	}
 	else
 	{
@@ -931,7 +931,7 @@ if(get_check("‚±‚±‚ÍÅ[“ž’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
 		msg_print("A tension leaves the air around you...");
 #endif
 
-		play_redraw |= (PR_STATUS);
+		prepare_redraw(PR_STATUS);
 	}
 	return TRUE;
 }
@@ -1566,7 +1566,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	// Update creatures
 	player_ptr->creature_update |= (PU_CREATURES);
 
-	play_redraw |= (PR_MAP);
+	prepare_redraw(PR_MAP);
 
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
@@ -1807,7 +1807,7 @@ msg_format("%^s‚ª‚ ‚È‚½‚Ì‘«Œ³‚É”ò‚ñ‚Å‚«‚½B", object_name);
 
 
 	note_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
-	play_redraw |= PR_MAP;
+	prepare_redraw(PR_MAP);
 }
 
 
@@ -1837,7 +1837,7 @@ void alter_reality(creature_type *creature_ptr)
 		msg_print("The view around you begins to change...");
 #endif
 
-		play_redraw |= (PR_STATUS);
+		prepare_redraw(PR_STATUS);
 	}
 	else
 	{
@@ -1848,7 +1848,7 @@ void alter_reality(creature_type *creature_ptr)
 		msg_print("The view around you got back...");
 #endif
 
-		play_redraw |= (PR_STATUS);
+		prepare_redraw(PR_STATUS);
 	}
 	return;
 }
@@ -2156,7 +2156,7 @@ msg_format("%s‚ð%d ‚Ì‹à‚É•Ï‚¦‚½B", object_name, price);
 
 		creature_ptr->au += price;
 
-		play_redraw |= (PR_GOLD);
+		prepare_redraw(PR_GOLD);
 
 		play_window |= (PW_PLAYER);
 
@@ -5227,7 +5227,7 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", object_name);
 		creature_ptr->csp = creature_ptr->msp;
 	}
 
-	play_redraw |= (PR_MANA);
+	prepare_redraw(PR_MANA);
 
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 	play_window |= (PW_INVEN);

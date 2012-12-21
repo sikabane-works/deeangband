@@ -1968,7 +1968,7 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format("You get %ldgp.", 1000000L * object_ptr->number);
 #endif
 				creature_ptr->au += 1000000L * object_ptr->number;
-				play_redraw |= (PR_GOLD);
+				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
 				inven_item_describe(creature_ptr, i);
 				inven_item_optimize(creature_ptr, i);
@@ -1999,7 +1999,7 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format("You get %ldgp.", 200000L * object_ptr->number);
 #endif
 				creature_ptr->au += 200000L * object_ptr->number;
-				play_redraw |= (PR_GOLD);
+				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
 				inven_item_describe(creature_ptr, i);
 				inven_item_optimize(creature_ptr, i);
@@ -2030,7 +2030,7 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format("You get %ldgp.", 100000L * object_ptr->number);
 #endif
 				creature_ptr->au += 100000L * object_ptr->number;
-				play_redraw |= (PR_GOLD);
+				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
 				inven_item_describe(creature_ptr, i);
 				inven_item_optimize(creature_ptr, i);
@@ -2059,7 +2059,7 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format("You get %ldgp.", (species_info[today_mon].level * 50 + 100) * object_ptr->number);
 #endif
 				creature_ptr->au += (species_info[today_mon].level * 50 + 100) * object_ptr->number;
-				play_redraw |= (PR_GOLD);
+				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
 				inven_item_describe(creature_ptr, i);
 				inven_item_optimize(creature_ptr, i);
@@ -2089,7 +2089,7 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format("You get %ldgp.", (species_info[today_mon].level * 30 + 60) * object_ptr->number);
 #endif
 				creature_ptr->au += (species_info[today_mon].level * 30 + 60) * object_ptr->number;
-				play_redraw |= (PR_GOLD);
+				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
 				inven_item_describe(creature_ptr, i);
 				inven_item_optimize(creature_ptr, i);
@@ -3898,7 +3898,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 			msg_print("The air about you becomes charged...");
 #endif
 			paid = TRUE;
-			play_redraw |= (PR_STATUS);
+			prepare_redraw(PR_STATUS);
 		}
 		break;
 	}
@@ -4139,7 +4139,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	creature_ptr->creature_update |= CRU_BONUS;
 	creature_ptr->creature_update |= (PU_VIEW | PU_CREATURES | PU_LITE | PU_SPECIES_LITE);
 
-	play_redraw |= (PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);
+	prepare_redraw(PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);
 
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 }

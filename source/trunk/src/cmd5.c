@@ -1476,7 +1476,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 				// Update creatures
 				creature_ptr->creature_update |= (CRU_BONUS);
 				creature_ptr->creature_update |= PU_CREATURES;
-				play_redraw |= (PR_EXTRA | PR_UHEALTH);
+				prepare_redraw(PR_EXTRA | PR_UHEALTH);
 			}
 
 			/* HACK : Add the line to message buffer */
@@ -1659,7 +1659,7 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 
 
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
-	play_redraw |= (PR_EXTRA | PR_UHEALTH);
+	prepare_redraw(PR_EXTRA | PR_UHEALTH);
 
 	if(has_trait(creature_ptr, TRAIT_CAN_FLY) && !force)
 	{
@@ -1833,7 +1833,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 	/* Update the creatures */
 	rider_ptr->creature_update |= (CRU_BONUS);
-	play_redraw |= (PR_MAP | PR_EXTRA | PR_UHEALTH); // Redraw map
+	prepare_redraw(PR_MAP | PR_EXTRA | PR_UHEALTH); // Redraw map
 
 	/* Move the player */
 	(void)move_creature(rider_ptr, NULL, y, x, MCE_HANDLE_STUFF | MCE_ENERGY_USE | MCE_DONT_PICKUP | MCE_DONT_SWAP_MON);

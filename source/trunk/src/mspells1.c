@@ -1142,7 +1142,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 			target_ptr->mane_num++;
 			caster_ptr->new_mane = TRUE;
 
-			play_redraw |= (PR_IMITATION);
+			prepare_redraw(PR_IMITATION);
 		}
 	}
 

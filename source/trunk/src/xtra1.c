@@ -1852,7 +1852,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 		/* Save the new_spells value */
 		creature_ptr->old_spells = creature_ptr->new_spells;
 
-		play_redraw |= (PR_STUDY);
+		prepare_redraw(PR_STUDY);
 		play_window |= (PW_OBJECT);
 	}
 }
@@ -2032,7 +2032,7 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 #endif
 		
 		creature_ptr->msp = msp; // Save new mana
-		play_redraw |= (PR_MANA | PW_PLAYER | PW_SPELL); // Display mana later
+		prepare_redraw(PR_MANA | PW_PLAYER | PW_SPELL); // Display mana later
 	}
 
 	/* Take note when "glove state" changes */
@@ -2152,7 +2152,7 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 		creature_ptr->mmhp = mhp;
 
 		/* Display hitpoints (later) */
-		play_redraw |= (PR_HP);
+		prepare_redraw(PR_HP);
 
 		play_window |= (PW_PLAYER);
 	}
@@ -2390,7 +2390,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 		creature_ptr->dis_to_ac += 10 + creature_ptr->lev / 2;
 		creature_ptr->skill_dig += (100 + creature_ptr->lev * 8);
 
-		play_redraw |= PR_STATUS;
+		prepare_redraw(PR_STATUS);
 	}
 
 	switch (creature_ptr->class_idx)
@@ -2536,7 +2536,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 		if(creature_ptr->stat_top[i] != top) // Notice changes
 		{
 			creature_ptr->stat_top[i] = top; // Save the new value
-			play_redraw |= (PR_STATS); // Redisplay the stats later
+			prepare_redraw(PR_STATS); // Redisplay the stats later
 			play_window |= (PW_PLAYER); // Window stuff
 		}
 
@@ -2552,7 +2552,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 		if(creature_ptr->stat_use[i] != use)
 		{
 			creature_ptr->stat_use[i] = use; // Save the new value
-			play_redraw |= (PR_STATS);  // Redisplay the stats later
+			prepare_redraw(PR_STATS);  // Redisplay the stats later
 			play_window |= (PW_PLAYER); // Window stuff
 		}
 
@@ -3959,12 +3959,12 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	// Hack -- See Invis Change
 	//TODO creature_ptr->creature_update |= (PU_CREATURES);
 	play_window |= PW_INVEN; // Redraw average damege display of Shuriken
-	play_redraw |= (PR_SPEED); // TODO
+	prepare_redraw(PR_SPEED); // TODO
 
 	// Redraw armor (if needed)
 	if((creature_ptr->dis_ac != old_dis_ac) || (creature_ptr->dis_to_ac != old_dis_to_ac))
 	{
-		play_redraw |= (PR_ARMOR);  // Redraw
+		prepare_redraw(PR_ARMOR);  // Redraw
 		play_window |= (PW_PLAYER); // Window stuff
 	}
 

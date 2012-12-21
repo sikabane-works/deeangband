@@ -29,7 +29,7 @@ bool stop_hex_spell_all(creature_type *creature_ptr)
 	if(creature_ptr->action == ACTION_SPELL) set_action(creature_ptr, ACTION_NONE);
 
 	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
-	play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
+	prepare_redraw(PR_EXTRA | PR_HP | PR_MANA);
 
 	return TRUE;
 }
@@ -110,7 +110,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 	}
 
 	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
-	play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
+	prepare_redraw(PR_EXTRA | PR_HP | PR_MANA);
 
 	return flag;
 }
@@ -174,7 +174,7 @@ void check_hex(creature_type *creature_ptr)
 	{
 		s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), need_mana, need_mana_frac);
 
-		play_redraw |= PR_MANA;
+		prepare_redraw(PR_MANA);
 		if(res)
 		{
 #ifdef JP
@@ -186,7 +186,7 @@ void check_hex(creature_type *creature_ptr)
 
 			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 
-			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
+			prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
 
 			// Update creatures
 			creature_ptr->creature_update |= (PU_CREATURES);

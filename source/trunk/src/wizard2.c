@@ -57,7 +57,7 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 
 	/* Update and redraw hitpoints */
 	creature_ptr->creature_update |= (CRU_HP);
-	play_redraw |= (PR_HP);
+	prepare_redraw(PR_HP);
 
 	play_window |= (PW_PLAYER);
 
@@ -1245,7 +1245,7 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 	{
 		creature_ptr->chp = creature_ptr->mhp;
 		creature_ptr->chp_frac = 0;
-		play_redraw |= (PR_HP | PW_PLAYER);
+		prepare_redraw(PR_HP | PW_PLAYER);
 	}
 
 	/* Restore mana */
@@ -1253,7 +1253,7 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 	{
 		creature_ptr->csp = creature_ptr->msp;
 		creature_ptr->csp_frac = 0;
-		play_redraw |= (PR_MANA);
+		prepare_redraw(PR_MANA);
 		play_window |= (PW_PLAYER | PW_SPELL);
 	}
 
@@ -1415,7 +1415,7 @@ static void do_cmd_wiz_floor_teleport(void)
 			player_ptr->floor_id = i;
 
 			// redraw
-			play_redraw |= PR_MAP;
+			prepare_redraw(PR_MAP);
 			redraw_stuff(player_ptr);
 
 			wiz_dimension_door(player_ptr);
@@ -1427,7 +1427,7 @@ static void do_cmd_wiz_floor_teleport(void)
 	screen_load();
 
 	// redraw
-	play_redraw |= PR_MAP;
+	prepare_redraw(PR_MAP);
 	redraw_stuff(player_ptr);
 
 
@@ -1555,7 +1555,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 	move_floor(creature_ptr, dungeon_id, wy, wx, depth, floor_ptr, 0);
 
 	// redraw
-	play_redraw |= PR_MAP;
+	prepare_redraw(PR_MAP);
 	redraw_stuff(player_ptr);
 
 	// Leaving

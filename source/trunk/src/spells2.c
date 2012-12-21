@@ -1517,7 +1517,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 	/* Visual feedback */
 	move_cursor_relative(user_ptr->fy, user_ptr->fx);
-	play_redraw |= (PR_HP);
+	prepare_redraw(PR_HP);
 	play_window |= (PW_PLAYER);
 
 	/* Handle */
@@ -2087,7 +2087,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 
 		caster_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 
-		play_redraw |= (PR_MAP);
+		prepare_redraw(PR_MAP);
 
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
@@ -2355,7 +2355,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 	}
 
 	player_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES); // Update stuff
-	play_redraw |= (PR_HEALTH | PR_UHEALTH | PR_MAP | PW_OVERHEAD | PW_DUNGEON); // Update the health bar
+	prepare_redraw(PR_HEALTH | PR_UHEALTH | PR_MAP | PW_OVERHEAD | PW_DUNGEON); // Update the health bar
 
 	if(caster_ptr->posture & NINJA_S_STEALTH && floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info & CAVE_GLOW)
 		set_superstealth(caster_ptr, FALSE);
@@ -3207,7 +3207,7 @@ bool wall_stone(creature_type *caster_ptr)
 
 	caster_ptr->creature_update |= (PU_FLOW);
 
-	play_redraw |= (PR_MAP);
+	prepare_redraw(PR_MAP);
 
 	return dummy;
 }
@@ -3727,7 +3727,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 		msg_format("Failed! %s couldn't run away.", user_name);
 #endif
 		user_ptr->posture &= ~(NINJA_KAWARIMI);
-		play_redraw |= (PR_STATUS);
+		prepare_redraw(PR_STATUS);
 		return FALSE;
 	}
 
@@ -3751,7 +3751,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 #endif
 
 	user_ptr->posture &= ~(NINJA_KAWARIMI);
-	play_redraw |= (PR_STATUS);
+	prepare_redraw(PR_STATUS);
 
 	/* Teleported */
 	return TRUE;

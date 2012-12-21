@@ -2571,7 +2571,7 @@ static void process_creature(int i)
 			set_action(creature_ptr, ACTION_NONE);
 		}
 		else s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), cost, cost_frac); // Reduce mana
-		play_redraw |= PR_MANA;
+		prepare_redraw(PR_MANA);
 	}
 
 	if(have_posture(creature_ptr))
@@ -2582,7 +2582,7 @@ static void process_creature(int i)
 			else
 			{
 				creature_ptr->csp -= 2;
-				play_redraw |= (PR_MANA);
+				prepare_redraw(PR_MANA);
 			}
 		}
 	}

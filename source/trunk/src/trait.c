@@ -644,7 +644,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, randint1(5 * oops + 1), TRUE);
 				}
 
-				play_redraw |= (PR_MANA); // Redraw mana
+				prepare_redraw(PR_MANA); // Redraw mana
 			}
 
 			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), game_messages[GAME_MESSAGE_PERILOUS_SECRET], NULL, -1);
@@ -721,7 +721,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				return FALSE;
 			}
 			set_action(caster_ptr, ACTION_FISH);
-			play_redraw |= (PR_STATE);
+			prepare_redraw(PR_STATE);
 			break;
 		}
 
@@ -865,7 +865,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			{
 				inc_mana(caster_ptr, caster_ptr->msp);
 				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
-				play_redraw |= (PW_PLAYER | PW_SPELL);
+				prepare_redraw(PW_PLAYER | PW_SPELL);
 				effected = TRUE;
 			}
 			if(set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
@@ -1412,7 +1412,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		msg_print(NULL);
 
 		cost_tactical_energy(caster_ptr, -1000 - (100 + randint1(200) + 200) * TURNS_PER_TICK / 10);
-		play_redraw |= (PR_MAP); // Redraw map
+		prepare_redraw(PR_MAP); // Redraw map
 		caster_ptr->creature_update |= (PU_CREATURES); // Update creatures
 		play_window |= (PW_OVERHEAD | PW_DUNGEON); // Window stuff
 

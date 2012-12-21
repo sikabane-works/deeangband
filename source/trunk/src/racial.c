@@ -519,7 +519,7 @@ bool choose_kamae(creature_type *creature_ptr)
 	{
 		creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
 		creature_ptr->creature_update |= (CRU_BONUS);
-		play_redraw |= (PR_STATE);
+		prepare_redraw(PR_STATE);
 #ifdef JP
 		msg_format("%s‚Ì\‚¦‚ð‚Æ‚Á‚½B",kamae_shurui[new_kamae].desc);
 #else
@@ -663,8 +663,8 @@ bool choose_kata(creature_type *creature_ptr)
 #endif
 		creature_ptr->posture |= (KATA_IAI << new_kata);
 	}
-	play_redraw |= (PR_STATE);
-	play_redraw |= (PR_STATUS);
+	prepare_redraw(PR_STATE);
+	prepare_redraw(PR_STATUS);
 	screen_load();
 	return TRUE;
 }
@@ -913,7 +913,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 			}
 
-			play_redraw |= (PR_HP);
+			prepare_redraw(PR_HP);
 
 			break;
 		}
@@ -1843,7 +1843,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 			}
 			else creature_ptr->csp -= actual_racial_cost;
 
-			play_redraw |= (PR_HP | PR_MANA);
+			prepare_redraw(PR_HP | PR_MANA);
 			play_window |= (PW_PLAYER | PW_SPELL);
 		}
 	}

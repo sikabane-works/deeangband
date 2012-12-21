@@ -997,7 +997,7 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 	if(has_trait(attacker_ptr, TRAIT_CONFUSING_MELEE)) // Cancel glowing hands
 	{
 		set_timed_trait(attacker_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
-		if(is_seen(player_ptr, attacker_ptr)) play_redraw |= (PR_STATUS);
+		if(is_seen(player_ptr, attacker_ptr)) prepare_redraw(PR_STATUS);
 	}
 
 	if(has_trait(target_ptr, TRAIT_NO_CONF)) // Confuse the creature
@@ -2194,8 +2194,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						/* Heal the creature */
 						attacker_ptr->chp += heal;
 
-						//TODO if(&magic_info[npc_status_id] == attacker_ptr) play_redraw |= (PR_HEALTH);
-						//if(&magic_info[target_ptr->riding] == attacker_ptr) play_redraw |= (PR_UHEALTH);
+						//TODO if(&magic_info[npc_status_id] == attacker_ptr) prepare_redraw(PR_HEALTH);
+						//if(&magic_info[target_ptr->riding] == attacker_ptr) prepare_redraw(PR_UHEALTH);
 
 						/* Uncharge */
 						object_ptr->pval = 0;
@@ -2280,7 +2280,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #endif
 					}
 
-					play_redraw |= (PR_GOLD);
+					prepare_redraw(PR_GOLD);
 
 					play_window |= (PW_PLAYER);
 
@@ -2944,8 +2944,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					attacker_ptr->chp += diceroll(4, damage / 6);
 					if(attacker_ptr->chp > attacker_ptr->mhp) attacker_ptr->chp = attacker_ptr->mhp;
 
-					//TODO if(npc_status_id == m_idx) play_redraw |= (PR_HEALTH);
-					//TODO if(target_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
+					//TODO if(npc_status_id == m_idx) prepare_redraw(PR_HEALTH);
+					//TODO if(target_ptr->riding == m_idx) prepare_redraw(PR_UHEALTH);
 
 					/* Special message */
 					if(attacker_ptr->see_others && did_heal)
@@ -3352,7 +3352,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #endif
 		close_combat(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_COUNTER);
 
-		play_redraw |= (PR_MANA);
+		prepare_redraw(PR_MANA);
 	}
 
 	/* Blink away */

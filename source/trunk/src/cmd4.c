@@ -1146,7 +1146,7 @@ void do_cmd_redraw(void)
 	// Update creatures
 	player_ptr->creature_update |= (PU_CREATURES);
 
-	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
+	prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 
@@ -1244,7 +1244,7 @@ void do_cmd_change_name(creature_type *creature_ptr)
 	/* Restore the screen */
 	screen_load();
 
-	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
+	prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 	handle_stuff(creature_ptr);
 }
@@ -2606,7 +2606,7 @@ void do_cmd_options(void)
 	screen_load();
 
 	/* Hack - Redraw equippy chars */
-	play_redraw |= (PR_EQUIPPY);
+	prepare_redraw(PR_EQUIPPY);
 }
 
 
@@ -5778,7 +5778,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		use_graphics = FALSE;
 		reset_visuals();
 
-		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
+		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
 		handle_stuff(player_ptr);
@@ -5901,7 +5901,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		use_graphics = TRUE;
 		reset_visuals();
 
-		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
+		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
 		handle_stuff(player_ptr);

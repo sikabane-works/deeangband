@@ -104,7 +104,7 @@ static bool snipe_concentrate(creature_type *creature_ptr)
 
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	play_redraw |= (PR_STATUS);
+	prepare_redraw(PR_STATUS);
 
 	// Update creatures
 	creature_ptr->creature_update |= (PU_CREATURES);
@@ -128,7 +128,7 @@ void reset_concentration(creature_type *creature_ptr, bool msg)
 
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	play_redraw |= (PR_STATUS);
+	prepare_redraw(PR_STATUS);
 
 	// Update creatures
 	creature_ptr->creature_update |= (PU_CREATURES);
@@ -586,7 +586,7 @@ void do_cmd_snipe(creature_type *creature_ptr)
 
 	if(!cast) return;
 
-	play_redraw |= (PR_HP | PR_MANA);
+	prepare_redraw(PR_HP | PR_MANA);
 
 	play_window |= (PW_PLAYER);
 	play_window |= (PW_SPELL);

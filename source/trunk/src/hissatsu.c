@@ -401,7 +401,7 @@ msg_print("‰½‚à‹Z‚ð’m‚ç‚È‚¢B");
 	/* Limit */
 	if(creature_ptr->csp < 0) creature_ptr->csp = 0;
 
-	play_redraw |= (PR_MANA);
+	prepare_redraw(PR_MANA);
 
 	play_window |= (PW_PLAYER);
 	play_window |= (PW_SPELL);

@@ -5135,10 +5135,10 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 	creature_ptr->creature_update |= (PU_CREATURES);
 
 	// Redraw entire screen
-	play_redraw |= (PR_BASIC | PR_EXTRA | PR_EQUIPPY);
+	prepare_redraw(PR_BASIC | PR_EXTRA | PR_EQUIPPY);
 
 	// Redraw map
-	play_redraw |= (PR_MAP);
+	prepare_redraw(PR_MAP);
 
 	// Window stuff
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);

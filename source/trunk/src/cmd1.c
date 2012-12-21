@@ -576,7 +576,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 	verify_panel(creature_ptr); // Recenter the map around the player
 	creature_ptr->creature_update |= (PU_CREATURES); // Update stuff
 
-	play_redraw |= (PR_MAP); // Redraw map
+	prepare_redraw(PR_MAP); // Redraw map
 	play_window |= (PW_OVERHEAD); // Window stuff
 	handle_stuff(creature_ptr);
 
@@ -628,7 +628,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 #endif
 			sound(SOUND_SELL);
 			creature_ptr->au += value; // Collect the gold
-			play_redraw |= (PR_GOLD); // Redraw gold
+			prepare_redraw(PR_GOLD); // Redraw gold
 			play_window |= (PW_PLAYER); // Window stuff
 		}
 
@@ -1473,7 +1473,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 			creature_ptr->creature_update |= (PU_UN_VIEW);
 
 			// Redraw map
-			play_redraw |= (PR_MAP);
+			prepare_redraw(PR_MAP);
 		}
 
 		creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_DISTANCE);	// Update stuff

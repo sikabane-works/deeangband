@@ -3705,7 +3705,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Collect the gold */
 			creature_ptr->au += object_ptr->pval;
 
-			play_redraw |= (PR_GOLD);
+			prepare_redraw(PR_GOLD);
 
 			play_window |= (PW_PLAYER);
 

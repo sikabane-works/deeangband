@@ -241,7 +241,7 @@ void compact_objects(int size)
 #endif
 
 
-		play_redraw |= (PR_MAP);
+		prepare_redraw(PR_MAP);
 
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 	}

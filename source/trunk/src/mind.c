@@ -973,7 +973,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 			/* Hack */
 			creature_ptr->energy_need -= 1000 + (100 + (s16b)creature_ptr->csp - 50)*TURNS_PER_TICK/10;
 
-			play_redraw |= (PR_MAP);
+			prepare_redraw(PR_MAP);
 
 			// Update creatures
 			creature_ptr->creature_update |= (PU_CREATURES);
@@ -1525,7 +1525,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 #endif
 
 				creature_ptr->posture |= NINJA_KAWARIMI;
-				play_redraw |= (PR_STATUS);
+				prepare_redraw(PR_STATUS);
 			}
 			break;
 		}
@@ -2046,7 +2046,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 #else
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, mana_cost, "concentrating too hard", NULL, -1);
 #endif
-		play_redraw |= (PR_HP);
+		prepare_redraw(PR_HP);
 	}
 
 	else if(mana_cost <= old_csp) // Sufficient mana

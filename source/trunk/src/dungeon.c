@@ -912,7 +912,7 @@ static void regenhp(creature_type *creature_ptr, int percent)
 	/* Notice changes */
 	if(old_chp != creature_ptr->chp)
 	{
-		play_redraw |= (PR_HP);
+		prepare_redraw(PR_HP);
 
 		play_window |= (PW_PLAYER);
 
@@ -998,7 +998,7 @@ static void regenmana(creature_type * creature_ptr, int percent)
 
 	if(old_csp != creature_ptr->csp)
 	{
-		play_redraw |= (PR_MANA);
+		prepare_redraw(PR_MANA);
 
 		play_window |= (PW_PLAYER);
 		play_window |= (PW_SPELL);
@@ -1085,8 +1085,8 @@ static void regen_creatures(creature_type *creature_ptr)
 			/* Do not over-regenerate */
 			if(m_ptr->chp > m_ptr->mhp) m_ptr->chp = m_ptr->mhp;
 
-			if(npc_status_id == i) play_redraw |= (PR_HEALTH);
-			if(creature_ptr->riding == i) play_redraw |= (PR_UHEALTH);
+			if(npc_status_id == i) prepare_redraw(PR_HEALTH);
+			if(creature_ptr->riding == i) prepare_redraw(PR_UHEALTH);
 		}
 	}
 }
@@ -1419,7 +1419,7 @@ static void check_music(creature_type *creature_ptr)
 	{
 		s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), need_mana, need_mana_frac);
 
-		play_redraw |= PR_MANA;
+		prepare_redraw(PR_MANA);
 		if(creature_ptr->class_skills.old_skills.magic_num1[1])
 		{
 			creature_ptr->class_skills.old_skills.magic_num1[0] = creature_ptr->class_skills.old_skills.magic_num1[1];
@@ -1433,7 +1433,7 @@ static void check_music(creature_type *creature_ptr)
 
 			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 
-			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
+			prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
 
 			// Update creatures
 			creature_ptr->creature_update |= (PU_CREATURES);
@@ -2000,7 +2000,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(!has_trait(creature_ptr, TRAIT_NO_CONF) && !has_trait(creature_ptr, TRAIT_RES_CHAO))
 		{
 			disturb(player_ptr, 0, 0);
-			play_redraw |= PR_EXTRA;
+			prepare_redraw(PR_EXTRA);
 #ifdef JP
 			msg_print("いひきがもーろーとひてきたきがふる...ヒック！");
 #else
@@ -2045,7 +2045,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(!has_trait(creature_ptr, TRAIT_RES_CHAO))
 		{
 			disturb(player_ptr, 0, 0);
-			play_redraw |= PR_EXTRA;
+			prepare_redraw(PR_EXTRA);
 			(void)add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, randint0(50) + 20, TRUE);
 		}
 	}
@@ -2352,7 +2352,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			heal_creature(creature_ptr, healing);
 			creature_ptr->csp -= healing;
 
-			play_redraw |= (PR_MANA);
+			prepare_redraw(PR_MANA);
 		}
 	}
 
@@ -2772,7 +2772,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 		/* Count down towards recall */
 		creature_ptr->timed_trait[TRAIT_WORD_RECALL]--;
 
-		play_redraw |= (PR_STATUS);
+		prepare_redraw(PR_STATUS);
 
 		/* Activate the recall */
 		if(!creature_ptr->timed_trait[TRAIT_WORD_RECALL])
@@ -2888,7 +2888,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 		/* Count down towards alter */
 		creature_ptr->timed_trait[TRAIT_ALTER_REALITY]--;
 
-		play_redraw |= (PR_STATUS);
+		prepare_redraw(PR_STATUS);
 
 		/* Activate the alter reality */
 		if(!creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
@@ -3075,7 +3075,7 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 	creature_ptr->floor_feeling = new_feeling;	// Dungeon feeling is changed
 	do_cmd_feeling(creature_ptr);				// Announce feeling
 
-	play_redraw |= (PR_DEPTH); // Update the level indicator
+	prepare_redraw(PR_DEPTH); // Update the level indicator
 	if(disturb_minor) disturb(player_ptr, 0, 0); // Disturb
 }
 
@@ -3261,7 +3261,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 			// Update creatures
 			player_ptr->creature_update |= (PU_CREATURES | PU_SPECIES_LITE);
 
-			play_redraw |= (PR_MAP);
+			prepare_redraw(PR_MAP);
 
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
@@ -3578,7 +3578,7 @@ static void process_player_command(creature_type *creature_ptr)
 			// Update creatures
 			creature_ptr->creature_update |= (PU_CREATURES);
 
-			play_redraw |= (PR_TITLE);
+			prepare_redraw(PR_TITLE);
 
 			break;
 		}
@@ -4792,7 +4792,7 @@ void process_player(creature_type *creature_ptr)
 				creature_ptr->resting--;
 				if(!creature_ptr->resting) set_action(creature_ptr, ACTION_NONE);
 
-				play_redraw |= (PR_STATE);
+				prepare_redraw(PR_STATE);
 			}
 			cost_tactical_energy(creature_ptr, 100);
 		}
@@ -4803,7 +4803,7 @@ void process_player(creature_type *creature_ptr)
 		else if(command_rep)	// Repeated command
 		{
 			command_rep--;	// Count this execution
-			play_redraw |= (PR_STATE);
+			prepare_redraw(PR_STATE);
 			redraw_stuff(player_ptr);
 			msg_flag = FALSE;
 			prt("", 0, 0);
@@ -4832,7 +4832,7 @@ void process_player(creature_type *creature_ptr)
 			else // There is some randomness of needed energy
 				cost_tactical_energy(creature_ptr, creature_ptr->energy_need);
 			
-			if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) play_redraw |= (PR_MAP); // Hack -- constant hallucination
+			if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) prepare_redraw(PR_MAP); // Hack -- constant hallucination
 
 			if(shimmer_creatures) // Shimmer creatures if needed
 			{
@@ -4884,8 +4884,8 @@ void process_player(creature_type *creature_ptr)
 							other_ptr->see_others = FALSE; // Assume invisible
 							update_creature_view(player_ptr, i, FALSE); // Update the creature
 
-							if(npc_status_id == i) play_redraw |= (PR_HEALTH);
-							if(creature_ptr->riding == i) play_redraw |= (PR_UHEALTH);
+							if(npc_status_id == i) prepare_redraw(PR_HEALTH);
+							if(creature_ptr->riding == i) prepare_redraw(PR_UHEALTH);
 							lite_spot(floor_ptr, other_ptr->fy, other_ptr->fx); // Redraw regardless
 						}
 					}
@@ -4903,17 +4903,17 @@ void process_player(creature_type *creature_ptr)
 					}
 				}
 				creature_ptr->new_mane = FALSE;
-				play_redraw |= (PR_IMITATION);
+				prepare_redraw(PR_IMITATION);
 			}
 			if(creature_ptr->action == ACTION_LEARN)
 			{
 				creature_ptr->new_mane = FALSE;
-				play_redraw |= (PR_STATE);
+				prepare_redraw(PR_STATE);
 			}
 
 			if(creature_ptr->time_stopper && (creature_ptr->energy_need > - 1000))
 			{
-				play_redraw |= (PR_MAP); // Redraw map
+				prepare_redraw(PR_MAP); // Redraw map
 				creature_ptr->creature_update |= (PU_CREATURES); // Update creatures
 				play_window |= (PW_OVERHEAD | PW_DUNGEON); // Window stuff
 #ifdef JP
@@ -5549,8 +5549,8 @@ static void play_loop(void)
 
 		// Window stuff
 		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
-		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY);
-		play_redraw |= (PR_MAP);
+		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY);
+		prepare_redraw(PR_MAP);
 
 		// Update stuff
 		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
@@ -6025,7 +6025,7 @@ void world_wipe()
 void become_winner(creature_type *creature_ptr)
 {
 		creature_ptr->total_winner = TRUE;
-		play_redraw |= (PR_TITLE);
+		prepare_redraw(PR_TITLE);
 		// Congratulations
 #ifdef JP
 		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "見事にD\'angbandの勝利者となった！");

@@ -316,7 +316,7 @@ cptr make_screen_dump(void)
 		use_graphics = FALSE;
 		reset_visuals();
 
-		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
+		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
 		handle_stuff(creature_ptr);
@@ -392,7 +392,7 @@ cptr make_screen_dump(void)
 		use_graphics = TRUE;
 		reset_visuals();
 
-		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
+		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
 		handle_stuff(creature_ptr);

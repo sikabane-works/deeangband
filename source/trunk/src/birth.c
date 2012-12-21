@@ -2152,7 +2152,7 @@ void get_max_stats(creature_type *creature_ptr)
 	creature_ptr->knowledge &= ~(KNOW_STAT);
 
 	/* Redisplay the stats later */
-	play_redraw |= (PR_STATS);
+	prepare_redraw(PR_STATS);
 }
 
 

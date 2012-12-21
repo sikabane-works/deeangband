@@ -333,7 +333,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA); // Recalculate bonuses
 	update_creature(creature_ptr, TRUE);
 
-	play_redraw |= (PR_EQUIPPY);
+	prepare_redraw(PR_EQUIPPY);
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
 
 	calc_android_exp(creature_ptr);
@@ -498,7 +498,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 
 	kamaenaoshi(creature_ptr, item);
 	calc_android_exp(creature_ptr);
-	play_redraw |= (PR_EQUIPPY);
+	prepare_redraw(PR_EQUIPPY);
 
 }
 
@@ -555,7 +555,7 @@ void do_cmd_drop(creature_type *creature_ptr)
 		calc_android_exp(creature_ptr);
 	}
 
-	play_redraw |= (PR_EQUIPPY);
+	prepare_redraw(PR_EQUIPPY);
 }
 
 
@@ -1417,7 +1417,7 @@ void do_cmd_locate(creature_type *creature_ptr)
 
 	creature_ptr->creature_update |= (PU_CREATURES);
 
-	play_redraw |= (PR_MAP);
+	prepare_redraw(PR_MAP);
 
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 

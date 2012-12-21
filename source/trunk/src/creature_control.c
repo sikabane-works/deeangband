@@ -2796,8 +2796,8 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 			lite_spot(floor_ptr, fy, fx);
 
 			/* Update health bar as needed */
-			if(npc_status_id == m_idx) play_redraw |= (PR_HEALTH);
-			if(creature_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
+			if(npc_status_id == m_idx) prepare_redraw(PR_HEALTH);
+			if(creature_ptr->riding == m_idx) prepare_redraw(PR_UHEALTH);
 
 			/* Hack -- Count "fresh" sightings */
 			if(!has_trait(creature_ptr, TRAIT_HALLUCINATION))
@@ -2836,8 +2836,8 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 			lite_spot(floor_ptr, fy, fx);
 
 			/* Update health bar as needed */
-			if(npc_status_id == m_idx) play_redraw |= (PR_HEALTH);
-			if(creature_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
+			if(npc_status_id == m_idx) prepare_redraw(PR_HEALTH);
+			if(creature_ptr->riding == m_idx) prepare_redraw(PR_UHEALTH);
 
 			/* Disturb on disappearance */
 			if(do_disturb)

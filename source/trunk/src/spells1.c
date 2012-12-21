@@ -1754,7 +1754,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(has_trait(target_ptr, TRAIT_WRAITH_FORM))
 		{
 			set_timed_trait(target_ptr, TRAIT_WRAITH_FORM, 0, TRUE);
-			play_redraw |= PR_MAP;
+			prepare_redraw(PR_MAP);
 			caster_ptr->creature_update |= (PU_CREATURES);
 			play_window |= PW_OVERHEAD | PW_DUNGEON | PR_STATUS;
 		}
@@ -1966,8 +1966,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		(void)heal_creature(target_ptr, dam);
 
 		// Redraw (later) if needed
-		if(npc_status_id == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
-		if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
+		if(npc_status_id == c_ptr->creature_idx) prepare_redraw(PR_HEALTH);
+		if(player_ptr->riding == c_ptr->creature_idx) prepare_redraw(PR_UHEALTH);
 		dam = 0;
 		break;
 
@@ -2541,7 +2541,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 			b = MIN(caster_ptr->msp, caster_ptr->csp + b);
 			caster_ptr->csp = b;
-			play_redraw |= PR_MANA;
+			prepare_redraw(PR_MANA);
 			play_window |= (PW_SPELL);
 		}
 #ifdef JP
@@ -2673,7 +2673,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 		dam = target_ptr->csp;
 		learn_trait(target_ptr, spell);
-		play_redraw |= (PR_MANA); // Redraw mana
+		prepare_redraw(PR_MANA); // Redraw mana
 		play_window |= (PW_PLAYER | PW_SPELL); // Window stuff
 
 		if(caster_ptr != NULL)
@@ -2685,8 +2685,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				caster_ptr->chp += (6 * dam);
 				if(caster_ptr->chp > caster_ptr->mhp) caster_ptr->chp = caster_ptr->mhp;
 
-				if(&creature_list[npc_status_id] == caster_ptr) play_redraw |= (PR_HEALTH);
-				if(&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
+				if(&creature_list[npc_status_id] == caster_ptr) prepare_redraw(PR_HEALTH);
+				if(&creature_list[target_ptr->riding] == caster_ptr) prepare_redraw(PR_UHEALTH);
 
 				/* Special message */
 				if(caster_ptr->see_others)
@@ -3136,7 +3136,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(floor_ptr->gamble_arena_mode)
 		{
 		health_track(c_ptr->creature_idx);
-		play_redraw |= (PR_HEALTH);
+		prepare_redraw(PR_HEALTH);
 		redraw_stuff(player_ptr);
 		}
 		*/
@@ -3158,8 +3158,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if(!dam)
 		{
-			if(npc_status_id == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
-			if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
+			if(npc_status_id == c_ptr->creature_idx) prepare_redraw(PR_HEALTH);
+			if(player_ptr->riding == c_ptr->creature_idx) prepare_redraw(PR_UHEALTH);
 			break;
 		}
 

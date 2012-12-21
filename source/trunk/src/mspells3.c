@@ -863,7 +863,7 @@ msg_print("‘Ì‚ðˆ«‚­‚µ‚Ä‚µ‚Ü‚Á‚½I");
 	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
-	play_redraw |= (PR_MANA);
+	prepare_redraw(PR_MANA);
 	play_window |= (PW_PLAYER);
 	play_window |= (PW_SPELL);
 
@@ -890,7 +890,7 @@ void learn_trait(creature_type *creature_ptr, int trait_index)
 		sound(SOUND_STUDY);
 
 		creature_ptr->new_mane = TRUE;
-		play_redraw |= (PR_STATE);
+		prepare_redraw(PR_STATE);
 	}
 }
 

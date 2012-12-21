@@ -1738,7 +1738,7 @@ void prt_path(creature_type *creature_ptr, int range, int y, int x)
 	// Get projection path
 	path_n = project_path(path_g, (range ? range : MAX_RANGE), floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
 
-	play_redraw |= (PR_MAP);	// Redraw map
+	prepare_redraw(PR_MAP);	// Redraw map
 	redraw_stuff(player_ptr);	// Redraw stuff
 
 	/* Draw path */
@@ -4313,7 +4313,7 @@ void map_area(creature_type *creature_ptr, int range)
 		}
 	}
 
-	play_redraw |= (PR_MAP);
+	prepare_redraw(PR_MAP);
 
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 }
@@ -4415,7 +4415,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 	// Update creatures
 	creature_ptr->creature_update |= (PU_CREATURES);
 
-	play_redraw |= (PR_MAP);
+	prepare_redraw(PR_MAP);
 
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
@@ -4484,7 +4484,7 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 	// Update creatures
 	creature_ptr->creature_update |= (PU_CREATURES);
 
-	play_redraw |= (PR_MAP);
+	prepare_redraw(PR_MAP);
 
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 }
@@ -4924,7 +4924,7 @@ void health_track(int m_idx)
 	/* Track a new guy */
 	npc_status_id = m_idx;
 
-	play_redraw |= (PR_HEALTH);
+	prepare_redraw(PR_HEALTH);
 }
 
 
@@ -4978,7 +4978,7 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 		/* Cancel */
 		command_rep = 0;
 
-		play_redraw |= (PR_STATE);
+		prepare_redraw(PR_STATE);
 	}
 
 	/* Cancel Resting */
@@ -5055,7 +5055,7 @@ void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 	/* Update the view and lite */
 	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
-	play_redraw |= (PR_MAP);
+	prepare_redraw(PR_MAP);
 }
 
 void connect_cave_to(cave_type *stair_ptr, int floor_id, int y, int x)

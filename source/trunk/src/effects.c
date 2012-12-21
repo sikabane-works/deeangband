@@ -159,8 +159,8 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 		creature_ptr->creature_update |= (CRU_BONUS);
 		creature_ptr->creature_update |= (PU_CREATURES);
-		play_redraw |= (PR_STATE);
-		play_redraw |= (PR_STATUS);
+		prepare_redraw(PR_STATE);
+		prepare_redraw(PR_STATUS);
 		creature_ptr->action = ACTION_NONE;
 
 		if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE); // Sniper
@@ -182,7 +182,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 			}
 			creature_ptr->new_mane = FALSE;
 
-			play_redraw |= (PR_STATE);
+			prepare_redraw(PR_STATE);
 			creature_ptr->action = ACTION_NONE;
 		}
 
@@ -198,7 +198,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 			}
 			creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
 			creature_ptr->creature_update |= (CRU_BONUS);
-			play_redraw |= (PR_STATE);
+			prepare_redraw(PR_STATE);
 			creature_ptr->action = ACTION_NONE;
 		}
 
@@ -240,7 +240,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 
 	creature_ptr->timed_trait[type] = v; // Use the value
 
-	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS | PR_CUT | PR_STUN);
+	if(is_player(creature_ptr)) prepare_redraw(PR_STATUS | PR_CUT | PR_STUN);
 	if(!notice) return FALSE;
 	if(disturb_state) disturb(player_ptr, 0, 0);
 	handle_stuff(creature_ptr);
@@ -264,7 +264,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #else
 				msg_print("You no longer walk carefully.");
 #endif
-				play_redraw |= (PR_SPEED);
+				prepare_redraw(PR_SPEED);
 				break;
 			}
 		case ACTION_REST:
@@ -301,7 +301,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #endif
 				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 				creature_ptr->creature_update |= (PU_CREATURES);
-				play_redraw |= (PR_STATUS);
+				prepare_redraw(PR_STATUS);
 				break;
 			}
 		case ACTION_SING:
@@ -348,7 +348,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #else
 			msg_print("You begin to walk carefully.");
 #endif
-			play_redraw |= (PR_SPEED);
+			prepare_redraw(PR_SPEED);
 			break;
 		}
 	case ACTION_LEARN:
@@ -386,7 +386,7 @@ void set_action(creature_type *creature_ptr, int typ)
 
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	play_redraw |= (PR_STATE);
+	prepare_redraw(PR_STATE);
 }
 
 // reset timed flags
@@ -435,7 +435,7 @@ void dispel_creature(creature_type *creature_ptr)
 		creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
 		creature_ptr->action = ACTION_NONE;
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
-		play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
+		prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
 		creature_ptr->creature_update |= (PU_CREATURES);
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 		cost_tactical_energy(creature_ptr, 100);
@@ -503,7 +503,7 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 	}
 
 	if(!notice) return FALSE;
-	play_redraw |= (PR_STATUS);
+	prepare_redraw(PR_STATUS);
 	if(disturb_state) disturb(player_ptr, 0, 0);
 	return TRUE;
 }
@@ -616,7 +616,7 @@ bool set_food(creature_type *creature_ptr, int v)
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
 	creature_ptr->creature_update |= (CRU_BONUS);
-	play_redraw |= (PR_HUNGER);
+	prepare_redraw(PR_HUNGER);
 	handle_stuff(creature_ptr);
 
 	return TRUE;
@@ -731,7 +731,7 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 		creature_ptr->stat_cur[stat] = cur;
 		creature_ptr->stat_max[stat] = max;
 
-		if(is_player(creature_ptr)) play_redraw |= (PR_STATS);
+		if(is_player(creature_ptr)) prepare_redraw(PR_STATS);
 		creature_ptr->creature_update |= (CRU_BONUS);
 	}
 
@@ -746,7 +746,7 @@ bool res_stat(creature_type *creature_ptr, int stat)
 	{
 		creature_ptr->stat_cur[stat] = creature_ptr->stat_max[stat];
 		creature_ptr->creature_update |= (CRU_BONUS);
-		if(is_player(creature_ptr)) play_redraw |= (PR_STATS);
+		if(is_player(creature_ptr)) prepare_redraw(PR_STATS);
 		return TRUE;
 	}
 	return FALSE;
@@ -771,7 +771,7 @@ bool heal_creature(creature_type *creature_ptr, int healing_power)
 		effected = TRUE;
 	}
 
-	if(is_player(creature_ptr)) play_redraw |= (PR_HP | PW_PLAYER);
+	if(is_player(creature_ptr)) prepare_redraw(PR_HP | PW_PLAYER);
 	rec_rate = rec_hp * creature_ptr->mhp / 100;
 
 	if(is_seen(player_ptr, creature_ptr) && rec_hp)
@@ -1066,7 +1066,7 @@ void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 	do_cmd_rerate(creature_ptr, FALSE);
 
 	check_experience(creature_ptr); // The experience level may be modified
-	play_redraw |= (PR_BASIC);
+	prepare_redraw(PR_BASIC);
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	handle_stuff(creature_ptr);
@@ -1528,8 +1528,8 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		if(attacker_ptr->posture & NINJA_S_STEALTH) set_superstealth(attacker_ptr, FALSE);
 
 		// Redraw (later) if needed
-		if(&creature_list[npc_status_id] == target_ptr) play_redraw |= (PR_HEALTH);
-		if(&creature_list[attacker_ptr->riding] == target_ptr) play_redraw |= (PR_UHEALTH);
+		if(&creature_list[npc_status_id] == target_ptr) prepare_redraw(PR_HEALTH);
+		if(&creature_list[attacker_ptr->riding] == target_ptr) prepare_redraw(PR_UHEALTH);
 	}
 
 	/* Genocided by chaos patron */
@@ -1685,7 +1685,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	if(is_player(target_ptr))
 	{
 		if(target_ptr->chp < 0) gameover = TRUE;
-		play_redraw |= (PR_HP | PW_PLAYER);
+		prepare_redraw(PR_HP | PW_PLAYER);
 		handle_stuff(target_ptr);
 	}
 
@@ -2003,7 +2003,7 @@ void dec_mana(creature_type *creature_ptr, int val)
 {		
 	creature_ptr->csp -= val;
 	if(creature_ptr->csp < 0) creature_ptr->csp = creature_ptr->csp_frac = 0;
-	if(is_player(creature_ptr)) play_redraw |= (PR_MANA);
+	if(is_player(creature_ptr)) prepare_redraw(PR_MANA);
 }
 
 void inc_mana(creature_type *creature_ptr, int val)
@@ -2014,7 +2014,7 @@ void inc_mana(creature_type *creature_ptr, int val)
 		creature_ptr->csp = creature_ptr->msp;
 		creature_ptr->csp_frac = 0;
 	}
-	if(is_player(creature_ptr)) play_redraw |= (PR_MANA);
+	if(is_player(creature_ptr)) prepare_redraw(PR_MANA);
 }
 
 
