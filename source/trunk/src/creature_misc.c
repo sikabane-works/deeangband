@@ -738,6 +738,9 @@ bool has_trait_object(object_type *object_ptr, int type)
 
 bool has_trait(creature_type *creature_ptr, int type)
 {
+	int i;
+	bool alias = FALSE;
+
 	if(!creature_ptr) return FALSE;
 	if(has_trait_from_species(creature_ptr, type)) return TRUE;
 	if(has_trait_from_class(creature_ptr, type)) return TRUE;
@@ -745,7 +748,9 @@ bool has_trait(creature_type *creature_ptr, int type)
 	if(has_trait_from_inventory(creature_ptr, type)) return TRUE;
 	if(creature_ptr->timed_trait[type]) return TRUE;
 
-	return FALSE;
+	for(i = 0; i < MAX_TRAITS; i++) if(have_flag(trait_info[i].reverse_alias, i)) alias |= has_trait(creature_ptr, i);
+
+	return alias;
 }
 
 int has_trait_num(creature_type *creature_ptr, int type)
