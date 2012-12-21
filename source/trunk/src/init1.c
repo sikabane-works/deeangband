@@ -4115,14 +4115,9 @@ static int cfeature_info_csv_code[TRAIT_INFO_CSV_COLUMNS];
 
 errr reprocess_trait(header *head)
 {
-	/*
 	int i;
 	for(i = 0; i < max_trait_idx; i++)
-	{
 		traits_precondition_splits(&trait_info[i].alias, trait_info[i].alias_text + trait_tmp);
-	}
-
-	*/
 	return PARSE_ERROR_NONE;
 }
 
