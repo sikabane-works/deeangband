@@ -1416,7 +1416,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		caster_ptr->creature_update |= (PU_CREATURES); // Update creatures
 		play_window |= (PW_OVERHEAD | PW_DUNGEON); // Window stuff
 
-		handle_stuff();
+		handle_stuff(caster_ptr);
 		break;
 
 	case TRAIT_ACROBAT:
@@ -2212,7 +2212,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					close_combat(caster_ptr, y, x, 0);
 					if(floor_ptr->cave[y][x].creature_idx)
 					{
-						handle_stuff();
+						handle_stuff(caster_ptr);
 						close_combat(caster_ptr, y, x, 0);
 					}
 					cost_tactical_energy(caster_ptr, 100);
@@ -2285,9 +2285,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_DOUBLE_MAGIC:
 		{
 			if(!can_do_cmd_cast(caster_ptr)) return FALSE;
-			handle_stuff();
+			handle_stuff(caster_ptr);
 			do_cmd_cast(caster_ptr);
-			handle_stuff();
+			handle_stuff(caster_ptr);
 			if(!has_trait(caster_ptr, TRAIT_PARALYZED) && can_do_cmd_cast(caster_ptr))
 				do_cmd_cast(caster_ptr);
 			break;

@@ -994,7 +994,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		}
 		case CLASS_IMITATOR:
 		{
-			handle_stuff();
+			handle_stuff(creature_ptr);
 			if(!do_cmd_mane(creature_ptr, TRUE)) return FALSE;
 			break;
 		}
@@ -1033,9 +1033,9 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		case CLASS_RED_MAGE:
 		{
 			if(!can_do_cmd_cast(creature_ptr)) return FALSE;
-			handle_stuff();
+			handle_stuff(creature_ptr);
 			do_cmd_cast(creature_ptr);
-			handle_stuff();
+			handle_stuff(creature_ptr);
 			if(!creature_ptr->timed_trait[TRAIT_PARALYZED] && can_do_cmd_cast(creature_ptr))
 				do_cmd_cast(creature_ptr);
 			break;

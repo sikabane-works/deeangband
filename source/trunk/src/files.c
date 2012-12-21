@@ -5776,7 +5776,7 @@ msg_print("自動セーブ中");
 
 	/* Clear messages */
 	msg_print(NULL);
-	handle_stuff();
+	handle_stuff(player_ptr);
 
 #ifdef JP
 	prt("ゲームをセーブしています...", 0, 0);
@@ -5823,7 +5823,7 @@ msg_print("自動セーブ中");
 	(void)strcpy(gameover_from, "(alive and well)");
 #endif
 
-	//TODO update_creature(creature_ptr, TRUE);
+	//TODO update__creature(creature_ptr, TRUE);
 }
 
 
@@ -6198,7 +6198,7 @@ static void show_info(creature_type *creature_ptr)
 	/* Hack -- Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	/* Flush all input keys */
 	flush();
@@ -6446,7 +6446,7 @@ void close_game(void)
 
 /*	cptr p = "[i:キャラクタの情報, f:ファイル書き出し, t:スコア, x:*鑑定*, ESC:ゲーム終了]"; */
 
-	handle_stuff();
+	handle_stuff(player_ptr);
 
 	/* Flush the messages */
 	msg_print(NULL);

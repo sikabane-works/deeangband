@@ -2358,7 +2358,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 
 	play_redraw |= (PR_STATE);
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 	Term_fresh();
 }
 
@@ -2803,7 +2803,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 	sound(SOUND_SHOOT);
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	/* Save the old location */
 	prev_y = y;
@@ -3478,7 +3478,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	x = creature_ptr->fx;
 
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	if((creature_ptr->class_idx == CLASS_NINJA) && ((quest_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TRAIT_THROW_MIGHTY)) && (quest_ptr->tval == TV_SWORD)))) shuriken = TRUE;
 	else shuriken = FALSE;

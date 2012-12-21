@@ -1474,7 +1474,7 @@ extern void notice_stuff(creature_type *creature_ptr);
 extern void update_creature(creature_type *creature_ptr, bool message);
 extern void redraw_stuff(creature_type *subjectivity_ptr);
 extern void window_stuff(creature_type *subjectivity_ptr);
-extern void handle_stuff(void);
+extern void handle_stuff(creature_type *creature_ptr);
 extern s16b empty_hands(creature_type *creature_ptr, bool riding_control);
 extern bool heavy_armor(creature_type *creature_ptr);
 extern s16b calc_rank(s32b align);

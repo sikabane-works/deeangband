@@ -980,7 +980,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-			handle_stuff();
+			handle_stuff(creature_ptr);
 			break;
 		}
 	default:

@@ -10583,7 +10583,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				command_dir = 0;
 
 				play_redraw |= PR_MANA;
-				handle_stuff();
+				handle_stuff(caster_ptr);
 			}
 			while (caster_ptr->csp > mana_cost_per_creature);
 
@@ -10658,7 +10658,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, 0);
 				if(floor_ptr->cave[y][x].creature_idx)
 				{
-					handle_stuff();
+					handle_stuff(caster_ptr);
 					close_combat(caster_ptr, y, x, 0);
 				}
 			}

@@ -2155,7 +2155,7 @@ static bool kankin(creature_type *creature_ptr)
 #endif
 
 				autopick_alter_item(creature_ptr, item_new, FALSE);	// Auto-inscription
-				handle_stuff();
+				handle_stuff(creature_ptr);
 
 				change = TRUE;
 			}
@@ -2349,7 +2349,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	}
 
 	watcher_ptr->creature_update |= CRU_BONUS;
-	handle_stuff();
+	handle_stuff(watcher_ptr);
 }
 
 
@@ -3632,7 +3632,7 @@ Term_addstr(-1, TERM_WHITE, " ['r'évÇ¢èo, ' 'Ç≈ë±çs, ESC]");
 				/* Save this creature ID */
 				species_type_track(species_idx);
 
-				handle_stuff();
+				handle_stuff(creature_ptr);
 
 				/* know every thing mode */
 				//screen_roff(species_idx);
@@ -4120,7 +4120,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		if(validcmd) bldg_process_player_command(creature_ptr, bldg, i);
 
 		notice_stuff(creature_ptr);
-		handle_stuff();
+		handle_stuff(creature_ptr);
 	}
 
 	msg_flag = FALSE;

@@ -1155,7 +1155,7 @@ void do_cmd_redraw(void)
 	update_play_time();
 
 	/* Hack -- update */
-	handle_stuff();
+	handle_stuff(player_ptr);
 
 	/*
 	if(has_trait(player_ptr, TRAIT_ANDROID)) calc_android_exp(player_ptr);
@@ -1246,7 +1246,7 @@ void do_cmd_change_name(creature_type *creature_ptr)
 
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 }
 
 
@@ -5781,7 +5781,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
-		handle_stuff();
+		handle_stuff(player_ptr);
 	}
 
 	if(html_dump)
@@ -5904,7 +5904,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
-		handle_stuff();
+		handle_stuff(player_ptr);
 	}
 }
 
@@ -7516,7 +7516,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			if(mon_cnt) species_type_track(mon_idx[mon_cur]);
 
 			/* Hack -- handle stuff */
-			handle_stuff();
+			handle_stuff(player_ptr);
 		}
 
 		if(visual_list)
@@ -7797,7 +7797,7 @@ static void desc_obj_fake(int k_idx)
 	/* Hack - mark as fake */
 	/* term_obj_real = FALSE; */
 
-	handle_stuff();
+	handle_stuff(player_ptr);
 
 	if(!screen_object(object_ptr, SCROBJ_FAKE_OBJECT | SCROBJ_FORCE_DETAIL))
 	{
@@ -8024,7 +8024,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 			if(object_old != object_idx[object_cur])
 			{
 				/* Hack -- handle stuff */
-				handle_stuff();
+				handle_stuff(player_ptr);
 
 				/* Remember the "current" object */
 				object_old = object_idx[object_cur];

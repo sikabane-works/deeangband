@@ -1421,7 +1421,7 @@ void do_cmd_locate(creature_type *creature_ptr)
 
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 }
 
 
@@ -1748,7 +1748,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		/* Hack -- Auto-recall */
 		species_type_track(species_idx);
 
-		handle_stuff();
+		handle_stuff(creature_ptr);
 
 		/* Interact */
 		while (1)

@@ -243,7 +243,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS | PR_CUT | PR_STUN);
 	if(!notice) return FALSE;
 	if(disturb_state) disturb(player_ptr, 0, 0);
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	return TRUE;
 }
@@ -617,7 +617,7 @@ bool set_food(creature_type *creature_ptr, int v)
 
 	creature_ptr->creature_update |= (CRU_BONUS);
 	play_redraw |= (PR_HUNGER);
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	return TRUE;
 }
@@ -1069,7 +1069,7 @@ void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 	play_redraw |= (PR_BASIC);
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	/* Load an autopick preference file */
 	autopick_load_pref(FALSE);
@@ -1686,7 +1686,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	{
 		if(target_ptr->chp < 0) gameover = TRUE;
 		play_redraw |= (PR_HP | PW_PLAYER);
-		handle_stuff();
+		handle_stuff(target_ptr);
 	}
 
 	if(floor_ptr->wild_mode && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp / 5)))

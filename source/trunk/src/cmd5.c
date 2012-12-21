@@ -490,7 +490,7 @@ void do_cmd_browse(creature_type *creature_ptr)
 	/* Track the object kind */
 	object_kind_track(object_ptr->k_idx);
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 
 	/* Extract spells */
@@ -601,7 +601,7 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 
 	creature_ptr->creature_update |= (CRU_REORDER);
 	creature_ptr->creature_update |= (CRU_SPELLS);
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	/* Load an autopick preference file */
 	autopick_load_pref(FALSE);
@@ -712,7 +712,7 @@ void do_cmd_study(creature_type *creature_ptr)
 	/* Track the object kind */
 	object_kind_track(object_ptr->k_idx);
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	/* Mage -- Learn a selected spell */
 	if(magic_info[creature_ptr->class_idx].spell_book != TV_LIFE_BOOK)
@@ -996,7 +996,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Track the object kind */
 	object_kind_track(object_ptr->k_idx);
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	if((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))
 		realm = object_ptr->tval - TV_LIFE_BOOK + 1;
@@ -1407,7 +1407,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 			health_track(pet_ctr);
 
 			/* Hack -- handle stuff */
-			handle_stuff();
+			handle_stuff(creature_ptr);
 
 #ifdef JP
 			sprintf(buf, "%s‚ð•ú‚µ‚Ü‚·‚©H [Yes/No/Unnamed (%d‘Ì)]", friend_name, max_pet - i);
@@ -1654,17 +1654,12 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 	creature_ptr->pet_extra_flags &= ~(PF_RYOUTE);
 	creature_ptr->riding_two_handed = creature_ptr->old_riding_two_handed = FALSE;
 
-	creature_ptr->creature_update |= (CRU_BONUS);
+	creature_ptr->creature_update |= (CRU_BONUS | PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 	update_creature(creature_ptr, TRUE);
 
-	creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
-
-	play_redraw |= (PR_EXTRA);
-
-	/* Update health track of mount */
-	play_redraw |= (PR_UHEALTH);
+	play_redraw |= (PR_EXTRA | PR_UHEALTH);
 
 	if(has_trait(creature_ptr, TRAIT_CAN_FLY) && !force)
 	{
@@ -2559,7 +2554,7 @@ void do_cmd_pet(creature_type *master_ptr)
 			if(master_ptr->pet_extra_flags & PF_RYOUTE) master_ptr->pet_extra_flags &= ~(PF_RYOUTE);
 			else master_ptr->pet_extra_flags |= (PF_RYOUTE);
 			master_ptr->creature_update |= (CRU_BONUS);
-			handle_stuff();
+			handle_stuff(master_ptr);
 			break;
 		}
 	}

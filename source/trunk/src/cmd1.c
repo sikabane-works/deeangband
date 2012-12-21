@@ -578,7 +578,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 
 	play_redraw |= (PR_MAP); // Redraw map
 	play_window |= (PW_OVERHEAD); // Window stuff
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	autopick_pickup_items(creature_ptr, c_ptr); // Automatically pickup/destroy/inscribe items
 
@@ -1486,7 +1486,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		/* For get everything when requested hehe I'm *NASTY* */
 		if(prev_floor_ptr->floor_level && (dungeon_info[prev_floor_ptr->dun_type].flags1 & DF1_FORGET)) wiz_dark(prev_floor_ptr, creature_ptr);
 
-		if(mpe_mode & MCE_HANDLE_STUFF) handle_stuff();
+		if(mpe_mode & MCE_HANDLE_STUFF) handle_stuff(creature_ptr);
 
 		if(creature_ptr->class_idx == CLASS_NINJA)
 		{

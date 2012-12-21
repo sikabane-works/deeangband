@@ -2440,7 +2440,7 @@ msg_print("‚ ‚Ü‚è‚Ì‹°•|‚É‘S‚Ä‚Ì‚±‚Æ‚ð–Y‚ê‚Ä‚µ‚Ü‚Á‚½I");
 	}
 
 	watcher_ptr->creature_update |= CRU_BONUS;
-	handle_stuff();
+	handle_stuff(watcher_ptr);
 }
 
 

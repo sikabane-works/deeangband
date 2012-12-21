@@ -3805,7 +3805,7 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", object_name, (long)price);
 					object_ptr->pval -= j_ptr->pval;
 				}
 
-				handle_stuff();
+				handle_stuff(guest_ptr);
 
 				i = st_ptr->stock_num;
 
@@ -3880,13 +3880,13 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", object_name, (long)price);
 		object_desc(object_name, &guest_ptr->inventory[item_new], 0);
 
 #ifdef JP
-				msg_format("%s(%c)‚ðŽæ‚Á‚½B",
+		msg_format("%s(%c)‚ðŽæ‚Á‚½B",
 #else
 		msg_format("You have %s (%c).",
 #endif
- object_name, index_to_label(item_new));
+		object_name, index_to_label(item_new));
 
-		handle_stuff();
+		handle_stuff(guest_ptr);
 
 		/* Take note if we take the last one */
 		i = st_ptr->stock_num;
@@ -4181,7 +4181,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", object_name, (long)price);
 
 			inven_item_optimize(creature_ptr, item);
 
-			handle_stuff();
+			handle_stuff(creature_ptr);
 
 			/* The store gets that (known) item */
 			item_pos = store_carry(st_ptr, quest_ptr);
@@ -4231,7 +4231,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", object_name, (long)price);
 		inven_item_describe(creature_ptr, item);
 		inven_item_optimize(creature_ptr, item);
 
-		handle_stuff();
+		handle_stuff(creature_ptr);
 
 		/* Let the home carry it */
 		item_pos = home_carry(creature_ptr, st_ptr, quest_ptr);
@@ -4262,7 +4262,7 @@ msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", object_name, (long)price);
 		inven_item_describe(creature_ptr, item);
 		inven_item_optimize(creature_ptr, item);
 
-		handle_stuff();
+		handle_stuff(creature_ptr);
 
 		/* Let the home carry it */
 		item_pos = home_carry(creature_ptr, st_ptr, quest_ptr);
@@ -5015,7 +5015,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		need_redraw_store_inv = (creature_ptr->creature_update & CRU_BONUS) ? TRUE : FALSE;
 
 		notice_stuff(creature_ptr);
-		handle_stuff();
+		handle_stuff(creature_ptr);
 
 		/* XXX XXX XXX Pack Overflow */
 		if(creature_ptr->inventory[INVEN_TOTAL].k_idx)
@@ -5093,7 +5093,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 				inven_item_describe(creature_ptr, item);
 				inven_item_optimize(creature_ptr, item);
 
-				handle_stuff();
+				handle_stuff(creature_ptr);
 
 				/* Let the home carry it */
 				item_pos = home_carry(creature_ptr, st_ptr, quest_ptr);

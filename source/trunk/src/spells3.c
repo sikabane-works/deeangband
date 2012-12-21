@@ -2755,7 +2755,7 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 
 	/* Mark the item as fully known */
 	object_ptr->ident |= (IDENT_MENTAL);
-	handle_stuff();
+	handle_stuff(creature_ptr);
 	object_desc(object_name, object_ptr, 0);
 
 	if(IS_EQUIPPED(object_ptr))

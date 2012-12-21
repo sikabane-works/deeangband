@@ -1521,7 +1521,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	play_window |= (PW_PLAYER);
 
 	/* Handle */
-	handle_stuff();
+	handle_stuff(user_ptr);
 
 	Term_fresh();
 

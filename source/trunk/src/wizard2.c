@@ -61,7 +61,7 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 
 	play_window |= (PW_PLAYER);
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	if(display)
 	{

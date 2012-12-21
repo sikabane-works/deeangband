@@ -4361,9 +4361,9 @@ void window_stuff(creature_type *subjectivity_ptr)
 }
 
 // Handle "update" and "play_redraw" and "play_window"
-void handle_stuff(void)
+void handle_stuff(creature_type *creature_ptr)
 {
-	if(player_ptr->creature_update) update_creature(player_ptr, TRUE);
+	update_creature(creature_ptr, TRUE);
 	if(play_redraw) redraw_stuff(player_ptr);
 	if(play_window) window_stuff(player_ptr);
 }

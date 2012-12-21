@@ -42,7 +42,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			take_damage_to_creature(target_ptr, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_FIRE);
-			handle_stuff();
+			handle_stuff(attacker_ptr);
 		}
 	}
 
@@ -65,7 +65,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			aura_damage = calc_damage(target_ptr, attacker_ptr, aura_damage, DO_EFFECT_COLD, TRUE, FALSE);
 			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_COLD);
-			handle_stuff();
+			handle_stuff(attacker_ptr);
 		}
 	}
 
@@ -89,7 +89,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			aura_damage = calc_damage(target_ptr, attacker_ptr, aura_damage, DO_EFFECT_ELEC, TRUE, FALSE);
 			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_ELEC);
-			handle_stuff();
+			handle_stuff(attacker_ptr);
 		}
 	}
 }

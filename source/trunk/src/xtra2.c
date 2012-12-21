@@ -78,7 +78,7 @@ void check_experience(creature_type *creature_ptr)
 	if(is_player(creature_ptr))
 		play_redraw |= (PR_EXP);
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	if(creature_ptr->dr >= 0)
 		creature_ptr->max_lev = CREATURE_MORTAL_LIMIT_LEVEL + creature_ptr->dr;
@@ -99,7 +99,7 @@ void check_experience(creature_type *creature_ptr)
 
 		play_window |= (PW_PLAYER);
 
-		handle_stuff();
+		handle_stuff(creature_ptr);
 	}
 
 
@@ -143,7 +143,7 @@ void check_experience(creature_type *creature_ptr)
 		play_window |= (PW_PLAYER | PW_SPELL | PW_INVEN);
 
 		creature_ptr->level_up = TRUE;
-		handle_stuff();
+		handle_stuff(creature_ptr);
 		creature_ptr->level_up = FALSE;
 
 		if(level_inc_stat)
@@ -249,7 +249,7 @@ void check_experience(creature_type *creature_ptr)
 
 		play_window |= (PW_PLAYER | PW_SPELL);
 
-		handle_stuff();
+		handle_stuff(creature_ptr);
 	}
 
 	/* Load an autopick preference file */
@@ -1161,7 +1161,7 @@ void resize_map(void)
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 	/* Hack -- update */
-	handle_stuff();
+	handle_stuff(player_ptr);
 
 	Term_redraw();
 
@@ -1184,7 +1184,7 @@ void redraw_window(void)
 	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	/* Hack -- update */
-	handle_stuff();
+	handle_stuff(player_ptr);
 
 	Term_redraw();
 }
@@ -1229,7 +1229,7 @@ bool change_panel(int dy, int dx)
 
 		play_redraw |= (PR_MAP);
 
-		handle_stuff();
+		handle_stuff(player_ptr);
 
 		return TRUE;
 	}
@@ -1994,7 +1994,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		health_track(c_ptr->creature_idx);
 
 		/* Hack -- handle stuff */
-		handle_stuff();
+		handle_stuff(creature_ptr);
 
 		/* Interact */
 		while (1)
@@ -2607,7 +2607,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 
 					play_window |= (PW_OVERHEAD);
 
-					handle_stuff();
+					handle_stuff(aimer_ptr);
 
 					target_set_prepare(aimer_ptr, mode);
 
@@ -2680,7 +2680,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 						aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
 						play_redraw |= (PR_MAP | PW_OVERHEAD);	// Redraw map and Window stuff
 
-						handle_stuff();
+						handle_stuff(aimer_ptr);
 
 						target_set_prepare(aimer_ptr, mode);
 
@@ -2763,7 +2763,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 				verify_panel(aimer_ptr);	// Recenter the map around the player
 				aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
 				play_redraw |= PR_MAP | PW_OVERHEAD;	// Redraw map
-				handle_stuff();
+				handle_stuff(aimer_ptr);
 				target_set_prepare(aimer_ptr, mode);	// Recalculate interesting grids
 				y = aimer_ptr->fy;
 				x = aimer_ptr->fx;
@@ -2863,7 +2863,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 	verify_panel(aimer_ptr);	// Recenter the map around the player
 	aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
 	play_redraw |= PR_MAP | PW_OVERHEAD;	// Redraw map
-	handle_stuff();
+	handle_stuff(aimer_ptr);
 	if(!target_who) return FALSE;	// Failure to set target
 
 	return TRUE;	// Success
@@ -4057,7 +4057,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 
 					play_window |= (PW_OVERHEAD);
 
-					handle_stuff();
+					handle_stuff(creature_ptr);
 				}
 				else	/* move cursor to next stair and change panel */
 				{
@@ -4139,12 +4139,10 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 	verify_panel(creature_ptr);
 
 	creature_ptr->creature_update |= (PU_CREATURES);
-
 	play_redraw |= (PR_MAP);
-
 	play_window |= (PW_OVERHEAD);
 
-	handle_stuff();
+	handle_stuff(creature_ptr);
 
 	*x_ptr = x;
 	*y_ptr = y;

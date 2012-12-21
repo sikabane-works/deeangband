@@ -4592,7 +4592,7 @@ static void pack_overflow(creature_type *creature_ptr)
 		notice_stuff(creature_ptr);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
-		handle_stuff();
+		handle_stuff(creature_ptr);
 	}
 }
 
@@ -4658,7 +4658,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 			}
 		}
 
-		handle_stuff();
+		handle_stuff(creature_ptr);
 	}
 }
 
@@ -4752,7 +4752,7 @@ void process_player(creature_type *creature_ptr)
 		creature_ptr->now_damaged = FALSE;
 
 		notice_stuff(creature_ptr); // Handle update
-		handle_stuff(); // Handle "update" and "play_redraw" and "play_window"
+		handle_stuff(creature_ptr); // Handle "update" and "play_redraw" and "play_window"
 
 		/* Place the cursor on the player */
 		move_cursor_relative(creature_ptr->fy, creature_ptr->fx);
@@ -4924,7 +4924,7 @@ void process_player(creature_type *creature_ptr)
 				msg_print(NULL);
 				creature_ptr->time_stopper = FALSE;
 				cost_tactical_energy(creature_ptr, 100);
-				handle_stuff(); // Handle "update" and "play_redraw" and "play_window"
+				handle_stuff(creature_ptr); // Handle "update" and "play_redraw" and "play_window"
 			}
 		}
 
@@ -4970,7 +4970,7 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 		notice_stuff(player_ptr);
 
 		// Handle "update" and "play_redraw" and "play_window"
-		handle_stuff();
+		handle_stuff(player_ptr);
 
 		// Hack -- Hilite the player
 		move_cursor_relative(player_ptr->fy, player_ptr->fx);
@@ -4988,7 +4988,7 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 		notice_stuff(player_ptr);
 
 		// Handle "update" and "play_redraw" and "play_window"
-		handle_stuff();
+		handle_stuff(player_ptr);
 
 		// Hack -- Hilite the player
 		move_cursor_relative(player_ptr->fy, player_ptr->fx);
@@ -5006,7 +5006,7 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 		notice_stuff(player_ptr);
 
 		// Handle "update" and "play_redraw" and "play_window"
-		handle_stuff();
+		handle_stuff(player_ptr);
 
 		// Hack -- Hilite the player
 		move_cursor_relative(player_ptr->fy, player_ptr->fx);
@@ -5560,12 +5560,12 @@ static void play_loop(void)
 
 		/* Handle "update" and "play_redraw" and "play_window" */
 		//TODO DELETE?
-		//handle_stuff();
+		//handle_stuff(creature_ptr);
 
 		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_COMBINE | CRU_REORDER);
 		notice_stuff(player_ptr);
 
-		handle_stuff(); // Handle "update" and "play_redraw" and "play_window"
+		handle_stuff(player_ptr); // Handle "update" and "play_redraw" and "play_window"
 
 		Term_fresh();
 
@@ -5657,7 +5657,7 @@ static void play_loop(void)
 		write_level = TRUE;
 
 		notice_stuff(player_ptr); // Handle "player_ptr->creature_update"
-		handle_stuff(); // Handle "update" and "play_redraw" and "play_window"
+		handle_stuff(player_ptr); // Handle "update" and "play_redraw" and "play_window"
 
 		target_who = 0; // Cancel the target
 		health_track(0); // Cancel the health bar

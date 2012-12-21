@@ -319,7 +319,7 @@ cptr make_screen_dump(void)
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
-		handle_stuff();
+		handle_stuff(creature_ptr);
 	}
 
 	for (i = 0; html_head[i]; i++)
@@ -395,7 +395,7 @@ cptr make_screen_dump(void)
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
-		handle_stuff();
+		handle_stuff(creature_ptr);
 	}
 
 	return ret;
