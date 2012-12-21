@@ -16,33 +16,6 @@ static int num_more = 0;
 static char inkey_macro_trigger_string[1024];	// Save macro trigger string for use in inkey_special()
 
 
-#if 0
-#ifndef HAS_STRICMP
-
-/*
- * For those systems that don't have "stricmp()"
- *
- * Compare the two strings "a" and "b" ala "strcmp()" ignoring case.
- */
-int stricmp(cptr a, cptr b)
-{
-	cptr s1, s2;
-	char z1, z2;
-
-	/* Scan the strings */
-	for (s1 = a, s2 = b; TRUE; s1++, s2++)
-	{
-		z1 = FORCEUPPER(*s1);
-		z2 = FORCEUPPER(*s2);
-		if(z1 < z2) return (-1);
-		if(z1 > z2) return FAILURE;
-		if(!z1) return SUCCESS;
-	}
-}
-
-#endif /* HAS_STRICMP */
-#endif /* 0 */
-
 #ifdef SET_UID
 
 # ifndef HAVE_USLEEP
@@ -2882,7 +2855,7 @@ void msg_print(cptr msg)
 	/* Memorize the tail */
 	/* if(character_generated) message_add(t); */
 
-	play_window |= (PW_MESSAGE);
+	prepare_window(PW_MESSAGE);
 	window_stuff(player_ptr);
 
 	/* Remember the message */
@@ -3522,7 +3495,7 @@ bool get_check_strict(cptr prompt, int mode)
 
 	if(auto_more)
 	{
-		play_window |= PW_MESSAGE;
+		prepare_window(PW_MESSAGE);
 		window_stuff(player_ptr);
 		num_more = 0;
 	}
@@ -3558,7 +3531,7 @@ bool get_check_strict(cptr prompt, int mode)
 	{
 		/* HACK : Add the line to message buffer */
 		message_add(buf);
-		play_window |= (PW_MESSAGE);
+		prepare_window(PW_MESSAGE);
 		window_stuff(player_ptr);
 	}
 

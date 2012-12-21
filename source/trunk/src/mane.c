@@ -260,7 +260,7 @@ put_str("é∏ó¶ å¯â ", y, x + 36);
 	if(redraw) screen_load();
 
 	/* Show choices */
-	play_window |= (PW_SPELL);
+	prepare_window(PW_SPELL);
 
 	window_stuff(player_ptr);
 
@@ -373,8 +373,8 @@ msg_print("Ç‡ÇÃÇ‹ÇÀÇ…é∏îsÇµÇΩÅI");
 	cost_tactical_energy(creature_ptr, 100);
 
 	prepare_redraw(PR_IMITATION);
-	play_window |= (PW_PLAYER);
-	play_window |= (PW_SPELL);
+	prepare_window(PW_PLAYER);
+	prepare_window(PW_SPELL);
 
 	return TRUE;
 }

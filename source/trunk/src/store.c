@@ -5141,7 +5141,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 	prepare_redraw(PR_MAP);
 
 	// Window stuff
-	play_window |= (PW_OVERHEAD | PW_DUNGEON);
+	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 	*/
 
 	return;

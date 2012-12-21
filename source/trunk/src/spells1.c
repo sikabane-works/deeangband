@@ -1756,7 +1756,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			set_timed_trait(target_ptr, TRAIT_WRAITH_FORM, 0, TRUE);
 			prepare_redraw(PR_MAP);
 			caster_ptr->creature_update |= (PU_CREATURES);
-			play_window |= PW_OVERHEAD | PW_DUNGEON | PR_STATUS;
+			prepare_window(PW_OVERHEAD | PW_DUNGEON | PR_STATUS);
 		}
 		break;
 
@@ -2524,7 +2524,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 				creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 				dec_mana(caster_ptr, diceroll(5, dam) / 2);
-				play_window |= PW_SPELL;
+				prepare_window(PW_SPELL);
 			}
 			dam = 0;
 
@@ -2542,7 +2542,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			b = MIN(caster_ptr->msp, caster_ptr->csp + b);
 			caster_ptr->csp = b;
 			prepare_redraw(PR_MANA);
-			play_window |= (PW_SPELL);
+			prepare_window(PW_SPELL);
 		}
 #ifdef JP
 		note_dies = "‚Ì¸_‚Í•ö‰ó‚µA“÷‘Ì‚Í”²‚¯Šk‚Æ‚È‚Á‚½B";
@@ -2674,7 +2674,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam = target_ptr->csp;
 		learn_trait(target_ptr, spell);
 		prepare_redraw(PR_MANA); // Redraw mana
-		play_window |= (PW_PLAYER | PW_SPELL); // Window stuff
+		prepare_window(PW_PLAYER | PW_SPELL); // Window stuff
 
 		if(caster_ptr != NULL)
 		{

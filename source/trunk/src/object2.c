@@ -243,7 +243,7 @@ void compact_objects(int size)
 
 		prepare_redraw(PR_MAP);
 
-		play_window |= (PW_OVERHEAD | PW_DUNGEON);
+		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 	}
 
 
@@ -1352,7 +1352,7 @@ bool can_player_destroy_object(creature_type *creature_ptr, object_type *object_
 		/* Combine the pack */
 		creature_ptr->creature_update |= (CRU_COMBINE);
 
-		play_window |= (PW_INVEN | PW_EQUIP);
+		prepare_window(PW_INVEN | PW_EQUIP);
 
 		return FALSE;
 	}
@@ -3609,7 +3609,7 @@ void inven_item_increase(creature_type *creature_ptr, int item, int num)
 		object_ptr->number += num;
 		set_inventory_weight(creature_ptr);
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_MANA | CRU_COMBINE);
-		play_window |= (PW_INVEN | PW_EQUIP);
+		prepare_window(PW_INVEN | PW_EQUIP);
 	}
 }
 
@@ -3628,7 +3628,7 @@ void inven_item_optimize(creature_type *creature_ptr, int item)
 		// Slide everything down and Erase the "final" slot
 		for (i = item; i < INVEN_TOTAL - 1; i++) creature_ptr->inventory[i] = creature_ptr->inventory[i+1];
 		object_wipe(&creature_ptr->inventory[i]);
-		play_window |= (PW_INVEN);
+		prepare_window(PW_INVEN);
 	}
 	else // The item is being wielded
 	{
@@ -3637,10 +3637,10 @@ void inven_item_optimize(creature_type *creature_ptr, int item)
 
 		// Recalculate torch
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
-		play_window |= (PW_EQUIP);
+		prepare_window(PW_EQUIP);
 	}
 
-	play_window |= (PW_SPELL);
+	prepare_window(PW_SPELL);
 }
 
 // Describe the charges on an item on the floor.
@@ -3859,7 +3859,7 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 
 			creature_ptr->creature_update |= (CRU_BONUS);
 
-			play_window |= (PW_INVEN);
+			prepare_window(PW_INVEN);
 
 			return (j);
 		}
@@ -3938,7 +3938,7 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 	/* Combine and Reorder pack */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	play_window |= (PW_INVEN);
+	prepare_window(PW_INVEN);
 
 	/* Return the slot */
 	return (i);
@@ -4189,7 +4189,7 @@ void combine_pack(creature_type *creature_ptr)
 						if(object_ptr->tval == TV_WAND) object_ptr->pval = object_ptr->pval * remain / old_num;
 					}
 
-					play_window |= (PW_INVEN);	// Window stuff
+					prepare_window(PW_INVEN);	// Window stuff
 					combined = TRUE;	// Take note
 					break;	// Done
 				}
@@ -4263,7 +4263,7 @@ void reorder_pack(creature_type *creature_ptr)
 		/* Insert the moving item */
 		object_copy(&creature_ptr->inventory[j], quest_ptr);
 
-		play_window |= (PW_INVEN);
+		prepare_window(PW_INVEN);
 	}
 
 #ifdef JP
@@ -5190,7 +5190,7 @@ static void drain_essence(creature_type *creature_ptr)
 	/* Combine the pack */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	play_window |= (PW_INVEN);
+	prepare_window(PW_INVEN);
 }
 
 
@@ -5876,7 +5876,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	/* Combine the pack */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	play_window |= (PW_INVEN);
+	prepare_window(PW_INVEN);
 }
 
 
@@ -5928,7 +5928,7 @@ static void erase_essence(creature_type *creature_ptr)
 	/* Combine the pack */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	play_window |= (PW_INVEN);
+	prepare_window(PW_INVEN);
 }
 
 void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)

@@ -1853,7 +1853,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 		creature_ptr->old_spells = creature_ptr->new_spells;
 
 		prepare_redraw(PR_STUDY);
-		play_window |= (PW_OBJECT);
+		prepare_window(PW_OBJECT);
 	}
 }
 
@@ -2154,7 +2154,7 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 		/* Display hitpoints (later) */
 		prepare_redraw(PR_HP);
 
-		play_window |= (PW_PLAYER);
+		prepare_window(PW_PLAYER);
 	}
 }
 
@@ -2537,7 +2537,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 		{
 			creature_ptr->stat_top[i] = top; // Save the new value
 			prepare_redraw(PR_STATS); // Redisplay the stats later
-			play_window |= (PW_PLAYER); // Window stuff
+			prepare_window(PW_PLAYER); // Window stuff
 		}
 
 		// Extract the new "stat_use" value for the stat
@@ -2553,7 +2553,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 		{
 			creature_ptr->stat_use[i] = use; // Save the new value
 			prepare_redraw(PR_STATS);  // Redisplay the stats later
-			play_window |= (PW_PLAYER); // Window stuff
+			prepare_window(PW_PLAYER); // Window stuff
 		}
 
 		ind = use / 10;
@@ -2579,7 +2579,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 				if(magic_info[creature_ptr->class_idx].spell_stat == STAT_CHA)
 					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
 			}
-			play_window |= (PW_PLAYER); // Window stuff
+			prepare_window(PW_PLAYER); // Window stuff
 		}
 	}
 
@@ -3958,14 +3958,14 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	// Hack -- See Invis Change
 	//TODO creature_ptr->creature_update |= (PU_CREATURES);
-	play_window |= PW_INVEN; // Redraw average damege display of Shuriken
+	prepare_window(PW_INVEN); // Redraw average damege display of Shuriken
 	prepare_redraw(PR_SPEED); // TODO
 
 	// Redraw armor (if needed)
 	if((creature_ptr->dis_ac != old_dis_ac) || (creature_ptr->dis_to_ac != old_dis_to_ac))
 	{
 		prepare_redraw(PR_ARMOR);  // Redraw
-		play_window |= (PW_PLAYER); // Window stuff
+		prepare_window(PW_PLAYER); // Window stuff
 	}
 
 }

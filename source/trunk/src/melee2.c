@@ -1964,7 +1964,7 @@ static void process_nonplayer(int m_idx)
 					{
 						/* Update some things */
 						creature_ptr->creature_update |= (PU_FLOW);
-						play_window |= (PW_OVERHEAD | PW_DUNGEON);
+						prepare_window(PW_OVERHEAD | PW_DUNGEON);
 						if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_BASH_DOOR);
 
 						return;
@@ -2197,7 +2197,7 @@ static void process_nonplayer(int m_idx)
 			{
 				/* Update some things */
 				creature_ptr->creature_update |= (PU_FLOW);
-				play_window |= (PW_OVERHEAD | PW_DUNGEON);
+				prepare_window(PW_OVERHEAD | PW_DUNGEON);
 				if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_KILL_WALL);
 
 				return;
@@ -2438,7 +2438,7 @@ static void process_nonplayer(int m_idx)
 		/* Update some things */
 		creature_ptr->creature_update |= (PU_FLOW);
 
-		play_window |= (PW_OVERHEAD | PW_DUNGEON);
+		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 	}
 
 	/* Notice changes in view */

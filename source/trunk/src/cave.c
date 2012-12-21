@@ -1632,7 +1632,7 @@ void lite_spot(floor_type *floor_ptr, int y, int x)
 		Term_queue_bigchar(panel_col_of(x), y-panel_row_prt, a, c, ta, tc);
 
 		/* Update sub-windows */
-		play_window |= (PW_OVERHEAD | PW_DUNGEON);
+		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 	}
 }
 
@@ -4315,7 +4315,7 @@ void map_area(creature_type *creature_ptr, int range)
 
 	prepare_redraw(PR_MAP);
 
-	play_window |= (PW_OVERHEAD | PW_DUNGEON);
+	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 }
 
 
@@ -4417,7 +4417,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 
 	prepare_redraw(PR_MAP);
 
-	play_window |= (PW_OVERHEAD | PW_DUNGEON);
+	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 	if(creature_ptr->posture & NINJA_S_STEALTH)
 	{
@@ -4486,7 +4486,7 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 
 	prepare_redraw(PR_MAP);
 
-	play_window |= (PW_OVERHEAD | PW_DUNGEON);
+	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 }
 
 
@@ -4937,7 +4937,7 @@ void species_type_track(int species_idx)
 	/* Save this creature ID */
 	species_window_idx = species_idx;
 
-	play_window |= (PW_MONSTER);
+	prepare_window(PW_MONSTER);
 }
 
 
@@ -4950,7 +4950,7 @@ void object_kind_track(int k_idx)
 	/* Save this object ID */
 	play_window_object_kind_idx = k_idx;
 
-	play_window |= (PW_OBJECT);
+	prepare_window(PW_OBJECT);
 }
 
 

@@ -334,7 +334,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	update_creature(creature_ptr, TRUE);
 
 	prepare_redraw(PR_EQUIPPY);
-	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
 
 	calc_android_exp(creature_ptr);
 }
@@ -473,7 +473,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 			object_ptr->curse_flags[0] = 0L;
 			object_ptr->feeling = FEEL_NONE;
 			creature_ptr->creature_update |= (CRU_BONUS); // Recalculate the bonuses
-			play_window |= (PW_EQUIP); // Window stuff
+			prepare_window(PW_EQUIP); // Window stuff
 
 #ifdef JP
 			msg_print("Žô‚¢‚ð‘Å‚¿”j‚Á‚½B");
@@ -636,7 +636,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 
 		/* HACK : Add the line to message buffer */
 		message_add(out_val);
-		play_window |= (PW_MESSAGE);
+		prepare_window(PW_MESSAGE);
 		window_stuff(player_ptr);
 
 		/* Get an acceptable answer */
@@ -873,7 +873,7 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 	/* Combine the pack */
 	creature_ptr->creature_update |= (CRU_COMBINE);
 
-	play_window |= (PW_INVEN | PW_EQUIP);
+	prepare_window(PW_INVEN | PW_EQUIP);
 
 	/* .‚â$‚ÌŠÖŒW‚Å, ÄŒvŽZ‚ª•K—v‚È‚Í‚¸ -- henkma */
 	creature_ptr->creature_update |= (CRU_BONUS);
@@ -937,7 +937,7 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 		/* Combine the pack */
 		creature_ptr->creature_update |= (CRU_COMBINE);
 
-		play_window |= (PW_INVEN | PW_EQUIP);
+		prepare_window(PW_INVEN | PW_EQUIP);
 
 		/* .‚â$‚ÌŠÖŒW‚Å, ÄŒvŽZ‚ª•K—v‚È‚Í‚¸ -- henkma */
 		creature_ptr->creature_update  |= (CRU_BONUS);
@@ -1419,7 +1419,7 @@ void do_cmd_locate(creature_type *creature_ptr)
 
 	prepare_redraw(PR_MAP);
 
-	play_window |= (PW_OVERHEAD | PW_DUNGEON);
+	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 	handle_stuff(creature_ptr);
 }

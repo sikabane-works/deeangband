@@ -1477,7 +1477,7 @@ static void auto_inscribe_item(creature_type *creature_ptr, object_type *object_
 	if(!object_ptr->inscription)
 		object_ptr->inscription = quark_add(autopick_list[idx].insc);
 
-	play_window |= (PW_EQUIP | PW_INVEN);
+	prepare_window(PW_EQUIP | PW_INVEN);
 
 	/* {.} and {$} effect warning and TRAIT_ACTIVE_TELEPORT_SELF */
 	creature_ptr->creature_update |= (CRU_BONUS);

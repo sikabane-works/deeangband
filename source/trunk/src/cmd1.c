@@ -577,7 +577,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 	creature_ptr->creature_update |= (PU_CREATURES); // Update stuff
 
 	prepare_redraw(PR_MAP); // Redraw map
-	play_window |= (PW_OVERHEAD); // Window stuff
+	prepare_window(PW_OVERHEAD); // Window stuff
 	handle_stuff(creature_ptr);
 
 	autopick_pickup_items(creature_ptr, c_ptr); // Automatically pickup/destroy/inscribe items
@@ -629,7 +629,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 			sound(SOUND_SELL);
 			creature_ptr->au += value; // Collect the gold
 			prepare_redraw(PR_GOLD); // Redraw gold
-			play_window |= (PW_PLAYER); // Window stuff
+			prepare_window(PW_PLAYER); // Window stuff
 		}
 
 		/* Pick up objects */
@@ -1478,7 +1478,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 
 		creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_DISTANCE);	// Update stuff
 
-		play_window |= (PW_OVERHEAD | PW_DUNGEON);
+		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 		/* Remove "unsafe" flag */
 		if((!has_trait(creature_ptr, TRAIT_BLIND) && !no_lite(creature_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);

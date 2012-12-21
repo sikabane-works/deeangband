@@ -1148,9 +1148,9 @@ void do_cmd_redraw(void)
 
 	prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
-	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
+	prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 
-	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
+	prepare_window(PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	update_play_time();
 
@@ -2451,7 +2451,7 @@ void do_cmd_options(void)
 			case 'w':
 			{
 				do_cmd_options_win();
-				play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL |
+				prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL |
 						  PW_PLAYER | PW_MESSAGE | PW_OVERHEAD |
 						  PW_MONSTER | PW_OBJECT | PW_SNAPSHOT | PW_DUNGEON);
 				break;

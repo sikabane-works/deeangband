@@ -838,7 +838,7 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 			/* Update creature recall window */
 			if(species_window_idx == m_ptr->species_idx)
 			{
-				play_window |= (PW_MONSTER);
+				prepare_window(PW_MONSTER);
 			}
 
 			/* Repair visibility later */
@@ -910,7 +910,7 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 				/* Update creature recall window */
 				if(species_window_idx == m_ptr->species_idx)
 				{
-					play_window |= (PW_MONSTER);
+					prepare_window(PW_MONSTER);
 				}
 			}
 
@@ -975,7 +975,7 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 			/* Update creature recall window */
 			if(species_window_idx == m_ptr->species_idx)
 			{
-				play_window |= (PW_MONSTER);
+				prepare_window(PW_MONSTER);
 			}
 
 			/* Repair visibility later */
@@ -1037,7 +1037,7 @@ bool detect_creatures_mind(creature_type *creature_ptr, int range)
 			/* Update creature recall window */
 			if(species_window_idx == m_ptr->species_idx)
 			{
-				play_window |= (PW_MONSTER);
+				prepare_window(PW_MONSTER);
 			}
 
 			/* Repair visibility later */
@@ -1099,7 +1099,7 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 			/* Update creature recall window */
 			if(species_window_idx == m_ptr->species_idx)
 			{
-				play_window |= (PW_MONSTER);
+				prepare_window(PW_MONSTER);
 			}
 
 			/* Repair visibility later */
@@ -1174,7 +1174,7 @@ bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_fla
 				/* Update creature recall window */
 				if(species_window_idx == m_ptr->species_idx)
 				{
-					play_window |= (PW_MONSTER);
+					prepare_window(PW_MONSTER);
 				}
 			}
 
@@ -1518,7 +1518,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	/* Visual feedback */
 	move_cursor_relative(user_ptr->fy, user_ptr->fx);
 	prepare_redraw(PR_HP);
-	play_window |= (PW_PLAYER);
+	prepare_window(PW_PLAYER);
 
 	/* Handle */
 	handle_stuff(user_ptr);
@@ -1766,7 +1766,7 @@ bool probing(floor_type *floor_ptr)
 
 			/* HACK : Add the line to message buffer */
 			message_add(buf);
-			play_window |= (PW_MESSAGE);
+			prepare_window(PW_MESSAGE);
 			window_stuff(player_ptr);
 
 			if(m_ptr->see_others) move_cursor_relative(m_ptr->fy, m_ptr->fx);
@@ -2089,7 +2089,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 
 		prepare_redraw(PR_MAP);
 
-		play_window |= (PW_OVERHEAD | PW_DUNGEON);
+		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 		if(caster_ptr->posture & NINJA_S_STEALTH)
 		{

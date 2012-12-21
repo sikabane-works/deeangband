@@ -791,7 +791,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 	if(redraw && !only_browse) screen_load();
 
 	/* Show choices */
-	play_window |= (PW_SPELL);
+	prepare_window(PW_SPELL);
 
 	window_stuff(player_ptr);
 
@@ -978,7 +978,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 			// Update creatures
 			creature_ptr->creature_update |= (PU_CREATURES);
 
-			play_window |= (PW_OVERHEAD | PW_DUNGEON);
+			prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 			handle_stuff(creature_ptr);
 			break;
@@ -2094,8 +2094,8 @@ void do_cmd_mind(creature_type *creature_ptr)
 		}
 	}
 
-	play_window |= (PW_PLAYER);
-	play_window |= (PW_SPELL);
+	prepare_window(PW_PLAYER);
+	prepare_window(PW_SPELL);
 }
 
 

@@ -3137,7 +3137,7 @@ if(get_check(format("‚»‚Ìƒƒbƒh‚ð%d ‚ÅÄ[“U‚µ‚Ü‚·‚©H",
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	play_window |= (PW_INVEN);
+	prepare_window(PW_INVEN);
 
 	/* Pay the price */
 	creature_ptr->au -= price;
@@ -3300,7 +3300,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	play_window |= (PW_INVEN);
+	prepare_window(PW_INVEN);
 
 	/* Pay the price */
 	creature_ptr->au -= total_cost;
@@ -4141,7 +4141,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 	prepare_redraw(PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);
 
-	play_window |= (PW_OVERHEAD | PW_DUNGEON);
+	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 }
 
 

@@ -1844,7 +1844,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 			else creature_ptr->csp -= actual_racial_cost;
 
 			prepare_redraw(PR_HP | PR_MANA);
-			play_window |= (PW_PLAYER | PW_SPELL);
+			prepare_window(PW_PLAYER | PW_SPELL);
 		}
 	}
 	else cancel_tactical_action(creature_ptr);

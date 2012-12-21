@@ -97,7 +97,7 @@ void check_experience(creature_type *creature_ptr)
 
 		prepare_redraw(PR_LEV | PR_TITLE);
 
-		play_window |= (PW_PLAYER);
+		prepare_window(PW_PLAYER);
 
 		handle_stuff(creature_ptr);
 	}
@@ -140,7 +140,7 @@ void check_experience(creature_type *creature_ptr)
 
 		prepare_redraw(PR_LEV | PR_TITLE | PR_EXP);
 
-		play_window |= (PW_PLAYER | PW_SPELL | PW_INVEN);
+		prepare_window(PW_PLAYER | PW_SPELL | PW_INVEN);
 
 		creature_ptr->level_up = TRUE;
 		handle_stuff(creature_ptr);
@@ -247,7 +247,7 @@ void check_experience(creature_type *creature_ptr)
 
 		prepare_redraw(PR_LEV | PR_TITLE);
 
-		play_window |= (PW_PLAYER | PW_SPELL);
+		prepare_window(PW_PLAYER | PW_SPELL);
 
 		handle_stuff(creature_ptr);
 	}
@@ -1179,9 +1179,9 @@ void resize_map(void)
 */
 void redraw_window(void)
 {
-	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
+	prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 
-	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
+	prepare_window(PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	/* Hack -- update */
 	handle_stuff(player_ptr);
@@ -1316,7 +1316,7 @@ void verify_panel(creature_type *creature_ptr)
 	panel_bounds_center();
 	creature_ptr->creature_update |= (PU_CREATURES);
 	prepare_redraw(PR_MAP);
-	play_window |= (PW_OVERHEAD | PW_DUNGEON);
+	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 }
 
 // Creature health description
@@ -2605,7 +2605,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 
 					prepare_redraw(PR_MAP);
 
-					play_window |= (PW_OVERHEAD);
+					prepare_window(PW_OVERHEAD);
 
 					handle_stuff(aimer_ptr);
 
@@ -4055,7 +4055,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 
 					prepare_redraw(PR_MAP);
 
-					play_window |= (PW_OVERHEAD);
+					prepare_window(PW_OVERHEAD);
 
 					handle_stuff(creature_ptr);
 				}
@@ -4140,7 +4140,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 
 	creature_ptr->creature_update |= (PU_CREATURES);
 	prepare_redraw(PR_MAP);
-	play_window |= (PW_OVERHEAD);
+	prepare_window(PW_OVERHEAD);
 
 	handle_stuff(creature_ptr);
 

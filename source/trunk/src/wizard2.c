@@ -59,7 +59,7 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 	creature_ptr->creature_update |= (CRU_HP);
 	prepare_redraw(PR_HP);
 
-	play_window |= (PW_PLAYER);
+	prepare_window(PW_PLAYER);
 
 	handle_stuff(creature_ptr);
 
@@ -861,7 +861,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 		/* Combine / Reorder the pack (later) */
 		caster_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
+		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 	}
 }
 
@@ -1159,7 +1159,7 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 		object_copy(object_ptr, quest_ptr); // Change
 
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_COMBINE | CRU_REORDER);
-		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
+		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 	}
 
 	/* Ignore change */
@@ -1254,7 +1254,7 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 		creature_ptr->csp = creature_ptr->msp;
 		creature_ptr->csp_frac = 0;
 		prepare_redraw(PR_MANA);
-		play_window |= (PW_PLAYER | PW_SPELL);
+		prepare_window(PW_PLAYER | PW_SPELL);
 	}
 
 	// Cure stuff

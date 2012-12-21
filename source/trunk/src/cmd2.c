@@ -3822,7 +3822,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 			creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
 
-			play_window |= (PW_EQUIP);
+			prepare_window(PW_EQUIP);
 		}
 		else
 		{

@@ -215,7 +215,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
-	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
 	/* Food can feed the player */
@@ -271,7 +271,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			/* Combine / Reorder the pack (later) */
 			creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
-			play_window |= (PW_INVEN);
+			prepare_window(PW_INVEN);
 
 			return;
 		}
@@ -323,7 +323,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		if(item >= 0) inven_item_charges(creature_ptr, item);
 		else floor_item_charges(0 - item);
 
-		play_window |= (PW_INVEN | PW_EQUIP);
+		prepare_window(PW_INVEN | PW_EQUIP);
 
 		/* Don't eat a staff/wand itself */
 		return;
@@ -764,7 +764,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 		gain_exp(caster_ptr, (lev + (caster_ptr->lev >> 1)) / caster_ptr->lev);
 	}
 
-	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
 	if(has_trait(caster_ptr, TRAIT_FLASK_DRINKER))
@@ -1307,7 +1307,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		gain_exp(caster_ptr, (lev + (caster_ptr->lev >> 1)) / caster_ptr->lev);
 	}
 
-	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 
 	/* Hack -- allow certain scrolls to be "preserved" */
@@ -1664,7 +1664,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 		/* Combine / Reorder the pack (later) */
 		creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
-		play_window |= (PW_INVEN);
+		prepare_window(PW_INVEN);
 
 		return;
 	}
@@ -1690,7 +1690,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
-	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	if(!use_charge) return;	// Hack -- some uses are "free"
 	object_ptr->pval--;	// Use a single charge
@@ -2018,7 +2018,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 
 		/* Combine / Reorder the pack (later) */
 		creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
-		play_window |= (PW_INVEN);
+		prepare_window(PW_INVEN);
 
 		return;
 	}
@@ -2040,7 +2040,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
-	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
 
 	object_ptr->pval--; // Use a single charge
 
@@ -2274,7 +2274,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
-	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
 }
 
 
@@ -2504,14 +2504,14 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	if(object_ptr->art_name)
 	{
 		(void)activate_object(creature_ptr, object_ptr);
-		play_window |= (PW_INVEN | PW_EQUIP); // Window stuff
+		prepare_window(PW_INVEN | PW_EQUIP); // Window stuff
 		return;	// Success
 	}
 
 	/* Artifacts */
 	else if(object_is_fixed_artifact(object_ptr))
 	{
-		play_window |= (PW_INVEN | PW_EQUIP);
+		prepare_window(PW_INVEN | PW_EQUIP);
 		return;
 	}
 
@@ -2634,7 +2634,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			}
 		}
 
-		play_window |= (PW_INVEN | PW_EQUIP);
+		prepare_window(PW_INVEN | PW_EQUIP);
 
 		return;
 	}
@@ -2677,7 +2677,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			if(success) return;
 		}
 
-		play_window |= (PW_INVEN | PW_EQUIP);
+		prepare_window(PW_INVEN | PW_EQUIP);
 		return; // Success
 	}
 

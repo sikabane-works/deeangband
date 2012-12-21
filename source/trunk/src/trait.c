@@ -859,7 +859,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					if(caster_ptr->class_skills.old_skills.magic_num1[i] < 0) caster_ptr->class_skills.old_skills.magic_num1[i] = 0;
 				}
 				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
-				play_window |= (PW_PLAYER);
+				prepare_window(PW_PLAYER);
 			}
 			else if(caster_ptr->csp < caster_ptr->msp)
 			{
@@ -1414,7 +1414,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		cost_tactical_energy(caster_ptr, -1000 - (100 + randint1(200) + 200) * TURNS_PER_TICK / 10);
 		prepare_redraw(PR_MAP); // Redraw map
 		caster_ptr->creature_update |= (PU_CREATURES); // Update creatures
-		play_window |= (PW_OVERHEAD | PW_DUNGEON); // Window stuff
+		prepare_window(PW_OVERHEAD | PW_DUNGEON); // Window stuff
 
 		handle_stuff(caster_ptr);
 		break;

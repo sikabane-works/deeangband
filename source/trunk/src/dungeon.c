@@ -309,7 +309,7 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	play_window |= (PW_INVEN | PW_EQUIP);
+	prepare_window(PW_INVEN | PW_EQUIP);
 }
 
 
@@ -914,7 +914,7 @@ static void regenhp(creature_type *creature_ptr, int percent)
 	{
 		prepare_redraw(PR_HP);
 
-		play_window |= (PW_PLAYER);
+		prepare_window(PW_PLAYER);
 
 		wild_regen = 20;
 	}
@@ -1000,8 +1000,8 @@ static void regenmana(creature_type * creature_ptr, int percent)
 	{
 		prepare_redraw(PR_MANA);
 
-		play_window |= (PW_PLAYER);
-		play_window |= (PW_SPELL);
+		prepare_window(PW_PLAYER);
+		prepare_window(PW_SPELL);
 
 		wild_regen = 20;
 	}
@@ -1122,8 +1122,8 @@ static void regen_captured_creatures(creature_type *creature_ptr)
 		/* Combine pack */
 		creature_ptr->creature_update |= (CRU_COMBINE);
 
-		play_window |= (PW_INVEN);
-		play_window |= (PW_EQUIP);
+		prepare_window(PW_INVEN);
+		prepare_window(PW_EQUIP);
 		wild_regen = 20;
 	}
 }
@@ -1134,7 +1134,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	/* Hack -- notice interesting fuel steps */
 	if((object_ptr->xtra4 < 100) || (!(object_ptr->xtra4 % 100)))
 	{
-		play_window |= (PW_EQUIP);
+		prepare_window(PW_EQUIP);
 	}
 
 	/* Hack -- Special treatment when blind */
@@ -1297,7 +1297,7 @@ bool psychometry(creature_type *creature_ptr)
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	/* Valid "tval" codes */
 	switch (object_ptr->tval)
@@ -1438,7 +1438,7 @@ static void check_music(creature_type *creature_ptr)
 			// Update creatures
 			creature_ptr->creature_update |= (PU_CREATURES);
 
-			play_window |= (PW_OVERHEAD | PW_DUNGEON);
+			prepare_window(PW_OVERHEAD | PW_DUNGEON);
 		}
 	}
 	if(creature_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
@@ -2683,7 +2683,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	/* Notice changes */
 	if(changed)
 	{
-		play_window |= (PW_EQUIP);
+		prepare_window(PW_EQUIP);
 		wild_regen = 20;
 	}
 
@@ -2728,7 +2728,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	/* Notice changes */
 	if(changed)
 	{
-		play_window |= (PW_INVEN);
+		prepare_window(PW_INVEN);
 		wild_regen = 20;
 	}
 
@@ -3263,7 +3263,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 
 			prepare_redraw(PR_MAP);
 
-			play_window |= (PW_OVERHEAD | PW_DUNGEON);
+			prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 			//TODO
 			/*
@@ -4746,7 +4746,7 @@ void process_player(creature_type *creature_ptr)
 	{
 		creature_ptr->action_turn++;
 
-		play_window |= PW_PLAYER;
+		prepare_window(PW_PLAYER);
 		creature_ptr->sutemi = FALSE;
 		creature_ptr->counter = FALSE;
 		creature_ptr->now_damaged = FALSE;
@@ -4915,7 +4915,7 @@ void process_player(creature_type *creature_ptr)
 			{
 				prepare_redraw(PR_MAP); // Redraw map
 				creature_ptr->creature_update |= (PU_CREATURES); // Update creatures
-				play_window |= (PW_OVERHEAD | PW_DUNGEON); // Window stuff
+				prepare_window(PW_OVERHEAD | PW_DUNGEON); // Window stuff
 #ifdef JP
 				msg_print("ÅuéûÇÕìÆÇ´ÇæÇ∑ÅcÅv");
 #else
@@ -5548,7 +5548,7 @@ static void play_loop(void)
 		msg_print(NULL); // Flush messages
 
 		// Window stuff
-		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
+		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
 		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY);
 		prepare_redraw(PR_MAP);
 
@@ -5869,9 +5869,9 @@ void play_game(bool new_game)
 
 	Term_xtra(TERM_XTRA_REACT, 0);
 
-	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
+	prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 
-	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
+	prepare_window(PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	window_stuff(player_ptr);
 

@@ -372,7 +372,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 	if(redraw && !only_browse) screen_load();
 
 	/* Show choices */
-	play_window |= (PW_SPELL);
+	prepare_window(PW_SPELL);
 
 	window_stuff(player_ptr);
 
@@ -588,8 +588,8 @@ void do_cmd_snipe(creature_type *creature_ptr)
 
 	prepare_redraw(PR_HP | PR_MANA);
 
-	play_window |= (PW_PLAYER);
-	play_window |= (PW_SPELL);
+	prepare_window(PW_PLAYER);
+	prepare_window(PW_SPELL);
 }
 
 /*

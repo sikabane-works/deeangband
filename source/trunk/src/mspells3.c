@@ -647,7 +647,7 @@ put_str("MP ¸—¦ Œø‰Ê", y, x + 33);
 	if(redraw) screen_load();
 
 	/* Show choices */
-	play_window |= (PW_SPELL);
+	prepare_window(PW_SPELL);
 
 	window_stuff(player_ptr);
 
@@ -864,8 +864,8 @@ msg_print("‘Ì‚ğˆ«‚­‚µ‚Ä‚µ‚Ü‚Á‚½I");
 	cost_tactical_energy(creature_ptr, 100);
 
 	prepare_redraw(PR_MANA);
-	play_window |= (PW_PLAYER);
-	play_window |= (PW_SPELL);
+	prepare_window(PW_PLAYER);
+	prepare_window(PW_SPELL);
 
 	return TRUE;
 }

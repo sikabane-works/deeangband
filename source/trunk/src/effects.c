@@ -437,7 +437,7 @@ void dispel_creature(creature_type *creature_ptr)
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 		prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
 		creature_ptr->creature_update |= (PU_CREATURES);
-		play_window |= (PW_OVERHEAD | PW_DUNGEON);
+		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 		cost_tactical_energy(creature_ptr, 100);
 	}
 }
@@ -994,7 +994,7 @@ bool lose_all_info(creature_type *creature_ptr)
 
 	// Recalculate bonuses / Combine / Reorder the pack (later)
 	creature_ptr->creature_update |= (CRU_BONUS | CRU_COMBINE | CRU_REORDER);
-	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
 	wiz_dark(GET_FLOOR_PTR(creature_ptr), creature_ptr); // Mega-Hack -- Forget the map
 	return TRUE; // It worked
 }

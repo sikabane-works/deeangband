@@ -2152,7 +2152,7 @@ int lore_do_probe(int species_idx)
 	/* Update creature recall window */
 	if(species_window_idx == species_idx)
 	{
-		play_window |= (PW_MONSTER);
+		prepare_window(PW_MONSTER);
 	}
 
 	/* Return the number of new flags learnt */
@@ -2186,7 +2186,7 @@ void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold)
 	/* Update creature recall window */
 	if(species_window_idx == creature_ptr->species_idx)
 	{
-		play_window |= (PW_MONSTER);
+		prepare_window(PW_MONSTER);
 	}
 }
 

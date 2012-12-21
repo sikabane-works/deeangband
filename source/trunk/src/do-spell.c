@@ -9587,7 +9587,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				// Update creatures
 				caster_ptr->creature_update |= (PU_CREATURES);
 		
-				play_window |= (PW_OVERHEAD | PW_DUNGEON);
+				prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 				start_singing(caster_ptr, spell, MUSIC_INVULN);
 		}
@@ -9606,7 +9606,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				// Update creatures
 				caster_ptr->creature_update |= (PU_CREATURES);
 
-				play_window |= (PW_OVERHEAD | PW_DUNGEON);
+				prepare_window(PW_OVERHEAD | PW_DUNGEON);
 			}
 		}
 

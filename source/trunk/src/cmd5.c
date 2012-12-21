@@ -118,7 +118,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 	redraw = FALSE;
 
 	/* Show choices */
-	play_window |= (PW_SPELL);
+	prepare_window(PW_SPELL);
 
 	window_stuff(player_ptr);
 
@@ -300,7 +300,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 
 
 	/* Show choices */
-	play_window |= (PW_SPELL);
+	prepare_window(PW_SPELL);
 
 	window_stuff(player_ptr);
 
@@ -872,7 +872,7 @@ void do_cmd_study(creature_type *creature_ptr)
 	creature_ptr->creature_update |= (CRU_SPELLS);
 	update_creature(creature_ptr, TRUE);
 
-	play_window |= (PW_OBJECT);
+	prepare_window(PW_OBJECT);
 }
 
 
@@ -1178,7 +1178,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 			/* Gain experience */
 			gain_exp(creature_ptr, e * s_ptr->slevel);
 
-			play_window |= (PW_OBJECT);
+			prepare_window(PW_OBJECT);
 
 		}
 		if(magic_info[creature_ptr->class_idx].spell_xtra & MAGIC_GAIN_EXP)
@@ -1237,8 +1237,8 @@ void do_cmd_cast(creature_type *creature_ptr)
 		}
 	}
 
-	play_window |= (PW_PLAYER);
-	play_window |= (PW_SPELL);
+	prepare_window(PW_PLAYER);
+	prepare_window(PW_SPELL);
 }
 
 
@@ -1486,7 +1486,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 			sprintf(buf, "Dismissed %s.", friend_name);
 #endif
 			message_add(buf);
-			play_window |= (PW_MESSAGE);
+			prepare_window(PW_MESSAGE);
 			window_stuff(player_ptr);
 
 			delete_species_idx(&creature_list[pet_ctr]);
@@ -1658,7 +1658,7 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 	update_creature(creature_ptr, TRUE);
 
 
-	play_window |= (PW_OVERHEAD | PW_DUNGEON);
+	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 	prepare_redraw(PR_EXTRA | PR_UHEALTH);
 
 	if(has_trait(creature_ptr, TRAIT_CAN_FLY) && !force)
