@@ -1145,7 +1145,6 @@ struct creature_type
 	char name[128];
 
 	byte player;	// Player Flag 
-	byte stigmatic;	// Stigmatic of '@' Flag 
 
 	byte d_attr;			// Default creature attribute
 	byte d_char;			// Default creature character
@@ -1233,8 +1232,9 @@ struct creature_type
 	s16b learned_spells;
 	s16b add_spells;
 
-	u32b current_trait[MAX_TRAITS_FLAG];
 	s16b timed_trait[MAX_TRAITS];
+	u32b mutative_trait[MAX_TRAITS_FLAG];
+	u32b current_trait[MAX_TRAITS_FLAG];
 
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];
@@ -1411,7 +1411,7 @@ struct creature_type
 
 	byte cdis;		// Current dis from player 
 
-	byte sc_flag;		// Extra creature flags 
+	byte sc_flag;	// Extra creature flags 
 	byte sc_flag2;	// Extra creature flags 
 
 	bool see_others;	// Creature is "visible" 
@@ -1447,11 +1447,10 @@ struct creature_type
 	s16b time_stopper;
 	byte tsuri_dir;
 
-	s16b running;			// Current counter for running, if any
-	s16b resting;			// Current counter for resting, if any
+	s16b running;	// Current counter for running, if any
+	s16b resting;	// Current counter for resting, if any
 	bool reinit_wilderness;
 
-	u32b mutative_trait[MAX_TRAITS_FLAG];
 
 };
 

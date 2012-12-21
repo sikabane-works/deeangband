@@ -760,9 +760,7 @@ static void rd_creature(creature_type *creature_ptr)
 	s16b tmp16s;
 
 	rd_u32b(&creature_ptr->creature_idx);
-
 	rd_byte(&creature_ptr->player);
-	rd_byte(&creature_ptr->stigmatic);
 
 	rd_byte(&creature_ptr->d_attr);
 	rd_byte(&creature_ptr->d_char);

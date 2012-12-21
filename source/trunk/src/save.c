@@ -374,7 +374,6 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_u32b(creature_ptr->creature_idx);
 
 	wr_byte(creature_ptr->player);
-	wr_byte(creature_ptr->stigmatic);
 
 	wr_byte(creature_ptr->d_attr);
 	wr_byte(creature_ptr->d_char);
