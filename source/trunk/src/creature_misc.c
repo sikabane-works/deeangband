@@ -713,7 +713,7 @@ bool has_trait_from_inventory(creature_type *creature_ptr, int type)
 
 bool has_trait_from_timed(creature_type *creature_ptr, int type)
 {
-	if(creature_ptr->timed_trait[type]) return TRUE;
+	if(creature_ptr->current_trait[type]) return TRUE;
 	return FALSE;
 }
 
@@ -743,7 +743,7 @@ static bool has_trait_aux(creature_type *creature_ptr, int type)
 	if(has_trait_from_class(creature_ptr, type)) return TRUE;
 	if(has_trait_from_chara(creature_ptr, type)) return TRUE;
 	if(has_trait_from_inventory(creature_ptr, type)) return TRUE;
-	if(creature_ptr->timed_trait[type]) return TRUE;
+	if(creature_ptr->current_trait[type]) return TRUE;
 	return FALSE;
 }
 

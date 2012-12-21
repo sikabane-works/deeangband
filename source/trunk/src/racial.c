@@ -405,7 +405,7 @@ bool can_do_cmd_cast(creature_type *creature_ptr)
 #endif
 		return FALSE;
 	}
-	else if(creature_ptr->timed_trait[TRAIT_S_HERO])
+	else if(creature_ptr->current_trait[TRAIT_S_HERO])
 	{
 #ifdef JP
 		msg_format("‹¶íŽm‰»‚µ‚Ä‚¢‚Ä“ª‚ª‰ñ‚ç‚È‚¢I");
@@ -696,12 +696,12 @@ static int racial_chance(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	int sum = 0;
 	int stat = creature_ptr->stat_cur[pd_ptr->stat];
 
-	if((creature_ptr->lev < min_level) || creature_ptr->timed_trait[TRAIT_CONFUSED]) return SUCCESS;
+	if((creature_ptr->lev < min_level) || creature_ptr->current_trait[TRAIT_CONFUSED]) return SUCCESS;
 
 	if(difficulty == 0) return 100;
 
 	/* Calculate difficulty */
-	if(has_trait(creature_ptr, TRAIT_STUN)) difficulty += creature_ptr->timed_trait[TRAIT_STUN];
+	if(has_trait(creature_ptr, TRAIT_STUN)) difficulty += creature_ptr->current_trait[TRAIT_STUN];
 	else if(creature_ptr->lev > min_level)
 	{
 		int lev_adj = ((creature_ptr->lev - min_level) / 3);
@@ -784,7 +784,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 
 	if(difficulty)
 	{
-		if(has_trait(creature_ptr, TRAIT_STUN)) difficulty += creature_ptr->timed_trait[TRAIT_STUN];
+		if(has_trait(creature_ptr, TRAIT_STUN)) difficulty += creature_ptr->current_trait[TRAIT_STUN];
 		else if(creature_ptr->lev > min_level)
 		{
 			int lev_adj = ((creature_ptr->lev - min_level) / 3);
@@ -1036,7 +1036,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			handle_stuff();
 			do_cmd_cast(creature_ptr);
 			handle_stuff();
-			if(!creature_ptr->timed_trait[TRAIT_PARALYZED] && can_do_cmd_cast(creature_ptr))
+			if(!creature_ptr->current_trait[TRAIT_PARALYZED] && can_do_cmd_cast(creature_ptr))
 				do_cmd_cast(creature_ptr);
 			break;
 		}

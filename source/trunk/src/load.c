@@ -912,7 +912,7 @@ static void rd_creature(creature_type *creature_ptr)
 	{
 		rd_s16b(&tmp16s);
 		if(tmp16s < 0) break;
-		rd_s16b(&creature_ptr->timed_trait[tmp16s]);
+		rd_s16b(&creature_ptr->current_trait[tmp16s]);
 	}
 
 	rd_byte(&creature_ptr->recall_dungeon);

@@ -1932,7 +1932,7 @@
 
 // Hack -- Determine creature race appearance index is same as race index
 #define is_original_ap(A) (bool)(((A)->ap_species_idx == (A)->species_idx) ? TRUE : FALSE)
-#define is_original_ap_and_seen(WHO, A) (bool)((A)->see_others && !(WHO)->timed_trait[TRAIT_HALLUCINATION] && ((A)->ap_species_idx == (A)->species_idx))
+#define is_original_ap_and_seen(WHO, A) (bool)((A)->see_others && !(WHO)->current_trait[TRAIT_HALLUCINATION] && ((A)->ap_species_idx == (A)->species_idx))
 
 /*
  * Is the creature seen by the player?

@@ -46,19 +46,19 @@
 #define HEX_SPELLING_ANY(USER) (((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0]))
 #define HEX_SPELLING(USER, X) (((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0] & (1L << (X))))
 
-#define GET_TIMED_TRAIT(C, TYPE) ((C)->timed_trait[TYPE])
+#define GET_TIMED_TRAIT(C, TYPE) ((C)->current_trait[TYPE])
 
-#define IS_FAST(C)			((C)->timed_trait[TRAIT_FAST] || MUSIC_SINGING(C, MUSIC_SPEED) || MUSIC_SINGING(C, MUSIC_SHERO))
-#define IS_INVULN(C)		((C)->timed_trait[TRAIT_INVULNERABLE] || MUSIC_SINGING(C, MUSIC_INVULN))
-#define IS_HERO(C)			((C)->timed_trait[TRAIT_HERO] || MUSIC_SINGING(C, MUSIC_HERO) || MUSIC_SINGING(C, MUSIC_SHERO))
-#define IS_BLESSED(C)		((C)->timed_trait[TRAIT_BLESSED] || MUSIC_SINGING(C, MUSIC_BLESS) || HEX_SPELLING(C, HEX_BLESS))
-#define IS_OPPOSE_ACID(C)	((C)->timed_trait[TRAIT_RES_ACID] || MUSIC_SINGING(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
-#define IS_OPPOSE_ELEC(C)	((C)->timed_trait[TRAIT_RES_ELEC] || MUSIC_SINGING(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
-#define IS_OPPOSE_FIRE(C)	((C)->timed_trait[TRAIT_RES_FIRE] || MUSIC_SINGING(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
-#define IS_OPPOSE_COLD(C)	((C)->timed_trait[TRAIT_RES_COLD] || MUSIC_SINGING(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
-#define IS_OPPOSE_POIS(C)	((C)->timed_trait[TRAIT_RES_POIS] || MUSIC_SINGING(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
-#define IS_TIM_ESP(C)		((C)->timed_trait[TRAIT_ESP] || MUSIC_SINGING(C, MUSIC_MIND) || (C->concent >= CONCENT_TELE_THRESHOLD))
-#define IS_TIM_STEALTH(C)	((C)->timed_trait[TRAIT_STEALTH_PLUS] || MUSIC_SINGING(C, MUSIC_STEALTH))
+#define IS_FAST(C)			((C)->current_trait[TRAIT_FAST] || MUSIC_SINGING(C, MUSIC_SPEED) || MUSIC_SINGING(C, MUSIC_SHERO))
+#define IS_INVULN(C)		((C)->current_trait[TRAIT_INVULNERABLE] || MUSIC_SINGING(C, MUSIC_INVULN))
+#define IS_HERO(C)			((C)->current_trait[TRAIT_HERO] || MUSIC_SINGING(C, MUSIC_HERO) || MUSIC_SINGING(C, MUSIC_SHERO))
+#define IS_BLESSED(C)		((C)->current_trait[TRAIT_BLESSED] || MUSIC_SINGING(C, MUSIC_BLESS) || HEX_SPELLING(C, HEX_BLESS))
+#define IS_OPPOSE_ACID(C)	((C)->current_trait[TRAIT_RES_ACID] || MUSIC_SINGING(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
+#define IS_OPPOSE_ELEC(C)	((C)->current_trait[TRAIT_RES_ELEC] || MUSIC_SINGING(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
+#define IS_OPPOSE_FIRE(C)	((C)->current_trait[TRAIT_RES_FIRE] || MUSIC_SINGING(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
+#define IS_OPPOSE_COLD(C)	((C)->current_trait[TRAIT_RES_COLD] || MUSIC_SINGING(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
+#define IS_OPPOSE_POIS(C)	((C)->current_trait[TRAIT_RES_POIS] || MUSIC_SINGING(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
+#define IS_TIM_ESP(C)		((C)->current_trait[TRAIT_ESP] || MUSIC_SINGING(C, MUSIC_MIND) || (C->concent >= CONCENT_TELE_THRESHOLD))
+#define IS_TIM_STEALTH(C)	((C)->current_trait[TRAIT_STEALTH_PLUS] || MUSIC_SINGING(C, MUSIC_STEALTH))
 
 /* Is "teleport level" ineffective to this target? */
 #define TELE_LEVEL_IS_INEFF(FLOOR, USER, TARGET) \

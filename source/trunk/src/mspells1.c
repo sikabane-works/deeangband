@@ -425,21 +425,21 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	if(has_trait(caster_ptr, TRAIT_BR_POIS) || has_trait(caster_ptr, TRAIT_BR_NUKE))
 		if(has_trait_from_timed(target_ptr, TRAIT_RES_POIS) || MUSIC_SINGING(caster_ptr, MUSIC_RESIST)) return TRUE;
 
-	if(target_ptr->timed_trait[TRAIT_ULTRA_RES]) return TRUE;	// Ultimate resistance
-	if(target_ptr->timed_trait[TRAIT_TSUYOSHI]) return TRUE;	// Potion of Neo Tsuyosi special
+	if(target_ptr->current_trait[TRAIT_ULTRA_RES]) return TRUE;	// Ultimate resistance
+	if(target_ptr->current_trait[TRAIT_TSUYOSHI]) return TRUE;	// Potion of Neo Tsuyosi special
 
 	// Elemental Brands
-	if(target_ptr->timed_trait[TRAIT_FIRE_BRAND] && !has_trait(target_ptr, TRAIT_RES_FIRE)) return TRUE;
-	if(target_ptr->timed_trait[TRAIT_COLD_BRAND] && !has_trait(target_ptr, TRAIT_RES_COLD)) return TRUE;
-	if(target_ptr->timed_trait[TRAIT_ELEC_BRAND] && !has_trait(target_ptr, TRAIT_RES_ELEC)) return TRUE;
-	if(target_ptr->timed_trait[TRAIT_ACID_BRAND] && !has_trait(target_ptr, TRAIT_RES_ACID)) return TRUE;
-	if(target_ptr->timed_trait[TRAIT_POIS_BRAND] && !has_trait(target_ptr, TRAIT_RES_POIS)) return TRUE;
+	if(target_ptr->current_trait[TRAIT_FIRE_BRAND] && !has_trait(target_ptr, TRAIT_RES_FIRE)) return TRUE;
+	if(target_ptr->current_trait[TRAIT_COLD_BRAND] && !has_trait(target_ptr, TRAIT_RES_COLD)) return TRUE;
+	if(target_ptr->current_trait[TRAIT_ELEC_BRAND] && !has_trait(target_ptr, TRAIT_RES_ELEC)) return TRUE;
+	if(target_ptr->current_trait[TRAIT_ACID_BRAND] && !has_trait(target_ptr, TRAIT_RES_ACID)) return TRUE;
+	if(target_ptr->current_trait[TRAIT_POIS_BRAND] && !has_trait(target_ptr, TRAIT_RES_POIS)) return TRUE;
 
 	if(target_ptr->speed < 35) if(IS_FAST(target_ptr)) return TRUE;	// Speed
-	if(target_ptr->timed_trait[TRAIT_LIGHT_SPEED] && (target_ptr->speed < 26)) return TRUE;	// Light speed
+	if(target_ptr->current_trait[TRAIT_LIGHT_SPEED] && (target_ptr->speed < 26)) return TRUE;	// Light speed
 
 	if(target_ptr->riding && (creature_list[target_ptr->riding].speed < 25))
-		if(creature_list[target_ptr->riding].timed_trait[TRAIT_FAST]) return TRUE;
+		if(creature_list[target_ptr->riding].current_trait[TRAIT_FAST]) return TRUE;
 
 	return FALSE;	// No need to cast dispel spell
 }
@@ -515,7 +515,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Hurt badly or afraid, attempt to flee */
-	if(((caster_ptr->chp < caster_ptr->mhp / 3) || caster_ptr->timed_trait[TRAIT_AFRAID]) && one_in_(2))
+	if(((caster_ptr->chp < caster_ptr->mhp / 3) || caster_ptr->current_trait[TRAIT_AFRAID]) && one_in_(2))
 	{
 		/* Choose escape spell if possible */
 		if(escape_num) return (escape[randint0(escape_num)]);
@@ -617,7 +617,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Haste self if we aren't already somewhat hasted (rarely) */
-	if(haste_num && (randint0(100) < 20) && !caster_ptr->timed_trait[TRAIT_FAST])
+	if(haste_num && (randint0(100) < 20) && !caster_ptr->current_trait[TRAIT_FAST])
 	{
 		/* Choose haste spell */
 		return (haste[randint0(haste_num)]);
@@ -785,7 +785,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	bool can_remember;
 
 	/* Cannot cast spells when confused */
-	if(caster_ptr->timed_trait[TRAIT_CONFUSED])
+	if(caster_ptr->current_trait[TRAIT_CONFUSED])
 	{
 		reset_target(caster_ptr);
 		return FALSE;
@@ -1087,7 +1087,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 	/* Check for spell failure (inate attacks never fail) */
 	// TODO Distinction of spell failure_rate
-	if((in_no_magic_dungeon || (caster_ptr->timed_trait[TRAIT_STUN] && one_in_(2)) || (randint0(100) < failrate)))
+	if((in_no_magic_dungeon || (caster_ptr->current_trait[TRAIT_STUN] && one_in_(2)) || (randint0(100) < failrate)))
 	{
 		disturb(player_ptr, 1, 0);
 #ifdef JP

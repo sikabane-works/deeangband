@@ -15,7 +15,7 @@
 
 bool add_timed_trait(creature_type *creature_ptr, int type, int v, bool message)
 {
-	return set_timed_trait(creature_ptr, type, creature_ptr->timed_trait[type] + v, message);
+	return set_timed_trait(creature_ptr, type, creature_ptr->current_trait[type] + v, message);
 }
 
 bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
@@ -32,9 +32,9 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 
 	if(type == TRAIT_STUN)
 	{
-		if(creature_ptr->timed_trait[TRAIT_STUN] > 100) old_aux = 3;
-		else if(creature_ptr->timed_trait[TRAIT_STUN] > 50) old_aux = 2;
-		else if(creature_ptr->timed_trait[TRAIT_STUN] > 0) old_aux = 1;
+		if(creature_ptr->current_trait[TRAIT_STUN] > 100) old_aux = 3;
+		else if(creature_ptr->current_trait[TRAIT_STUN] > 50) old_aux = 2;
+		else if(creature_ptr->current_trait[TRAIT_STUN] > 0) old_aux = 1;
 		else old_aux = 0;
 
 		if(v > 100) new_aux = 3;
@@ -45,13 +45,13 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 
 	if(type == TRAIT_CUT)
 	{
-		if(creature_ptr->timed_trait[TRAIT_CUT] > 1000) old_aux = 7;
-		else if(creature_ptr->timed_trait[TRAIT_CUT] > 200) old_aux = 6;
-		else if(creature_ptr->timed_trait[TRAIT_CUT] > 100) old_aux = 5;
-		else if(creature_ptr->timed_trait[TRAIT_CUT] > 50) old_aux = 4;
-		else if(creature_ptr->timed_trait[TRAIT_CUT] > 25) old_aux = 3;
-		else if(creature_ptr->timed_trait[TRAIT_CUT] > 10) old_aux = 2;
-		else if(creature_ptr->timed_trait[TRAIT_CUT] > 0) old_aux = 1;
+		if(creature_ptr->current_trait[TRAIT_CUT] > 1000) old_aux = 7;
+		else if(creature_ptr->current_trait[TRAIT_CUT] > 200) old_aux = 6;
+		else if(creature_ptr->current_trait[TRAIT_CUT] > 100) old_aux = 5;
+		else if(creature_ptr->current_trait[TRAIT_CUT] > 50) old_aux = 4;
+		else if(creature_ptr->current_trait[TRAIT_CUT] > 25) old_aux = 3;
+		else if(creature_ptr->current_trait[TRAIT_CUT] > 10) old_aux = 2;
+		else if(creature_ptr->current_trait[TRAIT_CUT] > 0) old_aux = 1;
 		else old_aux = 0;
 
 		if(v > 1000) new_aux = 7;
@@ -66,9 +66,9 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 
 	if(v)
 	{
-		if(creature_ptr->timed_trait[type] && !do_dec)
-			if(creature_ptr->timed_trait[type] > v) return FALSE;
-		if(!creature_ptr->timed_trait[type])
+		if(creature_ptr->current_trait[type] && !do_dec)
+			if(creature_ptr->current_trait[type] > v) return FALSE;
+		if(!creature_ptr->current_trait[type])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 				msg_format("%s‚Í%s‚Ì“Á«‚ð“¾‚½B", creature_ptr->name, trait_info[type].title);
@@ -77,7 +77,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 	}
 	else
 	{
-		if(creature_ptr->timed_trait[type])
+		if(creature_ptr->current_trait[type])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 				msg_format("%s‚Í%s‚Ì“Á«‚ðŽ¸‚Á‚½B", creature_ptr->name, trait_info[type].title);
@@ -238,7 +238,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		}
 	}
 
-	creature_ptr->timed_trait[type] = v; // Use the value
+	creature_ptr->current_trait[type] = v; // Use the value
 
 	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS | PR_CUT | PR_STUN);
 	if(!notice) return FALSE;
@@ -393,7 +393,7 @@ void set_action(creature_type *creature_ptr, int typ)
 void reset_timed_trait(creature_type *creature_ptr)
 {
 	int i;
-	for(i = 0; i <= MAX_TRAITS; i++) creature_ptr->timed_trait[i] = 0;
+	for(i = 0; i <= MAX_TRAITS; i++) creature_ptr->current_trait[i] = 0;
 
 	creature_ptr->mimic_race_idx = 0;
 	creature_ptr->action = ACTION_NONE;
@@ -419,7 +419,7 @@ void dispel_creature(creature_type *creature_ptr)
 	reset_timed_trait(creature_ptr);
 
 	// Cancel glowing hands
-	if(creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
+	if(creature_ptr->current_trait[TRAIT_CONFUSING_MELEE])
 		set_timed_trait(creature_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
 
 	if(MUSIC_SINGING_ANY(creature_ptr) || HEX_SPELLING_ANY(creature_ptr))
@@ -1003,7 +1003,7 @@ bool lose_all_info(creature_type *creature_ptr)
 void do_poly_wounds(creature_type *creature_ptr)
 {
 	// Changed to always provide at least _some_ healing
-	s16b wounds = creature_ptr->timed_trait[TRAIT_CUT];
+	s16b wounds = creature_ptr->current_trait[TRAIT_CUT];
 	s32b hit_p = (creature_ptr->mhp - creature_ptr->chp);
 	s16b change = diceroll(creature_ptr->lev, 5);
 	bool Nasty_effect = one_in_(5);
@@ -1330,7 +1330,7 @@ static void you_died(cptr hit_from)
 		{
 			char dummy[1024];
 #ifdef JP
-			sprintf(dummy, "%s%s%s", !has_trait(player_ptr, TRAIT_PARALYZED) ? "" : has_trait(player_ptr, TRAIT_FREE_ACTION) ? "’¤‘œó‘Ô‚Å" : "–ƒáƒó‘Ô‚Å", player_ptr->timed_trait[TRAIT_HALLUCINATION] ? "Œ¶Šo‚É˜c‚ñ‚¾" : "", hit_from);
+			sprintf(dummy, "%s%s%s", !has_trait(player_ptr, TRAIT_PARALYZED) ? "" : has_trait(player_ptr, TRAIT_FREE_ACTION) ? "’¤‘œó‘Ô‚Å" : "–ƒáƒó‘Ô‚Å", player_ptr->current_trait[TRAIT_HALLUCINATION] ? "Œ¶Šo‚É˜c‚ñ‚¾" : "", hit_from);
 #else
 			sprintf(dummy, "%s%s", hit_from, !has_trait(player_ptr, TRAIT_PARALYZED) ? "" : " while helpless");
 #endif

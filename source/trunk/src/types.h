@@ -1233,7 +1233,7 @@ struct creature_type
 	s16b learned_spells;
 	s16b add_spells;
 
-	s16b timed_trait[MAX_TRAITS];
+	s16b current_trait[MAX_TRAITS];
 
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];

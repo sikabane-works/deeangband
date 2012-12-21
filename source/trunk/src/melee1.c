@@ -1583,7 +1583,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	vo = target_ptr->vo + target_ptr->to_vo;
 
 	/* Creature hits player */
-	if(!effect || check_hit(target_ptr, power, attacker_ptr->lev, attacker_ptr->timed_trait[TRAIT_STUN]))
+	if(!effect || check_hit(target_ptr, power, attacker_ptr->lev, attacker_ptr->current_trait[TRAIT_STUN]))
 	{
 		disturb(player_ptr, 1, 0);
 
@@ -3322,7 +3322,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	/* Hex - revenge damage stored */
 	revenge_store(target_ptr, get_damage);
 
-	if((target_ptr->timed_trait[TRAIT_EYE_EYE] || HEX_SPELLING(target_ptr, HEX_EYE_FOR_EYE))
+	if((target_ptr->current_trait[TRAIT_EYE_EYE] || HEX_SPELLING(target_ptr, HEX_EYE_FOR_EYE))
 		&& get_damage > 0 && !IS_DEAD(target_ptr))
 	{
 #ifdef JP
@@ -3336,7 +3336,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		msg_format("The attack of %s has wounded %s!", attacker_name, attacker_name_self);
 #endif
 		project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
-		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+		if(target_ptr->current_trait[TRAIT_EYE_EYE]) set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->current_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}
 
 	if((target_ptr->counter || (target_ptr->posture & KATA_MUSOU)) && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))

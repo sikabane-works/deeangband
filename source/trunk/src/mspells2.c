@@ -49,7 +49,7 @@ static bool dispel_check_creature(creature_type *target_ptr)
 	/* Speed */
 	if(target_ptr->speed < 135)
 	{
-		if(target_ptr->timed_trait[TRAIT_FAST]) return TRUE;
+		if(target_ptr->current_trait[TRAIT_FAST]) return TRUE;
 	}
 
 	/*TODO  Riding creature */

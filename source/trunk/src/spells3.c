@@ -421,7 +421,7 @@ void teleport_player(creature_type *creature_ptr, int dis, u32b mode)
 				 */
 				if(has_trait(m_ptr, TRAIT_ACTIVE_TELEPORT) && !has_trait(m_ptr, TRAIT_RES_TELE))
 				{
-					if(!m_ptr->timed_trait[TRAIT_PARALYZED]) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
+					if(!m_ptr->current_trait[TRAIT_PARALYZED]) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
 				}
 			}
 		}
@@ -459,7 +459,7 @@ void teleport_player_away(creature_type *creature_ptr, int dis)
 				 */
 				if(has_trait(creature_ptr, TRAIT_ACTIVE_TELEPORT) && !has_trait(creature_ptr, TRAIT_RES_TELE))
 				{
-					if(!creature_ptr->timed_trait[TRAIT_PARALYZED]) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, species_ptr->level, 0L);
+					if(!creature_ptr->current_trait[TRAIT_PARALYZED]) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, species_ptr->level, 0L);
 				}
 			}
 		}
@@ -883,7 +883,7 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 		return TRUE;
 	}
 
-	if(floor_ptr->floor_level && (max_dlv[floor_ptr->dun_type] > floor_ptr->floor_level) && !floor_ptr->quest && !creature_ptr->timed_trait[TRAIT_WORD_RECALL])
+	if(floor_ptr->floor_level && (max_dlv[floor_ptr->dun_type] > floor_ptr->floor_level) && !floor_ptr->quest && !creature_ptr->current_trait[TRAIT_WORD_RECALL])
 	{
 #ifdef JP
 if(get_check("Ç±Ç±ÇÕç≈ê[ìûíBäKÇÊÇËêÛÇ¢äKÇ≈Ç∑ÅBÇ±ÇÃäKÇ…ñﬂÇ¡ÇƒóàÇ‹Ç∑Ç©ÅH "))
@@ -901,7 +901,7 @@ if(get_check("Ç±Ç±ÇÕç≈ê[ìûíBäKÇÊÇËêÛÇ¢äKÇ≈Ç∑ÅBÇ±ÇÃäKÇ…ñﬂÇ¡ÇƒóàÇ‹Ç∑Ç©ÅH "))
 		}
 
 	}
-	if(!creature_ptr->timed_trait[TRAIT_WORD_RECALL])
+	if(!creature_ptr->current_trait[TRAIT_WORD_RECALL])
 	{
 		if(!floor_ptr->floor_level)
 		{
@@ -914,7 +914,7 @@ if(get_check("Ç±Ç±ÇÕç≈ê[ìûíBäKÇÊÇËêÛÇ¢äKÇ≈Ç∑ÅBÇ±ÇÃäKÇ…ñﬂÇ¡ÇƒóàÇ‹Ç∑Ç©ÅH "))
 			if(!select_dungeon) return FALSE;
 			creature_ptr->recall_dungeon = select_dungeon;
 		}
-		creature_ptr->timed_trait[TRAIT_WORD_RECALL] = turns;
+		creature_ptr->current_trait[TRAIT_WORD_RECALL] = turns;
 #ifdef JP
 		msg_print("âÒÇËÇÃëÂãCÇ™í£ÇËÇ¬ÇﬂÇƒÇ´ÇΩ...");
 #else
@@ -924,7 +924,7 @@ if(get_check("Ç±Ç±ÇÕç≈ê[ìûíBäKÇÊÇËêÛÇ¢äKÇ≈Ç∑ÅBÇ±ÇÃäKÇ…ñﬂÇ¡ÇƒóàÇ‹Ç∑Ç©ÅH "))
 	}
 	else
 	{
-		creature_ptr->timed_trait[TRAIT_WORD_RECALL] = 0;
+		creature_ptr->current_trait[TRAIT_WORD_RECALL] = 0;
 #ifdef JP
 		msg_print("í£ÇËÇ¬ÇﬂÇΩëÂãCÇ™ó¨ÇÍãéÇ¡ÇΩ...");
 #else
@@ -1826,11 +1826,11 @@ void alter_reality(creature_type *creature_ptr)
 		return;
 	}
 
-	if(!creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
+	if(!creature_ptr->current_trait[TRAIT_ALTER_REALITY])
 	{
 		int turns = randint0(21) + 15;
 
-		creature_ptr->timed_trait[TRAIT_ALTER_REALITY] = turns;
+		creature_ptr->current_trait[TRAIT_ALTER_REALITY] = turns;
 #ifdef JP
 		msg_print("âÒÇËÇÃåiêFÇ™ïœÇÌÇËénÇﬂÇΩ...");
 #else
@@ -1841,7 +1841,7 @@ void alter_reality(creature_type *creature_ptr)
 	}
 	else
 	{
-		creature_ptr->timed_trait[TRAIT_ALTER_REALITY] = 0;
+		creature_ptr->current_trait[TRAIT_ALTER_REALITY] = 0;
 #ifdef JP
 		msg_print("åiêFÇ™å≥Ç…ñﬂÇ¡ÇΩ...");
 #else
@@ -3649,7 +3649,7 @@ put_str("Lv   MP é∏ó¶ å¯â ", y, x + 35);
 			if(chance < minfail) chance = minfail;
 
 			/* Stunning makes spells harder */
-			if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+			if(creature_ptr->current_trait[TRAIT_STUN] > 50) chance += 25;
 			else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 			/* Always a 5 percent chance of working */
@@ -3927,7 +3927,7 @@ s16b spell_chance(creature_type *creature_ptr, int spell, int use_realm)
 	if(chance < minfail) chance = minfail;
 
 	/* Stunning makes spells harder */
-	if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+	if(creature_ptr->current_trait[TRAIT_STUN] > 50) chance += 25;
 	else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 	/* Always a 5 percent chance of working */

@@ -1315,7 +1315,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			else
 			*/
 			{
-				(void)set_timed_trait(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
+				(void)set_timed_trait(target_ptr, TRAIT_SLOW, target_ptr->current_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
 			}
 			learn_trait(target_ptr, TRAIT_SLOW);
 			break;
@@ -1466,7 +1466,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
 
 				get_damage = take_damage_to_creature(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
-				if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
+				if(target_ptr->current_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
 				{
 #ifdef JP
 					msg_format("攻撃が%s自身を傷つけた！", caster_name);
@@ -1479,7 +1479,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
 #endif
 					project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
-					set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+					set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->current_trait[TRAIT_EYE_EYE]-5, TRUE);
 				}
 
 				if(target_ptr->riding) close_combat(caster_ptr, target_ptr->fy, target_ptr->fx, 0);

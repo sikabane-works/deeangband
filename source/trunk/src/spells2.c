@@ -2473,7 +2473,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 			if(has_trait(m_ptr, TRAIT_STUPID)) chance = 10; // Stupid creatures rarely wake up
 			if(has_trait(m_ptr, TRAIT_SMART)) chance = 100; // Smart creatures always wake up
 
-			if(m_ptr->timed_trait[TRAIT_SLEPT] && (randint0(100) < chance)) // Sometimes creatures wake up
+			if(m_ptr->current_trait[TRAIT_SLEPT] && (randint0(100) < chance)) // Sometimes creatures wake up
 				(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0, TRUE); // Wake up!
 		}
 
@@ -3725,8 +3725,8 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	if(!(user_ptr->posture & NINJA_KAWARIMI) || !(randint0(55) < (user_ptr->lev * 3 / 5 + 20))) return FALSE;
 
 	if(gameover) return FALSE;
-	if(user_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(user_ptr, TRAIT_BLIND) || user_ptr->timed_trait[TRAIT_PARALYZED] || user_ptr->timed_trait[TRAIT_HALLUCINATION]) return FALSE;
-	if(randint0(200) < user_ptr->timed_trait[TRAIT_STUN]) return FALSE;
+	if(user_ptr->current_trait[TRAIT_CONFUSED] || has_trait(user_ptr, TRAIT_BLIND) || user_ptr->current_trait[TRAIT_PARALYZED] || user_ptr->current_trait[TRAIT_HALLUCINATION]) return FALSE;
+	if(randint0(200) < user_ptr->current_trait[TRAIT_STUN]) return FALSE;
 
 	if(!success && one_in_(3))
 	{
