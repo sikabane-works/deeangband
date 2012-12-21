@@ -2847,11 +2847,11 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 					if(change_panel(dy, dx)) target_set_prepare(aimer_ptr, mode);
 
 				/* Slide into legality */
-				if(x >= floor_ptr->width-1) x = floor_ptr->width - 2;
+				if(x >= floor_ptr->width - 1) x = floor_ptr->width - 2;
 				else if(x <= 0) x = 1;
 
 				/* Slide into legality */
-				if(y >= floor_ptr->height-1) y = floor_ptr->height- 2;
+				if(y >= floor_ptr->height - 1) y = floor_ptr->height- 2;
 				else if(y <= 0) y = 1;
 			}
 		}

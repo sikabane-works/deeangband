@@ -1473,6 +1473,7 @@ extern void set_creature_bonuses(creature_type *crrature_ptr, bool message);
 extern void notice_stuff(creature_type *creature_ptr);
 extern void update_creature(creature_type *creature_ptr, bool message);
 extern void prepare_redraw(u32b flags);
+extern void prepare_window(u32b flags);
 extern void redraw_stuff(creature_type *creature_ptr);
 extern void window_stuff(creature_type *creature_ptr);
 extern void handle_stuff(creature_type *creature_ptr);

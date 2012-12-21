@@ -4285,9 +4285,12 @@ void redraw_stuff(creature_type *creature_ptr)
 }
 
 
-/*
- * Handle "play_window"
- */
+// Handle "play_window"
+void prepare_window(u32b flags)
+{
+	play_window |= flags;
+}
+
 void window_stuff(creature_type *creature_ptr)
 {
 	int j;
