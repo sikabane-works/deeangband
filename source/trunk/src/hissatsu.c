@@ -378,9 +378,8 @@ msg_print("‰½‚à‹Z‚ğ’m‚ç‚È‚¢B");
 	if(spell.smana > creature_ptr->csp)
 	{
 		if(flush_failure) flush();
-		/* Warning */
 #ifdef JP
-msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
+		msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
 #else
 		msg_print("You do not have enough mana to use this power.");
 #endif

@@ -1056,7 +1056,6 @@ void do_cmd_cast(creature_type *creature_ptr)
 	{
 		if(flush_failure) flush();
 
-		/* Warning */
 #ifdef JP
 		msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
 			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "歌う" : "唱える"));

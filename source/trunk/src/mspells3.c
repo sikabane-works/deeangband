@@ -742,9 +742,8 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä¥‚¦‚ç‚ê‚È‚¢I");
 	/* Verify "dangerous" spells */
 	if(need_mana > creature_ptr->csp)
 	{
-		/* Warning */
 #ifdef JP
-msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
+		msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
 #else
 		msg_print("You do not have enough mana to use this power.");
 #endif
@@ -754,7 +753,7 @@ msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
 
 		/* Verify */
 #ifdef JP
-if(!get_check("‚»‚ê‚Å‚à’§í‚µ‚Ü‚·‚©? ")) return FALSE;
+		if(!get_check("‚»‚ê‚Å‚à’§í‚µ‚Ü‚·‚©? ")) return FALSE;
 #else
 		if(!get_check("Attempt it anyway? ")) return FALSE;
 #endif

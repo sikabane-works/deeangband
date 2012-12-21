@@ -1797,14 +1797,11 @@ static errr Term_xtra_win_react(void)
 		/* Initialize (if needed) */
 		if(arg_sound && !init_sound())
 		{
-			/* Warning */
 #ifdef JP
 			plog("サウンドを初期化できません！");
 #else
 			plog("Cannot initialize sound!");
 #endif
-
-
 			/* Cannot enable */
 			arg_sound = FALSE;
 		}
@@ -1822,14 +1819,11 @@ static errr Term_xtra_win_react(void)
 		/* Initialize (if needed) */
 		if(arg_graphics && !init_graphics())
 		{
-			/* Warning */
 #ifdef JP
 			plog("グラフィックスを初期化できません!");
 #else
 			plog("Cannot initialize graphics!");
 #endif
-
-
 			/* Cannot enable */
 			arg_graphics = GRAPHICS_NONE;
 		}
@@ -4746,15 +4740,12 @@ static void hack_quit(cptr str)
  */
 static void hook_plog(cptr str)
 {
-	/* Warning */
 	if(str)
 	{
 #ifdef JP
-		MessageBox(data[0].w, str, "警告！",
-			   MB_ICONEXCLAMATION | MB_OK);
+		MessageBox(data[0].w, str, "警告！", MB_ICONEXCLAMATION | MB_OK);
 #else
-		MessageBox(data[0].w, str, "Warning",
-			   MB_ICONEXCLAMATION | MB_OK);
+		MessageBox(data[0].w, str, "Warning", MB_ICONEXCLAMATION | MB_OK);
 #endif
 
 	}

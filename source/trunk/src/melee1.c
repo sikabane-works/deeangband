@@ -3267,9 +3267,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			/* Visible creatures */
 			if(attacker_ptr->see_others)
 			{
-				/* Disturbing */
 				disturb(player_ptr, 1, 0);
-
 #ifdef JP
 				if(abbreviate)
 					msg_format("%s‚©‚í‚µ‚½B", (has_trait(target_ptr, TRAIT_DRUNKING_FIST)) ? "Šï–­‚È“®‚«‚Å" : "");

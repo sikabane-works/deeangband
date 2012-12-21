@@ -1833,7 +1833,6 @@ void do_cmd_mind(creature_type *creature_ptr)
 	}
 	else if(mana_cost > creature_ptr->csp)
 	{
-		/* Warning */
 #ifdef JP
 		msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
 		if(!over_exert) return;

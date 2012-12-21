@@ -4563,10 +4563,8 @@ static void pack_overflow(creature_type *creature_ptr)
 		/* Access the slot to be dropped */
 		object_ptr = &creature_ptr->inventory[INVEN_TOTAL];
 
-		/* Disturbing */
 		disturb(player_ptr, 0, 0);
 
-		/* Warning */
 #ifdef JP
 		msg_print("ザックからアイテムがあふれた！");
 #else

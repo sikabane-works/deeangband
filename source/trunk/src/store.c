@@ -3013,7 +3013,6 @@ static int get_haggle(cptr pmt, s32b *poffer, s32b price, int final)
 			}
 		}
 
-		/* Warning */
 #ifdef JP
 		msg_print("’l‚ª‚¨‚©‚µ‚¢‚Å‚·B");
 #else
