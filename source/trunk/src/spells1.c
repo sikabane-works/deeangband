@@ -2674,7 +2674,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam = target_ptr->csp;
 		learn_trait(target_ptr, spell);
 		prepare_redraw(PR_MANA); // Redraw mana
-		prepare_window(PW_PLAYER | PW_SPELL); // Window stuff
+		prepare_window(PW_PLAYER | PW_SPELL);
 
 		if(caster_ptr != NULL)
 		{

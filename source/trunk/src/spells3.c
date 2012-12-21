@@ -4572,7 +4572,7 @@ static int minus_ac(creature_type *creature_ptr)
 	object_ptr->to_ac--; // Damage the item
 
 	creature_ptr->creature_update |= (CRU_BONUS);		// Calculate bonuses
-	prepare_window(PW_EQUIP | PW_PLAYER);				// Window stuff
+	prepare_window(PW_EQUIP | PW_PLAYER);
 	calc_android_exp(creature_ptr);
 
 	return TRUE; // Item was damaged
@@ -4707,7 +4707,7 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 		shatter_object(object_ptr);
 
 		target_ptr->creature_update |= (CRU_BONUS | CRU_MANA);	// Recalculate bonuses and mana
-		prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);	// Window stuff
+		prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 	}
 
 	return TRUE;

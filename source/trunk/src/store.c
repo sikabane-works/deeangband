@@ -5139,8 +5139,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 
 	// Redraw map
 	prepare_redraw(PR_MAP);
-
-	// Window stuff
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 	*/
 

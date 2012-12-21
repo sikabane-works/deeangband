@@ -2678,7 +2678,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 						panel_bounds_center();
 
 						aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
-						prepare_redraw(PR_MAP | PW_OVERHEAD);	// Redraw map and Window stuff
+						prepare_redraw(PR_MAP | PW_OVERHEAD);
 
 						handle_stuff(aimer_ptr);
 

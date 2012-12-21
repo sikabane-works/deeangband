@@ -4915,7 +4915,7 @@ void process_player(creature_type *creature_ptr)
 			{
 				prepare_redraw(PR_MAP); // Redraw map
 				creature_ptr->creature_update |= (PU_CREATURES); // Update creatures
-				prepare_window(PW_OVERHEAD | PW_DUNGEON); // Window stuff
+				prepare_window(PW_OVERHEAD | PW_DUNGEON);
 #ifdef JP
 				msg_print("ÅuéûÇÕìÆÇ´ÇæÇ∑ÅcÅv");
 #else
@@ -5547,7 +5547,6 @@ static void play_loop(void)
 		verify_panel(player_ptr); // Verify the panel
 		msg_print(NULL); // Flush messages
 
-		// Window stuff
 		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
 		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY);
 		prepare_redraw(PR_MAP);

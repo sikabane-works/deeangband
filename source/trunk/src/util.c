@@ -139,18 +139,6 @@ void usespecies_name(char *buf, int id)
  * We should probably parse a leading "~~/" as referring to "ANGBAND_DIR". (?)
  */
 
-
-#ifdef ACORN
-
-
-/*
- * Most of the "file" routines for "ACORN" should be in "main-acn.c"
- */
-
-
-#else /* ACORN */
-
-
 #ifdef SET_UID
 
 /*
@@ -255,7 +243,6 @@ static errr path_temp(char *buf, int max)
 
 	/* Temp file */
 	s = tmpnam(NULL);
-
 
 #ifndef WIN32
 	(void)strnfmt(buf, max, "%s", s);

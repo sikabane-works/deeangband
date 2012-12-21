@@ -4189,7 +4189,7 @@ void combine_pack(creature_type *creature_ptr)
 						if(object_ptr->tval == TV_WAND) object_ptr->pval = object_ptr->pval * remain / old_num;
 					}
 
-					prepare_window(PW_INVEN);	// Window stuff
+					prepare_window(PW_INVEN);
 					combined = TRUE;	// Take note
 					break;	// Done
 				}

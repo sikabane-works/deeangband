@@ -1671,7 +1671,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	}
 
 	object_ptr->art_name = quark_add(new_name);	// Save the inscription
-	prepare_window(PW_INVEN | PW_EQUIP);		// Window stuff
+	prepare_window(PW_INVEN | PW_EQUIP);
 
 	return TRUE;
 }

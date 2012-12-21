@@ -994,7 +994,7 @@ bool lose_all_info(creature_type *creature_ptr)
 
 	// Recalculate bonuses / Combine / Reorder the pack (later)
 	creature_ptr->creature_update |= (CRU_BONUS | CRU_COMBINE | CRU_REORDER);
-	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 	wiz_dark(GET_FLOOR_PTR(creature_ptr), creature_ptr); // Mega-Hack -- Forget the map
 	return TRUE; // It worked
 }

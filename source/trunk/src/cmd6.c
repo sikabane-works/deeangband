@@ -2040,7 +2040,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
-	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	object_ptr->pval--; // Use a single charge
 
@@ -2274,7 +2274,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
-	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 }
 
 
@@ -2504,7 +2504,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	if(object_ptr->art_name)
 	{
 		(void)activate_object(creature_ptr, object_ptr);
-		prepare_window(PW_INVEN | PW_EQUIP); // Window stuff
+		prepare_window(PW_INVEN | PW_EQUIP);
 		return;	// Success
 	}
 

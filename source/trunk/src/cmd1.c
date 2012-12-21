@@ -574,10 +574,10 @@ void carry(creature_type *creature_ptr, bool pickup)
 	char object_name[MAX_NLEN];
 	
 	verify_panel(creature_ptr); // Recenter the map around the player
-	creature_ptr->creature_update |= (PU_CREATURES); // Update stuff
+	creature_ptr->creature_update |= (PU_CREATURES);
 
-	prepare_redraw(PR_MAP); // Redraw map
-	prepare_window(PW_OVERHEAD); // Window stuff
+	prepare_redraw(PR_MAP);
+	prepare_window(PW_OVERHEAD);
 	handle_stuff(creature_ptr);
 
 	autopick_pickup_items(creature_ptr, c_ptr); // Automatically pickup/destroy/inscribe items

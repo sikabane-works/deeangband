@@ -334,7 +334,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	update_creature(creature_ptr, TRUE);
 
 	prepare_redraw(PR_EQUIPPY);
-	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	calc_android_exp(creature_ptr);
 }
@@ -473,7 +473,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 			object_ptr->curse_flags[0] = 0L;
 			object_ptr->feeling = FEEL_NONE;
 			creature_ptr->creature_update |= (CRU_BONUS); // Recalculate the bonuses
-			prepare_window(PW_EQUIP); // Window stuff
+			prepare_window(PW_EQUIP);
 
 #ifdef JP
 			msg_print("ô‚¢‚ğ‘Å‚¿”j‚Á‚½B");

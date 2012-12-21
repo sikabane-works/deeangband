@@ -2537,7 +2537,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 		{
 			creature_ptr->stat_top[i] = top; // Save the new value
 			prepare_redraw(PR_STATS); // Redisplay the stats later
-			prepare_window(PW_PLAYER); // Window stuff
+			prepare_window(PW_PLAYER);
 		}
 
 		// Extract the new "stat_use" value for the stat
@@ -2553,7 +2553,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 		{
 			creature_ptr->stat_use[i] = use; // Save the new value
 			prepare_redraw(PR_STATS);  // Redisplay the stats later
-			prepare_window(PW_PLAYER); // Window stuff
+			prepare_window(PW_PLAYER);
 		}
 
 		ind = use / 10;
@@ -2579,7 +2579,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 				if(magic_info[creature_ptr->class_idx].spell_stat == STAT_CHA)
 					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
 			}
-			prepare_window(PW_PLAYER); // Window stuff
+			prepare_window(PW_PLAYER);
 		}
 	}
 
@@ -3965,7 +3965,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if((creature_ptr->dis_ac != old_dis_ac) || (creature_ptr->dis_to_ac != old_dis_to_ac))
 	{
 		prepare_redraw(PR_ARMOR);  // Redraw
-		prepare_window(PW_PLAYER); // Window stuff
+		prepare_window(PW_PLAYER);
 	}
 
 }
