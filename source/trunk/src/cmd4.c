@@ -1130,10 +1130,8 @@ void do_cmd_redraw(void)
 	// Combine and Reorder the pack (later)
 	player_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
-	// Update torch
 	player_ptr->creature_update |= (CRU_TORCH);
 
-	// Update stuff
 	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	*/
 

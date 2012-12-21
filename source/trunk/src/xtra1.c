@@ -4007,7 +4007,6 @@ void update_creature(creature_type *creature_ptr, bool message)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	// Update stuff
 	if(!creature_ptr->creature_update) return;
 
 	calculate_upkeep_servant(creature_ptr);

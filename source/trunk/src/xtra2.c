@@ -2677,7 +2677,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 						panel_col_min = x2;
 						panel_bounds_center();
 
-						aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
+						aimer_ptr->creature_update |= (PU_CREATURES);
 						prepare_redraw(PR_MAP | PW_OVERHEAD);
 
 						handle_stuff(aimer_ptr);
@@ -2861,7 +2861,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 
 	prt("", 0, 0); // Clear the top line
 	verify_panel(aimer_ptr);	// Recenter the map around the player
-	aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
+	aimer_ptr->creature_update |= (PU_CREATURES);
 	prepare_redraw(PR_MAP | PW_OVERHEAD);
 	handle_stuff(aimer_ptr);
 	if(!target_who) return FALSE;	// Failure to set target

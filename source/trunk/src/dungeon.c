@@ -5548,13 +5548,9 @@ static void play_loop(void)
 		msg_print(NULL); // Flush messages
 
 		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
-		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY);
-		prepare_redraw(PR_MAP);
+		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);
 
-		// Update stuff
 		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
-
-		// Update lite/view
 		player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_CREATURES | PU_DISTANCE | PU_FLOW);
 
 		/* Handle "update" and "play_redraw" and "play_window" */

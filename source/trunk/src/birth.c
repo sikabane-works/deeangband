@@ -5097,7 +5097,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			set_creature_bonuses(creature_ptr, FALSE);
 
 			// Calculate the bonuses and hitpoints
-			// Update stuff 
 			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA);
 			update_creature(creature_ptr, FALSE);
 
