@@ -1415,7 +1415,7 @@ static bool store_object_similar(object_type *object1_ptr, object_type *object2_
 	if(object_is_artifact_aux(object1_ptr) || object_is_artifact_aux(object2_ptr)) return FALSE;
 
 	/* Hack -- Identical trait_flags! */
-	for (i = 0; i < TRAIT_FLAG_MAX; i++)
+	for (i = 0; i < MAX_TRAITS_FLAG; i++)
 		if(object1_ptr->trait_flags[i] != object2_ptr->trait_flags[i]) return FALSE;
 
 	/* Hack -- Never stack recharging items */
@@ -1537,7 +1537,7 @@ static int store_check_num(store_type *st_ptr, object_type *object_ptr)
 
 static bool is_blessed(object_type *object_ptr)
 {
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 	object_flags(object_ptr, flgs);
 	if(have_flag(flgs, TRAIT_BLESSED_BRAND)) return TRUE;
 	else return FALSE;

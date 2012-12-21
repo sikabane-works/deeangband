@@ -184,7 +184,7 @@ put_str("é∏ó¶ å¯â ", y, x + 36);
 					if(chance < minfail) chance = minfail;
 
 					/* Stunning makes spells harder */
-					if(creature_ptr->current_trait[TRAIT_STUN] > 50) chance += 25;
+					if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 					else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 					/* Always a 5 percent chance of working */
@@ -337,7 +337,7 @@ msg_print("Ç‹ÇÀÇÁÇÍÇÈÇ‡ÇÃÇ™âΩÇ‡Ç»Ç¢ÅI");
 	if(chance < minfail) chance = minfail;
 
 	/* Stunning makes spells harder */
-	if(creature_ptr->current_trait[TRAIT_STUN] > 50) chance += 25;
+	if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 	else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 	/* Always a 5 percent chance of working */

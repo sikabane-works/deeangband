@@ -1240,7 +1240,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 	bool obvious = FALSE;
 	bool known = player_has_los_bold(y, x);
 
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 
 	char object_name[MAX_NLEN];
 

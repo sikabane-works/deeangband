@@ -2121,7 +2121,7 @@ static void process_nonplayer(int m_idx)
 			if((has_trait(creature_ptr, TRAIT_KILL_BODY) && !has_trait(creature_ptr, TRAIT_NEVER_BLOW) &&
 				(species_ptr->exp * species_ptr->level > z_ptr->exp * z_ptr->level) &&
 				 can_cross && (c_ptr->creature_idx != player_ptr->riding)) ||
-				  are_mutual_enemies(creature_ptr, y_ptr) ||  creature_ptr->current_trait[TRAIT_CONFUSED])
+				  are_mutual_enemies(creature_ptr, y_ptr) ||  creature_ptr->timed_trait[TRAIT_CONFUSED])
 			{
 				if(!has_trait(creature_ptr, TRAIT_NEVER_BLOW))
 				{
@@ -2170,7 +2170,7 @@ static void process_nonplayer(int m_idx)
 
 		if(is_riding_mon)
 		{
-			if(!player_ptr->riding_two_handed && !creature_list[player_ptr->riding].current_trait[TRAIT_AFRAID]) do_move = FALSE;
+			if(!player_ptr->riding_two_handed && !creature_list[player_ptr->riding].timed_trait[TRAIT_AFRAID]) do_move = FALSE;
 		}
 
 		if(did_kill_wall && do_move)
@@ -2529,7 +2529,7 @@ static void process_creature(int i)
 	creature_lack_food(creature_ptr); // Getting Faint from lack food
 
 	/* Paralyzed or Knocked Out */
-	if(has_trait(creature_ptr, TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT) || (creature_ptr->current_trait[TRAIT_STUN] >= 100))
+	if(has_trait(creature_ptr, TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT) || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
 		cost_tactical_energy(creature_ptr, 100); // Take a turn
 	else
 	{

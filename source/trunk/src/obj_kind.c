@@ -51,7 +51,7 @@ bool object_is_favorite(creature_type *creature_ptr, object_type *object_ptr)
 	{
 	case CLASS_PRIEST:
 	{
-		u32b flgs[TRAIT_FLAG_MAX];
+		u32b flgs[MAX_TRAITS_FLAG];
 		object_flags_known(object_ptr, flgs);
 
 		if(!have_flag(flgs, TRAIT_BLESSED_BRAND) && 
@@ -72,7 +72,7 @@ bool object_is_favorite(creature_type *creature_ptr, object_type *object_ptr)
 	case CLASS_BEASTMASTER:
 	case CLASS_CAVALRY:
 	{
-		u32b flgs[TRAIT_FLAG_MAX];
+		u32b flgs[MAX_TRAITS_FLAG];
 		object_flags_known(object_ptr, flgs);
 
 		/* Is it known to be suitable to using while riding? */

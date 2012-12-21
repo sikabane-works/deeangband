@@ -1862,7 +1862,7 @@
 #define SC_FLAG2_SHOW      0x20    // Creature is recently memorized
 #define SC_FLAG2_MARK      0x40    // Creature is currently memorized
 
-#define TRAIT_FLAG_MAX		((MAX_TRAITS - 1) / 32) + 1
+#define MAX_TRAITS_FLAG		((MAX_TRAITS - 1) / 32) + 1
 #define RACE_FLAG_MAX		((MAX_RACES - 1) / 32) + 1
 #define AUTHORITY_FLAG_MAX	((MAX_AUTHORITY - 1) / 32) + 1
 
@@ -1932,7 +1932,7 @@
 
 // Hack -- Determine creature race appearance index is same as race index
 #define is_original_ap(A) (bool)(((A)->ap_species_idx == (A)->species_idx) ? TRUE : FALSE)
-#define is_original_ap_and_seen(WHO, A) (bool)((A)->see_others && !(WHO)->current_trait[TRAIT_HALLUCINATION] && ((A)->ap_species_idx == (A)->species_idx))
+#define is_original_ap_and_seen(WHO, A) (bool)((A)->see_others && !(WHO)->timed_trait[TRAIT_HALLUCINATION] && ((A)->ap_species_idx == (A)->species_idx))
 
 /*
  * Is the creature seen by the player?

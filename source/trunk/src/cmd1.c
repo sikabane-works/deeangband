@@ -102,7 +102,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 	int mult = 10;
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 	object_flags(object_ptr, flgs); // Extract the flags
 
 	/* Some "weapons" and "ammo" do extra damage */
@@ -378,7 +378,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 			if((mode == HISSATSU_SEKIRYUKA) && GET_TIMED_TRAIT(attacker_ptr, TRAIT_CUT) && creature_living(attacker_ptr))
 			{
-				int tmp = MIN(100, MAX(10, attacker_ptr->current_trait[TRAIT_CUT] / 10));
+				int tmp = MIN(100, MAX(10, attacker_ptr->timed_trait[TRAIT_CUT] / 10));
 				if(mult < tmp) mult = tmp;
 			}
 			if((mode == HISSATSU_HAGAN) && has_trait(target_ptr, TRAIT_HURT_ROCK))

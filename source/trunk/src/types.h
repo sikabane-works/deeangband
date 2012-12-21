@@ -151,7 +151,7 @@ struct object_kind
 	s16b charge_const;
 	s16b charge_dice;
 
-	u32b flags[TRAIT_FLAG_MAX];	// Flags
+	u32b flags[MAX_TRAITS_FLAG];	// Flags
 	traits_precondition add_creature_traits;
 
 	u32b gen_flags;		/* flags for generate */
@@ -220,7 +220,7 @@ struct artifact_type
 
 	s32b cost;			/* Artifact "cost" */
 
-	u32b flags[TRAIT_FLAG_MAX];       /* Artifact Flags */
+	u32b flags[MAX_TRAITS_FLAG];       /* Artifact Flags */
 	traits_precondition add_creature_traits;
 
 	u32b gen_flags;		/* flags for generate */
@@ -274,7 +274,7 @@ struct ego_item_type
 	s16b charge_const;
 	s16b charge_dice;
 
-	u32b flags[TRAIT_FLAG_MAX];	/* Ego-Item Flags */
+	u32b flags[MAX_TRAITS_FLAG];	/* Ego-Item Flags */
 	traits_precondition add_creature_traits;
 
 	u32b gen_flags;		/* flags for generate */
@@ -661,8 +661,8 @@ struct object_type
 
 	byte feeling;          /* Game generated inscription number (eg, pseudo-id) */
 
-	u32b trait_flags[TRAIT_FLAG_MAX];
-	u32b curse_flags[TRAIT_FLAG_MAX]; // Flags for curse
+	u32b trait_flags[MAX_TRAITS_FLAG];
+	u32b curse_flags[MAX_TRAITS_FLAG]; // Flags for curse
 
 	s16b next_object_idx;	// Next object in stack (if any)
 	s16b held_m_idx;		// Creature holding us (if any)
@@ -1126,7 +1126,7 @@ union class_skills_union{
 
 	struct blue_mage
 	{
-		u32b learned_trait[TRAIT_FLAG_MAX];
+		u32b learned_trait[MAX_TRAITS_FLAG];
 	} blue_mage;
 
 	struct magic_eater
@@ -1233,7 +1233,8 @@ struct creature_type
 	s16b learned_spells;
 	s16b add_spells;
 
-	s16b current_trait[MAX_TRAITS];
+	u32b current_trait[MAX_TRAITS_FLAG];
+	s16b timed_trait[MAX_TRAITS];
 
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];
@@ -1450,7 +1451,7 @@ struct creature_type
 	s16b resting;			// Current counter for resting, if any
 	bool reinit_wilderness;
 
-	u32b mutative_trait[TRAIT_FLAG_MAX];
+	u32b mutative_trait[MAX_TRAITS_FLAG];
 
 };
 
@@ -1465,7 +1466,7 @@ struct trait_type
 	char title[50];
 	char e_title[50];
 	traits_precondition alias;
-	u32b reverse_alias[TRAIT_FLAG_MAX];
+	u32b reverse_alias[MAX_TRAITS_FLAG];
 	byte effect_type;
 	s16b adj[STAT_MAX];
 	s16b ac;

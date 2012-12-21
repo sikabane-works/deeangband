@@ -10280,10 +10280,10 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			cave_type       *c_ptr;
 			creature_type    *m_ptr;
 	
-			if(caster_ptr->current_trait[TRAIT_CUT] < 300)
+			if(caster_ptr->timed_trait[TRAIT_CUT] < 300)
 				add_timed_trait(caster_ptr, TRAIT_CUT, 300, TRUE);
 			else
-				set_timed_trait(caster_ptr, TRAIT_CUT, caster_ptr->current_trait[TRAIT_CUT] * 2, TRUE);
+				set_timed_trait(caster_ptr, TRAIT_CUT, caster_ptr->timed_trait[TRAIT_CUT] * 2, TRUE);
 	
 			for (dir = 0; dir < 8; dir++)
 			{
@@ -10352,7 +10352,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(cast)
 		{
 			int total_damage = 0, basedam, i;
-			u32b flgs[TRAIT_FLAG_MAX];
+			u32b flgs[MAX_TRAITS_FLAG];
 			object_type *object_ptr;
 			if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
 #ifdef JP
@@ -10687,7 +10687,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int total_damage = 0, basedam, i;
 			int y, x;
-			u32b flgs[TRAIT_FLAG_MAX];
+			u32b flgs[MAX_TRAITS_FLAG];
 			object_type *object_ptr;
 	
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
@@ -10965,7 +10965,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			char *q, *s;
 			char object_name[MAX_NLEN];
 			object_type *object_ptr;
-			u32b f[TRAIT_FLAG_MAX];
+			u32b f[MAX_TRAITS_FLAG];
 
 #ifdef JP
 			q = "どれを呪いますか？";
@@ -11415,7 +11415,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			char *q, *s;
 			char object_name[MAX_NLEN];
 			object_type *object_ptr;
-			u32b f[TRAIT_FLAG_MAX];
+			u32b f[MAX_TRAITS_FLAG];
 
 #ifdef JP
 			q = "どれを呪いますか？";
@@ -11699,7 +11699,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			int item;
 			char *s, *q;
-			u32b f[TRAIT_FLAG_MAX];
+			u32b f[MAX_TRAITS_FLAG];
 			object_type *object_ptr;
 #ifdef JP
 			q = "どの装備品から吸収しますか？";

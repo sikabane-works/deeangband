@@ -44,7 +44,7 @@ void remove_all_mutative_traits(creature_type *creature_ptr)
 	msg_print("You are cured of all mutations.");
 #endif
 
-	for(i = 0; i < TRAIT_FLAG_MAX; i++) creature_ptr->mutative_trait[i] = 0L;
+	for(i = 0; i < MAX_TRAITS_FLAG; i++) creature_ptr->mutative_trait[i] = 0L;
 	creature_ptr->creature_update |= CRU_BONUS;
 	creature_ptr->regenerate_mod = calc_regenerate_mod(creature_ptr);
 	handle_stuff();

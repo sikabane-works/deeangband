@@ -149,8 +149,8 @@ static void wr_object(object_type *object_ptr)
 	wr_s16b(object_ptr->size_lower);
 	wr_s16b(object_ptr->to_size);
 
-	for(i = 0; i < TRAIT_FLAG_MAX; i++) wr_s32b(object_ptr->trait_flags[i]);
-	for(i = 0; i < TRAIT_FLAG_MAX; i++) wr_s32b(object_ptr->curse_flags[i]);
+	for(i = 0; i < MAX_TRAITS_FLAG; i++) wr_s32b(object_ptr->trait_flags[i]);
+	for(i = 0; i < MAX_TRAITS_FLAG; i++) wr_s32b(object_ptr->curse_flags[i]);
 
 
 }
@@ -467,7 +467,7 @@ static void wr_creature(creature_type *creature_ptr)
 
 	if(creature_ptr->class_idx == CLASS_BLUE_MAGE)
 	{
-		for (i = 0; i < TRAIT_FLAG_MAX; i++) wr_s32b(creature_ptr->class_skills.blue_mage.learned_trait[i]);
+		for (i = 0; i < MAX_TRAITS_FLAG; i++) wr_s32b(creature_ptr->class_skills.blue_mage.learned_trait[i]);
 	}
 	else if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
@@ -512,10 +512,10 @@ static void wr_creature(creature_type *creature_ptr)
 	// Save timed trait
 	for(i = 0; i < MAX_TRAITS; i++)
 	{
-		if(creature_ptr->current_trait[i])
+		if(creature_ptr->timed_trait[i])
 		{
 			wr_s16b(i);
-			wr_s16b(creature_ptr->current_trait[i]);
+			wr_s16b(creature_ptr->timed_trait[i]);
 		}
 	}
 	wr_s16b(-1);
@@ -571,7 +571,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->pet_follow_distance);
 	wr_s16b(creature_ptr->pet_extra_flags);
 
-	for (i = 0; i < TRAIT_FLAG_MAX; i++) wr_u32b(creature_ptr->mutative_trait[i]);
+	for (i = 0; i < MAX_TRAITS_FLAG; i++) wr_u32b(creature_ptr->mutative_trait[i]);
 
 }
 

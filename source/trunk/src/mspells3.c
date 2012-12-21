@@ -555,7 +555,7 @@ put_str("MP ¸—¦ Œø‰Ê", y, x + 33);
 					if(chance < minfail) chance = minfail;
 
 					/* Stunning makes spells harder */
-					if(creature_ptr->current_trait[TRAIT_STUN] > 50) chance += 25;
+					if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 					else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 					/* Always a 5 percent chance of working */
@@ -785,7 +785,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä¥‚¦‚ç‚ê‚È‚¢I");
 	if(chance < minfail) chance = minfail;
 
 	/* Stunning makes spells harder */
-	if(creature_ptr->current_trait[TRAIT_STUN] > 50) chance += 25;
+	if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 	else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 	/* Always a 5 percent chance of working */
@@ -875,7 +875,7 @@ void learn_trait(creature_type *creature_ptr, int trait_index)
 	if(creature_ptr->action != ACTION_LEARN) return;
 	if(trait_index < 0) return; 
 	if(creature_ptr->class_skills.old_skills.magic_num2[trait_index]) return;
-	if(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_BLIND) || has_trait(creature_ptr, TRAIT_HALLUCINATION) || creature_ptr->current_trait[TRAIT_STUN] || creature_ptr->current_trait[TRAIT_PARALYZED]) return;
+	if(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_BLIND) || has_trait(creature_ptr, TRAIT_HALLUCINATION) || creature_ptr->timed_trait[TRAIT_STUN] || creature_ptr->timed_trait[TRAIT_PARALYZED]) return;
 
 	if(randint1(creature_ptr->lev + 70) > trait_info[trait_index].base_level + 40)
 	{

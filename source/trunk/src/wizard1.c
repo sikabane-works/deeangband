@@ -984,7 +984,7 @@ static void spoiler_underline(cptr str)
  *
  * The possibly updated description pointer is returned.
  */
-static cptr *spoiler_flag_aux(const u32b trait_flags[TRAIT_FLAG_MAX],
+static cptr *spoiler_flag_aux(const u32b trait_flags[MAX_TRAITS_FLAG],
 			      const flag_desc *flag_ptr,
 			      cptr *desc_ptr, const int n_elmnts)
 {
@@ -1018,7 +1018,7 @@ static void analyze_general(object_type *object_ptr, char *desc_ptr)
  */
 static void analyze_pval(object_type *object_ptr, pval_info_type *pval_ptr)
 {
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 
 	cptr *affects_list;
 
@@ -1072,7 +1072,7 @@ static void analyze_pval(object_type *object_ptr, pval_info_type *pval_ptr)
 // Note the slaying specialties of a weapon
 static void analyze_slay(object_type *object_ptr, cptr *slay_list)
 {
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 	object_flags(object_ptr, flgs);
 	slay_list = spoiler_flag_aux(flgs, slay_flags_desc, slay_list, N_ELEMENTS(slay_flags_desc));
 	*slay_list = NULL;
@@ -1081,7 +1081,7 @@ static void analyze_slay(object_type *object_ptr, cptr *slay_list)
 // Note an object's elemental brands
 static void analyze_brand(object_type *object_ptr, cptr *brand_list)
 {
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 	object_flags(object_ptr, flgs);
 	brand_list = spoiler_flag_aux(flgs, brand_flags_desc, brand_list, N_ELEMENTS(brand_flags_desc));
 	*brand_list = NULL;
@@ -1090,7 +1090,7 @@ static void analyze_brand(object_type *object_ptr, cptr *brand_list)
 // Note the resistances granted by an object
 static void analyze_resist(object_type *object_ptr, cptr *resist_list)
 {
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 	object_flags(object_ptr, flgs);
 	resist_list = spoiler_flag_aux(flgs, resist_flags_desc, resist_list, N_ELEMENTS(resist_flags_desc));
 	*resist_list = NULL;
@@ -1099,7 +1099,7 @@ static void analyze_resist(object_type *object_ptr, cptr *resist_list)
 // Note the immunities granted by an object
 static void analyze_immune(object_type *object_ptr, cptr *immune_list)
 {
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 	object_flags(object_ptr, flgs);
 	immune_list = spoiler_flag_aux(flgs, immune_flags_desc, immune_list, N_ELEMENTS(immune_flags_desc));
 	*immune_list = NULL;
@@ -1107,7 +1107,7 @@ static void analyze_immune(object_type *object_ptr, cptr *immune_list)
 
 static void analyze_sustains(object_type *object_ptr, cptr *sustain_list)
 {
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 
 	object_flags(object_ptr, flgs);
 
@@ -1144,7 +1144,7 @@ static void analyze_sustains(object_type *object_ptr, cptr *sustain_list)
  */
 static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 {
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 
 	object_flags(object_ptr, flgs);
 

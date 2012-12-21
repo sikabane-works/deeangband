@@ -35,7 +35,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	char v_string [MAX_KARMA] [128];
 	char s_string [6] [128];
 
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 
 	object_type *object_ptr;
 
@@ -52,7 +52,7 @@ void creature_knowledge(creature_type *creature_ptr)
 
 	Term_clear();
 
-	for (j = 0; j < TRAIT_FLAG_MAX; j++)
+	for (j = 0; j < MAX_TRAITS_FLAG; j++)
 		flgs[j] = 0L;
 
 	creature_ptr->knowledge |= (KNOW_STAT | KNOW_HPRATE);
@@ -76,7 +76,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	/* Acquire item flags from equipment */
 	for (k = 0; k < INVEN_TOTAL; k++)
 	{
-		u32b tflgs[TRAIT_FLAG_MAX];
+		u32b tflgs[MAX_TRAITS_FLAG];
 
 		object_ptr = &creature_ptr->inventory[k];
 		if(!IS_EQUIPPED(object_ptr)) continue;
@@ -88,7 +88,7 @@ void creature_knowledge(creature_type *creature_ptr)
 		object_flags(object_ptr, tflgs);
 
 		/* Extract flags */
-		for (j = 0; j < TRAIT_FLAG_MAX; j++)
+		for (j = 0; j < MAX_TRAITS_FLAG; j++)
 			flgs[j] |= tflgs[j];
 	}
 
@@ -2473,7 +2473,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 			if(has_trait(m_ptr, TRAIT_STUPID)) chance = 10; // Stupid creatures rarely wake up
 			if(has_trait(m_ptr, TRAIT_SMART)) chance = 100; // Smart creatures always wake up
 
-			if(m_ptr->current_trait[TRAIT_SLEPT] && (randint0(100) < chance)) // Sometimes creatures wake up
+			if(m_ptr->timed_trait[TRAIT_SLEPT] && (randint0(100) < chance)) // Sometimes creatures wake up
 				(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0, TRUE); // Wake up!
 		}
 
@@ -3725,8 +3725,8 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	if(!(user_ptr->posture & NINJA_KAWARIMI) || !(randint0(55) < (user_ptr->lev * 3 / 5 + 20))) return FALSE;
 
 	if(gameover) return FALSE;
-	if(user_ptr->current_trait[TRAIT_CONFUSED] || has_trait(user_ptr, TRAIT_BLIND) || user_ptr->current_trait[TRAIT_PARALYZED] || user_ptr->current_trait[TRAIT_HALLUCINATION]) return FALSE;
-	if(randint0(200) < user_ptr->current_trait[TRAIT_STUN]) return FALSE;
+	if(user_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(user_ptr, TRAIT_BLIND) || user_ptr->timed_trait[TRAIT_PARALYZED] || user_ptr->timed_trait[TRAIT_HALLUCINATION]) return FALSE;
+	if(randint0(200) < user_ptr->timed_trait[TRAIT_STUN]) return FALSE;
 
 	if(!success && one_in_(3))
 	{

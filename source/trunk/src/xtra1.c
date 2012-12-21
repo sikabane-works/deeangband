@@ -409,27 +409,27 @@ static void prt_status(creature_type *creature_ptr)
 
 	bar_flags[0] = bar_flags[1] = bar_flags[2] = 0L;
 
-	if(creature_ptr->current_trait[TRAIT_TSUYOSHI]) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
+	if(creature_ptr->timed_trait[TRAIT_TSUYOSHI]) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) ADD_FLG(BAR_HALLUCINATION);		// Hallucinating
 	if(has_trait(creature_ptr, TRAIT_BLIND)) ADD_FLG(BAR_BLINDNESS);			// Blindness
-	if(creature_ptr->current_trait[TRAIT_PARALYZED]) ADD_FLG(BAR_PARALYZE);		// Paralysis
+	if(creature_ptr->timed_trait[TRAIT_PARALYZED]) ADD_FLG(BAR_PARALYZE);		// Paralysis
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) ADD_FLG(BAR_CONFUSE);			// Confusion
 	if(has_trait(creature_ptr, TRAIT_POISONED)) ADD_FLG(BAR_POISONED);		// Posioned
-	if(creature_ptr->current_trait[TRAIT_SEE_INVISIBLE]) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
+	if(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE]) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
 	if(IS_TIM_ESP(creature_ptr)) ADD_FLG(BAR_TELEPATHY);		// Timed esp
-	if(creature_ptr->current_trait[TRAIT_REGENERATE]) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
-	if(creature_ptr->current_trait[TRAIT_SEE_INFRA]) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
-	if(creature_ptr->current_trait[TRAIT_PROT_EVIL]) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
+	if(creature_ptr->timed_trait[TRAIT_REGENERATE]) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
+	if(creature_ptr->timed_trait[TRAIT_SEE_INFRA]) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
+	if(creature_ptr->timed_trait[TRAIT_PROT_EVIL]) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
 	if(IS_INVULN(creature_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability
 	if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) ADD_FLG(BAR_WRAITH);		// Wraith form
-	if(creature_ptr->current_trait[TRAIT_PASS_WALL]) ADD_FLG(BAR_PASSWALL);		// Pass wall
-	if(creature_ptr->current_trait[TRAIT_REFLECTING]) ADD_FLG(BAR_REFLECTION);
+	if(creature_ptr->timed_trait[TRAIT_PASS_WALL]) ADD_FLG(BAR_PASSWALL);		// Pass wall
+	if(creature_ptr->timed_trait[TRAIT_REFLECTING]) ADD_FLG(BAR_REFLECTION);
 	if(IS_HERO(creature_ptr)) ADD_FLG(BAR_HEROISM);			// Heroism
-	if(creature_ptr->current_trait[TRAIT_S_HERO]) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
+	if(creature_ptr->timed_trait[TRAIT_S_HERO]) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
 	if(IS_BLESSED(creature_ptr)) ADD_FLG(BAR_BLESSED);		// Blessed
-	if(creature_ptr->current_trait[TRAIT_MAGIC_DEF]) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
-	if(creature_ptr->current_trait[TRAIT_TSUBURERU]) ADD_FLG(BAR_EXPAND);
-	if(creature_ptr->current_trait[TRAIT_SHIELD]) ADD_FLG(BAR_STONESKIN);
+	if(creature_ptr->timed_trait[TRAIT_MAGIC_DEF]) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
+	if(creature_ptr->timed_trait[TRAIT_TSUBURERU]) ADD_FLG(BAR_EXPAND);
+	if(creature_ptr->timed_trait[TRAIT_SHIELD]) ADD_FLG(BAR_STONESKIN);
 	if(creature_ptr->posture & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
 
 	if(IS_OPPOSE_ACID(creature_ptr)) ADD_FLG(BAR_RESACID);
@@ -437,32 +437,32 @@ static void prt_status(creature_type *creature_ptr)
 	if(IS_OPPOSE_FIRE(creature_ptr)) ADD_FLG(BAR_RESFIRE);
 	if(IS_OPPOSE_COLD(creature_ptr)) ADD_FLG(BAR_RESCOLD);
 	if(IS_OPPOSE_POIS(creature_ptr)) ADD_FLG(BAR_RESPOIS);
-	if(creature_ptr->current_trait[TRAIT_WORD_RECALL]) ADD_FLG(BAR_RECALL); // Word of Recall
-	if(creature_ptr->current_trait[TRAIT_ALTER_REALITY]) ADD_FLG(BAR_ALTER); // Alter realiry
+	if(creature_ptr->timed_trait[TRAIT_WORD_RECALL]) ADD_FLG(BAR_RECALL); // Word of Recall
+	if(creature_ptr->timed_trait[TRAIT_ALTER_REALITY]) ADD_FLG(BAR_ALTER); // Alter realiry
 	if(has_trait(creature_ptr, TRAIT_AFRAID)) ADD_FLG(BAR_AFRAID); // Afraid
-	if(creature_ptr->current_trait[TRAIT_RES_TIME]) ADD_FLG(BAR_RESTIME); // Resist time
-	if(creature_ptr->current_trait[TRAIT_MULTI_SHADOW]) ADD_FLG(BAR_MULTISHADOW);
-	if(creature_ptr->current_trait[TRAIT_CONFUSING_MELEE]) ADD_FLG(BAR_ATTKCONF); // Confusing Hands
-	if(creature_ptr->current_trait[TRAIT_RESIST_MAGIC]) ADD_FLG(BAR_REGMAGIC);
-	if(creature_ptr->current_trait[TRAIT_ULTRA_RES]) ADD_FLG(BAR_ULTIMATE); // Ultimate-resistance
-	if(creature_ptr->current_trait[TRAIT_LEVITATION]) ADD_FLG(BAR_LEVITATE); // tim levitation
-	if(creature_ptr->current_trait[TRAIT_RES_NETH]) ADD_FLG(BAR_RESNETH);
-	if(creature_ptr->current_trait[TRAIT_DUST_ROBE]) ADD_FLG(BAR_DUSTROBE);
+	if(creature_ptr->timed_trait[TRAIT_RES_TIME]) ADD_FLG(BAR_RESTIME); // Resist time
+	if(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]) ADD_FLG(BAR_MULTISHADOW);
+	if(creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE]) ADD_FLG(BAR_ATTKCONF); // Confusing Hands
+	if(creature_ptr->timed_trait[TRAIT_RESIST_MAGIC]) ADD_FLG(BAR_REGMAGIC);
+	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES]) ADD_FLG(BAR_ULTIMATE); // Ultimate-resistance
+	if(creature_ptr->timed_trait[TRAIT_LEVITATION]) ADD_FLG(BAR_LEVITATE); // tim levitation
+	if(creature_ptr->timed_trait[TRAIT_RES_NETH]) ADD_FLG(BAR_RESNETH);
+	if(creature_ptr->timed_trait[TRAIT_DUST_ROBE]) ADD_FLG(BAR_DUSTROBE);
 
-	if(creature_ptr->current_trait[TRAIT_FIRE_BRAND]) ADD_FLG(BAR_ATTKFIRE);
-	if(creature_ptr->current_trait[TRAIT_COLD_BRAND]) ADD_FLG(BAR_ATTKCOLD);
-	if(creature_ptr->current_trait[TRAIT_ELEC_BRAND]) ADD_FLG(BAR_ATTKELEC);
-	if(creature_ptr->current_trait[TRAIT_ACID_BRAND]) ADD_FLG(BAR_ATTKACID);
-	if(creature_ptr->current_trait[TRAIT_POIS_BRAND]) ADD_FLG(BAR_ATTKPOIS);
+	if(creature_ptr->timed_trait[TRAIT_FIRE_BRAND]) ADD_FLG(BAR_ATTKFIRE);
+	if(creature_ptr->timed_trait[TRAIT_COLD_BRAND]) ADD_FLG(BAR_ATTKCOLD);
+	if(creature_ptr->timed_trait[TRAIT_ELEC_BRAND]) ADD_FLG(BAR_ATTKELEC);
+	if(creature_ptr->timed_trait[TRAIT_ACID_BRAND]) ADD_FLG(BAR_ATTKACID);
+	if(creature_ptr->timed_trait[TRAIT_POIS_BRAND]) ADD_FLG(BAR_ATTKPOIS);
 	if(creature_ptr->posture & NINJA_S_STEALTH) ADD_FLG(BAR_SUPERSTEALTH);
 
-	if(creature_ptr->current_trait[TRAIT_AURA_FIRE]) ADD_FLG(BAR_SHFIRE);
+	if(creature_ptr->timed_trait[TRAIT_AURA_FIRE]) ADD_FLG(BAR_SHFIRE);
 	
 	if(IS_TIM_STEALTH(creature_ptr)) ADD_FLG(BAR_STEALTH); // tim stealth
 
-	if(creature_ptr->current_trait[TRAIT_AURA_MANA]) ADD_FLG(BAR_TOUKI);
-	if(creature_ptr->current_trait[TRAIT_HOLY_AURA]) ADD_FLG(BAR_SHHOLY);
-	if(creature_ptr->current_trait[TRAIT_EYE_EYE]) ADD_FLG(BAR_EYEEYE);
+	if(creature_ptr->timed_trait[TRAIT_AURA_MANA]) ADD_FLG(BAR_TOUKI);
+	if(creature_ptr->timed_trait[TRAIT_HOLY_AURA]) ADD_FLG(BAR_SHHOLY);
+	if(creature_ptr->timed_trait[TRAIT_EYE_EYE]) ADD_FLG(BAR_EYEEYE);
 
 	/* Hex spells */
 	if(creature_ptr->realm1 == REALM_HEX)
@@ -1005,7 +1005,7 @@ static void prt_speed(creature_type *creature_ptr)
 	row_speed = hgt + ROW_SPEED;
 
 	/* Hack -- Visually "undo" the Search Mode Slowdown */
-	if(creature_ptr->action == ACTION_SEARCH && !creature_ptr->current_trait[TRAIT_LIGHT_SPEED]) i += 10;
+	if(creature_ptr->action == ACTION_SEARCH && !creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]) i += 10;
 
 	/* Fast */
 	if(i > 0)
@@ -1034,12 +1034,12 @@ static void prt_speed(creature_type *creature_ptr)
 		if(creature_ptr->riding)
 		{
 			creature_type *m_ptr = &creature_list[creature_ptr->riding];
-			if(m_ptr->current_trait[TRAIT_FAST] && !m_ptr->current_trait[TRAIT_SLOW]) attr = TERM_L_BLUE;
-			else if(m_ptr->current_trait[TRAIT_SLOW] && !m_ptr->current_trait[TRAIT_FAST]) attr = TERM_VIOLET;
+			if(m_ptr->timed_trait[TRAIT_FAST] && !m_ptr->timed_trait[TRAIT_SLOW]) attr = TERM_L_BLUE;
+			else if(m_ptr->timed_trait[TRAIT_SLOW] && !m_ptr->timed_trait[TRAIT_FAST]) attr = TERM_VIOLET;
 			else attr = TERM_RED;
 		}
-		else if(is_fast && !creature_ptr->current_trait[TRAIT_SLOW]) attr = TERM_YELLOW;
-		else if(creature_ptr->current_trait[TRAIT_SLOW] && !is_fast) attr = TERM_VIOLET;
+		else if(is_fast && !creature_ptr->timed_trait[TRAIT_SLOW]) attr = TERM_YELLOW;
+		else if(creature_ptr->timed_trait[TRAIT_SLOW] && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_UMBER;
 #ifdef JP
 		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? "æ”n" : "Œ¸‘¬"), i);
@@ -1118,7 +1118,7 @@ static void prt_imitation(creature_type *creature_ptr)
 
 static void prt_cut(creature_type *creature_ptr)
 {
-	int c = creature_ptr->current_trait[TRAIT_CUT];
+	int c = creature_ptr->timed_trait[TRAIT_CUT];
 #ifdef JP
 	if(c > 1000) c_put_str(TERM_L_RED, "’v–½      ", ROW_CUT, COL_CUT);
 	else if(c > 200) c_put_str(TERM_RED, "‚Ð‚Ç‚¢[Žè  ", ROW_CUT, COL_CUT);
@@ -1143,7 +1143,7 @@ static void prt_cut(creature_type *creature_ptr)
 
 static void prt_stun(creature_type *creature_ptr)
 {
-	int s = creature_ptr->current_trait[TRAIT_STUN];
+	int s = creature_ptr->timed_trait[TRAIT_STUN];
 #ifdef JP
 	if(s > 100) c_put_str(TERM_RED, "ˆÓŽ¯•s–¾—Ä  ", ROW_STUN, COL_STUN);
 	else if(s > 50) c_put_str(TERM_ORANGE, "‚Ð‚Ç‚­žNžO  ", ROW_STUN, COL_STUN);
@@ -1898,7 +1898,7 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 	/* Only mages are affected */
 	if(magic_info[creature_ptr->class_idx].spell_xtra & MAGIC_GLOVE_REDUCE_MANA)
 	{
-		u32b flgs[TRAIT_FLAG_MAX];
+		u32b flgs[MAX_TRAITS_FLAG];
 
 		/* Assume player is not encumbered by gloves */
 		creature_ptr->cumber_glove = FALSE;
@@ -2126,8 +2126,8 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 
 	/* Factor in the hero / superhero settings */
 	if(IS_HERO(creature_ptr)) mhp += 10;
-	if(creature_ptr->current_trait[TRAIT_S_HERO] && (creature_ptr->class_idx != CLASS_BERSERKER)) mhp += 30;
-	if(creature_ptr->current_trait[TRAIT_TSUYOSHI]) mhp += 50;
+	if(creature_ptr->timed_trait[TRAIT_S_HERO] && (creature_ptr->class_idx != CLASS_BERSERKER)) mhp += 30;
+	if(creature_ptr->timed_trait[TRAIT_TSUYOSHI]) mhp += 50;
 
 	/* Factor in the hex spell settings */
 	if(HEX_SPELLING(creature_ptr, HEX_XTRA_MIGHT)) mhp += 15;
@@ -2170,7 +2170,7 @@ static void calc_lite(creature_type *creature_ptr)
 {
 	int i;
 	object_type *object_ptr;
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Assume no light
@@ -2377,7 +2377,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_ORDINARILY_BERSERK))
 	{
-		creature_ptr->current_trait[TRAIT_S_HERO] = 1;
+		creature_ptr->timed_trait[TRAIT_S_HERO] = 1;
 		//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;
 		creature_ptr->speed += 2;
 
@@ -2652,7 +2652,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	}
 
 	// Apply temporary "stun"
-	if(creature_ptr->current_trait[TRAIT_STUN] > 50)
+	if(creature_ptr->timed_trait[TRAIT_STUN] > 50)
 	{
 		creature_ptr->to_hit[0] -= 20;
 		creature_ptr->to_hit[1] -= 20;
@@ -2726,7 +2726,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	{
 		//creature_ptr->see_inv = TRUE;
 		//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;
-		//creature_ptr->current_trait[TRAIT_SLOW]_digest = TRUE;
+		//creature_ptr->timed_trait[TRAIT_SLOW]_digest = TRUE;
 		//creature_ptr->regenerate = TRUE;
 		//creature_ptr->levitation = TRUE;
 		//creature_ptr->hold_life = TRUE;
@@ -2773,7 +2773,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 	int i;
 	object_type *object_ptr;
 	int bonus_to_hit, bonus_to_damage, slot;
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 	int default_hand = 1;
 
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -3317,7 +3317,7 @@ static void set_melee_status(creature_type *creature_ptr)
 {
 	int i, hold;
 	object_type *bow_ptr, *weapon_ptr;
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 	bool omoi;
 	int default_hand = 1;
 	int empty_hands_status = empty_hands(creature_ptr, TRUE);

@@ -692,7 +692,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 						if(chance < minfail) chance = minfail;
 
 						/* Stunning makes spells harder */
-						if(creature_ptr->current_trait[TRAIT_STUN] > 50) chance += 25;
+						if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 						else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 						if(use_mind == MIND_KI)
@@ -1864,7 +1864,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 		if(chance < minfail) chance = minfail;
 
 		/* Stunning makes spells harder */
-		if(creature_ptr->current_trait[TRAIT_STUN] > 50) chance += 25;
+		if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 		else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 		if(use_mind == MIND_KI && heavy_armor(creature_ptr)) chance += 5;

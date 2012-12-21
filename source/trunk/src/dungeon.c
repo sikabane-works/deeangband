@@ -1512,12 +1512,12 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		int dam;
 
 		// Mortal wound or Deep Gash
-		if(creature_ptr->current_trait[TRAIT_CUT] > 1000) dam = 200;
-		else if(creature_ptr->current_trait[TRAIT_CUT] > 200) dam = 80;
-		else if(creature_ptr->current_trait[TRAIT_CUT] > 100) dam = 32;
-		else if(creature_ptr->current_trait[TRAIT_CUT] > 50) dam = 16;
-		else if(creature_ptr->current_trait[TRAIT_CUT] > 25) dam = 7;
-		else if(creature_ptr->current_trait[TRAIT_CUT] > 10) dam = 3;
+		if(creature_ptr->timed_trait[TRAIT_CUT] > 1000) dam = 200;
+		else if(creature_ptr->timed_trait[TRAIT_CUT] > 200) dam = 80;
+		else if(creature_ptr->timed_trait[TRAIT_CUT] > 100) dam = 32;
+		else if(creature_ptr->timed_trait[TRAIT_CUT] > 50) dam = 16;
+		else if(creature_ptr->timed_trait[TRAIT_CUT] > 25) dam = 7;
+		else if(creature_ptr->timed_trait[TRAIT_CUT] > 10) dam = 3;
 		else dam = 1;
 
 		// Take damage
@@ -1873,8 +1873,8 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	//*** Timeout Various Things ***//
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(creature_ptr->current_trait[i] > 0 && creature_ptr->current_trait[i] < PERMANENT_TIMED)
-			(void)set_timed_trait(creature_ptr, i, creature_ptr->current_trait[i] - dec_count, TRUE);
+		if(creature_ptr->timed_trait[i] > 0 && creature_ptr->timed_trait[i] < PERMANENT_TIMED)
+			(void)set_timed_trait(creature_ptr, i, creature_ptr->timed_trait[i] - dec_count, TRUE);
 
 	// Handle "sleep"
 	if(has_trait(creature_ptr, TRAIT_SLEPT))
@@ -1906,7 +1906,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_CUT))
 	{
 		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]];
-		if(creature_ptr->current_trait[TRAIT_CUT] > 1000) adjust = 0;
+		if(creature_ptr->timed_trait[TRAIT_CUT] > 1000) adjust = 0;
 		(void)add_timed_trait(creature_ptr, TRAIT_CUT, -adjust, TRUE);
 	}
 }
@@ -2422,7 +2422,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		/* Scan the equipment with random teleport ability */
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
-			u32b flgs[TRAIT_FLAG_MAX];
+			u32b flgs[MAX_TRAITS_FLAG];
 			object_ptr = &creature_ptr->inventory[i];
 
 			// Skip no equip
@@ -2759,23 +2759,23 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Delayed Word-of-Recall */
-	if(creature_ptr->current_trait[TRAIT_WORD_RECALL])
+	if(creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
 		/*
 		* HACK: Autosave BEFORE resetting the recall counter (rr9)
 		* The player is yanked up/down as soon as
 		* he loads the autosaved game.
 		*/
-		if(autosave_l && (creature_ptr->current_trait[TRAIT_WORD_RECALL] == 1) && !floor_ptr->gamble_arena_mode)
+		if(autosave_l && (creature_ptr->timed_trait[TRAIT_WORD_RECALL] == 1) && !floor_ptr->gamble_arena_mode)
 			do_cmd_save_game(TRUE);
 
 		/* Count down towards recall */
-		creature_ptr->current_trait[TRAIT_WORD_RECALL]--;
+		creature_ptr->timed_trait[TRAIT_WORD_RECALL]--;
 
 		play_redraw |= (PR_STATUS);
 
 		/* Activate the recall */
-		if(!creature_ptr->current_trait[TRAIT_WORD_RECALL])
+		if(!creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 		{
 			/* Disturbing! */
 			disturb(player_ptr, 0, 0);
@@ -2880,18 +2880,18 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 	}
 
 	/* Delayed Alter reality */
-	if(creature_ptr->current_trait[TRAIT_ALTER_REALITY])
+	if(creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 	{
-		if(autosave_l && (creature_ptr->current_trait[TRAIT_ALTER_REALITY] == 1) && !floor_ptr->gamble_arena_mode)
+		if(autosave_l && (creature_ptr->timed_trait[TRAIT_ALTER_REALITY] == 1) && !floor_ptr->gamble_arena_mode)
 			do_cmd_save_game(TRUE);
 
 		/* Count down towards alter */
-		creature_ptr->current_trait[TRAIT_ALTER_REALITY]--;
+		creature_ptr->timed_trait[TRAIT_ALTER_REALITY]--;
 
 		play_redraw |= (PR_STATUS);
 
 		/* Activate the alter reality */
-		if(!creature_ptr->current_trait[TRAIT_ALTER_REALITY])
+		if(!creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 		{
 			/* Disturbing! */
 			disturb(player_ptr, 0, 0);
@@ -4616,7 +4616,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 		if(has_trait(steed_ptr, TRAIT_STUN))
 		{
-			if(set_timed_trait(steed_ptr, TRAIT_STUN, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->current_trait[TRAIT_STUN] - 1), TRUE))
+			if(set_timed_trait(steed_ptr, TRAIT_STUN, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_STUN] - 1), TRUE))
 			{
 				char steed_name[MAX_NLEN];
 				creature_desc(steed_name, steed_ptr, 0);
@@ -4630,7 +4630,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 		if(has_trait(steed_ptr, TRAIT_CONFUSED))
 		{
-			if(set_timed_trait(steed_ptr, TRAIT_CONFUSED, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->current_trait[TRAIT_CONFUSED] - 1), TRUE))
+			if(set_timed_trait(steed_ptr, TRAIT_CONFUSED, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_CONFUSED] - 1), TRUE))
 			{
 				char steed_name[MAX_NLEN];
 				creature_desc(steed_name, steed_ptr, 0);
@@ -4645,7 +4645,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 		if(has_trait(steed_ptr, TRAIT_AFRAID))
 		{
-			if(set_timed_trait(steed_ptr, TRAIT_AFRAID, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->current_trait[TRAIT_AFRAID] - 1), TRUE))
+			if(set_timed_trait(steed_ptr, TRAIT_AFRAID, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_AFRAID] - 1), TRUE))
 			{
 				char steed_name[MAX_NLEN];
 				creature_desc(steed_name, steed_ptr, 0);

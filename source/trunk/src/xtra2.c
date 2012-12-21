@@ -597,7 +597,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	int number = 0;
 
-	bool visible = ((dead_ptr->see_others && !slayer_ptr->current_trait[TRAIT_HALLUCINATION]) || (has_trait(dead_ptr, TRAIT_UNIQUE)));
+	bool visible = ((dead_ptr->see_others && !slayer_ptr->timed_trait[TRAIT_HALLUCINATION]) || (has_trait(dead_ptr, TRAIT_UNIQUE)));
 
 	u32b mo_mode = 0L;
 
@@ -3050,7 +3050,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 		creature_type *m_ptr = &creature_list[creature_ptr->riding];
 		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
-		if(m_ptr->current_trait[TRAIT_CONFUSED])
+		if(m_ptr->timed_trait[TRAIT_CONFUSED])
 		{
 			/* Standard confusion */
 			if(randint0(100) < 75)
@@ -3081,7 +3081,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 			creature_type *m_ptr = &creature_list[creature_ptr->riding];
 
 			creature_desc(m_name, m_ptr, 0);
-			if(m_ptr->current_trait[TRAIT_CONFUSED])
+			if(m_ptr->timed_trait[TRAIT_CONFUSED])
 			{
 				msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], m_name);
 			}

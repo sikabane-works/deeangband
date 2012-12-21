@@ -902,7 +902,7 @@ static flag_insc_table flag_insc_sust[] =
 /*
  *  Helper function for get_inscription()
  */
-static char *inscribe_flags_aux(flag_insc_table *fi_ptr, u32b flgs[TRAIT_FLAG_MAX], bool kanji, char *ptr)
+static char *inscribe_flags_aux(flag_insc_table *fi_ptr, u32b flgs[MAX_TRAITS_FLAG], bool kanji, char *ptr)
 {
 #ifndef JP
 	(void)kanji;
@@ -927,7 +927,7 @@ static char *inscribe_flags_aux(flag_insc_table *fi_ptr, u32b flgs[TRAIT_FLAG_MA
 /*
  *  Special variation of have_flag for auto-inscription
  */
-static bool have_flag_of(flag_insc_table *fi_ptr, u32b flgs[TRAIT_FLAG_MAX])
+static bool have_flag_of(flag_insc_table *fi_ptr, u32b flgs[MAX_TRAITS_FLAG])
 {
 	while (fi_ptr->english)
 	{
@@ -943,7 +943,7 @@ static bool have_flag_of(flag_insc_table *fi_ptr, u32b flgs[TRAIT_FLAG_MAX])
 static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool kanji, bool all)
 {
 	char *prev_ptr = ptr;
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 
 	/* Extract the flags */
 	object_flags(object_ptr, flgs);
@@ -956,14 +956,14 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 		int j;
 				
 		/* Base object */
-		for (j = 0; j < TRAIT_FLAG_MAX; j++)
+		for (j = 0; j < MAX_TRAITS_FLAG; j++)
 			flgs[j] &= ~object_kind_ptr->flags[j];
 
 		if(object_is_fixed_artifact(object_ptr))
 		{
 			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 					
-			for (j = 0; j < TRAIT_FLAG_MAX; j++)
+			for (j = 0; j < MAX_TRAITS_FLAG; j++)
 				flgs[j] &= ~a_ptr->flags[j];
 		}
 
@@ -971,7 +971,7 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 		{
 			ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
 					
-			for (j = 0; j < TRAIT_FLAG_MAX; j++)
+			for (j = 0; j < MAX_TRAITS_FLAG; j++)
 				flgs[j] &= ~e_ptr->flags[j];
 		}
 	}
@@ -1224,7 +1224,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	char            tmp_val2[MAX_NLEN+10];
 	char            fake_insc_buf[30];
 
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 	//object_type *bow_ptr;
 
 	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];

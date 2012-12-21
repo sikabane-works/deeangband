@@ -458,7 +458,7 @@ static void do_cmd_wiz_change(creature_type *creature_ptr)
 static void wiz_display_item(object_type *object_ptr)
 {
 	int i, j = 13;
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 	char buf[256];
 
 	/* Extract the flags */

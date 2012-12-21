@@ -313,8 +313,8 @@ static void rd_object(object_type *object_ptr)
 	rd_s16b(&object_ptr->size_lower);
 	rd_s16b(&object_ptr->to_size);
 
-	for(i = 0; i < TRAIT_FLAG_MAX; i++) rd_s32b(&object_ptr->trait_flags[i]);
-	for(i = 0; i < TRAIT_FLAG_MAX; i++) rd_s32b(&object_ptr->curse_flags[i]);
+	for(i = 0; i < MAX_TRAITS_FLAG; i++) rd_s32b(&object_ptr->trait_flags[i]);
+	for(i = 0; i < MAX_TRAITS_FLAG; i++) rd_s32b(&object_ptr->curse_flags[i]);
 
 	return;
 }
@@ -860,7 +860,7 @@ static void rd_creature(creature_type *creature_ptr)
 	// Class skill
 	if(creature_ptr->class_idx == CLASS_BLUE_MAGE)
 	{
-		for (i = 0; i < TRAIT_FLAG_MAX; i++) rd_s32b(&creature_ptr->class_skills.blue_mage.learned_trait[i]);
+		for (i = 0; i < MAX_TRAITS_FLAG; i++) rd_s32b(&creature_ptr->class_skills.blue_mage.learned_trait[i]);
 	}
 	else if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
@@ -912,7 +912,7 @@ static void rd_creature(creature_type *creature_ptr)
 	{
 		rd_s16b(&tmp16s);
 		if(tmp16s < 0) break;
-		rd_s16b(&creature_ptr->current_trait[tmp16s]);
+		rd_s16b(&creature_ptr->timed_trait[tmp16s]);
 	}
 
 	rd_byte(&creature_ptr->recall_dungeon);
@@ -969,7 +969,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->pet_follow_distance);
 	rd_s16b(&creature_ptr->pet_extra_flags);
 
-	for (i = 0; i < TRAIT_FLAG_MAX; i++) rd_u32b(&creature_ptr->mutative_trait[i]);
+	for (i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&creature_ptr->mutative_trait[i]);
 
 }
 

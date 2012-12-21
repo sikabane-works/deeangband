@@ -661,7 +661,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_SLOW_POISON:
-			if(set_timed_trait(caster_ptr, TRAIT_POISONED, caster_ptr->current_trait[TRAIT_POISONED] / 2, TRUE)) effected = TRUE;
+			if(set_timed_trait(caster_ptr, TRAIT_POISONED, caster_ptr->timed_trait[TRAIT_POISONED] / 2, TRUE)) effected = TRUE;
 			break;
 
 		case SV_POTION_BOLDNESS:
@@ -720,7 +720,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			msg_print("Brother OKURE!");
 #endif
 			msg_print(NULL);
-			caster_ptr->current_trait[TRAIT_TSUYOSHI] = 1;
+			caster_ptr->timed_trait[TRAIT_TSUYOSHI] = 1;
 			(void)set_timed_trait(caster_ptr, TRAIT_TSUYOSHI, 0, TRUE);
 			if(!has_trait(caster_ptr, TRAIT_RES_CHAO)) (void)add_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 50 + randint1(50), FALSE);
 			effected = TRUE;
@@ -2300,7 +2300,7 @@ void do_cmd_zap_rod(creature_type *creature_ptr)
 static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int i;
-	u32b flgs[TRAIT_FLAG_MAX];
+	u32b flgs[MAX_TRAITS_FLAG];
 
 	if(!object_is_known(object_ptr)) return FALSE;	// Not known
 	object_flags(object_ptr, flgs);						// Extract the flags
@@ -3251,7 +3251,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 				chance = mod_spell_chance_1(creature_ptr, chance);
 				chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]]);
 				/* Stunning makes spells harder */
-				if(creature_ptr->current_trait[TRAIT_STUN] > 50) chance += 25;
+				if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 				else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 				if(chance > 95) chance = 95;
@@ -3544,7 +3544,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	chance = mod_spell_chance_1(creature_ptr, chance);
 	chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]]);
 	/* Stunning makes spells harder */
-	if(creature_ptr->current_trait[TRAIT_STUN] > 50) chance += 25;
+	if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 	else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 	if(chance > 95) chance = 95;

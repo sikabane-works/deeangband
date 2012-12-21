@@ -1088,8 +1088,8 @@ extern void creature_drop_carried_objects(creature_type *m_ptr);
 extern s16b m_bonus(int max, int level);
 
 extern void reset_visuals(void);
-extern void object_flags(object_type *object_ptr, u32b flgs[TRAIT_FLAG_MAX]);
-extern void object_flags_known(object_type *object_ptr, u32b flgs[TRAIT_FLAG_MAX]);
+extern void object_flags(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG]);
+extern void object_flags_known(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG]);
 extern cptr item_activation(object_type *object_ptr);
 extern bool screen_object(object_type *object_ptr, u32b mode);
 extern char index_to_label(int i);
