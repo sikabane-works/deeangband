@@ -136,7 +136,7 @@ static const cptr message_files[]=
 
 	"monfrien_j.txt",
 	"monspeak_j.txt",
-	"rumor_j.txt",
+	"rumors_j.txt",
 	"news_j.txt",
 #else
 	"news.txt",
@@ -159,7 +159,7 @@ static const cptr message_files[]=
 
 	"monfrien.txt",
 	"monspeak.txt",
-	"rumor.txt",
+	"rumors.txt",
 	"news.txt",
 #endif
 };

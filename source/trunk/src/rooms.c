@@ -663,9 +663,9 @@ static bool build_type1(floor_type *floor_ptr)
 
 	if(one_in_(2)){
 #ifdef JP
-		get_rnd_line_jonly("rumors_j.txt", 0, floor_ptr->cave[yval][xval].message, 10);
+		get_rnd_line_jonly(message_files[MESSAGE_FILES_RUMOR], 0, floor_ptr->cave[yval][xval].message, 10);
 #else
-		get_rnd_line("rumors.txt", 0, floor_ptr->cave[yval][xval].message);
+		get_rnd_line(message_files[MESSAGE_FILES_RUMOR], 0, floor_ptr->cave[yval][xval].message);
 #endif
 	}
 

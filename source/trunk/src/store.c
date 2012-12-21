@@ -890,10 +890,10 @@ static void say_comment_1(store_type *st_ptr)
 	{
 #ifdef JP
 		msg_print("“XŽå‚ÍŽ¨‚¤‚¿‚µ‚½:");
-		if(!get_rnd_line_jonly("rumors_j.txt", 0, rumour, 10))
+		if(!get_rnd_line_jonly(message_files[MESSAGE_FILES_RUMOR], 0, rumour, 10))
 #else
 		msg_print("The shopkeeper whispers something into your ear:");
-		if(!get_rnd_line("rumors.txt", 0, rumour))
+		if(!get_rnd_line(message_files[MESSAGE_FILES_RUMOR], 0, rumour))
 #endif
 		msg_print(rumour);
 	}
