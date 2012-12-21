@@ -4507,7 +4507,7 @@ LRESULT FAR PASCAL AngbandListProc(HWND hWnd, UINT uMsg,
 
 				InvalidateRect(td->w, NULL, TRUE);
 
-				/* HACK - Redraw all windows */
+				// Redraw all windows
 				play_window = 0xFFFFFFFF;
 				window_stuff(player_ptr);
 			}

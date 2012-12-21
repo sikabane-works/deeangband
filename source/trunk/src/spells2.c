@@ -2464,12 +2464,12 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 			if(has_trait(m_ptr, TRAIT_STUPID)) chance = 10; // Stupid creatures rarely wake up
 			if(has_trait(m_ptr, TRAIT_SMART)) chance = 100; // Smart creatures always wake up
 
-			if(m_ptr->timed_trait[TRAIT_SLEPT] && (randint0(100) < chance)) // Sometimes creatures wake up
+			if(has_trait_from_timed(m_ptr, TRAIT_SLEPT) && (randint0(100) < chance)) // Sometimes creatures wake up
 				(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0, TRUE); // Wake up!
 		}
 
-		note_spot(floor_ptr, y, x); // Note
-		lite_spot(floor_ptr, y, x); // Redraw
+		note_spot(floor_ptr, y, x);
+		lite_spot(floor_ptr, y, x);
 		update_local_illumination(floor_ptr, y, x);
 	}
 
@@ -2530,7 +2530,7 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 			}
 
 			if(c_ptr->creature_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE); // Process affected creatures / Update the creature
-			lite_spot(floor_ptr, y, x); // Redraw
+			lite_spot(floor_ptr, y, x);
 
 			update_local_illumination(floor_ptr, y, x);
 		}

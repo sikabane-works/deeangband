@@ -5130,14 +5130,11 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 	msg_print(NULL);
 
 	/*
-	// Update everything
 	creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 	creature_ptr->creature_update |= (PU_CREATURES);
 
-	// Redraw entire screen
 	prepare_redraw(PR_BASIC | PR_EXTRA | PR_EQUIPPY);
 
-	// Redraw map
 	prepare_redraw(PR_MAP);
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 	*/

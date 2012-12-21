@@ -1833,7 +1833,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 	/* Update the creatures */
 	rider_ptr->creature_update |= (CRU_BONUS);
-	prepare_redraw(PR_MAP | PR_EXTRA | PR_UHEALTH); // Redraw map
+	prepare_redraw(PR_MAP | PR_EXTRA | PR_UHEALTH);
 
 	/* Move the player */
 	(void)move_creature(rider_ptr, NULL, y, x, MCE_HANDLE_STUFF | MCE_ENERGY_USE | MCE_DONT_PICKUP | MCE_DONT_SWAP_MON);

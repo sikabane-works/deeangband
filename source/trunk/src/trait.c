@@ -644,7 +644,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, randint1(5 * oops + 1), TRUE);
 				}
 
-				prepare_redraw(PR_MANA); // Redraw mana
+				prepare_redraw(PR_MANA);
 			}
 
 			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), game_messages[GAME_MESSAGE_PERILOUS_SECRET], NULL, -1);
@@ -1412,7 +1412,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		msg_print(NULL);
 
 		cost_tactical_energy(caster_ptr, -1000 - (100 + randint1(200) + 200) * TURNS_PER_TICK / 10);
-		prepare_redraw(PR_MAP); // Redraw map
+		prepare_redraw(PR_MAP);
 		caster_ptr->creature_update |= (PU_CREATURES); // Update creatures
 		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 

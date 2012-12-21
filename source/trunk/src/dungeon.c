@@ -4886,7 +4886,7 @@ void process_player(creature_type *creature_ptr)
 
 							if(npc_status_id == i) prepare_redraw(PR_HEALTH);
 							if(creature_ptr->riding == i) prepare_redraw(PR_UHEALTH);
-							lite_spot(floor_ptr, other_ptr->fy, other_ptr->fx); // Redraw regardless
+							lite_spot(floor_ptr, other_ptr->fy, other_ptr->fx);
 						}
 					}
 				}
@@ -4913,8 +4913,8 @@ void process_player(creature_type *creature_ptr)
 
 			if(creature_ptr->time_stopper && (creature_ptr->energy_need > - 1000))
 			{
-				prepare_redraw(PR_MAP); // Redraw map
-				creature_ptr->creature_update |= (PU_CREATURES); // Update creatures
+				prepare_redraw(PR_MAP);
+				creature_ptr->creature_update |= (PU_CREATURES);
 				prepare_window(PW_OVERHEAD | PW_DUNGEON);
 #ifdef JP
 				msg_print("u‚Í“®‚«‚¾‚·cv");

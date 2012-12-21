@@ -335,23 +335,14 @@ FILE *my_fopen(cptr file, cptr mode)
 }
 
 
-/*
- * Hack -- replacement for "fclose()"
- */
+// Replacement for "fclose()"
 errr my_fclose(FILE *fff)
 {
-	/* Require a file */
-	if(!fff) return (-1);
-
-	/* Close, check for error */
-	if(fclose(fff) == EOF) return FAILURE;
+	if(!fff) return (-1); // Require a file
+	if(fclose(fff) == EOF) return FAILURE; // Close, check for error
 
 	return SUCCESS;
 }
-
-
-#endif /* ACORN */
-
 
 #ifdef HAVE_MKSTEMP
 

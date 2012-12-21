@@ -1435,7 +1435,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 	if(command_arg)
 	{
 		command_rep = command_arg - 1; // Set repeat count
-		prepare_redraw(PR_STATE); // Redraw the state
+		prepare_redraw(PR_STATE);
 		command_arg = 0; // Cancel the arg
 	}
 

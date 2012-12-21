@@ -1738,8 +1738,8 @@ void prt_path(creature_type *creature_ptr, int range, int y, int x)
 	// Get projection path
 	path_n = project_path(path_g, (range ? range : MAX_RANGE), floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
 
-	prepare_redraw(PR_MAP);	// Redraw map
-	redraw_stuff(player_ptr);	// Redraw stuff
+	prepare_redraw(PR_MAP);
+	redraw_stuff(player_ptr);
 
 	/* Draw path */
 	for (i = 0; i < path_n; i++)

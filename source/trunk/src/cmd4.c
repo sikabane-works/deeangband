@@ -2605,7 +2605,6 @@ void do_cmd_options(void)
 	/* Restore the screen */
 	screen_load();
 
-	/* Hack - Redraw equippy chars */
 	prepare_redraw(PR_EQUIPPY);
 }
 

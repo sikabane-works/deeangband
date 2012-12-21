@@ -1902,8 +1902,8 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].mimic = feat_mirror;
 	floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info |= CAVE_GLOW; // Turn on the light
 
-	note_spot(floor_ptr, caster_ptr->fy, caster_ptr->fx); // Notice
-	lite_spot(floor_ptr, caster_ptr->fy, caster_ptr->fx); // Redraw
+	note_spot(floor_ptr, caster_ptr->fy, caster_ptr->fx);
+	lite_spot(floor_ptr, caster_ptr->fy, caster_ptr->fx);
 
 	update_local_illumination(floor_ptr, caster_ptr->fy, caster_ptr->fx);
 
@@ -1929,10 +1929,7 @@ bool explosive_rune(creature_type *creature_ptr)
 	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info |= CAVE_OBJECT;
 	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].mimic = feat_explosive_rune;
 
-	// Notice
-	note_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
-	
-	// Redraw
+	note_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);	
 	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	return TRUE;

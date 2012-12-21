@@ -3964,7 +3964,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	// Redraw armor (if needed)
 	if((creature_ptr->dis_ac != old_dis_ac) || (creature_ptr->dis_to_ac != old_dis_to_ac))
 	{
-		prepare_redraw(PR_ARMOR);  // Redraw
+		prepare_redraw(PR_ARMOR);
 		prepare_window(PW_PLAYER);
 	}
 
