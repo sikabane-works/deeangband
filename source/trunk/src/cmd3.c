@@ -811,21 +811,13 @@ void do_cmd_observe(creature_type *creature_ptr)
 		return;
 	}
 
-
-	/* Description */
 	object_desc(object_name, object_ptr, 0);
 
-	/* Describe */
 #ifdef JP
 	msg_format("%sÇí≤Ç◊ÇƒÇ¢ÇÈ...", object_name);
-#else
-	msg_format("Examining %s...", object_name);
-#endif
-
-	/* Describe it fully */
-#ifdef JP
 	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("ì¡Ç…ïœÇÌÇ¡ÇΩÇ∆Ç±ÇÎÇÕÇ»Ç¢ÇÊÇ§ÇæÅB");
 #else
+	msg_format("Examining %s...", object_name);
 	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("You see nothing special.");
 #endif
 
@@ -1572,7 +1564,6 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		if(sym == ident_info[i][0]) break;
 	}
 
-	/* Describe */
 	if(sym == KTRL('A'))
 	{
 		all = TRUE;

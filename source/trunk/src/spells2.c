@@ -459,7 +459,6 @@ bool detect_traps(creature_type *creature_ptr, int range, bool known)
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 0) detect = FALSE;
 
-	/* Describe */
 	if(detect)
 	{
 #ifdef JP
@@ -482,7 +481,6 @@ bool detect_doors(creature_type *creature_ptr, int range)
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 0) detect = FALSE;
 
-	/* Describe */
 	if(detect)
 	{
 #ifdef JP
@@ -505,7 +503,6 @@ bool detect_stairs(creature_type *creature_ptr, int range)
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 0) detect = FALSE;
 
-	/* Describe */
 	if(detect)
 	{
 #ifdef JP
@@ -528,7 +525,6 @@ bool detect_treasure(creature_type *creature_ptr, int range)
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 6) detect = FALSE;
 
-	/* Describe */
 	if(detect)
 	{
 #ifdef JP
@@ -587,7 +583,6 @@ bool detect_objects_gold(creature_type *creature_ptr, int range)
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 6) detect = FALSE;
 
-	/* Describe */
 	if(detect)
 	{
 #ifdef JP
@@ -653,7 +648,6 @@ bool detect_objects_normal(creature_type *creature_ptr, int range)
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 6) detect = FALSE;
 
-	/* Describe */
 	if(detect)
 	{
 #ifdef JP
@@ -661,7 +655,6 @@ bool detect_objects_normal(creature_type *creature_ptr, int range)
 #else
 		msg_print("You sense the presence of objects!");
 #endif
-
 	}
 
 	if(detect_creatures_string(creature_ptr, range, "!=?|/`"))
@@ -747,7 +740,6 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 		}
 	}
 
-	/* Describe */
 	if(detect)
 	{
 #ifdef JP
@@ -755,7 +747,6 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 #else
 		msg_print("You sense the presence of magic objects!");
 #endif
-
 	}
 
 	/* Return result */
@@ -809,7 +800,6 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 3) flag = FALSE;
 
-	/* Describe */
 	if(flag)
 	{
 		/* Describe result */
@@ -876,7 +866,6 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 3) flag = FALSE;
 
-	/* Describe */
 	if(flag)
 	{
 		/* Describe result */
@@ -948,16 +937,13 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 		}
 	}
 
-	/* Describe */
 	if(flag)
 	{
-		/* Describe result */
 #ifdef JP
 		msg_print("邪悪なる生物の存在を感じとった！");
 #else
 		msg_print("You sense the presence of evil creatures!");
 #endif
-
 	}
 
 	return (flag);
@@ -1015,16 +1001,13 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 		}
 	}
 
-	/* Describe */
 	if(flag)
 	{
-		/* Describe result */
 #ifdef JP
 		msg_print("自然でないクリーチャーの存在を感じた！");
 #else
 		msg_print("You sense the presence of unnatural beings!");
 #endif
-
 	}
 
 	return (flag);
@@ -1080,16 +1063,13 @@ bool detect_creatures_mind(creature_type *creature_ptr, int range)
 		}
 	}
 
-	/* Describe */
 	if(flag)
 	{
-		/* Describe result */
 #ifdef JP
 		msg_print("殺気を感じとった！");
 #else
 		msg_print("You sense the presence of someone's mind!");
 #endif
-
 	}
 
 	return (flag);
@@ -1147,16 +1127,13 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 3) flag = FALSE;
 
-	/* Describe */
 	if(flag)
 	{
-		/* Describe result */
 #ifdef JP
 		msg_print("クリーチャーの存在を感じとった！");
 #else
 		msg_print("You sense the presence of creatures!");
 #endif
-
 	}
 
 	return (flag);
@@ -1224,7 +1201,6 @@ bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_fla
 		}
 	}
 
-	/* Describe */
 	if(flag)
 	{
 		switch (match_flag)
@@ -1238,7 +1214,6 @@ bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_fla
 			break;
 		}
 
-		/* Describe result */
 #ifdef JP
 		msg_format("%sの存在を感じとった！", desc_creatures);
 #else

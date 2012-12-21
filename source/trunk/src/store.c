@@ -4201,25 +4201,13 @@ msg_format("%sを $%ldで売却しました。", object_name, (long)price);
 		char o2_name[MAX_NLEN];
 		object_desc(o2_name, quest_ptr, OD_NAME_ONLY);
 
-		if(-1 == store_check_num(st_ptr, quest_ptr))
-		{
 #ifdef JP
-			msg_print("それと同じ品物は既に博物館にあるようです。");
-#else
-			msg_print("The same object as it is already in the Museum.");
-#endif
-		}
-		else
-		{
-#ifdef JP
-			msg_print("博物館に寄贈したものは取り出すことができません！！");
-#else
-			msg_print("You cannot take items which is given to the Museum back!!");
-#endif
-		}
-#ifdef JP
+		if(-1 == store_check_num(st_ptr, quest_ptr)) msg_print("それと同じ品物は既に博物館にあるようです。");
+		else msg_print("博物館に寄贈したものは取り出すことができません！！");
 		if(!get_check(format("本当に%sを寄贈しますか？", o2_name))) return;
 #else
+		if(-1 == store_check_num(st_ptr, quest_ptr)) msg_print("The same object as it is already in the Museum.");
+		else msg_print("You cannot take items which is given to the Museum back!!");
 		if(!get_check(format("Really give %s to the Museum? ", o2_name))) return;
 #endif
 
@@ -4230,7 +4218,6 @@ msg_format("%sを $%ldで売却しました。", object_name, (long)price);
 		/* Distribute charges of wands/rods */
 		distribute_charges(object_ptr, quest_ptr, amt);
 
-		/* Describe */
 #ifdef JP
 		msg_format("%sを置いた。(%c)", object_name, index_to_label(item));
 #else
@@ -4262,7 +4249,6 @@ msg_format("%sを $%ldで売却しました。", object_name, (long)price);
 		/* Distribute charges of wands/rods */
 		distribute_charges(object_ptr, quest_ptr, amt);
 
-		/* Describe */
 #ifdef JP
 		msg_format("%sを置いた。(%c)", object_name, index_to_label(item));
 #else
@@ -4311,28 +4297,16 @@ static void store_examine(store_type *st_ptr)
 
 	/* Empty? */
 	if(st_ptr->stock_num <= 0)
-	{
-		if(is_home(st_ptr))
+	{	
 #ifdef JP
-			msg_print("我が家には何も置いてありません。");
+		if(is_home(st_ptr)) msg_print("我が家には何も置いてありません。");
+		else if(is_museum(st_ptr)) msg_print("博物館には何も置いてありません。");
+		else msg_print("現在商品の在庫を切らしています。");
 #else
-			msg_print("Your home is empty.");
+		if(is_home(st_ptr)) msg_print("Your home is empty.");
+		else if(is_museum(st_ptr)) msg_print("Museum is empty.");
+		else msg_print("I am currently out of stock.");
 #endif
-
-		else if(is_museum(st_ptr))
-#ifdef JP
-			msg_print("博物館には何も置いてありません。");
-#else
-			msg_print("Museum is empty.");
-#endif
-
-		else
-#ifdef JP
-			msg_print("現在商品の在庫を切らしています。");
-#else
-			msg_print("I am currently out of stock.");
-#endif
-
 		return;
 	}
 
@@ -4344,7 +4318,7 @@ static void store_examine(store_type *st_ptr)
 	if(i > store_bottom) i = store_bottom;
 
 #ifdef JP
-sprintf(out_val, "どれを調べますか？");
+	sprintf(out_val, "どれを調べますか？");
 #else
 	sprintf(out_val, "Which item do you want to examine? ");
 #endif
@@ -4363,33 +4337,22 @@ sprintf(out_val, "どれを調べますか？");
 	{
 		/* This can only happen in the home */
 #ifdef JP
-msg_print("このアイテムについて特に知っていることはない。");
+		msg_print("このアイテムについて特に知っていることはない。");
 #else
 		msg_print("You have no special knowledge about that item.");
 #endif
-
 		return;
 	}
 
-	/* Description */
 	object_desc(object_name, object_ptr, 0);
 
-	/* Describe */
 #ifdef JP
-msg_format("%sを調べている...", object_name);
+	msg_format("%sを調べている...", object_name);
+	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("特に変わったところはないようだ。");
 #else
 	msg_format("Examining %s...", object_name);
+	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("You see nothing special.");
 #endif
-
-
-	/* Describe it fully */
-	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL))
-#ifdef JP
-msg_print("特に変わったところはないようだ。");
-#else
-		msg_print("You see nothing special.");
-#endif
-
 
 	return;
 }

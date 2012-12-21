@@ -2348,10 +2348,8 @@ bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int nu
 	/* Description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-	/* Describe */
 #ifdef JP
-msg_format("%s ‚Í–¾‚é‚­‹P‚¢‚½I",
-    object_name);
+	msg_format("%s ‚Í–¾‚é‚­‹P‚¢‚½I", object_name);
 #else
 	msg_format("%s %s glow%s brightly!",
 		   ((item >= 0) ? "Your" : "The"), object_name,
@@ -2417,11 +2415,8 @@ bool artifact_scroll(creature_type *caster_ptr)
 #endif
 	if(!get_item(caster_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook_nameless_weapon_armour, 0)) return FALSE;
 	object_ptr = GET_ITEM(caster_ptr, item);
-
-	/* Description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-	/* Describe */
 #ifdef JP
 	msg_format("%s ‚Íá¿‚¢Œõ‚ð”­‚µ‚½I",object_name);
 #else
@@ -2601,10 +2596,8 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
 	/* Identify it */
 	old_known = identify_item(creature_ptr, object_ptr);
 
-	/* Description */
 	object_desc(object_name, object_ptr, 0);
 
-	/* Describe */
 	if(IS_EQUIPPED(object_ptr))
 	{
 #ifdef JP
@@ -2762,13 +2755,9 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 
 	/* Mark the item as fully known */
 	object_ptr->ident |= (IDENT_MENTAL);
-
 	handle_stuff();
-
-	/* Description */
 	object_desc(object_name, object_ptr, 0);
 
-	/* Describe */
 	if(IS_EQUIPPED(object_ptr))
 	{
 #ifdef JP
@@ -2776,8 +2765,6 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 #else
 		msg_format("%^s: %s (%c).", describe_use(creature_ptr, item), object_name, index_to_label(item));
 #endif
-
-
 	}
 	else if(item >= 0)
 	{
@@ -3248,10 +3235,8 @@ msg_format("%s ‚ÍŠù‚Éj•Ÿ‚³‚ê‚Ä‚¢‚éB",
 
 	if(!(object_is_artifact(object_ptr) || object_is_ego(object_ptr)) || one_in_(3))
 	{
-		/* Describe */
 #ifdef JP
-msg_format("%s‚Í‹P‚¢‚½I",
-     object_name);
+		msg_format("%s‚Í‹P‚¢‚½I", object_name);
 #else
 		msg_format("%s %s shine%s!",
 		    ((item >= 0) ? "Your" : "The"), object_name,
@@ -4669,7 +4654,6 @@ bool curse_armor(creature_type *creature_ptr)
 	/* Nothing to curse */
 	if(!is_valid_object(object_ptr)) return FALSE;
 
-	/* Describe */
 	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw for artifacts */

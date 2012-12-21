@@ -1088,12 +1088,7 @@ static bool build_type4(floor_type *floor_ptr)
 	x1 = xval - x/2;
 	x2 = xval + x/2;
 
-	/* Describe */
-	if(cheat_room)
-	{
-		/* Room type */
-		msg_format("[Large Room(%d,%d-%d,%d)]", x1, y1, x2, y2);
-	}
+	if(cheat_room) msg_format("[Large Room(%d,%d-%d,%d)]", x1, y1, x2, y2);
 
 	/* Place a full floor under the room */
 	for (y = y1 - 1; y <= y2 + 1; y++)
@@ -2283,12 +2278,7 @@ static bool build_type5(floor_type *floor_ptr)
 		case 4: place_secret_door(floor_ptr, yval, x2 + 1, DOOR_DEFAULT); break;
 	}
 
-	/* Describe */
-	if(cheat_room)
-	{
-		/* Room type */
-		msg_format("[Creature nest(%d,%d-%d,%d)(%s%s)]", x1, y1, x2, y2, n_ptr->name, pit_subtype_string(cur_nest_type, TRUE));
-	}
+	if(cheat_room) msg_format("[Creature nest(%d,%d-%d,%d)(%s%s)]", x1, y1, x2, y2, n_ptr->name, pit_subtype_string(cur_nest_type, TRUE));
 
 	/* Place some creatures */
 	for (y = y1; y <= y2; y++)

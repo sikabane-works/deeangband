@@ -4308,7 +4308,6 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 	/* Prepare the object */
 	object_prep(quest_ptr, k_idx, ITEM_FREE_SIZE);
 
-	/* Describe */
 	object_desc(object_name, quest_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
 
 	/* Mention the object name */
