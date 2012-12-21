@@ -4040,7 +4040,6 @@ enum TRAIT_INFO
   TRAIT_INFO_INFRA,
   TRAIT_INFO_HITD_M,
   TRAIT_INFO_EXP,
-  TRAIT_INFO_FLAGS,
   TRAIT_INFO_SPEED,
   TRAIT_INFO_DESCRIPTION,
   TRAIT_INFO_E_DESCRIPTION,
@@ -4090,7 +4089,6 @@ static cptr cfeature_info_csv_list[TRAIT_INFO_CSV_COLUMNS] =
 	"INFRA",
 	"HITD_M",
 	"EXP",
-	"FLAGS",
 	"SPEED",
 	"DESCRIPTION",
 	"E_DESCRIPTION",
@@ -4294,10 +4292,6 @@ errr parse_trait_csv(char *buf, header *head)
 				case TRAIT_INFO_CHARGE:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_ptr->charge = (s16b)b;
-				break;
-
-				case TRAIT_INFO_FLAGS:
-					strcpy(&trait_tmp[n], tmp);
 				break;
 
 				case TRAIT_INFO_SPEED:
