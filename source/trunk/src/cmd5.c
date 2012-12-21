@@ -192,7 +192,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 					/* Show list */
 					redraw = TRUE;
 
-					/* Save the screen */
 					screen_save();
 
 					/* Display a list of spells */
@@ -207,7 +206,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 					/* Hide list */
 					redraw = FALSE;
 
-					/* Restore the screen */
 					screen_load();
 				}
 
@@ -295,7 +293,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 	}
 
 
-	/* Restore the screen */
 	if(redraw) screen_load();
 
 
@@ -505,7 +502,6 @@ void do_cmd_browse(creature_type *creature_ptr)
 	}
 
 
-	/* Save the screen */
 	screen_save();
 
 	/* Clear the top line */
@@ -543,7 +539,6 @@ void do_cmd_browse(creature_type *creature_ptr)
 			(void)inkey();
 
 
-			/* Restore the screen */
 			screen_load();
 
 			return;
@@ -564,7 +559,6 @@ void do_cmd_browse(creature_type *creature_ptr)
 		}
 	}
 
-	/* Restore the screen */
 	screen_load();
 }
 
@@ -2327,7 +2321,6 @@ void do_cmd_pet(creature_type *master_ptr)
 					/* Show list */
 					redraw = TRUE;
 
-					/* Save the screen */
 					if(!use_menu) screen_save();
 
 					prt("", y++, x);
@@ -2357,7 +2350,6 @@ void do_cmd_pet(creature_type *master_ptr)
 					/* Hide list */
 					redraw = FALSE;
 
-					/* Restore the screen */
 					screen_load();
 				}
 
@@ -2400,7 +2392,6 @@ void do_cmd_pet(creature_type *master_ptr)
 			flag = TRUE;
 		}
 
-		/* Restore the screen */
 		if(redraw) screen_load();
 
 		/* Abort if needed */

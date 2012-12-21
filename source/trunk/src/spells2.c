@@ -236,10 +236,8 @@ void creature_knowledge(creature_type *creature_ptr)
 	/* Access the current weapon */
 	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 0);
 
-	/* Save the screen */
 	screen_save();
 
-	/* Erase the screen */
 	for (k = 1; k < 24; k++) prt("", k, 3);
 
 	/* Label the information */
@@ -279,7 +277,6 @@ void creature_knowledge(creature_type *creature_ptr)
 
 	inkey();
 
-	/* Restore the screen */
 	screen_load();
 }
 
@@ -329,10 +326,8 @@ void report_magics(creature_type *creature_ptr)
 	cptr    info[128];
 	int     info2[128];
 
-	/* Save the screen */
 	screen_save();
 
-	/* Erase the screen */
 	for (k = 1; k < 24; k++) prt("", k, 3);
 
 	/* Label the information */
@@ -379,7 +374,6 @@ void report_magics(creature_type *creature_ptr)
 
 	inkey();
 
-	/* Restore the screen */
 	screen_load();
 }
 

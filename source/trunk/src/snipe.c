@@ -280,7 +280,6 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 				/* Show list */
 				redraw = TRUE;
 
-				/* Save the screen */
 				if(!only_browse) screen_save();
 
 				/* Display a list of spells */
@@ -322,7 +321,6 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 				/* Hide list */
 				redraw = FALSE;
 
-				/* Restore the screen */
 				if(!only_browse) screen_load();
 			}
 
@@ -368,7 +366,6 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 		flag = TRUE;
 	}
 
-	/* Restore the screen */
 	if(redraw && !only_browse) screen_load();
 
 	/* Show choices */

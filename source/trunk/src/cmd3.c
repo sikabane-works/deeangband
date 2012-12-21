@@ -86,7 +86,6 @@ void do_cmd_equip(creature_type *creature_ptr)
 
 	if(easy_floor) command_wrk = (USE_EQUIP);
 
-	/* Save the screen */
 	screen_save();
 
 	/* Display the equipment */
@@ -110,7 +109,6 @@ void do_cmd_equip(creature_type *creature_ptr)
 	/* Get a new command */
 	command_new = inkey();
 
-	/* Restore the screen */
 	screen_load();
 
 
@@ -1756,7 +1754,6 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 			/* Recall */
 			if(recall)
 			{
-				/* Save the screen */
 				screen_save();
 
 				/* Recall on screen */

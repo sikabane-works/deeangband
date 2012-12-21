@@ -1042,7 +1042,6 @@ void do_cmd_nikki(creature_type *player_ptr)
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	/* Save the screen */
 	screen_save();
 
 	/* Interact until done */
@@ -1102,7 +1101,6 @@ void do_cmd_nikki(creature_type *player_ptr)
 		msg_print(NULL);
 	}
 
-	/* Restore the screen */
 	screen_load();
 }
 
@@ -1187,7 +1185,6 @@ void do_cmd_change_name(creature_type *creature_ptr)
 	char	tmp[160];
 
 
-	/* Save the screen */
 	screen_save();
 
 	/* Forever */
@@ -1239,7 +1236,6 @@ void do_cmd_change_name(creature_type *creature_ptr)
 		msg_print(NULL); // Flush messages
 	}
 
-	/* Restore the screen */
 	screen_load();
 
 	prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
@@ -1301,7 +1297,6 @@ void do_cmd_messages(int num_now)
 	/* Start on first message */
 	i = 0;
 
-	/* Save the screen */
 	screen_save();
 
 	Term_clear();
@@ -1500,7 +1495,6 @@ void do_cmd_messages(int num_now)
 		if(i == j) bell();
 	}
 
-	/* Restore the screen */
 	screen_load();
 }
 
@@ -2057,32 +2051,24 @@ static void do_cmd_options_win(void)
 	u32b old_flag[8];
 
 
-	/* Memorize old flags */
-	for (j = 0; j < 8; j++)
-	{
-		/* Acquire current flags */
-		old_flag[j] = window_flag[j];
-	}
-
+	// Memorize old flags
+	for (j = 0; j < WINDOW_MAX; j++) old_flag[j] = window_flag[j];
 
 	Term_clear();
 
 	/* Interact */
 	while (go)
 	{
-		/* Prompt XXX XXX XXX */
 #ifdef JP
 		prt("ウィンドウ・フラグ (<方向>で移動, tでチェンジ, y/n でセット, ESC)", 0, 0);
 #else
 		prt("Window Flags (<dir>, t, y, n, ESC) ", 0, 0);
 #endif
 
-
 		/* Display the windows */
-		for (j = 0; j < 8; j++)
+		for (j = 0; j < WINDOW_MAX; j++)
 		{
 			byte a = TERM_WHITE;
-
 			cptr s = angband_term_name[j];
 
 			/* Use color */
@@ -2114,7 +2100,7 @@ static void do_cmd_options_win(void)
 			Term_putstr(0, i + 5, -1, a, str);
 
 			/* Display the windows */
-			for (j = 0; j < 8; j++)
+			for (j = 0; j < WINDOW_MAX; j++)
 			{
 				byte a = TERM_WHITE;
 
@@ -2191,8 +2177,8 @@ static void do_cmd_options_win(void)
 		}
 	}
 
-	/* Notice changes */
-	for (j = 0; j < 8; j++)
+	// Notice changes
+	for (j = 0; j < WINDOW_MAX; j++)
 	{
 		term *old = Term;
 
@@ -2275,7 +2261,6 @@ void do_cmd_options(void)
 	int i, d, skey;
 	int y = 0;
 
-	/* Save the screen */
 	screen_save();
 
 	/* Interact */
@@ -2600,7 +2585,6 @@ void do_cmd_options(void)
 	}
 
 
-	/* Restore the screen */
 	screen_load();
 
 	prepare_redraw(PR_EQUIPPY);
@@ -2616,8 +2600,6 @@ void do_cmd_options(void)
 void do_cmd_pref(void)
 {
 	char buf[80];
-
-	/* Default */
 	strcpy(buf, "");
 
 	/* Ask for a "user pref command" */
@@ -3374,7 +3356,6 @@ void do_cmd_visuals(void)
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	/* Save the screen */
 	screen_save();
 
 	/* Interact until done */
@@ -4023,7 +4004,6 @@ void do_cmd_visuals(void)
 		msg_print(NULL);
 	}
 
-	/* Restore the screen */
 	screen_load();
 
 	if(need_redraw) do_cmd_redraw();
@@ -4043,7 +4023,6 @@ void do_cmd_colors(void)
 	FILE_TYPE(FILE_TYPE_TEXT);
 
 
-	/* Save the screen */
 	screen_save();
 
 
@@ -4251,7 +4230,6 @@ void do_cmd_colors(void)
 	}
 
 
-	/* Restore the screen */
 	screen_load();
 }
 
@@ -5239,15 +5217,8 @@ void do_cmd_load_screen(void)
 		return;
 	}
 
-
-	/* Save the screen */
 	screen_save();
-
-	/* Clear the screen */
 	Term_clear();
-
-
-	/* Load the screen */
 	for (y = 0; okay; y++)
 	{
 		/* Get a line of data including control code */
@@ -5270,7 +5241,6 @@ void do_cmd_load_screen(void)
 		}
 	}
 
-	/* Dump the screen */
 	for (y = 0; okay; y++)
 	{
 		/* Get a line of data including control code */
@@ -5303,10 +5273,7 @@ void do_cmd_load_screen(void)
 		}
 	}
 
-
-	/* Close it */
 	my_fclose(fff);
-
 
 #ifdef JP
 	prt("ファイルに書き出された画面(記念撮影)をロードしました。", 0, 0);
@@ -5318,7 +5285,6 @@ void do_cmd_load_screen(void)
 	inkey();
 
 
-	/* Restore the screen */
 	screen_load();
 }
 
@@ -5597,7 +5563,6 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 		return;
 	}
 
-	/* Save the screen */
 	if(message)
 		screen_save();
 
@@ -5623,7 +5588,6 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 		}
 	}
 
-	/* Dump the screen */
 	for (y = 0; y < hgt; y++)
 	{
 		/* Start the row */
@@ -5702,7 +5666,6 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 		msg_print(NULL);
 	}
 
-	/* Restore the screen */
 	if(message)
 		screen_load();
 }
@@ -5825,11 +5788,9 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		}
 
 
-		/* Save the screen */
 		screen_save();
 
 
-		/* Dump the screen */
 		for (y = 0; y < hgt; y++)
 		{
 			/* Dump each row */
@@ -5853,7 +5814,6 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		fprintf(fff, "\n");
 
 
-		/* Dump the screen */
 		for (y = 0; y < hgt; y++)
 		{
 			/* Dump each row */
@@ -5889,7 +5849,6 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		msg_print(NULL);
 
 
-		/* Restore the screen */
 		screen_load();
 	}
 
@@ -7594,12 +7553,10 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 					for(i = 0; i < max_creature_idx; i++)
 						if(mon_idx[mon_cur] == creature_list[i].species_idx)
 						{
-							/* Save the screen */
 							screen_save();
 
 							creature_knowledge(&creature_list[i]);
 
-							/* Restore the screen */
 							screen_load();
 							break;
 
@@ -7618,7 +7575,6 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 					for(i = 0; i < max_creature_idx; i++)
 						if(mon_idx[mon_cur] == creature_list[i].species_idx)
 						{
-							/* Save the screen */
 							screen_save();
 
 							(void)show_item_list(0, &creature_list[i], SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY, NULL);
@@ -7632,7 +7588,6 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 
 							}
 
-							/* Restore the screen */
 							screen_load();
 							break;
 
@@ -7651,7 +7606,6 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 					for(i = 0; i < max_creature_idx; i++)
 						if(mon_idx[mon_cur] == creature_list[i].species_idx)
 						{
-							/* Save the screen */
 							screen_save();
 
 							(void)show_item_list(0, &creature_list[i], SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, NULL);
@@ -7665,7 +7619,6 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 
 							}
 
-							/* Restore the screen */
 							screen_load();
 							break;
 
@@ -9434,7 +9387,6 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	/* Save the screen */
 	screen_save();
 
 	/* Interact until done */
@@ -9597,7 +9549,6 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 		msg_print(NULL);
 	}
 
-	/* Restore the screen */
 	screen_load();
 
 	if(need_redraw) do_cmd_redraw();
@@ -9612,13 +9563,11 @@ void do_cmd_checkquest(void)
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	/* Save the screen */
 	screen_save();
 
 	/* Quest info */
 	do_cmd_knowledge_quests();
 
-	/* Restore the screen */
 	screen_load();
 }
 

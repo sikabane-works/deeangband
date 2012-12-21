@@ -1700,7 +1700,6 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 				/* Show list */
 				redraw = TRUE;
 
-				/* Save the screen */
 				if(!use_menu) screen_save();
 
 				/* Print header(s) */
@@ -1749,7 +1748,6 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 				/* Hide list */
 				redraw = FALSE;
 
-				/* Restore the screen */
 				screen_load();
 			}
 
@@ -1804,7 +1802,6 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 		flag = TRUE;
 	}
 
-	/* Restore the screen */
 	if(redraw) screen_load();
 
 	/* Abort if needed */

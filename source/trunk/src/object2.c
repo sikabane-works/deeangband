@@ -5427,7 +5427,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 					/* Show list */
 					redraw = TRUE;
 
-					/* Save the screen */
 					if(!use_menu) screen_save();
 
 					for (y = 1; y < 24; y++)
@@ -5549,7 +5548,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 					/* Hide list */
 					redraw = FALSE;
 
-					/* Restore the screen */
 					screen_load();
 				}
 
@@ -5594,7 +5592,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			flag = TRUE;
 		}
 
-		/* Restore the screen */
 		if(redraw) screen_load();
 
 		if(!flag) return;

@@ -3178,7 +3178,6 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	(void)strnfmt(out_val, 78, "(*=List, ESC=exit) Use which power? ");
 #endif
 	
-	/* Save the screen */
 	screen_save();
 
 	request_list = always_show_list;
@@ -3378,7 +3377,6 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 				/* Hide list */
 				request_list = FALSE;
 				
-				/* Restore the screen */
 				screen_load();
 				screen_save();
 			}
@@ -3494,7 +3492,6 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 		flag = TRUE;
 	}
 
-	/* Restore the screen */
 	screen_load();
 
 	if(!flag) return -1;

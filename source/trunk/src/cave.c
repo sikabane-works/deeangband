@@ -2179,7 +2179,6 @@ void do_cmd_view_map(creature_type *creature_ptr)
 	int cy, cx;
 
 
-	/* Save the screen */
 	screen_save();
 
 #ifdef JP
@@ -2260,7 +2259,6 @@ void do_cmd_view_map(creature_type *creature_ptr)
 		inkey();
 	}
 
-	/* Restore the screen */
 	screen_load();
 }
 

@@ -3431,7 +3431,6 @@ static bool research_creature(creature_type *creature_ptr)
 	static int old_i = 0;
 
 
-	/* Save the screen */
 	screen_save();
 
 	/* Get a character, or abort */

@@ -2569,7 +2569,6 @@ extern void do_cmd_spoilers(void);
  */
 void do_cmd_spoilers(void)
 {
-	/* Save the screen */
 	screen_save();
 
 	/* Interact */
@@ -2598,7 +2597,6 @@ void do_cmd_spoilers(void)
 		{
 		/* Escape */
 		case ESCAPE:
-			/* Restore the screen */
 			screen_load();
 			return;
 

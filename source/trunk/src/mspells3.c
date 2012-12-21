@@ -500,7 +500,6 @@ cptr            p = "–‚–@";
 				/* Show list */
 				redraw = TRUE;
 
-				/* Save the screen */
 				if(!use_menu) screen_save();
 
 				/* Display a list of spells */
@@ -594,7 +593,6 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 				/* Hide list */
 				redraw = FALSE;
 
-				/* Restore the screen */
 				screen_load();
 			}
 
@@ -643,7 +641,6 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 		flag = TRUE;
 	}
 
-	/* Restore the screen */
 	if(redraw) screen_load();
 
 	/* Show choices */

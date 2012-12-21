@@ -6167,7 +6167,6 @@ void do_cmd_edit_autopick(creature_type *creature_ptr)
 		}
 	}
 
-	/* Save the screen */
 	screen_save();
 
 	/* Process requests until done */
@@ -6254,7 +6253,6 @@ void do_cmd_edit_autopick(creature_type *creature_ptr)
 		if(com_id) quit = do_editor_command(creature_ptr, tb, com_id);
 	} /* while (TRUE) */
 
-	/* Restore the screen */
 	screen_load();
 
 	/* Get the filename of preference */

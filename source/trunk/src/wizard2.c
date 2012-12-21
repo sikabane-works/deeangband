@@ -1185,13 +1185,11 @@ static void wiz_create_item(creature_type *creature_ptr)
 	int k_idx;
 
 
-	/* Save the screen */
 	screen_save();
 
 	/* Get object base type */
 	k_idx = wiz_create_itemtype();
 
-	/* Restore the screen */
 	screen_load();
 
 

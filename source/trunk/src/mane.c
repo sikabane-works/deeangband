@@ -141,7 +141,6 @@ cptr            p = "”\—Í";
 				/* Show list */
 				redraw = TRUE;
 
-				/* Save the screen */
 				screen_save();
 
 				/* Display a list of spells */
@@ -210,7 +209,6 @@ put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
 				/* Hide list */
 				redraw = FALSE;
 
-				/* Restore the screen */
 				screen_load();
 			}
 
@@ -256,7 +254,6 @@ put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
 		flag = TRUE;
 	}
 
-	/* Restore the screen */
 	if(redraw) screen_load();
 
 	/* Show choices */

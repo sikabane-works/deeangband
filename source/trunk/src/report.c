@@ -325,7 +325,6 @@ cptr make_screen_dump(void)
 	for (i = 0; html_head[i]; i++)
 		buf_sprintf(screen_buf, html_head[i]);
 
-	/* Dump the screen */
 	for (y = 0; y < hgt; y++)
 	{
 		/* Start the row */

@@ -627,7 +627,6 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 				/* Show list */
 				redraw = TRUE;
 
-				/* Save the screen */
 				if(!only_browse && !use_menu) screen_save();
 
 				/* Display a list of spells */
@@ -740,7 +739,6 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 				/* Hide list */
 				redraw = FALSE;
 
-				/* Restore the screen */
 				screen_load();
 			}
 
@@ -787,7 +785,6 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 		flag = TRUE;
 	}
 
-	/* Restore the screen */
 	if(redraw && !only_browse) screen_load();
 
 	/* Show choices */
