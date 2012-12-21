@@ -1465,6 +1465,7 @@ struct trait_type
 	char title[50];
 	char e_title[50];
 	traits_precondition alias;
+	u32b reverse_alias[TRAIT_FLAG_MAX];
 	byte effect_type;
 	s16b adj[STAT_MAX];
 	s16b ac;
