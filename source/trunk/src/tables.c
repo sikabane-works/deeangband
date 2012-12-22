@@ -3056,117 +3056,36 @@ option_type option_info[] =
 	/*** Play-record Options ***/
 
 #ifdef JP
-	{ &record_fix_art, TRUE, OPT_PAGE_PLAYRECORD, 4, 11,
-	"record_fix_art", "固定アーティファクトの入手を記録する" },
+	{ &record_fix_art, TRUE, OPT_PAGE_PLAYRECORD, 4, 11, "record_fix_art", "固定アーティファクトの入手を記録する" },
+	{ &record_rand_art, TRUE, OPT_PAGE_PLAYRECORD, 4, 12, "record_rand_art", "ランダムアーティファクトの入手を記録する" },
+	{ &record_destroy_uniq, TRUE, OPT_PAGE_PLAYRECORD, 4, 13, "record_destroy_uniq", "ユニーククリーチャーを倒したときを記録する" },
+	{ &record_fix_quest, TRUE, OPT_PAGE_PLAYRECORD, 4, 14, "record_fix_quest", "固定クエストの達成を記録する" },
+	{ &record_rand_quest, TRUE, OPT_PAGE_PLAYRECORD, 4, 15, "record_rand_quest", "ランダムクエストの達成を記録する" },
+	{ &record_maxdepth, TRUE, OPT_PAGE_PLAYRECORD, 4, 16, "record_maxdepth", "最深階を更新したときに記録する" },
+	{ &record_stair,  TRUE, OPT_PAGE_PLAYRECORD, 4, 17, "record_stair",   "階の移動を記録する" },
+	{ &record_buy,    TRUE, OPT_PAGE_PLAYRECORD, 4, 18, "record_buy",     "アイテムの購入を記録する" },
+	{ &record_sell,   FALSE, OPT_PAGE_PLAYRECORD, 4, 19, "record_sell",    "アイテムの売却を記録する" },
+	{ &record_danger, TRUE, OPT_PAGE_PLAYRECORD, 4, 20, "record_danger",  "ピンチになったときを記録する" },
+	{ &record_arena,  TRUE, OPT_PAGE_PLAYRECORD, 4, 21, "record_arena",   "アリーナでの勝利を記録する" },
+	{ &record_ident,  TRUE, OPT_PAGE_PLAYRECORD, 4, 22, "record_ident",   "未判明のアイテムの識別を記録する" },
+	{ &record_named_pet, FALSE, OPT_PAGE_PLAYRECORD, 4, 23, "record_named_pet", "名前つきペットの情報を記録する" },
+	{ &autosave_l, FALSE, OPT_PAGE_AUTOSAVE, 20, 0, "autosave_l",     "階層毎にオートセーブする" },
 #else
-	{ &record_fix_art, TRUE, OPT_PAGE_PLAYRECORD, 4, 11,
-	"record_fix_art", "Record fixed artifacts" },
+	{ &record_fix_art, TRUE, OPT_PAGE_PLAYRECORD, 4, 11, "record_fix_art", "Record fixed artifacts" },
+	{ &record_rand_art, TRUE, OPT_PAGE_PLAYRECORD, 4, 12, "record_rand_art", "Record random artifacts" },
+	{ &record_destroy_uniq, TRUE, OPT_PAGE_PLAYRECORD, 4, 13, "record_destroy_uniq", "Record when destroy unique creature" },
+	{ &record_fix_quest, TRUE, OPT_PAGE_PLAYRECORD, 4, 14,"record_fix_quest", "Record fixed quests" },
+	{ &record_rand_quest, TRUE, OPT_PAGE_PLAYRECORD, 4, 15, "record_rand_quest", "Record random quests" },
+	{ &record_maxdepth, TRUE, OPT_PAGE_PLAYRECORD, 4, 16, "record_maxdepth", "Record movements to deepest level" },
+	{ &record_stair,  TRUE, OPT_PAGE_PLAYRECORD, 4, 17, "record_stair",   "Record recall and stair movements" },
+	{ &record_buy,    TRUE, OPT_PAGE_PLAYRECORD, 4, 18, "record_buy",     "Record purchased items" },
+	{ &record_sell,   FALSE, OPT_PAGE_PLAYRECORD, 4, 19, "record_sell",    "Record sold items" },
+	{ &record_danger, TRUE, OPT_PAGE_PLAYRECORD, 4, 20, "record_danger",  "Record hitpoint warning" },
+	{ &record_arena,  TRUE, OPT_PAGE_PLAYRECORD, 4, 21, "record_arena",   "Record arena victories" },
+	{ &record_ident,  TRUE, OPT_PAGE_PLAYRECORD, 4, 22, "record_ident",   "Record first identified items" },
+	{ &record_named_pet, FALSE, OPT_PAGE_PLAYRECORD, 4, 23, "record_named_pet", "Record informations of named pets" },
+	{ &autosave_l, FALSE, OPT_PAGE_PLAYRECORD, 20, 0, "autosave_l",     "Autosave" },
 #endif
-
-#ifdef JP
-	{ &record_rand_art, TRUE, OPT_PAGE_PLAYRECORD, 4, 12,
-	"record_rand_art", "ランダムアーティファクトの入手を記録する" },
-#else
-	{ &record_rand_art, TRUE, OPT_PAGE_PLAYRECORD, 4, 12,
-	"record_rand_art", "Record random artifacts" },
-#endif
-
-#ifdef JP
-	{ &record_destroy_uniq, TRUE, OPT_PAGE_PLAYRECORD, 4, 13,
-	"record_destroy_uniq", "ユニーククリーチャーを倒したときを記録する" },
-#else
-	{ &record_destroy_uniq, TRUE, OPT_PAGE_PLAYRECORD, 4, 13,
-	"record_destroy_uniq", "Record when destroy unique creature" },
-#endif
-
-#ifdef JP
-	{ &record_fix_quest, TRUE, OPT_PAGE_PLAYRECORD, 4, 14,
-	"record_fix_quest", "固定クエストの達成を記録する" },
-#else
-	{ &record_fix_quest, TRUE, OPT_PAGE_PLAYRECORD, 4, 14,
-	"record_fix_quest", "Record fixed quests" },
-#endif
-
-#ifdef JP
-	{ &record_rand_quest, TRUE, OPT_PAGE_PLAYRECORD, 4, 15,
-	"record_rand_quest", "ランダムクエストの達成を記録する" },
-#else
-	{ &record_rand_quest, TRUE, OPT_PAGE_PLAYRECORD, 4, 15,
-	"record_rand_quest", "Record random quests" },
-#endif
-
-#ifdef JP
-	{ &record_maxdepth, TRUE, OPT_PAGE_PLAYRECORD, 4, 16,
-	"record_maxdepth", "最深階を更新したときに記録する" },
-#else
-	{ &record_maxdepth, TRUE, OPT_PAGE_PLAYRECORD, 4, 16,
-	"record_maxdepth", "Record movements to deepest level" },
-#endif
-
-#ifdef JP
-	{ &record_stair,  TRUE, OPT_PAGE_PLAYRECORD, 4, 17,
-	"record_stair",   "階の移動を記録する" },
-#else
-	{ &record_stair,  TRUE, OPT_PAGE_PLAYRECORD, 4, 17,
-	"record_stair",   "Record recall and stair movements" },
-#endif
-
-#ifdef JP
-	{ &record_buy,    TRUE, OPT_PAGE_PLAYRECORD, 4, 18,
-	"record_buy",     "アイテムの購入を記録する" },
-#else
-	{ &record_buy,    TRUE, OPT_PAGE_PLAYRECORD, 4, 18,
-	"record_buy",     "Record purchased items" },
-#endif
-
-#ifdef JP
-	{ &record_sell,   FALSE, OPT_PAGE_PLAYRECORD, 4, 19,
-	"record_sell",    "アイテムの売却を記録する" },
-#else
-	{ &record_sell,   FALSE, OPT_PAGE_PLAYRECORD, 4, 19,
-	"record_sell",    "Record sold items" },
-#endif
-
-#ifdef JP
-	{ &record_danger, TRUE, OPT_PAGE_PLAYRECORD, 4, 20,
-	"record_danger",  "ピンチになったときを記録する" },
-#else
-	{ &record_danger, TRUE, OPT_PAGE_PLAYRECORD, 4, 20,
-	"record_danger",  "Record hitpoint warning" },
-#endif
-
-#ifdef JP
-	{ &record_arena,  TRUE, OPT_PAGE_PLAYRECORD, 4, 21,
-	"record_arena",   "アリーナでの勝利を記録する" },
-#else
-	{ &record_arena,  TRUE, OPT_PAGE_PLAYRECORD, 4, 21,
-	"record_arena",   "Record arena victories" },
-#endif
-
-#ifdef JP
-	{ &record_ident,  TRUE, OPT_PAGE_PLAYRECORD, 4, 22,
-	"record_ident",   "未判明のアイテムの識別を記録する" },
-#else
-	{ &record_ident,  TRUE, OPT_PAGE_PLAYRECORD, 4, 22,
-	"record_ident",   "Record first identified items" },
-#endif
-
-#ifdef JP
-	{ &record_named_pet, FALSE, OPT_PAGE_PLAYRECORD, 4, 23,
-	"record_named_pet", "名前つきペットの情報を記録する" },
-#else
-	{ &record_named_pet, FALSE, OPT_PAGE_PLAYRECORD, 4, 23,
-	"record_named_pet", "Record informations of named pets" },
-#endif
-
-	#ifdef JP
-	{ &autosave_l, FALSE, OPT_PAGE_AUTOSAVE, 20, 0,
-	"autosave_l",     "階層毎にオートセーブする" },
-#else
-	{ &autosave_l, FALSE, OPT_PAGE_PLAYRECORD, 20, 0,
-	"autosave_l",     "Autosave" },
-#endif
-
 
 	/*** End of Table ***/
 
