@@ -4002,6 +4002,11 @@ void notice_stuff(creature_type *creature_ptr)
 	}
 }
 
+void prepare_update(creature_type *creature_ptr, u32b flags)
+{
+	creature_ptr->creature_update |= flags;
+}
+
 // Handle "update"
 void update_creature(creature_type *creature_ptr, bool message)
 {

@@ -1776,7 +1776,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 		/* Ignore the gender (if desired) */
 		if(!creature_ptr || !pron) kind = 0x00;
-
+ 
 
 		/* Assume simple result */
 #ifdef JP
@@ -2331,22 +2331,17 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 			case 1:
 				if(!has_trait(watcher_ptr, TRAIT_MORONIC) && one_in_(5))
 				{
+#ifdef JP
 					if((watcher_ptr->stat_use[STAT_INT] < 4) && (watcher_ptr->stat_use[STAT_WIS] < 4))
-					{
-#ifdef JP
 						msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
-#else
-						msg_print("You turn into an utter moron!");
-#endif
-					}
 					else
-					{
-#ifdef JP
 						msg_print("あなたは完璧な馬鹿になった！");
 #else
+					if((watcher_ptr->stat_use[STAT_INT] < 4) && (watcher_ptr->stat_use[STAT_WIS] < 4))
+						msg_print("You turn into an utter moron!");
+					else
 						msg_print("You turn into an utter moron!");
 #endif
-					}
 
 					if(has_trait(watcher_ptr, TRAIT_HYPER_INT))
 					{
