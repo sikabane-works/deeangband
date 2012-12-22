@@ -1083,7 +1083,7 @@ void do_poly_self(creature_type *creature_ptr)
 {
 	int power = creature_ptr->lev;
 	char effect_msg[80] = "";
-	int new_race, expfact, goalexpfact;
+	int new_race;
 
 	if(is_seen(player_ptr, creature_ptr))
 	{
@@ -1094,7 +1094,7 @@ void do_poly_self(creature_type *creature_ptr)
 #endif
 	}
 
-	if((power > randint0(20)) && one_in_(3) && (!has_trait(creature_ptr, TRAIT_ANDROID)))
+	if(power > randint0(20) && one_in_(3))
 	{
 
 		power -= 10; // Some form of racial polymorph...
@@ -1194,23 +1194,13 @@ void do_poly_self(creature_type *creature_ptr)
 #endif
 		}
 
-		/*
-		* Restrict the race choices by exp penalty so
-		* weak polymorph always means weak race
-		*/
-		if(power < 0)
-			goalexpfact = 100;
-		else
-			goalexpfact = 100 + 3 * randint0(power);
-
 		if(race_info[creature_ptr->race_idx1].dr == -1)
 		{
 			do
 			{
 				new_race = randint0(MAX_RACES);
-				expfact = race_info[new_race].r_exp;
 			}
-			while (((new_race == creature_ptr->race_idx1) && (expfact > goalexpfact)) || race_info[new_race].dr != -1);
+			while (((new_race == creature_ptr->race_idx1) || race_info[new_race].dr != -1);
 
 			change_race(creature_ptr, new_race, effect_msg);
 		}
