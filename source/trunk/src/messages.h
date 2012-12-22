@@ -137,6 +137,7 @@ static const cptr text_files[]=
 	"monfrien_j.txt",
 	"monspeak_j.txt",
 	"rumors_j.txt",
+	"silly_j.txt",
 	"news_j.txt",
 #else
 	"news.txt",
@@ -160,11 +161,12 @@ static const cptr text_files[]=
 	"monfrien.txt",
 	"monspeak.txt",
 	"rumors.txt",
+	"silly_j.txt",
 	"news.txt",
 #endif
 };
 
-enum MESSAGE_FILES
+enum TEXT_FILES
 {
 	TEXT_FILES_GAME_NEWS,
 	TEXT_FILES_ARMOUR_CURSED_ARTIFACT,
@@ -187,6 +189,7 @@ enum MESSAGE_FILES
 
 	TEXT_FILES_CREATURE_SPEAK,
 	TEXT_FILES_RUMOR,
+	TEXT_FILES_SILLY,
 	TEXT_FILES_NEWS,
 };
 

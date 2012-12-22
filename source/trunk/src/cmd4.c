@@ -372,12 +372,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN, (quest[num].type == QUEST_TYPE_RANDOM) ? 0 : num);
 	}
 
-#ifdef JP
 	sprintf(file_name,"playrecord-%s.txt",savefile_base);
-#else
-	/* different filne name to avoid mixing */
-	sprintf(file_name,"playrec-%s.txt",savefile_base);
-#endif
 
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, file_name);
@@ -928,11 +923,8 @@ static void do_cmd_disp_nikki(creature_type *creature_ptr)
 					   "Time is money.",
 					   "Quest of The World's Greatest Brain"};
 #endif
-#ifdef JP
+
 	sprintf(file_name,"playrecord-%s.txt",savefile_base);
-#else
-	sprintf(file_name,"playrec-%s.txt",savefile_base);
-#endif
 
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, file_name);
@@ -1004,11 +996,11 @@ static void do_cmd_erase_nikki(void)
 
 #ifdef JP
 	if(!get_check("ñ{ìñÇ…ãLò^Çè¡ãéÇµÇ‹Ç∑Ç©ÅH")) return;
-	sprintf(file_name,"playrecord-%s.txt",savefile_base);
 #else
 	if(!get_check("Do you really want to delete all your record? ")) return;
-	sprintf(file_name,"playrec-%s.txt",savefile_base);
 #endif
+
+	sprintf(file_name,"playrecord-%s.txt",savefile_base);
 
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, file_name);

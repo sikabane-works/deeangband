@@ -2494,7 +2494,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 #ifdef JP
 				if(!get_rnd_line_jonly(text_files[TEXT_FILES_RUMOR], 0, Rumor, 10))
 #else
-				if(!get_rnd_line("rumors.txt", 0, Rumor))
+				if(!get_rnd_line(text_files[TEXT_FILES_RUMOR], 0, Rumor))
 #endif
 
 					msg_format("%s", Rumor);
@@ -2670,16 +2670,15 @@ static void castle_quest(creature_type *creature_ptr)
  */
 static void town_history(void)
 {
-	screen_save();	// Save screen
+	screen_save();
 
-	/* Peruse the building help file */
 #ifdef JP
 	(void)show_file(TRUE, "jbldg.txt", NULL, 0, 0);
 #else
 	(void)show_file(TRUE, "bldg.txt", NULL, 0, 0);
 #endif
 
-	screen_load();	// Load screen
+	screen_load();
 }
 
 // Hook to specify "ammo"
