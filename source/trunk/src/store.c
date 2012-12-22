@@ -4053,28 +4053,16 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 
 	/* Is there room in the store (or the home?) */
 	if(!store_check_num(st_ptr, quest_ptr))
-	{
-		if(is_home(st_ptr))
+	{		
 #ifdef JP
-			msg_print("我が家にはもう置く場所がない。");
+		if(is_home(st_ptr)) msg_print("我が家にはもう置く場所がない。");
+		else if(is_museum(st_ptr)) msg_print("博物館はもう満杯だ。");
+		else msg_print("すいませんが、店にはもう置く場所がありません。");
 #else
-			msg_print("Your home is full.");
+		if(is_home(st_ptr)) msg_print("Your home is full.");
+		else if(is_museum(st_ptr)) msg_print("Museum is full.");
+		else msg_print("I have not the room in my store to keep it.");
 #endif
-
-		else if(is_museum(st_ptr))
-#ifdef JP
-			msg_print("博物館はもう満杯だ。");
-#else
-			msg_print("Museum is full.");
-#endif
-
-		else
-#ifdef JP
-			msg_print("すいませんが、店にはもう置く場所がありません。");
-#else
-			msg_print("I have not the room in my store to keep it.");
-#endif
-
 		return;
 	}
 

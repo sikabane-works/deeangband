@@ -1200,8 +1200,7 @@ void do_poly_self(creature_type *creature_ptr)
 			{
 				new_race = randint0(MAX_RACES);
 			}
-			while (((new_race == creature_ptr->race_idx1) || race_info[new_race].dr != -1);
-
+			while ((new_race == creature_ptr->race_idx1) || race_info[new_race].dr != -1);
 			change_race(creature_ptr, new_race, effect_msg);
 		}
 	}
