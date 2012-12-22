@@ -4218,17 +4218,12 @@ void request_command(creature_type *guest_ptr, int shopping)
 #ifdef JP
 	int caretcmd = 0;
 #endif
-	/* Roguelike */
-	if(rogue_like_commands)
-	{
-		mode = KEYMAP_MODE_ROGUE;
-	}
 
-	/* Original */
-	else
-	{
-		mode = KEYMAP_MODE_ORIG;
-	}
+	// Roguelike
+	if(rogue_like_commands) mode = KEYMAP_MODE_ROGUE;
+
+	// Original
+	else mode = KEYMAP_MODE_ORIG;
 
 	/* No command yet */
 	command_cmd = 0;
@@ -4575,66 +4570,6 @@ bool is_a_vowel(int ch)
 
 	return FALSE;
 }
-
-
-
-#if 0
-
-/*
- * Replace the first instance of "target" in "buf" with "insert"
- * If "insert" is NULL, just remove the first instance of "target"
- * In either case, return TRUE if "target" is found.
- *
- * XXX Could be made more efficient, especially in the
- * case where "insert" is smaller than "target".
- */
-static bool insert_str(char *buf, cptr target, cptr insert)
-{
-	int   i, len;
-	int		   b_len, t_len, i_len;
-
-	/* Attempt to find the target (modify "buf") */
-	buf = my_strstr(buf, target);
-
-	/* No target found */
-	if(!buf) return FALSE;
-
-	/* Be sure we have an insertion string */
-	if(!insert) insert = "";
-
-	/* Extract some lengths */
-	t_len = strlen(target);
-	i_len = strlen(insert);
-	b_len = strlen(buf);
-
-	/* How much "movement" do we need? */
-	len = i_len - t_len;
-
-	/* We need less space (for insert) */
-	if(len < 0)
-	{
-		for (i = t_len; i < b_len; ++i) buf[i+len] = buf[i];
-	}
-
-	/* We need more space (for insert) */
-	else if(len > 0)
-	{
-		for (i = b_len-1; i >= t_len; --i) buf[i+len] = buf[i];
-	}
-
-	/* If movement occured, we need a new terminator */
-	if(len) buf[b_len+len] = '\0';
-
-	/* Now copy the insertion string */
-	for (i = 0; i < i_len; ++i) buf[i] = insert[i];
-
-	/* Successful operation */
-	return TRUE;
-}
-
-
-#endif
-
 
 /*
  * GH
