@@ -4588,10 +4588,7 @@ static void pack_overflow(creature_type *creature_ptr)
 		inven_item_describe(creature_ptr, INVEN_TOTAL);
 		inven_item_optimize(creature_ptr, INVEN_TOTAL);
 
-		/* Handle "creature_ptr->creature_update" */
 		notice_stuff(creature_ptr);
-
-		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff(creature_ptr);
 	}
 }
@@ -4966,10 +4963,7 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 		if(object_cnt + 32 < object_max) compact_objects(0);
 		*/
 
-		// Handle "player_ptr->creature_update"
 		notice_stuff(player_ptr);
-
-		// Handle "update" and "play_redraw" and "play_window"
 		handle_stuff(player_ptr);
 
 		// Hack -- Hilite the player
@@ -4984,10 +4978,7 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 		// Process all of the creatures in this floor.
 		process_creatures();
 
-		// Handle "player_ptr->creature_update"
 		notice_stuff(player_ptr);
-
-		// Handle "update" and "play_redraw" and "play_window"
 		handle_stuff(player_ptr);
 
 		// Hack -- Hilite the player
@@ -5002,10 +4993,7 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 		// Process the world
 		process_world();
 
-		// Handle "player_ptr->creature_update"
 		notice_stuff(player_ptr);
-
-		// Handle "update" and "play_redraw" and "play_window"
 		handle_stuff(player_ptr);
 
 		// Hack -- Hilite the player
@@ -5651,8 +5639,8 @@ static void play_loop(void)
 		// Write about current level on the play record once per level
 		write_level = TRUE;
 
-		notice_stuff(player_ptr); // Handle "player_ptr->creature_update"
-		handle_stuff(player_ptr); // Handle "update" and "play_redraw" and "play_window"
+		notice_stuff(player_ptr);
+		handle_stuff(player_ptr);
 
 		target_who = 0; // Cancel the target
 		health_track(0); // Cancel the health bar

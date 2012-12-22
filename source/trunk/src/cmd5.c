@@ -1337,7 +1337,7 @@ int calculate_upkeep_servant(creature_type *master_ptr)
 			if(is_enemy_of_good_creature(pet_ptr)) friend_align -= pet_ptr->lev;
 		}
 	}
-	if(old_friend_align != friend_align) master_ptr->creature_update |= (CRU_BONUS);
+	if(old_friend_align != friend_align) prepare_update(master_ptr, CRU_BONUS);
 	if(master_ptr->total_friends)
 	{
 		int upkeep_factor;
@@ -1469,7 +1469,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 
 				// Update creatures
 				prepare_update(creature_ptr, CRU_BONUS);
-				creature_ptr->creature_update |= (PU_CREATURES);
+				prepare_update(creature_ptr, PU_CREATURES);
 				prepare_redraw(PR_EXTRA | PR_UHEALTH);
 			}
 
@@ -1823,10 +1823,10 @@ bool do_riding(creature_type *rider_ptr, bool force)
 	cost_tactical_energy(rider_ptr, 100);
 
 	/* Mega-Hack -- Forget the view and lite */
-	rider_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
+	prepare_update(rider_ptr, PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update the creatures */
-	rider_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(rider_ptr, CRU_BONUS);
 	prepare_redraw(PR_MAP | PR_EXTRA | PR_UHEALTH);
 
 	/* Move the player */
@@ -2544,7 +2544,7 @@ void do_cmd_pet(creature_type *master_ptr)
 		{
 			if(master_ptr->pet_extra_flags & PF_RYOUTE) master_ptr->pet_extra_flags &= ~(PF_RYOUTE);
 			else master_ptr->pet_extra_flags |= (PF_RYOUTE);
-			master_ptr->creature_update |= (CRU_BONUS);
+			prepare_update(master_ptr, CRU_BONUS);
 			handle_stuff(master_ptr);
 			break;
 		}

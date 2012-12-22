@@ -1606,7 +1606,7 @@ static void auto_destroy_item(creature_type *creature_ptr, object_type *object_p
 
 	/* Destroy Later */
 	object_ptr->marked |= (OM_AUTODESTROY);
-	creature_ptr->creature_update |= (CRN_AUTODESTROY);
+	prepare_update(creature_ptr, CRN_AUTODESTROY);
 
 	return;
 }

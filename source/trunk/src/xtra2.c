@@ -617,8 +617,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	/* Notice changes in view */
 	if(is_lighting_creature(dead_ptr) || is_darken_creature(dead_ptr))
 	{
-		/* Update some things */
-		dead_ptr->creature_update |= (PU_SPECIES_LITE);
+		prepare_update(dead_ptr, PU_SPECIES_LITE);
 	}
 
 	/* Get the location */
