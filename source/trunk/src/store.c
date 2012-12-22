@@ -2563,16 +2563,9 @@ static void display_inventory(creature_type *creature_ptr, store_type *st_ptr)
 		/* Show "more" reminder (after the last item) */
 #ifdef JP
 		prt("-続く-", k + 6, 3);
-#else
-		prt("-more-", k + 6, 3);
-#endif
-
-
-		/* Indicate the "current page" */
-		/* Trailing spaces are to display (Page xx) and (Page x) */
-#ifdef JP
 		put_str(format("(%dページ)  ", store_top/store_bottom + 1), 5, 20);
 #else
+		prt("-more-", k + 6, 3);
 		put_str(format("(Page %d)  ", store_top/store_bottom + 1), 5, 20);
 #endif
 
@@ -2581,7 +2574,6 @@ static void display_inventory(creature_type *creature_ptr, store_type *st_ptr)
 	if(is_home(st_ptr) || is_museum(st_ptr))
 	{
 		k = st_ptr->stock_size;
-
 #ifdef JP
 		put_str(format("アイテム数:  %4d/%4d", st_ptr->stock_num, k), 19 + xtra_stock, 27);
 #else
@@ -2604,7 +2596,6 @@ static void store_prt_gold(creature_type *creature_ptr)
 	prt("Gold Remaining: ", 19 + xtra_stock, 53);
 #endif
 
-
 	sprintf(out_val, "%9ld", (long)creature_ptr->au);
 	prt(out_val, 19 + xtra_stock, 68);
 }
@@ -2626,15 +2617,9 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 		/* Put the owner name */
 #ifdef JP
 		put_str("[我が家]", 2, 1);
-#else
-		put_str("Your Home", 2, 1);
-#endif
-
-
-		/* Label the item descriptions */
-#ifdef JP
 		put_str("アイテムの一覧", 5, 4);
 #else
+		put_str("Your Home", 2, 1);
 		put_str("Item Description", 5, 3);
 #endif
 
@@ -2647,7 +2632,6 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 #else
 			put_str("Weight", 5, 70);
 #endif
-
 		}
 	}
 
@@ -2657,18 +2641,11 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 		/* Put the owner name */
 #ifdef JP
 		put_str("[博物館]", 2, 1);
-#else
-		put_str("Museum", 2, 1);
-#endif
-
-
-		/* Label the item descriptions */
-#ifdef JP
 		put_str("アイテムの一覧", 5, 4);
 #else
+		put_str("Museum", 2, 1);
 		put_str("Item Description", 5, 3);
 #endif
-
 
 		/* If showing weights, show label */
 		if(show_weights)
@@ -2678,7 +2655,6 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 #else
 			put_str("Weight", 5, 70);
 #endif
-
 		}
 	}
 
@@ -2695,30 +2671,14 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 		sprintf(buf, "%s (%s)", ownespecies_name, race_name);
 		put_str(buf, 3, 5);
 
-
 		/* Label the item descriptions */
 #ifdef JP
 		put_str("商品の一覧", 5, 7);
-#else
-		put_str("Item Description", 5, 3);
-#endif
-
-
-		/* If showing weights, show label */
-		if(show_weights)
-		{
-#ifdef JP
-			put_str("重さ", 5, 62);
-#else
-			put_str("Weight", 5, 60);
-#endif
-
-		}
-
-		/* Label the asking price (in stores) */
-#ifdef JP
+		if(show_weights) put_str("重さ", 5, 62);
 		put_str("価格", 5, 73);
 #else
+		put_str("Item Description", 5, 3);
+		if(show_weights) put_str("Weight", 5, 60);
 		put_str("Price", 5, 72);
 #endif
 
@@ -2764,11 +2724,9 @@ static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
 	hi = (j > 25) ? toupper(I2A(j - 26)) : I2A(j);
 #ifdef JP
 	(void)sprintf(out_val, "(%s:%c-%c, ESCで中断) %s",
-		((is_home(st_ptr) || is_museum(st_ptr)) ? "アイテム" : "商品"), 
-				  lo, hi, pmt);
+		((is_home(st_ptr) || is_museum(st_ptr)) ? "アイテム" : "商品"), lo, hi, pmt);
 #else
-	(void)sprintf(out_val, "(Items %c-%c, ESC to exit) %s",
-				  lo, hi, pmt);
+	(void)sprintf(out_val, "(Items %c-%c, ESC to exit) %s", lo, hi, pmt);
 #endif
 
 
@@ -2883,61 +2841,25 @@ static s32b last_inc = 0L;
  */
 static int get_haggle(cptr pmt, s32b *poffer, s32b price, int final)
 {
-	s32b		i;
+	s32b i;
+	cptr p;
 
-	cptr		p;
-
-	char				buf[128];
-	char		out_val[160];
-
+	char buf[128], out_val[160];
 
 	/* Clear old increment if necessary */
 	if(!allow_inc) last_inc = 0L;
 
-
-	/* Final offer */
-	if(final)
-	{
 #ifdef JP
-		sprintf(buf, "%s [承諾] ", pmt);
+	if(final) sprintf(buf, "%s [承諾] ", pmt);
+	else if(last_inc < 0) sprintf(buf, "%s [-$%ld] ", pmt, (long)(ABS(last_inc)));
+	else if(last_inc > 0) sprintf(buf, "%s [+$%ld] ", pmt, (long)(ABS(last_inc)));
 #else
-		sprintf(buf, "%s [accept] ", pmt);
+	if(final) sprintf(buf, "%s [accept] ", pmt);
+	else if(last_inc < 0) sprintf(buf, "%s [-%ld] ", pmt, (long)(ABS(last_inc)));
+	else if(last_inc > 0) sprintf(buf, "%s [+%ld] ", pmt, (long)(ABS(last_inc)));
 #endif
-
-	}
-
-	/* Old (negative) increment, and not final */
-	else if(last_inc < 0)
-	{
-#ifdef JP
-		sprintf(buf, "%s [-$%ld] ", pmt, (long)(ABS(last_inc)));
-#else
-		sprintf(buf, "%s [-%ld] ", pmt, (long)(ABS(last_inc)));
-#endif
-
-	}
-
-	/* Old (positive) increment, and not final */
-	else if(last_inc > 0)
-	{
-#ifdef JP
-		sprintf(buf, "%s [+$%ld] ", pmt, (long)(ABS(last_inc)));
-#else
-		sprintf(buf, "%s [+%ld] ", pmt, (long)(ABS(last_inc)));
-#endif
-
-	}
-
-	/* Normal haggle */
-	else
-	{
-		sprintf(buf, "%s ", pmt);
-	}
-
-
-
+	else sprintf(buf, "%s ", pmt);
 	msg_print(NULL);
-
 
 	/* Ask until done */
 	while (TRUE)
@@ -3018,7 +2940,6 @@ static int get_haggle(cptr pmt, s32b *poffer, s32b price, int final)
 #else
 		msg_print("Invalid response.");
 #endif
-
 		msg_print(NULL);
 	}
 
@@ -3166,12 +3087,10 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 			(void)sprintf(out_val, "%s :  %ld", pmt, (long)cur_ask);
 			put_str(out_val, 1, 0);
 #ifdef JP
-			cancel = receive_offer(st_ptr, "提示する金額? ",
+			cancel = receive_offer(st_ptr, "提示する金額? ", &offer, last_offer, 1, cur_ask, final);
 #else
-			cancel = receive_offer(st_ptr, "What do you offer? ",
+			cancel = receive_offer(st_ptr, "What do you offer? ", &offer, last_offer, 1, cur_ask, final);
 #endif
-
-					       &offer, last_offer, 1, cur_ask, final);
 
 			if(cancel)
 			{
@@ -4103,7 +4022,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 
 			/* Describe the result (in message buffer) */
 #ifdef JP
-msg_format("%sを $%ldで売却しました。", object_name, (long)price);
+			msg_format("%sを $%ldで売却しました。", object_name, (long)price);
 #else
 			msg_format("You sold %s for %ld gold.", object_name, (long)price);
 #endif
@@ -4112,8 +4031,8 @@ msg_format("%sを $%ldで売却しました。", object_name, (long)price);
 
 			if(!((object_ptr->tval == TV_FIGURINE) && (value > 0)))
 			{
-			 /* Analyze the prices (and comment verbally) unless a figurine*/
-			purchase_analyze(creature_ptr, price, value, dummy);
+				/* Analyze the prices (and comment verbally) unless a figurine*/
+				purchase_analyze(creature_ptr, price, value, dummy);
 			}
 
 			/*
