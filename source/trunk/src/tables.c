@@ -2791,448 +2791,155 @@ option_type option_info[] =
 	/*** Input Options ***/
 
 #ifdef JP
-	{ &rogue_like_commands, FALSE, OPT_PAGE_INPUT, 0, 0,
-	"rogue_like_commands", "ローグ風キー配置を使用する" },
+	{ &rogue_like_commands, FALSE, OPT_PAGE_INPUT, 0, 0, "rogue_like_commands", "ローグ風キー配置を使用する" },
+	{ &always_pickup, FALSE, OPT_PAGE_INPUT, 0, 5, "always_pickup",  "常にアイテムを拾う" },
+	{ &carry_query_flag, FALSE, OPT_PAGE_INPUT, 0, 3, "carry_query_flag", "アイテムを拾う前に確認する" },
+	{ &quick_messages, TRUE, OPT_PAGE_INPUT, 0, 1, "quick_messages", "クイック・メッセージを使用する" },
+	{ &auto_more,     FALSE, OPT_PAGE_INPUT, 2, 6, "auto_more",      "キー待ちしないで連続でメッセージを表示する" },
+	{ &command_menu,  TRUE, OPT_PAGE_INPUT, 2, 7, "command_menu",   "メニューによりコマンド選択を有効にする" },
 #else
-	{ &rogue_like_commands, FALSE, OPT_PAGE_INPUT, 0, 0,
-	"rogue_like_commands", "Rogue-like commands" },
+	{ &rogue_like_commands, FALSE, OPT_PAGE_INPUT, 0, 0, "rogue_like_commands", "Rogue-like commands" },
+	{ &always_pickup, FALSE, OPT_PAGE_INPUT, 0, 5, "always_pickup",  "Pick things up by default" },
+	{ &carry_query_flag, FALSE, OPT_PAGE_INPUT, 0, 3, "carry_query_flag", "Prompt before picking things up" },
+	{ &quick_messages, TRUE, OPT_PAGE_INPUT, 0, 1, "quick_messages", "Activate quick messages" },
+	{ &auto_more,     FALSE, OPT_PAGE_INPUT, 2, 6, "auto_more",      "Automatically clear '-more-' prompts" },
+	{ &command_menu,  TRUE, OPT_PAGE_INPUT, 2, 7, "command_menu",   "Enable command selection menu" },
+#endif
+
+
+#ifdef JP
+	{ &other_query_flag, FALSE, OPT_PAGE_INPUT, 0, 2, "other_query_flag", "床上のアイテムを使用するときに確認する" },
+	{ &use_old_target, FALSE, OPT_PAGE_INPUT, 0, 4, "use_old_target", "常に以前のターゲットを指定する" },
+	{ &always_repeat, TRUE, OPT_PAGE_INPUT, 0, 6, "always_repeat",  "コマンド自動繰り返し" },
+	{ &confirm_destroy, FALSE, OPT_PAGE_INPUT, 5, 3, "confirm_destroy", "「無価値」なアイテムを破壊する時確認する" },
+	{ &confirm_wear,  TRUE, OPT_PAGE_INPUT, 5, 4, "confirm_wear",   "呪われた物を装備する時確認する" },
+	{ &confirm_quest, TRUE, OPT_PAGE_INPUT, 1, 9, "confirm_quest",  "クエストを諦めて階段で逃げる前に確認する" },
+#else
+	{ &other_query_flag, FALSE, OPT_PAGE_INPUT, 0, 2, "other_query_flag", "Prompt for floor item selection" },
+	{ &use_old_target, FALSE, OPT_PAGE_INPUT, 0, 4, "use_old_target", "Use old target by default" },
+	{ &always_repeat, TRUE, OPT_PAGE_INPUT, 0, 6, "always_repeat",  "Repeat obvious commands" },
+	{ &confirm_destroy, FALSE, OPT_PAGE_INPUT, 5, 3, "confirm_destroy", "Prompt for destruction of known worthless items" },
+	{ &confirm_wear,  TRUE, OPT_PAGE_INPUT, 5, 4, "confirm_wear",   "Confirm to wear/wield known cursed items" },
+	{ &confirm_quest, TRUE, OPT_PAGE_INPUT, 1, 9, "confirm_quest",  "Prompt before exiting a quest level" },
+#endif
+
+
+#ifdef JP
+	{ &target_pet,    FALSE, OPT_PAGE_INPUT, 2, 5, "target_pet",     "ペットをターゲットにする" },
+	{ &easy_open,     TRUE, OPT_PAGE_INPUT, 5, 7, "easy_open",      "自動的にドアを開ける" },
+	{ &easy_disarm,   TRUE, OPT_PAGE_INPUT, 5, 8, "easy_disarm",    "自動的に罠を解除する" },
+	{ &easy_floor,    FALSE, OPT_PAGE_INPUT, 5, 9, "easy_floor",     "床上で重なったアイテムをリストする" },
+	{ &use_command,   FALSE, OPT_PAGE_INPUT, 5, 10, "use_command",    "「使う(a)」コマンドでアイテムを何でも使える" },
+	{ &over_exert,    FALSE, OPT_PAGE_INPUT, 0, 29, "over_exert",     "MPが足りなくても魔法に挑戦する" },
+#else
+	{ &target_pet,    FALSE, OPT_PAGE_INPUT, 2, 5, "target_pet",     "Allow targetting pets" },
+	{ &easy_open,     TRUE, OPT_PAGE_INPUT, 5, 7, "easy_open",      "Automatically open doors" },
+	{ &easy_disarm,   TRUE, OPT_PAGE_INPUT, 5, 8, "easy_disarm",    "Automatically disarm traps" },
+	{ &easy_floor,    FALSE, OPT_PAGE_INPUT, 5, 9, "easy_floor",     "Display floor stacks in a list" },
+	{ &use_command,   FALSE, OPT_PAGE_INPUT, 5, 10, "use_command",    "Allow unified use command" },
+	{ &over_exert,    FALSE, OPT_PAGE_INPUT, 0, 29, "over_exert",     "Allow casting spells when short of mana" },
 #endif
 
 #ifdef JP
-	{ &always_pickup, FALSE, OPT_PAGE_INPUT, 0, 5,
-	"always_pickup",  "常にアイテムを拾う" },
+	{ &numpad_as_cursorkey, TRUE, OPT_PAGE_INPUT, 2, 31, "numpad_as_cursorkey", "エディタ内でテンキーをカーソルキーとして使う" },
+	{ &center_player, FALSE, OPT_PAGE_MAPSCREEN, 5, 11, "center_player",  "常にプレイヤーを中心に置く(*遅い*)" },
+	{ &center_running, TRUE, OPT_PAGE_MAPSCREEN, 5, 12, "center_running", "走っている時でも中心に置く" },
+	{ &view_yellow_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 28, "view_yellow_lite", "明かりの範囲を特別な色で表示する" },
+	{ &view_bright_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 29, "view_bright_lite", "視界の範囲を特別な色で表示する" },
+	{ &view_granite_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 30, "view_granite_lite", "壁を特別な色で表示する(重い)" },
 #else
-	{ &always_pickup, FALSE, OPT_PAGE_INPUT, 0, 5,
-	"always_pickup",  "Pick things up by default" },
+	{ &numpad_as_cursorkey, TRUE, OPT_PAGE_INPUT, 2, 31, "numpad_as_cursorkey", "Use numpad keys as cursor keys in editor mode" },
+	{ &center_player, FALSE, OPT_PAGE_MAPSCREEN, 5, 11, "center_player",  "Center map while walking (*slow*)" },
+	{ &center_running, TRUE, OPT_PAGE_MAPSCREEN, 5, 12, "center_running", "Centering even while running" },
+	{ &view_yellow_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 28, "view_yellow_lite", "Use special colors for torch-lit grids" },
+	{ &view_bright_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 29, "view_bright_lite", "Use special colors for 'viewable' grids" },
+	{ &view_granite_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 30, "view_granite_lite", "Use special colors for wall grids (slow)" },
 #endif
 
 #ifdef JP
-	{ &carry_query_flag, FALSE, OPT_PAGE_INPUT, 0, 3,
-	"carry_query_flag", "アイテムを拾う前に確認する" },
+	{ &view_special_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 31, "view_special_lite", "床を特別な色で表示する(重い)" },
+	{ &view_perma_grids, TRUE, OPT_PAGE_MAPSCREEN, 1, 6, "view_perma_grids", "明るい場所はそのままにする" },
+	{ &view_torch_grids, FALSE, OPT_PAGE_MAPSCREEN, 1, 7, "view_torch_grids", "明かりで照らした場所はそのままにする" },
+	{ &view_unsafe_grids, FALSE, OPT_PAGE_MAPSCREEN, 1, 8, "view_unsafe_grids", "トラップ感知済みでない場所を表示する" },
+	{ &view_reduce_view, FALSE, OPT_PAGE_MAPSCREEN, 1, 17, "view_reduce_view", "街では視野を狭くする" },
+	{ &fresh_before,  TRUE, OPT_PAGE_MAPSCREEN, 1, 23, "fresh_before",   "連続コマンド中に画面を再描画し続ける" },
 #else
-	{ &carry_query_flag, FALSE, OPT_PAGE_INPUT, 0, 3,
-	"carry_query_flag", "Prompt before picking things up" },
+	{ &view_special_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 31, "view_special_lite", "Use special colors for floor grids (slow)" },
+	{ &view_perma_grids, TRUE, OPT_PAGE_MAPSCREEN, 1, 6, "view_perma_grids", "Map remembers all perma-lit grids" },
+	{ &view_torch_grids, FALSE, OPT_PAGE_MAPSCREEN, 1, 7, "view_torch_grids", "Map remembers all torch-lit grids" },
+	{ &view_unsafe_grids, FALSE, OPT_PAGE_MAPSCREEN, 1, 8, "view_unsafe_grids", "Map marked by detect traps" },
+	{ &view_reduce_view, FALSE, OPT_PAGE_MAPSCREEN, 1, 17, "view_reduce_view", "Reduce view-radius in town" },
+	{ &fresh_before,  TRUE, OPT_PAGE_MAPSCREEN, 1, 23, "fresh_before",   "Flush output while continuous command" },
 #endif
 
 #ifdef JP
-	{ &quick_messages, TRUE, OPT_PAGE_INPUT, 0, 1,
-	"quick_messages", "クイック・メッセージを使用する" },
+	{ &fresh_after,   FALSE, OPT_PAGE_MAPSCREEN, 1, 24, "fresh_after",    "コマンド後に画面を常に再描画し続ける" },
+	{ &fresh_message, FALSE, OPT_PAGE_MAPSCREEN, 1, 25, "fresh_message",  "メッセージの後に画面を再描画する" },
+	{ &hilite_player, FALSE, OPT_PAGE_MAPSCREEN, 1, 27, "hilite_player",  "プレイヤーにカーソルを合わせる" },
+	{ &display_path,  FALSE, OPT_PAGE_MAPSCREEN, 2, 8, "display_path",   "魔法や矢の軌跡を表示する" },
 #else
-	{ &quick_messages, TRUE, OPT_PAGE_INPUT, 0, 1,
-	"quick_messages", "Activate quick messages" },
-#endif
-
-#ifdef JP
-	{ &auto_more,     FALSE, OPT_PAGE_INPUT, 2, 6,
-	"auto_more",      "キー待ちしないで連続でメッセージを表示する" },
-#else
-	{ &auto_more,     FALSE, OPT_PAGE_INPUT, 2, 6,
-	"auto_more",      "Automatically clear '-more-' prompts" },
-#endif
-
-#ifdef JP
-	{ &command_menu,  TRUE, OPT_PAGE_INPUT, 2, 7,
-	"command_menu",   "メニューによりコマンド選択を有効にする" },
-#else
-	{ &command_menu,  TRUE, OPT_PAGE_INPUT, 2, 7,
-	"command_menu",   "Enable command selection menu" },
-#endif
-
-#ifdef JP
-	{ &other_query_flag, FALSE, OPT_PAGE_INPUT, 0, 2,
-	"other_query_flag", "床上のアイテムを使用するときに確認する" },
-#else
-	{ &other_query_flag, FALSE, OPT_PAGE_INPUT, 0, 2,
-	"other_query_flag", "Prompt for floor item selection" },
-#endif
-
-#ifdef JP
-	{ &use_old_target, FALSE, OPT_PAGE_INPUT, 0, 4,
-	"use_old_target", "常に以前のターゲットを指定する" },
-#else
-	{ &use_old_target, FALSE, OPT_PAGE_INPUT, 0, 4,
-	"use_old_target", "Use old target by default" },
-#endif
-
-#ifdef JP
-	{ &always_repeat, TRUE, OPT_PAGE_INPUT, 0, 6,
-	"always_repeat",  "コマンド自動繰り返し" },
-#else
-	{ &always_repeat, TRUE, OPT_PAGE_INPUT, 0, 6,
-	"always_repeat",  "Repeat obvious commands" },
-#endif
-
-#ifdef JP
-	{ &confirm_destroy, FALSE, OPT_PAGE_INPUT, 5, 3,
-	"confirm_destroy", "「無価値」なアイテムを破壊する時確認する" },
-#else
-	{ &confirm_destroy, FALSE, OPT_PAGE_INPUT, 5, 3,
-	"confirm_destroy", "Prompt for destruction of known worthless items" },
-#endif
-
-#ifdef JP
-	{ &confirm_wear,  TRUE, OPT_PAGE_INPUT, 5, 4,
-	"confirm_wear",   "呪われた物を装備する時確認する" },
-#else
-	{ &confirm_wear,  TRUE, OPT_PAGE_INPUT, 5, 4,
-	"confirm_wear",   "Confirm to wear/wield known cursed items" },
-#endif
-
-#ifdef JP
-	{ &confirm_quest, TRUE, OPT_PAGE_INPUT, 1, 9,
-	"confirm_quest",  "クエストを諦めて階段で逃げる前に確認する" },
-#else
-	{ &confirm_quest, TRUE, OPT_PAGE_INPUT, 1, 9,
-	"confirm_quest",  "Prompt before exiting a quest level" },
-#endif
-
-#ifdef JP
-	{ &target_pet,    FALSE, OPT_PAGE_INPUT, 2, 5,
-	"target_pet",     "ペットをターゲットにする" },
-#else
-	{ &target_pet,    FALSE, OPT_PAGE_INPUT, 2, 5,
-	"target_pet",     "Allow targetting pets" },
-#endif
-
-#ifdef JP
-	{ &easy_open,     TRUE, OPT_PAGE_INPUT, 5, 7,
-	"easy_open",      "自動的にドアを開ける" },
-#else
-	{ &easy_open,     TRUE, OPT_PAGE_INPUT, 5, 7,
-	"easy_open",      "Automatically open doors" },
-#endif
-
-#ifdef JP
-	{ &easy_disarm,   TRUE, OPT_PAGE_INPUT, 5, 8,
-	"easy_disarm",    "自動的に罠を解除する" },
-#else
-	{ &easy_disarm,   TRUE, OPT_PAGE_INPUT, 5, 8,
-	"easy_disarm",    "Automatically disarm traps" },
-#endif
-#ifdef JP
-	{ &easy_floor,    FALSE, OPT_PAGE_INPUT, 5, 9,
-	"easy_floor",     "床上で重なったアイテムをリストする" },
-#else
-	{ &easy_floor,    FALSE, OPT_PAGE_INPUT, 5, 9,
-	"easy_floor",     "Display floor stacks in a list" },
-#endif
-
-#ifdef JP
-	{ &use_command,   FALSE, OPT_PAGE_INPUT, 5, 10,
-	"use_command",    "「使う(a)」コマンドでアイテムを何でも使える" },
-#else
-	{ &use_command,   FALSE, OPT_PAGE_INPUT, 5, 10,
-	"use_command",    "Allow unified use command" },
-#endif
-
-#ifdef JP
-	{ &over_exert,    FALSE, OPT_PAGE_INPUT, 0, 29,
-	"over_exert",     "MPが足りなくても魔法に挑戦する" },
-#else
-	{ &over_exert,    FALSE, OPT_PAGE_INPUT, 0, 29,
-	"over_exert",     "Allow casting spells when short of mana" },
-#endif
-
-#ifdef JP
-	{ &numpad_as_cursorkey, TRUE, OPT_PAGE_INPUT, 2, 31,
-	"numpad_as_cursorkey", "エディタ内でテンキーをカーソルキーとして使う" },
-#else
-	{ &numpad_as_cursorkey, TRUE, OPT_PAGE_INPUT, 2, 31,
-	"numpad_as_cursorkey", "Use numpad keys as cursor keys in editor mode" },
-#endif
-
-	/*** Map Screen Options ***/
-
-#ifdef JP
-	{ &center_player, FALSE, OPT_PAGE_MAPSCREEN, 5, 11,
-	"center_player",  "常にプレイヤーを中心に置く(*遅い*)" },
-#else
-	{ &center_player, FALSE, OPT_PAGE_MAPSCREEN, 5, 11,
-	"center_player",  "Center map while walking (*slow*)" },
-#endif
-
-#ifdef JP
-	{ &center_running, TRUE, OPT_PAGE_MAPSCREEN, 5, 12,
-	"center_running", "走っている時でも中心に置く" },
-#else
-	{ &center_running, TRUE, OPT_PAGE_MAPSCREEN, 5, 12,
-	"center_running", "Centering even while running" },
-#endif
-
-#ifdef JP
-	{ &view_yellow_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 28,
-	"view_yellow_lite", "明かりの範囲を特別な色で表示する" },
-#else
-	{ &view_yellow_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 28,
-	"view_yellow_lite", "Use special colors for torch-lit grids" },
-#endif
-
-#ifdef JP
-	{ &view_bright_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 29,
-	"view_bright_lite", "視界の範囲を特別な色で表示する" },
-#else
-	{ &view_bright_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 29,
-	"view_bright_lite", "Use special colors for 'viewable' grids" },
-#endif
-
-#ifdef JP
-	{ &view_granite_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 30,
-	"view_granite_lite", "壁を特別な色で表示する(重い)" },
-#else
-	{ &view_granite_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 30,
-	"view_granite_lite", "Use special colors for wall grids (slow)" },
-#endif
-
-#ifdef JP
-	{ &view_special_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 31,
-	"view_special_lite", "床を特別な色で表示する(重い)" },
-#else
-	{ &view_special_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 31,
-	"view_special_lite", "Use special colors for floor grids (slow)" },
-#endif
-
-#ifdef JP
-	{ &view_perma_grids, TRUE, OPT_PAGE_MAPSCREEN, 1, 6,
-	"view_perma_grids", "明るい場所はそのままにする" },
-#else
-	{ &view_perma_grids, TRUE, OPT_PAGE_MAPSCREEN, 1, 6,
-	"view_perma_grids", "Map remembers all perma-lit grids" },
-#endif
-
-#ifdef JP
-	{ &view_torch_grids, FALSE, OPT_PAGE_MAPSCREEN, 1, 7,
-	"view_torch_grids", "明かりで照らした場所はそのままにする" },
-#else
-	{ &view_torch_grids, FALSE, OPT_PAGE_MAPSCREEN, 1, 7,
-	"view_torch_grids", "Map remembers all torch-lit grids" },
-#endif
-
-#ifdef JP
-	{ &view_unsafe_grids, FALSE, OPT_PAGE_MAPSCREEN, 1, 8,
-	"view_unsafe_grids", "トラップ感知済みでない場所を表示する" },
-#else
-	{ &view_unsafe_grids, FALSE, OPT_PAGE_MAPSCREEN, 1, 8,
-	"view_unsafe_grids", "Map marked by detect traps" },
-#endif
-
-#ifdef JP
-	{ &view_reduce_view, FALSE, OPT_PAGE_MAPSCREEN, 1, 17,
-	"view_reduce_view", "街では視野を狭くする" },
-#else
-	{ &view_reduce_view, FALSE, OPT_PAGE_MAPSCREEN, 1, 17,
-	"view_reduce_view", "Reduce view-radius in town" },
-#endif
-
-#ifdef JP
-	{ &fresh_before,  TRUE, OPT_PAGE_MAPSCREEN, 1, 23,
-	"fresh_before",   "連続コマンド中に画面を再描画し続ける" },
-#else
-	{ &fresh_before,  TRUE, OPT_PAGE_MAPSCREEN, 1, 23,
-	"fresh_before",   "Flush output while continuous command" },
-#endif
-
-#ifdef JP
-	{ &fresh_after,   FALSE, OPT_PAGE_MAPSCREEN, 1, 24,
-	"fresh_after",    "コマンド後に画面を常に再描画し続ける" },
-#else
-	{ &fresh_after,   FALSE, OPT_PAGE_MAPSCREEN, 1, 24,
-	"fresh_after",    "Flush output after creature's move" },
-#endif
-
-#ifdef JP
-	{ &fresh_message, FALSE, OPT_PAGE_MAPSCREEN, 1, 25,
-	"fresh_message",  "メッセージの後に画面を再描画する" },
-#else
-	{ &fresh_message, FALSE, OPT_PAGE_MAPSCREEN, 1, 25,
-	"fresh_message",  "Flush output after every message" },
-#endif
-
-#ifdef JP
-	{ &hilite_player, FALSE, OPT_PAGE_MAPSCREEN, 1, 27,
-	"hilite_player",  "プレイヤーにカーソルを合わせる" },
-#else
-	{ &hilite_player, FALSE, OPT_PAGE_MAPSCREEN, 1, 27,
-	"hilite_player",  "Hilite the player with the cursor" },
-#endif
-
-#ifdef JP
-	{ &display_path,  FALSE, OPT_PAGE_MAPSCREEN, 2, 8,
-	"display_path",   "魔法や矢の軌跡を表示する" },
-#else
-	{ &display_path,  FALSE, OPT_PAGE_MAPSCREEN, 2, 8,
-	"display_path",   "Display actual path before shooting" },
+	{ &fresh_after,   FALSE, OPT_PAGE_MAPSCREEN, 1, 24, "fresh_after",    "Flush output after creature's move" },
+	{ &fresh_message, FALSE, OPT_PAGE_MAPSCREEN, 1, 25, "fresh_message",  "Flush output after every message" },
+	{ &hilite_player, FALSE, OPT_PAGE_MAPSCREEN, 1, 27, "hilite_player",  "Hilite the player with the cursor" },
+	{ &display_path,  FALSE, OPT_PAGE_MAPSCREEN, 2, 8, "display_path",   "Display actual path before shooting" },
 #endif
 
 	/*** Text Display Options ***/
 
 #ifdef JP
-	{ &plain_descriptions, TRUE, OPT_PAGE_TEXT, 5, 1,
-	"plain_descriptions", "アイテムの記述を簡略にする" },
+	{ &plain_descriptions, TRUE, OPT_PAGE_TEXT, 5, 1, "plain_descriptions", "アイテムの記述を簡略にする" },
+	{ &plain_pickup,  FALSE, OPT_PAGE_TEXT, 6, 6, "plain_pickup",   "「拾った」メッセージを簡略化する" },
+	{ &always_show_list, TRUE, OPT_PAGE_TEXT, 4, 0, "always_show_list", "選択時には常に一覧を表示する" },
+	{ &depth_in_feet, FALSE, OPT_PAGE_TEXT, 0, 7, "depth_in_feet",  "ダンジョンの深さをフィートで表示する" },
+	{ &show_labels,   TRUE, OPT_PAGE_TEXT, 0, 10, "show_labels",    "装備一覧で装備場所を表示する" },
+	{ &show_weights,  TRUE, OPT_PAGE_TEXT, 0, 11, "show_weights",   "アイテム一覧で重量を表示する" },
 #else
-	{ &plain_descriptions, TRUE, OPT_PAGE_TEXT, 5, 1,
-	"plain_descriptions", "Plain object descriptions" },
+	{ &plain_descriptions, TRUE, OPT_PAGE_TEXT, 5, 1, "plain_descriptions", "Plain object descriptions" },
+	{ &plain_pickup,  FALSE, OPT_PAGE_JAPANESE_ONLY, 6, 6, "plain_pickup",   "Plain pickup messages(japanese only)" },
+	{ &always_show_list, TRUE, OPT_PAGE_TEXT, 4, 0, "always_show_list", "Always show list when choosing items" },
+	{ &depth_in_feet, FALSE, OPT_PAGE_TEXT, 0, 7, "depth_in_feet",  "Show dungeon level in feet" },
+	{ &show_labels,   TRUE, OPT_PAGE_TEXT, 0, 10, "show_labels",    "Show labels in object listings" },
+	{ &show_weights,  TRUE, OPT_PAGE_TEXT, 0, 11, "show_weights",   "Show weights in object listings" },
 #endif
 
 #ifdef JP
-	{ &plain_pickup,  FALSE, OPT_PAGE_TEXT, 6, 6,
-	"plain_pickup",   "「拾った」メッセージを簡略化する" },
+	{ &show_item_graph, TRUE, OPT_PAGE_TEXT, 2, 0, "show_item_graph", "アイテムのシンボルを表示する" },
+	{ &equippy_chars, TRUE, OPT_PAGE_TEXT, 1, 12, "equippy_chars",  "ステータスに文字で装備を表示する" },
+	{ &compress_savefile, FALSE, OPT_PAGE_TEXT, 1, 26, "compress_savefile", "セーブ・ファイル中のメッセージを圧縮する" },
+	{ &abbrev_extra,  FALSE, OPT_PAGE_TEXT, 2, 10, "abbrev_extra",   "アイテムに追加耐性/能力の略称を刻む" },
+	{ &abbrev_all,    FALSE, OPT_PAGE_TEXT, 2, 11, "abbrev_all",     "アイテムに全ての耐性/能力の略称を刻む" },
+	{ &exp_need,      FALSE, OPT_PAGE_TEXT, 2, 12, "exp_need",       "次のレベルに必要な経験値を表示する" },
+	{ &ignore_unview, FALSE, OPT_PAGE_TEXT, 2, 13, "ignore_unview",  "視界外のクリーチャーの行動を表示しない" },
 #else
-	{ &plain_pickup,  FALSE, OPT_PAGE_JAPANESE_ONLY, 6, 6,
-	"plain_pickup",   "Plain pickup messages(japanese only)" },
-#endif
-
-#ifdef JP
-	{ &always_show_list, TRUE, OPT_PAGE_TEXT, 4, 0,
-	"always_show_list", "選択時には常に一覧を表示する" },
-#else
-	{ &always_show_list, TRUE, OPT_PAGE_TEXT, 4, 0,
-	"always_show_list", "Always show list when choosing items" },
-#endif
-
-#ifdef JP
-	{ &depth_in_feet, FALSE, OPT_PAGE_TEXT, 0, 7,
-	"depth_in_feet",  "ダンジョンの深さをフィートで表示する" },
-#else
-	{ &depth_in_feet, FALSE, OPT_PAGE_TEXT, 0, 7,
-	"depth_in_feet",  "Show dungeon level in feet" },
-#endif
-
-#ifdef JP
-	{ &show_labels,   TRUE, OPT_PAGE_TEXT, 0, 10,
-	"show_labels",    "装備一覧で装備場所を表示する" },
-#else
-	{ &show_labels,   TRUE, OPT_PAGE_TEXT, 0, 10,
-	"show_labels",    "Show labels in object listings" },
-#endif
-
-#ifdef JP
-	{ &show_weights,  TRUE, OPT_PAGE_TEXT, 0, 11,
-	"show_weights",   "アイテム一覧で重量を表示する" },
-#else
-	{ &show_weights,  TRUE, OPT_PAGE_TEXT, 0, 11,
-	"show_weights",   "Show weights in object listings" },
-#endif
-
-#ifdef JP
-	{ &show_item_graph, TRUE, OPT_PAGE_TEXT, 2, 0,
-	"show_item_graph", "アイテムのシンボルを表示する" },
-#else
-	{ &show_item_graph, TRUE, OPT_PAGE_TEXT, 2, 0,
-	"show_item_graph", "Show items graphics" },
-#endif
-
-#ifdef JP
-	{ &equippy_chars, TRUE, OPT_PAGE_TEXT, 1, 12,
-	"equippy_chars",  "ステータスに文字で装備を表示する" },
-#else
-	{ &equippy_chars, TRUE, OPT_PAGE_TEXT, 1, 12,
-	"equippy_chars",  "Display 'equippy' chars" },
-#endif
-
-#ifdef JP
-	{ &compress_savefile, FALSE, OPT_PAGE_TEXT, 1, 26,
-	"compress_savefile", "セーブ・ファイル中のメッセージを圧縮する" },
-#else
-	{ &compress_savefile, FALSE, OPT_PAGE_TEXT, 1, 26,
-	"compress_savefile", "Compress messages in savefiles" },
-#endif
-
-#ifdef JP
-	{ &abbrev_extra,  FALSE, OPT_PAGE_TEXT, 2, 10,
-	"abbrev_extra",   "アイテムに追加耐性/能力の略称を刻む" },
-#else
-	{ &abbrev_extra,  FALSE, OPT_PAGE_TEXT, 2, 10,
-	"abbrev_extra",   "Describe obj's extra resistances by abbreviation" },
-#endif
-
-#ifdef JP
-	{ &abbrev_all,    FALSE, OPT_PAGE_TEXT, 2, 11,
-	"abbrev_all",     "アイテムに全ての耐性/能力の略称を刻む" },
-#else
-	{ &abbrev_all,    FALSE, OPT_PAGE_TEXT, 2, 11,
-	"abbrev_all",     "Describe obj's all resistances by abbreviation" },
-#endif
-
-#ifdef JP
-	{ &exp_need,      FALSE, OPT_PAGE_TEXT, 2, 12,
-	"exp_need",       "次のレベルに必要な経験値を表示する" },
-#else
-	{ &exp_need,      FALSE, OPT_PAGE_TEXT, 2, 12,
-	"exp_need",       "Show the experience needed for next level" },
-#endif
-
-#ifdef JP
-	{ &ignore_unview, FALSE, OPT_PAGE_TEXT, 2, 13,
-	"ignore_unview",  "視界外のクリーチャーの行動を表示しない" },
-#else
-	{ &ignore_unview, FALSE, OPT_PAGE_TEXT, 2, 13,
-	"ignore_unview",  "Ignore whenever any creature does" },
+	{ &show_item_graph, TRUE, OPT_PAGE_TEXT, 2, 0, "show_item_graph", "Show items graphics" },
+	{ &equippy_chars, TRUE, OPT_PAGE_TEXT, 1, 12, "equippy_chars",  "Display 'equippy' chars" },
+	{ &compress_savefile, FALSE, OPT_PAGE_TEXT, 1, 26, "compress_savefile", "Compress messages in savefiles" },
+	{ &abbrev_extra,  FALSE, OPT_PAGE_TEXT, 2, 10, "abbrev_extra",   "Describe obj's extra resistances by abbreviation" },
+	{ &abbrev_all,    FALSE, OPT_PAGE_TEXT, 2, 11, "abbrev_all",     "Describe obj's all resistances by abbreviation" },
+	{ &exp_need,      FALSE, OPT_PAGE_TEXT, 2, 12, "exp_need",       "Show the experience needed for next level" },
+	{ &ignore_unview, FALSE, OPT_PAGE_TEXT, 2, 13, "ignore_unview",  "Ignore whenever any creature does" },
 #endif
 
 	/*** Game-Play ***/
 
 #ifdef JP
-	{ &stack_force_notes, TRUE, OPT_PAGE_GAMEPLAY, 0, 8,
-	"stack_force_notes", "異なる銘のアイテムをまとめる" },
+	{ &stack_force_notes, TRUE, OPT_PAGE_GAMEPLAY, 0, 8, "stack_force_notes", "異なる銘のアイテムをまとめる" },
+	{ &stack_force_costs, FALSE, OPT_PAGE_GAMEPLAY, 0, 9, "stack_force_costs", "異なる割引表示のアイテムをまとめる" },
+	{ &expand_list,   TRUE, OPT_PAGE_GAMEPLAY, 1, 5, "expand_list",    "「一覧」コマンドを拡張する" },
+	{ &small_levels,  TRUE, OPT_PAGE_GAMEPLAY, 0, 30, "small_levels",   "非常に小さいフロアの生成を可能にする" },
+	{ &always_small_levels, FALSE, OPT_PAGE_GAMEPLAY, 2, 3, "always_small_levels", "常に非常に小さいフロアを生成する" },
+	{ &empty_levels,  TRUE, OPT_PAGE_GAMEPLAY, 0, 31, "empty_levels",   "空っぽの「アリーナ」レベルの生成を可能にする" },
+	{ &bound_walls_perm, FALSE, OPT_PAGE_GAMEPLAY, 2, 1, "bound_walls_perm", "ダンジョンの外壁を永久岩にする" },
+	{ &last_words,    TRUE, OPT_PAGE_GAMEPLAY, 0, 28, "last_words",     "キャラクターが死んだ時遺言をのこす" },
 #else
-	{ &stack_force_notes, TRUE, OPT_PAGE_GAMEPLAY, 0, 8,
-	"stack_force_notes", "Merge inscriptions when stacking" },
-#endif
-
-#ifdef JP
-	{ &stack_force_costs, FALSE, OPT_PAGE_GAMEPLAY, 0, 9,
-	"stack_force_costs", "異なる割引表示のアイテムをまとめる" },
-#else
-	{ &stack_force_costs, FALSE, OPT_PAGE_GAMEPLAY, 0, 9,
-	"stack_force_costs", "Merge discounts when stacking" },
-#endif
-
-#ifdef JP
-	{ &expand_list,   TRUE, OPT_PAGE_GAMEPLAY, 1, 5,
-	"expand_list",    "「一覧」コマンドを拡張する" },
-#else
-	{ &expand_list,   TRUE, OPT_PAGE_GAMEPLAY, 1, 5,
-	"expand_list",    "Expand the power of the list commands" },
-#endif
-
-#ifdef JP
-	{ &small_levels,  TRUE, OPT_PAGE_GAMEPLAY, 0, 30,
-	"small_levels",   "非常に小さいフロアの生成を可能にする" },
-#else
-	{ &small_levels,  TRUE, OPT_PAGE_GAMEPLAY, 0, 30,
-	"small_levels",   "Allow unusually small dungeon levels" },
-#endif
-
-#ifdef JP
-	{ &always_small_levels, FALSE, OPT_PAGE_GAMEPLAY, 2, 3,
-	"always_small_levels", "常に非常に小さいフロアを生成する" },
-#else
-	{ &always_small_levels, FALSE, OPT_PAGE_GAMEPLAY, 2, 3,
-	"always_small_levels", "Always create unusually small dungeon levels" },
-#endif
-
-#ifdef JP
-	{ &empty_levels,  TRUE, OPT_PAGE_GAMEPLAY, 0, 31,
-	"empty_levels",   "空っぽの「アリーナ」レベルの生成を可能にする" },
-#else
-	{ &empty_levels,  TRUE, OPT_PAGE_GAMEPLAY, 0, 31,
-	"empty_levels",   "Allow empty 'arena' levels" },
-#endif
-
-#ifdef JP
-	{ &bound_walls_perm, FALSE, OPT_PAGE_GAMEPLAY, 2, 1,
-	"bound_walls_perm", "ダンジョンの外壁を永久岩にする" },
-#else
-	{ &bound_walls_perm, FALSE, OPT_PAGE_GAMEPLAY, 2, 1,
-	"bound_walls_perm", "Boundary walls become 'permanent wall'" },
-#endif
-
-#ifdef JP
-	{ &last_words,    TRUE, OPT_PAGE_GAMEPLAY, 0, 28,
-	"last_words",     "キャラクターが死んだ時遺言をのこす" },
-#else
-	{ &last_words,    TRUE, OPT_PAGE_GAMEPLAY, 0, 28,
-	"last_words",     "Leave last words when your character dies" },
+	{ &stack_force_notes, TRUE, OPT_PAGE_GAMEPLAY, 0, 8, "stack_force_notes", "Merge inscriptions when stacking" },
+	{ &stack_force_costs, FALSE, OPT_PAGE_GAMEPLAY, 0, 9, "stack_force_costs", "Merge discounts when stacking" },
+	{ &expand_list,   TRUE, OPT_PAGE_GAMEPLAY, 1, 5, "expand_list",    "Expand the power of the list commands" },
+	{ &small_levels,  TRUE, OPT_PAGE_GAMEPLAY, 0, 30, "small_levels",   "Allow unusually small dungeon levels" },
+	{ &always_small_levels, FALSE, OPT_PAGE_GAMEPLAY, 2, 3, "always_small_levels", "Always create unusually small dungeon levels" },
+	{ &empty_levels,  TRUE, OPT_PAGE_GAMEPLAY, 0, 31, "empty_levels",   "Allow empty 'arena' levels" },
+	{ &bound_walls_perm, FALSE, OPT_PAGE_GAMEPLAY, 2, 1, "bound_walls_perm", "Boundary walls become 'permanent wall'" },
+	{ &last_words,    TRUE, OPT_PAGE_GAMEPLAY, 0, 28, "last_words",     "Leave last words when your character dies" },
 #endif
 
 #ifdef WORLD_SCORE
