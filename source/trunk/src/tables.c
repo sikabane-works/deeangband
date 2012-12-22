@@ -2944,330 +2944,113 @@ option_type option_info[] =
 
 #ifdef WORLD_SCORE
 #ifdef JP
-	{ &send_score,    TRUE, OPT_PAGE_GAMEPLAY, 4, 6,
-	"send_score",     "スコアサーバにスコアを送る" },
+	{ &send_score,    TRUE, OPT_PAGE_GAMEPLAY, 4, 6, "send_score",     "スコアサーバにスコアを送る" },
 #else
-	{ &send_score,    TRUE, OPT_PAGE_GAMEPLAY, 4, 6,
-	"send_score",     "Send score dump to the world score server" },
+	{ &send_score,    TRUE, OPT_PAGE_GAMEPLAY, 4, 6, "send_score",     "Send score dump to the world score server" },
 #endif
 #endif
 
 #ifdef JP
-	{ &allow_debug_opts, FALSE, OPT_PAGE_GAMEPLAY, 6, 11,
-	"allow_debug_opts", "デバッグ/詐欺オプションを許可する" },
+	{ &allow_debug_opts, FALSE, OPT_PAGE_GAMEPLAY, 6, 11, "allow_debug_opts", "デバッグ/詐欺オプションを許可する" },
 #else
-	{ &allow_debug_opts, FALSE, OPT_PAGE_GAMEPLAY, 6, 11,
-	"allow_debug_opts", "Allow use of debug/cheat options" },
+	{ &allow_debug_opts, FALSE, OPT_PAGE_GAMEPLAY, 6, 11, "allow_debug_opts", "Allow use of debug/cheat options" },
 #endif
 
 	/*** Disturbance ***/
 
 #ifdef JP
-	{ &find_ignore_stairs, FALSE, OPT_PAGE_DISTURBANCE, 0, 16,
-	"find_ignore_stairs", "階段は通過する" },
+	{ &find_ignore_stairs, FALSE, OPT_PAGE_DISTURBANCE, 0, 16, "find_ignore_stairs", "階段は通過する" },
+	{ &find_ignore_doors, TRUE, OPT_PAGE_DISTURBANCE, 0, 17, "find_ignore_doors", "ドアは通過する" },
+	{ &find_cut,      FALSE, OPT_PAGE_DISTURBANCE, 0, 18, "find_cut",       "曲り角を斜めに最短距離で通過する" },
+	{ &check_abort,   TRUE, OPT_PAGE_DISTURBANCE, 1, 18, "check_abort",    "連続コマンドはキー入力で中断する" },
+	{ &flush_failure, TRUE, OPT_PAGE_DISTURBANCE, 1, 20, "flush_failure",  "様々なミス発生時に入力をクリアする" },
+	{ &flush_disturb, FALSE, OPT_PAGE_DISTURBANCE, 1, 21, "flush_disturb",  "障害発生時に入力をクリアする" },
+	{ &disturb_move,  FALSE, OPT_PAGE_DISTURBANCE, 0, 20, "disturb_move",   "どこのクリーチャーが動いても行動を中止する" },
 #else
-	{ &find_ignore_stairs, FALSE, OPT_PAGE_DISTURBANCE, 0, 16,
-	"find_ignore_stairs", "Run past stairs" },
+	{ &find_ignore_stairs, FALSE, OPT_PAGE_DISTURBANCE, 0, 16, "find_ignore_stairs", "Run past stairs" },
+	{ &find_ignore_doors, TRUE, OPT_PAGE_DISTURBANCE, 0, 17, "find_ignore_doors", "Run through open doors" },
+	{ &find_cut,      FALSE, OPT_PAGE_DISTURBANCE, 0, 18, "find_cut",       "Run past known corners" },
+	{ &check_abort,   TRUE, OPT_PAGE_DISTURBANCE, 1, 18, "check_abort",    "Check for user abort while continuous command" },
+	{ &flush_failure, TRUE, OPT_PAGE_DISTURBANCE, 1, 20, "flush_failure",  "Flush input on various failures" },
+	{ &flush_disturb, FALSE, OPT_PAGE_DISTURBANCE, 1, 21, "flush_disturb",  "Flush input whenever disturbed" },
+	{ &disturb_move,  FALSE, OPT_PAGE_DISTURBANCE, 0, 20, "disturb_move",   "Disturb whenever any creature moves" },
 #endif
 
 #ifdef JP
-	{ &find_ignore_doors, TRUE, OPT_PAGE_DISTURBANCE, 0, 17,
-	"find_ignore_doors", "ドアは通過する" },
+	{ &disturb_high,  FALSE, OPT_PAGE_DISTURBANCE, 1, 3, "disturb_high",   "レベルの高いクリーチャーが動いたら行動を中止する" },
+	{ &disturb_near,  TRUE, OPT_PAGE_DISTURBANCE, 0, 21, "disturb_near",   "視界内のクリーチャーが動いたら行動を中止する" },
+	{ &disturb_pets,  FALSE, OPT_PAGE_DISTURBANCE, 5, 6, "disturb_pets",   "視界内のペットが動いたら行動を中止する" },
+	{ &disturb_panel, TRUE, OPT_PAGE_DISTURBANCE, 0, 22, "disturb_panel",  "画面スクロール時に行動を中止する" },
+	{ &disturb_state, TRUE, OPT_PAGE_DISTURBANCE, 0, 23, "disturb_state",  "自分のステータス変化時に行動を中止する" },
+	{ &disturb_minor, TRUE, OPT_PAGE_DISTURBANCE, 0, 24, "disturb_minor",  "些細なことが起きても行動を中止する" },
+	{ &ring_bell,     FALSE, OPT_PAGE_DISTURBANCE, 0, 14, "ring_bell",      "エラー時にビープ音を鳴らす" },
+	{ &disturb_trap_detect, TRUE, OPT_PAGE_DISTURBANCE, 0, 27, "disturb_trap_detect", "トラップ感知範囲外に出る直前に行動を中止する" },
+	{ &alert_trap_detect, FALSE, OPT_PAGE_DISTURBANCE, 0, 25, "alert_trap_detect", "トラップ感知範囲外に出る直前に警告する" },
 #else
-	{ &find_ignore_doors, TRUE, OPT_PAGE_DISTURBANCE, 0, 17,
-	"find_ignore_doors", "Run through open doors" },
-#endif
-
-#ifdef JP
-	{ &find_cut,      FALSE, OPT_PAGE_DISTURBANCE, 0, 18,
-	"find_cut",       "曲り角を斜めに最短距離で通過する" },
-#else
-	{ &find_cut,      FALSE, OPT_PAGE_DISTURBANCE, 0, 18,
-	"find_cut",       "Run past known corners" },
-#endif
-
-#ifdef JP
-	{ &check_abort,   TRUE, OPT_PAGE_DISTURBANCE, 1, 18,
-	"check_abort",    "連続コマンドはキー入力で中断する" },
-#else
-	{ &check_abort,   TRUE, OPT_PAGE_DISTURBANCE, 1, 18,
-	"check_abort",    "Check for user abort while continuous command" },
-#endif
-
-#ifdef JP
-	{ &flush_failure, TRUE, OPT_PAGE_DISTURBANCE, 1, 20,
-	"flush_failure",  "様々なミス発生時に入力をクリアする" },
-#else
-	{ &flush_failure, TRUE, OPT_PAGE_DISTURBANCE, 1, 20,
-	"flush_failure",  "Flush input on various failures" },
-#endif
-
-#ifdef JP
-	{ &flush_disturb, FALSE, OPT_PAGE_DISTURBANCE, 1, 21,
-	"flush_disturb",  "障害発生時に入力をクリアする" },
-#else
-	{ &flush_disturb, FALSE, OPT_PAGE_DISTURBANCE, 1, 21,
-	"flush_disturb",  "Flush input whenever disturbed" },
-#endif
-
-#ifdef JP
-	{ &disturb_move,  FALSE, OPT_PAGE_DISTURBANCE, 0, 20,
-	"disturb_move",   "どこのクリーチャーが動いても行動を中止する" },
-#else
-	{ &disturb_move,  FALSE, OPT_PAGE_DISTURBANCE, 0, 20,
-	"disturb_move",   "Disturb whenever any creature moves" },
-#endif
-
-#ifdef JP
-	{ &disturb_high,  FALSE, OPT_PAGE_DISTURBANCE, 1, 3,
-	"disturb_high",   "レベルの高いクリーチャーが動いたら行動を中止する" },
-#else
-	{ &disturb_high,  FALSE, OPT_PAGE_DISTURBANCE, 1, 3,
-	"disturb_high",   "Disturb whenever high-level creature moves" },
-#endif
-
-#ifdef JP
-	{ &disturb_near,  TRUE, OPT_PAGE_DISTURBANCE, 0, 21,
-	"disturb_near",   "視界内のクリーチャーが動いたら行動を中止する" },
-#else
-	{ &disturb_near,  TRUE, OPT_PAGE_DISTURBANCE, 0, 21,
-	"disturb_near",   "Disturb whenever viewable creature moves" },
-#endif
-
-#ifdef JP
-	{ &disturb_pets,  FALSE, OPT_PAGE_DISTURBANCE, 5, 6,
-	"disturb_pets",   "視界内のペットが動いたら行動を中止する" },
-#else
-	{ &disturb_pets,  FALSE, OPT_PAGE_DISTURBANCE, 5, 6,
-	"disturb_pets",   "Disturb when visible pets move" },
-#endif
-
-#ifdef JP
-	{ &disturb_panel, TRUE, OPT_PAGE_DISTURBANCE, 0, 22,
-	"disturb_panel",  "画面スクロール時に行動を中止する" },
-#else
-	{ &disturb_panel, TRUE, OPT_PAGE_DISTURBANCE, 0, 22,
-	"disturb_panel",  "Disturb whenever map panel changes" },
-#endif
-
-#ifdef JP
-	{ &disturb_state, TRUE, OPT_PAGE_DISTURBANCE, 0, 23,
-	"disturb_state",  "自分のステータス変化時に行動を中止する" },
-#else
-	{ &disturb_state, TRUE, OPT_PAGE_DISTURBANCE, 0, 23,
-	"disturb_state",  "Disturb whenever player state changes" },
-#endif
-
-#ifdef JP
-	{ &disturb_minor, TRUE, OPT_PAGE_DISTURBANCE, 0, 24,
-	"disturb_minor",  "些細なことが起きても行動を中止する" },
-#else
-	{ &disturb_minor, TRUE, OPT_PAGE_DISTURBANCE, 0, 24,
-	"disturb_minor",  "Disturb whenever boring things happen" },
-#endif
-
-#ifdef JP
-	{ &ring_bell,     FALSE, OPT_PAGE_DISTURBANCE, 0, 14,
-	"ring_bell",      "エラー時にビープ音を鳴らす" },
-#else
-	{ &ring_bell,     FALSE, OPT_PAGE_DISTURBANCE, 0, 14,
-	"ring_bell",      "Audible bell (on errors, etc)" },
-#endif
-
-#ifdef JP
-	{ &disturb_trap_detect, TRUE, OPT_PAGE_DISTURBANCE, 0, 27,
-	"disturb_trap_detect", "トラップ感知範囲外に出る直前に行動を中止する" },
-#else
-	{ &disturb_trap_detect, TRUE, OPT_PAGE_DISTURBANCE, 0, 27,
-	"disturb_trap_detect", "Disturb when leaving trap detected area" },
-#endif
-
-#ifdef JP
-	{ &alert_trap_detect, FALSE, OPT_PAGE_DISTURBANCE, 0, 25,
-	"alert_trap_detect", "トラップ感知範囲外に出る直前に警告する" },
-#else
-	{ &alert_trap_detect, FALSE, OPT_PAGE_DISTURBANCE, 0, 25,
-	"alert_trap_detect", "Alert when leaving trap detected area" },
+	{ &disturb_high,  FALSE, OPT_PAGE_DISTURBANCE, 1, 3, "disturb_high",   "Disturb whenever high-level creature moves" },
+	{ &disturb_near,  TRUE, OPT_PAGE_DISTURBANCE, 0, 21, "disturb_near",   "Disturb whenever viewable creature moves" },
+	{ &disturb_pets,  FALSE, OPT_PAGE_DISTURBANCE, 5, 6, "disturb_pets",   "Disturb when visible pets move" },
+	{ &disturb_panel, TRUE, OPT_PAGE_DISTURBANCE, 0, 22, "disturb_panel",  "Disturb whenever map panel changes" },
+	{ &disturb_state, TRUE, OPT_PAGE_DISTURBANCE, 0, 23, "disturb_state",  "Disturb whenever player state changes" },
+	{ &disturb_minor, TRUE, OPT_PAGE_DISTURBANCE, 0, 24, "disturb_minor",  "Disturb whenever boring things happen" },
+	{ &ring_bell,     FALSE, OPT_PAGE_DISTURBANCE, 0, 14, "ring_bell",      "Audible bell (on errors, etc)" },
+	{ &disturb_trap_detect, TRUE, OPT_PAGE_DISTURBANCE, 0, 27, "disturb_trap_detect", "Disturb when leaving trap detected area" },
+	{ &alert_trap_detect, FALSE, OPT_PAGE_DISTURBANCE, 0, 25, "alert_trap_detect", "Alert when leaving trap detected area" },
 #endif
 
 	/*** Birth Options ***/
 
 #ifdef JP
-	{ &manual_haggle, FALSE, OPT_PAGE_BIRTH, 1, 0,
-	"manual_haggle",  "店で値切り交渉をする" },
+	{ &manual_haggle, FALSE, OPT_PAGE_BIRTH, 1, 0, "manual_haggle",  "店で値切り交渉をする" },
+	{ &smart_learn,   TRUE, OPT_PAGE_BIRTH, 1, 14, "smart_learn",    "クリーチャーは失敗を学習する(*)" },
+	{ &smart_cheat,   FALSE, OPT_PAGE_BIRTH, 1, 15, "smart_cheat",    "クリーチャーはプレイヤーの弱みを突く(*)" },
+	{ &ironman_shops, FALSE, OPT_PAGE_BIRTH, 6, 2, "ironman_shops",  "(鉄人用)店を使用しない(*)" },
+	{ &ironman_small_levels, FALSE, OPT_PAGE_BIRTH, 6, 3, "ironman_small_levels", "(鉄人用)常に非常に小さいフロアを生成(*)" },
+	{ &ironman_downward, FALSE, OPT_PAGE_BIRTH, 6, 4, "ironman_downward", "(鉄人用)帰還と上り階段なし(*)" },
+	{ &ironman_empty_levels, FALSE, OPT_PAGE_BIRTH, 6, 8, "ironman_empty_levels", "(鉄人用)常に空っぽのアリーナレベルを生成(*)" },
+	{ &ironman_rooms, FALSE, OPT_PAGE_BIRTH, 6, 12, "ironman_rooms",  "(鉄人用)常に普通でない部屋を生成する(*)" },
+	{ &curse_of_Iluvatar, FALSE, OPT_PAGE_BIRTH, 6, 18, "curse_of_Iluvatar", "(鉄人用)イルーヴァタールの呪詛(*)" },
+	{ &preserve_mode, TRUE, OPT_PAGE_BIRTH, 6, 14, "preserve_mode",  "伝説のアイテムを取り逃しても再生成される(*)" },
+	{ &autoroller,    TRUE, OPT_PAGE_BIRTH, 6, 15, "autoroller",     "能力値にオートローラー使用(*)" },
+	{ &autochara,     FALSE, OPT_PAGE_BIRTH, 6, 16, "autochara",     "体格/地位にオートローラー使用" },
 #else
-	{ &manual_haggle, FALSE, OPT_PAGE_BIRTH, 1, 0,
-	"manual_haggle",  "Manually haggle in stores" },
-#endif
-
-#ifdef JP
-	{ &smart_learn,   TRUE, OPT_PAGE_BIRTH, 1, 14,
-	"smart_learn",    "クリーチャーは失敗を学習する(*)" },
-#else
-	{ &smart_learn,   TRUE, OPT_PAGE_BIRTH, 1, 14,
-	"smart_learn",    "Creatures learn from their mistakes (*)" },
-#endif
-
-#ifdef JP
-	{ &smart_cheat,   FALSE, OPT_PAGE_BIRTH, 1, 15,
-	"smart_cheat",    "クリーチャーはプレイヤーの弱みを突く(*)" },
-#else
-	{ &smart_cheat,   FALSE, OPT_PAGE_BIRTH, 1, 15,
-	"smart_cheat",    "Creatures exploit players weaknesses (*)" },
-#endif
-
-#ifdef JP
-	{ &ironman_shops, FALSE, OPT_PAGE_BIRTH, 6, 2,
-	"ironman_shops",  "(鉄人用)店を使用しない(*)" },
-#else
-	{ &ironman_shops, FALSE, OPT_PAGE_BIRTH, 6, 2,
-	"ironman_shops",  "Stores are permanently closed (*)" },
-#endif
-
-#ifdef JP
-	{ &ironman_small_levels, FALSE, OPT_PAGE_BIRTH, 6, 3,
-	"ironman_small_levels", "(鉄人用)常に非常に小さいフロアを生成(*)" },
-#else
-	{ &ironman_small_levels, FALSE, OPT_PAGE_BIRTH, 6, 3,
-	"ironman_small_levels", "Always create unusually small dungeon levels (*)" },
-#endif
-
-#ifdef JP
-	{ &ironman_downward, FALSE, OPT_PAGE_BIRTH, 6, 4,
-	"ironman_downward", "(鉄人用)帰還と上り階段なし(*)" },
-#else
-	{ &ironman_downward, FALSE, OPT_PAGE_BIRTH, 6, 4,
-	"ironman_downward", "Disable recall and use of up stairs (*)" },
-#endif
-
-#ifdef JP
-	{ &ironman_empty_levels, FALSE, OPT_PAGE_BIRTH, 6, 8,
-	"ironman_empty_levels", "(鉄人用)常に空っぽのアリーナレベルを生成(*)" },
-#else
-	{ &ironman_empty_levels, FALSE, OPT_PAGE_BIRTH, 6, 8,
-	"ironman_empty_levels", "Always create empty 'arena' levels (*)" },
-#endif
-
-#ifdef JP
-	{ &ironman_rooms, FALSE, OPT_PAGE_BIRTH, 6, 12,
-	"ironman_rooms",  "(鉄人用)常に普通でない部屋を生成する(*)" },
-#else
-	{ &ironman_rooms, FALSE, OPT_PAGE_BIRTH, 6, 12,
-	"ironman_rooms",  "Always generate very unusual rooms (*)" },
-#endif
-
-#ifdef JP
-	{ &curse_of_Iluvatar, FALSE, OPT_PAGE_BIRTH, 6, 18,
-	"curse_of_Iluvatar", "(鉄人用)イルーヴァタールの呪詛(*)" },
-#else
-	{ &curse_of_Iluvatar, FALSE, OPT_PAGE_BIRTH, 6, 18,
-	"curse_of_Iluvatar", "Curse of Iluvatar(undergo \"Morgoth\" )(*)" },
-#endif
-
-#ifdef JP
-	{ &preserve_mode, TRUE, OPT_PAGE_BIRTH, 6, 14,
-	"preserve_mode",  "伝説のアイテムを取り逃しても再生成される(*)" },
-#else
-	{ &preserve_mode, TRUE, OPT_PAGE_BIRTH, 6, 14,
-	"preserve_mode",  "Preserve artifacts (*)" },
-#endif
-
-#ifdef JP
-	{ &autoroller,    TRUE, OPT_PAGE_BIRTH, 6, 15,
-	"autoroller",     "能力値にオートローラー使用(*)" },
-#else
-	{ &autoroller,    TRUE, OPT_PAGE_BIRTH, 6, 15,
-	"autoroller",     "Allow use of autoroller for stats (*)" },
-#endif
-
-#ifdef JP
-	{ &autochara,     FALSE, OPT_PAGE_BIRTH, 6, 16,
-	"autochara",     "体格/地位にオートローラー使用" },
-#else
-	{ &autochara,     FALSE, OPT_PAGE_BIRTH, 6, 16,
-	"autochara",      "Autoroll for weight, height and social status" },
+	{ &manual_haggle, FALSE, OPT_PAGE_BIRTH, 1, 0, "manual_haggle",  "Manually haggle in stores" },
+	{ &smart_learn,   TRUE, OPT_PAGE_BIRTH, 1, 14, "smart_learn",    "Creatures learn from their mistakes (*)" },
+	{ &smart_cheat,   FALSE, OPT_PAGE_BIRTH, 1, 15, "smart_cheat",    "Creatures exploit players weaknesses (*)" },
+	{ &ironman_shops, FALSE, OPT_PAGE_BIRTH, 6, 2, "ironman_shops",  "Stores are permanently closed (*)" },
+	{ &ironman_small_levels, FALSE, OPT_PAGE_BIRTH, 6, 3, "ironman_small_levels", "Always create unusually small dungeon levels (*)" },
+	{ &ironman_downward, FALSE, OPT_PAGE_BIRTH, 6, 4, "ironman_downward", "Disable recall and use of up stairs (*)" },
+	{ &ironman_empty_levels, FALSE, OPT_PAGE_BIRTH, 6, 8, "ironman_empty_levels", "Always create empty 'arena' levels (*)" },
+	{ &curse_of_Iluvatar, FALSE, OPT_PAGE_BIRTH, 6, 18, "curse_of_Iluvatar", "Curse of Iluvatar(You are \"Morgoth\"!)(*)" },
+	{ &preserve_mode, TRUE, OPT_PAGE_BIRTH, 6, 14, "preserve_mode",  "Preserve artifacts (*)" },
+	{ &autoroller,    TRUE, OPT_PAGE_BIRTH, 6, 15, "autoroller",     "Allow use of autoroller for stats (*)" },
+	{ &autochara,     FALSE, OPT_PAGE_BIRTH, 6, 16, "autochara",      "Autoroll for weight, height and social status" },
 #endif
 
 	/*** Easy Object Auto-Destroyer ***/
 
 #ifdef JP
-	{ &destroy_items, FALSE, OPT_PAGE_AUTODESTROY, 7, 0,
-	"destroy_items",  "アイテムの簡易自動破壊を使用する" },
+	{ &destroy_items, FALSE, OPT_PAGE_AUTODESTROY, 7, 0, "destroy_items",  "アイテムの簡易自動破壊を使用する" },
+	{ &destroy_feeling, FALSE, OPT_PAGE_AUTODESTROY, 7, 8, "destroy_feeling", "簡易鑑定したとき自動破壊を適用する" },
+	{ &destroy_identify, FALSE, OPT_PAGE_AUTODESTROY, 7, 9, "destroy_identify", "鑑定したとき自動破壊を適用する" },
+	{ &leave_worth,   TRUE, OPT_PAGE_AUTODESTROY, 7, 2, "leave_worth",    "価値があるアイテムは壊さない" },
+	{ &leave_equip,   FALSE, OPT_PAGE_AUTODESTROY, 7, 3, "leave_equip",    "武器/防具は壊さない" },
+	{ &leave_chest,   TRUE, OPT_PAGE_AUTODESTROY, 7, 7, "leave_chest",    "開封されていない箱は壊さない" },
+	{ &leave_wanted,  TRUE, OPT_PAGE_AUTODESTROY, 7, 4, "leave_wanted",   "賞金首の死体/骨は壊さない" },
+	{ &leave_corpse,  FALSE, OPT_PAGE_AUTODESTROY, 7, 5, "leave_corpse",   "死体/骨は壊さない" },
+	{ &leave_junk,    FALSE, OPT_PAGE_AUTODESTROY, 7, 6, "leave_junk",     "がらくたは壊さない" },
+	{ &leave_special, TRUE, OPT_PAGE_AUTODESTROY, 7, 1, "leave_special",  "種族/職業で特別に必要なアイテムは壊さない" },
 #else
-	{ &destroy_items, FALSE, OPT_PAGE_AUTODESTROY, 7, 0,
-	"destroy_items",  "Use easy auto-destroyer" },
-#endif
-
-#ifdef JP
-	{ &destroy_feeling, FALSE, OPT_PAGE_AUTODESTROY, 7, 8,
-	"destroy_feeling", "簡易鑑定したとき自動破壊を適用する" },
-#else
-	{ &destroy_feeling, FALSE, OPT_PAGE_AUTODESTROY, 7, 8,
-	"destroy_feeling", "Apply auto-destroy as sense feeling" },
-#endif
-
-#ifdef JP
-	{ &destroy_identify, FALSE, OPT_PAGE_AUTODESTROY, 7, 9,
-	"destroy_identify", "鑑定したとき自動破壊を適用する" },
-#else
-	{ &destroy_identify, FALSE, OPT_PAGE_AUTODESTROY, 7, 9,
-	"destroy_identify", "Apply auto-destroy as identify an item" },
-#endif
-
-#ifdef JP
-	{ &leave_worth,   TRUE, OPT_PAGE_AUTODESTROY, 7, 2,
-	"leave_worth",    "価値があるアイテムは壊さない" },
-#else
-	{ &leave_worth,   TRUE, OPT_PAGE_AUTODESTROY, 7, 2,
-	"leave_worth",    "Auto-destroyer leaves known worthy items" },
-#endif
-
-#ifdef JP
-	{ &leave_equip,   FALSE, OPT_PAGE_AUTODESTROY, 7, 3,
-	"leave_equip",    "武器/防具は壊さない" },
-#else
-	{ &leave_equip,   FALSE, OPT_PAGE_AUTODESTROY, 7, 3,
-	"leave_equip",    "Auto-destroyer leaves weapons and armour" },
-#endif
-
-#ifdef JP
-	{ &leave_chest,   TRUE, OPT_PAGE_AUTODESTROY, 7, 7,
-	"leave_chest",    "開封されていない箱は壊さない" },
-#else
-	{ &leave_chest,   TRUE, OPT_PAGE_AUTODESTROY, 7, 7,
-	"leave_chest",    "Auto-destroyer leaves closed chests" },
-#endif
-
-#ifdef JP
-	{ &leave_wanted,  TRUE, OPT_PAGE_AUTODESTROY, 7, 4,
-	"leave_wanted",   "賞金首の死体/骨は壊さない" },
-#else
-	{ &leave_wanted,  TRUE, OPT_PAGE_AUTODESTROY, 7, 4,
-	"leave_wanted",   "Auto-destroyer leaves wanted corpses" },
-#endif
-
-#ifdef JP
-	{ &leave_corpse,  FALSE, OPT_PAGE_AUTODESTROY, 7, 5,
-	"leave_corpse",   "死体/骨は壊さない" },
-#else
-	{ &leave_corpse,  FALSE, OPT_PAGE_AUTODESTROY, 7, 5,
-	"leave_corpse",   "Auto-destroyer leaves corpses and skeletons" },
-#endif
-
-#ifdef JP
-	{ &leave_junk,    FALSE, OPT_PAGE_AUTODESTROY, 7, 6,
-	"leave_junk",     "がらくたは壊さない" },
-#else
-	{ &leave_junk,    FALSE, OPT_PAGE_AUTODESTROY, 7, 6,
-	"leave_junk",     "Auto-destroyer leaves junk" },
-#endif
-
-#ifdef JP
-	{ &leave_special, TRUE, OPT_PAGE_AUTODESTROY, 7, 1,
-	"leave_special",  "種族/職業で特別に必要なアイテムは壊さない" },
-#else
-	{ &leave_special, TRUE, OPT_PAGE_AUTODESTROY, 7, 1,
-	"leave_special",  "Auto-destroyer leaves items your race/class needs" },
+	{ &destroy_items, FALSE, OPT_PAGE_AUTODESTROY, 7, 0, "destroy_items",  "Use easy auto-destroyer" },
+	{ &destroy_feeling, FALSE, OPT_PAGE_AUTODESTROY, 7, 8, "destroy_feeling", "Apply auto-destroy as sense feeling" },
+	{ &destroy_identify, FALSE, OPT_PAGE_AUTODESTROY, 7, 9, "destroy_identify", "Apply auto-destroy as identify an item" },
+	{ &leave_worth,   TRUE, OPT_PAGE_AUTODESTROY, 7, 2, "leave_worth",    "Auto-destroyer leaves known worthy items" },
+	{ &leave_equip,   FALSE, OPT_PAGE_AUTODESTROY, 7, 3, "leave_equip",    "Auto-destroyer leaves weapons and armour" },
+	{ &leave_chest,   TRUE, OPT_PAGE_AUTODESTROY, 7, 7, "leave_chest",    "Auto-destroyer leaves closed chests" },
+	{ &leave_wanted,  TRUE, OPT_PAGE_AUTODESTROY, 7, 4, "leave_wanted",   "Auto-destroyer leaves wanted corpses" },
+	{ &leave_corpse,  FALSE, OPT_PAGE_AUTODESTROY, 7, 5, "leave_corpse",   "Auto-destroyer leaves corpses and skeletons" },
+	{ &leave_junk,    FALSE, OPT_PAGE_AUTODESTROY, 7, 6, "leave_junk",     "Auto-destroyer leaves junk" },
+	{ &leave_special, TRUE, OPT_PAGE_AUTODESTROY, 7, 1, "leave_special",  "Auto-destroyer leaves items your race/class needs" },
 #endif
 
 	/*** Play-record Options ***/
