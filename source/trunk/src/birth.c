@@ -5097,7 +5097,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			set_creature_bonuses(creature_ptr, FALSE);
 
 			// Calculate the bonuses and hitpoints
-			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA);
+			prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA);
 			update_creature(creature_ptr, FALSE);
 
 			/* And start out fully healthy */
@@ -5284,7 +5284,7 @@ bool ask_quick_start(creature_type *creature_ptr)
 	get_extra(creature_ptr, FALSE);
 
 	// Update the bonuses and hitpoints
-	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
+	prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
 	update_creature(creature_ptr, TRUE);
 
 	/* Fully healed */

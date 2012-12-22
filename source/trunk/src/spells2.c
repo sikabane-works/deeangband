@@ -2077,9 +2077,9 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		forget_flow(floor_ptr);
 
 		/* Mega-Hack -- Forget the view and lite */
-		caster_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
+		prepare_update(caster_ptr, PU_UN_VIEW | PU_UN_LITE);
 
-		caster_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
+		prepare_update(caster_ptr, PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 
 		prepare_redraw(PR_MAP);
 
@@ -2348,7 +2348,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 		}
 	}
 
-	player_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES); // Update stuff
+	prepare_update(player_ptr, PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES); // Update stuff
 	prepare_redraw(PR_HEALTH | PR_UHEALTH | PR_MAP | PW_OVERHEAD | PW_DUNGEON); // Update the health bar
 
 	if(caster_ptr->posture & NINJA_S_STEALTH && floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info & CAVE_GLOW)
@@ -3199,7 +3199,7 @@ bool wall_stone(creature_type *caster_ptr)
 {
 	bool dummy = (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_STONE_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 
-	caster_ptr->creature_update |= (PU_FLOW);
+	prepare_update(caster_ptr, PU_FLOW);
 
 	prepare_redraw(PR_MAP);
 

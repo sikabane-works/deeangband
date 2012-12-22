@@ -973,7 +973,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 			prepare_redraw(PR_MAP);
 
 			// Update creatures
-			creature_ptr->creature_update |= (PU_CREATURES);
+			prepare_update(creature_ptr, PU_CREATURES);
 
 			prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
@@ -1033,7 +1033,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		msg_print("You improved the Force.");
 #endif
 		creature_ptr->class_skills.old_skills.magic_num1[0] += (70 + plev);
-		creature_ptr->creature_update |= (CRU_BONUS);
+		prepare_update(creature_ptr, CRU_BONUS);
 		if(randint1(creature_ptr->class_skills.old_skills.magic_num1[0]) > (plev * 4 + 120))
 		{
 #ifdef JP
@@ -1112,7 +1112,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 						lite_spot(floor_ptr, ty, tx);
 
 						if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-							creature_ptr->creature_update |= (PU_SPECIES_LITE);
+							prepare_update(creature_ptr, PU_SPECIES_LITE);
 					}
 				}
 			}
@@ -1180,7 +1180,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 
 	}
 	creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 
 	return TRUE;
 }
@@ -1670,7 +1670,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			lite_spot(floor_ptr, ty, tx);
 
 			if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-				creature_ptr->creature_update |= (PU_SPECIES_LITE);
+				prepare_update(creature_ptr, PU_SPECIES_LITE);
 
 			if(m_ptr->see_others)
 			{

@@ -1118,21 +1118,21 @@ void do_cmd_redraw(void)
 
 	/*
 	// Combine and Reorder the pack (later)
-	player_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(player_ptr, CRU_COMBINE | CRU_REORDER);
 
-	player_ptr->creature_update |= (CRU_TORCH);
+	prepare_update(player_ptr, CRU_TORCH);
 
-	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	prepare_update(player_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	*/
 
 	/* Forget lite/view */
-	player_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
+	prepare_update(player_ptr, PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update lite/view */
-	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
+	prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	// Update creatures
-	player_ptr->creature_update |= (PU_CREATURES);
+	prepare_update(player_ptr, PU_CREATURES);
 
 	prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 

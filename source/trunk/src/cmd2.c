@@ -1329,7 +1329,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 			cave_alter_feat(floor_ptr, y, x, FF_TUNNEL);
 
 			/* Update some things */
-			creature_ptr->creature_update |= (PU_FLOW);
+			prepare_update(creature_ptr, PU_FLOW);
 		}
 		else
 		{
@@ -1356,14 +1356,14 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 			else
 			{
 				msg_print("ŒŠ‚ðŒ@‚èI‚¦‚½B");
-				creature_ptr->creature_update |= (PU_FLOW);
+				prepare_update(creature_ptr, PU_FLOW);
 			}
 #else
 			if(tree) msg_format("You have cleared away the %s.", name);
 			else
 			{
 				msg_print("You have finished the tunnel.");
-				creature_ptr->creature_update |= (PU_FLOW);
+				prepare_update(creature_ptr, PU_FLOW);
 			}
 #endif
 
@@ -2354,7 +2354,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 	creature_ptr->resting = command_arg;
 	creature_ptr->action = ACTION_REST;
 
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 
 	prepare_redraw(PR_STATE);
 
@@ -2840,7 +2840,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				/* Forget the wall */
 				c_ptr->info &= ~(CAVE_MARK);
 
-				creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
+				prepare_update(creature_ptr, PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
 
 				/* Destroy the wall */
 				cave_alter_feat(floor_ptr, ny, nx, FF_HURT_ROCK);
@@ -2937,7 +2937,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					else if((now_exp < WEAPON_EXP_EXPERT) && (creature_ptr->lev > 19)) amount = 10;
 					else if(creature_ptr->lev > 34) amount = 2;
 					creature_ptr->weapon_exp[0][j_ptr->sval] += amount;
-					creature_ptr->creature_update |= (CRU_BONUS);
+					prepare_update(creature_ptr, CRU_BONUS);
 				}
 				*/
 			}
@@ -2949,7 +2949,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					&& one_in_(2))
 				{
 					creature_ptr->skill_exp[SKILL_RIDING] += 1;
-					creature_ptr->creature_update |= (CRU_BONUS);
+					prepare_update(creature_ptr, CRU_BONUS);
 				}
 			}
 
@@ -3820,7 +3820,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			/* Increment the equip counter by hand */
 			creature_ptr->equip_cnt++;
 
-			creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
+			prepare_update(creature_ptr, CRU_BONUS | CRU_TORCH | CRU_MANA);
 
 			prepare_window(PW_EQUIP);
 		}

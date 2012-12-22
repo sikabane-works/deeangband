@@ -396,7 +396,7 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 #endif
 		object_ptr->feeling = FEEL_NONE;
 	}
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 }
 
 // Check should creature cast dispel spell.

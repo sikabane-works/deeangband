@@ -2201,7 +2201,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						object_ptr->pval = 0;
 
 						/* Combine / Reorder the pack */
-						target_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+						prepare_update(target_ptr, CRU_COMBINE | CRU_REORDER);
 
 						prepare_window(PW_INVEN);
 
@@ -2888,7 +2888,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #endif
 							target_ptr->stat_cur[stat] = (target_ptr->stat_cur[stat] * 3) / 4;
 							if(target_ptr->stat_cur[stat] < 3) target_ptr->stat_cur[stat] = 3;
-							target_ptr->creature_update |= (CRU_BONUS);
+							prepare_update(target_ptr, CRU_BONUS);
 							break;
 						}
 
@@ -2904,7 +2904,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 								target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
 								if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
 							}
-							target_ptr->creature_update |= (CRU_BONUS);
+							prepare_update(target_ptr, CRU_BONUS);
 							break;
 						}
 					}

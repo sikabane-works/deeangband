@@ -493,5 +493,5 @@ msg_print("V‚µ‚¢•KŽE‹Z‚ðŠo‚¦‚é‚±‚Æ‚Í‚Å‚«‚È‚¢I");
 	else
 		cost_tactical_energy(creature_ptr, 100);
 
-	creature_ptr->creature_update |= (CRU_SPELLS);
+	prepare_update(creature_ptr, CRU_SPELLS);
 }

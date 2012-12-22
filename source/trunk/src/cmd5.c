@@ -593,8 +593,8 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 	creature_ptr->old_realm |= 1 << (creature_ptr->realm2-1);
 	creature_ptr->realm2 = next_realm;
 
-	creature_ptr->creature_update |= (CRU_REORDER);
-	creature_ptr->creature_update |= (CRU_SPELLS);
+	prepare_update(creature_ptr, CRU_REORDER);
+	prepare_update(creature_ptr, CRU_SPELLS);
 	handle_stuff(creature_ptr);
 
 	/* Load an autopick preference file */
@@ -863,7 +863,7 @@ void do_cmd_study(creature_type *creature_ptr)
 #endif
 
 	/* Update Study */
-	creature_ptr->creature_update |= (CRU_SPELLS);
+	prepare_update(creature_ptr, CRU_SPELLS);
 	update_creature(creature_ptr, TRUE);
 
 	prepare_window(PW_OBJECT);
@@ -1291,7 +1291,7 @@ void check_pets_num_and_align(creature_type *master_ptr, creature_type *m_ptr, b
 		if(is_enemy_of_good_creature(m_ptr)) friend_align += species_ptr->level;
 	}
 
-	if(old_friend_align != friend_align) player_ptr->creature_update |= (CRU_BONUS);
+	if(old_friend_align != friend_align) prepare_update(player_ptr, CRU_BONUS);
 }
 
 int calculate_upkeep_servant(creature_type *master_ptr)
@@ -1468,7 +1468,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 				creature_ptr->riding = 0;
 
 				// Update creatures
-				creature_ptr->creature_update |= (CRU_BONUS);
+				prepare_update(creature_ptr, CRU_BONUS);
 				creature_ptr->creature_update |= PU_CREATURES;
 				prepare_redraw(PR_EXTRA | PR_UHEALTH);
 			}
@@ -1648,7 +1648,7 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 	creature_ptr->pet_extra_flags &= ~(PF_RYOUTE);
 	creature_ptr->riding_two_handed = creature_ptr->old_riding_two_handed = FALSE;
 
-	creature_ptr->creature_update |= (CRU_BONUS | PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
+	prepare_update(creature_ptr, CRU_BONUS | PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 	update_creature(creature_ptr, TRUE);
 
 

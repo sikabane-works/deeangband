@@ -307,7 +307,7 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	autopick_alter_item(creature_ptr, slot, destroy_feeling);
 
 	/* Combine / Reorder the pack (later) */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	prepare_window(PW_INVEN | PW_EQUIP);
 }
@@ -1120,7 +1120,7 @@ static void regen_captured_creatures(creature_type *creature_ptr)
 	if(heal)
 	{
 		/* Combine pack */
-		creature_ptr->creature_update |= (CRU_COMBINE);
+		prepare_update(creature_ptr, CRU_COMBINE);
 
 		prepare_window(PW_INVEN);
 		prepare_window(PW_EQUIP);
@@ -1154,7 +1154,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 		msg_print("Your light has gone out!");
 #endif
 
-		creature_ptr->creature_update |= (CRU_TORCH | CRU_BONUS);
+		prepare_update(creature_ptr, CRU_TORCH | CRU_BONUS);
 	}
 
 	/* The light is getting dim */
@@ -1295,7 +1295,7 @@ bool psychometry(creature_type *creature_ptr)
 	object_ptr->marked |= OM_TOUCHED;
 
 	/* Combine / Reorder the pack (later) */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
@@ -1431,12 +1431,12 @@ static void check_music(creature_type *creature_ptr)
 #endif
 			creature_ptr->action = ACTION_SING;
 
-			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
+			prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
 
 			prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
 
 			// Update creatures
-			creature_ptr->creature_update |= (PU_CREATURES);
+			prepare_update(creature_ptr, PU_CREATURES);
 
 			prepare_window(PW_OVERHEAD | PW_DUNGEON);
 		}
@@ -2519,7 +2519,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #endif
 
 			object_ptr->feeling = FEEL_NONE;
-			creature_ptr->creature_update |= (CRU_BONUS);
+			prepare_update(creature_ptr, CRU_BONUS);
 		}
 	}
 
@@ -2542,7 +2542,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			msg_format("There is a malignant black aura surrounding your %s...", object_name);
 #endif
 			object_ptr->feeling = FEEL_NONE;
-			creature_ptr->creature_update |= (CRU_BONUS);
+			prepare_update(creature_ptr, CRU_BONUS);
 		}
 	}
 
@@ -3259,7 +3259,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 			}
 
 			// Update creatures
-			player_ptr->creature_update |= (PU_CREATURES | PU_SPECIES_LITE);
+			prepare_update(player_ptr, PU_CREATURES | PU_SPECIES_LITE);
 
 			prepare_redraw(PR_MAP);
 
@@ -3576,7 +3576,7 @@ static void process_player_command(creature_type *creature_ptr)
 			}
 
 			// Update creatures
-			creature_ptr->creature_update |= (PU_CREATURES);
+			prepare_update(creature_ptr, PU_CREATURES);
 
 			prepare_redraw(PR_TITLE);
 
@@ -4914,7 +4914,7 @@ void process_player(creature_type *creature_ptr)
 			if(creature_ptr->time_stopper && (creature_ptr->energy_need > - 1000))
 			{
 				prepare_redraw(PR_MAP);
-				creature_ptr->creature_update |= (PU_CREATURES);
+				prepare_update(creature_ptr, PU_CREATURES);
 				prepare_window(PW_OVERHEAD | PW_DUNGEON);
 #ifdef JP
 				msg_print("uŽž‚Í“®‚«‚¾‚·cv");
@@ -5291,7 +5291,7 @@ void waited_report_score(void)
 #endif
 		quit(0);
 
-	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	prepare_update(player_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	update_creature(player_ptr, TRUE);
 	gameover = TRUE;
 	start_time = (u32b)time(NULL);
@@ -5550,14 +5550,14 @@ static void play_loop(void)
 		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
 		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);
 
-		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
-		player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_CREATURES | PU_DISTANCE | PU_FLOW);
+		prepare_update(player_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
+		prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_CREATURES | PU_DISTANCE | PU_FLOW);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
 		//TODO DELETE?
 		//handle_stuff(creature_ptr);
 
-		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_COMBINE | CRU_REORDER);
+		prepare_update(player_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_COMBINE | CRU_REORDER);
 		notice_stuff(player_ptr);
 
 		handle_stuff(player_ptr); // Handle "update" and "play_redraw" and "play_window"

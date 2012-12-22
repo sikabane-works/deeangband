@@ -28,7 +28,7 @@ bool stop_hex_spell_all(creature_type *creature_ptr)
 	/* Print message */
 	if(creature_ptr->action == ACTION_SPELL) set_action(creature_ptr, ACTION_NONE);
 
-	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	prepare_redraw(PR_EXTRA | PR_HP | PR_MANA);
 
 	return TRUE;
@@ -109,7 +109,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 		creature_ptr->class_skills.old_skills.magic_num2[0]--;
 	}
 
-	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	prepare_redraw(PR_EXTRA | PR_HP | PR_MANA);
 
 	return flag;
@@ -184,12 +184,12 @@ void check_hex(creature_type *creature_ptr)
 #endif
 			creature_ptr->action = ACTION_SPELL;
 
-			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
+			prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
 
 			prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
 
 			// Update creatures
-			creature_ptr->creature_update |= (PU_CREATURES);
+			prepare_update(creature_ptr, PU_CREATURES);
 
 			prepare_window(PW_OVERHEAD | PW_DUNGEON);
 		}

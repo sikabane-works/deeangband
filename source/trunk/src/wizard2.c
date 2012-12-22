@@ -56,7 +56,7 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 	percent = (int)(((long)creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] * 200L) / (2 * creature_ptr->hitdice + ((CREATURE_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
 
 	/* Update and redraw hitpoints */
-	creature_ptr->creature_update |= (CRU_HP);
+	prepare_update(creature_ptr, CRU_HP);
 	prepare_redraw(PR_HP);
 
 	prepare_window(PW_PLAYER);
@@ -856,10 +856,10 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 		/* Apply changes */
 		object_copy(object_ptr, quest_ptr);
 
-		caster_ptr->creature_update |= (CRU_BONUS);
+		prepare_update(caster_ptr, CRU_BONUS);
 
 		/* Combine / Reorder the pack (later) */
-		caster_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+		prepare_update(caster_ptr, CRU_COMBINE | CRU_REORDER);
 
 		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 	}
@@ -1158,7 +1158,7 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 		if(item >= 0) set_inventory_weight(creature_ptr); // Recalcurate object's weight
 		object_copy(object_ptr, quest_ptr); // Change
 
-		creature_ptr->creature_update |= (CRU_BONUS | CRU_COMBINE | CRU_REORDER);
+		prepare_update(creature_ptr, CRU_BONUS | CRU_COMBINE | CRU_REORDER);
 		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 	}
 
@@ -1793,7 +1793,7 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	lite_spot(floor_ptr, y, x);
 
 	/* Update some things */
-	creature_ptr->creature_update |= (PU_FLOW);
+	prepare_update(creature_ptr, PU_FLOW);
 
 	prev_feat = tmp_feat;
 	prev_mimic = tmp_mimic;

@@ -2245,7 +2245,7 @@ static void calc_lite(creature_type *creature_ptr)
 	if(creature_ptr->old_lite != creature_ptr->cur_lite)
 	{
 		/* Hack -- PU_SPECIES_LITE for creatures' darkness */
-		creature_ptr->creature_update |= (PU_LITE | PU_SPECIES_LITE | PU_CREATURES);
+		prepare_update(creature_ptr, PU_LITE | PU_SPECIES_LITE | PU_CREATURES);
 
 		/* Remember the old lite */
 		creature_ptr->old_lite = creature_ptr->cur_lite;
@@ -2562,22 +2562,22 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 		if(creature_ptr->stat_ind[i] != ind)
 		{
 			creature_ptr->stat_ind[i] = ind; // Save the new index
-			if(i == STAT_CON) creature_ptr->creature_update |= (CRU_HP); // Change in CON affects Hitpoints
+			if(i == STAT_CON) prepare_update(creature_ptr, CRU_HP); // Change in CON affects Hitpoints
 
 			else if(i == STAT_INT) // Change in INT may affect Mana/Spells
 			{
 				if(magic_info[creature_ptr->class_idx].spell_stat == STAT_INT)
-					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
+					prepare_update(creature_ptr, CRU_MANA | CRU_SPELLS);
 			}
 			else if(i == STAT_WIS) // Change in WIS may affect Mana/Spells
 			{
 				if(magic_info[creature_ptr->class_idx].spell_stat == STAT_WIS)
-					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
+					prepare_update(creature_ptr, CRU_MANA | CRU_SPELLS);
 			}
 			else if(i == STAT_CHA) // Change in WIS may affect Mana/Spells
 			{
 				if(magic_info[creature_ptr->class_idx].spell_stat == STAT_CHA)
-					creature_ptr->creature_update |= (CRU_MANA | CRU_SPELLS);
+					prepare_update(creature_ptr, CRU_MANA | CRU_SPELLS);
 			}
 			prepare_window(PW_PLAYER);
 		}
@@ -3957,7 +3957,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if(message) creature_bonuses_message(creature_ptr);
 
 	// Hack -- See Invis Change
-	//TODO creature_ptr->creature_update |= (PU_CREATURES);
+	//TODO prepare_update(creature_ptr, PU_CREATURES);
 	prepare_window(PW_INVEN); // Redraw average damege display of Shuriken
 	prepare_redraw(PR_SPEED); // TODO
 

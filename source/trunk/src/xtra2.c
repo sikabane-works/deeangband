@@ -93,7 +93,7 @@ void check_experience(creature_type *creature_ptr)
 		creature_ptr->lev--;
 
 		/* Update some stuff */
-		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 		prepare_redraw(PR_LEV | PR_TITLE);
 
@@ -136,7 +136,7 @@ void check_experience(creature_type *creature_ptr)
 		}
 
 		/* Update some stuff */
-		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 		prepare_redraw(PR_LEV | PR_TITLE | PR_EXP);
 
@@ -243,7 +243,7 @@ void check_experience(creature_type *creature_ptr)
 		}
 
 		/* Update some stuff */
-		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 		prepare_redraw(PR_LEV | PR_TITLE);
 
@@ -503,7 +503,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 #endif
 
 		cave_set_feat(floor_ptr, y, x, feat_down_stair); // Create stairs down
-		player_ptr->creature_update |= (PU_FLOW); // Remember to update everything
+		prepare_update(player_ptr, PU_FLOW); // Remember to update everything
 	}
 
 	if(reward)	// Drop quest reward
@@ -1147,16 +1147,16 @@ void resize_map(void)
 
 	verify_panel(player_ptr);
 
-	player_ptr->creature_update |= (CRU_TORCH | CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	prepare_update(player_ptr, CRU_TORCH | CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 	/* Forget lite/view */
-	player_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
+	prepare_update(player_ptr, PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update lite/view */
-	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
+	prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	// Update creatures
-	player_ptr->creature_update |= (PU_CREATURES);
+	prepare_update(player_ptr, PU_CREATURES);
 
 	prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
@@ -1225,7 +1225,7 @@ bool change_panel(int dy, int dx)
 
 		panel_bounds_center();
 
-		player_ptr->creature_update |= (PU_CREATURES);
+		prepare_update(player_ptr, PU_CREATURES);
 
 		prepare_redraw(PR_MAP);
 
@@ -1314,7 +1314,7 @@ void verify_panel(creature_type *creature_ptr)
 	if(disturb_panel && !center_player) disturb(player_ptr, 0, 0);
 
 	panel_bounds_center();
-	creature_ptr->creature_update |= (PU_CREATURES);
+	prepare_update(creature_ptr, PU_CREATURES);
 	prepare_redraw(PR_MAP);
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 }
@@ -4051,7 +4051,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 					x = creature_ptr->fx;
 					verify_panel(creature_ptr);	/* Move cursor to player */
 
-					creature_ptr->creature_update |= (PU_CREATURES);
+					prepare_update(creature_ptr, PU_CREATURES);
 
 					prepare_redraw(PR_MAP);
 
@@ -4138,7 +4138,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 	/* Recenter the map around the player */
 	verify_panel(creature_ptr);
 
-	creature_ptr->creature_update |= (PU_CREATURES);
+	prepare_update(creature_ptr, PU_CREATURES);
 	prepare_redraw(PR_MAP);
 	prepare_window(PW_OVERHEAD);
 

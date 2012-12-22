@@ -811,7 +811,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_CHANGE_BRAND:
 		//get_bloody_moon_flags(object_ptr);
 		if(has_trait(caster_ptr, TRAIT_ANDROID)) calc_android_exp(caster_ptr);
-		caster_ptr->creature_update |= (CRU_BONUS | CRU_HP);
+		prepare_update(caster_ptr, CRU_BONUS | CRU_HP);
 		break;
 
 	case TRAIT_SHIKO:
@@ -1377,7 +1377,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				msg_format("%^s blinks away.", target_name);
 #endif
 				teleport_away(caster_ptr, 10, 0L);
-				caster_ptr->creature_update |= (PU_CREATURES);
+				prepare_update(caster_ptr, PU_CREATURES);
 			}
 			break;
 		}
@@ -1413,7 +1413,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 		cost_tactical_energy(caster_ptr, -1000 - (100 + randint1(200) + 200) * TURNS_PER_TICK / 10);
 		prepare_redraw(PR_MAP);
-		caster_ptr->creature_update |= (PU_CREATURES); // Update creatures
+		prepare_update(caster_ptr, PU_CREATURES); // Update creatures
 		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 		handle_stuff(caster_ptr);
@@ -1429,7 +1429,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				msg_format("%^s suddenly go out of your sight!", caster_name);
 #endif
 				teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
-				caster_ptr->creature_update |= (PU_CREATURES);
+				prepare_update(caster_ptr, PU_CREATURES);
 			}
 			else
 			{
@@ -2193,7 +2193,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			if(id == -3)
 			{
 				if(!choose_kamae(caster_ptr)) return FALSE;
-				caster_ptr->creature_update |= (CRU_BONUS);
+				prepare_update(caster_ptr, CRU_BONUS);
 			}
 			else if(id == -4)
 			{
@@ -2341,7 +2341,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				return FALSE;
 			}
 			if(!choose_kata(caster_ptr)) return FALSE;
-			caster_ptr->creature_update |= (CRU_BONUS);
+			prepare_update(caster_ptr, CRU_BONUS);
 			break;
 		}
 

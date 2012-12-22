@@ -133,7 +133,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	lite_spot(floor_ptr, ny, nx);
 
 	if(is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
-		creature_ptr->creature_update |= (PU_SPECIES_LITE);
+		prepare_update(creature_ptr, PU_SPECIES_LITE);
 
 	return TRUE;
 }
@@ -221,7 +221,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	lite_spot(floor_ptr, ny, nx);
 
 	if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-		player_ptr->creature_update |= (PU_SPECIES_LITE);
+		prepare_update(player_ptr, PU_SPECIES_LITE);
 }
 
 
@@ -1061,7 +1061,7 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 #else
 		msg_format("Your %s (%c) %s disenchanted!", object_name, index_to_label(t), ((object_ptr->number != 1) ? "were" : "was"));
 #endif
-		creature_ptr->creature_update |= (CRU_BONUS);
+		prepare_update(creature_ptr, CRU_BONUS);
 		prepare_window(PW_EQUIP | PW_PLAYER);
 		calc_android_exp(creature_ptr);
 	}
@@ -1094,7 +1094,7 @@ void mutate_creature(creature_type *creature_ptr)
 		if(creature_ptr->stat_cur[i] > creature_ptr->stat_mod_max_max[i]) creature_ptr->stat_cur[i] = creature_ptr->stat_mod_max_max[i];
 	}
 
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 }
 
 
@@ -1208,7 +1208,7 @@ msg_print("照明用アイテムは満タンになった。");
 
 	}
 
-	creature_ptr->creature_update |= (CRU_TORCH);
+	prepare_update(creature_ptr, CRU_TORCH);
 }
 
 
@@ -1559,12 +1559,12 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	}
 
 	/* Mega-Hack -- Forget the view and lite */
-	player_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
+	prepare_update(player_ptr, PU_UN_VIEW | PU_UN_LITE);
 
-	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
+	prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
 
 	// Update creatures
-	player_ptr->creature_update |= (PU_CREATURES);
+	prepare_update(player_ptr, PU_CREATURES);
 
 	prepare_redraw(PR_MAP);
 
@@ -2023,7 +2023,7 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 		/* Take note */
 		object_ptr->feeling = FEEL_NONE;
 
-		creature_ptr->creature_update |= (CRU_BONUS);
+		prepare_update(creature_ptr, CRU_BONUS);
 
 		prepare_window(PW_EQUIP);
 
@@ -2298,10 +2298,10 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 
 	if(!res) return FALSE;
 
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
@@ -2509,10 +2509,10 @@ bool identify_item(creature_type *creature_ptr, object_type *object_ptr)
 	/* Player touches it */
 	object_ptr->marked |= OM_TOUCHED;
 
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
@@ -3131,7 +3131,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", object_name);
 	}
 
 	/* Combine / Reorder the pack (later) */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	prepare_window(PW_INVEN);
 
@@ -3203,7 +3203,7 @@ msg_format("%s から邪悪なオーラが消えた。",
 		/* Take note */
 		object_ptr->feeling = FEEL_NONE;
 
-		creature_ptr->creature_update |= (CRU_BONUS);
+		prepare_update(creature_ptr, CRU_BONUS);
 
 		prepare_window(PW_EQUIP);
 	}
@@ -3301,7 +3301,7 @@ msg_format("%s は劣化した！",
 		}
 	}
 
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 
 	prepare_window(PW_EQUIP | PW_PLAYER);
 
@@ -4568,7 +4568,7 @@ static int minus_ac(creature_type *creature_ptr)
 
 	object_ptr->to_ac--; // Damage the item
 
-	creature_ptr->creature_update |= (CRU_BONUS);		// Calculate bonuses
+	prepare_update(creature_ptr, CRU_BONUS);		// Calculate bonuses
 	prepare_window(PW_EQUIP | PW_PLAYER);
 	calc_android_exp(creature_ptr);
 
@@ -4668,7 +4668,7 @@ bool curse_armor(creature_type *creature_ptr)
 		shatter_object(object_ptr);
 
 		// Recalculate bonuses and mana
-		creature_ptr->creature_update |= (CRU_BONUS | CRU_MANA);
+		prepare_update(creature_ptr, CRU_BONUS | CRU_MANA);
 
 		prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 	}
@@ -4703,7 +4703,7 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 		if(!force) msg_format(game_messages[GAME_MESSAGE_BLACK_AURA_TO_OBJECT], object_name);
 		shatter_object(object_ptr);
 
-		target_ptr->creature_update |= (CRU_BONUS | CRU_MANA);	// Recalculate bonuses and mana
+		prepare_update(target_ptr, CRU_BONUS | CRU_MANA);	// Recalculate bonuses and mana
 		prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 	}
 
@@ -5226,7 +5226,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", object_name);
 
 	prepare_redraw(PR_MANA);
 
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 	prepare_window(PW_INVEN);
 
 	return TRUE;

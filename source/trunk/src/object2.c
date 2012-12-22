@@ -1350,7 +1350,7 @@ bool can_player_destroy_object(creature_type *creature_ptr, object_type *object_
 		object_ptr->ident |= (IDENT_SENSE);
 
 		/* Combine the pack */
-		creature_ptr->creature_update |= (CRU_COMBINE);
+		prepare_update(creature_ptr, CRU_COMBINE);
 
 		prepare_window(PW_INVEN | PW_EQUIP);
 
@@ -3608,7 +3608,7 @@ void inven_item_increase(creature_type *creature_ptr, int item, int num)
 	{
 		object_ptr->number += num;
 		set_inventory_weight(creature_ptr);
-		creature_ptr->creature_update |= (CRU_BONUS | CRU_MANA | CRU_COMBINE);
+		prepare_update(creature_ptr, CRU_BONUS | CRU_MANA | CRU_COMBINE);
 		prepare_window(PW_INVEN | PW_EQUIP);
 	}
 }
@@ -3636,7 +3636,7 @@ void inven_item_optimize(creature_type *creature_ptr, int item)
 		object_wipe(&creature_ptr->inventory[item]);
 
 		// Recalculate torch
-		creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
+		prepare_update(creature_ptr, CRU_BONUS | CRU_TORCH | CRU_MANA);
 		prepare_window(PW_EQUIP);
 	}
 
@@ -3857,7 +3857,7 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 			/* Increase the weight */
 			set_inventory_weight(creature_ptr);
 
-			creature_ptr->creature_update |= (CRU_BONUS);
+			prepare_update(creature_ptr, CRU_BONUS);
 
 			prepare_window(PW_INVEN);
 
@@ -3933,10 +3933,10 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 	/* Count the items */
 	creature_ptr->inven_cnt++;
 
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 
 	/* Combine and Reorder pack */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	prepare_window(PW_INVEN);
 
@@ -5188,7 +5188,7 @@ static void drain_essence(creature_type *creature_ptr)
 	}
 
 	/* Combine the pack */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	prepare_window(PW_INVEN);
 }
@@ -5871,7 +5871,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #endif
 
 	/* Combine the pack */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	prepare_window(PW_INVEN);
 }
@@ -5923,7 +5923,7 @@ static void erase_essence(creature_type *creature_ptr)
 #endif
 
 	/* Combine the pack */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	prepare_window(PW_INVEN);
 }

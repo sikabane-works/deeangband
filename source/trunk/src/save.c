@@ -902,8 +902,8 @@ static bool wr_floors(creature_type *player_ptr)
 	int i;
 
 	// Update lite/view/creatures
-	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
-	player_ptr->creature_update |= (PU_CREATURES | PU_DISTANCE | PU_FLOW);
+	prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE);
+	prepare_update(player_ptr, PU_CREATURES | PU_DISTANCE | PU_FLOW);
 
 	/*** Meta info ***/
 

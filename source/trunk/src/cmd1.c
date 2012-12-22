@@ -574,7 +574,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 	char object_name[MAX_NLEN];
 	
 	verify_panel(creature_ptr); // Recenter the map around the player
-	creature_ptr->creature_update |= (PU_CREATURES);
+	prepare_update(creature_ptr, PU_CREATURES);
 
 	prepare_redraw(PR_MAP);
 	prepare_window(PW_OVERHEAD);
@@ -1468,11 +1468,11 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		if(mpe_mode & MCE_FORGET_FLOW)
 		{
 			forget_flow(prev_floor_ptr);
-			creature_ptr->creature_update |= (PU_UN_VIEW);
+			prepare_update(creature_ptr, PU_UN_VIEW);
 			prepare_redraw(PR_MAP);
 		}
 
-		creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_DISTANCE);
+		prepare_update(creature_ptr, PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_DISTANCE);
 
 		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
@@ -2167,7 +2167,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
 
 			// Update some things -- similar to DO_EFFECT_KILL_WALL
-			creature_ptr->creature_update |= (PU_FLOW);
+			prepare_update(creature_ptr, PU_FLOW);
 		}
 
 		// Sound

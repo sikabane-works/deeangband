@@ -2776,7 +2776,7 @@ void update_lite(creature_type *creature_ptr)
 	temp_n = 0;
 
 	/* Mega-Hack -- Visual update later */
-	creature_ptr->creature_update |= (PU_DELAY_VIS);
+	prepare_update(creature_ptr, PU_DELAY_VIS);
 }
 
 
@@ -3244,7 +3244,7 @@ void update_creature_lite(floor_type *floor_ptr)
 	temp_n = 0;
 
 	/* Mega-Hack -- Visual update later */
-	player_ptr->creature_update |= (PU_DELAY_VIS);
+	prepare_update(player_ptr, PU_DELAY_VIS);
 
 	player_ptr->monlite = (floor_ptr->cave[player_ptr->fy][player_ptr->fx].info & CAVE_MNLT) ? TRUE : FALSE;
 
@@ -3992,7 +3992,7 @@ void update_view(creature_type *creature_ptr)
 	temp_n = 0;
 
 	/* Mega-Hack -- Visual update later */
-	creature_ptr->creature_update |= (PU_DELAY_VIS);
+	prepare_update(creature_ptr, PU_DELAY_VIS);
 }
 
 
@@ -4411,7 +4411,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 	}
 
 	// Update creatures
-	creature_ptr->creature_update |= (PU_CREATURES);
+	prepare_update(creature_ptr, PU_CREATURES);
 
 	prepare_redraw(PR_MAP);
 
@@ -4474,13 +4474,13 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 	}
 
 	/* Mega-Hack -- Forget the view and lite */
-	creature_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
+	prepare_update(creature_ptr, PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update the view and lite */
-	creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
+	prepare_update(creature_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	// Update creatures
-	creature_ptr->creature_update |= (PU_CREATURES);
+	prepare_update(creature_ptr, PU_CREATURES);
 
 	prepare_redraw(PR_MAP);
 
@@ -4566,7 +4566,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 #endif /* COMPLEX_WALL_ILLUMINATION */
 
 		/* Update the visuals */
-		player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_CREATURES);
+		prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_CREATURES);
 	}
 
 	/* Hack -- glow the GLOW terrain */
@@ -4996,10 +4996,10 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 		if(center_player && !center_running) verify_panel(player_ptr);
 
 		/* Calculate torch radius */
-		player_ptr->creature_update |= (CRU_TORCH);
+		prepare_update(player_ptr, CRU_TORCH);
 
 		/* Update creature flow */
-		player_ptr->creature_update |= (PU_FLOW);
+		prepare_update(player_ptr, PU_FLOW);
 	}
 
 	if(travel.run)
@@ -5011,7 +5011,7 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 		if(center_player && !center_running) verify_panel(player_ptr);
 
 		/* Calculate torch radius */
-		player_ptr->creature_update |= (CRU_TORCH);
+		prepare_update(player_ptr, CRU_TORCH);
 	}
 
 	/* Flush the input if requested */
@@ -5051,7 +5051,7 @@ void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 	}
 
 	/* Update the view and lite */
-	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
+	prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	prepare_redraw(PR_MAP);
 }

@@ -5130,8 +5130,8 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 	msg_print(NULL);
 
 	/*
-	creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
-	creature_ptr->creature_update |= (PU_CREATURES);
+	prepare_update(creature_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE);
+	prepare_update(creature_ptr, PU_CREATURES);
 
 	prepare_redraw(PR_BASIC | PR_EXTRA | PR_EQUIPPY);
 

@@ -1755,7 +1755,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			set_timed_trait(target_ptr, TRAIT_WRAITH_FORM, 0, TRUE);
 			prepare_redraw(PR_MAP);
-			caster_ptr->creature_update |= (PU_CREATURES);
+			prepare_update(caster_ptr, PU_CREATURES);
 			prepare_window(PW_OVERHEAD | PW_DUNGEON | PR_STATUS);
 		}
 		break;
@@ -1892,7 +1892,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 				target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 3) / 4;
 				if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
-				target_ptr->creature_update |= (CRU_BONUS);
+				prepare_update(target_ptr, CRU_BONUS);
 				break;
 
 			case 10:
@@ -1906,7 +1906,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
 					if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
 				}
-				target_ptr->creature_update |= (CRU_BONUS);
+				prepare_update(target_ptr, CRU_BONUS);
 				break;
 			}
 		}

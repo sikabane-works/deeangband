@@ -3134,7 +3134,7 @@ if(get_check(format("‚»‚Ìƒƒbƒh‚ð%d ‚ÅÄ[“U‚µ‚Ü‚·‚©H",
 #endif
 
 	/* Combine / Reorder the pack (later) */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	prepare_window(PW_INVEN);
 
@@ -3297,7 +3297,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 	msg_print(NULL);
 
 	/* Combine / Reorder the pack (later) */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	prepare_window(PW_INVEN);
 
@@ -4135,7 +4135,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 	/* Update the visuals */
 	creature_ptr->creature_update |= CRU_BONUS;
-	creature_ptr->creature_update |= (PU_VIEW | PU_CREATURES | PU_LITE | PU_SPECIES_LITE);
+	prepare_update(creature_ptr, PU_VIEW | PU_CREATURES | PU_LITE | PU_SPECIES_LITE);
 
 	prepare_redraw(PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);
 

@@ -6196,7 +6196,7 @@ static void show_info(creature_type *creature_ptr)
 	*/
 
 	/* Hack -- Recalculate bonuses */
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 
 	handle_stuff(creature_ptr);
 

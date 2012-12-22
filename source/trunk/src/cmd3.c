@@ -204,7 +204,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	if(n < 0) return;
 
 	// Recalculate bonuses
-	creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
+	prepare_update(creature_ptr, CRU_BONUS | CRU_TORCH | CRU_MANA);
 	update_creature(creature_ptr, TRUE);
 
 	old_equipped_ptr = get_equipped_slot_ptr(creature_ptr, object_kind_info[object_ptr->k_idx].slot, n);
@@ -328,7 +328,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 		// TODO: ADD Vampire Flag 
 	}
 
-	creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA); // Recalculate bonuses
+	prepare_update(creature_ptr, CRU_BONUS | CRU_TORCH | CRU_MANA); // Recalculate bonuses
 	update_creature(creature_ptr, TRUE);
 
 	prepare_redraw(PR_EQUIPPY);
@@ -470,7 +470,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 			object_ptr->ident |= (IDENT_SENSE);
 			object_ptr->curse_flags[0] = 0L;
 			object_ptr->feeling = FEEL_NONE;
-			creature_ptr->creature_update |= (CRU_BONUS); // Recalculate the bonuses
+			prepare_update(creature_ptr, CRU_BONUS); // Recalculate the bonuses
 			prepare_window(PW_EQUIP);
 
 #ifdef JP
@@ -869,12 +869,12 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 	object_ptr->inscription = 0;
 
 	/* Combine the pack */
-	creature_ptr->creature_update |= (CRU_COMBINE);
+	prepare_update(creature_ptr, CRU_COMBINE);
 
 	prepare_window(PW_INVEN | PW_EQUIP);
 
 	/* .‚â$‚ÌŠÖŒW‚Å, ÄŒvŽZ‚ª•K—v‚È‚Í‚¸ -- henkma */
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 
 }
 
@@ -933,7 +933,7 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 		object_ptr->inscription = quark_add(out_val);
 
 		/* Combine the pack */
-		creature_ptr->creature_update |= (CRU_COMBINE);
+		prepare_update(creature_ptr, CRU_COMBINE);
 
 		prepare_window(PW_INVEN | PW_EQUIP);
 
@@ -1111,7 +1111,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 		floor_item_optimize(0 - item);
 	}
 
-	creature_ptr->creature_update |= (CRU_TORCH);
+	prepare_update(creature_ptr, CRU_TORCH);
 }
 
 
@@ -1225,7 +1225,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 		floor_item_optimize(0 - item);
 	}
 
-	creature_ptr->creature_update |= (CRU_TORCH);
+	prepare_update(creature_ptr, CRU_TORCH);
 }
 
 
@@ -1413,7 +1413,7 @@ void do_cmd_locate(creature_type *creature_ptr)
 	/* Recenter the map around the player */
 	verify_panel(creature_ptr);
 
-	creature_ptr->creature_update |= (PU_CREATURES);
+	prepare_update(creature_ptr, PU_CREATURES);
 
 	prepare_redraw(PR_MAP);
 

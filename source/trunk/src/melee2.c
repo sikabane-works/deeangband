@@ -1621,7 +1621,7 @@ static void process_nonplayer(int m_idx)
 */
 
 	//TODO move old player feature of stun.
-	if(is_riding_mon) player_ptr->creature_update |= (CRU_BONUS);
+	if(is_riding_mon) prepare_update(player_ptr, CRU_BONUS);
 
 	// No one wants to be your friend if you're aggravating
 	if(is_friendly(player_ptr, creature_ptr) && (has_trait(player_ptr, TRAIT_ANTIPATHY))) gets_angry = TRUE;
@@ -1963,7 +1963,7 @@ static void process_nonplayer(int m_idx)
 					if(!creature_ptr->species_idx) /* Killed by shards of glass, etc. */
 					{
 						/* Update some things */
-						creature_ptr->creature_update |= (PU_FLOW);
+						prepare_update(creature_ptr, PU_FLOW);
 						prepare_window(PW_OVERHEAD | PW_DUNGEON);
 						if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_BASH_DOOR);
 
@@ -2196,7 +2196,7 @@ static void process_nonplayer(int m_idx)
 			if(!creature_ptr->species_idx) /* Killed by shards of glass, etc. */
 			{
 				/* Update some things */
-				creature_ptr->creature_update |= (PU_FLOW);
+				prepare_update(creature_ptr, PU_FLOW);
 				prepare_window(PW_OVERHEAD | PW_DUNGEON);
 				if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_KILL_WALL);
 
@@ -2436,7 +2436,7 @@ static void process_nonplayer(int m_idx)
 	if(do_view)
 	{
 		/* Update some things */
-		creature_ptr->creature_update |= (PU_FLOW);
+		prepare_update(creature_ptr, PU_FLOW);
 
 		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 	}
@@ -2446,7 +2446,7 @@ static void process_nonplayer(int m_idx)
 		|| ((has_trait(creature_ptr, TRAIT_HAS_LITE_1) || has_trait(creature_ptr, TRAIT_HAS_LITE_2)) && !floor_ptr->gamble_arena_mode))
 	{
 		/* Update some things */
-		creature_ptr->creature_update |= (PU_SPECIES_LITE);
+		prepare_update(creature_ptr, PU_SPECIES_LITE);
 	}
 
 	/* Learn things from observable creature */
@@ -2553,7 +2553,7 @@ static void process_creature(int i)
 		if(creature_ptr->class_skills.old_skills.magic_num1[0] < 40)
 			creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
 		else creature_ptr->class_skills.old_skills.magic_num1[0] -= 40;
-		creature_ptr->creature_update |= (CRU_BONUS);
+		prepare_update(creature_ptr, CRU_BONUS);
 	}
 
 	if(creature_ptr->action == ACTION_LEARN)

@@ -203,7 +203,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Combine / Reorder the pack (later) */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	/* We have tried it */
 	if(object_ptr->tval == TV_FOOD) object_tried(object_ptr);
@@ -270,7 +270,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			object_ptr->ident |= (IDENT_EMPTY);
 
 			/* Combine / Reorder the pack (later) */
-			creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+			prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 			prepare_window(PW_INVEN);
 
 			return;
@@ -752,7 +752,7 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 	}
 
 	/* Combine / Reorder the pack (later) */
-	caster_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(caster_ptr, CRU_COMBINE | CRU_REORDER);
 
 	/* The item has been tried */
 	object_tried(quest_ptr);
@@ -1111,7 +1111,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 
 		case SV_SCROLL_SPELL:
 			caster_ptr->add_spells++;
-			caster_ptr->creature_update |= (CRU_SPELLS);
+			prepare_update(caster_ptr, CRU_SPELLS);
 			ident = TRUE;
 			break;
 
@@ -1295,7 +1295,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 
 
 	/* Combine / Reorder the pack (later) */
-	caster_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(caster_ptr, CRU_COMBINE | CRU_REORDER);
 
 	/* The item was tried */
 	object_tried(object_ptr);
@@ -1663,7 +1663,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 		object_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */
-		creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+		prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 		prepare_window(PW_INVEN);
 
 		return;
@@ -1678,7 +1678,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	ident = staff_effect(creature_ptr, object_ptr->sval, &use_charge, FALSE, object_is_aware(object_ptr));
 
 	/* Combine / Reorder the pack (later) */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	/* Tried the item */
 	object_tried(object_ptr);
@@ -2017,7 +2017,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 		object_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */
-		creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+		prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 		prepare_window(PW_INVEN);
 
 		return;
@@ -2031,7 +2031,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 
 	ident = wand_effect(creature_ptr, object_ptr->sval, dir, FALSE);
 
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER); // Combine / Reorder the pack (later)
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER); // Combine / Reorder the pack (later)
 
 	object_tried(object_ptr); // Mark it as tried
 	if(ident && !object_is_aware(object_ptr)) // Apply identification
@@ -2265,7 +2265,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		if(object_ptr->charge_dice) object_ptr->timeout += randint1(object_ptr->charge_dice);
 	}
 
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);	// Combine / Reorder the pack (later)
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);	// Combine / Reorder the pack (later)
 	object_tried(object_ptr);	// Tried the object
 
 	if(ident && !object_is_aware(object_ptr)) // Successfully determined the object function

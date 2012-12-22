@@ -157,8 +157,8 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 #endif
 		}
 		creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
-		creature_ptr->creature_update |= (CRU_BONUS);
-		creature_ptr->creature_update |= (PU_CREATURES);
+		prepare_update(creature_ptr, CRU_BONUS);
+		prepare_update(creature_ptr, PU_CREATURES);
 		prepare_redraw(PR_STATE);
 		prepare_redraw(PR_STATUS);
 		creature_ptr->action = ACTION_NONE;
@@ -197,7 +197,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 #endif
 			}
 			creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
-			creature_ptr->creature_update |= (CRU_BONUS);
+			prepare_update(creature_ptr, CRU_BONUS);
 			prepare_redraw(PR_STATE);
 			creature_ptr->action = ACTION_NONE;
 		}
@@ -300,7 +300,7 @@ void set_action(creature_type *creature_ptr, int typ)
 				msg_print("You stop assuming the posture.");
 #endif
 				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
-				creature_ptr->creature_update |= (PU_CREATURES);
+				prepare_update(creature_ptr, PU_CREATURES);
 				prepare_redraw(PR_STATUS);
 				break;
 			}
@@ -384,7 +384,7 @@ void set_action(creature_type *creature_ptr, int typ)
 		}
 	}
 
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 
 	prepare_redraw(PR_STATE);
 }
@@ -434,9 +434,9 @@ void dispel_creature(creature_type *creature_ptr)
 		creature_ptr->class_skills.old_skills.magic_num1[1] = creature_ptr->class_skills.old_skills.magic_num1[0];
 		creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
 		creature_ptr->action = ACTION_NONE;
-		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
+		prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
 		prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
-		creature_ptr->creature_update |= (PU_CREATURES);
+		prepare_update(creature_ptr, PU_CREATURES);
 		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 		cost_tactical_energy(creature_ptr, 100);
 	}
@@ -615,7 +615,7 @@ bool set_food(creature_type *creature_ptr, int v)
 	if(!notice) return FALSE;
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 	prepare_redraw(PR_HUNGER);
 	handle_stuff(creature_ptr);
 
@@ -651,7 +651,7 @@ bool inc_stat(creature_type *creature_ptr, int stat)
 		creature_ptr->stat_cur[stat] = value; // Save the new value
 		if(value > creature_ptr->stat_max[stat]) creature_ptr->stat_max[stat] = value; // Bring up the maximum too
 
-		creature_ptr->creature_update |= (CRU_BONUS); // Recalculate bonuses
+		prepare_update(creature_ptr, CRU_BONUS); // Recalculate bonuses
 		return TRUE;	// Success
 	}
 
@@ -732,7 +732,7 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 		creature_ptr->stat_max[stat] = max;
 
 		if(is_player(creature_ptr)) prepare_redraw(PR_STATS);
-		creature_ptr->creature_update |= (CRU_BONUS);
+		prepare_update(creature_ptr, CRU_BONUS);
 	}
 
 	return (res);
@@ -745,7 +745,7 @@ bool res_stat(creature_type *creature_ptr, int stat)
 	if(creature_ptr->stat_cur[stat] != creature_ptr->stat_max[stat])
 	{
 		creature_ptr->stat_cur[stat] = creature_ptr->stat_max[stat];
-		creature_ptr->creature_update |= (CRU_BONUS);
+		prepare_update(creature_ptr, CRU_BONUS);
 		if(is_player(creature_ptr)) prepare_redraw(PR_STATS);
 		return TRUE;
 	}
@@ -993,7 +993,7 @@ bool lose_all_info(creature_type *creature_ptr)
 	}
 
 	// Recalculate bonuses / Combine / Reorder the pack (later)
-	creature_ptr->creature_update |= (CRU_BONUS | CRU_COMBINE | CRU_REORDER);
+	prepare_update(creature_ptr, CRU_BONUS | CRU_COMBINE | CRU_REORDER);
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 	wiz_dark(GET_FLOOR_PTR(creature_ptr), creature_ptr); // Mega-Hack -- Forget the map
 	return TRUE; // It worked
@@ -1067,7 +1067,7 @@ void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 
 	check_experience(creature_ptr); // The experience level may be modified
 	prepare_redraw(PR_BASIC);
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 
 	handle_stuff(creature_ptr);
 

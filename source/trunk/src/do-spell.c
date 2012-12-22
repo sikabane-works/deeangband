@@ -937,7 +937,7 @@ static void start_singing(creature_type *creature_ptr, int spell, int song)
 	creature_ptr->class_skills.old_skills.magic_num2[0] = spell;
 
 	set_action(creature_ptr, ACTION_SING);
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 	prepare_redraw(PR_STATUS);
 }
 
@@ -969,7 +969,7 @@ void stop_singing(creature_type *creature_ptr)
 	creature_ptr->class_skills.old_skills.magic_num1[0] = MUSIC_NONE;
 	creature_ptr->class_skills.old_skills.magic_num2[0] = 0;
 
-	creature_ptr->creature_update |= (CRU_BONUS);
+	prepare_update(creature_ptr, CRU_BONUS);
 
 	prepare_redraw(PR_STATUS);
 }
@@ -8811,12 +8811,12 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			(void)heal_creature(caster_ptr, 10);
 			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-			caster_ptr->creature_update |= (CRU_HP);
+			prepare_update(caster_ptr, CRU_HP);
 
 			start_singing(caster_ptr, spell, MUSIC_HERO);
 		}
 
-			if(stop) caster_ptr->creature_update |= (CRU_HP);
+			if(stop) prepare_update(caster_ptr, CRU_HP);
 
 		break;
 
@@ -9465,12 +9465,12 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			(void)heal_creature(caster_ptr, 10);
 			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-			caster_ptr->creature_update |= (CRU_HP);
+			prepare_update(caster_ptr, CRU_HP);
 
 			start_singing(caster_ptr, spell, MUSIC_SHERO);
 		}
 
-		if(stop) caster_ptr->creature_update |= (CRU_HP);
+		if(stop) prepare_update(caster_ptr, CRU_HP);
 
 		{
 			int dice = 1;
@@ -9585,7 +9585,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				prepare_redraw(PR_MAP);
 		
 				// Update creatures
-				caster_ptr->creature_update |= (PU_CREATURES);
+				prepare_update(caster_ptr, PU_CREATURES);
 		
 				prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
@@ -9604,7 +9604,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				prepare_redraw(PR_MAP);
 
 				// Update creatures
-				caster_ptr->creature_update |= (PU_CREATURES);
+				prepare_update(caster_ptr, PU_CREATURES);
 
 				prepare_window(PW_OVERHEAD | PW_DUNGEON);
 			}
@@ -10023,7 +10023,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					lite_spot(floor_ptr, ty, tx);
 	
 					if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-						caster_ptr->creature_update |= (PU_SPECIES_LITE);
+						prepare_update(caster_ptr, PU_SPECIES_LITE);
 				}
 			}
 		}
@@ -10079,7 +10079,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 	
 			/* Update some things */
-			caster_ptr->creature_update |= (PU_FLOW);
+			prepare_update(caster_ptr, PU_FLOW);
 		}
 		break;
 
@@ -11049,7 +11049,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				object_ptr->curse_flags[0] |= get_curse(power, object_ptr);
 			}
 
-			creature_ptr->creature_update |= (CRU_BONUS);
+			prepare_update(creature_ptr, CRU_BONUS);
 			add = FALSE;
 		}
 		break;
@@ -11500,7 +11500,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				object_ptr->curse_flags[0] |= get_curse(power, object_ptr);
 			}
 
-			creature_ptr->creature_update |= (CRU_BONUS);
+			prepare_update(creature_ptr, CRU_BONUS);
 			add = FALSE;
 		}
 		break;
@@ -11662,7 +11662,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				{
 					creature_ptr->stat_cur[i] += 10;
 					if(creature_ptr->stat_cur[i] > creature_ptr->stat_max[i]) creature_ptr->stat_cur[i] = creature_ptr->stat_max[i];
-					creature_ptr->creature_update |= (CRU_BONUS); // Recalculate bonuses
+					prepare_update(creature_ptr, CRU_BONUS); // Recalculate bonuses
 
 					flag = TRUE;
 				}
@@ -11679,7 +11679,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				if(cont) creature_ptr->class_skills.old_skills.magic_num2[0]--;
 				if(creature_ptr->class_skills.old_skills.magic_num2) creature_ptr->action = ACTION_NONE;
 
-				creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+				prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 				prepare_redraw(PR_EXTRA);
 
 				return "";
@@ -11964,7 +11964,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	if(!info)
 	{
-		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+		prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 		prepare_redraw(PR_EXTRA | PR_HP | PR_MANA);
 	}
 
