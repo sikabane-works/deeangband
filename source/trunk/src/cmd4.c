@@ -1349,7 +1349,6 @@ void do_cmd_messages(int num_now)
 		prt("[Press 'p' for older, 'n' for newer, ..., or ESCAPE]", hgt - 1, 0);
 #endif
 
-		/* Get a command */
 		skey = inkey_special(TRUE);
 
 		/* Exit on Escape */
@@ -2861,7 +2860,6 @@ void do_cmd_macros(void)
 		prt("Command: ", 16, 0);
 #endif
 
-		/* Get a command */
 		i = inkey();
 
 		/* Leave */
@@ -3664,7 +3662,6 @@ void do_cmd_visuals(void)
 					    "Command (n/N/^N/a/A/^A/c/C/^C/v/V/^V): ");
 #endif
 
-				/* Get a command */
 				i = inkey();
 
 				/* All done */
@@ -3785,7 +3782,6 @@ void do_cmd_visuals(void)
 					    "Command (n/N/^N/a/A/^A/c/C/^C/v/V/^V): ");
 #endif
 
-				/* Get a command */
 				i = inkey();
 
 				/* All done */
@@ -3900,7 +3896,6 @@ void do_cmd_visuals(void)
 					    "Command (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): ");
 #endif
 
-				/* Get a command */
 				i = inkey();
 
 				/* All done */
@@ -4191,7 +4186,6 @@ void do_cmd_colors(void)
 						   angband_color_table[a][2],
 						   angband_color_table[a][3]));
 
-				/* Get a command */
 				i = inkey();
 
 				/* All done */

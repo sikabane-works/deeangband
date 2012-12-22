@@ -4922,13 +4922,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		clear_from(20 + xtra_stock);
 		display_store(creature_ptr, st_ptr);
 
-		/* Basic commands */
-#ifdef JP
-		prt(" ESC) 店を出る", 21 + xtra_stock, 0);
-#else
-		prt(" ESC) Exit from Store.", 21 + xtra_stock, 0);
-#endif
-
 		/* Browse if necessary */
 		if(st_ptr->stock_num > store_bottom)
 		{
@@ -4971,6 +4964,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		}
 
 		/* Shop commands XXX XXX XXX */
+		/* 基本的なコマンドの追加表示 */
 		else
 		{
 #ifdef JP
@@ -4987,22 +4981,21 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		}
 
 #ifdef JP
-		/* 基本的なコマンドの追加表示 */
-
 		prt("i/e) 持ち物/装備の一覧", 21 + xtra_stock, 56);
 
 		if(rogue_like_commands) prt("w/T) 装備する/はずす", 22 + xtra_stock, 56);
 		else prt("w/t) 装備する/はずす", 22 + xtra_stock, 56);
 		prt("コマンド:", 20 + xtra_stock, 0);
+		prt(" ESC) 店を出る", 21 + xtra_stock, 0);
 #else
 		prt("i/e) Inventry/Equipment list", 21 + xtra_stock, 56);
 
 		if(rogue_like_commands) prt("w/T) Wear/Take off equipment", 22 + xtra_stock, 56);
 		else prt("w/t) Wear/Take off equipment", 22 + xtra_stock, 56);
 		prt("You may: ", 20 + xtra_stock, 0);
+		prt(" ESC) Exit from Store.", 21 + xtra_stock, 0);
 #endif
 
-		/* Get a command */
 		request_command(creature_ptr, TRUE);
 
 		/* Process the command */

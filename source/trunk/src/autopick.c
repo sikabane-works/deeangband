@@ -6208,7 +6208,6 @@ void do_cmd_edit_autopick(creature_type *creature_ptr)
 		tb->old_wid = tb->wid;
 		tb->old_hgt = tb->hgt;
 
-		/* Get a command */
 		key = inkey_special(TRUE);
 
 		/* Special keys */

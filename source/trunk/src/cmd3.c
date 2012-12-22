@@ -45,7 +45,6 @@ void do_cmd_inven(creature_type *creature_ptr)
 #endif
 
 
-	/* Get a command */
 	prt(out_val, 0, 0);
 
 	/* Get a new command */
@@ -103,7 +102,6 @@ void do_cmd_equip(creature_type *creature_ptr)
 #endif
 
 
-	/* Get a command */
 	prt(out_val, 0, 0);
 
 	/* Get a new command */

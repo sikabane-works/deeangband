@@ -4112,7 +4112,6 @@ static char inkey_from_menu(void)
 		/* Place the cursor on the player */
 		move_cursor_relative(player_ptr->fy, player_ptr->fx);
 
-		/* Get a command */
 		sub_cmd = inkey();
 		if((sub_cmd == ' ') || (sub_cmd == 'x') || (sub_cmd == 'X') || (sub_cmd == '\r') || (sub_cmd == '\n'))
 		{
@@ -4231,14 +4230,9 @@ void request_command(creature_type *guest_ptr, int shopping)
 		mode = KEYMAP_MODE_ORIG;
 	}
 
-
 	/* No command yet */
 	command_cmd = 0;
-
-	/* No "argument" yet */
 	command_arg = 0;
-
-	/* No "direction" yet */
 	command_dir = 0;
 
 	use_menu = FALSE;
@@ -4270,7 +4264,6 @@ void request_command(creature_type *guest_ptr, int shopping)
 			/* Activate "command mode" */
 			inkey_flag = TRUE;
 
-			/* Get a command */
 			cmd = inkey();
 
 			if(!shopping && command_menu && ((cmd == '\r') || (cmd == '\n') || (cmd == 'x') || (cmd == 'X'))
@@ -4280,7 +4273,6 @@ void request_command(creature_type *guest_ptr, int shopping)
 
 		/* Clear top line */
 		prt("", 0, 0);
-
 
 		/* Command Count */
 		if(cmd == '0')
