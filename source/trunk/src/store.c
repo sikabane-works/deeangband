@@ -3943,53 +3943,23 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 
 	char object_name[MAX_NLEN];
 
-
 	/* Prepare a prompt */
-	if(is_home(st_ptr))
+	
 #ifdef JP
-	q = "どのアイテムを置きますか? ";
+	if(is_home(st_ptr)) q = "どのアイテムを置きますか? ";
+	else if(is_museum(st_ptr)) q = "どのアイテムを寄贈しますか? ";
+	else q = "どのアイテムを売りますか? ";
+	if(is_home(st_ptr)) s = "置けるアイテムを持っていません。";
+	else if(is_museum(st_ptr)) s = "寄贈できるアイテムを持っていません。";
+	else s = "欲しい物がないですねえ。";
 #else
-		q = "Drop which item? ";
+	if(is_home(st_ptr)) q = "Drop which item? ";
+	else if(is_museum(st_ptr)) q = "Give which item? ";
+	else q = "Sell which item? ";
+	if(is_home(st_ptr)) s = "You don't have any item to drop.";
+	else if(is_museum(st_ptr)) s = "You don't have any item to give.";
+	else s = "You have nothing that I want.";
 #endif
-
-	else if(is_museum(st_ptr))
-#ifdef JP
-	q = "どのアイテムを寄贈しますか? ";
-#else
-		q = "Give which item? ";
-#endif
-
-	else
-#ifdef JP
-		q = "どのアイテムを売りますか? ";
-#else
-		q = "Sell which item? ";
-#endif
-
-	if(is_home(st_ptr))
-	{
-#ifdef JP
-		s = "置けるアイテムを持っていません。";
-#else
-		s = "You don't have any item to drop.";
-#endif
-	}
-	else if(is_museum(st_ptr))
-	{
-#ifdef JP
-		s = "寄贈できるアイテムを持っていません。";
-#else
-		s = "You don't have any item to give.";
-#endif
-	}
-	else
-	{
-#ifdef JP
-		s = "欲しい物がないですねえ。";
-#else
-		s = "You have nothing that I want.";
-#endif
-	}
 
 	// TODO: Restrict store will buy
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
@@ -4003,9 +3973,6 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 #else
 		msg_print("Hmmm, it seems to be cursed.");
 #endif
-
-
-		/* Nope */
 		return;
 	}
 
@@ -4065,7 +4032,6 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 #endif
 		return;
 	}
-
 
 	/* Real store */
 	if(!is_home(st_ptr) && !is_home(st_ptr))
