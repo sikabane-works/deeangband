@@ -3971,13 +3971,9 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 }
 
 
-
-/*
- * Handle "creature_ptr->creature_update"
- */
+// Handle creature_ptr->creature update.
 void notice_stuff(creature_type *creature_ptr)
 {
-	/* Notice stuff */
 	if(!creature_ptr->creature_update) return;
 
 	/* Actually do auto-destroy */

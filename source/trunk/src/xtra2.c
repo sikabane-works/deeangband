@@ -2601,7 +2601,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 					/* Recenter the map around the player */
 					verify_panel(aimer_ptr);
 
-					aimer_ptr->creature_update |= (PU_CREATURES);
+					prepare_update(aimer_ptr, PU_CREATURES);
 
 					prepare_redraw(PR_MAP);
 
@@ -2677,7 +2677,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 						panel_col_min = x2;
 						panel_bounds_center();
 
-						aimer_ptr->creature_update |= (PU_CREATURES);
+						prepare_update(aimer_ptr, PU_CREATURES);
 						prepare_redraw(PR_MAP | PW_OVERHEAD);
 
 						handle_stuff(aimer_ptr);
@@ -2761,7 +2761,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 
 			case 'p':
 				verify_panel(aimer_ptr);	// Recenter the map around the player
-				aimer_ptr->creature_update |= (PU_CREATURES);
+				prepare_update(aimer_ptr, PU_CREATURES);
 				prepare_redraw(PR_MAP | PW_OVERHEAD);
 				handle_stuff(aimer_ptr);
 				target_set_prepare(aimer_ptr, mode);	// Recalculate interesting grids
@@ -2861,7 +2861,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 
 	prt("", 0, 0); // Clear the top line
 	verify_panel(aimer_ptr);	// Recenter the map around the player
-	aimer_ptr->creature_update |= (PU_CREATURES);
+	prepare_update(aimer_ptr, PU_CREATURES);
 	prepare_redraw(PR_MAP | PW_OVERHEAD);
 	handle_stuff(aimer_ptr);
 	if(!target_who) return FALSE;	// Failure to set target

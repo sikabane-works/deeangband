@@ -853,7 +853,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
-				aimer_ptr->creature_update |= (PU_FLOW);
+				prepare_update(aimer_ptr, PU_FLOW);
 			}
 
 			break;
@@ -1102,7 +1102,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
-				aimer_ptr->creature_update |= (PU_FLOW);
+				prepare_update(aimer_ptr, PU_FLOW);
 			}
 			break;
 		}
@@ -1137,7 +1137,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
-				aimer_ptr->creature_update |= (PU_FLOW);
+				prepare_update(aimer_ptr, PU_FLOW);
 			}
 			break;
 		}
@@ -1155,7 +1155,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 				cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
 
 				/* Update some things -- similar to DO_EFFECT_KILL_WALL */
-				aimer_ptr->creature_update |= (PU_FLOW);
+				prepare_update(aimer_ptr, PU_FLOW);
 			}
 			break;
 		}

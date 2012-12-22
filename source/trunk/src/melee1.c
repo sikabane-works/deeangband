@@ -830,7 +830,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 				attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
 			else if((attacker_ptr->lev > 34))
 				if(one_in_(3)) attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
-			attacker_ptr->creature_update |= (CRU_BONUS);
+			prepare_update(attacker_ptr, CRU_BONUS);
 		}
 	}
 
@@ -1086,7 +1086,7 @@ static void gain_two_fencing_skill(creature_type *attacker_ptr, creature_type *t
 				attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 1;
 			else if(attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_MASTER)
 				if(one_in_(3)) attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 1;
-			attacker_ptr->creature_update |= (CRU_BONUS);
+			prepare_update(attacker_ptr, CRU_BONUS);
 		}
 	}
 }
@@ -1116,7 +1116,7 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 			}
 
 			attacker_ptr->skill_exp[SKILL_RIDING] = MIN(max, cur + inc);
-			attacker_ptr->creature_update |= (CRU_BONUS);
+			prepare_update(attacker_ptr, CRU_BONUS);
 		}
 	}
 }

@@ -938,7 +938,7 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 		prepare_window(PW_INVEN | PW_EQUIP);
 
 		/* .‚â$‚ÌŠÖŒW‚Å, ÄŒvŽZ‚ª•K—v‚È‚Í‚¸ -- henkma */
-		creature_ptr->creature_update  |= (CRU_BONUS);
+		creature_ptr->creature_update |= (CRU_BONUS);
 	}
 }
 

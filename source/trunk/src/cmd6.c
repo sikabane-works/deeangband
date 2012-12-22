@@ -702,7 +702,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 		case SV_POTION_NEW_LIFE:
 			do_cmd_rerate(caster_ptr, FALSE);
 			get_max_stats(caster_ptr);
-			caster_ptr->creature_update |= CRU_BONUS;
+			caster_ptr->creature_update |= (CRU_BONUS);
 			do_cmd_rerate(caster_ptr, FALSE);
 			effected = TRUE;
 			break;

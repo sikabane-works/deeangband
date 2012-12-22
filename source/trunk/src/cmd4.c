@@ -7522,7 +7522,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 							identify_item(player_ptr, object_ptr);
 							object_ptr->ident |= (IDENT_MENTAL);
 						}
-						creature_ptr->creature_update  = CRU_BONUS | CRU_HP | CRU_MANA;
+						creature_ptr->creature_update = (CRU_BONUS | CRU_HP | CRU_MANA);
 						update_creature(creature_ptr, FALSE);
 
 						display_creature_dump(creature_ptr);

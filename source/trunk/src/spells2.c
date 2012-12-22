@@ -1422,7 +1422,6 @@ void aggravate_creatures(creature_type *creature_ptr)
 		}
 	}
 
-	/* Messages */
 #ifdef JP
 	if(speed) msg_print("•t‹ß‚Å‰½‚©‚ª“Ë”@‹»•±‚µ‚½‚æ‚¤‚ÈŠ´‚¶‚ðŽó‚¯‚½I");
 	else if(sleep) msg_print("‰½‚©‚ª“Ë”@‹»•±‚µ‚½‚æ‚¤‚È‘›X‚µ‚¢‰¹‚ª‰“‚­‚É•·‚±‚¦‚½I");
@@ -1430,7 +1429,7 @@ void aggravate_creatures(creature_type *creature_ptr)
 	if(speed) msg_print("You feel a sudden stirring nearby!");
 	else if(sleep) msg_print("You hear a sudden stirring in the distance!");
 #endif
-	if(creature_ptr->riding) creature_ptr->creature_update |= CRU_BONUS;
+	if(creature_ptr->riding) creature_ptr->creature_update |= (CRU_BONUS);
 }
 
 

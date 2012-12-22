@@ -2348,7 +2348,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		}
 	}
 
-	watcher_ptr->creature_update |= CRU_BONUS;
+	watcher_ptr->creature_update |= (CRU_BONUS);
 	handle_stuff(watcher_ptr);
 }
 
@@ -4134,7 +4134,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	Term_clear();
 
 	/* Update the visuals */
-	creature_ptr->creature_update |= CRU_BONUS;
+	creature_ptr->creature_update |= (CRU_BONUS);
 	prepare_update(creature_ptr, PU_VIEW | PU_CREATURES | PU_LITE | PU_SPECIES_LITE);
 
 	prepare_redraw(PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);

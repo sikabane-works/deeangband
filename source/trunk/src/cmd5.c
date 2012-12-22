@@ -1469,7 +1469,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 
 				// Update creatures
 				prepare_update(creature_ptr, CRU_BONUS);
-				creature_ptr->creature_update |= PU_CREATURES;
+				creature_ptr->creature_update |= (PU_CREATURES);
 				prepare_redraw(PR_EXTRA | PR_UHEALTH);
 			}
 
