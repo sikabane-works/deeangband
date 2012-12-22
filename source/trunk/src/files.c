@@ -6203,7 +6203,6 @@ static void show_info(creature_type *creature_ptr)
 	/* Flush all input keys */
 	flush();
 
-	/* Flush messages */
 	msg_print(NULL);
 
 #ifdef JP

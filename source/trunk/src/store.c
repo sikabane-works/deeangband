@@ -3165,12 +3165,10 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 				allow_inc = TRUE;
 				prt("", 1, 0);
 #ifdef JP
-(void)sprintf(out_val, "前回の提示金額: $%ld",
+				(void)sprintf(out_val, "前回の提示金額: $%ld", (long)last_offer);
 #else
-				(void)sprintf(out_val, "Your last offer: %ld",
+				(void)sprintf(out_val, "Your last offer: %ld", (long)last_offer);
 #endif
-
-							  (long)last_offer);
 				put_str(out_val, 1, 39);
 				say_comment_2(st_ptr, cur_ask, annoyed);
 			}
@@ -3247,7 +3245,6 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 #else
 			msg_print("You instantly agree upon the price.");
 #endif
-
 			msg_print(NULL);
 
 			/* Offer full purse */
@@ -3262,7 +3259,6 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 #else
 			msg_print("You eventually agree upon the price.");
 #endif
-
 			msg_print(NULL);
 		}
 
@@ -3323,12 +3319,10 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 			(void)sprintf(out_val, "%s :  %ld", pmt, (long)cur_ask);
 			put_str(out_val, 1, 0);
 #ifdef JP
-			cancel = receive_offer(st_ptr, "提示する価格? ",
+			cancel = receive_offer(st_ptr, "提示する価格? ", &offer, last_offer, -1, cur_ask, final);
 #else
-			cancel = receive_offer(st_ptr, "What price do you ask? ",
+			cancel = receive_offer(st_ptr, "What price do you ask? ", &offer, last_offer, -1, cur_ask, final);
 #endif
-
-								   &offer, last_offer, -1, cur_ask, final);
 
 			if(cancel)
 			{
@@ -3407,14 +3401,12 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 			{
 				last_offer = offer;
 				allow_inc = TRUE;
-				prt("", 1, 0);
-				(void)sprintf(out_val,
+				prt("", 1, 0);			
 #ifdef JP
-					      "前回の提示価格 $%ld", (long)last_offer);
+				(void)sprintf(out_val, "前回の提示価格 $%ld", (long)last_offer);
 #else
-							  "Your last bid %ld", (long)last_offer);
+				(void)sprintf(out_val, "Your last bid %ld", (long)last_offer);
 #endif
-
 				put_str(out_val, 1, 39);
 				say_comment_3(st_ptr, cur_ask, annoyed);
 			}
@@ -3463,21 +3455,14 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 
 	/* Empty? */
 	if(st_ptr->stock_num <= 0)
-	{
-		if(is_home(st_ptr))
+	{		
 #ifdef JP
-			msg_print("我が家には何も置いてありません。");
+		if(is_home(st_ptr)) msg_print("我が家には何も置いてありません。");
+		else msg_print("現在商品の在庫を切らしています。");
 #else
-			msg_print("Your home is empty.");
+		if(is_home(st_ptr)) msg_print("Your home is empty.");
+		else msg_print("I am currently out of stock.");
 #endif
-
-		else
-#ifdef JP
-			msg_print("現在商品の在庫を切らしています。");
-#else
-			msg_print("I am currently out of stock.");
-#endif
-
 		return;
 	}
 
@@ -3490,24 +3475,11 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 
 #ifdef JP
 	/* ブラックマーケットの時は別のメッセージ */
-	if(is_home(st_ptr))
-	{
-		sprintf(out_val, "どのアイテムを取り出しますか？");
-	}
-	else
-	{
-		sprintf(out_val, "どの品物が欲しいんだい？");
-	}
+	if(is_home(st_ptr)) sprintf(out_val, "どのアイテムを取り出しますか？");
+	else sprintf(out_val, "どの品物が欲しいんだい？");
 #else
-
-	if(is_home(st_ptr))
-	{
-		sprintf(out_val, "Which item do you want to take? ");
-	}
-	else
-	{
-		sprintf(out_val, "Which item are you interested in? ");
-	}
+	if(is_home(st_ptr)) sprintf(out_val, "Which item do you want to take? ");
+	else sprintf(out_val, "Which item are you interested in? ");
 #endif
 
 
@@ -3546,7 +3518,6 @@ msg_print("そんなにアイテムを持てない。");
 #else
 		msg_print("You cannot carry that many different items.");
 #endif
-
 		return;
 	}
 
@@ -3557,15 +3528,13 @@ msg_print("そんなにアイテムを持てない。");
 	if(object_ptr->number > 1)
 	{
 		/* Hack -- note cost of "fixed" items */
-		if(!is_home(st_ptr) &&
-		    (object_ptr->ident & IDENT_FIXED))
+		if(!is_home(st_ptr) && (object_ptr->ident & IDENT_FIXED))
 		{
 #ifdef JP
-msg_format("一つにつき $%ldです。", (long)(best));
+			msg_format("一つにつき $%ldです。", (long)(best));
 #else
 			msg_format("That costs %ld gold per item.", (long)(best));
 #endif
-
 		}
 
 		/* Get a quantity */
@@ -3598,7 +3567,6 @@ msg_format("一つにつき $%ldです。", (long)(best));
 #else
 		msg_print("You cannot carry that many items.");
 #endif
-
 		return;
 	}
 
@@ -3683,7 +3651,7 @@ msg_format("一つにつき $%ldです。", (long)(best));
 				object_desc(object_name, j_ptr, 0);
 
 #ifdef JP
-msg_format("%sを $%ldで購入しました。", object_name, (long)price);
+				msg_format("%sを $%ldで購入しました。", object_name, (long)price);
 #else
 				msg_format("You bought %s for %ld gold.", object_name, (long)price);
 #endif
@@ -3709,10 +3677,9 @@ msg_format("%sを $%ldで購入しました。", object_name, (long)price);
 				object_desc(object_name, &guest_ptr->inventory[item_new], 0);
 
 #ifdef JP
-		msg_format("%s(%c)を手に入れた。", object_name, index_to_label(item_new));
+				msg_format("%s(%c)を手に入れた。", object_name, index_to_label(item_new));
 #else
-				msg_format("You have %s (%c).",
-						   object_name, index_to_label(item_new));
+				msg_format("You have %s (%c).", object_name, index_to_label(item_new));
 #endif
 
 				/* Auto-inscription */
@@ -4281,14 +4248,10 @@ static void museum_remove_object(store_type *st_ptr, creature_type *creature_ptr
 #ifdef JP
 	msg_print("展示をやめさせたアイテムは二度と見ることはできません！");
 	if(!get_check(format("本当に%sの展示をやめさせますか？", object_name))) return;
+	msg_format("%sの展示をやめさせた。", object_name);
 #else
 	msg_print("You cannot see items which is removed from the Museum!");
 	if(!get_check(format("Really order to remove %s from the Museum? ", object_name))) return;
-#endif
-
-#ifdef JP
-	msg_format("%sの展示をやめさせた。", object_name);
-#else
 	msg_format("You ordered to remove %s.", object_name);
 #endif
 
@@ -4438,30 +4401,17 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 				}
 
 #ifdef JP
-				Term_putstr(2, 23, -1, TERM_WHITE,
-					    "['h'でモード変更, ESCで終了]");
+				Term_putstr(2, 23, -1, TERM_WHITE, "['h'でモード変更, ESCで終了]");
 #else
-				Term_putstr(2, 23, -1, TERM_WHITE,
-						"['h' to change mode, or ESC]");
+				Term_putstr(2, 23, -1, TERM_WHITE, "['h' to change mode, or ESC]");
 #endif
 				/* Query */
 				c = inkey();
 
-				/* Exit */
 				if(c == ESCAPE) break;
+				else if(c == 'h') mode++;
+				else bell();
 
-				/* Toggle mode */
-				else if(c == 'h')
-				{
-					mode++;
-				}
-
-				else
-				{
-					bell();
-				}
-
-				/* Flush messages */
 				msg_print(NULL);
 
 				break;

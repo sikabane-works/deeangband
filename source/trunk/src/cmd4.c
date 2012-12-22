@@ -1089,7 +1089,6 @@ void do_cmd_nikki(creature_type *player_ptr)
 			bell();
 		}
 
-		/* Flush messages */
 		msg_print(NULL);
 	}
 
@@ -2571,7 +2570,6 @@ void do_cmd_options(void)
 			}
 		}
 
-		/* Flush messages */
 		msg_print(NULL);
 	}
 
@@ -9530,7 +9528,6 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 			bell();
 		}
 
-		/* Flush messages */
 		msg_print(NULL);
 	}
 

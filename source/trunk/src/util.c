@@ -4239,7 +4239,6 @@ void request_command(creature_type *guest_ptr, int shopping)
 		/* Hack -- auto-commands */
 		if(command_new)
 		{
-			/* Flush messages */
 			msg_print(NULL);
 
 			/* Use auto-command */

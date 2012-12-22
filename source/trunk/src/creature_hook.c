@@ -155,7 +155,6 @@ void screen_roff(creature_type *creature_ptr)
 	char c;
 	int m = 0;
 
-	/* Flush messages */
 	msg_print(NULL);
 
 	/* Begin recall */
@@ -201,7 +200,6 @@ void screen_roff(creature_type *creature_ptr)
 			bell();
 		}
 
-		/* Flush messages */
 		msg_print(NULL);
 	}
 }
