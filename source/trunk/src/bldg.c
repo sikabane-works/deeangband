@@ -2177,7 +2177,6 @@ static bool kankin(creature_type *creature_ptr)
 
 void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 {
-	bool happened = FALSE;
 	species_type *eldritch_ptr = &species_info[eldritch_idx];
 	int power = eldritch_ptr->level + 10;
 	char m_name[MAX_NLEN];
@@ -2233,104 +2232,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 #endif
 
 	reveal_species_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
-
-	/* Mind blast */
-	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
-	{
-		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
-			(void)add_timed_trait(watcher_ptr, TRAIT_CONFUSED, randint0(4) + 4, FALSE);
-		if(!has_trait(watcher_ptr, TRAIT_RES_CHAO) && one_in_(3) && !has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
-			(void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, FALSE);
-		return;
-	}
-
-	// Lose int & wis
-	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
-	{
-		do_dec_stat(watcher_ptr, STAT_INT);
-		do_dec_stat(watcher_ptr, STAT_WIS);
-		return;
-	}
-
-	// Brain smash
-	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
-	{
-		if(!has_trait(watcher_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(watcher_ptr, TRAIT_CONFUSED, randint0(4) + 4, FALSE);
-		if(!has_trait(watcher_ptr, TRAIT_FREE_ACTION)) (void)add_timed_trait(watcher_ptr, TRAIT_PARALYZED, randint0(4) + 4, FALSE);
-		while (!saving_throw(watcher_ptr, SAVING_VO, power, 0)) (void)do_dec_stat(watcher_ptr, STAT_INT);
-		while (!saving_throw(watcher_ptr, SAVING_VO, power, 0)) (void)do_dec_stat(watcher_ptr, STAT_WIS);
-		if(!has_trait(watcher_ptr, TRAIT_RES_CHAO)) (void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150, FALSE);
-		return;
-	}
-
-	// Amnesia
-	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
-	{
-		if(lose_all_info(watcher_ptr))
-		{
-#ifdef JP
-			msg_print("Ç†Ç‹ÇËÇÃã∞ï|Ç…ëSÇƒÇÃÇ±Ç∆ÇñYÇÍÇƒÇµÇ‹Ç¡ÇΩÅI");
-#else
-			msg_print("You forget everything in your utmost terror!");
-#endif
-		}
-		return;
-	}
-
-	/* Else gain permanent insanity */
-	if(has_trait(watcher_ptr, TRAIT_MORONIC) && has_trait(watcher_ptr, TRAIT_BERS_RAGE) &&
-		(has_trait(watcher_ptr, TRAIT_COWARDICE) || has_trait(watcher_ptr, TRAIT_FEARLESS)) &&
-		(has_trait(watcher_ptr, TRAIT_HALLU) || has_trait(watcher_ptr, TRAIT_RES_CHAO)))
-		return;
-
-	while (!happened)
-	{
-		switch (randint1(4))
-		{
-			case 1:
-			{
-				if(!has_trait(watcher_ptr, TRAIT_MORONIC))
-				{
-					if(has_trait(watcher_ptr, TRAIT_HYPER_INT)) lose_mutative_trait(watcher_ptr, TRAIT_HYPER_INT);
-
-					get_mutative_trait(watcher_ptr, TRAIT_MORONIC);
-					happened = TRUE;
-				}
-				break;
-			}
-			case 2:
-			{
-				if(!has_trait(watcher_ptr, TRAIT_COWARDICE) && !has_trait(watcher_ptr, TRAIT_FEARLESS))
-				{
-					if(has_trait(watcher_ptr, TRAIT_FEARLESS)) lose_mutative_trait(watcher_ptr, TRAIT_FEARLESS);
-					get_mutative_trait(watcher_ptr, TRAIT_COWARDICE);
-					happened = TRUE;
-				}
-				break;
-			}
-			case 3:
-			{
-				if(!has_trait(watcher_ptr, TRAIT_HALLU) && !has_trait(watcher_ptr, TRAIT_RES_CHAO))
-				{
-					get_mutative_trait(watcher_ptr, TRAIT_HALLU);
-					happened = TRUE;
-				}
-				break;
-			}
-			default:
-			{
-				if(!has_trait(watcher_ptr, TRAIT_BERS_RAGE))
-				{
-					get_mutative_trait(watcher_ptr, TRAIT_BERS_RAGE);
-					happened = TRUE;
-				}
-				break;
-			}
-		}
-	}
-
-	prepare_update(watcher_ptr, CRU_BONUS);
-	handle_stuff(watcher_ptr);
+	sanity_blast_aux(watcher_ptr, power);
 }
 
 

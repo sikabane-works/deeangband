@@ -2185,11 +2185,8 @@ void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold)
 	}
 }
 
-
-
 void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool necro)
 {
-	bool happened = FALSE;
 	int difficulty = 100;
 	floor_type *floor_ptr = GET_FLOOR_PTR(watcher_ptr);
 
@@ -2271,142 +2268,109 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool 
 
 	}
 
-	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - difficulty)) /* Mind blast */
+	sanity_blast_aux(watcher_ptr, difficulty);
+}
+
+void sanity_blast_aux(creature_type *watcher_ptr, int power)
+{
+	bool happened = FALSE;
+	/* Mind blast */
+	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
-			(void)add_timed_trait(watcher_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
-		if(!has_trait(watcher_ptr, TRAIT_RES_CHAO) && one_in_(3))
-			(void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
+			(void)add_timed_trait(watcher_ptr, TRAIT_CONFUSED, randint0(4) + 4, FALSE);
+		if(!has_trait(watcher_ptr, TRAIT_RES_CHAO) && one_in_(3) && !has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
+			(void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, FALSE);
 		return;
 	}
 
-	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - difficulty)) /* Lose int & wis */
+	// Lose int & wis
+	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
 		do_dec_stat(watcher_ptr, STAT_INT);
 		do_dec_stat(watcher_ptr, STAT_WIS);
 		return;
 	}
 
-	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - difficulty)) /* Brain smash */
+	// Brain smash
+	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
-		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
-			(void)add_timed_trait(watcher_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
-		if(!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
-			(void)add_timed_trait(watcher_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE);
-		//TODO saving_throw while (randint0(100) > watcher_ptr->skill_rob) (void)do_dec_stat(watcher_ptr, STAT_INT);
-		//TODO saving_throw while (randint0(100) > watcher_ptr->skill_rob) (void)do_dec_stat(watcher_ptr, STAT_WIS);
-		if(!has_trait(watcher_ptr, TRAIT_RES_CHAO))
-			(void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
+		if(!has_trait(watcher_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(watcher_ptr, TRAIT_CONFUSED, randint0(4) + 4, FALSE);
+		if(!has_trait(watcher_ptr, TRAIT_FREE_ACTION)) (void)add_timed_trait(watcher_ptr, TRAIT_PARALYZED, randint0(4) + 4, FALSE);
+		while (!saving_throw(watcher_ptr, SAVING_VO, power, 0)) (void)do_dec_stat(watcher_ptr, STAT_INT);
+		while (!saving_throw(watcher_ptr, SAVING_VO, power, 0)) (void)do_dec_stat(watcher_ptr, STAT_WIS);
+		if(!has_trait(watcher_ptr, TRAIT_RES_CHAO)) (void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150, FALSE);
 		return;
 	}
 
-	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - difficulty)) /* Amnesia */
+	// Amnesia
+	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
-
 		if(lose_all_info(watcher_ptr))
+		{
 #ifdef JP
-msg_print("あまりの恐怖に全てのことを忘れてしまった！");
+			msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 #else
 			msg_print("You forget everything in your utmost terror!");
 #endif
-
+		}
 		return;
 	}
-
-	//TODO saving_throw if(saving_throw(watcher_ptr->skill_rob - difficulty)) return;
 
 	/* Else gain permanent insanity */
-	if(has_trait(watcher_ptr, TRAIT_MORONIC) &&
+	if(has_trait(watcher_ptr, TRAIT_MORONIC) && has_trait(watcher_ptr, TRAIT_BERS_RAGE) &&
 		(has_trait(watcher_ptr, TRAIT_COWARDICE) || has_trait(watcher_ptr, TRAIT_FEARLESS)) &&
 		(has_trait(watcher_ptr, TRAIT_HALLU) || has_trait(watcher_ptr, TRAIT_RES_CHAO)))
-	{
-		/* The poor bastard already has all possible insanities! */
 		return;
-	}
 
 	while (!happened)
 	{
-		switch (randint1(21))
+		switch (randint1(4))
 		{
 			case 1:
-				if(!has_trait(watcher_ptr, TRAIT_MORONIC) && one_in_(5))
+			{
+				if(!has_trait(watcher_ptr, TRAIT_MORONIC))
 				{
-					lose_mutative_trait(watcher_ptr, TRAIT_HYPER_INT);
+					if(has_trait(watcher_ptr, TRAIT_HYPER_INT)) lose_mutative_trait(watcher_ptr, TRAIT_HYPER_INT);
+
 					get_mutative_trait(watcher_ptr, TRAIT_MORONIC);
 					happened = TRUE;
 				}
 				break;
+			}
 			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9:
-			case 10:
-			case 11:
+			{
 				if(!has_trait(watcher_ptr, TRAIT_COWARDICE) && !has_trait(watcher_ptr, TRAIT_FEARLESS))
 				{
-#ifdef JP
-					msg_print("あなたはパラノイアになった！");
-#else
-					msg_print("You become paranoid!");
-#endif
-
-
-					/* Duh, the following should never happen, but anyway... */
-					if(has_trait(watcher_ptr, TRAIT_FEARLESS))
-					{
-#ifdef JP
-						msg_print("あなたはもう恐れ知らずではなくなった。");
-#else
-						msg_print("You are no longer fearless.");
-#endif
-						lose_mutative_trait(watcher_ptr, TRAIT_FEARLESS);
-					}
-
+					if(has_trait(watcher_ptr, TRAIT_FEARLESS)) lose_mutative_trait(watcher_ptr, TRAIT_FEARLESS);
 					get_mutative_trait(watcher_ptr, TRAIT_COWARDICE);
 					happened = TRUE;
 				}
 				break;
-			case 12:
-			case 13:
-			case 14:
-			case 15:
-			case 16:
-			case 17:
-			case 18:
-			case 19:
-			case 20:
-			case 21:
+			}
+			case 3:
+			{
 				if(!has_trait(watcher_ptr, TRAIT_HALLU) && !has_trait(watcher_ptr, TRAIT_RES_CHAO))
 				{
-#ifdef JP
-					msg_print("幻覚をひき起こす精神錯乱に陥った！");
-#else
-					msg_print("You are afflicted by a hallucinatory insanity!");
-#endif
-
 					get_mutative_trait(watcher_ptr, TRAIT_HALLU);
 					happened = TRUE;
 				}
 				break;
+			}
 			default:
+			{
 				if(!has_trait(watcher_ptr, TRAIT_BERS_RAGE))
 				{
-#ifdef JP
-					msg_print("激烈な感情の発作におそわれるようになった！");
-#else
-					msg_print("You become subject to fits of berserk rage!");
-#endif
-
 					get_mutative_trait(watcher_ptr, TRAIT_BERS_RAGE);
 					happened = TRUE;
 				}
 				break;
+			}
 		}
 	}
+
+	prepare_update(watcher_ptr, CRU_BONUS);
+	handle_stuff(watcher_ptr);
 
 	prepare_update(watcher_ptr, CRU_BONUS);
 	handle_stuff(watcher_ptr);

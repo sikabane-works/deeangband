@@ -1069,6 +1069,7 @@ extern void creature_desc_ego_post(char *desc, creature_type *creature_ptr, spec
 extern int lore_do_probe(int species_idx);
 extern void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold);
 extern void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool necro);
+extern void sanity_blast_aux(creature_type *watcher_ptr, int power);
 extern void update_creature_view(creature_type *creature_ptr, int m_idx, bool full);
 extern void update_creatures(bool full);
 extern bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode);
