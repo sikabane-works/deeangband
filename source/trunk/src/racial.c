@@ -881,42 +881,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			cast_beam(creature_ptr, MAX_RANGE_SUB, is_good_realm(creature_ptr->realm1) ? DO_EFFECT_HOLY_FIRE : DO_EFFECT_HELL_FIRE, plev * 3, 0, FALSE);
 			break;
 		}
-		case CLASS_WARRIOR_MAGE:
-		{
-			if(command == -3)
-			{
-#ifdef JP
-				int gain_sp = take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "ÇgÇoÇ©ÇÁÇlÇoÇ÷ÇÃñ≥ñdÇ»ïœä∑", NULL, -1) / 5;
-#else
-				int gain_sp = take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
-#endif
-				if(gain_sp) inc_mana(creature_ptr, gain_sp);
-				else
-#ifdef JP
-					msg_print("ïœä∑Ç…é∏îsÇµÇΩÅB");
-#else
-					msg_print("You failed to convert.");
-#endif
-			}
-			else if(command == -4)
-			{
-				if(creature_ptr->csp >= creature_ptr->lev / 5)
-				{
-					creature_ptr->csp -= creature_ptr->lev / 5;
-					heal_creature(creature_ptr, creature_ptr->lev);
-				}
-				else
-#ifdef JP
-				msg_print("ïœä∑Ç…é∏îsÇµÇΩÅB");
-#else
-				msg_print("You failed to convert.");
-#endif
-			}
-
-			prepare_redraw(PR_HP);
-
-			break;
-		}
 		case CLASS_CHAOS_WARRIOR:
 		{
 #ifdef JP
@@ -942,12 +906,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			{
 				if(!identify_fully(creature_ptr, FALSE)) return FALSE;
 			}
-			break;
-		}
-		case CLASS_IMITATOR:
-		{
-			handle_stuff(creature_ptr);
-			if(!do_cmd_mane(creature_ptr, TRUE)) return FALSE;
 			break;
 		}
 		case CLASS_BEASTMASTER:
