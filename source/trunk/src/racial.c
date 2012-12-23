@@ -1173,11 +1173,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		}
 		case CLASS_MIRROR_MASTER:
 		{
-			if(command == -3)
-			{
-				remove_all_mirrors(creature_ptr, GET_FLOOR_PTR(creature_ptr), TRUE); // Explode all mirrors
-			}
-			else if(command == -4)
+			if(command == -4)
 			{
 				if(creature_ptr->total_friends)
 				{

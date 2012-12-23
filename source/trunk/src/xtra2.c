@@ -1948,15 +1948,9 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 	{
 #ifdef JP
 		cptr name = "‰½‚©Šï–­‚È•¨";
-#else
-		cptr name = "something strange";
-#endif
-
-
-		/* Display a message */
-#ifdef JP
 		sprintf(out_val, "%s%s%s%s [%s]", s1, name, s2, s3, info);
 #else
+		cptr name = "something strange";
 		sprintf(out_val, "%s%s%s%s [%s]", s1, s2, s3, name, info);
 #endif
 

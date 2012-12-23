@@ -1338,7 +1338,7 @@ act = "は屍を求めている！";
 			break;
 		case 9:
 #ifdef JP
-act = "はドラゴンの血を求めている！";
+			act = "はドラゴンの血を求めている！";
 #else
 			act = "seems to be looking for dragons!";
 #endif
@@ -1347,7 +1347,7 @@ act = "はドラゴンの血を求めている！";
 			break;
 		case 8:
 #ifdef JP
-act = "はトロルの血を求めている！";
+			act = "はトロルの血を求めている！";
 #else
 			act = "seems to be looking for troll!s";
 #endif
@@ -3175,11 +3175,9 @@ bool bless_weapon(creature_type *creature_ptr)
 		    (have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)))
 		{
 #ifdef JP
-msg_format("%sを覆う黒いオーラは祝福を跳ね返した！",
-    object_name);
+			msg_format("%sを覆う黒いオーラは祝福を跳ね返した！", object_name);
 #else
-			msg_format("The black aura on %s %s disrupts the blessing!",
-			    ((item >= 0) ? "your" : "the"), object_name);
+			msg_format("The black aura on %s %s disrupts the blessing!", ((item >= 0) ? "your" : "the"), object_name);
 #endif
 
 			return TRUE;

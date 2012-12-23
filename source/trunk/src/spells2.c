@@ -3308,14 +3308,11 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 				int dam = diceroll(10, 10);
 #ifdef JP
 				msg_print("ƒˆ‚È–‚—Í‚ÌŽŸŒ³‚Ö‚Ì”à‚ªŠJ‚¢‚½I");
-#else
-				msg_print("A portal opens to a plane of raw mana!");
-#endif
-
 				project(0, 0, 8, creature_ptr->fy, creature_ptr->fx, dam, DO_EFFECT_MANA, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
-#ifdef JP
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "ƒˆ‚È–‚—Í‚Ì‰ð•ú", NULL, -1);
 #else
+				msg_print("A portal opens to a plane of raw mana!");
+				project(0, 0, 8, creature_ptr->fy, creature_ptr->fx, dam, DO_EFFECT_MANA, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "released pure mana", NULL, -1);
 #endif
 				if(!one_in_(6)) break;
@@ -3371,7 +3368,6 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 #else
 			msg_print("You feel your life draining away...");
 #endif
-
 			lose_exp(creature_ptr, creature_ptr->exp / 16);
 			if(!one_in_(6)) break;
 
