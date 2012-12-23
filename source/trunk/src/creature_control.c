@@ -1,12 +1,12 @@
 /* File: creature2.c */
 
 /*
- * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- *
- * This software may be copied and distributed for educational, research,
- * and not for profit purposes provided that this copyright and statement
- * are included in all such copies.  Other copyrights may also apply.
- */
+* Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+*
+* This software may be copied and distributed for educational, research,
+* and not for profit purposes provided that this copyright and statement
+* are included in all such copies.  Other copyrights may also apply.
+*/
 
 /* Purpose: misc code for creatures */
 
@@ -203,9 +203,9 @@ cptr funny_comments[MAX_SAN_COMMENT] =
 
 
 /*
- * Each player starts out with a few items, given as tval/sval pairs.
- * In addition, he always has some food and a few torches.
- */
+* Each player starts out with a few items, given as tval/sval pairs.
+* In addition, he always has some food and a few torches.
+*/
 static byte class_equipment_init[MAX_CLASS][CLASS_INIT_EQUIPMENT][2] =
 {
 	{
@@ -234,422 +234,422 @@ static byte class_equipment_init[MAX_CLASS][CLASS_INIT_EQUIPMENT][2] =
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
-	},
+		},
 
-	{
-		/* Mage */
-		{ TV_SWORD, SV_DAGGER },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
+		{
+			/* Mage */
+			{ TV_SWORD, SV_DAGGER },
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
 
-	},
+		},
 
-	{
-		/* Priest */
-		{ TV_HAFTED, SV_MACE },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+		{
+			/* Priest */
+			{ TV_HAFTED, SV_MACE },
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			{ 0, 0},
+			},
 
-	{
-		/* Rogue */
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SWORD, SV_DAGGER },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+			{
+				/* Rogue */
+				{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+				{ TV_SWORD, SV_DAGGER },
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+			},
 
-	{
-		/* Ranger */
-		{ TV_SWORD, SV_DAGGER },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+			{
+				/* Ranger */
+				{ TV_SWORD, SV_DAGGER },
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+				{ 0, 0},
+				},
 
-	{
-		/* Paladin */
-		{ TV_SCROLL, SV_SCROLL_PROTECTION_FROM_EVIL },
-		{ TV_SWORD, SV_BROAD_SWORD },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+				{
+					/* Paladin */
+					{ TV_SCROLL, SV_SCROLL_PROTECTION_FROM_EVIL },
+					{ TV_SWORD, SV_BROAD_SWORD },
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+				},
 
-	{
-		/* Warrior-Mage */
-		{ TV_SWORD, SV_SHORT_SWORD },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+				{
+					/* Warrior-Mage */
+					{ TV_SWORD, SV_SHORT_SWORD },
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+					{ 0, 0},
+					},
 
-	{
-		/* Chaos Warrior */
-		{ TV_HARD_ARMOR, SV_METAL_SCALE_MAIL },
-		{ TV_SWORD, SV_BROAD_SWORD },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+					{
+						/* Chaos Warrior */
+						{ TV_HARD_ARMOR, SV_METAL_SCALE_MAIL },
+						{ TV_SWORD, SV_BROAD_SWORD },
+						{ 0, 0},
+						{ 0, 0},
+						{ 0, 0},
+						{ 0, 0},
+						{ 0, 0},
+						{ 0, 0},
+						{ 0, 0},
+						{ 0, 0},
+					},
 
-	{
-		/* Monk */
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_POTION, SV_POTION_HEROISM },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+					{
+						/* Monk */
+						{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+						{ TV_POTION, SV_POTION_HEROISM },
+						{ 0, 0},
+						{ 0, 0},
+						{ 0, 0},
+						{ 0, 0},
+						{ 0, 0},
+						{ 0, 0},
+						{ 0, 0},
+						{ 0, 0},
+						},
 
-	{
-		/* Mindcrafter */
-		{ TV_POTION, SV_POTION_SPEED },
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SWORD, SV_SMALL_SWORD },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+						{
+							/* Mindcrafter */
+							{ TV_POTION, SV_POTION_SPEED },
+							{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+							{ TV_SWORD, SV_SMALL_SWORD },
+							{ 0, 0},
+							{ 0, 0},
+							{ 0, 0},
+							{ 0, 0},
+							{ 0, 0},
+							{ 0, 0},
+							{ 0, 0},
+						},
 
-	{
-		/* High Mage */
-		{ TV_RING, SV_RING_SUSTAIN_INT},
-		{ TV_SWORD, SV_DAGGER },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+						{
+							/* High Mage */
+							{ TV_RING, SV_RING_SUSTAIN_INT},
+							{ TV_SWORD, SV_DAGGER },
+							{ 0, 0},
+							{ 0, 0},
+							{ 0, 0},
+							{ 0, 0},
+							{ 0, 0},
+							{ 0, 0},
+							{ 0, 0},
+							{ 0, 0},
+							},
 
-	{
-		/* Tourist */
-		{ TV_FOOD, SV_FOOD_JERKY},
-		{ TV_SCROLL, SV_SCROLL_MAPPING },
-		{ TV_BOW, SV_SLING},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+							{
+								/* Tourist */
+								{ TV_FOOD, SV_FOOD_JERKY},
+								{ TV_SCROLL, SV_SCROLL_MAPPING },
+								{ TV_BOW, SV_SLING},
+								{ 0, 0},
+								{ 0, 0},
+								{ 0, 0},
+								{ 0, 0},
+								{ 0, 0},
+								{ 0, 0},
+								{ 0, 0},
+							},
 
-	{
-		/* Imitator */
-		{ TV_POTION, SV_POTION_SPEED },
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SWORD, SV_SHORT_SWORD},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+							{
+								/* Imitator */
+								{ TV_POTION, SV_POTION_SPEED },
+								{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+								{ TV_SWORD, SV_SHORT_SWORD},
+								{ 0, 0},
+								{ 0, 0},
+								{ 0, 0},
+								{ 0, 0},
+								{ 0, 0},
+								{ 0, 0},
+								{ 0, 0},
+								},
 
-	{
-		/* Beastmaster */
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_POLEARM, SV_SPEAR},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+								{
+									/* Beastmaster */
+									{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+									{ TV_POLEARM, SV_SPEAR},
+									{ 0, 0},
+									{ 0, 0},
+									{ 0, 0},
+									{ 0, 0},
+									{ 0, 0},
+									{ 0, 0},
+									{ 0, 0},
+									{ 0, 0},
+								},
 
-	{
-		/* Sorcerer */
-		{ TV_HAFTED, SV_WIZSTAFF }, /* Hack: for realm1 book */
-		{ TV_RING, SV_RING_SUSTAIN_INT},
-		{ TV_WAND, SV_WAND_MAGIC_MISSILE },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+								{
+									/* Sorcerer */
+									{ TV_HAFTED, SV_WIZSTAFF }, /* Hack: for realm1 book */
+									{ TV_RING, SV_RING_SUSTAIN_INT},
+									{ TV_WAND, SV_WAND_MAGIC_MISSILE },
+									{ 0, 0},
+									{ 0, 0},
+									{ 0, 0},
+									{ 0, 0},
+									{ 0, 0},
+									{ 0, 0},
+									{ 0, 0},
+									},
 
-	{
-		/* Archer */
-		{ TV_BOW, SV_SHORT_BOW },
-		{ TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL},
-		{ TV_SWORD, SV_SHORT_SWORD },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+									{
+										/* Archer */
+										{ TV_BOW, SV_SHORT_BOW },
+										{ TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL},
+										{ TV_SWORD, SV_SHORT_SWORD },
+										{ 0, 0},
+										{ 0, 0},
+										{ 0, 0},
+										{ 0, 0},
+										{ 0, 0},
+										{ 0, 0},
+										{ 0, 0},
+									},
 
-	{
-		/* Magic eater */
-		{ TV_WAND, SV_WAND_MAGIC_MISSILE },
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR},
-		{ TV_SWORD, SV_SHORT_SWORD },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+									{
+										/* Magic eater */
+										{ TV_WAND, SV_WAND_MAGIC_MISSILE },
+										{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR},
+										{ TV_SWORD, SV_SHORT_SWORD },
+										{ 0, 0},
+										{ 0, 0},
+										{ 0, 0},
+										{ 0, 0},
+										{ 0, 0},
+										{ 0, 0},
+										{ 0, 0},
+										},
 
-	{
-		/* Bard */
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR},
-		{ TV_SWORD, SV_SHORT_SWORD },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+										{
+											/* Bard */
+											{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR},
+											{ TV_SWORD, SV_SHORT_SWORD },
+											{ 0, 0},
+											{ 0, 0},
+											{ 0, 0},
+											{ 0, 0},
+											{ 0, 0},
+											{ 0, 0},
+											{ 0, 0},
+											{ 0, 0},
+										},
 
-	{
-		/* Red Mage */
-		{ TV_SOFT_ARMOR, SV_HARD_LEATHER_ARMOR},
-		{ TV_SWORD, SV_SHORT_SWORD },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+										{
+											/* Red Mage */
+											{ TV_SOFT_ARMOR, SV_HARD_LEATHER_ARMOR},
+											{ TV_SWORD, SV_SHORT_SWORD },
+											{ 0, 0},
+											{ 0, 0},
+											{ 0, 0},
+											{ 0, 0},
+											{ 0, 0},
+											{ 0, 0},
+											{ 0, 0},
+											{ 0, 0},
+											},
 
-	{
-		/* Samurai */
-		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
-		{ TV_SWORD, SV_KATANA },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+											{
+												/* Samurai */
+												{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
+												{ TV_SWORD, SV_KATANA },
+												{ 0, 0},
+												{ 0, 0},
+												{ 0, 0},
+												{ 0, 0},
+												{ 0, 0},
+												{ 0, 0},
+												{ 0, 0},
+												{ 0, 0},
+											},
 
-	{
-		/* ForceTrainer */
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_POTION, SV_POTION_RESTORE_MANA },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+											{
+												/* ForceTrainer */
+												{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+												{ TV_POTION, SV_POTION_RESTORE_MANA },
+												{ 0, 0},
+												{ 0, 0},
+												{ 0, 0},
+												{ 0, 0},
+												{ 0, 0},
+												{ 0, 0},
+												{ 0, 0},
+												{ 0, 0},
+												},
 
-	{
-		/* Blue Mage */
-		{ TV_SOFT_ARMOR, SV_ROBE },
-		{ TV_WAND, SV_WAND_MAGIC_MISSILE },
-		{ TV_SWORD, SV_DAGGER },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+												{
+													/* Blue Mage */
+													{ TV_SOFT_ARMOR, SV_ROBE },
+													{ TV_WAND, SV_WAND_MAGIC_MISSILE },
+													{ TV_SWORD, SV_DAGGER },
+													{ 0, 0},
+													{ 0, 0},
+													{ 0, 0},
+													{ 0, 0},
+													{ 0, 0},
+													{ 0, 0},
+													{ 0, 0},
+												},
 
-	{
-		/* Cavalry */
-		{ TV_BOW, SV_SHORT_BOW },
-		{ TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL},
-		{ TV_POLEARM, SV_BROAD_SPEAR},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+												{
+													/* Cavalry */
+													{ TV_BOW, SV_SHORT_BOW },
+													{ TV_SOFT_ARMOR, SV_LEATHER_SCALE_MAIL},
+													{ TV_POLEARM, SV_BROAD_SPEAR},
+													{ 0, 0},
+													{ 0, 0},
+													{ 0, 0},
+													{ 0, 0},
+													{ 0, 0},
+													{ 0, 0},
+													{ 0, 0},
+													},
 
-	{
-		/* Berserker */
-		{ TV_POTION, SV_POTION_HEALING },
-		{ TV_HARD_ARMOR, SV_AUGMENTED_CHAIN_MAIL },
-		{ TV_POLEARM, SV_BROAD_AXE },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+													{
+														/* Berserker */
+														{ TV_POTION, SV_POTION_HEALING },
+														{ TV_HARD_ARMOR, SV_AUGMENTED_CHAIN_MAIL },
+														{ TV_POLEARM, SV_BROAD_AXE },
+														{ 0, 0},
+														{ 0, 0},
+														{ 0, 0},
+														{ 0, 0},
+														{ 0, 0},
+														{ 0, 0},
+														{ 0, 0},
+													},
 
-	{
-		/* Weaponsmith */
-		{ TV_RING, SV_RING_RES_FEAR }, /* Warriors need it! */
-		{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
-		{ TV_POLEARM, SV_BROAD_AXE },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+													{
+														/* Weaponsmith */
+														{ TV_RING, SV_RING_RES_FEAR }, /* Warriors need it! */
+														{ TV_HARD_ARMOR, SV_CHAIN_MAIL },
+														{ TV_POLEARM, SV_BROAD_AXE },
+														{ 0, 0},
+														{ 0, 0},
+														{ 0, 0},
+														{ 0, 0},
+														{ 0, 0},
+														{ 0, 0},
+														{ 0, 0},
+														},
 
-	{
-		/* Mirror-Master */
-		{ TV_POTION, SV_POTION_SPEED },
-		{ TV_RING, SV_RING_SUSTAIN_INT},
-		{ TV_SWORD, SV_DAGGER },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+														{
+															/* Mirror-Master */
+															{ TV_POTION, SV_POTION_SPEED },
+															{ TV_RING, SV_RING_SUSTAIN_INT},
+															{ TV_SWORD, SV_DAGGER },
+															{ 0, 0},
+															{ 0, 0},
+															{ 0, 0},
+															{ 0, 0},
+															{ 0, 0},
+															{ 0, 0},
+															{ 0, 0},
+														},
 
-	{
-		/* Ninja */
-		{ TV_POTION, SV_POTION_SPEED },
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SWORD, SV_DAGGER },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+														{
+															/* Ninja */
+															{ TV_POTION, SV_POTION_SPEED },
+															{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+															{ TV_SWORD, SV_DAGGER },
+															{ 0, 0},
+															{ 0, 0},
+															{ 0, 0},
+															{ 0, 0},
+															{ 0, 0},
+															{ 0, 0},
+															{ 0, 0},
+															},
 
-	{
-		/* Sniper */
-		{ TV_BOW, SV_LIGHT_XBOW },
-		{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
-		{ TV_SWORD, SV_DAGGER },
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+															{
+																/* Sniper */
+																{ TV_BOW, SV_LIGHT_XBOW },
+																{ TV_SOFT_ARMOR, SV_SOFT_LEATHER_ARMOR },
+																{ TV_SWORD, SV_DAGGER },
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+															},
 
-	{
-		// Commoner
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+															{
+																// Commoner
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+																{ 0, 0},
+																},
 
-	{
-		// Soldier
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-		{ 0, 0},
-	},
+																{
+																	// Soldier
+																	{ 0, 0},
+																	{ 0, 0},
+																	{ 0, 0},
+																	{ 0, 0},
+																	{ 0, 0},
+																	{ 0, 0},
+																	{ 0, 0},
+																	{ 0, 0},
+																	{ 0, 0},
+																	{ 0, 0},
+																},
 
 };
 
 
 
 /*
- * Set the target of counter attack
- */
+* Set the target of counter attack
+*/
 void set_target(creature_type *m_ptr, int y, int x)
 {
 	m_ptr->target_y = y;
@@ -658,8 +658,8 @@ void set_target(creature_type *m_ptr, int y, int x)
 
 
 /*
- * Reset the target of counter attack
- */
+* Reset the target of counter attack
+*/
 void reset_target(creature_type *m_ptr)
 {
 	set_target(m_ptr, 0, 0);
@@ -667,8 +667,8 @@ void reset_target(creature_type *m_ptr)
 
 
 /*
- *  Extract creature race pointer of a creature's true form
- */
+*  Extract creature race pointer of a creature's true form
+*/
 species_type *real_species_ptr(creature_type *m_ptr)
 {
 	species_type *species_ptr = &species_info[m_ptr->species_idx];
@@ -688,10 +688,10 @@ species_type *real_species_ptr(creature_type *m_ptr)
 
 
 /*
- * Delete a creature by index.
- *
- * When a creature is deleted, all of its objects are deleted.
- */
+* Delete a creature by index.
+*
+* When a creature is deleted, all of its objects are deleted.
+*/
 void delete_species_idx(creature_type *creature_ptr)
 {
 	int x, y;
@@ -722,15 +722,15 @@ void delete_species_idx(creature_type *creature_ptr)
 
 	(void)WIPE(creature_ptr, creature_type);	// Wipe the Creature
 	creature_cnt--;	// Count creatures
-	
+
 	lite_spot(floor_ptr, y, x);	// Visual update
 	if(is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr)) prepare_update(creature_ptr, PU_SPECIES_LITE);	// Update some things
 }
 
 
 /*
- * Delete the creature, if any, at a given location
- */
+* Delete the creature, if any, at a given location
+*/
 void delete_creature(floor_type *floor_ptr, int y, int x)
 {
 	cave_type *c_ptr;
@@ -747,8 +747,8 @@ void delete_creature(floor_type *floor_ptr, int y, int x)
 
 
 /*
- * Move an object from index i1 to index i2 in the object list
- */
+* Move an object from index i1 to index i2 in the object list
+*/
 static void move_creature_object(int i1, int i2)
 {
 	//TODO reimplement
@@ -756,17 +756,17 @@ static void move_creature_object(int i1, int i2)
 
 
 /*
- * Compact and Reorder the creature list
- *
- * This function can be very dangerous, use with caution!
- *
- * When actually "compacting" creatures, we base the saving throw
- * on a combination of creature level, distance from player, and
- * current "desperation".
- *
- * After "compacting" (if needed), we "reorder" the creatures into a more
- * compact order, and we reset the allocation info, and the "live" array.
- */
+* Compact and Reorder the creature list
+*
+* This function can be very dangerous, use with caution!
+*
+* When actually "compacting" creatures, we base the saving throw
+* on a combination of creature level, distance from player, and
+* current "desperation".
+*
+* After "compacting" (if needed), we "reorder" the creatures into a more
+* compact order, and we reset the allocation info, and the "live" array.
+*/
 void compact_creatures(int size)
 {
 	int		i, num, cnt;
@@ -881,11 +881,11 @@ void birth_uniques(void)
 
 
 /*
- * Delete/Remove all the creatures when the player leaves the level
- *
- * This is an efficient method of simulating multiple calls to the
- * "delete_creature()" function, with no visual effects.
- */
+* Delete/Remove all the creatures when the player leaves the level
+*
+* This is an efficient method of simulating multiple calls to the
+* "delete_creature()" function, with no visual effects.
+*/
 void wipe_creature_list(int floor_id)
 {
 	int i;
@@ -921,10 +921,10 @@ void wipe_creature_list(int floor_id)
 	}
 
 	/*
-	 * Wiping racial counters of all creatures and incrementing of racial
-	 * counters of creatures in party_mon[] are required to prevent multiple
-	 * generation of unique creature who is the minion of player.
-	 */
+	* Wiping racial counters of all creatures and incrementing of racial
+	* counters of creatures in party_mon[] are required to prevent multiple
+	* generation of unique creature who is the minion of player.
+	*/
 
 	/* Hack -- Wipe the racial counter of all creature races */
 	for (i = 1; i < max_species_idx; i++) species_info[i].cur_num = 0;
@@ -978,8 +978,8 @@ s16b creature_pop(void)
 
 
 /*
- * Hack -- the index of the summoning creature
- */
+* Hack -- the index of the summoning creature
+*/
 static int summon_specific_who = -1;
 
 static bool summon_specific_aux(int species_idx, int summon_specific_type)
@@ -990,195 +990,195 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 	// Check our requirements
 	switch (summon_specific_type)
 	{
-		case TRAIT_S_ANT:
+	case TRAIT_S_ANT:
 		{
 			okay = IS_RACE(species_ptr, RACE_ANT);
 			break;
 		}
 
-		case TRAIT_S_SPIDER:
+	case TRAIT_S_SPIDER:
 		{
 			okay = IS_RACE(species_ptr, RACE_SPIDER);
 			break;
 		}
 
-		case TRAIT_S_HOUND:
+	case TRAIT_S_HOUND:
 		{
 			okay = ((species_ptr->d_char == 'C') || (species_ptr->d_char == 'Z'));
 			break;
 		}
 
-		case TRAIT_S_HYDRA:
+	case TRAIT_S_HYDRA:
 		{
 			okay = IS_RACE(species_ptr, RACE_HYDRA);
 			break;
 		}
 
-		case TRAIT_S_ANGEL:
+	case TRAIT_S_ANGEL:
 		{
 			okay = IS_RACE(species_ptr, RACE_ANGEL);
 			break;
 		}
 
-		case TRAIT_S_DEMON:
-		case TRAIT_S_HI_DEMON:
+	case TRAIT_S_DEMON:
+	case TRAIT_S_HI_DEMON:
 		{
 			okay = has_trait_species(species_ptr, TRAIT_DEMON);
 			break;
 		}
 
-		case TRAIT_S_UNDEAD:
-		case TRAIT_S_HI_UNDEAD:
+	case TRAIT_S_UNDEAD:
+	case TRAIT_S_HI_UNDEAD:
 		{
 			okay = has_trait_species(species_ptr, TRAIT_UNDEAD);
 			break;
 		}
 
-		case TRAIT_S_DRAGON:
-		case TRAIT_S_HI_DRAGON:
+	case TRAIT_S_DRAGON:
+	case TRAIT_S_HI_DRAGON:
 		{
 			okay = has_trait_species(species_ptr, TRAIT_DRAGON);
 			break;
 		}
 
-		case TRAIT_S_AMBERITES:
+	case TRAIT_S_AMBERITES:
 		{
 			okay = (IS_RACE(species_ptr, RACE_AMBERITE)) ? TRUE : FALSE;
 			break;
 		}
 
-		case TRAIT_S_UNIQUE:
+	case TRAIT_S_UNIQUE:
 		{
 			okay = (has_trait_species(species_ptr, TRAIT_UNIQUE)) ? TRUE : FALSE;
 			break;
 		}
 
-		case TRAIT_S_MOLD:
+	case TRAIT_S_MOLD:
 		{
 			okay = IS_RACE(species_ptr, RACE_MOLD);;
 			break;
 		}
 
-		case TRAIT_S_BAT:
+	case TRAIT_S_BAT:
 		{
 			okay = IS_RACE(species_ptr, RACE_BAT);;
 			break;
 		}
 
-		case TRAIT_S_QUYLTHULG:
+	case TRAIT_S_QUYLTHULG:
 		{
 			okay = (species_ptr->d_char == 'Q');
 			break;
 		}
 
-		case TRAIT_S_CREEPING_COIN:
+	case TRAIT_S_CREEPING_COIN:
 		{
 			okay = (species_ptr->d_char == '$');
 			break;
 		}
 
-		case TRAIT_S_MIMIC:
+	case TRAIT_S_MIMIC:
 		{
 			okay = ((species_ptr->d_char == '!') ||
-				 (species_ptr->d_char == '?') ||
-				 (species_ptr->d_char == '=') ||
-				 (species_ptr->d_char == '$') ||
-				 (species_ptr->d_char == '|'));
+				(species_ptr->d_char == '?') ||
+				(species_ptr->d_char == '=') ||
+				(species_ptr->d_char == '$') ||
+				(species_ptr->d_char == '|'));
 			break;
 		}
 
-		case TRAIT_S_GOLEM:
+	case TRAIT_S_GOLEM:
 		{
 			okay = has_trait_species(species_ptr, TRAIT_GOLEM);
 			break;
 		}
 
-		case TRAIT_S_CYBER:
+	case TRAIT_S_CYBER:
 		{
 			okay = ((species_ptr->d_char == 'U') && has_trait_raw(&species_ptr->flags, TRAIT_ROCKET));
 			break;
 		}
 
-		case TRAIT_S_KIN:
+	case TRAIT_S_KIN:
 		{
 			okay = TRUE;
 			break;
 		}
 
-		case TRAIT_S_DAWN_LEGION:
+	case TRAIT_S_DAWN_LEGION:
 		{
 			okay = (species_idx == SPECIES_DAWN);
 			break;
 		}
 
-		case TRAIT_S_ANIMAL:
+	case TRAIT_S_ANIMAL:
 		{
 			okay = has_trait_species(species_ptr, TRAIT_ANIMAL);
 			break;
 		}
 
-		case TRAIT_S_ANIMAL_RANGER:
+	case TRAIT_S_ANIMAL_RANGER:
 		{
 			okay = (has_trait_species(species_ptr, TRAIT_ANIMAL) &&
-			       (my_strchr("abcflqrwBCHIJKMRS", species_ptr->d_char)) &&
-			       !has_trait_species(species_ptr, TRAIT_DRAGON) &&
-			       !(is_enemy_of_good_species(species_ptr)) &&
-			       !has_trait_species(species_ptr, TRAIT_UNDEAD) &&
-			       !has_trait_species(species_ptr, TRAIT_DEMON) &&
-			       !has_trait_species(species_ptr, TRAIT_MULTIPLY));// &&
-			       //TODO !(species_ptr->flags4 || species_ptr->flags5 || species_ptr->flags6));
+				(my_strchr("abcflqrwBCHIJKMRS", species_ptr->d_char)) &&
+				!has_trait_species(species_ptr, TRAIT_DRAGON) &&
+				!(is_enemy_of_good_species(species_ptr)) &&
+				!has_trait_species(species_ptr, TRAIT_UNDEAD) &&
+				!has_trait_species(species_ptr, TRAIT_DEMON) &&
+				!has_trait_species(species_ptr, TRAIT_MULTIPLY));// &&
+			//TODO !(species_ptr->flags4 || species_ptr->flags5 || species_ptr->flags6));
 			break;
 		}
 
-		case TRAIT_S_HI_DRAGON_LIVING:
+	case TRAIT_S_HI_DRAGON_LIVING:
 		{
 			okay = ((species_ptr->d_char == 'D') && species_living(species_ptr));
 			break;
 		}
 
-		case TRAIT_S_LIVING:
+	case TRAIT_S_LIVING:
 		{
 			okay = species_living(species_ptr);
 			break;
 		}
 
-		case TRAIT_S_PHANTOM:
+	case TRAIT_S_PHANTOM:
 		{
 			okay = (species_idx == SPECIES_PHANTOM_B || species_idx == SPECIES_PHANTOM_W);
 			break;
 		}
 
-		case TRAIT_S_BLUE_HORROR:
+	case TRAIT_S_BLUE_HORROR:
 		{
 			okay = (species_idx == SPECIES_BLUE_HORROR);
 			break;
 		}
 
-		case TRAIT_S_ELEMENTAL:
+	case TRAIT_S_ELEMENTAL:
 		{
 			okay = (species_ptr->d_char == 'E');
 			break;
 		}
 
-		case TRAIT_S_VORTEX:
+	case TRAIT_S_VORTEX:
 		{
 			okay = (species_ptr->d_char == 'v');
 			break;
 		}
 
-		case TRAIT_S_HYBRID:
+	case TRAIT_S_HYBRID:
 		{
 			okay = (species_ptr->d_char == 'H');
 			break;
 		}
 
-		case TRAIT_S_BIRD:
+	case TRAIT_S_BIRD:
 		{
 			okay = (species_ptr->d_char == 'B');
 			break;
 		}
 
-		case TRAIT_S_KAMIKAZE:
+	case TRAIT_S_KAMIKAZE:
 		{
 			int i;
 			for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
@@ -1186,7 +1186,7 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			break;
 		}
 
-		case TRAIT_S_KAMIKAZE_LIVING:
+	case TRAIT_S_KAMIKAZE_LIVING:
 		{
 			int i;
 
@@ -1196,31 +1196,31 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			break;
 		}
 
-		case TRAIT_S_MANES:
+	case TRAIT_S_MANES:
 		{
 			okay = (species_idx == SPECIES_MANES);
 			break;
 		}
 
-		case TRAIT_S_LOUSE:
+	case TRAIT_S_LOUSE:
 		{
 			okay = (species_idx == SPECIES_LOUSE);
 			break;
 		}
 
-		case TRAIT_S_GUARDIANS:
+	case TRAIT_S_GUARDIANS:
 		{
 			okay = (has_trait_species(species_ptr, TRAIT_GUARDIAN));
 			break;
 		}
 
-		case TRAIT_S_KNIGHTS:
+	case TRAIT_S_KNIGHTS:
 		{
 			okay = species_ptr->class_idx == CLASS_PALADIN;
 			break;
 		}
 
-		case TRAIT_S_EAGLES:
+	case TRAIT_S_EAGLES:
 		{
 			okay = (species_ptr->d_char == 'B' &&
 				has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN) &&
@@ -1228,19 +1228,19 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			break;
 		}
 
-		case TRAIT_S_PIRANHAS:
+	case TRAIT_S_PIRANHAS:
 		{
 			okay = (species_idx == SPECIES_PIRANHA);
 			break;
 		}
 
-		case TRAIT_S_ARMAGE_GOOD:
+	case TRAIT_S_ARMAGE_GOOD:
 		{
 			okay = (species_ptr->d_char == 'A' && is_enemy_of_evil_species(species_ptr));
 			break;
 		}
 
-		case TRAIT_S_ARMAGE_EVIL:
+	case TRAIT_S_ARMAGE_EVIL:
 		{
 			okay = ((has_trait_species(species_ptr, TRAIT_DEMON)) ||
 				(species_ptr->d_char == 'A' && is_enemy_of_good_species(species_ptr)));
@@ -1297,48 +1297,48 @@ static bool restrict_creature_to_dungeon(int species_idx)
 	switch (d_ptr->mode)
 	{
 	case DUNGEON_MODE_AND:
-		for (a = 0; a < MAX_TRAITS; a++)
-		{
-			if(has_trait_raw(&d_ptr->c_flags, a)
-				&& !has_trait_raw(&species_ptr->flags, a)) return FALSE; 
-		}
-		for (a = 0; a < 5; a++)
-			if(d_ptr->r_char[a] && (d_ptr->r_char[a] != species_ptr->d_char)) return FALSE;
+	for (a = 0; a < MAX_TRAITS; a++)
+	{
+	if(has_trait_raw(&d_ptr->c_flags, a)
+	&& !has_trait_raw(&species_ptr->flags, a)) return FALSE; 
+	}
+	for (a = 0; a < 5; a++)
+	if(d_ptr->r_char[a] && (d_ptr->r_char[a] != species_ptr->d_char)) return FALSE;
 
-		return TRUE;
+	return TRUE;
 
 	case DUNGEON_MODE_NAND:
-		for (a = 0; a < MAX_TRAITS; a++)
-		{
-			if(has_trait_raw(&d_ptr->c_flags, a)
-				&& !has_trait_raw(&species_ptr->flags, a)) return TRUE; 
-		}
-		for (a = 0; a < 5; a++)
-			if(d_ptr->r_char[a] && (d_ptr->r_char[a] != species_ptr->d_char)) return TRUE;
+	for (a = 0; a < MAX_TRAITS; a++)
+	{
+	if(has_trait_raw(&d_ptr->c_flags, a)
+	&& !has_trait_raw(&species_ptr->flags, a)) return TRUE; 
+	}
+	for (a = 0; a < 5; a++)
+	if(d_ptr->r_char[a] && (d_ptr->r_char[a] != species_ptr->d_char)) return TRUE;
 
-		return FALSE;
+	return FALSE;
 
 	case DUNGEON_MODE_OR:
-		for (a = 0; a < MAX_TRAITS; a++)
-		{
-			if(has_trait_raw(&d_ptr->c_flags, a)
-				&& has_trait_raw(&species_ptr->flags, a)) return TRUE; 
-		}
-		for (a = 0; a < 5; a++)
-			if(d_ptr->r_char[a] == species_ptr->d_char) return TRUE;
+	for (a = 0; a < MAX_TRAITS; a++)
+	{
+	if(has_trait_raw(&d_ptr->c_flags, a)
+	&& has_trait_raw(&species_ptr->flags, a)) return TRUE; 
+	}
+	for (a = 0; a < 5; a++)
+	if(d_ptr->r_char[a] == species_ptr->d_char) return TRUE;
 
-		return FALSE;
+	return FALSE;
 
 	case DUNGEON_MODE_NOR:
-		for (a = 0; a < MAX_TRAITS; a++)
-		{
-			if(has_trait_raw(&d_ptr->c_flags, a)
-				&& has_trait_raw(&species_ptr->flags, a)) return FALSE; 
-		}
-		for (a = 0; a < 5; a++)
-			if(d_ptr->r_char[a] == species_ptr->d_char) return FALSE;
+	for (a = 0; a < MAX_TRAITS; a++)
+	{
+	if(has_trait_raw(&d_ptr->c_flags, a)
+	&& has_trait_raw(&species_ptr->flags, a)) return FALSE; 
+	}
+	for (a = 0; a < 5; a++)
+	if(d_ptr->r_char[a] == species_ptr->d_char) return FALSE;
 
-		return TRUE;
+	return TRUE;
 	}
 	*/
 
@@ -1449,8 +1449,8 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 
 		// Skip creatures which don't pass the restriction
 		if((get_species_num_hook  && !((*get_species_num_hook)(entry->index))) ||
-		   (get_species_num2_hook && !((*get_species_num2_hook)(entry->index))) ||
-		   (get_species_num3_hook && !((*get_species_num3_hook)(summoner_ptr, entry->index))))
+			(get_species_num2_hook && !((*get_species_num2_hook)(entry->index))) ||
+			(get_species_num3_hook && !((*get_species_num3_hook)(summoner_ptr, entry->index))))
 			continue;
 
 		//if(!summon_unique_okay && ((has_trait_species(species_ptr, TRAIT_UNIQUE)) || has_trait_species(species_ptr, TRAIT_NAZGUL))) continue;
@@ -1471,9 +1471,9 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 		//TODO if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
 		/*
 		{
-			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
-			entry->prob2 = hoge / 64;
-			if(randint0(64) < (hoge & 0x3f)) entry->prob2++;
+		int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
+		entry->prob2 = hoge / 64;
+		if(randint0(64) < (hoge & 0x3f)) entry->prob2++;
 		}
 		*/
 	}
@@ -1519,27 +1519,27 @@ static int mysqrt(int n)
 }
 
 /*
- * Choose a creature race that seems "appropriate" to the given level
- *
- * This function uses the "prob2" field of the "creature allocation table",
- * and various local information, to calculate the "prob3" field of the
- * same table, which is then used to choose an "appropriate" creature, in
- * a relatively efficient manner.
- *
- * Note that "town" creatures will *only* be created in the town, and
- * "normal" creatures will *never* be created in the town, unless the
- * "level" is "modified", for example, by polymorph or summoning.
- *
- * There is a small chance (1/50) of "boosting" the given depth by
- * a small amount (up to four levels), except in the town.
- *
- * It is (slightly) more likely to acquire a creature of the given level
- * than one of a lower level.  This is done by choosing several creatures
- * appropriate to the given level and keeping the "hardest" one.
- *
- * Note that if no creatures are "appropriate", then this function will
- * fail, and return zero, but this should *almost* never happen.
- */
+* Choose a creature race that seems "appropriate" to the given level
+*
+* This function uses the "prob2" field of the "creature allocation table",
+* and various local information, to calculate the "prob3" field of the
+* same table, which is then used to choose an "appropriate" creature, in
+* a relatively efficient manner.
+*
+* Note that "town" creatures will *only* be created in the town, and
+* "normal" creatures will *never* be created in the town, unless the
+* "level" is "modified", for example, by polymorph or summoning.
+*
+* There is a small chance (1/50) of "boosting" the given depth by
+* a small amount (up to four levels), except in the town.
+*
+* It is (slightly) more likely to acquire a creature of the given level
+* than one of a lower level.  This is done by choosing several creatures
+* appropriate to the given level and keeping the "hardest" one.
+*
+* Note that if no creatures are "appropriate", then this function will
+* fail, and return zero, but this should *almost* never happen.
+*/
 s16b get_species_num(floor_type *floor_ptr, int level)
 {
 	int i, species_idx;
@@ -1609,35 +1609,35 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		if(value < table[i].prob3) break; // Found the entry
 		value = value - table[i].prob3; // Decrement
 	}
-	
+
 	/*
 	p = randint0(100); // Power boost
 
 	if(p < 60) // Try for a "harder" creature once (50%) or twice (10%)
 	{
-		j = i; // Save old
-		value = randint0(total); // Pick a creature
-		for (i = 0; i < alloc_species_size; i++) // Find the creature
-		{
-			if(value < table[i].prob3) break;	// Found the entry
-			value = value - table[i].prob3;		// Decrement
-		}
+	j = i; // Save old
+	value = randint0(total); // Pick a creature
+	for (i = 0; i < alloc_species_size; i++) // Find the creature
+	{
+	if(value < table[i].prob3) break;	// Found the entry
+	value = value - table[i].prob3;		// Decrement
+	}
 
-		// Keep the "best" one
-		if(table[i].level < table[j].level) i = j;
+	// Keep the "best" one
+	if(table[i].level < table[j].level) i = j;
 	}
 
 	if(p < 10) // Try for a "harder" creature twice (10%)
 	{
-		j = i; // Save old
-		value = randint0(total); // Pick a creature
-		for (i = 0; i < alloc_species_size; i++) // Find the creature
-		{
-			if(value < table[i].prob3) break; // Found the entry
-			value = value - table[i].prob3; // Decrement
-		}
+	j = i; // Save old
+	value = randint0(total); // Pick a creature
+	for (i = 0; i < alloc_species_size; i++) // Find the creature
+	{
+	if(value < table[i].prob3) break; // Found the entry
+	value = value - table[i].prob3; // Decrement
+	}
 
-		if(table[i].level < table[j].level) i = j; // Keep the "best" one
+	if(table[i].level < table[j].level) i = j; // Keep the "best" one
 	}
 	*/
 
@@ -1649,56 +1649,56 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 
 
 /*
- * Build a string describing a creature in some way.
- *
- * We can correctly describe creatures based on their visibility.
- * We can force all creatures to be treated as visible or invisible.
- * We can build nominatives, objectives, possessives, or reflexives.
- * We can selectively pronominalize hidden, visible, or all creatures.
- * We can use definite or indefinite descriptions for hidden creatures.
- * We can use definite or indefinite descriptions for visible creatures.
- *
- * Pronominalization involves the gender whenever possible and allowed,
- * so that by cleverly requesting pronominalization / visibility, you
- * can get messages like "You hit someone.  She screams in agony!".
- *
- * Reflexives are acquired by requesting Objective plus Possessive.
- *
- * If no m_ptr arg is given (?), the creature is assumed to be hidden,
- * unless the "Assume Visible" mode is requested.
- *
- * If no species_ptr arg is given, it is extracted from m_ptr and species_info
- * If neither m_ptr nor species_ptr is given, the creature is assumed to
- * be neuter, singular, and hidden (unless "Assume Visible" is set),
- * in which case you may be in trouble... :-)
- *
- * I am assuming that no creature name is more than 70 characters long,
- * so that "char desc[80];" is sufficiently large for any result.
- *
- * Mode Flags:
- *  CD_OBJECTIVE       --> Objective (or Reflexive)
- *  CD_POSSESSIVE      --> Possessive (or Reflexive)
- *  CD_INDEF_HIDDEN    --> Use indefinites for hidden creatures ("something")
- *  CD_INDEF_VISIBLE   --> Use indefinites for visible creatures ("a kobold")
- *  CD_PRON_HIDDEN     --> Pronominalize hidden creatures
- *  CD_PRON_VISIBLE    --> Pronominalize visible creatures
- *  CD_ASSUME_HIDDEN   --> Assume the creature is hidden
- *  CD_ASSUME_VISIBLE  --> Assume the creature is visible
- *  CD_TRUE_NAME       --> Chameleon's true name
- *  CD_IGNORE_HALLU    --> Ignore hallucination, and penetrate shape change
- *  CD_IGNORE_EGO_DESC --> Ignore Ego description
- *
- * Useful Modes:
- *  0x00 --> Full nominative name ("the kobold") or "it"
- *  CD_INDEF_HIDDEN --> Full nominative name ("the kobold") or "something"
- *  CD_ASSUME_VISIBLE --> Genocide resistance name ("the kobold")
- *  CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE --> Killing name ("a kobold")
- *  CD_PRON_VISIBLE | CD_POSSESSIVE
- *    --> Possessive, genderized if visable ("his") or "its"
- *  CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE
- *    --> Reflexive, genderized if visable ("himself") or "itself"
- *
- */
+* Build a string describing a creature in some way.
+*
+* We can correctly describe creatures based on their visibility.
+* We can force all creatures to be treated as visible or invisible.
+* We can build nominatives, objectives, possessives, or reflexives.
+* We can selectively pronominalize hidden, visible, or all creatures.
+* We can use definite or indefinite descriptions for hidden creatures.
+* We can use definite or indefinite descriptions for visible creatures.
+*
+* Pronominalization involves the gender whenever possible and allowed,
+* so that by cleverly requesting pronominalization / visibility, you
+* can get messages like "You hit someone.  She screams in agony!".
+*
+* Reflexives are acquired by requesting Objective plus Possessive.
+*
+* If no m_ptr arg is given (?), the creature is assumed to be hidden,
+* unless the "Assume Visible" mode is requested.
+*
+* If no species_ptr arg is given, it is extracted from m_ptr and species_info
+* If neither m_ptr nor species_ptr is given, the creature is assumed to
+* be neuter, singular, and hidden (unless "Assume Visible" is set),
+* in which case you may be in trouble... :-)
+*
+* I am assuming that no creature name is more than 70 characters long,
+* so that "char desc[80];" is sufficiently large for any result.
+*
+* Mode Flags:
+*  CD_OBJECTIVE       --> Objective (or Reflexive)
+*  CD_POSSESSIVE      --> Possessive (or Reflexive)
+*  CD_INDEF_HIDDEN    --> Use indefinites for hidden creatures ("something")
+*  CD_INDEF_VISIBLE   --> Use indefinites for visible creatures ("a kobold")
+*  CD_PRON_HIDDEN     --> Pronominalize hidden creatures
+*  CD_PRON_VISIBLE    --> Pronominalize visible creatures
+*  CD_ASSUME_HIDDEN   --> Assume the creature is hidden
+*  CD_ASSUME_VISIBLE  --> Assume the creature is visible
+*  CD_TRUE_NAME       --> Chameleon's true name
+*  CD_IGNORE_HALLU    --> Ignore hallucination, and penetrate shape change
+*  CD_IGNORE_EGO_DESC --> Ignore Ego description
+*
+* Useful Modes:
+*  0x00 --> Full nominative name ("the kobold") or "it"
+*  CD_INDEF_HIDDEN --> Full nominative name ("the kobold") or "something"
+*  CD_ASSUME_VISIBLE --> Genocide resistance name ("the kobold")
+*  CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE --> Killing name ("a kobold")
+*  CD_PRON_VISIBLE | CD_POSSESSIVE
+*    --> Possessive, genderized if visable ("his") or "its"
+*  CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE
+*    --> Reflexive, genderized if visable ("himself") or "itself"
+*
+*/
 void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 {
 	cptr            res;
@@ -1776,7 +1776,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 		/* Ignore the gender (if desired) */
 		if(!creature_ptr || !pron) kind = 0x00;
- 
+
 
 		/* Assume simple result */
 #ifdef JP
@@ -1811,7 +1811,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 #endif
 
 
-			/* Male (assume human if vague) */
+				/* Male (assume human if vague) */
 #ifdef JP
 			case 0x10:                                                    res = "彼"; break;
 			case 0x10 + (CD_OBJECTIVE):                                   res = "彼"; break;
@@ -1833,7 +1833,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 #endif
 
 
-			/* Female (assume human if vague) */
+				/* Female (assume human if vague) */
 #ifdef JP
 			case 0x20:                                                    res = "彼女"; break;
 			case 0x20 + (CD_OBJECTIVE):                                   res = "彼女"; break;
@@ -1900,147 +1900,147 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 		}
 		else
 
-		/* It could be a Unique */
-		if((has_trait_species(species_ptr, TRAIT_UNIQUE)) && !(has_trait(player_ptr, TRAIT_HALLUCINATION) && !(mode & CD_IGNORE_HALLU)))
-		{
-			/* Start with the name (thus nominative and objective) */
-			if((creature_ptr->sc_flag2 & SC_FLAG2_CHAMELEON) && !(mode & CD_TRUE_NAME))
+			/* It could be a Unique */
+			if((has_trait_species(species_ptr, TRAIT_UNIQUE)) && !(has_trait(player_ptr, TRAIT_HALLUCINATION) && !(mode & CD_IGNORE_HALLU)))
 			{
-#ifdef JP
-				char *t;
-				strcpy(buf, name);
-				t = buf;
-				while (strncmp(t, "』", 2) && *t) t++;
-				if(*t)
+				/* Start with the name (thus nominative and objective) */
+				if((creature_ptr->sc_flag2 & SC_FLAG2_CHAMELEON) && !(mode & CD_TRUE_NAME))
 				{
-					*t = '\0';
-					(void)sprintf(desc, "%s？』", buf);
+#ifdef JP
+					char *t;
+					strcpy(buf, name);
+					t = buf;
+					while (strncmp(t, "』", 2) && *t) t++;
+					if(*t)
+					{
+						*t = '\0';
+						(void)sprintf(desc, "%s？』", buf);
+					}
+					else
+						(void)sprintf(desc, "%s？", name);
+#else
+					(void)sprintf(desc, "%s?", name);
+#endif
 				}
+
+				/* Inside creature arena, and it is not your mount */
+				else if(floor_ptr->gamble_arena_mode && !(player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr)))
+				{
+					/* It is a fake unique creature */
+#ifdef JP
+					(void)sprintf(desc, "%sもどき", name);
+#else
+					(void)sprintf(desc, "fake %s", name);
+#endif
+				}
+
 				else
-					(void)sprintf(desc, "%s？", name);
-#else
-				(void)sprintf(desc, "%s?", name);
-#endif
+				{
+					if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr, mode);
+					(void)strcat(desc, species_name + species_ptr->name);
+					if(!(mode & CD_IGNORE_EGO_DESC)
+						) creature_desc_ego_post(desc, creature_ptr, species_ptr);
+				}
 			}
 
-			/* Inside creature arena, and it is not your mount */
-			else if(floor_ptr->gamble_arena_mode && !(player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr)))
+			/* It could be an indefinite creature */
+			else if(mode & CD_INDEF_VISIBLE)
 			{
-				/* It is a fake unique creature */
-#ifdef JP
-				(void)sprintf(desc, "%sもどき", name);
-#else
-				(void)sprintf(desc, "fake %s", name);
-#endif
-			}
+				/* XXX Check plurality for "some" */
 
-			else
-			{
-				if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr, mode);
-				(void)strcat(desc, species_name + species_ptr->name);
-				if(!(mode & CD_IGNORE_EGO_DESC)
-					) creature_desc_ego_post(desc, creature_ptr, species_ptr);
-			}
-		}
-
-		/* It could be an indefinite creature */
-		else if(mode & CD_INDEF_VISIBLE)
-		{
-			/* XXX Check plurality for "some" */
-
-			/* Indefinite creatures need an indefinite article */
-#ifdef JP
-			(void)strcpy(desc, "");
-#else
-			(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
-#endif
-
-			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr, mode);
-			(void)strcat(desc, species_name + species_ptr->name);
-			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
-		}
-
-		/* It could be a normal, definite, creature */
-		else
-		{
-			/* Definite creatures need a definite article */
-			if(is_pet(player_ptr, creature_ptr))
-#ifdef JP
-				(void)strcpy(desc, "あなたの");
-#else
-				(void)strcpy(desc, "your ");
-#endif
-
-			else
+				/* Indefinite creatures need an indefinite article */
 #ifdef JP
 				(void)strcpy(desc, "");
 #else
-				(void)strcpy(desc, "the ");
+				(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
 #endif
 
-			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr, mode);
-			(void)strcat(desc, species_name + species_ptr->name);
-			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
-		}
-
-
-
-		if(creature_ptr->nickname)
-		{
-#ifdef JP
-			sprintf(buf,"「%s」",quark_str(creature_ptr->nickname));
-#else
-			sprintf(buf," called %s",quark_str(creature_ptr->nickname));
-#endif
-			strcat(desc,buf);
-		}
-
-		if(player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr))
-		{
-#ifdef JP
-			strcat(desc,"(乗馬中)");
-#else
-			strcat(desc,"(riding)");
-#endif
-		}
-
-		if((mode & CD_IGNORE_HALLU) && (creature_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
-		{
-			if(has_trait_species(species_ptr, TRAIT_UNIQUE))
-			{
-#ifdef JP
-				strcat(desc,"(カメレオンの王)");
-#else
-				strcat(desc,"(Chameleon Lord)");
-#endif
+				if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr, mode);
+				(void)strcat(desc, species_name + species_ptr->name);
+				if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
 			}
+
+			/* It could be a normal, definite, creature */
 			else
 			{
+				/* Definite creatures need a definite article */
+				if(is_pet(player_ptr, creature_ptr))
 #ifdef JP
-				strcat(desc,"(カメレオン)");
+					(void)strcpy(desc, "あなたの");
 #else
-				strcat(desc,"(Chameleon)");
+					(void)strcpy(desc, "your ");
+#endif
+
+				else
+#ifdef JP
+					(void)strcpy(desc, "");
+#else
+					(void)strcpy(desc, "the ");
+#endif
+
+				if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr, mode);
+				(void)strcat(desc, species_name + species_ptr->name);
+				if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
+			}
+
+
+
+			if(creature_ptr->nickname)
+			{
+#ifdef JP
+				sprintf(buf,"「%s」",quark_str(creature_ptr->nickname));
+#else
+				sprintf(buf," called %s",quark_str(creature_ptr->nickname));
+#endif
+				strcat(desc,buf);
+			}
+
+			if(player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr))
+			{
+#ifdef JP
+				strcat(desc,"(乗馬中)");
+#else
+				strcat(desc,"(riding)");
 #endif
 			}
-		}
 
-		if((mode & CD_IGNORE_HALLU) && !is_original_ap(creature_ptr))
-		{
-			strcat(desc, format("(%s)", species_name + species_info[creature_ptr->species_idx].name));
-		}
-
-		/* Handle the Possessive as a special afterthought */
-		if(mode & CD_POSSESSIVE)
-		{
-			/* XXX Check for trailing "s" */
-			
-			/* Simply append "apostrophe" and "s" */
+			if((mode & CD_IGNORE_HALLU) && (creature_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
+			{
+				if(has_trait_species(species_ptr, TRAIT_UNIQUE))
+				{
 #ifdef JP
-			(void)strcat(desc, "の");
+					strcat(desc,"(カメレオンの王)");
 #else
-			(void)strcat(desc, "'s");
+					strcat(desc,"(Chameleon Lord)");
 #endif
-		}
+				}
+				else
+				{
+#ifdef JP
+					strcat(desc,"(カメレオン)");
+#else
+					strcat(desc,"(Chameleon)");
+#endif
+				}
+			}
+
+			if((mode & CD_IGNORE_HALLU) && !is_original_ap(creature_ptr))
+			{
+				strcat(desc, format("(%s)", species_name + species_info[creature_ptr->species_idx].name));
+			}
+
+			/* Handle the Possessive as a special afterthought */
+			if(mode & CD_POSSESSIVE)
+			{
+				/* XXX Check for trailing "s" */
+
+				/* Simply append "apostrophe" and "s" */
+#ifdef JP
+				(void)strcat(desc, "の");
+#else
+				(void)strcat(desc, "'s");
+#endif
+			}
 	}
 }
 
@@ -2106,10 +2106,10 @@ void creature_desc_ego_post(char* desc, creature_type *creature_ptr, species_typ
 
 
 /*
- * Learn about a creature (by "probing" it)
- *
- * Return the number of new flags learnt.  -Mogami-
- */
+* Learn about a creature (by "probing" it)
+*
+* Return the number of new flags learnt.  -Mogami-
+*/
 int lore_do_probe(int species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
@@ -2156,18 +2156,18 @@ int lore_do_probe(int species_idx)
 
 
 /*
- * Take note that the given creature just dropped some treasure
- *
- * Note that learning the "GOOD"/"GREAT" flags gives information
- * about the treasure (even when the creature is killed for the first
- * time, such as uniques, and the treasure has not been examined yet).
- *
- * This "indirect" method is used to prevent the player from learning
- * exactly how much treasure a creature can drop from observing only
- * a single example of a drop.  This method actually observes how much
- * gold and items are dropped, and remembers that information to be
- * described later by the creature recall code.
- */
+* Take note that the given creature just dropped some treasure
+*
+* Note that learning the "GOOD"/"GREAT" flags gives information
+* about the treasure (even when the creature is killed for the first
+* time, such as uniques, and the treasure has not been examined yet).
+*
+* This "indirect" method is used to prevent the player from learning
+* exactly how much treasure a creature can drop from observing only
+* a single example of a drop.  This method actually observes how much
+* gold and items are dropped, and remembers that information to be
+* described later by the creature recall code.
+*/
 void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold)
 {
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
@@ -2185,88 +2185,76 @@ void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold)
 	}
 }
 
-void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool necro)
+void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr)
 {
 	int difficulty = 100;
 	floor_type *floor_ptr = GET_FLOOR_PTR(watcher_ptr);
+	char            eldritch_name[80];
+	//species_type    *species_ptr = &species_info[eldritch_ptr->ap_species_idx];
 
 	if(floor_ptr->gamble_arena_mode || !floor_ptr->generated) return;
 
-	if(!necro)
+
+	difficulty = eldritch_ptr->lev;
+	creature_desc(eldritch_name, eldritch_ptr, 0);
+
+	if(!IS_IN_THIS_FLOOR(eldritch_ptr)) return;
+	if(!eldritch_ptr->see_others) return; // Cannot see it for some reason
+	if(!has_trait(eldritch_ptr, TRAIT_ELDRITCH_HORROR)) return; // oops
+	if(is_pet(player_ptr, eldritch_ptr)) return; // Pet eldritch horrors are safe most of the time
+	if(saving_throw(watcher_ptr, SAVING_VO, difficulty, 0)) return;
+
+	//TODO saving_throw if(saving_throw(watcher_ptr->skill_rob - difficulty)) return; // Save, no adverse effects
+
+	if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
 	{
-		char            eldritch_name[80];
-		//species_type    *species_ptr = &species_info[eldritch_ptr->ap_species_idx];
-
-		difficulty = eldritch_ptr->lev;
-		creature_desc(eldritch_name, eldritch_ptr, 0);
-
-		if(!IS_IN_THIS_FLOOR(eldritch_ptr)) return;
-		if(!eldritch_ptr->see_others) return; // Cannot see it for some reason
-		if(!has_trait(eldritch_ptr, TRAIT_ELDRITCH_HORROR)) return; // oops
-		if(is_pet(player_ptr, eldritch_ptr)) return; // Pet eldritch horrors are safe most of the time
-		if(saving_throw(watcher_ptr, SAVING_VO, difficulty, 0)) return;
-
-		//TODO saving_throw if(saving_throw(watcher_ptr->skill_rob - difficulty)) return; // Save, no adverse effects
-
-		if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
-		{
-			// Something silly happens...
+		// Something silly happens...
 #ifdef JP
-			msg_format("%s%sの顔を見てしまった！", funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name);
+		msg_format("%s%sの顔を見てしまった！", funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name);
 #else
-			msg_format("You behold the %s visage of %s!", funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name);
+		msg_format("You behold the %s visage of %s!", funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name);
 #endif
 
-			if(one_in_(3))
-			{
-				msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
-				add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, (s16b)randint1(difficulty), TRUE); 
-			}
-
-			return;
-		}
-
-		// Something frightening happens...
-
-		if(has_trait(watcher_ptr, TRAIT_DEMON))
+		if(one_in_(3))
 		{
-#ifdef JP
-			msg_format("%s%sの顔が垣間見えた。",
-				delight_desc[randint0(MAX_SAN_DELIGHT)], eldritch_name);
-#else
-			msg_format("You glance at the %s visage of %s.",
-				delight_desc[randint0(MAX_SAN_DELIGHT)], eldritch_name);
-#endif
-		}
-		else
-		{
-#ifdef JP
-			msg_format("%s%sの顔を見てしまった！",
-				horror_desc[randint0(MAX_SAN_HORROR)], eldritch_name);
-#else
-			msg_format("You behold the %s visage of %s!",
-				horror_desc[randint0(MAX_SAN_HORROR)], eldritch_name);
-#endif
+			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
+			add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, (s16b)randint1(difficulty), TRUE); 
 		}
 
-		reveal_creature_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
+		return;
+	}
 
-		// Demon characters are unaffected
-		if(has_trait(watcher_ptr, TRAIT_DEMON)) return;
-		if(wizard) return;
+	// Something frightening happens...
 
-		// Undead characters are 50% likely to be unaffected
-		if(has_trait(watcher_ptr, TRAIT_UNDEAD)) if(saving_throw(watcher_ptr, SAVING_VO, 40, 0)) return;
+	if(has_trait(watcher_ptr, TRAIT_DEMON))
+	{
+#ifdef JP
+		msg_format("%s%sの顔が垣間見えた。",
+			delight_desc[randint0(MAX_SAN_DELIGHT)], eldritch_name);
+#else
+		msg_format("You glance at the %s visage of %s.",
+			delight_desc[randint0(MAX_SAN_DELIGHT)], eldritch_name);
+#endif
 	}
 	else
 	{
 #ifdef JP
-		msg_print("ネクロノミコンを読んで正気を失った！");
+		msg_format("%s%sの顔を見てしまった！",
+			horror_desc[randint0(MAX_SAN_HORROR)], eldritch_name);
 #else
-		msg_print("Your sanity is shaken by reading the Necronomicon!");
+		msg_format("You behold the %s visage of %s!",
+			horror_desc[randint0(MAX_SAN_HORROR)], eldritch_name);
 #endif
-
 	}
+
+	reveal_creature_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
+
+	// Demon characters are unaffected
+	if(has_trait(watcher_ptr, TRAIT_DEMON)) return;
+	if(wizard) return;
+
+	// Undead characters are 50% likely to be unaffected
+	if(has_trait(watcher_ptr, TRAIT_UNDEAD)) if(saving_throw(watcher_ptr, SAVING_VO, 40, 0)) return;
 
 	sanity_blast_aux(watcher_ptr, difficulty);
 }
@@ -2327,7 +2315,7 @@ void sanity_blast_aux(creature_type *watcher_ptr, int power)
 	{
 		switch (randint1(4))
 		{
-			case 1:
+		case 1:
 			{
 				if(!has_trait(watcher_ptr, TRAIT_MORONIC))
 				{
@@ -2338,7 +2326,7 @@ void sanity_blast_aux(creature_type *watcher_ptr, int power)
 				}
 				break;
 			}
-			case 2:
+		case 2:
 			{
 				if(!has_trait(watcher_ptr, TRAIT_COWARDICE) && !has_trait(watcher_ptr, TRAIT_FEARLESS))
 				{
@@ -2348,7 +2336,7 @@ void sanity_blast_aux(creature_type *watcher_ptr, int power)
 				}
 				break;
 			}
-			case 3:
+		case 3:
 			{
 				if(!has_trait(watcher_ptr, TRAIT_HALLU) && !has_trait(watcher_ptr, TRAIT_RES_CHAO))
 				{
@@ -2357,7 +2345,7 @@ void sanity_blast_aux(creature_type *watcher_ptr, int power)
 				}
 				break;
 			}
-			default:
+		default:
 			{
 				if(!has_trait(watcher_ptr, TRAIT_BERS_RAGE))
 				{
@@ -2378,64 +2366,64 @@ void sanity_blast_aux(creature_type *watcher_ptr, int power)
 
 
 /*
- * This function updates the creature record of the given creature
- *
- * This involves extracting the distance to the player (if requested),
- * and then checking for visibility (natural, infravision, see-invis,
- * telepathy), updating the creature visibility flag, redrawing (or
- * erasing) the creature when its visibility changes, and taking note
- * of any interesting creature flags (cold-blooded, invisible, etc).
- *
- * Note the new "sc_flag" field which encodes several creature state flags,
- * including "view" for when the creature is currently in line of sight,
- * and "mark" for when the creature is currently visible via detection.
- *
- * The only creature fields that are changed here are "cdis" (the
- * distance from the player), "ml" (visible to the player), and
- * "sc_flag" (to maintain the "SC_FLAG_VIEW" flag).
- *
- * Note the special "update_creatures()" function which can be used to
- * call this function once for every creature.
- *
- * Note the "full" flag which requests that the "cdis" field be updated,
- * this is only needed when the creature (or the player) has moved.
- *
- * Every time a creature moves, we must call this function for that
- * creature, and update the distance, and the visibility.  Every time
- * the player moves, we must call this function for every creature, and
- * update the distance, and the visibility.  Whenever the player "state"
- * changes in certain ways ("blindness", "infravision", "telepathy",
- * and "see invisible"), we must call this function for every creature,
- * and update the visibility.
- *
- * Routines that change the "illumination" of a grid must also call this
- * function for any creature in that grid, since the "visibility" of some
- * creatures may be based on the illumination of their grid.
- *
- * Note that this function is called once per creature every time the
- * player moves.  When the player is running, this function is one
- * of the primary bottlenecks, along with "update_view()" and the
- * "process_creatures()" code, so efficiency is important.
- *
- * Note the optimized "inline" version of the "distance()" function.
- *
- * A creature is "visible" to the player if(1) it has been detected
- * by the player, (2) it is close to the player and the player has
- * telepathy, or (3) it is close to the player, and in line of sight
- * of the player, and it is "illuminated" by some combination of
- * infravision, torch light, or permanent light (invisible creatures
- * are only affected by "light" if the player can see invisible).
- *
- * Creatures which are not on the current panel may be "visible" to
- * the player, and their descriptions will include an "offscreen"
- * reference.  Currently, offscreen creatures cannot be targetted
- * or viewed directly, but old targets will remain set.  XXX XXX
- *
- * The player can choose to be disturbed by several things, including
- * "disturb_move" (creature which is viewable moves in some way), and
- * "disturb_near" (creature which is "easily" viewable moves in some
- * way).  Note that "moves" includes "appears" and "disappears".
- */
+* This function updates the creature record of the given creature
+*
+* This involves extracting the distance to the player (if requested),
+* and then checking for visibility (natural, infravision, see-invis,
+* telepathy), updating the creature visibility flag, redrawing (or
+* erasing) the creature when its visibility changes, and taking note
+* of any interesting creature flags (cold-blooded, invisible, etc).
+*
+* Note the new "sc_flag" field which encodes several creature state flags,
+* including "view" for when the creature is currently in line of sight,
+* and "mark" for when the creature is currently visible via detection.
+*
+* The only creature fields that are changed here are "cdis" (the
+* distance from the player), "ml" (visible to the player), and
+* "sc_flag" (to maintain the "SC_FLAG_VIEW" flag).
+*
+* Note the special "update_creatures()" function which can be used to
+* call this function once for every creature.
+*
+* Note the "full" flag which requests that the "cdis" field be updated,
+* this is only needed when the creature (or the player) has moved.
+*
+* Every time a creature moves, we must call this function for that
+* creature, and update the distance, and the visibility.  Every time
+* the player moves, we must call this function for every creature, and
+* update the distance, and the visibility.  Whenever the player "state"
+* changes in certain ways ("blindness", "infravision", "telepathy",
+* and "see invisible"), we must call this function for every creature,
+* and update the visibility.
+*
+* Routines that change the "illumination" of a grid must also call this
+* function for any creature in that grid, since the "visibility" of some
+* creatures may be based on the illumination of their grid.
+*
+* Note that this function is called once per creature every time the
+* player moves.  When the player is running, this function is one
+* of the primary bottlenecks, along with "update_view()" and the
+* "process_creatures()" code, so efficiency is important.
+*
+* Note the optimized "inline" version of the "distance()" function.
+*
+* A creature is "visible" to the player if(1) it has been detected
+* by the player, (2) it is close to the player and the player has
+* telepathy, or (3) it is close to the player, and in line of sight
+* of the player, and it is "illuminated" by some combination of
+* infravision, torch light, or permanent light (invisible creatures
+* are only affected by "light" if the player can see invisible).
+*
+* Creatures which are not on the current panel may be "visible" to
+* the player, and their descriptions will include an "offscreen"
+* reference.  Currently, offscreen creatures cannot be targetted
+* or viewed directly, but old targets will remain set.  XXX XXX
+*
+* The player can choose to be disturbed by several things, including
+* "disturb_move" (creature which is viewable moves in some way), and
+* "disturb_near" (creature which is "easily" viewable moves in some
+* way).  Note that "moves" includes "appears" and "disappears".
+*/
 //TODO  Marge to set_creature_bonuses
 void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 {
@@ -2743,15 +2731,12 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 
 			/* Eldritch Horror */
 			if(has_trait_species(&species_info[target_ptr->ap_species_idx], TRAIT_ELDRITCH_HORROR))
-			{
-				sanity_blast(creature_ptr, target_ptr, FALSE);
-			}
+				sanity_blast(creature_ptr, target_ptr);
 
 			/* Disturb on appearance */
 			if(disturb_near && (projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, target_ptr->fy, target_ptr->fx)))
 			{
-				if(disturb_pets || is_hostile(target_ptr))
-					disturb(creature_ptr, 1, 0);
+				if(disturb_pets || is_hostile(target_ptr)) disturb(creature_ptr, 1, 0);
 			}
 		}
 	}
@@ -2822,8 +2807,8 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 
 
 /*
- * This function simply updates all the (non-dead) creatures (see above).
- */
+* This function simply updates all the (non-dead) creatures (see above).
+*/
 void update_creatures(bool full)
 {
 	int i;
@@ -2843,8 +2828,8 @@ void update_creatures(bool full)
 
 
 /*
- * Hack -- the index of the summoning creature
- */
+* Hack -- the index of the summoning creature
+*/
 static bool creature_hook_chameleon_lord(int species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
@@ -2951,7 +2936,7 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 
 
 	if(is_lighting_species(&species_info[old_species_idx]) || is_darken_species(&species_info[old_species_idx]) ||
-	    (is_lighting_species(species_ptr) || is_darken_species(species_ptr)))
+		(is_lighting_species(species_ptr) || is_darken_species(species_ptr)))
 		prepare_update(creature_ptr, PU_SPECIES_LITE);
 
 	if(is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(player_ptr, creature_ptr, TRUE);
@@ -3010,8 +2995,8 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 
 
 /*
- *  Set initial racial appearance of a creature
- */
+*  Set initial racial appearance of a creature
+*/
 static int initial_r_appearance(int species_idx)
 {
 	int attempts = 1000;
@@ -3222,8 +3207,8 @@ void deal_item(creature_type *creature_ptr)
 	/*
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
-		make_object(quest_ptr, AM_UNCURSED, 0, object_level);
-		add_outfit(creature_ptr, quest_ptr, 0);
+	make_object(quest_ptr, AM_UNCURSED, 0, object_level);
+	add_outfit(creature_ptr, quest_ptr, 0);
 	}
 	*/
 
@@ -3408,12 +3393,12 @@ void deal_item(creature_type *creature_ptr)
 				tv = TV_LIFE_BOOK + creature_ptr->realm2 - 1;
 
 			else if(tv == TV_RING && sv == SV_RING_RES_FEAR &&
-			    IS_PURE_RACE(creature_ptr, RACE_BARBARIAN))
+				IS_PURE_RACE(creature_ptr, RACE_BARBARIAN))
 				/* Barbarians do not need a ring of resist fear */
 				sv = SV_RING_SUSTAIN_STR;
 
 			else if(tv == TV_RING && sv == SV_RING_SUSTAIN_INT &&
-			    IS_PURE_RACE(creature_ptr, RACE_MIND_FLAYER))
+				IS_PURE_RACE(creature_ptr, RACE_MIND_FLAYER))
 			{
 				tv = TV_POTION;
 				sv = SV_POTION_RESTORE_MANA;
@@ -3453,7 +3438,7 @@ void deal_item(creature_type *creature_ptr)
 		if(creature_ptr->inventory[i].k_idx && IS_EQUIPPED(&creature_ptr->inventory[i]))
 		{
 			if(!creature_ptr->inventory[i].name1 && !creature_ptr->inventory[i].name2)
-			apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2,
+				apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2,
 				calc_deal_item_rank(creature_ptr, &creature_ptr->inventory[i]), 0);
 		}
 	}
@@ -3537,7 +3522,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 		// Depth creatures may NOT be created out of depth, unless in Nightmare mode
 		if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && (floor_ptr->floor_level < species_ptr->level) &&
-		    (!curse_of_Iluvatar || (has_trait_species(species_ptr, TRAIT_QUESTOR))))
+			(!curse_of_Iluvatar || (has_trait_species(species_ptr, TRAIT_QUESTOR))))
 		{
 			if(cheat_hear) msg_format("[max_creature_idx: No Nightmare mode.]");
 			return (max_creature_idx);	// Cannot create
@@ -3664,12 +3649,12 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	/* Hack -- see "process_creatures()" */
 	if(c_ptr->creature_idx < hack_m_idx) creature_ptr->sc_flag |= (SC_FLAG_BORN);
 
-/*TODO
+	/*TODO
 	if(is_self_ld_creature(creature_ptr))
-		prepare_update(creature_ptr, PU_SPECIES_LITE);
+	prepare_update(creature_ptr, PU_SPECIES_LITE);
 	else if(is_has_ld_creature(creature_ptr) && !has_trait(creature_ptr, TRAIT_PARALYZED))
-		prepare_update(creature_ptr, PU_SPECIES_LITE);
-*/
+	prepare_update(creature_ptr, PU_SPECIES_LITE);
+	*/
 
 	/* Update the creature */
 	update_creature_view(player_ptr, c_ptr->creature_idx, TRUE);
@@ -3678,14 +3663,14 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	real_species_ptr(creature_ptr)->cur_num++;
 
 	/*
-	 * Memorize location of the unique creature in saved floors.
-	 * A unique creature move from old saved floor.
-	 */
-/*TODO
+	* Memorize location of the unique creature in saved floors.
+	* A unique creature move from old saved floor.
+	*/
+	/*TODO
 	if(floor_ptr->generated &&
-	    ((has_trait_species(species_ptr, TRAIT_UNIQUE)) || has_trait_species(species_ptr, TRAIT_NAZGUL)))
-		real_species_ptr(creature_ptr)->floor_id = watcher_ptr->floor_id;
-*/
+	((has_trait_species(species_ptr, TRAIT_UNIQUE)) || has_trait_species(species_ptr, TRAIT_NAZGUL)))
+	real_species_ptr(creature_ptr)->floor_id = watcher_ptr->floor_id;
+	*/
 
 	/* Hack -- Count the number of "reproducers" */
 	if(has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_repro++;
@@ -3693,73 +3678,73 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	/* Hack -- Notice new multi-hued creatures */
 	if(has_trait(creature_ptr, TRAIT_ATTR_MULTI) || has_trait(creature_ptr, TRAIT_SHAPECHANGER)) shimmer_creatures = TRUE;
 
-/* TODO
+	/* TODO
 	if(watcher_ptr->warning && floor_ptr->generated)
 	{
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE))
-		{
-			cptr color;
-			object_type *object_ptr;
-			char object_name[MAX_NLEN];
+	if(has_trait_species(species_ptr, TRAIT_UNIQUE))
+	{
+	cptr color;
+	object_type *object_ptr;
+	char object_name[MAX_NLEN];
 
-			if(species_ptr->level > watcher_ptr->lev + 30)
-#ifdef JP
-				color = "黒く";
-#else
-				color = "black";
-#endif
-			else if(species_ptr->level > watcher_ptr->lev + 15)
-#ifdef JP
-				color = "紫色に";
-#else
-				color = "purple";
-#endif
-			else if(species_ptr->level > watcher_ptr->lev + 5)
-#ifdef JP
-				color = "ルビー色に";
-#else
-				color = "deep red";
-#endif
-			else if(species_ptr->level > watcher_ptr->lev - 5)
-#ifdef JP
-				color = "赤く";
-#else
-				color = "red";
-#endif
-			else if(species_ptr->level > watcher_ptr->lev - 15)
-#ifdef JP
-				color = "ピンク色に";
-#else
-				color = "pink";
-#endif
-			else
-#ifdef JP
-				color = "白く";
-#else
-				color = "white";
-#endif
+	if(species_ptr->level > watcher_ptr->lev + 30)
+	#ifdef JP
+	color = "黒く";
+	#else
+	color = "black";
+	#endif
+	else if(species_ptr->level > watcher_ptr->lev + 15)
+	#ifdef JP
+	color = "紫色に";
+	#else
+	color = "purple";
+	#endif
+	else if(species_ptr->level > watcher_ptr->lev + 5)
+	#ifdef JP
+	color = "ルビー色に";
+	#else
+	color = "deep red";
+	#endif
+	else if(species_ptr->level > watcher_ptr->lev - 5)
+	#ifdef JP
+	color = "赤く";
+	#else
+	color = "red";
+	#endif
+	else if(species_ptr->level > watcher_ptr->lev - 15)
+	#ifdef JP
+	color = "ピンク色に";
+	#else
+	color = "pink";
+	#endif
+	else
+	#ifdef JP
+	color = "白く";
+	#else
+	color = "white";
+	#endif
 
-			object_ptr = choose_warning_item(watcher_ptr);
-			if(object_ptr)
-			{
-				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-#ifdef JP
-				msg_format("%sは%s光った。", object_name, color);
-#else
-				msg_format("%s glows %s.", object_name, color);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%s光る物が頭に浮かんだ。", color);
-#else
-				msg_format("An %s image forms in your mind.");
-#endif
-			}
-		}
+	object_ptr = choose_warning_item(watcher_ptr);
+	if(object_ptr)
+	{
+	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	#ifdef JP
+	msg_format("%sは%s光った。", object_name, color);
+	#else
+	msg_format("%s glows %s.", object_name, color);
+	#endif
 	}
-*/
+	else
+	{
+	#ifdef JP
+	msg_format("%s光る物が頭に浮かんだ。", color);
+	#else
+	msg_format("An %s image forms in your mind.");
+	#endif
+	}
+	}
+	}
+	*/
 
 	if(is_explosive_rune_grid(c_ptr))
 	{
@@ -3770,18 +3755,18 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 			if(c_ptr->info & CAVE_MARK)
 			{
 #ifdef JP
-//				msg_print("ルーンが爆発した！");
+				//				msg_print("ルーンが爆発した！");
 #else
-//				msg_print("The rune explodes!");
+				//				msg_print("The rune explodes!");
 #endif
 
-//TODO				project(watcher_ptr, 2, y, x, 2 * (watcher_ptr->lev + diceroll(7, 7)), DO_EFFECT_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+				//TODO				project(watcher_ptr, 2, y, x, 2 * (watcher_ptr->lev + diceroll(7, 7)), DO_EFFECT_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 		}
 		else
 		{
 #ifdef JP
-msg_print("爆発のルーンは解除された。");
+			msg_print("爆発のルーンは解除された。");
 #else
 			msg_print("An explosive rune was disarmed.");
 #endif
@@ -3885,8 +3870,8 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, floor_type *floo
 
 
 /*
- * Maximum size of a group of creatures
- */
+* Maximum size of a group of creatures
+*/
 #define GROUP_MAX	32
 
 
@@ -3972,14 +3957,14 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 
 
 /*
- * Hack -- help pick an escort type
- */
+* Hack -- help pick an escort type
+*/
 static int place_species_idx = 0;
 static int place_creature_m_idx = 0;
 
 /*
- * Hack -- help pick an escort type
- */
+* Hack -- help pick an escort type
+*/
 static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 {
 	species_type *species_ptr = &species_info[place_species_idx];
@@ -4014,23 +3999,23 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 
 
 /*
- * Attempt to place a creature of the given race at the given location
- *
- * Note that certain creatures are now marked as requiring "friends".
- * These creatures, if successfully placed, and if the "grp" parameter
- * is TRUE, will be surrounded by a "group" of identical creatures.
- *
- * Note that certain creatures are now marked as requiring an "escort",
- * which is a collection of creatures with similar "race" but lower level.
- *
- * Some creatures induce a fake "group" flag on their escorts.
- *
- * Note the "bizarre" use of non-recursion to prevent annoying output
- * when running a code profiler.
- *
- * Note the use of the new "creature allocation table" code to restrict
- * the "get_species_num()" function to "legal" escort types.
- */
+* Attempt to place a creature of the given race at the given location
+*
+* Note that certain creatures are now marked as requiring "friends".
+* These creatures, if successfully placed, and if the "grp" parameter
+* is TRUE, will be surrounded by a "group" of identical creatures.
+*
+* Note that certain creatures are now marked as requiring an "escort",
+* which is a collection of creatures with similar "race" but lower level.
+*
+* Some creatures induce a fake "group" flag on their escorts.
+*
+* Note the "bizarre" use of non-recursion to prevent annoying output
+* when running a code profiler.
+*
+* Note the use of the new "creature allocation table" code to restrict
+* the "get_species_num()" function to "legal" escort types.
+*/
 bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode)
 {
 	int             i, j;
@@ -4093,7 +4078,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			/* Pick a random race */
 			z = get_species_num(floor_ptr, species_ptr->level);
 
-			
+
 			if(!z) break;	// Handle failure
 
 			// Place a single escort
@@ -4114,7 +4099,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, u32b mode)
 {
 	int species_idx;
-	
+
 	// Pick a creature
 	get_species_num_prep(NULL, NULL, NULL, NULL, 0); //TODO get_creature_hook(), get_creature_hook2(y, x)
 	species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
@@ -4181,8 +4166,8 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 }
 
 /*
- * Put the Guardian
- */
+* Put the Guardian
+*/
 bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 {
 	int guardian = dungeon_info[floor_ptr->dun_type].final_guardian;
@@ -4219,11 +4204,11 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 
 
 /*
- * Attempt to allocate a random creature in the dungeon.
- * Place the creature at least "dis" distance from the player.
- * Use "slp" to choose the initial "sleep" status
- * Use "creature_level" for the creature level
- */
+* Attempt to allocate a random creature in the dungeon.
+* Place the creature at least "dis" distance from the player.
+* Use "slp" to choose the initial "sleep" status
+* Use "creature_level" for the creature level
+*/
 bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u32b mode)
 {
 	int			y = 0, x = 0;
@@ -4271,9 +4256,9 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 		if(alloc_horde(NULL, floor_ptr, y, x))
 		{
 #ifdef JP
-//			if(cheat_hear) msg_format("クリーチャーの大群(%c)", summon_kin_type);
+			//			if(cheat_hear) msg_format("クリーチャーの大群(%c)", summon_kin_type);
 #else
-//			if(cheat_hear) msg_format("Creature horde (%c).", summon_kin_type);
+			//			if(cheat_hear) msg_format("Creature horde (%c).", summon_kin_type);
 #endif
 			return TRUE;
 		}
@@ -4308,34 +4293,34 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 
 
 /*
- * Place a creature (of the specified "type") near the given
- * location.  Return TRUE if a creature was actually summoned.
- *
- * We will attempt to place the creature up to 10 times before giving up.
- *
- * Note: TRAIT_S_UNIQUE and TRAIT_S_AMBERITES will summon Unique's
- * Note: TRAIT_S_HI_UNDEAD and TRAIT_S_HI_DRAGON may summon Unique's
- * Note: None of the other summon codes will ever summon Unique's.
- *
- * This function has been changed.  We now take the "creature level"
- * of the summoning creature as a parameter, and use that, along with
- * the current dungeon level, to help determine the level of the
- * desired creature.  Note that this is an upper bound, and also
- * tends to "prefer" creatures of that level.  Currently, we use
- * the average of the dungeon and creature levels, and then add
- * five to allow slight increases in creature power.
- *
- * Note that we use the new "creature allocation table" creation code
- * to restrict the "get_species_num(floor_ptr, )" function to the set of "legal"
- * creatures, making this function much faster and more reliable.
- *
- * Note that this function may not succeed, though this is very rare.
- */
+* Place a creature (of the specified "type") near the given
+* location.  Return TRUE if a creature was actually summoned.
+*
+* We will attempt to place the creature up to 10 times before giving up.
+*
+* Note: TRAIT_S_UNIQUE and TRAIT_S_AMBERITES will summon Unique's
+* Note: TRAIT_S_HI_UNDEAD and TRAIT_S_HI_DRAGON may summon Unique's
+* Note: None of the other summon codes will ever summon Unique's.
+*
+* This function has been changed.  We now take the "creature level"
+* of the summoning creature as a parameter, and use that, along with
+* the current dungeon level, to help determine the level of the
+* desired creature.  Note that this is an upper bound, and also
+* tends to "prefer" creatures of that level.  Currently, we use
+* the average of the dungeon and creature levels, and then add
+* five to allow slight increases in creature power.
+*
+* Note that we use the new "creature allocation table" creation code
+* to restrict the "get_species_num(floor_ptr, )" function to the set of "legal"
+* creatures, making this function much faster and more reliable.
+*
+* Note that this function may not succeed, though this is very rare.
+*/
 bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int type, u32b mode)
 {
 	int x, y, species_idx;
 	floor_type *floor_ptr;
-	
+
 	if(summoner_ptr) floor_ptr = GET_FLOOR_PTR(summoner_ptr);
 	else floor_ptr = GET_FLOOR_PTR(player_ptr);
 
@@ -4378,10 +4363,10 @@ bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, i
 
 
 /*
- * Let the given creature attempt to reproduce.
- *
- * Note that "reproduction" REQUIRES empty space.
- */
+* Let the given creature attempt to reproduce.
+*
+* Note that "reproduction" REQUIRES empty space.
+*/
 bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 {
 	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];

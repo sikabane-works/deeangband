@@ -1116,7 +1116,12 @@ void do_cmd_cast(creature_type *creature_ptr)
 		{
 			if((sval == 3) && one_in_(2))
 			{
-				sanity_blast(creature_ptr, 0, TRUE);
+#ifdef JP
+				msg_print("ネクロノミコンを読んで正気を失った！");
+#else
+				msg_print("Your sanity is shaken by reading the Necronomicon!");
+#endif
+				sanity_blast_aux(creature_ptr, 120);
 			}
 			else
 			{
