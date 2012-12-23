@@ -1023,60 +1023,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			cancel_tactical_action(creature_ptr);
 			break;
 		}
-		case CLASS_CAVALRY:
-		{
-			char steed_name[80];
-			creature_type *steed_ptr;
-			int rlev;
-
-			if(creature_ptr->riding)
-			{
-#ifdef JP
-				msg_print("今は乗馬中だ。");
-#else
-				msg_print("You ARE riding.");
-#endif
-				return FALSE;
-			}
-			if(!do_riding(creature_ptr, TRUE)) return TRUE;
-			steed_ptr = &creature_list[creature_ptr->riding];
-			creature_desc(steed_name, steed_ptr, 0);
-#ifdef JP
-			msg_format("%sに乗った。",steed_name);
-#else
-			msg_format("You ride on %s.",steed_name);
-#endif
-			if(is_pet(player_ptr, steed_ptr)) break;
-			rlev = steed_ptr->lev;
-			if(has_trait(steed_ptr, TRAIT_UNIQUE)) rlev = rlev * 3 / 2;
-			if(rlev > 60) rlev = 60+(rlev-60)/2;
-			if((randint1(creature_ptr->skill_exp[SKILL_RIDING] / 120 + creature_ptr->lev * 2 / 3) > rlev)
-			    && one_in_(2) && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode
-			    && !has_trait(steed_ptr, TRAIT_GUARDIAN) && !has_trait(steed_ptr, TRAIT_UNIQUE)
-			    && (rlev < creature_ptr->lev * 3 / 2 + randint0(creature_ptr->lev / 5)))
-			{
-#ifdef JP
-				msg_format("%sを手なずけた。",steed_name);
-#else
-				msg_format("You tame %s.",steed_name);
-#endif
-				set_pet(creature_ptr, steed_ptr);
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%sに振り落とされた！",steed_name);
-#else
-				msg_format("You have thrown off by %s.",steed_name);
-#endif
-				do_thrown_from_riding(creature_ptr, 1, TRUE);
-
-
-				/* 落馬処理に失敗してもとにかく乗馬解除 */
-				creature_ptr->riding = 0;
-			}
-			break;
-		}
 		case CLASS_BERSERKER:
 		{
 			if(!word_of_recall(creature_ptr, randint0(21) + 15)) return FALSE;
