@@ -2291,23 +2291,6 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 			{
 				if(!has_trait(watcher_ptr, TRAIT_MORONIC))
 				{
-					if((watcher_ptr->stat_use[STAT_INT] <= STAT_VALUE_MIN) && (watcher_ptr->stat_use[STAT_WIS] < STAT_VALUE_MIN))
-					{
-#ifdef JP
-						msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
-#else
-						msg_print("You turn into an utter moron!");
-#endif
-					}
-					else
-					{
-#ifdef JP
-						msg_print("あなたは完璧な馬鹿になった！");
-#else
-						msg_print("You turn into an utter moron!");
-#endif
-					}
-
 					if(has_trait(watcher_ptr, TRAIT_HYPER_INT)) lose_mutative_trait(watcher_ptr, TRAIT_HYPER_INT);
 
 					get_mutative_trait(watcher_ptr, TRAIT_MORONIC);

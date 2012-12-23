@@ -2331,28 +2331,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 			case 1:
 				if(!has_trait(watcher_ptr, TRAIT_MORONIC) && one_in_(5))
 				{
-#ifdef JP
-					if((watcher_ptr->stat_use[STAT_INT] < 4) && (watcher_ptr->stat_use[STAT_WIS] < 4))
-						msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
-					else
-						msg_print("あなたは完璧な馬鹿になった！");
-#else
-					if((watcher_ptr->stat_use[STAT_INT] < 4) && (watcher_ptr->stat_use[STAT_WIS] < 4))
-						msg_print("You turn into an utter moron!");
-					else
-						msg_print("You turn into an utter moron!");
-#endif
-
-					if(has_trait(watcher_ptr, TRAIT_HYPER_INT))
-					{
-#ifdef JP
-						msg_print("あなたの脳は生体コンピュータではなくなった。");
-#else
-						msg_print("Your brain is no longer a living computer.");
-#endif
-						lose_mutative_trait(watcher_ptr, TRAIT_HYPER_INT);
-					}
-
+					lose_mutative_trait(watcher_ptr, TRAIT_HYPER_INT);
 					get_mutative_trait(watcher_ptr, TRAIT_MORONIC);
 					happened = TRUE;
 				}
