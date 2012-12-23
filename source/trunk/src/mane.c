@@ -94,7 +94,7 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 	char            out_val[160];
 	char            comment[80];
 #ifdef JP
-cptr            p = "能力";
+	cptr            p = "能力";
 #else
 	cptr            p = "power";
 #endif
@@ -114,13 +114,12 @@ cptr            p = "能力";
 	num = creature_ptr->mane_num;
 
 	/* Build a prompt (accept all spells) */
-	(void)strnfmt(out_val, 78, 
+	 
 #ifdef JP
-		      "(%c-%c, '*'で一覧, ESC) どの%sをまねますか？",
+	(void)strnfmt(out_val, 78, "(%c-%c, '*'で一覧, ESC) どの%sをまねますか？", I2A(0), I2A(num - 1), p);
 #else
-		      "(%c-%c, *=List, ESC=exit) Use which %s? ",
+	(void)strnfmt(out_val, 78, "(%c-%c, *=List, ESC=exit) Use which %s? ", I2A(0), I2A(num - 1), p);
 #endif
-		      I2A(0), I2A(num - 1), p);
 
 	/* Get a spell from the user */
 
@@ -146,17 +145,12 @@ cptr            p = "能力";
 				/* Display a list of spells */
 				prt("", y, x);
 #ifdef JP
-put_str("名前", y, x + 5);
+				put_str("名前", y, x + 5);
+				put_str("失率 効果", y, x + 36);
 #else
 				put_str("Name", y, x + 5);
-#endif
-
-#ifdef JP
-put_str("失率 効果", y, x + 36);
-#else
 				put_str("Fail Info", y, x + 35);
 #endif
-
 
 				/* Dump the spells */
 				for (i = 0; i < num; i++)

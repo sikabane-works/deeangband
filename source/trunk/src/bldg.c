@@ -2211,11 +2211,10 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	{
 		// Something silly happens...
 #ifdef JP
-		msg_format("%s%s‚ÌŠç‚ğŒ©‚Ä‚µ‚Ü‚Á‚½I",
+		msg_format("%s%s‚ÌŠç‚ğŒ©‚Ä‚µ‚Ü‚Á‚½I", funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
 #else
-		msg_format("You behold the %s visage of %s!",
+		msg_format("You behold the %s visage of %s!", funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
 #endif
-		funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
 
 		if(one_in_(3) && has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
 		{
@@ -2228,12 +2227,11 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 	// Something frightening happens...
 #ifdef JP
-	msg_format("%s%s‚ÌŠç‚ğŒ©‚Ä‚µ‚Ü‚Á‚½I",
+	msg_format("%s%s‚ÌŠç‚ğŒ©‚Ä‚µ‚Ü‚Á‚½I", horror_desc[randint0(MAX_SAN_HORROR)], desc);
 #else
-	msg_format("You behold the %s visage of %s!",
+	msg_format("You behold the %s visage of %s!", horror_desc[randint0(MAX_SAN_HORROR)], desc);
 #endif
 
-	horror_desc[randint0(MAX_SAN_HORROR)], desc);
 	reveal_species_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
 
 	/* Mind blast */
@@ -2490,7 +2488,6 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 		case BUILDING_FUNCTION_RUMORS: /* Listen for rumors */
 			{
 				char Rumor[1024];
-
 #ifdef JP
 				if(!get_rnd_line_jonly(text_files[TEXT_FILES_RUMOR], 0, Rumor, 10))
 #else
@@ -2515,23 +2512,18 @@ static void get_questinfo(int questnum)
 	char    tmp_str[80];
 
 	// Clear the text
-	for (i = 0; i < 10; i++)
-	{
-		questp_text[i][0] = '\0';
-	}
+	for (i = 0; i < 10; i++) questp_text[i][0] = '\0';
 
 	questp_text_line = 0;
 	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT | INIT_ASSIGN, questnum);
 
 	/* Print the quest info */
 #ifdef JP
-sprintf(tmp_str, "ƒNƒGƒXƒgî•ñ (ŠëŒ¯“x: %d ŠK‘Š“–)", quest[questnum].level);
+	sprintf(tmp_str, "ƒNƒGƒXƒgî•ñ (ŠëŒ¯“x: %d ŠK‘Š“–)", quest[questnum].level);
 #else
 	sprintf(tmp_str, "Quest Information (Danger level: %d)", quest[questnum].level);
 #endif
-
 	prt(tmp_str, 5, 0);
-
 	prt(quest[questnum].name, 7, 0);
 
 	for (i = 0; i < 10; i++)
@@ -2563,7 +2555,6 @@ static void castle_quest(creature_type *creature_ptr)
 #else
 		put_str("I don't have a quest for you at the moment.", 8, 3);
 #endif
-
 		return;
 	}
 
@@ -2940,20 +2931,15 @@ static void building_recharge(creature_type *creature_ptr)
 	 */
 	/* The item must be "known" */
 	if(!object_is_known(object_ptr))
-	{
+	{		
 #ifdef JP
 		msg_format("[“U‚·‚é‘O‚ÉŠÓ’è‚³‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·I");
+		msg_print(NULL);
+		if((creature_ptr->au >= 50) && get_check("50‚ÅŠÓ’è‚µ‚Ü‚·‚©H "))
 #else
 		msg_format("The item must be identified first!");
-#endif
-
 		msg_print(NULL);
-
-		if((creature_ptr->au >= 50) &&
-#ifdef JP
-			get_check("50‚ÅŠÓ’è‚µ‚Ü‚·‚©H "))
-#else
-			get_check("Identify for 50 gold? "))
+		if((creature_ptr->au >= 50) && get_check("Identify for 50 gold? "))
 #endif
 		{
 			/* Pay the price */
@@ -2989,17 +2975,12 @@ static void building_recharge(creature_type *creature_ptr)
 	/* Price for a rod */
 	if(IS_ROD(object_ptr))
 	{
-		if(object_ptr->timeout > 0)
-		{
-			/* Fully recharge */
-			price = (lev * 50 * object_ptr->timeout) / object_kind_ptr->pval;
-		}
+		if(object_ptr->timeout > 0) price = (lev * 50 * object_ptr->timeout) / object_kind_ptr->pval;
 		else
 		{
-			/* No recharge necessary */
 			price = 0;
 #ifdef JP
-msg_format("‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB");
+			msg_format("‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB");
 #else
 			msg_format("That doesn't need to be recharged.");
 #endif
@@ -3025,45 +3006,26 @@ msg_format("‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB");
 	}
 
 	/* Limit the number of charges for wands and staffs */
-	if(object_ptr->tval == TV_WAND
-		&& (object_ptr->pval / object_ptr->number >= object_kind_ptr->pval))
-	{
-		if(object_ptr->number > 1)
-		{
+	if(object_ptr->tval == TV_WAND && (object_ptr->pval / object_ptr->number >= object_kind_ptr->pval))
+	{		
 #ifdef JP
-			msg_print("‚±‚Ì–‚–@–_‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
+		msg_print("‚±‚Ì–‚–@–_‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
 #else
-			msg_print("These wands are already fully charged.");
+		if(object_ptr->number > 1) msg_print("These wands are already fully charged.");
+		else msg_print("This wand is already fully charged.");
 #endif
-		}
-		else
-		{
-#ifdef JP
-			msg_print("‚±‚Ì–‚–@–_‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
-#else
-			msg_print("This wand is already fully charged.");
-#endif
-		}
 		return;
 	}
 	else if(object_ptr->tval == TV_STAFF && object_ptr->pval >= object_kind_ptr->pval)
 	{
-		if(object_ptr->number > 1)
-		{
+		
 #ifdef JP
-			msg_print("‚±‚Ìñ‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
+		msg_print("‚±‚Ìñ‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
 #else
-			msg_print("These staffs are already fully charged.");
+		if(object_ptr->number > 1) msg_print("These staffs are already fully charged.");
+		else msg_print("This staff is already fully charged.");
 #endif
-		}
-		else
-		{
-#ifdef JP
-			msg_print("‚±‚Ìñ‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
-#else
-			msg_print("This staff is already fully charged.");
-#endif
-		}
+
 		return;
 	}
 
@@ -3083,8 +3045,7 @@ msg_format("‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB");
 	if(IS_ROD(object_ptr))
 	{
 #ifdef JP
-if(get_check(format("‚»‚Ìƒƒbƒh‚ğ%d ‚ÅÄ[“U‚µ‚Ü‚·‚©H",
- price)))
+		if(get_check(format("‚»‚Ìƒƒbƒh‚ğ%d ‚ÅÄ[“U‚µ‚Ü‚·‚©H", price)))
 #else
 		if(get_check(format("Recharge the %s for %d gold? ",
 			((object_ptr->number > 1) ? "rods" : "rod"), price)))
@@ -3425,7 +3386,7 @@ static bool research_creature(creature_type *creature_ptr)
 	bool    norm = FALSE;
 	char temp[80] = "";
 
-	/* XTRA HACK REMEMBEspecies_idx */
+	/* XTRA HACK REMEMBER */
 	static int old_sym = '\0';
 	static int old_i = 0;
 
@@ -3438,10 +3399,8 @@ static bool research_creature(creature_type *creature_ptr)
 #else
 	if(!get_com("Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): ", &sym, FALSE))
 #endif
-
 	{
 		screen_load();
-
 		return FALSE;
 	}
 
@@ -3593,7 +3552,7 @@ static bool research_creature(creature_type *creature_ptr)
 
 
 	/* Start at the end */
-	/* XTRA HACK REMEMBEspecies_idx */
+	/* XTRA HACK REMEMBER */
 	if(old_sym == sym && old_i < n) i = old_i;
 	else i = n - 1;
 
@@ -3636,7 +3595,7 @@ Term_addstr(-1, TERM_WHITE, " ['r'v‚¢o, ' '‚Å‘±s, ESC]");
 				//screen_roff(species_idx);
 				notpicked = FALSE;
 
-				/* XTRA HACK REMEMBEspecies_idx */
+				/* XTRA HACK REMEMBER */
 				old_sym = sym;
 				old_i = i;
 			}
