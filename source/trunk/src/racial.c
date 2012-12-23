@@ -931,33 +931,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			if(!gain_magic(creature_ptr)) return FALSE;
 			break;
 		}
-		case CLASS_BARD:
-		{
-			/* Singing is already stopped */
-			if(!creature_ptr->class_skills.old_skills.magic_num1[0] && !creature_ptr->class_skills.old_skills.magic_num1[1]) return FALSE;
-
-			stop_singing(creature_ptr);
-			cost_tactical_energy(creature_ptr, 10);
-			break;
-		}
-		case CLASS_BLUE_MAGE:
-		{
-			if(creature_ptr->action == ACTION_LEARN)
-			{
-				set_action(creature_ptr, ACTION_NONE);
-			}
-			else
-			{
-				set_action(creature_ptr, ACTION_LEARN);
-			}
-			cancel_tactical_action(creature_ptr);
-			break;
-		}
-		case CLASS_BERSERKER:
-		{
-			if(!word_of_recall(creature_ptr, randint0(21) + 15)) return FALSE;
-			break;
-		}
 		case CLASS_SMITH:
 		{
 			if(creature_ptr->lev > 29)
@@ -970,34 +943,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			}
 			break;
 		}
-		case CLASS_NINJA:
-		{
-			if(creature_ptr->action == ACTION_HAYAGAKE)
-			{
-				set_action(creature_ptr, ACTION_NONE);
-			}
-			else
-			{
-				cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
-				feature_type *f_ptr = &feature_info[c_ptr->feat];
 
-				if(!have_flag(f_ptr->flags, FF_PROJECT) ||
-				    (!has_trait(creature_ptr, TRAIT_CAN_FLY) && have_flag(f_ptr->flags, FF_DEEP)))
-				{
-#ifdef JP
-					msg_print("Ç±Ç±Ç≈ÇÕëfëÅÇ≠ìÆÇØÇ»Ç¢ÅB");
-#else
-					msg_print("You cannot run in here.");
-#endif
-				}
-				else
-				{
-					set_action(creature_ptr, ACTION_HAYAGAKE);
-				}
-			}
-			cancel_tactical_action(creature_ptr);
-			break;
-		}
 		}
 	}
 
