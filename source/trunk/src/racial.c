@@ -828,42 +828,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 	int         dir = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(command <= -3)
-	{
-		switch (creature_ptr->class_idx)
-		{
-
-		case CLASS_BEASTMASTER:
-		{
-			if(command == -3)
-			{
-				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-				(void)cast_ball_hide(creature_ptr, DO_EFFECT_CONTROL_LIVING, dir, creature_ptr->lev, 0);
-			}
-			else if(command == -4)
-			{
-				project_hack(creature_ptr, DO_EFFECT_CONTROL_LIVING, creature_ptr->lev);
-			}
-			break;
-		}
-		case CLASS_SMITH:
-		{
-			if(creature_ptr->lev > 29)
-			{
-				if(!identify_fully(creature_ptr, TRUE)) return FALSE;
-			}
-			else
-			{
-				if(!ident_spell(creature_ptr, TRUE)) return FALSE;
-			}
-			break;
-		}
-
-		}
-	}
-
-	else 
-	{
 
 	switch (creature_ptr->race_idx1)
 	{
@@ -1185,7 +1149,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 
 			cancel_tactical_action(creature_ptr);
-	}
 	}
 	return TRUE;
 }
