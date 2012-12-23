@@ -1010,16 +1010,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			cost_tactical_energy(creature_ptr, 10);
 			break;
 		}
-		case CLASS_RED_MAGE:
-		{
-			if(!can_do_cmd_cast(creature_ptr)) return FALSE;
-			handle_stuff(creature_ptr);
-			do_cmd_cast(creature_ptr);
-			handle_stuff(creature_ptr);
-			if(!creature_ptr->timed_trait[TRAIT_PARALYZED] && can_do_cmd_cast(creature_ptr))
-				do_cmd_cast(creature_ptr);
-			break;
-		}
 		case CLASS_SAMURAI:
 		{
 			if(command == -3)
