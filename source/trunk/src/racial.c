@@ -931,34 +931,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			stasis_creatures(creature_ptr, creature_ptr->lev * 4);
 			break;
 		}
-		case CLASS_MONK:
-		{
-			if(!(empty_hands(creature_ptr, TRUE) & EMPTY_HAND_RARM))
-			{
-#ifdef JP
-				msg_print("‘fè‚¶‚á‚È‚¢‚Æ‚Å‚«‚Ü‚¹‚ñB");
-#else
-				msg_print("You need to be bare hand.");
-#endif
-				return FALSE;
-			}
-			if(creature_ptr->riding)
-			{
-#ifdef JP
-				msg_print("æ”n’†‚Í‚Å‚«‚Ü‚¹‚ñB");
-#else
-				msg_print("You need to get off a pet.");
-#endif
-				return FALSE;
-			}
-
-			if(command == -3)
-			{
-				if(!choose_kamae(creature_ptr)) return FALSE;
-				prepare_update(creature_ptr, CRU_BONUS);
-			}
-			break;
-		}
 		case CLASS_TOURIST:
 		{
 			if(command == -3)
