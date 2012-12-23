@@ -959,26 +959,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			}
 			break;
 		}
-		case CLASS_MINDCRAFTER:
-		case CLASS_FORCETRAINER:
-		{
-			if(creature_ptr->total_friends)
-			{
-#ifdef JP
-				msg_print("今はペットを操ることに集中していないと。");
-#else
-				msg_print("You need concentration on the pets now.");
-#endif
-				return FALSE;
-			}
-#ifdef JP
-			msg_print("少し頭がハッキリした。");
-#else
-			msg_print("You feel your head clear a little.");
-#endif
-			inc_mana(creature_ptr, 3 + creature_ptr->lev/20);
-			break;
-		}
 		case CLASS_TOURIST:
 		{
 			if(command == -3)
