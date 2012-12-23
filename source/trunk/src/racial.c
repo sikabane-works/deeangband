@@ -845,54 +845,10 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			}
 			break;
 		}
-		case CLASS_ROGUE:
-		{
-			int x, y;
-
-			if(!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;
-			y = creature_ptr->fy + ddy[dir];
-			x = creature_ptr->fx + ddx[dir];
-			if(floor_ptr->cave[y][x].creature_idx)
-			{
-				close_combat(creature_ptr, y, x, 0);
-				if(randint0(creature_ptr->skill_dis) < 7)
-#ifdef JP
-					msg_print("うまく逃げられなかった。");
-#else
-					msg_print("You are failed to run away.");
-#endif
-				else teleport_player(creature_ptr, 30, 0L);
-			}
-			else
-			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("You don't see any creature in this direction");
-#endif
-
-				msg_print(NULL);
-			}
-			break;
-		}
 		case CLASS_PALADIN:
 		{
 			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 			cast_beam(creature_ptr, MAX_RANGE_SUB, is_good_realm(creature_ptr->realm1) ? DO_EFFECT_HOLY_FIRE : DO_EFFECT_HELL_FIRE, plev * 3, 0, FALSE);
-			break;
-		}
-		case CLASS_CHAOS_WARRIOR:
-		{
-#ifdef JP
-			msg_print("辺りを睨んだ...");
-#else
-			msg_print("You glare nearby creatures...");
-#endif
-			slow_creatures(creature_ptr);
-			stun_creatures(creature_ptr, creature_ptr->lev * 4);
-			confuse_creatures(creature_ptr, creature_ptr->lev * 4);
-			turn_creatures(creature_ptr, creature_ptr->lev * 4);
-			stasis_creatures(creature_ptr, creature_ptr->lev * 4);
 			break;
 		}
 		case CLASS_TOURIST:
