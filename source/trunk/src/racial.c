@@ -833,37 +833,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		switch (creature_ptr->class_idx)
 		{
 
-		case CLASS_PRIEST:
-		{
-			if(is_good_realm(creature_ptr->realm1))
-				if(!bless_weapon(creature_ptr)) return FALSE;
-			else
-			{
-				(void)dispel_creatures(creature_ptr, plev * 4);
-				turn_creatures(creature_ptr, plev * 4);
-				banish_creatures(creature_ptr, plev * 4);
-			}
-			break;
-		}
-		case CLASS_PALADIN:
-		{
-			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-			cast_beam(creature_ptr, MAX_RANGE_SUB, is_good_realm(creature_ptr->realm1) ? DO_EFFECT_HOLY_FIRE : DO_EFFECT_HELL_FIRE, plev * 3, 0, FALSE);
-			break;
-		}
-		case CLASS_TOURIST:
-		{
-			if(command == -3)
-			{
-				if(!get_aim_dir(creature_ptr, 1, &dir)) return FALSE;
-				cast_beam(creature_ptr, 1, DO_EFFECT_PHOTO, 1, 0, FALSE);
-			}
-			else if(command == -4)
-			{
-				if(!identify_fully(creature_ptr, FALSE)) return FALSE;
-			}
-			break;
-		}
 		case CLASS_BEASTMASTER:
 		{
 			if(command == -3)
@@ -875,16 +844,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			{
 				project_hack(creature_ptr, DO_EFFECT_CONTROL_LIVING, creature_ptr->lev);
 			}
-			break;
-		}
-		case CLASS_ARCHER:
-		{
-			if(!do_cmd_archer(creature_ptr)) return FALSE;
-			break;
-		}
-		case CLASS_MAGIC_EATER:
-		{
-			if(!gain_magic(creature_ptr)) return FALSE;
 			break;
 		}
 		case CLASS_SMITH:
