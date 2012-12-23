@@ -1171,39 +1171,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			}
 			break;
 		}
-		case CLASS_MIRROR_MASTER:
-		{
-			if(command == -4)
-			{
-				if(creature_ptr->total_friends)
-				{
-#ifdef JP
-					msg_print("今はペットを操ることに集中していないと。");
-#else
-					msg_print("You need concentration on the pets now.");
-#endif
-					return FALSE;
-				}
-				if(is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]))
-				{
-#ifdef JP
-					msg_print("少し頭がハッキリした。");
-#else
-					msg_print("You feel your head clear a little.");
-#endif
-					inc_mana(creature_ptr, 5 + creature_ptr->lev * creature_ptr->lev / 100);
-				}
-				else
-				{
-#ifdef JP
-					msg_print("鏡の上でないと集中できない！");
-#else
-					msg_print("Here are not any mirrors!");
-#endif
-				}
-			}
-			break;
-		}
 		case CLASS_NINJA:
 		{
 			if(creature_ptr->action == ACTION_HAYAGAKE)
