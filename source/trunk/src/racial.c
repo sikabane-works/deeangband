@@ -1010,53 +1010,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			cost_tactical_energy(creature_ptr, 10);
 			break;
 		}
-		case CLASS_SAMURAI:
-		{
-			if(command == -3)
-			{
-				int max_csp = MAX(creature_ptr->msp*4, creature_ptr->lev*5+5);
-
-				if(creature_ptr->total_friends)
-				{
-#ifdef JP
-					msg_print("今はペットを操ることに集中していないと。");
-#else
-					msg_print("You need concentration on the pets now.");
-#endif
-					return FALSE;
-				}
-				if(have_posture(creature_ptr))
-				{
-#ifdef JP
-					msg_print("今は構えに集中している。");
-#else
-					msg_print("You need concentration on your form.");
-#endif
-					return FALSE;
-				}
-#ifdef JP
-				msg_print("精神を集中して気合いを溜めた。");
-#else
-				msg_print("You concentrate to charge your power.");
-#endif
-				inc_mana(creature_ptr, creature_ptr->msp / 2);
-			}
-			else if(command == -4)
-			{
-				if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
-				{
-#ifdef JP
-					msg_print("武器を持たないといけません。");
-#else
-					msg_print("You need to wield a weapon.");
-#endif
-					return FALSE;
-				}
-				if(!choose_kata(creature_ptr)) return FALSE;
-				prepare_update(creature_ptr, CRU_BONUS);
-			}
-			break;
-		}
 		case CLASS_BLUE_MAGE:
 		{
 			if(creature_ptr->action == ACTION_LEARN)
