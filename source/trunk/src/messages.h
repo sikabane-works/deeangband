@@ -139,6 +139,9 @@ static const cptr text_files[]=
 	"rumors_j.txt",
 	"silly_j.txt",
 	"news_j.txt",
+
+	"joption.txt"
+	"joption.txt#Autosave"
 #else
 	"news.txt",
 	"a_cursed.txt",
@@ -163,6 +166,9 @@ static const cptr text_files[]=
 	"rumors.txt",
 	"silly_j.txt",
 	"news.txt",
+
+	"option.txt",
+	"option.txt#Autosave",
 #endif
 };
 
@@ -173,24 +179,27 @@ enum TEXT_FILES
 	TEXT_FILES_ARMOUR_LOW_ARTIFACT,
 	TEXT_FILES_ARMOUR_MED_ARTIFACT,
 	TEXT_FILES_ARMOUR_HIGH_ARTIFACT,
-	TEXT_FILES_WEAPON_CURSED_ARTIFACT,
 
+	TEXT_FILES_WEAPON_CURSED_ARTIFACT,
 	TEXT_FILES_WEAPON_LOW_ARTIFACT,
 	TEXT_FILES_WEAPON_MED_ARTIFACT,
 	TEXT_FILES_WEAPON_HIGH_ARTIFACT,
 	TEXT_FILES_CHAINSWORD,
-	TEXT_FILES_ERROR,
 
+	TEXT_FILES_ERROR,
 	TEXT_FILES_DEATH,
 	TEXT_FILES_SEPPUKU,
 	TEXT_FILES_CREATURE_FEAR,
 	TEXT_FILES_CREATURE_PET,
-	TEXT_FILES_CREATURE_FRIENDLY,
 
+	TEXT_FILES_CREATURE_FRIENDLY,
 	TEXT_FILES_CREATURE_SPEAK,
 	TEXT_FILES_RUMOR,
 	TEXT_FILES_SILLY,
 	TEXT_FILES_NEWS,
+
+	TEXT_FILES_OPTION,
+	TEXT_FILES_AUTOSAVE,
 };
 
 static const cptr effect_message_in_blind[MAX_DO_EFFECT] =

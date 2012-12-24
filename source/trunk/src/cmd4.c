@@ -1675,11 +1675,7 @@ static void do_cmd_options_cheat(cptr info)
 
 			case '?':
 			{
-#ifdef JP
-				strnfmt(buf, sizeof(buf), "joption.txt#%s", cheat_info[k].o_text);
-#else
-				strnfmt(buf, sizeof(buf), "option.txt#%s", cheat_info[k].o_text);
-#endif
+				strnfmt(buf, sizeof(buf), "%s#%s", text_files[TEXT_FILES_OPTION], cheat_info[k].o_text);
 				/* Peruse the help file */
 				(void)show_file(TRUE, buf, NULL, 0, 0);
 
@@ -1851,11 +1847,7 @@ static void do_cmd_options_autosave(cptr info)
 
 			case '?':
 			{
-#ifdef JP
-				(void)show_file(TRUE, "joption.txt#Autosave", NULL, 0, 0);
-#else
-				(void)show_file(TRUE, "option.txt#Autosave", NULL, 0, 0);
-#endif
+				(void)show_file(TRUE, text_files[TEXT_FILES_AUTOSAVE], NULL, 0, 0);
 				Term_clear(); 
 				break;
 			}
@@ -2002,14 +1994,9 @@ void do_cmd_options_aux(int page, cptr info)
 
 			case '?':
 			{
-#ifdef JP
-				strnfmt(buf, sizeof(buf), "joption.txt#%s", option_info[opt[k]].o_text);
-#else
-				strnfmt(buf, sizeof(buf), "option.txt#%s", option_info[opt[k]].o_text);
-#endif
+				strnfmt(buf, sizeof(buf), "%s#%s", text_files[TEXT_FILES_OPTION], option_info[opt[k]].o_text);
 				/* Peruse the help file */
 				(void)show_file(TRUE, buf, NULL, 0, 0);
-
 				Term_clear();
 				break;
 			}
