@@ -1847,7 +1847,7 @@ static void do_cmd_options_autosave(cptr info)
 
 			case '?':
 			{
-				(void)show_file(TRUE, text_files[TEXT_FILES_AUTOSAVE], NULL, 0, 0);
+				(void)show_file(TRUE, text_files[TEXT_FILES_OPTION_AUTOSAVE], NULL, 0, 0);
 				Term_clear(); 
 				break;
 			}
@@ -2135,11 +2135,7 @@ static void do_cmd_options_win(void)
 
 			case '?':
 			{
-#ifdef JP
-				(void)show_file(TRUE, "joption.txt#Window", NULL, 0, 0);
-#else
-				(void)show_file(TRUE, "option.txt#Window", NULL, 0, 0);
-#endif
+				(void)show_file(TRUE, text_files[TEXT_FILES_OPTION_WINDOW], NULL, 0, 0);
 				Term_clear(); 
 				break;
 			}
@@ -2418,11 +2414,7 @@ void do_cmd_options(void)
 					if(k == ESCAPE) break;
 					else if(k == '?')
 					{
-#ifdef JP
-						(void)show_file(TRUE, "joption.txt#BaseDelay", NULL, 0, 0);
-#else
-						(void)show_file(TRUE, "option.txt#BaseDelay", NULL, 0, 0);
-#endif
+						(void)show_file(TRUE, text_files[TEXT_FILES_OPTION_BASEDELAY], NULL, 0, 0);
 						Term_clear(); 
 					}
 					else if(isdigit(k)) delay_factor = D2I(k);

@@ -140,8 +140,10 @@ static const cptr text_files[]=
 	"silly_j.txt",
 	"news_j.txt",
 
-	"joption.txt"
-	"joption.txt#Autosave"
+	"joption.txt",
+	"joption.txt#Autosave",
+	"joption.txt#Window",
+	"joption.txt#BaseDelay",
 #else
 	"news.txt",
 	"a_cursed.txt",
@@ -169,6 +171,8 @@ static const cptr text_files[]=
 
 	"option.txt",
 	"option.txt#Autosave",
+	"option.txt#Window",
+	"option.txt#BaseDelay",
 #endif
 };
 
@@ -199,7 +203,9 @@ enum TEXT_FILES
 	TEXT_FILES_NEWS,
 
 	TEXT_FILES_OPTION,
-	TEXT_FILES_AUTOSAVE,
+	TEXT_FILES_OPTION_AUTOSAVE,
+	TEXT_FILES_OPTION_WINDOW,
+	TEXT_FILES_OPTION_BASEDELAY,
 };
 
 static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
