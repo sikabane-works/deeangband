@@ -396,7 +396,7 @@ bool can_do_cmd_cast(creature_type *creature_ptr)
 #endif
 		return FALSE;
 	}
-	else if(creature_ptr->timed_trait[TRAIT_S_HERO])
+	else if(has_trait(creature_ptr, TRAIT_S_HERO))
 	{
 #ifdef JP
 		msg_format("‹¶ím‰»‚µ‚Ä‚¢‚Ä“ª‚ª‰ñ‚ç‚È‚¢I");

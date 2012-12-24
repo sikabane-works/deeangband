@@ -511,7 +511,7 @@ static void wr_creature(creature_type *creature_ptr)
 	// Save timed trait
 	for(i = 0; i < MAX_TRAITS; i++)
 	{
-		if(creature_ptr->timed_trait[i])
+		if(has_trait_from_timed(creature_ptr, i))
 		{
 			wr_s16b(i);
 			wr_s16b(creature_ptr->timed_trait[i]);
