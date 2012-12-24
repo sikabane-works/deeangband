@@ -1671,17 +1671,12 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 	}
 	else
 	{
-#ifdef JP
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, species_ptr->level+3, "—Ž”n", NULL, -1);
-#else
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, species_ptr->level+3, "Falling from riding", NULL, -1);
-#endif
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, species_ptr->level+3, COD_FALL_RIDING, NULL, -1);
 		fall_dam = TRUE;
 	}
 
 	/* Move the player */
-	if(sy && !gameover)
-		(void)move_creature(creature_ptr, NULL, creature_ptr->fy, creature_ptr->fx, MCE_DONT_PICKUP | MCE_DONT_SWAP_MON);
+	if(sy && !gameover) (void)move_creature(creature_ptr, NULL, creature_ptr->fy, creature_ptr->fx, MCE_DONT_PICKUP | MCE_DONT_SWAP_MON);
 
 	return fall_dam;
 }

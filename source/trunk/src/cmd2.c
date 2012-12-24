@@ -452,11 +452,10 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	{
 #ifdef JP
 		msg_print("édä|ÇØÇÁÇÍÇƒÇ¢ÇΩè¨Ç≥Ç»êjÇ…éhÇ≥ÇÍÇƒÇµÇ‹Ç¡ÇΩÅI");
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "ì≈êj", NULL, -1);
 #else
 		msg_print("A small needle has pricked you!");
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "a poison needle", NULL, -1);
 #endif
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), COD_POISON_NEEDLE, NULL, -1);
 		(void)do_dec_stat(creature_ptr, STAT_STR);
 	}
 

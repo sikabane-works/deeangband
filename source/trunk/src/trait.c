@@ -637,7 +637,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					int oops = PERILOUS_IDENTIFY_COST - caster_ptr->csp;
 					caster_ptr->csp = 0;
 					caster_ptr->csp_frac = 0;
-					msg_print(GAME_MESSAGE_FAILED_PERILOUS_IDENTIFY);
+					msg_print(COD_PERILOUS_IDENTIFY);
 
 					// Confusing.
 					(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, randint1(5 * oops + 1), TRUE);					

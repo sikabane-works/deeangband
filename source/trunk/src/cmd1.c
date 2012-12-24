@@ -980,7 +980,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 				dam = diceroll(1, 4);
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, GAME_MESSAGE_DART_TRAP, NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				add_timed_trait(creature_ptr, TRAIT_SLOW, randint0(20) + 20, TRUE);
 			}
 			else
@@ -1004,7 +1004,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 				dam = diceroll(1, 4);
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, GAME_MESSAGE_DART_TRAP, NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
 			}
 			else
@@ -1028,7 +1028,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 				dam = diceroll(1, 4);
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, GAME_MESSAGE_DART_TRAP, NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
 			}
 			else
@@ -1052,7 +1052,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 				dam = diceroll(1, 4);
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, GAME_MESSAGE_DART_TRAP, NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
 			}
 			else

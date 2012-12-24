@@ -637,12 +637,10 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 		case SV_POTION_RUINATION:
 #ifdef JP
 			msg_print("身も心も弱ってきて、精気が抜けていくようだ。");
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(10, 10), "破滅の薬", NULL, -1);
 #else
 			msg_print("Your nerves and muscles feel weak and lifeless!");
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(10, 10), "a potion of Ruination", NULL, -1);
 #endif
-
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(10, 10), COD_POTION_OF_RUIN, NULL, -1);
 			(void)dec_stat(caster_ptr, STAT_DEX, 25, TRUE);
 			(void)dec_stat(caster_ptr, STAT_WIS, 25, TRUE);
 			(void)dec_stat(caster_ptr, STAT_CON, 25, TRUE);
@@ -1140,12 +1138,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			cast_ball(caster_ptr, DO_EFFECT_FIRE, 0, 666, 4);
 			/* Note: "Double" damage since it is centered on the player ... */
 			if(!has_trait(caster_ptr, TRAIT_RES_FIRE) || has_trait(caster_ptr, TRAIT_IM_FIRE))
-#ifdef JP
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", NULL, -1);
-#else
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50 + randint1(50), "a Scroll of Fire", NULL, -1);
-#endif
-
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50 + randint1(50), COD_SCROLL_OF_FIRE, NULL, -1);
 			ident = TRUE;
 			break;
 		}
@@ -1154,12 +1147,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		{
 			cast_ball(caster_ptr, DO_EFFECT_ICE, 0, 777, 4);
 			if(!has_trait(caster_ptr, TRAIT_RES_COLD) || has_trait(caster_ptr, TRAIT_IM_COLD))
-#ifdef JP
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", NULL, -1);
-#else
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "a Scroll of Ice", NULL, -1);
-#endif
-
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), COD_SCROLL_OF_ICE, NULL, -1);
 			ident = TRUE;
 			break;
 		}
@@ -1168,11 +1156,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		{
 			cast_ball(caster_ptr, DO_EFFECT_CHAOS, 0, 1000, 4);
 			if(!has_trait(caster_ptr, TRAIT_RES_CHAO))
-#ifdef JP
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ログルスの巻物", NULL, -1);
-#else
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 111 + randint1(111), "a Scroll of Logrus", NULL, -1);
-#endif
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 111 + randint1(111), COD_SCROLL_OF_LOGRUS, NULL, -1);
 			ident = TRUE;
 			break;
 		}

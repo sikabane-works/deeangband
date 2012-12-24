@@ -16,8 +16,6 @@
 #define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "恐怖の暗黒オーラがあなたの%sを包み込んだ！"
 #define GAME_MESSAGE_REMOVED_OBJECT_CURSE "誰かに見守られているような気がする。"
 #define GAME_MESSAGE_COMBAT_TALK_STAIR "「なんだこの階段は！？」"
-#define GAME_MESSAGE_DART_TRAP "ダーツの罠"
-#define GAME_MESSAGE_FAILED_PERILOUS_IDENTIFY "危険な秘密"
 #define GAME_MESSAGE_PERILOUS_SECRET "石を制御できない。"
 #else
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
@@ -35,11 +33,29 @@
 #define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "A terrible black aura blasts your %s!"
 #define GAME_MESSAGE_REMOVED_OBJECT_CURSE "You feel as if someone is watching over you."
 #define GAME_MESSAGE_COMBAT_TALK_STAIR "'What's a fucking stair!?'"
-#define GAME_MESSAGE_DART_TRAP "a dart trap"
-#define GAME_MESSAGE_FAILED_PERILOUS_IDENTIFY "perilous secrets"
 #define GAME_MESSAGE_PERILOUS_SECRET "You are too weak to control the stone!"
 #endif
 
+// Cause of Death
+#if JP
+#define COD_DART_TRAP "ダーツの罠"
+#define COD_PERILOUS_IDENTIFY "危険な秘密"
+#define COD_FALL_RIDING "落馬"
+#define COD_POTION_OF_RUIN "破滅の薬"
+#define COD_POISON_NEEDLE "毒針"
+#define COD_SCROLL_OF_FIRE "炎の巻物"
+#define COD_SCROLL_OF_ICE "氷の巻物"
+#define COD_SCROLL_OF_LOGRUS "ログルスの巻物"
+#else
+#define COD_DART_TRAP "a dart trap"
+#define COD_PERILOUS_IDENTIFY "perilous secrets"
+#define COD_FALL_RIDING "Falling from riding"
+#define COD_POTION_OF_RUIN "a potion of ruin"
+#define COD_POISON_NEEDLE "a potion needle"
+#define COD_SCROLL_OF_FIRE "a Scroll of Fire"
+#define COD_SCROLL_OF_ICE "a Scroll of Ice"
+#define COD_SCROLL_OF_LOGRUS "a Scroll of Logrus"
+#endif
 
 // Hack -- possible "insult" messages
 static const cptr desc_insult[] =
