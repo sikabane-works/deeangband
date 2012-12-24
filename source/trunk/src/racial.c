@@ -696,7 +696,7 @@ static int racial_chance(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	int sum = 0;
 	int stat = creature_ptr->stat_cur[pd_ptr->stat];
 
-	if((creature_ptr->lev < min_level) || creature_ptr->timed_trait[TRAIT_CONFUSED]) return SUCCESS;
+	if((creature_ptr->lev < min_level) || has_trait(creature_ptr, TRAIT_CONFUSED)) return SUCCESS;
 
 	if(difficulty == 0) return 100;
 
@@ -821,18 +821,6 @@ void free_posture(creature_type *creature_ptr)
 	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)) set_action(creature_ptr, ACTION_NONE);
 }
 
-//unused
-static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
-{
-	s16b        plev = creature_ptr->lev;
-	int         dir = 0;
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	//TODO
-
-	return TRUE;
-}
-
-
 /*
  * Allow user to choose a power (racial / mutation) to activate
  */
@@ -843,7 +831,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 	int             ask = TRUE;
 	int             lvl = creature_ptr->lev;
 	bool            flag, redraw, cast = FALSE;
-	bool            warrior = ((creature_ptr->class_idx == CLASS_WARRIOR || creature_ptr->class_idx == CLASS_BERSERKER) ? TRUE : FALSE);
+	bool            warrior = (class_info[creature_ptr->class_idx].type == CLASS_TYPE_WARRIOR ? TRUE : FALSE);
 	char            choice;
 	char            out_val[160];
 	int menu_line = (use_menu ? 1 : 0);
@@ -864,7 +852,6 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 #else
 		msg_print("You are too confused to use any powers!");
 #endif
-
 		cancel_tactical_action(creature_ptr);
 		return;
 	}
@@ -885,7 +872,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 #endif
 		I2A(0), (num <= 26) ? I2A(num - 1) : '0' + num - 27);
 
-	if(!repeat_pull(&i) || i<0 || i>=num) {
+	if(!repeat_pull(&i) || i < 0 || i >= num) {
 
 	if(use_menu) screen_save();
 	 /* Get a spell from the user */
