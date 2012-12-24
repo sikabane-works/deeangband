@@ -382,7 +382,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 					if(!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
-						msg_print(game_messages[GAME_MESSAGE_COMPLETE_QUEST]);
+						msg_print(GAME_MESSAGE_COMPLETE_QUEST);
 						msg_print(NULL);
 					}
 
@@ -415,7 +415,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 					{
 						quest[i].status = QUEST_STATUS_COMPLETED;
 						quest[i].complev = (byte)killer_ptr->lev;
-						msg_print(game_messages[GAME_MESSAGE_COMPLETE_QUEST]);
+						msg_print(GAME_MESSAGE_COMPLETE_QUEST);
 						msg_print(NULL);
 					}
 				}
@@ -445,7 +445,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 					if(!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
-						msg_print(game_messages[GAME_MESSAGE_COMPLETE_QUEST]);
+						msg_print(GAME_MESSAGE_COMPLETE_QUEST);
 						msg_print(NULL);
 					}
 
@@ -475,7 +475,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 					if(!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
-						msg_print(game_messages[GAME_MESSAGE_COMPLETE_QUEST]);
+						msg_print(GAME_MESSAGE_COMPLETE_QUEST);
 						msg_print(NULL);
 					}
 					quest[i].cur_num = 0;
@@ -2912,7 +2912,7 @@ bool get_aim_dir(creature_type *creature_ptr, int range, int *dp)
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) dir = ddd[randint0(8)];
 
 	/* Notice confusion */
-	if(command_dir != dir) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name);
+	if(command_dir != dir) msg_format(GAME_MESSAGE_IS_CONFUSED, creature_name);
 
 	/* Save direction */
 	(*dp) = dir;
@@ -3026,7 +3026,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	/* Notice confusion */
 	if(command_dir != dir)
 	{
-		if(has_trait(creature_ptr, TRAIT_CONFUSED)) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name);
+		if(has_trait(creature_ptr, TRAIT_CONFUSED)) msg_format(GAME_MESSAGE_IS_CONFUSED, creature_name);
 		else
 		{
 			char m_name[MAX_NLEN];
@@ -3035,7 +3035,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 			creature_desc(m_name, m_ptr, 0);
 			if(m_ptr->timed_trait[TRAIT_CONFUSED])
 			{
-				msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], m_name);
+				msg_format(GAME_MESSAGE_IS_CONFUSED, m_name);
 			}
 			else
 			{
@@ -3115,7 +3115,7 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	}
 
 	/* Notice confusion */
-	if(command_dir != dir) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name);
+	if(command_dir != dir) msg_format(GAME_MESSAGE_IS_CONFUSED, creature_name);
 
 	/* Save direction */
 	(*dp) = dir;
@@ -4190,7 +4190,7 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 		dir = ddd[randint0(8)];
 	}
 
-	if(command_dir != dir) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name); // Notice confusion and warn user.
+	if(command_dir != dir) msg_format(GAME_MESSAGE_IS_CONFUSED, creature_name); // Notice confusion and warn user.
 
 	/* Save direction */
 	(*dp) = dir;

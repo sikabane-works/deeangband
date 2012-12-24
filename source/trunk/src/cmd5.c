@@ -634,7 +634,7 @@ void do_cmd_study(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr))
 	{
-		msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
+		msg_print(GAME_MESSAGE_IS_BLIND);
 		return;
 	}
 
@@ -910,7 +910,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 		if(creature_ptr->class_idx == CLASS_FORCETRAINER) confirm_use_force(creature_ptr, FALSE);
 		else
 		{
-			msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
+			msg_print(GAME_MESSAGE_IS_BLIND);
 			flush();
 		}
 		return;
@@ -1718,7 +1718,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		if(c_ptr->creature_idx)
 		{
 			cost_tactical_energy(rider_ptr, 100);
-			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
+			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 			close_combat(rider_ptr, y, x, 0);
 			return FALSE;
 		}

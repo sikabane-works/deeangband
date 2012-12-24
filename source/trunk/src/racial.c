@@ -66,7 +66,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_BLIND))
 	{
-		msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
+		msg_print(GAME_MESSAGE_IS_BLIND);
 		return FALSE;
 	}
 

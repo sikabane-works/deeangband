@@ -1344,7 +1344,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	/* Check some conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND))
 	{
-		msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
+		msg_print(GAME_MESSAGE_IS_BLIND);
 		return;
 	}
 	if(no_lite(creature_ptr))
@@ -2991,7 +2991,7 @@ void do_cmd_use(creature_type *creature_ptr)
 			// Check some conditions
 			if(has_trait(creature_ptr, TRAIT_BLIND))
 			{
-				msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
+				msg_print(GAME_MESSAGE_IS_BLIND);
 				return;
 			}
 			if(no_lite(creature_ptr))

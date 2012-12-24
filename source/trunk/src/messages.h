@@ -1,73 +1,45 @@
 
 // Keywords
-
 #if JP
-static const cptr game_messages[] =
-{
-	"クエストを達成した。",
-	"改良に失敗した。"
-	"しかし効力を跳ね返した。",
-	"には完全な耐性がある。",
-	"には耐性がある。",
-	"には効果がなかった。",
-	"は目が見えない",
-	"は混乱している。",
-	"クリーチャーが立ちふさがっている。",
-	"頭がハッキリとした。",
-	"鍵をはずした。",
-	"鍵をはずせなかった。",
-	"恐怖の暗黒オーラがあなたの%sを包み込んだ！",
-	"誰かに見守られているような気がする。",
-	"「なんだこの階段は！？」",
-	"ダーツの罠",
-	"危険な秘密",
-	"石を制御できない。",
-};
+#define GAME_MESSAGE_COMPLETE_QUEST "クエストを達成した。"
+#define GAME_MESSAGE_IMPROVEMENT_FAILED "改良に失敗した。"""
+#define GAME_MESSAGE_RESIST_THE_EFFECT "しかし効力を跳ね返した。"
+#define GAME_MESSAGE_IS_IMMUNE "には完全な耐性がある。"
+#define GAME_MESSAGE_RESISTED "には耐性がある。"
+#define GAME_MESSAGE_IS_UNAFFECTED "には効果がなかった。"
+#define GAME_MESSAGE_IS_CONFUSED "は目が見えない"
+#define GAME_MESSAGE_IS_BLIND "は混乱している。"
+#define GAME_MESSAGE_CREATURE_IN_THE_WAY "クリーチャーが立ちふさがっている。"
+#define GAME_MESSAGE_MANA_RECOVERLY "頭がハッキリとした。"
+#define GAME_MESSAGE_SUCCESS_PICKING "鍵をはずした。"
+#define GAME_MESSAGE_FAILED_PICKING "鍵をはずせなかった。"
+#define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "恐怖の暗黒オーラがあなたの%sを包み込んだ！"
+#define GAME_MESSAGE_REMOVED_OBJECT_CURSE "誰かに見守られているような気がする。"
+#define GAME_MESSAGE_COMBAT_TALK_STAIR "「なんだこの階段は！？」"
+#define GAME_MESSAGE_DART_TRAP "ダーツの罠"
+#define GAME_MESSAGE_FAILED_PERILOUS_IDENTIFY "危険な秘密"
+#define GAME_MESSAGE_PERILOUS_SECRET "石を制御できない。"
 #else
-static const cptr game_messages[] =
-{
-	"You completed the quest.",
-	"The improvement failed.",
-	"You resist the effects.",
-	"is immune.",
-	"resists.",
-	"You are unaffected.",
-	"is confused",
-	"is blind!",
-	"There is a creature in the way.",
-	"You feel your head clear.",
-	"You have picked the lock.",
-	"You failed to pick the lock.",
-	"A terrible black aura blasts your %s!",
-	"You feel as if someone is watching over you.",
-	"'What's a fucking stair!?'",
-	"a dart trap",
-	"perilous secrets",
-	"You are too weak to control the stone!",
-};
+#define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
+#define GAME_MESSAGE_IMPROVEMENT_FAILED "The improvement failed."
+#define GAME_MESSAGE_RESIST_THE_EFFECT "You resist the effects."
+#define GAME_MESSAGE_IS_IMMUNE "is immune."
+#define GAME_MESSAGE_RESISTED "resists."
+#define GAME_MESSAGE_IS_UNAFFECTED "You are unaffected."
+#define GAME_MESSAGE_IS_CONFUSED "is confused"
+#define GAME_MESSAGE_IS_BLIND "is blind!"
+#define GAME_MESSAGE_CREATURE_IN_THE_WAY "There is a creature in the way."
+#define GAME_MESSAGE_MANA_RECOVERLY "You feel your head clear."
+#define GAME_MESSAGE_SUCCESS_PICKING "You have picked the lock."
+#define GAME_MESSAGE_FAILED_PICKING "You failed to pick the lock."
+#define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "A terrible black aura blasts your %s!"
+#define GAME_MESSAGE_REMOVED_OBJECT_CURSE "You feel as if someone is watching over you."
+#define GAME_MESSAGE_COMBAT_TALK_STAIR "'What's a fucking stair!?'"
+#define GAME_MESSAGE_DART_TRAP "a dart trap"
+#define GAME_MESSAGE_FAILED_PERILOUS_IDENTIFY "perilous secrets"
+#define GAME_MESSAGE_PERILOUS_SECRET "You are too weak to control the stone!"
 #endif
 
-enum GAME_MESSAGE
-{
-	GAME_MESSAGE_COMPLETE_QUEST,
-	GAME_MESSAGE_IMPROVEMENT_FAILED,
-	GAME_MESSAGE_RESIST_THE_EFFECT,
-	GAME_MESSAGE_IS_IMMUNE,
-	GAME_MESSAGE_RESISTED,
-	GAME_MESSAGE_IS_UNAFFECTED,
-	GAME_MESSAGE_IS_CONFUSED,
-	GAME_MESSAGE_IS_BLIND,
-	GAME_MESSAGE_CREATURE_IN_THE_WAY,
-	GAME_MESSAGE_MANA_RECOVERLY,
-	GAME_MESSAGE_SUCCESS_PICKING,
-	GAME_MESSAGE_FAILED_PICKING,
-	GAME_MESSAGE_BLACK_AURA_TO_OBJECT,
-	GAME_MESSAGE_REMOVED_OBJECT_CURSE,
-	GAME_MESSAGE_COMBAT_TALK_STAIR,
-	GAME_MESSAGE_DART_TRAP,
-	GAME_MESSAGE_FAILED_PERILOUS_IDENTIFY,
-	GAME_MESSAGE_PERILOUS_SECRET,
-};
 
 // Hack -- possible "insult" messages
 static const cptr desc_insult[] =
@@ -148,79 +120,6 @@ static const cptr desc_moan[] =
 #else
 #endif
 
-#if 0
-static const cptr text_files[]=
-{
-	"news.txt",
-	"a_cursed.txt",
-	"a_low.txt",
-	"a_med.txt",
-	"a_high.txt",
-
-	"w_cursed.txt",
-	"w_low.txt",
-	"w_med.txt",
-	"w_high.txt",
-	"chainswd.txt",
-
-	"error.txt",
-	"death.txt",
-	"seppuku.txt",
-	"monfear.txt",
-	"monpet.txt",
-
-	"monfrien.txt",
-	"monspeak.txt",
-	"rumors.txt",
-	"silly.txt",
-	"news.txt",
-
-	"option.txt",
-	"option.txt#Autosave",
-	"option.txt#Window",
-	"option.txt#BaseDelay",
-	"option.txt#Hitpoint",
-
-	"option.txt#Manapoint",
-};
-#endif
-
-/*
-enum TEXT_FILES
-{
-	TEXT_FILES_GAME_NEWS,
-	TEXT_FILES_ARMOUR_CURSED_ARTIFACT,
-	TEXT_FILES_ARMOUR_LOW_ARTIFACT,
-	TEXT_FILES_ARMOUR_MED_ARTIFACT,
-	TEXT_FILES_ARMOUR_HIGH_ARTIFACT,
-
-	TEXT_FILES_WEAPON_CURSED_ARTIFACT,
-	TEXT_FILES_WEAPON_LOW_ARTIFACT,
-	TEXT_FILES_WEAPON_MED_ARTIFACT,
-	TEXT_FILES_WEAPON_HIGH_ARTIFACT,
-	TEXT_FILES_CHAINSWORD,
-
-	TEXT_FILES_ERROR,
-	TEXT_FILES_DEATH,
-	TEXT_FILES_SEPPUKU,
-	TEXT_FILES_CREATURE_FEAR,
-	TEXT_FILES_CREATURE_PET,
-
-	TEXT_FILES_CREATURE_FRIENDLY,
-	TEXT_FILES_CREATURE_SPEAK,
-	TEXT_FILES_RUMOR,
-	TEXT_FILES_SILLY,
-	TEXT_FILES_NEWS,
-
-	TEXT_FILES_OPTION,
-	TEXT_FILES_OPTION_AUTOSAVE,
-	TEXT_FILES_OPTION_WINDOW,
-	TEXT_FILES_OPTION_BASEDELAY,
-	TEXT_FILES_OPTION_HITPOINT,
-
-	TEXT_FILES_OPTION_MANAPOINT,
-};
-*/
 
 static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 {

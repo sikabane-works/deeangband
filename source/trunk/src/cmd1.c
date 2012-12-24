@@ -553,7 +553,7 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 			if(record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;
 			quest[i].complev = (byte)creature_ptr->lev;
-			msg_print(game_messages[GAME_MESSAGE_COMPLETE_QUEST]);
+			msg_print(GAME_MESSAGE_COMPLETE_QUEST);
 			msg_print(NULL);
 		}
 	}
@@ -980,7 +980,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 				dam = diceroll(1, 4);
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, GAME_MESSAGE_DART_TRAP, NULL, -1);
 				add_timed_trait(creature_ptr, TRAIT_SLOW, randint0(20) + 20, TRUE);
 			}
 			else
@@ -1004,7 +1004,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 				dam = diceroll(1, 4);
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, GAME_MESSAGE_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
 			}
 			else
@@ -1028,7 +1028,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 				dam = diceroll(1, 4);
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, GAME_MESSAGE_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
 			}
 			else
@@ -1052,8 +1052,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 				dam = diceroll(1, 4);
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
-
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, GAME_MESSAGE_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
 			}
 			else
@@ -1559,7 +1558,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 			if(record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, floor_ptr->quest, NULL);
 			quest[floor_ptr->quest].status = QUEST_STATUS_COMPLETED;
 			quest[floor_ptr->quest].complev = (byte)creature_ptr->lev;
-			msg_print(game_messages[GAME_MESSAGE_COMPLETE_QUEST]);
+			msg_print(GAME_MESSAGE_COMPLETE_QUEST);
 			msg_print(NULL);
 		}
 
@@ -2974,7 +2973,7 @@ static bool travel_test(creature_type *creature_ptr)
 	/* Cannot travel when blind */
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr))
 	{
-		msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
+		msg_print(GAME_MESSAGE_IS_BLIND);
 		return TRUE;
 	}
 

@@ -1142,7 +1142,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
+				if(remove_curse(creature_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -1292,7 +1292,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_all_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
+				if(remove_all_curse(creature_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -6509,7 +6509,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
+				if(remove_curse(creature_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -6849,7 +6849,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_all_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
+				if(remove_all_curse(creature_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -8051,7 +8051,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
+				if(remove_curse(creature_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -8371,7 +8371,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_all_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
+				if(remove_all_curse(creature_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -11022,7 +11022,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			else
 			{
 				int power = 0;
-				msg_format(game_messages[GAME_MESSAGE_BLACK_AURA_TO_OBJECT], object_name);
+				msg_format(GAME_MESSAGE_BLACK_AURA_TO_OBJECT, object_name);
 				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 				if(object_is_artifact(object_ptr) || object_is_ego(object_ptr))
@@ -11472,7 +11472,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			else
 			{
 				int power = 0;
-				msg_format(game_messages[GAME_MESSAGE_BLACK_AURA_TO_OBJECT], object_name);
+				msg_format(GAME_MESSAGE_BLACK_AURA_TO_OBJECT, object_name);
 				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 				if(object_is_artifact(object_ptr) || object_is_ego(object_ptr))

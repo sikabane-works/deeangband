@@ -1934,7 +1934,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_OLD_CLONE:
 		if((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL)|| has_trait(target_ptr, TRAIT_UNIQUE2))
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 		else
 		{
 			target_ptr->chp = target_ptr->mhp;
@@ -1955,7 +1955,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_QUESTOR)) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 			do_poly = FALSE;
 			obvious = FALSE;
 		}
@@ -1987,7 +1987,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			if(has_trait(target_ptr, TRAIT_NO_CONF)) if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 			do_conf = 0;
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 			obvious = FALSE;
 		}
 		dam = 0;
@@ -2014,7 +2014,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(creature_living(target_ptr))
 		{
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) has_trait(target_ptr, INFO_TYPE_RACE);
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 			obvious = FALSE;
 			dam = 0;
 		}
@@ -2030,13 +2030,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 				{
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+					note = GAME_MESSAGE_IS_UNAFFECTED;
 					resists_tele = TRUE;
 				}
 				else if(target_ptr->lev * 2 > randint1(100))
 				{
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-					note = game_messages[GAME_MESSAGE_RESISTED];
+					note = GAME_MESSAGE_RESISTED;
 					resists_tele = TRUE;
 				}
 			}
@@ -2060,13 +2060,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 				{
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+					note = GAME_MESSAGE_IS_UNAFFECTED;
 					resists_tele = TRUE;
 				}
 				else if(target_ptr->lev * 2 > randint1(100))
 				{
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-					note = game_messages[GAME_MESSAGE_RESISTED];
+					note = GAME_MESSAGE_RESISTED;
 					resists_tele = TRUE;
 				}
 			}
@@ -2087,13 +2087,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 			{
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+				note = GAME_MESSAGE_IS_UNAFFECTED;
 				resists_tele = TRUE;
 			}
 			else if(target_ptr->lev * 2 > randint1(100))
 			{
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-				note = game_messages[GAME_MESSAGE_RESISTED];
+				note = GAME_MESSAGE_RESISTED;
 				resists_tele = TRUE;
 			}
 		}
@@ -2119,7 +2119,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10) // Attempt a saving throw
 			{
-				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+				note = GAME_MESSAGE_IS_UNAFFECTED;
 				obvious = FALSE;
 				do_fear = 0;
 			}
@@ -2136,7 +2136,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			do_fear = diceroll(3, (dam / 2)) + 1;
 			if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
 			{
-				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+				note = GAME_MESSAGE_IS_UNAFFECTED;
 				obvious = FALSE;
 				do_fear = 0;
 			}
@@ -2153,7 +2153,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_FEARLESS)) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 			obvious = FALSE;
 			do_fear = 0;
 		}
@@ -2241,7 +2241,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_STASIS:
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+			note = GAME_MESSAGE_IS_IMMUNE;
 			obvious = FALSE;
 		}
 		else
@@ -2266,7 +2266,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
 			do_stun = 0;
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 			obvious = FALSE;
 		}
 		dam = 0;
@@ -2285,7 +2285,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam += (adj_con_fix[caster_ptr->stat_ind[STAT_CHA]] - 1);
 		if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+			note = GAME_MESSAGE_IS_IMMUNE;
 			dam = 0;
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
@@ -2301,7 +2301,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(has_trait(target_ptr, TRAIT_NO_CONF))
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 			obvious = FALSE;
 			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
@@ -2330,7 +2330,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_CONTROL_UNDEAD:
 		if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+			note = GAME_MESSAGE_IS_IMMUNE;
 			dam = 0;
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 			break;
@@ -2344,7 +2344,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			has_trait(target_ptr, TRAIT_NO_PET) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 			obvious = FALSE;
 			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
@@ -2372,7 +2372,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_CONTROL_ANIMAL:
 		if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+			note = GAME_MESSAGE_IS_IMMUNE;
 			dam = 0;
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 			break;
@@ -2385,7 +2385,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
 			if(has_trait(target_ptr, TRAIT_NO_CONF) && is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 			obvious = FALSE;
 			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
@@ -2424,7 +2424,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 		{
 			dam = 0;
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+			note = GAME_MESSAGE_IS_IMMUNE;
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
 
 		}
@@ -2433,7 +2433,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			(target_ptr->lev * 2 > randint1(3 * dam)))
 		{
 			dam /= 3;
-			note = game_messages[GAME_MESSAGE_RESISTED];
+			note = GAME_MESSAGE_RESISTED;
 			// Powerful demons & undead can turn a mindcrafter's attacks back on them
 			if(has_trait(target_ptr, TRAIT_UNDEAD) &&  has_trait(target_ptr, TRAIT_DEMON) &&
 				(target_ptr->lev * 2 > caster_ptr->lev / 2) && one_in_(2))
@@ -2457,7 +2457,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 							add_timed_trait(caster_ptr, TRAIT_STUN, randint1(dam), TRUE);
 							break;
 						case 3:
-							if(has_trait(target_ptr, TRAIT_FEARLESS)) note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+							if(has_trait(target_ptr, TRAIT_FEARLESS)) note = GAME_MESSAGE_IS_UNAFFECTED;
 							else add_timed_trait(caster_ptr, TRAIT_AFRAID, 3 + randint1(dam), TRUE);
 							break;
 						default:
@@ -2500,13 +2500,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 		{
 			dam = 0;
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+			note = GAME_MESSAGE_IS_IMMUNE;
 		}
 		else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) || 
 			has_trait(target_ptr, TRAIT_ANIMAL) || (target_ptr->lev * 2 > randint1(3 * dam)))
 		{
 			dam /= 3;
-			note = game_messages[GAME_MESSAGE_RESISTED];
+			note = GAME_MESSAGE_RESISTED;
 
 			/*
 			* Powerful demons & undead can turn a mindcrafter's
@@ -2612,7 +2612,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						break;
 					default:
 						if(has_trait(target_ptr, TRAIT_FEARLESS))
-							note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+							note = GAME_MESSAGE_IS_UNAFFECTED;
 						else
 							add_timed_trait(caster_ptr, TRAIT_AFRAID, dam, TRUE);
 					}
@@ -2620,7 +2620,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+				note = GAME_MESSAGE_IS_UNAFFECTED;
 				obvious = FALSE;
 			}
 		}
@@ -2769,7 +2769,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if((floor_ptr->quest && (quest[floor_ptr->quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
 				(has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
 			{
-				msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED], target_name);
+				msg_format(GAME_MESSAGE_IS_UNAFFECTED, target_name);
 				skipped = TRUE;
 				break;
 			}
@@ -2841,7 +2841,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 		if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+			note = GAME_MESSAGE_IS_IMMUNE;
 			dam = 0;
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 			break;
@@ -2854,7 +2854,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_NO_PET) ||
 			!creature_living(target_ptr) || ((target_ptr->lev * 2+10) > randint1(dam)))
 		{
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 			obvious = FALSE;
 			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
@@ -2894,7 +2894,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			bool done = TRUE;
 			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				note = GAME_MESSAGE_IS_IMMUNE;
 				dam = 0;
 				skipped = TRUE;
 				//TODO if(is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags2 |= (RF2_EMPTY_MIND);
@@ -2902,7 +2902,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			if(has_trait(target_ptr, TRAIT_PARALYZED))
 			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				note = GAME_MESSAGE_IS_IMMUNE;
 				dam = 0;
 				skipped = TRUE;
 				break;
@@ -2917,7 +2917,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
-					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+					note = GAME_MESSAGE_IS_UNAFFECTED;
 					obvious = FALSE;
 				}
 				else add_timed_trait(target_ptr, TRAIT_SLOW, 50, TRUE); // Normal creatures slow down
@@ -2929,7 +2929,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					do_stun = 0;
-					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+					note = GAME_MESSAGE_IS_UNAFFECTED;
 					obvious = FALSE;
 				}
 			}
@@ -2942,13 +2942,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				{
 					if(has_trait(target_ptr, TRAIT_NO_SLEEP))
 						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_SLEEP);
-					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+					note = GAME_MESSAGE_IS_UNAFFECTED;
 					obvious = FALSE;
 				}
 				else do_sleep = 500;
 			}
 
-			if(!done) note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+			if(!done) note = GAME_MESSAGE_IS_IMMUNE;
 			dam = 0;
 			break;
 		}
@@ -2992,7 +2992,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_DEMON)) ||
 			has_trait(target_ptr, TRAIT_NO_PET) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 			obvious = FALSE;
 			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
@@ -3221,7 +3221,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || !(is_enemy_of_good_creature(target_ptr)) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 			obvious = FALSE;
 		}
 		else
@@ -3240,7 +3240,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_WOUNDS:
 		if(randint0(100 + dam) < (target_ptr->lev * 2 + 50))
 		{
-			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+			note = GAME_MESSAGE_IS_UNAFFECTED;
 			dam = 0;
 		}
 		break;
@@ -3302,7 +3302,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 			dam = 0;
 		}
-		else note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+		else note = GAME_MESSAGE_IS_UNAFFECTED;
 	}
 
 	if(do_dist)

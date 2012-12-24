@@ -4662,7 +4662,7 @@ bool curse_armor(creature_type *creature_ptr)
 	}
 	else
 	{
-		msg_format(game_messages[GAME_MESSAGE_BLACK_AURA_TO_OBJECT], object_name);
+		msg_format(GAME_MESSAGE_BLACK_AURA_TO_OBJECT, object_name);
 		shatter_object(object_ptr);
 
 		// Recalculate bonuses and mana
@@ -4698,7 +4698,7 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 	}
 	else
 	{
-		if(!force) msg_format(game_messages[GAME_MESSAGE_BLACK_AURA_TO_OBJECT], object_name);
+		if(!force) msg_format(GAME_MESSAGE_BLACK_AURA_TO_OBJECT, object_name);
 		shatter_object(object_ptr);
 
 		prepare_update(target_ptr, CRU_BONUS | CRU_MANA);	// Recalculate bonuses and mana

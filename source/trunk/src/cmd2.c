@@ -40,7 +40,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	/* Quest up stairs */
 	if(have_flag(f_ptr->flags, FF_QUEST))
 	{
-		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(game_messages[GAME_MESSAGE_COMBAT_TALK_STAIR]);
+		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
 
 #ifdef JP
 		else msg_print("è„ÇÃäKÇ…ìoÇ¡ÇΩÅB");
@@ -137,7 +137,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	if(record_stair) do_cmd_write_nikki(DIARY_STAIR, 0-up_num, "climbed up the stairs to");
 #endif
 
-	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(game_messages[GAME_MESSAGE_COMBAT_TALK_STAIR]);
+	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
 
 #ifdef JP
 	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("Ç»ÇÒÇæÇ±ÇÃäKíiÇÕÅI");
@@ -178,7 +178,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	/* Quest down stairs */
 	else if(have_flag(f_ptr->flags, FF_QUEST))
 	{
-		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(game_messages[GAME_MESSAGE_COMBAT_TALK_STAIR]);
+		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
 		else
 #ifdef JP
 			msg_print("â∫ÇÃäKÇ…ç~ÇËÇΩÅB");
@@ -285,7 +285,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			else
 			{
 
-				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(game_messages[GAME_MESSAGE_COMBAT_TALK_STAIR]);
+				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
 				else
 #ifdef JP
 				msg_print("äKíiÇâ∫ÇËÇƒêVÇΩÇ»ÇÈñ¿ã{Ç÷Ç∆ë´Çì•Ç›ì¸ÇÍÇΩÅB");
@@ -739,7 +739,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 		/* Success -- May still have traps */
 		if(randint0(100) < j)
 		{
-			msg_print(game_messages[GAME_MESSAGE_SUCCESS_PICKING]);
+			msg_print(GAME_MESSAGE_SUCCESS_PICKING);
 			gain_exp(creature_ptr, 1);
 			flag = TRUE;
 		}
@@ -750,7 +750,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 			/* We may continue repeating */
 			more = TRUE;
 			if(flush_failure) flush();
-			msg_print(game_messages[GAME_MESSAGE_FAILED_PICKING]);
+			msg_print(GAME_MESSAGE_FAILED_PICKING);
 		}
 	}
 
@@ -940,7 +940,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 
 		if(randint0(100) < j)
 		{
-			msg_print(game_messages[GAME_MESSAGE_SUCCESS_PICKING]);
+			msg_print(GAME_MESSAGE_SUCCESS_PICKING);
 			cave_alter_feat(floor_ptr, y, x, FF_OPEN); // Open the door
 			sound(SOUND_OPENDOOR); // Sound
 			gain_exp(creature_ptr, 1); // Experience
@@ -949,7 +949,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 		else
 		{
 			if(flush_failure) flush();
-			msg_print(game_messages[GAME_MESSAGE_FAILED_PICKING]);
+			msg_print(GAME_MESSAGE_FAILED_PICKING);
 			more = TRUE;
 		}
 	}
@@ -1048,7 +1048,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		{
 			/* Take a turn */
 			cost_tactical_energy(creature_ptr, 100);
-			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
+			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 
 			/* Attack */
 			close_combat(creature_ptr, y, x, 0);
@@ -1196,7 +1196,7 @@ void do_cmd_close(creature_type *creature_ptr)
 		else if(c_ptr->creature_idx)
 		{
 			cost_tactical_energy(creature_ptr, 100);
-			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
+			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 
 			/* Attack */
 			close_combat(creature_ptr, y, x, 0);
@@ -1475,7 +1475,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		else if(c_ptr->creature_idx)
 		{
 			cost_tactical_energy(creature_ptr, 100);
-			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
+			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
 
@@ -1542,7 +1542,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 
 		if(randint0(100) < j)
 		{
-			msg_print(game_messages[GAME_MESSAGE_SUCCESS_PICKING]);
+			msg_print(GAME_MESSAGE_SUCCESS_PICKING);
 			cave_alter_feat(floor_ptr, y, x, FF_OPEN);
 			sound(SOUND_OPENDOOR);
 			gain_exp(creature_ptr, 1);
@@ -1551,7 +1551,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 		else
 		{
 			if(flush_failure) flush();
-			msg_print(game_messages[GAME_MESSAGE_FAILED_PICKING]);
+			msg_print(GAME_MESSAGE_FAILED_PICKING);
 		}
 	}
 	else
@@ -1806,7 +1806,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		/* Creature in the way */
 		else if(c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
-			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
+			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
 
@@ -1976,7 +1976,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 		else if(c_ptr->creature_idx)
 		{
 			cost_tactical_energy(creature_ptr, 100);
-			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
+			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
 
@@ -2141,7 +2141,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 		else if(c_ptr->creature_idx)
 		{
 			cost_tactical_energy(creature_ptr, 100);
-			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
+			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
 

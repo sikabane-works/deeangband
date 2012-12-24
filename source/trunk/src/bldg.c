@@ -2742,7 +2742,7 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	if(!okay)	// Failure
 	{
 		if(flush_failure) flush();
-		msg_print(game_messages[GAME_MESSAGE_IMPROVEMENT_FAILED]);
+		msg_print(GAME_MESSAGE_IMPROVEMENT_FAILED);
 		return FALSE;
 	}
 	else

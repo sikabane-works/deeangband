@@ -1471,7 +1471,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		bool see_m = is_seen(user_ptr, target_ptr);
 
 		creature_desc(target_name, target_ptr, 0);
-		if(see_m) msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED], target_name);
+		if(see_m) msg_format(GAME_MESSAGE_IS_UNAFFECTED, target_name);
 
 		if(has_trait(target_ptr, TRAIT_SLEPT))
 		{
@@ -3803,7 +3803,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 
 		if(tm_idx != floor_ptr->cave[ny][nx].creature_idx)
 		{
-			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
+			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 		}
 		else if(!creature_bold(creature_ptr, ty, tx))
 		{

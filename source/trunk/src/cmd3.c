@@ -276,7 +276,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 			if(record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;
 			quest[i].complev = (byte)creature_ptr->lev;
-			msg_print(game_messages[GAME_MESSAGE_COMPLETE_QUEST]);
+			msg_print(GAME_MESSAGE_COMPLETE_QUEST);
 			msg_print(NULL);
 		}
 	}
