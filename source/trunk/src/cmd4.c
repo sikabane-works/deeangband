@@ -2448,11 +2448,7 @@ void do_cmd_options(void)
 					if(k == ESCAPE) break;
 					else if(k == '?')
 					{
-#ifdef JP
-						(void)show_file(TRUE, "joption.txt#Hitpoint", NULL, 0, 0);
-#else
-						(void)show_file(TRUE, "option.txt#Hitpoint", NULL, 0, 0);
-#endif
+						(void)show_file(TRUE, text_files[TEXT_FILES_OPTION_HITPOINT], NULL, 0, 0);
 						Term_clear(); 
 					}
 					else if(isdigit(k)) hitpoint_warn = D2I(k);
@@ -2485,11 +2481,7 @@ void do_cmd_options(void)
 					if(k == ESCAPE) break;
 					else if(k == '?')
 					{
-#ifdef JP
-						(void)show_file(TRUE, "joption.txt#Manapoint", NULL, 0, 0);
-#else
-						(void)show_file(TRUE, "option.txt#Manapoint", NULL, 0, 0);
-#endif
+						(void)show_file(TRUE, text_files[TEXT_FILES_OPTION_MANAPOINT], NULL, 0, 0);
 						Term_clear(); 
 					}
 					else if(isdigit(k)) mana_warn = D2I(k);
@@ -2500,11 +2492,7 @@ void do_cmd_options(void)
 			}
 
 			case '?':
-#ifdef JP
-				(void)show_file(TRUE, "joption.txt", NULL, 0, 0);
-#else
-				(void)show_file(TRUE, "option.txt", NULL, 0, 0);
-#endif
+				(void)show_file(TRUE, text_files[TEXT_FILES_OPTION], NULL, 0, 0);
 				Term_clear(); 
 				break;
 
