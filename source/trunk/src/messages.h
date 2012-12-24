@@ -46,6 +46,7 @@
 #define COD_SCROLL_OF_FIRE "‰Š‚ÌŠª•¨"
 #define COD_SCROLL_OF_ICE "•X‚ÌŠª•¨"
 #define COD_SCROLL_OF_LOGRUS "ƒƒOƒ‹ƒX‚ÌŠª•¨"
+#define COD_POISONOUS_FOOD "“Å“ü‚èH—¿"
 #else
 #define COD_DART_TRAP "a dart trap"
 #define COD_PERILOUS_IDENTIFY "perilous secrets"
@@ -55,6 +56,7 @@
 #define COD_SCROLL_OF_FIRE "a Scroll of Fire"
 #define COD_SCROLL_OF_ICE "a Scroll of Ice"
 #define COD_SCROLL_OF_LOGRUS "a Scroll of Logrus"
+#define COD_POISONOUS_FOOD "poisonous food"
 #endif
 
 // Hack -- possible "insult" messages

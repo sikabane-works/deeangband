@@ -2970,27 +2970,15 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_FOOD_POISONING_6D6:
-#ifdef JP
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
-#else
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
-#endif
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), COD_POISONOUS_FOOD, NULL, -1);
 		break;
 
 	case TRAIT_FOOD_POISONING_8D8:
-#ifdef JP
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
-#else
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
-#endif
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), COD_POISONOUS_FOOD, NULL, -1);
 		break;
 
 	case TRAIT_FOOD_POISONING_10D10:
-#ifdef JP
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
-#else
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
-#endif
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), COD_POISONOUS_FOOD, NULL, -1);
 		break;
 
 	case TRAIT_SELF_HEALING_2D8:
