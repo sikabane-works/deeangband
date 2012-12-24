@@ -831,52 +831,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 	switch (creature_ptr->race_idx1)
 	{
-		case RACE_CYCLOPS:
-			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-#ifdef JP
-			msg_print("巨大な岩を投げた。");
-#else
-			msg_print("You throw a huge boulder.");
-#endif
-
-			cast_bolt(creature_ptr, DO_EFFECT_MISSILE, (3 * plev) / 2, 0, FALSE);
-			break;
-
-		case RACE_YEEK:
-			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-			stop_mouth(creature_ptr);
-#ifdef JP
-			msg_print("身の毛もよだつ叫び声を上げた！");
-#else
-			msg_print("You make a horrible scream!");
-#endif
-
-			(void)fear_creature(creature_ptr, dir, plev);
-			break;
-
-		case RACE_KLACKON:
-			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-			stop_mouth(creature_ptr);
-#ifdef JP
-			msg_print("酸を吐いた。");
-#else
-			msg_print("You spit acid.");
-#endif
-
-			if(plev < 25) cast_bolt(creature_ptr, DO_EFFECT_ACID, plev, 0, FALSE);
-			else cast_ball(creature_ptr, DO_EFFECT_ACID, dir, plev, 2);
-			break;
-
-		case RACE_KOBOLD:
-			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-#ifdef JP
-			msg_print("毒のダーツを投げた。");
-#else
-			msg_print("You throw a dart of poison.");
-#endif
-
-			cast_bolt(creature_ptr, DO_EFFECT_POIS, plev, 0, FALSE);
-			break;
 
 		case RACE_NIBELUNG:
 #ifdef JP
