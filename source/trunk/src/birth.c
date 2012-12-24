@@ -3953,25 +3953,16 @@ static bool get_stat_limits(creature_type *creature_ptr)
 		/* Move Cursol */
 		if(cs != os)
 		{
-			if(os == STAT_MAX)
-			{
-#ifdef JP
-				c_put_str(TERM_WHITE, "Œˆ’è‚·‚é", 21, 35);
-#else
-				c_put_str(TERM_WHITE, "Accept", 21, 35);
-#endif
-			}
-			else if(os < STAT_MAX)
-				c_put_str(TERM_WHITE, cur, 14 + os, 10);
 			
-			if(cs == STAT_MAX)
-			{
 #ifdef JP
-				c_put_str(TERM_YELLOW, "Œˆ’è‚·‚é", 21, 35);
+			if(os == STAT_MAX) c_put_str(TERM_WHITE, "Œˆ’è‚·‚é", 21, 35);
+			else if(os < STAT_MAX) c_put_str(TERM_WHITE, cur, 14 + os, 10);
+			if(cs == STAT_MAX) c_put_str(TERM_YELLOW, "Œˆ’è‚·‚é", 21, 35);
 #else
-				c_put_str(TERM_YELLOW, "Accept", 21, 35);
+			if(os == STAT_MAX)@c_put_str(TERM_WHITE, "Accept", 21, 35);
+			else if(os < STAT_MAX)@c_put_str(TERM_WHITE, cur, 14 + os, 10);
+			if(cs == STAT_MAX) c_put_str(TERM_YELLOW, "Accept", 21, 35);
 #endif
-			}
 			else
 			{
 				/* Race/Class bonus */
@@ -3980,25 +3971,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 				/* Obtain the current stat */
 				m = j;
 				
-				/* Above 18 */
-				if(m > 18)
-				{
-#ifdef JP
-					sprintf(inp, "18/%02d", (m - 18));
-#else
-					sprintf(inp, "18/%02d", (m - 18));
-#endif
-				}
-				
-				/* From 3 to 18 */
-				else
-				{
-#ifdef JP
-					sprintf(inp, "%2d", m);
-#else
-					sprintf(inp, "%2d", m);
-#endif
-				}
+				sprintf(inp, "%2d", m);
 				
 				/* Prepare a prompt */
 				sprintf(cur, "%6s       %2d   %+3d  %+3d  %+3d  =  %6s",
@@ -4095,7 +4068,6 @@ static bool get_stat_limits(creature_type *creature_ptr)
 #else
 			do_cmd_options_aux(OPT_PAGE_BIRTH, "Birth Option((*)s effect score)");
 #endif
-
 			screen_load();
 			break;
 		default:

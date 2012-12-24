@@ -1315,12 +1315,10 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 							roll3 = roll1 +  roll2;
 
 #ifdef JP
-							sprintf(tmp_str, "出目: %d %d          合計:      %d",
+							sprintf(tmp_str, "出目: %d %d          合計:      %d", roll1, roll2, roll3);
 #else
-							sprintf(tmp_str, "Roll result: %d %d   Total:     %d",
+							sprintf(tmp_str, "Roll result: %d %d   Total:     %d", roll1, roll2, roll3);
 #endif
-
-								 roll1, roll2, roll3);
 							prt(tmp_str, 8, 5);
 							if(roll3 == choice)
 								win = TRUE;
@@ -2378,8 +2376,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 #else
 				if(!get_rnd_line(text_files[TEXT_FILES_RUMOR], 0, Rumor))
 #endif
-
-					msg_format("%s", Rumor);
+				msg_format("%s", Rumor);
 				break;
 			}
 	}
@@ -2450,9 +2447,7 @@ static void castle_quest(creature_type *creature_ptr)
 	{
 		/* Rewarded quest */
 		quest_ptr->status = QUEST_STATUS_REWARDED;
-
 		get_questinfo(q_index);
-
 		creature_ptr->reinit_wilderness = TRUE;
 	}
 	/* Failed quest */
@@ -2923,7 +2918,6 @@ static void building_recharge(creature_type *creature_ptr)
 #else
 		msg_format("You need %d gold to recharge %s!", price, tmp_str);
 #endif
-
 		return;
 	}
 
@@ -2932,17 +2926,11 @@ static void building_recharge(creature_type *creature_ptr)
 #ifdef JP
 		if(get_check(format("そのロッドを＄%d で再充填しますか？", price)))
 #else
-		if(get_check(format("Recharge the %s for %d gold? ",
-			((object_ptr->number > 1) ? "rods" : "rod"), price)))
+		if(get_check(format("Recharge the %s for %d gold? ", ((object_ptr->number > 1) ? "rods" : "rod"), price)))
 #endif
-
-		{
 			object_ptr->timeout = 0;	// Recharge fully
-		}
 		else
-		{
 			return;
-		}
 	}
 	else
 	{

@@ -2512,7 +2512,6 @@ static bool build_type6(floor_type *floor_ptr)
 
 	if(cheat_room)
 	{
-		/* Room type */
 #ifdef JP
 		msg_format("クリーチャー部屋(pit)(%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
 #else
@@ -2910,23 +2909,11 @@ static bool build_type7(floor_type *floor_ptr)
 
 	coord_trans(&x, &y, 0, 0, transno);
 
-	if(x < 0)
-	{
-		xoffset = -x - 1;
-	}
-	else
-	{
-		xoffset = 0;
-	}
+	if(x < 0) xoffset = -x - 1;
+	else xoffset = 0;
 
-	if(y < 0)
-	{
-		yoffset = -y - 1;
-	}
-	else
-	{
-		yoffset = 0;
-	}
+	if(y < 0) yoffset = -y - 1;
+	else yoffset = 0;
 
 	// Find and reserve some space in the dungeon.  Get center of room.
 	if(!find_space(floor_ptr, &yval, &xval, abs(y), abs(x))) return FALSE;
@@ -3000,23 +2987,11 @@ static bool build_type8(floor_type *floor_ptr)
 
 	coord_trans(&x, &y, 0, 0, transno);
 
-	if(x < 0)
-	{
-		xoffset = - x - 1;
-	}
-	else
-	{
-		xoffset = 0;
-	}
+	if(x < 0) xoffset = - x - 1;
+	else xoffset = 0;
 
-	if(y < 0)
-	{
-		yoffset = - y - 1;
-	}
-	else
-	{
-		yoffset = 0;
-	}
+	if(y < 0) yoffset = - y - 1;
+	else yoffset = 0;
 
 	/*
 	 * Try to allocate space for room.  If fails, exit
@@ -4928,12 +4903,10 @@ static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, 
 
 			if(one_in_(2))
 			{
-				/* left */
 				place_floor_bold(floor_ptr, y, x1 + 1);
 			}
 			else
 			{
-				/* right */
 				place_floor_bold(floor_ptr, y, x2 - 1);
 			}
 

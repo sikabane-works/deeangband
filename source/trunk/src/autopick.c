@@ -1457,7 +1457,6 @@ int is_autopick(creature_type *creature_ptr, object_type *object_ptr)
 	for (i=0; i < max_autopick; i++)
 	{
 		autopick_type *entry = &autopick_list[i];
-
 		if(is_autopick_aux(creature_ptr, object_ptr, entry, object_name)) return i;
 	}
 

@@ -409,27 +409,27 @@ static void prt_status(creature_type *creature_ptr)
 
 	bar_flags[0] = bar_flags[1] = bar_flags[2] = 0L;
 
-	if(creature_ptr->timed_trait[TRAIT_TSUYOSHI]) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
+	if(has_trait(creature_ptr, TRAIT_TSUYOSHI)) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) ADD_FLG(BAR_HALLUCINATION);		// Hallucinating
 	if(has_trait(creature_ptr, TRAIT_BLIND)) ADD_FLG(BAR_BLINDNESS);			// Blindness
-	if(creature_ptr->timed_trait[TRAIT_PARALYZED]) ADD_FLG(BAR_PARALYZE);		// Paralysis
+	if(has_trait(creature_ptr, TRAIT_PARALYZED)) ADD_FLG(BAR_PARALYZE);		// Paralysis
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) ADD_FLG(BAR_CONFUSE);			// Confusion
 	if(has_trait(creature_ptr, TRAIT_POISONED)) ADD_FLG(BAR_POISONED);		// Posioned
-	if(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE]) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
+	if(has_trait(creature_ptr, TRAIT_SEE_INVISIBLE)) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
 	if(IS_TIM_ESP(creature_ptr)) ADD_FLG(BAR_TELEPATHY);		// Timed esp
-	if(creature_ptr->timed_trait[TRAIT_REGENERATE]) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
-	if(creature_ptr->timed_trait[TRAIT_SEE_INFRA]) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
-	if(creature_ptr->timed_trait[TRAIT_PROT_EVIL]) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
+	if(has_trait(creature_ptr, TRAIT_REGENERATE)) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
+	if(has_trait(creature_ptr, TRAIT_SEE_INFRA)) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
+	if(has_trait(creature_ptr, TRAIT_PROT_EVIL)) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
 	if(IS_INVULN(creature_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability
 	if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) ADD_FLG(BAR_WRAITH);		// Wraith form
-	if(creature_ptr->timed_trait[TRAIT_PASS_WALL]) ADD_FLG(BAR_PASSWALL);		// Pass wall
-	if(creature_ptr->timed_trait[TRAIT_REFLECTING]) ADD_FLG(BAR_REFLECTION);
+	if(has_trait(creature_ptr, TRAIT_PASS_WALL)) ADD_FLG(BAR_PASSWALL);		// Pass wall
+	if(has_trait(creature_ptr, TRAIT_REFLECTING)) ADD_FLG(BAR_REFLECTION);
 	if(IS_HERO(creature_ptr)) ADD_FLG(BAR_HEROISM);			// Heroism
-	if(creature_ptr->timed_trait[TRAIT_S_HERO]) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
+	if(has_trait(creature_ptr, TRAIT_S_HERO)) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
 	if(IS_BLESSED(creature_ptr)) ADD_FLG(BAR_BLESSED);		// Blessed
-	if(creature_ptr->timed_trait[TRAIT_MAGIC_DEF]) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
-	if(creature_ptr->timed_trait[TRAIT_TSUBURERU]) ADD_FLG(BAR_EXPAND);
-	if(creature_ptr->timed_trait[TRAIT_SHIELD]) ADD_FLG(BAR_STONESKIN);
+	if(has_trait(creature_ptr, TRAIT_MAGIC_DEF)) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
+	if(has_trait(creature_ptr, TRAIT_TSUBURERU)) ADD_FLG(BAR_EXPAND);
+	if(has_trait(creature_ptr, TRAIT_SHIELD)) ADD_FLG(BAR_STONESKIN);
 	if(creature_ptr->posture & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
 
 	if(IS_OPPOSE_ACID(creature_ptr)) ADD_FLG(BAR_RESACID);
@@ -437,32 +437,32 @@ static void prt_status(creature_type *creature_ptr)
 	if(IS_OPPOSE_FIRE(creature_ptr)) ADD_FLG(BAR_RESFIRE);
 	if(IS_OPPOSE_COLD(creature_ptr)) ADD_FLG(BAR_RESCOLD);
 	if(IS_OPPOSE_POIS(creature_ptr)) ADD_FLG(BAR_RESPOIS);
-	if(creature_ptr->timed_trait[TRAIT_WORD_RECALL]) ADD_FLG(BAR_RECALL); // Word of Recall
-	if(creature_ptr->timed_trait[TRAIT_ALTER_REALITY]) ADD_FLG(BAR_ALTER); // Alter realiry
+	if(has_trait(creature_ptr, TRAIT_WORD_RECALL)) ADD_FLG(BAR_RECALL); // Word of Recall
+	if(has_trait(creature_ptr, TRAIT_ALTER_REALITY)) ADD_FLG(BAR_ALTER); // Alter realiry
 	if(has_trait(creature_ptr, TRAIT_AFRAID)) ADD_FLG(BAR_AFRAID); // Afraid
-	if(creature_ptr->timed_trait[TRAIT_RES_TIME]) ADD_FLG(BAR_RESTIME); // Resist time
-	if(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]) ADD_FLG(BAR_MULTISHADOW);
-	if(creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE]) ADD_FLG(BAR_ATTKCONF); // Confusing Hands
-	if(creature_ptr->timed_trait[TRAIT_RESIST_MAGIC]) ADD_FLG(BAR_REGMAGIC);
-	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES]) ADD_FLG(BAR_ULTIMATE); // Ultimate-resistance
-	if(creature_ptr->timed_trait[TRAIT_LEVITATION]) ADD_FLG(BAR_LEVITATE); // tim levitation
-	if(creature_ptr->timed_trait[TRAIT_RES_NETH]) ADD_FLG(BAR_RESNETH);
-	if(creature_ptr->timed_trait[TRAIT_DUST_ROBE]) ADD_FLG(BAR_DUSTROBE);
+	if(has_trait(creature_ptr, TRAIT_RES_TIME)) ADD_FLG(BAR_RESTIME); // Resist time
+	if(has_trait(creature_ptr, TRAIT_MULTI_SHADOW)) ADD_FLG(BAR_MULTISHADOW);
+	if(has_trait(creature_ptr, TRAIT_CONFUSING_MELEE)) ADD_FLG(BAR_ATTKCONF); // Confusing Hands
+	if(has_trait(creature_ptr, TRAIT_RESIST_MAGIC)) ADD_FLG(BAR_REGMAGIC);
+	if(has_trait(creature_ptr, TRAIT_ULTRA_RES)) ADD_FLG(BAR_ULTIMATE); // Ultimate-resistance
+	if(has_trait(creature_ptr, TRAIT_LEVITATION)) ADD_FLG(BAR_LEVITATE); // tim levitation
+	if(has_trait(creature_ptr, TRAIT_RES_NETH)) ADD_FLG(BAR_RESNETH);
+	if(has_trait(creature_ptr, TRAIT_DUST_ROBE)) ADD_FLG(BAR_DUSTROBE);
 
-	if(creature_ptr->timed_trait[TRAIT_FIRE_BRAND]) ADD_FLG(BAR_ATTKFIRE);
-	if(creature_ptr->timed_trait[TRAIT_COLD_BRAND]) ADD_FLG(BAR_ATTKCOLD);
-	if(creature_ptr->timed_trait[TRAIT_ELEC_BRAND]) ADD_FLG(BAR_ATTKELEC);
-	if(creature_ptr->timed_trait[TRAIT_ACID_BRAND]) ADD_FLG(BAR_ATTKACID);
-	if(creature_ptr->timed_trait[TRAIT_POIS_BRAND]) ADD_FLG(BAR_ATTKPOIS);
+	if(has_trait(creature_ptr, TRAIT_FIRE_BRAND)) ADD_FLG(BAR_ATTKFIRE);
+	if(has_trait(creature_ptr, TRAIT_COLD_BRAND)) ADD_FLG(BAR_ATTKCOLD);
+	if(has_trait(creature_ptr, TRAIT_ELEC_BRAND)) ADD_FLG(BAR_ATTKELEC);
+	if(has_trait(creature_ptr, TRAIT_ACID_BRAND)) ADD_FLG(BAR_ATTKACID);
+	if(has_trait(creature_ptr, TRAIT_POIS_BRAND)) ADD_FLG(BAR_ATTKPOIS);
 	if(creature_ptr->posture & NINJA_S_STEALTH) ADD_FLG(BAR_SUPERSTEALTH);
 
-	if(creature_ptr->timed_trait[TRAIT_AURA_FIRE]) ADD_FLG(BAR_SHFIRE);
+	if(has_trait(creature_ptr, TRAIT_AURA_FIRE)) ADD_FLG(BAR_SHFIRE);
 	
 	if(IS_TIM_STEALTH(creature_ptr)) ADD_FLG(BAR_STEALTH); // tim stealth
 
-	if(creature_ptr->timed_trait[TRAIT_AURA_MANA]) ADD_FLG(BAR_TOUKI);
-	if(creature_ptr->timed_trait[TRAIT_HOLY_AURA]) ADD_FLG(BAR_SHHOLY);
-	if(creature_ptr->timed_trait[TRAIT_EYE_EYE]) ADD_FLG(BAR_EYEEYE);
+	if(has_trait(creature_ptr, TRAIT_AURA_MANA)) ADD_FLG(BAR_TOUKI);
+	if(has_trait(creature_ptr, TRAIT_HOLY_AURA)) ADD_FLG(BAR_SHHOLY);
+	if(has_trait(creature_ptr, TRAIT_EYE_EYE)) ADD_FLG(BAR_EYEEYE);
 
 	/* Hex spells */
 	if(creature_ptr->realm1 == REALM_HEX)
@@ -670,12 +670,7 @@ static void prt_sp(creature_type *creature_ptr)
 	char tmp[32];
 	byte color;
 
-#ifdef JP
 	put_str("MP", ROW_CURSP, COL_CURSP);
-#else
-	put_str("SP", ROW_CURSP, COL_CURSP);
-#endif
-
 	sprintf(tmp, "%5ld", creature_ptr->csp);
 
 	if(creature_ptr->csp >= creature_ptr->msp) color = TERM_L_GREEN;
@@ -705,22 +700,13 @@ static void prt_depth(creature_type *creature_ptr)
 	col_depth = wid + COL_DEPTH;
 	row_depth = hgt + ROW_DEPTH;
 
-	if(!floor_ptr->floor_level)
-	{
 #ifdef JP
-		strcpy(depths, "地上");
+	if(!floor_ptr->floor_level) strcpy(depths, "地上");
+	else if(floor_ptr->quest && !floor_ptr->dun_type) strcpy(depths, "地上");
 #else
-		strcpy(depths, "Surf.");
+	if(!floor_ptr->floor_level) strcpy(depths, "Surf.");
+	else if(floor_ptr->quest && !floor_ptr->dun_type) strcpy(depths, "Quest");
 #endif
-	}
-	else if(floor_ptr->quest && !floor_ptr->dun_type)
-	{
-#ifdef JP
-		strcpy(depths, "地上");
-#else
-		strcpy(depths, "Quest");
-#endif
-	}
 	else
 	{
 #ifdef JP
