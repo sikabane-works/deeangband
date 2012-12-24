@@ -36,7 +36,6 @@ bool do_cmd_archer(creature_type *creature_ptr)
 
 	object_type	forge;
 	object_type     *quest_ptr;
-
 	char com[80];
 	char object_name[MAX_NLEN];
 
@@ -44,23 +43,15 @@ bool do_cmd_archer(creature_type *creature_ptr)
 
 	quest_ptr = &forge;
 
-	if(creature_ptr->lev >= 20)
+	
 #ifdef JP
-		sprintf(com, "[S]弾, [A]矢, [B]クロスボウの矢 :");
+	if(creature_ptr->lev >= 20) sprintf(com, "[S]弾, [A]矢, [B]クロスボウの矢 :");
+	else if(creature_ptr->lev >= 10) sprintf(com, "[S]弾, [A]矢:");
+	else sprintf(com, "[S]弾:");
 #else
-		sprintf(com, "Create [S]hots, Create [A]rrow or Create [B]olt ?");
-#endif
-	else if(creature_ptr->lev >= 10)
-#ifdef JP
-		sprintf(com, "[S]弾, [A]矢:");
-#else
-		sprintf(com, "Create [S]hots or Create [A]rrow ?");
-#endif
-	else
-#ifdef JP
-		sprintf(com, "[S]弾:");
-#else
-		sprintf(com, "Create [S]hots ?");
+	if(creature_ptr->lev >= 20)	sprintf(com, "Create [S]hots, Create [A]rrow or Create [B]olt ?");
+	else if(creature_ptr->lev >= 10) sprintf(com, "Create [S]hots or Create [A]rrow ?");
+	else sprintf(com, "Create [S]hots ?");
 #endif
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
@@ -440,8 +431,12 @@ bool choose_kamae(creature_type *creature_ptr)
 
 #ifdef JP
 	prt(" a) 構えをとく", 2, 20);
+	prt("", 1, 0);
+	prt("        どの構えをとりますか？", 1, 14);
 #else
 	prt(" a) No form", 2, 20);
+	prt("", 1, 0);
+	prt("        Choose Form: ", 1, 14);
 #endif
 
 	for (i = 0; i < MAX_KAMAE; i++)
@@ -452,13 +447,6 @@ bool choose_kamae(creature_type *creature_ptr)
 			prt(buf, 3+i, 20);
 		}
 	}
-
-	prt("", 1, 0);
-#ifdef JP
-	prt("        どの構えをとりますか？", 1, 14);
-#else
-	prt("        Choose Form: ", 1, 14);
-#endif
 
 	while(1)
 	{
@@ -608,10 +596,7 @@ bool choose_kata(creature_type *creature_ptr)
 		}
 		else if((choice == 'a') || (choice == 'A'))
 		{
-			if(creature_ptr->action == ACTION_KATA)
-			{
-				set_action(creature_ptr, ACTION_NONE);
-			}
+			if(creature_ptr->action == ACTION_KATA) set_action(creature_ptr, ACTION_NONE);
 			else
 #ifdef JP
 				msg_print("もともと構えていない。");
@@ -1043,7 +1028,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 #ifdef JP
 			(void) strnfmt(tmp_val, 78, "%sを使いますか？ ", power_desc[i].name);
 #else
-			(void)strnfmt(tmp_val, 78, "Use %s? ", power_desc[i].name);
+			(void) strnfmt(tmp_val, 78, "Use %s? ", power_desc[i].name);
 #endif
 
 			/* Belay that order */

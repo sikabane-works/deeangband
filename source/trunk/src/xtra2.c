@@ -1997,7 +1997,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			/* Recall */
 			if(recall)
 			{
-				/* Save */
 				screen_save();
 
 				/* Recall on screen */

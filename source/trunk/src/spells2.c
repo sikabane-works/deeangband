@@ -1654,9 +1654,9 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 */
 bool probing(floor_type *floor_ptr)
 {
-	int     i, speed;
+	int i, speed;
 	int cu, cv;
-	bool    probe = FALSE;
+	bool probe = FALSE;
 	char buf[256];
 	cptr align;
 	cptr sex;
@@ -1969,49 +1969,20 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 
 				if(!in_generate) /* Normal */
 				{
-					if(t < 20)
-					{
-						/* Create granite wall */
-						cave_set_feat(floor_ptr, y, x, feat_granite);
-					}
-					else if(t < 70)
-					{
-						/* Create quartz vein */
-						cave_set_feat(floor_ptr, y, x, feat_quartz_vein);
-					}
-					else if(t < 100)
-					{
-						/* Create magma vein */
-						cave_set_feat(floor_ptr, y, x, feat_magma_vein);
-					}
-					else
-					{
-						/* Create floor */
-						cave_set_feat(floor_ptr, y, x, feat_floor_rand_table[randint0(100)]);
-					}
+					if(t < 20) cave_set_feat(floor_ptr, y, x, feat_granite);
+					else if(t < 70) cave_set_feat(floor_ptr, y, x, feat_quartz_vein);
+					else if(t < 100) cave_set_feat(floor_ptr, y, x, feat_magma_vein);
+					else cave_set_feat(floor_ptr, y, x, feat_floor_rand_table[randint0(100)]);
 				}
 				else /* In generation */
 				{
 					if(t < 20)
 					{
-						/* Create granite wall */
 						place_extra_grid(c_ptr);
 					}
-					else if(t < 70)
-					{
-						/* Create quartz vein */
-						c_ptr->feat = feat_quartz_vein;
-					}
-					else if(t < 100)
-					{
-						/* Create magma vein */
-						c_ptr->feat = feat_magma_vein;
-					}
-					else
-					{
-						/* Create floor */
-						place_floor_grid(c_ptr);
-					}
+					else if(t < 70) c_ptr->feat = feat_quartz_vein;
+					else if(t < 100) c_ptr->feat = feat_magma_vein;
+					else place_floor_grid(c_ptr);
 
 					/* Clear garbage of hidden trap or door */
 					c_ptr->mimic = 0;
@@ -2076,13 +2047,9 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 
 		forget_flow(floor_ptr);
 
-		/* Mega-Hack -- Forget the view and lite */
-		prepare_update(caster_ptr, PU_UN_VIEW | PU_UN_LITE);
-
-		prepare_update(caster_ptr, PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
-
+		// Mega-Hack -- Forget the view and lite
+		prepare_update(caster_ptr, PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 		prepare_redraw(PR_MAP);
-
 		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 		if(caster_ptr->posture & NINJA_S_STEALTH)
