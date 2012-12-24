@@ -5204,21 +5204,15 @@ bool ask_quick_start(creature_type *creature_ptr)
 
 	Term_clear();
 
-	/* Extra info */
-#ifdef JP
-	put_str("クイック・スタートを使うと以前と全く同じキャラクターで始められます。", 11, 5);
-#else
-	put_str("Do you want to use the quick start function(same character as your last one).", 11, 2);
-#endif
-
-	/* Choose */
 	while (1)
 	{
 		char c;
 
 #ifdef JP
+		put_str("クイック・スタートを使うと以前と全く同じキャラクターで始められます。", 11, 5);
 		put_str("クイック・スタートを使いますか？[y/N]", 14, 10);
 #else
+		put_str("Do you want to use the quick start function(same character as your last one).", 11, 2);
 		put_str("Use quick start? [y/N]", 14, 10);
 #endif
 		c = inkey();
@@ -5259,10 +5253,7 @@ bool ask_quick_start(creature_type *creature_ptr)
 	prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
 	update_creature(creature_ptr, TRUE);
 
-	/* Fully healed */
 	creature_ptr->chp = creature_ptr->mhp;
-
-	/* Fully rested */
 	creature_ptr->csp = creature_ptr->msp;
 
 	/* Process the player name */

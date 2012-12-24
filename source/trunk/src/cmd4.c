@@ -2324,65 +2324,32 @@ void do_cmd_options(void)
 
 		switch (k)
 		{
-			case '1':
+			
 #ifdef JP
-				do_cmd_options_aux(OPT_PAGE_INPUT, "キー入力オプション");
-#else
-				do_cmd_options_aux(OPT_PAGE_INPUT, "Input Options");
-#endif
-				break;
-
-			case '2':
-#ifdef JP
-				do_cmd_options_aux(OPT_PAGE_MAPSCREEN, "マップ画面オプション");
-#else
-				do_cmd_options_aux(OPT_PAGE_MAPSCREEN, "Map Screen Options");
-#endif
-				break;
-
-			case '3':
-#ifdef JP
-				do_cmd_options_aux(OPT_PAGE_TEXT, "テキスト表示オプション");
-#else
-				do_cmd_options_aux(OPT_PAGE_TEXT, "Text Display Options");
-#endif
-				break;
-
-			case '4':
-#ifdef JP
-				do_cmd_options_aux(OPT_PAGE_GAMEPLAY, "ゲームプレイ・オプション");
-#else
-				do_cmd_options_aux(OPT_PAGE_GAMEPLAY, "Game-Play Options");
-#endif
-				break;
-
-			case '5':
-#ifdef JP
-				do_cmd_options_aux(OPT_PAGE_DISTURBANCE, "行動中止関係のオプション");
-#else
-				do_cmd_options_aux(OPT_PAGE_DISTURBANCE, "Disturbance Options");
-#endif
-				break;
-
-			case '6':
-#ifdef JP
-				do_cmd_options_aux(OPT_PAGE_AUTODESTROY, "簡易自動破壊オプション");
-#else
-				do_cmd_options_aux(OPT_PAGE_AUTODESTROY, "Easy Auto-Destroyer Options");
-#endif
-				break;
-
-			/* Play-record Options */
+			case '1': do_cmd_options_aux(OPT_PAGE_INPUT, "キー入力オプション"); break;
+			case '2': do_cmd_options_aux(OPT_PAGE_MAPSCREEN, "マップ画面オプション"); break;
+			case '3': do_cmd_options_aux(OPT_PAGE_TEXT, "テキスト表示オプション"); break;
+			case '4': do_cmd_options_aux(OPT_PAGE_GAMEPLAY, "ゲームプレイ・オプション"); break;
+			case '5': do_cmd_options_aux(OPT_PAGE_DISTURBANCE, "行動中止関係のオプション"); break;
+			case '6': do_cmd_options_aux(OPT_PAGE_AUTODESTROY, "簡易自動破壊オプション"); break;
 			case 'R':
 			case 'r':
-#ifdef JP
 				do_cmd_options_aux(OPT_PAGE_PLAYRECORD, "プレイ記録オプション");
-#else
-				do_cmd_options_aux(OPT_PAGE_PLAYRECORD, "Play-record Options");
-#endif
 				break;
+#else
+			case '1': do_cmd_options_aux(OPT_PAGE_INPUT, "Input Options"); break;
+			case '2': do_cmd_options_aux(OPT_PAGE_MAPSCREEN, "Map Screen Options"); break;
+			case '3': do_cmd_options_aux(OPT_PAGE_TEXT, "Text Display Options"); break;
+			case '4': do_cmd_options_aux(OPT_PAGE_GAMEPLAY, "Game-Play Options"); break;
+			case '5': do_cmd_options_aux(OPT_PAGE_DISTURBANCE, "Disturbance Options"); break;
+			case '6': do_cmd_options_aux(OPT_PAGE_AUTODESTROY, "Easy Auto-Destroyer Options"); break;
+			case 'R':
+			case 'r':
+				do_cmd_options_aux(OPT_PAGE_PLAYRECORD, "Play-record Options");
+				break;
+#endif
 
-			/* Birth Options */
+				/* Birth Options */
 			case 'B':
 			case 'b':
 #ifdef JP
@@ -2569,13 +2536,10 @@ void do_cmd_options(void)
 				break;
 			}
 		}
-
 		msg_print(NULL);
 	}
 
-
 	screen_load();
-
 	prepare_redraw(PR_EQUIPPY);
 }
 
