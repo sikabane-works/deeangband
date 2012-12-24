@@ -1675,7 +1675,7 @@ static void do_cmd_options_cheat(cptr info)
 
 			case '?':
 			{
-				strnfmt(buf, sizeof(buf), "%s#%s", text_files[TEXT_FILES_OPTION], cheat_info[k].o_text);
+				strnfmt(buf, sizeof(buf), "%s#%s", TEXT_FILES_OPTION, cheat_info[k].o_text);
 				/* Peruse the help file */
 				(void)show_file(TRUE, buf, NULL, 0, 0);
 
@@ -1847,7 +1847,7 @@ static void do_cmd_options_autosave(cptr info)
 
 			case '?':
 			{
-				(void)show_file(TRUE, text_files[TEXT_FILES_OPTION_AUTOSAVE], NULL, 0, 0);
+				(void)show_file(TRUE, TEXT_FILES_OPTION_AUTOSAVE, NULL, 0, 0);
 				Term_clear(); 
 				break;
 			}
@@ -1994,7 +1994,7 @@ void do_cmd_options_aux(int page, cptr info)
 
 			case '?':
 			{
-				strnfmt(buf, sizeof(buf), "%s#%s", text_files[TEXT_FILES_OPTION], option_info[opt[k]].o_text);
+				strnfmt(buf, sizeof(buf), "%s#%s", TEXT_FILES_OPTION, option_info[opt[k]].o_text);
 				/* Peruse the help file */
 				(void)show_file(TRUE, buf, NULL, 0, 0);
 				Term_clear();
@@ -2135,7 +2135,7 @@ static void do_cmd_options_win(void)
 
 			case '?':
 			{
-				(void)show_file(TRUE, text_files[TEXT_FILES_OPTION_WINDOW], NULL, 0, 0);
+				(void)show_file(TRUE, TEXT_FILES_OPTION_WINDOW, NULL, 0, 0);
 				Term_clear(); 
 				break;
 			}
@@ -2414,7 +2414,7 @@ void do_cmd_options(void)
 					if(k == ESCAPE) break;
 					else if(k == '?')
 					{
-						(void)show_file(TRUE, text_files[TEXT_FILES_OPTION_BASEDELAY], NULL, 0, 0);
+						(void)show_file(TRUE, TEXT_FILES_OPTION_BASEDELAY, NULL, 0, 0);
 						Term_clear(); 
 					}
 					else if(isdigit(k)) delay_factor = D2I(k);
@@ -2448,7 +2448,7 @@ void do_cmd_options(void)
 					if(k == ESCAPE) break;
 					else if(k == '?')
 					{
-						(void)show_file(TRUE, text_files[TEXT_FILES_OPTION_HITPOINT], NULL, 0, 0);
+						(void)show_file(TRUE, TEXT_FILES_OPTION_HITPOINT, NULL, 0, 0);
 						Term_clear(); 
 					}
 					else if(isdigit(k)) hitpoint_warn = D2I(k);
@@ -2481,7 +2481,7 @@ void do_cmd_options(void)
 					if(k == ESCAPE) break;
 					else if(k == '?')
 					{
-						(void)show_file(TRUE, text_files[TEXT_FILES_OPTION_MANAPOINT], NULL, 0, 0);
+						(void)show_file(TRUE, TEXT_FILES_OPTION_MANAPOINT, NULL, 0, 0);
 						Term_clear(); 
 					}
 					else if(isdigit(k)) mana_warn = D2I(k);
@@ -2492,7 +2492,7 @@ void do_cmd_options(void)
 			}
 
 			case '?':
-				(void)show_file(TRUE, text_files[TEXT_FILES_OPTION], NULL, 0, 0);
+				(void)show_file(TRUE, TEXT_FILES_OPTION, NULL, 0, 0);
 				Term_clear(); 
 				break;
 

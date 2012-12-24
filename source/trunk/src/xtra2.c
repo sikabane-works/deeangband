@@ -665,22 +665,13 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	{
 		arena_settled = TRUE;
 
-		if(arena_number > MAX_ARENA_MONS)
-		{
 #ifdef JP
-			msg_print("素晴らしい！君こそ真の勝利者だ。");
+		if(arena_number > MAX_ARENA_MONS) msg_print("素晴らしい！君こそ真の勝利者だ。");
+		else msg_print("勝利！チャンピオンへの道を進んでいる。");
 #else
-			msg_print("You are a Genuine Champion!");
+		if(arena_number > MAX_ARENA_MONS) msg_print("You are a Genuine Champion!");
+		else msg_print("Victorious! You're on your way to becoming Champion.");
 #endif
-		}
-		else
-		{
-#ifdef JP
-			msg_print("勝利！チャンピオンへの道を進んでいる。");
-#else
-			msg_print("Victorious! You're on your way to becoming Champion.");
-#endif
-		}
 
 		if(arena_info[arena_number].tval)
 		{
@@ -2058,42 +2049,24 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		if((query == ' ') && !(mode & (TARGET_LOOK))) return query;
 
 		/* Change the intro */
-#ifdef JP
-		s1 = "それは";
-#else
-		s1 = "It is ";
-#endif
-
 
 		/* Hack -- take account of gender */
 #ifdef JP
+		s1 = "それは";
 		if(IS_FEMALE(creature_ptr)) s1 = "彼女は";
-#else
-		if(IS_FEMALE(creature_ptr)) s1 = "She is ";
-#endif
-
-#ifdef JP
 		else if(IS_MALE(creature_ptr)) s1 = "彼は";
-#else
-		else if(IS_MALE(creature_ptr)) s1 = "He is ";
-#endif
-
-
-		/* Use a preposition */
-#ifdef JP
 		s2 = "を";
 		s3 = "持っている";
-#else
-		s2 = "carrying ";
-#endif
-
-		/* Use a preposition */
-#ifdef JP
 		s2 = "の上";
 		s3 = "にいる";
 #else
+		s1 = "It is ";
+		if(IS_FEMALE(creature_ptr)) s1 = "She is ";
+		else if(IS_MALE(creature_ptr)) s1 = "He is ";
+		s2 = "carrying ";
 		s2 = "on ";
 #endif
+
 
 	}
 
@@ -2116,11 +2089,9 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 				object_desc(object_name, object_ptr, 0);
 
 #ifdef JP
-				sprintf(out_val, "%s%s%s%s[%s]",
-					s1, object_name, s2, s3, info);
+				sprintf(out_val, "%s%s%s%s[%s]", s1, object_name, s2, s3, info);
 #else
-				sprintf(out_val, "%s%s%s%s [%s]",
-					s1, s2, s3, object_name, info);
+				sprintf(out_val, "%s%s%s%s [%s]", s1, s2, s3, object_name, info);
 #endif
 
 				prt(out_val, 0, 0);
@@ -2138,11 +2109,9 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			{
 				/* Display rough information about items */
 #ifdef JP
-				sprintf(out_val, "%s %d個のアイテム%s%s ['x'で一覧, %s]",
-					s1, floor_num, s2, s3, info);
+				sprintf(out_val, "%s %d個のアイテム%s%s ['x'で一覧, %s]", s1, floor_num, s2, s3, info);
 #else
-				sprintf(out_val, "%s%s%sa pile of %d items [x,%s]",
-					s1, s2, s3, floor_num, info);
+				sprintf(out_val, "%s%s%sa pile of %d items [x,%s]", s1, s2, s3, floor_num, info);
 #endif
 
 				prt(out_val, 0, 0);
@@ -2896,22 +2865,13 @@ bool get_aim_dir(creature_type *creature_ptr, int range, int *dp)
 
 	while (!dir)	// Ask until satisfied
 	{
-		if(!target_okay(creature_ptr))	// Choose a prompt
-		{
 #ifdef JP
-			p = "方向 ('*'でターゲット選択, ESCで中断)? ";
+		if(!target_okay(creature_ptr)) p = "方向 ('*'でターゲット選択, ESCで中断)? ";
+		else p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 #else
-			p = "Direction ('*' to choose a target, Escape to cancel)? ";
+		if(!target_okay(creature_ptr)) p = "Direction ('*' to choose a target, Escape to cancel)? ";
+		else p = "Direction ('5' for target, '*' to re-target, Escape to cancel)? ";
 #endif
-		}
-		else
-		{
-#ifdef JP
-			p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
-#else
-			p = "Direction ('5' for target, '*' to re-target, Escape to cancel)? ";
-#endif
-		}
 
 		if(!get_com(p, &command, TRUE)) break;	// Get a command (or Cancel)
 		if(use_menu) if(command == '\r') command = 't';

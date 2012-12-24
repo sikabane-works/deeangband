@@ -4875,7 +4875,7 @@ static void init_stuff(void)
 	validate_dir(ANGBAND_DIR_USER, TRUE);
 	validate_dir(ANGBAND_DIR_XTRA, TRUE);
 
-	path_build(path, sizeof(path), ANGBAND_DIR_FILE, text_files[TEXT_FILES_GAME_NEWS]);
+	path_build(path, sizeof(path), ANGBAND_DIR_FILE, TEXT_FILES_GAME_NEWS);
 
 	/* Hack -- Validate the "news.txt" file */
 	validate_file(path);

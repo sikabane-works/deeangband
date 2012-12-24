@@ -1194,10 +1194,10 @@ static void creature_speaking(creature_type *creature_ptr)
 #endif
 
 	// Select the file for creature quotes
-	if(has_trait(creature_ptr, TRAIT_AFRAID)) filename = text_files[TEXT_FILES_CREATURE_FEAR];
-	else if(is_pet(player_ptr, creature_ptr)) filename = text_files[TEXT_FILES_CREATURE_PET];
-	else if(is_friendly(player_ptr, creature_ptr)) filename = text_files[TEXT_FILES_CREATURE_FRIENDLY];
-	else filename = text_files[TEXT_FILES_CREATURE_SPEAK];
+	if(has_trait(creature_ptr, TRAIT_AFRAID)) filename = TEXT_FILES_CREATURE_FEAR;
+	else if(is_pet(player_ptr, creature_ptr)) filename = TEXT_FILES_CREATURE_PET;
+	else if(is_friendly(player_ptr, creature_ptr)) filename = TEXT_FILES_CREATURE_FRIENDLY;
+	else filename = TEXT_FILES_CREATURE_SPEAK;
 
 	// Get the creature line
 	if(get_rnd_line(filename, creature_ptr->ap_species_idx, monmessage) == 0) // Say something

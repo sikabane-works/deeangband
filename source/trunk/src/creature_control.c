@@ -1735,7 +1735,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 	{
 		if(one_in_(2))
 		{
-			if(!get_rnd_line(text_files[TEXT_FILES_SILLY], creature_ptr->species_idx, silly_name))
+			if(!get_rnd_line(TEXT_FILES_SILLY, creature_ptr->species_idx, silly_name))
 				named = TRUE;
 		}
 

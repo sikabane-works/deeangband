@@ -1740,7 +1740,7 @@ void init_angband(void)
 
 	/*** Verify the "news" file ***/
 
-	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, text_files[TEXT_FILES_NEWS]);
+	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, TEXT_FILES_NEWS);
 
 	/* Attempt to open the file */
 	fd = fd_open(buf, O_RDONLY);
@@ -1767,7 +1767,7 @@ void init_angband(void)
 	/*** Display the "news" file ***/
 
 	Term_clear();
-	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, text_files[TEXT_FILES_NEWS]);
+	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, TEXT_FILES_NEWS);
 
 	/* Open the News file */
 	fp = my_fopen(buf, "r");

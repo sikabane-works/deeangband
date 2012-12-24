@@ -1184,20 +1184,20 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			switch (randint1(20))
 			{
 				case 1:
-					err = get_rnd_line(text_files[TEXT_FILES_CHAINSWORD], 0, Rumor);
+					err = get_rnd_line(TEXT_FILES_CHAINSWORD, 0, Rumor);
 					break;
 
 				case 2:
-					err = get_rnd_line(text_files[TEXT_FILES_ERROR], 0, Rumor);
+					err = get_rnd_line(TEXT_FILES_ERROR, 0, Rumor);
 					break;
 				case 3:
 				case 4:
 				case 5:
-					err = get_rnd_line(text_files[TEXT_FILES_DEATH], 0, Rumor);
+					err = get_rnd_line(TEXT_FILES_DEATH, 0, Rumor);
 					break;
 
 				default:
-					err = get_rnd_line(text_files[TEXT_FILES_RUMOR], 0, Rumor);
+					err = get_rnd_line(TEXT_FILES_RUMOR, 0, Rumor);
 					break;
 			}
 

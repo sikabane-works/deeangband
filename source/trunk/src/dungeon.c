@@ -2478,7 +2478,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_CHAINSWORD) && one_in_(CHAINSWORD_NOISE))
 	{
 		char noise[1024];
-		if(!get_rnd_line(text_files[TEXT_FILES_CHAINSWORD], 0, noise)) msg_print(noise);
+		if(!get_rnd_line(TEXT_FILES_CHAINSWORD, 0, noise)) msg_print(noise);
 		disturb(player_ptr, FALSE, FALSE);
 	}
 
@@ -4449,7 +4449,7 @@ static void process_player_command(creature_type *creature_ptr)
 			{
 				char error_m[1024];
 				sound(SOUND_ILLEGAL);
-				if(!get_rnd_line(game_messages[TEXT_FILES_ERROR], 0, error_m))
+				if(!get_rnd_line(TEXT_FILES_ERROR, 0, error_m))
 					msg_print(error_m);
 			}
 			else

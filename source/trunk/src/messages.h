@@ -113,41 +113,44 @@ static const cptr desc_moan[] =
 #endif
 };
 
+#ifdef JP
+#define TEXT_FILES_GAME_NEWS "news_j.txt"
+#define TEXT_FILES_ARMOUR_CURSED_ARTIFACT "a_cursed_j.txt"
+#define TEXT_FILES_ARMOUR_LOW_ARTIFACT "a_low_j.txt"
+#define TEXT_FILES_ARMOUR_MED_ARTIFACT "a_med_j.txt"
+#define TEXT_FILES_ARMOUR_HIGH_ARTIFACT "a_high_j.txt"
+
+#define TEXT_FILES_WEAPON_CURSED_ARTIFACT "w_cursed_j.txt"
+#define TEXT_FILES_WEAPON_LOW_ARTIFACT "w_low_j.txt"
+#define TEXT_FILES_WEAPON_MED_ARTIFACT "w_med_j.txt"
+#define TEXT_FILES_WEAPON_HIGH_ARTIFACT "w_high_j.txt"
+#define TEXT_FILES_CHAINSWORD "chainswd_j.txt"
+
+#define TEXT_FILES_ERROR "error_j.txt"
+#define TEXT_FILES_DEATH "death_j.txt"
+#define TEXT_FILES_SEPPUKU "seppuku_j.txt"
+#define TEXT_FILES_CREATURE_FEAR "monfear_j.txt"
+#define TEXT_FILES_CREATURE_PET "monpet_j.txt"
+
+#define TEXT_FILES_CREATURE_FRIENDLY "monfrien_j.txt"
+#define TEXT_FILES_CREATURE_SPEAK "monspeak_j.txt"
+#define TEXT_FILES_RUMOR "rumors_j.txt"
+#define TEXT_FILES_SILLY "silly_j.txt"
+#define TEXT_FILES_NEWS "news_j.txt"
+
+#define TEXT_FILES_OPTION "joption.txt"
+#define TEXT_FILES_OPTION_AUTOSAVE "joption.txt#Autosave"
+#define TEXT_FILES_OPTION_WINDOW "joption.txt#Window"
+#define TEXT_FILES_OPTION_BASEDELAY "joption.txt#BaseDelay"
+#define TEXT_FILES_OPTION_HITPOINT "joption.txt#Hitpoint"
+
+#define TEXT_FILES_OPTION_MANAPOINT "joption.txt#Manapoint"
+#else
+#endif
+
+#if 0
 static const cptr text_files[]=
 {
-#ifdef JP
-	"news_j.txt",
-	"a_cursed_j.txt",
-	"a_low_j.txt",
-	"a_med_j.txt",
-	"a_high_j.txt",
-
-	"w_cursed_j.txt",
-	"w_low_j.txt",
-	"w_med_j.txt",
-	"w_high_j.txt",
-	"chainswd_j.txt",
-
-	"error_j.txt",
-	"death_j.txt",
-	"seppuku_j.txt",
-	"monfear_j.txt",
-	"monpet_j.txt",
-
-	"monfrien_j.txt",
-	"monspeak_j.txt",
-	"rumors_j.txt",
-	"silly_j.txt",
-	"news_j.txt",
-
-	"joption.txt",
-	"joption.txt#Autosave",
-	"joption.txt#Window",
-	"joption.txt#BaseDelay",
-	"joption.txt#Hitpoint",
-
-	"joption.txt#Manapoint",
-#else
 	"news.txt",
 	"a_cursed.txt",
 	"a_low.txt",
@@ -169,7 +172,7 @@ static const cptr text_files[]=
 	"monfrien.txt",
 	"monspeak.txt",
 	"rumors.txt",
-	"silly_j.txt",
+	"silly.txt",
 	"news.txt",
 
 	"option.txt",
@@ -179,9 +182,10 @@ static const cptr text_files[]=
 	"option.txt#Hitpoint",
 
 	"option.txt#Manapoint",
-#endif
 };
+#endif
 
+/*
 enum TEXT_FILES
 {
 	TEXT_FILES_GAME_NEWS,
@@ -216,6 +220,7 @@ enum TEXT_FILES
 
 	TEXT_FILES_OPTION_MANAPOINT,
 };
+*/
 
 static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 {

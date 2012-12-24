@@ -2372,9 +2372,9 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 			{
 				char Rumor[1024];
 #ifdef JP
-				if(!get_rnd_line_jonly(text_files[TEXT_FILES_RUMOR], 0, Rumor, 10))
+				if(!get_rnd_line_jonly(TEXT_FILES_RUMOR, 0, Rumor, 10))
 #else
-				if(!get_rnd_line(text_files[TEXT_FILES_RUMOR], 0, Rumor))
+				if(!get_rnd_line(TEXT_FILES_RUMOR, 0, Rumor))
 #endif
 				msg_format("%s", Rumor);
 				break;
