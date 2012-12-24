@@ -831,43 +831,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 	switch (creature_ptr->race_idx1)
 	{
-		case RACE_DWARF:
-#ifdef JP
-			msg_print("周囲を調べた。");
-#else
-			msg_print("You examine your surroundings.");
-#endif
-
-			(void)detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
-			break;
-
-		case RACE_ORC:
-#ifdef JP
-			msg_print("勇気を出した。");
-#else
-			msg_print("You play tough.");
-#endif
-
-			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE);
-			break;
-
-		case RACE_OGRE:
-#ifdef JP
-			msg_print("爆発のルーンを慎重に仕掛けた...");
-#else
-			msg_print("You carefully set an explosive rune...");
-#endif
-
-			explosive_rune(creature_ptr);
-			break;
-
-		case RACE_GIANT:
-			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-			(void)wall_to_mud(creature_ptr, dir);
-			break;
-
 		case RACE_CYCLOPS:
 			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 #ifdef JP
