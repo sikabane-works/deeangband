@@ -629,11 +629,8 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 			// ...but a high saving throw does help a little.
 			if(!saving_throw(creature_ptr, SAVING_AC, object_ptr->pval * 2, 0) && !saving_throw(creature_ptr, SAVING_EV, object_ptr->pval * 2, 0))
 			{
-#ifdef JP
-				if(one_in_(6)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", NULL, -1);
-#else
-				if(one_in_(6)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "a chest dispel-player trap", NULL, -1);
-#endif
+				if(one_in_(6)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), COD_CHEST_DP_TRAP, NULL, -1);
+
 				else if(one_in_(5)) (void)add_timed_trait(creature_ptr, TRAIT_CUT, 200, TRUE);
 				else if(one_in_(4))
 				{

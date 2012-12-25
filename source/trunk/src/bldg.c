@@ -701,42 +701,22 @@ static int yaku_check(void)
 
 	switch (yaku_check_pair())
 	{
-	case 1:
+	
 #ifdef JP
-		c_put_str(TERM_YELLOW, "ワンペア", 4, 3);
+		case 1: c_put_str(TERM_YELLOW, "ワンペア", 4, 3); return 0;
+		case 2: c_put_str(TERM_YELLOW, "ツーペア", 4, 3); return ODDS_2P;
+		case 3: c_put_str(TERM_YELLOW, "スリーカード", 4, 3); return ODDS_3C;
+		case 4: c_put_str(TERM_YELLOW, "フルハウス", 4, 3); return ODDS_FH;
+		case 6: c_put_str(TERM_YELLOW, "フォーカード", 4, 3); return ODDS_4C;
 #else
-		c_put_str(TERM_YELLOW, "One pair", 4, 3);
+		case 1: c_put_str(TERM_YELLOW, "One pair", 4, 3); return 0;
+		case 2: c_put_str(TERM_YELLOW, "Two pair", 4, 3); return ODDS_2P;
+		case 3: c_put_str(TERM_YELLOW, "Three of a kind", 4, 3); return ODDS_3C;
+		case 4: c_put_str(TERM_YELLOW, "Full house", 4, 3); return ODDS_FH;
+		case 6: c_put_str(TERM_YELLOW, "Four of a kind", 4, 3); return ODDS_4C;
 #endif
-		return 0;
-	case 2:
-#ifdef JP
-		c_put_str(TERM_YELLOW, "ツーペア", 4, 3);
-#else
-		c_put_str(TERM_YELLOW, "Two pair", 4, 3);
-#endif
-		return ODDS_2P;
-	case 3:
-#ifdef JP
-		c_put_str(TERM_YELLOW, "スリーカード", 4, 3);
-#else
-		c_put_str(TERM_YELLOW, "Three of a kind", 4, 3);
-#endif
-		return ODDS_3C;
-	case 4:
-#ifdef JP
-		c_put_str(TERM_YELLOW, "フルハウス", 4, 3);
-#else
-		c_put_str(TERM_YELLOW, "Full house", 4, 3);
-#endif
-		return ODDS_FH;
-	case 6:
-#ifdef JP
-		c_put_str(TERM_YELLOW, "フォーカード", 4, 3);
-#else
-		c_put_str(TERM_YELLOW, "Four of a kind", 4, 3);
-#endif
-		return ODDS_4C;
-	case 7:
+
+		case 7:
 		if(!NUM_OF(cards[0]) || !NUM_OF(cards[1]))
 		{
 #ifdef JP
@@ -1295,12 +1275,10 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 #else
 							msg_print("Hit any key to roll again");
 #endif
-
 							msg_print(NULL);
 							roll1 = randint1(6);
 							roll2 = randint1(6);
 							roll3 = roll1 +  roll2;
-
 #ifdef JP
 							sprintf(tmp_str, "出目: %d %d          合計:      %d", roll1, roll2, roll3);
 #else
@@ -1317,18 +1295,14 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 				case BUILDING_FUNCTION_SPIN_WHEEL:  /* Spin the Wheel Game */
 					win = FALSE;
 					odds = 9;
-#ifdef JP
-					c_put_str(TERM_GREEN, "ルーレット", 5, 2);
-#else
-					c_put_str(TERM_GREEN, "Wheel", 5, 2);
-#endif
-
 					prt("0  1  2  3  4  5  6  7  8  9", 7, 5);
 					prt("--------------------------------", 8, 3);
 					strcpy(out_val, "");
 #ifdef JP
+					c_put_str(TERM_GREEN, "ルーレット", 5, 2);
 					get_string("何番？ (0-9): ", out_val, 32);
 #else
+					c_put_str(TERM_GREEN, "Wheel", 5, 2);
 					get_string("Pick a number (0-9): ", out_val, 32);
 #endif
 
@@ -1454,19 +1428,14 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 				if(win)
 				{
-#ifdef JP
-					prt("あなたの勝ち", 16, 37);
-#else
-					prt("YOU WON", 16, 37);
-#endif
-
 					creature_ptr->au += odds * wager;
 #ifdef JP
+					prt("あなたの勝ち", 16, 37);
 					sprintf(tmp_str, "倍率: %d", odds);
 #else
+					prt("YOU WON", 16, 37);
 					sprintf(tmp_str, "Payoff: %d", odds);
 #endif
-
 					prt(tmp_str, 17, 37);
 				}
 				else
@@ -1481,17 +1450,13 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 				}
 #ifdef JP
 				sprintf(tmp_str, "現在の所持金:     %9ld", creature_ptr->au);
-#else
-				sprintf(tmp_str, "Current Gold:     %9ld", creature_ptr->au);
-#endif
-
 				prt(tmp_str, 22, 2);
-#ifdef JP
 				prt("もう一度(Y/N)？", 18, 37);
 #else
+				sprintf(tmp_str, "Current Gold:     %9ld", creature_ptr->au);
+				prt(tmp_str, 22, 2);
 				prt("Again(Y/N)?", 18, 37);
 #endif
-
 				move_cursor(18, 52);
 				again = inkey();
 				prt("", 16, 37);

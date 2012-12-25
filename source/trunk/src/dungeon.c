@@ -1538,11 +1538,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			{
 #ifdef JP
 				msg_format("“úŒõ‚ª%s‚Ì“÷‘Ì‚ğÄ‚«Å‚ª‚µ‚½I", creature_name);
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "“úŒõ", NULL, -1);
 #else
 				msg_print("The sun's rays scorch your undead flesh!");
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "sunlight", NULL, -1);
 #endif
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, COD_SUNLIGHT, NULL, -1);
 				cave_no_regen = TRUE;
 			}
 		}

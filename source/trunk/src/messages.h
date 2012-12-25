@@ -49,6 +49,8 @@
 #define COD_SCROLL_OF_ICE "氷の巻物"
 #define COD_SCROLL_OF_LOGRUS "ログルスの巻物"
 #define COD_POISONOUS_FOOD "毒入り食料"
+#define COD_CHEST_DP_TRAP "破滅のトラップの宝箱"
+#define COD_SUNLIGHT "日光"
 #else
 #define COD_DART_TRAP "a dart trap"
 #define COD_PERILOUS_IDENTIFY "perilous secrets"
@@ -59,6 +61,8 @@
 #define COD_SCROLL_OF_ICE "a Scroll of Ice"
 #define COD_SCROLL_OF_LOGRUS "a Scroll of Logrus"
 #define COD_POISONOUS_FOOD "poisonous food"
+#define COD_CHEST_DP_TRAP "a chest dispel-player trap"
+#define COD_SUNLIGHT "sunlight"
 #endif
 
 // Hack -- possible "insult" messages
