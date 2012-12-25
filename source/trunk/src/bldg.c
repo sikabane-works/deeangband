@@ -321,11 +321,7 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 		case BUILDING_FUNCTION_ARENA_RULES:
 			screen_save(); // Save screen
 			// Peruse the arena help file
-#ifdef JP
-			(void)show_file(TRUE, "arena_j.txt", NULL, 0, 0);
-#else
-			(void)show_file(TRUE, "arena.txt", NULL, 0, 0);
-#endif
+			(void)show_file(TRUE, TEXT_FILES_ARENA, NULL, 0, 0);
 			screen_load(); // Load screen
 			break;
 	}
@@ -1139,16 +1135,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 	screen_save();
 
-	if(cmd == BUILDING_FUNCTION_GAMBLE_RULES)
-	{
-		// Peruse the gambling help file
-#ifdef JP
-		(void)show_file(TRUE, "jgambling.txt", NULL, 0, 0);
-#else
-		(void)show_file(TRUE, "gambling.txt", NULL, 0, 0);
-#endif
-
-	}
+	if(cmd == BUILDING_FUNCTION_GAMBLE_RULES) (void)show_file(TRUE, TEXT_FILES_GAMBLING, NULL, 0, 0);
 	else
 	{
 		if(creature_ptr->au < 1)
@@ -2542,13 +2529,7 @@ static void castle_quest(creature_type *creature_ptr)
 static void town_history(void)
 {
 	screen_save();
-
-#ifdef JP
-	(void)show_file(TRUE, "jbldg.txt", NULL, 0, 0);
-#else
-	(void)show_file(TRUE, "bldg.txt", NULL, 0, 0);
-#endif
-
+	(void)show_file(TRUE, TEXT_FILES_BUILDING, NULL, 0, 0);
 	screen_load();
 }
 

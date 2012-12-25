@@ -137,6 +137,10 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_OPTION_MANAPOINT "joption.txt#Manapoint"
 #define TEXT_FILES_EDITOR "jeditor.txt"
 #define TEXT_FILES_BIRTH_AUTO_ROLLER "jbirth.txt#AutoRoller"
+#define TEXT_FILES_GAMBLING "jgambling.txt"
+#define TEXT_FILES_ARENA "jarena.txt"
+
+#define TEXT_FILES_BUILDING "jbldg.txt"
 
 #else
 
@@ -173,6 +177,10 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_OPTION_MANAPOINT "option.txt#Manapoint"
 #define TEXT_FILES_EDITOR "editor.txt"
 #define TEXT_FILES_BIRTH_AUTO_ROLLER "birth.txt#AutoRoller"
+#define TEXT_FILES_GAMBLING "gambling.txt"
+#define TEXT_FILES_ARENA "arena.txt"
+
+#define TEXT_FILES_BUILDING "bldg.txt"
 
 #endif
 
