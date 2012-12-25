@@ -2132,7 +2132,7 @@ sprintf(out_val, "本当に%sを金に変えますか？", object_name);
 	if(price <= 0)
 	{
 #ifdef JP
-msg_format("%sをニセの金に変えた。", object_name);
+		msg_format("%sをニセの金に変えた。", object_name);
 #else
 		msg_format("You turn %s to fool's gold.", object_name);
 #endif

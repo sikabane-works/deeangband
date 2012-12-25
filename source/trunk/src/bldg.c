@@ -1890,11 +1890,7 @@ static bool kankin(creature_type *creature_ptr)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
-#ifdef JP
-			sprintf(buf, "%s を換金しますか？",object_name);
-#else
-			sprintf(buf, "Convert %s into money? ",object_name);
-#endif
+			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
 #ifdef JP
@@ -1921,11 +1917,7 @@ static bool kankin(creature_type *creature_ptr)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
-#ifdef JP
-			sprintf(buf, "%s を換金しますか？",object_name);
-#else
-			sprintf(buf, "Convert %s into money? ",object_name);
-#endif
+			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
 #ifdef JP
@@ -1952,11 +1944,7 @@ static bool kankin(creature_type *creature_ptr)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
-#ifdef JP
-			sprintf(buf, "%s を換金しますか？",object_name);
-#else
-			sprintf(buf, "Convert %s into money? ",object_name);
-#endif
+			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
 #ifdef JP
@@ -1981,11 +1969,7 @@ static bool kankin(creature_type *creature_ptr)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
-#ifdef JP
-			sprintf(buf, "%s を換金しますか？",object_name);
-#else
-			sprintf(buf, "Convert %s into money? ",object_name);
-#endif
+			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
 #ifdef JP
@@ -2011,11 +1995,7 @@ static bool kankin(creature_type *creature_ptr)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
-#ifdef JP
-			sprintf(buf, "%s を換金しますか？",object_name);
-#else
-			sprintf(buf, "Convert %s into money? ",object_name);
-#endif
+			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
 #ifdef JP

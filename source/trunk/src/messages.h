@@ -20,6 +20,7 @@
 #define GAME_MESSAGE_RESISTED_FEAR "しかし恐怖に侵されなかった。"
 #define GAME_MESSAGE_NO_MONEY "お金が足りません。"
 #define GAME_MESSAGE_NO_MONEY_INSULT "おい！金が足りないじゃないか！出ていけ！"
+#define GAME_MESSAGE_BOUNTY_1 "%s を換金しますか？"
 #else
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
 #define GAME_MESSAGE_IMPROVEMENT_FAILED "The improvement failed."
@@ -40,6 +41,7 @@
 #define GAME_MESSAGE_RESISTED_FEAR "You stand your ground!"
 #define GAME_MESSAGE_NO_MONEY "You do not have the gold."
 #define GAME_MESSAGE_NO_MONEY_INSULT "Hey! You don't have the gold - get out of here!"
+#define GAME_MESSAGE_BOUNTY_1 "Convert %s into money?"
 #endif
 
 // Cause of Death
