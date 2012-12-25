@@ -9530,23 +9530,9 @@ void do_cmd_time(creature_type *creature_ptr)
 
 	/* Find the path */
 	if(!randint0(10) || has_trait(creature_ptr, TRAIT_HALLUCINATION))
-	{
-#ifdef JP
-		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "timefun_j.txt");
-#else
-		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "timefun.txt");
-#endif
-
-	}
+		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, TEXT_FILES_TIME_FUN);
 	else
-	{
-#ifdef JP
-		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "timenorm_j.txt");
-#else
-		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "timenorm.txt");
-#endif
-
-	}
+		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, TEXT_FILES_TIME_NORMAL);
 
 	/* Open this file */
 	fff = my_fopen(buf, "rt");

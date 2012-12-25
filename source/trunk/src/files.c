@@ -5177,14 +5177,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		{
 		/* Show the help for the help */
 		case '?':
-			/* Hack - prevent silly recursion */
-#ifdef JP
-			if(strcmp(name, "jhelpinfo.txt") != 0)
-				show_file(TRUE, "jhelpinfo.txt", NULL, 0, mode);
-#else
-			if(strcmp(name, "helpinfo.txt") != 0)
-				show_file(TRUE, "helpinfo.txt", NULL, 0, mode);
-#endif
+			if(strcmp(name, TEXT_FILES_HELPINFO) != 0) show_file(TRUE, TEXT_FILES_HELPINFO, NULL, 0, mode);
 			break;
 
 		/* Hack -- try showing */
@@ -5954,11 +5947,7 @@ static void print_tomb(creature_type *creature_ptr)
 		Term_clear();
 
 		/* Build the filename */
-#ifdef JP
-		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "dead_j.txt");
-#else
-		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "dead.txt");
-#endif
+		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, TEXT_FILES_DEAD);
 
 		/* Open the News file */
 		fp = my_fopen(buf, "r");
