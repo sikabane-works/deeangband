@@ -2603,21 +2603,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else if(has_trait(target_ptr, TRAIT_FEARLESS))
 				{
-#ifdef JP
-					msg_print("‚µ‚©‚µ‹°•|‚ÉN‚³‚ê‚È‚©‚Á‚½I");
-#else
-					msg_print("You stand your ground!");
-#endif
-
+					msg_print(GAME_MESSAGE_RESISTED_FEAR);
 					obvious = TRUE;
 				}
 				/*TODO saving_throw else if(randint0(100 + species_ptr->level/2) < target_ptr->skill_rob)
 				{
-				#ifdef JP
-				msg_print("‚µ‚©‚µ‹°•|‚ÉN‚³‚ê‚È‚©‚Á‚½I");
-				#else
-				msg_print("You stand your ground!");
-				#endif
+				msg_print(GAME_MESSAGE_RESISTED_FEAR);
 
 				obvious = TRUE;
 				}
@@ -2644,13 +2635,11 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					/* Do nothing */
 				}
 				else if(has_trait(target_ptr, TRAIT_FREE_ACTION))
-				{
 					msg_print(GAME_MESSAGE_IS_UNAFFECTED);
-				}
 				/*TODO saving_throw else if(randint0(100 + species_ptr->level/2) < target_ptr->skill_rob)
 				{
-				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-				obvious = TRUE;
+					msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+					obvious = TRUE;
 				}
 				*/
 				else

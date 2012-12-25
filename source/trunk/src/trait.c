@@ -1222,22 +1222,10 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 		{
 			if(has_trait(target_ptr, TRAIT_FEARLESS))
-			{
-#ifdef JP
-				msg_print("しかし恐怖に侵されなかった。");
-#else
-				msg_print("You refuse to be frightened.");
-#endif
-			}
+				msg_print(GAME_MESSAGE_RESISTED_FEAR);
 			/* saving throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-			#ifdef JP
-			msg_print("しかし恐怖に侵されなかった。");
-			#else
-			msg_print("You refuse to be frightened.");
-			#endif
-			}
+				msg_print(GAME_MESSAGE_RESISTED_FEAR);
 			else
 			*/
 			else (void)set_timed_trait(target_ptr, TRAIT_AFRAID, randint0(4) + 4, TRUE);

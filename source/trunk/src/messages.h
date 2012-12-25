@@ -17,6 +17,7 @@
 #define GAME_MESSAGE_REMOVED_OBJECT_CURSE "誰かに見守られているような気がする。"
 #define GAME_MESSAGE_COMBAT_TALK_STAIR "「なんだこの階段は！？」"
 #define GAME_MESSAGE_PERILOUS_SECRET "石を制御できない。"
+#define GAME_MESSAGE_RESISTED_FEAR "しかし恐怖に侵されなかった。"
 #else
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
 #define GAME_MESSAGE_IMPROVEMENT_FAILED "The improvement failed."
@@ -34,6 +35,7 @@
 #define GAME_MESSAGE_REMOVED_OBJECT_CURSE "You feel as if someone is watching over you."
 #define GAME_MESSAGE_COMBAT_TALK_STAIR "'What's a fucking stair!?'"
 #define GAME_MESSAGE_PERILOUS_SECRET "You are too weak to control the stone!"
+#define GAME_MESSAGE_RESISTED_FEAR "You stand your ground!"
 #endif
 
 // Cause of Death
@@ -146,6 +148,8 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_HELPINFO "jhelpinfo.txt"
 #define TEXT_FILES_DEAD "dead_j.txt"
 
+#define TEXT_FILES_ELVISH "elvish.txt"
+
 #else
 
 #define TEXT_FILES_GAME_NEWS "news.txt"
@@ -189,6 +193,8 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_TIME_FUN "timefun.txt"
 #define TEXT_FILES_HELPINFO "helpinfo.txt"
 #define TEXT_FILES_DEAD "dead.txt"
+
+#define TEXT_FILES_ELVISH "elvish.txt"
 
 #endif
 

@@ -118,7 +118,7 @@ void get_table_name_aux(char *out_string)
 		testcounter = randint1(2) + 1;
 		while (testcounter--)
 		{
-			(void)get_rnd_line("elvish.txt", 0, Syllable);
+			(void)get_rnd_line(TEXT_FILES_ELVISH, 0, Syllable);
 			strcat(out_string, Syllable);
 		}
 	}
