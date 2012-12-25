@@ -450,11 +450,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	// Lose strength
 	if(trap & (CHEST_LOSE_STR))
 	{
-#ifdef JP
-		msg_print("ŽdŠ|‚¯‚ç‚ê‚Ä‚¢‚½¬‚³‚Èj‚ÉŽh‚³‚ê‚Ä‚µ‚Ü‚Á‚½I");
-#else
-		msg_print("A small needle has pricked you!");
-#endif
+		msg_print(GAME_MESSAGE_TRAP_NEEDLE);
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), COD_POISON_NEEDLE, NULL, -1);
 		(void)do_dec_stat(creature_ptr, STAT_STR);
 	}
@@ -462,13 +458,8 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	/* Lose constitution */
 	if(trap & (CHEST_LOSE_CON))
 	{
-#ifdef JP
-		msg_print("ŽdŠ|‚¯‚ç‚ê‚Ä‚¢‚½¬‚³‚Èj‚ÉŽh‚³‚ê‚Ä‚µ‚Ü‚Á‚½I");
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "“Åj", NULL, -1);
-#else
-		msg_print("A small needle has pricked you!");
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "a poison needle", NULL, -1);
-#endif
+		msg_print(GAME_MESSAGE_TRAP_NEEDLE);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), COD_POISON_NEEDLE, NULL, -1);
 		(void)do_dec_stat(creature_ptr, STAT_CON);
 	}
 
@@ -480,8 +471,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #else
 		msg_print("A puff of green gas surrounds you!");
 #endif
-		if(!has_trait(creature_ptr, TRAIT_RES_POIS))
-			(void)add_timed_trait(creature_ptr, TRAIT_POISONED, 10 + randint1(20), TRUE);
+		if(!has_trait(creature_ptr, TRAIT_RES_POIS)) (void)add_timed_trait(creature_ptr, TRAIT_POISONED, 10 + randint1(20), TRUE);
 	}
 
 	/* Paralyze */
@@ -543,9 +533,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 			(void)fire_meteor(-1, DO_EFFECT_FORCE, y, x, object_ptr->pval / 5, 7);
 
 		for (i = 0; i < randint1(5) + object_ptr->pval / 5; i++)
-		{
 			(void)summon_specific(0, y, x, mon_level, TRAIT_S_BIRD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
-		}
 	}
 
 	/* Various colorful summonings. */
