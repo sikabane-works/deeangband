@@ -3920,60 +3920,22 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 }
 
-
-/* Array of places to find an inscription */
-static cptr find_quest[] =
-{
-#ifdef JP
-"床にメッセージが刻まれている:",
-#else
-	"You find the following inscription in the floor",
-#endif
-
-#ifdef JP
-"壁にメッセージが刻まれている:",
-#else
-	"You see a message inscribed in the wall",
-#endif
-
-#ifdef JP
-"メッセージを見つけた:",
-#else
-	"There is a sign saying",
-#endif
-
-#ifdef JP
-"何かが階段の上に書いてある:",
-#else
-	"Something is written on the staircase",
-#endif
-
-#ifdef JP
-"巻物を見つけた。メッセージが書いてある:",
-#else
-	"You find a scroll with the following message",
-#endif
-
-};
-
-
 /*
  * Discover quest
  */
 void quest_discovery(int q_idx)
 {
+	floor_type		*floor_ptr = GET_FLOOR_PTR(player_ptr);
 	quest_type      *quest_ptr = &quest[q_idx];
 	species_type    *species_ptr = &species_info[quest_ptr->species_idx];
 	int             q_num = quest_ptr->max_num;
 	char            name[80];
+	char            buf[80];
 
 	/* No quest index */
 	if(!q_idx) return;
 
 	strcpy(name, (species_name + species_ptr->name));
-
-	msg_print(find_quest[rand_range(0, 4)]);
-	msg_print(NULL);
 
 	if(q_num == 1)
 	{
@@ -3993,21 +3955,25 @@ void quest_discovery(int q_idx)
 		else
 		{
 #ifdef JP
-			msg_format("注意せよ！この階は%sによって守られている！", name);
+			sprintf(buf, "注意せよ！この階は%sによって守られている！", name);
 #else
-			msg_format("Beware, this level is protected by %s!", name);
+			sprintf(buf, "Beware, this level is protected by %s!", name);
 #endif
+			msg_print(buf);
+			strcpy(floor_ptr->cave[player_ptr->fy][player_ptr->fx].message, buf);
 		}
 	}
 	else
 	{
 		/* Normal creatures */
 #ifdef JP
-msg_format("注意しろ！この階は%d体の%sによって守られている！", q_num, name);
+		sprintf(buf, "注意しろ！この階は%d体の%sによって守られている！", q_num, name);
 #else
 		plural_aux(name);
-		msg_format("Be warned, this level is guarded by %d %s!", q_num, name);
+		sprintf(buf, "Be warned, this level is guarded by %d %s!", q_num, name);
 #endif
+		msg_print(buf);
+		strcpy(floor_ptr->cave[player_ptr->fy][player_ptr->fx].message, buf);
 
 	}
 }
