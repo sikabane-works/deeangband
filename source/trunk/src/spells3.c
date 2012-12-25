@@ -1445,7 +1445,7 @@ msg_format("あなたの%s%s", object_name, act);
 		if(flush_failure) flush();
 
 #ifdef JP
-msg_print("属性付加に失敗した。");
+		msg_print("属性付加に失敗した。");
 #else
 		msg_print("The Branding failed.");
 #endif
@@ -2958,7 +2958,7 @@ bool recharge(creature_type *creature_ptr, int power)
 		{
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);
 #ifdef JP
-msg_format("魔力が逆流した！%sは完全に魔力を失った。", object_name);
+			msg_format("魔力が逆流した！%sは完全に魔力を失った。", object_name);
 #else
 			msg_format("The recharging backfires - %s is completely drained!", object_name);
 #endif
@@ -3032,7 +3032,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", object_name);
 				if(IS_ROD(object_ptr))
 				{
 #ifdef JP
-msg_print("魔力が逆噴射して、ロッドからさらに魔力を吸い取ってしまった！");
+					msg_print("魔力が逆噴射して、ロッドからさらに魔力を吸い取ってしまった！");
 #else
 					msg_print("The recharge backfires, draining the rod further!");
 #endif
@@ -3043,11 +3043,10 @@ msg_print("魔力が逆噴射して、ロッドからさらに魔力を吸い取ってしまった！");
 				else if(object_ptr->tval == TV_WAND)
 				{
 #ifdef JP
-msg_format("%sは破損を免れたが、魔力が全て失われた。", object_name);
+					msg_format("%sは破損を免れたが、魔力が全て失われた。", object_name);
 #else
 					msg_format("You save your %s from destruction, but all charges are lost.", object_name);
 #endif
-
 					object_ptr->pval = 0;
 				}
 				/* Staffs aren't drained. */
@@ -3058,14 +3057,14 @@ msg_format("%sは破損を免れたが、魔力が全て失われた。", object_name);
 			{
 				if(object_ptr->number > 1)
 #ifdef JP
-msg_format("乱暴な魔法のために%sが一本壊れた！", object_name);
+					msg_format("乱暴な魔法のために%sが一本壊れた！", object_name);
 #else
 					msg_format("Wild magic consumes one of your %s!", object_name);
 #endif
 
 				else
 #ifdef JP
-msg_format("乱暴な魔法のために%sが壊れた！", object_name);
+					msg_format("乱暴な魔法のために%sが壊れた！", object_name);
 #else
 					msg_format("Wild magic consumes your %s!", object_name);
 #endif
@@ -3097,14 +3096,14 @@ msg_format("乱暴な魔法のために%sが壊れた！", object_name);
 			{
 				if(object_ptr->number > 1)
 #ifdef JP
-msg_format("乱暴な魔法のために%sが全て壊れた！", object_name);
+					msg_format("乱暴な魔法のために%sが全て壊れた！", object_name);
 #else
 					msg_format("Wild magic consumes all your %s!", object_name);
 #endif
 
 				else
 #ifdef JP
-msg_format("乱暴な魔法のために%sが壊れた！", object_name);
+					msg_format("乱暴な魔法のために%sが壊れた！", object_name);
 #else
 					msg_format("Wild magic consumes your %s!", object_name);
 #endif
@@ -3217,8 +3216,7 @@ msg_format("%s から邪悪なオーラが消えた。",
 	if(have_flag(flgs, TRAIT_BLESSED_BRAND))
 	{
 #ifdef JP
-msg_format("%s は既に祝福されている。",
-    object_name    );
+		msg_format("%s は既に祝福されている。", object_name);
 #else
 		msg_format("%s %s %s blessed already.",
 		    ((item >= 0) ? "Your" : "The"), object_name,
@@ -3246,7 +3244,7 @@ msg_format("%s は既に祝福されている。",
 		bool dis_happened = FALSE;
 
 #ifdef JP
-msg_print("その武器は祝福を嫌っている！");
+		msg_print("その武器は祝福を嫌っている！");
 #else
 		msg_print("The weapon resists your blessing!");
 #endif
@@ -3282,20 +3280,14 @@ msg_print("その武器は祝福を嫌っている！");
 		if(dis_happened)
 		{
 #ifdef JP
-msg_print("周囲が凡庸な雰囲気で満ちた...");
+			msg_print("周囲が凡庸な雰囲気で満ちた...");
+			msg_format("%s は劣化した！", object_name);
 #else
 			msg_print("There is a static feeling in the air...");
-#endif
-
-#ifdef JP
-msg_format("%s は劣化した！",
-     object_name    );
-#else
 			msg_format("%s %s %s disenchanted!",
 			    ((item >= 0) ? "Your" : "The"), object_name,
 			    ((object_ptr->number > 1) ? "were" : "was"));
 #endif
-
 		}
 	}
 
@@ -3360,7 +3352,7 @@ msg_format("%sは輝いた！", object_name);
 		if(flush_failure) flush();
 
 #ifdef JP
-msg_print("失敗した。");
+		msg_print("失敗した。");
 #else
 		msg_print("Failed.");
 #endif

@@ -974,11 +974,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		{
 			if(check_hit(creature_ptr, 125) && !(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできて刺さった！");
-#else
-				msg_print("A small dart hits you!");
-#endif
+				msg_print(GAME_MESSAGE_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				add_timed_trait(creature_ptr, TRAIT_SLOW, randint0(20) + 20, TRUE);
@@ -998,11 +994,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		{
 			if(check_hit(creature_ptr, 125))
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできて刺さった！");
-#else
-				msg_print("A small dart hits you!");
-#endif
+				msg_print(GAME_MESSAGE_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
@@ -1022,11 +1014,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		{
 			if(check_hit(creature_ptr, 125))
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできて刺さった！");
-#else
-				msg_print("A small dart hits you!");
-#endif
+				msg_print(GAME_MESSAGE_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
@@ -1046,11 +1034,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		{
 			if(check_hit(creature_ptr, 125))
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできて刺さった！");
-#else
-				msg_print("A small dart hits you!");
-#endif
+				msg_print(GAME_MESSAGE_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
