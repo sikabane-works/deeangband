@@ -4055,11 +4055,8 @@ static bool get_stat_limits(creature_type *creature_ptr)
 			}
 			break;
 		case '?':
-#ifdef JP
-			show_help("jbirth.txt#AutoRoller");
-#else
-			show_help("birth.txt#AutoRoller");
-#endif
+			show_help(TEXT_FILES_BIRTH_AUTO_ROLLER);
+
 			break;
 		case '=':
 			screen_save();
@@ -4355,11 +4352,8 @@ static bool get_chara_limits(creature_type *creature_ptr)
 			}
 			break;
 		case '?':
-#ifdef JP
-			show_help("jbirth.txt#AutoRoller");
-#else
-			show_help("birth.txt#AutoRoller");
-#endif
+			show_help(TEXT_FILES_BIRTH_AUTO_ROLLER);
+
 			break;
 		case '=':
 			screen_save();
@@ -5127,11 +5121,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 			if(c == '?')	// Help
 			{
-#ifdef JP
-				show_help("jbirth.txt#AutoRoller");
-#else
-				show_help("birth.txt#AutoRoller");
-#endif
+				show_help(TEXT_FILES_BIRTH_AUTO_ROLLER);
 				continue;
 			}
 			else if(c == '=')
@@ -5221,11 +5211,7 @@ bool ask_quick_start(creature_type *creature_ptr)
 		else if(c == 'S') return FALSE;
 		else if(c == '?')
 		{
-#ifdef JP
-			show_help("jbirth.txt#QuickStart");
-#else
-			show_help("birth.txt#QuickStart");
-#endif
+			show_help(TEXT_FILES_BIRTH_AUTO_ROLLER);
 		}
 		else if((c == 'y') || (c == 'Y'))
 		{

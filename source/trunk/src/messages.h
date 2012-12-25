@@ -135,7 +135,45 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_OPTION_HITPOINT "joption.txt#Hitpoint"
 
 #define TEXT_FILES_OPTION_MANAPOINT "joption.txt#Manapoint"
+#define TEXT_FILES_EDITOR "jeditor.txt"
+#define TEXT_FILES_BIRTH_AUTO_ROLLER "jbirth.txt#AutoRoller"
+
 #else
+
+#define TEXT_FILES_GAME_NEWS "news.txt"
+#define TEXT_FILES_ARMOUR_CURSED_ARTIFACT "a_cursed.txt"
+#define TEXT_FILES_ARMOUR_LOW_ARTIFACT "a_low.txt"
+#define TEXT_FILES_ARMOUR_MED_ARTIFACT "a_med.txt"
+#define TEXT_FILES_ARMOUR_HIGH_ARTIFACT "a_high.txt"
+
+#define TEXT_FILES_WEAPON_CURSED_ARTIFACT "w_cursed.txt"
+#define TEXT_FILES_WEAPON_LOW_ARTIFACT "w_low.txt"
+#define TEXT_FILES_WEAPON_MED_ARTIFACT "w_med.txt"
+#define TEXT_FILES_WEAPON_HIGH_ARTIFACT "w_high.txt"
+#define TEXT_FILES_CHAINSWORD "chainswd.txt"
+
+#define TEXT_FILES_ERROR "error.txt"
+#define TEXT_FILES_DEATH "death.txt"
+#define TEXT_FILES_SEPPUKU "seppuku.txt"
+#define TEXT_FILES_CREATURE_FEAR "monfear.txt"
+#define TEXT_FILES_CREATURE_PET "monpet.txt"
+
+#define TEXT_FILES_CREATURE_FRIENDLY "monfrien.txt"
+#define TEXT_FILES_CREATURE_SPEAK "monspeak.txt"
+#define TEXT_FILES_RUMOR "rumors.txt"
+#define TEXT_FILES_SILLY "silly.txt"
+#define TEXT_FILES_NEWS "news.txt"
+
+#define TEXT_FILES_OPTION "option.txt"
+#define TEXT_FILES_OPTION_AUTOSAVE "option.txt#Autosave"
+#define TEXT_FILES_OPTION_WINDOW "option.txt#Window"
+#define TEXT_FILES_OPTION_BASEDELAY "option.txt#BaseDelay"
+#define TEXT_FILES_OPTION_HITPOINT "option.txt#Hitpoint"
+
+#define TEXT_FILES_OPTION_MANAPOINT "option.txt#Manapoint"
+#define TEXT_FILES_EDITOR "editor.txt"
+#define TEXT_FILES_BIRTH_AUTO_ROLLER "birth.txt#AutoRoller"
+
 #endif
 
 

@@ -5102,11 +5102,7 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 
 	case EC_HELP:
 		/* Peruse the main help file */
-#ifdef JP
-		(void)show_file(TRUE, "jeditor.txt", NULL, 0, 0);
-#else
-		(void)show_file(TRUE, "editor.txt", NULL, 0, 0);
-#endif
+		(void)show_file(TRUE, TEXT_FILES_EDITOR, NULL, 0, 0);
 		tb->dirty_flags |= DIRTY_SCREEN;
 
 		break;
