@@ -656,11 +656,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 	if(trap & (CHEST_ALARM))	// Aggravate creatures.
 	{
-#ifdef JP
-		msg_print("‚¯‚½‚½‚Ü‚µ‚¢‰¹‚ª–Â‚è‹¿‚¢‚½I");
-#else
-		msg_print("An alarm sounds!");
-#endif
+		msg_print(GAME_MESSAGE_TRAP_ALARM);
 		aggravate_creatures(creature_ptr);
 	}
 

@@ -23,6 +23,7 @@
 #define GAME_MESSAGE_BOUNTY_1 "%s を換金しますか？"
 #define GAME_MESSAGE_TRAP_DARTS "小さなダーツが飛んできて刺さった！"
 #define GAME_MESSAGE_TRAP_ARMAGEDDON "突然天界の戦争に巻き込まれた！"
+#define GAME_MESSAGE_TRAP_ALARM "けたたましい音が鳴り響いた！"
 #else
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
 #define GAME_MESSAGE_IMPROVEMENT_FAILED "The improvement failed."
@@ -46,6 +47,7 @@
 #define GAME_MESSAGE_BOUNTY_1 "Convert %s into money?"
 #define GAME_MESSAGE_TRAP_DARTS "A small dart hits you!"
 #define GAME_MESSAGE_TRAP_ARMAGEDDON "Suddenly, you are surrounded by immotal beings!"
+#define GAME_MESSAGE_TRAP_ALARM "An alarm sounds!"
 #endif
 
 // Cause of Death

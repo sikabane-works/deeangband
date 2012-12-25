@@ -1113,11 +1113,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_ALARM:
 		{
-#ifdef JP
-			msg_print("‚¯‚½‚½‚Ü‚µ‚¢‰¹‚ª–Â‚è‹¿‚¢‚½I");
-#else
-			msg_print("An alarm sounds!");
-#endif
+			msg_print(GAME_MESSAGE_TRAP_ALARM);
 			aggravate_creatures(creature_ptr);
 			break;
 		}
