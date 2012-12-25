@@ -18,6 +18,7 @@
 #define GAME_MESSAGE_COMBAT_TALK_STAIR "「なんだこの階段は！？」"
 #define GAME_MESSAGE_PERILOUS_SECRET "石を制御できない。"
 #define GAME_MESSAGE_RESISTED_FEAR "しかし恐怖に侵されなかった。"
+#define GAME_MESSAGE_NO_MONEY "お金が足りません。"
 #else
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
 #define GAME_MESSAGE_IMPROVEMENT_FAILED "The improvement failed."
@@ -36,6 +37,7 @@
 #define GAME_MESSAGE_COMBAT_TALK_STAIR "'What's a fucking stair!?'"
 #define GAME_MESSAGE_PERILOUS_SECRET "You are too weak to control the stone!"
 #define GAME_MESSAGE_RESISTED_FEAR "You stand your ground!"
+#define GAME_MESSAGE_NO_MONEY "You do not have the gold."
 #endif
 
 // Cause of Death

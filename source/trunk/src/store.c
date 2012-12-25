@@ -3738,16 +3738,8 @@ msg_print("そんなにアイテムを持てない。");
 			}
 
 			/* Player cannot afford it */
-			else
-			{
-				/* Simple message (no insult) */
-#ifdef JP
-				msg_print("お金が足りません。");
-#else
-				msg_print("You do not have enough gold.");
-#endif
-
-			}
+			else // Simple message (no insult)
+				msg_print(GAME_MESSAGE_NO_MONEY);
 		}
 	}
 

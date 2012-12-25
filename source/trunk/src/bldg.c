@@ -3500,11 +3500,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	    (((bldg->member_costs[i] > creature_ptr->au) && is_owner(creature_ptr, bldg)) ||
 	     ((bldg->other_costs[i] > creature_ptr->au) && !is_owner(creature_ptr, bldg))))
 	{
-#ifdef JP
-		msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
-#else
-		msg_print("You do not have the gold!");
-#endif
+		msg_print(GAME_MESSAGE_NO_MONEY);
 		return;
 	}
 
@@ -3939,8 +3935,6 @@ void quest_discovery(int q_idx)
 
 	if(q_num == 1)
 	{
-		/* Unique */
-
 		/* Hack -- "unique" creatures must be "unique" */
 		if(has_trait_species(species_ptr, TRAIT_UNIQUE) && (0 == species_ptr->max_num))
 		{
@@ -3949,7 +3943,6 @@ void quest_discovery(int q_idx)
 #else
 			msg_print("It seems that this level was protected by someone before...");
 #endif
-			/* The unique is already dead */
 			quest[q_idx].status = QUEST_STATUS_FINISHED;
 		}
 		else
@@ -3965,7 +3958,6 @@ void quest_discovery(int q_idx)
 	}
 	else
 	{
-		/* Normal creatures */
 #ifdef JP
 		sprintf(buf, "’ˆÓ‚µ‚ëI‚±‚ÌŠK‚Í%d‘Ì‚Ì%s‚É‚æ‚Á‚Äç‚ç‚ê‚Ä‚¢‚éI", q_num, name);
 #else
