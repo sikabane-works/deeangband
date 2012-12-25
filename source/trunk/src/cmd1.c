@@ -1143,11 +1143,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			int evil_idx = 0, good_idx = 0;
 
 			int lev;
-#ifdef JP
-			msg_print("“Ë‘R“VŠE‚Ìí‘ˆ‚ÉŠª‚«ž‚Ü‚ê‚½I");
-#else
-			msg_print("Suddenly, you are surrounded by immotal beings!");
-#endif
+			msg_print(GAME_MESSAGE_TRAP_ARMAGEDDON );
 
 			/* Summon Demons and Angels */
 			for (lev = floor_ptr->floor_level; lev >= 20; lev -= 1 + lev/16)
