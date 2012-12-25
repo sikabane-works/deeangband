@@ -58,6 +58,42 @@
 #endif
 
 
+// messages of detection
+
+#ifdef JP
+
+#define GAME_MESSAGE_DETECT_TRAPS "トラップの存在を感じとった！"
+#define GAME_MESSAGE_DETECT_DOORS "ドアの存在を感じとった！"
+#define GAME_MESSAGE_DETECT_STAIRS "階段の存在を感じとった！"
+#define GAME_MESSAGE_DETECT_B_TREASURE "埋蔵された財宝の存在を感じとった！"
+#define GAME_MESSAGE_DETECT_TREASURE "財宝の存在を感じとった！"
+#define GAME_MESSAGE_DETECT_OBJECTS "アイテムの存在を感じとった！"
+#define GAME_MESSAGE_DETECT_M_OBJECTS "魔法のアイテムの存在を感じとった！"
+#define GAME_MESSAGE_DETECT_CREATURES "クリーチャーの存在を感じとった！"
+#define GAME_MESSAGE_DETECT_I_CREATURES "透明な生物の存在を感じとった！"
+#define GAME_MESSAGE_DETECT_E_CREATURES "邪悪なる生物の存在を感じとった！"
+#define GAME_MESSAGE_DETECT_S_CREATURES "殺気を感じとった！"
+#define GAME_MESSAGE_DETECT_SOMEONE "%sの存在を感じとった！"
+
+#else
+
+#define GAME_MESSAGE_DETECT_TRAPS "You sense the presence of traps!"
+#define GAME_MESSAGE_DETECT_DOORS "You sense the presence of doors!"
+#define GAME_MESSAGE_DETECT_STAIRS "You sense the presence of stairs!"
+#define GAME_MESSAGE_DETECT_B_TREASURE "You sense the presence of buried treasure!"
+#define GAME_MESSAGE_DETECT_TREASURE "You sense the presence of treasure!"
+#define GAME_MESSAGE_DETECT_OBJECTS "You sense the presence of objects!"
+#define GAME_MESSAGE_DETECT_M_OBJECTS "You sense the presence of magic objects!"
+#define GAME_MESSAGE_DETECT_CREATURES "You sense the presence of creatures!"
+#define GAME_MESSAGE_DETECT_I_CREATURES "You sense the presence of invisible creatures!"
+#define GAME_MESSAGE_DETECT_E_CREATURES "You sense the presence of evil creatures!"
+#define GAME_MESSAGE_DETECT_S_CREATURES "You sense the presence of someone's mind!"
+#define GAME_MESSAGE_DETECT_SOMEONE "You sense the presence of %s!"
+
+#endif
+
+
+
 // Cause of Death
 #if JP
 #define COD_DART_TRAP "ダーツの罠"

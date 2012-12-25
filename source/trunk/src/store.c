@@ -4305,7 +4305,7 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 #ifdef JP
 				msg_print("‚±‚ê‚Å‘S•”‚Å‚·B");
 #else
-				msg_print("Entire guest_ptr->inventory is shown.");
+				msg_print("Entire inventory is shown.");
 #endif
 			}
 			else{

@@ -444,15 +444,7 @@ bool detect_traps(creature_type *creature_ptr, int range, bool known)
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 0) detect = FALSE;
 
-	if(detect)
-	{
-#ifdef JP
-		msg_print("トラップの存在を感じとった！");
-#else
-		msg_print("You sense the presence of traps!");
-#endif
-	}
-
+	if(detect) msg_print(GAME_MESSAGE_DETECT_TRAPS);
 	return detect;
 }
 
@@ -463,18 +455,8 @@ bool detect_traps(creature_type *creature_ptr, int range, bool known)
 bool detect_doors(creature_type *creature_ptr, int range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_DOOR, TRUE);
-
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 0) detect = FALSE;
-
-	if(detect)
-	{
-#ifdef JP
-		msg_print("ドアの存在を感じとった！");
-#else
-		msg_print("You sense the presence of doors!");
-#endif
-	}
-
+	if(detect) msg_print(GAME_MESSAGE_DETECT_DOORS);
 	return detect;
 }
 
@@ -485,18 +467,8 @@ bool detect_doors(creature_type *creature_ptr, int range)
 bool detect_stairs(creature_type *creature_ptr, int range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_STAIRS, TRUE);
-
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 0) detect = FALSE;
-
-	if(detect)
-	{
-#ifdef JP
-		msg_print("階段の存在を感じとった！");
-#else
-		msg_print("You sense the presence of stairs!");
-#endif
-	}
-
+	if(detect) msg_print(GAME_MESSAGE_DETECT_STAIRS);
 	return detect;
 }
 
@@ -507,18 +479,8 @@ bool detect_stairs(creature_type *creature_ptr, int range)
 bool detect_treasure(creature_type *creature_ptr, int range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_HAS_GOLD, TRUE);
-
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 6) detect = FALSE;
-
-	if(detect)
-	{
-#ifdef JP
-		msg_print("埋蔵された財宝の存在を感じとった！");
-#else
-		msg_print("You sense the presence of buried treasure!");
-#endif
-	}
-
+	if(detect) msg_print(GAME_MESSAGE_DETECT_B_TREASURE);
 	return detect;
 }
 
@@ -567,21 +529,8 @@ bool detect_objects_gold(creature_type *creature_ptr, int range)
 	}
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 6) detect = FALSE;
-
-	if(detect)
-	{
-#ifdef JP
-		msg_print("財宝の存在を感じとった！");
-#else
-		msg_print("You sense the presence of treasure!");
-#endif
-
-	}
-
-	if(detect_creatures_string(creature_ptr, range, "$"))
-	{
-		detect = TRUE;
-	}
+	if(detect) msg_print(GAME_MESSAGE_DETECT_TREASURE);
+	if(detect_creatures_string(creature_ptr, range, "$")) detect = TRUE;
 
 	return (detect);
 }
@@ -632,21 +581,8 @@ bool detect_objects_normal(creature_type *creature_ptr, int range)
 	}
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 6) detect = FALSE;
-
-	if(detect)
-	{
-#ifdef JP
-		msg_print("アイテムの存在を感じとった！");
-#else
-		msg_print("You sense the presence of objects!");
-#endif
-	}
-
-	if(detect_creatures_string(creature_ptr, range, "!=?|/`"))
-	{
-		detect = TRUE;
-	}
-
+	if(detect) msg_print(GAME_MESSAGE_DETECT_OBJECTS);
+	if(detect_creatures_string(creature_ptr, range, "!=?|/`")) detect = TRUE;
 	return (detect);
 }
 
@@ -725,16 +661,7 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 		}
 	}
 
-	if(detect)
-	{
-#ifdef JP
-		msg_print("魔法のアイテムの存在を感じとった！");
-#else
-		msg_print("You sense the presence of magic objects!");
-#endif
-	}
-
-	/* Return result */
+	if(detect) msg_print(GAME_MESSAGE_DETECT_M_OBJECTS);
 	return (detect);
 }
 
@@ -784,18 +711,7 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 	}
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 3) flag = FALSE;
-
-	if(flag)
-	{
-		/* Describe result */
-#ifdef JP
-		msg_print("クリーチャーの存在を感じとった！");
-#else
-		msg_print("You sense the presence of creatures!");
-#endif
-
-	}
-
+	if(flag) msg_print(GAME_MESSAGE_DETECT_CREATURES);
 	return (flag);
 }
 
@@ -850,18 +766,7 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 	}
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 3) flag = FALSE;
-
-	if(flag)
-	{
-		/* Describe result */
-#ifdef JP
-		msg_print("透明な生物の存在を感じとった！");
-#else
-		msg_print("You sense the presence of invisible creatures!");
-#endif
-
-	}
-
+	if(flag) msg_print(GAME_MESSAGE_DETECT_I_CREATURES);
 	return (flag);
 }
 
@@ -922,15 +827,7 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 		}
 	}
 
-	if(flag)
-	{
-#ifdef JP
-		msg_print("邪悪なる生物の存在を感じとった！");
-#else
-		msg_print("You sense the presence of evil creatures!");
-#endif
-	}
-
+	if(flag) msg_print(GAME_MESSAGE_DETECT_E_CREATURES);
 	return (flag);
 }
 
@@ -1048,15 +945,7 @@ bool detect_creatures_mind(creature_type *creature_ptr, int range)
 		}
 	}
 
-	if(flag)
-	{
-#ifdef JP
-		msg_print("殺気を感じとった！");
-#else
-		msg_print("You sense the presence of someone's mind!");
-#endif
-	}
-
+	if(flag) msg_print(GAME_MESSAGE_DETECT_S_CREATURES);
 	return (flag);
 }
 
@@ -1111,16 +1000,7 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 	}
 
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 3) flag = FALSE;
-
-	if(flag)
-	{
-#ifdef JP
-		msg_print("クリーチャーの存在を感じとった！");
-#else
-		msg_print("You sense the presence of creatures!");
-#endif
-	}
-
+	if(flag) msg_print(GAME_MESSAGE_DETECT_CREATURES);
 	return (flag);
 }
 
@@ -1199,12 +1079,7 @@ bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_fla
 			break;
 		}
 
-#ifdef JP
-		msg_format("%sの存在を感じとった！", desc_creatures);
-#else
-		msg_format("You sense the presence of %s!", desc_creatures);
-#endif
-
+		msg_print(GAME_MESSAGE_DETECT_SOMEONE);
 		msg_print(NULL);
 	}
 
