@@ -679,12 +679,9 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	}
 }
 
-
 /*
  * Attempt to open the given chest at the given location
- *
  * Assume there is no creature blocking the destination
- *
  * Returns TRUE if repeated commands may continue
  */
 static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b object_idx)
@@ -1016,7 +1013,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		if(!have_flag(feature_info[feat].flags, FF_OPEN) && !object_idx)
 		{
 #ifdef JP
-		msg_print("そこには開けるものが見当たらない。");
+			msg_print("そこには開けるものが見当たらない。");
 #else
 			msg_print("You see nothing there to open.");
 #endif
@@ -3346,11 +3343,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	if(object_is_cursed(object_ptr) && IS_EQUIPPED(object_ptr))
 	{
-#ifdef JP
-		msg_print("ふーむ、どうやら呪われているようだ。");
-#else
-		msg_print("Hmmm, it seems to be cursed.");
-#endif
+		msg_print(GAME_MESSAGE_SEEM_TO_CURSE);
 		return FALSE;
 	}
 

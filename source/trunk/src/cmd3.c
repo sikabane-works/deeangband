@@ -440,11 +440,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 		}
 		else if(creature_ptr->class_idx != CLASS_BERSERKER)
 		{
-#ifdef JP
-			msg_print("ふーむ、どうやら呪われているようだ。");
-#else
-			msg_print("Hmmm, it seems to be cursed.");
-#endif
+			msg_print(GAME_MESSAGE_SEEM_TO_CURSE);
 			return;
 		}
 
@@ -521,11 +517,7 @@ void do_cmd_drop(creature_type *creature_ptr)
 	/* Hack -- Cannot remove cursed items */
 	if(IS_EQUIPPED(object_ptr) && object_is_cursed(object_ptr))
 	{
-#ifdef JP
-		msg_print("ふーむ、どうやら呪われているようだ。");
-#else
-		msg_print("Hmmm, it seems to be cursed.");
-#endif
+		msg_print(GAME_MESSAGE_SEEM_TO_CURSE);
 		return;
 	}
 

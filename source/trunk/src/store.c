@@ -3846,14 +3846,9 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 	/* Hack -- Cannot remove cursed items */
 	if(IS_EQUIPPED(object_ptr) && object_is_cursed(object_ptr))
 	{
-#ifdef JP
-		msg_print("Ç”Å[ÇﬁÅAÇ«Ç§Ç‚ÇÁÇªÇÍÇÕéÙÇÌÇÍÇƒÇ¢ÇÈÇÊÇ§ÇæÇÀÅB");
-#else
-		msg_print("Hmmm, it seems to be cursed.");
-#endif
+		msg_print(GAME_MESSAGE_SEEM_TO_CURSE);
 		return;
 	}
-
 
 	/* Assume one item */
 	amt = 1;

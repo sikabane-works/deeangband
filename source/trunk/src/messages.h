@@ -25,6 +25,7 @@
 #define GAME_MESSAGE_TRAP_DARTS "小さなダーツが飛んできて刺さった！"
 #define GAME_MESSAGE_TRAP_ARMAGEDDON "突然天界の戦争に巻き込まれた！"
 #define GAME_MESSAGE_TRAP_ALARM "けたたましい音が鳴り響いた！"
+#define GAME_MESSAGE_SEEM_TO_CURSE "ふーむ、どうやら呪われているようだ。"
 
 #else
 
@@ -52,6 +53,8 @@
 #define GAME_MESSAGE_TRAP_DARTS "A small dart hits you!"
 #define GAME_MESSAGE_TRAP_ARMAGEDDON "Suddenly, you are surrounded by immotal beings!"
 #define GAME_MESSAGE_TRAP_ALARM "An alarm sounds!"
+#define GAME_MESSAGE_SEEM_TO_CURSE "Hmmm, it seems to be cursed."
+
 #endif
 
 
