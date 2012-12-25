@@ -1161,12 +1161,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 			if(wager > creature_ptr->au)
 			{
-#ifdef JP
-				msg_print("おい！金が足りないじゃないか！出ていけ！");
-#else
-				msg_print("Hey! You don't have the gold - get out of here!");
-#endif
-
+				msg_print(GAME_MESSAGE_NO_MONEY_INSULT);
 				msg_print(NULL);
 				screen_load();
 				return FALSE;
@@ -1464,12 +1459,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 				prt("", 18, 37);
 				if(wager > creature_ptr->au)
 				{
-#ifdef JP
-					msg_print("おい！金が足りないじゃないか！ここから出て行け！");
-#else
-					msg_print("Hey! You don't have the gold - get out of here!");
-#endif
-
+					msg_print(GAME_MESSAGE_NO_MONEY_INSULT);
 					msg_print(NULL);
 
 					/* Get out here */
@@ -1741,12 +1731,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 
 			if(wager > creature_ptr->au)
 			{
-#ifdef JP
-				msg_print("おい！金が足りないじゃないか！出ていけ！");
-#else
-				msg_print("Hey! You don't have the gold - get out of here!");
-#endif
-
+				msg_print(GAME_MESSAGE_NO_MONEY_INSULT);
 				msg_print(NULL);
 				screen_load();
 				return FALSE;
