@@ -943,27 +943,17 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_FIRE:
 		{
-#ifdef JP
-			msg_print("âäÇ…ïÔÇ‹ÇÍÇΩÅI");
-#else
-			msg_print("You are enveloped in flames!");
-#endif
+			msg_print(GAME_MESSAGE_TRAP_FIRE);
 			dam = diceroll(4, 6);
 			//TODO damage
-			//(void)fire_dam(creature_ptr, dam);
 			break;
 		}
 
 		case TRAP_ACID:
 		{
-#ifdef JP
-			msg_print("é_Ç™êÅÇ´Ç©ÇØÇÁÇÍÇΩÅI");
-#else
-			msg_print("You are splashed with acid!");
-#endif
+			msg_print(GAME_MESSAGE_TRAP_ACID);
 			dam = diceroll(4, 6);
 			//TODO damage
-
 			break;
 		}
 
