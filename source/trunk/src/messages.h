@@ -516,7 +516,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 #ifdef JP
 	#define PROMPT_COMMAND "コマンド: "
+	#define PROMPT_FILE "ファイル: "
 #else
 	#define PROMPT_COMMAND "Command: "
+	#define PROMPT_FILE "File: "
 #endif
 

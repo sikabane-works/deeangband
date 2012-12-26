@@ -2684,11 +2684,10 @@ void do_cmd_macros(void)
 
 #ifdef JP
 			prt("コマンド: ユーザー設定ファイルのロード", 16, 0);
-			prt("ファイル: ", 18, 0);
 #else
 			prt("Command: Load a user pref file", 16, 0);
-			prt("File: ", 18, 0);
 #endif
+			prt(PROMPT_FILE, 18, 0);
 
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
@@ -2729,11 +2728,10 @@ void do_cmd_macros(void)
 		{
 #ifdef JP
 			prt("コマンド: マクロをファイルに追加する", 16, 0);
-			prt("ファイル: ", 18, 0);
 #else
 			prt("Command: Append macros to a file", 16, 0);
-			prt("File: ", 18, 0);
 #endif
+			prt(PROMPT_FILE, 18, 0);
 
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
@@ -2878,11 +2876,10 @@ void do_cmd_macros(void)
 		{
 #ifdef JP
 			prt("コマンド: キー配置をファイルに追加する", 16, 0);
-			prt("ファイル: ", 18, 0);
 #else
 			prt("Command: Append keymaps to a file", 16, 0);
-			prt("File: ", 18, 0);
 #endif
+			prt(PROMPT_FILE, 18, 0);
 
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
@@ -3171,11 +3168,10 @@ void do_cmd_visuals(void)
 		case '0':
 #ifdef JP
 			prt("コマンド: ユーザー設定ファイルのロード", 15, 0);
-			prt("ファイル: ", 17, 0);
 #else
 			prt("Command: Load a user pref file", 15, 0);
-			prt("File: ", 17, 0);
 #endif
+			prt(PROMPT_FILE, 17, 0);
 
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
@@ -3196,11 +3192,10 @@ void do_cmd_visuals(void)
 
 #ifdef JP
 			prt("コマンド: クリーチャーの[色/文字]をファイルに書き出します", 15, 0);
-			prt("ファイル: ", 17, 0);
 #else
 			prt("Command: Dump creature attr/chars", 15, 0);
-			prt("File: ", 17, 0);
 #endif
+			prt(PROMPT_FILE, 17, 0);
 
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
@@ -3258,12 +3253,7 @@ void do_cmd_visuals(void)
 #else
 			prt("Command: Dump object attr/chars", 15, 0);
 #endif
-
-#ifdef JP
-			prt("ファイル: ", 17, 0);
-#else
-			prt("File: ", 17, 0);
-#endif
+			prt(PROMPT_FILE, 17, 0);
 
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
@@ -3338,12 +3328,7 @@ void do_cmd_visuals(void)
 #else
 			prt("Command: Dump feature attr/chars", 15, 0);
 #endif
-
-#ifdef JP
-			prt("ファイル: ", 17, 0);
-#else
-			prt("File: ", 17, 0);
-#endif
+			prt(PROMPT_FILE, 17, 0);
 
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
@@ -3832,11 +3817,10 @@ void do_cmd_colors(void)
 		{
 #ifdef JP
 			prt("コマンド: ユーザー設定ファイルをロードします", 8, 0);
-			prt("ファイル: ", 10, 0);
 #else
 			prt("Command: Load a user pref file", 8, 0);
-			prt("File: ", 10, 0);
 #endif
+			prt(PROMPT_FILE, 10, 0);
 
 			/* Default file */
 			sprintf(tmp, "%s.prf", player_base);
@@ -3861,11 +3845,10 @@ void do_cmd_colors(void)
 
 #ifdef JP
 			prt("コマンド: カラーの設定をファイルに書き出します", 8, 0);
-			prt("ファイル: ", 10, 0);
 #else
 			prt("Command: Dump colors", 8, 0);
-			prt("File: ", 10, 0);
 #endif
+			prt(PROMPT_FILE, 10, 0);
 
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
