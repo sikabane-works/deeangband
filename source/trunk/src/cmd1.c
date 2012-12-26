@@ -739,11 +739,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 	int trap_feat_type = have_flag(f_ptr->flags, FF_TRAP) ? f_ptr->subtype : NOT_TRAP;
 
-#ifdef JP
-	cptr name = "トラップ";
-#else
-	cptr name = "a trap";
-#endif
+	cptr name = COD_TRAP;
 
 	disturb(player_ptr, 0, 0);
 	cave_alter_feat(floor_ptr, y, x, FF_HIT_TRAP);
@@ -807,11 +803,10 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			{
 #ifdef JP
 				msg_print("落とし穴に落ちてしまった！");
-				name = "落とし穴";
 #else
 				msg_print("You have fallen into a pit!");
-				name = "a pit trap";
 #endif
+				name = COD_PIT_TRAP;
 				dam = diceroll(2, 6);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
@@ -936,7 +931,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 			msg_print("You hit a teleport trap!");
 #endif
-
 			teleport_player(creature_ptr, 100, TELEPORT_PASSIVE);
 			break;
 		}

@@ -117,6 +117,7 @@
 // Cause of Death
 #if JP
 
+#define COD_TRAP "トラップ"
 #define COD_DART_TRAP "ダーツの罠"
 #define COD_PERILOUS_IDENTIFY "危険な秘密"
 #define COD_FALL_RIDING "落馬"
@@ -137,6 +138,7 @@
 
 #else
 
+#define COD_TRAP "a trap"
 #define COD_DART_TRAP "a dart trap"
 #define COD_PERILOUS_IDENTIFY "perilous secrets"
 #define COD_FALL_RIDING "Falling from riding"
