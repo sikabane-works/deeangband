@@ -243,11 +243,7 @@ static errr make_dump(BUF* dumpbuf)
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff)
 	{
-#ifdef JP
-		msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-		msg_format("Failed to create temporary file %s.", file_name);
-#endif
+		msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 		msg_print(NULL);
 		return 1;
 	}

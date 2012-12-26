@@ -1809,11 +1809,7 @@ static bool clear_auto_register(void)
 		/* Close the preference file */
 		fclose(pref_fff);
 
-#ifdef JP
-		msg_format("一時ファイル %s を作成できませんでした。", tmp_file);
-#else
-		msg_format("Failed to create temporary file %s.", tmp_file);
-#endif
+		msg_format(SYS_MESSAGE_FAILED_TEMPFILE, tmp_file);
 		msg_print(NULL);
 		return FALSE;
 	}
