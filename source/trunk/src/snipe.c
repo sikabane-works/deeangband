@@ -548,22 +548,14 @@ void do_cmd_snipe(creature_type *creature_ptr)
 	/* not if hullucinated */
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION))
 	{
-#ifdef JP
-		msg_print("幻覚が見えて集中できない！");
-#else
-		msg_print("You are too hallucinated!");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_HALLUCINATION);
 		return;
 	}
 
 	/* not if stuned */
 	if(has_trait(creature_ptr, TRAIT_STUN))
 	{
-#ifdef JP
-		msg_print("頭が朦朧としていて集中できない！");
-#else
-		msg_print("You are too stuned!");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_STUNED);
 		return;
 	}
 

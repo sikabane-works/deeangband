@@ -30,6 +30,8 @@
 #define GAME_MESSAGE_PREVENT_BY_CONFUSION "混乱状態で上手く出来ない。"
 #define GAME_MESSAGE_PREVENT_BY_BLIND "眼が見えなくて出来ない。"
 #define GAME_MESSAGE_PREVENT_BY_NO_LITE "明かりがなくて出来ない。"
+#define GAME_MESSAGE_PREVENT_BY_HALLUCINATION "幻覚に阻まれてできない。"
+#define GAME_MESSAGE_PREVENT_BY_STUNED "頭が朦朧としていて集中できない。"
 
 #else
 
@@ -62,6 +64,8 @@
 #define GAME_MESSAGE_PREVENT_BY_CONFUSION "You are too confused.";
 #define GAME_MESSAGE_PREVENT_BY_BLIND "You are blind!"
 #define GAME_MESSAGE_PREVENT_BY_NO_LITE "You have no light to read by."
+#define GAME_MESSAGE_PREVENT_BY_HALLUCINATION "You are too hallucinated!"
+#define GAME_MESSAGE_PREVENT_BY_STUNED "You are too stuned!"
 
 #endif
 
@@ -120,6 +124,7 @@
 #define COD_PATTERN_DAMAGE_2 "壊れた「パターン」を歩いたダメージ"
 #define COD_PATTERN_DAMAGE_3 "パターン損壊"
 #define COD_MISCAST_DEATH_SPELL "暗黒魔法の逆流"
+
 
 #else
 
