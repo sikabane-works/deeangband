@@ -135,7 +135,7 @@
 #define COD_MISCAST_DEATH_SPELL "ˆÃ•–‚–@‚Ì‹t—¬"
 #define COD_PIT_TRAP "—‚Æ‚µŒŠ"
 #define COD_SPIKED_PIT_TRAP "ƒgƒQ‚Ì‚ ‚é—‚Æ‚µŒŠ"
-
+#define COD_EXPLOADING_CHEST "”š”­‚·‚é” "
 #else
 
 #define COD_TRAP "a trap"
@@ -156,6 +156,7 @@
 #define COD_MISCAST_DEATH_SPELL "a miscast Death spell"
 #define COD_PIT_TRAP "a pit trap"
 #define COD_SPIKED_PIT_TRAP "a spiked pit"
+#define COD_EXPLOADING_CHEST "an exploding chest"
 
 #endif
 

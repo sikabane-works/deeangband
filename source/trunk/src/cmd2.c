@@ -659,12 +659,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #endif
 		object_ptr->pval = 0;
 		sound(SOUND_EXPLODE);
-#ifdef JP
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), "”š”­‚·‚é” ", NULL, -1);
-#else
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), "an exploding chest", NULL, -1);
-#endif
-
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), COD_EXPLOADING_CHEST, NULL, -1);
 	}
 
 	if((trap & (CHEST_SCATTER)) && object_ptr->k_idx)	// Scatter contents.
