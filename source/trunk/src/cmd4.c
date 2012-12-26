@@ -980,7 +980,6 @@ void do_cmd_nikki(creature_type *player_ptr)
 		prt("(4) 記録を消去する", 7, 5);
 
 		prt("(R) プレイ動画を記録する/中止する", 9, 5);
-		prt("コマンド:", 18, 0);
 #else
 		prt("[ Play Record ]", 2, 0);
 		prt("(1) Display your record", 4, 5);
@@ -989,8 +988,8 @@ void do_cmd_nikki(creature_type *player_ptr)
 		prt("(4) Delete your record", 7, 5);
 
 		prt("(R) Record playing movie / or stop it", 9, 5);
-		prt("Command: ", 18, 0);
 #endif
+		prt(PROMPT_COMMAND, 18, 0);
 
 		i = inkey();
 
@@ -2658,7 +2657,7 @@ void do_cmd_macros(void)
 		prt("(8) キー配置の作成", 11, 5);
 		prt("(9) キー配置の削除", 12, 5);
 		prt("(0) マクロ行動の入力", 13, 5);
-		prt("コマンド: ", 16, 0);
+		prt(PROMPT_COMMAND, 16, 0);
 #else
 		prt("(1) Load a user pref file", 4, 5);
 		prt("(2) Append macros to a file", 5, 5);
@@ -2760,18 +2759,11 @@ void do_cmd_macros(void)
 
 #ifdef JP
 			prt("コマンド: マクロの確認", 16, 0);
-#else
-			prt("Command: Query a macro", 16, 0);
-#endif
-
-
-#ifdef JP
 			prt("トリガーキー: ", 18, 0);
 #else
+			prt("Command: Query a macro", 16, 0);
 			prt("Trigger: ", 18, 0);
 #endif
-
-
 			/* Get a macro trigger */
 			do_cmd_macro_aux(buf);
 
@@ -3413,12 +3405,7 @@ void do_cmd_visuals(void)
 			static cptr choice_msg = "Change creature attr/chars";
 #endif
 			static int r = 0;
-
-#ifdef JP
-			prt(format("コマンド: %s", choice_msg), 15, 0);
-#else
-			prt(format("Command: %s", choice_msg), 15, 0);
-#endif
+			prt(format("%s%s", PROMPT_COMMAND, choice_msg), 15, 0);
 
 			/* Hack -- query until done */
 			while (1)
@@ -3534,11 +3521,7 @@ void do_cmd_visuals(void)
 #endif
 			static int k = 0;
 
-#ifdef JP
-			prt(format("コマンド: %s", choice_msg), 15, 0);
-#else
-			prt(format("Command: %s", choice_msg), 15, 0);
-#endif
+			prt(format("%s%s", PROMPT_COMMAND, choice_msg), 15, 0);
 
 			/* Hack -- query until done */
 			while (1)
@@ -3655,11 +3638,7 @@ void do_cmd_visuals(void)
 			static int f = 0;
 			static int lighting_level = F_LIT_STANDARD;
 
-#ifdef JP
-			prt(format("コマンド: %s", choice_msg), 15, 0);
-#else
-			prt(format("Command: %s", choice_msg), 15, 0);
-#endif
+			prt(format("%s%s", PROMPT_COMMAND, choice_msg), 15, 0);
 
 			/* Hack -- query until done */
 			while (1)
@@ -3836,14 +3815,13 @@ void do_cmd_colors(void)
 		prt("(1) ユーザー設定ファイルのロード", 4, 5);
 		prt("(2) カラーの設定をファイルに書き出す", 5, 5);
 		prt("(3) カラーの設定を変更する", 6, 5);
-		prt("コマンド: ", 8, 0);
 #else
 		prt("Interact with Colors", 2, 0);
 		prt("(1) Load a user pref file", 4, 5);
 		prt("(2) Dump colors", 5, 5);
 		prt("(3) Modify colors", 6, 5);
-		prt("Command: ", 8, 0);
 #endif
+		prt(PROMPT_COMMAND, 8, 0);
 
 		i = inkey();
 

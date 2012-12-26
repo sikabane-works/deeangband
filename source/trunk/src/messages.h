@@ -513,3 +513,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 #endif
 };
+
+#ifdef JP
+	#define PROMPT_COMMAND "ƒRƒ}ƒ“ƒh: "
+#else
+	#define PROMPT_COMMAND "Command: "
+#endif
+
