@@ -981,11 +981,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			}
 			else
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできた！が、運良く当たらなかった。");
-#else
-				msg_print("A small dart barely misses you.");
-#endif
+				msg_print(GAME_MESSAGE_TRAP_DARTS_MISSED);
 			}
 			break;
 		}
@@ -1001,11 +997,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			}
 			else
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできた！が、運良く当たらなかった。");
-#else
-				msg_print("A small dart barely misses you.");
-#endif
+				msg_print(GAME_MESSAGE_TRAP_DARTS_MISSED);
 			}
 			break;
 		}
@@ -1021,11 +1013,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			}
 			else
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできた！が、運良く当たらなかった。");
-#else
-				msg_print("A small dart barely misses you.");
-#endif
+				msg_print(GAME_MESSAGE_TRAP_DARTS_MISSED);
 			}
 			break;
 		}
@@ -1041,11 +1029,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			}
 			else
 			{
-#ifdef JP
-				msg_print("小さなダーツが飛んできた！が、運良く当たらなかった。");
-#else
-				msg_print("A small dart barely misses you.");
-#endif
+				msg_print(GAME_MESSAGE_TRAP_DARTS_MISSED);
 			}
 			break;
 		}
