@@ -1119,11 +1119,10 @@ void do_cmd_cast(creature_type *creature_ptr)
 			{
 #ifdef JP
 				msg_print("’É‚¢I");
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(object_ptr->sval + 1, 6), "ˆÃ•–‚–@‚Ì‹t—¬", NULL, -1);
 #else
 				msg_print("It hurts!");
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(object_ptr->sval + 1, 6), "a miscast Death spell", NULL, -1);
 #endif
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(object_ptr->sval + 1, 6), COD_MISCAST_DEATH_SPELL, NULL, -1);
 
 				if((spell > 15) && one_in_(6) && !has_trait(creature_ptr, TRAIT_HOLD_LIFE))
 					lose_exp(creature_ptr, spell * 250);

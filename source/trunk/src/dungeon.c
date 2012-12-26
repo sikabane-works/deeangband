@@ -780,11 +780,7 @@ static void wreck_the_pattern(floor_type *floor_ptr, creature_type *creature_ptr
 #endif
 
 	if(!IS_INVULN(creature_ptr))
-#ifdef JP
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), "パターン損壊", NULL, -1);
-#else
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), "corrupting the Pattern", NULL, -1);
-#endif
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), COD_PATTERN_DAMAGE_3, NULL, -1);
 
 	to_ruin = randint1(45) + 35;
 
@@ -846,22 +842,14 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 
 	case PATTERN_TILE_WRECKED:
 		if(!IS_INVULN(creature_ptr))
-#ifdef JP
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 200, "壊れた「パターン」を歩いたダメージ", NULL, -1);
-#else
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 200, "walking the corrupted Pattern", NULL, -1);
-#endif
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 200, COD_PATTERN_DAMAGE_2, NULL, -1);
 		break;
 
 	default:
 		if(IS_RACE(creature_ptr, RACE_AMBERITE) && !one_in_(2))
 			return TRUE;
 		else if(!IS_INVULN(creature_ptr))
-#ifdef JP
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 3), "「パターン」を歩いたダメージ", NULL, -1);
-#else
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 3), "walking the Pattern", NULL, -1);
-#endif
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 3), COD_PATTERN_DAMAGE_1, NULL, -1);
 		break;
 	}
 

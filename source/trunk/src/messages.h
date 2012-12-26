@@ -104,6 +104,7 @@
 
 // Cause of Death
 #if JP
+
 #define COD_DART_TRAP "ダーツの罠"
 #define COD_PERILOUS_IDENTIFY "危険な秘密"
 #define COD_FALL_RIDING "落馬"
@@ -115,7 +116,13 @@
 #define COD_POISONOUS_FOOD "毒入り食料"
 #define COD_CHEST_DP_TRAP "破滅のトラップの宝箱"
 #define COD_SUNLIGHT "日光"
+#define COD_PATTERN_DAMAGE_1 "「パターン」を歩いたダメージ"
+#define COD_PATTERN_DAMAGE_2 "壊れた「パターン」を歩いたダメージ"
+#define COD_PATTERN_DAMAGE_3 "パターン損壊"
+#define COD_MISCAST_DEATH_SPELL "暗黒魔法の逆流"
+
 #else
+
 #define COD_DART_TRAP "a dart trap"
 #define COD_PERILOUS_IDENTIFY "perilous secrets"
 #define COD_FALL_RIDING "Falling from riding"
@@ -127,6 +134,10 @@
 #define COD_POISONOUS_FOOD "poisonous food"
 #define COD_CHEST_DP_TRAP "a chest dispel-player trap"
 #define COD_SUNLIGHT "sunlight"
+#define COD_PATTERN_DAMAGE_1 "walking the Pattern"
+#define COD_PATTERN_DAMAGE_2 "walking the corrupted Pattern"
+#define COD_PATTERN_DAMAGE_3 "corrupting the Pattern"
+#define COD_MISCAST_DEATH_SPELL "a miscast Death spell"
 #endif
 
 // Hack -- possible "insult" messages
