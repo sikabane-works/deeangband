@@ -906,13 +906,13 @@ void kingly(creature_type *player_ptr)
 	if(!seppuku)
 	{
 #ifdef JP
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "ダンジョンの探索から引退した。");
-		do_cmd_write_nikki(DIARY_GAMESTART, 1, "-------- ゲームオーバー --------");
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, "ダンジョンの探索から引退した。");
+		do_cmd_write_diary(DIARY_GAMESTART, 1, "-------- ゲームオーバー --------");
 #else
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "retired exploring dungeons.");
-		do_cmd_write_nikki(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, "retired exploring dungeons.");
+		do_cmd_write_diary(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
 #endif
-		do_cmd_write_nikki(DIARY_BUNSHOU, 1, "\n\n\n\n");
+		do_cmd_write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 	}
 
 	/* Flush input */

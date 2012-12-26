@@ -3659,10 +3659,10 @@ msg_print("そんなにアイテムを持てない。");
 				strcpy(record_object_name, object_name);
 				record_turn = turn;
 
-				if(record_buy) do_cmd_write_nikki(DIARY_BUY, 0, object_name);
+				if(record_buy) do_cmd_write_diary(DIARY_BUY, 0, object_name);
 				object_desc(object_name, object_ptr, OD_NAME_ONLY);
 				if(record_rand_art && object_ptr->art_name)
-					do_cmd_write_nikki(DIARY_ART, 0, object_name);
+					do_cmd_write_diary(DIARY_ART, 0, object_name);
 
 				/* Erase the inscription */
 				j_ptr->inscription = 0;
@@ -3981,7 +3981,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 			msg_format("You sold %s for %ld gold.", object_name, (long)price);
 #endif
 
-			if(record_sell) do_cmd_write_nikki(DIARY_SELL, 0, object_name);
+			if(record_sell) do_cmd_write_diary(DIARY_SELL, 0, object_name);
 
 			if(!((object_ptr->tval == TV_FIGURINE) && (value > 0)))
 			{

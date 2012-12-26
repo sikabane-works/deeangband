@@ -825,7 +825,7 @@ void compact_creatures(int size)
 				char m_name[MAX_NLEN];
 
 				creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
-				do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_COMPACT, m_name);
+				do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_COMPACT, m_name);
 			}
 
 			/* Delete the creature */

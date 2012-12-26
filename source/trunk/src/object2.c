@@ -675,7 +675,7 @@ void object_aware(object_type *object_ptr)
 		quest_ptr->number = 1;
 		object_desc(object_name, quest_ptr, OD_NAME_ONLY);
 
-		do_cmd_write_nikki(DIARY_HANMEI, 0, object_name);
+		do_cmd_write_diary(DIARY_HANMEI, 0, object_name);
 	}
 }
 

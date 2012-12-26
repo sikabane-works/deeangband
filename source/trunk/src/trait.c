@@ -2798,7 +2798,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 				{
 					creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
-					do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
+					do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
 				}
 
 				/* Delete the creature, rather than killing it. */

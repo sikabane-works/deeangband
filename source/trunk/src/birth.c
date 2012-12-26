@@ -5273,18 +5273,18 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 		message_add("  ");
 
 	#ifdef JP
-		do_cmd_write_nikki(DIARY_GAMESTART, 1, "-------- ユニーク作成 --------");
+		do_cmd_write_diary(DIARY_GAMESTART, 1, "-------- ユニーク作成 --------");
 	#else
-		do_cmd_write_nikki(DIARY_GAMESTART, 1, "-------- Create Unique --------");
+		do_cmd_write_diary(DIARY_GAMESTART, 1, "-------- Create Unique --------");
 	#endif
-		do_cmd_write_nikki(DIARY_HIGAWARI, 0, NULL);
+		do_cmd_write_diary(DIARY_HIGAWARI, 0, NULL);
 
 	#ifdef JP
 		sprintf(buf,"                            性別に%sを選択した。", sex_info[creature_ptr->sex].title);
 	#else
 		sprintf(buf,"                            choose %s personality.", sex_info[creature_ptr->sex].title);
 	#endif
-		do_cmd_write_nikki(DIARY_BUNSHOU, 1, buf);
+		do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
 
 		if(IS_PURE(creature_ptr))
 		{
@@ -5304,14 +5304,14 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 				race_info[creature_ptr->race_idx1].title, race_info[creature_ptr->race_idx2].title);
 	#endif
 		}
-		do_cmd_write_nikki(DIARY_BUNSHOU, 1, buf);
+		do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
 
 	#ifdef JP
 		sprintf(buf,"                            職業に%sを選択した。", class_info[creature_ptr->class_idx].title);
 	#else
 		sprintf(buf,"                            choose %s class.", class_info[creature_ptr->class_idx].title);
 	#endif
-		do_cmd_write_nikki(DIARY_BUNSHOU, 1, buf);
+		do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
 
 		if(creature_ptr->realm1)
 		{
@@ -5320,7 +5320,7 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 	#else
 			sprintf(buf,"                            choose %s%s realm.",realm_names[creature_ptr->realm1], creature_ptr->realm2 ? format(" realm and %s",realm_names[creature_ptr->realm2]) : "");
 	#endif
-			do_cmd_write_nikki(DIARY_BUNSHOU, 1, buf);
+			do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
 		}
 
 	#ifdef JP
@@ -5328,7 +5328,7 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 	#else
 		sprintf(buf,"                            choose %s.", chara_info[creature_ptr->chara_idx].title);
 	#endif
-		do_cmd_write_nikki(DIARY_BUNSHOU, 1, buf);
+		do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
 
 	}
 

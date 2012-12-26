@@ -1536,7 +1536,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 
 	leave_quest_check(creature_ptr);
 
-	if(record_stair) do_cmd_write_nikki(DIARY_WIZ_TELE,0,NULL);
+	if(record_stair) do_cmd_write_diary(DIARY_WIZ_TELE,0,NULL);
 
 	cancel_tactical_action(creature_ptr);
 
@@ -1690,7 +1690,7 @@ static void do_cmd_wiz_zap(creature_type *creature_ptr)
 				char m_name[MAX_NLEN];
 
 				creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
-				do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
+				do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
 			}
 
 			delete_species_idx(&creature_list[i]);
@@ -1722,7 +1722,7 @@ static void do_cmd_wiz_zap_all(creature_type *creature_ptr)
 			char m_name[MAX_NLEN];
 
 			creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
-			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
+			do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
 		}
 
 		/* Delete this creature */

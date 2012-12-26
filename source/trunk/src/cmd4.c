@@ -347,7 +347,7 @@ cptr get_ordinal_number_suffix(int num)
 
 
 // Take note to the diary.
-errr do_cmd_write_nikki(int type, int num, cptr note)
+errr do_cmd_write_diary(int type, int num, cptr note)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	int day, hour, min;
@@ -888,7 +888,7 @@ static void do_cmd_bunshou(void)
 #endif
 	{
 		strcpy(bunshou, tmp);
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, bunshou);
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, bunshou);
 	}
 }
 
@@ -913,7 +913,7 @@ static void do_cmd_last_get(void)
 #else
 	sprintf(buf,"descover %s.", record_object_name);
 #endif
-	do_cmd_write_nikki(DIARY_BUNSHOU, 0, buf);
+	do_cmd_write_diary(DIARY_BUNSHOU, 0, buf);
 	turn = turn_tmp;
 }
 
@@ -1537,9 +1537,9 @@ static void do_cmd_options_cheat(cptr info)
 			{
 				if(!noscore)
 #ifdef JP
-					do_cmd_write_nikki(DIARY_BUNSHOU, 0, "詐欺オプションをONにして、スコアを残せなくなった。");
+					do_cmd_write_diary(DIARY_BUNSHOU, 0, "詐欺オプションをONにして、スコアを残せなくなった。");
 #else
-					do_cmd_write_nikki(DIARY_BUNSHOU, 0, "give up sending score to use cheating options.");
+					do_cmd_write_diary(DIARY_BUNSHOU, 0, "give up sending score to use cheating options.");
 #endif
 				noscore |= (cheat_info[k].o_set * 256 + cheat_info[k].o_bit);
 				(*cheat_info[k].o_var) = TRUE;

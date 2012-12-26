@@ -749,7 +749,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 	floor_ptr->floor_level = command_arg;
 
 	leave_quest_check(creature_ptr);
-	if(record_stair) do_cmd_write_nikki(DIARY_PAT_TELE,0,NULL);
+	if(record_stair) do_cmd_write_diary(DIARY_PAT_TELE,0,NULL);
 
 	cancel_tactical_action(creature_ptr);
 
@@ -1193,13 +1193,13 @@ void leave_quest_check(creature_type *creature_ptr)
 		{
 			//TODO species_info[quest[leaving_quest].species_idx].flags1 &= ~(RF1_QUESTOR);
 			if(record_rand_quest)
-				do_cmd_write_nikki(DIARY_RAND_QUEST_F, leaving_quest, NULL);
+				do_cmd_write_diary(DIARY_RAND_QUEST_F, leaving_quest, NULL);
 
 			/* Floor of random quest will be blocked */
 			//prepare_change_floor_mode(creature_ptr, CFM_NO_RETURN);
 		}
 		else if(record_fix_quest)
-			do_cmd_write_nikki(DIARY_FIX_QUEST_F, leaving_quest, NULL);
+			do_cmd_write_diary(DIARY_FIX_QUEST_F, leaving_quest, NULL);
 	}
 }
 
@@ -2778,7 +2778,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 
 				if(floor_ptr->dun_type) creature_ptr->recall_dungeon = floor_ptr->dun_type;
 				if(record_stair)
-					do_cmd_write_nikki(DIARY_RECALL, floor_ptr->floor_level, NULL);
+					do_cmd_write_diary(DIARY_RECALL, floor_ptr->floor_level, NULL);
 
 				floor_ptr->floor_level = 0;
 				floor_ptr->dun_type = 0;
@@ -2800,7 +2800,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				floor_ptr->dun_type = creature_ptr->recall_dungeon;
 
 				if(record_stair)
-					do_cmd_write_nikki(DIARY_RECALL, floor_ptr->floor_level, NULL);
+					do_cmd_write_diary(DIARY_RECALL, floor_ptr->floor_level, NULL);
 
 				/* New depth */
 				floor_ptr->floor_level = max_dlv[floor_ptr->dun_type];
@@ -3312,7 +3312,7 @@ static void process_world(void)
 	{
 		if(min != prev_min)
 		{
-			do_cmd_write_nikki(DIARY_HIGAWARI, 0, NULL);
+			do_cmd_write_diary(DIARY_HIGAWARI, 0, NULL);
 			determine_today_mon(player_ptr, FALSE);
 		}
 	}
@@ -3425,9 +3425,9 @@ static bool enter_wizard_mode(creature_type *creature_ptr)
 
 		wizard = TRUE;
 #ifdef JP
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "ウィザードモードに突入してスコアを残せなくなった。");
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, "ウィザードモードに突入してスコアを残せなくなった。");
 #else
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "give up recording score to enter wizard mode.");
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, "give up recording score to enter wizard mode.");
 #endif
 		/* Mark savefile */
 		noscore |= 0x0002;
@@ -3480,9 +3480,9 @@ static bool enter_debug_mode(creature_type *creature_ptr)
 		}
 
 #ifdef JP
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "デバッグモードに突入してスコアを残せなくなった。");
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, "デバッグモードに突入してスコアを残せなくなった。");
 #else
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "give up sending score to use debug commands.");
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, "give up sending score to use debug commands.");
 #endif
 		/* Mark savefile */
 		noscore |= 0x0008;
@@ -5245,9 +5245,9 @@ static void cheat_death(void)
 	subject_change_floor = TRUE;
 
 #ifdef JP
-	do_cmd_write_nikki(DIARY_BUNSHOU, 1, "                            しかし、生き返った。");
+	do_cmd_write_diary(DIARY_BUNSHOU, 1, "                            しかし、生き返った。");
 #else
-	do_cmd_write_nikki(DIARY_BUNSHOU, 1, "                            but revived.");
+	do_cmd_write_diary(DIARY_BUNSHOU, 1, "                            but revived.");
 #endif
 
 	// Prepare next floor
@@ -5353,9 +5353,9 @@ static void new_game_setting(void)
 			species = SPECIES_STIGMATIC_ONE;
 			unique_play = FALSE;
 #ifdef JP
-			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "〈烙印者〉モードを選択した");
+			do_cmd_write_diary(DIARY_BUNSHOU, 0, "〈烙印者〉モードを選択した");
 #else
-			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "select Stigmatic One mode.");
+			do_cmd_write_diary(DIARY_BUNSHOU, 0, "select Stigmatic One mode.");
 #endif
 		}
 		else
@@ -5364,9 +5364,9 @@ static void new_game_setting(void)
 			species = select_unique_species();
 			unique_play = TRUE;
 #ifdef JP
-			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "ユニークモードを選択した");
+			do_cmd_write_diary(DIARY_BUNSHOU, 0, "ユニークモードを選択した");
 #else
-			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "select unique mode.");
+			do_cmd_write_diary(DIARY_BUNSHOU, 0, "select unique mode.");
 #endif
 			/* Mark savefile */
 			noscore |= 0x0010;
@@ -5515,7 +5515,7 @@ static void play_loop(void)
 		if((max_dlv[floor_ptr->dun_type] < floor_ptr->floor_level) && !floor_ptr->quest)
 		{
 			max_dlv[floor_ptr->dun_type] = floor_ptr->floor_level;
-			if(record_maxdepth) do_cmd_write_nikki(DIARY_MAXDEAPTH, floor_ptr->floor_level, NULL);
+			if(record_maxdepth) do_cmd_write_diary(DIARY_MAXDEAPTH, floor_ptr->floor_level, NULL);
 		}
 
 		panel_bounds_center(); // Validate the panel
@@ -5771,9 +5771,9 @@ void play_game(bool new_game)
 	{
 		write_level = FALSE;
 #ifdef JP
-		do_cmd_write_nikki(DIARY_GAMESTART, 1, "                            ----ゲーム再開----");
+		do_cmd_write_diary(DIARY_GAMESTART, 1, "                            ----ゲーム再開----");
 #else
-		do_cmd_write_nikki(DIARY_GAMESTART, 1, "                            ---- Restart Game ----");
+		do_cmd_write_diary(DIARY_GAMESTART, 1, "                            ---- Restart Game ----");
 #endif
 	}
 
@@ -5829,7 +5829,7 @@ void play_game(bool new_game)
 #else
 		sprintf(buf, "You are standing in the %s.", map_name(GET_FLOOR_PTR(player_ptr)));
 #endif
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, buf);
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, buf);
 	}
 
 	/* Start game */
@@ -5998,7 +5998,7 @@ void become_winner(creature_type *creature_ptr)
 		prepare_redraw(PR_TITLE);
 		// Congratulations
 #ifdef JP
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "見事にD\'angbandの勝利者となった！");
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, "見事にD\'angbandの勝利者となった！");
 		if(creature_ptr->patron_idx != INDEX_NONE)
 		{
 			msg_format("%sからの声が響いた。", species_name + species_info[creature_ptr->patron_idx].name);
@@ -6008,7 +6008,7 @@ void become_winner(creature_type *creature_ptr)
 		msg_print("あなたはゲームをコンプリートしました。");
 		msg_print("準備が整ったら引退(自殺コマンド)しても結構です。");
 #else
-		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
 		if(creature_ptr->patron_idx != INDEX_NONE)
 		{
 			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);

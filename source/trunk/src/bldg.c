@@ -2203,10 +2203,10 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 				int prev_day, prev_hour, prev_min;
 				extract_day_hour_min(&prev_day, &prev_hour, &prev_min);
 #ifdef JP
-				do_cmd_write_nikki(DIARY_BUNSHOU, 0, "宿屋に泊まった。");
+				do_cmd_write_diary(DIARY_BUNSHOU, 0, "宿屋に泊まった。");
 #else
-				if((prev_hour >= 6) && (prev_hour <= 17)) do_cmd_write_nikki(DIARY_BUNSHOU, 0, "stay over daytime at the inn.");
-				else do_cmd_write_nikki(DIARY_BUNSHOU, 0, "stay over night at the inn.");
+				if((prev_hour >= 6) && (prev_hour <= 17)) do_cmd_write_diary(DIARY_BUNSHOU, 0, "stay over daytime at the inn.");
+				else do_cmd_write_diary(DIARY_BUNSHOU, 0, "stay over night at the inn.");
 #endif
 				turn = (turn / (TURNS_PER_TICK*TOWN_DAWN/2) + 1) * (TURNS_PER_TICK*TOWN_DAWN/2);
 				if(CURRENT_FLOOR_PTR->floor_turn < CURRENT_FLOOR_PTR->floor_turn_limit)
@@ -2217,7 +2217,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 
 				prevent_turn_overflow(creature_ptr);
 
-				if((prev_hour >= 18) && (prev_hour <= 23)) do_cmd_write_nikki(DIARY_HIGAWARI, 0, NULL);
+				if((prev_hour >= 18) && (prev_hour <= 23)) do_cmd_write_diary(DIARY_HIGAWARI, 0, NULL);
 				creature_ptr->chp = creature_ptr->mhp;
 
 				if(curse_of_Iluvatar)
@@ -2240,10 +2240,10 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 
 #ifdef JP
 					msg_print("あなたは絶叫して目を覚ました。");
-					do_cmd_write_nikki(DIARY_BUNSHOU, 0, "悪夢にうなされてよく眠れなかった。");
+					do_cmd_write_diary(DIARY_BUNSHOU, 0, "悪夢にうなされてよく眠れなかった。");
 #else
 					msg_print("You awake screaming.");
-					do_cmd_write_nikki(DIARY_BUNSHOU, 0, "be troubled by a nightmare.");
+					do_cmd_write_diary(DIARY_BUNSHOU, 0, "be troubled by a nightmare.");
 #endif
 				}
 				else
@@ -2265,20 +2265,20 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 					{
 #ifdef JP
 						msg_print("あなたはリフレッシュして目覚め、夕方を迎えた。");
-						do_cmd_write_nikki(DIARY_BUNSHOU, 0, "夕方を迎えた。");
+						do_cmd_write_diary(DIARY_BUNSHOU, 0, "夕方を迎えた。");
 #else
 						msg_print("You awake refreshed for the evening.");
-						do_cmd_write_nikki(DIARY_BUNSHOU, 0, "awake refreshed.");
+						do_cmd_write_diary(DIARY_BUNSHOU, 0, "awake refreshed.");
 #endif
 					}
 					else
 					{
 #ifdef JP
 						msg_print("あなたはリフレッシュして目覚め、新たな日を迎えた。");
-						do_cmd_write_nikki(DIARY_BUNSHOU, 0, "すがすがしい朝を迎えた。");
+						do_cmd_write_diary(DIARY_BUNSHOU, 0, "すがすがしい朝を迎えた。");
 #else
 						msg_print("You awake refreshed for the new day.");
-						do_cmd_write_nikki(DIARY_BUNSHOU, 0, "awake refreshed.");
+						do_cmd_write_diary(DIARY_BUNSHOU, 0, "awake refreshed.");
 #endif
 					}
 				}
@@ -3624,10 +3624,10 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 			max_dlv[creature_ptr->recall_dungeon] = ((amt > dungeon_info[select_dungeon].maxdepth) ? dungeon_info[select_dungeon].maxdepth : ((amt < dungeon_info[select_dungeon].mindepth) ? dungeon_info[select_dungeon].mindepth : amt));
 			if(record_maxdepth)
 #ifdef JP
-			do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "トランプタワーで");
+			do_cmd_write_diary(DIARY_TRUMP, select_dungeon, "トランプタワーで");
 			msg_print("回りの大気が張りつめてきた...");
 #else
-			do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "at Trump Tower");
+			do_cmd_write_diary(DIARY_TRUMP, select_dungeon, "at Trump Tower");
 			msg_print("The air about you becomes charged...");
 #endif
 			paid = TRUE;

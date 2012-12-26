@@ -1306,7 +1306,7 @@ static void generate_floor_quest(floor_type *floor_ptr, int quest_id)
 	floor_ptr->creature_level = floor_ptr->base_level;
 	floor_ptr->quest = quest_id;
 
-	if(record_stair) do_cmd_write_nikki(DIARY_TO_QUEST, quest_id, NULL);
+	if(record_stair) do_cmd_write_diary(DIARY_TO_QUEST, quest_id, NULL);
 
 	// Prepare allocation table
 	get_species_num_prep(NULL, get_creature_hook(), NULL, NULL, 0);

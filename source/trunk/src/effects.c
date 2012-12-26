@@ -1294,7 +1294,7 @@ static void you_died(cptr hit_from)
 		msg_format("You are beaten by %s.", target_name);
 #endif
 		msg_print(NULL);
-		if(record_arena) do_cmd_write_nikki(DIARY_ARENA, -1 - arena_number, target_name);
+		if(record_arena) do_cmd_write_diary(DIARY_ARENA, -1 - arena_number, target_name);
 	}
 	else
 	{
@@ -1329,9 +1329,9 @@ static void you_died(cptr hit_from)
 		if(winning_seppuku)
 		{
 #ifdef JP
-			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "勝利の後切腹した。");
+			do_cmd_write_diary(DIARY_BUNSHOU, 0, "勝利の後切腹した。");
 #else
-			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "did Seppuku after the winning.");
+			do_cmd_write_diary(DIARY_BUNSHOU, 0, "did Seppuku after the winning.");
 #endif
 		}
 		else
@@ -1351,17 +1351,17 @@ static void you_died(cptr hit_from)
 			else sprintf(buf,"level %d", floor_ptr->floor_level);
 			sprintf(tmp, "killed by %s %s.", gameover_from, buf);
 #endif
-			do_cmd_write_nikki(DIARY_BUNSHOU, 0, tmp);
+			do_cmd_write_diary(DIARY_BUNSHOU, 0, tmp);
 		}
 
 #ifdef JP
-		do_cmd_write_nikki(DIARY_GAMESTART, 1, "-------- ゲームオーバー --------");
-		do_cmd_write_nikki(DIARY_BUNSHOU, 1, "\n\n\n\n");
+		do_cmd_write_diary(DIARY_GAMESTART, 1, "-------- ゲームオーバー --------");
+		do_cmd_write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 		flush();
 		if(get_check_strict("画面を保存しますか？", CHECK_NO_HISTORY)) do_cmd_save_screen(player_ptr);
 #else
-		do_cmd_write_nikki(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
-		do_cmd_write_nikki(DIARY_BUNSHOU, 1, "\n\n\n\n");
+		do_cmd_write_diary(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
+		do_cmd_write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 		flush();
 		if(get_check_strict("Dump the screen? ", CHECK_NO_HISTORY)) do_cmd_save_screen(player_ptr);
 #endif
@@ -1779,7 +1779,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 #else
 				sprintf(note_buf, "%s%s", species_name + species_ptr->name, has_trait(target_ptr, TRAIT_CLONED) ? "(Clone)" : "");
 #endif
-				do_cmd_write_nikki(DIARY_UNIQUE, 0, note_buf);
+				do_cmd_write_diary(DIARY_UNIQUE, 0, note_buf);
 			}
 
 			sound(SOUND_KILL); // Make a sound	
@@ -1970,7 +1970,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				hit_from = "something";
 			sprintf(tmp,"A critical situation because of %s.",hit_from);
 #endif
-			do_cmd_write_nikki(DIARY_BUNSHOU, 0, tmp);
+			do_cmd_write_diary(DIARY_BUNSHOU, 0, tmp);
 		}
 
 		if(auto_more) target_ptr->now_damaged = TRUE; // stop auto_more even if DAMAGE_USELIFE

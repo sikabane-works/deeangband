@@ -1335,7 +1335,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 		{
 			creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
-			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
+			do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
 		}
 
 		delete_species_idx(&creature_list[m_idx]);
@@ -1781,7 +1781,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 						char m_name[MAX_NLEN];
 
 						creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
-						do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_DESTROY, m_name);
+						do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_DESTROY, m_name);
 					}
 
 					/* Delete the creature (if any) */
@@ -2256,7 +2256,7 @@ void discharge_minion(creature_type *caster_ptr)
 			char target_name[MAX_NLEN];
 
 			creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
-			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_BLAST, target_name);
+			do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_BLAST, target_name);
 		}
 
 		delete_species_idx(&creature_list[i]);
