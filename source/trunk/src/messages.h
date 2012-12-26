@@ -524,3 +524,18 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_MEMO "Memo: "
 #endif
 
+#ifdef JP
+	#define ST_VIEW_HUNGER_WEAK		"êäé„  "
+	#define ST_VIEW_HUNGER_HUNGRY	"ãÛï†  "
+	#define ST_VIEW_HUNGER_NORMAL	"      "
+	#define ST_VIEW_HUNGER_FULL		"ñûï†  "
+	#define ST_VIEW_HUNGER_GORGED	"êHâﬂÇ¨"
+#else
+	#define ST_VIEW_HUNGER_WEAK		"Weak  "
+	#define ST_VIEW_HUNGER_HUNGRY	"Hungry"
+	#define ST_VIEW_HUNGER_NORMAL	"      "
+	#define ST_VIEW_HUNGER_FULL		"Full  "
+	#define ST_VIEW_HUNGER_Gorged	"Gorges"
+#endif
+
+

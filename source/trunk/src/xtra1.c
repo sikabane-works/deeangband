@@ -754,63 +754,36 @@ static void prt_hunger(creature_type *creature_ptr)
 	if(creature_ptr->food < CREATURE_FOOD_FAINT)
 	{
 		color = TERM_RED;
-#ifdef JP
-		expression = "ŠŽã  ";
-		c_put_str(TERM_RED, "ŠŽã  ", ROW_HUNGRY, COL_HUNGRY);
-#else
-		expression = "Weak  ";
-		c_put_str(TERM_RED, "Weak  ", ROW_HUNGRY, COL_HUNGRY);
-#endif
-
+		expression = ST_VIEW_HUNGER_WEAK;
+		c_put_str(TERM_RED, ST_VIEW_HUNGER_WEAK, ROW_HUNGRY, COL_HUNGRY);
 	}
 	else if(creature_ptr->food < CREATURE_FOOD_WEAK)
 	{
 		color = TERM_ORANGE;
-#ifdef JP
-		expression = "ŠŽã  ";
-		c_put_str(TERM_ORANGE, "ŠŽã  ", ROW_HUNGRY, COL_HUNGRY);
-#else
-		expression = "ŠŽã  ";
-		c_put_str(TERM_ORANGE, "Weak  ", ROW_HUNGRY, COL_HUNGRY);
-#endif
-
+		expression = ST_VIEW_HUNGER_WEAK;
+		c_put_str(TERM_ORANGE, ST_VIEW_HUNGER_WEAK, ROW_HUNGRY, COL_HUNGRY);
 	}
 	else if(creature_ptr->food < CREATURE_FOOD_ALERT)
 	{
 		color = TERM_YELLOW;
-#ifdef JP
-		expression = "‹ó•   ";
-		c_put_str(TERM_YELLOW, "‹ó•   ", ROW_HUNGRY, COL_HUNGRY);
-#else
-		expression = "Hungry";
-		c_put_str(TERM_YELLOW, "Hungry", ROW_HUNGRY, COL_HUNGRY);
-#endif
+		expression = ST_VIEW_HUNGER_HUNGRY;
+		c_put_str(TERM_YELLOW, ST_VIEW_HUNGER_HUNGRY, ROW_HUNGRY, COL_HUNGRY);
 	}
 	else if(creature_ptr->food < CREATURE_FOOD_FULL)
 	{
 		color = TERM_L_GREEN;
-		expression = "      ";
-		c_put_str(TERM_L_GREEN, "      ", ROW_HUNGRY, COL_HUNGRY);
+		expression = ST_VIEW_HUNGER_NORMAL;
+		c_put_str(TERM_L_GREEN, ST_VIEW_HUNGER_NORMAL, ROW_HUNGRY, COL_HUNGRY);
 	}
 	else if(creature_ptr->food < CREATURE_FOOD_MAX)
 	{
 		color = TERM_L_GREEN;
-#ifdef JP
-		expression = "–ž•   ";
-#else
-		expression = "Full  ";
-#endif
-
+		expression = ST_VIEW_HUNGER_FULL;
 	}
 	else
 	{
 		color = TERM_GREEN;
-#ifdef JP
-		expression = "H‰ß‚¬";
-#else
-		expression = "Gorged";
-#endif
-
+		expression = ST_VIEW_HUNGER_GORGED;
 	}
 
 	if(wizard) sprintf(tmp, "%6s(%d)", expression, creature_ptr->food);
