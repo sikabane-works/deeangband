@@ -5725,18 +5725,14 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 
 	if(!creature_ptr->total_winner)
 	{
-#ifdef JP
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, "ダンジョンの探索に絶望して自殺した。");
-#else
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, "give up all hope to commit suicide.");
-#endif
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_SUICIDE);
 		do_cmd_write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
 		do_cmd_write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 	}
 
 	/* Cause of death */
 #ifdef JP
-(void)strcpy(gameover_from, "途中終了");
+	(void)strcpy(gameover_from, "途中終了");
 #else
 	(void)strcpy(gameover_from, "Quitting");
 #endif
