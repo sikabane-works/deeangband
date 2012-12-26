@@ -2170,11 +2170,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			if(caster_ptr->riding)
 			{
-#ifdef JP
-				msg_print("乗馬中はできません。");
-#else
-				msg_print("You need to get off a pet.");
-#endif
+				msg_print(GAME_MESSAGE_PREVENT_BY_RIDING);
 				return FALSE;
 			}
 
@@ -2341,11 +2337,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 			if(caster_ptr->riding)
 			{
-#ifdef JP
-				msg_print("今は乗馬中だ。");
-#else
-				msg_print("You ARE riding.");
-#endif
+				msg_print(GAME_MESSAGE_PREVENT_BY_RIDING);
 				return FALSE;
 			}
 			if(!do_riding(caster_ptr, TRUE)) return TRUE;

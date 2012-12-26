@@ -812,7 +812,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 	if((empty_hands(attacker_ptr, TRUE) & EMPTY_HAND_RARM) && !attacker_ptr->riding) monk_attack = TRUE;
 
 #if JP
-	strcpy(weapon_name, "素手");
+	strcpy(weapon_name, "徒手");
 #else
 	strcpy(weapon_name, "bare hand");
 #endif
@@ -963,29 +963,8 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		}
 
 		if(stun_effect && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
-		{
 			if(attacker_ptr->lev > randint1(species_ptr->level + res_stun + 10))
-			{
-				if(add_timed_trait(target_ptr, TRAIT_STUN, stun_effect, TRUE))
-				{
-					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-#ifdef JP
-						msg_format("%^sはフラフラになった。", target_name);
-#else
-						msg_format("%^s is stunned.", target_name);
-#endif
-				}
-				else
-				{
-					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-#ifdef JP
-						msg_format("%^sはさらにフラフラになった。", target_name);
-#else
-						msg_format("%^s is more stunned.", target_name);
-#endif
-				}
-			}
-		}
+				add_timed_trait(target_ptr, TRAIT_STUN, stun_effect, TRUE);
 	}
 }
 

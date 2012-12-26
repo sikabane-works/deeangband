@@ -9811,11 +9811,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(caster_ptr->riding)
 			{
-#ifdef JP
-				msg_print("乗馬中には無理だ。");
-#else
-				msg_print("You cannot do it when riding.");
-#endif
+				msg_print(GAME_MESSAGE_PREVENT_BY_RIDING);
 				return NULL;
 			}
 #ifdef JP
@@ -9842,11 +9838,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(caster_ptr->riding)
 			{
-#ifdef JP
-				msg_print("乗馬中には無理だ。");
-#else
-				msg_print("You cannot do it when riding.");
-#endif
+				msg_print(GAME_MESSAGE_PREVENT_BY_RIDING);
 				return NULL;
 			}
 	

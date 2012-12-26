@@ -26,6 +26,7 @@
 #define GAME_MESSAGE_TRAP_ARMAGEDDON "突然天界の戦争に巻き込まれた！"
 #define GAME_MESSAGE_TRAP_ALARM "けたたましい音が鳴り響いた！"
 #define GAME_MESSAGE_SEEM_TO_CURSE "ふーむ、どうやら呪われているようだ。"
+#define GAME_MESSAGE_PREVENT_BY_RIDING "乗馬中には出来ない。"
 
 #else
 
@@ -54,6 +55,7 @@
 #define GAME_MESSAGE_TRAP_ARMAGEDDON "Suddenly, you are surrounded by immotal beings!"
 #define GAME_MESSAGE_TRAP_ALARM "An alarm sounds!"
 #define GAME_MESSAGE_SEEM_TO_CURSE "Hmmm, it seems to be cursed."
+#define GAME_MESSAGE_PREVENT_BY_RIDING "You cannot do it when riding."
 
 #endif
 

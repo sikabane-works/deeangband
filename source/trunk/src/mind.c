@@ -1389,11 +1389,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 		{
 			if(creature_ptr->riding)
 			{
-#ifdef JP
-				msg_print("æ”n’†‚É‚Í–³—‚¾B");
-#else
-				msg_print("You cannot do it when riding.");
-#endif
+				msg_print(GAME_MESSAGE_PREVENT_BY_RIDING);
 				return FALSE;
 			}
 
