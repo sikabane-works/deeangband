@@ -27,6 +27,7 @@
 #define GAME_MESSAGE_TRAP_ALARM "けたたましい音が鳴り響いた！"
 #define GAME_MESSAGE_SEEM_TO_CURSE "ふーむ、どうやら呪われているようだ。"
 #define GAME_MESSAGE_PREVENT_BY_RIDING "乗馬中には出来ない。"
+#define GAME_MESSAGE_PREVENT_BY_CONFUSION "混乱状態で上手く出来ない。"
 
 #else
 
@@ -56,6 +57,7 @@
 #define GAME_MESSAGE_TRAP_ALARM "An alarm sounds!"
 #define GAME_MESSAGE_SEEM_TO_CURSE "Hmmm, it seems to be cursed."
 #define GAME_MESSAGE_PREVENT_BY_RIDING "You cannot do it when riding."
+#define GAME_MESSAGE_PREVENT_BY_CONFUSION "You are too confused.";
 
 #endif
 

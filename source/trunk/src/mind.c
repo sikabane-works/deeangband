@@ -1759,12 +1759,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 	/* not if confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-#ifdef JP
-		msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
-#else
-		msg_print("You are too confused!");
-#endif
-
+		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
 		return;
 	}
 

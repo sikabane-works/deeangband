@@ -2216,11 +2216,7 @@ void do_cmd_run(creature_type *creature_ptr)
 	/* Hack -- no running when confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-#ifdef JP
-		msg_print("¬—‚µ‚Ä‚¢‚Ä‘–‚ê‚È‚¢I");
-#else
-		msg_print("You are too confused!");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
 		return;
 	}
 

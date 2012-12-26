@@ -331,12 +331,7 @@ void do_cmd_hissatsu(creature_type *creature_ptr)
 	/* not if confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-#ifdef JP
-msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
-#else
-		msg_print("You are too confused!");
-#endif
-
+		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
 		return;
 	}
 	if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
@@ -427,12 +422,7 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-#ifdef JP
-msg_print("¬—‚µ‚Ä‚¢‚Ä“Ç‚ß‚È‚¢I");
-#else
-		msg_print("You are too confused!");
-#endif
-
+		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
 		return;
 	}
 

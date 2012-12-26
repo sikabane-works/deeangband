@@ -283,12 +283,7 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 	/* not if confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-#ifdef JP
-msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
-#else
-		msg_print("You are too confused!");
-#endif
-
+		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
 		return TRUE;
 	}
 

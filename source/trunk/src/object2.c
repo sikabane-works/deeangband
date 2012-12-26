@@ -5939,12 +5939,7 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 	{
 		if(has_trait(creature_ptr, TRAIT_CONFUSED))
 		{
-#ifdef JP
-			msg_print("¬—‚µ‚Ä‚¢‚Äì‹Æ‚Å‚«‚È‚¢I");
-#else
-			msg_print("You are too confused!");
-#endif
-
+			msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
 			return;
 		}
 		if(has_trait(creature_ptr, TRAIT_BLIND))

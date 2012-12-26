@@ -56,11 +56,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-#ifdef JP
-		msg_print("混乱してる！");
-#else
-		msg_print("You are too confused!");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
 		return FALSE;
 	}
 
@@ -419,11 +415,7 @@ bool choose_kamae(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-#ifdef JP
-		msg_print("混乱していて構えられない！");
-#else
-		msg_print("Too confused.");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
 		return FALSE;
 	}
 
@@ -529,11 +521,7 @@ bool choose_kata(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-#ifdef JP
-		msg_print("混乱していて構えられない！");
-#else
-		msg_print("Too confused.");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
 		return FALSE;
 	}
 
@@ -743,11 +731,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 
 	else if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-#ifdef JP
-		msg_print("混乱していてその能力は使えない。");
-#else
-		msg_print("You are too confused to use this power.");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
 		cancel_tactical_action(creature_ptr);
 		return 0;
 	}
@@ -832,11 +816,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-#ifdef JP
-		msg_print("混乱していて特殊能力を使えません！");
-#else
-		msg_print("You are too confused to use any powers!");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
 		cancel_tactical_action(creature_ptr);
 		return;
 	}
