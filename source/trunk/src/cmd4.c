@@ -1083,11 +1083,8 @@ void do_cmd_redraw(void)
 		if(!angband_term[j]) continue;
 
 		Term_activate(angband_term[j]);
-
 		Term_redraw();
-
 		Term_fresh();
-
 		Term_activate(old);
 	}
 }
@@ -1419,71 +1416,29 @@ void do_cmd_messages(int num_now)
 
 
 
-/*
- * Number of cheating options
- */
+// Number of cheating options
 #define CHEAT_MAX 7
 
-/*
- * Cheating options
- */
+// Cheating options
 static option_type cheat_info[CHEAT_MAX] =
 {
-	{ &cheat_peek,		FALSE,	255,	0x01, 0x00,
 #ifdef JP
-	"cheat_peek",		"アイテムの生成をのぞき見る"
+	{ &cheat_peek,		FALSE,	255,	0x01, 0x00, "cheat_peek",		"アイテムの生成をのぞき見る"},
+	{ &cheat_hear,		FALSE,	255,	0x02, 0x00, "cheat_hear",		"クリーチャーの生成をのぞき見る"},
+	{ &cheat_room,		FALSE,	255,	0x04, 0x00, "cheat_room",		"ダンジョンの生成をのぞき見る"},
+	{ &cheat_xtra,		FALSE,	255,	0x08, 0x00, "cheat_xtra",		"その他の事をのぞき見る"},
+	{ &cheat_know,		FALSE,	255,	0x10, 0x00, "cheat_know",		"完全なクリーチャーの思い出を知る"},
+	{ &cheat_live,		FALSE,	255,	0x20, 0x00, "cheat_live",		"死を回避することを可能にする"},
+	{ &cheat_save,		FALSE,	255,	0x40, 0x00, "cheat_save",		"死んだ時セーブするか確認する"}
 #else
-	"cheat_peek",		"Peek into object creation"
+	{ &cheat_peek,		FALSE,	255,	0x01, 0x00, "cheat_peek",		"Peek into object creation"},
+	{ &cheat_hear,		FALSE,	255,	0x02, 0x00, "cheat_hear",		"Peek into creature creation"},
+	{ &cheat_room,		FALSE,	255,	0x04, 0x00, "cheat_room",		"Peek into dungeon creation"},
+	{ &cheat_xtra,		FALSE,	255,	0x08, 0x00, "cheat_xtra",		"Peek into something else"},
+	{ &cheat_know,		FALSE,	255,	0x10, 0x00, "cheat_know",		"Know complete creature info"},
+	{ &cheat_live,		FALSE,	255,	0x20, 0x00, "cheat_live",		"Allow player to avoid death"},
+	{ &cheat_save,		FALSE,	255,	0x40, 0x00, "cheat_save",		"Ask for saving death"}
 #endif
-	},
-
-	{ &cheat_hear,		FALSE,	255,	0x02, 0x00,
-#ifdef JP
-	"cheat_hear",		"クリーチャーの生成をのぞき見る"
-#else
-	"cheat_hear",		"Peek into creature creation"
-#endif
-	},
-
-	{ &cheat_room,		FALSE,	255,	0x04, 0x00,
-#ifdef JP
-	"cheat_room",		"ダンジョンの生成をのぞき見る"
-#else
-	"cheat_room",		"Peek into dungeon creation"
-#endif
-	},
-
-	{ &cheat_xtra,		FALSE,	255,	0x08, 0x00,
-#ifdef JP
-	"cheat_xtra",		"その他の事をのぞき見る"
-#else
-	"cheat_xtra",		"Peek into something else"
-#endif
-	},
-
-	{ &cheat_know,		FALSE,	255,	0x10, 0x00,
-#ifdef JP
-	"cheat_know",		"完全なクリーチャーの思い出を知る"
-#else
-	"cheat_know",		"Know complete creature info"
-#endif
-	},
-
-	{ &cheat_live,		FALSE,	255,	0x20, 0x00,
-#ifdef JP
-	"cheat_live",		"死を回避することを可能にする"
-#else
-	"cheat_live",		"Allow player to avoid death"
-#endif
-	},
-
-	{ &cheat_save,		FALSE,	255,	0x40, 0x00,
-#ifdef JP
-	"cheat_save",		"死んだ時セーブするか確認する"
-#else
-	"cheat_save",		"Ask for saving death"
-#endif
-	}
 };
 
 /*
