@@ -3611,24 +3611,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 					/* Anger the creature */
 					if((tdam > 0) && !object_is_potion(creature_ptr, quest_ptr))
 						anger_creature(creature_ptr, m_ptr);
-
-					/* Take note */
-					if(fear && m_ptr->see_others)
-					{
-						char m_name[MAX_NLEN];
-
-						sound(SOUND_FLEE);
-
-						/* Get the creature name (or "it") */
-						creature_desc(m_name, m_ptr, 0);
-
-#ifdef JP
-						msg_format("%^s‚Í‹°•|‚µ‚Ä“¦‚°o‚µ‚½I", m_name);
-#else
-						msg_format("%^s flees in terror!", m_name);
-#endif
-
-					}
 				}
 			}
 

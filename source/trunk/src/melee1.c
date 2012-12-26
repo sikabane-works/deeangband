@@ -1421,17 +1421,6 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 		return FALSE;
 	}
 
-	// Hack -- delay fear messages
-	if(fear && target_ptr->see_others && !dead)
-	{
-		sound(SOUND_FLEE); // Sound
-#ifdef JP
-		msg_format("%^s‚Í‹°•|‚µ‚Ä“¦‚°o‚µ‚½I", target_name);
-#else
-		msg_format("%^s flees in terror!", target_name);
-#endif
-	}
-
 	if((attacker_ptr->posture & KATA_IAI) && ((mode != HISSATSU_IAI) || dead))
 		set_action(attacker_ptr, ACTION_NONE);
 
