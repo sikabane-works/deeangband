@@ -209,6 +209,8 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_DEAD "dead_j.txt"
 
 #define TEXT_FILES_ELVISH "elvish.txt"
+#define TEXT_FILES_HISTEDIT_N "histedit-%s.prf"
+#define TEXT_FILES_HISTEDIT "histedit.prf"
 
 #else
 
@@ -255,6 +257,8 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_DEAD "dead.txt"
 
 #define TEXT_FILES_ELVISH "elvish.txt"
+#define TEXT_FILES_HISTEDIT_N "histpref-%s.prf"
+#define TEXT_FILES_HISTEDIT "histpref.prf"
 
 #endif
 

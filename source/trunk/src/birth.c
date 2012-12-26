@@ -4419,21 +4419,13 @@ static bool do_cmd_histpref(creature_type *creature_ptr)
 	histbuf[0] = '\0';
 	histpref_buf = histbuf;
 
-#ifdef JP
-	sprintf(buf, "histedit-%s.prf", player_base);
-#else
-	sprintf(buf, "histpref-%s.prf", player_base);
-#endif
+	sprintf(buf, TEXT_FILES_HISTEDIT_N, player_base);
 	err = process_histpref_file(buf);
 
 	/* Process 'hist????.prf' if 'hist????-<name>.prf' doesn't exist */
 	if(0 > err)
 	{
-#ifdef JP
-		strcpy(buf, "histedit.prf");
-#else
-		strcpy(buf, "histpref.prf");
-#endif
+		strcpy(buf, TEXT_FILES_HISTEDIT);
 		err = process_histpref_file(buf);
 	}
 
