@@ -1,5 +1,12 @@
 
 // Keywords
+
+#if JP
+#define SYS_MESSAGE_FAILED_TEMPFILE "一時ファイル %s を作成できませんでした。"
+#else
+#define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
+#endif
+
 #if JP
 #define GAME_MESSAGE_COMPLETE_QUEST "クエストを達成した。"
 #define GAME_MESSAGE_IMPROVEMENT_FAILED "改良に失敗した。"""

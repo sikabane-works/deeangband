@@ -5903,11 +5903,7 @@ static void do_cmd_knowledge_uniques(void)
 
 	if(!fff)
 	{
-#ifdef JP
-	    msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-	    msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -6045,11 +6041,7 @@ static void do_cmd_knowledge_weapon_exp(creature_type *creature_ptr)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-#ifdef JP
-	    msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-	    msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -6113,11 +6105,7 @@ static void do_cmd_knowledge_spell_exp(creature_type *creature_ptr)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-#ifdef JP
-	    msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-	    msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -6221,11 +6209,7 @@ static void do_cmd_knowledge_skill_exp(creature_type *creature_ptr)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-#ifdef JP
-	    msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-	    msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -6397,11 +6381,7 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-#ifdef JP
-	    msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-	    msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -6476,11 +6456,7 @@ static void do_cmd_knowledge_kill_count(void)
 	fff = my_fopen_temp(file_name, 1024);
 
 	if(!fff) {
-#ifdef JP
-	    msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-	    msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -8225,11 +8201,7 @@ static void do_cmd_knowledge_kubi(creature_type *creature_ptr)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-#ifdef JP
-	    msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-	    msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -8298,11 +8270,7 @@ static void do_cmd_knowledge_karmas(creature_type *creature_ptr)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-#ifdef JP
-	    msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-	    msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -8340,11 +8308,7 @@ static void do_cmd_knowledge_dungeon()
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-#ifdef JP
-	    msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-	    msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -8399,11 +8363,7 @@ static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-#ifdef JP
-	    msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-	    msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -8882,11 +8842,7 @@ static void do_cmd_knowledge_quests(void)
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff)
 	{
-#ifdef JP
-	    msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-	    msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -8946,11 +8902,7 @@ static void do_cmd_knowledge_home(void)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-#ifdef JP
-		msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-		msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 		msg_print(NULL);
 		return;
 	}
@@ -9039,11 +8991,7 @@ static void do_cmd_knowledge_autopick(void)
 
 	if(!fff)
 	{
-#ifdef JP
-	    msg_format("一時ファイル %s を作成できませんでした。", file_name);
-#else
-	    msg_format("Failed to create temporary file %s.", file_name);
-#endif
+	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
