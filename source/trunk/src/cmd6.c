@@ -1333,11 +1333,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	}
 	if(no_lite(creature_ptr))
 	{
-#ifdef JP
-		msg_print("明かりがないので、暗くて読めない。");
-#else
-		msg_print("You have no light to read by.");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_NO_LITE);
 		return;
 	}
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
@@ -2976,12 +2972,7 @@ void do_cmd_use(creature_type *creature_ptr)
 			}
 			if(no_lite(creature_ptr))
 			{
-#ifdef JP
-				msg_print("明かりがないので、暗くて読めない。");
-#else
-				msg_print("You have no light to read by.");
-#endif
-
+				msg_print(GAME_MESSAGE_PREVENT_BY_NO_LITE);
 				return;
 			}
 			if(has_trait(creature_ptr, TRAIT_CONFUSED))

@@ -5944,12 +5944,7 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 		}
 		if(has_trait(creature_ptr, TRAIT_BLIND))
 		{
-#ifdef JP
-			msg_print("–Ú‚ªŒ©‚¦‚È‚­‚Äì‹Æ‚Å‚«‚È‚¢I");
-#else
-			msg_print("You are blind!");
-#endif
-
+			msg_print(GAME_MESSAGE_PREVENT_BY_BLIND);
 			return;
 		}
 		if(has_trait(creature_ptr, TRAIT_HALLUCINATION))

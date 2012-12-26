@@ -28,6 +28,8 @@
 #define GAME_MESSAGE_SEEM_TO_CURSE "ふーむ、どうやら呪われているようだ。"
 #define GAME_MESSAGE_PREVENT_BY_RIDING "乗馬中には出来ない。"
 #define GAME_MESSAGE_PREVENT_BY_CONFUSION "混乱状態で上手く出来ない。"
+#define GAME_MESSAGE_PREVENT_BY_BLIND "眼が見えなくて出来ない。"
+#define GAME_MESSAGE_PREVENT_BY_NO_LITE "明かりがなくて出来ない。"
 
 #else
 
@@ -58,6 +60,8 @@
 #define GAME_MESSAGE_SEEM_TO_CURSE "Hmmm, it seems to be cursed."
 #define GAME_MESSAGE_PREVENT_BY_RIDING "You cannot do it when riding."
 #define GAME_MESSAGE_PREVENT_BY_CONFUSION "You are too confused.";
+#define GAME_MESSAGE_PREVENT_BY_BLIND "You are blind!"
+#define GAME_MESSAGE_PREVENT_BY_NO_LITE "You have no light to read by."
 
 #endif
 
