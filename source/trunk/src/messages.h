@@ -128,7 +128,8 @@
 #define COD_PATTERN_DAMAGE_2 "壊れた「パターン」を歩いたダメージ"
 #define COD_PATTERN_DAMAGE_3 "パターン損壊"
 #define COD_MISCAST_DEATH_SPELL "暗黒魔法の逆流"
-
+#define COD_PIT_TRAP "落とし穴"
+#define COD_SPIKED_PIT_TRAP "トゲのある落とし穴"
 
 #else
 
@@ -147,6 +148,9 @@
 #define COD_PATTERN_DAMAGE_2 "walking the corrupted Pattern"
 #define COD_PATTERN_DAMAGE_3 "corrupting the Pattern"
 #define COD_MISCAST_DEATH_SPELL "a miscast Death spell"
+#define COD_PIT_TRAP "a pit trap"
+#define COD_SPIKED_PIT_TRAP "a spiked pit"
+
 #endif
 
 // Hack -- possible "insult" messages

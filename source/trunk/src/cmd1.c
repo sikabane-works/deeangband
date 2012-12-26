@@ -832,21 +832,20 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			{
 #ifdef JP
 				msg_print("スパイクが敷かれた落とし穴に落ちてしまった！");
-				name = "落とし穴";
 #else
 				msg_print("You fall into a spiked pit!");
-				name = "a pit trap";
 #endif
+				name = COD_PIT_TRAP;
 				dam = diceroll(2, 6); // Base damage
+
 				if(randint0(100) < 50) // Extra spike damage
 				{
 #ifdef JP
 					msg_print("スパイクが刺さった！");
-					name = "トゲのある落とし穴";
 #else
 					msg_print("You are impaled!");
-					name = "a spiked pit";
 #endif
+					name = COD_SPIKED_PIT_TRAP;
 					dam = dam * 2;
 					(void)add_timed_trait(creature_ptr, TRAIT_CUT, randint1(dam), TRUE);
 				}
@@ -870,11 +869,10 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			{
 #ifdef JP
 				msg_print("スパイクが敷かれた落とし穴に落ちてしまった！");
-				name = "落とし穴";
 #else
 				msg_print("You fall into a spiked pit!");
-				name = "a pit trap";
 #endif
+				name = COD_PIT_TRAP;
 				dam = diceroll(2, 6); // Base damage
 
 				// Extra spike damage
@@ -882,11 +880,10 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				{
 #ifdef JP
 					msg_print("毒を塗られたスパイクが刺さった！");
-					name = "トゲのある落とし穴";
 #else
 					msg_print("You are impaled on poisonous spikes!");
-					name = "a spiked pit";
 #endif
+					name = COD_SPIKED_PIT_TRAP;
 					dam = dam * 2;
 					(void)add_timed_trait(creature_ptr, TRAIT_CUT, randint1(dam), TRUE);
 
