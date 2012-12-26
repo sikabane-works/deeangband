@@ -725,114 +725,43 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 			switch (num)
 			{
-				case RECORD_NAMED_PET_NAME:
+				
 #ifdef JP
-					fprintf(fff, "%sを旅の友にすることに決めた。\n", note);
+				case RECORD_NAMED_PET_NAME: fprintf(fff, "%sを旅の友にすることに決めた。\n", note); break;
+				case RECORD_NAMED_PET_UNNAME: fprintf(fff, "%sの名前を消した。\n", note); break;
+				case RECORD_NAMED_PET_DISMISS: fprintf(fff, "%sを解放した。\n", note); break;
+				case RECORD_NAMED_PET_DEATH: fprintf(fff, "%sが死んでしまった。\n", note); break;
+				case RECORD_NAMED_PET_MOVED: fprintf(fff, "%sをおいて別のマップへ移動した。\n", note); break;
+				case RECORD_NAMED_PET_LOST_SIGHT: fprintf(fff, "%sとはぐれてしまった。\n", note); break;
+				case RECORD_NAMED_PET_DESTROY: fprintf(fff, "%sが*破壊*によって消え去った。\n", note); break;
+				case RECORD_NAMED_PET_EARTHQUAKE: fprintf(fff, "%sが岩石に押し潰された。\n", note); break;
+				case RECORD_NAMED_PET_GENOCIDE: fprintf(fff, "%sが抹殺によって消え去った。\n", note); break;
+				case RECORD_NAMED_PET_WIZ_ZAP: fprintf(fff, "%sがデバッグコマンドによって消え去った。\n", note); break;
+				case RECORD_NAMED_PET_TELE_LEVEL: fprintf(fff, "%sがテレポート・レベルによって消え去った。\n", note); break;
+				case RECORD_NAMED_PET_BLAST: fprintf(fff, "%sを爆破した。\n", note); break;
+				case RECORD_NAMED_PET_HEAL_LEPER: fprintf(fff, "%sの病気が治り旅から外れた。\n", note); break;
+				case RECORD_NAMED_PET_COMPACT: fprintf(fff, "%sがクリーチャー情報圧縮によって消え去った。\n", note); break;
+				case RECORD_NAMED_PET_LOSE_PARENT: fprintf(fff, "%sの召喚者が既にいないため消え去った。\n", note); break;
 #else
-					fprintf(fff, "decided to travel together with %s.\n", note);
+				case RECORD_NAMED_PET_NAME: fprintf(fff, "decided to travel together with %s.\n", note); break;
+				case RECORD_NAMED_PET_UNNAME: fprintf(fff, "unnamed %s.\n", note); break;
+				case RECORD_NAMED_PET_DISMISS: fprintf(fff, "dismissed %s.\n", note); break;
+				case RECORD_NAMED_PET_DEATH: fprintf(fff, "%s died.\n", note); break;
+				case RECORD_NAMED_PET_MOVED: fprintf(fff, "moved to another map leaving %s behind.\n", note); break;
+				case RECORD_NAMED_PET_LOST_SIGHT: fprintf(fff, "lost sight of %s.\n", note); break;
+				case RECORD_NAMED_PET_DESTROY: fprintf(fff, "%s was made disappeared by *destruction*.\n", note); break;
+				case RECORD_NAMED_PET_EARTHQUAKE: fprintf(fff, "%s was crushed by falling rocks.\n", note); break;
+				case RECORD_NAMED_PET_GENOCIDE: fprintf(fff, "%s was made disappeared by genocide.\n", note); break;
+				case RECORD_NAMED_PET_WIZ_ZAP: fprintf(fff, "%s was removed by debug command.\n", note); break;
+				case RECORD_NAMED_PET_TELE_LEVEL: fprintf(fff, "%s was made disappeared by teleport level.\n", note); break;
+				case RECORD_NAMED_PET_BLAST: fprintf(fff, "blasted %s.\n", note); break;
+				case RECORD_NAMED_PET_HEAL_LEPER: fprintf(fff, "%s was healed and left.\n", note); break;
+				case RECORD_NAMED_PET_COMPACT: fprintf(fff, "%s was made disappeared by compacting creatures.\n", note); break;
+				case RECORD_NAMED_PET_LOSE_PARENT: fprintf(fff, "%s disappeared because there does not exist summoner.\n", note); break;
 #endif
-					break;
-				case RECORD_NAMED_PET_UNNAME:
-#ifdef JP
-					fprintf(fff, "%sの名前を消した。\n", note);
-#else
-					fprintf(fff, "unnamed %s.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_DISMISS:
-#ifdef JP
-					fprintf(fff, "%sを解放した。\n", note);
-#else
-					fprintf(fff, "dismissed %s.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_DEATH:
-#ifdef JP
-					fprintf(fff, "%sが死んでしまった。\n", note);
-#else
-					fprintf(fff, "%s died.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_MOVED:
-#ifdef JP
-					fprintf(fff, "%sをおいて別のマップへ移動した。\n", note);
-#else
-					fprintf(fff, "moved to another map leaving %s behind.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_LOST_SIGHT:
-#ifdef JP
-					fprintf(fff, "%sとはぐれてしまった。\n", note);
-#else
-					fprintf(fff, "lost sight of %s.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_DESTROY:
-#ifdef JP
-					fprintf(fff, "%sが*破壊*によって消え去った。\n", note);
-#else
-					fprintf(fff, "%s was made disappeared by *destruction*.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_EARTHQUAKE:
-#ifdef JP
-					fprintf(fff, "%sが岩石に押し潰された。\n", note);
-#else
-					fprintf(fff, "%s was crushed by falling rocks.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_GENOCIDE:
-#ifdef JP
-					fprintf(fff, "%sが抹殺によって消え去った。\n", note);
-#else
-					fprintf(fff, "%s was made disappeared by genocide.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_WIZ_ZAP:
-#ifdef JP
-					fprintf(fff, "%sがデバッグコマンドによって消え去った。\n", note);
-#else
-					fprintf(fff, "%s was removed by debug command.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_TELE_LEVEL:
-#ifdef JP
-					fprintf(fff, "%sがテレポート・レベルによって消え去った。\n", note);
-#else
-					fprintf(fff, "%s was made disappeared by teleport level.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_BLAST:
-#ifdef JP
-					fprintf(fff, "%sを爆破した。\n", note);
-#else
-					fprintf(fff, "blasted %s.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_HEAL_LEPER:
-#ifdef JP
-					fprintf(fff, "%sの病気が治り旅から外れた。\n", note);
-#else
-					fprintf(fff, "%s was healed and left.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_COMPACT:
-#ifdef JP
-					fprintf(fff, "%sがクリーチャー情報圧縮によって消え去った。\n", note);
-#else
-					fprintf(fff, "%s was made disappeared by compacting creatures.\n", note);
-#endif
-					break;
-				case RECORD_NAMED_PET_LOSE_PARENT:
-#ifdef JP
-					fprintf(fff, "%sの召喚者が既にいないため消え去った。\n", note);
-#else
-					fprintf(fff, "%s disappeared because there does not exist summoner.\n", note);
-#endif
-					break;
 				default:
 					fprintf(fff, "\n");
-					break;
+					
 			}
 			break;
 		}
