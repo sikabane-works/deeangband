@@ -81,28 +81,23 @@ void prt_wiz_pos(creature_type *player_ptr)
 
 cptr map_name(floor_type *floor_ptr)
 {
+#ifdef JP
 	if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest) && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET))
-#ifdef JP
 		return "クエスト";
-#else
-		return "Quest";
-#endif
 	else if(floor_ptr->wild_mode)
-#ifdef JP
-		return "地上";
-#else
-		return "Surface";
-#endif
+		return "混沌の地平";
 	else if(floor_ptr->fight_arena_mode)
-#ifdef JP
 		return "アリーナ";
-#else
-		return "Arena";
-#endif
 	else if(floor_ptr->gamble_arena_mode)
-#ifdef JP
 		return "闘技場";
 #else
+	if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest) && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET))
+		return "Quest";
+	else if(floor_ptr->wild_mode)
+		return "The Surface of Chaos";
+	else if(floor_ptr->fight_arena_mode)
+		return "Arena";
+	else if(floor_ptr->gamble_arena_mode)
 		return "Creature Arena";
 #endif
 	else if(!floor_ptr->floor_level && floor_ptr->town_num)
