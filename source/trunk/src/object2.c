@@ -5625,11 +5625,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 	if((mode != 10) && (object_is_artifact(object_ptr) || object_is_smith(object_ptr)))
 	{
-#ifdef JP
-		msg_print("そのアイテムはこれ以上改良できない。");
-#else
-		msg_print("This item is no more able to be improved.");
-#endif
+		msg_print(GAME_MESSAGE_IMPROVE_LIMIT);
 		return;
 	}
 
@@ -5949,12 +5945,7 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 		}
 		if(has_trait(creature_ptr, TRAIT_HALLUCINATION))
 		{
-#ifdef JP
-			msg_print("うまく見えなくて作業できない！");
-#else
-			msg_print("You are hallucinating!");
-#endif
-
+			msg_print(GAME_MESSAGE_PREVENT_BY_HALLUCINATION);
 			return;
 		}
 	}

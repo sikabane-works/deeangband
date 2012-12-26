@@ -2526,12 +2526,8 @@ static bool resize_item(creature_type *creature_ptr)
 	{
 		if(object_ptr->to_size >= resizelimit || object_ptr->to_size <= -resizelimit)
 		{
-#ifdef JP
-			msg_print("‚±‚êˆÈã‰ü—Ç‚Å‚«‚È‚¢B");
-#else
-			msg_print("The improvement failed.");
-#endif
-		return FALSE;
+			msg_print(GAME_MESSAGE_IMPROVE_LIMIT);
+			return FALSE;
 		}
 
 		if(creature_ptr->size == object_ptr->to_size + object_ptr->fitting_size || object_ptr->fitting_size == ARMOR_SIZE_FREE)

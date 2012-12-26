@@ -32,6 +32,7 @@
 #define GAME_MESSAGE_PREVENT_BY_NO_LITE "明かりがなくて出来ない。"
 #define GAME_MESSAGE_PREVENT_BY_HALLUCINATION "幻覚に阻まれてできない。"
 #define GAME_MESSAGE_PREVENT_BY_STUNED "頭が朦朧としていて集中できない。"
+#define GAME_MESSAGE_IMPROVE_LIMIT "そのアイテムはこれ以上改良できない。"
 
 #else
 
@@ -66,6 +67,7 @@
 #define GAME_MESSAGE_PREVENT_BY_NO_LITE "You have no light to read by."
 #define GAME_MESSAGE_PREVENT_BY_HALLUCINATION "You are too hallucinated!"
 #define GAME_MESSAGE_PREVENT_BY_STUNED "You are too stuned!"
+#define GAME_MESSAGE_IMPROVE_LIMIT "This item is no more able to be improved."
 
 #endif
 
