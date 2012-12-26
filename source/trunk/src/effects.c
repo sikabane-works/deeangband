@@ -1354,15 +1354,13 @@ static void you_died(cptr hit_from)
 			do_cmd_write_diary(DIARY_BUNSHOU, 0, tmp);
 		}
 
-#ifdef JP
-		do_cmd_write_diary(DIARY_GAMESTART, 1, "-------- ゲームオーバー --------");
+		do_cmd_write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
 		do_cmd_write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 		flush();
+
+#ifdef JP
 		if(get_check_strict("画面を保存しますか？", CHECK_NO_HISTORY)) do_cmd_save_screen(player_ptr);
 #else
-		do_cmd_write_diary(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
-		do_cmd_write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
-		flush();
 		if(get_check_strict("Dump the screen? ", CHECK_NO_HISTORY)) do_cmd_save_screen(player_ptr);
 #endif
 

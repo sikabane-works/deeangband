@@ -5727,11 +5727,10 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	{
 #ifdef JP
 		do_cmd_write_diary(DIARY_BUNSHOU, 0, "ダンジョンの探索に絶望して自殺した。");
-		do_cmd_write_diary(DIARY_GAMESTART, 1, "-------- ゲームオーバー --------");
 #else
 		do_cmd_write_diary(DIARY_BUNSHOU, 0, "give up all hope to commit suicide.");
-		do_cmd_write_diary(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
 #endif
+		do_cmd_write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
 		do_cmd_write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 	}
 

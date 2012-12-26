@@ -582,3 +582,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #endif
 
 
+#ifdef JP
+#define DIARY_GAMEOVER "-------- ゲームオーバー --------"
+#else
+#define DIARY_GAMEOVER "--------   Game  Over   --------"
+#endif

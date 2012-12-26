@@ -907,11 +907,10 @@ void kingly(creature_type *player_ptr)
 	{
 #ifdef JP
 		do_cmd_write_diary(DIARY_BUNSHOU, 0, "ダンジョンの探索から引退した。");
-		do_cmd_write_diary(DIARY_GAMESTART, 1, "-------- ゲームオーバー --------");
 #else
 		do_cmd_write_diary(DIARY_BUNSHOU, 0, "retired exploring dungeons.");
-		do_cmd_write_diary(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
 #endif
+		do_cmd_write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
 		do_cmd_write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 	}
 
