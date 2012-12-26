@@ -4004,22 +4004,13 @@ void do_cmd_note(void)
 	strcpy(buf, "");
 
 	/* Input */
-#ifdef JP
-	if(!get_string("ÉÅÉÇ: ", buf, 60)) return;
-#else
-	if(!get_string("Note: ", buf, 60)) return;
-#endif
-
+	if(!get_string(PROMPT_MEMO, buf, 60)) return;
 
 	/* Ignore empty notes */
 	if(!buf[0] || (buf[0] == ' ')) return;
 
 	/* Add the note to the message recall */
-#ifdef JP
-	msg_format("ÉÅÉÇ: %s", buf);
-#else
-	msg_format("Note: %s", buf);
-#endif
+	msg_format(PROMPT_MEMO, buf);
 
 }
 
