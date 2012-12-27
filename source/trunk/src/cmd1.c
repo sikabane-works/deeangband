@@ -905,11 +905,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_TY_CURSE:
 		{
-#ifdef JP
-			msg_print("何かがピカッと光った！");
-#else
-			msg_print("There is a flash of shimmering light!");
-#endif
 			num = 2 + randint1(3);
 			for (i = 0; i < num; i++)
 				(void)summon_specific(0, y, x, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));

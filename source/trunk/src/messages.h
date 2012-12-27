@@ -37,6 +37,7 @@
 #define GAME_MESSAGE_TRAP_FIRE "炎に包まれた！"
 #define GAME_MESSAGE_TRAP_ACID "酸が吹きかけられた！"
 #define GAME_MESSAGE_TRAP_TELEPORT "テレポート・トラップにひっかかった！"
+#define GAME_MESSAGE_TRAP_TY_CURSE "何かがピカッと光った！"
 #define GAME_MESSAGE_TRAP_ARMAGEDDON "突然天界の戦争に巻き込まれた！"
 #define GAME_MESSAGE_TRAP_ALARM "けたたましい音が鳴り響いた！"
 
@@ -78,6 +79,7 @@
 #define GAME_MESSAGE_TRAP_FIRE "You are enveloped in flames!"
 #define GAME_MESSAGE_TRAP_ACID "You are splashed with acid!"
 #define GAME_MESSAGE_TRAP_TELEPORT "You hit a teleport trap!"
+#define GAME_MESSAGE_TRAP_TY_CURSE "There is a flash of shimmering light!"
 #define GAME_MESSAGE_TRAP_ARMAGEDDON "Suddenly, you are surrounded by immotal beings!"
 #define GAME_MESSAGE_TRAP_ALARM "An alarm sounds!"
 
