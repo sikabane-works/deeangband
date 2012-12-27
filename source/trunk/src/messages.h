@@ -30,13 +30,16 @@
 #define GAME_MESSAGE_NO_MONEY "お金が足りません。"
 #define GAME_MESSAGE_NO_MONEY_INSULT "おい！金が足りないじゃないか！出ていけ！"
 #define GAME_MESSAGE_BOUNTY_1 "%s を換金しますか？"
+
 #define GAME_MESSAGE_TRAP_NEEDLE "仕掛けられていた小さな針に刺されてしまった！"
 #define GAME_MESSAGE_TRAP_DARTS "小さなダーツが飛んできて刺さった！"
 #define GAME_MESSAGE_TRAP_DARTS_MISSED "小さなダーツが飛んできた！が、運良く当たらなかった。"
 #define GAME_MESSAGE_TRAP_FIRE "炎に包まれた！"
 #define GAME_MESSAGE_TRAP_ACID "酸が吹きかけられた！"
+#define GAME_MESSAGE_TRAP_TELEPORT "テレポート・トラップにひっかかった！"
 #define GAME_MESSAGE_TRAP_ARMAGEDDON "突然天界の戦争に巻き込まれた！"
 #define GAME_MESSAGE_TRAP_ALARM "けたたましい音が鳴り響いた！"
+
 #define GAME_MESSAGE_SEEM_TO_CURSE "ふーむ、どうやら呪われているようだ。"
 #define GAME_MESSAGE_PREVENT_BY_RIDING "乗馬中には出来ない。"
 #define GAME_MESSAGE_PREVENT_BY_CONFUSION "混乱状態で上手く出来ない。"
@@ -68,13 +71,16 @@
 #define GAME_MESSAGE_NO_MONEY "You do not have the gold."
 #define GAME_MESSAGE_NO_MONEY_INSULT "Hey! You don't have the gold - get out of here!"
 #define GAME_MESSAGE_BOUNTY_1 "Convert %s into money?"
+
 #define GAME_MESSAGE_TRAP_NEEDLE "A small needle has pricked you!"
 #define GAME_MESSAGE_TRAP_DARTS "A small dart hits you!"
 #define GAME_MESSAGE_TRAP_DARTS_MISSED "A small dart barely misses you."
 #define GAME_MESSAGE_TRAP_FIRE "You are enveloped in flames!"
 #define GAME_MESSAGE_TRAP_ACID "You are splashed with acid!"
+#define GAME_MESSAGE_TRAP_TELEPORT "You hit a teleport trap!"
 #define GAME_MESSAGE_TRAP_ARMAGEDDON "Suddenly, you are surrounded by immotal beings!"
 #define GAME_MESSAGE_TRAP_ALARM "An alarm sounds!"
+
 #define GAME_MESSAGE_SEEM_TO_CURSE "Hmmm, it seems to be cursed."
 #define GAME_MESSAGE_PREVENT_BY_RIDING "You cannot do it when riding."
 #define GAME_MESSAGE_PREVENT_BY_CONFUSION "You are too confused.";
