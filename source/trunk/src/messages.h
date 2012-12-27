@@ -3,8 +3,10 @@
 
 #if JP
 #define SYS_MESSAGE_FAILED_TEMPFILE "一時ファイル %s を作成できませんでした。"
+#define SYS_MESSAGE_HIT_ANY_KEY "何かキーを押して下さい。"
 #else
 #define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
+#define SYS_MESSAGE_HIT_ANY_KEY "Hit Any Key。"
 #endif
 
 #if JP

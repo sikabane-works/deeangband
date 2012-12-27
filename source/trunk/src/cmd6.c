@@ -3446,11 +3446,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 				line++;
 			}
 	
-#ifdef JP
-			prt("‰½‚©ƒL[‚ğ‰Ÿ‚µ‚Ä‰º‚³‚¢B",0,0);
-#else
-			prt("Hit any key.",0,0);
-#endif
+			prt(SYS_MESSAGE_HIT_ANY_KEY, 0, 0);
 			(void)inkey();
 			continue;
 		}

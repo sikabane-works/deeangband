@@ -3704,12 +3704,7 @@ s16b get_quantity(cptr prompt, int max)
 void pause_line(int row)
 {
 	prt("", row, 0);
-#ifdef JP
-	put_str("[ ‰½‚©ƒL[‚ğ‰Ÿ‚µ‚Ä‰º‚³‚¢ ]", row, 26);
-#else
-	put_str("[Press any key to continue]", row, 23);
-#endif
-
+	put_str(SYS_MESSAGE_HIT_ANY_KEY, row, 26);
 	(void)inkey();
 	prt("", row, 0);
 }

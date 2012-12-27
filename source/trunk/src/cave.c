@@ -2249,11 +2249,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
 	}
 	else
 	{
-#ifdef JP
-		put_str("‰½‚©ƒL[‚ğ‰Ÿ‚·‚ÆƒQ[ƒ€‚É–ß‚è‚Ü‚·", 23, 30);
-#else
-		put_str("Hit any key to continue", 23, 30);
-#endif		/* Hilite the player */
+		put_str(SYS_MESSAGE_HIT_ANY_KEY, 23, 30);
 		move_cursor(cy, cx);
 		/* Get any key */
 		inkey();

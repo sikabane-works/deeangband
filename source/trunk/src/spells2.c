@@ -269,12 +269,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	}
 
 	/* Pause */
-#ifdef JP
-	prt("[何かキーを押すとゲームに戻ります]", k, 3);
-#else
-	prt("[Press any key to continue]", k, 3);
-#endif
-
+	prt(SYS_MESSAGE_HIT_ANY_KEY, k, 3);
 	inkey();
 
 	screen_load();
@@ -365,12 +360,7 @@ void report_magics(creature_type *creature_ptr)
 		}
 	}
 
-	/* Pause */
-#ifdef JP
-	prt("[何かキーを押すとゲームに戻ります]", k, 3);
-#else
-	prt("[Press any key to continue]", k, 3);
-#endif
+	prt(SYS_MESSAGE_HIT_ANY_KEY, k, 3);
 
 	inkey();
 

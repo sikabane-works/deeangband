@@ -1859,11 +1859,7 @@ static void shoukinkubi(void)
 		y = (y+1) % 10;
 		if(!y && (i < MAX_BOUNTY -1))
 		{
-#ifdef JP
-			prt("‰½‚©ƒL[‚ð‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢", 0, 0);
-#else
-			prt("Hit any key.", 0, 0);
-#endif
+			prt(SYS_MESSAGE_HIT_ANY_KEY, 0, 0);
 			(void)inkey();
 			prt("", 0, 0);
 			clear_bldg(7,18);

@@ -716,11 +716,7 @@ void show_highclass(creature_type *creature_ptr)
 
 	(void)fd_close(highscore_fd);
 	highscore_fd = -1;
-#ifdef JP
-	prt("何かキーを押すとゲームに戻ります",0,0);
-#else
-	prt("Hit any key to continue",0,0);
-#endif
+	prt(SYS_MESSAGE_HIT_ANY_KEY, 0, 0);
 
 	(void)inkey();
 
@@ -826,12 +822,7 @@ void race_legends(creature_type *player_ptr)
 	for (i = 0; i < MAX_RACES; i++)
 	{
 		race_score(player_ptr, i);
-#ifdef JP
-msg_print("何かキーを押すとゲームに戻ります");
-#else
-		msg_print("Hit any key to continue");
-#endif
-
+		msg_print(SYS_MESSAGE_HIT_ANY_KEY);
 		msg_print(NULL);
 		for (j = 5; j < 19; j++)
 			prt("", j, 0);
