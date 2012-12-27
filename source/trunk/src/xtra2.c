@@ -3218,11 +3218,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 			if(has_trait(creature_ptr, TRAIT_ANDROID))
 			{
-#ifdef JP
-				msg_print("しかし何も起こらなかった。");
-#else
-				msg_print("But, nothing happen.");
-#endif
+				msg_print(GAME_MESSAGE_NO_HAPPEN);
 			}
 			else if(creature_ptr->exp < CREATURE_MAX_EXP)
 			{
@@ -3250,11 +3246,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 #endif
 			if(has_trait(creature_ptr, TRAIT_ANDROID))
 			{
-#ifdef JP
-				msg_print("しかし何も起こらなかった。");
-#else
-				msg_print("But, nothing happen.");
-#endif
+				msg_print(GAME_MESSAGE_NO_HAPPEN);
 			}
 			else
 			{

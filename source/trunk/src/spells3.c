@@ -875,11 +875,7 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 	// Ironman option
 	if(floor_ptr->fight_arena_mode || ironman_downward)
 	{
-#ifdef JP
-		msg_print("何も起こらなかった。");
-#else
-		msg_print("Nothing happens.");
-#endif
+		msg_print(GAME_MESSAGE_NO_HAPPEN);
 		return TRUE;
 	}
 
@@ -950,11 +946,7 @@ bool reset_recall(creature_type *creature_ptr)
 
 	if(ironman_downward)
 	{
-#ifdef JP
-		msg_print("何も起こらなかった。");
-#else
-		msg_print("Nothing happens.");
-#endif
+		msg_print(GAME_MESSAGE_NO_HAPPEN);
 		return TRUE;
 	}
 
@@ -1818,11 +1810,7 @@ void alter_reality(creature_type *creature_ptr)
 	// Ironman option
 	if(floor_ptr->fight_arena_mode || ironman_downward)
 	{
-#ifdef JP
-		msg_print("何も起こらなかった。");
-#else
-		msg_print("Nothing happens.");
-#endif
+		msg_print(GAME_MESSAGE_NO_HAPPEN);
 		return;
 	}
 

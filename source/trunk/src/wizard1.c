@@ -1463,6 +1463,7 @@ static bool make_fake_artifact(object_type *object_ptr, int name1)
 	object_ptr->ds = a_ptr->ds;
 	object_ptr->to_ac = a_ptr->to_ac;
 	object_ptr->to_ev = a_ptr->to_ev;
+	object_ptr->to_vo = a_ptr->to_vo;
 	object_ptr->to_hit = a_ptr->to_hit;
 	object_ptr->to_damage = a_ptr->to_damage;
 	object_ptr->weight = a_ptr->weight;
