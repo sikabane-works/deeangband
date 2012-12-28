@@ -394,11 +394,7 @@ bool can_do_cmd_cast(creature_type *creature_ptr)
 	}
 	else if(has_trait(creature_ptr, TRAIT_S_HERO))
 	{
-#ifdef JP
-		msg_format("‹¶ím‰»‚µ‚Ä‚¢‚Ä“ª‚ª‰ñ‚ç‚È‚¢I");
-#else
-		msg_format("You cannot think directly!");
-#endif
+		msg_format(GAME_MESSAGE_ARENA_BERSERK);
 		return FALSE;
 	}
 	else

@@ -65,6 +65,7 @@
 #define GAME_MESSAGE_PATTERN_LIMIT4 "パターンを踏み外してはいけません。"
 
 #define GAME_MESSAGE_ARENA_LIMIT "アリーナが魔法を吸収した！"
+#define GAME_MESSAGE_ARENA_BERSERK "狂戦士化していて頭が回らない！"
 
 #else
 
@@ -115,6 +116,7 @@
 #define GAME_MESSAGE_PATTERN_LIMIT4 "You may not step off from the Pattern."
 
 #define GAME_MESSAGE_ARENA_LIMIT "The arena absorbs all attempted magic!"
+#define GAME_MESSAGE_ARENA_BERSERK "You cannot think directly!"
 
 #endif
 

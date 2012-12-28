@@ -3896,11 +3896,7 @@ static void process_player_command(creature_type *creature_ptr)
 				}
 				else if(has_trait(creature_ptr, TRAIT_S_HERO) && (creature_ptr->class_idx != CLASS_BERSERKER))
 				{
-#ifdef JP
-					msg_format("‹¶ím‰»‚µ‚Ä‚¢‚Ä“ª‚ª‰ñ‚ç‚È‚¢I");
-#else
-					msg_format("You cannot think directly!");
-#endif
+					msg_format(GAME_MESSAGE_ARENA_BERSERK);
 					cancel_tactical_action(creature_ptr);
 				}
 				else
