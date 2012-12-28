@@ -3788,6 +3788,9 @@ static void set_trait_flags(creature_type *creature_ptr)
 		if(creature_ptr->timed_trait[i]) add_flag(creature_ptr->current_trait, i);		
 	}
 
+//	for(i = 0; i < MAX_TRAITS; i++)
+//		if(have_flag(trait_info[i].reverse_alias, i))
+//			alias |= has_trait_aux(creature_ptr, i);
 }
 
 static void set_size_bonuses(creature_type *creature_ptr)
