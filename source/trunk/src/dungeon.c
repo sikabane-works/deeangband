@@ -5144,11 +5144,7 @@ static void cheat_death(void)
 			player_ptr->class_skills.old_skills.magic_num1[i] = 0;
 	}
 
-#ifdef JP
-	(void)strcpy(gameover_from, "Ž€‚Ì‹\‚«");
-#else
-	(void)strcpy(gameover_from, "Cheating death");
-#endif
+	(void)strcpy(gameover_from, COD_CHEATING_DEATH);
 
 	gameover = FALSE;
 
