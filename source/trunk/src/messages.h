@@ -2,11 +2,17 @@
 // Keywords
 
 #if JP
+
 #define SYS_MESSAGE_FAILED_TEMPFILE "一時ファイル %s を作成できませんでした。"
 #define SYS_MESSAGE_HIT_ANY_KEY "何かキーを押して下さい。"
+#define SYS_MESSAGE_OPTION_AUX "初期オプション((*)はスコアに影響)"
+
 #else
+
 #define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
 #define SYS_MESSAGE_HIT_ANY_KEY "Hit Any Key。"
+#define SYS_MESSAGE_OPTION_AUX "Birth Option((*)s effect score)"
+
 #endif
 
 #if JP

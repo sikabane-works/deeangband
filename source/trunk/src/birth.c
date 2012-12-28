@@ -4060,11 +4060,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 			break;
 		case '=':
 			screen_save();
-#ifdef JP
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
-#else
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "Birth Option((*)s effect score)");
-#endif
+			do_cmd_options_aux(OPT_PAGE_BIRTH, SYS_MESSAGE_OPTION_AUX);
 			screen_load();
 			break;
 		default:
@@ -4357,12 +4353,7 @@ static bool get_chara_limits(creature_type *creature_ptr)
 			break;
 		case '=':
 			screen_save();
-#ifdef JP
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
-#else
-			do_cmd_options_aux(OPT_PAGE_BIRTH, "Birth Option((*)s effect score)");
-#endif
-
+			do_cmd_options_aux(OPT_PAGE_BIRTH, SYS_MESSAGE_OPTION_AUX);
 			screen_load();
 			break;
 		default:
@@ -4847,13 +4838,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	if(player_generate)
 	{
 		screen_save();
-
-#ifdef JP
-		do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
-#else
-		do_cmd_options_aux(OPT_PAGE_BIRTH, "Birth Option((*)s effect score)");
-#endif
-
+		do_cmd_options_aux(OPT_PAGE_BIRTH, SYS_MESSAGE_OPTION_AUX);
 		screen_load();
 
 		/*** Autoroll ***/
@@ -5119,12 +5104,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			else if(c == '=')
 			{
 				screen_save();
-#ifdef JP
-				do_cmd_options_aux(OPT_PAGE_BIRTH, "初期オプション((*)はスコアに影響)");
-#else
-				do_cmd_options_aux(OPT_PAGE_BIRTH, "Birth Option((*)s effect score)");
-#endif
-
+				do_cmd_options_aux(OPT_PAGE_BIRTH, SYS_MESSAGE_OPTION_AUX);
 				screen_load();
 				continue;
 			}

@@ -2215,9 +2215,9 @@ void do_cmd_options(void)
 			case 'B':
 			case 'b':
 #ifdef JP
-				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? "初期オプション(参照のみ)" : "初期オプション((*)はスコアに影響)");
+				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? "初期オプション(参照のみ)" : SYS_MESSAGE_OPTION_AUX);
 #else
-				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? "Birth Options(browse only)" : "Birth Options((*)s effect score)");
+				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? "Birth Options(browse only)" : SYS_MESSAGE_OPTION_AUX);
 #endif
 				break;
 
