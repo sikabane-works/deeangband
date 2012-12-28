@@ -4478,12 +4478,7 @@ static void pack_overflow(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[INVEN_TOTAL];
 
 		disturb(player_ptr, 0, 0);
-
-#ifdef JP
-		msg_print("ザックからアイテムがあふれた！");
-#else
-		msg_print("Your pack overflows!");
-#endif
+		msg_print(GAME_MESSAGE_PACK_OVERFLOW);
 
 		/* Describe */
 		object_desc(object_name, object_ptr, 0);

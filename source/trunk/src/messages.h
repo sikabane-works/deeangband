@@ -67,6 +67,8 @@
 #define GAME_MESSAGE_ARENA_LIMIT "アリーナが魔法を吸収した！"
 #define GAME_MESSAGE_ARENA_BERSERK "狂戦士化していて頭が回らない！"
 
+#define GAME_MESSAGE_PACK_OVERFLOW "ザックからアイテムがあふれた！"
+
 #else
 
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
@@ -117,6 +119,8 @@
 
 #define GAME_MESSAGE_ARENA_LIMIT "The arena absorbs all attempted magic!"
 #define GAME_MESSAGE_ARENA_BERSERK "You cannot think directly!"
+
+#define GAME_MESSAGE_PACK_OVERFLOW "Your pack overflows!"
 
 #endif
 
