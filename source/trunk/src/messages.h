@@ -620,6 +620,24 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 
 #ifdef JP
+	#define SKILL_NAME_MAGIC "魔法"
+	#define SKILL_NAME_PSIONIC "超能力"
+	#define SKILL_NAME_IMITATION "ものまね"
+	#define SKILL_NAME_HISSATSU "必殺剣"
+	#define SKILL_NAME_MIRROR_M "鏡魔法"
+	#define SKILL_NAME_NINJUTSU "忍術"
+	#define SKILL_NAME_PRAYER "祈り"
+#else
+	#define SKILL_NAME_MAGIC "magic"
+	#define SKILL_NAME_PSIONIC "psionic powers"
+	#define SKILL_NAME_IMITATION "imitation"
+	#define SKILL_NAME_HISSATSU "hissatsu"
+	#define SKILL_NAME_MIRROR_M "mirror magic"
+	#define SKILL_NAME_NINJUTSU "ninjutsu"
+	#define SKILL_NAME_PRAYER "prayer"
+#endif
+
+#ifdef JP
 
 #define DIARY_CREATE_PLAYER "-------- プレイヤー作成 --------"
 #define DIARY_GAMEOVER "-------- ゲームオーバー --------"

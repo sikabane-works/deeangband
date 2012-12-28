@@ -3873,48 +3873,19 @@ static void process_player_command(creature_type *creature_ptr)
 				}
 				else if(has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH))
 				{
-#ifdef JP
-
-					cptr which_power = "魔法";
-#else
-					cptr which_power = "magic";
-#endif
+					cptr which_power = SKILL_NAME_MAGIC;
 					if(creature_ptr->class_idx == CLASS_MINDCRAFTER)
-#ifdef JP
-						which_power = "超能力";
-#else
-						which_power = "psionic powers";
-#endif
+						which_power = SKILL_NAME_PSIONIC;
 					else if(creature_ptr->class_idx == CLASS_IMITATOR)
-#ifdef JP
-						which_power = "ものまね";
-#else
-						which_power = "imitation";
-#endif
+						which_power = SKILL_NAME_IMITATION;
 					else if(creature_ptr->class_idx == CLASS_SAMURAI)
-#ifdef JP
-						which_power = "必殺剣";
-#else
-						which_power = "hissatsu";
-#endif
+						which_power = SKILL_NAME_HISSATSU;
 					else if(creature_ptr->class_idx == CLASS_MIRROR_MASTER)
-#ifdef JP
-						which_power = "鏡魔法";
-#else
-						which_power = "mirror magic";
-#endif
+						which_power = SKILL_NAME_MIRROR_M;
 					else if(creature_ptr->class_idx == CLASS_NINJA)
-#ifdef JP
-						which_power = "忍術";
-#else
-						which_power = "ninjutsu";
-#endif
+						which_power = SKILL_NAME_NINJUTSU;
 					else if(magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK)
-#ifdef JP
-						which_power = "祈り";
-#else
-						which_power = "prayer";
-#endif
+						which_power = SKILL_NAME_PRAYER;
 
 #ifdef JP
 					msg_format("反魔法バリアが%sを邪魔した！", which_power);
