@@ -50,6 +50,12 @@
 #define GAME_MESSAGE_PREVENT_BY_STUNED "頭が朦朧としていて集中できない。"
 #define GAME_MESSAGE_IMPROVE_LIMIT "そのアイテムはこれ以上改良できない。"
 #define GAME_MESSAGE_NO_HAPPEN "何も起こらなかった。"
+
+#define GAME_MESSAGE_PATTERN_LIMIT1 "パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"
+#define GAME_MESSAGE_PATTERN_LIMIT2 "パターンの上を歩くにはスタート地点から歩き始めなくてはなりません。"
+#define GAME_MESSAGE_PATTERN_LIMIT3 "パターンの上は正しい順序で歩かねばなりません。"
+#define GAME_MESSAGE_PATTERN_LIMIT4 "パターンを踏み外してはいけません。"
+
 #else
 
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
@@ -92,6 +98,11 @@
 #define GAME_MESSAGE_PREVENT_BY_STUNED "You are too stuned!"
 #define GAME_MESSAGE_IMPROVE_LIMIT "This item is no more able to be improved."
 #define GAME_MESSAGE_NO_HAPPEN "Nothing happens."
+
+#define GAME_MESSAGE_PATTERN_LIMIT1 "If you start walking the Pattern, you must walk the whole way. Ok? "
+#define GAME_MESSAGE_PATTERN_LIMIT2 "You must start walking the Pattern from the startpoint."
+#define GAME_MESSAGE_PATTERN_LIMIT3 "You must walk the Pattern in correct order."
+#define GAME_MESSAGE_PATTERN_LIMIT4 "You may not step off from the Pattern."
 
 #endif
 

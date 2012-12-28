@@ -1209,12 +1209,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 	{
 		if(!is_pattern_tile_cur && !has_trait(creature_ptr, TRAIT_CONFUSED) && !has_trait(creature_ptr, TRAIT_STUN) && !has_trait(creature_ptr, TRAIT_HALLUCINATION))
 		{
-#ifdef JP
-			if(get_check("パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"))
-#else
-			if(get_check("If you start walking the Pattern, you must walk the whole way. Ok? "))
-#endif
-				return TRUE;
+			if(get_check(GAME_MESSAGE_PATTERN_LIMIT1)) return TRUE;
 			else return FALSE;
 		}
 		else return TRUE;
@@ -1226,11 +1221,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 		if(is_pattern_tile_cur) return TRUE;
 		else
 		{
-#ifdef JP
-			msg_print("パターンの上を歩くにはスタート地点から歩き始めなくてはなりません。");
-#else
-			msg_print("You must start walking the Pattern from the startpoint.");
-#endif
+			msg_print(GAME_MESSAGE_PATTERN_LIMIT2);
 			return FALSE;
 		}
 	}
@@ -1241,12 +1232,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 		if(is_pattern_tile_new) return TRUE;
 		else
 		{
-#ifdef JP
-			msg_print("パターンの上は正しい順序で歩かねばなりません。");
-#else
-			msg_print("You must walk the Pattern in correct order.");
-#endif
-
+			msg_print(GAME_MESSAGE_PATTERN_LIMIT3);
 			return FALSE;
 		}
 	}
@@ -1256,11 +1242,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 	{
 		if(!is_pattern_tile_new)
 		{
-#ifdef JP
-			msg_print("パターンを踏み外してはいけません。");
-#else
-			msg_print("You may not step off from the Pattern.");
-#endif
+			msg_print(GAME_MESSAGE_PATTERN_LIMIT4);
 			return FALSE;
 		}
 		else return TRUE;
@@ -1269,12 +1251,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 	{
 		if(!is_pattern_tile_cur)
 		{
-#ifdef JP
-			msg_print("パターンの上を歩くにはスタート地点から歩き始めなくてはなりません。");
-#else
-			msg_print("You must start walking the Pattern from the startpoint.");
-#endif
-
+			msg_print(GAME_MESSAGE_PATTERN_LIMIT2);
 			return FALSE;
 		}
 		else
@@ -1297,9 +1274,9 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 				default:
 					if(wizard)
 #ifdef JP
-						msg_format("おかしなパターン歩行、%d。", pattern_type_cur);
+						msg_warning("おかしなパターン歩行、%d。", pattern_type_cur);
 #else
-						msg_format("Funny Pattern walking, %d.", pattern_type_cur);
+						msg_warning("Funny Pattern walking, %d.", pattern_type_cur);
 #endif
 
 					return TRUE; /* Goof-up */
@@ -1311,18 +1288,9 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 			else
 			{
 				if(!is_pattern_tile_new)
-#ifdef JP
-					msg_print("パターンを踏み外してはいけません。");
-#else
-					msg_print("You may not step off from the Pattern.");
-#endif
+					msg_print(GAME_MESSAGE_PATTERN_LIMIT4);
 				else
-#ifdef JP
-					msg_print("パターンの上は正しい順序で歩かねばなりません。");
-#else
-					msg_print("You must walk the Pattern in correct order.");
-#endif
-
+					msg_print(GAME_MESSAGE_PATTERN_LIMIT3);
 				return FALSE;
 			}
 		}
