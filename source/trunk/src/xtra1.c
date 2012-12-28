@@ -4113,10 +4113,10 @@ void redraw_stuff(creature_type *creature_ptr)
 		prt_map(creature_ptr);
 	}
 
-	prt_frame_basic(creature_ptr);
 
 	if(play_redraw & (PR_BASIC))
 	{
+		prt_frame_basic(creature_ptr);
 		play_redraw &= ~(PR_BASIC);
 		play_redraw &= ~(PR_MISC | PR_TITLE | PR_STATS);
 		play_redraw &= ~(PR_LEV | PR_EXP | PR_GOLD);
