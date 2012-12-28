@@ -171,6 +171,7 @@
 #if JP
 
 #define COD_CHEATING_DEATH "死の欺き"
+#define COD_PANIC_SAVE "(緊急セーブ)"
 #define COD_TRAP "トラップ"
 #define COD_DART_TRAP "ダーツの罠"
 #define COD_PERILOUS_IDENTIFY "危険な秘密"
@@ -193,6 +194,7 @@
 #else
 
 #define COD_CHEATING_DEATH "cheating death"
+#define COD_PANIC_SAVE "(panic save)"
 #define COD_TRAP "a trap"
 #define COD_DART_TRAP "a dart trap"
 #define COD_PERILOUS_IDENTIFY "perilous secrets"

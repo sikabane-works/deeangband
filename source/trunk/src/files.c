@@ -6566,11 +6566,7 @@ void exit_game_panic(creature_type *player_ptr)
 	signals_ignore_tstp();
 
 	/* Indicate panic save */
-#ifdef JP
-	(void)strcpy(gameover_from, "(緊急セーブ)");
-#else
-	(void)strcpy(gameover_from, "(panic save)");
-#endif
+	(void)strcpy(gameover_from, COD_PANIC_SAVE);
 	if(!save_player()) quit(SYS_MESSAGE_PANIC_SAVE_FAILED);
 	quit(SYS_MESSAGE_PANIC_SAVE_SUCCEED);
 
@@ -7059,12 +7055,7 @@ static void handle_signal_abort(int sig)
 	panic_save = TRUE;
 
 	/* Panic save */
-#ifdef JP
-	(void)strcpy(gameover_from, "(緊急セーブ)");
-#else
-	(void)strcpy(gameover_from, "(panic save)");
-#endif
-
+	(void)strcpy(gameover_from, COD_PANIC_SAVE);
 
 	/* Forbid suspend */
 	signals_ignore_tstp();

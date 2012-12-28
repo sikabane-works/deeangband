@@ -4242,11 +4242,7 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 				signals_ignore_tstp();
 
 				/* Indicate panic save */
-#ifdef JP
-				(void)strcpy(gameover_from, "(ãŸã}ÉZÅ[Éu)");
-#else
-				(void)strcpy(gameover_from, "(panic save)");
-#endif
+				(void)strcpy(gameover_from, COD_PANIC_SAVE);
 
 				/* Panic save */
 				(void)save_player();
