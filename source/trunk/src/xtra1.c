@@ -3774,6 +3774,21 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	creature_ptr->dis_to_hit_b -= penalty;
 }
 
+static void set_trait_flags(creature_type *creature_ptr)
+{
+	int i;
+	if(!creature_ptr) return FALSE;
+
+	for(i = 0; i < MAX_TRAITS; i++)
+	{
+		if(has_trait_from_species(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);
+		if(has_trait_from_class(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);
+		if(has_trait_from_chara(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);
+		if(has_trait_from_inventory(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);
+		if(creature_ptr->timed_trait[i]) add_flag(creature_ptr->current_trait, i);		
+	}
+
+}
 
 static void set_size_bonuses(creature_type *creature_ptr)
 {
@@ -3884,6 +3899,8 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	bool old_dis_to_ac = (bool)creature_ptr->dis_to_ac;
 
 	wipe_creature_calculation_status(creature_ptr);
+
+	set_trait_flags(creature_ptr);
 
 	set_size_bonuses(creature_ptr);
 	set_divine_bonuses(creature_ptr);
