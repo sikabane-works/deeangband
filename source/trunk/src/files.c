@@ -5750,17 +5750,13 @@ void do_cmd_save_game(int is_autosave)
 	if(is_autosave)
 	{
 #ifdef JP
-msg_print("自動セーブ中");
+		msg_print("自動セーブ中");
 #else
 		msg_print("Autosaving the game...");
 #endif
 
 	}
-	else
-	{
-		/* Disturb the player */
-		disturb(player_ptr, 1, 0);
-	}
+	else disturb(player_ptr, 1, 0);
 
 	/* Clear messages */
 	msg_print(NULL);

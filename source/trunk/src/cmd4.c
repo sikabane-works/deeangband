@@ -1715,11 +1715,9 @@ static void do_cmd_options_autosave(cptr info)
 			{
 				autosave_freq = toggle_frequency(autosave_freq);
 #ifdef JP
-				prt(format("自動セーブの頻度： %d ターン毎", 
-					   autosave_freq), 5, 0);
+				prt(format("自動セーブの頻度： %d ターン毎", autosave_freq), 5, 0);
 #else
-				prt(format("Timed autosave frequency: every %d turns",
-					   autosave_freq), 5, 0);
+				prt(format("Timed autosave frequency: every %d turns", autosave_freq), 5, 0);
 #endif
 				break;
 			}
@@ -2214,11 +2212,7 @@ void do_cmd_options(void)
 				/* Birth Options */
 			case 'B':
 			case 'b':
-#ifdef JP
-				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? "初期オプション(参照のみ)" : SYS_MESSAGE_OPTION_AUX);
-#else
-				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? "Birth Options(browse only)" : SYS_MESSAGE_OPTION_AUX);
-#endif
+				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? SYS_MESSAGE_OPTION_AUX2 : SYS_MESSAGE_OPTION_AUX);
 				break;
 
 			/* Cheating Options */

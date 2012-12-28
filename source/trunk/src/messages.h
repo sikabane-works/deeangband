@@ -6,12 +6,14 @@
 #define SYS_MESSAGE_FAILED_TEMPFILE "一時ファイル %s を作成できませんでした。"
 #define SYS_MESSAGE_HIT_ANY_KEY "何かキーを押して下さい。"
 #define SYS_MESSAGE_OPTION_AUX "初期オプション((*)はスコアに影響)"
+#define SYS_MESSAGE_OPTION_AUX2 "初期オプション(参照のみ)"
 
 #else
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
 #define SYS_MESSAGE_HIT_ANY_KEY "Hit Any Key。"
 #define SYS_MESSAGE_OPTION_AUX "Birth Option((*)s effect score)"
+#define SYS_MESSAGE_OPTION_AUX2 "Birth Options(browse only)"
 
 #endif
 
@@ -620,13 +622,14 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #ifdef JP
 
 #define DIARY_CREATE_PLAYER "-------- プレイヤー作成 --------"
-#define DIARY_SUICIDE "絶望して自殺した。"
 #define DIARY_GAMEOVER "-------- ゲームオーバー --------"
-
+#define DIARY_SUICIDE "絶望して自殺した。"
+#define DIARY_WIZARD "ウィザードモードに突入してスコアを残せなくなった。"
 #else
 
 #define DIARY_CREATE_PLAYER "-------- Create Player --------"
 #define DIARY_SUICIDE "give up all hope to commit suicide."
 #define DIARY_GAMEOVER "--------   Game  Over   --------"
+#define DIARY_WIZARD "give up sending score to use wizard mode."
 
 #endif

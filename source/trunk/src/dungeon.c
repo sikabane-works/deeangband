@@ -3424,11 +3424,7 @@ static bool enter_wizard_mode(creature_type *creature_ptr)
 		}
 
 		wizard = TRUE;
-#ifdef JP
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, "ウィザードモードに突入してスコアを残せなくなった。");
-#else
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, "give up recording score to enter wizard mode.");
-#endif
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_WIZARD);
 		/* Mark savefile */
 		noscore |= 0x0002;
 	}
@@ -3475,15 +3471,9 @@ static bool enter_debug_mode(creature_type *creature_ptr)
 #else
 		if(!get_check("Are you sure you want to use debug commands? "))
 #endif
-		{
 			return FALSE;
-		}
 
-#ifdef JP
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, "デバッグモードに突入してスコアを残せなくなった。");
-#else
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, "give up sending score to use debug commands.");
-#endif
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_WIZARD);
 		/* Mark savefile */
 		noscore |= 0x0008;
 	}

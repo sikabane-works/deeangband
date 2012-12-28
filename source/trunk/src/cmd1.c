@@ -1928,7 +1928,6 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 		oktomove = FALSE;
 
-		/* Disturb the player */
 		disturb(player_ptr, 0, 0);
 
 		/* Notice things in the dark */
