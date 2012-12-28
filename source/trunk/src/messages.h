@@ -612,9 +612,15 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 
 #ifdef JP
+
+#define DIARY_CREATE_PLAYER "-------- プレイヤー作成 --------"
 #define DIARY_SUICIDE "絶望して自殺した。"
 #define DIARY_GAMEOVER "-------- ゲームオーバー --------"
+
 #else
+
+#define DIARY_CREATE_PLAYER "-------- Create Player --------"
 #define DIARY_SUICIDE "give up all hope to commit suicide."
 #define DIARY_GAMEOVER "--------   Game  Over   --------"
+
 #endif

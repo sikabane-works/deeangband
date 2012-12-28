@@ -5272,13 +5272,8 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 		message_add(" ");
 		message_add("  ");
 
-	#ifdef JP
-		do_cmd_write_diary(DIARY_GAMESTART, 1, "-------- ユニーク作成 --------");
-	#else
-		do_cmd_write_diary(DIARY_GAMESTART, 1, "-------- Create Unique --------");
-	#endif
+		do_cmd_write_diary(DIARY_GAMESTART, 1, DIARY_CREATE_PLAYER);
 		do_cmd_write_diary(DIARY_HIGAWARI, 0, NULL);
-
 	#ifdef JP
 		sprintf(buf,"                            性別に%sを選択した。", sex_info[creature_ptr->sex].title);
 	#else
@@ -5297,11 +5292,9 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 		else
 		{
 	#ifdef JP
-			sprintf(buf,"                            種族に%sと%sの混血を選択した。",
-				race_info[creature_ptr->race_idx1].title, race_info[creature_ptr->race_idx2].title);
+			sprintf(buf,"                            種族に%sと%sの混血を選択した。", race_info[creature_ptr->race_idx1].title, race_info[creature_ptr->race_idx2].title);
 	#else
-			sprintf(buf,"                            choose %s and %s races.",
-				race_info[creature_ptr->race_idx1].title, race_info[creature_ptr->race_idx2].title);
+			sprintf(buf,"                            choose %s and %s races.", race_info[creature_ptr->race_idx1].title, race_info[creature_ptr->race_idx2].title);
 	#endif
 		}
 		do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
