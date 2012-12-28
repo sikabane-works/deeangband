@@ -623,7 +623,7 @@ static void prt_gold(creature_type *creature_ptr)
 static void prt_ac_ev_vo(creature_type *creature_ptr)
 {
 	char tmp[32];
-	put_str("AC:    EV:    VO:", ROW_AC, COL_AC);
+	put_str("AC:    EV:    VO:    ", ROW_AC, COL_AC);
 	sprintf(tmp, "%3d", creature_ptr->dis_ac + creature_ptr->dis_to_ac);
 	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 3);
 	sprintf(tmp, "%3d", creature_ptr->dis_ev + creature_ptr->dis_to_ev);
@@ -3774,10 +3774,11 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	creature_ptr->dis_to_hit_b -= penalty;
 }
 
+
 static void set_trait_flags(creature_type *creature_ptr)
 {
-	int i;
-	if(!creature_ptr) return FALSE;
+	int i, j;
+	if(!creature_ptr) return;
 
 	for(i = 0; i < MAX_TRAITS; i++)
 	{
@@ -3786,11 +3787,14 @@ static void set_trait_flags(creature_type *creature_ptr)
 		if(has_trait_from_chara(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);
 		if(has_trait_from_inventory(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);
 		if(creature_ptr->timed_trait[i]) add_flag(creature_ptr->current_trait, i);		
+
+		if(have_flag(creature_ptr->current_trait, i))
+		{
+			for(j = 0; j < MAX_TRAITS; j++)
+				if(has_trait_raw(&trait_info[i].alias, j)) add_flag(creature_ptr->current_trait, j);
+		}
 	}
 
-//	for(i = 0; i < MAX_TRAITS; i++)
-//		if(have_flag(trait_info[i].reverse_alias, i))
-//			alias |= has_trait_aux(creature_ptr, i);
 }
 
 static void set_size_bonuses(creature_type *creature_ptr)
