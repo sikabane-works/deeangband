@@ -6462,12 +6462,7 @@ void close_game(void)
 		if(!cheat_save || get_check("Save death? "))
 #endif
 		{
-
-#ifdef JP
-if(!save_player()) msg_print("セーブ失敗！");
-#else
-			if(!save_player()) msg_print("death save failed!");
-#endif
+			if(!save_player()) msg_print(SYS_MESSAGE_SAVE_FAILED);
 		}
 		else do_send = FALSE;
 
@@ -6493,11 +6488,7 @@ if(!save_player()) msg_print("セーブ失敗！");
 				{
 					wait_report_score = TRUE;
 					gameover = FALSE;
-#ifdef JP
-					if(!save_player()) msg_print("セーブ失敗！");
-#else
-					if(!save_player()) msg_print("death save failed!");
-#endif
+					if(!save_player()) msg_print(SYS_MESSAGE_SAVE_FAILED);
 				}
 			}
 			if(!wait_report_score)
@@ -6577,13 +6568,11 @@ void exit_game_panic(creature_type *player_ptr)
 	/* Indicate panic save */
 #ifdef JP
 	(void)strcpy(gameover_from, "(緊急セーブ)");
-	if(!save_player()) quit("緊急セーブ失敗！");
-	quit("緊急セーブ成功！");
 #else
 	(void)strcpy(gameover_from, "(panic save)");
-	if(!save_player()) quit("panic save failed!");
-	quit("panic save succeeded!");
 #endif
+	if(!save_player()) quit(SYS_MESSAGE_PANIC_SAVE_FAILED);
+	quit(SYS_MESSAGE_PANIC_SAVE_SUCCEED);
 
 }
 
@@ -7081,24 +7070,8 @@ static void handle_signal_abort(int sig)
 	signals_ignore_tstp();
 
 	// Attempt to save
-	if(save_player())
-	{
-#ifdef JP
-		Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ成功！");
-#else
-		Term_putstr(45, hgt - 1, -1, TERM_RED, "Panic save succeeded!");
-#endif
-
-	}
-	else
-	{
-#ifdef JP
-		Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ失敗！");
-#else
-		Term_putstr(45, hgt - 1, -1, TERM_RED, "Panic save failed!");
-#endif
-
-	}
+	if(save_player()) Term_putstr(45, hgt - 1, -1, TERM_RED, SYS_MESSAGE_PANIC_SAVE_SUCCEED);
+	else Term_putstr(45, hgt - 1, -1, TERM_RED, SYS_MESSAGE_PANIC_SAVE_FAILED);
 
 	/* Flush output */
 	Term_fresh();

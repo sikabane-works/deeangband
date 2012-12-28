@@ -7,6 +7,9 @@
 #define SYS_MESSAGE_HIT_ANY_KEY "何かキーを押して下さい。"
 #define SYS_MESSAGE_OPTION_AUX "初期オプション((*)はスコアに影響)"
 #define SYS_MESSAGE_OPTION_AUX2 "初期オプション(参照のみ)"
+#define SYS_MESSAGE_SAVE_FAILED "セーブ失敗！"
+#define SYS_MESSAGE_PANIC_SAVE_SUCCEED "緊急セーブ成功！"
+#define SYS_MESSAGE_PANIC_SAVE_FAILED "緊急セーブ失敗！"
 
 #else
 
@@ -14,6 +17,9 @@
 #define SYS_MESSAGE_HIT_ANY_KEY "Hit Any Key。"
 #define SYS_MESSAGE_OPTION_AUX "Birth Option((*)s effect score)"
 #define SYS_MESSAGE_OPTION_AUX2 "Birth Options(browse only)"
+#define SYS_MESSAGE_SAVE_FAILED "death save failed!"
+#define SYS_MESSAGE_PANIC_SAVE_SUCCEED "Panic save succeeded!"
+#define SYS_MESSAGE_PANIC_SAVE_FAILED "panic save failed!"
 
 #endif
 

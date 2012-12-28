@@ -5218,11 +5218,7 @@ void waited_report_score(void)
 	{
 		wait_report_score = FALSE;
 		top_twenty(player_ptr);
-#ifdef JP
-		if(!save_player()) msg_print("セーブ失敗！");
-#else
-		if(!save_player()) msg_print("death save failed!");
-#endif
+		if(!save_player()) msg_print(SYS_MESSAGE_SAVE_FAILED);
 	}
 	/* Shut the high score file */
 	(void)fd_close(highscore_fd);
