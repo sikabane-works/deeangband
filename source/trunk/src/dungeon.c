@@ -3977,12 +3977,7 @@ static void process_player_command(creature_type *creature_ptr)
 					do_cmd_activate(creature_ptr);
 				else
 				{
-#ifdef JP
-					msg_print("アリーナが魔法を吸収した！");
-#else
-					msg_print("The arena absorbs all attempted magic!");
-#endif
-
+					msg_print(GAME_MESSAGE_ARENA_LIMIT);
 					msg_print(NULL);
 				}
 			}
@@ -4029,12 +4024,7 @@ static void process_player_command(creature_type *creature_ptr)
 					do_cmd_aim_wand(creature_ptr);
 				else
 				{
-#ifdef JP
-					msg_print("アリーナが魔法を吸収した！");
-#else
-					msg_print("The arena absorbs all attempted magic!");
-#endif
-
+					msg_print(GAME_MESSAGE_ARENA_LIMIT);
 					msg_print(NULL);
 				}
 			}
@@ -4048,12 +4038,7 @@ static void process_player_command(creature_type *creature_ptr)
 			{
 				if(floor_ptr->fight_arena_mode)
 				{
-#ifdef JP
-					msg_print("アリーナが魔法を吸収した！");
-#else
-					msg_print("The arena absorbs all attempted magic!");
-#endif
-
+					msg_print(GAME_MESSAGE_ARENA_LIMIT);
 					msg_print(NULL);
 				}
 				else if(use_command && rogue_like_commands)
@@ -4077,12 +4062,7 @@ static void process_player_command(creature_type *creature_ptr)
 					do_cmd_quaff_potion(creature_ptr);
 				else
 				{
-#ifdef JP
-					msg_print("アリーナが魔法を吸収した！");
-#else
-					msg_print("The arena absorbs all attempted magic!");
-#endif
-
+					msg_print(GAME_MESSAGE_ARENA_LIMIT);
 					msg_print(NULL);
 				}
 			}
@@ -4098,12 +4078,7 @@ static void process_player_command(creature_type *creature_ptr)
 					do_cmd_read_scroll(creature_ptr);
 				else
 				{
-#ifdef JP
-					msg_print("アリーナが魔法を吸収した！");
-#else
-					msg_print("The arena absorbs all attempted magic!");
-#endif
-
+					msg_print(GAME_MESSAGE_ARENA_LIMIT);
 					msg_print(NULL);
 				}
 			}
@@ -4117,12 +4092,7 @@ static void process_player_command(creature_type *creature_ptr)
 			{
 				if(floor_ptr->fight_arena_mode)
 				{
-#ifdef JP
-					msg_print("アリーナが魔法を吸収した！");
-#else
-					msg_print("The arena absorbs all attempted magic!");
-#endif
-
+					msg_print(GAME_MESSAGE_ARENA_LIMIT);
 					msg_print(NULL);
 				}
 				else if(use_command && !rogue_like_commands)
