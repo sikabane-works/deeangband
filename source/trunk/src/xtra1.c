@@ -1794,10 +1794,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 		if(creature_ptr->new_spells)
 		{
 #ifdef JP
-			if( creature_ptr->new_spells < 10 )
-				if(message) msg_format("あと %d つの%sを学べる。", creature_ptr->new_spells, p);
-			else
-				if(message) msg_format("あと %d 個の%sを学べる。", creature_ptr->new_spells, p);
+			if(message) msg_format("あと %d 種の%sを学べる。", creature_ptr->new_spells, p);
 #else
 			if(message) msg_format("You can learn %d more %s%s.", creature_ptr->new_spells, p, (creature_ptr->new_spells != 1) ? "s" : "");
 #endif

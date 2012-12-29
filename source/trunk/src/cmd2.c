@@ -651,11 +651,9 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	if((trap & (CHEST_EXPLODE)) && object_ptr->k_idx) // Explode
 	{
 #ifdef JP
-		msg_print("突然、箱が爆発した！");
-		msg_print("箱の中の物はすべて粉々に砕け散った！");
+		msg_print("突然、箱が爆発した！箱の中の物はすべて粉々に砕け散った！");
 #else
-		msg_print("There is a sudden explosion!");
-		msg_print("Everything inside the chest is destroyed!");
+		msg_print("There is a sudden explosion! Everything inside the chest is destroyed!");
 #endif
 		object_ptr->pval = 0;
 		sound(SOUND_EXPLODE);
