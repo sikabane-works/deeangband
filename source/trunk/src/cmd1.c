@@ -672,11 +672,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 				if(carry_query_flag)
 				{
 					char out_val[MAX_NLEN+20];
-#ifdef JP
-					sprintf(out_val, "%s‚ğE‚¢‚Ü‚·‚©? ", object_name);
-#else
-					sprintf(out_val, "Pick up %s? ", object_name);
-#endif
+					sprintf(out_val, PROMPT_PICK, object_name);
 					okay = get_check(out_val);
 				}
 

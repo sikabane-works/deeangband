@@ -1741,12 +1741,7 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 				if(object_ptr->marked & OM_NO_QUERY) continue; // Already answered as 'No'
 				
 				object_desc(object_name, object_ptr, 0); // Describe the object
-
-#ifdef JP
-				sprintf(out_val, "%sÇèEÇ¢Ç‹Ç∑Ç©? ", object_name);
-#else
-				sprintf(out_val, "Pick up %s? ", object_name);
-#endif
+				sprintf(out_val, PROMPT_PICK, object_name);
 
 				if(!get_check(out_val))
 				{

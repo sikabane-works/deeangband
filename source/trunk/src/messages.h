@@ -652,11 +652,13 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_FILE "ファイル: "
 	#define PROMPT_MEMO "メモ: "
 	#define PROMPT_REST "休憩 (0-9999, '*' で HP/MP全快, '&' で必要なだけ): "
+	#define PROMPT_PICK "%sを拾いますか? " 
 #else
 	#define PROMPT_COMMAND "Command: "
 	#define PROMPT_FILE "File: "
 	#define PROMPT_MEMO "Memo: "
 	#define PROMPT_REST "Rest (0-9999, '*' for HP/SP, '&' as needed): "
+	#define PROMPT_PICK "Pick up %s? " 
 #endif
 
 #ifdef JP
