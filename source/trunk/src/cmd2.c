@@ -2112,11 +2112,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 		if(((wilderness[creature_ptr->fy][creature_ptr->fx].level + 5) > (creature_ptr->lev / 2)) && randint0(tmp) < (21-creature_ptr->skill_stl))
 		{
 			/* Inform the player of his horrible fate :=) */
-#ifdef JP
-			msg_print("PŒ‚‚¾I");
-#else
-			msg_print("You are ambushed !");
-#endif
+			msg_print(GAME_MESSAGE_UMBUSHED);
 
 			/* Go into large wilderness view */
 			creature_ptr->oldpy = (s16b)randint1(MAX_HGT-2);
@@ -2210,13 +2206,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 	/* Prompt for time if needed */
 	if(command_arg <= 0)
 	{
-#ifdef JP
-		cptr p = "‹xŒe (0-9999, '*' ‚Å HP/MP‘S‰õ, '&' ‚Å•K—v‚È‚¾‚¯): ";
-#else
-		cptr p = "Rest (0-9999, '*' for HP/SP, '&' as needed): ";
-#endif
-
-
+		cptr p = PROMPT_REST;
 		char out_val[80];
 
 		/* Default */

@@ -88,6 +88,8 @@
 
 #define GAME_MESSAGE_PACK_OVERFLOW "ザックからアイテムがあふれた！"
 
+#define GAME_MESSAGE_UMBUSHED "襲撃だ！"
+
 #else
 
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
@@ -152,6 +154,8 @@
 #define GAME_MESSAGE_ARENA_BERSERK "You cannot think directly!"
 
 #define GAME_MESSAGE_PACK_OVERFLOW "Your pack overflows!"
+
+#define GAME_MESSAGE_UMBUSHED "You are ambushed !"
 
 #endif
 
@@ -643,10 +647,12 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_COMMAND "コマンド: "
 	#define PROMPT_FILE "ファイル: "
 	#define PROMPT_MEMO "メモ: "
+	#define PROMPT_REST "休憩 (0-9999, '*' で HP/MP全快, '&' で必要なだけ): "
 #else
 	#define PROMPT_COMMAND "Command: "
 	#define PROMPT_FILE "File: "
 	#define PROMPT_MEMO "Memo: "
+	#define PROMPT_REST "Rest (0-9999, '*' for HP/SP, '&' as needed): "
 #endif
 
 #ifdef JP
