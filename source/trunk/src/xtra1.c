@@ -3488,7 +3488,7 @@ static void set_melee_status(creature_type *creature_ptr)
 		}
 		else if(creature_ptr->two_handed && (hold < bow_ptr->weight/5)) omoi = TRUE;
 
-		if((i == 1) && (bow_ptr->tval == TV_SWORD) && ((bow_ptr->sval == SV_MAIN_GAUCHE) || (bow_ptr->sval == SV_WAKIZASHI)))
+		if((i >= 1) && has_trait_object(bow_ptr, TRAIT_PARRYING_WEAPON))
 		{
 			creature_ptr->to_ac += 5;
 			creature_ptr->dis_to_ac += 5;
