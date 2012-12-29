@@ -10,7 +10,8 @@
 #define SYS_MESSAGE_SAVE_FAILED "セーブ失敗！"
 #define SYS_MESSAGE_PANIC_SAVE_SUCCEED "緊急セーブ成功！"
 #define SYS_MESSAGE_PANIC_SAVE_FAILED "緊急セーブ失敗！"
-
+#define SYS_MESAAGE_YOUR_TRAITS "あなたには以下の特性がある"
+#define SYS_MESAAGE_YOUR_NO_TRAIT "あなたには特別な特性がない"
 #else
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
@@ -20,7 +21,8 @@
 #define SYS_MESSAGE_SAVE_FAILED "death save failed!"
 #define SYS_MESSAGE_PANIC_SAVE_SUCCEED "Panic save succeeded!"
 #define SYS_MESSAGE_PANIC_SAVE_FAILED "panic save failed!"
-
+#define SYS_MESAAGE_YOUR_TRAITS "You have these trait..."
+#define SYS_MESAAGE_YOUR_NO_TRAIT "You have no trait"
 #endif
 
 #if JP
