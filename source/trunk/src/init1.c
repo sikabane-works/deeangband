@@ -4018,6 +4018,7 @@ enum TRAIT_INFO
   TRAIT_INFO_ID2, 
   TRAIT_INFO_NAME,
   TRAIT_INFO_E_NAME,
+  TRAIT_INFO_DISP_PRIORITY,
   TRAIT_INFO_ALIAS,
   TRAIT_INFO_STR,
   TRAIT_INFO_INT,
@@ -4067,6 +4068,7 @@ static cptr cfeature_info_csv_list[TRAIT_INFO_CSV_COLUMNS] =
 	"ID2",
 	"NAME",
 	"E_NAME",
+	"DISP_PRIORITY",
 	"ALIAS",
 	"STR",
 	"INT",
@@ -4192,6 +4194,11 @@ errr parse_trait_csv(char *buf, header *head)
 
 				case TRAIT_INFO_E_NAME:
 					strcpy(trait_ptr->e_title, tmp);
+				break;
+
+				case TRAIT_INFO_DISP_PRIORITY:
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+					trait_ptr->display_priority = (byte)b;
 				break;
 
 				case TRAIT_INFO_ALIAS:

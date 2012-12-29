@@ -1460,6 +1460,7 @@ typedef struct trait_type trait_type;
 struct trait_type
 {
 	char id2[50];
+	byte display_priority;
 	s16b pre_id;
 	s16b anti_id;
 	char title[50];
