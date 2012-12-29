@@ -4695,14 +4695,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 			found = TRUE;
 		}
 
-		if(found && floor_ptr->generated && creature_can_see_bold(player_ptr, y, x))
-		{
-#ifdef JP
-			msg_print("‰½‚©‚ð”­Œ©‚µ‚½I");
-#else
-			msg_print("You have found something!");
-#endif
-		}
+		if(found && floor_ptr->generated && creature_can_see_bold(player_ptr, y, x)) msg_print(GAME_MESSAGE_FOUND_SOMETHING);
 	}
 
 	if(feature_action_flags[action] & FAF_CRASH_GLASS)

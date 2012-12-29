@@ -36,6 +36,8 @@
 #define GAME_MESSAGE_MANA_RECOVERLY "頭がハッキリとした。"
 #define GAME_MESSAGE_SUCCESS_PICKING "鍵をはずした。"
 #define GAME_MESSAGE_FAILED_PICKING "鍵をはずせなかった。"
+#define GAME_MESSAGE_FOUND_SOMETHING "何かを発見した！"
+
 #define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "恐怖の暗黒オーラがあなたの%sを包み込んだ！"
 #define GAME_MESSAGE_REMOVED_OBJECT_CURSE "誰かに見守られているような気がする。"
 #define GAME_MESSAGE_COMBAT_TALK_STAIR "「なんだこの階段は！？」"
@@ -104,6 +106,8 @@
 #define GAME_MESSAGE_MANA_RECOVERLY "You feel your head clear."
 #define GAME_MESSAGE_SUCCESS_PICKING "You have picked the lock."
 #define GAME_MESSAGE_FAILED_PICKING "You failed to pick the lock."
+#define GAME_MESSAGE_FOUND_SOMETHING "You have found something!"
+
 #define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "A terrible black aura blasts your %s!"
 #define GAME_MESSAGE_REMOVED_OBJECT_CURSE "You feel as if someone is watching over you."
 #define GAME_MESSAGE_COMBAT_TALK_STAIR "'What's a fucking stair!?'"
