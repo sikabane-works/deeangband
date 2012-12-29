@@ -688,11 +688,16 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_GAMEOVER "-------- ゲームオーバー --------"
 #define DIARY_SUICIDE "絶望して自殺した。"
 #define DIARY_WIZARD "ウィザードモードに突入してスコアを残せなくなった。"
+#define DIARY_UP_STAIR "階段を上った"
+#define DIARY_DOWN_STAIR "階段を下りた"
+
 #else
 
 #define DIARY_CREATE_PLAYER "-------- Create Player --------"
 #define DIARY_SUICIDE "give up all hope to commit suicide."
 #define DIARY_GAMEOVER "--------   Game  Over   --------"
 #define DIARY_WIZARD "give up sending score to use wizard mode."
+#define DIARY_UP_STAIR "climbed up the stairs to"
+#define DIARY_DOWN_STAIR "climbed down the stairs to"
 
 #endif

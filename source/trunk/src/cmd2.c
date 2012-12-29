@@ -131,12 +131,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 			up_num = floor_ptr->floor_level;
 	}
 
-#ifdef JP
-	if(record_stair) do_cmd_write_diary(DIARY_STAIR, 0-up_num, "äKíiÇè„Ç¡ÇΩ");
-#else
-	if(record_stair) do_cmd_write_diary(DIARY_STAIR, 0-up_num, "climbed up the stairs to");
-#endif
-
+	if(record_stair) do_cmd_write_diary(DIARY_STAIR, 0-up_num, DIARY_UP_STAIR);
 	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
 
 #ifdef JP
@@ -255,11 +250,10 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		{
 #ifdef JP
 			if(fall_trap) do_cmd_write_diary(DIARY_STAIR, down_num, "óéÇ∆ÇµåÀÇ…óéÇøÇΩ");
-			else do_cmd_write_diary(DIARY_STAIR, down_num, "äKíiÇâ∫ÇËÇΩ");
 #else
 			if(fall_trap) do_cmd_write_diary(DIARY_STAIR, down_num, "fell through a trap door");
-			else do_cmd_write_diary(DIARY_STAIR, down_num, "climbed down the stairs to");
 #endif
+			else do_cmd_write_diary(DIARY_STAIR, down_num, DIARY_DOWN_STAIR);
 		}
 
 		if(fall_trap)
