@@ -3734,9 +3734,9 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	}
 	else creature_ptr->speed = speed;
 
-	creature_ptr->speed += (creature_ptr->skill_exp[SKILL_RIDING] + creature_ptr->lev *160L) / 3200;
+	creature_ptr->speed += (creature_ptr->skill_exp[SKILL_RIDING] + creature_ptr->lev * 160L) / 3200;
 
-	//TODO if(is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
+	if(has_trait(steed_ptr, TRAIT_KILL_WALL)) add_flag(creature_ptr->current_trait, TRAIT_KILL_WALL);
 
 	if(creature_ptr->skill_exp[SKILL_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[SKILL_RIDING])) / RIDING_EXP_SKILLED;
 
@@ -3813,13 +3813,7 @@ static void fix_creature_status(creature_type *creature_ptr)
 
 	if(creature_ptr->skill_dig < 1) creature_ptr->skill_dig = 1;
 
-	// Hack -- Each elemental immunity includes resistance
-	//TODO if(creature_ptr->immune_acid) creature_ptr->resist_acid = TRUE;
-	//TODO if(creature_ptr->immune_elec) creature_ptr->resist_elec = TRUE;
-	//TODO if(creature_ptr->immune_fire) creature_ptr->resist_fire = TRUE;
-	//TODO if(creature_ptr->immune_cold) creature_ptr->resist_cold = TRUE;
-
-	 // Hack -- aura of fire also provides light
+	// Hack -- aura of fire also provides light
 	//TODO if(creature_ptr->sh_fire) creature_ptr->lite = TRUE;
 
 	if(has_trait(creature_ptr, TRAIT_PASSIVE_TELEPORT)) creature_ptr->cursed &= ~(TRAIT_PASSIVE_TELEPORT);
@@ -3961,14 +3955,12 @@ void notice_stuff(creature_type *creature_ptr)
 		autopick_delayed_alter(creature_ptr);
 	}
 
-	/* Combine the pack */
 	if(creature_ptr->creature_update & (CRU_COMBINE))
 	{
 		creature_ptr->creature_update &= ~(CRU_COMBINE);
 		combine_pack(creature_ptr);
 	}
 
-	/* Reorder the pack */
 	if(creature_ptr->creature_update & (CRU_REORDER))
 	{
 		creature_ptr->creature_update &= ~(CRU_REORDER);
