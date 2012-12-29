@@ -2897,8 +2897,12 @@ static void display_creature_trait(creature_type *creature_ptr)
 
 	for(i = 0; i < MAX_TRAITS; i++)
 	{
-		if(has_trait(creature_ptr, i)) c_put_str(TERM_WHITE, format("E%s", trait_info[i].title), n + 1, 1);
-		n++;
+		if(has_trait(creature_ptr, i))
+		{
+			c_put_str(TERM_WHITE, format("E%s", trait_info[i].title), n + 2, 1);
+			n++;
+		}
+		if(n > 10) break;
 	}
 
 	if(n) c_put_str(TERM_YELLOW, SYS_MESAAGE_YOUR_TRAITS, 1, 1);
