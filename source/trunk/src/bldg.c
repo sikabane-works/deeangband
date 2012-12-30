@@ -3238,12 +3238,7 @@ static bool research_creature(creature_type *creature_ptr)
 	}
 	else
 	{
-#ifdef JP
-		sprintf(buf, "%c - %s", sym, "–³Œø‚È•¶Žš");
-#else
-		sprintf(buf, "%c - %s.", sym, "Unknown Symbol");
-#endif
-
+		sprintf(buf, "%c - %s", sym, SYS_MESSAGE_UNKNOWN_SYMBOL);
 	}
 
 	/* Display the result */

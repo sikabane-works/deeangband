@@ -1,7 +1,7 @@
 
 // Keywords
 
-#if JP
+#ifdef JP
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "一時ファイル %s を作成できませんでした。"
 #define SYS_MESSAGE_HIT_ANY_KEY "何かキーを押して下さい。"
@@ -14,6 +14,7 @@
 #define SYS_MESSAGE_YOUR_NO_TRAIT "あなたには特別な特性がない"
 #define SYS_MESSAGE_SERVANTS "%sには%d種類、%d体の従僕がいる"
 #define SYS_MESSAGE_NO_SERVANT "%sには従僕がいない"
+#define SYS_MESSAGE_UNKNOWN_SYMBOL "無効な文字"
 #else
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
@@ -27,6 +28,7 @@
 #define SYS_MESSAGE_YOUR_NO_TRAIT "You have no trait"
 #define SYS_MESSAGE_YOUR_SERVANT "%s have no servant"
 #define SYS_MESSAGE_YOUR_NO_SERVANT "%s have %d species, %d servants"
+#define SYS_MESSAGE_UNKNOWN_SYMBOL "unknown symbol"
 #endif
 
 #if JP
