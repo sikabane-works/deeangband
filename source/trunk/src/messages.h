@@ -12,6 +12,8 @@
 #define SYS_MESSAGE_PANIC_SAVE_FAILED "緊急セーブ失敗！"
 #define SYS_MESSAGE_YOUR_TRAITS "あなたには以下の特性がある"
 #define SYS_MESSAGE_YOUR_NO_TRAIT "あなたには特別な特性がない"
+#define SYS_MESSAGE_SERVANTS "%sには%d種類、%d体の従僕がいる"
+#define SYS_MESSAGE_NO_SERVANT "%sには従僕がいない"
 #else
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
@@ -23,6 +25,8 @@
 #define SYS_MESSAGE_PANIC_SAVE_FAILED "panic save failed!"
 #define SYS_MESSAGE_YOUR_TRAITS "You have these trait..."
 #define SYS_MESSAGE_YOUR_NO_TRAIT "You have no trait"
+#define SYS_MESSAGE_YOUR_SERVANT "%s have no servant"
+#define SYS_MESSAGE_YOUR_NO_SERVANT "%s have %d species, %d servants"
 #endif
 
 #if JP

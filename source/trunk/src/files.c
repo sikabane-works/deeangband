@@ -2926,22 +2926,8 @@ static void display_creature_underings(creature_type *creature_ptr)
 		total += creature_ptr->underling_num[i];
 	}
 
-	if(!type_num)
-	{
-#if JP
-		c_put_str(TERM_YELLOW, format("%s‚É‚Í]–l‚ª‚¢‚È‚¢", master_name), 1, 1);
-#elif
-		c_put_str(TERM_YELLOW, format("%s have no servant", master_name), 1, 1);
-#endif
-	}
-	else
-	{
-#if JP
-		c_put_str(TERM_YELLOW, format("%s‚É‚Í%dí—ŞA%d‘Ì‚Ì]–l‚ª‚¢‚é", master_name, type_num, total), 1, 1);
-#elif
-		c_put_str(TERM_YELLOW, format("%s have %d species, %d servants", master_name, type_num, total), 1, 1);
-#endif
-	}
+	if(!type_num) c_put_str(TERM_YELLOW, format(SYS_MESSAGE_NO_SERVANT, master_name), 1, 1);
+	else c_put_str(TERM_YELLOW, format(SYS_MESSAGE_SERVANTS, master_name, type_num, total), 1, 1);
 }
 
 /*
