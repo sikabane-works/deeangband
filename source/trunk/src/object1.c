@@ -3698,7 +3698,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			creature_ptr->au += object_ptr->pval;
 
 			prepare_redraw(PR_GOLD);
-
 			prepare_window(PW_PLAYER);
 
 			/* Delete the gold */
@@ -3747,13 +3746,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 
 			/* Describe the object */
 			object_desc(object_name, object_ptr, 0);
-
-#ifdef JP
-			msg_format("%sÇ™Ç†ÇÈÅB", object_name);
-#else
-			msg_format("You see %s.", object_name);
-#endif
-
+			msg_format(GAME_MESSAGE_SEE_OBJECT, object_name);
 		}
 
 		/* Multiple objects */

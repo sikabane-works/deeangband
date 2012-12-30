@@ -642,11 +642,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 			{
 				if(floor_num < 3)
 				{
-#ifdef JP
-					msg_format("%s‚ª‚ ‚éB", object_name);
-#else
-					msg_format("You see %s.", object_name);
-#endif
+					msg_format(GAME_MESSAGE_SEE_OBJECT, object_name);
 				}
 			}
 
