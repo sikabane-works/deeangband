@@ -1376,7 +1376,7 @@ act = "は屍を求めている！";
 			break;
 		case 4:
 #ifdef JP
-act = "は血を求めている！";
+			act = "は血を求めている！";
 #else
 			act = "thirsts for blood!";
 #endif
@@ -1385,7 +1385,7 @@ act = "は血を求めている！";
 			break;
 		case 3:
 #ifdef JP
-act = "は毒に覆われた。";
+			act = "は毒に覆われた。";
 #else
 			act = "is coated with poison.";
 #endif
@@ -1394,7 +1394,7 @@ act = "は毒に覆われた。";
 			break;
 		case 2:
 #ifdef JP
-act = "は純ログルスに飲み込まれた。";
+			act = "は純ログルスに飲み込まれた。";
 #else
 			act = "is engulfed in raw Logrus!";
 #endif
@@ -1403,7 +1403,7 @@ act = "は純ログルスに飲み込まれた。";
 			break;
 		case 1:
 #ifdef JP
-act = "は炎のシールドに覆われた！";
+			act = "は炎のシールドに覆われた！";
 #else
 			act = "is covered in a fiery shield!";
 #endif
@@ -1412,7 +1412,7 @@ act = "は炎のシールドに覆われた！";
 			break;
 		default:
 #ifdef JP
-act = "は深く冷たいブルーに輝いた！";
+			act = "は深く冷たいブルーに輝いた！";
 #else
 			act = "glows deep, icy blue!";
 #endif
@@ -1557,9 +1557,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 
 	// Update creatures
 	prepare_update(player_ptr, PU_CREATURES);
-
 	prepare_redraw(PR_MAP);
-
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 	return TRUE;
@@ -1654,11 +1652,7 @@ void call_the_void(creature_type *creature_ptr)
 #endif
 		}
 
-#ifdef JP
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "自殺的な虚無招来", NULL, -1);
-#else
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "a suicidal Call the Void", NULL, -1);
-#endif
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), COD_CALL_OF_VOLD, NULL, -1);
 	}
 }
 

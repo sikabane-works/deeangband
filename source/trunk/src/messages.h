@@ -257,6 +257,8 @@
 #define COD_SPIKED_PIT_TRAP "ƒgƒQ‚Ì‚ ‚é—‚Æ‚µŒŠ"
 #define COD_EXPLOADING_CHEST "”š”­‚·‚é” "
 #define COD_POTION_OF_DEATH "€‚Ì–ò"
+#define COD_CALL_OF_VOLD "©E“I‚È‹•–³µ—ˆ"
+
 #else
 
 #define COD_CHEATING_DEATH "cheating death"
@@ -281,6 +283,7 @@
 #define COD_SPIKED_PIT_TRAP "a spiked pit"
 #define COD_EXPLOADING_CHEST "an exploding chest"
 #define COD_POTION_OF_DEATH "a potion of Death"
+#define COD_CALL_OF_VOLD "a suicidal Call the Void"
 
 #endif
 
