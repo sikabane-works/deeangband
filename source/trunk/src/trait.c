@@ -1760,17 +1760,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 			switch (caster_ptr->species_idx)
 			{
-			case SPECIES_MENELDOR:
-			case SPECIES_GWAIHIR:
-			case SPECIES_THORONDOR:
-				{
-					int num = 4 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-					}
-				}
-				break;
 
 			case SPECIES_RICHARD_STOLENMAN:
 				{
@@ -1831,6 +1820,16 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_KIN, PC_ALLOW_GROUP);
 				}
 				break;
+			}
+			break;
+		}
+
+	case TRAIT_S_EAGLE:
+		{
+			int num = 4 + randint1(3);
+			for (k = 0; k < num; k++)
+			{
+				count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			}
 			break;
 		}
