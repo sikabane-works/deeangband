@@ -3692,14 +3692,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		/* Pick up gold */
 		if(object_ptr->tval == TV_GOLD)
 		{
-#ifdef JP
-		msg_format(" $%ld ‚Ì‰¿’l‚ª‚ ‚é%s‚ðŒ©‚Â‚¯‚½B",
-			   (long)object_ptr->pval, object_name);
-#else
-			msg_format("You have found %ld gold pieces worth of %s.",
-				(long) object_ptr->pval, object_name);
-#endif
-
+			msg_format(GAME_MESSAGE_GET_MONEY, (long)object_ptr->pval, object_name);
 
 			/* Collect the gold */
 			creature_ptr->au += object_ptr->pval;

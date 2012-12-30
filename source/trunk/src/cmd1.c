@@ -621,11 +621,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 		{
 			int value = (long)object_ptr->pval;
 			delete_object_idx(this_object_idx); // Delete the gold
-#ifdef JP
-			msg_format(" $%ld ‚Ì‰¿’l‚ª‚ ‚é%s‚ðŒ©‚Â‚¯‚½B", (long)value, object_name);
-#else
-			msg_format("You collect %ld gold pieces worth of %s.", (long)value, object_name);
-#endif
+			msg_format(GAME_MESSAGE_GET_MONEY, (long)value, object_name);
 			sound(SOUND_SELL);
 			creature_ptr->au += value;
 			prepare_redraw(PR_GOLD);
