@@ -104,6 +104,7 @@
 #define GAME_MESSAGE_ARENA_LIMIT "アリーナが魔法を吸収した！"
 #define GAME_MESSAGE_ARENA_BERSERK "狂戦士化していて頭が回らない！"
 
+#define GAME_MESSAGE_PACK_NO_ROOM "ザックには%sを入れる隙間がない。"
 #define GAME_MESSAGE_PACK_OVERFLOW "ザックからアイテムがあふれた！"
 
 #define GAME_MESSAGE_UMBUSHED "襲撃だ！"
@@ -175,6 +176,7 @@
 #define GAME_MESSAGE_ARENA_LIMIT "The arena absorbs all attempted magic!"
 #define GAME_MESSAGE_ARENA_BERSERK "You cannot think directly!"
 
+#define GAME_MESSAGE_PACK_NO_ROOM "You have no room for %s."
 #define GAME_MESSAGE_PACK_OVERFLOW "Your pack overflows!"
 
 #define GAME_MESSAGE_UMBUSHED "You are ambushed !"

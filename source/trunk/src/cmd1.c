@@ -654,14 +654,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 				}
 			}
 
-			else if(!inven_carry_okay(creature_ptr, object_ptr))
-			{
-#ifdef JP
-				msg_format("ザックには%sを入れる隙間がない。", object_name);
-#else
-				msg_format("You have no room for %s.", object_name);
-#endif
-			}
+			else if(!inven_carry_okay(creature_ptr, object_ptr)) msg_format(GAME_MESSAGE_PACK_NO_ROOM, object_name);
 
 			/* Pick up the item (if requested and allowed) */
 			else

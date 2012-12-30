@@ -3789,13 +3789,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 
 			/* Describe the object */
 			object_desc(object_name, object_ptr, 0);
-
-#ifdef JP
-				msg_format("ザックには%sを入れる隙間がない。", object_name);
-#else
-			msg_format("You have no room for %s.", object_name);
-#endif
-
+			msg_format(GAME_MESSAGE_PACK_NO_ROOM, object_name);
 		}
 
 		/* Multiple objects */
