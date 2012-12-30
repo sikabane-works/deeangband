@@ -1746,11 +1746,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		else
 		{
 			/* Begin the prompt */
-#ifdef JP
-			sprintf(out_val, "‘•”õ•i:");
-#else
-			sprintf(out_val, "Equip:");
-#endif
+			sprintf(out_val, PROMPT_EQUIPMENT);
 
 			/* Some legal items */
 			if((e1 <= e2) && !use_menu)
@@ -2778,11 +2774,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 		else if(command_wrk == (USE_EQUIP))
 		{
 			/* Begin the prompt */
-#ifdef JP
-			sprintf(out_val, "‘•”õ•i:");
-#else
-			sprintf(out_val, "Equip:");
-#endif
+			sprintf(out_val, PROMPT_EQUIPMENT);
 
 			if(!use_menu)
 			{
