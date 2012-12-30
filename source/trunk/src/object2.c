@@ -2672,12 +2672,14 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 		object_ptr->pval = a_ptr->pval;
 		object_ptr->ac = a_ptr->ac;
 		object_ptr->ev = a_ptr->ev;
+		object_ptr->vo = a_ptr->vo;
 		object_ptr->size_lower = a_ptr->size_lower; 
 		object_ptr->size_upper = a_ptr->size_upper; 
 		object_ptr->dd = a_ptr->dd;
 		object_ptr->ds = a_ptr->ds;
 		object_ptr->to_ac = a_ptr->to_ac;
 		object_ptr->to_ev = a_ptr->to_ev;
+		object_ptr->to_vo = a_ptr->to_vo;
 		object_ptr->to_hit = a_ptr->to_hit;
 		object_ptr->to_damage = a_ptr->to_damage;
 		ave = a_ptr->size_lower + a_ptr->size_upper;
