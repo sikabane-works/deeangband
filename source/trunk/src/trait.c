@@ -1771,27 +1771,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				}
 				break;
 
-			case SPECIES_SERPENT:
-				{
-					int num = 2 + randint1(3);
-
-					if(species_info[SPECIES_JORMUNGAND].cur_num < species_info[SPECIES_JORMUNGAND].max_num && one_in_(6))
-					{
-#ifdef JP
-						msg_print("地面から水が吹き出した！");
-#else
-						msg_print("Water blew off from the ground!");
-#endif
-						cast_ball_hide(caster_ptr, DO_EFFECT_WATER_FLOW, 0, 3, 8);
-					}
-
-					for (k = 0; k < num; k++)
-					{
-						count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-					}
-				}
-				break;
-
 			case SPECIES_CALDARM:
 				{
 					int num = randint1(3);
@@ -1833,6 +1812,27 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			break;
 		}
+
+	case TRAIT_S_DUNGEON_MASTER:
+				{
+					int num = 2 + randint1(3);
+
+					if(species_info[SPECIES_JORMUNGAND].cur_num < species_info[SPECIES_JORMUNGAND].max_num && one_in_(6))
+					{
+#ifdef JP
+						msg_print("地面から水が吹き出した！");
+#else
+						msg_print("Water blew off from the ground!");
+#endif
+						cast_ball_hide(caster_ptr, DO_EFFECT_WATER_FLOW, 0, 3, 8);
+					}
+
+					for (k = 0; k < num; k++)
+					{
+						count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+					}
+				}
+				break;
 
 	case TRAIT_S_CYBER:
 		{
