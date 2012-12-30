@@ -1771,16 +1771,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				}
 				break;
 
-			case SPECIES_CALDARM:
-				{
-					int num = randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
-					}
-				}
-				break;
-
 			case SPECIES_LOUSY:
 				{
 					int num = 2 + randint1(3);
@@ -1833,6 +1823,17 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					}
 				}
 				break;
+
+	case TRAIT_S_LOCKE_CLONE:
+				{
+					int num = randint1(3);
+					for (k = 0; k < num; k++)
+					{
+						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
+					}
+				}
+				break;
+
 
 	case TRAIT_S_CYBER:
 		{
