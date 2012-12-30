@@ -1715,11 +1715,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		if(!command_wrk)
 		{
 			/* Begin the prompt */
-#ifdef JP
-			sprintf(out_val, "‚¿•¨:");
-#else
-			sprintf(out_val, "Inven:");
-#endif
+			sprintf(out_val, PROMPT_INVENTORY);
 
 			/* Some legal items */
 			if((i1 <= i2) && !use_menu)
@@ -1739,14 +1735,9 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			/* Indicate ability to "view" */
 #ifdef JP
 			if(!command_see && !use_menu) strcat(out_val, " '*'ˆê——,");
-#else
-			if(!command_see && !use_menu) strcat(out_val, " * to see,");
-#endif
-
-			/* Append */
-#ifdef JP
 			if(equip) strcat(out_val, format(" %s ‘•”õ•i,", use_menu ? "'4'or'6'" : "'/'"));
 #else
+			if(!command_see && !use_menu) strcat(out_val, " * to see,");
 			if(equip) strcat(out_val, format(" %s for Equip,", use_menu ? "4 or 6" : "/"));
 #endif
 		}
@@ -2719,11 +2710,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 		if(command_wrk == (USE_INVEN))
 		{
 			/* Begin the prompt */
-#ifdef JP
-			sprintf(out_val, "‚¿•¨:");
-#else
-			sprintf(out_val, "Inven:");
-#endif
+			sprintf(out_val, PROMPT_INVENTORY);
 
 			if(!use_menu)
 			{
