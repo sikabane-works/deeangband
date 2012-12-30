@@ -121,6 +121,8 @@
 
 #define GAME_MESSAGE_FIELD_MAGIC_FAILED1 "床上のアイテムが呪文を跳ね返した。"
 
+#define GAME_MESSAGE_SMITH_NO_ESSENCE "エッセンスが足りない。"
+
 #else
 
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
@@ -202,6 +204,8 @@
 #define GAME_MESSAGE_PROJECTILE_HITS "The %s hits %s."
 
 #define GAME_MESSAGE_FIELD_MAGIC_FAILED1 "The object resists the spell."
+
+#define GAME_MESSAGE_SMITH_NO_ESSENCE "You don't have enough essences."
 
 #endif
 

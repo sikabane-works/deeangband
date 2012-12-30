@@ -5649,11 +5649,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	{
 		if(creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence] < use_essence)
 		{
-#ifdef JP
-			msg_print("エッセンスが足りない。");
-#else
-			msg_print("You don't have enough essences.");
-#endif
+			msg_print(GAME_MESSAGE_SMITH_NO_ESSENCE);
 			return;
 		}
 		if(is_pval_flag(es_ptr->add))
@@ -5723,11 +5719,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 			if(creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence] < use_essence)
 			{
-#ifdef JP
-				msg_print("エッセンスが足りない。");
-#else
-				msg_print("You don't have enough essences.");
-#endif
+				msg_print(GAME_MESSAGE_SMITH_NO_ESSENCE);
 				return;
 			}
 		}
@@ -5754,11 +5746,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #endif
 			if(creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence] < use_essence)
 			{
-#ifdef JP
-				msg_print("エッセンスが足りない。");
-#else
-				msg_print("You don't have enough essences.");
-#endif
+				msg_print(GAME_MESSAGE_SMITH_NO_ESSENCE);
 				return;
 			}
 			get_to_hit = ((val+1)/2+randint0(val/2+1));
@@ -5842,11 +5830,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		}
 		if(!success)
 		{
-#ifdef JP
-			msg_print("エッセンスが足りない。");
-#else
-			msg_print("You don't have enough essences.");
-#endif
+			msg_print(GAME_MESSAGE_SMITH_NO_ESSENCE);
 			return;
 		}
 		if(es_ptr->add == ESSENCE_SUSTAIN)
