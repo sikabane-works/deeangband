@@ -3632,11 +3632,10 @@ static bool py_pickup_floor_aux(creature_type *creature_ptr)
 	/* Get an object */
 #ifdef JP
 	q = "どれを拾いますか？";
-	s = "もうザックには床にあるどのアイテムも入らない。";
 #else
 	q = "Get which item? ";
-	s = "You no longer have any room for the objects on the floor.";
 #endif
+	s = GAME_MESSAGE_PACK_NO_ROOM_FLOOR;
 
 	if(get_item(creature_ptr, &item, q, s, (USE_FLOOR), inven_carry_okay, 0))
 	{
@@ -3792,16 +3791,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			msg_format(GAME_MESSAGE_PACK_NO_ROOM, object_name);
 		}
 
-		/* Multiple objects */
-		else
-		{
-#ifdef JP
-			msg_format("ザックには床にあるどのアイテムも入らない。", object_name);
-#else
-			msg_print("You have no room for any of the objects on the floor.");
-#endif
-
-		}
+		else msg_print(GAME_MESSAGE_PACK_NO_ROOM_FLOOR);
 
 		return;
 	}
