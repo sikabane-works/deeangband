@@ -2843,9 +2843,9 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 		{
 			/* Begin the prompt */
 #ifdef JP
-			sprintf(out_val, "è∞è„:");
+			sprintf(out_val, "è∞è„: ");
 #else
-			sprintf(out_val, "Floor:");
+			sprintf(out_val, "Floor: ");
 #endif
 
 			if(!use_menu)

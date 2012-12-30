@@ -513,12 +513,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	// Artifacts resists 
 	if(!cave_valid_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
 	{
-#ifdef JP
-		msg_print("床上のアイテムが呪文を跳ね返した。");
-#else
-		msg_print("The object resists the spell.");
-#endif
-
+		msg_print(GAME_MESSAGE_FIELD_MAGIC_FAILED1);
 		return;
 	}
 

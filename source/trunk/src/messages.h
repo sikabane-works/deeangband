@@ -114,6 +114,8 @@
 
 #define GAME_MESSAGE_PROJECTILE_HITS "%sが%sに命中した。"
 
+#define GAME_MESSAGE_FIELD_MAGIC_FAILED1 "床上のアイテムが呪文を跳ね返した。"
+
 #else
 
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
@@ -188,6 +190,8 @@
 #define GAME_MESSAGE_UMBUSHED "You are ambushed !"
 
 #define GAME_MESSAGE_PROJECTILE_HITS "The %s hits %s."
+
+#define GAME_MESSAGE_FIELD_MAGIC_FAILED1 "The object resists the spell."
 
 #endif
 

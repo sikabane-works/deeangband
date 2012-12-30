@@ -1851,12 +1851,7 @@ bool warding_glyph(creature_type *creature_ptr)
 
 	if(!cave_clean_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
 	{
-#ifdef JP
-msg_print("床上のアイテムが呪文を跳ね返した。");
-#else
-		msg_print("The object resists the spell.");
-#endif
-
+		msg_print(GAME_MESSAGE_FIELD_MAGIC_FAILED1);
 		return FALSE;
 	}
 
@@ -1877,12 +1872,7 @@ bool place_mirror(creature_type *caster_ptr)
 
 	if(!cave_clean_bold(floor_ptr, caster_ptr->fy, caster_ptr->fx))
 	{
-#ifdef JP
-msg_print("床上のアイテムが呪文を跳ね返した。");
-#else
-		msg_print("The object resists the spell.");
-#endif
-
+		msg_print(GAME_MESSAGE_FIELD_MAGIC_FAILED1);
 		return FALSE;
 	}
 
@@ -1905,11 +1895,7 @@ bool explosive_rune(creature_type *creature_ptr)
 
 	if(!cave_clean_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
 	{
-#ifdef JP
-		msg_print("床上のアイテムが呪文を跳ね返した。");
-#else
-		msg_print("The object resists the spell.");
-#endif
+		msg_print(GAME_MESSAGE_FIELD_MAGIC_FAILED1);
 		return FALSE;
 	}
 
@@ -2010,9 +1996,7 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 
 		/* Take note */
 		object_ptr->feeling = FEEL_NONE;
-
 		prepare_update(creature_ptr, CRU_BONUS);
-
 		prepare_window(PW_EQUIP);
 
 		/* Count the uncursings */
@@ -2094,7 +2078,7 @@ bool alchemy(creature_type *creature_ptr)
 		{
 			/* Make a verification */
 #ifdef JP
-sprintf(out_val, "本当に%sを金に変えますか？", object_name);
+			sprintf(out_val, "本当に%sを金に変えますか？", object_name);
 #else
 			sprintf(out_val, "Really turn %s to gold? ", object_name);
 #endif
@@ -2140,9 +2124,7 @@ msg_format("%sを＄%d の金に変えた。", object_name, price);
 #endif
 
 		creature_ptr->au += price;
-
 		prepare_redraw(PR_GOLD);
-
 		prepare_window(PW_PLAYER);
 
 	}
@@ -2175,15 +2157,13 @@ static void break_curse(object_type *object_ptr)
 	if(object_is_cursed(object_ptr) && !(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) && !(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) && (randint0(100) < 25))
 	{
 #ifdef JP
-msg_print("かけられていた呪いが打ち破られた！");
+		msg_print("かけられていた呪いが打ち破られた！");
 #else
 		msg_print("The curse is broken!");
 #endif
 
 		object_ptr->curse_flags[0] = 0L;
-
 		object_ptr->ident |= (IDENT_SENSE);
-
 		object_ptr->feeling = FEEL_NONE;
 	}
 }
@@ -3171,11 +3151,9 @@ bool bless_weapon(creature_type *creature_ptr)
 		}
 
 #ifdef JP
-msg_format("%s から邪悪なオーラが消えた。",
-    object_name);
+		msg_format("%s から邪悪なオーラが消えた。", object_name);
 #else
-		msg_format("A malignant aura leaves %s %s.",
-		    ((item >= 0) ? "your" : "the"), object_name);
+		msg_format("A malignant aura leaves %s %s.", ((item >= 0) ? "your" : "the"), object_name);
 #endif
 
 
@@ -3189,7 +3167,6 @@ msg_format("%s から邪悪なオーラが消えた。",
 		object_ptr->feeling = FEEL_NONE;
 
 		prepare_update(creature_ptr, CRU_BONUS);
-
 		prepare_window(PW_EQUIP);
 	}
 
@@ -3206,9 +3183,7 @@ msg_format("%s から邪悪なオーラが消えた。",
 #ifdef JP
 		msg_format("%s は既に祝福されている。", object_name);
 #else
-		msg_format("%s %s %s blessed already.",
-		    ((item >= 0) ? "Your" : "The"), object_name,
-		    ((object_ptr->number > 1) ? "were" : "was"));
+		msg_format("%s %s %s blessed already.", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "were" : "was"));
 #endif
 
 		return TRUE;
@@ -3219,9 +3194,7 @@ msg_format("%s から邪悪なオーラが消えた。",
 #ifdef JP
 		msg_format("%sは輝いた！", object_name);
 #else
-		msg_format("%s %s shine%s!",
-		    ((item >= 0) ? "Your" : "The"), object_name,
-		    ((object_ptr->number > 1) ? "" : "s"));
+		msg_format("%s %s shine%s!", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "" : "s"));
 #endif
 
 		add_flag(object_ptr->trait_flags, TRAIT_BLESSED_BRAND);
@@ -3272,9 +3245,7 @@ msg_format("%s から邪悪なオーラが消えた。",
 			msg_format("%s は劣化した！", object_name);
 #else
 			msg_print("There is a static feeling in the air...");
-			msg_format("%s %s %s disenchanted!",
-			    ((item >= 0) ? "Your" : "The"), object_name,
-			    ((object_ptr->number > 1) ? "were" : "was"));
+			msg_format("%s %s %s disenchanted!", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "were" : "was"));
 #endif
 		}
 	}
@@ -3322,7 +3293,7 @@ bool pulish_shield(creature_type *creature_ptr)
 	    !object_is_cursed(object_ptr) && (object_ptr->sval != SV_MIRROR_SHIELD))
 	{
 #ifdef JP
-msg_format("%sは輝いた！", object_name);
+		msg_format("%sは輝いた！", object_name);
 #else
 		msg_format("%s %s shine%s!",
 		    ((item >= 0) ? "Your" : "The"), object_name,
