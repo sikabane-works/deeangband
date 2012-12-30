@@ -1350,13 +1350,11 @@ void do_cmd_locate(creature_type *creature_ptr)
 		{
 #ifdef JP
 			sprintf(tmp_val, "%s%s",
-				((y2 < y1) ? "–k" : (y2 > y1) ? "“ì" : ""),
-				((x2 < x1) ? "¼" : (x2 > x1) ? "“Œ" : ""));
 #else
 			sprintf(tmp_val, "%s%s of",
-				((y2 < y1) ? " North" : (y2 > y1) ? " South" : ""),
-				((x2 < x1) ? " West" : (x2 > x1) ? " East" : ""));
 #endif
+				((y2 < y1) ? SYS_MESSAGE_NORTH : (y2 > y1) ? SYS_MESSAGE_SOUTH : ""),
+				((x2 < x1) ? SYS_MESSAGE_WEST : (x2 > x1) ? SYS_MESSAGE_EAST : ""));
 
 		}
 
@@ -1607,14 +1605,8 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		sprintf(buf, "Creatures with a name \"%s\"",temp);
 #endif
 	}
-	else if(ident_info[i])
-	{
-		sprintf(buf, "%c - %s.", sym, ident_info[i] + 2);
-	}
-	else
-	{
-		sprintf(buf, "%c - %s", sym, SYS_MESSAGE_UNKNOWN_SYMBOL);
-	}
+	else if(ident_info[i]) sprintf(buf, "%c - %s.", sym, ident_info[i] + 2);
+	else sprintf(buf, "%c - %s", sym, SYS_MESSAGE_UNKNOWN_SYMBOL);
 
 	/* Display the result */
 	prt(buf, 0, 0);

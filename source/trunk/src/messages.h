@@ -15,6 +15,10 @@
 #define SYS_MESSAGE_SERVANTS "%sÇ…ÇÕ%déÌóﬁÅA%dëÃÇÃè]ñlÇ™Ç¢ÇÈ"
 #define SYS_MESSAGE_NO_SERVANT "%sÇ…ÇÕè]ñlÇ™Ç¢Ç»Ç¢"
 #define SYS_MESSAGE_UNKNOWN_SYMBOL "ñ≥å¯Ç»ï∂éö"
+#define SYS_MESSAGE_NORTH "ñk"
+#define SYS_MESSAGE_SOUTH "ìÏ"
+#define SYS_MESSAGE_EAST "ìå"
+#define SYS_MESSAGE_WEST "êº"
 #else
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
@@ -29,6 +33,10 @@
 #define SYS_MESSAGE_YOUR_SERVANT "%s have no servant"
 #define SYS_MESSAGE_YOUR_NO_SERVANT "%s have %d species, %d servants"
 #define SYS_MESSAGE_UNKNOWN_SYMBOL "unknown symbol"
+#define SYS_MESSAGE_NORTH " North"
+#define SYS_MESSAGE_SOUTH " South"
+#define SYS_MESSAGE_EAST " East"
+#define SYS_MESSAGE_WEST " West"
 #endif
 
 #if JP
