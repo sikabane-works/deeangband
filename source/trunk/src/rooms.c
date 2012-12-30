@@ -2963,9 +2963,9 @@ static bool build_type8(floor_type *floor_ptr)
 		if(cheat_room)
 		{
 #ifdef JP
-			msg_print("警告！巨大な地下室を配置できません！");
+			msg_warning("巨大な地下室を配置できません。");
 #else
-			msg_print("Warning! Could not place greater vault!");
+			msg_warning("Could not place greater vault.");
 #endif
 		}
 		return FALSE;

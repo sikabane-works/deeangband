@@ -431,20 +431,12 @@ void search(creature_type *creature_ptr)
 				if(c_ptr->mimic && is_trap(c_ptr->feat)) // Invisible trap
 				{
 					disclose_grid(floor_ptr, y, x);
-#ifdef JP
-					msg_print("トラップを発見した。");
-#else
-					msg_print("You have found a trap.");
-#endif
+					msg_print(GAME_MESSAGE_FIND_TRAP);
 					disturb(player_ptr, 0, 0);
 				}
 				if(is_hidden_door(c_ptr)) // Secret door
 				{
-#ifdef JP
-					msg_print("隠しドアを発見した。");
-#else
-					msg_print("You have found a secret door.");
-#endif					
+					msg_print(GAME_MESSAGE_FIND_DOOR);
 					disclose_grid(floor_ptr, y, x); // Disclose
 					disturb(player_ptr, 0, 0);
 				}

@@ -442,11 +442,10 @@ s16b object_pop(void)
 		return (i);
 	}
 
-
 #ifdef JP
-	msg_print("アイテムが多すぎる！");
+	msg_warning("アイテムが多すぎる。");
 #else
-	msg_print("Too many objects!");
+	msg_warning("Too many objects.");
 #endif
 
 	return SUCCESS;

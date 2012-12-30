@@ -297,11 +297,7 @@ bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 
 	if(has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) && !(mode & TELEPORT_NONMAGICAL))
 	{
-#ifdef JP
-		msg_print("不思議な力がテレポートを防いだ！");
-#else
-		msg_print("A mysterious force prevents you from teleporting!");
-#endif
+		msg_print(GAME_MESSAGE_TELEPORT_PREVENTED);
 		return FALSE;
 	}
 
@@ -480,12 +476,7 @@ void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
 
 	if(has_trait(caster_ptr, TRAIT_PREVENT_TELEPORT) && !(mode & TELEPORT_NONMAGICAL))
 	{
-#ifdef JP
-		msg_print("不思議な力がテレポートを防いだ！");
-#else
-		msg_print("A mysterious force prevents you from teleporting!");
-#endif
-
+		msg_print(GAME_MESSAGE_TELEPORT_PREVENTED);
 		return;
 	}
 
@@ -628,11 +619,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 
 	if((m_idx <= 0) && has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT)) /* To player */
 	{
-#ifdef JP
-		msg_print("不思議な力がテレポートを防いだ！");
-#else
-		msg_print("A mysterious force prevents you from teleporting!");
-#endif
+		msg_print(GAME_MESSAGE_TELEPORT_PREVENTED);
 		return;
 	}
 

@@ -2844,11 +2844,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 
 	if(has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 	{
-#ifdef JP
-		msg_print("不思議な力がテレポートを防いだ！");
-#else
-		msg_print("A mysterious force prevents you from teleporting!");
-#endif
+		msg_print(GAME_MESSAGE_TELEPORT_PREVENTED);
 		return FALSE;
 	}
 

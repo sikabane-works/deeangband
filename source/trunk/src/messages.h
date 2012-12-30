@@ -96,6 +96,11 @@
 #define GAME_MESSAGE_IMPROVE_LIMIT "そのアイテムはこれ以上改良できない。"
 #define GAME_MESSAGE_NO_HAPPEN "何も起こらなかった。"
 
+#define GAME_MESSAGE_FIND_TRAP "トラップを発見した。"
+#define GAME_MESSAGE_FIND_DOOR "隠しドアを発見した。"
+
+#define GAME_MESSAGE_TELEPORT_PREVENTED "不思議な力がテレポートを防いだ！"
+
 #define GAME_MESSAGE_PATTERN_LIMIT1 "パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"
 #define GAME_MESSAGE_PATTERN_LIMIT2 "パターンの上を歩くにはスタート地点から歩き始めなくてはなりません。"
 #define GAME_MESSAGE_PATTERN_LIMIT3 "パターンの上は正しい順序で歩かねばなりません。"
@@ -172,6 +177,11 @@
 #define GAME_MESSAGE_PREVENT_BY_STUNED "You are too stuned!"
 #define GAME_MESSAGE_IMPROVE_LIMIT "This item is no more able to be improved."
 #define GAME_MESSAGE_NO_HAPPEN "Nothing happens."
+
+#define GAME_MESSAGE_FIND_TRAP "You have found a trap."
+#define GAME_MESSAGE_FIND_DOOR "You have found a secret door."
+
+#define GAME_MESSAGE_TELEPORT_PREVENTED "A mysterious force prevents you from teleporting!"
 
 #define GAME_MESSAGE_PATTERN_LIMIT1 "If you start walking the Pattern, you must walk the whole way. Ok? "
 #define GAME_MESSAGE_PATTERN_LIMIT2 "You must start walking the Pattern from the startpoint."

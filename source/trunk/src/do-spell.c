@@ -10614,12 +10614,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			}
 			if(has_trait(caster_ptr, TRAIT_PREVENT_TELEPORT))
 			{
-#ifdef JP
-				msg_print("不思議な力がテレポートを防いだ！");
-#else
-				msg_print("A mysterious force prevents you from teleporting!");
-#endif
-	
+				msg_print(GAME_MESSAGE_TELEPORT_PREVENTED);
 				break;
 			}
 			project(caster_ptr, 0, 0, y, x, HISSATSU_ISSEN, DO_EFFECT_ATTACK, PROJECT_BEAM | PROJECT_KILL, -1);
