@@ -2883,12 +2883,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 					/* Get "the creature" or "it" */
 					creature_desc(m_name, m_ptr, 0);
-
-#ifdef JP
-					msg_format("%s‚ª%s‚É–½’†‚µ‚½B", object_name, m_name);
-#else
-					msg_format("The %s hits %s.", object_name, m_name);
-#endif
+					msg_format(GAME_MESSAGE_PROJECTILE_HITS, object_name, m_name);
 
 					if(m_ptr->see_others)
 					{
@@ -3472,12 +3467,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 					/* Get "the creature" or "it" */
 					creature_desc(m_name, m_ptr, 0);
-
-#ifdef JP
-					msg_format("%s‚ª%s‚É–½’†‚µ‚½B", object_name, m_name);
-#else
-					msg_format("The %s hits %s.", object_name, m_name);
-#endif
+					msg_format(GAME_MESSAGE_PROJECTILE_HITS, object_name, m_name);
 
 					if(m_ptr->see_others)
 					{

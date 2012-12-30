@@ -108,6 +108,8 @@
 
 #define GAME_MESSAGE_UMBUSHED "èPåÇÇæÅI"
 
+#define GAME_MESSAGE_PROJECTILE_HITS "%sÇ™%sÇ…ñΩíÜÇµÇΩÅB"
+
 #else
 
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
@@ -176,6 +178,8 @@
 #define GAME_MESSAGE_PACK_OVERFLOW "Your pack overflows!"
 
 #define GAME_MESSAGE_UMBUSHED "You are ambushed !"
+
+#define GAME_MESSAGE_PROJECTILE_HITS "The %s hits %s."
 
 #endif
 
