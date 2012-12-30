@@ -1713,13 +1713,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_SELF_DEATH:
-#ifdef JP
-		msg_print("死の予感が体中を駆けめぐった。");
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, "死の薬", NULL, -1);
-#else
-		msg_print("A feeling of Death flows through your body.");
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", NULL, -1);
-#endif
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, 5000, COD_POTION_OF_DEATH, NULL, -1);
 		effected = TRUE;
 		break;
 

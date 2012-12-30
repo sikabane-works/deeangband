@@ -777,7 +777,7 @@ ID,ID2,SPELL,PRE_ID,ANTI_ID,DISP_PRIORITY,NAME,E_NAME,ALIAS,STR,INT,WIS,DEX,CON,
 775,HOLDING_DUST,SELF,-1,-1,10,未定義,Undefined,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
 776,AUTO_IDENTIFY,SELF,-1,-1,10,自動鑑定,Auto Identify,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
 777,SELF_DETONATIONS,SELF,-1,-1,10,自爆,Self Detonations,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
-778,SELF_DEATH,SELF,-1,-1,10,死の予感,Death Foreboding,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
+778,SELF_DEATH,SELF,-1,-1,10,死の予感,Death Foreboding,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,死の予感が体中を駆けめぐった。,A feeling of Death flows through your body.,死の予感が体中を駆けめぐった。,A feeling of Death flows through your body.
 779,XXX0779,0,-1,-1,10,未定義,Undefined,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
 780,XXX0780,0,-1,-1,10,未定義,Undefined,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
 781,INSTA_ART,CONSTANT,-1,-1,10,未定義,Undefined,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,,
