@@ -896,11 +896,7 @@ void kingly(creature_type *player_ptr)
 	/* If player did Seppuku, that is already written in playrecord */
 	if(!seppuku)
 	{
-#ifdef JP
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, "ƒ_ƒ“ƒWƒ‡ƒ“‚Ì’Tõ‚©‚çˆø‘Ş‚µ‚½B");
-#else
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, "retired exploring dungeons.");
-#endif
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_RETIRED);
 		do_cmd_write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
 		do_cmd_write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 	}
