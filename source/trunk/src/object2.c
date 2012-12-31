@@ -5675,20 +5675,12 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				}
 
 				object_ptr->pval = 1;
-#ifdef JP
-				msg_format("エッセンスを%d個使用します。", use_essence);
-#else
-				msg_format("It will take %d essences.", use_essence);
-#endif
+				msg_format(GAME_MESSAGE_SMITH_USE_ESSENCE, use_essence);
 			}
 			else if(object_ptr->pval > 0)
 			{
 				use_essence *= object_ptr->pval;
-#ifdef JP
-				msg_format("エッセンスを%d個使用します。", use_essence);
-#else
-				msg_format("It will take %d essences.", use_essence);
-#endif
+				msg_format(GAME_MESSAGE_SMITH_USE_ESSENCE, use_essence);
 			}
 			else
 			{
@@ -5710,11 +5702,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				else if(pval < 1) pval = 1;
 				object_ptr->pval += pval;
 				use_essence *= pval;
-#ifdef JP
-				msg_format("エッセンスを%d個使用します。", use_essence);
-#else
-				msg_format("It will take %d essences.", use_essence);
-#endif
+				msg_format(GAME_MESSAGE_SMITH_USE_ESSENCE, use_essence);
 			}
 
 			if(creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence] < use_essence)
@@ -5739,11 +5727,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			if(val > creature_ptr->lev/7+3) val = creature_ptr->lev/7+3;
 			else if(val < 1) val = 1;
 			use_essence *= val;
-#ifdef JP
-			msg_format("エッセンスを%d個使用します。", use_essence);
-#else
-			msg_format("It will take %d essences.", use_essence);
-#endif
+			msg_format(GAME_MESSAGE_SMITH_USE_ESSENCE, use_essence);
 			if(creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence] < use_essence)
 			{
 				msg_print(GAME_MESSAGE_SMITH_NO_ESSENCE);
