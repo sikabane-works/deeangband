@@ -264,6 +264,7 @@
 #if JP
 
 #define COD_QUITTING "途中終了"
+#define COD_INTERRUPTING "強制終了"
 #define COD_CHEATING_DEATH "死の欺き"
 #define COD_PANIC_SAVE "(緊急セーブ)"
 #define COD_TRAP "トラップ"
@@ -291,6 +292,7 @@
 #else
 
 #define COD_QUITTING "Quitting"
+#define COD_INTERRUPTING "Interrupting"
 #define COD_CHEATING_DEATH "cheating death"
 #define COD_PANIC_SAVE "(panic save)"
 #define COD_TRAP "a trap"
@@ -769,6 +771,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 #define DIARY_CREATE_PLAYER "-------- プレイヤー作成 --------"
 #define DIARY_GAMEOVER "-------- ゲームオーバー --------"
+#define DIARY_GAMEABORT "----ゲーム異常終了----"
 #define DIARY_SUICIDE "絶望して自殺した。"
 #define DIARY_WIZARD "ウィザードモードに突入してスコアを残せなくなった。"
 #define DIARY_UP_STAIR "階段を上った"
@@ -779,6 +782,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_CREATE_PLAYER "-------- Create Player --------"
 #define DIARY_SUICIDE "give up all hope to commit suicide."
 #define DIARY_GAMEOVER "--------   Game  Over   --------"
+#define DIARY_GAMEABORT "---- Panic Save and Abort Game ----"
 #define DIARY_WIZARD "give up sending score to use wizard mode."
 #define DIARY_UP_STAIR "climbed up the stairs to"
 #define DIARY_DOWN_STAIR "climbed down the stairs to"

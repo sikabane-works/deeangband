@@ -6163,13 +6163,7 @@ static void show_info(creature_type *creature_ptr)
 	while (TRUE)
 	{
 		char out_val[160];
-
-#ifdef JP
-		put_str("ファイルネーム: ", 23, 0);
-#else
-		put_str("Filename: ", 23, 0);
-#endif
-
+		put_str(PROMPT_FILE, 23, 0);
 
 		/* Default */
 		strcpy(out_val, "");
@@ -6195,7 +6189,7 @@ static void show_info(creature_type *creature_ptr)
 
 	/* Prompt for inventory */
 #ifdef JP
-prt("何かキーを押すとさらに情報が続きます (ESCで中断): ", 23, 0);
+	prt("何かキーを押すとさらに情報が続きます (ESCで中断): ", 23, 0);
 #else
 	prt("Hit any key to see more information (ESC to abort): ", 23, 0);
 #endif
@@ -6340,13 +6334,7 @@ static bool check_score(creature_type *player_ptr)
 		return FALSE;
 	}
 
-	/* Interupted */
-#ifdef JP
-	if(!player_ptr->total_winner && streq(gameover_from, "強制終了"))
-#else
-	if(!player_ptr->total_winner && streq(gameover_from, "Interrupting"))
-#endif
-
+	if(!player_ptr->total_winner && streq(gameover_from, COD_INTERRUPTING))
 	{
 #ifdef JP
 		msg_print("強制終了のためスコアが記録されません。");
@@ -6888,11 +6876,7 @@ static void handle_signal_simple(int sig)
 	if(gameover)
 	{
 		/* Mark the savefile */
-#ifdef JP
-(void)strcpy(gameover_from, "強制終了");
-#else
-		(void)strcpy(gameover_from, "Abortion");
-#endif
+		(void)strcpy(gameover_from, COD_INTERRUPTING);
 
 		forget_lite(CURRENT_FLOOR_PTR);
 		forget_view(CURRENT_FLOOR_PTR);
@@ -6900,12 +6884,7 @@ static void handle_signal_simple(int sig)
 
 		/* Close stuff */
 		close_game();
-
-#ifdef JP
-		quit("強制終了");
-#else
-		quit("interrupt");
-#endif
+		quit(COD_INTERRUPTING);
 
 	}
 
@@ -6934,12 +6913,7 @@ static void handle_signal_simple(int sig)
 
 		/* Close stuff */
 		close_game();
-
-#ifdef JP
-		quit("強制終了");
-#else
-		quit("interrupt");
-#endif
+		quit(COD_INTERRUPTING);
 
 	}
 
@@ -7001,12 +6975,11 @@ static void handle_signal_abort(int sig)
 #ifdef JP
 	Term_putstr(0, hgt - 1, -1, TERM_RED, "恐ろしいソフトのバグが飛びかかってきた！");
 	Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ...");
-	do_cmd_write_diary(DIARY_GAMESTART, 0, "----ゲーム異常終了----");
 #else
 	Term_putstr(0, hgt - 1, -1, TERM_RED, "A gruesome software bug LEAPS out at you!");
 	Term_putstr(45, hgt - 1, -1, TERM_RED, "Panic save...");
-	do_cmd_write_diary(DIARY_GAMESTART, 0, "---- Panic Save and Abort Game ----");
 #endif
+	do_cmd_write_diary(DIARY_GAMESTART, 0, DIARY_GAMEABORT);
 
 	/* Flush output */
 	Term_fresh();
