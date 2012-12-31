@@ -4791,16 +4791,15 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 
 		if(rogue_like_commands) prt("w/T) 装備する/はずす", 22 + xtra_stock, 56);
 		else prt("w/t) 装備する/はずす", 22 + xtra_stock, 56);
-		prt("コマンド:", 20 + xtra_stock, 0);
 		prt(" ESC) 店を出る", 21 + xtra_stock, 0);
 #else
 		prt("i/e) Inventry/Equipment list", 21 + xtra_stock, 56);
 
 		if(rogue_like_commands) prt("w/T) Wear/Take off equipment", 22 + xtra_stock, 56);
 		else prt("w/t) Wear/Take off equipment", 22 + xtra_stock, 56);
-		prt("You may: ", 20 + xtra_stock, 0);
 		prt(" ESC) Exit from Store.", 21 + xtra_stock, 0);
 #endif
+		prt(PROMPT_COMMAND, 20 + xtra_stock, 0);
 
 		request_command(creature_ptr, TRUE);
 

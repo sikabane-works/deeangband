@@ -4368,12 +4368,7 @@ prt(format("回数: %d", command_arg), 0, 0);
 			if((cmd == ' ') || (cmd == '\n') || (cmd == '\r'))
 			{
 				/* Get a real command */
-#ifdef JP
-				if(!get_com("コマンド: ", (char *)&cmd, FALSE))
-#else
-				if(!get_com("Command: ", (char *)&cmd, FALSE))
-#endif
-
+				if(!get_com(PROMPT_COMMAND, (char *)&cmd, FALSE))
 				{
 					/* Clear count */
 					command_arg = 0;
@@ -4388,12 +4383,7 @@ prt(format("回数: %d", command_arg), 0, 0);
 		if(cmd == '\\')
 		{
 			/* Get a real command */
-#ifdef JP
-			(void)get_com("コマンド: ", (char *)&cmd, FALSE);
-#else
-			(void)get_com("Command: ", (char *)&cmd, FALSE);
-#endif
-
+			(void)get_com(PROMPT_COMMAND, (char *)&cmd, FALSE);
 
 			/* Hack -- bypass keymaps */
 			if(!inkey_next) inkey_next = "";
