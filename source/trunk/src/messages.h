@@ -263,6 +263,7 @@
 // Cause of Death
 #if JP
 
+#define COD_QUITTING "途中終了"
 #define COD_CHEATING_DEATH "死の欺き"
 #define COD_PANIC_SAVE "(緊急セーブ)"
 #define COD_TRAP "トラップ"
@@ -289,6 +290,7 @@
 
 #else
 
+#define COD_QUITTING "Quitting"
 #define COD_CHEATING_DEATH "cheating death"
 #define COD_PANIC_SAVE "(panic save)"
 #define COD_TRAP "a trap"

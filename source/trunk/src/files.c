@@ -5700,11 +5700,7 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 	}
 
 	/* Cause of death */
-#ifdef JP
-	(void)strcpy(gameover_from, "途中終了");
-#else
-	(void)strcpy(gameover_from, "Quitting");
-#endif
+	(void)strcpy(gameover_from, COD_QUITTING);
 
 }
 
@@ -5984,7 +5980,7 @@ static void print_tomb(creature_type *creature_ptr)
 
 #ifdef JP
 		/* 墓に刻む言葉をオリジナルより細かく表示 */
-		if(streq(gameover_from, "途中終了"))
+		if(streq(gameover_from, COD_QUITTING))
 		{
 			strcpy(tmp, "<自殺>");
 		}
@@ -6043,7 +6039,7 @@ static void print_tomb(creature_type *creature_ptr)
 			if(floor_ptr->floor_level == 0)
 			{
 				cptr town = floor_ptr->town_num ? "街" : "荒野";
-				if(streq(gameover_from, "途中終了"))
+				if(streq(gameover_from, COD_QUITTING))
 				{
 					sprintf(tmp, "%sで死んだ", town);
 				}
@@ -6054,7 +6050,7 @@ static void print_tomb(creature_type *creature_ptr)
 			}
 			else
 			{
-				if(streq(gameover_from, "途中終了"))
+				if(streq(gameover_from, COD_QUITTING))
 				{
 					sprintf(tmp, "地下 %d 階で死んだ", floor_ptr->floor_level);
 				}
@@ -6353,7 +6349,7 @@ static bool check_score(creature_type *player_ptr)
 
 	{
 #ifdef JP
-msg_print("強制終了のためスコアが記録されません。");
+		msg_print("強制終了のためスコアが記録されません。");
 #else
 		msg_print("Score not registered due to interruption.");
 #endif
@@ -6363,15 +6359,10 @@ msg_print("強制終了のためスコアが記録されません。");
 	}
 
 	/* Quitter */
-#ifdef JP
-if(!player_ptr->total_winner && streq(gameover_from, "途中終了"))
-#else
-	if(!creature_ptr->total_winner && streq(gameover_from, "Quitting"))
-#endif
-
+	if(!player_ptr->total_winner && streq(gameover_from, COD_QUITTING))
 	{
 #ifdef JP
-msg_print("途中終了のためスコアが記録されません。");
+		msg_print("途中終了のためスコアが記録されません。");
 #else
 		msg_print("Score not registered due to quitting.");
 #endif
