@@ -5785,11 +5785,7 @@ void do_cmd_save_and_exit(creature_type *creature_ptr)
 
 	/* Leaving */
 	subject_change_floor = TRUE;
-#ifdef JP
-	do_cmd_write_diary(DIARY_GAMESTART, 0, "----ÉQÅ[ÉÄíÜíf----");
-#else
-	do_cmd_write_diary(DIARY_GAMESTART, 0, "---- Save and Exit Game ----");
-#endif
+	do_cmd_write_diary(DIARY_GAMESTART, 0, DIARY_SAVEQUIT);
 }
 
 
