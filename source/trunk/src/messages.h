@@ -82,6 +82,8 @@
 #define GAME_MESSAGE_TRAP_DARTS_MISSED "小さなダーツが飛んできた！が、運良く当たらなかった。"
 #define GAME_MESSAGE_TRAP_FIRE "炎に包まれた！"
 #define GAME_MESSAGE_TRAP_ACID "酸が吹きかけられた！"
+#define GAME_MESSAGE_TRAP_ACID_FLOW "突然床から酸が溢れ出した！"
+#define GAME_MESSAGE_TRAP_POISON_FLOW "突然床から毒液が溢れ出した！"
 
 #define GAME_MESSAGE_TRAP_POISONOUS_GAS "突如吹き出した緑色のガスに包み込まれた！"
 #define GAME_MESSAGE_TRAP_PARALYZE_GAS "突如吹き出した黄色いガスに包み込まれた！"
@@ -170,8 +172,11 @@
 #define GAME_MESSAGE_TRAP_NEEDLE "A small needle has pricked you!"
 #define GAME_MESSAGE_TRAP_DARTS "A small dart hits you!"
 #define GAME_MESSAGE_TRAP_DARTS_MISSED "A small dart barely misses you."
-#define GAME_MESSAGE_TRAP_FIRE "You are enveloped in flames!"
-#define GAME_MESSAGE_TRAP_ACID "You are splashed with acid!"
+#define GAME_MESSAGE_TRAP_FIRE "You are enveloped in flames."
+#define GAME_MESSAGE_TRAP_ACID "You are splashed with acid."
+#define GAME_MESSAGE_TRAP_ACID_FLOW "Suddenly, the room is filled with acid."
+#define GAME_MESSAGE_TRAP_POISON_FLOW "Suddenly, the room is filled with poisonous liquid."
+
 #define GAME_MESSAGE_TRAP_POISONOUS_GAS "A puff of green gas surrounds you!"
 #define GAME_MESSAGE_TRAP_PARALYZE_GAS "A puff of yellow gas surrounds you!"
 #define GAME_MESSAGE_TRAP_SUMMONING "You are enveloped in a cloud of smoke!"

@@ -1125,13 +1125,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_ACID_FLOW:
 		{
-#ifdef JP
-			msg_print("突然床から酸が溢れ出した！");
-#else
-			msg_print("Suddenly, the room is filled with acid!");
-#endif
-
-			/* Water fills room */
+			msg_print(GAME_MESSAGE_TRAP_ACID_FLOW);
 			cast_ball_hide(creature_ptr, DO_EFFECT_ACID_FLOW, 0, 1, 10);
 			break;
 
@@ -1139,13 +1133,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_POISON_FLOW:
 		{
-#ifdef JP
-			msg_print("突然床から毒液が溢れ出した！");
-#else
-			msg_print("Suddenly, the room is filled with acid!");
-#endif
-
-			/* Water fills room */
+			msg_print(GAME_MESSAGE_TRAP_POISON_FLOW);
 			cast_ball_hide(creature_ptr, DO_EFFECT_POISON_FLOW, 0, 1, 10);
 			break;
 		}
