@@ -723,12 +723,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		{
 			s32b ee = (creature_ptr->exp / 25) + 1;
 			if(ee > 5000) ee = 5000;
-#ifdef JP
-			msg_print("更に経験を積んだような気がする。");
-#else
-			msg_print("You feel more experienced.");
-#endif
-			gain_exp(creature_ptr, ee);
+			gain_exp_mes(creature_ptr, ee);
 		}
 	}
 }

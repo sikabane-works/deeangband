@@ -2039,6 +2039,15 @@ void gain_exp(creature_type *creature_ptr, s32b amount)
 	gain_exp_64(creature_ptr, amount, 0L);
 }
 
+void gain_exp_mes(creature_type *creature_ptr, s32b amount)
+{
+#ifdef JP
+	msg_print("更に経験を積んだような気がする。");
+#else
+	msg_print("You feel more experienced.");
+#endif
+	gain_exp_64(creature_ptr, amount, 0L);
+}
 
 void calc_android_exp(creature_type *creature_ptr)
 {

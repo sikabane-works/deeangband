@@ -3225,14 +3225,12 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 				s32b ee = (creature_ptr->exp / 2) + 10;
 				if(ee > 100000L) ee = 100000L;
 #ifdef JP
-				msg_print("更に経験を積んだような気がする。");
 				reward = "経験値を得た";
 #else
-				msg_print("You feel more experienced.");
 				reward = "experience";
 #endif
 
-				gain_exp(creature_ptr, ee);
+				gain_exp_mes(creature_ptr, ee);
 			}
 			break;
 

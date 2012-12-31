@@ -683,12 +683,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			{
 				s32b ee = (caster_ptr->exp / 2) + 10;
 				if(ee > 100000L) ee = 100000L;
-#ifdef JP
-				msg_print("更に経験を積んだような気がする。");
-#else
-				msg_print("You feel more experienced.");
-#endif
-				gain_exp(caster_ptr, ee);
+				gain_exp_mes(caster_ptr, ee);
 				effected = TRUE;
 			}
 			break;

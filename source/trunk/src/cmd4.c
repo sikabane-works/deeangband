@@ -4005,14 +4005,10 @@ void do_cmd_note(void)
  */
 void do_cmd_version(void)
 {
-
-	/* Silly message */
 #ifdef JP
-	msg_format("D\'angband %d.%d.%d",
-		    VER_MAJOR, VER_MINOR, VER_PATCH);
+	msg_format("D\'angband %d.%d.%d", VER_MAJOR, VER_MINOR, VER_PATCH);
 #else
-	msg_format("You are playing D\'angband %d.%d.%d.",
-		    VER_MAJOR, VER_MINOR, VER_PATCH);
+	msg_format("You are playing D\'angband %d.%d.%d.", VER_MAJOR, VER_MINOR, VER_PATCH);
 #endif
 }
 

@@ -1507,6 +1507,7 @@ extern void dec_mana(creature_type *creature_ptr, int val);
 extern void inc_mana(creature_type *creature_ptr, int val);
 extern void gain_exp_64(creature_type *creature_ptr, s32b amount, u32b amount_frac);
 extern void gain_exp(creature_type *creature_ptr, s32b amount);
+extern void gain_exp_mes(creature_type *creature_ptr, s32b amount);
 extern void calc_android_exp(creature_type *creature_ptr);
 extern void lose_exp(creature_type *creature_ptr, s32b amount);
 extern bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life_prob);

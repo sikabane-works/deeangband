@@ -3,20 +3,20 @@
 /* Purpose: inventory commands */
 
 /*
- * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- *
- * This software may be copied and distributed for educational, research,
- * and not for profit purposes provided that this copyright and statement
- * are included in all such copies.  Other copyrights may also apply.
- */
+* Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+*
+* This software may be copied and distributed for educational, research,
+* and not for profit purposes provided that this copyright and statement
+* are included in all such copies.  Other copyrights may also apply.
+*/
 
 #include "angband.h"
 
 
 
 /*
- * Display inventory
- */
+* Display inventory
+*/
 void do_cmd_inven(creature_type *creature_ptr)
 {
 	char out_val[160];
@@ -35,7 +35,7 @@ void do_cmd_inven(creature_type *creature_ptr)
 	format_weight(buf2, calc_carrying_weight_limit(creature_ptr));
 
 	sprintf(out_val, "%s: %s/%s (%ld%%) %s ", KW_CARRYING_WEIGHT, buf1, buf2, PROMPT_COMMAND,
-	    (creature_ptr->carrying_weight * 100) / calc_carrying_weight_limit(creature_ptr));
+		(creature_ptr->carrying_weight * 100) / calc_carrying_weight_limit(creature_ptr));
 
 	prt(out_val, 0, 0);
 
@@ -66,8 +66,8 @@ void do_cmd_inven(creature_type *creature_ptr)
 
 
 /*
- * Display equipment
- */
+* Display equipment
+*/
 void do_cmd_equip(creature_type *creature_ptr)
 {
 	char out_val[160];
@@ -86,7 +86,7 @@ void do_cmd_equip(creature_type *creature_ptr)
 	format_weight(buf2, calc_equipping_weight_limit(creature_ptr));
 
 	sprintf(out_val, "%s: %s/%s (%ld%%). %s", KW_EQUIPMENT_WEIGHT, buf1, buf2, PROMPT_COMMAND,
-	    (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr));
+		(creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr));
 
 	prt(out_val, 0, 0);
 
@@ -117,8 +117,8 @@ void do_cmd_equip(creature_type *creature_ptr)
 
 
 /*
- * The "wearable" tester
- */
+* The "wearable" tester
+*/
 static bool item_tester_hook_wear(creature_type *creature_ptr, object_type *object_ptr)
 {
 	if((object_ptr->tval == TV_SOFT_ARMOR) && (object_ptr->sval == SV_ABUNAI_MIZUGI))
@@ -136,8 +136,8 @@ static bool item_tester_hook_mochikae(creature_type *creature_ptr, object_type *
 {
 	/* Check for a usable slot */
 	if(((object_ptr->tval >= TV_DIGGING) && (object_ptr->tval <= TV_SWORD)) ||
-	    (object_ptr->tval == TV_SHIELD) || (object_ptr->tval == TV_CAPTURE) ||
-	    (object_ptr->tval == TV_CARD)) return TRUE;
+		(object_ptr->tval == TV_SHIELD) || (object_ptr->tval == TV_CAPTURE) ||
+		(object_ptr->tval == TV_CARD)) return TRUE;
 
 	/* Assume not wearable */
 	return FALSE;
@@ -200,13 +200,13 @@ void do_cmd_wield(creature_type *creature_ptr)
 	{
 		object_desc(object_name, old_equipped_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
 
-/*
-#ifdef JP
+		/*
+		#ifdef JP
 		msg_format("%s%sは呪われているようだ。", describe_use(creature_ptr, slot) , object_name );
-#else
+		#else
 		msg_format("The %s you are %s appears to be cursed.", object_name, describe_use(creature_ptr, slot));
-#endif
-*/
+		#endif
+		*/
 		return; // Cancel the command
 	}
 
@@ -287,9 +287,9 @@ void do_cmd_wield(creature_type *creature_ptr)
 	set_inventory_weight(creature_ptr); // Increase the weight
 
 #ifdef JP
-		act = "%s(%c)を装備した。";
+	act = "%s(%c)を装備した。";
 #else
-		act = "You are wearing %s (%c).";
+	act = "You are wearing %s (%c).";
 #endif
 
 	object_desc(object_name, object_ptr, 0); // Describe the result
@@ -346,7 +346,7 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 #else
 					msg_format("You are wielding %s with both hands.", object_name);
 #endif
-				 else
+				else
 #ifdef JP
 					msg_format("%sを%sで構えた。", object_name, (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "左手" : "右手"));
 #else
@@ -419,9 +419,9 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 		if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE))
 		{
 #ifdef JP
-				msg_print("なんてこった！あなたは神域の力に呪われている！");
+			msg_print("なんてこった！あなたは神域の力に呪われている！");
 #else
-				msg_print("What the hell! You are cursed by divine power!");
+			msg_print("What the hell! You are cursed by divine power!");
 #endif
 		}
 		else if(creature_ptr->class_idx != CLASS_BERSERKER)
@@ -558,8 +558,8 @@ static bool high_level_book(object_type *object_ptr)
 
 
 /*
- * Destroy an item
- */
+* Destroy an item
+*/
 void do_cmd_destroy(creature_type *creature_ptr)
 {
 	int			item, amt = 1;
@@ -739,23 +739,17 @@ void do_cmd_destroy(creature_type *creature_ptr)
 			if(quest_ptr->sval < 3) tester_exp /= 4;
 			if(tester_exp<1) tester_exp = 1;
 
-#ifdef JP
-msg_print("更に経験を積んだような気がする。");
-#else
-			msg_print("You feel more experienced.");
-#endif
-
-			gain_exp(creature_ptr, tester_exp * amt);
+			gain_exp_mes(creature_ptr, tester_exp * amt);
 		}
-		}
+	}
 
 	if(IS_EQUIPPED(object_ptr)) calc_android_exp(creature_ptr);
 }
 
 
 /*
- * Observe an item which has been *identify*-ed
- */
+* Observe an item which has been *identify*-ed
+*/
 void do_cmd_observe(creature_type *creature_ptr)
 {
 	int			item;
@@ -800,9 +794,9 @@ void do_cmd_observe(creature_type *creature_ptr)
 
 
 /*
- * Remove the inscription from an object
- * XXX Mention item (when done)?
- */
+* Remove the inscription from an object
+* XXX Mention item (when done)?
+*/
 void do_cmd_uninscribe(creature_type *creature_ptr)
 {
 	int   item;
@@ -856,8 +850,8 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 
 
 /*
- * Inscribe an object with a comment
- */
+* Inscribe an object with a comment
+*/
 void do_cmd_inscribe(creature_type *creature_ptr)
 {
 	int			item;
@@ -920,8 +914,8 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 
 
 /*
- * Inscribe caves with a comment
- */
+* Inscribe caves with a comment
+*/
 void do_cmd_inscribe_caves(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -964,7 +958,7 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 
 		sound(SOUND_ILLEGAL);
 		if(!get_rnd_line(TEXT_FILES_ERROR, 0, error_m))
-		msg_print(error_m);
+			msg_print(error_m);
 		msg_print(NULL);
 
 		do
@@ -988,8 +982,8 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 
 
 /*
- * An "item_tester_hook" for refilling lanterns
- */
+* An "item_tester_hook" for refilling lanterns
+*/
 static bool item_tester_refill_lantern(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Flasks of oil are okay */
@@ -997,7 +991,7 @@ static bool item_tester_refill_lantern(creature_type *creature_ptr, object_type 
 
 	/* Laterns are okay */
 	if((object_ptr->tval == TV_LITE) &&
-	    (object_ptr->sval == SV_LITE_LANTERN)) return TRUE;
+		(object_ptr->sval == SV_LITE_LANTERN)) return TRUE;
 
 	/* Assume not okay */
 	return FALSE;
@@ -1005,8 +999,8 @@ static bool item_tester_refill_lantern(creature_type *creature_ptr, object_type 
 
 
 /*
- * Refill the players lamp (from the pack or floor)
- */
+* Refill the players lamp (from the pack or floor)
+*/
 static void do_cmd_refill_lamp(creature_type *creature_ptr)
 {
 	int item;
@@ -1092,13 +1086,13 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 
 
 /*
- * An "item_tester_hook" for refilling torches
- */
+* An "item_tester_hook" for refilling torches
+*/
 static bool item_tester_refill_torch(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Torches are okay */
 	if((object_ptr->tval == TV_LITE) &&
-	    (object_ptr->sval == SV_LITE_TORCH)) return TRUE;
+		(object_ptr->sval == SV_LITE_TORCH)) return TRUE;
 
 	/* Assume not okay */
 	return FALSE;
@@ -1106,8 +1100,8 @@ static bool item_tester_refill_torch(creature_type *creature_ptr, object_type *o
 
 
 /*
- * Refuel the players torch (from the pack or floor)
- */
+* Refuel the players torch (from the pack or floor)
+*/
 static void do_cmd_refill_torch(creature_type *creature_ptr)
 {
 	int item;
@@ -1206,8 +1200,8 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 
 
 /*
- * Refill the players lamp, or restock his torches
- */
+* Refill the players lamp, or restock his torches
+*/
 void do_cmd_refill(creature_type *creature_ptr)
 {
 	object_type *object_ptr;
@@ -1254,8 +1248,8 @@ void do_cmd_refill(creature_type *creature_ptr)
 
 
 /*
- * Target command
- */
+* Target command
+*/
 void do_cmd_target(creature_type *creature_ptr)
 {
 	/* Target set */
@@ -1284,8 +1278,8 @@ void do_cmd_target(creature_type *creature_ptr)
 
 
 /*
- * Look command
- */
+* Look command
+*/
 void do_cmd_look(creature_type *creature_ptr)
 {
 	/* Look around */
@@ -1303,8 +1297,8 @@ void do_cmd_look(creature_type *creature_ptr)
 
 
 /*
- * Allow the player to examine other sectors on the map
- */
+* Allow the player to examine other sectors on the map
+*/
 void do_cmd_locate(creature_type *creature_ptr)
 {
 	int		dir, y1, x1, y2, x2;
@@ -1399,11 +1393,11 @@ void do_cmd_locate(creature_type *creature_ptr)
 
 
 /*
- * Sorting hook -- Comp function -- see below
- *
- * We use "u" to point to array of creature indexes,
- * and "v" to select the type of sorting to perform on "u".
- */
+* Sorting hook -- Comp function -- see below
+*
+* We use "u" to point to array of creature indexes,
+* and "v" to select the type of sorting to perform on "u".
+*/
 bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 {
 	u16b *who = (u16b*)(u);
@@ -1473,11 +1467,11 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 
 
 /*
- * Sorting hook -- Swap function -- see below
- *
- * We use "u" to point to array of creature indexes,
- * and "v" to select the type of sorting to perform.
- */
+* Sorting hook -- Swap function -- see below
+*
+* We use "u" to point to array of creature indexes,
+* and "v" to select the type of sorting to perform.
+*/
 void ang_sort_swap_hook(vptr u, vptr v, int a, int b)
 {
 	u16b *who = (u16b*)(u);
@@ -1495,17 +1489,17 @@ void ang_sort_swap_hook(vptr u, vptr v, int a, int b)
 
 
 /*
- * Identify a character, allow recall of creatures
- *
- * Several "special" responses recall "multiple" creatures:
- *   ^A (all creatures)
- *   ^U (all unique creatures)
- *   ^N (all non-unique creatures)
- *
- * The responses may be sorted in several ways, see below.
- *
- * Note that the player ghosts are ignored. XXX XXX XXX
- */
+* Identify a character, allow recall of creatures
+*
+* Several "special" responses recall "multiple" creatures:
+*   ^A (all creatures)
+*   ^U (all unique creatures)
+*   ^N (all non-unique creatures)
+*
+* The responses may be sorted in several ways, see below.
+*
+* Note that the player ghosts are ignored. XXX XXX XXX
+*/
 void do_cmd_query_symbol(creature_type *creature_ptr)
 {
 	int		i, n, species_idx;
@@ -1616,31 +1610,31 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		/* XTRA HACK WHATSEARCH */
 		if(temp[0])
 		{
-		  int xx;
-		  char temp2[80];
-  
-		  for (xx=0; temp[xx] && xx<80; xx++)
-		  {
+			int xx;
+			char temp2[80];
+
+			for (xx=0; temp[xx] && xx<80; xx++)
+			{
 #ifdef JP
-		    if(iskanji( temp[xx])) { xx++; continue; }
+				if(iskanji( temp[xx])) { xx++; continue; }
 #endif
-		    if(isupper(temp[xx])) temp[xx]=tolower(temp[xx]);
-		  }
-  
+				if(isupper(temp[xx])) temp[xx]=tolower(temp[xx]);
+			}
+
 #ifdef JP
-		  strcpy(temp2, species_name + species_ptr->E_name);
+			strcpy(temp2, species_name + species_ptr->E_name);
 #else
-		  strcpy(temp2, species_name + species_ptr->name);
+			strcpy(temp2, species_name + species_ptr->name);
 #endif
-		  for (xx=0; temp2[xx] && xx<80; xx++)
-		    if(isupper(temp2[xx])) temp2[xx]=tolower(temp2[xx]);
-  
+			for (xx=0; temp2[xx] && xx<80; xx++)
+				if(isupper(temp2[xx])) temp2[xx]=tolower(temp2[xx]);
+
 #ifdef JP
-		  if(my_strstr(temp2, temp) || my_strstr(species_name + species_ptr->name, temp) )
+			if(my_strstr(temp2, temp) || my_strstr(species_name + species_ptr->name, temp) )
 #else
-		  if(my_strstr(temp2, temp))
+			if(my_strstr(temp2, temp))
 #endif
-			  who[n++]=i;
+				who[n++]=i;
 		}
 
 		/* Collect "appropriate" creatures */
