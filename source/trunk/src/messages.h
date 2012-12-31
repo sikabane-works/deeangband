@@ -62,6 +62,8 @@
 #define GAME_MESSAGE_FAILED_PICKING "鍵をはずせなかった。"
 #define GAME_MESSAGE_FOUND_SOMETHING "何かを発見した！"
 
+#define GAME_MESSAGE_HEAR_NOISE "何かが聞こえた。"
+
 #define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "恐怖の暗黒オーラがあなたの%sを包み込んだ！"
 #define GAME_MESSAGE_REMOVED_OBJECT_CURSE "誰かに見守られているような気がする。"
 #define GAME_MESSAGE_COMBAT_TALK_STAIR "「なんだこの階段は！？」"
@@ -149,6 +151,8 @@
 #define GAME_MESSAGE_SUCCESS_PICKING "You have picked the lock."
 #define GAME_MESSAGE_FAILED_PICKING "You failed to pick the lock."
 #define GAME_MESSAGE_FOUND_SOMETHING "You have found something!"
+
+#define GAME_MESSAGE_HEAR_NOISE "You hear noise."
 
 #define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "A terrible black aura blasts your %s!"
 #define GAME_MESSAGE_REMOVED_OBJECT_CURSE "You feel as if someone is watching over you."
@@ -721,6 +725,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_KEYPRESS "押すキー: "
 	#define PROMPT_FILE "ファイル: "
 	#define PROMPT_MEMO "メモ: "
+	#define PROMPT_TRIGGER_KEY "トリガーキー: "
 	#define PROMPT_INVENTORY "持ち物: "
 	#define PROMPT_EQUIPMENT "装備品: "
 	#define PROMPT_REST "休憩 (0-9999, '*' で HP/MP全快, '&' で必要なだけ): "
@@ -730,6 +735,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_KEYPRESS "Keypress: "
 	#define PROMPT_FILE "File: "
 	#define PROMPT_MEMO "Memo: "
+	#define PROMPT_TRIGGER_KEY "Trigger: "
 	#define PROMPT_INVENTORY "Inven: "
 	#define PROMPT_EQUIPMENT "Equip: "
 	#define PROMPT_REST "Rest (0-9999, '*' for HP/SP, '&' as needed): "

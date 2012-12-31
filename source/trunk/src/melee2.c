@@ -2503,11 +2503,7 @@ static void process_creature(int i)
 	if(!player_ptr->no_flowed) creature_ptr->sc_flag2 &= ~SC_FLAG2_NOFLOW;
 	if(is_player(creature_ptr) && creature_ptr->hear_noise && !ignore_unview)
 	{
-#ifdef JP
-		msg_print("‰½‚©‚ª•·‚±‚¦‚½B");
-#else
-		msg_print("You hear noise.");
-#endif
+		msg_print(GAME_MESSAGE_HEAR_NOISE);
 	}
 	creature_ptr->hear_noise = FALSE;	// Clear creature fighting indicator
 

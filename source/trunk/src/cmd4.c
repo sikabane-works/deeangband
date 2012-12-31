@@ -2747,11 +2747,11 @@ void do_cmd_macros(void)
 
 #ifdef JP
 			prt("コマンド: マクロの確認", 16, 0);
-			prt("トリガーキー: ", 18, 0);
 #else
 			prt("Command: Query a macro", 16, 0);
-			prt("Trigger: ", 18, 0);
 #endif
+			prt(PROMPT_TRIGGER_KEY, 18, 0);
+
 			/* Get a macro trigger */
 			do_cmd_macro_aux(buf);
 
@@ -2795,11 +2795,10 @@ void do_cmd_macros(void)
 		{
 #ifdef JP
 			prt("コマンド: マクロの作成", 16, 0);
-			prt("トリガーキー: ", 18, 0);
 #else
 			prt("Command: Create a macro", 16, 0);
-			prt("Trigger: ", 18, 0);
 #endif
+			prt(PROMPT_TRIGGER_KEY, 18, 0);
 
 			/* Get a macro trigger */
 			do_cmd_macro_aux(buf);
@@ -2841,11 +2840,10 @@ void do_cmd_macros(void)
 		{
 #ifdef JP
 			prt("コマンド: マクロの削除", 16, 0);
-			prt("トリガーキー: ", 18, 0);
 #else
 			prt("Command: Remove a macro", 16, 0);
-			prt("Trigger: ", 18, 0);
 #endif
+			prt(PROMPT_TRIGGER_KEY, 18, 0);
 
 			/* Get a macro trigger */
 			do_cmd_macro_aux(buf);
