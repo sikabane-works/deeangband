@@ -4,10 +4,12 @@
 #ifdef JP
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "一時ファイル %s を作成できませんでした。"
+#define SYS_MESSAGE_FAILED_FILEOPEN "ファイルを開けません。"
 #define SYS_MESSAGE_HIT_ANY_KEY "何かキーを押して下さい。"
 #define SYS_MESSAGE_OPTION_AUX "初期オプション((*)はスコアに影響)"
 #define SYS_MESSAGE_OPTION_AUX2 "初期オプション(参照のみ)"
 #define SYS_MESSAGE_SAVE_FAILED "セーブ失敗！"
+#define SYS_MESSAGE_SCORE_FAILED "スコア・ファイルが使用できません。"
 #define SYS_MESSAGE_PANIC_SAVE_SUCCEED "緊急セーブ成功！"
 #define SYS_MESSAGE_PANIC_SAVE_FAILED "緊急セーブ失敗！"
 #define SYS_MESSAGE_YOUR_TRAITS "あなたには以下の特性がある"
@@ -22,10 +24,12 @@
 #else
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
+#define SYS_MESSAGE_FAILED_FILEOPEN "Can not open file."
 #define SYS_MESSAGE_HIT_ANY_KEY "Hit Any Key。"
 #define SYS_MESSAGE_OPTION_AUX "Birth Option((*)s effect score)"
 #define SYS_MESSAGE_OPTION_AUX2 "Birth Options(browse only)"
 #define SYS_MESSAGE_SAVE_FAILED "death save failed!"
+#define SYS_MESSAGE_SCORE_FAILED "Score file unavailable."
 #define SYS_MESSAGE_PANIC_SAVE_SUCCEED "Panic save succeeded!"
 #define SYS_MESSAGE_PANIC_SAVE_FAILED "panic save failed!"
 #define SYS_MESSAGE_YOUR_TRAITS "You have these trait..."

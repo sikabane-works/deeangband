@@ -380,13 +380,7 @@ void display_scores(int from, int to)
 
 	/* Open the binary high score file, for reading */
 	highscore_fd = fd_open(buf, O_RDONLY);
-
-#ifdef JP
-	if(highscore_fd < 0) quit("スコア・ファイルが使用できません。");
-#else
-	if(highscore_fd < 0) quit("Score file unavailable.");
-#endif
-
+	if(highscore_fd < 0) quit(SYS_MESSAGE_SCORE_FAILED);
 	Term_clear();
 
 	/* Display the scores */
@@ -570,12 +564,7 @@ errr predict_score(creature_type *player_ptr)
 	/* No score file */
 	if(highscore_fd < 0)
 	{
-#ifdef JP
-		msg_print("スコア・ファイルが使用できません。");
-#else
-		msg_print("Score file unavailable.");
-#endif
-
+		msg_print(SYS_MESSAGE_SCORE_FAILED);
 		msg_print(NULL);
 		return SUCCESS;
 	}
@@ -668,11 +657,7 @@ void show_highclass(creature_type *creature_ptr)
 
 	if(highscore_fd < 0)
 	{
-#ifdef JP
-		msg_print("スコア・ファイルが使用できません。");
-#else
-		msg_print("Score file unavailable.");
-#endif
+		msg_print(SYS_MESSAGE_SCORE_FAILED);
 		msg_print(NULL);
 		return;
 	}
@@ -754,12 +739,7 @@ void race_score(creature_type *player_ptr, int race_num)
 
 	if(highscore_fd < 0)
 	{
-#ifdef JP
-msg_print("スコア・ファイルが使用できません。");
-#else
-		msg_print("Score file unavailable.");
-#endif
-
+		msg_print(SYS_MESSAGE_SCORE_FAILED);
 		msg_print(NULL);
 		return;
 	}

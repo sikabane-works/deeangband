@@ -1389,12 +1389,7 @@ int load_player(void)
 		if(fd < 0) err = -1;
 
 		/* Message (below) */
-#ifdef JP
-		if(err) what = "セーブファイルを開けません。";
-#else
-		if(err) what = "Cannot open savefile";
-#endif
-
+		if(err) what = SYS_MESSAGE_FAILED_FILEOPEN;
 	}
 
 	/* Process file */

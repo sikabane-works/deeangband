@@ -693,11 +693,7 @@ void prepare_movie_hooks(void)
 
 			if(!movie_fd)
 			{
-#ifdef JP
-				msg_print("ファイルを開けません！");
-#else
-				msg_print("Can not open file.");
-#endif
+				msg_print(SYS_MESSAGE_FAILED_FILEOPEN);
 				return;
 			}
 

@@ -5337,11 +5337,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 
 			if(!(fff && ffp))
 			{
-#ifdef JP
-				msg_print("ファイルを開けません。");
-#else
-				msg_print("Failed to open file.");
-#endif
+				msg_print(SYS_MESSAGE_FAILED_FILEOPEN);
 				skey = ESCAPE;
 				break;
 			}
@@ -6283,12 +6279,7 @@ static bool check_score(creature_type *player_ptr)
 	/* No score file */
 	if(highscore_fd < 0)
 	{
-#ifdef JP
-		msg_print("スコア・ファイルが使用できません。");
-#else
-		msg_print("Score file unavailable.");
-#endif
-
+		msg_print(SYS_MESSAGE_SCORE_FAILED);
 		msg_print(NULL);
 		return FALSE;
 	}
