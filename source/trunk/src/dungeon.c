@@ -5684,11 +5684,7 @@ void play_game(bool new_game)
 	else
 	{
 		write_level = FALSE;
-#ifdef JP
-		do_cmd_write_diary(DIARY_GAMESTART, 1, "                            ----ÉQÅ[ÉÄçƒäJ----");
-#else
-		do_cmd_write_diary(DIARY_GAMESTART, 1, "                            ---- Restart Game ----");
-#endif
+		do_cmd_write_diary(DIARY_GAMESTART, 1, DIARY_GAMERESTART);
 	}
 
 	/* Reset map panel */
