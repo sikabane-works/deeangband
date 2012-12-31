@@ -4868,12 +4868,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 				object_type *quest_ptr;
 
 				char object_name[MAX_NLEN];
-
-#ifdef JP
-				msg_print("ザックからアイテムがあふれてしまった！");
-#else
-				msg_print("Your pack overflows!");
-#endif
+				msg_print(GAME_MESSAGE_PACK_OVERFLOW);
 
 				/* Get local object */
 				quest_ptr = &forge;
