@@ -718,6 +718,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 #ifdef JP
 	#define PROMPT_COMMAND "コマンド: "
+	#define PROMPT_KEYPRESS "押すキー: "
 	#define PROMPT_FILE "ファイル: "
 	#define PROMPT_MEMO "メモ: "
 	#define PROMPT_INVENTORY "持ち物: "
@@ -726,6 +727,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_PICK "%sを拾いますか? " 
 #else
 	#define PROMPT_COMMAND "Command: "
+	#define PROMPT_KEYPRESS "Keypress: "
 	#define PROMPT_FILE "File: "
 	#define PROMPT_MEMO "Memo: "
 	#define PROMPT_INVENTORY "Inven: "

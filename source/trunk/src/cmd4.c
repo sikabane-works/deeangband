@@ -2895,11 +2895,10 @@ void do_cmd_macros(void)
 
 #ifdef JP
 			prt("コマンド: キー配置の確認", 16, 0);
-			prt("押すキー: ", 18, 0);
 #else
 			prt("Command: Query a keymap", 16, 0);
-			prt("Keypress: ", 18, 0);
 #endif
+			prt(PROMPT_KEYPRESS, 18, 0);
 
 			/* Get a keymap trigger */
 			do_cmd_macro_aux_keymap(buf);
@@ -2943,11 +2942,10 @@ void do_cmd_macros(void)
 		{
 #ifdef JP
 			prt("コマンド: キー配置の作成", 16, 0);
-			prt("押すキー: ", 18, 0);
 #else
 			prt("Command: Create a keymap", 16, 0);
-			prt("Keypress: ", 18, 0);
 #endif
+			prt(PROMPT_KEYPRESS, 18, 0);
 
 			/* Get a keymap trigger */
 			do_cmd_macro_aux_keymap(buf);
@@ -2992,11 +2990,10 @@ void do_cmd_macros(void)
 		{
 #ifdef JP
 			prt("コマンド: キー配置の削除", 16, 0);
-			prt("押すキー: ", 18, 0);
 #else
 			prt("Command: Remove a keymap", 16, 0);
-			prt("Keypress: ", 18, 0);
 #endif
+			prt(PROMPT_KEYPRESS, 18, 0);
 
 			/* Get a keymap trigger */
 			do_cmd_macro_aux_keymap(buf);
