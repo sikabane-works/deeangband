@@ -737,15 +737,13 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 					msg_print("くっそ～！");
 				if(has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK))
 					msg_print("ジュラル星人の仕業に違いない！");
-				name = "落とし戸";
 
 #else
 				msg_print("You have fallen through a trap door!");
-				name = "a trap door";
 #endif
 				sound(SOUND_FALL);
 				dam = diceroll(2, 8);
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, COD_TRAP_DOOR, NULL, -1);
 
 				/* Still alive and autosave enabled */
 				if(autosave_l && (creature_ptr->chp >= 0)) do_cmd_save_game(TRUE);
@@ -1068,7 +1066,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			int evil_idx = 0, good_idx = 0;
 
 			int lev;
-			msg_print(GAME_MESSAGE_TRAP_ARMAGEDDON );
+			msg_print(GAME_MESSAGE_TRAP_ARMAGEDDON);
 
 			/* Summon Demons and Angels */
 			for (lev = floor_ptr->floor_level; lev >= 20; lev -= 1 + lev/16)
@@ -1467,15 +1465,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		/* You are just on the edge */
 		if(!(c_ptr->info & CAVE_UNSAFE))
 		{
-			if(alert_trap_detect)
-			{
-#ifdef JP
-				msg_print("* 注意:この先はトラップの感知範囲外です！ *");
-#else
-				msg_print("*Leaving trap detect region!*");
-#endif
-			}
-
+			if(alert_trap_detect) msg_print(GAME_MESSAGE_TRAP_WARNING);
 			if(disturb_trap_detect) disturb(player_ptr, 0, 0);
 		}
 	}
@@ -2413,14 +2403,7 @@ static bool run_test(creature_type *creature_ptr)
 		// You are just on the edge
 		if(!(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_UNSAFE))
 		{
-			if(alert_trap_detect)
-			{
-#ifdef JP
-				msg_print("* 注意:この先はトラップの感知範囲外です！ *");
-#else
-				msg_print("*Leaving trap detect region!*");
-#endif
-			}
+			if(alert_trap_detect) msg_print(GAME_MESSAGE_TRAP_WARNING);
 
 			if(disturb_trap_detect)
 			{
@@ -2813,14 +2796,7 @@ static bool travel_test(creature_type *creature_ptr)
 		/* You are just on the edge */
 		if(!(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_UNSAFE))
 		{
-			if(alert_trap_detect)
-			{
-#ifdef JP
-				msg_print("* 注意:この先はトラップの感知範囲外です！ *");
-#else
-				msg_print("*Leaving trap detect region!*");
-#endif
-			}
+			if(alert_trap_detect) msg_print(GAME_MESSAGE_TRAP_WARNING);
 
 			if(disturb_trap_detect)
 			{
