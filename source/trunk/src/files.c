@@ -1471,7 +1471,7 @@ static struct
 #ifdef JP
 = {
 	{ 1, 13, 30, 0, 0, 0, KW_CARRYING_WEIGHT},
-	{ 1, 12, 30, 0, 0, 0, "‘•”õd—Ê"},
+	{ 1, 12, 30, 0, 0, 0, KW_EQUIPMENT_WEIGHT},
 	{ 1, 11, 30, 0, 0, 0, ""},
 	{ 1, 12, 30, 0, 0, 0, ""},
 	{ 1, 12, 30, 0, 0, 0, ""},
@@ -3580,15 +3580,8 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_EQUIPMENT, NULL);		
 		format_weight(buf1, creature_ptr->equipping_weight);
 		format_weight(buf2, calc_equipping_weight_limit(creature_ptr));
-
-#ifdef JP
-		sprintf(out_val, "‘•”õd—ÊF %s/%s (%ld%%)", buf1, buf2,
+		sprintf(out_val, "%s: %s/%s (%ld%%)", KW_EQUIPMENT_WEIGHT, buf1, buf2,
 		    (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr));
-#else
-		sprintf(out_val, "Equipping Weight %s/%s (%ld%%). Command: ", buf1, buf2,
-		    (creature_ptr->equipping_weight * 100) / calc_equipping_weight_limit(creature_ptr));
-#endif
-
 		prt(out_val, 0, 0);
 	}
 

@@ -41,8 +41,10 @@
 
 #if JP
 #define KW_CARRYING_WEIGHT "Šd—Ê"
+#define KW_EQUIPMENT_WEIGHT "‘•”õd—Ê"
 #else
 #define KW_CARRYING_WEIGHT "carrying weight"
+#define KW_EQUIPMENT_WEIGHT "equipment weight"
 #endif
 
 #if JP
