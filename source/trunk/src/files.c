@@ -1470,7 +1470,7 @@ static struct
 } disp_creature_line[]
 #ifdef JP
 = {
-	{ 1, 13, 30, 0, 0, 0, "所持重量"},
+	{ 1, 13, 30, 0, 0, 0, KW_CARRYING_WEIGHT},
 	{ 1, 12, 30, 0, 0, 0, "装備重量"},
 	{ 1, 11, 30, 0, 0, 0, ""},
 	{ 1, 12, 30, 0, 0, 0, ""},
@@ -3565,10 +3565,10 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		format_weight(buf2, calc_carrying_weight_limit(creature_ptr));
 
 #ifdef JP
-		sprintf(out_val, "所持重量： %s/%s (%ld%%)", buf1, buf2,
+		sprintf(out_val, "%s: %s/%s (%ld%%)", buf1, buf2, KW_CARRYING_WEIGHT,
 		    (creature_ptr->carrying_weight * 100) / calc_carrying_weight_limit(creature_ptr));
 #else
-		sprintf(out_val, "Carrying Weight %s/%s (%ld%%). Command: ", buf1, buf2,
+		sprintf(out_val, "%s: %s/%s (%ld%%). Command: ", buf1, buf2, KW_CARRYING_WEIGHT,
 		    (creature_ptr->carrying_weight * 100) / calc_carrying_weight_limit(creature_ptr));
 #endif
 

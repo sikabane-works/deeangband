@@ -2674,7 +2674,7 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 		/* Label the item descriptions */
 #ifdef JP
 		put_str("商品の一覧", 5, 7);
-		if(show_weights) put_str("重さ", 5, 62);
+		if(show_weights) put_str("重量", 5, 62);
 		put_str("価格", 5, 73);
 #else
 		put_str("Item Description", 5, 3);
@@ -2936,9 +2936,9 @@ static int get_haggle(cptr pmt, s32b *poffer, s32b price, int final)
 		}
 
 #ifdef JP
-		msg_print("値がおかしいです。");
+		msg_warning("値がおかしいです。");
 #else
-		msg_print("Invalid response.");
+		msg_warning("Invalid response.");
 #endif
 		msg_print(NULL);
 	}
@@ -4704,11 +4704,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 
 	/* No command argument */
 	command_arg = 0;
-
-	/* No repeated command */
 	command_rep = 0;
-
-	/* No automatic command */
 	command_new = 0;
 
 	/* Do not expand macros */

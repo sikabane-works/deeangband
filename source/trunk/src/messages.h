@@ -40,6 +40,12 @@
 #endif
 
 #if JP
+#define KW_CARRYING_WEIGHT "所持重量"
+#else
+#define KW_CARRYING_WEIGHT "carrying weight"
+#endif
+
+#if JP
 #define GAME_MESSAGE_COMPLETE_QUEST "クエストを達成した。"
 #define GAME_MESSAGE_IMPROVEMENT_FAILED "改良に失敗した。"""
 #define GAME_MESSAGE_RESIST_THE_EFFECT "しかし効力を跳ね返した。"
