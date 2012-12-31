@@ -114,6 +114,8 @@
 #define GAME_MESSAGE_PACK_NO_ROOM "ザックには%sを入れる隙間がない。"
 #define GAME_MESSAGE_PACK_NO_ROOM_FLOOR "ザックには床にあるどのアイテムも入らない。"
 #define GAME_MESSAGE_PACK_OVERFLOW "ザックからアイテムがあふれた！"
+#define GAME_MESSAGE_PACK_REORDER "ザックの中のアイテムを並べ直した。"
+#define GAME_MESSAGE_PACK_COMBINE "ザックの中のアイテムをまとめ直した。"
 
 #define GAME_MESSAGE_UMBUSHED "襲撃だ！"
 
@@ -199,6 +201,8 @@
 #define GAME_MESSAGE_PACK_NO_ROOM "You have no room for %s."
 #define GAME_MESSAGE_PACK_NO_ROOM_FLOOR "You have no room for any of the objects on the floor."
 #define GAME_MESSAGE_PACK_OVERFLOW "Your pack overflows!"
+#define GAME_MESSAGE_PACK_REORDER "You reorder some items in your pack."
+#define GAME_MESSAGE_PACK_COMBINE "You combine some items in your pack."
 
 #define GAME_MESSAGE_UMBUSHED "You are ambushed !"
 

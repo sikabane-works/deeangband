@@ -4199,11 +4199,7 @@ void combine_pack(creature_type *creature_ptr)
 	}
 	while (combined);
 
-#ifdef JP
-	if(flag) msg_print("ザックの中のアイテムをまとめ直した。");
-#else
-	if(flag) msg_print("You combine some items in your pack.");
-#endif
+	if(flag) msg_print(GAME_MESSAGE_PACK_COMBINE);
 }
 
 
@@ -4267,12 +4263,7 @@ void reorder_pack(creature_type *creature_ptr)
 		prepare_window(PW_INVEN);
 	}
 
-#ifdef JP
-	if(flag) msg_print("ザックの中のアイテムを並べ直した。");
-#else
-	if(flag) msg_print("You reorder some items in your pack.");
-#endif
-
+	if(flag) msg_print(GAME_MESSAGE_PACK_REORDER);
 }
 
 
