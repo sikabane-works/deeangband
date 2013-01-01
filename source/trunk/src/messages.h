@@ -68,6 +68,9 @@
 
 #define GAME_MESSAGE_HEAR_NOISE "何かが聞こえた。"
 
+#define GAME_MESSAGE_NO_STUDY_SPELL "読める呪文がない。"
+#define GAME_MESSAGE_NO_STUDY_TECH "学べる技がない。"
+
 #define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "恐怖の暗黒オーラがあなたの%sを包み込んだ！"
 #define GAME_MESSAGE_REMOVED_OBJECT_CURSE "誰かに見守られているような気がする。"
 #define GAME_MESSAGE_COMBAT_TALK_STAIR "「なんだこの階段は！？」"
@@ -161,6 +164,10 @@
 #define GAME_MESSAGE_FOUND_SOMETHING "You have found something!"
 
 #define GAME_MESSAGE_HEAR_NOISE "You hear noise."
+
+#define GAME_MESSAGE_NO_STUDY_SPELL "No spells to browse."
+#define GAME_MESSAGE_NO_STUDY_TECH "No techniques to browse."
+
 
 #define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "A terrible black aura blasts your %s!"
 #define GAME_MESSAGE_REMOVED_OBJECT_CURSE "You feel as if someone is watching over you."

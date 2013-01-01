@@ -8481,11 +8481,9 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 
 					case QUEST_TYPE_KILL_NUMBER:
 #ifdef JP
-						sprintf(note,"%d 体のクリーチャーを倒す。(あと %d 体)",
-							quest[i].max_num, quest[i].max_num - quest[i].cur_num);
+						sprintf(note,"%d 体のクリーチャーを倒す。(あと %d 体)", quest[i].max_num, quest[i].max_num - quest[i].cur_num);
 #else
-						sprintf(note,"Kill %d creatures, have killed %d.",
-							quest[i].max_num, quest[i].cur_num);
+						sprintf(note,"Kill %d creatures, have killed %d.", quest[i].max_num, quest[i].cur_num);
 #endif
 						break;
 
@@ -8501,11 +8499,9 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 
 				/* Print the quest info */
 #ifdef JP
-				sprintf(tmp_str, "  %s (危険度:%d階相当)\n",
-					quest[i].name, quest[i].level, note);
+				sprintf(tmp_str, "  %s (危険度:%d階相当)\n", quest[i].name, quest[i].level, note);
 #else
-				sprintf(tmp_str, "  %s (Danger level: %d)\n",
-					quest[i].name, quest[i].level, note);
+				sprintf(tmp_str, "  %s (Danger level: %d)\n", quest[i].name, quest[i].level, note);
 #endif
 
 				fprintf(fff, tmp_str);
@@ -8548,14 +8544,12 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 					{
 #ifdef JP
 						sprintf(rand_tmp_str,"  %s (%d 階) - %d 体の%sを倒す。(あと %d 体)\n",
-							quest[i].name, quest[i].level,
-							quest[i].max_num, name, quest[i].max_num - quest[i].cur_num);
+							quest[i].name, quest[i].level, quest[i].max_num, name, quest[i].max_num - quest[i].cur_num);
 #else
 						plural_aux(name);
 
 						sprintf(rand_tmp_str,"  %s (Dungeon level: %d)\n  Kill %d %s, have killed %d.\n",
-							quest[i].name, quest[i].level,
-							quest[i].max_num, name, quest[i].cur_num);
+							quest[i].name, quest[i].level, quest[i].max_num, name, quest[i].cur_num);
 #endif
 					}
 					else

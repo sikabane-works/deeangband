@@ -525,17 +525,9 @@ void do_cmd_browse(creature_type *creature_ptr)
 
 			/* Notify that there's nothing to see, and wait. */
 			if(use_realm == REALM_HISSATSU)
-#ifdef JP
-				prt("読める技がない。", 0, 0);
-#else
-				prt("No techniques to browse.", 0, 0);
-#endif
+				prt(GAME_MESSAGE_NO_STUDY_SPELL, 0, 0);
 			else
-#ifdef JP
-				prt("読める呪文がない。", 0, 0);
-#else
-				prt("No spells to browse.", 0, 0);
-#endif
+				prt(GAME_MESSAGE_NO_STUDY_TECH, 0, 0);
 			(void)inkey();
 
 
@@ -657,14 +649,9 @@ void do_cmd_study(creature_type *creature_ptr)
 	free_posture(creature_ptr);
 
 #ifdef JP
-	if( creature_ptr->new_spells < 10 ){
-		msg_format("あと %d つの%sを学べる。", creature_ptr->new_spells, p);
-	}else{
-		msg_format("あと %d 個の%sを学べる。", creature_ptr->new_spells, p);
-	}
+	msg_format("あと %d 種の%sを学べる。", creature_ptr->new_spells, p);
 #else
-	msg_format("You can learn %d new %s%s.", creature_ptr->new_spells, p,
-		(creature_ptr->new_spells == 1?"":"s"));
+	msg_format("You can learn %d new %s%s.", creature_ptr->new_spells, p, (creature_ptr->new_spells == 1 ? "":"s"));
 #endif
 
 	msg_print(NULL);
