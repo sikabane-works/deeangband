@@ -1124,11 +1124,6 @@ union class_skills_union{
 		byte magic_num2[108];     /* Flags for non-spellbook type magics */
 	} old_skills;
 
-	struct blue_mage
-	{
-		u32b learned_trait[MAX_TRAITS_FLAG];
-	} blue_mage;
-
 	struct magic_eater
 	{
 		u32b current_charge[MAGIC_EATER_SKILL_MAX];
@@ -1235,6 +1230,7 @@ struct creature_type
 	s16b timed_trait[MAX_TRAITS];
 	u32b mutative_trait[MAX_TRAITS_FLAG];
 	u32b current_trait[MAX_TRAITS_FLAG];
+	u32b blue_learned_trait[MAX_TRAITS_FLAG];
 
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];

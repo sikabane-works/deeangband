@@ -464,11 +464,9 @@ static void wr_creature(creature_type *creature_ptr)
 	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) wr_s16b(creature_ptr->spell_exp[i]);
 	for (i = 0; i < 10; i++) wr_s16b(creature_ptr->skill_exp[i]);
 
-	if(creature_ptr->class_idx == CLASS_BLUE_MAGE)
-	{
-		for (i = 0; i < MAX_TRAITS_FLAG; i++) wr_s32b(creature_ptr->class_skills.blue_mage.learned_trait[i]);
-	}
-	else if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
+	for (i = 0; i < MAX_TRAITS_FLAG; i++) wr_s32b(creature_ptr->blue_learned_trait[i]);
+
+	if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
 		for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) wr_u32b(creature_ptr->class_skills.magic_eater.current_charge[i]);
 		for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) wr_byte(creature_ptr->class_skills.magic_eater.max_charge[i]);		

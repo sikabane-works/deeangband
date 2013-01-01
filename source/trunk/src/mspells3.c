@@ -872,7 +872,7 @@ void learn_trait(creature_type *creature_ptr, int trait_index)
 
 	if(randint1(creature_ptr->lev + 70) > trait_info[trait_index].base_level + 40)
 	{
-		creature_ptr->class_skills.blue_mage.learned_trait[trait_index / 32] |= 0x01 << (trait_index % 32);
+		creature_ptr->blue_learned_trait[trait_index / 32] |= 0x01 << (trait_index % 32);
 #ifdef JP
 		msg_format("%s‚ğŠwK‚µ‚½I", trait_info[trait_index].title);
 #else
