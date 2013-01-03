@@ -6187,7 +6187,7 @@ static void do_cmd_knowledge_skill_exp(creature_type *creature_ptr)
 	    return;
 	}
 
-	for (i = 0; i < 3; i++)
+	for (i = 0; i < MAX_SKILLS; i++)
 	{
 		skill_exp = creature_ptr->skill_exp[i];
 		fprintf(fff, "%-20s ", skill_name[i]);

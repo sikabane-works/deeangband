@@ -853,7 +853,7 @@ static void rd_creature(creature_type *creature_ptr)
 
 	for (i = 0; i < 8; i++) rd_s32b(&creature_ptr->authority[i]);
 	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) rd_s16b(&creature_ptr->spell_exp[i]);
-	for (i = 0; i < 10; i++) rd_s16b(&creature_ptr->skill_exp[i]);
+	for (i = 0; i < MAX_SKILLS; i++) rd_s16b(&creature_ptr->skill_exp[i]);
 
 	// Class skill
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) rd_s32b(&creature_ptr->blue_learned_trait[i]);

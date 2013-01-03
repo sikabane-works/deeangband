@@ -456,7 +456,7 @@ void initialize_skill(creature_type *creature_ptr)
 //		creature_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_BEGINNER;
 //	}
 
-	for (i = 0; i < 10; i++)
+	for (i = 0; i < MAX_SKILLS; i++)
 		creature_ptr->skill_exp[i] = skill_info[tmp_cls].s_start[i];
 
 }

@@ -1252,8 +1252,7 @@ struct creature_type
 	byte spell_order[64];	// order spells learned/remembered/forgotten 
 
 	s16b spell_exp[64];       // Proficiency of spells 
-	//s16b weapon_exp[5][64];   // Proficiency of weapons
-	s16b skill_exp[10];       // Proficiency of misc. skill 
+	s16b skill_exp[MAX_SKILLS];       // Proficiency of misc. skill 
 
 	s16b mane_spell[MAX_MANE];
 	s16b mane_dam[MAX_MANE];

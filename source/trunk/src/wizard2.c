@@ -336,7 +336,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 	}
 	*/
 
-	for (j = 0; j < 10; j++)
+	for (j = 0; j < MAX_SKILLS; j++)
 	{
 		creature_ptr->skill_exp[j] = tmp_s16b;
 		if(creature_ptr->skill_exp[j] > skill_info[creature_ptr->class_idx].s_max[j]) creature_ptr->skill_exp[j] = skill_info[creature_ptr->class_idx].s_max[j];
