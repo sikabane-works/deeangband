@@ -2,7 +2,7 @@
 
 /* Flag list */
 /*
-creature_ptr-magic_num1
+creature_ptr->magic_num1
 0: Flag bits of spelling spells
 1: Flag bits of despelled spells
 2: Revange damage

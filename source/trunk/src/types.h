@@ -1222,6 +1222,9 @@ struct creature_type
 	s32b pre_singing;
 	byte singing_turn;
 
+	s32b spelling_hex;
+	s32b despelling_hex;
+
 	s32b essence_num1[108];     /* Array for non-spellbook type magic */
 	byte essence_num2[108];     /* Flags for non-spellbook type magics */
 
