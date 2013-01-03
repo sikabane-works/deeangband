@@ -4028,7 +4028,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 			{
 				int idx = EATER_EXT * ext + i;
 
-				magic_num = creature_ptr->magic_num2[idx];
+				magic_num = creature_ptr->max_charge[idx];
 				if(!magic_num) continue;
 
 				k_idx = lookup_kind(tval, i);

@@ -432,7 +432,7 @@ bool detect_traps(creature_type *creature_ptr, int range, bool known)
 
 	if(known) detect_trap = TRUE;
 
-	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 0) detect = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 0) detect = FALSE;
 
 	if(detect) msg_print(GAME_MESSAGE_DETECT_TRAPS);
 	return detect;
@@ -445,7 +445,7 @@ bool detect_traps(creature_type *creature_ptr, int range, bool known)
 bool detect_doors(creature_type *creature_ptr, int range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_DOOR, TRUE);
-	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 0) detect = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 0) detect = FALSE;
 	if(detect) msg_print(GAME_MESSAGE_DETECT_DOORS);
 	return detect;
 }
@@ -457,7 +457,7 @@ bool detect_doors(creature_type *creature_ptr, int range)
 bool detect_stairs(creature_type *creature_ptr, int range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_STAIRS, TRUE);
-	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 0) detect = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 0) detect = FALSE;
 	if(detect) msg_print(GAME_MESSAGE_DETECT_STAIRS);
 	return detect;
 }
@@ -469,7 +469,7 @@ bool detect_stairs(creature_type *creature_ptr, int range)
 bool detect_treasure(creature_type *creature_ptr, int range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_HAS_GOLD, TRUE);
-	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 6) detect = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 6) detect = FALSE;
 	if(detect) msg_print(GAME_MESSAGE_DETECT_B_TREASURE);
 	return detect;
 }
@@ -518,7 +518,7 @@ bool detect_objects_gold(creature_type *creature_ptr, int range)
 		}
 	}
 
-	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 6) detect = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 6) detect = FALSE;
 	if(detect) msg_print(GAME_MESSAGE_DETECT_TREASURE);
 	if(detect_creatures_string(creature_ptr, range, "$")) detect = TRUE;
 
@@ -570,7 +570,7 @@ bool detect_objects_normal(creature_type *creature_ptr, int range)
 		}
 	}
 
-	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 6) detect = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 6) detect = FALSE;
 	if(detect) msg_print(GAME_MESSAGE_DETECT_OBJECTS);
 	if(detect_creatures_string(creature_ptr, range, "!=?|/`")) detect = TRUE;
 	return (detect);
@@ -700,7 +700,7 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 		}
 	}
 
-	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 3) flag = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 3) flag = FALSE;
 	if(flag) msg_print(GAME_MESSAGE_DETECT_CREATURES);
 	return (flag);
 }
@@ -755,7 +755,7 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 		}
 	}
 
-	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 3) flag = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 3) flag = FALSE;
 	if(flag) msg_print(GAME_MESSAGE_DETECT_I_CREATURES);
 	return (flag);
 }
@@ -989,7 +989,7 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 		}
 	}
 
-	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->magic_num1[2] > 3) flag = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 3) flag = FALSE;
 	if(flag) msg_print(GAME_MESSAGE_DETECT_CREATURES);
 	return (flag);
 }

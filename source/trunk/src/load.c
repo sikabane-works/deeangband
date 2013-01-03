@@ -861,9 +861,6 @@ static void rd_creature(creature_type *creature_ptr)
 	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_u32b(&creature_ptr->current_charge[i]);
 	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_byte(&creature_ptr->max_charge[i]);		
 
-	for (i = 0; i < 108; i++) rd_s32b(&creature_ptr->magic_num1[i]);
-	for (i = 0; i < 108; i++) rd_byte(&creature_ptr->magic_num2[i]);
-
 	if(MUSIC_SINGING_ANY(creature_ptr)) creature_ptr->action = ACTION_SING;
 
 	rd_s16b(&creature_ptr->old_realm);

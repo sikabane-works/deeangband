@@ -5139,9 +5139,9 @@ static void cheat_death(void)
 	if(player_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
 		for (i = 0; i < EATER_EXT*2; i++)
-			player_ptr->magic_num1[i] = player_ptr->magic_num2[i]*EATER_CHARGE;
+			player_ptr->current_charge[i] = player_ptr->max_charge[i]*EATER_CHARGE;
 		for (; i < EATER_EXT*3; i++)
-			player_ptr->magic_num1[i] = 0;
+			player_ptr->current_charge[i] = 0;
 	}
 
 	(void)strcpy(gameover_from, COD_CHEATING_DEATH);
