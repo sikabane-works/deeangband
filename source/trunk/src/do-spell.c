@@ -929,7 +929,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 static void start_singing(creature_type *creature_ptr, int spell, int song)
 {
 	creature_ptr->singing0 = song;
-	creature_ptr->singing2 = spell;
+	creature_ptr->singing_turn = spell;
 
 	set_action(creature_ptr, ACTION_SING);
 	prepare_update(creature_ptr, CRU_BONUS);
@@ -959,10 +959,10 @@ void stop_singing(creature_type *creature_ptr)
 	if(creature_ptr->action == ACTION_SING) set_action(creature_ptr, ACTION_NONE);
 
 	/* Message text of each song or etc. */
-	do_spell(creature_ptr, REALM_MUSIC, creature_ptr->singing2, SPELL_STOP);
+	do_spell(creature_ptr, REALM_MUSIC, creature_ptr->singing_turn, SPELL_STOP);
 
 	creature_ptr->singing0 = MUSIC_NONE;
-	creature_ptr->singing2 = 0;
+	creature_ptr->singing_turn = 0;
 
 	prepare_update(creature_ptr, CRU_BONUS);
 
@@ -8836,7 +8836,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 
 			/* Hack -- Initialize the turn count */
-			caster_ptr->magic_num1[2] = 0;
+			caster_ptr->singing_turn = 0;
 
 			start_singing(caster_ptr, spell, MUSIC_DETECT);
 		}
@@ -8848,13 +8848,13 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				int count = caster_ptr->magic_num1[2];
+				int count = caster_ptr->singing_turn;
 
 				if(count >= 19) wiz_lite(floor_ptr, caster_ptr, FALSE);
 				if(count >= 11)
 				{
 					map_area(caster_ptr, rad);
-					if(plev > 39 && count < 19) caster_ptr->magic_num1[2] = count + 1;
+					if(plev > 39 && count < 19) caster_ptr->singing_turn = count + 1;
 				}
 				if(count >= 6)
 				{
@@ -8863,19 +8863,19 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 					detect_objects_gold(caster_ptr, rad);
 					detect_objects_normal(caster_ptr, rad);
 
-					if(plev > 24 && count < 11) caster_ptr->magic_num1[2] = count + 1;
+					if(plev > 24 && count < 11) caster_ptr->singing_turn = count + 1;
 				}
 				if(count >= 3)
 				{
 					detect_creatures_invis(caster_ptr, rad);
 					detect_creatures_normal(caster_ptr, rad);
-					if(plev > 19 && count < 6) caster_ptr->magic_num1[2] = count + 1;
+					if(plev > 19 && count < 6) caster_ptr->singing_turn = count + 1;
 				}
 				detect_traps(caster_ptr, rad, TRUE);
 				detect_doors(caster_ptr, rad);
 				detect_stairs(caster_ptr, rad);
 
-				if(plev > 14 && count < 3) caster_ptr->magic_num1[2] = count + 1;
+				if(plev > 14 && count < 3) caster_ptr->singing_turn = count + 1;
 			}
 		}
 

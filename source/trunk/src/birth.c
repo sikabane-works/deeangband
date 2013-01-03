@@ -2422,12 +2422,6 @@ void creature_wipe(creature_type *creature_ptr)
 
 	creature_ptr->visit = 1;
 
-	for (i = 0; i < 108; i++)
-	{
-		creature_ptr->magic_num1[i] = 0;
-		creature_ptr->magic_num2[i] = 0;
-	}
-
 	/* Level one */
 	creature_ptr->max_plv = creature_ptr->lev = 1;
 

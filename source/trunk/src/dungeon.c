@@ -1388,7 +1388,7 @@ static void check_music(creature_type *creature_ptr)
 		return;
 	}
 
-	spell = creature_ptr->singing2;
+	spell = creature_ptr->singing_turn;
 	s_ptr = &technic_info[REALM_MUSIC - MIN_TECHNIC][spell];
 
 	need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, REALM_MUSIC);
