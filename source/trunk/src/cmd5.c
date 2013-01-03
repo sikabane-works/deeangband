@@ -568,10 +568,6 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 	for (; j < (REALM_MAGIC_NUMBER * 2); j++)
 		creature_ptr->spell_order[j] = 99;
 
-	for (i = 32; i < (REALM_MAGIC_NUMBER * 2); i++)
-	{
-		creature_ptr->spell_exp_old[i] = SPELL_EXP_UNSKILLED;
-	}
 	creature_ptr->spell_learned2 = 0L;
 	creature_ptr->spell_worked2 = 0L;
 	creature_ptr->spell_forgotten2 = 0L;
@@ -758,54 +754,12 @@ void do_cmd_study(creature_type *creature_ptr)
 
 	if(learned)
 	{
-		int max_exp = (spell < 32) ? SPELL_EXP_MASTER : SPELL_EXP_EXPERT;
-		int old_exp = creature_ptr->spell_exp_old[spell];
-		int new_rank = EXP_LEVEL_UNSKILLED;
-		cptr name = do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell%32, SPELL_NAME);
-
-		if(old_exp >= max_exp)
-		{
 #ifdef JP
 			msg_format("その%sは完全に使いこなせるので学ぶ必要はない。", p);
 #else
 			msg_format("You don't need to study this %s anymore.", p);
 #endif
 			return;
-		}
-#ifdef JP
-		if(!get_check(format("%sの%sをさらに学びます。よろしいですか？", name, p)))
-#else
-		if(!get_check(format("You will study a %s of %s again. Are you sure? ", p, name)))
-#endif
-		{
-			return;
-		}
-		else if(old_exp >= SPELL_EXP_EXPERT)
-		{
-			creature_ptr->spell_exp_old[spell] = SPELL_EXP_MASTER;
-			new_rank = EXP_LEVEL_MASTER;
-		}
-		else if(old_exp >= SPELL_EXP_SKILLED)
-		{
-			if(spell >= 32) creature_ptr->spell_exp_old[spell] = SPELL_EXP_EXPERT;
-			else creature_ptr->spell_exp_old[spell] += SPELL_EXP_EXPERT - SPELL_EXP_SKILLED;
-			new_rank = EXP_LEVEL_EXPERT;
-		}
-		else if(old_exp >= SPELL_EXP_BEGINNER)
-		{
-			creature_ptr->spell_exp_old[spell] = SPELL_EXP_SKILLED + (old_exp - SPELL_EXP_BEGINNER) * 2 / 3;
-			new_rank = EXP_LEVEL_SKILLED;
-		}
-		else
-		{
-			creature_ptr->spell_exp_old[spell] = SPELL_EXP_BEGINNER + old_exp / 3;
-			new_rank = EXP_LEVEL_BEGINNER;
-		}
-#ifdef JP
-		msg_format("%sの熟練度が%sに上がった。", name, exp_level_str[new_rank]);
-#else
-		msg_format("Your proficiency of %s is now %s rank.", name, exp_level_str[new_rank]);
-#endif
 	}
 	else
 	{
