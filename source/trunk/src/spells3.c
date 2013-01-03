@@ -3695,11 +3695,7 @@ strcpy(name, "(”»“Ç•s”\)");
  */
 s16b experience_of_spell(creature_type *creature_ptr, int spell, int use_realm)
 {
-	if(creature_ptr->class_idx == CLASS_SORCERER) return SPELL_EXP_MASTER;
-	else if(creature_ptr->class_idx == CLASS_RED_MAGE) return SPELL_EXP_SKILLED;
-	else if(use_realm == creature_ptr->realm1) return creature_ptr->spell_exp_old[spell];
-	else if(use_realm == creature_ptr->realm2) return creature_ptr->spell_exp_old[spell + 32];
-	else return 0;
+	return creature_ptr->spell_exp[use_realm];
 }
 
 
