@@ -929,9 +929,9 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		}
 
 		if(attacker_ptr->posture & KAMAE_SUZAKU) weight = 4;
-		if((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (attacker_ptr->magic_num1[0]))
+		if((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (attacker_ptr->charged_force))
 		{
-			weight += (attacker_ptr->magic_num1[0]/30);
+			weight += (attacker_ptr->charged_force/30);
 			if(weight > 20) weight = 20;
 		}
 
