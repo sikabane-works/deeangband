@@ -68,7 +68,7 @@ cptr            p = "•KŽEŒ•";
 	/* No redraw yet */
 	redraw = FALSE;
 
-	for (i = 0; i < 32; i++)
+	for (i = 0; i < REALM_MAGIC_NUMBER; i++)
 	{
 		if(technic_info[TECHNIC_HISSATSU][i].slevel <= CREATURE_MAX_LEVEL)
 		{
@@ -195,7 +195,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 #endif
 				prt("", y+1, x);
 				/* Dump the spells */
-				for (i = 0, line = 0; i < 32; i++)
+				for (i = 0, line = 0; i < REALM_MAGIC_NUMBER; i++)
 				{
 					spell = technic_info[TECHNIC_HISSATSU][i];
 

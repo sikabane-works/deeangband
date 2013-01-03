@@ -3615,7 +3615,7 @@ put_str("Lv   MP Ž¸—¦ Œø‰Ê", y, x + 35);
 		x = 27 * (j % 3);
 
 		/* Scan spells */
-		for (i = 0; i < 32; i++)
+		for (i = 0; i < REALM_MAGIC_NUMBER; i++)
 		{
 			byte a = TERM_WHITE;
 

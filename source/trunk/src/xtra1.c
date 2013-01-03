@@ -1558,7 +1558,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 	for (j = 0; j < (REALM_MAGIC_NUMBER * 2); j++)
 	{
 		/* Count known spells */
-		if((j < 32) ? (creature_ptr->spell_forgotten1 & (1L << j)) : (creature_ptr->spell_forgotten2 & (1L << (j - 32))))
+		if((j < REALM_MAGIC_NUMBER) ? (creature_ptr->spell_forgotten1 & (1L << j)) : (creature_ptr->spell_forgotten2 & (1L << (j - 32))))
 		{
 			num_boukyaku++;
 		}
@@ -1581,47 +1581,47 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 		if(j >= 99) continue;
 
 		/* Get the spell */
-		if(!is_magic((j < 32) ? creature_ptr->realm1 : creature_ptr->realm2))
+		if(!is_magic((j < REALM_MAGIC_NUMBER) ? creature_ptr->realm1 : creature_ptr->realm2))
 		{
-			if(j < 32)
+			if(j < REALM_MAGIC_NUMBER)
 				s_ptr = &technic_info[creature_ptr->realm1 - MIN_TECHNIC][j];
 			else
-				s_ptr = &technic_info[creature_ptr->realm2 - MIN_TECHNIC][j%32];
+				s_ptr = &technic_info[creature_ptr->realm2 - MIN_TECHNIC][j%REALM_MAGIC_NUMBER];
 		}
-		else if(j < 32)
-			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm1-1][j];
+		else if(j < REALM_MAGIC_NUMBER)
+			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm1-1][REALM_MAGIC_NUMBER];
 		else
-			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm2-1][j%32];
+			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm2-1][REALM_MAGIC_NUMBER%32];
 
 		/* Skip spells we are allowed to know */
 		if(s_ptr->slevel <= creature_ptr->lev) continue;
 
 		/* Is it known? */
-		if((j < 32) ?
+		if((j < REALM_MAGIC_NUMBER) ?
 		    (creature_ptr->spell_learned1 & (1L << j)) :
-		    (creature_ptr->spell_learned2 & (1L << (j - 32))))
+		    (creature_ptr->spell_learned2 & (1L << (j - REALM_MAGIC_NUMBER))))
 		{
 			/* Mark as forgotten */
-			if(j < 32)
+			if(j < REALM_MAGIC_NUMBER)
 			{
 				creature_ptr->spell_forgotten1 |= (1L << j);
 				which = creature_ptr->realm1;
 			}
 			else
 			{
-				creature_ptr->spell_forgotten2 |= (1L << (j - 32));
+				creature_ptr->spell_forgotten2 |= (1L << (j - REALM_MAGIC_NUMBER));
 				which = creature_ptr->realm2;
 			}
 
 			/* No longer known */
-			if(j < 32)
+			if(j < REALM_MAGIC_NUMBER)
 			{
 				creature_ptr->spell_learned1 &= ~(1L << j);
 				which = creature_ptr->realm1;
 			}
 			else
 			{
-				creature_ptr->spell_learned2 &= ~(1L << (j - 32));
+				creature_ptr->spell_learned2 &= ~(1L << (j - REALM_MAGIC_NUMBER));
 				which = creature_ptr->realm2;
 			}
 
@@ -1709,44 +1709,44 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 		if(j >= 99) break;
 
 		/* Access the spell */
-		if(!is_magic((j < 32) ? creature_ptr->realm1 : creature_ptr->realm2))
+		if(!is_magic((j < REALM_MAGIC_NUMBER) ? creature_ptr->realm1 : creature_ptr->realm2))
 		{
-			if(j < 32) s_ptr = &technic_info[creature_ptr->realm1 - MIN_TECHNIC][j];
-			else s_ptr = &technic_info[creature_ptr->realm2 - MIN_TECHNIC][j%32];
+			if(j < REALM_MAGIC_NUMBER) s_ptr = &technic_info[creature_ptr->realm1 - MIN_TECHNIC][j];
+			else s_ptr = &technic_info[creature_ptr->realm2 - MIN_TECHNIC][j%REALM_MAGIC_NUMBER];
 		}
-		else if(j < 32)
+		else if(j < REALM_MAGIC_NUMBER)
 			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm1-1][j];
 		else
-			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm2-1][j%32];
+			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm2-1][j%REALM_MAGIC_NUMBER];
 
 		/* Skip spells we cannot remember */
 		if(s_ptr->slevel > creature_ptr->lev) continue;
 
 		/* First set of spells */
-		if((j < 32) ? (creature_ptr->spell_forgotten1 & (1L << j)) :
+		if((j < REALM_MAGIC_NUMBER) ? (creature_ptr->spell_forgotten1 & (1L << j)) :
 		    (creature_ptr->spell_forgotten2 & (1L << (j - 32))))
 		{
 			/* No longer forgotten */
-			if(j < 32)
+			if(j < REALM_MAGIC_NUMBER)
 			{
 				creature_ptr->spell_forgotten1 &= ~(1L << j);
 				which = creature_ptr->realm1;
 			}
 			else
 			{
-				creature_ptr->spell_forgotten2 &= ~(1L << (j - 32));
+				creature_ptr->spell_forgotten2 &= ~(1L << (j - REALM_MAGIC_NUMBER));
 				which = creature_ptr->realm2;
 			}
 
 			/* Known once more */
-			if(j < 32)
+			if(j < REALM_MAGIC_NUMBER)
 			{
 				creature_ptr->spell_learned1 |= (1L << j);
 				which = creature_ptr->realm1;
 			}
 			else
 			{
-				creature_ptr->spell_learned2 |= (1L << (j - 32));
+				creature_ptr->spell_learned2 |= (1L << (j - REALM_MAGIC_NUMBER));
 				which = creature_ptr->realm2;
 			}
 
@@ -1767,7 +1767,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 	if(creature_ptr->realm2 == REALM_NONE)
 	{
 		/* Count spells that can be learned */
-		for (j = 0; j < 32; j++)
+		for (j = 0; j < REALM_MAGIC_NUMBER; j++)
 		{
 			if(!is_magic(creature_ptr->realm1)) s_ptr = &technic_info[creature_ptr->realm1-MIN_TECHNIC][j];
 			else s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm1-1][j];
