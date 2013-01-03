@@ -928,8 +928,8 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 // Start singing if the player is a Bard 
 static void start_singing(creature_type *creature_ptr, int spell, int song)
 {
-	creature_ptr->class_skills.old_skills.magic_num1[0] = song;
-	creature_ptr->class_skills.old_skills.magic_num2[0] = spell;
+	creature_ptr->magic_num1[0] = song;
+	creature_ptr->magic_num2[0] = spell;
 
 	set_action(creature_ptr, ACTION_SING);
 	prepare_update(creature_ptr, CRU_BONUS);
@@ -945,24 +945,24 @@ void stop_singing(creature_type *creature_ptr)
 	if(creature_ptr->class_idx != CLASS_BARD) return;
 
  	/* Are there interupted song? */
-	if(creature_ptr->class_skills.old_skills.magic_num1[1])
+	if(creature_ptr->magic_num1[1])
 	{
 		/* Forget interupted song */
-		creature_ptr->class_skills.old_skills.magic_num1[1] = 0;
+		creature_ptr->magic_num1[1] = 0;
 		return;
 	}
 
 	/* The player is singing? */
-	if(!creature_ptr->class_skills.old_skills.magic_num1[0]) return;
+	if(!creature_ptr->magic_num1[0]) return;
 
 	/* Hack -- if called from set_action(creature_ptr, ), avoid recursive loop */
 	if(creature_ptr->action == ACTION_SING) set_action(creature_ptr, ACTION_NONE);
 
 	/* Message text of each song or etc. */
-	do_spell(creature_ptr, REALM_MUSIC, creature_ptr->class_skills.old_skills.magic_num2[0], SPELL_STOP);
+	do_spell(creature_ptr, REALM_MUSIC, creature_ptr->magic_num2[0], SPELL_STOP);
 
-	creature_ptr->class_skills.old_skills.magic_num1[0] = MUSIC_NONE;
-	creature_ptr->class_skills.old_skills.magic_num2[0] = 0;
+	creature_ptr->magic_num1[0] = MUSIC_NONE;
+	creature_ptr->magic_num2[0] = 0;
 
 	prepare_update(creature_ptr, CRU_BONUS);
 
@@ -8836,7 +8836,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 
 			/* Hack -- Initialize the turn count */
-			caster_ptr->class_skills.old_skills.magic_num1[2] = 0;
+			caster_ptr->magic_num1[2] = 0;
 
 			start_singing(caster_ptr, spell, MUSIC_DETECT);
 		}
@@ -8848,13 +8848,13 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				int count = caster_ptr->class_skills.old_skills.magic_num1[2];
+				int count = caster_ptr->magic_num1[2];
 
 				if(count >= 19) wiz_lite(floor_ptr, caster_ptr, FALSE);
 				if(count >= 11)
 				{
 					map_area(caster_ptr, rad);
-					if(plev > 39 && count < 19) caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
+					if(plev > 39 && count < 19) caster_ptr->magic_num1[2] = count + 1;
 				}
 				if(count >= 6)
 				{
@@ -8863,19 +8863,19 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 					detect_objects_gold(caster_ptr, rad);
 					detect_objects_normal(caster_ptr, rad);
 
-					if(plev > 24 && count < 11) caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
+					if(plev > 24 && count < 11) caster_ptr->magic_num1[2] = count + 1;
 				}
 				if(count >= 3)
 				{
 					detect_creatures_invis(caster_ptr, rad);
 					detect_creatures_normal(caster_ptr, rad);
-					if(plev > 19 && count < 6) caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
+					if(plev > 19 && count < 6) caster_ptr->magic_num1[2] = count + 1;
 				}
 				detect_traps(caster_ptr, rad, TRUE);
 				detect_doors(caster_ptr, rad);
 				detect_stairs(caster_ptr, rad);
 
-				if(plev > 14 && count < 3) caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
+				if(plev > 14 && count < 3) caster_ptr->magic_num1[2] = count + 1;
 			}
 		}
 
@@ -11063,14 +11063,14 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Patience";
 		if(desc) return "Bursts hell fire strongly after patients any damage while few turns.";
 #endif
-		power = MIN(200, (creature_ptr->class_skills.old_skills.magic_num1[2] * 2));
+		power = MIN(200, (creature_ptr->magic_num1[2] * 2));
 		if(info) return info_damage(0, 0, power);
 		if(cast)
 		{
 			int a = 3 - (creature_ptr->speed - 100) / 10;
 			int r = 3 + randint1(3) + MAX(0, MIN(3, a));
 
-			if(creature_ptr->class_skills.old_skills.magic_num2[2] > 0)
+			if(creature_ptr->magic_num2[2] > 0)
 			{
 #ifdef JP
 				msg_print("すでに我慢をしている。");
@@ -11080,9 +11080,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				return NULL;
 			}
 
-			creature_ptr->class_skills.old_skills.magic_num2[1] = 1;
-			creature_ptr->class_skills.old_skills.magic_num2[2] = r;
-			creature_ptr->class_skills.old_skills.magic_num1[2] = 0;
+			creature_ptr->magic_num2[1] = 1;
+			creature_ptr->magic_num2[2] = r;
+			creature_ptr->magic_num1[2] = 0;
 #ifdef JP
 			msg_print("じっと耐えることにした。");
 #else
@@ -11094,9 +11094,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			int rad = 2 + (power / 50);
 
-			creature_ptr->class_skills.old_skills.magic_num2[2]--;
+			creature_ptr->magic_num2[2]--;
 
-			if((creature_ptr->class_skills.old_skills.magic_num2[2] <= 0) || (power >= 200))
+			if((creature_ptr->magic_num2[2] <= 0) || (power >= 200))
 			{
 #ifdef JP
 				msg_print("我慢が解かれた！");
@@ -11117,9 +11117,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				}
 
-				creature_ptr->class_skills.old_skills.magic_num2[1] = 0;
-				creature_ptr->class_skills.old_skills.magic_num2[2] = 0;
-				creature_ptr->class_skills.old_skills.magic_num1[2] = 0;
+				creature_ptr->magic_num2[1] = 0;
+				creature_ptr->magic_num2[2] = 0;
+				creature_ptr->magic_num1[2] = 0;
 			}
 		}
 		break;
@@ -11181,9 +11181,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 		if(cast)
 		{
-			creature_ptr->class_skills.old_skills.magic_num1[0] |= (1L << HEX_INHAIL);
+			creature_ptr->magic_num1[0] |= (1L << HEX_INHAIL);
 			do_cmd_quaff_potion(creature_ptr);
-			creature_ptr->class_skills.old_skills.magic_num1[0] &= ~(1L << HEX_INHAIL);
+			creature_ptr->magic_num1[0] &= ~(1L << HEX_INHAIL);
 			add = FALSE;
 		}
 		break;
@@ -11535,9 +11535,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			if((!object_ptr->k_idx) || (!object_is_cursed(object_ptr)))
 			{
 				do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
-				creature_ptr->class_skills.old_skills.magic_num1[0] &= ~(1L << spell);
-				creature_ptr->class_skills.old_skills.magic_num2[0]--;
-				if(!creature_ptr->class_skills.old_skills.magic_num2[0]) set_action(creature_ptr, ACTION_NONE);
+				creature_ptr->magic_num1[0] &= ~(1L << spell);
+				creature_ptr->magic_num2[0]--;
+				if(!creature_ptr->magic_num2[0]) set_action(creature_ptr, ACTION_NONE);
 			}
 		}
 		if(stop)
@@ -11657,9 +11657,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 				msg_format("Finish casting '%^s'.", do_spell(creature_ptr, REALM_HEX, HEX_RESTORE, SPELL_NAME));
 #endif
-				creature_ptr->class_skills.old_skills.magic_num1[0] &= ~(1L << HEX_RESTORE);
-				if(cont) creature_ptr->class_skills.old_skills.magic_num2[0]--;
-				if(creature_ptr->class_skills.old_skills.magic_num2) creature_ptr->action = ACTION_NONE;
+				creature_ptr->magic_num1[0] &= ~(1L << HEX_RESTORE);
+				if(cont) creature_ptr->magic_num2[0]--;
+				if(creature_ptr->magic_num2) creature_ptr->action = ACTION_NONE;
 
 				prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 				prepare_redraw(PR_EXTRA);
@@ -11860,7 +11860,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Revenge sentence";
 		if(desc) return "Fires  a ball of hell fire to try revenging after few turns.";
 #endif
-		power = creature_ptr->class_skills.old_skills.magic_num1[2];
+		power = creature_ptr->magic_num1[2];
 		if(info) return info_damage(0, 0, power);
 		if(cast)
 		{
@@ -11868,7 +11868,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			int a = 3 - (creature_ptr->speed - 100) / 10;
 			r = 1 + randint1(2) + MAX(0, MIN(3, a));
 
-			if(creature_ptr->class_skills.old_skills.magic_num2[2] > 0)
+			if(creature_ptr->magic_num2[2] > 0)
 			{
 #ifdef JP
 				msg_print("すでに復讐は宣告済みだ。");
@@ -11878,8 +11878,8 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				return NULL;
 			}
 
-			creature_ptr->class_skills.old_skills.magic_num2[1] = 2;
-			creature_ptr->class_skills.old_skills.magic_num2[2] = r;
+			creature_ptr->magic_num2[1] = 2;
+			creature_ptr->magic_num2[2] = r;
 #ifdef JP
 			msg_format("あなたは復讐を宣告した。あと %d ターン。", r);
 #else
@@ -11889,9 +11889,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		}
 		if(cont)
 		{
-			creature_ptr->class_skills.old_skills.magic_num2[2]--;
+			creature_ptr->magic_num2[2]--;
 
-			if(creature_ptr->class_skills.old_skills.magic_num2[2] <= 0)
+			if(creature_ptr->magic_num2[2] <= 0)
 			{
 				int dir;
 
@@ -11928,7 +11928,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					msg_print("You are not a mood to revenge.");
 #endif
 				}
-				creature_ptr->class_skills.old_skills.magic_num1[2] = 0;
+				creature_ptr->magic_num1[2] = 0;
 			}
 		}
 		break;
@@ -11938,8 +11938,8 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 	if((cast) && (add))
 	{
 		/* add spell */
-		creature_ptr->class_skills.old_skills.magic_num1[0] |= 1L << (spell);
-		creature_ptr->class_skills.old_skills.magic_num2[0]++;
+		creature_ptr->magic_num1[0] |= 1L << (spell);
+		creature_ptr->magic_num2[0]++;
 
 		if(creature_ptr->action != ACTION_SPELL) set_action(creature_ptr, ACTION_SPELL);
 	}

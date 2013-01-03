@@ -2,11 +2,11 @@
 
 /* Flag list */
 /*
-creature_ptr-class_skills.old_skills.magic_num1
+creature_ptr-magic_num1
 0: Flag bits of spelling spells
 1: Flag bits of despelled spells
 2: Revange damage
-creature_ptr->class_skills.old_skills.magic_num2
+creature_ptr->magic_num2
 0: Number of spelling spells
 1: Type of revenge
 2: Turn count for revenge
@@ -22,8 +22,8 @@ bool stop_hex_spell_all(creature_type *creature_ptr)
 		if(HEX_SPELLING(creature_ptr, spell)) do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
 	}
 
-	creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
-	creature_ptr->class_skills.old_skills.magic_num2[0] = 0;
+	creature_ptr->magic_num1[0] = 0;
+	creature_ptr->magic_num2[0] = 0;
 
 	/* Print message */
 	if(creature_ptr->action == ACTION_SPELL) set_action(creature_ptr, ACTION_NONE);
@@ -56,16 +56,16 @@ bool stop_hex_spell(creature_type *creature_ptr)
 	}
 
 	/* Stop all spells */
-	else if((creature_ptr->class_skills.old_skills.magic_num2[0] == 1) || (creature_ptr->lev < 35))
+	else if((creature_ptr->magic_num2[0] == 1) || (creature_ptr->lev < 35))
 		return stop_hex_spell_all(creature_ptr);
 	else
 	{
 #ifdef JP
 		strnfmt(out_val, 78, "‚Ç‚ÌŽô•¶‚Ì‰r¥‚ð’†’f‚µ‚Ü‚·‚©H(Žô•¶ %c-%c, 'l'‘S‚Ä, ESC)",
-			I2A(0), I2A(creature_ptr->class_skills.old_skills.magic_num2[0] - 1));
+			I2A(0), I2A(creature_ptr->magic_num2[0] - 1));
 #else
 		strnfmt(out_val, 78, "Which spell do you stop casting? (Spell %c-%c, 'l' to all, ESC)",
-			I2A(0), I2A(creature_ptr->class_skills.old_skills.magic_num2[0] - 1));
+			I2A(0), I2A(creature_ptr->magic_num2[0] - 1));
 #endif
 
 		screen_save();
@@ -93,7 +93,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 				screen_load();
 				return stop_hex_spell_all(creature_ptr);
 			}
-			if((choice < I2A(0)) || (choice > I2A(creature_ptr->class_skills.old_skills.magic_num2[0] - 1))) continue;
+			if((choice < I2A(0)) || (choice > I2A(creature_ptr->magic_num2[0] - 1))) continue;
 			flag = TRUE;
 		}
 	}
@@ -105,8 +105,8 @@ bool stop_hex_spell(creature_type *creature_ptr)
 		int n = sp[A2I(choice)];
 
 		do_spell(creature_ptr, REALM_HEX, n, SPELL_STOP);
-		creature_ptr->class_skills.old_skills.magic_num1[0] &= ~(1L << n);
-		creature_ptr->class_skills.old_skills.magic_num2[0]--;
+		creature_ptr->magic_num1[0] &= ~(1L << n);
+		creature_ptr->magic_num2[0]--;
 	}
 
 	prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
@@ -129,12 +129,12 @@ void check_hex(creature_type *creature_ptr)
 
 	/* Spells spelled by player */
 	if(creature_ptr->realm1 != REALM_HEX) return;
-	if(!creature_ptr->class_skills.old_skills.magic_num1[0] && !creature_ptr->class_skills.old_skills.magic_num1[1]) return;
+	if(!creature_ptr->magic_num1[0] && !creature_ptr->magic_num1[1]) return;
 
-	if(creature_ptr->class_skills.old_skills.magic_num1[1])
+	if(creature_ptr->magic_num1[1])
 	{
-		creature_ptr->class_skills.old_skills.magic_num1[0] = creature_ptr->class_skills.old_skills.magic_num1[1];
-		creature_ptr->class_skills.old_skills.magic_num1[1] = 0;
+		creature_ptr->magic_num1[0] = creature_ptr->magic_num1[1];
+		creature_ptr->magic_num1[1] = 0;
 		res = TRUE;
 	}
 
@@ -159,7 +159,7 @@ void check_hex(creature_type *creature_ptr)
 	/* Culcurates final mana cost */
 	need_mana_frac = 0;
 	s64b_div(&need_mana, &need_mana_frac, 0, 3); /* Divide by 3 */
-	need_mana += (creature_ptr->class_skills.old_skills.magic_num2[0] - 1);
+	need_mana += (creature_ptr->magic_num2[0] - 1);
 
 
 	/* Not enough mana */
@@ -224,16 +224,16 @@ bool hex_spell_fully(creature_type *creature_ptr)
 	int k_max = 0;
 	k_max = (creature_ptr->lev / 15) + 1;
 	k_max = MIN(k_max, HEX_MAX_KEEP);
-	if(creature_ptr->class_skills.old_skills.magic_num2[0] < k_max) return FALSE;
+	if(creature_ptr->magic_num2[0] < k_max) return FALSE;
 	return TRUE;
 }
 
 void revenge_spell(creature_type *creature_ptr)
 {
 	if(creature_ptr->realm1 != REALM_HEX) return;
-	if(creature_ptr->class_skills.old_skills.magic_num2[2] <= 0) return;
+	if(creature_ptr->magic_num2[2] <= 0) return;
 
-	switch(creature_ptr->class_skills.old_skills.magic_num2[1])
+	switch(creature_ptr->magic_num2[1])
 	{
 	//TODO
 	case 1: do_spell(creature_ptr, REALM_HEX, HEX_PATIENCE, SPELL_CONT); break;
@@ -244,9 +244,9 @@ void revenge_spell(creature_type *creature_ptr)
 void revenge_store(creature_type *creature_ptr, int dam)
 {
 	if(creature_ptr->realm1 != REALM_HEX) return;
-	if(creature_ptr->class_skills.old_skills.magic_num2[2] <= 0) return;
+	if(creature_ptr->magic_num2[2] <= 0) return;
 
-	creature_ptr->class_skills.old_skills.magic_num1[2] += dam;
+	creature_ptr->magic_num1[2] += dam;
 }
 
 

@@ -406,8 +406,8 @@ void reset_timed_trait(creature_type *creature_ptr)
 
 	if(creature_ptr->class_idx == CLASS_BARD)
 	{
-		creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
-		creature_ptr->class_skills.old_skills.magic_num2[0] = 0;
+		creature_ptr->magic_num1[0] = 0;
+		creature_ptr->magic_num2[0] = 0;
 	}
 
 	if(creature_ptr->riding) reset_timed_trait(&creature_list[creature_ptr->riding]);
@@ -431,8 +431,8 @@ void dispel_creature(creature_type *creature_ptr)
 		cptr str = (MUSIC_SINGING_ANY(creature_ptr)) ? "singing" : "spelling";
 		msg_format("Your %s is interrupted.", str);
 #endif
-		creature_ptr->class_skills.old_skills.magic_num1[1] = creature_ptr->class_skills.old_skills.magic_num1[0];
-		creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
+		creature_ptr->magic_num1[1] = creature_ptr->magic_num1[0];
+		creature_ptr->magic_num1[0] = 0;
 		creature_ptr->action = ACTION_NONE;
 		prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
 		prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);

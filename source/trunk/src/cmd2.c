@@ -2195,7 +2195,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 
 	set_action(creature_ptr, ACTION_NONE);
 
-	if((creature_ptr->class_idx == CLASS_BARD) && (creature_ptr->class_skills.old_skills.magic_num1[0] || creature_ptr->class_skills.old_skills.magic_num1[1]))
+	if((creature_ptr->class_idx == CLASS_BARD) && (creature_ptr->magic_num1[0] || creature_ptr->magic_num1[1]))
 	{
 		stop_singing(creature_ptr);
 	}

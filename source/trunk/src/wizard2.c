@@ -1082,15 +1082,15 @@ static void do_cmd_wiz_blue_mage(creature_type *creature_ptr)
 
 		for (i = 0; i < 32; i++)
 		{
-			if((0x00000001 << i) & f4) creature_ptr->class_skills.old_skills.magic_num2[i] = 1;
+			if((0x00000001 << i) & f4) creature_ptr->magic_num2[i] = 1;
 		}
 		for (; i < (REALM_MAGIC_NUMBER * 2); i++)
 		{
-			if((0x00000001 << (i - 32)) & f5) creature_ptr->class_skills.old_skills.magic_num2[i] = 1;
+			if((0x00000001 << (i - 32)) & f5) creature_ptr->magic_num2[i] = 1;
 		}
 		for (; i < 96; i++)
 		{
-			if((0x00000001 << (i - 64)) & f6) creature_ptr->class_skills.old_skills.magic_num2[i] = 1;
+			if((0x00000001 << (i - 64)) & f6) creature_ptr->magic_num2[i] = 1;
 		}
 	}
 }

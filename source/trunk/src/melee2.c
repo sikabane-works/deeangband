@@ -2544,11 +2544,11 @@ static void process_creature(int i)
 	// Give up flow_by_smell when it might useless
 	if(player_ptr->no_flowed && one_in_(3)) creature_ptr->sc_flag2 |= SC_FLAG2_NOFLOW;
 
-	if((creature_ptr->class_idx == CLASS_FORCETRAINER) && (creature_ptr->class_skills.old_skills.magic_num1[0]))
+	if((creature_ptr->class_idx == CLASS_FORCETRAINER) && (creature_ptr->magic_num1[0]))
 	{
-		if(creature_ptr->class_skills.old_skills.magic_num1[0] < 40)
-			creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
-		else creature_ptr->class_skills.old_skills.magic_num1[0] -= 40;
+		if(creature_ptr->magic_num1[0] < 40)
+			creature_ptr->magic_num1[0] = 0;
+		else creature_ptr->magic_num1[0] -= 40;
 		prepare_update(creature_ptr, CRU_BONUS);
 	}
 

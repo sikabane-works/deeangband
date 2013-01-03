@@ -332,7 +332,7 @@ void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, int powe
 		break;
 	case MIND_KI:
 		{
-			int boost = creature_ptr->class_skills.old_skills.magic_num1[0];
+			int boost = creature_ptr->magic_num1[0];
 
 			if(heavy_armor(creature_ptr)) boost /= 2;
 
@@ -671,7 +671,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 							if(i == 5)
 							{
 								int j;
-								for (j = 0; j < creature_ptr->class_skills.old_skills.magic_num1[0] / 50; j++)
+								for (j = 0; j < creature_ptr->magic_num1[0] / 50; j++)
 									mana_cost += (j+1) * 3 / 2;
 							}
 						}
@@ -1002,7 +1002,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int             dir;
 	int             plev = creature_ptr->lev;
-	int             boost = creature_ptr->class_skills.old_skills.magic_num1[0];
+	int             boost = creature_ptr->magic_num1[0];
 
 	if(heavy_armor(creature_ptr)) boost /= 2;
 
@@ -1032,20 +1032,20 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 #else
 		msg_print("You improved the Force.");
 #endif
-		creature_ptr->class_skills.old_skills.magic_num1[0] += (70 + plev);
+		creature_ptr->magic_num1[0] += (70 + plev);
 		prepare_update(creature_ptr, CRU_BONUS);
-		if(randint1(creature_ptr->class_skills.old_skills.magic_num1[0]) > (plev * 4 + 120))
+		if(randint1(creature_ptr->magic_num1[0]) > (plev * 4 + 120))
 		{
 #ifdef JP
 			msg_print("‹C‚ª–\‘–‚µ‚½I");
 #else
 			msg_print("The Force exploded!");
 #endif
-			cast_ball(creature_ptr, DO_EFFECT_MANA, 0, creature_ptr->class_skills.old_skills.magic_num1[0] / 2, 10);
+			cast_ball(creature_ptr, DO_EFFECT_MANA, 0, creature_ptr->magic_num1[0] / 2, 10);
 #ifdef JP
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->class_skills.old_skills.magic_num1[0] / 2, "‹C‚Ì–\‘–", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->magic_num1[0] / 2, "‹C‚Ì–\‘–", NULL, -1);
 #else
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->class_skills.old_skills.magic_num1[0] / 2, "Explosion of the Force", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->magic_num1[0] / 2, "Explosion of the Force", NULL, -1);
 #endif
 		}
 		else return TRUE;
@@ -1179,7 +1179,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 #endif
 
 	}
-	creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
+	creature_ptr->magic_num1[0] = 0;
 	prepare_update(creature_ptr, CRU_BONUS);
 
 	return TRUE;
@@ -1364,7 +1364,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 #endif
 
 	}
-	creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
+	creature_ptr->magic_num1[0] = 0;
 
 	return TRUE;
 }
@@ -1801,7 +1801,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 		if(n == 5)
 		{
 			int j;
-			for (j = 0; j < creature_ptr->class_skills.old_skills.magic_num1[0] / 50; j++)
+			for (j = 0; j < creature_ptr->magic_num1[0] / 50; j++)
 				mana_cost += (j+1) * 3 / 2;
 		}
 	}
@@ -1875,14 +1875,14 @@ void do_cmd_mind(creature_type *creature_ptr)
 
 		if((use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU))
 		{
-			if((use_mind == MIND_KI) && (n != 5) && creature_ptr->class_skills.old_skills.magic_num1[0])
+			if((use_mind == MIND_KI) && (n != 5) && creature_ptr->magic_num1[0])
 			{
 #ifdef JP
 				msg_print("‹C‚ªŽU‚Á‚Ä‚µ‚Ü‚Á‚½DDD");
 #else
 				msg_print("Your improved Force has gone away...");
 #endif
-				creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
+				creature_ptr->magic_num1[0] = 0;
 			}
 
 			if(randint1(100) < (chance / 2))

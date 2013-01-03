@@ -43,8 +43,8 @@
 #define IS_PURE(CR) ((CR)->race_idx1 == (CR)->race_idx2)
 #define IS_MIMICED(CR) ((CR)->mimic_race_idx != INDEX_NONE || has_trait((CR), TRAIT_MIMIC))
 
-#define HEX_SPELLING_ANY(USER) (((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0]))
-#define HEX_SPELLING(USER, X) (((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0] & (1L << (X))))
+#define HEX_SPELLING_ANY(USER) (((USER)->realm1 == REALM_HEX) && ((USER)->magic_num1[0]))
+#define HEX_SPELLING(USER, X) (((USER)->realm1 == REALM_HEX) && ((USER)->magic_num1[0] & (1L << (X))))
 
 #define GET_TIMED_TRAIT(C, TYPE) ((C)->timed_trait[TYPE])
 
@@ -67,8 +67,8 @@
 	 (((TARGET) <= 0) && (quest_number(FLOOR) || ((FLOOR)->floor_level >= dungeon_info[(FLOOR)->dun_type].maxdepth)) && \
 	  ((FLOOR)->floor_level >= 1) && ironman_downward))
 
-#define MUSIC_SINGING(C, X) (((C)->class_idx == CLASS_BARD) && ((C)->class_skills.old_skills.magic_num1[0] == (X)))
-#define MUSIC_SINGING_ANY(C) (((C)->class_idx == CLASS_BARD) && (C)->class_skills.old_skills.magic_num1[0])
+#define MUSIC_SINGING(C, X) (((C)->class_idx == CLASS_BARD) && ((C)->magic_num1[0] == (X)))
+#define MUSIC_SINGING_ANY(C) (((C)->class_idx == CLASS_BARD) && (C)->magic_num1[0])
 
 #define IS_IN_THIS_FLOOR(C) ((&floor_list[(C)->floor_id]) == CURRENT_FLOOR_PTR && (C)->fx && (C)->fy)
 

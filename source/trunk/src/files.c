@@ -3933,7 +3933,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 
 			for (i = 0; i < num; i++)
 			{
-				if(creature_ptr->class_skills.old_skills.magic_num2[spellnum[i]])
+				if(creature_ptr->magic_num2[spellnum[i]])
 				{
 					pcol = TRUE;
 					/* Dump blue magic */
@@ -4028,7 +4028,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 			{
 				int idx = EATER_EXT * ext + i;
 
-				magic_num = creature_ptr->class_skills.old_skills.magic_num2[idx];
+				magic_num = creature_ptr->magic_num2[idx];
 				if(!magic_num) continue;
 
 				k_idx = lookup_kind(tval, i);

@@ -1114,18 +1114,6 @@ struct chara_type
  */
 
 
-typedef union class_skills_union class_skills_union;
-
-union class_skills_union{
-
-	struct old_skills
-	{
-		s32b magic_num1[108];     /* Array for non-spellbook type magic */
-		byte magic_num2[108];     /* Flags for non-spellbook type magics */
-	} old_skills;
-
-};
-
 typedef struct creature_type creature_type;
 
 struct creature_type
@@ -1230,6 +1218,9 @@ struct creature_type
 	u32b current_charge[MAGIC_EATER_SKILL_MAX];
 	byte max_charge[MAGIC_EATER_SKILL_MAX];
 
+	s32b magic_num1[108];     /* Array for non-spellbook type magic */
+	byte magic_num2[108];     /* Flags for non-spellbook type magics */
+
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];
 	s16b karmas_rank[MAX_KARMA];
@@ -1254,8 +1245,6 @@ struct creature_type
 	s16b spell_exp[64];       // Proficiency of spells 
 	//s16b weapon_exp[5][64];   // Proficiency of weapons
 	s16b skill_exp[10];       // Proficiency of misc. skill 
-
-	class_skills_union class_skills;
 
 	s16b mane_spell[MAX_MANE];
 	s16b mane_dam[MAX_MANE];
