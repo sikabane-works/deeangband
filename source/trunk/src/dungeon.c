@@ -1380,7 +1380,7 @@ static void check_music(creature_type *creature_ptr)
 	u32b need_mana_frac;
 
 	/* Music singed by player */
-	if(!creature_ptr->singing0 && !creature_ptr->singing1) return;
+	if(!creature_ptr->now_singing && !creature_ptr->pre_singing) return;
 
 	if(has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
@@ -1407,10 +1407,10 @@ static void check_music(creature_type *creature_ptr)
 		s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), need_mana, need_mana_frac);
 
 		prepare_redraw(PR_MANA);
-		if(creature_ptr->singing1)
+		if(creature_ptr->pre_singing)
 		{
-			creature_ptr->singing0 = creature_ptr->singing1;
-			creature_ptr->singing1 = 0;
+			creature_ptr->now_singing = creature_ptr->pre_singing;
+			creature_ptr->pre_singing = 0;
 #ifdef JP
 			msg_print("‰Ì‚ðÄŠJ‚µ‚½B");
 #else
@@ -5475,7 +5475,7 @@ static void play_loop(void)
 			}
 		}
 
-		if((player_ptr->class_idx == CLASS_BARD) && (player_ptr->singing0 > MUSIC_DETECT)) player_ptr->singing0 = MUSIC_DETECT;
+		if((player_ptr->class_idx == CLASS_BARD) && (player_ptr->now_singing > MUSIC_DETECT)) player_ptr->now_singing = MUSIC_DETECT;
 
 		/* Hack -- notice death or departure */
 		if(!playing || gameover) return;

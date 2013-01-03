@@ -404,7 +404,7 @@ void reset_timed_trait(creature_type *creature_ptr)
 
 	while(creature_ptr->energy_need < 0) cost_tactical_energy(creature_ptr, 100);
 
-	creature_ptr->singing0 = 0;
+	creature_ptr->now_singing = 0;
 	creature_ptr->singing_turn = 0;
 
 	if(creature_ptr->riding) reset_timed_trait(&creature_list[creature_ptr->riding]);
@@ -426,8 +426,8 @@ void dispel_creature(creature_type *creature_ptr)
 #else
 		msg_format("Your singing is interrupted.");
 #endif
-		creature_ptr->singing1 = creature_ptr->singing0;
-		creature_ptr->singing0 = 0;
+		creature_ptr->pre_singing = creature_ptr->now_singing;
+		creature_ptr->now_singing = 0;
 		creature_ptr->action = ACTION_NONE;
 		prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
 		prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);

@@ -67,8 +67,8 @@
 	 (((TARGET) <= 0) && (quest_number(FLOOR) || ((FLOOR)->floor_level >= dungeon_info[(FLOOR)->dun_type].maxdepth)) && \
 	  ((FLOOR)->floor_level >= 1) && ironman_downward))
 
-#define MUSIC_SINGING(C, X) ((C)->singing0 == (X))
-#define MUSIC_SINGING_ANY(C) ((C)->singing0)
+#define MUSIC_SINGING(C, X) ((C)->now_singing == (X))
+#define MUSIC_SINGING_ANY(C) ((C)->now_singing)
 
 #define IS_IN_THIS_FLOOR(C) ((&floor_list[(C)->floor_id]) == CURRENT_FLOOR_PTR && (C)->fx && (C)->fy)
 

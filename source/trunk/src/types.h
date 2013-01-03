@@ -1218,8 +1218,8 @@ struct creature_type
 	s32b current_charge[MAGIC_EATER_SKILL_MAX];
 	byte max_charge[MAGIC_EATER_SKILL_MAX];
 
-	s32b singing0;
-	s32b singing1;
+	s32b now_singing;
+	s32b pre_singing;
 	byte singing_turn;
 
 	s32b essence_num1[108];     /* Array for non-spellbook type magic */

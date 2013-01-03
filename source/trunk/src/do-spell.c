@@ -928,7 +928,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 // Start singing if the player is a Bard 
 static void start_singing(creature_type *creature_ptr, int spell, int song)
 {
-	creature_ptr->singing0 = song;
+	creature_ptr->now_singing = song;
 	creature_ptr->singing_turn = spell;
 
 	set_action(creature_ptr, ACTION_SING);
@@ -945,15 +945,15 @@ void stop_singing(creature_type *creature_ptr)
 	if(creature_ptr->class_idx != CLASS_BARD) return;
 
  	/* Are there interupted song? */
-	if(creature_ptr->singing1)
+	if(creature_ptr->pre_singing)
 	{
 		/* Forget interupted song */
-		creature_ptr->singing1 = 0;
+		creature_ptr->pre_singing = 0;
 		return;
 	}
 
 	/* The player is singing? */
-	if(!creature_ptr->singing0) return;
+	if(!creature_ptr->now_singing) return;
 
 	/* Hack -- if called from set_action(creature_ptr, ), avoid recursive loop */
 	if(creature_ptr->action == ACTION_SING) set_action(creature_ptr, ACTION_NONE);
@@ -961,7 +961,7 @@ void stop_singing(creature_type *creature_ptr)
 	/* Message text of each song or etc. */
 	do_spell(creature_ptr, REALM_MUSIC, creature_ptr->singing_turn, SPELL_STOP);
 
-	creature_ptr->singing0 = MUSIC_NONE;
+	creature_ptr->now_singing = MUSIC_NONE;
 	creature_ptr->singing_turn = 0;
 
 	prepare_update(creature_ptr, CRU_BONUS);

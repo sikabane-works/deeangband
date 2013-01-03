@@ -2195,7 +2195,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 
 	set_action(creature_ptr, ACTION_NONE);
 
-	if((creature_ptr->class_idx == CLASS_BARD) && (creature_ptr->singing0 || creature_ptr->singing1))
+	if((creature_ptr->class_idx == CLASS_BARD) && (creature_ptr->now_singing || creature_ptr->pre_singing))
 	{
 		stop_singing(creature_ptr);
 	}
