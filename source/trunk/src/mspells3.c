@@ -866,7 +866,7 @@ void learn_trait(creature_type *creature_ptr, int trait_index)
 {
 	if(creature_ptr->action != ACTION_LEARN) return;
 	if(trait_index < 0) return; 
-	if(creature_ptr->magic_num2[trait_index]) return;
+	if(creature_ptr->blue_learned_trait[trait_index]) return;
 	if(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_BLIND) ||
 		has_trait(creature_ptr, TRAIT_HALLUCINATION) || creature_ptr->timed_trait[TRAIT_STUN] || has_trait(creature_ptr, TRAIT_PARALYZED)) return;
 

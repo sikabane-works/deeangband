@@ -844,30 +844,26 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_RESTORE_MANA:
 		{
-			if(caster_ptr->class_idx == CLASS_MAGIC_EATER)
+			int i;
+			for (i = 0; i < EATER_EXT * 2; i++)
 			{
-				int i;
-				for (i = 0; i < EATER_EXT * 2; i++)
-				{
-					caster_ptr->magic_num1[i] += (caster_ptr->magic_num2[i] < 10) ? EATER_CHARGE * 3 : caster_ptr->magic_num2[i]*EATER_CHARGE/3;
-					if(caster_ptr->magic_num1[i] > caster_ptr->magic_num2[i]*EATER_CHARGE) caster_ptr->magic_num1[i] = caster_ptr->magic_num2[i]*EATER_CHARGE;
-				}
-				for (; i < EATER_EXT * 3; i++)
-				{
-					int k_idx = lookup_kind(TV_ROD, i - EATER_EXT * 2);
-					caster_ptr->magic_num1[i] -= ((caster_ptr->magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : caster_ptr->magic_num2[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
-					if(caster_ptr->magic_num1[i] < 0) caster_ptr->magic_num1[i] = 0;
-				}
-				msg_print(GAME_MESSAGE_MANA_RECOVERLY);
-				prepare_window(PW_PLAYER);
+				caster_ptr->current_charge[i] += (caster_ptr->max_charge[i] < 10) ? EATER_CHARGE * 3 : caster_ptr->max_charge[i]*EATER_CHARGE/3;
+				if(caster_ptr->current_charge[i] > caster_ptr->max_charge[i]*EATER_CHARGE) caster_ptr->current_charge[i] = caster_ptr->max_charge[i]*EATER_CHARGE;
 			}
-			else if(caster_ptr->csp < caster_ptr->msp)
+			for (; i < EATER_EXT * 3; i++)
 			{
-				inc_mana(caster_ptr, caster_ptr->msp);
-				msg_print(GAME_MESSAGE_MANA_RECOVERLY);
-				prepare_redraw(PW_PLAYER | PW_SPELL);
-				effected = TRUE;
+				int k_idx = lookup_kind(TV_ROD, i - EATER_EXT * 2);
+				caster_ptr->current_charge[i] -= ((caster_ptr->max_charge[i] < 10) ? EATER_ROD_CHARGE*3 : caster_ptr->max_charge[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
+				if(caster_ptr->current_charge[i] < 0) caster_ptr->current_charge[i] = 0;
 			}
+			msg_print(GAME_MESSAGE_MANA_RECOVERLY);
+			prepare_window(PW_PLAYER);
+
+			inc_mana(caster_ptr, caster_ptr->msp);
+			msg_print(GAME_MESSAGE_MANA_RECOVERLY);
+			prepare_redraw(PW_PLAYER | PW_SPELL);
+			effected = TRUE;
+
 			if(set_timed_trait(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
 			break;
 		}
