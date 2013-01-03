@@ -1007,24 +1007,24 @@ static void regenmagic(creature_type *creature_ptr, int percent)
 
 	for (i = 0; i < EATER_EXT*2; i++)
 	{
-		if(!creature_ptr->magic_num2[i]) continue;
-		if(creature_ptr->magic_num1[i] == ((long)creature_ptr->magic_num2[i] << 16)) continue;
-		new_mana = ((long)creature_ptr->magic_num2[i]+adj_mag_mana[STAT_INT]+13) * percent / 8;
-		creature_ptr->magic_num1[i] += new_mana;
+		if(!creature_ptr->max_charge[i]) continue;
+		if(creature_ptr->current_charge[i] == ((long)creature_ptr->max_charge[i] << 16)) continue;
+		new_mana = ((long)creature_ptr->max_charge[i]+adj_mag_mana[STAT_INT]+13) * percent / 8;
+		creature_ptr->current_charge[i] += new_mana;
 
 		/* Check maximum charge */
-		if(creature_ptr->magic_num1[i] > (creature_ptr->magic_num2[i] << 16))
+		if(creature_ptr->current_charge[i] > (creature_ptr->max_charge[i] << 16))
 		{
-			creature_ptr->magic_num1[i] = ((long)creature_ptr->magic_num2[i] << 16);
+			creature_ptr->current_charge[i] = ((long)creature_ptr->max_charge[i] << 16);
 		}
 		wild_regen = 20;
 	}
 	for (i = EATER_EXT*2; i < EATER_EXT*3; i++)
 	{
-		if(!creature_ptr->magic_num1[i]) continue;
-		if(!creature_ptr->magic_num2[i]) continue;
-		creature_ptr->magic_num1[i] -= (long)(creature_ptr->magic_num2[i] * (adj_mag_mana[STAT_INT] + 10)) * EATER_ROD_CHARGE/16;
-		if(creature_ptr->magic_num1[i] < 0) creature_ptr->magic_num1[i] = 0;
+		if(!creature_ptr->current_charge[i]) continue;
+		if(!creature_ptr->max_charge[i]) continue;
+		creature_ptr->current_charge[i] -= (long)(creature_ptr->max_charge[i] * (adj_mag_mana[STAT_INT] + 10)) * EATER_ROD_CHARGE/16;
+		if(creature_ptr->current_charge[i] < 0) creature_ptr->current_charge[i] = 0;
 		wild_regen = 20;
 	}
 }

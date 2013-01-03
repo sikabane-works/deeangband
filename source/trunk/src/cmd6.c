@@ -3537,6 +3537,6 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 		}
 	}
 	cost_tactical_energy(creature_ptr, 100);
-	if(tval == TV_ROD) creature_ptr->magic_num1[item] += object_kind_info[k_idx].pval * EATER_ROD_CHARGE;
-	else creature_ptr->magic_num1[item] -= EATER_CHARGE;
+	if(tval == TV_ROD) creature_ptr->current_charge[item] += object_kind_info[k_idx].pval * EATER_ROD_CHARGE;
+	else creature_ptr->current_charge[item] -= EATER_CHARGE;
 }
