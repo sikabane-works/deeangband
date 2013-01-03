@@ -2255,7 +2255,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_STOP_SINGING:
 		// Singing is already stopped
-		if(!caster_ptr->magic_num1[0] && !caster_ptr->magic_num1[1]) return FALSE;
+		if(!caster_ptr->singing0 && !caster_ptr->singing1) return FALSE;
 		stop_singing(caster_ptr);
 		cost_tactical_energy(caster_ptr, 10);
 		break;

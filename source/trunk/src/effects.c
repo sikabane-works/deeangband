@@ -422,14 +422,29 @@ void dispel_creature(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
 		set_timed_trait(creature_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
 
-	if(MUSIC_SINGING_ANY(creature_ptr) || HEX_SPELLING_ANY(creature_ptr))
+	if(MUSIC_SINGING_ANY(creature_ptr))
 	{
 #ifdef JP
-		cptr str = (MUSIC_SINGING_ANY(creature_ptr)) ? "‰Ì" : "Žô•¶";
-		msg_format("%s‚ª“rØ‚ê‚½B", str);
+		msg_format("‰Ì‚ª“rØ‚ê‚½B");
 #else
-		cptr str = (MUSIC_SINGING_ANY(creature_ptr)) ? "singing" : "spelling";
-		msg_format("Your %s is interrupted.", str);
+		msg_format("Your singing is interrupted.");
+#endif
+		creature_ptr->singing1 = creature_ptr->singing0;
+		creature_ptr->singing0 = 0;
+		creature_ptr->action = ACTION_NONE;
+		prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
+		prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
+		prepare_update(creature_ptr, PU_CREATURES);
+		prepare_window(PW_OVERHEAD | PW_DUNGEON);
+		cost_tactical_energy(creature_ptr, 100);
+	}
+
+	if(HEX_SPELLING_ANY(creature_ptr))
+	{
+#ifdef JP
+		msg_format("Žô•¶‚ª“rØ‚ê‚½B");
+#else
+		msg_format("Your spelling is interrupted.");
 #endif
 		creature_ptr->magic_num1[1] = creature_ptr->magic_num1[0];
 		creature_ptr->magic_num1[0] = 0;
@@ -440,6 +455,7 @@ void dispel_creature(creature_type *creature_ptr)
 		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 		cost_tactical_energy(creature_ptr, 100);
 	}
+
 }
 
 bool set_superstealth(creature_type *creature_ptr, bool set)
