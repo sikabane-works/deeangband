@@ -1801,7 +1801,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 		if(n == 5)
 		{
 			int j;
-			for (j = 0; j < creature_ptr->magic_num1[0] / 50; j++)
+			for (j = 0; j < creature_ptr->charged_force / 50; j++)
 				mana_cost += (j+1) * 3 / 2;
 		}
 	}
@@ -1875,14 +1875,14 @@ void do_cmd_mind(creature_type *creature_ptr)
 
 		if((use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU))
 		{
-			if((use_mind == MIND_KI) && (n != 5) && creature_ptr->magic_num1[0])
+			if((use_mind == MIND_KI) && (n != 5) && creature_ptr->charged_force)
 			{
 #ifdef JP
 				msg_print("気が散ってしまった．．．");
 #else
 				msg_print("Your improved Force has gone away...");
 #endif
-				creature_ptr->magic_num1[0] = 0;
+				creature_ptr->charged_force = 0;
 			}
 
 			if(randint1(100) < (chance / 2))

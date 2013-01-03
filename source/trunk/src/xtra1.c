@@ -3538,10 +3538,10 @@ static void set_melee_status(creature_type *creature_ptr)
 
 		if(creature_ptr->class_idx == CLASS_FORCETRAINER)
 		{
-			if(creature_ptr->magic_num1[0])
+			if(creature_ptr->charged_force)
 			{
-				creature_ptr->to_damage[0] += (s16b)(creature_ptr->magic_num1[0]/5);
-				creature_ptr->dis_to_damage[0] += (s16b)(creature_ptr->magic_num1[0]/5);
+				creature_ptr->to_damage[0] += (s16b)(creature_ptr->charged_force/5);
+				creature_ptr->dis_to_damage[0] += (s16b)(creature_ptr->charged_force/5);
 			}
 		}
 
