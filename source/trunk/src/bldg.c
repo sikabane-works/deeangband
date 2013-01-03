@@ -2254,7 +2254,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 					{
 						int i;
 						for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++)
-							creature_ptr->class_skills.magic_eater.current_charge[i] = creature_ptr->class_skills.magic_eater.max_charge[i] * EATER_CHARGE;
+							creature_ptr->current_charge[i] = creature_ptr->max_charge[i] * EATER_CHARGE;
 					}
 
 					if((prev_hour >= 6) && (prev_hour <= 17))

@@ -858,16 +858,11 @@ static void rd_creature(creature_type *creature_ptr)
 	// Class skill
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) rd_s32b(&creature_ptr->blue_learned_trait[i]);
 
-	if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
-	{
-		for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_u32b(&creature_ptr->class_skills.magic_eater.current_charge[i]);
-		for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_byte(&creature_ptr->class_skills.magic_eater.max_charge[i]);		
-	}
-	else
-	{
-		for (i = 0; i < 108; i++) rd_s32b(&creature_ptr->class_skills.old_skills.magic_num1[i]);
-		for (i = 0; i < 108; i++) rd_byte(&creature_ptr->class_skills.old_skills.magic_num2[i]);
-	}
+	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_u32b(&creature_ptr->current_charge[i]);
+	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_byte(&creature_ptr->max_charge[i]);		
+
+	for (i = 0; i < 108; i++) rd_s32b(&creature_ptr->class_skills.old_skills.magic_num1[i]);
+	for (i = 0; i < 108; i++) rd_byte(&creature_ptr->class_skills.old_skills.magic_num2[i]);
 
 	if(MUSIC_SINGING_ANY(creature_ptr)) creature_ptr->action = ACTION_SING;
 
