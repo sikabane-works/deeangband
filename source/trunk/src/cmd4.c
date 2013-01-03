@@ -6062,107 +6062,6 @@ static void do_cmd_knowledge_weapon_exp(creature_type *creature_ptr)
 	fd_kill(file_name);
 }
 
-
-/*
- * Display spell-exp
- */
-static void do_cmd_knowledge_spell_exp(creature_type *creature_ptr)
-{
-	int i = 0, spell_exp, exp_level;
-
-	FILE *fff;
-	magic_type *s_ptr;
-
-	char file_name[1024];
-
-	/* Open a new file */
-	fff = my_fopen_temp(file_name, 1024);
-	if(!fff) {
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
-	    msg_print(NULL);
-	    return;
-	}
-
-	if(creature_ptr->realm1 != REALM_NONE)
-	{
-#ifdef JP
-		fprintf(fff, "%sの魔法書\n", realm_names[creature_ptr->realm1]);
-#else
-		fprintf(fff, "%s Spellbook\n", realm_names[creature_ptr->realm1]);
-#endif
-		for (i = 0; i < 32; i++)
-		{
-			if(!is_magic(creature_ptr->realm1))
-			{
-				s_ptr = &technic_info[creature_ptr->realm1 - MIN_TECHNIC][i];
-			}
-			else
-			{
-				s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm1 - 1][i];
-			}
-			if(s_ptr->slevel >= 99) continue;
-			spell_exp = creature_ptr->spell_exp[i];
-			exp_level = spell_exp_level(spell_exp);
-			fprintf(fff, "%-25s ", do_spell(creature_ptr, creature_ptr->realm1, i, SPELL_NAME));
-			if(creature_ptr->realm1 == REALM_HISSATSU)
-				fprintf(fff, "[--]");
-			else
-			{
-				if(exp_level >= EXP_LEVEL_MASTER) fprintf(fff, "!");
-				else fprintf(fff, " ");
-				fprintf(fff, "%s", exp_level_str[exp_level]);
-			}
-			if(cheat_xtra) fprintf(fff, " %d", spell_exp);
-			fprintf(fff, "\n");
-		}
-	}
-
-	if(creature_ptr->realm2 != REALM_NONE)
-	{
-#ifdef JP
-		fprintf(fff, "%sの魔法書\n", realm_names[creature_ptr->realm2]);
-#else
-		fprintf(fff, "\n%s Spellbook\n", realm_names[creature_ptr->realm2]);
-#endif
-		for (i = 0; i < 32; i++)
-		{
-			if(!is_magic(creature_ptr->realm1))
-			{
-				s_ptr = &technic_info[creature_ptr->realm2 - MIN_TECHNIC][i];
-			}
-			else
-			{
-				s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm2 - 1][i];
-			}
-			if(s_ptr->slevel >= 99) continue;
-
-			spell_exp = creature_ptr->spell_exp[i + 32];
-			exp_level = spell_exp_level(spell_exp);
-			fprintf(fff, "%-25s ", do_spell(creature_ptr, creature_ptr->realm2, i, SPELL_NAME));
-			if(exp_level >= EXP_LEVEL_EXPERT) fprintf(fff, "!");
-			else fprintf(fff, " ");
-			fprintf(fff, "%s", exp_level_str[exp_level]);
-			if(cheat_xtra) fprintf(fff, " %d", spell_exp);
-			fprintf(fff, "\n");
-		}
-	}
-
-	/* Close the file */
-	my_fclose(fff);
-
-	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "魔法の経験値", 0, 0);
-#else
-	show_file(TRUE, file_name, "Spell Proficiency", 0, 0);
-#endif
-
-
-	/* Remove the file */
-	fd_kill(file_name);
-}
-
-
 /*
  * Display skill-exp
  */
@@ -9188,7 +9087,7 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 			do_cmd_knowledge_weapon_exp(creature_ptr);
 			break;
 		case 'd': /* spell-exp */
-			do_cmd_knowledge_spell_exp(creature_ptr);
+			//TODO do_cmd_knowledge_spell_exp(creature_ptr);
 			break;
 		case 'e': /* skill-exp */
 			do_cmd_knowledge_skill_exp(creature_ptr);
