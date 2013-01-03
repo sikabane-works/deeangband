@@ -404,11 +404,8 @@ void reset_timed_trait(creature_type *creature_ptr)
 
 	while(creature_ptr->energy_need < 0) cost_tactical_energy(creature_ptr, 100);
 
-	if(creature_ptr->class_idx == CLASS_BARD)
-	{
-		creature_ptr->magic_num1[0] = 0;
-		creature_ptr->magic_num2[0] = 0;
-	}
+	creature_ptr->singing0 = 0;
+	creature_ptr->singing2 = 0;
 
 	if(creature_ptr->riding) reset_timed_trait(&creature_list[creature_ptr->riding]);
 }

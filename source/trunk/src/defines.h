@@ -105,7 +105,7 @@
 // Starting points
 #define STARTING_MAX	15
 
-#define MAGIC_EATER_SKILL_MAX 72
+#define MAGIC_EATER_SKILL_MAX 108
 
 // Quest constants
 #define MIN_RANDOM_QUEST    40

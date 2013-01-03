@@ -959,7 +959,7 @@ void stop_singing(creature_type *creature_ptr)
 	if(creature_ptr->action == ACTION_SING) set_action(creature_ptr, ACTION_NONE);
 
 	/* Message text of each song or etc. */
-	do_spell(creature_ptr, REALM_MUSIC, creature_ptr->magic_num2[0], SPELL_STOP);
+	do_spell(creature_ptr, REALM_MUSIC, creature_ptr->singing2, SPELL_STOP);
 
 	creature_ptr->singing0 = MUSIC_NONE;
 	creature_ptr->singing2 = 0;
