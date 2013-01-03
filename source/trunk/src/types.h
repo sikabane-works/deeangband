@@ -1215,7 +1215,7 @@ struct creature_type
 	u32b current_trait[MAX_TRAITS_FLAG];
 	u32b blue_learned_trait[MAX_TRAITS_FLAG];
 
-	u32b current_charge[MAGIC_EATER_SKILL_MAX];
+	s32b current_charge[MAGIC_EATER_SKILL_MAX];
 	byte max_charge[MAGIC_EATER_SKILL_MAX];
 
 	s32b magic_num1[108];     /* Array for non-spellbook type magic */

@@ -3013,15 +3013,15 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	if(repeat_pull(&sn))
 	{
 		/* Verify the spell */
-		if(sn >= EATER_EXT*2 && !(creature_ptr->magic_num1[sn] > object_kind_info[lookup_kind(TV_ROD, sn-EATER_EXT*2)].pval * (creature_ptr->magic_num2[sn] - 1) * EATER_ROD_CHARGE))
+		if(sn >= EATER_EXT*2 && !(creature_ptr->current_charge[sn] > object_kind_info[lookup_kind(TV_ROD, sn-EATER_EXT*2)].pval * (creature_ptr->max_charge[sn] - 1) * EATER_ROD_CHARGE))
 			return sn;
-		else if(sn < EATER_EXT*2 && !(creature_ptr->magic_num1[sn] < EATER_CHARGE))
+		else if(sn < EATER_EXT*2 && !(creature_ptr->current_charge[sn] < EATER_CHARGE))
 			return sn;
 	}
 
 	for (i = 0; i < 108; i++)
 	{
-		if(creature_ptr->magic_num2[i]) break;
+		if(creature_ptr->max_charge[i]) break;
 	}
 	if(i == 108)
 	{
@@ -3115,7 +3115,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	}
 	for (i = ext; i < ext + EATER_EXT; i++)
 	{
-		if(creature_ptr->magic_num2[i])
+		if(creature_ptr->max_charge[i])
 		{
 			if(use_menu) menu_line = i-ext+1;
 			break;
@@ -3174,7 +3174,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			/* Print list */
 			for (ctr = 0; ctr < EATER_EXT; ctr++)
 			{
-				if(!creature_ptr->magic_num2[ctr+ext]) continue;
+				if(!creature_ptr->max_charge[ctr+ext]) continue;
 
 				k_idx = lookup_kind(tval, ctr);
 
@@ -3232,15 +3232,15 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 							       " %-22.22s   (%2d/%2d) %3d%%",
 #endif
 							       object_kind_name + object_kind_info[k_idx].name, 
-							       creature_ptr->magic_num1[ctr+ext] ? 
-							       (creature_ptr->magic_num1[ctr+ext] - 1) / (EATER_ROD_CHARGE * object_kind_info[k_idx].pval) +1 : 0, 
-							       creature_ptr->magic_num2[ctr+ext], chance));
-						if(creature_ptr->magic_num1[ctr+ext] > object_kind_info[k_idx].pval * (creature_ptr->magic_num2[ctr+ext]-1) * EATER_ROD_CHARGE) col = TERM_RED;
+							       creature_ptr->current_charge[ctr+ext] ? 
+							       (creature_ptr->current_charge[ctr+ext] - 1) / (EATER_ROD_CHARGE * object_kind_info[k_idx].pval) +1 : 0, 
+							       creature_ptr->max_charge[ctr+ext], chance));
+						if(creature_ptr->current_charge[ctr+ext] > object_kind_info[k_idx].pval * (creature_ptr->max_charge[ctr+ext]-1) * EATER_ROD_CHARGE) col = TERM_RED;
 					}
 					else
 					{
-						strcat(dummy, format(" %-22.22s    %2d/%2d %3d%%", object_kind_name + object_kind_info[k_idx].name, (s16b)(creature_ptr->magic_num1[ctr+ext]/EATER_CHARGE), creature_ptr->magic_num2[ctr+ext], chance));
-						if(creature_ptr->magic_num1[ctr+ext] < EATER_CHARGE) col = TERM_RED;
+						strcat(dummy, format(" %-22.22s    %2d/%2d %3d%%", object_kind_name + object_kind_info[k_idx].name, (s16b)(creature_ptr->current_charge[ctr+ext]/EATER_CHARGE), creature_ptr->max_charge[ctr+ext], chance));
+						if(creature_ptr->current_charge[ctr+ext] < EATER_CHARGE) col = TERM_RED;
 					}
 				}
 				else
@@ -3269,7 +3269,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 					{
 						menu_line += EATER_EXT - 1;
 						if(menu_line > EATER_EXT) menu_line -= EATER_EXT;
-					} while(!creature_ptr->magic_num2[menu_line+ext-1]);
+					} while(!creature_ptr->max_charge[menu_line+ext-1]);
 					break;
 				}
 
@@ -3281,7 +3281,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 					{
 						menu_line++;
 						if(menu_line > EATER_EXT) menu_line -= EATER_EXT;
-					} while(!creature_ptr->magic_num2[menu_line+ext-1]);
+					} while(!creature_ptr->max_charge[menu_line+ext-1]);
 					break;
 				}
 
@@ -3300,7 +3300,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 						reverse = TRUE;
 					}
 					else menu_line+=EATER_EXT/2;
-					while(!creature_ptr->magic_num2[menu_line+ext-1])
+					while(!creature_ptr->max_charge[menu_line+ext-1])
 					{
 						if(reverse)
 						{
@@ -3370,7 +3370,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 		}
 
 		/* Totally Illegal */
-		if((i < 0) || (i > EATER_EXT) || !creature_ptr->magic_num2[i+ext])
+		if((i < 0) || (i > EATER_EXT) || !creature_ptr->max_charge[i+ext])
 		{
 			bell();
 			continue;
@@ -3394,7 +3394,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			}
 			if(tval == TV_ROD)
 			{
-				if(creature_ptr->magic_num1[ext+i]  > object_kind_info[lookup_kind(tval, i)].pval * (creature_ptr->magic_num2[ext+i] - 1) * EATER_ROD_CHARGE)
+				if(creature_ptr->current_charge[ext+i]  > object_kind_info[lookup_kind(tval, i)].pval * (creature_ptr->max_charge[ext+i] - 1) * EATER_ROD_CHARGE)
 				{
 #ifdef JP
 					msg_print("その魔法はまだ充填している最中だ。");
@@ -3408,7 +3408,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			}
 			else
 			{
-				if(creature_ptr->magic_num1[ext+i] < EATER_CHARGE)
+				if(creature_ptr->current_charge[ext+i] < EATER_CHARGE)
 				{
 #ifdef JP
 					msg_print("その魔法は使用回数が切れている。");
