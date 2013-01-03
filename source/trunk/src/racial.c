@@ -317,8 +317,8 @@ bool gain_magic(creature_type *creature_ptr)
 
 	if(IS_ROD(object_ptr))
 	{
-		creature_ptr->magic_num2[object_ptr->sval + ext] += object_ptr->number;
-		if(creature_ptr->magic_num2[object_ptr->sval + ext] > 99) creature_ptr->magic_num2[object_ptr->sval + ext] = 99;
+		creature_ptr->max_charge[object_ptr->sval + ext] += object_ptr->number;
+		if(creature_ptr->max_charge[object_ptr->sval + ext] > 99) creature_ptr->max_charge[object_ptr->sval + ext] = 99;
 	}
 	else
 	{
@@ -327,17 +327,17 @@ bool gain_magic(creature_type *creature_ptr)
 		{
 			int gain_num = pval;
 			if(object_ptr->tval == TV_WAND) gain_num = (pval + num - 1) / num;
-			if(creature_ptr->magic_num2[object_ptr->sval + ext])
+			if(creature_ptr->max_charge[object_ptr->sval + ext])
 			{
 				gain_num *= 256;
 				gain_num = (gain_num/3 + randint0(gain_num/3)) / 256;
 				if(gain_num < 1) gain_num = 1;
 			}
-			creature_ptr->magic_num2[object_ptr->sval + ext] += gain_num;
-			if(creature_ptr->magic_num2[object_ptr->sval + ext] > 99) creature_ptr->magic_num2[object_ptr->sval + ext] = 99;
-			creature_ptr->magic_num1[object_ptr->sval + ext] += pval * 0x10000;
-			if(creature_ptr->magic_num1[object_ptr->sval + ext] > 99 * 0x10000) creature_ptr->magic_num1[object_ptr->sval + ext] = 99 * 0x10000;
-			if(creature_ptr->magic_num1[object_ptr->sval + ext] > creature_ptr->magic_num2[object_ptr->sval + ext] * 0x10000) creature_ptr->magic_num1[object_ptr->sval + ext] = creature_ptr->magic_num2[object_ptr->sval + ext] * 0x10000;
+			creature_ptr->max_charge[object_ptr->sval + ext] += gain_num;
+			if(creature_ptr->max_charge[object_ptr->sval + ext] > 99) creature_ptr->max_charge[object_ptr->sval + ext] = 99;
+			creature_ptr->current_charge[object_ptr->sval + ext] += pval * 0x10000;
+			if(creature_ptr->current_charge[object_ptr->sval + ext] > 99 * 0x10000) creature_ptr->current_charge[object_ptr->sval + ext] = 99 * 0x10000;
+			if(creature_ptr->current_charge[object_ptr->sval + ext] > creature_ptr->max_charge[object_ptr->sval + ext] * 0x10000) creature_ptr->current_charge[object_ptr->sval + ext] = creature_ptr->max_charge[object_ptr->sval + ext] * 0x10000;
 			if(object_ptr->tval == TV_WAND) pval -= (pval + num - 1) / num;
 		}
 	}

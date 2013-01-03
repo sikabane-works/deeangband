@@ -4965,7 +4965,7 @@ static void display_essence(creature_type *creature_ptr)
 	for (i = 0; essence_name[i]; i++)
 	{
 		if(!essence_name[i][0]) continue;
-		prt(format("%-11s %5d", essence_name[i], creature_ptr->magic_num1[i]), 2+num%21, 8+num/21*22);
+		prt(format("%-11s %5d", essence_name[i], creature_ptr->essence_num1[i]), 2+num%21, 8+num/21*22);
 		num++;
 	}
 
@@ -4976,7 +4976,7 @@ static void display_essence(creature_type *creature_ptr)
 
 static void drain_essence(creature_type *creature_ptr)
 {
-	int drain_value[sizeof(creature_ptr->magic_num1) / sizeof(s32b)];
+	int drain_value[sizeof(creature_ptr->essence_num1) / sizeof(s32b)];
 	int i, item;
 	int dec = 4;
 	bool observe = FALSE;
@@ -5172,8 +5172,8 @@ static void drain_essence(creature_type *creature_ptr)
 			if(!essence_name[i][0]) continue;
 			if(!drain_value[i]) continue;
 
-			creature_ptr->magic_num1[i] += drain_value[i];
-			creature_ptr->magic_num1[i] = MIN(20000, creature_ptr->magic_num1[i]);
+			creature_ptr->essence_num1[i] += drain_value[i];
+			creature_ptr->essence_num1[i] = MIN(20000, creature_ptr->essence_num1[i]);
 			msg_print(NULL);
 			msg_format("%s...%d", essence_name[i], drain_value[i]);
 		}
