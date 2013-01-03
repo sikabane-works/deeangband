@@ -5461,7 +5461,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 						if(es_ptr->essence != -1)
 						{
 							strcat(dummy, format("(%s)", essence_name[es_ptr->essence]));
-							if(creature_ptr->magic_num1[es_ptr->essence] < es_ptr->value) able[ctr] = FALSE;
+							if(creature_ptr->essence_num1[es_ptr->essence] < es_ptr->value) able[ctr] = FALSE;
 						}
 						else
 						{
@@ -5473,8 +5473,8 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 								strcat(dummy, "(brand fire + res.fire)");
 #endif
-								if(creature_ptr->magic_num1[TRAIT_FIRE_BRAND] < es_ptr->value) able[ctr] = FALSE;
-								if(creature_ptr->magic_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_FIRE_BRAND] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
 								break;
 							case ESSENCE_SH_ELEC:
 #ifdef JP
@@ -5482,8 +5482,8 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 								strcat(dummy, "(brand elec. + res. elec.)");
 #endif
-								if(creature_ptr->magic_num1[TRAIT_ELEC_BRAND] < es_ptr->value) able[ctr] = FALSE;
-								if(creature_ptr->magic_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_ELEC_BRAND] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
 								break;
 							case ESSENCE_SH_COLD:
 #ifdef JP
@@ -5491,8 +5491,8 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 								strcat(dummy, "(brand cold + res. cold)");
 #endif
-								if(creature_ptr->magic_num1[TRAIT_COLD_BRAND] < es_ptr->value) able[ctr] = FALSE;
-								if(creature_ptr->magic_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_COLD_BRAND] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
 								break;
 							case ESSENCE_RESISTANCE:
 #ifdef JP
@@ -5500,10 +5500,10 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 								strcat(dummy, "(r.fire+r.cold+r.elec+r.acid)");
 #endif
-								if(creature_ptr->magic_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
-								if(creature_ptr->magic_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
-								if(creature_ptr->magic_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
-								if(creature_ptr->magic_num1[TRAIT_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
 								break;
 							case ESSENCE_SUSTAIN:
 #ifdef JP
@@ -5511,10 +5511,10 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 								strcat(dummy, "(r.fire+r.cold+r.elec+r.acid)");
 #endif
-								if(creature_ptr->magic_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
-								if(creature_ptr->magic_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
-								if(creature_ptr->magic_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
-								if(creature_ptr->magic_num1[TRAIT_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->essence_num1[TRAIT_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
 								break;
 							}
 						}
@@ -5523,7 +5523,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 						if(es_ptr->essence != -1)
 						{
-							sprintf(dummy2, "%-49s %3d/%d", dummy, es_ptr->value, (int)creature_ptr->magic_num1[es_ptr->essence]);
+							sprintf(dummy2, "%-49s %3d/%d", dummy, es_ptr->value, (int)creature_ptr->essence_num1[es_ptr->essence]);
 						}
 						else
 						{
@@ -5638,7 +5638,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 	if(es_ptr->essence != -1)
 	{
-		if(creature_ptr->magic_num1[es_ptr->essence] < use_essence)
+		if(creature_ptr->essence_num1[es_ptr->essence] < use_essence)
 		{
 			msg_print(GAME_MESSAGE_SMITH_NO_ESSENCE);
 			return;
@@ -5678,7 +5678,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				char tmp[80];
 				char tmp_val[160];
 				int pval;
-				int limit = MIN(5, creature_ptr->magic_num1[es_ptr->essence]/es_ptr->value);
+				int limit = MIN(5, creature_ptr->essence_num1[es_ptr->essence]/es_ptr->value);
 
 #ifdef JP
 				sprintf(tmp, "‚¢‚­‚Â•t‰Á‚µ‚Ü‚·‚©H (1-%d): ", limit);
@@ -5696,7 +5696,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				msg_format(GAME_MESSAGE_SMITH_USE_ESSENCE, use_essence);
 			}
 
-			if(creature_ptr->magic_num1[es_ptr->essence] < use_essence)
+			if(creature_ptr->essence_num1[es_ptr->essence] < use_essence)
 			{
 				msg_print(GAME_MESSAGE_SMITH_NO_ESSENCE);
 				return;
@@ -5719,7 +5719,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			else if(val < 1) val = 1;
 			use_essence *= val;
 			msg_format(GAME_MESSAGE_SMITH_USE_ESSENCE, use_essence);
-			if(creature_ptr->magic_num1[es_ptr->essence] < use_essence)
+			if(creature_ptr->essence_num1[es_ptr->essence] < use_essence)
 			{
 				msg_print(GAME_MESSAGE_SMITH_NO_ESSENCE);
 				return;
@@ -5730,7 +5730,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			object_ptr->to_hit += get_to_hit;
 			object_ptr->to_damage += get_to_damage;
 		}
-		creature_ptr->magic_num1[es_ptr->essence] -= use_essence;
+		creature_ptr->essence_num1[es_ptr->essence] -= use_essence;
 		if(es_ptr->add == ESSENCE_ATTACK)
 		{
 			if((object_ptr->to_hit >= creature_ptr->lev/5+5) && (object_ptr->to_damage >= creature_ptr->lev/5+5))
@@ -5764,43 +5764,43 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		switch(es_ptr->add)
 		{
 		case ESSENCE_SH_FIRE:
-			if((creature_ptr->magic_num1[TRAIT_FIRE_BRAND] < use_essence) || (creature_ptr->magic_num1[TRAIT_RES_FIRE] < use_essence))
+			if((creature_ptr->essence_num1[TRAIT_FIRE_BRAND] < use_essence) || (creature_ptr->essence_num1[TRAIT_RES_FIRE] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			creature_ptr->magic_num1[TRAIT_FIRE_BRAND] -= use_essence;
-			creature_ptr->magic_num1[TRAIT_RES_FIRE] -= use_essence;
+			creature_ptr->essence_num1[TRAIT_FIRE_BRAND] -= use_essence;
+			creature_ptr->essence_num1[TRAIT_RES_FIRE] -= use_essence;
 			break;
 		case ESSENCE_SH_ELEC:
-			if((creature_ptr->magic_num1[TRAIT_ELEC_BRAND] < use_essence) || (creature_ptr->magic_num1[TRAIT_RES_ELEC] < use_essence))
+			if((creature_ptr->essence_num1[TRAIT_ELEC_BRAND] < use_essence) || (creature_ptr->essence_num1[TRAIT_RES_ELEC] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			creature_ptr->magic_num1[TRAIT_ELEC_BRAND] -= use_essence;
-			creature_ptr->magic_num1[TRAIT_RES_ELEC] -= use_essence;
+			creature_ptr->essence_num1[TRAIT_ELEC_BRAND] -= use_essence;
+			creature_ptr->essence_num1[TRAIT_RES_ELEC] -= use_essence;
 			break;
 		case ESSENCE_SH_COLD:
-			if((creature_ptr->magic_num1[TRAIT_COLD_BRAND] < use_essence) || (creature_ptr->magic_num1[TRAIT_RES_COLD] < use_essence))
+			if((creature_ptr->essence_num1[TRAIT_COLD_BRAND] < use_essence) || (creature_ptr->essence_num1[TRAIT_RES_COLD] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			creature_ptr->magic_num1[TRAIT_COLD_BRAND] -= use_essence;
-			creature_ptr->magic_num1[TRAIT_RES_COLD] -= use_essence;
+			creature_ptr->essence_num1[TRAIT_COLD_BRAND] -= use_essence;
+			creature_ptr->essence_num1[TRAIT_RES_COLD] -= use_essence;
 			break;
 		case ESSENCE_RESISTANCE:
 		case ESSENCE_SUSTAIN:
-			if((creature_ptr->magic_num1[TRAIT_RES_ACID] < use_essence) || (creature_ptr->magic_num1[TRAIT_RES_ELEC] < use_essence) || (creature_ptr->magic_num1[TRAIT_RES_FIRE] < use_essence) || (creature_ptr->magic_num1[TRAIT_RES_COLD] < use_essence))
+			if((creature_ptr->essence_num1[TRAIT_RES_ACID] < use_essence) || (creature_ptr->essence_num1[TRAIT_RES_ELEC] < use_essence) || (creature_ptr->essence_num1[TRAIT_RES_FIRE] < use_essence) || (creature_ptr->essence_num1[TRAIT_RES_COLD] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			creature_ptr->magic_num1[TRAIT_RES_ACID] -= use_essence;
-			creature_ptr->magic_num1[TRAIT_RES_ELEC] -= use_essence;
-			creature_ptr->magic_num1[TRAIT_RES_FIRE] -= use_essence;
-			creature_ptr->magic_num1[TRAIT_RES_COLD] -= use_essence;
+			creature_ptr->essence_num1[TRAIT_RES_ACID] -= use_essence;
+			creature_ptr->essence_num1[TRAIT_RES_ELEC] -= use_essence;
+			creature_ptr->essence_num1[TRAIT_RES_FIRE] -= use_essence;
+			creature_ptr->essence_num1[TRAIT_RES_COLD] -= use_essence;
 			break;
 		}
 		if(!success)

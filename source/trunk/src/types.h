@@ -1218,6 +1218,9 @@ struct creature_type
 	s32b current_charge[MAGIC_EATER_SKILL_MAX];
 	byte max_charge[MAGIC_EATER_SKILL_MAX];
 
+	s32b essence_num1[108];     /* Array for non-spellbook type magic */
+	byte essence_num2[108];     /* Flags for non-spellbook type magics */
+
 	s32b magic_num1[108];     /* Array for non-spellbook type magic */
 	byte magic_num2[108];     /* Flags for non-spellbook type magics */
 
