@@ -4328,7 +4328,7 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 		byte    spells[64];
 
 		/* Extract spells */
-		for (spell = 0; spell < 32; spell++)
+		for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
 		{
 			/* Check for this spell */
 			if(fake_spell_flags[sval] & (1L << spell))

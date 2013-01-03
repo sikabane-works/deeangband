@@ -79,7 +79,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 	p = spell_category_name(magic_info[creature_ptr->class_idx].spell_book);
 
 	/* Extract spells */
-	for (spell = 0; spell < 32; spell++)
+	for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
 	{
 		/* Check for this spell */
 		if((fake_spell_flags[sval] & (1L << spell)))
@@ -491,7 +491,7 @@ void do_cmd_browse(creature_type *creature_ptr)
 
 
 	/* Extract spells */
-	for (spell = 0; spell < 32; spell++)
+	for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
 	{
 		/* Check for this spell */
 		if((fake_spell_flags[sval] & (1L << spell)))
@@ -563,7 +563,7 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++)
 	{
 		creature_ptr->spell_order[j] = creature_ptr->spell_order[i];
-		if(creature_ptr->spell_order[i] < 32) j++;
+		if(creature_ptr->spell_order[i] < REALM_MAGIC_NUMBER) j++;
 	}
 	for (; j < (REALM_MAGIC_NUMBER * 2); j++)
 		creature_ptr->spell_order[j] = 99;
@@ -705,7 +705,7 @@ void do_cmd_study(creature_type *creature_ptr)
 		int gift = -1;
 
 		/* Extract spells */
-		for (spell = 0; spell < 32; spell++)
+		for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
 		{
 			/* Check spells in the book */
 			if((fake_spell_flags[sval] & (1L << spell)))
@@ -741,7 +741,7 @@ void do_cmd_study(creature_type *creature_ptr)
 	if(increment) spell += increment;
 
 	/* Learn the spell */
-	if(spell < 32)
+	if(spell < REALM_MAGIC_NUMBER)
 	{
 		if(creature_ptr->spell_learned1 & (1L << spell)) learned = TRUE;
 		else creature_ptr->spell_learned1 |= (1L << spell);

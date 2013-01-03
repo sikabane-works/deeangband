@@ -1151,21 +1151,21 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	{
 		/*
 		// Inate spell
-		if(thrown_spell < 32 * 4)
+		if(thrown_spell < REALM_MAGIC_NUMBER * 4)
 		{
 			species_ptr->r_flags4 |= (1L << (thrown_spell - 32 * 3));
 			if(species_ptr->r_cast_spell < MAX_UCHAR) species_ptr->r_cast_spell++;
 		}
 
 		// Bolt or Ball
-		else if(thrown_spell < 32 * 5)
+		else if(thrown_spell < REALM_MAGIC_NUMBER * 5)
 		{
 			species_ptr->r_flags5 |= (1L << (thrown_spell - 32 * 4));
 			if(species_ptr->r_cast_spell < MAX_UCHAR) species_ptr->r_cast_spell++;
 		}
 
 		// Special spell
-		else if(thrown_spell < 32 * 6)
+		else if(thrown_spell < REALM_MAGIC_NUMBER * 6)
 		{
 			species_ptr->r_flags6 |= (1L << (thrown_spell - 32 * 5));
 			if(species_ptr->r_cast_spell < MAX_UCHAR) species_ptr->r_cast_spell++;

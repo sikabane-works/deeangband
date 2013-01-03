@@ -3914,7 +3914,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 					break;
 			}
 
-			for (i = 0, num = 0; i < 32; i++)
+			for (i = 0, num = 0; i < REALM_MAGIC_NUMBER; i++)
 			{
 				if((0x00000001 << i) & f4) spellnum[num++] = i;
 			}

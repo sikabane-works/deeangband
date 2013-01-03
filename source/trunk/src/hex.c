@@ -16,7 +16,7 @@ bool stop_hex_spell_all(creature_type *creature_ptr)
 {
 	int i;
 
-	for (i = 0; i < 32; i++)
+	for (i = 0; i < REALM_MAGIC_NUMBER; i++)
 	{
 		u32b spell = 1L << i;
 		if(HEX_SPELLING(creature_ptr, spell)) do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
@@ -75,7 +75,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 			int n = 0;
 			Term_erase(x, y, 255);
 			prt("     –¼‘O", y, x + 5);
-			for (spell = 0; spell < 32; spell++)
+			for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
 			{
 				if(HEX_SPELLING(creature_ptr, spell))
 				{
@@ -146,7 +146,7 @@ void check_hex(creature_type *creature_ptr)
 	}
 
 	need_mana = 0;
-	for (spell = 0; spell < 32; spell++)
+	for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
 	{
 		if(HEX_SPELLING(creature_ptr, spell))
 		{
@@ -196,7 +196,7 @@ void check_hex(creature_type *creature_ptr)
 	}
 
 	/* Gain experiences of spelling spells */
-	for (spell = 0; spell < 32; spell++)
+	for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
 	{
 		if(!HEX_SPELLING(creature_ptr, spell)) continue;
 
@@ -211,7 +211,7 @@ void check_hex(creature_type *creature_ptr)
 	}
 
 	/* Do any effects of continual spells */
-	for (spell = 0; spell < 32; spell++)
+	for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
 	{
 		if(HEX_SPELLING(creature_ptr, spell))
 			do_spell(creature_ptr, REALM_HEX, spell, SPELL_CONT);
