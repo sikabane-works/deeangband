@@ -1114,7 +1114,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 		}
 		if(magic_info[creature_ptr->class_idx].spell_xtra & MAGIC_GAIN_EXP)
 		{
-			s16b cur_exp = creature_ptr->spell_exp_old[(increment ? 32 : 0)+spell];
+			s16b cur_exp = creature_ptr->spell_exp[realm];
 			s16b exp_gain = 0;
 
 			if(cur_exp < SPELL_EXP_BEGINNER)
@@ -1134,7 +1134,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 				if(((floor_ptr->floor_level + 5) > creature_ptr->lev) && (floor_ptr->floor_level > s_ptr->slevel))
 					exp_gain = 1;
 			}
-			creature_ptr->spell_exp_old[(increment ? 32 : 0) + spell] += exp_gain;
+			creature_ptr->spell_exp[realm] += exp_gain;
 		}
 	}
 
