@@ -441,9 +441,9 @@ void initialize_skill(creature_type *creature_ptr)
 
 	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++)
 	{
-		if(tmp_cls == CLASS_SORCERER) creature_ptr->spell_exp[i] = SPELL_EXP_MASTER;
-		else if(tmp_cls == CLASS_RED_MAGE) creature_ptr->spell_exp[i] = SPELL_EXP_SKILLED;
-		else creature_ptr->spell_exp[i] = SPELL_EXP_UNSKILLED;
+		if(tmp_cls == CLASS_SORCERER) creature_ptr->spell_exp_old[i] = SPELL_EXP_MASTER;
+		else if(tmp_cls == CLASS_RED_MAGE) creature_ptr->spell_exp_old[i] = SPELL_EXP_SKILLED;
+		else creature_ptr->spell_exp_old[i] = SPELL_EXP_UNSKILLED;
 	}
 
 //TODO

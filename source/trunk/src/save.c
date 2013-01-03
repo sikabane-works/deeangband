@@ -461,7 +461,7 @@ static void wr_creature(creature_type *creature_ptr)
 	}
 
 	for (i = 0; i < 8; i++) wr_s32b(creature_ptr->authority[i]);
-	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) wr_s16b(creature_ptr->spell_exp[i]);
+	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) wr_s16b(creature_ptr->spell_exp_old[i]);
 	for (i = 0; i < MAX_SKILLS; i++) wr_s16b(creature_ptr->skill_exp[i]);
 
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) wr_s32b(creature_ptr->blue_learned_trait[i]);

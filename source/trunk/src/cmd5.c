@@ -570,7 +570,7 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 
 	for (i = 32; i < (REALM_MAGIC_NUMBER * 2); i++)
 	{
-		creature_ptr->spell_exp[i] = SPELL_EXP_UNSKILLED;
+		creature_ptr->spell_exp_old[i] = SPELL_EXP_UNSKILLED;
 	}
 	creature_ptr->spell_learned2 = 0L;
 	creature_ptr->spell_worked2 = 0L;
@@ -759,7 +759,7 @@ void do_cmd_study(creature_type *creature_ptr)
 	if(learned)
 	{
 		int max_exp = (spell < 32) ? SPELL_EXP_MASTER : SPELL_EXP_EXPERT;
-		int old_exp = creature_ptr->spell_exp[spell];
+		int old_exp = creature_ptr->spell_exp_old[spell];
 		int new_rank = EXP_LEVEL_UNSKILLED;
 		cptr name = do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell%32, SPELL_NAME);
 
@@ -782,23 +782,23 @@ void do_cmd_study(creature_type *creature_ptr)
 		}
 		else if(old_exp >= SPELL_EXP_EXPERT)
 		{
-			creature_ptr->spell_exp[spell] = SPELL_EXP_MASTER;
+			creature_ptr->spell_exp_old[spell] = SPELL_EXP_MASTER;
 			new_rank = EXP_LEVEL_MASTER;
 		}
 		else if(old_exp >= SPELL_EXP_SKILLED)
 		{
-			if(spell >= 32) creature_ptr->spell_exp[spell] = SPELL_EXP_EXPERT;
-			else creature_ptr->spell_exp[spell] += SPELL_EXP_EXPERT - SPELL_EXP_SKILLED;
+			if(spell >= 32) creature_ptr->spell_exp_old[spell] = SPELL_EXP_EXPERT;
+			else creature_ptr->spell_exp_old[spell] += SPELL_EXP_EXPERT - SPELL_EXP_SKILLED;
 			new_rank = EXP_LEVEL_EXPERT;
 		}
 		else if(old_exp >= SPELL_EXP_BEGINNER)
 		{
-			creature_ptr->spell_exp[spell] = SPELL_EXP_SKILLED + (old_exp - SPELL_EXP_BEGINNER) * 2 / 3;
+			creature_ptr->spell_exp_old[spell] = SPELL_EXP_SKILLED + (old_exp - SPELL_EXP_BEGINNER) * 2 / 3;
 			new_rank = EXP_LEVEL_SKILLED;
 		}
 		else
 		{
-			creature_ptr->spell_exp[spell] = SPELL_EXP_BEGINNER + old_exp / 3;
+			creature_ptr->spell_exp_old[spell] = SPELL_EXP_BEGINNER + old_exp / 3;
 			new_rank = EXP_LEVEL_BEGINNER;
 		}
 #ifdef JP
@@ -1160,7 +1160,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 		}
 		if(magic_info[creature_ptr->class_idx].spell_xtra & MAGIC_GAIN_EXP)
 		{
-			s16b cur_exp = creature_ptr->spell_exp[(increment ? 32 : 0)+spell];
+			s16b cur_exp = creature_ptr->spell_exp_old[(increment ? 32 : 0)+spell];
 			s16b exp_gain = 0;
 
 			if(cur_exp < SPELL_EXP_BEGINNER)
@@ -1180,7 +1180,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 				if(((floor_ptr->floor_level + 5) > creature_ptr->lev) && (floor_ptr->floor_level > s_ptr->slevel))
 					exp_gain = 1;
 			}
-			creature_ptr->spell_exp[(increment ? 32 : 0) + spell] += exp_gain;
+			creature_ptr->spell_exp_old[(increment ? 32 : 0) + spell] += exp_gain;
 		}
 	}
 
