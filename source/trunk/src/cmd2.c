@@ -385,7 +385,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 		number = 5;
 		small = FALSE;
 		mode |= AM_GREAT;
-		floor_ptr->object_level = object_ptr->xtra3;
+		floor_ptr->object_level = object_ptr->chest_value;
 	}
 	else floor_ptr->object_level = ABS(object_ptr->pval) + 10; // Determine the "value" of the items
 	if(!object_ptr->pval) number = 0; // Zero pval means empty chest
@@ -436,7 +436,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	object_type *object_ptr = &object_list[object_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	int mon_level = object_ptr->xtra3;
+	int mon_level = object_ptr->chest_value;
 
 	if(object_ptr->pval <= 0) return; // Ignore disarmed chests
 	trap = chest_traps[object_ptr->pval]; // Obtain the traps

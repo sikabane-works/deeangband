@@ -2519,7 +2519,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			if(obj_level <= 0) break;	// Hack -- skip ruined chests
 			object_ptr->pval = (s16b)randint1(obj_level);	// Hack -- pick a "difficulty"
 			if(object_ptr->sval == SV_CHEST_KANDUME) object_ptr->pval = 6;
-			object_ptr->xtra3 = floor_ptr->floor_level + 5;
+			object_ptr->chest_value = floor_ptr->floor_level + 5;
 			if(object_ptr->pval > 55) object_ptr->pval = 55 + (byte)randint0(5);	// Never exceed "difficulty" of 55 to 59
 
 			break;
