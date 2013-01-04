@@ -293,10 +293,6 @@ static void rd_object(object_type *object_ptr)
 	// Creature holding object
 	rd_s16b(&object_ptr->held_m_idx);
 
-	// Special powers
-	rd_byte(&object_ptr->xtra3);
-	rd_s16b(&object_ptr->xtra4);
-
 	rd_byte(&object_ptr->forged_type);
 
 	rd_byte(&object_ptr->feeling);
