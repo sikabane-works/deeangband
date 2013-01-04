@@ -129,15 +129,15 @@ void object_flags(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG])
 		for (i = 0; i < MAX_TRAITS_FLAG; i++)
 			flgs[i] |= e_ptr->flags[i];
 
-		if((object_ptr->name2 == EGO_LITE_AURA_FIRE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
+		if((object_ptr->name2 == EGO_LITE_AURA_FIRE) && !object_ptr->fuel && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
 			remove_flag(flgs, TRAIT_AURA_FIRE);
 		}
-		else if((object_ptr->name2 == EGO_LITE_INFRA) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
+		else if((object_ptr->name2 == EGO_LITE_INFRA) && !object_ptr->fuel && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
 			remove_flag(flgs, TRAIT_INFRA);
 		}
-		else if((object_ptr->name2 == EGO_LITE_EYE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
+		else if((object_ptr->name2 == EGO_LITE_EYE) && !object_ptr->fuel && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
 			remove_flag(flgs, TRAIT_NO_BLIND);
 			remove_flag(flgs, TRAIT_SEE_INVISIBLE);

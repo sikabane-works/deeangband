@@ -1129,7 +1129,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	if(has_trait(creature_ptr, TRAIT_BLIND))
 	{
 		/* Hack -- save some light for later */
-		if(object_ptr->fuel == 0) object_ptr->xtra4++;
+		if(object_ptr->fuel == 0) object_ptr->fuel++;
 	}
 
 	/* The light is now out */

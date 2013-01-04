@@ -2629,8 +2629,8 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			t = object_desc_str(t, " (with ");
 #endif
 
-			if(object_ptr->name2 == EGO_LITE_LONG) t = object_desc_num(t, object_ptr->xtra4 * 2);
-			else t = object_desc_num(t, object_ptr->xtra4);
+			if(object_ptr->name2 == EGO_LITE_LONG) t = object_desc_num(t, object_ptr->fuel * 2);
+			else t = object_desc_num(t, object_ptr->fuel);
 #ifdef JP
 			t = object_desc_str(t, "ƒ^[ƒ“‚Ìõ–½)");
 #else

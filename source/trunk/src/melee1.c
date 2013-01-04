@@ -2410,11 +2410,11 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Drain fuel */
-				if((object_ptr->xtra4 > 0) && (!object_is_fixed_artifact(object_ptr)))
+				if((object_ptr->fuel > 0) && (!object_is_fixed_artifact(object_ptr)))
 				{
 					/* Reduce fuel */
-					object_ptr->xtra4 -= (250 + (s16b)randint1(250));
-					if(object_ptr->xtra4 < 1) object_ptr->xtra4 = 1;
+					object_ptr->fuel -= (250 + (s16b)randint1(250));
+					if(object_ptr->fuel < 1) object_ptr->fuel = 1;
 
 					if(!has_trait(target_ptr, TRAIT_BLIND))
 					{

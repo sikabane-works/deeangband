@@ -2293,7 +2293,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 		}
 	case TV_FLASK:
 		{
-			object_ptr->xtra4 = object_ptr->pval;
+			object_ptr->fuel = object_ptr->pval;
 			object_ptr->pval = 0;
 			break;
 		}
@@ -2302,14 +2302,14 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			/* Hack -- Torches -- random fuel */
 			if(object_ptr->sval == SV_LITE_TORCH)
 			{
-				if(object_ptr->pval > 0) object_ptr->xtra4 = (s16b)randint1(object_ptr->pval);
+				if(object_ptr->pval > 0) object_ptr->fuel = (s16b)randint1(object_ptr->pval);
 				object_ptr->pval = 0;
 			}
 
 			/* Hack -- Lanterns -- random fuel */
 			if(object_ptr->sval == SV_LITE_LANTERN)
 			{
-				if(object_ptr->pval > 0) object_ptr->xtra4 = (s16b)randint1(object_ptr->pval);
+				if(object_ptr->pval > 0) object_ptr->fuel = (s16b)randint1(object_ptr->pval);
 				object_ptr->pval = 0;
 			}
 
@@ -2345,7 +2345,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 				switch (object_ptr->name2)
 				{
 				case EGO_LITE_DARKNESS:
-					object_ptr->xtra4 = 0;
+					object_ptr->fuel = 0;
 					break;
 				}
 			}
