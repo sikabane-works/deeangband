@@ -234,6 +234,7 @@ struct artifact_type
 	s16b floor_id;          /* Leaved on this location last time */
 
 	s16b xtra4;			/* Extra info */
+	s16b fuel;
 
 	s16b ap_rate;		// AP rate
 
@@ -626,6 +627,7 @@ struct object_type
 	byte name1;			/* Artifact type, if any */
 	u16b name2;			/* Ego-Item type, if any */
 
+	s16b fuel;
 	s16b xtra4;			/* Extra info */
 
 	byte forged_type;	// forged by smith craft

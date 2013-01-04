@@ -1027,7 +1027,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 
 	/* Refuel */
-	j_ptr->xtra4 += object_ptr->xtra4;
+	j_ptr->fuel += object_ptr->fuel;
 
 #ifdef JP
 	msg_print("ランプに油を注いだ。");
@@ -1036,9 +1036,9 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 #endif
 
 	/* Comment */
-	if((object_ptr->name2 == EGO_LITE_DARKNESS) && (j_ptr->xtra4 > 0))
+	if((object_ptr->name2 == EGO_LITE_DARKNESS) && (j_ptr->fuel > 0))
 	{
-		j_ptr->xtra4 = 0;
+		j_ptr->fuel = 0;
 #ifdef JP
 		msg_print("ランプが消えてしまった！");
 #else
@@ -1047,16 +1047,16 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 	}
 	else if((object_ptr->name2 == EGO_LITE_DARKNESS) || (j_ptr->name2 == EGO_LITE_DARKNESS))
 	{
-		j_ptr->xtra4 = 0;
+		j_ptr->fuel = 0;
 #ifdef JP
 		msg_print("しかしランプは全く光らない。");
 #else
 		msg_print("Curiously, your lamp doesn't light.");
 #endif
 	}
-	else if(j_ptr->xtra4 >= FUEL_LAMP)
+	else if(j_ptr->fuel >= FUEL_LAMP)
 	{
-		j_ptr->xtra4 = FUEL_LAMP;
+		j_ptr->fuel = FUEL_LAMP;
 #ifdef JP
 		msg_print("ランプの油は一杯だ。");
 #else
@@ -1128,7 +1128,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 
 	/* Refuel */
-	j_ptr->xtra4 += object_ptr->xtra4 + 5;
+	j_ptr->fuel += object_ptr->fuel + 5;
 
 #ifdef JP
 	msg_print("松明を結合した。");
@@ -1138,7 +1138,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 
 
 	/* Comment */
-	if((object_ptr->name2 == EGO_LITE_DARKNESS) && (j_ptr->xtra4 > 0))
+	if((object_ptr->name2 == EGO_LITE_DARKNESS) && (j_ptr->fuel > 0))
 	{
 		j_ptr->xtra4 = 0;
 #ifdef JP
