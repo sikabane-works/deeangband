@@ -5755,7 +5755,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			}
 			else if(object_ptr->to_ac < creature_ptr->lev / 5 + 5) object_ptr->to_ac++;
 		}
-		else object_ptr->xtra3 = es_ptr->add + 1;
+		else object_ptr->forged_type = es_ptr->add + 1;
 	}
 	else
 	{
@@ -5815,7 +5815,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			add_flag(object_ptr->trait_flags, TRAIT_IGNORE_FIRE);
 			add_flag(object_ptr->trait_flags, TRAIT_IGNORE_COLD);
 		}
-		else object_ptr->xtra3 = es_ptr->add + 1;
+		else object_ptr->forged_type = es_ptr->add + 1;
 	}
 
 	cost_tactical_energy(creature_ptr, 100);
@@ -5861,7 +5861,7 @@ static void erase_essence(creature_type *creature_ptr)
 
 	cost_tactical_energy(creature_ptr, 100);
 
-	if(object_ptr->xtra3 == 1 + ESSENCE_SLAY_GLOVE)
+	if(object_ptr->forged_type == 1 + ESSENCE_SLAY_GLOVE)
 	{
 		object_ptr->to_hit -= (object_ptr->xtra4 >> 8);
 		object_ptr->to_damage -= (object_ptr->xtra4 & 0x000f);
@@ -5869,7 +5869,7 @@ static void erase_essence(creature_type *creature_ptr)
 		if(object_ptr->to_hit < 0) object_ptr->to_hit = 0;
 		if(object_ptr->to_damage < 0) object_ptr->to_damage = 0;
 	}
-	object_ptr->xtra3 = 0;
+	object_ptr->forged_type = 0;
 	object_flags(object_ptr, flgs);
 	if(!(have_pval_flags(flgs))) object_ptr->pval = 0;
 #ifdef JP

@@ -2397,7 +2397,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 		okay = FALSE;
 	}
 
-	else if(object_ptr->xtra3)
+	else if(object_ptr->forged_type)
 	{
 #ifdef JP
 		msg_format("%s‚ÍŠù‚É‹­‰»‚³‚ê‚Ä‚¢‚Ü‚·I", object_name);

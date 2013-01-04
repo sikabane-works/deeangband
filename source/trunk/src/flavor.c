@@ -2249,7 +2249,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	if(have_flag(flgs, TRAIT_SHOW_MODS)) show_weapon = TRUE;
 
 	/* Display the item like a weapon */
-	if(object_is_smith(object_ptr) && (object_ptr->xtra3 == 1 + ESSENCE_SLAY_GLOVE))
+	if(object_is_smith(object_ptr) && (object_ptr->forged_type == 1 + ESSENCE_SLAY_GLOVE))
 		show_weapon = TRUE;
 
 	/* Display the item like a weapon */

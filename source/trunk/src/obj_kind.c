@@ -312,14 +312,14 @@ bool object_allow_enchant_melee_weapon(creature_type *creature_ptr, object_type 
  */
 bool object_is_smith(object_type *object_ptr)
 {
-	if(object_is_weapon_armour_ammo(object_ptr) && object_ptr->xtra3) return TRUE;
+	if(object_is_weapon_armour_ammo(object_ptr) && object_ptr->forged_type) return TRUE;
 	return FALSE;
 }
 
 
 bool object_is_smith2(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if(object_is_weapon_armour_ammo(object_ptr) && object_ptr->xtra3) return TRUE;
+	if(object_is_weapon_armour_ammo(object_ptr) && object_ptr->forged_type) return TRUE;
 
 	return FALSE;
 }

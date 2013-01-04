@@ -150,7 +150,7 @@ void object_flags(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG])
 
 	if(object_is_smith(object_ptr))
 	{
-		int add = object_ptr->xtra3 - 1;
+		int add = object_ptr->forged_type - 1;
 
 		if(add < MAX_TRAITS_FLAG)
 		{
@@ -279,7 +279,7 @@ void object_flags_known(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG])
 
 	if(object_is_smith(object_ptr))
 	{
-		int add = object_ptr->xtra3 - 1;
+		int add = object_ptr->forged_type - 1;
 
 		if(add < MAX_TRAITS_FLAG)
 		{
