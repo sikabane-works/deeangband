@@ -115,6 +115,8 @@ static void wr_object(object_type *object_ptr)
 
 	wr_s16b(object_ptr->to_hit);
 	wr_s16b(object_ptr->to_damage);
+	wr_s16b(object_ptr->to_hit_essence);
+	wr_s16b(object_ptr->to_damage_essence);
 	wr_s16b(object_ptr->to_ac);
 	wr_s16b(object_ptr->to_ev);
 	wr_s16b(object_ptr->to_vo);

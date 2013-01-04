@@ -5726,7 +5726,8 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			}
 			get_to_hit = ((val+1)/2+randint0(val/2+1));
 			get_to_damage = ((val+1)/2+randint0(val/2+1));
-			object_ptr->xtra4 = (get_to_hit<<8)+get_to_damage;
+			object_ptr->to_hit_essence = get_to_hit;
+			object_ptr->to_damage_essence = get_to_damage;
 			object_ptr->to_hit += get_to_hit;
 			object_ptr->to_damage += get_to_damage;
 		}
@@ -5863,9 +5864,10 @@ static void erase_essence(creature_type *creature_ptr)
 
 	if(object_ptr->forged_type == 1 + ESSENCE_SLAY_GLOVE)
 	{
-		object_ptr->to_hit -= (object_ptr->xtra4 >> 8);
-		object_ptr->to_damage -= (object_ptr->xtra4 & 0x000f);
-		object_ptr->xtra4 = 0;
+		object_ptr->to_hit -= object_ptr->to_hit_essence;
+		object_ptr->to_damage -= object_ptr->to_damage_essence;;
+		object_ptr->to_hit_essence = 0;
+		object_ptr->to_damage_essence = 0;
 		if(object_ptr->to_hit < 0) object_ptr->to_hit = 0;
 		if(object_ptr->to_damage < 0) object_ptr->to_damage = 0;
 	}

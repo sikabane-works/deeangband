@@ -273,6 +273,8 @@ static void rd_object(object_type *object_ptr)
 
 	rd_s16b(&object_ptr->to_hit);
 	rd_s16b(&object_ptr->to_damage);
+	rd_s16b(&object_ptr->to_hit_essence);
+	rd_s16b(&object_ptr->to_damage_essence);
 	rd_s16b(&object_ptr->to_ac);
 	rd_s16b(&object_ptr->to_ev);
 	rd_s16b(&object_ptr->to_vo);
