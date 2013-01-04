@@ -231,7 +231,7 @@ bool hex_spell_fully(creature_type *creature_ptr)
 void revenge_spell(creature_type *creature_ptr)
 {
 	if(creature_ptr->realm1 != REALM_HEX) return;
-	if(creature_ptr->magic_num2[2] <= 0) return;
+	if(creature_ptr->revenge_turn <= 0) return;
 
 	switch(creature_ptr->magic_num2[1])
 	{
@@ -243,10 +243,8 @@ void revenge_spell(creature_type *creature_ptr)
 
 void revenge_store(creature_type *creature_ptr, int dam)
 {
-	if(creature_ptr->realm1 != REALM_HEX) return;
-	if(creature_ptr->magic_num2[2] <= 0) return;
-
-	creature_ptr->magic_num1[2] += dam;
+	if(creature_ptr->revenge_turn <= 0) return;
+	creature_ptr->revenge_turn += dam;
 }
 
 

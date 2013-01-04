@@ -481,10 +481,10 @@ static void prt_status(creature_type *creature_ptr)
 			HEX_SPELLING(creature_ptr, HEX_CURE_SERIOUS) ||
 			HEX_SPELLING(creature_ptr, HEX_CURE_CRITICAL)) ADD_FLG(BAR_CURE);
 
-		if(creature_ptr->magic_num2[2])
+		if(creature_ptr->revenge_turn)
 		{
-			if(creature_ptr->magic_num2[1] == 1) ADD_FLG(BAR_PATIENCE);
-			if(creature_ptr->magic_num2[1] == 2) ADD_FLG(BAR_REVENGE);
+			if(creature_ptr->revenge_type == 1) ADD_FLG(BAR_PATIENCE);
+			if(creature_ptr->revenge_type == 2) ADD_FLG(BAR_REVENGE);
 		}
 	}
 
@@ -2486,7 +2486,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	// Hex bonuses
 	if(creature_ptr->realm1 == REALM_HEX)
 	{
-		if(HEX_SPELLING_ANY(creature_ptr)) creature_ptr->skill_stl -= (1 + creature_ptr->magic_num2[0]);
+		if(HEX_SPELLING_ANY(creature_ptr)) creature_ptr->skill_stl -= (1 + creature_ptr->spelling_hex_num);
 		if(HEX_SPELLING(creature_ptr, HEX_DETECT_EVIL));//TODO creature_ptr->esp_evil = TRUE;
 		if(HEX_SPELLING(creature_ptr, HEX_XTRA_MIGHT)) creature_ptr->stat_add[STAT_STR] += 40;
 		if(HEX_SPELLING(creature_ptr, HEX_BUILDING))
