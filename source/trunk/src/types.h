@@ -1226,6 +1226,10 @@ struct creature_type
 	s32b despelling_hex;
 	s32b revenge_damage;
 
+	byte spelling_hex_num;
+	byte revenge_type;
+	byte revenge_turn;
+
 	s32b essence_num1[108];     /* Array for non-spellbook type magic */
 	byte essence_num2[108];     /* Flags for non-spellbook type magics */
 

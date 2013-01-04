@@ -11070,7 +11070,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			int a = 3 - (creature_ptr->speed - 100) / 10;
 			int r = 3 + randint1(3) + MAX(0, MIN(3, a));
 
-			if(creature_ptr->magic_num2[2] > 0)
+			if(creature_ptr->revenge_turn > 0)
 			{
 #ifdef JP
 				msg_print("すでに我慢をしている。");
@@ -11080,8 +11080,8 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				return NULL;
 			}
 
-			creature_ptr->magic_num2[1] = 1;
-			creature_ptr->magic_num2[2] = r;
+			creature_ptr->revenge_type = 1;
+			creature_ptr->revenge_turn = r;
 			creature_ptr->revenge_damage = 0;
 #ifdef JP
 			msg_print("じっと耐えることにした。");
@@ -11094,9 +11094,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			int rad = 2 + (power / 50);
 
-			creature_ptr->magic_num2[2]--;
+			creature_ptr->revenge_turn--;
 
-			if((creature_ptr->magic_num2[2] <= 0) || (power >= 200))
+			if((creature_ptr->revenge_turn <= 0) || (power >= 200))
 			{
 #ifdef JP
 				msg_print("我慢が解かれた！");
@@ -11117,8 +11117,8 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				}
 
-				creature_ptr->magic_num2[1] = 0;
-				creature_ptr->magic_num2[2] = 0;
+				creature_ptr->revenge_type = 0;
+				creature_ptr->revenge_turn = 0;
 				creature_ptr->revenge_damage = 0;
 			}
 		}
@@ -11536,8 +11536,8 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
 				creature_ptr->spelling_hex &= ~(1L << spell);
-				creature_ptr->magic_num2[0]--;
-				if(!creature_ptr->magic_num2[0]) set_action(creature_ptr, ACTION_NONE);
+				creature_ptr->spelling_hex_num--;
+				if(!creature_ptr->spelling_hex_num) set_action(creature_ptr, ACTION_NONE);
 			}
 		}
 		if(stop)
@@ -11658,7 +11658,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_format("Finish casting '%^s'.", do_spell(creature_ptr, REALM_HEX, HEX_RESTORE, SPELL_NAME));
 #endif
 				creature_ptr->spelling_hex &= ~(1L << HEX_RESTORE);
-				if(cont) creature_ptr->magic_num2[0]--;
+				if(cont) creature_ptr->spelling_hex_num--;
 				if(creature_ptr->magic_num2) creature_ptr->action = ACTION_NONE;
 
 				prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
@@ -11868,7 +11868,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			int a = 3 - (creature_ptr->speed - 100) / 10;
 			r = 1 + randint1(2) + MAX(0, MIN(3, a));
 
-			if(creature_ptr->magic_num2[2] > 0)
+			if(creature_ptr->revenge_turn > 0)
 			{
 #ifdef JP
 				msg_print("すでに復讐は宣告済みだ。");
@@ -11878,8 +11878,8 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				return NULL;
 			}
 
-			creature_ptr->magic_num2[1] = 2;
-			creature_ptr->magic_num2[2] = r;
+			creature_ptr->revenge_type = 2;
+			creature_ptr->revenge_turn = r;
 #ifdef JP
 			msg_format("あなたは復讐を宣告した。あと %d ターン。", r);
 #else
@@ -11889,9 +11889,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		}
 		if(cont)
 		{
-			creature_ptr->magic_num2[2]--;
+			creature_ptr->revenge_turn--;
 
-			if(creature_ptr->magic_num2[2] <= 0)
+			if(creature_ptr->revenge_turn <= 0)
 			{
 				int dir;
 
@@ -11939,7 +11939,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 	{
 		/* add spell */
 		creature_ptr->spelling_hex |= 1L << (spell);
-		creature_ptr->magic_num2[0]++;
+		creature_ptr->spelling_hex_num++;
 
 		if(creature_ptr->action != ACTION_SPELL) set_action(creature_ptr, ACTION_SPELL);
 	}
