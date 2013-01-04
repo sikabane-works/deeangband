@@ -630,6 +630,8 @@ struct object_type
 	byte xtra3;			/* Extra info */
 	s16b xtra4;			/* Extra info */
 
+	byte forged_type;	// forged by smith craft
+
 	s16b to_hit;		// Plusses to hit
 	s16b to_damage;		// Plusses to damage
 	s16b to_ac;			// Plusses to AC

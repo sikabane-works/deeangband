@@ -297,6 +297,8 @@ static void rd_object(object_type *object_ptr)
 	rd_byte(&object_ptr->xtra3);
 	rd_s16b(&object_ptr->xtra4);
 
+	rd_byte(&object_ptr->forged_type);
+
 	rd_byte(&object_ptr->feeling);
 
 	//rd_string(buf, sizeof(buf));

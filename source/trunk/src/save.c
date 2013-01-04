@@ -135,6 +135,8 @@ static void wr_object(object_type *object_ptr)
 	wr_byte(object_ptr->xtra3);
 	wr_s16b(object_ptr->xtra4);
 
+	wr_byte(object_ptr->forged_type);
+
 	wr_byte(object_ptr->feeling);
 
 	//wr_string(quark_str(object_ptr->inscription));

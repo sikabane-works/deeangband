@@ -2374,7 +2374,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 	if(object_is_artifact(object_ptr))
 	{
 #ifdef JP
-		msg_format("%sは既に伝説のアイテムです！", object_name  );
+		msg_format("%sは既に伝説のアイテムです！", object_name);
 #else
 		msg_format("The %s %s already %s!",
 		    object_name, ((object_ptr->number > 1) ? "are" : "is"),
@@ -2387,7 +2387,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 	else if(object_is_ego(object_ptr))
 	{
 #ifdef JP
-		msg_format("%sは既に名のあるアイテムです！", object_name );
+		msg_format("%sは既に名のあるアイテムです！", object_name);
 #else
 		msg_format("The %s %s already %s!",
 		    object_name, ((object_ptr->number > 1) ? "are" : "is"),
@@ -2400,7 +2400,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 	else if(object_ptr->xtra3)
 	{
 #ifdef JP
-		msg_format("%sは既に強化されています！", object_name );
+		msg_format("%sは既に強化されています！", object_name);
 #else
 		msg_format("The %s %s already %s!",
 		    object_name, ((object_ptr->number > 1) ? "are" : "is"),
