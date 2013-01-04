@@ -132,6 +132,8 @@ static void wr_object(object_type *object_ptr)
 
 	wr_s16b(object_ptr->held_m_idx);
 
+	wr_s16b(object_ptr->fuel);
+
 	wr_byte(object_ptr->forged_type);
 
 	wr_byte(object_ptr->feeling);

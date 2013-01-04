@@ -1154,7 +1154,7 @@ msg_print("燃素を消費するアイテムを装備していません。");
 		return;
 	}
 
-	if(object_ptr->xtra4 >= max_flog)
+	if(object_ptr->fuel >= max_flog)
 	{
 #ifdef JP
 msg_print("このアイテムにはこれ以上燃素を補充できません。");
@@ -1166,7 +1166,7 @@ msg_print("このアイテムにはこれ以上燃素を補充できません。");
 	}
 
 	/* Refuel */
-	object_ptr->xtra4 += (max_flog / 2);
+	object_ptr->fuel += (max_flog / 2);
 
 #ifdef JP
 msg_print("照明用アイテムに燃素を補充した。");
@@ -1176,9 +1176,9 @@ msg_print("照明用アイテムに燃素を補充した。");
 
 
 	/* Comment */
-	if(object_ptr->xtra4 >= max_flog)
+	if(object_ptr->fuel >= max_flog)
 	{
-		object_ptr->xtra4 = max_flog;
+		object_ptr->fuel = max_flog;
 #ifdef JP
 msg_print("照明用アイテムは満タンになった。");
 #else

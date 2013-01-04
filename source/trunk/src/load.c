@@ -293,6 +293,8 @@ static void rd_object(object_type *object_ptr)
 	// Creature holding object
 	rd_s16b(&object_ptr->held_m_idx);
 
+	rd_s16b(&object_ptr->fuel);
+
 	rd_byte(&object_ptr->forged_type);
 
 	rd_byte(&object_ptr->feeling);

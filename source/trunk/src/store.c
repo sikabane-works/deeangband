@@ -2293,8 +2293,8 @@ static int store_replacement(store_type *st_ptr, int num)
 		/* Hack -- Charge lite's */
 		if(quest_ptr->tval == TV_LITE)
 		{
-			if(quest_ptr->sval == SV_LITE_TORCH) quest_ptr->xtra4 = FUEL_TORCH / 2;
-			if(quest_ptr->sval == SV_LITE_LANTERN) quest_ptr->xtra4 = FUEL_LAMP / 2;
+			if(quest_ptr->sval == SV_LITE_TORCH) quest_ptr->fuel = FUEL_TORCH / 2;
+			if(quest_ptr->sval == SV_LITE_LANTERN) quest_ptr->fuel = FUEL_LAMP / 2;
 		}
 
 		/* The item is "known" */

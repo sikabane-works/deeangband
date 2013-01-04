@@ -2068,11 +2068,11 @@ static void calc_lite(creature_type *creature_ptr)
 				else if(object_ptr->sval == SV_LITE_FEANOR) creature_ptr->cur_lite -= 3;
 			}
 			/* Torches (with fuel) provide some lite */
-			else if((object_ptr->sval == SV_LITE_TORCH) && (object_ptr->xtra4 > 0))
+			else if((object_ptr->sval == SV_LITE_TORCH) && (object_ptr->fuel > 0))
 				creature_ptr->cur_lite += 2;
 
 			/* Lanterns (with fuel) provide more lite */
-			else if((object_ptr->sval == SV_LITE_LANTERN) && (object_ptr->xtra4 > 0))
+			else if((object_ptr->sval == SV_LITE_LANTERN) && (object_ptr->fuel > 0))
 				creature_ptr->cur_lite += 2;
 
 			else if(object_ptr->sval == SV_LITE_FEANOR || object_ptr->sval == SV_LITE_UDUN)
