@@ -3933,7 +3933,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 
 			for (i = 0; i < num; i++)
 			{
-				if(creature_ptr->magic_num2[spellnum[i]])
+				if(have_flag(creature_ptr->blue_learned_trait, i))
 				{
 					pcol = TRUE;
 					/* Dump blue magic */

@@ -1364,7 +1364,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 #endif
 
 	}
-	creature_ptr->magic_num1[0] = 0;
+	//TODO CHECK creature_ptr->magic_num1[0] = 0;
 
 	return TRUE;
 }

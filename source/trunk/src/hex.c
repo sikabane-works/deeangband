@@ -233,9 +233,8 @@ void revenge_spell(creature_type *creature_ptr)
 	if(creature_ptr->realm1 != REALM_HEX) return;
 	if(creature_ptr->revenge_turn <= 0) return;
 
-	switch(creature_ptr->magic_num2[1])
+	switch(creature_ptr->revenge_type)
 	{
-	//TODO
 	case 1: do_spell(creature_ptr, REALM_HEX, HEX_PATIENCE, SPELL_CONT); break;
 	case 2: do_spell(creature_ptr, REALM_HEX, HEX_REVENGE, SPELL_CONT); break;
 	}

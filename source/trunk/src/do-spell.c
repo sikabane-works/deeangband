@@ -11659,7 +11659,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				creature_ptr->spelling_hex &= ~(1L << HEX_RESTORE);
 				if(cont) creature_ptr->spelling_hex_num--;
-				if(creature_ptr->magic_num2) creature_ptr->action = ACTION_NONE;
+				if(!creature_ptr->spelling_hex_num) creature_ptr->action = ACTION_NONE;
 
 				prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 				prepare_redraw(PR_EXTRA);
