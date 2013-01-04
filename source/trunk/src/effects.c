@@ -443,8 +443,8 @@ void dispel_creature(creature_type *creature_ptr)
 #else
 		msg_format("Your spelling is interrupted.");
 #endif
-		creature_ptr->magic_num1[1] = creature_ptr->magic_num1[0];
-		creature_ptr->magic_num1[0] = 0;
+		creature_ptr->despelling_hex = creature_ptr->spelling_hex;
+		creature_ptr->spelling_hex = 0;
 		creature_ptr->action = ACTION_NONE;
 		prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
 		prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
