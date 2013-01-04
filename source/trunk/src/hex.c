@@ -22,7 +22,7 @@ bool stop_hex_spell_all(creature_type *creature_ptr)
 		if(HEX_SPELLING(creature_ptr, spell)) do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
 	}
 
-	creature_ptr->magic_num1[0] = 0;
+	creature_ptr->spelling_hex = 0;
 	creature_ptr->magic_num2[0] = 0;
 
 	/* Print message */
@@ -105,7 +105,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 		int n = sp[A2I(choice)];
 
 		do_spell(creature_ptr, REALM_HEX, n, SPELL_STOP);
-		creature_ptr->magic_num1[0] &= ~(1L << n);
+		creature_ptr->spelling_hex &= ~(1L << n);
 		creature_ptr->magic_num2[0]--;
 	}
 
@@ -129,12 +129,12 @@ void check_hex(creature_type *creature_ptr)
 
 	/* Spells spelled by player */
 	if(creature_ptr->realm1 != REALM_HEX) return;
-	if(!creature_ptr->magic_num1[0] && !creature_ptr->magic_num1[1]) return;
+	if(!creature_ptr->spelling_hex && !creature_ptr->despelling_hex) return;
 
-	if(creature_ptr->magic_num1[1])
+	if(creature_ptr->despelling_hex)
 	{
-		creature_ptr->magic_num1[0] = creature_ptr->magic_num1[1];
-		creature_ptr->magic_num1[1] = 0;
+		creature_ptr->spelling_hex = creature_ptr->despelling_hex;
+		creature_ptr->despelling_hex = 0;
 		res = TRUE;
 	}
 

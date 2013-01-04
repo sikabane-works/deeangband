@@ -11063,7 +11063,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Patience";
 		if(desc) return "Bursts hell fire strongly after patients any damage while few turns.";
 #endif
-		power = MIN(200, (creature_ptr->magic_num1[2] * 2));
+		power = MIN(200, (creature_ptr->revenge_damage * 2));
 		if(info) return info_damage(0, 0, power);
 		if(cast)
 		{
@@ -11082,7 +11082,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 			creature_ptr->magic_num2[1] = 1;
 			creature_ptr->magic_num2[2] = r;
-			creature_ptr->magic_num1[2] = 0;
+			creature_ptr->revenge_damage = 0;
 #ifdef JP
 			msg_print("‚¶‚Á‚Æ‘Ï‚¦‚é‚±‚Æ‚É‚µ‚½B");
 #else
@@ -11119,7 +11119,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 				creature_ptr->magic_num2[1] = 0;
 				creature_ptr->magic_num2[2] = 0;
-				creature_ptr->magic_num1[2] = 0;
+				creature_ptr->revenge_damage = 0;
 			}
 		}
 		break;
@@ -11181,9 +11181,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 		if(cast)
 		{
-			creature_ptr->magic_num1[0] |= (1L << HEX_INHAIL);
+			creature_ptr->spelling_hex |= (1L << HEX_INHAIL);
 			do_cmd_quaff_potion(creature_ptr);
-			creature_ptr->magic_num1[0] &= ~(1L << HEX_INHAIL);
+			creature_ptr->spelling_hex &= ~(1L << HEX_INHAIL);
 			add = FALSE;
 		}
 		break;
@@ -11535,7 +11535,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			if((!object_ptr->k_idx) || (!object_is_cursed(object_ptr)))
 			{
 				do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
-				creature_ptr->magic_num1[0] &= ~(1L << spell);
+				creature_ptr->spelling_hex &= ~(1L << spell);
 				creature_ptr->magic_num2[0]--;
 				if(!creature_ptr->magic_num2[0]) set_action(creature_ptr, ACTION_NONE);
 			}
@@ -11657,7 +11657,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 				msg_format("Finish casting '%^s'.", do_spell(creature_ptr, REALM_HEX, HEX_RESTORE, SPELL_NAME));
 #endif
-				creature_ptr->magic_num1[0] &= ~(1L << HEX_RESTORE);
+				creature_ptr->spelling_hex &= ~(1L << HEX_RESTORE);
 				if(cont) creature_ptr->magic_num2[0]--;
 				if(creature_ptr->magic_num2) creature_ptr->action = ACTION_NONE;
 
@@ -11860,7 +11860,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Revenge sentence";
 		if(desc) return "Fires  a ball of hell fire to try revenging after few turns.";
 #endif
-		power = creature_ptr->magic_num1[2];
+		power = creature_ptr->revenge_damage;
 		if(info) return info_damage(0, 0, power);
 		if(cast)
 		{
@@ -11928,7 +11928,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					msg_print("You are not a mood to revenge.");
 #endif
 				}
-				creature_ptr->magic_num1[2] = 0;
+				creature_ptr->revenge_damage = 0;
 			}
 		}
 		break;
@@ -11938,7 +11938,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 	if((cast) && (add))
 	{
 		/* add spell */
-		creature_ptr->magic_num1[0] |= 1L << (spell);
+		creature_ptr->spelling_hex |= 1L << (spell);
 		creature_ptr->magic_num2[0]++;
 
 		if(creature_ptr->action != ACTION_SPELL) set_action(creature_ptr, ACTION_SPELL);
