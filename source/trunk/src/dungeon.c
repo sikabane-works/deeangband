@@ -1120,7 +1120,7 @@ static void regen_captured_creatures(creature_type *creature_ptr)
 static void notice_lite_change(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Hack -- notice interesting fuel steps */
-	if((object_ptr->xtra4 < 100) || (!(object_ptr->xtra4 % 100)))
+	if((object_ptr->fuel < 100) || (!(object_ptr->fuel % 100)))
 	{
 		prepare_window(PW_EQUIP);
 	}
@@ -1129,11 +1129,11 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	if(has_trait(creature_ptr, TRAIT_BLIND))
 	{
 		/* Hack -- save some light for later */
-		if(object_ptr->xtra4 == 0) object_ptr->xtra4++;
+		if(object_ptr->fuel == 0) object_ptr->xtra4++;
 	}
 
 	/* The light is now out */
-	else if(object_ptr->xtra4 == 0)
+	else if(object_ptr->fuel == 0)
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -1148,7 +1148,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	/* The light is getting dim */
 	else if(object_ptr->name2 == EGO_LITE_LONG)
 	{
-		if((object_ptr->xtra4 < 50) && (!(object_ptr->xtra4 % 5))
+		if((object_ptr->fuel < 50) && (!(object_ptr->fuel % 5))
 			&& (turn % (TURNS_PER_TICK*2)))
 		{
 			if(disturb_minor) disturb(player_ptr, 0, 0);
@@ -1162,7 +1162,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	}
 
 	/* The light is getting dim */
-	else if((object_ptr->xtra4 < 100) && (!(object_ptr->xtra4 % 10)))
+	else if((object_ptr->fuel < 100) && (!(object_ptr->fuel % 10)))
 	{
 		if(disturb_minor) disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -1913,14 +1913,14 @@ static void process_world_aux_light(creature_type *creature_ptr)
 	if(object_ptr->tval == TV_LITE)
 	{
 		/* Hack -- Use some fuel (except on artifacts) */
-		if(!(object_is_fixed_artifact(object_ptr) || object_ptr->sval == SV_LITE_FEANOR) && (object_ptr->xtra4 > 0))
+		if(!(object_is_fixed_artifact(object_ptr) || object_ptr->sval == SV_LITE_FEANOR) && (object_ptr->fuel > 0))
 		{
 			/* Decrease life-span */
 			if(object_ptr->name2 == EGO_LITE_LONG)
 			{
-				if(turn % (TURNS_PER_TICK*2)) object_ptr->xtra4--;
+				if(turn % (TURNS_PER_TICK*2)) object_ptr->fuel--;
 			}
-			else object_ptr->xtra4--;
+			else object_ptr->fuel--;
 
 			/* Notice interesting fuel steps */
 			notice_lite_change(creature_ptr, object_ptr);
@@ -2144,11 +2144,11 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		/* Absorb some fuel in the current lite */
 		if(object_ptr->tval == TV_LITE)
 		{
-			if(!object_is_fixed_artifact(object_ptr) && (object_ptr->xtra4 > 0))	// Use some fuel (except on artifacts)
+			if(!object_is_fixed_artifact(object_ptr) && (object_ptr->fuel > 0))	// Use some fuel (except on artifacts)
 			{
 
-				heal_creature(creature_ptr, object_ptr->xtra4 / 20);	// Heal the player a bit			
-				object_ptr->xtra4 /= 2;	// Decrease life-span of lite
+				heal_creature(creature_ptr, object_ptr->fuel / 20);	// Heal the player a bit			
+				object_ptr->fuel /= 2;	// Decrease life-span of lite
 #ifdef JP
 				msg_print("光源からエネルギーを吸収した！");
 #else

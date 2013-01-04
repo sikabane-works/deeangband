@@ -3128,7 +3128,7 @@ static void deal_food(creature_type *creature_ptr)
 		/* Flasks of oil */
 		object_prep(quest_ptr, lookup_kind(TV_FLASK, SV_ANY), ITEM_FREE_SIZE);
 
-		/* Fuel with oil (move pval to xtra4) */
+		/* Fuel with oil */
 		apply_magic(creature_ptr, quest_ptr, 1, AM_NO_FIXED_ART, 0);
 		quest_ptr->number = (byte)rand_range(7, 12);
 		add_outfit(creature_ptr, quest_ptr, 0);
@@ -3157,7 +3157,7 @@ static void deal_lite(creature_type *creature_ptr)
 			// Hack -- Give the player some torches
 			object_prep(quest_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
 			quest_ptr->number = (byte)rand_range(3, 7);
-			quest_ptr->xtra4 = (s16b)rand_range(7, 10) * 500;
+			quest_ptr->fuel = (s16b)rand_range(7, 10) * 500;
 			add_outfit(creature_ptr, quest_ptr, 0);
 		}
 	}

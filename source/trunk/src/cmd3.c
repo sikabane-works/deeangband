@@ -1140,7 +1140,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 	/* Comment */
 	if((object_ptr->name2 == EGO_LITE_DARKNESS) && (j_ptr->fuel > 0))
 	{
-		j_ptr->xtra4 = 0;
+		j_ptr->fuel = 0;
 #ifdef JP
 		msg_print("松明が消えてしまった！");
 #else
@@ -1149,7 +1149,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 	}
 	else if((object_ptr->name2 == EGO_LITE_DARKNESS) || (j_ptr->name2 == EGO_LITE_DARKNESS))
 	{
-		j_ptr->xtra4 = 0;
+		j_ptr->fuel = 0;
 #ifdef JP
 		msg_print("しかし松明は全く光らない。");
 #else
@@ -1157,9 +1157,9 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 #endif
 	}
 	/* Over-fuel message */
-	else if(j_ptr->xtra4 >= FUEL_TORCH)
+	else if(j_ptr->fuel >= FUEL_TORCH)
 	{
-		j_ptr->xtra4 = FUEL_TORCH;
+		j_ptr->fuel = FUEL_TORCH;
 #ifdef JP
 		msg_print("松明の寿命は十分だ。");
 #else
