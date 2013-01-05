@@ -1346,7 +1346,6 @@ int load_player(void)
 		// lock exists
 		if(fkk)
 		{
-			/* Close the file */
 			my_fclose(fkk);
 
 #ifdef JP
@@ -1405,7 +1404,6 @@ int load_player(void)
 #endif
 
 
-		/* Close the file */
 		(void)fd_close(fd);
 	}
 

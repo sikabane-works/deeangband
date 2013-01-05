@@ -2024,7 +2024,6 @@ bool autopick_autoregister(creature_type *creature_ptr, object_type *object_ptr)
 	/* Don't kill "entry" */
 	fprintf(pref_fff, "%s\n", autopick_line_from_entry(entry));
 
-	/* Close the file */
 	fclose(pref_fff);
 
 	return TRUE;

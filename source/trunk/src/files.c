@@ -1220,7 +1220,6 @@ static errr process_pref_file_aux(cptr name, int preftype)
 		msg_print(NULL);
 	}
 
-	/* Close the file */
 	my_fclose(fp);
 
 	return (err);
@@ -1385,7 +1384,6 @@ errr check_load_init(void)
 		break;
 	}
 
-	/* Close the file */
 	my_fclose(fp);
 
 #endif
@@ -4632,7 +4630,6 @@ errr file_character(cptr name)
 	{
 		char out_val[160];
 
-		/* Close the file */
 		(void)fd_close(fd);
 
 		/* Build query */
@@ -5352,7 +5349,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		if(skey == 'q') break;
 	}
 
-	/* Close the file */
 	my_fclose(fff);
 
 	/* Escape */
@@ -6588,7 +6584,6 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 		if(one_in_(counter + 1)) strcpy(output, buf);
 	}
 
-	/* Close the file */
 	my_fclose(fp);
 
 	return counter ? 0 : -1;

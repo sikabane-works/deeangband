@@ -5159,7 +5159,6 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 */
 	}
 
-	/* Close the file */
 	my_fclose(fff);
 
 	/* Display the file contents */
@@ -5755,7 +5754,6 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	/* Free the "okay" array */
 	C_KILL(okay, max_artifact_idx, bool);
 
-	/* Close the file */
 	my_fclose(fff);
 
 	/* Display the file contents */
@@ -5908,7 +5906,6 @@ static void do_cmd_knowledge_uniques(void)
 	/* Free the "who" array */
 	C_KILL(who, max_species_idx, s16b);
 
-	/* Close the file */
 	my_fclose(fff);
 
 	/* Display the file contents */
@@ -5969,7 +5966,6 @@ static void do_cmd_knowledge_weapon_exp(creature_type *creature_ptr)
 		}
 	}
 
-	/* Close the file */
 	my_fclose(fff);
 
 	/* Display the file contents */
@@ -6019,7 +6015,6 @@ static void do_cmd_knowledge_skill_exp(creature_type *creature_ptr)
 		fprintf(fff, "\n");
 	}
 
-	/* Close the file */
 	my_fclose(fff);
 
 	/* Display the file contents */
@@ -6212,7 +6207,6 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 
 
 
-	/* Close the file */
 	my_fclose(fff);
 
 	/* Display the file contents */
@@ -6382,7 +6376,6 @@ static void do_cmd_knowledge_kill_count(void)
 	/* Free the "who" array */
 	C_KILL(who, max_species_idx, s16b);
 
-	/* Close the file */
 	my_fclose(fff);
 
 	/* Display the file contents */
@@ -8035,7 +8028,6 @@ static void do_cmd_knowledge_kubi(creature_type *creature_ptr)
 		}
 	}
 	
-	/* Close the file */
 	my_fclose(fff);
 	
 	/* Display the file contents */
@@ -8079,7 +8071,6 @@ static void do_cmd_knowledge_karmas(creature_type *creature_ptr)
 		dump_karmas(creature_ptr, fff);
 	}
 	
-	/* Close the file */
 	my_fclose(fff);
 	
 	
@@ -8128,7 +8119,6 @@ static void do_cmd_knowledge_dungeon()
 		}
 	}
 	
-	/* Close the file */
 	my_fclose(fff);
 	
 	/* Display the file contents */
@@ -8190,7 +8180,6 @@ static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 
 	dump_yourself(creature_ptr, fff);
 
-	/* Close the file */
 	my_fclose(fff);
 	
 	/* Display the file contents */
@@ -8654,7 +8643,6 @@ static void do_cmd_knowledge_quests(void)
 		do_cmd_knowledge_quests_wiz_random(fff);
 	}
 
-	/* Close the file */
 	my_fclose(fff);
 
 	/* Display the file contents */
@@ -8749,7 +8737,6 @@ static void do_cmd_knowledge_home(void)
 	}
 */
 
-	/* Close the file */
 	my_fclose(fff);
 
 	/* Display the file contents */
@@ -8848,7 +8835,6 @@ static void do_cmd_knowledge_autopick(void)
 		string_free(tmp);
 		fprintf(fff, "\n");
 	}
-	/* Close the file */
 	my_fclose(fff);
 	/* Display the file contents */
 #ifdef JP
@@ -9160,6 +9146,5 @@ void do_cmd_time(creature_type *creature_ptr)
 
 	msg_print(desc);
 
-	/* Close the file */
 	my_fclose(fff);
 }

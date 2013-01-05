@@ -64,7 +64,6 @@ void do_cmd_knowledge_traits(creature_type *creature_ptr)
 	/* Dump the mutations to file */
 	if(fff) dump_traits(creature_ptr, fff);
 
-	/* Close the file */
 	my_fclose(fff);
 
 	/* Display the file contents */
