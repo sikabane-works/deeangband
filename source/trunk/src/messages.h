@@ -301,6 +301,13 @@
 #define GAME_MESSAGE_FEELING_WILD "Looks like a typical wilderness."
 #endif
 
+#ifdef JP
+#define GAME_MESSAGE_CANNOT_GO_MORE "ÇªÇÍà»è„êÊÇ…ÇÕêiÇﬂÇ»Ç¢ÅB"
+#else
+#define GAME_MESSAGE_CANNOT_GO_MORE "You cannot go any more."
+#endif
+
+
 // Cause of Death
 #if JP
 

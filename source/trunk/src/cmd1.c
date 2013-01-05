@@ -1886,13 +1886,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		{
 			/* Boundary floor mimic */
 			if(boundary_floor(c_ptr, f_ptr, mimic_f_ptr))
-			{
-#ifdef JP
-				msg_print("それ以上先には進めないようだ。");
-#else
-				msg_print("You feel you cannot go any more.");
-#endif
-			}
+				msg_print(GAME_MESSAGE_CANNOT_GO_MORE);
 
 			/* Wall (or secret door) */
 			else
@@ -1915,12 +1909,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			// Boundary floor mimic
 			if(boundary_floor(c_ptr, f_ptr, mimic_f_ptr))
 			{
-#ifdef JP
-				msg_print("それ以上先には進めない。");
-#else
-				msg_print("You cannot go any more.");
-#endif
-
+				msg_print(GAME_MESSAGE_CANNOT_GO_MORE);
 				if(!(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_STUN) || has_trait(creature_ptr, TRAIT_HALLUCINATION)))
 					cancel_tactical_action(creature_ptr);
 			}
