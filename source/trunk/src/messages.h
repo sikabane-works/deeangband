@@ -320,11 +320,14 @@
 #define GAME_MESSAGE_BUILDING_NO_BLDG "ここには建物はない。"
 #define GAME_MESSAGE_BUILDING_LOSER "「敗者に用はない。」"
 #define GAME_MESSAGE_BUILDING_ARENA_FIGHT "ゲートは閉まっている。相手があなたを待っている！"
+#define GAME_MESSAGE_BUILDING_NO_RIGHT "それを選択する権利はありません！"
 #else
 #define GAME_MESSAGE_BUILDING_NO_BLDG "You see no building here."
 #define GAME_MESSAGE_BUILDING_LOSER "'There's no place here for a LOSER like you!'"
 #define GAME_MESSAGE_BUILDING_ARENA_FIGHT "The gates are closed.  The enemy awaits!"
+#define GAME_MESSAGE_BUILDING_NO_RIGHT "You have no right to choose that!"
 #endif
+
 
 // Cause of Death
 #if JP

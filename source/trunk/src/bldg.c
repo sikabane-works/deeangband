@@ -3436,14 +3436,9 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		bcost = bldg->other_costs[i];
 
 	/* action restrictions */
-	if(((bldg->action_restr[i] == 1) && !is_member(creature_ptr, bldg)) ||
-	    ((bldg->action_restr[i] == 2) && !is_owner(creature_ptr, bldg)))
+	if(((bldg->action_restr[i] == 1) && !is_member(creature_ptr, bldg)) || ((bldg->action_restr[i] == 2) && !is_owner(creature_ptr, bldg)))
 	{
-#ifdef JP
-		msg_print("‚»‚ê‚ğ‘I‘ğ‚·‚éŒ —˜‚Í‚ ‚è‚Ü‚¹‚ñI");
-#else
-		msg_print("You have no right to choose that!");
-#endif
+		msg_print(GAME_MESSAGE_BUILDING_NO_RIGHT);
 		return;
 	}
 
