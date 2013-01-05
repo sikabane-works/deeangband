@@ -1989,13 +1989,8 @@ bool autopick_autoregister(creature_type *creature_ptr, object_type *object_ptr)
 	pref_fff = my_fopen(pref_file, "a");
 
 	if(!pref_fff) {
-#ifdef JP
-		msg_format("%s ‚ğŠJ‚­‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B", pref_file);
-#else
-		msg_format("Failed to open %s.", pref_file);
-#endif
+		msg_format(SYS_MESSAGE_FAILED_FILEOPEN2, pref_file);
 		msg_print(NULL);
-
 		return FALSE;
 	}
 

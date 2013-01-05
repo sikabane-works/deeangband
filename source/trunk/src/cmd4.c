@@ -267,11 +267,7 @@ static bool open_auto_dump(cptr buf, cptr mark)
 	auto_dump_stream = my_fopen(buf, "a");
 
 	if(!auto_dump_stream) {
-#ifdef JP
-		msg_format("%s を開くことができませんでした。", buf);
-#else
-		msg_format("Failed to open %s.", buf);
-#endif
+		msg_format(SYS_MESSAGE_FAILED_FILEOPEN2, buf);
 		msg_print(NULL);
 
 		return FALSE;
@@ -381,9 +377,9 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 	if(!fff)
 	{
 #ifdef JP
-		msg_format("%s を開くことができませんでした。プレイ記録を一時停止します。", buf);
+		msg_format("%sプレイ記録を一時停止します。", SYS_MESSAGE_FAILED_FILEOPEN2, buf);
 #else
-		msg_format("Failed to open %s. Play-Record is disabled temporally.", buf);
+		msg_format("%s. Play-Record is disabled temporally.", SYS_MESSAGE_FAILED_FILEOPEN2, buf);
 #endif
 		msg_format(NULL);
 		disable_nikki=TRUE;
@@ -4113,12 +4109,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	// No useful feeling in the wilderness
 	else if(!floor_ptr->floor_level)
 	{
-#ifdef JP
-		msg_print("典型的な荒野のようだ。");
-#else
-		msg_print("Looks like a typical wilderness.");
-#endif
-
+		msg_print(GAME_MESSAGE_FEELING_WILD);
 		return;
 	}
 
@@ -4895,11 +4886,7 @@ void do_cmd_load_screen(void)
 	fff = my_fopen(buf, "r");
 
 	if(!fff) {
-#ifdef JP
-		msg_format("%s を開くことができませんでした。", buf);
-#else
-		msg_format("Failed to open %s.", buf);
-#endif
+		msg_format(SYS_MESSAGE_FAILED_FILEOPEN2, buf);
 		msg_print(NULL);
 		return;
 	}

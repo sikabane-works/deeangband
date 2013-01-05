@@ -5,6 +5,7 @@
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "一時ファイル %s を作成できませんでした。"
 #define SYS_MESSAGE_FAILED_FILEOPEN "ファイルを開けません。"
+#define SYS_MESSAGE_FAILED_FILEOPEN2 "%s を開くことができませんでした。"
 #define SYS_MESSAGE_HIT_ANY_KEY "何かキーを押して下さい。"
 #define SYS_MESSAGE_OPTION_AUX "初期オプション((*)はスコアに影響)"
 #define SYS_MESSAGE_OPTION_AUX2 "初期オプション(参照のみ)"
@@ -27,6 +28,7 @@
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
 #define SYS_MESSAGE_FAILED_FILEOPEN "Can not open file."
+#define SYS_MESSAGE_FAILED_FILEOPEN2 "Failed to open %s."
 #define SYS_MESSAGE_HIT_ANY_KEY "Hit Any Key。"
 #define SYS_MESSAGE_OPTION_AUX "Birth Option((*)s effect score)"
 #define SYS_MESSAGE_OPTION_AUX2 "Birth Options(browse only)"
@@ -291,12 +293,13 @@
 #define GAME_MESSAGE_FEELING_QUESTDUN "典型的なクエストのダンジョンのようだ。"
 #define GAME_MESSAGE_FEELING_WILD_POINT "何かありそうな荒野のようだ。"
 #define GAME_MESSAGE_FEELING_TOWN "典型的な町のようだ。"
+#define GAME_MESSAGE_FEELING_WILD "典型的な荒野のようだ。"
 #else
 #define GAME_MESSAGE_FEELING_QUESTDUN "Looks like a typical quest level.";
 #define GAME_MESSAGE_FEELING_WILD_POINT "Looks like a strange wilderness."
 #define GAME_MESSAGE_FEELING_TOWN "Looks like a typical town."
+#define GAME_MESSAGE_FEELING_WILD "Looks like a typical wilderness."
 #endif
-
 
 // Cause of Death
 #if JP
