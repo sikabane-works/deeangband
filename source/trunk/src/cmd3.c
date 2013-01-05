@@ -216,9 +216,9 @@ void do_cmd_wield(creature_type *creature_ptr)
 		char dummy[MAX_NLEN+80];
 		object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
 #ifdef JP
-		sprintf(dummy, "本当に%s{呪われている}を使いますか？", object_name);
+		sprintf(dummy, "本当に%s{%s}を使いますか？", KEYWORD_CURSED, object_name);
 #else
-		sprintf(dummy, "Really use the %s {cursed}? ", object_name);
+		sprintf(dummy, "Really use the %s {%s}? ", KEYWORD_CURSED, object_name);
 #endif
 		if(!get_check(dummy)) return;
 	}

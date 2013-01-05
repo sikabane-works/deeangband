@@ -2,6 +2,13 @@
 // Keywords
 
 #ifdef JP
+#define KEYWORD_CURSED "呪われている"
+#else
+#define KEYWORD_CURSED "cursed"
+#endif
+
+
+#ifdef JP
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "一時ファイル %s を作成できませんでした。"
 #define SYS_MESSAGE_FAILED_FILEOPEN "ファイルを開けません。"
@@ -309,6 +316,15 @@
 #define GAME_MESSAGE_CANNOT_GO_MORE "You cannot go any more."
 #endif
 
+#ifdef JP
+#define GAME_MESSAGE_BUILDING_NO_BLDG "ここには建物はない。"
+#define GAME_MESSAGE_BUILDING_LOSER "「敗者に用はない。」"
+#define GAME_MESSAGE_BUILDING_ARENA_FIGHT "ゲートは閉まっている。相手があなたを待っている！"
+#else
+#define GAME_MESSAGE_BUILDING_NO_BLDG "You see no building here."
+#define GAME_MESSAGE_BUILDING_LOSER "'There's no place here for a LOSER like you!'"
+#define GAME_MESSAGE_BUILDING_ARENA_FIGHT "The gates are closed.  The enemy awaits!"
+#endif
 
 // Cause of Death
 #if JP

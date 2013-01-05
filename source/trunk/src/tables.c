@@ -3148,7 +3148,7 @@ cptr game_inscriptions[] =
 	"âÛÇÍÇƒÇ¢ÇÈ", /* FEEL_BROKEN */
 	"ã∞ÇÎÇµÇ¢", /* FEEL_TERRIBLE */
 	"ñ≥âøíl", /* FEEL_WORTHLESS */
-	"éÙÇÌÇÍÇƒÇ¢ÇÈ", /* FEEL_CURSED */
+	KEYWORD_CURSED, /* FEEL_CURSED */
 	"è„éøà»è„", /* FEEL_UNCURSED */
 	"ï¿", /* FEEL_AVERAGE */
 	"è„éø", /* FEEL_GOOD */
@@ -3158,7 +3158,7 @@ cptr game_inscriptions[] =
 	"broken", /* FEEL_BROKEN */
 	"terrible", /* FEEL_TERRIBLE */
 	"worthless", /* FEEL_WORTHLESS */
-	"cursed", /* FEEL_CURSED */
+	KEYWORD_CURSED, /* FEEL_CURSED */
 	"uncursed", /* FEEL_UNCURSED */
 	"average", /* FEEL_AVERAGE */
 	"good", /* FEEL_GOOD */

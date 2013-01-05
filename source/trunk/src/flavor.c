@@ -2701,13 +2701,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 
 	else if(object_is_cursed(object_ptr) && (known || (object_ptr->ident & IDENT_SENSE)))
-	{
-#ifdef JP
-		strcpy(fake_insc_buf, "Žô‚í‚ê‚Ä‚¢‚é");
-#else
-		strcpy(fake_insc_buf, "cursed");
-#endif
-	}
+		strcpy(fake_insc_buf, KEYWORD_CURSED);
 
 	else if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)
 		   || (object_ptr->tval == TV_LITE) || (object_ptr->tval == TV_FIGURINE))

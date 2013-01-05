@@ -3733,12 +3733,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 	if(!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_BLDG))
 	{
-#ifdef JP
-		msg_print("ここには建物はない。");
-#else
-		msg_print("You see no building here.");
-#endif
-
+		msg_print(GAME_MESSAGE_BUILDING_NO_BLDG);
 		return;
 	}
 
@@ -3751,22 +3746,14 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 	if((which == 2) && (arena_number < 0))
 	{
-#ifdef JP
-		msg_print("「敗者に用はない。」");
-#else
-		msg_print("'There's no place here for a LOSER like you!'");
-#endif
+		msg_print(GAME_MESSAGE_BUILDING_LOSER);
 		return;
 	}
 	else if((which == 2) && floor_ptr->fight_arena_mode)
 	{
 		if(!arena_settled)
 		{
-#ifdef JP
-			prt("ゲートは閉まっている。クリーチャーがあなたを待っている！", 0, 0);
-#else
-			prt("The gates are closed.  The creature awaits!", 0, 0);
-#endif
+			prt(GAME_MESSAGE_BUILDING_ARENA_FIGHT, 0, 0);
 		}
 		else
 		{

@@ -668,13 +668,8 @@ void prepare_movie_hooks(void)
 				char out_val[160];
 
 				(void)fd_close(fd);
-
-				/* Build query */
 				(void)sprintf(out_val, SYS_MESSAGE_REPLACE_FILE, buf);
-
-				/* Ask */
 				if(!get_check(out_val)) return;
-
 				movie_fd = fd_open(buf, O_WRONLY | O_TRUNC);
 			}
 			else
