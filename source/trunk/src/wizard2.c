@@ -1808,11 +1808,7 @@ static void do_cmd_dump_options(void)
 
 	if(!fff)
 	{
-#ifdef JP
-		msg_format("ファイル %s を開けませんでした。", buf);
-#else
-		msg_format("Failed to open file %s.", buf);
-#endif
+		msg_format(SYS_MESSAGE_FAILED_FILEOPEN2, buf);
 		msg_print(NULL);
 		return;
 	}
