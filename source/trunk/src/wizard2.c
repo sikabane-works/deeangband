@@ -1327,14 +1327,8 @@ static void do_cmd_wiz_creature_list(void)
 			else if(k == 'f')
 			{
 				sprintf(tmp, "%s.txt", player_base);
-#ifdef JP
-				if(get_string("ƒtƒ@ƒCƒ‹–¼: ", tmp, 80))
-#else
-				if(get_string("File name: ", tmp, 80))
-#endif
-				{
+				if(get_string(PROMPT_FILE, tmp, 80))
 					if(tmp[0] && (tmp[0] != ' ')) file_character(tmp);
-				}
 			}
 
 			// Toggle mode

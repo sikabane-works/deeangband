@@ -5317,12 +5317,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 			char xtmp[82];
 
 			strcpy (xtmp, "");
-
-#ifdef JP
-			if(!get_string("ƒtƒ@ƒCƒ‹–¼: ", xtmp, 80)) continue;
-#else
-			if(!get_string("File name: ", xtmp, 80)) continue;
-#endif
+			if(!get_string(PROMPT_FILE, xtmp, 80)) continue;
 
 			/* Close it */
 			my_fclose(fff);

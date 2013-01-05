@@ -1126,11 +1126,7 @@ void do_cmd_change_name(creature_type *creature_ptr)
 		else if(c == 'f') // File dump
 		{
 			sprintf(tmp, "%s.txt", player_base);
-#ifdef JP
-			if(get_string("ファイル名: ", tmp, 80))
-#else
-			if(get_string("File name: ", tmp, 80))
-#endif
+			if(get_string(PROMPT_FILE, tmp, 80))
 			{
 				if(tmp[0] && (tmp[0] != ' '))
 				{
@@ -5347,12 +5343,7 @@ static void do_cmd_save_screen_html(void)
 {
 	char buf[1024], tmp[256] = "screen.html";
 
-#ifdef JP
-	if(!get_string("ファイル名: ", tmp, 80))
-#else
-	if(!get_string("File name: ", tmp, 80))
-#endif
-		return;
+	if(!get_string(PROMPT_FILE, tmp, 80)) return;
 
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp);
