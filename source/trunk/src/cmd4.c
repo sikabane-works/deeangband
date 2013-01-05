@@ -3624,11 +3624,9 @@ void do_cmd_visuals(void)
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
 
 #ifdef JP
-				Term_putstr(0, 22, -1, TERM_WHITE,
-					    "コマンド (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): ");
+				Term_putstr(0, 22, -1, TERM_WHITE, "コマンド (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): ");
 #else
-				Term_putstr(0, 22, -1, TERM_WHITE,
-					    "Command (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): ");
+				Term_putstr(0, 22, -1, TERM_WHITE, "Command (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): ");
 #endif
 
 				i = inkey();
@@ -4089,12 +4087,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	// No useful feeling in quests
 	if(floor_ptr->quest && !random_quest_number(floor_ptr))
 	{
-#ifdef JP
-		msg_print("典型的なクエストのダンジョンのようだ。");
-#else
-		msg_print("Looks like a typical quest level.");
-#endif
-
+		msg_print(GAME_MESSAGE_FEELING_QUESTDUN);
 		return;
 	}
 
@@ -4107,22 +4100,12 @@ void do_cmd_feeling(creature_type *creature_ptr)
 		if(!strcmp(town[floor_ptr->town_num].name, "wilderness"))
 #endif
 		{
-#ifdef JP
-			msg_print("何かありそうな荒野のようだ。");
-#else
-			msg_print("Looks like a strange wilderness.");
-#endif
-
+			msg_print(GAME_MESSAGE_FEELING_WILD_POINT);
 			return;
 		}
 		else
 		{
-#ifdef JP
-			msg_print("典型的な町のようだ。");
-#else
-			msg_print("Looks like a typical town.");
-#endif
-
+			msg_print(GAME_MESSAGE_FEELING_TOWN);
 			return;
 		}
 	}

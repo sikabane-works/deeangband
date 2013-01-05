@@ -287,6 +287,16 @@
 #endif
 
 
+#ifdef JP
+#define GAME_MESSAGE_FEELING_QUESTDUN "典型的なクエストのダンジョンのようだ。"
+#define GAME_MESSAGE_FEELING_WILD_POINT "何かありそうな荒野のようだ。"
+#define GAME_MESSAGE_FEELING_TOWN "典型的な町のようだ。"
+#else
+#define GAME_MESSAGE_FEELING_QUESTDUN "Looks like a typical quest level.";
+#define GAME_MESSAGE_FEELING_WILD_POINT "Looks like a strange wilderness."
+#define GAME_MESSAGE_FEELING_TOWN "Looks like a typical town."
+#endif
+
 
 // Cause of Death
 #if JP
