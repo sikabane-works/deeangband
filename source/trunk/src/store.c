@@ -4392,7 +4392,6 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 #else
 				Term_putstr(2, 23, -1, TERM_WHITE, "['h' to change mode, or ESC]");
 #endif
-				/* Query */
 				c = inkey();
 
 				if(c == ESCAPE) break;

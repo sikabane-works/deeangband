@@ -1240,7 +1240,6 @@ static bool verify(creature_type *creature_ptr, cptr prompt, int item)
 	(void)sprintf(out_val, "%s %s? ", prompt, object_name);
 #endif
 
-	/* Query */
 	return (get_check(out_val));
 }
 

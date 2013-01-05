@@ -183,7 +183,6 @@ void screen_roff(creature_type *creature_ptr)
 #endif
 
 
-		/* Query */
 		c = inkey();
 
 		/* Exit */

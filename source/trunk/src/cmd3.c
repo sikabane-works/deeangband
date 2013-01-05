@@ -1658,7 +1658,6 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 #endif
 
 
-	/* Query */
 	query = inkey();
 
 	prt(buf, 0, 0);

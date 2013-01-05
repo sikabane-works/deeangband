@@ -3153,7 +3153,6 @@ void do_cmd_visuals(void)
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
 
-			/* Query */
 			if(!askfor(tmp, 70)) continue;
 
 			/* Process the given filename */
@@ -3773,7 +3772,6 @@ void do_cmd_colors(void)
 			/* Default file */
 			sprintf(tmp, "%s.prf", player_base);
 
-			/* Query */
 			if(!askfor(tmp, 70)) continue;
 
 			/* Process the given filename */

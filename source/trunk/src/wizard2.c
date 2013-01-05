@@ -1032,9 +1032,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int         tmp_int, tmp_qnt;
-
 	char        tmp_val[100];
-
 
 	/* Never duplicate artifacts */
 	if(object_is_artifact(object_ptr)) return;
@@ -1045,7 +1043,6 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_p
 	/* Default */
 	sprintf(tmp_val, "%d", object_ptr->number);
 
-	/* Query */
 	if(get_string("Quantity: ", tmp_val, 2))
 	{
 		/* Extract */
@@ -1739,7 +1736,6 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	/* Default */
 	sprintf(tmp_val, "%d", prev_feat);
 
-	/* Query */
 #ifdef JP
 	if(!get_string("地形: ", tmp_val, 3)) return;
 #else
@@ -1754,7 +1750,6 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	/* Default */
 	sprintf(tmp_val, "%d", prev_mimic);
 
-	/* Query */
 #ifdef JP
 	if(!get_string("地形 (mimic): ", tmp_val, 3)) return;
 #else
