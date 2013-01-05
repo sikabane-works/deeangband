@@ -4636,11 +4636,7 @@ errr file_character(cptr name)
 		(void)fd_close(fd);
 
 		/* Build query */
-#ifdef JP
-		(void)sprintf(out_val, "åªë∂Ç∑ÇÈÉtÉ@ÉCÉã %s Ç…è„èëÇ´ÇµÇ‹Ç∑Ç©? ", buf);
-#else
-		(void)sprintf(out_val, "Replace existing file %s? ", buf);
-#endif
+		(void)sprintf(out_val, SYS_MESSAGE_REPLACE_FILE, buf);
 		if(get_check_strict(out_val, CHECK_NO_HISTORY)) fd = -1;
 	}
 

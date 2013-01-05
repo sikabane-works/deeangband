@@ -654,11 +654,7 @@ void prepare_movie_hooks(void)
 	else
 	{
 		sprintf(tmp, "%s.amv", player_base);
-#ifdef JP
-		if(get_string("ムービー記録ファイル: ", tmp, 80))
-#else
-		if(get_string("Movie file name: ", tmp, 80))
-#endif
+		if(get_string(PROMPT_FILE, tmp, 80))
 		{
 			int fd;
 
@@ -675,11 +671,7 @@ void prepare_movie_hooks(void)
 				(void)fd_close(fd);
 
 				/* Build query */
-#ifdef JP
-				(void)sprintf(out_val, "現存するファイルに上書きしますか? (%s)", buf);
-#else
-				(void)sprintf(out_val, "Replace existing file %s? ", buf);
-#endif
+				(void)sprintf(out_val, SYS_MESSAGE_REPLACE_FILE, buf);
 
 				/* Ask */
 				if(!get_check(out_val)) return;
