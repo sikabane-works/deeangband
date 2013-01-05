@@ -706,7 +706,6 @@ static void pattern_teleport(creature_type *creature_ptr)
 #endif
 
 
-		/* Default */
 		sprintf(tmp_val, "%d", floor_ptr->floor_level);
 
 		/* Ask for a level */

@@ -7155,7 +7155,6 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 	/* Save start */
 	b = s;
 
-	/* Default */
 	v = "?o?o?";
 
 	/* Analyze */

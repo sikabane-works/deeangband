@@ -523,7 +523,6 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 		/* Objects are sorted by depth */
 		if(table[i].level > level) break;
 
-		/* Default */
 		table[i].prob3 = 0;
 
 		/* Access the index */
@@ -3162,7 +3161,6 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 	/* Picker */
 	bn = 0;
 
-	/* Default */
 	by = y;
 	bx = x;
 

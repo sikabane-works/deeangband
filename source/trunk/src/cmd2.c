@@ -2209,7 +2209,6 @@ void do_cmd_rest(creature_type *creature_ptr)
 		cptr p = PROMPT_REST;
 		char out_val[80];
 
-		/* Default */
 		strcpy(out_val, "&");
 
 		/* Ask for duration */

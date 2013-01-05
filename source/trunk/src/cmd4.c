@@ -3946,7 +3946,6 @@ void do_cmd_note(void)
 {
 	char buf[80];
 
-	/* Default */
 	strcpy(buf, "");
 
 	/* Input */
@@ -5634,7 +5633,6 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	{
 		artifact_type *a_ptr = &artifact_info[k];
 
-		/* Default */
 		okay[k] = FALSE;
 
 		/* Skip "empty" artifacts */

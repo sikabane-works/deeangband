@@ -1040,7 +1040,6 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_p
 	/* Store old quantity. -LM- */
 	tmp_qnt = object_ptr->number;
 
-	/* Default */
 	sprintf(tmp_val, "%d", object_ptr->number);
 
 	if(get_string("Quantity: ", tmp_val, 2))
@@ -1733,7 +1732,6 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 
 	c_ptr = &floor_ptr->cave[y][x];
 
-	/* Default */
 	sprintf(tmp_val, "%d", prev_feat);
 
 #ifdef JP
@@ -1747,7 +1745,6 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	if(tmp_feat < 0) tmp_feat = 0;
 	else if(tmp_feat >= max_feature_idx) tmp_feat = max_feature_idx - 1;
 
-	/* Default */
 	sprintf(tmp_val, "%d", prev_mimic);
 
 #ifdef JP

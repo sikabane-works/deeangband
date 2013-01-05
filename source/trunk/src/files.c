@@ -830,7 +830,6 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 	/* Save start */
 	b = s;
 
-	/* Default */
 	v = "?o?o?";
 
 	/* Analyze */
@@ -2336,7 +2335,6 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 		/* Known flags */
 		object_flags_known(object_ptr, flgs);
 
-		/* Default */
 		if(!(mode & DP_IMM))
 			c_put_str((byte)(vuln ? TERM_RED : TERM_SLATE), ".", row, col);
 
@@ -2362,7 +2360,6 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 	/* Assume that player flag is already written */
 	if(mode & DP_IMM) return;
 
-	/* Default */
 	c_put_str((byte)(vuln ? TERM_RED : TERM_SLATE), ".", row, col);
 
 	/* Player flags */
@@ -3141,14 +3138,12 @@ static void display_player_stat_info(creature_type *creature_ptr)
 		/* Initialize color based of sign of pval. */
 		for (stat = 0; stat < STAT_MAX; stat++)
 		{
-			/* Default */
 			a = TERM_SLATE;
 			c = '.';
 
 			/* Boost */
 			if(have_flag(flgs, stat))
 			{
-				/* Default */
 				c = '*';
 
 				// Good
@@ -3193,7 +3188,6 @@ static void display_player_stat_info(creature_type *creature_ptr)
 	/* Check stats */
 	for (stat = 0; stat < STAT_MAX; stat++)
 	{
-		/* Default */
 		a = TERM_SLATE;
 		c = '.';
 
@@ -6152,7 +6146,6 @@ static void show_info(creature_type *creature_ptr)
 		char out_val[160];
 		put_str(PROMPT_FILE, 23, 0);
 
-		/* Default */
 		strcpy(out_val, "");
 
 		/* Ask for filename (or abort) */
