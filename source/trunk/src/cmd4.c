@@ -3411,11 +3411,11 @@ void do_cmd_visuals(void)
 				/* Label the Current values */
 #ifdef JP
 				Term_putstr(10, 20, -1, TERM_WHITE, format("現在値  色 / 文字 = %3u / %3u", ca, cc));
-				Term_putstr(0, 22, -1, TERM_WHITE, "コマンド (n/N/^N/a/A/^A/c/C/^C/v/V/^V): ");
+				Term_putstr(0, 22, -1, TERM_WHITE, SYS_MESSAGE_VISUAL_COMMAND);
 #else
 				Term_putstr(10, 20, -1, TERM_WHITE, format("Current attr/char = %3u / %3u", ca, cc));
-				Term_putstr(0, 22, -1, TERM_WHITE, "Command (n/N/^N/a/A/^A/c/C/^C/v/V/^V): ");
 #endif
+				Term_putstr(0, 22, -1, TERM_WHITE, SYS_MESSAGE_VISUAL_COMMAND);
 
 				Term_putstr(40, 20, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
@@ -3519,12 +3519,7 @@ void do_cmd_visuals(void)
 
 				Term_putstr(40, 20, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
-
-#ifdef JP
-				Term_putstr(0, 22, -1, TERM_WHITE, "コマンド (n/N/^N/a/A/^A/c/C/^C/v/V/^V): ");
-#else
-				Term_putstr(0, 22, -1, TERM_WHITE, "Command (n/N/^N/a/A/^A/c/C/^C/v/V/^V): ");
-#endif
+				Term_putstr(0, 22, -1, TERM_WHITE, SYS_MESSAGE_VISUAL_COMMAND);
 
 				i = inkey();
 

@@ -21,6 +21,8 @@
 #define SYS_MESSAGE_SOUTH "南"
 #define SYS_MESSAGE_EAST "東"
 #define SYS_MESSAGE_WEST "西"
+
+#define SYS_MESSAGE_VISUAL_COMMAND "コマンド (n/N/^N/a/A/^A/c/C/^C/v/V/^V): "
 #else
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
@@ -41,8 +43,10 @@
 #define SYS_MESSAGE_SOUTH " South"
 #define SYS_MESSAGE_EAST " East"
 #define SYS_MESSAGE_WEST " West"
-#endif
 
+#define SYS_MESSAGE_VISUAL_COMMAND "Command (n/N/^N/a/A/^A/c/C/^C/v/V/^V):"
+#endif
+ 
 #if JP
 #define KW_CARRYING_WEIGHT "所持重量"
 #define KW_EQUIPMENT_WEIGHT "装備重量"
