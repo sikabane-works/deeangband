@@ -2569,11 +2569,7 @@ static void random_artifact_analyze(object_type *object_ptr, obj_desc_list *desc
 	analyze_sustains(object_ptr, desc_ptr->sustains);
 	analyze_misc_magic(object_ptr, desc_ptr->misc_magic);
 	desc_ptr->activation = item_activation(object_ptr);
-#ifdef JP
-	sprintf(desc_ptr->misc_desc, "d‚³ %s", buf);
-#else
-	sprintf(desc_ptr->misc_desc, "Weight %s", buf);
-#endif
+	sprintf(desc_ptr->misc_desc, "%s %s", SYS_MESSAGE_WEIGHT, buf);
 }
 
 /* Create a spoiler file entry for an artifact */

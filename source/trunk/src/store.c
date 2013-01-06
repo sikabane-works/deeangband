@@ -2621,11 +2621,7 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 		/* If showing weights, show label */
 		if(show_weights)
 		{
-#ifdef JP
-			put_str("èdÇ≥", 5, 72);
-#else
-			put_str("Weight", 5, 70);
-#endif
+			put_str(SYS_MESSAGE_WEIGHT, 5, 72);
 		}
 	}
 
@@ -2642,14 +2638,7 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 #endif
 
 		/* If showing weights, show label */
-		if(show_weights)
-		{
-#ifdef JP
-			put_str("èdÇ≥", 5, 72);
-#else
-			put_str("Weight", 5, 70);
-#endif
-		}
+		if(show_weights) put_str(SYS_MESSAGE_WEIGHT, 5, 72);
 	}
 
 	/* Normal stores */
