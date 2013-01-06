@@ -1889,11 +1889,7 @@ static bool kankin(creature_type *creature_ptr)
 			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
-#ifdef JP
-				msg_format("賞金 %ld＄を手に入れた。", 1000000L * object_ptr->number);
-#else
-				msg_format("You get %ldgp.", 1000000L * object_ptr->number);
-#endif
+				msg_format(GAME_MESSAGE_GET_PRICE, 1000000L * object_ptr->number);
 				creature_ptr->au += 1000000L * object_ptr->number;
 				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
@@ -1916,11 +1912,7 @@ static bool kankin(creature_type *creature_ptr)
 			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
-#ifdef JP
-				msg_format("賞金 %ld＄を手に入れた。", 200000L * object_ptr->number);
-#else
-				msg_format("You get %ldgp.", 200000L * object_ptr->number);
-#endif
+				msg_format(GAME_MESSAGE_GET_PRICE, 200000L * object_ptr->number);
 				creature_ptr->au += 200000L * object_ptr->number;
 				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
@@ -1943,11 +1935,7 @@ static bool kankin(creature_type *creature_ptr)
 			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
-#ifdef JP
-				msg_format("賞金 %ld＄を手に入れた。", 100000L * object_ptr->number);
-#else
-				msg_format("You get %ldgp.", 100000L * object_ptr->number);
-#endif
+				msg_format(GAME_MESSAGE_GET_PRICE, 100000L * object_ptr->number);
 				creature_ptr->au += 100000L * object_ptr->number;
 				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
@@ -1968,11 +1956,7 @@ static bool kankin(creature_type *creature_ptr)
 			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
-#ifdef JP
-				msg_format("賞金 %ld＄を手に入れた。", (species_info[today_mon].level * 50 + 100) * object_ptr->number);
-#else
-				msg_format("You get %ldgp.", (species_info[today_mon].level * 50 + 100) * object_ptr->number);
-#endif
+				msg_format(GAME_MESSAGE_GET_PRICE, (species_info[today_mon].level * 50 + 100) * object_ptr->number);
 				creature_ptr->au += (species_info[today_mon].level * 50 + 100) * object_ptr->number;
 				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
@@ -1994,11 +1978,7 @@ static bool kankin(creature_type *creature_ptr)
 			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
-#ifdef JP
-				msg_format("賞金 %ld＄を手に入れた。", (species_info[today_mon].level * 30 + 60) * object_ptr->number);
-#else
-				msg_format("You get %ldgp.", (species_info[today_mon].level * 30 + 60) * object_ptr->number);
-#endif
+				msg_format(GAME_MESSAGE_GET_PRICE, (species_info[today_mon].level * 30 + 60) * object_ptr->number);
 				creature_ptr->au += (species_info[today_mon].level * 30 + 60) * object_ptr->number;
 				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
