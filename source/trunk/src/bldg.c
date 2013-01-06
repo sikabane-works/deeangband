@@ -1120,12 +1120,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 	{
 		if(creature_ptr->au < 1)
 		{
-#ifdef JP
-			msg_print("おい！おまえ一文なしじゃないか！こっから出ていけ！");
-#else
-			msg_print("Hey! You don't have gold - get out of here!");
-#endif
-
+			msg_print(GAME_MESSAGE_NO_MONEY_INSULT);
 			msg_print(NULL);
 			screen_load();
 			return FALSE;
@@ -1642,12 +1637,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 
 	if(creature_ptr->au < 1) // No money
 	{
-#ifdef JP
-		msg_print("おい！おまえ一文なしじゃないか！こっから出ていけ！");
-#else
-		msg_print("Hey! You don't have gold - get out of here!");
-#endif
-
+		msg_print(GAME_MESSAGE_NO_MONEY_INSULT);
 		msg_print(NULL);
 		screen_load();
 		return FALSE;
