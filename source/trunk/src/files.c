@@ -3439,11 +3439,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 	{
 		char statmsg[10000];
 
-#ifdef JP
-		put_str("(クリーチャーのプロフィール)", 2, 25);
-#else
-		put_str("(Creature Profile)", 2, 25);
-#endif
+		put_str(format("(%s)", KW_CREATURE_PROFILE), 2, 25);
 
 		for (i = 0; i < HISTORY_ROW; i++) put_str(creature_ptr->history[i], i + 4, 3);
 

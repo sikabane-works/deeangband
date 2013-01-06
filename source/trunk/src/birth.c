@@ -4598,11 +4598,7 @@ static void edit_history(creature_type *creature_ptr)
 		else if(c == ESCAPE)
 		{
 			clear_from(2);
-#ifdef JP
-			put_str("(クリーチャーのプロフィール)", 2, 25);
-#else
-			put_str("(Creature Profile)", 2, 25);
-#endif
+			put_str(format("(%s)", KW_CREATURE_PROFILE), 2, 25);
 
 			for (i = 0; i < HISTORY_ROW; i++)
 			{

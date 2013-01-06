@@ -73,9 +73,11 @@
 #if JP
 #define KW_CARRYING_WEIGHT "所持重量"
 #define KW_EQUIPMENT_WEIGHT "装備重量"
+#define KW_CREATURE_PROFILE "クリーチャーのプロフィール"
 #else
 #define KW_CARRYING_WEIGHT "carrying weight"
 #define KW_EQUIPMENT_WEIGHT "equipment weight"
+#define KW_CREATURE_PROFILE "Creature Profile"
 #endif
 
 #if JP
