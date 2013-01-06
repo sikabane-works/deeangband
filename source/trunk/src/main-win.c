@@ -4699,17 +4699,7 @@ static void hack_plog(cptr str)
 static void hack_quit(cptr str)
 {
 	/* Give a warning */
-	if(str)
-	{
-#ifdef JP
-		MessageBox(NULL, str, "エラー！",
-			   MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
-#else
-		MessageBox(NULL, str, "Error",
-			   MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
-#endif
-
-	}
+	if(str) MessageBox(NULL, str, SYS_MESSAGE_ERROR, MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
 
 	/* Unregister the classes */
 	UnregisterClass(AppName, hInstance);
@@ -4750,20 +4740,8 @@ static void hook_quit(cptr str)
 {
 	int i;
 
-
 	/* Give a warning */
-	if(str)
-	{
-#ifdef JP
-		MessageBox(data[0].w, str, "エラー！",
-			   MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
-#else
-		MessageBox(data[0].w, str, "Error",
-			   MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
-#endif
-
-	}
-
+	if(str) MessageBox(data[0].w, str, SYS_MESSAGE_ERROR, MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
 
 	/* Save the preferences */
 	save_prefs();

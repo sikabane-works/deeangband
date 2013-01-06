@@ -1501,7 +1501,7 @@ static errr rd_savefile_new_aux(void)
 		if(max_towns_load > max_towns)
 		{
 #ifdef JP
-note(format("町が多すぎる(%u)！", max_towns_load));
+			note(format("町が多すぎる(%u)！", max_towns_load));
 #else
 			note(format("Too many (%u) towns!", max_towns_load));
 #endif
@@ -1520,7 +1520,7 @@ note(format("町が多すぎる(%u)！", max_towns_load));
 		if(max_quests_load > max_quests)
 		{
 #ifdef JP
-note(format("クエストが多すぎる(%u)！", max_quests_load));
+			note(format("クエストが多すぎる(%u)！", max_quests_load));
 #else
 			note(format("Too many (%u) quests!", max_quests_load));
 #endif

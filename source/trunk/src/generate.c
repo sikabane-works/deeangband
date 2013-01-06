@@ -326,9 +326,9 @@ static void alloc_object(floor_type *floor_ptr, creature_type *player_ptr, int s
 			if(cheat_room)
 			{
 #ifdef JP
-msg_print("警告！アイテムを配置できません！");
+				msg_warning("アイテムを配置できません");
 #else
-				msg_print("Warning! Could not place object!");
+				msg_warning("Could not place object.);
 #endif
 
 			}
