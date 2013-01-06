@@ -3117,12 +3117,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 
 	/* Header and Footer */
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row, col);
-#ifdef JP
-	c_put_str(TERM_L_GREEN, "î\óÕèCê≥", row - 1, col);
-#else
-	c_put_str(TERM_L_GREEN, "Modification", row - 1, col);
-#endif
-
+	c_put_str(TERM_L_GREEN, SYS_MESSAGE_MODIFICATION, row - 1, col);
 
 	/* Process equipment */
 	for (i = 0; i < INVEN_TOTAL; i++)

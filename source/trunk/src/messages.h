@@ -35,6 +35,8 @@
 #define SYS_MESSAGE_MONEY "所持金"
 #define SYS_MESSAGE_WEIGHT "重量"
 
+#define SYS_MESSAGE_MODIFICATION "能力修正"
+
 #define SYS_MESSAGE_VISUAL_COMMAND "コマンド (n/N/^N/a/A/^A/c/C/^C/v/V/^V): "
 #else
 
@@ -62,6 +64,8 @@
 #define SYS_MESSAGE_WEST " West"
 #define SYS_MESSAGE_MONEY "AU"
 #define SYS_MESSAGE_WEIGHT "Weight"
+
+#define SYS_MESSAGE_MODIFICATION "Modification"
 
 #define SYS_MESSAGE_VISUAL_COMMAND "Command (n/N/^N/a/A/^A/c/C/^C/v/V/^V):"
 #endif
