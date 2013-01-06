@@ -114,11 +114,11 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	char weapon_name[MAX_NLEN];
 
 	bool success_hit = FALSE;
-	bool backstab = FALSE;
+	bool ambush = FALSE;
 	bool vorpal_cut = FALSE;
 	int  chaos_effect = 0;
 	bool stab_fleeing = FALSE;
-	bool fuiuchi = FALSE;
+	bool fatal_spot = FALSE;
 	bool tramping = FALSE;
 	bool do_quake = FALSE;
 	bool weak = FALSE;
@@ -135,25 +135,17 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	{
 	case CLASS_ROGUE:
 	case CLASS_NINJA:
-		if(get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) > hand)
 		{
 			int tmp = attacker_ptr->lev * 6 + (attacker_ptr->skill_stl + 10) * 4;
 			if(attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
 			if(has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
 			if(target_ptr->lev > (attacker_ptr->lev * attacker_ptr->lev / 10 + 5)) tmp /= 3;
 			if(has_trait(target_ptr, TRAIT_PARALYZED) && target_ptr->see_others)
-			{
-				// Can't backstab creatures that we can't see, right?
-				backstab = TRUE;
-			}
+				ambush = TRUE;
 			else if((attacker_ptr->posture & NINJA_S_STEALTH) && (randint0(tmp) > (target_ptr->lev * 2 + 20)) && target_ptr->see_others && !has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				fuiuchi = TRUE;
-			}
+				fatal_spot = TRUE;
 			else if(has_trait(target_ptr, TRAIT_AFRAID) && target_ptr->see_others)
-			{
 				stab_fleeing = TRUE;
-			}
 		}
 		break;
 	}
@@ -195,7 +187,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(mode == HISSATSU_3DAN) n *= 2;
 		success_hit = one_in_(n);
 	}
-	else if((attacker_ptr->class_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !has_trait(target_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
+	else if((attacker_ptr->class_idx == CLASS_NINJA) && ((ambush || fatal_spot) && !has_trait(target_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
 	else success_hit = test_hit_melee(attacker_ptr, chance, target_ptr->ac + target_ptr->to_ac, target_ptr->see_others);
 
 	if(mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
@@ -208,13 +200,13 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 		{
 #ifdef JP
-			if(backstab)			msg_format("%s‚Í—â“‚É‚à–°‚Á‚Ä‚¢‚é–³—Í‚È%s‚ð“Ë‚«Žh‚µ‚½I", attacker_name, target_name);
-			else if(fuiuchi)		msg_format("%s‚Í•sˆÓ‚ð“Ë‚¢‚Ä%s‚É‹­—ó‚ÈˆêŒ‚‚ð‹ò‚ç‚í‚¹‚½I", attacker_name, target_name);
+			if(ambush)			msg_format("%s‚Í—â“‚É‚à–°‚Á‚Ä‚¢‚é–³—Í‚È%s‚ð“Ë‚«Žh‚µ‚½I", attacker_name, target_name);
+			else if(fatal_spot)		msg_format("%s‚Í•sˆÓ‚ð“Ë‚¢‚Ä%s‚É‹­—ó‚ÈˆêŒ‚‚ð‹ò‚ç‚í‚¹‚½I", attacker_name, target_name);
 			else if(stab_fleeing)	msg_format("%s‚Í“¦‚°‚é%s‚ð”w’†‚©‚ç“Ë‚«Žh‚µ‚½I", attacker_name, target_name);
 #else
-			if(backstab) msg_format("%s cruelly stab the helpless, sleeping %s!", attacker_name, target_name);
-			else if(fuiuchi) msg_format("%s make surprise attack, and hit %s with a powerful blow!", attacker_name, target_name);
-			else if(stab_fleeing) msg_format("%s backstab the fleeing %s!", attacker_name, target_name);
+			if(ambush) msg_format("%s cruelly stab the helpless, sleeping %s!", attacker_name, target_name);
+			else if(fatal_spot) msg_format("%s make surprise attack, and hit %s with a powerful blow!", attacker_name, target_name);
+			else if(stab_fleeing) msg_format("%s ambush the fleeing %s!", attacker_name, target_name);
 #endif
 		}
 
@@ -253,8 +245,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			k = diceroll(weapon_ptr->dd + attacker_ptr->to_damaged[hand], weapon_ptr->ds + attacker_ptr->to_damages[hand]);
 			k = tot_dam_aux(attacker_ptr, weapon_ptr, k, target_ptr, mode, FALSE);
 
-			if(backstab)			k *= (3 + (attacker_ptr->lev / 20));
-			else if(fuiuchi)		k = k * (5 + (attacker_ptr->lev * 2 / 25)) / 2;
+			if(ambush)			k *= (3 + (attacker_ptr->lev / 20));
+			else if(fatal_spot)		k = k * (5 + (attacker_ptr->lev * 2 / 25)) / 2;
 			else if(stab_fleeing)	k = (3 * k) / 2;
 
 			if((has_trait_object(weapon_ptr, TRAIT_SHATTER) && ((k > 50) || one_in_(7))) || (chaos_effect == 2) || (mode == HISSATSU_QUAKE))
@@ -401,7 +393,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		}
 		else if((attacker_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) && ((attacker_ptr->cur_lite <= 0) || one_in_(7)))
 		{
-			if(one_in_(backstab ? 13 : (stab_fleeing || fuiuchi) ? 15 : 27))
+			if(one_in_(ambush ? 13 : (stab_fleeing || fatal_spot) ? 15 : 27))
 			{
 				k *= 5;
 				drain_result *= 2;
@@ -413,7 +405,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 #endif
 			}
 
-			else if(((target_ptr->chp < target_ptr->mhp/2) && one_in_(10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2)))
+			else if(((target_ptr->chp < target_ptr->mhp/2) && one_in_(10)) || ((one_in_(666) || ((ambush || fatal_spot) && one_in_(11))) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2)))
 			{
 				if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_UNIQUE2) || (target_ptr->chp >= target_ptr->mhp/2))
 				{
@@ -543,8 +535,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	// MISS
 	else
 	{
-		backstab = FALSE; /* Clumsy! */
-		fuiuchi = FALSE; /* Clumsy! */
+		ambush = FALSE; /* Clumsy! */
+		fatal_spot = FALSE; /* Clumsy! */
 
 		if((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE) && one_in_(3))
 		{
@@ -644,8 +636,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		//TODO reimplement get item process.
 	}
 
-	backstab = FALSE;
-	fuiuchi = FALSE;
+	ambush = FALSE;
+	fatal_spot = FALSE;
 
 	if(weak && !IS_DEAD(target_ptr))
 	{
