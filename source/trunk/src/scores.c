@@ -569,10 +569,8 @@ errr predict_score(creature_type *player_ptr)
 		return SUCCESS;
 	}
 
-
 	/* Save the version */
-	sprintf(the_score.what, "%u.%u.%u",
-		VER_MAJOR, VER_MINOR, VER_PATCH);
+	sprintf(the_score.what, "%u.%u.%u", VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	/* Calculate and save the points */
 	sprintf(the_score.pts, "%9ld", (long)total_points(player_ptr));
@@ -583,13 +581,7 @@ errr predict_score(creature_type *player_ptr)
 	/* Save the current turn */
 	sprintf(the_score.turns, "%9lu", (long)turn_real(player_ptr, turn));
 
-	/* Hack -- no time needed */
-#ifdef JP
-	strcpy(the_score.day, "¡“ú");
-#else
-	strcpy(the_score.day, "TODAY");
-#endif
-
+	strcpy(the_score.day, SYS_MESSAGE_TODAY);
 
 	/* Save the player name (80 chars) */
 	sprintf(the_score.who, "%-.80s", player_ptr->name);
