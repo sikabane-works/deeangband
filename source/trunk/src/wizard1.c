@@ -785,64 +785,6 @@ static const flag_desc sustain_flags_desc[] =
 #endif
 };
 
-/*
- * Miscellaneous magic given by an object's "flags2" field
- */
-
-static const flag_desc misc_flags2_desc[] =
-{
-#ifdef JP
-	{ TRAIT_THROW_MIGHTY, "“Š±" },
-	{ TRAIT_REFLECTING, "”½ŽË" },
-	{ TRAIT_FREE_ACTION, "–ƒáƒ’m‚ç‚¸" },
-	{ TRAIT_HOLD_LIFE, "¶–½—ÍˆÛŽ" },
-#else
-	{ TRAIT_THROW_MIGHTY, "Throwing" },
-	{ TRAIT_REFLECTING, "Reflection" },
-	{ TRAIT_FREE_ACTION, "Free Action" },
-	{ TRAIT_HOLD_LIFE, "Hold Life" },
-#endif
-};
-
-/*
- * Miscellaneous magic given by an object's "flags3" field
- *
- * Note that cursed artifacts and objects with permanent light
- * are handled "directly" -- see analyze_misc_magic()
- */
-
-static const int misc_flags3_desc[] =
-{
-	TRAIT_AURA_FIRE,
-	TRAIT_AURA_ELEC,
-	TRAIT_AURA_COLD,
-	TRAIT_PREVENT_TELEPORT,
-	TRAIT_ANTI_MAGIC,
-	TRAIT_LEVITATION,
-	TRAIT_SEE_INVISIBLE,
-	TRAIT_ESP,
-	TRAIT_SENSE_ANIMAL,
-	TRAIT_SENSE_UNDEAD,
-	TRAIT_SENSE_DEMON,
-	TRAIT_SENSE_ORC, 
-	TRAIT_SENSE_TROLL,
-	TRAIT_SENSE_GIANT,
-	TRAIT_SENSE_DRAGON,
-	TRAIT_SENSE_HUMAN,
-	TRAIT_SENSE_EVIL,
-	TRAIT_SENSE_GOOD,
-	TRAIT_SENSE_NONLIVING,
-	TRAIT_SENSE_UNIQUE,
-	TRAIT_SLOW_DIGEST,
-	TRAIT_REGENERATE,
-	TRAIT_WARNING,
-	TRAIT_EXTRA_ATTACK_MIGHT,
-	TRAIT_EXTRA_ATTACK_SPEED,
-	TRAIT_DRAIN_EXP,
-	TRAIT_ANTIPATHY,
-	TRAIT_BLESSED_BRAND,
-	TRAIT_DEC_MANA,
-};
 
 
 /*
@@ -905,13 +847,6 @@ typedef struct
 
 	/* A list of stats sustained by an object */
 	cptr sustains[N_ELEMENTS(sustain_flags_desc)  - 1 + 1];
-
-	/* A list of various magical qualities an object may have */
-	cptr misc_magic[N_ELEMENTS(misc_flags2_desc) + N_ELEMENTS(misc_flags3_desc)
-			+ 1       /* Permanent Light */
-			+ 1       /* TY curse */
-			+ 1       /* type of curse */
-			+ 1];     /* sentinel NULL */
 
 	/* Additional ability or resistance */
 	char addition[80];
@@ -1198,7 +1133,7 @@ static void object_analyze(object_type *object_ptr, obj_desc_list *desc_ptr)
 	analyze_immune(object_ptr, desc_ptr->immunities);
 	analyze_resist(object_ptr, desc_ptr->resistances);
 	analyze_sustains(object_ptr, desc_ptr->sustains);
-	analyze_misc_magic(object_ptr, desc_ptr->misc_magic);
+	//analyze_misc_magic(object_ptr, desc_ptr->misc_magic);
 	analyze_addition(object_ptr, desc_ptr->addition);
 	analyze_misc(object_ptr, desc_ptr->misc_desc);
 	desc_ptr->activation = item_activation(object_ptr);
@@ -1385,7 +1320,7 @@ static void spoiler_print_art(obj_desc_list *art_ptr)
 	spoiler_outlist("Resist", art_ptr->resistances, ITEM_SEP);
 	spoiler_outlist("Sustain", art_ptr->sustains, ITEM_SEP);
 #endif
-	spoiler_outlist("", art_ptr->misc_magic, LIST_SEP);
+//	spoiler_outlist("", art_ptr->misc_magic, LIST_SEP);
 
 	if(art_ptr->addition[0])
 	{
@@ -2547,7 +2482,7 @@ static void random_artifact_analyze(object_type *object_ptr, obj_desc_list *desc
 	analyze_immune(object_ptr, desc_ptr->immunities);
 	analyze_resist(object_ptr, desc_ptr->resistances);
 	analyze_sustains(object_ptr, desc_ptr->sustains);
-	analyze_misc_magic(object_ptr, desc_ptr->misc_magic);
+//	analyze_misc_magic(object_ptr, desc_ptr->misc_magic);
 	desc_ptr->activation = item_activation(object_ptr);
 	sprintf(desc_ptr->misc_desc, "%s %s", SYS_MESSAGE_WEIGHT, buf);
 }
@@ -2600,7 +2535,7 @@ static void spoiler_print_randart(object_type *object_ptr, obj_desc_list *art_pt
 		spoiler_outlist("Resist", art_ptr->resistances, ITEM_SEP);
 		spoiler_outlist("Sustain", art_ptr->sustains, ITEM_SEP);
 #endif
-		spoiler_outlist("", art_ptr->misc_magic, LIST_SEP);
+//		spoiler_outlist("", art_ptr->misc_magic, LIST_SEP);
 
 		/* Write out the possible activation at the primary indention level */
 		if(art_ptr->activation)
