@@ -30,6 +30,7 @@
 #define SYS_MESSAGE_SOUTH "ìÏ"
 #define SYS_MESSAGE_EAST "ìå"
 #define SYS_MESSAGE_WEST "êº"
+#define SYS_MESSAGE_MONEY "èäéùã‡"
 
 #define SYS_MESSAGE_VISUAL_COMMAND "ÉRÉ}ÉìÉh (n/N/^N/a/A/^A/c/C/^C/v/V/^V): "
 #else
@@ -54,6 +55,7 @@
 #define SYS_MESSAGE_SOUTH " South"
 #define SYS_MESSAGE_EAST " East"
 #define SYS_MESSAGE_WEST " West"
+#define SYS_MESSAGE_MONEY "AU"
 
 #define SYS_MESSAGE_VISUAL_COMMAND "Command (n/N/^N/a/A/^A/c/C/^C/v/V/^V):"
 #endif

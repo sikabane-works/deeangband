@@ -5943,11 +5943,7 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, tmp);
 		put_str(buf, 12, 11);
 
-#ifdef JP
-		(void)sprintf(tmp, "ŠŽ‹à: %ld", (long)creature_ptr->au);
-#else
-		(void)sprintf(tmp, "AU: %ld", (long)creature_ptr->au);
-#endif
+		(void)sprintf(tmp, "%s: %ld", SYS_MESSAGE_MONEY, (long)creature_ptr->au);
 		center_string(buf, tmp);
 		put_str(buf, 13, 11);
 

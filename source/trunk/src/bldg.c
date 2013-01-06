@@ -62,12 +62,7 @@ static void building_prt_gold(creature_type *creature_ptr)
 {
 	char tmp_str[80];
 
-#ifdef JP
-	prt("è‚¿‚Ì‚¨‹à: ", 23,53);
-#else
-	prt("Gold Remaining: ", 23, 53);
-#endif
-
+	prt(format("%s: ", SYS_MESSAGE_MONEY), 23, 53);
 	sprintf(tmp_str, "%9ld", (long)creature_ptr->au);
 	prt(tmp_str, 23, 68);
 }

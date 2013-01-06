@@ -2589,13 +2589,7 @@ static void display_inventory(creature_type *creature_ptr, store_type *st_ptr)
 static void store_prt_gold(creature_type *creature_ptr)
 {
 	char out_val[64];
-
-#ifdef JP
-	prt("ŽèŽ‚¿‚Ì‚¨‹à: ", 19 + xtra_stock, 53);
-#else
-	prt("Gold Remaining: ", 19 + xtra_stock, 53);
-#endif
-
+	prt(format("%s: ", SYS_MESSAGE_MONEY), 19 + xtra_stock, 53);
 	sprintf(out_val, "%9ld", (long)creature_ptr->au);
 	prt(out_val, 19 + xtra_stock, 68);
 }
