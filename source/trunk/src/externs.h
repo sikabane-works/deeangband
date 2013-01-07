@@ -911,6 +911,8 @@ extern bool saving_throw(creature_type *creature_ptr, int type, int difficulty, 
 extern bool have_posture(creature_type *creature_ptr);
 extern bool cost_tactical_energy(creature_type *creature_ptr, int cost);
 extern bool cancel_tactical_action(creature_type *creature_ptr);
+extern bool gain_skill(creature_type *creature_ptr, int type, int amount);
+
 
 // do-spell.c
 extern void stop_singing(creature_type *creature_ptr);

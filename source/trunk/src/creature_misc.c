@@ -1363,3 +1363,9 @@ bool cancel_tactical_action(creature_type *creature_ptr)
 	creature_ptr->energy_need = 0;
 	return TRUE;
 }
+
+bool gain_skill(creature_type *creature_ptr, int type, int power)
+{
+	creature_ptr->spell_exp[type] += (power / (creature_ptr->spell_exp[type] * 100));
+	return TRUE;
+}
