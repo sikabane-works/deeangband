@@ -129,6 +129,7 @@
 #define GAME_MESSAGE_TRAP_ACID "酸が吹きかけられた！"
 #define GAME_MESSAGE_TRAP_ACID_FLOW "突然床から酸が溢れ出した！"
 #define GAME_MESSAGE_TRAP_POISON_FLOW "突然床から毒液が溢れ出した！"
+#define GAME_MESSAGE_TRAP_PIRANHAS "突然壁から水が溢れ出した！ピラニアがいる！"
 
 #define GAME_MESSAGE_TRAP_POISONOUS_GAS "突如吹き出した緑色のガスに包み込まれた！"
 #define GAME_MESSAGE_TRAP_PARALYZE_GAS "突如吹き出した黄色いガスに包み込まれた！"
@@ -228,6 +229,7 @@
 #define GAME_MESSAGE_TRAP_ACID "You are splashed with acid."
 #define GAME_MESSAGE_TRAP_ACID_FLOW "Suddenly, the room is filled with acid."
 #define GAME_MESSAGE_TRAP_POISON_FLOW "Suddenly, the room is filled with poisonous liquid."
+#define GAME_MESSAGE_TRAP_PIRANHAS "Suddenly, the room is filled with water with piranhas!"
 
 #define GAME_MESSAGE_TRAP_POISONOUS_GAS "A puff of green gas surrounds you!"
 #define GAME_MESSAGE_TRAP_PARALYZE_GAS "A puff of yellow gas surrounds you!"

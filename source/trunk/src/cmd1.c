@@ -1106,11 +1106,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_PIRANHA:
 		{
-#ifdef JP
-			msg_print("突然壁から水が溢れ出した！ピラニアがいる！");
-#else
-			msg_print("Suddenly, the room is filled with water with piranhas!");
-#endif
+			msg_print(GAME_MESSAGE_TRAP_PIRANHAS);
 
 			/* Water fills room */
 			cast_ball_hide(creature_ptr, DO_EFFECT_WATER_FLOW, 0, 1, 10);
