@@ -2123,6 +2123,8 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
  */
 static bool inn_comm(creature_type *creature_ptr, int cmd)
 {
+	int i;
+
 	switch (cmd)
 	{
 		case BUILDING_FUNCTION_FOOD: /* Buy food & drink */
@@ -2215,12 +2217,8 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 					creature_ptr->chp = creature_ptr->mhp;
 					creature_ptr->csp = creature_ptr->msp;
 
-					if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
-					{
-						int i;
-						for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++)
-							creature_ptr->current_charge[i] = creature_ptr->max_charge[i] * EATER_CHARGE;
-					}
+					for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++)
+						creature_ptr->current_charge[i] = creature_ptr->max_charge[i] * EATER_CHARGE;
 
 					if((prev_hour >= 6) && (prev_hour <= 17))
 					{

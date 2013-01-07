@@ -2810,44 +2810,23 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			int armour;
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
-			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
-			species_type *species_ptr = &species_info[m_ptr->species_idx];
+			creature_type *steed_ptr = &creature_list[c_ptr->creature_idx];
+			species_type *species_ptr = &species_info[steed_ptr->species_idx];
 
 			/* Check the visibility */
-			visible = m_ptr->see_others;
+			visible = steed_ptr->see_others;
 
 			hit_body = TRUE;
 
-			if((m_ptr->lev + 10) > creature_ptr->lev)
+			if((steed_ptr->lev + 10) > creature_ptr->lev)
 			{
-				/*
-				int now_exp = creature_ptr->weapon_exp[0][j_ptr->sval];
-				if(now_exp < skill_info[creature_ptr->class_idx].w_max[0][j_ptr->sval])
-				{
-					int amount = 0;
-					if(now_exp < WEAPON_EXP_BEGINNER) amount = 80;
-					else if(now_exp < WEAPON_EXP_SKILLED) amount = 25;
-					else if((now_exp < WEAPON_EXP_EXPERT) && (creature_ptr->lev > 19)) amount = 10;
-					else if(creature_ptr->lev > 34) amount = 2;
-					creature_ptr->weapon_exp[0][j_ptr->sval] += amount;
-					prepare_update(creature_ptr, CRU_BONUS);
-				}
-				*/
+				//TODO gain_skill(Shooting weapon)
 			}
 
-			if(creature_ptr->riding)
-			{
-				if((creature_ptr->skill_exp[SKILL_RIDING] < skill_info[creature_ptr->class_idx].s_max[SKILL_RIDING])
-					&& ((creature_ptr->skill_exp[SKILL_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < species_info[creature_list[creature_ptr->riding].species_idx].level)
-					&& one_in_(2))
-				{
-					creature_ptr->skill_exp[SKILL_RIDING] += 1;
-					prepare_update(creature_ptr, CRU_BONUS);
-				}
-			}
+			if(creature_ptr->riding) gain_skill(creature_ptr, SKILL_RIDING, steed_ptr->lev);
 
 			/* Some shots have hit bonus */
-			armour = m_ptr->ac + m_ptr->to_ac;
+			armour = steed_ptr->ac + steed_ptr->to_ac;
 			if(creature_ptr->concent)
 			{
 				armour *= (10 - creature_ptr->concent);
@@ -2855,7 +2834,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			}
 
 			/* Did we hit it (penalize range) */
-			if(test_hit_fire(creature_ptr, chance - cur_dis, armour, m_ptr->see_others))
+			if(test_hit_fire(creature_ptr, chance - cur_dis, armour, steed_ptr->see_others))
 			{
 				bool fear = FALSE;
 				int tdam = tdam_base;
@@ -2881,13 +2860,13 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					char m_name[MAX_NLEN];
 
 					/* Get "the creature" or "it" */
-					creature_desc(m_name, m_ptr, 0);
+					creature_desc(m_name, steed_ptr, 0);
 					msg_format(GAME_MESSAGE_PROJECTILE_HITS, object_name, m_name);
 
-					if(m_ptr->see_others)
+					if(steed_ptr->see_others)
 					{
 						/* Hack -- Track this creature race */
-						if(!has_trait(creature_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
+						if(!has_trait(creature_ptr, TRAIT_HALLUCINATION)) species_type_track(steed_ptr->ap_species_idx);
 
 						/* Hack -- Track this creature */
 						health_track(c_ptr->creature_idx);
@@ -2896,15 +2875,15 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 				if(creature_ptr->snipe_type == SP_NEEDLE)
 				{
-					if((randint1(randint1(m_ptr->lev / (3 + creature_ptr->concent)) + (8 - creature_ptr->concent)) == 1)
-						&& !has_trait(m_ptr, TRAIT_UNIQUE) && !has_trait(m_ptr, TRAIT_UNIQUE2))
+					if((randint1(randint1(steed_ptr->lev / (3 + creature_ptr->concent)) + (8 - creature_ptr->concent)) == 1)
+						&& !has_trait(steed_ptr, TRAIT_UNIQUE) && !has_trait(steed_ptr, TRAIT_UNIQUE2))
 					{
 						char m_name[MAX_NLEN];
 
 						/* Get "the creature" or "it" */
-						creature_desc(m_name, m_ptr, 0);
+						creature_desc(m_name, steed_ptr, 0);
 
-						tdam = m_ptr->chp + 1;
+						tdam = steed_ptr->chp + 1;
 #ifdef JP
 						msg_format("%s‚Ì‹}Š‚É“Ë‚«Žh‚³‚Á‚½I", m_name);
 #else
@@ -2916,7 +2895,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				else
 				{
 					/* Apply special damage XXX XXX XXX */
-					tdam = tot_dam_aux_shot(creature_ptr, quest_ptr, tdam, m_ptr);
+					tdam = tot_dam_aux_shot(creature_ptr, quest_ptr, tdam, steed_ptr);
 					tdam = critical_shot(creature_ptr, quest_ptr->weight, quest_ptr->to_hit, tdam);
 
 					/* No negative damage */
@@ -2944,7 +2923,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				}
 
 				/* Hit the creature, check for death */
-				take_damage_to_creature(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, m_ptr), -1);
+				take_damage_to_creature(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, steed_ptr), -1);
 
 				/* No death */
 				if(creature_list[c_ptr->creature_idx].species_idx != 0)
@@ -2953,7 +2932,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					if(object_is_fixed_artifact(quest_ptr))
 					{
 						char m_name[MAX_NLEN];
-						creature_desc(m_name, m_ptr, 0);
+						creature_desc(m_name, steed_ptr, 0);
 						stick_to = TRUE;
 #ifdef JP
 						msg_format("%s‚Í%s‚É“Ë‚«Žh‚³‚Á‚½I",object_name, m_name);
@@ -2965,8 +2944,8 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					message_pain(c_ptr->creature_idx, tdam);
 
 					/* Anger the creature */
-					if(tdam > 0) anger_creature(creature_ptr, m_ptr);
-					set_target(m_ptr, creature_ptr->fy, creature_ptr->fx);
+					if(tdam > 0) anger_creature(creature_ptr, steed_ptr);
+					set_target(steed_ptr, creature_ptr->fy, creature_ptr->fx);
 
 					/* Sniper */
 					if(creature_ptr->snipe_type == SP_RUSH)
@@ -2996,8 +2975,8 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 							floor_ptr->cave[ny][nx].creature_idx = m_idx;
 							floor_ptr->cave[oy][ox].creature_idx = 0;
 
-							m_ptr->fx = nx;
-							m_ptr->fy = ny;
+							steed_ptr->fx = nx;
+							steed_ptr->fy = ny;
 
 							/* Update the creature (new location) */
 							update_creature_view(player_ptr, c_ptr->creature_idx, TRUE);
@@ -3036,7 +3015,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	if(stick_to)
 	{
 		int m_idx = floor_ptr->cave[y][x].creature_idx;
-		creature_type *m_ptr = &creature_list[m_idx];
+		creature_type *steed_ptr = &creature_list[m_idx];
 		int object_idx = object_pop();
 
 		if(!object_idx)
