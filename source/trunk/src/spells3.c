@@ -4031,12 +4031,7 @@ strcat(out_val, format("%-30s", "(”»“Ç•s”\)"));
 			}
 			else if(s_ptr->slevel > creature_ptr->lev)
 			{
-#ifdef JP
-comment = "–Y‹p";
-#else
-				comment = "forgotten";
-#endif
-
+				comment = KW_FORGOTTEN;
 				line_attr = TERM_YELLOW;
 			}
 		}
@@ -4049,12 +4044,7 @@ comment = "–Y‹p";
 		    ((creature_ptr->spell_forgotten1 & (1L << spell))) :
 		    ((creature_ptr->spell_forgotten2 & (1L << spell))))
 		{
-#ifdef JP
-comment = "–Y‹p";
-#else
-			comment = "forgotten";
-#endif
-
+			comment = KW_FORGOTTEN;
 			line_attr = TERM_YELLOW;
 		}
 		else if(!((use_realm == creature_ptr->realm1) ?
@@ -4068,12 +4058,7 @@ comment = "–Y‹p";
 		    (creature_ptr->spell_worked1 & (1L << spell)) :
 		    (creature_ptr->spell_worked2 & (1L << spell))))
 		{
-#ifdef JP
-comment = "–¢ŒoŒ±";
-#else
-			comment = "untried";
-#endif
-
+			comment = KW_UNTRIED;
 			line_attr = TERM_L_GREEN;
 		}
 
