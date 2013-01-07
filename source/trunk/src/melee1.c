@@ -811,19 +811,8 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 
 	if((species_ptr->level + 10) > attacker_ptr->lev)
 	{
+		//TODO gain_skill(creature_ptr, SKILL_MARTIAL_ARTS, amount);
 		// Matrial arts skill mastering
-		if(attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < skill_info[attacker_ptr->class_idx].s_max[SKILL_MARTIAL_ARTS])
-		{
-			if(attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_BEGINNER)
-				attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 40;
-			else if((attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_SKILLED))
-				attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 5;
-			else if((attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_EXPERT) && (attacker_ptr->lev > 19))
-				attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
-			else if((attacker_ptr->lev > 34))
-				if(one_in_(3)) attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
-			prepare_update(attacker_ptr, CRU_BONUS);
-		}
 	}
 
 	if(monk_attack)
@@ -1042,57 +1031,6 @@ static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 }
 
 
-
-static void gain_two_fencing_skill(creature_type *attacker_ptr, creature_type *target_ptr)
-{
-	if(count_melee_slot(attacker_ptr))
-	{
-		if((attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < skill_info[attacker_ptr->class_idx].s_max[SKILL_MULTI_WEAPON]) && ((attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] - 1000) / 200 < target_ptr->lev))
-		{
-			if(attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_BEGINNER)
-				attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 80;
-			else if(attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_SKILLED)
-				attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 4;
-			else if(attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_EXPERT)
-				attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 1;
-			else if(attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_MASTER)
-				if(one_in_(3)) attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 1;
-			prepare_update(attacker_ptr, CRU_BONUS);
-		}
-	}
-}
-
-static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target_ptr)
-{
-	if(attacker_ptr->riding)
-	{
-		int cur = attacker_ptr->skill_exp[SKILL_RIDING];
-		int max = skill_info[attacker_ptr->class_idx].s_max[SKILL_RIDING];
-
-		if(cur < max)
-		{
-			int ridinglevel = species_info[creature_list[attacker_ptr->riding].species_idx].level;
-			int targetlevel = target_ptr->lev;
-			int inc = 0;
-
-			if((cur / 200 - 5) < targetlevel) inc += 1;
-
-			// Extra experience
-			if((cur / 100) < ridinglevel)
-			{
-				if((cur / 100 + 15) < ridinglevel)
-					inc += 1 + (ridinglevel - (cur / 100 + 15));
-				else
-					inc += 1;
-			}
-
-			attacker_ptr->skill_exp[SKILL_RIDING] = MIN(max, cur + inc);
-			prepare_update(attacker_ptr, CRU_BONUS);
-		}
-	}
-}
-
-
 static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_ptr)
 {
 	if(!is_hostile(target_ptr) && !has_trait(attacker_ptr, TRAIT_STUN) || has_trait(attacker_ptr, TRAIT_CONFUSED) || has_trait(attacker_ptr, TRAIT_HALLUCINATION) || has_trait(attacker_ptr, TRAIT_S_HERO) || !target_ptr->see_others)
@@ -1234,8 +1172,8 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 	if(cease_by_counter(attacker_ptr, target_ptr)) return FALSE; // Ceased by Iai Counter
 	if(kawarimi(target_ptr, TRUE)) return FALSE; // Ceased by Kawarimi
 
-	gain_two_fencing_skill(attacker_ptr, target_ptr); // Gain two sword fencing skill
-	gain_riding_skill(attacker_ptr, target_ptr); // Gain riding experience
+	//TODO gain_skill(attacker, SKILL_MULTI_WEAPON, amount); 
+	//TODO gain_skill(attacker, SKILL_RIDING, amount);
 
 	riding_t_m_idx = c_ptr->creature_idx;
 

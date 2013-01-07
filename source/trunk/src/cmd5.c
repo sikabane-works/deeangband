@@ -1117,24 +1117,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 			s16b cur_exp = creature_ptr->spell_exp[realm];
 			s16b exp_gain = 0;
 
-			if(cur_exp < SPELL_EXP_BEGINNER)
-				exp_gain += 60;
-			else if(cur_exp < SPELL_EXP_SKILLED)
-			{
-				if((floor_ptr->floor_level > 4) && ((floor_ptr->floor_level + 10) > creature_ptr->lev))
-					exp_gain = 8;
-			}
-			else if(cur_exp < SPELL_EXP_EXPERT)
-			{
-				if(((floor_ptr->floor_level + 5) > creature_ptr->lev) && ((floor_ptr->floor_level + 5) > s_ptr->slevel))
-					exp_gain = 2;
-			}
-			else if((cur_exp < SPELL_EXP_MASTER) && !increment)
-			{
-				if(((floor_ptr->floor_level + 5) > creature_ptr->lev) && (floor_ptr->floor_level > s_ptr->slevel))
-					exp_gain = 1;
-			}
-			creature_ptr->spell_exp[realm] += exp_gain;
+			//TODO gain_skill(creature_ptr, TODO, amount)
 		}
 	}
 

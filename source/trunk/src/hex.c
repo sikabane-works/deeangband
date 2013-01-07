@@ -199,22 +199,13 @@ void check_hex(creature_type *creature_ptr)
 	for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
 	{
 		if(!HEX_SPELLING(creature_ptr, spell)) continue;
-
-		if(creature_ptr->spell_exp[REALM_HEX] < SPELL_EXP_BEGINNER)
-			creature_ptr->spell_exp[REALM_HEX] += 5;
-		else if(creature_ptr->spell_exp[REALM_HEX] < SPELL_EXP_SKILLED)
-		{ if(one_in_(2) && (floor_ptr->floor_level > 4) && ((floor_ptr->floor_level + 10) > creature_ptr->lev)) creature_ptr->spell_exp[REALM_HEX] += 1; }
-		else if(creature_ptr->spell_exp[REALM_HEX] < SPELL_EXP_EXPERT)
-		{ if(one_in_(5) && ((floor_ptr->floor_level + 5) > creature_ptr->lev) && ((floor_ptr->floor_level + 5) > s_ptr->slevel)) creature_ptr->spell_exp[REALM_HEX] += 1; }
-		else if(creature_ptr->spell_exp[REALM_HEX] < SPELL_EXP_MASTER)
-		{ if(one_in_(5) && ((floor_ptr->floor_level + 5) > creature_ptr->lev) && (floor_ptr->floor_level > s_ptr->slevel)) creature_ptr->spell_exp[REALM_HEX] += 1; }
+		//TODO gain_skill(creature_ptr, REALM_HEX, amount);
 	}
 
 	/* Do any effects of continual spells */
 	for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
 	{
-		if(HEX_SPELLING(creature_ptr, spell))
-			do_spell(creature_ptr, REALM_HEX, spell, SPELL_CONT);
+		if(HEX_SPELLING(creature_ptr, spell)) do_spell(creature_ptr, REALM_HEX, spell, SPELL_CONT);
 	}
 }
 
