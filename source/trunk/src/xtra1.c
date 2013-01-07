@@ -3661,7 +3661,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 
 	if(has_trait(steed_ptr, TRAIT_KILL_WALL)) add_flag(creature_ptr->current_trait, TRAIT_KILL_WALL);
 
-	if(creature_ptr->skill_exp[SKILL_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[SKILL_RIDING])) / RIDING_EXP_SKILLED;
+	// TODO if(creature_ptr->skill_exp[SKILL_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[SKILL_RIDING])) / RIDING_EXP_SKILLED;
 
 	i = 1500 + riding_r_ptr->level * 25; // Extract the "weight limit"
 

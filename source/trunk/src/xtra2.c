@@ -4201,16 +4201,6 @@ void show_alignment(char* buf, creature_type *creature_ptr)
 #endif
 }
 
-// Return proficiency level of riding
-int riding_exp_level(int riding_exp)
-{
-	if(riding_exp < RIDING_EXP_BEGINNER) return EXP_LEVEL_UNSKILLED;
-	else if(riding_exp < RIDING_EXP_SKILLED) return EXP_LEVEL_BEGINNER;
-	else if(riding_exp < RIDING_EXP_EXPERT) return EXP_LEVEL_SKILLED;
-	else if(riding_exp < RIDING_EXP_MASTER) return EXP_LEVEL_EXPERT;
-	else return EXP_LEVEL_MASTER;
-}
-
 // Return proficiency level of spells
 int spell_exp_level(int spell_exp)
 {

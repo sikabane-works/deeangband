@@ -1547,7 +1547,6 @@ extern bool tgt_pt (creature_type *creature_ptr, int *x, int *y);
 extern void do_poly_wounds(creature_type *creature_ptr);
 extern void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg);
 extern void show_alignment(char *buf, creature_type *creature_ptr);
-extern int riding_exp_level(int riding_exp);
 extern int spell_exp_level(int spell_exp);
 extern void display_creature_dump(creature_type *creature_ptr);
 extern void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *m_ptr);
