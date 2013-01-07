@@ -4026,12 +4026,7 @@ strcat(out_val, format("%-30s", "(”»“Ç•s”\)"));
 		{
 			if(s_ptr->slevel > creature_ptr->max_plv)
 			{
-#ifdef JP
-comment = "–¢’m";
-#else
-				comment = "unknown";
-#endif
-
+				comment = KW_UNKNOWN;
 				line_attr = TERM_L_BLUE;
 			}
 			else if(s_ptr->slevel > creature_ptr->lev)
@@ -4047,12 +4042,7 @@ comment = "–Y‹p";
 		}
 		else if((use_realm != creature_ptr->realm1) && (use_realm != creature_ptr->realm2))
 		{
-#ifdef JP
-comment = "–¢’m";
-#else
-			comment = "unknown";
-#endif
-
+			comment = KW_UNKNOWN;
 			line_attr = TERM_L_BLUE;
 		}
 		else if((use_realm == creature_ptr->realm1) ?
@@ -4071,12 +4061,7 @@ comment = "–Y‹p";
 		    (creature_ptr->spell_learned1 & (1L << spell)) :
 		    (creature_ptr->spell_learned2 & (1L << spell))))
 		{
-#ifdef JP
-comment = "–¢’m";
-#else
-			comment = "unknown";
-#endif
-
+			comment = KW_UNKNOWN;
 			line_attr = TERM_L_BLUE;
 		}
 		else if(!((use_realm == creature_ptr->realm1) ?

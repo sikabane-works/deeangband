@@ -3823,12 +3823,7 @@ void do_cmd_colors(void)
 				int gv = angband_color_table[i][2];
 				int bv = angband_color_table[i][3];
 
-#ifdef JP
-				cptr name = "–¢’m";
-#else
-				cptr name = "unknown";
-#endif
-
+				cptr name = KW_UNKNOWN;
 
 				/* Skip non-entries */
 				if(!kv && !rv && !gv && !bv) continue;
