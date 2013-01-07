@@ -312,7 +312,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 		creature_ptr->stat_cur[i] = creature_ptr->stat_max[i] = tmp_int; // Save it
 	}
 
-	sprintf(tmp_val, "%d", WEAPON_EXP_MASTER); // Default
+	sprintf(tmp_val, "%d", 0); // Default
 
 	// Query
 #ifdef JP
@@ -322,8 +322,8 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 #endif
 	tmp_s16b = atoi(tmp_val); // Extract
 
-	if(tmp_s16b < WEAPON_EXP_UNSKILLED) tmp_s16b = WEAPON_EXP_UNSKILLED;
-	if(tmp_s16b > WEAPON_EXP_MASTER) tmp_s16b = WEAPON_EXP_MASTER;
+	if(tmp_s16b < SKILL_P_MIN) tmp_s16b = SKILL_P_MIN;
+	if(tmp_s16b > SKILL_P_MAX) tmp_s16b = SKILL_P_MAX;
 
 	/*
 	for (j = 0; j <= TV_WEAPON_END - TV_WEAPON_BEGIN; j++)

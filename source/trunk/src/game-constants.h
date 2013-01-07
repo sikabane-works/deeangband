@@ -104,13 +104,6 @@
 #define EXP_LEVEL_EXPERT    3
 #define EXP_LEVEL_MASTER    4
 
-// Proficiency of weapons and misc. skills (except riding)
-#define WEAPON_EXP_UNSKILLED     0
-#define WEAPON_EXP_BEGINNER   4000
-#define WEAPON_EXP_SKILLED    6000
-#define WEAPON_EXP_EXPERT     7000
-#define WEAPON_EXP_MASTER     8000
-
 // Proficiency of riding
 #define RIDING_EXP_UNSKILLED     0
 #define RIDING_EXP_BEGINNER    500
@@ -124,6 +117,9 @@
 #define SPELL_EXP_SKILLED     1200
 #define SPELL_EXP_EXPERT      1400
 #define SPELL_EXP_MASTER      1600
+
+#define SKILL_P_MIN 0
+#define SKILL_P_MAX 30000
 
 #define MAX_BOUNTY 20
 

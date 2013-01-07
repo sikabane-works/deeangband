@@ -4207,11 +4207,6 @@ void show_alignment(char* buf, creature_type *creature_ptr)
 */
 int weapon_exp_level(int weapon_exp)
 {
-	if(weapon_exp < WEAPON_EXP_BEGINNER) return EXP_LEVEL_UNSKILLED;
-	else if(weapon_exp < WEAPON_EXP_SKILLED) return EXP_LEVEL_BEGINNER;
-	else if(weapon_exp < WEAPON_EXP_EXPERT) return EXP_LEVEL_SKILLED;
-	else if(weapon_exp < WEAPON_EXP_MASTER) return EXP_LEVEL_EXPERT;
-	else return EXP_LEVEL_MASTER;
 }
 
 // Return proficiency level of riding

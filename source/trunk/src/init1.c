@@ -1211,10 +1211,10 @@ errr parse_skill_info(char *buf, header *head)
 	else if(buf[0] == 'W')
 	{
 		int tval, sval, start, max;
-		const s16b exp_conv_table[] =
+		const s16b exp_conv_table[] = //TODO
 		{
-			WEAPON_EXP_UNSKILLED, WEAPON_EXP_BEGINNER, WEAPON_EXP_SKILLED,
-			WEAPON_EXP_EXPERT, WEAPON_EXP_MASTER
+			0, 1, 2,
+			3, 4
 		};
 
 		/* Scan for the values */
@@ -1238,12 +1238,10 @@ errr parse_skill_info(char *buf, header *head)
 		if(3 != sscanf(buf+2, "%d:%d:%d",
 				&num, &start, &max)) return PARSE_ERROR_GENERIC;
 
-		if(start < WEAPON_EXP_UNSKILLED || start > WEAPON_EXP_MASTER
-			|| max < WEAPON_EXP_UNSKILLED || max > WEAPON_EXP_MASTER) return (8);
-
+		//TODO 
 		/* Save the values */
-		s_ptr->s_start[num] = start;
-		s_ptr->s_max[num] = max;
+		s_ptr->s_start[num] = 0;
+		s_ptr->s_max[num] = 8000;
 	}
 
 

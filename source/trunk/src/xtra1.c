@@ -3497,7 +3497,7 @@ static void set_melee_status(creature_type *creature_ptr)
 		{
 			int tval = weapon_ptr->tval - TV_WEAPON_BEGIN;
 			int sval = weapon_ptr->sval;
-			int boost = 0; //(creature_ptr->weapon_exp[tval][sval] - WEAPON_EXP_BEGINNER) / 200;
+			int boost = 0; //TODO calc skill
 
 			creature_ptr->to_hit[i] += boost > 0 ? boost : 0;
 			creature_ptr->dis_to_hit[i] += boost > 0 ? boost : 0;
