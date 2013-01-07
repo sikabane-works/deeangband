@@ -1029,93 +1029,6 @@ static void regenmagic(creature_type *creature_ptr, int percent)
 }
 
 
-
-
-
-
-/*
-* Regenerate the creatures (once per 100 game turns)
-*
-* XXX XXX XXX Should probably be done during creature turns.
-*/
-static void regen_creatures(creature_type *creature_ptr)
-{
-	int i, frac;
-
-
-	/* Regenerate everyone */
-	for (i = 1; i < creature_max; i++)
-	{
-		/* Check the i'th creature */
-		creature_type *m_ptr = &creature_list[i];
-		species_type *species_ptr = &species_info[m_ptr->species_idx];
-
-
-		/* Skip dead creatures */
-		if(!m_ptr->species_idx) continue;
-
-		/* Allow regeneration (if needed) */
-		if(m_ptr->chp < m_ptr->mhp)
-		{
-			/* Hack -- Base regeneration */
-			frac = m_ptr->mhp / 100;
-
-			/* Hack -- Minimal regeneration rate */
-			if(!frac) if(one_in_(2)) frac = 1;
-
-			/* Hack -- Some creatures regenerate quickly */
-			if(has_trait(creature_ptr, TRAIT_REGENERATE)) frac *= 2;
-
-			/* Hack -- Regenerate */
-			m_ptr->chp += frac;
-
-			/* Do not over-regenerate */
-			if(m_ptr->chp > m_ptr->mhp) m_ptr->chp = m_ptr->mhp;
-
-			if(npc_status_id == i) prepare_redraw(PR_HEALTH);
-			if(creature_ptr->riding == i) prepare_redraw(PR_UHEALTH);
-		}
-	}
-}
-
-
-
-// Regenerate the captured creatures (once per 30 game turns)
-// XXX XXX XXX Should probably be done during creature turns.
-static void regen_captured_creatures(creature_type *creature_ptr)
-{
-	int i;
-	bool heal = FALSE;
-
-	/* Regenerate everyone */
-	for (i = 0; i < INVEN_TOTAL; i++)
-	{
-		species_type *species_ptr;
-		object_type *object_ptr = &creature_ptr->inventory[i];
-
-		if(!is_valid_object(object_ptr)) continue;
-		if(object_ptr->tval != TV_CAPTURE) continue;
-		if(!object_ptr->pval) continue;
-
-		heal = TRUE;
-
-		species_ptr = &species_info[object_ptr->pval];
-
-		//TODO for new feature Allow regeneration (if needed)
-	}
-
-	if(heal)
-	{
-		/* Combine pack */
-		prepare_update(creature_ptr, CRU_COMBINE);
-
-		prepare_window(PW_INVEN);
-		prepare_window(PW_EQUIP);
-		wild_regen = 20;
-	}
-}
-
-
 static void notice_lite_change(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Hack -- notice interesting fuel steps */
@@ -3301,10 +3214,6 @@ static void process_world(void)
 	if(one_in_(dungeon_info[floor_ptr->dun_type].max_m_alloc_chance) &&
 		!floor_ptr->fight_arena_mode && !floor_ptr->quest && !floor_ptr->gamble_arena_mode) // Make a new creature
 		(void)alloc_creature(floor_ptr, player_ptr, MAX_SIGHT + 5, 0);
-
-	/* Hack -- Check for creature regeneration */
-	if(!(turn % (TURNS_PER_TICK*10)) && !floor_ptr->gamble_arena_mode) regen_creatures(player_ptr);
-	if(!(turn % (TURNS_PER_TICK*3))) regen_captured_creatures(player_ptr);
 
 	/* Date changes */
 	if(!hour && !min)
