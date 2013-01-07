@@ -342,8 +342,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 		if(creature_ptr->skill_exp[j] > skill_info[creature_ptr->class_idx].s_max[j]) creature_ptr->skill_exp[j] = skill_info[creature_ptr->class_idx].s_max[j];
 	}
 
-	for (j = 0; j < MAX_REALM; j++)
-		creature_ptr->spell_exp[j] = (tmp_s16b > SPELL_EXP_MASTER ? SPELL_EXP_MASTER : tmp_s16b);
+	for (j = 0; j < MAX_REALM; j++) creature_ptr->spell_exp[j] = (tmp_s16b > SKILL_P_MAX ? SKILL_P_MAX : tmp_s16b);
 	
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->au)); // Default
 	if(!get_string("Gold: ", tmp_val, 9)) return; // Query

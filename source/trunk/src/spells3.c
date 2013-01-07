@@ -3711,11 +3711,7 @@ int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, int rea
 	/* Realm magic */
 	if((realm > REALM_NONE) && (realm <= MAX_REALM))
 	{
-		/*
-		 * need_mana defaults if spell exp equals SPELL_EXP_EXPERT and !creature_ptr->dec_mana.
-		 * MANSTAT_CONST is used to calculate need_mana effected from spell proficiency.
-		 */
-		need_mana = need_mana * (MANSTAT_CONST + SPELL_EXP_EXPERT - experience_of_spell(creature_ptr, spell, realm)) + (MANSTAT_CONST - 1);
+		//TODO need_mana = need_mana * (MANSTAT_CONST + SPELL_EXP_EXPERT - experience_of_spell(creature_ptr, spell, realm)) + (MANSTAT_CONST - 1);
 		need_mana *= has_trait(creature_ptr, TRAIT_DEC_MANA) ? DEC_MANA_DIV : MANA_DIV;
 		need_mana /= MANSTAT_CONST * MANA_DIV;
 		if(need_mana < 1) need_mana = 1;
@@ -3860,8 +3856,8 @@ s16b spell_chance(creature_type *creature_ptr, int spell, int use_realm)
 	    || (creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))
 	{
 		s16b exp = experience_of_spell(creature_ptr, spell, use_realm);
-		if(exp >= SPELL_EXP_EXPERT) chance--;
-		if(exp >= SPELL_EXP_MASTER) chance--;
+		//TODO if(exp >= SPELL_EXP_EXPERT) chance--;
+		//TODO if(exp >= SPELL_EXP_MASTER) chance--;
 	}
 
 	/* Return the chance */
