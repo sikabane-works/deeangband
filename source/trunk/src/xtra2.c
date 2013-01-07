@@ -4201,16 +4201,6 @@ void show_alignment(char* buf, creature_type *creature_ptr)
 #endif
 }
 
-// Return proficiency level of spells
-int spell_exp_level(int spell_exp)
-{
-	if(spell_exp < SPELL_EXP_BEGINNER) return EXP_LEVEL_UNSKILLED;
-	else if(spell_exp < SPELL_EXP_SKILLED) return EXP_LEVEL_BEGINNER;
-	else if(spell_exp < SPELL_EXP_EXPERT) return EXP_LEVEL_SKILLED;
-	else if(spell_exp < SPELL_EXP_MASTER) return EXP_LEVEL_EXPERT;
-	else return EXP_LEVEL_MASTER;
-}
-
 
 void display_creature_dump(creature_type *creature_ptr)
 {

@@ -3995,9 +3995,8 @@ put_str(buf, y, x + 29);
 			/* Extract mana consumption rate */
 			need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, use_realm);
 
-			if((increment == 64) || (s_ptr->slevel >= 99)) exp_level = EXP_LEVEL_UNSKILLED;
-			else exp_level = spell_exp_level(exp);
-
+			exp_level = 0; //TODO
+		
 			max = FALSE;
 			if(!increment && (exp_level == EXP_LEVEL_MASTER)) max = TRUE;
 			else if((increment == 32) && (exp_level >= EXP_LEVEL_EXPERT)) max = TRUE;
