@@ -3294,7 +3294,7 @@ static void tramping_attack(creature_type *attacker_ptr, creature_type *target_p
 		if(100 * target_ptr->chp / target_ptr->mhp < 50) prob = prob * 3 / 2; 
 		if(100 * target_ptr->chp / target_ptr->mhp < 30) prob = prob * 3 / 2; 
 		if(100 * target_ptr->chp / target_ptr->mhp < 10) prob = prob * 3 / 2; 
-		if(prob > 95) prob = 95;
+		if(prob > MAX_CHANCE) prob = MAX_CHANCE;
 
 		if(attacker_ptr->size > target_ptr->size && randint0(100) < prob)
 		{

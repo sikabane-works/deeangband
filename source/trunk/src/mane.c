@@ -180,7 +180,7 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 					else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 					/* Always a 5 percent chance of working */
-					if(chance > 95) chance = 95;
+					if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 
 					/* Get info */
 					mane_info(creature_ptr, comment, creature_ptr->mane_spell[i], (baigaesi ? creature_ptr->mane_dam[i]*2 : creature_ptr->mane_dam[i]));
@@ -326,7 +326,7 @@ msg_print("‚Ü‚Ë‚ç‚ê‚é‚à‚Ì‚ª‰½‚à‚È‚¢I");
 	else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 	/* Always a 5 percent chance of working */
-	if(chance > 95) chance = 95;
+	if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 
 	/* Failed spell */
 	if(randint0(100) < chance)

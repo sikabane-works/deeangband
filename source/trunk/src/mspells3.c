@@ -553,7 +553,7 @@ cptr            p = "–‚–@";
 					else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 					/* Always a 5 percent chance of working */
-					if(chance > 95) chance = 95;
+					if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 
 					chance = mod_spell_chance_2(creature_ptr, chance);
 
@@ -776,7 +776,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 	/* Always a 5 percent chance of working */
-	if(chance > 95) chance = 95;
+	if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 
 	chance = mod_spell_chance_2(creature_ptr, chance);
 

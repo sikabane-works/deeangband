@@ -3579,7 +3579,7 @@ void display_spell_list(creature_type *creature_ptr)
 			else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 			/* Always a 5 percent chance of working */
-			if(chance > 95) chance = 95;
+			if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 
 			/* Get info */
 			mindcraft_info(creature_ptr, comment, use_mind, i);
@@ -3849,7 +3849,7 @@ s16b spell_chance(creature_type *creature_ptr, int spell, int use_realm)
 	else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 	/* Always a 5 percent chance of working */
-	if(chance > 95) chance = 95;
+	if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 
 	if((use_realm == creature_ptr->realm1) || (use_realm == creature_ptr->realm2)
 	    || (creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))

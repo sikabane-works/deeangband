@@ -698,7 +698,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 							if(heavy_armor(creature_ptr)) chance += 5;
 						}
 						/* Always a 5 percent chance of working */
-						if(chance > 95) chance = 95;
+						if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 					}
 
 					/* Get info */
@@ -1858,7 +1858,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 	}
 
 	/* Always a 5 percent chance of working */
-	if(chance > 95) chance = 95;
+	if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 
 	/* Failed spell */
 	if(randint0(100) < chance)

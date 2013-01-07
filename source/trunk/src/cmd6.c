@@ -3211,7 +3211,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 				if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 				else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
-				if(chance > 95) chance = 95;
+				if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 
 				chance = mod_spell_chance_2(creature_ptr, chance);
 
@@ -3494,7 +3494,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 	else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
-	if(chance > 95) chance = 95;
+	if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 
 	chance = mod_spell_chance_2(creature_ptr, chance);
 
