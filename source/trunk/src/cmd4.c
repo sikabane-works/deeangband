@@ -5920,66 +5920,6 @@ static void do_cmd_knowledge_uniques(void)
 	fd_kill(file_name);
 }
 
-
-/*
- * Display weapon-exp
- */
-static void do_cmd_knowledge_weapon_exp(creature_type *creature_ptr)
-{
-	int i, j, num;
-	FILE *fff;
-	char file_name[1024];
-
-	/* Open a new file */
-	fff = my_fopen_temp(file_name, 1024);
-	if(!fff) {
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
-	    msg_print(NULL);
-	    return;
-	}
-
-	for (i = 0; i < 5; i++)
-	{
-		for (num = 0; num < (REALM_MAGIC_NUMBER * 2); num++)
-		{
-			for (j = 0; j < max_object_kind_idx; j++)
-			{
-				object_kind *object_kind_ptr = &object_kind_info[j];
-
-				if((object_kind_ptr->tval == TV_SWORD - i) && (object_kind_ptr->sval == num))
-				{
-					if((object_kind_ptr->tval == TV_BOW) && (object_kind_ptr->sval == SV_CRIMSON)) continue;
-
-					/*TODO 
-					weapon_exp = creature_ptr->weapon_exp[4 - i][num];
-					strip_name(tmp, j);
-					fprintf(fff, "%-25s ", tmp);
-					//if(weapon_exp >= skill_info[creature_ptr->class_idx].w_max[4 - i][num]) fprintf(fff, "!");
-					//else fprintf(fff, " ");
-					fprintf(fff, "%s", exp_level_str[weapon_exp_level(weapon_exp)]);
-					if(cheat_xtra) fprintf(fff, " %d", weapon_exp);
-					fprintf(fff, "\n");
-					*/
-					break;
-				}
-			}
-		}
-	}
-
-	my_fclose(fff);
-
-	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "ïêäÌÇÃåoå±íl", 0, 0);
-#else
-	show_file(TRUE, file_name, "Weapon Proficiency", 0, 0);
-#endif
-
-
-	/* Remove the file */
-	fd_kill(file_name);
-}
-
 /*
  * Display skill-exp
  */
@@ -8989,12 +8929,6 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 			break;
 		case 'b': /* Mutations */
 			do_cmd_knowledge_traits(creature_ptr);
-			break;
-		case 'c': /* weapon-exp */
-			do_cmd_knowledge_weapon_exp(creature_ptr);
-			break;
-		case 'd': /* spell-exp */
-			//TODO do_cmd_knowledge_spell_exp(creature_ptr);
 			break;
 		case 'e': /* skill-exp */
 			do_cmd_knowledge_skill_exp(creature_ptr);
