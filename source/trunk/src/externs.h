@@ -912,6 +912,7 @@ extern bool have_posture(creature_type *creature_ptr);
 extern bool cost_tactical_energy(creature_type *creature_ptr, int cost);
 extern bool cancel_tactical_action(creature_type *creature_ptr);
 extern bool gain_skill(creature_type *creature_ptr, int type, int amount);
+extern int get_skill_level(creature_type *creature_ptr, int type);
 
 
 // do-spell.c
@@ -1546,7 +1547,6 @@ extern bool tgt_pt (creature_type *creature_ptr, int *x, int *y);
 extern void do_poly_wounds(creature_type *creature_ptr);
 extern void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg);
 extern void show_alignment(char *buf, creature_type *creature_ptr);
-extern int weapon_exp_level(int weapon_exp);
 extern int riding_exp_level(int riding_exp);
 extern int spell_exp_level(int spell_exp);
 extern void display_creature_dump(creature_type *creature_ptr);

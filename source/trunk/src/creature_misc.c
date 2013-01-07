@@ -1366,6 +1366,11 @@ bool cancel_tactical_action(creature_type *creature_ptr)
 
 bool gain_skill(creature_type *creature_ptr, int type, int power)
 {
-	creature_ptr->spell_exp[type] += (power / (creature_ptr->spell_exp[type] * 100));
+	creature_ptr->spell_exp[type] += (power / creature_ptr->spell_exp[type]);
 	return TRUE;
+}
+
+int get_skill_level(creature_type *creature_ptr, int type)
+{
+	return creature_ptr->spell_exp[type] / 100;
 }

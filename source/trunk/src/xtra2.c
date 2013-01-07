@@ -4201,14 +4201,6 @@ void show_alignment(char* buf, creature_type *creature_ptr)
 #endif
 }
 
-
-/*
-* Return proficiency level of weapons and misc. skills (except riding)
-*/
-int weapon_exp_level(int weapon_exp)
-{
-}
-
 // Return proficiency level of riding
 int riding_exp_level(int riding_exp)
 {
