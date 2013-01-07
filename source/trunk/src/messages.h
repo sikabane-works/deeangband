@@ -120,6 +120,7 @@
 #define GAME_MESSAGE_BOUNTY_1 "%s を換金しますか？"
 
 #define GAME_MESSAGE_TRAP_WARNING "* 注意:この先はトラップの感知範囲外です！ *"
+#define GAME_MESSAGE_TRAP_DESTROY "トラップを粉砕した。"
 
 #define GAME_MESSAGE_TRAP_NEEDLE "仕掛けられていた小さな針に刺されてしまった！"
 #define GAME_MESSAGE_TRAP_DARTS "小さなダーツが飛んできて刺さった！"
@@ -218,6 +219,7 @@
 #define GAME_MESSAGE_BOUNTY_1 "Convert %s into money?"
 
 #define GAME_MESSAGE_TRAP_WARNING "*Leaving trap detect region!*"
+#define GAME_MESSAGE_TRAP_DESTROY "You destroyed the trap."
 
 #define GAME_MESSAGE_TRAP_NEEDLE "A small needle has pricked you!"
 #define GAME_MESSAGE_TRAP_DARTS "A small dart hits you!"

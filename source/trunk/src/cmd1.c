@@ -1141,11 +1141,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 	if(break_trap && is_trap(c_ptr->feat))
 	{
 		cave_alter_feat(floor_ptr, y, x, FF_DISARM);
-#ifdef JP
-		msg_print("トラップを粉砕した。");
-#else
-		msg_print("You destroyed the trap.");
-#endif
+		msg_print(GAME_MESSAGE_TRAP_DESTROY);
 	}
 }
 

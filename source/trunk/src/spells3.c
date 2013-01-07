@@ -4001,7 +4001,7 @@ void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, i
 		if(s_ptr->slevel >= 99)
 		{
 #ifdef JP
-strcat(out_val, format("%-30s", "(判読不能)"));
+				strcat(out_val, format("%-30s", "(判読不能)"));
 #else
 				strcat(out_val, format("%-30s", "(illegible)"));
 #endif
