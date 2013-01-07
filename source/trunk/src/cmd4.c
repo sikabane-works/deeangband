@@ -6829,17 +6829,16 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 		{
 			clear_from(0);
 
+			prt(KW_NAME, 4, max + 3);
 #ifdef JP
 			prt(format("%s - クリーチャー", !visual_only ? "知識" : "表示"), 2, 0);
 			if(direct_species_idx < 0) prt("グループ", 4, 0);
-			prt("名前", 4, max + 3);
 			if(wizard || visual_only) prt("Idx", 4, 62);
 			prt("文字", 4, 67);
 			if(!visual_only) prt("殺害数", 4, 72);
 #else
 			prt(format("%s - creatures", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
 			if(direct_species_idx < 0) prt("Group", 4, 0);
-			prt("Name", 4, max + 3);
 			if(wizard || visual_only) prt("Idx", 4, 62);
 			prt("Sym", 4, 68);
 			if(!visual_only) prt("Kills", 4, 73);
@@ -7319,16 +7318,15 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 		{
 			clear_from(0);
 
+			prt(KW_NAME, 4, max + 3);
 #ifdef JP
 			prt(format("%s - アイテム", !visual_only ? "知識" : "表示"), 2, 0);
 			if(direct_k_idx < 0) prt("グループ", 4, 0);
-			prt("名前", 4, max + 3);
 			if(wizard || visual_only) prt("Idx", 4, 70);
 			prt("文字", 4, 74);
 #else
 			prt(format("%s - objects", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
 			if(direct_k_idx < 0) prt("Group", 4, 0);
-			prt("Name", 4, max + 3);
 			if(wizard || visual_only) prt("Idx", 4, 70);
 			prt("Sym", 4, 75);
 #endif
@@ -7669,10 +7667,10 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 		{
 			clear_from(0);
 
+			prt(KW_NAME, 4, max + 3);
 #ifdef JP
 			prt("表示 - 地形", 2, 0);
 			if(direct_f_idx < 0) prt("グループ", 4, 0);
-			prt("名前", 4, max + 3);
 			if(use_bigtile)
 			{
 				if(wizard || visual_only) prt("Idx", 4, 62);
@@ -7686,7 +7684,6 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 #else
 			prt("Visuals - features", 2, 0);
 			if(direct_f_idx < 0) prt("Group", 4, 0);
-			prt("Name", 4, max + 3);
 			if(use_bigtile)
 			{
 				if(wizard || visual_only) prt("Idx", 4, 62);

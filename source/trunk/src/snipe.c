@@ -153,11 +153,10 @@ void display_snipe_list(creature_type *creature_ptr)
 
 	/* Display a list of spells */
 	prt("", y, x);
+	put_str(KW_NAME, y, x + 5);
 #ifdef JP
-	put_str("名前", y, x + 5);
 	put_str("Lv   MP", y, x + 35);
 #else
-	put_str("Name", y, x + 5);
 	put_str("Lv Mana", y, x + 35);
 #endif
 
@@ -284,11 +283,10 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 
 				/* Display a list of spells */
 				prt("", y, x);
+				put_str(KW_NAME, y, x + 5);
 #ifdef JP
-				put_str("名前", y, x + 5);
 				if(only_browse) put_str("Lv   集中度", y, x + 35);
 #else
-				put_str("Name", y, x + 5);
 				if(only_browse) put_str("Lv Pow", y, x + 35);
 #endif
 

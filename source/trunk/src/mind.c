@@ -631,11 +631,10 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 
 				/* Display a list of spells */
 				prt("", y, x);
+				put_str(KW_NAME, y, x + 5);
 #ifdef JP
-				put_str("–¼‘O", y, x + 5);
 				put_str(format("Lv   %s   Ž¸—¦ Œø‰Ê", ((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU)) ? "HP" : "MP"), y, x + 35);
 #else
-				put_str("Name", y, x + 5);
 				put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU)) ? "HP" : "MP"), y, x + 35);
 #endif
 				has_weapon[0] = get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0;

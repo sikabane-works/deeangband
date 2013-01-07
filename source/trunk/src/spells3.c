@@ -3514,11 +3514,10 @@ void display_spell_list(creature_type *creature_ptr)
 
 		/* Display a list of spells */
 		prt("", y, x);
+		put_str(KW_NAME, y, x + 5);
 #ifdef JP
-put_str("–¼‘O", y, x + 5);
-put_str("Lv   MP Ž¸—¦ Œø‰Ê", y, x + 35);
+		put_str("Lv   MP Ž¸—¦ Œø‰Ê", y, x + 35);
 #else
-		put_str("Name", y, x + 5);
 		put_str("Lv Mana Fail Info", y, x + 35);
 #endif
 
@@ -3953,13 +3952,8 @@ void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, i
 		strcpy(buf,"Profic Lv   SP Fail Effect");
 #endif
 
-#ifdef JP
-put_str("–¼‘O", y, x + 5);
-put_str(buf, y, x + 29);
-#else
-	put_str("Name", y, x + 5);
+	put_str(KW_NAME, y, x + 5);
 	put_str(buf, y, x + 29);
-#endif
 
 	if((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE)) increment = 0;
 	else if(use_realm == creature_ptr->realm1) increment = 0;

@@ -504,11 +504,7 @@ cptr            p = "–‚–@";
 
 				/* Display a list of spells */
 				prt("", y, x);
-#ifdef JP
-put_str("–¼‘O", y, x + 5);
-#else
-				put_str("Name", y, x + 5);
-#endif
+				put_str(KW_NAME, y, x + 5);
 
 #ifdef JP
 put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
