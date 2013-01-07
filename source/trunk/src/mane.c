@@ -146,9 +146,9 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 				prt("", y, x);
 				put_str(KW_NAME, y, x + 5);
 #ifdef JP
-				put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
+				put_str(format("%4s Œø‰Ê", KW_FAIL), y, x + 36);
 #else
-				put_str("Fail Info", y, x + 35);
+				put_str(format("%4s Info", KW_FAIL), y, x + 36);
 #endif
 
 				/* Dump the spells */
@@ -233,7 +233,7 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 			char tmp_val[160];
 
 #ifdef JP
-			(void) strnfmt(tmp_val, 78, "%s‚ð‚Ü‚Ë‚Ü‚·‚©H", racial_powers[creature_ptr->mane_spell[i]].name);
+			(void)strnfmt(tmp_val, 78, "%s‚ð‚Ü‚Ë‚Ü‚·‚©H", racial_powers[creature_ptr->mane_spell[i]].name);
 #else
 			(void)strnfmt(tmp_val, 78, "Use %s? ", racial_powers[creature_ptr->mane_spell[i]].name);
 #endif

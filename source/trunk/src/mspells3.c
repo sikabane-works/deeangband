@@ -507,11 +507,10 @@ cptr            p = "–‚–@";
 				put_str(KW_NAME, y, x + 5);
 
 #ifdef JP
-put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
+				put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 #else
 				put_str("SP Fail Info", y, x + 32);
 #endif
-
 
 				/* Dump the spells */
 				for (i = 0; i < num; i++)

@@ -1374,6 +1374,7 @@ static bool make_fake_artifact(object_type *object_ptr, int name1)
 	object_ptr->pval = a_ptr->pval;
 	object_ptr->ac = a_ptr->ac;
 	object_ptr->ev = a_ptr->ev;
+	object_ptr->vo = a_ptr->vo;
 	object_ptr->dd = a_ptr->dd;
 	object_ptr->ds = a_ptr->ds;
 	object_ptr->to_ac = a_ptr->to_ac;

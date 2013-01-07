@@ -72,11 +72,13 @@
  
 #if JP
 #define KW_NAME "名前"
+#define KW_FAIL "失率"
 #define KW_CARRYING_WEIGHT "所持重量"
 #define KW_EQUIPMENT_WEIGHT "装備重量"
 #define KW_CREATURE_PROFILE "クリーチャーのプロフィール"
 #else
 #define KW_NAME "Name"
+#define KW_FAIL "Fail"
 #define KW_CARRYING_WEIGHT "Carrying Weight"
 #define KW_EQUIPMENT_WEIGHT "Equipment Weight"
 #define KW_CREATURE_PROFILE "Creature Profile"
