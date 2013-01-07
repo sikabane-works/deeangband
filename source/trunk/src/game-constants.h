@@ -96,14 +96,6 @@
 #define STAT_VALUE_MAX   600
 #define STAT_VALUE_BASE_MAX_MAX 240
 
-
-// Proficiency level
-#define EXP_LEVEL_UNSKILLED 0
-#define EXP_LEVEL_BEGINNER  1
-#define EXP_LEVEL_SKILLED   2
-#define EXP_LEVEL_EXPERT    3
-#define EXP_LEVEL_MASTER    4
-
 #define SKILL_P_MIN 0
 #define SKILL_P_MAX 30000
 

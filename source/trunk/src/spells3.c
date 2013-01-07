@@ -3919,7 +3919,7 @@ bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study
  */
 void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, int num, int y, int x, int use_realm)
 {
-	int             i, spell, exp_level, increment = 64;
+	int             i, spell, increment = 64;
 	magic_type      *s_ptr;
 	cptr            comment;
 	char            info[80];
@@ -3930,12 +3930,11 @@ void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, i
 	char            buf[256];
 	bool max = FALSE;
 
-
 	if(((use_realm <= REALM_NONE) || (use_realm > MAX_REALM)) && wizard)
 #ifdef JP
-msg_print("ŒxI print_spell ‚ª—Ìˆæ‚È‚µ‚ÉŒÄ‚Î‚ê‚½");
+		msg_warning("print_spell ‚ª—Ìˆæ‚È‚µ‚ÉŒÄ‚Î‚ê‚½");
 #else
-		msg_print("Warning! print_spells called with null realm");
+		msg_warning("print_spells called with null realm");
 #endif
 
 
@@ -3990,18 +3989,6 @@ put_str(buf, y, x + 29);
 
 			/* Extract mana consumption rate */
 			need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, use_realm);
-
-			exp_level = 0; //TODO
-		
-			max = FALSE;
-			if(!increment && (exp_level == EXP_LEVEL_MASTER)) max = TRUE;
-			else if((increment == 32) && (exp_level >= EXP_LEVEL_EXPERT)) max = TRUE;
-			else if(s_ptr->slevel >= 99) max = TRUE;
-			else if((creature_ptr->class_idx == CLASS_RED_MAGE) && (exp_level >= EXP_LEVEL_SKILLED)) max = TRUE;
-
-			strncpy(ryakuji, exp_level_str[exp_level], 4);
-			ryakuji[3] = ']';
-			ryakuji[4] = '\0';
 		}
 
 		if(use_menu && target_spell)

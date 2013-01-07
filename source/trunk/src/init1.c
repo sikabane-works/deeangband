@@ -1221,8 +1221,8 @@ errr parse_skill_info(char *buf, header *head)
 		if(4 != sscanf(buf+2, "%d:%d:%d:%d",
 				&tval, &sval, &start, &max)) return PARSE_ERROR_GENERIC;
 
-		if(start < EXP_LEVEL_UNSKILLED || start > EXP_LEVEL_MASTER
-			|| max < EXP_LEVEL_UNSKILLED || max > EXP_LEVEL_MASTER) return (8);
+		//if(start < EXP_LEVEL_UNSKILLED || start > EXP_LEVEL_MASTER
+		//	|| max < EXP_LEVEL_UNSKILLED || max > EXP_LEVEL_MASTER) return (8);
 
 		/* Save the values */
 		//s_ptr->w_start[tval][sval] = exp_conv_table[start];
