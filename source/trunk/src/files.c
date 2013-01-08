@@ -4171,7 +4171,6 @@ static void dump_aux_options(creature_type *creature_ptr, FILE *fff)
 	if(ironman_shops) fprintf(fff, "\n 店なし:             ON");
 	if(ironman_downward) fprintf(fff, "\n 階段を上がれない:   ON");
 	if(ironman_rooms) fprintf(fff, "\n 普通でない部屋:     ON");
-	if(curse_of_Iluvatar) fprintf(fff, "\n 悪夢モード:         ON");
 
 	if(ironman_empty_levels) fprintf(fff, "\n アリーナ:           ALWAYS");
 	else if(empty_levels) fprintf(fff, "\n アリーナ:           ENABLED");
@@ -4194,7 +4193,6 @@ static void dump_aux_options(creature_type *creature_ptr, FILE *fff)
 	if(ironman_shops) fprintf(fff, "\n No Shops:           ON");
 	if(ironman_downward) fprintf(fff, "\n Diving Only:        ON");
 	if(ironman_rooms) fprintf(fff, "\n Unusual Rooms:      ON");
-	if(curse_of_Iluvatar) fprintf(fff, "\n Nightmare Mode:     ON");
 	if(ironman_empty_levels) fprintf(fff, "\n Arena Levels:       ALWAYS");
 	else if(empty_levels) fprintf(fff, "\n Arena Levels:       ENABLED");
 	else fprintf(fff, "\n Arena Levels:       OFF");
@@ -5775,7 +5773,6 @@ long total_points(creature_type *player_ptr)
 	if(ironman_small_levels) mult += 10;
 	if(ironman_empty_levels) mult += 20;
 	if(ironman_rooms) mult += 100;
-	if(curse_of_Iluvatar) mult += 100;
 
 	if(mult < 5) mult = 5;
 

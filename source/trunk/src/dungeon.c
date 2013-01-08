@@ -2712,7 +2712,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				if(floor_ptr->floor_level < 1) floor_ptr->floor_level = 1;
 
 				/* Nightmare mode makes recall more dangerous */
-				if(curse_of_Iluvatar && !randint0(666) && (floor_ptr->dun_type == DUNGEON_ANGBAND))
+				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) && !randint0(666) && (floor_ptr->dun_type == DUNGEON_ANGBAND))
 				{
 					if(floor_ptr->floor_level < 50)
 					{
@@ -3223,7 +3223,7 @@ static void process_world(void)
 	*
 	* Require exact minute -- Don't activate multiple times in a minute
 	*/
-	if(curse_of_Iluvatar && (min != prev_min))
+	if(has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR) && (min != prev_min))
 	{
 		// Every 15 minutes after 11:00 pm
 		if((hour == 23) && !(min % 15))

@@ -1995,7 +1995,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_OLD_SLEEP:
 		if(has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
-		if(curse_of_Iluvatar)
+		if(has_trait(target_ptr, TRAIT_CURSE_OF_ILUVATAR))
 		{
 #ifdef JP
 			msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");

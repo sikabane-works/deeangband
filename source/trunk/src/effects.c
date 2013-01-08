@@ -883,7 +883,7 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 	case STAT_CHA: if(has_trait(creature_ptr, TRAIT_SUSTAIN_CHR)) sust = TRUE; break;
 	}
 
-	if(sust && (!curse_of_Iluvatar || randint0(13))) // Sustain
+	if(sust && (!has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) || randint0(13))) // Sustain
 	{
 		if(is_seen(player_ptr, creature_ptr))
 		{
@@ -896,7 +896,7 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 		return TRUE; // Notice effect
 	}
 
-	if(dec_stat(creature_ptr, stat, 10, (curse_of_Iluvatar && !randint0(13)))) // Attempt to reduce the stat
+	if(dec_stat(creature_ptr, stat, 10, (has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) && !randint0(13)))) // Attempt to reduce the stat
 	{
 		if(is_seen(player_ptr, creature_ptr))
 		{

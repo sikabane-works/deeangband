@@ -61,7 +61,7 @@ static void roff_aux(species_type *species_ptr, int mode)
 
 	int             msex = 0;
 
-	bool nightmare = curse_of_Iluvatar && !(mode & 0x02);
+	bool nightmare = has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR) && !(mode & 0x02);
 	int speed = nightmare ? species_ptr->speed + 5 : species_ptr->speed;
 
 	/* Descriptions */

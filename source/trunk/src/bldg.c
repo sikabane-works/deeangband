@@ -2183,7 +2183,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 				if((prev_hour >= 18) && (prev_hour <= 23)) do_cmd_write_diary(DIARY_HIGAWARI, 0, NULL);
 				creature_ptr->chp = creature_ptr->mhp;
 
-				if(curse_of_Iluvatar)
+				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
 				{
 #ifdef JP
 					msg_print("–°‚è‚ÉA‚­‚Æ‹°‚ë‚µ‚¢ŒõŒi‚ªS‚ğ‚æ‚¬‚Á‚½B");

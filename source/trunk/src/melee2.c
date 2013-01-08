@@ -2509,7 +2509,7 @@ static void process_creature(int i)
 
 	// Digest cost
 	speed = creature_ptr->speed;
-	if(curse_of_Iluvatar && !is_player(creature_ptr)) speed += 5; // Creatures move quickly in curse of Iluvatar mode
+	if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) && !is_player(creature_ptr)) speed += 5; // Creatures move quickly in curse of Iluvatar mode
 	creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this creature some energy
 	if(creature_ptr->energy_need > 0) return; // Not enough energy to move
 

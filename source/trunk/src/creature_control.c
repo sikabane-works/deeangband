@@ -1568,7 +1568,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 	if(!floor_ptr->gamble_arena_mode && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER))
 	{
 		// Nightmare mode allows more out-of depth creatures
-		if(curse_of_Iluvatar && !randint0(pls_kakuritu))
+		if(has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR) && !randint0(pls_kakuritu))
 			level = 1 + (level * MAX_DEPTH / randint1(MAX_DEPTH));
 		else
 			if(!randint0(pls_kakuritu)) level += pls_level;
@@ -3522,7 +3522,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 		// Depth creatures may NOT be created out of depth, unless in Nightmare mode
 		if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && (floor_ptr->floor_level < species_ptr->level) &&
-			(!curse_of_Iluvatar || (has_trait_species(species_ptr, TRAIT_QUESTOR))))
+			(!has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR) || (has_trait_species(species_ptr, TRAIT_QUESTOR))))
 		{
 			if(cheat_hear) msg_format("[max_creature_idx: No Nightmare mode.]");
 			return (max_creature_idx);	// Cannot create
@@ -3626,7 +3626,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 	// TODO reimpelment Friendly Creature.
 
-	if((mode & PC_ALLOW_SLEEP) && species_ptr->sleep && !curse_of_Iluvatar) // Enforce sleeping if needed
+	if((mode & PC_ALLOW_SLEEP) && species_ptr->sleep && !has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR)) // Enforce sleeping if needed
 	{
 		int val = species_ptr->sleep;
 		(void)set_timed_trait(creature_ptr, TRAIT_SLEPT, (val * 2) + randint1(val * 10), FALSE);
@@ -3635,12 +3635,12 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if(mode & PC_HASTE) (void)set_timed_trait(creature_ptr, TRAIT_FAST, 100, FALSE);
 
 	// Give a random starting energy
-	if(!curse_of_Iluvatar) creature_ptr->energy_need = ENERGY_NEED(100) - (s16b)randint0(100);
+	if(!has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR)) creature_ptr->energy_need = ENERGY_NEED(100) - (s16b)randint0(100);
 	// Nightmare creatures are more prepared
 	else creature_ptr->energy_need = ENERGY_NEED(100) - (s16b)randint0(100) * 2;
 
 	/* Force creature to wait for player, unless in Nightmare mode */
-	if(has_trait(creature_ptr, TRAIT_FORCE_SLEEP) && !curse_of_Iluvatar)
+	if(has_trait(creature_ptr, TRAIT_FORCE_SLEEP) && !has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
 	{
 		creature_ptr->sc_flag |= (SC_FLAG_NICE);
 		repair_creatures = TRUE;

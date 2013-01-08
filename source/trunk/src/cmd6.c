@@ -604,7 +604,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 				msg_print("You fall asleep.");
 #endif
 
-				if(curse_of_Iluvatar)
+				if(has_trait(caster_ptr, TRAIT_CURSE_OF_ILUVATAR))
 				{
 #ifdef JP
 					msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
