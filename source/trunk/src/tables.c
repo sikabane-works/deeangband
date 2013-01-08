@@ -4116,13 +4116,14 @@ char *load_error_messages[] =
 #ifdef JP
 	"エラーなし。",
 	"クリーチャーの持つアイテムが多すぎる。",
-	"アイテムの配列が大きすぎる！",
-	"アイテム配置エラー",
-	"クリーチャーの配列が大きすぎる！",
+	"アイテムの配列が大きすぎる。",
+	"アイテム配置エラー。",
+	"クリーチャーの配列が大きすぎる。",
 	"クリーチャー配置エラー",
-	"保存されたフロアのダンジョンデータが壊れています！",
-	"テンポラリ・ファイルを作成できません！",
+	"保存されたフロアのダンジョンデータが壊れています。",
+	"テンポラリ・ファイルを作成できません。",
 	"Error 183",
+	"アイテムの種類が多過ぎる。"
 #else
 	"No Error.",
 	"Too many creature's items in the inventory.",
@@ -4133,6 +4134,7 @@ char *load_error_messages[] =
 	"Dungeon data of saved floors are broken!",
 	"Failed to make temporal files!",
 	"Error 183",
+	"Too many item kind."
 #endif
 };
 

@@ -1360,15 +1360,7 @@ static errr rd_savefile_new_aux(void)
 	rd_u16b(&tmp16u);
 
 	// Incompatible save files
-	if(tmp16u > max_object_kind_idx)
-	{
-#ifdef JP
-		note(format("アイテムの種類が多すぎる(%u)！", tmp16u));
-#else
-		note(format("Too many (%u) object kinds!", tmp16u));
-#endif
-		return (22);
-	}
+	if(tmp16u > max_object_kind_idx) return LOAD_ERROR_TOO_MANY_ITEM_KIND;
 
 	/* Read the object memory */
 	for (i = 0; i < tmp16u; i++)
