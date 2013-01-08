@@ -404,7 +404,7 @@
 #define COD_POTION_OF_DEATH "€‚Ì–ò"
 #define COD_CALL_OF_VOLD "©E“I‚È‹•–³µ—ˆ"
 #define COD_TRAP_DOOR "—‚Æ‚µŒË"
-
+#define COD_GENOCIDE_COST "%^s‚Ìô•¶‚ğ¥‚¦‚½”æ˜J"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -433,7 +433,7 @@
 #define COD_POTION_OF_DEATH "a potion of Death"
 #define COD_CALL_OF_VOLD "a suicidal Call the Void"
 #define COD_TRAP_DOOR "a trap door"
-
+#define COD_GENOCIDE_COST "the strain of casting %^s"
 #endif
 
 // Hack -- possible "insult" messages

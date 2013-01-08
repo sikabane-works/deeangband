@@ -1365,14 +1365,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		if(one_in_(13)) set_timed_trait(target_ptr, TRAIT_NO_GENOCIDE, PERMANENT_TIMED, FALSE);
 	}
 
-	if(player_cast)
-	{
-#ifdef JP
-		take_damage_to_creature(NULL, user_ptr, DAMAGE_GENO, randint1(dam_side), format("%^s‚ÌŽô•¶‚ð¥‚¦‚½”æ˜J", spell_name), NULL, -1);
-#else
-		take_damage_to_creature(NULL, user_ptr, DAMAGE_GENO, randint1(dam_side), format("the strain of casting %^s", spell_name), NULL, -1);
-#endif
-	}
+	if(player_cast) take_damage_to_creature(NULL, user_ptr, DAMAGE_GENO, randint1(dam_side), format(COD_GENOCIDE_COST, spell_name), NULL, -1);
 
 	/* Visual feedback */
 	move_cursor_relative(user_ptr->fy, user_ptr->fx);

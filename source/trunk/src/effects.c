@@ -86,7 +86,6 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 	}
 
 // Nightmare 
-
 	if(type == TRAIT_CURSE_OF_ILUVATAR && new_aux > 0 && old_aux == 0 && has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
 	{
 #ifdef JP
