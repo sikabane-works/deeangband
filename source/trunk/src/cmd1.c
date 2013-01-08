@@ -997,17 +997,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 			{
 				(void)add_timed_trait(creature_ptr, TRAIT_SLEPT, randint0(10) + 5, TRUE);
-				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
-				{
-#ifdef JP
-					msg_print("g‚Ì–Ñ‚à‚æ‚¾‚ÂŒõŒi‚ª“ª‚É•‚‚©‚ñ‚¾B");
-#else
-					msg_print("A horrible vision enters your mind.");
-#endif
-					get_species_num_prep_trait(NULL, t_need(1, TRAIT_ELDRITCH_HORROR), NULL, 0); // Prepare allocation table
-					have_nightmare(creature_ptr, get_species_num(floor_ptr, MAX_DEPTH));
-					reset_species_preps();
-				}
 			}
 			break;
 

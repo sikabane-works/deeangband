@@ -2190,15 +2190,12 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 #else
 					msg_print("Horrible visions flit through your mind as you sleep.");
 #endif
-
 					get_species_num_prep_trait(NULL, t_need(1, TRAIT_ELDRITCH_HORROR), NULL, 0);
-
 					while(1)
 					{
 						have_nightmare(creature_ptr, get_species_num(CURRENT_FLOOR_PTR, MAX_DEPTH));
 						if(!one_in_(3)) break;
 					}
-
 					reset_species_preps();
 
 #ifdef JP

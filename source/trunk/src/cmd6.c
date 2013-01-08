@@ -597,28 +597,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 
 		case SV_POTION_SLEEP:
 			if(!has_trait(caster_ptr, TRAIT_FREE_ACTION))
-			{
-#ifdef JP
-				msg_print("Ç†Ç»ÇΩÇÕñ∞Ç¡ÇƒÇµÇ‹Ç¡ÇΩÅB");
-#else
-				msg_print("You fall asleep.");
-#endif
-
-				if(has_trait(caster_ptr, TRAIT_CURSE_OF_ILUVATAR))
-				{
-#ifdef JP
-					msg_print("ã∞ÇÎÇµÇ¢åıåiÇ™ì™Ç…ïÇÇ©ÇÒÇ≈Ç´ÇΩÅB");
-#else
-					msg_print("A horrible vision enters your mind.");
-#endif
-
-					get_species_num_prep_trait(NULL, t_need(1, TRAIT_ELDRITCH_HORROR), NULL, 0);
-					have_nightmare(caster_ptr, get_species_num(floor_ptr, MAX_DEPTH));
-					reset_species_preps();
-				}
-				if(add_timed_trait(caster_ptr, TRAIT_SLEPT, randint0(4) + 4, TRUE))
-					effected = TRUE;
-			}
+				if(add_timed_trait(caster_ptr, TRAIT_SLEPT, randint0(4) + 4, TRUE)) effected = TRUE;
 			break;
 
 		case SV_POTION_LOSE_MEMORIES:

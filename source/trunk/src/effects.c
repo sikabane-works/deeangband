@@ -85,6 +85,21 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		}
 	}
 
+// Nightmare 
+
+	if(type == TRAIT_CURSE_OF_ILUVATAR && new_aux > 0 && old_aux == 0 && has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
+	{
+#ifdef JP
+		msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
+#else
+		msg_print("A horrible vision enters your mind.");
+#endif
+		get_species_num_prep_trait(NULL, t_need(1, TRAIT_ELDRITCH_HORROR), NULL, 0);
+		have_nightmare(creature_ptr, get_species_num(GET_FLOOR_PTR(creature_ptr), MAX_DEPTH));
+		reset_species_preps();
+	}
+
+
 	if(type == TRAIT_CUT && new_aux > old_aux && is_seen(player_ptr, creature_ptr))
 	{
 		switch (new_aux)
