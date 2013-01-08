@@ -131,6 +131,18 @@
 #define GAME_MESSAGE_TRAP_POISON_FLOW "突然床から毒液が溢れ出した！"
 #define GAME_MESSAGE_TRAP_PIRANHAS "突然壁から水が溢れ出した！ピラニアがいる！"
 
+#ifdef JP
+#define GAME_MESSAGE_TRAP_BLIND "黒いガスに包み込まれた！"
+#define GAME_MESSAGE_TRAP_CONFUSE "きらめくガスに包み込まれた！"
+#define GAME_MESSAGE_TRAP_POISON "刺激的な緑色のガスに包み込まれた！"
+#define GAME_MESSAGE_TRAP_SLEPT "奇妙な白い霧に包まれた！"
+#else
+#define GAME_MESSAGE_TRAP_BLIND "A black gas surrounds you!"
+#define GAME_MESSAGE_TRAP_CONFUSE "A gas of scintillating colors surrounds you!"
+#define GAME_MESSAGE_TRAP_POISON "A pungent green gas surrounds you!"
+#define GAME_MESSAGE_TRAP_SLEPT "A strange white mist surrounds you!"
+#endif
+
 #define GAME_MESSAGE_TRAP_POISONOUS_GAS "突如吹き出した緑色のガスに包み込まれた！"
 #define GAME_MESSAGE_TRAP_PARALYZE_GAS "突如吹き出した黄色いガスに包み込まれた！"
 #define GAME_MESSAGE_TRAP_SUMMONING "突如吹き出した煙に包み込まれた！"

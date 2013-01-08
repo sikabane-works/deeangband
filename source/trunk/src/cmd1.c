@@ -978,38 +978,22 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		}
 
 		case TRAP_BLIND:
-#ifdef JP
-			msg_print("黒いガスに包み込まれた！");
-#else
-			msg_print("A black gas surrounds you!");
-#endif
+			msg_print(GAME_MESSAGE_TRAP_BLIND);
 			if(!has_trait(creature_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(creature_ptr, TRAIT_BLIND, randint0(50) + 25, TRUE);
 			break;
 
 		case TRAP_CONFUSE:
-#ifdef JP
-			msg_print("きらめくガスに包み込まれた！");
-#else
-			msg_print("A gas of scintillating colors surrounds you!");
-#endif
+			msg_print(GAME_MESSAGE_TRAP_CONFUSE);
 			if(!has_trait(creature_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint0(20) + 10, TRUE);
 			break;
 
 		case TRAP_POISON:
-#ifdef JP
-			msg_print("刺激的な緑色のガスに包み込まれた！");
-#else
-			msg_print("A pungent green gas surrounds you!");
-#endif
+			msg_print(GAME_MESSAGE_TRAP_POISON);
 			if(!has_trait(creature_ptr, TRAIT_RES_POIS)) (void)add_timed_trait(creature_ptr, TRAIT_POISONED, randint0(20) + 10, TRUE);
 			break;
 
 		case TRAP_SLEEP:
-#ifdef JP
-			msg_print("奇妙な白い霧に包まれた！");
-#else
-			msg_print("A strange white mist surrounds you!");
-#endif
+			msg_print(GAME_MESSAGE_TRAP_SLEPT);
 			if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 			{
 				(void)add_timed_trait(creature_ptr, TRAIT_SLEPT, randint0(10) + 5, TRUE);
