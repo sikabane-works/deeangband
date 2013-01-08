@@ -2943,11 +2943,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 	case DO_EFFECT_GENOCIDE:
-#ifdef JP
-		if(genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (target_ptr->lev * 2 + 1) / 2, "クリーチャー消滅"))
-#else
-		if(genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (target_ptr->lev * 2 + 1) / 2, "Genocide One"))
-#endif
+		if(genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (target_ptr->lev * 2 + 1) / 2, COD_GENOCIDE_CREATURE))
 		{
 #ifdef JP
 			if(seen_msg) msg_format("%sは消滅した！", target_name);

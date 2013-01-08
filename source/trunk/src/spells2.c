@@ -1419,11 +1419,7 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 		if(species_ptr->d_char != typ) continue;
 
 		/* Take note */
-#ifdef JP
-		result |= genocide_aux(caster_ptr, i, power, player_cast, 4, "抹殺");
-#else
-		result |= genocide_aux(caster_ptr, i, power, player_cast, 4, "Genocide");
-#endif
+		result |= genocide_aux(caster_ptr, i, power, player_cast, 4, COD_GENOCIDE_SYMBOL);
 	}
 
 	return result;
@@ -1454,11 +1450,7 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 		/* Skip distant creatures */
 		if(m_ptr->cdis > MAX_SIGHT) continue;
 
-#ifdef JP
-		result |= genocide_aux(caster_ptr, i, power, player_cast, 3, "周辺抹殺");
-#else
-		result |= genocide_aux(caster_ptr, i, power, player_cast, 3, "Mass Genocide");
-#endif
+		result |= genocide_aux(caster_ptr, i, power, player_cast, 3, COD_GENOCIDE_MASS);
 	}
 
 	return result;
@@ -1494,12 +1486,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 
 		/* Skip distant creatures */
 		if(m_ptr->cdis > MAX_SIGHT) continue;
-
-#ifdef JP
-		result |= genocide_aux(caster_ptr, i, power, player_cast, 3, "アンデッド消滅");
-#else
-		result |= genocide_aux(caster_ptr, i, power, player_cast, 3, "Annihilate Undead");
-#endif
+		result |= genocide_aux(caster_ptr, i, power, player_cast, 3, COD_GENOCIDE_UNDEAD);
 	}
 
 	return result;

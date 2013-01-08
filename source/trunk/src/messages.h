@@ -405,6 +405,10 @@
 #define COD_CALL_OF_VOLD "自殺的な虚無招来"
 #define COD_TRAP_DOOR "落とし戸"
 #define COD_GENOCIDE_COST "%^sの呪文を唱えた疲労"
+#define COD_GENOCIDE_CREATURE "クリーチャー消滅"
+#define COD_GENOCIDE_SYMBOL "抹殺"
+#define COD_GENOCIDE_MASS "周辺抹殺"
+#define COD_GENOCIDE_UNDEAD "アンデッド消滅"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -434,6 +438,10 @@
 #define COD_CALL_OF_VOLD "a suicidal Call the Void"
 #define COD_TRAP_DOOR "a trap door"
 #define COD_GENOCIDE_COST "the strain of casting %^s"
+#define COD_GENOCIDE_CREATURE "Genocide one"
+#define COD_GENOCIDE_SYMBOL "Genocide"
+#define COD_GENOCIDE_MASS "Mass Gecocide"
+#define COD_GENOCIDE_UNDEAD "Annihilate Undead"
 #endif
 
 // Hack -- possible "insult" messages
