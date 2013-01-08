@@ -372,14 +372,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 		}
 
 		else if(creature_ptr->inven_cnt == INVEN_TOTAL)			// Warning -- backpack is full
-		{
-#ifdef JP
-			note("ERR54: クリーチャーの持ち物の中のアイテムが多すぎる！");
-#else
-			note("ERR54: Too many creature's items in the inventory!");
-#endif
-			return (54);
-		}
+			return LOAD_ERROR_TOO_MANY_INVENTORY;
 		else // Carry inventory
 		{
 			n = slot++;							// Get a slot
@@ -390,7 +383,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 		}
 	}
 
-	return SUCCESS;
+	return LOAD_ERROR_NONE;
 }
 
 

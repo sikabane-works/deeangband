@@ -4109,3 +4109,16 @@ struct object_id prize_list[MAX_BOUNTY] =
 	{TV_POTION, SV_POTION_INVULNERABILITY},
 	{TV_SCROLL, SV_SCROLL_ARTIFACT},
 };
+
+
+char *load_error_messages[] =
+{
+#ifdef JP
+	"エラーなし。",
+	"クリーチャーの持つアイテムが多すぎる。",
+#else
+	"No Error.",
+	"Too many creature's items in the inventory.");
+
+#endif
+};
