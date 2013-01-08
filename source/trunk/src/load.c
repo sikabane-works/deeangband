@@ -1239,66 +1239,6 @@ static errr rd_floors(void)
 	// Read the current floor data
 	for(i = 1; i < floor_max; i++) err = rd_floor(&floor_list[i]);
 
-	/*** Error messages ***/
-	switch (err)
-	{
-	case 151:
-#ifdef JP
-		note("アイテムの配列が大きすぎる！");
-#else
-		note("Too many object entries!");
-#endif
-		break;
-
-	case 152:
-#ifdef JP
-		note("アイテム配置エラー");
-#else
-		note("Object allocation error");
-#endif
-		break;
-
-	case 161:
-#ifdef JP
-		note("クリーチャーの配列が大きすぎる！");
-#else
-		note("Too many creature entries!");
-#endif
-		break;
-
-	case 162:
-#ifdef JP
-		note("クリーチャー配置エラー");
-#else
-		note("Creature allocation error");
-#endif
-		break;
-
-	case 171:
-#ifdef JP
-		note("保存されたフロアのダンジョンデータが壊れています！");
-#else
-		note("Dungeon data of saved floors are broken!");
-#endif
-		break;
-
-	case 182:
-#ifdef JP
-		note("テンポラリ・ファイルを作成できません！");
-#else
-		note("Failed to make temporal files!");
-#endif
-		break;
-
-	case 183:
-#ifdef JP
-		note("Error 183");
-#else
-		note("Error 183");
-#endif
-		break;
-	}
-
 	/* Success or Error */
 	return err;
 }
@@ -1401,7 +1341,7 @@ static errr rd_savefile_new_aux(void)
 
 	// Read the creature count
 	rd_u16b(&limit);
-	if(limit > max_creature_idx) return 161;
+	if(limit > max_creature_idx) return LOAD_ERROR_TOO_MANY_CREATURE;
 
 	//TODO
 	player_ptr = &creature_list[1];
@@ -1448,7 +1388,7 @@ static errr rd_savefile_new_aux(void)
 	rd_u16b(&limit);
 
 	/* Verify maximum */
-	if(limit > max_object_idx) return 151;
+	if(limit > max_object_idx) return LOAD_ERROR_TOO_MANY_ITEM;
 
 	/* Read the dungeon items */
 	for (i = 1; i < limit; i++)
