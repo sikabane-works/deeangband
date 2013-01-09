@@ -426,6 +426,7 @@
 #define COD_GENOCIDE_MASS "周辺抹殺"
 #define COD_GENOCIDE_UNDEAD "アンデッド消滅"
 #define COD_HP_TO_MP "HPからMPへの無謀な変換"
+#define COD_HARD_CONCENTRATION "過度の集中"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -460,6 +461,7 @@
 #define COD_GENOCIDE_MASS "Mass Gecocide"
 #define COD_GENOCIDE_UNDEAD "Annihilate Undead"
 #define COD_HP_TO_MP "Thoughtless convertion from HP to MP"
+#define COD_HARD_CONCENTRATION "Concentrating too hard"
 #endif
 
 // Hack -- possible "insult" messages

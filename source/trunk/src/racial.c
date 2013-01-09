@@ -1045,11 +1045,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 			{
 				actual_racial_cost -= creature_ptr->csp;
 				creature_ptr->csp = 0;
-#ifdef JP
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, actual_racial_cost, "‰ß“x‚ÌW’†", NULL, -1);
-#else
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, actual_racial_cost, "concentrating too hard", NULL, -1);
-#endif
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, actual_racial_cost, COD_HARD_CONCENTRATION, NULL, -1);
 			}
 			else creature_ptr->csp -= actual_racial_cost;
 

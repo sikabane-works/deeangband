@@ -1991,11 +1991,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 
 	if((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU))
 	{
-#ifdef JP
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, mana_cost, "âﬂìxÇÃèWíÜ", NULL, -1);
-#else
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, mana_cost, "concentrating too hard", NULL, -1);
-#endif
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, mana_cost, COD_HARD_CONCENTRATION, NULL, -1);
 		prepare_redraw(PR_HP);
 	}
 
