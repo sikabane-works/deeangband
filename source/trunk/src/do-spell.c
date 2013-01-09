@@ -9735,11 +9735,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_FIRE);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -9783,11 +9779,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_MINEUCHI);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -9845,11 +9837,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 	
 			if(!floor_ptr->cave[y][x].creature_idx)
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 	
@@ -9894,11 +9882,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_POISON);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -9927,11 +9911,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_ZANMA);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -9960,11 +9940,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, 0);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 			if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
@@ -10093,11 +10069,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_COLD);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -10126,11 +10098,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_KYUSHO);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -10159,11 +10127,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_MAJIN);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -10192,11 +10156,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_SUTEMI);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 			caster_ptr->sutemi = TRUE;
@@ -10226,11 +10186,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_ELEC);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -10427,11 +10383,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					close_combat(caster_ptr, y, x, HISSATSU_3DAN);
 				else
 				{
-#ifdef JP
-					msg_print("その方向にはクリーチャーはいません。");
-#else
-					msg_print("There is no creature.");
-#endif
+					msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 					return NULL;
 				}
 	
@@ -10507,11 +10459,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_DRAIN);
 			else
 			{
-#ifdef JP
-					msg_print("その方向にはクリーチャーはいません。");
-#else
-					msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -10646,11 +10594,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			}
 			else
 			{
-#ifdef JP
-	msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("You don't see any creature in this direction");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -10736,11 +10680,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_UNDEAD);
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 #ifdef JP

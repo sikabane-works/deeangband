@@ -2086,11 +2086,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("You don't see any creature in this direction");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				msg_print(NULL);
 			}
 			break;
@@ -2179,12 +2175,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				}
 				else
 				{
-#ifdef JP
-					msg_print("その方向にはクリーチャーはいません。");
-#else
-					msg_print("You don't see any creature in this direction");
-#endif
-
+					msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 					msg_print(NULL);
 				}
 			}

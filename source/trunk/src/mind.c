@@ -1400,11 +1400,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 
 			if(!floor_ptr->cave[y][x].creature_idx)
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("There is no creature.");
-#endif
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				return FALSE;
 			}
 
@@ -1547,12 +1543,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			}
 			else
 			{
-#ifdef JP
-				msg_print("その方向にはクリーチャーはいません。");
-#else
-				msg_print("You don't see any creature in this direction");
-#endif
-
+				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
 				msg_print(NULL);
 			}
 			break;
