@@ -273,7 +273,7 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 	int             chance;
 	int             minfail = 0;
 	int             plev = creature_ptr->lev;
-	racial_power   spell;
+	trait_type spell_;
 	bool            cast;
 
 
@@ -298,23 +298,21 @@ msg_print("‚Ü‚Ë‚ç‚ê‚é‚à‚Ì‚ª‰½‚à‚È‚¢I");
 	/* get power */
 	if(!get_mane_power(creature_ptr, &n, baigaesi)) return FALSE;
 
-	spell = racial_powers[creature_ptr->mane_spell[n]];
+	spell_ = trait_info[creature_ptr->mane_spell[n]];
 
 	/* Spell failure chance */
-	chance = spell.manefail;
+	chance = spell_.fail;
 
 	/* Reduce failure rate by "effective" level adjustment */
-	if(plev > spell.level) chance -= 3 * (plev - spell.level);
+	//if(plev > spell_level) chance -= 3 * (plev - spell.level);
 
 	/* Reduce failure rate by 1 stat and DEX adjustment */
-	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
-
-	if(spell.manedam) chance = chance * damage / spell.manedam;
+	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell_.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
 
 	chance += creature_ptr->to_m_chance;
 
 	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[creature_ptr->stat_ind[spell.use_stat]];
+	minfail = adj_mag_fail[creature_ptr->stat_ind[spell_.use_stat]];
 
 	/* Minimum failure rate */
 	if(chance < minfail) chance = minfail;
