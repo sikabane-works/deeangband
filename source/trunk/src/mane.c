@@ -99,7 +99,6 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 	cptr            p = "power";
 #endif
 
-	racial_power spell;
 	trait_type spell_;
 	bool            flag, redraw;
 
@@ -164,14 +163,14 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 					//TODO if(plev > spell_.le) chance -= 3 * (plev - spell.level);
 
 					/* Reduce failure rate by INT/WIS adjustment */
-					chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
+					chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell_.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
 
-					if(spell.manedam) chance = chance * creature_ptr->mane_dam[i] / spell.manedam;
+					//if(spell.manedam) chance = chance * creature_ptr->mane_dam[i] / spell.manedam;
 
 					chance += creature_ptr->to_m_chance;
 
 					/* Extract the minimum failure rate */
-					minfail = adj_mag_fail[creature_ptr->stat_ind[spell.use_stat]];
+					minfail = adj_mag_fail[creature_ptr->stat_ind[spell_.use_stat]];
 
 					/* Minimum failure rate */
 					if(chance < minfail) chance = minfail;
@@ -187,9 +186,7 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 					mane_info(creature_ptr, comment, creature_ptr->mane_spell[i], (baigaesi ? creature_ptr->mane_dam[i]*2 : creature_ptr->mane_dam[i]));
 
 					/* Dump the spell --(-- */
-					sprintf(psi_desc, "  %c) %-30s %3d%%%s",
-						I2A(i), spell.name,
-						chance, comment);
+					sprintf(psi_desc, "  %c) %-30s %3d%%%s", I2A(i), spell_.title, chance, comment);
 					prt(psi_desc, y + i + 1, x);
 				}
 
@@ -226,7 +223,7 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 		}
 
 		/* Save the spell index */
-		spell = racial_powers[creature_ptr->mane_spell[i]];
+		spell_ = trait_info[creature_ptr->mane_spell[i]];
 
 		/* Verify it */
 		if(ask)
