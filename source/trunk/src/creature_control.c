@@ -234,9 +234,9 @@ static byte class_equipment_init[MAX_CLASS][CLASS_INIT_EQUIPMENT][2] =
 		{ 0, 0},
 		{ 0, 0},
 		{ 0, 0},
-		},
+	},
 
-		{
+	{
 			/* Mage */
 			{ TV_SWORD, SV_DAGGER },
 			{ 0, 0},
@@ -971,7 +971,7 @@ s16b creature_pop(void)
 		// Return the index
 	}
 
-	msg_print("クリーチャーが多すぎる！");
+	msg_warning("クリーチャーが多すぎる！");
 
 	return 0; // Try not to crash
 }
@@ -991,131 +991,87 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 	switch (summon_specific_type)
 	{
 	case TRAIT_S_ANT:
-		{
-			okay = IS_RACE(species_ptr, RACE_ANT);
-			break;
-		}
+		okay = IS_RACE(species_ptr, RACE_ANT);
+		break;
 
 	case TRAIT_S_SPIDER:
-		{
-			okay = IS_RACE(species_ptr, RACE_SPIDER);
-			break;
-		}
+		okay = IS_RACE(species_ptr, RACE_SPIDER);
+		break;
 
 	case TRAIT_S_HOUND:
-		{
-			okay = ((species_ptr->d_char == 'C') || (species_ptr->d_char == 'Z'));
-			break;
-		}
+		okay = ((species_ptr->d_char == 'C') || (species_ptr->d_char == 'Z'));
+		break;
 
 	case TRAIT_S_HYDRA:
-		{
-			okay = IS_RACE(species_ptr, RACE_HYDRA);
-			break;
-		}
+		okay = IS_RACE(species_ptr, RACE_HYDRA);
+		break;
 
 	case TRAIT_S_ANGEL:
-		{
-			okay = IS_RACE(species_ptr, RACE_ANGEL);
-			break;
-		}
+		okay = IS_RACE(species_ptr, RACE_ANGEL);
+		break;
 
 	case TRAIT_S_DEMON:
 	case TRAIT_S_HI_DEMON:
-		{
-			okay = has_trait_species(species_ptr, TRAIT_DEMON);
-			break;
-		}
+		okay = has_trait_species(species_ptr, TRAIT_DEMON);
+		break;
 
 	case TRAIT_S_UNDEAD:
 	case TRAIT_S_HI_UNDEAD:
-		{
-			okay = has_trait_species(species_ptr, TRAIT_UNDEAD);
-			break;
-		}
+		okay = has_trait_species(species_ptr, TRAIT_UNDEAD);
+		break;
 
 	case TRAIT_S_DRAGON:
 	case TRAIT_S_HI_DRAGON:
-		{
-			okay = has_trait_species(species_ptr, TRAIT_DRAGON);
-			break;
-		}
+		okay = has_trait_species(species_ptr, TRAIT_DRAGON);
+		break;
 
 	case TRAIT_S_AMBERITES:
-		{
-			okay = (IS_RACE(species_ptr, RACE_AMBERITE)) ? TRUE : FALSE;
-			break;
-		}
+		okay = (IS_RACE(species_ptr, RACE_AMBERITE)) ? TRUE : FALSE;
+		break;
 
 	case TRAIT_S_UNIQUE:
-		{
-			okay = (has_trait_species(species_ptr, TRAIT_UNIQUE)) ? TRUE : FALSE;
-			break;
-		}
+		okay = (has_trait_species(species_ptr, TRAIT_UNIQUE)) ? TRUE : FALSE;
+		break;
 
 	case TRAIT_S_MOLD:
-		{
-			okay = IS_RACE(species_ptr, RACE_MOLD);;
-			break;
-		}
+		okay = IS_RACE(species_ptr, RACE_MOLD);
+		break;
 
 	case TRAIT_S_BAT:
-		{
-			okay = IS_RACE(species_ptr, RACE_BAT);;
-			break;
-		}
+		okay = IS_RACE(species_ptr, RACE_BAT);
+		break;
 
 	case TRAIT_S_QUYLTHULG:
-		{
-			okay = (species_ptr->d_char == 'Q');
-			break;
-		}
+		okay = IS_RACE(species_ptr, RACE_QUYLTHLUG);
+		break;
 
 	case TRAIT_S_CREEPING_COIN:
-		{
-			okay = (species_ptr->d_char == '$');
-			break;
-		}
+		okay = IS_RACE(species_ptr, RACE_MIMIC) && (species_ptr->d_char == '$');
+		break;
 
 	case TRAIT_S_MIMIC:
-		{
-			okay = ((species_ptr->d_char == '!') ||
-				(species_ptr->d_char == '?') ||
-				(species_ptr->d_char == '=') ||
-				(species_ptr->d_char == '$') ||
-				(species_ptr->d_char == '|'));
-			break;
-		}
+		okay = IS_RACE(species_ptr, RACE_MIMIC);
+		break;
 
 	case TRAIT_S_GOLEM:
-		{
-			okay = has_trait_species(species_ptr, TRAIT_GOLEM);
-			break;
-		}
+		okay = has_trait_species(species_ptr, TRAIT_GOLEM);
+		break;
 
 	case TRAIT_S_CYBER:
-		{
-			okay = ((species_ptr->d_char == 'U') && has_trait_raw(&species_ptr->flags, TRAIT_ROCKET));
-			break;
-		}
+		okay = has_trait_species(species_ptr, TRAIT_DEMON) && has_trait_raw(&species_ptr->flags, TRAIT_ROCKET);
+		break;
 
 	case TRAIT_S_KIN:
-		{
-			okay = TRUE;
-			break;
-		}
+		okay = IS_RACE(species_ptr, species_ptr->race_idx1) || IS_RACE(species_ptr, species_ptr->race_idx2);
+		break;
 
 	case TRAIT_S_DAWN_LEGION:
-		{
-			okay = (species_idx == SPECIES_DAWN);
-			break;
-		}
+		okay = (species_idx == SPECIES_DAWN);
+		break;
 
 	case TRAIT_S_ANIMAL:
-		{
-			okay = has_trait_species(species_ptr, TRAIT_ANIMAL);
-			break;
-		}
+		okay = has_trait_species(species_ptr, TRAIT_ANIMAL);
+		break;
 
 	case TRAIT_S_ANIMAL_RANGER:
 		{
