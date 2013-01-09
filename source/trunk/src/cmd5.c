@@ -1700,11 +1700,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		}
 		if(species_info[steed_ptr->species_idx].level > randint1((rider_ptr->skill_exp[SKILL_RIDING] / 50 + rider_ptr->lev / 2 + 20)))
 		{
-#ifdef JP
-			msg_print("Ç§Ç‹Ç≠èÊÇÍÇ»Ç©Ç¡ÇΩÅB");
-#else
-			msg_print("You failed to ride.");
-#endif
+			msg_print(GAME_MESSAGE_RIDING_FAILED);
 			cost_tactical_energy(rider_ptr, 100);
 			return FALSE;
 		}
