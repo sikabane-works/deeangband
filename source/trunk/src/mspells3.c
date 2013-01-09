@@ -261,13 +261,14 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 	char            out_val[160];
 	char            comment[80];
 	s32b            f4 = 0, f5 = 0, f6 = 0;
+
 #ifdef JP
-cptr            p = "魔法";
+	cptr            p = "魔法";
 #else
 	cptr            p = "magic";
 #endif
 
-	racial_power   spell;
+	trait_type *spell_;
 	bool            flag, redraw;
 	int menu_line = (use_menu ? 1 : 0);
 
@@ -521,20 +522,20 @@ cptr            p = "魔法";
 					if(!creature_ptr->blue_learned_trait[spellnum[i]]) continue;
 
 					/* Access the spell */
-					spell = racial_powers[spellnum[i]];
+					spell_ = &trait_info[spellnum[i]];
 
-					chance = spell.fail;
+					chance = spell_->fail;
 
 					/* Reduce failure rate by "effective" level adjustment */
-					if(plev > spell.level) chance -= 3 * (plev - spell.level);
-					else chance += (spell.level - plev);
+					//TODO if(plev > spell.level) chance -= 3 * (plev - spell.level);
+					//else chance += (spell.level - plev);
 
 					/* Reduce failure rate by INT/WIS adjustment */
 					chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[STAT_INT]] - 1);
 
 					chance = mod_spell_chance_1(creature_ptr, chance);
 
-					need_mana = mod_need_mana(creature_ptr, racial_powers[spellnum[i]].smana, 0, REALM_NONE);
+					need_mana = mod_need_mana(creature_ptr, trait_info[spellnum[i]].mp_cost, 0, REALM_NONE);
 
 					/* Not enough mana to cast */
 					if(need_mana > creature_ptr->csp)
@@ -572,9 +573,7 @@ cptr            p = "魔法";
 					else sprintf(psi_desc, "  %c)", I2A(i));
 
 					/* Dump the spell --(-- */
-					strcat(psi_desc, format(" %-26s %3d %3d%%%s",
-						spell.name, need_mana,
-						chance, comment));
+					strcat(psi_desc, format(" %-26s %3d %3d%%%s", spell_->title, need_mana, chance, comment));
 					prt(psi_desc, y + i + 1, x);
 				}
 
@@ -614,7 +613,7 @@ cptr            p = "魔法";
 		}
 
 		/* Save the spell index */
-		spell = racial_powers[spellnum[i]];
+		spell_ = &trait_info[spellnum[i]];
 
 		/* Verify it */
 		if(ask)
