@@ -1881,38 +1881,10 @@ void do_cmd_mind(creature_type *creature_ptr)
 				b = randint1(100);
 
 				if( use_mind == MIND_MINDCRAFTER ){
-					if(b < 5)
-					{
-#ifdef JP
-						msg_print("なんてこった！頭の中が真っ白になった！");
-#else
-						msg_print("Oh, no! Your mind has gone blank!");
-#endif
-
-						lose_all_info(creature_ptr);
-					}
-					else if(b < 15)
-					{
-#ifdef JP
-						msg_print("奇妙な光景が目の前で踊っている...");
-#else
-						msg_print("Weird visions seem to dance before your eyes...");
-#endif
-						add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 5 + randint1(10), TRUE);
-					}
-					else if(b < 45)
-					{
-#ifdef JP
-						msg_print("あなたの頭は混乱した！");
-#else
-						msg_print("Your brain is addled!");
-#endif
-						add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint1(8), TRUE);
-					}
-					else if(b < 90)
-					{
-						add_timed_trait(creature_ptr, TRAIT_STUN, randint1(8), TRUE);
-					}
+					if(b < 5) lose_all_info(creature_ptr);
+					else if(b < 15) add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 5 + randint1(10), TRUE);
+					else if(b < 45) add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint1(8), TRUE);
+					else if(b < 90) add_timed_trait(creature_ptr, TRAIT_STUN, randint1(8), TRUE);
 					else
 					{
 						/* Mana storm */
