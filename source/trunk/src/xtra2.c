@@ -830,11 +830,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	case SPECIES_UNMAKER:
 		/* One more ultra-hack: An Unmaker goes out with a big bang! */
-		{
-			/*TODO
-			(void)project(m_idx, 6, y, x, 100, DO_EFFECT_CHAOS, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
-			*/
-		}
+		//TODO (void)project(m_idx, 6, y, x, 100, DO_EFFECT_CHAOS, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 		break;
 
 	case SPECIES_UNICORN_ORD:
