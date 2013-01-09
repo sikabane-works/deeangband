@@ -894,9 +894,9 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 
 	/* Get a new inscription (possibly empty) */
 #ifdef JP
-	if(get_string("銘: ", out_val, 80))
+	if(get_string("銘", out_val, 80))
 #else
-	if(get_string("Inscription: ", out_val, 80))
+	if(get_string("Inscription", out_val, 80))
 #endif
 	{
 		/* Save the inscription */
@@ -934,9 +934,9 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 
 	/* Get a new inscription (possibly empty) */
 #ifdef JP
-	if(get_string("メッセージ: ", tmp, CAVE_MESSAGE_LENGTH)){
+	if(get_string("メッセージ", tmp, CAVE_MESSAGE_LENGTH)){
 #else
-	if(get_string("Message: ", tmp, CAVE_MESSAGE_LENGTH)){
+	if(get_string("Message", tmp, CAVE_MESSAGE_LENGTH)){
 #endif
 		strcpy(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].message, tmp);
 	}

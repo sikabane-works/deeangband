@@ -5544,11 +5544,7 @@ void get_name(creature_type *creature_ptr)
 	strcpy(tmp, creature_ptr->name);
 
 	/* Prompt for a new name */
-#ifdef JP
-	if(get_string("名前: ", tmp, 70))
-#else
-	if(get_string("Name: ", tmp, 70))
-#endif
+	if(get_string(KW_NAME, tmp, 70))
 	{
 		/* Use the name */
 		strcpy(creature_ptr->name, tmp);
@@ -5631,9 +5627,9 @@ prt("確認のため '@' を押して下さい。", 0, 0);
 		do
 		{
 #ifdef JP
-			while (!get_string("*勝利*メッセージ: ", buf, sizeof buf)) ;
+			while (!get_string("*勝利*メッセージ", buf, sizeof buf)) ;
 #else
-			while (!get_string("*Winning* message: ", buf, sizeof buf)) ;
+			while (!get_string("*Winning* message", buf, sizeof buf)) ;
 #endif
 		}
 #ifdef JP

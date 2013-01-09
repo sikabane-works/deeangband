@@ -100,7 +100,7 @@ static void wiz_drop_named_art(creature_type* creature_ptr)
 {
 	char tmp_val[20] = "";
 	int i = 0;
-	if(!get_string("Artifact ID: ", tmp_val, 10)) return;	// Ask for a level
+	if(!get_string("Artifact ID", tmp_val, 10)) return;	// Ask for a level
 	i = atoi(tmp_val);
 	(void)drop_named_art(creature_ptr, i, creature_ptr->fy, creature_ptr->fx); // Create the artifact
 	msg_print("Allocated."); // All done
@@ -316,9 +316,9 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 
 	// Query
 #ifdef JP
-	if(!get_string("熟練度: ", tmp_val, 9)) return;
+	if(!get_string("熟練度", tmp_val, 9)) return;
 #else
-	if(!get_string("Proficiency: ", tmp_val, 9)) return;
+	if(!get_string("Proficiency", tmp_val, 9)) return;
 #endif
 	tmp_s16b = atoi(tmp_val); // Extract
 
@@ -345,14 +345,14 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 	for (j = 0; j < MAX_REALM; j++) creature_ptr->spell_exp[j] = (tmp_s16b > SKILL_P_MAX ? SKILL_P_MAX : tmp_s16b);
 	
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->au)); // Default
-	if(!get_string("Gold: ", tmp_val, 9)) return; // Query
+	if(!get_string("Gold", tmp_val, 9)) return; // Query
 	
 	tmp_long = atol(tmp_val); // Extract
 	if(tmp_long < 0) tmp_long = 0L;
 	creature_ptr->au = tmp_long;
 
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->max_exp));
-	if(!get_string("Experience: ", tmp_val, 9)) return;
+	if(!get_string("Experience", tmp_val, 9)) return;
 	tmp_long = atol(tmp_val);
 	if(tmp_long < 0) tmp_long = 0L;
 
@@ -363,7 +363,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 	}
 
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->dr));
-	if(!get_string("Divine Rank: ", tmp_val, 2)) return;
+	if(!get_string("Divine Rank", tmp_val, 2)) return;
 	tmp_int = atoi(tmp_val);
 
 	if(tmp_int < -1) tmp_int = -1;
@@ -373,7 +373,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 	check_experience(creature_ptr);
 
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->authority[0]));
-	if(!get_string("Authority: ", tmp_val, 2)) return;
+	if(!get_string("Authority", tmp_val, 2)) return;
 	creature_ptr->authority[0] = atoi(tmp_val);
 }
 
@@ -1041,7 +1041,7 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_p
 
 	sprintf(tmp_val, "%d", object_ptr->number);
 
-	if(get_string("Quantity: ", tmp_val, 2))
+	if(get_string("Quantity", tmp_val, 2))
 	{
 		/* Extract */
 		tmp_int = atoi(tmp_val);
@@ -1734,9 +1734,9 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	sprintf(tmp_val, "%d", prev_feat);
 
 #ifdef JP
-	if(!get_string("地形: ", tmp_val, 3)) return;
+	if(!get_string("地形", tmp_val, 3)) return;
 #else
-	if(!get_string("Feature: ", tmp_val, 3)) return;
+	if(!get_string("Feature", tmp_val, 3)) return;
 #endif
 
 	/* Extract */
@@ -1747,9 +1747,9 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	sprintf(tmp_val, "%d", prev_mimic);
 
 #ifdef JP
-	if(!get_string("地形 (mimic): ", tmp_val, 3)) return;
+	if(!get_string("地形 (mimic)", tmp_val, 3)) return;
 #else
-	if(!get_string("Feature (mimic): ", tmp_val, 3)) return;
+	if(!get_string("Feature (mimic)", tmp_val, 3)) return;
 #endif
 
 	/* Extract */
@@ -2132,8 +2132,8 @@ void do_cmd_debug(creature_type *creature_ptr)
 			tmp_val2[0] = '\0';
 
 			// Query
-			if(!get_string("Ego Num:", tmp_val, 3)) return;
-			if(!get_string("Kind Num:", tmp_val2, 3)) return;
+			if(!get_string("Ego Num", tmp_val, 3)) return;
+			if(!get_string("Kind Num", tmp_val2, 3)) return;
 
 			tmp_int = atoi(tmp_val);
 			tmp_int2 = atoi(tmp_val2);

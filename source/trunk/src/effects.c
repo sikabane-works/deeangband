@@ -1415,9 +1415,9 @@ static void you_died(cptr hit_from)
 			do
 			{
 #ifdef JP
-				while (!get_string(winning_seppuku ? "«¢‚Ì‹å: " : "’f–––‚‚Ì‹©‚Ñ: ", death_message, 1024));
+				while (!get_string(winning_seppuku ? "«¢‚Ì‹å" : "’f–––‚‚Ì‹©‚Ñ", death_message, 1024));
 #else
-				while (!get_string("Last word: ", death_message, 1024)) ;
+				while (!get_string("Last word", death_message, 1024)) ;
 #endif
 			}
 #ifdef JP

@@ -1804,12 +1804,7 @@ static void do_name_pet(creature_type *master_ptr)
 		}
 
 		/* Get a new inscription (possibly empty) */
-#ifdef JP
-		if(get_string("–¼‘O: ", out_val, 15))
-#else
-		if(get_string("Name: ", out_val, 15))
-#endif
-
+		if(get_string(KW_NAME, out_val, 15))
 		{
 			if(out_val[0])
 			{

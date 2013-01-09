@@ -874,9 +874,9 @@ static void do_cmd_bunshou(void)
 	char bunshou[80] = "\0";
 
 #ifdef JP
-	if(get_string("内容: ", tmp, 79))
+	if(get_string("内容", tmp, 79))
 #else
-	if(get_string("diary note: ", tmp, 79))
+	if(get_string("diary note", tmp, 79))
 #endif
 	{
 		strcpy(bunshou, tmp);
@@ -2389,9 +2389,9 @@ void do_cmd_pref(void)
 
 	/* Ask for a "user pref command" */
 #ifdef JP
-	if(!get_string("設定変更コマンド: ", buf, 80)) return;
+	if(!get_string("設定変更コマンド", buf, 80)) return;
 #else
-	if(!get_string("Pref: ", buf, 80)) return;
+	if(!get_string("Pref", buf, 80)) return;
 #endif
 
 
@@ -3057,7 +3057,7 @@ static bool cmd_visuals_aux(int i, int *num, int max)
 
 		sprintf(str, "%d", *num);
 
-		if(!get_string(format("Input new number(0-%d): ", max-1), str, 4))
+		if(!get_string(format("Input new number(0-%d)", max-1), str, 4))
 			return FALSE;
 
 		tmp = strtol(str, NULL, 0);

@@ -1285,10 +1285,10 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					strcpy(out_val, "");
 #ifdef JP
 					c_put_str(TERM_GREEN, "ルーレット", 5, 2);
-					get_string("何番？ (0-9): ", out_val, 32);
+					get_string("何番？ (0-9)", out_val, 32);
 #else
 					c_put_str(TERM_GREEN, "Wheel", 5, 2);
-					get_string("Pick a number (0-9): ", out_val, 32);
+					get_string("Pick a number (0-9)", out_val, 32);
 #endif
 
 					for (p = out_val; isspace(*p); p++);
@@ -3177,7 +3177,7 @@ static bool research_creature(creature_type *creature_ptr)
 #ifdef JP
 		if(!get_string("名前(英語の場合小文字で可)",temp, 70))
 #else
-		if(!get_string("Enter name:",temp, 70))
+		if(!get_string("Enter name",temp, 70))
 #endif
 		{
 			temp[0]=0;

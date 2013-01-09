@@ -920,9 +920,9 @@ bool reset_recall(creature_type *creature_ptr)
 
 	if(!select_dungeon) return FALSE;
 #ifdef JP
-	sprintf(ppp, "何階にセットしますか (%d-%d):", dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
+	sprintf(ppp, "何階にセットしますか (%d-%d)", dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
 #else
-	sprintf(ppp, "Reset to which level (%d-%d): ", dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
+	sprintf(ppp, "Reset to which level (%d-%d)", dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
 #endif
 
 	sprintf(tmp_val, "%d", MAX(creature_ptr->depth, 1));

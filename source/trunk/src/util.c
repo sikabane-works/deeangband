@@ -3428,12 +3428,13 @@ bool askfor(char *buf, int len)
 bool get_string(cptr prompt, char *buf, int len)
 {
 	bool res;
-
+	char prompt_aux[MAX_NLEN];
 
 	msg_print(NULL);
-
+	sprintf(prompt_aux, "%s: ", prompt);
+	
 	/* Display prompt */
-	prt(prompt, 0, 0);
+	prt(prompt_aux, 0, 0);
 
 	/* Ask the user for a string */
 	res = askfor(buf, len);
