@@ -1716,11 +1716,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 	if(is_player(creature_ptr))
 	{
-#ifdef JP
-		(void)strcpy(desc, "‚ ‚È‚½");
-#else
-		(void)strcpy(desc, "You");
-#endif
+		(void)strcpy(desc, KW_YOU);
 		return;
 	}
 

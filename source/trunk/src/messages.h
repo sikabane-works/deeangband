@@ -80,6 +80,7 @@
 #define KW_UNTRIED "未経験"
 #define KW_CARRYING_WEIGHT "所持重量"
 #define KW_EQUIPMENT_WEIGHT "装備重量"
+#define KW_YOU "あなた"
 #define KW_CREATURE_PROFILE "クリーチャーのプロフィール"
 #else
 #define KW_NAME "Name"
@@ -91,6 +92,7 @@
 #define KW_UNTRIED "Untried"
 #define KW_CARRYING_WEIGHT "Carrying Weight"
 #define KW_EQUIPMENT_WEIGHT "Equipment Weight"
+#define KW_YOU "You"
 #define KW_CREATURE_PROFILE "Creature Profile"
 #endif
 

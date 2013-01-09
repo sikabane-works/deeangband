@@ -587,23 +587,9 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	bool see_m = TRUE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(m_idx <= 0) /* To player */
-	{
-#ifdef JP
-		strcpy(m_name, "‚ ‚È‚½");
-#else
-		strcpy(m_name, "you");
-#endif
-	}
-	else /* To creature */
-	{
-		creature_type *m_ptr = &creature_list[m_idx];
-
-		/* Get the creature name (or "it") */
-		creature_desc(m_name, m_ptr, 0);
-
-		see_m = is_seen(creature_ptr, m_ptr);
-	}
+	creature_type *m_ptr = &creature_list[m_idx];
+	creature_desc(m_name, m_ptr, 0);
+	see_m = is_seen(creature_ptr, m_ptr);
 
 	// No effect in some case
 	if(TELE_LEVEL_IS_INEFF(floor_ptr, creature_ptr, m_idx))
@@ -864,7 +850,7 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 	if(floor_ptr->floor_level && (max_dlv[floor_ptr->dun_type] > floor_ptr->floor_level) && !floor_ptr->quest && !creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
 #ifdef JP
-if(get_check("‚±‚±‚ÍÅ[“’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
+		if(get_check("‚±‚±‚ÍÅ[“’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
 #else
 		if(get_check("Reset recall depth? "))
 #endif
