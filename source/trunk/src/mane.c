@@ -99,7 +99,8 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 	cptr            p = "power";
 #endif
 
-	racial_power   spell;
+	racial_power spell;
+	trait_type spell_;
 	bool            flag, redraw;
 
 	/* Assume cancelled */
@@ -155,12 +156,12 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 				for (i = 0; i < num; i++)
 				{
 					/* Access the spell */
-					spell = racial_powers[creature_ptr->mane_spell[i]];
+					spell_ = trait_info[creature_ptr->mane_spell[i]];
 
-					chance = spell.manefail;
+					chance = spell_.fail;
 
 					/* Reduce failure rate by "effective" level adjustment */
-					if(plev > spell.level) chance -= 3 * (plev - spell.level);
+					//TODO if(plev > spell_.le) chance -= 3 * (plev - spell.level);
 
 					/* Reduce failure rate by INT/WIS adjustment */
 					chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
@@ -231,14 +232,11 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 		if(ask)
 		{
 			char tmp_val[160];
-
 #ifdef JP
-			(void)strnfmt(tmp_val, 78, "%s‚ð‚Ü‚Ë‚Ü‚·‚©H", racial_powers[creature_ptr->mane_spell[i]].name);
+			(void)strnfmt(tmp_val, 78, "%s‚ð‚Ü‚Ë‚Ü‚·‚©H", trait_info[creature_ptr->mane_spell[i]].title);
 #else
-			(void)strnfmt(tmp_val, 78, "Use %s? ", racial_powers[creature_ptr->mane_spell[i]].name);
+			(void)strnfmt(tmp_val, 78, "Use %s? ", trait_info[creature_ptr->mane_spell[i]].title);
 #endif
-
-
 			/* Belay that order */
 			if(!get_check(tmp_val)) continue;
 		}
