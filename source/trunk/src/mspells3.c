@@ -621,9 +621,9 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 			char tmp_val[160];
 
 #ifdef JP
-			(void) strnfmt(tmp_val, 78, "%sの魔法を唱えますか？", racial_powers[spellnum[i]].name);
+			(void)strnfmt(tmp_val, 78, "%sの魔法を唱えますか？", trait_info[spellnum[i]].title);
 #else
-			(void)strnfmt(tmp_val, 78, "Use %s? ", racial_powers[spellnum[i]].name);
+			(void)strnfmt(tmp_val, 78, "Use %s? ", trait_info[spellnum[i]].title);
 #endif
 
 
@@ -706,7 +706,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	int             chance;
 	int             minfail = 0;
 	int             plev = creature_ptr->lev;
-	racial_power   spell;
+	trait_type *spell_;
 	bool            cast;
 	int             need_mana;
 
@@ -721,9 +721,9 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	/* get power */
 	if(!get_learned_power(creature_ptr, &n)) return FALSE;
 
-	spell = racial_powers[n];
+	spell_ = &trait_info[n];
 
-	need_mana = mod_need_mana(creature_ptr, spell.smana, 0, REALM_NONE);
+	need_mana = mod_need_mana(creature_ptr, spell_->mp_cost, 0, REALM_NONE);
 
 	/* Verify "dangerous" spells */
 	if(need_mana > creature_ptr->csp)
@@ -747,11 +747,11 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	}
 
 	/* Spell failure chance */
-	chance = spell.fail;
+	chance = spell_->fail;
 
 	/* Reduce failure rate by "effective" level adjustment */
-	if(plev > spell.level) chance -= 3 * (plev - spell.level);
-	else chance += (spell.level - plev);
+	//if(plev > spell.level) chance -= 3 * (plev - spell.level);
+	//else chance += (spell.level - plev);
 
 	/* Reduce failure rate by INT/WIS adjustment */
 	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[STAT_INT]] - 1);
