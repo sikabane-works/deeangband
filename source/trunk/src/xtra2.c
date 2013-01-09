@@ -701,16 +701,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	}
 
 	if(dead_ptr == &creature_list[slayer_ptr->riding])
-	{
-		if(do_thrown_from_riding(slayer_ptr, -1, FALSE))
-		{
-#ifdef JP
-			msg_print("’n–Ê‚É—Ž‚Æ‚³‚ê‚½B");
-#else
-			msg_print("You have fallen from your riding pet.");
-#endif
-		}
-	}
+		if(do_thrown_from_riding(slayer_ptr, -1, FALSE)) msg_print(GAME_MESSAGE_FALL_RIDING);
 
 	/* Drop a dead corpse? */
 	if(one_in_(has_trait(dead_ptr, TRAIT_UNIQUE) ? 1 : 4) &&
@@ -856,13 +847,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			}
 			else if(!preserve_mode) a_ptr->cur_num = 1;
 		}
-		break;
-
-	case SPECIES_SERPENT:
-		if(drop_chosen_item){
-			drop_named_art(dead_ptr, TV_CROWN, dead_ptr->fy, dead_ptr->fx);
-		}
-
 		break;
 
 	case SPECIES_ROLENTO:

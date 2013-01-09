@@ -1512,13 +1512,7 @@ static void process_nonplayer(int m_idx)
 	{
 		if(do_thrown_from_riding(player_ptr, 0, TRUE))
 		{
-#ifdef JP
-			msg_print("地面に落とされた。");
-#else
-			char creature_name[80];
-			creature_desc(creature_name, &creature_list[player_ptr->riding], 0);
-			msg_format("You have fallen from %s.", creature_name);
-#endif
+			msg_print(GAME_MESSAGE_FALL_RIDING);
 		}
 	}
 
@@ -1598,11 +1592,7 @@ static void process_nonplayer(int m_idx)
 #endif
 				if(do_thrown_from_riding(player_ptr, -1, FALSE))
 				{
-#ifdef JP
-					msg_print("地面に落とされた。");
-#else
-					msg_print("You have fallen from riding pet.");
-#endif
+					msg_print(GAME_MESSAGE_FALL_RIDING);
 				}
 
 				// Check for quest completion

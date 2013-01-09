@@ -180,6 +180,7 @@
 #define GAME_MESSAGE_RIDING_FAILED "うまく乗れなかった。"
 #define GAME_MESSAGE_CONVERT_FAILED "変換に失敗した。"
 #define GAME_MESSAGE_NO_DICRECTION_CREATURE "その方向にはクリーチャーはいません。"
+#define GAME_MESSAGE_FALL_RIDING "乗騎から地面に落とされた。"
 
 #define GAME_MESSAGE_FIND_TRAP "トラップを発見した。"
 #define GAME_MESSAGE_FIND_DOOR "隠しドアを発見した。"
@@ -285,6 +286,8 @@
 #define GAME_MESSAGE_CONVERT_FAILED "You failed to convert."
 #define GAME_MESSAGE_RIDING_FAILED "You failed to ride."
 #define GAME_MESSAGE_NO_DICRECTION_CREATURE "There is no creature."
+
+#define GAME_MESSAGE_FALL_RIDING "You have fallen from your riding pet."
 
 #define GAME_MESSAGE_FIND_TRAP "You have found a trap."
 #define GAME_MESSAGE_FIND_DOOR "You have found a secret door."

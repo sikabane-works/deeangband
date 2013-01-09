@@ -2789,14 +2789,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				//TODO: capture creature status
 				if(c_ptr->creature_idx == player_ptr->riding)
 				{
-					if(do_thrown_from_riding(player_ptr, -1, FALSE))
-					{
-#ifdef JP
-						msg_print("ínñ Ç…óéÇ∆Ç≥ÇÍÇΩÅB");
-#else
-						msg_format("You have fallen from %s.", target_name);
-#endif
-					}
+					if(do_thrown_from_riding(player_ptr, -1, FALSE)) msg_print(GAME_MESSAGE_FALL_RIDING);
 				}
 
 				delete_species_idx(target_ptr);

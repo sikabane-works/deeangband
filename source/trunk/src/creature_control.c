@@ -2922,14 +2922,9 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	if(creature_ego_idx == MONEGO_NONE)
-	{
 		creature_ptr->creature_ego_idx = 0;
-	}
 	else
-	{
 		creature_ptr->creature_ego_idx = creature_ego_idx;
-	}
-
 
 	if(is_lighting_species(&species_info[old_species_idx]) || is_darken_species(&species_info[old_species_idx]) ||
 		(is_lighting_species(species_ptr) || is_darken_species(species_ptr)))
@@ -2955,13 +2950,11 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 		creature_desc(m_name, creature_ptr, 0);
 #ifdef JP
 		msg_format("突然%sが変身した。", old_m_name);
-		if(!has_trait(creature_ptr, TRAIT_RIDING))
-			if(do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_print("地面に落とされた。");
 #else
 		msg_format("Suddenly, %s transforms!", old_m_name);
-		if(!has_trait(creature_ptr, TRAIT_RIDING))
-			if(do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_format("You have fallen from %s.", m_name);
 #endif
+		if(!has_trait(creature_ptr, TRAIT_RIDING))
+			if(do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_print(GAME_MESSAGE_FALL_RIDING);
 	}
 
 	oldmhp = creature_ptr->mmhp;
