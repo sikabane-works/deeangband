@@ -2112,12 +2112,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			int gain_sp = take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, COD_HP_TO_MP, NULL, -1) / 5;
 			if(gain_sp) inc_mana(caster_ptr, gain_sp);
-			else
-#ifdef JP
-				msg_print("変換に失敗した。");
-#else
-				msg_print("You failed to convert.");
-#endif
+			else msg_print(GAME_MESSAGE_CONVERT_FAILED);
 			break;
 		}
 
@@ -2127,12 +2122,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			dec_mana(caster_ptr, caster_ptr->lev / 5); 
 			heal_creature(caster_ptr, caster_ptr->lev);
 		}
-		else
-#ifdef JP
-			msg_print("変換に失敗した。");
-#else
-			msg_print("You failed to convert.");
-#endif
+		else msg_print(GAME_MESSAGE_CONVERT_FAILED);
 		break;
 
 	case TRAIT_CONFUSING_LIGHT:

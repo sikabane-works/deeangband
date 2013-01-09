@@ -172,7 +172,9 @@
 #define GAME_MESSAGE_PREVENT_BY_HALLUCINATION "幻覚に阻まれてできない。"
 #define GAME_MESSAGE_PREVENT_BY_STUNED "頭が朦朧としていて集中できない。"
 #define GAME_MESSAGE_IMPROVE_LIMIT "そのアイテムはこれ以上改良できない。"
+
 #define GAME_MESSAGE_NO_HAPPEN "何も起こらなかった。"
+#define GAME_MESSAGE_CONVERT_FAILED "変換に失敗した。"
 
 #define GAME_MESSAGE_FIND_TRAP "トラップを発見した。"
 #define GAME_MESSAGE_FIND_DOOR "隠しドアを発見した。"
@@ -272,7 +274,9 @@
 #define GAME_MESSAGE_PREVENT_BY_HALLUCINATION "You are too hallucinated!"
 #define GAME_MESSAGE_PREVENT_BY_STUNED "You are too stuned!"
 #define GAME_MESSAGE_IMPROVE_LIMIT "This item is no more able to be improved."
+
 #define GAME_MESSAGE_NO_HAPPEN "Nothing happens."
+#define GAME_MESSAGE_CONVERT_FAILED "You failed to convert."
 
 #define GAME_MESSAGE_FIND_TRAP "You have found a trap."
 #define GAME_MESSAGE_FIND_DOOR "You have found a secret door."
