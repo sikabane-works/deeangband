@@ -502,11 +502,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	    floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
 		// arena or quest 
-#ifdef JP
-		msg_print("Œø‰Ê‚ª‚ ‚è‚Ü‚¹‚ñI");
-#else
-		msg_print("There is no effect!");
-#endif
+		msg_print(GAME_MESSAGE_NO_EFFECT);
 		return;
 	}
 

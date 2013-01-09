@@ -608,12 +608,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	// No effect in some case
 	if(TELE_LEVEL_IS_INEFF(floor_ptr, creature_ptr, m_idx))
 	{
-#ifdef JP
-		if(see_m) msg_print("å¯â Ç™Ç»Ç©Ç¡ÇΩÅB");
-#else
-		if(see_m) msg_print("There is no effect.");
-#endif
-
+		if(see_m) msg_print(GAME_MESSAGE_NO_EFFECT);
 		return;
 	}
 
