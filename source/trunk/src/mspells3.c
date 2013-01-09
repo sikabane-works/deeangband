@@ -268,7 +268,7 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 	cptr            p = "magic";
 #endif
 
-	trait_type *spell_;
+	trait_type *spell;
 	bool            flag, redraw;
 	int menu_line = (use_menu ? 1 : 0);
 
@@ -522,9 +522,9 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 					if(!creature_ptr->blue_learned_trait[spellnum[i]]) continue;
 
 					/* Access the spell */
-					spell_ = &trait_info[spellnum[i]];
+					spell = &trait_info[spellnum[i]];
 
-					chance = spell_->fail;
+					chance = spell->fail;
 
 					/* Reduce failure rate by "effective" level adjustment */
 					//TODO if(plev > spell.level) chance -= 3 * (plev - spell.level);
@@ -573,7 +573,7 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 					else sprintf(psi_desc, "  %c)", I2A(i));
 
 					/* Dump the spell --(-- */
-					strcat(psi_desc, format(" %-26s %3d %3d%%%s", spell_->title, need_mana, chance, comment));
+					strcat(psi_desc, format(" %-26s %3d %3d%%%s", spell->title, need_mana, chance, comment));
 					prt(psi_desc, y + i + 1, x);
 				}
 
@@ -613,7 +613,7 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 		}
 
 		/* Save the spell index */
-		spell_ = &trait_info[spellnum[i]];
+		spell = &trait_info[spellnum[i]];
 
 		/* Verify it */
 		if(ask)
@@ -706,7 +706,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	int             chance;
 	int             minfail = 0;
 	int             plev = creature_ptr->lev;
-	trait_type *spell_;
+	trait_type *spell;
 	bool            cast;
 	int             need_mana;
 
@@ -721,9 +721,9 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	/* get power */
 	if(!get_learned_power(creature_ptr, &n)) return FALSE;
 
-	spell_ = &trait_info[n];
+	spell = &trait_info[n];
 
-	need_mana = mod_need_mana(creature_ptr, spell_->mp_cost, 0, REALM_NONE);
+	need_mana = mod_need_mana(creature_ptr, spell->mp_cost, 0, REALM_NONE);
 
 	/* Verify "dangerous" spells */
 	if(need_mana > creature_ptr->csp)
@@ -747,7 +747,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	}
 
 	/* Spell failure chance */
-	chance = spell_->fail;
+	chance = spell->fail;
 
 	/* Reduce failure rate by "effective" level adjustment */
 	//if(plev > spell.level) chance -= 3 * (plev - spell.level);
