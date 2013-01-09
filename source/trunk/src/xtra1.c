@@ -640,7 +640,7 @@ static void prt_hp(creature_type *creature_ptr)
 	char tmp[32]; 
 	byte color;
 
-	put_str("HP", ROW_CURHP, COL_CURHP);
+	put_str(KW_HP, ROW_CURHP, COL_CURHP);
 	sprintf(tmp, "%5ld", creature_ptr->chp);
 
 	if(creature_ptr->chp >= creature_ptr->mhp) color = TERM_L_GREEN;

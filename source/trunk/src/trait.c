@@ -2110,11 +2110,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_HP_TO_SP_ACTIVE:
 		{
-#ifdef JP
-			int gain_sp = take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, "ＨＰからＭＰへの無謀な変換", NULL, -1) / 5;
-#else
-			int gain_sp = take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
-#endif
+			int gain_sp = take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, COD_HP_TO_MP, NULL, -1) / 5;
 			if(gain_sp) inc_mana(caster_ptr, gain_sp);
 			else
 #ifdef JP

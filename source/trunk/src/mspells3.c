@@ -510,7 +510,7 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 #ifdef JP
 				put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 #else
-				put_str("SP Fail Info", y, x + 32);
+				put_str("MP Fail Info", y, x + 32);
 #endif
 
 				/* Dump the spells */

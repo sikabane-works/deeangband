@@ -72,6 +72,8 @@
  
 #if JP
 #define KW_NAME "名前"
+#define KW_HP "HP"
+#define KW_MP "MP"
 #define KW_FAIL "失率"
 #define KW_UNKNOWN "未知"
 #define KW_FORGOTTEN "忘却"
@@ -81,6 +83,8 @@
 #define KW_CREATURE_PROFILE "クリーチャーのプロフィール"
 #else
 #define KW_NAME "Name"
+#define KW_HP "HP"
+#define KW_MP "MP"
 #define KW_FAIL "Fail"
 #define KW_UNKNOWN "Unknown"
 #define KW_FORGOTTEN "Forgotten"
@@ -409,6 +413,7 @@
 #define COD_GENOCIDE_SYMBOL "抹殺"
 #define COD_GENOCIDE_MASS "周辺抹殺"
 #define COD_GENOCIDE_UNDEAD "アンデッド消滅"
+#define COD_HP_TO_MP "HPからMPへの無謀な変換"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -442,6 +447,7 @@
 #define COD_GENOCIDE_SYMBOL "Genocide"
 #define COD_GENOCIDE_MASS "Mass Gecocide"
 #define COD_GENOCIDE_UNDEAD "Annihilate Undead"
+#define COD_HP_TO_MP "Thoughtless convertion from HP to MP"
 #endif
 
 // Hack -- possible "insult" messages
