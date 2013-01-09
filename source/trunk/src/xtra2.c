@@ -777,16 +777,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		}
 		break;
 
-	case SPECIES_RAAL:
-		if(drop_chosen_item && (floor_ptr->floor_level > 9))
-		{
-			quest_ptr = &forge;	// Get local object
-			object_wipe(quest_ptr); // Wipe the object
-			make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, (floor_ptr->floor_level > 49) && one_in_(5) ? kind_is_good_book : kind_is_book);
-			(void)drop_near(floor_ptr, quest_ptr, -1, y, x); // Drop it in the dungeon
-		}
-		break;
-
 	case SPECIES_DAWN:
 		/*
 		* Mega^3-hack: killing a 'Warrior of the Dawn' is likely to
@@ -875,55 +865,12 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 		break;
 
-	case SPECIES_B_DEATH_SWORD:
-		if(drop_chosen_item)
-		{
-			specified_drop(floor_ptr, dead_ptr, TV_SWORD, randint1(2));
-		}
-		break;
-
-	case SPECIES_A_GOLD:
-	case SPECIES_A_SILVER:
-		if(drop_chosen_item && ((dead_ptr->species_idx == SPECIES_A_GOLD) || ((dead_ptr->species_idx == SPECIES_A_SILVER) && (species_ptr->r_akills % 5 == 0))))
-		{
-			specified_drop(floor_ptr, dead_ptr, TV_CHEST, SV_CHEST_KANDUME);
-		}
-		break;
-
 	case SPECIES_ROLENTO:
-		{
 			/*TODO
 			(void)project(m_idx, 3, y, x, diceroll(20, 10), DO_EFFECT_FIRE, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 			*/
-		}
 		break;
 
-	default:
-		if(!drop_chosen_item) break;
-
-		switch (species_ptr->d_char)
-		{
-		case '(':
-			specified_drop(floor_ptr, dead_ptr, TV_CLOAK, SV_ANY);
-			break;
-
-		case '/':
-			specified_drop(floor_ptr, dead_ptr, TV_POLEARM, SV_ANY);
-			break;
-
-		case '[':
-			specified_drop(floor_ptr, dead_ptr, TV_HARD_ARMOR, SV_ANY);
-			break;
-
-		case '\\':
-			specified_drop(floor_ptr, dead_ptr, TV_HAFTED, SV_ANY);
-			break;
-
-		case '|':
-			if(dead_ptr->species_idx != SPECIES_STORMBRINGER) specified_drop(floor_ptr, dead_ptr, TV_SWORD, SV_ANY);
-			break;
-		}
-		break;
 	}
 
 	// Mega-Hack -- drop fixed items
