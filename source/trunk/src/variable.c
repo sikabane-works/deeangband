@@ -192,7 +192,6 @@ bool display_path;			// Display actual path before shooting
 bool plain_descriptions;	// Plain object descriptions
 bool plain_pickup;			// Plain pickup messages(japanese only)
 bool always_show_list;		// Always show list when choosing items
-bool depth_in_feet;			// Show dungeon level in feet
 bool show_labels;			// Show labels in object listings
 bool show_weights;			// Show weights in object listings
 bool show_item_graph;		// Show items graphics

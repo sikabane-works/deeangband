@@ -704,11 +704,9 @@ static void prt_depth(creature_type *creature_ptr)
 	else
 	{
 #ifdef JP
-		if(depth_in_feet) (void)sprintf(depths, "%d ft", floor_ptr->floor_level * 50);
-		else (void)sprintf(depths, "%d ŠK", floor_ptr->floor_level);
+		(void)sprintf(depths, "%d ŠK", floor_ptr->floor_level);
 #else
-		if(depth_in_feet) (void)sprintf(depths, "%d ft", floor_ptr->floor_level * 50);
-		else (void)sprintf(depths, "Lev %d", floor_ptr->floor_level);
+		(void)sprintf(depths, "Lev %d", floor_ptr->floor_level);
 #endif
 
 

@@ -54,7 +54,6 @@ Y:display_path
 Y:plain_descriptions
 X:plain_pickup
 Y:always_show_list
-X:depth_in_feet
 Y:show_labels
 Y:show_weights
 Y:show_item_graph
