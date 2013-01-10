@@ -2259,11 +2259,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	static const char s_dam[] = KW_DAM;
-#ifdef JP
-	static const char s_rng[] = "ŽË’ö";
-#else
-	static const char s_rng[] = "rng ";
-#endif
+	static const char s_rng[] = KW_RAN;
 
 	int dir;
 	int plev = caster_ptr->lev;
@@ -2394,12 +2390,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 					msg_print("The daylight scorches your flesh!");
 #endif
-
-#ifdef JP
-					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(2, 2), "“ú‚ÌŒõ", NULL, -1);
-#else
-					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(2, 2), "daylight", NULL, -1);
-#endif
+					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(2, 2), COD_SUNLIGHT, NULL, -1);
 				}
 			}
 		}
@@ -2961,12 +2952,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 					msg_print("The sunlight scorches your flesh!");
 #endif
-
-#ifdef JP
-					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, "“úŒõ", NULL, -1);
-#else
-					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, "sunlight", NULL, -1);
-#endif
+					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_SUNLIGHT, NULL, -1);
 				}
 			}
 		}

@@ -93,6 +93,7 @@
 #define KW_CHAOS "¬“×"
 #define KW_BALANCE "“V”‰"
 #define KW_DAM "‘¹"
+#define KW_RAN "Ë’ö"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -116,6 +117,7 @@
 #define KW_CHAOS "Chaos"
 #define KW_BALANCE "Balance"
 #define KW_DAM "Dam"
+#define KW_RAN "Ran"
 #endif
 
 #ifdef JP
