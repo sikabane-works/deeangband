@@ -430,43 +430,23 @@ static void cast_shuffle(creature_type *creature_ptr)
 	else
 		die = randint1(120);
 
-
-#ifdef JP
-	msg_print("あなたはカードを切って一枚引いた...");
-#else
-	msg_print("You shuffle the deck and draw a card...");
-#endif
+	msg_print(SHUFFLE_START);
 
 	if(die < 7)
 	{
-#ifdef JP
-		msg_print("なんてこった！《死》だ！");
-#else
-		msg_print("Oh no! It's Death!");
-#endif
-
+		msg_print(SHUFFLE_DEATH);
 		for (i = 0; i < randint1(3); i++)
 			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 	}
 	else if(die < 14)
 	{
-#ifdef JP
-		msg_print("なんてこった！《悪魔》だ！");
-#else
-		msg_print("Oh no! It's the Devil!");
-#endif
-
+		msg_print(SHUFFLE_DEVIL);
 		summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 	else if(die < 18)
 	{
 		int count = 0;
-#ifdef JP
-		msg_print("なんてこった！《吊られた男》だ！");
-#else
-		msg_print("Oh no! It's the Hanged Man.");
-#endif
-
+		msg_print(SHUFFLE_HANGEDMAN);
 		activate_ty_curse(creature_ptr, FALSE, &count);
 	}
 	else if(die < 22)
@@ -522,7 +502,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 	}
 	else if(die < 40)
 	{
-		msg_print(SHAFFLE_TELEPORT);
+		msg_print(SHUFFLE_TELEPORT);
 		teleport_player(creature_ptr, 10, TELEPORT_PASSIVE);
 	}
 	else if(die < 42)
@@ -536,12 +516,12 @@ static void cast_shuffle(creature_type *creature_ptr)
 	}
 	else if(die < 47)
 	{
-		msg_print(SHAFFLE_TELEPORT);
+		msg_print(SHUFFLE_TELEPORT);
 		teleport_player(creature_ptr, 100, TELEPORT_PASSIVE);
 	}
 	else if(die < 52)
 	{
-		msg_print(SHAFFLE_TELEPORT);
+		msg_print(SHUFFLE_TELEPORT);
 		teleport_player(creature_ptr, 200, TELEPORT_PASSIVE);
 	}
 	else if(die < 60)
@@ -573,22 +553,22 @@ static void cast_shuffle(creature_type *creature_ptr)
 	}
 	else if(die < 82)
 	{
-		msg_print(SHAFFLE_FRIEND);
+		msg_print(SHUFFLE_FRIEND);
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_MOLD, 0L);
 	}
 	else if(die < 84)
 	{
-		msg_print(SHAFFLE_FRIEND);
+		msg_print(SHUFFLE_FRIEND);
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_BAT, 0L);
 	}
 	else if(die < 86)
 	{
-		msg_print(SHAFFLE_FRIEND);
+		msg_print(SHUFFLE_FRIEND);
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_VORTEX, 0L);
 	}
 	else if(die < 88)
 	{
-		msg_print(SHAFFLE_FRIEND);
+		msg_print(SHUFFLE_FRIEND);
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_CREEPING_COIN, 0L);
 	}
 	else if(die < 96)

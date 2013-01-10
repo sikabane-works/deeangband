@@ -978,11 +978,19 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #endif
 
 #ifdef JP
-#define SHAFFLE_TELEPORT "テレポート・カードだ。"
-#define SHAFFLE_FRIEND "友好的なクリーチャーの絵だ。"
+#define SHUFFLE_START "あなたはカードを切って一枚引いた..."
+#define SHUFFLE_TELEPORT "テレポート・カードだ。"
+#define SHUFFLE_FRIEND "友好的なクリーチャーの絵だ。"
+#define SHUFFLE_DEATH "なんてこった！《死》だ！"
+#define SHUFFLE_DEVIL "なんてこった！《悪魔》だ！"
+#define SHUFFLE_HANGEDMAN "なんてこった！《吊られた男》だ！"
 #else
-#define SHAFFLE_TELEPORT "It's a teleport trump card."
-#define SHAFFLE_FRIEND "It's the picture of a friendly creature."
+#define SHUFFLE_START "You shuffle the deck and draw a card..."
+#define SHUFFLE_TELEPORT "It's a teleport trump card."
+#define SHUFFLE_FRIEND "It's the picture of a friendly creature."
+#define SHUFFLE_DEATH "Oh no! It's Death!"
+#define SHUFFLE_DEVIL "Oh no! It's the Devil!"
+#define SHUFFLE_HANGEDMAN "Oh no! It's the Hanged Man."
 #endif
 
 #ifdef JP
