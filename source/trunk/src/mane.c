@@ -18,13 +18,12 @@ static int damage;
 static void mane_info(creature_type *creature_ptr, char *p, int power, int dam)
 {
 	int plev = creature_ptr->lev;
+	static const char s_dam[] = KW_DAM;
 #ifdef JP
-	cptr s_dam = "‘¹:";
 	cptr s_dur = "ŠúŠÔ:";
 	cptr s_range = "”ÍˆÍ:";
 	cptr s_heal = "‰ñ•œ:";
 #else
-	cptr s_dam = "dam ";
 	cptr s_dur = "dur ";
 	cptr s_range = "range ";
 	cptr s_heal = "heal ";

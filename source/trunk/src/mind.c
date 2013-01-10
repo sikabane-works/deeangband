@@ -287,12 +287,11 @@ mind_power mind_powers[5] =
 void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, int power)
 {
 	char buf[30];
+	static const char s_dam[] = KW_DAM;
 #ifdef JP
-	cptr s_dam = "‘¹:";
 	cptr s_dur = "ŠúŠÔ:";
 	cptr s_range = "”ÍˆÍ:";
 #else
-	cptr s_dam = "dam ";
 	cptr s_dur = "dur ";
 	cptr s_range = "range ";
 #endif

@@ -29,11 +29,7 @@ static cptr info_string_dice(cptr str, int dice, int sides, int base)
  */
 static cptr info_damage(int dice, int sides, int base)
 {
-#ifdef JP
-	return info_string_dice("損傷:", dice, sides, base);
-#else
-	return info_string_dice("dam ", dice, sides, base);
-#endif
+	return info_string_dice(KW_DAM, dice, sides, base);
 }
 
 
@@ -94,11 +90,7 @@ static cptr info_delay(int base, int sides)
  */
 static cptr info_multi_damage(int dam)
 {
-#ifdef JP
-	return format("損傷:各%d", dam);
-#else
-	return format("dam %d each", dam);
-#endif
+	return format("%s 各%d", KW_DAM, dam);
 }
 
 
@@ -107,11 +99,7 @@ static cptr info_multi_damage(int dam)
  */
 static cptr info_multi_damage_dice(int dice, int sides)
 {
-#ifdef JP
-	return format("損傷:各%dd%d", dice, sides);
-#else
-	return format("dam %dd%d each", dice, sides);
-#endif
+	return format("%s 各%dd%d", KW_DAM, dice, sides);
 }
 
 
@@ -578,11 +566,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 	}
 	else if(die < 40)
 	{
-#ifdef JP
-		msg_print("テレポート・カードだ。");
-#else
-		msg_print("It's a teleport trump card.");
-#endif
+		msg_print(SHAFFLE_TELEPORT);
 		teleport_player(creature_ptr, 10, TELEPORT_PASSIVE);
 	}
 	else if(die < 42)
@@ -596,20 +580,12 @@ static void cast_shuffle(creature_type *creature_ptr)
 	}
 	else if(die < 47)
 	{
-#ifdef JP
-		msg_print("テレポート・カードだ。");
-#else
-		msg_print("It's a teleport trump card.");
-#endif
+		msg_print(SHAFFLE_TELEPORT);
 		teleport_player(creature_ptr, 100, TELEPORT_PASSIVE);
 	}
 	else if(die < 52)
 	{
-#ifdef JP
-		msg_print("テレポート・カードだ。");
-#else
-		msg_print("It's a teleport trump card.");
-#endif
+		msg_print(SHAFFLE_TELEPORT);
 		teleport_player(creature_ptr, 200, TELEPORT_PASSIVE);
 	}
 	else if(die < 60)
@@ -2282,11 +2258,10 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
+	static const char s_dam[] = KW_DAM;
 #ifdef JP
-	static const char s_dam[] = "損傷:";
 	static const char s_rng[] = "射程";
 #else
-	static const char s_dam[] = "dam ";
 	static const char s_rng[] = "rng ";
 #endif
 
@@ -3052,11 +3027,10 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
+	static const char s_dam[] = KW_DAM;
 #ifdef JP
-	static const char s_dam[] = "損傷:";
 	static const char s_random[] = "ランダム";
 #else
-	static const char s_dam[] = "dam ";
 	static const char s_random[] = "random";
 #endif
 
@@ -3846,11 +3820,10 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
+	static const char s_dam[] = KW_DAM;
 #ifdef JP
-	static const char s_dam[] = "損傷:";
 	static const char s_random[] = "ランダム";
 #else
-	static const char s_dam[] = "dam ";
 	static const char s_random[] = "random";
 #endif
 
@@ -6968,11 +6941,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-#ifdef JP
-	static const char s_dam[] = "損傷:";
-#else
-	static const char s_dam[] = "dam ";
-#endif
+	static const char s_dam[] = KW_DAM;
 
 	int dir;
 	int plev = caster_ptr->lev;
@@ -8538,11 +8507,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cont = (mode == SPELL_CONT) ? TRUE : FALSE;
 	bool stop = (mode == SPELL_STOP) ? TRUE : FALSE;
 
-#ifdef JP
-	static const char s_dam[] = "損傷:";
-#else
-	static const char s_dam[] = "dam ";
-#endif
+	static const char s_dam[] = KW_DAM;
 
 	int dir;
 	int plev = caster_ptr->lev;

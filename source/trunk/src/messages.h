@@ -92,6 +92,7 @@
 #define KW_LAW "秩序"
 #define KW_CHAOS "混沌"
 #define KW_BALANCE "天秤"
+#define KW_DAM "損傷"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -114,6 +115,7 @@
 #define KW_LAW "Law"
 #define KW_CHAOS "Chaos"
 #define KW_BALANCE "Balance"
+#define KW_DAM "Dam"
 #endif
 
 #ifdef JP
@@ -974,7 +976,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #endif
 
 #ifdef JP
+#define SHAFFLE_TELEPORT "テレポート・カードだ。"
 #define SHAFFLE_FRIEND "友好的なクリーチャーの絵だ。"
 #else
+#define SHAFFLE_TELEPORT "It's a teleport trump card."
 #define SHAFFLE_FRIEND "It's the picture of a friendly creature."
 #endif
