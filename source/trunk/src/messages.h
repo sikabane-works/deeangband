@@ -71,6 +71,7 @@
 #endif
  
 #if JP
+#define KW_CREATURE "クリーチャー"
 #define KW_NAME "名前"
 #define KW_RACE "種族"
 #define KW_CLASS "職業"
@@ -92,6 +93,7 @@
 #define KW_CHAOS "混沌"
 #define KW_BALANCE "天秤"
 #else
+#define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
 #define KW_RACE "Race"
 #define KW_CLASS "Class"
@@ -969,5 +971,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_WIZARD "give up sending score to use wizard mode."
 #define DIARY_UP_STAIR 1"climbed up the stairs to"
 #define DIARY_DOWN_STAIR "climbed down the stairs to"
+#endif
 
+#ifdef JP
+#define SHAFFLE_FRIEND "友好的なクリーチャーの絵だ。"
+#else
+#define SHAFFLE_FRIEND "It's the picture of a friendly creature."
 #endif

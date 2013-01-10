@@ -641,38 +641,22 @@ static void cast_shuffle(creature_type *creature_ptr)
 	}
 	else if(die < 82)
 	{
-#ifdef JP
-		msg_print("友好的なクリーチャーの絵だ。");
-#else
-		msg_print("It's the picture of a friendly creature.");
-#endif
+		msg_print(SHAFFLE_FRIEND);
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_MOLD, 0L);
 	}
 	else if(die < 84)
 	{
-#ifdef JP
-		msg_print("友好的なクリーチャーの絵だ。");
-#else
-		msg_print("It's the picture of a friendly creature.");
-#endif
+		msg_print(SHAFFLE_FRIEND);
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_BAT, 0L);
 	}
 	else if(die < 86)
 	{
-#ifdef JP
-		msg_print("友好的なクリーチャーの絵だ。");
-#else
-		msg_print("It's the picture of a friendly creature.");
-#endif
+		msg_print(SHAFFLE_FRIEND);
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_VORTEX, 0L);
 	}
 	else if(die < 88)
 	{
-#ifdef JP
-		msg_print("友好的なクリーチャーの絵だ。");
-#else
-		msg_print("It's the picture of a friendly creature.");
-#endif
+		msg_print(SHAFFLE_FRIEND);
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_CREEPING_COIN, 0L);
 	}
 	else if(die < 96)
