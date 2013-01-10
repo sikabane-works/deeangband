@@ -451,53 +451,28 @@ static void cast_shuffle(creature_type *creature_ptr)
 	}
 	else if(die < 22)
 	{
-#ifdef JP
-		msg_print("《不調和の剣》だ。");
-#else
-		msg_print("It's the swords of discord.");
-#endif
-
+		msg_print(SHUFFLE_DISCODE);
 		aggravate_creatures(creature_ptr);
 	}
 	else if(die < 26)
 	{
-#ifdef JP
-		msg_print("《愚者》だ。");
-#else
-		msg_print("It's the Fool.");
-#endif
-
+		msg_print(SHUFFLE_FOOL);
 		do_dec_stat(creature_ptr, STAT_INT);
 		do_dec_stat(creature_ptr, STAT_WIS);
 	}
 	else if(die < 30)
 	{
-#ifdef JP
-		msg_print("奇妙なクリーチャーの絵だ。");
-#else
-		msg_print("It's the picture of a strange creature.");
-#endif
-
+		msg_print(SHUFFLE_STRANGE);
 		trump_summoning(creature_ptr, 1, FALSE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), (32 + randint1(6)), PC_ALLOW_GROUP | PC_ALLOW_UNIQUE);
 	}
 	else if(die < 33)
 	{
-#ifdef JP
-		msg_print("《月》だ。");
-#else
-		msg_print("It's the Moon.");
-#endif
-
+		msg_print(SHUFFLE_MOON);
 		unlite_area(creature_ptr, 10, 3);
 	}
 	else if(die < 38)
 	{
-#ifdef JP
-		msg_print("《運命の輪》だ。");
-#else
-		msg_print("It's the Wheel of Fortune.");
-#endif
-
+		msg_print(SHUFFLE_WHEEL);
 		wild_magic(creature_ptr, randint0(32));
 	}
 	else if(die < 40)
@@ -507,11 +482,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 	}
 	else if(die < 42)
 	{
-#ifdef JP
-		msg_print("《正義》だ。");
-#else
-		msg_print("It's Justice.");
-#endif
+		msg_print(SHUFFLE_JUSTICE);
 		set_timed_trait(creature_ptr, TRAIT_BLESSED, creature_ptr->lev, FALSE);
 	}
 	else if(die < 47)
@@ -526,29 +497,17 @@ static void cast_shuffle(creature_type *creature_ptr)
 	}
 	else if(die < 60)
 	{
-#ifdef JP
-		msg_print("《塔》だ。");
-#else
-		msg_print("It's the Tower.");
-#endif
+		msg_print(SHUFFLE_TOWER);
 		wall_breaker(creature_ptr);
 	}
 	else if(die < 72)
 	{
-#ifdef JP
-		msg_print("《節制》だ。");
-#else
-		msg_print("It's Temperance.");
-#endif
+		msg_print(SHUFFLE_TEMPERANCE);
 		sleep_creatures_touch(creature_ptr);
 	}
 	else if(die < 80)
 	{
-#ifdef JP
-		msg_print("《塔》だ。");
-#else
-		msg_print("It's the Tower.");
-#endif
+		msg_print(SHUFFLE_TOWER);
 		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5);
 	}
 	else if(die < 82)
@@ -573,48 +532,28 @@ static void cast_shuffle(creature_type *creature_ptr)
 	}
 	else if(die < 96)
 	{
-#ifdef JP
-		msg_print("《恋人》だ。");
-#else
-		msg_print("It's the Lovers.");
-#endif
+		msg_print(SHUFFLE_LOVER);
 		if(get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) charm_creature(creature_ptr, dir, MIN(creature_ptr->lev, 20));
 	}
 	else if(die < 101)
 	{
-#ifdef JP
-		msg_print("《隠者》だ。");
-#else
-		msg_print("It's the Hermit.");
-#endif
+		msg_print(SHUFFLE_HERMIT);
 		wall_stone(creature_ptr);
 	}
 	else if(die < 111)
 	{
-#ifdef JP
-		msg_print("《審判》だ。");
-#else
-		msg_print("It's the Judgement.");
-#endif
+		msg_print(SHUFFLE_JUDGEMENT);
 		remove_all_mutative_traits(creature_ptr);
 		do_cmd_rerate(creature_ptr, FALSE);
 	}
 	else if(die < 120)
 	{
-#ifdef JP
-		msg_print("《太陽》だ。");
-#else
-		msg_print("It's the Sun.");
-#endif
+		msg_print(SHUFFLE_SUN);
 		wiz_lite(floor_ptr, creature_ptr, FALSE);
 	}
 	else
 	{
-#ifdef JP
-		msg_print("《世界》だ。");
-#else
-		msg_print("It's the World.");
-#endif
+		msg_print(SHUFFLE_WORLD);
 		if(creature_ptr->exp < CREATURE_MAX_EXP)
 		{
 			s32b ee = (creature_ptr->exp / 25) + 1;
