@@ -977,11 +977,6 @@ s16b creature_pop(void)
 }
 
 
-/*
-* Hack -- the index of the summoning creature
-*/
-static int summon_specific_who = -1;
-
 static bool summon_specific_aux(species_type *species_ptr, int summon_specific_type)
 {
 	int okay = FALSE;
@@ -4192,10 +4187,9 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 
 	if(!species_hook_dungeon(species_idx)) return FALSE; // Hack - Only summon dungeon creatures
 
-	if(summon_specific_who > 0) // Hack -- identify the summoning creature
+	if(summoner_ptr > 0)
 	{
-		creature_type *m_ptr = &creature_list[summon_specific_who];
-		if(creature_has_hostile_align(m_ptr, summoner_ptr)) return FALSE; // Friendly vs. opposite aligned normal or pet
+	//	if(creature_has_hostile_align(m_ptr, summoner_ptr)) return FALSE; // Friendly vs. opposite aligned normal or pet
 	}
 
 	return TRUE;
