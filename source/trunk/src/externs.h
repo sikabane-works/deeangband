@@ -106,7 +106,6 @@ extern martial_arts ma_blows[MAX_MA];
 extern cptr game_inscriptions[];
 extern kamae kamae_shurui[MAX_KAMAE];
 extern kamae kata_shurui[MAX_KATA];
-extern cptr exp_level_str[5];
 extern cptr silly_attacks[MAX_SILLY_ATTACK];
 #ifdef JP
 extern cptr silly_attacks2[MAX_SILLY_ATTACK];

@@ -2994,13 +2994,6 @@ kamae kata_shurui[MAX_KATA] =
 #endif
 };
 
-cptr exp_level_str[5]=
-#ifdef JP
-{"[初心者]", "[入門者]", "[熟練者]", "[エキスパート]", "[達人]"};
-#else
-{"[Unskilled]", "[Beginner]", "[Skilled]", "[Expert]", "[Master]"};
-#endif
-
 /* Weird melee attack types when hallucinating */
 #ifdef JP
 cptr silly_attacks[MAX_SILLY_ATTACK] =
