@@ -85,7 +85,7 @@
 #define KW_UNTRIED "未経験"
 #define KW_CARRYING_WEIGHT "所持重量"
 #define KW_EQUIPMENT_WEIGHT "装備重量"
-#define KW_STUFF "杖"
+#define KW_STAFF "杖"
 #define KW_WAND "魔法棒"
 #define KW_ROD "ロッド"
 #define KW_YOU "あなた"

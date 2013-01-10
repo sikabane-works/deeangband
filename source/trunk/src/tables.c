@@ -3936,3 +3936,15 @@ char *load_error_messages[] =
 #endif
 };
 
+cptr skill_name[MAX_SKILLS][40] =
+{
+#ifdef JP
+		"マーシャルアーツ",
+		"二刀流",
+		"乗馬"
+#else
+		"Martial Arts",
+		"Dual Wielding",
+		"Riding"
+#endif
+};

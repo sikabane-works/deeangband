@@ -416,6 +416,7 @@ extern u32b play_redraw;		// Normal Redraws (bit flags)
 extern u32b play_window;		// Window Redraws (bit flags)
 extern bool wizard;		        // (Player Only) wizard mode
 extern bool unique_play;        // Unique play mode
+extern cptr skill_name[MAX_SKILLS][40];
 
 extern creature_type player_prev;
 extern bool quick_ok;

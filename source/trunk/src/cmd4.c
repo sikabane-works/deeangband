@@ -5910,11 +5910,6 @@ static void do_cmd_knowledge_skill_exp(creature_type *creature_ptr)
 	FILE *fff;
 
 	char file_name[1024];
-#ifdef JP
-	char skill_name[3][17]={"マーシャルアーツ", "二刀流          ", "乗馬            "};
-#else
-	char skill_name[3][20]={"Martial Arts    ", "Dual Wielding   ", "Riding          "};
-#endif
 
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
