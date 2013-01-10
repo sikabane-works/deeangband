@@ -86,6 +86,11 @@
 #define KW_EQUIPMENT_WEIGHT "装備重量"
 #define KW_YOU "あなた"
 #define KW_CREATURE_PROFILE "クリーチャーのプロフィール"
+#define KW_GOOD "善"
+#define KW_EVIL "悪"
+#define KW_LAW "秩序"
+#define KW_CHAOS "混沌"
+#define KW_BALANCE "天秤"
 #else
 #define KW_NAME "Name"
 #define KW_RACE "Race"
@@ -102,6 +107,11 @@
 #define KW_EQUIPMENT_WEIGHT "Equipment Weight"
 #define KW_YOU "You"
 #define KW_CREATURE_PROFILE "Creature Profile"
+#define KW_GOOD "Good"
+#define KW_EVIL "Evil"
+#define KW_LAW "Law"
+#define KW_CHAOS "Chaos"
+#define KW_BALANCE "Balance"
 #endif
 
 #ifdef JP
