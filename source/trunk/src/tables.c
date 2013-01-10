@@ -3930,12 +3930,32 @@ char *load_error_messages[] =
 cptr skill_name[MAX_SKILLS][40] =
 {
 #ifdef JP
-		"マーシャルアーツ",
-		"二刀流",
-		"乗馬"
+	"徒格闘",
+	"短剣",
+	"長剣",
+	"大剣",
+	"斧",
+	"鈍器",
+	"竿状武器",
+	"スリング",
+	"弓",
+	"クロスボウ",
+	"銃",
+	"二刀流",
+	"乗馬",
 #else
-		"Martial Arts",
-		"Dual Wielding",
-		"Riding"
+	"Martial Arts",
+	"Short Edge",
+	"Long Edge",
+	"Huge Edge",
+	"Axe",
+	"Hafted",
+	"Polearm",
+	"Sling",
+	"Bow",
+	"Crossbow",
+	"Gun",
+	"Dual Wielding",
+	"Riding",
 #endif
 };
