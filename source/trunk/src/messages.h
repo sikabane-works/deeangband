@@ -984,3 +984,14 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define SHAFFLE_TELEPORT "It's a teleport trump card."
 #define SHAFFLE_FRIEND "It's the picture of a friendly creature."
 #endif
+
+#ifdef JP
+#define INVOKE_SPIRIT_START "‚ ‚È‚½‚Í€Ò‚½‚¿‚Ì—Í‚ğµW‚µ‚½..."
+#define INVOKE_SPIRIT_HIGH_POWER "‚ ‚È‚½‚Í‚¨‚Ç‚ë‚¨‚Ç‚ë‚µ‚¢—Í‚Ì‚¤‚Ë‚è‚ğŠ´‚¶‚½I"
+
+#else
+#define INVOKE_SPIRIT_START "You call on the power of the dead..."
+#define INVOKE_SPIRIT_HIGH_POWER "You feel a surge of eldritch force!"
+#endif
+
+

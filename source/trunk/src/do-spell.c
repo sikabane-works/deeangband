@@ -264,21 +264,8 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	// TODO: Add Karma of Fortune feature.
 	int vir = 0;
 
-#ifdef JP
-	msg_print("あなたは死者たちの力を招集した...");
-#else
-	msg_print("You call on the power of the dead...");
-#endif
-
-	if(die > 100)
-	{
-#ifdef JP
-		msg_print("あなたはおどろおどろしい力のうねりを感じた！");
-#else
-		msg_print("You feel a surge of eldritch force!");
-#endif
-	}
-
+	msg_print(INVOKE_SPIRIT_START);
+	if(die > 100) msg_print(INVOKE_SPIRIT_HIGH_POWER);
 
 	if(die < 8)
 	{
@@ -454,7 +441,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 	int dir;
 	int die;
 	// TODO: Add Karma of Fortune feature.
-	int vir = 0;
 	int i;
 
 	// Card sharks and high mages get a level bonus
@@ -463,17 +449,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 	else
 		die = randint1(120);
 
-	if(vir)
-	{
-		if(creature_ptr->karmas[vir - 1] > 0)
-		{
-			while (randint1(400) < creature_ptr->karmas[vir - 1]) die++;
-		}
-		else
-		{
-			while (randint1(400) < (0-creature_ptr->karmas[vir - 1])) die--;
-		}
-	}
 
 #ifdef JP
 	msg_print("あなたはカードを切って一枚引いた...");
