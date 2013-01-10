@@ -1471,12 +1471,7 @@ static void do_cmd_options_cheat(cptr info)
 			/* Display the option text */
 			sprintf(buf, "%-48s: %s (%s)",
 			    cheat_info[i].o_desc,
-#ifdef JP
-			    (*cheat_info[i].o_var ? "‚Í‚¢  " : "‚¢‚¢‚¦"),
-#else
-			    (*cheat_info[i].o_var ? "yes" : "no "),
-#endif
-
+			    (*cheat_info[i].o_var ? KW_YES : KW_NO),
 			    cheat_info[i].o_text);
 			c_prt(a, buf, i + 2, 0);
 		}
@@ -1635,12 +1630,7 @@ static void do_cmd_options_autosave(cptr info)
 			/* Display the option text */
 			sprintf(buf, "%-48s: %s (%s)",
 			    autosave_info[i].o_desc,
-#ifdef JP
-			    (*autosave_info[i].o_var ? "‚Í‚¢  " : "‚¢‚¢‚¦"),
-#else
-			    (*autosave_info[i].o_var ? "yes" : "no "),
-#endif
-
+			    (*autosave_info[i].o_var ? KW_YES : KW_NO),
 			    autosave_info[i].o_text);
 			c_prt(a, buf, i + 2, 0);
 		}
@@ -1784,12 +1774,7 @@ void do_cmd_options_aux(int page, cptr info)
 			/* Display the option text */
 			sprintf(buf, "%-48s: %s (%.19s)",
 				option_info[opt[i]].o_desc,
-#ifdef JP
-				(*option_info[opt[i]].o_var ? "‚Í‚¢  " : "‚¢‚¢‚¦"),
-#else
-				(*option_info[opt[i]].o_var ? "yes" : "no "),
-#endif
-
+				(*option_info[opt[i]].o_var ? KW_YES : KW_NO),
 				option_info[opt[i]].o_text);
 			if((page == OPT_PAGE_AUTODESTROY) && i > 2) c_prt(a, buf, i + 5, 0);
 			else c_prt(a, buf, i + 2, 0);
