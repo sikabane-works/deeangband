@@ -985,6 +985,7 @@ static int summon_specific_who = -1;
 static bool summon_specific_aux(species_type *species_ptr, int summon_specific_type)
 {
 	int okay = FALSE;
+	int i;
 
 	// Check our requirements
 	switch (summon_specific_type)
@@ -1088,121 +1089,84 @@ static bool summon_specific_aux(species_type *species_ptr, int summon_specific_t
 		}
 
 	case TRAIT_S_HI_DRAGON_LIVING:
-		{
-			okay = ((species_ptr->d_char == 'D') && species_living(species_ptr));
-			break;
-		}
+		okay = ((species_ptr->d_char == 'D') && species_living(species_ptr));
+		break;
 
 	case TRAIT_S_LIVING:
-		{
-			okay = species_living(species_ptr);
-			break;
-		}
+		okay = species_living(species_ptr);
+		break;
+
 /* TODO
 	case TRAIT_S_PHANTOM:
-		{
-			okay = (species_idx == SPECIES_PHANTOM_B || species_idx == SPECIES_PHANTOM_W);
-			break;
-		}
+		okay = (species_idx == SPECIES_PHANTOM_B || species_idx == SPECIES_PHANTOM_W);
+		break;
 
 	case TRAIT_S_BLUE_HORROR:
-		{
-			okay = (species_idx == SPECIES_BLUE_HORROR);
-			break;
-		}
+		okay = (species_idx == SPECIES_BLUE_HORROR);
+		break;
 */
 	case TRAIT_S_ELEMENTAL:
-		{
-			okay = (species_ptr->d_char == 'E');
-			break;
-		}
+		okay = (species_ptr->d_char == 'E');
+		break;
 
 	case TRAIT_S_VORTEX:
-		{
-			okay = (species_ptr->d_char == 'v');
-			break;
-		}
+		okay = (species_ptr->d_char == 'v');
+		break;
 
 	case TRAIT_S_HYBRID:
-		{
-			okay = (species_ptr->d_char == 'H');
-			break;
-		}
+		okay = (species_ptr->d_char == 'H');
+		break;
 
 	case TRAIT_S_BIRD:
-		{
-			okay = (species_ptr->d_char == 'B');
-			break;
-		}
+		okay = (species_ptr->d_char == 'B');
+		break;
 
 	case TRAIT_S_KAMIKAZE:
-		{
-			int i;
-			for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
-				if(species_ptr->blow[i].method == RBM_EXPLODE) okay = TRUE;
-			break;
-		}
+		for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
+			if(species_ptr->blow[i].method == RBM_EXPLODE) okay = TRUE;
+		break;
 
 	case TRAIT_S_KAMIKAZE_LIVING:
-		{
-			int i;
+		for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
+			if(species_ptr->blow[i].method == RBM_EXPLODE) okay = TRUE;
+		okay = (okay && species_living(species_ptr));
+		break;
 
-			for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
-				if(species_ptr->blow[i].method == RBM_EXPLODE) okay = TRUE;
-			okay = (okay && species_living(species_ptr));
-			break;
-		}
 /* TODO
 	case TRAIT_S_MANES:
-		{
-			okay = (species_idx == SPECIES_MANES);
-			break;
-		}
+		okay = (species_idx == SPECIES_MANES);
+		break;
 
 	case TRAIT_S_LOUSE:
-		{
-			okay = (species_idx == SPECIES_LOUSE);
-			break;
-		}
+		okay = (species_idx == SPECIES_LOUSE);
+		break;
 */
 	case TRAIT_S_GUARDIANS:
-		{
-			okay = (has_trait_species(species_ptr, TRAIT_GUARDIAN));
-			break;
-		}
+		okay = (has_trait_species(species_ptr, TRAIT_GUARDIAN));
+		break;
 
 	case TRAIT_S_KNIGHTS:
-		{
-			okay = species_ptr->class_idx == CLASS_PALADIN;
-			break;
-		}
+		okay = species_ptr->class_idx == CLASS_PALADIN;
+		break;
 
 	case TRAIT_S_EAGLES:
-		{
-			okay = (species_ptr->d_char == 'B' &&
-				has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN) &&
-				has_trait_species(species_ptr, TRAIT_WILD_ONLY));
-			break;
-		}
+		okay = (species_ptr->d_char == 'B' &&
+			has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN) &&
+			has_trait_species(species_ptr, TRAIT_WILD_ONLY));
+		break;
 /*
 	case TRAIT_S_PIRANHAS:
-		{
 			okay = (species_idx == SPECIES_PIRANHA);
 			break;
-		}
 */
 	case TRAIT_S_ARMAGE_GOOD:
-		{
-			okay = (species_ptr->d_char == 'A' && is_enemy_of_evil_species(species_ptr));
-			break;
-		}
+		okay = (species_ptr->d_char == 'A' && is_enemy_of_evil_species(species_ptr));
+		break;
 
 	case TRAIT_S_ARMAGE_EVIL:
-		{
-			okay = ((has_trait_species(species_ptr, TRAIT_DEMON)) ||
-				(species_ptr->d_char == 'A' && is_enemy_of_good_species(species_ptr)));
-			break;
-		}
+		okay = ((has_trait_species(species_ptr, TRAIT_DEMON)) ||
+			(species_ptr->d_char == 'A' && is_enemy_of_good_species(species_ptr)));
+		break;
 	}
 
 	/* Since okay is int, "return (okay);" is not correct. */
