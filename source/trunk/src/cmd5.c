@@ -2280,12 +2280,7 @@ void do_cmd_pet(creature_type *master_ptr)
 			/* Verify it */
 			if(ask)
 			{
-#ifdef JP
-				strnfmt(buf, 78, "%s‚ğg‚¢‚Ü‚·‚©H ", power_desc[i]);
-#else
-				strnfmt(buf, 78, "Use %s? ", power_desc[i]);
-#endif
-
+				strnfmt(buf, 78, SYS_MESSAGE_ASK_USE, power_desc[i]);
 				/* Belay that order */
 				if(!get_check(buf)) continue;
 			}

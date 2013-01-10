@@ -3353,12 +3353,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			if(ask)
 			{
 				char tmp_val[160];
-
-#ifdef JP
-				(void) strnfmt(tmp_val, 78, "%sÇégÇ¢Ç‹Ç∑Ç©ÅH ", object_kind_name + object_kind_info[lookup_kind(tval ,i)].name);
-#else
-				(void) strnfmt(tmp_val, 78, "Use %s?", object_kind_name + object_kind_info[lookup_kind(tval ,i)].name);
-#endif
+				(void) strnfmt(tmp_val, 78, SYS_MESSAGE_ASK_USE, object_kind_name + object_kind_info[lookup_kind(tval ,i)].name);
 
 				/* Belay that order */
 				if(!get_check(tmp_val)) continue;

@@ -349,12 +349,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 		if(ask)
 		{
 			char tmp_val[160];
-
-#ifdef JP
-			(void) strnfmt(tmp_val, 78, "%s‚ğg‚¢‚Ü‚·‚©H", snipe_powers[i].name);
-#else
-			(void)strnfmt(tmp_val, 78, "Use %s? ", snipe_powers[i].name);
-#endif
+			(void)strnfmt(tmp_val, 78, SYS_MESSAGE_ASK_USE, snipe_powers[i].name);
 
 			/* Belay that order */
 			if(!get_check(tmp_val)) continue;

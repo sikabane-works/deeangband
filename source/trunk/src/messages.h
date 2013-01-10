@@ -38,6 +38,8 @@
 #define SYS_MESSAGE_MODIFICATION "能力修正"
 
 #define SYS_MESSAGE_VISUAL_COMMAND "コマンド (n/N/^N/a/A/^A/c/C/^C/v/V/^V): "
+#define SYS_MESSAGE_ASK_USE "%sを使いますか？"
+
 #else
 
 #define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
@@ -68,6 +70,8 @@
 #define SYS_MESSAGE_MODIFICATION "Modification"
 
 #define SYS_MESSAGE_VISUAL_COMMAND "Command (n/N/^N/a/A/^A/c/C/^C/v/V/^V):"
+#define SYS_MESSAGE_ASK_USE "use %s?"
+
 #endif
  
 #if JP

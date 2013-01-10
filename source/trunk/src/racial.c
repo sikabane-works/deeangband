@@ -1000,12 +1000,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 		if(ask)
 		{
 			char tmp_val[160];
-
-#ifdef JP
-			(void) strnfmt(tmp_val, 78, "%sÇégÇ¢Ç‹Ç∑Ç©ÅH ", power_desc[i].name);
-#else
-			(void) strnfmt(tmp_val, 78, "Use %s? ", power_desc[i].name);
-#endif
+			(void) strnfmt(tmp_val, 78, SYS_MESSAGE_ASK_USE, power_desc[i].name);
 
 			/* Belay that order */
 			if(!get_check(tmp_val)) continue;
