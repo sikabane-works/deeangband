@@ -96,9 +96,21 @@
 #define KW_CREATURE_PROFILE "Creature Profile"
 #endif
 
+#ifdef JP
+#define GAME_MESSAGE_TRAP_BLIND "黒いガスに包み込まれた！"
+#define GAME_MESSAGE_TRAP_CONFUSE "きらめくガスに包み込まれた！"
+#define GAME_MESSAGE_TRAP_POISON "刺激的な緑色のガスに包み込まれた！"
+#define GAME_MESSAGE_TRAP_SLEPT "奇妙な白い霧に包まれた！"
+#else
+#define GAME_MESSAGE_TRAP_BLIND "A black gas surrounds you!"
+#define GAME_MESSAGE_TRAP_CONFUSE "A gas of scintillating colors surrounds you!"
+#define GAME_MESSAGE_TRAP_POISON "A pungent green gas surrounds you!"
+#define GAME_MESSAGE_TRAP_SLEPT "A strange white mist surrounds you!"
+#endif
+
 #if JP
 #define GAME_MESSAGE_COMPLETE_QUEST "クエストを達成した。"
-#define GAME_MESSAGE_IMPROVEMENT_FAILED "改良に失敗した。"""
+#define GAME_MESSAGE_IMPROVEMENT_FAILED "改良に失敗した。"
 #define GAME_MESSAGE_RESIST_THE_EFFECT "しかし効力を跳ね返した。"
 #define GAME_MESSAGE_IS_IMMUNE "には完全な耐性がある。"
 #define GAME_MESSAGE_RESISTED "には耐性がある。"
@@ -111,7 +123,9 @@
 #define GAME_MESSAGE_SUCCESS_PICKING "鍵をはずした。"
 #define GAME_MESSAGE_FAILED_PICKING "鍵をはずせなかった。"
 #define GAME_MESSAGE_FOUND_SOMETHING "何かを発見した！"
+
 #define GAME_MESSAGE_BREAK_P_RUNE "守りのルーンが壊れた！"
+#define GAME_MESSAGE_BREAK_E_RUNE "ルーンが爆発した！"
 
 #define GAME_MESSAGE_HEAR_NOISE "何かが聞こえた。"
 
@@ -138,18 +152,6 @@
 #define GAME_MESSAGE_TRAP_ACID_FLOW "突然床から酸が溢れ出した！"
 #define GAME_MESSAGE_TRAP_POISON_FLOW "突然床から毒液が溢れ出した！"
 #define GAME_MESSAGE_TRAP_PIRANHAS "突然壁から水が溢れ出した！ピラニアがいる！"
-
-#ifdef JP
-#define GAME_MESSAGE_TRAP_BLIND "黒いガスに包み込まれた！"
-#define GAME_MESSAGE_TRAP_CONFUSE "きらめくガスに包み込まれた！"
-#define GAME_MESSAGE_TRAP_POISON "刺激的な緑色のガスに包み込まれた！"
-#define GAME_MESSAGE_TRAP_SLEPT "奇妙な白い霧に包まれた！"
-#else
-#define GAME_MESSAGE_TRAP_BLIND "A black gas surrounds you!"
-#define GAME_MESSAGE_TRAP_CONFUSE "A gas of scintillating colors surrounds you!"
-#define GAME_MESSAGE_TRAP_POISON "A pungent green gas surrounds you!"
-#define GAME_MESSAGE_TRAP_SLEPT "A strange white mist surrounds you!"
-#endif
 
 #define GAME_MESSAGE_TRAP_POISONOUS_GAS "突如吹き出した緑色のガスに包み込まれた！"
 #define GAME_MESSAGE_TRAP_PARALYZE_GAS "突如吹き出した黄色いガスに包み込まれた！"
@@ -231,6 +233,7 @@
 #define GAME_MESSAGE_FOUND_SOMETHING "You have found something!"
 
 #define GAME_MESSAGE_BREAK_P_RUNE "The rune of protection is broken!"
+#define GAME_MESSAGE_BREAK_E_RUNE "The rune explodes!"
 #define GAME_MESSAGE_HEAR_NOISE "You hear noise."
 
 #define GAME_MESSAGE_NO_STUDY_SPELL "No spells to browse."

@@ -3651,12 +3651,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 			/* Describe observable breakage */
 			if(c_ptr->info & CAVE_MARK)
 			{
-#ifdef JP
-				//				msg_print("ƒ‹[ƒ“‚ª”š”­‚µ‚½I");
-#else
-				//				msg_print("The rune explodes!");
-#endif
-
+				msg_print(GAME_MESSAGE_BREAK_E_RUNE);
 				//TODO				project(watcher_ptr, 2, y, x, 2 * (watcher_ptr->lev + diceroll(7, 7)), DO_EFFECT_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 		}

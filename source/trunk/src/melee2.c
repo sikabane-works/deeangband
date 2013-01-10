@@ -1984,10 +1984,7 @@ static void process_nonplayer(int m_idx)
 			if(!is_pet(player_ptr, creature_ptr) && (randint1(BREAK_GLYPH) < species_ptr->level))
 			{
 				/* Describe observable breakage */
-				if(c_ptr->info & CAVE_MARK)
-				{
-					msg_print(GAME_MESSAGE_BREAK_P_RUNE);
-				}
+				if(c_ptr->info & CAVE_MARK) msg_print(GAME_MESSAGE_BREAK_P_RUNE);
 
 				/* Forget the rune */
 				c_ptr->info &= ~(CAVE_MARK);
@@ -2017,11 +2014,7 @@ static void process_nonplayer(int m_idx)
 					/* Describe observable breakage */
 					if(c_ptr->info & CAVE_MARK)
 					{
-#ifdef JP
-						msg_print("ƒ‹[ƒ“‚ª”š”­‚µ‚½I");
-#else
-						msg_print("The rune explodes!");
-#endif
+						msg_print(GAME_MESSAGE_BREAK_E_RUNE);
 						project(player_ptr, 0, 2, ny, nx, 2 * (player_ptr->lev + diceroll(7, 7)), DO_EFFECT_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 					}
 				}
