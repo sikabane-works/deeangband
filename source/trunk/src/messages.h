@@ -72,6 +72,10 @@
  
 #if JP
 #define KW_NAME "名前"
+#define KW_RACE "種族"
+#define KW_CLASS "職業"
+#define KW_CHARA "性格"
+#define KW_PATLON "主神"
 #define KW_HP "HP"
 #define KW_MP "MP"
 #define KW_FAIL "失率"
@@ -84,6 +88,10 @@
 #define KW_CREATURE_PROFILE "クリーチャーのプロフィール"
 #else
 #define KW_NAME "Name"
+#define KW_RACE "Race"
+#define KW_CLASS "Class"
+#define KW_CHARA "Chara"
+#define KW_PATLON "Patron"
 #define KW_HP "HP"
 #define KW_MP "MP"
 #define KW_FAIL "Fail"

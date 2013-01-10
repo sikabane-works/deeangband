@@ -5325,11 +5325,7 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 	}
 	roff_to_buf(class_text + class_info[creature_ptr->class_idx].text, 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
-#ifdef JP
-	fprintf(fff, "E‹Æ: %s\n", class_info[creature_ptr->class_idx].title);
-#else
-	fprintf(fff, "Class: %s\n", class_info[creature_ptr->class_idx].title);
-#endif
+	fprintf(fff, "%s: %s\n", KW_CLASS, class_info[creature_ptr->class_idx].title);
 	t = temp;
 	for (i = 0; i < 10; i++)
 	{
@@ -5340,11 +5336,7 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 	}
 	roff_to_buf(chara_text + chara_info[creature_ptr->chara_idx].text, 78, temp, sizeof(temp));
 	fprintf(fff, "\n");
-#ifdef JP
-	fprintf(fff, "«Ši: %s\n", chara_info[creature_ptr->chara_idx].title);
-#else
-	fprintf(fff, "Pesonality: %s\n", chara_info[creature_ptr->chara_idx].title);
-#endif
+	fprintf(fff, "%s: %s\n", KW_CHARA, chara_info[creature_ptr->chara_idx].title);
 	t = temp;
 	for (i = 0; i < STAT_MAX; i++)
 	{
