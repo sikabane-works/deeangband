@@ -260,12 +260,7 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 	char            out_val[160];
 	char            comment[80];
 	s32b            f4 = 0, f5 = 0, f6 = 0;
-
-#ifdef JP
-	cptr            p = "–‚–@";
-#else
-	cptr            p = "magic";
-#endif
+	cptr            p = SKILL_NAME_MAGIC;
 
 	trait_type *spell;
 	bool            flag, redraw;

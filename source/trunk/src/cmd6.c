@@ -252,11 +252,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			return;
 		}
 
-#ifdef JP
-		staff = (object_ptr->tval == TV_STAFF) ? "ñ" : "–‚–@–_";
-#else
-		staff = (object_ptr->tval == TV_STAFF) ? "staff" : "wand";
-#endif
+		staff = (object_ptr->tval == TV_STAFF) ? KW_STAFF : KW_WAND;
 
 		/* "Eat" charges */
 		if(object_ptr->pval == 0)
