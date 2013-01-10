@@ -31,10 +31,10 @@ s16b ddy[10] =
 /*
  * Global arrays for optimizing "ddx[ddd[i]]" and "ddy[ddd[i]]"
  */
-s16b ddx_ddd[9] =
+s16b ddx_ddd[DIRECTION_NUM] =
 { 0, 0, 1, -1, 1, -1, 1, -1, 0 };
 
-s16b ddy_ddd[9] =
+s16b ddy_ddd[DIRECTION_NUM] =
 { 1, -1, 0, 0, 1, 1, -1, -1, 0 };
 
 
