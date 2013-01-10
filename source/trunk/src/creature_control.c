@@ -2411,8 +2411,8 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 
 				if(is_original_ap(target_ptr) && !has_trait(creature_ptr, TRAIT_HALLUCINATION))
 				{
-					if(has_trait(target_ptr, TRAIT_SMART)) reveal_creature_info(target_ptr, TRAIT_SMART);;
-					if(has_trait(target_ptr, TRAIT_SMART)) reveal_creature_info(target_ptr, TRAIT_STUPID);;
+					if(has_trait(target_ptr, TRAIT_SMART)) reveal_creature_info(target_ptr, TRAIT_SMART);
+					if(has_trait(target_ptr, TRAIT_SMART)) reveal_creature_info(target_ptr, TRAIT_STUPID);
 				}
 			}
 
@@ -2808,7 +2808,6 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 	{
 		int level;
 
-		chameleon_change_m_idx = m_idx;
 		if(old_unique)	get_species_num_prep(NULL, creature_hook_chameleon_lord, NULL, NULL, 0);
 		else			get_species_num_prep(NULL, creature_hook_chameleon, NULL, NULL, 0);
 
@@ -2823,9 +2822,6 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 
 		species_idx = get_species_num(floor_ptr, level);
 		species_ptr = &species_info[species_idx];
-
-		chameleon_change_m_idx = 0;
-
 
 		if(!species_idx) return;
 	}
@@ -3462,11 +3458,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		{
 			if(c_ptr->info & CAVE_MARK) // Describe observable breakage
 			{
-#ifdef JP
-				msg_print("守りのルーンが壊れた！");
-#else
-				msg_print("The rune of protection is broken!");
-#endif
+				msg_print(GAME_MESSAGE_BREAK_P_RUNE);
 			}
 
 			c_ptr->info &= ~(CAVE_MARK);	// Forget the rune
@@ -4148,9 +4140,9 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 		if(cheat_xtra || cheat_hear)
 		{
 #ifdef JP
-			msg_print("警告！新たなクリーチャーを配置できません。小さい階ですか？");
+			msg_warning("新たなクリーチャーを配置できません。小さい階ですか？");
 #else
-			msg_print("Warning! Could not allocate a new creature. Small level?");
+			msg_warning("Could not allocate a new creature. Small level?");
 #endif
 		}
 		return FALSE;

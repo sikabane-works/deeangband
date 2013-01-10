@@ -111,6 +111,7 @@
 #define GAME_MESSAGE_SUCCESS_PICKING "鍵をはずした。"
 #define GAME_MESSAGE_FAILED_PICKING "鍵をはずせなかった。"
 #define GAME_MESSAGE_FOUND_SOMETHING "何かを発見した！"
+#define GAME_MESSAGE_BREAK_P_RUNE "守りのルーンが壊れた！"
 
 #define GAME_MESSAGE_HEAR_NOISE "何かが聞こえた。"
 
@@ -229,6 +230,7 @@
 #define GAME_MESSAGE_FAILED_PICKING "You failed to pick the lock."
 #define GAME_MESSAGE_FOUND_SOMETHING "You have found something!"
 
+#define GAME_MESSAGE_BREAK_P_RUNE "The rune of protection is broken!"
 #define GAME_MESSAGE_HEAR_NOISE "You hear noise."
 
 #define GAME_MESSAGE_NO_STUDY_SPELL "No spells to browse."

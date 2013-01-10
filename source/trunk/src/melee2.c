@@ -1986,11 +1986,7 @@ static void process_nonplayer(int m_idx)
 				/* Describe observable breakage */
 				if(c_ptr->info & CAVE_MARK)
 				{
-#ifdef JP
-					msg_print("ç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
-#else
-					msg_print("The rune of protection is broken!");
-#endif
+					msg_print(GAME_MESSAGE_BREAK_P_RUNE);
 				}
 
 				/* Forget the rune */
