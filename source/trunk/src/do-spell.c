@@ -108,11 +108,7 @@ static cptr info_multi_damage_dice(int dice, int sides)
  */
 static cptr info_power(int power)
 {
-#ifdef JP
-	return format("Œø—Í:%d", power);
-#else
-	return format("power %d", power);
-#endif
+	return format("%s %d", KW_POW, power);
 }
 
 
@@ -121,11 +117,7 @@ static cptr info_power(int power)
  */
 static cptr info_power_dice(int dice, int sides)
 {
-#ifdef JP
-	return format("Œø—Í:%dd%d", dice, sides);
-#else
-	return format("power %dd%d", dice, sides);
-#endif
+	return format("%s %dd%d", KW_POW, dice, sides);
 }
 
 
