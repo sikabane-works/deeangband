@@ -95,6 +95,7 @@
 #define KW_DAM "‘¹"
 #define KW_RAN "Ë’ö"
 #define KW_POW "Œø—Í"
+#define KW_RAD "”¼Œa"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -120,6 +121,7 @@
 #define KW_DAM "Dam"
 #define KW_RAN "Ran"
 #define KW_POW "Pow"
+#define KW_RAD "Rad"
 #endif
 
 #ifdef JP

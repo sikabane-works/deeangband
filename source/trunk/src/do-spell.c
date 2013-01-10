@@ -126,11 +126,7 @@ static cptr info_power_dice(int dice, int sides)
  */
 static cptr info_radius(int rad)
 {
-#ifdef JP
-	return format("”¼Œa:%d", rad);
-#else
-	return format("rad %d", rad);
-#endif
+	return format("%s %d", KW_RAD, rad);
 }
 
 
