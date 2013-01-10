@@ -982,9 +982,8 @@ s16b creature_pop(void)
 */
 static int summon_specific_who = -1;
 
-static bool summon_specific_aux(int species_idx, int summon_specific_type)
+static bool summon_specific_aux(species_type *species_ptr, int summon_specific_type)
 {
-	species_type *species_ptr = &species_info[species_idx];
 	int okay = FALSE;
 
 	// Check our requirements
@@ -1065,9 +1064,11 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 		okay = IS_RACE(species_ptr, species_ptr->race_idx1) || IS_RACE(species_ptr, species_ptr->race_idx2);
 		break;
 
+/*TODO
 	case TRAIT_S_DAWN_LEGION:
 		okay = (species_idx == SPECIES_DAWN);
 		break;
+*/
 
 	case TRAIT_S_ANIMAL:
 		okay = has_trait_species(species_ptr, TRAIT_ANIMAL);
@@ -1097,7 +1098,7 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			okay = species_living(species_ptr);
 			break;
 		}
-
+/* TODO
 	case TRAIT_S_PHANTOM:
 		{
 			okay = (species_idx == SPECIES_PHANTOM_B || species_idx == SPECIES_PHANTOM_W);
@@ -1109,7 +1110,7 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			okay = (species_idx == SPECIES_BLUE_HORROR);
 			break;
 		}
-
+*/
 	case TRAIT_S_ELEMENTAL:
 		{
 			okay = (species_ptr->d_char == 'E');
@@ -1151,7 +1152,7 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			okay = (okay && species_living(species_ptr));
 			break;
 		}
-
+/* TODO
 	case TRAIT_S_MANES:
 		{
 			okay = (species_idx == SPECIES_MANES);
@@ -1163,7 +1164,7 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			okay = (species_idx == SPECIES_LOUSE);
 			break;
 		}
-
+*/
 	case TRAIT_S_GUARDIANS:
 		{
 			okay = (has_trait_species(species_ptr, TRAIT_GUARDIAN));
@@ -1183,13 +1184,13 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 				has_trait_species(species_ptr, TRAIT_WILD_ONLY));
 			break;
 		}
-
+/*
 	case TRAIT_S_PIRANHAS:
 		{
 			okay = (species_idx == SPECIES_PIRANHA);
 			break;
 		}
-
+*/
 	case TRAIT_S_ARMAGE_GOOD:
 		{
 			okay = (species_ptr->d_char == 'A' && is_enemy_of_evil_species(species_ptr));
@@ -1413,7 +1414,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 		//if((summon_specific_who < 0) && ((has_trait_species(species_ptr, TRAIT_UNIQUE)) || has_trait_species(species_ptr, TRAIT_NAZGUL))) continue;
 		//if(!(has_trait_species(species_ptr, TRAIT_CHAMELEON) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON))) continue;
 
-		//if(!summon_specific_aux(i, summon_specific_type)) continue;
+		if(!summon_specific_aux(species_ptr, summon_specific_type)) continue;
 
 		if(!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != TRAIT_S_GUARDIANS)
 		{
