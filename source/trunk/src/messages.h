@@ -988,10 +988,16 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #ifdef JP
 #define INVOKE_SPIRIT_START "あなたは死者たちの力を招集した..."
 #define INVOKE_SPIRIT_HIGH_POWER "あなたはおどろおどろしい力のうねりを感じた！"
-
+#define INVOKE_SPIRIT_LOW1 "なんてこった！あなたの周りの地面から朽ちた人影が立ち上がってきた！"
+#define INVOKE_SPIRIT_LOW2 "名状し難い邪悪な存在があなたの心を通り過ぎて行った..."
+#define INVOKE_SPIRIT_LOW3 "あなたの頭に大量の幽霊たちの騒々しい声が押し寄せてきた..."
+#define INVOKE_SPIRIT_FUNBLE_AFTER "陰欝な声がクスクス笑う。「もうすぐおまえは我々の仲間になるだろう。弱き者よ。」"
 #else
 #define INVOKE_SPIRIT_START "You call on the power of the dead..."
 #define INVOKE_SPIRIT_HIGH_POWER "You feel a surge of eldritch force!"
+#define INVOKE_SPIRIT_LOW1 "Oh no! Mouldering forms rise from the earth around you!"
+#define INVOKE_SPIRIT_LOW2 "An unnamable evil brushes against your mind..."
+#define INVOKE_SPIRIT_LOW3 "Your head is invaded by a horde of gibbering spectral voices..."
+#define INVOKE_SPIRIT_FUNBLE_AFTER "Sepulchral voices chuckle. 'Soon you will join us, mortal.'"
 #endif
-
 

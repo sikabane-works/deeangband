@@ -269,29 +269,17 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 
 	if(die < 8)
 	{
-#ifdef JP
-		msg_print("なんてこった！あなたの周りの地面から朽ちた人影が立ち上がってきた！");
-#else
-		msg_print("Oh no! Mouldering forms rise from the earth around you!");
-#endif
+		msg_print(INVOKE_SPIRIT_LOW1);
 		(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 	else if(die < 14)
 	{
-#ifdef JP
-		msg_print("名状し難い邪悪な存在があなたの心を通り過ぎて行った...");
-#else
-		msg_print("An unnamable evil brushes against your mind...");
-#endif
+		msg_print(INVOKE_SPIRIT_LOW2);
 		add_timed_trait(creature_ptr, TRAIT_AFRAID, randint1(4) + 4, TRUE);
 	}
 	else if(die < 26)
 	{
-#ifdef JP
-		msg_print("あなたの頭に大量の幽霊たちの騒々しい声が押し寄せてきた...");
-#else
-		msg_print("Your head is invaded by a horde of gibbering spectral voices...");
-#endif
+		msg_print(INVOKE_SPIRIT_LOW3);
 		add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint1(4) + 4, TRUE);
 	}
 	else if(die < 31) poly_creature(creature_ptr, dir);
@@ -321,14 +309,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 		heal_creature(creature_ptr, 300);
 	}
 
-	if(die < 31)
-	{
-#ifdef JP
-		msg_print("陰欝な声がクスクス笑う。「もうすぐおまえは我々の仲間になるだろう。弱き者よ。」");
-#else
-		msg_print("Sepulchral voices chuckle. 'Soon you will join us, mortal.'");
-#endif
-	}
+	if(die < 31) msg_print(INVOKE_SPIRIT_FUNBLE_AFTER);
 }
 
 
