@@ -531,19 +531,14 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 			if(q_idx && (is_fixed_quest_idx(q_idx)
 			     && !(q_idx == QUEST_SERPENT)))
 			{
-#ifdef JP
-				to = "’nã";
-#else
-				to = "the surface";
-#endif
+				to = KW_SURFACE;
 			}
 			else
 			{
+				if(!(floor_ptr->floor_level+num)) to = KW_SURFACE;
 #ifdef JP
-				if(!(floor_ptr->floor_level+num)) to = "’nã";
 				else to = format("%dŠK", floor_ptr->floor_level+num);
 #else
-				if(!(floor_ptr->floor_level+num)) to = "the surface";
 				else to = format("level %d", floor_ptr->floor_level+num);
 #endif
 			}
@@ -649,11 +644,7 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 		{
 			cptr to;
 			if(!floor_ptr->floor_level)
-#ifdef JP
-				to = "’nã";
-#else
-				to = "the surface";
-#endif
+				to = KW_SURFACE;
 			else
 #ifdef JP
 				to = format("%dŠK(%s)", floor_ptr->floor_level, dungeon_name + dungeon_info[floor_ptr->dun_type].name);
@@ -672,11 +663,7 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 		{
 			cptr to;
 			if(!floor_ptr->floor_level)
-#ifdef JP
-				to = "’nã";
-#else
-				to = "the surface";
-#endif
+				to = KW_SURFACE;
 			else
 #ifdef JP
 				to = format("%dŠK(%s)", floor_ptr->floor_level, dungeon_name + dungeon_info[floor_ptr->dun_type].name);

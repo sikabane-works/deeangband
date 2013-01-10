@@ -101,6 +101,7 @@
 #define KW_RAD "îºåa"
 #define KW_YES "ÇÕÇ¢"
 #define KW_NO "Ç¢Ç¢Ç¶"
+#define KW_SURFACE "ínè„"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -132,6 +133,7 @@
 #define KW_RAD "Rad"
 #define KW_YES "Yes"
 #define KW_NO "No"
+#define KW_SURFACE "the surface"
 #endif
 
 #ifdef JP

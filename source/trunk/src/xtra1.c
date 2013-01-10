@@ -695,11 +695,10 @@ static void prt_depth(creature_type *creature_ptr)
 	col_depth = wid + COL_DEPTH;
 	row_depth = hgt + ROW_DEPTH;
 
+	if(!floor_ptr->floor_level) strcpy(depths, KW_SURFACE);
 #ifdef JP
-	if(!floor_ptr->floor_level) strcpy(depths, "’nã");
 	else if(floor_ptr->quest && !floor_ptr->dun_type) strcpy(depths, "’nã");
 #else
-	if(!floor_ptr->floor_level) strcpy(depths, "Surf.");
 	else if(floor_ptr->quest && !floor_ptr->dun_type) strcpy(depths, "Quest");
 #endif
 	else
