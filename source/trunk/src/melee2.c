@@ -2020,11 +2020,7 @@ static void process_nonplayer(int m_idx)
 				}
 				else
 				{
-#ifdef JP
-					msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ğœ‚³‚ê‚½B");
-#else
-					msg_print("An explosive rune was disarmed.");
-#endif
+					msg_print(GAME_MESSAGE_DISARM_E_RUNE);
 				}
 
 				/* Forget the rune */
