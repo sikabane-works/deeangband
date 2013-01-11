@@ -7939,7 +7939,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				dispel_evil(creature_ptr, randint1(dam_sides));
+				project_hack(creature_ptr, DO_EFFECT_DISP_EVIL, randint1(dam_sides));
 				heal_creature(creature_ptr, heal);
 			}
 		}
@@ -8042,11 +8042,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = plev * 4;
 
 			if(info) return info_damage(1, sides, 0);
-
-			if(cast)
-			{
-				dispel_evil(creature_ptr, randint1(sides));
-			}
+			if(cast) project_hack(creature_ptr, DO_EFFECT_DISP_EVIL, randint1(sides));
 		}
 		break;
 
@@ -9042,7 +9038,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cont)
 			{
 				project_hack(caster_ptr, DO_EFFECT_DISP_ALL, randint1(m_sides));
-				dispel_evil(caster_ptr, randint1(e_sides));
+				project_hack(caster_ptr, DO_EFFECT_DISP_EVIL, randint1(e_sides));
 			}
 		}
 		break;

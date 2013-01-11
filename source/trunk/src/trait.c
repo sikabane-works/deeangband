@@ -144,7 +144,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_DISPEL_EVIL_1:
-		dispel_evil(caster_ptr, caster_ptr->lev * 5);
+		project_hack(caster_ptr, DO_EFFECT_DISP_EVIL, caster_ptr->lev * 5);
 		break;
 
 	case TRAIT_DISPEL_GOOD_1:
@@ -817,7 +817,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_SHIKO:
 		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 		(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(20) + 20, FALSE);
-		dispel_evil(caster_ptr, caster_ptr->lev * 3);
+		project_hack(caster_ptr, DO_EFFECT_DISP_EVIL, caster_ptr->lev * 3);
 		break;
 
 	case TRAIT_MAGIC_RES_COLD:

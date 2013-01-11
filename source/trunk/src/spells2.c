@@ -1170,12 +1170,6 @@ bool dispel_undead(creature_type *caster_ptr, int dam)
 	return tester;
 }
 
-// Dispel evil creatures
-bool dispel_evil(creature_type *caster_ptr, int dam)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_DISP_EVIL, dam));
-}
-
 // Dispel 'living' creatures
 bool dispel_living(creature_type *caster_ptr, int dam)
 {

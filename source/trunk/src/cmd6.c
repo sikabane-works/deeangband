@@ -1434,7 +1434,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_DISPEL_EVIL:
 		{
-			if(dispel_evil(creature_ptr, 80)) ident = TRUE;
+			if(project_hack(creature_ptr, DO_EFFECT_DISP_EVIL, 80)) ident = TRUE;
 			break;
 		}
 
@@ -1446,7 +1446,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_HOLINESS:
 		{
-			if(dispel_evil(creature_ptr, 150)) ident = TRUE;
+			if(project_hack(creature_ptr, DO_EFFECT_DISP_EVIL, 150)) ident = TRUE;
 			k = 3 * creature_ptr->lev;
 			if(add_timed_trait(creature_ptr, TRAIT_PROT_EVIL, (magic ? 0 : randint1(25) + k, 0), TRUE)) ident = TRUE;
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
