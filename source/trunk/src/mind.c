@@ -1294,9 +1294,9 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		/* illusion light */
 	case 14:
 		tmp = is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ? 4 : 3;
-		project_hack(creature_ptr, DO_EFFECT_OLD_SLOW, creature_ptr->lev);
+		project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
 		stun_creatures(creature_ptr, plev*tmp);
-		confuse_creatures(creature_ptr, plev*tmp);
+		project_hack(creature_ptr, DO_EFFECT_CONF_OTHERS, plev*tmp);
 		turn_creatures(creature_ptr, plev*tmp);
 		stun_creatures(creature_ptr, plev*tmp);
 		stasis_creatures(creature_ptr, plev*tmp);
@@ -1646,7 +1646,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 		}
 	case 13:
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		cast_ball(creature_ptr, DO_EFFECT_OLD_CONF, dir, plev*3, 3);
+		cast_ball(creature_ptr, DO_EFFECT_CONF_OTHERS, dir, plev*3, 3);
 		break;
 	case 14:
 		if(!get_aim_dir(creature_ptr, NO_RANGE_LIMIT, &dir)) return FALSE;

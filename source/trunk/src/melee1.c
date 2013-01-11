@@ -3104,10 +3104,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					int j;
 					int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 					int typ[4][2] = {
-					{ INVEN_SLOT_HEAD, DO_EFFECT_OLD_CONF },
+					{ INVEN_SLOT_HEAD, DO_EFFECT_CONF_OTHERS },
 					{ INVEN_SLOT_HAND, DO_EFFECT_OLD_SLEEP },
 					{ INVEN_SLOT_ARM, DO_EFFECT_TURN_ALL },
-					{ INVEN_SLOT_FEET, DO_EFFECT_OLD_SLOW }
+					{ INVEN_SLOT_FEET, DO_EFFECT_SLOW_OTHERS }
 					};
 
 					// Some cursed armours gives an extra effect

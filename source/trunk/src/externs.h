@@ -1276,7 +1276,6 @@ extern bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *co
 extern int activate_hi_summon(creature_type *creature_ptr, int y, int x, bool can_pet);
 extern int summon_cyber(creature_type *summoner_ptr, int y, int x);
 extern void wall_breaker(creature_type *creature_ptr);
-extern bool confuse_creatures(creature_type *caster_ptr, int dam);
 extern bool charm_animals(creature_type *caster_ptr, int dam);
 extern bool stun_creatures(creature_type *caster_ptr, int dam);
 extern bool stasis_creatures(creature_type *caster_ptr, int dam);

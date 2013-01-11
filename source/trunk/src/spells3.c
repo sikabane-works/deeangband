@@ -3359,7 +3359,7 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 			/* All of the above potions have no effect when shattered */
 			return FALSE;
 		case SV_POTION_SLOWNESS:
-			dt = DO_EFFECT_OLD_SLOW;
+			dt = DO_EFFECT_SLOW_OTHERS;
 			dam = 5;
 			angry = TRUE;
 			break;
@@ -3373,7 +3373,7 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 			angry = TRUE;
 			break;
 		case SV_POTION_CONFUSION: /* Booze */
-			dt = DO_EFFECT_OLD_CONF;
+			dt = DO_EFFECT_CONF_OTHERS;
 			angry = TRUE;
 			break;
 		case SV_POTION_SLEEP:

@@ -1976,12 +1976,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam = 0;
 		break;
 
-	case DO_EFFECT_OLD_SLOW:
+	case DO_EFFECT_SLOW_OTHERS:
 		(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, FALSE);
 		dam = 0;
 		break;
 
-	case DO_EFFECT_OLD_CONF:
+	case DO_EFFECT_CONF_OTHERS:
 		do_conf = diceroll(3, (dam / 2)) + 1;
 		if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{

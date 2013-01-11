@@ -665,7 +665,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BLAZING_LIGHT:
 		cast_ball(caster_ptr, DO_EFFECT_LITE, 0, 300, 6);
-		confuse_creatures(caster_ptr, 3 * caster_ptr->lev / 2);
+		project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, 3 * caster_ptr->lev / 2);
 		break;
 
 
@@ -782,7 +782,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #endif
 				sukekaku = TRUE;
 				stun_creatures(caster_ptr, 120);
-				confuse_creatures(caster_ptr, 120);
+				project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, 120);
 				turn_creatures(caster_ptr, 120);
 				stasis_creatures(caster_ptr, 120);
 				sukekaku = FALSE;
@@ -2122,9 +2122,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_CONFUSING_LIGHT:
-		project_hack(caster_ptr, DO_EFFECT_OLD_SLOW, caster_ptr->lev);
+		project_hack(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
 		stun_creatures(caster_ptr, caster_ptr->lev * 4);
-		confuse_creatures(caster_ptr, caster_ptr->lev * 4);
+		project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, caster_ptr->lev * 4);
 		turn_creatures(caster_ptr, caster_ptr->lev * 4);
 		stasis_creatures(caster_ptr, caster_ptr->lev * 4);
 		break;
@@ -2735,7 +2735,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_DAZZLE:
 		stun_creatures(caster_ptr, user_level * 4);
-		confuse_creatures(caster_ptr, user_level * 4);
+		project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
 		turn_creatures(caster_ptr, user_level * 4);
 		break;
 

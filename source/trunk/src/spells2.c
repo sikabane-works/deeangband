@@ -2871,7 +2871,7 @@ bool speed_other_creature(creature_type *caster_ptr, int dir)
 
 bool slow_creature(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_SLOW, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_SLOW_OTHERS, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 
@@ -2892,7 +2892,7 @@ bool stasis_evil(creature_type *caster_ptr, int dir)
 
 bool confuse_creature(creature_type *caster_ptr, int dir, int plev)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_CONF, dir, plev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_CONF_OTHERS, dir, plev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 bool stun_creature(creature_type *caster_ptr, int dir, int plev)
@@ -3335,15 +3335,6 @@ void wall_breaker(creature_type *creature_ptr)
 			project(0, 0, 0, y, x, 20 + randint1(30), DO_EFFECT_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 		}
 	}
-}
-
-
-/*
-* Confuse creatures
-*/
-bool confuse_creatures(creature_type *caster_ptr, int dam)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_OLD_CONF, dam));
 }
 
 /*

@@ -1428,7 +1428,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_SLOW_MONSTERS:
 		{
-			if(project_hack(creature_ptr, DO_EFFECT_OLD_SLOW, creature_ptr->lev)) ident = TRUE;
+			if(project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev)) ident = TRUE;
 			break;
 		}
 
