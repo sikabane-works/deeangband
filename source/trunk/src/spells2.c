@@ -1200,12 +1200,6 @@ bool dispel_demons(creature_type *caster_ptr, int dam)
 	return (project_hack(caster_ptr, DO_EFFECT_DISP_DEMON, dam));
 }
 
-// Crusade
-bool crusade(creature_type *creature_ptr)
-{
-	return (project_hack(creature_ptr, DO_EFFECT_CRUSADE, creature_ptr->lev*4));
-}
-
 
 /*
 * Wake up all creatures, and speed up "los" creatures.

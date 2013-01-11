@@ -8317,7 +8317,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				int sp_base = plev;
 
 				int i;
-				crusade(creature_ptr);
+				project_hack(creature_ptr, DO_EFFECT_CRUSADE, creature_ptr->lev * 4);
 				for (i = 0; i < 12; i++)
 				{
 					int attempt = 10;
