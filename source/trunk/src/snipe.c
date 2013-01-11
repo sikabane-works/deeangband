@@ -503,11 +503,7 @@ static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 	case 14: creature_ptr->snipe_type = SP_NEEDLE; break;
 	case 15: creature_ptr->snipe_type = SP_FINAL; break;
 	default:
-#ifdef JP
-		msg_print("�ȂɁH");
-#else
-		msg_print("Zap?");
-#endif
+		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
 	}
 
 	command_cmd = 'f';

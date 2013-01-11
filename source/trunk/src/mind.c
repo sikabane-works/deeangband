@@ -974,11 +974,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 			break;
 		}
 	default:
-#ifdef JP
-		msg_print("なに？");
-#else
-		msg_print("Zap?");
-#endif
+		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
 
 	}
 
@@ -1165,12 +1161,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		set_timed_trait(creature_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16 + boost / 20, FALSE);
 		break;
 	default:
-#ifdef JP
-		msg_print("なに？");
-#else
-		msg_print("Zap?");
-#endif
-
+		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
 	}
 	creature_ptr->charged_force = 0;
 	prepare_update(creature_ptr, CRU_BONUS);
@@ -1350,12 +1341,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		(void)set_timed_trait(creature_ptr, TRAIT_INVULNERABLE, randint1(4)+4,FALSE);
 		break;
 	default:
-#ifdef JP
-		msg_print("なに？");
-#else
-		msg_print("Zap?");
-#endif
-
+		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
 	}
 	//TODO CHECK creature_ptr->magic_num1[0] = 0;
 
@@ -1447,12 +1433,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 			break;
 		}
 	default:
-#ifdef JP
-		msg_print("なに？");
-#else
-		msg_print("Zap?");
-#endif
-
+		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
 	}
 	return TRUE;
 }
@@ -1708,11 +1689,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 		set_timed_trait(creature_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
 		break;
 	default:
-#ifdef JP
-		msg_print("なに？");
-#else
-		msg_print("Zap?");
-#endif
+		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
 
 	}
 	return TRUE;

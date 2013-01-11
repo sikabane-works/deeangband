@@ -27,6 +27,8 @@
 #define SYS_MESSAGE_NO_SERVANT "%sには従僕がいない"
 #define SYS_MESSAGE_UNKNOWN_SYMBOL "無効な文字"
 #define SYS_MESSAGE_ERROR "エラー"
+#define SYS_MESSAGE_OUT_OF_SWITCH "switch構文範囲外"
+
 #define SYS_MESSAGE_TODAY "今日"
 #define SYS_MESSAGE_NORTH "北"
 #define SYS_MESSAGE_SOUTH "南"
@@ -59,6 +61,7 @@
 #define SYS_MESSAGE_YOUR_NO_SERVANT "%s have %d species, %d servants"
 #define SYS_MESSAGE_UNKNOWN_SYMBOL "unknown symbol"
 #define SYS_MESSAGE_ERROR "Error"
+#define SYS_MESSAGE_OUT_OF_SWITCH "Out of switch."
 #define SYS_MESSAGE_TODAY "Today"
 #define SYS_MESSAGE_NORTH " North"
 #define SYS_MESSAGE_SOUTH " South"
