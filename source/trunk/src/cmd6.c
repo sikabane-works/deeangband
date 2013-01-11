@@ -1074,7 +1074,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			break;
 
 		case SV_SCROLL_DISPEL_UNDEAD:
-			if(dispel_undead(caster_ptr, 80)) ident = TRUE;
+			if(project_hack(caster_ptr, DO_EFFECT_DISP_UNDEAD, 80)) ident = TRUE;
 			break;
 
 		case SV_SCROLL_SPELL:

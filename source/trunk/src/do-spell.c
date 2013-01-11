@@ -1140,11 +1140,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = plev * 5;
 
 			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				dispel_undead(creature_ptr, diceroll(dice, sides));
-			}
+			if(cast) project_hack(creature_ptr, DO_EFFECT_DISP_UNDEAD, diceroll(dice, sides));
 		}
 		break;
 
@@ -7818,7 +7814,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				dispel_undead(creature_ptr, randint1(sides));
+				project_hack(creature_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
 				project_hack(creature_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
 				turn_evil(creature_ptr, power);
 			}
@@ -8012,7 +8008,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				dispel_undead(creature_ptr, randint1(sides));
+				project_hack(creature_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
 				project_hack(creature_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
 			}
 		}

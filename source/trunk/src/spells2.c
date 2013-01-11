@@ -1156,13 +1156,6 @@ bool banish_evil(creature_type *caster_ptr, int dist)
 	return (project_hack(caster_ptr, DO_EFFECT_AWAY_EVIL, dist));
 }
 
-// Dispel undead creatures
-bool dispel_undead(creature_type *caster_ptr, int dam)
-{
-	bool tester = (project_hack(caster_ptr, DO_EFFECT_DISP_UNDEAD, dam));
-	return tester;
-}
-
 /*
 * Wake up all creatures, and speed up "los" creatures.
 */
