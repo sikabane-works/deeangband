@@ -1246,42 +1246,42 @@ bool crusade(creature_type *creature_ptr)
 /*
 * Wake up all creatures, and speed up "los" creatures.
 */
-void aggravate_creatures(creature_type *creature_ptr)
+void aggravate_creatures(creature_type *target_ptr)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	int     i;
 	bool    sleep = FALSE;
 	bool    speed = FALSE;
 
-
 	/* Aggravate everyone nearby */
 	for (i = 1; i < creature_max; i++)
 	{
-		creature_type    *m_ptr = &creature_list[i];
+		creature_type    *creature_ptr = &creature_list[i];
 
-		if(!m_ptr->species_idx) continue;
+		if(!creature_ptr->species_idx) continue;
+		if(!IS_IN_THIS_FLOOR(target_ptr)) continue;
 
 		/* Skip aggravating creature (or player) */
-		if(m_ptr == creature_ptr) continue;
+		if(creature_ptr == target_ptr) continue;
 
 		/* Wake up nearby sleeping creatures */
-		if(m_ptr->cdis < MAX_SIGHT * 2)
+		if(creature_ptr->cdis < MAX_SIGHT * 2)
 		{
 			/* Wake up */
-			if(has_trait_from_timed(m_ptr, TRAIT_SLEPT))
+			if(has_trait_from_timed(creature_ptr, TRAIT_SLEPT))
 			{
-				(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0, TRUE);
+				(void)set_timed_trait(creature_ptr, TRAIT_SLEPT, 0, TRUE);
 				sleep = TRUE;
 			}
-			if(!is_pet(player_ptr, m_ptr)) set_timed_trait(m_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+			if(!is_pet(player_ptr, creature_ptr)) set_timed_trait(creature_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 
 		/* Speed up creatures in line of sight */
-		if(player_has_los_bold(m_ptr->fy, m_ptr->fx))
+		if(player_has_los_bold(creature_ptr->fy, creature_ptr->fx))
 		{
-			if(!is_pet(player_ptr, m_ptr))
+			if(!is_pet(player_ptr, creature_ptr))
 			{
-				(void)set_timed_trait(m_ptr, TRAIT_FAST, 100, TRUE);
+				(void)set_timed_trait(creature_ptr, TRAIT_FAST, 100, TRUE);
 				speed = TRUE;
 			}
 		}
@@ -1295,7 +1295,7 @@ void aggravate_creatures(creature_type *creature_ptr)
 	else if(sleep) msg_print("You hear a sudden stirring in the distance!");
 #endif
 
-	if(creature_ptr->riding) prepare_update(creature_ptr, CRU_BONUS);
+	if(target_ptr->riding) prepare_update(target_ptr, CRU_BONUS);
 }
 
 
@@ -1338,18 +1338,8 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		creature_desc(target_name, target_ptr, 0);
 		if(see_m) msg_format(GAME_MESSAGE_IS_UNAFFECTED, target_name);
 
-		if(has_trait(target_ptr, TRAIT_SLEPT))
-		{
-			(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
-			if(target_ptr->see_others || target_ptr->hear_noise)
-			{
-#ifdef JP
-				msg_format("%^s‚ª–Ú‚ğŠo‚Ü‚µ‚½B", target_name);
-#else
-				msg_format("%^s wakes up.", target_name);
-#endif
-			}
-		}
+		(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
+
 		if(is_friendly(player_ptr, target_ptr) && !is_pet(player_ptr, target_ptr))
 		{
 			if(see_m) msg_format(GAME_MESSAGE_CAMP_GET_ANGRY, target_name);
