@@ -7816,7 +7816,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				project_hack(creature_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
 				project_hack(creature_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
-				turn_evil(creature_ptr, power);
+				project_hack(creature_ptr, DO_EFFECT_TURN_EVIL, power);
 			}
 		}
 		break;
