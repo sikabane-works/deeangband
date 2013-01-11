@@ -2066,13 +2066,8 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int power = plev * 4;
-
 			if(info) return info_power(power);
-
-			if(cast)
-			{
-				banish_creatures(caster_ptr, power);
-			}
+			if(cast) project_hack(caster_ptr, DO_EFFECT_AWAY_ALL, power);
 		}
 		break;
 
@@ -4882,11 +4877,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			int power = plev * 4;
 
 			if(info) return info_power(power);
-
-			if(cast)
-			{
-				banish_creatures(caster_ptr, power);
-			}
+			if(cast) project_hack(caster_ptr, DO_EFFECT_AWAY_ALL, power);
 		}
 		break;
 

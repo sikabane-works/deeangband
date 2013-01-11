@@ -2068,7 +2068,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_EVOCATION:
 		project_hack(caster_ptr, DO_EFFECT_DISP_ALL, user_level * 4);
 		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
-		banish_creatures(caster_ptr, user_level * 4);
+		project_hack(caster_ptr, DO_EFFECT_AWAY_ALL, user_level * 4);
 		break;
 
 	case TRAIT_PANIC_HIT:

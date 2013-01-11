@@ -3296,15 +3296,6 @@ bool mindblast_creatures(creature_type *caster_ptr, int dam)
 	return (project_hack(caster_ptr, DO_EFFECT_PSI, dam));
 }
 
-
-/*
-* Banish all creatures
-*/
-bool banish_creatures(creature_type *caster_ptr, int dist)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_AWAY_ALL, dist));
-}
-
 /*
 * Death-ray all creatures (note: OBSCENELY powerful)
 */
