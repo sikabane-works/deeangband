@@ -781,7 +781,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				msg_format("%^s says 'WHO do you think this person is! Bow your head, down your knees!'", kakusan);
 #endif
 				sukekaku = TRUE;
-				stun_creatures(caster_ptr, 120);
+				project_hack(caster_ptr, DO_EFFECT_STUN, 120);
 				project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, 120);
 				project_hack(caster_ptr, DO_EFFECT_TURN_ALL, 120);
 				project_hack(caster_ptr, DO_EFFECT_STASIS, 120);
@@ -2123,7 +2123,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_CONFUSING_LIGHT:
 		project_hack(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level);
-		stun_creatures(caster_ptr, user_level * 4);
+		project_hack(caster_ptr, DO_EFFECT_STUN, user_level * 4);
 		project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
 		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
 		project_hack(caster_ptr, DO_EFFECT_STASIS, user_level * 4);
@@ -2734,7 +2734,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_DAZZLE:
-		stun_creatures(caster_ptr, user_level * 4);
+		project_hack(caster_ptr, DO_EFFECT_STUN, user_level * 4);
 		project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
 		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
 		break;

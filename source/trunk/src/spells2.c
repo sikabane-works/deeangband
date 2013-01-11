@@ -3345,15 +3345,6 @@ bool charm_animals(creature_type *caster_ptr, int dam)
 	return (project_hack(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, dam));
 }
 
-
-/*
-* Stun creatures
-*/
-bool stun_creatures(creature_type *caster_ptr, int dam)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_STUN, dam));
-}
-
 /*
 * Mindblast creatures
 */

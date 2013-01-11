@@ -1297,7 +1297,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
 		project_hack(creature_ptr, DO_EFFECT_TURN_ALL, plev*tmp);
 		project_hack(creature_ptr, DO_EFFECT_CONF_OTHERS, plev*tmp);
-		stun_creatures(creature_ptr, plev*tmp);
+		project_hack(creature_ptr, DO_EFFECT_STUN, plev*tmp);
 		project_hack(creature_ptr, DO_EFFECT_STASIS, plev*tmp);
 		break;
 		/* mirror shift */

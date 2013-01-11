@@ -8291,7 +8291,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				project(creature_ptr, 0, 1, creature_ptr->fy, creature_ptr->fx, b_dam, DO_EFFECT_HOLY_FIRE, PROJECT_KILL, -1);
 				dispel_creatures(creature_ptr, d_dam);
 				project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, power);
-				stun_creatures(creature_ptr, power);
+				project_hack(creature_ptr, DO_EFFECT_STUN, power);
 				project_hack(creature_ptr, DO_EFFECT_CONF_OTHERS, power);
 				project_hack(creature_ptr, DO_EFFECT_TURN_ALL, power);
 				project_hack(creature_ptr, DO_EFFECT_STASIS, power);
@@ -8477,7 +8477,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				stun_creatures(caster_ptr, diceroll(dice, sides));
+				project_hack(caster_ptr, DO_EFFECT_STUN, diceroll(dice, sides));
 			}
 		}
 
@@ -11508,7 +11508,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(info) return info_power(power);
 		if(cast || cont)
 		{
-			stun_creatures(creature_ptr, power);
+			project_hack(creature_ptr, DO_EFFECT_STUN, power);
 		}
 		break;
 
