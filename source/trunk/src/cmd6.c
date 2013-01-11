@@ -1440,7 +1440,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_POWER:
 		{
-			if(dispel_creatures(creature_ptr, 150)) ident = TRUE;
+			if(project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 150)) ident = TRUE;
 			break;
 		}
 
@@ -2052,7 +2052,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_PESTICIDE:
 		{
-			if(dispel_creatures(creature_ptr, 4)) ident = TRUE;
+			if(project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 4)) ident = TRUE;
 			break;
 		}
 
@@ -2298,7 +2298,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 			msg_print("You are surrounded by a powerful aura.");
 #endif
 			// Dispel creatures
-			dispel_creatures(creature_ptr, 1000);
+			project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 1000);
 			break;
 		}
 

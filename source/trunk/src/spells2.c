@@ -1182,12 +1182,6 @@ bool dispel_good(creature_type *caster_ptr, int dam)
 	return (project_hack(caster_ptr, DO_EFFECT_DISP_GOOD, dam));
 }
 
-// Dispel all creatures
-bool dispel_creatures(creature_type *caster_ptr, int dam)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_DISP_ALL, dam));
-}
-
 // Dispel 'living' creatures
 bool dispel_living(creature_type *caster_ptr, int dam)
 {

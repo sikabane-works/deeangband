@@ -233,10 +233,10 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 	else if(die < 104) earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
 	else if(die < 108) symbol_genocide(creature_ptr, plev+50, TRUE);
-	else if(die < 110) dispel_creatures(creature_ptr, 120);
+	else if(die < 110) project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 120);
 	else
 	{
-		dispel_creatures(creature_ptr, 150);
+		project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 150);
 		project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
 		sleep_creatures(creature_ptr);
 		heal_creature(creature_ptr, 300);
@@ -288,10 +288,10 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	else if(die < 104) earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
 	else if(die < 108) symbol_genocide(creature_ptr, plev+50, TRUE);
-	else if(die < 110) dispel_creatures(creature_ptr, 120);
+	else if(die < 110) project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 120);
 	else
 	{
-		dispel_creatures(creature_ptr, 150);
+		project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 150);
 		project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
 		sleep_creatures(creature_ptr);
 		heal_creature(creature_ptr, 300);
@@ -2857,7 +2857,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				dispel_creatures(caster_ptr, d_dam);
+				project_hack(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
 				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
 				project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
@@ -7337,7 +7337,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				dispel_creatures(caster_ptr, randint1(sides1));
+				project_hack(caster_ptr, DO_EFFECT_DISP_ALL, randint1(sides1));
 				dispel_good(caster_ptr, randint1(sides2));
 			}
 		}
@@ -8289,7 +8289,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				project(creature_ptr, 0, 1, creature_ptr->fy, creature_ptr->fx, b_dam, DO_EFFECT_HOLY_FIRE, PROJECT_KILL, -1);
-				dispel_creatures(creature_ptr, d_dam);
+				project_hack(creature_ptr, DO_EFFECT_DISP_ALL, d_dam);
 				project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, power);
 				project_hack(creature_ptr, DO_EFFECT_STUN, power);
 				project_hack(creature_ptr, DO_EFFECT_CONF_OTHERS, power);
@@ -9041,7 +9041,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				dispel_creatures(caster_ptr, randint1(m_sides));
+				project_hack(caster_ptr, DO_EFFECT_DISP_ALL, randint1(m_sides));
 				dispel_evil(caster_ptr, randint1(e_sides));
 			}
 		}
@@ -9271,10 +9271,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(info) return info_damage(dice, sides, 0);
 
-			if(cont)
-			{
-				dispel_creatures(caster_ptr, diceroll(dice, sides));
-			}
+			if(cont) project_hack(caster_ptr, DO_EFFECT_DISP_ALL, diceroll(dice, sides));
 		}
 		break;
 

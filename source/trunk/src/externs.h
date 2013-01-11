@@ -1226,7 +1226,6 @@ extern bool banish_evil(creature_type *caster_ptr, int dist);
 extern bool dispel_evil(creature_type *caster_ptr, int dam);
 extern bool dispel_good(creature_type *caster_ptr, int dam);
 extern bool dispel_undead(creature_type *caster_ptr, int dam);
-extern bool dispel_creatures(creature_type *caster_ptr, int dam);
 extern bool dispel_living(creature_type *caster_ptr, int dam);
 extern bool dispel_demons(creature_type *caster_ptr, int dam);
 extern bool turn_undead(creature_type *caster_ptr);
