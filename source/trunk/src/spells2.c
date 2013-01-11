@@ -3354,16 +3354,6 @@ bool stun_creatures(creature_type *caster_ptr, int dam)
 	return (project_hack(caster_ptr, DO_EFFECT_STUN, dam));
 }
 
-
-/*
-* Stasis creatures
-*/
-bool stasis_creatures(creature_type *caster_ptr, int dam)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_STASIS, dam));
-}
-
-
 /*
 * Mindblast creatures
 */

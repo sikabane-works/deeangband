@@ -8294,7 +8294,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				stun_creatures(creature_ptr, power);
 				project_hack(creature_ptr, DO_EFFECT_CONF_OTHERS, power);
 				project_hack(creature_ptr, DO_EFFECT_TURN_ALL, power);
-				stasis_creatures(creature_ptr, power);
+				project_hack(creature_ptr, DO_EFFECT_STASIS, power);
 				heal_creature(creature_ptr, heal);
 			}
 		}
@@ -9205,7 +9205,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				stasis_creatures(caster_ptr, power);
+				project_hack(caster_ptr, DO_EFFECT_STASIS, power);
 			}
 		}
 

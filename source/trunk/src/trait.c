@@ -784,7 +784,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				stun_creatures(caster_ptr, 120);
 				project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, 120);
 				project_hack(caster_ptr, DO_EFFECT_TURN_ALL, 120);
-				stasis_creatures(caster_ptr, 120);
+				project_hack(caster_ptr, DO_EFFECT_STASIS, 120);
 				sukekaku = FALSE;
 			}
 			else
@@ -2126,7 +2126,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		stun_creatures(caster_ptr, user_level * 4);
 		project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
 		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
-		stasis_creatures(caster_ptr, user_level * 4);
+		project_hack(caster_ptr, DO_EFFECT_STASIS, user_level * 4);
 		break;
 
 	case TRAIT_DOUBLE_ATTACK:
