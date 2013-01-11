@@ -1150,12 +1150,6 @@ bool sleep_creatures(creature_type *caster_ptr)
 	return (project_hack(caster_ptr, DO_EFFECT_OLD_SLEEP, caster_ptr->lev));
 }
 
-// Banish evil creatures
-bool banish_evil(creature_type *caster_ptr, int dist)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_AWAY_EVIL, dist));
-}
-
 /*
 * Wake up all creatures, and speed up "los" creatures.
 */

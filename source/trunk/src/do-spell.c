@@ -8167,19 +8167,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			int power = 100;
 
 			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(banish_evil(creature_ptr, power))
-				{
-#ifdef JP
-					msg_print("_¹‚È—Í‚ª×ˆ«‚ğ‘Å‚¿•¥‚Á‚½I");
-#else
-					msg_print("The holy power banishes evil!");
-#endif
-
-				}
-			}
+			if(cast) project_hack(creature_ptr, DO_EFFECT_AWAY_EVIL, power);
 		}
 		break;
 

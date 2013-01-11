@@ -175,7 +175,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BANISH_EVIL:
-		banish_evil(caster_ptr, 100);
+		project_hack(caster_ptr, DO_EFFECT_AWAY_EVIL, 100);
 		break;
 
 	case TRAIT_SYMBOL_GENOCIDE:
