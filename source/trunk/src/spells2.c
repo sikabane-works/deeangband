@@ -1163,12 +1163,6 @@ bool dispel_undead(creature_type *caster_ptr, int dam)
 	return tester;
 }
 
-// Dispel 'living' creatures
-bool dispel_living(creature_type *caster_ptr, int dam)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_DISP_LIVING, dam));
-}
-
 /*
 * Wake up all creatures, and speed up "los" creatures.
 */

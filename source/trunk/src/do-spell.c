@@ -4217,13 +4217,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int sides = plev * 3;
-
 			if(info) return info_damage(1, sides, 0);
-
-			if(cast)
-			{
-				dispel_living(caster_ptr, randint1(sides));
-			}
+			if(cast) project_hack(caster_ptr, DO_EFFECT_DISP_LIVING, randint1(sides));
 		}
 		break;
 
