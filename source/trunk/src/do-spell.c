@@ -1056,13 +1056,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Turn Undead";
 		if(desc) return "Attempts to scare undead creatures in sight.";
 #endif
-    
-		{
-			if(cast)
-			{
-				project_hack(creature_ptr, DO_EFFECT_TURN_UNDEAD, creature_ptr->lev);
-			}
-		}
+		if(cast) project_hack(creature_ptr, DO_EFFECT_TURN_UNDEAD, creature_ptr->lev);
 		break;
 
 	case 14:
@@ -7830,7 +7824,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				dispel_undead(creature_ptr, randint1(sides));
-				dispel_demons(creature_ptr, randint1(sides));
+				project_hack(creature_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
 				turn_evil(creature_ptr, power);
 			}
 		}
@@ -8024,7 +8018,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				dispel_undead(creature_ptr, randint1(sides));
-				dispel_demons(creature_ptr, randint1(sides));
+				project_hack(creature_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
 			}
 		}
 		break;

@@ -1169,13 +1169,6 @@ bool dispel_living(creature_type *caster_ptr, int dam)
 	return (project_hack(caster_ptr, DO_EFFECT_DISP_LIVING, dam));
 }
 
-// Dispel demons
-bool dispel_demons(creature_type *caster_ptr, int dam)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_DISP_DEMON, dam));
-}
-
-
 /*
 * Wake up all creatures, and speed up "los" creatures.
 */
