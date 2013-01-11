@@ -1156,13 +1156,6 @@ bool banish_evil(creature_type *caster_ptr, int dist)
 	return (project_hack(caster_ptr, DO_EFFECT_AWAY_EVIL, dist));
 }
 
-// Turn undead
-bool turn_undead(creature_type *caster_ptr)
-{
-	bool tester = (project_hack(caster_ptr, DO_EFFECT_TURN_UNDEAD, caster_ptr->lev));
-	return tester;
-}
-
 // Dispel undead creatures
 bool dispel_undead(creature_type *caster_ptr, int dam)
 {

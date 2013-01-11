@@ -1060,7 +1060,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				turn_undead(creature_ptr);
+				project_hack(creature_ptr, DO_EFFECT_TURN_UNDEAD, creature_ptr->lev);
 			}
 		}
 		break;
