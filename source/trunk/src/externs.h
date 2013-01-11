@@ -1215,7 +1215,6 @@ extern bool detect_creatures_nonliving(creature_type *creature_ptr, int range);
 extern bool detect_creatures_mind(creature_type *creature_ptr, int range);
 extern bool detect_all(creature_type *creature_ptr, int range);
 extern bool wall_stone(creature_type *caster_ptr);
-extern bool speed_creatures(creature_type *caster_ptr);
 extern bool slow_creatures(creature_type *caster_ptr);
 extern bool sleep_creatures(creature_type *caster_ptr);
 extern void aggravate_creatures(creature_type *target_ptr);

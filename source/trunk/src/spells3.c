@@ -3393,7 +3393,7 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 			radius = 1;
 			break;
 		case SV_POTION_SPEED:
-			dt = DO_EFFECT_OLD_SPEED;
+			dt = DO_EFFECT_SPEED_OTHERS;
 			break;
 		case SV_POTION_CURE_LIGHT:
 			dt = DO_EFFECT_OLD_HEAL;

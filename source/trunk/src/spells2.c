@@ -1144,87 +1144,57 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 	return (obvious);	// Result
 }
 
-
-/*
-* Speed creatures
-*/
-bool speed_creatures(creature_type *caster_ptr)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_OLD_SPEED, caster_ptr->lev));
-}
-
-/*
-* Slow creatures
-*/
+// Slow creatures
 bool slow_creatures(creature_type *caster_ptr)
 {
 	return (project_hack(caster_ptr, DO_EFFECT_OLD_SLOW, caster_ptr->lev));
 }
 
-/*
-* Sleep creatures
-*/
+// Sleep creatures
 bool sleep_creatures(creature_type *caster_ptr)
 {
 	return (project_hack(caster_ptr, DO_EFFECT_OLD_SLEEP, caster_ptr->lev));
 }
 
-
-/*
-* Banish evil creatures
-*/
+// Banish evil creatures
 bool banish_evil(creature_type *caster_ptr, int dist)
 {
 	return (project_hack(caster_ptr, DO_EFFECT_AWAY_EVIL, dist));
 }
 
-
-/*
-* Turn undead
-*/
+// Turn undead
 bool turn_undead(creature_type *caster_ptr)
 {
 	bool tester = (project_hack(caster_ptr, DO_EFFECT_TURN_UNDEAD, caster_ptr->lev));
 	return tester;
 }
 
-
-/*
-* Dispel undead creatures
-*/
+// Dispel undead creatures
 bool dispel_undead(creature_type *caster_ptr, int dam)
 {
 	bool tester = (project_hack(caster_ptr, DO_EFFECT_DISP_UNDEAD, dam));
 	return tester;
 }
 
-/*
-* Dispel evil creatures
-*/
+// Dispel evil creatures
 bool dispel_evil(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, DO_EFFECT_DISP_EVIL, dam));
 }
 
-/*
-* Dispel good creatures
-*/
+// Dispel good creatures
 bool dispel_good(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, DO_EFFECT_DISP_GOOD, dam));
 }
 
-/*
-* Dispel all creatures
-*/
+// Dispel all creatures
 bool dispel_creatures(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, DO_EFFECT_DISP_ALL, dam));
 }
 
-/*
-* Dispel 'living' creatures
-*/
+// Dispel 'living' creatures
 bool dispel_living(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, DO_EFFECT_DISP_LIVING, dam));
@@ -2901,7 +2871,7 @@ bool heal_other_creature(creature_type *caster_ptr, int dir, int dam)
 
 bool speed_other_creature(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_SPEED, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_SPEED_OTHERS, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 
