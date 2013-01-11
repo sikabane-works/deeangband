@@ -3381,7 +3381,6 @@ bool banish_creatures(creature_type *caster_ptr, int dist)
 	return (project_hack(caster_ptr, DO_EFFECT_AWAY_ALL, dist));
 }
 
-
 /*
 * Turn evil
 */
@@ -3389,16 +3388,6 @@ bool turn_evil(creature_type *caster_ptr,int dam)
 {
 	return (project_hack(caster_ptr, DO_EFFECT_TURN_EVIL, dam));
 }
-
-
-/*
-* Turn everyone
-*/
-bool turn_creatures(creature_type *caster_ptr, int dam)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_TURN_ALL, dam));
-}
-
 
 /*
 * Death-ray all creatures (note: OBSCENELY powerful)

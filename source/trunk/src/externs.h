@@ -1280,7 +1280,6 @@ extern bool charm_animals(creature_type *caster_ptr, int dam);
 extern bool stun_creatures(creature_type *caster_ptr, int dam);
 extern bool stasis_creatures(creature_type *caster_ptr, int dam);
 extern bool banish_creatures(creature_type *caster_ptr, int dist);
-extern bool turn_creatures(creature_type *caster_ptr, int dam);
 extern bool turn_evil(creature_type *caster_ptr, int dam);
 extern bool deathray_creatures(creature_type *caster_ptr);
 extern bool charm_creature(creature_type *caster_ptr, int dir, int plev);

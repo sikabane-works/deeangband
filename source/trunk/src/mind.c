@@ -1295,9 +1295,8 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 	case 14:
 		tmp = is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ? 4 : 3;
 		project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
-		stun_creatures(creature_ptr, plev*tmp);
+		project_hack(creature_ptr, DO_EFFECT_TURN_ALL, plev*tmp);
 		project_hack(creature_ptr, DO_EFFECT_CONF_OTHERS, plev*tmp);
-		turn_creatures(creature_ptr, plev*tmp);
 		stun_creatures(creature_ptr, plev*tmp);
 		stasis_creatures(creature_ptr, plev*tmp);
 		break;

@@ -164,7 +164,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_TERROR:
-		turn_creatures(caster_ptr, 40 + caster_ptr->lev);
+		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, 40 + caster_ptr->lev);
 		break;
 
 	case TRAIT_TELE_AWAY:
@@ -526,7 +526,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_LAY_OF_FEAR:
-		turn_creatures(caster_ptr, 40 + caster_ptr->lev);
+		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, 40 + caster_ptr->lev);
 		break;
 
 	case TRAIT_SLEEP:
@@ -656,7 +656,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_FRIGHTEN_SOUND:
 		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
 		if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
-		(void)turn_creatures(caster_ptr, (3 * caster_ptr->lev / 2) + 10);
+		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, (3 * caster_ptr->lev / 2) + 10);
 		break;
 
 	case TRAIT_DISPEL_SMALL_LIFE:
@@ -783,7 +783,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				sukekaku = TRUE;
 				stun_creatures(caster_ptr, 120);
 				project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, 120);
-				turn_creatures(caster_ptr, 120);
+				project_hack(caster_ptr, DO_EFFECT_TURN_ALL, 120);
 				stasis_creatures(caster_ptr, 120);
 				sukekaku = FALSE;
 			}
@@ -2067,7 +2067,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_EVOCATION:
 		(void)dispel_creatures(caster_ptr, user_level * 4);
-		turn_creatures(caster_ptr, user_level * 4);
+		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
 		banish_creatures(caster_ptr, user_level * 4);
 		break;
 
@@ -2122,11 +2122,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_CONFUSING_LIGHT:
-		project_hack(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
-		stun_creatures(caster_ptr, caster_ptr->lev * 4);
-		project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, caster_ptr->lev * 4);
-		turn_creatures(caster_ptr, caster_ptr->lev * 4);
-		stasis_creatures(caster_ptr, caster_ptr->lev * 4);
+		project_hack(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level);
+		stun_creatures(caster_ptr, user_level * 4);
+		project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
+		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
+		stasis_creatures(caster_ptr, user_level * 4);
 		break;
 
 	case TRAIT_DOUBLE_ATTACK:
@@ -2736,7 +2736,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_DAZZLE:
 		stun_creatures(caster_ptr, user_level * 4);
 		project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
-		turn_creatures(caster_ptr, user_level * 4);
+		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
 		break;
 
 	case TRAIT_LASER_EYE:

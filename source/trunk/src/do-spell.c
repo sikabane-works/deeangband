@@ -8293,7 +8293,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, power);
 				stun_creatures(creature_ptr, power);
 				project_hack(creature_ptr, DO_EFFECT_CONF_OTHERS, power);
-				turn_creatures(creature_ptr, power);
+				project_hack(creature_ptr, DO_EFFECT_TURN_ALL, power);
 				stasis_creatures(creature_ptr, power);
 				heal_creature(creature_ptr, heal);
 			}
