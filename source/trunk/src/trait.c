@@ -148,7 +148,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_DISPEL_GOOD_1:
-		dispel_good(caster_ptr, caster_ptr->lev * 5);
+		project_hack(caster_ptr, DO_EFFECT_DISP_GOOD, caster_ptr->lev * 5);
 		break;
 
 	case TRAIT_CONFUSE_TOUCH:

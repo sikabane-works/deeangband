@@ -7338,7 +7338,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				project_hack(caster_ptr, DO_EFFECT_DISP_ALL, randint1(sides1));
-				dispel_good(caster_ptr, randint1(sides2));
+				project_hack(caster_ptr, DO_EFFECT_DISP_GOOD, randint1(sides2));
 			}
 		}
 		break;
