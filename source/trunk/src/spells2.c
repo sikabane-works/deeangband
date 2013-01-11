@@ -1144,12 +1144,6 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 	return (obvious);	// Result
 }
 
-// Slow creatures
-bool slow_creatures(creature_type *caster_ptr)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_OLD_SLOW, caster_ptr->lev));
-}
-
 // Sleep creatures
 bool sleep_creatures(creature_type *caster_ptr)
 {

@@ -2122,7 +2122,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_CONFUSING_LIGHT:
-		slow_creatures(caster_ptr);
+		project_hack(caster_ptr, DO_EFFECT_OLD_SLOW, caster_ptr->lev);
 		stun_creatures(caster_ptr, caster_ptr->lev * 4);
 		confuse_creatures(caster_ptr, caster_ptr->lev * 4);
 		turn_creatures(caster_ptr, caster_ptr->lev * 4);
