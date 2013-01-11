@@ -1352,14 +1352,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		}
 		if(is_friendly(player_ptr, target_ptr) && !is_pet(player_ptr, target_ptr))
 		{
-			if(see_m)
-			{
-#ifdef JP
-				msg_format("%sÇÕì{Ç¡ÇΩÅI", target_name);
-#else
-				msg_format("%^s gets angry!", target_name);
-#endif
-			}
+			if(see_m) msg_format(GAME_MESSAGE_CAMP_GET_ANGRY, target_name);
 			set_hostile(user_ptr, target_ptr);
 		}
 		if(one_in_(13)) set_timed_trait(target_ptr, TRAIT_NO_GENOCIDE, PERMANENT_TIMED, FALSE);

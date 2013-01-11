@@ -3552,11 +3552,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				{
 					char m_name[MAX_NLEN];
 					creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
-#ifdef JP
-					msg_format("%s‚Í“{‚Á‚½I", m_name);
-#else
-					msg_format("%^s gets angry!", m_name);
-#endif
+					msg_format(GAME_MESSAGE_CAMP_GET_ANGRY, m_name);
 
 					set_hostile(creature_ptr, &creature_list[floor_ptr->cave[y][x].creature_idx]);
 				}

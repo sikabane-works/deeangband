@@ -375,6 +375,13 @@
 
 #endif
 
+#ifdef JP
+#define GAME_MESSAGE_CAMP_GET_ANGRY "%sÇÕì{Ç¡ÇΩÅI"
+#else
+#define GAME_MESSAGE_CAMP_GET_ANGRY "%^s gets angry!"
+#endif
+
+
 
 // messages of detection
 
