@@ -230,11 +230,7 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 	return TRUE;
 }
 
-
-/*
- * Hack -- apply a "projection()" in a direction (or at the target)
- */
-bool project_hook(creature_type *caster_ptr, int range, int typ, int dir, int dam, int flg)
+bool projection(creature_type *caster_ptr, int range, int typ, int dir, int dam, int flg)
 {
 	int tx, ty;
 
