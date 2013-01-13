@@ -3296,15 +3296,6 @@ bool mindblast_creatures(creature_type *caster_ptr, int dam)
 	return (project_hack(caster_ptr, DO_EFFECT_PSI, dam));
 }
 
-/*
-* Death-ray all creatures (note: OBSCENELY powerful)
-*/
-bool deathray_creatures(creature_type *caster_ptr)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_DEATH_RAY, caster_ptr->lev * 200));
-}
-
-
 bool charm_creature(creature_type *caster_ptr, int dir, int power)
 {
 	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_CHARM, dir, power, PROJECT_STOP | PROJECT_KILL));
