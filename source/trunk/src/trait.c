@@ -1578,12 +1578,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_RES_ALL))
 				{
 					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-#ifdef JP
-					msg_format("%sには効果がなかった！", target_name);
-#else
-					msg_format("%s is unaffected!", target_name);
-#endif
-
+					msg_format(GAME_MESSAGE_IS_UNAFFECTED, target_name);
 					break;
 				}
 				else if(target_ptr->lev > randint1(100))
@@ -1630,15 +1625,13 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_TELE_LEVEL:
 		{
-			if(has_trait(target_ptr, TRAIT_RES_NEXU))
-				msg_print(GAME_MESSAGE_IS_UNAFFECTED);
+			if(has_trait(target_ptr, TRAIT_RES_NEXU)) msg_print(GAME_MESSAGE_IS_UNAFFECTED);
 			{
 #ifdef JP
 				msg_print("記憶が薄れてしまった。");
 #else
 				msg_print("Your memories fade away.");
 #endif
-
 			}
 			learn_trait(target_ptr, TRAIT_FORGET);
 			break;
@@ -2008,25 +2001,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_S_AMBERITES:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-#ifdef JP
-		msg_print("不死の者が近くに現れるのが聞こえた。");
-#else
-		msg_print("You hear immortal beings appear nearby.");
-#endif
 		break;
 
 	case TRAIT_S_UNIQUE:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = count; k < 4; k++)
-			summon_specific(caster_ptr, target_row, target_col, user_level, TRAIT_S_HI_UNDEAD, (mode | u_mode));
-		if(blind && count)
-		{
-#ifdef JP
-			//			msg_format("多くの%sが間近に現れた音が聞こえる。", uniques_are_summoned ? "力強いもの" : "もの");
-#else
-			//			msg_format("You hear many %s appear nearby.", uniques_are_summoned ? "powerful things" : "things");
-#endif
-		}
+		for (k = count; k < 4; k++) summon_specific(caster_ptr, target_row, target_col, user_level, TRAIT_S_HI_UNDEAD, (mode | u_mode));
 		break;
 
 	case TRAIT_SWORD_DANCING:
