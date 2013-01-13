@@ -1273,7 +1273,6 @@ extern bool control_one_undead(creature_type *caster_ptr, int dir, int plev);
 extern bool control_one_demon(creature_type *caster_ptr, int dir, int plev);
 extern bool charm_animal(creature_type *caster_ptr, int dir, int plev);
 extern bool charm_living(creature_type *caster_ptr, int dir, int plev);
-extern bool mindblast_creatures(creature_type *caster_ptr, int dam);
 extern s32b flag_cost(object_type *object_ptr, int plusses);
 extern void report_magics(creature_type *creature_ptr);
 extern bool teleport_swap(creature_type *creature_ptr, int dir);

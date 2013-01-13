@@ -898,10 +898,9 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 #endif
 
 		if(plev < 25)
-			project(creature_ptr, 0, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx,
-			(plev * 3), DO_EFFECT_PSI, PROJECT_KILL, -1);
+			project(creature_ptr, 0, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx, (plev * 3), DO_EFFECT_PSI, PROJECT_KILL, -1);
 		else
-			(void)mindblast_creatures(creature_ptr, randint1(plev * ((plev - 5) / 10 + 1)));
+			(void)project_hack(creature_ptr, DO_EFFECT_PSI, randint1(plev * ((plev - 5) / 10 + 1)));
 		break;
 	case 9:
 		/* Adrenaline */
