@@ -7880,7 +7880,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				cast_bolt(creature_ptr, DO_EFFECT_ELEC, dam, 0, FALSE);
+				cast_bolt(creature_ptr, DO_EFFECT_ELEC, dam, 0);
 			}
 		}
 		break;
@@ -8393,7 +8393,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
 
-				cast_bolt(caster_ptr,DO_EFFECT_SOUND, diceroll(dice, sides), 0, FALSE);
+				cast_bolt(caster_ptr,DO_EFFECT_SOUND, diceroll(dice, sides), 0);
 			}
 		}
 		break;
