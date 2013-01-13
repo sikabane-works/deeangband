@@ -2353,14 +2353,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				msg_print(GAME_MESSAGE_RESTORE_SOME_MP);
 				inc_mana(caster_ptr, caster_ptr->lev * caster_ptr->lev / 100);
 			}
-			else
-			{
-#ifdef JP
-				msg_print("鏡の上でないと集中できない！");
-#else
-				msg_print("Here are not any mirrors!");
-#endif
-			}
+			else msg_print(GAME_MESSAGE_PREVENT_BY_NO_MIRROR);
 			break;
 		}
 
