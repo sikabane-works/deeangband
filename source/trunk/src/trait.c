@@ -2723,13 +2723,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_STERILITY:
-#ifdef JP
-		msg_print("突然頭が痛くなった！");
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "禁欲を強いた疲労", NULL, -1);
-#else
-		msg_print("You suddenly have a headache!");
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "the strain of forcing abstinence", NULL, -1);
-#endif
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, COD_ABSTINENCE, NULL, -1);
 		floor_ptr->num_repro += MAX_REPRO;
 		break;
 

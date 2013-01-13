@@ -491,6 +491,7 @@
 #define COD_GENOCIDE_UNDEAD "アンデッド消滅"
 #define COD_HP_TO_MP "HPからMPへの無謀な変換"
 #define COD_HARD_CONCENTRATION "過度の集中"
+#define COD_ABSTINENCE "禁欲を強いた疲労"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -526,6 +527,7 @@
 #define COD_GENOCIDE_UNDEAD "Annihilate Undead"
 #define COD_HP_TO_MP "Thoughtless convertion from HP to MP"
 #define COD_HARD_CONCENTRATION "Concentrating too hard"
+#define COD_ABSTINENCE "the strain of forcing abstinence"
 #endif
 
 // Hack -- possible "insult" messages
