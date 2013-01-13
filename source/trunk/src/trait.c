@@ -199,7 +199,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_CHARM_ANIMALS:
-		(void)charm_animals(caster_ptr, user_level * 2);
+		(void)project_hack(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, user_level * 2);
 		break;
 
 	case TRAIT_CHARM_OTHERS:

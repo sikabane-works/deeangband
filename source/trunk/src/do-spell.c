@@ -2587,13 +2587,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int power = plev * 2;
-
 			if(info) return info_power(power);
-
-			if(cast)
-			{
-				charm_animals(caster_ptr, power);
-			}
+			if(cast) project_hack(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, power);
 		}
 		break;
 

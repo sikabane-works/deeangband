@@ -3280,14 +3280,6 @@ void wall_breaker(creature_type *creature_ptr)
 	}
 }
 
-/*
-* Charm animals
-*/
-bool charm_animals(creature_type *caster_ptr, int dam)
-{
-	return (project_hack(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, dam));
-}
-
 bool charm_creature(creature_type *caster_ptr, int dir, int power)
 {
 	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_CHARM, dir, power, PROJECT_STOP | PROJECT_KILL));
