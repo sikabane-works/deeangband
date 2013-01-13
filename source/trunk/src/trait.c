@@ -2193,11 +2193,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #endif
 				return FALSE;
 			}
-#ifdef JP
-			msg_print("少し頭がハッキリした。");
-#else
-			msg_print("You feel your head clear a little.");
-#endif
+			msg_print(GAME_MESSAGE_RESTORE_SOME_MP);
 			inc_mana(caster_ptr, 3 + caster_ptr->lev / 20);
 			break;
 		}
@@ -2311,9 +2307,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			steed_ptr = &creature_list[caster_ptr->riding];
 			creature_desc(steed_name, steed_ptr, 0);
 #ifdef JP
-			msg_format("%sに乗った。",steed_name);
+			msg_format("%sに乗った。", steed_name);
 #else
-			msg_format("You ride on %s.",steed_name);
+			msg_format("You ride on %s.", steed_name);
 #endif
 			if(is_pet(player_ptr, steed_ptr)) break;
 			user_level = steed_ptr->lev;
@@ -2366,11 +2362,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			if(is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]))
 			{
-#ifdef JP
-				msg_print("少し頭がハッキリした。");
-#else
-				msg_print("You feel your head clear a little.");
-#endif
+				msg_print(GAME_MESSAGE_RESTORE_SOME_MP);
 				inc_mana(caster_ptr, caster_ptr->lev * caster_ptr->lev / 100);
 			}
 			else
@@ -2901,11 +2893,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_LITE_LINE:
-#ifdef JP
-		msg_print("青く輝く光線が放たれた。");
-#else
-		msg_print("A line of blue shimmering light appears.");
-#endif
 		(void)lite_line(caster_ptr, dir);
 		effected = TRUE;
 		break;

@@ -381,6 +381,11 @@
 #define GAME_MESSAGE_CAMP_GET_ANGRY "%^s gets angry!"
 #endif
 
+#ifdef JP
+#define GAME_MESSAGE_RESTORE_SOME_MP "少し頭がハッキリした。"
+#else
+#define GAME_MESSAGE_RESTORE_SOME_MP "You feel your head clear a little."
+#endif
 
 
 // messages of detection
