@@ -233,12 +233,12 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 	else if(die < 104) earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
 	else if(die < 108) symbol_genocide(creature_ptr, plev+50, TRUE);
-	else if(die < 110) project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 120);
+	else if(die < 110) project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 120);
 	else
 	{
-		project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 150);
-		project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
-		project_hack(creature_ptr, DO_EFFECT_OLD_SLEEP, creature_ptr->lev);
+		project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 150);
+		project_all_vision(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
+		project_all_vision(creature_ptr, DO_EFFECT_OLD_SLEEP, creature_ptr->lev);
 		heal_creature(creature_ptr, 300);
 	}
 }
@@ -288,12 +288,12 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	else if(die < 104) earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
 	else if(die < 108) symbol_genocide(creature_ptr, plev+50, TRUE);
-	else if(die < 110) project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 120);
+	else if(die < 110) project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 120);
 	else
 	{
-		project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 150);
-		project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
-		project_hack(creature_ptr, DO_EFFECT_OLD_SLEEP, creature_ptr->lev);
+		project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 150);
+		project_all_vision(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
+		project_all_vision(creature_ptr, DO_EFFECT_OLD_SLEEP, creature_ptr->lev);
 		heal_creature(creature_ptr, 300);
 	}
 
@@ -1056,7 +1056,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Turn Undead";
 		if(desc) return "Attempts to scare undead creatures in sight.";
 #endif
-		if(cast) project_hack(creature_ptr, DO_EFFECT_TURN_UNDEAD, creature_ptr->lev);
+		if(cast) project_all_vision(creature_ptr, DO_EFFECT_TURN_UNDEAD, creature_ptr->lev);
 		break;
 
 	case 14:
@@ -1140,7 +1140,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = plev * 5;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) project_hack(creature_ptr, DO_EFFECT_DISP_UNDEAD, diceroll(dice, sides));
+			if(cast) project_all_vision(creature_ptr, DO_EFFECT_DISP_UNDEAD, diceroll(dice, sides));
 		}
 		break;
 
@@ -1160,7 +1160,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project_hack(creature_ptr, DO_EFFECT_CHARM, power);
+				project_all_vision(creature_ptr, DO_EFFECT_CHARM, power);
 			}
 		}
 		break;
@@ -1663,7 +1663,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 			int power = plev;
 
 			if(info) return info_power(power);
-			if(cast) project_hack(caster_ptr, DO_EFFECT_OLD_SLEEP, power);
+			if(cast) project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, power);
 		}
 		break;
 
@@ -2029,7 +2029,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project_hack(caster_ptr, DO_EFFECT_CHARM, power);
+				project_all_vision(caster_ptr, DO_EFFECT_CHARM, power);
 			}
 		}
 		break;
@@ -2063,7 +2063,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int power = plev * 4;
 			if(info) return info_power(power);
-			if(cast) project_hack(caster_ptr, DO_EFFECT_AWAY_ALL, power);
+			if(cast) project_all_vision(caster_ptr, DO_EFFECT_AWAY_ALL, power);
 		}
 		break;
 
@@ -2445,7 +2445,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project_hack(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
+				project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
 			}
 		}
 		break;
@@ -2584,7 +2584,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int power = plev * 2;
 			if(info) return info_power(power);
-			if(cast) project_hack(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, power);
+			if(cast) project_all_vision(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, power);
 		}
 		break;
 
@@ -2833,7 +2833,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project_hack(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
+				project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
 				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
 				project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
@@ -4200,7 +4200,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int sides = plev * 3;
 			if(info) return info_damage(1, sides, 0);
-			if(cast) project_hack(caster_ptr, DO_EFFECT_DISP_LIVING, randint1(sides));
+			if(cast) project_all_vision(caster_ptr, DO_EFFECT_DISP_LIVING, randint1(sides));
 		}
 		break;
 
@@ -4868,7 +4868,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			int power = plev * 4;
 
 			if(info) return info_power(power);
-			if(cast) project_hack(caster_ptr, DO_EFFECT_AWAY_ALL, power);
+			if(cast) project_all_vision(caster_ptr, DO_EFFECT_AWAY_ALL, power);
 		}
 		break;
 
@@ -7304,8 +7304,8 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project_hack(caster_ptr, DO_EFFECT_DISP_ALL, randint1(sides1));
-				project_hack(caster_ptr, DO_EFFECT_DISP_GOOD, randint1(sides2));
+				project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, randint1(sides1));
+				project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, randint1(sides2));
 			}
 		}
 		break;
@@ -7796,9 +7796,9 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project_hack(creature_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
-				project_hack(creature_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
-				project_hack(creature_ptr, DO_EFFECT_TURN_EVIL, power);
+				project_all_vision(creature_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
+				project_all_vision(creature_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
+				project_all_vision(creature_ptr, DO_EFFECT_TURN_EVIL, power);
 			}
 		}
 		break;
@@ -7906,7 +7906,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project_hack(creature_ptr, DO_EFFECT_DISP_EVIL, randint1(dam_sides));
+				project_all_vision(creature_ptr, DO_EFFECT_DISP_EVIL, randint1(dam_sides));
 				heal_creature(creature_ptr, heal);
 			}
 		}
@@ -7990,8 +7990,8 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project_hack(creature_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
-				project_hack(creature_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
+				project_all_vision(creature_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
+				project_all_vision(creature_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
 			}
 		}
 		break;
@@ -8009,7 +8009,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = plev * 4;
 
 			if(info) return info_damage(1, sides, 0);
-			if(cast) project_hack(creature_ptr, DO_EFFECT_DISP_EVIL, randint1(sides));
+			if(cast) project_all_vision(creature_ptr, DO_EFFECT_DISP_EVIL, randint1(sides));
 		}
 		break;
 
@@ -8149,7 +8149,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			int power = 100;
 
 			if(info) return info_power(power);
-			if(cast) project_hack(creature_ptr, DO_EFFECT_AWAY_EVIL, power);
+			if(cast) project_all_vision(creature_ptr, DO_EFFECT_AWAY_EVIL, power);
 		}
 		break;
 
@@ -8240,12 +8240,12 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				project(creature_ptr, 0, 1, creature_ptr->fy, creature_ptr->fx, b_dam, DO_EFFECT_HOLY_FIRE, PROJECT_KILL, -1);
-				project_hack(creature_ptr, DO_EFFECT_DISP_ALL, d_dam);
-				project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, power);
-				project_hack(creature_ptr, DO_EFFECT_STUN, power);
-				project_hack(creature_ptr, DO_EFFECT_CONF_OTHERS, power);
-				project_hack(creature_ptr, DO_EFFECT_TURN_ALL, power);
-				project_hack(creature_ptr, DO_EFFECT_STASIS, power);
+				project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, d_dam);
+				project_all_vision(creature_ptr, DO_EFFECT_SLOW_OTHERS, power);
+				project_all_vision(creature_ptr, DO_EFFECT_STUN, power);
+				project_all_vision(creature_ptr, DO_EFFECT_CONF_OTHERS, power);
+				project_all_vision(creature_ptr, DO_EFFECT_TURN_ALL, power);
+				project_all_vision(creature_ptr, DO_EFFECT_STASIS, power);
 				heal_creature(creature_ptr, heal);
 			}
 		}
@@ -8268,7 +8268,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				int sp_base = plev;
 
 				int i;
-				project_hack(creature_ptr, DO_EFFECT_CRUSADE, creature_ptr->lev * 4);
+				project_all_vision(creature_ptr, DO_EFFECT_CRUSADE, creature_ptr->lev * 4);
 				for (i = 0; i < 12; i++)
 				{
 					int attempt = 10;
@@ -8343,7 +8343,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_hack(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
+				project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
 			}
 		}
 		break;
@@ -8428,7 +8428,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_hack(caster_ptr, DO_EFFECT_STUN, diceroll(dice, sides));
+				project_all_vision(caster_ptr, DO_EFFECT_STUN, diceroll(dice, sides));
 			}
 		}
 
@@ -8527,7 +8527,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_hack(caster_ptr, DO_EFFECT_TURN_ALL, power);
+				project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, power);
 			}
 		}
 
@@ -8657,7 +8657,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = plev * 3 / 2;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cont) project_hack(caster_ptr, DO_EFFECT_PSI, diceroll(dice, sides));
+			if(cont) project_all_vision(caster_ptr, DO_EFFECT_PSI, diceroll(dice, sides));
 		}
 
 		break;
@@ -8744,7 +8744,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
+				project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
 			}
 		}
 
@@ -8780,7 +8780,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_hack(caster_ptr, DO_EFFECT_SOUND, diceroll(dice, sides));
+				project_all_vision(caster_ptr, DO_EFFECT_SOUND, diceroll(dice, sides));
 			}
 		}
 
@@ -8842,7 +8842,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_hack(caster_ptr, DO_EFFECT_CHARM, diceroll(dice, sides));
+				project_all_vision(caster_ptr, DO_EFFECT_CHARM, diceroll(dice, sides));
 			}
 		}
 
@@ -8992,8 +8992,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_hack(caster_ptr, DO_EFFECT_DISP_ALL, randint1(m_sides));
-				project_hack(caster_ptr, DO_EFFECT_DISP_EVIL, randint1(e_sides));
+				project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, randint1(m_sides));
+				project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, randint1(e_sides));
 			}
 		}
 		break;
@@ -9027,8 +9027,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_hack(caster_ptr, DO_EFFECT_SLOW_OTHERS, power);
-				project_hack(caster_ptr, DO_EFFECT_OLD_SLEEP, power);
+				project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power);
+				project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, power);
 			}
 		}
 
@@ -9156,7 +9156,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_hack(caster_ptr, DO_EFFECT_STASIS, power);
+				project_all_vision(caster_ptr, DO_EFFECT_STASIS, power);
 			}
 		}
 
@@ -9222,7 +9222,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(info) return info_damage(dice, sides, 0);
 
-			if(cont) project_hack(caster_ptr, DO_EFFECT_DISP_ALL, diceroll(dice, sides));
+			if(cont) project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, diceroll(dice, sides));
 		}
 		break;
 
@@ -10092,7 +10092,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 			msg_print("You roar out!");
 #endif
-			project_hack(caster_ptr, DO_EFFECT_SOUND, randint1(plev * 3));
+			project_all_vision(caster_ptr, DO_EFFECT_SOUND, randint1(plev * 3));
 			aggravate_creatures(caster_ptr);
 		}
 		break;
@@ -10227,9 +10227,9 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 			msg_print("You irregularly wave your weapon...");
 #endif
-			project_hack(caster_ptr, DO_EFFECT_ENGETSU, plev * 4);
-			project_hack(caster_ptr, DO_EFFECT_ENGETSU, plev * 4);
-			project_hack(caster_ptr, DO_EFFECT_ENGETSU, plev * 4);
+			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, plev * 4);
+			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, plev * 4);
+			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, plev * 4);
 		}
 		break;
 
@@ -10597,7 +10597,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(info) return info_damage(1, power, 0);
 		if(cast || cont)
 		{
-			project_hack(creature_ptr, DO_EFFECT_POIS, randint1(power));
+			project_all_vision(creature_ptr, DO_EFFECT_POIS, randint1(power));
 		}
 		break;
 
@@ -10886,7 +10886,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(info) return info_damage(1, power, 0);
 		if(cast || cont)
 		{
-			project_hack(creature_ptr, DO_EFFECT_OLD_DRAIN, randint1(power));
+			project_all_vision(creature_ptr, DO_EFFECT_OLD_DRAIN, randint1(power));
 		}
 		break;
 
@@ -11248,7 +11248,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(info) return info_damage(1, power, 0);
 		if(cast || cont)
 		{
-			project_hack(creature_ptr, DO_EFFECT_PSI_DRAIN, randint1(power));
+			project_all_vision(creature_ptr, DO_EFFECT_PSI_DRAIN, randint1(power));
 		}
 		break;
 
@@ -11456,7 +11456,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(info) return info_power(power);
 		if(cast || cont)
 		{
-			project_hack(creature_ptr, DO_EFFECT_STUN, power);
+			project_all_vision(creature_ptr, DO_EFFECT_STUN, power);
 		}
 		break;
 

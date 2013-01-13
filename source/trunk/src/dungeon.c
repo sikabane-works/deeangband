@@ -2023,7 +2023,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 		msg_print("You suddenly feel almost lonely.");
 #endif
-		project_hack(creature_ptr, DO_EFFECT_AWAY_ALL, 100);
+		project_all_vision(creature_ptr, DO_EFFECT_AWAY_ALL, 100);
 		msg_print(NULL);
 	}
 

@@ -144,11 +144,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_DISPEL_EVIL_1:
-		project_hack(caster_ptr, DO_EFFECT_DISP_EVIL, caster_ptr->lev * 5);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, caster_ptr->lev * 5);
 		break;
 
 	case TRAIT_DISPEL_GOOD_1:
-		project_hack(caster_ptr, DO_EFFECT_DISP_GOOD, caster_ptr->lev * 5);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, caster_ptr->lev * 5);
 		break;
 
 	case TRAIT_CONFUSE_TOUCH:
@@ -164,7 +164,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_TERROR:
-		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, 40 + caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + caster_ptr->lev);
 		break;
 
 	case TRAIT_TELE_AWAY:
@@ -175,7 +175,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BANISH_EVIL:
-		project_hack(caster_ptr, DO_EFFECT_AWAY_EVIL, 100);
+		project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, 100);
 		break;
 
 	case TRAIT_SYMBOL_GENOCIDE:
@@ -199,11 +199,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_CHARM_ANIMALS:
-		(void)project_hack(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, user_level * 2);
+		(void)project_all_vision(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, user_level * 2);
 		break;
 
 	case TRAIT_CHARM_OTHERS:
-		project_hack(caster_ptr, DO_EFFECT_CHARM, user_level * 2);
+		project_all_vision(caster_ptr, DO_EFFECT_CHARM, user_level * 2);
 		break;
 
 	case TRAIT_S_ANIMAL:
@@ -526,7 +526,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_LAY_OF_FEAR:
-		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, 40 + caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + caster_ptr->lev);
 		break;
 
 	case TRAIT_SLEEP:
@@ -656,16 +656,16 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_FRIGHTEN_SOUND:
 		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
 		if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
-		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, (3 * caster_ptr->lev / 2) + 10);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, (3 * caster_ptr->lev / 2) + 10);
 		break;
 
 	case TRAIT_DISPEL_SMALL_LIFE:
-		project_hack(caster_ptr, DO_EFFECT_DISP_ALL, 4);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4);
 		break;
 
 	case TRAIT_BLAZING_LIGHT:
 		cast_ball(caster_ptr, DO_EFFECT_LITE, 0, 300, 6);
-		project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, 3 * caster_ptr->lev / 2);
+		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 3 * caster_ptr->lev / 2);
 		break;
 
 
@@ -781,10 +781,10 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				msg_format("%^s says 'WHO do you think this person is! Bow your head, down your knees!'", kakusan);
 #endif
 				sukekaku = TRUE;
-				project_hack(caster_ptr, DO_EFFECT_STUN, 120);
-				project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, 120);
-				project_hack(caster_ptr, DO_EFFECT_TURN_ALL, 120);
-				project_hack(caster_ptr, DO_EFFECT_STASIS, 120);
+				project_all_vision(caster_ptr, DO_EFFECT_STUN, 120);
+				project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 120);
+				project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 120);
+				project_all_vision(caster_ptr, DO_EFFECT_STASIS, 120);
 				sukekaku = FALSE;
 			}
 			else
@@ -817,7 +817,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_SHIKO:
 		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 		(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(20) + 20, FALSE);
-		project_hack(caster_ptr, DO_EFFECT_DISP_EVIL, caster_ptr->lev * 3);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, caster_ptr->lev * 3);
 		break;
 
 	case TRAIT_MAGIC_RES_COLD:
@@ -2066,9 +2066,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_EVOCATION:
-		project_hack(caster_ptr, DO_EFFECT_DISP_ALL, user_level * 4);
-		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
-		project_hack(caster_ptr, DO_EFFECT_AWAY_ALL, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_AWAY_ALL, user_level * 4);
 		break;
 
 	case TRAIT_PANIC_HIT:
@@ -2122,11 +2122,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_CONFUSING_LIGHT:
-		project_hack(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level);
-		project_hack(caster_ptr, DO_EFFECT_STUN, user_level * 4);
-		project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
-		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
-		project_hack(caster_ptr, DO_EFFECT_STASIS, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level);
+		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_STASIS, user_level * 4);
 		break;
 
 	case TRAIT_DOUBLE_ATTACK:
@@ -2215,7 +2215,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_DOMINATE_LIVES:
-		project_hack(caster_ptr, DO_EFFECT_CONTROL_LIVING, caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_CONTROL_LIVING, caster_ptr->lev);
 		break;
 
 	case TRAIT_CREATE_AMMO:
@@ -2515,7 +2515,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_HOLDING_DUST:
 		if(user_level < 25) sleep_creatures_touch(caster_ptr);
-		else (void)project_hack(caster_ptr, DO_EFFECT_OLD_SLEEP, user_level);
+		else (void)project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, user_level);
 		break;
 
 	case TRAIT_EXPAND_HLIZN:
@@ -2734,9 +2734,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_DAZZLE:
-		project_hack(caster_ptr, DO_EFFECT_STUN, user_level * 4);
-		project_hack(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
-		project_hack(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, user_level * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, user_level * 4);
 		break;
 
 	case TRAIT_LASER_EYE:

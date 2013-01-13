@@ -1074,7 +1074,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			break;
 
 		case SV_SCROLL_DISPEL_UNDEAD:
-			if(project_hack(caster_ptr, DO_EFFECT_DISP_UNDEAD, 80)) ident = TRUE;
+			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, 80)) ident = TRUE;
 			break;
 
 		case SV_SCROLL_SPELL:
@@ -1347,7 +1347,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			break;
 
 		case SV_STAFF_HASTE_MONSTERS:
-			if(project_hack(creature_ptr, DO_EFFECT_SPEED_OTHERS, creature_ptr->lev)) ident = TRUE;
+			if(project_all_vision(creature_ptr, DO_EFFECT_SPEED_OTHERS, creature_ptr->lev)) ident = TRUE;
 			break;
 
 		case SV_STAFF_SUMMONING:
@@ -1422,31 +1422,31 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_SLEEP_MONSTERS:
 		{
-			if(project_hack(creature_ptr, DO_EFFECT_OLD_SLEEP, creature_ptr->lev)) ident = TRUE;
+			if(project_all_vision(creature_ptr, DO_EFFECT_OLD_SLEEP, creature_ptr->lev)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_SLOW_MONSTERS:
 		{
-			if(project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev)) ident = TRUE;
+			if(project_all_vision(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DISPEL_EVIL:
 		{
-			if(project_hack(creature_ptr, DO_EFFECT_DISP_EVIL, 80)) ident = TRUE;
+			if(project_all_vision(creature_ptr, DO_EFFECT_DISP_EVIL, 80)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_POWER:
 		{
-			if(project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 150)) ident = TRUE;
+			if(project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 150)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_HOLINESS:
 		{
-			if(project_hack(creature_ptr, DO_EFFECT_DISP_EVIL, 150)) ident = TRUE;
+			if(project_all_vision(creature_ptr, DO_EFFECT_DISP_EVIL, 150)) ident = TRUE;
 			k = 3 * creature_ptr->lev;
 			if(add_timed_trait(creature_ptr, TRAIT_PROT_EVIL, (magic ? 0 : randint1(25) + k, 0), TRUE)) ident = TRUE;
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
@@ -2052,7 +2052,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_PESTICIDE:
 		{
-			if(project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 4)) ident = TRUE;
+			if(project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 4)) ident = TRUE;
 			break;
 		}
 
@@ -2298,7 +2298,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 			msg_print("You are surrounded by a powerful aura.");
 #endif
 			// Dispel creatures
-			project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 1000);
+			project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 1000);
 			break;
 		}
 

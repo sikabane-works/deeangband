@@ -865,7 +865,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 			cast_ball(creature_ptr, DO_EFFECT_DOMINATION, dir, plev, 0);
 		}
 		else
-			project_hack(creature_ptr, DO_EFFECT_CHARM, plev * 2);
+			project_all_vision(creature_ptr, DO_EFFECT_CHARM, plev * 2);
 		break;
 	case 5:
 		/* Fist of Force  ---  not 'true' TK  */
@@ -900,7 +900,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		if(plev < 25)
 			project(creature_ptr, 0, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx, (plev * 3), DO_EFFECT_PSI, PROJECT_KILL, -1);
 		else
-			(void)project_hack(creature_ptr, DO_EFFECT_PSI, randint1(plev * ((plev - 5) / 10 + 1)));
+			(void)project_all_vision(creature_ptr, DO_EFFECT_PSI, randint1(plev * ((plev - 5) / 10 + 1)));
 		break;
 	case 9:
 		/* Adrenaline */
@@ -1293,11 +1293,11 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		/* illusion light */
 	case 14:
 		tmp = is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ? 4 : 3;
-		project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
-		project_hack(creature_ptr, DO_EFFECT_TURN_ALL, plev*tmp);
-		project_hack(creature_ptr, DO_EFFECT_CONF_OTHERS, plev*tmp);
-		project_hack(creature_ptr, DO_EFFECT_STUN, plev*tmp);
-		project_hack(creature_ptr, DO_EFFECT_STASIS, plev*tmp);
+		project_all_vision(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
+		project_all_vision(creature_ptr, DO_EFFECT_TURN_ALL, plev*tmp);
+		project_all_vision(creature_ptr, DO_EFFECT_CONF_OTHERS, plev*tmp);
+		project_all_vision(creature_ptr, DO_EFFECT_STUN, plev*tmp);
+		project_all_vision(creature_ptr, DO_EFFECT_STASIS, plev*tmp);
 		break;
 		/* mirror shift */
 	case 15:

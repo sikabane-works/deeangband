@@ -3670,7 +3670,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 #else
 			msg_format("You can feel the power of %s assault your enemies!", species_name + species_info[creature_ptr->patron_idx].name);
 #endif
-			project_hack(creature_ptr, DO_EFFECT_DISP_ALL, creature_ptr->lev * 4);
+			project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, creature_ptr->lev * 4);
 			break;
 
 		case REW_IGNORE:

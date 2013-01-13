@@ -1109,7 +1109,7 @@ bool detect_all(creature_type *creature_ptr, int range)
 * To avoid misbehavior when creature deaths have side-effects,
 * this is done in two passes. -- JDL
 */
-bool project_hack(creature_type *caster_ptr, int typ, int dam)
+bool project_all_vision(creature_type *caster_ptr, int typ, int dam)
 {
 	int     i, x, y;
 	bool    obvious = FALSE;
