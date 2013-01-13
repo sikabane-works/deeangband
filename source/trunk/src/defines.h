@@ -1605,7 +1605,7 @@
 #define PROJECT_PATH        0x2000
 #define PROJECT_FAST        0x4000
 #define PROJECT_LOS         0x8000
-
+#define PROJECT_BREATH      0x10000
 
 /*
  * Special caster ID for project()

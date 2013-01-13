@@ -4034,7 +4034,9 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 	// Hack -- verify stuff
 	if(flg & (PROJECT_THRU) && (x1 == x2) && (y1 == y2)) flg &= ~(PROJECT_THRU);
 
-	if(rad < 0)	// Handle a breath attack
+	if(rad < 0) msg_warning("Minus rad.");
+
+	if(flg & PROJECT_BREATH)
 	{
 		rad = 0 - rad;
 		breath = TRUE;

@@ -287,13 +287,10 @@ bool cast_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, in
  */
 void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable)
 {
-	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL; //TODO | PROJECT_PLAYER;
+	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH; //TODO | PROJECT_PLAYER;
 
 	// Determine the radius of the blast
 	if((rad < 1) && breath) rad = has_trait(caster_ptr, TRAIT_POWERFUL) ? 3 : 2;
-
-	// Handle breath attacks
-	if(breath) rad = 0 - rad;
 
 	switch (typ)
 	{
