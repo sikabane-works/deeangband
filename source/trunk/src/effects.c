@@ -1498,7 +1498,7 @@ static void you_died(cptr hit_from)
 * setting the player to "dead".
 */
 
-int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
+int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int trait_id)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	int old_chp = target_ptr->chp;
@@ -1556,7 +1556,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		if(auto_more) target_ptr->now_damaged = TRUE;
 	}
 
-	if(monspell >= 0) learn_trait(target_ptr, monspell);
+	if(trait_id >= 0) learn_trait(target_ptr, trait_id);
 
 	/* Mega-Hack -- Apply "invulnerability" */
 	if((damage_type != DAMAGE_USELIFE) && (damage_type != DAMAGE_LOSELIFE))

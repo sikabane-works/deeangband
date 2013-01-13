@@ -254,9 +254,9 @@ bool projection(creature_type *caster_ptr, int range, int typ, int dir, int dam,
  * Stop if we hit a creature
  * Affect creatures and the player
  */
-bool cast_bolt(creature_type *caster_ptr, int typ, int dam, int monspell, bool learnable)
+bool cast_bolt(creature_type *caster_ptr, int typ, int dam, int trait_id, bool learnable)
 {
-	return project(caster_ptr, 0, 0, target_col, target_row, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, (learnable ? monspell : -1));
+	return project(caster_ptr, 0, 0, target_col, target_row, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, (learnable ? trait_id : -1));
 }
 
 /*
@@ -264,9 +264,9 @@ bool cast_bolt(creature_type *caster_ptr, int typ, int dam, int monspell, bool l
  * Pass through creatures, as a "beam".
  * Affect creatures, grids and objects.
  */
-bool cast_beam(creature_type *caster_ptr, int range, int typ, int dam, int monspell, bool learnable)
+bool cast_beam(creature_type *caster_ptr, int range, int typ, int dam, int trait_id, bool learnable)
 {
-	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, (learnable ? monspell : -1));
+	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, (learnable ? trait_id : -1));
 }
 
 /*
@@ -285,7 +285,7 @@ bool cast_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, in
  * Pass over any creatures that may be in the way
  * Affect grids, objects, creatures, and the player
  */
-void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable)
+void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int trait_id, bool learnable)
 {
 	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH; //TODO | PROJECT_PLAYER;
 
@@ -310,7 +310,7 @@ void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int ra
 	}
 
 	/* Target the player with a ball attack */
-	(void)project(caster_ptr, 0, rad, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(caster_ptr, 0, rad, y, x, dam_hp, typ, flg, (learnable ? trait_id : -1));
 }
 
 

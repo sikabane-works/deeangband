@@ -3949,7 +3949,7 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
 * in the blast radius, in case the "illumination" of the grid was changed,
 * and "update_view()" and "update_creatures()" need to be called.
 */
-bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int dam, int typ, int flg, int monspell)
+bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int dam, int typ, int flg, int trait_id)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i, t, dist;
@@ -4169,7 +4169,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SEEKER, flg, TRUE, monspell)) notice = TRUE;
+					if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SEEKER, flg, TRUE, trait_id)) notice = TRUE;
 					if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
 						if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
 							creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
@@ -4194,7 +4194,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 			int x,y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SEEKER, flg, TRUE, monspell))
+			if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SEEKER, flg, TRUE, trait_id))
 				notice=TRUE;
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
 				if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
@@ -4327,7 +4327,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 			int x,y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SUPER_RAY, flg, TRUE, monspell);
+			(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SUPER_RAY, flg, TRUE, trait_id);
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
 				if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
 					creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
@@ -4750,7 +4750,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 					else flg |= PROJECT_PLAYER;
 
 					/* The bolt is reflected */
-					project(&creature_list[floor_ptr->cave[y][x].creature_idx], 0, 0, t_y, t_x, dam, typ, flg, monspell);
+					project(&creature_list[floor_ptr->cave[y][x].creature_idx], 0, 0, t_y, t_x, dam, typ, flg, trait_id);
 
 					/* Don't affect the creature any longer */
 					continue;
@@ -4841,7 +4841,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 			}
 
 			/* Affect the creature in the grid */
-			if(project_creature(caster_ptr, "Dammy", effective_dist, y, x, dam, typ, flg, see_s_msg, monspell)) notice = TRUE;
+			if(project_creature(caster_ptr, "Dammy", effective_dist, y, x, dam, typ, flg, see_s_msg, trait_id)) notice = TRUE;
 		}
 
 		/* Player affected one creature (without "jumping") */
@@ -4940,7 +4940,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 			}
 
 			/* Affect the player */
-			if(project_creature(caster_ptr, who_name, effective_dist, y, x, dam, typ, flg, TRUE, monspell)) notice = TRUE;
+			if(project_creature(caster_ptr, who_name, effective_dist, y, x, dam, typ, flg, TRUE, trait_id)) notice = TRUE;
 		}
 	}
 

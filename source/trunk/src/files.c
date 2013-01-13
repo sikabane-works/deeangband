@@ -3856,7 +3856,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 			//TODO set_rf_masks(&f4, &f5, &f6, j);
 			switch(j)
 			{
-				case MONSPELL_TYPE_BOLT:
+				case trait_id_TYPE_BOLT:
 #ifdef JP
 					strcat(p[col], "\n     [ボルト型]\n");
 #else
@@ -3864,7 +3864,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 #endif
 					break;
 
-				case MONSPELL_TYPE_BALL:
+				case trait_id_TYPE_BALL:
 #ifdef JP
 					strcat(p[col], "\n     [ボール型]\n");
 #else
@@ -3872,7 +3872,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 #endif
 					break;
 
-				case MONSPELL_TYPE_BREATH:
+				case trait_id_TYPE_BREATH:
 #ifdef JP
 					strcat(p[col], "\n     [ブレス型]\n");
 #else
@@ -3880,7 +3880,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 #endif
 					break;
 
-				case MONSPELL_TYPE_SUMMON:
+				case trait_id_TYPE_SUMMON:
 #ifdef JP
 					strcat(p[col], "\n     [召喚魔法]\n");
 #else
@@ -3888,7 +3888,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 #endif
 					break;
 
-				case MONSPELL_TYPE_OTHER:
+				case trait_id_TYPE_OTHER:
 #ifdef JP
 					strcat(p[col], "\n     [ その他 ]\n");
 #else

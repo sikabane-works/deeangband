@@ -2325,11 +2325,11 @@ enum GRAPHICS_MODE
 
 #define MAX_MANE 16
 
-#define MONSPELL_TYPE_BOLT 1
-#define MONSPELL_TYPE_BALL 2
-#define MONSPELL_TYPE_BREATH 3
-#define MONSPELL_TYPE_SUMMON 4
-#define MONSPELL_TYPE_OTHER 5
+#define trait_id_TYPE_BOLT 1
+#define trait_id_TYPE_BALL 2
+#define trait_id_TYPE_BREATH 3
+#define trait_id_TYPE_SUMMON 4
+#define trait_id_TYPE_OTHER 5
 
 #define EATER_EXT 36
 #define EATER_CHARGE 0x10000L

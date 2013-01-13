@@ -884,31 +884,31 @@ void set_rf_masks(s32b *f4, s32b *f5, s32b *f6, int mode)
 		/*
 	switch (mode)
 	{
-		case MONSPELL_TYPE_BOLT:
+		case trait_id_TYPE_BOLT:
 			*f4 = ((BO_MASK | BEAM_MASK) & ~(ROCKET));
 			*f5 = BO_MASK | BEAM_MASK;
 			*f6 = BO_MASK | BEAM_MASK;
 			break;
 
-		case MONSPELL_TYPE_BALL:
+		case trait_id_TYPE_BALL:
 			*f4 = (BALL_MASK & ~(BREATH_MASK));
 			*f5 = (BALL_MASK & ~(BREATH_MASK));
 			*f6 = (BALL_MASK & ~(BREATH_MASK));
 			break;
 
-		case MONSPELL_TYPE_BREATH:
+		case trait_id_TYPE_BREATH:
 			*f4 = BREATH_MASK;
 			*f5 = BREATH_MASK;
 			*f6 = BREATH_MASK;
 			break;
 
-		case MONSPELL_TYPE_SUMMON:
+		case trait_id_TYPE_SUMMON:
 			*f4 = TRAIT_S_MASK;
 			*f5 = TRAIT_S_MASK;
 			*f6 = TRAIT_S_MASK;
 			break;
 
-		case MONSPELL_TYPE_OTHER:
+		case trait_id_TYPE_OTHER:
 			*f4 = ATTACK_MASK & ~(BO_MASK | BEAM_MASK | BALL_MASK | INDIRECT_MASK);
 			*f5 = ATTACK_MASK & ~(BO_MASK | BEAM_MASK | BALL_MASK | INDIRECT_MASK);
 			*f6 = ATTACK_MASK & ~(BO_MASK | BEAM_MASK | BALL_MASK | INDIRECT_MASK);

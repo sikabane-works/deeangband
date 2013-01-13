@@ -1013,7 +1013,7 @@ extern bool is_melee_limitation_field(floor_type *floor_ptr);
 extern bool close_combat(creature_type *attacker_ptr, int y, int x, int mode);
 
 // melee2.c
-extern void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable);
+extern void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int trait_id, bool learnable);
 extern bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt);
 extern void process_creatures(void);
 extern u32b get_curse(int power, object_type *object_ptr);
@@ -1188,11 +1188,11 @@ extern void remove_loc(void);
 // spells1.c
 extern bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int x2);
 extern void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, byte *gx, byte *gy, byte *gm, int *pgm_rad, int rad, int y1, int x1, int y2, int x2, int typ);
-extern int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell);
+extern int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int trait_id);
 extern u16b bolt_pict(int y, int x, int ny, int nx, int typ);
 extern sint project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int y2, int x2, int flg);
 extern int dist_to_line(int y, int x, int y1, int x1, int y2, int x2);
-extern bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int dam, int typ, int flg, int monspell);
+extern bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int dam, int typ, int flg, int trait_id);
 extern bool binding_field(creature_type *caster_ptr, int range, int dam);
 extern void seal_of_mirror(creature_type *caster_ptr, int dam);
 
@@ -1234,7 +1234,7 @@ extern bool cast_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam,
 extern bool fire_meteor(int who, int typ, int x, int y, int dam, int rad);
 extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev);
 extern void call_chaos(creature_type *creature_ptr);
-extern bool cast_beam(creature_type *caster_ptr, int range, int typ, int dam, int monspell, bool learnable);
+extern bool cast_beam(creature_type *caster_ptr, int range, int typ, int dam, int trait_id, bool learnable);
 extern bool cast_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, int dam);
 extern bool lite_line(creature_type *caster_ptr, int dir);
 extern bool drain_life(creature_type *caster_ptr, int dir, int dam);
@@ -1530,7 +1530,7 @@ extern void msg_warning(cptr message, ...);
 
 // mspells1.c
 extern bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool friend);
-extern bool cast_bolt(creature_type *caster_ptr, int typ, int dam, int monspell, bool learnable);
+extern bool cast_bolt(creature_type *caster_ptr, int typ, int dam, int trait_id, bool learnable);
 extern bool summon_possible(creature_type *target_ptr, int y1, int x1);
 extern bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr);
