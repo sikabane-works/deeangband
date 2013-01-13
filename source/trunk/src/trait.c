@@ -2186,11 +2186,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			if(caster_ptr->total_friends)
 			{
-#ifdef JP
-				msg_print("今はペットを操ることに集中していないと。");
-#else
-				msg_print("You need concentration on the pets now.");
-#endif
+				msg_print(GAME_MESSAGE_PREVENT_BY_PET);
 				return FALSE;
 			}
 			msg_print(GAME_MESSAGE_RESTORE_SOME_MP);
@@ -2246,11 +2242,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 			if(caster_ptr->total_friends)
 			{
-#ifdef JP
-				msg_print("今はペットを操ることに集中していないと。");
-#else
-				msg_print("You need concentration on the pets now.");
-#endif
+				msg_print(GAME_MESSAGE_PREVENT_BY_PET);
 				return FALSE;
 			}
 			if(caster_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
@@ -2353,11 +2345,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			if(caster_ptr->total_friends)
 			{
-#ifdef JP
-				msg_print("今はペットを操ることに集中していないと。");
-#else
-				msg_print("You need concentration on the pets now.");
-#endif
+				msg_print(GAME_MESSAGE_PREVENT_BY_PET);
 				return FALSE;
 			}
 			if(is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]))
