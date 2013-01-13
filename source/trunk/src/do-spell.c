@@ -238,7 +238,7 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 	{
 		project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 150);
 		project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
-		sleep_creatures(creature_ptr);
+		project_hack(creature_ptr, DO_EFFECT_OLD_SLEEP, creature_ptr->lev);
 		heal_creature(creature_ptr, 300);
 	}
 }
@@ -293,7 +293,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	{
 		project_hack(creature_ptr, DO_EFFECT_DISP_ALL, 150);
 		project_hack(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
-		sleep_creatures(creature_ptr);
+		project_hack(creature_ptr, DO_EFFECT_OLD_SLEEP, creature_ptr->lev);
 		heal_creature(creature_ptr, 300);
 	}
 
@@ -1663,11 +1663,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 			int power = plev;
 
 			if(info) return info_power(power);
-
-			if(cast)
-			{
-				sleep_creatures(caster_ptr);
-			}
+			if(cast) project_hack(caster_ptr, DO_EFFECT_OLD_SLEEP, power);
 		}
 		break;
 
@@ -9031,8 +9027,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				project_hack(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
-				sleep_creatures(caster_ptr);
+				project_hack(caster_ptr, DO_EFFECT_SLOW_OTHERS, power);
+				project_hack(caster_ptr, DO_EFFECT_OLD_SLEEP, power);
 			}
 		}
 

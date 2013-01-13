@@ -2515,7 +2515,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_HOLDING_DUST:
 		if(user_level < 25) sleep_creatures_touch(caster_ptr);
-		else (void)sleep_creatures(caster_ptr);
+		else (void)project_hack(caster_ptr, DO_EFFECT_OLD_SLEEP, user_level);
 		break;
 
 	case TRAIT_EXPAND_HLIZN:

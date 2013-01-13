@@ -1422,7 +1422,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_SLEEP_MONSTERS:
 		{
-			if(sleep_creatures(creature_ptr)) ident = TRUE;
+			if(project_hack(creature_ptr, DO_EFFECT_OLD_SLEEP, creature_ptr->lev)) ident = TRUE;
 			break;
 		}
 

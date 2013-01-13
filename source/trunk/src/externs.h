@@ -1215,7 +1215,6 @@ extern bool detect_creatures_nonliving(creature_type *creature_ptr, int range);
 extern bool detect_creatures_mind(creature_type *creature_ptr, int range);
 extern bool detect_all(creature_type *creature_ptr, int range);
 extern bool wall_stone(creature_type *caster_ptr);
-extern bool sleep_creatures(creature_type *caster_ptr);
 extern void aggravate_creatures(creature_type *target_ptr);
 extern bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cast, int dam_side, cptr spell_name);
 extern bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast);
