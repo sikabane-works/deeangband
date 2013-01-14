@@ -4271,12 +4271,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 			command_arg = 0;
 
 			/* Begin the input */
-#ifdef JP
-			prt("âÒêî: ", 0, 0);
-#else
-			prt("Count: ", 0, 0);
-#endif
-
+			prt(PROMPT_COUNT, 0, 0);
 
 			/* Get a command count */
 			while (1)
@@ -4291,12 +4286,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 					command_arg = command_arg / 10;
 
 					/* Show current count */
-#ifdef JP
-					prt(format("âÒêî: %d", command_arg), 0, 0);
-#else
-					prt(format("Count: %d", command_arg), 0, 0);
-#endif
-
+					prt(format("%s %d", PROMPT_COUNT, command_arg), 0, 0);
 				}
 
 				/* Actual numeric data */
@@ -4320,12 +4310,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 					}
 
 					/* Show current count */
-#ifdef JP
-					prt(format("âÒêî: %d", command_arg), 0, 0);
-#else
-					prt(format("Count: %d", command_arg), 0, 0);
-#endif
-
+					prt(format("%s %d", PROMPT_COUNT, command_arg), 0, 0);
 				}
 
 				/* Exit on "unusable" input */
@@ -4338,31 +4323,15 @@ void request_command(creature_type *guest_ptr, int shopping)
 			/* Hack -- Handle "zero" */
 			if(command_arg == 0)
 			{
-				/* Default to 99 */
 				command_arg = 99;
-
-				/* Show current count */
-#ifdef JP
-				prt(format("âÒêî: %d", command_arg), 0, 0);
-#else
-				prt(format("Count: %d", command_arg), 0, 0);
-#endif
-
+				prt(format("%s %d", PROMPT_COUNT, command_arg), 0, 0);
 			}
 
 			/* Hack -- Handle "old_arg" */
 			if(old_arg != 0)
 			{
-				/* Restore old_arg */
 				command_arg = old_arg;
-
-				/* Show current count */
-#ifdef JP
-prt(format("âÒêî: %d", command_arg), 0, 0);
-#else
-				prt(format("Count: %d", command_arg), 0, 0);
-#endif
-
+				prt(format("%s %d", PROMPT_COUNT, command_arg), 0, 0);
 			}
 
 			/* Hack -- white-space means "enter command now" */
