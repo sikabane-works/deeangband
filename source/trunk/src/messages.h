@@ -954,6 +954,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_EQUIPMENT "‘•”õ•i: "
 	#define PROMPT_REST "‹xŒe (0-9999, '*' ‚Å HP/MP‘S‰õ, '&' ‚Å•K—v‚È‚¾‚¯): "
 	#define PROMPT_PICK "%s‚ğE‚¢‚Ü‚·‚©? " 
+	#define PROMPT_DIRECTION "•ûŒü (ESC‚Å’†’f)? "
 #else
 	#define PROMPT_COMMAND "Command: "
 	#define PROMPT_KEYPRESS "Keypress: "
@@ -964,6 +965,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_EQUIPMENT "Equip: "
 	#define PROMPT_REST "Rest (0-9999, '*' for HP/SP, '&' as needed): "
 	#define PROMPT_PICK "Pick up %s? " 
+	#define PROMPT_DIRECTION "Direction (Escape to cancel)? "
 #endif
 
 #ifdef JP

@@ -2890,18 +2890,8 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	while (!dir)
 	{
 		char ch;
-
-		/* Get a command (or Cancel) */
-#ifdef JP
-		if(!get_com("•ûŒü (ESC‚Å’†’f)? ", &ch, TRUE)) break;
-#else
-		if(!get_com("Direction (Escape to cancel)? ", &ch, TRUE)) break;
-#endif
-
-
-		/* Look up the direction */
+		if(!get_com(PROMPT_DIRECTION, &ch, TRUE)) break;
 		dir = get_keymap_dir(ch);
-
 		if(!dir) bell();
 	}
 
@@ -3006,18 +2996,8 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	while (!dir)
 	{
 		char ch;
-
-		/* Get a command (or Cancel) */
-#ifdef JP
-		if(!get_com("•ûŒü (ESC‚Å’†’f)? ", &ch, TRUE)) break;
-#else
-		if(!get_com("Direction (Escape to cancel)? ", &ch, TRUE)) break;
-#endif
-
-
-		/* Look up the direction */
+		if(!get_com(PROMPT_DIRECTION, &ch, TRUE)) break;
 		dir = get_keymap_dir(ch);
-
 		if(!dir) bell();
 	}
 
