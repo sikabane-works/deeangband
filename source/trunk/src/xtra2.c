@@ -2926,10 +2926,10 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	}
 	else if(creature_ptr->riding)
 	{
-		creature_type *m_ptr = &creature_list[creature_ptr->riding];
-		species_type *species_ptr = &species_info[m_ptr->species_idx];
+		creature_type *steed_ptr = &creature_list[creature_ptr->riding];
+		species_type *species_ptr = &species_info[steed_ptr->species_idx];
 
-		if(m_ptr->timed_trait[TRAIT_CONFUSED])
+		if(has_trait(steed_ptr, TRAIT_CONFUSED))
 		{
 			/* Standard confusion */
 			if(randint0(100) < 75)
@@ -3169,10 +3169,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Thou didst not deserve that, slave.'");
 #endif
-			if(has_trait(creature_ptr, TRAIT_ANDROID))
-			{
-				msg_print(GAME_MESSAGE_NO_HAPPEN);
-			}
+			if(has_trait(creature_ptr, TRAIT_ANDROID)) msg_print(GAME_MESSAGE_NO_HAPPEN);
 			else
 			{
 				lose_exp(creature_ptr, creature_ptr->exp / 6);
