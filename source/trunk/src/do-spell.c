@@ -9701,11 +9701,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				}
 				if((ty != oy) || (tx != ox))
 				{
-#ifdef JP
-					msg_format("%s‚ð‚«”ò‚Î‚µ‚½I", m_name);
-#else
-					msg_format("You blow %s away!", m_name);
-#endif
+					msg_format(GAME_MESSAGE_BLOE_AWAY, m_name);
 					floor_ptr->cave[oy][ox].creature_idx = 0;
 					floor_ptr->cave[ty][tx].creature_idx = m_idx;
 					m_ptr->fy = ty;

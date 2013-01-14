@@ -388,8 +388,10 @@
 #endif
 
 #ifdef JP
+#define GAME_MESSAGE_BLOE_AWAY "%s‚ğ‚«”ò‚Î‚µ‚½I"
 #define GAME_MESSAGE_CAMP_GET_ANGRY "%s‚Í“{‚Á‚½I"
 #else
+#define GAME_MESSAGE_BLOE_AWAY "You blow %s away!"
 #define GAME_MESSAGE_CAMP_GET_ANGRY "%^s gets angry!"
 #endif
 
