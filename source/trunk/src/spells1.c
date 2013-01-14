@@ -4470,7 +4470,6 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 		if(breath)
 		{
 			flg &= ~(PROJECT_HIDE);
-
 			breath_shape(path_g, floor_ptr, dist, &grids, gx, gy, gm, &gm_rad, rad, y1, x1, by, bx, typ);
 		}
 		else

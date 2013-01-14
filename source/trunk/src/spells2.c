@@ -2564,7 +2564,6 @@ bool cast_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 	return (project(caster_ptr, 0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
-
 /*
  * Cast a ball spell
  * Stop if we hit a creature, act as a "ball"
