@@ -2781,7 +2781,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				cast_ball(caster_ptr, DO_EFFECT_LITE, 0, dam, rad);
+				SELF_FIELD(caster_ptr, DO_EFFECT_LITE, dam, rad, -1);
 				wiz_lite(floor_ptr, caster_ptr, FALSE);
 
 				if(has_trait(caster_ptr, TRAIT_HURT_LITE) && !has_trait(caster_ptr, TRAIT_RES_LITE))

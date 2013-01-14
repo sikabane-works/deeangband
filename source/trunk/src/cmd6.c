@@ -1104,37 +1104,29 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			break;
 
 		case SV_SCROLL_FIRE:
-		{
 			SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 666, 4, -1);
-			/* Note: "Double" damage since it is centered on the player ... */
 			if(!has_trait(caster_ptr, TRAIT_RES_FIRE) || has_trait(caster_ptr, TRAIT_IM_FIRE))
 				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50 + randint1(50), COD_SCROLL_OF_FIRE, NULL, -1);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_ICE:
-		{
-			cast_ball(caster_ptr, DO_EFFECT_ICE, 0, 777, 4);
+			SELF_FIELD(caster_ptr, DO_EFFECT_ICE, 777, 4, -1);
 			if(!has_trait(caster_ptr, TRAIT_RES_COLD) || has_trait(caster_ptr, TRAIT_IM_COLD))
 				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), COD_SCROLL_OF_ICE, NULL, -1);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_CHAOS:
-		{
-			cast_ball(caster_ptr, DO_EFFECT_CHAOS, 0, 1000, 4);
+			SELF_FIELD(caster_ptr, DO_EFFECT_CHAOS, 1000, 4, -1);
 			if(!has_trait(caster_ptr, TRAIT_RES_CHAO))
 				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 111 + randint1(111), COD_SCROLL_OF_LOGRUS, NULL, -1);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_RUMOR:
 		{
 			errr err = 0;
-
 			switch (randint1(20))
 			{
 				case 1:
