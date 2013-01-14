@@ -2570,7 +2570,7 @@ bool cast_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
  * Allow "target" mode to pass over creatures
  * Affect grids, objects, and creatures
  */
-bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
+bool cast_grenade(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
 
