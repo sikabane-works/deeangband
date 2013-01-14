@@ -509,6 +509,7 @@
 #define COD_HP_TO_MP "HP‚©‚çMP‚Ö‚Ì–³–d‚È•ÏŠ·"
 #define COD_HARD_CONCENTRATION "‰ß“x‚ÌW’†"
 #define COD_ABSTINENCE "‹Ö—~‚ğ‹­‚¢‚½”æ˜J"
+#define COD_BUNP_WALL "•Ç‚Ö‚ÌÕ“Ë"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -545,6 +546,7 @@
 #define COD_HP_TO_MP "Thoughtless convertion from HP to MP"
 #define COD_HARD_CONCENTRATION "Concentrating too hard"
 #define COD_ABSTINENCE "the strain of forcing abstinence"
+#define COD_BUNP_WALL "bumping into wall"
 #endif
 
 // Hack -- possible "insult" messages

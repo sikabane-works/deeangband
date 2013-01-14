@@ -1542,11 +1542,10 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 			creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 			msg_format("%s‚©‚çU‚è—Ž‚Æ‚³‚ê‚»‚¤‚É‚È‚Á‚ÄA•Ç‚É‚Ô‚Â‚©‚Á‚½B",m_name);
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, species_ptr->level+3, "•Ç‚Ö‚ÌÕ“Ë", NULL, -1);
 #else
 			msg_format("You have nearly fallen from %s, but bumped into wall.",m_name);
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, species_ptr->level+3, "bumping into wall", NULL, -1);
 #endif
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, species_ptr->level+3, COD_BUNP_WALL, NULL, -1);
 			return FALSE;
 		}
 
@@ -1570,7 +1569,6 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 
 	prepare_update(creature_ptr, CRU_BONUS | PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 	update_creature(creature_ptr, TRUE);
-
 
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 	prepare_redraw(PR_EXTRA | PR_UHEALTH);
