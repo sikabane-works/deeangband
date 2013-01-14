@@ -1105,7 +1105,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 
 		case SV_SCROLL_FIRE:
 		{
-			cast_ball(caster_ptr, DO_EFFECT_FIRE, 0, 666, 4);
+			SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 666, 4, -1);
 			/* Note: "Double" damage since it is centered on the player ... */
 			if(!has_trait(caster_ptr, TRAIT_RES_FIRE) || has_trait(caster_ptr, TRAIT_IM_FIRE))
 				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50 + randint1(50), COD_SCROLL_OF_FIRE, NULL, -1);
