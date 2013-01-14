@@ -1863,11 +1863,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-#ifdef JP
-				if(!get_check("本当に他の階にテレポートしますか？")) return NULL;
-#else
-				if(!get_check("Are you sure? (Teleport Level)")) return NULL;
-#endif
+				if(!get_check(MES_GET_CHECK_LEVEL_TELEPORT)) return NULL;
 				teleport_level(caster_ptr, 0);
 			}
 		}
@@ -4792,11 +4788,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-#ifdef JP
-				if(!get_check("本当に他の階にテレポートしますか？")) return NULL;
-#else
-				if(!get_check("Are you sure? (Teleport Level)")) return NULL;
-#endif
+				if(!get_check(MES_GET_CHECK_LEVEL_TELEPORT)) return NULL;
 				teleport_level(caster_ptr, 0);
 			}
 		}
@@ -5921,11 +5913,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-#ifdef JP
-				if(!get_check("本当に他の階にテレポートしますか？")) return NULL;
-#else
-				if(!get_check("Are you sure? (Teleport Level)")) return NULL;
-#endif
+				if(!get_check(MES_GET_CHECK_LEVEL_TELEPORT)) return NULL;
 				teleport_level(caster_ptr, 0);
 			}
 		}
