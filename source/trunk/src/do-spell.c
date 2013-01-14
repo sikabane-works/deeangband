@@ -3517,11 +3517,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = 8;
 
 			if(info) return info_damage(0, 0, dam/2);
-
-			if(cast)
-			{
-				cast_ball(caster_ptr, DO_EFFECT_FIRE, 0, dam, rad);
-			}
+			if(cast) SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
 		}
 		break;
 
@@ -7235,7 +7231,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				cast_ball(caster_ptr, DO_EFFECT_FIRE, 0, dam, rad);
+				SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
 				cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, 0, 2 + randint1(2), rad);
 			}
 		}
@@ -7419,9 +7415,9 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				cast_ball(caster_ptr, DO_EFFECT_CHAOS, 0, dam, rad);
-				cast_ball(caster_ptr, DO_EFFECT_CONFUSION, 0, dam, rad);
-				cast_ball(caster_ptr, DO_EFFECT_CHARM, 0, power, rad);
+				SELF_FIELD(caster_ptr, DO_EFFECT_CHAOS, dam, rad, -1);
+				SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, dam, rad, -1);
+				SELF_FIELD(caster_ptr, DO_EFFECT_CHARM, dam, rad, -1);
 			}
 		}
 		break;

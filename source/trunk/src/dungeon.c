@@ -1951,7 +1951,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		msg_print("BRRAAAP! Oops.");
 #endif
 		msg_print(NULL);
-		cast_ball(creature_ptr, DO_EFFECT_POIS, 0, creature_ptr->lev, 3);
+		SELF_FIELD(creature_ptr, DO_EFFECT_POIS, creature_ptr->lev, 3, -1);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_PROD_MANA) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(9000))
