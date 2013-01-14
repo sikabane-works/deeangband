@@ -1503,12 +1503,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			if(floor_ptr->cave[y][x].creature_idx)
 			{
 				close_combat(creature_ptr, y, x, 0);
-				if(randint0(creature_ptr->skill_dis) < 7)
-#ifdef JP
-					msg_print("‚¤‚Ü‚­“¦‚°‚ç‚ê‚È‚©‚Á‚½B");
-#else
-					msg_print("You failed to run away.");
-#endif
+				if(randint0(creature_ptr->skill_dis) < 7) msg_print(GAME_MESSAGE_FAILED_RUNAWAY);
 				else
 				{
 					teleport_player(creature_ptr, 30, 0L);

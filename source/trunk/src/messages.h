@@ -192,6 +192,8 @@
 #define GAME_MESSAGE_TRAP_WARNING "* 注意:この先はトラップの感知範囲外です！ *"
 #define GAME_MESSAGE_TRAP_DESTROY "トラップを粉砕した。"
 
+#define GAME_MESSAGE_FAILED_RUNAWAY "うまく逃げられなかった。"
+
 #define GAME_MESSAGE_TRAP_NEEDLE "仕掛けられていた小さな針に刺されてしまった！"
 #define GAME_MESSAGE_TRAP_DARTS "小さなダーツが飛んできて刺さった！"
 #define GAME_MESSAGE_TRAP_DARTS_MISSED "小さなダーツが飛んできた！が、運良く当たらなかった。"
@@ -304,6 +306,8 @@
 
 #define GAME_MESSAGE_TRAP_WARNING "*Leaving trap detect region!*"
 #define GAME_MESSAGE_TRAP_DESTROY "You destroyed the trap."
+
+#define GAME_MESSAGE_FAILED_RUNAWAY "You are failed to run away."
 
 #define GAME_MESSAGE_TRAP_NEEDLE "A small needle has pricked you!"
 #define GAME_MESSAGE_TRAP_DARTS "A small dart hits you!"

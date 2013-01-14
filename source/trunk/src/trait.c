@@ -2055,12 +2055,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			if(floor_ptr->cave[y][x].creature_idx)
 			{
 				close_combat(caster_ptr, y, x, 0);
-				if(randint0(caster_ptr->skill_dis) < 7)
-#ifdef JP
-					msg_print("うまく逃げられなかった。");
-#else
-					msg_print("You are failed to run away.");
-#endif
+				if(randint0(caster_ptr->skill_dis) < 7) msg_print(GAME_MESSAGE_FAILED_RUNAWAY);
 				else teleport_player(caster_ptr, 30, 0L);
 			}
 			else
