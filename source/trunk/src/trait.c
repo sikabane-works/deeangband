@@ -2112,11 +2112,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			if(!(empty_hands(caster_ptr, TRUE) & EMPTY_HAND_RARM))
 			{
-#ifdef JP
-				msg_print("素手じゃないとできません。");
-#else
-				msg_print("You need to be bare hand.");
-#endif
+				msg_print(GAME_MESSAGE_PREVENT_BY_NO_BAREBAND);
 				return FALSE;
 			}
 			if(caster_ptr->riding)
