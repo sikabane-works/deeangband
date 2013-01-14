@@ -3471,7 +3471,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_print("'Suffer, pathetic fool!'");
 			reward = "generating disintegration ball";
 #endif
-			cast_ball(creature_ptr, DO_EFFECT_DISINTEGRATE, 0, creature_ptr->lev * 4, 4);
+			SELF_FIELD(creature_ptr, DO_EFFECT_NUKE, creature_ptr->lev * 4, 4, -1);
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 			break;
 

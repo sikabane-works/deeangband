@@ -664,7 +664,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BLAZING_LIGHT:
-		cast_ball(caster_ptr, DO_EFFECT_LITE, 0, 300, 6);
+		SELF_FIELD(caster_ptr, DO_EFFECT_LITE, 300, 6, -1);
 		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 3 * caster_ptr->lev / 2);
 		break;
 
@@ -876,7 +876,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_SHRIEK:
 		stop_mouth(caster_ptr);
-		(void)cast_ball(caster_ptr, DO_EFFECT_SOUND, 0, 2 * user_level, 8);
+		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
 		aggravate_creatures(caster_ptr);
 		break;
 
@@ -2449,7 +2449,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_SPIT_ACID:
 		stop_mouth(caster_ptr);
 		if(user_level < 25) cast_bolt(caster_ptr, DO_EFFECT_ACID, user_level, 0);
-		else cast_ball(caster_ptr, DO_EFFECT_ACID, dir, user_level, 2);
+		else SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, user_level * 2, 2, -1);
 		break;
 
 	case TRAIT_POISON_DART:
@@ -2499,7 +2499,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_RADIATION:
-		cast_ball(caster_ptr, DO_EFFECT_NUKE, 0, (user_level * 2), 3 + (user_level / 20));
+		SELF_FIELD(caster_ptr, DO_EFFECT_NUKE, (user_level * 2), 3 + (user_level / 20), -1);
 		break;
 
 	case TRAIT_SMELL_MET:

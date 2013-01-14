@@ -1149,7 +1149,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 			break;
 		}
 	case 11:
-		cast_ball(creature_ptr, DO_EFFECT_FIRE, 0, 200 + (2 * plev) + boost * 2, 10);
+		SELF_FIELD(creature_ptr, DO_EFFECT_FIRE, 200 + (2 * plev) + boost * 2, 10, -1);
 		break;
 	case 12:
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
@@ -1256,8 +1256,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		/* mirror clashing */
 	case 8:
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		cast_ball(creature_ptr, DO_EFFECT_SHARDS, dir, diceroll(8 + ((plev - 5) / 4), 8),
-			(plev > 20 ? (plev - 20) / 8 + 1 : 0));
+		cast_ball(creature_ptr, DO_EFFECT_SHARDS, dir, diceroll(8 + ((plev - 5) / 4), 8), (plev > 20 ? (plev - 20) / 8 + 1 : 0));
 		break;
 		/* mirror sleeping */
 	case 9:
@@ -1528,7 +1527,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 		set_timed_trait(creature_ptr, TRAIT_LEVITATION, randint1(20) + 20, FALSE);
 		break;
 	case 9:
-		cast_ball(creature_ptr, DO_EFFECT_FIRE, 0, 50+plev, plev/10+2);
+		SELF_FIELD(creature_ptr, DO_EFFECT_FIRE, 50 + plev, plev / 10 + 2, -1);
 		teleport_player(creature_ptr, 30, 0L);
 		set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, plev, FALSE);
 		break;
@@ -1653,9 +1652,9 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 		set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ACID, plev, FALSE);
 		break;
 	case 17:
-		cast_ball(creature_ptr, DO_EFFECT_POIS, 0, 75+plev*2/3, plev/5+2);
-		cast_ball(creature_ptr, DO_EFFECT_OLD_DRAIN, 0, 75+plev*2/3, plev/5+2);
-		cast_ball(creature_ptr, DO_EFFECT_CONFUSION, 0, 75+plev*2/3, plev/5+2);
+		SELF_FIELD(creature_ptr, DO_EFFECT_POIS, 75 + plev * 2 / 3, plev / 5 + 2, -1);
+		SELF_FIELD(creature_ptr, DO_EFFECT_OLD_DRAIN, 75 + plev * 2 / 3, plev / 5 + 2, -1);
+		SELF_FIELD(creature_ptr, DO_EFFECT_CONFUSION, 75 + plev * 2 / 3, plev / 5 + 2, -1);
 		teleport_player(creature_ptr, 30, 0L);
 		break;
 	case 18:

@@ -2096,7 +2096,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		msg_print("You feel the world warping around you!");
 #endif
 		msg_print(NULL);
-		cast_ball(creature_ptr, DO_EFFECT_CHAOS, 0, creature_ptr->lev, 8);
+		SELF_FIELD(creature_ptr, DO_EFFECT_CHAOS, creature_ptr->lev, 8, -1);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_NORMALITY) && one_in_(5000))

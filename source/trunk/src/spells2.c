@@ -2952,7 +2952,7 @@ void call_chaos(creature_type *creature_ptr)
 	}
 	else if(one_in_(3))
 	{
-		cast_ball(creature_ptr, Chaos_type, 0, 500, 8);
+		SELF_FIELD(creature_ptr, Chaos_type, 500, 8, -1);
 	}
 	else
 	{
