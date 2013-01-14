@@ -4442,13 +4442,12 @@ bool process_warning(creature_type *target_ptr, int xx, int yy)
 			else strcpy(object_name, "体"); /* Warning ability without item */
 			msg_format("%sが鋭く震えた！", object_name);
 			disturb(target_ptr, 0, 0);
-			return get_check("本当にこのまま進むか？");
 #else
 			else strcpy(object_name, "body"); /* Warning ability without item */
 			msg_format("Your %s pulsates sharply!", object_name);
 			disturb(target_ptr, 0, 0);
-			return get_check("Really want to go ahead? ");
 #endif
+			return get_check(MES_GET_CHECK_AHEAD);
 		}
 	}
 	else old_damage = old_damage / 2;
@@ -4462,14 +4461,12 @@ bool process_warning(creature_type *target_ptr, int xx, int yy)
 #ifdef JP
 		else strcpy(object_name, "体"); /* Warning ability without item */
 		msg_format("%sが震えた！", object_name);
-		disturb(target_ptr, 0, 0);
-		return get_check("本当にこのまま進むか？");
 #else
 		else strcpy(object_name, "body"); /* Warning ability without item */
 		msg_format("Your %s pulsates!", object_name);
-		disturb(target_ptr, 0, 0);
-		return get_check("Really want to go ahead? ");
 #endif
+		disturb(target_ptr, 0, 0);
+		return get_check(MES_GET_CHECK_AHEAD);
 	}
 
 	return TRUE;

@@ -5591,20 +5591,13 @@ void do_cmd_suicide(creature_type *creature_ptr)
 #endif
 
 	}
-	else
-	{
-#ifdef JP
-		if(!get_check("本当に自殺しますか？")) return;
-#else
-		if(!get_check("Do you really want to commit suicide? ")) return;
-#endif
-	}
+	else if(!get_check(MES_GET_CHECK_SUICIDE)) return;
 
 	if(!noscore)
 	{
 		/* Special Verification for suicide */
 #ifdef JP
-prt("確認のため '@' を押して下さい。", 0, 0);
+		prt("確認のため '@' を押して下さい。", 0, 0);
 #else
 		prt("Please verify SUICIDE by typing the '@' sign: ", 0, 0);
 #endif

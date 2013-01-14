@@ -10445,12 +10445,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(cast)
 		{
 			int i;
-#ifdef JP
-			if(!get_check("本当に自殺しますか？")) return NULL;
-#else
-			if(!get_check("Do you really want to commit suicide? ")) return NULL;
-#endif
-				/* Special Verification for suicide */
+			if(!get_check(MES_GET_CHECK_SUICIDE)) return NULL;
 #ifdef JP
 			prt("確認のため '@' を押して下さい。", 0, 0);
 #else

@@ -971,6 +971,14 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #endif
 
 #ifdef JP
+#define MES_GET_CHECK_AHEAD "本当にこのまま進むか？"
+#define MES_GET_CHECK_SUICIDE "本当に自殺しますか？"
+#else
+#define MES_GET_CHECK_AHEAD "Really want to go ahead? "
+#define MES_GET_CHECK_SUICIDE "Do you really want to commit suicide? "
+#endif
+
+#ifdef JP
 	#define ST_VIEW_HUNGER_WEAK		"衰弱  "
 	#define ST_VIEW_HUNGER_HUNGRY	"空腹  "
 	#define ST_VIEW_HUNGER_NORMAL	"      "
