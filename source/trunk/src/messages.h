@@ -1141,3 +1141,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define INVOKE_SPIRIT_FUNBLE_AFTER "Sepulchral voices chuckle. 'Soon you will join us, mortal.'"
 #endif
 
+#ifdef JP
+#define DEBUG_MESSAGE_ROOM_NUM "ïîâÆêî: %d"
+#else
+#define DEBUG_MESSAGE_ROOM_NUM "Number of Rooms: %d"
+#endif

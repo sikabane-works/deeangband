@@ -36,22 +36,21 @@ static room_info_type room_info_normal[ROOM_T_MAX] =
 {
 	/* Depth */
 	/*  0  10  20  30  40  50  60  70  80  90 100  min limit */
-
-	{{999,900,800,700,600,500,400,300,200,100, 0}, 0}, /*NORMAL   */
-	{{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100}, 1}, /*OVERLAP  */
-	{{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100}, 3}, /*CROSS    */
-	{{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100}, 3}, /*INNER_F  */
-	{{  0, 1, 1, 1, 2, 3, 5, 6, 8, 10, 13}, 10}, /*NEST     */
-	{{  0, 1, 1, 2, 3, 4, 6, 8, 10, 13, 16}, 10}, /*PIT      */
-	{{  0, 1, 1, 1, 2, 2, 3, 5, 6, 8, 10}, 10}, /*LESSER_V */
-	{{  0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 4}, 20}, /*GREATER_V*/
+	{{999,900,800,700,600,500,400,300,200,100,  0},  0}, /*NORMAL   */
+	{{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  1}, /*OVERLAP  */
+	{{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  3}, /*CROSS    */
+	{{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  3}, /*INNER_F  */
+	{{  0,  1,  1,  1,  2,  3,  5,  6,  8, 10, 13}, 10}, /*NEST     */
+	{{  0,  1,  1,  2,  3,  4,  6,  8, 10, 13, 16}, 10}, /*PIT      */
+	{{  0,  1,  1,  1,  2,  2,  3,  5,  6,  8, 10}, 10}, /*LESSER_V */
+	{{  0,  0,  1,  1,  1,  2,  2,  2,  3,  3,  4}, 20}, /*GREATER_V*/
 	{{  0,100,200,300,400,500,600,700,800,900,999}, 10}, /*FRACAVE  */
-	{{  0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2}, 10}, /*RANDOM_V */
-	{{  0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40}, 3}, /*OVAL     */
-	{{  1, 6, 12, 18, 24, 30, 36, 42, 48, 54, 60}, 10}, /*CRYPT    */
-	{{  0, 0, 1, 1, 1, 2, 3, 4, 5, 6, 8}, 20}, /*TRAP_PIT */
-	{{  0, 0, 1, 1, 1, 2, 3, 4, 5, 6, 8}, 20}, /*TRAP     */
-	{{  0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 2}, 40}, /*GLASS    */
+	{{  0,  1,  1,  1,  1,  1,  1,  1,  1,  2,  2}, 10}, /*RANDOM_V */
+	{{  0,  4,  8, 12, 16, 20, 24, 28, 32, 36, 40},  3}, /*OVAL     */
+	{{  1,  6, 12, 18, 24, 30, 36, 42, 48, 54, 60}, 10}, /*CRYPT    */
+	{{  0,  0,  1,  1,  1,  2,  3,  4,  5,  6,  8}, 20}, /*TRAP_PIT */
+	{{  0,  0,  1,  1,  1,  2,  3,  4,  5,  6,  8}, 20}, /*TRAP     */
+	{{  0,  0,  0,  0,  1,  1,  1,  2,  2,  2,  2}, 40}, /*GLASS    */
 };
 
 
@@ -6171,7 +6170,6 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	return FALSE;
 }
 
-
 #define MOVE_PLIST(dst, src) (prob_list[dst] += prob_list[src], prob_list[src] = 0)
 
 /*
@@ -6206,13 +6204,9 @@ bool generate_rooms(floor_type *floor_ptr)
 	{
 		/* No rooms allowed above their minimum depth. */
 		if(floor_ptr->floor_level < room_object_ptr[i].min_level)
-		{
 			prob_list[i] = 0;
-		}
 		else
-		{
 			prob_list[i] = room_object_ptr[i].prob[level_index];
-		}
 	}
 
 	/*
@@ -6236,7 +6230,6 @@ bool generate_rooms(floor_type *floor_ptr)
 		prob_list[ROOM_T_GREATER_VAULT] = 0;
 		prob_list[ROOM_T_RANDOM_VAULT] = 0;
 	}
-
 
 	/* NO_CAVE dungeon (Castle)*/
 	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE)
@@ -6369,15 +6362,7 @@ bool generate_rooms(floor_type *floor_ptr)
 	}
 
 	if(rooms_built < 1) return FALSE;
-
-	if(cheat_room)
-	{
-#ifdef JP
-		msg_format("•”‰®”: %d", rooms_built);
-#else
-		msg_format("Number of Rooms: %d", rooms_built);
-#endif
-	}
+	if(cheat_room) msg_format(DEBUG_MESSAGE_ROOM_NUM , rooms_built);
 
 	return TRUE;
 }
