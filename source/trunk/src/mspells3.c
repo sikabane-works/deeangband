@@ -723,16 +723,8 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	if(need_mana > creature_ptr->csp)
 	{
 		msg_print(GAME_MESSAGE_PREVENT_BY_MP);
-
 		if(!over_exert) return FALSE;
-
-		/* Verify */
-#ifdef JP
-		if(!get_check("ÇªÇÍÇ≈Ç‡íßêÌÇµÇ‹Ç∑Ç©? ")) return FALSE;
-#else
-		if(!get_check("Attempt it anyway? ")) return FALSE;
-#endif
-
+		if(!get_check(GAME_MESSAGE_ATTEMPT_ANYWAY)) return FALSE;
 	}
 
 	/* Spell failure chance */

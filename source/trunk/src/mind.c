@@ -1756,13 +1756,8 @@ void do_cmd_mind(creature_type *creature_ptr)
 	else if(mana_cost > creature_ptr->csp)
 	{
 		msg_print(GAME_MESSAGE_PREVENT_BY_MP);
-#ifdef JP
 		if(!over_exert) return;
-		if(!get_check("ÇªÇÍÇ≈Ç‡íßêÌÇµÇ‹Ç∑Ç©? ")) return;
-#else
-		if(!over_exert) return;
-		if(!get_check("Attempt it anyway? ")) return;
-#endif
+		if(!get_check(GAME_MESSAGE_ATTEMPT_ANYWAY)) return;
 	}
 
 	if(chance)

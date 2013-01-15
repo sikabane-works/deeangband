@@ -992,15 +992,8 @@ void do_cmd_cast(creature_type *creature_ptr)
 			prayer);
 #endif
 
-
 		if(!over_exert) return;
-
-		/* Verify */
-#ifdef JP
-		if(!get_check_strict("ÇªÇÍÇ≈Ç‡íßêÌÇµÇ‹Ç∑Ç©? ", CHECK_OKAY_CANCEL)) return;
-#else
-		if(!get_check_strict("Attempt it anyway? ", CHECK_OKAY_CANCEL)) return;
-#endif
+		if(!get_check_strict(GAME_MESSAGE_ATTEMPT_ANYWAY, CHECK_OKAY_CANCEL)) return;
 
 	}
 
