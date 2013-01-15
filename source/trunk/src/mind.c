@@ -1759,12 +1759,11 @@ void do_cmd_mind(creature_type *creature_ptr)
 	}
 	else if(mana_cost > creature_ptr->csp)
 	{
+		msg_print(GAME_MESSAGE_PREVENT_BY_MP);
 #ifdef JP
-		msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
 		if(!over_exert) return;
 		if(!get_check("‚»‚ê‚Å‚à’§í‚µ‚Ü‚·‚©? ")) return;
 #else
-		msg_print("You do not have enough mana to use this power.");
 		if(!over_exert) return;
 		if(!get_check("Attempt it anyway? ")) return;
 #endif

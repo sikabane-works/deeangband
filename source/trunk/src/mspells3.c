@@ -722,12 +722,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	/* Verify "dangerous" spells */
 	if(need_mana > creature_ptr->csp)
 	{
-#ifdef JP
-		msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
-#else
-		msg_print("You do not have enough mana to use this power.");
-#endif
-
+		msg_print(GAME_MESSAGE_PREVENT_BY_MP);
 
 		if(!over_exert) return FALSE;
 
