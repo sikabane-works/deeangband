@@ -1048,12 +1048,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	else if(object_ptr->fuel == 0)
 	{
 		disturb(player_ptr, 0, 0);
-#ifdef JP
-		msg_print("–¾‚©‚è‚ªÁ‚¦‚Ä‚µ‚Ü‚Á‚½I");
-#else
-		msg_print("Your light has gone out!");
-#endif
-
+		msg_print(GAME_MESSAGE_LITE_OUT);
 		prepare_update(creature_ptr, CRU_TORCH | CRU_BONUS);
 	}
 

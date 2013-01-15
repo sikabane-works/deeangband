@@ -189,10 +189,11 @@
 #define GAME_MESSAGE_NO_MONEY_INSULT "おい！金がないじゃないか！出ていけ！"
 #define GAME_MESSAGE_BOUNTY_1 "%s を換金しますか？"
 
-#define GAME_MESSAGE_LITE_FAINT "明かりが微かになってきている。"
-
 #define GAME_MESSAGE_TRAP_WARNING "* 注意:この先はトラップの感知範囲外です！ *"
 #define GAME_MESSAGE_TRAP_DESTROY "トラップを粉砕した。"
+
+#define GAME_MESSAGE_LITE_FAINT "明かりが微かになってきている。"
+#define GAME_MESSAGE_LITE_OUT "明かりが消えてしまった！"
 
 #define GAME_MESSAGE_FAILED_RUNAWAY "うまく逃げられなかった。"
 
@@ -315,6 +316,7 @@
 #define GAME_MESSAGE_TRAP_DESTROY "You destroyed the trap."
 
 #define GAME_MESSAGE_LITE_FAINT "Your light is growing faint."
+#define GAME_MESSAGE_LITE_OUT "Your light has gone out!"
 
 #define GAME_MESSAGE_FAILED_RUNAWAY "You are failed to run away."
 
