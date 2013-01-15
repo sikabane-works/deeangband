@@ -716,11 +716,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	/* Power is not available yet */
 	if(creature_ptr->lev < min_level)
 	{
-#ifdef JP
-		msg_format("この能力を使用するにはレベル %d に達していなければなりません。", min_level);
-#else
-		msg_format("You need to attain level %d to use this power.", min_level);
-#endif
+		msg_format(GAME_MESSAGE_PREVENT_BY_LEVEL, min_level);
 		cancel_tactical_action(creature_ptr);
 		return 0;
 	}

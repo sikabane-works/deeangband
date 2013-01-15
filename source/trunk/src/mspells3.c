@@ -765,11 +765,10 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	{
 		if(flush_failure) flush();
 #ifdef JP
-msg_print("魔法をうまく唱えられなかった。");
+		msg_print("魔法をうまく唱えられなかった。");
 #else
 		msg_print("You failed to concentrate hard enough!");
 #endif
-
 		sound(SOUND_FAIL);
 
 		if(n >= TRAIT_S_KIN)
@@ -801,7 +800,7 @@ msg_print("魔法をうまく唱えられなかった。");
 		creature_ptr->csp_frac = 0;
 
 #ifdef JP
-msg_print("精神を集中しすぎて気を失ってしまった！");
+		msg_print("精神を集中しすぎて気を失ってしまった！");
 #else
 		msg_print("You faint from the effort!");
 #endif
@@ -814,14 +813,11 @@ msg_print("精神を集中しすぎて気を失ってしまった！");
 		if(randint0(100) < 50)
 		{
 			bool perm = (randint0(100) < 25);
-
 #ifdef JP
-msg_print("体を悪くしてしまった！");
+			msg_print("体を悪くしてしまった！");
 #else
 			msg_print("You have damaged your health!");
 #endif
-
-
 			/* Reduce constitution */
 			(void)dec_stat(creature_ptr, STAT_CON, 15 + randint1(10), perm);
 		}

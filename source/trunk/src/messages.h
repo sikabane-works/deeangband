@@ -232,6 +232,7 @@
 #define GAME_MESSAGE_PREVENT_BY_NO_BAREBAND "素手じゃないとできません。"
 #define GAME_MESSAGE_PREVENT_BY_HP "HPが足りません."
 #define GAME_MESSAGE_PREVENT_BY_MP "MPが足りません。"
+#define GAME_MESSAGE_PREVENT_BY_LEVEL "この能力を使用するにはレベル %d に達していなければなりません。"
 #define GAME_MESSAGE_ATTEMPT_ANYWAY "それでも挑戦しますか? "
 
 #define GAME_MESSAGE_IMPROVE_LIMIT "そのアイテムはこれ以上改良できない。"
@@ -350,6 +351,8 @@
 #define GAME_MESSAGE_PREVENT_BY_NO_BAREBAND "You need to be bare hand."
 #define GAME_MESSAGE_PREVENT_BY_HP "You do not have enough hit-point to use this power."
 #define GAME_MESSAGE_PREVENT_BY_MP "You do not have enough mana to use this power."
+#define GAME_MESSAGE_PREVENT_BY_LEVEL "You need to attain level %d to use this power."
+
 #define GAME_MESSAGE_ATTEMPT_ANYWAY "Attempt it anyway? "
 
 #define GAME_MESSAGE_IMPROVE_LIMIT "This item is no more able to be improved."
