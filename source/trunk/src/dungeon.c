@@ -728,10 +728,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 		return;
 	}
 
-
 	if(command_arg < min_level) command_arg = min_level;
-
-
 	if(command_arg > max_level) command_arg = max_level;
 
 	/* Accept request */
@@ -1608,21 +1605,19 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			{
 #ifdef JP
 				msg_print("体の分子が分解した気がする！");
-				dam_desc = "密度";
 #else
 				msg_print("Your molecules feel disrupted!");
-				dam_desc = "density";
 #endif
+				dam_desc = COD_DENSITY;
 			}
 			else
 			{
 #ifdef JP
 				msg_print("崩れた岩に押し潰された！");
-				dam_desc = "硬い岩";
 #else
 				msg_print("You are being crushed!");
-				dam_desc = "solid rock";
 #endif
+				dam_desc = COD_SOLID_ROCK;
 			}
 
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1 + (creature_ptr->lev / 5), dam_desc, NULL, -1);

@@ -536,6 +536,8 @@
 #define COD_HARD_CONCENTRATION "âﬂìxÇÃèWíÜ"
 #define COD_ABSTINENCE "ã÷ó~Çã≠Ç¢ÇΩîÊòJ"
 #define COD_BUNP_WALL "ï«Ç÷ÇÃè’ìÀ"
+#define COD_DENSITY "ñßìx"
+#define COD_SOLID_ROCK "çdÇ¢ä‚"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -576,6 +578,8 @@
 #define COD_HARD_CONCENTRATION "Concentrating too hard"
 #define COD_ABSTINENCE "the strain of forcing abstinence"
 #define COD_BUNP_WALL "bumping into wall"
+#define COD_DENSITY "density"
+#define COD_SOLID_ROCK "solid rock"
 #endif
 
 // Hack -- possible "insult" messages
