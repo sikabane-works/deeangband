@@ -3614,15 +3614,7 @@ void display_spell_list(creature_type *creature_ptr)
 			/* Illegible */
 			if(s_ptr->slevel >= 99)
 			{
-				/* Illegible */
-#ifdef JP
-strcpy(name, "(判読不能)");
-#else
-				strcpy(name, "(illegible)");
-#endif
-
-
-				/* Unusable */
+				strcpy(name, KW_ILLEGIBLE);
 				a = TERM_L_DARK;
 			}
 
@@ -3981,12 +3973,7 @@ void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, i
 		/* Skip illegible spells */
 		if(s_ptr->slevel >= 99)
 		{
-#ifdef JP
-				strcat(out_val, format("%-30s", "(判読不能)"));
-#else
-				strcat(out_val, format("%-30s", "(illegible)"));
-#endif
-
+				strcat(out_val, format("%-30s", KW_ILLEGIBLE));
 				c_prt(TERM_L_DARK, out_val, y + i + 1, x);
 				continue;
 		}
