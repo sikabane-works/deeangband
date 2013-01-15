@@ -1715,28 +1715,17 @@ void do_cmd_mind(creature_type *creature_ptr)
 	/* get power */
 	if(!get_mind_power(creature_ptr, &n, FALSE)) return;
 
-#ifdef JP
 	switch(creature_ptr->class_idx)
 	{
-	case CLASS_MINDCRAFTER: use_mind = MIND_MINDCRAFTER;p = "精神";break;
-	case CLASS_FORCETRAINER:          use_mind = MIND_KI;p = "気";break;
-	case CLASS_BERSERKER:   use_mind = MIND_BERSERKER;p = "怒り";break;
-	case CLASS_MIRROR_MASTER:   use_mind = MIND_MIRROR_MASTER;p = "鏡魔法";break;
-	case CLASS_NINJA:       use_mind = MIND_NINJUTSU;p = "精神";break;
-	default:                use_mind = 0;p = "超能力";break;
+	case CLASS_MINDCRAFTER:   use_mind = MIND_MINDCRAFTER; break;
+	case CLASS_FORCETRAINER:  use_mind = MIND_KI; break;
+	case CLASS_BERSERKER:     use_mind = MIND_BERSERKER; break;
+	case CLASS_MIRROR_MASTER: use_mind = MIND_MIRROR_MASTER; break;
+	case CLASS_NINJA:         use_mind = MIND_NINJUTSU; break;
+	default:                  use_mind = 0;
 	}
-#else
-	switch(creature_ptr->class_idx)
-	{
-	case CLASS_MINDCRAFTER: use_mind = MIND_MINDCRAFTER;break;
-	case CLASS_FORCETRAINER:          use_mind = MIND_KI;break;
-	case CLASS_BERSERKER:   use_mind = MIND_BERSERKER;break;
-	case CLASS_MIRROR_MASTER:   use_mind = MIND_MIRROR_MASTER;break;
-	case CLASS_NINJA:       use_mind = MIND_NINJUTSU;break;
-	default:                use_mind = 0;break;
-	}
-#endif
 	spell = mind_powers[use_mind].info[n];
+	p = SKILL_NAME_PSIONIC;
 
 	/* Spell failure chance */
 	chance = spell.fail;
