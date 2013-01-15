@@ -1391,13 +1391,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	creature_desc(creature_name, creature_ptr, 0);
 
 	if(has_trait(creature_ptr, TRAIT_POISONED) && !IS_INVULN(creature_ptr)) // Take damage from poison
-	{
-#ifdef JP
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "ì≈", NULL, -1);
-#else
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "poison", NULL, -1);
-#endif
-	}
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, COD_POISON, NULL, -1);
 
 	/* Take damage from cuts */
 	if(has_trait(creature_ptr, TRAIT_CUT) && !IS_INVULN(creature_ptr))
@@ -1413,13 +1407,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		else if(creature_ptr->timed_trait[TRAIT_CUT] > 10) dam = 3;
 		else dam = 1;
 
-		// Take damage
-#ifdef JP
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "ívñΩèù", NULL, -1);
-#else
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "a fatal wound", NULL, -1);
-#endif
-
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, COD_WOUND, NULL, -1);
 	}
 
 	// (Vampires) Take damage from sunlight
