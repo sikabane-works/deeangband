@@ -770,28 +770,16 @@ static void wreck_the_pattern(floor_type *floor_ptr, creature_type *creature_ptr
 
 	if(pattern_type == PATTERN_TILE_WRECKED) return; // Ruined already
 
-#ifdef JP
-	msg_print("パターンを血で汚してしまった！");
-	msg_print("何か恐ろしい事が起こった！");
-#else
-	msg_print("You bleed on the Pattern!");
-	msg_print("Something terrible happens!");
-#endif
+	msg_print(GAME_MESSAGE_PATTERN_WRECKED);
 
-	if(!IS_INVULN(creature_ptr))
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), COD_PATTERN_DAMAGE_3, NULL, -1);
-
+	if(!IS_INVULN(creature_ptr)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), COD_PATTERN_DAMAGE_3, NULL, -1);
 	to_ruin = randint1(45) + 35;
 
 	while (to_ruin--)
 	{
 		scatter(floor_ptr, &r_y, &r_x, creature_ptr->fy, creature_ptr->fx, 4, 0);
-
-		if(pattern_tile(floor_ptr, r_y, r_x) &&
-			(feature_info[floor_ptr->cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
-		{
+		if(pattern_tile(floor_ptr, r_y, r_x) && (feature_info[floor_ptr->cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
 			cave_set_feat(floor_ptr, r_y, r_x, feat_pattern_corrupted);
-		}
 	}
 
 	cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx, feat_pattern_corrupted);
