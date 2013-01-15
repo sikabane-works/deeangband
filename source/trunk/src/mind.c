@@ -1749,11 +1749,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 	{
 		if(mana_cost > creature_ptr->chp)
 		{
-#ifdef JP
-			msg_print("‚g‚o‚ª‘«‚è‚Ü‚¹‚ñB");
-#else
-			msg_print("You do not have enough hp to use this power.");
-#endif
+			msg_print(GAME_MESSAGE_PREVENT_BY_HP);
 			return;
 		}
 	}

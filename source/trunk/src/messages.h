@@ -230,7 +230,8 @@
 #define GAME_MESSAGE_PREVENT_BY_PET "今はペットを操ることに集中していないと。"
 #define GAME_MESSAGE_PREVENT_BY_NO_MIRROR "鏡の上でないと集中できない。"
 #define GAME_MESSAGE_PREVENT_BY_NO_BAREBAND "素手じゃないとできません。"
-#define GAME_MESSAGE_PREVENT_BY_MP "ＭＰが足りません。"
+#define GAME_MESSAGE_PREVENT_BY_HP "HPが足りません."
+#define GAME_MESSAGE_PREVENT_BY_MP "MPが足りません。"
 
 #define GAME_MESSAGE_IMPROVE_LIMIT "そのアイテムはこれ以上改良できない。"
 
@@ -346,6 +347,7 @@
 #define GAME_MESSAGE_PREVENT_BY_PET "You need concentration on the pets now."
 #define GAME_MESSAGE_PREVENT_BY_NO_MIRROR "Here are not any mirrors!"
 #define GAME_MESSAGE_PREVENT_BY_NO_BAREBAND "You need to be bare hand."
+#define GAME_MESSAGE_PREVENT_BY_HP "You do not have enough hit-point to use this power."
 #define GAME_MESSAGE_PREVENT_BY_MP "You do not have enough mana to use this power."
 
 #define GAME_MESSAGE_IMPROVE_LIMIT "This item is no more able to be improved."
