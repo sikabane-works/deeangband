@@ -1603,20 +1603,12 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 			if(has_trait(creature_ptr, TRAIT_PASS_WALL))
 			{
-#ifdef JP
-				msg_print("体の分子が分解した気がする！");
-#else
-				msg_print("Your molecules feel disrupted!");
-#endif
+				msg_print(GAME_MESSAGE_DAMAGE_DENSITY);
 				dam_desc = COD_DENSITY;
 			}
 			else
 			{
-#ifdef JP
-				msg_print("崩れた岩に押し潰された！");
-#else
-				msg_print("You are being crushed!");
-#endif
+				msg_print(GAME_MESSAGE_ROCK_CRUSHING);
 				dam_desc = COD_SOLID_ROCK;
 			}
 
