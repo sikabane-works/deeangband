@@ -27,23 +27,25 @@
 
 
 /* Room types for room_build() */
-#define ROOM_T_NORMAL         0	 /* Simple */
-#define ROOM_T_OVERLAP        1	 /* Overlapping */
-#define ROOM_T_CROSS          2	 /* Crossed */
-#define ROOM_T_INNER_FEAT     3	 /* Large */
-#define ROOM_T_NEST           4	 /* Creature nest */
-#define ROOM_T_PIT            5	 /* Creature pit */
-#define ROOM_T_LESSER_VAULT   6	 /* Lesser vault */
-#define ROOM_T_GREATER_VAULT  7	 /* Greater vault */
-#define ROOM_T_FRACAVE        8	 /* Fractal cave */
-#define ROOM_T_RANDOM_VAULT   9	 /* Random vault */
-#define ROOM_T_OVAL          10	 /* Circular rooms */
-#define ROOM_T_CRYPT         11	 /* Crypts (22x22) */
-#define ROOM_T_TRAP_PIT      12	 /* Trapped creature pit */
-#define ROOM_T_TRAP          13	 /* Piranha/Armageddon trap room */
-#define ROOM_T_GLASS         14	 /* Glass room */
-
-#define ROOM_T_MAX 45
+enum ROOMT_T
+{
+	ROOM_T_NORMAL, // Simple 
+	ROOM_T_OVERLAP, // Overlapping 
+	ROOM_T_CROSS, // Crossed 
+	ROOM_T_INNER_FEAT, // Large 
+	ROOM_T_NEST, // Creature nest 
+	ROOM_T_PIT, // Creature pit 
+	ROOM_T_LESSER_VAULT, // Lesser vault 
+	ROOM_T_GREATER_VAULT, // Greater vault 
+	ROOM_T_FRACAVE, // Fractal cave 
+	ROOM_T_RANDOM_VAULT, // Random vault 
+	ROOM_T_OVAL, // Circular rooms 
+	ROOM_T_CRYPT, // Crypts (22x22) 
+	ROOM_T_TRAP_PIT, // Trapped creature pit 
+	ROOM_T_TRAP, // Piranha/Armageddon trap room 
+	ROOM_T_GLASS, // Glass room 
+	ROOM_T_MAX,
+};
 
 
 /*
