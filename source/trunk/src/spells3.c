@@ -3973,9 +3973,9 @@ void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, i
 		/* Skip illegible spells */
 		if(s_ptr->slevel >= 99)
 		{
-				strcat(out_val, format("%-30s", KW_ILLEGIBLE));
-				c_prt(TERM_L_DARK, out_val, y + i + 1, x);
-				continue;
+			strcat(out_val, format("%-30s", KW_ILLEGIBLE));
+			c_prt(TERM_L_DARK, out_val, y + i + 1, x);
+			continue;
 		}
 
 		/* XXX XXX Could label spells above the players level */

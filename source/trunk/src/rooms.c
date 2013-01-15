@@ -2856,11 +2856,8 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 	}
 }
 
-
-/*
- * Type 7 -- simple vaults (see "vault_info.txt")
- */
-static bool build_type7(floor_type *floor_ptr)
+// Build vaults (see "vault_info.txt")
+static bool build_vault_pre(floor_type *floor_ptr, int type)
 {
 	vault_type *v_ptr;
 	int dummy;
@@ -2876,7 +2873,7 @@ static bool build_type7(floor_type *floor_ptr)
 		v_ptr = &vault_info[randint0(max_vault_idx)];
 
 		/* Accept the first lesser vault */
-		if(v_ptr->typ == 7) break;
+		if(v_ptr->typ == type) break;
 	}
 
 	/* No lesser vault found */
@@ -2885,9 +2882,9 @@ static bool build_type7(floor_type *floor_ptr)
 		if(cheat_room)
 		{
 #ifdef JP
-			msg_print("警告！小さな地下室を配置できません！");
+			msg_warning("地下室を配置できません。");
 #else
-			msg_print("Warning! Could not place lesser vault!");
+			msg_warning("Could not place vault.");
 #endif
 		}
 		return FALSE;
@@ -2923,9 +2920,9 @@ static bool build_type7(floor_type *floor_ptr)
 #endif
 
 #ifdef JP
-	if(cheat_room) msg_format("小さな地下室(%s)", vault_name + v_ptr->name);
+	if(cheat_room) msg_format("地下室(%s)", vault_name + v_ptr->name);
 #else
-	if(cheat_room) msg_format("Lesser vault (%s)", vault_name + v_ptr->name);
+	if(cheat_room) msg_format("Vault (%s)", vault_name + v_ptr->name);
 #endif
 
 	/* Hack -- Build the vault */
@@ -6159,8 +6156,8 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_INNER_FEAT:    return build_type4(floor_ptr);
 	case ROOM_T_NEST:          return build_type5(floor_ptr);
 	case ROOM_T_PIT:           return build_type6(floor_ptr);
-	case ROOM_T_LESSER_VAULT:  return build_type7(floor_ptr);
-	case ROOM_T_GREATER_VAULT: return build_type8(floor_ptr);
+	case ROOM_T_LESSER_VAULT:  return build_vault_pre(floor_ptr, 7);
+	case ROOM_T_GREATER_VAULT: return build_vault_pre(floor_ptr, 8);
 	case ROOM_T_FRACAVE:       return build_type9(floor_ptr);
 	case ROOM_T_RANDOM_VAULT:  return build_type10(floor_ptr);
 	case ROOM_T_OVAL:          return build_type11(floor_ptr);
