@@ -385,11 +385,7 @@ bool can_do_cmd_cast(creature_type *creature_ptr)
 	}
 	else if(has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
-#ifdef JP
-		msg_print("反魔法バリアが魔法を邪魔した！");
-#else
-		msg_print("An anti-magic shell disrupts your magic!");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_ANTIMAGIC);
 		return FALSE;
 	}
 	else if(has_trait(creature_ptr, TRAIT_S_HERO))

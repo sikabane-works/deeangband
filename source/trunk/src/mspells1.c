@@ -1096,11 +1096,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	// TODO Distinction of spell failure_rate
 	if(magic_barrier(target_ptr, caster_ptr))
 	{
-#ifdef JP
-		msg_format("反魔法バリアが%^sの呪文をかき消した。", m_name);
-#else
-		msg_format("Anti magic barrier cancels the spell which %^s casts.");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_ANTIMAGIC);
 		return TRUE;
 	}
 
