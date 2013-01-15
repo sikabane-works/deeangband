@@ -1060,16 +1060,10 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	/* The light is getting dim */
 	else if(object_ptr->name2 == EGO_LITE_LONG)
 	{
-		if((object_ptr->fuel < 50) && (!(object_ptr->fuel % 5))
-			&& (turn % (TURNS_PER_TICK*2)))
+		if((object_ptr->fuel < 50) && (!(object_ptr->fuel % 5)) && (turn % (TURNS_PER_TICK*2)))
 		{
 			if(disturb_minor) disturb(player_ptr, 0, 0);
-#ifdef JP
-			msg_print("–¾‚©‚è‚ª”÷‚©‚É‚È‚Á‚Ä‚«‚Ä‚¢‚éB");
-#else
-			msg_print("Your light is growing faint.");
-#endif
-
+			msg_print(GAME_MESSAGE_LITE_FAINT);
 		}
 	}
 
@@ -1077,12 +1071,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	else if((object_ptr->fuel < 100) && (!(object_ptr->fuel % 10)))
 	{
 		if(disturb_minor) disturb(player_ptr, 0, 0);
-#ifdef JP
-		msg_print("–¾‚©‚è‚ª”÷‚©‚É‚È‚Á‚Ä‚«‚Ä‚¢‚éB");
-#else
-		msg_print("Your light is growing faint.");
-#endif
-
+		msg_print(GAME_MESSAGE_LITE_FAINT);
 	}
 }
 
