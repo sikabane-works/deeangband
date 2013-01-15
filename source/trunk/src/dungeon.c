@@ -2276,12 +2276,10 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		disturb(player_ptr, 0, 0);
 #ifdef JP
 		msg_print("‘«‚ª‚à‚Â‚ê‚Ä“]‚ñ‚¾I");
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->wt / 6), "“]“|", NULL, -1);
 #else
 		msg_print("You trip over your own feet!");
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->wt / 6), "tripping", NULL, -1);
 #endif
-
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->wt / 6), COD_TRIPPING, NULL, -1);
 		msg_print(NULL);
 
 		if(i = get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
