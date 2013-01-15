@@ -256,6 +256,7 @@
 #define GAME_MESSAGE_PATTERN_LIMIT2 "パターンの上を歩くにはスタート地点から歩き始めなくてはなりません。"
 #define GAME_MESSAGE_PATTERN_LIMIT3 "パターンの上は正しい順序で歩かねばなりません。"
 #define GAME_MESSAGE_PATTERN_LIMIT4 "パターンを踏み外してはいけません。"
+#define GAME_MESSAGE_PATTERN_GOAL "「パターン」のこの部分は他の部分より強力でないようだ。"
 
 #define GAME_MESSAGE_ARENA_LIMIT "アリーナが魔法を吸収した！"
 #define GAME_MESSAGE_ARENA_BERSERK "狂戦士化していて頭が回らない！"
@@ -381,6 +382,7 @@
 #define GAME_MESSAGE_PATTERN_LIMIT2 "You must start walking the Pattern from the startpoint."
 #define GAME_MESSAGE_PATTERN_LIMIT3 "You must walk the Pattern in correct order."
 #define GAME_MESSAGE_PATTERN_LIMIT4 "You may not step off from the Pattern."
+#define GAME_MESSAGE_PATTERN_GOAL "This section of the Pattern looks less powerful."
 
 #define GAME_MESSAGE_ARENA_LIMIT "The arena absorbs all attempted magic!"
 #define GAME_MESSAGE_ARENA_BERSERK "You cannot think directly!"

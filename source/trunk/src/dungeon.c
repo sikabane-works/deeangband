@@ -806,9 +806,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 	if(!pattern_tile(floor_ptr, creature_ptr->fy, creature_ptr->fx)) return FALSE;
 
 	if((IS_RACE(creature_ptr, RACE_AMBERITE)) && (GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT)) && one_in_(10))
-	{
 		wreck_the_pattern(floor_ptr, creature_ptr);
-	}
 
 	pattern_type = feature_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat].subtype;
 
@@ -817,12 +815,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 	case PATTERN_TILE_END:
 		do_active_trait(creature_ptr, TRAIT_SELF_HEALING_100D100, TRUE);
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx, feat_pattern_old);
-
-#ifdef JP
-		msg_print("「パターン」のこの部分は他の部分より強力でないようだ。");
-#else
-		msg_print("This section of the Pattern looks less powerful.");
-#endif
+		msg_print(GAME_MESSAGE_PATTERN_GOAL);
 
 		/*
 		* We could make the healing effect of the
