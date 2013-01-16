@@ -1076,11 +1076,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		{
 			if(is_mirror_grid(c_ptr))
 			{
-#ifdef JP
-				msg_print("鏡が割れた！");
-#else
-				msg_print("The mirror was crashed!");
-#endif
+				msg_print(EFFECT_MES_MIRROR_CRUSH);
 				sound(SOUND_GLASS);
 				remove_mirror(player_ptr, y, x);
 				project(aimer_ptr, 0, 2, y, x, aimer_ptr->lev / 2 + 5, DO_EFFECT_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
@@ -1111,11 +1107,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		{
 			if(is_mirror_grid(c_ptr) && aimer_ptr->lev < 40)
 			{
-#ifdef JP
-				msg_print("鏡が割れた！");
-#else
-				msg_print("The mirror was crashed!");
-#endif
+				msg_print(EFFECT_MES_MIRROR_CRUSH);
 				sound(SOUND_GLASS);
 				remove_mirror(player_ptr, y, x);
 				project(aimer_ptr, 0, 2, y, x, aimer_ptr->lev / 2 + 5, DO_EFFECT_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
@@ -1591,11 +1583,9 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 				if(known && (object_ptr->marked & OM_FOUND))
 				{
 #ifdef JP
-					msg_format("%sは影響を受けない！",
-						object_name);
+					msg_format("%sは影響を受けない！", object_name);
 #else
-					msg_format("The %s %s unaffected!",
-						object_name, (plural ? "are" : "is"));
+					msg_format("The %s %s unaffected!", object_name, (plural ? "are" : "is"));
 #endif
 
 				}
