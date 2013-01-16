@@ -313,6 +313,15 @@ void breath(int y, int x, creature_type *caster_ptr, int typ, int power, int rad
 	(void)project(caster_ptr, 0, rad, y, x, power, typ, flg, trait_id);
 }
 
+void cast_ball_aux(int y, int x, creature_type *caster_ptr, int typ, int power, int rad, int trait_id)
+{
+	int tx, ty;
+
+	/* Analyze the "dir" and the "target".  Hurt items on floor. */
+	return (project(caster_ptr, 0, rad, ty, tx, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
+}
+
+
 
 u32b get_curse(int power, object_type *object_ptr)
 {
