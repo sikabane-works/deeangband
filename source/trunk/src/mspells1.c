@@ -315,10 +315,8 @@ void breath(int y, int x, creature_type *caster_ptr, int typ, int power, int rad
 
 void cast_ball_aux(int y, int x, creature_type *caster_ptr, int typ, int power, int rad, int trait_id)
 {
-	int tx, ty;
-
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(caster_ptr, 0, rad, ty, tx, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
+	(void)project(caster_ptr, 0, rad, y, x, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 }
 
 
@@ -404,45 +402,7 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 // Check should creature cast dispel spell.
 bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 {
-	if(IS_INVULN(target_ptr)) return TRUE;	// Invulnabilty (including the song)	
-	if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) return TRUE;	// Wraith form
-	if(has_trait(target_ptr, TRAIT_SHIELD)) return TRUE;	// Shield
-	if(has_trait(target_ptr, TRAIT_MAGIC_DEF)) return TRUE;	// Magic defence
-	if(has_trait(target_ptr, TRAIT_MULTI_SHADOW)) return TRUE;	// Multi Shadow
-	if(has_trait(target_ptr, TRAIT_DUST_ROBE)) return TRUE;	// Robe of dust
-	if(has_trait(target_ptr, TRAIT_S_HERO) && (target_ptr->class_idx != CLASS_BERSERKER)) return TRUE;	// Berserk Strength
-
-	if(has_trait(caster_ptr, TRAIT_BR_ACID))
-		if(!has_trait(target_ptr, TRAIT_IM_ACID) && has_trait_from_timed(target_ptr, TRAIT_RES_ACID) || MUSIC_SINGING(target_ptr, MUSIC_RESIST)) return TRUE;
-
-	if(has_trait(caster_ptr, TRAIT_BR_FIRE))
-		if(!has_trait(target_ptr, TRAIT_IM_FIRE) && has_trait_from_timed(target_ptr, TRAIT_RES_FIRE) || MUSIC_SINGING(target_ptr, MUSIC_RESIST)) return TRUE;
-
-	if(has_trait(caster_ptr, TRAIT_BR_ELEC))
-		if(!has_trait(target_ptr, TRAIT_IM_ELEC) && has_trait_from_timed(target_ptr, TRAIT_RES_ELEC) || MUSIC_SINGING(target_ptr, MUSIC_RESIST)) return TRUE;
-
-	if(has_trait(caster_ptr, TRAIT_BR_COLD))
-		if(!has_trait(target_ptr, TRAIT_IM_COLD) && has_trait_from_timed(target_ptr, TRAIT_RES_COLD) || MUSIC_SINGING(target_ptr, MUSIC_RESIST)) return TRUE;
-
-	if(has_trait(caster_ptr, TRAIT_BR_POIS) || has_trait(caster_ptr, TRAIT_BR_NUKE))
-		if(has_trait_from_timed(target_ptr, TRAIT_RES_POIS) || MUSIC_SINGING(caster_ptr, MUSIC_RESIST)) return TRUE;
-
-	if(target_ptr->timed_trait[TRAIT_ULTRA_RES]) return TRUE;	// Ultimate resistance
-	if(target_ptr->timed_trait[TRAIT_TSUYOSHI]) return TRUE;	// Potion of Neo Tsuyosi special
-
-	// Elemental Brands
-	if(target_ptr->timed_trait[TRAIT_FIRE_BRAND] && !has_trait(target_ptr, TRAIT_RES_FIRE)) return TRUE;
-	if(target_ptr->timed_trait[TRAIT_COLD_BRAND] && !has_trait(target_ptr, TRAIT_RES_COLD)) return TRUE;
-	if(target_ptr->timed_trait[TRAIT_ELEC_BRAND] && !has_trait(target_ptr, TRAIT_RES_ELEC)) return TRUE;
-	if(target_ptr->timed_trait[TRAIT_ACID_BRAND] && !has_trait(target_ptr, TRAIT_RES_ACID)) return TRUE;
-	if(target_ptr->timed_trait[TRAIT_POIS_BRAND] && !has_trait(target_ptr, TRAIT_RES_POIS)) return TRUE;
-
-	if(target_ptr->speed < 35) if(IS_FAST(target_ptr)) return TRUE;	// Speed
-	if(target_ptr->timed_trait[TRAIT_LIGHT_SPEED] && (target_ptr->speed < 26)) return TRUE;	// Light speed
-
-	if(target_ptr->riding && (creature_list[target_ptr->riding].speed < 25))
-		if(creature_list[target_ptr->riding].timed_trait[TRAIT_FAST]) return TRUE;
-
+//TODO: reimplement
 	return FALSE;	// No need to cast dispel spell
 }
 
