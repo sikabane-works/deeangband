@@ -242,6 +242,7 @@
 #define GAME_MESSAGE_PREVENT_BY_MP "MPが足りません。"
 #define GAME_MESSAGE_PREVENT_BY_LEVEL "この能力を使用するにはレベル %d に達していなければなりません。"
 #define GAME_MESSAGE_PREVENT_BY_ANTIMAGIC "反魔法バリアが魔法を邪魔した！"
+#define GAME_MESSAGE_PREVENT_BY_TIMESTOP "止まった時の中ではうまく働かないようだ。"
 #define GAME_MESSAGE_ATTEMPT_ANYWAY "それでも挑戦しますか? "
 
 #define GAME_MESSAGE_IMPROVE_LIMIT "そのアイテムはこれ以上改良できない。"
@@ -370,6 +371,7 @@
 #define GAME_MESSAGE_PREVENT_BY_MP "You do not have enough mana to use this power."
 #define GAME_MESSAGE_PREVENT_BY_LEVEL "You need to attain level %d to use this power."
 #define GAME_MESSAGE_PREVENT_BY_ANTIMAGIC "An anti-magic shell disrupts your magic!"
+#define GAME_MESSAGE_PREVENT_BY_TIMESTOP "It shows no reaction."
 
 #define GAME_MESSAGE_ATTEMPT_ANYWAY "Attempt it anyway? "
 

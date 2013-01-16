@@ -835,12 +835,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 	if(caster_ptr->time_stopper)
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("é~Ç‹Ç¡ÇΩéûÇÃíÜÇ≈ÇÕÇ§Ç‹Ç≠ì≠Ç©Ç»Ç¢ÇÊÇ§ÇæÅB");
-#else
-		msg_print("Nothing happen.");
-#endif
-
+		msg_print(GAME_MESSAGE_PREVENT_BY_TIMESTOP);
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -1567,11 +1562,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	if(creature_ptr->time_stopper)
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("é~Ç‹Ç¡ÇΩéûÇÃíÜÇ≈ÇÕÇ§Ç‹Ç≠ì≠Ç©Ç»Ç¢ÇÊÇ§ÇæÅB");
-#else
-		msg_print("Nothing happen. Maybe this staff is freezing too.");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_TIMESTOP);
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -1922,11 +1913,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	if(creature_ptr->time_stopper)
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("é~Ç‹Ç¡ÇΩéûÇÃíÜÇ≈ÇÕÇ§Ç‹Ç≠ì≠Ç©Ç»Ç¢ÇÊÇ§ÇæÅB");
-#else
-		msg_print("Nothing happen. Maybe this wand is freezing too.");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_TIMESTOP);
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -2132,11 +2119,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	if(creature_ptr->time_stopper)
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("é~Ç‹Ç¡ÇΩéûÇÃíÜÇ≈ÇÕÇ§Ç‹Ç≠ì≠Ç©Ç»Ç¢ÇÊÇ§ÇæÅB");
-#else
-		msg_print("Nothing happen. Maybe this rod is freezing too.");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_TIMESTOP);
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -2382,11 +2365,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	if(creature_ptr->time_stopper)
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("é~Ç‹Ç¡ÇΩéûÇÃíÜÇ≈ÇÕÇ§Ç‹Ç≠ì≠Ç©Ç»Ç¢ÇÊÇ§ÇæÅB");
-#else
-		msg_print("It shows no reaction.");
-#endif
+		msg_print(GAME_MESSAGE_PREVENT_BY_TIMESTOP);
 		sound(SOUND_FAIL);
 		return;
 	}
