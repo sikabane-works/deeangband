@@ -745,12 +745,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 				/* Check line of sound */
 				if(known && (old_feat != c_ptr->feat))
 				{
-#ifdef JP
-					msg_print("カチッと音がした！");
-#else
-					msg_print("Click!");
-#endif
-
+					msg_print(EFFECT_MES_DISARM_TRAP);
 					obvious = TRUE;
 				}
 			}
@@ -1502,11 +1497,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 
 						if(known && (object_ptr->marked & OM_FOUND))
 						{
-#ifdef JP
-							msg_print("カチッと音がした！");
-#else
-							msg_print("Click!");
-#endif
+							msg_print(EFFECT_MES_DISARM_TRAP);
 							obvious = TRUE;
 						}
 					}

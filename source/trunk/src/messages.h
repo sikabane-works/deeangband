@@ -1158,7 +1158,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #ifdef JP
 #define EFFECT_MES_MIRROR_CRUSH "鏡が割れた！"
 #define EFFECT_MES_MIND_BACKFIRE "%^sの堕落した精神は攻撃を跳ね返した！"
+#define EFFECT_MES_DISARM_TRAP "カチッと音がした。"
 #else
 #define EFFECT_MES_MIRROR_CRUSH "The mirror was crashed!"
 #define EFFECT_MES_MIND_BACKFIRE "%^s corrupted mind backlashes your attack!"
+#define EFFECT_MES_DISARM_TRAP "Click!"
 #endif
