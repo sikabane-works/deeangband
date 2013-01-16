@@ -1786,14 +1786,13 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 		case SV_WAND_DRAGON_FIRE:
 		{
 			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_FIRE, 200, 3, -1);
-			//cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 200, -3);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_DRAGON_COLD:
 		{
-			cast_ball(creature_ptr, DO_EFFECT_COLD, dir, 180, -3);
+			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_COLD, 180, 3, -1);
 			ident = TRUE;
 			break;
 		}
@@ -1804,31 +1803,31 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			{
 				case 1:
 				{
-					cast_ball(creature_ptr, DO_EFFECT_ACID, dir, 240, -3);
+					breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_ACID, 240, 3, -1);
 					break;
 				}
 
 				case 2:
 				{
-					cast_ball(creature_ptr, DO_EFFECT_ELEC, dir, 210, -3);
+					breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_ELEC, 210, 3, -1);
 					break;
 				}
 
 				case 3:
 				{
-					cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 240, -3);
+					breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_FIRE, 240, 3, -1);
 					break;
 				}
 
 				case 4:
 				{
-					cast_ball(creature_ptr, DO_EFFECT_COLD, dir, 210, -3);
+					breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_COLD, 210, 3, -1);
 					break;
 				}
 
 				default:
 				{
-					cast_ball(creature_ptr, DO_EFFECT_POIS, dir, 180, -3);
+					breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_POIS, 180, 3, -1);
 					break;
 				}
 			}
@@ -1839,7 +1838,7 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 
 		case SV_WAND_DISINTEGRATE:
 		{
-			cast_ball(creature_ptr, DO_EFFECT_DISINTEGRATE, dir, 200 + randint1(creature_ptr->lev * 2), 2);
+			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_DISINTEGRATE, 200 + randint1(creature_ptr->lev * 2), 2, -1);
 			ident = TRUE;
 			break;
 		}
