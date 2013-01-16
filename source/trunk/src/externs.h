@@ -1013,7 +1013,7 @@ extern bool is_melee_limitation_field(floor_type *floor_ptr);
 extern bool close_combat(creature_type *attacker_ptr, int y, int x, int mode);
 
 // melee2.c
-extern void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int trait_id);
+extern void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, int trait_id);
 extern bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt);
 extern void process_creatures(void);
 extern u32b get_curse(int power, object_type *object_ptr);

@@ -140,7 +140,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_ROCKET:
 		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
-		breath(target_row, target_col, caster_ptr, DO_EFFECT_ROCKET, damage, 2, FALSE, TRAIT_ROCKET);
+		breath(target_row, target_col, caster_ptr, DO_EFFECT_ROCKET, damage, 2, TRAIT_ROCKET);
 		break;
 
 	case TRAIT_DISPEL_EVIL_1:
@@ -583,7 +583,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BA_COLD:
 		damage = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_COLD, damage, 2, FALSE, TRAIT_BA_COLD);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_COLD, damage, 2, TRAIT_BA_COLD);
 		break;
 
 	case TRAIT_S_DAWN_LEGION:
@@ -914,47 +914,47 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BR_ACID:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_ACID, damage, 0, TRUE, TRAIT_BR_ACID);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_ACID, damage, 0, TRAIT_BR_ACID);
 		break;
 
 	case TRAIT_BR_ELEC:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_ELEC, damage, 2, TRUE, TRAIT_BR_ELEC);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_ELEC, damage, 2, TRAIT_BR_ELEC);
 		break;
 
 	case TRAIT_BR_FIRE:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_FIRE, damage, 0, TRUE, TRAIT_BR_FIRE);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_FIRE, damage, 0, TRAIT_BR_FIRE);
 		break;
 
 	case TRAIT_BR_COLD:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_COLD, damage,0, TRUE, TRAIT_BR_COLD);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_COLD, damage,0, TRAIT_BR_COLD);
 		break;
 
 	case TRAIT_BR_POIS:
 		damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_POIS, damage, 0, TRUE, TRAIT_BR_POIS);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_POIS, damage, 0, TRAIT_BR_POIS);
 		break;
 
 	case TRAIT_BR_NETH:
 		damage = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_NETHER, damage,0, TRUE, TRAIT_BR_NETH);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_NETHER, damage,0, TRAIT_BR_NETH);
 		break;
 
 	case TRAIT_BR_LITE:
 		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_LITE, damage, 0, TRUE, TRAIT_BR_LITE);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_LITE, damage, 0, TRAIT_BR_LITE);
 		break;
 
 	case TRAIT_BR_DARK:
 		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_DARK, damage, 0, TRUE, TRAIT_BR_DARK);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_DARK, damage, 0, TRAIT_BR_DARK);
 		break;
 
 	case TRAIT_BR_CONF:
 		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_CONFUSION, damage, 0, TRUE, TRAIT_BR_CONF);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_CONFUSION, damage, 0, TRAIT_BR_CONF);
 		break;
 
 	case TRAIT_BR_SOUN:
@@ -965,37 +965,37 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			msg_format("'Booooeeeeee'");
 #endif
 		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_SOUND, damage,0, TRUE, TRAIT_BR_SOUN);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_SOUND, damage,0, TRAIT_BR_SOUN);
 		break;
 
 	case TRAIT_BR_CHAO:
 		damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_CHAOS, damage,0, TRUE, TRAIT_BR_CHAO);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_CHAOS, damage,0, TRAIT_BR_CHAO);
 		break;
 
 	case TRAIT_BR_DISE:
 		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_DISENCHANT, damage, 0, TRUE, TRAIT_BR_DISE);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_DISENCHANT, damage, 0, TRAIT_BR_DISE);
 		break;
 
 	case TRAIT_BR_NEXU:
 		damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_NEXUS, damage, 0, TRUE, TRAIT_BR_NEXU);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_NEXUS, damage, 0, TRAIT_BR_NEXU);
 		break;
 
 	case TRAIT_BR_TIME:
 		damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_TIME, damage,0, TRUE, TRAIT_BR_TIME);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_TIME, damage,0, TRAIT_BR_TIME);
 		break;
 
 	case TRAIT_BR_INER:
 		damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_INERTIA, damage,0, TRUE, TRAIT_BR_INER);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_INERTIA, damage,0, TRAIT_BR_INER);
 		break;
 
 	case TRAIT_BR_GRAV:
 		damage = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_GRAVITY, damage,0, TRUE, TRAIT_BR_GRAV);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_GRAVITY, damage,0, TRAIT_BR_GRAV);
 		break;
 
 	case TRAIT_BR_SHAR:
@@ -1006,52 +1006,52 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			msg_format("'Boty-Build cutter!!!'");
 #endif
 		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_SHARDS, damage,0, TRUE, TRAIT_BR_SHAR);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_SHARDS, damage,0, TRAIT_BR_SHAR);
 		break;
 
 	case TRAIT_BR_PLAS:
 		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_PLASMA, damage,0, TRUE, TRAIT_BR_PLAS);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_PLASMA, damage,0, TRAIT_BR_PLAS);
 		break;
 
 	case TRAIT_BR_WALL:
 		damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_FORCE, damage,0, TRUE, TRAIT_BR_WALL);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_FORCE, damage,0, TRAIT_BR_WALL);
 		break;
 
 	case TRAIT_BR_MANA:
 		damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_MANA, damage,0, TRUE, TRAIT_BR_MANA);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_MANA, damage,0, TRAIT_BR_MANA);
 		break;
 
 	case TRAIT_BA_NUKE:
 		damage = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_NUKE, damage, 2, FALSE, TRAIT_BA_NUKE);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_NUKE, damage, 2, FALSE, TRAIT_BA_NUKE);
 		break;
 
 	case TRAIT_BR_NUKE:
 		damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_NUKE, damage,0, TRUE, TRAIT_BR_NUKE);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_NUKE, damage,0, TRAIT_BR_NUKE);
 		break;
 
 	case TRAIT_BA_CHAO:
 		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_CHAOS, damage, 4, FALSE, TRAIT_BA_CHAO);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_CHAOS, damage, 4, FALSE, TRAIT_BA_CHAO);
 		break;
 
 	case TRAIT_BR_DISI:
 		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_DISINTEGRATE, damage,0, TRUE, TRAIT_BR_DISI);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_DISINTEGRATE, damage,0, TRAIT_BR_DISI);
 		break;
 
 	case TRAIT_BA_ACID:
 		damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_ACID, damage, 2, FALSE, TRAIT_BA_ACID);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_ACID, damage, 2, FALSE, TRAIT_BA_ACID);
 		break;
 
 	case TRAIT_BA_ELEC:
 		damage = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_ELEC, damage, 2, FALSE, TRAIT_BA_ELEC);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_ELEC, damage, 2, FALSE, TRAIT_BA_ELEC);
 		break;
 
 	case TRAIT_BA_FIRE:
@@ -1070,37 +1070,37 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #endif
 		}
 		damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_FIRE, damage, 2, FALSE, TRAIT_BA_FIRE);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_FIRE, damage, 2, FALSE, TRAIT_BA_FIRE);
 		break;
 
 	case TRAIT_BA_POIS:
 		damage = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_POIS, damage, 2, FALSE, TRAIT_BA_POIS);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_POIS, damage, 2, FALSE, TRAIT_BA_POIS);
 		break;
 
 	case TRAIT_BA_NETH:
 		damage = 50 + diceroll(10, 10) + (user_level * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_NETHER, damage, 2, FALSE, TRAIT_BA_NETH);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_NETHER, damage, 2, FALSE, TRAIT_BA_NETH);
 		break;
 
 	case TRAIT_BA_WATE:
 		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_WATER, damage, 4, FALSE, TRAIT_BA_WATE);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_WATER, damage, 4, FALSE, TRAIT_BA_WATE);
 		break;
 
 	case TRAIT_BA_MANA:
 		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_MANA, damage, 4, FALSE, TRAIT_BA_MANA);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_MANA, damage, 4, FALSE, TRAIT_BA_MANA);
 		break;
 
 	case TRAIT_BA_DARK:
 		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_DARK, damage, 4, FALSE, TRAIT_BA_DARK);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_DARK, damage, 4, FALSE, TRAIT_BA_DARK);
 		break;
 
 	case TRAIT_DRAIN_MANA:
 		damage = (randint1(user_level) / 2) + 1;
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_DRAIN_MANA, damage, 0, FALSE, TRAIT_DRAIN_MANA);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_DRAIN_MANA, damage, 0, FALSE, TRAIT_DRAIN_MANA);
 		break;
 
 	case TRAIT_MIND_BLAST:
@@ -1111,7 +1111,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 		damage = diceroll(7, 7);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_MIND_BLAST, damage, 0, FALSE, TRAIT_MIND_BLAST);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_MIND_BLAST, damage, 0, FALSE, TRAIT_MIND_BLAST);
 		break;
 
 	case TRAIT_BRAIN_SMASH:
@@ -1119,7 +1119,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 		damage = diceroll(12, 12);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_BRAIN_SMASH, damage, 0, FALSE, TRAIT_BRAIN_SMASH);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_BRAIN_SMASH, damage, 0, FALSE, TRAIT_BRAIN_SMASH);
 		break;
 
 	case TRAIT_CAUSE_1:
@@ -1127,7 +1127,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 		{
 			damage = diceroll(3, 8);
-			breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_1, damage, 0, FALSE, TRAIT_CAUSE_1);
+			//breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_1, damage, 0, FALSE, TRAIT_CAUSE_1);
 			break;
 		}
 
@@ -1136,7 +1136,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 		{
 			damage = diceroll(8, 8);
-			breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_2, damage, 0, FALSE, TRAIT_CAUSE_2);
+			//breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_2, damage, 0, FALSE, TRAIT_CAUSE_2);
 			break;
 		}
 
@@ -1145,7 +1145,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 		{
 			damage = diceroll(10, 15);
-			breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_3, damage, 0, FALSE, TRAIT_CAUSE_3);
+			//breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_3, damage, 0, FALSE, TRAIT_CAUSE_3);
 			break;
 		}
 
@@ -1154,7 +1154,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 		{
 			damage = diceroll(15, 15);
-			breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_4, damage, 0, FALSE, TRAIT_CAUSE_4);
+			//breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_4, damage, 0, FALSE, TRAIT_CAUSE_4);
 			break;
 		}
 
@@ -1180,7 +1180,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BA_LITE:
 		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_LITE, damage, 4, FALSE, TRAIT_BA_LITE);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_LITE, damage, 4, FALSE, TRAIT_BA_LITE);
 		break;
 
 	case TRAIT_BO_NETH:
@@ -1327,14 +1327,12 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_HAND_DOOM:
-		{
+		cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, dir, 200, 0);
+		break;
 
-			cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, dir, 200, 0);
-			break;
-			damage = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
-			breath(target_row, target_col,caster_ptr, DO_EFFECT_HAND_DOOM, damage, 0, FALSE, TRAIT_HAND_DOOM);
-			break;
-		}
+		damage = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
+		//breath(target_row, target_col,caster_ptr, DO_EFFECT_HAND_DOOM, damage, 0, FALSE, TRAIT_HAND_DOOM);
+		break;
 
 	case TRAIT_INVULNER:
 		(void)set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE);

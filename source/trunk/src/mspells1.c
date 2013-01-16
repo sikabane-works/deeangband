@@ -285,7 +285,7 @@ bool cast_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, in
  * Pass over any creatures that may be in the way
  * Affect grids, objects, creatures, and the player
  */
-void breath(int y, int x, creature_type *caster_ptr, int typ, int power, int rad, bool breath, int trait_id)
+void breath(int y, int x, creature_type *caster_ptr, int typ, int power, int rad, int trait_id)
 {
 	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH; //TODO | PROJECT_PLAYER;
 

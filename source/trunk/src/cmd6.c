@@ -1785,7 +1785,8 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 
 		case SV_WAND_DRAGON_FIRE:
 		{
-			cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 200, -3);
+			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_FIRE, 200, 3, -1);
+			//cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 200, -3);
 			ident = TRUE;
 			break;
 		}
