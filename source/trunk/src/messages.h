@@ -1143,6 +1143,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 #ifdef JP
 #define DEBUG_MESSAGE_ROOM_NUM "•”‰®”: %d"
+#define DEBUG_MESSAGE_GLASS_ROOM "[ƒKƒ‰ƒX‚Ì•”‰®]"
+#define DEBUG_MESSAGE_ROOM_OF "[%s‚Ì•”‰®]"
 #else
 #define DEBUG_MESSAGE_ROOM_NUM "Number of Rooms: %d"
+#define DEBUG_MESSAGE_GLASS_ROOM "[Glass Room]"
+#define DEBUG_MESSAGE_ROOM_OF "[Room of %s]"
 #endif

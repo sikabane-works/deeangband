@@ -5874,15 +5874,7 @@ static bool build_type14(floor_type *floor_ptr)
 	c_ptr->mimic = c_ptr->feat;
 	c_ptr->feat = trap;
 
-	if(cheat_room)
-	{
-#ifdef JP
-		msg_format("%sの部屋(バグ頻発？)", feature_name + feature_info[trap].name);
-#else
-		msg_format("Room of %s", feature_name + feature_info[trap].name);
-#endif
-	}
-
+	if(cheat_room) msg_format(DEBUG_MESSAGE_ROOM_OF, feature_name + feature_info[trap].name);
 	return TRUE;
 }
 
@@ -6124,15 +6116,7 @@ static bool build_type15(floor_type *floor_ptr)
 		break;
 	}
 
-	if(cheat_room)
-	{
-#ifdef JP
-		msg_print("ガラスの部屋");
-#else
-		msg_print("Glass room");
-#endif
-	}
-
+	if(cheat_room) msg_print(DEBUG_MESSAGE_GLASS_ROOM);
 	return TRUE;
 }
 
@@ -6165,7 +6149,6 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_TRAP:          return build_type14(floor_ptr);
 	case ROOM_T_GLASS:         return build_type15(floor_ptr);
 	}
-
 
 	return FALSE;
 }
