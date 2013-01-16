@@ -1145,8 +1145,12 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_ROOM_NUM "部屋数: %d"
 #define DEBUG_MESSAGE_GLASS_ROOM "[ガラスの部屋]"
 #define DEBUG_MESSAGE_ROOM_OF "[%sの部屋]"
+#define DEBUG_MESSAGE_CRYPT_ROOM "[聖堂]"
+#define DEBUG_MESSAGE_TRAP_PIT_ROOM "[%s%sの罠ピット]"
 #else
 #define DEBUG_MESSAGE_ROOM_NUM "Number of Rooms: %d"
 #define DEBUG_MESSAGE_GLASS_ROOM "[Glass Room]"
 #define DEBUG_MESSAGE_ROOM_OF "[Room of %s]"
+#define DEBUG_MESSAGE_CRYPT_ROOM "[Crypt]"
+#define DEBUG_MESSAGE_TRAP_PIT_ROOM "[Trapped creature pit (%s%s)]"
 #endif

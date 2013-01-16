@@ -5481,10 +5481,7 @@ static bool build_type12(floor_type *floor_ptr)
 		vault_traps(floor_ptr, y0, x0, 4, 4, randint0(3) + 2);
 	}
 
-	if(cheat_room)
-	{
-		msg_print("[Crypt]");
-	}
+	if(cheat_room) msg_print(DEBUG_MESSAGE_CRYPT_ROOM);
 	return TRUE;
 }
 
@@ -5763,26 +5760,14 @@ static bool build_type13(floor_type *floor_ptr)
 		}
 	}
 
-	if(cheat_room)
-	{
-		/* Room type */
-#ifdef JP
-		msg_format("%s%s‚Ìã©ƒsƒbƒg", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
-#else
-		msg_format("Trapped creature pit (%s%s)", n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
-#endif
-	}
+	if(cheat_room) msg_format(DEBUG_MESSAGE_TRAP_PIT_ROOM, n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
 
 	/* Select the entries */
 	for (i = 0; i < 8; i++)
 	{
 		/* Every other entry */
 		what[i] = what[i * 2];
-
-		if(cheat_hear)
-		{
-			msg_print(species_name + species_info[what[i]].name);
-		}
+		if(cheat_hear) msg_print(species_name + species_info[what[i]].name);
 	}
 
 	for (i = 0; placing[i][2] >= 0; i++)
