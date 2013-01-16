@@ -2428,12 +2428,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				(target_ptr->lev * 2 > caster_ptr->lev / 2) && one_in_(2))
 			{
 				note = NULL;
-#ifdef JP
-				msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
-#else
-				msg_format("%^s%s corrupted mind backlashes your attack!",
-					target_name, (seen ? "'s" : "s"));
-#endif
+				msg_format(EFFECT_MES_MIND_BACKFIRE, target_name);
 				{
 					if(one_in_(4))
 					{
@@ -2504,11 +2499,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(has_trait(target_ptr, TRAIT_UNDEAD) && has_trait(target_ptr, TRAIT_DEMON) && (target_ptr->lev * 2 > caster_ptr->lev / 2) && (one_in_(2)))
 			{
 				note = NULL;
+				msg_format(EFFECT_MES_MIND_BACKFIRE, target_name);
 #ifdef JP
-				msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
 				msg_print("超能力パワーを吸いとられた！");
 #else
-				msg_format("%^s%s corrupted mind backlashes your attack!", target_name, (seen ? "'s" : "s"));
 				msg_print("Your psychic energy is drained!");
 #endif
 				creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
@@ -2585,11 +2579,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				(one_in_(2)))
 			{
 				note = NULL;
-#ifdef JP
-				msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
-#else
-				msg_format("%^s%s corrupted mind backlashes your attack!", target_name, (seen ? "'s" : "s"));
-#endif
+				msg_format(EFFECT_MES_MIND_BACKFIRE, target_name);
 				{
 					switch (randint1(4))
 					{

@@ -1737,7 +1737,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 	{
 		/* Too heavy to 'fetch' */
 #ifdef JP
-msg_print("そのアイテムは重過ぎます。");
+		msg_print("そのアイテムは重過ぎます。");
 #else
 		msg_print("The object is too heavy.");
 #endif
@@ -1754,7 +1754,7 @@ msg_print("そのアイテムは重過ぎます。");
 
 	object_desc(object_name, object_ptr, OD_NAME_ONLY);
 #ifdef JP
-msg_format("%^sがあなたの足元に飛んできた。", object_name);
+	msg_format("%^sがあなたの足元に飛んできた。", object_name);
 #else
 	msg_format("%^s flies through the air to your feet.", object_name);
 #endif
@@ -2278,9 +2278,7 @@ bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int nu
 #ifdef JP
 	msg_format("%s は明るく輝いた！", object_name);
 #else
-	msg_format("%s %s glow%s brightly!",
-		   ((item >= 0) ? "Your" : "The"), object_name,
-		   ((object_ptr->number > 1) ? "" : "s"));
+	msg_format("%s %s glow%s brightly!", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "" : "s"));
 #endif
 
 

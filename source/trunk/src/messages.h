@@ -1154,3 +1154,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_CRYPT_ROOM "[Crypt]"
 #define DEBUG_MESSAGE_TRAP_PIT_ROOM "[Trapped creature pit (%s%s)]"
 #endif
+
+#ifdef JP
+#define EFFECT_MES_MIND_BACKFIRE "%^s‚Ì‘Â—‚µ‚½¸_‚ÍUŒ‚‚ğ’µ‚Ë•Ô‚µ‚½I"
+#else
+#define EFFECT_MES_MIND_BACKFIRE "%^s corrupted mind backlashes your attack!"
+#endif
