@@ -2298,7 +2298,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 		case 5:
 		case 6:
 		{
-			cast_ball(creature_ptr, DO_EFFECT_MANA, dir, 600, 3);	// Mana Ball
+			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_MANA, 600, 3, -1);
 			break;
 		}
 
@@ -2456,128 +2456,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	for(i = 0; i < MAX_TRAITS; i++)
 		if(has_trait_object(object_ptr, i)) do_active_trait(creature_ptr, i, FALSE);
 
-	/* Hack -- Dragon Scale Mail can be activated as well */
-	if(object_ptr->tval == TV_DRAG_ARMOR)
-	{
-		/* Get a direction for breathing (or abort) */
-		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-
-		if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
-		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
-
-		/* Branch on the sub-type */
-		switch (object_ptr->sval)
-		{
-			case SV_DRAGON_MULTIHUED:
-			{
-				chance = randint0(5);
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。",
-					   ((chance == 1) ? "稲妻" :
-					    ((chance == 2) ? "冷気" :
-					     ((chance == 3) ? "酸" :
-					      ((chance == 4) ? "毒ガス" : "火炎")))));
-#else
-				msg_format("You breathe %s.",
-					   ((chance == 1) ? "lightning" :
-					    ((chance == 2) ? "frost" :
-					     ((chance == 3) ? "acid" :
-					      ((chance == 4) ? "poison gas" : "fire")))));
-#endif
-
-				cast_ball(creature_ptr, ((chance == 1) ? DO_EFFECT_ELEC :
-					   ((chance == 2) ? DO_EFFECT_COLD :
-					    ((chance == 3) ? DO_EFFECT_ACID :
-					     ((chance == 4) ? DO_EFFECT_POIS : DO_EFFECT_FIRE)))),
-					  dir, 250, -2);
-				object_ptr->timeout = randint0(200) + 200;
-				break;
-			}
-
-			case SV_DRAGON_CHAOS:
-			{
-				chance = randint0(2);
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。",
-					   ((chance == 1 ? "カオス" : "劣化")));
-#else
-				msg_format("You breathe %s.",
-					   ((chance == 1 ? "chaos" : "disenchantment")));
-#endif
-
-				cast_ball(creature_ptr, (chance == 1 ? DO_EFFECT_CHAOS : DO_EFFECT_DISENCHANT),
-					  dir, 220, -2);
-				object_ptr->timeout = randint0(200) + 200;
-				break;
-			}
-
-			case SV_DRAGON_LAW:
-			{
-				chance = randint0(2);
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。", ((chance == 1 ? "轟音" : "破片")));
-#else
-				msg_format("You breathe %s.", ((chance == 1 ? "sound" : "shards")));
-#endif
-
-				cast_ball(creature_ptr, (chance == 1 ? DO_EFFECT_SOUND : DO_EFFECT_SHARDS),
-					  dir, 230, -2);
-				object_ptr->timeout = randint0(200) + 200;
-				break;
-			}
-
-			case SV_DRAGON_BALANCE:
-			{
-				chance = randint0(4);
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた",
-					   ((chance == 1) ? "カオス" : ((chance == 2) ? "劣化" : ((chance == 3) ? "轟音" : "破片"))));
-#else
-				msg_format("You breathe %s.",
-					   ((chance == 1) ? "chaos" : ((chance == 2) ? "disenchantment" : ((chance == 3) ? "sound" : "shards"))));
-#endif
-
-				cast_ball(creature_ptr, ((chance == 1) ? DO_EFFECT_CHAOS :
-					   ((chance == 2) ? DO_EFFECT_DISENCHANT :
-					    ((chance == 3) ? DO_EFFECT_SOUND : DO_EFFECT_SHARDS))),
-					  dir, 250, -2);
-				object_ptr->timeout = randint0(200) + 200;
-				break;
-			}
-
-			case SV_DRAGON_SHINING:
-			{
-				chance = randint0(2);
-#ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。", ((chance == 0 ? "閃光" : "暗黒")));
-#else
-				msg_format("You breathe %s.", ((chance == 0 ? "light" : "darkness")));
-#endif
-
-				cast_ball(creature_ptr, (chance == 0 ? DO_EFFECT_LITE : DO_EFFECT_DARK), dir, 200, -2);
-				object_ptr->timeout = randint0(200) + 200;
-				break;
-			}
-
-			case SV_DRAGON_POWER:
-			{
-#ifdef JP
-				msg_print("あなたはエレメントのブレスを吐いた。");
-#else
-				msg_print("You breathe the elements.");
-#endif
-				cast_ball(creature_ptr, DO_EFFECT_MISSILE, dir, 300, -3);
-				object_ptr->timeout = randint0(200) + 200;
-				break;
-			}
-		}
-
-		prepare_window(PW_INVEN | PW_EQUIP);
-
-		return;
-	}
-
-	else if(object_ptr->tval == TV_RING)
+	if(object_ptr->tval == TV_RING)
 	{
 		if(object_is_ego(object_ptr))
 		{
