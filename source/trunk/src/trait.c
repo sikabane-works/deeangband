@@ -466,15 +466,15 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BA_FIRE_L:
-		cast_ball(caster_ptr, DO_EFFECT_FIRE, dir, 400, 3);
+		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 400, 3, id);
 		break;
 
 	case TRAIT_BA_COLD_L:
-		cast_ball(caster_ptr, DO_EFFECT_COLD, dir, 400, 3);
+		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_COLD, 400, 3, id);
 		break;
 
 	case TRAIT_BA_ELEC_L:
-		cast_ball(caster_ptr, DO_EFFECT_ELEC, dir, 400, 3);
+		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, 400, 3, id);
 		break;
 
 	case TRAIT_BIZARRE_THING_OF_THE_RING:
@@ -503,7 +503,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_ELEMENTAL_BREATH:
-		cast_ball(caster_ptr, DO_EFFECT_MISSILE, dir, 300, 4);
+		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_MISSILE, 300, 4, id);
 		break;
 
 	case TRAIT_MULTI_BLESS_1:
@@ -730,7 +730,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_STAR_BALL:
-		cast_ball(caster_ptr, DO_EFFECT_LITE, dir, 200, 3);
+		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_LITE, 200, 3, id);
 		break;
 
 	case TRAIT_INROU:
