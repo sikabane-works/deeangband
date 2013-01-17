@@ -3163,13 +3163,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_FIRE, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -3230,13 +3224,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = plev / 5;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_CHAOS, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -3321,13 +3309,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = 3 + plev / 40;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, dir, dam, rad);
 		}
 		break;
 
@@ -3566,13 +3548,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = 4;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_MANA, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -3590,13 +3566,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_CHAOS, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -3682,23 +3652,13 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				/*
-				 * A radius-0 ball may (1) be aimed at
-				 * objects etc., and will affect them;
-				 * (2) may be aimed at ANY visible
-				 * creature, unlike a 'bolt' which must
-				 * travel to the creature.
-				 */
-
-				cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, dir, diceroll(dice, sides), rad);
+				cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, diceroll(dice, sides), rad);
 
 				if(one_in_(5))
 				{
 					/* Special effect first */
 					int effect = randint1(1000);
-
+					int dir = 0;
 					if(effect == 666)
 						cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, dir, plev * 200, 0);
 					else if(effect < 500)
@@ -3747,13 +3707,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_POIS, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -3863,15 +3817,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			else
 				base = plev + plev / 4;
 
-
 			if(info) return info_damage(dice, sides, base);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_OLD_DRAIN, dir, diceroll(dice, dice) + base, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, diceroll(dice, dice) + base, rad);
 		}
 		break;
 
@@ -4204,13 +4151,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = 4;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_DARK, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -4388,9 +4329,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, dir, dam, rad);
+				cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, dam, rad);
 #ifdef JP
 				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "’n–‚Ì…‰Î‚ÌŽô•¶‚ð¥‚¦‚½”æ˜J", NULL, -1);
 #else
