@@ -1257,11 +1257,10 @@ void do_poly_self(creature_type *creature_ptr)
 			{
 #ifdef JP
 				msg_print("Œ»Ý‚ÌŽp‚Å¶‚«‚Ä‚¢‚­‚Ì‚Í¢“ï‚È‚æ‚¤‚¾I");
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(randint1(10), creature_ptr->lev), "’v–½“I‚È“Ë‘R•ÏˆÙ", NULL, -1);
 #else
 				msg_print("You find living difficult in your present form!");
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(randint1(10), creature_ptr->lev), "a lethal mutation", NULL, -1);
 #endif
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(randint1(10), creature_ptr->lev), COD_LETHAL_MUTATION, NULL, -1);
 			}
 			power -= 10;
 		}

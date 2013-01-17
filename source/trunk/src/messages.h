@@ -559,6 +559,7 @@
 #define COD_FIRE_AURA "炎のオーラ"
 #define COD_COLD_AURA "冷気のオーラ"
 #define COD_ELEC_AURA "電撃のオーラ"
+#define COD_LETHAL_MUTATION "致命的な突然変異"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -606,6 +607,7 @@
 #define COD_FIRE_AURA "fire aura"
 #define COD_COLD_AURA "cold aura"
 #define COD_ELEC_AURA "elec aura"
+#define COD_LETHAL_MUTATION "a lethal mutation"
 #endif
 
 // Hack -- possible "insult" messages
