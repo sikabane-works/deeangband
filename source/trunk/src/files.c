@@ -3450,7 +3450,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			if(creature_ptr->total_winner)
 			{
 #ifdef JP
-				sprintf(statmsg, "…あなたは勝利の後%sした。", streq(gameover_from, "Seppuku") ? "切腹" : "引退");
+				sprintf(statmsg, "…あなたは勝利の後%sした。", streq(gameover_from, "Seppuku") ? COD_SEPPUKU : COD_RETIRE);
 #else
 				sprintf(statmsg, "...You %s after the winning.", streq(gameover_from, "Seppuku") ? "did Seppuku" : "retired from the adventure");
 #endif

@@ -1338,7 +1338,7 @@ static void you_died(cptr hit_from)
 		{
 			strcpy(gameover_from, hit_from);
 #ifdef JP
-			if(!winning_seppuku) strcpy(gameover_from, "êÿï†");
+			if(!winning_seppuku) strcpy(gameover_from, COD_SEPPUKU);
 #endif
 		}
 		else
