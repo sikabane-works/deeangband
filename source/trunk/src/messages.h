@@ -111,6 +111,7 @@
 #define KW_NO "Ç¢Ç¢Ç¶"
 #define KW_SURFACE "ínè„"
 #define KW_SCORE_RANKING "óEé“ÇÃìaì∞"
+#define KW_MAX "ç≈çÇ"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -145,6 +146,7 @@
 #define KW_NO "No"
 #define KW_SURFACE "the surface"
 #define KW_SCORE_RANKING "Hall of Fame"
+#define KW_MAX "Max"
 #endif
 
 #ifdef JP
