@@ -2748,12 +2748,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = plev / 12 + 1;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				cast_ball(caster_ptr, DO_EFFECT_WATER, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -2966,21 +2961,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			else
 				base = plev + plev / 4;
 
-
 			if(info) return info_damage(dice, sides, base);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_MISSILE, dir, diceroll(dice, sides) + base, rad);
-
-				/*
-				 * Shouldn't actually use DO_EFFECT_MANA, as
-				 * it will destroy all items on the
-				 * floor
-				 */
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
 		}
 		break;
 
@@ -3309,7 +3291,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = 3 + plev / 40;
 
 			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, dir, dam, rad);
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -5893,9 +5875,6 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				int type;
-
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
 				switch (randint1(4))
 				{
 					case 1:  type = DO_EFFECT_FIRE;break;
@@ -5903,8 +5882,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 					case 3:  type = DO_EFFECT_COLD;break;
 					default: type = DO_EFFECT_ACID;break;
 				}
-
-				cast_ball(caster_ptr, type, dir, dam, rad);
+				cast_ball(caster_ptr, type, MAX_RANGE_SUB, dam, rad);
 			}
 		}
 		break;
@@ -6854,23 +6832,10 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 6;
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
-
-			if(caster_ptr->class_idx == CLASS_MAGE ||
-			    caster_ptr->class_idx == CLASS_HIGH_MAGE ||
-			    caster_ptr->class_idx == CLASS_SORCERER)
-				base = plev + plev / 2;
-			else
-				base = plev + plev / 4;
-
+			base = plev + plev / 3;
 
 			if(info) return info_damage(dice, sides, base);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, dir, diceroll(dice, sides) + base, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
 		}
 		break;
 
@@ -6977,13 +6942,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_FIRE, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -7018,13 +6977,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = plev / 20 + 2;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_NETHER, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -7165,20 +7118,13 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 		if(name) return "Plasma Ball";
 		if(desc) return "Fires a ball of plasma.";
-#endif
-    
+#endif    
 		{
 			int dam = plev * 3 / 2 + 80;
 			int rad = 2 + plev / 40;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_PLASMA, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -7239,14 +7185,8 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dam = 100 + plev * 2;
 			int rad = 4;
-
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				cast_ball(caster_ptr, DO_EFFECT_NEXUS, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -7391,13 +7331,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = plev / 5;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_NETHER, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -7651,14 +7585,8 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
     
 		{
 			int power = MAX_SIGHT * 5;
-
 			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				cast_ball(creature_ptr, DO_EFFECT_AWAY_EVIL, dir, power, 0);
-			}
+			if(cast) cast_ball(creature_ptr, DO_EFFECT_AWAY_EVIL, MAX_RANGE_SUB, power, 0);
 		}
 		break;
 
@@ -7677,22 +7605,10 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if(creature_ptr->class_idx == CLASS_PRIEST ||
-			    creature_ptr->class_idx == CLASS_HIGH_MAGE ||
-			    creature_ptr->class_idx == CLASS_SORCERER)
-				base = plev + plev / 2;
-			else
-				base = plev + plev / 4;
-
+			base = plev + plev / 3;
 
 			if(info) return info_damage(dice, sides, base);
-
-			if(cast)
-			{
-				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(creature_ptr, DO_EFFECT_HOLY_FIRE, dir, diceroll(dice, sides) + base, rad);
-			}
+			if(cast) cast_ball(creature_ptr, DO_EFFECT_HOLY_FIRE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
 		}
 		break;
 
@@ -7961,13 +7877,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = 4;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(creature_ptr, DO_EFFECT_LITE, dir, dam, rad);
-			}
+			if(cast) cast_ball(creature_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -9215,7 +9125,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
 
-				cast_ball(caster_ptr, DO_EFFECT_SOUND, dir, diceroll(dice, sides), rad);
+				cast_ball(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, diceroll(dice, sides), rad);
 			}
 		}
 		break;

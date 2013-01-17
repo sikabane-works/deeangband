@@ -2450,7 +2450,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			}
 			target_pet = old_target_pet;
 
-			if(cast_ball(creature_ptr, DO_EFFECT_CAPTURE, dir, 0, 0))
+			//if(cast_ball_aux(ty, tx, creature_ptr, DO_EFFECT_CAPTURE, 0, 0))
 			{
 				//TODO: Capture creature status.
 
