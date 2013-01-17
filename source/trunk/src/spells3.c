@@ -4856,22 +4856,16 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ğ‹zû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 					set_inventory_weight(creature_ptr);
 					item = inven_carry(creature_ptr, quest_ptr);
 
-#ifdef JP
-					msg_print("ñ‚ğ‚Ü‚Æ‚ß‚È‚¨‚µ‚½B");
-#else
-					msg_print("You unstack your staff.");
-#endif
-
+					msg_print(GAME_MESSAGE_STAFF_UNSTACK);
 				}
 			}
 			else
 			{
 #ifdef JP
-msg_print("‹zû‚Å‚«‚é–‚—Í‚ª‚ ‚è‚Ü‚¹‚ñI");
+				msg_print("‹zû‚Å‚«‚é–‚—Í‚ª‚ ‚è‚Ü‚¹‚ñI");
 #else
 				msg_print("There's no energy there to absorb!");
 #endif
-
 			}
 			if(!object_ptr->pval) object_ptr->ident |= IDENT_EMPTY;
 		}
@@ -4885,12 +4879,10 @@ msg_print("‹zû‚Å‚«‚é–‚—Í‚ª‚ ‚è‚Ü‚¹‚ñI");
 		{
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);
 #ifdef JP
-msg_format("–‚—Í‚ª‹t—¬‚µ‚½I%s‚ÍŠ®‘S‚É–‚—Í‚ğ¸‚Á‚½B", object_name);
+			msg_format("–‚—Í‚ª‹t—¬‚µ‚½I%s‚ÍŠ®‘S‚É–‚—Í‚ğ¸‚Á‚½B", object_name);
 #else
 			msg_format("The recharging backfires - %s is completely drained!", object_name);
 #endif
-
-
 			/* Artifact rods. */
 			if(IS_ROD(object_ptr))
 				object_ptr->timeout = object_kind_ptr->pval * object_ptr->number;

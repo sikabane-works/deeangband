@@ -275,6 +275,7 @@
 #define GAME_MESSAGE_PACK_OVERFLOW "ザックからアイテムがあふれた！"
 #define GAME_MESSAGE_PACK_REORDER "ザックの中のアイテムを並べ直した。"
 #define GAME_MESSAGE_PACK_COMBINE "ザックの中のアイテムをまとめ直した。"
+#define GAME_MESSAGE_STAFF_UNSTACK "杖をまとめなおした。"
 
 #define GAME_MESSAGE_UMBUSHED "襲撃だ！"
 
@@ -406,6 +407,7 @@
 #define GAME_MESSAGE_PACK_OVERFLOW "Your pack overflows!"
 #define GAME_MESSAGE_PACK_REORDER "You reorder some items in your pack."
 #define GAME_MESSAGE_PACK_COMBINE "You combine some items in your pack."
+#define GAME_MESSAGE_STAFF_UNSTACK "You unstack your staff."
 
 #define GAME_MESSAGE_UMBUSHED "You are ambushed !"
 
