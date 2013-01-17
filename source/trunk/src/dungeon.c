@@ -2197,13 +2197,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			int healing = creature_ptr->chp;
 			if(healing > wounds) healing = wounds;
 			inc_mana(creature_ptr, healing);
-
-#ifdef JP
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, healing, "ì™Ç…è∏Ç¡ÇΩåå", NULL, -1);
-#else
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, healing, "blood rushing to the head", NULL, -1);
-#endif
-
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, healing, COD_HP_TO_MP_PASSIVE, NULL, -1);
 		}
 	}
 
