@@ -376,7 +376,7 @@ void wild_magic(creature_type *creature_ptr, int spell)
 		lose_all_info(creature_ptr);
 		break;
 	case 32:
-		cast_ball(creature_ptr, DO_EFFECT_CHAOS, 0, spell + 5, 1 + (spell / 10));
+		cast_ball(creature_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, spell + 5, 1 + (spell / 10));
 		break;
 	case 33:
 		wall_stone(creature_ptr);
@@ -2707,13 +2707,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			int rad = plev / 12 + 1;
 
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_COLD, dir, dam, rad);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 
@@ -2734,8 +2728,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				cast_ball(caster_ptr, DO_EFFECT_ELEC, dir, dam, rad);
+				cast_ball(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, dam, rad);
 				break;
 			}
 		}

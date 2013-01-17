@@ -2542,23 +2542,12 @@ bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 * Allow "target" mode to pass over creatures
 * Affect grids, objects, and creatures
 */
-bool cast_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
+bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad)
 {
-	int tx, ty;
+	int tx = 0, ty = 0;
 
 	//TODO if(typ == DO_EFFECT_CONTROL_LIVING) flg |= PROJECT_HIDE;
 
-	/* Use the given direction */
-	tx = caster_ptr->fx + 99 * ddx[dir];
-	ty = caster_ptr->fy + 99 * ddy[dir];
-
-	/* Hack -- Use an actual "target" */
-	if((dir == 5) && target_okay(caster_ptr))
-	{
-		//TODO flg &= ~(PROJECT_STOP);
-		tx = target_col;
-		ty = target_row;
-	}
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
 	return (project(caster_ptr, 0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
