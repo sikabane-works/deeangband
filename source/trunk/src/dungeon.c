@@ -1552,11 +1552,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			damage = calc_damage(steed_ptr, creature_ptr, damage, DO_EFFECT_FIRE, FALSE, FALSE);
 #ifdef JP
 			msg_print("熱い！");
-			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", NULL, -1);
 #else
 			msg_print("It's hot!");
-			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
 #endif
+			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, COD_FIRE_AURA, NULL, -1);
 		}
 		if(has_trait(steed_ptr, TRAIT_AURA_ELEC) && !has_trait(creature_ptr, TRAIT_IM_ELEC))
 		{
@@ -1564,11 +1563,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			damage = calc_damage(steed_ptr, creature_ptr, damage, DO_EFFECT_ELEC, FALSE, FALSE);
 #ifdef JP
 			msg_print("痛い！");
-			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", NULL, -1);
 #else
 			msg_print("It hurts!");
-			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
 #endif
+			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, COD_ELEC_AURA, NULL, -1);
 		}
 		if(has_trait(steed_ptr, TRAIT_AURA_COLD) && !has_trait(creature_ptr, TRAIT_IM_COLD))
 		{
@@ -1576,11 +1574,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			damage = calc_damage(steed_ptr, creature_ptr, damage, DO_EFFECT_COLD, FALSE, FALSE);
 #ifdef JP
 			msg_print("冷たい！");
-			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", NULL, -1);
 #else
 			msg_print("It's cold!");
-			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, "Cold aura", NULL, -1);
 #endif
+			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, COD_COLD_AURA, NULL, -1);
 		}
 	}
 
