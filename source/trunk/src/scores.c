@@ -262,7 +262,7 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 				chara_info[pa].title,
 				the_score.who, race_info[pr].title, class_info[pc].title, clev);
 #endif
-			if(mlev > clev) strcat(out_val, format(" (%s %d)", KW_MAX mlev));
+			if(mlev > clev) strcat(out_val, format(" (%s %d)", KW_MAX, mlev));
 
 
 			/* Dump the first line */
