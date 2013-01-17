@@ -1619,7 +1619,7 @@ static void display_player_one_line(int entry, cptr val, byte attr)
 
 cptr rbm_name[MAX_RBM] = 
 {
-	"‚È‚µ",
+	KW_NONE,
 	"‰£‘Å",
 	"ÚG",
 	"Œ",
@@ -1637,7 +1637,7 @@ cptr rbm_name[MAX_RBM] =
 	"‚æ‚¾‚ê",
 	"‘Ì‰t",
 
-	"‚È‚µ",
+	KW_NONE,
 	"‚½‚©‚è",
 	"•J",
 	"™ï‚«",
@@ -3933,14 +3933,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 				}
 			}
 			
-			if(!pcol)
-			{
-#ifdef JP
-				strcat(p[col], "‚È‚µ");
-#else
-				strcat(p[col], "None");
-#endif
-			}
+			if(!pcol) strcat(p[col], KW_NONE);
 			else
 			{
 				if(p[col][strlen(p[col])-2] == ',')
