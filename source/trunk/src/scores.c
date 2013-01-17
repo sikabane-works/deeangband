@@ -172,24 +172,16 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 	for (k = from, place = k+1; k < i; k += per_screen)
 	{
 		Term_clear();
-
-		/* Title */
-#ifdef JP
-		put_str(format("                %s: —EŽÒ‚Ì“a“°", VERSION_NAME), 0, 0);
-#else
-		put_str(format("                %s Hall of Fame", VERSION_NAME), 0, 0);
-#endif
-
+		put_str(format("                %s %s", VERSION_NAME, KW_SCORE_RANKING), 0, 0);
 
 		/* Indicate non-top scores */
 		if(k > 0)
 		{
 #ifdef JP
-sprintf(tmp_val, "( %d ˆÊˆÈ‰º )", k + 1);
+			sprintf(tmp_val, "( %d ˆÊˆÈ‰º )", k + 1);
 #else
 			sprintf(tmp_val, "(from position %d)", k + 1);
 #endif
-
 			put_str(tmp_val, 0, 40);
 		}
 
