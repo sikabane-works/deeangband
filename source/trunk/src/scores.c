@@ -175,9 +175,9 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 
 		/* Title */
 #ifdef JP
-		put_str("                D\'angband: —EŽÒ‚Ì“a“°", 0, 0);
+		put_str(format("                %s: —EŽÒ‚Ì“a“°", VERSION_NAME), 0, 0);
 #else
-		put_str("                D\'angband Hall of Fame", 0, 0);
+		put_str(format("                %s Hall of Fame", VERSION_NAME), 0, 0);
 #endif
 
 

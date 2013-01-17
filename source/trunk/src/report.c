@@ -421,14 +421,7 @@ errr report_score(creature_type *player_ptr)
 
 	buf_sprintf(score, "name: %s\n", player_ptr->name);
 
-#ifdef JP
-	buf_sprintf(score, "version: D\'angband %d.%d.%d\n",
-		    VER_MAJOR, VER_MINOR, VER_PATCH);
-#else
-	buf_sprintf(score, "version: D\'angband %d.%d.%d\n",
-		    VER_MAJOR, VER_MINOR, VER_PATCH);
-#endif
-
+	buf_sprintf(score, "version: %s %d.%d.%d\n", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
 	buf_sprintf(score, "score: %d\n", total_points());
 	buf_sprintf(score, "level: %d\n", player_ptr->lev);
 	buf_sprintf(score, "depth: %d\n", player_ptr->depth);
