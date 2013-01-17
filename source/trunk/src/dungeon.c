@@ -1534,12 +1534,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		{
 #ifdef JP
 			msg_print("“M‚ê‚Ä‚¢‚éI");
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->lev), "“M‚ê", NULL, -1);
 #else
 			msg_print("You are drowning!");
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->lev), "drowning", NULL, -1);
 #endif
-
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->lev), COD_DROWNING, NULL, -1);
 			cave_no_regen = TRUE;
 		}
 	}

@@ -555,6 +555,7 @@
 #define COD_BUNP_WALL "ï«Ç÷ÇÃè’ìÀ"
 #define COD_DENSITY "ñßìx"
 #define COD_SOLID_ROCK "çdÇ¢ä‚"
+#define COD_DROWNING "ìMÇÍ"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -598,6 +599,7 @@
 #define COD_BUNP_WALL "bumping into wall"
 #define COD_DENSITY "density"
 #define COD_SOLID_ROCK "solid rock"
+#define COD_DROWNING "drowning"
 #endif
 
 // Hack -- possible "insult" messages
