@@ -198,6 +198,8 @@ static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, int 
  */
 static void cast_wonder(creature_type *creature_ptr, int dir)
 {
+	//TODO target_select
+	int y = 0, x = 0;
 	int plev = creature_ptr->lev;
 	int die = randint1(100) + plev / 5;
 	// TODO: add Karma of Fortune feature.
@@ -218,17 +220,17 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 	else if(die < 31) poly_creature(creature_ptr, dir);
 	else if(die < 36) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_MISSILE, dir, diceroll(3 + ((plev - 1) / 5), 4));
 	else if(die < 41) confuse_creature(creature_ptr, dir, plev);
-	else if(die < 46) cast_ball(creature_ptr, DO_EFFECT_POIS, dir, 20 + (plev / 2), 3);
+	else if(die < 46) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_POIS, 20 + (plev / 2), 3, -1);
 	else if(die < 51) (void)lite_line(creature_ptr, dir);
 	else if(die < 56) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_ELEC, dir, diceroll(3 + ((plev - 5) / 4), 8));
 	else if(die < 61) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_COLD, dir, diceroll(5 + ((plev - 5) / 4), 8));
 	else if(die < 66) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), DO_EFFECT_ACID, dir, diceroll(6 + ((plev - 5) / 4), 8));
 	else if(die < 71) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), DO_EFFECT_FIRE, dir, diceroll(8 + ((plev - 5) / 4), 8));
 	else if(die < 76) drain_life(creature_ptr, dir, 75);
-	else if(die < 81) cast_ball(creature_ptr, DO_EFFECT_ELEC, dir, 30 + plev / 2, 2);
-	else if(die < 86) cast_ball(creature_ptr, DO_EFFECT_ACID, dir, 40 + plev, 2);
-	else if(die < 91) cast_ball(creature_ptr, DO_EFFECT_ICE, dir, 70 + plev, 3);
-	else if(die < 96) cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 80 + plev, 3);
+	else if(die < 81) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ELEC, 30 + plev / 2, 2, -1);
+	else if(die < 86) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ACID, 40 + plev, 2, -1);
+	else if(die < 91) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ICE, 70 + plev, 3, -1);
+	else if(die < 96) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_FIRE, 80 + plev, 3, -1);
 	else if(die < 101) drain_life(creature_ptr, dir, 100 + plev);
 	else if(die < 104) earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);

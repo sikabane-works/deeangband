@@ -2472,7 +2472,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BAZOOKA:
-		cast_ball(caster_ptr, DO_EFFECT_MISSILE, dir, user_level * 2, 2);
+		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_MISSILE, user_level * 2, 2, id);
 		break;
 
 	case TRAIT_BEAM_CANNON:
