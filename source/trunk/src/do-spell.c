@@ -3025,10 +3025,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, dir,
-					diceroll(dice, sides), 0);
+				cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, diceroll(dice, sides), 0);
 			}
 		}
 		break;

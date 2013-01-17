@@ -2544,10 +2544,8 @@ bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 */
 bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad)
 {
-	int tx = 0, ty = 0;
-
-	//TODO if(typ == DO_EFFECT_CONTROL_LIVING) flg |= PROJECT_HIDE;
-
+	int tx = 0, ty = 0, dir = 0;
+	if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
 	return (project(caster_ptr, 0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
