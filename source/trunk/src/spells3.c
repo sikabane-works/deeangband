@@ -4801,7 +4801,7 @@ bool eat_magic(creature_type *creature_ptr, int power)
 			if(object_ptr->timeout > (object_ptr->number - 1) * object_kind_ptr->pval)
 			{
 #ifdef JP
-msg_print("充填中のロッドから魔力を吸収することはできません。");
+				msg_print("充填中のロッドから魔力を吸収することはできません。");
 #else
 				msg_print("You can't absorb energy from a discharged rod.");
 #endif

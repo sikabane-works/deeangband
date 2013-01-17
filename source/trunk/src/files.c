@@ -4560,9 +4560,9 @@ static void dump_aux_home_museum(FILE *fff)
 errr make_character_dump(creature_type *creature_ptr, FILE *fff)
 {
 #ifdef JP
-	fprintf(fff, "  [D\'angband %d.%d.%d キャラクタ情報]\n\n", VER_MAJOR, VER_MINOR, VER_PATCH);
+	fprintf(fff, "  [%s %d.%d.%d キャラクタ情報]\n\n", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
 #else
-	fprintf(fff, "  [D\'angband %d.%d.%d Character Dump]\n\n", VER_MAJOR, VER_MINOR, VER_PATCH);
+	fprintf(fff, "  [%s %d.%d.%d Character Dump]\n\n", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
 #endif
 
 	update_play_time();
@@ -5086,7 +5086,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 
 		/* Show a general "title" */
 		if(show_version)
-			prt(format("[D\'angband %d.%d.%d, %s, %d/%d]", VER_MAJOR, VER_MINOR, VER_PATCH, caption, line, size), 0, 0);
+			prt(format("[%s %d.%d.%d, %s, %d/%d]", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH, caption, line, size), 0, 0);
 		else
 			prt(format("[%s, %d/%d]", caption, line, size), 0, 0);
 

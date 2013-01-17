@@ -219,8 +219,7 @@ static void http_post(int sd, cptr url, BUF *buf)
 
 	output = buf_new();
 	buf_sprintf(output, "POST %s HTTP/1.0\n", url);
-	buf_sprintf(output, "User-Agent: D\'angband %d.%d.%d\n",
-		    VER_MAJOR, VER_MINOR, VER_PATCH);
+	buf_sprintf(output, "User-Agent: %s %d.%d.%d\n", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	buf_sprintf(output, "Content-Length: %d\n", buf->size);
 	buf_sprintf(output, "Content-Encoding: binary\n");

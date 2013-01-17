@@ -3473,11 +3473,9 @@ void do_cmd_visuals(void)
 
 				/* Label the Current values */
 #ifdef JP
-				Term_putstr(10, 20, -1, TERM_WHITE,
-					    format("現在値  色 / 文字 = %3d / %3d", ca, cc));
+				Term_putstr(10, 20, -1, TERM_WHITE, format("現在値  色 / 文字 = %3d / %3d", ca, cc));
 #else
-				Term_putstr(10, 20, -1, TERM_WHITE,
-					    format("Current attr/char = %3d / %3d", ca, cc));
+				Term_putstr(10, 20, -1, TERM_WHITE, format("Current attr/char = %3d / %3d", ca, cc));
 #endif
 
 				Term_putstr(40, 20, -1, TERM_WHITE, empty_symbol);
@@ -3932,11 +3930,7 @@ void do_cmd_note(void)
  */
 void do_cmd_version(void)
 {
-#ifdef JP
-	msg_format("D\'angband %d.%d.%d", VER_MAJOR, VER_MINOR, VER_PATCH);
-#else
-	msg_format("You are playing D\'angband %d.%d.%d.", VER_MAJOR, VER_MINOR, VER_PATCH);
-#endif
+	msg_format("%s %d.%d.%d", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
 }
 
 

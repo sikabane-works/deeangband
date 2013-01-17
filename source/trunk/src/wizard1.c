@@ -353,8 +353,7 @@ static void spoil_obj_desc(cptr fname)
 
 
 	/* Header */
-	fprintf(fff, "Spoiler File -- Basic Items (D\'angband %d.%d.%d)\n\n\n",
-		VER_MAJOR, VER_MINOR, VER_PATCH);
+	fprintf(fff, "Spoiler File -- Basic Items (%s %d.%d.%d)\n\n\n", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	/* More Header */
 	fprintf(fff, "%-45s     %8s%7s%5s%9s\n",
@@ -1144,8 +1143,7 @@ static void print_header(void)
 {
 	char buf[80];
 
-	sprintf(buf, "Artifact Spoilers for D\'angband Version %d.%d.%d",
-		VER_MAJOR, VER_MINOR, VER_PATCH);
+	sprintf(buf, "Artifact Spoilers for %s Version %d.%d.%d", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
 	spoiler_underline(buf);
 }
 
@@ -1524,8 +1522,7 @@ static void spoil_species_desc(cptr fname)
 	C_MAKE(who, max_species_idx, s16b);
 
 	/* Dump the header */
-	fprintf(fff, "Creature Spoilers for D\'angband Version %d.%d.%d\n",
-		VER_MAJOR, VER_MINOR, VER_PATCH);
+	fprintf(fff, "Creature Spoilers for %s Version %d.%d.%d\n", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
 	fprintf(fff, "---------------------------------------------\n\n");
 
 	/* Dump the header */
@@ -2018,8 +2015,7 @@ static void spoil_species_info(cptr fname)
 
 
 	/* Dump the header */
-	sprintf(buf, "Creature Spoilers for D\'angband Version %d.%d.%d\n",
-	     VER_MAJOR, VER_MINOR, VER_PATCH);
+	sprintf(buf, "Creature Spoilers for %s Version %d.%d.%d\n", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	spoil_out(buf);
 	spoil_out("------------------------------------------\n\n");
@@ -2287,8 +2283,7 @@ static void spoil_species_evol(cptr fname)
 	}
 
 	/* Dump the header */
-	sprintf(buf, "Creature Spoilers for D\'angband Version %d.%d.%d\n",
-	     VER_MAJOR, VER_MINOR, VER_PATCH);
+	sprintf(buf, "Creature Spoilers for %s Version %d.%d.%d\n", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	spoil_out(buf);
 	spoil_out("------------------------------------------\n\n");
