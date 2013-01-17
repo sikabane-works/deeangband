@@ -1689,99 +1689,69 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 	switch (sval)
 	{
 		case SV_WAND_HEAL_OTHER_CREATURE:
-		{
 			if(heal_other_creature(creature_ptr, dir, diceroll(10, 10))) ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_HASTE_MONSTER:
-		{
 			if(speed_other_creature(creature_ptr, dir)) ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_CLONE_MONSTER:
-		{
 			if(clone_creature(creature_ptr, dir)) ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_TELEPORT_AWAY:
-		{
 			if(teleport_creature(creature_ptr, dir)) ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_DISARMING:
-		{
 			if(disarm_trap(creature_ptr, dir)) ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_TRAP_DOOR_DEST:
-		{
 			if(destroy_door(creature_ptr, dir)) ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_SLEEP_MONSTER:
-		{
 			if(sleep_creature(creature_ptr, dir)) ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_CONFUSE_MONSTER:
-		{
 			if(confuse_creature(creature_ptr, dir, creature_ptr->lev)) ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_FEAR_MONSTER:
-		{
 			if(fear_creature(creature_ptr, dir, creature_ptr->lev)) ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_POLYMORPH:
-		{
 			if(poly_creature(creature_ptr, dir)) ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_CHARM_MONSTER:
-		{
 			if(charm_creature(creature_ptr, dir, MAX(20, creature_ptr->lev)))
 			ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_WONDER:
-		{
 #ifdef JP
 			msg_print("おっと、謎の魔法棒を始動させた。");
 #else
 			msg_print("Oops.  Wand of wonder activated.");
 #endif
-
 			break;
-		}
 
 		case SV_WAND_DRAGON_FIRE:
-		{
 			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_FIRE, 200, 3, -1);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_DRAGON_COLD:
-		{
 			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_COLD, 180, 3, -1);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_DRAGON_BREATH:
-		{
 			switch (randint1(5))
 			{
 				case 1:
@@ -1817,28 +1787,21 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 
 			ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_DISINTEGRATE:
-		{
 			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_DISINTEGRATE, 200 + randint1(creature_ptr->lev * 2), 2, -1);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_STRIKING:
-		{
 			cast_bolt(creature_ptr, DO_EFFECT_METEOR, diceroll(15 + creature_ptr->lev / 3, 13), 0);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_WAND_GENOCIDE:
-		{
 			cast_ball_hide(creature_ptr, DO_EFFECT_GENOCIDE, dir, magic ? creature_ptr->lev + 50 : 250, 0);
 			ident = TRUE;
 			break;
-		}
 	}
 	return ident;
 }
@@ -1999,65 +1962,45 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 	/* Analyze the rod */
 	switch (sval)
 	{
-
 		case SV_ROD_DETECT_DOOR:
-		{
 			if(detect_doors(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			if(detect_stairs(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
-		}
 
 		case SV_ROD_IDENTIFY:
-		{
 			if(!ident_spell(creature_ptr, FALSE)) *use_charge = FALSE;
 			ident = TRUE;
 			break;
-		}
 
 		case SV_ROD_DETECTION:
-		{
 			detect_all(creature_ptr, DETECT_RAD_DEFAULT);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_ROD_PESTICIDE:
-		{
 			if(project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 4)) ident = TRUE;
 			break;
-		}
 
 		case SV_ROD_TELEPORT_AWAY:
-		{
 			if(teleport_creature(creature_ptr, dir)) ident = TRUE;
 			break;
-		}
 
 		case SV_ROD_DISARMING:
-		{
 			if(disarm_trap(creature_ptr, dir)) ident = TRUE;
 			break;
-		}
 
 		case SV_ROD_SLEEP_MONSTER:
-		{
 			if(sleep_creature(creature_ptr, dir)) ident = TRUE;
 			break;
-		}
 
 		case SV_ROD_POLYMORPH:
-		{
 			if(poly_creature(creature_ptr, dir)) ident = TRUE;
 			break;
-		}
 
 		case SV_ROD_HAVOC:
-		{
 			call_chaos(creature_ptr);
 			ident = TRUE;
 			break;
-		}
-
 	}
 	return ident;
 }
@@ -2269,22 +2212,13 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 			break;
 		}
 
-		case 4:
-		case 5:
-		case 6:
-		{
+		case 4: case 5: case 6:
 			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_MANA, 600, 3, -1);
 			break;
-		}
 
-		case 7:
-		case 8:
-		case 9:
-		case 10:
-		{
+		case 7: case 8: case 9: case 10:
 			cast_bolt(creature_ptr, DO_EFFECT_MANA, 500, 0);		// Mana Bolt
 			break;
-		}
 	}
 }
 
@@ -2300,7 +2234,6 @@ static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
 	species_type *species_ptr1 = &species_info[m_ptr1->species_idx];
 	species_type *species_ptr2 = &species_info[m_ptr2->species_idx];
 
-	/* Unused */
 	(void)v;
 
 	if(m_ptr1->nickname && !m_ptr2->nickname) return TRUE;
@@ -2948,7 +2881,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	flag = FALSE;
 
 #ifdef JP
-	(void) strnfmt(out_val, 78, "('*'で一覧, ESCで中断) どの魔力を使いますか？");
+	(void)strnfmt(out_val, 78, "('*'で一覧, ESCで中断) どの魔力を使いますか？");
 #else
 	(void)strnfmt(out_val, 78, "(*=List, ESC=exit) Use which power? ");
 #endif
