@@ -556,6 +556,9 @@
 #define COD_DENSITY "密度"
 #define COD_SOLID_ROCK "硬い岩"
 #define COD_DROWNING "溺れ"
+#define COD_FIRE_AURA "炎のオーラ"
+#define COD_COLD_AURA "冷気のオーラ"
+#define COD_ELEC_AURA "電撃のオーラ"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -600,6 +603,9 @@
 #define COD_DENSITY "density"
 #define COD_SOLID_ROCK "solid rock"
 #define COD_DROWNING "drowning"
+#define COD_FIRE_AURA "fire aura"
+#define COD_COLD_AURA "cold aura"
+#define COD_ELEC_AURA "elec aura"
 #endif
 
 // Hack -- possible "insult" messages
