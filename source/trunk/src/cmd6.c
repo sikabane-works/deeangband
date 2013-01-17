@@ -2438,7 +2438,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 			case EGO_RING_DRAGON_F:
 				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-				cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 200, -2);
+				breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_FIRE, 200, 2, -1);
 				if(object_ptr->sval == SV_RING_FLAMES)
 				{
 					(void)set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, FALSE);
@@ -2449,7 +2449,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 			case EGO_RING_DRAGON_C:
 				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-				cast_ball(creature_ptr, DO_EFFECT_COLD, dir, 200, -2);
+				breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_COLD, 200, 2, -1);
 				if(object_ptr->sval == SV_RING_ICE)
 				{
 					(void)set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
