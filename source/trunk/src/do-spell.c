@@ -218,14 +218,14 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 	else if(die < 14) speed_other_creature(creature_ptr, dir);
 	else if(die < 26) heal_other_creature(creature_ptr, dir, diceroll(4, 6));
 	else if(die < 31) poly_creature(creature_ptr, dir);
-	else if(die < 36) cast_bolt_or_beam(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, dir, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(creature_ptr) - 10);
+	else if(die < 36) cast_bolt_or_beam(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(creature_ptr) - 10);
 	else if(die < 41) confuse_creature(creature_ptr, dir, plev);
 	else if(die < 46) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_POIS, 20 + (plev / 2), 3, -1);
 	else if(die < 51) (void)lite_line(creature_ptr, dir);
-	else if(die < 56) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, dir, diceroll(3 + ((plev - 5) / 4), 8), beam_chance(creature_ptr) - 10);
-	else if(die < 61) cast_bolt_or_beam(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, dir, diceroll(5 + ((plev - 5) / 4), 8), beam_chance(creature_ptr) - 10);
-	else if(die < 66) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, dir, diceroll(6 + ((plev - 5) / 4), 8), beam_chance(creature_ptr));
-	else if(die < 71) cast_bolt_or_beam(creature_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, dir, diceroll(8 + ((plev - 5) / 4), 8), beam_chance(creature_ptr));
+	else if(die < 56) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3 + ((plev - 5) / 4), 8), beam_chance(creature_ptr) - 10);
+	else if(die < 61) cast_bolt_or_beam(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5 + ((plev - 5) / 4), 8), beam_chance(creature_ptr) - 10);
+	else if(die < 66) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6 + ((plev - 5) / 4), 8), beam_chance(creature_ptr));
+	else if(die < 71) cast_bolt_or_beam(creature_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8 + ((plev - 5) / 4), 8), beam_chance(creature_ptr));
 	else if(die < 76) drain_life(creature_ptr, dir, 75);
 	else if(die < 81) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ELEC, 30 + plev / 2, 2, -1);
 	else if(die < 86) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ACID, 40 + plev, 2, -1);
@@ -275,14 +275,14 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 		add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint1(4) + 4, TRUE);
 	}
 	else if(die < 31) poly_creature(creature_ptr, dir);
-	else if(die < 36) cast_bolt_or_beam(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, dir, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(creature_ptr) - 10);
+	else if(die < 36) cast_bolt_or_beam(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(creature_ptr) - 10);
 	else if(die < 41) confuse_creature(creature_ptr, dir, plev);
 	else if(die < 46) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_POIS, 20 + (plev / 2), 3, -1);
 	else if(die < 51) (void)lite_line(creature_ptr, dir);
-	else if(die < 56) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, dir, diceroll(3+((plev-5)/4),8), beam_chance(creature_ptr) - 10);
-	else if(die < 61) cast_bolt_or_beam(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, dir, diceroll(5+((plev-5)/4),8), beam_chance(creature_ptr) - 10);
-	else if(die < 66) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, dir, diceroll(6+((plev-5)/4),8), beam_chance(creature_ptr));
-	else if(die < 71) cast_bolt_or_beam(creature_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, dir, diceroll(8+((plev-5)/4),8), beam_chance(creature_ptr));
+	else if(die < 56) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3+((plev-5)/4),8), beam_chance(creature_ptr) - 10);
+	else if(die < 61) cast_bolt_or_beam(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5+((plev-5)/4),8), beam_chance(creature_ptr) - 10);
+	else if(die < 66) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6+((plev-5)/4),8), beam_chance(creature_ptr));
+	else if(die < 71) cast_bolt_or_beam(creature_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8+((plev-5)/4),8), beam_chance(creature_ptr));
 	else if(die < 76) drain_life(creature_ptr, dir, 75);
 	else if(die < 81) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ELEC, 30 + plev / 2, 2, -1);
 	else if(die < 86) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ACID, 40 + plev, 2, -1);
@@ -2331,7 +2331,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, dir, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
+			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
 		}
 		break;
 
@@ -2375,7 +2375,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, dir, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
+			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
 		}
 		break;
 
@@ -2845,7 +2845,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 4;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, dir, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
+			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
 		}
 		break;
 
@@ -2953,7 +2953,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, dir, diceroll(dice, sides), beam_chance(caster_ptr));
+			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
 		}
 		break;
 
@@ -3035,7 +3035,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			int dice = 10 + (plev - 5) / 4;
 			int sides = 8;
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, dir, diceroll(dice, sides), beam_chance(caster_ptr));
+			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
 		}
 		break;
 
@@ -3746,7 +3746,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, dir, diceroll(dice, sides), beam_chance(caster_ptr));
+			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
 		}
 		break;
 
@@ -3943,7 +3943,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, dir, diceroll(dice, sides), beam_chance(caster_ptr));
+			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
 		}
 		break;
 
@@ -5196,7 +5196,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 3;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, dir, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
+			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
 		}
 		break;
 
@@ -6570,7 +6570,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 4;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, dir, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
+			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
 		}
 		break;
 
@@ -6675,7 +6675,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, dir, diceroll(dice, sides), beam_chance(caster_ptr));
+			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
 		}
 		break;
 
@@ -6803,7 +6803,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, dir, diceroll(dice, sides), beam_chance(caster_ptr));
+			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
 		}
 		break;
 
@@ -7298,7 +7298,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = 4;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, dir, diceroll(dice, sides), beam_chance(creature_ptr) - 10);
+			if(cast) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(creature_ptr) - 10);
 		}
 		break;
 

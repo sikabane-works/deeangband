@@ -270,10 +270,10 @@ bool cast_beam(creature_type *caster_ptr, int typ, int range, int dam, int trait
 }
 
 // Cast a bolt spell, or rarely, a beam spell
-bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, int dir, int dam, int prob)
+bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, int dam, int prob)
 {
-	if(randint0(100) < prob) return (cast_beam(caster_ptr, MAX_RANGE_SUB, typ, dam, 0));
-	else return cast_bolt(caster_ptr, typ, MAX_RANGE_SUB, dam, 0);
+	if(randint0(100) < prob) return (cast_beam(caster_ptr, range, typ, dam, 0));
+	else return cast_bolt(caster_ptr, typ, range, dam, 0);
 }
 
 
