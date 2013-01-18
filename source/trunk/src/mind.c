@@ -847,7 +847,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		if(randint1(100) < plev * 2)
 			cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_PSI, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0, FALSE);
 		else
-			cast_ball(creature_ptr, DO_EFFECT_PSI, dir, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0);
+			cast_ball(creature_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0);
 		break;
 	case 2:
 		/* Minor displace */
@@ -868,11 +868,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 			project_all_vision(creature_ptr, DO_EFFECT_CHARM, plev * 2);
 		break;
 	case 5:
-		/* Fist of Force  ---  not 'true' TK  */
-		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-
-		cast_ball(creature_ptr, DO_EFFECT_TELEKINESIS, dir, diceroll(8 + ((plev - 5) / 4), 8),
-			(plev > 20 ? (plev - 20) / 8 + 1 : 0));
+		cast_ball(creature_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((plev - 5) / 4), 8), (plev > 20 ? (plev - 20) / 8 + 1 : 0));
 		break;
 	case 6:
 		/* Character Armour */
@@ -998,8 +994,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	switch (spell)
 	{
 	case 0:
-		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		cast_ball(creature_ptr, DO_EFFECT_MISSILE, dir, diceroll(3 + ((plev - 1) / 5) + boost / 12, 4), 0);
+		cast_ball(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5) + boost / 12, 4), 0);
 		break;
 	case 1:
 		(void)lite_area(creature_ptr, diceroll(2, (plev / 2)), (plev / 10) + 1);
@@ -1103,8 +1098,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 			break;
 		}
 	case 8:
-		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		cast_ball(creature_ptr, DO_EFFECT_MISSILE, dir, diceroll(10, 6) + plev * 3 / 2 + boost * 3 / 5, (plev < 30) ? 2 : 3);
+		cast_ball(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(10, 6) + plev * 3 / 2 + boost * 3 / 5, (plev < 30) ? 2 : 3);
 		break;
 	case 9:
 		{
@@ -1251,8 +1245,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 		/* mirror clashing */
 	case 8:
-		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		cast_ball(creature_ptr, DO_EFFECT_SHARDS, dir, diceroll(8 + ((plev - 5) / 4), 8), (plev > 20 ? (plev - 20) / 8 + 1 : 0));
+		cast_ball(creature_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, diceroll(8 + ((plev - 5) / 4), 8), (plev > 20 ? (plev - 20) / 8 + 1 : 0));
 		break;
 		/* mirror sleeping */
 	case 9:
@@ -1633,8 +1626,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			break;
 		}
 	case 13:
-		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		cast_ball(creature_ptr, DO_EFFECT_CONF_OTHERS, dir, plev*3, 3);
+		cast_ball(creature_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev*3, 3);
 		break;
 	case 14:
 		if(!get_aim_dir(creature_ptr, NO_RANGE_LIMIT, &dir)) return FALSE;

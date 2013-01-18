@@ -2905,7 +2905,7 @@ bool animate_dead(creature_type *creature_ptr, int y, int x)
 
 void call_chaos(creature_type *creature_ptr)
 {
-	int Chaos_type, dummy, dir;
+	int Chaos_type, dummy;
 	int plev = creature_ptr->lev;
 	bool line_chaos = FALSE;
 
@@ -2943,11 +2943,10 @@ void call_chaos(creature_type *creature_ptr)
 	}
 	else
 	{
-		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
 		if(line_chaos)
 			cast_beam(creature_ptr, MAX_RANGE_SUB, Chaos_type, 250, 0, FALSE);
 		else
-			cast_ball(creature_ptr, Chaos_type, dir, 250, 3 + (plev / 35));
+			cast_ball(creature_ptr, Chaos_type, MAX_RANGE_SUB, 250, 3 + (plev / 35));
 	}
 }
 
