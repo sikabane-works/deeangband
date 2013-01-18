@@ -1794,7 +1794,7 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 
 		case SV_WAND_STRIKING:
-			cast_bolt(creature_ptr, DO_EFFECT_METEOR, diceroll(15 + creature_ptr->lev / 3, 13), 0);
+			cast_bolt(creature_ptr, DO_EFFECT_METEOR, MAX_RANGE_SUB, diceroll(15 + creature_ptr->lev / 3, 13), 0);
 			ident = TRUE;
 			break;
 
@@ -2217,7 +2217,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 			break;
 
 		case 7: case 8: case 9: case 10:
-			cast_bolt(creature_ptr, DO_EFFECT_MANA, 500, 0);		// Mana Bolt
+			cast_bolt(creature_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, 500, 0);		// Mana Bolt
 			break;
 	}
 }

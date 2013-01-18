@@ -1229,6 +1229,7 @@ extern void lite_room(creature_type *creature_ptr, int y1, int x1);
 extern void unlite_room(creature_type *caster_ptr, int y1, int x1);
 extern bool lite_area(creature_type *creature_ptr, int dam, int rad);
 extern bool unlite_area(creature_type *caster_ptr, int dam, int rad);
+extern bool cast_bolt(creature_type *caster_ptr, int typ, int range, int dam, int trait_id);
 extern bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad);
 extern bool cast_grenade(creature_type *caster_ptr, int typ, int dir, int dam, int rad);
 extern bool cast_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int rad);
@@ -1531,7 +1532,6 @@ extern void msg_warning(cptr message, ...);
 
 // mspells1.c
 extern bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool friend);
-extern bool cast_bolt(creature_type *caster_ptr, int typ, int dam, int trait_id);
 extern bool summon_possible(creature_type *target_ptr, int y1, int x1);
 extern bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr);

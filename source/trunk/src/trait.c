@@ -534,19 +534,19 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BO_FIRE_MINI:
-		cast_bolt(caster_ptr,DO_EFFECT_FIRE, diceroll(9, 8), 0);
+		cast_bolt(caster_ptr,DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(9, 8), 0);
 		break;
 
 	case TRAIT_BO_COLD_MINI:
-		cast_bolt(caster_ptr,DO_EFFECT_COLD, diceroll(6, 8), 0);
+		cast_bolt(caster_ptr,DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(6, 8), 0);
 		break;
 
 	case TRAIT_BO_ELEC_MINI:
-		cast_bolt(caster_ptr,DO_EFFECT_ELEC, diceroll(4, 8), 0);
+		cast_bolt(caster_ptr,DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(4, 8), 0);
 		break;
 
 	case TRAIT_BO_ACID_MINI:
-		cast_bolt(caster_ptr,DO_EFFECT_ACID, diceroll(5, 8), 0);
+		cast_bolt(caster_ptr,DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(5, 8), 0);
 		break;
 
 	case TRAIT_REMOVE_FEAR:
@@ -904,11 +904,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_SHOOT:
-		cast_bolt(caster_ptr, DO_EFFECT_ARROW, damage, 0);
+		cast_bolt(caster_ptr, DO_EFFECT_ARROW, MAX_RANGE_SUB, damage, 0);
 		{
 			//TODO Fix damage calc.
 			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
-			cast_bolt(caster_ptr, DO_EFFECT_ARROW, damage, TRAIT_SHOOT);
+			cast_bolt(caster_ptr, DO_EFFECT_ARROW, MAX_RANGE_SUB, damage, TRAIT_SHOOT);
 			break;
 		}
 
@@ -1107,7 +1107,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		cast_ball_hide(caster_ptr, DO_EFFECT_MIND_BLAST, dir, damage, 0);
 		break;
 
-		cast_bolt(caster_ptr, DO_EFFECT_PSI, user_level, 0);
+		cast_bolt(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, user_level, 0);
 		break;
 
 		damage = diceroll(7, 7);
@@ -1160,22 +1160,22 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BO_ACID:
 		damage = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_bolt(caster_ptr, DO_EFFECT_ACID, damage, TRAIT_BO_ACID);
+		cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, damage, TRAIT_BO_ACID);
 		break;
 
 	case TRAIT_BO_ELEC:
 		damage = (diceroll(4, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_bolt(caster_ptr, DO_EFFECT_ELEC, damage, TRAIT_BO_ELEC);
+		cast_bolt(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, damage, TRAIT_BO_ELEC);
 		break;
 
 	case TRAIT_BO_FIRE:
 		damage = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_bolt(caster_ptr, DO_EFFECT_FIRE, damage, TRAIT_BO_FIRE);
+		cast_bolt(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, damage, TRAIT_BO_FIRE);
 		break;
 
 	case TRAIT_BO_COLD:
 		damage = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_bolt(caster_ptr, DO_EFFECT_COLD, damage, TRAIT_BO_COLD);
+		cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, damage, TRAIT_BO_COLD);
 		break;
 
 	case TRAIT_BA_LITE:
@@ -1185,32 +1185,32 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BO_NETH:
 		damage = 30 + diceroll(5, 5) + (user_level * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
-		cast_bolt(caster_ptr, DO_EFFECT_NETHER, damage, TRAIT_BO_NETH);
+		cast_bolt(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, damage, TRAIT_BO_NETH);
 		break;
 
 	case TRAIT_BO_WATE:
 		damage = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-		cast_bolt(caster_ptr, DO_EFFECT_WATER, damage, TRAIT_BO_WATE);
+		cast_bolt(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, damage, TRAIT_BO_WATE);
 		break;
 
 	case TRAIT_BO_MANA:
 		damage = randint1(user_level * 7 / 2) + 50;
-		cast_bolt(caster_ptr, DO_EFFECT_MANA, damage, TRAIT_BO_MANA);
+		cast_bolt(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, damage, TRAIT_BO_MANA);
 		break;
 
 	case TRAIT_BO_PLAS:
 		damage = 10 + diceroll(8, 7) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-		cast_bolt(caster_ptr, DO_EFFECT_PLASMA, damage, TRAIT_BO_PLAS);
+		cast_bolt(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, damage, TRAIT_BO_PLAS);
 		break;
 
 	case TRAIT_BO_ICEE:
 		damage = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-		cast_bolt(caster_ptr, DO_EFFECT_ICE, damage, TRAIT_BO_ICEE);
+		cast_bolt(caster_ptr, DO_EFFECT_ICE, MAX_RANGE_SUB, damage, TRAIT_BO_ICEE);
 		break;
 
 	case TRAIT_MISSILE:
 		damage = diceroll(2, 6) + user_level * 2 / 3;
-		cast_bolt(caster_ptr,DO_EFFECT_MISSILE, damage, 0);
+		cast_bolt(caster_ptr,DO_EFFECT_MISSILE, MAX_RANGE_SUB, damage, 0);
 		break;
 
 	case TRAIT_SCARE:
@@ -2441,17 +2441,17 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_THROW_BOULDER:
-		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, (3 * user_level) / 2, 0);
+		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, (3 * user_level) / 2, 0);
 		break;
 
 	case TRAIT_SPIT_ACID:
 		stop_mouth(caster_ptr);
-		if(user_level < 25) cast_bolt(caster_ptr, DO_EFFECT_ACID, user_level, 0);
+		if(user_level < 25) cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, user_level, 0);
 		else SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, user_level * 2, 2, -1);
 		break;
 
 	case TRAIT_POISON_DART:
-		cast_bolt(caster_ptr, DO_EFFECT_POIS, user_level, 0);
+		cast_bolt(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, user_level, 0);
 		break;
 
 	case TRAIT_HOLDING_DUST:
@@ -2464,11 +2464,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_RAY_GUN:
-		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, (user_level+1) / 2, 0);
+		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, (user_level+1) / 2, 0);
 		break;
 
 	case TRAIT_BLASTER:
-		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, user_level, 0);
+		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, user_level, 0);
 		break;
 
 	case TRAIT_BAZOOKA:
@@ -2493,7 +2493,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_MIND_BLST:
-		cast_bolt(caster_ptr, DO_EFFECT_PSI, diceroll(3 + ((user_level - 1) / 5), 3), 0);
+		cast_bolt(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((user_level - 1) / 5), 3), 0);
 		break;
 
 	case TRAIT_RADIATION:
@@ -2693,9 +2693,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			target_ptr = &creature_list[cave_ptr->creature_idx];
 
 			if(is_enemy_of_good_creature(target_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
-				!floor_ptr->fight_arena_mode && !floor_ptr->quest &&
-				(caster_ptr->lev < randint1(caster_ptr->lev)) &&
-				!has_trait(target_ptr, TRAIT_NO_GENOCIDE))
+				!floor_ptr->fight_arena_mode && !floor_ptr->quest && (caster_ptr->lev < randint1(caster_ptr->lev)) && !has_trait(target_ptr, TRAIT_NO_GENOCIDE))
 			{
 				if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 				{
@@ -2724,18 +2722,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_COLD_TOUCH:
-		{
-			if(!cave_ptr->creature_idx)
-			{
-#ifdef JP
-				msg_print("あなたは何もない場所で手を振った。");
-#else
-				msg_print("You wave your hands in the air.");
-#endif
-				break;
-			}
-			cast_bolt(caster_ptr, DO_EFFECT_COLD, 2 * user_level, 0);
-		}
+		cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 2 * user_level, id);
 		break;
 
 	case TRAIT_ENLIGHTENMENT:

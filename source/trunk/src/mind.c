@@ -1219,7 +1219,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 			cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_LITE, diceroll(3+((plev-1)/5),4), 0);
 		}
 		else {
-			cast_bolt(creature_ptr, DO_EFFECT_LITE, diceroll(3+((plev-1)/5),4), 0);
+			cast_bolt(creature_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((plev-1)/5),4), 0);
 		}
 		break;
 		/* warped mirror */
