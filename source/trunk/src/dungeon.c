@@ -4450,11 +4450,7 @@ void process_player(creature_type *creature_ptr)
 			{
 				flush();
 				disturb(player_ptr, 0, 0);
-#ifdef JP
-				msg_print("íÜífÇµÇ‹ÇµÇΩÅB");
-#else
-				msg_print("Canceled.");
-#endif
+				msg_print(GAME_MESSAGE_TARGET_CANCELED);
 			}
 		}
 	}

@@ -942,11 +942,7 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 	}
 	else
 	{
-#ifdef JP
-		msg_print("’†’f‚µ‚½B");
-#else
-		msg_print("Canceled.");
-#endif
+		msg_print(GAME_MESSAGE_TARGET_CANCELED);
 		return;
 	}
 
@@ -1091,8 +1087,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 static bool item_tester_refill_torch(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Torches are okay */
-	if((object_ptr->tval == TV_LITE) &&
-		(object_ptr->sval == SV_LITE_TORCH)) return TRUE;
+	if((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_TORCH)) return TRUE;
 
 	/* Assume not okay */
 	return FALSE;
