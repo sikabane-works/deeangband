@@ -1351,14 +1351,7 @@ static void you_died(cptr hit_from)
 			my_strcpy(gameover_from, dummy, sizeof gameover_from);
 		}
 
-		if(winning_seppuku)
-		{
-#ifdef JP
-			do_cmd_write_diary(DIARY_BUNSHOU, 0, "èüóòÇÃå„êÿï†ÇµÇΩÅB");
-#else
-			do_cmd_write_diary(DIARY_BUNSHOU, 0, "did Seppuku after the winning.");
-#endif
-		}
+		if(winning_seppuku) do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_WINNING_SEPPUKU);
 		else
 		{
 			char buf[24];	

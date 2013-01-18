@@ -845,7 +845,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 		if(randint1(100) < plev * 2)
-			cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_PSI, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0, FALSE);
+			cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_PSI, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0);
 		else
 			cast_ball(creature_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0);
 		break;
@@ -1004,7 +1004,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 3:
 		if(!get_aim_dir(creature_ptr, plev / 8 + 3, &dir)) return FALSE;
-		cast_beam(creature_ptr, plev / 8 + 3, DO_EFFECT_MISSILE, diceroll(5 + ((plev - 1) / 5) + boost / 10, 5), 0, FALSE);
+		cast_beam(creature_ptr, plev / 8 + 3, DO_EFFECT_MISSILE, diceroll(5 + ((plev - 1) / 5) + boost / 10, 5), 0);
 		break;
 	case 4:
 		set_timed_trait(creature_ptr, TRAIT_RESIST_MAGIC, randint1(20) + 20 + boost / 5, FALSE);
@@ -1044,7 +1044,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 			y = creature_ptr->fy + ddy[dir];
 			x = creature_ptr->fx + ddx[dir];
 			dam = diceroll(8 + ((plev - 5) / 4) + boost / 12, 8);
-			cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_MISSILE, dam, 0, FALSE);
+			cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_MISSILE, dam, 0);
 			if(floor_ptr->cave[y][x].creature_idx)
 			{
 				int i;
@@ -1144,7 +1144,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	case 12:
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
-		cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_MANA, diceroll(10 + (plev / 2) + boost * 3 / 10, 15), 0, FALSE);
+		cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_MANA, diceroll(10 + (plev / 2) + boost * 3 / 10, 15), 0);
 		break;
 	case 13:
 		set_timed_trait(creature_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16 + boost / 20, FALSE);
@@ -1216,7 +1216,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 	case 2:
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 		if( plev > 9 && is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ) {
-			cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_LITE, diceroll(3+((plev-1)/5),4), 0, FALSE);
+			cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_LITE, diceroll(3+((plev-1)/5),4), 0);
 		}
 		else {
 			cast_bolt(creature_ptr, DO_EFFECT_LITE, diceroll(3+((plev-1)/5),4), 0);
@@ -1241,7 +1241,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		/* banishing mirror */
 	case 7:
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		(void)cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_AWAY_ALL, plev, 0, FALSE);
+		(void)cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_AWAY_ALL, plev, 0);
 		break;
 		/* mirror clashing */
 	case 8:
@@ -1260,7 +1260,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		/* seeker ray */
 	case 10:
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_SEEKER, diceroll(11+(plev-5)/4,8), 0, FALSE);
+		cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_SEEKER, diceroll(11+(plev-5)/4,8), 0);
 		break;
 		/* seal of mirror */
 	case 11:
@@ -1276,7 +1276,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		/* super ray */
 	case 13:
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_SUPER_RAY, 150+randint1(2*plev), 0, FALSE);
+		cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_SUPER_RAY, 150+randint1(2*plev), 0);
 		break;
 		/* illusion light */
 	case 14:

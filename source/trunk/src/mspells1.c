@@ -264,9 +264,9 @@ bool cast_bolt(creature_type *caster_ptr, int typ, int dam, int trait_id)
  * Pass through creatures, as a "beam".
  * Affect creatures, grids and objects.
  */
-bool cast_beam(creature_type *caster_ptr, int range, int typ, int dam, int trait_id, bool learnable)
+bool cast_beam(creature_type *caster_ptr, int range, int typ, int dam, int trait_id)
 {
-	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, (learnable ? trait_id : -1));
+	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, trait_id);
 }
 
 /*
@@ -274,7 +274,7 @@ bool cast_beam(creature_type *caster_ptr, int range, int typ, int dam, int trait
  */
 bool cast_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, int dam)
 {
-	if(randint0(100) < prob) return (cast_beam(caster_ptr, MAX_RANGE_SUB, typ, dam, 0, FALSE));
+	if(randint0(100) < prob) return (cast_beam(caster_ptr, MAX_RANGE_SUB, typ, dam, 0));
 	else return cast_bolt(caster_ptr, typ, dam, 0);
 }
 
