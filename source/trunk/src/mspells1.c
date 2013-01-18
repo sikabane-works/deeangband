@@ -269,10 +269,8 @@ bool cast_beam(creature_type *caster_ptr, int typ, int range, int dam, int trait
 	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, trait_id);
 }
 
-/*
- * Cast a bolt spell, or rarely, a beam spell
- */
-bool cast_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, int dam)
+// Cast a bolt spell, or rarely, a beam spell
+bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, int dir, int dam, int prob)
 {
 	if(randint0(100) < prob) return (cast_beam(caster_ptr, MAX_RANGE_SUB, typ, dam, 0));
 	else return cast_bolt(caster_ptr, typ, MAX_RANGE_SUB, dam, 0);

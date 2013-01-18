@@ -1237,7 +1237,7 @@ extern bool fire_meteor(int who, int typ, int x, int y, int dam, int rad);
 extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev);
 extern void call_chaos(creature_type *creature_ptr);
 extern bool cast_beam(creature_type *caster_ptr, int typ, int range, int dam, int trait_id);
-extern bool cast_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, int dam);
+extern bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, int dir, int dam, int prob);
 extern bool lite_line(creature_type *caster_ptr, int dir);
 extern bool drain_life(creature_type *caster_ptr, int dir, int dam);
 extern bool death_ray(creature_type *caster_ptr, int dir);
