@@ -2557,23 +2557,12 @@ bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad)
  * Allow "target" mode to pass over creatures
  * Affect grids, objects, and creatures
  */
-bool cast_grenade(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
+bool cast_grenade(creature_type *caster_ptr, int typ, int range, int dam, int rad)
 {
-	int tx, ty;
-
-	/* Use the given direction */
-	tx = caster_ptr->fx + 99 * ddx[dir];
-	ty = caster_ptr->fy + 99 * ddy[dir];
-
-	/* Hack -- Use an actual "target" */
-	if((dir == 5) && target_okay(caster_ptr))
-	{
-		tx = target_col;
-		ty = target_row;
-	}
+	int tx = 0, ty = 0;
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(0, 0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
+	return (project(0, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
 

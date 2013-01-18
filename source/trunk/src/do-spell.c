@@ -3301,24 +3301,11 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Magic Rocket";
 		if(desc) return "Fires a magic rocket.";
 #endif
-    
-		{
+    	{
 			int dam = 120 + plev * 2;
 			int rad = 2;
-
 			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-#ifdef JP
-				msg_print("ロケット発射！");
-#else
-				msg_print("You launch a rocket!");
-#endif
-				cast_grenade(caster_ptr, DO_EFFECT_ROCKET, dir, dam, rad);
-			}
+			if(cast) cast_grenade(caster_ptr, DO_EFFECT_ROCKET, MAX_RANGE_SUB, dam, rad);
 		}
 		break;
 

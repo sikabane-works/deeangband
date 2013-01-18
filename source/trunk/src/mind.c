@@ -931,7 +931,6 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		cast_beam(creature_ptr, DO_EFFECT_PSY_SPEAR, MAX_RANGE_SUB, randint1(plev * 3) + plev * 3, 0);
 		break;
 	case 13:
-		{
 			if(creature_ptr->time_stopper)
 			{
 #ifdef JP
@@ -961,7 +960,6 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 
 			handle_stuff(creature_ptr);
 			break;
-		}
 	default:
 		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
 
