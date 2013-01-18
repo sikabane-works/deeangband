@@ -168,7 +168,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_TELE_AWAY:
-		(void)cast_beam(caster_ptr, MAX_RANGE_SUB, DO_EFFECT_AWAY_ALL, user_level, 0);
+		(void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0);
 		break;
 
 		teleport_creature(caster_ptr, dir);
@@ -1613,7 +1613,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_PSY_SPEAR:
 		damage = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
-		(void)cast_beam(caster_ptr, MAX_RANGE_SUB, DO_EFFECT_PSY_SPEAR, damage, 0);
+		(void)cast_beam(caster_ptr, DO_EFFECT_PSY_SPEAR, MAX_RANGE_SUB, damage, 0);
 		break;
 
 	case TRAIT_TRAPS:
@@ -2069,11 +2069,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_HOLY_LANCE:
-		cast_beam(caster_ptr, MAX_RANGE_SUB, DO_EFFECT_HOLY_FIRE, user_level * 3, 0);
+		cast_beam(caster_ptr, DO_EFFECT_HOLY_FIRE, MAX_RANGE_SUB, user_level * 3, 0);
 		break;
 
 	case TRAIT_HELL_LANCE:
-		cast_beam(caster_ptr, MAX_RANGE_SUB, DO_EFFECT_HELL_FIRE, user_level * 3, 0);
+		cast_beam(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, user_level * 3, 0);
 		break;
 
 	case TRAIT_HP_TO_SP_ACTIVE:
@@ -2163,7 +2163,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_TAKE_PHOTO:
-		cast_beam(caster_ptr, 1, DO_EFFECT_PHOTO, 1, 0);
+		cast_beam(caster_ptr, DO_EFFECT_PHOTO, 1, 1, 0);
 		break;
 
 	case TRAIT_DOUBLE_REVENGE:
@@ -2472,11 +2472,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BAZOOKA:
-		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_MISSILE, user_level * 2, 2, id);
+		cast_ball(caster_ptr, DO_EFFECT_MISSILE, user_level * 2, 2, id);
 		break;
 
 	case TRAIT_BEAM_CANNON:
-		cast_beam(caster_ptr, MAX_RANGE_SUB, DO_EFFECT_MISSILE, user_level * 2, 0);
+		cast_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, user_level * 2, 0);
 		break;
 
 	case TRAIT_SCARE_CREATURE:
@@ -2675,7 +2675,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_LASER_EYE:
-		cast_beam(caster_ptr, MAX_RANGE_SUB, DO_EFFECT_LITE, 2 * user_level, 0);
+		cast_beam(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, 2 * user_level, 0);
 		break;
 
 	case TRAIT_BANISH:
