@@ -1253,17 +1253,7 @@ void do_cmd_refill(creature_type *creature_ptr)
 void do_cmd_target(creature_type *creature_ptr)
 {
 	if(target_set(creature_ptr, 0,TARGET_KILL)) msg_print(GAME_MESSAGE_TARGET_SET);
-
-	/* Target aborted */
-	else
-	{
-#ifdef JP
-		msg_print("ターゲット解除。");
-#else
-		msg_print("Target Aborted.");
-#endif
-
-	}
+	else msg_print(GAME_MESSAGE_TARGET_ABORT);
 }
 
 void do_cmd_look(creature_type *creature_ptr)
