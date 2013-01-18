@@ -1053,11 +1053,10 @@ void do_poly_wounds(creature_type *creature_ptr)
 		{
 #ifdef JP
 			msg_print("V‚½‚È‚ª‚Å‚«‚½I");
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, change / 2, "•Ï‰»‚µ‚½", NULL, -1);
 #else
 			msg_print("A new wound was created!");
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, change / 2, "a polymorphed wound", NULL, -1);
 #endif
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, change / 2, COD_POLYMORPHED_WOUND, NULL, -1);
 		}
 		set_timed_trait(creature_ptr, TRAIT_CUT, change, FALSE);
 	}

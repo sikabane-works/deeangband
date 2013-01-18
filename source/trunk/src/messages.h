@@ -572,6 +572,7 @@
 #define COD_COLD_AURA "冷気のオーラ"
 #define COD_ELEC_AURA "電撃のオーラ"
 #define COD_LETHAL_MUTATION "致命的な突然変異"
+#define COD_POLYMORPHED_WOUND "変化した傷"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -622,6 +623,7 @@
 #define COD_COLD_AURA "cold aura"
 #define COD_ELEC_AURA "elec aura"
 #define COD_LETHAL_MUTATION "a lethal mutation"
+#define COD_POLYMORPHED_WOUND "a polymorphed wound"
 #endif
 
 // Hack -- possible "insult" messages
