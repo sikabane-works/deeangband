@@ -9076,7 +9076,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(cast)
 		{
 			if(!get_aim_dir(caster_ptr, 2, &dir)) return NULL;
-			projection(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_ATTACK, dir, HISSATSU_2, PROJECT_STOP | PROJECT_KILL);
+			cast_bolt(caster_ptr, DO_EFFECT_ATTACK, HISSATSU_2, PROJECT_STOP | PROJECT_KILL, -1);
 		}
 		break;
 

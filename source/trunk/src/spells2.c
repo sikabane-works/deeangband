@@ -2736,24 +2736,24 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 */
 bool lite_line(creature_type *caster_ptr, int dir)
 {
-	return (projection(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_LITE_WEAK, dir, diceroll(6, 8), PROJECT_BEAM | PROJECT_GRID | PROJECT_KILL));
+	return (cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1));
 }
 
 
 bool drain_life(creature_type *caster_ptr, int dir, int dam)
 {
-	return (projection(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_DRAIN, dir, dam, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1));
 }
 
 
 bool wall_to_mud(creature_type *caster_ptr, int dir)
 {
-	return (projection(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_KILL_WALL, dir, 20 + randint1(30), PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL));
+	return (cast_bolt(caster_ptr, DO_EFFECT_KILL_WALL, MAX_RANGE_SUB, 20 + randint1(30), -1));
 }
 
 bool wizard_lock(creature_type *caster_ptr, int dir)
 {
-	return (projection(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_JAM_DOOR, dir, 20 + randint1(30), PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL));
+	return (cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1));
 }
 
 
