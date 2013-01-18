@@ -1252,16 +1252,7 @@ void do_cmd_refill(creature_type *creature_ptr)
 */
 void do_cmd_target(creature_type *creature_ptr)
 {
-	/* Target set */
-	if(target_set(creature_ptr, 0,TARGET_KILL))
-	{
-#ifdef JP
-		msg_print("ターゲット決定。");
-#else
-		msg_print("Target Selected.");
-#endif
-
-	}
+	if(target_set(creature_ptr, 0,TARGET_KILL)) msg_print(GAME_MESSAGE_TARGET_SET);
 
 	/* Target aborted */
 	else
@@ -1275,26 +1266,10 @@ void do_cmd_target(creature_type *creature_ptr)
 	}
 }
 
-
-
-/*
-* Look command
-*/
 void do_cmd_look(creature_type *creature_ptr)
 {
-	/* Look around */
-	if(target_set(creature_ptr, 0, TARGET_LOOK))
-	{
-#ifdef JP
-		msg_print("ターゲット決定。");
-#else
-		msg_print("Target Selected.");
-#endif
-
-	}
+	if(target_set(creature_ptr, 0, TARGET_LOOK)) msg_print(GAME_MESSAGE_TARGET_SET);
 }
-
-
 
 /*
 * Allow the player to examine other sectors on the map

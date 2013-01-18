@@ -292,6 +292,7 @@
 #define GAME_MESSAGE_SMITH_USE_ESSENCE "エッセンスを%d個使用します。"
 #define GAME_MESSAGE_SMITH_NO_ESSENCE "エッセンスが足りない。"
 
+#define GAME_MESSAGE_TARGET_SET "ターゲット決定。"
 #else
 
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
@@ -424,6 +425,7 @@
 #define GAME_MESSAGE_SMITH_USE_ESSENCE "It will take %d essences."
 #define GAME_MESSAGE_SMITH_NO_ESSENCE "You don't have enough essences."
 
+#define GAME_MESSAGE_TARGET_SET "Target Selected."
 #endif
 
 #ifdef JP
