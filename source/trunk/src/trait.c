@@ -1085,22 +1085,22 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BA_WATE:
 		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_WATER, damage, 4, FALSE, TRAIT_BA_WATE);
+		cast_ball(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, damage, 4);
 		break;
 
 	case TRAIT_BA_MANA:
 		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_MANA, damage, 4, FALSE, TRAIT_BA_MANA);
+		cast_ball(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, damage, 6);
 		break;
 
 	case TRAIT_BA_DARK:
 		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_DARK, damage, 4, FALSE, TRAIT_BA_DARK);
+		cast_ball(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, damage, 6);
 		break;
 
 	case TRAIT_DRAIN_MANA:
 		damage = (randint1(user_level) / 2) + 1;
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_DRAIN_MANA, damage, 0, FALSE, TRAIT_DRAIN_MANA);
+		cast_ball(caster_ptr, DO_EFFECT_DRAIN_MANA, MAX_RANGE_SUB, damage, 0);
 		break;
 
 	case TRAIT_MIND_BLAST:
