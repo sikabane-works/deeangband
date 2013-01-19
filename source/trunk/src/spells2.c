@@ -2745,7 +2745,6 @@ bool drain_life(creature_type *caster_ptr, int dir, int dam)
 	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1));
 }
 
-
 bool wall_to_mud(creature_type *caster_ptr, int dir)
 {
 	return (cast_bolt(caster_ptr, DO_EFFECT_KILL_WALL, MAX_RANGE_SUB, 20 + randint1(30), -1));
@@ -2756,22 +2755,19 @@ bool wizard_lock(creature_type *caster_ptr, int dir)
 	return (cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1));
 }
 
-
 bool destroy_door(creature_type *caster_ptr, int dir)
 {
-	return (projection(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_KILL_DOOR, dir, 0, PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM));
+	return (cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1));
 }
-
 
 bool disarm_trap(creature_type *caster_ptr, int dir)
 {
-	return (projection(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_KILL_TRAP, dir, 0, PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM));
+	return (cast_beam(caster_ptr, DO_EFFECT_KILL_TRAP, MAX_RANGE_SUB, 0, -1));
 }
-
 
 bool heal_other_creature(creature_type *caster_ptr, int dir, int dam)
 {
-	return (projection(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_HEAL, dir, dam, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, dam, -1));
 }
 
 
