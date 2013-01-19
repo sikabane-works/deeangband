@@ -1107,56 +1107,26 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		cast_ball_hide(caster_ptr, DO_EFFECT_MIND_BLAST, MAX_RANGE_SUB, damage, 0);
 		break;
 
-		cast_bolt(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, user_level, 0);
-		break;
-
-		damage = diceroll(7, 7);
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_MIND_BLAST, damage, 0, FALSE, TRAIT_MIND_BLAST);
-		break;
-
 	case TRAIT_BRAIN_SMASH:
-		cast_ball_hide(caster_ptr, DO_EFFECT_BRAIN_SMASH, MAX_RANGE_SUB damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_BRAIN_SMASH, MAX_RANGE_SUB, damage, 0);
 		break;
 
-		damage = diceroll(12, 12);
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_BRAIN_SMASH, damage, 0, FALSE, TRAIT_BRAIN_SMASH);
-		break;
 
 	case TRAIT_CAUSE_1:
 		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_1, MAX_RANGE_SUB, damage, 0);
 		break;
-		{
-			damage = diceroll(3, 8);
-			//breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_1, damage, 0, FALSE, TRAIT_CAUSE_1);
-			break;
-		}
 
 	case TRAIT_CAUSE_2:
 		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_2, MAX_RANGE_SUB, damage, 0);
 		break;
-		{
-			damage = diceroll(8, 8);
-			//breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_2, damage, 0, FALSE, TRAIT_CAUSE_2);
-			break;
-		}
 
 	case TRAIT_CAUSE_3:
 		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_3, MAX_RANGE_SUB, damage, 0);
 		break;
-		{
-			damage = diceroll(10, 15);
-			//breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_3, damage, 0, FALSE, TRAIT_CAUSE_3);
-			break;
-		}
 
 	case TRAIT_CAUSE_4:
 		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_4, MAX_RANGE_SUB, damage, 0);
 		break;
-		{
-			damage = diceroll(15, 15);
-			//breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_4, damage, 0, FALSE, TRAIT_CAUSE_4);
-			break;
-		}
 
 	case TRAIT_BO_ACID:
 		damage = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
