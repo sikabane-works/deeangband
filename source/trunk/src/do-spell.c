@@ -221,7 +221,7 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 	else if(die < 36) cast_bolt_or_beam(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(creature_ptr) - 10);
 	else if(die < 41) confuse_creature(creature_ptr, dir, plev);
 	else if(die < 46) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_POIS, 20 + (plev / 2), 3, -1);
-	else if(die < 51) (void)lite_line(creature_ptr, dir);
+	else if(die < 51) (void)cast_beam(creature_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
 	else if(die < 56) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3 + ((plev - 5) / 4), 8), beam_chance(creature_ptr) - 10);
 	else if(die < 61) cast_bolt_or_beam(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5 + ((plev - 5) / 4), 8), beam_chance(creature_ptr) - 10);
 	else if(die < 66) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6 + ((plev - 5) / 4), 8), beam_chance(creature_ptr));
@@ -278,7 +278,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	else if(die < 36) cast_bolt_or_beam(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(creature_ptr) - 10);
 	else if(die < 41) confuse_creature(creature_ptr, dir, plev);
 	else if(die < 46) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_POIS, 20 + (plev / 2), 3, -1);
-	else if(die < 51) (void)lite_line(creature_ptr, dir);
+	else if(die < 51) (void)cast_beam(creature_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
 	else if(die < 56) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3+((plev-5)/4),8), beam_chance(creature_ptr) - 10);
 	else if(die < 61) cast_bolt_or_beam(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5+((plev-5)/4),8), beam_chance(creature_ptr) - 10);
 	else if(die < 66) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6+((plev-5)/4),8), beam_chance(creature_ptr));
@@ -806,7 +806,6 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	int dir;
 	int plev = creature_ptr->lev;
 
 	switch (spell)
@@ -2376,20 +2375,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 6;
 			int sides = 8;
-
 			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-#ifdef JP
-				msg_print("‘¾—zŒõü‚ªŒ»‚ê‚½B");
-#else
-				msg_print("A line of sunlight appears.");
-#endif
-
-				lite_line(caster_ptr, dir);
-			}
+			if(cast) cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
 		}
 		break;
 
@@ -5619,19 +5606,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-#ifdef JP
-				msg_print("Œõü‚ª•ú‚½‚ê‚½B");
-#else
-				msg_print("A line of light appears.");
-#endif
-
-				lite_line(caster_ptr, dir);
-			}
+			if(cast) cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
 		}
 		break;
 

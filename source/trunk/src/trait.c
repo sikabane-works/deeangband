@@ -100,7 +100,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	switch(id)
 	{
 	case TRAIT_SUNLIGHT:
-		(void)lite_line(caster_ptr, dir);
+		cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
 		break;
 
 	case TRAIT_DRAIN_LIFE1:
@@ -534,11 +534,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BO_FIRE_MINI:
-		cast_bolt(caster_ptr,DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(9, 8), 0);
+		cast_bolt(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(9, 8), 0);
 		break;
 
 	case TRAIT_BO_COLD_MINI:
-		cast_bolt(caster_ptr,DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(6, 8), 0);
+		cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(6, 8), 0);
 		break;
 
 	case TRAIT_BO_ELEC_MINI:
@@ -1026,7 +1026,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BA_NUKE:
 		damage = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_NUKE, damage, 2, FALSE, TRAIT_BA_NUKE);
+		cast_ball(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, damage, 2);
 		break;
 
 	case TRAIT_BR_NUKE:
@@ -1036,22 +1036,22 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BA_CHAO:
 		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_CHAOS, damage, 4, FALSE, TRAIT_BA_CHAO);
+		cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, damage, 4);
 		break;
 
 	case TRAIT_BR_DISI:
 		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_DISINTEGRATE, damage,0, TRAIT_BR_DISI);
+		cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, damage, 2);
 		break;
 
 	case TRAIT_BA_ACID:
 		damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_ACID, damage, 2, FALSE, TRAIT_BA_ACID);
+		cast_ball(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, damage, 2);
 		break;
 
 	case TRAIT_BA_ELEC:
 		damage = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_ELEC, damage, 2, FALSE, TRAIT_BA_ELEC);
+		cast_ball(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, damage, 2);
 		break;
 
 	case TRAIT_BA_FIRE:
@@ -1070,17 +1070,17 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #endif
 		}
 		damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_FIRE, damage, 2, FALSE, TRAIT_BA_FIRE);
+		cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, damage, 2);
 		break;
 
 	case TRAIT_BA_POIS:
 		damage = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_POIS, damage, 2, FALSE, TRAIT_BA_POIS);
+		cast_ball(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, damage, 2);
 		break;
 
 	case TRAIT_BA_NETH:
 		damage = 50 + diceroll(10, 10) + (user_level * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_NETHER, damage, 2, FALSE, TRAIT_BA_NETH);
+		cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, damage, 2);
 		break;
 
 	case TRAIT_BA_WATE:
@@ -2799,7 +2799,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_LITE_LINE:
-		(void)lite_line(caster_ptr, dir);
+		cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
 		effected = TRUE;
 		break;
 
