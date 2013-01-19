@@ -7197,11 +7197,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				cast_ball_hide(caster_ptr, DO_EFFECT_BLOOD_CURSE, MAX_RANGE_SUB, dam, rad);
-#ifdef JP
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "ŒŒ‚ÌŽô‚¢", NULL, -1);
-#else
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "Blood curse", NULL, -1);
-#endif
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), COD_BLOOD_CURSE, NULL, -1);
 			}
 		}
 		break;
