@@ -1104,7 +1104,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_MIND_BLAST:
-		cast_ball_hide(caster_ptr, DO_EFFECT_MIND_BLAST, dir, damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_MIND_BLAST, MAX_RANGE_SUB, damage, 0);
 		break;
 
 		cast_bolt(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, user_level, 0);
@@ -1115,7 +1115,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BRAIN_SMASH:
-		cast_ball_hide(caster_ptr, DO_EFFECT_BRAIN_SMASH, dir, damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_BRAIN_SMASH, MAX_RANGE_SUB damage, 0);
 		break;
 
 		damage = diceroll(12, 12);
@@ -1123,7 +1123,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_CAUSE_1:
-		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_1, dir, damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_1, MAX_RANGE_SUB, damage, 0);
 		break;
 		{
 			damage = diceroll(3, 8);
@@ -1132,7 +1132,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_CAUSE_2:
-		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_2, dir, damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_2, MAX_RANGE_SUB, damage, 0);
 		break;
 		{
 			damage = diceroll(8, 8);
@@ -1141,7 +1141,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_CAUSE_3:
-		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_3, dir, damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_3, MAX_RANGE_SUB, damage, 0);
 		break;
 		{
 			damage = diceroll(10, 15);
@@ -1150,7 +1150,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_CAUSE_4:
-		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_4, dir, damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_4, MAX_RANGE_SUB, damage, 0);
 		break;
 		{
 			damage = diceroll(15, 15);
@@ -1327,7 +1327,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_HAND_DOOM:
-		cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, dir, 200, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, MAX_RANGE_SUB, 200, 0);
 		break;
 
 		damage = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
@@ -1801,7 +1801,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #else
 						msg_print("Water blew off from the ground!");
 #endif
-						cast_ball_hide(caster_ptr, DO_EFFECT_WATER_FLOW, 0, 3, 8);
+						cast_ball_hide(caster_ptr, DO_EFFECT_WATER_FLOW, MAX_RANGE_SUB, 3, 8);
 					}
 
 					for (k = 0; k < num; k++)
@@ -2171,7 +2171,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_DOMINATE_LIVE:
-		(void)cast_ball_hide(caster_ptr, DO_EFFECT_CONTROL_LIVING, dir, caster_ptr->lev, 0);
+		(void)cast_ball_hide(caster_ptr, DO_EFFECT_CONTROL_LIVING, MAX_RANGE_SUB, caster_ptr->lev, 0);
 		break;
 
 	case TRAIT_DOMINATE_LIVES:

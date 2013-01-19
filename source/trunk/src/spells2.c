@@ -2777,12 +2777,12 @@ bool sleep_creature(creature_type *caster_ptr, int dir)
 
 bool stasis_creature(creature_type *caster_ptr, int dir)
 {
-	return (cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, dir, caster_ptr->lev*2, 0));
+	return (cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, caster_ptr->lev*2, 0));
 }
 
 bool stasis_evil(creature_type *caster_ptr, int dir)
 {
-	return (cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, dir, caster_ptr->lev*2, 0));
+	return (cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB,  caster_ptr->lev*2, 0));
 }
 
 bool confuse_creature(creature_type *caster_ptr, int dir, int plev)
