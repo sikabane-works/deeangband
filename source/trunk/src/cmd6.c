@@ -1799,7 +1799,7 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 
 		case SV_WAND_GENOCIDE:
-			cast_ball_hide(creature_ptr, DO_EFFECT_GENOCIDE, dir, magic ? creature_ptr->lev + 50 : 250, 0);
+			cast_ball_hide(creature_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, magic ? creature_ptr->lev + 50 : 250, 0);
 			ident = TRUE;
 			break;
 	}

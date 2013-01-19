@@ -1082,7 +1082,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			msg_print(GAME_MESSAGE_TRAP_PIRANHAS);
 
 			/* Water fills room */
-			cast_ball_hide(creature_ptr, DO_EFFECT_WATER_FLOW, 0, 1, 10);
+			cast_ball_hide(creature_ptr, DO_EFFECT_WATER_FLOW, MAX_RANGE_SUB, 1, 10);
 
 			/* Summon Piranhas */
 			num = 1 + floor_ptr->floor_level/20;
@@ -1093,7 +1093,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		case TRAP_ACID_FLOW:
 		{
 			msg_print(GAME_MESSAGE_TRAP_ACID_FLOW);
-			cast_ball_hide(creature_ptr, DO_EFFECT_ACID_FLOW, 0, 1, 10);
+			cast_ball_hide(creature_ptr, DO_EFFECT_ACID_FLOW, MAX_RANGE_SUB, 1, 10);
 			break;
 
 		}
@@ -1101,7 +1101,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		case TRAP_POISON_FLOW:
 		{
 			msg_print(GAME_MESSAGE_TRAP_POISON_FLOW);
-			cast_ball_hide(creature_ptr, DO_EFFECT_POISON_FLOW, 0, 1, 10);
+			cast_ball_hide(creature_ptr, DO_EFFECT_POISON_FLOW, MAX_RANGE_SUB, 1, 10);
 			break;
 		}
 

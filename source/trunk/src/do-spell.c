@@ -859,12 +859,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = 4;
 
 			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				cast_ball_hide(creature_ptr, DO_EFFECT_WOUNDS, dir, diceroll(dice, sides), 0);
-			}
+			if(cast) cast_ball_hide(creature_ptr, DO_EFFECT_WOUNDS, MAX_RANGE_SUB, diceroll(dice, sides), 0);
 		}
 		break;
 
@@ -983,12 +978,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int dice = 8;
 
 			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				cast_ball_hide(creature_ptr, DO_EFFECT_WOUNDS, dir, diceroll(sides, dice), 0);
-			}
+			if(cast) cast_ball_hide(creature_ptr, DO_EFFECT_WOUNDS, MAX_RANGE_SUB, diceroll(sides, dice), 0);
 		}
 		break;
 
@@ -1183,12 +1173,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = 15;
 
 			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				cast_ball_hide(creature_ptr, DO_EFFECT_WOUNDS, dir, diceroll(dice, sides), 0);
-			}
+			if(cast) cast_ball_hide(creature_ptr, DO_EFFECT_WOUNDS, MAX_RANGE_SUB, diceroll(dice, sides), 0);
 		}
 		break;
 
@@ -3570,13 +3555,13 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 					int effect = randint1(1000);
 					int dir = 0;
 					if(effect == 666)
-						cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, dir, plev * 200, 0);
+						cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, plev * 200, 0);
 					else if(effect < 500)
-						cast_ball_hide(caster_ptr, DO_EFFECT_TURN_ALL, dir, plev, 0);
+						cast_ball_hide(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, 0);
 					else if(effect < 800)
-						cast_ball_hide(caster_ptr, DO_EFFECT_CONF_OTHERS, dir, plev, 0);
+						cast_ball_hide(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev, 0);
 					else
-						cast_ball_hide(caster_ptr, DO_EFFECT_STUN, dir, plev, 0);
+						cast_ball_hide(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, plev, 0);
 				}
 			}
 		}
@@ -3783,15 +3768,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int power = plev + 50;
-
 			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, dir, power, 0);
-			}
+			if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0);
 		}
 		break;
 
@@ -6985,7 +6963,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
-				cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, 0, 2 + randint1(2), rad);
+				cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, MAX_RANGE_SUB, 2 + randint1(2), rad);
 			}
 		}
 		break;
@@ -7077,20 +7055,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Doom Hand";
 		if(desc) return "Attempts to make a creature's HP almost half.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-#ifdef JP
-				else msg_print("<îjñ≈ÇÃéË>Çï˙Ç¡ÇΩÅI");
-#else
-				else msg_print("You invoke the Hand of Doom!");
-#endif
-
-				cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, dir, plev * 2, 0);
-			}
-		}
+		if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, MAX_RANGE_SUB, plev * 2, 0);
 		break;
 
 	case 24:
@@ -7231,9 +7196,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_ball_hide(caster_ptr, DO_EFFECT_BLOOD_CURSE, dir, dam, rad);
+				cast_ball_hide(caster_ptr, DO_EFFECT_BLOOD_CURSE, MAX_RANGE_SUB, dam, rad);
 #ifdef JP
 				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "ååÇÃéÙÇ¢", NULL, -1);
 #else
