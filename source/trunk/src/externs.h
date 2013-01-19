@@ -1277,7 +1277,6 @@ extern s32b flag_cost(object_type *object_ptr, int plusses);
 extern void report_magics(creature_type *creature_ptr);
 extern bool teleport_swap(creature_type *creature_ptr, int dir);
 extern bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_ptr);
-extern bool projection(creature_type *caster_ptr, int range, int typ, int dir, int dam, int flg);
 extern bool project_all_vision(creature_type *caster_ptr, int typ, int dam);
 extern bool eat_magic(creature_type *creature_ptr, int power);
 extern void discharge_minion(creature_type *caster_ptr);

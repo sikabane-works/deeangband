@@ -230,25 +230,6 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 	return TRUE;
 }
 
-bool projection(creature_type *caster_ptr, int range, int typ, int dir, int dam, int flg)
-{
-	int tx, ty;
-
-	flg |= (PROJECT_THRU);	// Pass through the target if needed
-
-	// Hack -- Use an actual "target"
-	tx = caster_ptr->fx + ddx[dir];
-	ty = caster_ptr->fy + ddy[dir];
-	if((dir == 5) && target_okay(caster_ptr))
-	{
-		tx = target_col;
-		ty = target_row;
-	}
-
-	// Analyze the "dir" and the "target", do NOT explode
-	return (project(caster_ptr, range, 0, ty, tx, dam, typ, flg, -1));
-}
-
 /*
  * Cast a bolt at the player
  * Stop if we hit a creature
