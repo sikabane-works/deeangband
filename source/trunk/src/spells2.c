@@ -13,6 +13,84 @@
 #include "angband.h"
 #include "grid.h"
 
+bool cast_bolt(creature_type *caster_ptr, int typ, int range, int dam, int trait_id)
+{
+	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, trait_id);
+}
+
+bool cast_beam(creature_type *caster_ptr, int typ, int range, int dam, int trait_id)
+{
+	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, trait_id);
+}
+
+bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, int dam, int prob)
+{
+	if(randint0(100) < prob) return (cast_beam(caster_ptr, range, typ, dam, 0));
+	else return cast_bolt(caster_ptr, typ, range, dam, 0);
+}
+
+void breath(int y, int x, creature_type *caster_ptr, int typ, int power, int rad, int trait_id)
+{
+	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH; //TODO | PROJECT_PLAYER;
+
+	// Determine the radius of the blast
+	if((rad < 1) && breath) rad = has_trait(caster_ptr, TRAIT_POWERFUL) ? 3 : 2;
+
+	switch (typ)
+	{
+	case DO_EFFECT_ROCKET:
+		flg |= PROJECT_STOP;
+		break;
+	case DO_EFFECT_DRAIN_MANA:
+	case DO_EFFECT_MIND_BLAST:
+	case DO_EFFECT_BRAIN_SMASH:
+	case DO_EFFECT_CAUSE_1:
+	case DO_EFFECT_CAUSE_2:
+	case DO_EFFECT_CAUSE_3:
+	case DO_EFFECT_CAUSE_4:
+	case DO_EFFECT_HAND_DOOM:
+		flg |= (PROJECT_HIDE | PROJECT_AIMED);
+		break;
+	}
+
+	/* Target the player with a ball attack */
+	(void)project(caster_ptr, 0, rad, y, x, power, typ, flg, trait_id);
+}
+
+void cast_ball_aux(int y, int x, creature_type *caster_ptr, int typ, int power, int rad, int trait_id)
+{
+	/* Analyze the "dir" and the "target".  Hurt items on floor. */
+	(void)project(caster_ptr, 0, rad, y, x, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+}
+
+bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad)
+{
+	int tx = 0, ty = 0, dir = 0;
+	if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
+
+	/* Analyze the "dir" and the "target".  Hurt items on floor. */
+	return (project(caster_ptr, 0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
+}
+
+bool cast_grenade(creature_type *caster_ptr, int typ, int range, int dam, int rad)
+{
+	int tx = 0, ty = 0;
+
+	/* Analyze the "dir" and the "target".  Hurt items on floor. */
+	return (project(0, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
+}
+
+bool cast_ball_hide(creature_type *caster_ptr, int typ, int range, int dam, int rad)
+{
+	int tx, ty;
+	tx = target_col;
+	ty = target_row;
+
+	/* Analyze the "dir" and the "target".  Hurt items on floor. */
+	return (project(0, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE, -1));
+}
+
+
 
 /*
 * self-knowledge... idea from nethack.  Useful for determining powers and
@@ -2534,63 +2612,6 @@ bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 	return TRUE;
 }
 
-
-
-/*
-* Cast a ball spell
-* Stop if we hit a creature, act as a "ball"
-* Allow "target" mode to pass over creatures
-* Affect grids, objects, and creatures
-*/
-bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad)
-{
-	int tx = 0, ty = 0, dir = 0;
-	if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-
-	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(caster_ptr, 0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
-}
-
-/*
- * Cast a ball spell
- * Stop if we hit a creature, act as a "ball"
- * Allow "target" mode to pass over creatures
- * Affect grids, objects, and creatures
- */
-bool cast_grenade(creature_type *caster_ptr, int typ, int range, int dam, int rad)
-{
-	int tx = 0, ty = 0;
-
-	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(0, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
-}
-
-
-/*
-* Cast a ball spell
-* Stop if we hit a creature, act as a "ball"
-* Allow "target" mode to pass over creatures
-* Affect grids, objects, and creatures
-*/
-bool cast_ball_hide(creature_type *caster_ptr, int typ, int range, int dam, int rad)
-{
-	int tx, ty;
-	tx = target_col;
-	ty = target_row;
-
-	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(0, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE, -1));
-}
-
-
-/*
-* Cast a meteor spell, defined as a ball spell cast by an arbitary creature, 
-* player, or outside source, that starts out at an arbitrary location, and 
-* leaving no trail from the "caster" to the target.  This function is 
-* especially useful for bombardments and similar. -LM-
-*
-* Option to hurt the player.
-*/
 bool fire_meteor(int who, int typ, int y, int x, int dam, int rad)
 {
 	/* Analyze the "target" and the caster. */
@@ -2647,10 +2668,7 @@ bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int
 	return (result);
 }
 
-
-/*
-* Switch position with a creature.
-*/
+// Switch position with a creature.
 bool teleport_swap(creature_type *creature_ptr, int dir)
 {
 	int tx, ty;
