@@ -1156,23 +1156,23 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 	int w1 = who[a];
 	int w2 = who[b];
 
-	creature_type *m_ptr1 = &creature_list[w1];
-	creature_type *m_ptr2 = &creature_list[w2];
-	species_type *species_ptr1 = &species_info[m_ptr1->species_idx];
-	species_type *species_ptr2 = &species_info[m_ptr2->species_idx];
+	creature_type *creature_ptr1 = &creature_list[w1];
+	creature_type *creature_ptr2 = &creature_list[w2];
+	species_type *species_ptr1 = &species_info[creature_ptr1->species_idx];
+	species_type *species_ptr2 = &species_info[creature_ptr2->species_idx];
 
 	/* Unused */
 	(void)v;
 
 	//TODO player's steed
-	if(m_ptr2->ridden) return TRUE;
-	if(m_ptr1->ridden) return FALSE;
+	if(creature_ptr2->ridden) return TRUE;
+	if(creature_ptr1->ridden) return FALSE;
 
-	if(m_ptr1->nickname && !m_ptr2->nickname) return TRUE;
-	if(m_ptr2->nickname && !m_ptr1->nickname) return FALSE;
+	if(creature_ptr1->nickname && !creature_ptr2->nickname) return TRUE;
+	if(creature_ptr2->nickname && !creature_ptr1->nickname) return FALSE;
 
-	if(!m_ptr1->parent_m_idx && m_ptr2->parent_m_idx) return TRUE;
-	if(!m_ptr2->parent_m_idx && m_ptr1->parent_m_idx) return FALSE;
+	if(!creature_ptr1->parent_m_idx && creature_ptr2->parent_m_idx) return TRUE;
+	if(!creature_ptr2->parent_m_idx && creature_ptr1->parent_m_idx) return FALSE;
 
 	if(has_trait_species(species_ptr1, TRAIT_UNIQUE) && !has_trait_species(species_ptr2, TRAIT_UNIQUE)) return TRUE;
 	if(has_trait_species(species_ptr2, TRAIT_UNIQUE) && !has_trait_species(species_ptr1, TRAIT_UNIQUE)) return FALSE;
@@ -1180,8 +1180,8 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 	if(species_ptr1->level > species_ptr2->level) return TRUE;
 	if(species_ptr2->level > species_ptr1->level) return FALSE;
 
-	if(m_ptr1->chp > m_ptr2->chp) return TRUE;
-	if(m_ptr2->chp > m_ptr1->chp) return FALSE;
+	if(creature_ptr1->chp > creature_ptr2->chp) return TRUE;
+	if(creature_ptr2->chp > creature_ptr1->chp) return FALSE;
 
 	return w1 <= w2;
 }
