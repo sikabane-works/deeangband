@@ -140,7 +140,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_ROCKET:
 		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
-		breath(target_row, target_col, caster_ptr, DO_EFFECT_ROCKET, damage, 2, TRAIT_ROCKET);
+		cast_ball(caster_ptr, DO_EFFECT_ROCKET, MAX_RANGE_SUB, damage, 2);
 		break;
 
 	case TRAIT_DISPEL_EVIL_1:
@@ -583,7 +583,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BA_COLD:
 		damage = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_COLD, damage, 2, TRAIT_BA_COLD);
+		cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, damage, 2);
 		break;
 
 	case TRAIT_S_DAWN_LEGION:
@@ -914,47 +914,47 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BR_ACID:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_ACID, damage, 0, TRAIT_BR_ACID);
+		breath(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_ELEC:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_ELEC, damage, 2, TRAIT_BR_ELEC);
+		breath(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_FIRE:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_FIRE, damage, 0, TRAIT_BR_FIRE);
+		breath(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_COLD:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_COLD, damage,0, TRAIT_BR_COLD);
+		breath(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_POIS:
 		damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_POIS, damage, 0, TRAIT_BR_POIS);
+		breath(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_NETH:
 		damage = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_NETHER, damage,0, TRAIT_BR_NETH);
+		breath(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_LITE:
 		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_LITE, damage, 0, TRAIT_BR_LITE);
+		breath(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_DARK:
 		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_DARK, damage, 0, TRAIT_BR_DARK);
+		breath(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_CONF:
 		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_CONFUSION, damage, 0, TRAIT_BR_CONF);
+		breath(caster_ptr, DO_EFFECT_CONFUSION, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_SOUN:
@@ -965,17 +965,17 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			msg_format("'Booooeeeeee'");
 #endif
 		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_SOUND, damage,0, TRAIT_BR_SOUN);
+		breath(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_CHAO:
 		damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_CHAOS, damage,0, TRAIT_BR_CHAO);
+		breath(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_DISE:
 		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_DISENCHANT, damage, 0, TRAIT_BR_DISE);
+		breath(caster_ptr, DO_EFFECT_DISENCHANT, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_NEXU:
