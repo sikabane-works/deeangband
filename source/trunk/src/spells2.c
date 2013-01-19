@@ -2770,22 +2770,19 @@ bool heal_other_creature(creature_type *caster_ptr, int dir, int dam)
 	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, dam, -1));
 }
 
-
 bool speed_other_creature(creature_type *caster_ptr, int dir)
 {
-	return (projection(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_SPEED_OTHERS, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1));
 }
-
 
 bool slow_creature(creature_type *caster_ptr, int dir)
 {
-	return (projection(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_SLOW_OTHERS, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1));
 }
-
 
 bool sleep_creature(creature_type *caster_ptr, int dir)
 {
-	return (projection(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_SLEEP, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1));
 }
 
 bool stasis_creature(creature_type *caster_ptr, int dir)
