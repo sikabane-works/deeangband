@@ -29,32 +29,9 @@ bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, int dam, i
 	else return cast_bolt(caster_ptr, typ, range, dam, 0);
 }
 
-void breath(int y, int x, creature_type *caster_ptr, int typ, int power, int rad, int trait_id)
+void breath(creature_type *caster_ptr, int typ, int range, int power, int rad, int trait_id)
 {
-	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH; //TODO | PROJECT_PLAYER;
-
-	// Determine the radius of the blast
-	if((rad < 1) && breath) rad = has_trait(caster_ptr, TRAIT_POWERFUL) ? 3 : 2;
-
-	switch (typ)
-	{
-	case DO_EFFECT_ROCKET:
-		flg |= PROJECT_STOP;
-		break;
-	case DO_EFFECT_DRAIN_MANA:
-	case DO_EFFECT_MIND_BLAST:
-	case DO_EFFECT_BRAIN_SMASH:
-	case DO_EFFECT_CAUSE_1:
-	case DO_EFFECT_CAUSE_2:
-	case DO_EFFECT_CAUSE_3:
-	case DO_EFFECT_CAUSE_4:
-	case DO_EFFECT_HAND_DOOM:
-		flg |= (PROJECT_HIDE | PROJECT_AIMED);
-		break;
-	}
-
-	/* Target the player with a ball attack */
-	(void)project(caster_ptr, 0, rad, y, x, power, typ, flg, trait_id);
+	(void)project(caster_ptr, range, rad, target_col, target_row, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH, trait_id);
 }
 
 void cast_ball_aux(int y, int x, creature_type *caster_ptr, int typ, int power, int rad, int trait_id)

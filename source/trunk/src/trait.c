@@ -980,22 +980,22 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BR_NEXU:
 		damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_NEXUS, damage, 0, TRAIT_BR_NEXU);
+		breath(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_TIME:
 		damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_TIME, damage,0, TRAIT_BR_TIME);
+		breath(caster_ptr, DO_EFFECT_TIME, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_INER:
 		damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_INERTIA, damage,0, TRAIT_BR_INER);
+		breath(caster_ptr, DO_EFFECT_INERTIA, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_GRAV:
 		damage = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_GRAVITY, damage,0, TRAIT_BR_GRAV);
+		breath(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_SHAR:
@@ -1006,22 +1006,22 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			msg_format("'Boty-Build cutter!!!'");
 #endif
 		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_SHARDS, damage,0, TRAIT_BR_SHAR);
+		breath(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_PLAS:
 		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_PLASMA, damage,0, TRAIT_BR_PLAS);
+		breath(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_WALL:
 		damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_FORCE, damage,0, TRAIT_BR_WALL);
+		breath(caster_ptr, DO_EFFECT_FORCE, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BR_MANA:
 		damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_MANA, damage,0, TRAIT_BR_MANA);
+		breath(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BA_NUKE:
@@ -1031,7 +1031,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BR_NUKE:
 		damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_NUKE, damage,0, TRAIT_BR_NUKE);
+		breath(caster_ptr, DO_EFFECT_NUKE, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BA_CHAO:
@@ -1041,7 +1041,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_BR_DISI:
 		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-		cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, damage, 2);
+		breath(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
 	case TRAIT_BA_ACID:

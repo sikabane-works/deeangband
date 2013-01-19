@@ -1742,12 +1742,12 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 
 		case SV_WAND_DRAGON_FIRE:
-			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_FIRE, 200, 3, -1);
+			breath(creature_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, 200, 3, -1);
 			ident = TRUE;
 			break;
 
 		case SV_WAND_DRAGON_COLD:
-			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_COLD, 180, 3, -1);
+			breath(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 180, 3, -1);
 			ident = TRUE;
 			break;
 
@@ -1756,31 +1756,31 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			{
 				case 1:
 				{
-					breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_ACID, 240, 3, -1);
+					breath(creature_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, 240, 3, -1);
 					break;
 				}
 
 				case 2:
 				{
-					breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_ELEC, 210, 3, -1);
+					breath(creature_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, 210, 3, -1);
 					break;
 				}
 
 				case 3:
 				{
-					breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_FIRE, 240, 3, -1);
+					breath(creature_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, 240, 3, -1);
 					break;
 				}
 
 				case 4:
 				{
-					breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_COLD, 210, 3, -1);
+					breath(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 210, 3, -1);
 					break;
 				}
 
 				default:
 				{
-					breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_POIS, 180, 3, -1);
+					breath(creature_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, 180, 3, -1);
 					break;
 				}
 			}
@@ -1789,7 +1789,7 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 
 		case SV_WAND_DISINTEGRATE:
-			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_DISINTEGRATE, 200 + randint1(creature_ptr->lev * 2), 2, -1);
+			breath(creature_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, 200 + randint1(creature_ptr->lev * 2), 2, -1);
 			ident = TRUE;
 			break;
 
@@ -2213,7 +2213,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 		}
 
 		case 4: case 5: case 6:
-			breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_MANA, 600, 3, -1);
+			breath(creature_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, 600, 3, -1);
 			break;
 
 		case 7: case 8: case 9: case 10:
@@ -2371,7 +2371,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 			case EGO_RING_DRAGON_F:
 				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-				breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_FIRE, 200, 2, -1);
+				breath(creature_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, 200, 2, -1);
 				if(object_ptr->sval == SV_RING_FLAMES)
 				{
 					(void)set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, FALSE);
@@ -2382,7 +2382,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 			case EGO_RING_DRAGON_C:
 				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-				breath(creature_ptr->fy, creature_ptr->fx, creature_ptr, DO_EFFECT_COLD, 200, 2, -1);
+				breath(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 200, 2, -1);
 				if(object_ptr->sval == SV_RING_ICE)
 				{
 					(void)set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
