@@ -2224,14 +2224,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int power = plev;
-
 			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				charm_animal(caster_ptr, dir, power);
-			}
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, power, 0);
 		}
 		break;
 

@@ -187,7 +187,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_CHARM_ANIMAL:
-		(void)charm_animal(caster_ptr, dir, user_level);
+		cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, user_level, 0);
 		break;
 
 	case TRAIT_CHARM_UNDEAD:
