@@ -399,7 +399,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_STONE_TO_MUD:
-		wall_to_mud(caster_ptr, dir);
+		cast_bolt(caster_ptr, DO_EFFECT_KILL_WALL, MAX_RANGE_SUB, 20 + randint1(30), -1);
 		break;
 
 	case TRAIT_STAR_DESTROY:

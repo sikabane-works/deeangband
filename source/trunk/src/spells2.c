@@ -2722,11 +2722,6 @@ bool drain_life(creature_type *caster_ptr, int dir, int dam)
 	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1));
 }
 
-bool wall_to_mud(creature_type *caster_ptr, int dir)
-{
-	return (cast_bolt(caster_ptr, DO_EFFECT_KILL_WALL, MAX_RANGE_SUB, 20 + randint1(30), -1));
-}
-
 bool sleep_creature(creature_type *caster_ptr, int dir)
 {
 	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1));

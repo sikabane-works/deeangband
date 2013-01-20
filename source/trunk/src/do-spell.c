@@ -2251,13 +2251,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			int base = 20;
 
 			if(info) return info_damage(dice, sides, base);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				wall_to_mud(caster_ptr, dir);
-			}
+			if(cast) cast_bolt(caster_ptr, DO_EFFECT_KILL_WALL, MAX_RANGE_SUB, 20 + randint1(30), -1);
 		}
 		break;
 
@@ -5075,7 +5069,6 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
-	int dir;
 	int plev = caster_ptr->lev;
 
 	switch (spell)
@@ -5499,13 +5492,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 			int base = 20;
 
 			if(info) return info_damage(dice, sides, base);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				wall_to_mud(caster_ptr, dir);
-			}
+			if(cast) cast_bolt(caster_ptr, DO_EFFECT_KILL_WALL, MAX_RANGE_SUB, 20 + randint1(30), -1);
 		}
 		break;
 
