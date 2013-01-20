@@ -1705,7 +1705,7 @@ static int wand_effect(creature_type *caster_ptr, int sval, int dir, bool magic)
 			break;
 
 		case SV_WAND_DISARMING:
-			if(disarm_trap(caster_ptr, dir)) ident = TRUE;
+			if(cast_beam(caster_ptr, DO_EFFECT_KILL_TRAP, MAX_RANGE_SUB, 0, -1)) ident = TRUE;
 			break;
 
 		case SV_WAND_TRAP_DOOR_DEST:
@@ -1985,7 +1985,7 @@ static int rod_effect(creature_type *caster_ptr, int sval, int dir, bool *use_ch
 			break;
 
 		case SV_ROD_DISARMING:
-			if(disarm_trap(caster_ptr, dir)) ident = TRUE;
+			if(cast_beam(caster_ptr, DO_EFFECT_KILL_TRAP, MAX_RANGE_SUB, 0, -1)) ident = TRUE;
 			break;
 
 		case SV_ROD_SLEEP_MONSTER:
