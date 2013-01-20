@@ -1203,27 +1203,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_SLOW:
-
-		slow_creature(caster_ptr, dir);
+		cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, user_level * 2, id);
 		break;
-		{
-			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
-			{
-				msg_print(GAME_MESSAGE_IS_UNAFFECTED);
-			}
-			/*
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-			msg_print(GAME_MESSAGE_RESIST_THE_EFFECT]);
-			}
-			else
-			*/
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
-			}
-			learn_trait(target_ptr, TRAIT_SLOW);
-			break;
-		}
 
 	case TRAIT_HOLD:
 

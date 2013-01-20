@@ -2760,11 +2760,6 @@ bool speed_other_creature(creature_type *caster_ptr, int dir)
 	return (cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1));
 }
 
-bool slow_creature(creature_type *caster_ptr, int dir)
-{
-	return (cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1));
-}
-
 bool sleep_creature(creature_type *caster_ptr, int dir)
 {
 	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1));

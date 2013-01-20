@@ -1611,19 +1611,8 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Slow Creature";
 		if(desc) return "Attempts to slow a creature.";
 #endif
-    
-		{
-			int power = plev;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				slow_creature(caster_ptr, dir);
-			}
-		}
+		if(info) return info_power(plev);
+		if(cast) cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, plev * 2, -1);
 		break;
 
 	case 11:
