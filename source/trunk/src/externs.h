@@ -1239,13 +1239,11 @@ extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int 
 extern void call_chaos(creature_type *creature_ptr);
 extern bool cast_beam(creature_type *caster_ptr, int typ, int range, int dam, int trait_id);
 extern bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, int dam, int prob);
-extern bool lite_line(creature_type *caster_ptr, int dir);
 extern bool drain_life(creature_type *caster_ptr, int dir, int dam);
 extern bool death_ray(creature_type *caster_ptr, int dir);
 extern bool wall_to_mud(creature_type *caster_ptr, int dir);
 extern bool destroy_door(creature_type *caster_ptr, int dir);
 extern bool disarm_trap(creature_type *caster_ptr, int dir);
-extern bool wizard_lock(creature_type *caster_ptr, int dir);
 extern bool heal_other_creature(creature_type *caster_ptr, int dir, int dam);
 extern bool speed_other_creature(creature_type *caster_ptr, int dir);
 extern bool sleep_creature(creature_type *caster_ptr, int dir);
