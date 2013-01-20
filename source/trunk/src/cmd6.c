@@ -1689,7 +1689,7 @@ static int wand_effect(creature_type *caster_ptr, int sval, int dir, bool magic)
 	switch (sval)
 	{
 		case SV_WAND_HEAL_OTHER_CREATURE:
-			if(heal_other_creature(caster_ptr, dir, diceroll(10, 10))) ident = TRUE;
+			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, diceroll(10, 10), -1)) ident = TRUE;
 			break;
 
 		case SV_WAND_HASTE_MONSTER:
