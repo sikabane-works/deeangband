@@ -3576,9 +3576,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			if(info) return info_power(power);
 			if(cast)
 			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				fear_creature(caster_ptr, dir, power);
+				cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, -1);
 				cast_bolt(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, -1);
 			}
 		}
@@ -6492,9 +6490,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				fear_creature(caster_ptr, dir, power);
+				cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, -1);
 				cast_bolt(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, -1);
 			}
 		}
@@ -7160,15 +7156,8 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int power = plev;
-
 			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				fear_creature(caster_ptr, dir, power);
-			}
+			if(cast) cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, -1);
 		}
 		break;
 

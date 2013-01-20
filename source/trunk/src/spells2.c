@@ -2722,11 +2722,6 @@ bool drain_life(creature_type *caster_ptr, int dir, int dam)
 	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1));
 }
 
-bool fear_creature(creature_type *caster_ptr, int dir, int plev)
-{
-	return (cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, -1));
-}
-
 bool teleport_creature(creature_type *caster_ptr, int dir)
 {
 	return (cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, MAX_SIGHT * 5, -1));

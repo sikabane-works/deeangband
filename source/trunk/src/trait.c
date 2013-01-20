@@ -867,17 +867,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		(void)add_timed_trait(caster_ptr, TRAIT_PARALYZED, 4, TRUE);
 		break;
 
-	case TRAIT_SHRIEK:
-		stop_mouth(caster_ptr);
-		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
-		aggravate_creatures(caster_ptr);
-		break;
-
-	case TRAIT_SHOUT:
-		stop_mouth(caster_ptr);
-		(void)fear_creature(caster_ptr, dir, user_level);
-		break;
-
 	case TRAIT_DISPEL:
 		{
 			int m_idx;
@@ -1176,21 +1165,20 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		cast_bolt(caster_ptr,DO_EFFECT_MISSILE, MAX_RANGE_SUB, damage, 0);
 		break;
 
-	case TRAIT_SCARE:
-		fear_creature(caster_ptr, dir, user_level+10);
+	case TRAIT_SHRIEK:
+		stop_mouth(caster_ptr);
+		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
+		aggravate_creatures(caster_ptr);
 		break;
-		{
-			if(has_trait(target_ptr, TRAIT_FEARLESS))
-				msg_print(GAME_MESSAGE_RESISTED_FEAR);
-			/* saving throw
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-				msg_print(GAME_MESSAGE_RESISTED_FEAR);
-			else
-			*/
-			else (void)set_timed_trait(target_ptr, TRAIT_AFRAID, randint0(4) + 4, TRUE);
-			learn_trait(target_ptr, TRAIT_SCARE);
-			break;
-		}
+
+	case TRAIT_SHOUT:
+		stop_mouth(caster_ptr);
+		cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, caster_ptr->lev, -1);
+		break;
+
+	case TRAIT_SCARE:
+		cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, caster_ptr->lev, -1);
+		break;
 
 	case TRAIT_BLIND: // TODO
 		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id);
@@ -2381,7 +2369,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_SCARE_CREATURE:
 		stop_mouth(caster_ptr);
-		(void)fear_creature(caster_ptr, dir, user_level);
+		(void)cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, caster_ptr->lev, -1);
 		break;
 
 	case TRAIT_HYPN_GAZE:
