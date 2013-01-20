@@ -3603,7 +3603,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
 
 				fear_creature(caster_ptr, dir, power);
-				stun_creature(caster_ptr, dir, power);
+				cast_bolt(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, -1);
 			}
 		}
 		break;
@@ -6528,7 +6528,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
 
 				fear_creature(caster_ptr, dir, power);
-				stun_creature(caster_ptr, dir, power);
+				cast_bolt(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, -1);
 			}
 		}
 		break;
