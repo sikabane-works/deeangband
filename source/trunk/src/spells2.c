@@ -2727,11 +2727,6 @@ bool wall_to_mud(creature_type *caster_ptr, int dir)
 	return (cast_bolt(caster_ptr, DO_EFFECT_KILL_WALL, MAX_RANGE_SUB, 20 + randint1(30), -1));
 }
 
-bool destroy_door(creature_type *caster_ptr, int dir)
-{
-	return (cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1));
-}
-
 bool disarm_trap(creature_type *caster_ptr, int dir)
 {
 	return (cast_beam(caster_ptr, DO_EFFECT_KILL_TRAP, MAX_RANGE_SUB, 0, -1));

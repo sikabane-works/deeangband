@@ -5116,7 +5116,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Wizard Lock";
 		if(desc) return "Locks a door.";
 #endif
-		if(cast) cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1)
+		if(cast) cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1);
 		break;
 
 	case 2:
@@ -5213,15 +5213,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trap & Door Destruction";
 		if(desc) return "Fires a beam which destroy traps and doors.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				destroy_door(caster_ptr, dir);
-			}
-		}
+   		if(cast) cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1);
 		break;
 
 	case 7:
@@ -7484,15 +7476,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Unbarring Ways";
 		if(desc) return "Fires a beam which destroy traps and doors.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				destroy_door(creature_ptr, dir);
-			}
-		}
+		if(cast) cast_beam(creature_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1);
 		break;
 
 	case 17:

@@ -1709,7 +1709,7 @@ static int wand_effect(creature_type *caster_ptr, int sval, int dir, bool magic)
 			break;
 
 		case SV_WAND_TRAP_DOOR_DEST:
-			if(destroy_door(caster_ptr, dir)) ident = TRUE;
+			if(cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1)) ident = TRUE;
 			break;
 
 		case SV_WAND_SLEEP_MONSTER:

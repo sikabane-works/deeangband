@@ -1242,7 +1242,6 @@ extern bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, int
 extern bool drain_life(creature_type *caster_ptr, int dir, int dam);
 extern bool death_ray(creature_type *caster_ptr, int dir);
 extern bool wall_to_mud(creature_type *caster_ptr, int dir);
-extern bool destroy_door(creature_type *caster_ptr, int dir);
 extern bool disarm_trap(creature_type *caster_ptr, int dir);
 extern bool heal_other_creature(creature_type *caster_ptr, int dir, int dam);
 extern bool speed_other_creature(creature_type *caster_ptr, int dir);
