@@ -346,7 +346,7 @@ void wild_magic(creature_type *caster_ptr, int spell)
 	case 16: case 17:
 		wall_breaker(caster_ptr);
 	case 18:
-		sleep_creatures_touch(caster_ptr);
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		break;
 	case 19:
 	case 20:
@@ -494,7 +494,7 @@ static void cast_shuffle(creature_type *caster_ptr)
 	else if(die < 72)
 	{
 		msg_print(SHUFFLE_TEMPERANCE);
-		sleep_creatures_touch(caster_ptr);
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 	}
 	else if(die < 80)
 	{
@@ -7162,16 +7162,10 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Sanctuary";
 		if(desc) return "Attempts to sleep creatures in the adjacent squares.";
 #endif
-    
-		{
+   		{
 			int power = plev;
-
 			if(info) return info_power(power);
-
-			if(cast)
-			{
-				sleep_creatures_touch(caster_ptr);
-			}
+			if(cast) project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		}
 		break;
 

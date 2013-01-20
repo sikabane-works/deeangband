@@ -2762,11 +2762,6 @@ bool wall_stone(creature_type *caster_ptr)
 	return dummy;
 }
 
-bool sleep_creatures_touch(creature_type *creature_ptr)
-{
-	return (project(creature_ptr, 0, 1, creature_ptr->fy, creature_ptr->fx, creature_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1));
-}
-
 void call_chaos(creature_type *creature_ptr)
 {
 	int Chaos_type, dummy;

@@ -151,10 +151,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, caster_ptr->lev * 5);
 		break;
 
-	case TRAIT_SLEEP_TOUCH:
-		sleep_creatures_touch(caster_ptr);
-		break;
-
 	case TRAIT_EARTHQUAKE:
 		earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
 		break;
@@ -525,8 +521,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, 40 + caster_ptr->lev);
 		break;
 
+	case TRAIT_SLEEP_TOUCH:
 	case TRAIT_SLEEP:
-		sleep_creatures_touch(caster_ptr);
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		break;
 
 	case TRAIT_BO_FIRE_MINI:
@@ -2343,7 +2340,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_HOLDING_DUST:
-		if(user_level < 25) sleep_creatures_touch(caster_ptr);
+		if(user_level < 25) project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		else (void)project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, user_level);
 		break;
 
