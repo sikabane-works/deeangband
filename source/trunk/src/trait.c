@@ -151,10 +151,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, caster_ptr->lev * 5);
 		break;
 
-	case TRAIT_CONFUSE_TOUCH:
-		confuse_creature(caster_ptr, dir, 20);
-		break;
-
 	case TRAIT_SLEEP_TOUCH:
 		sleep_creatures_touch(caster_ptr);
 		break;
@@ -590,9 +586,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, TRAIT_S_DAWN_LEGION, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
-	case TRAIT_PANIC_CREATURE:
-		confuse_creature(caster_ptr, dir, 20);
-		break;
 
 	case TRAIT_ADD_FIRE_BRAND:
 		(void)brand_bolts(caster_ptr);
@@ -1199,58 +1192,15 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			break;
 		}
 
-	case TRAIT_BLIND:
-
-		confuse_creature(caster_ptr, dir, user_level * 2);
+	case TRAIT_BLIND: // TODO
+		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id);
 		break;
-		{
-			if(has_trait(target_ptr, TRAIT_NO_BLIND))
-			{
-				msg_print(GAME_MESSAGE_IS_UNAFFECTED);
-			}
-			/* saving throw
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-			msg_print(GAME_MESSAGE_RESIST_THE_EFFECT]);
-			}
-			else
-			*/
-			{
-				(void)add_timed_trait(target_ptr, TRAIT_BLIND, 12 + randint0(4), TRUE);
-			}
-			learn_trait(target_ptr, TRAIT_BLIND);
-			break;
-		}
 
+	case TRAIT_CONFUSE_TOUCH:
+	case TRAIT_PANIC_CREATURE:
 	case TRAIT_CONF:
-
-		confuse_creature(caster_ptr, dir, user_level * 2);
+		cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, user_level * 2, id);
 		break;
-		{
-			if(has_trait(target_ptr, TRAIT_NO_CONF))
-			{
-#ifdef JP
-				msg_print("しかし幻覚にはだまされなかった。");
-#else
-				msg_print("You disbelieve the feeble spell.");
-#endif
-
-			}
-			/*
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-			#ifdef JP
-			msg_print("しかし幻覚にはだまされなかった。");
-			#else
-			msg_print("You disbelieve the feeble spell.");
-			#endif
-
-			}
-			*/
-			else (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
-			learn_trait(target_ptr, TRAIT_CONF);
-			break;
-		}
 
 	case TRAIT_SLOW:
 

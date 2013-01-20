@@ -1252,7 +1252,6 @@ extern bool slow_creature(creature_type *caster_ptr, int dir);
 extern bool sleep_creature(creature_type *caster_ptr, int dir);
 extern bool stasis_creature(creature_type *caster_ptr, int dir);    /* Like sleep, affects undead as well */
 extern bool stasis_evil(creature_type *caster_ptr, int dir);    /* Like sleep, affects undead as well */
-extern bool confuse_creature(creature_type *caster_ptr, int dir, int plev);
 extern bool stun_creature(creature_type *caster_ptr, int dir, int plev);
 extern bool fear_creature(creature_type *caster_ptr, int dir, int plev);
 extern bool poly_creature(creature_type *caster_ptr, int dir);

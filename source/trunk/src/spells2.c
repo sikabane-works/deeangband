@@ -2780,11 +2780,6 @@ bool stasis_evil(creature_type *caster_ptr, int dir)
 	return (cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB,  caster_ptr->lev*2, 0));
 }
 
-bool confuse_creature(creature_type *caster_ptr, int dir, int plev)
-{
-	return (cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev, -1));
-}
-
 bool stun_creature(creature_type *caster_ptr, int dir, int plev)
 {
 	return (cast_bolt(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, plev, -1));

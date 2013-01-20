@@ -1717,7 +1717,7 @@ static int wand_effect(creature_type *caster_ptr, int sval, int dir, bool magic)
 			break;
 
 		case SV_WAND_CONFUSE_MONSTER:
-			if(confuse_creature(caster_ptr, dir, caster_ptr->lev)) ident = TRUE;
+			if(cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
 			break;
 
 		case SV_WAND_FEAR_MONSTER:
