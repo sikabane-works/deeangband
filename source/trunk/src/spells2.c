@@ -2722,11 +2722,6 @@ bool drain_life(creature_type *caster_ptr, int dir, int dam)
 	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1));
 }
 
-bool sleep_creature(creature_type *caster_ptr, int dir)
-{
-	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1));
-}
-
 bool stasis_creature(creature_type *caster_ptr, int dir)
 {
 	return (cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, caster_ptr->lev*2, 0));

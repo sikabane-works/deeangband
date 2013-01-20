@@ -1240,7 +1240,6 @@ extern void call_chaos(creature_type *creature_ptr);
 extern bool cast_beam(creature_type *caster_ptr, int typ, int range, int dam, int trait_id);
 extern bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, int dam, int prob);
 extern bool drain_life(creature_type *caster_ptr, int dir, int dam);
-extern bool sleep_creature(creature_type *caster_ptr, int dir);
 extern bool stasis_creature(creature_type *caster_ptr, int dir);    /* Like sleep, affects undead as well */
 extern bool stasis_evil(creature_type *caster_ptr, int dir);    /* Like sleep, affects undead as well */
 extern bool fear_creature(creature_type *caster_ptr, int dir, int plev);

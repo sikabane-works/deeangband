@@ -1534,13 +1534,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 			int power = plev;
 
 			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				sleep_creature(caster_ptr, dir);
-			}
+			if(cast) cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1);
 		}
 		break;
 
@@ -3549,13 +3543,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			int power = plev;
 
 			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				sleep_creature(caster_ptr, dir);
-			}
+			if(cast) cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1);
 		}
 		break;
 

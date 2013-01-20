@@ -1207,8 +1207,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_HOLD:
-
-		sleep_creature(caster_ptr, dir);
+		cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1);
 		break;
 		{
 			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
