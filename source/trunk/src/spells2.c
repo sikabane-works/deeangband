@@ -2722,17 +2722,10 @@ bool drain_life(creature_type *caster_ptr, int dir, int dam)
 	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1));
 }
 
-bool door_creation(creature_type *caster_ptr)
-{
-	return (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
-}
-
-
 bool trap_creation(creature_type *caster_ptr, int y, int x)
 {
 	return (project(caster_ptr, 0, 1, y, x, 0, DO_EFFECT_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
-
 
 bool tree_creation(creature_type *caster_ptr)
 {

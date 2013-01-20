@@ -354,7 +354,7 @@ void wild_magic(creature_type *caster_ptr, int spell)
 		break;
 	case 21:
 	case 22:
-		door_creation(caster_ptr);
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
 	case 23:
 	case 24:
