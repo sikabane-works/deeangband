@@ -2727,12 +2727,6 @@ bool trap_creation(creature_type *caster_ptr, int y, int x)
 	return (project(caster_ptr, 0, 1, y, x, 0, DO_EFFECT_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
-bool tree_creation(creature_type *caster_ptr)
-{
-	return (project(0, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_TREE, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
-}
-
-
 bool glyph_creation(creature_type *creature_ptr)
 {
 	return (project(0, 0, 1, creature_ptr->fy, creature_ptr->fx, 0, DO_EFFECT_MAKE_GLYPH, PROJECT_GRID | PROJECT_ITEM, -1));

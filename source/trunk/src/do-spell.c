@@ -2462,13 +2462,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Forest Creation";
 		if(desc) return "Creates trees in all adjacent squares.";
 #endif
-    
-		{
-			if(cast)
-			{
-				tree_creation(caster_ptr);
-			}
-		}
+		if(cast) project(0, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_TREE, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
 
 	case 20:
