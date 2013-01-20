@@ -6679,19 +6679,8 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dominate Demon";
 		if(desc) return "Attempts to charm a demon.";
 #endif
-    
-		{
-			int power = plev;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				control_one_demon(caster_ptr, dir, power);
-			}
-		}
+    	if(info) return info_power(plev);
+		if(cast) cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, plev, 0);
 		break;
 
 	case 9:
