@@ -1569,7 +1569,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		*/
 
 	case TRAIT_ANIM_DEAD:
-		animate_dead(caster_ptr, caster_ptr->fy, caster_ptr->fx);
+		project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
 
 

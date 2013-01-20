@@ -1310,9 +1310,9 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 }
 
 
-static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge, bool magic, bool known)
+static int staff_effect(creature_type *caster_ptr, int sval, bool *use_charge, bool magic, bool known)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int k;
 	int ident = FALSE;
 
@@ -1320,22 +1320,22 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 	switch (sval)
 	{
 		case SV_STAFF_DARKNESS:
-			if(!(has_trait(creature_ptr, TRAIT_NO_BLIND)) && !has_trait(creature_ptr, TRAIT_RES_DARK))
-				if(add_timed_trait(creature_ptr, TRAIT_BLIND, 3 + randint1(5), FALSE)) ident = TRUE;
-			if(unlite_area(creature_ptr, 10, 3)) ident = TRUE;
+			if(!(has_trait(caster_ptr, TRAIT_NO_BLIND)) && !has_trait(caster_ptr, TRAIT_RES_DARK))
+				if(add_timed_trait(caster_ptr, TRAIT_BLIND, 3 + randint1(5), FALSE)) ident = TRUE;
+			if(unlite_area(caster_ptr, 10, 3)) ident = TRUE;
 			break;
 
 		case SV_STAFF_SLOWNESS:
-			if(add_timed_trait(creature_ptr, TRAIT_SLOW, randint1(30) + 15, TRUE)) ident = TRUE;
+			if(add_timed_trait(caster_ptr, TRAIT_SLOW, randint1(30) + 15, TRUE)) ident = TRUE;
 			break;
 
 		case SV_STAFF_HASTE_MONSTERS:
-			if(project_all_vision(creature_ptr, DO_EFFECT_SPEED_OTHERS, creature_ptr->lev)) ident = TRUE;
+			if(project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, caster_ptr->lev)) ident = TRUE;
 			break;
 
 		case SV_STAFF_SUMMONING:
 			for (k = 0; k < randint1(4); k++)
-				if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+				if(summon_specific(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 					ident = TRUE;
 			break;
 
@@ -1345,7 +1345,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			int y, x;
 			int attempts;
 
-			if(!has_trait(creature_ptr, TRAIT_BLIND) && !magic)
+			if(!has_trait(caster_ptr, TRAIT_BLIND) && !magic)
 			{
 #ifdef JP
 				msg_print("杖の先が明るく輝いた...");
@@ -1359,12 +1359,12 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 				while (attempts--)
 				{
-					scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 4, 0);
+					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
 					if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
-					if(!creature_bold(creature_ptr, y, x)) break;
+					if(!creature_bold(caster_ptr, y, x)) break;
 				}
 
-				project(creature_ptr, 0, 0, y, x, diceroll(6 + creature_ptr->lev / 8, 10), DO_EFFECT_LITE_WEAK,
+				project(caster_ptr, 0, 0, y, x, diceroll(6 + caster_ptr->lev / 8, 10), DO_EFFECT_LITE_WEAK,
 						  (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}
 			ident = TRUE;
@@ -1373,79 +1373,79 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_DETECT_GOLD:
 		{
-			if(detect_treasure(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if(detect_objects_gold(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_treasure(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_ITEM:
 		{
-			if(detect_objects_normal(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_DOOR:
 		{
-			if(detect_doors(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if(detect_stairs(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_doors(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_stairs(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_INVIS:
 		{
-			if(detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_EVIL:
 		{
-			if(detect_creatures_evil(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_creatures_evil(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_SLEEP_MONSTERS:
 		{
-			if(project_all_vision(creature_ptr, DO_EFFECT_OLD_SLEEP, creature_ptr->lev)) ident = TRUE;
+			if(project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, caster_ptr->lev)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_SLOW_MONSTERS:
 		{
-			if(project_all_vision(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev)) ident = TRUE;
+			if(project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DISPEL_EVIL:
 		{
-			if(project_all_vision(creature_ptr, DO_EFFECT_DISP_EVIL, 80)) ident = TRUE;
+			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, 80)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_POWER:
 		{
-			if(project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 150)) ident = TRUE;
+			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 150)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_HOLINESS:
 		{
-			if(project_all_vision(creature_ptr, DO_EFFECT_DISP_EVIL, 150)) ident = TRUE;
-			k = 3 * creature_ptr->lev;
-			if(add_timed_trait(creature_ptr, TRAIT_PROT_EVIL, (magic ? 0 : randint1(25) + k, 0), TRUE)) ident = TRUE;
-			if(heal_creature(creature_ptr, 50)) ident = TRUE;
+			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, 150)) ident = TRUE;
+			k = 3 * caster_ptr->lev;
+			if(add_timed_trait(caster_ptr, TRAIT_PROT_EVIL, (magic ? 0 : randint1(25) + k, 0), TRUE)) ident = TRUE;
+			if(heal_creature(caster_ptr, 50)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_GENOCIDE:
 		{
-			(void)symbol_genocide(creature_ptr, (magic ? creature_ptr->lev + 50 : 200), TRUE);
+			(void)symbol_genocide(caster_ptr, (magic ? caster_ptr->lev + 50 : 200), TRUE);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_EARTHQUAKES:
 		{
-			if(earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 10))
+			if(earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10))
 				ident = TRUE;
 			else
 #ifdef JP
@@ -1458,7 +1458,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_ANIMATE_DEAD:
 		{
-			if(animate_dead(NULL, creature_ptr->fy, creature_ptr->fx))
+			if(project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1))
 				ident = TRUE;
 
 			break;
@@ -1471,14 +1471,14 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 #else
 			msg_print("Mighty magics rend your enemies!");
 #endif
-			project(creature_ptr, 0, 5, creature_ptr->fy, creature_ptr->fx,
+			project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx,
 				(randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
-			if((creature_ptr->class_idx != CLASS_MAGE) && (creature_ptr->class_idx != CLASS_HIGH_MAGE) && (creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_MAGIC_EATER) && (creature_ptr->class_idx != CLASS_BLUE_MAGE))
+			if((caster_ptr->class_idx != CLASS_MAGE) && (caster_ptr->class_idx != CLASS_HIGH_MAGE) && (caster_ptr->class_idx != CLASS_SORCERER) && (caster_ptr->class_idx != CLASS_MAGIC_EATER) && (caster_ptr->class_idx != CLASS_BLUE_MAGE))
 			{
 #ifdef JP
-				(void)take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", NULL, -1);
+				(void)take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", NULL, -1);
 #else
-				(void)take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "unleashing magics too mighty to control", NULL, -1);
+				(void)take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, "unleashing magics too mighty to control", NULL, -1);
 #endif
 			}
 			ident = TRUE;
@@ -1493,7 +1493,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 #else
 			msg_print("Nothing happen.");
 #endif
-			if(has_trait(creature_ptr, TRAIT_MAGIC_EATER))
+			if(has_trait(caster_ptr, TRAIT_MAGIC_EATER))
 			{
 #ifdef JP
 			msg_print("もったいない事をしたような気がする。食べ物は大切にしなくては。");
