@@ -3231,12 +3231,6 @@ bool charm_creature(creature_type *caster_ptr, int dir, int power)
 	return (cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, power, 0));
 }
 
-
-bool control_one_undead(creature_type *caster_ptr, int dir, int plev)
-{
-	return (cast_ball(caster_ptr, DO_EFFECT_CONTROL_UNDEAD, MAX_RANGE_SUB, plev, 0));
-}
-
 bool kawarimi(creature_type *user_ptr, bool success)
 {
 	object_type forge;

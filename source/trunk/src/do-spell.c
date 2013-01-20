@@ -3661,15 +3661,9 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Enslave Undead";
 		if(desc) return "Attempts to charm an undead creature.";
 #endif
-    
-		{
-			int power = plev;
-			if(info) return info_power(power);
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				control_one_undead(caster_ptr, dir, power);
-			}
+   		{
+			if(info) return info_power(plev);
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_CONTROL_UNDEAD, MAX_RANGE_SUB, plev, 0);
 		}
 		break;
 
