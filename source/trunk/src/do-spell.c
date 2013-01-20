@@ -3969,15 +3969,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Death Ray";
 		if(desc) return "Fires a beam of death.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				death_ray(caster_ptr, dir);
-			}
-		}
+		if(cast) cast_bolt(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, caster_ptr->lev, -1);
 		break;
 
 	case 25:

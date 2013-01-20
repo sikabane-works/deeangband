@@ -2762,11 +2762,6 @@ bool fear_creature(creature_type *caster_ptr, int dir, int plev)
 	return (cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, -1));
 }
 
-bool death_ray(creature_type *caster_ptr, int dir)
-{
-	return (cast_bolt(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, caster_ptr->lev * 200, -1));
-}
-
 bool teleport_creature(creature_type *caster_ptr, int dir)
 {
 	return (cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, MAX_SIGHT * 5, -1));
