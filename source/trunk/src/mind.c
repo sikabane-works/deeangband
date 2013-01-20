@@ -1415,44 +1415,44 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 
 // do_cmd_cast calls this function if the player's class
 // is 'ninja'.
-static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
+static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int x, y;
 	int dir;
-	int plev = creature_ptr->lev;
+	int plev = caster_ptr->lev;
 
 	/* spell code */
 	switch (spell)
 	{
 	case 0:
-		(void)unlite_area(creature_ptr, 0, 3);
+		(void)unlite_area(caster_ptr, 0, 3);
 		break;
 	case 1:
 		if(plev > 44)
 		{
-			wiz_lite(floor_ptr, creature_ptr, TRUE);
+			wiz_lite(floor_ptr, caster_ptr, TRUE);
 		}
-		detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
+		detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
 		if(plev > 4)
 		{
-			detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
-			detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
-			detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
+			detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
+			detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
+			detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
 		}
 		if(plev > 14)
 		{
-			detect_objects_normal(creature_ptr, DETECT_RAD_DEFAULT);
+			detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
 		}
 		break;
 	case 2:
 		{
-			teleport_player(creature_ptr, 10, 0L);
+			teleport_player(caster_ptr, 10, 0L);
 			break;
 		}
 	case 3:
 		{
-			if(!(creature_ptr->posture & NINJA_KAWARIMI))
+			if(!(caster_ptr->posture & NINJA_KAWARIMI))
 			{
 #ifdef JP
 				msg_print("“G‚ÌUŒ‚‚É‘Î‚µ‚Ä•qŠ´‚É‚È‚Á‚½B");
@@ -1460,28 +1460,28 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 				msg_print("You are now prepare to evade any attacks.");
 #endif
 
-				creature_ptr->posture |= NINJA_KAWARIMI;
+				caster_ptr->posture |= NINJA_KAWARIMI;
 				prepare_redraw(PR_STATUS);
 			}
 			break;
 		}
 	case 4:
 		{
-			teleport_player(creature_ptr, creature_ptr->lev * 5, 0L);
+			teleport_player(caster_ptr, caster_ptr->lev * 5, 0L);
 			break;
 		}
 	case 5:
 		{
-			if(!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;
-			y = creature_ptr->fy + ddy[dir];
-			x = creature_ptr->fx + ddx[dir];
+			if(!get_rep_dir(caster_ptr, &dir, FALSE)) return FALSE;
+			y = caster_ptr->fy + ddy[dir];
+			x = caster_ptr->fx + ddx[dir];
 			if(floor_ptr->cave[y][x].creature_idx)
 			{
-				close_combat(creature_ptr, y, x, 0);
-				if(randint0(creature_ptr->skill_dis) < 7) msg_print(GAME_MESSAGE_FAILED_RUNAWAY);
+				close_combat(caster_ptr, y, x, 0);
+				if(randint0(caster_ptr->skill_dis) < 7) msg_print(GAME_MESSAGE_FAILED_RUNAWAY);
 				else
 				{
-					teleport_player(creature_ptr, 30, 0L);
+					teleport_player(caster_ptr, 30, 0L);
 				}
 			}
 			else
@@ -1492,23 +1492,20 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			break;
 		}
 	case 6:
-		{
-			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-			(void)stasis_creature(creature_ptr, dir);
-			break;
-		}
+		(void)cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, caster_ptr->lev*2, 0);
+		break;
 	case 7:
-		return ident_spell(creature_ptr, FALSE);
+		return ident_spell(caster_ptr, FALSE);
 	case 8:
-		set_timed_trait(creature_ptr, TRAIT_LEVITATION, randint1(20) + 20, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_LEVITATION, randint1(20) + 20, FALSE);
 		break;
 	case 9:
-		SELF_FIELD(creature_ptr, DO_EFFECT_FIRE, 50 + plev, plev / 10 + 2, -1);
-		teleport_player(creature_ptr, 30, 0L);
-		set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, plev, FALSE);
+		SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 50 + plev, plev / 10 + 2, -1);
+		teleport_player(caster_ptr, 30, 0L);
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, plev, FALSE);
 		break;
 	case 10:
-		return rush_attack(creature_ptr, NULL);
+		return rush_attack(caster_ptr, NULL);
 	case 11:
 		{
 			int i;
@@ -1518,7 +1515,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 
 				for (slot = 0; slot < INVEN_TOTAL; slot++)
 				{
-					if(creature_ptr->inventory[slot].tval == TV_SPIKE) break;
+					if(caster_ptr->inventory[slot].tval == TV_SPIKE) break;
 				}
 				if(slot == INVEN_TOTAL)
 				{
@@ -1533,9 +1530,9 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 				}
 
 				/* Gives a multiplier of 2 at first, up to 3 at 40th */
-				do_cmd_throw_aux(creature_ptr, 1, FALSE, slot);
+				do_cmd_throw_aux(caster_ptr, 1, FALSE, slot);
 
-				cost_tactical_energy(creature_ptr, 100);
+				cost_tactical_energy(caster_ptr, 100);
 			}
 			break;
 		}
@@ -1549,12 +1546,12 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			u16b path_g[512];
 			int ty,tx;
 
-			if(!target_set(creature_ptr, 0, TARGET_KILL)) return FALSE;
+			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 			if(!m_idx) break;
-			if(m_idx == creature_ptr->riding) break;
+			if(m_idx == caster_ptr->riding) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
-			if(!projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
+			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
 			m_ptr = &creature_list[m_idx];
 			creature_desc(m_name, m_ptr, 0);
 #ifdef JP
@@ -1563,7 +1560,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			msg_format("You pull back %s.", m_name);
 #endif
 
-			path_n = project_path(path_g, MAX_RANGE, floor_ptr, target_row, target_col, creature_ptr->fy, creature_ptr->fx, 0);
+			path_n = project_path(path_g, MAX_RANGE, floor_ptr, target_row, target_col, caster_ptr->fy, caster_ptr->fx, 0);
 			ty = target_row, tx = target_col;
 			for (i = 1; i < path_n; i++)
 			{
@@ -1599,12 +1596,12 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			lite_spot(floor_ptr, ty, tx);
 
 			if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-				prepare_update(creature_ptr, PU_SPECIES_LITE);
+				prepare_update(caster_ptr, PU_SPECIES_LITE);
 
 			if(m_ptr->see_others)
 			{
 				/* Auto-Recall if possible and visible */
-				if(!has_trait(creature_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
+				if(!has_trait(caster_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
 
 				/* Track a new creature */
 				health_track(m_idx);
@@ -1613,24 +1610,24 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			break;
 		}
 	case 13:
-		cast_ball(creature_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev*3, 3);
+		cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev*3, 3);
 		break;
 	case 14:
-		if(!get_aim_dir(creature_ptr, NO_RANGE_LIMIT, &dir)) return FALSE;
-		(void)teleport_swap(creature_ptr, dir);
+		if(!get_aim_dir(caster_ptr, NO_RANGE_LIMIT, &dir)) return FALSE;
+		(void)teleport_swap(caster_ptr, dir);
 		break;
 	case 15:
-		explosive_rune(creature_ptr);
+		explosive_rune(caster_ptr);
 		break;
 	case 16:
-		(void)set_timed_trait(creature_ptr, TRAIT_PASS_WALL, randint1(plev/2) + plev/2, FALSE);
-		set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ACID, plev, FALSE);
+		(void)set_timed_trait(caster_ptr, TRAIT_PASS_WALL, randint1(plev/2) + plev/2, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, plev, FALSE);
 		break;
 	case 17:
-		SELF_FIELD(creature_ptr, DO_EFFECT_POIS, 75 + plev * 2 / 3, plev / 5 + 2, -1);
-		SELF_FIELD(creature_ptr, DO_EFFECT_OLD_DRAIN, 75 + plev * 2 / 3, plev / 5 + 2, -1);
-		SELF_FIELD(creature_ptr, DO_EFFECT_CONFUSION, 75 + plev * 2 / 3, plev / 5 + 2, -1);
-		teleport_player(creature_ptr, 30, 0L);
+		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + plev * 2 / 3, plev / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + plev * 2 / 3, plev / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + plev * 2 / 3, plev / 5 + 2, -1);
+		teleport_player(caster_ptr, 30, 0L);
 		break;
 	case 18:
 		{
@@ -1644,16 +1641,16 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 
 				while (attempts--)
 				{
-					scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 4, 0);
+					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
 
-					if(!creature_bold(creature_ptr, y, x)) break;
+					if(!creature_bold(caster_ptr, y, x)) break;
 				}
-				project(creature_ptr, 0, 0, y, x, diceroll(6 + plev / 8, 10), typ, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
+				project(caster_ptr, 0, 0, y, x, diceroll(6 + plev / 8, 10), typ, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}
 			break;
 		}
 	case 19:
-		set_timed_trait(creature_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
+		set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
 		break;
 	default:
 		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
