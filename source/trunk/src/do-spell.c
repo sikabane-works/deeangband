@@ -407,17 +407,16 @@ void wild_magic(creature_type *creature_ptr, int spell)
 }
 
 
-static void cast_shuffle(creature_type *creature_ptr)
+static void cast_shuffle(creature_type *caster_ptr)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int plev = creature_ptr->lev;
-	int dir;
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	int plev = caster_ptr->lev;
 	int die;
 	// TODO: Add Karma of Fortune feature.
 	int i;
 
 	// Card sharks and high mages get a level bonus
-	if((creature_ptr->class_idx == CLASS_ROGUE) || (creature_ptr->class_idx == CLASS_HIGH_MAGE) || (creature_ptr->class_idx == CLASS_SORCERER))
+	if((caster_ptr->class_idx == CLASS_ROGUE) || (caster_ptr->class_idx == CLASS_HIGH_MAGE) || (caster_ptr->class_idx == CLASS_SORCERER))
 		die = (randint1(110)) + plev / 5;
 	else
 		die = randint1(120);
@@ -428,129 +427,129 @@ static void cast_shuffle(creature_type *creature_ptr)
 	{
 		msg_print(SHUFFLE_DEATH);
 		for (i = 0; i < randint1(3); i++)
-			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
+			activate_hi_summon(caster_ptr, caster_ptr->fy, caster_ptr->fx, FALSE);
 	}
 	else if(die < 14)
 	{
 		msg_print(SHUFFLE_DEVIL);
-		summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+		summon_specific(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 	else if(die < 18)
 	{
 		int count = 0;
 		msg_print(SHUFFLE_HANGEDMAN);
-		activate_ty_curse(creature_ptr, FALSE, &count);
+		activate_ty_curse(caster_ptr, FALSE, &count);
 	}
 	else if(die < 22)
 	{
 		msg_print(SHUFFLE_DISCODE);
-		aggravate_creatures(creature_ptr);
+		aggravate_creatures(caster_ptr);
 	}
 	else if(die < 26)
 	{
 		msg_print(SHUFFLE_FOOL);
-		do_dec_stat(creature_ptr, STAT_INT);
-		do_dec_stat(creature_ptr, STAT_WIS);
+		do_dec_stat(caster_ptr, STAT_INT);
+		do_dec_stat(caster_ptr, STAT_WIS);
 	}
 	else if(die < 30)
 	{
 		msg_print(SHUFFLE_STRANGE);
-		trump_summoning(creature_ptr, 1, FALSE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), (32 + randint1(6)), PC_ALLOW_GROUP | PC_ALLOW_UNIQUE);
+		trump_summoning(caster_ptr, 1, FALSE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->floor_level * 3 / 2), (32 + randint1(6)), PC_ALLOW_GROUP | PC_ALLOW_UNIQUE);
 	}
 	else if(die < 33)
 	{
 		msg_print(SHUFFLE_MOON);
-		unlite_area(creature_ptr, 10, 3);
+		unlite_area(caster_ptr, 10, 3);
 	}
 	else if(die < 38)
 	{
 		msg_print(SHUFFLE_WHEEL);
-		wild_magic(creature_ptr, randint0(32));
+		wild_magic(caster_ptr, randint0(32));
 	}
 	else if(die < 40)
 	{
 		msg_print(SHUFFLE_TELEPORT);
-		teleport_player(creature_ptr, 10, TELEPORT_PASSIVE);
+		teleport_player(caster_ptr, 10, TELEPORT_PASSIVE);
 	}
 	else if(die < 42)
 	{
 		msg_print(SHUFFLE_JUSTICE);
-		set_timed_trait(creature_ptr, TRAIT_BLESSED, creature_ptr->lev, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_BLESSED, caster_ptr->lev, FALSE);
 	}
 	else if(die < 47)
 	{
 		msg_print(SHUFFLE_TELEPORT);
-		teleport_player(creature_ptr, 100, TELEPORT_PASSIVE);
+		teleport_player(caster_ptr, 100, TELEPORT_PASSIVE);
 	}
 	else if(die < 52)
 	{
 		msg_print(SHUFFLE_TELEPORT);
-		teleport_player(creature_ptr, 200, TELEPORT_PASSIVE);
+		teleport_player(caster_ptr, 200, TELEPORT_PASSIVE);
 	}
 	else if(die < 60)
 	{
 		msg_print(SHUFFLE_TOWER);
-		wall_breaker(creature_ptr);
+		wall_breaker(caster_ptr);
 	}
 	else if(die < 72)
 	{
 		msg_print(SHUFFLE_TEMPERANCE);
-		sleep_creatures_touch(creature_ptr);
+		sleep_creatures_touch(caster_ptr);
 	}
 	else if(die < 80)
 	{
 		msg_print(SHUFFLE_TOWER);
-		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5);
+		earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 5);
 	}
 	else if(die < 82)
 	{
 		msg_print(SHUFFLE_FRIEND);
-		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_MOLD, 0L);
+		trump_summoning(caster_ptr, 1, TRUE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_MOLD, 0L);
 	}
 	else if(die < 84)
 	{
 		msg_print(SHUFFLE_FRIEND);
-		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_BAT, 0L);
+		trump_summoning(caster_ptr, 1, TRUE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_BAT, 0L);
 	}
 	else if(die < 86)
 	{
 		msg_print(SHUFFLE_FRIEND);
-		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_VORTEX, 0L);
+		trump_summoning(caster_ptr, 1, TRUE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_VORTEX, 0L);
 	}
 	else if(die < 88)
 	{
 		msg_print(SHUFFLE_FRIEND);
-		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_CREEPING_COIN, 0L);
+		trump_summoning(caster_ptr, 1, TRUE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_CREEPING_COIN, 0L);
 	}
 	else if(die < 96)
 	{
 		msg_print(SHUFFLE_LOVER);
-		if(get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) charm_creature(creature_ptr, dir, MIN(creature_ptr->lev, 20));
+		cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, MIN(caster_ptr->lev, 20), 0);
 	}
 	else if(die < 101)
 	{
 		msg_print(SHUFFLE_HERMIT);
-		wall_stone(creature_ptr);
+		wall_stone(caster_ptr);
 	}
 	else if(die < 111)
 	{
 		msg_print(SHUFFLE_JUDGEMENT);
-		remove_all_mutative_traits(creature_ptr);
-		do_cmd_rerate(creature_ptr, FALSE);
+		remove_all_mutative_traits(caster_ptr);
+		do_cmd_rerate(caster_ptr, FALSE);
 	}
 	else if(die < 120)
 	{
 		msg_print(SHUFFLE_SUN);
-		wiz_lite(floor_ptr, creature_ptr, FALSE);
+		wiz_lite(floor_ptr, caster_ptr, FALSE);
 	}
 	else
 	{
 		msg_print(SHUFFLE_WORLD);
-		if(creature_ptr->exp < CREATURE_MAX_EXP)
+		if(caster_ptr->exp < CREATURE_MAX_EXP)
 		{
-			s32b ee = (creature_ptr->exp / 25) + 1;
+			s32b ee = (caster_ptr->exp / 25) + 1;
 			if(ee > 5000) ee = 5000;
-			gain_exp_mes(creature_ptr, ee);
+			gain_exp_mes(caster_ptr, ee);
 		}
 	}
 }
@@ -1762,19 +1761,8 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Charm Creature";
 		if(desc) return "Attempts to charm a creature.";
 #endif
-    
-		{
-			int power = plev;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				charm_creature(caster_ptr, dir, power);
-			}
-		}
+		if(info) return info_power(plev);
+		if(cast) cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, plev, 0);
 		break;
 
 	case 18:

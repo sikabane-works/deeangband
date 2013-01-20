@@ -1659,7 +1659,7 @@ void do_cmd_use_staff(creature_type *creature_ptr)
 }
 
 
-static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magic)
+static int wand_effect(creature_type *caster_ptr, int sval, int dir, bool magic)
 {
 	int ident = FALSE;
 
@@ -1672,14 +1672,14 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 
 		if(vir)
 		{
-			if(creature_ptr->karmas[vir - 1] > 0)
+			if(caster_ptr->karmas[vir - 1] > 0)
 			{
-				while (randint1(300) < creature_ptr->karmas[vir - 1]) sval++;
+				while (randint1(300) < caster_ptr->karmas[vir - 1]) sval++;
 				if(sval > SV_WAND_COLD_BALL) sval = randint0(4) + SV_WAND_ACID_BALL;
 			}
 			else
 			{
-				while (randint1(300) < (0-creature_ptr->karmas[vir - 1])) sval--;
+				while (randint1(300) < (0-caster_ptr->karmas[vir - 1])) sval--;
 				if(sval < SV_WAND_HEAL_OTHER_CREATURE) sval = randint0(3) + SV_WAND_HEAL_OTHER_CREATURE;
 			}
 		}
@@ -1689,48 +1689,47 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 	switch (sval)
 	{
 		case SV_WAND_HEAL_OTHER_CREATURE:
-			if(heal_other_creature(creature_ptr, dir, diceroll(10, 10))) ident = TRUE;
+			if(heal_other_creature(caster_ptr, dir, diceroll(10, 10))) ident = TRUE;
 			break;
 
 		case SV_WAND_HASTE_MONSTER:
-			if(speed_other_creature(creature_ptr, dir)) ident = TRUE;
+			if(speed_other_creature(caster_ptr, dir)) ident = TRUE;
 			break;
 
 		case SV_WAND_CLONE_MONSTER:
-			if(clone_creature(creature_ptr, dir)) ident = TRUE;
+			if(clone_creature(caster_ptr, dir)) ident = TRUE;
 			break;
 
 		case SV_WAND_TELEPORT_AWAY:
-			if(teleport_creature(creature_ptr, dir)) ident = TRUE;
+			if(teleport_creature(caster_ptr, dir)) ident = TRUE;
 			break;
 
 		case SV_WAND_DISARMING:
-			if(disarm_trap(creature_ptr, dir)) ident = TRUE;
+			if(disarm_trap(caster_ptr, dir)) ident = TRUE;
 			break;
 
 		case SV_WAND_TRAP_DOOR_DEST:
-			if(destroy_door(creature_ptr, dir)) ident = TRUE;
+			if(destroy_door(caster_ptr, dir)) ident = TRUE;
 			break;
 
 		case SV_WAND_SLEEP_MONSTER:
-			if(sleep_creature(creature_ptr, dir)) ident = TRUE;
+			if(sleep_creature(caster_ptr, dir)) ident = TRUE;
 			break;
 
 		case SV_WAND_CONFUSE_MONSTER:
-			if(confuse_creature(creature_ptr, dir, creature_ptr->lev)) ident = TRUE;
+			if(confuse_creature(caster_ptr, dir, caster_ptr->lev)) ident = TRUE;
 			break;
 
 		case SV_WAND_FEAR_MONSTER:
-			if(fear_creature(creature_ptr, dir, creature_ptr->lev)) ident = TRUE;
+			if(fear_creature(caster_ptr, dir, caster_ptr->lev)) ident = TRUE;
 			break;
 
 		case SV_WAND_POLYMORPH:
-			if(poly_creature(creature_ptr, dir)) ident = TRUE;
+			if(poly_creature(caster_ptr, dir)) ident = TRUE;
 			break;
 
 		case SV_WAND_CHARM_MONSTER:
-			if(charm_creature(creature_ptr, dir, MAX(20, creature_ptr->lev)))
-			ident = TRUE;
+			ident = cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, MAX(20, caster_ptr->lev), 0);
 			break;
 
 		case SV_WAND_WONDER:
@@ -1742,12 +1741,12 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 
 		case SV_WAND_DRAGON_FIRE:
-			breath(creature_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, 200, 3, -1);
+			breath(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, 200, 3, -1);
 			ident = TRUE;
 			break;
 
 		case SV_WAND_DRAGON_COLD:
-			breath(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 180, 3, -1);
+			breath(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 180, 3, -1);
 			ident = TRUE;
 			break;
 
@@ -1756,31 +1755,31 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			{
 				case 1:
 				{
-					breath(creature_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, 240, 3, -1);
+					breath(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, 240, 3, -1);
 					break;
 				}
 
 				case 2:
 				{
-					breath(creature_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, 210, 3, -1);
+					breath(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, 210, 3, -1);
 					break;
 				}
 
 				case 3:
 				{
-					breath(creature_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, 240, 3, -1);
+					breath(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, 240, 3, -1);
 					break;
 				}
 
 				case 4:
 				{
-					breath(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 210, 3, -1);
+					breath(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 210, 3, -1);
 					break;
 				}
 
 				default:
 				{
-					breath(creature_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, 180, 3, -1);
+					breath(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, 180, 3, -1);
 					break;
 				}
 			}
@@ -1789,17 +1788,17 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			break;
 
 		case SV_WAND_DISINTEGRATE:
-			breath(creature_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, 200 + randint1(creature_ptr->lev * 2), 2, -1);
+			breath(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, 200 + randint1(caster_ptr->lev * 2), 2, -1);
 			ident = TRUE;
 			break;
 
 		case SV_WAND_STRIKING:
-			cast_bolt(creature_ptr, DO_EFFECT_METEOR, MAX_RANGE_SUB, diceroll(15 + creature_ptr->lev / 3, 13), 0);
+			cast_bolt(caster_ptr, DO_EFFECT_METEOR, MAX_RANGE_SUB, diceroll(15 + caster_ptr->lev / 3, 13), 0);
 			ident = TRUE;
 			break;
 
 		case SV_WAND_GENOCIDE:
-			cast_ball_hide(creature_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, magic ? creature_ptr->lev + 50 : 250, 0);
+			cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, magic ? caster_ptr->lev + 50 : 250, 0);
 			ident = TRUE;
 			break;
 	}

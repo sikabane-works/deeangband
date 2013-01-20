@@ -3226,11 +3226,6 @@ void wall_breaker(creature_type *creature_ptr)
 	}
 }
 
-bool charm_creature(creature_type *caster_ptr, int dir, int power)
-{
-	return (cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, power, 0));
-}
-
 bool kawarimi(creature_type *user_ptr, bool success)
 {
 	object_type forge;
