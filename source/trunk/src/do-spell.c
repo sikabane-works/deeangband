@@ -305,11 +305,11 @@ static void cast_invoke_spirits(creature_type *caster_ptr, int dir)
 }
 
 
-void wild_magic(creature_type *creature_ptr, int spell)
+void wild_magic(creature_type *caster_ptr, int spell)
 {
 	int counter = 0;
 	int type = TRAIT_S_MOLD + randint0(6);
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	if(type < TRAIT_S_MOLD) type = TRAIT_S_MOLD;
 	else if(type > TRAIT_S_MIMIC) type = TRAIT_S_MIMIC;
@@ -319,86 +319,86 @@ void wild_magic(creature_type *creature_ptr, int spell)
 	case 1:
 	case 2:
 	case 3:
-		teleport_player(creature_ptr, 10, TELEPORT_PASSIVE);
+		teleport_player(caster_ptr, 10, TELEPORT_PASSIVE);
 		break;
 	case 4:
 	case 5:
 	case 6:
-		teleport_player(creature_ptr, 100, TELEPORT_PASSIVE);
+		teleport_player(caster_ptr, 100, TELEPORT_PASSIVE);
 		break;
 	case 7:
 	case 8:
-		teleport_player(creature_ptr, 200, TELEPORT_PASSIVE);
+		teleport_player(caster_ptr, 200, TELEPORT_PASSIVE);
 		break;
 	case 9:
 	case 10:
 	case 11:
-		unlite_area(creature_ptr, 10, 3);
+		unlite_area(caster_ptr, 10, 3);
 		break;
 	case 12:
 	case 13:
 	case 14:
-		lite_area(creature_ptr, diceroll(2, 3), 2);
+		lite_area(caster_ptr, diceroll(2, 3), 2);
 		break;
 	case 15:
-		destroy_doors_touch(creature_ptr);
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
 	case 16: case 17:
-		wall_breaker(creature_ptr);
+		wall_breaker(caster_ptr);
 	case 18:
-		sleep_creatures_touch(creature_ptr);
+		sleep_creatures_touch(caster_ptr);
 		break;
 	case 19:
 	case 20:
-		trap_creation(creature_ptr, creature_ptr->fy, creature_ptr->fx);
+		trap_creation(caster_ptr, caster_ptr->fy, caster_ptr->fx);
 		break;
 	case 21:
 	case 22:
-		door_creation(creature_ptr);
+		door_creation(caster_ptr);
 		break;
 	case 23:
 	case 24:
 	case 25:
-		aggravate_creatures(creature_ptr);
+		aggravate_creatures(caster_ptr);
 		break;
 	case 26:
-		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5);
+		earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 5);
 		break;
 	case 27:
 	case 28:
-		(void)gain_trait(creature_ptr, 0, TRUE);
+		(void)gain_trait(caster_ptr, 0, TRUE);
 		break;
 	case 29:
 	case 30:
-		apply_disenchant(creature_ptr, 1);
+		apply_disenchant(caster_ptr, 1);
 		break;
 	case 31:
-		lose_all_info(creature_ptr);
+		lose_all_info(caster_ptr);
 		break;
 	case 32:
-		cast_ball(creature_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, spell + 5, 1 + (spell / 10));
+		cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, spell + 5, 1 + (spell / 10));
 		break;
 	case 33:
-		wall_stone(creature_ptr);
+		wall_stone(caster_ptr);
 		break;
 	case 34:
 	case 35:
 		while (counter++ < 8)
 		{
-			(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3) / 2, type, (PC_ALLOW_GROUP | PC_NO_PET));
+			(void)summon_specific(0, caster_ptr->fy, caster_ptr->fx, (floor_ptr->floor_level * 3) / 2, type, (PC_ALLOW_GROUP | PC_NO_PET));
 		}
 		break;
 	case 36:
 	case 37:
-		activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
+		activate_hi_summon(caster_ptr, caster_ptr->fy, caster_ptr->fx, FALSE);
 		break;
 	case 38:
-		(void)summon_cyber(NULL, creature_ptr->fy, creature_ptr->fx);
+		(void)summon_cyber(NULL, caster_ptr->fy, caster_ptr->fx);
 		break;
 	default:
 		{
 			int count = 0;
-			(void)activate_ty_curse(creature_ptr, FALSE, &count);
+			(void)activate_ty_curse(caster_ptr, FALSE, &count);
 			break;
 		}
 	}
@@ -2777,16 +2777,10 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trap / Door Destruction";
 		if(desc) return "Destroys all traps in adjacent squares.";
 #endif
-    
 		{
 			int rad = 1;
-
 			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				destroy_doors_touch(caster_ptr);
-			}
+			if(cast) project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
 		}
 		break;
 

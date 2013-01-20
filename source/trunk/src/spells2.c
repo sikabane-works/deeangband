@@ -2772,13 +2772,6 @@ bool wall_stone(creature_type *caster_ptr)
 	return dummy;
 }
 
-
-bool destroy_doors_touch(creature_type *caster_ptr)
-{
-	return (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
-}
-
-
 bool sleep_creatures_touch(creature_type *creature_ptr)
 {
 	return (project(creature_ptr, 0, 1, creature_ptr->fy, creature_ptr->fx, creature_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1));

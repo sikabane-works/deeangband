@@ -395,7 +395,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_DESTROY_DOOR_TRAP:
-		destroy_doors_touch(caster_ptr);
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
 
 	case TRAIT_STONE_TO_MUD:
