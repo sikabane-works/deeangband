@@ -1240,7 +1240,6 @@ extern void call_chaos(creature_type *creature_ptr);
 extern bool cast_beam(creature_type *caster_ptr, int typ, int range, int dam, int trait_id);
 extern bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, int dam, int prob);
 extern bool drain_life(creature_type *caster_ptr, int dir, int dam);
-extern bool teleport_creature(creature_type *caster_ptr, int dir);
 extern bool door_creation(creature_type *caster_ptr);
 extern bool trap_creation(creature_type *caster_ptr, int y, int x);
 extern bool tree_creation(creature_type *caster_ptr);

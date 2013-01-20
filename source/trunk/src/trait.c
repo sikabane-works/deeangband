@@ -163,9 +163,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		(void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0);
 		break;
 
-		teleport_creature(caster_ptr, dir);
-		break;
-
 	case TRAIT_BANISH_EVIL:
 		project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, 100);
 		break;

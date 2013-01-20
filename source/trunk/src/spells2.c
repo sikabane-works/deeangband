@@ -2722,11 +2722,6 @@ bool drain_life(creature_type *caster_ptr, int dir, int dam)
 	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1));
 }
 
-bool teleport_creature(creature_type *caster_ptr, int dir)
-{
-	return (cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, MAX_SIGHT * 5, -1));
-}
-
 bool door_creation(creature_type *caster_ptr)
 {
 	return (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));

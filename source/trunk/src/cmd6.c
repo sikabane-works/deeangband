@@ -1701,7 +1701,7 @@ static int wand_effect(creature_type *caster_ptr, int sval, int dir, bool magic)
 			break;
 
 		case SV_WAND_TELEPORT_AWAY:
-			if(teleport_creature(caster_ptr, dir)) ident = TRUE;
+			if(cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, MAX_SIGHT * 5, -1)) ident = TRUE;
 			break;
 
 		case SV_WAND_DISARMING:
@@ -1981,7 +1981,7 @@ static int rod_effect(creature_type *caster_ptr, int sval, int dir, bool *use_ch
 			break;
 
 		case SV_ROD_TELEPORT_AWAY:
-			if(teleport_creature(caster_ptr, dir)) ident = TRUE;
+			if(cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, MAX_SIGHT * 5, -1)) ident = TRUE;
 			break;
 
 		case SV_ROD_DISARMING:
