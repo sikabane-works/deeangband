@@ -1693,7 +1693,7 @@ static int wand_effect(creature_type *caster_ptr, int sval, int dir, bool magic)
 			break;
 
 		case SV_WAND_HASTE_MONSTER:
-			if(speed_other_creature(caster_ptr, dir)) ident = TRUE;
+			if(cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
 			break;
 
 		case SV_WAND_CLONE_MONSTER:

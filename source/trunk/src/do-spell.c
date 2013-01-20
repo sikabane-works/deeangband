@@ -215,7 +215,7 @@ static void cast_wonder(creature_type *caster_ptr, int dir)
 	}
 
 	if(die < 8) cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1);
-	else if(die < 14) speed_other_creature(caster_ptr, dir);
+	else if(die < 14) cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1);
 	else if(die < 26) cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, diceroll(4, 6), -1);
 	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, plev, -1);
 	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(caster_ptr) - 10);
@@ -4494,8 +4494,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				target_pet = old_target_pet;
 
 				if(!result) return NULL;
-
-				speed_other_creature(caster_ptr, dir);
+				cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1);
 			}
 		}
 		break;
