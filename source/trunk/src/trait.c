@@ -1499,8 +1499,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_TRAPS:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		trap_creation(caster_ptr, target_row, target_col);
+		project(caster_ptr, 0, 1, target_row, target_col, 0, DO_EFFECT_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
 
 	case TRAIT_TELE_LEVEL:

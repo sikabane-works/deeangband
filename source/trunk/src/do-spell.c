@@ -350,7 +350,7 @@ void wild_magic(creature_type *caster_ptr, int spell)
 		break;
 	case 19:
 	case 20:
-		trap_creation(caster_ptr, caster_ptr->fy, caster_ptr->fx);
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
 	case 21:
 	case 22:
