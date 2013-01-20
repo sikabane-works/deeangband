@@ -2786,11 +2786,6 @@ bool poly_creature(creature_type *caster_ptr, int dir)
 	return(tester);
 }
 
-bool clone_creature(creature_type *caster_ptr, int dir)
-{
-	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1));
-}
-
 bool fear_creature(creature_type *caster_ptr, int dir, int plev)
 {
 	return (cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, -1));

@@ -1254,7 +1254,6 @@ extern bool stasis_evil(creature_type *caster_ptr, int dir);    /* Like sleep, a
 extern bool stun_creature(creature_type *caster_ptr, int dir, int plev);
 extern bool fear_creature(creature_type *caster_ptr, int dir, int plev);
 extern bool poly_creature(creature_type *caster_ptr, int dir);
-extern bool clone_creature(creature_type *caster_ptr, int dir);
 extern bool teleport_creature(creature_type *caster_ptr, int dir);
 extern bool door_creation(creature_type *caster_ptr);
 extern bool trap_creation(creature_type *caster_ptr, int y, int x);

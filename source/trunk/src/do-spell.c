@@ -196,11 +196,11 @@ static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, int 
  * while keeping the results quite random.  It also allows some potent
  * effects only at high level.
  */
-static void cast_wonder(creature_type *creature_ptr, int dir)
+static void cast_wonder(creature_type *caster_ptr, int dir)
 {
 	//TODO target_select
 	int y = 0, x = 0;
-	int plev = creature_ptr->lev;
+	int plev = caster_ptr->lev;
 	int die = randint1(100) + plev / 5;
 	// TODO: add Karma of Fortune feature.
 	int vir = 0;
@@ -214,34 +214,34 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 #endif
 	}
 
-	if(die < 8) clone_creature(creature_ptr, dir);
-	else if(die < 14) speed_other_creature(creature_ptr, dir);
-	else if(die < 26) heal_other_creature(creature_ptr, dir, diceroll(4, 6));
-	else if(die < 31) poly_creature(creature_ptr, dir);
-	else if(die < 36) cast_bolt_or_beam(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(creature_ptr) - 10);
-	else if(die < 41) cast_bolt(creature_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev, -1);
-	else if(die < 46) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_POIS, 20 + (plev / 2), 3, -1);
-	else if(die < 51) (void)cast_beam(creature_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
-	else if(die < 56) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3 + ((plev - 5) / 4), 8), beam_chance(creature_ptr) - 10);
-	else if(die < 61) cast_bolt_or_beam(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5 + ((plev - 5) / 4), 8), beam_chance(creature_ptr) - 10);
-	else if(die < 66) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6 + ((plev - 5) / 4), 8), beam_chance(creature_ptr));
-	else if(die < 71) cast_bolt_or_beam(creature_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8 + ((plev - 5) / 4), 8), beam_chance(creature_ptr));
-	else if(die < 76) drain_life(creature_ptr, dir, 75);
-	else if(die < 81) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ELEC, 30 + plev / 2, 2, -1);
-	else if(die < 86) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ACID, 40 + plev, 2, -1);
-	else if(die < 91) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ICE, 70 + plev, 3, -1);
-	else if(die < 96) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_FIRE, 80 + plev, 3, -1);
-	else if(die < 101) drain_life(creature_ptr, dir, 100 + plev);
-	else if(die < 104) earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
-	else if(die < 106) (void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
-	else if(die < 108) symbol_genocide(creature_ptr, plev+50, TRUE);
-	else if(die < 110) project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 120);
+	if(die < 8) cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1);
+	else if(die < 14) speed_other_creature(caster_ptr, dir);
+	else if(die < 26) heal_other_creature(caster_ptr, dir, diceroll(4, 6));
+	else if(die < 31) poly_creature(caster_ptr, dir);
+	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(caster_ptr) - 10);
+	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev, -1);
+	else if(die < 46) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_POIS, 20 + (plev / 2), 3, -1);
+	else if(die < 51) (void)cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
+	else if(die < 56) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3 + ((plev - 5) / 4), 8), beam_chance(caster_ptr) - 10);
+	else if(die < 61) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5 + ((plev - 5) / 4), 8), beam_chance(caster_ptr) - 10);
+	else if(die < 66) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6 + ((plev - 5) / 4), 8), beam_chance(caster_ptr));
+	else if(die < 71) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8 + ((plev - 5) / 4), 8), beam_chance(caster_ptr));
+	else if(die < 76) drain_life(caster_ptr, dir, 75);
+	else if(die < 81) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, 30 + plev / 2, 2, -1);
+	else if(die < 86) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ACID, 40 + plev, 2, -1);
+	else if(die < 91) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ICE, 70 + plev, 3, -1);
+	else if(die < 96) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 80 + plev, 3, -1);
+	else if(die < 101) drain_life(caster_ptr, dir, 100 + plev);
+	else if(die < 104) earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 12);
+	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + randint0(5), FALSE);
+	else if(die < 108) symbol_genocide(caster_ptr, plev+50, TRUE);
+	else if(die < 110) project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 120);
 	else
 	{
-		project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 150);
-		project_all_vision(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
-		project_all_vision(creature_ptr, DO_EFFECT_OLD_SLEEP, creature_ptr->lev);
-		heal_creature(creature_ptr, 300);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 150);
+		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, caster_ptr->lev);
+		heal_creature(caster_ptr, 300);
 	}
 }
 

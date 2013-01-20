@@ -1697,7 +1697,7 @@ static int wand_effect(creature_type *caster_ptr, int sval, int dir, bool magic)
 			break;
 
 		case SV_WAND_CLONE_MONSTER:
-			if(clone_creature(caster_ptr, dir)) ident = TRUE;
+			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1)) ident = TRUE;
 			break;
 
 		case SV_WAND_TELEPORT_AWAY:
