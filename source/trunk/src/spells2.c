@@ -2780,12 +2780,6 @@ bool stun_creature(creature_type *caster_ptr, int dir, int plev)
 	return (cast_bolt(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, plev, -1));
 }
 
-bool poly_creature(creature_type *caster_ptr, int dir)
-{
-	bool tester = (cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, caster_ptr->lev, -1));
-	return(tester);
-}
-
 bool fear_creature(creature_type *caster_ptr, int dir, int plev)
 {
 	return (cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, -1));

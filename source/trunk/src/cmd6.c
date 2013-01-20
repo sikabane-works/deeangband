@@ -1725,7 +1725,7 @@ static int wand_effect(creature_type *caster_ptr, int sval, int dir, bool magic)
 			break;
 
 		case SV_WAND_POLYMORPH:
-			if(poly_creature(caster_ptr, dir)) ident = TRUE;
+			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
 			break;
 
 		case SV_WAND_CHARM_MONSTER:
@@ -1951,7 +1951,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
 }
 
 
-static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_charge, bool magic)
+static int rod_effect(creature_type *caster_ptr, int sval, int dir, bool *use_charge, bool magic)
 {
 	int ident = FALSE;
 
@@ -1962,42 +1962,42 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 	switch (sval)
 	{
 		case SV_ROD_DETECT_DOOR:
-			if(detect_doors(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if(detect_stairs(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_doors(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_stairs(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 
 		case SV_ROD_IDENTIFY:
-			if(!ident_spell(creature_ptr, FALSE)) *use_charge = FALSE;
+			if(!ident_spell(caster_ptr, FALSE)) *use_charge = FALSE;
 			ident = TRUE;
 			break;
 
 		case SV_ROD_DETECTION:
-			detect_all(creature_ptr, DETECT_RAD_DEFAULT);
+			detect_all(caster_ptr, DETECT_RAD_DEFAULT);
 			ident = TRUE;
 			break;
 
 		case SV_ROD_PESTICIDE:
-			if(project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 4)) ident = TRUE;
+			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4)) ident = TRUE;
 			break;
 
 		case SV_ROD_TELEPORT_AWAY:
-			if(teleport_creature(creature_ptr, dir)) ident = TRUE;
+			if(teleport_creature(caster_ptr, dir)) ident = TRUE;
 			break;
 
 		case SV_ROD_DISARMING:
-			if(disarm_trap(creature_ptr, dir)) ident = TRUE;
+			if(disarm_trap(caster_ptr, dir)) ident = TRUE;
 			break;
 
 		case SV_ROD_SLEEP_MONSTER:
-			if(sleep_creature(creature_ptr, dir)) ident = TRUE;
+			if(sleep_creature(caster_ptr, dir)) ident = TRUE;
 			break;
 
 		case SV_ROD_POLYMORPH:
-			if(poly_creature(creature_ptr, dir)) ident = TRUE;
+			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
 			break;
 
 		case SV_ROD_HAVOC:
-			call_chaos(creature_ptr);
+			call_chaos(caster_ptr);
 			ident = TRUE;
 			break;
 	}

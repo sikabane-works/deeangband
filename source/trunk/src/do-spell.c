@@ -217,7 +217,7 @@ static void cast_wonder(creature_type *caster_ptr, int dir)
 	if(die < 8) cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1);
 	else if(die < 14) speed_other_creature(caster_ptr, dir);
 	else if(die < 26) heal_other_creature(caster_ptr, dir, diceroll(4, 6));
-	else if(die < 31) poly_creature(caster_ptr, dir);
+	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, plev, -1);
 	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(caster_ptr) - 10);
 	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev, -1);
 	else if(die < 46) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_POIS, 20 + (plev / 2), 3, -1);
@@ -246,12 +246,12 @@ static void cast_wonder(creature_type *caster_ptr, int dir)
 }
 
 
-static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
+static void cast_invoke_spirits(creature_type *caster_ptr, int dir)
 {
 	//TODO: target
 	int y = 0, x = 0;
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int plev = creature_ptr->lev;
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	int plev = caster_ptr->lev;
 	int die = randint1(100) + plev / 5;
 	// TODO: Add Karma of Fortune feature.
 	int vir = 0;
@@ -262,43 +262,43 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	if(die < 8)
 	{
 		msg_print(INVOKE_SPIRIT_LOW1);
-		(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+		(void)summon_specific(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 	else if(die < 14)
 	{
 		msg_print(INVOKE_SPIRIT_LOW2);
-		add_timed_trait(creature_ptr, TRAIT_AFRAID, randint1(4) + 4, TRUE);
+		add_timed_trait(caster_ptr, TRAIT_AFRAID, randint1(4) + 4, TRUE);
 	}
 	else if(die < 26)
 	{
 		msg_print(INVOKE_SPIRIT_LOW3);
-		add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint1(4) + 4, TRUE);
+		add_timed_trait(caster_ptr, TRAIT_CONFUSED, randint1(4) + 4, TRUE);
 	}
-	else if(die < 31) poly_creature(creature_ptr, dir);
-	else if(die < 36) cast_bolt_or_beam(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(creature_ptr) - 10);
-	else if(die < 41) cast_bolt(creature_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev, -1);
-	else if(die < 46) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_POIS, 20 + (plev / 2), 3, -1);
-	else if(die < 51) (void)cast_beam(creature_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
-	else if(die < 56) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3+((plev-5)/4),8), beam_chance(creature_ptr) - 10);
-	else if(die < 61) cast_bolt_or_beam(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5+((plev-5)/4),8), beam_chance(creature_ptr) - 10);
-	else if(die < 66) cast_bolt_or_beam(creature_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6+((plev-5)/4),8), beam_chance(creature_ptr));
-	else if(die < 71) cast_bolt_or_beam(creature_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8+((plev-5)/4),8), beam_chance(creature_ptr));
-	else if(die < 76) drain_life(creature_ptr, dir, 75);
-	else if(die < 81) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ELEC, 30 + plev / 2, 2, -1);
-	else if(die < 86) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ACID, 40 + plev, 2, -1);
-	else if(die < 91) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_ICE, 70 + plev, 3, -1);
-	else if(die < 96) cast_ball_aux(y, x, creature_ptr, DO_EFFECT_FIRE, 80 + plev, 3, -1);
-	else if(die < 101) drain_life(creature_ptr, dir, 100 + plev);
-	else if(die < 104) earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
-	else if(die < 106) (void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
-	else if(die < 108) symbol_genocide(creature_ptr, plev+50, TRUE);
-	else if(die < 110) project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 120);
+	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, plev, -1);
+	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(caster_ptr) - 10);
+	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev, -1);
+	else if(die < 46) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_POIS, 20 + (plev / 2), 3, -1);
+	else if(die < 51) (void)cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
+	else if(die < 56) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3+((plev-5)/4),8), beam_chance(caster_ptr) - 10);
+	else if(die < 61) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5+((plev-5)/4),8), beam_chance(caster_ptr) - 10);
+	else if(die < 66) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6+((plev-5)/4),8), beam_chance(caster_ptr));
+	else if(die < 71) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8+((plev-5)/4),8), beam_chance(caster_ptr));
+	else if(die < 76) drain_life(caster_ptr, dir, 75);
+	else if(die < 81) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, 30 + plev / 2, 2, -1);
+	else if(die < 86) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ACID, 40 + plev, 2, -1);
+	else if(die < 91) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ICE, 70 + plev, 3, -1);
+	else if(die < 96) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 80 + plev, 3, -1);
+	else if(die < 101) drain_life(caster_ptr, dir, 100 + plev);
+	else if(die < 104) earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 12);
+	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + randint0(5), FALSE);
+	else if(die < 108) symbol_genocide(caster_ptr, plev+50, TRUE);
+	else if(die < 110) project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 120);
 	else
 	{
-		project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 150);
-		project_all_vision(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
-		project_all_vision(creature_ptr, DO_EFFECT_OLD_SLEEP, creature_ptr->lev);
-		heal_creature(creature_ptr, 300);
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 150);
+		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
+		project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, caster_ptr->lev);
+		heal_creature(caster_ptr, 300);
 	}
 
 	if(die < 31) msg_print(INVOKE_SPIRIT_FUNBLE_AFTER);
@@ -3097,19 +3097,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Polymorph Other";
 		if(desc) return "Attempts to polymorph a creature.";
 #endif
-    
-		{
-			int power = plev;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				poly_creature(caster_ptr, dir);
-			}
-		}
+		if(info) return info_power(plev);
+		if(cast) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, plev, -1);
 		break;
 
 	case 17:
