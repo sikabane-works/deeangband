@@ -574,6 +574,7 @@
 #define COD_ELEC_AURA "電撃のオーラ"
 #define COD_LETHAL_MUTATION "致命的な突然変異"
 #define COD_POLYMORPHED_WOUND "変化した傷"
+#define COD_TY_CURSE_ENERGY "エネルギーのうねり"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -626,6 +627,7 @@
 #define COD_ELEC_AURA "elec aura"
 #define COD_LETHAL_MUTATION "a lethal mutation"
 #define COD_POLYMORPHED_WOUND "a polymorphed wound"
+#define COD_TY_CURSE_ENERGY "surge of energy"
 #endif
 
 // Hack -- possible "insult" messages

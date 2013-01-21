@@ -2840,11 +2840,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			if(!randint0(7))
 			{
 				project(0, 0, 7, creature_ptr->fy, creature_ptr->fx, 50, DO_EFFECT_KILL_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
-#ifdef JP
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "ÉGÉlÉãÉMÅ[ÇÃÇ§ÇÀÇË", NULL, -1);
-#else
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "surge of energy", NULL, -1);
-#endif
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, COD_TY_CURSE_ENERGY, NULL, -1);
 			}
 			if(!one_in_(6)) break;
 
