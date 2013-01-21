@@ -104,19 +104,19 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_DRAIN_LIFE1:
-		drain_life(caster_ptr, dir, 100);
+		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1);
 		break;
 
 	case TRAIT_DRAIN_LIFE2:
-		drain_life(caster_ptr, dir, 120);
+		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 120, -1);
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_1:
-		for (i = 0; i < 3; i++) if(drain_life(caster_ptr, dir, 50)) heal_creature(caster_ptr, 50);
+		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 50, -1)) heal_creature(caster_ptr, 50);
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_2:
-		for (i = 0; i < 3; i++) if(drain_life(caster_ptr, dir, 100)) heal_creature(caster_ptr, 100);
+		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1)) heal_creature(caster_ptr, 100);
 		break;
 
 	case TRAIT_WHIRLWIND:
@@ -451,7 +451,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_STRANGLING:
-		drain_life(caster_ptr, dir, 100);
+		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1);
 		break;
 
 	case TRAIT_BA_FIRE_L:
@@ -2255,7 +2255,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #endif
 
 				dummy = user_level + randint1(user_level) * MAX(1, user_level / 10);   // Dmg
-				if(drain_life(caster_ptr, dir, dummy))
+				if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dummy, -1))
 				{
 					if(caster_ptr->food < CREATURE_FOOD_FULL)
 						// No heal if we are "full"

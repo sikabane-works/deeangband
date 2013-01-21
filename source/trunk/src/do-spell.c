@@ -226,12 +226,12 @@ static void cast_wonder(creature_type *caster_ptr, int dir)
 	else if(die < 61) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5 + ((plev - 5) / 4), 8), beam_chance(caster_ptr) - 10);
 	else if(die < 66) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6 + ((plev - 5) / 4), 8), beam_chance(caster_ptr));
 	else if(die < 71) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8 + ((plev - 5) / 4), 8), beam_chance(caster_ptr));
-	else if(die < 76) drain_life(caster_ptr, dir, 75);
+	else if(die < 76) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 75, -1);
 	else if(die < 81) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, 30 + plev / 2, 2, -1);
 	else if(die < 86) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ACID, 40 + plev, 2, -1);
 	else if(die < 91) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ICE, 70 + plev, 3, -1);
 	else if(die < 96) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 80 + plev, 3, -1);
-	else if(die < 101) drain_life(caster_ptr, dir, 100 + plev);
+	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100 + plev, -1);
 	else if(die < 104) earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + randint0(5), FALSE);
 	else if(die < 108) symbol_genocide(caster_ptr, plev+50, TRUE);
@@ -283,12 +283,12 @@ static void cast_invoke_spirits(creature_type *caster_ptr, int dir)
 	else if(die < 61) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5+((plev-5)/4),8), beam_chance(caster_ptr) - 10);
 	else if(die < 66) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6+((plev-5)/4),8), beam_chance(caster_ptr));
 	else if(die < 71) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8+((plev-5)/4),8), beam_chance(caster_ptr));
-	else if(die < 76) drain_life(caster_ptr, dir, 75);
+	else if(die < 76) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 75, -1);
 	else if(die < 81) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, 30 + plev / 2, 2, -1);
 	else if(die < 86) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ACID, 40 + plev, 2, -1);
 	else if(die < 91) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ICE, 70 + plev, 3, -1);
 	else if(die < 96) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 80 + plev, 3, -1);
-	else if(die < 101) drain_life(caster_ptr, dir, 100 + plev);
+	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100 + plev, -1);
 	else if(die < 104) earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + randint0(5), FALSE);
 	else if(die < 108) symbol_genocide(caster_ptr, plev+50, TRUE);
@@ -3707,10 +3707,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				int dam = base + diceroll(dice, sides);
-
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				if(drain_life(caster_ptr, dir, dam))
+				if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1))
 				{
 					heal_creature(caster_ptr, dam);
 					dam = caster_ptr->food + MIN(5000, 100 * dam);
@@ -3877,13 +3874,9 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				int i;
-
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
 				for (i = 0; i < 3; i++)
 				{
-					if(drain_life(caster_ptr, dir, dam))
-						heal_creature(caster_ptr, dam);
+					if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1)) heal_creature(caster_ptr, dam);
 				}
 			}
 		}

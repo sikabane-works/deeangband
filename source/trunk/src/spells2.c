@@ -2716,20 +2716,11 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 	return TRUE;
 }
 
-
-bool drain_life(creature_type *caster_ptr, int dir, int dam)
-{
-	return (cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1));
-}
-
 bool wall_stone(creature_type *caster_ptr)
 {
 	bool dummy = (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_STONE_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
-
 	prepare_update(caster_ptr, PU_FLOW);
-
 	prepare_redraw(PR_MAP);
-
 	return dummy;
 }
 
