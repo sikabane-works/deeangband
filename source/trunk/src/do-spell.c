@@ -796,16 +796,16 @@ void stop_singing(creature_type *creature_ptr)
 }
 
 
-static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
+static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	int plev = creature_ptr->lev;
+	int plev = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -823,7 +823,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = 10;
 
 			if(info) return info_heal(dice, sides, 0);
-			if(cast) heal_creature(creature_ptr, diceroll(dice, sides));
+			if(cast) heal_creature(caster_ptr, diceroll(dice, sides));
 		}
 		break;
 
@@ -839,7 +839,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			int base = 12;
 			if(info) return info_duration(base, base);
-			if(cast) set_timed_trait(creature_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
+			if(cast) set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
 		}
 		break;
 
@@ -857,7 +857,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = 4;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_ball_hide(creature_ptr, DO_EFFECT_WOUNDS, MAX_RANGE_SUB, diceroll(dice, sides), 0);
+			if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_WOUNDS, MAX_RANGE_SUB, diceroll(dice, sides), 0);
 		}
 		break;
 
@@ -876,7 +876,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = plev / 10 + 1;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) lite_area(creature_ptr, diceroll(dice, sides), rad);
+			if(cast) lite_area(caster_ptr, diceroll(dice, sides), rad);
 		}
 		break;
 
@@ -895,9 +895,9 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				detect_traps(creature_ptr, rad, TRUE);
-				detect_doors(creature_ptr, rad);
-				detect_stairs(creature_ptr, rad);
+				detect_traps(caster_ptr, rad, TRUE);
+				detect_doors(caster_ptr, rad);
+				detect_stairs(caster_ptr, rad);
 			}
 		}
 		break;
@@ -915,7 +915,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = 10;
 
 			if(info) return info_heal(dice, sides, 0);
-			if(cast) heal_creature(creature_ptr, diceroll(dice, sides));
+			if(cast) heal_creature(caster_ptr, diceroll(dice, sides));
 		}
 		break;
 
@@ -928,7 +928,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(desc) return "Cure poison status.";
 #endif    
 		{
-			if(cast) set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE);
+			if(cast) set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
 		}
 		break;
 
@@ -941,7 +941,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(desc) return "Satisfies hunger.";
 #endif    
 		{
-			if(cast) set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
+			if(cast) set_food(caster_ptr, CREATURE_FOOD_MAX - 1);
 		}
 		break;
 
@@ -957,7 +957,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_curse(creature_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
+				if(remove_curse(caster_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -976,7 +976,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int dice = 8;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_ball_hide(creature_ptr, DO_EFFECT_WOUNDS, MAX_RANGE_SUB, diceroll(sides, dice), 0);
+			if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_WOUNDS, MAX_RANGE_SUB, diceroll(sides, dice), 0);
 		}
 		break;
 
@@ -993,7 +993,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int dice = 8;
 			int sides = 10;
 			if(info) return info_heal(dice, sides, 0);
-			if(cast) heal_creature(creature_ptr, diceroll(dice, sides));
+			if(cast) heal_creature(caster_ptr, diceroll(dice, sides));
 		}
 		break;
 
@@ -1013,8 +1013,8 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -1035,7 +1035,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				map_area(creature_ptr, rad);
+				map_area(caster_ptr, rad);
 			}
 		}
 		break;
@@ -1048,7 +1048,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Turn Undead";
 		if(desc) return "Attempts to scare undead creatures in sight.";
 #endif
-		if(cast) project_all_vision(creature_ptr, DO_EFFECT_TURN_UNDEAD, creature_ptr->lev);
+		if(cast) project_all_vision(caster_ptr, DO_EFFECT_TURN_UNDEAD, caster_ptr->lev);
 		break;
 
 	case 14:
@@ -1063,7 +1063,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			int heal = 300;
 			if(info) return info_heal(0, 0, heal);
-			if(cast) heal_creature(creature_ptr, heal);
+			if(cast) heal_creature(caster_ptr, heal);
 		}
 		break;
 
@@ -1079,7 +1079,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				warding_glyph(creature_ptr);
+				warding_glyph(caster_ptr);
 			}
 		}
 		break;
@@ -1096,7 +1096,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_all_curse(creature_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
+				if(remove_all_curse(caster_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -1113,7 +1113,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!ident_spell(creature_ptr, FALSE)) return NULL;
+				if(!ident_spell(caster_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -1132,7 +1132,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = plev * 5;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) project_all_vision(creature_ptr, DO_EFFECT_DISP_UNDEAD, diceroll(dice, sides));
+			if(cast) project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, diceroll(dice, sides));
 		}
 		break;
 
@@ -1152,7 +1152,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project_all_vision(creature_ptr, DO_EFFECT_CHARM, power);
+				project_all_vision(caster_ptr, DO_EFFECT_CHARM, power);
 			}
 		}
 		break;
@@ -1171,7 +1171,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = 15;
 
 			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_ball_hide(creature_ptr, DO_EFFECT_WOUNDS, MAX_RANGE_SUB, diceroll(dice, sides), 0);
+			if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_WOUNDS, MAX_RANGE_SUB, diceroll(dice, sides), 0);
 		}
 		break;
 
@@ -1192,7 +1192,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!word_of_recall(creature_ptr, randint0(21) + 15)) return NULL;
+				if(!word_of_recall(caster_ptr, randint0(21) + 15)) return NULL;
 			}
 		}
 		break;
@@ -1214,7 +1214,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				alter_reality(creature_ptr);
+				alter_reality(caster_ptr);
 			}
 		}
 		break;
@@ -1235,8 +1235,8 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				warding_glyph(creature_ptr);
-				glyph_creation(creature_ptr);
+				warding_glyph(caster_ptr);
+				project(0, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_GLYPH, PROJECT_GRID | PROJECT_ITEM, -1);
 			}
 		}
 		break;
@@ -1274,7 +1274,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				detect_all(creature_ptr, rad);
+				detect_all(caster_ptr, rad);
 			}
 		}
 		break;
@@ -1295,7 +1295,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				mass_genocide_undead(creature_ptr, power, TRUE);
+				mass_genocide_undead(caster_ptr, power, TRUE);
 			}
 		}
 		break;
@@ -1312,7 +1312,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				wiz_lite(floor_ptr, creature_ptr, FALSE);
+				wiz_lite(floor_ptr, caster_ptr, FALSE);
 			}
 		}
 		break;
@@ -1325,7 +1325,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Restoration";
 		if(desc) return "Restores all stats and experience.";
 #endif
-		if(cast) do_active_trait(creature_ptr, TRAIT_RESTORE_ALL, TRUE);
+		if(cast) do_active_trait(caster_ptr, TRAIT_RESTORE_ALL, TRUE);
 		break;
 
 	case 29:
@@ -1337,7 +1337,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(desc) return "The greatest healing magic. Heals all HP, cut and stun.";
 #endif
 		if(info) return info_heal(0, 0, 2000);
-		if(cast) heal_creature(creature_ptr, 2000);
+		if(cast) heal_creature(caster_ptr, 2000);
 		break;
 
 	case 30:
@@ -1350,7 +1350,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 		if(cast)
 		{
-			if(!identify_fully(creature_ptr, FALSE)) return NULL;
+			if(!identify_fully(caster_ptr, FALSE)) return NULL;
 		}
 		break;
 
@@ -1371,13 +1371,13 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				int v = randint1(base) + base;
-				set_timed_trait(creature_ptr, TRAIT_FAST, v, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ACID, v, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ELEC, v, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, v, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_COLD, v, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_POIS, v, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_ULTRA_RES, v, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_FAST, v, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, v, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, v, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, v, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, v, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, v, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_ULTRA_RES, v, FALSE);
 			}
 		}
 		break;
