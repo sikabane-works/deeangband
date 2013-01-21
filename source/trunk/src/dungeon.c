@@ -1424,10 +1424,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	{
 		int damage = calc_damage(NULL, creature_ptr, randint0(50) + 20, DO_EFFECT_CHAOS, FALSE, FALSE);	
 #ifdef JP
-		msg_print("混沌に身を蝕まれた！");
+		msg_format("%sは混沌に身を蝕まれている。", creature_name);
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
 #else
-		msg_print("The chaos tainted you!");
+		msg_format("The chaos tainted %s", creature_name);
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", NULL, -1);
 #endif
 	}

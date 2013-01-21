@@ -1800,13 +1800,10 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 			sound(SOUND_KILL); // Make a sound	
 			if(note) msg_format("%^s%s", target_name, note); // Death by Missile/Spell attack
-			else if(!attacker_ptr)
-			{
-				msg_format("%^s‚Í©–Å‚µ‚½B", target_name);
-			}
 			else if(!target_ptr->see_others) // Death by physical attack -- invisible creature
 			{
-				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+				if(!attacker_ptr) msg_format("%^s‚Í%s‚É‚æ‚Á‚Ä€‚ñ‚¾B", target_name, hit_from);
+				else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 				{
 #ifdef JP
 					if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK))
