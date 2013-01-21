@@ -1453,7 +1453,7 @@ extern bool do_res_stat(creature_type *creature_ptr, int stat);
 extern bool do_inc_stat(creature_type *creature_ptr, int stat);
 extern bool restore_exp(creature_type *creature_ptr);
 extern bool lose_all_info(creature_type *creature_ptr);
-extern void dec_mana(creature_type *creature_ptr, int val);
+extern bool dec_mana(creature_type *creature_ptr, int val);
 extern void inc_mana(creature_type *creature_ptr, int val);
 extern void gain_exp_64(creature_type *creature_ptr, s32b amount, u32b amount_frac);
 extern void gain_exp(creature_type *creature_ptr, s32b amount);

@@ -2006,11 +2006,17 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	return damage;
 }
 
-void dec_mana(creature_type *creature_ptr, int val)
-{		
+bool dec_mana(creature_type *creature_ptr, int val)
+{
+	bool sufficient = TRUE;
 	creature_ptr->csp -= val;
-	if(creature_ptr->csp < 0) creature_ptr->csp = creature_ptr->csp_frac = 0;
+	if(creature_ptr->csp < 0)
+	{
+		creature_ptr->csp = creature_ptr->csp_frac = 0;
+		sufficient = FALSE;
+	}
 	if(is_player(creature_ptr)) prepare_redraw(PR_MANA);
+	return sufficient;
 }
 
 void inc_mana(creature_type *creature_ptr, int val)
