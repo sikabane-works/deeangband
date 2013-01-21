@@ -414,7 +414,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 					else
 					{
 						quest[i].status = QUEST_STATUS_COMPLETED;
-						quest[i].complev = (byte)killer_ptr->lev;
+						quest[i].complev = (byte)player_ptr->lev;
 						msg_print(GAME_MESSAGE_COMPLETE_QUEST);
 						msg_print(NULL);
 					}
@@ -436,7 +436,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 					if(record_rand_quest && (quest[i].type == QUEST_TYPE_RANDOM)) do_cmd_write_diary(DIARY_RAND_QUEST_C, i, NULL);
 					/* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
-					quest[i].complev = (byte)killer_ptr->lev;
+					quest[i].complev = (byte)player_ptr->lev;
 					if(!(quest[i].flags & QUEST_FLAG_PRESET))
 					{
 						create_stairs = TRUE;
@@ -471,7 +471,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 					if(record_fix_quest) do_cmd_write_diary(DIARY_FIX_QUEST_C, i, NULL);
 					/* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
-					quest[i].complev = (byte)killer_ptr->lev;
+					quest[i].complev = (byte)player_ptr->lev;
 
 					if(!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
@@ -658,7 +658,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	}
 
 	/* Check for quest completion */
-	check_quest_completion(slayer_ptr, dead_ptr);
+	//TODO check_quest_completion(slayer_ptr, dead_ptr);
 
 	/* Handle the possibility of player vanquishing arena combatant -KMW- */
 	if(floor_ptr->fight_arena_mode && !is_pet(player_ptr, dead_ptr))
@@ -700,8 +700,8 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		}
 	}
 
-	if(dead_ptr == &creature_list[slayer_ptr->riding])
-		if(do_thrown_from_riding(slayer_ptr, -1, FALSE)) msg_print(GAME_MESSAGE_FALL_RIDING);
+	//TODO if(dead_ptr == &creature_list[slayer_ptr->riding])
+	//	if(do_thrown_from_riding(slayer_ptr, -1, FALSE)) msg_print(GAME_MESSAGE_FALL_RIDING);
 
 	/* Drop a dead corpse? */
 	if(one_in_(has_trait(dead_ptr, TRAIT_UNIQUE) ? 1 : 4) &&
@@ -880,7 +880,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 					{
 						a_ptr->cur_num = 1;
 						// Hack -- Memorize location of artifact in saved floors
-						if(floor_ptr->generated) a_ptr->floor_id = slayer_ptr->floor_id;
+						if(floor_ptr->generated) a_ptr->floor_id = dead_ptr->floor_id;
 					}
 					else if(!preserve_mode) a_ptr->cur_num = 1;
 

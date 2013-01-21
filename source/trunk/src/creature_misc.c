@@ -37,7 +37,7 @@ bool is_valid_creature(creature_type *creature_ptr)
 
 bool is_valid_creature_aux(creature_type *creature_ptr)
 {
-	return (creature_ptr->fx && creature_ptr->fy && creature_ptr->chp > 0);
+	return (creature_ptr > creature_list && creature_ptr->fx && creature_ptr->fy && creature_ptr->chp > 0);
 }
 
 

@@ -6255,5 +6255,5 @@ void set_inventory_weight(creature_type *creature_ptr)
 
 bool is_valid_object(object_type *object_ptr)
 {
-	return (bool)(object_ptr->k_idx && object_ptr->number > 0);
+	return (bool)(object_ptr && object_ptr->k_idx && object_ptr->number > 0);
 }

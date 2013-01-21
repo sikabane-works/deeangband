@@ -1948,8 +1948,8 @@
  */
 // TODO Check using
 #define is_seen(B, A) \
-	((bool)((A)->see_others && (!ignore_unview || GET_FLOOR_PTR(B)->gamble_arena_mode || \
-	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable(GET_FLOOR_PTR(B), MAX_RANGE_SUB, (B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
+	((B) && (A) && ((bool)((A)->see_others && (!ignore_unview || GET_FLOOR_PTR(B)->gamble_arena_mode || \
+	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable(GET_FLOOR_PTR(B), MAX_RANGE_SUB, (B)->fy, (B)->fx, (A)->fy, (A)->fx))))))
 
 /*** Option Definitions ***/
 

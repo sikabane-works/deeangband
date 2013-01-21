@@ -1348,12 +1348,13 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	int upkeep_regen;
 	int regen_amount = CREATURE_REGEN_NORMAL;	// Default regeneration
 
-	if(!is_valid_creature(creature_ptr)) return;
+	if(!is_valid_creature_aux(creature_ptr)) return;
 
 	creature_desc(creature_name, creature_ptr, 0);
 
 	if(has_trait(creature_ptr, TRAIT_POISONED) && !IS_INVULN(creature_ptr)) // Take damage from poison
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, COD_POISON, NULL, -1);
+
 
 	/* Take damage from cuts */
 	if(has_trait(creature_ptr, TRAIT_CUT) && !IS_INVULN(creature_ptr))

@@ -1751,7 +1751,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			if(species_ptr->r_akills < MAX_SHORT) species_ptr->r_akills++;
 
 			/* Recall even invisible uniques or winners */
-			if((target_ptr->see_others && !has_trait(attacker_ptr, TRAIT_HALLUCINATION)) || has_trait(target_ptr, TRAIT_UNIQUE))
+			if(target_ptr->see_others || has_trait(target_ptr, TRAIT_UNIQUE)) // && !has_trait(attacker_ptr, TRAIT_HALLUCINATION))
 			{
 				/* Count kills this life */
 				if(has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].r_pkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_pkills++;
@@ -1799,8 +1799,11 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			}
 
 			sound(SOUND_KILL); // Make a sound	
-			if(note) msg_format("%^s%s", target_name, note); // Death by Missile/Spell attack	
-
+			if(note) msg_format("%^s%s", target_name, note); // Death by Missile/Spell attack
+			else if(!attacker_ptr)
+			{
+				msg_format("%^s‚ÍŽ©–Å‚µ‚½B", target_name);
+			}
 			else if(!target_ptr->see_others) // Death by physical attack -- invisible creature
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
@@ -1817,7 +1820,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 #endif
 				}
 			}
-
 			else if(!creature_living(attacker_ptr)) // Death by Physical attack -- non-living creature
 			{
 				int i;

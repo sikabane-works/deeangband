@@ -211,7 +211,7 @@
 #define GAME_MESSAGE_TRAP_FIRE "炎に包まれた！"
 #define GAME_MESSAGE_TRAP_ACID "酸が吹きかけられた！"
 #define GAME_MESSAGE_TRAP_ACID_FLOW "突然床から酸が溢れ出した！"
-#define GAME_MESSAGE_TRAP_POISON_FLOW "突然床から毒液が溢れ出した！"
+#define GAME_MESSAGE_TRAP_POISON_FLOW "突然床から毒液溢れ出した！"
 #define GAME_MESSAGE_TRAP_PIRANHAS "突然壁から水が溢れ出した！ピラニアがいる！"
 
 #define GAME_MESSAGE_TRAP_POISONOUS_GAS "突如吹き出した緑色のガスに包み込まれた！"
