@@ -2734,11 +2734,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	static const char s_dam[] = KW_DAM;
-#ifdef JP
-	static const char s_random[] = "ƒ‰ƒ“ƒ_ƒ€";
-#else
-	static const char s_random[] = "random";
-#endif
+	static const char s_random[] = KW_RANDOM;
 
 	int dir;
 	int plev = caster_ptr->lev;
@@ -3409,11 +3405,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	static const char s_dam[] = KW_DAM;
-#ifdef JP
-	static const char s_random[] = "ƒ‰ƒ“ƒ_ƒ€";
-#else
-	static const char s_random[] = "random";
-#endif
+	static const char s_random[] = KW_RANDOM;
 
 	int dir;
 	int plev = caster_ptr->lev;
@@ -4126,11 +4118,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 	bool fail = (mode == SPELL_FAIL) ? TRUE : FALSE;
 
-#ifdef JP
-	static const char s_random[] = "ƒ‰ƒ“ƒ_ƒ€";
-#else
-	static const char s_random[] = "random";
-#endif
+	static const char s_random[] = KW_RANDOM;
 
 	int dir;
 	int plev = caster_ptr->lev;

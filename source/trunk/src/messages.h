@@ -113,6 +113,7 @@
 #define KW_SURFACE "’nã"
 #define KW_SCORE_RANKING "—EÒ‚Ì“a“°"
 #define KW_MAX "Å‚"
+#define KW_RANDOM "ƒ‰ƒ“ƒ_ƒ€"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -149,6 +150,7 @@
 #define KW_SURFACE "the surface"
 #define KW_SCORE_RANKING "Hall of Fame"
 #define KW_MAX "Max"
+#define KW_RANDOM "Random"
 #endif
 
 #ifdef JP

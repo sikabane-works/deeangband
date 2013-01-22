@@ -505,8 +505,6 @@
 #define CLASS_RARITY_UNSELECTED   4
 
 
-#define RATE_OF_HALF_RACE       80
-
 // Maximum number of creature setting type
 #define MAX_HALF_RACE_DESCRIPTION 15
 

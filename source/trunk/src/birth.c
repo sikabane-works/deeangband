@@ -1919,11 +1919,7 @@ static int choose_realm(s32b choices, bool npc)
 	if(n <= 0) return REALM_NONE;
 
 
-#if JP
-	strcpy(re[n].cap, "ランダム");
-#else
-	strcpy(re[n].cap, "Random");
-#endif
+	strcpy(re[n].cap, KW_RANDOM);
 	re[n].code = BIRTH_SELECT_RANDOM;
 	re[n].key = '*';
 	re[n].d_color = TERM_UMBER;
@@ -2953,11 +2949,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 		return 0;
 	}
 
-#if JP
-	strcpy(se[n].cap, "ランダム");
-#else
-	strcpy(se[n].cap, "Random");
-#endif
+	strcpy(se[n].cap, KW_RANDOM);
 	se[n].code = BIRTH_SELECT_RANDOM;
 	se[n].key = '*';
 	se[n].d_color = TERM_UMBER;
@@ -3049,11 +3041,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 		}
 	}
 
-#if JP
-	strcpy(se[n].cap, "ランダム");
-#else
-	strcpy(se[n].cap, "Random");
-#endif
+	strcpy(se[n].cap, KW_RANDOM);
 	se[n].code = BIRTH_SELECT_RANDOM;
 	se[n].key = '*';
 	se[n].d_color = TERM_UMBER;
@@ -3151,11 +3139,7 @@ static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 	se[n].l_color = TERM_WHITE;
 	n++;
 
-#if JP
-	strcpy(se[n].cap, "ランダム");
-#else
-	strcpy(se[n].cap, "Random");
-#endif
+	strcpy(se[n].cap, KW_RANDOM);
 	se[n].code = BIRTH_SELECT_RANDOM;
 	se[n].key = '*';
 	se[n].d_color = TERM_UMBER;
@@ -3274,11 +3258,7 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
 		se[i].key = '\0';
 	}
 
-#if JP
-	strcpy(se[n].cap, "ランダム");
-#else
-	strcpy(se[n].cap, "Random");
-#endif
+	strcpy(se[n].cap, KW_RANDOM);
 	se[n].code = BIRTH_SELECT_RANDOM;
 	se[n].key = '*';
 	se[n].d_color = TERM_UMBER;
@@ -3399,11 +3379,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 		return 0;
 	}
 
-#if JP
-	strcpy(se[n].cap, "ランダム");
-#else
-	strcpy(se[n].cap, "Random");
-#endif
+	strcpy(se[n].cap, KW_RANDOM);
 	se[n].code = BIRTH_SELECT_RANDOM;
 	se[n].key = '*';
 	se[n].d_color = TERM_UMBER;
@@ -3506,11 +3482,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 		return 0;
 	}
 
-#if JP
-	strcpy(ce[n].cap, "ランダム");
-#else
-	strcpy(ce[n].cap, "Random");
-#endif
+	strcpy(ce[n].cap, KW_RANDOM);
 	ce[n].code = BIRTH_SELECT_RANDOM;
 	ce[n].key = '*';
 	ce[n].d_color = TERM_UMBER;
@@ -3615,12 +3587,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 		if(n == 400) break;
 	}
 
-
-#if JP
-	strcpy(pt[n].cap, "ランダム");
-#else
-	strcpy(pt[n].cap, "Random");
-#endif
+	strcpy(pt[n].cap, KW_RANDOM);
 	pt[n].code = BIRTH_SELECT_RANDOM;
 	pt[n].key = '*';
 	pt[n].d_color = TERM_UMBER;
@@ -3731,11 +3698,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 		return 0;
 	}
 
-#if JP
-	strcpy(ce[n].cap, "ランダム");
-#else
-	strcpy(ce[n].cap, "Random");
-#endif
+	strcpy(ce[n].cap, KW_RANDOM);
 	ce[n].code = BIRTH_SELECT_RANDOM;
 	ce[n].key = '*';
 	ce[n].d_color = TERM_UMBER;
@@ -3816,11 +3779,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 		}
 	}
 
-#if JP
-	strcpy(se[n].cap, "ランダム");
-#else
-	strcpy(se[n].cap, "Random");
-#endif
+	strcpy(se[n].cap, KW_RANDOM);
 	se[n].code = BIRTH_SELECT_RANDOM;
 	se[n].key = '*';
 	se[n].d_color = TERM_UMBER;

@@ -62,6 +62,8 @@
 
 #define SHADOW_GENERATE_RATE 333
 
+#define RATE_OF_HALF_RACE 80
+
 
 /*
  * A creature can only "multiply" (reproduce) if there are fewer than 100
