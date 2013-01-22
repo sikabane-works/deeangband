@@ -562,6 +562,7 @@
 #define COD_TRAP "トラップ"
 #define COD_POISON "毒"
 #define COD_WOUND "致命傷"
+#define COD_STARVATION "飢餓"
 #define COD_DART_TRAP "ダーツの罠"
 #define COD_PERILOUS_IDENTIFY "危険な秘密"
 #define COD_TRIPPING "転倒"
@@ -604,6 +605,7 @@
 #define COD_LETHAL_MUTATION "致命的な突然変異"
 #define COD_POLYMORPHED_WOUND "変化した傷"
 #define COD_TY_CURSE_ENERGY "エネルギーのうねり"
+#define COD_UNC_FORCE "気の暴走" 
 #else
 
 #define COD_QUITTING "Quitting"
@@ -615,6 +617,7 @@
 #define COD_TRAP "a trap"
 #define COD_POISON "poison"
 #define COD_WOUND "a fatal wound"
+#define COD_STARVATION "starvation"
 #define COD_DART_TRAP "a dart trap"
 #define COD_PERILOUS_IDENTIFY "perilous secrets"
 #define COD_FALL_RIDING "Falling from riding"
@@ -657,6 +660,7 @@
 #define COD_LETHAL_MUTATION "a lethal mutation"
 #define COD_POLYMORPHED_WOUND "a polymorphed wound"
 #define COD_TY_CURSE_ENERGY "surge of energy"
+#define COD_UNC_FORCE "Explosion of the Force"
 #endif
 
 // Hack -- possible "insult" messages

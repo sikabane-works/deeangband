@@ -1229,15 +1229,8 @@ static void creature_lack_food(creature_type *creature_ptr)
 		// Starve to death (slowly)
 		if(creature_ptr->food < CREATURE_FOOD_STARVE)
 		{
-			// Calculate damage
 			int dam = (CREATURE_FOOD_STARVE - creature_ptr->food) / 10;
-
-			// Take damage
-#ifdef JP
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "‹Q‰ì", NULL, -1);
-#else
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
-#endif
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, COD_STARVATION, NULL, -1);
 		}
 	}
 }

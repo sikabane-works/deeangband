@@ -1017,11 +1017,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 			msg_print("The Force exploded!");
 #endif
 			cast_ball(creature_ptr, DO_EFFECT_MANA, 0, creature_ptr->charged_force / 2, 10);
-#ifdef JP
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->charged_force / 2, "‹C‚Ì–\‘–", NULL, -1);
-#else
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->charged_force / 2, "Explosion of the Force", NULL, -1);
-#endif
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->charged_force / 2, COD_UNC_FORCE, NULL, -1);
 		}
 		else return TRUE;
 		break;
