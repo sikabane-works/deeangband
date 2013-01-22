@@ -3827,15 +3827,9 @@ static bool get_stat_limits(creature_type *creature_ptr)
 		if(cs != os)
 		{
 			
-#ifdef JP
-			if(os == STAT_MAX) c_put_str(TERM_WHITE, "Œˆ’è‚·‚é", 21, 35);
+			if(os == STAT_MAX) c_put_str(TERM_WHITE, KW_ACCEPT, 21, 35);
 			else if(os < STAT_MAX) c_put_str(TERM_WHITE, cur, 14 + os, 10);
-			if(cs == STAT_MAX) c_put_str(TERM_YELLOW, "Œˆ’è‚·‚é", 21, 35);
-#else
-			if(os == STAT_MAX)@c_put_str(TERM_WHITE, "Accept", 21, 35);
-			else if(os < STAT_MAX)@c_put_str(TERM_WHITE, cur, 14 + os, 10);
-			if(cs == STAT_MAX) c_put_str(TERM_YELLOW, "Accept", 21, 35);
-#endif
+			if(cs == STAT_MAX) c_put_str(TERM_YELLOW, KW_ACCEPT, 21, 35);
 			else
 			{
 				/* Race/Class bonus */
@@ -4074,11 +4068,7 @@ static bool get_chara_limits(creature_type *creature_ptr)
 		/* Move Cursol */
 		if(cs != os)
 		{
-#ifdef JP
-			const char accept[] = "Œˆ’è‚·‚é";
-#else
-			const char accept[] = "Accept";
-#endif
+			const char accept[] = KW_ACCEPT;
 			if(os == MAXITEMS)
 			{
 				c_put_str(TERM_WHITE, accept, 19, 35);
