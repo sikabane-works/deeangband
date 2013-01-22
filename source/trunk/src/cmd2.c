@@ -812,16 +812,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 	/* Seeing true feature code (ignore mimic) */
 
 	/* Jammed door */
-	if(!have_flag(f_ptr->flags, FF_OPEN))
-	{
-		/* Stuck */
-#ifdef JP
-		msg_format("%s‚Í‚ª‚Á‚¿‚è‚Æ•Â‚¶‚ç‚ê‚Ä‚¢‚é‚æ‚¤‚¾B", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#else
-		msg_format("The %s appears to be stuck.", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#endif
-
-	}
+	if(!have_flag(f_ptr->flags, FF_OPEN)) msg_format(GAME_MESSAGE_FEATURE_STUCK, feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 
 	/* Locked door */
 	else if(f_ptr->power)
@@ -1414,16 +1405,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	if(!is_closed_door(c_ptr->feat)) return FALSE; // Must be a closed door
-	if(!have_flag(f_ptr->flags, FF_OPEN)) // Jammed door
-	{
-		/* Stuck */
-#ifdef JP
-		msg_format("%s‚Í‚ª‚Á‚¿‚è‚Æ•Â‚¶‚ç‚ê‚Ä‚¢‚é‚æ‚¤‚¾B", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#else
-		msg_format("The %s appears to be stuck.", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#endif
-
-	}
+	if(!have_flag(f_ptr->flags, FF_OPEN)) msg_format(GAME_MESSAGE_FEATURE_STUCK, feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 
 	/* Locked door */
 	else if(f_ptr->power)

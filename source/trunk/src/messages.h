@@ -530,6 +530,12 @@
 
 #endif
 
+#ifdef JP
+#define GAME_MESSAGE_FEATURE_STUCK "%s‚Í‚ª‚Á‚¿‚è‚Æ•Â‚¶‚ç‚ê‚Ä‚¢‚é‚æ‚¤‚¾B"
+#else
+#define GAME_MESSAGE_FEATURE_STUCK "The %s appears to be stuck."
+#endif
+
 
 // Cause of Death
 #if JP
