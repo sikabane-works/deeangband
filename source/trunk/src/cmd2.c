@@ -194,13 +194,8 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			}
 			if(!max_dlv[target_dungeon])
 			{
-#ifdef JP
-				msg_format("ここには%sの入り口(%d階相当)があります", dungeon_name + dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
-				if(!get_check("本当にこのダンジョンに入りますか？")) return;
-#else
-				msg_format("There is the entrance of %s (Danger level: %d)", dungeon_name + dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
-				if(!get_check("Do you really get in this dungeon? ")) return;
-#endif
+				msg_format(GAME_MESSAGE_FEATURE_CHECK_DUNGEON, dungeon_name + dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
+				if(!get_check(GAME_MESSAGE_FEATURE_ENTER_DUNGEON)) return;
 			}
 
 			/* Save old player position */

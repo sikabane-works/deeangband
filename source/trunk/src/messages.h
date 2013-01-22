@@ -535,11 +535,15 @@
 #define GAME_MESSAGE_FEATURE_DOWN_STAIR "下の階に降りた。"
 #define GAME_MESSAGE_FEATURE_STUCK "%sはがっちりと閉じられているようだ。"
 #define GAME_MESSAGE_FEATURE_CLOSED_DUNGEON "ダンジョンの入口は塞がれている！"
+#define GAME_MESSAGE_FEATURE_CHECK_DUNGEON "ここには%sの入り口(%d階相当)があります"
+#define GAME_MESSAGE_FEATURE_ENTER_DUNGEON "本当にこのダンジョンに入りますか？"
 #else
 #define GAME_MESSAGE_FEATURE_NO_DOWN_STAIR "I see no down staircase here."
 #define GAME_MESSAGE_FEATURE_DOWN_STAIR "You enter the down staircase."
 #define GAME_MESSAGE_FEATURE_STUCK "The %s appears to be stuck."
 #define GAME_MESSAGE_FEATURE_CLOSED_DUNGEON "The entrance of this dungeon is closed!"
+#define GAME_MESSAGE_FEATURE_CHECK_DUNGEON "There is the entrance of %s (Danger level: %d)"
+#define GAME_MESSAGE_FEATURE_ENTER_DUNGEON "Do you really get in this dungeon? "
 #endif
 
 
