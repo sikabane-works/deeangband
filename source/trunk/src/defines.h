@@ -1615,14 +1615,6 @@
 	project((CASTER_PTR), 0, (RAD), (CASTER_PTR)->fy, (CASTER_PTR)->fx, (POWER), (EFFECT), (PRJ_BALL), (TRAIT_ID))
 
 
-
-/*
- * Special caster ID for project()
- */
-#define PROJECT_WHO_UNCTRL_POWER -1
-#define PROJECT_WHO_GLASS_SHARDS -2
-
-
 /*
  * Bit flags for the "enchant()" function
  */
