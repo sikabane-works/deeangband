@@ -166,11 +166,64 @@
 #define GAME_MESSAGE_TRAP_CONFUSE "きらめくガスに包み込まれた！"
 #define GAME_MESSAGE_TRAP_POISON "刺激的な緑色のガスに包み込まれた！"
 #define GAME_MESSAGE_TRAP_SLEPT "奇妙な白い霧に包まれた！"
+
+#define GAME_MESSAGE_TRAP_NEEDLE "仕掛けられていた小さな針に刺されてしまった！"
+#define GAME_MESSAGE_TRAP_DARTS "小さなダーツが飛んできて刺さった！"
+#define GAME_MESSAGE_TRAP_DARTS_MISSED "小さなダーツが飛んできた！が、運良く当たらなかった。"
+#define GAME_MESSAGE_TRAP_FIRE "炎に包まれた！"
+#define GAME_MESSAGE_TRAP_ACID "酸が吹きかけられた！"
+#define GAME_MESSAGE_TRAP_ACID_FLOW "突然床から酸が溢れ出した！"
+#define GAME_MESSAGE_TRAP_POISON_FLOW "突然床から毒液溢れ出した！"
+#define GAME_MESSAGE_TRAP_PIRANHAS "突然壁から水が溢れ出した！ピラニアがいる！"
+
+#define GAME_MESSAGE_TRAP_POISONOUS_GAS "突如吹き出した緑色のガスに包み込まれた！"
+#define GAME_MESSAGE_TRAP_PARALYZE_GAS "突如吹き出した黄色いガスに包み込まれた！"
+#define GAME_MESSAGE_TRAP_SUMMONING "突如吹き出した煙に包み込まれた！"
+#define GAME_MESSAGE_TRAP_S_ELEMENTAL "宝を守るためにエレメンタルが現れた！"
+#define GAME_MESSAGE_TRAP_S_BIRD "鳥の群れがあなたを取り巻いた！"
+#define GAME_MESSAGE_TRAP_S_H_DEMON "炎と硫黄の雲の中に悪魔が姿を現した！"
+#define GAME_MESSAGE_TRAP_S_H_DRAGON "暗闇にドラゴンの影がぼんやりと現れた！"
+#define GAME_MESSAGE_TRAP_S_HYBRID "奇妙な姿の怪物が襲って来た！"
+#define GAME_MESSAGE_TRAP_S_VORTEX "渦巻が合体し、破裂した！"
+#define GAME_MESSAGE_TRAP_E_RUNE "恐ろしい声が響いた:  「暗闇が汝をつつまん！」"
+#define GAME_MESSAGE_TRAP_EXPLOSIVE "突然、箱が爆発した！箱の中の物はすべて粉々に砕け散った！"
+#define GAME_MESSAGE_TRAP_SCATTER "宝箱の中身はダンジョンじゅうに散乱した！"
+#define GAME_MESSAGE_TRAP_TELEPORT "テレポート・トラップにひっかかった！"
+#define GAME_MESSAGE_TRAP_TY_CURSE "何かがピカッと光った！"
+#define GAME_MESSAGE_TRAP_ARMAGEDDON "突然天界の戦争に巻き込まれた！"
+#define GAME_MESSAGE_TRAP_ALARM "けたたましい音が鳴り響いた！"
+
 #else
 #define GAME_MESSAGE_TRAP_BLIND "A black gas surrounds you!"
 #define GAME_MESSAGE_TRAP_CONFUSE "A gas of scintillating colors surrounds you!"
 #define GAME_MESSAGE_TRAP_POISON "A pungent green gas surrounds you!"
 #define GAME_MESSAGE_TRAP_SLEPT "A strange white mist surrounds you!"
+
+#define GAME_MESSAGE_TRAP_NEEDLE "A small needle has pricked you!"
+#define GAME_MESSAGE_TRAP_DARTS "A small dart hits you!"
+#define GAME_MESSAGE_TRAP_DARTS_MISSED "A small dart barely misses you."
+#define GAME_MESSAGE_TRAP_FIRE "You are enveloped in flames."
+#define GAME_MESSAGE_TRAP_ACID "You are splashed with acid."
+#define GAME_MESSAGE_TRAP_ACID_FLOW "Suddenly, the room is filled with acid."
+#define GAME_MESSAGE_TRAP_POISON_FLOW "Suddenly, the room is filled with poisonous liquid."
+#define GAME_MESSAGE_TRAP_PIRANHAS "Suddenly, the room is filled with water with piranhas!"
+
+#define GAME_MESSAGE_TRAP_POISONOUS_GAS "A puff of green gas surrounds you!"
+#define GAME_MESSAGE_TRAP_PARALYZE_GAS "A puff of yellow gas surrounds you!"
+#define GAME_MESSAGE_TRAP_SUMMONING "You are enveloped in a cloud of smoke!"
+#define GAME_MESSAGE_TRAP_S_ELEMENTAL "Elemental beings appear to protect their treasures!"
+#define GAME_MESSAGE_TRAP_S_BIRD "A storm of birds swirls around you!"
+#define GAME_MESSAGE_TRAP_S_H_DEMON "Demons materialize in clouds of fire and brimstone!"
+#define GAME_MESSAGE_TRAP_S_H_DRAGON "Draconic forms loom out of the darkness!"
+#define GAME_MESSAGE_TRAP_S_HYBRID "Creatures strange and twisted assault you!"
+#define GAME_MESSAGE_TRAP_S_VORTEX "Vortices coalesce and wreak destruction!"
+#define GAME_MESSAGE_TRAP_E_RUNE "Hideous voices bid:  'Let the darkness have thee!'"
+#define GAME_MESSAGE_TRAP_EXPLOSIVE "There is a sudden explosion! Everything inside the chest is destroyed!"
+#define GAME_MESSAGE_TRAP_SCATTER  "The contents of the chest scatter all over the dungeon!"
+#define GAME_MESSAGE_TRAP_TELEPORT "You hit a teleport trap!"
+#define GAME_MESSAGE_TRAP_TY_CURSE "There is a flash of shimmering light!"
+#define GAME_MESSAGE_TRAP_ARMAGEDDON "Suddenly, you are surrounded by immotal beings!"
+#define GAME_MESSAGE_TRAP_ALARM "An alarm sounds!"
 #endif
 
 #if JP
@@ -215,32 +268,6 @@
 
 #define GAME_MESSAGE_FAILED_RUNAWAY "うまく逃げられなかった。"
 
-#define GAME_MESSAGE_TRAP_NEEDLE "仕掛けられていた小さな針に刺されてしまった！"
-#define GAME_MESSAGE_TRAP_DARTS "小さなダーツが飛んできて刺さった！"
-#define GAME_MESSAGE_TRAP_DARTS_MISSED "小さなダーツが飛んできた！が、運良く当たらなかった。"
-#define GAME_MESSAGE_TRAP_FIRE "炎に包まれた！"
-#define GAME_MESSAGE_TRAP_ACID "酸が吹きかけられた！"
-#define GAME_MESSAGE_TRAP_ACID_FLOW "突然床から酸が溢れ出した！"
-#define GAME_MESSAGE_TRAP_POISON_FLOW "突然床から毒液溢れ出した！"
-#define GAME_MESSAGE_TRAP_PIRANHAS "突然壁から水が溢れ出した！ピラニアがいる！"
-
-#define GAME_MESSAGE_TRAP_POISONOUS_GAS "突如吹き出した緑色のガスに包み込まれた！"
-#define GAME_MESSAGE_TRAP_PARALYZE_GAS "突如吹き出した黄色いガスに包み込まれた！"
-#define GAME_MESSAGE_TRAP_SUMMONING "突如吹き出した煙に包み込まれた！"
-#define GAME_MESSAGE_TRAP_S_ELEMENTAL "宝を守るためにエレメンタルが現れた！"
-#define GAME_MESSAGE_TRAP_S_BIRD "鳥の群れがあなたを取り巻いた！"
-#define GAME_MESSAGE_TRAP_S_H_DEMON "炎と硫黄の雲の中に悪魔が姿を現した！"
-#define GAME_MESSAGE_TRAP_S_H_DRAGON "暗闇にドラゴンの影がぼんやりと現れた！"
-#define GAME_MESSAGE_TRAP_S_HYBRID "奇妙な姿の怪物が襲って来た！"
-#define GAME_MESSAGE_TRAP_S_VORTEX "渦巻が合体し、破裂した！"
-#define GAME_MESSAGE_TRAP_E_RUNE "恐ろしい声が響いた:  「暗闇が汝をつつまん！」"
-#define GAME_MESSAGE_TRAP_EXPLOSIVE "突然、箱が爆発した！箱の中の物はすべて粉々に砕け散った！"
-#define GAME_MESSAGE_TRAP_SCATTER "宝箱の中身はダンジョンじゅうに散乱した！"
-#define GAME_MESSAGE_TRAP_TELEPORT "テレポート・トラップにひっかかった！"
-#define GAME_MESSAGE_TRAP_TY_CURSE "何かがピカッと光った！"
-#define GAME_MESSAGE_TRAP_ARMAGEDDON "突然天界の戦争に巻き込まれた！"
-#define GAME_MESSAGE_TRAP_ALARM "けたたましい音が鳴り響いた！"
-
 #define GAME_MESSAGE_DAMAGE_DENSITY "体の分子が分解した気がする！"
 #define GAME_MESSAGE_ROCK_CRUSHING "崩れた岩に押し潰された！"
 
@@ -274,13 +301,6 @@
 
 #define GAME_MESSAGE_TELEPORT_PREVENTED "不思議な力がテレポートを防いだ！"
 
-#define GAME_MESSAGE_PATTERN_LIMIT1 "パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"
-#define GAME_MESSAGE_PATTERN_LIMIT2 "パターンの上を歩くにはスタート地点から歩き始めなくてはなりません。"
-#define GAME_MESSAGE_PATTERN_LIMIT3 "パターンの上は正しい順序で歩かねばなりません。"
-#define GAME_MESSAGE_PATTERN_LIMIT4 "パターンを踏み外してはいけません。"
-#define GAME_MESSAGE_PATTERN_GOAL "「パターン」のこの部分は他の部分より強力でないようだ。"
-#define GAME_MESSAGE_PATTERN_WRECKED "パターンを血で汚してしまった！何か恐ろしい事が起こりそうだ！"
-
 #define GAME_MESSAGE_ARENA_LIMIT "アリーナが魔法を吸収した！"
 #define GAME_MESSAGE_ARENA_BERSERK "狂戦士化していて頭が回らない！"
 
@@ -304,7 +324,6 @@
 
 #define GAME_MESSAGE_TARGET_SET "ターゲット決定。"
 #define GAME_MESSAGE_TARGET_ABORT "ターゲット解除。"
-
 #define GAME_MESSAGE_TARGET_CANCELED "中断した。"
 #else
 
@@ -349,32 +368,6 @@
 
 #define GAME_MESSAGE_FAILED_RUNAWAY "You are failed to run away."
 
-#define GAME_MESSAGE_TRAP_NEEDLE "A small needle has pricked you!"
-#define GAME_MESSAGE_TRAP_DARTS "A small dart hits you!"
-#define GAME_MESSAGE_TRAP_DARTS_MISSED "A small dart barely misses you."
-#define GAME_MESSAGE_TRAP_FIRE "You are enveloped in flames."
-#define GAME_MESSAGE_TRAP_ACID "You are splashed with acid."
-#define GAME_MESSAGE_TRAP_ACID_FLOW "Suddenly, the room is filled with acid."
-#define GAME_MESSAGE_TRAP_POISON_FLOW "Suddenly, the room is filled with poisonous liquid."
-#define GAME_MESSAGE_TRAP_PIRANHAS "Suddenly, the room is filled with water with piranhas!"
-
-#define GAME_MESSAGE_TRAP_POISONOUS_GAS "A puff of green gas surrounds you!"
-#define GAME_MESSAGE_TRAP_PARALYZE_GAS "A puff of yellow gas surrounds you!"
-#define GAME_MESSAGE_TRAP_SUMMONING "You are enveloped in a cloud of smoke!"
-#define GAME_MESSAGE_TRAP_S_ELEMENTAL "Elemental beings appear to protect their treasures!"
-#define GAME_MESSAGE_TRAP_S_BIRD "A storm of birds swirls around you!"
-#define GAME_MESSAGE_TRAP_S_H_DEMON "Demons materialize in clouds of fire and brimstone!"
-#define GAME_MESSAGE_TRAP_S_H_DRAGON "Draconic forms loom out of the darkness!"
-#define GAME_MESSAGE_TRAP_S_HYBRID "Creatures strange and twisted assault you!"
-#define GAME_MESSAGE_TRAP_S_VORTEX "Vortices coalesce and wreak destruction!"
-#define GAME_MESSAGE_TRAP_E_RUNE "Hideous voices bid:  'Let the darkness have thee!'"
-#define GAME_MESSAGE_TRAP_EXPLOSIVE "There is a sudden explosion! Everything inside the chest is destroyed!"
-#define GAME_MESSAGE_TRAP_SCATTER  "The contents of the chest scatter all over the dungeon!"
-#define GAME_MESSAGE_TRAP_TELEPORT "You hit a teleport trap!"
-#define GAME_MESSAGE_TRAP_TY_CURSE "There is a flash of shimmering light!"
-#define GAME_MESSAGE_TRAP_ARMAGEDDON "Suddenly, you are surrounded by immotal beings!"
-#define GAME_MESSAGE_TRAP_ALARM "An alarm sounds!"
-
 #define GAME_MESSAGE_DAMAGE_DENSITY "Your molecules feel disrupted!"
 #define GAME_MESSAGE_RCOK_CRUSHING "You are being crushed!"
 
@@ -410,12 +403,6 @@
 
 #define GAME_MESSAGE_TELEPORT_PREVENTED "A mysterious force prevents you from teleporting!"
 
-#define GAME_MESSAGE_PATTERN_LIMIT1 "If you start walking the Pattern, you must walk the whole way. Ok? "
-#define GAME_MESSAGE_PATTERN_LIMIT2 "You must start walking the Pattern from the startpoint."
-#define GAME_MESSAGE_PATTERN_LIMIT3 "You must walk the Pattern in correct order."
-#define GAME_MESSAGE_PATTERN_LIMIT4 "You may not step off from the Pattern."
-#define GAME_MESSAGE_PATTERN_GOAL "This section of the Pattern looks less powerful."
-#define GAME_MESSAGE_PATTERN_WRECKED "You bleed on the Pattern! Something terrible happens!"
 
 #define GAME_MESSAGE_ARENA_LIMIT "The arena absorbs all attempted magic!"
 #define GAME_MESSAGE_ARENA_BERSERK "You cannot think directly!"
@@ -440,16 +427,17 @@
 
 #define GAME_MESSAGE_TARGET_SET "Target selected."
 #define GAME_MESSAGE_TARGET_ABORT "Target aborted."
-
 #define GAME_MESSAGE_TARGET_CANCELED "Canceled."
 #endif
 
 #ifdef JP
 #define GAME_MESSAGE_BLOE_AWAY "%sを吹き飛ばした！"
 #define GAME_MESSAGE_CAMP_GET_ANGRY "%sは怒った！"
+#define GAME_MESSAGE_HOSTILE "%^sは敵にまわった！"
 #else
 #define GAME_MESSAGE_BLOE_AWAY "You blow %s away!"
 #define GAME_MESSAGE_CAMP_GET_ANGRY "%^s gets angry!"
+#define GAME_MESSAGE_HOSTILE "%^s suddenly becomes hostile!"
 #endif
 
 #ifdef JP
@@ -537,6 +525,14 @@
 #define GAME_MESSAGE_FEATURE_CLOSED_DUNGEON "ダンジョンの入口は塞がれている！"
 #define GAME_MESSAGE_FEATURE_CHECK_DUNGEON "ここには%sの入り口(%d階相当)があります"
 #define GAME_MESSAGE_FEATURE_ENTER_DUNGEON "本当にこのダンジョンに入りますか？"
+
+#define GAME_MESSAGE_PATTERN_LIMIT1 "パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"
+#define GAME_MESSAGE_PATTERN_LIMIT2 "パターンの上を歩くにはスタート地点から歩き始めなくてはなりません。"
+#define GAME_MESSAGE_PATTERN_LIMIT3 "パターンの上は正しい順序で歩かねばなりません。"
+#define GAME_MESSAGE_PATTERN_LIMIT4 "パターンを踏み外してはいけません。"
+#define GAME_MESSAGE_PATTERN_GOAL "「パターン」のこの部分は他の部分より強力でないようだ。"
+#define GAME_MESSAGE_PATTERN_WRECKED "パターンを血で汚してしまった！何か恐ろしい事が起こりそうだ！"
+
 #else
 #define GAME_MESSAGE_FEATURE_NO_DOWN_STAIR "I see no down staircase here."
 #define GAME_MESSAGE_FEATURE_DOWN_STAIR "You enter the down staircase."
@@ -544,6 +540,13 @@
 #define GAME_MESSAGE_FEATURE_CLOSED_DUNGEON "The entrance of this dungeon is closed!"
 #define GAME_MESSAGE_FEATURE_CHECK_DUNGEON "There is the entrance of %s (Danger level: %d)"
 #define GAME_MESSAGE_FEATURE_ENTER_DUNGEON "Do you really get in this dungeon? "
+
+#define GAME_MESSAGE_PATTERN_LIMIT1 "If you start walking the Pattern, you must walk the whole way. Ok? "
+#define GAME_MESSAGE_PATTERN_LIMIT2 "You must start walking the Pattern from the startpoint."
+#define GAME_MESSAGE_PATTERN_LIMIT3 "You must walk the Pattern in correct order."
+#define GAME_MESSAGE_PATTERN_LIMIT4 "You may not step off from the Pattern."
+#define GAME_MESSAGE_PATTERN_GOAL "This section of the Pattern looks less powerful."
+#define GAME_MESSAGE_PATTERN_WRECKED "You bleed on the Pattern! Something terrible happens!"
 #endif
 
 

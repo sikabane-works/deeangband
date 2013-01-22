@@ -1631,13 +1631,8 @@ static void process_nonplayer(int m_idx)
 		if(is_pet(player_ptr, creature_ptr) || see_m)
 		{
 			creature_desc(creature_name, creature_ptr, is_pet(player_ptr, creature_ptr) ? CD_ASSUME_VISIBLE : 0);
-#ifdef JP
-			msg_format("%^s‚Í“Ë‘R“G‚É‚Ü‚í‚Á‚½I", creature_name);
-#else
-			msg_format("%^s suddenly becomes hostile!", creature_name);
-#endif
+			msg_format(GAME_MESSAGE_HOSTILE, creature_name);
 		}
-
 		set_hostile(player_ptr, creature_ptr);
 	}
 
