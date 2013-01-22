@@ -531,8 +531,10 @@
 #endif
 
 #ifdef JP
+#define GAME_MESSAGE_FEATURE_DOWN_STAIR "‰º‚ÌŠK‚É~‚è‚½B"
 #define GAME_MESSAGE_FEATURE_STUCK "%s‚Í‚ª‚Á‚¿‚è‚Æ•Â‚¶‚ç‚ê‚Ä‚¢‚é‚æ‚¤‚¾B"
 #else
+#define GAME_MESSAGE_FEATURE_DOWN_STAIR "You enter the down staircase."
 #define GAME_MESSAGE_FEATURE_STUCK "The %s appears to be stuck."
 #endif
 

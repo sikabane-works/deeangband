@@ -174,12 +174,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	else if(have_flag(f_ptr->flags, FF_QUEST))
 	{
 		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
-		else
-#ifdef JP
-			msg_print("â∫ÇÃäKÇ…ç~ÇËÇΩÅB");
-#else
-			msg_print("You enter the down staircase.");
-#endif
+		else msg_print(GAME_MESSAGE_FEATURE_DOWN_STAIR);
 
 		leave_quest_check(creature_ptr);
 
@@ -1451,21 +1446,15 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 
 /*
  * Perform the basic "disarm" command
- *
  * Assume destination is a visible trap
- *
  * Assume there is no creature blocking the destination
- *
  * Returns TRUE if repeated commands may continue
  */
 static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b object_idx)
 {
 	int i, j;
-
 	bool more = FALSE;
-
 	object_type *object_ptr = &object_list[object_idx];
-
 
 	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
