@@ -747,11 +747,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 				/* Still alive and autosave enabled */
 				if(autosave_l && (creature_ptr->chp >= 0)) do_cmd_save_game(TRUE);
-#ifdef JP
-				do_cmd_write_diary(DIARY_BUNSHOU, 0, "—Ž‚Æ‚µŒË‚É—Ž‚¿‚½");
-#else
-				do_cmd_write_diary(DIARY_BUNSHOU, 0, "You have fallen through a trap door!");
-#endif
+				do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_TRAP_DOOR);
 				move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
 				/* Leaving */

@@ -898,9 +898,7 @@ static void spoiler_underline(cptr str)
  *
  * The possibly updated description pointer is returned.
  */
-static cptr *spoiler_flag_aux(const u32b trait_flags[MAX_TRAITS_FLAG],
-			      const flag_desc *flag_ptr,
-			      cptr *desc_ptr, const int n_elmnts)
+static cptr *spoiler_flag_aux(const u32b trait_flags[MAX_TRAITS_FLAG], const flag_desc *flag_ptr, cptr *desc_ptr, const int n_elmnts)
 {
 	int i;
 

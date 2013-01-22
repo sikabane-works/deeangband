@@ -248,11 +248,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 
 		if(record_stair)
 		{
-#ifdef JP
-			if(fall_trap) do_cmd_write_diary(DIARY_STAIR, down_num, "—Ž‚Æ‚µŒË‚É—Ž‚¿‚½");
-#else
-			if(fall_trap) do_cmd_write_diary(DIARY_STAIR, down_num, "fell through a trap door");
-#endif
+			if(fall_trap) do_cmd_write_diary(DIARY_STAIR, down_num, DIARY_TRAP_DOOR);
 			else do_cmd_write_diary(DIARY_STAIR, down_num, DIARY_DOWN_STAIR);
 		}
 
