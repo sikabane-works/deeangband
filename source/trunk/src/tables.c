@@ -2489,12 +2489,12 @@ cptr colospecies_names[16] =
 /*
  * Abbreviations of healthy stats
  */
-cptr stat_names[6] =
+cptr stat_names[STAT_MAX] =
 {
 #ifdef JP
-	"˜r—Í :", "’m”\ :", "Œ«‚³ :", "Ší—p :", "‘Ï‹v :", "–£—Í :"
+	"˜r—Í", "’m”\", "Œ«‚³", "Ší—p", "‘Ï‹v", "–£—Í"
 #else
-	"STR : ", "INT : ", "WIS : ", "DEX : ", "CON : ", "CHR : "
+	"STR", "INT", "WIS", "DEX", "CON", "CHR"
 #endif
 
 };
@@ -2502,12 +2502,12 @@ cptr stat_names[6] =
 /*
  * Abbreviations of damaged stats
  */
-cptr stat_names_reduced[6] =
+cptr stat_names_reduced[STAT_MAX] =
 {
 #ifdef JP
-	"˜r—Íx:", "’m”\x:", "Œ«‚³x:", "Ší—px:", "‘Ï‹vx:", "–£—Íx:"
+	"˜r—Íx", "’m”\x", "Œ«‚³x", "Ší—px", "‘Ï‹vx", "–£—Íx"
 #else
-	"Str : ", "Int : ", "Wis : ", "Dex : ", "Con : ", "Chr : "
+	"Str", "Int", "Wis", "Dex", "Con", "Chr"
 #endif
 
 };
