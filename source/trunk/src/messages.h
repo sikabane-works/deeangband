@@ -115,6 +115,7 @@
 #define KW_MAX "Å‚"
 #define KW_RANDOM "ƒ‰ƒ“ƒ_ƒ€"
 #define KW_BACK_TO_START "Å‰‚É–ß‚é"
+#define KW_QUIT_GAME "I—¹‚·‚é"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -153,6 +154,7 @@
 #define KW_MAX "Max"
 #define KW_RANDOM "Random"
 #define KW_BACK_TO_START "Back to start"
+#define KW_QUIT_GAME "Quit game"
 #endif
 
 #ifdef JP
