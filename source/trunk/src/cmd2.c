@@ -159,11 +159,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 
 	if(!have_flag(f_ptr->flags, FF_MORE))
 	{
-#ifdef JP
-		msg_print("ここには下り階段が見当たらない。");
-#else
-		msg_print("I see no down staircase here.");
-#endif
+		msg_print(GAME_MESSAGE_FEATURE_NO_DOWN_STAIR);
 		return;
 	}
 
@@ -177,8 +173,6 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		else msg_print(GAME_MESSAGE_FEATURE_DOWN_STAIR);
 
 		leave_quest_check(creature_ptr);
-
-		// Leaving
 		subject_change_floor = TRUE;
 
 		creature_ptr->oldpx = 0;
@@ -195,11 +189,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 
 			if(ironman_downward && (target_dungeon != DUNGEON_ANGBAND))
 			{
-#ifdef JP
-				msg_print("ダンジョンの入口は塞がれている！");
-#else
-				msg_print("The entrance of this dungeon is closed!");
-#endif
+				msg_print(GAME_MESSAGE_FEATURE_CLOSED_DUNGEON);
 				return;
 			}
 			if(!max_dlv[target_dungeon])

@@ -531,11 +531,15 @@
 #endif
 
 #ifdef JP
+#define GAME_MESSAGE_FEATURE_NO_DOWN_STAIR "ここには下り階段が見当たらない。"
 #define GAME_MESSAGE_FEATURE_DOWN_STAIR "下の階に降りた。"
 #define GAME_MESSAGE_FEATURE_STUCK "%sはがっちりと閉じられているようだ。"
+#define GAME_MESSAGE_FEATURE_CLOSED_DUNGEON "ダンジョンの入口は塞がれている！"
 #else
+#define GAME_MESSAGE_FEATURE_NO_DOWN_STAIR "I see no down staircase here."
 #define GAME_MESSAGE_FEATURE_DOWN_STAIR "You enter the down staircase."
 #define GAME_MESSAGE_FEATURE_STUCK "The %s appears to be stuck."
+#define GAME_MESSAGE_FEATURE_CLOSED_DUNGEON "The entrance of this dungeon is closed!"
 #endif
 
 
