@@ -114,6 +114,7 @@
 #define KW_SCORE_RANKING "—EÒ‚Ì“a“°"
 #define KW_MAX "Å‚"
 #define KW_RANDOM "ƒ‰ƒ“ƒ_ƒ€"
+#define KW_BACK_TO_START "Å‰‚É–ß‚é"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -151,6 +152,7 @@
 #define KW_SCORE_RANKING "Hall of Fame"
 #define KW_MAX "Max"
 #define KW_RANDOM "Random"
+#define KW_BACK_TO_START "Back to start"
 #endif
 
 #ifdef JP

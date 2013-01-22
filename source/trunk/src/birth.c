@@ -1926,11 +1926,7 @@ static int choose_realm(s32b choices, bool npc)
 	re[n].l_color = TERM_L_UMBER;
 	n++;
 
-#if JP
-	strcpy(re[n].cap, "ç≈èâÇ…ñﬂÇÈ");
-#else
-	strcpy(re[n].cap, "Back to start");
-#endif
+	strcpy(re[n].cap, KW_BACK_TO_START);
 	re[n].code = BIRTH_SELECT_RETURN;
 	re[n].key = 'S';
 	re[n].d_color = TERM_UMBER;
@@ -2956,11 +2952,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-#if JP
-	strcpy(se[n].cap, "ç≈èâÇ…ñﬂÇÈ");
-#else
-	strcpy(se[n].cap, "Back to start");
-#endif
+	strcpy(se[n].cap, KW_BACK_TO_START);
 	se[n].code = BIRTH_SELECT_RETURN;
 	se[n].key = 'S';
 	se[n].d_color = TERM_UMBER;
@@ -3048,11 +3040,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-#if JP
-	strcpy(se[n].cap, "ç≈èâÇ…ñﬂÇÈ");
-#else
-	strcpy(se[n].cap, "Back to start");
-#endif
+	strcpy(se[n].cap, KW_BACK_TO_START);
 	se[n].code = BIRTH_SELECT_RETURN;
 	se[n].key = 'S';
 	se[n].d_color = TERM_UMBER;
@@ -3146,11 +3134,7 @@ static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-#if JP
-	strcpy(se[n].cap, "ç≈èâÇ…ñﬂÇÈ");
-#else
-	strcpy(se[n].cap, "Back to start");
-#endif
+	strcpy(se[n].cap, KW_BACK_TO_START);
 	se[n].code = BIRTH_SELECT_RETURN;
 	se[n].key = 'S';
 	se[n].d_color = TERM_UMBER;
@@ -3265,11 +3249,7 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-#if JP
-	strcpy(se[n].cap, "ç≈èâÇ…ñﬂÇÈ");
-#else
-	strcpy(se[n].cap, "Back to start");
-#endif
+	strcpy(se[n].cap, KW_BACK_TO_START);
 	se[n].code = BIRTH_SELECT_RETURN;
 	se[n].key = 'S';
 	se[n].d_color = TERM_UMBER;
@@ -3386,11 +3366,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-#if JP
-	strcpy(se[n].cap, "ç≈èâÇ…ñﬂÇÈ");
-#else
-	strcpy(se[n].cap, "Back to start");
-#endif
+	strcpy(se[n].cap, KW_BACK_TO_START);
 	se[n].code = BIRTH_SELECT_RETURN;
 	se[n].key = 'S';
 	se[n].d_color = TERM_UMBER;
@@ -3489,11 +3465,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 	ce[n].l_color = TERM_L_UMBER;
 	n++;
 
-#if JP
-	strcpy(ce[n].cap, "ç≈èâÇ…ñﬂÇÈ");
-#else
-	strcpy(ce[n].cap, "Back to start");
-#endif
+	strcpy(ce[n].cap, KW_BACK_TO_START);
 	ce[n].code = BIRTH_SELECT_RETURN;
 	ce[n].key = 'S';
 	ce[n].d_color = TERM_UMBER;
@@ -3594,11 +3566,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 	pt[n].l_color = TERM_L_UMBER;
 	n++;
 
-#if JP
-	strcpy(pt[n].cap, "ç≈èâÇ…ñﬂÇÈ");
-#else
-	strcpy(pt[n].cap, "Back to start");
-#endif
+	strcpy(pt[n].cap, KW_BACK_TO_START);
 	pt[n].code = BIRTH_SELECT_RETURN;
 	pt[n].key = 'S';
 	pt[n].d_color = TERM_UMBER;
@@ -3705,11 +3673,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 	ce[n].l_color = TERM_L_UMBER;
 	n++;
 
-#if JP
-	strcpy(ce[n].cap, "ç≈èâÇ…ñﬂÇÈ");
-#else
-	strcpy(ce[n].cap, "Back to start");
-#endif
+	strcpy(ce[n].cap, KW_BACK_TO_START);
 	ce[n].code = BIRTH_SELECT_RETURN;
 	ce[n].key = 'S';
 	ce[n].d_color = TERM_UMBER;
@@ -3786,11 +3750,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-#if JP
-	strcpy(se[n].cap, "ç≈èâÇ…ñﬂÇÈ");
-#else
-	strcpy(se[n].cap, "Back to start");
-#endif
+	strcpy(se[n].cap, KW_BACK_TO_START);
 	se[n].code = BIRTH_SELECT_RETURN;
 	se[n].key = 'S';
 	se[n].d_color = TERM_UMBER;
