@@ -2630,14 +2630,13 @@ void race_detail(int code)
 #ifdef JP
 	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
 	put_str("‚Ìåí‘°C³", base, 24+strlen(race_info[code].title));
-	put_str("˜r—Í    ’m”\    Œ«‚³    Ší—p    ‘Ï‹v    –£—Í     ŒoŒ±   ", base+1, 24);
 	put_str("Šî‘bƒŒƒxƒ‹:   Šî‘b_Ši:", base, 53);
 #else
 	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
 	put_str("'s Main-Race modification", base, 24+strlen(race_info[code].title));
-	put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 	put_str("Base Level:   Base DR :", base, 53);
 #endif
+	put_str(format("%8s%8s%8s%8s%8s%8s%8s", stat_names[0], stat_names[1], stat_names[2], stat_names[3], stat_names[4], stat_names[5], KW_EXP), base+1, 24);
 
 	sprintf(buf, "%+3d>%+3d %+3d>%+3d %+3d>%+3d %+3d>%+3d %+3d>%+3d %+3d>%+3d  %+4d%% ",
 		race_info[code].r_adj[0] - calc_unreached_race_level_penalty(race_info[code].lev - 1, STAT_STR), race_info[code].r_adj[0],
@@ -2699,12 +2698,11 @@ void subrace_detail(int code)
 #ifdef JP
 		c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
 		put_str("‚Ì•›í‘°C³", base, 24+strlen(race_info[code].title));
-		put_str("˜r—Í    ’m”\    Œ«‚³    Ší—p    ‘Ï‹v    –£—Í     ŒoŒ±   ", base+1, 24);
 #else
 		c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
 		put_str("'s Sub-Race modification", base, 24+strlen(race_info[code].title));
-		put_str("Str     Int     Wis     Dex     Con     Chr      EXP   ", base+1, 24);
 #endif
+		put_str(format("%8s%8s%8s%8s%8s%8s%8s", stat_names[0], stat_names[1], stat_names[2], stat_names[3], stat_names[4], stat_names[5], KW_EXP), base+1, 24);
 
 		sprintf(buf, "%+2d      %+2d      %+2d      %+2d      %+2d      %+2d      %+4d%% ",
 			race_info[code].r_s_adj[STAT_STR],
