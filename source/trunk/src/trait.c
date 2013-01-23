@@ -21,7 +21,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	feature_type *feature_ptr = &feature_info[cave_ptr->feat];
 	bool effected = FALSE;
 
-	char caster_name[100] = "何か", target_name[100] = "何か";
+	char caster_name[100] = KW_IT, target_name[100] = KW_IT;
 	int i, k, dir = 0;
 	int user_level = caster_ptr->lev;
 	int damage = 0;

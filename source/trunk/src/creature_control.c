@@ -1689,14 +1689,8 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 		/* Ignore the gender (if desired) */
 		if(!creature_ptr || !pron) kind = 0x00;
 
-
 		/* Assume simple result */
-#ifdef JP
-		res = "‰½‚©";
-#else
-		res = "it";
-#endif
-
+		res = KW_IT;
 
 		/* Brute force: split on the possibilities */
 		switch (kind + (mode & (CD_INDEF_HIDDEN | CD_POSSESSIVE | CD_OBJECTIVE)))
