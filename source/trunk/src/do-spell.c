@@ -717,11 +717,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 
 	if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, summon_lev, TRAIT_S_HI_DEMON, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 	{
-#ifdef JP
-		msg_print("—°‰©‚Ìˆ«L‚ª[–‚µ‚½B");
-#else
-		msg_print("The area fills with a stench of sulphur and brimstone.");
-#endif
+		msg_print(GAME_MESSAGE_TRAP_S_H_DEMON);
 		msg_print(GAME_MESSAGE_SUMMON_SERVANT);
 
 		// Decrease the item (from the pack or the floor)
@@ -3210,11 +3206,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, TRAIT_S_DEMON, mode))
 				{
-#ifdef JP
-					msg_print("—°‰©‚Ìˆ«L‚ª[–‚µ‚½B");
-#else
-					msg_print("The area fills with a stench of sulphur and brimstone.");
-#endif
+					msg_print(GAME_MESSAGE_TRAP_S_H_DEMON);
 
 					if(pet) msg_print(GAME_MESSAGE_SUMMON_SERVANT);
 					else
@@ -6658,12 +6650,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, plev*2/3+randint1(plev/2), TRAIT_S_DEMON, mode))
 				{
-#ifdef JP
-					msg_print("—°‰©‚Ìˆ«L‚ª[–‚µ‚½B");
-#else
-					msg_print("The area fills with a stench of sulphur and brimstone.");
-#endif
-
+					msg_print(GAME_MESSAGE_TRAP_S_H_DEMON);
 					if(pet) msg_print(GAME_MESSAGE_SUMMON_SERVANT);
 					else
 					{
