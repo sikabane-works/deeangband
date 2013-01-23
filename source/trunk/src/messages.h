@@ -549,6 +549,13 @@
 #define GAME_MESSAGE_PATTERN_WRECKED "You bleed on the Pattern! Something terrible happens!"
 #endif
 
+#ifdef JP
+#define GAME_MESSAGE_SUMMON_SERVANT "å‰ópÇ≈Ç≤Ç¥Ç¢Ç‹Ç∑Ç©ÅHâ‰Ç™éÂÅB"
+#else
+#define GAME_MESSAGE_SUMMON_SERVANT "'What is thy bidding... Master?'"
+#endif
+
+
 
 // Cause of Death
 #if JP

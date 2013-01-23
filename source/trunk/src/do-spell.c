@@ -719,11 +719,10 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 	{
 #ifdef JP
 		msg_print("硫黄の悪臭が充満した。");
-		msg_print("「ご用でございますか、ご主人様」");
 #else
 		msg_print("The area fills with a stench of sulphur and brimstone.");
-		msg_print("'What is thy bidding... Master?'");
 #endif
+		msg_print(GAME_MESSAGE_SUMMON_SERVANT);
 
 		// Decrease the item (from the pack or the floor)
 		if(item >= 0)
@@ -3217,14 +3216,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 					msg_print("The area fills with a stench of sulphur and brimstone.");
 #endif
 
-					if(pet)
-					{
-#ifdef JP
-						msg_print("「ご用でございますか、ご主人様」");
-#else
-						msg_print("'What is thy bidding... Master?'");
-#endif
-					}
+					if(pet) msg_print(GAME_MESSAGE_SUMMON_SERVANT);
 					else
 					{
 #ifdef JP
@@ -4400,15 +4392,8 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				int summon_lev = plev * 2 / 3 + randint1(plev / 2);
-
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, (summon_lev * 3 / 2), TRAIT_S_PHANTOM, 0L))
-				{
-#ifdef JP
-					msg_print("御用でございますか、御主人様？");
-#else
-					msg_print("'Your wish, master?'");
-#endif
-				}
+					msg_print(GAME_MESSAGE_SUMMON_SERVANT);
 			}
 		}
 		break;
@@ -6679,15 +6664,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 					msg_print("The area fills with a stench of sulphur and brimstone.");
 #endif
 
-
-					if(pet)
-					{
-#ifdef JP
-						msg_print("「ご用でございますか、ご主人様」");
-#else
-						msg_print("'What is thy bidding... Master?'");
-#endif
-					}
+					if(pet) msg_print(GAME_MESSAGE_SUMMON_SERVANT);
 					else
 					{
 #ifdef JP
@@ -7517,14 +7494,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, TRAIT_S_ANGEL, mode))
 				{
-					if(pet)
-					{
-#ifdef JP
-						msg_print("「ご用でございますか、ご主人様」");
-#else
-						msg_print("'What is thy bidding... Master?'");
-#endif
-					}
+					if(pet) msg_print(GAME_MESSAGE_SUMMON_SERVANT);
 					else
 					{
 #ifdef JP
