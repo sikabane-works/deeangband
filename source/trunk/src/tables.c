@@ -3912,8 +3912,10 @@ char *load_error_messages[] =
 	"保存されたフロアのダンジョンデータが壊れています。",
 	"テンポラリ・ファイルを作成できません。",
 	"Error 183",
-	"アイテムの種類が多過ぎる。"
+	"アイテムが多過ぎる。"
+	"フロアアイテムの数が多過ぎる。"
 	"街の数が多過ぎる。"
+	"クエストの数が多過ぎる。"
 #else
 	"No Error.",
 	"Too many creature's items in the inventory.",
@@ -3924,8 +3926,9 @@ char *load_error_messages[] =
 	"Dungeon data of saved floors are broken!",
 	"Failed to make temporal files!",
 	"Error 183",
-	"Too many item kind."
-	"Too many towns"
+	"Too many floor item."
+	"Too many towns."
+	"Too many quest."
 #endif
 };
 

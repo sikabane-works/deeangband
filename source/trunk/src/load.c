@@ -1383,12 +1383,7 @@ static errr rd_savefile_new_aux(void)
 		object_ptr = &object_list[object_idx];
 		rd_object(object_ptr);
 	}
-
-#ifdef JP
-	note(format("アイテムの記録をロードしました:%u", tmp16u));
-#else
-	if(arg_fiddle) note("Loaded Object Memory");
-#endif
+	note(format("Number of floor objects:%u", tmp16u));
 
 	/* Init the wilderness seeds */
 	for (i = 0; i < max_wild_x; i++)
@@ -1417,19 +1412,8 @@ static errr rd_savefile_new_aux(void)
 		rd_byte(&max_rquests_load);
 
 		/* Incompatible save files */
-		if(max_quests_load > max_quests)
-		{
-#ifdef JP
-			note(format("クエストが多すぎる(%u)！", max_quests_load));
-#else
-			note(format("Too many (%u) quests!", max_quests_load));
-#endif
-
-			return (23);
-		}
-		else{
-			note(format("クエストの記録数を確認:%u", max_towns_load));
-		}
+		if(max_quests_load > max_quests) return LOAD_ERROR_TOO_MANY_QUEST;
+		else note(format("Number of Quests:%u", max_quests_load));
 
 		for (i = 0; i < max_quests_load; i++)
 		{
