@@ -1758,28 +1758,28 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_CHAOS:
-			if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(20) + 10, TRUE);
-			if(!has_trait(target_ptr, TRAIT_RES_CHAO))
+		if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(20) + 10, TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_CHAO))
+		{
+			(void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint1(10), TRUE);
+			if(one_in_(3))
 			{
-				(void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint1(10), TRUE);
-				if(one_in_(3))
-				{
 #ifdef JP
-					msg_print("あなたの身体はカオスの力で捻じ曲げられた！");
+				msg_print("あなたの身体はカオスの力で捻じ曲げられた！");
 #else
-					msg_print("Your body is twisted by chaos!");
+				msg_print("Your body is twisted by chaos!");
 #endif
-					(void)gain_trait(target_ptr, 0, TRUE);
-				}
+				(void)gain_trait(target_ptr, 0, TRUE);
 			}
-			if(!has_trait(target_ptr, TRAIT_RES_NETH) && !has_trait(target_ptr, TRAIT_RES_CHAO))
-				drain_exp(target_ptr, 5000 + (target_ptr->exp / 100), 500 + (target_ptr->exp / 1000), 75);
+		}
+		if(!has_trait(target_ptr, TRAIT_RES_NETH) && !has_trait(target_ptr, TRAIT_RES_CHAO))
+			drain_exp(target_ptr, 5000 + (target_ptr->exp / 100), 500 + (target_ptr->exp / 1000), 75);
 
-			if(!has_trait(target_ptr, TRAIT_RES_CHAO) || one_in_(9))
-			{
-				inven_damage(target_ptr, set_elec_destroy, 2);
-				inven_damage(target_ptr, set_fire_destroy, 2);
-			}
+		if(!has_trait(target_ptr, TRAIT_RES_CHAO) || one_in_(9))
+		{
+			inven_damage(target_ptr, set_elec_destroy, 2);
+			inven_damage(target_ptr, set_fire_destroy, 2);
+		}
 		break;
 
 	case DO_EFFECT_NETHER:
@@ -1862,10 +1862,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		msg_print("Gravity warps around you.");
 #endif
-			teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
-			if(!has_trait(target_ptr, TRAIT_CAN_FLY)) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
-			if(!(has_trait(target_ptr, TRAIT_RES_SOUN) || has_trait(target_ptr, TRAIT_CAN_FLY)))
-				(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
+		teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
+		if(!has_trait(target_ptr, TRAIT_CAN_FLY)) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
+		if(!(has_trait(target_ptr, TRAIT_RES_SOUN) || has_trait(target_ptr, TRAIT_CAN_FLY)))
+			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
 		if(!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
 		break;
 
@@ -1939,7 +1939,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_OLD_SLEEP:
 		if(has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
-			add_timed_trait(target_ptr, TRAIT_SLEPT, dam, FALSE);
+		add_timed_trait(target_ptr, TRAIT_SLEPT, dam, FALSE);
 		dam = 0;
 		break;
 
@@ -2629,34 +2629,34 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_MIND_BLAST:
 #ifdef JP
-			msg_print("霊的エネルギーで精神が攻撃された。");
+		msg_print("霊的エネルギーで精神が攻撃された。");
 #else
-			msg_print("Your mind is blasted by psyonic energy.");
+		msg_print("Your mind is blasted by psyonic energy.");
 #endif
-			if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
-			if(!has_trait(target_ptr, TRAIT_RES_CHAO) && one_in_(3)) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
-			dec_mana(target_ptr, 50);
+		if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_CHAO) && one_in_(3)) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
+		dec_mana(target_ptr, 50);
 		break;
 
 	case DO_EFFECT_BRAIN_SMASH:
 #ifdef JP
-			msg_print("霊的エネルギーで精神が攻撃された。");
+		msg_print("霊的エネルギーで精神が攻撃された。");
 #else
-			msg_print("Your mind is blasted by psionic energy.");
+		msg_print("Your mind is blasted by psionic energy.");
 #endif
-			dec_mana(target_ptr, 100);
+		dec_mana(target_ptr, 100);
 
-			if(!has_trait(target_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(target_ptr, TRAIT_BLIND, 8 + randint0(8), TRUE);
-			if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
-			if(!has_trait(target_ptr, TRAIT_FREE_ACTION)) (void)add_timed_trait(target_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE);
-			(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, FALSE);
+		if(!has_trait(target_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(target_ptr, TRAIT_BLIND, 8 + randint0(8), TRUE);
+		if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
+		if(!has_trait(target_ptr, TRAIT_FREE_ACTION)) (void)add_timed_trait(target_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE);
+		(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, FALSE);
 
-			/* TODO saving_throw
-			while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_INT);
-			while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_WIS);
-			*/
+		/* TODO saving_throw
+		while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_INT);
+		while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_WIS);
+		*/
 
-			if(!has_trait(target_ptr, TRAIT_RES_CHAO)) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
+		if(!has_trait(target_ptr, TRAIT_RES_CHAO)) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
 		break;
 
 	case DO_EFFECT_CAUSE_1:
@@ -2883,7 +2883,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_PHOTO:
-			light_dying = TRUE;
+		light_dying = TRUE;
 #ifdef JP
 		if(is_player(caster_ptr)) msg_format("%sを写真に撮った。", target_name);
 #else
@@ -2892,9 +2892,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// Hurt by light
 		if(has_trait(target_ptr, TRAIT_HURT_LITE))
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
-		else dam = 0;
-		photo = target_ptr->species_idx;
-		break;
+			else dam = 0;
+			photo = target_ptr->species_idx;
+			break;
 
 	case DO_EFFECT_CONTROL_DEMON:
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
@@ -2934,124 +2934,116 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_BLOOD_CURSE:
 		break;
-		/* old
 		if((typ == DO_EFFECT_BLOOD_CURSE) && one_in_(4))
 		{
-		int curse_flg = (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP);
-		int count = 0;
-		do
-		{
-		switch (randint1(28))
-		{
-		case 1: case 2:
-		if(!count)
-		{
-		#ifdef JP
-		msg_print("地面が揺れた...");
-		#else
-		msg_print("The ground trembles...");
-		#endif
+			int curse_flg = (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP);
+			int count = 0;
+			do
+			{
+				switch (randint1(28))
+				{
+				case 1: case 2:
+					if(!count)
+					{
+						earthquake(player_ptr, ty, tx, 4 + randint0(4));
+						if(!one_in_(6)) break;
+					}
+				case 3: case 4: case 5: case 6:
+					if(!count)
+					{
+						int dam = diceroll(10, 10);
+#ifdef JP
+						msg_print("純粋な魔力の次元への扉が開いた！");
+#else
+						msg_print("A portal opens to a plane of raw mana!");
+#endif
 
-		earthquake(player_ptr, ty, tx, 4 + randint0(4));
-		if(!one_in_(6)) break;
-		}
-		case 3: case 4: case 5: case 6:
-		if(!count)
-		{
-		int dam = diceroll(10, 10);
-		#ifdef JP
-		msg_print("純粋な魔力の次元への扉が開いた！");
-		#else
-		msg_print("A portal opens to a plane of raw mana!");
-		#endif
+						project(0, 0, 8, ty,tx, dam, DO_EFFECT_MANA, curse_flg, -1);
+						if(!one_in_(6)) break;
+					}
+				case 7: case 8:
+					if(!count)
+					{
+#ifdef JP
+						msg_print("空間が歪んだ！");
+#else
+						msg_print("Space warps about you!");
+#endif
 
-		project(0, 0, 8, ty,tx, dam, DO_EFFECT_MANA, curse_flg, -1);
-		if(!one_in_(6)) break;
-		}
-		case 7: case 8:
-		if(!count)
-		{
-		#ifdef JP
-		msg_print("空間が歪んだ！");
-		#else
-		msg_print("Space warps about you!");
-		#endif
+						if(target_ptr->species_idx) teleport_away(target_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
+						if(one_in_(13)) count += activate_hi_summon(player_ptr, ty, tx, TRUE);
+						if(!one_in_(6)) break;
+					}
+				case 9: case 10: case 11:
+#ifdef JP
+					msg_print("エネルギーのうねりを感じた！");
+#else
+					msg_print("You feel a surge of energy!");
+#endif
 
-		if(target_ptr->species_idx) teleport_away(target_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
-		if(one_in_(13)) count += activate_hi_summon(player_ptr, ty, tx, TRUE);
-		if(!one_in_(6)) break;
-		}
-		case 9: case 10: case 11:
-		#ifdef JP
-		msg_print("エネルギーのうねりを感じた！");
-		#else
-		msg_print("You feel a surge of energy!");
-		#endif
+					project(0, 0, 7, ty, tx, 50, DO_EFFECT_DISINTEGRATE, curse_flg, -1);
+					if(!one_in_(6)) break;
+				case 12: case 13: case 14: case 15: case 16:
+					aggravate_creatures(caster_ptr);
+					if(!one_in_(6)) break;
+				case 17: case 18:
+					count += activate_hi_summon(player_ptr, ty, tx, TRUE);
+					if(!one_in_(6)) break;
+				case 19: case 20: case 21: case 22:
+					{
+						bool pet = !one_in_(3);
+						u32b mode = PC_ALLOW_GROUP;
 
-		project(0, 0, 7, ty, tx, 50, DO_EFFECT_DISINTEGRATE, curse_flg, -1);
-		if(!one_in_(6)) break;
-		case 12: case 13: case 14: case 15: case 16:
-		aggravate_creatures(caster_ptr);
-		if(!one_in_(6)) break;
-		case 17: case 18:
-		count += activate_hi_summon(player_ptr, ty, tx, TRUE);
-		if(!one_in_(6)) break;
-		case 19: case 20: case 21: case 22:
-		{
-		bool pet = !one_in_(3);
-		u32b mode = PC_ALLOW_GROUP;
+						if(pet) mode |= PC_FORCE_PET;
+						else mode |= (PC_NO_PET | PC_FORCE_FRIENDLY);
 
-		if(pet) mode |= PC_FORCE_PET;
-		else mode |= (PC_NO_PET | PC_FORCE_FRIENDLY);
+						count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->floor_level), 0, mode);
+						if(!one_in_(6)) break;
+					}
+				case 23: case 24: case 25:
+					if(has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < 75)) break;
+#ifdef JP
+					msg_print("生命力が体から吸い取られた気がする！");
+#else
+					msg_print("You feel your life draining away...");
+#endif
 
-		count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->floor_level), 0, mode);
-		if(!one_in_(6)) break;
-		}
-		case 23: case 24: case 25:
-		if(has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < 75)) break;
-		#ifdef JP
-		msg_print("生命力が体から吸い取られた気がする！");
-		#else
-		msg_print("You feel your life draining away...");
-		#endif
+					if(has_trait(caster_ptr, TRAIT_HOLD_LIFE)) lose_exp(caster_ptr, caster_ptr->exp / 160);
+					else lose_exp(caster_ptr, caster_ptr->exp / 16);
+					if(!one_in_(6)) break;
+				case 26: case 27: case 28:
+					{
+						int i = 0;
+						if(one_in_(13))
+						{
+							while (i < STAT_MAX)
+							{
+								do
+								{
+									(void)do_dec_stat(caster_ptr, i);
+								}
+								while (one_in_(2));
 
-		if(has_trait(caster_ptr, TRAIT_HOLD_LIFE)) lose_exp(caster_ptr, caster_ptr->exp / 160);
-		else lose_exp(caster_ptr, caster_ptr->exp / 16);
-		if(!one_in_(6)) break;
-		case 26: case 27: case 28:
-		{
-		int i = 0;
-		if(one_in_(13))
-		{
-		while (i < STAT_MAX)
-		{
-		do
-		{
-		(void)do_dec_stat(caster_ptr, i);
-		}
-		while (one_in_(2));
-
-		i++;
-		}
-		}
-		else
-		{
-		(void)do_dec_stat(caster_ptr, randint0(6));
-		}
-		break;
-		}
-		}
-		}
-		while (one_in_(5));
+								i++;
+							}
+						}
+						else
+						{
+							(void)do_dec_stat(caster_ptr, randint0(6));
+						}
+						break;
+					}
+				}
+			}
+			while (one_in_(5));
 		}
 
 		if(floor_ptr->gamble_arena_mode)
 		{
-		health_track(c_ptr->creature_idx);
-		prepare_redraw(PR_HEALTH);
-		redraw_stuff(player_ptr);
+			health_track(c_ptr->creature_idx);
+			prepare_redraw(PR_HEALTH);
+			redraw_stuff(player_ptr);
 		}
-		*/
 
 		//94-95
 

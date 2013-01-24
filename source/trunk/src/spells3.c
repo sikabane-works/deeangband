@@ -1229,7 +1229,6 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 #else
 				act = "seems very powerful.";
 #endif
-
 				object_ptr->name2 = EGO_EARTHQUAKES;
 				object_ptr->pval = m_bonus(3, floor_ptr->floor_level);
 			}
@@ -1575,11 +1574,7 @@ void call_the_void(creature_type *creature_ptr)
 	/* Prevent destruction of quest levels and town */
 	else if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
 	{
-#ifdef JP
-		msg_print("’n–Ê‚ª—h‚ê‚½B");
-#else
-		msg_print("The ground trembles.");
-#endif
+		msg_print(GAME_MESSAGE_EARTHQUAKE);
 	}
 
 	else

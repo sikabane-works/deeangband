@@ -448,6 +448,12 @@
 #define GAME_MESSAGE_RESTORE_SOME_MP "You feel your head clear a little."
 #endif
 
+#ifdef JP
+#define GAME_MESSAGE_EARTHQUAKE "ínñ Ç™óhÇÍÇΩÅB"
+#else
+#define GAME_MESSAGE_EARTHQUAKE "The ground trembles."
+#endif
+
 
 // messages of detection
 

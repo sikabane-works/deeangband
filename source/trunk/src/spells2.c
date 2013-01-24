@@ -2110,6 +2110,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 
 bool earthquake(creature_type *target_ptr, int cy, int cx, int r)
 {
+	msg_print(GAME_MESSAGE_EARTHQUAKE);
 	return earthquake_aux(target_ptr, cy, cx, r, 0);
 }
 
@@ -2791,11 +2792,6 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 		case 28: case 29:
 			if(!(*count))
 			{
-#ifdef JP
-				msg_print("’n–Ê‚ª—h‚ê‚½...");
-#else
-				msg_print("The ground trembles...");
-#endif
 				earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5 + randint0(10));
 				if(!one_in_(6)) break;
 			}
