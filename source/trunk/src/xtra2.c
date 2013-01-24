@@ -630,12 +630,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 				msg_format(GAME_MESSAGE_BOUNTY_DEAD, dead_name);
 
 	if(record_named_pet && is_pet(player_ptr, dead_ptr) && dead_ptr->nickname)
-	{
-		char m_name[MAX_NLEN];
-
-		creature_desc(m_name, dead_ptr, CD_INDEF_VISIBLE);
-		do_cmd_write_diary(DIARY_NAMED_PET, 3, m_name);
-	}
+		do_cmd_write_diary(DIARY_NAMED_PET, 3, dead_name);
 
 	// TODO: Let creatures explode!
 	if(has_trait(dead_ptr, TRAIT_SUICIDE_BOMBER))
@@ -648,9 +643,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 				int d_dice = dead_ptr->blow[i].d_dice;
 				int d_side = dead_ptr->blow[i].d_side;
 				int damage = diceroll(d_dice, d_side);
-
-				//TODO
-				//project(m_idx, 3, y, x, damage, typ, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+				project(dead_ptr, 0, 3, y, x, damage, typ, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 				break;
 			}
 		}
