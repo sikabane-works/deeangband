@@ -3242,13 +3242,16 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 	/* Handle lack of space */
 	if(!flag && !object_is_artifact(object2_ptr))
 	{
+		if(projectable(floor_ptr, MAX_RANGE_SUB, player_ptr->fy, player_ptr->fx, y, x))
+		{
 #ifdef JP
-		msg_format("%sは消えた。", object_name);
-		if(wizard) msg_print("(床スペースがない)");
+			msg_format("%sは消えた。", object_name);
+			if(wizard) msg_print("(床スペースがない)");
 #else
-		msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
-		if(wizard) msg_print("(no floor space)");
+			msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
+			if(wizard) msg_print("(no floor space)");
 #endif
+		}
 		return SUCCESS; // Failure
 	}
 
@@ -3285,13 +3288,16 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 		/* No valid place! */
 		if(!candidates)
 		{
+			if(projectable(floor_ptr, MAX_RANGE_SUB, player_ptr->fy, player_ptr->fx, y, x))
+			{
 #ifdef JP
-			msg_format("%sは消えた。", object_name);
-			if(wizard) msg_print("(床スペースがない)");
+				msg_format("%sは消えた。", object_name);
+				if(wizard) msg_print("(床スペースがない)");
 #else
-			msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
-			if(wizard) msg_print("(no floor space)");
+				msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
+				if(wizard) msg_print("(no floor space)");
 #endif
+			}
 
 			// Mega-Hack -- preserve artifacts
 			if(preserve_mode && object_is_fixed_artifact(object2_ptr) && !object_is_known(object2_ptr)) artifact_info[object2_ptr->name1].cur_num = 0;
