@@ -1871,21 +1871,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 			}
 
-			if(has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_CLONED))
-			{
-				for (i = 0; i < MAX_BOUNTY; i++)
-				{
-					if((kubi_species_idx[i] == target_ptr->species_idx) && !(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
-					{
-#ifdef JP
-						msg_format("%s‚Ìñ‚É‚ÍÜ‹à‚ª‚©‚©‚Á‚Ä‚¢‚éB", target_name);
-#else
-						msg_format("There is a price on %s's head.", target_name);
-#endif
-						break;
-					}
-				}
-			}
 
 			/* Generate treasure */
 			creature_dead_effect(attacker_ptr, target_ptr, TRUE);

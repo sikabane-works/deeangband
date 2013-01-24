@@ -591,6 +591,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	int i, j, y, x;
 	floor_type *floor_ptr = GET_FLOOR_PTR(dead_ptr);
 	species_type *species_ptr = &species_info[dead_ptr->species_idx];
+	char dead_name[MAX_NLEN];
 
 	int dump_item = 0;
 	int dump_gold = 0;
@@ -615,14 +616,29 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	if(the_world && &creature_list[the_world] == dead_ptr) the_world = 0;
 
 	/* Notice changes in view */
-	if(is_lighting_creature(dead_ptr) || is_darken_creature(dead_ptr))
-	{
-		prepare_update(dead_ptr, PU_SPECIES_LITE);
-	}
+	if(is_lighting_creature(dead_ptr) || is_darken_creature(dead_ptr)) prepare_update(dead_ptr, PU_SPECIES_LITE);
 
 	/* Get the location */
 	y = dead_ptr->fy;
 	x = dead_ptr->fx;
+
+	creature_desc(dead_name, dead_ptr, 0);
+
+	if(has_trait(dead_ptr, TRAIT_UNIQUE) && !has_trait(dead_ptr, TRAIT_CLONED))
+	{
+		for (i = 0; i < MAX_BOUNTY; i++)
+		{
+			if((kubi_species_idx[i] == dead_ptr->species_idx) && !(dead_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
+			{
+#ifdef JP
+				msg_format("%s‚ÌŽñ‚É‚ÍÜ‹à‚ª‚©‚©‚Á‚Ä‚¢‚éB", dead_name);
+#else
+				msg_format("There is a price on %s's head.", dead_name);
+#endif
+				break;
+			}
+		}
+	}
 
 	if(record_named_pet && is_pet(player_ptr, dead_ptr) && dead_ptr->nickname)
 	{
