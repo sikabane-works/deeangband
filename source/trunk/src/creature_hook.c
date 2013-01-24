@@ -656,14 +656,15 @@ bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *targe
  */
 bool species_living(species_type *species_ptr)
 {
+	if(!species_ptr) return FALSE;
 	if(has_trait_species(species_ptr, TRAIT_NONLIVING) || has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;
 	if(has_trait_species(species_ptr, TRAIT_DEMON)) return FALSE;
-
 	return TRUE;
 }
 
 bool creature_living(creature_type *creature_ptr)
 {
+	if(!creature_ptr) return FALSE;
 	if(has_trait(creature_ptr, TRAIT_NONLIVING) || has_trait(creature_ptr, TRAIT_UNDEAD)) return FALSE;
 	if(has_trait(creature_ptr, TRAIT_DEMON)) return FALSE;
 	return TRUE;

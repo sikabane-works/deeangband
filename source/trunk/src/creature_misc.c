@@ -723,6 +723,7 @@ bool has_trait_object(object_type *object_ptr, int type)
 bool has_trait(creature_type *creature_ptr, int type)
 {
 	bool alias = FALSE;
+	if(!creature_ptr) return FALSE;
 	if(have_flag(creature_ptr->current_trait, type)) return TRUE;
 	return alias;
 }
