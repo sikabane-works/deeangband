@@ -1763,7 +1763,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				else
 					act = "explodes";
 #endif
-
+				take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, attacker_ptr->chp + 1, COD_SUICIDE_BOMBER, GAME_MESSAGE_SUICIDE_BOMBER, -1);
 				explode = TRUE;
 				break;
 			}

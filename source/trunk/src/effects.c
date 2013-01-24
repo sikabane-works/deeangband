@@ -1814,28 +1814,13 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				}
 				else if(!creature_living(attacker_ptr)) // Death by Physical attack -- non-living creature
 				{
-					int i;
-					bool explode = FALSE;
-
-					for (i = 0; i < MAX_SPECIAL_BLOWS; i++) if(target_ptr->blow[i].method == RBM_EXPLODE) explode = TRUE;
-
-					/* Special note at death */
-					if(explode)
 #ifdef JP
-						msg_format("%sは爆発して粉々になった。", target_name);
+					if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("せっかくだから%sを倒した。", target_name);
+					else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK)) msg_format("%s！お許し下さい！", target_name);
+					else msg_format("%sを倒した。", target_name);
 #else
-						msg_format("%^s explodes into tiny shreds.", target_name);
+					msg_format("You have destroyed %s.", target_name);
 #endif
-					else
-					{
-#ifdef JP
-						if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("せっかくだから%sを倒した。", target_name);
-						else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK)) msg_format("%s！お許し下さい！", target_name);
-						else msg_format("%sを倒した。", target_name);
-#else
-						msg_format("You have destroyed %s.", target_name);
-#endif
-					}
 				}
 				else // Death by Physical attack -- living creature
 				{

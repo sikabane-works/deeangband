@@ -437,6 +437,7 @@
 #endif
 
 #ifdef JP
+#define GAME_MESSAGE_SUICIDE_BOMBER "爆発して粉々になった。"
 #define GAME_MESSAGE_LOST_LIFE1 "生命力を少し吸い取られた気がする！"
 #define GAME_MESSAGE_LOST_LIFE2 "生命力が体から吸い取られた気がする！"
 #define GAME_MESSAGE_BLOE_AWAY "%sを吹き飛ばした！"
@@ -444,6 +445,7 @@
 #define GAME_MESSAGE_HOSTILE "%^sは敵にまわった！"
 #define GAME_MESSAGE_BOUNTY_DEAD "%sの首には報奨がかかっている。"
 #else
+#define GAME_MESSAGE_SUICIDE_BOMBER "%^s explodes into tiny shreds."
 #define GAME_MESSAGE_LOST_LIFE1 "You feel your life slipping away!"
 #define GAME_MESSAGE_LOST_LIFE2 "You feel your life draining away..."
 #define GAME_MESSAGE_BLOE_AWAY "You blow %s away!"
@@ -592,6 +594,7 @@
 #define COD_PANIC_SAVE "(緊急セーブ)"
 #define COD_RETIRE "引退"
 #define COD_SEPPUKU "切腹"
+#define COD_SUICIDE_BOMBER "自爆"
 #define COD_TRAP "トラップ"
 #define COD_POISON "毒"
 #define COD_WOUND "致命傷"
@@ -648,6 +651,7 @@
 #define COD_PANIC_SAVE "(panic save)"
 #define COD_RETIRE "retired"
 #define COD_SEPPUKU "seppuku"
+#define COD_SUICIDE_BOMBER "suicide bomber"
 #define COD_TRAP "a trap"
 #define COD_POISON "poison"
 #define COD_WOUND "a fatal wound"
