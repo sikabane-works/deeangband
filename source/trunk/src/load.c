@@ -1373,26 +1373,14 @@ static errr rd_savefile_new_aux(void)
 	}
 
 	/*** Objects ***/
-
-	/* Read the item count */
-	rd_u16b(&limit);
-
-	/* Verify maximum */
-	if(limit > max_object_idx) return LOAD_ERROR_TOO_MANY_ITEM;
-
-	/* Read the dungeon items */
-	for (i = 1; i < limit; i++)
+	rd_u16b(&limit); // Read the item count
+	if(limit > max_object_idx) return LOAD_ERROR_TOO_MANY_ITEM; // Verify maximum
+	for (i = 1; i < limit; i++)	// Read dropped items
 	{
 		int object_idx;
 		object_type *object_ptr;
-
-		/* Get a new record */
 		object_idx = object_pop();
-
-		/* Acquire place */
 		object_ptr = &object_list[object_idx];
-
-		/* Read the item */
 		rd_object(object_ptr);
 	}
 
@@ -1421,19 +1409,8 @@ static errr rd_savefile_new_aux(void)
 		rd_u16b(&max_towns_load);
 
 		/* Incompatible save files */
-		if(max_towns_load > max_towns)
-		{
-#ifdef JP
-			note(format("’¬‚ª‘½‚·‚¬‚é(%u)I", max_towns_load));
-#else
-			note(format("Too many (%u) towns!", max_towns_load));
-#endif
-
-			return (23);
-		}
-		else{
-			note(format("ŠX‚Ì‹L˜^”‚ðŠm”F:%u", max_towns_load));
-		}
+		if(max_towns_load > max_towns) return (LOAD_ERROR_TOO_MANY_TOWN);
+		else note(format("Number of Towns:%u", max_towns_load));
 
 		/* Number of quests */
 		rd_u16b(&max_quests_load);

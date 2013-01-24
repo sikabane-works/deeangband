@@ -3913,6 +3913,7 @@ char *load_error_messages[] =
 	"テンポラリ・ファイルを作成できません。",
 	"Error 183",
 	"アイテムの種類が多過ぎる。"
+	"街の数が多過ぎる。"
 #else
 	"No Error.",
 	"Too many creature's items in the inventory.",
@@ -3924,6 +3925,7 @@ char *load_error_messages[] =
 	"Failed to make temporal files!",
 	"Error 183",
 	"Too many item kind."
+	"Too many towns"
 #endif
 };
 
