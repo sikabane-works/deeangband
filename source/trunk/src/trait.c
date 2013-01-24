@@ -318,10 +318,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		if(heal_creature(caster_ptr, 300)) effected = TRUE;
 		break;
 
-		//case TRAIT_TRUE_HEALING:
-		//	if(heal_creature(caster_ptr, 1200)) effected = TRUE;
-		//	break;
-
 	case TRAIT_GET_ESP:
 		(void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE);
 		break;

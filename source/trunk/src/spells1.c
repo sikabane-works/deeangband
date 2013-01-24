@@ -1291,12 +1291,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 				if(hates_elec(object_ptr))
 				{
 					do_kill = TRUE;
-#ifdef JP
-					note_kill = "壊れてしまった！";
-#else
-					note_kill = (plural ? " are destroyed!" : " is destroyed!");
-#endif
-
+					note_kill = GAME_MESSAGE_OBJECT_KILLED;
 					if(have_flag(flgs, TRAIT_IGNORE_ELEC)) ignore = TRUE;
 				}
 				break;
@@ -1354,12 +1349,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 				{
 					ignore = FALSE;
 					do_kill = TRUE;
-#ifdef JP
-					note_kill = "壊れてしまった！";
-#else
-					note_kill = (plural ? " are destroyed!" : " is destroyed!");
-#endif
-
+					note_kill = GAME_MESSAGE_OBJECT_KILLED;
 					if(have_flag(flgs, TRAIT_IGNORE_ELEC)) ignore = TRUE;
 				}
 				break;
@@ -1418,12 +1408,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 		case DO_EFFECT_SUPER_RAY:
 			{
 				do_kill = TRUE;
-#ifdef JP
-				note_kill = "壊れてしまった！";
-#else
-				note_kill = (plural ? " are destroyed!" : " is destroyed!");
-#endif
-
+				note_kill = GAME_MESSAGE_OBJECT_KILLED;
 				break;
 			}
 
@@ -1442,12 +1427,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 		case DO_EFFECT_CHAOS:
 			{
 				do_kill = TRUE;
-#ifdef JP
-				note_kill = "壊れてしまった！";
-#else
-				note_kill = (plural ? " are destroyed!" : " is destroyed!");
-#endif
-
+				note_kill = GAME_MESSAGE_OBJECT_KILLED;
 				if(have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO)) ignore = TRUE;
 				else if((object_ptr->tval == TV_SCROLL) && (object_ptr->sval == SV_SCROLL_CHAOS)) ignore = TRUE;
 				break;
@@ -1460,12 +1440,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 				if(object_is_cursed(object_ptr))
 				{
 					do_kill = TRUE;
-#ifdef JP
-					note_kill = "壊れてしまった！";
-#else
-					note_kill = (plural ? " are destroyed!" : " is destroyed!");
-#endif
-
+					note_kill = GAME_MESSAGE_OBJECT_KILLED;
 				}
 				break;
 			}

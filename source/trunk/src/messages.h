@@ -557,6 +557,12 @@
 #define GAME_MESSAGE_SUMMON_SERVANT "'What is thy bidding... Master?'"
 #endif
 
+#ifdef JP
+#define GAME_MESSAGE_OBJECT_KILLED "âÛÇÍÇƒÇµÇ‹Ç¡ÇΩÅI"
+#else
+#define GAME_MESSAGE_OBJECT_KILLED (plural ? " are destroyed!" : " is destroyed!")
+#endif
+
 
 
 // Cause of Death
