@@ -3147,13 +3147,14 @@ static int grab_one_authority_flag(species_type *species_ptr, cptr what)
 
 
 enum SPECIES_TYPE {
-
 	SPECIES_INFO_ID,
+	SPECIES_INFO_TAG,
 	SPECIES_INFO_NAME,
 	SPECIES_INFO_E_NAME,
 	SPECIES_INFO_SYM,
 	SPECIES_INFO_COL,
 	SPECIES_INFO_CAMP,
+	SPECIES_INFO_NUM,
 	SPECIES_INFO_RACE1,
 	SPECIES_INFO_RACE2,
 	SPECIES_INFO_CLASS,
@@ -3217,11 +3218,13 @@ enum SPECIES_TYPE {
 static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 {
 	"ID",
+	"TAG",
 	"NAME",
 	"E_NAME",
 	"SYM",
 	"COL",
 	"CAMP",
+	"NUM",
 	"RACE1",
 	"RACE2",
 	"CLASS",
@@ -3362,6 +3365,10 @@ errr parse_species_info_csv(char *buf, header *head)
 #endif
 				break;
 
+			case SPECIES_INFO_TAG:
+				//TODO
+				break;
+
 			case SPECIES_INFO_SYM:
 				species_ptr->d_char = tmp[0];
 				species_ptr->x_char = tmp[0];
@@ -3378,6 +3385,11 @@ errr parse_species_info_csv(char *buf, header *head)
 				else 
 					if(grab_one_index(&b, camp_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
 				species_ptr->camp = (s16b)b;
+				break;
+
+			case SPECIES_INFO_NUM:
+				if(sscanf(tmp, "%d", &b) == 1)
+					species_ptr->max_num = (byte)b;
 				break;
 
 			case SPECIES_INFO_RACE1:
