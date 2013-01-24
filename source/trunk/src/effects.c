@@ -1669,11 +1669,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		bool stop_ty = FALSE;
 		int count = 0;
 
-#ifdef JP
-		msg_format("%^s‚Í€‚ÌŠÔÛ‚É‹°‚ë‚µ‚¢ŒŒ‚Ìô‚¢‚ğ%^s‚É‚©‚¯‚½I", target_name, attacker_name);
-#else
-		msg_format("On death and dying, %^s puts a terrible blood curse on %^s!", target_name, attacker_name);
-#endif
+		msg_format(GAME_MESSAGE_CARSE_OF_BLOOD_DEAD, target_name, attacker_name);
 		curse_equipment(attacker_ptr, 100, 50);	
 		do stop_ty = activate_ty_curse(attacker_ptr, stop_ty, &count);
 		while (--curses);

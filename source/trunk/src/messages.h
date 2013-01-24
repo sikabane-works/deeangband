@@ -438,6 +438,7 @@
 
 #ifdef JP
 #define GAME_MESSAGE_SUICIDE_BOMBER "爆発して粉々になった。"
+#define GAME_MESSAGE_CARSE_OF_BLOOD_DEAD "%^sは死の間際に恐ろしい血の呪いを%^sにかけた！"
 #define GAME_MESSAGE_LOST_LIFE1 "生命力を少し吸い取られた気がする！"
 #define GAME_MESSAGE_LOST_LIFE2 "生命力が体から吸い取られた気がする！"
 #define GAME_MESSAGE_BLOE_AWAY "%sを吹き飛ばした！"
@@ -446,6 +447,7 @@
 #define GAME_MESSAGE_BOUNTY_DEAD "%sの首には報奨がかかっている。"
 #else
 #define GAME_MESSAGE_SUICIDE_BOMBER "%^s explodes into tiny shreds."
+#define GAME_MESSAGE_CARSE_OF_BLOOD_DEAD "On death and dying, %^s puts a terrible blood curse on %^s!"
 #define GAME_MESSAGE_LOST_LIFE1 "You feel your life slipping away!"
 #define GAME_MESSAGE_LOST_LIFE2 "You feel your life draining away..."
 #define GAME_MESSAGE_BLOE_AWAY "You blow %s away!"
