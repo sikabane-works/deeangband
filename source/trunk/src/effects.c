@@ -1716,8 +1716,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			{
 				if(has_trait(target_ptr, TRAIT_UNIQUE))
 				{
-					species_ptr->max_num = 0;
-
 					/* Mega-Hack -- Banor & Lupart */
 					if((target_ptr->species_idx == SPECIES_BANOR) || (target_ptr->species_idx == SPECIES_LUPART))
 					{
@@ -1739,9 +1737,9 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 					}
 				}
 
-				// When the player kills a Nazgul, it stays dead
-				else if(has_trait_species(species_ptr, TRAIT_NAZGUL)) species_ptr->max_num--;
 			}
+
+			if(species_ptr->max_num > 0) species_ptr->max_num--;
 
 			/* Count all creatures killed */
 			if(species_ptr->r_akills < MAX_SHORT) species_ptr->r_akills++;

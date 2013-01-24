@@ -2552,8 +2552,8 @@ enum GRAPHICS_MODE
 #define MONEGO_LESSER_TO     6
 #define MONEGO_VARIABLE_SIZE 13
 
-/* Maximum "Nazguls" number */
 #define MAX_NAZGUL_NUM 5
+#define SPECIES_NUM_NO_LIMIT -1
 
 #define DO_AUTOPICK       0x01
 #define DO_AUTODESTROY    0x02
