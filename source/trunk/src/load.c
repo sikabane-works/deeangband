@@ -1330,8 +1330,6 @@ static errr rd_savefile_new_aux(void)
 		species_type *species_ptr = &species_info[i]; // Access that creature
 		species_ptr->max_num = 100; // Hack -- Reset the death counter
 		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) species_ptr->max_num = 1;
-
-		else if(has_trait_species(species_ptr, TRAIT_NAZGUL)) species_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
 	}
 
 	// Unique creatures

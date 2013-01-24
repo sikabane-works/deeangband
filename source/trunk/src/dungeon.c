@@ -5694,9 +5694,7 @@ void world_wipe()
 		species_type *species_ptr = &species_info[i];
 
 		species_ptr->cur_num = 0; // Hack -- Reset the counter
-		species_ptr->max_num = 100; // Hack -- Reset the max counter
 		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) species_ptr->max_num = 1; // Hack -- Reset the max counter
-		else if(has_trait_raw(&species_ptr->flags, TRAIT_NAZGUL)) species_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
 
 		species_ptr->r_pkills = 0; // Clear visible kills in this life
 		species_ptr->r_akills = 0; // Clear all kills in this life
