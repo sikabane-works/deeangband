@@ -1798,12 +1798,12 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				do_cmd_write_diary(DIARY_UNIQUE, 0, note_buf);
 			}
 
-			sound(SOUND_KILL); // Make a sound	
-			if(note) msg_format("%^s%s", target_name, note); // Death by Missile/Spell attack
-			else if(is_seen(player_ptr, target_ptr)) // Death by physical attack -- invisible creature
+			if(is_seen(player_ptr, target_ptr)) // Death by physical attack -- invisible creature
 			{
-				if(!attacker_ptr) msg_format("%^sは%sによって死んだ。", target_name, hit_from);
-				else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+				sound(SOUND_KILL); // Make a sound	
+				if(note) msg_format("%^s%s", target_name, note); // Death by Missile/Spell attack
+				else if(!attacker_ptr) msg_format("%^sは%sによって死んだ。", target_name, hit_from);
+				else if(!creature_living(attacker_ptr))
 				{
 #ifdef JP
 					if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK))
@@ -1816,60 +1816,62 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 					msg_format("%s have killed %s.", attacker_name, target_name);
 #endif
 				}
-			}
-			else if(!creature_living(attacker_ptr)) // Death by Physical attack -- non-living creature
-			{
-				int i;
-				bool explode = FALSE;
-
-				for (i = 0; i < MAX_SPECIAL_BLOWS; i++) if(target_ptr->blow[i].method == RBM_EXPLODE) explode = TRUE;
-
-				/* Special note at death */
-				if(explode)
-#ifdef JP
-					msg_format("%sは爆発して粉々になった。", target_name);
-#else
-					msg_format("%^s explodes into tiny shreds.", target_name);
-#endif
-				else
+				else if(!creature_living(attacker_ptr)) // Death by Physical attack -- non-living creature
 				{
+					int i;
+					bool explode = FALSE;
+
+					for (i = 0; i < MAX_SPECIAL_BLOWS; i++) if(target_ptr->blow[i].method == RBM_EXPLODE) explode = TRUE;
+
+					/* Special note at death */
+					if(explode)
 #ifdef JP
-					if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("せっかくだから%sを倒した。", target_name);
-					else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK)) msg_format("%s！お許し下さい！", target_name);
-					else msg_format("%sを倒した。", target_name);
+						msg_format("%sは爆発して粉々になった。", target_name);
 #else
-					msg_format("You have destroyed %s.", target_name);
+						msg_format("%^s explodes into tiny shreds.", target_name);
 #endif
-				}
-			}
-			else // Death by Physical attack -- living creature
-			{
-				if(attacker_ptr)
-				{
-					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+					else
 					{
 #ifdef JP
-						if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("%sはせっかくだから%sを葬り去った。", attacker_name, target_name);
-						else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
-						{
-							msg_format("%sは%sを葬り去った。", attacker_name, target_name);
-							msg_format("%s！お許し下さい！", target_name);
-						}
-						else msg_format("%sは%sを葬り去った。", attacker_name, target_name);
+						if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("せっかくだから%sを倒した。", target_name);
+						else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK)) msg_format("%s！お許し下さい！", target_name);
+						else msg_format("%sを倒した。", target_name);
 #else
-						msg_format("%s have slain %s.", attacker_name, target_name);
+						msg_format("You have destroyed %s.", target_name);
 #endif
 					}
 				}
-				else
+				else // Death by Physical attack -- living creature
 				{
-					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+					if(attacker_ptr)
+					{
+						if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+						{
 #ifdef JP
-						msg_format("%sは死んだ。", target_name);
+							if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("%sはせっかくだから%sを葬り去った。", attacker_name, target_name);
+							else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
+							{
+								msg_format("%sは%sを葬り去った。", attacker_name, target_name);
+								msg_format("%s！お許し下さい！", target_name);
+							}
+							else msg_format("%sは%sを葬り去った。", attacker_name, target_name);
 #else
-						msg_format("%s died.", target_name);
+							msg_format("%s have slain %s.", attacker_name, target_name);
 #endif
+						}
+					}
+					else
+					{
+						if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+#ifdef JP
+							msg_format("%sは死んだ。", target_name);
+#else
+							msg_format("%s died.", target_name);
+#endif
+					}
+
 				}
+
 
 			}
 
