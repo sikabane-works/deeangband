@@ -1495,15 +1495,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 						if(((object_ptr->sval == SV_CORPSE) && (randint1(100) > 80)) ||
 							((object_ptr->sval == SV_SKELETON) && (randint1(100) > 60)))
 						{
-							if(!note_kill)
-							{
-#ifdef JP
-								note_kill = "äDÇ…Ç»Ç¡ÇΩÅB";
-#else
-								note_kill = (plural ? " become dust." : " becomes dust.");
-#endif
-							}
-							continue;
+							if(!note_kill) note_kill = GAME_MESSAGE_OBJECT_DUSTED;
 						}
 						/*TODO
 						else if(summon_named_creature(caster_ptr, y, x, object_ptr->pval, mode))
@@ -1517,11 +1509,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 						*/
 						else if(!note_kill)
 						{
-#ifdef JP
-							note_kill = "äDÇ…Ç»Ç¡ÇΩÅB";
-#else
-							note_kill = (plural ? " become dust." : " becomes dust.");
-#endif
+							if(!note_kill) note_kill = GAME_MESSAGE_OBJECT_DUSTED;
 						}
 					}
 					do_kill = TRUE;
