@@ -1910,8 +1910,8 @@ static int pick_vault_type(floor_type *floor_ptr, vault_aux_type *l_ptr, s16b al
 
 static vault_aux_type nest_types[] =
 {
+	{KW_CLONE, vault_aux_clone, vault_prep_clone, 5, 3},
 #ifdef JP
-	{"クローン", vault_aux_clone, vault_prep_clone, 5, 3},
 	{"ゼリー", vault_aux_jelly, NULL, 5, 6},
 	{"シンボル(善)", vault_aux_symbol_g, vault_prep_symbol, 25, 2},
 	{"シンボル(悪)", vault_aux_symbol_e, vault_prep_symbol, 25, 2},
@@ -1923,7 +1923,6 @@ static vault_aux_type nest_types[] =
 	{"アンデッド", vault_aux_undead, NULL, 75, 5},
 	{NULL, NULL, NULL, 0, 0},
 #else
-	{"clone", vault_aux_clone, vault_prep_clone, 5, 3},
 	{"jelly", vault_aux_jelly, NULL, 5, 6},
 	{"symbol good", vault_aux_symbol_g, vault_prep_symbol, 25, 2},
 	{"symbol evil", vault_aux_symbol_e, vault_prep_symbol, 25, 2},

@@ -1790,11 +1790,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			if(has_trait(target_ptr, TRAIT_UNIQUE) && record_destroy_uniq)
 			{
 				char note_buf[160];
-#ifdef JP
-				sprintf(note_buf, "%s%s", species_name + species_ptr->name, has_trait(target_ptr, TRAIT_CLONED) ? "(ƒNƒ[ƒ“)" : "");
-#else
-				sprintf(note_buf, "%s%s", species_name + species_ptr->name, has_trait(target_ptr, TRAIT_CLONED) ? "(Clone)" : "");
-#endif
+				sprintf(note_buf, "%s%s", species_name + species_ptr->name, has_trait(target_ptr, TRAIT_CLONED) ? format("(%s)", KW_CLONE) : "");
 				do_cmd_write_diary(DIARY_UNIQUE, 0, note_buf);
 			}
 

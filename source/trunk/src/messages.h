@@ -120,6 +120,7 @@
 #define KW_ACCEPT "åàíËÇ∑ÇÈ"
 #define KW_IT "âΩÇ©"
 #define KW_SOMETHING "âΩÇ©"
+#define KW_CLONE "ÉNÉçÅ[Éì"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -163,6 +164,7 @@
 #define KW_ACCEPT "Accept"
 #define KW_IT "It"
 #define KW_SOMETHING "Something"
+#define KW_CLONE "Clone"
 #endif
 
 #ifdef JP
