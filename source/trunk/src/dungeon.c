@@ -1429,13 +1429,15 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	if(have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
 	{
 		int damage = calc_damage(NULL, creature_ptr, randint0(50) + 20, DO_EFFECT_CHAOS, FALSE, FALSE);	
+		if(is_seen(player_ptr, creature_ptr))
+		{
 #ifdef JP
-		msg_format("%sは混沌に身を蝕まれている。", creature_name);
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
+			msg_format("%sは混沌に身を蝕まれている。", creature_name);
 #else
-		msg_format("The chaos tainted %s", creature_name);
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", NULL, -1);
+			msg_format("The chaos tainted %s", creature_name);
 #endif
+		}
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, COD_CHAOS_TAINT, NULL, -1);
 	}
 
 	if(have_flag(f_ptr->flags, FF_LAVA) && !IS_INVULN(creature_ptr) && !has_trait(creature_ptr, TRAIT_IM_FIRE))
