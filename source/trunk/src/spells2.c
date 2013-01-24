@@ -2853,11 +2853,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			if(!one_in_(6)) break;
 
 		case 10: case 11: case 12:
-#ifdef JP
-			msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
-#else
-			msg_print("You feel your life draining away...");
-#endif
+			msg_print(GAME_MESSAGE_LOST_LIFE2);
 			lose_exp(creature_ptr, creature_ptr->exp / 16);
 			if(!one_in_(6)) break;
 

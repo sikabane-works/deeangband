@@ -2217,20 +2217,12 @@ bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life
 	/* Hold experience failed */
 	if(has_trait(creature_ptr, TRAIT_HOLD_LIFE))
 	{
-#ifdef JP
-		msg_print("生命力を少し吸い取られた気がする！");
-#else
-		msg_print("You feel your life slipping away!");
-#endif
+		msg_print(GAME_MESSAGE_LOST_LIFE1);
 		lose_exp(creature_ptr, slip);
 	}
 	else
 	{
-#ifdef JP
-		msg_print("生命力が体から吸い取られた気がする！");
-#else
-		msg_print("You feel your life draining away!");
-#endif
+		msg_print(GAME_MESSAGE_LOST_LIFE2);
 		lose_exp(creature_ptr, drain);
 	}
 

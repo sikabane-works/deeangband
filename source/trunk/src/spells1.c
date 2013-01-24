@@ -3002,12 +3002,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					}
 				case 23: case 24: case 25:
 					if(has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < 75)) break;
-#ifdef JP
-					msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
-#else
-					msg_print("You feel your life draining away...");
-#endif
-
+					msg_print(GAME_MESSAGE_LOST_LIFE2);
 					if(has_trait(caster_ptr, TRAIT_HOLD_LIFE)) lose_exp(caster_ptr, caster_ptr->exp / 160);
 					else lose_exp(caster_ptr, caster_ptr->exp / 16);
 					if(!one_in_(6)) break;

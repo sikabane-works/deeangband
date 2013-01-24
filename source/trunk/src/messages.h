@@ -433,10 +433,14 @@
 #endif
 
 #ifdef JP
+#define GAME_MESSAGE_LOST_LIFE1 "生命力を少し吸い取られた気がする！"
+#define GAME_MESSAGE_LOST_LIFE2 "生命力が体から吸い取られた気がする！"
 #define GAME_MESSAGE_BLOE_AWAY "%sを吹き飛ばした！"
 #define GAME_MESSAGE_CAMP_GET_ANGRY "%sは怒った！"
 #define GAME_MESSAGE_HOSTILE "%^sは敵にまわった！"
 #else
+#define GAME_MESSAGE_LOST_LIFE1 "You feel your life slipping away!"
+#define GAME_MESSAGE_LOST_LIFE2 "You feel your life draining away..."
 #define GAME_MESSAGE_BLOE_AWAY "You blow %s away!"
 #define GAME_MESSAGE_CAMP_GET_ANGRY "%^s gets angry!"
 #define GAME_MESSAGE_HOSTILE "%^s suddenly becomes hostile!"
