@@ -1980,11 +1980,10 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			if(has_trait(target_ptr, TRAIT_HALLUCINATION) && damage_type == DAMAGE_ATTACK)
 #ifdef JP
 				hit_from = "‰½‚©";
-			sprintf(tmp,"%s‚É‚æ‚Á‚Äƒsƒ“ƒ`‚ÉŠ×‚Á‚½B",hit_from);
 #else
 				hit_from = "something";
-			sprintf(tmp,"A critical situation because of %s.",hit_from);
 #endif
+			sprintf(tmp, DIARY_PINCH, hit_from);
 			do_cmd_write_diary(DIARY_BUNSHOU, 0, tmp);
 		}
 
