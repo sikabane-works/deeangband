@@ -1109,14 +1109,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 				if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, TRAIT_S_PHANTOM, PC_FORCE_PET))
 					success = TRUE;
 			if(success) msg_print(GAME_MESSAGE_SUMMON_SERVANT);
-			else
-			{
-#ifdef JP
-				msg_print("âΩÇ‡åªÇÍÇ»Ç©Ç¡ÇΩÅB");
-#else
-				msg_print("Nothing happen.");
-#endif
-			}
+			else msg_print(GAME_MESSAGE_NO_HAPPEN);
 			break;
 		}
 	case 11:

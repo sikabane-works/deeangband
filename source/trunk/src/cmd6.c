@@ -1484,11 +1484,7 @@ static int staff_effect(creature_type *caster_ptr, int sval, bool *use_charge, b
 
 		case SV_STAFF_NOTHING:
 		{
-#ifdef JP
-			msg_print("âΩÇ‡ãNÇÁÇ»Ç©Ç¡ÇΩÅB");
-#else
-			msg_print("Nothing happen.");
-#endif
+			msg_print(GAME_MESSAGE_NO_HAPPEN);
 			if(has_trait(caster_ptr, TRAIT_MAGIC_EATER))
 			{
 #ifdef JP

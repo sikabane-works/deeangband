@@ -774,14 +774,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				project_all_vision(caster_ptr, DO_EFFECT_STASIS, 120);
 				sukekaku = FALSE;
 			}
-			else
-			{
-#ifdef JP
-				msg_print("しかし、何も起きなかった。");
-#else
-				msg_print("Nothing happen.");
-#endif
-			}
+			else msg_print(GAME_MESSAGE_NO_HAPPEN);
 			break;
 		}
 
