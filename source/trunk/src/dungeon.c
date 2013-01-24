@@ -1380,11 +1380,14 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		{
 			if((floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{
+				if(is_seen(player_ptr, creature_ptr))
+				{
 #ifdef JP
-				msg_format("日光が%sの肉体を焼き焦がした！", creature_name);
+					msg_format("日光が%sの肉体を焼き焦がした！", creature_name);
 #else
-				msg_print("The sun's rays scorch your undead flesh!");
+					msg_print("The sun's rays scorch your undead flesh!");
 #endif
+				}
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, COD_SUNLIGHT, NULL, -1);
 				cave_no_regen = TRUE;
 			}
@@ -1401,11 +1404,14 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			// Get an object description
 			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
+			if(is_seen(player_ptr, creature_ptr))
+			{
 #ifdef JP
-			msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
+				msg_format("%sが%sの肉体を焼き焦がした！", object_name, creature_name);
 #else
-			msg_format("The %s scorches your undead flesh!", object_name);
+				msg_format("The %s scorches %s undead flesh!", object_name, creature_name);
 #endif
+			}
 			cave_no_regen = TRUE;
 
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);	// Get an object description
