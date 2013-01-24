@@ -1470,7 +1470,6 @@ extern bool set_superstealth(creature_type *creature_ptr, bool set);
 extern void set_experience(creature_type *creature_ptr);
 extern void check_experience(creature_type *creature_ptr);
 extern void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr);
-extern cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr);
 extern void specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, int sv);
 extern void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bool drop_item);
 extern void get_screen_size(int *wid_p, int *hgt_p);

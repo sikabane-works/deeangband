@@ -2875,7 +2875,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				}
 
 				/* Hit the creature, check for death */
-				take_damage_to_creature(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, steed_ptr), -1);
+				take_damage_to_creature(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, NULL, -1);
 
 				/* No death */
 				if(creature_list[c_ptr->creature_idx].species_idx != 0)
@@ -3438,7 +3438,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				}
 
 				/* Hit the creature, check for death */
-				take_damage_to_creature(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, m_ptr), -1);
+				take_damage_to_creature(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, NULL, -1);
 
 				/* No death */
 				if(creature_list[c_ptr->creature_idx].species_idx != 0)

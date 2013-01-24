@@ -3304,9 +3304,6 @@ static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, in
 
 	int photo = 0;
 
-	/* Assume a default death */
-	cptr note_dies = extract_note_dies(player_ptr, target_ptr);
-
 	int ty = target_ptr->fy;
 	int tx = target_ptr->fx;
 

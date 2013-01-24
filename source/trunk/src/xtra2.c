@@ -519,50 +519,6 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 }
 
-
-/*
-* Return creature death string
-*/
-cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
-{
-	/* Some creatures get "destroyed" */
-	if(!creature_living(dead_ptr))
-	{
-		int i;
-
-		for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
-		{
-			if(dead_ptr->blow[i].method == RBM_EXPLODE)
-			{
-#ifdef JP
-				return "‚Í”š”­‚µ‚Ä•²X‚É‚È‚Á‚½B";
-#else
-				return " explodes into tiny shreds.";
-#endif
-			}
-		}
-
-#ifdef JP
-		if(has_trait(killer_ptr, TRAIT_CHARGEMAN_TALK))
-			return "‚ğ“|‚µ‚½B‚²‚ß‚ñ‚Ë`";
-		else
-			return "‚ğ“|‚µ‚½B";
-#else
-		return " is destroyed.";
-#endif
-	}
-
-	// Assume a default death
-#ifdef JP
-	if(has_trait(killer_ptr, TRAIT_CHARGEMAN_TALK))
-		return "‚Í€‚ñ‚¾B‚²‚ß‚ñ‚Ë`";
-	else
-		return "‚Í€‚ñ‚¾B";
-#else
-	return " dies.";
-#endif
-}
-
 void specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, int sv)
 {
 	object_type forge;

@@ -1841,19 +1841,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 #endif
 						}
 					}
-					else
-					{
-						if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-#ifdef JP
-							msg_format("%s‚Í€‚ñ‚¾B", target_name);
-#else
-							msg_format("%s died.", target_name);
-#endif
-					}
-
 				}
-
-
 			}
 
 
