@@ -598,7 +598,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	int number = 0;
 
-	bool visible = ((dead_ptr->see_others && !slayer_ptr->timed_trait[TRAIT_HALLUCINATION]) || (has_trait(dead_ptr, TRAIT_UNIQUE)));
+	bool visible = is_seen(slayer_ptr, dead_ptr) && !has_trait(slayer_ptr, TRAIT_HALLUCINATION);
 
 	u32b mo_mode = 0L;
 
@@ -618,7 +618,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	/* Notice changes in view */
 	if(is_lighting_creature(dead_ptr) || is_darken_creature(dead_ptr)) prepare_update(dead_ptr, PU_SPECIES_LITE);
 
-	/* Get the location */
 	y = dead_ptr->fy;
 	x = dead_ptr->fx;
 
@@ -632,7 +631,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	if(record_named_pet && is_pet(player_ptr, dead_ptr) && dead_ptr->nickname)
 		do_cmd_write_diary(DIARY_NAMED_PET, 3, dead_name);
 
-	// TODO: Let creatures explode!
 	if(has_trait(dead_ptr, TRAIT_SUICIDE_BOMBER))
 	{
 		for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
@@ -640,9 +638,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			if(dead_ptr->blow[i].method == RBM_EXPLODE)
 			{
 				int typ = mbe_info[dead_ptr->blow[i].effect].explode_type;
-				int d_dice = dead_ptr->blow[i].d_dice;
-				int d_side = dead_ptr->blow[i].d_side;
-				int damage = diceroll(d_dice, d_side);
+				int damage = diceroll(dead_ptr->blow[i].d_dice, dead_ptr->blow[i].d_side);
 				project(dead_ptr, 0, 3, y, x, damage, typ, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 				break;
 			}
