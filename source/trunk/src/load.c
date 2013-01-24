@@ -360,8 +360,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 		rd_object(object_ptr);
 
 		// Hack -- verify item
-		if(!is_valid_object(object_ptr))
-			return (53);
+		if(!is_valid_object(object_ptr)) return LOAD_ERROR_INVALID_OBJECT;
 
 		if(IS_EQUIPPED(object_ptr)) // Wield equipment
 		{
@@ -953,7 +952,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->pet_extra_flags);
 
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&creature_ptr->mutative_trait[i]);
-	if(creature_ptr->energy_need < -999) creature_ptr_ptr->time_stopper = TRUE;
+	if(creature_ptr->energy_need < -999) creature_ptr->time_stopper = TRUE;
 
 }
 
@@ -972,10 +971,7 @@ static void rd_extra(void)
 	rd_byte(&tmp8u);
 	quick_ok = (bool)tmp8u;
 
-	for (i = 0; i < MAX_BOUNTY; i++)
-	{
-		rd_s16b(&kubi_species_idx[i]);
-	}
+	for (i = 0; i < MAX_BOUNTY; i++) rd_s16b(&kubi_species_idx[i]);
 
 	for (i = 0; i < 4; i++)
 	{
@@ -1506,7 +1502,7 @@ static errr rd_savefile_new_aux(void)
 
 	/* Incompatible save files */
 	if(tmp16u > max_artifact_idx) return LOAD_ERROR_TOO_MANY_ARTIFACT;
-	else note(format("Number of Artifacts:%u", max_artifact_loaded));
+	else note(format("Number of Artifacts:%u", max_artifact_idx));
 
 	// Read the artifact flags
 	for (i = 0; i < tmp16u; i++)

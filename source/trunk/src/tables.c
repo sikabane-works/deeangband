@@ -3917,6 +3917,7 @@ char *load_error_messages[] =
 	"街の数が多過ぎる。"
 	"クエストの数が多過ぎる。"
 	"アーティファクトの数が多過ぎる。"
+	"アイテムデータがおかしい。"
 #else
 	"No Error.",
 	"Too many creature's items in the inventory.",
@@ -3927,10 +3928,11 @@ char *load_error_messages[] =
 	"Dungeon data of saved floors are broken!",
 	"Failed to make temporal files!",
 	"Error 183",
-	"Too many floor item."
+	"Too many floor object."
 	"Too many towns."
 	"Too many quests."
 	"Too many artifacts."
+	"Invalid object."
 #endif
 };
 
