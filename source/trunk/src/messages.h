@@ -119,6 +119,7 @@
 #define KW_QUIT_GAME "èIóπÇ∑ÇÈ"
 #define KW_ACCEPT "åàíËÇ∑ÇÈ"
 #define KW_IT "âΩÇ©"
+#define KW_SOMETHING "âΩÇ©"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -161,6 +162,7 @@
 #define KW_QUIT_GAME "Quit game"
 #define KW_ACCEPT "Accept"
 #define KW_IT "It"
+#define KW_SOMETHING "Something"
 #endif
 
 #ifdef JP

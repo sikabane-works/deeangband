@@ -1978,11 +1978,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		if(record_danger && (old_chp > warning))
 		{
 			if(has_trait(target_ptr, TRAIT_HALLUCINATION) && damage_type == DAMAGE_ATTACK)
-#ifdef JP
-				hit_from = "‰½‚©";
-#else
-				hit_from = "something";
-#endif
+				hit_from = KW_SOMETHING;
 			sprintf(tmp, DIARY_PINCH, hit_from);
 			do_cmd_write_diary(DIARY_BUNSHOU, 0, tmp);
 		}

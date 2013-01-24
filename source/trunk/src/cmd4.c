@@ -4582,7 +4582,6 @@ static cptr object_group_text[] =
 	"ブーツ",	/* "Boots" */
 	"魔法書",
 	"財宝",
-	"何か",
 #else
 	"Mushrooms",
 	"Potions",
@@ -4626,8 +4625,8 @@ static cptr object_group_text[] =
 	"Boots",
 	"Spellbooks",
 	"Treasure",
-	"Something",
 #endif
+	KW_SOMETHING,
 	NULL
 };
 
