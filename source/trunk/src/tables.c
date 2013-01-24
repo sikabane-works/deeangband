@@ -3916,6 +3916,7 @@ char *load_error_messages[] =
 	"フロアアイテムの数が多過ぎる。"
 	"街の数が多過ぎる。"
 	"クエストの数が多過ぎる。"
+	"アーティファクトの数が多過ぎる。"
 #else
 	"No Error.",
 	"Too many creature's items in the inventory.",
@@ -3928,7 +3929,8 @@ char *load_error_messages[] =
 	"Error 183",
 	"Too many floor item."
 	"Too many towns."
-	"Too many quest."
+	"Too many quests."
+	"Too many artifacts."
 #endif
 };
 

@@ -953,6 +953,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->pet_extra_flags);
 
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&creature_ptr->mutative_trait[i]);
+	if(creature_ptr->energy_need < -999) creature_ptr_ptr->time_stopper = TRUE;
 
 }
 
@@ -1500,25 +1501,12 @@ static errr rd_savefile_new_aux(void)
 
 	}
 
-#ifdef JP
-	note("クエスト情報をロードしました");
-#else
-	if(arg_fiddle) note("Loaded Quests");
-#endif
-
 	/* Load the Artifacts */
 	rd_u16b(&tmp16u);
 
 	/* Incompatible save files */
-	if(tmp16u > max_artifact_idx)
-	{
-#ifdef JP
-		note(format("伝説のアイテムが多すぎる(%u)！", tmp16u));
-#else
-		note(format("Too many (%u) artifacts!", tmp16u));
-#endif
-		return (24);
-	}
+	if(tmp16u > max_artifact_idx) return LOAD_ERROR_TOO_MANY_ARTIFACT;
+	else note(format("Number of Artifacts:%u", max_artifact_loaded));
 
 	// Read the artifact flags
 	for (i = 0; i < tmp16u; i++)
@@ -1527,15 +1515,9 @@ static errr rd_savefile_new_aux(void)
 		rd_byte(&a_ptr->cur_num);
 		rd_s16b(&a_ptr->floor_id);
 	}
-#ifdef JP
-	note("伝説のアイテムをロードしました");
-#else
-	if(arg_fiddle) note("Loaded Artifacts");
-#endif
 
 	/* Read the extra stuff */
 	rd_extra();
-	if(player_ptr->energy_need < -999) player_ptr->time_stopper = TRUE;
 
 #ifdef JP
 	note("特別情報をロードしました");
