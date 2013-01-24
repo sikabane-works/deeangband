@@ -625,20 +625,9 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	creature_desc(dead_name, dead_ptr, 0);
 
 	if(has_trait(dead_ptr, TRAIT_UNIQUE) && !has_trait(dead_ptr, TRAIT_CLONED))
-	{
 		for (i = 0; i < MAX_BOUNTY; i++)
-		{
 			if((kubi_species_idx[i] == dead_ptr->species_idx) && !(dead_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
-			{
-#ifdef JP
-				msg_format("%s‚ÌŽñ‚É‚ÍÜ‹à‚ª‚©‚©‚Á‚Ä‚¢‚éB", dead_name);
-#else
-				msg_format("There is a price on %s's head.", dead_name);
-#endif
-				break;
-			}
-		}
-	}
+				msg_format(GAME_MESSAGE_BOUNTY_DEAD, dead_name);
 
 	if(record_named_pet && is_pet(player_ptr, dead_ptr) && dead_ptr->nickname)
 	{

@@ -442,12 +442,14 @@
 #define GAME_MESSAGE_BLOE_AWAY "%sを吹き飛ばした！"
 #define GAME_MESSAGE_CAMP_GET_ANGRY "%sは怒った！"
 #define GAME_MESSAGE_HOSTILE "%^sは敵にまわった！"
+#define GAME_MESSAGE_BOUNTY_DEAD "%sの首には報奨がかかっている。"
 #else
 #define GAME_MESSAGE_LOST_LIFE1 "You feel your life slipping away!"
 #define GAME_MESSAGE_LOST_LIFE2 "You feel your life draining away..."
 #define GAME_MESSAGE_BLOE_AWAY "You blow %s away!"
 #define GAME_MESSAGE_CAMP_GET_ANGRY "%^s gets angry!"
 #define GAME_MESSAGE_HOSTILE "%^s suddenly becomes hostile!"
+#define GAME_MESSAGE_BOUNTY_DEAD "There is a price on %s's head."
 #endif
 
 #ifdef JP
