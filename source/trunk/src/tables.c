@@ -3912,12 +3912,13 @@ char *load_error_messages[] =
 	"保存されたフロアのダンジョンデータが壊れています。",
 	"テンポラリ・ファイルを作成できません。",
 	"Error 183",
-	"アイテムが多過ぎる。"
-	"フロアアイテムの数が多過ぎる。"
-	"街の数が多過ぎる。"
-	"クエストの数が多過ぎる。"
-	"アーティファクトの数が多過ぎる。"
-	"アイテムデータがおかしい。"
+	"アイテムが多過ぎる。",
+	"フロアアイテムの数が多過ぎる。",
+	"街の数が多過ぎる。",
+	"クエストの数が多過ぎる。",
+	"アーティファクトの数が多過ぎる。",
+	"アイテムデータがおかしい。",
+	"フロアデータがおかしい。",
 #else
 	"No Error.",
 	"Too many creature's items in the inventory.",
@@ -3933,6 +3934,7 @@ char *load_error_messages[] =
 	"Too many quests."
 	"Too many artifacts."
 	"Invalid object."
+	"Invalid floor",
 #endif
 };
 

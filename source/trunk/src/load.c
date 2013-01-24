@@ -1544,15 +1544,7 @@ static errr rd_savefile_new_aux(void)
 		note("Restoring Dungeon...");
 #endif
 
-		if(rd_floors())
-		{
-#ifdef JP
-			note("ダンジョンデータ読み込み失敗");
-#else
-			note("Error reading dungeon data");
-#endif
-			return (34);
-		}
+		if(rd_floors()) return LOAD_ERROR_INVALID_FLOOR;
 
 		reset_cave_creature_reference();
 	}
