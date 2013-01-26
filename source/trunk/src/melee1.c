@@ -270,11 +270,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				if(weapon_ptr->name1 == ART_VORPAL_BLADE)
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-#ifdef JP
-						msg_print("目にも止まらぬヴォーパルブレード、手錬の早業！");
-#else
-						msg_print("Your Vorpal Blade goes snicker-snack!");
-#endif
+						msg_print(GAME_MESSAGE_WEAPON_VORPAL_BLADE_SERIF);
 				}
 				else
 				{
@@ -344,14 +340,14 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(zantetsu_mukou)
 		{
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-				msg_print(GANE_MESSAGE_WEAPON_ZANTETSU_JELLY);
+				msg_print(GAME_MESSAGE_WEAPON_ZANTETSU_JELLY);
 			k = 0;
 		}
 
 		if(e_j_mukou)
 		{
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-				msg_print(GANE_MESSAGE_WEAPON_EX_JR_SPIDER);
+				msg_print(GAME_MESSAGE_WEAPON_EX_JR_SPIDER);
 			k /= 2;
 		}
 
