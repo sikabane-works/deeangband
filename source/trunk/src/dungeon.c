@@ -18,17 +18,17 @@ static void game_mode_detail(int code)
 {
 	switch(code)
 	{
-	case 0:
+	case CAMPAIGN_FATE_OF_STIGMA:
 		prt("*band ローグライク従来のプレイモードです。          ", 15, 25);
 		prt("'＠'のルーンを背負う〈烙印者〉として、            ", 16, 25);
 		prt("神々の座へと登りつめることが *勝利* 条件となります。", 17, 25);
 		break;
-	case 1:
+	case CAMPAIGN_CURSE_OF_ILUVATAR:
 		prt("*band ローグライク従来のプレイモードです。          ", 15, 25);
 		prt("'＠'のルーンを背負う〈烙印者〉として、            ", 16, 25);
 		prt("神々の座へと登りつめることが *勝利* 条件となります。", 17, 25);
 		break;
-	case 2:
+	case CAMPAIGN_RIVALRY_IN_MULTIVARSE:
 		prt("任意のユニーク・クリーチャーとなって探索ができる    ", 15, 25);
 		prt("テスト的なプレイモードです。                        ", 16, 25);
 		prt("*勝利* 条件はなく、スコア登録などもできません。     ", 17, 25);
@@ -43,9 +43,9 @@ static int select_mode(void)
 	int t = sizeof(creature_type);
 
 #if JP
-	c_put_str(TERM_L_BLUE, "プレイモードを選択して下さい:", 8, 5);
+	c_put_str(TERM_L_BLUE, "プレイモードを選択して下さい", 8, 5);
 #else
-	prt("Select play mode:", 8, 5);
+	prt("Select play mode", 8, 5);
 #endif
 
 	for(i = 0; i < MAX_CAMPAIGNS; i++)
