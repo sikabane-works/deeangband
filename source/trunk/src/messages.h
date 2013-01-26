@@ -452,6 +452,9 @@
 #ifdef JP
 #define GAME_MESSAGE_WEAPON_ATTACK "%sは%sを%sで攻撃した。"
 #define GAME_MESSAGE_WEAPON_ATTACK_MISS "%sは%sの攻撃をかわした。"
+#define GAME_MESSAGE_WEAPON_AMBUSH(ATTACKER, TARGET) ("%sは冷酷にも眠っている無力な%sを突き刺した！", (ATTACKER), (TARGET))
+#define GAME_MESSAGE_WEAPON_FATAL_SPOT(ATTACKER, TARGET) ("%sは不意を突いて%sに強烈な一撃を喰らわせた！", (ATTACKER), (TARGET))
+#define GAME_MESSAGE_WEAPON_BACKSTUB(ATTACKER, TARGET) ("%sは逃げる%sを背中から突き刺した！", (ATTACKER), (TARGET))
 #define GAME_MESSAGE_WEAPON_ZANTETSU_JELLY "こんな軟らかいものは切れん！"
 #define GAME_MESSAGE_WEAPON_ZANTETSU_SERIF "またつまらぬものを斬ってしまった．．．"
 #define GAME_MESSAGE_WEAPON_EX_JR_SPIDER "蜘蛛は苦手だ！"
@@ -470,6 +473,9 @@
 #else
 #define GAME_MESSAGE_FATAL_SPOT "Your shot sticked on a fatal spot of %s!"
 #define GAME_MESSAGE_WEAPON_ATTACK_MISS %^s misses %s.
+#define GAME_MESSAGE_WEAPON_AMBUSH(ATTACKER, TARGET) "%s (cruelly stab the helpless, sleeping %s!", (ATTACKER), (TARGET))
+#define GAME_MESSAGE_WEAPON_FATAL_SPOT(ATTACKER, TARGET) ("%s make surprise attack, and hit %s with a powerful blow!", (ATTACKER), (TARGET))
+#define GAME_MESSAGE_WEAPON_BACKSTUB(ATTACKER, TARGET) ("%s ambush the fleeing %s.", (ATTACKER), (TARGET))
 #define GAME_MESSAGE_WEAPON_ZANTETSU_JELLY "You cannot cut such a elastic thing!"
 #define GAME_MESSAGE_WEAPON_ZANTETSU_SERIF "Sigh... Another trifling thing I've cut...."
 #define GAME_MESSAGE_WEAPON_EX_JR_SPIDER "Spiders are difficult for you to deal with!"

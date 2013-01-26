@@ -199,15 +199,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		sound(SOUND_HIT);
 		if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 		{
-#ifdef JP
-			if(ambush)			msg_format("%s‚Í—â“‚É‚à–°‚Á‚Ä‚¢‚é–³—Í‚È%s‚ğ“Ë‚«h‚µ‚½I", attacker_name, target_name);
-			else if(fatal_spot)		msg_format("%s‚Í•sˆÓ‚ğ“Ë‚¢‚Ä%s‚É‹­—ó‚ÈˆêŒ‚‚ğ‹ò‚ç‚í‚¹‚½I", attacker_name, target_name);
-			else if(stab_fleeing)	msg_format("%s‚Í“¦‚°‚é%s‚ğ”w’†‚©‚ç“Ë‚«h‚µ‚½I", attacker_name, target_name);
-#else
-			if(ambush) msg_format("%s cruelly stab the helpless, sleeping %s!", attacker_name, target_name);
-			else if(fatal_spot) msg_format("%s make surprise attack, and hit %s with a powerful blow!", attacker_name, target_name);
-			else if(stab_fleeing) msg_format("%s ambush the fleeing %s!", attacker_name, target_name);
-#endif
+			if(ambush) msg_format(GAME_MESSAGE_WEAPON_AMBUSH(attacker_name, target_name));
+			else if(fatal_spot) msg_format(GAME_MESSAGE_WEAPON_FATAL_SPOT(attacker_name, target_name));
+			else if(stab_fleeing) msg_format(GAME_MESSAGE_WEAPON_BACKSTUB(attacker_name, target_name));
 		}
 
 		// Hack -- bare hands do one damage
