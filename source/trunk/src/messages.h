@@ -1269,12 +1269,16 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_ROOM_OF "[%sの部屋]"
 #define DEBUG_MESSAGE_CRYPT_ROOM "[聖堂]"
 #define DEBUG_MESSAGE_TRAP_PIT_ROOM "[%s%sの罠ピット]"
+#define DEBUG_MESSAGE_BIAS_ARTIFACT "運の偏ったアーティファクト: %d。"
+#define DEBUG_MESSAGE_NO_BIAS_ARTIFACT "偏っていないアーティファクト"
 #else
 #define DEBUG_MESSAGE_ROOM_NUM "Number of Rooms: %d"
 #define DEBUG_MESSAGE_GLASS_ROOM "[Glass Room]"
 #define DEBUG_MESSAGE_ROOM_OF "[Room of %s]"
 #define DEBUG_MESSAGE_CRYPT_ROOM "[Crypt]"
 #define DEBUG_MESSAGE_TRAP_PIT_ROOM "[Trapped creature pit (%s%s)]"
+#define DEBUG_MESSAGE_BIAS_ARTIFACT "Biased artifact: %d."
+#define DEBUG_MESSAGE_NO_BIAS_ARTIFACT "No biased artifact."
 #endif
 
 #ifdef JP

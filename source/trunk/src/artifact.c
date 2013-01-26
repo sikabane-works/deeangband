@@ -1656,13 +1656,8 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 
 	if(cheat_xtra)
 	{
-#ifdef JP
-		if(artifact_bias) msg_format("運の偏ったアーティファクト: %d。", artifact_bias);
-		else msg_print("アーティファクトに運の偏りなし。");
-#else
-		if(artifact_bias) msg_format("Biased artifact: %d.", artifact_bias);
-		else msg_print("No bias in artifact.");
-#endif
+		if(artifact_bias) msg_format(DEBUG_MESSAGE_BIAS_ARTIFACT, artifact_bias);
+		else msg_print(DEBUG_MESSAGE_NO_BIAS_ARTIFACT);
 	}
 
 	object_ptr->art_name = quark_add(new_name);	// Save the inscription
