@@ -1629,11 +1629,6 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	if(a_scroll)
 	{
 		char dummy_name[80] = "";
-#ifdef JP
-		cptr ask_msg = "このアーティファクトを何と名付けますか？";
-#else
-		cptr ask_msg = "What do you want to call the artifact? ";
-#endif
 
 		/* Identify it fully */
 		object_aware(object_ptr);
@@ -1644,7 +1639,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 
 		(void)screen_object(object_ptr, 0L);
 
-		if(!get_string(ask_msg, dummy_name, sizeof dummy_name) || !dummy_name[0])
+		if(!get_string(GAME_MESSAGE_CALL_ARTIFACT, dummy_name, sizeof dummy_name) || !dummy_name[0])
 		{
 			if(one_in_(2)) get_table_sindarin_aux(dummy_name);
 			else get_table_name_aux(dummy_name);
