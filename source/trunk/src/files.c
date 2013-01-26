@@ -5687,22 +5687,14 @@ void do_cmd_save_game(int is_autosave)
 	/* Forbid suspend */
 	signals_ignore_tstp();
 
-	if(save_player()) // Save the player
-	{
 #ifdef JP
-		prt("ゲームをセーブしています... 終了", 0, 0);
+	prt("ゲームをセーブしています...", 0, 0);
 #else
-		prt("Saving game... done.", 0, 0);
+	prt("Saving game...", 0, 0);
 #endif
-	}
-	else // Save failed
-	{
-#ifdef JP
-		prt("ゲームをセーブしています... 失敗！", 0, 0);
-#else
-		prt("Saving game... failed!", 0, 0);
-#endif
-	}
+
+	if(save_player()) prt(KW_DONE, 0, 40);
+	else prt(KW_FAILED, 0, 40);
 
 	/* Allow suspend again */
 	signals_handle_tstp();
