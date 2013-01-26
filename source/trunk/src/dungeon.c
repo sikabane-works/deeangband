@@ -19,14 +19,10 @@ static void game_mode_detail(int code)
 	switch(code)
 	{
 	case CAMPAIGN_FATE_OF_STIGMA:
-		prt("*band ローグライク従来のプレイモードです。          ", 15, 25);
-		prt("'＠'のルーンを背負う〈烙印者〉として、            ", 16, 25);
-		prt("神々の座へと登りつめることが *勝利* 条件となります。", 17, 25);
+		prt("*band ローグライク従来のプレイモードです。\n'＠'のルーンを背負う〈烙印者〉として、\n神々の座へと登りつめることが *勝利* 条件となります。\n", 15, 25);
 		break;
 	case CAMPAIGN_CURSE_OF_ILUVATAR:
-		prt("*band ローグライク従来のプレイモードです。          ", 15, 25);
-		prt("'＠'のルーンを背負う〈烙印者〉として、            ", 16, 25);
-		prt("神々の座へと登りつめることが *勝利* 条件となります。", 17, 25);
+		prt("", 15, 25);
 		break;
 	case CAMPAIGN_RIVALRY_IN_MULTIVARSE:
 		prt("任意のユニーク・クリーチャーとなって探索ができる    ", 15, 25);

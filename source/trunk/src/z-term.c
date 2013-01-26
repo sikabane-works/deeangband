@@ -1919,10 +1919,8 @@ errr Term_add_bigch(byte a, char c)
  */
 errr Term_addstr(int n, byte a, cptr s)
 {
-	int k;
-
+	int line = 0, k;
 	int w = Term->wid;
-
 	errr res = 0;
 
 	/* Handle "unusable" cursor */
@@ -1932,19 +1930,11 @@ errr Term_addstr(int n, byte a, cptr s)
 	k = (n < 0) ? (w + 1) : n;
 
 	/* Obtain the usable string length */
-	for (n = 0; (n < k) && s[n]; n++) /* loop */;
-
-	/* React to reaching the edge of the screen */
-	if(Term->scr->cx + n >= w) res = n = w - Term->scr->cx;
-
-	/* Queue the first "n" characters for display */
-	Term_queue_chars(Term->scr->cx, Term->scr->cy, n, a, s);
-
-	/* Advance the cursor */
-	Term->scr->cx += n;
-
-	/* Hack -- Notice "Useless" cursor */
-	if(res) Term->scr->cu = 1;
+	for (n = 0; (n < k) && s[n] != '\n' && s[n]; n++) /* loop */;
+	if(Term->scr->cx + n >= w) res = n = w - Term->scr->cx; /* React to reaching the edge of the screen */
+	Term_queue_chars(Term->scr->cx, Term->scr->cy + line, n, a, s); /* Queue the first "n" characters for display */
+	Term->scr->cx += n; /* Advance the cursor */
+	if(res) Term->scr->cu = 1; /*Hack -- Notice "Useless" cursor */
 
 	/* Success (usually) */
 	return (res);
