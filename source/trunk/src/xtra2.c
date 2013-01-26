@@ -4093,7 +4093,7 @@ void display_creature_dump(creature_type *creature_ptr)
 	screen_load();
 }
 
-void format_weight(char * buf, int weight)
+void format_weight(char *buf, int weight)
 {
 	sprintf(buf, "%d.%dkg", weight / 10, weight % 10);
 	return;

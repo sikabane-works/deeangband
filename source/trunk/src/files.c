@@ -5682,13 +5682,7 @@ void do_cmd_save_game(int is_autosave)
 #endif
 
 	Term_fresh();
-
-	/* The player is not dead */
-#ifdef JP
-	(void)strcpy(gameover_from, "(セーブ)");
-#else
-	(void)strcpy(gameover_from, "(saved)");
-#endif
+	(void)strcpy(gameover_from, COD_SAVE);
 
 	/* Forbid suspend */
 	signals_ignore_tstp();
@@ -5713,12 +5707,7 @@ void do_cmd_save_game(int is_autosave)
 	/* Allow suspend again */
 	signals_handle_tstp();
 	Term_fresh();
-
-#ifdef JP
-	(void)strcpy(gameover_from, "(元気に生きている)");
-#else
-	(void)strcpy(gameover_from, "(alive and well)");
-#endif
+	(void)strcpy(gameover_from, COD_ALIVE_AND_WELL);
 
 	//TODO update__creature(creature_ptr, TRUE);
 }
