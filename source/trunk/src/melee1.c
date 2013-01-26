@@ -383,11 +383,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			{
 				k = target_ptr->chp + 1;
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-#ifdef JP
-					msg_format("%s‚Ì‹}Š‚ğ“Ë‚«h‚µ‚½I", target_name);
-#else
-					msg_format("You hit %s on a fatal spot!", target_name);
-#endif
+					msg_format(GAME_MESSAGE_FATAL_SPOT, target_name);
 			}
 			else k = 1;
 		}
@@ -422,11 +418,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				{
 					k = target_ptr->chp + 1;
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-#ifdef JP
-						msg_format("n‚ª%s‚Ì‹}Š‚ğŠÑ‚¢‚½I", target_name);
-#else
-						msg_format("You hit %s on a fatal spot!", target_name);
-#endif
+						msg_format(GAME_MESSAGE_FATAL_SPOT, target_name);
 				}
 			}
 		}
