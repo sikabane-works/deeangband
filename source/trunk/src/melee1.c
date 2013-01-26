@@ -550,11 +550,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		else
 		{
 			sound(SOUND_MISS);
-#ifdef JP
-			msg_format("%s‚Í%s‚ÌUŒ‚‚ğ‚©‚í‚µ‚½B", target_name, attacker_name);
-#else
-			msg_format("%^s misses %s.", target_name, attacker_name);
-#endif
+			msg_format(GAME_MESSAGE_WEAPON_ATTACK_MISS, target_name, attacker_name);
 		}
 	}
 

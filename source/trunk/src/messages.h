@@ -451,6 +451,7 @@
 
 #ifdef JP
 #define GAME_MESSAGE_WEAPON_ATTACK "%sは%sを%sで攻撃した。"
+#define GAME_MESSAGE_WEAPON_ATTACK_MISS "%sは%sの攻撃をかわした。"
 #define GAME_MESSAGE_FATAL_SPOT "%sの急所に突き刺さった！"
 #define GAME_MESSAGE_SUICIDE_BOMBER "爆発して粉々になった。"
 #define GAME_MESSAGE_CARSE_OF_BLOOD_DEAD "%^sは死の間際に恐ろしい血の呪いを%^sにかけた！"
@@ -462,6 +463,7 @@
 #define GAME_MESSAGE_BOUNTY_DEAD "%sの首には報奨がかかっている。"
 #else
 #define GAME_MESSAGE_FATAL_SPOT "Your shot sticked on a fatal spot of %s!"
+#define GAME_MESSAGE_WEAPON_ATTACK_MISS %^s misses %s.
 #define GAME_MESSAGE_SUICIDE_BOMBER "%^s explodes into tiny shreds."
 #define GAME_MESSAGE_CARSE_OF_BLOOD_DEAD "On death and dying, %^s puts a terrible blood curse on %^s!"
 #define GAME_MESSAGE_LOST_LIFE1 "You feel your life slipping away!"
