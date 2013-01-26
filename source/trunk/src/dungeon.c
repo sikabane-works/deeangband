@@ -13,7 +13,6 @@
 #include "angband.h"
 
 static bool load = TRUE;
-static int wild_regen = 20;
 
 static void game_mode_detail(int code)
 {
@@ -97,16 +96,10 @@ static int select_unique_species(void)
 static void object_kind_info_reset(void)
 {
 	int i;
-
-	/* Reset the "objects" */
 	for (i = 1; i < max_object_kind_idx; i++)
 	{
 		object_kind *object_kind_ptr = &object_kind_info[i];
-
-		/* Reset "tried" */
 		object_kind_ptr->tried = FALSE;
-
-		/* Reset "aware" */
 		object_kind_ptr->aware = FALSE;
 	}
 }
@@ -868,10 +861,7 @@ static void regenhp(creature_type *creature_ptr, int percent)
 	if(old_chp != creature_ptr->chp)
 	{
 		prepare_redraw(PR_HP);
-
 		prepare_window(PW_PLAYER);
-
-		wild_regen = 20;
 	}
 }
 
@@ -957,8 +947,6 @@ static void regenmana(creature_type * creature_ptr, int percent)
 
 		prepare_window(PW_PLAYER);
 		prepare_window(PW_SPELL);
-
-		wild_regen = 20;
 	}
 }
 
@@ -984,7 +972,6 @@ static void regenmagic(creature_type *creature_ptr, int percent)
 		{
 			creature_ptr->current_charge[i] = ((long)creature_ptr->max_charge[i] << 16);
 		}
-		wild_regen = 20;
 	}
 	for (i = EATER_EXT*2; i < EATER_EXT*3; i++)
 	{
@@ -992,7 +979,6 @@ static void regenmagic(creature_type *creature_ptr, int percent)
 		if(!creature_ptr->max_charge[i]) continue;
 		creature_ptr->current_charge[i] -= (long)(creature_ptr->max_charge[i] * (adj_mag_mana[STAT_INT] + 10)) * EATER_ROD_CHARGE/16;
 		if(creature_ptr->current_charge[i] < 0) creature_ptr->current_charge[i] = 0;
-		wild_regen = 20;
 	}
 }
 
@@ -1681,9 +1667,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	/* Regenerate Hit Points if needed */
 	if((creature_ptr->chp < creature_ptr->mhp) && !cave_no_regen)
-	{
 		regenhp(creature_ptr, regen_amount);
-	}
 }
 
 
@@ -2502,7 +2486,6 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	if(changed)
 	{
 		prepare_window(PW_EQUIP);
-		wild_regen = 20;
 	}
 
 	/*
@@ -2547,7 +2530,6 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	if(changed)
 	{
 		prepare_window(PW_INVEN);
-		wild_regen = 20;
 	}
 
 	/* Process objects on floor */
@@ -4679,8 +4661,7 @@ void process_player(creature_type *creature_ptr)
 */
 static void turn_loop(floor_type *floor_ptr, bool load_game)
 {
-
-	/* Main loop */
+	// Main loop
 	while (TRUE)
 	{
 		// Hack -- Compact and Compress the creature & object list occasionally
@@ -4741,13 +4722,12 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 
 		if(floor_ptr->floor_turn < floor_ptr->floor_turn_limit)
 		{
-			if(!floor_ptr->wild_mode || wild_regen) floor_ptr->floor_turn++;
+			if(!floor_ptr->wild_mode) floor_ptr->floor_turn++;
 			else if(floor_ptr->wild_mode && !(turn % ((MAX_HGT + MAX_WID) / 2))) floor_ptr->floor_turn++;
 		}
 
 		prevent_turn_overflow(player_ptr);
 
-		if(wild_regen) wild_regen--;
 	}
 
 }
