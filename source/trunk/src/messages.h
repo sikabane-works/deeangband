@@ -234,6 +234,11 @@
 
 #if JP
 #define GAME_MESSAGE_COMPLETE_QUEST "クエストを達成した。"
+#define GAME_MESSAGE_CURRENT_QUEST "《遂行中のクエスト》"
+#define GAME_MESSAGE_COMPLETED_QUEST "《達成したクエスト》"
+#define GAME_MESSAGE_FAILED_QUEST "《失敗したクエスト》"
+#define GAME_MESSAGE_REMAINING_QUEST "《残っているクエスト》"
+
 #define GAME_MESSAGE_IMPROVEMENT_FAILED "改良に失敗した。"
 #define GAME_MESSAGE_RESIST_THE_EFFECT "しかし効力を跳ね返した。"
 #define GAME_MESSAGE_IS_IMMUNE "には完全な耐性がある。"
@@ -335,6 +340,11 @@
 #else
 
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
+#define GAME_MESSAGE_CURRENT_QUEST "< Current Quest >"
+#define GAME_MESSAGE_COMPLETED_QUEST "< Completed Quest >"
+#define GAME_MESSAGE_FAILED_QUEST "< Failed Quest >"
+#define GAME_MESSAGE_REMAINING_QUEST "< Remaining Quest >"
+
 #define GAME_MESSAGE_IMPROVEMENT_FAILED "The improvement failed."
 #define GAME_MESSAGE_RESIST_THE_EFFECT "You resist the effects."
 #define GAME_MESSAGE_IS_IMMUNE "is immune."

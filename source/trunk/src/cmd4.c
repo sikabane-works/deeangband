@@ -8101,13 +8101,8 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 	int rand_level = 100;
 	int total = 0;
 
-	
-
-#ifdef JP
-	fprintf(fff, "《遂行中のクエスト》\n\n");
-#else
-	fprintf(fff, "< Current Quest >\n\n");
-#endif
+	fprintf(fff, GAME_MESSAGE_CURRENT_QUEST);
+	fprintf(fff, "\n\n");
 
 	for (i = 1; i < max_quests; i++)
 	{
@@ -8288,11 +8283,9 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 	int i;
 	int total = 0;
 
-#ifdef JP
-	fprintf(fff, "《達成したクエスト》\n\n");
-#else
-	fprintf(fff, "< Completed Quest >\n\n");
-#endif
+	fprintf(fff, GAME_MESSAGE_COMPLETED_QUEST);
+	fprintf(fff, "\n\n");
+
 	for (i = 1; i < max_quests; i++)
 	{
 		int q_idx = quest_num[i];
@@ -8370,11 +8363,9 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 	int i;
 	int total = 0;
 
-#ifdef JP
-	fprintf(fff, "《失敗したクエスト》\n\n");
-#else
-	fprintf(fff, "< Failed Quest >\n\n");
-#endif
+	fprintf(fff, GAME_MESSAGE_FAILED_QUEST);
+	fprintf(fff, "\n\n");
+
 	for (i = 1; i < max_quests; i++)
 	{
 		int q_idx = quest_num[i];
@@ -8435,11 +8426,9 @@ static void do_cmd_knowledge_quests_wiz_random(FILE *fff)
 	int i;
 	int total = 0;
 
-#ifdef JP
-	fprintf(fff, "《残りのランダムクエスト》\n");
-#else
-	fprintf(fff, "< Remaining Random Quest >\n");
-#endif
+	fprintf(fff, GAME_MESSAGE_REMAINING_QUEST);
+	fprintf(fff, "\n\n");
+
 	for (i = 1; i < max_quests; i++)
 	{
 		/* No info from "silent" quests */
