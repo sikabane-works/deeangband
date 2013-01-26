@@ -2836,11 +2836,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 						creature_desc(m_name, steed_ptr, 0);
 
 						tdam = steed_ptr->chp + 1;
-#ifdef JP
-						msg_format("%s‚Ì‹}Š‚É“Ë‚«h‚³‚Á‚½I", m_name);
-#else
-						msg_format("Your shot sticked on a fatal spot of %s!", m_name);
-#endif
+						msg_format(GAME_MESSAGE_FATAL_SPOT, m_name);
 					}
 					else tdam = 1;
 				}
