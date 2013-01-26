@@ -498,12 +498,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 					if(drain_msg)
 					{
-						if(is_seen(player_ptr, attacker_ptr))
-#ifdef JP
-							msg_format("n‚ª%s‚©‚ç¶–½—Í‚ğ‹z‚¢æ‚Á‚½I", target_name);
-#else
-							msg_format("Your weapon drains life from %s!", target_name);
-#endif
+						if(is_seen(player_ptr, attacker_ptr)) msg_format(GAME_MESSAGE_WEAPON_ATTACK_DRAIN(weapon_name, target_name));
 						drain_msg = FALSE;
 					}
 
