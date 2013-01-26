@@ -12,6 +12,9 @@
 
 #define MAX_CAMPAIGNS 3
 
+#define TY_CURSE_CHANCE 200
+#define CHAINSWORD_NOISE 100
+
 // Maximum number of random tries
 #define MAX_TRIES 10000
 

@@ -12,9 +12,6 @@
 
 #include "angband.h"
 
-#define TY_CURSE_CHANCE 200
-#define CHAINSWORD_NOISE 100
-
 static bool load = TRUE;
 static int wild_regen = 20;
 
@@ -22,53 +19,46 @@ static void game_mode_detail(int code)
 {
 	switch(code)
 	{
-		//TODO English
 	case 0:
-		prt("*band ローグライク従来のプレイモードです。          ", 10, 25);
-		prt("'＠'のルーンを背負う〈烙印者〉として、            ", 11, 25);
-		prt("神々の座へと登りつめることが *勝利* 条件となります。", 12, 25);
+		prt("*band ローグライク従来のプレイモードです。          ", 15, 25);
+		prt("'＠'のルーンを背負う〈烙印者〉として、            ", 16, 25);
+		prt("神々の座へと登りつめることが *勝利* 条件となります。", 17, 25);
 		break;
 	case 1:
-		prt("任意のユニーク・クリーチャーとなって探索ができる    ", 10, 25);
-		prt("テスト的なプレイモードです。                        ", 11, 25);
-		prt("*勝利* 条件はなく、スコア登録などもできません。     ", 12, 25);
+		prt("*band ローグライク従来のプレイモードです。          ", 15, 25);
+		prt("'＠'のルーンを背負う〈烙印者〉として、            ", 16, 25);
+		prt("神々の座へと登りつめることが *勝利* 条件となります。", 17, 25);
+		break;
+	case 2:
+		prt("任意のユニーク・クリーチャーとなって探索ができる    ", 15, 25);
+		prt("テスト的なプレイモードです。                        ", 16, 25);
+		prt("*勝利* 条件はなく、スコア登録などもできません。     ", 17, 25);
 		break;
 	}
 }
 
 static int select_mode(void)
 {
+	int i;
 	selection se[1000];
 	int t = sizeof(creature_type);
 
 #if JP
-	c_put_str(TERM_L_BLUE, "プレイモードを選択して下さい:", 9, 25);
+	c_put_str(TERM_L_BLUE, "プレイモードを選択して下さい:", 8, 5);
 #else
-	prt("Select play mode:", 9, 25);
+	prt("Select play mode:", 8, 5);
 #endif
 
-	/* Init Unique Count */
-#if JP
-	strcpy(se[0].cap, "烙印者");
-#else
-	strcpy(se[0].cap, "Stigmatic One");
-#endif
-	se[0].d_color = TERM_L_DARK;
-	se[0].l_color = TERM_WHITE;
-	se[0].key = '\0';
-	se[0].code = 0;
+	for(i = 0; i < MAX_CAMPAIGNS; i++)
+	{
+		strcpy(se[i].cap, campaign_name[i]);
+		se[i].d_color = TERM_L_DARK;
+		se[i].l_color = TERM_WHITE;
+		se[i].key = '\0';
+		se[i].code = 0;
+	}
 
-#if JP
-	strcpy(se[1].cap, "ユニーク");
-#else
-	strcpy(se[1].cap, "Unique");
-#endif
-	se[1].d_color = TERM_L_DARK;
-	se[1].l_color = TERM_WHITE;
-	se[1].key = '\0';
-	se[1].code = 1;
-
-	return get_selection(se, 2, 0, 10, 2, 2, 18, game_mode_detail, 0);
+	return get_selection(se, MAX_CAMPAIGNS, 0, 10, 2, MAX_CAMPAIGNS, 40, game_mode_detail, 0);
 }
 
 static int select_unique_species(void)
@@ -5110,9 +5100,9 @@ static void new_game_setting(void)
 		}
 
 #ifdef JP
-			do_cmd_write_diary(DIARY_BUNSHOU, 0, "キャンペーン「%s」を選択した");
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, format("キャンペーン「%s」を選択した", campaign_name[mode]));
 #else
-			do_cmd_write_diary(DIARY_BUNSHOU, 0, "Select Campaign '%s'");
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, format("Select Campaign '%s'", campaign_name[mode]));
 #endif
 
 		// Initial game mode
