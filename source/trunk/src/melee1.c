@@ -529,22 +529,13 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 			{
-#ifdef JP
-				msg_format("%s‚Í%s‚ÌUŒ‚‚ğ‚©‚í‚µ‚½B", target_name, attacker_name);
-				msg_print("U‚è‰ñ‚µ‚½‘åŠ™‚ª©•ª©g‚É•Ô‚Á‚Ä‚«‚½I");
-#else
-				msg_format("%^s misses %s.", target_name, attacker_name);
-				msg_print("Your scythe returns to you!");
-#endif
+				msg_format(GAME_MESSAGE_WEAPON_ATTACK_MISS, target_name, attacker_name);
+				msg_format(GAME_MESSAGE_WEAPON_RETURN(weapon_name, attacker_name));
 			}
 
 			//TODO Death Scythe damage.
 			k = 0;
-#ifdef JP
-			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_FORCE, k, "€‚Ì‘åŠ™", NULL, -1);
-#else
-			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
-#endif
+			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_FORCE, k, weapon_name, NULL, -1);
 			redraw_stuff(player_ptr);
 		}
 		else
