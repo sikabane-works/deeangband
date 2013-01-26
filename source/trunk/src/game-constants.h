@@ -10,6 +10,8 @@
 
 #define STORE_MIN_STOCK 12
 
+#define MAX_CAMPAIGNS 3
+
 // Maximum number of random tries
 #define MAX_TRIES 10000
 

@@ -3970,3 +3970,18 @@ cptr skill_name[MAX_SKILLS][40] =
 	"Riding",
 #endif
 };
+
+cptr campaign_name[MAX_CAMPAIGNS] =
+{
+#ifdef JP
+	"〈烙印〉の掟",
+	"イルーヴァタールの呪縛",
+	"多元宇宙割拠",
+#else
+	"The Fate of Stigma",
+	"The Curse of Iluvatar",
+	"The Rivalry in Multiverse",
+#endif
+};
+
+

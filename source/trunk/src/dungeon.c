@@ -5095,11 +5095,6 @@ static void new_game_setting(void)
 		{
 			species = SPECIES_STIGMATIC_ONE;
 			unique_play = FALSE;
-#ifdef JP
-			do_cmd_write_diary(DIARY_BUNSHOU, 0, "〈烙印者〉モードを選択した");
-#else
-			do_cmd_write_diary(DIARY_BUNSHOU, 0, "select Stigmatic One mode.");
-#endif
 		}
 		else
 		{
@@ -5111,9 +5106,14 @@ static void new_game_setting(void)
 #else
 			do_cmd_write_diary(DIARY_BUNSHOU, 0, "select unique mode.");
 #endif
-			/* Mark savefile */
 			noscore |= 0x0010;
 		}
+
+#ifdef JP
+			do_cmd_write_diary(DIARY_BUNSHOU, 0, "キャンペーン「%s」を選択した");
+#else
+			do_cmd_write_diary(DIARY_BUNSHOU, 0, "Select Campaign '%s'");
+#endif
 
 		// Initial game mode
 		screen_save();
