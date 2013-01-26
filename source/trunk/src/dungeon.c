@@ -5115,6 +5115,12 @@ static void new_game_setting(void)
 			noscore |= 0x0010;
 		}
 
+		// Initial game mode
+		screen_save();
+		do_cmd_options_aux(OPT_PAGE_BIRTH, SYS_MESSAGE_OPTION_AUX);
+		screen_load();
+
+
 		/* Roll up a new character */
 		player_ptr = generate_creature(NULL, species, &player_prev, GC_PLAYER);
 

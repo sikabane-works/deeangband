@@ -3784,11 +3784,11 @@ static bool get_stat_limits(creature_type *creature_ptr)
 
 	/* Extra infomation */
 #ifdef JP
-	put_str("最低限得たい能力値を設定して下さい。", 10, 10);
+	put_str("能力値を割り振ってください。", 10, 10);
 	put_str("2/8で項目選択、4/6で値の増減、Enterで次へ", 11, 10);
 	put_str("         基本値  種族 職業 性格     合計値  最大値", 13, 10);
 #else
-	put_str("Set minimum stats.", 10, 10);
+	put_str("Set stats.", 10, 10);
 	put_str("2/8 for Select, 4/6 for Change value, Enter for Goto next", 11, 10);
 	put_str("           Base   Rac  Cla  Per      Total  Maximum", 13, 10);
 #endif
@@ -4616,10 +4616,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		if(i == BIRTH_SELECT_RETURN) return FALSE;
 		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
-	else
-	{
-		creature_ptr->race_idx1 = species_ptr->race_idx1;
-	}
+	else creature_ptr->race_idx1 = species_ptr->race_idx1;
 
 	if(species_ptr->race_idx2 == INDEX_VARIABLE)
 	{
@@ -4628,10 +4625,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		if(i == BIRTH_SELECT_RETURN) return FALSE;
 		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
-	else
-	{
-		creature_ptr->race_idx2 = species_ptr->race_idx2;
-	}
+	else creature_ptr->race_idx2 = species_ptr->race_idx2;
 
 	// race_idx swap
 	if(creature_ptr->race_idx1 > creature_ptr->race_idx2)
@@ -4647,9 +4641,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	if(has_trait(creature_ptr, TRAIT_KALEIDOSCOPIC_RACE)) creature_ptr->hack_mutation = TRUE;
 	else creature_ptr->hack_mutation = FALSE;
 
-	//
 	// Sex Select
-	//
 	if(species_ptr->sex == INDEX_VARIABLE)
 	{
 		if(!auto_generate)
@@ -4701,12 +4693,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	if(player_generate)
 	{
-		screen_save();
-		do_cmd_options_aux(OPT_PAGE_BIRTH, SYS_MESSAGE_OPTION_AUX);
-		screen_load();
-
-		/*** Autoroll ***/
-
 		if(autoroller || autochara) auto_round = 0L;
 		if(autoroller) if(!get_stat_limits(creature_ptr)) return FALSE;
 		if(autochara) if(!get_chara_limits(creature_ptr)) return FALSE;
