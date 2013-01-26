@@ -459,8 +459,9 @@
 #define GAME_MESSAGE_WEAPON_ZANTETSU_SERIF "またつまらぬものを斬ってしまった．．．"
 #define GAME_MESSAGE_WEAPON_EX_JR_SPIDER "蜘蛛は苦手だ！"
 #define GAME_MESSAGE_WEAPON_VORPAL_BLADE_SERIF "目にも止まらぬヴォーパルブレード、手錬の早業！"
-#define GAME_MESSAGE_WEAPON_ATTACK_DRAIN(WEAPON, TARGET) ("%sが%sから生命力を吸い取った！", WEAPON, TARGET)
-#define GAME_MESSAGE_WEAPON_RETURN(WEAPON, ATTACKER) ("振り回した%sが%sに返ってきた。", WEAPON, ATTACKER)
+#define GAME_MESSAGE_WEAPON_ATTACK_DRAIN(WEAPON, TARGET) ("%sが%sから生命力を吸い取った！", (WEAPON), (TARGET))
+#define GAME_MESSAGE_WEAPON_SUCK_BLOOD(WEAPON) ("%sは血を吸って強くなった！", WEAPON)
+#define GAME_MESSAGE_WEAPON_RETURN(WEAPON, ATTACKER) ("振り回した%sが%sに返ってきた。", (WEAPON), (ATTACKER))
 #define GAME_MESSAGE_FATAL_SPOT "%sの急所に突き刺さった！"
 #define GAME_MESSAGE_SUICIDE_BOMBER "爆発して粉々になった。"
 #define GAME_MESSAGE_CARSE_OF_BLOOD_DEAD "%^sは死の間際に恐ろしい血の呪いを%^sにかけた！"
@@ -480,6 +481,7 @@
 #define GAME_MESSAGE_WEAPON_ZANTETSU_SERIF "Sigh... Another trifling thing I've cut...."
 #define GAME_MESSAGE_WEAPON_EX_JR_SPIDER "Spiders are difficult for you to deal with!"
 #define GAME_MESSAGE_WEAPON_VORPAL_BLADE_SERIF "Your Vorpal Blade goes snicker-snack!"
+#define GAME_MESSAGE_WEAPON_SUCK_BLOOD(WEAPON) ("%s sucked blood, and became more powerful!", (WEAPON))
 #define GAME_MESSAGE_WEAPON_RETURN(WEAPON, ATTACKER) ("%s returns to %s.", ATTACKER, WEAPON)
 #define GAME_MESSAGE_SUICIDE_BOMBER "%^s explodes into tiny shreds."
 #define GAME_MESSAGE_CARSE_OF_BLOOD_DEAD "On death and dying, %^s puts a terrible blood curse on %^s!"

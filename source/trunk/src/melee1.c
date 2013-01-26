@@ -446,12 +446,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 					if(weapon_ptr->to_hit != to_hit || weapon_ptr->to_damage != to_damage)
 					{
-						if(is_seen(player_ptr, attacker_ptr))
-#ifdef JP
-							msg_print("—d“‚ÍŒŒ‚ð‹z‚Á‚Ä‹­‚­‚È‚Á‚½I");
-#else
-							msg_print("Muramasa sucked blood, and became more powerful!");
-#endif
+						if(is_seen(player_ptr, attacker_ptr)) msg_print(GAME_MESSAGE_WEAPON_SUCK_BLOOD(weapon_name));
 						weapon_ptr->to_hit = to_hit;
 						weapon_ptr->to_damage = to_damage;
 					}
