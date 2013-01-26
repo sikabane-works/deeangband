@@ -422,14 +422,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				}
 			}
 		}
-		else
-		{
-#ifdef JP
-			msg_format("%s‚Í%s‚ğ%s‚ÅUŒ‚‚µ‚½B", attacker_name, target_name, weapon_name);
-#else
-			msg_format("%s hit %s with your %s.", attacker_name, target_name, weapon_name);
-#endif
-		}
+		else msg_format(GAME_MESSAGE_WEAPON_ATTACK, attacker_name, target_name, weapon_name);
 
 		if(k <= 0) can_drain = FALSE;
 		if(drain_result > target_ptr->chp) drain_result = target_ptr->chp;

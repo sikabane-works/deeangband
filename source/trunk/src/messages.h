@@ -450,6 +450,7 @@
 #endif
 
 #ifdef JP
+#define GAME_MESSAGE_WEAPON_ATTACK "%sは%sを%sで攻撃した。"
 #define GAME_MESSAGE_FATAL_SPOT "%sの急所に突き刺さった！"
 #define GAME_MESSAGE_SUICIDE_BOMBER "爆発して粉々になった。"
 #define GAME_MESSAGE_CARSE_OF_BLOOD_DEAD "%^sは死の間際に恐ろしい血の呪いを%^sにかけた！"
