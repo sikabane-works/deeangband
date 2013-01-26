@@ -436,12 +436,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				//TODO
 			}
 			if(has_trait(attacker_ptr, TRAIT_ZANTETSU_EFFECT) && is_lowlevel)
-				if(is_player(attacker_ptr))
-#ifdef JP
-					msg_print("‚Ü‚½‚Â‚Ü‚ç‚Ê‚à‚Ì‚ğa‚Á‚Ä‚µ‚Ü‚Á‚½DDD");
-#else
-					msg_print("Sigh... Another trifling thing I've cut....");
-#endif
+				if(is_player(attacker_ptr)) msg_print(GAME_MESSAGE_WEAPON_ZANTETSU_SERIF);
 		}
 
 		// Anger the creature
