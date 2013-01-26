@@ -344,22 +344,14 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(zantetsu_mukou)
 		{
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-#ifdef JP
-				msg_print("‚±‚ñ‚È“î‚ç‚©‚¢‚à‚Ì‚ÍØ‚ê‚ñI");
-#else
-				msg_print("You cannot cut such a elastic thing!");
-#endif
+				msg_print(GANE_MESSAGE_WEAPON_ZANTETSU_JELLY);
 			k = 0;
 		}
 
 		if(e_j_mukou)
 		{
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-#ifdef JP
-				msg_print("’wå‚Í‹êè‚¾I");
-#else
-				msg_print("Spiders are difficult for you to deal with!");
-#endif
+				msg_print(GANE_MESSAGE_WEAPON_EX_JR_SPIDER);
 			k /= 2;
 		}
 
