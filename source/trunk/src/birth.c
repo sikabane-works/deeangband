@@ -2035,77 +2035,6 @@ static bool get_creature_realms(creature_type *creature_ptr, species_type *speci
 	return TRUE;
 }
 
-
-/*
- * Roll for a characters stats
- *
- * For efficiency, we include a chunk of "set_creature_bonuses()".
- */
-static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
-{
-	int i;
-
-	// Roll and verify some stats
-	while (TRUE)
-	{
-		int sum = 0;
-
-		// Roll some dice
-		for (i = 0; i < 2; i++)
-		{
-			s32b tmp = randint0(60 * 60 * 60);
-			int val;
-
-			// Extract 5 + 1d3 + 1d4 + 1d5
-			val = 5 + 3;
-			val += tmp % 3; tmp /= 3;
-			val += tmp % 4; tmp /= 4;
-			val += tmp % 5; tmp /= 5;
-
-			// Save that value
-			sum += val;
-			creature_ptr->stat_cur[3 * i] = creature_ptr->stat_max[3 * i] = val * STAT_FRACTION;
-
-			// Extract 5 + 1d3 + 1d4 + 1d5
-			val = 5 + 3;
-			val += tmp % 3; tmp /= 3;
-			val += tmp % 4; tmp /= 4;
-			val += tmp % 5; tmp /= 5;
-
-			// Save that value
-			sum += val;
-			creature_ptr->stat_cur[3 * i + 1] = creature_ptr->stat_max[3 * i + 1] = val * STAT_FRACTION;
-
-			// Extract 5 + 1d3 + 1d4 + 1d5
-			val = 5 + 3;
-			val += tmp % 3; tmp /= 3;
-			val += tmp % 4; tmp /= 4;
-			val += tmp;
-
-			// Save that value
-			sum += val;
-			creature_ptr->stat_cur[3 * i + 2] = creature_ptr->stat_max[3 * i + 2] = val * STAT_FRACTION;
-		}
-
-		// Verify totals
-		if((sum > 42 + 5 * STAT_MAX) && (sum < 57 + 5 * STAT_MAX))
-		{
-			for(i = 0; i < STAT_MAX; i++) if(creature_ptr->stat_cur[i] < STAT_VALUE_MIN) creature_ptr->stat_cur[i] = STAT_VALUE_MIN;
-			break;
-		}
-
-		// 57 was 54... I hate 'magic numbers' :< TY
-		// Agree. Deskull
-	}
-
-	for(i = 0; i < STAT_MAX; i++)
-		if(creature_ptr->stat_cur[i] < STAT_VALUE_MIN)
-		{
-			msg_warning("Warning: Out Range Status Point.");
-			break;
-		}
-}
-
 void get_max_stats(creature_type *creature_ptr)
 {
 	int		i, j;
@@ -4644,8 +4573,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	/*** Generate ***/
 
-	for(i = 0; i < STAT_MAX; i++)
-		creature_ptr->stat_use[i] = species_ptr->stat_max[i];
 
 	// Roll
 	while (TRUE)
@@ -4654,66 +4581,17 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 		col = 42;
 
-		set_stats(creature_ptr, species_ptr);   // Get a new character
+		for(i = 0; i < STAT_MAX; i++)
+			creature_ptr->stat_cur[i] = species_ptr->stat_max[i];
 		set_age(creature_ptr);                  // Roll for age
 		set_exp(creature_ptr, species_ptr);                  // Roll for exp
 		set_height_weight(creature_ptr);        // Roll for height and weight
 		set_underlings(creature_ptr, species_ptr);
 		get_history(creature_ptr);              // Roll for social class
 
-
-		// Auto-roll
-		while (!auto_generate)
-		{
-			bool accept = TRUE;
-
-			set_stats(creature_ptr, species_ptr);	// Get a new character
-			auto_round++;							// Advance the round
-
-			/* Break if "happy" */
-			if(accept)
-			{
-				set_age(creature_ptr);				// Roll for age
-				set_exp(creature_ptr, species_ptr);	// Roll for exp
-				set_height_weight(creature_ptr);	// Roll for height and weight
-				set_underlings(creature_ptr, species_ptr);
-				get_history(creature_ptr);
-
-				if(accept) break;
-			}
-
-			/* Take note every x rolls */
-			flag = (!(auto_round % AUTOROLLER_STEP));
-
-			/* Update display occasionally */
-			if(flag)
-			{
-				
-				put_str(format("%10ld", auto_round), 10, col+20);	// Dump round
-
-				/* Make sure they see everything */
-				Term_fresh();
-
-				/* Do not wait for a key */
-				inkey_scan = TRUE;
-
-				/* Check for a keypress */
-				if(inkey())
-				{
-					set_age(creature_ptr);            // Roll for age
-					set_exp(creature_ptr, species_ptr);  // Roll for exp
-					set_height_weight(creature_ptr);  // Roll for height and weight
-					get_history(creature_ptr);        // Roll for social class
-					break;
-				}
-			}
-		}
-
 		flush();
 
 		/*** Display ***/
-
-		/* Mode */
 		mode = 0;
 
 		/* Roll for base hitpoints */
@@ -4804,9 +4682,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				continue;
 			}
 
-			// Warning
 			bell();
-
 		}
 
 		// Are we done?
