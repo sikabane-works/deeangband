@@ -4634,16 +4634,10 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			Term_gotoxy(2, 23);
 			Term_addch(TERM_WHITE, b1);
 #ifdef JP
-			Term_addstr(-1, TERM_WHITE, "'r' 次の数値");
-			if(prev) Term_addstr(-1, TERM_WHITE, ", 'p' 前の数値");
-			if(mode) Term_addstr(-1, TERM_WHITE, ", 'h' その他の情報");
-			else Term_addstr(-1, TERM_WHITE, ", 'h' 生い立ちを表示");
+			Term_addstr(-1, TERM_WHITE, ", 'h' その他の情報");
 			Term_addstr(-1, TERM_WHITE, ", Enter この数値に決定");
 #else
-			Term_addstr(-1, TERM_WHITE, "'r'eroll");
-			if(prev) Term_addstr(-1, TERM_WHITE, ", 'p'previous");
 			if(mode) Term_addstr(-1, TERM_WHITE, ", 'h' Misc.");
-			else Term_addstr(-1, TERM_WHITE, ", 'h'istory");
 			Term_addstr(-1, TERM_WHITE, ", or Enter to accept");
 #endif
 
@@ -4655,30 +4649,14 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			if(c == 'Q') birth_quit();
 			if(c == 'S') return FALSE;						// Start over
 			if(c == '\r' || c == '\n' || c == ESCAPE) break;	// Escape accepts the roll
-			if((c == ' ') || (c == 'r')) break;	// Reroll this character
-
-			if(prev && (c == 'p'))			// Previous character
-			{
-				*creature_ptr = player_prev;
-				continue;
-			}
-
 			if((c == 'H') || (c == 'h'))	// Toggle the display
 			{
 				((mode >= DISPLAY_CR_STATUS_MAX) ? mode = DISPLAY_CR_STATUS_STANDARD : mode++);
 				continue;
 			}
-
 			if(c == '?')	// Help
 			{
 				show_help(TEXT_FILES_BIRTH_AUTO_ROLLER);
-				continue;
-			}
-			else if(c == '=')
-			{
-				screen_save();
-				do_cmd_options_aux(OPT_PAGE_BIRTH, SYS_MESSAGE_OPTION_AUX);
-				screen_load();
 				continue;
 			}
 
