@@ -5659,16 +5659,8 @@ void do_cmd_suicide(creature_type *creature_ptr)
  */
 void do_cmd_save_game(int is_autosave)
 {
-	/* Autosaves do not disturb */
-	if(is_autosave)
-	{
-#ifdef JP
-		msg_print("é©ìÆÉZÅ[ÉuíÜ");
-#else
-		msg_print("Autosaving the game...");
-#endif
-
-	}
+	// Autosaves do not disturb
+	if(is_autosave) msg_print(SYS_MESSAGE_AUTO_SAVING);
 	else disturb(player_ptr, 1, 0);
 
 	/* Clear messages */
