@@ -5967,11 +5967,7 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, tmp);
 		put_str(buf, 17, 11);
 
-#ifdef JP
-		msg_format("‚³‚æ‚¤‚È‚çA%s!", creature_ptr->name);
-#else
-		msg_format("Goodbye, %s!", creature_ptr->name);
-#endif
+		msg_format(GAME_MESSAGE_GOODBYE(creature_ptr->name));
 	}
 }
 

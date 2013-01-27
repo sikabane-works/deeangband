@@ -349,6 +349,8 @@
 #define GAME_MESSAGE_TARGET_SET "ターゲット決定。"
 #define GAME_MESSAGE_TARGET_ABORT "ターゲット解除。"
 #define GAME_MESSAGE_TARGET_CANCELED "中断した。"
+
+#define GAME_MESSAGE_GOODBYE(NAME) ("さようなら、%s!", (NAME))
 #else
 
 #define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
@@ -459,6 +461,8 @@
 #define GAME_MESSAGE_TARGET_SET "Target selected."
 #define GAME_MESSAGE_TARGET_ABORT "Target aborted."
 #define GAME_MESSAGE_TARGET_CANCELED "Canceled."
+
+#define GAME_MESSAGE_GOODBYE(NAME) ("Goodbye, %s!", (NAME))
 #endif
 
 #ifdef JP
