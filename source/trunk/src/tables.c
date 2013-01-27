@@ -2053,35 +2053,31 @@ s32b creature_exp_a[CREATURE_MAX_LEVEL] =
 sex_type sex_info[MAX_SEXES] =
 {
 	{
+		KW_NOSEX,
 #ifdef JP
-		"無性",
 		"ロード",
 #endif
-		"None",
 		"Lord"
 	},
 	{
+		KW_FEMALE,
 #ifdef JP
-		"女性",
 		"クイーン",
 #endif
-		"Female",
 		"Queen"
 	},
 	{
+		KW_MALE,
 #ifdef JP
-		"男性",
 		"キング",
 #endif
-		"Male",
 		"King"
 	},
 	{
+		KW_INTERSEX,
 #ifdef JP
-		"両性",
 		"ロード",
 #endif
-		"InterSex",
 		"Lord"
 	},
 };

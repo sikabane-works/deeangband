@@ -1495,17 +1495,10 @@ bool probing(floor_type *floor_ptr)
 			/* TODO: New Alignment View */
 			align = "----";
 
-#ifdef JP
-			if(m_ptr->sex == SEX_MALE) sex = "’j«";
-			else if(m_ptr->sex == SEX_FEMALE) sex = "—«";
-			else if(m_ptr->sex == SEX_INTERSEX) sex = "—¼«";
-			else if(m_ptr->sex == SEX_NONE) sex = "–³«";
-#else
-			if(m_ptr->sex == SEX_MALE) sex = "Male";
-			else if(m_ptr->sex == SEX_FEMALE) sex = "Female";
-			else if(m_ptr->sex == SEX_INTERSEX) sex = "Intersex";
-			else if(m_ptr->sex == SEX_NONE) sex = "Asexual";
-#endif
+			if(m_ptr->sex == SEX_MALE) sex = KW_MALE;
+			else if(m_ptr->sex == SEX_FEMALE) sex = KW_FEMALE;
+			else if(m_ptr->sex == SEX_INTERSEX) sex = KW_INTERSEX;
+			else if(m_ptr->sex == SEX_NONE) sex = KW_NOSEX;
 
 			/* Describe the creature */
 #ifdef JP

@@ -91,7 +91,7 @@
 #define KW_LEVEL "レベル"
 #define KW_HP "HP"
 #define KW_MP "MP"
-#define KW_EXP "経験"
+#define KW_EXP "ソウル"
 #define KW_FAIL "失率"
 #define KW_UNKNOWN "未知"
 #define KW_FORGOTTEN "忘却"
@@ -132,6 +132,10 @@
 #define KW_VALIABLE_RACE "種族可変"
 #define KW_VALIABLE_CLASS "種族可変"
 #define KW_VALIABLE_CHARA "性格可変"
+#define KW_MALE "男性"
+#define KW_FEMALE "女性"
+#define KW_INTERSEX "両性"
+#define KW_NOSEX "無性"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -183,6 +187,10 @@
 #define KW_VALIABLE_RACE "VariableRace"
 #define KW_VALIABLE_CLASS "VariableClass"
 #define KW_VALIABLE_CHARA "VariableChara"
+#define KW_MALE "Male"
+#define KW_FEMALE "Female"
+#define KW_INTERSEX "Intersex"
+#define KW_NOSEX "Nosex"
 #endif
 
 #ifdef JP
