@@ -129,6 +129,9 @@
 #define KW_IT "‰½‚©"
 #define KW_SOMETHING "‰½‚©"
 #define KW_CLONE "ƒNƒ[ƒ“"
+#define KW_VALIABLE_RACE "í‘°‰Â•Ï"
+#define KW_VALIABLE_CLASS "í‘°‰Â•Ï"
+#define KW_VALIABLE_CHARA "«Ši‰Â•Ï"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -177,6 +180,9 @@
 #define KW_IT "It"
 #define KW_SOMETHING "Something"
 #define KW_CLONE "Clone"
+#define KW_VALIABLE_RACE "VariableRace"
+#define KW_VALIABLE_CLASS "VariableClass"
+#define KW_VALIABLE_CHARA "VariableChara"
 #endif
 
 #ifdef JP

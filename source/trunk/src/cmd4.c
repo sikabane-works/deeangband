@@ -4140,7 +4140,7 @@ static cptr creature_group_text[] =
 	"壁/植物/気体",
 	"おばけキノコ",
 	"球体",
-	"種族可変",
+	KW_VALIABLE_RACE,
 	"戦士",
 	"メイジ",
 	"プリースト",
@@ -4169,7 +4169,7 @@ static cptr creature_group_text[] =
 	"鏡使い",
 	"忍者",
 	"スナイパー",
-	"職業可変",
+	KW_VALIABLE_CLASS,
 #else
 	"Uniques",
 	"Ridable creature",
@@ -4230,7 +4230,7 @@ static cptr creature_group_text[] =
 	"Wall/Plant/Gas",
 	"Mushroom patch",
 	"Ball",
-	"Variable-Race"
+	KW_VALIABLE_RACE,
 	"Warrior",
 	"Mage",
 	"Priest",
@@ -4259,7 +4259,7 @@ static cptr creature_group_text[] =
 	"Mirror-Master",
 	"Ninja",
 	"Sniper",
-	"Variable-Class",
+	KW_VALIABLE_CLASS,
 #endif
 	NULL
 };

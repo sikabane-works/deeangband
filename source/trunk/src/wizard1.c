@@ -1475,28 +1475,17 @@ static void spoil_species_desc(cptr fname)
 		if(is_variable_race_species(species_ptr)) 
 		{
 			strcat(trait, "/");
-#ifdef JP
-			strcat(trait, "Ží‘°‰Â•Ï");
-#else
-			strcat(trait, "VariableRace");
-#endif
-
+			strcat(trait, KW_VALIABLE_RACE);
 		}
 		else if(species_ptr->race_idx1 < MAX_RACES)
 		{
 			strcat(trait, "/Ží‘°:");
 			strcat(trait, race_info[species_ptr->race_idx1].title);
 		}
-
 		if(is_variable_class_species(species_ptr)) 
 		{
 			strcat(trait, "/");
-#ifdef JP
-			strcat(trait, "E‹Æ‰Â•Ï");
-#else
-			strcat(trait, "VariableClass");
-#endif
-
+			strcat(trait, KW_VALIABLE_CLASS);
 		}
 		else if(species_ptr->class_idx < MAX_CLASS)
 		{
@@ -1507,12 +1496,7 @@ static void spoil_species_desc(cptr fname)
 		if(is_variable_chara_species(species_ptr)) 
 		{
 			strcat(trait, "/");
-#ifdef JP
-			strcat(trait, "«Ši‰Â•Ï");
-#else
-			strcat(trait, "VariableCharacter");
-#endif
-
+			strcat(trait, KW_VALIABLE_CHARA);
 		}
 		else if(species_ptr->chara_idx < MAX_CHARA)
 		{
