@@ -2781,8 +2781,7 @@ static bool creature_hook_chameleon(int species_idx)
 
 void set_new_species(creature_type *creature_ptr, bool born, int species_idx, int creature_ego_idx)
 {
-	int m_idx = 0;
-
+	int i, m_idx = 0;
 	int oldmhp;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	species_type *species_ptr;
@@ -2869,21 +2868,12 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 	if(creature_ptr->mhp < 1) creature_ptr->mhp = 1;
 	creature_ptr->chp = (long)(creature_ptr->chp * creature_ptr->mmhp) / oldmhp;
 
-	creature_ptr->stat_use[0] = species_ptr->stat_max[0];
-	creature_ptr->stat_use[1] = species_ptr->stat_max[1];
-	creature_ptr->stat_use[2] = species_ptr->stat_max[2];
-	creature_ptr->stat_use[3] = species_ptr->stat_max[3];
-	creature_ptr->stat_use[4] = species_ptr->stat_max[4];
-	creature_ptr->stat_use[5] = species_ptr->stat_max[5];
+	for(i = 0; i < STAT_MAX; i++)
+		creature_ptr->stat_use[i] = species_ptr->stat_max[i];
 
-	if(creature_ptr->creature_ego_idx != MONEGO_NONE){
-		creature_ptr->stat_use[0] += re_info[creature_ego_idx].stat[0];
-		creature_ptr->stat_use[1] += re_info[creature_ego_idx].stat[1];
-		creature_ptr->stat_use[2] += re_info[creature_ego_idx].stat[2];
-		creature_ptr->stat_use[3] += re_info[creature_ego_idx].stat[3];
-		creature_ptr->stat_use[4] += re_info[creature_ego_idx].stat[4];
-		creature_ptr->stat_use[5] += re_info[creature_ego_idx].stat[5];
-	}
+	if(creature_ptr->creature_ego_idx != MONEGO_NONE)
+		for(i = 0; i < STAT_MAX; i++)
+			creature_ptr->stat_use[i] += re_info[creature_ego_idx].stat[i];
 
 	//TODO Reset Status
 }

@@ -4511,7 +4511,6 @@ static void edit_history(creature_type *creature_ptr)
  */
 static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, creature_type *save_ptr, u32b flags)
 {
-
 	int i;
 	int mode = 0;
 
@@ -4525,8 +4524,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	char p2 = ')';
 	char b1 = '[';
 	char b2 = ']';
-
-	char buf[80];
 
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -4647,77 +4644,23 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	/*** Generate ***/
 
-	/* Roll */
+	for(i = 0; i < STAT_MAX; i++)
+		creature_ptr->stat_use[i] = species_ptr->stat_max[i];
+
+	// Roll
 	while (TRUE)
 	{
 		int col;
 
 		col = 42;
 
-		if(!auto_generate)
-		{
-			Term_clear();
-#ifdef JP
-			put_str("‰ñ” :", 10, col+13);
-			put_str("(ESC‚Å’â~)", 12, col+13);
-#else
-			put_str("Round:", 10, col+13);
-			put_str("(Hit ESC to stop)", 12, col+13);
-#endif
-		}
+		set_stats(creature_ptr, species_ptr);   // Get a new character
+		set_age(creature_ptr);                  // Roll for age
+		set_exp(creature_ptr, species_ptr);                  // Roll for exp
+		set_height_weight(creature_ptr);        // Roll for height and weight
+		set_underlings(creature_ptr, species_ptr);
+		get_history(creature_ptr);              // Roll for social class
 
-		// Otherwise just get a character
-		else
-		{
-			set_stats(creature_ptr, species_ptr);   // Get a new character
-			set_age(creature_ptr);                  // Roll for age
-			set_exp(creature_ptr, species_ptr);                  // Roll for exp
-			set_height_weight(creature_ptr);        // Roll for height and weight
-
-			set_underlings(creature_ptr, species_ptr);
-
-			get_history(creature_ptr);              // Roll for social class
-		}
-
-		if(!auto_generate)
-		{
-			// Label
-#ifdef JP
-			put_str("Å¬’l", 2, col+5);
-			put_str("¬Œ÷—¦", 2, col+13);
-			put_str("Œ»İ’l", 2, col+24);
-#else
-			put_str(" Limit", 2, col+5);
-			put_str("  Freq", 2, col+13);
-			put_str("  Roll", 2, col+24);
-#endif
-
-			// Put the minimal stats
-			for (i = 0; i < STAT_MAX; i++)
-			{
-				int j;
-
-				// Label stats
-				put_str(stat_names[i], 3 + i, col);
-
-				// Race/Class/Species bonus
-				if(IS_PURE(creature_ptr))
-					j = race_info[creature_ptr->race_idx1].r_adj[i] + 
-						class_info[creature_ptr->class_idx].c_adj[i] +
-						chara_info[creature_ptr->chara_idx].a_adj[i] +
-						species_ptr->stat_max[i] / STAT_FRACTION - 10;
-				else
-					j = race_info[creature_ptr->race_idx1].r_s_adj[i] +
-						race_info[creature_ptr->race_idx2].r_s_adj[i] +
-						class_info[creature_ptr->class_idx].c_adj[i] +
-						chara_info[creature_ptr->chara_idx].a_adj[i] +
-						species_ptr->stat_max[i] / STAT_FRACTION - 10;
-
-				// Put the stat
-				cnv_stat(j, buf);
-				c_put_str(TERM_L_BLUE, buf, 3+i, col+5);
-			}
-		}
 
 		// Auto-roll
 		while (!auto_generate)
@@ -4747,10 +4690,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			{
 				
 				put_str(format("%10ld", auto_round), 10, col+20);	// Dump round
-
-#ifdef AUTOROLLER_DELAY
-				if(flag) Term_xtra(TERM_XTRA_DELAY, 10);	// Delay 1/10 second
-#endif
 
 				/* Make sure they see everything */
 				Term_fresh();
