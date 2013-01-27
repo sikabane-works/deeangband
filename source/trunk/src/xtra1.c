@@ -972,7 +972,7 @@ static void prt_speed(creature_type *creature_ptr)
 		else if(has_trait(creature_ptr, TRAIT_SLOW) && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_GREEN;
 #ifdef JP
-		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? "æ”n" : "‰Á‘¬"), i);
+		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? KW_RIDING : KW_FAST), i);
 #else
 		sprintf(buf, "Fast(%+d)", i);
 #endif
@@ -1002,11 +1002,7 @@ static void prt_speed(creature_type *creature_ptr)
 	else if(creature_ptr->riding)
 	{
 		attr = TERM_GREEN;
-#ifdef JP
-		strcpy(buf, "æ”n’†");
-#else
-		strcpy(buf, "Riding");
-#endif
+		strcpy(buf, KW_RIDING);
 	}
 
 	/* Display the speed */

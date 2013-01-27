@@ -107,8 +107,6 @@ X:ironman_downward
 X:ironman_empty_levels
 X:ironman_rooms
 Y:preserve_mode
-Y:autoroller
-X:autochara
 
 ##### Easy Object Auto-Destroyer #####
 

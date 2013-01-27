@@ -136,6 +136,9 @@
 #define KW_FEMALE "èóê´"
 #define KW_INTERSEX "óºê´"
 #define KW_NOSEX "ñ≥ê´"
+#define KW_FAST "â¡ë¨"
+#define KW_SLOW "å∏ë¨"
+#define KW_RIDING "èÊîn"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -146,7 +149,7 @@
 #define KW_LEVEL "Level"
 #define KW_HP "HP"
 #define KW_MP "MP"
-#define KW_EXP "EXP"
+#define KW_EXP "SOUL"
 #define KW_FAIL "Fail"
 #define KW_UNKNOWN "Unknown"
 #define KW_FORGOTTEN "Forgotten"
@@ -191,6 +194,9 @@
 #define KW_FEMALE "Female"
 #define KW_INTERSEX "Intersex"
 #define KW_NOSEX "Nosex"
+#define KW_FAST "Fast"
+#define KW_SLOW "Slow"
+#define KW_RIDING "Riding"
 #endif
 
 #ifdef JP

@@ -1475,7 +1475,7 @@ static struct
 	{ 1, 13, 30, 0, 0, 0, ""},
 	{ 1, 15, 30, 0, 0, 0, "ËŒ‚"},
 	{ 1, 16, 30, 0, 0, 0, "“Š±"},
-	{16, 10, 14, 0, 0, 0, "‰Á‘¬"},
+	{16, 10, 14, 0, 0, 0, "‘¬“x"},
 	{16, 11, 14, 0, 0, 0, "s“®’l"},
 	{ 1, 10, 14, 0, 0, 0, "‚`‚b"},
 	{ 1, 11, 14, 0, 0, 0, "‚d‚u"},
@@ -5711,7 +5711,6 @@ long total_points(creature_type *player_ptr)
 	int arena_win = MIN(arena_number, MAX_ARENA_MONS);
 
 	if(!preserve_mode) mult += 10;
-	if(!autoroller) mult += 10;
 	if(!smart_learn) mult -= 20;
 	if(smart_cheat) mult += 30;
 	if(ironman_shops) mult += 50;

@@ -2297,60 +2297,6 @@ static void get_money(creature_type *creature_ptr)
 
 
 
-
-// Display stat values, subset of "put_stats()"
-// See 'display_creature_status()' for screen layout constraints.
-static void birth_put_stats(creature_type *creature_ptr)
-{
-	int i, j, p;
-	int col;
-	byte attr;
-	char buf[80];
-
-	if(autoroller)
-	{
-		col = 42;
-		/* Put the stats (and percents) */
-		for (i = 0; i < STAT_MAX; i++)
-		{
-			/* Race/Class bonus */
-			if(IS_PURE(creature_ptr))
-				j = race_info[creature_ptr->race_idx1].r_adj[i];
-			else
-				j = race_info[creature_ptr->race_idx1].r_s_adj[i] + race_info[creature_ptr->race_idx2].r_s_adj[i];
-
-			j += class_info[creature_ptr->class_idx].c_adj[i] + chara_info[creature_ptr->chara_idx].a_adj[i];
-
-			// Put the stat
-			cnv_stat(j, buf);
-			c_put_str(TERM_L_GREEN, buf, 3 + i, col + 24);
-
-			if(stat_match[i]) // Put the percent
-			{
-				if(stat_match[i] > 1000000L) // Prevent overflow
-					p = stat_match[i] / (auto_round / 1000L);
-				else
-					p = 1000L * stat_match[i] / auto_round;
-			
-				attr = (p < 100) ? TERM_YELLOW : TERM_L_GREEN;
-				sprintf(buf, "%3d.%d%%", p/10, p%10);
-				c_put_str(attr, buf, 3+i, col+13);
-			}
-
-			/* Never happened */
-			else
-			{
-#ifdef JP
-				c_put_str(TERM_RED, "(‚È‚µ)", 3+i, col+13);
-#else
-				c_put_str(TERM_RED, "(NONE)", 3+i, col+13);
-#endif
-			}
-		}
-	}
-}
-
-
 /*
  * Clear all the global "character" data
  */
@@ -4693,10 +4639,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	if(player_generate)
 	{
-		if(autoroller || autochara) auto_round = 0L;
-		if(autoroller) if(!get_stat_limits(creature_ptr)) return FALSE;
-		if(autochara) if(!get_chara_limits(creature_ptr)) return FALSE;
-
 		clear_from(0);
 
 		/* Reset turn; before auto-roll and after choosing race */
@@ -4712,7 +4654,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 		col = 42;
 
-		if(!auto_generate && (autoroller || autochara))
+		if(!auto_generate)
 		{
 			Term_clear();
 #ifdef JP
@@ -4737,8 +4679,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			get_history(creature_ptr);              // Roll for social class
 		}
 
-		// Feedback
-		if(!auto_generate && autoroller)
+		if(!auto_generate)
 		{
 			// Label
 #ifdef JP
@@ -4779,35 +4720,12 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		}
 
 		// Auto-roll
-		while (!auto_generate && (autoroller || autochara))
+		while (!auto_generate)
 		{
 			bool accept = TRUE;
 
 			set_stats(creature_ptr, species_ptr);	// Get a new character
 			auto_round++;							// Advance the round
-
-			/* Hack -- Prevent overflow */
-			if(auto_round >= 1000000000L)
-			{
-				auto_round = 1;
-
-				if(autoroller)
-				{
-					for (i = 0; i < STAT_MAX; i++)
-					{
-						stat_match[i] = 0;
-					}
-				}
-			}
-
-			if(autoroller) // Check and count acceptable stats
-			{				
-				for (i = 0; i < STAT_MAX; i++)
-				{
-					if(creature_ptr->stat_max[i] >= stat_limit[i]) stat_match[i]++; // This stat is okay
-					else accept = FALSE; // This stat is not okay
-				}
-			}
 
 			/* Break if "happy" */
 			if(accept)
@@ -4815,18 +4733,9 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				set_age(creature_ptr);				// Roll for age
 				set_exp(creature_ptr, species_ptr);	// Roll for exp
 				set_height_weight(creature_ptr);	// Roll for height and weight
-
 				set_underlings(creature_ptr, species_ptr);
-
 				get_history(creature_ptr);
 
-				if(autochara)
-				{
-					if((creature_ptr->age < chara_limit.agemin) || (creature_ptr->age > chara_limit.agemax)) accept = FALSE;
-					if((creature_ptr->ht < chara_limit.htmin) || (creature_ptr->ht > chara_limit.htmax)) accept = FALSE;
-					if((creature_ptr->wt < chara_limit.wtmin) || (creature_ptr->wt > chara_limit.wtmax)) accept = FALSE;
-					if((creature_ptr->sc < chara_limit.scmin) || (creature_ptr->sc > chara_limit.scmax)) accept = FALSE;
-				}
 				if(accept) break;
 			}
 
@@ -4837,7 +4746,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			if(flag)
 			{
 				
-				birth_put_stats(creature_ptr);	// Dump data
 				put_str(format("%10ld", auto_round), 10, col+20);	// Dump round
 
 #ifdef AUTOROLLER_DELAY
@@ -4861,8 +4769,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				}
 			}
 		}
-
-		if(!auto_generate && (autoroller || autochara)) sound(SOUND_LEVEL);
 
 		flush();
 

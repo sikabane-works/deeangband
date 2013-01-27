@@ -291,8 +291,6 @@ extern bool ironman_downward;	/* Disable recall and use of up stairs (*) */
 extern bool ironman_empty_levels;	/* Always create empty 'arena' levels (*) */
 extern bool ironman_rooms;	/* Always generate very unusual rooms (*) */
 extern bool preserve_mode;	/* Preserve artifacts (*) */
-extern bool autoroller;	/* Allow use of autoroller for stats (*) */
-extern bool autochara;	/* Autoroll for weight, height and social status */
 
 
 /*** Easy Object Auto-Destroyer ***/
