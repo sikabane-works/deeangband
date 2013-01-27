@@ -5675,11 +5675,7 @@ void do_cmd_save_game(int is_autosave)
 	msg_print(NULL);
 	handle_stuff(player_ptr);
 
-#ifdef JP
-	prt("ゲームをセーブしています...", 0, 0);
-#else
-	prt("Saving game...", 0, 0);
-#endif
+	prt(SYS_MESSAGE_GAME_SAVING, 0, 0);
 
 	Term_fresh();
 	(void)strcpy(gameover_from, COD_SAVE);
@@ -5687,12 +5683,7 @@ void do_cmd_save_game(int is_autosave)
 	/* Forbid suspend */
 	signals_ignore_tstp();
 
-#ifdef JP
-	prt("ゲームをセーブしています...", 0, 0);
-#else
-	prt("Saving game...", 0, 0);
-#endif
-
+	prt(SYS_MESSAGE_GAME_SAVING, 0, 0);
 	if(save_player()) prt(KW_DONE, 0, 40);
 	else prt(KW_FAILED, 0, 40);
 
@@ -5701,7 +5692,6 @@ void do_cmd_save_game(int is_autosave)
 	Term_fresh();
 	(void)strcpy(gameover_from, COD_ALIVE_AND_WELL);
 
-	//TODO update__creature(creature_ptr, TRUE);
 }
 
 
