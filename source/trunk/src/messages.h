@@ -658,6 +658,14 @@
 #define GAME_MESSAGE_OBJECT_DUSTED (plural ? " become dust." : " becomes dust.")
 #endif
 
+#ifdef JP
+#define GAME_MESSAGE_DIGGING_PERMANENT1 "Ç±ÇÃä‚ÇÕçdÇ∑Ç¨Çƒå@ÇÍÇ»Ç¢ÇÊÇ§ÇæÅB"
+#define GAME_MESSAGE_DIGGING_PERMANENT2 "ÇªÇ±ÇÕå@ÇÍÇ»Ç¢!"
+#else
+#define GAME_MESSAGE_DIGGING_PERMANENT1 "This seems to be permanent rock."
+#define GAME_MESSAGE_DIGGING_PERMANENT2 "You can't tunnel through that!"
+#endif
+
 
 
 // Cause of Death

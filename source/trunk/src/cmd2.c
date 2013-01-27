@@ -1167,25 +1167,10 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 
 	if(have_flag(f_ptr->flags, FF_PERMANENT))
 	{
-		/* Titanium */
 		if(have_flag(mimic_f_ptr->flags, FF_PERMANENT))
-		{
-#ifdef JP
-			msg_print("Ç±ÇÃä‚ÇÕçdÇ∑Ç¨Çƒå@ÇÍÇ»Ç¢ÇÊÇ§ÇæÅB");
-#else
-			msg_print("This seems to be permanent rock.");
-#endif
-		}
-
-		/* Map border (mimiccing Permanent wall) */
+			msg_print(GAME_MESSAGE_DIGGING_PERMANENT1);
 		else
-		{
-#ifdef JP
-			msg_print("ÇªÇ±ÇÕå@ÇÍÇ»Ç¢!");
-#else
-			msg_print("You can't tunnel through that!");
-#endif
-		}
+			msg_print(GAME_MESSAGE_DIGGING_PERMANENT2);
 	}
 
 	/* Dig or tunnel */
