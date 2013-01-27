@@ -5829,22 +5829,8 @@ static void print_tomb(creature_type *creature_ptr)
 			my_fclose(fp);
 		}
 
-		/* King or Queen */
-		if(creature_ptr->total_winner || (creature_ptr->lev > CREATURE_MAX_LEVEL))
-		{
-#ifdef JP
-			/* ‰p“úØ‚è‘Ö‚¦ */
-			p= "ˆÌ‘å‚È‚éŽÒ";
-#else
-			p = "Magnificent";
-#endif
-		}
-
-		/* Normal */
-		else
-		{
-			p = class_info[creature_ptr->class_idx].title;
-		}
+		if(creature_ptr->total_winner || (creature_ptr->lev > CREATURE_MAX_LEVEL)) p = KW_WINNER;
+		else p = class_info[creature_ptr->class_idx].title;
 
 		center_string(buf, creature_ptr->name);
 		put_str(buf, 6, 11);
@@ -5853,26 +5839,17 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, "the");
 		put_str(buf, 7, 11);
 #endif
-
 		center_string(buf, p);
 		put_str(buf, 8, 11);
 
 		center_string(buf, class_info[creature_ptr->class_idx].title);
 		put_str(buf, 10, 11);
 
-#ifdef JP
-		(void)sprintf(tmp, "ƒŒƒxƒ‹: %d", (int)creature_ptr->lev);
-#else
-		(void)sprintf(tmp, "Level: %d", (int)creature_ptr->lev);
-#endif
+		(void)sprintf(tmp, "%s: %d", KW_LEVEL, (int)creature_ptr->lev);
 		center_string(buf, tmp);
 		put_str(buf, 11, 11);
 
-#ifdef JP
-		(void)sprintf(tmp, "ŒoŒ±’l: %ld", (long)creature_ptr->exp);
-#else
-		(void)sprintf(tmp, "Exp: %ld", (long)creature_ptr->exp);
-#endif
+		(void)sprintf(tmp, "%s: %ld", KW_EXP, (long)creature_ptr->exp);
 		center_string(buf, tmp);
 		put_str(buf, 12, 11);
 
