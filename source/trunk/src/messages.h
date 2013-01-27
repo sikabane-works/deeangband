@@ -661,9 +661,13 @@
 #ifdef JP
 #define GAME_MESSAGE_DIGGING_PERMANENT1 "Ç±ÇÃä‚ÇÕçdÇ∑Ç¨Çƒå@ÇÍÇ»Ç¢ÇÊÇ§ÇæÅB"
 #define GAME_MESSAGE_DIGGING_PERMANENT2 "ÇªÇ±ÇÕå@ÇÍÇ»Ç¢!"
+#define GAME_MESSAGE_DIGGED1(NAME) ("%sÇÇ≠Ç∏ÇµÇΩÅB", (NAME))
+#define GAME_MESSAGE_DIGGED2(NAME) ("%sÇÇ≠Ç∏ÇµÇƒÇ¢ÇÈÅB", (NAME))
 #else
 #define GAME_MESSAGE_DIGGING_PERMANENT1 "This seems to be permanent rock."
 #define GAME_MESSAGE_DIGGING_PERMANENT2 "You can't tunnel through that!"
+#define GAME_MESSAGE_DIGGED1(NAME) ("You have removed the %s.", (NAME))
+#define GAME_MESSAGE_DIGGED2(NAME) ("You dig into the %s.", (NAME))
 #endif
 
 

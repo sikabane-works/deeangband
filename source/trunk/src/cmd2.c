@@ -1179,11 +1179,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 		/* Dig */
 		if(creature_ptr->skill_dig > randint0(20 * power))
 		{
-#ifdef JP
-			msg_format("%s‚ğ‚­‚¸‚µ‚½B", name);
-#else
-			msg_format("You have removed the %s.", name);
-#endif
+			msg_format(GAME_MESSAGE_DIGGED1(name));
 
 			/* Remove the feature */
 			cave_alter_feat(floor_ptr, y, x, FF_TUNNEL);
@@ -1194,12 +1190,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 		else
 		{
 			/* Message, keep digging */
-#ifdef JP
-			msg_format("%s‚ğ‚­‚¸‚µ‚Ä‚¢‚éB", name);
-#else
-			msg_format("You dig into the %s.", name);
-#endif
-
+			msg_format(GAME_MESSAGE_DIGGED2(name));
 			more = TRUE;
 		}
 	}
