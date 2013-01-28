@@ -2362,12 +2362,7 @@ static void castle_quest(creature_type *creature_ptr)
 
 			quest_ptr->cur_num = 0;
 			name = (species_name + species_ptr->name);
-#ifdef JP
-			msg_format("クエスト: %sを %d体倒す", name,quest_ptr->max_num);
-#else
-			msg_format("Your quest: kill %d %s", quest_ptr->max_num, name);
-#endif
-
+			msg_format(MES_QUEST_DEFAULT_KILLING, name,quest_ptr->max_num);
 		}
 		else get_questinfo(q_index);
 
