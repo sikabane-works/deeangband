@@ -1205,7 +1205,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_COUNT "‰ñ”: "
 	#define PROMPT_REST "‹xŒe (0-9999, '*' ‚Å HP/MP‘S‰õ, '&' ‚Å•K—v‚È‚¾‚¯): "
 	#define PROMPT_PICK "%s‚ğE‚¢‚Ü‚·‚©? " 
-	#define PROMPT_DIRECTION "•ûŒü (ESC‚Å’†’f)? "
+	#define PROMPT_DIRECTION "•ûŒü‚Í(ESC‚Å’†’f)? "
 #else
 	#define PROMPT_COMMAND "Command: "
 	#define PROMPT_KEYPRESS "Keypress: "

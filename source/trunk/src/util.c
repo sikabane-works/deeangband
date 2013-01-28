@@ -2933,13 +2933,13 @@ void put_str(cptr str, int row, int col)
  */
 void c_prt(byte attr, cptr str, int row, int col)
 {
-	int c = 0, n = 0;
-	int length = strlen(str);
-	while(c < length)
+	int c = 0, n = 1;
+	while(1)
 	{
 		for(; str[n] != '\n' && str[n]; n++);
 		Term_erase(col, row, 255);
 		Term_addstr(-1, attr, str + c);
+		if(!str[n]) break;
 		c = ++n;
 		row++;
 	}
