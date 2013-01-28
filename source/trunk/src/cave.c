@@ -688,17 +688,8 @@ static void image_object(byte *ap, char *cp)
  */
 static void image_random(byte *ap, char *cp)
 {
-	/* Normally, assume creatures */
-	if(randint0(100) < 75)
-	{
-		image_creature(ap, cp);
-	}
-
-	/* Otherwise, assume objects */
-	else
-	{
-		image_object(ap, cp);
-	}
+	if(PERCENT(75)) image_creature(ap, cp);
+	else image_object(ap, cp);
 }
 
 /*
@@ -4688,7 +4679,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 		}
 
 		/* Handle item */
-		if(have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (randint0(100) < (15 - floor_ptr->floor_level / 2)))
+		if(have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (PERCENT(15 - floor_ptr->floor_level / 2)))
 		{
 			/* Place object */
 			place_object(floor_ptr, y, x, 0L, NULL);

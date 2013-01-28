@@ -1300,7 +1300,7 @@ static int creature_critical(int dice, int sides, int dam)
 	/* Super-charge */
 	if(dam >= 20)
 	{
-		while (randint0(100) < 2) max++;
+		while (PERCENT(2)) max++;
 	}
 
 	/* Critical damage */
@@ -2812,7 +2812,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		if(do_cut && do_stun)
 		{
 			// Cancel cut or stun
-			if(randint0(100) < 50) do_cut = 0;
+			if(PERCENT(50)) do_cut = 0;
 			else do_stun = 0;
 		}
 
@@ -3235,7 +3235,7 @@ static void tramping_attack(creature_type *attacker_ptr, creature_type *target_p
 		if(100 * target_ptr->chp / target_ptr->mhp < 10) prob = prob * 3 / 2; 
 		if(prob > MAX_CHANCE) prob = MAX_CHANCE;
 
-		if(attacker_ptr->size > target_ptr->size && randint0(100) < prob)
+		if(attacker_ptr->size > target_ptr->size && PERCENT(prob))
 		{
 			int k;
 #ifdef JP

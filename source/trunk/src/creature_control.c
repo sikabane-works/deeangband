@@ -818,7 +818,7 @@ void compact_creatures(int size)
 			if(has_trait_species(species_ptr, TRAIT_UNIQUE)) chance = 100;
 
 			/* All creatures get a saving throw */
-			if(randint0(100) < chance) continue;
+			if(PERCENT(chance)) continue;
 
 			if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 			{

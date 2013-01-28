@@ -1432,7 +1432,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = damage / 5;
 
-			damage = damage / 100 + (randint0(100) < (damage % 100));
+			damage = damage / 100 + (PERCENT((damage % 100)));
 
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY))
 			{
@@ -1471,7 +1471,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
 			damage = calc_damage(NULL, creature_ptr, damage, DO_EFFECT_POIS, FALSE, FALSE);
 
-			damage = damage / 100 + (randint0(100) < (damage % 100));
+			damage = damage / 100 + (PERCENT((damage % 100)));
 
 #ifdef JP
 			msg_format("%s‚É“Å‚³‚ê‚½I", name);
@@ -1495,7 +1495,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		{
 			cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
 			damage = calc_damage(NULL, creature_ptr, damage, DO_EFFECT_ACID, FALSE, FALSE);
-			damage = damage / 100 + (randint0(100) < (damage % 100));
+			damage = damage / 100 + (PERCENT((damage % 100)));
 #ifdef JP
 			msg_format("%s‚ÉÄ‚©‚ê‚½I", name);
 #else

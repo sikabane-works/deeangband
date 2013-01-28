@@ -425,7 +425,7 @@ void search(creature_type *creature_ptr)
 	{
 		for (x = (creature_ptr->fx - 1); x <= (creature_ptr->fx + 1); x++)
 		{
-			if(randint0(100) < chance) // Sometimes, notice things
+			if(PERCENT(chance)) // Sometimes, notice things
 			{
 				c_ptr = &floor_ptr->cave[y][x]; // Access the grid
 				if(c_ptr->mimic && is_trap(c_ptr->feat)) // Invisible trap
@@ -800,7 +800,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				name = COD_PIT_TRAP;
 				dam = diceroll(2, 6); // Base damage
 
-				if(randint0(100) < 50) // Extra spike damage
+				if(PERCENT(50)) // Extra spike damage
 				{
 #ifdef JP
 					msg_print("スパイクが刺さった！");
@@ -838,7 +838,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				dam = diceroll(2, 6); // Base damage
 
 				// Extra spike damage
-				if(randint0(100) < 50)
+				if(PERCENT(50))
 				{
 #ifdef JP
 					msg_print("毒を塗られたスパイクが刺さった！");

@@ -761,7 +761,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	chance = mod_spell_chance_2(creature_ptr, chance);
 
 	/* Failed spell */
-	if(randint0(100) < chance)
+	if(PERCENT(chance))
 	{
 		if(flush_failure) flush();
 #ifdef JP
@@ -810,9 +810,9 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 		(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, randint1(5 * oops + 1), TRUE);
 
 		/* Damage CON (possibly permanently) */
-		if(randint0(100) < 50)
+		if(PERCENT(50))
 		{
-			bool perm = (randint0(100) < 25);
+			bool perm = (PERCENT(25));
 #ifdef JP
 			msg_print("‘Ì‚ðˆ«‚­‚µ‚Ä‚µ‚Ü‚Á‚½I");
 #else

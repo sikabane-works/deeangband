@@ -605,7 +605,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	}
 
 	/* Choose up or down */
-	if(randint0(100) < 50) go_up = TRUE;
+	if(PERCENT(50)) go_up = TRUE;
 	else go_up = FALSE;
 
 	if((m_idx <= 0) && wizard)
@@ -998,16 +998,16 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 	pval = object_ptr->pval;
 
 	if(object_ptr->to_hit > 0) object_ptr->to_hit--;
-	if((object_ptr->to_hit > 5) && (randint0(100) < 20)) object_ptr->to_hit--;
+	if((object_ptr->to_hit > 5) && (PERCENT(20))) object_ptr->to_hit--;
 	if(object_ptr->to_damage > 0) object_ptr->to_damage--;
-	if((object_ptr->to_damage > 5) && (randint0(100) < 20)) object_ptr->to_damage--;
+	if((object_ptr->to_damage > 5) && (PERCENT(20))) object_ptr->to_damage--;
 
 	if(object_ptr->to_ac > 0) object_ptr->to_ac--;
-	if((object_ptr->to_ac > 5) && (randint0(100) < 20)) object_ptr->to_ac--;
+	if((object_ptr->to_ac > 5) && (PERCENT(20))) object_ptr->to_ac--;
 	if(object_ptr->to_ev > 0) object_ptr->to_ev--;
-	if((object_ptr->to_ev > 5) && (randint0(100) < 20)) object_ptr->to_ev--;
+	if((object_ptr->to_ev > 5) && (PERCENT(20))) object_ptr->to_ev--;
 	if(object_ptr->to_vo > 0) object_ptr->to_vo--;
-	if((object_ptr->to_vo > 5) && (randint0(100) < 20)) object_ptr->to_vo--;
+	if((object_ptr->to_vo > 5) && (PERCENT(20))) object_ptr->to_vo--;
 
 	/* Disenchant pval (occasionally) */
 	/* Unless called from wild_magic() */
@@ -2111,7 +2111,7 @@ msg_format("%sを＄%d の金に変えた。", object_name, price);
  */
 static void break_curse(object_type *object_ptr)
 {
-	if(object_is_cursed(object_ptr) && !(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) && !(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) && (randint0(100) < 25))
+	if(object_is_cursed(object_ptr) && !(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) && !(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) && (PERCENT(25)))
 	{
 #ifdef JP
 		msg_print("かけられていた呪いが打ち破られた！");
@@ -2173,7 +2173,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 			else if(object_ptr->to_hit > 15) chance = 1000;
 			else chance = enchant_table[object_ptr->to_hit];
 
-			if(force || ((randint1(1000) > chance) && (!a || (randint0(100) < 50))))
+			if(force || ((randint1(1000) > chance) && (!a || (PERCENT(50)))))
 			{
 				object_ptr->to_hit++;
 				res = TRUE;
@@ -2191,7 +2191,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 			else if(object_ptr->to_damage > 15) chance = 1000;
 			else chance = enchant_table[object_ptr->to_damage];
 
-			if(force || ((randint1(1000) > chance) && (!a || (randint0(100) < 50))))
+			if(force || ((randint1(1000) > chance) && (!a || (PERCENT(50)))))
 			{
 				object_ptr->to_damage++;
 				res = TRUE;
@@ -2209,7 +2209,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 			else if(object_ptr->to_ac > 15) chance = 1000;
 			else chance = enchant_table[object_ptr->to_ac];
 
-			if(force || ((randint1(1000) > chance) && (!a || (randint0(100) < 50))))
+			if(force || ((randint1(1000) > chance) && (!a || (PERCENT(50)))))
 			{
 				object_ptr->to_ac++;
 				res = TRUE;
@@ -3173,7 +3173,7 @@ bool bless_weapon(creature_type *creature_ptr)
 			dis_happened = TRUE;
 		}
 
-		if((object_ptr->to_hit > 5) && (randint0(100) < 33)) object_ptr->to_hit--;
+		if((object_ptr->to_hit > 5) && (PERCENT(33))) object_ptr->to_hit--;
 
 		/* Disenchant todam */
 		if(object_ptr->to_damage > 0)
@@ -3182,7 +3182,7 @@ bool bless_weapon(creature_type *creature_ptr)
 			dis_happened = TRUE;
 		}
 
-		if((object_ptr->to_damage > 5) && (randint0(100) < 33)) object_ptr->to_damage--;
+		if((object_ptr->to_damage > 5) && (PERCENT(33))) object_ptr->to_damage--;
 
 		/* Disenchant toac */
 		if(object_ptr->to_ac > 0)
@@ -3191,7 +3191,7 @@ bool bless_weapon(creature_type *creature_ptr)
 			dis_happened = TRUE;
 		}
 
-		if((object_ptr->to_ac > 5) && (randint0(100) < 33)) object_ptr->to_ac--;
+		if((object_ptr->to_ac > 5) && (PERCENT(33))) object_ptr->to_ac--;
 
 		if(dis_happened)
 		{
@@ -4293,7 +4293,7 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 			/* Count the casualties */
 			for (amt = j = 0; j < object_ptr->number; ++j)
 			{
-				if(randint0(100) < perc) amt++;
+				if(PERCENT(perc)) amt++;
 			}
 
 			/* Some casualities */
@@ -4487,7 +4487,7 @@ bool curse_armor(creature_type *creature_ptr)
 	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw for artifacts */
-	if(object_is_artifact(object_ptr) && (randint0(100) < 50))
+	if(object_is_artifact(object_ptr) && (PERCENT(50)))
 	{
 #ifdef JP
 		msg_format("%sが%sを包み込もうとしたが、%sはそれを跳ね返した！", "恐怖の暗黒オーラ", "防具", object_name);
@@ -4522,7 +4522,7 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 	if(!is_valid_object(object_ptr)) return FALSE;	// Nothing to curse
 	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);	// Describe
 
-	if(object_is_artifact(object_ptr) && (randint0(100) < 50) && !force)	// Attempt a saving throw
+	if(object_is_artifact(object_ptr) && (PERCENT(50)) && !force)	// Attempt a saving throw
 	{
 #ifdef JP
 		msg_format("%sが%sを包み込もうとしたが、%sはそれを跳ね返した！", "恐怖の暗黒オーラ", "武器", object_name);
@@ -4558,7 +4558,7 @@ bool brand_bolts(creature_type *creature_ptr)
 		// Only normal items
 		if(object_is_artifact(object_ptr) || object_is_ego(object_ptr)) continue;
 		if(object_is_cursed(object_ptr) || object_is_broken(object_ptr)) continue;
-		if(randint0(100) < 75) continue;	// Randomize
+		if(PERCENT(75)) continue;	// Randomize
 
 #ifdef JP
 		msg_print("クロスボウの矢が炎のオーラに包まれた！");

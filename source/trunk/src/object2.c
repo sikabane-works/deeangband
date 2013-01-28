@@ -280,7 +280,7 @@ void compact_objects(int size)
 				x = m_ptr->fx;
 
 				/* Creatures protect their objects */
-				if(randint0(100) < 90) continue;
+				if(PERCENT(90)) continue;
 			}
 
 			/* Dungeon */
@@ -302,7 +302,7 @@ void compact_objects(int size)
 				(cnt < 1000)) chance = 100;
 
 			/* Apply the saving throw */
-			if(randint0(100) < chance) continue;
+			if(PERCENT(chance)) continue;
 
 			/* Delete the object */
 			delete_object_idx(i);
@@ -2592,13 +2592,13 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 	power = ITEM_RANK_NORMAL;
 
 	/* Roll for "good" */
-	if((mode & AM_GOOD) || magik(f1))
+	if((mode & AM_GOOD) || PERCENT(f1))
 	{
 		/* Assume "good" */
 		power = ITEM_RANK_GOOD;
 
 		/* Roll for "great" */
-		if((mode & AM_GREAT) || magik(f2))
+		if((mode & AM_GREAT) || PERCENT(f2))
 		{
 			power = ITEM_RANK_GREAT;
 
@@ -2608,13 +2608,13 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 	}
 
 	/* Roll for "cursed" */
-	else if(magik(f1) && !(mode & AM_UNCURSED))
+	else if(PERCENT(f1) && !(mode & AM_UNCURSED))
 	{
 		/* Assume "cursed" */
 		power = ITEM_RANK_CURSED;
 
 		/* Roll for "broken" */
-		if(magik(f2)) power = ITEM_RANK_BROKEN;
+		if(PERCENT(f2)) power = ITEM_RANK_BROKEN;
 	}
 
 	/* Apply curse */
@@ -3139,7 +3139,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 	object_desc(object_name, object2_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	// Handle normal "breakage"
-	if(!object_is_artifact(object2_ptr) && (randint0(100) < chance))
+	if(!object_is_artifact(object2_ptr) && (PERCENT(chance)))
 	{
 		if(creature_can_see_bold(player_ptr, y, x))
 		{

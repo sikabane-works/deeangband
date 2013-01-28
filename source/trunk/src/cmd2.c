@@ -372,7 +372,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 		object_wipe(quest_ptr); // Wipe the object
 
 		// Small chests often drop gold
-		if(small && (randint0(100) < 25)) if(!make_gold(floor_ptr, quest_ptr, 0, 0)) continue; // Make some gold
+		if(small && (PERCENT(25))) if(!make_gold(floor_ptr, quest_ptr, 0, 0)) continue; // Make some gold
 		else if(!make_object(quest_ptr, mode, TRAIT_NO_CHEST, floor_ptr->object_level, NULL)) continue; // Make object
 
 		if(scatter) // If chest scatters its contents, pick any floor square.
@@ -621,7 +621,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 		if(j < 2) j = 2;
 
 		/* Success -- May still have traps */
-		if(randint0(100) < j)
+		if(PERCENT(j))
 		{
 			msg_print(GAME_MESSAGE_SUCCESS_PICKING);
 			gain_exp(creature_ptr, 1);
@@ -813,7 +813,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 		/* Always have a small chance of success */
 		if(j < 2) j = 2;
 
-		if(randint0(100) < j)
+		if(PERCENT(j))
 		{
 			msg_print(GAME_MESSAGE_SUCCESS_PICKING);
 			cave_alter_feat(floor_ptr, y, x, FF_OPEN); // Open the door
@@ -1237,7 +1237,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 				msg_format("You chop away at the %s.", name);
 #endif
 				/* Occasional Search XXX XXX */
-				if(randint0(100) < 25) search(creature_ptr);
+				if(PERCENT(25)) search(creature_ptr);
 			}
 			else
 			{
@@ -1256,7 +1256,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 	if(is_hidden_door(c_ptr))
 	{
 		/* Occasional Search XXX XXX */
-		if(randint0(100) < 25) search(creature_ptr);
+		if(PERCENT(25)) search(creature_ptr);
 	}
 
 	return more;
@@ -1382,7 +1382,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 		/* Always have a small chance of success */
 		if(j < 2) j = 2;
 
-		if(randint0(100) < j)
+		if(PERCENT(j))
 		{
 			msg_print(GAME_MESSAGE_SUCCESS_PICKING);
 			cave_alter_feat(floor_ptr, y, x, FF_OPEN);
@@ -1442,7 +1442,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	else if(object_ptr->pval <= 0) msg_print("The chest is not trapped.");
 	else if(!chest_traps[object_ptr->pval]) msg_print("The chest is not trapped.");
 #endif
-	else if(randint0(100) < j) // Success (get a lot of experience)
+	else if(PERCENT(j)) // Success (get a lot of experience)
 	{
 #ifdef JP
 		msg_print("箱に仕掛けられていたトラップを解除した。");
@@ -1529,7 +1529,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* Always have a small chance of success */
 	if(j < 2) j = 2;
 
-	if(randint0(100) < j)
+	if(PERCENT(j))
 	{
 #ifdef JP
 		msg_format("%sを解除した。", name);
@@ -1705,7 +1705,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	if(temp < 1) temp = 1;
 
 	/* Hack -- attempt to bash down the door */
-	if(randint0(100) < temp)
+	if(PERCENT(temp))
 	{
 #ifdef JP
 		msg_format("%sを壊した！", name);
@@ -1716,7 +1716,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 		sound(have_flag(f_ptr->flags, FF_GLASS) ? SOUND_GLASS : SOUND_OPENDOOR);
 
 		/* Break down the door */
-		if((randint0(100) < 50) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
+		if((PERCENT(50)) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
 			cave_alter_feat(floor_ptr, y, x, FF_BASH);
 
 		/* Open the door */

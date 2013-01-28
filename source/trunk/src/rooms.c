@@ -1198,7 +1198,7 @@ static bool build_type4(floor_type *floor_ptr)
 			vault_creatures(floor_ptr, yval, xval, randint1(3) + 2);
 
 			/* Object (80%) */
-			if(randint0(100) < 80)
+			if(PERCENT(80))
 			{
 				place_object(floor_ptr, yval, xval, 0L, NULL);
 			}
@@ -1353,7 +1353,7 @@ static bool build_type4(floor_type *floor_ptr)
 			}
 
 			/* Doors into the rooms */
-			if(randint0(100) < 50)
+			if(PERCENT(50))
 			{
 				int i = randint1(10);
 				place_secret_door(floor_ptr, y1 - 1, xval - i, door_type);
@@ -2680,7 +2680,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 
 				/* Treasure/trap */
 			case '*':
-				if(randint0(100) < 75)
+				if(PERCENT(75))
 				{
 					place_object(floor_ptr, y, x, 0L, NULL);
 				}
@@ -2834,13 +2834,13 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				/* Creature and/or object */
 				case ',':
 				{
-					if(randint0(100) < 50)
+					if(PERCENT(50))
 					{
 						floor_ptr->creature_level = floor_ptr->base_level + 3;
 						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 						floor_ptr->creature_level = floor_ptr->base_level;
 					}
-					if(randint0(100) < 50)
+					if(PERCENT(50))
 					{
 						floor_ptr->object_level = floor_ptr->base_level + 7;
 						place_object(floor_ptr, y, x, 0L, NULL);
@@ -4083,7 +4083,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				else if(value < 23)
 				{
 					/* Object or trap */
-					if(randint0(100) < 25)
+					if(PERCENT(25))
 					{
 						place_object(floor_ptr, y, x, 0L, NULL);
 					}
@@ -4103,13 +4103,13 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				else if(value < 40)
 				{
 					/* Creature or object */
-					if(randint0(100) < 50)
+					if(PERCENT(50))
 					{
 						floor_ptr->creature_level = floor_ptr->base_level + 3;
 						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 						floor_ptr->creature_level = floor_ptr->base_level;
 					}
-					if(randint0(100) < 50)
+					if(PERCENT(50))
 					{
 						floor_ptr->object_level = floor_ptr->base_level + 7;
 						place_object(floor_ptr, y, x, 0L, NULL);
@@ -4126,15 +4126,15 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					/* Various Stuff */
 
 					/* 20% creature, 40% trap, 20% object, 20% blank space */
-					if(randint0(100) < 20)
+					if(PERCENT(20))
 					{
 						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					}
-					else if(randint0(100) < 50)
+					else if(PERCENT(50))
 					{
 						place_trap(floor_ptr, y, x);
 					}
-					else if(randint0(100) < 50)
+					else if(PERCENT(50))
 					{
 						place_object(floor_ptr, y, x, 0L, NULL);
 					}

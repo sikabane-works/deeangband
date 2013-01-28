@@ -54,7 +54,7 @@ static bool int_outof(species_type *species_ptr, int prob)
 	if(!has_trait_species(species_ptr, TRAIT_SMART)) prob = prob / 2;
 
 	// Roll the dice
-	return (randint0(100) < prob);
+	return (PERCENT(prob));
 }
 
 
@@ -84,7 +84,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 	/* Update acquired knowledge */
 	if(smart_learn)
 	{
-		//TODO if(caster_ptr->smart && (randint0(100) < 1)) caster_ptr->smart &= (SM_FRIENDLY | SM_PET | SM_CLONED);
+		//TODO if(caster_ptr->smart && (PERCENT(1))) caster_ptr->smart &= (SM_FRIENDLY | SM_PET | SM_CLONED);
 	}
 
 
@@ -360,7 +360,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	/*** Try to pick an appropriate spell type ***/
 
 	/* world */
-	if(world_num && (randint0(100) < 15) && !the_world)
+	if(world_num && (PERCENT(15)) && !the_world)
 	{
 		return (world[randint0(world_num)]);	// Choose haste spell
 	}
@@ -405,27 +405,27 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 			case SPECIES_LUPART:
 				break;
 			case SPECIES_BANORLUPART:
-				if(randint0(100) < 70) success = TRUE;
+				if(PERCENT(70)) success = TRUE;
 				break;
 			case SPECIES_ROLENTO:
-				if(randint0(100) < 40) success = TRUE;
+				if(PERCENT(40)) success = TRUE;
 				break;
 			default:
-				if(randint0(100) < 50) success = TRUE;
+				if(PERCENT(50)) success = TRUE;
 				break;
 		}
 		if(success) return (special[randint0(special_num)]);
 	}
 
 	/* Player is close and we have attack spells, blink away */
-	if((distance(target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx) < 4) && (attack_num || has_trait_raw(&species_ptr->flags, TRAIT_TRAPS)) && (randint0(100) < 75) && !the_world)
+	if((distance(target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx) < 4) && (attack_num || has_trait_raw(&species_ptr->flags, TRAIT_TRAPS)) && (PERCENT(75)) && !the_world)
 	{
 		/* Choose tactical spell */
 		if(tactic_num) return (tactic[randint0(tactic_num)]);
 	}
 
 	/* Summon if possible (sometimes) */
-	if(summon_num && (randint0(100) < 40))
+	if(summon_num && (PERCENT(40)))
 	{
 		/* Choose summon spell */
 		return (summon[randint0(summon_num)]);
@@ -442,7 +442,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Raise-dead if possible (sometimes) */
-	if(raise_num && (randint0(100) < 40))
+	if(raise_num && (PERCENT(40)))
 	{
 		/* Choose raise-dead spell */
 		return (raise[randint0(raise_num)]);
@@ -451,53 +451,53 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	/* Attack spell (most of the time) */
 	if(IS_INVULN(target_ptr))
 	{
-		if(psy_spe_num && (randint0(100) < 50))
+		if(psy_spe_num && (PERCENT(50)))
 		{
 			/* Choose attack spell */
 			return (psy_spe[randint0(psy_spe_num)]);
 		}
-		else if(attack_num && (randint0(100) < 40))
+		else if(attack_num && (PERCENT(40)))
 		{
 			/* Choose attack spell */
 			return (attack[randint0(attack_num)]);
 		}
 	}
-	else if(attack_num && (randint0(100) < 85))
+	else if(attack_num && (PERCENT(85)))
 	{
 		/* Choose attack spell */
 		return (attack[randint0(attack_num)]);
 	}
 
 	/* Try another tactical spell (sometimes) */
-	if(tactic_num && (randint0(100) < 50) && !the_world)
+	if(tactic_num && (PERCENT(50)) && !the_world)
 	{
 		/* Choose tactic spell */
 		return (tactic[randint0(tactic_num)]);
 	}
 
 	/* Cast globe of invulnerability if not already in effect */
-	if(invul_num && !has_trait(caster_ptr, TRAIT_INVULNERABLE) && (randint0(100) < 50))
+	if(invul_num && !has_trait(caster_ptr, TRAIT_INVULNERABLE) && (PERCENT(50)))
 	{
 		/* Choose Globe of Invulnerability */
 		return (invul[randint0(invul_num)]);
 	}
 
 	/* We're hurt (not badly), try to heal */
-	if((caster_ptr->chp < caster_ptr->mhp * 3 / 4) && (randint0(100) < 25))
+	if((caster_ptr->chp < caster_ptr->mhp * 3 / 4) && (PERCENT(25)))
 	{
 		/* Choose heal spell if possible */
 		if(heal_num) return (heal[randint0(heal_num)]);
 	}
 
 	/* Haste self if we aren't already somewhat hasted (rarely) */
-	if(haste_num && (randint0(100) < 20) && !caster_ptr->timed_trait[TRAIT_FAST])
+	if(haste_num && (PERCENT(20)) && !caster_ptr->timed_trait[TRAIT_FAST])
 	{
 		/* Choose haste spell */
 		return (haste[randint0(haste_num)]);
 	}
 
 	/* Annoy player (most of the time) */
-	if(annoy_num && (randint0(100) < 80))
+	if(annoy_num && (PERCENT(80)))
 	{
 		/* Choose annoyance spell */
 		return (annoy[randint0(annoy_num)]);
@@ -819,7 +819,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	{
 		/* Hack -- allow "desperate" spells */
 		if((caster_ptr->chp < caster_ptr->mhp / 10) &&
-			(randint0(100) < 50))
+			(PERCENT(50)))
 		{
 			/* Require intelligent spells */
 			//TODO f4 &= (RF4_INT_MASK);

@@ -25,7 +25,7 @@ bool cast_beam(creature_type *caster_ptr, int typ, int range, int dam, int trait
 
 bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, int dam, int prob)
 {
-	if(randint0(100) < prob) return (cast_beam(caster_ptr, range, typ, dam, 0));
+	if(PERCENT(prob)) return (cast_beam(caster_ptr, range, typ, dam, 0));
 	else return cast_bolt(caster_ptr, typ, range, dam, 0);
 }
 
@@ -1885,7 +1885,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 			c_ptr = &floor_ptr->cave[yy][xx];	// Access the grid
 			c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY | CAVE_UNSAFE | CAVE_GLOW | CAVE_MARK); // Lose room and vault
 			if(!dx && !dy) continue; // Skip the epicenter
-			if(randint0(100) < 85) continue; // Skip most grids
+			if(PERCENT(85)) continue; // Skip most grids
 			map[16+yy-cy][16+xx-cx] = TRUE;	// Damage this grid
 		}
 	}
@@ -2203,7 +2203,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 			if(has_trait(m_ptr, TRAIT_STUPID)) chance = 10; // Stupid creatures rarely wake up
 			if(has_trait(m_ptr, TRAIT_SMART)) chance = 100; // Smart creatures always wake up
 
-			if(has_trait_from_timed(m_ptr, TRAIT_SLEPT) && (randint0(100) < chance)) // Sometimes creatures wake up
+			if(has_trait_from_timed(m_ptr, TRAIT_SLEPT) && (PERCENT(chance))) // Sometimes creatures wake up
 				(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0, TRUE); // Wake up!
 		}
 

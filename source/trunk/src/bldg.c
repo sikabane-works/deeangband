@@ -1528,12 +1528,12 @@ void battle_creatures(void)
 		if(max_dl < max_dlv[i]) max_dl = max_dlv[i];
 
 	ave_creature_level = randint1(MIN(max_dl, 122)) + 5;
-	if(randint0(100) < 60)
+	if(PERCENT(60))
 	{
 		i = randint1(MIN(max_dl, 122))+5;
 		ave_creature_level = MAX(i, ave_creature_level);
 	}
-	if(randint0(100) < 30)
+	if(PERCENT(30))
 	{
 		i = randint1(MIN(max_dl, 122))+5;
 		ave_creature_level = MAX(i, ave_creature_level);

@@ -284,7 +284,7 @@ s16b randnor(int mean, int stand)
 	offset = (s16b)((long)stand * (long)low / RANDNOR_STD);
 
 	/* One half should be negative */
-	if(randint0(100) < 50) return (mean - offset);
+	if(PERCENT(50)) return (mean - offset);
 
 	/* One half should be positive */
 	return (mean + offset);

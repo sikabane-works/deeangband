@@ -321,7 +321,7 @@ msg_print("‚Ü‚Ë‚ç‚ê‚é‚à‚Ì‚ª‰½‚à‚È‚¢I");
 	if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 
 	/* Failed spell */
-	if(randint0(100) < chance)
+	if(PERCENT(chance))
 	{
 		if(flush_failure) flush();
 #ifdef JP

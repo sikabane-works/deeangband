@@ -664,7 +664,7 @@ bool inc_stat(creature_type *creature_ptr, int stat)
 	{
 		if(value < 180)
 		{
-			gain = ((randint0(100) < 75) ? 1 : 2);
+			gain = ((PERCENT(75)) ? 1 : 2);
 			value += gain;
 		}
 		else if(value < (creature_ptr->stat_mod_max_max[stat] - 20))
@@ -1907,7 +1907,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 		// Run (sometimes) if at 10% or less of max hit points,
 		// or (usually) when hit for half its current hit points
-		if((randint1(10) >= percentage) || ((damage >= target_ptr->chp) && (randint0(100) < 80))) fear = TRUE;
+		if((randint1(10) >= percentage) || ((damage >= target_ptr->chp) && (PERCENT(80)))) fear = TRUE;
 	}
 
 	if(fear && !has_trait(target_ptr, TRAIT_AFRAID))

@@ -1748,7 +1748,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 	if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 
 	/* Failed spell */
-	if(randint0(100) < chance)
+	if(PERCENT(chance))
 	{
 		if(flush_failure) flush();
 #ifdef JP
@@ -1921,9 +1921,9 @@ void do_cmd_mind(creature_type *creature_ptr)
 		(void)add_timed_trait(creature_ptr, TRAIT_SLEPT, randint1(5 * oops + 1), TRUE);
 
 		/* Damage WIS (possibly permanently) */
-		if(randint0(100) < 50)
+		if(PERCENT(50))
 		{
-			bool perm = (randint0(100) < 25);
+			bool perm = (PERCENT(25));
 
 #ifdef JP
 			msg_print("Ž©•ª‚Ì¸_‚ðUŒ‚‚µ‚Ä‚µ‚Ü‚Á‚½I");

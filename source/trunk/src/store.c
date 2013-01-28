@@ -2189,10 +2189,10 @@ static void store_delete(store_type *st_ptr)
 	num = st_ptr->stock[what].number;
 
 	/* Hack -- sometimes, only destroy half the items */
-	if(randint0(100) < 50) num = (num + 1) / 2;
+	if(PERCENT(50)) num = (num + 1) / 2;
 
 	/* Hack -- sometimes, only destroy a single item */
-	if(randint0(100) < 50) num = 1;
+	if(PERCENT(50)) num = 1;
 
 	/* Hack -- decrement the maximum timeouts and total charges of rods and wands. -LM- */
 	if((st_ptr->stock[what].tval == TV_ROD) || (st_ptr->stock[what].tval == TV_WAND))

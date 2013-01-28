@@ -874,7 +874,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		object_wipe(quest_ptr);
 
 		/* Make Gold */
-		if(do_gold && (!do_item || (randint0(100) < 50)))
+		if(do_gold && (!do_item || (PERCENT(50))))
 		{
 			/* Make some gold */
 			if(!make_gold(floor_ptr, quest_ptr, 0, get_coin_type(dead_ptr->species_idx))) continue;
@@ -2858,7 +2858,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 		/* Standard confusion */
-		if(randint0(100) < 75)
+		if(PERCENT(75))
 		{
 			/* Random direction */
 			dir = ddd[randint0(8)];
@@ -2872,18 +2872,18 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 		if(has_trait(steed_ptr, TRAIT_CONFUSED))
 		{
 			/* Standard confusion */
-			if(randint0(100) < 75)
+			if(PERCENT(75))
 			{
 				/* Random direction */
 				dir = ddd[randint0(8)];
 			}
 		}
-		else if(has_trait_species(species_ptr, TRAIT_RAND_25) && has_trait_species(species_ptr, TRAIT_RAND_50) && (randint0(100) < 50))
+		else if(has_trait_species(species_ptr, TRAIT_RAND_25) && has_trait_species(species_ptr, TRAIT_RAND_50) && (PERCENT(50)))
 		{
 			/* Random direction */
 			dir = ddd[randint0(8)];
 		}
-		else if(has_trait_species(species_ptr, TRAIT_RAND_25) && (randint0(100) < 25))
+		else if(has_trait_species(species_ptr, TRAIT_RAND_25) && (PERCENT(25)))
 		{
 			/* Random direction */
 			dir = ddd[randint0(8)];
@@ -2964,7 +2964,7 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 		/* Standard confusion */
-		if(randint0(100) < 75)
+		if(PERCENT(75))
 		{
 			/* Random direction */
 			dir = ddd[randint0(8)];
