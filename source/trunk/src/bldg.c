@@ -2362,15 +2362,11 @@ static void castle_quest(creature_type *creature_ptr)
 
 			quest_ptr->cur_num = 0;
 			name = (species_name + species_ptr->name);
-			msg_format(MES_QUEST_DEFAULT_KILLING, name,quest_ptr->max_num);
+			msg_format(MES_QUEST_DEFAULT_KILLING, name, quest_ptr->max_num);
 		}
 		else get_questinfo(q_index);
 
-#ifdef JP
-		if(!get_check(format("このクエストを受諾しますか？")))
-#else
-		if(!get_check(format("Accept this quest? ")))
-#endif
+		if(!get_check(MES_QUEST_ASK_ACCEPT))
 		{
 			clear_bldg(4, 18);
 			return;
@@ -2378,11 +2374,7 @@ static void castle_quest(creature_type *creature_ptr)
 
 		quest_ptr->status = QUEST_STATUS_TAKEN;
 		creature_ptr->reinit_wilderness = TRUE;
-#ifdef JP
-		msg_format("クエスト『%s』を受諾しました。", quest_ptr->name);
-#else
-		msg_format("You accepted the quest, '%s'. ", quest_ptr->name);
-#endif
+		msg_format(MES_QUEST_ACCEPT, quest_ptr->name);
 		clear_bldg(4, 18);
 
 	}
