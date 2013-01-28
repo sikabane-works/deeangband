@@ -1402,6 +1402,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_ACCEPT "クエスト『%s』を受諾しました。"
 #define MES_QUEST_NO_ENTRANCE "ここにはクエストの入口はない"
 #define MES_QUEST_ENTRANCE "ここにはクエストへの入口があります。"
+#define MES_QUEST_ASK_ENTER "クエストに入りますか？"
 #else
 #define MES_QUEST_NO_QUEST "I don't have a quest for you at the moment."
 #define MES_QUEST_DEFAULT_KILLING "Your quest: kill %d %s"
@@ -1410,4 +1411,5 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_ACCEPT "You accepted the quest, '%s'. "
 #define MES_QUEST_NO_ENTRANCE "You see no quest level here."
 #define MES_QUEST_ENTRANCE "There is an entry of a quest."
+#define MES_QUEST_ASK_ENTER "Do you enter? "
 #endif

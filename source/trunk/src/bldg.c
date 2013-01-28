@@ -3619,14 +3619,12 @@ void do_cmd_quest(creature_type *creature_ptr)
 	else
 	{
 		msg_print(MES_QUEST_ENTRANCE);
+		if(!get_check(MES_QUEST_ASK_ENTER)) return;
 #ifdef JP
-		if(!get_check("クエストに入りますか？")) return;
 		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK))
 			msg_print("『とにかく入ってみようぜぇ。』");
 		if(has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK))
 			msg_print("『全滅してやるぞ！』");
-#else
-		if(!get_check("Do you enter? ")) return;
 #endif
 
 		// Player enters a new quest
