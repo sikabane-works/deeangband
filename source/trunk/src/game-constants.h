@@ -10,8 +10,6 @@
 
 #define STORE_MIN_STOCK 12
 
-#define MAX_CAMPAIGNS 3
-
 #define TY_CURSE_CHANCE 200
 #define CHAINSWORD_NOISE 100
 

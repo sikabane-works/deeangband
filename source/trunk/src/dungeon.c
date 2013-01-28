@@ -5036,33 +5036,23 @@ static void new_game_setting(void)
 	/* Quick start? */
 	if(!ask_quick_start(player_ptr))
 	{
-		/* No, initial start */
+		// No, initial start
 		int mode, species;
 		Term_clear();
 		mode = select_mode();
-		if(mode == 0)
+		if(mode == CAMPAIGN_FATE_OF_STIGMA || mode == CAMPAIGN_CURSE_OF_ILUVATAR)
 		{
 			species = SPECIES_STIGMATIC_ONE;
 			unique_play = FALSE;
 		}
 		else
 		{
-			Term_clear();
 			species = select_unique_species();
 			unique_play = TRUE;
-#ifdef JP
-			do_cmd_write_diary(DIARY_BUNSHOU, 0, "ユニークモードを選択した");
-#else
-			do_cmd_write_diary(DIARY_BUNSHOU, 0, "select unique mode.");
-#endif
 			noscore |= 0x0010;
 		}
 
-#ifdef JP
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, format("キャンペーン「%s」を選択した", campaign_name[mode]));
-#else
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, format("Select Campaign '%s'", campaign_name[mode]));
-#endif
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, format(DIARY_SELECTMODE, campaign_name[mode]));
 
 		// Initial game mode
 		screen_save();
