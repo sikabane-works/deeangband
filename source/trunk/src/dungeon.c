@@ -5132,11 +5132,7 @@ static void accidental_death(void)
 	else
 	{
 		// Mega-Hack -- Allow player to cheat death
-#ifdef JP
-		if((wizard || cheat_live) && !get_check("Ž€‚É‚Ü‚·‚©? ")) cheat_death();
-#else
-		if((wizard || cheat_live) && !get_check("Die? ")) cheat_death();
-#endif
+		if((wizard || cheat_live) && !get_check(DEBUG_MESSAGE_DIE_CHOICE)) cheat_death();
 	}
 }
 
