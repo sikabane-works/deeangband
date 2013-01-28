@@ -10,6 +10,7 @@
 
 #ifdef JP
 
+#define SYS_MESSAGE_STARTING_GAME "ゲームを開始します。お待ち下さい..."
 #define SYS_MESSAGE_FAILED_TEMPFILE "一時ファイル %s を作成できませんでした。"
 #define SYS_MESSAGE_FAILED_FILEOPEN "ファイルを開けません。"
 #define SYS_MESSAGE_FAILED_FILEOPEN2 "%s を開くことができませんでした。"
@@ -46,6 +47,7 @@
 
 #else
 
+#define SYS_MESSAGE_STARTING_GAME "Starting Game, Please wait..."
 #define SYS_MESSAGE_FAILED_TEMPFILE "Failed to create temporary file %s."
 #define SYS_MESSAGE_FAILED_FILEOPEN "Can not open file."
 #define SYS_MESSAGE_FAILED_FILEOPEN2 "Failed to open %s."
@@ -1390,4 +1392,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_BIRTH_SELECT_CAMPAIGN "キャンペーンを選択して下さい"
 #else
 #define MES_BIRTH_SELECT_CAMPAIGN "Select Campaign"
+#endif
+
+#ifdef JP
+#define MES_QUEST_WARN_UNCOMPLETE "あなたは現在のクエストを終了させていません！\nCTRL-Qを使えばクエストの状態がチェックできます。\nクエストを終わらせたら戻って来て下さい。\n"
+#else
+#define MES_QUEST_WARN_UNCOMPLETE "You have not completed your current quest yet!\nUse CTRL-Q to check the status of your quest.\nReturn when you have completed your quest."
 #endif

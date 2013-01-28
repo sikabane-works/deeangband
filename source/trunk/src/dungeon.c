@@ -5456,11 +5456,7 @@ void play_game(bool new_game)
 	flavor_init();
 
 	/* Flash a message */
-#ifdef JP
-	prt("ゲームを開始します。お待ち下さい...", 0, 0);
-#else
-	prt("Starting Game, Please wait...", 0, 0);
-#endif
+	prt(SYS_MESSAGE_STARTING_GAME, 0, 0);
 
 	/* Flush the message */
 	Term_fresh();

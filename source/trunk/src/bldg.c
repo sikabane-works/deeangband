@@ -2334,18 +2334,7 @@ static void castle_quest(creature_type *creature_ptr)
 		creature_ptr->reinit_wilderness = TRUE;
 	}
 	/* Quest is still unfinished */
-	else if(quest_ptr->status == QUEST_STATUS_TAKEN)
-	{
-#ifdef JP
-		put_str("あなたは現在のクエストを終了させていません！", 8, 3);
-		put_str("CTRL-Qを使えばクエストの状態がチェックできます。", 9, 3);
-		put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
-#else
-		put_str("You have not completed your current quest yet!", 8, 3);
-		put_str("Use CTRL-Q to check the status of your quest.", 9, 3);
-		put_str("Return when you have completed your quest.", 12, 3);
-#endif
-	}
+	else if(quest_ptr->status == QUEST_STATUS_TAKEN) put_str(MES_QUEST_WARN_UNCOMPLETE, 8, 3);
 	/* No quest yet */
 	else if(quest_ptr->status == QUEST_STATUS_UNTAKEN)
 	{
@@ -3300,7 +3289,7 @@ static bool research_creature(creature_type *creature_ptr)
 
 		/* Hack -- Complete the prompt */
 #ifdef JP
-Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
+		Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
 #else
 		Term_addstr(-1, TERM_WHITE, " [(r)ecall, ESC, space to continue]");
 #endif
