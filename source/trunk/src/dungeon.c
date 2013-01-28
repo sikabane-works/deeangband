@@ -25,11 +25,7 @@ static int select_mode(void)
 	selection se[1000];
 	int t = sizeof(creature_type);
 
-#if JP
-	c_put_str(TERM_L_BLUE, "プレイモードを選択して下さい", 8, 5);
-#else
-	prt("Select play mode", 8, 5);
-#endif
+	c_put_str(TERM_L_BLUE, MES_BIRTH_SELECT_CAMPAIGN, 8, 5);
 
 	for(i = 0; i < MAX_CAMPAIGNS; i++)
 	{

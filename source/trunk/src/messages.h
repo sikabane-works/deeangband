@@ -1380,3 +1380,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define EFFECT_MES_MIND_BACKFIRE "%^s corrupted mind backlashes your attack!"
 #define EFFECT_MES_DISARM_TRAP "Click!"
 #endif
+
+#ifdef JP
+#define MES_BIRTH_SELECT_CAMPAIGN "キャンペーンを選択して下さい"
+#else
+#define MES_BIRTH_SELECT_CAMPAIGN "Select Campaign"
+#endif
