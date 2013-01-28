@@ -1221,7 +1221,7 @@ void do_cmd_refill(creature_type *creature_ptr)
 #ifdef JP
 		msg_print("‚±‚ÌŒõŒ¹‚Íõ–½‚ğ‰„‚Î‚¹‚È‚¢B");
 #else
-		msg_print("Your light cannot be refilled.");
+		msg_print();
 #endif
 
 	}
