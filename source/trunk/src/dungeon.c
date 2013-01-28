@@ -5015,10 +5015,8 @@ static void new_game_setting(void)
 {
 	write_level = TRUE;
 
-	/* Hack -- seed for flavors */
+	// Hack -- seed for flavors and town layout
 	seed_flavor = randint0(0x10000000);
-
-	/* Hack -- seed for town layout */
 	seed_town = randint0(0x10000000);
 
 	// Initialize General Gamedata
@@ -5027,20 +5025,17 @@ static void new_game_setting(void)
 	// Initialize Item Awareness
 	object_kind_info_reset();
 
-	/* 
-	* Wipe creatures in old dungeon
-	* This wipe destroys value of creature_list[].cur_num .
-	*/
+	// Wipe creatures in old dungeon
+	// This wipe destroys value of creature_list[].cur_num .
 	wipe_creature_list(0);
 
-	/* Quick start? */
 	if(!ask_quick_start(player_ptr))
 	{
 		// No, initial start
-		int mode, species;
+		int species;
 		Term_clear();
-		mode = select_mode();
-		if(mode == CAMPAIGN_FATE_OF_STIGMA || mode == CAMPAIGN_CURSE_OF_ILUVATAR)
+		campaign_mode = select_mode();
+		if(campaign_mode == CAMPAIGN_FATE_OF_STIGMA || campaign_mode == CAMPAIGN_CURSE_OF_ILUVATAR)
 		{
 			species = SPECIES_STIGMATIC_ONE;
 			unique_play = FALSE;
@@ -5052,17 +5047,15 @@ static void new_game_setting(void)
 			noscore |= 0x0010;
 		}
 
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, format(DIARY_SELECTMODE, campaign_name[mode]));
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, format(DIARY_SELECTMODE, campaign_name[campaign_mode]));
 
 		// Initial game mode
 		screen_save();
 		do_cmd_options_aux(OPT_PAGE_BIRTH, SYS_MESSAGE_OPTION_AUX);
 		screen_load();
 
-
-		/* Roll up a new character */
+		// Roll up a new character
 		player_ptr = generate_creature(NULL, species, &player_prev, GC_PLAYER);
-
 		player_ptr->wx = player_ptr->start_wx;
 		player_ptr->wy = player_ptr->start_wy;
 

@@ -968,6 +968,8 @@ static void rd_extra(void)
 	byte max;
 
 	rd_creature(&player_prev);
+
+	rd_byte(&campaign_mode);
 	rd_byte(&tmp8u);
 	quick_ok = (bool)tmp8u;
 

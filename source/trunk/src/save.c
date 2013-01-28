@@ -577,7 +577,10 @@ static void wr_extra(void)
 
 	wr_creature(&player_prev);
 	if(noscore) quick_ok = FALSE;
+	wr_byte(campaign_mode);
+
 	wr_byte((byte) quick_ok);
+
 
 	for (i = 0; i < MAX_BOUNTY; i++)
 	{
