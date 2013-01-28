@@ -2584,7 +2584,7 @@ static void process_creature(int i)
  */
 void process_creatures(void)
 {
-	int             i;
+	int i;
 
 	// Process the creatures (backwards)
 	for (i = creature_max - 1; i >= 1; i--)

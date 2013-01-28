@@ -1207,27 +1207,13 @@ void do_cmd_refill(creature_type *creature_ptr)
 	free_posture(creature_ptr);
 
 	/* It is nothing */
-	if(object_ptr->tval != TV_LITE)
-	{
-#ifdef JP
-		msg_print("ŒõŒ¹‚ð‘•”õ‚µ‚Ä‚¢‚È‚¢B");
-#else
-		msg_print("You are not wielding a light.");
-#endif
-
-	}
+	if(object_ptr->tval != TV_LITE) msg_print(GAME_MESSAGE_LITE_NONE);
 
 	/* It's a lamp */
-	else if(object_ptr->sval == SV_LITE_LANTERN)
-	{
-		do_cmd_refill_lamp(creature_ptr);
-	}
+	else if(object_ptr->sval == SV_LITE_LANTERN) do_cmd_refill_lamp(creature_ptr);
 
 	/* It's a torch */
-	else if(object_ptr->sval == SV_LITE_TORCH)
-	{
-		do_cmd_refill_torch(creature_ptr);
-	}
+	else if(object_ptr->sval == SV_LITE_TORCH) do_cmd_refill_torch(creature_ptr);
 
 	/* No torch to refill */
 	else

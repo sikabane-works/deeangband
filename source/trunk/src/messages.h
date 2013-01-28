@@ -308,6 +308,7 @@
 
 #define GAME_MESSAGE_LITE_FAINT "明かりが微かになってきている。"
 #define GAME_MESSAGE_LITE_OUT "明かりが消えてしまった！"
+#define GAME_MESSAGE_LITE_NONE "光源を装備していない。"
 
 #define GAME_MESSAGE_FAILED_RUNAWAY "うまく逃げられなかった。"
 
@@ -416,6 +417,7 @@
 
 #define GAME_MESSAGE_LITE_FAINT "Your light is growing faint."
 #define GAME_MESSAGE_LITE_OUT "Your light has gone out!"
+#define GAME_MESSAGE_LITE_NONE "You are not wielding a light."
 
 #define GAME_MESSAGE_FAILED_RUNAWAY "You are failed to run away."
 
