@@ -16,20 +16,7 @@ static bool load = TRUE;
 
 static void game_mode_detail(int code)
 {
-	switch(code)
-	{
-	case CAMPAIGN_FATE_OF_STIGMA:
-		prt("*band ローグライク従来のプレイモードです。\n'＠'のルーンを背負う〈烙印者〉として、\n神々の座へと登りつめることが *勝利* 条件となります。\n", 15, 25);
-		break;
-	case CAMPAIGN_CURSE_OF_ILUVATAR:
-		prt("", 15, 25);
-		break;
-	case CAMPAIGN_RIVALRY_IN_MULTIVARSE:
-		prt("任意のユニーク・クリーチャーとなって探索ができる    ", 15, 25);
-		prt("テスト的なプレイモードです。                        ", 16, 25);
-		prt("*勝利* 条件はなく、スコア登録などもできません。     ", 17, 25);
-		break;
-	}
+	prt(campaign_detail[code], 15, 25);
 }
 
 static int select_mode(void)
@@ -50,7 +37,7 @@ static int select_mode(void)
 		se[i].d_color = TERM_L_DARK;
 		se[i].l_color = TERM_WHITE;
 		se[i].key = '\0';
-		se[i].code = 0;
+		se[i].code = i;
 	}
 
 	return get_selection(se, MAX_CAMPAIGNS, 0, 10, 2, MAX_CAMPAIGNS, 40, game_mode_detail, 0);

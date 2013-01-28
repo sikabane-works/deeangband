@@ -1940,15 +1940,6 @@ static int choose_realm(s32b choices, bool npc)
 	re[n].l_color = TERM_L_UMBER;
 	n++;
 
-
-	/* Extra info */
-/*
-#ifdef JP
-	put_str ("注意：魔法の領域の選択によりあなたが習得する呪文のタイプが決まります。", 23, 5);
-#else
-	put_str ("Note: The realm of magic will determine which spells you can learn.", 23, 5);
-#endif
-*/
 	if(!npc)
 		i = get_selection(re, n, 0, 5, 2, 18, 20, realm_detail, 0);
 	else

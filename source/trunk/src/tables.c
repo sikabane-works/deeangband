@@ -3963,17 +3963,33 @@ cptr skill_name[MAX_SKILLS][40] =
 #endif
 };
 
+#ifdef JP
 cptr campaign_name[MAX_CAMPAIGNS] =
 {
-#ifdef JP
 	"〈烙印〉の掟",
 	"イルーヴァタールの呪縛",
-	"多元宇宙割拠",
+	"多元宇宙の覇者達",
+};
+cptr campaign_detail[MAX_CAMPAIGNS] =
+{
+	"'＠'のルーンを背負う〈烙印者〉として、\n神々の座へと登りつめることが *勝利* 条件となります。\n",
+	"(上級者向け)あなたは唯一を僭称する創造主に\n呪われた身から立ち上がらなければなりません。\nあらゆる手を尽くして理不尽な予定調和を超え、復讐を果たして下さい。\n",
+	"任意のユニーク・クリーチャーとなって探索ができる\nテスト的なプレイモードです。\n*勝利* 条件はなく、スコア登録などもできません。\n",
+};
 #else
+cptr campaign_name[MAX_CAMPAIGNS] =
+{
 	"The Fate of Stigma",
 	"The Curse of Iluvatar",
-	"The Rivalry in Multiverse",
-#endif
+	"The Masters in Multiverse",
 };
+cptr campaign_detail[MAX_CAMPAIGNS] =
+{
+	"TODO",
+	"TODO",
+	"TODO",
+};
+#endif
+
 
 

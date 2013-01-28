@@ -414,6 +414,7 @@ extern bool wizard;		        // (Player Only) wizard mode
 extern bool unique_play;        // Unique play mode
 extern cptr skill_name[MAX_SKILLS][40];
 extern cptr campaign_name[MAX_CAMPAIGNS];
+extern cptr campaign_detail[MAX_CAMPAIGNS];
 
 extern creature_type player_prev;
 extern bool quick_ok;
