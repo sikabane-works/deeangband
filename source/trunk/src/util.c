@@ -2940,7 +2940,7 @@ void c_prt(byte attr, cptr str, int row, int col)
 		for(; str[n] != '\n' && str[n]; n++);
 		Term_erase(col, row, 255);
 		Term_addstr(-1, attr, str + c);
-		c = n++;
+		c = ++n;
 		row++;
 	}
 }
