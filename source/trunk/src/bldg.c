@@ -3613,25 +3613,19 @@ void do_cmd_quest(creature_type *creature_ptr)
 
 	if(!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_QUEST_ENTER))
 	{
-#ifdef JP
-		msg_print("ここにはクエストの入口はない。");
-#else
-		msg_print("You see no quest level here.");
-#endif
-
+		msg_print(MES_QUEST_NO_ENTRANCE);
 		return;
 	}
 	else
 	{
+		msg_print(MES_QUEST_ENTRANCE);
 #ifdef JP
-		msg_print("ここにはクエストへの入口があります。");
 		if(!get_check("クエストに入りますか？")) return;
 		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK))
 			msg_print("『とにかく入ってみようぜぇ。』");
 		if(has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK))
 			msg_print("『全滅してやるぞ！』");
 #else
-		msg_print("There is an entry of a quest.");
 		if(!get_check("Do you enter? ")) return;
 #endif
 
