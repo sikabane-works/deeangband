@@ -2305,11 +2305,7 @@ static void castle_quest(creature_type *creature_ptr)
 	/* Is there a quest available at the building? */
 	if(!q_index)
 	{
-#ifdef JP
-		put_str("今のところクエストはありません。", 8, 3);
-#else
-		put_str("I don't have a quest for you at the moment.", 8, 3);
-#endif
+		put_str(MES_QUEST_NO_QUEST, 8, 3);
 		return;
 	}
 
