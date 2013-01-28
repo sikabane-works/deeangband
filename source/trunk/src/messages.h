@@ -346,6 +346,7 @@
 
 #define GAME_MESSAGE_TELEPORT_PREVENTED "不思議な力がテレポートを防いだ！"
 
+#define GAME_MESSAGE_ARENA_READY "試合開始！"
 #define GAME_MESSAGE_ARENA_LIMIT "アリーナが魔法を吸収した！"
 #define GAME_MESSAGE_ARENA_BERSERK "狂戦士化していて頭が回らない！"
 
@@ -458,7 +459,7 @@
 
 #define GAME_MESSAGE_TELEPORT_PREVENTED "A mysterious force prevents you from teleporting!"
 
-
+#define GAME_MESSAGE_ARENA_READY "Ready..Fight!"
 #define GAME_MESSAGE_ARENA_LIMIT "The arena absorbs all attempted magic!"
 #define GAME_MESSAGE_ARENA_BERSERK "You cannot think directly!"
 

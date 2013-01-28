@@ -5229,11 +5229,7 @@ static void play_loop(void)
 			}
 			else
 			{
-#ifdef JP
-				msg_print("ééçáäJénÅI");
-#else
-				msg_format("Ready..Fight!");
-#endif
+				msg_print(GAME_MESSAGE_ARENA_READY);
 				msg_print(NULL);
 			}
 		}
