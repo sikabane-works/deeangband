@@ -2933,11 +2933,16 @@ void put_str(cptr str, int row, int col)
  */
 void c_prt(byte attr, cptr str, int row, int col)
 {
-	/* Clear line, position cursor */
-	Term_erase(col, row, 255);
-
-	/* Dump the attr/text */
-	Term_addstr(-1, attr, str);
+	int c = 0, n = 0;
+	int length = strlen(str);
+	while(c < length)
+	{
+		for(; str[n] != '\n' && str[n]; n++);
+		Term_erase(col, row, 255);
+		Term_addstr(-1, attr, str + c);
+		c = n++;
+		row++;
+	}
 }
 
 /*
