@@ -2980,12 +2980,7 @@ static bool build_type8(floor_type *floor_ptr)
 	 */
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if(!find_space(floor_ptr, &yval, &xval, abs(y) + 2, abs(x) + 2)) return FALSE;
-
-#ifdef JP
-	if(cheat_room) msg_format("‹‘å‚È’n‰ºŽº(%s)", vault_name + v_ptr->name);
-#else
-	if(cheat_room) msg_format("Greater vault (%s)", vault_name + v_ptr->name);
-#endif
+	if(cheat_room) msg_format(DEBUG_MESSAGE_GREATER_VAULT(vault_name + v_ptr->name));
 
 	// Hack -- Build the vault
 	build_vault(floor_ptr, yval, xval, v_ptr->hgt, v_ptr->wid, vault_text + v_ptr->text, xoffset, yoffset, transno);
