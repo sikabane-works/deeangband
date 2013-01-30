@@ -1456,3 +1456,11 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #else
 #define MES_CREATURE_LEVELUP(LEV) "Welcome to level %d.", (LEV)
 #endif
+
+#ifdef JP
+#define MES_STORE_ITEM_LIMIT "そんなにアイテムを持てない。"
+#define MES_STORE_FIXED_PRICE(PRICE) "一つにつき $%ldです。", (PRICE)
+#else
+#define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."
+#define MES_STORE_FIXED_PRICE(PRICE) "That costs %ld gold per item.", (PRICE)
+#endif

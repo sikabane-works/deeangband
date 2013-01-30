@@ -3465,11 +3465,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 	/* Hack -- require room in pack */
 	if(!inven_carry_okay(guest_ptr, j_ptr))
 	{
-#ifdef JP
-msg_print("そんなにアイテムを持てない。");
-#else
-		msg_print("You cannot carry that many different items.");
-#endif
+		msg_print(MES_STORE_ITEM_LIMIT);
 		return;
 	}
 
@@ -3481,13 +3477,7 @@ msg_print("そんなにアイテムを持てない。");
 	{
 		/* Hack -- note cost of "fixed" items */
 		if(!is_home(st_ptr) && (object_ptr->ident & IDENT_FIXED))
-		{
-#ifdef JP
-			msg_format("一つにつき $%ldです。", (long)(best));
-#else
-			msg_format("That costs %ld gold per item.", (long)(best));
-#endif
-		}
+			msg_format(MES_STORE_FIXED_PRICE((long)(best)));
 
 		/* Get a quantity */
 		amt = get_quantity(NULL, object_ptr->number);
