@@ -3526,12 +3526,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 		{
 			/* Describe the object (fully) */
 			object_desc(object_name, j_ptr, 0);
-
-#ifdef JP
-			msg_format("%s(%c)‚ðw“ü‚·‚éB", object_name, I2A(item));
-#else
-			msg_format("Buying %s (%c).", object_name, I2A(item));
-#endif
+			msg_format(MES_STORE_BUYING(object_name, I2A(item)));
 
 			//TODO
 			if(j_ptr->tval >= TV_BOOTS && j_ptr->tval <= TV_DRAG_ARMOR)
