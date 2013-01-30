@@ -1441,3 +1441,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_EXIT_WARNING "You can't come back here once you leave this floor."
 #define MES_QUEST_ASK_EXIT "Really leave this floor? "
 #endif
+
+#ifdef JP
+#define MES_CREATURE_LEVELUP(LEV) "ÉåÉxÉã %d Ç…ÇÊÇ§Ç±ÇªÅB", (LEV)
+#else
+#define MES_CREATURE_LEVELUP(LEV) "Welcome to level %d.", (LEV)
+#endif

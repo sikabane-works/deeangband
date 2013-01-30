@@ -126,20 +126,11 @@ void check_experience(creature_type *creature_ptr)
 
 		sound(SOUND_LEVEL);
 
-		if(is_player(creature_ptr))
-		{
-#ifdef JP
-			msg_format("ƒŒƒxƒ‹ %d ‚É‚æ‚¤‚±‚»B", creature_ptr->lev);
-#else
-			msg_format("Welcome to level %d.", creature_ptr->lev);
-#endif
-		}
+		if(is_player(creature_ptr)) msg_format(MES_CREATURE_LEVELUP(creature_ptr->lev));
 
 		/* Update some stuff */
 		prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
-
 		prepare_redraw(PR_LEV | PR_TITLE | PR_EXP);
-
 		prepare_window(PW_PLAYER | PW_SPELL | PW_INVEN);
 
 		creature_ptr->level_up = TRUE;
