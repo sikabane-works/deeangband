@@ -147,6 +147,7 @@
 #define KW_SLOW "Œ¸‘¬"
 #define KW_RIDING "æ”n"
 #define KW_ASKING_PRICE "’ñ¦‰¿Ši"
+#define KW_FINAL_OFFER_PRICE "ÅI’ñ¦‰¿Ši"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -205,7 +206,8 @@
 #define KW_FAST "Fast"
 #define KW_SLOW "Slow"
 #define KW_RIDING "Riding"
-#define KW_ASKING_PRICE "ASKING_PRICE"
+#define KW_ASKING_PRICE "Asking Price"
+#define KW_FINAL_OFFER_PRICE "Final Offer"
 #endif
 
 #ifdef JP
