@@ -2917,11 +2917,7 @@ static int get_haggle(cptr pmt, s32b *poffer, s32b price, int final)
 			}
 		}
 
-#ifdef JP
-		msg_warning("ílÇ™Ç®Ç©ÇµÇ¢Ç≈Ç∑ÅB");
-#else
-		msg_warning("Invalid response.");
-#endif
+		msg_warning(SYS_MESSAGE_INVALID_NUM);
 		msg_print(NULL);
 	}
 
@@ -2972,18 +2968,10 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 
 	bool		cancel = FALSE;
 
-#ifdef JP
-	cptr pmt = "íÒé¶âøäi";
-#else
-	cptr		pmt = "Asking";
-#endif
-
-
+	cptr pmt = KW_ASKING_PRICE;
 	char		out_val[160];
 
-
 	*price = 0;
-
 
 	/* Extract the starting offer and the final offer */
 	//TODO

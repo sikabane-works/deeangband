@@ -29,6 +29,7 @@
 #define SYS_MESSAGE_SERVANTS "%sには%d種類、%d体の従僕がいる"
 #define SYS_MESSAGE_NO_SERVANT "%sには従僕がいない"
 #define SYS_MESSAGE_UNKNOWN_SYMBOL "無効な文字"
+#define SYS_MESSAGE_INVALID_NUM "値がおかしいです。"
 #define SYS_MESSAGE_ERROR "エラー"
 #define SYS_MESSAGE_OUT_OF_SWITCH "switch構文範囲外"
 
@@ -66,7 +67,9 @@
 #define SYS_MESSAGE_YOUR_NO_TRAIT "You have no trait"
 #define SYS_MESSAGE_YOUR_SERVANT "%s have no servant"
 #define SYS_MESSAGE_YOUR_NO_SERVANT "%s have %d species, %d servants"
+
 #define SYS_MESSAGE_UNKNOWN_SYMBOL "unknown symbol"
+#define SYS_MESSAGE_INVALID_NUM "Invalid response."
 #define SYS_MESSAGE_ERROR "Error"
 #define SYS_MESSAGE_OUT_OF_SWITCH "Out of switch."
 #define SYS_MESSAGE_TODAY "Today"
@@ -143,6 +146,7 @@
 #define KW_FAST "加速"
 #define KW_SLOW "減速"
 #define KW_RIDING "乗馬"
+#define KW_ASKING_PRICE "提示価格"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -201,6 +205,7 @@
 #define KW_FAST "Fast"
 #define KW_SLOW "Slow"
 #define KW_RIDING "Riding"
+#define KW_ASKING_PRICE "ASKING_PRICE"
 #endif
 
 #ifdef JP
