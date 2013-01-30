@@ -3504,11 +3504,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 	/* Hack -- require room in pack */
 	if(!inven_carry_okay(guest_ptr, j_ptr))
 	{
-#ifdef JP
-		msg_print("ザックにそのアイテムを入れる隙間がない。");
-#else
-		msg_print("You cannot carry that many items.");
-#endif
+		msg_print(MES_STORE_ITEM_LIMIT2);
 		return;
 	}
 

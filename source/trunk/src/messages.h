@@ -1459,8 +1459,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 #ifdef JP
 #define MES_STORE_ITEM_LIMIT "そんなにアイテムを持てない。"
+#define MES_STORE_ITEM_LIMIT2 "ザックにそのアイテムを入れる隙間がない。"
 #define MES_STORE_FIXED_PRICE(PRICE) "一つにつき $%ldです。", (PRICE)
 #else
 #define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."
+#define MES_STORE_ITEM_LIMIT2 "You cannot carry that many items."
 #define MES_STORE_FIXED_PRICE(PRICE) "That costs %ld gold per item.", (PRICE)
 #endif
