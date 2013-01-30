@@ -1367,6 +1367,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_BIAS_ARTIFACT "運の偏ったアーティファクト: %d。"
 #define DEBUG_MESSAGE_NO_BIAS_ARTIFACT "偏っていないアーティファクト"
 #define DEBUG_MESSAGE_DIE_CHOICE "死にますか?"
+#define DEBUG_MESSAGE_LAKE "湖を生成。"
+#define DEBUG_MESSAGE_CAVE "洞窟を生成。"
 #else
 #define DEBUG_MESSAGE_ROOM_NUM "Number of Rooms: %d"
 #define DEBUG_MESSAGE_GLASS_ROOM "[Glass Room]"
@@ -1376,6 +1378,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_BIAS_ARTIFACT "Biased artifact: %d."
 #define DEBUG_MESSAGE_NO_BIAS_ARTIFACT "No biased artifact."
 #define DEBUG_MESSAGE_DIE_CHOICE "Die?"
+#define DEBUG_MESSAGE_LAKE "Lake on the level."
+#define DEBUG_MESSAGE_CAVE "Cavern on level."
 #endif
 
 #ifdef JP

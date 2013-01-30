@@ -646,13 +646,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 
 		if(dungeon_ptr->laketype)
 		{
-			if(cheat_room)
-#ifdef JP
-				msg_print("åŒÇê∂ê¨ÅB");
-#else
-				msg_print("Lake on the level.");
-#endif
-
+			if(cheat_room) msg_print(DEBUG_MESSAGE_LAKE);
 			build_lake(floor_ptr, dungeon_ptr->laketype);
 		}
 	}
@@ -665,13 +659,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 
 		/* make a large fractal cave in the middle of the dungeon */
 
-		if(cheat_room)
-#ifdef JP
-			msg_print("ì¥åAÇê∂ê¨ÅB");
-#else
-			msg_print("Cavern on level.");
-#endif
-
+		if(cheat_room) msg_print(DEBUG_MESSAGE_CAVE);
 		build_cavern(floor_ptr);
 	}
 #endif /* ALLOW_CAVERNS_AND_LAKES */
