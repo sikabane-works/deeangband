@@ -1336,13 +1336,8 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 
 					if(kakunin)
 					{
-#ifdef JP
-						sprintf(buf, "ñ{ìñÇ…ÇÊÇÎÇµÇ¢Ç≈Ç∑Ç©ÅH (%s) ", friend_name);
-#else
-						sprintf(buf, "Are you sure? (%s) ", friend_name);
-#endif
-						if(!get_check(buf))
-							delete_this = FALSE;
+						sprintf(buf, "%s (%s) ", SYS_MESSAGE_ASK_SURE, friend_name);
+						if(!get_check(buf)) delete_this = FALSE;
 					}
 					break;
 				}

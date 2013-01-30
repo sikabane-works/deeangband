@@ -190,11 +190,7 @@ void check_experience(creature_type *creature_ptr)
 						for(n = 0; n < STAT_MAX; n++)
 							if(n != choice - 'a')
 								prt("", n + 2,14);
-#ifdef JP
-						if(get_check("‚æ‚ë‚µ‚¢‚Å‚·‚©H")) break;
-#else
-						if(get_check("Are you sure? ")) break;
-#endif
+						if(get_check(SYS_MESSAGE_ASK_SURE)) break;
 					}
 					do_inc_stat(creature_ptr, choice - 'a');
 					screen_load();

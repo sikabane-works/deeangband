@@ -5618,11 +5618,7 @@ void do_cmd_suicide(creature_type *creature_ptr)
 			while (!get_string("*Winning* message", buf, sizeof buf)) ;
 #endif
 		}
-#ifdef JP
-		while (!get_check_strict("ÇÊÇÎÇµÇ¢Ç≈Ç∑Ç©ÅH", CHECK_NO_HISTORY));
-#else
-		while (!get_check_strict("Are you sure? ", CHECK_NO_HISTORY));
-#endif
+		while (!get_check_strict(SYS_MESSAGE_ASK_SURE, CHECK_NO_HISTORY));
 
 		if(buf[0])
 		{

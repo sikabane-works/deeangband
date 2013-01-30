@@ -44,6 +44,7 @@
 
 #define SYS_MESSAGE_VISUAL_COMMAND "コマンド (n/N/^N/a/A/^A/c/C/^C/v/V/^V): "
 #define SYS_MESSAGE_ASK_USE "%sを使いますか？"
+#define SYS_MESSAGE_ASK_SURE "よろしいですか？"
 
 #else
 
@@ -80,6 +81,7 @@
 
 #define SYS_MESSAGE_VISUAL_COMMAND "Command (n/N/^N/a/A/^A/c/C/^C/v/V/^V):"
 #define SYS_MESSAGE_ASK_USE "use %s?"
+#define SYS_MESSAGE_ASK_SURE "Are you sure?"
 
 #endif
  
