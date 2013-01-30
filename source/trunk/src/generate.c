@@ -1364,7 +1364,6 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 		panel_row_min = floor_ptr->height;
 		panel_col_min = floor_ptr->width;
 
-		if(cheat_room) msg_format("X:%d, Y:%d.", floor_ptr->width, floor_ptr->height);
 	}
 	else
 	{
@@ -1381,8 +1380,8 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 		panel_row_min = floor_ptr->height;
 		panel_col_min = floor_ptr->width;
 
-		if(cheat_room) msg_format("X:%d, Y:%d.", floor_ptr->width, floor_ptr->height);
 	}
+	if(cheat_room) msg_format(DEBUG_MESSAGE_FLOOR_SIZE(floor_ptr->width, floor_ptr->height));
 
 	// Make a dungeon
 	if(!create_cave_structure(floor_ptr))

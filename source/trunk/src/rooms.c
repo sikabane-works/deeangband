@@ -2913,19 +2913,10 @@ static bool build_vault_pre(floor_type *floor_ptr, int type)
 	// Find and reserve some space in the dungeon.  Get center of room.
 	if(!find_space(floor_ptr, &yval, &xval, abs(y), abs(x))) return FALSE;
 
-#ifdef FORCE_V_IDX
-	v_ptr = &vault_info[2];
-#endif
-
-#ifdef JP
-	if(cheat_room) msg_format("’n‰ºŽº(%s)", vault_name + v_ptr->name);
-#else
-	if(cheat_room) msg_format("Vault (%s)", vault_name + v_ptr->name);
-#endif
+	if(cheat_room) msg_format(DEBUG_MESSAGE_VAULT(vault_name + v_ptr->name));
 
 	/* Hack -- Build the vault */
 	build_vault(floor_ptr, yval, xval, v_ptr->hgt, v_ptr->wid, vault_text + v_ptr->text, xoffset, yoffset, transno);
-
 	return TRUE;
 }
 
@@ -2996,10 +2987,6 @@ static bool build_type8(floor_type *floor_ptr)
 	 */
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if(!find_space(floor_ptr, &yval, &xval, abs(y) + 2, abs(x) + 2)) return FALSE;
-
-#ifdef FORCE_V_IDX
-	v_ptr = &vault_info[76 + randint1(3)];
-#endif
 
 #ifdef JP
 	if(cheat_room) msg_format("‹‘å‚È’n‰ºŽº(%s)", vault_name + v_ptr->name);
