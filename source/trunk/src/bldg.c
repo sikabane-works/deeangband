@@ -3798,26 +3798,16 @@ void quest_discovery(int q_idx)
 		}
 		else
 		{
-#ifdef JP
-			sprintf(buf, "’ˆÓ‚¹‚æI‚±‚ÌŠK‚Í%s‚É‚æ‚Á‚ÄŽç‚ç‚ê‚Ä‚¢‚éI", name);
-#else
-			sprintf(buf, "Beware, this level is protected by %s!", name);
-#endif
+			sprintf(buf, MES_QUEST_TARGET_INFO(name));
 			msg_print(buf);
 			strcpy(floor_ptr->cave[player_ptr->fy][player_ptr->fx].message, buf);
 		}
 	}
 	else
 	{
-#ifdef JP
-		sprintf(buf, "’ˆÓ‚µ‚ëI‚±‚ÌŠK‚Í%d‘Ì‚Ì%s‚É‚æ‚Á‚ÄŽç‚ç‚ê‚Ä‚¢‚éI", q_num, name);
-#else
-		plural_aux(name);
-		sprintf(buf, "Be warned, this level is guarded by %d %s!", q_num, name);
-#endif
+		sprintf(buf, MES_QUEST_TARGETS_INFO(name, q_num));
 		msg_print(buf);
 		strcpy(floor_ptr->cave[player_ptr->fy][player_ptr->fx].message, buf);
-
 	}
 }
 
