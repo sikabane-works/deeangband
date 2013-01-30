@@ -1395,6 +1395,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #endif
 
 #ifdef JP
+#define MES_QUEST_INFO(LEVEL) "クエスト情報 (危険度: %d 階相当)", (LEVEL)
 #define MES_QUEST_NO_QUEST "今のところクエストはありません。"
 #define MES_QUEST_DEFAULT_KILLING "クエスト: %sを %d体倒す"
 #define MES_QUEST_WARN_UNCOMPLETE "あなたは現在のクエストを終了させていません！\nCTRL-Qを使えばクエストの状態がチェックできます。\nクエストを終わらせたら戻って来て下さい。\n"
@@ -1404,6 +1405,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_ENTRANCE "ここにはクエストへの入口があります。"
 #define MES_QUEST_ASK_ENTER "クエストに入りますか？"
 #else
+#define MES_QUEST_INFO(LEVEL) ("Quest Information (Danger level: %d)", (LEVEL))
 #define MES_QUEST_NO_QUEST "I don't have a quest for you at the moment."
 #define MES_QUEST_DEFAULT_KILLING "Your quest: kill %d %s"
 #define MES_QUEST_WARN_UNCOMPLETE "You have not completed your current quest yet!\nUse CTRL-Q to check the status of your quest.\nReturn when you have completed your quest."

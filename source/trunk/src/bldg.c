@@ -2272,19 +2272,12 @@ static void get_questinfo(int questnum)
 	questp_text_line = 0;
 	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT | INIT_ASSIGN, questnum);
 
-	/* Print the quest info */
-#ifdef JP
-	sprintf(tmp_str, "クエスト情報 (危険度: %d 階相当)", quest[questnum].level);
-#else
-	sprintf(tmp_str, "Quest Information (Danger level: %d)", quest[questnum].level);
-#endif
+	// Print the quest info
+	sprintf(tmp_str, MES_QUEST_INFO(quest[questnum].level));
 	prt(tmp_str, 5, 0);
 	prt(quest[questnum].name, 7, 0);
 
-	for (i = 0; i < 10; i++)
-	{
-		c_put_str(TERM_YELLOW, questp_text[i], i + 8, 0);
-	}
+	for (i = 0; i < 10; i++) c_put_str(TERM_YELLOW, questp_text[i], i + 8, 0);
 }
 
 
