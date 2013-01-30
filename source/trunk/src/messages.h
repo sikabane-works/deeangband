@@ -1424,6 +1424,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_ASK_ENTER "クエストに入りますか？"
 #define MES_QUEST_TARGET_INFO(TARGET) "注意せよ！この階は%sによって守られている！", (TARGET)
 #define MES_QUEST_TARGETS_INFO(TARGET, NUM) "注意しろ！この階は%d体の%sによって守られている！", (NUM), (TARGET)
+#define MES_QUEST_EXIT_WARNING "この階を一度去ると二度と戻って来られません。"
+#define MES_QUEST_ASK_EXIT "本当にこの階を去りますか？"
 #else
 #define MES_QUEST_INFO(LEVEL) ("Quest Information (Danger level: %d)", (LEVEL))
 #define MES_QUEST_NO_QUEST "I don't have a quest for you at the moment."
@@ -1436,4 +1438,6 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_ASK_ENTER "Do you enter? "
 #define MES_QUEST_TARGET_INFO(TARGET) "Beware, this level is protected by %s!", (TARGET)
 #define MES_QUEST_TARGETS_INFO(TARGET, NUM) "Be warned, this level is guarded by %d %s!", (NUM), (TARGET)
+#define MES_QUEST_EXIT_WARNING "You can't come back here once you leave this floor."
+#define MES_QUEST_ASK_EXIT "Really leave this floor? "
 #endif

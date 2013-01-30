@@ -71,13 +71,8 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		if(confirm_quest && floor_ptr->quest && (quest_ptr->type == QUEST_TYPE_RANDOM ||
 		     (quest_ptr->flags & QUEST_FLAG_ONCE && quest_ptr->status != QUEST_STATUS_COMPLETED)))
 		{
-#ifdef JP
-			msg_print("この階を一度去ると二度と戻って来られません。");
-			if(get_check("本当にこの階を去りますか？")) go_up = TRUE;
-#else
-			msg_print("You can't come back here once you leave this floor.");
-			if(get_check("Really leave this floor? ")) go_up = TRUE;
-#endif
+			msg_print(MES_QUEST_EXIT_WARNING);
+			if(get_check(MES_QUEST_ASK_EXIT)) go_up = TRUE;
 		}
 		else go_up = TRUE;
 	}
