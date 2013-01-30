@@ -3621,11 +3621,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 				/* Store is empty */
 				if(st_ptr->stock_num == 0)
 				{
-#ifdef JP
-					msg_print("“Xå‚ÍV‚½‚ÈİŒÉ‚ğæ‚èo‚µ‚½B");
-#else
-					msg_print("The shopkeeper brings out some new stock.");
-#endif
+					msg_print(MES_STORE_NEW_STOCK);
 
 					/* New inventory */
 					for (i = 0; i < 10; i++)
@@ -3636,7 +3632,6 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 
 					/* Start over */
 					store_top = 0;
-
 					display_inventory(guest_ptr, st_ptr);
 				}
 

@@ -1464,6 +1464,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_STORE_BUYING(NAME, SYM) "%s(%c)を購入する。", (NAME), (SYM)
 #define MES_STORE_BOUGHT(NAME, PRICE) "%sを $%ldで購入しました。", (NAME), (PRICE)
 #define MES_STORE_NO_FIT "あなたの体格に合わないようだが、よろしいか？"
+#define MES_STORE_NEW_STOCK "店主は新たな在庫を取り出した。"
 #else
 #define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."
 #define MES_STORE_ITEM_LIMIT2 "You cannot carry that many items."
@@ -1471,4 +1472,5 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_STORE_BUYING(NAME, SYM) "Buying %s(%c).", (NAME), (SYM)
 #define MES_STORE_BOUGHT(NAME, PRICE) "You bought %s for %ld gold.", (NAME), (PRICE)
 #define MES_STORE_NO_FIT "It may be not your size, Are you sure?"
+#define MES_STORE_NEW_STOCK "The shopkeeper brings out some new stock."
 #endif
