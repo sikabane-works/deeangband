@@ -722,13 +722,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	if(ironman_empty_levels || ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_ARENA) && (empty_levels && one_in_(EMPTY_LEVEL))))
 	{
 		dungeon_ptr->empty_level = TRUE;
-
-		if(cheat_room)
-#ifdef JP
-			msg_print("アリーナレベル");
-#else
-			msg_print("Arena level.");
-#endif
+		if(cheat_room) msg_print(DEBUG_MESSAGE_ARENA);
 	}
 
 	if(dungeon_ptr->empty_level)
@@ -1027,9 +1021,9 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		else if(cheat_hear)
 		{
 #ifdef JP
-			msg_format("クリーチャー数基本値を %d から %d に減らします", small_tester, i);
+			msg_format(DEBUG_MESSAGE_DEC_CREATURE(small_tester, i));
 #else
-			msg_format("Reduced creatures base from %d to %d", small_tester, i);
+			msg_format(, small_tester, i);
 #endif
 		}
 	}
