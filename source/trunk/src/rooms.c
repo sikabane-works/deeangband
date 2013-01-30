@@ -2946,14 +2946,7 @@ static bool build_type8(floor_type *floor_ptr)
 	/* No greater vault found */
 	if(dummy >= SAFE_MAX_ATTEMPTS)
 	{
-		if(cheat_room)
-		{
-#ifdef JP
-			msg_warning("巨大な地下室を配置できません。");
-#else
-			msg_warning("Could not place greater vault.");
-#endif
-		}
+		if(cheat_room) msg_warning(DEBUG_MESSAGE_FAILED_VAULT);
 		return FALSE;
 	}
 

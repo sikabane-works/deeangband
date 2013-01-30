@@ -1374,6 +1374,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_SMALL_LEVEL "小さなフロア"
 #define DEBUG_MESSAGE_FLOOR_SIZE(WIDTH, HEIGHT) "[W:%d, H:%d]"
 #define DEBUG_MESSAGE_VAULT(NAME) "地下室(%s)", (NAME)
+#define DEBUG_MESSAGE_FAILED_VAULT "巨大な地下室を配置できません。"
 #else
 #define DEBUG_MESSAGE_ROOM_NUM "Number of Rooms: %d"
 #define DEBUG_MESSAGE_GLASS_ROOM "[Glass Room]"
@@ -1390,6 +1391,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_SMALL_LEVEL "A small dungeon level."
 #define DEBUG_MESSAGE_FLOOR_SIZE(WIDTH, HEIGHT) "[W:%d, H:%d]"
 #define DEBUG_MESSAGE_VAULT(NAME) "Vault(%s)", (NAME)
+#define DEBUG_MESSAGE_FAILED_VAULT "Could not place greater vault."
 #endif
 
 #ifdef JP
