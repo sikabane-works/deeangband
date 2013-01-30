@@ -3241,12 +3241,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 
 		/* Final offer */
 		final = TRUE;
-#ifdef JP
-		pmt = "ÅI’ñŽ¦‹àŠz";
-#else
-		pmt = "Final Offer";
-#endif
-
+		pmt = KW_FINAL_OFFER_PRICE;
 	}
 
 	/* Haggle for the whole pile */
@@ -3335,11 +3330,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 			{
 				cur_ask = final_ask;
 				final = TRUE;
-#ifdef JP
-				pmt = "ÅI’ñŽ¦‹àŠz";
-#else
-				pmt = "Final Offer";
-#endif
+				pmt = KW_FINAL_OFFER_PRICE;
 
 				annoyed++;
 				if(annoyed > 3)
