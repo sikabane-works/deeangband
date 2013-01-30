@@ -3574,12 +3574,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 				/* Describe the transaction */
 				object_desc(object_name, j_ptr, 0);
 
-#ifdef JP
-				msg_format("%sÇ $%ldÇ≈çwì¸ÇµÇ‹ÇµÇΩÅB", object_name, (long)price);
-#else
-				msg_format("You bought %s for %ld gold.", object_name, (long)price);
-#endif
-
+				msg_format(MES_STORE_BOUGHT(object_name, (long)price));
 				strcpy(record_object_name, object_name);
 				record_turn = turn;
 
