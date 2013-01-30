@@ -1462,9 +1462,11 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_STORE_ITEM_LIMIT2 "ザックにそのアイテムを入れる隙間がない。"
 #define MES_STORE_FIXED_PRICE(PRICE) "一つにつき $%ldです。", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "%s(%c)を購入する。", (NAME), (SYM)
+#define MES_STORE_NO_FIT "あなたの体格に合わないようだが、よろしいか？"
 #else
 #define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."
 #define MES_STORE_ITEM_LIMIT2 "You cannot carry that many items."
 #define MES_STORE_FIXED_PRICE(PRICE) "That costs %ld gold per item.", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "Buying %s(%c).", (NAME), (SYM)
+#define MES_STORE_NO_FIT "It may be not your size, Are you sure?"
 #endif

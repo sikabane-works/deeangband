@@ -3528,18 +3528,9 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 			object_desc(object_name, j_ptr, 0);
 			msg_format(MES_STORE_BUYING(object_name, I2A(item)));
 
-			//TODO
 			if(j_ptr->tval >= TV_BOOTS && j_ptr->tval <= TV_DRAG_ARMOR)
-			{
 				if(guest_ptr->size < j_ptr->size_lower || j_ptr->size_upper < guest_ptr->size)
-				{
-#ifdef JP
-					if(!get_check("‚ ‚È‚½‚Ì‘ÌŠi‚É‡‚í‚È‚¢‚æ‚¤‚¾‚ªA‚æ‚ë‚µ‚¢‚©H ")) return;
-#else
-					if(!get_check("It may be not your size, Are you sure? ")) return;
-#endif
-				}
-			}
+					if(!get_check(MES_STORE_NO_FIT)) return;
 
 			msg_print(NULL);
 
