@@ -1371,6 +1371,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_CAVE "洞窟を生成。"
 #define DEBUG_MESSAGE_ARENA "アリーナレベル"
 #define DEBUG_MESSAGE_DEC_CREATURE(FROM, TO) "クリーチャー数基本値を %d から %d に減らします", (FROM), (TO)
+#define DEBUG_MESSAGE_SMALL_LEVEL "小さなフロア"
 #else
 #define DEBUG_MESSAGE_ROOM_NUM "Number of Rooms: %d"
 #define DEBUG_MESSAGE_GLASS_ROOM "[Glass Room]"
@@ -1384,6 +1385,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_CAVE "Cavern on level."
 #define DEBUG_MESSAGE_ARENA "Arena level."
 #define DEBUG_MESSAGE_DEC_CREATURE(FROM, TO) "Reduced creatures base from %d to %d", (FROM), (TO)
+#define DEBUG_MESSAGE_SMALL_LEVEL "A small dungeon level."
 #endif
 
 #ifdef JP

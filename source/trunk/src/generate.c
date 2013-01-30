@@ -1018,14 +1018,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		i += 1;
 
 		if(i > small_tester) i = small_tester;
-		else if(cheat_hear)
-		{
-#ifdef JP
-			msg_format(DEBUG_MESSAGE_DEC_CREATURE(small_tester, i));
-#else
-			msg_format(, small_tester, i);
-#endif
-		}
+		else if(cheat_hear) msg_format(DEBUG_MESSAGE_DEC_CREATURE(small_tester, i));
 	}
 
 	// Put some creatures in the dungeon
@@ -1346,8 +1339,7 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_SMALLEST)) &&
 	    !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BIG))
 	{
-		if(cheat_room)
-			msg_print("A small dungeon level.");
+		if(cheat_room) msg_print(DEBUG_MESSAGE_SMALL_LEVEL);
 
 		if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_SMALLEST)
 		{
