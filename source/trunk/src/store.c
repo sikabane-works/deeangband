@@ -3951,12 +3951,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 		/* Distribute charges of wands/rods */
 		distribute_charges(object_ptr, quest_ptr, amt);
 
-#ifdef JP
-		msg_format("%s‚ð’u‚¢‚½B(%c)", object_name, index_to_label(item));
-#else
-		msg_format("You drop %s (%c).", object_name, index_to_label(item));
-#endif
-
+		msg_format(MES_STORE_DROP(object_name, index_to_label(item)));
 		choice = 0;
 
 		/* Take it from the players creature_ptr->inventory */
