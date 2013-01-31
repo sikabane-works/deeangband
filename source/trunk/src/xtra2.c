@@ -3746,11 +3746,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 		n = 0;
 	}
 
-#ifdef JP
-	msg_print("場所を選んでスペースキーを押して下さい。");
-#else
-	msg_print("Select a point and press space.");
-#endif
+	msg_print(SYS_MESSAGE_PLACE_SPACE);
 	msg_flag = FALSE; /* prevents "-more-" message. */
 
 	while ((ch != ESCAPE) && !success)

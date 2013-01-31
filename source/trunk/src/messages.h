@@ -16,6 +16,7 @@
 #define SYS_MESSAGE_FAILED_FILEOPEN2 "%s を開くことができませんでした。"
 #define SYS_MESSAGE_REPLACE_FILE "現存するファイルに上書きしますか? (%s)"
 #define SYS_MESSAGE_HIT_ANY_KEY "何かキーを押して下さい。"
+#define SYS_MESSAGE_PLACE_SPACE "場所を選んでスペースキーを押して下さい。"
 #define SYS_MESSAGE_OPTION_AUX "初期オプション((*)はスコアに影響)"
 #define SYS_MESSAGE_OPTION_AUX2 "初期オプション(参照のみ)"
 #define SYS_MESSAGE_AUTO_SAVING "自動セーブ中"
@@ -55,6 +56,8 @@
 #define SYS_MESSAGE_FAILED_FILEOPEN2 "Failed to open %s."
 #define SYS_MESSAGE_REPLACE_FILE "Replace existing file %s? "
 #define SYS_MESSAGE_HIT_ANY_KEY "Hit Any Key。"
+#define SYS_MESSAGE_PLACE_SPACE "Select a point and press space."
+
 #define SYS_MESSAGE_OPTION_AUX "Birth Option((*)s effect score)"
 #define SYS_MESSAGE_OPTION_AUX2 "Birth Options(browse only)"
 #define SYS_MESSAGE_AUTO_SAVING "Autosaving the game..."
