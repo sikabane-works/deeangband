@@ -483,11 +483,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 		}
 
 		/* Explain the staircase */
-#ifdef JP
-		msg_print("–‚–@‚ÌŠK’i‚ªŒ»‚ê‚½...");
-#else
-		msg_print("A magical staircase appears...");
-#endif
+		msg_print(GAME_MESSAGE_FEATURE_CREATE_STAIR);
 
 		cave_set_feat(floor_ptr, y, x, feat_down_stair); // Create stairs down
 		prepare_update(player_ptr, PU_FLOW); // Remember to update everything

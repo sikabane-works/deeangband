@@ -634,8 +634,12 @@
 #endif
 
 #ifdef JP
+#define GAME_MESSAGE_FEATURE_NO_UP_STAIR "ここには上り階段が見当たらない。"
 #define GAME_MESSAGE_FEATURE_NO_DOWN_STAIR "ここには下り階段が見当たらない。"
+#define GAME_MESSAGE_FEATURE_UP_STAIR "上の階に降りた。"
 #define GAME_MESSAGE_FEATURE_DOWN_STAIR "下の階に降りた。"
+#define GAME_MESSAGE_FEATURE_CREATE_STAIR "魔法の階段が現れた..."
+
 #define GAME_MESSAGE_FEATURE_STUCK "%sはがっちりと閉じられているようだ。"
 #define GAME_MESSAGE_FEATURE_CLOSED_DUNGEON "ダンジョンの入口は塞がれている！"
 #define GAME_MESSAGE_FEATURE_CHECK_DUNGEON "ここには%sの入り口(%d階相当)があります"
@@ -649,8 +653,12 @@
 #define GAME_MESSAGE_PATTERN_WRECKED "パターンを血で汚してしまった！何か恐ろしい事が起こりそうだ！"
 
 #else
+#define GAME_MESSAGE_FEATURE_NO_UP_STAIR "I see no up staircase here."
 #define GAME_MESSAGE_FEATURE_NO_DOWN_STAIR "I see no down staircase here."
+#define GAME_MESSAGE_FEATURE_UP_STAIR "You enter the up staircase."
 #define GAME_MESSAGE_FEATURE_DOWN_STAIR "You enter the down staircase."
+#define GAME_MESSAGE_FEATURE_CREATE_STAIR "A magical staircase appears..."
+
 #define GAME_MESSAGE_FEATURE_STUCK "The %s appears to be stuck."
 #define GAME_MESSAGE_FEATURE_CLOSED_DUNGEON "The entrance of this dungeon is closed!"
 #define GAME_MESSAGE_FEATURE_CHECK_DUNGEON "There is the entrance of %s (Danger level: %d)"

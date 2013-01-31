@@ -29,11 +29,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	/* Verify stairs */
 	if(!have_flag(f_ptr->flags, FF_LESS))
 	{
-#ifdef JP
-		msg_print("‚±‚±‚É‚Íã‚èŠK’i‚ªŒ©“–‚½‚ç‚È‚¢B");
-#else
-		msg_print("I see no up staircase here.");
-#endif
+		msg_print(GAME_MESSAGE_FEATURE_NO_UP_STAIR);
 		return;
 	}
 
@@ -41,15 +37,9 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	if(have_flag(f_ptr->flags, FF_QUEST))
 	{
 		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
-
-#ifdef JP
-		else msg_print("ã‚ÌŠK‚É“o‚Á‚½B");
-#else
-		msg_print("You enter the up staircase.");
-#endif
+		else msg_print(GAME_MESSAGE_FEATURE_UP_STAIR);
 
 		leave_quest_check(creature_ptr);
-
 		floor_ptr->quest = c_ptr->special;
 
 		if(!quest[floor_ptr->quest].status) quest[floor_ptr->quest].status = QUEST_STATUS_TAKEN;	// Activate the quest
