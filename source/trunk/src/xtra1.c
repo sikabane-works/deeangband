@@ -607,13 +607,7 @@ static void prt_exp(creature_type *creature_ptr)
 static void prt_gold(creature_type *creature_ptr)
 {
 	char tmp[32];
-
-#ifdef JP
-	put_str("＄ ", ROW_GOLD, COL_GOLD);
-#else
-	put_str("AU ", ROW_GOLD, COL_GOLD);
-#endif
-
+	put_str(KW_MONEY, ROW_GOLD, COL_GOLD);
 	sprintf(tmp, "%9ld", (long)creature_ptr->au);
 	c_put_str(TERM_L_GREEN, tmp, ROW_GOLD, COL_GOLD + 3);
 }
@@ -673,7 +667,7 @@ static void prt_sp(creature_type *creature_ptr)
 	else color = TERM_RED;
 	c_put_str(color, tmp, ROW_CURSP, COL_CURSP + 2);
 
-	put_str( "/", ROW_CURSP, COL_CURSP + 7);
+	put_str("/", ROW_CURSP, COL_CURSP + 7);
 
 	sprintf(tmp, "%5d", creature_ptr->msp);
 	color = TERM_L_GREEN;
@@ -696,11 +690,7 @@ static void prt_depth(creature_type *creature_ptr)
 	row_depth = hgt + ROW_DEPTH;
 
 	if(!floor_ptr->floor_level) strcpy(depths, KW_SURFACE);
-#ifdef JP
-	else if(floor_ptr->quest && !floor_ptr->dun_type) strcpy(depths, "地上");
-#else
-	else if(floor_ptr->quest && !floor_ptr->dun_type) strcpy(depths, "Quest");
-#endif
+	else if(floor_ptr->quest && !floor_ptr->dun_type) strcpy(depths, KW_QUEST);
 	else
 	{
 #ifdef JP
@@ -708,7 +698,6 @@ static void prt_depth(creature_type *creature_ptr)
 #else
 		(void)sprintf(depths, "Lev %d", floor_ptr->floor_level);
 #endif
-
 
 		/* Get color of level based on feeling  -JSV- */
 		switch (creature_ptr->floor_feeling)
@@ -822,7 +811,6 @@ static void prt_state(creature_type *creature_ptr)
 #else
 			(void)sprintf(text, "  %2d", command_rep);
 #endif
-
 		}
 	}
 
@@ -1905,30 +1893,17 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 		prepare_redraw(PR_MANA | PW_PLAYER | PW_SPELL); // Display mana later
 	}
 
-	/* Take note when "glove state" changes */
-	if(creature_ptr->old_cumber_glove != creature_ptr->cumber_glove)
+	if(message)
 	{
-		if(creature_ptr->cumber_glove)
+		/* Take note when "glove state" changes */
+		if(creature_ptr->old_cumber_glove != creature_ptr->cumber_glove)
 		{
-#ifdef JP
-			if(message) msg_print("手が覆われて呪文が唱えにくい感じがする。");
-#else
-			if(message) msg_print("Your covered hands feel unsuitable for spellcasting.");
-#endif
-
-		}
-		else
-		{
-#ifdef JP
-			if(message) msg_print("この手の状態なら、ぐっと呪文が唱えやすい感じだ。");
-#else
-			if(message) msg_print("Your hands feel more suitable for spellcasting.");
-#endif
-
-		}
+			if(creature_ptr->cumber_glove) msg_print(MES_STATUS_CUMBER_GROVE);
+			else msg_print(MES_STATUS_NO_CUMBER_GROVE);
 
 		/* Save it */
-		creature_ptr->old_cumber_glove = creature_ptr->cumber_glove;
+			creature_ptr->old_cumber_glove = creature_ptr->cumber_glove;
+		}
 	}
 
 

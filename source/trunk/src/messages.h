@@ -99,6 +99,7 @@
 #define KW_HP "HP"
 #define KW_MP "MP"
 #define KW_EXP "ソウル"
+#define KW_MONEY "＄"
 #define KW_FAIL "失率"
 #define KW_UNKNOWN "未知"
 #define KW_FORGOTTEN "忘却"
@@ -126,6 +127,7 @@
 #define KW_FAILED "失敗"
 #define KW_NONE "なし"
 #define KW_SURFACE "地上"
+#define KW_QUEST "クエスト"
 #define KW_SCORE_RANKING "勇者の殿堂"
 #define KW_WINNER "偉大なる者"
 #define KW_MAX "最高"
@@ -159,6 +161,7 @@
 #define KW_HP "HP"
 #define KW_MP "MP"
 #define KW_EXP "SOUL"
+#define KW_MONEY "AU"
 #define KW_FAIL "Fail"
 #define KW_UNKNOWN "Unknown"
 #define KW_FORGOTTEN "Forgotten"
@@ -186,6 +189,7 @@
 #define KW_FAILED "Failed"
 #define KW_NONE "None"
 #define KW_SURFACE "the surface"
+#define KW_QUEST "quest"
 #define KW_SCORE_RANKING "Hall of Fame"
 #define KW_WINNER "Magnificent"
 #define KW_MAX "Max"
@@ -1477,4 +1481,12 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_STORE_NO_FIT "It may be not your size, Are you sure?"
 #define MES_STORE_NEW_STOCK "The shopkeeper brings out some new stock."
 #define MES_STORE_DROP(NAME, SYM) "You drop %s (%c).", (NAME), (SYM)
+#endif
+
+#ifdef JP
+#define MES_STATUS_CUMBER_GROVE "手が覆われて呪文が唱えにくい感じがする。"
+#define MES_STATUS_NO_CUMBER_GROVE "この手の状態なら、ぐっと呪文が唱えやすい感じだ。"
+#else
+#define MES_STATUS_CUMBER_GROVE "Your covered hands feel unsuitable for spellcasting."
+#define MES_STATUS_NO_CUMBER_GROVE "Your hands feel more suitable for spellcasting."
 #endif
