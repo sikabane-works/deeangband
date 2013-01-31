@@ -478,11 +478,11 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 					heal_creature(attacker_ptr, drain_heal);
 				}
 			}
+			target_ptr->mhp -= (k + 7) / 8;
+			if(target_ptr->chp > target_ptr->mhp) target_ptr->chp = target_ptr->mhp;
+			if(target_ptr->mhp < 1) target_ptr->mhp = 1;
+			weak = TRUE;
 		}
-		target_ptr->mhp -= (k + 7) / 8;
-		if(target_ptr->chp > target_ptr->mhp) target_ptr->chp = target_ptr->mhp;
-		if(target_ptr->mhp < 1) target_ptr->mhp = 1;
-		weak = TRUE;
 	}
 	// MISS
 	else
