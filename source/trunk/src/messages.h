@@ -1305,6 +1305,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_DOWN_STAIR "階段を下りた"
 #define DIARY_TRAP_DOOR "落とし戸に落ちた"
 #define DIARY_PINCH "%sによってピンチに陥った。"
+#define DIARY_PATRON(REWARD) "パトロンの報酬で%s", (REWARD)
 #else
 
 #define DIARY_CREATE_PLAYER "-------- Create Player --------"
@@ -1321,6 +1322,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_DOWN_STAIR "climbed down the stairs to"
 #define DIARY_TRAP_DOOR "You have fallen through a trap door."
 #define DIARY_PINCH "A critical situation because of %s".
+#define DIARY_PATRON(REWARD) "The patron rewards you with %s.", (REWARD)
 #endif
 
 #ifdef JP

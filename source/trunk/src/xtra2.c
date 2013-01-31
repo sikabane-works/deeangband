@@ -3657,18 +3657,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_format("The voice of %s stammers:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_format("'Uh... uh... the answer's %d/%d, what's the question?'", type, effect);
 #endif
-
 		}
 	}
 
-	if(reward)
-	{
-#ifdef JP
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, format("ƒpƒgƒƒ“‚Ì•ñV‚Å%s", reward));
-#else
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, format("The patron rewards you with %s.", reward));
-#endif
-	}
+	if(reward) do_cmd_write_diary(DIARY_BUNSHOU, 0, format(DIARY_PATRON(reward)));
 }
 
 
