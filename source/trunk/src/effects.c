@@ -1524,7 +1524,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		//if(!target_ptr->species_idx) m_idx = 0;
 	}
 
-	(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
+	if(has_trait_from_timed(target_ptr, TRAIT_SLEPT)) (void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
 
 	if(attacker_ptr)
 	{

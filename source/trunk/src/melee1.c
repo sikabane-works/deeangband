@@ -164,7 +164,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	}
 
 	// Disturb the creature
-	(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, FALSE);
+	if(has_trait_from_timed(target_ptr, TRAIT_SLEPT)) 
+		(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, FALSE);
 
 	// Extract attacker and target name (or "it")
 	creature_desc(attacker_name, attacker_ptr, 0);

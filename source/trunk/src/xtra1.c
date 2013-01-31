@@ -3660,7 +3660,7 @@ static void set_trait_flags(creature_type *creature_ptr)
 		if(has_trait_from_class(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);
 		if(has_trait_from_chara(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);
 		if(has_trait_from_inventory(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);
-		if(creature_ptr->timed_trait[i]) add_flag(creature_ptr->current_trait, i);		
+		if(has_trait_from_timed(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);		
 
 		if(have_flag(creature_ptr->current_trait, i))
 		{
