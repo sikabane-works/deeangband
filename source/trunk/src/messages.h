@@ -1509,3 +1509,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_STATUS_CUMBER_ARMOR "The weight of your equipment encumbers your movement."
 #define MES_STATUS_NO_CUMBER_ARMOR "You feel able to move more freely."
 #endif
+
+#ifdef JP
+#define MES_PATRON_BOOM_OUT(PATRON) "%sÇÃê∫Ç™ãøÇ´ìnÇ¡ÇΩ:", (PATRON)
+#else
+#define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
+#endif
