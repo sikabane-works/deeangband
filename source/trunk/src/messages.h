@@ -1486,7 +1486,11 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #ifdef JP
 #define MES_STATUS_CUMBER_GROVE "手が覆われて呪文が唱えにくい感じがする。"
 #define MES_STATUS_NO_CUMBER_GROVE "この手の状態なら、ぐっと呪文が唱えやすい感じだ。"
+#define MES_STATUS_CUMBER_ARMOR "装備の重さで動きが鈍くなってしまっている。"
+#define MES_STATUS_NO_CUMBER_ARMOR "ぐっと楽に体を動かせるようになった。"
 #else
 #define MES_STATUS_CUMBER_GROVE "Your covered hands feel unsuitable for spellcasting."
 #define MES_STATUS_NO_CUMBER_GROVE "Your hands feel more suitable for spellcasting."
+#define MES_STATUS_CUMBER_ARMOR "The weight of your equipment encumbers your movement."
+#define MES_STATUS_NO_CUMBER_ARMOR "You feel able to move more freely."
 #endif

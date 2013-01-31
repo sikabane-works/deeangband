@@ -1893,43 +1893,26 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 		prepare_redraw(PR_MANA | PW_PLAYER | PW_SPELL); // Display mana later
 	}
 
-	if(message)
+	/* Take note when "glove state" changes */
+	if(creature_ptr->old_cumber_glove != creature_ptr->cumber_glove)
 	{
-		/* Take note when "glove state" changes */
-		if(creature_ptr->old_cumber_glove != creature_ptr->cumber_glove)
+		if(message)
 		{
 			if(creature_ptr->cumber_glove) msg_print(MES_STATUS_CUMBER_GROVE);
 			else msg_print(MES_STATUS_NO_CUMBER_GROVE);
-
-		/* Save it */
-			creature_ptr->old_cumber_glove = creature_ptr->cumber_glove;
 		}
+		creature_ptr->old_cumber_glove = creature_ptr->cumber_glove;
 	}
 
 
 	/* Take note when "armor state" changes */
 	if(creature_ptr->old_cumber_armor != creature_ptr->cumber_armor)
 	{
-		if(creature_ptr->cumber_armor)
+		if(message)
 		{
-#ifdef JP
-			if(message) msg_print("装備の重さで動きが鈍くなってしまっている。");
-#else
-			if(message) msg_print("The weight of your equipment encumbers your movement.");
-#endif
-
+			if(creature_ptr->cumber_armor) msg_print(MES_STATUS_CUMBER_ARMOR);
+			else msg_print(MES_STATUS_NO_CUMBER_ARMOR);
 		}
-		else
-		{
-#ifdef JP
-			if(message) msg_print("ぐっと楽に体を動かせるようになった。");
-#else
-			if(message) msg_print("You feel able to move more freely.");
-#endif
-
-		}
-
-		/* Save it */
 		creature_ptr->old_cumber_armor = creature_ptr->cumber_armor;
 	}
 }
