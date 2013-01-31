@@ -3889,19 +3889,12 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 			object_desc(object_name, quest_ptr, 0);
 
 			/* Describe the result (in message buffer) */
-#ifdef JP
-			msg_format("%s‚ð $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", object_name, (long)price);
-#else
-			msg_format("You sold %s for %ld gold.", object_name, (long)price);
-#endif
+			msg_format(MES_STORE_SELL(object_name, (long)price));
 
 			if(record_sell) do_cmd_write_diary(DIARY_SELL, 0, object_name);
 
-			if(!((object_ptr->tval == TV_FIGURINE) && (value > 0)))
-			{
-				/* Analyze the prices (and comment verbally) unless a figurine*/
+			if(!((object_ptr->tval == TV_FIGURINE) && (value > 0))) /* Analyze the prices (and comment verbally) unless a figurine*/
 				purchase_analyze(creature_ptr, price, value, dummy);
-			}
 
 			/*
 			 * Hack -- Allocate charges between those wands or rods sold
@@ -3917,8 +3910,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 			inven_item_describe(creature_ptr, item);
 
 			/* If items remain, auto-inscribe before optimizing */
-			if(object_ptr->number > 0)
-				autopick_alter_item(creature_ptr, item, FALSE);
+			if(object_ptr->number > 0) autopick_alter_item(creature_ptr, item, FALSE);
 
 			inven_item_optimize(creature_ptr, item);
 
