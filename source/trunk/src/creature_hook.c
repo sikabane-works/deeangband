@@ -174,30 +174,12 @@ void screen_roff(creature_type *creature_ptr)
 			display_creature_status(m, creature_ptr);
 		}
 
-#ifdef JP
-		Term_putstr(2, 23, -1, TERM_WHITE,
-		    "['h'でモード変更, ESCで終了]");
-#else
-		Term_putstr(2, 23, -1, TERM_WHITE,
-			"['h' to change mode, or ESC]");
-#endif
-
-
+		Term_putstr(2, 23, -1, TERM_WHITE, MES_INTERFACE_DUMP);
 		c = inkey();
 
-		/* Exit */
 		if(c == ESCAPE) break;
-
-		/* Toggle mode */
-		else if(c == 'h')
-		{
-			m++;
-		}
-
-		else
-		{
-			bell();
-		}
+		else if(c == 'h') m++;
+		else bell();
 
 		msg_print(NULL);
 	}

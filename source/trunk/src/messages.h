@@ -1515,3 +1515,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #endif
+
+#ifdef JP
+#define MES_INTERFACE_DUMP "['h'でモード変更, ESCで終了]"
+#else
+#define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
+#endif

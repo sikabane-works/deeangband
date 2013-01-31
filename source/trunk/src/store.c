@@ -4283,11 +4283,7 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 					//display_creature_status(mode, creature_ptr);
 				}
 
-#ifdef JP
-				Term_putstr(2, 23, -1, TERM_WHITE, "['h'でモード変更, ESCで終了]");
-#else
-				Term_putstr(2, 23, -1, TERM_WHITE, "['h' to change mode, or ESC]");
-#endif
+				Term_putstr(2, 23, -1, TERM_WHITE, MES_INTERFACE_DUMP);
 				c = inkey();
 
 				if(c == ESCAPE) break;
