@@ -399,8 +399,8 @@ void set_action(creature_type *creature_ptr, int typ)
 	}
 
 	prepare_update(creature_ptr, CRU_BONUS);
-
 	prepare_redraw(PR_STATE);
+	set_trait_flags(creature_ptr);
 }
 
 // reset timed flags

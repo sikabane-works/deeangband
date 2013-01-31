@@ -3649,7 +3649,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 }
 
 
-static void set_trait_flags(creature_type *creature_ptr)
+void set_trait_flags(creature_type *creature_ptr)
 {
 	int i, j;
 	if(!creature_ptr) return;

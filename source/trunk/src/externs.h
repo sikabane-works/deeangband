@@ -1426,6 +1426,7 @@ extern void prepare_update(creature_type *creature_ptr, u32b flags);
 extern void update_creature(creature_type *creature_ptr, bool message);
 extern void prepare_redraw(u32b flags);
 extern void prepare_window(u32b flags);
+extern void set_trait_flags(creature_type *creature_ptr);
 extern void redraw_stuff(creature_type *creature_ptr);
 extern void window_stuff(creature_type *creature_ptr);
 extern void handle_stuff(creature_type *creature_ptr);

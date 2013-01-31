@@ -699,7 +699,8 @@ bool has_trait_from_inventory(creature_type *creature_ptr, int type)
 
 bool has_trait_from_timed(creature_type *creature_ptr, int type)
 {
-	if(creature_ptr->timed_trait[type]) return TRUE;
+	if(creature_ptr->timed_trait[type])
+		return TRUE;
 	return FALSE;
 }
 
@@ -724,6 +725,7 @@ bool has_trait(creature_type *creature_ptr, int type)
 {
 	bool alias = FALSE;
 	if(!creature_ptr) return FALSE;
+	//if(has_trait_from_timed(creature_ptr, TRAIT_SLEPT)) return TRUE;
 	if(have_flag(creature_ptr->current_trait, type)) return TRUE;
 	return alias;
 }
