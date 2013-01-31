@@ -760,6 +760,7 @@
 #define COD_TY_CURSE_ENERGY "エネルギーのうねり"
 #define COD_UNC_FORCE "気の暴走" 
 #define COD_CHAOS_TAINT "混沌に蝕まれたダメージ"
+#define COD_PATRON_WRATH(PATRON) "%sの怒り", (PATRON)
 #else
 
 #define COD_QUITTING "Quitting"
@@ -819,6 +820,7 @@
 #define COD_TY_CURSE_ENERGY "surge of energy"
 #define COD_UNC_FORCE "Explosion of the Force"
 #define COD_CHAOS_TAINT "Damage of tainted by chaos"
+#define COD_PATRON_WRATH(PATRON) "the Wrath of %s", (PATRON)
 #endif
 
 // Hack -- possible "insult" messages

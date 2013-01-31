@@ -3004,13 +3004,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 	//	if(creature_ptr->patron_idx == PATRON_ARIOCH && creature_ptr->race_idx1 == RACE_MELNIBONE && type == REW_POLY_SLF)
 	//		 type = REW_IGNORE;
 
-
-#ifdef JP
-	sprintf(wrath_reason, "%s‚Ì“{‚è", species_name + species_info[creature_ptr->patron_idx].name);
-#else
-	sprintf(wrath_reason, "the Wrath of %s", species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
+	sprintf(wrath_reason, COD_PATRON_WRATH(species_name + species_info[creature_ptr->patron_idx].name));
 
 	/*TODO
 	effect = player_patrons[creature_ptr->patron_idx].rewards[type];
