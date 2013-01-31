@@ -1523,7 +1523,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #endif
 
 #ifdef JP
-#define MES_MELLE_DISABLE(ATTACKER) "%sは攻撃できない。", (ATTACKER)
+#define MES_MELEE_DISABLE(ATTACKER) "%sは攻撃できない。", (ATTACKER)
+#define MES_MELEE_NO_METHOD(ATTACKER) "%sは攻撃する手段を持っていない。", (ATTACKER)
 #else
-#define MES_MELLE_DISABLE(ATTACKER) "%s don't have attack method.", (ATTACKER)
+#define MES_MELEE_DISABLE(ATTACKER) "%s don't have attack method.", (ATTACKER)
+#define MES_MELEE_NO_METHOD(ATTACKER) "%s don't have attack method.", (ATTACKER)
 #endif

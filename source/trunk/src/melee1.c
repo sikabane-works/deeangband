@@ -1090,7 +1090,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 
 	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW) && is_player(attacker_ptr))
 	{
-		msg_format(MES_MELLE_DISABLE(attacker_name));
+		msg_format(MES_MELEE_DISABLE(attacker_name));
 		return FALSE;
 	}
 
@@ -1178,13 +1178,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 		if(!action_num)	
 		{
 			if(tried_num <= 0 && is_player(attacker_ptr))
-			{
-#if JP 
-				msg_format("%s‚ÍUŒ‚‚·‚éŽè’i‚ðŽ‚Á‚Ä‚¢‚È‚¢B", attacker_name);
-#else
-				//TODO msg_format("%s don't have attack method.", attacker_name);
-#endif
-			}
+				msg_format(MES_MELEE_NO_METHOD(attacker_name));
 			return FALSE;
 		}
 
