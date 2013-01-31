@@ -1521,3 +1521,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #else
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
 #endif
+
+#ifdef JP
+#define MES_MELLE_DISABLE(ATTACKER) "%sÇÕçUåÇÇ≈Ç´Ç»Ç¢ÅB", (ATTACKER)
+#else
+#define MES_MELLE_DISABLE(ATTACKER) "%s don't have attack method.", (ATTACKER)
+#endif

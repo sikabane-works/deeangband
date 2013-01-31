@@ -1090,11 +1090,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 
 	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW) && is_player(attacker_ptr))
 	{
-#if JP 
-		msg_format("%s‚ÍUŒ‚‚Å‚«‚È‚¢B", attacker_name);
-#else
-		//TODO msg_format("%s don't have attack method.", attacker_name);
-#endif
+		msg_format(MES_MELLE_DISABLE(attacker_name));
 		return FALSE;
 	}
 
