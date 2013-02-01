@@ -3322,22 +3322,13 @@ static void process_player_command(creature_type *creature_ptr)
 			if(wizard)
 			{
 				wizard = FALSE;
-#ifdef JP
-				msg_print("ウィザードモード解除。");
-#else
-				msg_print("Wizard mode off.");
-#endif
+				msg_print(SYS_MESSAGE_WIZARD_MODE_OFF);
 
 			}
 			else if(enter_wizard_mode(creature_ptr))
 			{
 				wizard = TRUE;
-#ifdef JP
-				msg_print("ウィザードモード突入。");
-#else
-				msg_print("Wizard mode on.");
-#endif
-
+				msg_print(SYS_MESSAGE_WIZARD_MODE_ON);
 			}
 
 			// Update creatures
