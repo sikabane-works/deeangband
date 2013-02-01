@@ -2678,11 +2678,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 
 	if((c_ptr->info & CAVE_ICKY) || (distance(ty, tx, creature_ptr->fy, creature_ptr->fx) > creature_ptr->lev * 3 / 2 + 10))
 	{
-#ifdef JP
-		msg_print("é∏îsÇµÇΩÅB");
-#else
-		msg_print("Failed to swap.");
-#endif
+		msg_print(GAME_MESSAGE_FAILED);
 		return FALSE;
 	}
 

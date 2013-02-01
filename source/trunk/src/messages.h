@@ -289,6 +289,8 @@
 #define GAME_MESSAGE_FAILED_QUEST "《失敗したクエスト》"
 #define GAME_MESSAGE_REMAINING_QUEST "《残っているクエスト》"
 
+#define GAME_MESSAGE_FAILED "失敗した。"
+#define GAME_MESSAGE_ENCHANTMENT_FAILED "強化に失敗した。"
 #define GAME_MESSAGE_IMPROVEMENT_FAILED "改良に失敗した。"
 #define GAME_MESSAGE_RESIST_THE_EFFECT "しかし効力を跳ね返した。"
 #define GAME_MESSAGE_IS_IMMUNE "には完全な耐性がある。"
@@ -400,6 +402,8 @@
 #define GAME_MESSAGE_FAILED_QUEST "< Failed Quest >"
 #define GAME_MESSAGE_REMAINING_QUEST "< Remaining Quest >"
 
+#define GAME_MESSAGE_FAILED "Failed."
+#define GAME_MESSAGE_ENCHANTMENT_FAILED "The enchantment failed."
 #define GAME_MESSAGE_IMPROVEMENT_FAILED "The improvement failed."
 #define GAME_MESSAGE_RESIST_THE_EFFECT "You resist the effects."
 #define GAME_MESSAGE_IS_IMMUNE "is immune."
@@ -421,7 +425,6 @@
 
 #define GAME_MESSAGE_NO_STUDY_SPELL "No spells to browse."
 #define GAME_MESSAGE_NO_STUDY_TECH "No techniques to browse."
-
 
 #define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "A terrible black aura blasts your %s!"
 #define GAME_MESSAGE_REMOVED_OBJECT_CURSE "You feel as if someone is watching over you."

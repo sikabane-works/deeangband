@@ -2284,15 +2284,8 @@ bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int nu
 
 	if(!okay)
 	{
-		/* Flush */
 		if(flush_failure) flush();
-
-#ifdef JP
-msg_print("ã≠âªÇ…é∏îsÇµÇΩÅB");
-#else
-		msg_print("The enchantment failed.");
-#endif
-
+		msg_print(GAME_MESSAGE_ENCHANTMENT_FAILED);
 	}
 
 	calc_android_exp(creature_ptr);
@@ -2402,11 +2395,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 	if(!okay)
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("ã≠âªÇ…é∏îsÇµÇΩÅB");
-#else
-		msg_print("The enchantment failed.");
-#endif
+		msg_print(GAME_MESSAGE_ENCHANTMENT_FAILED);
 	}
 
 	calc_android_exp(caster_ptr);
@@ -3264,13 +3253,7 @@ bool pulish_shield(creature_type *creature_ptr)
 	else
 	{
 		if(flush_failure) flush();
-
-#ifdef JP
-		msg_print("é∏îsÇµÇΩÅB");
-#else
-		msg_print("Failed.");
-#endif
-
+		msg_print(GAME_MESSAGE_FAILED);
 	}
 	calc_android_exp(creature_ptr);
 
@@ -4572,13 +4555,7 @@ bool brand_bolts(creature_type *creature_ptr)
 	}
 
 	if(flush_failure) flush();
-
-#ifdef JP
-	msg_print("âäÇ≈ã≠âªÇ∑ÇÈÇÃÇ…é∏îsÇµÇΩÅB");
-#else
-	msg_print("The fiery enchantment failed.");
-#endif
-
+	msg_print(GAME_MESSAGE_ENCHANTMENT_FAILED);
 	return TRUE;
 }
 
