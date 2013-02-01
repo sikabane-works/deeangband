@@ -526,8 +526,8 @@
 #define ROW_LEVEL               1
 #define COL_LEVEL               0       /* "LV xx/xx" */
 
-#define ROW_EXP                 1
-#define COL_EXP                 9       /* "EXP xxxxxxxx" */
+#define ROW_EXP                 2
+#define COL_EXP                 0       /* "SOUL xxxxxxxx" */
 
 #define ROW_GOLD                3
 #define COL_GOLD                0       /* "AU xxxxxxxxx" */

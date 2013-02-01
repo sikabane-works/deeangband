@@ -553,13 +553,13 @@ static void prt_level(creature_type *creature_ptr)
 
 	if(creature_ptr->lev >= creature_ptr->max_plv)
 	{
-		put_str("LEV", ROW_LEVEL, 0);				
-		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 3);
+		put_str(KW_LEVEL, ROW_LEVEL, 0);				
+		c_put_str(TERM_L_GREEN, tmp, ROW_LEVEL, COL_LEVEL + 6);
 	}
 	else
 	{
-		put_str("lev", ROW_LEVEL, 0);
-		c_put_str(TERM_YELLOW, tmp, ROW_LEVEL, COL_LEVEL + 3);
+		put_str(KW_LEVEL_DEC, ROW_LEVEL, 0);
+		c_put_str(TERM_YELLOW, tmp, ROW_LEVEL, COL_LEVEL + 6);
 	}
 }
 
@@ -589,15 +589,13 @@ static void prt_exp(creature_type *creature_ptr)
 
 	if(creature_ptr->exp >= creature_ptr->max_exp)
 	{
-		if(has_trait(creature_ptr, TRAIT_ANDROID)) put_str("Cst", ROW_EXP, 0);
-		else put_str("SOUL", ROW_EXP, COL_EXP);
-		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 3);
-
+		put_str(KW_EXP, ROW_EXP, COL_EXP);
+		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 7);
 	}
 	else
 	{
-		put_str("Soul", ROW_EXP, COL_EXP);
-		c_put_str(TERM_YELLOW, out_val, ROW_EXP, COL_EXP + 3);
+		put_str(KW_EXP_DEC, ROW_EXP, COL_EXP);
+		c_put_str(TERM_YELLOW, out_val, ROW_EXP, COL_EXP + 7);
 	}
 }
 
