@@ -602,7 +602,7 @@
 #define GAME_MESSAGE_DETECT_E_CREATURES "邪悪なる生物の存在を感じとった！"
 #define GAME_MESSAGE_DETECT_S_CREATURES "殺気を感じとった！"
 #define GAME_MESSAGE_DETECT_SOMEONE "%sの存在を感じとった！"
-
+#define GAME_MESSAGE_DETECT_NOLIVING "自然でないクリーチャーの存在を感じた！"
 #else
 
 #define GAME_MESSAGE_DETECT_TRAPS "You sense the presence of traps!"
@@ -617,7 +617,7 @@
 #define GAME_MESSAGE_DETECT_E_CREATURES "You sense the presence of evil creatures!"
 #define GAME_MESSAGE_DETECT_S_CREATURES "You sense the presence of someone's mind!"
 #define GAME_MESSAGE_DETECT_SOMEONE "You sense the presence of %s!"
-
+#define GAME_MESSAGE_DETECT_NOLIVING "You sense the presence of unnatural beings!"
 #endif
 
 

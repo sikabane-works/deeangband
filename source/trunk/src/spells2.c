@@ -928,15 +928,7 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 		}
 	}
 
-	if(flag)
-	{
-#ifdef JP
-		msg_print("自然でないクリーチャーの存在を感じた！");
-#else
-		msg_print("You sense the presence of unnatural beings!");
-#endif
-	}
-
+	if(flag) msg_print(GAME_MESSAGE_DETECT_NOLIVING);
 	return (flag);
 }
 
