@@ -1097,18 +1097,10 @@ void do_poly_self(creature_type *creature_ptr)
 	char effect_msg[80] = "";
 	int new_race;
 
-	if(is_seen(player_ptr, creature_ptr))
-	{
-#ifdef JP
-		msg_print("‚ ‚È‚½‚Í•Ï‰»‚Ì–K‚ê‚ğŠ´‚¶‚½...");
-#else
-		msg_print("You feel a change coming over you...");
-#endif
-	}
+	if(is_player(creature_ptr)) msg_print(MES_POLYSELF_FEELING);
 
 	if(power > randint0(20) && one_in_(3))
 	{
-
 		power -= 10; // Some form of racial polymorph...
 
 		if((power > randint0(5)) && one_in_(4)) // sex change
