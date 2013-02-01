@@ -1292,6 +1292,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define SKILL_NAME_MIRROR_M "ãæñÇñ@"
 	#define SKILL_NAME_NINJUTSU "îEèp"
 	#define SKILL_NAME_PRAYER "ãFÇË"
+	#define SKILL_NAME_FORCE "òBãCèp"
+	#define SKILL_NAME_BRUTAL "ã∂ñz"
 #else
 	#define SKILL_NAME_MAGIC "magic"
 	#define SKILL_NAME_PSIONIC "psionic powers"
@@ -1300,6 +1302,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define SKILL_NAME_MIRROR_M "mirror magic"
 	#define SKILL_NAME_NINJUTSU "ninjutsu"
 	#define SKILL_NAME_PRAYER "prayer"
+	#define SKILL_NAME_FORCE "force"
+	#define SKILL_NAME_BRUTAL "brutal power"
 #endif
 
 #ifdef JP

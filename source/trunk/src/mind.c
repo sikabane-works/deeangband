@@ -460,61 +460,37 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 	case CLASS_MINDCRAFTER:
 		{
 			use_mind = MIND_MINDCRAFTER;
-#ifdef JP
-			p = "í¥î\óÕ";
-#else
-			p = "mindcraft";
-#endif
+			p = SKILL_NAME_PSIONIC;
 			break;
 		}
 	case CLASS_FORCETRAINER:
 		{
 			use_mind = MIND_KI;
-#ifdef JP
-			p = "ó˚ãCèp";
-#else
-			p = "Force";
-#endif
+			p = SKILL_NAME_FORCE;
 			break;
 		}
 	case CLASS_BERSERKER:
 		{
 			use_mind = MIND_BERSERKER;
-#ifdef JP
-			p = "ãZ";
-#else
-			p = "brutal power";
-#endif
+			p = SKILL_NAME_BRUTAL;
 			break;
 		}
 	case CLASS_MIRROR_MASTER:
 		{
 			use_mind = MIND_MIRROR_MASTER;
-#ifdef JP
-			p = "ãæñÇñ@";
-#else
-			p = "magic";
-#endif
+			p = SKILL_NAME_MIRROR_M;
 			break;
 		}
 	case CLASS_NINJA:
 		{
 			use_mind = MIND_NINJUTSU;
-#ifdef JP
-			p = "îEèp";
-#else
-			p = "ninjutsu";
-#endif
+			p = SKILL_NAME_NINJUTSU;
 			break;
 		}
 	default:
 		{
 			use_mind = 0;
-#ifdef JP
-			p = "í¥î\óÕ";
-#else
-			p = "mindcraft";
-#endif
+			p = SKILL_NAME_PSIONIC;
 			break;
 		}
 	}
