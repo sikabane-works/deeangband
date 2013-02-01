@@ -685,11 +685,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			if(!cave_have_flag_bold(floor_ptr, y, x, FF_WATER))
 			{
-#ifdef JP
-				msg_print("そこは水辺ではない。");
-#else
-				msg_print("There is no fishing place.");
-#endif
+				msg_print(GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON);
 				return FALSE;
 			}
 			else if(floor_ptr->cave[y][x].creature_idx)
