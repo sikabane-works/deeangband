@@ -50,6 +50,7 @@
 #define SYS_MESSAGE_ASK_USE "%s‚ðŽg‚¢‚Ü‚·‚©H"
 #define SYS_MESSAGE_ASK_SURE "‚æ‚ë‚µ‚¢‚Å‚·‚©H"
 
+#define SYS_MESSAGE_CHARGE_NUM(NUM) "‰ñ•ª"
 #else
 
 #define SYS_MESSAGE_WIZARD_MODE_ON "Wizard mode on."
@@ -92,6 +93,8 @@
 #define SYS_MESSAGE_VISUAL_COMMAND "Command (n/N/^N/a/A/^A/c/C/^C/v/V/^V):"
 #define SYS_MESSAGE_ASK_USE "use %s?"
 #define SYS_MESSAGE_ASK_SURE "Are you sure?"
+
+#define SYS_MESSAGE_CHARGE_NUM(NUM) ((NUM) > 1 ? " charges" : "charge")
 
 #endif
  
