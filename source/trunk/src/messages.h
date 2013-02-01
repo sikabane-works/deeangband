@@ -10,6 +10,7 @@
 
 #ifdef JP
 
+#define SYS_MESSAGE_MORE "-- 続く --"
 #define SYS_MESSAGE_WIZARD_MODE_ON "ウィザードモード突入。"
 #define SYS_MESSAGE_WIZARD_MODE_OFF "ウィザードモード解除。"
 #define SYS_MESSAGE_STARTING_GAME "ゲームを開始します。お待ち下さい..."
@@ -53,6 +54,7 @@
 #define SYS_MESSAGE_CHARGE_NUM(NUM) "回分"
 #else
 
+#define SYS_MESSAGE_MORE "-- MORE --"
 #define SYS_MESSAGE_WIZARD_MODE_ON "Wizard mode on."
 #define SYS_MESSAGE_WIZARD_MODE_OFF "Wizard mode off."
 #define SYS_MESSAGE_STARTING_GAME "Starting Game, Please wait..."

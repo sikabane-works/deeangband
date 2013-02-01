@@ -297,7 +297,6 @@ void creature_knowledge(creature_type *creature_ptr)
 	prt("     Your Attributes:", 1, 5);
 #endif
 
-
 	/* We will print on top of the map (column 13) */
 	for (k = 2, j = 0; j < i; j++)
 	{
@@ -307,12 +306,7 @@ void creature_knowledge(creature_type *creature_ptr)
 		/* Every 20 entries (lines 2 to 21), start over */
 		if((k == 22) && (j+1 < i))
 		{
-#ifdef JP
-			prt("-- ‘±‚­ --", k, 5);
-#else
-			prt("-- more --", k, 5);
-#endif
-
+			prt(SYS_MESSAGE_MORE, k, 5);
 			inkey();
 			for (; k > 2; k--) prt("", k, 5);
 		}
@@ -399,12 +393,7 @@ void report_magics(creature_type *creature_ptr)
 		/* Every 20 entries (lines 2 to 21), start over */
 		if((k == 22) && (j + 1 < i))
 		{
-#ifdef JP
-			prt("-- ‘±‚­ --", k, 5);
-#else
-			prt("-- more --", k, 5);
-#endif
-
+			prt(SYS_MESSAGE_MORE, k, 5);
 			inkey();
 			for (; k > 2; k--) prt("", k, 5);
 		}
