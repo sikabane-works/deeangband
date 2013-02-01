@@ -375,11 +375,7 @@ bool can_do_cmd_cast(creature_type *creature_ptr)
 
 	if(floor_ptr->floor_level && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC))
 	{
-#ifdef JP
-		msg_print("ダンジョンが魔法を吸収した！");
-#else
-		msg_print("The dungeon absorbs all attempted magic!");
-#endif
+		msg_print(GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON);
 		msg_print(NULL);
 		return FALSE;
 	}

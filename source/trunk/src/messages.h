@@ -355,6 +355,8 @@
 #define GAME_MESSAGE_PREVENT_BY_LEVEL "この能力を使用するにはレベル %d に達していなければなりません。"
 #define GAME_MESSAGE_PREVENT_BY_ANTIMAGIC "反魔法バリアが魔法を邪魔した！"
 #define GAME_MESSAGE_PREVENT_BY_TIMESTOP "止まった時の中ではうまく働かないようだ。"
+#define GAME_MESSAGE_PREVENT_BY_HUNGER "その前に食事をとらないと。"
+#define GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON "ダンジョンが魔法を吸収した！"
 #define GAME_MESSAGE_ATTEMPT_ANYWAY "それでも挑戦しますか? "
 
 #define GAME_MESSAGE_IMPROVE_LIMIT "そのアイテムはこれ以上改良できない。"
@@ -467,7 +469,8 @@
 #define GAME_MESSAGE_PREVENT_BY_LEVEL "You need to attain level %d to use this power."
 #define GAME_MESSAGE_PREVENT_BY_ANTIMAGIC "An anti-magic shell disrupts your magic!"
 #define GAME_MESSAGE_PREVENT_BY_TIMESTOP "It shows no reaction."
-
+#define GAME_MESSAGE_PREVENT_BY_HUNGER "You must eat something here."
+#define GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON "The dungeon absorbs all attempted magic!"
 #define GAME_MESSAGE_ATTEMPT_ANYWAY "Attempt it anyway? "
 
 #define GAME_MESSAGE_IMPROVE_LIMIT "This item is no more able to be improved."

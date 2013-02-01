@@ -3333,9 +3333,7 @@ static void process_player_command(creature_type *creature_ptr)
 
 			// Update creatures
 			prepare_update(creature_ptr, PU_CREATURES);
-
 			prepare_redraw(PR_TITLE);
-
 			break;
 		}
 
@@ -3528,11 +3526,7 @@ static void process_player_command(creature_type *creature_ptr)
 
 				if(creature_ptr->food < CREATURE_FOOD_WEAK)
 				{
-#ifdef JP
-					msg_print("その前に食事をとらないと。");
-#else
-					msg_print("You must eat something here.");
-#endif
+					msg_print(GAME_MESSAGE_PREVENT_BY_HUNGER);
 					break;
 				}
 
@@ -3643,11 +3637,7 @@ static void process_player_command(creature_type *creature_ptr)
 				}
 				else if(floor_ptr->floor_level && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH))
 				{
-#ifdef JP
-					msg_print("ダンジョンが魔法を吸収した！");
-#else
-					msg_print("The dungeon absorbs all attempted magic!");
-#endif
+					msg_print(GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON);
 					msg_print(NULL);
 				}
 				else if(has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH))
