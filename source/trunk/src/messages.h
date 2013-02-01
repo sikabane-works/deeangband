@@ -111,9 +111,12 @@
 #define KW_LEVEL_DEC "レベルx"
 #define KW_HP "HP"
 #define KW_MP "MP"
+#define KW_AC "AC"
+#define KW_EV "EV"
+#define KW_VO "VO"
 #define KW_EXP "ソウル"
 #define KW_EXP_DEC "ソウルx"
-#define KW_MONEY "＄"
+#define KW_MONEY "所持金"
 #define KW_FAIL "失率"
 #define KW_UNKNOWN "未知"
 #define KW_FORGOTTEN "忘却"
@@ -164,6 +167,7 @@
 #define KW_RIDING "乗馬"
 #define KW_ASKING_PRICE "提示価格"
 #define KW_FINAL_OFFER_PRICE "最終提示価格"
+#define KW_FLOOR_NUM(NUM) "%d 階", (NUM)
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -175,9 +179,12 @@
 #define KW_LEVEL_DEC "Level"
 #define KW_HP "HP"
 #define KW_MP "MP"
+#define KW_AC "AC"
+#define KW_EV "EV"
+#define KW_VO "VO"
 #define KW_EXP "SOUL"
 #define KW_EXP_DEC "Soul"
-#define KW_MONEY "AU"
+#define KW_MONEY "Money"
 #define KW_FAIL "Fail"
 #define KW_UNKNOWN "Unknown"
 #define KW_FORGOTTEN "Forgotten"
@@ -228,6 +235,7 @@
 #define KW_RIDING "Riding"
 #define KW_ASKING_PRICE "Asking Price"
 #define KW_FINAL_OFFER_PRICE "Final Offer"
+#define KW_FLOOR_NUM(NUM) "Floor %d", (NUM)
 #endif
 
 #ifdef JP

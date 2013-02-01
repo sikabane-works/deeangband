@@ -563,10 +563,7 @@ static void prt_level(creature_type *creature_ptr)
 	}
 }
 
-
-/*
- * Display the experience
- */
+// Display the experience
 static void prt_exp(creature_type *creature_ptr)
 {
 	char out_val[32];
@@ -599,15 +596,13 @@ static void prt_exp(creature_type *creature_ptr)
 	}
 }
 
-/*
- * Prints current gold
- */
+// Prints current gold
 static void prt_gold(creature_type *creature_ptr)
 {
 	char tmp[32];
 	put_str(KW_MONEY, ROW_GOLD, COL_GOLD);
 	sprintf(tmp, "%9ld", (long)creature_ptr->au);
-	c_put_str(TERM_L_GREEN, tmp, ROW_GOLD, COL_GOLD + 3);
+	c_put_str(TERM_L_GREEN, tmp, ROW_GOLD, COL_GOLD + 7);
 }
 
 
@@ -615,7 +610,7 @@ static void prt_gold(creature_type *creature_ptr)
 static void prt_ac_ev_vo(creature_type *creature_ptr)
 {
 	char tmp[32];
-	put_str("AC:    EV:    VO:    ", ROW_AC, COL_AC);
+	put_str(format("%2s:    %2s:    %2s:    ", KW_AC, KW_EV, KW_VO), ROW_AC, COL_AC);
 	sprintf(tmp, "%3d", creature_ptr->dis_ac + creature_ptr->dis_to_ac);
 	c_put_str(TERM_L_GREEN, tmp, ROW_AC, COL_AC + 3);
 	sprintf(tmp, "%3d", creature_ptr->dis_ev + creature_ptr->dis_to_ev);
@@ -657,7 +652,7 @@ static void prt_sp(creature_type *creature_ptr)
 	char tmp[32];
 	byte color;
 
-	put_str("MP", ROW_CURSP, COL_CURSP);
+	put_str(KW_MP, ROW_CURSP, COL_CURSP);
 	sprintf(tmp, "%5ld", creature_ptr->csp);
 
 	if(creature_ptr->csp >= creature_ptr->msp) color = TERM_L_GREEN;
@@ -691,12 +686,7 @@ static void prt_depth(creature_type *creature_ptr)
 	else if(floor_ptr->quest && !floor_ptr->dun_type) strcpy(depths, KW_QUEST);
 	else
 	{
-#ifdef JP
-		(void)sprintf(depths, "%d ŠK", floor_ptr->floor_level);
-#else
-		(void)sprintf(depths, "Lev %d", floor_ptr->floor_level);
-#endif
-
+		(void)sprintf(depths, KW_FLOOR_NUM(floor_ptr->floor_level));
 		/* Get color of level based on feeling  -JSV- */
 		switch (creature_ptr->floor_feeling)
 		{
