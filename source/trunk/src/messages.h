@@ -360,6 +360,7 @@
 #define GAME_MESSAGE_PREVENT_BY_TIMESTOP "止まった時の中ではうまく働かないようだ。"
 #define GAME_MESSAGE_PREVENT_BY_HUNGER "その前に食事をとらないと。"
 #define GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON "ダンジョンが魔法を吸収した！"
+#define GAME_MESSAGE_HAYAGAKE_PREVENT "ここでは素早く動けない。"
 #define GAME_MESSAGE_ATTEMPT_ANYWAY "それでも挑戦しますか? "
 
 #define GAME_MESSAGE_IMPROVE_LIMIT "そのアイテムはこれ以上改良できない。"
@@ -474,6 +475,7 @@
 #define GAME_MESSAGE_PREVENT_BY_TIMESTOP "It shows no reaction."
 #define GAME_MESSAGE_PREVENT_BY_HUNGER "You must eat something here."
 #define GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON "The dungeon absorbs all attempted magic!"
+#define GAME_MESSAGE_HAYAGAKE_PREVENT "You cannot run in here."
 #define GAME_MESSAGE_ATTEMPT_ANYWAY "Attempt it anyway? "
 
 #define GAME_MESSAGE_IMPROVE_LIMIT "This item is no more able to be improved."

@@ -2201,13 +2201,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			else
 			{
 				if(!have_flag(feature_ptr->flags, FF_PROJECT) || (!has_trait(caster_ptr, TRAIT_CAN_FLY) && have_flag(feature_ptr->flags, FF_DEEP)))
-				{
-#ifdef JP
-					msg_print("ここでは素早く動けない。");
-#else
-					msg_print("You cannot run in here.");
-#endif
-				}
+					msg_print(GAME_MESSAGE_HAYAGAKE_PREVENT);
 				else set_action(caster_ptr, ACTION_HAYAGAKE);
 			}
 			cancel_tactical_action(caster_ptr);

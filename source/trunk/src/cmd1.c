@@ -1313,14 +1313,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		     (!has_trait(creature_ptr, TRAIT_CAN_FLY) && have_flag(f_ptr->flags, FF_DEEP))))
 		{
 
-			if(is_player(creature_ptr))
-			{
-#ifdef JP
-				msg_print("Ç±Ç±Ç≈ÇÕëfëÅÇ≠ìÆÇØÇ»Ç¢ÅB");
-#else
-				msg_print("You cannot run in here.");
-#endif
-			}
+			if(is_player(creature_ptr)) msg_print(GAME_MESSAGE_HAYAGAKE_PREVENT);
 			cost_tactical_energy(creature_ptr, 100);
 			set_action(creature_ptr, ACTION_NONE);
 		}
