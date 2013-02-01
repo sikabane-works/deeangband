@@ -1508,9 +1508,11 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #ifdef JP
 #define MES_POLYSELF_FEELING "‚ ‚È‚½‚Í•Ï‰»‚Ì–K‚ê‚ğŠ´‚¶‚½..."
 #define MES_POLYSELF_ORDINARY "Šï–­‚È‚­‚ç‚¢•’Ê‚É‚È‚Á‚½‹C‚ª‚·‚éB"
+#define MES_POLYSELF_DIFFICULT_FORM "Œ»İ‚Ìp‚Å¶‚«‚Ä‚¢‚­‚Ì‚Í¢“ï‚È‚æ‚¤‚¾I"
 #else
 #define MES_POLYSELF_FEELING "You feel a change coming over you..."
 #define MES_POLYSELF_ORDINARY "You feel oddly normal."
+#define MES_POLYSELF_DIFFICULT_FORM "You find living difficult in your present form!"
 #endif
 
 #ifdef JP

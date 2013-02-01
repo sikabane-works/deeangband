@@ -1225,15 +1225,8 @@ void do_poly_self(creature_type *creature_ptr)
 		}
 		if(one_in_(6))
 		{
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("Œ»Ý‚ÌŽp‚Å¶‚«‚Ä‚¢‚­‚Ì‚Í¢“ï‚È‚æ‚¤‚¾I");
-#else
-				msg_print("You find living difficult in your present form!");
-#endif
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(randint1(10), creature_ptr->lev), COD_LETHAL_MUTATION, NULL, -1);
-			}
+			if(is_player(creature_ptr)) msg_print(MES_POLYSELF_DIFFICULT_FORM);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(randint1(10), creature_ptr->lev), COD_LETHAL_MUTATION, NULL, -1);
 			power -= 10;
 		}
 	}
