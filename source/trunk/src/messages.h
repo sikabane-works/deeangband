@@ -360,6 +360,7 @@
 #define GAME_MESSAGE_PREVENT_BY_TIMESTOP "止まった時の中ではうまく働かないようだ。"
 #define GAME_MESSAGE_PREVENT_BY_HUNGER "その前に食事をとらないと。"
 #define GAME_MESSAGE_PREVENT_BY_POSTURE "今は構えに集中している。"
+#define GAME_MESSAGE_PREVENT_BY_CREATURE(NAME) "%sが邪魔だ！", (NAME)
 #define GAME_MESSAGE_FISHING_PREVENT_BY_FEATURE "そこは水辺ではない。"
 #define GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON "ダンジョンが魔法を吸収した！"
 #define GAME_MESSAGE_HAYAGAKE_PREVENT "ここでは素早く動けない。"
@@ -477,6 +478,7 @@
 #define GAME_MESSAGE_PREVENT_BY_TIMESTOP "It shows no reaction."
 #define GAME_MESSAGE_PREVENT_BY_HUNGER "You must eat something here."
 #define GAME_MESSAGE_PREVENT_BY_POSTURE "You need concentration on your form."
+#define GAME_MESSAGE_PREVENT_BY_CREATURE(NAME) "%^s is stand in your way.", (NAME)
 #define GAME_MESSAGE_FISHING_PREVENT_BY_FEATURE "There is no fishing place."
 #define GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON "The dungeon absorbs all attempted magic!"
 #define GAME_MESSAGE_HAYAGAKE_PREVENT "You cannot run in here."
@@ -1500,6 +1502,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #endif
 
 #ifdef JP
+#define MES_STORE_ENTIRE "これで全部です。"
 #define MES_STORE_ITEM_LIMIT "そんなにアイテムを持てない。"
 #define MES_STORE_ITEM_LIMIT2 "ザックにそのアイテムを入れる隙間がない。"
 #define MES_STORE_FIXED_PRICE(PRICE) "一つにつき $%ldです。", (PRICE)
@@ -1510,6 +1513,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_STORE_NEW_STOCK "店主は新たな在庫を取り出した。"
 #define MES_STORE_DROP(NAME, SYM) "%sを置いた。(%c)", (NAME), (SYM)
 #else
+#define MES_STORE_ENTIRE "That's all."
 #define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."
 #define MES_STORE_ITEM_LIMIT2 "You cannot carry that many items."
 #define MES_STORE_FIXED_PRICE(PRICE) "That costs %ld gold per item.", (PRICE)

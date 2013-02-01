@@ -1684,16 +1684,10 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				oktomove = FALSE;
 			}
 			else if(creature_can_cross_terrain(creature_ptr, floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, 0))
-			{
 				do_past = TRUE;
-			}
 			else
 			{
-#ifdef JP
-				msg_format("%^s‚ª×–‚‚¾I", m_name);
-#else
-				msg_format("%^s is in your way!", m_name);
-#endif
+				msg_format(GAME_MESSAGE_PREVENT_BY_CREATURE(m_name));
 				cancel_tactical_action(creature_ptr);
 				oktomove = FALSE;
 			}

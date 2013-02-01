@@ -691,11 +691,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			else if(floor_ptr->cave[y][x].creature_idx)
 			{
 				creature_desc(target_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
-#ifdef JP
-				msg_format("%sが邪魔だ！", target_name);
-#else
-				msg_format("%^s is stand in your way.", target_name);
-#endif
+				msg_format(GAME_MESSAGE_PREVENT_BY_CREATURE(target_name));
 				cancel_tactical_action(caster_ptr);
 				return FALSE;
 			}

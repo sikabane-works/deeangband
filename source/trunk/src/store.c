@@ -4197,13 +4197,7 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 		/* 1 ページ戻るコマンド: 我が家のページ数が多いので重宝するはず By BUG */
 		case '-':
 		{
-			if(st_ptr->stock_num <= store_bottom) {
-#ifdef JP
-				msg_print("これで全部です。");
-#else
-				msg_print("Entire inventory is shown.");
-#endif
-			}
+			if(st_ptr->stock_num <= store_bottom) msg_print(MES_STORE_ENTIRE);
 			else{
 				store_top -= store_bottom;
 				if( store_top < 0 )
@@ -4216,15 +4210,7 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 		/* Browse */
 		case ' ':
 		{
-			if(st_ptr->stock_num <= store_bottom)
-			{
-#ifdef JP
-				msg_print("これで全部です。");
-#else
-				msg_print("Entire inventory is shown.");
-#endif
-
-			}
+			if(st_ptr->stock_num <= store_bottom) msg_print(MES_STORE_ENTIRE);
 			else
 			{
 				store_top += store_bottom;
