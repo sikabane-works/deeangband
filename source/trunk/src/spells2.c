@@ -1573,18 +1573,6 @@ bool probing(floor_type *floor_ptr)
 	Term->scr->cu = cu;
 	Term->scr->cv = cv;
 	Term_fresh();
-
-	if(probe)
-	{
-
-#ifdef JP
-		msg_print("これで全部です。");
-#else
-		msg_print("That's all.");
-#endif
-
-	}
-
 	return (probe);
 }
 
@@ -1607,9 +1595,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 
 	/* Prevent destruction of quest levels and town */
 	if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
-	{
 		return FALSE;
-	}
 
 	/* Lose creature light */
 	if(!in_generate) clear_creature_lite(floor_ptr);
@@ -1717,21 +1703,11 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 						{
 							char object_name[MAX_NLEN];
 							object_desc(object_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
-#ifdef JP
-							msg_format("伝説のアイテム (%s) は生成中に*破壊*された。", object_name);
-#else
-							msg_format("Artifact (%s) was *destroyed* during generation.", object_name);
-#endif
+							msg_format(DEBUG_MESSAGE_ARTIFACT_CANCEL(object_name));
 						}
 					}
 					else if(in_generate && cheat_peek && object_ptr->art_name)
-					{
-#ifdef JP
-						msg_print("ランダム・アーティファクトの1つは生成中に*破壊*された。");
-#else
-						msg_print("One of the random artifacts was *destroyed* during generation.");
-#endif
-					}
+						msg_print(DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL);
 				}
 			}
 

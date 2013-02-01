@@ -840,48 +840,6 @@ bool heal_creature(creature_type *creature_ptr, int healing_power)
 	return effected;
 }
 
-// Array of stat "descriptions"
-static cptr desc_stat_pos[] =
-{
-#ifdef JP
-	"強く",
-	"知的に",
-	"賢く",
-	"器用に",
-	"健康に",
-	"美しく"
-#else
-	"strong",
-	"smart",
-	"wise",
-	"dextrous",
-	"healthy",
-	"cute"
-#endif
-};
-
-
-/*
-* Array of stat "descriptions"
-*/
-static cptr desc_stat_neg[] =
-{
-#ifdef JP
-	"弱く",
-	"無知に",
-	"愚かに",
-	"不器用に",
-	"不健康に",
-	"醜く"
-#else
-	"weak",
-	"stupid",
-	"naive",
-	"clumsy",
-	"sickly",
-	"ugly"
-#endif
-};
 
 // Lose a "point"
 bool do_dec_stat(creature_type *creature_ptr, int stat)
@@ -1026,7 +984,7 @@ void do_poly_wounds(creature_type *creature_ptr)
 	if(is_seen(player_ptr, creature_ptr))
 	{
 #ifdef JP
-		msg_print("傷がより軽いものに変化した。");
+		msg_print("負っていた傷がより軽くなった。");
 #else
 		msg_print("Your wounds are polymorphed into less serious ones.");
 #endif

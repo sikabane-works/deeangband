@@ -1429,6 +1429,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_VAULT(NAME) "地下室(%s)", (NAME)
 #define DEBUG_MESSAGE_GREATER_VAULT(NAME) "巨大な地下室(%s)", (NAME)
 #define DEBUG_MESSAGE_FAILED_VAULT "巨大な地下室を配置できません。"
+#define DEBUG_MESSAGE_ARTIFACT_CANCEL(OBJECT) "伝説のアイテム (%s) は生成中に*破壊*された。", (OBJECT)
+#define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL "ランダム・アーティファクトの1つは生成中に*破壊*された。"
 #else
 #define DEBUG_MESSAGE_ROOM_NUM "Number of Rooms: %d"
 #define DEBUG_MESSAGE_GLASS_ROOM "[Glass Room]"
@@ -1447,6 +1449,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_VAULT(NAME) "Vault(%s)", (NAME)
 #define DEBUG_MESSAGE_GREATER_VAULT(NAME) "Greater vault (%s)", (NAME)
 #define DEBUG_MESSAGE_FAILED_VAULT "Could not place greater vault."
+#define DEBUG_MESSAGE_ARTIFACT_CANCEL(OBJECT) "Artifact (%s) was *destroyed* during generation.", (OBJECT)
+#define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL "One of the random artifacts was *destroyed* during generation."
 #endif
 
 #ifdef JP
@@ -1494,6 +1498,45 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_EXIT_WARNING "You can't come back here once you leave this floor."
 #define MES_QUEST_ASK_EXIT "Really leave this floor? "
 #endif
+
+static cptr desc_stat_pos[] =
+{
+#ifdef JP
+	"強く",
+	"知的に",
+	"賢く",
+	"器用に",
+	"健康に",
+	"美しく"
+#else
+	"strong",
+	"smart",
+	"wise",
+	"dextrous",
+	"healthy",
+	"cute"
+#endif
+};
+
+
+static cptr desc_stat_neg[] =
+{
+#ifdef JP
+	"弱く",
+	"無知に",
+	"愚かに",
+	"不器用に",
+	"不健康に",
+	"醜く"
+#else
+	"weak",
+	"stupid",
+	"naive",
+	"clumsy",
+	"sickly",
+	"ugly"
+#endif
+};
 
 #ifdef JP
 #define MES_CREATURE_LEVELUP(LEV) "レベル %d にようこそ。", (LEV)
