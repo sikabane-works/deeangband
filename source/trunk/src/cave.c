@@ -1668,14 +1668,14 @@ void prt_map(creature_type *watcher_ptr)
 	for (y = 1; y <= ymin - panel_row_prt; y++)
 	{
 		/* Erase the section */
-		Term_erase(COL_MAP, y, wid);
+		Term_erase(COL_MAP, y + 1, wid);
 	}
 
 	/* Top section of screen */
 	for (y = ymax - panel_row_prt; y <= hgt; y++)
 	{
 		/* Erase the section */
-		Term_erase(COL_MAP, y, wid);
+		Term_erase(COL_MAP, y + 1, wid);
 	}
 
 	/* Dump the map */
