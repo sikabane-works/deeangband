@@ -1542,10 +1542,12 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_LEVELUP(LEV) "レベル %d にようこそ。", (LEV)
 #define MES_CREATURE_DEC_STATUS(CREATURE, DEC) "%sはひどく%sなった。", (CREATURE)->name, (DEC)
 #define MES_CREATURE_DEC_STATUS_CANCEL(CREATURE, DEC) "%sはひどく%sなりかけたが、元に戻った", (CREATURE)->name, (DEC)
+#define MES_CREATURE_LIFE_RATE(NUM) "現在の体力ランク : %d/100", (NUM)
 #else
 #define MES_CREATURE_LEVELUP(LEV) "Welcome to level %d.", (LEV)
 #define MES_CREATURE_DEC_STATUS(CREATURE, DEC) "%s become very %s.", (CREATURE)->name, (DEC)
 #define MES_CREATURE_DEC_STATUS_CANCEL(CREATURE, DEC) "%s become %s for a moment, but the feeling passes.", (CREATURE)->name, (DEC)
+#define MES_CREATURE_LIFE_RATE(NUM) "Your current Life Rating is %d/100.", (NUM)
 #endif
 
 #ifdef JP

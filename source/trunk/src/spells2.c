@@ -114,15 +114,10 @@ void creature_knowledge(creature_type *creature_ptr)
 
 	strcpy(Dummy, "");
 
-	percent = (int)(((long)creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] * 200L) /
-		(2 * creature_ptr->hitdice +
+	percent = (int)(((long)creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] * 200L) / (2 * creature_ptr->hitdice +
 		((CREATURE_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
 
-#ifdef JP
-	sprintf(Dummy, "Œ»İ‚Ì‘Ì—Íƒ‰ƒ“ƒN : %d/100", percent);
-#else
-	sprintf(Dummy, "Your current Life Rating is %d/100.", percent);
-#endif
+	sprintf(Dummy, MES_CREATURE_LIFE_RATE(percent));
 
 	strcpy(buf[0], Dummy);
 	info[i++] = buf[0];
