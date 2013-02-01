@@ -1506,6 +1506,12 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #endif
 
 #ifdef JP
+#define MES_POLYSELF_ORDINARY "奇妙なくらい普通になった気がする。"
+#else
+#define MES_POLYSELF_ORDINARY "You feel oddly normal."
+#endif
+
+#ifdef JP
 #define MES_STORE_ENTIRE "これで全部です。"
 #define MES_STORE_ITEM_LIMIT "そんなにアイテムを持てない。"
 #define MES_STORE_ITEM_LIMIT2 "ザックにそのアイテムを入れる隙間がない。"

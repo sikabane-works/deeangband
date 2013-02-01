@@ -890,25 +890,23 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 
 	switch (stat) // Access the "sustain"
 	{
-	case STAT_STR: if(has_trait(creature_ptr, TRAIT_SUSTAIN_STR)) sust = TRUE; break;
-	case STAT_INT: if(has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) sust = TRUE; break;
-	case STAT_WIS: if(has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) sust = TRUE; break;
-	case STAT_DEX: if(has_trait(creature_ptr, TRAIT_SUSTAIN_DEX)) sust = TRUE; break;
-	case STAT_CON: if(has_trait(creature_ptr, TRAIT_SUSTAIN_CON)) sust = TRUE; break;
-	case STAT_CHA: if(has_trait(creature_ptr, TRAIT_SUSTAIN_CHR)) sust = TRUE; break;
+		case STAT_STR: if(has_trait(creature_ptr, TRAIT_SUSTAIN_STR)) sust = TRUE; break;
+		case STAT_INT: if(has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) sust = TRUE; break;
+		case STAT_WIS: if(has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) sust = TRUE; break;
+		case STAT_DEX: if(has_trait(creature_ptr, TRAIT_SUSTAIN_DEX)) sust = TRUE; break;
+		case STAT_CON: if(has_trait(creature_ptr, TRAIT_SUSTAIN_CON)) sust = TRUE; break;
+		case STAT_CHA: if(has_trait(creature_ptr, TRAIT_SUSTAIN_CHR)) sust = TRUE; break;
 	}
 
 	if(sust && (!has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) || randint0(13))) // Sustain
 	{
-		if(is_seen(player_ptr, creature_ptr))
-			msg_format(MES_CREATURE_DEC_STATUS_CANCEL(creature_ptr, desc_stat_neg[stat]));
+		if(is_seen(player_ptr, creature_ptr)) msg_format(MES_CREATURE_DEC_STATUS_CANCEL(creature_ptr, desc_stat_neg[stat]));
 		return TRUE; // Notice effect
 	}
-
 	if(dec_stat(creature_ptr, stat, 10, (has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) && !randint0(13)))) // Attempt to reduce the stat
 	{
 		if(is_seen(player_ptr, creature_ptr)) msg_format(MES_CREATURE_DEC_STATUS(creature_ptr, desc_stat_neg[stat]));
-		return TRUE; // Notice effect
+		return TRUE;
 	}
 
 	return FALSE; // Nothing obvious
@@ -922,9 +920,9 @@ bool do_res_stat(creature_type *creature_ptr, int stat)
 		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP
-			msg_format("元通りに%sなった気がする。", desc_stat_pos[stat]);
+			msg_format("%sは元通りに%sなった。", desc_stat_pos[stat]);
 #else
-			msg_format("You feel less %s.", desc_stat_neg[stat]);
+			msg_format("%s become less %s.", desc_stat_neg[stat]);
 #endif
 		}
 		return TRUE;
@@ -1200,12 +1198,7 @@ void do_poly_self(creature_type *creature_ptr)
 		while ((power > randint0(20)) && one_in_(10))
 		{		
 			power -= 10; // Polymorph into a less mutated form
-			if(!lose_trait(creature_ptr, 0))
-#ifdef JP
-				msg_print("奇妙なくらい普通になった気がする。");
-#else
-				msg_print("You feel oddly normal.");
-#endif
+			if(!lose_trait(creature_ptr, 0) && is_player(creature_ptr)) msg_print(MES_POLYSELF_ORDINARY);
 		}
 
 		if(race_info[creature_ptr->race_idx1].dr == -1)
