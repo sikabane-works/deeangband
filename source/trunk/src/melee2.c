@@ -2487,7 +2487,7 @@ static void process_creature(int i)
 	creature_food_digest(creature_ptr); // food digest
 	creature_lack_food(creature_ptr); // Getting Faint from lack food
 	/* Paralyzed or Knocked Out */
-	if(has_trait(creature_ptr, TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT) || has_trait_from_timed(creature_ptr, TRAIT_SLEPT) || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
+	if(has_trait(creature_ptr, TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT) || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
 		cost_tactical_energy(creature_ptr, 100); // Take a turn
 	else
 	{

@@ -254,6 +254,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 
 	creature_ptr->timed_trait[type] = v; // Use the value
 
+	set_trait_flags(creature_ptr);
 	if(is_player(creature_ptr)) prepare_redraw(PR_STATUS | PR_CUT | PR_STUN);
 	if(!notice) return FALSE;
 	if(disturb_state) disturb(player_ptr, 0, 0);
@@ -900,26 +901,13 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 	if(sust && (!has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) || randint0(13))) // Sustain
 	{
 		if(is_seen(player_ptr, creature_ptr))
-		{
-#ifdef JP
-			msg_format("%sなった気がしたが、すぐに元に戻った。", desc_stat_neg[stat]);
-#else
-			msg_format("You feel %s for a moment, but the feeling passes.", desc_stat_neg[stat]);
-#endif
-		}
+			msg_format(MES_CREATURE_DEC_STATUS_CANCEL(creature_ptr, desc_stat_neg[stat]));
 		return TRUE; // Notice effect
 	}
 
 	if(dec_stat(creature_ptr, stat, 10, (has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) && !randint0(13)))) // Attempt to reduce the stat
 	{
-		if(is_seen(player_ptr, creature_ptr))
-		{
-#ifdef JP
-			msg_format("ひどく%sなった気がする。", desc_stat_neg[stat]);
-#else
-			msg_format("You feel very %s.", desc_stat_neg[stat]);
-#endif
-		}
+		if(is_seen(player_ptr, creature_ptr)) msg_format(MES_CREATURE_DEC_STATUS(creature_ptr, desc_stat_neg[stat]));
 		return TRUE; // Notice effect
 	}
 
