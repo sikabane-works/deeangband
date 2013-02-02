@@ -764,6 +764,11 @@
 #define GAME_MESSAGE_DIGGED2(NAME) ("You dig into the %s.", (NAME))
 #endif
 
+#ifdef JP
+#define MES_TY_CURSE "純粋な魔力の次元への扉が開いた！"
+#else
+#define MES_TY_CURSE "A portal opens to a plane of raw mana!"
+#endif
 
 
 // Cause of Death
@@ -829,6 +834,7 @@
 #define COD_PATRON_WRATH(PATRON) "%sの怒り", (PATRON)
 #define COD_EARTHQUAKE_CASTER(CASTER) "%sの起こした地震", (CASTER)
 #define COD_EARTHQUAKE "地震"
+#define COD_PURE_MANA "純粋な魔力の解放"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -891,6 +897,7 @@
 #define COD_PATRON_WRATH(PATRON) "the Wrath of %s", (PATRON)
 #define COD_EARTHQUAKE_CASTER(CASTER) "an earthquake caused by %s", (CASTER)
 #define COD_EARTHQUAKE "an earthquake"
+#define COD_PURE_MANA "released pure mana"
 #endif
 
 // Hack -- possible "insult" messages
