@@ -2663,22 +2663,14 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 		case 32: case 33:
 			if(!(*count))
 			{
-#ifdef JP
-				msg_print("周囲の空間が歪んだ！");
-#else
-				msg_print("Space warps about you!");
-#endif
+				msg_print(MES_TY_CURSE_TELEPORT);
 				teleport_player(creature_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
 				if(randint0(13)) (*count) += activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 				if(!one_in_(6)) break;
 			}
 
 		case 34:
-#ifdef JP
-			msg_print("エネルギーのうねりを感じた！");
-#else
-			msg_print("You feel a surge of energy!");
-#endif
+			msg_print(MES_TY_CURESE_SURGE_ENERGY);
 			wall_breaker(creature_ptr);
 			if(!randint0(7))
 			{
