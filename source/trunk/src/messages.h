@@ -1640,6 +1640,10 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_DEFINE_MACRO_ACTION "この行はマクロの実行内容を定義します。"
 #define MES_AUTOPICK_DEFINE_TRIGER_KEY "この行はマクロのトリガー・キーを定義します。"
 #define MES_AUTOPICK_DEFINE_KEY_MAP "この行はキー配置を定義します。"
+#define MES_AUTOPICK_CUR_FALSE "現在の式の値は「偽(=0)」です。"
+#define MES_AUTOPICK_CUR_TRUE "現在の式の値は「真(=1)」です。"
+#define MES_AUTOPICK_CUR_DELETE "この行は後で削除されます。"
+#define MES_AUTOPICK_CUR_BYPASS "この行は現在は無効な状態です。"
 #else
 #define MES_AUTOPICK_PATTERN_NOT_FOUND(STR) "Pattern not found: %s", (STR)
 #define MES_AUTOPICK_SKIP_INACTIVE_LINE(STR) "Some inactive lines are skipped. (Searching %s)", (STR)
@@ -1650,4 +1654,9 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_DEFINE_MACRO_ACTION "This line defines a Macro action."
 #define MES_AUTOPICK_DEFINE_TRIGER_KEY "This line defines a Macro trigger key."
 #define MES_AUTOPICK_DEFINE_KEY_MAP "This line defines a Keymap."
+#define MES_AUTOPICK_CUR_FALSE "The expression is 'False'(=0) currently."
+#define MES_AUTOPICK_CUR_TRUE "The expression is 'True'(=1) currently."
+#define MES_AUTOPICK_CUR_DELETE "This line will be delete later."
+#define MES_AUTOPICK_CUR_BYPASS "This line is bypassed currently."
 #endif
+

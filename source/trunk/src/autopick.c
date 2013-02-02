@@ -4719,41 +4719,16 @@ static void draw_text_editor(text_body_type *tb)
 			{
 			case '?':
 				if(tb->states[tb->cy] & LSTAT_BYPASS)
-				{
-#ifdef JP
-					str2 = "現在の式の値は「偽(=0)」です。";
-#else
-					str2 = "The expression is 'False'(=0) currently.";
-#endif
-				}
+					str2 = MES_AUTOPICK_CUR_FALSE;
 				else
-				{
-#ifdef JP
-					str2 = "現在の式の値は「真(=1)」です。";
-#else
-					str2 = "The expression is 'True'(=1) currently.";
-#endif
-				}
+					str2 = MES_AUTOPICK_CUR_TRUE;
 				break;
 
 			default:
 				if(tb->states[tb->cy] & LSTAT_AUTOREGISTER)
-				{
-#ifdef JP
-					str2 = "この行は後で削除されます。";
-#else
-					str2 = "This line will be delete later.";
-#endif
-				}
-
+					str2 = MES_AUTOPICK_CUR_DELETE;
 				else if(tb->states[tb->cy] & LSTAT_BYPASS)
-				{
-#ifdef JP
-					str2 = "この行は現在は無効な状態です。";
-#else
-					str2 = "This line is bypassed currently.";
-#endif
-				}
+					str2 = MES_AUTOPICK_CUR_BYPASS;
 				break;
 			}
 		}
