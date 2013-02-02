@@ -649,13 +649,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	/* Up only */
 	else if(quest_number(floor_ptr) || (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth))
 	{
-#ifdef JP
-		if(see_m) msg_format("%^sは天井を突き破って宙へ浮いていく。", m_name);
-#else
-		if(see_m) msg_format("%^s rise%s up through the ceiling.", m_name, (m_idx <= 0) ? "" : "s");
-#endif
-
-
+		if(see_m) msg_format(MES_TELEPORT_LEVEL_UP(TARGET));
 		if(m_idx <= 0) /* To player */
 		{
 			if(record_stair) do_cmd_write_diary(DIARY_TELE_LEV, -1, NULL);
@@ -673,12 +667,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	}
 	else if(go_up)
 	{
-#ifdef JP
-		if(see_m) msg_format("%^sは天井を突き破って宙へ浮いていく。", m_name);
-#else
-		if(see_m) msg_format("%^s rise%s up through the ceiling.", m_name, (m_idx <= 0) ? "" : "s");
-#endif
-
+		if(see_m) msg_format(MES_TELEPORT_LEVEL_UP(TARGET));
 
 		if(m_idx <= 0) /* To player */
 		{

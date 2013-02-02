@@ -778,6 +778,11 @@
 #define MES_TY_CURSE_AMNESIA "Huh? Who am I? What am I doing here?"
 #endif
 
+#if JP
+#define MES_TELEPORT_LEVEL_UP(TARGET) "%^s‚Í“Vˆä‚ğ“Ë‚«”j‚Á‚Ä’ˆ‚Ö•‚‚¢‚Ä‚¢‚­B", (TARGET)
+#else
+#define MES_TELEPORT_LEVEL_UP(TARGET) "%^s rise%s up through the ceiling.", (TARGET), (m_idx <= 0) ? "" : "s"
+#endif
 
 // Cause of Death
 #if JP
