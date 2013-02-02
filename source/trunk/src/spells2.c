@@ -2654,7 +2654,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			if(!(*count))
 			{
 				int dam = diceroll(10, 10);
-				msg_print(MES_TY_CURSE);
+				msg_print(MES_TY_CURSE_PURE_MANA);
 				project(0, 0, 8, creature_ptr->fy, creature_ptr->fx, dam, DO_EFFECT_MANA, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, COD_PURE_MANA, NULL, -1);
 				if(!one_in_(6)) break;
@@ -2670,7 +2670,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			}
 
 		case 34:
-			msg_print(MES_TY_CURESE_SURGE_ENERGY);
+			msg_print(MES_TY_CURSE_SURGE_ENERGY);
 			wall_breaker(creature_ptr);
 			if(!randint0(7))
 			{
@@ -2705,12 +2705,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			else
 			*/
 			{
-#ifdef JP
-				msg_print("彫像になった気分だ！");
-#else
-				msg_print("You feel like a statue!");
-#endif
-
+				msg_print(MES_TY_CURSE_STATUE);
 				if(has_trait(creature_ptr, TRAIT_FREE_ACTION))
 					add_timed_trait(creature_ptr, TRAIT_PARALYZED, randint1(3), TRUE);
 				else
@@ -2725,12 +2720,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			if(!one_in_(6)) break;
 
 		case 24:
-#ifdef JP
-			msg_print("ほえ？私は誰？ここで何してる？");
-#else
-			msg_print("Huh? Who am I? What am I doing here?");
-#endif
-
+			msg_print(MES_TY_CURSE_AMNESIA);
 			lose_all_info(creature_ptr);
 			if(!one_in_(6)) break;
 

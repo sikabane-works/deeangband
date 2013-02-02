@@ -767,11 +767,15 @@
 #ifdef JP
 #define MES_TY_CURSE_TELEPORT "周囲の空間が歪んだ！"
 #define MES_TY_CURSE_PURE_MANA "純粋な魔力の次元への扉が開いた！"
-#define MES_TY_CURESE_SURGE_ENERGY "エネルギーのうねりを感じた！"
+#define MES_TY_CURSE_SURGE_ENERGY "エネルギーのうねりを感じた！"
+#define MES_TY_CURSE_STATUE "彫像になった気分だ！"
+#define MES_TY_CURSE_AMNESIA "ほえ？私は誰？ここで何してる？"
 #else
 #define MES_TY_CURSE_TELEPORT "Space warps about you!"
 #define MES_TY_CURSE_PURE_MANA "A portal opens to a plane of raw mana!"
-#define MES_TY_CURESE_SURGE_ENERGY "A surge of energy happens!"
+#define MES_TY_CURSE_SURGE_ENERGY "A surge of energy happens!"
+#define MES_TY_CURSE_STATUE "You feel like a statue!"
+#define MES_TY_CURSE_AMNESIA "Huh? Who am I? What am I doing here?"
 #endif
 
 
