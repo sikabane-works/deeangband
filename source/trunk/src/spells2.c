@@ -1443,18 +1443,8 @@ bool probing(floor_type *floor_ptr)
 		{
 			char m_name[MAX_NLEN];
 
-			/* Start the message */
-			if(!probe)
-			{
-#ifdef JP
-				msg_print("’²¸’†...");
-#else
-				msg_print("Probing...");
-#endif
-			}
-
+			if(!probe) msg_print(MES_PROBING_START);
 			msg_print(NULL);
-
 			if(!is_original_ap(m_ptr))
 			{
 				if(has_trait(m_ptr, TRAIT_KAGE)) lose_mutative_trait(m_ptr, TRAIT_KAGE);
@@ -1476,20 +1466,11 @@ bool probing(floor_type *floor_ptr)
 			else if(m_ptr->sex == SEX_INTERSEX) sex = KW_INTERSEX;
 			else if(m_ptr->sex == SEX_NONE) sex = KW_NOSEX;
 
-			/* Describe the creature */
-#ifdef JP
-			sprintf(buf,"%s ‘®«:%s «•Ê:%s HP:%d/%d AC:%d ‘¬“x:%s%d ˜r:%d ’m:%d Œ«:%d Ší:%d ‘Ï:%d –£:%d ŒoŒ±:",
+			sprintf(buf, MES_PROBING_FORMAT,
 				m_name, align, sex, m_ptr->chp, m_ptr->mhp, m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
 				m_ptr->stat_use[0] / STAT_FRACTION, m_ptr->stat_use[1] / STAT_FRACTION,
 				m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
 				m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
-#else
-			sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d DEX:%d CON:%d CHA:%d exp:",
-				m_name, align, sex, m_ptr->chp, m_ptr->mhp, m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
-				m_ptr->stat_use[0] / STAT_FRACTION, m_ptr->stat_use[1] / STAT_FRACTION,
-				m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
-				m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
-#endif
 			if(species_ptr->next_species_idx) strcat(buf, format("%d/%d ", m_ptr->exp, species_ptr->next_exp));
 			else strcat(buf, "xxx ");
 

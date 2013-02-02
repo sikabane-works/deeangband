@@ -562,6 +562,14 @@
 #endif
 
 #ifdef JP
+#define MES_PROBING_START "調査中..."
+#define MES_PROBING_FORMAT "%s 属性:%s 性別:%s HP:%d/%d AC:%d 速度:%s%d 腕:%d 知:%d 賢:%d 器:%d 耐:%d 魅:%d 経験:"
+#else
+#define MES_PROBING_START "Probing..."
+#define MES_PROBING_FORMAT "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d DEX:%d CON:%d CHA:%d exp:"
+#endif
+
+#ifdef JP
 #define GAME_MESSAGE_WEAPON_ATTACK "%sは%sを%sで攻撃した。"
 #define GAME_MESSAGE_WEAPON_ATTACK_MISS "%sは%sの攻撃をかわした。"
 #define GAME_MESSAGE_WEAPON_AMBUSH(ATTACKER, TARGET) ("%sは冷酷にも眠っている無力な%sを突き刺した！", (ATTACKER), (TARGET))
