@@ -4732,33 +4732,16 @@ static void draw_text_editor(text_body_type *tb)
 			switch(tb->lines_list[tb->cy][0])
 			{
 			case '?':
-#ifdef JP
-				str1 = "この行は条件分岐式です。";
-#else
-				str1 = "This line is a Conditional Expression.";
-#endif
-
+				str1 = MES_AUTOPICK_CONDITIONAL_EXPRESSION;
 				break;
 			case 'A':
-#ifdef JP
-				str1 = "この行はマクロの実行内容を定義します。";
-#else
-				str1 = "This line defines a Macro action.";
-#endif
+				str1 = MES_AUTOPICK_DEFINE_MACRO_ACTION;
 				break;
 			case 'P':
-#ifdef JP
-				str1 = "この行はマクロのトリガー・キーを定義します。";
-#else
-				str1 = "This line defines a Macro trigger key.";
-#endif
+				str1 = MES_AUTOPICK_DEFINE_TRIGER_KEY;
 				break;
 			case 'C':
-#ifdef JP
-				str1 = "この行はキー配置を定義します。";
-#else
-				str1 = "This line defines a Keymap.";
-#endif
+				str1 = MES_AUTOPICK_DEFINE_KEY_MAP;
 				break;
 			}
 

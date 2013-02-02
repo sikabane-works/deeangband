@@ -1629,3 +1629,15 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_DISABLE(ATTACKER) "%s don't have attack method.", (ATTACKER)
 #define MES_MELEE_NO_METHOD(ATTACKER) "%s don't have attack method.", (ATTACKER)
 #endif
+
+#ifdef JP
+#define MES_AUTOPICK_CONDITIONAL_EXPRESSION "この行は条件分岐式です。"
+#define MES_AUTOPICK_DEFINE_MACRO_ACTION "この行はマクロの実行内容を定義します。"
+#define MES_AUTOPICK_DEFINE_TRIGER_KEY "この行はマクロのトリガー・キーを定義します。"
+#define MES_AUTOPICK_DEFINE_KEY_MAP "この行はキー配置を定義します。"
+#else
+#define MES_AUTOPICK_CONDITIONAL_EXPRESSION "This line is a Conditional Expression."
+#define MES_AUTOPICK_DEFINE_MACRO_ACTION "This line defines a Macro action."
+#define MES_AUTOPICK_DEFINE_TRIGER_KEY "This line defines a Macro trigger key."
+#define MES_AUTOPICK_DEFINE_KEY_MAP "This line defines a Keymap."
+#endif
