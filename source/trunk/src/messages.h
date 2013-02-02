@@ -790,6 +790,12 @@
 #define MES_RECALL_CANCEL "A tension leaves the air around you..."
 #endif
 
+#if JP
+#define MES_ALCHEMY_ASK(OBJECT) "ñ{ìñÇ…%sÇã‡Ç…ïœÇ¶Ç‹Ç∑Ç©ÅH", (OBJECT)
+#else
+#define MES_ALCHEMY_ASK(OBJECT) "Really turn %s to gold? ", (OBJECT)
+#endif
+
 
 // Cause of Death
 #if JP

@@ -1999,13 +1999,7 @@ bool alchemy(creature_type *creature_ptr)
 	{
 		if(confirm_destroy || (object_value(object_ptr) > 0))
 		{
-			/* Make a verification */
-#ifdef JP
-			sprintf(out_val, "本当に%sを金に変えますか？", object_name);
-#else
-			sprintf(out_val, "Really turn %s to gold? ", object_name);
-#endif
-
+			sprintf(out_val, MES_ALCHEMY_ASK(object_name));
 			if(!get_check(out_val)) return FALSE;
 		}
 	}
@@ -2041,7 +2035,7 @@ bool alchemy(creature_type *creature_ptr)
 
 		if(price > 30000) price = 30000;
 #ifdef JP
-msg_format("%sを＄%d の金に変えた。", object_name, price);
+		msg_format("%sを＄%d の金に変えた。", object_name, price);
 #else
 		msg_format("You turn %s to %ld coins worth of gold.", object_name, price);
 #endif
