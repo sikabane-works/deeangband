@@ -4688,45 +4688,15 @@ static void draw_text_editor(text_body_type *tb)
 
 		/* Display information */
 		if(tb->dirty_flags & DIRTY_NOT_FOUND)
-		{
-#ifdef JP
-			str1 = format("パターンが見つかりません: %s", tb->search_str);
-#else
-			str1 = format("Pattern not found: %s", tb->search_str);
-#endif
-		}
+			str1 = format(MES_AUTOPICK_PATTERN_NOT_FOUND(tb->search_str));
 		else if(tb->dirty_flags & DIRTY_SKIP_INACTIVE)
-		{
-#ifdef JP
-			str1 = format("無効状態の行をスキップしました。(%sを検索中)", tb->search_str);
-#else
-			str1 = format("Some inactive lines are skipped. (Searching %s)", tb->search_str);
-#endif
-		}
+			str1 = format(MES_AUTOPICK_SKIP_INACTIVE_LINE(tb->search_str));
 		else if(tb->dirty_flags & DIRTY_INACTIVE)
-		{
-#ifdef JP
-			str1 = format("無効状態の行だけが見付かりました。(%sを検索中)", tb->search_str);
-#else
-			str1 = format("Found only an inactive line. (Searching %s)", tb->search_str);
-#endif
-		}
+			str1 = format(MES_AUTOPICK_FOUND_ONLY_INACTIVE(tb->search_str));
 		else if(tb->dirty_flags & DIRTY_NO_SEARCH)
-		{
-#ifdef JP
-			str1 = "検索するパターンがありません(^S で検索)。";
-#else
-			str1 = "No pattern to search. (Press ^S to search.)";
-#endif
-		}
+			str1 = MES_AUTOPICK_NO_PATTERN_SEARCH;
 		else if(tb->lines_list[tb->cy][0] == '#')
-		{
-#ifdef JP
-			str1 = "この行はコメントです。";
-#else
-			str1 = "This line is a comment.";
-#endif
-		}
+			str1 = MES_AUTOPICK_COMMENT;
 		else if(tb->lines_list[tb->cy][0] && tb->lines_list[tb->cy][1] == ':')
 		{
 			switch(tb->lines_list[tb->cy][0])

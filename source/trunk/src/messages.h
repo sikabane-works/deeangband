@@ -1631,11 +1631,21 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_AUTOPICK_PATTERN_NOT_FOUND(STR) "パターンが見つかりません: %s", (STR)
+#define MES_AUTOPICK_SKIP_INACTIVE_LINE(STR) "無効状態の行をスキップしました。(%sを検索中)", (STR)
+#define MES_AUTOPICK_FOUND_ONLY_INACTIVE(STR) "無効状態の行だけが見付かりました。(%sを検索中)", (STR)
+#define MES_AUTOPICK_NO_PATTERN_SEARCH "検索するパターンがありません(^S で検索)。"
+#define MES_AUTOPICK_COMMENT "この行はコメントです。"
 #define MES_AUTOPICK_CONDITIONAL_EXPRESSION "この行は条件分岐式です。"
 #define MES_AUTOPICK_DEFINE_MACRO_ACTION "この行はマクロの実行内容を定義します。"
 #define MES_AUTOPICK_DEFINE_TRIGER_KEY "この行はマクロのトリガー・キーを定義します。"
 #define MES_AUTOPICK_DEFINE_KEY_MAP "この行はキー配置を定義します。"
 #else
+#define MES_AUTOPICK_PATTERN_NOT_FOUND(STR) "Pattern not found: %s", (STR)
+#define MES_AUTOPICK_SKIP_INACTIVE_LINE(STR) "Some inactive lines are skipped. (Searching %s)", (STR)
+#define MES_AUTOPICK_FOUND_ONLY_INACTIVE(STR) "Found only an inactive line. (Searching %s)", (STR)
+#define MES_AUTOPICK_NO_PATTERN_SEARCH "No pattern to search. (Press ^S to search.)"
+#define MES_AUTOPICK_COMMENT "This line is a comment."
 #define MES_AUTOPICK_CONDITIONAL_EXPRESSION "This line is a Conditional Expression."
 #define MES_AUTOPICK_DEFINE_MACRO_ACTION "This line defines a Macro action."
 #define MES_AUTOPICK_DEFINE_TRIGER_KEY "This line defines a Macro trigger key."
