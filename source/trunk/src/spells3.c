@@ -854,22 +854,13 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 			creature_ptr->recall_dungeon = select_dungeon;
 		}
 		creature_ptr->timed_trait[TRAIT_WORD_RECALL] = turns;
-#ifdef JP
-		msg_print("‰ñ‚è‚Ì‘å‹C‚ª’£‚è‚Â‚ß‚Ä‚«‚½...");
-#else
-		msg_print("The air about you becomes charged...");
-#endif
+		msg_print(MES_RECALL_STARTING);
 		prepare_redraw(PR_STATUS);
 	}
 	else
 	{
 		creature_ptr->timed_trait[TRAIT_WORD_RECALL] = 0;
-#ifdef JP
-		msg_print("’£‚è‚Â‚ß‚½‘å‹C‚ª—¬‚ê‹Ž‚Á‚½...");
-#else
-		msg_print("A tension leaves the air around you...");
-#endif
-
+		msg_print(MES_RECALL_CANCEL);
 		prepare_redraw(PR_STATUS);
 	}
 	return TRUE;

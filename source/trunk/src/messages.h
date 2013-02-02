@@ -781,10 +781,15 @@
 #if JP
 #define MES_TELEPORT_LEVEL_UP(TARGET) "%^sは天井を突き破って宙へ浮いていく。", (TARGET)
 #define MES_TELEPORT_LEVEL_DOWN(TARGET) "%^sは床を突き破って沈んでいく。", (TARGET)
+#define MES_RECALL_STARTING "回りの大気が張りつめてきた..."
+#define MES_RECALL_CANCEL "張りつめた大気が流れ去った..."
 #else
 #define MES_TELEPORT_LEVEL_UP(TARGET) "%^s rise%s up through the ceiling.", (TARGET), (m_idx <= 0) ? "" : "s"
 #define MES_TELEPORT_LEVEL_DOWN(TARGET) "%^s sink%s through the floor.", m_name, (m_idx <= 0) ? "" : "s"
+#define MES_RECALL_STARTING "The air about you becomes charged..."
+#define MES_RECALL_CANCEL "A tension leaves the air around you..."
 #endif
+
 
 // Cause of Death
 #if JP
