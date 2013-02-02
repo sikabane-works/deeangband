@@ -2478,11 +2478,7 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 
 	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)
 	{
-#ifdef JP
-		msg_print("ƒ_ƒ“ƒWƒ‡ƒ“‚ªŒõ‚ğ‹zû‚µ‚½B");
-#else
-		msg_print("The darkness of this dungeon absorb your light.");
-#endif
+		msg_print(GAME_MESSAGE_LITE_PREVENT_BY_DUNGEON);
 		return FALSE;
 	}
 
@@ -2494,7 +2490,6 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 #else
 		msg_print("You are surrounded by a white light.");
 #endif
-
 	}
 
 	/* Hook into the "project()" function */
