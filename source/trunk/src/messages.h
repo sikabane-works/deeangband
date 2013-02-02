@@ -356,6 +356,10 @@
 
 #define GAME_MESSAGE_DESTROY "燃えるような閃光が発生した！"
 
+#define GAME_MESSAGE_EARTHQUAKE_DONE1 "ダンジョンの壁が崩れた！"
+#define GAME_MESSAGE_EARTHQUAKE_DONE2 "ダンジョンの床が不自然にねじ曲がった！"
+#define GAME_MESSAGE_EARTHQUAKE_DONE3 "ダンジョンが揺れた！崩れた岩が頭に降ってきた！"
+
 #define GAME_MESSAGE_FAILED_RUNAWAY "うまく逃げられなかった。"
 
 #define GAME_MESSAGE_DAMAGE_DENSITY "体の分子が分解した気がする！"
@@ -478,6 +482,10 @@
 #define GAME_MESSAGE_LITE_NOREFILL "Your light cannot be refilled."
 
 #define GAME_MESSAGE_DESTROY "There is a searing blast of light!"
+
+#define GAME_MESSAGE_EARTHQUAKE_DONE1 "The cave ceiling collapses!"
+#define GAME_MESSAGE_EARTHQUAKE_DONE2 "The cave floor twists in an unnatural way!"
+#define GAME_MESSAGE_EARTHQUAKE_DONE3 "The cave quakes!  You are pummeled with debris!"
 
 #define GAME_MESSAGE_FAILED_RUNAWAY "You are failed to run away."
 

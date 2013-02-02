@@ -1610,10 +1610,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 				/* Hack -- Notice player affect */
 				if(creature_bold(caster_ptr, y, x))
 				{
-					/* Hurt the player later */
 					flag = TRUE;
-
-					/* Do not hurt this grid */
 					continue;
 				}
 			}
@@ -1879,21 +1876,11 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 						sy = y; sx = x;	// Save the safe location
 					}
 
-					/* Random message */
-					if(is_player(target_ptr))
+					switch (randint1(3))
 					{
-						switch (randint1(3))
-						{
-#ifdef JP
-							case 1: msg_print("ダンジョンの壁が崩れた！"); break;
-							case 2: msg_print("ダンジョンの床が不自然にねじ曲がった！"); break;
-							default: msg_print("ダンジョンが揺れた！崩れた岩が頭に降ってきた！"); break;
-#else
-							case 1: msg_print("The cave ceiling collapses!"); break;
-							case 2: msg_print("The cave floor twists in an unnatural way!"); break;
-							default: msg_print("The cave quakes!  You are pummeled with debris!"); break;
-#endif
-						}
+						case 1: msg_print(GAME_MESSAGE_EARTHQUAKE_DONE1); break;
+						case 2: msg_print(GAME_MESSAGE_EARTHQUAKE_DONE2); break;
+						default: msg_print(GAME_MESSAGE_EARTHQUAKE_DONE3); break;
 					}
 
 					// Hurt the player a lot / Message and damage
