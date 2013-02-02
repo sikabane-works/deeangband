@@ -1515,7 +1515,6 @@ bool probing(floor_type *floor_ptr)
 #else
 				/* Pluralize it */
 				plural_aux(buf);
-
 				msg_format("You now know more about %s.", buf);
 #endif
 				/* Clear -more- prompt */
@@ -2563,13 +2562,8 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 
 	if(has_trait(target_ptr, TRAIT_RES_TELE))
 	{
-#ifdef JP
-		msg_print("テレポートを邪魔された！");
-#else
-		msg_print("Your teleportation is blocked!");
-#endif
+		msg_print(GAME_MESSAGE_TELE_PREVENT_BY_CREATURE);
 		if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-
 		return FALSE;
 	}
 
