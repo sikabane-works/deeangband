@@ -354,6 +354,8 @@
 #define GAME_MESSAGE_LITE_NONE "光源を装備していない。"
 #define GAME_MESSAGE_LITE_NOREFILL "この光源は寿命を延ばせない。"
 
+#define GAME_MESSAGE_DESTROY "燃えるような閃光が発生した！"
+
 #define GAME_MESSAGE_FAILED_RUNAWAY "うまく逃げられなかった。"
 
 #define GAME_MESSAGE_DAMAGE_DENSITY "体の分子が分解した気がする！"
@@ -474,6 +476,8 @@
 #define GAME_MESSAGE_LITE_OUT "Your light has gone out!"
 #define GAME_MESSAGE_LITE_NONE "You are not wielding a light."
 #define GAME_MESSAGE_LITE_NOREFILL "Your light cannot be refilled."
+
+#define GAME_MESSAGE_DESTROY "There is a searing blast of light!"
 
 #define GAME_MESSAGE_FAILED_RUNAWAY "You are failed to run away."
 

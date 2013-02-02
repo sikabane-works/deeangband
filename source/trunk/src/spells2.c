@@ -1764,12 +1764,8 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		/* Hack -- Affect player */
 		if(flag)
 		{
-#ifdef JP
-			msg_print("”R‚¦‚é‚æ‚¤‚È‘MŒõ‚ª”­¶‚µ‚½I");
-#else
-			msg_print("There is a searing blast of light!");
-#endif
-			// Blind the player
+			msg_print(GAME_MESSAGE_DESTROY);
+
 			if(!has_trait(caster_ptr, TRAIT_NO_BLIND) && !has_trait(caster_ptr, TRAIT_RES_LITE))
 				(void)add_timed_trait(caster_ptr, TRAIT_BLIND, 10 + randint1(10), TRUE);
 		}
@@ -2483,14 +2479,8 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 	}
 
 	if(!has_trait(player_ptr, TRAIT_BLIND)) msg_print(GAME_MESSAGE_LITE_AREA);
-
-	/* Hook into the "project()" function */
 	(void)project(creature_ptr, 0, rad, creature_ptr->fy, creature_ptr->fx, dam, DO_EFFECT_LITE_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
-
-	/* Lite up the room */
 	lite_room(creature_ptr, creature_ptr->fy, creature_ptr->fx);
-
-	/* Assume seen */
 	return TRUE;
 }
 
