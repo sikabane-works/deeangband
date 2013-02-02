@@ -792,8 +792,14 @@
 
 #if JP
 #define MES_ALCHEMY_ASK(OBJECT) "本当に%sを金に変えますか？", (OBJECT)
+#define MES_ALCHEMY_FAILED(OBJECT) "%sを金に変えることに失敗した。", (OBJECT)
+#define MES_ALCHEMY_NO_PRICE(OBJECT) "%sをニセの金に変えた。", (OBJECT)
+#define MES_ALCHEMY_SUCCESS(OBJECT, PRICE) "%sを＄%d の金に変えた。", (OBJECT), (PRICE)
 #else
 #define MES_ALCHEMY_ASK(OBJECT) "Really turn %s to gold? ", (OBJECT)
+#define MES_ALCHEMY_FAILED(OBJECT) "You fail to turn %s to gold!", (OBJECT)
+#define MES_ALCHEMY_NO_PRICE(OBJECT) "You turn %s to fool's gold.", (OBJECT)
+#define MES_ALCHEMY_SUCCESS(OBJECT, PRICE) "You turn %s to %ld coins worth of gold.", (OBJECT), (PRICE)
 #endif
 
 

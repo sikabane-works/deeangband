@@ -2007,26 +2007,13 @@ bool alchemy(creature_type *creature_ptr)
 	/* Artifacts cannot be destroyed */
 	if(!can_player_destroy_object(creature_ptr, object_ptr))
 	{
-#ifdef JP
-		msg_format("%sを金に変えることに失敗した。", object_name);
-#else
-		msg_format("You fail to turn %s to gold!", object_name);
-#endif
-
+		msg_format(MES_ALCHEMY_FAILED(object_name));
 		return FALSE;
 	}
 
 	price = object_value_real(object_ptr);
 
-	if(price <= 0)
-	{
-#ifdef JP
-		msg_format("%sをニセの金に変えた。", object_name);
-#else
-		msg_format("You turn %s to fool's gold.", object_name);
-#endif
-
-	}
+	if(price <= 0) msg_format(MES_ALCHEMY_NO_PRICE(object_name));
 	else
 	{
 		price /= 3;
@@ -2034,11 +2021,7 @@ bool alchemy(creature_type *creature_ptr)
 		if(amt > 1) price *= amt;
 
 		if(price > 30000) price = 30000;
-#ifdef JP
-		msg_format("%sを＄%d の金に変えた。", object_name, price);
-#else
-		msg_format("You turn %s to %ld coins worth of gold.", object_name, price);
-#endif
+		msg_format(MES_ALCHEMY_SUCCESS(object_name, price));
 
 		creature_ptr->au += price;
 		prepare_redraw(PR_GOLD);
