@@ -2501,24 +2501,9 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 */
 bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 {
-	/* Hack -- Message */
-	if(!has_trait(player_ptr, TRAIT_BLIND))
-	{
-#ifdef JP
-		msg_print("ˆÃˆÅ‚ª•Ó‚è‚ð•¢‚Á‚½B");
-#else
-		msg_print("Darkness surrounds you.");
-#endif
-
-	}
-
-	/* Hook into the "project()" function */
+	if(!has_trait(player_ptr, TRAIT_BLIND)) msg_print(GAME_MESSAGE_UNLITE_AREA);
 	(void)project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, DO_EFFECT_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
-
-	/* Lite up the room */
 	unlite_room(caster_ptr, caster_ptr->fy, caster_ptr->fx);
-
-	/* Assume seen */
 	return TRUE;
 }
 
