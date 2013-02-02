@@ -347,6 +347,7 @@
 #define GAME_MESSAGE_TRAP_WARNING "* 注意:この先はトラップの感知範囲外です！ *"
 #define GAME_MESSAGE_TRAP_DESTROY "トラップを粉砕した。"
 
+#define GAME_MESSAGE_LITE_AREA "光が辺りを覆った。"
 #define GAME_MESSAGE_LITE_FAINT "明かりが微かになってきている。"
 #define GAME_MESSAGE_LITE_OUT "明かりが消えてしまった！"
 #define GAME_MESSAGE_LITE_NONE "光源を装備していない。"
@@ -466,6 +467,7 @@
 #define GAME_MESSAGE_TRAP_WARNING "*Leaving trap detect region!*"
 #define GAME_MESSAGE_TRAP_DESTROY "You destroyed the trap."
 
+#define GAME_MESSAGE_LITE_AREA "You are surrounded by a light."
 #define GAME_MESSAGE_LITE_FAINT "Your light is growing faint."
 #define GAME_MESSAGE_LITE_OUT "Your light has gone out!"
 #define GAME_MESSAGE_LITE_NONE "You are not wielding a light."

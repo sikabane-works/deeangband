@@ -2482,15 +2482,7 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 		return FALSE;
 	}
 
-	/* Hack -- Message */
-	if(!has_trait(player_ptr, TRAIT_BLIND))
-	{
-#ifdef JP
-		msg_print("”’‚¢Œõ‚ª•Ó‚è‚ð•¢‚Á‚½B");
-#else
-		msg_print("You are surrounded by a white light.");
-#endif
-	}
+	if(!has_trait(player_ptr, TRAIT_BLIND)) msg_print(GAME_MESSAGE_LITE_AREA);
 
 	/* Hook into the "project()" function */
 	(void)project(creature_ptr, 0, rad, creature_ptr->fy, creature_ptr->fx, dam, DO_EFFECT_LITE_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
