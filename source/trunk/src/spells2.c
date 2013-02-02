@@ -3008,14 +3008,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 
 		if(!floor_ptr->cave[ny][nx].creature_idx)
 		{
-			if(tm_idx)
-			{
-#ifdef JP
-				msg_print("é∏îsÅI");
-#else
-				msg_print("Failed!");
-#endif
-			}
+			if(tm_idx) msg_print(GAME_MESSAGE_FAILED);
 			else
 			{
 #ifdef JP

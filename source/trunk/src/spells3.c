@@ -562,11 +562,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 				if(one_in_(3))
 				{
 					teleport_player(creature_ptr, 200, TELEPORT_PASSIVE);
-#ifdef JP
-					msg_print("Ž¸”sI");
-#else
-					msg_print("Failed!");
-#endif
+					msg_print(GAME_MESSAGE_FAILED);
 				}
 				else teleport_creature_to(creature_ptr, creature_ptr->fy, creature_ptr->fx, 0L);
 				cost_tactical_energy(creature_ptr, 100);
