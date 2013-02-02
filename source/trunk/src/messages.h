@@ -780,8 +780,10 @@
 
 #if JP
 #define MES_TELEPORT_LEVEL_UP(TARGET) "%^s‚Í“Vˆä‚ð“Ë‚«”j‚Á‚Ä’ˆ‚Ö•‚‚¢‚Ä‚¢‚­B", (TARGET)
+#define MES_TELEPORT_LEVEL_DOWN(TARGET) "%^s‚Í°‚ð“Ë‚«”j‚Á‚Ä’¾‚ñ‚Å‚¢‚­B", (TARGET)
 #else
 #define MES_TELEPORT_LEVEL_UP(TARGET) "%^s rise%s up through the ceiling.", (TARGET), (m_idx <= 0) ? "" : "s"
+#define MES_TELEPORT_LEVEL_DOWN(TARGET) "%^s sink%s through the floor.", m_name, (m_idx <= 0) ? "" : "s"
 #endif
 
 // Cause of Death

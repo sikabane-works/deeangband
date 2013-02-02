@@ -613,11 +613,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	/* Down only */ 
 	if((ironman_downward && (m_idx <= 0)) || (floor_ptr->floor_level <= dungeon_info[floor_ptr->dun_type].mindepth))
 	{
-#ifdef JP
-		if(see_m) msg_format("%^s‚Í°‚ğ“Ë‚«”j‚Á‚Ä’¾‚ñ‚Å‚¢‚­B", m_name);
-#else
-		if(see_m) msg_format("%^s sink%s through the floor.", m_name, (m_idx <= 0) ? "" : "s");
-#endif
+		if(see_m) msg_format(MES_TELEPORT_LEVEL_DOWN(m_name));
 		if(m_idx <= 0) /* To player */
 		{
 			if(!floor_ptr->floor_level)
@@ -649,7 +645,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	/* Up only */
 	else if(quest_number(floor_ptr) || (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth))
 	{
-		if(see_m) msg_format(MES_TELEPORT_LEVEL_UP(TARGET));
+		if(see_m) msg_format(MES_TELEPORT_LEVEL_UP(m_name));
 		if(m_idx <= 0) /* To player */
 		{
 			if(record_stair) do_cmd_write_diary(DIARY_TELE_LEV, -1, NULL);
@@ -667,8 +663,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	}
 	else if(go_up)
 	{
-		if(see_m) msg_format(MES_TELEPORT_LEVEL_UP(TARGET));
-
+		if(see_m) msg_format(MES_TELEPORT_LEVEL_UP(m_name));
 		if(m_idx <= 0) /* To player */
 		{
 			if(record_stair) do_cmd_write_diary(DIARY_TELE_LEV, -1, NULL);
@@ -683,12 +678,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	}
 	else
 	{
-#ifdef JP
-		if(see_m) msg_format("%^s‚Í°‚ğ“Ë‚«”j‚Á‚Ä’¾‚ñ‚Å‚¢‚­B", m_name);
-#else
-		if(see_m) msg_format("%^s sink%s through the floor.", m_name, (m_idx <= 0) ? "" : "s");
-#endif
-
+		if(see_m) msg_format(MES_TELEPORT_LEVEL_DOWN(m_name));
 		if(m_idx <= 0) /* To player */
 		{
 			/* Never reach this code on the surface */
