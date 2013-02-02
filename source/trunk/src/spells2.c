@@ -1811,6 +1811,9 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 	cave_type       *c_ptr;
 	bool            map[32][32];
 	floor_type      *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	char caster_name[MAX_NLEN];
+
+	creature_desc(caster_name, caster_ptr, 0);
 
 	if(r > EARTHQUAKE_MAX_RANGE) r = EARTHQUAKE_MAX_RANGE;	// Paranoia -- Enforce maximum range
 	for (y = 0; y < 32; y++) for (x = 0; x < 32; x++) map[y][x] = FALSE; // Clear the "maximal blast" area
@@ -1945,20 +1948,9 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 							char target_name[MAX_NLEN];
 							creature_type *target_ptr = &creature_list[m_idx];
 							creature_desc(target_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE); // Get the creature's real name
-#ifdef JP
-							killer = format("%s‚Ì‹N‚±‚µ‚½’nk", target_name);
-#else
-							killer = format("an earthquake caused by %s", target_name);
-#endif
+							killer = format(COD_EARTHQUAKE_CASTER(caster_name));
 						}
-						else
-						{
-#ifdef JP
-							killer = "’nk";
-#else
-							killer = "an earthquake";
-#endif
-						}
+						else killer = COD_EARTHQUAKE;
 						take_damage_to_creature(NULL, caster_ptr, DAMAGE_ATTACK, damage, killer, NULL, -1);
 					}
 				}

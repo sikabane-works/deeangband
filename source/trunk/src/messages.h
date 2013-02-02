@@ -817,6 +817,8 @@
 #define COD_UNC_FORCE "気の暴走" 
 #define COD_CHAOS_TAINT "混沌に蝕まれたダメージ"
 #define COD_PATRON_WRATH(PATRON) "%sの怒り", (PATRON)
+#define COD_EARTHQUAKE_CASTER(CASTER) "%sの起こした地震", (CASTER)
+#define COD_EARTHQUAKE "地震"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -877,6 +879,8 @@
 #define COD_UNC_FORCE "Explosion of the Force"
 #define COD_CHAOS_TAINT "Damage of tainted by chaos"
 #define COD_PATRON_WRATH(PATRON) "the Wrath of %s", (PATRON)
+#define COD_EARTHQUAKE_CASTER(CASTER) "an earthquake caused by %s", (CASTER)
+#define COD_EARTHQUAKE "an earthquake"
 #endif
 
 // Hack -- possible "insult" messages
