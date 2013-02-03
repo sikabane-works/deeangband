@@ -1685,6 +1685,9 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_NO_FIT "あなたの体格に合わないようだが、よろしいか？"
 #define MES_STORE_NEW_STOCK "店主は新たな在庫を取り出した。"
 #define MES_STORE_DROP(NAME, SYM) "%sを置いた。(%c)", (NAME), (SYM)
+#define MES_STORE_COMMAND_LIMIT "そのコマンドは店の中では使えません。"
+#define MES_STORE_COMMAND_LIST1 " -)前ページ"
+#define MES_STORE_COMMAND_LIST2 " スペース) 次ページ"
 #else
 #define MES_STORE_ENTIRE "That's all."
 #define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."
@@ -1696,6 +1699,9 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_NO_FIT "It may be not your size, Are you sure?"
 #define MES_STORE_NEW_STOCK "The shopkeeper brings out some new stock."
 #define MES_STORE_DROP(NAME, SYM) "You drop %s (%c).", (NAME), (SYM)
+#define MES_STORE_COMMAND_LIMIT "That command does not work in stores."
+#define MES_STORE_COMMAND_LIST1 " -) Previous page"
+#define MES_STORE_COMMAND_LIST2 " SPACE) Next page"
 #endif
 
 #ifdef JP

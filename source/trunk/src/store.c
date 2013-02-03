@@ -4520,18 +4520,8 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 		default:
 		{
 			if(is_museum(st_ptr) && (command_cmd == 'r'))
-			{
 				museum_remove_object(st_ptr, guest_ptr);
-			}
-			else
-			{
-#ifdef JP
-				msg_print("そのコマンドは店の中では使えません。");
-#else
-				msg_print("That command does not work in stores.");
-#endif
-			}
-
+			else msg_print(MES_STORE_COMMAND_LIMIT);
 			break;
 		}
 	}
@@ -4608,14 +4598,8 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		/* Browse if necessary */
 		if(st_ptr->stock_num > store_bottom)
 		{
-#ifdef JP
-			prt(" -)前ページ", 22 + xtra_stock, 0);
-			prt(" スペース) 次ページ", 23 + xtra_stock, 0);
-#else
-			prt(" -) Previous page", 22 + xtra_stock, 0);
-			prt(" SPACE) Next page", 23 + xtra_stock, 0);
-#endif
-
+			prt(MES_STORE_COMMAND_LIST1, 22 + xtra_stock, 0);
+			prt(MES_STORE_COMMAND_LIST2, 23 + xtra_stock, 0);
 		}
 
 		/* Home commands */
