@@ -992,6 +992,12 @@ static const cptr desc_moan[] =
 };
 
 #ifdef JP
+#define BINARY_FILES_RAW(NAME) "%s_j.raw", (NAME)
+#else
+#define BINARY_FILES_RAW(NAME) "%s.raw", (NAME)
+#endif
+
+#ifdef JP
 #define TEXT_FILES_GAME_NEWS "news_j.txt"
 #define TEXT_FILES_ARMOUR_CURSED_ARTIFACT "a_cursed_j.txt"
 #define TEXT_FILES_ARMOUR_LOW_ARTIFACT "a_low_j.txt"
@@ -1534,6 +1540,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_ARTIFACT_CANCEL2(OBJECT) "伝説のアイテム (%s) はストリーマーにより削除された。", (OBJECT)
 #define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL2 "ランダム・アーティファクトの1つはストリーマーにより削除された。"
 #define DEBUG_MESSAGE_FAILED_STREAMER "ストリーマーの生成に失敗した。"
+#define DEBUG_MESSAGE_DESTROYED_FLOOR "破壊された階"
 #else
 #define DEBUG_MESSAGE_ROOM_NUM "Number of Rooms: %d"
 #define DEBUG_MESSAGE_GLASS_ROOM "[Glass Room]"
@@ -1557,6 +1564,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_ARTIFACT_CANCEL2(OBJECT) "Artifact (%s) was deleted by streamer.", (OBJECT)
 #define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL2 "One of the random artifacts was deleted by streamer."
 #define DEBUG_MESSAGE_FAILED_STREAMER "Could not place streamer!"
+#define DEBUG_MESSAGE_DESTROYED_FLOOR "Destroyed Floor"
 #endif
 
 #ifdef JP

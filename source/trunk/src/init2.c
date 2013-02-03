@@ -417,14 +417,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 
 
 	/*** Load the binary image file ***/
-
-	/* Build the filename */
-#ifdef JP
-	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s_j.raw", filename));
-#else
-	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s.raw", filename));
-#endif
-
+	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format(BINARY_FILES_RAW(filename)));
 
 	/* Attempt to open the "raw" file */
 	fd = fd_open(buf, O_RDONLY);
@@ -520,11 +513,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		FILE_TYPE(FILE_TYPE_DATA);
 
 		/* Build the filename */
-#ifdef JP
-		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s_j.raw", filename));
-#else
-		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s.raw", filename));
-#endif
+		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format(BINARY_FILES_RAW(filename)));
 
 		/* Grab permissions */
 		safe_setuid_grab();
@@ -565,12 +554,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		/*** Load the binary image file ***/
 
 		/* Build the filename */
-#ifdef JP
-		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s_j.raw", filename));
-#else
-		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s.raw", filename));
-#endif
-
+		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format(BINARY_FILES_RAW(filename)));
 
 		/* Attempt to open the "raw" file */
 		fd = fd_open(buf, O_RDONLY);
@@ -631,13 +615,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 
 
 	/*** Load the binary image file ***/
-
-	/* Build the filename */
-#ifdef JP
-	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s_j.raw", filename));
-#else
-	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s.raw", filename));
-#endif
+	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format(BINARY_FILES_RAW(filename)));
 
 
 	/* Attempt to open the "raw" file */
@@ -737,12 +715,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		FILE_TYPE(FILE_TYPE_DATA);
 
 		/* Build the filename */
-#ifdef JP
-		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s_j.raw", filename));
-#else
-		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s.raw", filename));
-#endif
-
+		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format(BINARY_FILES_RAW(filename)));
 
 		/* Grab permissions */
 		safe_setuid_grab();
@@ -784,12 +757,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		/*** Load the binary image file ***/
 
 		/* Build the filename */
-#ifdef JP
-		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s_j.raw", filename));
-#else
-		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format("%s.raw", filename));
-#endif
-
+		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format(BINARY_FILES_RAW(filename)));
 
 		/* Attempt to open the "raw" file */
 		fd = fd_open(buf, O_RDONLY);

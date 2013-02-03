@@ -403,11 +403,7 @@ void destroy_level(floor_type *floor_ptr)
 {
 	int y1, x1, n;
 
-#ifdef JP
-	if(cheat_room) msg_print("”j‰ó‚³‚ê‚½ŠK");
-#else
-	if(cheat_room) msg_print("Destroyed Level");
-#endif
+	if(cheat_room) msg_print(DEBUG_MESSAGE_DESTROYED_FLOOR);
 
 	/* Drop a few epi-centers (usually about two) */
 	for (n = 0; n < randint1(5); n++)
