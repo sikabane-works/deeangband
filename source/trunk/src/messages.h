@@ -1531,6 +1531,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_FAILED_VAULT "巨大な地下室を配置できません。"
 #define DEBUG_MESSAGE_ARTIFACT_CANCEL(OBJECT) "伝説のアイテム (%s) は生成中に*破壊*された。", (OBJECT)
 #define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL "ランダム・アーティファクトの1つは生成中に*破壊*された。"
+#define DEBUG_MESSAGE_ARTIFACT_CANCEL2(OBJECT) "伝説のアイテム (%s) はストリーマーにより削除された。", (OBJECT)
+#define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL2 "ランダム・アーティファクトの1つはストリーマーにより削除された。"
+#define DEBUG_MESSAGE_FAILED_STREAMER "ストリーマーの生成に失敗した。"
 #else
 #define DEBUG_MESSAGE_ROOM_NUM "Number of Rooms: %d"
 #define DEBUG_MESSAGE_GLASS_ROOM "[Glass Room]"
@@ -1551,6 +1554,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_FAILED_VAULT "Could not place greater vault."
 #define DEBUG_MESSAGE_ARTIFACT_CANCEL(OBJECT) "Artifact (%s) was *destroyed* during generation.", (OBJECT)
 #define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL "One of the random artifacts was *destroyed* during generation."
+#define DEBUG_MESSAGE_ARTIFACT_CANCEL2(OBJECT) "Artifact (%s) was deleted by streamer.", (OBJECT)
+#define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL2 "One of the random artifacts was deleted by streamer."
+#define DEBUG_MESSAGE_FAILED_STREAMER "Could not place streamer!"
 #endif
 
 #ifdef JP

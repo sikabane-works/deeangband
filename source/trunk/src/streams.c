@@ -286,21 +286,10 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 						{
 							char object_name[MAX_NLEN];
 							object_desc(object_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
-#ifdef JP
-							msg_format("伝説のアイテム (%s) はストリーマーにより削除された。", object_name);
-#else
-							msg_format("Artifact (%s) was deleted by streamer.", object_name);
-#endif
+							msg_format(DEBUG_MESSAGE_ARTIFACT_CANCEL2(object_name));
 						}
 					}
-					else if(cheat_peek && object_ptr->art_name)
-					{
-#ifdef JP
-						msg_print("ランダム・アーティファクトの1つはストリーマーにより削除された。");
-#else
-						msg_print("One of the random artifacts was deleted by streamer.");
-#endif
-					}
+					else if(cheat_peek && object_ptr->art_name) msg_print(DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL2);
 				}
 
 				/* Delete objects */
@@ -332,10 +321,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 
 		if(dummy >= SAFE_MAX_ATTEMPTS)
 		{
-			if(cheat_room)
-			{
-				msg_warning("Could not place streamer!");
-			}
+			if(cheat_room) msg_warning(DEBUG_MESSAGE_FAILED_STREAMER);
 			return;
 		}
 
