@@ -4622,17 +4622,10 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		/* 基本的なコマンドの追加表示 */
 		else
 		{
-#ifdef JP
-			prt("p) 商品を買う", 21 + xtra_stock, 30);
-			prt("s) アイテムを売る", 22 + xtra_stock, 30);
-			prt("x) 商品を調べる", 23 + xtra_stock,30);
-			prt("l) 店主の様子を伺う", 23 + xtra_stock,56);
-#else
-			prt("p) Purchase an item.", 21 + xtra_stock, 30);
-			prt("s) Sell an item.", 22 + xtra_stock, 30);
-			prt("x) eXamine an item in the shop", 23 + xtra_stock,30);
-			prt("l) Lock at the owner", 23 + xtra_stock,56);
-#endif
+			prt(MES_STORE_COMMAND_LIST7, 21 + xtra_stock, 30);
+			prt(MES_STORE_COMMAND_LIST8, 22 + xtra_stock, 30);
+			prt(MES_STORE_COMMAND_LIST9, 23 + xtra_stock,30);
+			prt(MES_STORE_COMMAND_LIST10, 23 + xtra_stock,56);
 		}
 
 #ifdef JP
