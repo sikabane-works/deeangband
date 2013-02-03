@@ -714,11 +714,7 @@ void do_cmd_study(creature_type *creature_ptr)
 	/* Nothing to study */
 	if(spell < 0)
 	{
-#ifdef JP
-		msg_format("その本には学ぶべき%sがない。", p);
-#else
-		msg_format("You cannot learn any %ss in that book.", p);
-#endif
+		msg_format(MES_STUDY_NO_SPELL(p));
 		return;
 	}
 
@@ -770,19 +766,6 @@ void do_cmd_study(creature_type *creature_ptr)
 
 	/* One less spell available */
 	creature_ptr->learned_spells++;
-#if 0
-	/* Message if needed */
-	if(creature_ptr->new_spells)
-	{
-#ifdef JP
-		if(creature_ptr->new_spells < 10) msg_format("あと %d つの%sを学べる。", creature_ptr->new_spells, p);
-		else msg_format("あと %d 個の%sを学べる。", creature_ptr->new_spells, p);
-#else
-		msg_format("You can learn %d more %s%s.", creature_ptr->new_spells, p,
-			(creature_ptr->new_spells != 1) ? "s" : "");
-#endif
-	}
-#endif
 
 	/* Update Study */
 	prepare_update(creature_ptr, CRU_SPELLS);
