@@ -3092,14 +3092,12 @@ void deal_item(creature_type *creature_ptr)
 	/*
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
-	make_object(quest_ptr, AM_UNCURSED, 0, object_level);
-	add_outfit(creature_ptr, quest_ptr, 0);
+		make_object(quest_ptr, AM_UNCURSED, 0, object_level, NULL);
+		add_outfit(creature_ptr, quest_ptr, 0);
 	}
 	*/
 
-	//
 	// Item depend on species_info
-	//
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
 		if(!(&creature_ptr->inventory[i])) break;
@@ -3328,9 +3326,7 @@ void deal_item(creature_type *creature_ptr)
 		}
 	}
 
-
 	return;
-
 }
 
 static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, int creature_ego_idx, u32b mode)

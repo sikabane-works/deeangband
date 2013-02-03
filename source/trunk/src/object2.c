@@ -2876,17 +2876,17 @@ static bool kind_is_good(int k_idx)
 * This routine uses "object_level" for the "generation level".
 * We assume that the given object has been "wiped".
 */
-bool make_object(object_type *object2_ptr, u32b mode, u32b gon_mode, int object_level, bool (*get_obj_num_hook)(int k_idx))
+bool make_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx))
 {
 	int prob, base;
 	byte obj_level;
-	floor_type *floor_ptr = GET_FLOOR_PTR(object2_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(object_ptr);
 
 	prob = ((mode & AM_GOOD) ? 10 : 1000); // Chance of "special object"
-	base = ((mode & AM_GOOD) ? (object_level + 10) : object_level); // Base level for the object
+	base = ((mode & AM_GOOD) ? (level + 10) : level); // Base level for the object
 
 	// Generate a special object, or a normal object (for player)
-	if(!one_in_(prob) || !judge_instant_artifact(player_ptr, object2_ptr))
+	if(!one_in_(prob) || !judge_instant_artifact(player_ptr, object_ptr))
 	{
 		int k_idx;
 
@@ -2894,33 +2894,32 @@ bool make_object(object_type *object2_ptr, u32b mode, u32b gon_mode, int object_
 		if((mode & AM_GOOD) && !get_obj_num_hook) get_obj_num_hook = kind_is_good;
 		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects - prepare allocation table
 		k_idx = get_obj_num(floor_ptr, floor_ptr->floor_level, gon_mode); // Pick a random object
-		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects
 		if(!k_idx) return FALSE; // Handle failure
 
-		object_prep(object2_ptr, k_idx, ITEM_FREE_SIZE); // Prepare the object
+		object_prep(object_ptr, k_idx, ITEM_FREE_SIZE); // Prepare the object
 	}
 
 	/* Apply magic (allow artifacts) */
-	apply_magic(player_ptr, object2_ptr, object_level, mode, 0);
+	apply_magic(player_ptr, object_ptr, level, mode, 0);
 
-	switch (object2_ptr->tval) // Hack -- generate multiple spikes/missiles
+	switch (object_ptr->tval) // Hack -- generate multiple spikes/missiles
 	{
 	case TV_SPIKE:
 	case TV_SHOT:
 	case TV_ARROW:
 	case TV_BOLT:
 		{
-			if(!object2_ptr->name1)
-				object2_ptr->number = (byte)diceroll(6, 7);
+			if(!object_ptr->name1)
+				object_ptr->number = (byte)diceroll(6, 7);
 		}
 	}
 
-	obj_level = object_kind_info[object2_ptr->k_idx].level;
-	if(object_is_fixed_artifact(object2_ptr)) obj_level = artifact_info[object2_ptr->name1].level;
+	obj_level = object_kind_info[object_ptr->k_idx].level;
+	if(object_is_fixed_artifact(object_ptr)) obj_level = artifact_info[object_ptr->name1].level;
 
 	// Notice "okay" out-of-depth objects & Cheat -- peek at items
-	if(!object_is_cursed(object2_ptr) && !object_is_broken(object2_ptr) && (obj_level > floor_ptr->object_level))
-		if(cheat_peek) object_mention(object2_ptr);
+	if(!object_is_cursed(object_ptr) && !object_is_broken(object_ptr) && (obj_level > level))
+		if(cheat_peek) object_mention(object_ptr);
 
 	return TRUE; // Success
 }
