@@ -808,6 +808,13 @@
 #define MES_ENCHANT_CURSE_BROKEN "The curse is broken!"
 #endif
 
+#ifdef JP
+#define MES_INDENTIFY_RESULT_EQUIPMENT(EQUIP_POS, NAME, LABEL) "%^s: %s(%c)。", (EQUIP_POS), (NAME), (LABEL)
+#define MES_INDENTIFY_RESULT_IN_ZACK(NAME, LABEL) "ザック中: %s(%c)。", (NAME), (LABEL)
+#else
+#define MES_INDENTIFY_RESULT_EQUIPMENT(EQUIP_POS, NAME, LABEL) "%^s: %s(%c)。", (EQUIP_POS), (NAME), (LABEL)
+#define MES_INDENTIFY_RESULT_IN_ZACK(NAME, LABEL) "In your pack: %s (%c).", (NAME), (LABEL)
+#endif
 
 // Cause of Death
 #ifdef JP
