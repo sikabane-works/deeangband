@@ -219,7 +219,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 	x = rand_spread(floor_ptr->width / 2, floor_ptr->width / 6);
 
 	/* Choose a random compass direction */
-	dir = ddd[randint0(8)];
+	dir = randint0(8);
 
 	/* Place streamer into dungeon */
 	while (dummy < SAFE_MAX_ATTEMPTS)
@@ -339,10 +339,15 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 			return;
 		}
 
-
 		/* Advance the streamer */
-		y += ddy[dir];
-		x += ddx[dir];
+		y += ddy[cdd[dir]];
+		x += ddx[cdd[dir]];
+
+		if(one_in_(10))
+		{
+			if(one_in_(2)) dir = (dir + 1) % 8;
+			else dir = (dir > 0) ? dir - 1 : 7; 
+		}
 
 		/* Quit before leaving the dungeon */
 		if(!in_bounds(floor_ptr, y, x)) break;
