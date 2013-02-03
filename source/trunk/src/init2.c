@@ -485,12 +485,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 #ifdef JP
 			// Error string
 			oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "未知の");
-
 			msg_format("'%s.csv'ファイルの %d 行目にエラー。", filename, error_line);
-			//msg_format("レコード %d は '%s' エラーがあります。", error_idx, oops);
-			//msg_format("構文 '%s'。", buf);
-			//msg_print(NULL);
-
 			quit(format("'%s.csv'ファイルにエラー", filename));
 #else
 			oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "unknown");
@@ -1065,8 +1060,7 @@ static errr init_magic_info(void)
 	/* Save a pointer to the parsing function */
 	m_head.parse_info_txt = parse_magic_info;
 
-	return init_info("magic_info", &m_head,
-			 (void*)&magic_info, NULL, NULL, NULL);
+	return init_info("magic_info", &m_head, (void*)&magic_info, NULL, NULL, NULL);
 }
 
 
@@ -1718,7 +1712,7 @@ void init_angband(void)
 		char why[1024];
 
 #ifdef JP
-	sprintf(why, "'%s'ファイルにアクセスできません!", buf);
+		sprintf(why, "'%s'ファイルにアクセスできません!", buf);
 #else
 		sprintf(why, "Cannot access the '%s' file!", buf);
 #endif

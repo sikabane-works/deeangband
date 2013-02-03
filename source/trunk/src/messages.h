@@ -1731,6 +1731,16 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_STUDY_NO_READING "本を読むことができない！"
+#define MES_STUDY_NO_SLOT(REALM) "新しい%sを覚えることはできない！", (REALM)
+#define MES_STUDY_SLOT(REALM, NUM) "あと %d 種の%sを学べる。", (NUM), (REALM)
+#else
+#define MES_STUDY_NO_READING "You cannot read books!"
+#define MES_STUDY_NO_SLOT(REALM) "You cannot learn any new %ss!", (REALM)
+#define MES_STUDY_SLOT(REALM, NUM) "You can learn %d new %s%s.", (REALM), (NUM), ((NUM) == 1 ? "":"s")
+#endif
+
+#ifdef JP
 #define MES_AUTOPICK_PATTERN_NOT_FOUND(STR) "パターンが見つかりません: %s", (STR)
 #define MES_AUTOPICK_SKIP_INACTIVE_LINE(STR) "無効状態の行をスキップしました。(%sを検索中)", (STR)
 #define MES_AUTOPICK_FOUND_ONLY_INACTIVE(STR) "無効状態の行だけが見付かりました。(%sを検索中)", (STR)

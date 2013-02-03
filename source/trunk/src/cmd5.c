@@ -612,11 +612,7 @@ void do_cmd_study(creature_type *creature_ptr)
 
 	if(!creature_ptr->realm1)
 	{
-#ifdef JP
-		msg_print("本を読むことができない！");
-#else
-		msg_print("You cannot read books!");
-#endif
+		msg_print(MES_STUDY_NO_READING);
 		return;
 	}
 
@@ -634,24 +630,13 @@ void do_cmd_study(creature_type *creature_ptr)
 
 	if(!(creature_ptr->new_spells))
 	{
-#ifdef JP
-		msg_format("新しい%sを覚えることはできない！", p);
-#else
-		msg_format("You cannot learn any new %ss!", p);
-#endif
+		msg_format(MES_STUDY_NO_SLOT(p));
 		return;
 	}
 
 	free_posture(creature_ptr);
-
-#ifdef JP
-	msg_format("あと %d 種の%sを学べる。", creature_ptr->new_spells, p);
-#else
-	msg_format("You can learn %d new %s%s.", creature_ptr->new_spells, p, (creature_ptr->new_spells == 1 ? "":"s"));
-#endif
-
+	msg_format(MES_STUDY_SLOT(creature_ptr->new_spells, p));
 	msg_print(NULL);
-
 
 	/* Restrict choices to "useful" books */
 	if(creature_ptr->realm2 == REALM_NONE) item_tester_tval = magic_info[creature_ptr->class_idx].spell_book;
