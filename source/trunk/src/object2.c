@@ -1784,13 +1784,12 @@ static void object_mention(object_type *object_ptr)
 // "apply_magic()" is called immediately after we return.
 //
 // Note -- see "judge_fixed_artifact()" and "apply_magic()"
-static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object_ptr)
+static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object_ptr, int level)
 {
 	int i;
 	int k_idx = 0;
-	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
 
-	if(!floor_ptr->floor_level) return FALSE; // No artifacts in the town
+	if(!level) return FALSE; // No artifacts in the town
 
 	for (i = 0; i < max_artifact_idx; i++) // Check the artifact list (just the "specials")
 	{
@@ -1802,9 +1801,9 @@ static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object
 		if(!have_flag(a_ptr->flags, TRAIT_INSTA_ART)) continue;
 
 		// XXX XXX Enforce minimum "depth" (loosely)
-		if(a_ptr->level > floor_ptr->floor_level)
+		if(a_ptr->level > level)
 		{
-			int d = (a_ptr->level - floor_ptr->floor_level) * 2;
+			int d = (a_ptr->level - level) * 2;
 			if(!one_in_(d)) continue;
 		}
 
@@ -1812,9 +1811,9 @@ static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object
 		k_idx = lookup_kind(a_ptr->tval, a_ptr->sval); // Find the base object
 
 		// XXX XXX Enforce minimum "object" level (loosely)
-		if(object_kind_info[k_idx].level > floor_ptr->object_level)
+		if(object_kind_info[k_idx].level > level)
 		{
-			int d = (object_kind_info[k_idx].level - floor_ptr->object_level) * 5; // Acquire the "out-of-depth factor"
+			int d = (object_kind_info[k_idx].level - level) * 5; // Acquire the "out-of-depth factor"
 			if(!one_in_(d)) continue; // Roll for out-of-depth creation
 		}
 
@@ -2886,7 +2885,7 @@ bool make_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, b
 	base = ((mode & AM_GOOD) ? (level + 10) : level); // Base level for the object
 
 	// Generate a special object, or a normal object (for player)
-	if(!one_in_(prob) || !judge_instant_artifact(player_ptr, object_ptr))
+	if(!one_in_(prob) || !judge_instant_artifact(player_ptr, object_ptr, level))
 	{
 		int k_idx;
 
@@ -2899,8 +2898,7 @@ bool make_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, b
 		object_prep(object_ptr, k_idx, ITEM_FREE_SIZE); // Prepare the object
 	}
 
-	/* Apply magic (allow artifacts) */
-	apply_magic(player_ptr, object_ptr, level, mode, 0);
+	apply_magic(player_ptr, object_ptr, level, mode, 0); // Apply magic (allow artifacts)
 
 	switch (object_ptr->tval) // Hack -- generate multiple spikes/missiles
 	{
@@ -2908,10 +2906,8 @@ bool make_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, b
 	case TV_SHOT:
 	case TV_ARROW:
 	case TV_BOLT:
-		{
-			if(!object_ptr->name1)
-				object_ptr->number = (byte)diceroll(6, 7);
-		}
+		if(!object_ptr->name1) object_ptr->number = (byte)diceroll(6, 7);
+		break;
 	}
 
 	obj_level = object_kind_info[object_ptr->k_idx].level;

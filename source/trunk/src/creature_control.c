@@ -3086,16 +3086,14 @@ void deal_item(creature_type *creature_ptr)
 	number = 0;
 	// TODO Inventory Count
 
-	/* Get local object */
 	quest_ptr = &forge;
 
-	/*
+
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
 		make_object(quest_ptr, AM_UNCURSED, 0, object_level, NULL);
 		add_outfit(creature_ptr, quest_ptr, 0);
 	}
-	*/
 
 	// Item depend on species_info
 	for(i = 0; i < INVEN_TOTAL; i++)
