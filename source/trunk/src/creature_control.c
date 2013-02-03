@@ -3091,8 +3091,8 @@ void deal_item(creature_type *creature_ptr)
 
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
-		make_object(quest_ptr, AM_UNCURSED, 0, object_level, NULL);
-		add_outfit(creature_ptr, quest_ptr, 0);
+		//make_object(quest_ptr, AM_UNCURSED, 0, object_level, NULL);
+		//add_outfit(creature_ptr, quest_ptr, 0);
 	}
 
 	// Item depend on species_info

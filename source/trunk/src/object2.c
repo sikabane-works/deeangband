@@ -2892,7 +2892,7 @@ bool make_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, b
 		// Good objects & Activate restriction (if already specified, use that)
 		if((mode & AM_GOOD) && !get_obj_num_hook) get_obj_num_hook = kind_is_good;
 		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects - prepare allocation table
-		k_idx = get_obj_num(floor_ptr, floor_ptr->floor_level, gon_mode); // Pick a random object
+		k_idx = get_obj_num(floor_ptr, level, gon_mode); // Pick a random object
 		if(!k_idx) return FALSE; // Handle failure
 
 		object_prep(object_ptr, k_idx, ITEM_FREE_SIZE); // Prepare the object
