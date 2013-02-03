@@ -602,13 +602,8 @@ void do_cmd_study(creature_type *creature_ptr)
 
 	/* Spells of realm2 will have an increment of +32 */
 	int	spell = -1;
-
 	cptr p = spell_category_name(magic_info[creature_ptr->class_idx].spell_book);
-
 	object_type *object_ptr;
-
-	cptr q, s;
-
 
 	if(!creature_ptr->realm1)
 	{
@@ -641,15 +636,7 @@ void do_cmd_study(creature_type *creature_ptr)
 	/* Restrict choices to "useful" books */
 	if(creature_ptr->realm2 == REALM_NONE) item_tester_tval = magic_info[creature_ptr->class_idx].spell_book;
 
-#ifdef JP
-	q = "どの本から学びますか? ";
-	s = "読める本がない。";
-#else
-	q = "Study which book? ";
-	s = "You have no books that you can read.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_learn_trait, item_tester_tval)) return;
+	if(!get_item(creature_ptr, &item, MES_STUDY_WHICH_BOOK, MES_STUDY_NO_BOOK, (USE_INVEN | USE_FLOOR), item_tester_learn_trait, item_tester_tval)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Access the item's sval */
@@ -735,12 +722,8 @@ void do_cmd_study(creature_type *creature_ptr)
 
 	if(learned)
 	{
-#ifdef JP
-			msg_format("その%sは完全に使いこなせるので学ぶ必要はない。", p);
-#else
-			msg_format("You don't need to study this %s anymore.", p);
-#endif
-			return;
+		msg_format(MES_STUDY_PERFECT_LEARNED(p));
+		return;
 	}
 	else
 	{

@@ -1731,15 +1731,19 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_STUDY_WHICH_BOOK "どの本から学びますか? "
+#define MES_STUDY_NO_BOOK "読める本がない。"
 #define MES_STUDY_NO_READING "本を読むことができない！"
 #define MES_STUDY_NO_SLOT(REALM) "新しい%sを覚えることはできない！", (REALM)
 #define MES_STUDY_SLOT(REALM, NUM) "あと %d 種の%sを学べる。", (NUM), (REALM)
 #define MES_STUDY_NO_SPELL(REALM) "その本には学ぶべき%sがない。", (REALM)
+#define MES_STUDY_PERFECT_LEARNED(REALM) "その%sは完全に使いこなせるので学ぶ必要はない。", (REALM)
 #else
 #define MES_STUDY_NO_READING "You cannot read books!"
 #define MES_STUDY_NO_SLOT(REALM) "You cannot learn any new %ss!", (REALM)
 #define MES_STUDY_SLOT(REALM, NUM) "You can learn %d new %s%s.", (REALM), (NUM), ((NUM) == 1 ? "":"s")
 #define MES_STUDY_NO_SPELL(REALM) "You cannot learn any %ss in that book.", (REALM)
+#define MES_STUDY_PERFECT_LEARNED(REALM) "You don't need to study this %s anymore.", (REALM)
 #endif
 
 #ifdef JP
