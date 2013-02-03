@@ -1688,6 +1688,10 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_COMMAND_LIMIT "そのコマンドは店の中では使えません。"
 #define MES_STORE_COMMAND_LIST1 " -)前ページ"
 #define MES_STORE_COMMAND_LIST2 " スペース) 次ページ"
+#define MES_STORE_COMMAND_LIST3 "g) アイテムを取る"
+#define MES_STORE_COMMAND_LIST4 "d) アイテムを置く"
+#define MES_STORE_COMMAND_LIST5 "x) 家のアイテムを調べる"
+#define MES_STORE_COMMAND_LIST6 "r) アイテムの展示をやめる"
 #else
 #define MES_STORE_ENTIRE "That's all."
 #define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."
@@ -1702,6 +1706,10 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_COMMAND_LIMIT "That command does not work in stores."
 #define MES_STORE_COMMAND_LIST1 " -) Previous page"
 #define MES_STORE_COMMAND_LIST2 " SPACE) Next page"
+#define MES_STORE_COMMAND_LIST3 "g) Get an item."
+#define MES_STORE_COMMAND_LIST4 "d) Drop an item."
+#define MES_STORE_COMMAND_LIST5 "x) eXamine an item in the home."
+#define MES_STORE_COMMAND_LIST6 "r) order to Remove an item."
 #endif
 
 #ifdef JP

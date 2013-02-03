@@ -4605,29 +4605,17 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		/* Home commands */
 		if(is_home(st_ptr))
 		{
-#ifdef JP
-			prt("g) アイテムを取る", 21 + xtra_stock, 27);
-			prt("d) アイテムを置く", 22 + xtra_stock, 27);
-			prt("x) 家のアイテムを調べる", 23 + xtra_stock, 27);
-#else
-			prt("g) Get an item.", 21 + xtra_stock, 27);
-			prt("d) Drop an item.", 22 + xtra_stock, 27);
-			prt("x) eXamine an item in the home.", 23 + xtra_stock, 27);
-#endif
+			prt(MES_STORE_COMMAND_LIST3, 21 + xtra_stock, 27);
+			prt(MES_STORE_COMMAND_LIST4, 22 + xtra_stock, 27);
+			prt(MES_STORE_COMMAND_LIST5, 23 + xtra_stock, 27);
 		}
 
 		/* Museum commands */
 		else if(is_museum(st_ptr))
 		{
-#ifdef JP
-			prt("d) アイテムを置く", 21 + xtra_stock, 27);
-			prt("r) アイテムの展示をやめる", 22 + xtra_stock, 27);
-			prt("x) 博物館のアイテムを調べる", 23 + xtra_stock, 27);
-#else
-			prt("d) Drop an item.", 21 + xtra_stock, 27);
-			prt("r) order to Remove an item.", 22 + xtra_stock, 27);
-			prt("x) eXamine an item in the museum.", 23 + xtra_stock, 27);
-#endif
+			prt(MES_STORE_COMMAND_LIST4, 21 + xtra_stock, 27);
+			prt(MES_STORE_COMMAND_LIST6, 22 + xtra_stock, 27);
+			prt(MES_STORE_COMMAND_LIST5, 23 + xtra_stock, 27);
 		}
 
 		/* Shop commands XXX XXX XXX */
