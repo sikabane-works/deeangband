@@ -1598,7 +1598,7 @@ void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool requir
 	if(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx)
 	{
 #ifdef JP
-msg_print("自分の足の下にある物は取れません。");
+		msg_print("自分の足の下にある物は取れません。");
 #else
 		msg_print("You can't fetch when you're already standing on something.");
 #endif
@@ -1615,7 +1615,7 @@ msg_print("自分の足の下にある物は取れません。");
 		if(distance(creature_ptr->fy, creature_ptr->fx, ty, tx) > MAX_RANGE)
 		{
 #ifdef JP
-msg_print("そんなに遠くにある物は取れません！");
+			msg_print("そんなに遠くにある物は取れません！");
 #else
 			msg_print("You can't fetch something that far away!");
 #endif
@@ -1629,7 +1629,7 @@ msg_print("そんなに遠くにある物は取れません！");
 		if(!c_ptr->object_idx)
 		{
 #ifdef JP
-msg_print("そこには何もありません。");
+			msg_print("そこには何もありません。");
 #else
 			msg_print("There is no object at this place.");
 #endif
@@ -1641,7 +1641,7 @@ msg_print("そこには何もありません。");
 		if(c_ptr->info & CAVE_ICKY)
 		{
 #ifdef JP
-msg_print("アイテムがコントロールを外れて落ちた。");
+			msg_print("アイテムがコントロールを外れて落ちた。");
 #else
 			msg_print("The item slips from your control.");
 #endif
@@ -1864,10 +1864,7 @@ void identify_pack(creature_type *creature_ptr)
  */
 static int enchant_table[16] =
 {
-	0, 10, 50, 100, 200,
-	300, 400, 500, 650, 800,
-	950, 987, 993, 995, 998,
-	1000
+	0, 10, 50, 100, 200, 300, 400, 500, 650, 800, 950, 987, 993, 995, 998, 1000
 };
 
 
@@ -2056,12 +2053,7 @@ static void break_curse(object_type *object_ptr)
 {
 	if(object_is_cursed(object_ptr) && !(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) && !(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) && (PERCENT(25)))
 	{
-#ifdef JP
-		msg_print("かけられていた呪いが打ち破られた！");
-#else
-		msg_print("The curse is broken!");
-#endif
-
+		msg_print(MES_ENCHANT_CURSE_BROKEN);
 		object_ptr->curse_flags[0] = 0L;
 		object_ptr->ident |= (IDENT_SENSE);
 		object_ptr->feeling = FEEL_NONE;
@@ -2096,12 +2088,8 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 	prob = object_ptr->number * 100;
 
 	/* Missiles are easy to enchant */
-	if((object_ptr->tval == TV_BOLT) ||
-	    (object_ptr->tval == TV_ARROW) ||
-	    (object_ptr->tval == TV_SHOT))
-	{
+	if((object_ptr->tval == TV_BOLT) || (object_ptr->tval == TV_ARROW) || (object_ptr->tval == TV_SHOT))
 		prob = prob / 20;
-	}
 
 	/* Try "n" times */
 	for (i = 0; i < n; i++)
@@ -2140,8 +2128,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 				res = TRUE;
 
 				/* only when you get it above -1 -CFT */
-				if(object_ptr->to_damage >= 0)
-					break_curse(object_ptr);
+				if(object_ptr->to_damage >= 0) break_curse(object_ptr);
 			}
 		}
 
@@ -2158,8 +2145,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 				res = TRUE;
 
 				/* only when you get it above -1 -CFT */
-				if(object_ptr->to_ac >= 0)
-					break_curse(object_ptr);
+				if(object_ptr->to_ac >= 0) break_curse(object_ptr);
 			}
 		}
 	}
@@ -2219,8 +2205,6 @@ bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int nu
 	msg_format("%s %s glow%s brightly!", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "" : "s"));
 #endif
 
-
-	/* Enchant */
 	if(enchant(creature_ptr, object_ptr, num_hit, ENCH_TOHIT)) okay = TRUE;
 	if(enchant(creature_ptr, object_ptr, num_dam, ENCH_TODAM)) okay = TRUE;
 	if(enchant(creature_ptr, object_ptr, num_ac, ENCH_TOAC)) okay = TRUE;

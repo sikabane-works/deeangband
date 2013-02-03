@@ -802,9 +802,15 @@
 #define MES_ALCHEMY_SUCCESS(OBJECT, PRICE) "You turn %s to %ld coins worth of gold.", (OBJECT), (PRICE)
 #endif
 
+#ifdef JP
+#define MES_ENCHANT_CURSE_BROKEN "‚©‚¯‚ç‚ê‚Ä‚¢‚½ô‚¢‚ª‘Å‚¿”j‚ç‚ê‚½I"
+#else
+#define MES_ENCHANT_CURSE_BROKEN "The curse is broken!"
+#endif
+
 
 // Cause of Death
-#if JP
+#ifdef JP
 
 #define COD_QUITTING "“r’†I—¹"
 #define COD_INTERRUPTING "‹­§I—¹"
