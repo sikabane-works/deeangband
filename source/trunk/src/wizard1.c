@@ -79,81 +79,31 @@ static grouper group_item[] =
 {
 #ifdef JP
 	{ TV_SHOT, "射撃物" },
-#else
-	{ TV_SHOT, "Ammo" },
-#endif
-
 	{ TV_ARROW, NULL },
 	{ TV_BOLT, NULL },
-
-#ifdef JP
 	{ TV_BOW, "弓" },
-#else
-	{ TV_BOW, "Bows" },
-#endif
-
-#ifdef JP
 	{ TV_DIGGING, "武器" },
-#else
-	{ TV_DIGGING, "Weapons" },
-#endif
-
 	{ TV_POLEARM, NULL },
 	{ TV_HAFTED, NULL },
 	{ TV_SWORD, NULL },
-
-#ifdef JP
 	{ TV_SOFT_ARMOR, "防具 (体)" },
-#else
-	{ TV_SOFT_ARMOR, "Armour (Body)" },
-#endif
-
 	{ TV_HARD_ARMOR, NULL },
 	{ TV_DRAG_ARMOR, NULL },
-
-#ifdef JP
 	{ TV_BOOTS, "防具 (その他)" },
-#else
-	{ TV_BOOTS, "Armour (Misc)" },
-#endif
-
 	{ TV_GLOVES, NULL },
 	{ TV_HELM, NULL },
 	{ TV_CROWN, NULL },
 	{ TV_SHIELD, NULL },
 	{ TV_CLOAK, NULL },
-
-#ifdef JP
 	{ TV_LITE, "光源" },
 	{ TV_AMULET, "アミュレット" },
 	{ TV_RING, "指輪" },
-#else
-	{ TV_LITE, "Light Sources" },
-	{ TV_AMULET, "Amulets" },
-	{ TV_RING, "Rings" },
-#endif
-
-#ifdef JP
 	{ TV_STAFF, "杖" },
 	{ TV_WAND, "魔法棒" },
 	{ TV_ROD, "ロッド" },
-#else
-	{ TV_STAFF, "Staffs" },
-	{ TV_WAND, "Wands" },
-	{ TV_ROD, "Rods" },
-#endif
-
-#ifdef JP
 	{ TV_SCROLL, "巻物" },
 	{ TV_POTION, "薬" },
 	{ TV_FOOD, "食料" },
-#else
-	{ TV_SCROLL, "Scrolls" },
-	{ TV_POTION, "Potions" },
-	{ TV_FOOD, "Food" },
-#endif
-
-#ifdef JP
 	{ TV_LIFE_BOOK, "魔法書 (生命)" },
 	{ TV_SORCERY_BOOK, "魔法書 (仙術)" },
 	{ TV_NATURE_BOOK, "魔法書 (自然)" },
@@ -167,7 +117,42 @@ static grouper group_item[] =
 	{ TV_MUSIC_BOOK, "歌集" },
 	{ TV_HISSATSU_BOOK, "武芸の書" },
 	{ TV_HEX_BOOK, "魔法書 (呪術)" },
+	{ TV_WHISTLE, "笛" },
+	{ TV_CAPTURE, "キャプチャー・ボール" },
+	{ TV_CARD, "エクスプレスカード" },
+	{ TV_WHEEL, "車輪" },
+	{ TV_CHEST, "箱" },
+	{ TV_FIGURINE, "人形" },
+	{ TV_STATUE, "像" },
+	{ TV_CORPSE, "死体" },
+	{ TV_SKELETON, "その他" },
 #else
+	{ TV_SHOT, "Ammo" },
+	{ TV_ARROW, NULL },
+	{ TV_BOLT, NULL },
+	{ TV_BOW, "Bows" },
+	{ TV_DIGGING, "Weapons" },
+	{ TV_POLEARM, NULL },
+	{ TV_HAFTED, NULL },
+	{ TV_SWORD, NULL },
+	{ TV_SOFT_ARMOR, "Armour (Body)" },
+	{ TV_HARD_ARMOR, NULL },
+	{ TV_DRAG_ARMOR, NULL },
+	{ TV_BOOTS, "Armour (Misc)" },
+	{ TV_GLOVES, NULL },
+	{ TV_HELM, NULL },
+	{ TV_CROWN, NULL },
+	{ TV_SHIELD, NULL },
+	{ TV_CLOAK, NULL },
+	{ TV_LITE, "Light Sources" },
+	{ TV_AMULET, "Amulets" },
+	{ TV_RING, "Rings" },
+	{ TV_STAFF, "Staffs" },
+	{ TV_WAND, "Wands" },
+	{ TV_ROD, "Rods" },
+	{ TV_SCROLL, "Scrolls" },
+	{ TV_POTION, "Potions" },
+	{ TV_FOOD, "Food" },
 	{ TV_LIFE_BOOK, "Books (Life)" },
 	{ TV_SORCERY_BOOK, "Books (Sorcery)" },
 	{ TV_NATURE_BOOK, "Books (Nature)" },
@@ -181,40 +166,14 @@ static grouper group_item[] =
 	{ TV_MUSIC_BOOK, "Song Books" },
 	{ TV_HISSATSU_BOOK, "Books (Kendo)" },
 	{ TV_HEX_BOOK, "Books (Hex)" },
-#endif
-
-#ifdef JP
-	{ TV_WHISTLE, "笛" },
-	{ TV_CAPTURE, "キャプチャー・ボール" },
-	{ TV_CARD, "エクスプレスカード" },
-	{ TV_WHEEL, "車輪" },
-
-#else
 	{ TV_WHISTLE, "Whistle" },
 	{ TV_CAPTURE, "Capture Ball" },
 	{ TV_CARD, "Express Card" },
 	{ TV_WHEEL, "Wheel" },
-#endif
-
-#ifdef JP
-	{ TV_CHEST, "箱" },
-#else
 	{ TV_CHEST, "Chests" },
-#endif
-
-#ifdef JP
-	{ TV_FIGURINE, "人形" },
-	{ TV_STATUE, "像" },
-	{ TV_CORPSE, "死体" },
-#else
 	{ TV_FIGURINE, "Magical Figurines" },
 	{ TV_STATUE, "Statues" },
 	{ TV_CORPSE, "Corpses" },
-#endif
-
-#ifdef JP
-	{ TV_SKELETON, "その他" },
-#else
 	{ TV_SKELETON, "Misc" },
 #endif
 

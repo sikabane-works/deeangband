@@ -283,11 +283,9 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 				spell_chance(creature_ptr, spell, use_realm));
 #endif
 
-
 			/* Belay that order */
 			if(!get_check(tmp_val)) continue;
 		}
-
 		/* Stop the loop */
 		flag = TRUE;
 	}
@@ -422,20 +420,12 @@ void do_cmd_browse(creature_type *creature_ptr)
 	char	temp[62*4];
 
 	int item_tester_tval;
-
 	object_type	*object_ptr;
-
-	cptr q, s;
 
 	/* Warriors are illiterate */
 	if(!(creature_ptr->realm1 || creature_ptr->realm2) && (creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_RED_MAGE))
 	{
-#ifdef JP
-		msg_print("本を読むことができない！");
-#else
-		msg_print("You cannot read books!");
-#endif
-
+		msg_print(MES_STUDY_NO_READING);
 		return;
 	}
 
@@ -455,21 +445,11 @@ void do_cmd_browse(creature_type *creature_ptr)
 		select_flag = USE_INVEN | USE_FLOOR;
 	}
 
-#ifdef JP
-	q = "どの本を読みますか? ";
-	s = "読める本がない。";
-#else
-	q = "Browse which book? ";
-	s = "You have no books that you can read.";
-#endif
-
 	// Restrict choices to "useful" books
 	if(creature_ptr->realm2 == REALM_NONE) item_tester_tval = magic_info[creature_ptr->class_idx].spell_book;
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_FORCE), item_tester_hook_readable, 0))
-	{
+	if(!get_item(creature_ptr, &item, MES_STUDY_WHICH_BOOK, MES_STUDY_NO_BOOK, (USE_INVEN | USE_FLOOR | USE_FORCE), item_tester_hook_readable, 0))
 		return;
-	}
 
 	if(item == INVEN_FORCE) /* the_force */
 	{
