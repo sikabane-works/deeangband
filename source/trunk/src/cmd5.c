@@ -1569,11 +1569,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		/* Skip non-empty grids */
 		if(!player_can_ride_aux(rider_ptr, c_ptr, FALSE))
 		{
-#ifdef JP
-			msg_print("そちらには降りられません。");
-#else
-			msg_print("You cannot go to that direction.");
-#endif
+			msg_print(MES_RIDING_NO_DIRECTION);
 			return FALSE;
 		}
 
@@ -1603,32 +1599,17 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 		if(!c_ptr->creature_idx || !steed_ptr->see_others)
 		{
-#ifdef JP
-			msg_print("その場所にはクリーチャーはいません。");
-#else
-			msg_print("Here is no creature.");
-#endif
-
+			msg_print(MES_RIDING_NO_CREATURE);
 			return FALSE;
 		}
 		if(!is_pet(player_ptr, steed_ptr) && !force)
 		{
-#ifdef JP
-			msg_print("そのクリーチャーはペットではありません。");
-#else
-			msg_print("That creature is not a pet.");
-#endif
-
+			msg_print(MES_RIDING_NOT_PET);
 			return FALSE;
 		}
 		if(!has_trait(steed_ptr, TRAIT_RIDING))
 		{
-#ifdef JP
-			msg_print("そのクリーチャーには乗れなさそうだ。");
-#else
-			msg_print("This creature doesn't seem suitable for riding.");
-#endif
-
+			msg_print(MES_RIDING_DISABLE);
 			return FALSE;
 		}
 

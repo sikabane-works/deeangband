@@ -1743,6 +1743,18 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_RIDING_NO_DIRECTION "そちらには降りられません。"
+#define MES_RIDING_NO_CREATURE "その場所にはクリーチャーはいません。"
+#define MES_RIDING_NOT_PET "そのクリーチャーはペットではありません。"
+#define MES_RIDING_DISABLE "そのクリーチャーには乗れなさそうだ。"
+#else
+#define MES_RIDING_NO_DIRECTION "You cannot go to that direction."
+#define MES_RIDING_NO_CREATURE "Here is no creature."
+#define MES_RIDING_NOT_PET "That creature is not a pet."
+#define MES_RIDING_DISABLE "This creature doesn't seem suitable for riding."
+#endif
+
+#ifdef JP
 #define MES_AUTOPICK_PATTERN_NOT_FOUND(STR) "パターンが見つかりません: %s", (STR)
 #define MES_AUTOPICK_SKIP_INACTIVE_LINE(STR) "無効状態の行をスキップしました。(%sを検索中)", (STR)
 #define MES_AUTOPICK_FOUND_ONLY_INACTIVE(STR) "無効状態の行だけが見付かりました。(%sを検索中)", (STR)
