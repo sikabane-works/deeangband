@@ -4628,19 +4628,10 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 			prt(MES_STORE_COMMAND_LIST10, 23 + xtra_stock,56);
 		}
 
-#ifdef JP
-		prt("i/e) 持ち物/装備の一覧", 21 + xtra_stock, 56);
-
-		if(rogue_like_commands) prt("w/T) 装備する/はずす", 22 + xtra_stock, 56);
-		else prt("w/t) 装備する/はずす", 22 + xtra_stock, 56);
-		prt(" ESC) 店を出る", 21 + xtra_stock, 0);
-#else
-		prt("i/e) Inventry/Equipment list", 21 + xtra_stock, 56);
-
-		if(rogue_like_commands) prt("w/T) Wear/Take off equipment", 22 + xtra_stock, 56);
-		else prt("w/t) Wear/Take off equipment", 22 + xtra_stock, 56);
-		prt(" ESC) Exit from Store.", 21 + xtra_stock, 0);
-#endif
+		prt(MES_STORE_COMMAND_LIST11, 21 + xtra_stock, 56);
+		if(rogue_like_commands) prt(MES_STORE_COMMAND_LIST12, 22 + xtra_stock, 56);
+		else prt(MES_STORE_COMMAND_LIST13, 22 + xtra_stock, 56);
+		prt(MES_STORE_COMMAND_LIST14, 21 + xtra_stock, 0);
 		prt(PROMPT_COMMAND, 20 + xtra_stock, 0);
 
 		request_command(creature_ptr, TRUE);
@@ -4667,31 +4658,18 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 			/* Hack -- Flee from the store */
 			if(!is_home(st_ptr))
 			{
-#ifdef JP
 				if(is_museum(st_ptr))
-					msg_print("ザックからアイテムがあふれそうなので、あわてて博物館から出た...");
+					msg_print(MES_STORE_OVERFLOW1);
 				else
-					msg_print("ザックからアイテムがあふれそうなので、あわてて店から出た...");
-#else
-				if(is_museum(st_ptr))
-					msg_print("Your pack is so full that you flee the Museum...");
-				else
-					msg_print("Your pack is so full that you flee the store...");
-#endif
+					msg_print(MES_STORE_OVERFLOW2);
 
-
-				/* Leave */
 				leave_store = TRUE;
 			}
 
 			/* Hack -- Flee from the home */
 			else if(!store_check_num(st_ptr, object_ptr))
 			{
-#ifdef JP
-				msg_print("ザックからアイテムがあふれそうなので、あわてて家から出た...");
-#else
-				msg_print("Your pack is so full that you flee your home...");
-#endif
+				msg_print(MES_STORE_OVERFLOW3);
 				/* Leave */
 				leave_store = TRUE;
 			}
@@ -4715,13 +4693,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 
 				/* Describe it */
 				object_desc(object_name, quest_ptr, 0);
-
-#ifdef JP
-				msg_format("%sが落ちた。(%c)", object_name, index_to_label(item));
-#else
-				msg_format("You drop %s (%c).", object_name, index_to_label(item));
-#endif
-
+				msg_format(MES_STORE_DROP_ITEM(object_name, index_to_label(item)));
 
 				/* Remove it from the players creature_ptr->inventory */
 				inven_item_increase(creature_ptr, item, -255);

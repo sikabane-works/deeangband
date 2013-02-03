@@ -1696,6 +1696,14 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_COMMAND_LIST8 " s) アイテムを売る"
 #define MES_STORE_COMMAND_LIST9 " x) 商品を調べる"
 #define MES_STORE_COMMAND_LIST10 " l) 店主の様子を伺う"
+#define MES_STORE_COMMAND_LIST11 " i/e) 持ち物/装備の一覧"
+#define MES_STORE_COMMAND_LIST12 " w/T) 装備する/はずす"
+#define MES_STORE_COMMAND_LIST13 " w/t) 装備する/はずす"
+#define MES_STORE_COMMAND_LIST14 " ESC) 店を出る"
+#define MES_STORE_OVERFLOW1 "ザックからアイテムがあふれそうなので、あわてて博物館から出た..."
+#define MES_STORE_OVERFLOW2 "ザックからアイテムがあふれそうなので、あわてて店から出た..."
+#define MES_STORE_OVERFLOW3 "ザックからアイテムがあふれそうなので、あわてて家から出た..."
+#define MES_STORE_DROP_ITEM(NAME, SYM) "%sが落ちた。(%c)", (NAME), (SYM)
 #else
 #define MES_STORE_ENTIRE "That's all."
 #define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."
@@ -1717,7 +1725,15 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_COMMAND_LIST7 " p) Purchase an item."
 #define MES_STORE_COMMAND_LIST8 " s) Sell an item."
 #define MES_STORE_COMMAND_LIST9 " x) eXamine an item in the shop"
-#define MES_STORE_COMMAND_LIST10 "l) Lock at the owner"
+#define MES_STORE_COMMAND_LIST10 " l) Lock at the owner"
+#define MES_STORE_COMMAND_LIST11 " i/e) Inventry/Equipment list"
+#define MES_STORE_COMMAND_LIST12 " w/T) Wear/Take off equipment"
+#define MES_STORE_COMMAND_LIST13 " w/t) Wear/Take off equipment"
+#define MES_STORE_COMMAND_LIST14 " ESC) Exit from Store."
+#define MES_STORE_OVERFLOW1 "Your pack is so full that you flee the Museum..."
+#define MES_STORE_OVERFLOW2 "Your pack is so full that you flee the store..."
+#define MES_STORE_OVERFLOW3 "Your pack is so full that you flee your home..."
+#define MES_STORE_DROP_ITEM(NAME, SYM) "You drop %s (%c).", (NAME), (SYM)
 #endif
 
 #ifdef JP
