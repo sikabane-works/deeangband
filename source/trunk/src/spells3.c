@@ -2435,29 +2435,11 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
 	object_desc(object_name, object_ptr, 0);
 
 	if(IS_EQUIPPED(object_ptr))
-	{
-#ifdef JP
-		msg_format("%^s: %s(%c)。", describe_use(creature_ptr, item), object_name, index_to_label(item));
-#else
-		msg_format("%^s: %s (%c).", describe_use(creature_ptr, item), object_name, index_to_label(item));
-#endif
-	}
+		msg_format(MES_INDENTIFY_RESULT_EQUIPMENT(describe_use(creature_ptr, item), object_name, index_to_label(item)));
 	else if(item >= 0)
-	{
-#ifdef JP
-		msg_format("ザック中: %s(%c)。", object_name, index_to_label(item));
-#else
-		msg_format("In your pack: %s (%c).", object_name, index_to_label(item));
-#endif
-	}
+		msg_format(MES_INDENTIFY_RESULT_IN_ZACK(object_name, index_to_label(item)));
 	else
-	{
-#ifdef JP
-		msg_format("床上: %s。", object_name);
-#else
-		msg_format("On the ground: %s.", object_name);
-#endif
-	}
+		msg_format(MES_INDENTIFY_RESULT_ON_GROUND(object_name));
 
 	/* Auto-inscription/destroy */
 	autopick_alter_item(creature_ptr, item, (bool)(destroy_identify && !old_known));
@@ -2599,13 +2581,7 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 	else if(item >= 0)
 		msg_format(MES_INDENTIFY_RESULT_IN_ZACK(object_name, index_to_label(item)));
 	else
-	{
-#ifdef JP
-		msg_format("床上: %s。", object_name);
-#else
-		msg_format("On the ground: %s.", object_name);
-#endif
-	}
+		msg_format(MES_INDENTIFY_RESULT_ON_GROUND(object_name));
 
 	/* Describe it fully */
 	(void)screen_object(object_ptr, 0L);
@@ -2615,8 +2591,6 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 
 	return TRUE;
 }
-
-
 
 
 /*

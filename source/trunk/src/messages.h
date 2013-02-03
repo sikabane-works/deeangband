@@ -811,9 +811,11 @@
 #ifdef JP
 #define MES_INDENTIFY_RESULT_EQUIPMENT(EQUIP_POS, NAME, LABEL) "%^s: %s(%c)。", (EQUIP_POS), (NAME), (LABEL)
 #define MES_INDENTIFY_RESULT_IN_ZACK(NAME, LABEL) "ザック中: %s(%c)。", (NAME), (LABEL)
+#define MES_INDENTIFY_RESULT_ON_GROUND(NAME) "床上: %s。", (NAME)
 #else
 #define MES_INDENTIFY_RESULT_EQUIPMENT(EQUIP_POS, NAME, LABEL) "%^s: %s(%c)。", (EQUIP_POS), (NAME), (LABEL)
 #define MES_INDENTIFY_RESULT_IN_ZACK(NAME, LABEL) "In your pack: %s (%c).", (NAME), (LABEL)
+#define MES_INDENTIFY_RESULT_ON_GROUND(NAME) "On the ground: %s.", (NAME)
 #endif
 
 // Cause of Death
