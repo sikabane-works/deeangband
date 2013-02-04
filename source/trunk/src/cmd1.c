@@ -1814,8 +1814,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #ifdef JP
 				msg_format("%s‚ªs‚­Žè‚ð‚Í‚Î‚ñ‚Å‚¢‚é‚æ‚¤‚¾B", name);
 #else
-				msg_format("You feel %s %s blocking your way.",
-					is_a_vowel(name[0]) ? "an" : "a", name);
+				msg_format("You feel %s %s blocking your way.", is_a_vowel(name[0]) ? "an" : "a", name);
 #endif
 
 				c_ptr->info |= (CAVE_MARK);

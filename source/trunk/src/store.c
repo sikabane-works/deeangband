@@ -3397,27 +3397,16 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 
 	if(is_museum(st_ptr))
 	{
-#ifdef JP
-		msg_print("博物館から取り出すことはできません。");
-#else
-		msg_print("Museum.");
-#endif
+		msg_print(MES_STORE_MUSEUM);
 		return;
 	}
 
-	/* Empty? */
 	if(st_ptr->stock_num <= 0)
 	{		
-#ifdef JP
-		if(is_home(st_ptr)) msg_print("我が家には何も置いてありません。");
-		else msg_print("現在商品の在庫を切らしています。");
-#else
-		if(is_home(st_ptr)) msg_print("Your home is empty.");
-		else msg_print("I am currently out of stock.");
-#endif
+		if(is_home(st_ptr)) msg_print(MES_STORE_NO_ITEM_HOME);
+		else msg_print(MES_STORE_NO_ITEM_STORE);
 		return;
 	}
-
 
 	/* Find the number of objects on this and following pages */
 	i = (st_ptr->stock_num - store_top);
