@@ -2870,12 +2870,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 
 	if(!total_cost)
 	{
-#ifdef JP
-		msg_print("è[ìUÇ∑ÇÈïKóvÇÕÇ†ÇËÇ‹ÇπÇÒÅB");
-#else
-		msg_print("No need to recharge.");
-#endif
-
+		msg_print(MES_BLDG_RECHARGE_NO_ITEM);
 		msg_print(NULL);
 		return;
 	}
@@ -2932,13 +2927,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 		}
 	}
 
-	/* Give feedback */
-#ifdef JP
-	msg_format("Åê%d Ç≈çƒè[ìUÇµÇ‹ÇµÇΩÅB", total_cost);
-#else
-	msg_format("You pay %d gold.", total_cost);
-#endif
-
+	msg_format(MES_BLDG_RECHAEGED_ALL(total_cost));
 	msg_print(NULL);
 
 	/* Combine / Reorder the pack (later) */

@@ -1846,10 +1846,12 @@ static cptr desc_stat_neg[] =
 #define MES_BLDG_RECHARGE_NO_NEED "‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB"
 #define MES_BLDG_RECHARGE_NO_MONEY(NAME, MONEY) "%s‚ðÄ[“U‚·‚é‚É‚Í%d •K—v‚Å‚·I", (NAME), (MONEY)
 #define MES_BLDG_RECHAEGED(NAME, MONEY, NUM) "%s‚ð%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", (NAME), (MONEY), (NUM)
+#define MES_BLDG_RECHAEGED_ALL(MONEY) "%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", (MONEY)
 #else
 #define MES_BLDG_RECHARGE_WHICH_ITEM "Recharge which item? "
 #define MES_BLDG_RECHARGE_NO_ITEM "You have nothing to recharge."
 #define MES_BLDG_RECHARGE_NO_NEED "That doesn't need to be recharged."
 #define MES_BLDG_RECHARGE_NO_MONEY(NAME, MONEY) "You need %d gold to recharge %s!", (MONEY), (NAME)
 #define MES_BLDG_RECHAEGED(NAME, MONEY, NUM) "%^s %s recharged for %d gold.", (NAME), ((NUM)> 1) ? "were" : "was"), (MONEY) 
+#define MES_BLDG_RECHAEGED_ALL(MONEY) "You pay %d gold.", (MONEY)
 #endif
