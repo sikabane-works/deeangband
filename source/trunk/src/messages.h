@@ -1681,6 +1681,8 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_MUSEUM "博物館から取り出すことはできません。"
 #define MES_STORE_NO_ITEM_HOME "我が家には何も置いてありません。"
 #define MES_STORE_NO_ITEM_STORE "現在商品の在庫を切らしています。"
+#define MES_STORE_WHICH_TAKING "どのアイテムを取り出しますか？"
+#define MES_STORE_WHICH_PURCHASE "どの品物が欲しいんだい？"
 #define MES_STORE_FIXED_PRICE(PRICE) "一つにつき $%ldです。", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "%s(%c)を購入する。", (NAME), (SYM)
 #define MES_STORE_BOUGHT(NAME, PRICE) "%sを $%ldで購入しました。", (NAME), (PRICE)
@@ -1714,6 +1716,8 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_MUSEUM "Museum."
 #define MES_STORE_NO_ITEM_HOME "Your home is empty."
 #define MES_STORE_NO_ITEM_STORE "I am currently out of stock."
+#define MES_STORE_WHICH_TAKING "Which item do you want to take? "
+#define MES_STORE_WHICH_PURCHASE "Which item are you interested in? "
 #define MES_STORE_FIXED_PRICE(PRICE) "That costs %ld gold per item.", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "Buying %s(%c).", (NAME), (SYM)
 #define MES_STORE_BOUGHT(NAME, PRICE) "You bought %s for %ld gold.", (NAME), (PRICE)

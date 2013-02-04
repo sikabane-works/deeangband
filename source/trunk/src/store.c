@@ -3414,15 +3414,8 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 	/* And then restrict it to the current page */
 	if(i > store_bottom) i = store_bottom;
 
-#ifdef JP
-	/* ブラックマーケットの時は別のメッセージ */
-	if(is_home(st_ptr)) sprintf(out_val, "どのアイテムを取り出しますか？");
-	else sprintf(out_val, "どの品物が欲しいんだい？");
-#else
-	if(is_home(st_ptr)) sprintf(out_val, "Which item do you want to take? ");
-	else sprintf(out_val, "Which item are you interested in? ");
-#endif
-
+	if(is_home(st_ptr)) sprintf(out_val, MES_STORE_WHICH_TAKING);
+	else sprintf(out_val, MES_STORE_WHICH_PURCHASE);
 
 	/* Get the item number to be bought */
 	if(!get_stock(st_ptr, &item, out_val, 0, i - 1)) return;
