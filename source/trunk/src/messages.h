@@ -1843,7 +1843,11 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_BLDG_RECHARGE_WHICH_ITEM "どのアイテムに魔力を充填しますか? "
 #define MES_BLDG_RECHARGE_NO_ITEM "魔力を充填すべきアイテムがない。"
+#define MES_BLDG_RECHARGE_NO_NEED "それは再充填する必要はありません。"
+#define MES_BLDG_RECHARGE_NO_MONEY(NAME, MONEY) "%sを再充填するには＄%d 必要です！", (NAME), (MONEY)
 #else
 #define MES_BLDG_RECHARGE_WHICH_ITEM "Recharge which item? "
 #define MES_BLDG_RECHARGE_NO_ITEM "You have nothing to recharge."
+#define MES_BLDG_RECHARGE_NO_NEED "That doesn't need to be recharged."
+#define MES_BLDG_RECHARGE_NO_MONEY(NAME, MONEY) "You need %d gold to recharge %s!", (MONEY), (NAME)
 #endif

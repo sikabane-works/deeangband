@@ -2685,12 +2685,7 @@ static void building_recharge(creature_type *creature_ptr)
 		else
 		{
 			price = 0;
-#ifdef JP
-			msg_format("‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB");
-#else
-			msg_format("That doesn't need to be recharged.");
-#endif
-
+			msg_format(MES_BLDG_RECHARGE_NO_NEED);
 			return;
 		}
 	}
@@ -2739,14 +2734,9 @@ static void building_recharge(creature_type *creature_ptr)
 	if(creature_ptr->au < price)
 	{
 		object_desc(tmp_str, object_ptr, OD_NAME_ONLY);
-#ifdef JP
-		msg_format("%s‚ğÄ[“U‚·‚é‚É‚Í%d •K—v‚Å‚·I", tmp_str,price );
-#else
-		msg_format("You need %d gold to recharge %s!", price, tmp_str);
-#endif
+		msg_format(MES_BLDG_RECHARGE_NO_MONEY(tmp_str, price));
 		return;
 	}
-
 	if(IS_ROD(object_ptr))
 	{
 #ifdef JP

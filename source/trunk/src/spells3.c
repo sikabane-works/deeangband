@@ -2654,7 +2654,6 @@ bool recharge(creature_type *creature_ptr, int power)
 	/* Extract the object "level" */
 	lev = object_kind_info[object_ptr->k_idx].level;
 
-
 	/* Recharge a rod */
 	if(IS_ROD(object_ptr))
 	{
@@ -2691,12 +2690,10 @@ bool recharge(creature_type *creature_ptr, int power)
 		 * Divide up a stack of wands' charges to calculate charge penalty.
 		 */
 		if((object_ptr->tval == TV_WAND) && (object_ptr->number > 1))
-			recharge_strength = (100 + power - lev -
-			(8 * object_ptr->pval / object_ptr->number)) / 15;
+			recharge_strength = (100 + power - lev - (8 * object_ptr->pval / object_ptr->number)) / 15;
 
 		/* All staffs, unstacked wands. */
-		else recharge_strength = (100 + power - lev -
-			(8 * object_ptr->pval)) / 15;
+		else recharge_strength = (100 + power - lev - (8 * object_ptr->pval)) / 15;
 
 
 		if(recharge_strength < 0) recharge_strength = 0;
