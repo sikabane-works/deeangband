@@ -3576,12 +3576,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 
 				/* Describe the final result */
 				object_desc(object_name, &guest_ptr->inventory[item_new], 0);
-
-#ifdef JP
-				msg_format("%s(%c)‚ğè‚É“ü‚ê‚½B", object_name, index_to_label(item_new));
-#else
-				msg_format("You have %s (%c).", object_name, index_to_label(item_new));
-#endif
+				msg_format(MES_STORE_PURCHASED(object_name, index_to_label(item_new)));
 
 				/* Auto-inscription */
 				autopick_alter_item(guest_ptr, item_new, FALSE);
@@ -3652,13 +3647,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 
 		/* Describe just the result */
 		object_desc(object_name, &guest_ptr->inventory[item_new], 0);
-
-#ifdef JP
-		msg_format("%s(%c)‚ğæ‚Á‚½B",
-#else
-		msg_format("You have %s (%c).",
-#endif
-		object_name, index_to_label(item_new));
+		msg_format(MES_STORE_TOOK(object_name, index_to_label(item_new)));
 
 		handle_stuff(guest_ptr);
 
