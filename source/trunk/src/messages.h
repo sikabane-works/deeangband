@@ -1855,3 +1855,12 @@ static cptr desc_stat_neg[] =
 #define MES_BLDG_RECHAEGED(NAME, MONEY, NUM) "%^s %s recharged for %d gold.", (NAME), ((NUM)> 1) ? "were" : "was"), (MONEY) 
 #define MES_BLDG_RECHAEGED_ALL(MONEY) "You pay %d gold.", (MONEY)
 #endif
+
+#ifdef JP
+#define MES_INSANITY_FACED(ADJ, ELDRITCH) "%s%sÇÃäÁÇå©ÇƒÇµÇ‹Ç¡ÇΩÅI", (ADJ), (ELDRITCH)
+#define MES_INSANITY_GLANCE(ADJ, ELDRITCH) "%s%sÇÃäÁÇ™ä_ä‘å©Ç¶ÇΩÅB", (ADJ), (ELDRITCH)
+#else
+#define MES_INSANITY_FACED(ADJ, ELDRITCH) "You behold the %s visage of %s.", (ADJ), (ELDRITCH)
+#define MES_INSANITY_GLANCE(ADJ, ELDRITCH) "You glance at the %s visage of %s.", (ADJ), (ELDRITCH)
+#endif
+

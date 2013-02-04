@@ -2115,43 +2115,21 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr)
 	if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
 	{
 		// Something silly happens...
-#ifdef JP
-		msg_format("%s%sÇÃäÁÇå©ÇƒÇµÇ‹Ç¡ÇΩÅI", funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name);
-#else
-		msg_format("You behold the %s visage of %s!", funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name);
-#endif
-
+		msg_format(MES_INSANITY_FACED(funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name));
 		if(one_in_(3))
 		{
 			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
 			add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, (s16b)randint1(difficulty), TRUE); 
 		}
-
 		return;
 	}
 
 	// Something frightening happens...
 
 	if(has_trait(watcher_ptr, TRAIT_DEMON))
-	{
-#ifdef JP
-		msg_format("%s%sÇÃäÁÇ™ä_ä‘å©Ç¶ÇΩÅB",
-			delight_desc[randint0(MAX_SAN_DELIGHT)], eldritch_name);
-#else
-		msg_format("You glance at the %s visage of %s.",
-			delight_desc[randint0(MAX_SAN_DELIGHT)], eldritch_name);
-#endif
-	}
+		msg_format(MES_INSANITY_GLANCE(delight_desc[randint0(MAX_SAN_DELIGHT)], eldritch_name));
 	else
-	{
-#ifdef JP
-		msg_format("%s%sÇÃäÁÇå©ÇƒÇµÇ‹Ç¡ÇΩÅI",
-			horror_desc[randint0(MAX_SAN_HORROR)], eldritch_name);
-#else
-		msg_format("You behold the %s visage of %s!",
-			horror_desc[randint0(MAX_SAN_HORROR)], eldritch_name);
-#endif
-	}
+		msg_format(MES_INSANITY_FACED(horror_desc[randint0(MAX_SAN_HORROR)], eldritch_name));
 
 	reveal_creature_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
 

@@ -2085,11 +2085,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
 	{
 		// Something silly happens...
-#ifdef JP
-		msg_format("%s%sÇÃäÁÇå©ÇƒÇµÇ‹Ç¡ÇΩÅI", funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
-#else
-		msg_format("You behold the %s visage of %s!", funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
-#endif
+		msg_format(MES_INSANITY_FACED(funny_desc[randint0(MAX_SAN_FUNNY)], m_name));
 
 		if(one_in_(3) && has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
 		{
@@ -2101,12 +2097,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	}
 
 	// Something frightening happens...
-#ifdef JP
-	msg_format("%s%sÇÃäÁÇå©ÇƒÇµÇ‹Ç¡ÇΩÅI", horror_desc[randint0(MAX_SAN_HORROR)], desc);
-#else
-	msg_format("You behold the %s visage of %s!", horror_desc[randint0(MAX_SAN_HORROR)], desc);
-#endif
-
+	msg_format(MES_INSANITY_FACED(horror_desc[randint0(MAX_SAN_HORROR)], desc));
 	reveal_species_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
 	sanity_blast_aux(watcher_ptr, power);
 }
