@@ -2879,9 +2879,7 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 }
 
 
-/*
-*  Set initial racial appearance of a creature
-*/
+//  Set initial racial appearance of a creature
 static int initial_r_appearance(int species_idx)
 {
 	int attempts = 1000;
@@ -3091,7 +3089,7 @@ void deal_item(creature_type *creature_ptr)
 
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
-		//make_object(quest_ptr, AM_UNCURSED, 0, object_level, NULL);
+		make_object(quest_ptr, AM_UNCURSED, 0, object_level, NULL);
 		//add_outfit(creature_ptr, quest_ptr, 0);
 	}
 

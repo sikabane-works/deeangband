@@ -1120,7 +1120,7 @@ extern void delete_object(floor_type *floor_ptr, int y, int x);
 extern void compact_objects(int size);
 extern void wipe_object_list(int floor_id);
 extern s16b object_pop(void);
-extern s16b get_obj_num(floor_type *floor_ptr, int floor, u32b flags);
+extern s16b get_obj_num(int floor, u32b flags);
 extern void object_known(object_type *object_ptr);
 extern void object_aware(object_type *object_ptr);
 extern void object_tried(object_type *object_ptr);

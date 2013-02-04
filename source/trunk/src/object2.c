@@ -499,7 +499,7 @@ static errr get_obj_num_prep(bool (*get_obj_num_hook)(int k_idx))
 * Note that if no objects are "appropriate", then this function will
 * fail, and return zero, but this should *almost* never happen.
 */
-s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
+s16b get_obj_num(int level, u32b flag)
 {
 	int             i, j, p;
 	int             k_idx;
@@ -508,11 +508,7 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 	alloc_entry     *table = alloc_kind_table;
 
 	if(level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
-
-	if((level > 0) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER)) // Boost level
-	{
-		if(one_in_(GREAT_OBJ)) level = 1 + (level * MAX_DEPTH / randint1(MAX_DEPTH)); // Occasional "boost"
-	}
+	if(one_in_(GREAT_OBJ) && level > 0) level = 1 + (level * MAX_DEPTH / randint1(MAX_DEPTH)); // Occasional "boost"
 
 	/* Reset total */
 	total = 0L;
@@ -2892,7 +2888,7 @@ bool make_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, b
 		// Good objects & Activate restriction (if already specified, use that)
 		if((mode & AM_GOOD) && !get_obj_num_hook) get_obj_num_hook = kind_is_good;
 		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects - prepare allocation table
-		k_idx = get_obj_num(floor_ptr, level, gon_mode); // Pick a random object
+		k_idx = get_obj_num(level, gon_mode); // Pick a random object
 		if(!k_idx) return FALSE; // Handle failure
 
 		object_prep(object_ptr, k_idx, ITEM_FREE_SIZE); // Prepare the object
