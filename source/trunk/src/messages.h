@@ -1864,3 +1864,14 @@ static cptr desc_stat_neg[] =
 #define MES_INSANITY_GLANCE(ADJ, ELDRITCH) "You glance at the %s visage of %s.", (ADJ), (ELDRITCH)
 #endif
 
+#ifdef JP
+#define MES_WALK_NEVER_MOVE "動けない。"
+#define MES_WALK_NEVER_SWIM "泳げない。"
+#define MES_WALK_NEVER_LAND "陸に上がれない。"
+#define MES_WALK_STEED_FEAR(STEED) "%sが恐怖していて制御できない。", (STEED)
+#else
+#define MES_WALK_NEVER_MOVE "Can't move."
+#define MES_WALK_NEVER_SWIM "Can't swim"
+#define MES_WALK_NEVER_LAND "Can't land"
+#define MES_WALK_STEED_FEAR(STEED) "%^s is too scared to control.", (STEED)
+#endif

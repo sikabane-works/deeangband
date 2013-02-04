@@ -1693,11 +1693,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	{
 		if(has_trait(steed_ptr, TRAIT_NEVER_MOVE))
 		{
-#ifdef JP
-			msg_print("動けない！");
-#else
-			msg_print("Can't move!");
-#endif
+			msg_print(MES_WALK_NEVER_MOVE);
 			cancel_tactical_action(creature_ptr);
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
@@ -1711,11 +1707,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			creature_desc(m_name, steed_ptr, 0);
 
 			/* Dump a message */
-#ifdef JP
-			msg_format("%sが恐怖していて制御できない。", m_name);
-#else
-			msg_format("%^s is too scared to control.", m_name);
-#endif
+			msg_format(MES_WALK_STEED_FEAR(m_name));
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
@@ -1736,22 +1728,14 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			!has_trait(steed_ptr, TRAIT_AQUATIC) &&
 			(have_flag(f_ptr->flags, FF_DEEP) || has_trait(creature_ptr, TRAIT_AURA_FIRE)))
 		{
-#ifdef JP
-			msg_format("%sの上に行けない。", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#else
-			msg_print("Can't swim.");
-#endif
+			msg_format(MES_WALK_NEVER_SWIM);
 			cancel_tactical_action(creature_ptr);
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
 		else if(!have_flag(f_ptr->flags, FF_WATER) && has_trait(steed_ptr, TRAIT_AQUATIC))
 		{
-#ifdef JP
-			msg_format("%sから上がれない。", feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name);
-#else
-			msg_print("Can't land.");
-#endif
+			msg_format(MES_WALK_NEVER_LAND);
 			cancel_tactical_action(creature_ptr);
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
