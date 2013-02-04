@@ -55,52 +55,27 @@ s16b test_critial_melee(creature_type *creature_ptr, int weight, int plus, int d
 
 		if(k < 400)
 		{
-#ifdef JP
-			msg_print("手ごたえがあった！");
-#else
-			msg_print("It was a good hit!");
-#endif
-
+			msg_print(MES_CRITICAL_LEVEL1);
 			dam = 2 * dam + 5;
 		}
 		else if(k < 700)
 		{
-#ifdef JP
-			msg_print("かなりの手ごたえがあった！");
-#else
-			msg_print("It was a great hit!");
-#endif
-
+			msg_print(MES_CRITICAL_LEVEL2);
 			dam = 2 * dam + 10;
 		}
 		else if(k < 900)
 		{
-#ifdef JP
-			msg_print("会心の一撃だ！");
-#else
-			msg_print("It was a superb hit!");
-#endif
-
+			msg_print(MES_CRITICAL_LEVEL3);
 			dam = 3 * dam + 15;
 		}
 		else if(k < 1300)
 		{
-#ifdef JP
-			msg_print("最高の会心の一撃だ！");
-#else
-			msg_print("It was a *GREAT* hit!");
-#endif
-
+			msg_print(MES_CRITICAL_LEVEL4);
 			dam = 3 * dam + 20;
 		}
 		else
 		{
-#ifdef JP
-			msg_print("比類なき最高の会心の一撃だ！");
-#else
-			msg_print("It was a *SUPERB* hit!");
-#endif
-
+			msg_print(MES_CRITICAL_LEVEL5);
 			dam = ((7 * dam) / 2) + 25;
 		}
 	}

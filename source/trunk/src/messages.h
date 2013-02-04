@@ -1826,3 +1826,16 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_CUR_BYPASS "This line is bypassed currently."
 #endif
 
+#ifdef JP
+#define MES_CRITICAL_LEVEL1 "手ごたえがあった！"
+#define MES_CRITICAL_LEVEL2 "かなりの手ごたえがあった！"
+#define MES_CRITICAL_LEVEL3 "会心の一撃だ！"
+#define MES_CRITICAL_LEVEL4 "最高の会心の一撃だ！"
+#define MES_CRITICAL_LEVEL5 "比類なき最高の会心の一撃だ！"
+#else
+#define MES_CRITICAL_LEVEL1 "It was a good hit!"
+#define MES_CRITICAL_LEVEL2 "It was a great hit!"
+#define MES_CRITICAL_LEVEL3 "It was a superb hit!"
+#define MES_CRITICAL_LEVEL4 "It was a *GREAT* hit!"
+#define MES_CRITICAL_LEVEL5 "It was a *SUPERB* hit!"
+#endif
