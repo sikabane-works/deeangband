@@ -1683,6 +1683,12 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_NO_ITEM_STORE "現在商品の在庫を切らしています。"
 #define MES_STORE_WHICH_TAKING "どのアイテムを取り出しますか？"
 #define MES_STORE_WHICH_PURCHASE "どの品物が欲しいんだい？"
+#define MES_STORE_WHICH_DROP "どのアイテムを置きますか? "
+#define MES_STORE_WHICH_GIVE "どのアイテムを寄贈しますか? "
+#define MES_STORE_WHICH_SELL "どのアイテムを売りますか? "
+#define MES_STORE_NO_DROP "置けるアイテムを持っていません。"
+#define MES_STORE_NO_GIVE "寄贈できるアイテムを持っていません。"
+#define MES_STORE_NO_SELL "欲しい物がないですねえ。"
 #define MES_STORE_FIXED_PRICE(PRICE) "一つにつき $%ldです。", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "%s(%c)を購入する。", (NAME), (SYM)
 #define MES_STORE_BOUGHT(NAME, PRICE) "%sを $%ldで購入しました。", (NAME), (PRICE)
@@ -1720,6 +1726,12 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_NO_ITEM_STORE "I am currently out of stock."
 #define MES_STORE_WHICH_TAKING "Which item do you want to take? "
 #define MES_STORE_WHICH_PURCHASE "Which item are you interested in? "
+#define MES_STORE_WHICH_DROP "Drop which item? "
+#define MES_STORE_WHICH_GIVE "Give which item? "
+#define MES_STORE_WHICH_SELL "Sell which item? "
+#define MES_STORE_NO_DROP "You don't have any item to drop."
+#define MES_STORE_NO_GIVE "You don't have any item to give."
+#define MES_STORE_NO_SELL "You have nothing that I want."
 #define MES_STORE_FIXED_PRICE(PRICE) "That costs %ld gold per item.", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "Buying %s(%c).", (NAME), (SYM)
 #define MES_STORE_BOUGHT(NAME, PRICE) "You bought %s for %ld gold.", (NAME), (PRICE)

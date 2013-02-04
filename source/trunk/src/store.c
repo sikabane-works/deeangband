@@ -3706,23 +3706,12 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 
 	char object_name[MAX_NLEN];
 
-	/* Prepare a prompt */
-	
-#ifdef JP
-	if(is_home(st_ptr)) q = "どのアイテムを置きますか? ";
-	else if(is_museum(st_ptr)) q = "どのアイテムを寄贈しますか? ";
-	else q = "どのアイテムを売りますか? ";
-	if(is_home(st_ptr)) s = "置けるアイテムを持っていません。";
-	else if(is_museum(st_ptr)) s = "寄贈できるアイテムを持っていません。";
-	else s = "欲しい物がないですねえ。";
-#else
-	if(is_home(st_ptr)) q = "Drop which item? ";
-	else if(is_museum(st_ptr)) q = "Give which item? ";
-	else q = "Sell which item? ";
-	if(is_home(st_ptr)) s = "You don't have any item to drop.";
-	else if(is_museum(st_ptr)) s = "You don't have any item to give.";
-	else s = "You have nothing that I want.";
-#endif
+	if(is_home(st_ptr)) q = MES_STORE_WHICH_DROP;
+	else if(is_museum(st_ptr)) q = MES_STORE_WHICH_GIVE;
+	else q = MES_STORE_WHICH_SELL;
+	if(is_home(st_ptr)) s = MES_STORE_NO_DROP;
+	else if(is_museum(st_ptr)) s = MES_STORE_NO_GIVE;
+	else s = MES_STORE_NO_SELL;
 
 	// TODO: Restrict store will buy
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
