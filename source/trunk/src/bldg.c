@@ -2776,12 +2776,7 @@ static void building_recharge(creature_type *creature_ptr)
 
 	/* Give feedback */
 	object_desc(tmp_str, object_ptr, 0);
-
-#ifdef JP
-	msg_format("%s‚ð%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", tmp_str, price);
-#else
-	msg_format("%^s %s recharged for %d gold.", tmp_str, ((object_ptr->number > 1) ? "were" : "was"), price);
-#endif
+	msg_format(MES_BLDG_RECHAEGED(tmp_str, price, object_ptr->number));
 
 	/* Combine / Reorder the pack (later) */
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
