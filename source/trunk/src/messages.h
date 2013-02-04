@@ -1839,3 +1839,11 @@ static cptr desc_stat_neg[] =
 #define MES_CRITICAL_LEVEL4 "It was a *GREAT* hit!"
 #define MES_CRITICAL_LEVEL5 "It was a *SUPERB* hit!"
 #endif
+
+#ifdef JP
+#define MES_BLDG_RECHARGE_WHICH_ITEM "どのアイテムに魔力を充填しますか? "
+#define MES_BLDG_RECHARGE_NO_ITEM "魔力を充填すべきアイテムがない。"
+#else
+#define MES_BLDG_RECHARGE_WHICH_ITEM "Recharge which item? "
+#define MES_BLDG_RECHARGE_NO_ITEM "You have nothing to recharge."
+#endif

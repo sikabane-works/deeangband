@@ -55,29 +55,17 @@ s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
 
 		if(k < 900)
 		{
-#ifdef JP
-			msg_print("手ごたえがあった！");
-#else
-			msg_print("It was a good hit!");
-#endif
+			msg_print(MES_CRITICAL_LEVEL1);
 			dam += (dam / 2);
 		}
 		else if(k < 1350)
 		{
-#ifdef JP
-			msg_print("かなりの手ごたえがあった！");
-#else
-			msg_print("It was a great hit!");
-#endif
+			msg_print(MES_CRITICAL_LEVEL2);
 			dam *= 2;
 		}
 		else
 		{
-#ifdef JP
-			msg_print("会心の一撃だ！");
-#else
-			msg_print("It was a superb hit!");
-#endif
+			msg_print(MES_CRITICAL_LEVEL3);
 			dam *= 3;
 		}
 	}

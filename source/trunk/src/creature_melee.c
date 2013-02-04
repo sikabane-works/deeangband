@@ -35,11 +35,8 @@ bool test_hit_melee(creature_type *attacker_ptr, int chance, int ev, int vis)
 }
 
 
-/*
- * Critical hits (by player)
- *
- * Factor in weapon weight, total plusses, player level.
- */
+// Critical hits (by player)
+// Factor in weapon weight, total plusses, player level.
 s16b test_critial_melee(creature_type *creature_ptr, int weight, int plus, int dam, s16b meichuu, int mode)
 {
 	int i, k;

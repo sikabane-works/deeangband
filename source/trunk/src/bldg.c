@@ -2620,13 +2620,11 @@ static void building_recharge(creature_type *creature_ptr)
 	clear_bldg(4, 18);
 #ifdef JP
 	prt("  再充填の費用はアイテムの種類によります。", 6, 0);
-	q = "どのアイテムに魔力を充填しますか? ";
-	s = "魔力を充填すべきアイテムがない。";
 #else
 	prt("  The prices of recharge depend on the type.", 6, 0);
-	q = "Recharge which item? ";
-	s = "You have nothing to recharge.";
 #endif
+	q = MES_BLDG_RECHARGE_WHICH_ITEM;
+	s = MES_BLDG_RECHARGE_NO_ITEM;
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return;
 
