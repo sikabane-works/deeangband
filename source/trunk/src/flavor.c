@@ -1337,7 +1337,6 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			}
 #endif
 
-
 			break;
 		}
 

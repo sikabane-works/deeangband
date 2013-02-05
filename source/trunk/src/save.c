@@ -144,6 +144,7 @@ static void wr_object(object_type *object_ptr)
 	//wr_string(quark_str(object_ptr->art_name));
 
 	wr_s16b(object_ptr->creater_idx);
+	wr_s16b(object_ptr->source_idx);
 
 	wr_byte(object_ptr->equipped_slot_type);
 	wr_byte(object_ptr->equipped_slot_num);
