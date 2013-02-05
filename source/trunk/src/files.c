@@ -6315,20 +6315,10 @@ void close_game(void)
 	/* Still alive */
 	else
 	{
-		/* Save the game */
 		do_cmd_save_game(FALSE);
-
-		/* Prompt for scores XXX XXX XXX */
-#ifdef JP
-		prt("リターンキーか ESC キーを押して下さい。", 0, 40);
-#else
-		prt("Press Return (or Escape).", 0, 40);
-#endif
-
-		/* Predict score (or ESCAPE) */
+		prt(SYS_MESSAGE_QUITING_KEY, 0, 40);
 		if(inkey() != ESCAPE) predict_score(player_ptr);
 	}
-
 
 	/* Shut the high score file */
 	(void)fd_close(highscore_fd);
@@ -6353,11 +6343,7 @@ void close_game(void)
 void exit_game_panic(creature_type *player_ptr)
 {
 	/* If nothing important has happened, just quit */
-#ifdef JP
-	if(!character_generated || character_saved) quit("緊急事態");
-#else
-	if(!character_generated || character_saved) quit("panic");
-#endif
+	if(!character_generated || character_saved) quit(SYS_MESSAGE_PANIC);
 
 	/* Mega-Hack -- see "msg_print()" */
 	msg_flag = FALSE;
