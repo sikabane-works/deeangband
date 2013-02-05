@@ -1318,7 +1318,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		case TV_FIGURINE:
 		case TV_STATUE:
 		{
-			species_type *species_ptr = &species_info[object_ptr->pval];
+			species_type *species_ptr = &species_info[object_ptr->source_idx];
 
 #ifdef JP
 			modstr = species_name + species_ptr->name;
@@ -1343,7 +1343,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		/* Corpses */
 		case TV_CORPSE:
 		{
-			species_type *species_ptr = &species_info[object_ptr->pval];
+			species_type *species_ptr = &species_info[object_ptr->source_idx];
 
 			modstr = species_name + species_ptr->name;
 

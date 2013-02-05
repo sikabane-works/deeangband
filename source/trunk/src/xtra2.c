@@ -502,13 +502,12 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 }
 
-void specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, int sv)
+int specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, int sv)
 {
 	object_type forge;
 	object_prep(&forge, lookup_kind(tv, sv), ITEM_FREE_SIZE);
 	apply_magic(creature_ptr, &forge, creature_ptr->lev, AM_NO_FIXED_ART, 0);
-	forge.creater_idx = creature_ptr->species_idx;
-	(void)drop_near(floor_ptr, &forge, -1, creature_ptr->fy, creature_ptr->fx);
+	return drop_near(floor_ptr, &forge, -1, creature_ptr->fy, creature_ptr->fx);
 }
 
 /*
@@ -527,7 +526,7 @@ void specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, 
 */
 void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bool drop_item)
 {
-	int i, j, y, x;
+	int i, j, y, x, droped_id;
 	floor_type *floor_ptr = GET_FLOOR_PTR(dead_ptr);
 	species_type *species_ptr = &species_info[dead_ptr->species_idx];
 	char dead_name[MAX_NLEN];
@@ -661,7 +660,8 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			else if(!one_in_(5)) corpse = TRUE;
 		}
 
-		specified_drop(floor_ptr, dead_ptr, TV_CORPSE, corpse ? SV_CORPSE : SV_SKELETON);
+		droped_id = specified_drop(floor_ptr, dead_ptr, TV_CORPSE, corpse ? SV_CORPSE : SV_SKELETON);
+		object_list[droped_id].source_idx = dead_ptr->species_idx;
 	}
 
 	/* Drop objects being carried */
