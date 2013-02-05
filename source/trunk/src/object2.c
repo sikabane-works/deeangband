@@ -1438,11 +1438,14 @@ int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 	int max_num = MAX_STACK_SIZE;
 
 	/* Require identical object types */
-	if(object1_ptr->k_idx != object2_ptr->k_idx) return 0;
+	if(object1_ptr->k_idx != object2_ptr->k_idx) return FALSE;
 
 	if(object1_ptr->size_lower != object2_ptr->size_lower || 
 		object1_ptr->size_upper != object2_ptr->size_upper ||
-		object1_ptr->to_size != object1_ptr->to_size) return 0;
+		object1_ptr->to_size != object1_ptr->to_size) return FALSE;
+
+	if(object1_ptr->creator_idx != object2_ptr->creator_idx 
+		|| object1_ptr->source_idx != object2_ptr->source_idx) return FALSE;
 
 	/* Analyze the items */
 	switch (object1_ptr->tval)
@@ -1451,16 +1454,16 @@ int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 	case TV_CARD:
 	case TV_WHEEL:
 	case TV_CAPTURE:
-		return 0; // Never okay
+		return FALSE; // Never okay
 
 	case TV_STATUE:
-		if((object1_ptr->sval != SV_PHOTO) || (object2_ptr->sval != SV_PHOTO)) return 0;
-		if(object1_ptr->pval != object2_ptr->pval) return 0;
+		if((object1_ptr->sval != SV_PHOTO) || (object2_ptr->sval != SV_PHOTO)) return FALSE;
+		if(object1_ptr->pval != object2_ptr->pval) return FALSE;
 		break;
 
 	case TV_FIGURINE:
 	case TV_CORPSE:
-		if(object1_ptr->pval != object2_ptr->pval) return 0;
+		if(object1_ptr->pval != object2_ptr->pval) return FALSE;
 		break;
 
 	case TV_FOOD:
@@ -1471,16 +1474,16 @@ int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 	case TV_STAFF:
 		// Require either knowledge or known empty for both staffs.
 		if((!(object1_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object1_ptr)) ||
-			(!(object2_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object2_ptr))) return 0;
+			(!(object2_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object2_ptr))) return FALSE;
 
 		// Require identical charges, since staffs are bulky.
-		if(object1_ptr->pval != object2_ptr->pval) return 0;
+		if(object1_ptr->pval != object2_ptr->pval) return FALSE;
 
 		break;
 
 	case TV_WAND: // Require either knowledge or known empty for both wands.
 		if((!(object1_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object1_ptr)) ||
-			(!(object2_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object2_ptr))) return 0;
+			(!(object2_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object2_ptr))) return FALSE;
 		break;
 
 	case TV_ROD: // Staffs and Wands and Rods
@@ -1499,31 +1502,31 @@ int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 	case TV_BOLT:
 	case TV_ARROW:
 	case TV_SHOT:
-		return 0;
+		return FALSE;
 
 	default: // Various
-		if(!object_is_known(object1_ptr) || !object_is_known(object2_ptr)) return 0;
+		if(!object_is_known(object1_ptr) || !object_is_known(object2_ptr)) return FALSE;
 		break;
 	}
 
 	// Hack -- Identical trait_flags!
 	for (i = 0; i < MAX_TRAITS_FLAG; i++)
 	{
-		if(object1_ptr->trait_flags[i] != object2_ptr->trait_flags[i]) return 0;
-		if(object1_ptr->curse_flags[i] != object2_ptr->curse_flags[i]) return 0;
+		if(object1_ptr->trait_flags[i] != object2_ptr->trait_flags[i]) return FALSE;
+		if(object1_ptr->curse_flags[i] != object2_ptr->curse_flags[i]) return FALSE;
 	}
 
 	// Hack -- Require identical "broken" status
-	if((object1_ptr->ident & (IDENT_BROKEN)) != (object2_ptr->ident & (IDENT_BROKEN))) return 0;
+	if((object1_ptr->ident & (IDENT_BROKEN)) != (object2_ptr->ident & (IDENT_BROKEN))) return FALSE;
 
 	// Hack -- require semi-matching "inscriptions"
-	if(object1_ptr->inscription && object2_ptr->inscription && (object1_ptr->inscription != object2_ptr->inscription)) return 0;
+	if(object1_ptr->inscription && object2_ptr->inscription && (object1_ptr->inscription != object2_ptr->inscription)) return FALSE;
 
 	// Hack -- normally require matching "inscriptions"
-	if(!stack_force_notes && (object1_ptr->inscription != object2_ptr->inscription)) return 0;
+	if(!stack_force_notes && (object1_ptr->inscription != object2_ptr->inscription)) return FALSE;
 
 	// Hack -- normally require matching "discounts"
-	if(!stack_force_costs && (object1_ptr->discount != object2_ptr->discount)) return 0;
+	if(!stack_force_costs && (object1_ptr->discount != object2_ptr->discount)) return FALSE;
 
 	return max_num; // They match, so they must be similar
 }
@@ -1536,7 +1539,7 @@ bool object_similar(object_type *object1_ptr, object_type *object2_ptr)
 
 	max_num = object_similar_part(object1_ptr, object2_ptr); // Are these objects similar?
 	if(!max_num) return FALSE;		// Return if not similar
-	if(total > max_num) return SUCCESS;	// Maximal "stacking" limit
+	if(total > max_num) return FALSE;	// Maximal "stacking" limit
 
 	return TRUE;
 }
