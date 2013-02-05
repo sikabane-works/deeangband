@@ -3958,22 +3958,13 @@ static void store_examine(store_type *st_ptr)
 	char        object_name[MAX_NLEN];
 	char        out_val[160];
 
-
-	/* Empty? */
 	if(st_ptr->stock_num <= 0)
 	{	
-#ifdef JP
-		if(is_home(st_ptr)) msg_print("我が家には何も置いてありません。");
-		else if(is_museum(st_ptr)) msg_print("博物館には何も置いてありません。");
-		else msg_print("現在商品の在庫を切らしています。");
-#else
-		if(is_home(st_ptr)) msg_print("Your home is empty.");
-		else if(is_museum(st_ptr)) msg_print("Museum is empty.");
-		else msg_print("I am currently out of stock.");
-#endif
+		if(is_home(st_ptr)) msg_print(MES_STORE_NO_ITEM_HOME);
+		else if(is_museum(st_ptr)) msg_print(MES_STORE_NO_ITEM_MUSEUM);
+		else msg_print(MES_STORE_NO_ITEM_STORE);
 		return;
 	}
-
 
 	/* Find the number of objects on this and following pages */
 	i = (st_ptr->stock_num - store_top);
