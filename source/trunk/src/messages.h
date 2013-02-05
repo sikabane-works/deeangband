@@ -1691,12 +1691,15 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_WHICH_DROP "どのアイテムを置きますか? "
 #define MES_STORE_WHICH_GIVE "どのアイテムを寄贈しますか? "
 #define MES_STORE_WHICH_SELL "どのアイテムを売りますか? "
+#define MES_STORE_WHICH_REMOVE "どのアイテムの展示をやめさせますか？"
 #define MES_STORE_NO_DROP "置けるアイテムを持っていません。"
 #define MES_STORE_NO_GIVE "寄贈できるアイテムを持っていません。"
 #define MES_STORE_NO_SELL "欲しい物がないですねえ。"
 #define MES_STORE_MUSEUM_SAME "それと同じ品物は既に博物館にあるようです。"
 #define MES_STORE_MUSEUM_WARN "博物館に寄贈したものは取り出すことができません！！"
+#define MES_STORE_MUSEUM_WARN2 "展示をやめさせたアイテムは二度と見ることはできません！"
 #define MES_STORE_MUSEUM_ASK(OBJECT) "本当に%sを寄贈しますか？", (OBJECT)
+#define MES_STORE_MUSEUM_ASK2(OBJECT) "本当に%sの展示をやめさせますか？", (OBJECT)
 #define MES_STORE_FIXED_PRICE(PRICE) "一つにつき $%ldです。", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "%s(%c)を購入する。", (NAME), (SYM)
 #define MES_STORE_SELLING(NAME, SYM) "%s(%c)を売却する。", (NAME), (SYM)
@@ -1707,6 +1710,7 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_PURCHASED(NAME, SYM) "%s(%c)を手に入れた。", (NAME), (SYM)
 #define MES_STORE_TOOK(NAME, SYM) "%s(%c)を取り出した。", (NAME), (SYM)
 #define MES_STORE_DROP(NAME, SYM) "%sを置いた。(%c)", (NAME), (SYM)
+#define MES_STORE_REMOVE(NAME) "%sの展示をやめさせた。", (NAME)
 #define MES_STORE_COMMAND_LIMIT "そのコマンドは店の中では使えません。"
 #define MES_STORE_COMMAND_LIST1 " -)前ページ"
 #define MES_STORE_COMMAND_LIST2 " スペース) 次ページ"
@@ -1743,12 +1747,15 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_WHICH_DROP "Drop which item? "
 #define MES_STORE_WHICH_GIVE "Give which item? "
 #define MES_STORE_WHICH_SELL "Sell which item? "
+#define MES_STORE_WHICH_REMOVE "Which item do you want to order to remove? "
 #define MES_STORE_NO_DROP "You don't have any item to drop."
 #define MES_STORE_NO_GIVE "You don't have any item to give."
 #define MES_STORE_NO_SELL "You have nothing that I want."
 #define MES_STORE_MUSEUM_SAME "The same object as it is already in the Museum."
 #define MES_STORE_MUSEUM_WARN "You cannot take items which is given to the Museum back!!"
-#define MES_STORE_MUSEUM_ASK(OBJECT)  "Really give %s to the Museum? ", (OBJECT)
+#define MES_STORE_MUSEUM_WARN2 "You cannot see items which is removed from the Museum!"
+#define MES_STORE_MUSEUM_ASK(OBJECT) "Really give %s to the Museum? ", (OBJECT)
+#define MES_STORE_MUSEUM_ASK2(OBJECT) "Really order to remove %s from the Museum? ", (OBJECT)
 #define MES_STORE_FIXED_PRICE(PRICE) "That costs %ld gold per item.", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "Buying %s(%c).", (NAME), (SYM)
 #define MES_STORE_SELLING(NAME, SYM) "Selling %s (%c).", (NAME), (SYM)
@@ -1759,6 +1766,7 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_PURCHASED(NAME, SYM) "You have %s (%c).", (NAME), (SYM)
 #define MES_STORE_TOOK(NAME, SYM) "You have %s (%c).", (NAME), (SYM)
 #define MES_STORE_DROP(NAME, SYM) "You drop %s (%c).", (NAME), (SYM)
+#define MES_STORE_REMOVE(NAME) "You ordered to remove %s.", (NAME)
 #define MES_STORE_COMMAND_LIMIT "That command does not work in stores."
 #define MES_STORE_COMMAND_LIST1 " -) Previous page"
 #define MES_STORE_COMMAND_LIST2 " SPACE) Next page"

@@ -4010,12 +4010,7 @@ static void museum_remove_object(store_type *st_ptr, creature_type *creature_ptr
 	/* Empty? */
 	if(st_ptr->stock_num <= 0)
 	{
-#ifdef JP
-		msg_print("博物館には何も置いてありません。");
-#else
-		msg_print("Museum is empty.");
-#endif
-
+		msg_print(MES_STORE_NO_ITEM_MUSEUM);
 		return;
 	}
 
@@ -4024,12 +4019,7 @@ static void museum_remove_object(store_type *st_ptr, creature_type *creature_ptr
 
 	/* And then restrict it to the current page */
 	if(i > store_bottom) i = store_bottom;
-
-#ifdef JP
-	sprintf(out_val, "どのアイテムの展示をやめさせますか？");
-#else
-	sprintf(out_val, "Which item do you want to order to remove? ");
-#endif
+	sprintf(out_val, MES_STORE_WHICH_REMOVE);
 
 	/* Get the item number to be removed */
 	if(!get_stock(st_ptr, &item, out_val, 0, i - 1)) return;
@@ -4043,25 +4033,15 @@ static void museum_remove_object(store_type *st_ptr, creature_type *creature_ptr
 	/* Description */
 	object_desc(object_name, object_ptr, 0);
 
-#ifdef JP
-	msg_print("展示をやめさせたアイテムは二度と見ることはできません！");
-	if(!get_check(format("本当に%sの展示をやめさせますか？", object_name))) return;
-	msg_format("%sの展示をやめさせた。", object_name);
-#else
-	msg_print("You cannot see items which is removed from the Museum!");
-	if(!get_check(format("Really order to remove %s from the Museum? ", object_name))) return;
-	msg_format("You ordered to remove %s.", object_name);
-#endif
+	msg_print(MES_STORE_MUSEUM_WARN2);
+	if(!get_check(format(MES_STORE_MUSEUM_ASK2(object_name)))) return;
+	msg_format(MES_STORE_REMOVE(object_name));
 
 	/* Remove the items from the home */
 	store_item_increase(st_ptr, item, -object_ptr->number);
 	store_item_optimize(st_ptr, item);
 
 	(void)combine_and_reorder_home(st_ptr, STORE_MUSEUM);
-
-	/* The item is gone */
-
-	/* Nothing left */
 	if(st_ptr->stock_num == 0) store_top = 0;
 
 	/* Nothing left on that screen */
