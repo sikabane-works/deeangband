@@ -2803,20 +2803,8 @@ bool recharge(creature_type *creature_ptr, int power)
 			/* Destroy an object or one in a stack of objects. */
 			if(fail_type == 2)
 			{
-				if(object_ptr->number > 1)
-#ifdef JP
-					msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ªˆê–{‰ó‚ê‚½I", object_name);
-#else
-					msg_format("Wild magic consumes one of your %s!", object_name);
-#endif
-
-				else
-#ifdef JP
-					msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", object_name);
-#else
-					msg_format("Wild magic consumes your %s!", object_name);
-#endif
-
+				if(object_ptr->number > 1) msg_format(MES_RECHAGE_BROKEN2(object_name));
+				else msg_format(MES_RECHAGE_BROKEN1(object_name));
 
 				/* Reduce rod stack maximum timeout, drain wands. */
 				if(IS_ROD(object_ptr)) object_ptr->timeout = (object_ptr->number - 1) * object_kind_ptr->pval;
@@ -2842,23 +2830,9 @@ bool recharge(creature_type *creature_ptr, int power)
 			/* Destroy all members of a stack of objects. */
 			if(fail_type == 3)
 			{
-				if(object_ptr->number > 1)
-#ifdef JP
-					msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‘S‚Ä‰ó‚ê‚½I", object_name);
-#else
-					msg_format("Wild magic consumes all your %s!", object_name);
-#endif
+				if(object_ptr->number > 1) msg_format(MES_RECHAGE_BROKEN3(object_name));
+				else msg_format(MES_RECHAGE_BROKEN1(object_name));
 
-				else
-#ifdef JP
-					msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", object_name);
-#else
-					msg_format("Wild magic consumes your %s!", object_name);
-#endif
-
-
-
-				/* Reduce and describe creature_ptr->inventory */
 				if(item >= 0)
 				{
 					inven_item_increase(creature_ptr, item, -999);

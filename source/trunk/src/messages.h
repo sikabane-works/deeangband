@@ -1913,6 +1913,9 @@ static cptr desc_stat_neg[] =
 #define MES_RECHAGE_FAILED(NAME) "魔力が逆流した！%sは完全に魔力を失った。", (NAME)
 #define MES_RECHAGE_FAILED2 "魔力が逆噴射して、ロッドからさらに魔力を吸い取ってしまった！"
 #define MES_RECHAGE_FAILED3(NAME) "%sは破損を免れたが、魔力が全て失われた。", (NAME)
+#define MES_RECHAGE_BROKEN1(NAME) "乱暴な魔法のために%sが壊れた！", (NAME)
+#define MES_RECHAGE_BROKEN2(NAME) "乱暴な魔法のために%sが一本壊れた！", (NAME)
+#define MES_RECHAGE_BROKEN3(NAME) "乱暴な魔法のために%sが全て壊れた！", (NAME)
 #else
 #define MES_BLDG_RECHARGE_WHICH_ITEM "Recharge which item? "
 #define MES_BLDG_RECHARGE_NO_ITEM "You have nothing to recharge."
@@ -1923,6 +1926,9 @@ static cptr desc_stat_neg[] =
 #define MES_RECHAGE_FAILED(NAME) "The recharging backfires - %s is completely drained!", (NAME)
 #define MES_RECHAGE_FAILED2 "The recharge backfires, draining the rod further!"
 #define MES_RECHAGE_FAILED3(NAME) "You save your %s from destruction, but all charges are lost.", (NAME)
+#define MES_RECHAGE_BROKEN1(NAME) "Wild magic consumes your %s!", (NAME)
+#define MES_RECHAGE_BROKEN2(NAME) "Wild magic consumes one of your %s!", (NAME)
+#define MES_RECHAGE_BROKEN3(NAME) "Wild magic consumes all your %s!", (NAME)
 #endif
 
 #ifdef JP
