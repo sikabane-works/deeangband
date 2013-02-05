@@ -1881,7 +1881,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	if(object_is_smith(object_ptr))
 	{
 		//TODO
-		t = object_desc_str(t, format("%sの", species_name + species_info[object_ptr->creater_idx].name));
+		t = object_desc_str(t, format("%sの", species_name + species_info[object_ptr->creator_idx].name));
 	}
 
 	/* 伝説のアイテム、名のあるアイテムの名前を付加する */
@@ -2047,10 +2047,10 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 #else
 	if(object_is_smith(owner_ptr, object_ptr))
 	{
-		if(!object_ptr->creater_idx)
+		if(!object_ptr->creator_idx)
 			t = object_desc_str(t,format(" of %s the Smith", owner_ptr->name));
 		else
-			t = object_desc_str(t, format(" of %s", species_name + species_info[object_ptr->creater_idx].name));
+			t = object_desc_str(t, format(" of %s", species_name + species_info[object_ptr->creator_idx].name));
 	}
 
 	/* Hack -- Append "Artifact" or "Special" names */

@@ -669,7 +669,7 @@ struct object_type
 
 	s16b next_object_idx;	// Next object in stack (if any)
 	s16b held_m_idx;		// Creature holding us (if any)
-	s16b creater_idx;		// Creater
+	s16b creator_idx;		// Creater
 	s16b source_idx;		// Item Source
 
 	byte equipped_slot_type;

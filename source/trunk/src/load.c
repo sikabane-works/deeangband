@@ -306,7 +306,7 @@ static void rd_object(object_type *object_ptr)
 	//rd_string(buf, sizeof(buf));
 	//object_ptr->art_name = quark_add(buf);
 
-	rd_s16b(&object_ptr->creater_idx);
+	rd_s16b(&object_ptr->creator_idx);
 	rd_s16b(&object_ptr->source_idx);
 
 	rd_byte(&object_ptr->equipped_slot_type);
