@@ -1903,12 +1903,16 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+
 #define MES_BLDG_RECHARGE_WHICH_ITEM "‚Ç‚ÌƒAƒCƒeƒ€‚É–‚—Í‚ð[“U‚µ‚Ü‚·‚©? "
 #define MES_BLDG_RECHARGE_NO_ITEM "–‚—Í‚ð[“U‚·‚×‚«ƒAƒCƒeƒ€‚ª‚È‚¢B"
 #define MES_BLDG_RECHARGE_NO_NEED "‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB"
 #define MES_BLDG_RECHARGE_NO_MONEY(NAME, MONEY) "%s‚ðÄ[“U‚·‚é‚É‚Í%d •K—v‚Å‚·I", (NAME), (MONEY)
 #define MES_BLDG_RECHAEGED(NAME, MONEY, NUM) "%s‚ð%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", (NAME), (MONEY), (NUM)
 #define MES_BLDG_RECHAEGED_ALL(MONEY) "%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", (MONEY)
+#define MES_RECHAGE_FAILED(NAME) "–‚—Í‚ª‹t—¬‚µ‚½I%s‚ÍŠ®‘S‚É–‚—Í‚ðŽ¸‚Á‚½B", (NAME)
+#define MES_RECHAGE_FAILED2 "–‚—Í‚ª‹t•¬ŽË‚µ‚ÄAƒƒbƒh‚©‚ç‚³‚ç‚É–‚—Í‚ð‹z‚¢Žæ‚Á‚Ä‚µ‚Ü‚Á‚½I"
+#define MES_RECHAGE_FAILED3(NAME) "%s‚Í”j‘¹‚ð–Æ‚ê‚½‚ªA–‚—Í‚ª‘S‚ÄŽ¸‚í‚ê‚½B", (NAME)
 #else
 #define MES_BLDG_RECHARGE_WHICH_ITEM "Recharge which item? "
 #define MES_BLDG_RECHARGE_NO_ITEM "You have nothing to recharge."
@@ -1916,6 +1920,9 @@ static cptr desc_stat_neg[] =
 #define MES_BLDG_RECHARGE_NO_MONEY(NAME, MONEY) "You need %d gold to recharge %s!", (MONEY), (NAME)
 #define MES_BLDG_RECHAEGED(NAME, MONEY, NUM) "%^s %s recharged for %d gold.", (NAME), ((NUM)> 1) ? "were" : "was"), (MONEY) 
 #define MES_BLDG_RECHAEGED_ALL(MONEY) "You pay %d gold.", (MONEY)
+#define MES_RECHAGE_FAILED(NAME) "The recharging backfires - %s is completely drained!", (NAME)
+#define MES_RECHAGE_FAILED2 "The recharge backfires, draining the rod further!"
+#define MES_RECHAGE_FAILED3(NAME) "You save your %s from destruction, but all charges are lost.", (NAME)
 #endif
 
 #ifdef JP

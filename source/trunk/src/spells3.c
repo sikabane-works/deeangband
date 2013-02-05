@@ -2402,9 +2402,7 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
 		item_tester_hook = item_tester_hook_identify;
 
 	if(can_get_item(creature_ptr))
-	{
 		q = MES_OBJECT_WHICH_INDEN;
-	}
 	else
 	{
 		if(only_equip) item_tester_hook = object_is_weapon_armour_ammo2;
@@ -2724,18 +2722,10 @@ bool recharge(creature_type *creature_ptr, int power)
 		if(object_is_fixed_artifact(object_ptr))
 		{
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);
-#ifdef JP
-			msg_format("魔力が逆流した！%sは完全に魔力を失った。", object_name);
-#else
-			msg_format("The recharging backfires - %s is completely drained!", object_name);
-#endif
+			msg_format(MES_RECHAGE_FAILED(object_name));
 
-
-			/* Artifact rods. */
 			if(IS_ROD(object_ptr) && (object_ptr->timeout < 10000))
 				object_ptr->timeout = (object_ptr->timeout + 100) * 2;
-
-			/* Artifact wands and staffs. */
 			else if((object_ptr->tval == TV_WAND) || (object_ptr->tval == TV_STAFF))
 				object_ptr->pval = 0;
 		}
@@ -2798,22 +2788,13 @@ bool recharge(creature_type *creature_ptr, int power)
 			{
 				if(IS_ROD(object_ptr))
 				{
-#ifdef JP
-					msg_print("魔力が逆噴射して、ロッドからさらに魔力を吸い取ってしまった！");
-#else
-					msg_print("The recharge backfires, draining the rod further!");
-#endif
-
+					msg_print(MES_RECHAGE_FAILED2);
 					if(object_ptr->timeout < 10000)
 						object_ptr->timeout = (object_ptr->timeout + 100) * 2;
 				}
 				else if(object_ptr->tval == TV_WAND)
 				{
-#ifdef JP
-					msg_format("%sは破損を免れたが、魔力が全て失われた。", object_name);
-#else
-					msg_format("You save your %s from destruction, but all charges are lost.", object_name);
-#endif
+					msg_format(MES_RECHAGE_FAILED3(object_name));
 					object_ptr->pval = 0;
 				}
 				/* Staffs aren't drained. */
