@@ -8809,13 +8809,12 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 			prt("(i) Display auto pick/destroy", 14, 5);
 		}
 #endif
+		prt(SYS_MESSAGE_MORE, 17, 8);
 #ifdef JP
-		prt("-続く-", 17, 8);
 		prt("ESC) 抜ける", 21, 1);
 		prt("SPACE) 次ページ", 21, 30);
 		/*prt("-) 前ページ", 21, 60);*/
 #else
-		prt("-more-", 17, 8);
 		prt("ESC) Exit menu", 21, 1);
 		prt("SPACE) Next page", 21, 30);
 		/*prt("-) Previous page", 21, 60);*/

@@ -2652,12 +2652,7 @@ static void msg_flush(int x)
 	if(!playing || !nagasu)
 	{
 		/* Pause for response */
-#ifdef JP
-		Term_putstr(x, 0, -1, a, "-‘±‚­-");
-#else
-		Term_putstr(x, 0, -1, a, "-more-");
-#endif
-
+		Term_putstr(x, 0, -1, a, SYS_MESSAGE_MORE);
 
 		/* Get an acceptable keypress */
 		while (1)

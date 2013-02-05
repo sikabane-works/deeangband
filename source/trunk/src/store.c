@@ -2561,11 +2561,10 @@ static void display_inventory(creature_type *creature_ptr, store_type *st_ptr)
 	if(st_ptr->stock_num > store_bottom)
 	{
 		/* Show "more" reminder (after the last item) */
+		prt(SYS_MESSAGE_MORE, k + 6, 3);
 #ifdef JP
-		prt("-ë±Ç≠-", k + 6, 3);
 		put_str(format("(%dÉyÅ[ÉW)  ", store_top/store_bottom + 1), 5, 20);
 #else
-		prt("-more-", k + 6, 3);
 		put_str(format("(Page %d)  ", store_top/store_bottom + 1), 5, 20);
 #endif
 
