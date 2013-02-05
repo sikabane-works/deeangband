@@ -1768,12 +1768,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 	else if(!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !has_trait(creature_ptr, TRAIT_CAN_FLY))
 	{
-#ifdef JP
-		msg_format("‹ó‚ð”ò‚Î‚È‚¢‚Æ%s‚Ìã‚É‚Ís‚¯‚È‚¢B", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#else
-		msg_format("You need to fly to go through the %s.", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#endif
-
+		msg_format(MES_WALK_MUST_FLY(feature_name + feature_info[get_feat_mimic(c_ptr)].name));
 		cancel_tactical_action(creature_ptr);
 		creature_ptr->running = 0;
 		oktomove = FALSE;

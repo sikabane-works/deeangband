@@ -2817,14 +2817,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 
 			if(!use_menu)
 			{
-				/* Build the prompt */
-#ifdef JP
-				sprintf(tmp_val, "%c-%c,'(',')',", n1, n2);
-#else
-				sprintf(tmp_val, " %c-%c,'(',')',", n1, n2);
-#endif
-
-				/* Append */
+				sprintf(tmp_val, PROMPT_LABEL(n1, n2));
 				strcat(out_val, tmp_val);
 			}
 

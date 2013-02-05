@@ -1370,6 +1370,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_REST "休憩 (0-9999, '*' で HP/MP全快, '&' で必要なだけ): "
 	#define PROMPT_PICK "%sを拾いますか? " 
 	#define PROMPT_DIRECTION "方向は(ESCで中断)? "
+	#define PROMPT_LABEL(N1, N2) " %c-%c,'(',')',", (N1), (N2)
 #else
 	#define PROMPT_COMMAND "Command: "
 	#define PROMPT_KEYPRESS "Keypress: "
@@ -1382,6 +1383,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_REST "Rest (0-9999, '*' for HP/SP, '&' as needed): "
 	#define PROMPT_PICK "Pick up %s? " 
 	#define PROMPT_DIRECTION "Direction (Escape to cancel)? "
+	#define PROMPT_LABEL(N1, N2) " %c-%c,'(',')',", (N1), (N2)
 #endif
 
 #ifdef JP
@@ -1929,11 +1931,13 @@ static cptr desc_stat_neg[] =
 #define MES_WALK_NEVER_SWIM "泳げない。"
 #define MES_WALK_NEVER_LAND "陸に上がれない。"
 #define MES_WALK_STEED_FEAR(STEED) "%sが恐怖していて制御できない。", (STEED)
+#define MES_WALK_MUST_FLY(FEATURE) "空を飛ばないと%sの上には行けない。", (FEATURE)
 #else
 #define MES_WALK_NEVER_MOVE "Can't move."
 #define MES_WALK_NEVER_SWIM "Can't swim"
 #define MES_WALK_NEVER_LAND "Can't land"
 #define MES_WALK_STEED_FEAR(STEED) "%^s is too scared to control.", (STEED)
+#define MES_WALK_MUST_FLY(FEATURE) "You need to fly to go through the %s.", (FEATURE)
 #endif
 
 #ifdef JP
