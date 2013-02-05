@@ -3798,7 +3798,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 			break;
 		case '=':
 			screen_save();
-			do_cmd_options_aux(OPT_PAGE_BIRTH, SYS_MESSAGE_OPTION_AUX);
+			do_cmd_options_aux(OPT_PAGE_BIRTH, MES_SYS_OPTION_AUX);
 			screen_load();
 			break;
 		default:
@@ -4087,7 +4087,7 @@ static bool get_chara_limits(creature_type *creature_ptr)
 			break;
 		case '=':
 			screen_save();
-			do_cmd_options_aux(OPT_PAGE_BIRTH, SYS_MESSAGE_OPTION_AUX);
+			do_cmd_options_aux(OPT_PAGE_BIRTH, MES_SYS_OPTION_AUX);
 			screen_load();
 			break;
 		default:

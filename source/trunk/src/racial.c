@@ -988,7 +988,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 		if(ask)
 		{
 			char tmp_val[160];
-			(void) strnfmt(tmp_val, 78, SYS_MESSAGE_ASK_USE, power_desc[i].name);
+			(void) strnfmt(tmp_val, 78, MES_SYS_ASK_USE, power_desc[i].name);
 
 			/* Belay that order */
 			if(!get_check(tmp_val)) continue;

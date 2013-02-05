@@ -4699,7 +4699,7 @@ static void hack_plog(cptr str)
 static void hack_quit(cptr str)
 {
 	/* Give a warning */
-	if(str) MessageBox(NULL, str, SYS_MESSAGE_ERROR, MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
+	if(str) MessageBox(NULL, str, MES_SYS_ERROR, MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
 
 	/* Unregister the classes */
 	UnregisterClass(AppName, hInstance);
@@ -4741,7 +4741,7 @@ static void hook_quit(cptr str)
 	int i;
 
 	/* Give a warning */
-	if(str) MessageBox(data[0].w, str, SYS_MESSAGE_ERROR, MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
+	if(str) MessageBox(data[0].w, str, MES_SYS_ERROR, MB_ICONEXCLAMATION | MB_OK | MB_ICONSTOP);
 
 	/* Save the preferences */
 	save_prefs();

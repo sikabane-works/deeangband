@@ -1800,7 +1800,7 @@ static bool clear_auto_register(void)
 		/* Close the preference file */
 		fclose(pref_fff);
 
-		msg_format(SYS_MESSAGE_FAILED_TEMPFILE, tmp_file);
+		msg_format(MES_SYS_FAILED_TEMPFILE, tmp_file);
 		msg_print(NULL);
 		return FALSE;
 	}
@@ -1989,7 +1989,7 @@ bool autopick_autoregister(creature_type *creature_ptr, object_type *object_ptr)
 	pref_fff = my_fopen(pref_file, "a");
 
 	if(!pref_fff) {
-		msg_format(SYS_MESSAGE_FAILED_FILEOPEN2, pref_file);
+		msg_format(MES_SYS_FAILED_FILEOPEN2, pref_file);
 		msg_print(NULL);
 		return FALSE;
 	}

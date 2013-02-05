@@ -2561,7 +2561,7 @@ static void display_inventory(creature_type *creature_ptr, store_type *st_ptr)
 	if(st_ptr->stock_num > store_bottom)
 	{
 		/* Show "more" reminder (after the last item) */
-		prt(SYS_MESSAGE_MORE, k + 6, 3);
+		prt(MES_SYS_MORE, k + 6, 3);
 #ifdef JP
 		put_str(format("(%dƒy[ƒW)  ", store_top/store_bottom + 1), 5, 20);
 #else
@@ -2588,7 +2588,7 @@ static void display_inventory(creature_type *creature_ptr, store_type *st_ptr)
 static void store_prt_gold(creature_type *creature_ptr)
 {
 	char out_val[64];
-	prt(format("%s: ", SYS_MESSAGE_MONEY), 19 + xtra_stock, 53);
+	prt(format("%s: ", MES_SYS_MONEY), 19 + xtra_stock, 53);
 	sprintf(out_val, "%9ld", (long)creature_ptr->au);
 	prt(out_val, 19 + xtra_stock, 68);
 }
@@ -2620,7 +2620,7 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 		/* If showing weights, show label */
 		if(show_weights)
 		{
-			put_str(SYS_MESSAGE_WEIGHT, 5, 72);
+			put_str(MES_SYS_WEIGHT, 5, 72);
 		}
 	}
 
@@ -2637,7 +2637,7 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 #endif
 
 		/* If showing weights, show label */
-		if(show_weights) put_str(SYS_MESSAGE_WEIGHT, 5, 72);
+		if(show_weights) put_str(MES_SYS_WEIGHT, 5, 72);
 	}
 
 	/* Normal stores */
@@ -2916,7 +2916,7 @@ static int get_haggle(cptr pmt, s32b *poffer, s32b price, int final)
 			}
 		}
 
-		msg_warning(SYS_MESSAGE_INVALID_NUM);
+		msg_warning(MES_SYS_INVALID_NUM);
 		msg_print(NULL);
 	}
 

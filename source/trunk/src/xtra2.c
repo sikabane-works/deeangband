@@ -190,7 +190,7 @@ void check_experience(creature_type *creature_ptr)
 						for(n = 0; n < STAT_MAX; n++)
 							if(n != choice - 'a')
 								prt("", n + 2,14);
-						if(get_check(SYS_MESSAGE_ASK_SURE)) break;
+						if(get_check(MES_SYS_ASK_SURE)) break;
 					}
 					do_inc_stat(creature_ptr, choice - 'a');
 					screen_load();
@@ -3721,7 +3721,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 		n = 0;
 	}
 
-	msg_print(SYS_MESSAGE_PLACE_SPACE);
+	msg_print(MES_SYS_PLACE_SPACE);
 	msg_flag = FALSE; /* prevents "-more-" message. */
 
 	while ((ch != ESCAPE) && !success)

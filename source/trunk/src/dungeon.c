@@ -3322,13 +3322,13 @@ static void process_player_command(creature_type *creature_ptr)
 			if(wizard)
 			{
 				wizard = FALSE;
-				msg_print(SYS_MESSAGE_WIZARD_MODE_OFF);
+				msg_print(MES_SYS_WIZARD_MODE_OFF);
 
 			}
 			else if(enter_wizard_mode(creature_ptr))
 			{
 				wizard = TRUE;
-				msg_print(SYS_MESSAGE_WIZARD_MODE_ON);
+				msg_print(MES_SYS_WIZARD_MODE_ON);
 			}
 
 			// Update creatures
@@ -4977,7 +4977,7 @@ void waited_report_score(void)
 	{
 		wait_report_score = FALSE;
 		top_twenty(player_ptr);
-		if(!save_player()) msg_print(SYS_MESSAGE_SAVE_FAILED);
+		if(!save_player()) msg_print(MES_SYS_SAVE_FAILED);
 	}
 	/* Shut the high score file */
 	(void)fd_close(highscore_fd);
@@ -5032,7 +5032,7 @@ static void new_game_setting(void)
 
 		// Initial game mode
 		screen_save();
-		do_cmd_options_aux(OPT_PAGE_BIRTH, SYS_MESSAGE_OPTION_AUX);
+		do_cmd_options_aux(OPT_PAGE_BIRTH, MES_SYS_OPTION_AUX);
 		screen_load();
 
 		// Roll up a new character
@@ -5437,7 +5437,7 @@ void play_game(bool new_game)
 	flavor_init();
 
 	/* Flash a message */
-	prt(SYS_MESSAGE_STARTING_GAME, 0, 0);
+	prt(MES_SYS_STARTING_GAME, 0, 0);
 
 	/* Flush the message */
 	Term_fresh();

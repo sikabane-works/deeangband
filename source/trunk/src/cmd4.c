@@ -93,7 +93,7 @@ static void remove_auto_dump(cptr orig_file)
 
 	if(!tmp_fff)
 	{
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, tmp_file);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, tmp_file);
 	    msg_print(NULL);
 	    return;
 	}
@@ -267,7 +267,7 @@ static bool open_auto_dump(cptr buf, cptr mark)
 	auto_dump_stream = my_fopen(buf, "a");
 
 	if(!auto_dump_stream) {
-		msg_format(SYS_MESSAGE_FAILED_FILEOPEN2, buf);
+		msg_format(MES_SYS_FAILED_FILEOPEN2, buf);
 		msg_print(NULL);
 
 		return FALSE;
@@ -377,9 +377,9 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 	if(!fff)
 	{
 #ifdef JP
-		msg_format("%sプレイ記録を一時停止します。", SYS_MESSAGE_FAILED_FILEOPEN2, buf);
+		msg_format("%sプレイ記録を一時停止します。", MES_SYS_FAILED_FILEOPEN2, buf);
 #else
-		msg_format("%s. Play-Record is disabled temporally.", SYS_MESSAGE_FAILED_FILEOPEN2, buf);
+		msg_format("%s. Play-Record is disabled temporally.", MES_SYS_FAILED_FILEOPEN2, buf);
 #endif
 		msg_format(NULL);
 		disable_nikki=TRUE;
@@ -2176,7 +2176,7 @@ void do_cmd_options(void)
 				/* Birth Options */
 			case 'B':
 			case 'b':
-				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? SYS_MESSAGE_OPTION_AUX2 : SYS_MESSAGE_OPTION_AUX);
+				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? MES_SYS_OPTION_AUX2 : MES_SYS_OPTION_AUX);
 				break;
 
 			/* Cheating Options */
@@ -3374,11 +3374,11 @@ void do_cmd_visuals(void)
 				/* Label the Current values */
 #ifdef JP
 				Term_putstr(10, 20, -1, TERM_WHITE, format("現在値  色 / 文字 = %3u / %3u", ca, cc));
-				Term_putstr(0, 22, -1, TERM_WHITE, SYS_MESSAGE_VISUAL_COMMAND);
+				Term_putstr(0, 22, -1, TERM_WHITE, MES_SYS_VISUAL_COMMAND);
 #else
 				Term_putstr(10, 20, -1, TERM_WHITE, format("Current attr/char = %3u / %3u", ca, cc));
 #endif
-				Term_putstr(0, 22, -1, TERM_WHITE, SYS_MESSAGE_VISUAL_COMMAND);
+				Term_putstr(0, 22, -1, TERM_WHITE, MES_SYS_VISUAL_COMMAND);
 
 				Term_putstr(40, 20, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
@@ -3480,7 +3480,7 @@ void do_cmd_visuals(void)
 
 				Term_putstr(40, 20, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
-				Term_putstr(0, 22, -1, TERM_WHITE, SYS_MESSAGE_VISUAL_COMMAND);
+				Term_putstr(0, 22, -1, TERM_WHITE, MES_SYS_VISUAL_COMMAND);
 
 				i = inkey();
 
@@ -4839,7 +4839,7 @@ void do_cmd_load_screen(void)
 	fff = my_fopen(buf, "r");
 
 	if(!fff) {
-		msg_format(SYS_MESSAGE_FAILED_FILEOPEN2, buf);
+		msg_format(MES_SYS_FAILED_FILEOPEN2, buf);
 		msg_print(NULL);
 		return;
 	}
@@ -5066,7 +5066,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff)
 	{
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -5174,7 +5174,7 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 
 	if(!fff) {
 		if(message) {
-		    msg_format(SYS_MESSAGE_FAILED_FILEOPEN2, filename);
+		    msg_format(MES_SYS_FAILED_FILEOPEN2, filename);
 		    msg_print(NULL);
 		}
 		
@@ -5391,7 +5391,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 
 		if(!fff)
 		{
-			msg_format(SYS_MESSAGE_FAILED_FILEOPEN2, buf);
+			msg_format(MES_SYS_FAILED_FILEOPEN2, buf);
 			msg_print(NULL);
 			return;
 		}
@@ -5576,7 +5576,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	fff = my_fopen_temp(file_name, 1024);
 
 	if(!fff) {
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -5756,7 +5756,7 @@ static void do_cmd_knowledge_uniques(void)
 
 	if(!fff)
 	{
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -5894,7 +5894,7 @@ static void do_cmd_knowledge_skill_exp(creature_type *creature_ptr)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -6064,7 +6064,7 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -6138,7 +6138,7 @@ static void do_cmd_knowledge_kill_count(void)
 	fff = my_fopen_temp(file_name, 1024);
 
 	if(!fff) {
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -7879,7 +7879,7 @@ static void do_cmd_knowledge_kubi(creature_type *creature_ptr)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -7947,7 +7947,7 @@ static void do_cmd_knowledge_karmas(creature_type *creature_ptr)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -7984,7 +7984,7 @@ static void do_cmd_knowledge_dungeon()
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -8038,7 +8038,7 @@ static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -8499,7 +8499,7 @@ static void do_cmd_knowledge_quests(void)
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff)
 	{
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -8558,7 +8558,7 @@ static void do_cmd_knowledge_home(void)
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 		msg_print(NULL);
 		return;
 	}
@@ -8646,7 +8646,7 @@ static void do_cmd_knowledge_autopick(void)
 
 	if(!fff)
 	{
-	    msg_format(SYS_MESSAGE_FAILED_TEMPFILE, file_name);
+	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
 	    msg_print(NULL);
 	    return;
 	}
@@ -8809,7 +8809,7 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 			prt("(i) Display auto pick/destroy", 14, 5);
 		}
 #endif
-		prt(SYS_MESSAGE_MORE, 17, 8);
+		prt(MES_SYS_MORE, 17, 8);
 #ifdef JP
 		prt("ESC) 抜ける", 21, 1);
 		prt("SPACE) 次ページ", 21, 30);

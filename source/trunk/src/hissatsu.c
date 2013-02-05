@@ -282,7 +282,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 		if(ask)
 		{
 			char tmp_val[160];
-			(void) strnfmt(tmp_val, 78, SYS_MESSAGE_ASK_USE, do_spell(creature_ptr, REALM_HISSATSU, j, SPELL_NAME));
+			(void) strnfmt(tmp_val, 78, MES_SYS_ASK_USE, do_spell(creature_ptr, REALM_HISSATSU, j, SPELL_NAME));
 
 			/* Belay that order */
 			if(!get_check(tmp_val)) continue;

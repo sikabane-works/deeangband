@@ -5846,7 +5846,7 @@ static void erase_essence(creature_type *creature_ptr)
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-	if(!get_check(format("%s [%s]", SYS_MESSAGE_ASK_SURE, object_name))) return;
+	if(!get_check(format("%s [%s]", MES_SYS_ASK_SURE, object_name))) return;
 
 	cost_tactical_energy(creature_ptr, 100);
 

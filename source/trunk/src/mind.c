@@ -745,7 +745,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 		if(ask)
 		{
 			char tmp_val[160];
-			(void) strnfmt(tmp_val, 78, SYS_MESSAGE_ASK_USE, spell.name);
+			(void) strnfmt(tmp_val, 78, MES_SYS_ASK_USE, spell.name);
 			/* Belay that order */
 			if(!get_check(tmp_val)) continue;
 		}
@@ -937,7 +937,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 			handle_stuff(creature_ptr);
 			break;
 	default:
-		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
+		msg_warning(MES_SYS_OUT_OF_SWITCH);
 
 	}
 
@@ -1098,7 +1098,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		set_timed_trait(creature_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16 + boost / 20, FALSE);
 		break;
 	default:
-		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
+		msg_warning(MES_SYS_OUT_OF_SWITCH);
 	}
 	creature_ptr->charged_force = 0;
 	prepare_update(creature_ptr, CRU_BONUS);
@@ -1272,7 +1272,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		(void)set_timed_trait(creature_ptr, TRAIT_INVULNERABLE, randint1(4)+4,FALSE);
 		break;
 	default:
-		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
+		msg_warning(MES_SYS_OUT_OF_SWITCH);
 	}
 	//TODO CHECK creature_ptr->magic_num1[0] = 0;
 
@@ -1364,7 +1364,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 			break;
 		}
 	default:
-		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
+		msg_warning(MES_SYS_OUT_OF_SWITCH);
 	}
 	return TRUE;
 }
@@ -1611,7 +1611,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
 		break;
 	default:
-		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
+		msg_warning(MES_SYS_OUT_OF_SWITCH);
 
 	}
 	return TRUE;
@@ -1964,7 +1964,7 @@ void do_cmd_mind_browse(creature_type *creature_ptr)
 		{
 		case MIND_MIRROR_MASTER:
 		case MIND_NINJUTSU:
-			prt(SYS_MESSAGE_HIT_ANY_KEY, 0, 0);
+			prt(MES_SYS_HIT_ANY_KEY, 0, 0);
 			(void)inkey();
 		}
 	}

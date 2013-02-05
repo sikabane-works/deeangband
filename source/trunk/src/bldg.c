@@ -62,7 +62,7 @@ static void building_prt_gold(creature_type *creature_ptr)
 {
 	char tmp_str[80];
 
-	prt(format("%s: ", SYS_MESSAGE_MONEY), 23, 53);
+	prt(format("%s: ", MES_SYS_MONEY), 23, 53);
 	sprintf(tmp_str, "%9ld", (long)creature_ptr->au);
 	prt(tmp_str, 23, 68);
 }
@@ -1844,7 +1844,7 @@ static void shoukinkubi(void)
 		y = (y+1) % 10;
 		if(!y && (i < MAX_BOUNTY -1))
 		{
-			prt(SYS_MESSAGE_HIT_ANY_KEY, 0, 0);
+			prt(MES_SYS_HIT_ANY_KEY, 0, 0);
 			(void)inkey();
 			prt("", 0, 0);
 			clear_bldg(7,18);
@@ -3126,7 +3126,7 @@ static bool research_creature(creature_type *creature_ptr)
 	}
 	else
 	{
-		sprintf(buf, "%c - %s", sym, SYS_MESSAGE_UNKNOWN_SYMBOL);
+		sprintf(buf, "%c - %s", sym, MES_SYS_UNKNOWN_SYMBOL);
 	}
 
 	/* Display the result */

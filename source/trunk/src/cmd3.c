@@ -1275,8 +1275,8 @@ void do_cmd_locate(creature_type *creature_ptr)
 #else
 			sprintf(tmp_val, "%s%s of",
 #endif
-				((y2 < y1) ? SYS_MESSAGE_NORTH : (y2 > y1) ? SYS_MESSAGE_SOUTH : ""),
-				((x2 < x1) ? SYS_MESSAGE_WEST : (x2 > x1) ? SYS_MESSAGE_EAST : ""));
+				((y2 < y1) ? MES_SYS_NORTH : (y2 > y1) ? MES_SYS_SOUTH : ""),
+				((x2 < x1) ? MES_SYS_WEST : (x2 > x1) ? MES_SYS_EAST : ""));
 
 		}
 
@@ -1528,7 +1528,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 #endif
 	}
 	else if(ident_info[i]) sprintf(buf, "%c - %s.", sym, ident_info[i] + 2);
-	else sprintf(buf, "%c - %s", sym, SYS_MESSAGE_UNKNOWN_SYMBOL);
+	else sprintf(buf, "%c - %s", sym, MES_SYS_UNKNOWN_SYMBOL);
 
 	/* Display the result */
 	prt(buf, 0, 0);

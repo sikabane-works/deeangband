@@ -2900,8 +2900,8 @@ static void display_creature_trait(creature_type *creature_ptr)
 		if(n > 10) break;
 	}
 
-	if(n) c_put_str(TERM_YELLOW, SYS_MESSAGE_YOUR_TRAITS, 1, 1);
-	else c_put_str(TERM_YELLOW, SYS_MESSAGE_YOUR_NO_TRAIT, 1, 1);
+	if(n) c_put_str(TERM_YELLOW, MES_SYS_YOUR_TRAITS, 1, 1);
+	else c_put_str(TERM_YELLOW, MES_SYS_YOUR_NO_TRAIT, 1, 1);
 }
 
 static void display_creature_underings(creature_type *creature_ptr)
@@ -2921,8 +2921,8 @@ static void display_creature_underings(creature_type *creature_ptr)
 		total += creature_ptr->underling_num[i];
 	}
 
-	if(!type_num) c_put_str(TERM_YELLOW, format(SYS_MESSAGE_NO_SERVANT, master_name), 1, 1);
-	else c_put_str(TERM_YELLOW, format(SYS_MESSAGE_SERVANTS, master_name, type_num, total), 1, 1);
+	if(!type_num) c_put_str(TERM_YELLOW, format(MES_SYS_NO_SERVANT, master_name), 1, 1);
+	else c_put_str(TERM_YELLOW, format(MES_SYS_SERVANTS, master_name, type_num, total), 1, 1);
 }
 
 /*
@@ -3117,7 +3117,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 
 	/* Header and Footer */
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row, col);
-	c_put_str(TERM_L_GREEN, SYS_MESSAGE_MODIFICATION, row - 1, col);
+	c_put_str(TERM_L_GREEN, MES_SYS_MODIFICATION, row - 1, col);
 
 	/* Process equipment */
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -4615,7 +4615,7 @@ errr file_character(cptr name)
 		(void)fd_close(fd);
 
 		/* Build query */
-		(void)sprintf(out_val, SYS_MESSAGE_REPLACE_FILE, buf);
+		(void)sprintf(out_val, MES_SYS_REPLACE_FILE, buf);
 		if(get_check_strict(out_val, CHECK_NO_HISTORY)) fd = -1;
 	}
 
@@ -5301,7 +5301,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 
 			if(!(fff && ffp))
 			{
-				msg_print(SYS_MESSAGE_FAILED_FILEOPEN);
+				msg_print(MES_SYS_FAILED_FILEOPEN);
 				skey = ESCAPE;
 				break;
 			}
@@ -5618,7 +5618,7 @@ void do_cmd_suicide(creature_type *creature_ptr)
 			while (!get_string("*Winning* message", buf, sizeof buf)) ;
 #endif
 		}
-		while (!get_check_strict(SYS_MESSAGE_ASK_SURE, CHECK_NO_HISTORY));
+		while (!get_check_strict(MES_SYS_ASK_SURE, CHECK_NO_HISTORY));
 
 		if(buf[0])
 		{
@@ -5656,14 +5656,14 @@ void do_cmd_suicide(creature_type *creature_ptr)
 void do_cmd_save_game(int is_autosave)
 {
 	// Autosaves do not disturb
-	if(is_autosave) msg_print(SYS_MESSAGE_AUTO_SAVING);
+	if(is_autosave) msg_print(MES_SYS_AUTO_SAVING);
 	else disturb(player_ptr, 1, 0);
 
 	/* Clear messages */
 	msg_print(NULL);
 	handle_stuff(player_ptr);
 
-	prt(SYS_MESSAGE_GAME_SAVING, 0, 0);
+	prt(MES_SYS_GAME_SAVING, 0, 0);
 
 	Term_fresh();
 	(void)strcpy(gameover_from, COD_SAVE);
@@ -5671,7 +5671,7 @@ void do_cmd_save_game(int is_autosave)
 	/* Forbid suspend */
 	signals_ignore_tstp();
 
-	prt(SYS_MESSAGE_GAME_SAVING, 0, 0);
+	prt(MES_SYS_GAME_SAVING, 0, 0);
 	if(save_player()) prt(KW_DONE, 0, 40);
 	else prt(KW_FAILED, 0, 40);
 
@@ -5848,7 +5848,7 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, tmp);
 		put_str(buf, 12, 11);
 
-		(void)sprintf(tmp, "%s: %ld", SYS_MESSAGE_MONEY, (long)creature_ptr->au);
+		(void)sprintf(tmp, "%s: %ld", MES_SYS_MONEY, (long)creature_ptr->au);
 		center_string(buf, tmp);
 		put_str(buf, 13, 11);
 
@@ -6156,7 +6156,7 @@ static bool check_score(creature_type *player_ptr)
 	/* No score file */
 	if(highscore_fd < 0)
 	{
-		msg_print(SYS_MESSAGE_SCORE_FAILED);
+		msg_print(MES_SYS_SCORE_FAILED);
 		msg_print(NULL);
 		return FALSE;
 	}
@@ -6274,7 +6274,7 @@ void close_game(void)
 		if(!cheat_save || get_check("Save death? "))
 #endif
 		{
-			if(!save_player()) msg_print(SYS_MESSAGE_SAVE_FAILED);
+			if(!save_player()) msg_print(MES_SYS_SAVE_FAILED);
 		}
 		else do_send = FALSE;
 
@@ -6300,7 +6300,7 @@ void close_game(void)
 				{
 					wait_report_score = TRUE;
 					gameover = FALSE;
-					if(!save_player()) msg_print(SYS_MESSAGE_SAVE_FAILED);
+					if(!save_player()) msg_print(MES_SYS_SAVE_FAILED);
 				}
 			}
 			if(!wait_report_score)
@@ -6316,7 +6316,7 @@ void close_game(void)
 	else
 	{
 		do_cmd_save_game(FALSE);
-		prt(SYS_MESSAGE_QUITING_KEY, 0, 40);
+		prt(MES_SYS_QUITING_KEY, 0, 40);
 		if(inkey() != ESCAPE) predict_score(player_ptr);
 	}
 
@@ -6343,7 +6343,7 @@ void close_game(void)
 void exit_game_panic(creature_type *player_ptr)
 {
 	/* If nothing important has happened, just quit */
-	if(!character_generated || character_saved) quit(SYS_MESSAGE_PANIC);
+	if(!character_generated || character_saved) quit(MES_SYS_PANIC);
 
 	/* Mega-Hack -- see "msg_print()" */
 	msg_flag = FALSE;
@@ -6365,8 +6365,8 @@ void exit_game_panic(creature_type *player_ptr)
 
 	/* Indicate panic save */
 	(void)strcpy(gameover_from, COD_PANIC_SAVE);
-	if(!save_player()) quit(SYS_MESSAGE_PANIC_SAVE_FAILED);
-	quit(SYS_MESSAGE_PANIC_SAVE_SUCCEED);
+	if(!save_player()) quit(MES_SYS_PANIC_SAVE_FAILED);
+	quit(MES_SYS_PANIC_SAVE_SUCCEED);
 
 }
 
@@ -6741,11 +6741,7 @@ static void handle_signal_simple(int sig)
 	else if(signal_count >= 5)
 	{
 		/* Cause of "death" */
-#ifdef JP
-		(void)strcpy(gameover_from, "ã≠êßèIóπíÜ");
-#else
-		(void)strcpy(gameover_from, "Interrupting");
-#endif
+		(void)strcpy(gameover_from, MES_SYS_INTERUPTING);
 
 		forget_lite(CURRENT_FLOOR_PTR);
 		forget_view(CURRENT_FLOOR_PTR);
@@ -6843,8 +6839,8 @@ static void handle_signal_abort(int sig)
 	signals_ignore_tstp();
 
 	// Attempt to save
-	if(save_player()) Term_putstr(45, hgt - 1, -1, TERM_RED, SYS_MESSAGE_PANIC_SAVE_SUCCEED);
-	else Term_putstr(45, hgt - 1, -1, TERM_RED, SYS_MESSAGE_PANIC_SAVE_FAILED);
+	if(save_player()) Term_putstr(45, hgt - 1, -1, TERM_RED, MES_SYS_PANIC_SAVE_SUCCEED);
+	else Term_putstr(45, hgt - 1, -1, TERM_RED, MES_SYS_PANIC_SAVE_FAILED);
 
 	/* Flush output */
 	Term_fresh();

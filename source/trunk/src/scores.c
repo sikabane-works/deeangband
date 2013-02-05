@@ -365,7 +365,7 @@ void display_scores(int from, int to)
 
 	/* Open the binary high score file, for reading */
 	highscore_fd = fd_open(buf, O_RDONLY);
-	if(highscore_fd < 0) quit(SYS_MESSAGE_SCORE_FAILED);
+	if(highscore_fd < 0) quit(MES_SYS_SCORE_FAILED);
 	Term_clear();
 
 	/* Display the scores */
@@ -549,7 +549,7 @@ errr predict_score(creature_type *player_ptr)
 	/* No score file */
 	if(highscore_fd < 0)
 	{
-		msg_print(SYS_MESSAGE_SCORE_FAILED);
+		msg_print(MES_SYS_SCORE_FAILED);
 		msg_print(NULL);
 		return SUCCESS;
 	}
@@ -566,7 +566,7 @@ errr predict_score(creature_type *player_ptr)
 	/* Save the current turn */
 	sprintf(the_score.turns, "%9lu", (long)turn_real(player_ptr, turn));
 
-	strcpy(the_score.day, SYS_MESSAGE_TODAY);
+	strcpy(the_score.day, MES_SYS_TODAY);
 
 	/* Save the player name (80 chars) */
 	sprintf(the_score.who, "%-.80s", player_ptr->name);
@@ -634,7 +634,7 @@ void show_highclass(creature_type *creature_ptr)
 
 	if(highscore_fd < 0)
 	{
-		msg_print(SYS_MESSAGE_SCORE_FAILED);
+		msg_print(MES_SYS_SCORE_FAILED);
 		msg_print(NULL);
 		return;
 	}
@@ -678,7 +678,7 @@ void show_highclass(creature_type *creature_ptr)
 
 	(void)fd_close(highscore_fd);
 	highscore_fd = -1;
-	prt(SYS_MESSAGE_HIT_ANY_KEY, 0, 0);
+	prt(MES_SYS_HIT_ANY_KEY, 0, 0);
 
 	(void)inkey();
 
@@ -716,7 +716,7 @@ void race_score(creature_type *player_ptr, int race_num)
 
 	if(highscore_fd < 0)
 	{
-		msg_print(SYS_MESSAGE_SCORE_FAILED);
+		msg_print(MES_SYS_SCORE_FAILED);
 		msg_print(NULL);
 		return;
 	}
@@ -779,7 +779,7 @@ void race_legends(creature_type *player_ptr)
 	for (i = 0; i < MAX_RACES; i++)
 	{
 		race_score(player_ptr, i);
-		msg_print(SYS_MESSAGE_HIT_ANY_KEY);
+		msg_print(MES_SYS_HIT_ANY_KEY);
 		msg_print(NULL);
 		for (j = 5; j < 19; j++)
 			prt("", j, 0);

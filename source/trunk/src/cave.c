@@ -2234,7 +2234,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
 	}
 	else
 	{
-		put_str(SYS_MESSAGE_HIT_ANY_KEY, 23, 30);
+		put_str(MES_SYS_HIT_ANY_KEY, 23, 30);
 		move_cursor(cy, cx);
 		/* Get any key */
 		inkey();

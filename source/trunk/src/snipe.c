@@ -349,7 +349,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 		if(ask)
 		{
 			char tmp_val[160];
-			(void)strnfmt(tmp_val, 78, SYS_MESSAGE_ASK_USE, snipe_powers[i].name);
+			(void)strnfmt(tmp_val, 78, MES_SYS_ASK_USE, snipe_powers[i].name);
 
 			/* Belay that order */
 			if(!get_check(tmp_val)) continue;
@@ -503,7 +503,7 @@ static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 	case 14: creature_ptr->snipe_type = SP_NEEDLE; break;
 	case 15: creature_ptr->snipe_type = SP_FINAL; break;
 	default:
-		msg_warning(SYS_MESSAGE_OUT_OF_SWITCH);
+		msg_warning(MES_SYS_OUT_OF_SWITCH);
 	}
 
 	command_cmd = 'f';

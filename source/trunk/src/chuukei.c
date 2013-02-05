@@ -668,7 +668,7 @@ void prepare_movie_hooks(void)
 				char out_val[160];
 
 				(void)fd_close(fd);
-				(void)sprintf(out_val, SYS_MESSAGE_REPLACE_FILE, buf);
+				(void)sprintf(out_val, MES_SYS_REPLACE_FILE, buf);
 				if(!get_check(out_val)) return;
 				movie_fd = fd_open(buf, O_WRONLY | O_TRUNC);
 			}
@@ -679,7 +679,7 @@ void prepare_movie_hooks(void)
 
 			if(!movie_fd)
 			{
-				msg_print(SYS_MESSAGE_FAILED_FILEOPEN);
+				msg_print(MES_SYS_FAILED_FILEOPEN);
 				return;
 			}
 

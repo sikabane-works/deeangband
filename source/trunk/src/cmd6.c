@@ -3119,7 +3119,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			if(ask)
 			{
 				char tmp_val[160];
-				(void) strnfmt(tmp_val, 78, SYS_MESSAGE_ASK_USE, object_kind_name + object_kind_info[lookup_kind(tval ,i)].name);
+				(void) strnfmt(tmp_val, 78, MES_SYS_ASK_USE, object_kind_name + object_kind_info[lookup_kind(tval ,i)].name);
 
 				/* Belay that order */
 				if(!get_check(tmp_val)) continue;
@@ -3173,7 +3173,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 				line++;
 			}
 	
-			prt(SYS_MESSAGE_HIT_ANY_KEY, 0, 0);
+			prt(MES_SYS_HIT_ANY_KEY, 0, 0);
 			(void)inkey();
 			continue;
 		}

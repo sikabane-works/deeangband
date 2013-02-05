@@ -1267,7 +1267,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 
 					if(kakunin)
 					{
-						sprintf(buf, "%s (%s) ", SYS_MESSAGE_ASK_SURE, friend_name);
+						sprintf(buf, "%s (%s) ", MES_SYS_ASK_SURE, friend_name);
 						if(!get_check(buf)) delete_this = FALSE;
 					}
 					break;
@@ -2178,7 +2178,7 @@ void do_cmd_pet(creature_type *master_ptr)
 			/* Verify it */
 			if(ask)
 			{
-				strnfmt(buf, 78, SYS_MESSAGE_ASK_USE, power_desc[i]);
+				strnfmt(buf, 78, MES_SYS_ASK_USE, power_desc[i]);
 				/* Belay that order */
 				if(!get_check(buf)) continue;
 			}

@@ -306,14 +306,14 @@ void creature_knowledge(creature_type *creature_ptr)
 		/* Every 20 entries (lines 2 to 21), start over */
 		if((k == 22) && (j+1 < i))
 		{
-			prt(SYS_MESSAGE_MORE, k, 5);
+			prt(MES_SYS_MORE, k, 5);
 			inkey();
 			for (; k > 2; k--) prt("", k, 5);
 		}
 	}
 
 	/* Pause */
-	prt(SYS_MESSAGE_HIT_ANY_KEY, k, 3);
+	prt(MES_SYS_HIT_ANY_KEY, k, 3);
 	inkey();
 
 	screen_load();
@@ -393,13 +393,13 @@ void report_magics(creature_type *creature_ptr)
 		/* Every 20 entries (lines 2 to 21), start over */
 		if((k == 22) && (j + 1 < i))
 		{
-			prt(SYS_MESSAGE_MORE, k, 5);
+			prt(MES_SYS_MORE, k, 5);
 			inkey();
 			for (; k > 2; k--) prt("", k, 5);
 		}
 	}
 
-	prt(SYS_MESSAGE_HIT_ANY_KEY, k, 3);
+	prt(MES_SYS_HIT_ANY_KEY, k, 3);
 
 	inkey();
 

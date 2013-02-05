@@ -1384,7 +1384,7 @@ int load_player(void)
 		if(fd < 0) err = -1;
 
 		/* Message (below) */
-		if(err) what = SYS_MESSAGE_FAILED_FILEOPEN;
+		if(err) what = MES_SYS_FAILED_FILEOPEN;
 	}
 
 	/* Process file */

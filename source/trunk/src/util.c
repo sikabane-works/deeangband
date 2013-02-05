@@ -2652,7 +2652,7 @@ static void msg_flush(int x)
 	if(!playing || !nagasu)
 	{
 		/* Pause for response */
-		Term_putstr(x, 0, -1, a, SYS_MESSAGE_MORE);
+		Term_putstr(x, 0, -1, a, MES_SYS_MORE);
 
 		/* Get an acceptable keypress */
 		while (1)
@@ -3705,7 +3705,7 @@ s16b get_quantity(cptr prompt, int max)
 void pause_line(int row)
 {
 	prt("", row, 0);
-	put_str(SYS_MESSAGE_HIT_ANY_KEY, row, 26);
+	put_str(MES_SYS_HIT_ANY_KEY, row, 26);
 	(void)inkey();
 	prt("", row, 0);
 }

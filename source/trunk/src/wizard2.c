@@ -1799,7 +1799,7 @@ static void do_cmd_dump_options(void)
 
 	if(!fff)
 	{
-		msg_format(SYS_MESSAGE_FAILED_FILEOPEN2, buf);
+		msg_format(MES_SYS_FAILED_FILEOPEN2, buf);
 		msg_print(NULL);
 		return;
 	}

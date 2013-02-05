@@ -2489,7 +2489,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 				t = object_desc_str(t, "x ");
 			}
 			t = object_desc_num(t, object_ptr->pval);
-			t = object_desc_str(t, SYS_MESSAGE_CHARGE_NUM(object_ptr->number));
+			t = object_desc_str(t, MES_SYS_CHARGE_NUM(object_ptr->number));
 			t = object_desc_chr(t, p2);
 		}
 		/* Hack -- Rods have a "charging" indicator.  Now that stacks of rods may
