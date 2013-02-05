@@ -1941,11 +1941,23 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
-#define MES_OBJECT_NO_INDENTIFY "このアイテムについて特に知っていることはない。"
+#define MES_OBJECT_WHICH_INDEN "どのアイテムを鑑定しますか? "
+#define MES_OBJECT_WHICH_ALL_INDEN "すべて鑑定済みです。 "
+#define MES_OBJECT_NO_INDEN "鑑定するべきアイテムがない。"
+#define MES_OBJECT_WHICH_INDEN_FULLY "どのアイテムを*鑑定*しますか? "
+#define MES_OBJECT_WHICH_ALL_INDEN_FULLY "すべて*鑑定*済みです。 "
+#define MES_OBJECT_NO_INDEN_FULLY "*鑑定*するべきアイテムがない。"
+#define MES_OBJECT_NO_INDENTIFED "このアイテムについて特に知っていることはない。"
 #define MES_OBJECT_EXAMING(OBJECT) "%sを調べている..." ,(OBJECT)
 #define MES_OBJECT_NO_SPECIAL "特に変わったところはないようだ。"
 #else
-#define MES_OBJECT_NO_INDENTIFY "You have no special knowledge about that item."
+#define MES_OBJECT_WHICH_INDEN "Identify which item? "
+#define MES_OBJECT_WHICH_ALL_INDEN "All items are identified. "
+#define MES_OBJECT_NO_INDEN "You have nothing to identify."
+#define MES_OBJECT_WHICH_INDEN_FULLY "*Identify* which item? "
+#define MES_OBJECT_WHICH_ALL_INDEN_FULLY "All items are *identified*. "
+#define MES_OBJECT_NO_INDEN_FULLY "You have nothing to *identify*."
+#define MES_OBJECT_NO_INDENTIFED "You have no special knowledge about that item."
 #define MES_OBJECT_EXAMING(OBJECT) "Examining %s...", (OBJECT)
 #define MES_OBJECT_NO_SPECIAL "You see nothing special."
 #endif

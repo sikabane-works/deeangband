@@ -2403,28 +2403,15 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
 
 	if(can_get_item(creature_ptr))
 	{
-#ifdef JP
-		q = "どのアイテムを鑑定しますか? ";
-#else
-		q = "Identify which item? ";
-#endif
+		q = MES_OBJECT_WHICH_INDEN;
 	}
 	else
 	{
 		if(only_equip) item_tester_hook = object_is_weapon_armour_ammo2;
 		else item_tester_hook = NULL;
-#ifdef JP
-		q = "すべて鑑定済みです。 ";
-#else
-		q = "All items are identified. ";
-#endif
+		q = MES_OBJECT_WHICH_ALL_INDEN;
 	}
-
-#ifdef JP
-	s = "鑑定するべきアイテムがない。";
-#else
-	s = "You have nothing to identify.";
-#endif
+	s = MES_OBJECT_NO_INDEN;
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
@@ -2539,11 +2526,7 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 
 	if(can_get_item(creature_ptr))
 	{
-#ifdef JP
-		q = "どのアイテムを*鑑定*しますか? ";
-#else
-		q = "*Identify* which item? ";
-#endif
+		q = MES_OBJECT_WHICH_INDEN_FULLY;
 	}
 	else
 	{
@@ -2552,18 +2535,10 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 		else
 			item_tester_hook = NULL;
 
-#ifdef JP
-		q = "すべて*鑑定*済みです。 ";
-#else
-		q = "All items are *identified*. ";
-#endif
+		q = MES_OBJECT_WHICH_ALL_INDEN_FULLY;
 	}
 
-#ifdef JP
-	s = "*鑑定*するべきアイテムがない。";
-#else
-	s = "You have nothing to *identify*.";
-#endif
+	s = MES_OBJECT_NO_INDEN_FULLY;
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);

@@ -3983,7 +3983,7 @@ static void store_examine(store_type *st_ptr)
 	/* Require full knowledge */
 	if(!(object_ptr->ident & IDENT_MENTAL))
 	{
-		msg_print(MES_OBJECT_NO_INDENTIFY);
+		msg_print(MES_OBJECT_NO_INDENTIFED);
 		return;
 	}
 
