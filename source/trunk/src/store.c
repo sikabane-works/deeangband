@@ -3972,13 +3972,7 @@ static void store_examine(store_type *st_ptr)
 	/* And then restrict it to the current page */
 	if(i > store_bottom) i = store_bottom;
 
-#ifdef JP
-	sprintf(out_val, "どれを調べますか？");
-#else
-	sprintf(out_val, "Which item do you want to examine? ");
-#endif
-
-	/* Get the item number to be examined */
+	sprintf(out_val, MES_STORE_WHICH_EXAMINE);
 	if(!get_stock(st_ptr, &item, out_val, 0, i - 1)) return;
 
 	/* Get the actual index */
@@ -3990,12 +3984,7 @@ static void store_examine(store_type *st_ptr)
 	/* Require full knowledge */
 	if(!(object_ptr->ident & IDENT_MENTAL))
 	{
-		/* This can only happen in the home */
-#ifdef JP
-		msg_print("このアイテムについて特に知っていることはない。");
-#else
-		msg_print("You have no special knowledge about that item.");
-#endif
+		msg_print(MES_OBJECT_NO_INDENTIFY);
 		return;
 	}
 

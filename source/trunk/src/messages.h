@@ -1682,6 +1682,7 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_NO_ITEM_HOME "我が家には何も置いてありません。"
 #define MES_STORE_NO_ITEM_MUSEUM "博物館には何も置いてありません。"
 #define MES_STORE_NO_ITEM_STORE "現在商品の在庫を切らしています。"
+#define MES_STORE_WHICH_EXAMINE "どれを調べますか？"
 #define MES_STORE_FULL_ITEM_HOME "我が家にはもう置く場所がない。"
 #define MES_STORE_FULL_ITEM_MUSEUM "博物館はもう満杯だ。"
 #define MES_STORE_FULL_ITEM_STORE "すいませんが、店にはもう置く場所がありません。"
@@ -1733,6 +1734,7 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_NO_ITEM_HOME "Your home is empty."
 #define MES_STORE_NO_ITEM_MUSEUM "Museum is empty."
 #define MES_STORE_NO_ITEM_STORE "I am currently out of stock."
+#define MES_STORE_WHICH_EXAMINE "Which item do you want to examine? "
 #define MES_STORE_FULL_ITEM_HOME "Your home is full."
 #define MES_STORE_FULL_ITEM_MUSEUM "Museum is full."
 #define MES_STORE_FULL_ITEM_STORE "I have not the room in my store to keep it."
@@ -1916,4 +1918,10 @@ static cptr desc_stat_neg[] =
 #define MES_WALK_NEVER_SWIM "Can't swim"
 #define MES_WALK_NEVER_LAND "Can't land"
 #define MES_WALK_STEED_FEAR(STEED) "%^s is too scared to control.", (STEED)
+#endif
+
+#ifdef JP
+#define MES_OBJECT_NO_INDENTIFY "このアイテムについて特に知っていることはない。"
+#else
+#define MES_OBJECT_NO_INDENTIFY "You have no special knowledge about that item."
 #endif

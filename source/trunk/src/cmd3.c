@@ -771,11 +771,7 @@ void do_cmd_observe(creature_type *creature_ptr)
 	/* Require full knowledge */
 	if(!(object_ptr->ident & IDENT_MENTAL))
 	{
-#ifdef JP
-		msg_print("このアイテムについて特に知っていることはない。");
-#else
-		msg_print("You have no special knowledge about that item.");
-#endif
+		msg_print(MES_OBJECT_NO_INDENTIFY);
 		return;
 	}
 
