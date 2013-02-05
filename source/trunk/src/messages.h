@@ -1922,6 +1922,10 @@ static cptr desc_stat_neg[] =
 
 #ifdef JP
 #define MES_OBJECT_NO_INDENTIFY "このアイテムについて特に知っていることはない。"
+#define MES_OBJECT_EXAMING(OBJECT) "%sを調べている..." ,(OBJECT)
+#define MES_OBJECT_NO_SPECIAL "特に変わったところはないようだ。"
 #else
 #define MES_OBJECT_NO_INDENTIFY "You have no special knowledge about that item."
+#define MES_OBJECT_EXAMING(OBJECT) "Examining %s...", (OBJECT)
+#define MES_OBJECT_NO_SPECIAL "You see nothing special."
 #endif

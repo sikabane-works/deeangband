@@ -781,7 +781,7 @@ void do_cmd_observe(creature_type *creature_ptr)
 	msg_format("%s‚ğ’²‚×‚Ä‚¢‚é...", object_name);
 	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("“Á‚É•Ï‚í‚Á‚½‚Æ‚±‚ë‚Í‚È‚¢‚æ‚¤‚¾B");
 #else
-	msg_format("Examining %s...", object_name);
+	msg_format(, object_name);
 	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("You see nothing special.");
 #endif
 

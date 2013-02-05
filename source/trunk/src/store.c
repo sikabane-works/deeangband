@@ -3989,14 +3989,8 @@ static void store_examine(store_type *st_ptr)
 	}
 
 	object_desc(object_name, object_ptr, 0);
-
-#ifdef JP
-	msg_format("%sÇí≤Ç◊ÇƒÇ¢ÇÈ...", object_name);
-	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("ì¡Ç…ïœÇÌÇ¡ÇΩÇ∆Ç±ÇÎÇÕÇ»Ç¢ÇÊÇ§ÇæÅB");
-#else
-	msg_format("Examining %s...", object_name);
-	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("You see nothing special.");
-#endif
+	msg_format(MES_OBJECT_EXAMING(object_name));
+	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print(MES_OBJECT_NO_SPECIAL);
 
 	return;
 }
