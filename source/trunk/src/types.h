@@ -621,7 +621,7 @@ struct object_type
 	byte number;		/* Number of items */
 	s32b volume;        /* Volume of items */
 
-	s16b weight;		/* Item weight */
+	s32b weight;		/* Item weight */
 
 	byte name1;			/* Artifact type, if any */
 	u16b name2;			/* Ego-Item type, if any */

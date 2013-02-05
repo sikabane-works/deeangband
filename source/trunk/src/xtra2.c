@@ -655,13 +655,13 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		/* Else, a corpse is more likely unless we did a "lot" of damage */
 		else if(has_trait(dead_ptr, TRAIT_DROP_CORPSE))
 		{
-			/* Lots of damage in one blow */
 			if((0 - ((dead_ptr->mhp) / 4)) > dead_ptr->chp) if(one_in_(5)) corpse = TRUE;
 			else if(!one_in_(5)) corpse = TRUE;
 		}
 
 		droped_id = specified_drop(floor_ptr, dead_ptr, TV_CORPSE, corpse ? SV_CORPSE : SV_SKELETON);
 		object_list[droped_id].source_idx = dead_ptr->species_idx;
+		if(object_list[droped_id].sval == SV_CORPSE) object_list[droped_id].weight = dead_ptr->wt;
 	}
 
 	/* Drop objects being carried */

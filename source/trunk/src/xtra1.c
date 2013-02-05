@@ -3196,8 +3196,8 @@ static void set_melee_status(creature_type *creature_ptr)
 		if(hold < bow_ptr->weight / 10)
 		{
 			/* Hard to wield a heavy bow */
-			creature_ptr->to_hit_b  += 2 * (hold - bow_ptr->weight / 10);
-			creature_ptr->dis_to_hit_b  += 2 * (hold - bow_ptr->weight / 10);
+			creature_ptr->to_hit_b  += 2 * (hold - (s16b)bow_ptr->weight / 10);
+			creature_ptr->dis_to_hit_b  += 2 * (hold - (s16b)bow_ptr->weight / 10);
 
 			/* Heavy Bow */
 			creature_ptr->heavy_shoot = TRUE;
@@ -3342,8 +3342,8 @@ static void set_melee_status(creature_type *creature_ptr)
 		if(hold < weapon_ptr->weight / 10)
 		{
 			/* Hard to wield a heavy weapon */
-			creature_ptr->to_hit[i] += 2 * (hold - weapon_ptr->weight / 10);
-			creature_ptr->dis_to_hit[i] += 2 * (hold - weapon_ptr->weight / 10);
+			creature_ptr->to_hit[i] += 2 * (hold - (s16b)weapon_ptr->weight / 10);
+			creature_ptr->dis_to_hit[i] += 2 * (hold - (s16b)weapon_ptr->weight / 10);
 
 			/* Heavy weapon */
 			creature_ptr->heavy_wield[i] = TRUE;
@@ -3357,7 +3357,7 @@ static void set_melee_status(creature_type *creature_ptr)
 		}
 
 		if(weapon_ptr->k_idx && !creature_ptr->heavy_wield[i])
-			creature_ptr->skill_dig += (weapon_ptr->weight / 10); // Boost digging skill by weapon weight
+			creature_ptr->skill_dig += (s16b)(weapon_ptr->weight / 10); // Boost digging skill by weapon weight
 
 		// Assume okay
 		// Priest weapon penalty for non-blessed edged weapons

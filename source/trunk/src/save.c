@@ -105,7 +105,7 @@ static void wr_object(object_type *object_ptr)
 	wr_byte(object_ptr->discount);
 	wr_byte(object_ptr->number);
 	wr_s32b(object_ptr->volume);
-	wr_s16b(object_ptr->weight);
+	wr_s32b(object_ptr->weight);
 	wr_byte(object_ptr->name1);
 	wr_u16b(object_ptr->name2);
 

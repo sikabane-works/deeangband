@@ -4979,7 +4979,8 @@ static void drain_essence(creature_type *creature_ptr)
 	object_type *object_ptr;
 	cptr            q, s;
 	byte iy, ix, marked, number;
-	s16b next_object_idx, weight;
+	s16b next_object_idx;
+	s32b weight;
 
 	for (i = 0; i < sizeof(drain_value) / sizeof(int); i++) drain_value[i] = 0;
 
