@@ -1692,6 +1692,9 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_NO_DROP "置けるアイテムを持っていません。"
 #define MES_STORE_NO_GIVE "寄贈できるアイテムを持っていません。"
 #define MES_STORE_NO_SELL "欲しい物がないですねえ。"
+#define MES_STORE_MUSEUM_SAME "それと同じ品物は既に博物館にあるようです。"
+#define MES_STORE_MUSEUM_WARN "博物館に寄贈したものは取り出すことができません！！"
+#define MES_STORE_MUSEUM_ASK(OBJECT) "本当に%sを寄贈しますか？", (OBJECT)
 #define MES_STORE_FIXED_PRICE(PRICE) "一つにつき $%ldです。", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "%s(%c)を購入する。", (NAME), (SYM)
 #define MES_STORE_SELLING(NAME, SYM) "%s(%c)を売却する。", (NAME), (SYM)
@@ -1739,6 +1742,9 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_NO_DROP "You don't have any item to drop."
 #define MES_STORE_NO_GIVE "You don't have any item to give."
 #define MES_STORE_NO_SELL "You have nothing that I want."
+#define MES_STORE_MUSEUM_SAME "The same object as it is already in the Museum."
+#define MES_STORE_MUSEUM_WARN "You cannot take items which is given to the Museum back!!"
+#define MES_STORE_MUSEUM_ASK(OBJECT)  "Really give %s to the Museum? ", (OBJECT)
 #define MES_STORE_FIXED_PRICE(PRICE) "That costs %ld gold per item.", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "Buying %s(%c).", (NAME), (SYM)
 #define MES_STORE_SELLING(NAME, SYM) "Selling %s (%c).", (NAME), (SYM)

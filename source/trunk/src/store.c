@@ -3881,16 +3881,9 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 	{
 		char o2_name[MAX_NLEN];
 		object_desc(o2_name, quest_ptr, OD_NAME_ONLY);
-
-#ifdef JP
-		if(-1 == store_check_num(st_ptr, quest_ptr)) msg_print("それと同じ品物は既に博物館にあるようです。");
-		else msg_print("博物館に寄贈したものは取り出すことができません！！");
-		if(!get_check(format("本当に%sを寄贈しますか？", o2_name))) return;
-#else
-		if(-1 == store_check_num(st_ptr, quest_ptr)) msg_print("The same object as it is already in the Museum.");
-		else msg_print("You cannot take items which is given to the Museum back!!");
-		if(!get_check(format("Really give %s to the Museum? ", o2_name))) return;
-#endif
+		if(-1 == store_check_num(st_ptr, quest_ptr)) msg_print(MES_STORE_MUSEUM_SAME);
+		else msg_print(MES_STORE_MUSEUM_WARN);
+		if(!get_check(format(MES_STORE_MUSEUM_ASK(o2_name)))) return;
 
 		/* Identify it */
 		identify_item(creature_ptr, quest_ptr);
