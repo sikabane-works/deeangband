@@ -1694,6 +1694,7 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_NO_SELL "欲しい物がないですねえ。"
 #define MES_STORE_FIXED_PRICE(PRICE) "一つにつき $%ldです。", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "%s(%c)を購入する。", (NAME), (SYM)
+#define MES_STORE_SELLING(NAME, SYM) "%s(%c)を売却する。", (NAME), (SYM)
 #define MES_STORE_BOUGHT(NAME, PRICE) "%sを $%ldで購入しました。", (NAME), (PRICE)
 #define MES_STORE_SELL(NAME, PRICE) "%sを $%ldで売却しました。", (NAME), (PRICE)
 #define MES_STORE_NO_FIT "あなたの体格に合わないようだが、よろしいか？"
@@ -1740,6 +1741,7 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_NO_SELL "You have nothing that I want."
 #define MES_STORE_FIXED_PRICE(PRICE) "That costs %ld gold per item.", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "Buying %s(%c).", (NAME), (SYM)
+#define MES_STORE_SELLING(NAME, SYM) "Selling %s (%c).", (NAME), (SYM)
 #define MES_STORE_BOUGHT(NAME, PRICE) "You bought %s for %ld gold.", (NAME), (PRICE)
 #define MES_STORE_SELL(NAME, PRICE) "You sold %s for %ld gold.", (NAME), (PRICE)
 #define MES_STORE_NO_FIT "It may be not your size, Are you sure?"

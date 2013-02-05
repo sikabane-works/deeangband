@@ -3777,13 +3777,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 	/* Real store */
 	if(!is_home(st_ptr) && !is_home(st_ptr))
 	{
-		/* Describe the transaction */
-#ifdef JP
-		msg_format("%s(%c)ÇîÑãpÇ∑ÇÈÅB", object_name, index_to_label(item));
-#else
-		msg_format("Selling %s (%c).", object_name, index_to_label(item));
-#endif
-
+		msg_format(MES_STORE_SELLING(object_name, index_to_label(item)));
 		msg_print(NULL);
 
 		/* Haggle for it */
