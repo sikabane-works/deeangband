@@ -4568,12 +4568,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	// Roll
 	while (TRUE)
 	{
-		int col;
-
-		col = 42;
-
-		for(i = 0; i < STAT_MAX; i++)
-			creature_ptr->stat_cur[i] = species_ptr->stat_max[i];
+		for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_max[i] = creature_ptr->stat_cur[i] = species_ptr->stat_max[i];
 		set_age(creature_ptr);                  // Roll for age
 		set_exp(creature_ptr, species_ptr);                  // Roll for exp
 		set_height_weight(creature_ptr);        // Roll for height and weight
