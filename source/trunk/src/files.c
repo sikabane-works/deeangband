@@ -3000,11 +3000,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 			cnv_stat(creature_ptr->stat_max[i], buf);
 			if(creature_ptr->stat_max[i] == creature_ptr->stat_mod_max_max[i])
 			{
-#ifdef JP
-				c_put_str(TERM_WHITE, "!", row + i + 1, stat_col + 9);
-#else
-				c_put_str(TERM_WHITE, "!", row + i + 1, stat_col + 4);
-#endif
+				c_put_str(TERM_WHITE, "!", row + i + 1, stat_col + 5);
 			}
 			c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 13 - strlen(buf));
 		}
@@ -3421,9 +3417,9 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			if(creature_ptr->stat_max[i] == creature_ptr->stat_mod_max_max[i])
 			{
 #ifdef JP
-				c_put_str(TERM_WHITE, "!", 3 + i, 60);
+				c_put_str(TERM_WHITE, "!", 3 + i, 62);
 #else
-				c_put_str(TERM_WHITE, "!", 3 + i, 60-2);
+				c_put_str(TERM_WHITE, "!", 3 + i, 60);
 #endif
 			}
 		}
