@@ -20,7 +20,8 @@
 // Converts stat num into a six-char (right justified) string
 void cnv_stat(int val, char *out_val)
 {
-	sprintf(out_val, " %3d.%01d", val / STAT_FRACTION, val % STAT_FRACTION);
+	if(val < 0) val = 0;
+	sprintf(out_val, "%3d.%1d", val / STAT_FRACTION, val % STAT_FRACTION);
 }
 
 // Print character info at given row, column in a 13 char field
