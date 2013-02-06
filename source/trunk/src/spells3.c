@@ -4700,7 +4700,7 @@ bool eat_magic(creature_type *creature_ptr, int power)
 				if(IS_ROD(object_ptr))
 				{
 #ifdef JP
-msg_print("ロッドは破損を免れたが、魔力は全て失なわれた。");
+					msg_print("ロッドは破損を免れたが、魔力は全て失なわれた。");
 #else
 					msg_format("You save your rod from destruction, but all charges are lost.", object_name);
 #endif
@@ -4710,7 +4710,7 @@ msg_print("ロッドは破損を免れたが、魔力は全て失なわれた。");
 				else if(object_ptr->tval == TV_WAND)
 				{
 #ifdef JP
-msg_format("%sは破損を免れたが、魔力が全て失われた。", object_name);
+					msg_format("%sは破損を免れたが、魔力が全て失われた。", object_name);
 #else
 					msg_format("You save your %s from destruction, but all charges are lost.", object_name);
 #endif
@@ -4725,11 +4725,7 @@ msg_format("%sは破損を免れたが、魔力が全て失われた。", object_name);
 			{
 				if(object_ptr->number > 1)
 				{
-#ifdef JP
-msg_format("乱暴な魔法のために%sが一本壊れた！", object_name);
-#else
-					msg_format("Wild magic consumes one of your %s!", object_name);
-#endif
+					msg_format(MES_RECHAGE_BROKEN1(object_name));
 
 					/* Reduce rod stack maximum timeout, drain wands. */
 					if(IS_ROD(object_ptr)) object_ptr->timeout = MIN(object_ptr->timeout, object_kind_ptr->pval * (object_ptr->number - 1));
@@ -4737,11 +4733,7 @@ msg_format("乱暴な魔法のために%sが一本壊れた！", object_name);
 
 				}
 				else
-#ifdef JP
-msg_format("乱暴な魔法のために%sが何本か壊れた！", object_name);
-#else
-					msg_format("Wild magic consumes your %s!", object_name);
-#endif
+					msg_format(MES_RECHAGE_BROKEN1(object_name));
 
 				/* Reduce and describe creature_ptr->inventory */
 				if(item >= 0)
@@ -4764,20 +4756,9 @@ msg_format("乱暴な魔法のために%sが何本か壊れた！", object_name);
 			if(fail_type == 3)
 			{
 				if(object_ptr->number > 1)
-#ifdef JP
-msg_format("乱暴な魔法のために%sが全て壊れた！", object_name);
-#else
-					msg_format("Wild magic consumes all your %s!", object_name);
-#endif
-
+					msg_format(MES_RECHAGE_BROKEN3(object_name));
 				else
-#ifdef JP
-msg_format("乱暴な魔法のために%sが壊れた！", object_name);
-#else
-					msg_format("Wild magic consumes your %s!", object_name);
-#endif
-
-
+					msg_format(MES_RECHAGE_BROKEN1(object_name));
 
 				/* Reduce and describe creature_ptr->inventory */
 				if(item >= 0)
