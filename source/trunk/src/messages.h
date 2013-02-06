@@ -1994,3 +1994,15 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_EXAMING(OBJECT) "Examining %s...", (OBJECT)
 #define MES_OBJECT_NO_SPECIAL "You see nothing special."
 #endif
+
+#ifdef JP
+#define MES_BOUNTY_DETAIL "€‘Ì‚ğ‚¿‹A‚ê‚Î•ñV‚ğ·‚µã‚°‚Ü‚·B"
+#define MES_BOUNTY_TODAY "–{“ú‚ÌÜ‹àñ"
+#define MES_BOUNTY_CURRENT "Œ»İ‚ÌÜ‹àñ"
+#define MES_BOUNTY_DONE "(Ï)"
+#else
+#define MES_BOUNTY_DETAIL "Offer a prize when you bring a wanted creature's corpse"
+#define MES_BOUNTY_TODAY "Wanted creature that changes from day to day"
+#define MES_BOUNTY_CURRENT "Wanted creatures"
+#define MES_BOUNTY_DONE "(done)"
+#endif

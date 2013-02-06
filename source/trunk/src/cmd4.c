@@ -7891,7 +7891,7 @@ static void do_cmd_knowledge_kubi(creature_type *creature_ptr)
 #ifdef JP
 		fprintf(fff, "今日のターゲット : %s\n", (today_mon ? species_name + species_info[today_mon].name : "不明"));
 		fprintf(fff, "\n");
-		fprintf(fff, "賞金首リスト\n");
+		fprintf(fff, "賞金首の一覧\n");
 #else
 		fprintf(fff, "Today target : %s\n", (today_mon ? species_name + species_info[today_mon].name : "unknown"));
 		fprintf(fff, "\n");

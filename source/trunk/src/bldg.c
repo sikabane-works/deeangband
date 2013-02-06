@@ -1767,14 +1767,13 @@ static void today_target(creature_type *creature_ptr)
 
 	clear_bldg(4,18);
 
+	c_put_str(TERM_YELLOW, MES_BOUNTY_TODAY, 5, 10);
 #ifdef JP
-	c_put_str(TERM_YELLOW, "本日の賞金首", 5, 10);
 	sprintf(buf,"ターゲット： %s",species_name + species_ptr->name);
 	c_put_str(TERM_YELLOW, buf, 6, 10);
 	sprintf(buf,"死体 ---- $%d",species_ptr->level * 50 + 100);
 	sprintf(buf,"骨   ---- $%d",species_ptr->level * 30 + 60);
 #else
-	prt("Wanted creature that changes from day to day", 5, 10);
 	sprintf(buf,"target: %s",species_name + species_ptr->name);
 	c_put_str(TERM_YELLOW, buf, 6, 10);
 	sprintf(buf,"corpse   ---- $%d",species_ptr->level * 50 + 100);
@@ -1810,13 +1809,8 @@ static void shoukinkubi(void)
 
 	clear_bldg(4,18);
 
-#ifdef JP
-	prt("死体を持ち帰れば報酬を差し上げます。",4 ,10);
-	c_put_str(TERM_YELLOW, "現在の賞金首", 6, 10);
-#else
-	prt("Offer a prize when you bring a wanted creature's corpse",4 ,10);
-	c_put_str(TERM_YELLOW, "Wanted creatures", 6, 10);
-#endif
+	prt(MES_BOUNTY_DETAIL ,4 ,10);
+	c_put_str(TERM_YELLOW, MES_BOUNTY_CURRENT, 6, 10);
 
 	for (i = 0; i < MAX_BOUNTY; i++)
 	{
@@ -1827,11 +1821,7 @@ static void shoukinkubi(void)
 		if(kubi_species_idx[i] > 10000)
 		{
 			color = TERM_RED;
-#ifdef JP
-			done_mark = "(済)";
-#else
-			done_mark = "(done)";
-#endif
+			done_mark = MES_BOUNTY_DONE;
 		}
 		else
 		{
