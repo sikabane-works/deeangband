@@ -2839,8 +2839,6 @@ bool recharge(creature_type *creature_ptr, int power)
 					inven_item_describe(creature_ptr, item);
 					inven_item_optimize(creature_ptr, item);
 				}
-
-				/* Reduce and describe floor item */
 				else
 				{
 					floor_item_increase(0 - item, -999);
@@ -2860,27 +2858,15 @@ bool recharge(creature_type *creature_ptr, int power)
 	return TRUE;
 }
 
-
-/*
- * Bless a weapon
- */
+// Bless a weapon
 bool bless_weapon(creature_type *creature_ptr)
 {
 	int             item;
 	object_type     *object_ptr;
 	u32b flgs[MAX_TRAITS_FLAG];
 	char            object_name[MAX_NLEN];
-	cptr            q, s;
 
-#ifdef JP
-	q = "どのアイテムを祝福しますか？";
-	s = "祝福できる武器がありません。";
-#else
-	q = "Bless which weapon? ";
-	s = "You have weapon to bless.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon2, 0))
+	if(!get_item(creature_ptr, &item, MES_WEP_BLESS_WHICH_OBJECT, MES_WEP_BLESS_NO_OBJECT, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon2, 0))
 		return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
@@ -2895,21 +2881,11 @@ bool bless_weapon(creature_type *creature_ptr)
 		if(((have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) && (randint1(100) < 33)) ||
 		    (have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)))
 		{
-#ifdef JP
-			msg_format("%sを覆う黒いオーラは祝福を跳ね返した！", object_name);
-#else
-			msg_format("The black aura on %s %s disrupts the blessing!", ((item >= 0) ? "your" : "the"), object_name);
-#endif
-
+			msg_format(MES_WEP_BLESS_CURSED_CANCEL(object_name, item));
 			return TRUE;
 		}
 
-#ifdef JP
-		msg_format("%s から邪悪なオーラが消えた。", object_name);
-#else
-		msg_format("A malignant aura leaves %s %s.", ((item >= 0) ? "your" : "the"), object_name);
-#endif
-
+		msg_format(MES_WEP_BLESS_VANISH_CURSE(object_name, item));
 
 		/* Uncurse it */
 		object_ptr->curse_flags[0] = 0L;

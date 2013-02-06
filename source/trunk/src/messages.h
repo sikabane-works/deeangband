@@ -1903,7 +1903,6 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
-
 #define MES_BLDG_RECHARGE_WHICH_ITEM "どのアイテムに魔力を充填しますか? "
 #define MES_BLDG_RECHARGE_NO_ITEM "魔力を充填すべきアイテムがない。"
 #define MES_BLDG_RECHARGE_NO_NEED "それは再充填する必要はありません。"
@@ -1929,6 +1928,18 @@ static cptr desc_stat_neg[] =
 #define MES_RECHAGE_BROKEN1(NAME) "Wild magic consumes your %s!", (NAME)
 #define MES_RECHAGE_BROKEN2(NAME) "Wild magic consumes one of your %s!", (NAME)
 #define MES_RECHAGE_BROKEN3(NAME) "Wild magic consumes all your %s!", (NAME)
+#endif
+
+#ifdef JP
+#define MES_WEP_BLESS_WHICH_OBJECT "どのアイテムを祝福しますか？"
+#define MES_WEP_BLESS_NO_OBJECT "祝福できる武器がありません。"
+#define MES_WEP_BLESS_CURSED_CANCEL(NAME, ID) "%sを覆う黒いオーラは祝福を跳ね返した！", (NAME)
+#define MES_WEP_BLESS_VANISH_CURSE(NAME, ID) "%s から邪悪なオーラが消えた。", (NAME)
+#else
+#define MES_WEP_BLESS_WHICH_OBJECT "Bless which weapon? "
+#define MES_WEP_BLESS_NO_OBJECT "You have weapon to bless."
+#define MES_WEP_BLESS_CURSED_CANCEL(NAME, ID) "The black aura on %s %s disrupts the blessing!", (((ID) >= 0) ? "your" : "the"), (NAME)
+#define MES_WEP_BLESS_VANISH_CURSE(NAME, ID) "A malignant aura leaves %s %s.", (((ID) >= 0) ? "your" : "the"), (NAME)
 #endif
 
 #ifdef JP
