@@ -38,6 +38,8 @@
 #define MES_SYS_ERROR "エラー"
 #define MES_SYS_PANIC "緊急事態"
 #define MES_SYS_INTERUPTING "強制終了中"
+#define MES_SYS_CONNECTING "接続中..."
+#define MES_SYS_SENDING_SCORE "スコア送信中..."
 
 #define MES_SYS_OUT_OF_SWITCH "switch構文範囲外"
 
@@ -88,6 +90,9 @@
 #define MES_SYS_ERROR "Error"
 #define MES_SYS_PANIC "Panic"
 #define MES_SYS_INTERUPTING "Interrupting"
+
+#define MES_SYS_CONNECTING "Connecting..."
+#define MES_SYS_SENDING_SCORE "Sending the score..."
 
 #define MES_SYS_OUT_OF_SWITCH "Out of switch."
 #define MES_SYS_TODAY "Today"

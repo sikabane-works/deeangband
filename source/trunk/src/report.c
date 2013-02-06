@@ -472,11 +472,7 @@ errr report_score(creature_type *player_ptr)
 	while (1)
 	{
 		char buff[160];
-#ifdef JP
-		prt("Ú‘±’†...", 0, 0);
-#else
-		prt("connecting...", 0, 0);
-#endif
+		prt(MES_SYS_CONNECTING, 0, 0);
 		Term_fresh();
 		
 		/* ƒvƒƒLƒV‚ğİ’è‚·‚é */
