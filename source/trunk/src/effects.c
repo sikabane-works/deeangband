@@ -873,14 +873,16 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 // Restore lost "points" in a stat
 bool do_res_stat(creature_type *creature_ptr, int stat)
 {
+	char creature_name[MAX_NLEN];
+	creature_desc(creature_name, creature_ptr, 0);
 	if(res_stat(creature_ptr, stat)) // Attempt to increase
 	{
 		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP
-			msg_format("%s‚ÍŒ³’Ê‚è‚É%s‚È‚Á‚½B", desc_stat_pos[stat]);
+			msg_format("%s‚ÍŒ³’Ê‚è‚É%s‚È‚Á‚½B", creature_name, desc_stat_pos[stat]);
 #else
-			msg_format("%s become less %s.", desc_stat_neg[stat]);
+			msg_format("%s become less %s.", creature_name, desc_stat_neg[stat]);
 #endif
 		}
 		return TRUE;

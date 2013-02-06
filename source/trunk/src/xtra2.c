@@ -197,11 +197,11 @@ void check_experience(creature_type *creature_ptr)
 				}
 				else
 				{
-					do_inc_stat(creature_ptr, randint0(6));
+					do_inc_stat(creature_ptr, randint0(STAT_MAX));
 				}
 			}
 			else if(!(creature_ptr->max_plv % 2))
-				do_inc_stat(creature_ptr, randint0(6));
+				do_inc_stat(creature_ptr, randint0(STAT_MAX));
 		}
 
 		if(level_mutation)
