@@ -1935,11 +1935,15 @@ static cptr desc_stat_neg[] =
 #define MES_WEP_BLESS_NO_OBJECT "j•Ÿ‚Å‚«‚é•Ší‚ª‚ ‚è‚Ü‚¹‚ñB"
 #define MES_WEP_BLESS_CURSED_CANCEL(NAME, ID) "%s‚ð•¢‚¤•‚¢ƒI[ƒ‰‚Íj•Ÿ‚ð’µ‚Ë•Ô‚µ‚½I", (NAME)
 #define MES_WEP_BLESS_VANISH_CURSE(NAME, ID) "%s ‚©‚çŽ×ˆ«‚ÈƒI[ƒ‰‚ªÁ‚¦‚½B", (NAME)
+#define MES_WEP_BLESS_RESIST "‚»‚Ì•Ší‚Íj•Ÿ‚ðŒ™‚Á‚Ä‚¢‚éI"
+#define MES_WEP_BLESS_FAILED "ŽüˆÍ‚ª–}—f‚È•µˆÍ‹C‚Å–ž‚¿‚½..."
 #else
 #define MES_WEP_BLESS_WHICH_OBJECT "Bless which weapon? "
 #define MES_WEP_BLESS_NO_OBJECT "You have weapon to bless."
 #define MES_WEP_BLESS_CURSED_CANCEL(NAME, ID) "The black aura on %s %s disrupts the blessing!", (((ID) >= 0) ? "your" : "the"), (NAME)
 #define MES_WEP_BLESS_VANISH_CURSE(NAME, ID) "A malignant aura leaves %s %s.", (((ID) >= 0) ? "your" : "the"), (NAME)
+#define MES_WEP_BLESS_RESIST "The weapon resists your blessing!"
+#define MES_WEP_BLESS_FAILED "There is a static feeling in the air..."
 #endif
 
 #ifdef JP

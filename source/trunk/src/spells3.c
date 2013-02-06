@@ -2933,13 +2933,7 @@ bool bless_weapon(creature_type *creature_ptr)
 	else
 	{
 		bool dis_happened = FALSE;
-
-#ifdef JP
-		msg_print("‚»‚Ì•Ší‚Íj•Ÿ‚ðŒ™‚Á‚Ä‚¢‚éI");
-#else
-		msg_print("The weapon resists your blessing!");
-#endif
-
+		msg_print(MES_WEP_BLESS_RESIST);
 
 		/* Disenchant tohit */
 		if(object_ptr->to_hit > 0)
@@ -2970,20 +2964,17 @@ bool bless_weapon(creature_type *creature_ptr)
 
 		if(dis_happened)
 		{
+			msg_print(MES_WEP_BLESS_FAILED);
 #ifdef JP
-			msg_print("ŽüˆÍ‚ª–}—f‚È•µˆÍ‹C‚Å–ž‚¿‚½...");
 			msg_format("%s ‚Í—ò‰»‚µ‚½I", object_name);
 #else
-			msg_print("There is a static feeling in the air...");
 			msg_format("%s %s %s disenchanted!", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "were" : "was"));
 #endif
 		}
 	}
 
 	prepare_update(creature_ptr, CRU_BONUS);
-
 	prepare_window(PW_EQUIP | PW_PLAYER);
-
 	calc_android_exp(creature_ptr);
 
 	return TRUE;
