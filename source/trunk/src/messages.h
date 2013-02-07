@@ -2091,3 +2091,15 @@ static cptr desc_stat_neg[] =
 #define MES_EQUIP_UNCONTROL_STEED "You are using both hand for fighting, and you can't control a riding pet."
 #define MES_EQUIP_CONTROL_STEED "You began to control riding pet with one hand."
 #endif
+
+#ifdef JP
+#define MES_DAMAGE_RES1 "にはかなりの耐性がある。"
+#define MES_DAMAGE_RES2 "には耐性がある。"
+#define MES_DAMAGE_RES3 "にはわずかに耐性がある。"
+#define MES_DAMAGE_RES4 "はひどい痛手を受けた。"
+#else
+#define MES_DAMAGE_RES1 " resists strongly."
+#define MES_DAMAGE_RES2 " resists."
+#define MES_DAMAGE_RES3 " resists a little."
+#define MES_DAMAGE_RES4 " is hit hard."
+#endif

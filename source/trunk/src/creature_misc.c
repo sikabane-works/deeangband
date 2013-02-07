@@ -975,40 +975,16 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		if(t == 0) note = GAME_MESSAGE_IS_IMMUNE;
 
 		else if(t < 200)
-		{
-#ifdef JP
-				note = "にはかなりの耐性がある。";
-#else
-				note = " resists strongly.";
-#endif
-		}
+			note = MES_DAMAGE_RES1;
 
 		else if(t < 500)
-		{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-		}
+			note = MES_DAMAGE_RES2;
 
 		else if(t < 800)
-		{
-#ifdef JP
-				note = "にはわずかに耐性がある。";
-#else
-				note = " resists a little.";
-#endif
-		}
+			note = MES_DAMAGE_RES3;
 
 		else if(t >= 1200)
-		{
-#ifdef JP
-				note = "はひどい痛手を受けた。";
-#else
-				note = " is hit hard.";
-#endif
-		}
+			note = MES_DAMAGE_RES4;
 
 		if(t < 800 && t >= 1200) msg_format("%s%s", target_ptr->name, note);
 	}
@@ -1036,8 +1012,7 @@ int calc_unreached_race_level_penalty(int shortage_lev, int type)
 	byte race_unreached_level_penalty[STAT_MAX][10] = 
 	{
 		{2, 7, 12, 17, 22, 27, 32, 37, 42, 47},
-
-		{4, 6, 9, 14, 16, 18, 23, 27, 30, 32},
+		{4, 6, 9,  14, 16, 18, 23, 27, 30, 32},
 		{5, 7, 11, 13, 15, 19, 21, 26, 29, 31},
 		{1, 6, 11, 16, 21, 26, 31, 36, 41, 46},
 		{4, 9, 14, 19, 24, 29, 34, 39, 44, 49},
