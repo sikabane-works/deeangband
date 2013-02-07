@@ -706,9 +706,9 @@ void do_cmd_destroy(creature_type *creature_ptr)
 */
 void do_cmd_observe(creature_type *creature_ptr)
 {
-	int			item;
-	object_type		*object_ptr;
-	char		object_name[MAX_NLEN];
+	int item;
+	object_type *object_ptr;
+	char object_name[MAX_NLEN];
 
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_OBSERVE, MES_OBJECT_NO_OBSERVE, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
@@ -727,29 +727,14 @@ void do_cmd_observe(creature_type *creature_ptr)
 
 }
 
-
-
-/*
-* Remove the inscription from an object
-* XXX Mention item (when done)?
-*/
+// Remove the inscription from an object
+//XXX Mention item (when done)?
 void do_cmd_uninscribe(creature_type *creature_ptr)
 {
 	int   item;
-
 	object_type *object_ptr;
 
-	cptr q, s;
-
-#ifdef JP
-	q = "どのアイテムの銘を消しますか? ";
-	s = "銘を消せるアイテムがない。";
-#else
-	q = "Un-inscribe which item? ";
-	s = "You have nothing to un-inscribe.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_UNINSCRIBE, MES_OBJECT_NO_UNINSCRIBE, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Nothing to remove */
@@ -781,30 +766,20 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 
 	/* .や$の関係で, 再計算が必要なはず -- henkma */
 	prepare_update(creature_ptr, CRU_BONUS);
-
 }
 
 
-/*
-* Inscribe an object with a comment
-*/
+//
+// Inscribe an object with a comment
+//
 void do_cmd_inscribe(creature_type *creature_ptr)
 {
 	int			item;
 	object_type		*object_ptr;
 	char		object_name[MAX_NLEN];
 	char		out_val[80];
-	cptr q, s;
 
-#ifdef JP
-	q = "どのアイテムに銘を刻みますか? ";
-	s = "銘を刻めるアイテムがない。";
-#else
-	q = "Inscribe which item? ";
-	s = "You have nothing to inscribe.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_INSCRIBE, MES_OBJECT_NO_INSCRIBE, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Describe the activity */

@@ -2015,6 +2015,19 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_DESTROY_VERIFY(OBJECT) "Really destroy %s? [y/n/Auto]", (OBJECT)
 #endif
 
+#ifdef JP
+#define MES_OBJECT_WHICH_INSCRIBE "どのアイテムに銘を刻みますか? "
+#define MES_OBJECT_NO_INSCRIBE "銘を刻めるアイテムがない。"
+#define MES_OBJECT_WHICH_UNINSCRIBE "どのアイテムの銘を消しますか? "
+#define MES_OBJECT_NO_UNINSCRIBE "銘を消せるアイテムがない。"
+#else
+#define MES_OBJECT_WHICH_INSCRIBE "Inscribe which item? "
+#define MES_OBJECT_NO_INSCRIBE "You have nothing to inscribe."
+#define MES_OBJECT_WHICH_UNINSCRIBE "Un-inscribe which item? "
+#define MES_OBJECT_NO_UNINSCRIBE "You have nothing to un-inscribe."
+#endif
+
+
 
 #ifdef JP
 #define MES_BOUNTY_DETAIL "死体を持ち帰れば報酬を差し上げます。"
