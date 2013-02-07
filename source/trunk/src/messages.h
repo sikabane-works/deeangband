@@ -180,7 +180,8 @@
 #define KW_RIDING "èÊîn"
 #define KW_ASKING_PRICE "íÒé¶âøäi"
 #define KW_FINAL_OFFER_PRICE "ç≈èIíÒé¶âøäi"
-#define KW_FLOOR_NUM(NUM) "%d äK", (NUM)
+#define KW_FLOOR_NUM(NUM) "%däK", (NUM)
+#define KW_FLOOR_NUM2(DUNGEON, NUM) "%däK(%s)", (NUM), (DUNGEON)
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -249,6 +250,7 @@
 #define KW_ASKING_PRICE "Asking Price"
 #define KW_FINAL_OFFER_PRICE "Final Offer"
 #define KW_FLOOR_NUM(NUM) "Floor %d", (NUM)
+#define KW_FLOOR_NUM2(DUNGEON, NUM) "%s L%d:", (DUNGEON), (NUM) 
 #endif
 
 #ifdef JP
