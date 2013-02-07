@@ -2915,80 +2915,30 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 	bool monk_armour_aux = FALSE;
 	bool monk_notify_aux = FALSE;
 
-	/* Take note when "heavy bow" changes */
+	// Take note when "heavy bow" changes
 	if(creature_ptr->old_heavy_shoot != creature_ptr->heavy_shoot)
 	{
-		if(creature_ptr->heavy_shoot)
-		{
-#ifdef JP
-			msg_print("こんな重い弓を装備しているのは大変だ。");
-#else
-			msg_print("You have trouble wielding such a heavy bow.");
-#endif
-
-		}
+		if(creature_ptr->heavy_shoot) msg_print(MES_EQUIP_HEAVY_BOW);
 		else if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 0)->k_idx)
-		{
-#ifdef JP
-			msg_print("この弓なら装備していても辛くない。");
-#else
-			msg_print("You have no trouble wielding your bow.");
-#endif
-
-		}
+			msg_print(MES_EQUIP_FITTING_BOW);
 		else
-		{
-#ifdef JP
-			msg_print("重い弓を装備からはずして体が楽になった。");
-#else
-			msg_print("You feel relieved to put down your heavy bow.");
-#endif
-		}
-
-		/* Save it */
+			msg_print(MES_EQUIP_RELIEVE_HEAVY_BOW);
 		creature_ptr->old_heavy_shoot = creature_ptr->heavy_shoot;
 	}
 
 	for (i = 0 ; i < MAX_WEAPONS ; i++)
 	{
-		/* Take note when "heavy weapon" changes */
+		// Take note when "heavy weapon" changes
 		if(creature_ptr->old_heavy_wield[i] != creature_ptr->heavy_wield[i])
 		{
 			if(creature_ptr->heavy_wield[i])
-			{
-#ifdef JP
-				msg_print("こんな重い武器を装備しているのは大変だ。");
-#else
-				msg_print("You have trouble wielding such a heavy weapon.");
-#endif
-			}
+				msg_print(MES_EQUIP_HEAVY_WEAPON);
 			else if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
-			{
-#ifdef JP
-				msg_print("これなら装備していても辛くない。");
-#else
-				msg_print("You have no trouble wielding your weapon.");
-#endif
-			}
+				msg_print(MES_EQUIP_FITTING_WEAPON);
 			else if(creature_ptr->heavy_wield[1-i])
-			{
-#ifdef JP
-				msg_print("まだ武器が重い。");
-#else
-				msg_print("You have still trouble wielding a heavy weapon.");
-#endif
-			}
+				msg_print(MES_EQUIP_HEAVY_WEAPON_STILL);
 			else
-			{
-#ifdef JP
-				msg_print("重い武器を装備からはずして体が楽になった。");
-#else
-				msg_print("You feel relieved to put down your heavy weapon.");
-#endif
-
-			}
-
-			/* Save it */
+				msg_print(MES_EQUIP_RELIEVE_HEAVY_WEAPON);
 			creature_ptr->old_heavy_wield[i] = creature_ptr->heavy_wield[i];
 		}
 

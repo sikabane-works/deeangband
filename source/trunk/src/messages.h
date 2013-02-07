@@ -2006,3 +2006,21 @@ static cptr desc_stat_neg[] =
 #define MES_BOUNTY_CURRENT "Wanted creatures"
 #define MES_BOUNTY_DONE "(done)"
 #endif
+
+#ifdef JP
+#define MES_EQUIP_HEAVY_BOW "こんな重い弓を装備しているのは大変だ。"
+#define MES_EQUIP_FITTING_BOW "この弓なら装備していても辛くない。"
+#define MES_EQUIP_RELIEVE_HEAVY_BOW "重い弓を装備からはずして体が楽になった。"
+#define MES_EQUIP_HEAVY_WEAPON "こんな重い武器を装備しているのは大変だ。"
+#define MES_EQUIP_FITTING_WEAPON "これなら装備していても辛くない。"
+#define MES_EQUIP_HEAVY_WEAPON_STILL "まだ武器が重い。"
+#define MES_EQUIP_RELIEVE_HEAVY_WEAPON "重い武器を装備からはずして体が楽になった。"
+#else
+#define MES_EQUIP_HEAVY_BOW "You have trouble wielding such a heavy bow."
+#define MES_EQUIP_FITTING_BOW "You have no trouble wielding your bow."
+#define MES_EQUIP_RELIEVE_HEAVY_BOW "You feel relieved to put down your heavy bow."
+#define MES_EQUIP_HEAVY_WEAPON "You have trouble wielding such a heavy weapon."
+#define MES_EQUIP_FITTING_WEAPON "You have no trouble wielding your weapon."
+#define MES_EQUIP_HEAVY_WEAPON_STILL "You have still trouble wielding a heavy weapon."
+#define MES_EQUIP_RELIEVE_HEAVY_WEAPON "You feel relieved to put down your heavy weapon."
+#endif
