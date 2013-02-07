@@ -986,11 +986,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_TRAPS:
 		{
-#ifdef JP
-			msg_print("Ç‹ÇŒÇ‰Ç¢ëMåıÇ™ëñÇ¡ÇΩÅI");
-#else
-			msg_print("There is a bright flash of light!");
-#endif
+			msg_print(MES_FEATURE_KILLED);
 			project(NULL, 0, 1, y, x, 0, DO_EFFECT_MAKE_TRAP, PROJECT_HIDE | PROJECT_JUMP | PROJECT_GRID, -1);
 			break;
 		}

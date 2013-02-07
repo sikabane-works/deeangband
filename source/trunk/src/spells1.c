@@ -721,12 +721,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 				/* Check line of sight */
 				if(known)
 				{
-#ifdef JP
-					msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
-#else
-					msg_print("There is a bright flash of light!");
-#endif
-
+					msg_print(MES_FEATURE_KILLED);
 					obvious = TRUE;
 				}
 
@@ -772,12 +767,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 				/* Check line of sight */
 				if(known)
 				{
-#ifdef JP
-					msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
-#else
-					msg_print("There is a bright flash of light!");
-#endif
-
+					msg_print(MES_FEATURE_KILLED);
 					obvious = TRUE;
 				}
 

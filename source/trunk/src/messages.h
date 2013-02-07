@@ -254,6 +254,13 @@
 #endif
 
 #ifdef JP
+#define MES_FEATURE_KILLED "まばゆい閃光が走った！"
+#else
+#define MES_FEATURE_KILLED "There is a bright flash of light!"
+#endif
+
+#ifdef JP
+
 #define GAME_MESSAGE_TRAP_BLIND "黒いガスに包み込まれた！"
 #define GAME_MESSAGE_TRAP_CONFUSE "きらめくガスに包み込まれた！"
 #define GAME_MESSAGE_TRAP_POISON "刺激的な緑色のガスに包み込まれた！"

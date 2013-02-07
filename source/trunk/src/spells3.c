@@ -2451,11 +2451,8 @@ bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_USE, MES_OBJECT_NO_USE, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-#ifdef JP
-	msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
-#else
-	msg_print("There is a bright flash of light!");
-#endif
+	msg_print(MES_FEATURE_KILLED);
+
 	{
 		byte iy = object_ptr->fy;                 /* Y-position on map, or zero */
 		byte ix = object_ptr->fx;                 /* X-position on map, or zero */
@@ -2474,6 +2471,7 @@ bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 		object_ptr->inscription = inscription;
 		set_inventory_weight(creature_ptr);
 	}
+
 	calc_android_exp(creature_ptr);
 
 	/* Something happened */
