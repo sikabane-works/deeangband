@@ -1985,6 +1985,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_INDENTIFED "このアイテムについて特に知っていることはない。"
 #define MES_OBJECT_EXAMING(OBJECT) "%sを調べている..." ,(OBJECT)
 #define MES_OBJECT_NO_SPECIAL "特に変わったところはないようだ。"
+#define MES_OBJECT_DESTROY(OBJECT) "%sを壊した。", (OBJECT)
+#define MES_OBJECT_CANNOT_DESTROY(OBJECT) "%sは破壊不可能だ。", (OBJECT)
 #else
 #define MES_OBJECT_WHICH_INDEN "Identify which item? "
 #define MES_OBJECT_WHICH_ALL_INDEN "All items are identified. "
@@ -1995,6 +1997,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_INDENTIFED "You have no special knowledge about that item."
 #define MES_OBJECT_EXAMING(OBJECT) "Examining %s...", (OBJECT)
 #define MES_OBJECT_NO_SPECIAL "You see nothing special."
+#define MES_OBJECT_DESTROY(OBJECT) "You destroy %s.", (OBJECT)
+#define MES_OBJECT_CANNOT_DESTROY(OBJECT) "You cannot destroy %s.", (OBJECT)
 #endif
 
 #ifdef JP

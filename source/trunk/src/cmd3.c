@@ -551,10 +551,7 @@ static bool high_level_book(object_type *object_ptr)
 	return FALSE;
 }
 
-
-/*
-* Destroy an item
-*/
+// Destroy an item
 void do_cmd_destroy(creature_type *creature_ptr)
 {
 	int			item, amt = 1;
@@ -651,37 +648,24 @@ void do_cmd_destroy(creature_type *creature_ptr)
 		if(amt <= 0) return;
 	}
 
-
 	/* Describe the object */
 	old_number = object_ptr->number;
 	object_ptr->number = amt;
 	object_desc(object_name, object_ptr, 0);
 	object_ptr->number = old_number;
 
-	/* Take a turn */
-	cost_tactical_energy(creature_ptr, 100);
-
-	/* Artifacts cannot be destroyed */
+	// Artifacts cannot be destroyed
 	if(!can_player_destroy_object(creature_ptr, object_ptr))
 	{
-		cancel_tactical_action(creature_ptr);
-
-#ifdef JP
-		msg_format("%sは破壊不可能だ。", object_name);
-#else
-		msg_format("You cannot destroy %s.", object_name);
-#endif
-
+		msg_format(MES_OBJECT_CANNOT_DESTROY(object_name));
 		return;
 	}
 
-	object_copy(quest_ptr, object_ptr);
+	// Take a turn
+	cost_tactical_energy(creature_ptr, 100);
 
-#ifdef JP
-	msg_format("%sを壊した。", object_name);
-#else
-	msg_format("You destroy %s.", object_name);
-#endif
+	object_copy(quest_ptr, object_ptr);
+	msg_format(MES_OBJECT_DESTROY(object_name));
 
 	sound(SOUND_DESTITEM);
 
