@@ -2942,37 +2942,15 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 			creature_ptr->old_heavy_wield[i] = creature_ptr->heavy_wield[i];
 		}
 
-		/* Take note when "heavy weapon" changes */
+		// Take note when "heavy weapon" changes
 		if(creature_ptr->old_riding_wield[i] != creature_ptr->riding_wield[i])
 		{
 			if(creature_ptr->riding_wield[i])
-			{
-#ifdef JP
-				msg_print("この武器は乗馬中に使うにはむかないようだ。");
-#else
-				msg_print("This weapon is not suitable for use while riding.");
-#endif
-
-			}
+				msg_print(MES_EQUIP_NO_RIDING_WEAPON);
 			else if(!creature_ptr->riding)
-			{
-#ifdef JP
-				msg_print("この武器は徒歩で使いやすい。");
-#else
-				msg_print("This weapon was not suitable for use while riding.");
-#endif
-
-			}
+				msg_print(MES_EQUIP_SUITABLE_WALKING_WEAPON);
 			else if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
-			{
-#ifdef JP
-				msg_print("これなら乗馬中にぴったりだ。");
-#else
-				msg_print("This weapon is suitable for use while riding.");
-#endif
-
-			}
-			/* Save it */
+				msg_print(MES_EQUIP_RIDING_WEAPON);
 			creature_ptr->old_riding_wield[i] = creature_ptr->riding_wield[i];
 		}
 
@@ -2981,40 +2959,18 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 	if(creature_ptr->riding && (creature_ptr->old_riding_two_handed != creature_ptr->riding_two_handed))
 	{
 		if(creature_ptr->riding_two_handed)
-		{
-#ifdef JP
-			msg_format("%s馬を操れない。", (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE) ? "両手がふさがっていて" : "");
-#else
-			msg_print("You are using both hand for fighting, and you can't control a riding pet.");
-#endif
-		}
+			msg_print(MES_EQUIP_UNCONTROL_STEED);
 		else
-		{
-#ifdef JP
-			msg_format("%s馬を操れるようになった。", (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_NONE) ? "手が空いて" : "");
-#else
-			msg_print("You began to control riding pet with one hand.");
-#endif
-		}
-
+			msg_print(MES_EQUIP_CONTROL_STEED);
 		creature_ptr->old_riding_two_handed = creature_ptr->riding_two_handed;
 	}
 
 	if(has_trait(creature_ptr, TRAIT_WANT_LIGHT_WEIGHT) && (monk_armour_aux != monk_notify_aux))
 	{
 		if(heavy_armor(creature_ptr))
-#ifdef JP
-            msg_print("装備が重くてバランスを取れない。");
-#else
-			msg_print("The weight of your armor disrupts your balance.");
-#endif
+            msg_print(MES_EQUIP_HEAVY_ARMOR);
 		else
-#ifdef JP
-            msg_print("バランスがとれるようになった。");
-#else
-			msg_print("You regain your balance.");
-#endif
-
+            msg_print(MES_EQUIP_LIGHT_ARMOR);
 		monk_notify_aux = monk_armour_aux;
 	}
 
