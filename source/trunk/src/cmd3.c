@@ -556,7 +556,6 @@ void do_cmd_destroy(creature_type *creature_ptr)
 {
 	int			item, amt = 1;
 	int			old_number;
-
 	bool		force = FALSE;
 
 	object_type *object_ptr;
@@ -566,38 +565,18 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	char object_name[MAX_NLEN];
 	char out_val[MAX_NLEN+40];
 
-	cptr q, s;
-
 	free_posture(creature_ptr);
 
 	/* Hack -- force destruction */
 	if(command_arg > 0) force = TRUE;
-
-#ifdef JP
-	q = "どのアイテムを壊しますか? ";
-	s = "壊せるアイテムを持っていない。";
-#else
-	q = "Destroy which item? ";
-	s = "You have nothing to destroy.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_DESTROY, MES_OBJECT_NO_DESTROY, (USE_INVEN | USE_FLOOR), NULL, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Verify unless quantity given beforehand */
 	if(!force && (confirm_destroy || (object_value(object_ptr) > 0)))
 	{
 		object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
-
-		/* Make a verification */
-		sprintf(out_val, 
-#ifdef JP
-			"本当に%sを壊しますか? [y/n/Auto]",
-#else
-			"Really destroy %s? [y/n/Auto]",
-#endif
-			object_name);
-
+		sprintf(out_val, MES_OBJECT_DESTROY_VERIFY(object_name));
 		msg_print(NULL);
 
 		/* HACK : Add the line to message buffer */
@@ -702,13 +681,9 @@ void do_cmd_destroy(creature_type *creature_ptr)
 		else if(creature_ptr->class_idx == CLASS_PALADIN)
 		{
 			if(is_good_realm(creature_ptr->realm1))
-			{
 				if(!is_good_realm(tval2realm(quest_ptr->tval))) gain_expr = TRUE;
-			}
 			else
-			{
 				if(is_good_realm(tval2realm(quest_ptr->tval))) gain_expr = TRUE;
-			}
 		}
 
 		if(gain_expr && (creature_ptr->exp < CREATURE_MAX_EXP))

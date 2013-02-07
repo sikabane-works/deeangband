@@ -1985,8 +1985,6 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_INDENTIFED "このアイテムについて特に知っていることはない。"
 #define MES_OBJECT_EXAMING(OBJECT) "%sを調べている..." ,(OBJECT)
 #define MES_OBJECT_NO_SPECIAL "特に変わったところはないようだ。"
-#define MES_OBJECT_DESTROY(OBJECT) "%sを壊した。", (OBJECT)
-#define MES_OBJECT_CANNOT_DESTROY(OBJECT) "%sは破壊不可能だ。", (OBJECT)
 #else
 #define MES_OBJECT_WHICH_INDEN "Identify which item? "
 #define MES_OBJECT_WHICH_ALL_INDEN "All items are identified. "
@@ -1997,9 +1995,22 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_INDENTIFED "You have no special knowledge about that item."
 #define MES_OBJECT_EXAMING(OBJECT) "Examining %s...", (OBJECT)
 #define MES_OBJECT_NO_SPECIAL "You see nothing special."
+#endif
+
+#ifdef JP
+#define MES_OBJECT_DESTROY(OBJECT) "%sを壊した。", (OBJECT)
+#define MES_OBJECT_CANNOT_DESTROY(OBJECT) "%sは破壊不可能だ。", (OBJECT)
+#define MES_OBJECT_WHICH_DESTROY "どのアイテムを壊しますか? "
+#define MES_OBJECT_NO_DESTROY "壊せるアイテムを持っていない。"
+#define MES_OBJECT_DESTROY_VERIFY(OBJECT) "本当に%sを壊しますか? [y/n/Auto]", (OBJECT)
+#else
 #define MES_OBJECT_DESTROY(OBJECT) "You destroy %s.", (OBJECT)
 #define MES_OBJECT_CANNOT_DESTROY(OBJECT) "You cannot destroy %s.", (OBJECT)
+#define MES_OBJECT_WHICH_DESTROY "Destroy which item? "
+#define MES_OBJECT_NO_DESTROY "You have nothing to destroy."
+#define MES_OBJECT_DESTROY_VERIFY(OBJECT) "Really destroy %s? [y/n/Auto]", (OBJECT)
 #endif
+
 
 #ifdef JP
 #define MES_BOUNTY_DETAIL "死体を持ち帰れば報酬を差し上げます。"
