@@ -2652,19 +2652,10 @@ void do_cmd_use(creature_type *creature_ptr)
 {
 	int         item;
 	object_type *object_ptr;
-	cptr        q, s;
 
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
-#ifdef JP
-	q = "どれを使いますか？";
-	s = "使えるものがありません。";
-#else
-	q = "Use which item? ";
-	s = "You have nothing to use.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR), item_tester_hook_use, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_USE, MES_OBJECT_NO_USE, (USE_INVEN | USE_EQUIP | USE_FLOOR), item_tester_hook_use, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	switch (object_ptr->tval)

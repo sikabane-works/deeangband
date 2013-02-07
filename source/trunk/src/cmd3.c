@@ -1202,16 +1202,11 @@ void do_cmd_locate(creature_type *creature_ptr)
 		}
 	}
 
-
-	/* Recenter the map around the player */
+	// Recenter the map around the player
 	verify_panel(creature_ptr);
-
 	prepare_update(creature_ptr, PU_CREATURES);
-
 	prepare_redraw(PR_MAP);
-
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
-
 	handle_stuff(creature_ptr);
 }
 

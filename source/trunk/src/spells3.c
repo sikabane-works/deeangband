@@ -2443,21 +2443,12 @@ bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 {
 	int             item;
 	object_type     *object_ptr;
-	cptr            q, s;
 	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr);
 
 	if(only_equip) item_tester_hook = object_is_weapon_armour_ammo2;
 	else item_tester_hook = NULL;
 
-#ifdef JP
-	q = "どれを使いますか？";
-	s = "使えるものがありません。";
-#else
-	q = "Use which item? ";
-	s = "You have nothing you can use.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_USE, MES_OBJECT_NO_USE, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 #ifdef JP
