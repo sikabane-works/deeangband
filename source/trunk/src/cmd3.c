@@ -728,7 +728,7 @@ void do_cmd_observe(creature_type *creature_ptr)
 }
 
 // Remove the inscription from an object
-//XXX Mention item (when done)?
+// XXX Mention item (when done)?
 void do_cmd_uninscribe(creature_type *creature_ptr)
 {
 	int   item;
@@ -737,24 +737,12 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_UNINSCRIBE, MES_OBJECT_NO_UNINSCRIBE, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	/* Nothing to remove */
 	if(!object_ptr->inscription)
 	{
-#ifdef JP
-		msg_print("このアイテムには消すべき銘がない。");
-#else
-		msg_print("That item had no inscription to remove.");
-#endif
-
+		msg_print(MES_OBJECT_NO_INSCRIPTION);
 		return;
 	}
-
-#ifdef JP
-	msg_print("銘を消した。");
-#else
-	msg_print("Inscription removed.");
-#endif
-
+	msg_print(MES_OBJECT_REMOVE_INSCRIPTION);
 
 	/* Remove the incription */
 	object_ptr->inscription = 0;
@@ -769,9 +757,7 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 }
 
 
-//
 // Inscribe an object with a comment
-//
 void do_cmd_inscribe(creature_type *creature_ptr)
 {
 	int			item;
@@ -785,12 +771,7 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 	/* Describe the activity */
 	object_desc(object_name, object_ptr, OD_OMIT_INSCRIPTION);
 
-#ifdef JP
-	msg_format("%sに銘を刻む。", object_name);
-#else
-	msg_format("Inscribing %s.", object_name);
-#endif
-
+	msg_format(MES_OBJECT_INSCRIBING(object_name));
 	msg_print(NULL);
 
 	/* Start with nothing */
@@ -804,11 +785,7 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 	}
 
 	/* Get a new inscription (possibly empty) */
-#ifdef JP
-	if(get_string("銘", out_val, 80))
-#else
-	if(get_string("Inscription", out_val, 80))
-#endif
+	if(get_string(MES_OBJECT_INSCRIBING_PROMPT, out_val, 80))
 	{
 		/* Save the inscription */
 		object_ptr->inscription = quark_add(out_val);
@@ -823,10 +800,7 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 	}
 }
 
-
-/*
-* Inscribe caves with a comment
-*/
+// Inscribe caves with a comment
 void do_cmd_inscribe_caves(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -882,15 +856,9 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 #endif
 
 	}
-
-
 }
 
-
-
-/*
-* An "item_tester_hook" for refilling lanterns
-*/
+// An "item_tester_hook" for refilling lanterns
 static bool item_tester_refill_lantern(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Flasks of oil are okay */

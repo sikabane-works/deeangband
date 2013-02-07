@@ -2020,11 +2020,19 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_INSCRIBE "銘を刻めるアイテムがない。"
 #define MES_OBJECT_WHICH_UNINSCRIBE "どのアイテムの銘を消しますか? "
 #define MES_OBJECT_NO_UNINSCRIBE "銘を消せるアイテムがない。"
+#define MES_OBJECT_INSCRIBING(OBJECT) "%sに銘を刻む。", (OBJECT)
+#define MES_OBJECT_NO_INSCRIPTION "このアイテムには消すべき銘がない。"
+#define MES_OBJECT_REMOVE_INSCRIPTION "銘を消した。"
+#define MES_OBJECT_INSCRIBING_PROMPT "銘"
 #else
 #define MES_OBJECT_WHICH_INSCRIBE "Inscribe which item? "
 #define MES_OBJECT_NO_INSCRIBE "You have nothing to inscribe."
 #define MES_OBJECT_WHICH_UNINSCRIBE "Un-inscribe which item? "
 #define MES_OBJECT_NO_UNINSCRIBE "You have nothing to un-inscribe."
+#define MES_OBJECT_INSCRIBING(OBJECT) "Inscribing %s.", (OBJECT)
+#define MES_OBJECT_NO_INSCRIPTION "That item had no inscription to remove."
+#define MES_OBJECT_REMOVE_INSCRIPTION "Inscription removed."
+#define MES_OBJECT_INSCRIBING_PROMPT "Inscription"
 #endif
 
 
