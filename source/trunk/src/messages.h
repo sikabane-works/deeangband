@@ -1976,6 +1976,8 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_OBJECT_WHICH_OBSERVE "どのアイテムを調べますか? "
+#define MES_OBJECT_NO_OBSERVE "調べられるアイテムがない。"
 #define MES_OBJECT_WHICH_INDEN "どのアイテムを鑑定しますか? "
 #define MES_OBJECT_WHICH_ALL_INDEN "すべて鑑定済みです。 "
 #define MES_OBJECT_NO_INDEN "鑑定するべきアイテムがない。"
@@ -1986,6 +1988,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_EXAMING(OBJECT) "%sを調べている..." ,(OBJECT)
 #define MES_OBJECT_NO_SPECIAL "特に変わったところはないようだ。"
 #else
+#define MES_OBJECT_WHICH_OBSERVE "Examine which item? "
+#define MES_OBJECT_NO_OBSERVE "You have nothing to examine."
 #define MES_OBJECT_WHICH_INDEN "Identify which item? "
 #define MES_OBJECT_WHICH_ALL_INDEN "All items are identified. "
 #define MES_OBJECT_NO_INDEN "You have nothing to identify."

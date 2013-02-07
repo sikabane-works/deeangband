@@ -7144,11 +7144,7 @@ static void desc_obj_fake(int k_idx)
 
 	if(!screen_object(object_ptr, SCROBJ_FAKE_OBJECT | SCROBJ_FORCE_DETAIL))
 	{
-#ifdef JP
-		msg_print("ì¡Ç…ïœÇÌÇ¡ÇΩÇ∆Ç±ÇÎÇÕÇ»Ç¢ÇÊÇ§ÇæÅB");
-#else
-		msg_print("You see nothing special.");
-#endif
+		msg_print(MES_OBJECT_NO_SPECIAL);
 		msg_print(NULL);
 	}
 }

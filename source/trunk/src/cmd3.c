@@ -709,17 +709,8 @@ void do_cmd_observe(creature_type *creature_ptr)
 	int			item;
 	object_type		*object_ptr;
 	char		object_name[MAX_NLEN];
-	cptr q, s;
 
-#ifdef JP
-	q = "どのアイテムを調べますか? ";
-	s = "調べられるアイテムがない。";
-#else
-	q = "Examine which item? ";
-	s = "You have nothing to examine.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_OBSERVE, MES_OBJECT_NO_OBSERVE, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Require full knowledge */
@@ -731,13 +722,8 @@ void do_cmd_observe(creature_type *creature_ptr)
 
 	object_desc(object_name, object_ptr, 0);
 
-#ifdef JP
-	msg_format("%sを調べている...", object_name);
-	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("特に変わったところはないようだ。");
-#else
-	msg_format(, object_name);
-	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("You see nothing special.");
-#endif
+	msg_format(MES_OBJECT_EXAMING(object_name));
+	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print(MES_OBJECT_NO_SPECIAL);
 
 }
 
