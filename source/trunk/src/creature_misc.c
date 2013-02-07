@@ -770,7 +770,7 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		{
 			if(type == DO_EFFECT_PSY_SPEAR)
 			{
-				if(!has_trait(player_ptr, TRAIT_BLIND) && is_seen(player_ptr, target_ptr))
+				if(message && !has_trait(player_ptr, TRAIT_BLIND) && is_seen(player_ptr, target_ptr))
 				{
 #ifdef JP
 					msg_print("バリアを切り裂いた！");
@@ -830,7 +830,7 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		break;
 
 	case DO_EFFECT_ARROW:
-		if(!has_trait(target_ptr, TRAIT_BLIND) && has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
+		if(message && !has_trait(target_ptr, TRAIT_BLIND) && has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
 		{
 #ifdef JP
 			if(message) msg_print("矢を斬り捨てた！");
@@ -845,9 +845,9 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		if(has_trait(target_ptr, TRAIT_HURT_LITE))
 		{
 #ifdef JP
-			msg_print("光で肉体が焦がされた！");
+			if(message) msg_print("光で肉体が焦がされた！");
 #else
-			msg_print("The light scorches your flesh!");
+			if(message) msg_print("The light scorches your flesh!");
 #endif
 			t *= 2;
 		}
