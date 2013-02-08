@@ -2129,3 +2129,11 @@ static cptr desc_stat_neg[] =
 #define MES_DISARM_NO_TRAP "You don't see any traps."
 #define MES_DISARM_NO_TRAP_CHEST "The chest is not trapped."
 #endif
+
+#ifdef JP
+#define MES_TRAVEL_ALREADY "Ç∑Ç≈Ç…ÇªÇ±Ç…Ç¢Ç‹Ç∑ÅB"
+#define MES_TRAVEL_CANNOT "ÇªÇ±Ç…ÇÕçsÇ≠Ç±Ç∆Ç™Ç≈Ç´Ç‹ÇπÇÒÅB"
+#else
+#define MES_TRAVEL_ALREADY "You are already there."
+#define MES_TRAVEL_CANNOT "You cannot travel there!"
+#endif

@@ -1463,11 +1463,8 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 
 /*
  * Perform the basic "disarm" command
- *
  * Assume destination is a visible trap
- *
  * Assume there is no creature blocking the destination
- *
  * Returns TRUE if repeated commands may continue
  */
 
@@ -1809,11 +1806,8 @@ void do_cmd_bash(creature_type *creature_ptr)
 
 /*
  * Manipulate an adjacent grid in some way
- *
  * Attack creatures, tunnel through walls, disarm traps, open doors.
- *
  * Consider confusion XXX XXX XXX
- *
  * This command must always take a turn, to prevent free detection
  * of invisible creatures.
  */
@@ -3721,11 +3715,7 @@ void do_cmd_travel(creature_type *creature_ptr)
 
 	if((x == creature_ptr->fx) && (y == creature_ptr->fy))
 	{
-#ifdef JP
-		msg_print("‚·‚Å‚É‚»‚±‚É‚¢‚Ü‚·I");
-#else
-		msg_print("You are already there!!");
-#endif
+		msg_print(MES_TRAVEL_ALREADY);
 		return;
 	}
 
@@ -3736,11 +3726,7 @@ void do_cmd_travel(creature_type *creature_ptr)
 			have_flag(f_ptr->flags, FF_CAN_DIG) ||
 			(have_flag(f_ptr->flags, FF_DOOR) && floor_ptr->cave[y][x].mimic)))
 	{
-#ifdef JP
-		msg_print("‚»‚±‚É‚Ís‚­‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñI");
-#else
-		msg_print("You cannot travel there!");
-#endif
+		msg_print(MES_TRAVEL_CANNOT);
 		return;
 	}
 
