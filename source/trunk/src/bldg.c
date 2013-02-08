@@ -117,12 +117,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 				if(!is_member(creature_ptr, bldg))
 				{
 					action_color = TERM_L_DARK;
-#ifdef JP
-					strcpy(buff, "(•Â“X)");
-#else
-					strcpy(buff, "(closed)");
-#endif
-
+					strcpy(buff, MES_BLDG_CLOSED);
 				}
 				else if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
 					(is_member(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
@@ -1864,7 +1859,7 @@ static bool kankin(creature_type *creature_ptr)
 			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
-				msg_format(GAME_MESSAGE_GET_PRICE, 1000000L * object_ptr->number);
+				msg_format(MES_BLDG_GET_PRICE, 1000000L * object_ptr->number);
 				creature_ptr->au += 1000000L * object_ptr->number;
 				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
@@ -1887,7 +1882,7 @@ static bool kankin(creature_type *creature_ptr)
 			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
-				msg_format(GAME_MESSAGE_GET_PRICE, 200000L * object_ptr->number);
+				msg_format(MES_BLDG_GET_PRICE, 200000L * object_ptr->number);
 				creature_ptr->au += 200000L * object_ptr->number;
 				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
@@ -1910,7 +1905,7 @@ static bool kankin(creature_type *creature_ptr)
 			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
-				msg_format(GAME_MESSAGE_GET_PRICE, 100000L * object_ptr->number);
+				msg_format(MES_BLDG_GET_PRICE, 100000L * object_ptr->number);
 				creature_ptr->au += 100000L * object_ptr->number;
 				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
@@ -1931,7 +1926,7 @@ static bool kankin(creature_type *creature_ptr)
 			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
-				msg_format(GAME_MESSAGE_GET_PRICE, (species_info[today_mon].level * 50 + 100) * object_ptr->number);
+				msg_format(MES_BLDG_GET_PRICE, (species_info[today_mon].level * 50 + 100) * object_ptr->number);
 				creature_ptr->au += (species_info[today_mon].level * 50 + 100) * object_ptr->number;
 				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
@@ -1953,7 +1948,7 @@ static bool kankin(creature_type *creature_ptr)
 			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
-				msg_format(GAME_MESSAGE_GET_PRICE, (species_info[today_mon].level * 30 + 60) * object_ptr->number);
+				msg_format(MES_BLDG_GET_PRICE, (species_info[today_mon].level * 30 + 60) * object_ptr->number);
 				creature_ptr->au += (species_info[today_mon].level * 30 + 60) * object_ptr->number;
 				prepare_redraw(PR_GOLD);
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
@@ -3316,7 +3311,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	/* action restrictions */
 	if(((bldg->action_restr[i] == 1) && !is_member(creature_ptr, bldg)) || ((bldg->action_restr[i] == 2) && !is_owner(creature_ptr, bldg)))
 	{
-		msg_print(GAME_MESSAGE_BUILDING_NO_RIGHT);
+		msg_print(MES_BLDG_NO_RIGHT);
 		return;
 	}
 
@@ -3598,7 +3593,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 	if(!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_BLDG))
 	{
-		msg_print(GAME_MESSAGE_BUILDING_NO_BLDG);
+		msg_print(MES_BLDG_NO_BLDG);
 		return;
 	}
 
@@ -3611,14 +3606,14 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 	if((which == 2) && (arena_number < 0))
 	{
-		msg_print(GAME_MESSAGE_BUILDING_LOSER);
+		msg_print(MES_BLDG_LOSER);
 		return;
 	}
 	else if((which == 2) && floor_ptr->fight_arena_mode)
 	{
 		if(!arena_settled)
 		{
-			prt(GAME_MESSAGE_BUILDING_ARENA_FIGHT, 0, 0);
+			prt(MES_BLDG_ARENA_FIGHT, 0, 0);
 		}
 		else
 		{

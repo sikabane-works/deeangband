@@ -704,20 +704,22 @@
 #endif
 
 #ifdef JP
-#define GAME_MESSAGE_BUILDING_NO_BLDG "ここには建物はない。"
-#define GAME_MESSAGE_BUILDING_LOSER "「敗者に用はない。」"
-#define GAME_MESSAGE_BUILDING_ARENA_FIGHT "ゲートは閉まっている。相手があなたを待っている！"
-#define GAME_MESSAGE_BUILDING_NO_RIGHT "それを選択する権利はありません！"
+#define MES_BLDG_CLOSED "(閉店)"
+#define MES_BLDG_NO_BLDG "ここには建物はない。"
+#define MES_BLDG_LOSER "「敗者に用はない。」"
+#define MES_BLDG_ARENA_FIGHT "ゲートは閉まっている。相手があなたを待っている！"
+#define MES_BLDG_NO_RIGHT "それを選択する権利はありません！"
 
-#define GAME_MESSAGE_GET_PRICE "賞金 %ld＄を手に入れた。"
+#define MES_BLDG_GET_PRICE "賞金 %ld＄を手に入れた。"
 
 #else
-#define GAME_MESSAGE_BUILDING_NO_BLDG "You see no building here."
-#define GAME_MESSAGE_BUILDING_LOSER "'There's no place here for a LOSER like you!'"
-#define GAME_MESSAGE_BUILDING_ARENA_FIGHT "The gates are closed.  The enemy awaits!"
-#define GAME_MESSAGE_BUILDING_NO_RIGHT "You have no right to choose that!"
+#define MES_BLDG_CLOSED "(closed)"
+#define MES_BLDG_NO_BLDG "You see no building here."
+#define MES_BLDG_LOSER "'There's no place here for a LOSER like you!'"
+#define MES_BLDG_ARENA_FIGHT "The gates are closed.  The enemy awaits!"
+#define MES_BLDG_NO_RIGHT "You have no right to choose that!"
 
-#define GAME_MESSAGE_GET_PRICE "You get %ldgp."
+#define MES_BLDG_GET_PRICE "You get %ldgp."
 
 #endif
 
