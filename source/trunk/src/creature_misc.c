@@ -844,11 +844,7 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 	case DO_EFFECT_LITE:
 		if(has_trait(target_ptr, TRAIT_HURT_LITE))
 		{
-#ifdef JP
-			if(message) msg_print("光で肉体が焦がされた！");
-#else
-			if(message) msg_print("The light scorches your flesh!");
-#endif
+			if(message) msg_print(MES_DAMAGE_HURT_LITE);
 			t *= 2;
 		}
 		if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) t *= 2;
@@ -911,13 +907,7 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		{
 			t *= 4 / 9;
 			if(is_player(target_ptr) && message)
-			{
-#ifdef JP
-				msg_format("%sは時間が通り過ぎていく様子を感じた。", creature_name);
-#else
-				msg_format("You feel as if time is passing you by.");
-#endif
-			}
+				msg_format(MES_DAMEGE_RES_TIME(creature_name));
 		}
 		break;
 

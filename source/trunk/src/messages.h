@@ -2097,9 +2097,14 @@ static cptr desc_stat_neg[] =
 #define MES_DAMAGE_RES2 "には耐性がある。"
 #define MES_DAMAGE_RES3 "にはわずかに耐性がある。"
 #define MES_DAMAGE_RES4 "はひどい痛手を受けた。"
+#define MES_DAMAGE_HURT_LITE "光で肉体が焦がされた！"
+#define MES_DAMEGE_RES_TIME(CREATURE) "%sは時間が通り過ぎていく様子を感じた。", (CREATURE)
 #else
 #define MES_DAMAGE_RES1 " resists strongly."
 #define MES_DAMAGE_RES2 " resists."
 #define MES_DAMAGE_RES3 " resists a little."
 #define MES_DAMAGE_RES4 " is hit hard."
+#define MES_DAMAGE_HURT_LITE "The light scorches your flesh!"
+#define MES_DAMEGE_RES_TIME(CREATURE) "%s felt as if time is passing %s by.", (CREATURE), (CREATURE)
 #endif
+
