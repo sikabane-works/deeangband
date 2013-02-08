@@ -1910,7 +1910,6 @@ void do_cmd_spike(creature_type *creature_ptr)
 			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
-
 		else
 		{
 			cost_tactical_energy(creature_ptr, 100);
@@ -1931,7 +1930,6 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	bool more = FALSE;
 
-	
 	if(command_arg) // Allow repeated command
 	{
 		command_rep = command_arg - 1;

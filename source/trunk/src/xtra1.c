@@ -542,10 +542,7 @@ static void prt_status(creature_type *creature_ptr)
 	}
 }
 
-
-/*
- * Prints level
- */
+// Prints level
 static void prt_level(creature_type *creature_ptr)
 {
 	char tmp[32];
@@ -567,33 +564,27 @@ static void prt_level(creature_type *creature_ptr)
 // Display the experience
 static void prt_exp(creature_type *creature_ptr)
 {
-	char out_val[32];
+	char now[32], next[32];
 
-	if((!exp_need)||(has_trait(creature_ptr, TRAIT_ANDROID)))
-	{
-		(void)sprintf(out_val, "%9ld", (long)creature_ptr->exp);
-	}
+	(void)sprintf(now, "%9ld", (long)creature_ptr->exp);
+
+	if(creature_ptr->lev >= creature_ptr->max_lev)
+		(void)sprintf(next, "*********");
 	else
-	{
-		if(creature_ptr->lev >= creature_ptr->max_lev)
-		{
-			(void)sprintf(out_val, "*********");
-		}
-		else
-		{
-			(void)sprintf(out_val, "%9ld", (long)(creature_exp[creature_ptr->lev - 1] * creature_ptr->expfact / 100L) - creature_ptr->exp);
-		}
-	}
+		(void)sprintf(next, "%9ld", (long)(creature_exp[creature_ptr->lev - 1] * creature_ptr->expfact / 100L) - creature_ptr->exp);
 
+	put_str(KW_EXP_NEXT, ROW_EXP_NEXT, COL_EXP_NEXT);
 	if(creature_ptr->exp >= creature_ptr->max_exp)
 	{
 		put_str(KW_EXP, ROW_EXP, COL_EXP);
-		c_put_str(TERM_L_GREEN, out_val, ROW_EXP, COL_EXP + 7);
+		c_put_str(TERM_L_GREEN, now, ROW_EXP, COL_EXP + 10);
+		c_put_str(TERM_L_GREEN, next, ROW_EXP_NEXT, COL_EXP_NEXT + 10);
 	}
 	else
 	{
 		put_str(KW_EXP_DEC, ROW_EXP, COL_EXP);
-		c_put_str(TERM_YELLOW, out_val, ROW_EXP, COL_EXP + 7);
+		c_put_str(TERM_YELLOW, now, ROW_EXP, COL_EXP + 10);
+		c_put_str(TERM_YELLOW, next, ROW_EXP_NEXT, COL_EXP_NEXT + 10);
 	}
 }
 
@@ -603,7 +594,7 @@ static void prt_gold(creature_type *creature_ptr)
 	char tmp[32];
 	put_str(KW_MONEY, ROW_GOLD, COL_GOLD);
 	sprintf(tmp, "%9ld", (long)creature_ptr->au);
-	c_put_str(TERM_L_GREEN, tmp, ROW_GOLD, COL_GOLD + 7);
+	c_put_str(TERM_L_GREEN, tmp, ROW_GOLD, COL_GOLD + 10);
 }
 
 

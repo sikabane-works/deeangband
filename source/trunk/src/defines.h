@@ -528,8 +528,10 @@
 
 #define ROW_EXP                 2
 #define COL_EXP                 0       /* "SOUL xxxxxxxx" */
+#define ROW_EXP_NEXT            3
+#define COL_EXP_NEXT            0       /* "NEXT xxxxxxxx" */
 
-#define ROW_GOLD                3
+#define ROW_GOLD                4
 #define COL_GOLD                0       /* "AU xxxxxxxxx" */
 
 #define ROW_STAT                6
