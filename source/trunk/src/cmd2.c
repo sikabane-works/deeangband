@@ -1643,11 +1643,8 @@ void do_cmd_disarm(creature_type *creature_ptr)
 
 /*
  * Perform the basic "bash" command
- *
  * Assume destination is a closed/locked/jammed door
- *
  * Assume there is no creature blocking the destination
- *
  * Returns TRUE if repeated commands may continue
  */
 static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
@@ -1662,14 +1659,8 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 
 	cptr name = feature_name + feature_info[get_feat_mimic(c_ptr)].name;
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
-
-#ifdef JP
-	msg_format("%sに体当たりをした！", name);
-#else
-	msg_format("You smash into the %s!", name);
-#endif
+	msg_format(MES_BASH_DO(name));
 
 	/* Compare bash power to door power XXX XXX XXX */
 	temp = (bash - (temp * 10));
@@ -1682,12 +1673,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* Hack -- attempt to bash down the door */
 	if(PERCENT(temp))
 	{
-#ifdef JP
-		msg_format("%sを壊した！", name);
-#else
-		msg_format("The %s crashes open!", name);
-#endif
-
+		msg_format(MES_BASH_CRUSHED(name));
 		sound(have_flag(f_ptr->flags, FF_GLASS) ? SOUND_GLASS : SOUND_OPENDOOR);
 
 		/* Break down the door */
@@ -1704,22 +1690,14 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* Saving throw against stun */
 	else if(randint0(100) < adj_dex_safe[creature_ptr->stat_ind[STAT_DEX]] + creature_ptr->lev)
 	{
-#ifdef JP
-		msg_format("この%sは頑丈だ。", name);
-#else
-		msg_format("The %s holds firm.", name);
-#endif
+		msg_format(MES_BASH_HOLD(name));
 		more = TRUE; // Allow repeated bashing
 	}
 
 	/* High dexterity yields coolness */
 	else
 	{
-#ifdef JP
-		msg_print("体のバランスをくずしてしまった。");
-#else
-		msg_print("You are off-balance.");
-#endif
+		msg_print(MES_BASH_OFF_BALANCE);
 		(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, 1 + randint0(2), FALSE);
 	}
 

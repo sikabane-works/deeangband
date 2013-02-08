@@ -2137,3 +2137,15 @@ static cptr desc_stat_neg[] =
 #define MES_TRAVEL_ALREADY "You are already there."
 #define MES_TRAVEL_CANNOT "You cannot travel there!"
 #endif
+
+#ifdef JP
+#define MES_BASH_DO(TARGET) "%sに体当たりをした！", (TARGET)
+#define MES_BASH_CRUSHED(TARGET) "%sを壊した！", (TARGET)
+#define MES_BASH_HOLD(TARGET) "この%sは頑丈だ。", (TARGET)
+#define MES_BASH_OFF_BALANCE "体のバランスをくずしてしまった。"
+#else
+#define MES_BASH_DO(TARGET) "You smash into the %s!", (TARGET)
+#define MES_BASH_CRUSHED(TARGET) "The %s crashes open!", (TARGET)
+#define MES_BASH_HOLD(TARGET) "The %s holds firm.", (TARGET)
+#define MES_BASH_OFF_BALANCE "You are off-balance."
+#endif
