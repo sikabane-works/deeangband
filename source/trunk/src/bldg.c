@@ -1763,18 +1763,10 @@ static void today_target(creature_type *creature_ptr)
 	clear_bldg(4,18);
 
 	c_put_str(TERM_YELLOW, MES_BOUNTY_TODAY, 5, 10);
-#ifdef JP
-	sprintf(buf,"ターゲット： %s",species_name + species_ptr->name);
+	sprintf(buf, MES_BLDG_TODAY_TARGET1(species_name + species_ptr->name));
 	c_put_str(TERM_YELLOW, buf, 6, 10);
-	sprintf(buf,"死体 ---- $%d",species_ptr->level * 50 + 100);
-	sprintf(buf,"骨   ---- $%d",species_ptr->level * 30 + 60);
-#else
-	sprintf(buf,"target: %s",species_name + species_ptr->name);
-	c_put_str(TERM_YELLOW, buf, 6, 10);
-	sprintf(buf,"corpse   ---- $%d",species_ptr->level * 50 + 100);
-	sprintf(buf,"skeleton ---- $%d",species_ptr->level * 30 + 60);
-#endif
-
+	sprintf(buf,MES_BLDG_TODAY_TARGET2(species_ptr->level * 50 + 100));
+	sprintf(buf,MES_BLDG_TODAY_TARGET3(species_ptr->level * 30 + 60));
 	prt(buf, 8, 10);
 	prt(buf, 9, 10);
 }
@@ -1782,19 +1774,8 @@ static void today_target(creature_type *creature_ptr)
 static void tsuchinoko(void)
 {
 	clear_bldg(4,18);
-#ifdef JP
-	c_put_str(TERM_YELLOW, "一獲千金の大チャンス！！！", 5, 10);
-	c_put_str(TERM_YELLOW, "ターゲット：幻の珍獣「ツチノコ」", 6, 10);
-	c_put_str(TERM_WHITE, "生け捕り ---- $1,000,000", 8, 10);
-	c_put_str(TERM_WHITE, "死体     ----   $200,000", 9, 10);
-	c_put_str(TERM_WHITE, "骨       ----   $100,000", 10, 10);
-#else
-	c_put_str(TERM_YELLOW, "Big chance to quick money!!!", 5, 10);
-	c_put_str(TERM_YELLOW, "target: the rarest animal 'Tsuchinoko'", 6, 10);
-	c_put_str(TERM_WHITE, "catch alive ---- $1,000,000", 8, 10);
-	c_put_str(TERM_WHITE, "corpse      ----   $200,000", 9, 10);
-	c_put_str(TERM_WHITE, "bones       ----   $100,000", 10, 10);
-#endif
+	c_put_str(TERM_YELLOW, MES_BLDG_TSUCHINOKO1, 5, 10);
+	c_put_str(TERM_WHITE, MES_BLDG_TSUCHINOKO2, 8, 10);
 }
 
 static void shoukinkubi(void)

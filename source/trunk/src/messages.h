@@ -711,6 +711,11 @@
 #define MES_BLDG_NO_RIGHT "それを選択する権利はありません！"
 
 #define MES_BLDG_GET_PRICE "賞金 %ld＄を手に入れた。"
+#define MES_BLDG_TODAY_TARGET1(TARGET) "ターゲット： %s", (TARGET)
+#define MES_BLDG_TODAY_TARGET2(PRICE) "死体 ---- $%d", (PRICE)
+#define MES_BLDG_TODAY_TARGET3(PRICE) "骨   ---- $%d", (PRICE)
+#define MES_BLDG_TSUCHINOKO1 "一獲千金の大チャンス！！！\nターゲット：幻の珍獣「ツチノコ」"
+#define MES_BLDG_TSUCHINOKO2 "生け捕り ---- $1,000,000\n死体     ----   $200,000\n骨       ----   $100,000"
 
 #else
 #define MES_BLDG_CLOSED "(closed)"
@@ -720,6 +725,11 @@
 #define MES_BLDG_NO_RIGHT "You have no right to choose that!"
 
 #define MES_BLDG_GET_PRICE "You get %ldgp."
+#define MES_BLDG_TODAY_TARGET1(TARGET) "target: %s", (TARGET)
+#define MES_BLDG_TODAY_TARGET2(PRICE) "corpse   ---- $%d", (PRICE)
+#define MES_BLDG_TODAY_TARGET3(PRICE) "skeleton ---- $%d", (PRICE)
+#define MES_BLDG_TSUCHINOKO1 "Big chance to quick money!!!\ntarget: the rarest animal 'Tsuchinoko'"
+#define MES_BLDG_TSUCHINOKO2 "catch alive ---- $1,000,000\ncorpse      ----   $200,000\nbones       ----   $100,000"
 
 #endif
 
