@@ -2700,7 +2700,6 @@ option_type option_info[] =
 	{ &compress_savefile, FALSE, OPT_PAGE_TEXT, 1, 26, "compress_savefile", "セーブ・ファイル中のメッセージを圧縮する" },
 	{ &abbrev_extra,  FALSE, OPT_PAGE_TEXT, 2, 10, "abbrev_extra",   "アイテムに追加耐性/能力の略称を刻む" },
 	{ &abbrev_all,    FALSE, OPT_PAGE_TEXT, 2, 11, "abbrev_all",     "アイテムに全ての耐性/能力の略称を刻む" },
-	{ &exp_need,      FALSE, OPT_PAGE_TEXT, 2, 12, "exp_need",       "次のレベルに必要な経験値を表示する" },
 	{ &ignore_unview, FALSE, OPT_PAGE_TEXT, 2, 13, "ignore_unview",  "視界外のクリーチャーの行動を表示しない" },
 #else
 	{ &show_item_graph, TRUE, OPT_PAGE_TEXT, 2, 0, "show_item_graph", "Show items graphics" },
@@ -2708,7 +2707,6 @@ option_type option_info[] =
 	{ &compress_savefile, FALSE, OPT_PAGE_TEXT, 1, 26, "compress_savefile", "Compress messages in savefiles" },
 	{ &abbrev_extra,  FALSE, OPT_PAGE_TEXT, 2, 10, "abbrev_extra",   "Describe obj's extra resistances by abbreviation" },
 	{ &abbrev_all,    FALSE, OPT_PAGE_TEXT, 2, 11, "abbrev_all",     "Describe obj's all resistances by abbreviation" },
-	{ &exp_need,      FALSE, OPT_PAGE_TEXT, 2, 12, "exp_need",       "Show the experience needed for next level" },
 	{ &ignore_unview, FALSE, OPT_PAGE_TEXT, 2, 13, "ignore_unview",  "Ignore whenever any creature does" },
 #endif
 

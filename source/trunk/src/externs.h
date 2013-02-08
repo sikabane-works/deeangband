@@ -238,7 +238,6 @@ extern bool equippy_chars;	/* Display 'equippy' chars */
 extern bool compress_savefile;	/* Compress messages in savefiles */
 extern bool abbrev_extra;	/* Describe obj's extra resistances by abbreviation */
 extern bool abbrev_all;	/* Describe obj's all resistances by abbreviation */
-extern bool exp_need;	/* Show the experience needed for next level */
 extern bool ignore_unview;	/* Ignore whenever any creature does */
 
 
