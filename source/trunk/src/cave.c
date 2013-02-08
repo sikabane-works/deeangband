@@ -1718,7 +1718,7 @@ void prt_path(creature_type *creature_ptr, int range, int y, int x)
 	u16b path_g[512];
 	int default_color = TERM_SLATE;
 
-	if(!display_path || -1 == range) return;
+	if(range <= 0) return;
 
 	// Get projection path
 	path_n = project_path(path_g, (range ? range : MAX_RANGE), floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);

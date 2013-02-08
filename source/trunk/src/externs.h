@@ -223,11 +223,8 @@ extern bool fresh_before;	/* Flush output while continuous command */
 extern bool fresh_after;	/* Flush output after creature's move */
 extern bool fresh_message;	/* Flush output after every message */
 extern bool hilite_player;	/* Hilite the player with the cursor */
-extern bool display_path;	/* Display actual path before shooting */
 
-
-/*** Text Display Options ***/
-
+// Text Display Options
 extern bool plain_descriptions;	/* Plain object descriptions */
 extern bool plain_pickup;	/* Plain pickup messages(japanese only) */
 extern bool always_show_list;	/* Always show list when choosing items */

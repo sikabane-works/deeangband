@@ -47,7 +47,6 @@ Y:fresh_before
 X:fresh_after
 X:fresh_message
 X:hilite_player
-Y:display_path
 
 ##### Text Display Options #####
 

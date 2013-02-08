@@ -2670,12 +2670,10 @@ option_type option_info[] =
 	{ &fresh_after,   FALSE, OPT_PAGE_MAPSCREEN, 1, 24, "fresh_after",    "コマンド後に画面を常に再描画し続ける" },
 	{ &fresh_message, FALSE, OPT_PAGE_MAPSCREEN, 1, 25, "fresh_message",  "メッセージの後に画面を再描画する" },
 	{ &hilite_player, FALSE, OPT_PAGE_MAPSCREEN, 1, 27, "hilite_player",  "プレイヤーにカーソルを合わせる" },
-	{ &display_path,  FALSE, OPT_PAGE_MAPSCREEN, 2, 8, "display_path",   "魔法や矢の軌跡を表示する" },
 #else
 	{ &fresh_after,   FALSE, OPT_PAGE_MAPSCREEN, 1, 24, "fresh_after",    "Flush output after creature's move" },
 	{ &fresh_message, FALSE, OPT_PAGE_MAPSCREEN, 1, 25, "fresh_message",  "Flush output after every message" },
 	{ &hilite_player, FALSE, OPT_PAGE_MAPSCREEN, 1, 27, "hilite_player",  "Hilite the player with the cursor" },
-	{ &display_path,  FALSE, OPT_PAGE_MAPSCREEN, 2, 8, "display_path",   "Display actual path before shooting" },
 #endif
 
 	/*** Text Display Options ***/
@@ -2869,8 +2867,7 @@ option_type option_info[] =
 
 	/*** End of Table ***/
 
-	{ NULL,           0, 0, 0, 0,
-	NULL,             NULL }
+	{ NULL,           0, 0, 0, 0, NULL,             NULL }
 };
 
 

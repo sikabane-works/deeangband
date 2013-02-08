@@ -185,7 +185,6 @@ bool fresh_before;			// Flush output while continuous command
 bool fresh_after;			// Flush output after creature's move
 bool fresh_message;			// Flush output after every message
 bool hilite_player;			// Hilite the player with the cursor
-bool display_path;			// Display actual path before shooting
 
 /*** Text Display Options ***/
 
