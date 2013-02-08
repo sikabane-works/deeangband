@@ -2164,3 +2164,11 @@ static cptr desc_stat_neg[] =
 #define MES_SPIKE_NO_SPIKE "You have no spikes!"
 #define MES_SPIKE_JAM(TARGET) "You jam the %s with a spike.", (TARGET)
 #endif
+
+#ifdef JP
+#define MES_TIME_STRANGE "•Ï‚È‚¾B"
+#define MES_TIME_DETAIL(DAY, HH, MM) "%s“ú–Ú, ‚Í%d:%02d %s‚Å‚·B", DAY, (HH % 12 == 0) ? 12 : (HH % 12), MM, (HH < 12) ? "AM" : "PM"
+#else
+#define MES_TIME_STRANGE "It is a strange time."
+#define MES_TIME_DETAIL(DAY, HH, MM) "This is day %s. The time is %d:%02d %s.", DAY, (HH % 12 == 0) ? 12 : (HH % 12), MM, (HH < 12) ? "AM" : "PM"
+#endif

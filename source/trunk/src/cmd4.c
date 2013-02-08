@@ -8886,26 +8886,17 @@ void do_cmd_knowledge(creature_type *creature_ptr)
  */
 void do_cmd_checkquest(void)
 {
-	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
-
 	screen_save();
-
-	/* Quest info */
 	do_cmd_knowledge_quests();
-
 	screen_load();
 }
 
-
-/*
- * Display the time and date
- */
+// Display the time and date
 void do_cmd_time(creature_type *creature_ptr)
 {
 	int day, hour, min, full, start, end, num;
 	char desc[1024];
-
 	char buf[1024];
 	char day_buf[10];
 
@@ -8917,29 +8908,13 @@ void do_cmd_time(creature_type *creature_ptr)
 
 	start = 9999;
 	end = -9999;
-
 	num = 0;
 
-#ifdef JP
-	strcpy(desc, "ïœÇ»éûçèÇæÅB");
-#else
-	strcpy(desc, "It is a strange time.");
-#endif
-
+	strcpy(desc, MES_TIME_STRANGE);
 
 	if(day < MAX_DAYS) sprintf(day_buf, "%d", day);
 	else strcpy(day_buf, "*****");
-
-#ifdef JP
-	msg_format("%sì˙ñ⁄, éûçèÇÕ%d:%02d %sÇ≈Ç∑ÅB",
-		   day_buf, (hour % 12 == 0) ? 12 : (hour % 12),
-		   min, (hour < 12) ? "AM" : "PM");
-#else
-	msg_format("This is day %s. The time is %d:%02d %s.",
-		   day_buf, (hour % 12 == 0) ? 12 : (hour % 12),
-		   min, (hour < 12) ? "AM" : "PM");
-#endif
-
+	msg_format(MES_TIME_DETAIL(day_buf, hour, min));
 
 	/* Find the path */
 	if(!randint0(10) || has_trait(creature_ptr, TRAIT_HALLUCINATION))
