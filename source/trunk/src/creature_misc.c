@@ -769,16 +769,8 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		if(!average)
 		{
 			if(type == DO_EFFECT_PSY_SPEAR)
-			{
 				if(message && !has_trait(player_ptr, TRAIT_BLIND) && is_seen(player_ptr, target_ptr))
-				{
-#ifdef JP
-					msg_print("ÉoÉäÉAÇêÿÇËóÙÇ¢ÇΩÅI");
-#else
-					msg_print("The barrier is penetrated!");
-#endif
-				}
-			}
+					msg_print(MES_DAMAGE_VOID_INVULN);
 			else if(!one_in_(PENETRATE_INVULNERABILITY)) return 0; // No Damage
 		}
 		else if(type != DO_EFFECT_PSY_SPEAR) t /= PENETRATE_INVULNERABILITY;
@@ -907,7 +899,7 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		{
 			t *= 4 / 9;
 			if(is_player(target_ptr) && message)
-				msg_format(MES_DAMEGE_RES_TIME(creature_name));
+				msg_format(MES_DAMAGE_RES_TIME(creature_name));
 		}
 		break;
 
