@@ -1418,15 +1418,8 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	/* Always have a small chance of success */
 	if(j < 2) j = 2;
 
-#ifdef JP
-	if(!object_is_known(object_ptr)) msg_print("トラップが見あたらない。");
-	else if(object_ptr->pval <= 0) msg_print("箱にはトラップが仕掛けられていない。");
-	else if(!chest_traps[object_ptr->pval]) msg_print("箱にはトラップが仕掛けられていない。");
-#else
-	if(!object_is_known(object_ptr)) msg_print("I don't see any traps.");
-	else if(object_ptr->pval <= 0) msg_print("The chest is not trapped.");
-	else if(!chest_traps[object_ptr->pval]) msg_print("The chest is not trapped.");
-#endif
+	if(!object_is_known(object_ptr)) msg_print(MES_DISARM_NO_TRAP);
+	else if(object_ptr->pval <= 0 || !chest_traps[object_ptr->pval]) msg_print(MES_DISARM_NO_TRAP_CHEST);
 	else if(PERCENT(j)) // Success (get a lot of experience)
 	{
 #ifdef JP

@@ -2122,3 +2122,10 @@ static cptr desc_stat_neg[] =
 #define MES_DAMAGE_VOID_INVULN "The barrier is penetrated!"
 #endif
 
+#ifdef JP
+#define MES_DISARM_NO_TRAP "トラップが見あたらない。"
+#define MES_DISARM_NO_TRAP_CHEST "箱にはトラップが仕掛けられていない。"
+#else
+#define MES_DISARM_NO_TRAP "You don't see any traps."
+#define MES_DISARM_NO_TRAP_CHEST "The chest is not trapped."
+#endif
