@@ -2797,7 +2797,6 @@ option_type option_info[] =
 	{ &ironman_downward, FALSE, OPT_PAGE_BIRTH, 6, 4, "ironman_downward", "(鉄人用)帰還と上り階段なし(*)" },
 	{ &ironman_empty_levels, FALSE, OPT_PAGE_BIRTH, 6, 8, "ironman_empty_levels", "(鉄人用)常に空っぽのアリーナレベルを生成(*)" },
 	{ &ironman_rooms, FALSE, OPT_PAGE_BIRTH, 6, 12, "ironman_rooms",  "(鉄人用)常に普通でない部屋を生成する(*)" },
-	{ &preserve_mode, TRUE, OPT_PAGE_BIRTH, 6, 14, "preserve_mode",  "伝説のアイテムを取り逃しても再生成される(*)" },
 #else
 	{ &manual_haggle, FALSE, OPT_PAGE_BIRTH, 1, 0, "manual_haggle",  "Manually haggle in stores" },
 	{ &smart_learn,   TRUE, OPT_PAGE_BIRTH, 1, 14, "smart_learn",    "Creatures learn from their mistakes (*)" },
@@ -2806,7 +2805,6 @@ option_type option_info[] =
 	{ &ironman_small_levels, FALSE, OPT_PAGE_BIRTH, 6, 3, "ironman_small_levels", "Always create unusually small dungeon levels (*)" },
 	{ &ironman_downward, FALSE, OPT_PAGE_BIRTH, 6, 4, "ironman_downward", "Disable recall and use of up stairs (*)" },
 	{ &ironman_empty_levels, FALSE, OPT_PAGE_BIRTH, 6, 8, "ironman_empty_levels", "Always create empty 'arena' levels (*)" },
-	{ &preserve_mode, TRUE, OPT_PAGE_BIRTH, 6, 14, "preserve_mode",  "Preserve artifacts (*)" },
 #endif
 
 	/*** Easy Object Auto-Destroyer ***/

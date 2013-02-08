@@ -984,7 +984,6 @@ static void rd_extra(void)
 
 	/* Read arena and rewards information */
 	rd_s16b(&arena_number);
-	rd_byte((byte *)&preserve_mode);
 
 	max = (byte)max_dungeon_idx;
 	rd_byte(&max);

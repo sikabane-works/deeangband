@@ -246,7 +246,6 @@ bool ironman_small_levels;	// Always create unusually small dungeon levels (*)
 bool ironman_downward;		// Disable recall and use of up stairs (*)
 bool ironman_empty_levels;	// Always create empty 'arena' levels (*)
 bool ironman_rooms;			// Always generate very unusual rooms (*)
-bool preserve_mode;			// Preserve artifacts (*)
 
 /*** Easy Object Auto-Destroyer ***/
 

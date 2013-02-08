@@ -288,7 +288,6 @@ extern bool ironman_small_levels;	/* Always create unusually small dungeon level
 extern bool ironman_downward;	/* Disable recall and use of up stairs (*) */
 extern bool ironman_empty_levels;	/* Always create empty 'arena' levels (*) */
 extern bool ironman_rooms;	/* Always generate very unusual rooms (*) */
-extern bool preserve_mode;	/* Preserve artifacts (*) */
 
 
 /*** Easy Object Auto-Destroyer ***/

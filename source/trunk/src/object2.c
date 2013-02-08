@@ -357,15 +357,11 @@ void wipe_object_list(int floor_id)
 		if(!is_valid_object(object_ptr)) continue;
 		if(floor_id && object_ptr->floor_id != floor_id) continue;
 
-		/* Mega-Hack -- preserve artifacts */
-		if(preserve_mode)
+		/* Hack -- Preserve unknown artifacts */
+		if(object_is_fixed_artifact(object_ptr) && !object_is_known(object_ptr))
 		{
-			/* Hack -- Preserve unknown artifacts */
-			if(object_is_fixed_artifact(object_ptr) && !object_is_known(object_ptr))
-			{
-				/* Mega-Hack -- Preserve the artifact */
-				artifact_info[object_ptr->name1].cur_num = 0;
-			}
+			/* Mega-Hack -- Preserve the artifact */
+			artifact_info[object_ptr->name1].cur_num = 0;
 		}
 
 
@@ -3294,7 +3290,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 			}
 
 			// Mega-Hack -- preserve artifacts
-			if(preserve_mode && object_is_fixed_artifact(object2_ptr) && !object_is_known(object2_ptr)) artifact_info[object2_ptr->name1].cur_num = 0;
+			if(object_is_fixed_artifact(object2_ptr) && !object_is_known(object2_ptr)) artifact_info[object2_ptr->name1].cur_num = 0;
 
 			return 0; // Failure
 		}

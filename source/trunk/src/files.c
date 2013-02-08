@@ -4149,8 +4149,6 @@ static void dump_aux_options(creature_type *creature_ptr, FILE *fff)
 
 #ifdef JP
 	fprintf(fff, "\n  [オプション設定]\n");
-	if(preserve_mode) fprintf(fff, "\n 保存モード:         ON");
-	else fprintf(fff, "\n 保存モード:         OFF");
 
 	if(ironman_small_levels) fprintf(fff, "\n 小さいダンジョン:   ALWAYS");
 	else if(always_small_levels) fprintf(fff, "\n 小さいダンジョン:   ON");
@@ -4170,8 +4168,6 @@ static void dump_aux_options(creature_type *creature_ptr, FILE *fff)
 
 #else
 	fprintf(fff, "\n  [Option Settings]\n");
-	if(preserve_mode) fprintf(fff, "\n Preserve Mode:      ON");
-	else fprintf(fff, "\n Preserve Mode:      OFF");
 
 	if(ironman_small_levels) fprintf(fff, "\n Small Levels:       ALWAYS");
 	else if(always_small_levels) fprintf(fff, "\n Small Levels:       ON");
@@ -5700,7 +5696,6 @@ long total_points(creature_type *player_ptr)
 	u32b point, point_h, point_l;
 	int arena_win = MIN(arena_number, MAX_ARENA_MONS);
 
-	if(!preserve_mode) mult += 10;
 	if(!smart_learn) mult -= 20;
 	if(smart_cheat) mult += 30;
 	if(ironman_shops) mult += 50;

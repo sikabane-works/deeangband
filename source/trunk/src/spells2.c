@@ -1631,7 +1631,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			}
 
 			/* During generation, destroyed artifacts are "preserved" */
-			if(preserve_mode || in_generate)
+			if(in_generate)
 			{
 				s16b this_object_idx, next_object_idx = 0;
 

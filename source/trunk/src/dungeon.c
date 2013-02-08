@@ -2803,7 +2803,6 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 			if(cost > 10000L) delta += 10 * base;
 			if(cost > 50000L) delta += 10 * base;
 			if(cost > 100000L) delta += 10 * base;
-			if(!preserve_mode) return 1; // Special feeling
 		}
 
 		if(!object_is_cursed(object_ptr) && !object_is_broken(object_ptr) && 
