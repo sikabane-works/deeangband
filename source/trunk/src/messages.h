@@ -2139,13 +2139,25 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_BASH_NO_TARGET "そこには体当たりするものが見当たらない。"
 #define MES_BASH_DO(TARGET) "%sに体当たりをした！", (TARGET)
 #define MES_BASH_CRUSHED(TARGET) "%sを壊した！", (TARGET)
 #define MES_BASH_HOLD(TARGET) "この%sは頑丈だ。", (TARGET)
 #define MES_BASH_OFF_BALANCE "体のバランスをくずしてしまった。"
 #else
+#define MES_BASH_NO_TARGET "You see nothing there to bash."
 #define MES_BASH_DO(TARGET) "You smash into the %s!", (TARGET)
 #define MES_BASH_CRUSHED(TARGET) "The %s crashes open!", (TARGET)
 #define MES_BASH_HOLD(TARGET) "The %s holds firm.", (TARGET)
 #define MES_BASH_OFF_BALANCE "You are off-balance."
+#endif
+
+#ifdef JP
+#define MES_SPIKE_NO_TARGET "そこにはくさびを打てるものが見当たらない。"
+#define MES_SPIKE_NO_SPIKE "くさびを持っていない。"
+#define MES_SPIKE_JAM(TARGET) "%sにくさびを打ち込んだ。", (TARGET)
+#else
+#define MES_SPIKE_NO_TARGET "You see nothing there to spike."
+#define MES_SPIKE_NO_SPIKE "You have no spikes!"
+#define MES_SPIKE_JAM(TARGET) "You jam the %s with a spike.", (TARGET)
 #endif

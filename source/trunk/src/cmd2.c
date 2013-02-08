@@ -1752,14 +1752,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 
 		/* Nothing useful */
 		if(!have_flag(feature_info[feat].flags, FF_BASH))
-		{
-#ifdef JP
-			msg_print("そこには体当たりするものが見当たらない。");
-#else
-			msg_print("You see nothing there to bash.");
-#endif
-
-		}
+			msg_print(MES_BASH_NO_TARGET);
 
 		/* Creature in the way */
 		else if(c_ptr->creature_idx)
@@ -1904,24 +1897,11 @@ void do_cmd_spike(creature_type *creature_ptr)
 
 		/* Require closed door */
 		if(!have_flag(feature_info[feat].flags, FF_SPIKE))
-		{
-#ifdef JP
-			msg_print("そこにはくさびを打てるものが見当たらない。");
-#else
-			msg_print("You see nothing there to spike.");
-#endif
-
-		}
+			msg_print(MES_SPIKE_NO_TARGET);
 
 		/* Get a spike */
 		else if(!get_spike(creature_ptr, &item))
-		{
-#ifdef JP
-			msg_print("くさびを持っていない！");
-#else
-			msg_print("You have no spikes!");
-#endif
-		}
+			msg_print(MES_SPIKE_NO_SPIKE);
 
 		/* Is a creature in the way? */
 		else if(c_ptr->creature_idx)
@@ -1931,17 +1911,10 @@ void do_cmd_spike(creature_type *creature_ptr)
 			close_combat(creature_ptr, y, x, 0);
 		}
 
-		/* Go for it */
 		else
 		{
 			cost_tactical_energy(creature_ptr, 100);
-
-			/* Successful jamming */
-#ifdef JP
-			msg_format("%sにくさびを打ち込んだ。", feature_name + feature_info[feat].name);
-#else
-			msg_format("You jam the %s with a spike.", feature_name + feature_info[feat].name);
-#endif
+			msg_format(MES_SPIKE_JAM(feature_name + feature_info[feat].name));
 			cave_alter_feat(floor_ptr, y, x, FF_SPIKE);
 			inven_item_increase(creature_ptr, item, -1);
 			inven_item_describe(creature_ptr, item);
