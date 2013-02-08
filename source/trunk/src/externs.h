@@ -246,7 +246,6 @@ extern bool ignore_unview;	/* Ignore whenever any creature does */
 extern bool stack_force_notes;	/* Merge inscriptions when stacking */
 extern bool stack_force_costs;	/* Merge discounts when stacking */
 extern bool expand_list;	/* Expand the power of the list commands */
-extern bool small_levels;	/* Allow unusually small dungeon levels */
 extern bool always_small_levels;	/* Always create unusually small dungeon levels */
 extern bool empty_levels;	/* Allow empty 'arena' levels */
 extern bool bound_walls_perm;	/* Boundary walls become 'permanent wall' */

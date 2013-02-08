@@ -206,7 +206,6 @@ bool ignore_unview;			// Ignore whenever any creature does
 bool stack_force_notes;		// Merge inscriptions when stacking
 bool stack_force_costs;		// Merge discounts when stacking
 bool expand_list;			// Expand the power of the list commands
-bool small_levels;			// Allow unusually small dungeon levels
 bool always_small_levels;	// Always create unusually small dungeon levels
 bool empty_levels;			// Allow empty 'arena' levels
 bool bound_walls_perm;		// Boundary walls become 'permanent wall'

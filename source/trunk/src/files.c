@@ -4153,7 +4153,6 @@ static void dump_aux_options(creature_type *creature_ptr, FILE *fff)
 	else fprintf(fff, "\n 保存モード:         OFF");
 
 	if(ironman_small_levels) fprintf(fff, "\n 小さいダンジョン:   ALWAYS");
-	else if(small_levels) fprintf(fff, "\n 小さいダンジョン:   ENABLED");
 	else if(always_small_levels) fprintf(fff, "\n 小さいダンジョン:   ON");
 	else fprintf(fff, "\n 小さいダンジョン:   OFF");
 
@@ -4176,7 +4175,6 @@ static void dump_aux_options(creature_type *creature_ptr, FILE *fff)
 
 	if(ironman_small_levels) fprintf(fff, "\n Small Levels:       ALWAYS");
 	else if(always_small_levels) fprintf(fff, "\n Small Levels:       ON");
-	else if(small_levels) fprintf(fff, "\n Small Levels:       ENABLED");
 	else fprintf(fff, "\n Small Levels:       OFF");
 
 	if(ironman_shops) fprintf(fff, "\n No Shops:           ON");

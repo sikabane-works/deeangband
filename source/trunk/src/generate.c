@@ -581,16 +581,14 @@ static void set_bound_perm_wall(cave_type *c_ptr)
 }
 
 
-/*
- * Generate various caverns and lakes
- *
- * There were moved from create_cave_structure().
- */
+
+// Generate various caverns and lakes
+// There were moved from create_cave_structure().
 static void generate_caverns_and_lakes(floor_type *floor_ptr)
 {
 #ifdef ALLOW_CAVERNS_AND_LAKES
 	/* Possible "destroyed" level */
-	if((floor_ptr->floor_level > 30) && one_in_(DUN_DEST*2) && (small_levels) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DESTROY))
+	if((floor_ptr->floor_level > 30) && one_in_(DUN_DEST*2) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DESTROY))
 	{
 		dungeon_ptr->destroyed = TRUE;
 
@@ -1334,7 +1332,7 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 		return TRUE;
 	}
 
-	if((always_small_levels || ironman_small_levels || (one_in_(SMALL_LEVEL) && small_levels) ||
+	if((always_small_levels || ironman_small_levels || one_in_(SMALL_LEVEL) ||
 	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER) ||
 	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_SMALLEST)) &&
 	    !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BIG))
