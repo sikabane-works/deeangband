@@ -1597,7 +1597,7 @@ static hist_type bg[] =
 #endif
 };
 
-static cptr realm_jouhou[VALID_REALM] =
+static cptr realm_jouhou[MAX_REALMS] =
 {
 #ifdef JP
 "生命は回復能力に優れた魔法です。治療や防御、感知魔法が多く含まれていますが、攻撃呪文もわずかに持っています。特に高レベルの呪文にはアンデッドを塵に帰す力をあると言われています。",
@@ -1655,7 +1655,7 @@ static cptr realm_jouhou[VALID_REALM] =
 #endif
 };
 
-static char realm_subinfo[VALID_REALM][41] =
+static char realm_subinfo[MAX_REALMS][41] =
 {
 #ifdef JP
 "感知と防御と回復に優れています",
@@ -1793,7 +1793,7 @@ static void show_help(cptr helpfile)
 static int choose_realm(s32b choices, bool npc)
 {
 	int i;
-	selection re[MAX_REALM + 3];
+	selection re[MAX_REALMS + 3];
 	int picks[VALID_REALM] = {0};
 	int n = 0;
 

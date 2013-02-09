@@ -397,9 +397,7 @@
 #define CH_HISSATSU     0x10000
 #define CH_HEX          0x20000
 
-/*
- * Magic realms
- */
+// Magic realms
 #define REALM_NONE         0
 #define REALM_LIFE         1
 #define REALM_SORCERY      2
@@ -411,20 +409,19 @@
 #define REALM_CRAFT        8
 #define REALM_DAEMON       9
 #define REALM_CRUSADE      10
-#define MAX_MAGIC          11
-
 #define MIN_TECHNIC        16
 #define REALM_MUSIC        16
 #define REALM_HISSATSU     17
 #define REALM_HEX          18
-#define MAX_REALM          19
+#define MAX_REALMS         19
+#define MAX_REALM         19
 
-#define VALID_REALM        (MAX_REALM + MAX_MAGIC - MIN_TECHNIC + 1)
-#define NUM_TECHNIC        (MAX_REALM - MIN_TECHNIC + 1)
+#define VALID_REALM        (MAX_REALMS - MIN_TECHNIC + 1)
+#define NUM_TECHNIC        (MAX_REALMS - MIN_TECHNIC + 1)
 
-#define is_magic(A) ((((A) > REALM_NONE) && ((A) < MAX_MAGIC + 1)) ? TRUE : FALSE)
+#define is_magic(A) ((((A) > REALM_NONE) && ((A) < MAX_REALMS + 1)) ? TRUE : FALSE)
 #define tval2realm(A) ((A) - TV_LIFE_BOOK + 1)
-#define technic2magic(A)      (is_magic(A) ? (A) : (A) - MIN_TECHNIC + 1 + MAX_MAGIC)
+#define technic2magic(A)      (is_magic(A) ? (A) : (A) - MIN_TECHNIC + 1 + MAX_REALMS)
 #define is_good_realm(REALM)   ((REALM) == REALM_LIFE || (REALM) == REALM_CRUSADE)
 
 /*

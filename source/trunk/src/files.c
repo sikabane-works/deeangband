@@ -4347,7 +4347,7 @@ static void dump_aux_realm_history(creature_type *creature_ptr, FILE *fff)
 		int i;
 
 		fputc('\n', fff);
-		for (i = 0; i < MAX_MAGIC; i++)
+		for (i = 0; i < MAX_REALMS; i++)
 		{
 			if(!(creature_ptr->old_realm & 1L << i)) continue;
 #ifdef JP

@@ -1033,41 +1033,25 @@ errr init_vault_info(void)
 	return init_info("vault_info", &v_head, (void*)&vault_info, &vault_name, &vault_text, NULL);
 }
 
-
-/*
- * Initialize the "skill_info" array
- */
+// Initialize the "skill_info" array
 static errr init_skill_info(void)
 {
-	/* Init the header */
 	init_header(&s_head, MAX_CLASS, sizeof(skill_table));
-
-	/* Save a pointer to the parsing function */
 	s_head.parse_info_txt = parse_skill_info;
-
 	return init_info("skill_info", &s_head, NULL, NULL, NULL, NULL);
 }
 
-
-/*
- * Initialize the "magic_info" array
- */
+// Initialize the "magic_info" array
 static errr init_magic_info(void)
 {
-	/* Init the header */
 	init_header(&m_head, MAX_CLASS, sizeof(magic_table_type));
-
-	/* Save a pointer to the parsing function */
 	m_head.parse_info_txt = parse_magic_info;
-
 	return init_info("magic_info", &m_head, (void*)&magic_info, NULL, NULL, NULL);
 }
-
 
 // Initialize misc. values
 static errr init_misc(void)
 {
-	// Initialize the values
 	process_dungeon_file(NULL, "misc.txt", 0, 0, 0, 0, 0, 0);
 	return 0;
 }
@@ -1113,7 +1097,7 @@ errr init_buildings(void)
 			building[i].member_race[j] = 0;
 		}
 
-		for (j = 0; j < MAX_MAGIC+1; j++)
+		for (j = 0; j < MAX_REALMS+1; j++)
 		{
 			building[i].member_realm[j] = 0;
 		}

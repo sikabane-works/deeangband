@@ -6566,9 +6566,9 @@ static errr parse_line_building(char *buf)
 		/* Building Realms */
 		case 'M':
 		{
-			if(tokenize(s+2, MAX_MAGIC, zz, 0) == MAX_MAGIC)
+			if(tokenize(s+2, MAX_REALMS, zz, 0) == MAX_REALMS)
 			{
-				for (i = 0; i < MAX_MAGIC; i++)
+				for (i = 0; i < MAX_REALMS; i++)
 				{
 					building[index].member_realm[i+1] = atoi(zz[i]);
 				}

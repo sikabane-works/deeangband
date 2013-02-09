@@ -842,10 +842,10 @@ struct magic_table_type
 	int spell_stat;		/* Stat for spells (if any)  */
 	int spell_type;		/* Spell type (mage/priest) */
 
-	int spell_first;		/* Level of first spell */
-	int spell_weight;		/* Weight that hurts spells */
+	int spell_first;	/* Level of first spell */
+	int spell_weight;	/* Weight that hurts spells */
 
-	magic_type info[MAX_MAGIC][32];    /* The available spells */
+	magic_type info[MAX_REALMS][32];    /* The available spells */
 };
 
 
@@ -1263,7 +1263,7 @@ struct creature_type
 	byte spell_order[64];	// order spells learned/remembered/forgotten 
 
 	s16b skill_exp[MAX_SKILLS];       // Proficiency of misc. skill 
-	s16b spell_exp[MAX_REALM];
+	s16b spell_exp[MAX_REALMS];
 
 	s16b mane_spell[MAX_MANE];
 	s16b mane_dam[MAX_MANE];
@@ -1588,7 +1588,7 @@ struct building_type
 
 	s16b member_class[MAX_CLASS];   // which classes are part of guild
 	s16b member_race[MAX_RACES];    // which classes are part of guild
-	s16b member_realm[MAX_MAGIC+1]; // which realms are part of guild
+	s16b member_realm[MAX_REALMS+1]; // which realms are part of guild
 };
 
 

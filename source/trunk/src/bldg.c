@@ -42,7 +42,7 @@ static bool is_member(creature_type *creature_ptr, building_type *bldg)
 	{
 		int i;
 		bool OK = FALSE;
-		for (i = 0; i < MAX_MAGIC; i++) if(bldg->member_realm[i+1]) OK = TRUE;
+		for (i = 0; i < MAX_REALMS; i++) if(bldg->member_realm[i+1]) OK = TRUE;
 		return OK;
 	}
 	return FALSE;
