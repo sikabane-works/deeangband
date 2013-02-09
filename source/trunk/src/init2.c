@@ -1045,7 +1045,7 @@ static errr init_skill_info(void)
 	/* Save a pointer to the parsing function */
 	s_head.parse_info_txt = parse_skill_info;
 
-	return init_info("skill_info", &s_head, (void*)&skill_info, NULL, NULL, NULL);
+	return init_info("skill_info", &s_head, NULL, NULL, NULL, NULL);
 }
 
 

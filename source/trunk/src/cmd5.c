@@ -1396,7 +1396,7 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 		if(!force)
 		{
 			int cur = creature_ptr->skill_exp[SKILL_RIDING];
-			int max = skill_info[creature_ptr->class_idx].s_max[SKILL_RIDING];
+			int max = 30000; //TODO
 			int ridinglevel = species_ptr->level;
 
 			/* —Ž”n‚Ì‚µ‚â‚·‚³ */

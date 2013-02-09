@@ -672,11 +672,6 @@ char *vault_name;
 char *vault_text;
 
 /*
- * The skill table
- */
-skill_table *skill_info;
-
-/*
  * The magic info
  */
 magic_table_type *magic_info;

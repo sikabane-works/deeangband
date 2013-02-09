@@ -415,7 +415,6 @@ extern bool quick_ok;
 extern vault_type *vault_info;
 extern char *vault_name;
 extern char *vault_text;
-extern skill_table *skill_info;
 extern magic_table_type *magic_info;
 extern feature_type *feature_info;
 extern char *feature_name;

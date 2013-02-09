@@ -5871,8 +5871,6 @@ static void do_cmd_knowledge_skill_exp(creature_type *creature_ptr)
 	{
 		skill_exp = creature_ptr->skill_exp[i];
 		fprintf(fff, "%-40s ", skill_name[i]);
-		if(skill_exp >= skill_info[creature_ptr->class_idx].s_max[i]) fprintf(fff, "!");
-		else fprintf(fff, " ");
 		fprintf(fff, " %d", skill_exp);
 		fprintf(fff, "\n");
 	}

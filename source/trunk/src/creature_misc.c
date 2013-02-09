@@ -443,7 +443,7 @@ void initialize_skill(creature_type *creature_ptr)
 		creature_ptr->spell_exp[i] = 0;
 
 	for (i = 0; i < MAX_SKILLS; i++)
-		creature_ptr->skill_exp[i] = skill_info[tmp_cls].s_start[i];
+		creature_ptr->skill_exp[i] = class_info[tmp_cls].skill[i];
 
 }
 
