@@ -186,6 +186,10 @@
 #define KW_FLOOR_NUM2(DUNGEON, NUM) "%däK(%s)", (NUM), (DUNGEON)
 #define KW_DEAD "éÄñS"
 #define KW_ALIVE "ê∂ë∂"
+#define KW_UNIDENTIFIED "ñ¢ä”íË"
+#define KW_EMPTY "ãÛ"
+#define KW_TRIED "ñ¢îªñæ"
+#define KW_PRICE_OFF "%à¯Ç´"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -258,6 +262,10 @@
 #define KW_FLOOR_NUM2(DUNGEON, NUM) "%s L%d:", (DUNGEON), (NUM) 
 #define KW_DEAD "dead"
 #define KW_ALIVE "alive"
+#define KW_UNIDENTIFIED "unidentified"
+#define KW_EMPTY "empty"
+#define KW_TRIED "tried"
+#define KW_PRICE_OFF "%off"
 #endif
 
 #ifdef JP

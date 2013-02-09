@@ -2586,7 +2586,6 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 #endif
 			}
 
-			/* Search */
 			else if(have_flag(flgs, TRAIT_SEARCH))
 			{
 				/* Dump " to searching" */
@@ -2698,34 +2697,15 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 	else if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)
 		   || (object_ptr->tval == TV_LITE) || (object_ptr->tval == TV_FIGURINE))
-		 && aware && !known
-		 && !(object_ptr->ident & IDENT_SENSE))
-	{
-#ifdef JP
-		strcpy(fake_insc_buf, "–¢ŠÓ’è");
-#else
-		strcpy(fake_insc_buf, "unidentified");
-#endif
-	}
+		 && aware && !known && !(object_ptr->ident & IDENT_SENSE))
+		strcpy(fake_insc_buf, KW_UNIDENTIFIED);
 
 	/* Mega-Hack -- note empty wands/staffs */
 	else if(!known && (object_ptr->ident & IDENT_EMPTY))
-	{
-#ifdef JP
-		strcpy(fake_insc_buf, "‹ó");
-#else
-		strcpy(fake_insc_buf, "empty");
-#endif
-	}
+		strcpy(fake_insc_buf, KW_EMPTY);
 
 	else if(!aware && object_is_tried(object_ptr))
-	{
-#ifdef JP
-		strcpy(fake_insc_buf, "–¢”»–¾");
-#else
-		strcpy(fake_insc_buf, "tried");
-#endif
-	}
+		strcpy(fake_insc_buf, KW_TRIED);
 
 	if(object_ptr->discount)
 	{
@@ -2736,14 +2716,9 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 			/* Append to other fake inscriptions if any */
 			if(fake_insc_buf[0]) strcat(fake_insc_buf, ", ");
-
 			(void)object_desc_num(discount_num_buf, object_ptr->discount);
 			strcat(fake_insc_buf, discount_num_buf);
-#ifdef JP
-			strcat(fake_insc_buf, "%ˆø‚«");
-#else
-			strcat(fake_insc_buf, "% off");
-#endif
+			strcat(fake_insc_buf, KW_PRICE_OFF);
 		}
 	}
 

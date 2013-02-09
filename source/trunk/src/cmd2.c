@@ -290,8 +290,6 @@ void do_cmd_search(creature_type *creature_ptr)
 	}
 
 	cost_tactical_energy(creature_ptr, 100);
-
-	/* Search */
 	search(creature_ptr);
 }
 
