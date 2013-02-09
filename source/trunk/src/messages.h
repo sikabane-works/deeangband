@@ -1880,6 +1880,12 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_OPEN_NO_TARGET "そこには開けるものが見当たらない。"
+#else
+#define MES_OPEN_NO_TARGET "You see nothing there to open."
+#endif
+
+#ifdef JP
 #define MES_STUDY_WHICH_BOOK "どの本から学びますか? "
 #define MES_STUDY_NO_BOOK "読める本がない。"
 #define MES_STUDY_NO_READING "本を読むことができない！"

@@ -1851,7 +1851,6 @@ void do_cmd_mind(creature_type *creature_ptr)
 		if(!cast) return;
 	}
 
-	/* Take a turn */
 
 
 	/* teleport from mirror costs small energy */

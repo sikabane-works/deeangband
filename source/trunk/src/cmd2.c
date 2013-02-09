@@ -289,7 +289,6 @@ void do_cmd_search(creature_type *creature_ptr)
 		command_arg = 0;
 	}
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Search */
@@ -771,7 +770,6 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 	bool more = FALSE;
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Seeing true feature code (ignore mimic) */
@@ -894,19 +892,11 @@ void do_cmd_open(creature_type *creature_ptr)
 
 		/* Nothing useful */
 		if(!have_flag(feature_info[feat].flags, FF_OPEN) && !object_idx)
-		{
-#ifdef JP
-			msg_print("‚»‚±‚É‚ÍŠJ‚¯‚é‚à‚Ì‚ªŒ©“–‚½‚ç‚È‚¢B");
-#else
-			msg_print("You see nothing there to open.");
-#endif
-
-		}
+			msg_print(MES_OPEN_NO_TARGET);
 
 		/* Creature in the way */
 		else if(c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
-			/* Take a turn */
 			cost_tactical_energy(creature_ptr, 100);
 			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 
@@ -949,7 +939,6 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 	s16b       old_feat = c_ptr->feat;
 	bool       more = FALSE;
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Seeing true feature code (ignore mimic) */
@@ -1135,7 +1124,6 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 	/* Verify legality */
 	if(!do_cmd_tunnel_test(creature_ptr, y, x)) return FALSE;
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Get grid */
@@ -1404,7 +1392,6 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	char buf[MAX_NLEN];
 	object_desc(buf, object_ptr, 0);
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Get the "disarm" factor */
@@ -1483,7 +1470,6 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 
 	int j;
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Penalize some conditions */
@@ -1994,7 +1980,6 @@ void do_cmd_stay(creature_type *creature_ptr, bool pickup)
 		command_arg = 0;
 	}
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	if(pickup) mpe_mode |= MCE_DO_PICKUP;
@@ -3124,7 +3109,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		prepare_redraw(PR_EQUIPPY);
 	}
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Rogue and Ninja gets bonus */

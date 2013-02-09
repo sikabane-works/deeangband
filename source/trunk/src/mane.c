@@ -346,7 +346,6 @@ msg_print("‚à‚Ì‚Ü‚Ë‚ÉŽ¸”s‚µ‚½I");
 		creature_ptr->mane_dam[j] = creature_ptr->mane_dam[j+1];
 	}
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	prepare_redraw(PR_IMITATION);

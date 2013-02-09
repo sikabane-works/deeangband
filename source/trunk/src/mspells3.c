@@ -823,7 +823,6 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 		}
 	}
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	prepare_redraw(PR_MANA);

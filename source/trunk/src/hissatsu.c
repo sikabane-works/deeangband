@@ -374,7 +374,6 @@ msg_print("何も技を知らない。");
 	/* Cast the spell */
 	if(!do_spell(creature_ptr, REALM_HISSATSU, n, SPELL_CAST)) return;
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Use some mana */
@@ -469,7 +468,6 @@ msg_print("新しい必殺技を覚えることはできない！");
 		msg_print("You were not able to learn any special attacks.");
 #endif
 
-	/* Take a turn */
 	else
 		cost_tactical_energy(creature_ptr, 100);
 

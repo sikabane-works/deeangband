@@ -1875,7 +1875,6 @@ static void process_nonplayer(int m_idx)
 					/* Do not bash the door */
 					may_bash = FALSE;
 
-					/* Take a turn */
 					do_turn = TRUE;
 				}
 
@@ -1891,7 +1890,6 @@ static void process_nonplayer(int m_idx)
 						/* Do not bash the door */
 						may_bash = FALSE;
 
-						/* Take a turn */
 						do_turn = TRUE;
 					}
 				}
@@ -2170,7 +2168,6 @@ static void process_nonplayer(int m_idx)
 
 			do_view = TRUE;
 
-			/* Take a turn */
 			do_turn = TRUE;
 		}
 
@@ -2208,7 +2205,6 @@ static void process_nonplayer(int m_idx)
 		/* Creature has been allowed move */
 		if(do_move)
 		{
-			/* Take a turn */
 			do_turn = TRUE;
 
 			if(have_flag(f_ptr->flags, FF_TREE))
