@@ -372,6 +372,7 @@ struct species_type
 
 	s16b stat_max[STAT_MAX];			/* Current modified stats */
 	s16b stat_max_max[STAT_MAX];		/* Maximal "maximal" stat values */
+	s16b stat_bonus;
 	s16b base_hp[CREATURE_MAX_LEVEL];
 
 	s32b karmas[MAX_KARMA];

@@ -3183,6 +3183,7 @@ enum SPECIES_TYPE {
 	SPECIES_INFO_DEX,
 	SPECIES_INFO_CON,
 	SPECIES_INFO_CHA,
+	SPECIES_INFO_BONUS,
 	SPECIES_INFO_M_HB,
 	SPECIES_INFO_M_HM,
 	SPECIES_INFO_M_WB,
@@ -3253,6 +3254,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"DEX",
 	"CON",
 	"CHA",
+	"BONUS",
 	"M_HB",
 	"M_HM",
 	"M_WB",
@@ -3557,6 +3559,11 @@ errr parse_species_info_csv(char *buf, header *head)
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_ptr->stat_max[STAT_CHA] = (s16b)b * STAT_FRACTION;
 				species_ptr->stat_max_max[STAT_CHA] = (s16b)b * STAT_FRACTION;
+				break;
+
+			case SPECIES_INFO_BONUS:
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+				species_ptr->stat_bonus = (s16b)b;
 				break;
 
 			case SPECIES_INFO_M_HB:
