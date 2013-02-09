@@ -2263,6 +2263,9 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_GOOD_WEP "「汝の行いは貴き剣に値せり。」"
 #define MES_PATRON_GOOD_OBS "「汝の行いは貴き報いに値せり」"
 #define MES_PATRON_GREAT_OBS "「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」"
+#define MES_PATRON_TY_CURSE "「下僕よ、汝傲慢なり。」"
+#define MES_PATRON_S_ENEMY "「我が下僕たちよ、かの傲慢なる者を倒すべし！」"
+#define MES_PATRON_H_SUMMON "「汝、より強き敵を必要とせり！」"
 #else
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
 #define MES_PATRON_POLY_SELF "'Thou needst a new form!'"
@@ -2272,6 +2275,9 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_GOOD_WEP "'Thy deed hath earned thee a worthy blade.'"
 #define MES_PATRON_GOOD_OBS "'Thy deed hath earned thee a worthy reward.'"
 #define MES_PATRON_GREAT_OBS "'Behold, mortal, how generously I reward thy loyalty.'"
+#define MES_PATRON_TY_CURSE "'Thou art growing arrogant, mortal.'"
+#define MES_PATRON_S_ENEMY "'My pets, destroy the arrogant mortal!'"
+#define MES_PATRON_H_SUMMON "'Thou needst worthier opponents!'"
 #endif
 
 

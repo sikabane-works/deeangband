@@ -3224,23 +3224,21 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_TY_CURSE:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_TY_CURSE);
 #ifdef JP
-			msg_print("「下僕よ、汝傲慢なり。」");
 			reward = "禍々しい呪いをかけられた。";
 #else
-			msg_print("'Thou art growing arrogant, mortal.'");
 			reward = "cursing";
 #endif
 			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 			break;
 
-		case REW_TRAIT_S_M:
+		case REW_TRAIT_S_ENEMY:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_S_ENEMY);
 #ifdef JP
-			msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 			reward = "クリーチャーを召喚された。";
 #else
-			msg_print("'My pets, destroy the arrogant mortal!'");
 			reward = "summoning hostile creatures";
 #endif
 			for (dummy = 0; dummy < randint1(5) + 1; dummy++)
@@ -3249,11 +3247,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_H_SUMMON:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_H_SUMMON);
 #ifdef JP
-			msg_print("「汝、より強き敵を必要とせり！」");
 			reward = "クリーチャーを召喚された。";
 #else
-			msg_print("'Thou needst worthier opponents!'");
 			reward = "summoning many hostile creatures";
 #endif
 			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
