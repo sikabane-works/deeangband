@@ -3097,11 +3097,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_CHAOS_WP:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_GOOD_WEP);
 #ifdef JP
-			msg_print("「汝の行いは貴き剣に値せり。」");
 			reward = "(混沌)の武器を手に入れた。";
 #else
-			msg_print("'Thy deed hath earned thee a worthy blade.'");
 			reward = "chaos weapon";
 #endif
 			/* Get local object */
@@ -3203,11 +3202,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_GOOD_OBS:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_GOOD_OBS);
 #ifdef JP
-			msg_print("「汝の行いは貴き報いに値せり。」");
 			reward = "上質なアイテムを手に入れた。";
 #else
-			msg_print("'Thy deed hath earned thee a worthy reward.'");
 			reward = "good items";
 #endif
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, FALSE, FALSE);
@@ -3215,11 +3213,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_GREA_OBS:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_GREAT_OBS);
 #ifdef JP
-			msg_print("「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」");
 			reward = "高級品のアイテムを手に入れた。";
 #else
-			msg_print("'Behold, mortal, how generously I reward thy loyalty.'");
 			reward = "excellent items";
 #endif
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, TRUE, FALSE);

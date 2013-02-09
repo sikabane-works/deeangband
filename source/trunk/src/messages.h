@@ -2260,12 +2260,18 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_GAIN_EXP "「汝は良く行いたり！続けよ！」"
 #define MES_PATRON_LOSE_EXP "「下僕よ、汝それに値せず。」"
 #define MES_PATRON_GOOD_OBJ "「我が与えし物を賢明に使うべし。」"
+#define MES_PATRON_GOOD_WEP "「汝の行いは貴き剣に値せり。」"
+#define MES_PATRON_GOOD_OBS "「汝の行いは貴き報いに値せり」"
+#define MES_PATRON_GREAT_OBS "「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」"
 #else
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
 #define MES_PATRON_POLY_SELF "'Thou needst a new form!'"
 #define MES_PATRON_GAIN_EXP "'Well done, Lead on!'"
 #define MES_PATRON_LOSE_EXP "'Thou didst not deserve that, slave.'"
 #define MES_PATRON_GOOD_OBJ "'Use my gift wisely.'"
+#define MES_PATRON_GOOD_WEP "'Thy deed hath earned thee a worthy blade.'"
+#define MES_PATRON_GOOD_OBS "'Thy deed hath earned thee a worthy reward.'"
+#define MES_PATRON_GREAT_OBS "'Behold, mortal, how generously I reward thy loyalty.'"
 #endif
 
 
