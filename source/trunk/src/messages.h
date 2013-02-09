@@ -58,6 +58,8 @@
 #define MES_SYS_ASK_SURE "‚æ‚ë‚µ‚¢‚Å‚·‚©H"
 
 #define MES_SYS_CHARGE_NUM(NUM) "‰ñ•ª"
+
+#define MES_SYS_SKILL "‹Z”\’l"
 #else
 
 #define MES_SYS_MORE "-- MORE --"
@@ -111,6 +113,7 @@
 
 #define MES_SYS_CHARGE_NUM(NUM) ((NUM) > 1 ? " charges" : "charge")
 
+#define MES_SYS_SKILL "Proficiency"
 #endif
  
 #if JP

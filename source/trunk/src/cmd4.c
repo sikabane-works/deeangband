@@ -5880,15 +5880,8 @@ static void do_cmd_knowledge_skill_exp(creature_type *creature_ptr)
 	}
 
 	my_fclose(fff);
+	show_file(TRUE, file_name, MES_SYS_SKILL, 0, 0);
 
-	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "技能の経験値", 0, 0);
-#else
-	show_file(TRUE, file_name, "Miscellaneous Proficiency", 0, 0);
-#endif
-
-	/* Remove the file */
 	fd_kill(file_name);
 }
 
@@ -8686,8 +8679,6 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 		{
 			prt("(a) 自分に関する情報", 6, 5);
 			prt("(b) 突然変異", 7, 5);
-			prt("(c) 武器の経験値", 8, 5);
-			prt("(d) 魔法の経験値", 9, 5);
 			prt("(e) 技能の経験値", 10, 5);
 			prt("(f) プレイヤーの業", 11, 5);
 			prt("(g) 入ったダンジョン", 12, 5);
@@ -8702,7 +8693,7 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 			prt("(3) Display remaining uniques", 8, 5);
 			prt("(4) Display known creature", 9, 5);
 			prt("(5) Display kill count", 10, 5);
-			if(!vanilla_town) prt("(6) Display wanted creatures", 11, 5);
+			prt("(6) Display wanted creatures", 11, 5);
 			prt("(7) Display current pets", 12, 5);
 			prt("(8) Display home inventory", 13, 5);
 			prt("(9) Display *identified* equip.", 14, 5);
@@ -8712,8 +8703,6 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 		{
 			prt("(a) Display about yourself", 6, 5);
 			prt("(b) Display mutations", 7, 5);
-			prt("(c) Display weapon proficiency", 8, 5);
-			prt("(d) Display spell proficiency", 9, 5);
 			prt("(e) Display misc. proficiency", 10, 5);
 			prt("(f) Display karmas", 11, 5);
 			prt("(g) Display dungeons", 12, 5);
