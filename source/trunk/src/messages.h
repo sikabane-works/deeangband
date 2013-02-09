@@ -2253,3 +2253,19 @@ static cptr desc_stat_neg[] =
 #define MES_DIS_MINION_ASK "You will blast all pets. Are you sure? "
 #define MES_DIS_MINION_CANCEL(MINION)  "%^s resists to be blasted, and run away.", (MINION)
 #endif
+
+#ifdef JP
+#define MES_PATRON_MUTATION(PATRON) "%^sは褒美としてあなたを突然変異させた。"
+#define MES_PATRON_POLY_SELF "「汝、新たなる姿を必要とせり！」"
+#define MES_PATRON_GAIN_EXP "「汝は良く行いたり！続けよ！」"
+#define MES_PATRON_LOSE_EXP "「下僕よ、汝それに値せず。」"
+#define MES_PATRON_GOOD_OBJ "「我が与えし物を賢明に使うべし。」"
+#else
+#define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
+#define MES_PATRON_POLY_SELF "'Thou needst a new form!'"
+#define MES_PATRON_GAIN_EXP "'Well done, Lead on!'"
+#define MES_PATRON_LOSE_EXP "'Thou didst not deserve that, slave.'"
+#define MES_PATRON_GOOD_OBJ "'Use my gift wisely.'"
+#endif
+
+

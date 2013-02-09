@@ -3013,11 +3013,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 	if(one_in_(6) && !chosen_reward)
 	{
+		msg_format(MES_PATRON_MUTATION(species_name + species_info[creature_ptr->patron_idx].name));
 #ifdef JP
-		msg_format("%^sは褒美としてあなたを突然変異させた。", species_name + species_info[creature_ptr->patron_idx].name);
 		reward = "変異した。";
 #else
-		msg_format("%^s rewards you with a mutation!", species_name + species_info[creature_ptr->patron_idx].name);
 		reward = "mutation";
 #endif
 		(void)gain_trait(creature_ptr, 0, TRUE);
@@ -3028,11 +3027,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		{
 		case REW_POLY_SLF:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_POLY_SELF);
 #ifdef JP
-			msg_print("「汝、新たなる姿を必要とせり！」");
 			reward = "変異した。";
 #else
-			msg_print("'Thou needst a new form!'");
 			reward = "polymorphing";
 #endif
 			do_poly_self(creature_ptr);
@@ -3040,11 +3038,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_GAIN_EXP:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
-#ifdef JP
-			msg_print("「汝は良く行いたり！続けよ！」");
-#else
-			msg_print("'Well done, Lead on!'");
-#endif
+			msg_print(MES_PATRON_GAIN_EXP);
 
 			if(has_trait(creature_ptr, TRAIT_ANDROID))
 			{
@@ -3066,11 +3060,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_LOSE_EXP:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
-#ifdef JP
-			msg_print("「下僕よ、汝それに値せず。」");
-#else
-			msg_print("'Thou didst not deserve that, slave.'");
-#endif
+			msg_print(MES_PATRON_LOSE_EXP);
 			if(has_trait(creature_ptr, TRAIT_ANDROID)) msg_print(GAME_MESSAGE_NO_HAPPEN);
 			else
 			{
@@ -3085,11 +3075,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_GOOD_OBJ:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_GOOD_OBJ);
 #ifdef JP
-			msg_print("「我が与えし物を賢明に使うべし。」");
 			reward = "上質なアイテムを手に入れた。";
 #else
-			msg_print("'Use my gift wisely.'");
 			reward = "a good item";
 #endif
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, 1, FALSE, FALSE);
@@ -3097,11 +3086,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_GREA_OBJ:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_GOOD_OBJ);
 #ifdef JP
-			msg_print("「我が与えし物を賢明に使うべし。」");
 			reward = "高級品のアイテムを手に入れた。";
 #else
-			msg_print("'Use my gift wisely.'");
 			reward = "an excellent item";
 #endif
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, 1, TRUE, FALSE);
