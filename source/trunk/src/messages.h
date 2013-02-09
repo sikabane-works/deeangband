@@ -1856,11 +1856,19 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_MELEE_TO_EMPTY "何もない空中を攻撃した。"
 #define MES_MELEE_DISABLE(ATTACKER) "%sは攻撃できない。", (ATTACKER)
 #define MES_MELEE_NO_METHOD(ATTACKER) "%sは攻撃する手段を持っていない。", (ATTACKER)
 #else
+#define MES_MELEE_TO_EMPTY "You attack the empty air."
 #define MES_MELEE_DISABLE(ATTACKER) "%s don't have attack method.", (ATTACKER)
 #define MES_MELEE_NO_METHOD(ATTACKER) "%s don't have attack method.", (ATTACKER)
+#endif
+
+#ifdef JP
+#define MES_SHOOT_MARK(ARROW) "%sが敵を捕捉した。", (ARROW)
+#else
+#define MES_SHOOT_MARK(ARROW) "The %s finds a mark.", (ARROW)
 #endif
 
 #ifdef JP

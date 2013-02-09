@@ -1806,25 +1806,14 @@ void do_cmd_alter(creature_type *creature_ptr)
 		else if(have_flag(f_ptr->flags, FF_TUNNEL)) more = do_cmd_tunnel_aux(creature_ptr, y, x);
 		else if(have_flag(f_ptr->flags, FF_CLOSE)) more = do_cmd_close_aux(creature_ptr, y, x);
 		else if(have_flag(f_ptr->flags, FF_DISARM)) more = do_cmd_disarm_aux(creature_ptr, y, x, dir);
-		else
-		{
-#ifdef JP
-			msg_print("‰½‚à‚È‚¢‹ó’†‚ğUŒ‚‚µ‚½B");
-#else
-			msg_print("You attack the empty air.");
-#endif
-		}
+		else msg_print(MES_MELEE_TO_EMPTY);
 	}
 
 	if(!more) disturb(player_ptr, 0, 0);
 }
 
-
-/*
- * Find the index of some "spikes", if possible.
- *
- * XXX XXX XXX Let user choose a pile of spikes, perhaps?
- */
+// Find the index of some "spikes", if possible.
+// XXX XXX XXX Let user choose a pile of spikes, perhaps?
 static bool get_spike(creature_type *creature_ptr, int *ip)
 {
 	int i;
@@ -1962,11 +1951,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	if(!more) disturb(player_ptr, 0, 0);
 }
 
-
-
-/*
- * Start running.
- */
+// Start running.
 void do_cmd_run(creature_type *creature_ptr)
 {
 	int dir;
@@ -2065,10 +2050,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 		}
 	}
 
-
-
 	if(command_arg > 9999) command_arg = 9999;
-
 	if(creature_ptr->posture & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
 
 	/* Take a turn XXX XXX XXX (?) */
@@ -2086,12 +2068,8 @@ void do_cmd_rest(creature_type *creature_ptr)
 	Term_fresh();
 }
 
-
-/*
- * Determines the odds of an object breaking when thrown at a creature
- *
- * Note that artifacts never break, see the "drop_near(floor_ptr, )" function.
- */
+// Determines the odds of an object breaking when thrown at a creature
+// Note that artifacts never break, see the "drop_near(floor_ptr, )" function.
 static int breakage_chance(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int archer_bonus = (creature_ptr->class_idx == CLASS_ARCHER ? (creature_ptr->lev-1)/7 + 4: 0);
@@ -2674,17 +2652,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				if(creature_ptr->concent) tdam = boost_concentration_damage(creature_ptr, tdam);
 
 				/* Handle unseen creature */
-				if(!visible)
-				{
-					/* Invisible creature */
-#ifdef JP
-					msg_format("%s‚ª“G‚ğ•ß‘¨‚µ‚½B", object_name);
-#else
-					msg_format("The %s finds a mark.", object_name);
-#endif
-
-				}
-
+				if(!visible) msg_format(MES_SHOOT_MARK(object_name));
 				/* Handle visible creature */
 				else
 				{
@@ -3254,17 +3222,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				bool fear = FALSE;
 
 				/* Handle unseen creature */
-				if(!visible)
-				{
-					/* Invisible creature */
-#ifdef JP
-					msg_format("%s‚ª“G‚ğ•ß‘¨‚µ‚½B", object_name);
-#else
-					msg_format("The %s finds a mark.", object_name);
-#endif
-
-				}
-
+				if(!visible) MES_SHOOT_MARK(object_name);
 				/* Handle visible creature */
 				else
 				{
