@@ -1384,7 +1384,7 @@ static errr grab_one_flag(u32b *flags, cptr names[], cptr what)
 {
 	int i;
 
-	/* Check flags */
+	// Check flags
 	for (i = 0; i < 32; i++)
 	{
 		if(streq(what, names[i]))
@@ -1393,7 +1393,6 @@ static errr grab_one_flag(u32b *flags, cptr names[], cptr what)
 			return PARSE_ERROR_NONE;
 		}
 	}
-
 	return -1;
 }
 

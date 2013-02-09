@@ -1401,6 +1401,8 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	int i, j;
 	bool more = FALSE;
 	object_type *object_ptr = &object_list[object_idx];
+	char buf[MAX_NLEN];
+	object_desc(buf, object_ptr, 0);
 
 	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
@@ -1437,11 +1439,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 		/* We may keep trying */
 		more = TRUE;
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("箱のトラップ解除に失敗した。");
-#else
-		msg_print("You failed to disarm the chest.");
-#endif
+		msg_format(MES_DISARM_FAILED(buf));
 
 	}
 
@@ -1520,11 +1518,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	else if((i > 5) && (randint1(i) > 5))
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_format("%sの解除に失敗した。", name);
-#else
-		msg_format("You failed to disarm the %s.", name);
-#endif
+		msg_format(MES_DISARM_FAILED(name));
 		more = TRUE;
 	}
 	else // Failure -- Set off the trap

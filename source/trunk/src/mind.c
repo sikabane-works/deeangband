@@ -1732,7 +1732,6 @@ void do_cmd_mind(creature_type *creature_ptr)
 #else
 		msg_format("You failed to concentrate hard enough!");
 #endif
-
 		sound(SOUND_FAIL);
 
 		if((use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU))
@@ -1765,7 +1764,6 @@ void do_cmd_mind(creature_type *creature_ptr)
 #else
 						msg_print("Your mind unleashes its power in an uncontrollable storm!");
 #endif
-
 						/*TODO*/
 						project(creature_ptr, 0, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx, plev * 2,
 							DO_EFFECT_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1);
