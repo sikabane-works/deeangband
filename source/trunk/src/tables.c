@@ -3921,7 +3921,7 @@ char *load_error_messages[] =
 #endif
 };
 
-cptr skill_name[MAX_SKILLS][40] =
+cptr skill_name[MAX_SKILLS] =
 {
 #ifdef JP
 	"ìkäiì¨",

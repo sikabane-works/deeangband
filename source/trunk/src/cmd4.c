@@ -5852,9 +5852,7 @@ static void do_cmd_knowledge_uniques(void)
 	fd_kill(file_name);
 }
 
-/*
- * Display skill-exp
- */
+// Display skill-exp
 static void do_cmd_knowledge_skill_exp(creature_type *creature_ptr)
 {
 	int i = 0, skill_exp;
@@ -5874,7 +5872,7 @@ static void do_cmd_knowledge_skill_exp(creature_type *creature_ptr)
 	for (i = 0; i < MAX_SKILLS; i++)
 	{
 		skill_exp = creature_ptr->skill_exp[i];
-		fprintf(fff, "%-20s ", skill_name[i]);
+		fprintf(fff, "%-40s ", skill_name[i]);
 		if(skill_exp >= skill_info[creature_ptr->class_idx].s_max[i]) fprintf(fff, "!");
 		else fprintf(fff, " ");
 		fprintf(fff, " %d", skill_exp);
@@ -8673,28 +8671,28 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 #ifdef JP
 		if(p == 0)
 		{
-			prt("(1) 既知の伝説のアイテム                 の一覧", 6, 5);
-			prt("(2) 既知のアイテム                       の一覧", 7, 5);
-			prt("(3) 既知の生きているユニーク・クリーチャー の一覧", 8, 5);
-			prt("(4) 既知のクリーチャー                     の一覧", 9, 5);
-			prt("(5) 倒した敵の数                         の一覧", 10, 5);
-			prt("(6) 賞金首                               の一覧", 11, 5);
-			prt("(7) 現在のペット                         の一覧", 12, 5);
-			prt("(8) 我が家のアイテム                     の一覧", 13, 5);
-			prt("(9) *鑑定*済み装備の耐性                 の一覧", 14, 5);
-			prt("(0) 地形の表示文字/タイル                の一覧", 15, 5);
+			prt("(1) 既知の伝説のアイテム", 6, 5);
+			prt("(2) 既知のアイテム", 7, 5);
+			prt("(3) 既知の生きているユニーク・クリーチャー", 8, 5);
+			prt("(4) 既知のクリーチャー", 9, 5);
+			prt("(5) 倒した敵の数", 10, 5);
+			prt("(6) 賞金首", 11, 5);
+			prt("(7) 現在のペット", 12, 5);
+			prt("(8) 我が家のアイテム", 13, 5);
+			prt("(9) *鑑定*済み装備の耐性", 14, 5);
+			prt("(0) 地形の表示文字/タイル", 15, 5);
 		}
 		else
 		{
-			prt("(a) 自分に関する情報                     の一覧", 6, 5);
-			prt("(b) 突然変異                             の一覧", 7, 5);
-			prt("(c) 武器の経験値                         の一覧", 8, 5);
-			prt("(d) 魔法の経験値                         の一覧", 9, 5);
-			prt("(e) 技能の経験値                         の一覧", 10, 5);
-			prt("(f) プレイヤーの業                       の一覧", 11, 5);
-			prt("(g) 入ったダンジョン                     の一覧", 12, 5);
-			prt("(h) 実行中のクエスト                     の一覧", 13, 5);
-			prt("(i) 現在の自動拾い/破壊設定              の一覧", 14, 5);
+			prt("(a) 自分に関する情報", 6, 5);
+			prt("(b) 突然変異", 7, 5);
+			prt("(c) 武器の経験値", 8, 5);
+			prt("(d) 魔法の経験値", 9, 5);
+			prt("(e) 技能の経験値", 10, 5);
+			prt("(f) プレイヤーの業", 11, 5);
+			prt("(g) 入ったダンジョン", 12, 5);
+			prt("(h) 実行中のクエスト", 13, 5);
+			prt("(i) 現在の自動拾い/破壊設定", 14, 5);
 		}
 #else
 		if(p == 0)

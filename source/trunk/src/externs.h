@@ -406,7 +406,7 @@ extern u32b play_redraw;		// Normal Redraws (bit flags)
 extern u32b play_window;		// Window Redraws (bit flags)
 extern bool wizard;		        // (Player Only) wizard mode
 extern bool unique_play;        // Unique play mode
-extern cptr skill_name[MAX_SKILLS][40];
+extern cptr skill_name[MAX_SKILLS];
 extern cptr campaign_name[MAX_CAMPAIGNS];
 extern cptr campaign_detail[MAX_CAMPAIGNS];
 
