@@ -393,10 +393,6 @@
 
 #define GAME_MESSAGE_DESTROY "燃えるような閃光が発生した！"
 
-#define GAME_MESSAGE_EARTHQUAKE_DONE1 "ダンジョンの壁が崩れた！"
-#define GAME_MESSAGE_EARTHQUAKE_DONE2 "ダンジョンの床が不自然にねじ曲がった！"
-#define GAME_MESSAGE_EARTHQUAKE_DONE3 "ダンジョンが揺れた！崩れた岩が頭に降ってきた！"
-
 #define GAME_MESSAGE_FAILED_RUNAWAY "うまく逃げられなかった。"
 
 #define GAME_MESSAGE_DAMAGE_DENSITY "体の分子が分解した気がする！"
@@ -520,10 +516,6 @@
 #define GAME_MESSAGE_LITE_NOREFILL "Your light cannot be refilled."
 
 #define GAME_MESSAGE_DESTROY "There is a searing blast of light!"
-
-#define GAME_MESSAGE_EARTHQUAKE_DONE1 "The cave ceiling collapses!"
-#define GAME_MESSAGE_EARTHQUAKE_DONE2 "The cave floor twists in an unnatural way!"
-#define GAME_MESSAGE_EARTHQUAKE_DONE3 "The cave quakes!  You are pummeled with debris!"
 
 #define GAME_MESSAGE_FAILED_RUNAWAY "You are failed to run away."
 
@@ -2231,4 +2223,22 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_RUSH_NO_ENTER "You can't move to that place."
 #define MES_RUSH_DONE(TARGET) "You quickly jump in and attack %s!", (TARGET)
+#endif
+
+#ifdef JP
+#define MES_EARTHQUAKE_DONE1 "ダンジョンの壁が崩れた！"
+#define MES_EARTHQUAKE_DONE2 "ダンジョンの床が不自然にねじ曲がった！"
+#define MES_EARTHQUAKE_DONE3 "ダンジョンが揺れた！崩れた岩が頭に降ってきた！"
+#define MES_EARTHQUAKE_HEAVY_CRUSHED "あなたはひどい怪我を負った！"
+#define MES_EARTHQUAKE_EVADE "降り注ぐ岩をうまく避けた！"
+#define MES_EARTHQUAKE_CRUSHED1 "岩石があなたに直撃した!"
+#define MES_EARTHQUAKE_CRUSHED2 "あなたは床と壁との間に挟まれてしまった！"
+#else
+#define MES_EARTHQUAKE_DONE1 "The cave ceiling collapses!"
+#define MES_EARTHQUAKE_DONE2 "The cave floor twists in an unnatural way!"
+#define MES_EARTHQUAKE_DONE3 "The cave quakes!  You are pummeled with debris!"
+#define MES_EARTHQUAKE_HEAVY_CRUSHED "You are severely crushed!"
+#define MES_EARTHQUAKE_EVADE "You nimbly dodge the blast!"
+#define MES_EARTHQUAKE_CRUSHED1 "You are bashed by rubble!"
+#define MES_EARTHQUAKE_CRUSHED2 "You are crushed between the floor and ceiling!"
 #endif

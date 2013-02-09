@@ -1861,19 +1861,15 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 
 					switch (randint1(3))
 					{
-						case 1: msg_print(GAME_MESSAGE_EARTHQUAKE_DONE1); break;
-						case 2: msg_print(GAME_MESSAGE_EARTHQUAKE_DONE2); break;
-						default: msg_print(GAME_MESSAGE_EARTHQUAKE_DONE3); break;
+						case 1: msg_print(MES_EARTHQUAKE_DONE1); break;
+						case 2: msg_print(MES_EARTHQUAKE_DONE2); break;
+						default: msg_print(MES_EARTHQUAKE_DONE3); break;
 					}
 
 					// Hurt the player a lot / Message and damage
 					if(!sn)
 					{
-#ifdef JP
-						if(is_player(target_ptr)) msg_print("‚ ‚È‚½‚Í‚Ð‚Ç‚¢‰ö‰ä‚ð•‰‚Á‚½I");
-#else
-						if(is_player(target_ptr)) msg_print("You are severely crushed!");
-#endif
+						if(is_player(target_ptr)) msg_print(MES_EARTHQUAKE_HEAVY_CRUSHED);
 						damage = 200;
 					}
 					else // Destroy the grid, and push the player to safety
@@ -1881,37 +1877,19 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 						switch (randint1(3)) // Calculate results
 						{
 						case 1:
-							{
-#ifdef JP
-								if(is_player(target_ptr)) msg_print("~‚è’‚®Šâ‚ð‚¤‚Ü‚­”ð‚¯‚½I");
-#else
-								if(is_player(target_ptr)) msg_print("You nimbly dodge the blast!");
-#endif
-								damage = 0;
-								break;
-							}
+							if(is_player(target_ptr)) msg_print(MES_EARTHQUAKE_EVADE);
+							damage = 0;
+							break;
 						case 2:
-							{
-#ifdef JP
-								if(is_player(target_ptr)) msg_print("ŠâÎ‚ª‚ ‚È‚½‚É’¼Œ‚‚µ‚½!");
-#else
-								if(is_player(target_ptr)) msg_print("You are bashed by rubble!");
-#endif
-								damage = diceroll(10, 4);
-								(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(50), TRUE);
-								break;
-							}
+							if(is_player(target_ptr)) msg_print(MES_EARTHQUAKE_CRUSHED1);
+							damage = diceroll(10, 4);
+							(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(50), TRUE);
+							break;
 						case 3:
-							{
-#ifdef JP
-								if(is_player(target_ptr)) msg_print("‚ ‚È‚½‚Í°‚Æ•Ç‚Æ‚ÌŠÔ‚É‹²‚Ü‚ê‚Ä‚µ‚Ü‚Á‚½I");
-#else
-								if(is_player(target_ptr)) msg_print("You are crushed between the floor and ceiling!");
-#endif
-								damage = diceroll(10, 4);
-								(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(50), TRUE);
-								break;
-							}
+							if(is_player(target_ptr)) msg_print(MES_EARTHQUAKE_CRUSHED2);
+							damage = diceroll(10, 4);
+							(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(50), TRUE);
+							break;
 						}
 						(void)move_creature(target_ptr, NULL, sy, sx, MCE_DONT_PICKUP); // Move the player to the safe location
 					}
@@ -2947,10 +2925,8 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	user_ptr->posture &= ~(NINJA_KAWARIMI);
 	prepare_redraw(PR_STATUS);
 
-	/* Teleported */
 	return TRUE;
 }
-
 
 // "Rush Attack" routine for Samurai or Ninja
 // Return value is for checking "done"
