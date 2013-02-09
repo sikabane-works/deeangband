@@ -1872,6 +1872,14 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_THROW_FIGURE_FAILED "人形は捻じ曲がり砕け散ってしまった！"
+#define MES_THROW_FIGURE_CURSED "これはあまり良くない気がする。"
+#else
+#define MES_THROW_FIGURE_FAILED "The Figurine writhes and then shatters."
+#define MES_THROW_FIGURE_CURSED "You have a bad feeling about this."
+#endif
+
+#ifdef JP
 #define MES_STUDY_WHICH_BOOK "どの本から学びますか? "
 #define MES_STUDY_NO_BOOK "読める本がない。"
 #define MES_STUDY_NO_READING "本を読むことができない！"

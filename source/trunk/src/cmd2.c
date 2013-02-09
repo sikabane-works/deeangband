@@ -3267,7 +3267,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				}
 				if(shuriken)
 				{
-					tdam += ((creature_ptr->lev+30)*(creature_ptr->lev+30)-900)/55;
+					tdam += ((creature_ptr->lev + 30)*(creature_ptr->lev + 30) - 900) / 55;
 				}
 
 				/* Hit the creature, check for death */
@@ -3296,21 +3296,10 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	if((quest_ptr->tval == TV_FIGURINE) && !(floor_ptr->fight_arena_mode))
 	{
 		j = 100;
-
 		if(!(summon_named_creature(0, floor_ptr, y, x, quest_ptr->pval, !(object_is_cursed(quest_ptr)) ? PC_FORCE_PET : 0L)))
-#ifdef JP
-			msg_print("人形は捻じ曲がり砕け散ってしまった！");
-#else
-			msg_print("The Figurine writhes and then shatters.");
-#endif
-
+			msg_print(MES_THROW_FIGURE_FAILED);
 		else if(object_is_cursed(quest_ptr))
-#ifdef JP
-			msg_print("これはあまり良くない気がする。");
-#else
-			msg_print("You have a bad feeling about this.");
-#endif
-
+			msg_print(MES_THROW_FIGURE_CURSED);
 	}
 
 
@@ -3324,7 +3313,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 #else
 			msg_format("The %s shatters!", object_name);
 #endif
-
 
 			if(potion_smash_effect(0, y, x, quest_ptr->k_idx))
 			{
