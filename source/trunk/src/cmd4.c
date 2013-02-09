@@ -6089,13 +6089,9 @@ static void do_cmd_knowledge_kill_count(void)
 	int i, k, n = 0;
 	u16b why = 2;
 	s16b *who;
-
 	FILE *fff;
-
 	char file_name[1024];
-
 	s32b Total = 0;
-
 
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
@@ -6202,7 +6198,7 @@ static void do_cmd_knowledge_kill_count(void)
 
 	fprintf(fff,"----------------------------------------------\n");
 #ifdef JP
-	fprintf(fff,"    ‡Œv: %lu ‘Ì‚ð“|‚µ‚½B\n", Total);
+	fprintf(fff,"    ‡Œv: %lu ‘Ì‚ðŽE‚µ‚½B\n", Total);
 #else
 	fprintf(fff,"   Total: %lu creature%s killed.\n",
 		Total, (Total == 1 ? "" : "s"));
@@ -6216,7 +6212,7 @@ static void do_cmd_knowledge_kill_count(void)
 
 	/* Display the file contents */
 #ifdef JP
-	show_file(TRUE, file_name, "“|‚µ‚½“G‚Ì”", 0, 0);
+	show_file(TRUE, file_name, "ŽE‚µ‚½ƒNƒŠ[ƒ`ƒƒ[‚Ì”", 0, 0);
 #else
 	show_file(TRUE, file_name, "Kill Count", 0, 0);
 #endif
@@ -6621,19 +6617,12 @@ static void display_creature_list(int col, int row, int per_page, s16b mon_idx[]
 		{
 			/* Display kills */
 			if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) put_str(format("%5d", species_ptr->r_pkills), row + i, 73);
-#ifdef JP
-			else c_put_str((species_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (species_ptr->max_num == 0 ? "Ž€–S" : "¶‘¶"), row + i, 74);
-#else
-			else c_put_str((species_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (species_ptr->max_num == 0 ? " dead" : "alive"), row + i, 73);
-#endif
+			else c_put_str((species_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (species_ptr->max_num == 0 ? KW_DEAD : KW_ALIVE), row + i, 74);
 		}
 	}
 
 	/* Clear remaining lines */
-	for (; i < per_page; i++)
-	{
-		Term_erase(col, row + i, 255);
-	}
+	for (; i < per_page; i++) Term_erase(col, row + i, 255);
 }
 
 

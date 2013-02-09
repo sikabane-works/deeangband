@@ -184,6 +184,8 @@
 #define KW_FINAL_OFFER_PRICE "ç≈èIíÒé¶âøäi"
 #define KW_FLOOR_NUM(NUM) "%däK", (NUM)
 #define KW_FLOOR_NUM2(DUNGEON, NUM) "%däK(%s)", (NUM), (DUNGEON)
+#define KW_DEAD "éÄñS"
+#define KW_ALIVE "ê∂ë∂"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -254,6 +256,8 @@
 #define KW_FINAL_OFFER_PRICE "Final Offer"
 #define KW_FLOOR_NUM(NUM) "Floor %d", (NUM)
 #define KW_FLOOR_NUM2(DUNGEON, NUM) "%s L%d:", (DUNGEON), (NUM) 
+#define KW_DEAD "dead"
+#define KW_ALIVE "alive"
 #endif
 
 #ifdef JP
