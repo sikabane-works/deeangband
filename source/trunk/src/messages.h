@@ -2225,3 +2225,10 @@ static cptr desc_stat_neg[] =
 #define MES_KNOW_KILLED(NUMBER) "You have killed %ld %s.\n\n", (NUMBER), ((NUMBER) == 1) ? "creature" : "creatures"
 #endif
 
+#ifdef JP
+#define MES_RUSH_NO_ENTER "‚±‚±‚É‚Í“üg‚Å‚Í“ü‚ê‚È‚¢B"
+#define MES_RUSH_DONE(TARGET) "‘f‘‚­%s‚Ì‰ù‚É“ü‚è‚ñ‚¾I", (TARGET)
+#else
+#define MES_RUSH_NO_ENTER "You can't move to that place."
+#define MES_RUSH_DONE(TARGET) "You quickly jump in and attack %s!", (TARGET)
+#endif

@@ -2965,6 +2965,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 	bool tmp_mdeath = FALSE;
 	bool moved = FALSE;
 	int range = 5;
+	char m_name[MAX_NLEN];
 
 	if(mdeath) *mdeath = FALSE;
 
@@ -3009,16 +3010,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		if(!floor_ptr->cave[ny][nx].creature_idx)
 		{
 			if(tm_idx) msg_print(GAME_MESSAGE_FAILED);
-			else
-			{
-#ifdef JP
-				msg_print("‚±‚±‚É‚Í“üg‚Å‚Í“ü‚ê‚È‚¢B");
-#else
-				msg_print("You can't move to that place.");
-#endif
-			}
-
-			/* Exit loop */
+			else msg_print(MES_RUSH_NO_ENTER);
 			break;
 		}
 
@@ -3037,16 +3029,8 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		}
 		else if(!creature_bold(creature_ptr, ty, tx))
 		{
-			/* Hold the creature name */
-			char m_name[MAX_NLEN];
-
-			/* Get the creature name (BEFORE polymorphing) */
 			creature_desc(m_name, m_ptr, 0);
-#ifdef JP
-			msg_format("‘f‘‚­%s‚Ì‰ù‚É“ü‚è‚ñ‚¾I", m_name);
-#else
-			msg_format("You quickly jump in and attack %s!", m_name);
-#endif
+			msg_format(MES_RUSH_DONE(m_name));
 		}
 
 		if(!creature_bold(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
