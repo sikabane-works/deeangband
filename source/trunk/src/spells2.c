@@ -2004,14 +2004,8 @@ void discharge_minion(creature_type *caster_ptr)
 		if(target_ptr->nickname) okay = FALSE;
 	}
 	if(!okay || caster_ptr->riding)
-	{
-#ifdef JP
-		if(!get_check("本当に全ペットを爆破しますか？"))
-#else
-		if(!get_check("You will blast all pets. Are you sure? "))
-#endif
-			return;
-	}
+		if(!get_check(MES_DIS_MINION_ASK)) return;
+
 	for (i = 1; i < creature_max; i++)
 	{
 		int dam;
@@ -2024,17 +2018,13 @@ void discharge_minion(creature_type *caster_ptr)
 		{
 			char target_name[MAX_NLEN];
 			creature_desc(target_name, target_ptr, 0x00);
-#ifdef JP
-			msg_format("%sは爆破されるのを嫌がり、勝手に自分の世界へと帰った。", target_name);
-#else
-			msg_format("%^s resists to be blasted, and run away.", target_name);
-#endif
+			msg_format(MES_DIS_MINION_CANCEL(target_name));
 			delete_species_idx(&creature_list[i]);
 			continue;
 		}
 		dam = target_ptr->mhp / 2;
-		if(dam > 100) dam = (dam-100)/2 + 100;
-		if(dam > 400) dam = (dam-400)/2 + 400;
+		if(dam > 100) dam = (dam - 100) / 2 + 100;
+		if(dam > 400) dam = (dam - 400) / 2 + 400;
 		if(dam > 800) dam = 800;
 		project(target_ptr, 0, 2+(target_ptr->lev/10), target_ptr->fy,
 			target_ptr->fx, dam, DO_EFFECT_PLASMA, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);

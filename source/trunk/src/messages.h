@@ -2242,3 +2242,11 @@ static cptr desc_stat_neg[] =
 #define MES_EARTHQUAKE_CRUSHED1 "You are bashed by rubble!"
 #define MES_EARTHQUAKE_CRUSHED2 "You are crushed between the floor and ceiling!"
 #endif
+
+#ifdef JP
+#define MES_DIS_MINION_ASK "本当に全ペットを爆破しますか？"
+#define MES_DIS_MINION_CANCEL(MINION) "%sは爆破されるのを嫌がり、勝手に自分の世界へと帰った。", (MINION)
+#else
+#define MES_DIS_MINION_ASK "You will blast all pets. Are you sure? "
+#define MES_DIS_MINION_CANCEL(MINION)  "%^s resists to be blasted, and run away.", (MINION)
+#endif
