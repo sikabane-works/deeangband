@@ -5829,13 +5829,7 @@ static void do_cmd_knowledge_uniques(void)
 #endif
 	}
 	else
-	{
-#ifdef JP
-		fputs("現在は既知の生存ユニークはいません。\n", fff);
-#else
-		fputs("No known uniques alive.\n", fff);
-#endif
-	}
+		fputs(MES_KNOW_NO_ALIVE_UNIQUES, fff);
 
 	/* Scan the creature races */
 	for (k = 0; k < n; k++)
@@ -5854,16 +5848,7 @@ static void do_cmd_knowledge_uniques(void)
 	C_KILL(who, max_species_idx, s16b);
 
 	my_fclose(fff);
-
-	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "まだ生きているユニーク・クリーチャー", 0, 0);
-#else
-	show_file(TRUE, file_name, "Alive Uniques", 0, 0);
-#endif
-
-
-	/* Remove the file */
+	show_file(TRUE, file_name, MES_KNOW_ALIVE_UNIQUES, 0, 0);
 	fd_kill(file_name);
 }
 
@@ -5904,7 +5889,6 @@ static void do_cmd_knowledge_skill_exp(creature_type *creature_ptr)
 #else
 	show_file(TRUE, file_name, "Miscellaneous Proficiency", 0, 0);
 #endif
-
 
 	/* Remove the file */
 	fd_kill(file_name);
@@ -6085,18 +6069,10 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 		t_friends, (t_friends == 1 ? "" : "s"));
 	fprintf(fff, "   Upkeep: %d%% mana.\n", show_upkeep);
 #endif
-
-
-
 	my_fclose(fff);
 
 	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "現在のペット", 0, 0);
-#else
-	show_file(TRUE, file_name, "Current Pets", 0, 0);
-#endif
-
+	show_file(TRUE, file_name, MES_KNOW_PET, 0, 0);
 
 	/* Remove the file */
 	fd_kill(file_name);
@@ -6132,7 +6108,6 @@ static void do_cmd_knowledge_kill_count(void)
 
 	/* Allocate the "who" array */
 	C_MAKE(who, max_species_idx, s16b);
-
 	{
 		/* Creatures slain */
 		int kk;
@@ -6144,35 +6119,17 @@ static void do_cmd_knowledge_kill_count(void)
 			if(has_trait_species(species_ptr, TRAIT_UNIQUE))
 			{
 				bool dead = (species_ptr->max_num == 0);
-
-				if(dead)
-				{
-					Total++;
-				}
+				if(dead) Total++;
 			}
 			else
 			{
 				s16b This = species_ptr->r_pkills;
-
-				if(This > 0)
-				{
-					Total += This;
-				}
+				if(This > 0) Total += This;
 			}
 		}
 
-		if(Total < 1)
-#ifdef JP
-			fprintf(fff,"あなたはまだ敵を倒していない。\n\n");
-#else
-			fprintf(fff,"You have defeated no enemies yet.\n\n");
-#endif
-		else
-#ifdef JP
-			fprintf(fff,"あなたは%ld体の敵を倒している。\n\n", Total);
-#else
-			fprintf(fff,"You have defeated %ld %s.\n\n", Total, (Total == 1) ? "enemy" : "enemies");
-#endif
+		if(Total < 1) fprintf(fff, MES_KNOW_NO_KILLED);
+		else fprintf(fff, MES_KNOW_KILLED(Total));
 	}
 
 	Total = 0;
@@ -6181,8 +6138,6 @@ static void do_cmd_knowledge_kill_count(void)
 	for (i = 1; i < max_species_idx; i++)
 	{
 		species_type *species_ptr = &species_info[i];
-
-		/* Use that creature */
 		if(species_ptr->name) who[n++] = i;
 	}
 
@@ -7854,11 +7809,9 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 static void do_cmd_knowledge_kubi(creature_type *creature_ptr)
 {
 	int i;
-	FILE *fff;
-	
+	FILE *fff;	
 	char file_name[1024];
-	
-	
+
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
@@ -7910,15 +7863,12 @@ static void do_cmd_knowledge_kubi(creature_type *creature_ptr)
 #else
 	show_file(TRUE, file_name, "Wanted creatures", 0, 0);
 #endif
-
 	
 	/* Remove the file */
 	fd_kill(file_name);
 }
 
-/*
- * List karmas & status
- */
+// List karmas & status
 static void do_cmd_knowledge_karmas(creature_type *creature_ptr)
 {
 	FILE *fff;
@@ -7952,17 +7902,12 @@ static void do_cmd_knowledge_karmas(creature_type *creature_ptr)
 	fd_kill(file_name);
 }
 
-/*
-* Dungeon
-*
-*/
+// Dungeon
 static void do_cmd_knowledge_dungeon()
 {
 	FILE *fff;
-	
 	char file_name[1024];
 	int i;
-	
 	
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
@@ -8007,10 +7952,7 @@ static void do_cmd_knowledge_dungeon()
 	fd_kill(file_name);
 }
 
-/*
-* List karmas & status
-*
-*/
+// List karmas & status
 static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 {
 	FILE *fff;

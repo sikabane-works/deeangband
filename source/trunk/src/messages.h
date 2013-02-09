@@ -2172,3 +2172,18 @@ static cptr desc_stat_neg[] =
 #define MES_TIME_STRANGE "It is a strange time."
 #define MES_TIME_DETAIL(DAY, HH, MM) "This is day %s. The time is %d:%02d %s.", DAY, (HH % 12 == 0) ? 12 : (HH % 12), MM, (HH < 12) ? "AM" : "PM"
 #endif
+
+#ifdef JP
+#define MES_KNOW_PET "現在のペット"
+#define MES_KNOW_ALIVE_UNIQUES "まだ生きているユニーク・クリーチャー"
+#define MES_KNOW_NO_ALIVE_UNIQUES "既知の生存ユニークはいません。\n"
+#define MES_KNOW_NO_KILLED "あなたはまだ誰も殺していない。\n\n"
+#define MES_KNOW_KILLED(NUMBER) "あなたは%ld体のクリーチャーを殺している。\n\n", (NUMBER)
+#else
+#define MES_KNOW_PET "Current Pets"
+#define MES_KNOW_ALIVE_UNIQUES "Alive Uniques"
+#define MES_KNOW_NO_ALIVE_UNIQUES "No known uniques alive.\n"
+#define MES_KNOW_NO_KILLED "You have killed no creatures yet.\n\n"
+#define MES_KNOW_KILLED(NUMBER) "You have killed %ld %s.\n\n", (NUMBER), ((NUMBER) == 1) ? "creature" : "creatures"
+#endif
+
