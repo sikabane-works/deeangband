@@ -1187,28 +1187,17 @@ errr parse_skill_info(char *buf, header *head)
 	/* Process 'N' for "New/Number/Name" */
 	if(buf[0] == 'N')
 	{
-		/* Get the index */
 		i = atoi(buf+2);
-
-			/* Verify information */
 		if(i <= error_idx) return (4);
-
-		/* Verify information */
 		if(i >= head->info_num) return (2);
-
-		/* Save the index */
 		error_idx = i;
-
-		/* Point at the "info" */
 		class_ptr = &class_info[i];
 	}
 	else if(!class_ptr) return (3);
 	else if(buf[0] == 'S')
 	{
-		int num, start, max;
-
-		/* Scan for the values */
-		if(3 != sscanf(buf+2, "%d:%d:%d", &num, &start, &max)) return PARSE_ERROR_GENERIC;
+		int num, start;
+		if(2 != sscanf(buf+2, "%d:%d", &num, &start)) return PARSE_ERROR_GENERIC;
 		class_ptr->skill[num] = start;
 	}
 

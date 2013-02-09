@@ -1,341 +1,170 @@
-# File: s_info.txt
+# File: skill_info.txt
+# S:skill_num:start:
 
-# W:tval-TV_BOW:sval:start:max
-#     0:Unskilled 1:Beginer 2:Skilled 3:Expert 4:Master
-# S:skill_num:start:max
-
-### WARRIOR ###
+### WARRIOR###
 N:0
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:8000  # SUDE
-S:1:4000:8000  # NITOURYU
-S:2:0:5000  # RIDING
+S:0:0 # SUDE
+S:1:4000 # NITOURYU
+S:2:0 # RIDING
 
-### MAGE ###
+### MAGE###
 N:1
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:0  # NITOURYU
-S:2:0:0  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### PRIEST ###
+### PRIEST###
 N:2
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:4000  # NITOURYU
-S:2:0:500  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### ROGUE ###
+### ROGUE###
 N:3
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:8000  # SUDE
-S:1:4000:8000  # NITOURYU
-S:2:0:2000  # RIDING
+S:0:0 # SUDE
+S:1:4000 # NITOURYU
+S:2:0 # RIDING
 
-### RANGER ###
+### RANGER###
 N:4
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:6000  # SUDE
-S:1:0:6000  # NITOURYU
-S:2:0:5000  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### PALADIN ###
+### PALADIN###
 N:5
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:7000  # NITOURYU
-S:2:0:5000  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### WARRIOR_MAGE ###
+### WARRIOR_MAGE###
 N:6
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:6000  # NITOURYU
-S:2:0:2000  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### CHAOS_WARRIOR ###
+### CHAOS_WARRIOR###
 N:7
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:7000  # SUDE
-S:1:0:7000  # NITOURYU
-S:2:0:2000  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### MONK ###
+### MONK###
 N:8
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:4000:8000  # SUDE
-S:1:0:0  # NITOURYU
-S:2:0:0  # RIDING
+S:0:4000 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### MINDCRAFTER ###
+### MINDCRAFTER###
 N:9
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:4000  # NITOURYU
-S:2:0:500  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### HIGH_MAGE ###
+### HIGH_MAGE###
 N:10
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:0  # NITOURYU
-S:2:0:0  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### TOURIST ###
+### TOURIST###
 N:11
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:8000  # SUDE
-S:1:0:8000  # NITOURYU
-S:2:0:5000  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### IMITATOR ###
+### IMITATOR###
 N:12
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:7000  # SUDE
-S:1:0:7000  # NITOURYU
-S:2:0:2000  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### BEASTMASTER ###
+### BEASTMASTER###
 N:13
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:6000  # SUDE
-S:1:0:6000  # NITOURYU
-S:2:500:8000  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:500 # RIDING
 
-### SORCERER ###
+### SORCERER###
 N:14
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:0  # SUDE
-S:1:0:0  # NITOURYU
-S:2:0:0  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### ARCHER ###
+### ARCHER###
 N:15
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:4000  # NITOURYU
-S:2:0:2000  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### MAGIC_EATER ###
+### MAGIC_EATER###
 N:16
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:4000  # NITOURYU
-S:2:0:0  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### HARPER ###
+### HARPER###
 N:17
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:4000  # NITOURYU
-S:2:0:500  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### RED_MAGE ###
+### RED_MAGE###
 N:18
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:4000  # NITOURYU
-S:2:0:2000  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### SAMURAI ###
+### SAMURAI###
 N:19
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:4000:8000  # NITOURYU
-S:2:0:2000  # RIDING
+S:0:0 # SUDE
+S:1:4000 # NITOURYU
+S:2:0 # RIDING
 
-### ForceTrainer ###
+### ForceTrainer###
 N:20
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:4000:8000  # SUDE
-S:1:0:0  # NITOURYU
-S:2:0:0  # RIDING
+S:0:4000 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### BLUE MAGE ###
+### BLUE MAGE###
 N:21
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:0  # NITOURYU
-S:2:0:0  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### KIHEI ###
+### KIHEI###
 N:22
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:4000  # NITOURYU
-S:2:500:8000  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:500 # RIDING
 
-### BERSERKER ###
+### BERSERKER###
 N:23
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:4000:8000  # SUDE
-S:1:4000:8000  # NITOURYU
-S:2:0:0  # RIDING
+S:0:4000 # SUDE
+S:1:4000 # NITOURYU
+S:2:0 # RIDING
 
-### KAJI ###
+### KAJI###
 N:24
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:4000  # NITOURYU
-S:2:0:2000  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### MIRROR MASTER ###
+### MIRROR MASTER###
 N:25
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:4000  # SUDE
-S:1:0:0  # NITOURYU
-S:2:0:0  # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
 
-### NINJA ###
+### NINJA###
 N:26
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:7000  # SUDE
-S:1:4000:8000  # NITOURYU
-S:2:0:0  # RIDING
+S:0:0 # SUDE
+S:1:4000 # NITOURYU
+S:2:0 # RIDING
 
-### ARCHER ###
+### SNIPER###
 N:27
-# Bow
-# Digging
-# Hafted
-# Polearm
-# Sword
-# Skill
-S:0:0:2000  # SUDE
-S:1:0:1000  # NITOURYU
-S:2:0:0     # RIDING
+S:0:0 # SUDE
+S:1:0 # NITOURYU
+S:2:0 # RIDING
