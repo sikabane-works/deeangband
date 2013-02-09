@@ -1442,15 +1442,9 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 		msg_format(MES_DISARM_FAILED(buf));
 
 	}
-
-	/* Failure -- Set off the trap */
 	else
 	{
-#ifdef JP
-		msg_print("トラップを作動させてしまった！");
-#else
-		msg_print("You set off a trap!");
-#endif
+		msg_print(MES_DISARM_FUMBLE);
 		sound(SOUND_FAIL);
 		chest_trap(creature_ptr, y, x, object_idx);
 	}
@@ -1523,13 +1517,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	}
 	else // Failure -- Set off the trap
 	{
-#ifdef JP
-		msg_format("%sを作動させてしまった！", name);
-#else
-		msg_format("You set off the %s!", name);
-#endif
-
-		/* Move the player onto the trap */
+		msg_print(MES_DISARM_FUMBLE);
 		walk_creature(creature_ptr, dir, easy_disarm, FALSE);
 	}
 
