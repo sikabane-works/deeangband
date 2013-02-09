@@ -5856,9 +5856,7 @@ static void do_cmd_knowledge_uniques(void)
 static void do_cmd_knowledge_skill_exp(creature_type *creature_ptr)
 {
 	int i = 0, skill_exp;
-
 	FILE *fff;
-
 	char file_name[1024];
 
 	/* Open a new file */

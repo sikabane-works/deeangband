@@ -1182,8 +1182,7 @@ errr parse_skill_info(char *buf, header *head)
 	int i;
 
 	/* Current entry */
-	static skill_table *s_ptr = NULL;
-
+	static class_type *class_ptr = NULL;
 
 	/* Process 'N' for "New/Number/Name" */
 	if(buf[0] == 'N')
@@ -1201,52 +1200,19 @@ errr parse_skill_info(char *buf, header *head)
 		error_idx = i;
 
 		/* Point at the "info" */
-		s_ptr = &skill_info[i];
+		class_ptr = &class_info[i];
 	}
-
-	/* There better be a current s_ptr */
-	else if(!s_ptr) return (3);
-
-	/* Process 'W' for "Weapon exp" */
-	else if(buf[0] == 'W')
-	{
-		int tval, sval, start, max;
-		const s16b exp_conv_table[] = //TODO
-		{
-			0, 1, 2,
-			3, 4
-		};
-
-		/* Scan for the values */
-		if(4 != sscanf(buf+2, "%d:%d:%d:%d",
-				&tval, &sval, &start, &max)) return PARSE_ERROR_GENERIC;
-
-		//if(start < EXP_LEVEL_UNSKILLED || start > EXP_LEVEL_MASTER
-		//	|| max < EXP_LEVEL_UNSKILLED || max > EXP_LEVEL_MASTER) return (8);
-
-		/* Save the values */
-		//s_ptr->w_start[tval][sval] = exp_conv_table[start];
-		//s_ptr->w_max[tval][sval] = exp_conv_table[max];
-	}
-
-	/* Process 'S' for "Skill exp" */
+	else if(!class_ptr) return (3);
 	else if(buf[0] == 'S')
 	{
 		int num, start, max;
 
 		/* Scan for the values */
-		if(3 != sscanf(buf+2, "%d:%d:%d",
-				&num, &start, &max)) return PARSE_ERROR_GENERIC;
-
-		//TODO 
-		/* Save the values */
-		s_ptr->s_start[num] = 0;
-		s_ptr->s_max[num] = 8000;
+		if(3 != sscanf(buf+2, "%d:%d:%d", &num, &start, &max)) return PARSE_ERROR_GENERIC;
+		class_ptr->skill[num] = start;
 	}
 
-
 	else return (6);
-
 	return PARSE_ERROR_NONE;
 }
 

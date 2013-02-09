@@ -512,8 +512,8 @@ struct vault_type
  */
 typedef struct skill_table
 {
-	s16b s_start[10];		  // start skill
-	s16b s_max[10];           // max skill
+	s16b s_start[MAX_SKILLS];		  // start skill
+	s16b s_max[MAX_SKILLS];           // max skill
 } skill_table;
 
 
@@ -1034,6 +1034,7 @@ struct class_type
 	s16b c_exp;			/* Class experience factor */
 
 	byte pet_upkeep_div; /* Pet upkeep divider */
+	s32b skill[MAX_SKILLS];
 
 	traits_precondition flags;
 };
