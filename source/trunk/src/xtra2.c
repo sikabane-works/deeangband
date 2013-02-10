@@ -3258,11 +3258,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_DO_HAVOC:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_HAVOC);
 #ifdef JP
-			msg_print("「死と破壊こそ我が喜びなり！」");
 			reward = "カオスの力が渦巻いた。";
 #else
-			msg_print("'Death and destruction! This pleaseth me!'");
 			reward = "calling chaos";
 #endif
 			call_chaos(creature_ptr);
@@ -3270,11 +3269,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_GAIN_ABL:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_GAIN_ABL);
 #ifdef JP
-			msg_print("「留まるのだ、下僕よ。余が汝の肉体を鍛えん。」");
 			reward = "能力値が上がった。";
 #else
-			msg_print("'Stay, mortal, and let me mold thee.'");
 			reward = "increasing a stat";
 #endif
 			do_inc_stat(creature_ptr, randint0(6));
@@ -3282,11 +3280,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_LOSE_ABL:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_LOSE_ABL);
 #ifdef JP
-			msg_print("「下僕よ、余は汝に飽みたり。」");
 			reward = "能力値が下がった。";
 #else
-			msg_print("'I grow tired of thee, mortal.'");
 			reward = "decreasing a stat";
 #endif
 			(void)do_dec_stat(creature_ptr, randint0(6));
@@ -3294,12 +3291,11 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_RUIN_ABL:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_RUIN_ABL);
 #ifdef JP
-			msg_print("「汝、謙虚たることを学ぶべし！」");
 			msg_print("あなたは以前より弱くなった！");
 			reward = "全能力値が下がった。";
 #else
-			msg_print("'Thou needst a lesson in humility, mortal!'");
 			msg_print("You feel less powerful!");
 			reward = "decreasing all stats";
 #endif
@@ -3307,11 +3303,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_POLY_WND:
+			msg_format(MES_PATRON_POLY_WND(species_name + species_info[creature_ptr->patron_idx].name));
 #ifdef JP
-			msg_format("%sの力が触れるのを感じた。", species_name + species_info[creature_ptr->patron_idx].name);
 			reward = "傷が変化した。";
 #else
-			msg_format("You feel the power of %s touch you.", species_name + species_info[creature_ptr->patron_idx].name);
 			reward = "polymorphing wounds";
 #endif				
 			do_poly_wounds(creature_ptr);
@@ -3319,11 +3314,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_AUGM_ABL:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_AUGM_ABL);
 #ifdef JP
-			msg_print("「我がささやかなる賜物を受けとるがよい！」");
 			reward = "全能力値が上がった。";
 #else
-			msg_print("'Receive this modest gift from me!'");
 			reward = "increasing all stats";
 #endif
 			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)do_inc_stat(creature_ptr, dummy);

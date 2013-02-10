@@ -2266,6 +2266,12 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_TY_CURSE "「下僕よ、汝傲慢なり。」"
 #define MES_PATRON_S_ENEMY "「我が下僕たちよ、かの傲慢なる者を倒すべし！」"
 #define MES_PATRON_H_SUMMON "「汝、より強き敵を必要とせり！」"
+#define MES_PATRON_HAVOC "「死と破壊こそ我が喜びなり！」"
+#define MES_PATRON_GAIN_ABL "「留まるのだ、下僕よ。余が汝の肉体を鍛えん。」"
+#define MES_PATRON_LOSE_ABL "「下僕よ、余は汝に飽みたり。」"
+#define MES_PATRON_RUIN_ABL "「汝、謙虚たることを学ぶべし！」"
+#define MES_PATRON_POLY_WND(PATRON) "%sの力が触れるのを感じた。", (PATRON)
+#define MES_PATRON_AUGM_ABL "「我がささやかなる賜物を受けとるがよい！」"
 #else
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
 #define MES_PATRON_POLY_SELF "'Thou needst a new form!'"
@@ -2278,6 +2284,12 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_TY_CURSE "'Thou art growing arrogant, mortal.'"
 #define MES_PATRON_S_ENEMY "'My pets, destroy the arrogant mortal!'"
 #define MES_PATRON_H_SUMMON "'Thou needst worthier opponents!'"
+#define MES_PATRON_HAVOC "'Death and destruction! This pleaseth me!'"
+#define MES_PATRON_GAIN_ABL "'Stay, mortal, and let me mold thee.'"
+#define MES_PATRON_LOSE_ABL "'I grow tired of thee, mortal.'"
+#define MES_PATRON_RUIN_ABL "'Thou needst a lesson in humility, mortal!'"
+#define MES_PATRON_POLY_WND(PATRON) "You feel the power of %s touch you.", (PATRON)
+#define MES_PATRON_AUGM_ABL "'Receive this modest gift from me!'"
 #endif
 
 
