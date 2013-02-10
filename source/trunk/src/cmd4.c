@@ -1695,7 +1695,7 @@ static void do_cmd_options_autosave(cptr info)
 }
 
 
-void do_cmd_options_aux_new(int page, cptr info)
+void do_cmd_options_aux(int page, cptr info)
 {
 	selection se[25];
 	int     opt[24];
@@ -1705,12 +1705,7 @@ void do_cmd_options_aux_new(int page, cptr info)
 	for (i = 0; option_info[i].o_desc; i++) // Scan the options
 		if(option_info[i].o_page == page) opt[n++] = i;
 
-#ifdef JP
-		prt("キャンペーン・オプション", 0, 0);
-#else
-		prt("Campaign options"buf, 0, 0);
-#endif
-
+	prt(info, 0, 0);
 	while(TRUE)
 	{
 		for (i = 0; i < n; i++)
@@ -1728,7 +1723,7 @@ void do_cmd_options_aux_new(int page, cptr info)
 		se[i].code = i;
 		se[i].key = ESCAPE;
 		i++;
-		j = get_selection(se, i, j, 2, 2, 20, 76, NULL, 0);
+		j = get_selection(se, i, j, 2, 1, 20, 78, NULL, 0);
 		if(j == i - 1)
 			break;
 		else
@@ -1738,148 +1733,7 @@ void do_cmd_options_aux_new(int page, cptr info)
 
 }
 
-// Interact with some options
-void do_cmd_options_aux(int page, cptr info)
-{
-	char    ch;
-	int     i, k = 0, n = 0, l;
-	int     opt[24];
-	char    buf[80];
-	bool    browse_only = (page == OPT_PAGE_BIRTH) && character_generated && (!wizard || !allow_debug_opts);
-
-	/* Lookup the options */
-	for (i = 0; i < 24; i++) opt[i] = 0;
-
-	/* Scan the options */
-	for (i = 0; option_info[i].o_desc; i++)
-	{
-		/* Notice options on this "page" */
-		if(option_info[i].o_page == page) opt[n++] = i;
-	}
-
-	Term_clear();
-
-	/* Interact with the player */
-	while (TRUE)
-	{
-		int dir;
-
-		/* Prompt XXX XXX XXX */
-#ifdef JP
-		sprintf(buf, "%s (リターン:次, %sESC:終了, ?:ヘルプ) ", info, browse_only ? "" : "y/n:変更, ");
-		prt(buf, 0, 0);
-		if(page == OPT_PAGE_AUTODESTROY) c_prt(TERM_YELLOW, "以下のオプションは、簡易自動破壊を使用するときのみ有効", 6, 6);
-#else
-		sprintf(buf, "%s (RET:next, %s, ?:help) ", info, browse_only ? "ESC:exit" : "y/n:change, ESC:accept");
-		prt(buf, 0, 0);
-		if(page == OPT_PAGE_AUTODESTROY) c_prt(TERM_YELLOW, "Following options will protect items from easy auto-destroyer.", 6, 3);
-#endif
-
-		/* Display the options */
-		for (i = 0; i < n; i++)
-		{
-			byte a = TERM_WHITE;
-
-			/* Color current option */
-			if(i == k) a = TERM_L_BLUE;
-
-			/* Display the option text */
-			sprintf(buf, "%-48s: %s (%.19s)",
-				option_info[opt[i]].o_desc,
-				(*option_info[opt[i]].o_var ? KW_YES : KW_NO),
-				option_info[opt[i]].o_text);
-			if((page == OPT_PAGE_AUTODESTROY) && i > 2) c_prt(a, buf, i + 5, 0);
-			else c_prt(a, buf, i + 2, 0);
-		}
-
-		if((page == OPT_PAGE_AUTODESTROY) && (k > 2)) l = 3;
-		else l = 0;
-
-		/* Hilite current option */
-		move_cursor(k + 2 + l, 50);
-
-		/* Get a key */
-		ch = inkey();
-
-		/*
-		 * HACK - Try to translate the key into a direction
-		 * to allow using the roguelike keys for navigation.
-		 */
-		dir = get_keymap_dir(ch);
-		if((dir == 2) || (dir == 4) || (dir == 6) || (dir == 8))
-			ch = I2D(dir);
-
-		/* Analyze */
-		switch (ch)
-		{
-			case ESCAPE:
-				return;
-
-			case '-':
-			case '8':
-			{
-				k = (n + k - 1) % n;
-				break;
-			}
-
-			case ' ':
-			case '\n':
-			case '\r':
-			case '2':
-			{
-				k = (k + 1) % n;
-				break;
-			}
-
-			case 'y':
-			case 'Y':
-			case '6':
-			{
-				if(browse_only) break;
-				(*option_info[opt[k]].o_var) = TRUE;
-				k = (k + 1) % n;
-				break;
-			}
-
-			case 'n':
-			case 'N':
-			case '4':
-			{
-				if(browse_only) break;
-				(*option_info[opt[k]].o_var) = FALSE;
-				k = (k + 1) % n;
-				break;
-			}
-
-			case 't':
-			case 'T':
-			{
-				if(!browse_only) (*option_info[opt[k]].o_var) = !(*option_info[opt[k]].o_var);
-				break;
-			}
-
-			case '?':
-			{
-				strnfmt(buf, sizeof(buf), "%s#%s", TEXT_FILES_OPTION, option_info[opt[k]].o_text);
-				/* Peruse the help file */
-				(void)show_file(TRUE, buf, NULL, 0, 0);
-				Term_clear();
-				break;
-			}
-
-			default:
-			{
-				bell();
-				break;
-			}
-		}
-	}
-}
-
-
-/*
- * Modify the "window" options
- */
+// Modify the "window" options
 static void do_cmd_options_win(void)
 {
 	int i, j, d;

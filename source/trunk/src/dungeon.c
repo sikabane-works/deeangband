@@ -5031,7 +5031,7 @@ static void new_game_setting(void)
 
 		// Initial game mode
 		screen_save();
-		do_cmd_options_aux_new(OPT_PAGE_BIRTH, MES_SYS_OPTION_AUX);
+		do_cmd_options_aux(OPT_PAGE_BIRTH, MES_SYS_OPTION_AUX);
 		screen_load();
 
 		// Roll up a new character
