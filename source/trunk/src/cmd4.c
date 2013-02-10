@@ -1737,20 +1737,15 @@ void do_cmd_options_aux(int page, cptr info)
 static void do_cmd_options_win(void)
 {
 	int i, j, d;
-
 	int y = 0;
 	int x = 0;
-
 	char ch;
-
 	bool go = TRUE;
-
 	u32b old_flag[8];
 
 
 	// Memorize old flags
 	for (j = 0; j < WINDOW_MAX; j++) old_flag[j] = window_flag[j];
-
 	Term_clear();
 
 	/* Interact */
@@ -1784,14 +1779,7 @@ static void do_cmd_options_win(void)
 
 			/* Use color */
 			if(i == y) a = TERM_L_BLUE;
-
-			/* Unused option */
-#ifdef JP
-			if(!str) str = "(未使用)";
-#else
-			if(!str) str = "(Unused option)";
-#endif
-
+			if(!str) str = MES_OPTION_UNUSED;
 
 			/* Flag name */
 			Term_putstr(0, i + 5, -1, a, str);
@@ -1967,11 +1955,7 @@ void do_cmd_options(void)
 		Term_clear();
 
 		/* Why are we here */
-#ifdef JP
-		prt("[ オプションの設定 ]", 1, 0);
-#else
-		prt("TinyAngband options", 1, 0);
-#endif
+		prt(MES_OPTION_MAIN_TITLE, 1, 0);
 
 		while(1)
 		{
@@ -2058,7 +2042,7 @@ void do_cmd_options(void)
 				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? MES_SYS_OPTION_AUX2 : MES_SYS_OPTION_AUX);
 				break;
 
-			/* Cheating Options */
+			// Cheating Options
 			case 'C':
 			{
 				if(!noscore && !allow_debug_opts)
@@ -2066,11 +2050,7 @@ void do_cmd_options(void)
 					bell();
 					break;
 				}
-#ifdef JP
-				do_cmd_options_cheat("詐欺師は決して勝利できない！");
-#else
-				do_cmd_options_cheat("Cheaters never win");
-#endif
+				do_cmd_options_cheat(MES_OPTION_WARN_CHEAT);
 				break;
 			}
 

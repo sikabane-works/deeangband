@@ -2306,4 +2306,12 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_ASSULT(PATRON) "You can feel the power of %s assault your enemies!", (PATRON)
 #endif
 
-
+#ifdef JP
+#define MES_OPTION_WARN_CHEAT "詐欺師は決して勝利できない。"
+#define MES_OPTION_UNUSED "(未使用)"
+#define MES_OPTION_MAIN_TITLE "[ オプションの設定 ]"
+#else
+#define MES_OPTION_WARN_CHEAT "Cheaters never win."
+#define MES_OPTION_UNUSED "(Unused option)"
+#define MES_OPTION_MAIN_TITLE [ Game Options ]"
+#endif
