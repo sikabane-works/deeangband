@@ -529,7 +529,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	int i, j, y, x, droped_id;
 	floor_type *floor_ptr = GET_FLOOR_PTR(dead_ptr);
 	species_type *species_ptr = &species_info[dead_ptr->species_idx];
-	char dead_name[MAX_NLEN];
+	char slayer_name[MAX_NLEN], dead_name[MAX_NLEN];
 
 	int dump_item = 0;
 	int dump_gold = 0;
@@ -559,6 +559,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	y = dead_ptr->fy;
 	x = dead_ptr->fx;
 
+	if(slayer_ptr) creature_desc(slayer_name, slayer_ptr, 0);
 	creature_desc(dead_name, dead_ptr, 0);
 
 	if(has_trait(dead_ptr, TRAIT_UNIQUE) && !has_trait(dead_ptr, TRAIT_CLONED))
@@ -582,6 +583,20 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			}
 		}
 	}
+
+	// Curse of Amberites
+	if(slayer_ptr && has_trait(dead_ptr, TRAIT_DYING_CURSE_OF_BLOOD))
+	{
+		int curses = 1 + randint1(3);
+		bool stop_ty = FALSE;
+		int count = 0;
+
+		msg_format(GAME_MESSAGE_CARSE_OF_BLOOD_DEAD, dead_name, slayer_name);
+		curse_equipment(slayer_ptr, 100, 50);	
+		do stop_ty = activate_ty_curse(slayer_ptr, stop_ty, &count);
+		while (--curses);
+	}
+
 
 	if(dead_ptr->sc_flag2 & SC_FLAG2_CHAMELEON)
 	{

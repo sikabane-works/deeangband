@@ -732,7 +732,7 @@ static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 	species_type    *species_ptr = &species_info[m_ptr->species_idx];
 }
 
-static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x)
 {
 	char weapon_name[MAX_NLEN], attacker_name[MAX_NLEN], target_name[MAX_NLEN];
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
@@ -803,7 +803,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 
 		if(attacker_ptr->class_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
 		else min_level = ma_ptr->min_level;
-		k = diceroll(ma_ptr->dd + attacker_ptr->to_damaged[hand], ma_ptr->ds + attacker_ptr->to_damages[hand]);
+		k = diceroll(ma_ptr->dd, ma_ptr->ds);
 
 		if(has_trait(attacker_ptr, TRAIT_DRUNKING_FIST)) k *= 2;
 
@@ -858,7 +858,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 
 		k = test_critial_melee(attacker_ptr, attacker_ptr->lev * weight, min_level, k, attacker_ptr->to_hit[0], 0);
 
-		if((special_effect == MA_KNEE) && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
+		if((special_effect == MA_KNEE) && (k < target_ptr->chp))
 		{
 #ifdef JP
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format("%^s‚Í‹ê’É‚É‚¤‚ß‚¢‚Ä‚¢‚éI", target_name);
@@ -869,7 +869,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			res_stun /= 3;
 		}
 
-		else if((special_effect == MA_SLOW) && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
+		else if((special_effect == MA_SLOW) && (k < target_ptr->chp))
 		{
 			if(!has_trait(target_ptr, TRAIT_UNIQUE) && (randint1(attacker_ptr->lev) > species_ptr->level) && target_ptr->speed > 60)
 			{
@@ -883,7 +883,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			}
 		}
 
-		if(stun_effect && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
+		if(stun_effect && (k < target_ptr->chp))
 			if(attacker_ptr->lev > randint1(species_ptr->level + res_stun + 10))
 				add_timed_trait(target_ptr, TRAIT_STUN, stun_effect, TRUE);
 	}
@@ -1218,6 +1218,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 			break;
 
 		case MELEE_TYPE_BARE_HAND:
+			//barehand_attack(attacker_ptr, target_ptr, y, x, 
 			break;
 
 		case MELEE_TYPE_STAMP:

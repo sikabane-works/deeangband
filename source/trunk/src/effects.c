@@ -1587,19 +1587,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	}
 	*/
 
-	// Curse of Amberites
-	if(has_trait(target_ptr, TRAIT_DYING_CURSE_OF_BLOOD))
-	{
-		int curses = 1 + randint1(3);
-		bool stop_ty = FALSE;
-		int count = 0;
-
-		msg_format(GAME_MESSAGE_CARSE_OF_BLOOD_DEAD, target_name, attacker_name);
-		curse_equipment(attacker_ptr, 100, 50);	
-		do stop_ty = activate_ty_curse(attacker_ptr, stop_ty, &count);
-		while (--curses);
-	}
-
 	if(damage_type == DAMAGE_GENO && target_ptr->chp < 0)
 	{
 		damage += target_ptr->chp;
@@ -1763,8 +1750,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				}
 			}
 
-
-			/* Generate treasure */
 			creature_dead_effect(attacker_ptr, target_ptr, TRUE);
 
 			/* Mega hack : replace IKETA to BIKETAL */

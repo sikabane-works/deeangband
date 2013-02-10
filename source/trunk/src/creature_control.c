@@ -1630,6 +1630,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 	desc[0] = '\0';
 
+	if(!creature_ptr) return;
 	if(is_player(creature_ptr))
 	{
 		(void)strcpy(desc, KW_YOU);
