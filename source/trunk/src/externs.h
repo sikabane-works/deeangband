@@ -409,6 +409,7 @@ extern bool unique_play;        // Unique play mode
 extern cptr skill_name[MAX_SKILLS];
 extern cptr campaign_name[MAX_CAMPAIGNS];
 extern cptr campaign_detail[MAX_CAMPAIGNS];
+extern cptr knowledge_list[];
 
 extern creature_type player_prev;
 extern bool quick_ok;

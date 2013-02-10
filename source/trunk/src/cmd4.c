@@ -8629,168 +8629,101 @@ static void do_cmd_knowledge_autopick(void)
 }
 
 
-/*
- * Interact with "knowledge"
- */
+// Interact with "knowledge"
 void do_cmd_knowledge(creature_type *creature_ptr)
 {
-	int i, p = 0;
+	int i, j, p = 0;
 	bool need_redraw = FALSE;
+	selection se[20];
 
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	screen_save();
-
-	/* Interact until done */
-	while (1)
+	for(i = 0; i < 17; i++)
 	{
-		Term_clear();
+		strcpy(se[i].cap, knowledge_list[i]);
+		se[i].d_color = TERM_L_DARK;
+		se[i].l_color = TERM_L_WHITE;
+		se[i].code = i;
+		se[i].key = '\0';
+	}
 
-		/* Ask for a choice */
-#ifdef JP
-		prt(format("%d/2 ページ", (p+1)), 2, 65);
-		prt("現在の知識を確認する", 3, 0);
-#else
-		prt(format("page %d/2", (p+1)), 2, 65);
-		prt("Display current knowledge", 3, 0);
-#endif
+	strcpy(se[i].cap, "ESC");
+	se[i].d_color = TERM_L_DARK;
+	se[i].l_color = TERM_L_WHITE;
+	se[i].code = i;
+	se[i].key = ESCAPE;
+	i++;
 
-		/* Give some choices */
-#ifdef JP
-		if(p == 0)
-		{
-			prt("(1) 既知の伝説のアイテム", 6, 5);
-			prt("(2) 既知のアイテム", 7, 5);
-			prt("(3) 既知の生きているユニーク・クリーチャー", 8, 5);
-			prt("(4) 既知のクリーチャー", 9, 5);
-			prt("(5) 倒した敵の数", 10, 5);
-			prt("(6) 賞金首", 11, 5);
-			prt("(7) 現在のペット", 12, 5);
-			prt("(8) 我が家のアイテム", 13, 5);
-			prt("(9) *鑑定*済み装備の耐性", 14, 5);
-			prt("(0) 地形の表示文字/タイル", 15, 5);
-		}
-		else
-		{
-			prt("(a) 自分に関する情報", 6, 5);
-			prt("(b) 突然変異", 7, 5);
-			prt("(e) 技能の経験値", 10, 5);
-			prt("(f) プレイヤーの業", 11, 5);
-			prt("(g) 入ったダンジョン", 12, 5);
-			prt("(h) 実行中のクエスト", 13, 5);
-			prt("(i) 現在の自動拾い/破壊設定", 14, 5);
-		}
-#else
-		if(p == 0)
-		{
-			prt("(1) Display known artifacts", 6, 5);
-			prt("(2) Display known objects", 7, 5);
-			prt("(3) Display remaining uniques", 8, 5);
-			prt("(4) Display known creature", 9, 5);
-			prt("(5) Display kill count", 10, 5);
-			prt("(6) Display wanted creatures", 11, 5);
-			prt("(7) Display current pets", 12, 5);
-			prt("(8) Display home inventory", 13, 5);
-			prt("(9) Display *identified* equip.", 14, 5);
-			prt("(0) Display terrain symbols.", 15, 5);
-		}
-		else
-		{
-			prt("(a) Display about yourself", 6, 5);
-			prt("(b) Display mutations", 7, 5);
-			prt("(e) Display misc. proficiency", 10, 5);
-			prt("(f) Display karmas", 11, 5);
-			prt("(g) Display dungeons", 12, 5);
-			prt("(h) Display current quests", 13, 5);
-			prt("(i) Display auto pick/destroy", 14, 5);
-		}
-#endif
-		prt(MES_SYS_MORE, 17, 8);
-#ifdef JP
-		prt("ESC) 抜ける", 21, 1);
-		prt("SPACE) 次ページ", 21, 30);
-		/*prt("-) 前ページ", 21, 60);*/
-#else
-		prt("ESC) Exit menu", 21, 1);
-		prt("SPACE) Next page", 21, 30);
-		/*prt("-) Previous page", 21, 60);*/
-#endif
-		prt(PROMPT_COMMAND, 20, 0);
+	screen_save();
+	while(TRUE)
+	{
+		j = get_selection(se, i, 0, 5, 5, 20, 30, NULL, 0);
 
-		i = inkey();
-
-		if(i == ESCAPE) break;
-		switch (i)
+		switch (j)
 		{
-		case ' ': /* Page change */
-		case '-':
-			p = 1 - p;
-			break;
-		case '1': /* Artifacts */
+		case 0: /* Artifacts */
 			do_cmd_knowledge_artifacts(creature_ptr);
 			break;
-		case '2': /* Objects */
+		case 1: /* Objects */
 			do_cmd_knowledge_objects(&need_redraw, FALSE, -1);
 			break;
-		case '3': /* Uniques */
+		case 2: /* Uniques */
 			do_cmd_knowledge_uniques();
 			break;
-		case '4': /* Creatures */
+		case 3: /* Creatures */
 			do_cmd_knowledge_creatures(&need_redraw, FALSE, -1);
 			break;
-		case '5': /* Kill count  */
+		case 4: /* Kill count  */
 			do_cmd_knowledge_kill_count();
 			break;
-		case '6': /* wanted */
+		case 5: /* wanted */
 			do_cmd_knowledge_kubi(creature_ptr);
 			break;
-		case '7': /* Pets */
+		case 6: /* Pets */
 			do_cmd_knowledge_pets(creature_ptr);
 			break;
-		case '8': /* Home */
+		case 7: /* Home */
 			do_cmd_knowledge_home();
 			break;
-		case '9': /* Resist list */
+		case 8: /* Resist list */
 			do_cmd_knowledge_inven(creature_ptr);
 			break;
-		case '0': /* Feature list */
+		case 9: /* Feature list */
 			{
 				int lighting_level = F_LIT_STANDARD;
 				do_cmd_knowledge_features(&need_redraw, FALSE, -1, &lighting_level);
 			}
 			break;
 		/* Next page */
-		case 'a': /* Max stat */
+		case 10: /* Max stat */
 			do_cmd_knowledge_stat(creature_ptr);
 			break;
-		case 'b': /* Mutations */
+		case 11: /* Mutations */
 			do_cmd_knowledge_traits(creature_ptr);
 			break;
-		case 'e': /* skill-exp */
+		case 12: /* skill-exp */
 			do_cmd_knowledge_skill_exp(creature_ptr);
 			break;
-		case 'f': /* Virtues */
+		case 13: /* Virtues */
 			do_cmd_knowledge_karmas(creature_ptr);
 			break;
-		case 'g': /* Dungeon */
+		case 14: /* Dungeon */
 			do_cmd_knowledge_dungeon();
 			break;
-		case 'h': /* Quests */
+		case 15: /* Quests */
 			do_cmd_knowledge_quests();
 			break;
-		case 'i': /* Autopick */
+		case 16: /* Autopick */
 			do_cmd_knowledge_autopick();
 			break;
 		default: /* Unknown option */
 			bell();
 		}
 
-		msg_print(NULL);
+		if(j == 17) break;
 	}
-
 	screen_load();
-
 	if(need_redraw) do_cmd_redraw();
 }
 

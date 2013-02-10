@@ -1086,7 +1086,6 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 	if(cease_by_counter(attacker_ptr, target_ptr)) return FALSE; // Ceased by Iai Counter
 	if(kawarimi(target_ptr, TRUE)) return FALSE; // Ceased by Kawarimi
 
-	//TODO gain_skill(attacker, SKILL_MULTI_WEAPON, amount); 
 	//TODO gain_skill(attacker, SKILL_RIDING, amount);
 
 	riding_t_m_idx = c_ptr->creature_idx;
@@ -1186,6 +1185,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 		case MELEE_TYPE_WEAPON_7TH:
 		case MELEE_TYPE_WEAPON_8TH:
 			if(attacker_ptr->can_melee[i]) weapon_attack(attacker_ptr, target_ptr, y, x, i + MELEE_TYPE_WEAPON_1ST, mode);
+			//TODO gain_skill(attacker, SKILL_MULTI_WEAPON, amount); 
 			break;
 
 		case MELEE_TYPE_SPECIAL_1ST:
@@ -1193,10 +1193,12 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 		case MELEE_TYPE_SPECIAL_3RD:
 		case MELEE_TYPE_SPECIAL_4TH:
 			special_melee(attacker_ptr, target_ptr, i - MELEE_TYPE_SPECIAL_1ST);
+			//TODO gain_skill(attacker, SKILL_MULTI_WEAPON, amount); 
 			break;
 
 		case MELEE_TYPE_BARE_HAND:
-			//barehand_attack(attacker_ptr, target_ptr, y, x, 
+			barehand_attack(attacker_ptr, target_ptr, y, x); 
+			//TODO gain_skill(attacker, SKILL_MULTI_WEAPON, amount); 
 			break;
 
 		case MELEE_TYPE_STAMP:

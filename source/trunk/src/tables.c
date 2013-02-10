@@ -3981,5 +3981,44 @@ cptr campaign_detail[MAX_CAMPAIGNS] =
 };
 #endif
 
-
+cptr knowledge_list[] =
+{
+#ifdef JP
+	"既知の伝説のアイテム",
+	"既知のアイテム",
+	"既知の生きているユニーク・クリーチャー",
+	"既知のクリーチャー",
+	"倒した敵の数",
+	"賞金首",
+	"現在のペット",
+	"我が家のアイテム",
+	"*鑑定*済み装備の耐性",
+	"地形の表示文字/タイル",
+	"自分に関する情報",
+	"突然変異",
+	"技能の経験値",
+	"プレイヤーの業",
+	"入ったダンジョン",
+	"実行中のクエスト",
+	"現在の自動拾い/破壊設定",
+#else	
+	"Known artifacts",
+	"Known objects",
+	"Eemaining uniques",
+	"Known creature",
+	"Kill count",
+	"Wanted creatures",
+	"Current pets",
+	"Home inventory",
+	"*Identified* equip.",
+	"Terrain symbols.",
+	"About yourself",
+	"Mutations",
+	"Proficiency",
+	"Karmas",
+	"Dungeons",
+	"Current quests",
+	"Auto pick/destroy",
+#endif
+};
 
