@@ -963,9 +963,13 @@ bool change_wild_mode(creature_type *creature_ptr)
 	int i;
 	bool have_pet = FALSE;
 
-	/* It is in the middle of changing map */
-	if(subject_change_floor) return FALSE;
+	if(creature_ptr->food < CREATURE_FOOD_WEAK)
+	{
+		msg_print(GAME_MESSAGE_PREVENT_BY_HUNGER);
+		return FALSE;
+	}
 
+	if(subject_change_floor) return FALSE;
 
 	if(floor_ptr->wild_mode)
 	{

@@ -3522,65 +3522,33 @@ static void process_player_command(creature_type *creature_ptr)
 		{
 			if(!floor_ptr->wild_mode && !floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
 			{
-
-				if(creature_ptr->food < CREATURE_FOOD_WEAK)
-				{
-					msg_print(GAME_MESSAGE_PREVENT_BY_HUNGER);
-					break;
-				}
-
 				change_wild_mode(creature_ptr);
 			}
 			else
 				do_cmd_go_up(creature_ptr);
 			break;
 		}
-
-		/* Go down staircase */
 	case '>':
-		{
 			if(floor_ptr->wild_mode)
 				change_wild_mode(creature_ptr);
 			else
 				do_cmd_go_down(creature_ptr);
-
 			break;
-		}
-
-		/* Open a door or chest */
-	case 'o':
-		{
+	case 'o': // Open a door or chest
 			if(!floor_ptr->wild_mode) do_cmd_open(creature_ptr);
 			break;
-		}
-
-		/* Close a door */
-	case 'c':
-		{
+	case 'c': // Close
 			if(!floor_ptr->wild_mode) do_cmd_close(creature_ptr);
 			break;
-		}
-
-		/* Jam a door with spikes */
-	case 'j':
-		{
+	case 'j': // Jam a door with spikes
 			if(!floor_ptr->wild_mode) do_cmd_spike(creature_ptr);
 			break;
-		}
-
-		/* Bash a door */
-	case 'B':
-		{
+	case 'B': // Bash
 			if(!floor_ptr->wild_mode) do_cmd_bash(creature_ptr);
 			break;
-		}
-
-		/* Disarm a trap or chest */
-	case 'D':
-		{
+	case 'D': // Disarm a trap or chest
 			if(!floor_ptr->wild_mode) do_cmd_disarm(creature_ptr);
 			break;
-		}
 
 		/*** Magic and Prayers ***/
 
@@ -3588,11 +3556,7 @@ static void process_player_command(creature_type *creature_ptr)
 	case 'G':
 		{
 			if((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))
-#ifdef JP
-				msg_print("呪文を学習する必要はない！");
-#else
-				msg_print("You don't have to learn spells!");
-#endif
+				msg_print(MES_CAST_NO_NEED_LEARN);
 			else if(creature_ptr->class_idx == CLASS_SAMURAI)
 				do_cmd_gain_hissatsu(creature_ptr);
 			else if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
@@ -3628,11 +3592,7 @@ static void process_player_command(creature_type *creature_ptr)
 			{
 				if((creature_ptr->class_idx == CLASS_WARRIOR) || (creature_ptr->class_idx == CLASS_ARCHER) || (creature_ptr->class_idx == CLASS_CAVALRY))
 				{
-#ifdef JP
-					msg_print("呪文を唱えられない！");
-#else
-					msg_print("You cannot cast spells!");
-#endif
+					msg_print(MES_CAST_NONE);
 				}
 				else if(floor_ptr->floor_level && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH))
 				{
@@ -4127,8 +4087,7 @@ static void process_player_command(creature_type *creature_ptr)
 			{
 				char error_m[1024];
 				sound(SOUND_ILLEGAL);
-				if(!get_rnd_line(TEXT_FILES_ERROR, 0, error_m))
-					msg_print(error_m);
+				if(!get_rnd_line(TEXT_FILES_ERROR, 0, error_m)) msg_print(error_m);
 			}
 			else
 #ifdef JP

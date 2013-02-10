@@ -2341,3 +2341,11 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_MUTATION_SOMETHING "You feel different!"
 #endif
+
+#ifdef JP
+#define MES_CAST_NONE "呪文を唱えられない！"
+#define MES_CAST_NO_NEED_LEARN "呪文を学習する必要はない！"
+#else
+#define MES_CAST_NONE "You cannot cast spells!"
+#define MES_CAST_NO_NEED_LEARN "You don't have to learn spells!"
+#endif
