@@ -2272,6 +2272,10 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_RUIN_ABL "「汝、謙虚たることを学ぶべし！」"
 #define MES_PATRON_POLY_WND(PATRON) "%sの力が触れるのを感じた。", (PATRON)
 #define MES_PATRON_AUGM_ABL "「我がささやかなる賜物を受けとるがよい！」"
+#define MES_PATRON_HURT_LOT "「苦しむがよい、無能な愚か者よ！」"
+#define MES_PATRON_HEAL_FUL "「甦るがよい、我が下僕よ！」"
+#define MES_PATRON_CURSE_WEAPON "「汝、武器に頼ることなかれ。」"
+#define MES_PATRON_CURSE_ARMOR "「汝、防具に頼ることなかれ。」"
 #else
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
 #define MES_PATRON_POLY_SELF "'Thou needst a new form!'"
@@ -2290,6 +2294,10 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_RUIN_ABL "'Thou needst a lesson in humility, mortal!'"
 #define MES_PATRON_POLY_WND(PATRON) "You feel the power of %s touch you.", (PATRON)
 #define MES_PATRON_AUGM_ABL "'Receive this modest gift from me!'"
+#define MES_PATRON_HURT_LOT "'Suffer, pathetic fool!'"
+#define MES_PATRON_HEAL_FUL "'Rise, my servant!'"
+#define MES_PATRON_CURSE_WEAPON "'Thou reliest too much on thy weapon.'"
+#define MES_PATRON_CURSE_ARMOR "'Thou reliest too much on thine equipment.'"
 #endif
 
 

@@ -3293,10 +3293,8 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
 			msg_print(MES_PATRON_RUIN_ABL);
 #ifdef JP
-			msg_print("あなたは以前より弱くなった！");
 			reward = "全能力値が下がった。";
 #else
-			msg_print("You feel less powerful!");
 			reward = "decreasing all stats";
 #endif
 			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
@@ -3325,11 +3323,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_HURT_LOT:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_HURT_LOT);
 #ifdef JP
-			msg_print("「苦しむがよい、無能な愚か者よ！」");
 			reward = "分解の球が発生した。";
 #else
-			msg_print("'Suffer, pathetic fool!'");
 			reward = "generating disintegration ball";
 #endif
 			SELF_FIELD(creature_ptr, DO_EFFECT_NUKE, creature_ptr->lev * 4, 4, -1);
@@ -3338,11 +3335,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_HEAL_FUL:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_HEAL_FUL);
 #ifdef JP
-			msg_print("「甦るがよい、我が下僕よ！」");
 			reward = "体力が回復した。";
 #else
-			msg_print("'Rise, my servant!'");
 			reward = "healing";
 #endif
 			do_active_trait(creature_ptr, TRAIT_TRUE_HEALING2, TRUE);
@@ -3351,11 +3347,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_CURSE_WP:
 			if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) break;
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_CURSE_WEAPON);
 #ifdef JP
-			msg_print("「汝、武器に頼ることなかれ。」");
 			reward = format("%sが破壊された。", object_name);
 #else
-			msg_print("'Thou reliest too much on thy weapon.'");
 			reward = format("destroying %s", object_name);
 #endif
 			dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 0);
@@ -3373,10 +3368,8 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			if(!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 0)->k_idx) break;
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
 #ifdef JP
-			msg_print("「汝、防具に頼ることなかれ。」");
 			reward = format("%sが破壊された。", object_name);
 #else
-			msg_print("'Thou reliest too much on thine equipment.'");
 			reward = format("destroying %s", object_name);
 #endif
 			object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
