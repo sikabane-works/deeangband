@@ -889,12 +889,7 @@ static void do_cmd_erase_nikki(void)
 	char buf[256];
 	FILE *fff = NULL;
 
-#ifdef JP
-	if(!get_check("本当に記録を消去しますか？")) return;
-#else
-	if(!get_check("Do you really want to delete all your record? ")) return;
-#endif
-
+	if(!get_check(MES_DIARY_ASK_ERASE)) return;
 	sprintf(file_name,"playrecord-%s.txt",savefile_base);
 
 	/* Build the filename */
@@ -906,18 +901,11 @@ static void do_cmd_erase_nikki(void)
 	fff = my_fopen(buf, "w");
 	if(fff){
 		my_fclose(fff);
-#ifdef JP
-		msg_format("記録を消去しました。");
-#else
-		msg_format("deleted record.");
-#endif
-	}else{
-#ifdef JP
-		msg_format("%s の消去に失敗しました。", buf);
-#else
-		msg_format("failed to delete %s.", buf);
-#endif
+		msg_format(MES_DIARY_DELETED);
 	}
+	else
+		msg_format(MES_DIARY_DELETE_FAIL(buf));
+
 	msg_print(NULL);
 }
 
@@ -935,7 +923,6 @@ void do_cmd_nikki(creature_type *player_ptr)
 	while (1)
 	{
 		Term_clear();
-
 
 		/* Give some choices */
 #ifdef JP
@@ -1012,25 +999,18 @@ void do_cmd_redraw(void)
 	/*
 	// Combine and Reorder the pack (later)
 	prepare_update(player_ptr, CRU_COMBINE | CRU_REORDER);
-
 	prepare_update(player_ptr, CRU_TORCH);
-
 	prepare_update(player_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	*/
 
-	/* Forget lite/view */
+	// lite/view
 	prepare_update(player_ptr, PU_UN_VIEW | PU_UN_LITE);
-
-	/* Update lite/view */
 	prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	// Update creatures
 	prepare_update(player_ptr, PU_CREATURES);
-
 	prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
-
 	prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
-
 	prepare_window(PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	update_play_time();
@@ -1078,15 +1058,7 @@ void do_cmd_change_name(creature_type *creature_ptr)
 
 		/* Display the player */
 		display_creature_status(mode, creature_ptr);
-
-
-#ifdef JP
-		Term_putstr(2, 23, -1, TERM_WHITE,
-			    "['c'で名前変更, 'f'でファイルへ書出, 'h'でモード変更, ESCで終了]");
-#else
-		Term_putstr(2, 23, -1, TERM_WHITE,
-			"['c' to change name, 'f' to file, 'h' to change mode, or ESC]");
-#endif
+		Term_putstr(2, 23, -1, TERM_WHITE, MES_STATUS_SELECTION);
 
 		c = inkey(); // Query
 		if(c == ESCAPE) break; // Exit
@@ -1115,9 +1087,7 @@ void do_cmd_change_name(creature_type *creature_ptr)
 	}
 
 	screen_load();
-
 	prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
-
 	handle_stuff(creature_ptr);
 }
 
@@ -1424,7 +1394,6 @@ static void do_cmd_options_cheat(cptr info)
 #else
 		sprintf(buf, "%s (RET to advance, y/n to set, ESC to accept) ", info);
 #endif
-
 		prt(buf, 0, 0);
 
 #ifdef JP
@@ -2125,11 +2094,7 @@ void do_cmd_options(void)
 			case 'h':
 			{
 				clear_from(18);
-#ifdef JP
-				prt("コマンド: 低ヒットポイント警告", 19, 0);
-#else
-				prt("Command: Hitpoint Warning", 19, 0);
-#endif
+				prt(MES_OPTION_CMD_HP_WARNING, 19, 0);
 				while (1)
 				{
 #ifdef JP
@@ -2159,11 +2124,7 @@ void do_cmd_options(void)
 			case 'm':
 			{
 				clear_from(18);
-#ifdef JP
-				prt("コマンド: 低魔力色閾値", 19, 0);
-#else
-				prt("Command: Mana Color Threshold", 19, 0);
-#endif
+				prt(MES_OPTION_CMD_MP_CHECK, 19, 0);
 				while (1)
 				{
 #ifdef JP

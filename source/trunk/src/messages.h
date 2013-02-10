@@ -2310,8 +2310,29 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_WARN_CHEAT "詐欺師は決して勝利できない。"
 #define MES_OPTION_UNUSED "(未使用)"
 #define MES_OPTION_MAIN_TITLE "[ オプションの設定 ]"
+#define MES_OPTION_CMD_HP_WARNING "コマンド: 低ヒットポイント警告"
+#define MES_OPTION_CMD_MP_CHECK "コマンド: 低魔力色閾値"
 #else
 #define MES_OPTION_WARN_CHEAT "Cheaters never win."
 #define MES_OPTION_UNUSED "(Unused option)"
 #define MES_OPTION_MAIN_TITLE [ Game Options ]"
+#define MES_OPTION_CMD_HP_WARNING "Command: Hitpoint Warning"
+#define MES_OPTION_CMD_MP_CHECK "Command: Mana Color Threshold"
 #endif
+
+#ifdef JP
+#define MES_STATUS_SELECTION "['c'で名前変更, 'f'でファイルへ書出, 'h'でモード変更, ESCで終了]"
+#else
+#define MES_STATUS_SELECTION "['c' to change name, 'f' to file, 'h' to change mode, or ESC]"
+#endif
+
+#ifdef JP
+#define MES_DIARY_ASK_ERASE "本当に記録を消去しますか？"
+#define MES_DIARY_DELETED "記録を消去しました。"
+#define MES_DIARY_DELETE_FAIL(FILE) "%s の消去に失敗しました。", (FILE)
+#else
+#define MES_DIARY_ASK_ERASE "Do you really want to delete all your record? "
+#define MES_DIARY_DELETED "deleted record."
+#define MES_DIARY_DELETE_FAIL(FILE) "failed to delete %s.", (FILE)
+#endif
+
