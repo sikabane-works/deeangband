@@ -1695,18 +1695,57 @@ static void do_cmd_options_autosave(cptr info)
 }
 
 
-/*
- * Interact with some options
- */
+void do_cmd_options_aux_new(int page, cptr info)
+{
+	selection se[25];
+	int     opt[24];
+	int i, j = 0, n = 0;
+
+	for (i = 0; i < 24; i++) opt[i] = 0;	// Lookup the options
+	for (i = 0; option_info[i].o_desc; i++) // Scan the options
+		if(option_info[i].o_page == page) opt[n++] = i;
+
+#ifdef JP
+		prt("キャンペーン・オプション", 0, 0);
+#else
+		prt("Campaign options"buf, 0, 0);
+#endif
+
+	while(TRUE)
+	{
+		for (i = 0; i < n; i++)
+		{
+			sprintf(se[i].cap, "%-45s:%-6s(%.19s)", option_info[opt[i]].o_desc,
+				(*option_info[opt[i]].o_var ? KW_YES : KW_NO), option_info[opt[i]].o_text);
+			se[i].d_color = TERM_L_DARK;
+			se[i].l_color = TERM_WHITE;
+			se[i].code = i;
+			se[i].key = '\0';			
+		}
+		strcpy(se[i].cap, "決定");
+		se[i].d_color = TERM_BLUE;
+		se[i].l_color = TERM_L_BLUE;
+		se[i].code = i;
+		se[i].key = ESCAPE;
+		i++;
+		j = get_selection(se, i, j, 2, 2, 20, 76, NULL, 0);
+		if(j == i - 1)
+			break;
+		else
+			*(option_info[opt[j]].o_var) = ~(*(option_info[opt[j]].o_var));
+
+	}
+
+}
+
+// Interact with some options
 void do_cmd_options_aux(int page, cptr info)
 {
 	char    ch;
 	int     i, k = 0, n = 0, l;
 	int     opt[24];
 	char    buf[80];
-	bool    browse_only = (page == OPT_PAGE_BIRTH) && character_generated &&
-	                      (!wizard || !allow_debug_opts);
-
+	bool    browse_only = (page == OPT_PAGE_BIRTH) && character_generated && (!wizard || !allow_debug_opts);
 
 	/* Lookup the options */
 	for (i = 0; i < 24; i++) opt[i] = 0;
@@ -1717,7 +1756,6 @@ void do_cmd_options_aux(int page, cptr info)
 		/* Notice options on this "page" */
 		if(option_info[i].o_page == page) opt[n++] = i;
 	}
-
 
 	Term_clear();
 
