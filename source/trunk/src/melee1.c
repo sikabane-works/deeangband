@@ -734,20 +734,15 @@ static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 
 static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x)
 {
-	char weapon_name[MAX_NLEN], attacker_name[MAX_NLEN], target_name[MAX_NLEN];
+	char attacker_name[MAX_NLEN], target_name[MAX_NLEN];
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
-	bool monk_attack = FALSE;
+	int special_effect = 0, stun_effect = 0, times = 0, max_times;
+	int min_level = 1;
+	martial_arts *ma_ptr = &ma_blows[0], *old_ptr = &ma_blows[0];
+	int weight = 8;
 	int k;
-
-	if((empty_hands(attacker_ptr, TRUE) & EMPTY_HAND_RARM) && !attacker_ptr->riding) monk_attack = TRUE;
-
-#if JP
-	strcpy(weapon_name, "徒手");
-#else
-	strcpy(weapon_name, "bare hand");
-#endif
 
 	if((species_ptr->level + 10) > attacker_ptr->lev)
 	{
@@ -755,138 +750,121 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		// Matrial arts skill mastering
 	}
 
-	if(monk_attack)
+	if(attacker_ptr->posture & KAMAE_BYAKKO) max_times = (attacker_ptr->lev < 3 ? 1 : attacker_ptr->lev / 3);
+	else if(attacker_ptr->posture & KAMAE_SUZAKU) max_times = 1;
+	else if(attacker_ptr->posture & KAMAE_GENBU) max_times = 1;
+	else max_times = (attacker_ptr->lev < 7 ? 1 : attacker_ptr->lev / 7);
+	/* Attempt 'times' */
+	for (times = 0; times < max_times; times++)
 	{
-		int special_effect = 0, stun_effect = 0, times = 0, max_times;
-		int min_level = 1;
-		martial_arts *ma_ptr = &ma_blows[0], *old_ptr = &ma_blows[0];
-		int res_stun = 0;
-		int weight = 8;
-
-		if(has_trait(target_ptr, TRAIT_UNIQUE)) res_stun += 88;
-		if(has_trait(target_ptr, TRAIT_NO_STUN)) res_stun += 66;
-		if(has_trait(target_ptr, TRAIT_NO_CONF)) res_stun += 33;
-		if(has_trait(target_ptr, TRAIT_NO_SLEEP)) res_stun += 33;
-		if(has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_NONLIVING)) res_stun += 66;
-
-		if(attacker_ptr->posture & KAMAE_BYAKKO) max_times = (attacker_ptr->lev < 3 ? 1 : attacker_ptr->lev / 3);
-		else if(attacker_ptr->posture & KAMAE_SUZAKU) max_times = 1;
-		else if(attacker_ptr->posture & KAMAE_GENBU) max_times = 1;
-		else max_times = (attacker_ptr->lev < 7 ? 1 : attacker_ptr->lev / 7);
-		/* Attempt 'times' */
-		for (times = 0; times < max_times; times++)
+		do
 		{
-			do
+			ma_ptr = &ma_blows[randint0(MAX_MA)];
+			if((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
+			else min_level = ma_ptr->min_level;
+		}
+		while ((min_level > attacker_ptr->lev) || (randint1(attacker_ptr->lev) < ma_ptr->chance));
+
+		/* keep the highest level attack available we found */
+		if((ma_ptr->min_level > old_ptr->min_level) && !has_trait(attacker_ptr, TRAIT_STUN) && !has_trait(attacker_ptr, TRAIT_CONFUSED))
+		{
+			old_ptr = ma_ptr;
+
+			if(wizard && cheat_xtra)
 			{
-				ma_ptr = &ma_blows[randint0(MAX_MA)];
-				if((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
-				else min_level = ma_ptr->min_level;
-			}
-			while ((min_level > attacker_ptr->lev) || (randint1(attacker_ptr->lev) < ma_ptr->chance));
-
-			/* keep the highest level attack available we found */
-			if((ma_ptr->min_level > old_ptr->min_level) && !has_trait(attacker_ptr, TRAIT_STUN) && !has_trait(attacker_ptr, TRAIT_CONFUSED))
-			{
-				old_ptr = ma_ptr;
-
-				if(wizard && cheat_xtra)
-				{
 #ifdef JP
-					msg_print("攻撃を再選択しました。");
+				msg_print("攻撃を再選択しました。");
 #else
-					msg_print("Attack re-selected.");
+				msg_print("Attack re-selected.");
 #endif
-				}
-			}
-			else ma_ptr = old_ptr;
-		}
-
-		if(attacker_ptr->class_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
-		else min_level = ma_ptr->min_level;
-		k = diceroll(ma_ptr->dd, ma_ptr->ds);
-
-		if(has_trait(attacker_ptr, TRAIT_DRUNKING_FIST)) k *= 2;
-
-		if(ma_ptr->effect == MA_KNEE)
-		{
-			if(IS_MALE(target_ptr))
-			{
-				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-				{
-#ifdef JP
-					msg_format("%sは%sに金的膝蹴りをくらわした！", attacker_name, target_name);
-#else
-					//TODO
-					msg_format("%s hit %s in the groin with your knee!", attacker_name, target_name);
-#endif
-					sound(SOUND_PAIN);
-					special_effect = MA_KNEE;
-				}
-			}
-			else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, attacker_name, target_name);
-		}
-
-		else if(ma_ptr->effect == MA_SLOW)
-		{
-			if(!((has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) || my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", species_ptr->d_char)))
-			{
-				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-				{
-#ifdef JP
-					msg_format("%sは%sの足首に関節蹴りをくらわした！", attacker_name, target_name);
-#else
-					//TODO
-					msg_format("You kick %s in the ankle.", target_name);
-#endif
-				}
-				special_effect = MA_SLOW;
-			}
-			else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, target_name);
-		}
-		else
-		{
-			if(ma_ptr->effect) stun_effect = (ma_ptr->effect / 2) + randint1(ma_ptr->effect / 2);
-			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, attacker_name, target_name);
-		}
-
-		if(attacker_ptr->posture & KAMAE_SUZAKU) weight = 4;
-		if((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (attacker_ptr->charged_force))
-		{
-			weight += (attacker_ptr->charged_force/30);
-			if(weight > 20) weight = 20;
-		}
-
-		k = test_critial_melee(attacker_ptr, attacker_ptr->lev * weight, min_level, k, attacker_ptr->to_hit[0], 0);
-
-		if((special_effect == MA_KNEE) && (k < target_ptr->chp))
-		{
-#ifdef JP
-			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format("%^sは苦痛にうめいている！", target_name);
-#else
-			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format("%^s moans in agony!", target_name);
-#endif
-			stun_effect = 7 + randint1(13);
-			res_stun /= 3;
-		}
-
-		else if((special_effect == MA_SLOW) && (k < target_ptr->chp))
-		{
-			if(!has_trait(target_ptr, TRAIT_UNIQUE) && (randint1(attacker_ptr->lev) > species_ptr->level) && target_ptr->speed > 60)
-			{
-				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-#ifdef JP
-					msg_format("%^sは足をひきずり始めた。", target_name);
-#else
-					msg_format("%^s starts limping slower.", target_name);
-#endif
-				target_ptr->speed -= 10;
 			}
 		}
-
-		if(stun_effect && (k < target_ptr->chp))
-			if(attacker_ptr->lev > randint1(species_ptr->level + res_stun + 10))
-				add_timed_trait(target_ptr, TRAIT_STUN, stun_effect, TRUE);
+		else ma_ptr = old_ptr;
 	}
+
+	if(attacker_ptr->class_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
+	else min_level = ma_ptr->min_level;
+	k = diceroll(ma_ptr->dd, ma_ptr->ds);
+
+	if(has_trait(attacker_ptr, TRAIT_DRUNKING_FIST)) k *= 2;
+
+	if(ma_ptr->effect == MA_KNEE)
+	{
+		if(IS_MALE(target_ptr))
+		{
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+			{
+#ifdef JP
+				msg_format("%sは%sに金的膝蹴りをくらわした！", attacker_name, target_name);
+#else
+				//TODO
+				msg_format("%s hit %s in the groin with your knee!", attacker_name, target_name);
+#endif
+				sound(SOUND_PAIN);
+				special_effect = MA_KNEE;
+			}
+		}
+		else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, attacker_name, target_name);
+	}
+
+	else if(ma_ptr->effect == MA_SLOW)
+	{
+		if(!((has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) || my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", species_ptr->d_char)))
+		{
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+			{
+#ifdef JP
+				msg_format("%sは%sの足首に関節蹴りをくらわした！", attacker_name, target_name);
+#else
+				//TODO
+				msg_format("You kick %s in the ankle.", target_name);
+#endif
+			}
+			special_effect = MA_SLOW;
+		}
+		else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, target_name);
+	}
+	else
+	{
+		if(ma_ptr->effect) stun_effect = (ma_ptr->effect / 2) + randint1(ma_ptr->effect / 2);
+		if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, attacker_name, target_name);
+	}
+
+	if(attacker_ptr->posture & KAMAE_SUZAKU) weight = 4;
+	if((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (attacker_ptr->charged_force))
+	{
+		weight += (attacker_ptr->charged_force/30);
+		if(weight > 20) weight = 20;
+	}
+
+	k = test_critial_melee(attacker_ptr, attacker_ptr->lev * weight, min_level, k, attacker_ptr->to_hit[0], 0);
+
+	if((special_effect == MA_KNEE) && (k < target_ptr->chp))
+	{
+#ifdef JP
+		if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format("%^sは苦痛にうめいている！", target_name);
+#else
+		if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format("%^s moans in agony!", target_name);
+#endif
+		stun_effect = 7 + randint1(13);
+	}
+
+	else if((special_effect == MA_SLOW) && (k < target_ptr->chp))
+	{
+		if(!has_trait(target_ptr, TRAIT_UNIQUE) && (randint1(attacker_ptr->lev) > species_ptr->level) && target_ptr->speed > 60)
+		{
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+#ifdef JP
+				msg_format("%^sは足をひきずり始めた。", target_name);
+#else
+				msg_format("%^s starts limping slower.", target_name);
+#endif
+			target_ptr->speed -= 10;
+		}
+	}
+	if(stun_effect && (k < target_ptr->chp))
+		if(attacker_ptr->lev > randint1(species_ptr->level + 10))
+			add_timed_trait(target_ptr, TRAIT_STUN, stun_effect, TRUE);
 }
 
 static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
@@ -2467,8 +2445,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					msg_print(GAME_MESSAGE_IS_UNAFFECTED);
 				/*TODO saving_throw else if(randint0(100 + species_ptr->level/2) < target_ptr->skill_rob)
 				{
-					msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-					obvious = TRUE;
+				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+				obvious = TRUE;
 				}
 				*/
 				else

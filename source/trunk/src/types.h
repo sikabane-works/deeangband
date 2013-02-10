@@ -1512,17 +1512,17 @@ struct trait_type
 
 
 /* For Monk martial arts */
-
 typedef struct martial_arts martial_arts;
 
 struct martial_arts
 {
-	cptr    desc;       /* A verbose attack description */
-	int     min_level;  /* Minimum level to use */
-	int     chance;     /* Chance of 'success' */
-	int     dd;         /* Damage dice */
-	int     ds;         /* Damage sides */
-	int     effect;     /* Special effects */
+	cptr	name;		// Arts name
+	cptr    desc;       // A verbose attack description
+	int     min_level;  // Minimum level to use
+	int     chance;     // Chance of 'success'
+	int     dd;         // Damage dice
+	int     ds;         // Damage sides
+	int     effect;     // Special effects
 };
 
 typedef struct kamae kamae;
