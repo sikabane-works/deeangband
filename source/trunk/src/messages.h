@@ -2276,6 +2276,9 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_HEAL_FUL "「甦るがよい、我が下僕よ！」"
 #define MES_PATRON_CURSE_WEAPON "「汝、武器に頼ることなかれ。」"
 #define MES_PATRON_CURSE_ARMOR "「汝、防具に頼ることなかれ。」"
+#define MES_PATRON_PISS_OFF "「我を怒りしめた罪を償うべし。」"
+#define MES_PATRON_GENOCIDE "「我、汝の敵を抹殺せん！」"
+#define MES_PATRON_ASSULT(PATRON) "%sの力が敵を攻撃するのを感じた！", (PATRON)
 #else
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
 #define MES_PATRON_POLY_SELF "'Thou needst a new form!'"
@@ -2298,6 +2301,9 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_HEAL_FUL "'Rise, my servant!'"
 #define MES_PATRON_CURSE_WEAPON "'Thou reliest too much on thy weapon.'"
 #define MES_PATRON_CURSE_ARMOR "'Thou reliest too much on thine equipment.'"
+#define MES_PATRON_PISS_OFF "'Now thou shalt pay for annoying me.'"
+#define MES_PATRON_GENOCIDE "'Let me relieve thee of thine oppressors!'"
+#define MES_PATRON_ASSULT(PATRON) "You can feel the power of %s assault your enemies!", (PATRON)
 #endif
 
 

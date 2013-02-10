@@ -3378,11 +3378,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_PISS_OFF:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
-#ifdef JP
-			msg_print("「我を怒りしめた罪を償うべし。」");
-#else
-			msg_print("'Now thou shalt pay for annoying me.'");
-#endif
+			msg_print(MES_PATRON_PISS_OFF);
 			switch (randint1(4))
 			{
 			case 1:
@@ -3476,11 +3472,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_DESTRUCT:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_HAVOC);
 #ifdef JP
-			msg_print("「死と破壊こそ我が喜びなり！」");
 			reward = "ダンジョンが*破壊*された。";
 #else
-			msg_print("'Death and destruction! This pleaseth me!'");
 			reward = "*destruct*ing dungeon";
 #endif
 			(void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 25, FALSE);
@@ -3488,11 +3483,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_GENOCIDE:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_GENOCIDE);
 #ifdef JP
-			msg_print("「我、汝の敵を抹殺せん！」");
 			reward = "クリーチャーが抹殺された。";
 #else
-			msg_print("'Let me relieve thee of thine oppressors!'");
 			reward = "genociding creatures";
 #endif
 			(void)symbol_genocide(creature_ptr, 0, FALSE);
@@ -3500,22 +3494,17 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_MASS_GEN:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_GENOCIDE);
 #ifdef JP
-			msg_print("「我、汝の敵を抹殺せん！」");
 			reward = "クリーチャーが抹殺された。";
 #else
-			msg_print("'Let me relieve thee of thine oppressors!'");
 			reward = "genociding nearby creatures";
 #endif
 			(void)mass_genocide(creature_ptr, 0, FALSE);
 			break;
 
 		case REW_DISPEL_C:
-#ifdef JP
-			msg_format("%sの力が敵を攻撃するのを感じた！", species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("You can feel the power of %s assault your enemies!", species_name + species_info[creature_ptr->patron_idx].name);
-#endif
+			msg_format(MES_PATRON_ASSULT(species_name + species_info[creature_ptr->patron_idx].name));
 			project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, creature_ptr->lev * 4);
 			break;
 
