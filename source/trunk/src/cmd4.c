@@ -532,11 +532,7 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 			else
 			{
 				if(!(floor_ptr->floor_level+num)) to = KW_SURFACE;
-#ifdef JP
-				else to = format("%d階", floor_ptr->floor_level+num);
-#else
-				else to = format("level %d", floor_ptr->floor_level+num);
-#endif
+				else to = format(KW_FLOOR_NUM(floor_ptr->floor_level+num));
 			}
 
 #ifdef JP 
@@ -690,8 +686,7 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 		{
 			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 			switch (num)
-			{
-				
+			{		
 #ifdef JP
 				case RECORD_NAMED_PET_NAME: fprintf(fff, "%sを旅の友にすることに決めた。\n", note); break;
 				case RECORD_NAMED_PET_UNNAME: fprintf(fff, "%sの名前を消した。\n", note); break;
@@ -1188,20 +1183,11 @@ void do_cmd_messages(int num_now)
 			Term_erase(0, num_lines + 1 - j, 255);
 		}
 
-		/* Display header XXX XXX XXX */
 #ifdef JP
-		/* translation */
-		prt(format("以前のメッセージ %d-%d 全部で(%d)",
-			   i, i + j - 1, n), 0, 0);
-#else
-		prt(format("Message Recall (%d-%d of %d)",
-			   i, i + j - 1, n), 0, 0);
-#endif
-
-		/* Display prompt (not very informative) */
-#ifdef JP
+		prt(format("以前のメッセージ %d-%d 全部で(%d)", i, i + j - 1, n), 0, 0);
 		prt("[ 'p' で更に古いもの, 'n' で更に新しいもの, '/' で検索, ESC で中断 ]", hgt - 1, 0);
 #else
+		prt(format("Message Recall (%d-%d of %d)", i, i + j - 1, n), 0, 0);
 		prt("[Press 'p' for older, 'n' for newer, ..., or ESCAPE]", hgt - 1, 0);
 #endif
 

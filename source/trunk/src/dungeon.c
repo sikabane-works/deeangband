@@ -4146,11 +4146,7 @@ void do_creature_mutation(creature_type *creature_ptr)
 {
 	if(is_player(creature_ptr) && creature_ptr->hack_mutation)
 	{
-#ifdef JP
-		msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
-#else
-		msg_print("You feel different!");
-#endif
+		msg_print(MES_MUTATION_SOMETHING);
 		(void)gain_trait(creature_ptr, 0, TRUE);
 		creature_ptr->hack_mutation = FALSE;
 	}

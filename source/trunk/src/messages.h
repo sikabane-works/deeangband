@@ -2336,3 +2336,8 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_DELETE_FAIL(FILE) "failed to delete %s.", (FILE)
 #endif
 
+#ifdef JP
+#define MES_MUTATION_SOMETHING "âΩÇ©ïœÇÌÇ¡ÇΩãCÇ™Ç∑ÇÈÅI"
+#else
+#define MES_MUTATION_SOMETHING "You feel different!"
+#endif
