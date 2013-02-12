@@ -1871,6 +1871,9 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_FORCED_STORMBRINGER(WEAPON, TARGET) "%sは強欲に%sを攻撃した！", (WEAPON), (TARGET)
 #define MES_MELEE_ASK "本当に攻撃しますか？"
 #define MES_MELEE_CEASE(TARGET) "%sを攻撃するのを止めた。", (TARGET)
+#define MES_MELEE_FIRE_AURA "突然とても熱くなった！"
+#define MES_MELEE_COLD_AURA "突然とても寒くなった！"
+#define MES_MELEE_ELEC_AURA "電撃をくらった！"
 #else
 #define MES_MELEE_TO_EMPTY "You attack the empty air."
 #define MES_MELEE_DISABLE(ATTACKER) "%s don't have attack method.", (ATTACKER)
@@ -1884,6 +1887,9 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_FORCED_STORMBRINGER(WEAPON, TARGET) "%s greedily attacks %s!", (WEAPON), (TARGET)
 #define MES_MELEE_ASK "Really hit it? "
 #define MES_MELEE_CEASE(TARGET) "You stop to avoid hitting %s.", (TARGET)
+#define MES_MELEE_FIRE_AURA "You are suddenly very hot!"
+#define MES_MELEE_COLD_AURA "You are suddenly very cold!"
+#define MES_MELEE_ELEC_AURA "You get zapped!"
 #endif
 
 #ifdef JP

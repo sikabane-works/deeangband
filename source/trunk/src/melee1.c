@@ -31,13 +31,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 
 			/* Hack -- Get the "died from" name */
 			creature_desc(aura_dam, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-
-#ifdef JP
-			msg_print("突然とても熱くなった！");
-#else
-			msg_print("You are suddenly very hot!");
-#endif
-
+			msg_print(MES_MELEE_FIRE_AURA);
 			aura_damage = calc_damage(target_ptr, attacker_ptr, aura_damage, DO_EFFECT_FIRE, FALSE, FALSE);
 			take_damage_to_creature(target_ptr, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 
@@ -57,11 +51,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			/* Hack -- Get the "died from" name */
 			creature_desc(aura_dam, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
-#ifdef JP
-			msg_print("突然とても寒くなった！");
-#else
-			msg_print("You are suddenly very cold!");
-#endif
+			msg_print(MES_MELEE_COLD_AURA);
 			aura_damage = calc_damage(target_ptr, attacker_ptr, aura_damage, DO_EFFECT_COLD, TRUE, FALSE);
 			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_COLD);
@@ -79,12 +69,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 
 			/* Hack -- Get the "died from" name */
 			creature_desc(aura_dam, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-
-#ifdef JP
-			msg_print("電撃をくらった！");
-#else
-			msg_print("You get zapped!");
-#endif
+			msg_print(MES_MELEE_ELEC_AURA);
 
 			aura_damage = calc_damage(target_ptr, attacker_ptr, aura_damage, DO_EFFECT_ELEC, TRUE, FALSE);
 			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
