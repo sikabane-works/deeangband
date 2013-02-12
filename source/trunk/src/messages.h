@@ -286,6 +286,8 @@
 #define MES_TRAP_PIT_AVOID "落とし穴を飛び越えた。"
 #define MES_TRAP_SPIKED_PIT "スパイクが敷かれた落とし穴に落ちてしまった！"
 #define MES_TRAP_SPIKED_PIT_AVOID "トゲのある落とし穴を飛び越えた。"
+#define MES_TRAP_INPILED "スパイクが刺さった！"
+#define MES_TRAP_POISON_INPILED "毒を塗られたスパイクが刺さった！"
 
 #define MES_TRAP_BLIND "黒いガスに包み込まれた！"
 #define MES_TRAP_CONFUSE "きらめくガスに包み込まれた！"
@@ -327,7 +329,8 @@
 #define MES_TRAP_PIT_AVOID "You have fallen into a pit!"
 #define MES_TRAP_SPIKED_PIT "You have fallen into a spiked pit!"
 #define MES_TRAP_SPIKED_PIT_AVOID "You fly over a spiked pit."
-
+#define MES_TRAP_INPILED "You are impaled!"
+#define MES_TRAP_POISON_INPILED "You are impaled on poisonous spikes!"
 
 #define MES_TRAP_BLIND "A black gas surrounds you!"
 #define MES_TRAP_CONFUSE "A gas of scintillating colors surrounds you!"

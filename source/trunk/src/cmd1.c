@@ -705,7 +705,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 	switch (trap_feat_type)
 	{
 		case TRAP_TRAPDOOR:
-		{
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY))
 				msg_print(MES_TRAP_DOOR_AVOID);
 			else
@@ -730,12 +729,9 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				subject_change_floor = TRUE;
 			}
 			break;
-		}
 
 		case TRAP_PIT:
-		{
-			if(has_trait(creature_ptr, TRAIT_CAN_FLY))
-				msg_print(MES_TRAP_PIT_AVOID);
+			if(has_trait(creature_ptr, TRAIT_CAN_FLY)) msg_print(MES_TRAP_PIT_AVOID);
 			else
 			{
 				msg_print(MES_TRAP_PIT);
@@ -744,10 +740,8 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 			break;
-		}
 
 		case TRAP_SPIKED_PIT:
-		{
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY)) msg_print(MES_TRAP_SPIKED_PIT_AVOID);
 			else
 			{
@@ -757,11 +751,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 				if(PERCENT(50)) // Extra spike damage
 				{
-#ifdef JP
-					msg_print("スパイクが刺さった！");
-#else
-					msg_print("You are impaled!");
-#endif
+					msg_print(MES_TRAP_INPILED);
 					name = COD_SPIKED_PIT_TRAP;
 					dam = dam * 2;
 					(void)add_timed_trait(creature_ptr, TRAIT_CUT, randint1(dam), TRUE);
@@ -770,50 +760,25 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 			break;
-		}
 
 		case TRAP_POISON_PIT:
 		{
-			if(has_trait(creature_ptr, TRAIT_CAN_FLY))
-			{
-#ifdef JP
-				msg_print("トゲのある落とし穴を飛び越えた。");
-#else
-				msg_print("You fly over a spiked pit.");
-#endif
-			}
+			if(has_trait(creature_ptr, TRAIT_CAN_FLY)) msg_print(MES_TRAP_SPIKED_PIT_AVOID);
 			else
 			{
-#ifdef JP
-				msg_print("スパイクが敷かれた落とし穴に落ちてしまった！");
-#else
-				msg_print("You fall into a spiked pit!");
-#endif
+				msg_print(MES_TRAP_SPIKED_PIT);
 				name = COD_PIT_TRAP;
 				dam = diceroll(2, 6); // Base damage
 
 				// Extra spike damage
 				if(PERCENT(50))
 				{
-#ifdef JP
-					msg_print("毒を塗られたスパイクが刺さった！");
-#else
-					msg_print("You are impaled on poisonous spikes!");
-#endif
+					msg_print(MES_TRAP_POISON_INPILED);
 					name = COD_SPIKED_PIT_TRAP;
 					dam = dam * 2;
 					(void)add_timed_trait(creature_ptr, TRAIT_CUT, randint1(dam), TRUE);
 
-					if(has_trait(creature_ptr, TRAIT_RES_POIS))
-					{
-#ifdef JP
-						msg_print("しかし毒の影響はなかった！");
-#else
-						msg_print("The poison does not affect you!");
-#endif
-					}
-
-					else
+					if(!has_trait(creature_ptr, TRAIT_RES_POIS))
 					{
 						dam = dam * 2;
 						(void)add_timed_trait(creature_ptr, TRAIT_POISONED, randint1(dam), TRUE);
@@ -821,7 +786,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				}
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
-
 			break;
 		}
 
