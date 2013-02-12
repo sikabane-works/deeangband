@@ -1016,7 +1016,6 @@ static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_
 #endif
 		if(close_combat(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_IAI)) return TRUE;
 	}
-
 	return FALSE;
 }
 
@@ -1025,11 +1024,7 @@ bool is_melee_limitation_field(floor_type *floor_ptr)
 {
 	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 	{
-#ifdef JP
-		msg_print("Ç»Ç∫Ç©çUåÇÇ∑ÇÈÇ±Ç∆Ç™Ç≈Ç´Ç»Ç¢ÅB");
-#else
-		msg_print("Something prevent you from attacking.");
-#endif
+		msg_print(MES_MELEE_NO_MELEE_DUNGEON);
 		return TRUE;
 	}
 	return FALSE;
@@ -1166,11 +1161,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 		if(has_trait(target_ptr, TRAIT_PROT_EVIL) && is_enemy_of_good_creature(target_ptr) && (target_ptr->lev >= attacker_ptr->lev) && ((randint0(100) + target_ptr->lev) > 50))
 		{
 			//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr)) species_ptr->r_flags3 |= RF3_EVIL; // Remember the Evil-ness
-#ifdef JP
-			msg_format("%^sÇÕåÇëﬁÇ≥ÇÍÇΩÅB", attacker_name);
-#else
-			msg_format("%^s is repelled.", attacker_name);
-#endif
+			msg_format(MES_MELEE_PROTECTED(attacker_name));
 			return FALSE;
 		}
 
