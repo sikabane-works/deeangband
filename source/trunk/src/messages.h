@@ -1864,18 +1864,26 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_NO_METHOD(ATTACKER) "%sは攻撃する手段を持っていない。", (ATTACKER)
 #define MES_MELEE_PROTECTED(ATTACKER) "%^sは撃退された。", (ATTACKER)
 #define MES_MELEE_COUNTER(ATTACKER) "%^sに反撃した！", (ATTACKER)
+#define MES_MELEE_ZANTETSU_CANCEL(ATTACKER) "%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", (ATTACKER)
 #define MES_MELEE_THIEF "泥棒は笑って逃げた！"
 #define MES_MELEE_THIEF_FAILED "泥棒は笑って逃げ...ようとしたがバリアに防がれた。"
 #define MES_MELEE_NO_MELEE_DUNGEON "なぜか攻撃することができない。"
+#define MES_MELEE_FORCED_STORMBRINGER(WEAPON, TARGET) "%sは強欲に%sを攻撃した！", (WEAPON), (TARGET)
+#define MES_MELEE_ASK "本当に攻撃しますか？"
+#define MES_MELEE_CEASE(TARGET) "%sを攻撃するのを止めた。", (TARGET)
 #else
 #define MES_MELEE_TO_EMPTY "You attack the empty air."
 #define MES_MELEE_DISABLE(ATTACKER) "%s don't have attack method.", (ATTACKER)
 #define MES_MELEE_NO_METHOD(ATTACKER) "%s don't have attack method.", (ATTACKER)
 #define MES_MELEE_PROTECTED(ATTACKER) "%^s is repelled.", (ATTACKER)
 #define MES_MELEE_COUNTER(ATTACKER) "Your counterattack to %s!", (ATTACKER)
+#define MES_MELEE_ZANTETSU_CANCEL(ATTACKER) "%s shouted, \"I can not attack women!\"", (ATTACKER)
 #define MES_MELEE_THIEF "The thief flees laughing!"
 #define MES_MELEE_THIEF_FAILED "The thief flees laughing...? But magic barrier obstructs it."
 #define MES_MELEE_NO_MELEE_DUNGEON "Something prevent you from attacking."
+#define MES_MELEE_FORCED_STORMBRINGER(WEAPON, TARGET) "%s greedily attacks %s!", (WEAPON), (TARGET)
+#define MES_MELEE_ASK "Really hit it? "
+#define MES_MELEE_CEASE(TARGET) "You stop to avoid hitting %s.", (TARGET)
 #endif
 
 #ifdef JP

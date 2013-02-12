@@ -903,11 +903,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 		{
 			if(has_trait(attacker_ptr, TRAIT_ZANTETSU_EFFECT))
 			{
-#ifdef JP
-				msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", attacker_name);
-#else
-				msg_print("%s shouted, \"I can not attack women!\"", attacker_name);
-#endif
+				msg_format(MES_MELEE_ZANTETSU_CANCEL(attacker_name));
 				return TRUE;
 			}
 		}
@@ -972,27 +968,12 @@ static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_
 		}
 
 		// Attack by Storm-Bringer
-		if(stormbringer)
-		{
-#ifdef JP
-			msg_format("%sは強欲に%sを攻撃した！", weapon_name, target_name);
-#else
-			msg_format("%s greedily attacks %s!", weapon_name, target_name);
-#endif
-		}
+		if(stormbringer) msg_format(MES_MELEE_FORCED_STORMBRINGER(weapon_name, target_name));
 		else if(attacker_ptr->class_idx != CLASS_BERSERKER && is_player(attacker_ptr))
 		{
-#ifdef JP
-			if(!get_check("本当に攻撃しますか？"))
-#else
-			if(!get_check("Really hit it? "))
-#endif
+			if(!get_check(MES_MELEE_ASK))
 			{
-#ifdef JP
-				msg_format("%sを攻撃するのを止めた。", target_name);
-#else
-				msg_format("You stop to avoid hitting %s.", target_name);
-#endif
+				msg_format(MES_MELEE_CEASE(target_name));
 				return TRUE;
 			}
 		}
