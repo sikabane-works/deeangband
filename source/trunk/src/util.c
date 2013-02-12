@@ -3429,9 +3429,7 @@ bool get_string(cptr prompt, char *buf, int len)
 
 	msg_print(NULL);
 	sprintf(prompt_aux, "%s: ", prompt);
-	
-	/* Display prompt */
-	prt(prompt_aux, 0, 0);
+		prt(prompt_aux, 0, 0);
 
 	/* Ask the user for a string */
 	res = askfor(buf, len);
@@ -3565,20 +3563,12 @@ bool get_check_strict(cptr prompt, int mode)
 	return flag;
 }
 
-
-/*
- * Prompts for a keypress
- *
- * The "prompt" should take the form "Command: "
- *
- * Returns TRUE unless the character is "Escape"
- */
+// Prompts for a keypress
+// The "prompt" should take the form "Command: "
+// Returns TRUE unless the character is "Escape"
 bool get_com(cptr prompt, char *command, bool z_escape)
 {
-
 	msg_print(NULL);
-
-	/* Display a prompt */
 	prt(prompt, 0, 0);
 
 	if(get_com_no_macros)
@@ -3597,11 +3587,8 @@ bool get_com(cptr prompt, char *command, bool z_escape)
 }
 
 
-/*
- * Request a "quantity" from the user
- *
- * Hack -- allow "command_arg" to specify a quantity
- */
+// Request a "quantity" from the user
+// Hack -- allow "command_arg" to specify a quantity
 s16b get_quantity(cptr prompt, int max)
 {
 	bool res;
@@ -3642,20 +3629,11 @@ s16b get_quantity(cptr prompt, int max)
 	/* Build a prompt if needed */
 	if(!prompt)
 	{
-#ifdef JP
-		sprintf(tmp, "‚¢‚­‚Â‚Å‚·‚© (1-%d): ", max);
-#else
-		sprintf(tmp, "Quantity (1-%d): ", max);
-#endif
-
-		/* Use that prompt */
+		sprintf(tmp, MES_INTERFACE_QUANTITY(max));
 		prompt = tmp;
 	}
 
-
 	msg_print(NULL);
-
-	/* Display prompt */
 	prt(prompt, 0, 0);
 
 	/* Default to one */

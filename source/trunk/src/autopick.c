@@ -3363,9 +3363,7 @@ static byte get_string_for_search(creature_type *creature_ptr, object_type **o_h
 		color = TERM_L_GREEN;
 	}
 
-	/* Display prompt */
 	prt(prompt, 0, 0);
-
 
 	/* Process input */
 	while (TRUE)

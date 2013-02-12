@@ -1852,6 +1852,7 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_INTERFACE_QUANTITY(NUM) "いくつですか (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h'でモード変更, ESCで終了]"
 #define MES_INTERFACE_TO_SEE " '*'一覧,"
 #define MES_INTERFACE_EQUIP_AND_INVEN "'4' 装備品, '6' 持ち物,"
@@ -1859,6 +1860,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_EQUIP " '4'or'6' 装備品,"
 #define MES_INTERFACE_ENTER_SCROLL_DOWN " Enter 次,"
 #else
+#define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
 #define MES_INTERFACE_TO_SEE " * to see,"
 #define MES_INTERFACE_EQUIP_AND_INVEN " 4 for Equip, 6 for Inven,"

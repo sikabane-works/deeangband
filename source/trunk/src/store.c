@@ -2847,8 +2847,6 @@ static int get_haggle(cptr pmt, s32b *poffer, s32b price, int final)
 	while (TRUE)
 	{
 		bool res;
-
-		/* Display prompt */
 		prt(buf, 0, 0);
 
 		strcpy(out_val, "");
