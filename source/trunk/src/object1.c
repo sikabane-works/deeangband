@@ -1724,11 +1724,10 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			}
 
 			/* Indicate ability to "view" */
+			if(!command_see && !use_menu) strcat(out_val, MES_INTERFACE_TO_SEE);
 #ifdef JP
-			if(!command_see && !use_menu) strcat(out_val, " '*'ˆê——,");
 			if(equip) strcat(out_val, format(" %s ‘•”õ•i,", use_menu ? "'4'or'6'" : "'/'"));
 #else
-			if(!command_see && !use_menu) strcat(out_val, " * to see,");
 			if(equip) strcat(out_val, format(" %s for Equip,", use_menu ? "4 or 6" : "/"));
 #endif
 		}
@@ -1747,11 +1746,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			}
 
 			/* Indicate ability to "view" */
-#ifdef JP
-			if(!command_see && !use_menu) strcat(out_val, " '*'ˆê——,");
-#else
-			if(!command_see) strcat(out_val, " * to see,");
-#endif
+			if(!command_see && !use_menu) strcat(out_val, MES_INTERFACE_TO_SEE);
 
 			/* Append */
 #ifdef JP
@@ -2698,11 +2693,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			}
 
 			/* Indicate ability to "view" */
-#ifdef JP
-			if(!command_see && !use_menu) strcat(out_val, " '*'ˆê——,");
-#else
-			if(!command_see && !use_menu) strcat(out_val, " * to see,");
-#endif
+			if(!command_see && !use_menu) strcat(out_val, MES_INTERFACE_TO_SEE);
 
 			/* Append */
 			if(allow_equip)
@@ -2758,11 +2749,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			}
 
 			/* Indicate ability to "view" */
-#ifdef JP
-			if(!command_see && !use_menu) strcat(out_val, " '*'ˆê——,");
-#else
-			if(!command_see && !use_menu) strcat(out_val, " * to see,");
-#endif
+			if(!command_see && !use_menu) strcat(out_val, MES_INTERFACE_TO_SEE);
 
 			/* Append */
 			if(allow_inven)
@@ -2822,12 +2809,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			}
 
 			/* Indicate ability to "view" */
-#ifdef JP
-			if(!command_see && !use_menu) strcat(out_val, " '*'ˆê——,");
-#else
-			if(!command_see && !use_menu) strcat(out_val, " * to see,");
-#endif
-
+			if(!command_see && !use_menu) strcat(out_val, MES_INTERFACE_TO_SEE);
 			if(use_menu)
 			{
 				if(allow_inven && allow_equip)

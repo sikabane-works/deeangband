@@ -1853,8 +1853,10 @@ static cptr desc_stat_neg[] =
 
 #ifdef JP
 #define MES_INTERFACE_DUMP "['h'でモード変更, ESCで終了]"
+#define MES_INTERFACE_TO_SEE " '*'一覧,"
 #else
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
+#define MES_INTERFACE_TO_SEE " * to see,"
 #endif
 
 #ifdef JP
