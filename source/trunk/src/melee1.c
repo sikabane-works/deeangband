@@ -3157,20 +3157,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	if(blinked && !IS_DEAD(target_ptr))
 	{
 		if(teleport_barrier(target_ptr, attacker_ptr))
-		{
-#ifdef JP
-			msg_print("“D–_‚ÍÎ‚Á‚Ä“¦‚°...‚æ‚¤‚Æ‚µ‚½‚ªƒoƒŠƒA‚É–h‚ª‚ê‚½B");
-#else
-			msg_print("The thief flees laughing...? But magic barrier obstructs it.");
-#endif
-		}
+			msg_print(MES_MELEE_THIEF_FAILED);
 		else
 		{
-#ifdef JP
-			msg_print("“D–_‚ÍÎ‚Á‚Ä“¦‚°‚½I");
-#else
-			msg_print("The thief flees laughing!");
-#endif
+			msg_print(MES_MELEE_THIEF);
 			//TODO teleport_away(m_idx, MAX_SIGHT * 2 + 5, 0L);
 		}
 	}

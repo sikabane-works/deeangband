@@ -1862,10 +1862,14 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_TO_EMPTY "何もない空中を攻撃した。"
 #define MES_MELEE_DISABLE(ATTACKER) "%sは攻撃できない。", (ATTACKER)
 #define MES_MELEE_NO_METHOD(ATTACKER) "%sは攻撃する手段を持っていない。", (ATTACKER)
+#define MES_MELEE_THIEF "泥棒は笑って逃げた！"
+#define MES_MELEE_THIEF_FAILED "泥棒は笑って逃げ...ようとしたがバリアに防がれた。"
 #else
 #define MES_MELEE_TO_EMPTY "You attack the empty air."
 #define MES_MELEE_DISABLE(ATTACKER) "%s don't have attack method.", (ATTACKER)
 #define MES_MELEE_NO_METHOD(ATTACKER) "%s don't have attack method.", (ATTACKER)
+#define MES_MELEE_THIEF "The thief flees laughing!"
+#define MES_MELEE_THIEF_FAILED "The thief flees laughing...? But magic barrier obstructs it."
 #endif
 
 #ifdef JP
