@@ -876,14 +876,14 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_TELEPORT:
 		{
-			msg_print(GAME_MESSAGE_TRAP_TELEPORT);
+			msg_print(MES_TRAP_TELEPORT);
 			teleport_player(creature_ptr, 100, TELEPORT_PASSIVE);
 			break;
 		}
 
 		case TRAP_FIRE:
 		{
-			msg_print(GAME_MESSAGE_TRAP_FIRE);
+			msg_print(MES_TRAP_FIRE);
 			dam = diceroll(4, 6);
 			//TODO damage
 			break;
@@ -891,7 +891,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_ACID:
 		{
-			msg_print(GAME_MESSAGE_TRAP_ACID);
+			msg_print(MES_TRAP_ACID);
 			dam = diceroll(4, 6);
 			//TODO damage
 			break;
@@ -901,14 +901,14 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		{
 			if(check_hit(creature_ptr, 125) && !(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
-				msg_print(GAME_MESSAGE_TRAP_DARTS);
+				msg_print(MES_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				add_timed_trait(creature_ptr, TRAIT_SLOW, randint0(20) + 20, TRUE);
 			}
 			else
 			{
-				msg_print(GAME_MESSAGE_TRAP_DARTS_MISSED);
+				msg_print(MES_TRAP_DARTS_MISSED);
 			}
 			break;
 		}
@@ -917,14 +917,14 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		{
 			if(check_hit(creature_ptr, 125))
 			{
-				msg_print(GAME_MESSAGE_TRAP_DARTS);
+				msg_print(MES_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
 			}
 			else
 			{
-				msg_print(GAME_MESSAGE_TRAP_DARTS_MISSED);
+				msg_print(MES_TRAP_DARTS_MISSED);
 			}
 			break;
 		}
@@ -933,14 +933,14 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		{
 			if(check_hit(creature_ptr, 125))
 			{
-				msg_print(GAME_MESSAGE_TRAP_DARTS);
+				msg_print(MES_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
 			}
 			else
 			{
-				msg_print(GAME_MESSAGE_TRAP_DARTS_MISSED);
+				msg_print(MES_TRAP_DARTS_MISSED);
 			}
 			break;
 		}
@@ -949,57 +949,50 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		{
 			if(check_hit(creature_ptr, 125))
 			{
-				msg_print(GAME_MESSAGE_TRAP_DARTS);
+				msg_print(MES_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
 			}
 			else
 			{
-				msg_print(GAME_MESSAGE_TRAP_DARTS_MISSED);
+				msg_print(MES_TRAP_DARTS_MISSED);
 			}
 			break;
 		}
 
 		case TRAP_BLIND:
-			msg_print(GAME_MESSAGE_TRAP_BLIND);
+			msg_print(MES_TRAP_BLIND);
 			if(!has_trait(creature_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(creature_ptr, TRAIT_BLIND, randint0(50) + 25, TRUE);
 			break;
 
 		case TRAP_CONFUSE:
-			msg_print(GAME_MESSAGE_TRAP_CONFUSE);
+			msg_print(MES_TRAP_CONFUSE);
 			if(!has_trait(creature_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint0(20) + 10, TRUE);
 			break;
 
 		case TRAP_POISON:
-			msg_print(GAME_MESSAGE_TRAP_POISON);
+			msg_print(MES_TRAP_POISON);
 			if(!has_trait(creature_ptr, TRAIT_RES_POIS)) (void)add_timed_trait(creature_ptr, TRAIT_POISONED, randint0(20) + 10, TRUE);
 			break;
 
 		case TRAP_SLEEP:
-			msg_print(GAME_MESSAGE_TRAP_SLEPT);
+			msg_print(MES_TRAP_SLEPT);
 			if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))
-			{
 				(void)add_timed_trait(creature_ptr, TRAIT_SLEPT, randint0(10) + 5, TRUE);
-			}
 			break;
 
 		case TRAP_TRAPS:
-		{
 			msg_print(MES_FEATURE_KILLED);
 			project(NULL, 0, 1, y, x, 0, DO_EFFECT_MAKE_TRAP, PROJECT_HIDE | PROJECT_JUMP | PROJECT_GRID, -1);
 			break;
-		}
 
 		case TRAP_ALARM:
-		{
-			msg_print(GAME_MESSAGE_TRAP_ALARM);
+			msg_print(MES_TRAP_ALARM);
 			aggravate_creatures(creature_ptr);
 			break;
-		}
 
 		case TRAP_OPEN:
-		{
 #ifdef JP
 			msg_print("大音響と共にまわりの壁が崩れた！");
 #else
@@ -1009,9 +1002,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			(void)project(NULL, 0, 3, y, x - 4, 0, DO_EFFECT_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			(void)project(NULL, 0, 3, y, x + 4, 0, DO_EFFECT_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			aggravate_creatures(creature_ptr);
-
 			break;
-		}
 
 		case TRAP_ARMAGEDDON:
 		{
@@ -1019,7 +1010,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			int evil_idx = 0, good_idx = 0;
 
 			int lev;
-			msg_print(GAME_MESSAGE_TRAP_ARMAGEDDON);
+			msg_print(MES_TRAP_ARMAGEDDON);
 
 			/* Summon Demons and Angels */
 			for (lev = floor_ptr->floor_level; lev >= 20; lev -= 1 + lev/16)
@@ -1058,39 +1049,29 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		}
 
 		case TRAP_PIRANHA:
-		{
-			msg_print(GAME_MESSAGE_TRAP_PIRANHAS);
-
+			msg_print(MES_TRAP_PIRANHAS);
 			/* Water fills room */
 			cast_ball_hide(creature_ptr, DO_EFFECT_WATER_FLOW, MAX_RANGE_SUB, 1, 10);
-
 			/* Summon Piranhas */
 			num = 1 + floor_ptr->floor_level/20;
 			for (i = 0; i < num; i++) (void)summon_specific(0, y, x, floor_ptr->floor_level, TRAIT_S_PIRANHAS, (PC_ALLOW_GROUP | PC_NO_PET));
 			break;
-		}
 
 		case TRAP_ACID_FLOW:
-		{
-			msg_print(GAME_MESSAGE_TRAP_ACID_FLOW);
+			msg_print(MES_TRAP_ACID_FLOW);
 			cast_ball_hide(creature_ptr, DO_EFFECT_ACID_FLOW, MAX_RANGE_SUB, 1, 10);
 			break;
 
-		}
-
 		case TRAP_POISON_FLOW:
-		{
-			msg_print(GAME_MESSAGE_TRAP_POISON_FLOW);
+			msg_print(MES_TRAP_POISON_FLOW);
 			cast_ball_hide(creature_ptr, DO_EFFECT_POISON_FLOW, MAX_RANGE_SUB, 1, 10);
 			break;
-		}
-
 	}
 
 	if(break_trap && is_trap(c_ptr->feat))
 	{
 		cave_alter_feat(floor_ptr, y, x, FF_DISARM);
-		msg_print(GAME_MESSAGE_TRAP_DESTROY);
+		msg_print(MES_TRAP_DESTROY);
 	}
 }
 
@@ -1403,7 +1384,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		/* You are just on the edge */
 		if(!(c_ptr->info & CAVE_UNSAFE))
 		{
-			if(alert_trap_detect) msg_print(GAME_MESSAGE_TRAP_WARNING);
+			if(alert_trap_detect) msg_print(MES_TRAP_WARNING);
 			if(disturb_trap_detect) disturb(player_ptr, 0, 0);
 		}
 	}
@@ -1802,12 +1783,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			/* Wall (or secret door) */
 			else
 			{
-#ifdef JP
-				msg_format("%sが行く手をはばんでいるようだ。", name);
-#else
-				msg_format("You feel %s %s blocking your way.", is_a_vowel(name[0]) ? "an" : "a", name);
-#endif
-
+				msg_format(MES_WALK_BLOCK(name));
 				c_ptr->info |= (CAVE_MARK);
 				lite_spot(floor_ptr, y, x);
 			}
@@ -1829,12 +1805,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			{
 				/* Closed doors */
 				if(easy_open && is_closed_door(feat) && easy_open_door(creature_ptr, y, x)) return;
-
-#ifdef JP
-				msg_format("%sが行く手をはばんでいる。", name);
-#else
-				msg_format("There is %s %s blocking your way.", is_a_vowel(name[0]) ? "an" : "a", name);
-#endif
+				msg_format(MES_WALK_BLOCK(name));
 
 				/*
 				 * Well, it makes sense that you lose time bumping into
@@ -2302,7 +2273,7 @@ static bool run_test(creature_type *creature_ptr)
 		// You are just on the edge
 		if(!(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_UNSAFE))
 		{
-			if(alert_trap_detect) msg_print(GAME_MESSAGE_TRAP_WARNING);
+			if(alert_trap_detect) msg_print(MES_TRAP_WARNING);
 
 			if(disturb_trap_detect)
 			{
@@ -2695,7 +2666,7 @@ static bool travel_test(creature_type *creature_ptr)
 		/* You are just on the edge */
 		if(!(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_UNSAFE))
 		{
-			if(alert_trap_detect) msg_print(GAME_MESSAGE_TRAP_WARNING);
+			if(alert_trap_detect) msg_print(MES_TRAP_WARNING);
 
 			if(disturb_trap_detect)
 			{

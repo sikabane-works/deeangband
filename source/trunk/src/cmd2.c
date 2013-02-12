@@ -402,7 +402,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	// Lose strength
 	if(trap & (CHEST_LOSE_STR))
 	{
-		msg_print(GAME_MESSAGE_TRAP_NEEDLE);
+		msg_print(MES_TRAP_NEEDLE);
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), COD_POISON_NEEDLE, NULL, -1);
 		(void)do_dec_stat(creature_ptr, STAT_STR);
 	}
@@ -410,7 +410,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	/* Lose constitution */
 	if(trap & (CHEST_LOSE_CON))
 	{
-		msg_print(GAME_MESSAGE_TRAP_NEEDLE);
+		msg_print(MES_TRAP_NEEDLE);
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), COD_POISON_NEEDLE, NULL, -1);
 		(void)do_dec_stat(creature_ptr, STAT_CON);
 	}
@@ -418,14 +418,14 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	/* Poison */
 	if(trap & (CHEST_POISON))
 	{
-		msg_print(GAME_MESSAGE_TRAP_POISONOUS_GAS);
+		msg_print(MES_TRAP_POISONOUS_GAS);
 		if(!has_trait(creature_ptr, TRAIT_RES_POIS)) (void)add_timed_trait(creature_ptr, TRAIT_POISONED, 10 + randint1(20), TRUE);
 	}
 
 	/* Paralyze */
 	if(trap & (CHEST_PARALYZE))
 	{
-		msg_print(GAME_MESSAGE_TRAP_PARALYZE_GAS);
+		msg_print(MES_TRAP_PARALYZE_GAS);
 		if(!has_trait(creature_ptr, TRAIT_FREE_ACTION)) (void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, 10 + randint1(20), TRUE);
 	}
 
@@ -433,7 +433,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	if(trap & (CHEST_SUMMON))
 	{
 		int num = 2 + randint1(3);
-		msg_print(GAME_MESSAGE_TRAP_SUMMONING);
+		msg_print(MES_TRAP_SUMMONING);
 
 		for (i = 0; i < num; i++)
 		{
@@ -447,7 +447,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	/* Elemental summon. */
 	if(trap & (CHEST_E_SUMMON))
 	{
-		msg_print(GAME_MESSAGE_TRAP_S_ELEMENTAL);
+		msg_print(MES_TRAP_S_ELEMENTAL);
 		for (i = 0; i < randint1(3) + 5; i++)
 		{
 			(void)summon_specific(0, y, x, mon_level, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
@@ -457,7 +457,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	/* Force clouds, then summon birds. */
 	if(trap & (CHEST_BIRD_STORM))
 	{
-		msg_print(GAME_MESSAGE_TRAP_S_BIRD);
+		msg_print(MES_TRAP_S_BIRD);
 		for (i = 0; i < randint1(3) + 3; i++)
 			(void)fire_meteor(-1, DO_EFFECT_FORCE, y, x, object_ptr->pval / 5, 7);
 
@@ -471,7 +471,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		/* Summon demons. */
 		if(one_in_(4))
 		{
-			msg_print(GAME_MESSAGE_TRAP_S_H_DEMON);
+			msg_print(MES_TRAP_S_H_DEMON);
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
 				(void)fire_meteor(-1, DO_EFFECT_FIRE, y, x, 10, 5);
@@ -482,7 +482,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		/* Summon dragons. */
 		else if(one_in_(3))
 		{
-			msg_print(GAME_MESSAGE_TRAP_S_H_DRAGON);
+			msg_print(MES_TRAP_S_H_DRAGON);
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
 				(void)summon_specific(0, y, x, mon_level, TRAIT_S_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
@@ -492,7 +492,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		/* Summon hybrids. */
 		else if(one_in_(2))
 		{
-			msg_print(GAME_MESSAGE_TRAP_S_HYBRID);
+			msg_print(MES_TRAP_S_HYBRID);
 			for (i = 0; i < randint1(5) + 3; i++)
 			{
 				(void)summon_specific(0, y, x, mon_level, TRAIT_S_HYBRID, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
@@ -502,7 +502,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		/* Summon vortices (scattered) */
 		else
 		{
-			msg_print(GAME_MESSAGE_TRAP_S_VORTEX);
+			msg_print(MES_TRAP_S_VORTEX);
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
 				(void)summon_specific(0, y, x, mon_level, TRAIT_S_VORTEX, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
@@ -514,7 +514,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	if((trap & (CHEST_RUNES_OF_EVIL)) && object_ptr->k_idx)
 	{
 		int nasty_tricks_count = 4 + randint0(3);	// Determine how many nasty tricks can be played.
-		msg_print(GAME_MESSAGE_TRAP_E_RUNE);
+		msg_print(MES_TRAP_E_RUNE);
 
 		for (; nasty_tricks_count > 0; nasty_tricks_count--) // This is gonna hurt...
 		{
@@ -548,13 +548,13 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 	if(trap & (CHEST_ALARM))	// Aggravate creatures.
 	{
-		msg_print(GAME_MESSAGE_TRAP_ALARM);
+		msg_print(MES_TRAP_ALARM);
 		aggravate_creatures(creature_ptr);
 	}
 
 	if((trap & (CHEST_EXPLODE)) && object_ptr->k_idx) // Explode
 	{
-		msg_print(GAME_MESSAGE_TRAP_EXPLOSIVE);
+		msg_print(MES_TRAP_EXPLOSIVE);
 		object_ptr->pval = 0;
 		sound(SOUND_EXPLODE);
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), COD_EXPLOADING_CHEST, NULL, -1);
@@ -562,7 +562,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 	if((trap & (CHEST_SCATTER)) && object_ptr->k_idx)	// Scatter contents.
 	{
-		msg_print(GAME_MESSAGE_TRAP_SCATTER);
+		msg_print(MES_TRAP_SCATTER);
 		chest_death(TRUE, floor_ptr, y, x, object_idx);
 		object_ptr->pval = 0;
 	}
