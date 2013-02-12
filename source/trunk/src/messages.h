@@ -1859,6 +1859,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_INVEN " '4'or'6' éùÇøï®,"
 #define MES_INTERFACE_EQUIP " '4'or'6' ëïîıïi,"
 #define MES_INTERFACE_ENTER_SCROLL_DOWN " Enter éü,"
+#define MES_INTERFACE_CTRL "CTRL: "
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -1867,6 +1868,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_INVEN " 4 or 6 for Inven,"
 #define MES_INTERFACE_EQUIP " 4 or 6 for Equip,"
 #define MES_INTERFACE_ENTER_SCROLL_DOWN " Enter for scroll down,"
+#define MES_INTERFACE_CTRL "Control: "
 #endif
 
 #ifdef JP

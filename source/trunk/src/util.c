@@ -2838,23 +2838,16 @@ void msg_print(cptr msg)
 	p += n + 1;
 #endif
 
-
 	/* Optional refresh */
 	if(fresh_message) Term_fresh();
 }
 
 
-/*
- * Hack -- prevent "accidents" in "screen_save()" or "screen_load()"
- */
+// Hack -- prevent "accidents" in "screen_save()" or "screen_load()"
 static int screen_depth = 0;
 
-
-/*
- * Save the screen, and increase the "icky" depth.
- *
- * This function must match exactly one call to "screen_load()".
- */
+// Save the screen, and increase the "icky" depth.
+// This function must match exactly one call to "screen_load()".
 void screen_save(void)
 {
 	/* Hack -- Flush messages */
@@ -2864,12 +2857,8 @@ void screen_save(void)
 	if(screen_depth++ == 0) Term_save();
 }
 
-
-/*
- * Load the screen, and decrease the "icky" depth.
- *
- * This function must match exactly one call to "screen_save()".
- */
+// Load the screen, and decrease the "icky" depth.
+// This function must match exactly one call to "screen_save()".
 void screen_load(void)
 {
 	/* Hack -- Flush messages */
@@ -2879,10 +2868,7 @@ void screen_load(void)
 	if(--screen_depth == 0) Term_load();
 }
 
-
-/*
- * Display a formatted message, using "vstrnfmt()" and "msg_print()".
- */
+// Display a formatted message, using "vstrnfmt()" and "msg_print()".
 void msg_format(cptr fmt, ...)
 {
 	va_list vp;
@@ -3049,9 +3035,6 @@ void c_roff(byte a, cptr str)
 				/* 現在が全角文字のとき */
 				/* 文頭が「。」「、」等になるときは、その１つ前の語で改行 */
 				if(strncmp(s, "。", 2) == 0 || strncmp(s, "、", 2) == 0
-#if 0                   /* 一般的には「ィ」「ー」は禁則の対象外 */
-					|| strncmp(s, "ィ", 2) == 0 || strncmp(s, "ー", 2) == 0
-#endif
 			       ){
 					Term_what(x  , y, &av[x  ], &cv[x  ]);
 					Term_what(x-1, y, &av[x-1], &cv[x-1]);
@@ -4338,12 +4321,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 		if(cmd == '^')
 		{
 			/* Get a new command and controlify it */
-#ifdef JP
-			if(get_com("CTRL: ", (char *)&cmd, FALSE)) cmd = KTRL(cmd);
-#else
-			if(get_com("Control: ", (char *)&cmd, FALSE)) cmd = KTRL(cmd);
-#endif
-
+			if(get_com(MES_INTERFACE_CTRL, (char *)&cmd, FALSE)) cmd = KTRL(cmd);
 		}
 
 
@@ -4355,21 +4333,13 @@ void request_command(creature_type *guest_ptr, int shopping)
 		{
 			/* Install the keymap (limited buffer size) */
 			(void)strnfmt(request_command_buffer, 256, "%s", act);
-
 			/* Start using the buffer */
 			inkey_next = request_command_buffer;
-
 			continue;
 		}
 
-
-
 		if(!cmd) continue;
-
-
-		/* Use command */
 		command_cmd = (byte)cmd;
-
 		break;
 	}
 
@@ -4449,20 +4419,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 #else
 			if((s[1] == command_cmd) || (s[1] == '*'))
 #endif
-
-			{
-				/* Hack -- Verify command */
-#ifdef JP
-				if(!get_check("本当ですか? "))
-#else
-				if(!get_check("Are you sure? "))
-#endif
-
-				{
-					/* Hack -- Use space */
-					command_cmd = ' ';
-				}
-			}
+				if(!get_check(MES_SYS_ASK_SURE)) command_cmd = ' ';
 
 			/* Find another '^' */
 			s = my_strchr(s + 1, '^');
