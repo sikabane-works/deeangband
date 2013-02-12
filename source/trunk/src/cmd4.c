@@ -1398,10 +1398,7 @@ static void do_cmd_options_cheat(cptr info)
 			if(i == k) a = TERM_L_BLUE;
 
 			/* Display the option text */
-			sprintf(buf, "%-48s: %s (%s)",
-			    cheat_info[i].o_desc,
-			    (*cheat_info[i].o_var ? KW_YES : KW_NO),
-			    cheat_info[i].o_text);
+			sprintf(buf, "%-48s: %s (%s)", cheat_info[i].o_desc, (*cheat_info[i].o_var ? KW_YES : KW_NO), cheat_info[i].o_text);
 			c_prt(a, buf, i + 2, 0);
 		}
 
@@ -1556,10 +1553,7 @@ static void do_cmd_options_autosave(cptr info)
 			if(i == k) a = TERM_L_BLUE;
 
 			/* Display the option text */
-			sprintf(buf, "%-48s: %s (%s)",
-			    autosave_info[i].o_desc,
-			    (*autosave_info[i].o_var ? KW_YES : KW_NO),
-			    autosave_info[i].o_text);
+			sprintf(buf, "%-48s: %s (%s)", autosave_info[i].o_desc, (*autosave_info[i].o_var ? KW_YES : KW_NO), autosave_info[i].o_text);
 			c_prt(a, buf, i + 2, 0);
 		}
 
@@ -1663,8 +1657,7 @@ void do_cmd_options_aux(int page, cptr info)
 	{
 		for (i = 0; i < n; i++)
 		{
-			sprintf(se[i].cap, "%-45s:%-6s(%.19s)", option_info[opt[i]].o_desc,
-				(*option_info[opt[i]].o_var ? KW_YES : KW_NO), option_info[opt[i]].o_text);
+			sprintf(se[i].cap, "%-45s:%-6s(%.19s)", option_info[opt[i]].o_desc, (*option_info[opt[i]].o_var ? KW_YES : KW_NO), option_info[opt[i]].o_text);
 			se[i].d_color = TERM_L_DARK;
 			se[i].l_color = TERM_WHITE;
 			se[i].code = i;
@@ -1680,7 +1673,7 @@ void do_cmd_options_aux(int page, cptr info)
 		if(j == i - 1)
 			break;
 		else
-			*(option_info[opt[j]].o_var) = ~(*(option_info[opt[j]].o_var));
+			*(option_info[opt[j]].o_var) = !(*(option_info[opt[j]].o_var));
 
 	}
 
