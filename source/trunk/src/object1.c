@@ -2828,14 +2828,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			}
 
 			/* Append */
-			if(command_see && !use_menu)
-			{
-#ifdef JP
-				strcat(out_val, " Enter ŽŸ,");
-#else
-				strcat(out_val, " Enter for scroll down,");
-#endif
-			}
+			if(command_see && !use_menu) strcat(out_val, MES_INTERFACE_ENTER_SCROLL_DOWN);
 		}
 
 		/* Append */
