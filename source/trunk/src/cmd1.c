@@ -1823,11 +1823,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 	if(floor_ptr->wild_mode && have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
 	{
-#ifdef JP
-		if(!get_check("–{“–‚Éq¬“×r‚Ì—Ìˆæ‚É“ü‚è‚Ü‚·‚©H"))
-#else
-		if(!get_check("Really want to enter territory of chaos? "))
-#endif
+		if(!get_check(MES_WALK_ASK_ENTERING_CHAOS))
 		{
 			cancel_tactical_action(creature_ptr);
 			oktomove = FALSE;
@@ -1860,15 +1856,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				return;
 			}
 		}
-
-		if(do_past)
-		{
-#ifdef JP
-			msg_format("%s‚ð‰Ÿ‚µ‘Þ‚¯‚½B", m_name);
-#else
-			msg_format("You push past %s.", m_name);
-#endif
-		}
+		if(do_past) msg_format(MES_WALK_PUSH_PAST(m_name));
 
 		/* Change oldpx and oldpy to place the player well when going back to big mode */
 		if(floor_ptr->wild_mode)

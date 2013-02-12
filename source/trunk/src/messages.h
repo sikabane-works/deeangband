@@ -2043,6 +2043,8 @@ static cptr desc_stat_neg[] =
 #define MES_WALK_STEED_FEAR(STEED) "%sが恐怖していて制御できない。", (STEED)
 #define MES_WALK_MUST_FLY(FEATURE) "空を飛ばないと%sの上には行けない。", (FEATURE)
 #define MES_WALK_BLOCK(FEATURE) "%sが行く手をはばんでいる。", (FEATURE)
+#define MES_WALK_ASK_ENTERING_CHAOS "本当に〈混沌〉の領域に入りますか？"
+#define MES_WALK_PUSH_PAST(TARGET) "%sを押し退けた。", (TARGET)
 #else
 #define MES_WALK_NEVER_MOVE "Can't move."
 #define MES_WALK_NEVER_SWIM "Can't swim"
@@ -2050,6 +2052,8 @@ static cptr desc_stat_neg[] =
 #define MES_WALK_STEED_FEAR(STEED) "%^s is too scared to control.", (STEED)
 #define MES_WALK_MUST_FLY(FEATURE) "You need to fly to go through the %s.", (FEATURE)
 #define MES_WALK_BLOCK(FEATURE) "There is %s %s blocking your way.", is_a_vowel((FEATURE)[0]) ? "an" : "a", (FEATURE)
+#define MES_WALK_ASK_ENTERING_CHAOS "Really want to enter territory of chaos? "
+#define MES_WALK_PUSH_PAST(TARGET) "You push past %s.", (TARGET)
 #endif
 
 #ifdef JP
