@@ -1748,7 +1748,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			/* Indicate ability to "view" */
 			if(!command_see && !use_menu) strcat(out_val, MES_INTERFACE_TO_SEE);
 
-			/* Append */
 #ifdef JP
 			if(inven) strcat(out_val, format(" %s éùÇøï®,", use_menu ? "'4'or'6'" : "'/'"));
 #else
@@ -1774,7 +1773,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		/* Show the prompt */
 		prt(tmp_val, 0, 0);
 
-		/* Get a key */
 		which = inkey();
 
 		if(use_menu)
@@ -2695,7 +2693,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			/* Indicate ability to "view" */
 			if(!command_see && !use_menu) strcat(out_val, MES_INTERFACE_TO_SEE);
 
-			/* Append */
 			if(allow_equip)
 			{
 #ifdef JP
@@ -2712,7 +2709,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 				else strcat(out_val, MES_INTERFACE_EQUIP);
 			}
 
-			/* Append */
 			if(allow_floor)
 			{
 #ifdef JP
@@ -2748,7 +2744,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			/* Indicate ability to "view" */
 			if(!command_see && !use_menu) strcat(out_val, MES_INTERFACE_TO_SEE);
 
-			/* Append */
 			if(allow_inven)
 			{
 #ifdef JP
@@ -2765,7 +2760,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 				else strcat(out_val, MES_INTERFACE_INVEN);
 			}
 
-			/* Append */
 			if(allow_floor)
 			{
 #ifdef JP
@@ -2809,7 +2803,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 				else if(allow_inven) strcat(out_val, MES_INTERFACE_INVEN);
 				else if(allow_equip) strcat(out_val, MES_INTERFACE_EQUIP);
 			}
-			/* Append */
 			else if(allow_inven)
 			{
 #ifdef JP
@@ -2826,12 +2819,9 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 				strcat(out_val, " / for Equip,");
 #endif
 			}
-
-			/* Append */
 			if(command_see && !use_menu) strcat(out_val, MES_INTERFACE_ENTER_SCROLL_DOWN);
 		}
 
-		/* Append */
 #ifdef JP
 		if(select_the_force) strcat(out_val, " 'w'ó˚ãCèp,");
 #else
@@ -2847,7 +2837,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 		/* Show the prompt */
 		prt(tmp_val, 0, 0);
 
-		/* Get a key */
 		which = inkey();
 
 		if(use_menu)

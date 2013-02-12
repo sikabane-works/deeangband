@@ -2042,12 +2042,9 @@ char inkey(void)
 		(void)Term_set_cursor(1);
 	}
 
-
 	/* Hack -- Activate main screen */
 	Term_activate(angband_term[0]);
 
-
-	/* Get a key */
 	while (!ch)
 	{
 		/* Hack -- Handle "inkey_scan" */
@@ -3584,7 +3581,6 @@ bool get_com(cptr prompt, char *command, bool z_escape)
 	/* Display a prompt */
 	prt(prompt, 0, 0);
 
-	/* Get a key */
 	if(get_com_no_macros)
 		*command = inkey_special(FALSE);
 	else

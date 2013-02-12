@@ -380,7 +380,6 @@ static void confirm_use_force(creature_type *creature_ptr, bool browse_only)
 
 	while (1)
 	{
-		/* Get a key */
 		which = inkey();
 
 		if(which == ESCAPE) break;

@@ -1408,7 +1408,6 @@ static void do_cmd_options_cheat(cptr info)
 		/* Hilite current option */
 		move_cursor(k + 2, 50);
 
-		/* Get a key */
 		ch = inkey();
 
 		/*
@@ -1575,7 +1574,6 @@ static void do_cmd_options_autosave(cptr info)
 		/* Hilite current option */
 		move_cursor(k + 2, 50);
 
-		/* Get a key */
 		ch = inkey();
 
 		/* Analyze */

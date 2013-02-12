@@ -4926,7 +4926,6 @@ static bool insert_keymap_line(text_body_type *tb)
 
 	flush();
 
-	/* Get a key */
 	buf[0] = inkey();
 	buf[1] = '\0';
 
