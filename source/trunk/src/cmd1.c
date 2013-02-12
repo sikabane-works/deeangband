@@ -735,20 +735,10 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		case TRAP_PIT:
 		{
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY))
-			{
-#ifdef JP
-				msg_print("落とし穴を飛び越えた。");
-#else
-				msg_print("You fly over a pit trap.");
-#endif
-			}
+				msg_print(MES_TRAP_PIT_AVOID);
 			else
 			{
-#ifdef JP
-				msg_print("落とし穴に落ちてしまった！");
-#else
-				msg_print("You have fallen into a pit!");
-#endif
+				msg_print(MES_TRAP_PIT);
 				name = COD_PIT_TRAP;
 				dam = diceroll(2, 6);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
@@ -758,21 +748,10 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_SPIKED_PIT:
 		{
-			if(has_trait(creature_ptr, TRAIT_CAN_FLY))
-			{
-#ifdef JP
-				msg_print("トゲのある落とし穴を飛び越えた。");
-#else
-				msg_print("You fly over a spiked pit.");
-#endif
-			}
+			if(has_trait(creature_ptr, TRAIT_CAN_FLY)) msg_print(MES_TRAP_SPIKED_PIT_AVOID);
 			else
 			{
-#ifdef JP
-				msg_print("スパイクが敷かれた落とし穴に落ちてしまった！");
-#else
-				msg_print("You fall into a spiked pit!");
-#endif
+				msg_print(MES_TRAP_SPIKED_PIT);
 				name = COD_PIT_TRAP;
 				dam = diceroll(2, 6); // Base damage
 
