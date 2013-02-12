@@ -3054,10 +3054,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 	}
 }
 
-
-/*
-* Handle certain things once every 10 game turns
-*/
+// Handle certain things once every 10 game turns
 static void process_world(void)
 {
 	int i;
@@ -3104,11 +3101,8 @@ static void process_world(void)
 		}
 	}
 
-	/*
-	* Nightmare mode activates the TY_CURSE at midnight
-	*
-	* Require exact minute -- Don't activate multiple times in a minute
-	*/
+	// Nightmare mode activates the TY_CURSE at midnight
+	// Require exact minute -- Don't activate multiple times in a minute
 	if(has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR) && (min != prev_min))
 	{
 		// Every 15 minutes after 11:00 pm
@@ -3117,8 +3111,7 @@ static void process_world(void)
 			disturb(player_ptr, 0, 0);	// Disturbing
 
 			switch (min / 15)
-			{
-			
+			{			
 #ifdef JP
 			case 0: msg_print("遠くで不気味な鐘の音が鳴った。"); break;
 			case 1: msg_print("遠くで鐘が二回鳴った。"); break;
@@ -3170,15 +3163,12 @@ static void process_world(void)
 
 
 
-/*
-* Verify use of "wizard" mode
-*/
+// Verify use of "wizard" mode
 static bool enter_wizard_mode(creature_type *creature_ptr)
 {
-	/* Ask first time */
+	// Ask first time
 	if(!noscore)
 	{
-		/* Wizard mode is not permitted */
 		if(!allow_debug_opts || arg_wizard)
 		{
 #ifdef JP
@@ -3222,47 +3212,25 @@ static bool enter_wizard_mode(creature_type *creature_ptr)
 
 #ifdef ALLOW_WIZARD
 
-/*
-* Verify use of "debug" commands
-*/
+// Verify use of "debug" commands
 static bool enter_debug_mode(creature_type *creature_ptr)
 {
-	/* Ask first time */
+	// Ask first time
 	if(!noscore)
 	{
-		/* Debug mode is not permitted */
+		// Debug mode is not permitted
 		if(!allow_debug_opts)
 		{
-#ifdef JP
-			msg_print("デバッグコマンドは許可されていません。 ");
-#else
-			msg_print("Use of debug command is not permitted.");
-#endif
+			msg_print(MES_DEBUG_FORBID);
 			return FALSE;
 		}
-
-		/* Mention effects */
-#ifdef JP
-		msg_print("デバッグ・コマンドはデバッグと実験のためのコマンドです。 ");
-		msg_print("デバッグ・コマンドを使うとスコアは記録されません。");
-#else
-		msg_print("The debug commands are for debugging and experimenting.");
-		msg_print("The game will not be scored if you use debug commands.");
-#endif
-
+		msg_print(MES_DEBUG_CHECK);
 		msg_print(NULL);
 
-		/* Verify request */
-#ifdef JP
-		if(!get_check("本当にデバッグ・コマンドを使いますか? "))
-#else
-		if(!get_check("Are you sure you want to use debug commands? "))
-#endif
-			return FALSE;
+		if(!get_check(MES_DEBUG_ASK)) return FALSE;
 
 		do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_WIZARD);
-		/* Mark savefile */
-		noscore |= 0x0008;
+		noscore |= 0x0008; // Mark savefile
 	}
 
 	return TRUE;

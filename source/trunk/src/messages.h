@@ -2418,3 +2418,13 @@ static cptr desc_stat_neg[] =
 #define MES_CAST_NONE "You cannot cast spells!"
 #define MES_CAST_NO_NEED_LEARN "You don't have to learn spells!"
 #endif
+
+#ifdef JP 
+#define MES_DEBUG_FORBID "デバッグコマンドは許可されていません。 "
+#define MES_DEBUG_CHECK "デバッグ・コマンドはデバッグと実験のためのコマンドです。デバッグ・コマンドを使うとスコアは記録されません。"
+#define MES_DEBUG_ASK "本当にデバッグ・コマンドを使いますか? "
+#else
+#define MES_DEBUG_FORBID "Use of debug command is not permitted."
+#define MES_DEBUG_CHECK "The debug commands are for debugging and experimenting. The game will not be scored if you use debug commands."
+#define MES_DEBUG_ASK "Are you sure you want to use debug commands? "
+#endif
