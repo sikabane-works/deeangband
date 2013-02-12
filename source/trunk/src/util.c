@@ -5335,7 +5335,7 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 			}
 		}
 
-		if(page_num > 1)
+		if(page_num > 1 && !(mode & GET_SE_LEFT_RIGHT_SWITCHING))
 		{
 			sprintf(buf, "<= [%2d/%2d] =>", page, page_num);
 			c_put_str(TERM_L_BLUE, buf, y+h, x);
@@ -5346,8 +5346,16 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 		c = inkey();
 		if(c == '2') se++;
 		if(c == '8') se--;
-		if(c == '6') se += h;
-		if(c == '4') se -= h;
+		if(c == '6')
+		{
+			if(mode & GET_SE_LEFT_RIGHT_SWITCHING) return (se_ptr[se].code + num * SELECT_LEFT);
+			else se += h;
+		}
+		if(c == '4')
+		{
+			if(mode & GET_SE_LEFT_RIGHT_SWITCHING) return (se_ptr[se].code + num * SELECT_RIGHT);
+			else se -= h;
+		}
 		if(se < 0) se = 0;
 		if(se >= num) se = num - 1;
 
