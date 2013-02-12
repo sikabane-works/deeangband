@@ -1229,6 +1229,14 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 		tried_num++;
 		action_power -= action_cost[i];
 
+		if((target_ptr->counter || (target_ptr->posture & KATA_MUSOU)) && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))
+		{
+			target_ptr->csp -= 7;
+			msg_format(MES_MELEE_COUNTER(attacker_name));
+			close_combat(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_COUNTER);
+			prepare_redraw(PR_MANA);
+		}
+
 	} while(tried_num < 10 && !IS_DEAD(target_ptr));
 
 	if(!tried_num)
@@ -3135,22 +3143,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #endif
 		project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
 		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
-	}
-
-	if((target_ptr->counter || (target_ptr->posture & KATA_MUSOU)) && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))
-	{
-		char attacker_name[MAX_NLEN];
-		creature_desc(attacker_name, attacker_ptr, 0);
-
-		target_ptr->csp -= 7;
-#ifdef JP
-		msg_format("%^s‚É”½Œ‚‚µ‚½I", attacker_name);
-#else
-		msg_format("Your counterattack to %s!", attacker_name);
-#endif
-		close_combat(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_COUNTER);
-
-		prepare_redraw(PR_MANA);
 	}
 
 	/* Blink away */
