@@ -1660,20 +1660,19 @@ void do_cmd_options_aux(int page, cptr info)
 			sprintf(se[i].cap, "%-45s:%-6s(%.19s)", option_info[opt[i]].o_desc, (*option_info[opt[i]].o_var ? KW_YES : KW_NO), option_info[opt[i]].o_text);
 			se[i].d_color = TERM_L_DARK;
 			se[i].l_color = TERM_WHITE;
-			se[i].code = i;
+			se[i].code = se[i].left_code = se[i].right_code = i;
 			se[i].key = '\0';			
 		}
 		strcpy(se[i].cap, "Œˆ’è");
 		se[i].d_color = TERM_BLUE;
 		se[i].l_color = TERM_L_BLUE;
 		se[i].code = i;
+		se[i].left_code = se[i].right_code = -1;
 		se[i].key = ESCAPE;
 		i++;
-		j = get_selection(se, i, j, 2, 1, 20, 78, NULL, 0);
-		if(j == i - 1)
-			break;
-		else
-			*(option_info[opt[j]].o_var) = !(*(option_info[opt[j]].o_var));
+		j = get_selection(se, i, j, 2, 1, 20, 78, NULL, GET_SE_LEFT_RIGHT_SWITCHING);
+		if(j == i - 1) break;
+		else if (j >= 0) *(option_info[opt[j]].o_var) = !(*(option_info[opt[j]].o_var));
 
 	}
 

@@ -1852,6 +1852,8 @@ typedef struct
 {
 	char cap[80];
 	int code;
+	int left_code;
+	int right_code;
 	char key;
 	byte d_color;
 	byte l_color;

@@ -5348,12 +5348,12 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 		if(c == '8') se--;
 		if(c == '6')
 		{
-			if(mode & GET_SE_LEFT_RIGHT_SWITCHING) return (se_ptr[se].code + num * SELECT_LEFT);
+			if(mode & GET_SE_LEFT_RIGHT_SWITCHING) return se_ptr[se].left_code;
 			else se += h;
 		}
 		if(c == '4')
 		{
-			if(mode & GET_SE_LEFT_RIGHT_SWITCHING) return (se_ptr[se].code + num * SELECT_RIGHT);
+			if(mode & GET_SE_LEFT_RIGHT_SWITCHING) return se_ptr[se].right_code;
 			else se -= h;
 		}
 		if(se < 0) se = 0;
