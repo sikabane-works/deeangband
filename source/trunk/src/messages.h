@@ -1854,9 +1854,15 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_INTERFACE_DUMP "['h'でモード変更, ESCで終了]"
 #define MES_INTERFACE_TO_SEE " '*'一覧,"
+#define MES_INTERFACE_EQUIP_AND_INVEN "'4' 装備品, '6' 持ち物,"
+#define MES_INTERFACE_INVEN " '4'or'6' 持ち物,"
+#define MES_INTERFACE_EQUIP " '4'or'6' 装備品,"
 #else
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
 #define MES_INTERFACE_TO_SEE " * to see,"
+#define MES_INTERFACE_EQUIP_AND_INVEN " 4 for Equip, 6 for Inven,"
+#define MES_INTERFACE_INVEN " 4 or 6 for Inven,"
+#define MES_INTERFACE_EQUIP " 4 or 6 for Equip,"
 #endif
 
 #ifdef JP

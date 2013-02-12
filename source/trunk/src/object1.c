@@ -2703,16 +2703,13 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 					strcat(out_val, " '/' 装備品,");
 				else if(allow_floor)
 					strcat(out_val, " '6' 装備品,");
-				else
-					strcat(out_val, " '4'or'6' 装備品,");
 #else
 				if(!use_menu)
 					strcat(out_val, " / for Equip,");
 				else if(allow_floor)
 					strcat(out_val, " 6 for Equip,");
-				else
-					strcat(out_val, " 4 or 6 for Equip,");
 #endif
+				else strcat(out_val, MES_INTERFACE_EQUIP);
 			}
 
 			/* Append */
@@ -2759,16 +2756,13 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 					strcat(out_val, " '/' 持ち物,");
 				else if(allow_floor)
 					strcat(out_val, " '4' 持ち物,");
-				else
-					strcat(out_val, " '4'or'6' 持ち物,");
 #else
 				if(!use_menu)
 					strcat(out_val, " / for Inven,");
 				else if(allow_floor)
 					strcat(out_val, " 4 for Inven,");
-				else
-					strcat(out_val, " 4 or 6 for Inven,");
 #endif
+				else strcat(out_val, MES_INTERFACE_INVEN);
 			}
 
 			/* Append */
@@ -2801,7 +2795,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 #else
 			sprintf(out_val, "Floor: ");
 #endif
-
 			if(!use_menu)
 			{
 				sprintf(tmp_val, PROMPT_LABEL(n1, n2));
@@ -2812,30 +2805,9 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			if(!command_see && !use_menu) strcat(out_val, MES_INTERFACE_TO_SEE);
 			if(use_menu)
 			{
-				if(allow_inven && allow_equip)
-				{
-#ifdef JP
-					strcat(out_val, " '4' 装備品, '6' 持ち物,");
-#else
-					strcat(out_val, " 4 for Equip, 6 for Inven,");
-#endif
-				}
-				else if(allow_inven)
-				{
-#ifdef JP
-					strcat(out_val, " '4'or'6' 持ち物,");
-#else
-					strcat(out_val, " 4 or 6 for Inven,");
-#endif
-				}
-				else if(allow_equip)
-				{
-#ifdef JP
-					strcat(out_val, " '4'or'6' 装備品,");
-#else
-					strcat(out_val, " 4 or 6 for Equip,");
-#endif
-				}
+				if(allow_inven && allow_equip) strcat(out_val, MES_INTERFACE_EQUIP_AND_INVEN);
+				else if(allow_inven) strcat(out_val, MES_INTERFACE_INVEN);
+				else if(allow_equip) strcat(out_val, MES_INTERFACE_EQUIP);
 			}
 			/* Append */
 			else if(allow_inven)
