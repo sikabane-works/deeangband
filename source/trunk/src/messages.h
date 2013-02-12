@@ -604,18 +604,6 @@
 #endif
 
 #ifdef JP
-#define GAME_MESSAGE_WEAPON_ATTACK "%sは%sを%sで攻撃した。"
-#define GAME_MESSAGE_WEAPON_ATTACK_MISS "%sは%sの攻撃をかわした。"
-#define GAME_MESSAGE_WEAPON_AMBUSH(ATTACKER, TARGET) ("%sは冷酷にも眠っている無力な%sを突き刺した！", (ATTACKER), (TARGET))
-#define GAME_MESSAGE_WEAPON_FATAL_SPOT(ATTACKER, TARGET) ("%sは不意を突いて%sに強烈な一撃を喰らわせた！", (ATTACKER), (TARGET))
-#define GAME_MESSAGE_WEAPON_BACKSTUB(ATTACKER, TARGET) ("%sは逃げる%sを背中から突き刺した！", (ATTACKER), (TARGET))
-#define GAME_MESSAGE_WEAPON_ZANTETSU_JELLY "こんな軟らかいものは切れん！"
-#define GAME_MESSAGE_WEAPON_ZANTETSU_SERIF "またつまらぬものを斬ってしまった．．．"
-#define GAME_MESSAGE_WEAPON_EX_JR_SPIDER "蜘蛛は苦手だ！"
-#define GAME_MESSAGE_WEAPON_VORPAL_BLADE_SERIF "目にも止まらぬヴォーパルブレード、手錬の早業！"
-#define GAME_MESSAGE_WEAPON_ATTACK_DRAIN(WEAPON, TARGET) ("%sが%sから生命力を吸い取った！", (WEAPON), (TARGET))
-#define GAME_MESSAGE_WEAPON_SUCK_BLOOD(WEAPON) ("%sは血を吸って強くなった！", WEAPON)
-#define GAME_MESSAGE_WEAPON_RETURN(WEAPON, ATTACKER) ("振り回した%sが%sに返ってきた。", (WEAPON), (ATTACKER))
 #define GAME_MESSAGE_FATAL_SPOT "%sの急所に突き刺さった！"
 #define GAME_MESSAGE_SUICIDE_BOMBER "爆発して粉々になった。"
 #define GAME_MESSAGE_CARSE_OF_BLOOD_DEAD "%^sは死の間際に恐ろしい血の呪いを%^sにかけた！"
@@ -627,16 +615,6 @@
 #define GAME_MESSAGE_BOUNTY_DEAD "%sの首には報奨がかかっている。"
 #else
 #define GAME_MESSAGE_FATAL_SPOT "Your shot sticked on a fatal spot of %s!"
-#define GAME_MESSAGE_WEAPON_ATTACK_MISS %^s misses %s.
-#define GAME_MESSAGE_WEAPON_AMBUSH(ATTACKER, TARGET) "%s (cruelly stab the helpless, sleeping %s!", (ATTACKER), (TARGET))
-#define GAME_MESSAGE_WEAPON_FATAL_SPOT(ATTACKER, TARGET) ("%s make surprise attack, and hit %s with a powerful blow!", (ATTACKER), (TARGET))
-#define GAME_MESSAGE_WEAPON_BACKSTUB(ATTACKER, TARGET) ("%s ambush the fleeing %s.", (ATTACKER), (TARGET))
-#define GAME_MESSAGE_WEAPON_ZANTETSU_JELLY "You cannot cut such a elastic thing!"
-#define GAME_MESSAGE_WEAPON_ZANTETSU_SERIF "Sigh... Another trifling thing I've cut...."
-#define GAME_MESSAGE_WEAPON_EX_JR_SPIDER "Spiders are difficult for you to deal with!"
-#define GAME_MESSAGE_WEAPON_VORPAL_BLADE_SERIF "Your Vorpal Blade goes snicker-snack!"
-#define GAME_MESSAGE_WEAPON_SUCK_BLOOD(WEAPON) ("%s sucked blood, and became more powerful!", (WEAPON))
-#define GAME_MESSAGE_WEAPON_RETURN(WEAPON, ATTACKER) ("%s returns to %s.", ATTACKER, WEAPON)
 #define GAME_MESSAGE_SUICIDE_BOMBER "%^s explodes into tiny shreds."
 #define GAME_MESSAGE_CARSE_OF_BLOOD_DEAD "On death and dying, %^s puts a terrible blood curse on %^s!"
 #define GAME_MESSAGE_LOST_LIFE1 "You feel your life slipping away!"
@@ -1859,6 +1837,18 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_MELEE_ATTACK "%sは%sを%sで攻撃した。"
+#define MES_MELEE_ATTACK_MISS "%sは%sの攻撃をかわした。"
+#define MES_MELEE_AMBUSH(ATTACKER, TARGET) ("%sは冷酷にも眠っている無力な%sを突き刺した！", (ATTACKER), (TARGET))
+#define MES_MELEE_FATAL_SPOT(ATTACKER, TARGET) ("%sは不意を突いて%sに強烈な一撃を喰らわせた！", (ATTACKER), (TARGET))
+#define MES_MELEE_BACKSTUB(ATTACKER, TARGET) ("%sは逃げる%sを背中から突き刺した！", (ATTACKER), (TARGET))
+#define MES_MELEE_ZANTETSU_JELLY "こんな軟らかいものは切れん！"
+#define MES_MELEE_ZANTETSU_SERIF "またつまらぬものを斬ってしまった．．．"
+#define MES_MELEE_EX_JR_SPIDER "蜘蛛は苦手だ！"
+#define MES_MELEE_VORPAL_BLADE_SERIF "目にも止まらぬヴォーパルブレード、手錬の早業！"
+#define MES_MELEE_ATTACK_DRAIN(WEAPON, TARGET) ("%sが%sから生命力を吸い取った！", (WEAPON), (TARGET))
+#define MES_MELEE_SUCK_BLOOD(WEAPON) ("%sは血を吸って強くなった！", WEAPON)
+#define MES_MELEE_RETURN(WEAPON, ATTACKER) ("振り回した%sが%sに返ってきた。", (WEAPON), (ATTACKER))
 #define MES_MELEE_TO_EMPTY "何もない空中を攻撃した。"
 #define MES_MELEE_DISABLE(ATTACKER) "%sは攻撃できない。", (ATTACKER)
 #define MES_MELEE_NO_METHOD(ATTACKER) "%sは攻撃する手段を持っていない。", (ATTACKER)
@@ -1875,6 +1865,16 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_COLD_AURA "突然とても寒くなった！"
 #define MES_MELEE_ELEC_AURA "電撃をくらった！"
 #else
+#define MES_MELEE_ATTACK_MISS %^s misses %s.
+#define MES_MELEE_AMBUSH(ATTACKER, TARGET) "%s (cruelly stab the helpless, sleeping %s!", (ATTACKER), (TARGET))
+#define MES_MELEE_FATAL_SPOT(ATTACKER, TARGET) ("%s make surprise attack, and hit %s with a powerful blow!", (ATTACKER), (TARGET))
+#define MES_MELEE_BACKSTUB(ATTACKER, TARGET) ("%s ambush the fleeing %s.", (ATTACKER), (TARGET))
+#define MES_MELEE_ZANTETSU_JELLY "You cannot cut such a elastic thing!"
+#define MES_MELEE_ZANTETSU_SERIF "Sigh... Another trifling thing I've cut...."
+#define MES_MELEE_EX_JR_SPIDER "Spiders are difficult for you to deal with!"
+#define MES_MELEE_VORPAL_BLADE_SERIF "Your Vorpal Blade goes snicker-snack!"
+#define MES_MELEE_SUCK_BLOOD(WEAPON) ("%s sucked blood, and became more powerful!", (WEAPON))
+#define MES_MELEE_RETURN(WEAPON, ATTACKER) ("%s returns to %s.", ATTACKER, WEAPON)
 #define MES_MELEE_TO_EMPTY "You attack the empty air."
 #define MES_MELEE_DISABLE(ATTACKER) "%s don't have attack method.", (ATTACKER)
 #define MES_MELEE_NO_METHOD(ATTACKER) "%s don't have attack method.", (ATTACKER)

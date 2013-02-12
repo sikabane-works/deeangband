@@ -185,9 +185,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		sound(SOUND_HIT);
 		if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 		{
-			if(ambush) msg_format(GAME_MESSAGE_WEAPON_AMBUSH(attacker_name, target_name));
-			else if(fatal_spot) msg_format(GAME_MESSAGE_WEAPON_FATAL_SPOT(attacker_name, target_name));
-			else if(stab_fleeing) msg_format(GAME_MESSAGE_WEAPON_BACKSTUB(attacker_name, target_name));
+			if(ambush) msg_format(MES_MELEE_AMBUSH(attacker_name, target_name));
+			else if(fatal_spot) msg_format(MES_MELEE_FATAL_SPOT(attacker_name, target_name));
+			else if(stab_fleeing) msg_format(MES_MELEE_BACKSTUB(attacker_name, target_name));
 		}
 
 		// Hack -- bare hands do one damage
@@ -250,11 +250,11 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				if(weapon_ptr->name1 == ART_VORPAL_BLADE)
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-						msg_print(GAME_MESSAGE_WEAPON_VORPAL_BLADE_SERIF);
+						msg_print(MES_MELEE_VORPAL_BLADE_SERIF);
 				}
 				else
 				{
-					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+					if(is_seen(player_ptr, attacker_ptr) && is_seen(player_ptr, target_ptr))
 #ifdef JP
 						msg_format("%sをグッサリ切り裂いた！", target_name);
 #else
@@ -320,14 +320,14 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(zantetsu_mukou)
 		{
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-				msg_print(GAME_MESSAGE_WEAPON_ZANTETSU_JELLY);
+				msg_print(MES_MELEE_ZANTETSU_JELLY);
 			k = 0;
 		}
 
 		if(e_j_mukou)
 		{
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-				msg_print(GAME_MESSAGE_WEAPON_EX_JR_SPIDER);
+				msg_print(MES_MELEE_EX_JR_SPIDER);
 			k /= 2;
 		}
 
@@ -390,7 +390,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				}
 			}
 		}
-		else msg_format(GAME_MESSAGE_WEAPON_ATTACK, attacker_name, target_name, weapon_name);
+		else msg_format(MES_MELEE_ATTACK, attacker_name, target_name, weapon_name);
 
 		if(k <= 0) can_drain = FALSE;
 		if(drain_result > target_ptr->chp) drain_result = target_ptr->chp;
@@ -404,7 +404,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				//TODO
 			}
 			if(has_trait(attacker_ptr, TRAIT_ZANTETSU_EFFECT) && is_lowlevel)
-				if(is_player(attacker_ptr)) msg_print(GAME_MESSAGE_WEAPON_ZANTETSU_SERIF);
+				if(is_player(attacker_ptr)) msg_print(MES_MELEE_ZANTETSU_SERIF);
 		}
 
 		// Anger the creature
@@ -432,7 +432,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 					if(weapon_ptr->to_hit != to_hit || weapon_ptr->to_damage != to_damage)
 					{
-						if(is_seen(player_ptr, attacker_ptr)) msg_print(GAME_MESSAGE_WEAPON_SUCK_BLOOD(weapon_name));
+						if(is_seen(player_ptr, attacker_ptr)) msg_print(MES_MELEE_SUCK_BLOOD(weapon_name));
 						weapon_ptr->to_hit = to_hit;
 						weapon_ptr->to_damage = to_damage;
 					}
@@ -456,7 +456,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 					if(drain_msg)
 					{
-						if(is_seen(player_ptr, attacker_ptr)) msg_format(GAME_MESSAGE_WEAPON_ATTACK_DRAIN(weapon_name, target_name));
+						if(is_seen(player_ptr, attacker_ptr)) msg_format(MES_MELEE_ATTACK_DRAIN(weapon_name, target_name));
 						drain_msg = FALSE;
 					}
 
@@ -482,8 +482,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 			{
-				msg_format(GAME_MESSAGE_WEAPON_ATTACK_MISS, target_name, attacker_name);
-				msg_format(GAME_MESSAGE_WEAPON_RETURN(weapon_name, attacker_name));
+				msg_format(MES_MELEE_ATTACK_MISS, target_name, attacker_name);
+				msg_format(MES_MELEE_RETURN(weapon_name, attacker_name));
 			}
 
 			//TODO Death Scythe damage.
@@ -494,7 +494,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		else
 		{
 			sound(SOUND_MISS);
-			msg_format(GAME_MESSAGE_WEAPON_ATTACK_MISS, target_name, attacker_name);
+			msg_format(MES_MELEE_ATTACK_MISS, target_name, attacker_name);
 		}
 	}
 
