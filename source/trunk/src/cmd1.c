@@ -685,10 +685,7 @@ static int check_hit(creature_type *creature_ptr, int power)
 }
 
 
-
-/*
- * Handle player hitting a real trap
- */
+// Handle player hitting a real trap
 static void hit_trap(creature_type *creature_ptr, bool break_trap)
 {
 	int i, num, dam;
@@ -710,24 +707,15 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		case TRAP_TRAPDOOR:
 		{
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY))
-			{
-#ifdef JP
-				msg_print("落とし戸を飛び越えた。");
-#else
-				msg_print("You fly over a trap door.");
-#endif
-			}
+				msg_print(MES_TRAP_DOOR_AVOID);
 			else
 			{
+				msg_print(MES_TRAP_DOOR);
 #ifdef JP
-				msg_print("落とし戸に落ちた！");
 				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK))
 					msg_print("くっそ～！");
 				if(has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK))
 					msg_print("ジュラル星人の仕業に違いない！");
-
-#else
-				msg_print("You have fallen through a trap door!");
 #endif
 				sound(SOUND_FALL);
 				dam = diceroll(2, 8);
@@ -906,10 +894,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				add_timed_trait(creature_ptr, TRAIT_SLOW, randint0(20) + 20, TRUE);
 			}
-			else
-			{
-				msg_print(MES_TRAP_DARTS_MISSED);
-			}
+			else msg_print(MES_TRAP_DARTS_MISSED);
 			break;
 		}
 
@@ -2087,21 +2072,15 @@ static int see_nothing(creature_type *watcher_ptr, int dir, int y, int x)
 
 
 
-/*KU
- * Hack -- allow quick "cycling" through the legal directions
- */
+// KU Hack -- allow quick "cycling" through the legal directions
 static byte cycle[] =
 { 1, 2, 3, 6, 9, 8, 7, 4, 1, 2, 3, 6, 9, 8, 7, 4, 1 };
 
-/*
- * Hack -- map each direction into the "middle" of the "cycle[]" array
- */
+// Hack -- map each direction into the "middle" of the "cycle[]" array
 static byte chome[] =
 { 0, 8, 9, 10, 7, 0, 11, 6, 5, 4 };
 
-/*
- * The direction we are running
- */
+// The direction we are running
 static byte find_current;
 
 /*
@@ -2567,9 +2546,7 @@ static bool run_test(creature_type *creature_ptr)
 
 
 
-/*
- * Take one step along the current "run" path
- */
+// Take one step along the current "run" path
 void run_step(creature_type *creature_ptr, int dir)
 {
 	/* Start running */
@@ -2581,11 +2558,7 @@ void run_step(creature_type *creature_ptr, int dir)
 		/* Hack -- do not start silly run */
 		if(see_wall(creature_ptr, dir, creature_ptr->fy, creature_ptr->fx))
 		{
-#ifdef JP
-			msg_print("その方向には走れません。");
-#else
-			msg_print("You cannot run in that direction.");
-#endif
+			msg_print(MES_WALK_CANNOT_RUN);
 			disturb(player_ptr, 0, 0);
 			return;
 		}
@@ -2711,14 +2684,7 @@ void travel_step(creature_type *creature_ptr)
 
 	if(travel_test(creature_ptr))
 	{
-		if(travel.run == 255)
-		{
-#ifdef JP
-			msg_print("道筋が見つかりません！");
-#else
-			msg_print("No route is found!");
-#endif
-		}
+		if(travel.run == 255) msg_print(MES_WALK_NO_ROUTE);
 		disturb(player_ptr, 0, 0);
 		return;
 	}
@@ -2730,9 +2696,7 @@ void travel_step(creature_type *creature_ptr)
 		if(i == 5) continue;
 
 		if(travel.cost[creature_ptr->fy+ddy[i]][creature_ptr->fx+ddx[i]] < travel.cost[creature_ptr->fy+ddy[dir]][creature_ptr->fx+ddx[dir]])
-		{
 			dir = i;
-		}
 	}
 
 	/* Close door */

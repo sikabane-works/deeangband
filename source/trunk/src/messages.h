@@ -279,6 +279,9 @@
 
 #ifdef JP
 
+#define MES_TRAP_DOOR "落とし戸に落ちた！"
+#define MES_TRAP_DOOR_AVOID "落とし戸を飛び越えた。"
+
 #define MES_TRAP_BLIND "黒いガスに包み込まれた！"
 #define MES_TRAP_CONFUSE "きらめくガスに包み込まれた！"
 #define MES_TRAP_POISON "刺激的な緑色のガスに包み込まれた！"
@@ -311,6 +314,10 @@
 #define MES_TRAP_ALARM "けたたましい音が鳴り響いた！"
 
 #else
+
+#define MES_TRAP_DOOR "You have fallen through a trap door!"
+#define MES_TRAP_DOOR_AVOID "You fly over a trap door."
+
 #define MES_TRAP_BLIND "A black gas surrounds you!"
 #define MES_TRAP_CONFUSE "A gas of scintillating colors surrounds you!"
 #define MES_TRAP_POISON "A pungent green gas surrounds you!"
@@ -2045,6 +2052,8 @@ static cptr desc_stat_neg[] =
 #define MES_WALK_BLOCK(FEATURE) "%sが行く手をはばんでいる。", (FEATURE)
 #define MES_WALK_ASK_ENTERING_CHAOS "本当に〈混沌〉の領域に入りますか？"
 #define MES_WALK_PUSH_PAST(TARGET) "%sを押し退けた。", (TARGET)
+#define MES_WALK_CANNOT_RUN "その方向には走れません。"
+#define MES_WALK_NO_ROUTE "道筋が見つかりません！"
 #else
 #define MES_WALK_NEVER_MOVE "Can't move."
 #define MES_WALK_NEVER_SWIM "Can't swim"
@@ -2054,6 +2063,8 @@ static cptr desc_stat_neg[] =
 #define MES_WALK_BLOCK(FEATURE) "There is %s %s blocking your way.", is_a_vowel((FEATURE)[0]) ? "an" : "a", (FEATURE)
 #define MES_WALK_ASK_ENTERING_CHAOS "Really want to enter territory of chaos? "
 #define MES_WALK_PUSH_PAST(TARGET) "You push past %s.", (TARGET)
+#define MES_WALK_CANNOT_RUN "You cannot run in that direction."
+#define MES_WALK_NO_ROUTE "No route is found!"
 #endif
 
 #ifdef JP
