@@ -2415,11 +2415,14 @@ void add_outfit(creature_type *creature_ptr, object_type *object_ptr, u32b flags
 	/* Auto-inscription */
 	autopick_alter_item(creature_ptr, slot, FALSE);
 
-	if(!(flags & ADD_OUTFIT_MULTIPLE_FENCING) && object_is_weapon(object_ptr))
-		if(get_equip_weapon_num(creature_ptr) >= 1) return;
+	if(!(flags & ADD_OUTFIT_MULTIPLE_FENCING) && object_is_weapon(object_ptr)) return;
 
 	/* Now try wielding everything */ 
 	if(flags & ADD_OUTFIT_EQUIP) wield_all(creature_ptr, flags); 
+
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
+	handle_stuff(creature_ptr);
+
 }
 
 

@@ -560,8 +560,7 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 	creature_ptr->old_realm |= 1 << (creature_ptr->realm2-1);
 	creature_ptr->realm2 = next_realm;
 
-	prepare_update(creature_ptr, CRU_REORDER);
-	prepare_update(creature_ptr, CRU_SPELLS);
+	prepare_update(creature_ptr, CRU_REORDER | CRU_SPELLS);
 	handle_stuff(creature_ptr);
 
 	/* Load an autopick preference file */

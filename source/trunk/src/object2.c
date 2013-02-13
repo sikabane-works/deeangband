@@ -4116,11 +4116,8 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 }
 
 
-/*
-* Combine items in the pack
-*
-* Note special handling of the "overflow" slot
-*/
+// Combine items in the pack
+// Note special handling of the "overflow" slot
 void combine_pack(creature_type *creature_ptr)
 {
 	int             i, j, k;
@@ -4186,16 +4183,11 @@ void combine_pack(creature_type *creature_ptr)
 		}
 	}
 	while (combined);
-
-	if(flag) msg_print(GAME_MESSAGE_PACK_COMBINE);
+	if(flag && is_player(creature_ptr)) msg_print(GAME_MESSAGE_PACK_COMBINE);
 }
 
-
-/*
-* Reorder items in the pack
-*
-* Note special handling of the "overflow" slot
-*/
+// Reorder items in the pack
+// Note special handling of the "overflow" slot
 void reorder_pack(creature_type *creature_ptr)
 {
 	int             i, j, k;
@@ -4204,7 +4196,6 @@ void reorder_pack(creature_type *creature_ptr)
 	object_type     *quest_ptr;
 	object_type     *object_ptr;
 	bool            flag = FALSE;
-
 
 	/* Re-order the pack (forwards) */
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -4251,7 +4242,7 @@ void reorder_pack(creature_type *creature_ptr)
 		prepare_window(PW_INVEN);
 	}
 
-	if(flag) msg_print(GAME_MESSAGE_PACK_REORDER);
+	if(flag && is_player(creature_ptr)) msg_print(GAME_MESSAGE_PACK_REORDER);
 }
 
 
