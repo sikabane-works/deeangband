@@ -2398,10 +2398,8 @@ static void wield_all(creature_type *creature_ptr, u32b flags)
 } 
 
 
-/*
- * Add an outfit object
- */
-void add_outfit(creature_type *creature_ptr, object_type *object_ptr, u32b flags)
+// Add an outfit object
+void add_item_to_creature(creature_type *creature_ptr, object_type *object_ptr, u32b flags)
 {
 	s16b slot;
 
@@ -2415,13 +2413,13 @@ void add_outfit(creature_type *creature_ptr, object_type *object_ptr, u32b flags
 	/* Auto-inscription */
 	autopick_alter_item(creature_ptr, slot, FALSE);
 
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
+	update_creature(creature_ptr, FALSE);
+
 	if(!(flags & ADD_OUTFIT_MULTIPLE_FENCING) && object_is_weapon(object_ptr)) return;
 
 	/* Now try wielding everything */ 
 	if(flags & ADD_OUTFIT_EQUIP) wield_all(creature_ptr, flags); 
-
-	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-	handle_stuff(creature_ptr);
 
 }
 

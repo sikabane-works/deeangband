@@ -2803,7 +2803,7 @@ enum GRAPHICS_MODE
 
 #define NO_FLAGS 0 // no flags
 
-// use add_outfit() and under fuctions.
+// use add_item_to_creature() and under fuctions.
 #define ADD_OUTFIT_EQUIP                0x00000001
 #define ADD_OUTFIT_MULTIPLE_FENCING     0x00000002
 

@@ -2892,7 +2892,7 @@ static void deal_magic_book_aux(creature_type *creature_ptr, int realm)
 	max = (min + creature_ptr->lev / 10);
 	object_prep(quest_ptr, lookup_kind(tv, 0), ITEM_FREE_SIZE);
 	quest_ptr->number = (byte)rand_range(min, max);
-	add_outfit(creature_ptr, quest_ptr, 0);
+	add_item_to_creature(creature_ptr, quest_ptr, 0);
 
 	// Second Book
 	if(creature_ptr->lev > 10 || one_in_(50))
@@ -2901,7 +2901,7 @@ static void deal_magic_book_aux(creature_type *creature_ptr, int realm)
 		max = (min + creature_ptr->lev / 17);
 		object_prep(quest_ptr, lookup_kind(tv, 1), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(min, max);
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 
 	// Third Book
@@ -2911,7 +2911,7 @@ static void deal_magic_book_aux(creature_type *creature_ptr, int realm)
 		max = (min + creature_ptr->lev / 37);
 		object_prep(quest_ptr, lookup_kind(tv, 2), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(min, max);
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 
 	// Fourth Book
@@ -2921,7 +2921,7 @@ static void deal_magic_book_aux(creature_type *creature_ptr, int realm)
 		max = (min + creature_ptr->lev / 50);
 		object_prep(quest_ptr, lookup_kind(tv, 3), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(min, max);
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 
 }
@@ -2945,7 +2945,7 @@ static void deal_potion(creature_type *creature_ptr)
 		max = (min + creature_ptr->lev * 2 / 3);
 		object_prep(quest_ptr, lookup_kind(TV_POTION, SV_POTION_CURE_LIGHT), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(min, max);
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 
 }
@@ -2963,7 +2963,7 @@ static void deal_food(creature_type *creature_ptr)
 		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(3, 7);
 
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 
 	else if(has_trait(creature_ptr, TRAIT_CORPSE_EATER))
@@ -2975,7 +2975,7 @@ static void deal_food(creature_type *creature_ptr)
 			object_prep(quest_ptr, lookup_kind(TV_CORPSE, SV_CORPSE), ITEM_FREE_SIZE);
 			quest_ptr->pval = get_species_num(CURRENT_FLOOR_PTR, 2);
 			quest_ptr->number = 1;
-			add_outfit(creature_ptr, quest_ptr, 0);
+			add_item_to_creature(creature_ptr, quest_ptr, 0);
 		}
 	}
 	else if(has_trait(creature_ptr, TRAIT_WATER_DRINKER))
@@ -2983,7 +2983,7 @@ static void deal_food(creature_type *creature_ptr)
 		/* Potions of Water */
 		object_prep(quest_ptr, lookup_kind(TV_POTION, SV_POTION_WATER), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(15, 23);
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 	else if(has_trait(creature_ptr, TRAIT_FLASK_DRINKER))
 	{
@@ -2993,7 +2993,7 @@ static void deal_food(creature_type *creature_ptr)
 		/* Fuel with oil */
 		apply_magic(creature_ptr, quest_ptr, 1, AM_NO_FIXED_ART, 0);
 		quest_ptr->number = (byte)rand_range(7, 12);
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 
 }
@@ -3011,7 +3011,7 @@ static void deal_lite(creature_type *creature_ptr)
 			// Hack -- Give the player scrolls of DARKNESS!
 			object_prep(quest_ptr, lookup_kind(TV_SCROLL, SV_SCROLL_DARKNESS), ITEM_FREE_SIZE);
 			quest_ptr->number = (byte)rand_range(2, 5);
-			add_outfit(creature_ptr, quest_ptr, 0);
+			add_item_to_creature(creature_ptr, quest_ptr, 0);
 		}
 
 		else if(creature_ptr->class_idx != CLASS_NINJA)
@@ -3020,7 +3020,7 @@ static void deal_lite(creature_type *creature_ptr)
 			object_prep(quest_ptr, lookup_kind(TV_LITE, SV_LITE_TORCH), ITEM_FREE_SIZE);
 			quest_ptr->number = (byte)rand_range(3, 7);
 			quest_ptr->fuel = (s16b)rand_range(7, 10) * 500;
-			add_outfit(creature_ptr, quest_ptr, 0);
+			add_item_to_creature(creature_ptr, quest_ptr, 0);
 		}
 	}
 }
@@ -3069,7 +3069,7 @@ void deal_item(creature_type *creature_ptr)
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
 		make_object(quest_ptr, AM_UNCURSED, 0, object_level, NULL);
-		//add_outfit(creature_ptr, quest_ptr, 0);
+		//add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 
 	// Item depend on species_info
@@ -3089,7 +3089,7 @@ void deal_item(creature_type *creature_ptr)
 					// Equip the artifact
 					create_named_art(creature_ptr, &ob, species_ptr->artifact_id[i]);
 					a_ptr->cur_num = 1;
-					add_outfit(creature_ptr, &ob, TRUE);
+					add_item_to_creature(creature_ptr, &ob, TRUE);
 				}
 			}
 
@@ -3099,7 +3099,7 @@ void deal_item(creature_type *creature_ptr)
 			object_type ob;
 			object_prep(&ob, lookup_kind(species_ptr->artifact_tval[i], species_ptr->artifact_sval[i]), creature_ptr->size);
 			create_ego(&ob, object_level, species_ptr->artifact_ego[i]);
-			add_outfit(creature_ptr, &ob, TRUE);
+			add_item_to_creature(creature_ptr, &ob, TRUE);
 		}
 	}
 
@@ -3116,7 +3116,7 @@ void deal_item(creature_type *creature_ptr)
 		quest_ptr = &forge;
 
 		object_prep(quest_ptr, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
-		add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
 	if(IS_RACE(creature_ptr, RACE_ISTARI))
@@ -3124,7 +3124,7 @@ void deal_item(creature_type *creature_ptr)
 		quest_ptr = &forge;
 
 		object_prep(quest_ptr, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
-		add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
 	quest_ptr = &forge;
@@ -3135,7 +3135,7 @@ void deal_item(creature_type *creature_ptr)
 		/* Hack -- Give the player some arrows */
 		object_prep(quest_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(15, 20);
-		add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
 	if(creature_ptr->class_idx == CLASS_RANGER)
@@ -3143,7 +3143,7 @@ void deal_item(creature_type *creature_ptr)
 		quest_ptr = &forge;
 		/* Hack -- Give the player some arrows */
 		object_prep(quest_ptr, lookup_kind(TV_BOW, SV_SHORT_BOW), ITEM_FREE_SIZE);
-		add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
 	else if(creature_ptr->class_idx == CLASS_ARCHER)
@@ -3152,7 +3152,7 @@ void deal_item(creature_type *creature_ptr)
 		/* Hack -- Give the player some arrows */
 		object_prep(quest_ptr, lookup_kind(TV_ARROW, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(15, 20);
-		add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 	else if(creature_ptr->class_idx == CLASS_HIGH_MAGE)
 	{
@@ -3162,7 +3162,7 @@ void deal_item(creature_type *creature_ptr)
 		quest_ptr->number = 1;
 		quest_ptr->pval = (byte)rand_range(25, 30);
 
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 	else if(creature_ptr->class_idx == CLASS_SORCERER)
 	{
@@ -3172,7 +3172,7 @@ void deal_item(creature_type *creature_ptr)
 			/* Hack -- Give the player some arrows */
 			object_prep(quest_ptr, lookup_kind(i, 0), ITEM_FREE_SIZE);
 			quest_ptr->number = (byte)rand_range(1, creature_ptr->lev / 8);
-			add_outfit(creature_ptr, quest_ptr, 0);
+			add_item_to_creature(creature_ptr, quest_ptr, 0);
 
 		}
 	}
@@ -3185,33 +3185,33 @@ void deal_item(creature_type *creature_ptr)
 			object_prep(quest_ptr, lookup_kind(TV_SHOT, SV_AMMO_LIGHT), ITEM_FREE_SIZE);
 			quest_ptr->number = (byte)rand_range(15, 20);
 
-			add_outfit(creature_ptr, quest_ptr, 0);
+			add_item_to_creature(creature_ptr, quest_ptr, 0);
 		}
 
 		quest_ptr = &forge;
 		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_BISCUIT), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(2, 4);
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 
 		quest_ptr = &forge;
 		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_WAYBREAD), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(2, 4);
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 
 		quest_ptr = &forge;
 		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_JERKY), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(1, 3);
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 
 		quest_ptr = &forge;
 		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_ALE), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(2, 4);
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 
 		quest_ptr = &forge;
 		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_WINE), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(2, 4);
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 	else if(creature_ptr->class_idx == CLASS_NINJA)
 	{
@@ -3220,7 +3220,7 @@ void deal_item(creature_type *creature_ptr)
 		object_prep(quest_ptr, lookup_kind(TV_SPIKE, 0), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(15, 20);
 
-		add_outfit(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 	else if(creature_ptr->class_idx == CLASS_SNIPER)
 	{
@@ -3229,7 +3229,7 @@ void deal_item(creature_type *creature_ptr)
 		object_prep(quest_ptr, lookup_kind(TV_BOLT, SV_AMMO_NORMAL), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(15, 20);
 
-		add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
 	/* Hack -- Give the player three useful objects */
@@ -3274,7 +3274,7 @@ void deal_item(creature_type *creature_ptr)
 				quest_ptr->name2 = EGO_BRAND_POIS;
 			}
 
-			add_outfit(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
+			add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 		}
 	}
 

@@ -610,7 +610,7 @@ extern creature_type* generate_creature(cave_type *c_ptr, int species_idx, creat
 extern void get_max_stats(creature_type *creature_ptr);
 extern void determine_random_questor(quest_type *quest_ptr);
 extern void dump_yourself(creature_type *creature_ptr, FILE *fff);
-extern void add_outfit(creature_type *creature_ptr, object_type *object_ptr, u32b flags);
+extern void add_item_to_creature(creature_type *creature_ptr, object_type *object_ptr, u32b flags);
 extern void race_detail(int code);
 extern void class_detail(int code);
 extern void chara_detail(int code);
