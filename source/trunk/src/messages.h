@@ -2466,7 +2466,9 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_TRAIT_CRITICAL_STUN "Š„‚ê‚é‚æ‚¤‚È“ª’É‚ª‚·‚éB"
 #define MES_TRAIT_CUT_PENALTY(CREATURE, PLAYER) "%s‚É‚Ğ‚Ç‚¢Õ‚ªc‚Á‚½B", (CREATURE)
 #else
+#define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
 #define MES_TRAIT_CUT_PENALTY(CREATURE, PLAYER) "%s %s been horribly scarred.", (CREATURE), (PLAYER) ? "have" : "has"
 #endif
