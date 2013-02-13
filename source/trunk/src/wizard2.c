@@ -83,9 +83,6 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 	}
 }
 
-
-#ifdef ALLOW_WIZARD
-
 // Dimension Door
 static bool wiz_dimension_door(creature_type *creature_ptr)
 {
@@ -2191,13 +2188,3 @@ void do_cmd_debug(creature_type *creature_ptr)
 		break;
 	}
 }
-
-
-#else
-
-#ifdef MACINTOSH
-static int i = 0;
-#endif
-
-#endif
-

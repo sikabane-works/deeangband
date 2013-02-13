@@ -3210,8 +3210,6 @@ static bool enter_wizard_mode(creature_type *creature_ptr)
 }
 
 
-#ifdef ALLOW_WIZARD
-
 // Verify use of "debug" commands
 static bool enter_debug_mode(creature_type *creature_ptr)
 {
@@ -3232,24 +3230,16 @@ static bool enter_debug_mode(creature_type *creature_ptr)
 		do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_WIZARD);
 		noscore |= 0x0008; // Mark savefile
 	}
-
 	return TRUE;
 }
 
-/*
-* Hack -- Declare the Debug Routines
-*/
+// Hack -- Declare the Debug Routines
 extern void do_cmd_debug(creature_type *creature_ptr);
 
-#endif /* ALLOW_WIZARD */
 
-
-/*
-* Parse and execute the current command
-* Give "Warning" on illegal commands.
-*
-* XXX XXX XXX Make some "blocks"
-*/
+// Parse and execute the current command
+// Give "Warning" on illegal commands.
+// XXX XXX XXX Make some "blocks"
 static void process_player_command(creature_type *creature_ptr)
 {
 	int old_now_message = now_message;
@@ -3304,9 +3294,6 @@ static void process_player_command(creature_type *creature_ptr)
 			break;
 		}
 
-
-#ifdef ALLOW_WIZARD
-
 		/* Special "debug" commands */
 	case KTRL('A'):
 		{
@@ -3317,8 +3304,6 @@ static void process_player_command(creature_type *creature_ptr)
 			}
 			break;
 		}
-
-#endif /* ALLOW_WIZARD */
 
 		/*** inventory Commands ***/
 
