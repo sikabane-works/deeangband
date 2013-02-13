@@ -1297,13 +1297,9 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 
 			if(pet_ctr == creature_ptr->riding)
 			{
-#ifdef JP
-				msg_format("%sから降りた。", friend_name);
-#else
-				msg_format("You have got off %s. ", friend_name);
-#endif
-
+				msg_format(MES_STEED_GOT_OFF(friend_name));
 				creature_ptr->riding = 0;
+				m_ptr->ridden = 0;
 
 				// Update creatures
 				prepare_update(creature_ptr, CRU_BONUS);
@@ -1311,12 +1307,9 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 				prepare_redraw(PR_EXTRA | PR_UHEALTH);
 			}
 
-			/* HACK : Add the line to message buffer */
-#ifdef JP
-			sprintf(buf, "%s を放した。", friend_name);
-#else
-			sprintf(buf, "Dismissed %s.", friend_name);
-#endif
+			/* TODO : Add the line to message buffer */
+			sprintf(buf, MES_PET_RELEASE(friend_name));
+
 			message_add(buf);
 			prepare_window(PW_MESSAGE);
 			window_stuff(player_ptr);
@@ -1333,12 +1326,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 	C_KILL(who, max_creature_idx, u16b);
 	msg_format(MES_PET_DISMISS(Dismissed));
 
-	if(Dismissed == 0 && all_pets)
-#ifdef JP
-		msg_print("'U'nnamed は、乗馬以外の名前のないペットだけを全て解放します。");
-#else
-		msg_print("'U'nnamed means all your pets except named pets and your mount.");
-#endif
+	if(Dismissed == 0 && all_pets) msg_print(MES_PER_UNNAMED_DESC);
 }
 
 static bool player_can_ride_aux(creature_type *creature_ptr, cave_type *c_ptr, bool now_riding)

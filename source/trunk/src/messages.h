@@ -2434,7 +2434,13 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP 
+#define MES_STEED_GOT_OFF(STEED) "%sから降りた。", (STEED)
+#define MES_PET_RELEASE(PET) "%s を放した。", (PET)
 #define MES_PET_DISMISS(NUM) "%d 体のペットを放しました。", (NUM)
+#define MES_PER_UNNAMED_DESC "'U'nnamed は、乗馬以外の名前のないペットだけを全て解放します。"
 #else
+#define MES_STEED_GOT_OFF(STEED) "You have got off %s. ", (STEED)
+#define MES_PET_RELEASE(PET) "Dismissed %s.", (PET)
 #define MES_PET_DISMISS(NUM) "You have dismissed %d pet%s.", (NUM), ((NUM) == 1 ? "" : "s")
+#define MES_PER_UNNAMED_DESC "'U'nnamed means all your pets except named pets and your mount."
 #endif
