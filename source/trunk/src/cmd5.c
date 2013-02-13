@@ -930,45 +930,24 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Spell failure chance */
 	chance = spell_chance(creature_ptr, spell, use_realm);
 
-	/* Sufficient mana */
-	if(need_mana <= creature_ptr->csp)
-	{
-		/* Use some mana */
-		creature_ptr->csp -= need_mana;
-	}
-	else
-	{
-		over_exerted = TRUE;
-	}
+	if(need_mana <= creature_ptr->csp) creature_ptr->csp -= need_mana;
+	else over_exerted = TRUE;
 
-	/* Failed spell */
 	if(PERCENT(chance))
 	{
 		if(flush_failure) flush();
-
-#ifdef JP
-		msg_format("%sをうまく唱えられなかった！", prayer);
-#else
-		msg_format("You failed to get the %s off!", prayer);
-#endif
-
+		msg_format(MES_CAST_FAILED(prayer));
 		sound(SOUND_FAIL);
 
 		/* Failure casting may activate some side effect */
 		do_spell(creature_ptr, realm, spell, SPELL_FAIL);
 
-
-		if((object_ptr->tval == TV_CHAOS_BOOK) && (randint1(100) < spell))
+		if((object_ptr->tval == TV_CHAOS_BOOK) && PERCENT(spell))
 		{
-#ifdef JP
-			msg_print("カオス的な効果を発生した！");
-#else
-			msg_print("You produce a chaotic effect!");
-#endif
-
+			msg_print(MES_CAST_CHAOS_PENALTY);
 			wild_magic(creature_ptr, spell);
 		}
-		else if((object_ptr->tval == TV_DEATH_BOOK) && (randint1(100) < spell))
+		else if((object_ptr->tval == TV_DEATH_BOOK) && PERCENT(spell))
 		{
 			if((sval == 3) && one_in_(2))
 			{

@@ -2418,9 +2418,13 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_CAST_NONE "呪文を唱えられない！"
 #define MES_CAST_NO_NEED_LEARN "呪文を学習する必要はない！"
+#define MES_CAST_FAILED(SPELL) "%sをうまく唱えられなかった！", (SPELL)
+#define MES_CAST_CHAOS_PENALTY "カオス的な効果を発生した！"
 #else
 #define MES_CAST_NONE "You cannot cast spells!"
 #define MES_CAST_NO_NEED_LEARN "You don't have to learn spells!"
+#define MES_CAST_FAILED(SPELL) "You failed to get the %s off!", (SPELL)
+#define MES_CAST_CHAOS_PENALTY "You produce a chaotic effect!"
 #endif
 
 #ifdef JP 
