@@ -319,16 +319,16 @@ void wild_magic(creature_type *caster_ptr, int spell)
 	case 1:
 	case 2:
 	case 3:
-		teleport_player(caster_ptr, 10, TELEPORT_PASSIVE);
+		teleport_creature(caster_ptr, 10, TELEPORT_PASSIVE);
 		break;
 	case 4:
 	case 5:
 	case 6:
-		teleport_player(caster_ptr, 100, TELEPORT_PASSIVE);
+		teleport_creature(caster_ptr, 100, TELEPORT_PASSIVE);
 		break;
 	case 7:
 	case 8:
-		teleport_player(caster_ptr, 200, TELEPORT_PASSIVE);
+		teleport_creature(caster_ptr, 200, TELEPORT_PASSIVE);
 		break;
 	case 9:
 	case 10:
@@ -469,7 +469,7 @@ static void cast_shuffle(creature_type *caster_ptr)
 	else if(die < 40)
 	{
 		msg_print(SHUFFLE_TELEPORT);
-		teleport_player(caster_ptr, 10, TELEPORT_PASSIVE);
+		teleport_creature(caster_ptr, 10, TELEPORT_PASSIVE);
 	}
 	else if(die < 42)
 	{
@@ -479,12 +479,12 @@ static void cast_shuffle(creature_type *caster_ptr)
 	else if(die < 47)
 	{
 		msg_print(SHUFFLE_TELEPORT);
-		teleport_player(caster_ptr, 100, TELEPORT_PASSIVE);
+		teleport_creature(caster_ptr, 100, TELEPORT_PASSIVE);
 	}
 	else if(die < 52)
 	{
 		msg_print(SHUFFLE_TELEPORT);
-		teleport_player(caster_ptr, 200, TELEPORT_PASSIVE);
+		teleport_creature(caster_ptr, 200, TELEPORT_PASSIVE);
 	}
 	else if(die < 60)
 	{
@@ -1432,7 +1432,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				teleport_player(caster_ptr, range, 0L);
+				teleport_creature(caster_ptr, range, 0L);
 			}
 		}
 		break;
@@ -1511,7 +1511,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				teleport_player(caster_ptr, range, 0L);
+				teleport_creature(caster_ptr, range, 0L);
 			}
 		}
 		break;
@@ -2894,7 +2894,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				teleport_player(caster_ptr, range, 0L);
+				teleport_creature(caster_ptr, range, 0L);
 			}
 		}
 		break;
@@ -4125,7 +4125,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				teleport_player(caster_ptr, range, 0L);
+				teleport_creature(caster_ptr, range, 0L);
 			}
 		}
 		break;
@@ -4215,7 +4215,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				teleport_player(caster_ptr, range, 0L);
+				teleport_creature(caster_ptr, range, 0L);
 			}
 		}
 		break;
@@ -5086,7 +5086,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				teleport_player(caster_ptr, range, 0L);
+				teleport_creature(caster_ptr, range, 0L);
 			}
 		}
 		break;
@@ -5381,7 +5381,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				teleport_player(caster_ptr, range, 0L);
+				teleport_creature(caster_ptr, range, 0L);
 			}
 		}
 		break;
@@ -7124,7 +7124,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				teleport_player(caster_ptr, range, 0L);
+				teleport_creature(caster_ptr, range, 0L);
 			}
 		}
 		break;
@@ -10891,7 +10891,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 				msg_print("Oops!");
 #endif
-				teleport_player(caster_ptr, 30, 0L);
+				teleport_creature(caster_ptr, 30, 0L);
 			}
 
 			add = FALSE;

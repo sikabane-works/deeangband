@@ -388,7 +388,7 @@ bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 	return TRUE;
 }
 
-void teleport_player(creature_type *creature_ptr, int dis, u32b mode)
+void teleport_creature(creature_type *creature_ptr, int dis, u32b mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int yy, xx;
@@ -561,7 +561,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 			{
 				if(one_in_(3))
 				{
-					teleport_player(creature_ptr, 200, TELEPORT_PASSIVE);
+					teleport_creature(creature_ptr, 200, TELEPORT_PASSIVE);
 					msg_print(GAME_MESSAGE_FAILED);
 				}
 				else teleport_creature_to(creature_ptr, creature_ptr->fy, creature_ptr->fx, 0L);
@@ -1032,7 +1032,7 @@ void apply_nexus(creature_type *m_ptr)
 	switch (randint1(7))
 	{
 		case 1: case 2: case 3:
-			teleport_player(m_ptr, 200, TELEPORT_PASSIVE);
+			teleport_creature(m_ptr, 200, TELEPORT_PASSIVE);
 			break;
 
 		case 4: case 5:
@@ -4432,7 +4432,7 @@ static bool dimension_door_aux(creature_type *creature_ptr, int x, int y)
 	    (!randint0(plev / 10 + 10)))
 	{
 		cost_tactical_energy(creature_ptr, 60 - plev);
-		teleport_player(creature_ptr, (plev + 2) * 2, TELEPORT_PASSIVE);
+		teleport_creature(creature_ptr, (plev + 2) * 2, TELEPORT_PASSIVE);
 
 		return FALSE;
 	}

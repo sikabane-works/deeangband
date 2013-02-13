@@ -2632,7 +2632,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			if(!(*count))
 			{
 				msg_print(MES_TY_CURSE_TELEPORT);
-				teleport_player(creature_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
+				teleport_creature(creature_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
 				if(randint0(13)) (*count) += activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 				if(!one_in_(6)) break;
 			}
@@ -2896,7 +2896,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	y = user_ptr->fy;
 	x = user_ptr->fx;
 
-	teleport_player(user_ptr, 10 + randint1(90), 0L);
+	teleport_creature(user_ptr, 10 + randint1(90), 0L);
 	object_wipe(quest_ptr);
 	object_prep(quest_ptr, lookup_kind(TV_STATUE, SV_WOODEN_STATUE), ITEM_FREE_SIZE);
 	quest_ptr->pval = SPECIES_NINJA;

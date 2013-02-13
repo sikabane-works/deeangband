@@ -544,10 +544,10 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			switch (randint1(13))
 			{
 			case 1: case 2: case 3: case 4: case 5:
-				teleport_player(caster_ptr, 10, 0L);
+				teleport_creature(caster_ptr, 10, 0L);
 				break;
 			case 6: case 7: case 8: case 9: case 10:
-				teleport_player(caster_ptr, 222, 0L);
+				teleport_creature(caster_ptr, 222, 0L);
 				break;
 			case 11: case 12:
 				(void)stair_creation(caster_ptr, floor_ptr);
@@ -1202,7 +1202,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BLINK:
-		teleport_player(caster_ptr, 10, 0L);
+		teleport_creature(caster_ptr, 10, 0L);
 		break;
 		{
 
@@ -1228,7 +1228,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_ACTIVE_TELEPORT:
-		teleport_player(caster_ptr, 100, 0L);
+		teleport_creature(caster_ptr, 100, 0L);
 		break;
 		{
 
@@ -1916,7 +1916,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			{
 				close_combat(caster_ptr, y, x, 0);
 				if(randint0(caster_ptr->skill_dis) < 7) msg_print(GAME_MESSAGE_FAILED_RUNAWAY);
-				else teleport_player(caster_ptr, 30, 0L);
+				else teleport_creature(caster_ptr, 30, 0L);
 			}
 			else
 			{
@@ -2341,7 +2341,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_VTELEPORT:
-		teleport_player(caster_ptr, 10 + 4 * user_level, 0L);
+		teleport_creature(caster_ptr, 10 + 4 * user_level, 0L);
 		break;
 
 	case TRAIT_MIND_BLST:

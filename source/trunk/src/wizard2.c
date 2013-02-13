@@ -2043,14 +2043,17 @@ void do_cmd_debug(creature_type *creature_ptr)
 		do_cmd_wiz_play(creature_ptr);
 		break;
 
-		// Dump option bits usage
+	// Dump option bits usage
 	case 'O':
+		msg_print("This function is being reimpleneted now.");
+		break;
+		//TODO
 		do_cmd_dump_options();
 		break;
 
 	// Phase Door
 	case 'p':
-		teleport_player(creature_ptr, 10, 0L);
+		teleport_creature(creature_ptr, 10, 0L);
 		break;
 
 	// P: No Use
@@ -2086,7 +2089,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	// Teleport
 	case 't':
-		teleport_player(creature_ptr, 100, 0L);
+		teleport_creature(creature_ptr, 100, 0L);
 		break;
 	
 	// Teleport Known Floor

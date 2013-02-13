@@ -682,7 +682,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 	else if(get_check("Normal teleport? "))
 #endif
 	{
-		teleport_player(creature_ptr, 200, 0L);
+		teleport_creature(creature_ptr, 200, 0L);
 		return;
 	}
 	else
@@ -1780,7 +1780,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			msg_print("Your position suddenly seems very uncertain...");
 #endif
 			msg_print(NULL);
-			teleport_player(creature_ptr, 40, TELEPORT_PASSIVE);
+			teleport_creature(creature_ptr, 40, TELEPORT_PASSIVE);
 		}
 	}
 
@@ -2242,7 +2242,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #endif
 		{
 			disturb(player_ptr, 0, 0);
-			teleport_player(creature_ptr, 50, 0L);
+			teleport_creature(creature_ptr, 50, 0L);
 		}
 		else
 		{
@@ -2378,7 +2378,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_RANDOM_TELEPORT) && one_in_(200) && !has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 	{
 		disturb(player_ptr, 0, 0);
-		teleport_player(creature_ptr, 40, TELEPORT_PASSIVE); // Teleport player
+		teleport_creature(creature_ptr, 40, TELEPORT_PASSIVE); // Teleport player
 	}
 
 	/* Handle HP draining */

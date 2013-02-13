@@ -824,11 +824,11 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 2:
 		/* Minor displace */
-		teleport_player(creature_ptr, 10, 0L);
+		teleport_creature(creature_ptr, 10, 0L);
 		break;
 	case 3:
 		/* Major displace */
-		teleport_player(creature_ptr, plev * 5, 0L);
+		teleport_creature(creature_ptr, plev * 5, 0L);
 		break;
 	case 4:
 		/* Domination */
@@ -1172,7 +1172,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 		/* warped mirror */
 	case 3:
-		teleport_player(creature_ptr, 10, 0L);
+		teleport_creature(creature_ptr, 10, 0L);
 		break;
 		/* mirror of light */
 	case 4:
@@ -1180,7 +1180,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 		/* mirror of wandering */
 	case 5:
-		teleport_player(creature_ptr, plev * 5, 0L);
+		teleport_creature(creature_ptr, plev * 5, 0L);
 		break;
 		/* robe of dust */
 	case 6:
@@ -1405,7 +1405,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		break;
 	case 2:
 		{
-			teleport_player(caster_ptr, 10, 0L);
+			teleport_creature(caster_ptr, 10, 0L);
 			break;
 		}
 	case 3:
@@ -1425,7 +1425,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		}
 	case 4:
 		{
-			teleport_player(caster_ptr, caster_ptr->lev * 5, 0L);
+			teleport_creature(caster_ptr, caster_ptr->lev * 5, 0L);
 			break;
 		}
 	case 5:
@@ -1439,7 +1439,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 				if(randint0(caster_ptr->skill_dis) < 7) msg_print(GAME_MESSAGE_FAILED_RUNAWAY);
 				else
 				{
-					teleport_player(caster_ptr, 30, 0L);
+					teleport_creature(caster_ptr, 30, 0L);
 				}
 			}
 			else
@@ -1459,7 +1459,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		break;
 	case 9:
 		SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 50 + plev, plev / 10 + 2, -1);
-		teleport_player(caster_ptr, 30, 0L);
+		teleport_creature(caster_ptr, 30, 0L);
 		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, plev, FALSE);
 		break;
 	case 10:
@@ -1585,7 +1585,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + plev * 2 / 3, plev / 5 + 2, -1);
 		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + plev * 2 / 3, plev / 5 + 2, -1);
 		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + plev * 2 / 3, plev / 5 + 2, -1);
-		teleport_player(caster_ptr, 30, 0L);
+		teleport_creature(caster_ptr, 30, 0L);
 		break;
 	case 18:
 		{
@@ -1782,7 +1782,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 #else
 						msg_print("Weird visions seem to dance before your eyes...");
 #endif
-						teleport_player(creature_ptr, 10, TELEPORT_PASSIVE);
+						teleport_creature(creature_ptr, 10, TELEPORT_PASSIVE);
 					}
 					else if(b < 96)
 					{

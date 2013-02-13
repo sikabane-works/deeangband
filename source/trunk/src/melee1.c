@@ -2903,7 +2903,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 				if(is_mirror_grid(&floor_ptr->cave[target_ptr->fy][target_ptr->fx]))
 				{
-					teleport_player(target_ptr, 10, 0L);
+					teleport_creature(target_ptr, 10, 0L);
 				}
 			}
 

@@ -1852,7 +1852,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		msg_print("Gravity warps around you.");
 #endif
-		teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
+		teleport_creature(target_ptr, 5, TELEPORT_PASSIVE);
 		if(!has_trait(target_ptr, TRAIT_CAN_FLY)) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
 		if(!(has_trait(target_ptr, TRAIT_RES_SOUN) || has_trait(target_ptr, TRAIT_CAN_FLY)))
 			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);

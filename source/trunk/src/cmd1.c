@@ -808,7 +808,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		case TRAP_TELEPORT:
 		{
 			msg_print(MES_TRAP_TELEPORT);
-			teleport_player(creature_ptr, 100, TELEPORT_PASSIVE);
+			teleport_creature(creature_ptr, 100, TELEPORT_PASSIVE);
 			break;
 		}
 
