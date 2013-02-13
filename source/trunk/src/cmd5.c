@@ -1230,7 +1230,6 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 		char buf[80];
 		bool kakunin;
 
-		/* Access the creature */
 		pet_ctr = who[i];
 		m_ptr = &creature_list[pet_ctr];
 
@@ -1240,17 +1239,10 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 
 		if(!all_pets)
 		{
-			/* Hack -- health bar for this creature */
 			health_track(pet_ctr);
-
-			/* Hack -- handle stuff */
 			handle_stuff(creature_ptr);
 
-#ifdef JP
-			sprintf(buf, "%s‚ð•ú‚µ‚Ü‚·‚©H [Yes/No/Unnamed (%d‘Ì)]", friend_name, max_pet - i);
-#else
-			sprintf(buf, "Dismiss %s? [Yes/No/Unnamed (%d remain)]", friend_name, max_pet - i);
-#endif
+			sprintf(buf, MES_PET_DISMISS_ASK(friend_name, max_pet - i));
 			prt(buf, 0, 0);
 
 			if(m_ptr->see_others)
