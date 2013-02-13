@@ -2416,6 +2416,8 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_CAST_WHICH_BOOK "どの呪文書を使いますか? "
+#define MES_CAST_NO_BOOK "呪文書がない！"
 #define MES_CAST_NONE "呪文を唱えられない！"
 #define MES_CAST_NO_NEED_LEARN "呪文を学習する必要はない！"
 #define MES_CAST_FAILED(SPELL) "%sをうまく唱えられなかった！", (SPELL)
@@ -2426,6 +2428,8 @@ static cptr desc_stat_neg[] =
 #define MES_CAST_FAINT "精神を集中しすぎて気を失ってしまった！"
 #define MES_CAST_DAMAGE_HEALTH "体を悪くしてしまった！"
 #else
+#define MES_CAST_WHICH_BOOK "Use which book? "
+#define MES_CAST_NO_BOOK "You have no spell books!"
 #define MES_CAST_NONE "You cannot cast spells!"
 #define MES_CAST_NO_NEED_LEARN "You don't have to learn spells!"
 #define MES_CAST_FAILED(SPELL) "You failed to get the %s off!", (SPELL)

@@ -757,7 +757,6 @@ void do_cmd_cast(creature_type *creature_ptr)
 
 	magic_type	*s_ptr;
 
-	cptr q, s;
 
 	/* Require spell ability */
 	if(!creature_ptr->realm1 && (creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_RED_MAGE))
@@ -827,15 +826,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Restrict choices to spell books */
 	item_tester_tval = magic_info[creature_ptr->class_idx].spell_book;
 
-#ifdef JP
-	q = "‚Ç‚Ìô•¶‘‚ğg‚¢‚Ü‚·‚©? ";
-	s = "ô•¶‘‚ª‚È‚¢I";
-#else
-	q = "Use which book? ";
-	s = "You have no spell books!";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, select_flag, NULL, item_tester_tval)) return;
+	if(!get_item(creature_ptr, &item, MES_CAST_WHICH_BOOK, MES_CAST_NO_BOOK, select_flag, NULL, item_tester_tval)) return;
 
 	if(item == INVEN_FORCE) /* the_force */
 	{
