@@ -6885,10 +6885,7 @@ static void desc_obj_fake(int k_idx)
 }
 
 
-
-/*
- * Display known objects
- */
+// Display known objects
 static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int direct_k_idx)
 {
 	int i, len, max;
