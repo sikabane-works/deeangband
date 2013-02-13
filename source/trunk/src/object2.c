@@ -3725,7 +3725,7 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b 
 	int o_type, j_type;
 
 	/* Use empty slots */
-	if(!object2_ptr->k_idx) return TRUE;
+	if(!is_valid_object(object2_ptr)) return TRUE;
 
 	/* Hack -- readable books always come first */
 	if((object_ptr->tval == REALM1_BOOK(subject_ptr)) &&

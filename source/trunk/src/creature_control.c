@@ -3270,9 +3270,7 @@ void deal_item(creature_type *creature_ptr)
 
 			/* Assassins begin the game with a poisoned dagger */
 			if((tv == TV_SWORD || tv == TV_HAFTED) && (creature_ptr->class_idx == CLASS_ROGUE && creature_ptr->realm1 == REALM_DEATH)) // Only assassins get a poisoned weapon
-			{
 				quest_ptr->name2 = EGO_BRAND_POIS;
-			}
 
 			add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 		}

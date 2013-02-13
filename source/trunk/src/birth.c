@@ -2414,7 +2414,7 @@ void add_item_to_creature(creature_type *creature_ptr, object_type *object_ptr, 
 	autopick_alter_item(creature_ptr, slot, FALSE);
 
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-	update_creature(creature_ptr, FALSE);
+	notice_stuff(creature_ptr);
 
 	if(!(flags & ADD_OUTFIT_MULTIPLE_FENCING) && object_is_weapon(object_ptr)) return;
 
