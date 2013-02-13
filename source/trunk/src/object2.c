@@ -448,30 +448,20 @@ s16b object_pop(void)
 }
 
 
-/*
-* Apply a "object restriction function" to the "object allocation table"
-*/
+// Apply a "object restriction function" to the "object allocation table"
 static errr get_obj_num_prep(bool (*get_obj_num_hook)(int k_idx))
 {
 	int i;
 
-	/* Get the entry */
 	alloc_entry *table = alloc_kind_table;
-
-	/* Scan the allocation table */
-	for (i = 0; i < alloc_kind_size; i++)
+	for (i = 0; i < alloc_kind_size; i++) // Scan the allocation table
 	{
-		/* Accept objects which pass the restriction, if any */
-		if(!get_obj_num_hook || (*get_obj_num_hook)(table[i].index))
+		if(!get_obj_num_hook || (*get_obj_num_hook)(table[i].index)) // Accept objects which pass the restriction, if any
 		{
-			/* Accept this object */
 			table[i].prob2 = table[i].prob1;
 		}
-
-		/* Do not use this object */
-		else
+		else // Do not use this object
 		{
-			/* Decline this object */
 			table[i].prob2 = 0;
 		}
 	}
@@ -523,19 +513,19 @@ s16b get_obj_num(int level, u32b flag)
 		/* Access the actual kind */
 		object_kind_ptr = &object_kind_info[k_idx];
 
-		if(flag & GON_ITEM && object_kind_ptr->tval < TV_STAFF && object_kind_ptr->tval > TV_POTION) continue;			
-		if(flag & GON_ARMS && object_kind_ptr->tval != TV_SWORD && object_kind_ptr->tval != TV_HAFTED && object_kind_ptr->tval != TV_POLEARM) continue;
-		if(flag & GON_BODY && object_kind_ptr->tval != TV_SOFT_ARMOR && object_kind_ptr->tval != TV_HARD_ARMOR && object_kind_ptr->tval != TV_DRAG_ARMOR) continue;
-		if(flag & GON_FEET && object_kind_ptr->tval != TV_BOOTS) continue;
-		if(flag & GON_HANDS && object_kind_ptr->tval != TV_GLOVES) continue;
-		if(flag & GON_HEAD && object_kind_ptr->tval != TV_HELM || object_kind_ptr->tval != TV_CROWN) continue;
-		if(flag & GON_LITE && object_kind_ptr->tval != TV_LITE) continue;
-		if(flag & GON_OUTER && object_kind_ptr->tval != TV_CLOAK) continue;
-		if(flag & GON_RING && object_kind_ptr->tval != TV_RING) continue;
-		if(flag & GON_AMULET && object_kind_ptr->tval != TV_AMULET) continue;
-		if(flag & GON_UNCURSED && have_flag(object_kind_ptr->flags, TRAIT_CURSED) || have_flag(object_kind_ptr->flags, TRAIT_HEAVY_CURSE)) continue;
+		if((flag & GON_ITEM) && object_kind_ptr->tval < TV_STAFF && object_kind_ptr->tval > TV_POTION) continue;			
+		if((flag & GON_ARMS) && object_kind_ptr->tval != TV_SWORD && object_kind_ptr->tval != TV_HAFTED && object_kind_ptr->tval != TV_POLEARM) continue;
+		if((flag & GON_BODY) && object_kind_ptr->tval != TV_SOFT_ARMOR && object_kind_ptr->tval != TV_HARD_ARMOR && object_kind_ptr->tval != TV_DRAG_ARMOR) continue;
+		if((flag & GON_FEET) && object_kind_ptr->tval != TV_BOOTS) continue;
+		if((flag & GON_HANDS) && object_kind_ptr->tval != TV_GLOVES) continue;
+		if((flag & GON_HEAD) && (object_kind_ptr->tval != TV_HELM || object_kind_ptr->tval != TV_CROWN)) continue;
+		if((flag & GON_LITE) && object_kind_ptr->tval != TV_LITE) continue;
+		if((flag & GON_OUTER) && object_kind_ptr->tval != TV_CLOAK) continue;
+		if((flag & GON_RING) && object_kind_ptr->tval != TV_RING) continue;
+		if((flag & GON_AMULET) && object_kind_ptr->tval != TV_AMULET) continue;
+		if((flag & GON_UNCURSED) && have_flag(object_kind_ptr->flags, TRAIT_CURSED) || have_flag(object_kind_ptr->flags, TRAIT_HEAVY_CURSE)) continue;
 
-		if(flag == TRAIT_NO_CHEST && (object_kind_ptr->tval == TV_CHEST)) continue;
+		//if(flag == TRAIT_NO_CHEST && (object_kind_ptr->tval == TV_CHEST)) continue;
 
 		table[i].prob3 = table[i].prob2; // Accept
 		total += table[i].prob3; // Total
@@ -2864,15 +2854,14 @@ static bool kind_is_good(int k_idx)
 }
 
 
-/*
-* Attempt to make an object (normal or good/great)
-* This routine plays nasty games to generate the "special artifacts".
-* This routine uses "object_level" for the "generation level".
-* We assume that the given object has been "wiped".
-*/
+// Attempt to make an object (normal or good/great)
+// This routine plays nasty games to generate the "special artifacts".
+// This routine uses "object_level" for the "generation level".
+// We assume that the given object has been "wiped".
 bool make_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx))
 {
 	int prob, base;
+	int k_idx;
 	byte obj_level;
 	floor_type *floor_ptr = GET_FLOOR_PTR(object_ptr);
 
@@ -2882,8 +2871,6 @@ bool make_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, b
 	// Generate a special object, or a normal object (for player)
 	if(!one_in_(prob) || !judge_instant_artifact(player_ptr, object_ptr, level))
 	{
-		int k_idx;
-
 		// Good objects & Activate restriction (if already specified, use that)
 		if((mode & AM_GOOD) && !get_obj_num_hook) get_obj_num_hook = kind_is_good;
 		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects - prepare allocation table
@@ -4181,7 +4168,7 @@ void combine_pack(creature_type *creature_ptr)
 		}
 	}
 	while (combined);
-	if(flag && is_player(creature_ptr)) msg_print(GAME_MESSAGE_PACK_COMBINE);
+	//TODO if(flag && is_player(creature_ptr)) msg_print(GAME_MESSAGE_PACK_COMBINE);
 }
 
 // Reorder items in the pack
@@ -4240,7 +4227,7 @@ void reorder_pack(creature_type *creature_ptr)
 		prepare_window(PW_INVEN);
 	}
 
-	if(flag && is_player(creature_ptr)) msg_print(GAME_MESSAGE_PACK_REORDER);
+	//TODO if(flag && is_player(creature_ptr)) msg_print(GAME_MESSAGE_PACK_REORDER);
 }
 
 
