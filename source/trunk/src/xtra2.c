@@ -495,7 +495,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 		{
 			quest_ptr = &forge;	// Get local object
 			object_wipe(quest_ptr);	// Wipe the object
-			make_object(quest_ptr, AM_GOOD | AM_GREAT, 0, floor_ptr->object_level, NULL);	// Make a great object
+			make_random_object(quest_ptr, AM_GOOD | AM_GREAT, 0, floor_ptr->object_level, NULL);	// Make a great object
 			(void)drop_near(floor_ptr, quest_ptr, -1, y, x); // Drop it in the dungeon
 		}
 	}
@@ -882,7 +882,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		else
 		{
 			/* Make an object */
-			if(!make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, NULL)) continue;
+			if(!make_random_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, NULL)) continue;
 
 			dump_item++;
 		}

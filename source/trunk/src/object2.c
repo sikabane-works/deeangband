@@ -1765,7 +1765,7 @@ static void object_mention(object_type *object_ptr)
 
 // Mega-Hack -- Attempt to create one of the "Special Objects"
 //
-// We are only called from "make_object()", and we assume that
+// We are only called from "make_random_object()", and we assume that
 // "apply_magic()" is called immediately after we return.
 //
 // Note -- see "judge_fixed_artifact()" and "apply_magic()"
@@ -2858,7 +2858,7 @@ static bool kind_is_good(int k_idx)
 // This routine plays nasty games to generate the "special artifacts".
 // This routine uses "object_level" for the "generation level".
 // We assume that the given object has been "wiped".
-bool make_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx))
+bool make_random_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx))
 {
 	int prob, base;
 	int k_idx;
@@ -2926,15 +2926,11 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj
 	if(!cave_drop_bold(floor_ptr, y, x)) return; // Require floor space
 	if(c_ptr->object_idx) return; // Avoid stacking on other objects
 
-	/* Get local object */
 	quest_ptr = &forge;
-
-	/* Wipe the object */
 	object_wipe(quest_ptr);
 
 	/* Make an object (if possible) */
-	if(!make_object(quest_ptr, mode, 0, floor_ptr->object_level, get_obj_num_hook)) return;
-
+	if(!make_random_object(quest_ptr, mode, 0, floor_ptr->object_level, get_obj_num_hook)) return;
 
 	/* Make an object */
 	object_idx = object_pop();
@@ -2958,9 +2954,7 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj
 
 		/* Place the object */
 		c_ptr->object_idx = object_idx;
-
 		note_spot(floor_ptr, y, x);
-
 		lite_spot(floor_ptr, y, x);
 	}
 	else
@@ -3398,7 +3392,7 @@ void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, boo
 		object_wipe(i_ptr);
 
 		/* Make a good (or great) object (if possible) */
-		if(!make_object(i_ptr, mode, 0, floor_ptr->object_level, NULL)) continue;
+		if(!make_random_object(i_ptr, mode, 0, floor_ptr->object_level, NULL)) continue;
 
 		if(known)
 		{

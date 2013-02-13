@@ -3066,7 +3066,7 @@ void deal_item(creature_type *creature_ptr)
 
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
-		make_object(quest_ptr, AM_UNCURSED, 0, object_level, NULL);
+		make_random_object(quest_ptr, AM_UNCURSED, 0, object_level, NULL);
 		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 

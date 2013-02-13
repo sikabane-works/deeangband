@@ -963,7 +963,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 			object_wipe(quest_ptr);
 
 			/* Create an object */
-			make_object(quest_ptr, mode, 0, floor_ptr->object_level, NULL);
+			make_random_object(quest_ptr, mode, 0, floor_ptr->object_level, NULL);
 
 			/* XXX XXX XXX Mega-Hack -- allow multiple artifacts */
 			if(object_is_fixed_artifact(quest_ptr)) artifact_info[quest_ptr->name1].cur_num = 0;
