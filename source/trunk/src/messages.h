@@ -2420,11 +2420,17 @@ static cptr desc_stat_neg[] =
 #define MES_CAST_NO_NEED_LEARN "呪文を学習する必要はない！"
 #define MES_CAST_FAILED(SPELL) "%sをうまく唱えられなかった！", (SPELL)
 #define MES_CAST_CHAOS_PENALTY "カオス的な効果を発生した！"
+#define MES_CAST_NECRO_PENALTY1 "ネクロノミコンを読んで正気を失った！"
+#define MES_CAST_NECRO_PENALTY2 "痛い！"
+#define MES_CAST_MUSIC_PENALTY "いやな音が響いた"
 #else
 #define MES_CAST_NONE "You cannot cast spells!"
 #define MES_CAST_NO_NEED_LEARN "You don't have to learn spells!"
 #define MES_CAST_FAILED(SPELL) "You failed to get the %s off!", (SPELL)
 #define MES_CAST_CHAOS_PENALTY "You produce a chaotic effect!"
+#define MES_CAST_NECRO_PENALTY1 "Your sanity is shaken by reading the Necronomicon!"
+#define MES_CAST_NECRO_PENALTY2 "It hurts!"
+#define MES_CAST_MUSIC_PENALTY "An infernal sound echoed."
 #endif
 
 #ifdef JP 

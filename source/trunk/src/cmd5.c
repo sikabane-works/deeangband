@@ -951,20 +951,12 @@ void do_cmd_cast(creature_type *creature_ptr)
 		{
 			if((sval == 3) && one_in_(2))
 			{
-#ifdef JP
-				msg_print("ネクロノミコンを読んで正気を失った！");
-#else
-				msg_print("Your sanity is shaken by reading the Necronomicon!");
-#endif
+				msg_print(MES_CAST_NECRO_PENALTY1);
 				sanity_blast_aux(creature_ptr, 120);
 			}
 			else
 			{
-#ifdef JP
-				msg_print("痛い！");
-#else
-				msg_print("It hurts!");
-#endif
+				msg_print(MES_CAST_NECRO_PENALTY2);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(object_ptr->sval + 1, 6), COD_MISCAST_DEATH_SPELL, NULL, -1);
 
 				if((spell > 15) && one_in_(6) && !has_trait(creature_ptr, TRAIT_HOLD_LIFE))
@@ -973,12 +965,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 		}
 		else if((object_ptr->tval == TV_MUSIC_BOOK) && (randint1(200) < spell))
 		{
-#ifdef JP
-			msg_print("いやな音が響いた");
-#else
-			msg_print("An infernal sound echoed.");
-#endif
-
+			msg_print(MES_CAST_MUSIC_PENALTY);
 			aggravate_creatures(creature_ptr);
 		}
 	}
