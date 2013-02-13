@@ -1915,7 +1915,6 @@ void do_cmd_options(void)
 
 			prt(MES_INTERFACE_OPTION, 21, 0);
 
-			/* Get command */
 			skey = inkey_special(TRUE);
 			if(!(skey & SKEY_MASK)) k = (char)skey;
 			else k = 0;

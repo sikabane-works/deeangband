@@ -1331,13 +1331,8 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 	Term_fresh();
 
 	C_KILL(who, max_creature_idx, u16b);
+	msg_format(MES_PET_DISMISS(Dismissed));
 
-#ifdef JP
-	msg_format("%d 体のペットを放しました。", Dismissed);
-#else
-	msg_format("You have dismissed %d pet%s.", Dismissed,
-		(Dismissed == 1 ? "" : "s"));
-#endif
 	if(Dismissed == 0 && all_pets)
 #ifdef JP
 		msg_print("'U'nnamed は、乗馬以外の名前のないペットだけを全て解放します。");

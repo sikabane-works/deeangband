@@ -2432,3 +2432,9 @@ static cptr desc_stat_neg[] =
 #define MES_DEBUG_CHECK "The debug commands are for debugging and experimenting. The game will not be scored if you use debug commands."
 #define MES_DEBUG_ASK "Are you sure you want to use debug commands? "
 #endif
+
+#ifdef JP 
+#define MES_PET_DISMISS(NUM) "%d 体のペットを放しました。", (NUM)
+#else
+#define MES_PET_DISMISS(NUM) "You have dismissed %d pet%s.", (NUM), ((NUM) == 1 ? "" : "s")
+#endif

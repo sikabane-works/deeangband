@@ -4172,21 +4172,15 @@ void request_command(creature_type *guest_ptr, int shopping)
 	int caretcmd = 0;
 #endif
 
-	// Roguelike
 	if(rogue_like_commands) mode = KEYMAP_MODE_ROGUE;
-
-	// Original
 	else mode = KEYMAP_MODE_ORIG;
 
-	/* No command yet */
 	command_cmd = 0;
 	command_arg = 0;
 	command_dir = 0;
 
 	use_menu = FALSE;
 
-
-	/* Get command */
 	while (1)
 	{
 		/* Hack -- auto-commands */
@@ -4612,11 +4606,8 @@ static void swap(tag_type *a, tag_type *b)
 	b->pointer = temp.pointer;
 }
 
-
-/*
- * Insertion-Sort algorithm
- * (used by the Quicksort algorithm)
- */
+// Insertion-Sort algorithm
+// (used by the Quicksort algorithm)
 static void InsertionSort(tag_type elements[], int number)
 {
 	int j, P;
@@ -4632,10 +4623,7 @@ static void InsertionSort(tag_type elements[], int number)
 	}
 }
 
-
-/*
- * Helper function for Quicksort
- */
+// Helper function for Quicksort
 static tag_type median3(tag_type elements[], int left, int right)
 {
 	int center = (left + right) / 2;
@@ -5093,10 +5081,7 @@ char *my_strchr(const char *ptr, char ch)
 	return NULL;
 }
 
-
-/*
- * Convert string to lower case
- */
+// Convert string to lower case
 void str_tolower(char *str)
 {
 	/* Force to be lower case string */
