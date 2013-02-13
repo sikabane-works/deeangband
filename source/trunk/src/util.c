@@ -5329,8 +5329,16 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 		if(detail) detail(se_ptr[se].code);
 
 		c = inkey();
-		if(c == '2') se++;
-		if(c == '8') se--;
+		if(c == '2')
+		{
+			se++;
+			if(se >= num) se = 0;
+		}
+		if(c == '8')
+		{
+			se--;
+			if(se < 0) se = num - 1;
+		}
 		if(c == '6')
 		{
 			if(mode & GET_SE_LEFT_RIGHT_SWITCHING) return se_ptr[se].left_code;

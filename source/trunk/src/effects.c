@@ -222,7 +222,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 	}
 
-	if(type == TRAIT_STUN && randint1(1000) < v - creature_ptr->timed_trait[type])
+	if(type == TRAIT_STUN && randint1(1000) < v - creature_ptr->timed_trait[type]) //TODO saving
 	{
 		if(is_player(creature_ptr)) msg_print(MES_TRAIT_CRITICAL_STUN);
 		if(one_in_(3))
@@ -234,7 +234,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		else if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
 	}
 
-	if(type == TRAIT_CUT && randint1(1000) < v || one_in_(16))
+	if(type == TRAIT_CUT && randint1(1000) < v - creature_ptr->timed_trait[type]) //TODO saving
 	{
 		if(!has_trait(creature_ptr, TRAIT_SUSTAIN_CHR))
 		{
