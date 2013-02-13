@@ -2403,7 +2403,7 @@ void add_item_to_creature(creature_type *creature_ptr, object_type *object_ptr, 
 {
 	s16b slot;
 
-	if(is_player(creature_ptr))
+	if(is_player(creature_ptr) && (flags & ADD_OUTFIT_EQUIP))
 	{
 		object_aware(object_ptr);
 		object_known(object_ptr);

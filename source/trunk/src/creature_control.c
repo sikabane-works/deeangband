@@ -3069,7 +3069,7 @@ void deal_item(creature_type *creature_ptr)
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
 		make_object(quest_ptr, AM_UNCURSED, 0, object_level, NULL);
-		//add_item_to_creature(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
 	// Item depend on species_info
@@ -3162,7 +3162,7 @@ void deal_item(creature_type *creature_ptr)
 		quest_ptr->number = 1;
 		quest_ptr->pval = (byte)rand_range(25, 30);
 
-		add_item_to_creature(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 	else if(creature_ptr->class_idx == CLASS_SORCERER)
 	{
@@ -3172,7 +3172,7 @@ void deal_item(creature_type *creature_ptr)
 			/* Hack -- Give the player some arrows */
 			object_prep(quest_ptr, lookup_kind(i, 0), ITEM_FREE_SIZE);
 			quest_ptr->number = (byte)rand_range(1, creature_ptr->lev / 8);
-			add_item_to_creature(creature_ptr, quest_ptr, 0);
+			add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 
 		}
 	}
@@ -3185,33 +3185,33 @@ void deal_item(creature_type *creature_ptr)
 			object_prep(quest_ptr, lookup_kind(TV_SHOT, SV_AMMO_LIGHT), ITEM_FREE_SIZE);
 			quest_ptr->number = (byte)rand_range(15, 20);
 
-			add_item_to_creature(creature_ptr, quest_ptr, 0);
+			add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 		}
 
 		quest_ptr = &forge;
 		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_BISCUIT), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(2, 4);
-		add_item_to_creature(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 
 		quest_ptr = &forge;
 		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_WAYBREAD), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(2, 4);
-		add_item_to_creature(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 
 		quest_ptr = &forge;
 		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_JERKY), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(1, 3);
-		add_item_to_creature(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 
 		quest_ptr = &forge;
 		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_ALE), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(2, 4);
-		add_item_to_creature(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 
 		quest_ptr = &forge;
 		object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_PINT_OF_WINE), ITEM_FREE_SIZE);
 		quest_ptr->number = (byte)rand_range(2, 4);
-		add_item_to_creature(creature_ptr, quest_ptr, 0);
+		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 	else if(creature_ptr->class_idx == CLASS_NINJA)
 	{

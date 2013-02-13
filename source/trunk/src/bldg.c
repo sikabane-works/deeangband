@@ -3696,9 +3696,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 }
 
-/*
- * Discover quest
- */
+// Discover quest
 void quest_discovery(int q_idx)
 {
 	floor_type		*floor_ptr = GET_FLOOR_PTR(player_ptr);

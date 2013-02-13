@@ -117,31 +117,22 @@ int dun_tun_jct;
 dun_data *dungeon_ptr;
 
 
-/*
- * Count the number of walls adjacent to the given grid.
- *
- * Note -- Assumes "in_bounds(floor_ptr, y, x)"
- *
- * We count only granite walls and permanent walls.
- */
+// Count the number of walls adjacent to the given grid.
+// Note -- Assumes "in_bounds(floor_ptr, y, x)"
+// We count only granite walls and permanent walls.
 static int next_to_walls(floor_type *floor_ptr, int y, int x)
 {
 	int k = 0;
-
 	if(in_bounds(floor_ptr, y + 1, x) && is_extra_bold(floor_ptr, y + 1, x)) k++;
 	if(in_bounds(floor_ptr, y - 1, x) && is_extra_bold(floor_ptr, y - 1, x)) k++;
 	if(in_bounds(floor_ptr, y, x + 1) && is_extra_bold(floor_ptr, y, x + 1)) k++;
 	if(in_bounds(floor_ptr, y, x - 1) && is_extra_bold(floor_ptr, y, x - 1)) k++;
-
 	return (k);
 }
 
 
-/*
- *  Helper function for alloc_stairs().
- *
- *  Is this a good location for stairs?
- */
+//  Helper function for alloc_stairs().
+//  Is this a good location for stairs?
 static bool alloc_stairs_aux(floor_type *floor_ptr, int y, int x, int walls)
 {
 	/* Access the grid */
@@ -444,26 +435,20 @@ static bool possible_doorway(floor_type *floor_ptr, int y, int x)
 }
 
 
-/*
- * Places door at y, x position if at least 2 walls found
- */
+
+// Places door at y, x position if at least 2 walls found
 static void try_door(floor_type *floor_ptr, int y, int x)
 {
 
 	if(!in_bounds(floor_ptr, y, x)) return;
-
-	/* Ignore walls */
-	if(cave_have_flag_bold(floor_ptr, y, x, FF_WALL)) return;
+	if(cave_have_flag_bold(floor_ptr, y, x, FF_WALL)) return; // Ignore walls
 
 	/* Ignore room grids */
 	if(floor_ptr->cave[y][x].info & (CAVE_ROOM)) return;
 
 	/* Occasional door (if allowed) */
 	if((randint0(100) < dun_tun_jct) && possible_doorway(floor_ptr, y, x) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS))
-	{
-		/* Place a door */
 		place_random_door(floor_ptr, y, x, FALSE);
-	}
 }
 
 
@@ -532,16 +517,9 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 				/* Failed to place */
 				if(!l) return FALSE;
 
-				/* Try to place the creature */
-				if(place_creature_species(player_ptr, floor_ptr, y, x, quest[i].species_idx, mode))
-				{
-					break;
-				}
-				else
-				{
-					/* Failure - Try again */
-					continue;
-				}
+				// Try to place the creature
+				if(place_creature_species(player_ptr, floor_ptr, y, x, quest[i].species_idx, mode)) break;
+				else continue; //Try again
 			}
 
 			/* Failed to place */

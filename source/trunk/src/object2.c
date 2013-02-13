@@ -3845,9 +3845,7 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 
 			/* Increase the weight */
 			set_inventory_weight(creature_ptr);
-
 			prepare_update(creature_ptr, CRU_BONUS);
-
 			prepare_window(PW_INVEN);
 
 			return (j);

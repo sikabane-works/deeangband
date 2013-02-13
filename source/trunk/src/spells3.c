@@ -1379,10 +1379,7 @@ msg_format("‚ ‚È‚½‚Ì%s%s", object_name, act);
 	calc_android_exp(creature_ptr);
 }
 
-
-/*
- * Vanish all walls in this floor
- */
+// Vanish all walls in this floor
 static bool vanish_dungeon(floor_type *floor_ptr)
 {
 	int          y, x;
@@ -1485,7 +1482,6 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 
 	/* Mega-Hack -- Forget the view and lite */
 	prepare_update(player_ptr, PU_UN_VIEW | PU_UN_LITE);
-
 	prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
 
 	// Update creatures
