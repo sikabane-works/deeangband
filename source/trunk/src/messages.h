@@ -2423,6 +2423,8 @@ static cptr desc_stat_neg[] =
 #define MES_CAST_NECRO_PENALTY1 "ネクロノミコンを読んで正気を失った！"
 #define MES_CAST_NECRO_PENALTY2 "痛い！"
 #define MES_CAST_MUSIC_PENALTY "いやな音が響いた"
+#define MES_CAST_FAINT "精神を集中しすぎて気を失ってしまった！"
+#define MES_CAST_DAMAGE_HEALTH "体を悪くしてしまった！"
 #else
 #define MES_CAST_NONE "You cannot cast spells!"
 #define MES_CAST_NO_NEED_LEARN "You don't have to learn spells!"
@@ -2431,6 +2433,8 @@ static cptr desc_stat_neg[] =
 #define MES_CAST_NECRO_PENALTY1 "Your sanity is shaken by reading the Necronomicon!"
 #define MES_CAST_NECRO_PENALTY2 "It hurts!"
 #define MES_CAST_MUSIC_PENALTY "An infernal sound echoed."
+#define MES_CAST_FAINT "You faint from the effort!"
+#define MES_CAST_DAMAGE_HEALTH "You have damaged your health!"
 #endif
 
 #ifdef JP 

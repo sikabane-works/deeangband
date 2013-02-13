@@ -882,7 +882,6 @@ void do_cmd_cast(creature_type *creature_ptr)
 
 	use_realm = tval2realm(object_ptr->tval);
 
-	/* Hex */
 	if(use_realm == REALM_HEX)
 	{
 		if(HEX_SPELLING(creature_ptr, spell))
@@ -921,13 +920,11 @@ void do_cmd_cast(creature_type *creature_ptr)
 			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
 			prayer);
 #endif
-
 		if(!over_exert) return;
 		if(!get_check_strict(GAME_MESSAGE_ATTEMPT_ANYWAY, CHECK_OKAY_CANCEL)) return;
 
 	}
 
-	/* Spell failure chance */
 	chance = spell_chance(creature_ptr, spell, use_realm);
 
 	if(need_mana <= creature_ptr->csp) creature_ptr->csp -= need_mana;
@@ -963,22 +960,20 @@ void do_cmd_cast(creature_type *creature_ptr)
 					lose_exp(creature_ptr, spell * 250);
 			}
 		}
-		else if((object_ptr->tval == TV_MUSIC_BOOK) && (randint1(200) < spell))
+		else if((object_ptr->tval == TV_MUSIC_BOOK) && PERCENT(spell / 2))
 		{
 			msg_print(MES_CAST_MUSIC_PENALTY);
 			aggravate_creatures(creature_ptr);
 		}
 	}
 
-	/* Process spell */
 	else
 	{
 		/* Canceled spells cost neither a turn nor mana */
 		if(!do_spell(creature_ptr, realm, spell, SPELL_CAST)) return;
 
 		/* A spell was cast */
-		if(!(increment ?
-			(creature_ptr->spell_worked2 & (1L << spell)) :
+		if(!(increment ? (creature_ptr->spell_worked2 & (1L << spell)) :
 		(creature_ptr->spell_worked1 & (1L << spell)))
 			&& (creature_ptr->class_idx != CLASS_SORCERER)
 			&& (creature_ptr->class_idx != CLASS_RED_MAGE))
@@ -987,13 +982,9 @@ void do_cmd_cast(creature_type *creature_ptr)
 
 			/* The spell worked */
 			if(realm == creature_ptr->realm1)
-			{
 				creature_ptr->spell_worked1 |= (1L << spell);
-			}
 			else
-			{
 				creature_ptr->spell_worked2 |= (1L << spell);
-			}
 
 			/* Gain experience */
 			gain_exp(creature_ptr, e * s_ptr->slevel);
@@ -1017,25 +1008,14 @@ void do_cmd_cast(creature_type *creature_ptr)
 	{
 		int oops = need_mana;
 		dec_mana(creature_ptr, need_mana);
-
-#ifdef JP
-		msg_print("精神を集中しすぎて気を失ってしまった！");
-#else
-		msg_print("You faint from the effort!");
-#endif
+		msg_print(MES_CAST_FAINT);
 		(void)add_timed_trait(creature_ptr, TRAIT_SLEPT, randint1(5 * oops + 1), FALSE);
 
 		/* Damage CON (possibly permanently) */
 		if(PERCENT(50))
 		{
 			bool perm = (PERCENT(25));
-
-#ifdef JP
-			msg_print("体を悪くしてしまった！");
-#else
-			msg_print("You have damaged your health!");
-#endif
-			/* Reduce constitution */
+			msg_print(MES_CAST_DAMAGE_HEALTH);
 			(void)dec_stat(creature_ptr, STAT_CON, 15 + randint1(10), perm);
 		}
 	}
