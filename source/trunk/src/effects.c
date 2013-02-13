@@ -22,12 +22,14 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 {
 	bool notice = FALSE;
 	int old_aux, new_aux;
+	char creature_name[MAX_NLEN];
 
 	if(type == TRAIT_STUN && has_trait(creature_ptr, TRAIT_NO_STUN)) v = 0;
 	if(type == TRAIT_CUT && has_trait(creature_ptr, TRAIT_UNDEAD) && has_trait(creature_ptr, TRAIT_NONLIVING)) v = 0;
 
 	v = (v > PERMANENT_TIMED) ? PERMANENT_TIMED : (v < 0) ? 0 : v; // Hack -- Force good values
 
+	creature_desc(creature_name, creature_ptr, 0);
 	if(IS_DEAD(creature_ptr)) return FALSE;
 
 	if(type == TRAIT_STUN)
@@ -241,13 +243,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 		if(!has_trait(creature_ptr, TRAIT_SUSTAIN_CHR))
 		{
 			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_print("‚Ð‚Ç‚¢Õ‚ªŽc‚Á‚Ä‚µ‚Ü‚Á‚½B");
-#else
-				msg_print("You have been horribly scarred.");
-#endif
-			}
+				msg_format(MES_TRAIT_CUT_PENALTY(creature_name, is_player(creature_ptr)));
 			do_dec_stat(creature_ptr, STAT_CHA);
 		}
 	}

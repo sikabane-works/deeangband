@@ -752,9 +752,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cptr prayer;
-
 	object_type	*object_ptr;
-
 	magic_type	*s_ptr;
 
 
@@ -766,7 +764,6 @@ void do_cmd_cast(creature_type *creature_ptr)
 #else
 		msg_print("You cannot cast spells!");
 #endif
-
 		return;
 	}
 

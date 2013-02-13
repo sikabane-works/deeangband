@@ -2464,3 +2464,9 @@ static cptr desc_stat_neg[] =
 #define MES_PET_DISMISS(NUM) "You have dismissed %d pet%s.", (NUM), ((NUM) == 1 ? "" : "s")
 #define MES_PER_UNNAMED_DESC "'U'nnamed means all your pets except named pets and your mount."
 #endif
+
+#ifdef JP
+#define MES_TRAIT_CUT_PENALTY(CREATURE, PLAYER) "%sÇ…Ç–Ç«Ç¢èùê’Ç™écÇ¡ÇΩÅB", (CREATURE)
+#else
+#define MES_TRAIT_CUT_PENALTY(CREATURE, PLAYER) "%s %s been horribly scarred.", (CREATURE), (PLAYER) ? "have" : "has"
+#endif
