@@ -4575,6 +4575,6 @@ void creature_drop_carried_objects(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
 	for(i = 0; i < INVEN_TOTAL; i++)
-		if(creature_ptr->inventory[i].k_idx)
+		if(is_valid_object(&creature_ptr->inventory[i]))
 			(void)drop_near(floor_ptr, &creature_ptr->inventory[i], 25, creature_ptr->fy, creature_ptr->fx);
 }

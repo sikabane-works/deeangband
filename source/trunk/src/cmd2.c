@@ -511,7 +511,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	}
 
 	// Dispel player.
-	if((trap & (CHEST_RUNES_OF_EVIL)) && object_ptr->k_idx)
+	if((trap & (CHEST_RUNES_OF_EVIL)) && is_valid_object(object_ptr))
 	{
 		int nasty_tricks_count = 4 + randint0(3);	// Determine how many nasty tricks can be played.
 		msg_print(MES_TRAP_E_RUNE);
@@ -552,7 +552,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		aggravate_creatures(creature_ptr);
 	}
 
-	if((trap & (CHEST_EXPLODE)) && object_ptr->k_idx) // Explode
+	if((trap & (CHEST_EXPLODE)) && is_valid_object(object_ptr)) // Explode
 	{
 		msg_print(MES_TRAP_EXPLOSIVE);
 		object_ptr->pval = 0;
@@ -560,7 +560,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), COD_EXPLOADING_CHEST, NULL, -1);
 	}
 
-	if((trap & (CHEST_SCATTER)) && object_ptr->k_idx)	// Scatter contents.
+	if((trap & (CHEST_SCATTER)) && is_valid_object(object_ptr))	// Scatter contents.
 	{
 		msg_print(MES_TRAP_SCATTER);
 		chest_death(TRUE, floor_ptr, y, x, object_idx);
