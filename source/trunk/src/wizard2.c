@@ -1594,7 +1594,7 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 	}
 
 	se[n].code = -1;
-	strcpy(se[n].cap, "ƒLƒƒƒ“ƒZƒ‹");
+	strcpy(se[n].cap, KW_CANCEL);
 	se[n].key = '\0';
 	se[n].d_color = TERM_L_DARK;
 	se[n].l_color = TERM_WHITE;

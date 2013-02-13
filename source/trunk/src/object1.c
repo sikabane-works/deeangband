@@ -1362,11 +1362,8 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 
 		}
 
-#if JP
-		strcpy(se[i - 1].cap, "ƒLƒƒƒ“ƒZƒ‹");
-#else
+		strcpy(se[i - 1].cap, KW_CANCEL);
 		strcpy(se[i - 1].cap, "Cancel");
-#endif
 		se[i].code = 0;
 		se[i].key = ESCAPE;
 		se[i].d_color = TERM_L_DARK;

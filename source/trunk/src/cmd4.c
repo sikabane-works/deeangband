@@ -1913,11 +1913,7 @@ void do_cmd_options(void)
 					format("(%c) %s", toupper(option_fields[i].key), option_fields[i].name));
 			}
 
-#ifdef JP
-			prt("<•ûŒü>‚ÅˆÚ“®, Enter‚ÅŒˆ’è, ESC‚ÅƒLƒƒƒ“ƒZƒ‹, ?‚Åƒwƒ‹ƒv: ", 21, 0);
-#else
-			prt("Move to <dir>, Select to Enter, Cancel to ESC, ? to help: ", 21, 0);
-#endif
+			prt(MES_INTERFACE_OPTION, 21, 0);
 
 			/* Get command */
 			skey = inkey_special(TRUE);
