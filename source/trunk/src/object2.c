@@ -3121,11 +3121,6 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 	bool flag = FALSE;
 	bool done = FALSE;
 
-#ifndef JP
-	/* Extract plural */
-	bool plural = (object2_ptr->number != 1);
-#endif
-
 	object_desc(object_name, object2_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	// Handle normal "breakage"
@@ -3137,7 +3132,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 			#ifdef JP
 			msg_format("%sは壊れて使い物にならなくなった", object_name);
 			#else
-			msg_format("The %s was broken and become%s useless.", object_name, (plural ? "" : "s"));
+			msg_format("The %s was broken and become%s useless.", object_name, ((object2_ptr->number != 1) ? "" : "s"));
 			#endif
 			*/
 		}
@@ -3238,7 +3233,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 			msg_format("%sは消えた。", object_name);
 			if(wizard) msg_print("(床スペースがない)");
 #else
-			msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
+			msg_format("The %s disappear%s.", object_name, ((object2_ptr->number != 1) ? "" : "s"));
 			if(wizard) msg_print("(no floor space)");
 #endif
 		}
@@ -3284,7 +3279,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 				msg_format("%sは消えた。", object_name);
 				if(wizard) msg_print("(床スペースがない)");
 #else
-				msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
+				msg_format("The %s disappear%s.", object_name, ((object2_ptr->number != 1) ? "" : "s"));
 				if(wizard) msg_print("(no floor space)");
 #endif
 			}
@@ -3342,14 +3337,14 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 		msg_format("%sは消えた。", object_name);
 		if(wizard) msg_warning("アイテムが多過ぎる");
 #else
-		msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
+		msg_format("The %s disappear%s.", object_name, ((object2_ptr->number != 1) ? "" : "s"));
 		if(wizard) msg_warning("too many objects");
 #endif
 		if(object_is_fixed_artifact(object2_ptr)) artifact_info[object2_ptr->name1].cur_num = 0; // Hack -- Preserve artifacts
 		return SUCCESS; // Failure
 	}
 
-	/* Stack */
+	// Stack
 	if(!done)
 	{
 		/* Structure copy */
