@@ -1928,11 +1928,35 @@ static byte likert_color = TERM_WHITE;
 static cptr likert(int x, int y)
 {
 	static char dummy[20] = "";
-
+	int rank_color[] =
+	{
+		TERM_L_DARK,
+		TERM_RED,
+		TERM_L_RED,
+		TERM_ORANGE,
+		TERM_ORANGE,
+		TERM_YELLOW,
+		TERM_YELLOW,
+		TERM_L_GREEN,
+		TERM_L_GREEN,
+		TERM_GREEN,
+		TERM_GREEN,
+		TERM_GREEN,
+		TERM_GREEN,
+		TERM_BLUE,
+		TERM_BLUE,
+		TERM_BLUE,
+		TERM_BLUE,
+		TERM_VIOLET,
+		TERM_VIOLET,
+		TERM_VIOLET,
+		TERM_VIOLET,
+		TERM_WHITE,
+	};
 
 	if(y <= 0) y = 1;
 
-	/* Negative value */
+	// Negative value
 	if(x < 0)
 	{
 		likert_color = TERM_L_DARK;
@@ -1944,12 +1968,12 @@ static cptr likert(int x, int y)
 		return dummy;
 	}
 
-	/* Analyze the value */
+	// Analyze the value
+	likert_color = rank_color[(x / y) > 21 ? 21 : (x / y)];
 	switch ((x / y))
 	{
 	case 0:
 	case 1:
-		likert_color = TERM_RED;
 #ifdef JP
 		sprintf(dummy, "%4d[—òˆ«]", (int)(x));
 #else
@@ -1958,7 +1982,6 @@ static cptr likert(int x, int y)
 		return dummy;
 
 	case 2:
-		likert_color = TERM_L_RED;
 #ifdef JP
 		sprintf(dummy, "%4d[‹êŽè]", (int)(x));
 #else
@@ -1968,7 +1991,6 @@ static cptr likert(int x, int y)
 
 	case 3:
 	case 4:
-		likert_color = TERM_ORANGE;
 #ifdef JP
 		sprintf(dummy, "%4d[–}—f]", (int)(x));
 #else
@@ -1977,7 +1999,6 @@ static cptr likert(int x, int y)
 		return dummy;
 
 	case 5:
-		likert_color = TERM_YELLOW;
 #ifdef JP
 		sprintf(dummy, "%4d[“¾ˆÓ]", (int)(x));
 #else
@@ -1986,7 +2007,6 @@ static cptr likert(int x, int y)
 		return dummy;
 
 	case 6:
-		likert_color = TERM_YELLOW;
 #ifdef JP
 		sprintf(dummy, "%4d[n—û]", (int)(x));
 #else
@@ -1996,7 +2016,6 @@ static cptr likert(int x, int y)
 
 	case 7:
 	case 8:
-		likert_color = TERM_L_GREEN;
 #ifdef JP
 		sprintf(dummy, "%4d[‘ì‰z]", (int)(x));
 #else
@@ -2008,7 +2027,6 @@ static cptr likert(int x, int y)
 	case 10:
 	case 11:
 	case 12:
-		likert_color = TERM_GREEN;
 #ifdef JP
 		sprintf(dummy, "%4d[’´‰z]", (int)(x));
 #else
@@ -2021,7 +2039,6 @@ static cptr likert(int x, int y)
 	case 14:
 	case 15:
 	case 16:
-		likert_color = TERM_BLUE;
 #ifdef JP
 		sprintf(dummy, "%4d[‰p—Y“I]", (int)(x));
 #else
@@ -2032,7 +2049,6 @@ static cptr likert(int x, int y)
 	case 18:
 	case 19:
 	case 20:
-		likert_color = TERM_VIOLET;
 #ifdef JP
 		sprintf(dummy, "%4d[“`à“I]", (int)(x));
 #else
@@ -2041,7 +2057,6 @@ static cptr likert(int x, int y)
 		return dummy;
 
 	default:
-		likert_color = TERM_WHITE;
 #ifdef JP
 		sprintf(dummy, "%4d[_ˆæ]", (int)(x));
 #else
@@ -2167,14 +2182,11 @@ static void display_player_various(creature_type * creature_ptr)
 	display_player_one_line(ENTRY_INFRA, format("%d feet", creature_ptr->see_infra * 10), TERM_WHITE);
 }
 
-
-
 /* Mode flags for displaying player flags */
 #define DP_CURSE   0x01
 #define DP_IMM     0x02
 #define DP_TWO_LINES 0x04
 #define DP_WP      0x08
-
 
 // Equippy chars
 static void display_player_equippy(int y, int x, u16b mode, creature_type *creature_ptr)
@@ -2599,10 +2611,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 
 }
 
-
-/*
- * Special display, part 2
- */
+// Special display, part 2
 static void display_creature_flag_info2(creature_type *creature_ptr)
 {
 	int row;
@@ -2999,16 +3008,10 @@ static void display_player_stat_info(creature_type *creature_ptr)
 		{
 			cnv_stat(creature_ptr->stat_max[i], buf);
 			if(creature_ptr->stat_max[i] == creature_ptr->stat_mod_max_max[i])
-			{
 				c_put_str(TERM_WHITE, "!", row + i + 1, stat_col + 5);
-			}
 			c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 13 - strlen(buf));
 		}
-		else
-		{
-			c_put_str(TERM_L_DARK, "------", row + i+1, stat_col + 7);
-		}
-
+		else c_put_str(TERM_L_DARK, "------", row + i+1, stat_col + 7);
 
 		if(has_status(creature_ptr, i))
 		{
@@ -3016,12 +3019,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 			else strcpy(buf, "????");
 			c_put_str(TERM_WHITE, buf, row + i+1, stat_col + 20 - strlen(buf));
 		}
-		else
-		{
-			c_put_str(TERM_L_DARK, "------", row + i+1, stat_col + 14);
-		}
-
-
+		else c_put_str(TERM_L_DARK, "------", row + i+1, stat_col + 14);
 
 		/* Race, class, and equipment modifiers */
 		if(creature_ptr->race_idx1 != INDEX_NONE && has_status(creature_ptr, i))
@@ -3259,12 +3257,10 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		// D'angband(mertle scale).
 #ifdef JP
 
-		if(creature_ptr->race_idx1 != INDEX_NONE){ 
+		if(creature_ptr->race_idx1 != INDEX_NONE)
 			display_player_one_line(ENTRY_AGE, format("%u" ,creature_ptr->age), TERM_L_BLUE);
-		}
-		else{
+		else
 			display_player_one_line(ENTRY_AGE, "--------", TERM_L_DARK);
-		}
 
 		if(creature_ptr->race_idx1 != INDEX_NONE)
 			display_player_one_line(ENTRY_SOCIAL, format("%d" ,(int)creature_ptr->sc), TERM_L_BLUE);
