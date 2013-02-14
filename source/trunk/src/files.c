@@ -1928,7 +1928,7 @@ static byte likert_color = TERM_WHITE;
 static cptr likert(int x, int y)
 {
 	static char dummy[20] = "";
-	int rank_color[] =
+	static int rank_color[] =
 	{
 		TERM_L_DARK,
 		TERM_RED,
@@ -1954,116 +1954,71 @@ static cptr likert(int x, int y)
 		TERM_WHITE,
 	};
 
+	static cptr rank_desc[] =
+	{
+#ifdef JP
+		"–³”\",
+		"—òˆ«",
+		"‹êè",
+		"–}—f",
+		"–}—f",
+		"“¾ˆÓ",
+		"n—û",
+		"‘ì‰z",
+		"‘ì‰z",
+		"’´‰z",
+		"’´‰z",
+		"’´‰z",
+		"’´‰z",
+		"‰p—Y“I",
+		"‰p—Y“I",
+		"‰p—Y“I",
+		"‰p—Y“I",
+		"“`à“I",
+		"“`à“I",
+		"“`à“I",
+		"“`à“I",
+		"_ˆæ",
+#else
+		"Very Bad",
+		"Bad",
+		"Poor",
+		"Fair",
+		"Fair",
+		"Good",
+		"Very Good",
+		"Excellent",
+		"Excellent",
+		"Surerb",
+		"Surerb",
+		"Surerb",
+		"Surerb",
+		"Heroic",
+		"Heroic",
+		"Heroic",
+		"Heroic",
+		"Legendary",
+		"Legendary",
+		"Legendary",
+		"Legendary",
+		"Devine",
+#endif
+	};
+
 	if(y <= 0) y = 1;
 
 	// Negative value
 	if(x < 0)
 	{
 		likert_color = TERM_L_DARK;
-#ifdef JP
-		sprintf(dummy, "   0[–³”\]", (int)(x));
-#else
-		sprintf(dummy, "   0[Very Bad]", (int)(x));
-#endif
+		sprintf(dummy, "   0[%s]", (int)(x), rank_desc[0]);
 		return dummy;
 	}
 
 	// Analyze the value
 	likert_color = rank_color[(x / y) > 21 ? 21 : (x / y)];
-	switch ((x / y))
-	{
-	case 0:
-	case 1:
-#ifdef JP
-		sprintf(dummy, "%4d[—òˆ«]", (int)(x));
-#else
-		sprintf(dummy, "%4d[Bad]", (int)(x));
-#endif
-		return dummy;
-
-	case 2:
-#ifdef JP
-		sprintf(dummy, "%4d[‹êè]", (int)(x));
-#else
-		sprintf(dummy, "%4d[Poor]", (int)(x));
-#endif
-		return dummy;
-
-	case 3:
-	case 4:
-#ifdef JP
-		sprintf(dummy, "%4d[–}—f]", (int)(x));
-#else
-		sprintf(dummy, "%4d[Fair]", (int)(x));
-#endif
-		return dummy;
-
-	case 5:
-#ifdef JP
-		sprintf(dummy, "%4d[“¾ˆÓ]", (int)(x));
-#else
-		sprintf(dummy, "%4d[Good]", (int)(x));
-#endif
-		return dummy;
-
-	case 6:
-#ifdef JP
-		sprintf(dummy, "%4d[n—û]", (int)(x));
-#else
-		sprintf(dummy, "%4d[Very Good]", (int)(x));
-#endif
-		return dummy;
-
-	case 7:
-	case 8:
-#ifdef JP
-		sprintf(dummy, "%4d[‘ì‰z]", (int)(x));
-#else
-		sprintf(dummy, "%4d[Excellent]", (int)(x));
-#endif
-		return dummy;
-
-	case 9:
-	case 10:
-	case 11:
-	case 12:
-#ifdef JP
-		sprintf(dummy, "%4d[’´‰z]", (int)(x));
-#else
-		sprintf(dummy, "%4d[Superb]", (int)(x));
-#endif
-
-		return dummy;
-
-	case 13:
-	case 14:
-	case 15:
-	case 16:
-#ifdef JP
-		sprintf(dummy, "%4d[‰p—Y“I]", (int)(x));
-#else
-		sprintf(dummy, "%4d[Heroic]", (int)(x));
-#endif
-
-	case 17:
-	case 18:
-	case 19:
-	case 20:
-#ifdef JP
-		sprintf(dummy, "%4d[“`à“I]", (int)(x));
-#else
-		sprintf(dummy, "%4d[Legendary]", (int)(x));
-#endif
-		return dummy;
-
-	default:
-#ifdef JP
-		sprintf(dummy, "%4d[_ˆæ]", (int)(x));
-#else
-		sprintf(dummy, "%4d[Divine]", (int)(x));
-#endif
-		return dummy;
-	}
+	sprintf(dummy, "%4d[%s]", (int)(x), rank_desc[(x / y) > 21 ? 21 : (x / y)]);
+	return dummy;
 }
 
 
