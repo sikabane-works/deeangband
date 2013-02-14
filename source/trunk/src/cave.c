@@ -3233,22 +3233,8 @@ void update_creature_lite(floor_type *floor_ptr)
 	{
 		if(player_ptr->old_monlite != player_ptr->monlite)
 		{
-			if(player_ptr->monlite)
-			{
-#ifdef JP
-				msg_print("‰e‚Ì•¢‚¢‚ª”–‚ê‚½‹C‚ª‚·‚éB");
-#else
-				msg_print("Your mantle of shadow become thin.");
-#endif
-			}
-			else
-			{
-#ifdef JP
-				msg_print("‰e‚Ì•¢‚¢‚ª”Z‚­‚È‚Á‚½I");
-#else
-				msg_print("Your mantle of shadow restored its original darkness.");
-#endif
-			}
+			if(player_ptr->monlite) msg_print(MES_POSTURE_S_STEALTH_LITE);
+			else msg_print(MES_POSTURE_S_STEALTH_DARK);
 		}
 	}
 	player_ptr->old_monlite = player_ptr->monlite;
@@ -3273,11 +3259,7 @@ void clear_creature_lite(floor_type *floor_ptr)
 	creature_lite_n = 0;
 }
 
-
-
-/*
- * Clear the viewable space
- */
+// Clear the viewable space
 void forget_view(floor_type *floor_ptr)
 {
 	int i;

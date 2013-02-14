@@ -2482,3 +2482,11 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_KNOWLEDGE "You begin to know yourself a little better..."
 #define MES_TRAIT_OKURE_NIISAN "Brother OKURE!"
 #endif
+
+#ifdef JP
+#define MES_POSTURE_S_STEALTH_LITE "‰e‚Ì•¢‚¢‚ª”–‚ê‚½‹C‚ª‚·‚éB"
+#define MES_POSTURE_S_STEALTH_DARK "‰e‚Ì•¢‚¢‚ª”Z‚­‚È‚Á‚½I"
+#else
+#define MES_POSTURE_S_STEALTH_LITE "Your mantle of shadow become thin."
+#define MES_POSTURE_S_STEALTH_DARK "Your mantle of shadow restored its original darkness."
+#endif
