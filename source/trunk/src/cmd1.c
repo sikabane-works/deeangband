@@ -1378,7 +1378,7 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 	{
 		int tmp_wx, tmp_wy, tmp_px, tmp_py;
 
-		/* Can the player enter the grid? */
+		// Can the player enter the grid?//
 		if(c_ptr->mimic && creature_can_cross_terrain(creature_ptr, c_ptr->mimic, 0))
 		{
 			/* Hack: move to new area */

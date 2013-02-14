@@ -1334,10 +1334,7 @@ static void do_cmd_wiz_creature_list(void)
 	free(ce);
 }
 
-
-/*
- * Creature list 
- */
+// Floor Teleport
 static void do_cmd_wiz_floor_teleport(void)
 {
 	selection *ce;

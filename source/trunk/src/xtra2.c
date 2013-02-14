@@ -1037,29 +1037,21 @@ void resize_map(void)
 	Term_fresh();
 }
 
-/*
-* Redraw a term when it is resized
-*/
+// Redraw a term when it is resized
 void redraw_window(void)
 {
 	prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
-
 	prepare_window(PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	/* Hack -- update */
 	handle_stuff(player_ptr);
-
 	Term_redraw();
 }
 
 
-/*
-* Handle a request to change the current panel
-*
-* Return TRUE if the panel was changed.
-*
-* Also used in do_cmd_locate
-*/
+// Handle a request to change the current panel
+// Return TRUE if the panel was changed.
+// Also used in do_cmd_locate
 bool change_panel(int dy, int dx)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
