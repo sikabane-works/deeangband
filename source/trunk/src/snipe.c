@@ -114,24 +114,11 @@ static bool snipe_concentrate(creature_type *creature_ptr)
 
 void reset_concentration(creature_type *creature_ptr, bool msg)
 {
-	if(msg)
-	{
-#ifdef JP
-		msg_print("W’†—Í‚ª“rØ‚ê‚Ä‚µ‚Ü‚Á‚½B");
-#else
-		msg_print("Stop concentrating.");
-#endif
-	}
-
+	if(msg) msg_print(MES_SNIPE_RESET_CONS);
 	creature_ptr->concent = 0;
 	creature_ptr->reset_concent = FALSE;
-
-	prepare_update(creature_ptr, CRU_BONUS);
-
+	prepare_update(creature_ptr, CRU_BONUS | PU_CREATURES);
 	prepare_redraw(PR_STATUS);
-
-	// Update creatures
-	prepare_update(creature_ptr, PU_CREATURES);
 }
 
 int boost_concentration_damage(creature_type *creature_ptr, int tdam)
@@ -178,37 +165,20 @@ void display_snipe_list(creature_type *creature_ptr)
 }
 
 
-/*
- * Allow user to choose a mindcrafter power.
- *
- * If a valid spell is chosen, saves it in '*sn' and returns TRUE
- * If the user hits escape, returns FALSE, and set '*sn' to -1
- * If there are no legal choices, returns FALSE, and sets '*sn' to -2
- *
- * The "prompt" should be "cast", "recite", or "study"
- * The "known" should be TRUE for cast/pray, FALSE for study
- *
- * nb: This function has a (trivial) display bug which will be obvious
- * when you run it. It's probably easy to fix but I haven't tried,
- * sorry.
- */
+// Select Sniping Skill
 static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_browse)
 {
-	int             i;
-	int             num = 0;
-	int             y = 1;
-	int             x = 20;
-	int             plev = creature_ptr->lev;
-	int             ask;
-	char            choice;
-	char            out_val[160];
-#ifdef JP
-	cptr            p = "ŽËŒ‚p";
-#else
-	cptr            p = "power";
-#endif
-	snipe_power     spell;
-	bool            flag, redraw;
+	int i;
+	int num = 0;
+	int y = 1;
+	int x = 20;
+	int plev = creature_ptr->lev;
+	int ask;
+	char choice;
+	char out_val[160];
+	cptr p = SKILL_NAME_SNIPING;
+	snipe_power spell;
+	bool flag, redraw;
 
 	repeat_push(*sn);
 
@@ -234,8 +204,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 
 	for (i = 0; i < MAX_SNIPE_POWERS; i++)
 	{
-		if((snipe_powers[i].min_lev <= plev) &&
-			((only_browse) || (snipe_powers[i].mana_cost <= (int)creature_ptr->concent)))
+		if((snipe_powers[i].min_lev <= plev) && ((only_browse) || (snipe_powers[i].mana_cost <= (int)creature_ptr->concent)))
 		{
 			num = i;
 		}
@@ -445,10 +414,8 @@ int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *targ
 	return (mult);
 }
 
-/*
- * do_cmd_cast calls this function if the player's class
- * is 'mindcrafter'.
- */
+// do_cmd_cast calls this function if the player's class
+// is 'mindcrafter'.
 static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 {
 	bool flag = FALSE;

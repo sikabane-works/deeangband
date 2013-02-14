@@ -1460,6 +1460,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define SKILL_NAME_PRAYER "ãFÇË"
 	#define SKILL_NAME_FORCE "òBãCèp"
 	#define SKILL_NAME_BRUTAL "ã∂ñz"
+	#define SKILL_NAME_SNIPING "éÀåÇèp"
 #else
 	#define SKILL_NAME_MAGIC "magic"
 	#define SKILL_NAME_PSIONIC "psionic powers"
@@ -1470,6 +1471,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define SKILL_NAME_PRAYER "prayer"
 	#define SKILL_NAME_FORCE "force"
 	#define SKILL_NAME_BRUTAL "brutal power"
+	#define SKILL_NAME_SNIPING "Sniping"
 #endif
 
 #ifdef JP
@@ -2510,4 +2512,10 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_POSTURE_S_STEALTH_LITE "Your mantle of shadow become thin."
 #define MES_POSTURE_S_STEALTH_DARK "Your mantle of shadow restored its original darkness."
+#endif
+
+#ifdef JP
+#define MES_SNIPE_RESET_CONS "èWíÜóÕÇ™ìrêÿÇÍÇΩÅB"
+#else
+#define MES_SNIPE_RESET_CONS "Stop concentrating."
 #endif
