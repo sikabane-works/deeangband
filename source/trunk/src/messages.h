@@ -784,9 +784,11 @@
 #endif
 
 #ifdef JP
-#define GAME_MESSAGE_SUMMON_SERVANT "御用でございますか？我が主。"
+#define MES_SUMMON_NOTHING "何も現れなかった..."
+#define MES_SUMMON_SERVANT "御用でございますか？我が主。"
 #else
-#define GAME_MESSAGE_SUMMON_SERVANT "'What is thy bidding... Master?'"
+#define MES_SUMMON_NOTHING "Nobody ever turns up..."
+#define MES_SUMMON_SERVANT "'What is thy bidding... Master?'"
 #endif
 
 #ifdef JP
@@ -2354,6 +2356,7 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_ASSULT(PATRON) "%sの力が敵を攻撃するのを感じた！", (PATRON)
 #define MES_PATRON_WRATH "「死ぬがよい、下僕よ！」"
 #define MES_PATRON_IGNORE(PATRON) "%sはあなたを無視した。", (PATRON)
+#define MES_PATRON_DEMON_SERVANT(PATRON) "%sは褒美として悪魔の使いをよこした！", (PATRON)
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -2382,6 +2385,7 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_ASSULT(PATRON) "You can feel the power of %s assault your enemies!", (PATRON)
 #define MES_PATRON_WRATH "'Die, mortal!'"
 #define MES_PATRON_IGNORE(PATRON) "%s ignores you.", (PATRON)
+#define MES_PATRON_DEMON_SERVANT(PATRON) "%s rewards you with a demonic servant!", (PATRON)
 #endif
 
 #ifdef JP

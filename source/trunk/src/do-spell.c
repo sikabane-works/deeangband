@@ -718,7 +718,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 	if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, summon_lev, TRAIT_S_HI_DEMON, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 	{
 		msg_print(MES_TRAP_S_H_DEMON);
-		msg_print(GAME_MESSAGE_SUMMON_SERVANT);
+		msg_print(MES_SUMMON_SERVANT);
 
 		// Decrease the item (from the pack or the floor)
 		if(item >= 0)
@@ -3208,7 +3208,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 				{
 					msg_print(MES_TRAP_S_H_DEMON);
 
-					if(pet) msg_print(GAME_MESSAGE_SUMMON_SERVANT);
+					if(pet) msg_print(MES_SUMMON_SERVANT);
 					else
 					{
 #ifdef JP
@@ -4385,7 +4385,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				int summon_lev = plev * 2 / 3 + randint1(plev / 2);
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, (summon_lev * 3 / 2), TRAIT_S_PHANTOM, 0L))
-					msg_print(GAME_MESSAGE_SUMMON_SERVANT);
+					msg_print(MES_SUMMON_SERVANT);
 			}
 		}
 		break;
@@ -6651,7 +6651,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, plev*2/3+randint1(plev/2), TRAIT_S_DEMON, mode))
 				{
 					msg_print(MES_TRAP_S_H_DEMON);
-					if(pet) msg_print(GAME_MESSAGE_SUMMON_SERVANT);
+					if(pet) msg_print(MES_SUMMON_SERVANT);
 					else
 					{
 #ifdef JP
@@ -7481,7 +7481,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, TRAIT_S_ANGEL, mode))
 				{
-					if(pet) msg_print(GAME_MESSAGE_SUMMON_SERVANT);
+					if(pet) msg_print(MES_SUMMON_SERVANT);
 					else
 					{
 #ifdef JP

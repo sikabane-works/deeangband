@@ -3525,18 +3525,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_SER_DEMO:
-#ifdef JP
-			msg_format("%sは褒美として悪魔の使いをよこした！",patron_name);
-#else
-			msg_format("%s rewards you with a demonic servant!",patron_name);
-#endif
+			msg_format(MES_PATRON_DEMON_SERVANT(patron_name));
 
 			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DEMON, PC_FORCE_PET))
-#ifdef JP
-				msg_print("何も現れなかった...");
-#else
-				msg_print("Nobody ever turns up...");
-#endif
+				msg_print(MES_SUMMON_NOTHING);
 			else
 #ifdef JP
 				reward = "悪魔がペットになった。";
@@ -3553,11 +3545,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 #endif
 
 			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, PC_FORCE_PET))
-#ifdef JP
-				msg_print("何も現れなかった...");
-#else
-				msg_print("Nobody ever turns up...");
-#endif
+				msg_print(MES_SUMMON_NOTHING);
 			else
 #ifdef JP
 				reward = "クリーチャーがペットになった。";
@@ -3574,11 +3562,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 #endif
 
 			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_UNDEAD, PC_FORCE_PET))
-#ifdef JP
-				msg_print("何も現れなかった...");
-#else
-				msg_print("Nobody ever turns up...");
-#endif
+				msg_print(MES_SUMMON_NOTHING);
 			else
 #ifdef JP
 				reward = "アンデッドがペットになった。";
