@@ -3568,7 +3568,7 @@ static void process_player_command(creature_type *creature_ptr)
 					else if(magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK)
 						which_power = SKILL_NAME_PRAYER;
 
-					msg_print(GAME_MESSAGE_PREVENT_BY_ANTIMAGIC);
+					msg_print(MES_PREVENT_BY_ANTIMAGIC);
 					cancel_tactical_action(creature_ptr);
 				}
 				else if(has_trait(creature_ptr, TRAIT_S_HERO) && (creature_ptr->class_idx != CLASS_BERSERKER))

@@ -708,7 +708,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	/* not if confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return TRUE;
 	}
 
@@ -722,7 +722,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	/* Verify "dangerous" spells */
 	if(need_mana > creature_ptr->csp)
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_MP);
+		msg_print(MES_PREVENT_BY_MP);
 		if(!over_exert) return FALSE;
 		if(!get_check(GAME_MESSAGE_ATTEMPT_ANYWAY)) return FALSE;
 	}

@@ -691,7 +691,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			else if(floor_ptr->cave[y][x].creature_idx)
 			{
 				creature_desc(target_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
-				msg_format(GAME_MESSAGE_PREVENT_BY_CREATURE(target_name));
+				msg_format(MES_PREVENT_BY_CREATURE(target_name));
 				cancel_tactical_action(caster_ptr);
 				return FALSE;
 			}
@@ -1967,12 +1967,12 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			if(!(empty_hands(caster_ptr, TRUE) & EMPTY_HAND_RARM))
 			{
-				msg_print(GAME_MESSAGE_PREVENT_BY_NO_BAREBAND);
+				msg_print(MES_PREVENT_BY_NO_BAREBAND);
 				return FALSE;
 			}
 			if(caster_ptr->riding)
 			{
-				msg_print(GAME_MESSAGE_PREVENT_BY_RIDING);
+				msg_print(MES_PREVENT_BY_RIDING);
 				return FALSE;
 			}
 
@@ -2016,7 +2016,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			if(caster_ptr->total_friends)
 			{
-				msg_print(GAME_MESSAGE_PREVENT_BY_PET);
+				msg_print(MES_PREVENT_BY_PET);
 				return FALSE;
 			}
 			msg_print(GAME_MESSAGE_RESTORE_SOME_MP);
@@ -2072,12 +2072,12 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 			if(caster_ptr->total_friends)
 			{
-				msg_print(GAME_MESSAGE_PREVENT_BY_PET);
+				msg_print(MES_PREVENT_BY_PET);
 				return FALSE;
 			}
 			if(caster_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
 			{
-				msg_print(GAME_MESSAGE_PREVENT_BY_POSTURE);
+				msg_print(MES_PREVENT_BY_POSTURE);
 				return FALSE;
 			}
 #ifdef JP
@@ -2118,7 +2118,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 			if(caster_ptr->riding)
 			{
-				msg_print(GAME_MESSAGE_PREVENT_BY_RIDING);
+				msg_print(MES_PREVENT_BY_RIDING);
 				return FALSE;
 			}
 			if(!do_riding(caster_ptr, TRUE)) return TRUE;
@@ -2171,7 +2171,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			if(caster_ptr->total_friends)
 			{
-				msg_print(GAME_MESSAGE_PREVENT_BY_PET);
+				msg_print(MES_PREVENT_BY_PET);
 				return FALSE;
 			}
 			if(is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]))
@@ -2179,7 +2179,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				msg_print(GAME_MESSAGE_RESTORE_SOME_MP);
 				inc_mana(caster_ptr, caster_ptr->lev * caster_ptr->lev / 100);
 			}
-			else msg_print(GAME_MESSAGE_PREVENT_BY_NO_MIRROR);
+			else msg_print(MES_PREVENT_BY_NO_MIRROR);
 			break;
 		}
 

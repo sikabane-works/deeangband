@@ -976,7 +976,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	// TODO Distinction of spell failure_rate
 	if(magic_barrier(target_ptr, caster_ptr))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_ANTIMAGIC);
+		msg_print(MES_PREVENT_BY_ANTIMAGIC);
 		return TRUE;
 	}
 

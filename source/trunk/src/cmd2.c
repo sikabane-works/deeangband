@@ -1943,7 +1943,7 @@ void do_cmd_run(creature_type *creature_ptr)
 	/* Hack -- no running when confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return;
 	}
 

@@ -1580,7 +1580,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				do_past = TRUE;
 			else
 			{
-				msg_format(GAME_MESSAGE_PREVENT_BY_CREATURE(m_name));
+				msg_format(MES_PREVENT_BY_CREATURE(m_name));
 				cancel_tactical_action(creature_ptr);
 				oktomove = FALSE;
 			}

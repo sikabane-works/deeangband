@@ -5802,17 +5802,17 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 	{
 		if(has_trait(creature_ptr, TRAIT_CONFUSED))
 		{
-			msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+			msg_print(MES_PREVENT_BY_CONFUSION);
 			return;
 		}
 		if(has_trait(creature_ptr, TRAIT_BLIND))
 		{
-			msg_print(GAME_MESSAGE_PREVENT_BY_BLIND);
+			msg_print(MES_PREVENT_BY_BLIND);
 			return;
 		}
 		if(has_trait(creature_ptr, TRAIT_HALLUCINATION))
 		{
-			msg_print(GAME_MESSAGE_PREVENT_BY_HALLUCINATION);
+			msg_print(MES_PREVENT_BY_HALLUCINATION);
 			return;
 		}
 	}

@@ -8936,7 +8936,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(caster_ptr->riding)
 			{
-				msg_print(GAME_MESSAGE_PREVENT_BY_RIDING);
+				msg_print(MES_PREVENT_BY_RIDING);
 				return NULL;
 			}
 #ifdef JP
@@ -8963,7 +8963,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(caster_ptr->riding)
 			{
-				msg_print(GAME_MESSAGE_PREVENT_BY_RIDING);
+				msg_print(MES_PREVENT_BY_RIDING);
 				return NULL;
 			}
 	

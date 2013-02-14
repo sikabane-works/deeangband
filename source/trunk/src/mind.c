@@ -1299,7 +1299,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 		{
 			if(creature_ptr->riding)
 			{
-				msg_print(GAME_MESSAGE_PREVENT_BY_RIDING);
+				msg_print(MES_PREVENT_BY_RIDING);
 				return FALSE;
 			}
 
@@ -1642,7 +1642,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 	/* not if confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return;
 	}
 
@@ -1683,13 +1683,13 @@ void do_cmd_mind(creature_type *creature_ptr)
 	{
 		if(mana_cost > creature_ptr->chp)
 		{
-			msg_print(GAME_MESSAGE_PREVENT_BY_HP);
+			msg_print(MES_PREVENT_BY_HP);
 			return;
 		}
 	}
 	else if(mana_cost > creature_ptr->csp)
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_MP);
+		msg_print(MES_PREVENT_BY_MP);
 		if(!over_exert) return;
 		if(!get_check(GAME_MESSAGE_ATTEMPT_ANYWAY)) return;
 	}

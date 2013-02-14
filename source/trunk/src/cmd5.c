@@ -597,7 +597,7 @@ void do_cmd_study(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return;
 	}
 
@@ -781,7 +781,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Not when confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		flush();
 		return;
 	}
@@ -1461,7 +1461,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 	{
 		if(has_trait(rider_ptr, TRAIT_CONFUSED))
 		{
-			msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+			msg_print(MES_PREVENT_BY_CONFUSION);
 			return FALSE;
 		}
 

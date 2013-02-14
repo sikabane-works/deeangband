@@ -530,21 +530,21 @@ void do_cmd_snipe(creature_type *creature_ptr)
 	/* not if confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return;
 	}
 
 	/* not if hullucinated */
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_HALLUCINATION);
+		msg_print(MES_PREVENT_BY_HALLUCINATION);
 		return;
 	}
 
 	/* not if stuned */
 	if(has_trait(creature_ptr, TRAIT_STUN))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_STUNED);
+		msg_print(MES_PREVENT_BY_STUNED);
 		return;
 	}
 

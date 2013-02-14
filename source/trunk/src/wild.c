@@ -965,7 +965,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 
 	if(creature_ptr->food < CREATURE_FOOD_WEAK)
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_HUNGER);
+		msg_print(MES_PREVENT_BY_HUNGER);
 		return FALSE;
 	}
 

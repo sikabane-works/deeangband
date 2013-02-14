@@ -325,7 +325,7 @@ void do_cmd_hissatsu(creature_type *creature_ptr)
 	/* not if confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return;
 	}
 	if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
@@ -364,7 +364,7 @@ msg_print("‰½‚à‹Z‚ð’m‚ç‚È‚¢B");
 	if(spell.smana > creature_ptr->csp)
 	{
 		if(flush_failure) flush();
-		msg_print(GAME_MESSAGE_PREVENT_BY_MP);
+		msg_print(MES_PREVENT_BY_MP);
 		msg_print(NULL);
 		return;
 	}
@@ -411,7 +411,7 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return;
 	}
 

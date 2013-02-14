@@ -786,7 +786,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 	if(caster_ptr->time_stopper)
 	{
 		if(flush_failure) flush();
-		msg_print(GAME_MESSAGE_PREVENT_BY_TIMESTOP);
+		msg_print(MES_PREVENT_BY_TIMESTOP);
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -1227,12 +1227,12 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	}
 	if(no_lite(creature_ptr))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_NO_LITE);
+		msg_print(MES_PREVENT_BY_NO_LITE);
 		return;
 	}
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return;
 	}
 
@@ -1495,7 +1495,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	if(creature_ptr->time_stopper)
 	{
 		if(flush_failure) flush();
-		msg_print(GAME_MESSAGE_PREVENT_BY_TIMESTOP);
+		msg_print(MES_PREVENT_BY_TIMESTOP);
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -1800,7 +1800,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	if(creature_ptr->time_stopper)
 	{
 		if(flush_failure) flush();
-		msg_print(GAME_MESSAGE_PREVENT_BY_TIMESTOP);
+		msg_print(MES_PREVENT_BY_TIMESTOP);
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -1982,7 +1982,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	if(creature_ptr->time_stopper)
 	{
 		if(flush_failure) flush();
-		msg_print(GAME_MESSAGE_PREVENT_BY_TIMESTOP);
+		msg_print(MES_PREVENT_BY_TIMESTOP);
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -2218,7 +2218,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	if(creature_ptr->time_stopper)
 	{
 		if(flush_failure) flush();
-		msg_print(GAME_MESSAGE_PREVENT_BY_TIMESTOP);
+		msg_print(MES_PREVENT_BY_TIMESTOP);
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -2632,12 +2632,12 @@ void do_cmd_use(creature_type *creature_ptr)
 			}
 			if(no_lite(creature_ptr))
 			{
-				msg_print(GAME_MESSAGE_PREVENT_BY_NO_LITE);
+				msg_print(MES_PREVENT_BY_NO_LITE);
 				return;
 			}
 			if(has_trait(creature_ptr, TRAIT_CONFUSED))
 			{
-				msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+				msg_print(MES_PREVENT_BY_CONFUSION);
 				return;
 			}
 
@@ -3129,7 +3129,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	// Not when confused
 	if(!only_browse && has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return;
 	}
 

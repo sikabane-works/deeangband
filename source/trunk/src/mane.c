@@ -276,7 +276,7 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 	/* not if confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return TRUE;
 	}
 

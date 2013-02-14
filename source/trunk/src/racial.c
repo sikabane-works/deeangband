@@ -56,7 +56,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return FALSE;
 	}
 
@@ -381,7 +381,7 @@ bool can_do_cmd_cast(creature_type *creature_ptr)
 	}
 	else if(has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_ANTIMAGIC);
+		msg_print(MES_PREVENT_BY_ANTIMAGIC);
 		return FALSE;
 	}
 	else if(has_trait(creature_ptr, TRAIT_S_HERO))
@@ -403,7 +403,7 @@ bool choose_kamae(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return FALSE;
 	}
 
@@ -509,7 +509,7 @@ bool choose_kata(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		return FALSE;
 	}
 
@@ -708,14 +708,14 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	/* Power is not available yet */
 	if(creature_ptr->lev < min_level)
 	{
-		msg_format(GAME_MESSAGE_PREVENT_BY_LEVEL, min_level);
+		msg_format(MES_PREVENT_BY_LEVEL, min_level);
 		cancel_tactical_action(creature_ptr);
 		return 0;
 	}
 
 	else if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		cancel_tactical_action(creature_ptr);
 		return 0;
 	}
@@ -800,7 +800,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
-		msg_print(GAME_MESSAGE_PREVENT_BY_CONFUSION);
+		msg_print(MES_PREVENT_BY_CONFUSION);
 		cancel_tactical_action(creature_ptr);
 		return;
 	}
