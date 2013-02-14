@@ -3364,11 +3364,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) break;
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_CURSE_WEAPON);
-#ifdef JP
-			reward = format("%sÇ™îjâÛÇ≥ÇÍÇΩÅB", object_name);
-#else
-			reward = format("destroying %s", object_name);
-#endif
+			reward = format(MES_DIARY_PATRON_DESTROYED(object_name));
 			dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 0);
 			if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 			{
@@ -3383,11 +3379,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_CURSE_AR:
 			if(!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 0)->k_idx) break;
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
-#ifdef JP
-			reward = format("%sÇ™îjâÛÇ≥ÇÍÇΩÅB", object_name);
-#else
-			reward = format("destroying %s", object_name);
-#endif
+			reward = format(MES_DIARY_PATRON_DESTROYED(object_name));
 			object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
 			(void)curse_armor(creature_ptr);
 			break;
@@ -3426,22 +3418,14 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 					}
 					object_desc(object_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
 					(void)curse_weapon(creature_ptr, FALSE, dummy);
-#ifdef JP
-					reward = format("%sÇ™îjâÛÇ≥ÇÍÇΩÅB", object_name);
-#else
-					reward = format("destroying %s", object_name);
-#endif
+					reward = format(MES_DIARY_PATRON_DESTROYED(object_name));
 				}
 				else
 				{
 					if(!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 0)->k_idx) break;
 					object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 0), OD_NAME_ONLY);
 					(void)curse_armor(creature_ptr);
-#ifdef JP
-					reward = format("%sÇ™îjâÛÇ≥ÇÍÇΩÅB", object_name);
-#else
-					reward = format("destroying %s", object_name);
-#endif
+					reward = format(MES_DIARY_PATRON_DESTROYED(object_name));
 				}
 				break;
 			default:
