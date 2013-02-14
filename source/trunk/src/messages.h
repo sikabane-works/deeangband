@@ -2113,6 +2113,7 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_INDENTIFED "このアイテムについて特に知っていることはない。"
 #define MES_OBJECT_EXAMING(OBJECT) "%sを調べている..." ,(OBJECT)
 #define MES_OBJECT_NO_SPECIAL "特に変わったところはないようだ。"
+#define MES_OBJECT_DROP_FEET "何かが足下に転がってきた。"
 #else
 #define MES_OBJECT_WHICH_USE "Use which item? "
 #define MES_OBJECT_NO_USE "You have nothing to use." 
@@ -2127,6 +2128,7 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_INDENTIFED "You have no special knowledge about that item."
 #define MES_OBJECT_EXAMING(OBJECT) "Examining %s...", (OBJECT)
 #define MES_OBJECT_NO_SPECIAL "You see nothing special."
+#define MES_OBJECT_DROP_FEET "You feel something roll beneath your feet."
 #endif
 
 #ifdef JP

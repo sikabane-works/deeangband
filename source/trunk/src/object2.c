@@ -2952,19 +2952,12 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj
 		/* Build a stack */
 		object_ptr->next_object_idx = c_ptr->object_idx;
 
-		/* Place the object */
 		c_ptr->object_idx = object_idx;
 		note_spot(floor_ptr, y, x);
 		lite_spot(floor_ptr, y, x);
-	}
-	else
-	{
-		/* Hack -- Preserve artifacts */
-		if(object_is_fixed_artifact(quest_ptr))
-		{
-			artifact_info[quest_ptr->name1].cur_num = 0;
-		}
-	}
+	} // Hack -- Preserve artifacts
+	else if(object_is_fixed_artifact(quest_ptr))
+		artifact_info[quest_ptr->name1].cur_num = 0;
 }
 
 // Make a treasure object
@@ -2999,12 +2992,8 @@ bool make_gold(floor_type *floor_ptr, object_type *object2_ptr, int value, int c
 	return TRUE;
 }
 
-
-/*
-* Places a treasure (Gold or Gems) at given location
-*
-* The location must be a legal, clean, floor grid.
-*/
+// Places a treasure (Gold or Gems) at given location
+// The location must be a legal, clean, floor grid.
 void place_gold(floor_type *floor_ptr, int y, int x)
 {
 	s16b object_idx;
@@ -3057,11 +3046,9 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 		/* Build a stack */
 		object_ptr->next_object_idx = c_ptr->object_idx;
 
-		/* Place the object */
 		c_ptr->object_idx = object_idx;
 
 		note_spot(floor_ptr, y, x);
-
 		lite_spot(floor_ptr, y, x);
 	}
 }
@@ -3333,49 +3320,27 @@ s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, int y
 
 		/* Access new object */
 		object_ptr = &object_list[object_idx];
-
-		/* Locate */
 		object_ptr->fy = by;
 		object_ptr->fx = bx;
 
-		/* No creature */
 		object_ptr->held_m_idx = 0;
-
-		/* Build a stack */
 		object_ptr->next_object_idx = c_ptr->object_idx;
-
-		/* Place the object */
 		c_ptr->object_idx = object_idx;
-
 		done = TRUE;
 	}
 
 	note_spot(floor_ptr, by, bx);
-
-	/* Draw the spot */
 	lite_spot(floor_ptr, by, bx);
 
 	sound(SOUND_DROP);
 
-	/* Mega-Hack -- no message if "dropped" by player */
-	/* Message when an object falls under the player */
-	if(chance && creature_bold(player_ptr, by, bx))
-	{
-#ifdef JP
-		msg_print("‰½‚©‚ª‘«‰º‚É“]‚ª‚Á‚Ä‚«‚½B");
-#else
-		msg_print("You feel something roll beneath your feet.");
-#endif
-
-	}
-
+	// Mega-Hack -- no message if "dropped" by player
+	// Message when an object falls under the player
+	if(chance && creature_bold(player_ptr, by, bx)) msg_print(MES_OBJECT_DROP_FEET);
 	return (object_idx);
 }
 
-
-/*
-* Scatter some "great" objects near the player
-*/
+// Scatter some "great" objects near the player
 void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, bool known)
 {
 	object_type *i_ptr;
@@ -3400,7 +3365,6 @@ void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, boo
 			object_known(i_ptr);
 		}
 
-		/* Drop the object */
 		(void)drop_near(floor_ptr, i_ptr, -1, y1, x1);
 	}
 }
