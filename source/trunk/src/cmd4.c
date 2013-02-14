@@ -1644,7 +1644,7 @@ static void do_cmd_options_autosave(cptr info)
 
 void do_cmd_options_aux(int page, cptr info)
 {
-	selection se[25];
+	selection_table se[25];
 	int     opt[24];
 	int i, j = 0, n = 0;
 
@@ -8435,7 +8435,7 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 {
 	int i, j, p = 0;
 	bool need_redraw = FALSE;
-	selection se[20];
+	selection_table se[20];
 
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);

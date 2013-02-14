@@ -1847,7 +1847,6 @@ typedef struct
 	s16b num_jammed;
 } door_type;
 
-
 typedef struct
 {
 	char cap[80];
@@ -1857,11 +1856,14 @@ typedef struct
 	char key;
 	byte d_color;
 	byte l_color;
-} selection;
+} selection_table;
 
-/*
- *  A structure type for travel command
- */
+typedef struct
+{
+	cptr header;
+} selection_type;
+
+//  A structure type for travel command
 typedef struct {
 	int run;
 	int cost[MAX_HGT][MAX_WID];

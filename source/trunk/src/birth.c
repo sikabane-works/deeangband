@@ -1728,14 +1728,11 @@ static void show_help(cptr helpfile)
 	screen_load();
 }
 
-
-/*
- * Choose from one of the available magical realms
- */
+// Choose from one of the available magical realms
 static int choose_realm(s32b choices, bool npc)
 {
 	int i;
-	selection re[MAX_REALMS + 3];
+	selection_table re[MAX_REALMS + 3];
 	int picks[VALID_REALM] = {0};
 	int n = 0;
 
@@ -2716,8 +2713,8 @@ void starting_point_detail(int code)
 // Creature first race
 static int get_creature_first_race(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
-	int     n, i, lev, weight[MAX_RACES], id[MAX_RACES];
-	selection se[MAX_RACES + 3];
+	int n, i, lev, weight[MAX_RACES], id[MAX_RACES];
+	selection_table se[MAX_RACES + 3];
 
 	if(species_ptr->race_idx1 != INDEX_VARIABLE)
 	{
@@ -2800,14 +2797,11 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 	}
 }
 
-
-/*
- * Creature sub-race
- */
+// Creature sub-race
 static int get_creature_second_race(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
-	int     n = 0, i;
-	selection se[MAX_RACES + 3];
+	int n = 0, i;
+	selection_table se[MAX_RACES + 3];
 
 	if(species_ptr->race_idx2 != INDEX_VARIABLE)
 	{
@@ -2898,15 +2892,12 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 	}
 }
 
-
-/*
- * Player SubRace(Eldar)
- */
+// Player SubRace(Eldar)
 static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 {
 /*
-	int     i, n = 0;
-	selection se[3 + 3];
+	int i, n = 0;
+	selection_table se[3 + 3];
 
 	strcpy(se[n].cap, race_info[RACE_TELERI_LINEAGE].title);
 	se[n].code = RACE_TELERI_LINEAGE;
@@ -2986,15 +2977,12 @@ static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 
 }
 
-
-/*
- * Creature SubRace(Dragon & Draconian)
- */
+// Creature SubRace(Dragon & Draconian)
 static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool npc)
 {
-/*
-	int     i, n = 0;
-	selection se[15];
+	/*
+	int i, n = 0;
+	selection_table se[15];
 
 	strcpy(se[n].cap, race_info[RACE_RED_LINEAGE].title);
 	se[n].code = RACE_RED_LINEAGE;
@@ -3096,13 +3084,11 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
 
 }
 
-/*
- * Creature sex
- */
+// Creature sex
 static bool get_creature_sex(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
 	int i, n, category_num;
-	selection se[MAX_SEXES + 3];
+	selection_table se[MAX_SEXES + 3];
 	int id[MAX_SEXES + 1], weight1[MAX_SEXES + 1], weight2[MAX_SEXES];
 	int list[MAX_SEXES] = {SEX_MALE, SEX_FEMALE, SEX_INTERSEX, SEX_NONE};
 	int trait_list[MAX_SEXES] = {TRAIT_MALE, TRAIT_FEMALE, TRAIT_INTERSEX, TRAIT_NOSEX};
@@ -3198,14 +3184,11 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 	}
 }
 
-
-/*
- * Player class
- */
+// Player class
 static bool get_creature_class(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
 	int i, n, id[MAX_CLASS], weight[MAX_CLASS];
-	selection ce[MAX_CLASS+3];
+	selection_table ce[MAX_CLASS+3];
 
 	if(species_ptr->class_idx != INDEX_VARIABLE)
 	{
@@ -3296,13 +3279,11 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 
 }
 
-/*
- * Player patron
- */
+// Player patron
 static bool get_creature_patron(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
 	int i, n = 0;
-	selection pt[400+3];
+	selection_table pt[400+3];
 
 	if(species_ptr->patron_idx != INDEX_VARIABLE)
 	{
@@ -3397,14 +3378,11 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 
 }
 
-
-/*
- * Player Chara
- */
+// Player Chara
 static bool get_creature_chara(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
 	int i, n;
-	selection ce[MAX_CHARA + 3];
+	selection_table ce[MAX_CHARA + 3];
 	int id[MAX_CHARA];
 	int weight[MAX_CHARA];
 
@@ -3496,14 +3474,11 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 	return 0;
 }
 
-
-/*
- * Player Starting Point
- */
+// Player Starting Point
 static bool get_starting_point(creature_type *creature_ptr, bool npc)
 {
 	int i, j, n;
-	selection se[STARTING_MAX + 3];
+	selection_table se[STARTING_MAX + 3];
 
 	clear_from(0);
 	if(!npc) put_initial_status(creature_ptr);

@@ -22,7 +22,7 @@ static void game_mode_detail(int code)
 static int select_mode(void)
 {
 	int i;
-	selection se[1000];
+	selection_table se[10];
 	int t = sizeof(creature_type);
 
 	c_put_str(TERM_L_BLUE, MES_BIRTH_SELECT_CAMPAIGN, 8, 5);
@@ -43,7 +43,7 @@ static int select_unique_species(void)
 {
 	int i;
 	char dr[4];
-	selection se[1000];
+	selection_table se[10];
 	int unique_num;
 	int t = sizeof(creature_type);
 

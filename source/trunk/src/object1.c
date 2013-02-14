@@ -1322,7 +1322,7 @@ bool can_get_item(creature_type *creature_ptr)
 
 int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 {
-	selection se[16];
+	selection_table se[16];
 	int i, n, slot_num = creature_ptr->item_slot_num[slot];
 	char buf[100];
 	object_type *object_ptr;

@@ -1250,15 +1250,13 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 	(void)set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
 }
 
-/*
- * Creature list 
- */
+// Creature list 
 static void do_cmd_wiz_creature_list(void)
 {
-	selection *ce;
+	selection_table *ce;
 	int i, mode, n;
 	char k, tmp[80];
-	ce = malloc(sizeof(selection) * (creature_max + 1));
+	ce = malloc(sizeof(selection_table) * (creature_max + 1));
 
 	screen_save();
 
@@ -1337,9 +1335,9 @@ static void do_cmd_wiz_creature_list(void)
 // Floor Teleport
 static void do_cmd_wiz_floor_teleport(void)
 {
-	selection *ce;
+	selection_table *ce;
 	int i, n;
-	ce = malloc(sizeof(selection) * (floor_max + 1));
+	ce = malloc(sizeof(selection_table) * (floor_max + 1));
 
 	screen_save();
 
@@ -1416,10 +1414,10 @@ static void do_cmd_wiz_floor_teleport(void)
 
 static void do_cmd_wiz_floor_object_list(void)
 {
-	selection *ce;
+	selection_table *ce;
 	int i, n;
 	char tmp[100];
-	ce = malloc(sizeof(selection) * (object_max + 1));
+	ce = malloc(sizeof(selection_table) * (object_max + 1));
 
 	screen_save();
 
@@ -1572,7 +1570,7 @@ static void do_cmd_wiz_learn(void)
 // Invoke ant active traits
 static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 {
-	selection se[MAX_TRAITS];
+	selection_table se[MAX_TRAITS];
 	int i, n = 0;
 
 	screen_save();
