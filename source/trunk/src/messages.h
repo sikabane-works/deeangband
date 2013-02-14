@@ -2515,7 +2515,9 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_SNIPE_CONCENTRATE(LEVEL) "集中した。(集中度 %d)", (LEVEL)
 #define MES_SNIPE_RESET_CONS "集中力が途切れた。"
 #else
+#define MES_SNIPE_CONCENTRATE(LEVEL) "You concentrate deeply. (level %d)", (LEVEL)
 #define MES_SNIPE_RESET_CONS "Stop concentrating."
 #endif

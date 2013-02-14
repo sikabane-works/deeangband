@@ -93,22 +93,12 @@ snipe_power snipe_powers[MAX_SNIPE_POWERS] =
 static bool snipe_concentrate(creature_type *creature_ptr)
 {
 	if((int)creature_ptr->concent < (2 + (creature_ptr->lev + 5) / 10)) creature_ptr->concent++;
-
-#ifdef JP
-	msg_format("集中した。(集中度 %d)", creature_ptr->concent);
-#else
-	msg_format("You concentrate deeply. (lvl %d)", creature_ptr->concent);
-#endif
+	msg_format(MES_SNIPE_CONCENTRATE(creature_ptr->concent));
 
 	creature_ptr->reset_concent = FALSE;
-
 	prepare_update(creature_ptr, CRU_BONUS);
-
 	prepare_redraw(PR_STATUS);
-
-	// Update creatures
 	prepare_update(creature_ptr, PU_CREATURES);
-
 	return TRUE;
 }
 
@@ -125,7 +115,6 @@ int boost_concentration_damage(creature_type *creature_ptr, int tdam)
 {
 	tdam *= (10 + creature_ptr->concent);
 	tdam /= 10;
-
 	return (tdam);
 }
 
@@ -156,9 +145,7 @@ void display_snipe_list(creature_type *creature_ptr)
 		if(spell.mana_cost > (int)creature_ptr->concent) continue;
 
 		/* Dump the spell */
-		sprintf(psi_desc, "  %c) %-30s%2d %4d",
-			I2A(i), spell.name, spell.min_lev, spell.mana_cost);
-
+		sprintf(psi_desc, "  %c) %-30s%2d %4d", I2A(i), spell.name, spell.min_lev, spell.mana_cost);
 		Term_putstr(x, y + i + 1, -1, TERM_WHITE, psi_desc);
 	}
 	return;
