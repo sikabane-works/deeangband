@@ -2985,12 +2985,13 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	object_type *quest_ptr;
 	object_type forge;
-	char        wrath_reason[32] = "";
-	int         nasty_chance = 6;
-	int         dummy = 0, dummy2 = 0;
-	int         type, effect;
-	cptr        reward = NULL;
+	char wrath_reason[32] = "";
+	int nasty_chance = 6;
+	int dummy = 0, dummy2 = 0;
+	int type, effect;
+	cptr reward = NULL;
 	char object_name[MAX_NLEN];
+	cptr patron_name = species_name + species_info[creature_ptr->patron_idx].name;
 
 	int count = 0;
 
@@ -3017,7 +3018,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 	//	if(creature_ptr->patron_idx == PATRON_ARIOCH && creature_ptr->race_idx1 == RACE_MELNIBONE && type == REW_POLY_SLF)
 	//		 type = REW_IGNORE;
 
-	sprintf(wrath_reason, COD_PATRON_WRATH(species_name + species_info[creature_ptr->patron_idx].name));
+	sprintf(wrath_reason, COD_PATRON_WRATH(patron_name));
 
 	/*TODO
 	effect = player_patrons[creature_ptr->patron_idx].rewards[type];
@@ -3028,7 +3029,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 	if(one_in_(6) && !chosen_reward)
 	{
-		msg_format(MES_PATRON_MUTATION(species_name + species_info[creature_ptr->patron_idx].name));
+		msg_format(MES_PATRON_MUTATION(patron_name));
 #ifdef JP
 		reward = "変異した。";
 #else
@@ -3041,7 +3042,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		switch (chosen_reward ? chosen_reward : effect)
 		{
 		case REW_POLY_SLF:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_POLY_SELF);
 #ifdef JP
 			reward = "変異した。";
@@ -3052,7 +3053,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_GAIN_EXP:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GAIN_EXP);
 
 			if(has_trait(creature_ptr, TRAIT_ANDROID))
@@ -3074,7 +3075,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_LOSE_EXP:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_LOSE_EXP);
 			if(has_trait(creature_ptr, TRAIT_ANDROID)) msg_print(GAME_MESSAGE_NO_HAPPEN);
 			else
@@ -3089,7 +3090,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_GOOD_OBJ:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GOOD_OBJ);
 #ifdef JP
 			reward = "上質なアイテムを手に入れた。";
@@ -3100,7 +3101,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_GREA_OBJ:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GOOD_OBJ);
 #ifdef JP
 			reward = "高級品のアイテムを手に入れた。";
@@ -3111,7 +3112,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_CHAOS_WP:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GOOD_WEP);
 #ifdef JP
 			reward = "(混沌)の武器を手に入れた。";
@@ -3216,7 +3217,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_GOOD_OBS:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GOOD_OBS);
 #ifdef JP
 			reward = "上質なアイテムを手に入れた。";
@@ -3227,7 +3228,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_GREA_OBS:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GREAT_OBS);
 #ifdef JP
 			reward = "高級品のアイテムを手に入れた。";
@@ -3238,7 +3239,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_TY_CURSE:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_TY_CURSE);
 #ifdef JP
 			reward = "禍々しい呪いをかけられた。";
@@ -3249,7 +3250,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_TRAIT_S_ENEMY:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_S_ENEMY);
 #ifdef JP
 			reward = "クリーチャーを召喚された。";
@@ -3261,7 +3262,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_H_SUMMON:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_H_SUMMON);
 #ifdef JP
 			reward = "クリーチャーを召喚された。";
@@ -3272,7 +3273,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_DO_HAVOC:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_HAVOC);
 #ifdef JP
 			reward = "カオスの力が渦巻いた。";
@@ -3283,7 +3284,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_GAIN_ABL:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GAIN_ABL);
 #ifdef JP
 			reward = "能力値が上がった。";
@@ -3294,7 +3295,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_LOSE_ABL:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_LOSE_ABL);
 #ifdef JP
 			reward = "能力値が下がった。";
@@ -3305,7 +3306,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_RUIN_ABL:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_RUIN_ABL);
 #ifdef JP
 			reward = "全能力値が下がった。";
@@ -3316,7 +3317,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_POLY_WND:
-			msg_format(MES_PATRON_POLY_WND(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_POLY_WND(patron_name));
 #ifdef JP
 			reward = "傷が変化した。";
 #else
@@ -3326,7 +3327,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_AUGM_ABL:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_AUGM_ABL);
 #ifdef JP
 			reward = "全能力値が上がった。";
@@ -3337,7 +3338,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_HURT_LOT:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_HURT_LOT);
 #ifdef JP
 			reward = "分解の球が発生した。";
@@ -3349,7 +3350,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_HEAL_FUL:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_HEAL_FUL);
 #ifdef JP
 			reward = "体力が回復した。";
@@ -3361,7 +3362,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_CURSE_WP:
 			if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) break;
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_CURSE_WEAPON);
 #ifdef JP
 			reward = format("%sが破壊された。", object_name);
@@ -3381,7 +3382,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_CURSE_AR:
 			if(!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 0)->k_idx) break;
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 #ifdef JP
 			reward = format("%sが破壊された。", object_name);
 #else
@@ -3392,7 +3393,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_PISS_OFF:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_PISS_OFF);
 			switch (randint1(4))
 			{
@@ -3456,7 +3457,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_WRATH:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_WRATH);
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)dec_stat(creature_ptr, dummy, 10 + randint1(15), FALSE);
@@ -3482,7 +3483,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_DESTRUCT:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_HAVOC);
 #ifdef JP
 			reward = "ダンジョンが*破壊*された。";
@@ -3493,7 +3494,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_GENOCIDE:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GENOCIDE);
 #ifdef JP
 			reward = "クリーチャーが抹殺された。";
@@ -3504,7 +3505,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_MASS_GEN:
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GENOCIDE);
 #ifdef JP
 			reward = "クリーチャーが抹殺された。";
@@ -3515,19 +3516,19 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_DISPEL_C:
-			msg_format(MES_PATRON_ASSULT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_ASSULT(patron_name));
 			project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, creature_ptr->lev * 4);
 			break;
 
 		case REW_IGNORE:
-			msg_format(MES_PATRON_IGNORE(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_format(MES_PATRON_IGNORE(patron_name));
 			break;
 
 		case REW_SER_DEMO:
 #ifdef JP
-			msg_format("%sは褒美として悪魔の使いをよこした！",species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%sは褒美として悪魔の使いをよこした！",patron_name);
 #else
-			msg_format("%s rewards you with a demonic servant!",species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%s rewards you with a demonic servant!",patron_name);
 #endif
 
 			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DEMON, PC_FORCE_PET))
@@ -3546,9 +3547,9 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_SER_MONS:
 #ifdef JP
-			msg_format("%sは褒美として使いをよこした！",species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%sは褒美として使いをよこした！",patron_name);
 #else
-			msg_format("%s rewards you with a servant!",species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%s rewards you with a servant!",patron_name);
 #endif
 
 			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, PC_FORCE_PET))
@@ -3567,9 +3568,9 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_SER_UNDE:
 #ifdef JP
-			msg_format("%sは褒美としてアンデッドの使いをよこした。",species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%sは褒美としてアンデッドの使いをよこした。",patron_name);
 #else
-			msg_format("%s rewards you with an undead servant!",species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%s rewards you with an undead servant!",patron_name);
 #endif
 
 			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_UNDEAD, PC_FORCE_PET))
@@ -3589,10 +3590,10 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		default:
 
 #ifdef JP
-			msg_format("%sの声がどもった:", species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%sの声がどもった:", patron_name);
 			msg_format("「あー、あー、答えは %d/%d。質問は何？」", type, effect);
 #else
-			msg_format("The voice of %s stammers:", species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("The voice of %s stammers:", patron_name);
 			msg_format("'Uh... uh... the answer's %d/%d, what's the question?'", type, effect);
 #endif
 		}
