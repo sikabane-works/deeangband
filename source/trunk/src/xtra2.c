@@ -3457,11 +3457,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_WRATH:
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
-#ifdef JP
-			msg_print("「死ぬがよい、下僕よ！」");
-#else
-			msg_print("'Die, mortal!'");
-#endif
+			msg_print(MES_PATRON_WRATH);
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)dec_stat(creature_ptr, dummy, 10 + randint1(15), FALSE);
 
@@ -3524,11 +3520,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_IGNORE:
-#ifdef JP
-			msg_format("%sはあなたを無視した。", species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("%s ignores you.", species_name + species_info[creature_ptr->patron_idx].name);
-#endif
+			msg_format(MES_PATRON_IGNORE(species_name + species_info[creature_ptr->patron_idx].name));
 			break;
 
 		case REW_SER_DEMO:

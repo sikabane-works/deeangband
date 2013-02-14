@@ -1847,11 +1847,6 @@ static cptr desc_stat_neg[] =
 #define MES_STATUS_NO_CUMBER_ARMOR "You feel able to move more freely."
 #endif
 
-#ifdef JP
-#define MES_PATRON_BOOM_OUT(PATRON) "%sの声が響き渡った:", (PATRON)
-#else
-#define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
-#endif
 
 #ifdef JP
 #define MES_INTERFACE_QUANTITY(NUM) "いくつですか (1-%d): ", (NUM)
@@ -2332,6 +2327,7 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_PATRON_BOOM_OUT(PATRON) "%sの声が響き渡った:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^sは褒美としてあなたを突然変異させた。"
 #define MES_PATRON_POLY_SELF "「汝、新たなる姿を必要とせり！」"
 #define MES_PATRON_GAIN_EXP "「汝は良く行いたり！続けよ！」"
@@ -2356,7 +2352,10 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_PISS_OFF "「我を怒りしめた罪を償うべし。」"
 #define MES_PATRON_GENOCIDE "「我、汝の敵を抹殺せん！」"
 #define MES_PATRON_ASSULT(PATRON) "%sの力が敵を攻撃するのを感じた！", (PATRON)
+#define MES_PATRON_WRATH "「死ぬがよい、下僕よ！」"
+#define MES_PATRON_IGNORE(PATRON) "%sはあなたを無視した。", (PATRON)
 #else
+#define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
 #define MES_PATRON_POLY_SELF "'Thou needst a new form!'"
 #define MES_PATRON_GAIN_EXP "'Well done, Lead on!'"
@@ -2381,6 +2380,8 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_PISS_OFF "'Now thou shalt pay for annoying me.'"
 #define MES_PATRON_GENOCIDE "'Let me relieve thee of thine oppressors!'"
 #define MES_PATRON_ASSULT(PATRON) "You can feel the power of %s assault your enemies!", (PATRON)
+#define MES_PATRON_WRATH "'Die, mortal!'"
+#define MES_PATRON_IGNORE(PATRON) "%s ignores you.", (PATRON)
 #endif
 
 #ifdef JP
