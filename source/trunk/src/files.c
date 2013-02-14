@@ -1915,19 +1915,11 @@ static void display_player_middle(creature_type *creature_ptr)
 	display_player_one_line(ENTRY_PLAY_TIME, format("%.2lu:%.2lu:%.2lu", play_time / (60 * 60), (play_time / 60) % 60, play_time % 60), TERM_L_GREEN);
 }
 
-
-/*
- * Hack -- pass color info around this file
- */
-static byte likert_color = TERM_WHITE;
-
-
-/*
- * Returns a "rating" of x depending on y
- */
-static cptr likert(int x, int y)
+// Returns a "rating" of x depending on y
+static int likert(char *buf, int x, int y)
 {
-	static char dummy[20] = "";
+	int id;
+
 	static int rank_color[] =
 	{
 		TERM_L_DARK,
@@ -2006,19 +1998,18 @@ static cptr likert(int x, int y)
 	};
 
 	if(y <= 0) y = 1;
+	id = (x / y) > 21 ? 21 : (x / y);
 
 	// Negative value
 	if(x < 0)
 	{
-		likert_color = TERM_L_DARK;
-		sprintf(dummy, "   0[%s]", (int)(x), rank_desc[0]);
-		return dummy;
+		sprintf(buf, "   0[%s]", (int)(x), rank_desc[0]);
+		return TERM_L_DARK;
 	}
 
 	// Analyze the value
-	likert_color = rank_color[(x / y) > 21 ? 21 : (x / y)];
-	sprintf(dummy, "%4d[%s]", (int)(x), rank_desc[(x / y) > 21 ? 21 : (x / y)]);
-	return dummy;
+	sprintf(buf, "%4d[%s]", (int)(x), rank_desc[(x / y) > 21 ? 21 : (x / y)]);
+	return rank_color[id];
 }
 
 
@@ -2031,9 +2022,10 @@ static void display_player_various(creature_type * creature_ptr)
 	int			xthn, xthb, xfos, xsrh;
 	int			xdis, xdev, xstl; // xrob, xagi, xvol
 	int			xdig;
-	cptr		desc;
+	char		desc[40];
 	int         muta_att = 0;
 	int		shots, shot_frac;
+	int col;
 
 	object_type		*object_ptr;
 
@@ -2086,41 +2078,41 @@ static void display_player_various(creature_type * creature_ptr)
 	xfos = creature_ptr->skill_fos;
 	xdig = creature_ptr->skill_dig;
 
-	desc = likert(xthn, 10);
-	display_player_one_line(ENTRY_SKILL_FIGHT, desc, likert_color);
+	col = likert(desc, xthn, 10);
+	display_player_one_line(ENTRY_SKILL_FIGHT, desc, col);
 
-	desc = likert(xthb, 10);
-	display_player_one_line(ENTRY_SKILL_SHOOT, desc, likert_color);
+	col = likert(desc, xthb, 10);
+	display_player_one_line(ENTRY_SKILL_SHOOT, desc, col);
 
 	/*TODO
-	desc = likert(xrob, 5);
-	display_player_one_line(ENTRY_SKILL_ROBUSTNESS, desc, likert_color);
+	col = likert(desc, xrob, 5);
+	display_player_one_line(ENTRY_SKILL_ROBUSTNESS, desc, col);
 
-	desc = likert(xagi, 5);
-	display_player_one_line(ENTRY_SKILL_EVALITY, desc, likert_color);
+	col = likert(desc, xagi, 5);
+	display_player_one_line(ENTRY_SKILL_EVALITY, desc, col);
 
-	desc = likert(xvol, 5);
-	display_player_one_line(ENTRY_SKILL_VOLITION, desc, likert_color);
+	col = likert(desc, xvol, 5);
+	display_player_one_line(ENTRY_SKILL_VOLITION, desc, col);
 	*/
 
 	/* Hack -- 0 is "minimum stealth value", so print "Very Bad" */
-	desc = likert((xstl > 0) ? xstl : -1, 1);
-	display_player_one_line(ENTRY_SKILL_STEALTH, desc, likert_color);
+	col = likert(desc, (xstl > 0) ? xstl : -1, 1);
+	display_player_one_line(ENTRY_SKILL_STEALTH, desc, col);
 
-	desc = likert(xfos, 5);
-	display_player_one_line(ENTRY_SKILL_PERCEP, desc, likert_color);
+	col = likert(desc, xfos, 5);
+	display_player_one_line(ENTRY_SKILL_PERCEP, desc, col);
 
-	desc = likert(xsrh, 5);
-	display_player_one_line(ENTRY_SKILL_SEARCH, desc, likert_color);
+	col = likert(desc, xsrh, 5);
+	display_player_one_line(ENTRY_SKILL_SEARCH, desc, col);
 
-	desc = likert(xdis, 5);
-	display_player_one_line(ENTRY_SKILL_DISARM, desc, likert_color);
+	col = likert(desc, xdis, 5);
+	display_player_one_line(ENTRY_SKILL_DISARM, desc, col);
 
-	desc = likert(xdev, 5);
-	display_player_one_line(ENTRY_SKILL_DEVICE, desc, likert_color);
+	col = likert(desc, xdev, 5);
+	display_player_one_line(ENTRY_SKILL_DEVICE, desc, col);
 
-	desc = likert(xdig, 5);
-	display_player_one_line(ENTRY_SKILL_DIGGING, desc, likert_color);
+	col = likert(desc, xdig, 5);
+	display_player_one_line(ENTRY_SKILL_DIGGING, desc, col);
 
 /*
 	if(!muta_att)
