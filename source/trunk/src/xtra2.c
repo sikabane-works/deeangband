@@ -3030,11 +3030,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 	if(one_in_(6) && !chosen_reward)
 	{
 		msg_format(MES_PATRON_MUTATION(patron_name));
-#ifdef JP
-		reward = "ïœàŸÇµÇΩÅB";
-#else
-		reward = "mutation";
-#endif
+		reward = MES_DIARY_PATRON_MUTATION;
 		(void)gain_trait(creature_ptr, 0, TRUE);
 	}
 	else
@@ -3044,11 +3040,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_POLY_SLF:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_POLY_SELF);
-#ifdef JP
-			reward = "ïœàŸÇµÇΩÅB";
-#else
-			reward = "polymorphing";
-#endif
+			reward = MES_DIARY_PATRON_MUTATION;
 			do_poly_self(creature_ptr);
 			break;
 
