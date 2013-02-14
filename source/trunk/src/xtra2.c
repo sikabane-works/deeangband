@@ -3538,12 +3538,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_SER_MONS:
-#ifdef JP
-			msg_format("%sは褒美として使いをよこした！",patron_name);
-#else
-			msg_format("%s rewards you with a servant!",patron_name);
-#endif
-
+			msg_format(MES_PATRON_SERVANT(patron_name));
 			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, PC_FORCE_PET))
 				msg_print(MES_SUMMON_NOTHING);
 			else
@@ -3555,12 +3550,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_SER_UNDE:
-#ifdef JP
-			msg_format("%sは褒美としてアンデッドの使いをよこした。",patron_name);
-#else
-			msg_format("%s rewards you with an undead servant!",patron_name);
-#endif
-
+			msg_format(MES_PATRON_UNDEAD_SERVANT(patron_name));
 			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_UNDEAD, PC_FORCE_PET))
 				msg_print(MES_SUMMON_NOTHING);
 			else
@@ -3572,14 +3562,9 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		default:
-
-#ifdef JP
-			msg_format("%sの声がどもった:", patron_name);
-			msg_format("「あー、あー、答えは %d/%d。質問は何？」", type, effect);
-#else
-			msg_format("The voice of %s stammers:", patron_name);
-			msg_format("'Uh... uh... the answer's %d/%d, what's the question?'", type, effect);
-#endif
+			msg_format(MES_PATRON_ERROR_REWARD1(patron_name));
+			msg_format(MES_PATRON_ERROR_REWARD2(type, effect));
+			break;
 		}
 	}
 
