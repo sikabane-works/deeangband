@@ -524,24 +524,8 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 	}
 
 	/* Build a prompt (accept all spells) */
-	if(only_browse)
-	{
-#ifdef JP
-		(void) strnfmt(out_val, 78, "(%^s %c-%c, '*'で一覧, ESC) どの%sについて知りますか？",
-#else
-		(void) strnfmt(out_val, 78, "(%^ss %c-%c, *=List, ESC=exit) Use which %s? ",
-#endif
-			p, I2A(0), I2A(num - 1), p);
-	}
-	else
-	{
-#ifdef JP
-		(void) strnfmt(out_val, 78, "(%^s %c-%c, '*'で一覧, ESC) どの%sを使いますか？",
-#else
-		(void)strnfmt(out_val, 78, "(%^ss %c-%c, *=List, ESC=exit) Use which %s? ",
-#endif
-			p, I2A(0), I2A(num - 1), p);
-	}
+	if(only_browse) (void)strnfmt(out_val, 78, MES_CAST_WHICH_KNOW(p, I2A(0), I2A(num - 1)));
+	else (void)strnfmt(out_val, 78, MES_CAST_WHICH_USE(p, I2A(0), I2A(num - 1)));
 
 	if(use_menu && !only_browse) screen_save();
 	/* Get a spell from the user */

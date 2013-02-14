@@ -2448,6 +2448,8 @@ static cptr desc_stat_neg[] =
 #define MES_CAST_MUSIC_PENALTY "いやな音が響いた"
 #define MES_CAST_FAINT "精神を集中しすぎて気を失ってしまった！"
 #define MES_CAST_DAMAGE_HEALTH "体を悪くしてしまった！"
+#define MES_CAST_WHICH_KNOW(SKILL, FROM, TO) "(%^s %c-%c, '*'で一覧, ESC) どの%sについて知りますか？", (SKILL), (FROM), (TO), (SKILL)
+#define MES_CAST_WHICH_USE(SKILL, FROM, TO) "(%^s %c-%c, '*'で一覧, ESC) どの%sを使いますか？", (SKILL), (FROM), (TO), (SKILL)
 #else
 #define MES_CAST_WHICH_BOOK "Use which book? "
 #define MES_CAST_NO_BOOK "You have no spell books!"
@@ -2460,6 +2462,8 @@ static cptr desc_stat_neg[] =
 #define MES_CAST_MUSIC_PENALTY "An infernal sound echoed."
 #define MES_CAST_FAINT "You faint from the effort!"
 #define MES_CAST_DAMAGE_HEALTH "You have damaged your health!"
+#define MES_CAST_WHICH_KNOW(SKILL, FROM, TO) "(%^ss %c-%c, *=List, ESC=exit) Browse which %s? ", (SKILL), (FROM), (TO), (SKILL)
+#define MES_CAST_WHICH_USE(SKILL, FROM, TO) "(%^ss %c-%c, *=List, ESC=exit) Use which %s? ", (SKILL), (FROM), (TO), (SKILL)
 #endif
 
 #ifdef JP 
