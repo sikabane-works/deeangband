@@ -2472,7 +2472,13 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_TRAIT_CRITICAL_STUN "割れるような頭痛がする。"
 #define MES_TRAIT_CUT_PENALTY(CREATURE, PLAYER) "%sにひどい傷跡が残った。", (CREATURE)
+#define MES_TRAIT_RUINATION "身も心も弱ってきて、精気が抜けていくようだ。"
+#define MES_TRAIT_KNOWLEDGE "自分自身のことが少しは分かった気がする..."
+#define MES_TRAIT_OKURE_NIISAN "「オクレ兄さん！」"
 #else
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
 #define MES_TRAIT_CUT_PENALTY(CREATURE, PLAYER) "%s %s been horribly scarred.", (CREATURE), (PLAYER) ? "have" : "has"
+#define MES_TRAIT_RUINATION "Your nerves and muscles feel weak and lifeless!"
+#define MES_TRAIT_KNOWLEDGE "You begin to know yourself a little better..."
+#define MES_TRAIT_OKURE_NIISAN "Brother OKURE!"
 #endif

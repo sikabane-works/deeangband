@@ -424,10 +424,7 @@ static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *o
 	return FALSE;
 }
 
-
-/*
- * Eat some food (from the pack or floor)
- */
+// Eat some food (from the pack or floor)
 void do_cmd_eat_food(creature_type *creature_ptr)
 {
 	int         item;
@@ -447,10 +444,7 @@ void do_cmd_eat_food(creature_type *creature_ptr)
 	do_cmd_eat_food_aux(creature_ptr, item);
 }
 
-
-/*
- * Quaff a potion (from the pack or the floor)
- */
+// Quaff a potion (from the pack or the floor)
 static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 {
 	floor_type  *floor_ptr = GET_FLOOR_PTR(caster_ptr);
@@ -601,11 +595,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_RUINATION:
-#ifdef JP
-			msg_print("身も心も弱ってきて、精気が抜けていくようだ。");
-#else
-			msg_print("Your nerves and muscles feel weak and lifeless!");
-#endif
+			msg_print(MES_TRAIT_RUINATION);
 			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(10, 10), COD_POTION_OF_RUIN, NULL, -1);
 			(void)dec_stat(caster_ptr, STAT_DEX, 25, TRUE);
 			(void)dec_stat(caster_ptr, STAT_WIS, 25, TRUE);
@@ -633,11 +623,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_SELF_KNOWLEDGE:
-#ifdef JP
-			msg_print("自分自身のことが少しは分かった気がする...");
-#else
-			msg_print("You begin to know yourself a little better...");
-#endif
+			msg_print(MES_TRAIT_KNOWLEDGE);
 			msg_print(NULL);
 			creature_knowledge(caster_ptr);
 			effected = TRUE;
@@ -673,11 +659,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_TSUYOSHI:
-#ifdef JP
-			msg_print("「オクレ兄さん！」");
-#else
-			msg_print("Brother OKURE!");
-#endif
+			msg_print(MES_TRAIT_OKURE_NIISAN);
 			msg_print(NULL);
 			caster_ptr->timed_trait[TRAIT_TSUYOSHI] = 1;
 			(void)set_timed_trait(caster_ptr, TRAIT_TSUYOSHI, 0, TRUE);
