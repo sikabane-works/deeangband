@@ -2114,6 +2114,7 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_EXAMING(OBJECT) "%sを調べている..." ,(OBJECT)
 #define MES_OBJECT_NO_SPECIAL "特に変わったところはないようだ。"
 #define MES_OBJECT_DROP_FEET "何かが足下に転がってきた。"
+#define MES_OBJECT_NO_CHARGE_LEFT "もう魔力が残っていない。"
 #else
 #define MES_OBJECT_WHICH_USE "Use which item? "
 #define MES_OBJECT_NO_USE "You have nothing to use." 
@@ -2129,6 +2130,7 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_EXAMING(OBJECT) "Examining %s...", (OBJECT)
 #define MES_OBJECT_NO_SPECIAL "You see nothing special."
 #define MES_OBJECT_DROP_FEET "You feel something roll beneath your feet."
+#define MES_OBJECT_NO_CHARGE_LEFT "No charges left."
 #endif
 
 #ifdef JP

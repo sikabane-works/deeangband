@@ -257,12 +257,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		/* "Eat" charges */
 		if(object_ptr->pval == 0)
 		{
-#ifdef JP
-			msg_format("この%sにはもう魔力が残っていない。", staff);
-#else
-			msg_format("The %s has no charges left.", staff);
-#endif
-
+			msg_print(MES_OBJECT_NO_CHARGE_LEFT);
 			object_ptr->ident |= (IDENT_EMPTY);
 
 			/* Combine / Reorder the pack (later) */
@@ -1572,11 +1567,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	if(object_ptr->pval <= 0)
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("この杖にはもう魔力が残っていない。");
-#else
-		msg_print("The staff has no charges left.");
-#endif
+		msg_print(MES_OBJECT_NO_CHARGE_LEFT);
 		object_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */
@@ -1880,11 +1871,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	if(object_ptr->pval <= 0) // The wand is already empty!
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("この魔法棒にはもう魔力が残っていない。");
-#else
-		msg_print("The wand has no charges left.");
-#endif
+		msg_print(MES_OBJECT_NO_CHARGE_LEFT);
 		object_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */

@@ -3441,17 +3441,11 @@ void disclose_grid(floor_type *floor_ptr, int y, int x)
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	if(cave_have_flag_grid(c_ptr, FF_SECRET))
-	{
-		/* No longer hidden */
 		cave_alter_feat(floor_ptr, y, x, FF_SECRET);
-	}
 	else if(c_ptr->mimic)
 	{
-		/* No longer hidden */
 		c_ptr->mimic = 0;
-
 		note_spot(floor_ptr, y, x);
-
 		lite_spot(floor_ptr, y, x);
 	}
 }
@@ -3481,10 +3475,7 @@ void place_trap(floor_type *floor_ptr, int y, int x)
 	c_ptr->feat = choose_random_trap(floor_ptr);
 }
 
-
-/*
-* Describe the charges on an item in the creature_ptr->inventory.
-*/
+// Describe the charges on an item in the creature_ptr->inventory.
 void inven_item_charges(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr = &creature_ptr->inventory[item];
@@ -3492,12 +3483,11 @@ void inven_item_charges(creature_type *creature_ptr, int item)
 	if((object_ptr->tval != TV_STAFF) && (object_ptr->tval != TV_WAND)) return;
 	if(!object_is_known(object_ptr)) return;
 
+	if(object_ptr->pval <= 0) msg_print(MES_OBJECT_NO_CHARGE_LEFT);
 #ifdef JP
-	if(object_ptr->pval <= 0) msg_print("もう魔力が残っていない。");
 	else msg_format("あと %d 回分の魔力が残っている。", object_ptr->pval);
 #else
-	if(object_ptr->pval != 1) msg_format("You have %d charges remaining.", object_ptr->pval);
-	else msg_format("You have %d charge remaining.", object_ptr->pval);
+	else msg_format("You have %d charges remaining.", object_ptr->pval);
 #endif
 
 }
@@ -3584,11 +3574,10 @@ void floor_item_charges(int item)
 	if((object_ptr->tval != TV_STAFF) && (object_ptr->tval != TV_WAND)) return;
 	if(!object_is_known(object_ptr)) return;
 
+	if(object_ptr->pval <= 0) msg_print(MES_OBJECT_NO_CHARGE_LEFT);
 #ifdef JP
-	if(object_ptr->pval <= 0) msg_print("この床上のアイテムは、もう魔力が残っていない。");
 	else msg_format("この床上のアイテムは、あと %d 回分の魔力が残っている。", object_ptr->pval);
 #else
-	if(object_ptr->pval != 1) msg_format("There are %d charges remaining.", object_ptr->pval);
 	else msg_format("There is %d charge remaining.", object_ptr->pval);
 #endif
 }
