@@ -733,25 +733,9 @@ msg_print("‰t‘Ì‚Ìˆê•”‚Í‚ ‚È‚½‚ÌƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I");
 	}
 	else (void)set_food(caster_ptr, caster_ptr->food + quest_ptr->pval);
 
-	//TODO
-	/*
-	case MIMIC_DEMON_LORD:
-		set_food(caster_ptr, caster_ptr->food + ((quest_ptr->pval) / 20));
-		break;
-	case MIMIC_VAMPIRE:
-		(void)set_food(caster_ptr, caster_ptr->food + (quest_ptr->pval / 10));
-		break;
-	default:
-		(void)set_food(caster_ptr, caster_ptr->food + quest_ptr->pval);
-		break;
-	}
-	*/
 }
 
-
-/*
- * Hook to determine if an object can be quaffed
- */
+// Hook to determine if an object can be quaffed
 static bool item_tester_hook_quaff(creature_type *creature_ptr, object_type *object_ptr)
 {
 	if(object_ptr->tval == TV_POTION) return TRUE;
@@ -763,10 +747,7 @@ static bool item_tester_hook_quaff(creature_type *creature_ptr, object_type *obj
 	return FALSE;
 }
 
-
-/*
- * Quaff some potion (from the pack or floor)
- */
+// Quaff some potion (from the pack or floor)
 void do_cmd_quaff_potion(creature_type *creature_ptr)
 {
 	int  item;
@@ -787,13 +768,10 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 }
 
 
-/*
- * Read a scroll (from the pack or floor).
- *
- * Certain scrolls can be "aborted" without losing the scroll.  These
- * include scrolls with no effects but recharge or identify, which are
- * cancelled before use.  XXX Reading them still takes a turn, though.
- */
+// Read a scroll (from the pack or floor).
+// Certain scrolls can be "aborted" without losing the scroll.  These
+// include scrolls with no effects but recharge or identify, which are
+// cancelled before use.  XXX Reading them still takes a turn, though.
 static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool known)
 {
 	int         i, k, used_up, ident, lev;
@@ -925,43 +903,33 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			break;
 
 		case SV_SCROLL_STAR_IDENTIFY:
-		{
 			if(!identify_fully(caster_ptr, FALSE)) used_up = FALSE;
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_ENCHANT_ARMOR:
-		{
 			ident = TRUE;
-			if(!enchant_spell(caster_ptr, 0, 0, 1)) used_up = FALSE;
+			if(!enchant_spell(caster_ptr, 0, 0, 1, 0, 0)) used_up = FALSE;
 			break;
-		}
 
 		case SV_SCROLL_ENCHANT_WEAPON_TO_HIT:
-		{
-			if(!enchant_spell(caster_ptr, 1, 0, 0)) used_up = FALSE;
+			if(!enchant_spell(caster_ptr, 1, 0, 0, 0, 0)) used_up = FALSE;
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_ENCHANT_WEAPON_TO_DAM:
-		{
-			if(!enchant_spell(caster_ptr, 0, 1, 0)) used_up = FALSE;
+			if(!enchant_spell(caster_ptr, 0, 1, 0, 0, 0)) used_up = FALSE;
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_STAR_ENCHANT_ARMOR:
-		{
-			if(!enchant_spell(caster_ptr, 0, 0, randint1(3) + 2)) used_up = FALSE;
+			if(!enchant_spell(caster_ptr, 0, 0, randint1(3) + 2, 0, 0)) used_up = FALSE;
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_STAR_ENCHANT_WEAPON:
 		{
-			if(!enchant_spell(caster_ptr, randint1(3), randint1(3), 0)) used_up = FALSE;
+			if(!enchant_spell(caster_ptr, randint1(3), randint1(3), 0, 0, 0)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}

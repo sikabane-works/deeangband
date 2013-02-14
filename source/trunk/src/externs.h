@@ -1277,7 +1277,7 @@ extern bool remove_curse(creature_type *creature_ptr);
 extern bool remove_all_curse(creature_type *creature_ptr);
 extern bool alchemy(creature_type *creature_ptr);
 extern bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int eflag);
-extern bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int num_ac);
+extern bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int num_ac, int num_ev, int num_vo);
 extern bool artifact_scroll(creature_type *caster_ptr);
 extern bool ident_spell(creature_type *creature_ptr, bool only_equip);
 extern bool mundane_spell(creature_type *creature_ptr, bool only_equip);

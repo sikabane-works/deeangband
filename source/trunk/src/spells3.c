@@ -2160,14 +2160,10 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 	return TRUE;
 }
 
-
-
-/*
- * Enchant an item (in the inventory or on the floor)
- * Note that "num_ac" requires armour, else weapon
- * Returns TRUE if attempted, FALSE if cancelled
- */
-bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int num_ac)
+// Enchant an item (in the inventory or on the floor)
+// Note that "num_ac" requires armour, else weapon
+// Returns TRUE if attempted, FALSE if cancelled
+bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int num_ac, int num_ev, int num_vo)
 {
 	int         item;
 	bool        okay = FALSE;
