@@ -3545,6 +3545,16 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 {
 	int i, j, n;
 	selection_table se[STARTING_MAX + 3];
+	selection_info se_info;
+
+	se_info.mode = 0;
+	se_info.detail = starting_point_detail;
+	se_info.default_se = 0;
+	se_info.y = 5;
+	se_info.x = 2;
+	se_info.h = 18;
+	se_info.w = 20;
+	se_info.num = 0;
 
 	clear_from(0);
 	if(!npc) put_initial_status(creature_ptr);
@@ -3553,35 +3563,35 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 	{
 		if(starting_point[i].enable)
 		{
-			strcpy(se[n].cap, starting_point[i].name);
-			se[n].code = i;
-			se[n].key = '\0';
-			se[n].d_color = TERM_L_DARK;
-			se[n].l_color = TERM_WHITE;
-			n++;
+			strcpy(se[se_info.num].cap, starting_point[i].name);
+			se[se_info.num].code = i;
+			se[se_info.num].key = '\0';
+			se[se_info.num].d_color = TERM_L_DARK;
+			se[se_info.num].l_color = TERM_WHITE;
+			se_info.num++;
 		}
 	}
 
-	strcpy(se[n].cap, KW_RANDOM);
-	se[n].code = BIRTH_SELECT_RANDOM;
-	se[n].key = '*';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(se[se_info.num].cap, KW_RANDOM);
+	se[se_info.num].code = BIRTH_SELECT_RANDOM;
+	se[se_info.num].key = '*';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
-	strcpy(se[n].cap, KW_BACK_TO_START);
-	se[n].code = BIRTH_SELECT_RETURN;
-	se[n].key = 'S';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(se[se_info.num].cap, KW_BACK_TO_START);
+	se[se_info.num].code = BIRTH_SELECT_RETURN;
+	se[se_info.num].key = 'S';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
-	strcpy(se[n].cap, KW_QUIT_GAME);
-	se[n].code = BIRTH_SELECT_QUIT;
-	se[n].key = 'Q';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(se[se_info.num].cap, KW_QUIT_GAME);
+	se[se_info.num].code = BIRTH_SELECT_QUIT;
+	se[se_info.num].key = 'Q';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
 	if(!npc)
 	{
@@ -3590,7 +3600,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 #else
 		put_str("Select a starting point:", 0, 0);
 #endif
-		i = get_selection(NULL, se, n, 0, 5, 2, 18, 20, starting_point_detail, 0);
+		i = get_selection(&se_info, se);
 	}
 	else
 	{
