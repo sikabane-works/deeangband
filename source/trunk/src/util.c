@@ -5245,35 +5245,36 @@ int inkey_special(bool numpad_cursor)
 	return (int)((unsigned char)key);
 }
 
-int get_selection(selection_info *si_ptr, selection_table *se_ptr, int num, int default_se, int y, int x, int h, int w, void(*detail)(int), s32b mode)
+int get_selection(selection_info *si_ptr, selection_table *se_ptr)
 {
 	int i, se = 0, page = 1, offset;
 	int page_num;
 	char buf[100], eraser[100], line[100];
 	char c;
+	
 
-	if(mode & GET_SE_AUTO_WIDTH)
+	if(si_ptr->mode & GET_SE_AUTO_WIDTH)
 	{
-		for(i = 0; i < num; i++)
+		for(i = 0; i < si_ptr->num; i++)
 		{
 			int len = strlen(se_ptr[i].cap) + 8;
-			w = MAX(w, len);
+			si_ptr->w = MAX(si_ptr->w, len);
 		}
 	}
 
-	if(mode & GET_SE_AUTO_HEIGHT) h = MAX(h, num + 1);
-	if(mode & GET_SE_RIGHT) x = Term->wid - w;
-	if(mode & GET_SE_BOTTOM) y = Term->hgt - h;
+	if(si_ptr->mode & GET_SE_AUTO_HEIGHT) si_ptr->h = MAX(si_ptr->h, si_ptr->num + 1);
+	if(si_ptr->mode & GET_SE_RIGHT) si_ptr->x = Term->wid - si_ptr->w;
+	if(si_ptr->mode & GET_SE_BOTTOM) si_ptr->y = Term->hgt - si_ptr->h;
 
-	page_num = num <= h ? 1 : (num - 1) / h + 1;
-	if(num <= 0 || num <= default_se || w < 8) return -1;
+	page_num = si_ptr->num <= si_ptr->h ? 1 : (si_ptr->num - 1) / si_ptr->h + 1;
+	if(si_ptr->num <= 0 || si_ptr->num <= si_ptr->default_se || si_ptr->w < 8) return -1;
 
-	se = default_se;
+	se = si_ptr->default_se;
 
 	// cut up caption
-	for(i = 0; i < num; i++) se_ptr[i].cap[w - 5] = '\0';
+	for(i = 0; i < si_ptr->num; i++) se_ptr[i].cap[si_ptr->w - 5] = '\0';
 
-	for(i = 0; i < w; i++)
+	for(i = 0; i < si_ptr->w; i++)
 	{
 		eraser[i] = ' ';
 		line[i] = '-';
@@ -5283,80 +5284,80 @@ int get_selection(selection_info *si_ptr, selection_table *se_ptr, int num, int 
 
 	while(TRUE)
 	{
-		if(!(mode & GET_SE_NO_FRAME))
+		if(!(si_ptr->mode & GET_SE_NO_FRAME))
 		{
-			put_str("+", y-1, x-1);
-			put_str("+", y+h, x-1);
-			put_str("+", y-1, x+w);
-			put_str("+", y+h, x+w);
-			put_str(line, y-1, x);
-			put_str(line, y+h, x);
+			put_str("+", si_ptr->y-1, si_ptr->x-1);
+			put_str("+", si_ptr->y+si_ptr->h, si_ptr->x-1);
+			put_str("+", si_ptr->y-1, si_ptr->x+si_ptr->w);
+			put_str("+", si_ptr->y+si_ptr->h, si_ptr->x+si_ptr->w);
+			put_str(line, si_ptr->y-1, si_ptr->x);
+			put_str(line, si_ptr->y+si_ptr->h, si_ptr->x);
 		}
 
-		for(i = 0; i < h; i++)
+		for(i = 0; i < si_ptr->h; i++)
 		{
-			offset = h*(page-1)+i;
-			put_str(eraser ,y+i, x);
+			offset = si_ptr->h*(page-1)+i;
+			put_str(eraser ,si_ptr->y+i, si_ptr->x);
 
-			if(!(mode & GET_SE_NO_FRAME))
+			if(!(si_ptr->mode & GET_SE_NO_FRAME))
 			{
-				put_str("|" ,y+i, x-1);
-				put_str("|" ,y+i, x+w);
+				put_str("|" ,si_ptr->y+i, si_ptr->x-1);
+				put_str("|" ,si_ptr->y+i, si_ptr->x+si_ptr->w);
 			}
 
-			if(offset >= num) continue; 
+			if(offset >= si_ptr->num) continue; 
 			sprintf(buf, se_ptr[offset].key == ESCAPE ? "ESC" : "[%c]", se_ptr[offset].key ? se_ptr[offset].key : 'a'+i);
 
 			if(offset == se)
 			{
-				c_put_str(TERM_WHITE, ">>", y+i, x);
-				c_put_str(TERM_WHITE, buf, y+i, x+2);
-				c_put_str(se_ptr[offset].l_color, se_ptr[offset].cap, y+i, x+6);
+				c_put_str(TERM_WHITE, ">>", si_ptr->y+i, si_ptr->x);
+				c_put_str(TERM_WHITE, buf, si_ptr->y+i, si_ptr->x+2);
+				c_put_str(se_ptr[offset].l_color, se_ptr[offset].cap, si_ptr->y+i, si_ptr->x+6);
 			}
 			else
 			{
-				c_put_str(TERM_L_DARK, buf, y+i, x+2);
-				c_put_str(se_ptr[offset].d_color, se_ptr[offset].cap, y+i, x+6);
+				c_put_str(TERM_L_DARK, buf, si_ptr->y+i, si_ptr->x+2);
+				c_put_str(se_ptr[offset].d_color, se_ptr[offset].cap, si_ptr->y+i, si_ptr->x+6);
 			}
 		}
 
-		if(page_num > 1 && !(mode & GET_SE_LEFT_RIGHT_SWITCHING))
+		if(page_num > 1 && !(si_ptr->mode & GET_SE_LEFT_RIGHT_SWITCHING))
 		{
 			sprintf(buf, "<= [%2d/%2d] =>", page, page_num);
-			c_put_str(TERM_L_BLUE, buf, y+h, x);
+			c_put_str(TERM_L_BLUE, buf, si_ptr->y+si_ptr->h, si_ptr->x);
 		}
 
-		if(detail) detail(se_ptr[se].code);
+		if(si_ptr->detail) si_ptr->detail(se_ptr[se].code);
 
 		c = inkey();
 		if(c == '2')
 		{
 			se++;
-			if(se >= num) se = 0;
+			if(se >= si_ptr->num) se = 0;
 		}
 		if(c == '8')
 		{
 			se--;
-			if(se < 0) se = num - 1;
+			if(se < 0) se = si_ptr->num - 1;
 		}
 		if(c == '6')
 		{
-			if(mode & GET_SE_LEFT_RIGHT_SWITCHING) return se_ptr[se].left_code;
-			else se += h;
+			if(si_ptr->mode & GET_SE_LEFT_RIGHT_SWITCHING) return se_ptr[se].left_code;
+			else se += si_ptr->h;
 		}
 		if(c == '4')
 		{
-			if(mode & GET_SE_LEFT_RIGHT_SWITCHING) return se_ptr[se].right_code;
-			else se -= h;
+			if(si_ptr->mode & GET_SE_LEFT_RIGHT_SWITCHING) return se_ptr[se].right_code;
+			else se -= si_ptr->h;
 		}
 		if(se < 0) se = 0;
-		if(se >= num) se = num - 1;
+		if(se >= si_ptr->num) se = si_ptr->num - 1;
 
 		if(c == '\r') return se_ptr[se].code;
-		if(c >= 'a' && c < 'a' + h && !se_ptr[h*(page-1)+c-'a'].key) return se_ptr[h*(page-1)+c-'a'].code;
-		for (i = 0; i < num; i++) if(se_ptr[i].key && se_ptr[i].key == c) return se_ptr[i].code;
+		if(c >= 'a' && c < 'a' + si_ptr->h && !se_ptr[si_ptr->h*(page-1)+c-'a'].key) return se_ptr[si_ptr->h*(page-1)+c-'a'].code;
+		for (i = 0; i < si_ptr->num; i++) if(se_ptr[i].key && se_ptr[i].key == c) return se_ptr[i].code;
 
-		page = se / h + 1;
+		page = se / si_ptr->h + 1;
 
 	}
 

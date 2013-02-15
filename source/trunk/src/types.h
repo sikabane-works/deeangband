@@ -1862,6 +1862,14 @@ typedef struct
 typedef struct
 {
 	cptr header;
+	int num;
+	int default_se;
+	int y;
+	int x;
+	int h;
+	int w;
+	void(*detail)(int);
+	s32b mode;
 } selection_info;
 
 //  A structure type for travel command

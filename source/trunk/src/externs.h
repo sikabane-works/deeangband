@@ -1390,7 +1390,7 @@ extern bool is_a_vowel(int ch);
 extern int get_keymap_dir(char ch);
 extern errr type_string(cptr str, uint len);
 extern void roff_to_buf(cptr str, int wlen, char *tbuf, size_t bufsize);
-extern int get_selection(selection_info *si_ptr, selection_table *se_ptr, int num, int default_se, int y, int x, int h, int w, void(*)(int), s32b mode);
+extern int get_selection(selection_info *si_ptr, selection_table *se_ptr);
 extern int get_multi_selection(selection_info *si_ptr, selection_table *se_ptr, int num, int y, int x, int h, int w, void(*detail)(int), u32b *ret);
 
 extern void tag_sort(tag_type elements[], int number);
