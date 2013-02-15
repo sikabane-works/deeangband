@@ -2368,6 +2368,9 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_GAIN_EXP "経験値を得た"
 #define MES_DIATY_PATRON_LOST_EXP "経験値を失った。"
 #define MES_DIATY_PATRON_GOOD_ITEM "上質なアイテムを手に入れた。"
+#define MES_DIATY_PATRON_GREAT_ITEM "高級品のアイテムを手に入れた。"
+#define MES_DIATY_PATRON_CHAOS_WP "(混沌)の武器を手に入れた。"
+#define MES_DIATY_PATRON_S_ENEMY "クリーチャーを召喚された。"
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -2406,6 +2409,9 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_GAIN_EXP "experience"
 #define MES_DIATY_PATRON_LOST_EXP "losing experience"
 #define MES_DIATY_PATRON_GOOD_ITEM "a good item"
+#define MES_DIATY_PATRON_GREAT_ITEM "an excellent item"
+#define MES_DIATY_PATRON_CHAOS_WP "chaos weapon"
+#define MES_DIATY_PATRON_S_ENEMY "summoning hostile creatures"
 #endif
 
 #ifdef JP

@@ -3074,23 +3074,15 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_GREA_OBJ:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GOOD_OBJ);
-#ifdef JP
-			reward = "高級品のアイテムを手に入れた。";
-#else
-			reward = "an excellent item";
-#endif
+			reward = MES_DIATY_PATRON_GREAT_ITEM;
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, 1, TRUE, FALSE);
 			break;
 
 		case REW_CHAOS_WP:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GOOD_WEP);
-#ifdef JP
-			reward = "(混沌)の武器を手に入れた。";
-#else
-			reward = "chaos weapon";
-#endif
-			/* Get local object */
+			reward = MES_DIATY_PATRON_CHAOS_WP;
+
 			quest_ptr = &forge;
 			dummy = TV_SWORD;
 			switch (randint1(creature_ptr->lev))
@@ -3197,11 +3189,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_GREA_OBS:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GREAT_OBS);
-#ifdef JP
-			reward = "高級品のアイテムを手に入れた。";
-#else
-			reward = "excellent items";
-#endif
+			reward = MES_DIATY_PATRON_GREAT_ITEM;
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, TRUE, FALSE);
 			break;
 
@@ -3219,11 +3207,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_TRAIT_S_ENEMY:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_S_ENEMY);
-#ifdef JP
-			reward = "クリーチャーを召喚された。";
-#else
-			reward = "summoning hostile creatures";
-#endif
+			reward = MES_DIATY_PATRON_S_ENEMY;
 			for (dummy = 0; dummy < randint1(5) + 1; dummy++)
 				(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			break;
@@ -3231,11 +3215,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_H_SUMMON:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_H_SUMMON);
-#ifdef JP
-			reward = "クリーチャーを召喚された。";
-#else
-			reward = "summoning many hostile creatures";
-#endif
+			reward = MES_DIATY_PATRON_S_ENEMY;
 			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 			break;
 
@@ -3366,11 +3346,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 				break;
 			case 2:
 				activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
-#ifdef JP
-				reward = "クリーチャーを召喚された。";
-#else
-				reward = "summoning hostile creatures";
-#endif
+				reward = MES_DIATY_PATRON_S_ENEMY;
 				break;
 			case 3:
 				if(one_in_(2))
