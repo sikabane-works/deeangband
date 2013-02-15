@@ -3330,6 +3330,16 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 {
 	int i, n = 0;
 	selection_table pt[400+3];
+	selection_info se_info;
+
+	se_info.mode = 0;
+	se_info.detail = NULL;
+	se_info.default_se = 0;
+	se_info.y = 5;
+	se_info.x = 2;
+	se_info.h = 18;
+	se_info.w = 76;
+	se_info.num = 0;
 
 	if(species_ptr->patron_idx != INDEX_VARIABLE)
 	{
@@ -3362,40 +3372,40 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 			if(!has_trait_raw(&species_info[i].flags, TRAIT_AMAN)) continue;		
 		}
 
-		strcpy(pt[n].cap, species_name + species_info[i].name);
-		pt[n].code = i;
-		pt[n].key = '\0';
-		pt[n].d_color = TERM_L_DARK;
-		pt[n].l_color = TERM_WHITE;
-		n++; 
+		strcpy(pt[se_info.num].cap, species_name + species_info[i].name);
+		pt[se_info.num].code = i;
+		pt[se_info.num].key = '\0';
+		pt[se_info.num].d_color = TERM_L_DARK;
+		pt[se_info.num].l_color = TERM_WHITE;
+		se_info.num++; 
 		
 		if(n == 400) break;
 	}
 
-	strcpy(pt[n].cap, KW_RANDOM);
-	pt[n].code = BIRTH_SELECT_RANDOM;
-	pt[n].key = '*';
-	pt[n].d_color = TERM_UMBER;
-	pt[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(pt[se_info.num].cap, KW_RANDOM);
+	pt[se_info.num].code = BIRTH_SELECT_RANDOM;
+	pt[se_info.num].key = '*';
+	pt[se_info.num].d_color = TERM_UMBER;
+	pt[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
-	strcpy(pt[n].cap, KW_BACK_TO_START);
-	pt[n].code = BIRTH_SELECT_RETURN;
-	pt[n].key = 'S';
-	pt[n].d_color = TERM_UMBER;
-	pt[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(pt[se_info.num].cap, KW_BACK_TO_START);
+	pt[se_info.num].code = BIRTH_SELECT_RETURN;
+	pt[se_info.num].key = 'S';
+	pt[se_info.num].d_color = TERM_UMBER;
+	pt[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
-	strcpy(pt[n].cap, KW_QUIT_GAME);
-	pt[n].code = BIRTH_SELECT_QUIT;
-	pt[n].key = 'Q';
-	pt[n].d_color = TERM_UMBER;
-	pt[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(pt[se_info.num].cap, KW_QUIT_GAME);
+	pt[se_info.num].code = BIRTH_SELECT_QUIT;
+	pt[se_info.num].key = 'Q';
+	pt[se_info.num].d_color = TERM_UMBER;
+	pt[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
 	if(npc)
 	{
-		creature_ptr->patron_idx = pt[randint0(n)].code;
+		creature_ptr->patron_idx = pt[randint0(se_info.num)].code;
 		return 0;
 	}
 
@@ -3405,7 +3415,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 	put_str("Select a patron:", 0, 0);
 #endif
 	if(!npc) put_initial_status(creature_ptr);
-	i = get_selection(NULL, pt, n, 0, 5, 2, 18, 76, NULL, 0);
+	i = get_selection(&se_info, pt);
 
 	if(i >= 0)
 	{
