@@ -3267,11 +3267,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_HEAL_FUL:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_HEAL_FUL);
-#ifdef JP
-			reward = "体力が回復した。";
-#else
-			reward = "healing";
-#endif
+			reward = MES_DIARY_PATRON_HEALING;
 			do_active_trait(creature_ptr, TRAIT_TRUE_HEALING2, TRUE);
 			break;
 
@@ -3372,33 +3368,21 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_DESTRUCT:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_HAVOC);
-#ifdef JP
-			reward = "ダンジョンが*破壊*された。";
-#else
-			reward = "*destruct*ing dungeon";
-#endif
+			reward = MES_DIARY_PATRON_DESTRUCTION;
 			(void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 25, FALSE);
 			break;
 
 		case REW_GENOCIDE:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GENOCIDE);
-#ifdef JP
-			reward = "クリーチャーが抹殺された。";
-#else
-			reward = "genociding creatures";
-#endif
+			reward = MES_DIARY_PATRON_GENOCIDE;
 			(void)symbol_genocide(creature_ptr, 0, FALSE);
 			break;
 
 		case REW_MASS_GEN:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GENOCIDE);
-#ifdef JP
-			reward = "クリーチャーが抹殺された。";
-#else
-			reward = "genociding nearby creatures";
-#endif
+			reward = MES_DIARY_PATRON_GENOCIDE;
 			(void)mass_genocide(creature_ptr, 0, FALSE);
 			break;
 
@@ -3417,11 +3401,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DEMON, PC_FORCE_PET))
 				msg_print(MES_SUMMON_NOTHING);
 			else
-#ifdef JP
-				reward = "悪魔がペットになった。";
-#else
-				reward = "a demonic servant";
-#endif
+				reward = MES_DIARY_PATRON_DEMONIC_SERVANT;
 			break;
 
 		case REW_SER_MONS:
@@ -3429,11 +3409,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, PC_FORCE_PET))
 				msg_print(MES_SUMMON_NOTHING);
 			else
-#ifdef JP
-				reward = "クリーチャーがペットになった。";
-#else
-				reward = "a servant";
-#endif
+				reward = MES_DIARY_PATRON_SERVANT;
 			break;
 
 		case REW_SER_UNDE:
@@ -3441,11 +3417,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_UNDEAD, PC_FORCE_PET))
 				msg_print(MES_SUMMON_NOTHING);
 			else
-#ifdef JP
-				reward = "アンデッドがペットになった。";
-#else
-				reward = "an undead servant";
-#endif
+				reward = MES_DIARY_PATRON_UNDEAD_SERVANT;
 			break;
 
 		default:

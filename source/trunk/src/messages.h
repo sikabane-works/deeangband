@@ -2379,6 +2379,12 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_RUIN_ABL "全能力値が下がった。"
 #define MES_DIARY_PATRON_POLY_WND "傷が変化した。"
 #define MES_DIARY_PATRON_HURT_LOT "分解の球が発生した。"
+#define MES_DIARY_PATRON_DESTRUCTION "ダンジョンが*破壊*された。"
+#define MES_DIARY_PATRON_GENOCIDE "クリーチャーが抹殺された。"
+#define MES_DIARY_PATRON_SERVANT "クリーチャーがペットになった。"
+#define MES_DIARY_PATRON_DEMONIC_SERVANT "悪魔がペットになった。"
+#define MES_DIARY_PATRON_UNDEAD_SERVANT "アンデッドがペットになった。"
+#define MES_DIARY_PATRON_HEALING "体力が回復した。"
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -2428,6 +2434,12 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_RUIN_ABL "decreasing all stats"
 #define MES_DIARY_PATRON_POLY_WND "polymorphing wounds"
 #define MES_DIARY_PATRON_HURT_LOT "generating disintegration ball"
+#define MES_DIARY_PATRON_DESTRUCTION "*destruct*ing dungeon"
+#define MES_DIARY_PATRON_GENOCIDE "genociding creatures"
+#define MES_DIARY_PATRON_SERVANT "a servant"
+#define MES_DIARY_PATRON_DEMONIC_SERVANT "a demonic servant"
+#define MES_DIARY_PATRON_UNDEAD_SERVANT "an undead servant"
+#define MES_DIARY_PATRON_HEALING "healing"
 #endif
 
 #ifdef JP
