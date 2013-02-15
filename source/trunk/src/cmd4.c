@@ -8443,33 +8443,43 @@ static void do_cmd_knowledge_autopick(void)
 // Interact with "knowledge"
 void do_cmd_knowledge(creature_type *creature_ptr)
 {
-	int i, j, p = 0;
+	int j, p = 0;
 	bool need_redraw = FALSE;
 	selection_table se[20];
+	selection_info se_info;
+
+	se_info.mode = 0;
+	se_info.detail = NULL;
+	se_info.default_se = 0;
+	se_info.y = 5;
+	se_info.x = 5;
+	se_info.h = 20;
+	se_info.w = 30;
+	se_info.num = 0;
 
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	for(i = 0; i < 17; i++)
+	for(se_info.num = 0; se_info.num < 17; se_info.num++)
 	{
-		strcpy(se[i].cap, knowledge_list[i]);
-		se[i].d_color = TERM_L_DARK;
-		se[i].l_color = TERM_L_WHITE;
-		se[i].code = i;
-		se[i].key = '\0';
+		strcpy(se[se_info.num].cap, knowledge_list[se_info.num]);
+		se[se_info.num].d_color = TERM_L_DARK;
+		se[se_info.num].l_color = TERM_L_WHITE;
+		se[se_info.num].code = se_info.num;
+		se[se_info.num].key = '\0';
 	}
 
-	strcpy(se[i].cap, "ESC");
-	se[i].d_color = TERM_L_DARK;
-	se[i].l_color = TERM_L_WHITE;
-	se[i].code = i;
-	se[i].key = ESCAPE;
-	i++;
+	strcpy(se[se_info.num].cap, "ESC");
+	se[se_info.num].d_color = TERM_L_DARK;
+	se[se_info.num].l_color = TERM_L_WHITE;
+	se[se_info.num].code = se_info.num;
+	se[se_info.num].key = ESCAPE;
+	se_info.num++;
 
 	screen_save();
 	while(TRUE)
 	{
-		j = get_selection(NULL, se, i, 0, 5, 5, 20, 30, NULL, 0);
+		j = get_selection(&se_info, se);
 
 		switch (j)
 		{
