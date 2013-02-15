@@ -3182,7 +3182,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	if(do_poly && (randint1(90) > target_ptr->lev * 2))
 	{
-		if(polymorph_creature(player_ptr, ty, tx))
+		if(polymorph_creature(target_ptr))
 		{
 #ifdef JP
 			note = "‚ª•Ïg‚µ‚½I";

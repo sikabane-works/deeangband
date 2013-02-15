@@ -540,7 +540,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	{
 		if(!(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_QUESTOR)) && !has_trait(target_ptr, TRAIT_RES_CHAO))
 		{
-			if(polymorph_creature(attacker_ptr, y, x))
+			if(polymorph_creature(target_ptr))
 			{
 #ifdef JP
 				msg_format("%^s‚Í•Ï‰»‚µ‚½I", target_name);

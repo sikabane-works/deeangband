@@ -4350,24 +4350,22 @@ static s16b poly_species_idx(int pre_species_idx)
 	return (after_species_idx);
 }
 
-
-bool polymorph_creature(creature_type *creature_ptr, int y, int x)
+bool polymorph_creature(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
+	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	bool polymorphed = FALSE;
 	int new_species_idx;
-	int old_species_idx = m_ptr->species_idx;
+	int old_species_idx = creature_ptr->species_idx;
 	bool targeted = (target_who == c_ptr->creature_idx) ? TRUE : FALSE;
 	bool health_tracked = (npc_status_id == c_ptr->creature_idx) ? TRUE : FALSE;
 	creature_type back_m;
 
 	if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) return FALSE;
-	if((creature_ptr->riding == c_ptr->creature_idx) || has_trait(m_ptr, TRAIT_KAGE)) return FALSE;
+	if((creature_ptr->riding == c_ptr->creature_idx) || has_trait(creature_ptr, TRAIT_KAGE)) return FALSE;
 
 	/* Memorize the creature before polymorphing */
-	back_m = *m_ptr;
+	back_m = *creature_ptr;
 
 	/* Pick a "new" creature race */
 	new_species_idx = poly_species_idx(old_species_idx);
@@ -4379,9 +4377,9 @@ bool polymorph_creature(creature_type *creature_ptr, int y, int x)
 		s16b next_object_idx = 0;
 
 		/* Get the creatures attitude */
-		if(is_friendly(player_ptr, m_ptr)) mode |= PC_FORCE_FRIENDLY;
-		if(is_pet(player_ptr, m_ptr)) mode |= PC_FORCE_PET;
-		if(has_trait(m_ptr, TRAIT_NO_PET)) mode |= PC_NO_PET;
+		if(is_friendly(player_ptr, creature_ptr)) mode |= PC_FORCE_FRIENDLY;
+		if(is_pet(player_ptr, creature_ptr)) mode |= PC_FORCE_PET;
+		if(has_trait(creature_ptr, TRAIT_NO_PET)) mode |= PC_NO_PET;
 
 		//TODO inventory process
 
