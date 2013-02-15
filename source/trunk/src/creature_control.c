@@ -3633,13 +3633,8 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, floor_type *floo
 	return TRUE;
 }
 
-
-/*
-* Maximum size of a group of creatures
-*/
+// Maximum size of a group of creatures
 #define GROUP_MAX	32
-
-
 
 // Attempt to place a "group" of creatures around the given location
 static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode)
@@ -4021,9 +4016,9 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 		if(alloc_horde(NULL, floor_ptr, y, x))
 		{
 #ifdef JP
-			//			if(cheat_hear) msg_format("クリーチャーの大群(%c)", summon_kin_type);
+			if(cheat_hear) msg_format("クリーチャーの大群(%c)");
 #else
-			//			if(cheat_hear) msg_format("Creature horde (%c).", summon_kin_type);
+			if(cheat_hear) msg_format("Creature horde (%c).");
 #endif
 			return TRUE;
 		}
@@ -4114,23 +4109,19 @@ bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, i
 {
 	int x, y;
 
-	/* Prevent illegal creatures */
+	// Prevent illegal creatures
 	if(species_idx >= max_species_idx) return FALSE;
-
 	if(floor_ptr->fight_arena_mode) return FALSE;
-
 	if(!creature_scatter(species_idx, &y, &x, floor_ptr, oy, ox, 2)) return FALSE;
 
-	/* Place it (allow groups) */
+	// Place it (allow groups)
 	return place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, (mode | PC_NO_KAGE));
 }
 
 
-/*
-* Let the given creature attempt to reproduce.
-*
-* Note that "reproduction" REQUIRES empty space.
-*/
+
+// Let the given creature attempt to reproduce.
+// Note that "reproduction" REQUIRES empty space.
 bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 {
 	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
@@ -4142,9 +4133,8 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 
 	if(has_trait(creature_ptr, TRAIT_NO_PET)) mode |= PC_NO_PET;
 
-	/* Create a new creature (awake, no groups) */
-	if(!place_creature_species(creature_ptr, floor_ptr, y, x, creature_ptr->species_idx, (mode | PC_NO_KAGE | PC_MULTIPLY)))
-		return FALSE;
+	// Create a new creature (awake, no groups)
+	if(!place_creature_species(creature_ptr, floor_ptr, y, x, creature_ptr->species_idx, (mode | PC_NO_KAGE | PC_MULTIPLY))) return FALSE;
 
 	/* Hack -- Transfer "clone" flag */
 	if(clone || has_trait(creature_ptr, TRAIT_CLONED))
@@ -4163,7 +4153,6 @@ void message_pain(int m_idx, int dam)
 {
 	long oldhp, newhp, tmp;
 	int percentage;
-
 	creature_type *creature_ptr = &creature_list[m_idx];
 	char creature_name[MAX_NLEN];
 
@@ -4481,13 +4470,9 @@ void message_pain(int m_idx, int dam)
 
 bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, int x)
 {
-
 	if(floor_ptr->cave[y][x].creature_idx != 0) return FALSE;
-
-	/* Save player location */
 	creature_ptr->fy = y;
 	creature_ptr->fx = x;
-
 	return TRUE;
 }
 
