@@ -1645,34 +1645,44 @@ static void do_cmd_options_autosave(cptr info)
 void do_cmd_options_aux(int page, cptr info)
 {
 	selection_table se[25];
+	selection_info se_info;
 	int     opt[24];
-	int i, j = 0, n = 0;
+	int i, n = 0;
 
-	for (i = 0; i < 24; i++) opt[i] = 0;	// Lookup the options
+	se_info.mode = GET_SE_LEFT_RIGHT_SWITCHING;
+	se_info.detail = NULL;
+	se_info.default_se = 0;
+	se_info.y = 2;
+	se_info.x = 1;
+	se_info.h = 20;
+	se_info.w = 78;
+	se_info.num = 0;
+
+	for (i = 0; i < 24; i++) opt[se_info.num] = 0;	// Lookup the options
 	for (i = 0; option_info[i].o_desc; i++) // Scan the options
 		if(option_info[i].o_page == page) opt[n++] = i;
 
 	prt(info, 0, 0);
 	while(TRUE)
 	{
-		for (i = 0; i < n; i++)
+		for (se_info.num = 0; se_info.num < n; se_info.num++)
 		{
-			sprintf(se[i].cap, "%-45s:%-6s(%.19s)", option_info[opt[i]].o_desc, (*option_info[opt[i]].o_var ? KW_YES : KW_NO), option_info[opt[i]].o_text);
-			se[i].d_color = TERM_L_DARK;
-			se[i].l_color = TERM_WHITE;
-			se[i].code = se[i].left_code = se[i].right_code = i;
-			se[i].key = '\0';			
+			sprintf(se[se_info.num].cap, "%-45s:%-6s(%.19s)", option_info[opt[se_info.num]].o_desc, (*option_info[opt[se_info.num]].o_var ? KW_YES : KW_NO), option_info[opt[se_info.num]].o_text);
+			se[se_info.num].d_color = TERM_L_DARK;
+			se[se_info.num].l_color = TERM_WHITE;
+			se[se_info.num].code = se[se_info.num].left_code = se[se_info.num].right_code = i;
+			se[se_info.num].key = '\0';			
 		}
-		strcpy(se[i].cap, "Œˆ’è");
-		se[i].d_color = TERM_BLUE;
-		se[i].l_color = TERM_L_BLUE;
-		se[i].code = i;
-		se[i].left_code = se[i].right_code = -1;
-		se[i].key = ESCAPE;
-		i++;
-		j = get_selection(NULL, se, i, j, 2, 1, 20, 78, NULL, GET_SE_LEFT_RIGHT_SWITCHING);
-		if(j == i - 1) break;
-		else if (j >= 0) *(option_info[opt[j]].o_var) = !(*(option_info[opt[j]].o_var));
+		strcpy(se[se_info.num].cap, "Œˆ’è");
+		se[se_info.num].d_color = TERM_BLUE;
+		se[se_info.num].l_color = TERM_L_BLUE;
+		se[se_info.num].code = i;
+		se[se_info.num].left_code = se[se_info.num].right_code = -1;
+		se[se_info.num].key = ESCAPE;
+		se_info.num++;
+		se_info.default_se = get_selection(&se_info, se);
+		if(se_info.default_se == i - 1) break;
+		else if (se_info.default_se >= 0) *(option_info[opt[se_info.default_se]].o_var) = !(*(option_info[opt[se_info.default_se]].o_var));
 
 	}
 
