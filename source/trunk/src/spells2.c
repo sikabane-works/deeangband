@@ -1447,7 +1447,7 @@ bool probing(floor_type *floor_ptr)
 			msg_print(NULL);
 			if(!is_original_ap(m_ptr))
 			{
-				if(has_trait(m_ptr, TRAIT_KAGE)) lose_mutative_trait(m_ptr, TRAIT_KAGE);
+				if(has_trait(m_ptr, TRAIT_KAGE)) set_timed_trait(m_ptr, TRAIT_KAGE, 0, FALSE);
 
 				m_ptr->ap_species_idx = m_ptr->species_idx;
 				lite_spot(floor_ptr, m_ptr->fy, m_ptr->fx);

@@ -4364,7 +4364,6 @@ bool polymorph_creature(creature_type *creature_ptr, int y, int x)
 	creature_type back_m;
 
 	if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) return FALSE;
-
 	if((creature_ptr->riding == c_ptr->creature_idx) || has_trait(m_ptr, TRAIT_KAGE)) return FALSE;
 
 	/* Memorize the creature before polymorphing */

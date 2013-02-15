@@ -3306,7 +3306,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	{
 		if(species_info[species_idx].cur_num >= species_info[species_idx].max_num)
 		{
-			if(cheat_hear) msg_format("[Creature Max Limit]");
+			if(cheat_hear) msg_format("[Creature Max Limit ID:%d=%d/%d]", species_info[species_idx].cur_num, species_info[species_idx].max_num);
 			return max_creature_idx;
 		}
 			
@@ -3345,9 +3345,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	{
 		if(randint1(BREAK_GLYPH) < (species_ptr->level + 20))
 		{
-			if(c_ptr->info & CAVE_MARK) // Describe observable breakage
-				msg_print(GAME_MESSAGE_BREAK_P_RUNE);
-
+			if(c_ptr->info & CAVE_MARK) msg_print(GAME_MESSAGE_BREAK_P_RUNE);
 			c_ptr->info &= ~(CAVE_MARK);	// Forget the rune
 			c_ptr->info &= ~(CAVE_OBJECT);	// Break the rune
 			c_ptr->mimic = 0;
@@ -3364,7 +3362,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if(summoner_ptr && (mode & PC_MULTIPLY) && !is_player(summoner_ptr) && !is_original_ap(summoner_ptr))
 	{
 		creature_ptr->ap_species_idx = summoner_ptr->ap_species_idx;
-		if(has_trait(summoner_ptr, TRAIT_KAGE)) get_mutative_trait(creature_ptr, TRAIT_KAGE); // Hack -- Shadower spawns Shadower
+		if(has_trait(summoner_ptr, TRAIT_KAGE)) set_timed_trait(creature_ptr, TRAIT_KAGE, PERMANENT_TIMED, FALSE);
 	}
 
 	// Sub-alignment of a creature
@@ -3402,7 +3400,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	else if((mode & PC_KAGE) && !(mode & PC_FORCE_PET))
 	{
 		creature_ptr->ap_species_idx = SPECIES_KAGE;
-		get_mutative_trait(creature_ptr, TRAIT_KAGE);
+		set_timed_trait(creature_ptr, TRAIT_KAGE, PERMANENT_TIMED, FALSE);
 	}
 
 	if(mode & PC_NO_PET) set_timed_trait(creature_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
