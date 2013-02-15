@@ -2561,3 +2561,13 @@ static cptr desc_stat_neg[] =
 #define MES_SNIPE_CONCENTRATE(LEVEL) "You concentrate deeply. (level %d)", (LEVEL)
 #define MES_SNIPE_RESET_CONS "Stop concentrating."
 #endif
+
+#ifdef JP
+#define MES_ENCHANT_WHICH_WEAPON "‚Ç‚Ì•Ší‚ğ‹­‰»‚µ‚Ü‚·‚©? "
+#define MES_ENCHANT_NO_WEAPON "‹­‰»‚Å‚«‚é•Ší‚ª‚È‚¢B"
+#define MES_ENCHANT_FAILED "‘®«•t‰Á‚É¸”s‚µ‚½B"
+#else
+#define MES_ENCHANT_WHICH_WEAPON "Enchant which weapon? "
+#define MES_ENCHANT_NO_WEAPON "You have nothing to enchant."
+#define MES_ENCHANT_FAILED "The Branding failed."
+#endif

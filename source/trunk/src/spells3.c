@@ -1143,19 +1143,9 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 {
 	int         item;
 	object_type *object_ptr;
-	cptr        q, s;
-
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-#ifdef JP
-	q = "‚Ç‚Ì•Ší‚ğ‹­‰»‚µ‚Ü‚·‚©? ";
-	s = "‹­‰»‚Å‚«‚é•Ší‚ª‚È‚¢B";
-#else
-	q = "Enchant which weapon? ";
-	s = "You have nothing to enchant.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP), object_allow_enchant_melee_weapon, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_ENCHANT_WHICH_WEAPON, MES_ENCHANT_NO_WEAPON, (USE_EQUIP), object_allow_enchant_melee_weapon, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* you can never modify artifacts / ego-items */
@@ -1368,13 +1358,7 @@ msg_format("‚ ‚È‚½‚Ì%s%s", object_name, act);
 	else
 	{
 		if(flush_failure) flush();
-
-#ifdef JP
-		msg_print("‘®«•t‰Á‚É¸”s‚µ‚½B");
-#else
-		msg_print("The Branding failed.");
-#endif
-
+		msg_print(MES_ENCHANT_FAILED);
 	}
 	calc_android_exp(creature_ptr);
 }
