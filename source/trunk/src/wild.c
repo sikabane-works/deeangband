@@ -515,7 +515,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 				/* Get the cave grid */
 				c_ptr = &floor_ptr->cave[y][x];
 
-				if(cave_have_flag_grid(c_ptr, FF_ENTRANCE))
+				if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_ENTRANCE))
 				{
 					if(c_ptr->creature_idx) delete_species_idx(&creature_list[c_ptr->creature_idx]);
 					player_ptr->oldpy = y;

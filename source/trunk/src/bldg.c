@@ -3533,7 +3533,7 @@ void do_cmd_quest(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cost_tactical_energy(creature_ptr, 100);
 
-	if(!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_QUEST_ENTER))
+	if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_QUEST_ENTER))
 	{
 		msg_print(MES_QUEST_NO_ENTRANCE);
 		return;
@@ -3572,7 +3572,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 	cost_tactical_energy(creature_ptr, 100);
 
-	if(!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_BLDG))
+	if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_BLDG))
 	{
 		msg_print(MES_BLDG_NO_BLDG);
 		return;

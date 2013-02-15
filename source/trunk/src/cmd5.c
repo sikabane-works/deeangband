@@ -1347,12 +1347,12 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 			if(c_ptr->creature_idx) continue;
 
 			/* Skip non-empty grids */
-			if(!cave_have_flag_grid(c_ptr, FF_MOVE) && !cave_have_flag_grid(c_ptr, FF_CAN_FLY))
+			if(!CAVE_HAVE_FLAG_GRID(c_ptr, FF_MOVE) && !CAVE_HAVE_FLAG_GRID(c_ptr, FF_CAN_FLY))
 			{
 				if(!player_can_ride_aux(creature_ptr, c_ptr, FALSE)) continue;
 			}
 
-			if(cave_have_flag_grid(c_ptr, FF_PATTERN)) continue;
+			if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_PATTERN)) continue;
 
 			/* Count "safe" grids */
 			sn++;

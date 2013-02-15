@@ -23,7 +23,7 @@ static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, 
 	if(!have_flag(f_ptr->flags, FF_TELEPORTABLE)) return FALSE;
 
 	if(c_ptr->creature_idx && (&creature_list[c_ptr->creature_idx] != creature_ptr)) return FALSE;
-	if(creature_bold(creature_ptr, y, x)) return FALSE;
+	if(CREATURE_BOLD(creature_ptr, y, x)) return FALSE;
 
 	/* Hack -- no teleport onto glyph of warding */
 	if(is_glyph_grid(c_ptr)) return FALSE;
@@ -373,7 +373,7 @@ bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 		if(!pick) break;
 	}
 
-	if(creature_bold(creature_ptr, y, x)) return FALSE;
+	if(CREATURE_BOLD(creature_ptr, y, x)) return FALSE;
 
 	sound(SOUND_TELEPORT);
 
@@ -1488,7 +1488,7 @@ void call_the_void(creature_type *creature_ptr)
 	{
 		c_ptr = &floor_ptr->cave[creature_ptr->fy + ddy_ddd[i]][creature_ptr->fx + ddx_ddd[i]];
 
-		if(!cave_have_flag_grid(c_ptr, FF_PROJECT))
+		if(!CAVE_HAVE_FLAG_GRID(c_ptr, FF_PROJECT))
 		{
 			if(!c_ptr->mimic || !have_flag(feature_info[c_ptr->mimic].flags, FF_PROJECT) ||
 			    !permanent_wall(&feature_info[c_ptr->feat]))
@@ -1667,7 +1667,7 @@ void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool requir
 			c_ptr = &floor_ptr->cave[ty][tx];
 
 			if((distance(creature_ptr->fy, creature_ptr->fx, ty, tx) > MAX_RANGE) ||
-				!cave_have_flag_bold(floor_ptr, ty, tx, FF_PROJECT)) return;
+				!CAVE_HAVE_FLAG_BOLD(floor_ptr, ty, tx, FF_PROJECT)) return;
 		}
 		while (!c_ptr->object_idx);
 	}

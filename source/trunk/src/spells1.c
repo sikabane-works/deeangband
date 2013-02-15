@@ -368,7 +368,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 			else if(!(flg & (PROJECT_PATH)))
 			{
 				/* Always stop at non-initial wall grids */
-				if((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
+				if((n > 0) && !CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
 			/* Sometimes stop at non-initial creatures/players */
@@ -455,7 +455,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 			else if(!(flg & (PROJECT_PATH)))
 			{
 				/* Always stop at non-initial wall grids */
-				if((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
+				if((n > 0) && !CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
 			/* Sometimes stop at non-initial creatures/players */
@@ -524,7 +524,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 			else if(!(flg & (PROJECT_PATH)))
 			{
 				/* Always stop at non-initial wall grids */
-				if((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
+				if((n > 0) && !CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
 			/* Sometimes stop at non-initial creatures/players */
@@ -851,7 +851,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			if(!cave_naked_bold(floor_ptr, y, x)) break;
 
 			/* Not on the player */
-			if(creature_bold(aimer_ptr, y, x)) break;
+			if(CREATURE_BOLD(aimer_ptr, y, x)) break;
 
 			/* Create a closed door */
 			cave_set_feat(floor_ptr, y, x, feat_door[DOOR_DOOR].closed);
@@ -878,7 +878,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			if(!cave_naked_bold(floor_ptr, y, x)) break;
 
 			/* Not on the player */
-			if(creature_bold(aimer_ptr, y, x)) break;
+			if(CREATURE_BOLD(aimer_ptr, y, x)) break;
 
 			/* Create a closed door */
 			cave_set_feat(floor_ptr, y, x, feat_tree);
@@ -912,7 +912,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			if(!cave_naked_bold(floor_ptr, y, x)) break;
 
 			/* Not on the player */
-			if(creature_bold(aimer_ptr, y, x)) break;
+			if(CREATURE_BOLD(aimer_ptr, y, x)) break;
 
 			/* Place a wall */
 			cave_set_feat(floor_ptr, y, x, feat_granite);
@@ -991,7 +991,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 
 				if(aimer_ptr->posture & NINJA_S_STEALTH)
 				{
-					if(creature_bold(aimer_ptr, y, x)) set_superstealth(aimer_ptr, FALSE);
+					if(CREATURE_BOLD(aimer_ptr, y, x)) set_superstealth(aimer_ptr, FALSE);
 				}
 			}
 
@@ -4200,7 +4200,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 				}
 			}
 			if(project_object(caster_ptr,0,y,x,dam,DO_EFFECT_SUPER_RAY) )notice=TRUE;
-			if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
+			if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT))
 			{
 				if( second_step )continue;
 				break;
@@ -4265,7 +4265,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 
 		if(flg & PROJECT_DISI) if(cave_stop_disintegration(floor_ptr, ny, nx) && (rad > 0)) break;
 		else if(flg & PROJECT_LOS) if(!cave_los_bold(floor_ptr, ny, nx) && (rad > 0)) break;
-		else if(!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT) && (rad > 0)) break;
+		else if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, ny, nx, FF_PROJECT) && (rad > 0)) break;
 
 		/* Advance */
 		y = ny;
@@ -4653,7 +4653,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 					if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_REFLECTING);
 
 					/* Reflected bolts randomly target either one */
-					if(creature_bold(player_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
+					if(CREATURE_BOLD(player_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
 					else flg |= PROJECT_PLAYER;
 
 					/* The bolt is reflected */
@@ -4677,7 +4677,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 
 
 			/* There is the riding player on this creature */
-			if(caster_ptr && player_ptr->riding && creature_bold(caster_ptr, y, x))
+			if(caster_ptr && player_ptr->riding && CREATURE_BOLD(caster_ptr, y, x))
 			{
 				/* Aimed on the player */
 				if(flg & PROJECT_PLAYER)
@@ -4795,7 +4795,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 			x = gx[i];
 
 			/* Affect the player? */
-			if(!creature_bold(player_ptr, y, x)) continue;
+			if(!CREATURE_BOLD(player_ptr, y, x)) continue;
 
 			/* Find the closest point in the blast */
 			if(breath)

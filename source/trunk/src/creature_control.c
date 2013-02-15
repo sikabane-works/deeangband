@@ -3293,7 +3293,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if(!(mode & PC_IGNORE_TERRAIN))
 	{
 		if(pattern_tile(floor_ptr, y, x)) return max_creature_idx;
-		if(cave_have_flag_bold(floor_ptr, y, x, FF_CHAOS_TAINTED)) return max_creature_idx;
+		if(CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_CHAOS_TAINTED)) return max_creature_idx;
 
 		if(!species_can_enter(floor_ptr, y, x, species_ptr, 0)) // Require empty space (if not ghostly)
 		{

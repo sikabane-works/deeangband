@@ -3336,7 +3336,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, int y
 
 	// Mega-Hack -- no message if "dropped" by player
 	// Message when an object falls under the player
-	if(chance && creature_bold(player_ptr, by, bx)) msg_print(MES_OBJECT_DROP_FEET);
+	if(chance && CREATURE_BOLD(player_ptr, by, bx)) msg_print(MES_OBJECT_DROP_FEET);
 	return (object_idx);
 }
 
@@ -3440,7 +3440,7 @@ void disclose_grid(floor_type *floor_ptr, int y, int x)
 {
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
-	if(cave_have_flag_grid(c_ptr, FF_SECRET))
+	if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_SECRET))
 		cave_alter_feat(floor_ptr, y, x, FF_SECRET);
 	else if(c_ptr->mimic)
 	{

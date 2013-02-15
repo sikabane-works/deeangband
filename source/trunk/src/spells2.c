@@ -442,7 +442,7 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 			}
 
 			/* Detect flags */
-			if(cave_have_flag_grid(c_ptr, flag))
+			if(CAVE_HAVE_FLAG_GRID(c_ptr, flag))
 			{
 				/* Detect secrets */
 				disclose_grid(floor_ptr, y, x);
@@ -1588,7 +1588,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
 				/* Hack -- Notice player affect */
-				if(creature_bold(caster_ptr, y, x))
+				if(CREATURE_BOLD(caster_ptr, y, x))
 				{
 					flag = TRUE;
 					continue;
@@ -1928,11 +1928,11 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 			if(!map[16+yy-cy][16+xx-cx]) continue; // Skip unaffected grids
 			c_ptr = &floor_ptr->cave[yy][xx]; // Access the cave grid
 
-			if(creature_bold(caster_ptr, yy, xx)) continue; // Paranoia -- never affect player
+			if(CREATURE_BOLD(caster_ptr, yy, xx)) continue; // Paranoia -- never affect player
 			if(cave_valid_bold(floor_ptr, yy, xx)) // Destroy location (if valid)
 			{
 				delete_object(floor_ptr, yy, xx); // Delete objects
-				t = cave_have_flag_bold(floor_ptr, yy, xx, FF_PROJECT) ? randint0(100) : 200; // Wall (or floor) type
+				t = CAVE_HAVE_FLAG_BOLD(floor_ptr, yy, xx, FF_PROJECT) ? randint0(100) : 200; // Wall (or floor) type
 
 				if(t < 20) cave_set_feat(floor_ptr, yy, xx, feat_granite); // Granite
 				else if(t < 70) cave_set_feat(floor_ptr, yy, xx, feat_quartz_vein); // Quartz
@@ -2305,7 +2305,7 @@ static void cave_temp_lite_room_aux(creature_type *caster_ptr, int y, int x)
 */
 static bool cave_pass_dark_bold(floor_type *floor_ptr, int y, int x)
 {
-	return cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT);
+	return CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT);
 }
 
 /*
@@ -2840,8 +2840,8 @@ void wall_breaker(creature_type *creature_ptr)
 		while (attempts--)
 		{
 			scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 4, 0);
-			if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
-			if(!creature_bold(creature_ptr, y, x)) break;
+			if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
+			if(!CREATURE_BOLD(creature_ptr, y, x)) break;
 		}
 		project(0, 0, 0, y, x, 20 + randint1(30), DO_EFFECT_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 	}
@@ -2858,7 +2858,7 @@ void wall_breaker(creature_type *creature_ptr)
 			while (1)
 			{
 				scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 10, 0);
-				if(!creature_bold(creature_ptr, y, x)) break;
+				if(!CREATURE_BOLD(creature_ptr, y, x)) break;
 			}
 			project(0, 0, 0, y, x, 20 + randint1(30), DO_EFFECT_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 		}
@@ -2981,7 +2981,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		}
 
 		/* Move player before updating the creature */
-		if(!creature_bold(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
+		if(!CREATURE_BOLD(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
 
 		/* Update the creature */
 		update_creature_view(player_ptr, floor_ptr->cave[ny][nx].creature_idx, TRUE);
@@ -2993,20 +2993,20 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		{
 			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 		}
-		else if(!creature_bold(creature_ptr, ty, tx))
+		else if(!CREATURE_BOLD(creature_ptr, ty, tx))
 		{
 			creature_desc(m_name, m_ptr, 0);
 			msg_format(MES_RUSH_DONE(m_name));
 		}
 
-		if(!creature_bold(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
+		if(!CREATURE_BOLD(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
 		moved = TRUE;
 		tmp_mdeath = close_combat(creature_ptr, ny, nx, HISSATSU_NYUSIN);
 
 		break;
 	}
 
-	if(!moved && !creature_bold(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
+	if(!moved && !CREATURE_BOLD(creature_ptr, ty, tx)) teleport_creature_to(creature_ptr, ty, tx, TELEPORT_NONMAGICAL);
 
 	if(mdeath) *mdeath = tmp_mdeath;
 	return TRUE;

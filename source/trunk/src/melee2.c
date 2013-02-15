@@ -34,7 +34,7 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 
 	creature_type *t_ptr;
 
-	if(riding_t_m_idx && creature_bold(creature_ptr, m_ptr->fy, m_ptr->fx))
+	if(riding_t_m_idx && CREATURE_BOLD(creature_ptr, m_ptr->fy, m_ptr->fx))
 	{
 		y = creature_list[riding_t_m_idx].fy;
 		x = creature_list[riding_t_m_idx].fx;
@@ -293,7 +293,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		if(!in_bounds2(floor_ptr, y, x)) continue;
 
 		/* Simply move to player */
-		if(creature_bold(player_ptr, y, x)) return FALSE;
+		if(CREATURE_BOLD(player_ptr, y, x)) return FALSE;
 
 		c_ptr = &floor_ptr->cave[y][x];
 
@@ -1814,7 +1814,7 @@ static void process_nonplayer(int m_idx)
 		y_ptr = &creature_list[c_ptr->creature_idx];
 
 		/* Hack -- player 'in' wall */
-		if(creature_bold(player_ptr, ny, nx))
+		if(CREATURE_BOLD(player_ptr, ny, nx))
 		{
 			do_move = TRUE;
 		}
@@ -1961,7 +1961,7 @@ static void process_nonplayer(int m_idx)
 		}
 
 		/* Hack -- check for Glyph of Warding */
-		if(do_move && is_glyph_grid(c_ptr) && !has_trait(creature_ptr, TRAIT_NEVER_BLOW) && creature_bold(player_ptr, ny, nx))
+		if(do_move && is_glyph_grid(c_ptr) && !has_trait(creature_ptr, TRAIT_NEVER_BLOW) && CREATURE_BOLD(player_ptr, ny, nx))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
@@ -1986,7 +1986,7 @@ static void process_nonplayer(int m_idx)
 			}
 		}
 		else if(do_move && is_explosive_rune_grid(c_ptr) &&
-			 !(has_trait(creature_ptr, TRAIT_NEVER_BLOW) && creature_bold(player_ptr, ny, nx)))
+			 !(has_trait(creature_ptr, TRAIT_NEVER_BLOW) && CREATURE_BOLD(player_ptr, ny, nx)))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
@@ -2026,7 +2026,7 @@ static void process_nonplayer(int m_idx)
 		}
 
 		/* The player is in the way */
-		if(do_move && creature_bold(player_ptr, ny, nx))
+		if(do_move && CREATURE_BOLD(player_ptr, ny, nx))
 		{
 			/* Some creatures never attack */
 			if(has_trait(creature_ptr, TRAIT_NEVER_BLOW))

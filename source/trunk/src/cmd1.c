@@ -1217,7 +1217,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		if(MUSIC_SINGING(creature_ptr, MUSIC_WALL))
 		{
 			(void)project(creature_ptr, 0, 0, creature_ptr->fy, creature_ptr->fx, (60 + creature_ptr->lev), DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
-			if(!creature_bold(creature_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
+			if(!CREATURE_BOLD(creature_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
 		}
 
 		/* Spontaneous Searching */
@@ -1299,7 +1299,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		/* Hit the trap */
 		hit_trap(creature_ptr, (mpe_mode & MCE_BREAK_TRAP) ? TRUE : FALSE);
 
-		if(!creature_bold(creature_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
+		if(!CREATURE_BOLD(creature_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
 	}
 
 	/* Warn when leaving trap detected region */
@@ -1318,7 +1318,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	}
 
 	creature_ptr->depth = floor_ptr->floor_level;
-	return creature_bold(creature_ptr, ny, nx) && !gameover && !subject_change_floor;
+	return CREATURE_BOLD(creature_ptr, ny, nx) && !gameover && !subject_change_floor;
 }
 
 
@@ -2087,7 +2087,7 @@ static void run_init(creature_type *creature_ptr, int dir)
 	row = creature_ptr->fy + ddy[dir];
 	col = creature_ptr->fx + ddx[dir];
 
-	ignore_avoid_run = cave_have_flag_bold(floor_ptr, row, col, FF_AVOID_RUN);
+	ignore_avoid_run = CAVE_HAVE_FLAG_BOLD(floor_ptr, row, col, FF_AVOID_RUN);
 
 	/* Extract cycle index */
 	i = chome[dir];
@@ -2528,7 +2528,7 @@ void run_step(creature_type *creature_ptr, int dir)
 	/* Move the player, using the "pickup" flag */
 	walk_creature(creature_ptr, find_current, FALSE, FALSE);
 
-	if(creature_bold(creature_ptr, creature_ptr->run_py, creature_ptr->run_px))
+	if(CREATURE_BOLD(creature_ptr, creature_ptr->run_py, creature_ptr->run_px))
 	{
 		creature_ptr->run_py = 0;
 		creature_ptr->run_px = 0;

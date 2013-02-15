@@ -2054,39 +2054,24 @@
   (((Y) >= panel_row_min) && ((Y) <= panel_row_max) && \
    ((X) >= panel_col_min) && ((X) <= panel_col_max))
 
+// Determine if a creature is on this grid
+#define CREATURE_BOLD(C, Y, X) (((Y) == (C)->fy) && ((X) == (C)->fx))
 
-/*
- * Determine if player is on this grid
- */
-#define creature_bold(C, Y, X) \
-	(((Y) == (C)->fy) && ((X) == (C)->fx))
+// Grid based version of "CREATURE_BOLD()"
+#define CAVE_HAVE_FLAG_BOLD(FLOOR, Y, X, INDEX) (have_flag(feature_info[(FLOOR)->cave[(Y)][(X)].feat].flags, (INDEX)))
+#define CAVE_HAVE_FLAG_GRID(C, INDEX) (have_flag(feature_info[(C)->feat].flags, (INDEX)))
 
-
-/*
- * Grid based version of "creature_bold()"
- */
-#define cave_have_flag_bold(FLOOR, Y, X, INDEX) \
-	(have_flag(feature_info[(FLOOR)->cave[(Y)][(X)].feat].flags, (INDEX)))
-
-#define cave_have_flag_grid(C, INDEX) \
-	(have_flag(feature_info[(C)->feat].flags, (INDEX)))
-
-
-/*
- * Determine if a "feature" supports "los"
- */
-#define feat_supports_los(F) \
-	(have_flag(feature_info[(F)].flags, FF_LOS))
-
+// Determine if a "feature" supports "los"
+#define FEAT_SUPPORTS_LOS(F) (have_flag(feature_info[(F)].flags, FF_LOS))
 
 /*
  * Determine if a "legal" grid supports "los"
  */
 #define cave_los_bold(FLOOR, Y, X) \
-	(feat_supports_los((FLOOR)->cave[(Y)][(X)].feat))
+	(FEAT_SUPPORTS_LOS((FLOOR)->cave[(Y)][(X)].feat))
 
 #define cave_los_grid(C) \
-	(feat_supports_los((C)->feat))
+	(FEAT_SUPPORTS_LOS((C)->feat))
 
 
 /*
@@ -2098,7 +2083,7 @@
  * Line 3 -- forbid normal objects
  */
 #define cave_clean_bold(FLOOR,Y,X) \
-	(cave_have_flag_bold((FLOOR), (Y), (X), FF_FLOOR) && \
+	(CAVE_HAVE_FLAG_BOLD((FLOOR), (Y), (X), FF_FLOOR) && \
 	 !((FLOOR)->cave[Y][X].info & CAVE_OBJECT) && \
 	  ((FLOOR)->cave[Y][X].object_idx == 0))
 
@@ -2110,7 +2095,7 @@
  * Line 2 -- forbid object terrains
  */
 #define cave_drop_bold(FLOOR, Y, X) \
-	(cave_have_flag_bold((FLOOR), (Y), (X), FF_DROP) && \
+	(CAVE_HAVE_FLAG_BOLD((FLOOR), (Y), (X), FF_DROP) && \
 	 !((FLOOR)->cave[Y][X].info & CAVE_OBJECT))
 
 
@@ -2123,9 +2108,9 @@
  * Line 3 -- forbid the player
  */
 #define cave_empty_bold(FLOOR, Y, X) \
-	(cave_have_flag_bold((FLOOR), (Y), (X), FF_PLACE) && \
+	(CAVE_HAVE_FLAG_BOLD((FLOOR), (Y), (X), FF_PLACE) && \
 	 !((FLOOR)->cave[Y][X].creature_idx) && \
-	 !creature_bold(player_ptr, Y,X))
+	 !CREATURE_BOLD(player_ptr, Y,X))
 
 
 /*
@@ -2137,7 +2122,7 @@
  */
 #define cave_empty_bold2(FLOOR, Y, X) \
 	(cave_empty_bold((FLOOR), Y, X) && \
-	 (floor_ptr->generated || !cave_have_flag_bold((FLOOR), (Y), (X), FF_TREE)))
+	 (floor_ptr->generated || !CAVE_HAVE_FLAG_BOLD((FLOOR), (Y), (X), FF_TREE)))
 
 
 /*
@@ -2150,20 +2135,20 @@
 #define cave_naked_bold(FLOOR, Y, X) \
 	(cave_clean_bold(FLOOR, Y, X) && \
 	 !((FLOOR)->cave[Y][X].creature_idx) && \
-	 !creature_bold(player_ptr, Y, X))
+	 !CREATURE_BOLD(player_ptr, Y, X))
 
 
 /*
  * Determine if a "legal" grid is "permanent"
  * Line 1 -- permanent flag
  */
-#define cave_perma_bold(FLOOR, Y, X) (cave_have_flag_bold((FLOOR), (Y), (X), FF_PERMANENT))
+#define cave_perma_bold(FLOOR, Y, X) (CAVE_HAVE_FLAG_BOLD((FLOOR), (Y), (X), FF_PERMANENT))
 
 
 /*
  * Grid based version of "cave_empty_bold()"
  */
-#define cave_empty_grid(C) (cave_have_flag_grid((C), FF_PLACE) && !((C)->creature_idx))
+#define cave_empty_grid(C) (CAVE_HAVE_FLAG_GRID((C), FF_PLACE) && !((C)->creature_idx))
 
 // Does creature exist here?
 #define EXIST_CREATURE(FLOOR, Y, X) ((FLOOR)->cave[(Y)][(X)].creature_idx != 0)
@@ -2171,18 +2156,18 @@
 /*
  * Grid based version of "cave_perma_bold()"
  */
-#define cave_perma_grid(C) (cave_have_flag_grid((C), FF_PERMANENT))
+#define cave_perma_grid(C) (CAVE_HAVE_FLAG_GRID((C), FF_PERMANENT))
 
 
-#define pattern_tile(FLOOR, Y, X) (cave_have_flag_bold((FLOOR), (Y), (X), FF_PATTERN))
+#define pattern_tile(FLOOR, Y, X) (CAVE_HAVE_FLAG_BOLD((FLOOR), (Y), (X), FF_PATTERN))
 
 /*
  * Does the grid stop disintegration?
  */
 #define cave_stop_disintegration(FLOOR, Y, X) \
-	(!cave_have_flag_bold((FLOOR), (Y), (X), FF_PROJECT) && \
-	 (!cave_have_flag_bold((FLOOR), (Y), (X), FF_HURT_DISI) || \
-	  cave_have_flag_bold((FLOOR), (Y), (X), FF_PERMANENT)))
+	(!CAVE_HAVE_FLAG_BOLD((FLOOR), (Y), (X), FF_PROJECT) && \
+	 (!CAVE_HAVE_FLAG_BOLD((FLOOR), (Y), (X), FF_HURT_DISI) || \
+	  CAVE_HAVE_FLAG_BOLD((FLOOR), (Y), (X), FF_PERMANENT)))
 
 
 /*

@@ -221,7 +221,7 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 			}
 		}
 		/* Pets may not shoot through the character - TNB */
-		if(creature_bold(target_ptr, y, x))
+		if(CREATURE_BOLD(target_ptr, y, x))
 		{
 			if(friend) return FALSE;
 		}
@@ -538,7 +538,7 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
 		c_ptr = &floor_ptr->cave[next_y][next_x];
 
 		/* Skip this feature */
-		if(!cave_have_flag_grid(c_ptr, f_flag)) continue;
+		if(!CAVE_HAVE_FLAG_GRID(c_ptr, f_flag)) continue;
 
 		if(path_check(floor_ptr, MAX_RANGE, m_ptr->fy, m_ptr->fx, next_y, next_x))
 		{
@@ -981,7 +981,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	}
 
 	/* Projectable? */
-	direct = creature_bold(caster_ptr, y, x);
+	direct = CREATURE_BOLD(caster_ptr, y, x);
 
 	can_remember = is_original_ap_and_seen(target_ptr, caster_ptr);
 

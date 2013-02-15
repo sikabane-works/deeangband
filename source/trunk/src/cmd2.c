@@ -1084,7 +1084,7 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 	}
 
 	/* Must be a wall/door/etc */
-	if(!cave_have_flag_grid(c_ptr, FF_TUNNEL))
+	if(!CAVE_HAVE_FLAG_GRID(c_ptr, FF_TUNNEL))
 	{
 #ifdef JP
 		msg_print("‚»‚±‚É‚ÍŒ@‚é‚à‚Ì‚ªŒ©“–‚½‚ç‚È‚¢B");
@@ -1909,7 +1909,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	}
 
 	/* Hack again -- Is there a special encounter ??? */
-	if(floor_ptr->wild_mode && !cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_TOWN))
+	if(floor_ptr->wild_mode && !CAVE_HAVE_FLAG_BOLD(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_TOWN))
 	{
 		int tmp = 120 + creature_ptr->lev*10 - wilderness[creature_ptr->fy][creature_ptr->fx].level + 5;
 		if(tmp < 1) tmp = 1;
@@ -2515,7 +2515,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		{
 			c_ptr = &floor_ptr->cave[ny][nx];
 
-			if(cave_have_flag_grid(c_ptr, FF_HURT_ROCK) && !c_ptr->creature_idx)
+			if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_HURT_ROCK) && !c_ptr->creature_idx)
 			{
 #ifdef JP
 				if(c_ptr->info & (CAVE_MARK)) msg_print("Šâ‚ªÓ‚¯ŽU‚Á‚½B");
@@ -2536,7 +2536,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		}
 
 		/* Stopped by walls/doors */
-		if(!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT) && !floor_ptr->cave[ny][nx].creature_idx) break;
+		if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, ny, nx, FF_PROJECT) && !floor_ptr->cave[ny][nx].creature_idx) break;
 
 		/* Advance the distance */
 		cur_dis++;
@@ -2828,7 +2828,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		/* Carry object */
 		//TODO
 	}
-	else if(cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
+	else if(CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT))
 	{
 		/* Drop (or break) near that location */
 		(void)drop_near(floor_ptr, quest_ptr, j, y, x);
@@ -3146,7 +3146,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		mmove2(&ny[cur_dis], &nx[cur_dis], creature_ptr->fy, creature_ptr->fx, ty, tx);
 
 		/* Stopped by walls/doors */
-		if(!cave_have_flag_bold(floor_ptr, ny[cur_dis], nx[cur_dis], FF_PROJECT))
+		if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, ny[cur_dis], nx[cur_dis], FF_PROJECT))
 		{
 			hit_wall = TRUE;
 			if((quest_ptr->tval == TV_FIGURINE) || object_is_potion(creature_ptr, quest_ptr) || !floor_ptr->cave[ny[cur_dis]][nx[cur_dis]].creature_idx) break;
@@ -3430,7 +3430,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	/* Drop (or break) near that location */
 	if(do_drop)
 	{
-		if(cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
+		if(CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT))
 		{
 			/* Drop (or break) near that location */
 			(void)drop_near(floor_ptr, quest_ptr, j, y, x);

@@ -1342,7 +1342,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 				m_ptr = &creature_list[c_ptr->creature_idx];
 
 				/* Hack -- attack creatures */
-				if(c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+				if(c_ptr->creature_idx && (m_ptr->see_others || CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)))
 					close_combat(creature_ptr, y, x, 0);
 			}
 			break;
@@ -1585,7 +1585,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 				{
 					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
 
-					if(!creature_bold(caster_ptr, y, x)) break;
+					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
 				}
 				project(caster_ptr, 0, 0, y, x, diceroll(6 + plev / 8, 10), typ, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}

@@ -129,7 +129,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			target_ptr = &creature_list[cave_ptr->creature_idx]; // Get the creature
 
 			// Hack -- attack creatures
-			if(cave_ptr->creature_idx && (target_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+			if(cave_ptr->creature_idx && (target_ptr->see_others || CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)))
 				close_combat(caster_ptr, y, x, 0);
 		}
 		break;
@@ -477,8 +477,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				while (attempts--)
 				{
 					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
-					if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
-					if(!creature_bold(caster_ptr, y, x)) break;
+					if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
+					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
 				}
 
 				project(caster_ptr, 0, 3, y, x, 150, DO_EFFECT_ELEC, (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
@@ -683,7 +683,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_FISHING:
 		{
-			if(!cave_have_flag_bold(floor_ptr, y, x, FF_WATER))
+			if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_WATER))
 			{
 				msg_print(GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON);
 				return FALSE;

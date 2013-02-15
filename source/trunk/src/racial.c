@@ -107,7 +107,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 #endif
 			return FALSE;
 		}
-		else if(!cave_have_flag_grid(c_ptr, FF_CAN_DIG) || !cave_have_flag_grid(c_ptr, FF_HURT_ROCK))
+		else if(!CAVE_HAVE_FLAG_GRID(c_ptr, FF_CAN_DIG) || !CAVE_HAVE_FLAG_GRID(c_ptr, FF_HURT_ROCK))
 		{
 #ifdef JP
 			msg_print("çdÇ∑Ç¨ÇƒïˆÇπÇ»Ç©Ç¡ÇΩÅB");

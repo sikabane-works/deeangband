@@ -297,7 +297,7 @@ static void alloc_object(floor_type *floor_ptr, creature_type *player_ptr, int s
 			if(!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue;
 
 			/* Avoid player location */
-			if(creature_bold(player_ptr, y, x)) continue;
+			if(CREATURE_BOLD(player_ptr, y, x)) continue;
 
 			/* Check for "room" */
 			room = (floor_ptr->cave[y][x].info & CAVE_ROOM) ? TRUE : FALSE;
@@ -386,7 +386,7 @@ static int next_to_corr(floor_type *floor_ptr, int y1, int x1)
 		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Skip non floors */
-		if(cave_have_flag_grid(c_ptr, FF_WALL)) continue;
+		if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_WALL)) continue;
 
 		/* Skip non "empty floor" grids */
 		if(!is_floor_grid(c_ptr))
@@ -416,15 +416,15 @@ static bool possible_doorway(floor_type *floor_ptr, int y, int x)
 	if(next_to_corr(floor_ptr, y, x) >= 2)
 	{
 		/* Check Vertical */
-		if(cave_have_flag_bold(floor_ptr, y - 1, x, FF_WALL) &&
-		    cave_have_flag_bold(floor_ptr, y + 1, x, FF_WALL))
+		if(CAVE_HAVE_FLAG_BOLD(floor_ptr, y - 1, x, FF_WALL) &&
+		    CAVE_HAVE_FLAG_BOLD(floor_ptr, y + 1, x, FF_WALL))
 		{
 			return TRUE;
 		}
 
 		/* Check Horizontal */
-		if(cave_have_flag_bold(floor_ptr, y, x - 1, FF_WALL) &&
-		    cave_have_flag_bold(floor_ptr, y, x + 1, FF_WALL))
+		if(CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x - 1, FF_WALL) &&
+		    CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x + 1, FF_WALL))
 		{
 			return TRUE;
 		}
@@ -441,7 +441,7 @@ static void try_door(floor_type *floor_ptr, int y, int x)
 {
 
 	if(!in_bounds(floor_ptr, y, x)) return;
-	if(cave_have_flag_bold(floor_ptr, y, x, FF_WALL)) return; // Ignore walls
+	if(CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_WALL)) return; // Ignore walls
 
 	/* Ignore room grids */
 	if(floor_ptr->cave[y][x].info & (CAVE_ROOM)) return;

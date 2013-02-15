@@ -583,7 +583,7 @@ static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 			if(d >= 9) continue;
 
 			if(!in_bounds(floor_ptr, y, x) || !projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, y, x)
-			    || !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
+			    || !CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
 
 			/* Valid position */
 			break;
@@ -634,7 +634,7 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 		if(MAX_RANGE <= distance(creature_ptr->fy, creature_ptr->fx, ny, nx)) break;
 
 		/* Stopped by walls/doors */
-		if(!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT)) break;
+		if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, ny, nx, FF_PROJECT)) break;
 
 		/* Stopped by creatures */
 		if((dir != 5) && floor_ptr->cave[ny][nx].creature_idx != 0) break;
@@ -2574,7 +2574,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 					m_ptr = &creature_list[c_ptr->creature_idx];
 
 					/* Hack -- attack creatures */
-					if(c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+					if(c_ptr->creature_idx && (m_ptr->see_others || CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)))
 						close_combat(caster_ptr, y, x, 0);
 				}
 			}
@@ -9170,7 +9170,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			if(floor_ptr->cave[y][x].creature_idx)
 				close_combat(caster_ptr, y, x, HISSATSU_HAGAN);
 	
-			if(!cave_have_flag_bold(floor_ptr, y, x, FF_HURT_ROCK)) break;
+			if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_HURT_ROCK)) break;
 	
 			/* Destroy the feature */
 			cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
@@ -9372,7 +9372,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				m_ptr = &creature_list[c_ptr->creature_idx];
 	
 				/* Hack -- attack creatures */
-				if(c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+				if(c_ptr->creature_idx && (m_ptr->see_others || CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)))
 				{
 					if(!creature_living(m_ptr))
 					{
@@ -9787,7 +9787,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				damage += caster_ptr->to_damage[i] * 100;
 				total_damage += (damage / 100);
 			}
-			project(caster_ptr, 0, (cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT) ? 5 : 0), y, x, total_damage * 3 / 2, DO_EFFECT_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
+			project(caster_ptr, 0, (CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT) ? 5 : 0), y, x, total_damage * 3 / 2, DO_EFFECT_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
 		}
 		break;
 

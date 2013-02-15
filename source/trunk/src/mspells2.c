@@ -31,7 +31,7 @@ void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *
 		sx = GRID_X(path_g[i]);
 
 		/* Hack -- Balls explode before reaching walls */
-		if(!cave_have_flag_bold(floor_ptr, sy, sx, FF_PROJECT)) break;
+		if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, sy, sx, FF_PROJECT)) break;
 
 		*ty = sy;
 		*tx = sx;
