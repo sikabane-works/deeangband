@@ -60,7 +60,7 @@ static void recursive_river(floor_type *floor_ptr, int x1, int y1, int x2, int y
 			changey = 0;
 		}
 
-		if(!in_bounds(floor_ptr, y1 + dy + changey, x1 + dx + changex))
+		if(!IN_BOUNDS(floor_ptr, y1 + dy + changey, x1 + dx + changex))
 		{
 			changex = 0;
 			changey = 0;
@@ -92,7 +92,7 @@ static void recursive_river(floor_type *floor_ptr, int x1, int y1, int x2, int y
 				{
 					for (tx = x - width - 1; tx <= x + width + 1; tx++)
 					{
-						if(!in_bounds2(floor_ptr, ty, tx)) continue;
+						if(!IN_BOUNDS2(floor_ptr, ty, tx)) continue;
 
 						c_ptr = &floor_ptr->cave[ty][tx];
 
@@ -236,7 +236,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 			{
 				ty = rand_spread(y, d);
 				tx = rand_spread(x, d);
-				if(!in_bounds2(floor_ptr, ty, tx)) continue;
+				if(!IN_BOUNDS2(floor_ptr, ty, tx)) continue;
 				break;
 			}
 
@@ -336,7 +336,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 		}
 
 		/* Quit before leaving the dungeon */
-		if(!in_bounds(floor_ptr, y, x)) break;
+		if(!IN_BOUNDS(floor_ptr, y, x)) break;
 	}
 }
 
@@ -355,7 +355,7 @@ void place_trees(floor_type *floor_ptr, int x, int y)
 	{
 		for (j = y - 3; j < y + 4; j++)
 		{
-			if(!in_bounds(floor_ptr, j, i)) continue;
+			if(!IN_BOUNDS(floor_ptr, j, i)) continue;
 			c_ptr = &floor_ptr->cave[j][i];
 
 			if(c_ptr->info & CAVE_ICKY) continue;

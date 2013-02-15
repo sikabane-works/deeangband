@@ -1562,7 +1562,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		for (x = (x1 - r); x <= (x1 + r); x++)
 		{
 			/* Skip illegal grids */
-			if(!in_bounds(floor_ptr, y, x)) continue;
+			if(!IN_BOUNDS(floor_ptr, y, x)) continue;
 
 			/* Extract the distance */
 			k = distance(y1, x1, y, x);
@@ -1705,7 +1705,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			for (x = (x1 - r); x <= (x1 + r); x++)
 			{
 				/* Skip illegal grids */
-				if(!in_bounds(floor_ptr, y, x)) continue;
+				if(!IN_BOUNDS(floor_ptr, y, x)) continue;
 
 				/* Extract the distance */
 				k = distance(y1, x1, y, x);
@@ -1726,7 +1726,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					{
 						yy = y + ddy_ddd[i];
 						xx = x + ddx_ddd[i];
-						if(!in_bounds2(floor_ptr, yy, xx)) continue;
+						if(!IN_BOUNDS2(floor_ptr, yy, xx)) continue;
 						cc_ptr = &floor_ptr->cave[yy][xx];
 						if(have_flag(feature_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 						{
@@ -1807,7 +1807,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 			yy = cy + dy;
 			xx = cx + dx;
 
-			if(!in_bounds(floor_ptr, yy, xx)) continue; // Skip illegal grids
+			if(!IN_BOUNDS(floor_ptr, yy, xx)) continue; // Skip illegal grids
 			if(distance(cy, cx, yy, xx) > r) continue;	// Skip distant grids
 
 			c_ptr = &floor_ptr->cave[yy][xx];	// Access the grid
@@ -1950,7 +1950,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 			yy = cy + dy;
 			xx = cx + dx;
 
-			if(!in_bounds(floor_ptr, yy, xx)) continue;	// Skip illegal grids
+			if(!IN_BOUNDS(floor_ptr, yy, xx)) continue;	// Skip illegal grids
 			if(distance(cy, cx, yy, xx) > r) continue;	// Skip distant grids
 
 			c_ptr = &floor_ptr->cave[yy][xx];	// Access the grid
@@ -1965,7 +1965,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 				{
 					yyy = yy + ddy_ddd[ii];
 					xxx = xx + ddx_ddd[ii];
-					if(!in_bounds2(floor_ptr, yyy, xxx)) continue;
+					if(!IN_BOUNDS2(floor_ptr, yyy, xxx)) continue;
 					cc_ptr = &floor_ptr->cave[yyy][xxx];
 					if(have_flag(feature_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 					{
@@ -2121,7 +2121,7 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 					int by = y + ddy_ddd[j];
 					int bx = x + ddx_ddd[j];
 
-					if(in_bounds2(floor_ptr, by, bx))
+					if(IN_BOUNDS2(floor_ptr, by, bx))
 					{
 						cave_type *cc_ptr = &floor_ptr->cave[by][bx];
 
@@ -2209,7 +2209,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 		if(only_room) return;
 
 		/* Verify */
-		if(!in_bounds2(floor_ptr, y, x)) return;
+		if(!IN_BOUNDS2(floor_ptr, y, x)) return;
 
 		/* Do not exceed the maximum spell range */
 		if(distance(caster_ptr->fy, caster_ptr->fx, y, x) > MAX_RANGE) return;
@@ -2223,7 +2223,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 		* properly.
 		* This leaves only a check for 6 bounding walls!
 		*/
-		if(in_bounds(floor_ptr, y, x) && pass_bold(y, x)) return;
+		if(IN_BOUNDS(floor_ptr, y, x) && pass_bold(y, x)) return;
 		//    (next_to_walls_adj(floor_ptr, y, x, pass_bold) == 6) && (next_to_open(floor_ptr, y, x, pass_bold) <= 1)) return;
 	}
 
@@ -2254,7 +2254,7 @@ static void cave_temp_room_aux2(creature_type *caster_ptr, int y, int x, bool on
 		if(only_room) return;
 
 		/* Verify */
-		if(!in_bounds2(floor_ptr, y, x)) return;
+		if(!IN_BOUNDS2(floor_ptr, y, x)) return;
 
 		/* Do not exceed the maximum spell range */
 		if(distance(caster_ptr->fy, caster_ptr->fx, y, x) > MAX_RANGE) return;
@@ -2268,7 +2268,7 @@ static void cave_temp_room_aux2(creature_type *caster_ptr, int y, int x, bool on
 		* properly.
 		* This leaves only a check for 6 bounding walls!
 		*/
-		if(in_bounds(floor_ptr, y, x) && pass_bold(floor_ptr, y, x) &&
+		if(IN_BOUNDS(floor_ptr, y, x) && pass_bold(floor_ptr, y, x) &&
 			(next_to_walls_adj(floor_ptr, y, x, pass_bold) == 6) && (next_to_open(floor_ptr, y, x, pass_bold) <= 1)) return;
 	}
 
@@ -2289,7 +2289,7 @@ static void cave_temp_room_aux2(creature_type *caster_ptr, int y, int x, bool on
 */
 static bool cave_pass_lite_bold(floor_type *floor_ptr, int y, int x)
 {
-	return cave_los_bold(floor_ptr, y, x);
+	return CAVE_LOS_BOLD(floor_ptr, y, x);
 }
 
 /*
@@ -2948,7 +2948,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		ty = target_row;
 	}
 
-	if(in_bounds(floor_ptr, ty, tx)) tm_idx = floor_ptr->cave[ty][tx].creature_idx;
+	if(IN_BOUNDS(floor_ptr, ty, tx)) tm_idx = floor_ptr->cave[ty][tx].creature_idx;
 	path_n = project_path(path_g, range, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
 
 	/* No need to move */

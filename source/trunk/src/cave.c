@@ -178,8 +178,8 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 
 
 
-	/* if(!in_bounds(floor_ptr, y1, x1)) return FALSE; */
-	/* if(!in_bounds(floor_ptr, y2, x2)) return FALSE; */
+	/* if(!IN_BOUNDS(floor_ptr, y1, x1)) return FALSE; */
+	/* if(!IN_BOUNDS(floor_ptr, y2, x2)) return FALSE; */
 
 
 	/* Directly South/North */
@@ -190,7 +190,7 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 		{
 			for (ty = y1 + 1; ty < y2; ty++)
 			{
-				if(!cave_los_bold(floor_ptr, ty, x1)) return FALSE;
+				if(!CAVE_LOS_BOLD(floor_ptr, ty, x1)) return FALSE;
 			}
 		}
 
@@ -199,7 +199,7 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 		{
 			for (ty = y1 - 1; ty > y2; ty--)
 			{
-				if(!cave_los_bold(floor_ptr, ty, x1)) return FALSE;
+				if(!CAVE_LOS_BOLD(floor_ptr, ty, x1)) return FALSE;
 			}
 		}
 
@@ -215,7 +215,7 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 		{
 			for (tx = x1 + 1; tx < x2; tx++)
 			{
-				if(!cave_los_bold(floor_ptr, y1, tx)) return FALSE;
+				if(!CAVE_LOS_BOLD(floor_ptr, y1, tx)) return FALSE;
 			}
 		}
 
@@ -224,7 +224,7 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 		{
 			for (tx = x1 - 1; tx > x2; tx--)
 			{
-				if(!cave_los_bold(floor_ptr, y1, tx)) return FALSE;
+				if(!CAVE_LOS_BOLD(floor_ptr, y1, tx)) return FALSE;
 			}
 		}
 
@@ -243,7 +243,7 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 	{
 		if(ay == 2)
 		{
-			if(cave_los_bold(floor_ptr, y1 + sy, x1)) return TRUE;
+			if(CAVE_LOS_BOLD(floor_ptr, y1 + sy, x1)) return TRUE;
 		}
 	}
 
@@ -252,7 +252,7 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 	{
 		if(ax == 2)
 		{
-			if(cave_los_bold(floor_ptr, y1, x1 + sx)) return TRUE;
+			if(CAVE_LOS_BOLD(floor_ptr, y1, x1 + sx)) return TRUE;
 		}
 	}
 
@@ -287,7 +287,7 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 		/* the LOS exactly meets the corner of a tile. */
 		while (x2 - tx)
 		{
-			if(!cave_los_bold(floor_ptr, ty, tx)) return FALSE;
+			if(!CAVE_LOS_BOLD(floor_ptr, ty, tx)) return FALSE;
 
 			qy += m;
 
@@ -298,7 +298,7 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 			else if(qy > f2)
 			{
 				ty += sy;
-				if(!cave_los_bold(floor_ptr, ty, tx)) return FALSE;
+				if(!CAVE_LOS_BOLD(floor_ptr, ty, tx)) return FALSE;
 				qy -= f1;
 				tx += sx;
 			}
@@ -333,7 +333,7 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 		/* the LOS exactly meets the corner of a tile. */
 		while (y2 - ty)
 		{
-			if(!cave_los_bold(floor_ptr, ty, tx)) return FALSE;
+			if(!CAVE_LOS_BOLD(floor_ptr, ty, tx)) return FALSE;
 
 			qx += m;
 
@@ -344,7 +344,7 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 			else if(qx > f2)
 			{
 				tx += sx;
-				if(!cave_los_bold(floor_ptr, ty, tx)) return FALSE;
+				if(!CAVE_LOS_BOLD(floor_ptr, ty, tx)) return FALSE;
 				qx -= f1;
 				ty += sy;
 			}
@@ -421,7 +421,7 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 {
 	int i, yy, xx;
 
-	if(!in_bounds(floor_ptr, y, x)) return;
+	if(!IN_BOUNDS(floor_ptr, y, x)) return;
 
 #ifdef COMPLEX_WALL_ILLUMINATION /* COMPLEX_WALL_ILLUMINATION */
 
@@ -1554,7 +1554,7 @@ void display_dungeon(creature_type *creature_ptr)
 	{
 		for (y = creature_ptr->fy - Term->hgt / 2 + 1; y <= creature_ptr->fy + Term->hgt / 2; y++)
 		{
-			if(in_bounds2(floor_ptr, y, x))
+			if(IN_BOUNDS2(floor_ptr, y, x))
 			{
 
 				/* Examine the grid */
@@ -1599,7 +1599,7 @@ void display_dungeon(creature_type *creature_ptr)
  */
 void lite_spot(floor_type *floor_ptr, int y, int x)
 {
-	if(panel_contains(y, x) && in_bounds2(floor_ptr, y, x))
+	if(panel_contains(y, x) && IN_BOUNDS2(floor_ptr, y, x))
 	{
 		byte a;
 		char c;
@@ -2423,7 +2423,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
  * I am thinking in terms of an algorithm that "walks" from the central point
  * out to the maximal "distance", at each point, determining the "view" code
  * (above).  For each grid not on a major axis or diagonal, the "view" code
- * depends on the "cave_los_bold()" and "view" of exactly two other grids
+ * depends on the "CAVE_LOS_BOLD()" and "view" of exactly two other grids
  * (the one along the nearest diagonal, and the one next to that one, see
  * "update_view_aux()"...).
  *
@@ -2610,7 +2610,7 @@ void update_lite(creature_type *creature_ptr)
 	if(p >= 2)
 	{
 		/* South of the player */
-		if(cave_los_bold(floor_ptr, creature_ptr->fy + 1, creature_ptr->fx))
+		if(CAVE_LOS_BOLD(floor_ptr, creature_ptr->fy + 1, creature_ptr->fx))
 		{
 			cave_lite_hack(floor_ptr, creature_ptr->fy+2, creature_ptr->fx);
 			cave_lite_hack(floor_ptr, creature_ptr->fy+2, creature_ptr->fx+1);
@@ -2618,7 +2618,7 @@ void update_lite(creature_type *creature_ptr)
 		}
 
 		/* North of the player */
-		if(cave_los_bold(floor_ptr, creature_ptr->fy - 1, creature_ptr->fx))
+		if(CAVE_LOS_BOLD(floor_ptr, creature_ptr->fy - 1, creature_ptr->fx))
 		{
 			cave_lite_hack(floor_ptr, creature_ptr->fy-2, creature_ptr->fx);
 			cave_lite_hack(floor_ptr, creature_ptr->fy-2, creature_ptr->fx+1);
@@ -2626,7 +2626,7 @@ void update_lite(creature_type *creature_ptr)
 		}
 
 		/* East of the player */
-		if(cave_los_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx + 1))
+		if(CAVE_LOS_BOLD(floor_ptr, creature_ptr->fy, creature_ptr->fx + 1))
 		{
 			cave_lite_hack(floor_ptr, creature_ptr->fy, creature_ptr->fx+2);
 			cave_lite_hack(floor_ptr, creature_ptr->fy+1, creature_ptr->fx+2);
@@ -2634,7 +2634,7 @@ void update_lite(creature_type *creature_ptr)
 		}
 
 		/* West of the player */
-		if(cave_los_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx - 1))
+		if(CAVE_LOS_BOLD(floor_ptr, creature_ptr->fy, creature_ptr->fx - 1))
 		{
 			cave_lite_hack(floor_ptr, creature_ptr->fy, creature_ptr->fx-2);
 			cave_lite_hack(floor_ptr, creature_ptr->fy+1, creature_ptr->fx-2);
@@ -2651,25 +2651,25 @@ void update_lite(creature_type *creature_ptr)
 		if(p > 14) p = 14;
 
 		/* South-East of the player */
-		if(cave_los_bold(floor_ptr, creature_ptr->fy + 1, creature_ptr->fx + 1))
+		if(CAVE_LOS_BOLD(floor_ptr, creature_ptr->fy + 1, creature_ptr->fx + 1))
 		{
 			cave_lite_hack(floor_ptr, creature_ptr->fy+2, creature_ptr->fx+2);
 		}
 
 		/* South-West of the player */
-		if(cave_los_bold(floor_ptr, creature_ptr->fy + 1, creature_ptr->fx - 1))
+		if(CAVE_LOS_BOLD(floor_ptr, creature_ptr->fy + 1, creature_ptr->fx - 1))
 		{
 			cave_lite_hack(floor_ptr, creature_ptr->fy+2, creature_ptr->fx-2);
 		}
 
 		/* North-East of the player */
-		if(cave_los_bold(floor_ptr, creature_ptr->fy - 1, creature_ptr->fx + 1))
+		if(CAVE_LOS_BOLD(floor_ptr, creature_ptr->fy - 1, creature_ptr->fx + 1))
 		{
 			cave_lite_hack(floor_ptr, creature_ptr->fy-2, creature_ptr->fx+2);
 		}
 
 		/* North-West of the player */
-		if(cave_los_bold(floor_ptr, creature_ptr->fy - 1, creature_ptr->fx - 1))
+		if(CAVE_LOS_BOLD(floor_ptr, creature_ptr->fy - 1, creature_ptr->fx - 1))
 		{
 			cave_lite_hack(floor_ptr, creature_ptr->fy-2, creature_ptr->fx-2);
 		}
@@ -2773,14 +2773,14 @@ static void creature_lite_hack(creature_type *creature_ptr, int y, int x)
 	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
 
 	/* We trust this grid is in bounds */
-	/* if(!in_bounds2(floor_ptr, y, x)) return; */
+	/* if(!IN_BOUNDS2(floor_ptr, y, x)) return; */
 
 	cave_ptr = &floor_ptr->cave[y][x];
 
 	/* Want a unlit square in view of the player */
 	if((cave_ptr->info & (CAVE_MNLT | CAVE_VIEW)) != CAVE_VIEW) return;
 
-	if(!cave_los_grid(cave_ptr))
+	if(!CAVE_LOS_GRID(cave_ptr))
 	{
 		/* Hack -- Prevent creature lite leakage in walls */
 
@@ -2794,11 +2794,11 @@ static void creature_lite_hack(creature_type *creature_ptr, int y, int x)
 			/* Only first wall viewed from mid-x is lit */
 			if(x < midpoint)
 			{
-				if(!cave_los_bold(floor_ptr, y, x + 1)) return;
+				if(!CAVE_LOS_BOLD(floor_ptr, y, x + 1)) return;
 			}
 			else if(x > midpoint)
 			{
-				if(!cave_los_bold(floor_ptr, y, x - 1)) return;
+				if(!CAVE_LOS_BOLD(floor_ptr, y, x - 1)) return;
 			}
 
 		}
@@ -2813,11 +2813,11 @@ static void creature_lite_hack(creature_type *creature_ptr, int y, int x)
 			/* Only first wall viewed from mid-y is lit */
 			if(y < midpoint)
 			{
-				if(!cave_los_bold(floor_ptr, y + 1, x)) return;
+				if(!CAVE_LOS_BOLD(floor_ptr, y + 1, x)) return;
 			}
 			else if(y > midpoint)
 			{
-				if(!cave_los_bold(floor_ptr, y - 1, x)) return;
+				if(!CAVE_LOS_BOLD(floor_ptr, y - 1, x)) return;
 			}
 		}
 	}
@@ -2855,14 +2855,14 @@ static void mon_dark_hack(creature_type *creature_ptr, int y, int x)
 	int       midpoint, dpf, d;
 
 	/* We trust this grid is in bounds */
-	/* if(!in_bounds2(floor_ptr, y, x)) return; */
+	/* if(!IN_BOUNDS2(floor_ptr, y, x)) return; */
 
 	cave_ptr = &floor_ptr->cave[y][x];
 
 	/* Want a unlit and undarkened square in view of the player */
 	if((cave_ptr->info & (CAVE_LITE | CAVE_MNLT | CAVE_MNDK | CAVE_VIEW)) != CAVE_VIEW) return;
 
-	if(!cave_los_grid(cave_ptr) && !CAVE_HAVE_FLAG_GRID(cave_ptr, FF_PROJECT))
+	if(!CAVE_LOS_GRID(cave_ptr) && !CAVE_HAVE_FLAG_GRID(cave_ptr, FF_PROJECT))
 	{
 		/* Hack -- Prevent creature dark lite leakage in walls */
 
@@ -2876,11 +2876,11 @@ static void mon_dark_hack(creature_type *creature_ptr, int y, int x)
 			/* Only first wall viewed from mid-x is lit */
 			if(x < midpoint)
 			{
-				if(!cave_los_bold(floor_ptr, y, x + 1) && !CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x + 1, FF_PROJECT)) return;
+				if(!CAVE_LOS_BOLD(floor_ptr, y, x + 1) && !CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x + 1, FF_PROJECT)) return;
 			}
 			else if(x > midpoint)
 			{
-				if(!cave_los_bold(floor_ptr, y, x - 1) && !CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x - 1, FF_PROJECT)) return;
+				if(!CAVE_LOS_BOLD(floor_ptr, y, x - 1) && !CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x - 1, FF_PROJECT)) return;
 			}
 		}
 
@@ -2894,11 +2894,11 @@ static void mon_dark_hack(creature_type *creature_ptr, int y, int x)
 			/* Only first wall viewed from mid-y is lit */
 			if(y < midpoint)
 			{
-				if(!cave_los_bold(floor_ptr, y + 1, x) && !CAVE_HAVE_FLAG_BOLD(floor_ptr, y + 1, x, FF_PROJECT)) return;
+				if(!CAVE_LOS_BOLD(floor_ptr, y + 1, x) && !CAVE_HAVE_FLAG_BOLD(floor_ptr, y + 1, x, FF_PROJECT)) return;
 			}
 			else if(y > midpoint)
 			{
-				if(!cave_los_bold(floor_ptr, y - 1, x) && !CAVE_HAVE_FLAG_BOLD(floor_ptr, y - 1, x, FF_PROJECT)) return;
+				if(!CAVE_LOS_BOLD(floor_ptr, y - 1, x) && !CAVE_HAVE_FLAG_BOLD(floor_ptr, y - 1, x, FF_PROJECT)) return;
 			}
 		}
 	}
@@ -3329,8 +3329,8 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
 
 
 	/* Check for walls */
-	f1 = (cave_los_grid(g1_cave_ptr));
-	f2 = (cave_los_grid(g2_cave_ptr));
+	f1 = (CAVE_LOS_GRID(g1_cave_ptr));
+	f2 = (CAVE_LOS_GRID(g2_cave_ptr));
 
 	/* Totally blocked by physical walls */
 	if(!f1 && !f2) return TRUE;
@@ -3349,7 +3349,7 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
 
 
 	/* Check for walls */
-	wall = (!cave_los_grid(cave_ptr));
+	wall = (!CAVE_LOS_GRID(cave_ptr));
 
 
 	/* Check the "ease" of visibility */
@@ -3465,7 +3465,7 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
  * Note also the care taken to prevent "running off the map".  The use of
  * explicit checks on the "validity" of the "diagonal", and the fact that
  * the loops are never allowed to "leave" the map, lets "update_view_aux()"
- * use the optimized "cave_los_bold()" macro, and to avoid the overhead
+ * use the optimized "CAVE_LOS_BOLD()" macro, and to avoid the overhead
  * of multiple checks on the validity of grids.
  *
  * Note the "optimizations" involving the "se","sw","ne","nw","es","en",
@@ -3481,8 +3481,8 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
  * told not to go farther than the current strip's farthest viewable grid,
  * unless open space is still available.  This uses the "k" variable.
  *
- * Note the use of "inline" macros for efficiency.  The "cave_los_grid()"
- * macro is a replacement for "cave_los_bold()" which takes a pointer to
+ * Note the use of "inline" macros for efficiency.  The "CAVE_LOS_GRID()"
+ * macro is a replacement for "CAVE_LOS_BOLD()" which takes a pointer to
  * a cave grid instead of its location.  The "cave_view_hack()" macro is a
  * chunk of code which adds the given location to the "view" array if it
  * is not already there, using both the actual location and a pointer to
@@ -3590,7 +3590,7 @@ void update_view(creature_type *creature_ptr)
 		cave_ptr = &floor_ptr->cave[y+d][x+d];
 		cave_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(cave_ptr, y+d, x+d);
-		if(!cave_los_grid(cave_ptr)) break;
+		if(!CAVE_LOS_GRID(cave_ptr)) break;
 	}
 
 	/* Scan south-west */
@@ -3599,7 +3599,7 @@ void update_view(creature_type *creature_ptr)
 		cave_ptr = &floor_ptr->cave[y+d][x-d];
 		cave_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(cave_ptr, y+d, x-d);
-		if(!cave_los_grid(cave_ptr)) break;
+		if(!CAVE_LOS_GRID(cave_ptr)) break;
 	}
 
 	/* Scan north-east */
@@ -3608,7 +3608,7 @@ void update_view(creature_type *creature_ptr)
 		cave_ptr = &floor_ptr->cave[y-d][x+d];
 		cave_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(cave_ptr, y-d, x+d);
-		if(!cave_los_grid(cave_ptr)) break;
+		if(!CAVE_LOS_GRID(cave_ptr)) break;
 	}
 
 	/* Scan north-west */
@@ -3617,7 +3617,7 @@ void update_view(creature_type *creature_ptr)
 		cave_ptr = &floor_ptr->cave[y-d][x-d];
 		cave_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(cave_ptr, y-d, x-d);
-		if(!cave_los_grid(cave_ptr)) break;
+		if(!CAVE_LOS_GRID(cave_ptr)) break;
 	}
 
 
@@ -3629,7 +3629,7 @@ void update_view(creature_type *creature_ptr)
 		cave_ptr = &floor_ptr->cave[y+d][x];
 		cave_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(cave_ptr, y+d, x);
-		if(!cave_los_grid(cave_ptr)) break;
+		if(!CAVE_LOS_GRID(cave_ptr)) break;
 	}
 
 	/* Initialize the "south strips" */
@@ -3641,7 +3641,7 @@ void update_view(creature_type *creature_ptr)
 		cave_ptr = &floor_ptr->cave[y-d][x];
 		cave_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(cave_ptr, y-d, x);
-		if(!cave_los_grid(cave_ptr)) break;
+		if(!CAVE_LOS_GRID(cave_ptr)) break;
 	}
 
 	/* Initialize the "north strips" */
@@ -3653,7 +3653,7 @@ void update_view(creature_type *creature_ptr)
 		cave_ptr = &floor_ptr->cave[y][x+d];
 		cave_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(cave_ptr, y, x+d);
-		if(!cave_los_grid(cave_ptr)) break;
+		if(!CAVE_LOS_GRID(cave_ptr)) break;
 	}
 
 	/* Initialize the "east strips" */
@@ -3665,7 +3665,7 @@ void update_view(creature_type *creature_ptr)
 		cave_ptr = &floor_ptr->cave[y][x-d];
 		cave_ptr->info |= (CAVE_XTRA);
 		cave_view_hack(cave_ptr, y, x-d);
-		if(!cave_los_grid(cave_ptr)) break;
+		if(!CAVE_LOS_GRID(cave_ptr)) break;
 	}
 
 	/* Initialize the "west strips" */
@@ -4052,7 +4052,7 @@ void update_flow(creature_type *creature_ptr)
 	if(temp_n) return;
 
 	/* The last way-point is on the map */
-	if(creature_ptr->running && in_bounds(floor_ptr, flow_y, flow_x))
+	if(creature_ptr->running && IN_BOUNDS(floor_ptr, flow_y, flow_x))
 	{
 		/* The way point is in sight - do not update.  (Speedup) */
 		if(floor_ptr->cave[flow_y][flow_x].info & CAVE_VIEW) return;
@@ -4198,7 +4198,7 @@ void update_smell(creature_type *creature_ptr)
 			x = j + creature_ptr->fx - 2;
 
 			/* Check Bounds */
-			if(!in_bounds(floor_ptr, y, x)) continue;
+			if(!IN_BOUNDS(floor_ptr, y, x)) continue;
 
 			cave_ptr = &floor_ptr->cave[y][x];
 
@@ -4480,7 +4480,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 			{
 				yy = y + ddy_ddd[i];
 				xx = x + ddx_ddd[i];
-				if(!in_bounds2(floor_ptr, yy, xx)) continue;
+				if(!IN_BOUNDS2(floor_ptr, yy, xx)) continue;
 				floor_ptr->cave[yy][xx].info |= CAVE_GLOW;
 			}
 		}
@@ -4543,7 +4543,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 		{
 			yy = y + ddy_ddd[i];
 			xx = x + ddx_ddd[i];
-			if(!in_bounds2(floor_ptr, yy, xx)) continue;
+			if(!IN_BOUNDS2(floor_ptr, yy, xx)) continue;
 			cc_ptr = &floor_ptr->cave[yy][xx];
 			player_ptr = &creature_list[cc_ptr->creature_idx];
 			cc_ptr->info |= CAVE_GLOW;
@@ -4853,7 +4853,7 @@ void scatter(floor_type *floor_ptr, int *yp, int *xp, int y, int x, int d, int m
 		nx = rand_spread(x, d);
 
 		/* Ignore annoying locations */
-		if(!in_bounds(floor_ptr, ny, nx)) continue;
+		if(!IN_BOUNDS(floor_ptr, ny, nx)) continue;
 
 		/* Ignore "excessively distant" locations */
 		if((d > 1) && (distance(y, x, ny, nx) > d)) continue;
@@ -4999,7 +4999,7 @@ void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 				{
 					yy = y + ddy_ddd[i];
 					xx = x + ddx_ddd[i];
-					if(!in_bounds2(floor_ptr, yy, xx)) continue;
+					if(!IN_BOUNDS2(floor_ptr, yy, xx)) continue;
 					floor_ptr->cave[yy][xx].info |= CAVE_GLOW;
 				}
 			}

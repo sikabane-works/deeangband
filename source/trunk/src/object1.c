@@ -2198,7 +2198,7 @@ int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode)
 	int this_object_idx, next_object_idx;
 	int num = 0;
 
-	if(!in_bounds(floor_ptr, y, x)) return 0; // Sanity
+	if(!IN_BOUNDS(floor_ptr, y, x)) return 0; // Sanity
 
 	/* Scan all objects in the grid */
 	for (this_object_idx = floor_ptr->cave[y][x].object_idx; this_object_idx; this_object_idx = next_object_idx)

@@ -134,7 +134,7 @@ void delete_object(floor_type *floor_ptr, int y, int x)
 	cave_type *c_ptr;
 	s16b this_object_idx, next_object_idx = 0;
 
-	if(!in_bounds(floor_ptr, y, x)) return;	// Refuse "illegal" locations
+	if(!IN_BOUNDS(floor_ptr, y, x)) return;	// Refuse "illegal" locations
 	c_ptr = &floor_ptr->cave[y][x];			// Grid
 
 	// Scan all objects in the grid
@@ -2922,7 +2922,7 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj
 	object_type forge;
 	object_type *quest_ptr;
 
-	if(!in_bounds(floor_ptr, y, x)) return; // Paranoia -- check bounds
+	if(!IN_BOUNDS(floor_ptr, y, x)) return; // Paranoia -- check bounds
 	if(!cave_drop_bold(floor_ptr, y, x)) return; // Require floor space
 	if(c_ptr->object_idx) return; // Avoid stacking on other objects
 
@@ -3007,7 +3007,7 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 
 
 
-	if(!in_bounds(floor_ptr, y, x)) return;
+	if(!IN_BOUNDS(floor_ptr, y, x)) return;
 
 	/* Require floor space */
 	if(!cave_drop_bold(floor_ptr, y, x)) return;
@@ -3057,7 +3057,7 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 /*
 * Let an object fall to the ground at or near a location.
 *
-* The initial location is assumed to be "in_bounds()".
+* The initial location is assumed to be "IN_BOUNDS()".
 *
 * This function takes a parameter "chance".  This is the percentage
 * chance that the item will "disappear" instead of drop.  If the object
@@ -3131,7 +3131,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, int y
 			tx = x + dx;
 
 			/* Skip illegal grids */
-			if(!in_bounds(floor_ptr, ty, tx)) continue;
+			if(!IN_BOUNDS(floor_ptr, ty, tx)) continue;
 
 			/* Require line of projection */
 			if(!projectable(floor_ptr, MAX_RANGE, y, x, ty, tx)) continue;
@@ -3217,7 +3217,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, int y
 		tx = rand_spread(bx, 1);
 
 		/* Verify location */
-		if(!in_bounds(floor_ptr, ty, tx)) continue;
+		if(!IN_BOUNDS(floor_ptr, ty, tx)) continue;
 
 		/* Bounce to that location */
 		by = ty;
@@ -3465,7 +3465,7 @@ void place_trap(floor_type *floor_ptr, int y, int x)
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 
-	if(!in_bounds(floor_ptr, y, x)) return;
+	if(!IN_BOUNDS(floor_ptr, y, x)) return;
 
 	/* Require empty, clean, floor grid */
 	if(!cave_clean_bold(floor_ptr, y, x)) return;
@@ -4309,7 +4309,7 @@ bool process_warning(creature_type *target_ptr, int xx, int yy)
 			creature_type *attacker_ptr;
 			species_type *species_ptr;
 
-			if(!in_bounds(floor_ptr, my, mx) || (distance(my, mx, yy, xx) > WARNING_AWARE_RANGE)) continue;
+			if(!IN_BOUNDS(floor_ptr, my, mx) || (distance(my, mx, yy, xx) > WARNING_AWARE_RANGE)) continue;
 
 			c_ptr = &floor_ptr->cave[my][mx];
 

@@ -1510,7 +1510,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 				int nx = GRID_X(path_g[i]);
 				cave_type *c_ptr = &floor_ptr->cave[ny][nx];
 
-				if(in_bounds(floor_ptr, ny, nx) && cave_empty_bold(floor_ptr, ny, nx) &&
+				if(IN_BOUNDS(floor_ptr, ny, nx) && cave_empty_bold(floor_ptr, ny, nx) &&
 					!(c_ptr->info & CAVE_OBJECT) && !pattern_tile(floor_ptr, ny, nx))
 				{
 					ty = ny;

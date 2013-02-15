@@ -2004,52 +2004,33 @@
 #define object_is_cursed(T) ((T)->curse_flags[0]) // Cursed items.
 
 
-/*
- * Convert an "attr"/"char" pair into a "pict" (P)
- */
-#define PICT(A,C) ((((u16b)(A)) << 8) | ((byte)(C)))
+// Convert an "attr"/"char" pair into a "pict" (P)
+#define PICT(A, C) ((((u16b)(A)) << 8) | ((byte)(C)))
 
-/*
- * Convert a "pict" (P) into an "attr" (A)
- */
+// Convert a "pict" (P) into an "attr" (A)
 #define PICT_A(P) ((byte)((P) >> 8))
 
-/*
- * Convert a "pict" (P) into an "char" (C)
- */
+// Convert a "pict" (P) into an "char" (C)
 #define PICT_C(P) ((char)((byte)(P)))
 
+// Convert a "location" (Y, X) into a "grid" (G)
+#define GRID(Y, X) (256 * (Y) + (X))
 
-/*
- * Convert a "location" (Y,X) into a "grid" (G)
- */
-#define GRID(Y,X) (256 * (Y) + (X))
-
-/*
- * Convert a "grid" (G) into a "location" (Y)
- */
+// Convert a "grid" (G) into a "location" (Y)/(X)
 #define GRID_Y(G) ((int)((G) / 256U))
-
-/*
- * Convert a "grid" (G) into a "location" (X)
- */
 #define GRID_X(G) ((int)((G) % 256U))
 
-
 // Determines if a map location is fully inside the outer walls
-#define in_bounds(FLOOR, Y, X) \
-   (((Y) > 0) && ((X) > 0) && ((Y) < (FLOOR)->height - 1) && ((X) < (FLOOR)->width - 1))
+#define IN_BOUNDS(FLOOR, Y, X) (((Y) > 0) && ((X) > 0) && ((Y) < (FLOOR)->height - 1) && ((X) < (FLOOR)->width - 1))
 
 // Determines if a map location is on or inside the outer walls
-#define in_bounds2(FLOOR, Y, X) \
-   (((Y) >= 0) && ((X) >= 0) && ((Y) < (FLOOR)->height) && ((X) < (FLOOR)->width))
+#define IN_BOUNDS2(FLOOR, Y, X) (((Y) >= 0) && ((X) >= 0) && ((Y) < (FLOOR)->height) && ((X) < (FLOOR)->width))
 
 // Determines if a map location is on or inside the outer walls (unsigned version)
-#define in_bounds2u(FLOOR, Y, X) \
-   (((Y) < (FLOOR)->height) && ((X) < (FLOOR)->width))
+#define IN_BOUNDS2U(FLOOR, Y, X) (((Y) < (FLOOR)->height) && ((X) < (FLOOR)->width))
 
 // Determines if a map location is currently "on screen" -RAK-
-// Note that "panel_contains(Y,X)" always implies "in_bounds2(FLOOR, Y, X)".
+// Note that "panel_contains(Y,X)" always implies "IN_BOUNDS2(FLOOR, Y, X)".
 #define panel_contains(Y,X) \
   (((Y) >= panel_row_min) && ((Y) <= panel_row_max) && \
    ((X) >= panel_col_min) && ((X) <= panel_col_max))
@@ -2064,14 +2045,9 @@
 // Determine if a "feature" supports "los"
 #define FEAT_SUPPORTS_LOS(F) (have_flag(feature_info[(F)].flags, FF_LOS))
 
-/*
- * Determine if a "legal" grid supports "los"
- */
-#define cave_los_bold(FLOOR, Y, X) \
-	(FEAT_SUPPORTS_LOS((FLOOR)->cave[(Y)][(X)].feat))
-
-#define cave_los_grid(C) \
-	(FEAT_SUPPORTS_LOS((C)->feat))
+// Determine if a "legal" grid supports "los"
+#define CAVE_LOS_BOLD(FLOOR, Y, X) (FEAT_SUPPORTS_LOS((FLOOR)->cave[(Y)][(X)].feat))
+#define CAVE_LOS_GRID(C) (FEAT_SUPPORTS_LOS((C)->feat))
 
 
 /*

@@ -78,7 +78,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 			}
 
 			/* Ignore illegal locations */
-			if(!in_bounds(floor_ptr, ny, nx)) continue;
+			if(!IN_BOUNDS(floor_ptr, ny, nx)) continue;
 
 			if(!cave_creature_teleportable_bold(creature_ptr, ny, nx, mode)) continue;
 
@@ -179,7 +179,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 			}
 
 			/* Ignore illegal locations */
-			if(!in_bounds(floor_ptr, ny, nx)) continue;
+			if(!IN_BOUNDS(floor_ptr, ny, nx)) continue;
 
 			if(!cave_creature_teleportable_bold(m_ptr, ny, nx, mode)) continue;
 
@@ -488,7 +488,7 @@ void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
 		{
 			y = rand_spread(ny, dis);
 			x = rand_spread(nx, dis);
-			if(in_bounds(floor_ptr, y, x)) break;
+			if(IN_BOUNDS(floor_ptr, y, x)) break;
 		}
 
 		/* Accept any grid when wizard mode */

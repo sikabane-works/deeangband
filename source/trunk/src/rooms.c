@@ -3403,7 +3403,7 @@ static void cave_fill(floor_type *floor_ptr, byte y, byte x)
 			i = tx + ddx_ddd[d];
 
 
-			if(!in_bounds(floor_ptr, j, i))
+			if(!IN_BOUNDS(floor_ptr, j, i))
 			{
 				/* affect boundary */
 				floor_ptr->cave[j][i].info |= CAVE_ICKY;
@@ -4630,7 +4630,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	/* generate the room */
 	for (x = x1 - 2; x <= x2 + 2; x++)
 	{
-		if(!in_bounds(floor_ptr, y1-2,x)) break;
+		if(!IN_BOUNDS(floor_ptr, y1-2,x)) break;
 
 		floor_ptr->cave[y1-2][x].info |= (CAVE_ROOM | CAVE_ICKY);
 
@@ -4639,7 +4639,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 
 	for (x = x1 - 2; x <= x2 + 2; x++)
 	{
-		if(!in_bounds(floor_ptr, y2+2,x)) break;
+		if(!IN_BOUNDS(floor_ptr, y2+2,x)) break;
 
 		floor_ptr->cave[y2+2][x].info |= (CAVE_ROOM | CAVE_ICKY);
 
@@ -4648,7 +4648,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 
 	for (y = y1 - 2; y <= y2 + 2; y++)
 	{
-		if(!in_bounds(floor_ptr, y,x1-2)) break;
+		if(!IN_BOUNDS(floor_ptr, y,x1-2)) break;
 
 		floor_ptr->cave[y][x1-2].info |= (CAVE_ROOM | CAVE_ICKY);
 
@@ -4657,7 +4657,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 
 	for (y = y1 - 2; y <= y2 + 2; y++)
 	{
-		if(!in_bounds(floor_ptr, y,x2+2)) break;
+		if(!IN_BOUNDS(floor_ptr, y,x2+2)) break;
 
 		floor_ptr->cave[y][x2+2].info |= (CAVE_ROOM | CAVE_ICKY);
 
@@ -4984,7 +4984,7 @@ static void add_outer_wall(floor_type *floor_ptr, int x, int y, int light, int x
 	feature_type *f_ptr;
 	int i, j;
 
-	if(!in_bounds(floor_ptr, y, x)) return;
+	if(!IN_BOUNDS(floor_ptr, y, x)) return;
 
 	c_ptr = &floor_ptr->cave[y][x];
 

@@ -363,7 +363,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 			}
 			else if(flg & (PROJECT_LOS))
 			{
-				if((n > 0) && !cave_los_bold(floor_ptr, y, x)) break;
+				if((n > 0) && !CAVE_LOS_BOLD(floor_ptr, y, x)) break;
 			}
 			else if(!(flg & (PROJECT_PATH)))
 			{
@@ -377,7 +377,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 				if((n > 0) && EXIST_CREATURE(floor_ptr, y, x)) break;
 			}
 
-			if(!in_bounds(floor_ptr, y, x)) break;
+			if(!IN_BOUNDS(floor_ptr, y, x)) break;
 
 			/* Slant */
 			if(m)
@@ -450,7 +450,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 			}
 			else if(flg & (PROJECT_LOS))
 			{
-				if((n > 0) && !cave_los_bold(floor_ptr, y, x)) break;
+				if((n > 0) && !CAVE_LOS_BOLD(floor_ptr, y, x)) break;
 			}
 			else if(!(flg & (PROJECT_PATH)))
 			{
@@ -464,7 +464,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 				if((n > 0) && EXIST_CREATURE(floor_ptr, y, x)) break;
 			}
 
-			if(!in_bounds(floor_ptr, y, x)) break;
+			if(!IN_BOUNDS(floor_ptr, y, x)) break;
 
 			/* Slant */
 			if(m)
@@ -519,7 +519,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 			}
 			else if(flg & (PROJECT_LOS))
 			{
-				if((n > 0) && !cave_los_bold(floor_ptr, y, x)) break;
+				if((n > 0) && !CAVE_LOS_BOLD(floor_ptr, y, x)) break;
 			}
 			else if(!(flg & (PROJECT_PATH)))
 			{
@@ -533,7 +533,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 				if((n > 0) && EXIST_CREATURE(floor_ptr, y, x)) break;
 			}
 
-			if(!in_bounds(floor_ptr, y, x)) break;
+			if(!IN_BOUNDS(floor_ptr, y, x)) break;
 
 			/* Advance (Y) */
 			y += sy;
@@ -1015,7 +1015,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 						int by = y + ddy_ddd[j];
 						int bx = x + ddx_ddd[j];
 
-						if(in_bounds2(floor_ptr, by, bx))
+						if(IN_BOUNDS2(floor_ptr, by, bx))
 						{
 							cave_type *cc_ptr = &floor_ptr->cave[by][bx];
 
@@ -3327,7 +3327,7 @@ static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, in
 				t_x = caster_ptr->fx - 1 + (byte)randint1(3);
 				max_attempts--;
 			}
-			while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(floor_ptr, MAX_RANGE, player_ptr->fy, player_ptr->fx, t_y, t_x));
+			while (max_attempts && IN_BOUNDS2U(floor_ptr, t_y, t_x) && !projectable(floor_ptr, MAX_RANGE, player_ptr->fy, player_ptr->fx, t_y, t_x));
 
 			if(max_attempts < 1)
 			{
@@ -3444,7 +3444,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 
 
 
-	/* if(!in_bounds(floor_ptr, y1, x1)) return FALSE; */
+	/* if(!IN_BOUNDS(floor_ptr, y1, x1)) return FALSE; */
 
 
 	/* Directly South/North */
@@ -3667,7 +3667,7 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
 				for (x = bx - cdis; x <= bx + cdis; x++)
 				{
 					/* Ignore "illegal" locations */
-					if(!in_bounds(floor_ptr, y, x)) continue;
+					if(!IN_BOUNDS(floor_ptr, y, x)) continue;
 
 					/* Enforce a circular "ripple" */
 					if(distance(y1, x1, y, x) != bdis) continue;
@@ -4264,7 +4264,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 		int nx = GRID_X(path_g[i]);
 
 		if(flg & PROJECT_DISI) if(cave_stop_disintegration(floor_ptr, ny, nx) && (rad > 0)) break;
-		else if(flg & PROJECT_LOS) if(!cave_los_bold(floor_ptr, ny, nx) && (rad > 0)) break;
+		else if(flg & PROJECT_LOS) if(!CAVE_LOS_BOLD(floor_ptr, ny, nx) && (rad > 0)) break;
 		else if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, ny, nx, FF_PROJECT) && (rad > 0)) break;
 
 		/* Advance */
@@ -4391,7 +4391,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 					for (x = bx - dist; x <= bx + dist; x++)
 					{
 						/* Ignore "illegal" locations */
-						if(!in_bounds2(floor_ptr, y, x)) continue;
+						if(!IN_BOUNDS2(floor_ptr, y, x)) continue;
 
 						/* Enforce a "circular" explosion */
 						if(distance(by, bx, y, x) != dist) continue;
@@ -4631,7 +4631,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 						t_x = x_saver - 1 + (byte)randint1(3);
 						max_attempts--;
 					}
-					while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(floor_ptr, MAX_RANGE, y, x, t_y, t_x));
+					while (max_attempts && IN_BOUNDS2U(floor_ptr, t_y, t_x) && !projectable(floor_ptr, MAX_RANGE, y, x, t_y, t_x));
 
 					if(max_attempts < 1)
 					{

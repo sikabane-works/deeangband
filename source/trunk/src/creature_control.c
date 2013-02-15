@@ -736,7 +736,7 @@ void delete_creature(floor_type *floor_ptr, int y, int x)
 	cave_type *c_ptr;
 
 
-	if(!in_bounds(floor_ptr, y, x)) return;
+	if(!IN_BOUNDS(floor_ptr, y, x)) return;
 
 	/* Check the grid */
 	c_ptr = &floor_ptr->cave[y][x];
@@ -3284,7 +3284,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	// DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!!
 	if(floor_ptr->wild_mode) return max_creature_idx;
 
-	if(!in_bounds(floor_ptr, y, x)) // Verify location
+	if(!IN_BOUNDS(floor_ptr, y, x)) // Verify location
 	{
 		if(cheat_hear) msg_warning("[Invalid Location (x=%d, y=%d)]", x, y);
 		return max_creature_idx;
@@ -3593,7 +3593,7 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, floor_type *floo
 		for (ny = y - max_dist; ny <= y + max_dist; ny++)
 		{
 			/* Ignore annoying locations */
-			if(!in_bounds(floor_ptr, ny, nx)) continue;
+			if(!IN_BOUNDS(floor_ptr, ny, nx)) continue;
 
 			/* Require "line of projection" */
 			if(!projectable(floor_ptr, MAX_RANGE, y, x, ny, nx)) continue;

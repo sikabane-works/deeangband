@@ -269,7 +269,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 		 
 		if(tries > 20 * dis * dis) dis++;
 
-		if(!in_bounds(floor_ptr, ny, nx)) continue; // Ignore illegal locations
+		if(!IN_BOUNDS(floor_ptr, ny, nx)) continue; // Ignore illegal locations
 		if(!cave_empty_bold(floor_ptr, ny, nx)) continue; // Require "empty" floor space
 		if(is_glyph_grid(&floor_ptr->cave[ny][nx])) continue; // Hack -- no teleport onto glyph of warding
 		if(is_explosive_rune_grid(&floor_ptr->cave[ny][nx])) continue;

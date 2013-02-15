@@ -733,7 +733,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 				{
 					scatter(floor_ptr, &wy, &wx, y, x, 20, 0);
 				}
-				while (!(in_bounds(floor_ptr, wy, wx) && cave_empty_bold2(floor_ptr, wy, wx)) && --attempts);
+				while (!(IN_BOUNDS(floor_ptr, wy, wx) && cave_empty_bold2(floor_ptr, wy, wx)) && --attempts);
 
 				if(attempts > 0)
 				{
@@ -1558,11 +1558,11 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 	s16b this_object_idx, next_object_idx = 0;
 
 	/* Bounds */
-	if(!(in_bounds(floor_ptr, y, x))) return FALSE;
+	if(!(IN_BOUNDS(floor_ptr, y, x))) return FALSE;
 	if(floor_ptr->wild_mode && !wilderness[y][x].known) return FALSE;
 
 	/* Player grid is always interesting */
-	if(creature_bold(creature_ptr, y, x)) return TRUE;
+	if(CREATURE_BOLD(creature_ptr, y, x)) return TRUE;
 
 
 	/* Handle hallucination */
@@ -1776,7 +1776,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 	}
 
 	/* Hack -- under the player */
-	if(creature_bold(creature_ptr, y, x))
+	if(CREATURE_BOLD(creature_ptr, y, x))
 	{
 		/* Description */
 #ifdef JP
@@ -3437,7 +3437,7 @@ static bool tgt_pt_accept(creature_type *creature_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	if(!(in_bounds(floor_ptr, y, x))) return FALSE; // Bounds
+	if(!(IN_BOUNDS(floor_ptr, y, x))) return FALSE; // Bounds
 	if((y == creature_ptr->fy) && (x == creature_ptr->fx)) return TRUE; // Player grid is always interesting
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return FALSE; // Handle hallucination
 	c_ptr = &floor_ptr->cave[y][x]; // Examine the grid
@@ -3446,12 +3446,12 @@ static bool tgt_pt_accept(creature_type *creature_ptr, int y, int x)
 	if(c_ptr->info & (CAVE_MARK))
 	{
 		// Notice stairs
-		if(cave_have_flag_grid(c_ptr, FF_LESS)) return TRUE;
-		if(cave_have_flag_grid(c_ptr, FF_MORE)) return TRUE;
+		if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_LESS)) return TRUE;
+		if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_MORE)) return TRUE;
 
 		// Notice quest features
-		if(cave_have_flag_grid(c_ptr, FF_QUEST_ENTER)) return TRUE;
-		if(cave_have_flag_grid(c_ptr, FF_QUEST_EXIT)) return TRUE;
+		if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_QUEST_ENTER)) return TRUE;
+		if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_QUEST_EXIT)) return TRUE;
 	}
 
 	return FALSE;
@@ -3532,7 +3532,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 		case '5':
 		case '0':
 			/* illegal place */
-			if(creature_bold(creature_ptr, y, x)) ch = 0;
+			if(CREATURE_BOLD(creature_ptr, y, x)) ch = 0;
 
 			/* okay place */
 			else success = TRUE;
@@ -3556,16 +3556,16 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 
 					if(ch == '>')
 					{
-						if(cave_have_flag_grid(c_ptr, FF_LESS) ||
-							cave_have_flag_grid(c_ptr, FF_QUEST_ENTER))
+						if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_LESS) ||
+							CAVE_HAVE_FLAG_GRID(c_ptr, FF_QUEST_ENTER))
 							n++;
 						else
 							break;
 					}
 					else /* if(ch == '<') */
 					{
-						if(cave_have_flag_grid(c_ptr, FF_MORE) ||
-							cave_have_flag_grid(c_ptr, FF_QUEST_EXIT))
+						if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_MORE) ||
+							CAVE_HAVE_FLAG_GRID(c_ptr, FF_QUEST_EXIT))
 							n++;
 						else
 							break;

@@ -290,7 +290,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		x = x1 + ddx_ddd[i];
 
 		/* Ignore locations off of edge */
-		if(!in_bounds2(floor_ptr, y, x)) continue;
+		if(!IN_BOUNDS2(floor_ptr, y, x)) continue;
 
 		/* Simply move to player */
 		if(CREATURE_BOLD(player_ptr, y, x)) return FALSE;
@@ -410,7 +410,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 		x = x1 + ddx_ddd[i];
 
 		/* Ignore locations off of edge */
-		if(!in_bounds2(floor_ptr, y, x)) continue;
+		if(!IN_BOUNDS2(floor_ptr, y, x)) continue;
 
 		c_ptr = &floor_ptr->cave[y][x];
 
@@ -484,7 +484,7 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 		x = fx + ddx_ddd[i];
 
 		/* Ignore locations off of edge */
-		if(!in_bounds2(floor_ptr, y, x)) continue;
+		if(!IN_BOUNDS2(floor_ptr, y, x)) continue;
 
 		/* Don't move toward player */
 		/* if(floor_ptr->cave[y][x].dist < 3) continue; */ /* Hmm.. Need it? */
@@ -699,7 +699,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 			x = fx + dx;
 
 			/* Skip illegal locations */
-			if(!in_bounds(floor_ptr, y, x)) continue;
+			if(!IN_BOUNDS(floor_ptr, y, x)) continue;
 
 			c_ptr = &floor_ptr->cave[y][x];
 
@@ -787,7 +787,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 			x = fx + dx;
 
 			/* Skip illegal locations */
-			if(!in_bounds(floor_ptr, y, x)) continue;
+			if(!IN_BOUNDS(floor_ptr, y, x)) continue;
 
 			/* Skip occupied locations */
 			if(!creature_can_enter(y, x, m_ptr, 0)) continue;
@@ -879,7 +879,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 				int xx = player_ptr->fx + ddx_ddd[i];
 				int yy = player_ptr->fy + ddy_ddd[i];
 
-				if(!in_bounds2(floor_ptr, yy, xx)) continue;
+				if(!IN_BOUNDS2(floor_ptr, yy, xx)) continue;
 
 				c_ptr = &floor_ptr->cave[yy][xx];
 
@@ -927,7 +927,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 					break;
 				}
 
-				if(!in_bounds2(floor_ptr, y2, x2)) continue;
+				if(!IN_BOUNDS2(floor_ptr, y2, x2)) continue;
 
 				/* Ignore filled grids */
 				if(!creature_can_enter(y2, x2, nonplayer_ptr, 0)) continue;
@@ -1286,7 +1286,7 @@ static void do_multiply_creature(creature_type *creature_ptr)
 			for (x = ox - 1; x <= ox + 1; x++)
 			{
 				/* Ignore locations off of edge */
-				if(!in_bounds2(floor_ptr, y, x)) continue;
+				if(!IN_BOUNDS2(floor_ptr, y, x)) continue;
 
 				if(floor_ptr->cave[y][x].creature_idx) k++;
 			}
@@ -1803,7 +1803,7 @@ static void process_nonplayer(int m_idx)
 		nx = ox + ddx[d];
 
 		/* Ignore locations off of edge */
-		if(!in_bounds2(floor_ptr, ny, nx)) continue;
+		if(!IN_BOUNDS2(floor_ptr, ny, nx)) continue;
 
 		/* Access that cave grid */
 		c_ptr = &floor_ptr->cave[ny][nx];

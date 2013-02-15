@@ -2742,7 +2742,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 							mmove2(&ny, &nx, creature_ptr->fy, creature_ptr->fx, ty, tx);
 
 							/* Stopped by wilderness boundary */
-							if(!in_bounds2(floor_ptr, ny, nx)) break;
+							if(!IN_BOUNDS2(floor_ptr, ny, nx)) break;
 
 							/* Stopped by walls/doors */
 							if(!creature_can_cross_terrain(creature_ptr, floor_ptr->cave[ny][nx].feat, 0)) break;
@@ -3490,7 +3490,7 @@ static bool travel_flow_aux(creature_type *creature_ptr, int y, int x, int n, bo
 	n = n % TRAVEL_UNABLE;
 
 	/* Ignore out of bounds */
-	if(!in_bounds(floor_ptr, y, x)) return wall;
+	if(!IN_BOUNDS(floor_ptr, y, x)) return wall;
 
 	/* Ignore "pre-stamped" entries */
 	if(travel.cost[y][x] != TRAVEL_UNABLE) return wall;

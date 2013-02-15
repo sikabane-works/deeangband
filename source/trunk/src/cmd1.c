@@ -950,7 +950,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 					int y1 = rand_spread(y, 5);
 
 					/* Skip illegal grids */
-					if(!in_bounds(floor_ptr, y1, x1)) continue;
+					if(!IN_BOUNDS(floor_ptr, y1, x1)) continue;
 
 					/* Require line of projection */
 					if(!projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, y1, x1)) continue;
@@ -1841,7 +1841,7 @@ static int see_wall(creature_type *creature_ptr, int dir, int y, int x)
 	y += ddy[dir];
 	x += ddx[dir];
 
-	if(!in_bounds2(floor_ptr, y, x)) return FALSE; // Illegal grids are not known walls
+	if(!IN_BOUNDS2(floor_ptr, y, x)) return FALSE; // Illegal grids are not known walls
 	c_ptr = &floor_ptr->cave[y][x]; // Access grid
 
 	if(c_ptr->info & (CAVE_MARK)) // Must be known to the player
@@ -1875,7 +1875,7 @@ static int see_nothing(creature_type *watcher_ptr, int dir, int y, int x)
 	y += ddy[dir];
 	x += ddx[dir];
 
-	if(!in_bounds2(floor_ptr, y, x)) return TRUE; // Illegal grids are unknown
+	if(!IN_BOUNDS2(floor_ptr, y, x)) return TRUE; // Illegal grids are unknown
 	if(floor_ptr->cave[y][x].info & (CAVE_MARK)) return FALSE; // Memorized grids are always known
 	if(creature_can_see_bold(watcher_ptr, y, x)) return FALSE; // Viewable door/wall grids are known
 

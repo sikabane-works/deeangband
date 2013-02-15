@@ -582,7 +582,7 @@ static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 
 			if(d >= 9) continue;
 
-			if(!in_bounds(floor_ptr, y, x) || !projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, y, x)
+			if(!IN_BOUNDS(floor_ptr, y, x) || !projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, y, x)
 			    || !CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
 
 			/* Valid position */
@@ -669,7 +669,7 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 		if(count < 0) continue;
 
 		/* Cannot penetrate perm walls */
-		if(!in_bounds(floor_ptr, y, x) ||
+		if(!IN_BOUNDS(floor_ptr, y, x) ||
 		    cave_stop_disintegration(floor_ptr, y, x) ||
 		    !in_disintegration_range(floor_ptr, ty, tx, y, x)) continue;
 		project(creature_ptr, 0, rad, y, x, dam, DO_EFFECT_DISINTEGRATE, PROJECT_JUMP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
