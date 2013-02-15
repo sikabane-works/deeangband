@@ -1254,51 +1254,60 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 static void do_cmd_wiz_creature_list(void)
 {
 	selection_table *ce;
-	int i, mode, n;
+	int i, mode;
 	char k, tmp[80];
+	selection_info se_info;
 	ce = malloc(sizeof(selection_table) * (creature_max + 1));
+
+	se_info.mode = 0;
+	se_info.detail = NULL;
+	se_info.default_se = 0;
+	se_info.y = 1;
+	se_info.x = 1;
+	se_info.h = 22;
+	se_info.w = 78;
 
 	screen_save();
 
 	while(1)
 	{
-		n = 0;
+		se_info.num = 0;
 
 		for(i = 1; i < creature_max; i++)
 		{
-			sprintf(ce[n].cap, "[%4d] F:%3d D:%3d (%3d, %3d) HP:%6d/%6d %-24s", i, creature_list[i].floor_id, creature_list[i].depth,
+			sprintf(ce[se_info.num].cap, "[%4d] F:%3d D:%3d (%3d, %3d) HP:%6d/%6d %-24s", i, creature_list[i].floor_id, creature_list[i].depth,
 				creature_list[i].fx, creature_list[i].fy, creature_list[i].chp, creature_list[i].mhp, creature_list[i].name);
-			ce[n].cap[72] = '\0'; 
+			ce[se_info.num].cap[72] = '\0'; 
 			if(is_player(&creature_list[i]))
 			{
-				ce[n].d_color = TERM_UMBER;
-				ce[n].l_color = TERM_YELLOW;
+				ce[se_info.num].d_color = TERM_UMBER;
+				ce[se_info.num].l_color = TERM_YELLOW;
 			}
 			else if(has_trait(&creature_list[i], TRAIT_UNIQUE))
 			{
-				ce[n].d_color = TERM_GREEN;
-				ce[n].l_color = TERM_L_GREEN;
+				ce[se_info.num].d_color = TERM_GREEN;
+				ce[se_info.num].l_color = TERM_L_GREEN;
 			}
 			else
 			{
-				ce[n].d_color = TERM_L_DARK;
-				ce[n].l_color = TERM_WHITE;
+				ce[se_info.num].d_color = TERM_L_DARK;
+				ce[se_info.num].l_color = TERM_WHITE;
 			}
 
-			ce[n].key = '\0';
-			ce[n].code = i;
-			n++;
+			ce[se_info.num].key = '\0';
+			ce[se_info.num].code = i;
+			se_info.num++;
 		}
 
-		sprintf(ce[n].cap, " END ");
-		ce[n].d_color = TERM_RED;
-		ce[n].l_color = TERM_L_RED;
-		ce[n].key = ESCAPE;
-		ce[n].code = creature_max;
+		sprintf(ce[se_info.num].cap, " END ");
+		ce[se_info.num].d_color = TERM_RED;
+		ce[se_info.num].l_color = TERM_L_RED;
+		ce[se_info.num].key = ESCAPE;
+		ce[se_info.num].code = creature_max;
 
-		n++;
+		se_info.num++;
 
-		i = get_selection(NULL, ce, n, 0, 1, 1, 22, 78, NULL, 0);
+		i = get_selection(&se_info, ce);
 		if(i == creature_max) break;
 
 		mode = 0;
@@ -1336,50 +1345,59 @@ static void do_cmd_wiz_creature_list(void)
 static void do_cmd_wiz_floor_teleport(void)
 {
 	selection_table *ce;
-	int i, n;
+	int i;
+	selection_info se_info;
 	ce = malloc(sizeof(selection_table) * (floor_max + 1));
+
+	se_info.mode = 0;
+	se_info.detail = NULL;
+	se_info.default_se = player_ptr->floor_id;
+	se_info.y = 1;
+	se_info.x = 1;
+	se_info.h = 22;
+	se_info.w = 78;
 
 	screen_save();
 
 	while(1)
 	{
-		n = 0;
+		se_info.num = 0;
 
 		for(i = 1; i < floor_max; i++)
 		{
-			sprintf(ce[n].cap, "[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
+			sprintf(ce[se_info.num].cap, "[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
 				floor_list[i].world_x, floor_list[i].world_y,
 				floor_list[i].width, floor_list[i].height,
 				map_name(&floor_list[i]), floor_list[i].floor_level);
-			ce[n].cap[72] = '\0'; 
+			ce[se_info.num].cap[72] = '\0'; 
 
 			if(player_ptr->floor_id == i)
 			{
-				ce[n].d_color = TERM_GREEN;
-				ce[n].l_color = TERM_L_GREEN;
-				ce[n].key = '\0';
-				ce[n].code = i;
+				ce[se_info.num].d_color = TERM_GREEN;
+				ce[se_info.num].l_color = TERM_L_GREEN;
+				ce[se_info.num].key = '\0';
+				ce[se_info.num].code = i;
 			}
 
 			else
 			{
-				ce[n].d_color = TERM_L_DARK;
-				ce[n].l_color = TERM_WHITE;
-				ce[n].key = '\0';
-				ce[n].code = i;
+				ce[se_info.num].d_color = TERM_L_DARK;
+				ce[se_info.num].l_color = TERM_WHITE;
+				ce[se_info.num].key = '\0';
+				ce[se_info.num].code = i;
 			}
 
-			n++;
+			se_info.num++;
 		}
 
-		sprintf(ce[n].cap, " END ");
-		ce[n].d_color = TERM_RED;
-		ce[n].l_color = TERM_L_RED;
-		ce[n].key = ESCAPE;
-		ce[n].code = i;
-		n++;
+		sprintf(ce[se_info.num].cap, " END ");
+		ce[se_info.num].d_color = TERM_RED;
+		ce[se_info.num].l_color = TERM_L_RED;
+		ce[se_info.num].key = ESCAPE;
+		ce[se_info.num].code = i;
+		se_info.num++;
 
-		i = get_selection(NULL, ce, n, player_ptr->floor_id, 1, 1, 22, 78, NULL, 0);
+		i = get_selection(&se_info, ce);
 		if(i == floor_max) break;
 
 		else
