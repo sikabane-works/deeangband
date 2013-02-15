@@ -1323,25 +1323,35 @@ bool can_get_item(creature_type *creature_ptr)
 int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 {
 	selection_table se[16];
-	int i, n, slot_num = creature_ptr->item_slot_num[slot];
+	int i, n;
 	char buf[100];
 	object_type *object_ptr;
+	selection_info se_info;
+
+	se_info.mode = GET_SE_NO_FRAME | GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT | GET_SE_RIGHT;
+	se_info.detail = NULL;
+	se_info.default_se = 0;
+	se_info.y = 1;
+	se_info.x = 22;
+	se_info.h = 1;
+	se_info.w = 30;
+	se_info.num = creature_ptr->item_slot_num[slot];
 
 	screen_save();
 	c_put_str(TERM_L_BLUE, r, 0, 0);
 
-	if(slot_num == 0 || slot == INVEN_SLOT_INVENTORY)
+	if(se_info.num == 0 || slot == INVEN_SLOT_INVENTORY)
 	{
 		msg_print(s);
 		n = -1;
 	}
-	if(slot_num == 1)
+	if(se_info.num == 1)
 	{
 		n = 0;
 	}
 	else
 	{
-		for(i = 0; i < slot_num; i++)
+		for(i = 0; i < se_info.num; i++)
 		{
 			object_ptr = get_equipped_slot_ptr(creature_ptr, slot, i);
 			object_desc(buf, object_ptr, 0);
@@ -1369,7 +1379,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 		se[i].d_color = TERM_L_DARK;
 		se[i].l_color = TERM_WHITE;
 
-		n = get_selection(NULL, se, slot_num, 0, 1, 22, 1, 30, NULL, GET_SE_NO_FRAME | GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT | GET_SE_RIGHT);
+		n = get_selection(&se_info, se);
 	}
 	screen_load();
 
