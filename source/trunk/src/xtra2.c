@@ -3245,33 +3245,21 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_POLY_WND:
 			msg_format(MES_PATRON_POLY_WND(patron_name));
-#ifdef JP
-			reward = "傷が変化した。";
-#else
-			reward = "polymorphing wounds";
-#endif				
+			reward = MES_DIARY_PATRON_POLY_WND;
 			do_poly_wounds(creature_ptr);
 			break;
 
 		case REW_AUGM_ABL:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_AUGM_ABL);
-#ifdef JP
-			reward = "全能力値が上がった。";
-#else
-			reward = "increasing all stats";
-#endif
+			reward = MES_DIARY_PATRON_AUGM_ABL;
 			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)do_inc_stat(creature_ptr, dummy);
 			break;
 
 		case REW_HURT_LOT:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_HURT_LOT);
-#ifdef JP
-			reward = "分解の球が発生した。";
-#else
-			reward = "generating disintegration ball";
-#endif
+			reward = MES_DIARY_PATRON_HURT_LOT;
 			SELF_FIELD(creature_ptr, DO_EFFECT_NUKE, creature_ptr->lev * 4, 4, -1);
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 			break;
@@ -3350,11 +3338,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			default:
 				for (dummy = 0; dummy < STAT_MAX; dummy++)
 					(void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
-#ifdef JP
-				reward = "全能力値が下がった。";
-#else
-				reward = "decreasing all stats";
-#endif
+					msg_print(MES_PATRON_RUIN_ABL);
 				break;
 			}
 			break;
