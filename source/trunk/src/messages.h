@@ -2365,6 +2365,9 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_ERROR_REWARD2(TYPE, EFFECT) "「あー、あー、答えは %d/%d。文句はあるかい？」", (TYPE), (EFFECT)
 #define MES_DIARY_PATRON_DESTROYED(OBJECT) "%sが破壊された。", (OBJECT)
 #define MES_DIARY_PATRON_MUTATION "変異した。"
+#define MES_DIARY_PATRON_GAIN_EXP "経験値を得た"
+#define MES_DIATY_PATRON_LOST_EXP "経験値を失った。"
+#define MES_DIATY_PATRON_GOOD_ITEM "上質なアイテムを手に入れた。"
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -2400,6 +2403,9 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_ERROR_REWARD2(TYPE, EFFECT) "'Uh... uh... the answer's %d/%d, what's the question?'", (TYPE), (EFFECT)
 #define MES_DIARY_PATRON_DESTROYED(OBJECT) "destroying %s", (OBJECT)
 #define MES_DIARY_PATRON_MUTATION "mutation"
+#define MES_DIARY_PATRON_GAIN_EXP "experience"
+#define MES_DIATY_PATRON_LOST_EXP "losing experience"
+#define MES_DIATY_PATRON_GOOD_ITEM "a good item"
 #endif
 
 #ifdef JP

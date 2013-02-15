@@ -3048,12 +3048,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			{
 				s32b ee = (creature_ptr->exp / 2) + 10;
 				if(ee > 100000L) ee = 100000L;
-#ifdef JP
-				reward = "経験値を得た";
-#else
-				reward = "experience";
-#endif
-
+				reward = MES_DIARY_PATRON_GAIN_EXP;
 				gain_exp_mes(creature_ptr, ee);
 			}
 			break;
@@ -3065,22 +3060,14 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			else
 			{
 				lose_exp(creature_ptr, creature_ptr->exp / 6);
-#ifdef JP
-				reward = "経験値を失った。";
-#else
-				reward = "losing experience";
-#endif
+				reward = MES_DIATY_PATRON_LOST_EXP;
 			}
 			break;
 
 		case REW_GOOD_OBJ:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GOOD_OBJ);
-#ifdef JP
-			reward = "上質なアイテムを手に入れた。";
-#else
-			reward = "a good item";
-#endif
+			reward = MES_DIATY_PATRON_GOOD_ITEM;
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, 1, FALSE, FALSE);
 			break;
 
@@ -3203,11 +3190,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_GOOD_OBS:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GOOD_OBS);
-#ifdef JP
-			reward = "上質なアイテムを手に入れた。";
-#else
-			reward = "good items";
-#endif
+			reward = MES_DIATY_PATRON_GOOD_ITEM;
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, FALSE, FALSE);
 			break;
 
