@@ -1646,8 +1646,8 @@ void do_cmd_options_aux(int page, cptr info)
 {
 	selection_table se[25];
 	selection_info se_info;
-	int     opt[24];
-	int i, n = 0;
+	int opt[24];
+	int n = 0;
 
 	se_info.mode = GET_SE_LEFT_RIGHT_SWITCHING;
 	se_info.detail = NULL;
@@ -1658,9 +1658,9 @@ void do_cmd_options_aux(int page, cptr info)
 	se_info.w = 78;
 	se_info.num = 0;
 
-	for (i = 0; i < 24; i++) opt[se_info.num] = 0;	// Lookup the options
-	for (i = 0; option_info[i].o_desc; i++) // Scan the options
-		if(option_info[i].o_page == page) opt[n++] = i;
+	for (se_info.num = 0; se_info.num < 24; se_info.num++) opt[se_info.num] = 0;	// Lookup the options
+	for (se_info.num = 0; option_info[se_info.num].o_desc; se_info.num++) // Scan the options
+		if(option_info[se_info.num].o_page == page) opt[n++] = se_info.num;
 
 	prt(info, 0, 0);
 	while(TRUE)
@@ -1670,18 +1670,18 @@ void do_cmd_options_aux(int page, cptr info)
 			sprintf(se[se_info.num].cap, "%-45s:%-6s(%.19s)", option_info[opt[se_info.num]].o_desc, (*option_info[opt[se_info.num]].o_var ? KW_YES : KW_NO), option_info[opt[se_info.num]].o_text);
 			se[se_info.num].d_color = TERM_L_DARK;
 			se[se_info.num].l_color = TERM_WHITE;
-			se[se_info.num].code = se[se_info.num].left_code = se[se_info.num].right_code = i;
+			se[se_info.num].code = se[se_info.num].left_code = se[se_info.num].right_code = se_info.num;
 			se[se_info.num].key = '\0';			
 		}
 		strcpy(se[se_info.num].cap, "Œˆ’è");
 		se[se_info.num].d_color = TERM_BLUE;
 		se[se_info.num].l_color = TERM_L_BLUE;
-		se[se_info.num].code = i;
+		se[se_info.num].code = se_info.num;
 		se[se_info.num].left_code = se[se_info.num].right_code = -1;
 		se[se_info.num].key = ESCAPE;
 		se_info.num++;
 		se_info.default_se = get_selection(&se_info, se);
-		if(se_info.default_se == i - 1) break;
+		if(se_info.default_se == se_info.num - 1) break;
 		else if (se_info.default_se >= 0) *(option_info[opt[se_info.default_se]].o_var) = !(*(option_info[opt[se_info.default_se]].o_var));
 
 	}
