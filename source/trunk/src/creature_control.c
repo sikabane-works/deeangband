@@ -3291,19 +3291,19 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if(!in_bounds(floor_ptr, y, x)) // Verify location
 	{
 		if(cheat_hear) msg_warning("[max_creature_idx: Invalid Location]");
-		return (max_creature_idx);
+		return max_creature_idx;
 	}
 
 	if(!species_idx) // Paranoia
 	{
 		if(cheat_hear) msg_format("[max_creature_idx: Invalid Creature Race]");
-		return (max_creature_idx);
+		return max_creature_idx;
 	}
 
 	if(!species_ptr->name) // Paranoia
 	{
 		if(cheat_hear) msg_format("[max_creature_idx: Invalid Creature Name]");
-		return (max_creature_idx);
+		return max_creature_idx;
 	}
 
 	if(!(mode & PC_IGNORE_TERRAIN))
@@ -3319,30 +3319,12 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 	if(!floor_ptr->gamble_arena_mode) // TO DO DEBUG.
 	{
-		/* Hack -- "unique" creatures must be "unique" */
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE) || species_ptr->cur_num >= species_ptr->max_num)
+		if(species_info[species_idx].cur_num >= species_info[species_idx].max_num)
 		{
-			if(cheat_hear) msg_format("[max_creature_idx: Unique creature must be unique.]");
-			return (max_creature_idx); // Cannot create
+			if(cheat_hear) msg_format("[Creature Max Limit]");
+			return max_creature_idx;
 		}
-
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE2) && (species_ptr->cur_num >= 1))
-		{
-			if(cheat_hear) msg_format("[max_creature_idx: Unique creature must be unique.]");
-			return (max_creature_idx);
-		}
-
-		if(species_idx == SPECIES_BANORLUPART)
-		{
-			if(species_info[SPECIES_BANOR].cur_num > 0) return max_creature_idx;
-			if(species_info[SPECIES_LUPART].cur_num > 0) return max_creature_idx;
-			if(cheat_hear)
-			{
-				msg_format("[max_creature_idx: Unique creature must be unique.]");
-			}
-
-		}
-
+			
 		// Depth creatures may NOT be created out of depth, unless in Nightmare mode
 		if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && (floor_ptr->floor_level < species_ptr->level) &&
 			(!has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR) || (has_trait_species(species_ptr, TRAIT_QUESTOR))))

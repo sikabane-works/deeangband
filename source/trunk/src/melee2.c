@@ -2489,7 +2489,8 @@ static void process_creature(int i)
 	{
 		do_creature_speaking(creature_ptr);
 		if(has_trait(creature_ptr, TRAIT_QUANTUM)) do_quantum_creature_feature(creature_ptr); // Quantum creatures are odd
-		if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
+		if(is_player(creature_ptr))
+			process_player(creature_ptr); // Process the player
 		else if(CURRENT_FLOOR_PTR == floor_ptr) 
 		{
 			cost_tactical_energy(creature_ptr, 200); // Take a turn
