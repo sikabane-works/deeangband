@@ -2372,6 +2372,10 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_CHAOS_WP "(混沌)の武器を手に入れた。"
 #define MES_DIARY_PATRON_S_ENEMY "クリーチャーを召喚された。"
 #define MES_DIARY_PATRON_TY_CURSE "禍々しい呪いをかけられた。"
+#define MES_DIARY_PATRON_HAVOC "カオスの力が渦巻いた。"
+#define MES_DIARY_PATRON_GAIN_ABL "能力値が上がった。"
+#define MES_DIARY_PATRON_LOST_ABL "能力値が下がった。"
+#define MES_DIARY_PATRON_RUIN_ABL "全能力値が下がった。"
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -2414,6 +2418,10 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_CHAOS_WP "chaos weapon"
 #define MES_DIARY_PATRON_S_ENEMY "summoning hostile creatures"
 #define MES_DIARY_PATRON_TY_CURSE "cursing"
+#define MES_DIARY_PATRON_HAVOC "calling chaos"
+#define MES_DIARY_PATRON_GAIN_ABL "increasing a stat"
+#define MES_DIARY_PATRON_LOST_ABL "decreasing a stat"
+#define MES_DIARY_PATRON_RUIN_ABL "decreasing all stats"
 #endif
 
 #ifdef JP

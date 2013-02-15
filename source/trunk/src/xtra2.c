@@ -3218,44 +3218,28 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_DO_HAVOC:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_HAVOC);
-#ifdef JP
-			reward = "カオスの力が渦巻いた。";
-#else
-			reward = "calling chaos";
-#endif
+			reward = MES_DIARY_PATRON_HAVOC;
 			call_chaos(creature_ptr);
 			break;
 
 		case REW_GAIN_ABL:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GAIN_ABL);
-#ifdef JP
-			reward = "能力値が上がった。";
-#else
-			reward = "increasing a stat";
-#endif
+			reward = MES_DIARY_PATRON_GAIN_ABL;
 			do_inc_stat(creature_ptr, randint0(6));
 			break;
 
 		case REW_LOSE_ABL:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_LOSE_ABL);
-#ifdef JP
-			reward = "能力値が下がった。";
-#else
-			reward = "decreasing a stat";
-#endif
+			reward = MES_DIARY_PATRON_LOST_ABL;
 			(void)do_dec_stat(creature_ptr, randint0(6));
 			break;
 
 		case REW_RUIN_ABL:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_RUIN_ABL);
-#ifdef JP
-			reward = "全能力値が下がった。";
-#else
-			reward = "decreasing all stats";
-#endif
+			reward = MES_DIARY_PATRON_RUIN_ABL;
 			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
 			break;
 
