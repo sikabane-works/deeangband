@@ -3537,13 +3537,11 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 			if(c_ptr->info & CAVE_MARK)
 			{
 				msg_print(GAME_MESSAGE_BREAK_E_RUNE);
-				//TODO				project(watcher_ptr, 2, y, x, 2 * (watcher_ptr->lev + diceroll(7, 7)), DO_EFFECT_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+				project(NULL, 0, 2, y, x, diceroll(10, 7), DO_EFFECT_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 		}
 		else
-		{
 			msg_print(GAME_MESSAGE_DISARM_E_RUNE);
-		}
 
 		/* Forget the rune */
 		c_ptr->info &= ~(CAVE_MARK);
@@ -3552,20 +3550,14 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		c_ptr->info &= ~(CAVE_OBJECT);
 		c_ptr->mimic = 0;
 
-		//TODO note_spot(y, x);
+		note_spot(floor_ptr, y, x);
 		lite_spot(floor_ptr, y, x);
 	}
 
 	//strcpy(creature_ptr->name, species_name + species_ptr->name);
 	creature_desc(creature_ptr->name, creature_ptr, CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
-	/* Info for Wizard Mode*/
-	if(cheat_hear)
-	{
-		msg_format("[%s L%d AC%d HW%d/%d S%d]", creature_ptr->name, creature_ptr->lev,
-			creature_ptr->ac + creature_ptr->to_ac, creature_ptr->ht, creature_ptr->wt, creature_ptr->sex);
-	}
-
+	if(cheat_hear) msg_format("[Creature:%s Level:%d]", creature_ptr->name, creature_ptr->lev);
 	return c_ptr->creature_idx;
 }
 
