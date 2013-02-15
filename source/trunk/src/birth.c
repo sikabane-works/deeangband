@@ -3203,8 +3203,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 #else
 		put_str("Select a sex(Red entries have race penalty) ", 0, 0);
 #endif
-		i = get_selection(NULL, se, n, 0, 5, 2, 18, 20, NULL, 0);
-
+		i = get_selection(&se_info, se);
 
 	if(i >= 0)
 	{
@@ -3227,6 +3226,16 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 {
 	int i, n, id[MAX_CLASS], weight[MAX_CLASS];
 	selection_table ce[MAX_CLASS+3];
+	selection_info se_info;
+
+	se_info.mode = 0;
+	se_info.detail = class_detail;
+	se_info.default_se = 0;
+	se_info.y = 5;
+	se_info.x = 2;
+	se_info.h = 18;
+	se_info.w = 20;
+	se_info.num = 0;
 
 	if(species_ptr->class_idx != INDEX_VARIABLE)
 	{
@@ -3241,25 +3250,25 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 	{
 		if(class_info[i].selectable)
 		{
-			strcpy(ce[n].cap, class_info[i].title);
-			id[n] = i;
-			if(class_info[i].rarity) weight[n] = 10000 / class_info[i].rarity;
-			else weight[n] = 0;
-			ce[n].code = i;
-			ce[n].key = '\0';
-			ce[n].d_color = TERM_L_DARK;
-			ce[n].l_color = TERM_WHITE;
+			strcpy(ce[se_info.num].cap, class_info[i].title);
+			id[se_info.num] = i;
+			if(class_info[i].rarity) weight[se_info.num] = 10000 / class_info[i].rarity;
+			else weight[se_info.num] = 0;
+			ce[se_info.num].code = i;
+			ce[se_info.num].key = '\0';
+			ce[se_info.num].d_color = TERM_L_DARK;
+			ce[se_info.num].l_color = TERM_WHITE;
 			if(SUITABLE_CLASS(creature_ptr, i))
 			{
-				ce[n].d_color = TERM_GREEN;
-				ce[n].l_color = TERM_L_GREEN;
+				ce[se_info.num].d_color = TERM_GREEN;
+				ce[se_info.num].l_color = TERM_L_GREEN;
 			}
 			else
 			{
-				ce[n].d_color = TERM_L_DARK;
-				ce[n].l_color = TERM_WHITE;
+				ce[se_info.num].d_color = TERM_L_DARK;
+				ce[se_info.num].l_color = TERM_WHITE;
 			}
-			n++;
+			se_info.num++;
 		}
 	}
 
@@ -3269,26 +3278,26 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 		return 0;
 	}
 
-	strcpy(ce[n].cap, KW_RANDOM);
-	ce[n].code = BIRTH_SELECT_RANDOM;
-	ce[n].key = '*';
-	ce[n].d_color = TERM_UMBER;
-	ce[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(ce[se_info.num].cap, KW_RANDOM);
+	ce[se_info.num].code = BIRTH_SELECT_RANDOM;
+	ce[se_info.num].key = '*';
+	ce[se_info.num].d_color = TERM_UMBER;
+	ce[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
-	strcpy(ce[n].cap, KW_BACK_TO_START);
-	ce[n].code = BIRTH_SELECT_RETURN;
-	ce[n].key = 'S';
-	ce[n].d_color = TERM_UMBER;
-	ce[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(ce[se_info.num].cap, KW_BACK_TO_START);
+	ce[se_info.num].code = BIRTH_SELECT_RETURN;
+	ce[se_info.num].key = 'S';
+	ce[se_info.num].d_color = TERM_UMBER;
+	ce[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
-	strcpy(ce[n].cap, KW_QUIT_GAME);
-	ce[n].code = BIRTH_SELECT_QUIT;
-	ce[n].key = 'Q';
-	ce[n].d_color = TERM_UMBER;
-	ce[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(ce[se_info.num].cap, KW_QUIT_GAME);
+	ce[se_info.num].code = BIRTH_SELECT_QUIT;
+	ce[se_info.num].key = 'Q';
+	ce[se_info.num].d_color = TERM_UMBER;
+	ce[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
 #if JP
 	put_str("職業を選択して下さい(緑字の職業には種族相性ボーナスがつきます):", 0, 0);
@@ -3297,8 +3306,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 #endif
 
 	if(!npc) put_initial_status(creature_ptr);
-
-	i = get_selection(NULL, ce, n, 0, 5, 2, 18, 20, class_detail, 0);
+	i = get_selection(&se_info, ce);
 
 	if(i >= 0)
 	{
