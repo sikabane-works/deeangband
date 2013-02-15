@@ -2366,11 +2366,12 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_DESTROYED(OBJECT) "%sが破壊された。", (OBJECT)
 #define MES_DIARY_PATRON_MUTATION "変異した。"
 #define MES_DIARY_PATRON_GAIN_EXP "経験値を得た"
-#define MES_DIATY_PATRON_LOST_EXP "経験値を失った。"
-#define MES_DIATY_PATRON_GOOD_ITEM "上質なアイテムを手に入れた。"
-#define MES_DIATY_PATRON_GREAT_ITEM "高級品のアイテムを手に入れた。"
-#define MES_DIATY_PATRON_CHAOS_WP "(混沌)の武器を手に入れた。"
-#define MES_DIATY_PATRON_S_ENEMY "クリーチャーを召喚された。"
+#define MES_DIARY_PATRON_LOST_EXP "経験値を失った。"
+#define MES_DIARY_PATRON_GOOD_ITEM "上質なアイテムを手に入れた。"
+#define MES_DIARY_PATRON_GREAT_ITEM "高級品のアイテムを手に入れた。"
+#define MES_DIARY_PATRON_CHAOS_WP "(混沌)の武器を手に入れた。"
+#define MES_DIARY_PATRON_S_ENEMY "クリーチャーを召喚された。"
+#define MES_DIARY_PATRON_TY_CURSE "禍々しい呪いをかけられた。"
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -2407,11 +2408,12 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_DESTROYED(OBJECT) "destroying %s", (OBJECT)
 #define MES_DIARY_PATRON_MUTATION "mutation"
 #define MES_DIARY_PATRON_GAIN_EXP "experience"
-#define MES_DIATY_PATRON_LOST_EXP "losing experience"
-#define MES_DIATY_PATRON_GOOD_ITEM "a good item"
-#define MES_DIATY_PATRON_GREAT_ITEM "an excellent item"
-#define MES_DIATY_PATRON_CHAOS_WP "chaos weapon"
-#define MES_DIATY_PATRON_S_ENEMY "summoning hostile creatures"
+#define MES_DIARY_PATRON_LOST_EXP "losing experience"
+#define MES_DIARY_PATRON_GOOD_ITEM "a good item"
+#define MES_DIARY_PATRON_GREAT_ITEM "an excellent item"
+#define MES_DIARY_PATRON_CHAOS_WP "chaos weapon"
+#define MES_DIARY_PATRON_S_ENEMY "summoning hostile creatures"
+#define MES_DIARY_PATRON_TY_CURSE "cursing"
 #endif
 
 #ifdef JP

@@ -3060,28 +3060,28 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			else
 			{
 				lose_exp(creature_ptr, creature_ptr->exp / 6);
-				reward = MES_DIATY_PATRON_LOST_EXP;
+				reward = MES_DIARY_PATRON_LOST_EXP;
 			}
 			break;
 
 		case REW_GOOD_OBJ:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GOOD_OBJ);
-			reward = MES_DIATY_PATRON_GOOD_ITEM;
+			reward = MES_DIARY_PATRON_GOOD_ITEM;
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, 1, FALSE, FALSE);
 			break;
 
 		case REW_GREA_OBJ:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GOOD_OBJ);
-			reward = MES_DIATY_PATRON_GREAT_ITEM;
+			reward = MES_DIARY_PATRON_GREAT_ITEM;
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, 1, TRUE, FALSE);
 			break;
 
 		case REW_CHAOS_WP:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GOOD_WEP);
-			reward = MES_DIATY_PATRON_CHAOS_WP;
+			reward = MES_DIARY_PATRON_CHAOS_WP;
 
 			quest_ptr = &forge;
 			dummy = TV_SWORD;
@@ -3182,32 +3182,28 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_GOOD_OBS:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GOOD_OBS);
-			reward = MES_DIATY_PATRON_GOOD_ITEM;
+			reward = MES_DIARY_PATRON_GOOD_ITEM;
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, FALSE, FALSE);
 			break;
 
 		case REW_GREA_OBS:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_GREAT_OBS);
-			reward = MES_DIATY_PATRON_GREAT_ITEM;
+			reward = MES_DIARY_PATRON_GREAT_ITEM;
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, TRUE, FALSE);
 			break;
 
 		case REW_TY_CURSE:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_TY_CURSE);
-#ifdef JP
-			reward = "禍々しい呪いをかけられた。";
-#else
-			reward = "cursing";
-#endif
+			reward = MES_DIARY_PATRON_TY_CURSE;
 			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 			break;
 
 		case REW_TRAIT_S_ENEMY:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_S_ENEMY);
-			reward = MES_DIATY_PATRON_S_ENEMY;
+			reward = MES_DIARY_PATRON_S_ENEMY;
 			for (dummy = 0; dummy < randint1(5) + 1; dummy++)
 				(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			break;
@@ -3215,7 +3211,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_H_SUMMON:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_H_SUMMON);
-			reward = MES_DIATY_PATRON_S_ENEMY;
+			reward = MES_DIARY_PATRON_S_ENEMY;
 			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 			break;
 
@@ -3338,15 +3334,11 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			{
 			case 1:
 				(void)activate_ty_curse(creature_ptr, FALSE, &count);
-#ifdef JP
-				reward = "禍々しい呪いをかけられた。";
-#else
-				reward = "cursing";
-#endif
+				reward = MES_DIARY_PATRON_TY_CURSE;
 				break;
 			case 2:
 				activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
-				reward = MES_DIATY_PATRON_S_ENEMY;
+				reward = MES_DIARY_PATRON_S_ENEMY;
 				break;
 			case 3:
 				if(one_in_(2))
