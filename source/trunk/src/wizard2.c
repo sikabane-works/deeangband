@@ -1422,7 +1422,6 @@ static void do_cmd_wiz_floor_teleport(void)
 	prepare_redraw(PR_MAP);
 	redraw_stuff(player_ptr);
 
-
 	free(ce);
 }
 
@@ -1475,7 +1474,6 @@ static void do_cmd_wiz_floor_object_list(void)
 	}
 
 	screen_load();
-
 	free(ce);
 }
 

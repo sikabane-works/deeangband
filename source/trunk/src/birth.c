@@ -2721,7 +2721,7 @@ void starting_point_detail(int code)
 // Creature first race
 static int get_creature_first_race(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
-	int n, i, lev, weight[MAX_RACES], id[MAX_RACES];
+	int i, lev, weight[MAX_RACES], id[MAX_RACES];
 	selection_table se[MAX_RACES + 3];
 	selection_info se_info;
 
@@ -2740,7 +2740,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 		return 0;
 	}
 
-	for (i = 0, n = 0; i < MAX_RACES; i++)
+	for (i = 0, se_info.num = 0; i < MAX_RACES; i++)
 	{
 		if(race_info[i].race_category < RACE_RARITY_UNSELECTABLE)
 		{
@@ -2766,7 +2766,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 
 	if(npc)
 	{
-		creature_ptr->race_idx1 = uneven_rand(id, weight, n);
+		creature_ptr->race_idx1 = uneven_rand(id, weight, se_info.num);
 		return 0;
 	}
 
@@ -2806,7 +2806,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		creature_ptr->race_idx1 = se[randint0(n - 3)].code;
+		creature_ptr->race_idx1 = se[randint0(se_info.num - 3)].code;
 		return 0;
 	}
 	else
@@ -2818,7 +2818,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 // Creature sub-race
 static int get_creature_second_race(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
-	int n = 0, i;
+	int i;
 	selection_table se[MAX_RACES + 3];
 	selection_info se_info;
 
@@ -2886,7 +2886,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 	{
 		if(one_in_(RATE_OF_HALF_RACE))
 		{
-			creature_ptr->race_idx2 = se[randint0(n-3)].code;
+			creature_ptr->race_idx2 = se[randint0(se_info.num-3)].code;
 			return 0;
 		}
 		else
@@ -2910,7 +2910,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		int t = randint0(n-3);
+		int t = randint0(se_info.num-3);
 		creature_ptr->race_idx2 = se[t].code;
 		return 0;
 	}
@@ -3115,7 +3115,7 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
 // Creature sex
 static bool get_creature_sex(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
-	int i, n, category_num;
+	int i, category_num;
 	selection_table se[MAX_SEXES + 3];
 	int id[MAX_SEXES + 1], weight1[MAX_SEXES + 1], weight2[MAX_SEXES];
 	int list[MAX_SEXES] = {SEX_MALE, SEX_FEMALE, SEX_INTERSEX, SEX_NONE};
@@ -3138,7 +3138,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 		return 0;
 	}
 
-	for (i = 0, n = 0, category_num = 0; i < MAX_SEXES; i++)
+	for (i = 0, se_info.num = 0, category_num = 0; i < MAX_SEXES; i++)
 	{
 		strcpy(se[se_info.num].cap, sex_info[list[i]].title);
 		se[se_info.num].code = list[i];
@@ -3172,8 +3172,8 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 		id[se_info.num] = MAX_SEXES;
 		weight1[se_info.num] = left_per > 0 ? left_per: 0;
 		se_info.num++;
-		creature_ptr->sex = uneven_rand(id, weight1, n);
-		if(creature_ptr->sex == MAX_SEXES) creature_ptr->sex = (s16b)uneven_rand(id, weight2, n-1);
+		creature_ptr->sex = uneven_rand(id, weight1, se_info.num);
+		if(creature_ptr->sex == MAX_SEXES) creature_ptr->sex = (s16b)uneven_rand(id, weight2, se_info.num-1);
 		return 0;
 	}
 
@@ -3437,7 +3437,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 // Player Chara
 static bool get_creature_chara(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
-	int i, n;
+	int i;
 	selection_table ce[MAX_CHARA + 3];
 	int id[MAX_CHARA];
 	int weight[MAX_CHARA];
@@ -3470,7 +3470,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 		return 0;
 	}
 
-	for (i = 0, n = 0; i < MAX_CHARA; i++)
+	for (i = 0; i < MAX_CHARA; i++)
 	{
 		if((chara_info[i].sex & (0x01 << creature_ptr->sex)) && (!npc || chara_info[i].rarity < 100))
 		{
@@ -3488,7 +3488,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 
 	if(npc)
 	{
-		creature_ptr->chara_idx = uneven_rand(id, weight, n);
+		creature_ptr->chara_idx = uneven_rand(id, weight, se_info.num);
 		return 0;
 	}
 
@@ -3529,7 +3529,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		creature_ptr->chara_idx = uneven_rand(id, weight, n - 3);
+		creature_ptr->chara_idx = uneven_rand(id, weight, se_info.num - 3);
 		return 0;
 	}
 	else
