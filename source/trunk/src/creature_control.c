@@ -3277,38 +3277,23 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	creature_type	*creature_ptr;
 	species_type	*species_ptr = &species_info[species_idx];
 	creature_type cr;
-
 	cptr name = (species_name + species_ptr->name);
 
-	if((has_trait_species(species_ptr, TRAIT_UNIQUE)) || has_trait_species(species_ptr, TRAIT_NAZGUL) || (species_ptr->level < 10)) mode &= ~PC_KAGE;
+	if(has_trait_species(species_ptr, TRAIT_UNIQUE)) mode &= ~PC_KAGE;
 
-	if(floor_ptr->wild_mode) // DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!!
-	{
-		if(cheat_hear) msg_warning("[max_creature_idx: Wild mode]");
-		return max_creature_idx;
-	}
+	// DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!!
+	if(floor_ptr->wild_mode) return max_creature_idx;
 
 	if(!in_bounds(floor_ptr, y, x)) // Verify location
 	{
-		if(cheat_hear) msg_warning("[max_creature_idx: Invalid Location]");
-		return max_creature_idx;
-	}
-
-	if(!species_idx) // Paranoia
-	{
-		if(cheat_hear) msg_format("[max_creature_idx: Invalid Creature Race]");
-		return max_creature_idx;
-	}
-
-	if(!species_ptr->name) // Paranoia
-	{
-		if(cheat_hear) msg_format("[max_creature_idx: Invalid Creature Name]");
+		if(cheat_hear) msg_warning("[Invalid Location (x=%d, y=%d)]", x, y);
 		return max_creature_idx;
 	}
 
 	if(!(mode & PC_IGNORE_TERRAIN))
 	{
-		if(pattern_tile(floor_ptr, y, x)) return max_creature_idx;	// Not on the Pattern
+		if(pattern_tile(floor_ptr, y, x)) return max_creature_idx;
+		if(cave_have_flag_bold(floor_ptr, y, x, FF_CHAOS_TAINTED)) return max_creature_idx;
 
 		if(!species_can_enter(floor_ptr, y, x, species_ptr, 0)) // Require empty space (if not ghostly)
 		{
@@ -3361,9 +3346,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		if(randint1(BREAK_GLYPH) < (species_ptr->level + 20))
 		{
 			if(c_ptr->info & CAVE_MARK) // Describe observable breakage
-			{
 				msg_print(GAME_MESSAGE_BREAK_P_RUNE);
-			}
 
 			c_ptr->info &= ~(CAVE_MARK);	// Forget the rune
 			c_ptr->info &= ~(CAVE_OBJECT);	// Break the rune
