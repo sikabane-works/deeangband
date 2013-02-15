@@ -2723,6 +2723,16 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 {
 	int n, i, lev, weight[MAX_RACES], id[MAX_RACES];
 	selection_table se[MAX_RACES + 3];
+	selection_info se_info;
+
+	se_info.mode = 0;
+	se_info.detail = race_detail;
+	se_info.default_se = 0;
+	se_info.y = 5;
+	se_info.x = 2;
+	se_info.h = 18;
+	se_info.w = 20;
+	se_info.num = 0;
 
 	if(species_ptr->race_idx1 != INDEX_VARIABLE)
 	{
@@ -2734,23 +2744,23 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 	{
 		if(race_info[i].race_category < RACE_RARITY_UNSELECTABLE)
 		{
-			strcpy(se[n].cap, race_name + race_info[i].name);
-			se[n].code = i;
-			se[n].key = '\0';
-			se[n].d_color = TERM_L_DARK;
-			se[n].l_color = TERM_WHITE;
-			id[n] = i;
-			weight[n] = 100000;
-			if(race_info[i].race_category == RACE_RARITY_UNCOMMON) weight[n] /= 5;
-			if(race_info[i].race_category == RACE_RARITY_RARE) weight[n] /= 40;
-			if(race_info[i].race_category == RACE_RARITY_LEGENDARY) weight[n] /= 200;
+			strcpy(se[se_info.num].cap, race_name + race_info[i].name);
+			se[se_info.num].code = i;
+			se[se_info.num].key = '\0';
+			se[se_info.num].d_color = TERM_L_DARK;
+			se[se_info.num].l_color = TERM_WHITE;
+			id[se_info.num] = i;
+			weight[se_info.num] = 100000;
+			if(race_info[i].race_category == RACE_RARITY_UNCOMMON) weight[se_info.num] /= 5;
+			if(race_info[i].race_category == RACE_RARITY_RARE) weight[se_info.num] /= 40;
+			if(race_info[i].race_category == RACE_RARITY_LEGENDARY) weight[se_info.num] /= 200;
 
 			for(lev = 0; lev < CREATURE_MAX_LEVEL || creature_exp[lev] * 2 <= species_ptr->exp; lev++);
-			if(lev < race_info[i].lev) weight[n] /= ((race_info[i].lev - lev) * (race_info[i].lev - lev));  
+			if(lev < race_info[i].lev) weight[se_info.num] /= ((race_info[i].lev - lev) * (race_info[i].lev - lev));  
 
-			if(species_ptr->dr < race_info[i].dr) weight[n] /= ((race_info[i].dr - species_ptr->dr) * (race_info[i].dr - species_ptr->dr));
-			if(weight[n] <= 0) weight[n] = 1;
-			n++;
+			if(species_ptr->dr < race_info[i].dr) weight[se_info.num] /= ((race_info[i].dr - species_ptr->dr) * (race_info[i].dr - species_ptr->dr));
+			if(weight[se_info.num] <= 0) weight[se_info.num] = 1;
+			se_info.num++;
 		}
 	}
 
@@ -2760,26 +2770,26 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 		return 0;
 	}
 
-	strcpy(se[n].cap, KW_RANDOM);
-	se[n].code = BIRTH_SELECT_RANDOM;
-	se[n].key = '*';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(se[se_info.num].cap, KW_RANDOM);
+	se[se_info.num].code = BIRTH_SELECT_RANDOM;
+	se[se_info.num].key = '*';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
-	strcpy(se[n].cap, KW_BACK_TO_START);
-	se[n].code = BIRTH_SELECT_RETURN;
-	se[n].key = 'S';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(se[se_info.num].cap, KW_BACK_TO_START);
+	se[se_info.num].code = BIRTH_SELECT_RETURN;
+	se[se_info.num].key = 'S';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
-	strcpy(se[n].cap, KW_QUIT_GAME);
-	se[n].code = BIRTH_SELECT_QUIT;
-	se[n].key = 'Q';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(se[se_info.num].cap, KW_QUIT_GAME);
+	se[se_info.num].code = BIRTH_SELECT_QUIT;
+	se[se_info.num].key = 'Q';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
 #if JP
 	put_str("Ží‘°‚ð‘I‘ð‚µ‚Ä‰º‚³‚¢:", 0, 0);
@@ -2787,7 +2797,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 	put_str("Select a race:", 0, 0);
 #endif
 
-	i = get_selection(NULL, se, n, 0, 5, 2, 18, 20, race_detail, 0);
+	i = get_selection(&se_info, se);
 
 	if(i >= 0)
 	{
