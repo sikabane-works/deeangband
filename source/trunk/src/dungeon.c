@@ -36,7 +36,7 @@ static int select_mode(void)
 		se[i].code = i;
 	}
 
-	return get_selection(se, MAX_CAMPAIGNS, 0, 10, 2, MAX_CAMPAIGNS, 40, game_mode_detail, 0);
+	return get_selection(NULL, se, MAX_CAMPAIGNS, 0, 10, 2, MAX_CAMPAIGNS, 40, game_mode_detail, 0);
 }
 
 static int select_unique_species(void)
@@ -69,7 +69,7 @@ static int select_unique_species(void)
 		}
 	}
 
-	return get_selection(se, unique_num, 0, 2, 2, 20, 76, NULL, 0);
+	return get_selection(NULL, se, unique_num, 0, 2, 2, 20, 76, NULL, 0);
 }
 
 static void object_kind_info_reset(void)

@@ -1856,12 +1856,13 @@ typedef struct
 	char key;
 	byte d_color;
 	byte l_color;
+	bool selected;
 } selection_table;
 
 typedef struct
 {
 	cptr header;
-} selection_type;
+} selection_info;
 
 //  A structure type for travel command
 typedef struct {

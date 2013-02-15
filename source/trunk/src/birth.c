@@ -1880,7 +1880,7 @@ static int choose_realm(s32b choices, bool npc)
 	n++;
 
 	if(!npc)
-		i = get_selection(re, n, 0, 5, 2, 18, 20, realm_detail, 0);
+		i = get_selection(NULL, re, n, 0, 5, 2, 18, 20, realm_detail, 0);
 	else
 		return re[randint0(n-3)].code;
 
@@ -2779,7 +2779,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 	put_str("Select a race:", 0, 0);
 #endif
 
-	i = get_selection(se, n, 0, 5, 2, 18, 20, race_detail, 0);
+	i = get_selection(NULL, se, n, 0, 5, 2, 18, 20, race_detail, 0);
 
 	if(i >= 0)
 	{
@@ -2873,7 +2873,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 #else
 		put_str("Select second race:", 0, 0);
 #endif
-		i = get_selection(se, n, 0, 5, 2, 18, 20, race_detail, 0);
+		i = get_selection(NULL, se, n, 0, 5, 2, 18, 20, race_detail, 0);
 
 	if(i >= 0)
 	{
@@ -2948,7 +2948,7 @@ static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 #else
 		put_str("Select a sub-race of Eldar:", 0, 0);
 #endif
-		i = get_selection(se, n, 5, 2, 18, 20, subrace_detail, 0);
+		i = get_selection(NULL, se, n, 5, 2, 18, 20, subrace_detail, 0);
 	}
 	else
 	{
@@ -3056,7 +3056,7 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
 #else
 		put_str("Select a sub-race of Dragonbone:", 0, 0);
 #endif
-		i = get_selection(se, n, 5, 2, 18, 20, subrace_detail, 0);
+		i = get_selection(NULL, se, n, 5, 2, 18, 20, subrace_detail, 0);
 	}
 	else
 	{
@@ -3165,7 +3165,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 #else
 		put_str("Select a sex(Red entries have race penalty) ", 0, 0);
 #endif
-		i = get_selection(se, n, 0, 5, 2, 18, 20, NULL, 0);
+		i = get_selection(NULL, se, n, 0, 5, 2, 18, 20, NULL, 0);
 
 
 	if(i >= 0)
@@ -3260,7 +3260,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 
 	if(!npc) put_initial_status(creature_ptr);
 
-	i = get_selection(ce, n, 0, 5, 2, 18, 20, class_detail, 0);
+	i = get_selection(NULL, ce, n, 0, 5, 2, 18, 20, class_detail, 0);
 
 	if(i >= 0)
 	{
@@ -3359,7 +3359,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 	put_str("Select a patron:", 0, 0);
 #endif
 	if(!npc) put_initial_status(creature_ptr);
-	i = get_selection(pt, n, 0, 5, 2, 18, 76, NULL, 0);
+	i = get_selection(NULL, pt, n, 0, 5, 2, 18, 76, NULL, 0);
 
 	if(i >= 0)
 	{
@@ -3454,7 +3454,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 #endif
 
 	if(!npc) put_initial_status(creature_ptr);
-	i = get_selection(ce, n, 0, 5, 2, 18, 20, chara_detail, 0);
+	i = get_selection(NULL, ce, n, 0, 5, 2, 18, 20, chara_detail, 0);
 
 	if(i >= 0)
 	{
@@ -3524,7 +3524,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 #else
 		put_str("Select a starting point:", 0, 0);
 #endif
-		i = get_selection(se, n, 0, 5, 2, 18, 20, starting_point_detail, 0);
+		i = get_selection(NULL, se, n, 0, 5, 2, 18, 20, starting_point_detail, 0);
 	}
 	else
 	{

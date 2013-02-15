@@ -1670,7 +1670,7 @@ void do_cmd_options_aux(int page, cptr info)
 		se[i].left_code = se[i].right_code = -1;
 		se[i].key = ESCAPE;
 		i++;
-		j = get_selection(se, i, j, 2, 1, 20, 78, NULL, GET_SE_LEFT_RIGHT_SWITCHING);
+		j = get_selection(NULL, se, i, j, 2, 1, 20, 78, NULL, GET_SE_LEFT_RIGHT_SWITCHING);
 		if(j == i - 1) break;
 		else if (j >= 0) *(option_info[opt[j]].o_var) = !(*(option_info[opt[j]].o_var));
 
@@ -8459,7 +8459,7 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 	screen_save();
 	while(TRUE)
 	{
-		j = get_selection(se, i, 0, 5, 5, 20, 30, NULL, 0);
+		j = get_selection(NULL, se, i, 0, 5, 5, 20, 30, NULL, 0);
 
 		switch (j)
 		{

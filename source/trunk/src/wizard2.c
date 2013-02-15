@@ -1298,7 +1298,7 @@ static void do_cmd_wiz_creature_list(void)
 
 		n++;
 
-		i = get_selection(ce, n, 0, 1, 1, 22, 78, NULL, 0);
+		i = get_selection(NULL, ce, n, 0, 1, 1, 22, 78, NULL, 0);
 		if(i == creature_max) break;
 
 		mode = 0;
@@ -1379,7 +1379,7 @@ static void do_cmd_wiz_floor_teleport(void)
 		ce[n].code = i;
 		n++;
 
-		i = get_selection(ce, n, player_ptr->floor_id, 1, 1, 22, 78, NULL, 0);
+		i = get_selection(NULL, ce, n, player_ptr->floor_id, 1, 1, 22, 78, NULL, 0);
 		if(i == floor_max) break;
 
 		else
@@ -1446,7 +1446,7 @@ static void do_cmd_wiz_floor_object_list(void)
 		ce[n].code = object_max;
 		n++;
 
-		i = get_selection(ce, object_max, 0, 1, 1, 22, 78, NULL, 0);
+		i = get_selection(NULL, ce, object_max, 0, 1, 1, 22, 78, NULL, 0);
 		if(i == object_max) break;
 
 	}
@@ -1595,8 +1595,7 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 	se[n].l_color = TERM_WHITE;
 	n++;
 
-	i = get_selection(se, n, 0, 1, 22, 15, 30, NULL, GET_SE_AUTO_WIDTH | GET_SE_RIGHT);
-
+	i = get_selection(NULL, se, n, 0, 1, 22, 15, 30, NULL, GET_SE_AUTO_WIDTH | GET_SE_RIGHT);
 	screen_load();
 
 	if(i >= 0) do_active_trait(creature_ptr, i, TRUE);
