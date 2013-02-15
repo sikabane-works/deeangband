@@ -24,6 +24,16 @@ static int select_mode(void)
 	int i;
 	selection_table se[10];
 	int t = sizeof(creature_type);
+	selection_info se_info;
+
+	se_info.mode = 0;
+	se_info.detail = game_mode_detail;
+	se_info.default_se = 0;
+	se_info.y = 10;
+	se_info.x = 2;
+	se_info.h = MAX_CAMPAIGNS;
+	se_info.w = 40;
+	se_info.num = MAX_CAMPAIGNS;
 
 	c_put_str(TERM_L_BLUE, MES_BIRTH_SELECT_CAMPAIGN, 8, 5);
 
@@ -36,7 +46,7 @@ static int select_mode(void)
 		se[i].code = i;
 	}
 
-	return get_selection(NULL, se, MAX_CAMPAIGNS, 0, 10, 2, MAX_CAMPAIGNS, 40, game_mode_detail, 0);
+	return get_selection(&se_info, se);
 }
 
 static int select_unique_species(void)
@@ -44,13 +54,22 @@ static int select_unique_species(void)
 	int i;
 	char dr[4];
 	selection_table se[10];
-	int unique_num;
 	int t = sizeof(creature_type);
+	selection_info se_info;
+
+	se_info.mode = 0;
+	se_info.detail = NULL;
+	se_info.default_se = 0;
+	se_info.y = 2;
+	se_info.x = 2;
+	se_info.h = 20;
+	se_info.w = 76;
+	se_info.num = 0;
 
 	prt("ユニークを選択して下さい", 0, 0);
 
 	/* Init Unique Count */
-	unique_num = 0;
+	se_info.num = 0;
 	for(i = 0; i < max_species_idx; i++)
 	{
 		if(has_trait_species(&species_info[i], TRAIT_UNIQUE))
@@ -58,18 +77,18 @@ static int select_unique_species(void)
 			if(species_info[i].dr >= 0) sprintf(dr, "%2d", species_info[i].dr);
 			else strcpy(dr, "--");
 
-			sprintf(se[unique_num].cap, "%-56s Lev:%2d Dr:%2s",
+			sprintf(se[se_info.num].cap, "%-56s Lev:%2d Dr:%2s",
 				species_name + species_info[i].name,
 				estimate_level(&species_info[i]), dr);
-			se[unique_num].d_color = TERM_L_DARK;
-			se[unique_num].l_color = TERM_WHITE;
-			se[unique_num].key = '\0';
-			se[unique_num].code = i;
-			unique_num++;
+			se[se_info.num].d_color = TERM_L_DARK;
+			se[se_info.num].l_color = TERM_WHITE;
+			se[se_info.num].key = '\0';
+			se[se_info.num].code = i;
+			se_info.num++;
 		}
 	}
 
-	return get_selection(NULL, se, unique_num, 0, 2, 2, 20, 76, NULL, 0);
+	return get_selection(&se_info, se);
 }
 
 static void object_kind_info_reset(void)
