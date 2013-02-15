@@ -1426,47 +1426,52 @@ static void do_cmd_wiz_floor_teleport(void)
 	free(ce);
 }
 
-/*
- * Floor object list 
- */
-
+// Floor object list 
 static void do_cmd_wiz_floor_object_list(void)
 {
 	selection_table *ce;
-	int i, n;
+	int i;
 	char tmp[100];
-	ce = malloc(sizeof(selection_table) * (object_max + 1));
+	selection_info se_info;
+	ce = malloc(sizeof(selection_table) * (floor_max + 1));
+
+	se_info.mode = 0;
+	se_info.detail = NULL;
+	se_info.default_se = 0;
+	se_info.y = 1;
+	se_info.x = 1;
+	se_info.h = 22;
+	se_info.w = 78;
 
 	screen_save();
 
 	while(1)
 	{
-		n = 0;
+		se_info.num = 0;
 
 		for(i = 1; i < object_max; i++)
 		{
 			object_desc(tmp, &object_list[i], 0);
-			sprintf(ce[n].cap, "[%4d] F:%d X:%3d Y:%3d %-35s", i, object_list[i].floor_id, object_list[i].fx, object_list[i].fy, tmp);
-			ce[n].cap[72] = '\0'; 
+			sprintf(ce[se_info.num].cap, "[%4d] F:%d X:%3d Y:%3d %-35s", i, object_list[i].floor_id, object_list[i].fx, object_list[i].fy, tmp);
+			ce[se_info.num].cap[72] = '\0'; 
 
-			ce[n].d_color = TERM_L_DARK;
-			ce[n].l_color = TERM_WHITE;
-			ce[n].key = '\0';
-			ce[n].code = i;
+			ce[se_info.num].d_color = TERM_L_DARK;
+			ce[se_info.num].l_color = TERM_WHITE;
+			ce[se_info.num].key = '\0';
+			ce[se_info.num].code = i;
 
-			n++;
+			se_info.num++;
 		}
 
-		sprintf(ce[n].cap, " END ");
-		ce[n].d_color = TERM_RED;
-		ce[n].l_color = TERM_L_RED;
-		ce[n].key = ESCAPE;
-		ce[n].code = object_max;
-		n++;
+		sprintf(ce[se_info.num].cap, " END ");
+		ce[se_info.num].d_color = TERM_RED;
+		ce[se_info.num].l_color = TERM_L_RED;
+		ce[se_info.num].key = ESCAPE;
+		ce[se_info.num].code = object_max;
+		se_info.num++;
 
-		i = get_selection(NULL, ce, object_max, 0, 1, 1, 22, 78, NULL, 0);
+		i = get_selection(&se_info, ce);
 		if(i == object_max) break;
-
 	}
 
 	screen_load();
@@ -1589,7 +1594,16 @@ static void do_cmd_wiz_learn(void)
 static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 {
 	selection_table se[MAX_TRAITS];
-	int i, n = 0;
+	int i;
+	selection_info se_info;
+	se_info.mode = GET_SE_AUTO_WIDTH | GET_SE_RIGHT;
+	se_info.detail = NULL;
+	se_info.default_se = 0;
+	se_info.y = 1;
+	se_info.x = 22;
+	se_info.h = 15;
+	se_info.w = 30;
+	se_info.num = 0;
 
 	screen_save();
 
@@ -1597,23 +1611,23 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 	{
 		if(trait_info[i].effect_type == TRAIT_EFFECT_TYPE_SELF || trait_info[i].effect_type == TRAIT_EFFECT_TYPE_TARGET)
 		{
-			se[n].code = i;
-			strcpy(se[n].cap, trait_info[i].title);
-			se[n].key = '\0';
-			se[n].d_color = TERM_L_DARK;
-			se[n].l_color = TERM_WHITE;
-			n++;
+			se[se_info.num].code = i;
+			strcpy(se[se_info.num].cap, trait_info[i].title);
+			se[se_info.num].key = '\0';
+			se[se_info.num].d_color = TERM_L_DARK;
+			se[se_info.num].l_color = TERM_WHITE;
+			se_info.num++;
 		}
 	}
 
-	se[n].code = -1;
-	strcpy(se[n].cap, KW_CANCEL);
-	se[n].key = '\0';
-	se[n].d_color = TERM_L_DARK;
-	se[n].l_color = TERM_WHITE;
-	n++;
+	se[se_info.num].code = -1;
+	strcpy(se[se_info.num].cap, KW_CANCEL);
+	se[se_info.num].key = '\0';
+	se[se_info.num].d_color = TERM_L_DARK;
+	se[se_info.num].l_color = TERM_WHITE;
+	se_info.num++;
 
-	i = get_selection(NULL, se, n, 0, 1, 22, 15, 30, NULL, GET_SE_AUTO_WIDTH | GET_SE_RIGHT);
+	i = get_selection(&se_info, se);
 	screen_load();
 
 	if(i >= 0) do_active_trait(creature_ptr, i, TRUE);
