@@ -2820,6 +2820,16 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 {
 	int n = 0, i;
 	selection_table se[MAX_RACES + 3];
+	selection_info se_info;
+
+	se_info.mode = 0;
+	se_info.detail = race_detail;
+	se_info.default_se = 0;
+	se_info.y = 5;
+	se_info.x = 2;
+	se_info.h = 18;
+	se_info.w = 20;
+	se_info.num = 0;
 
 	if(species_ptr->race_idx2 != INDEX_VARIABLE)
 	{
@@ -2828,49 +2838,49 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 	}
 
 #if JP
-	strcpy(se[n].cap, "純血種");
+	strcpy(se[se_info.num].cap, "純血種");
 #else
-	strcpy(se[n].cap, "Pure Breed");
+	strcpy(se[se_info.num].cap, "Pure Breed");
 #endif
-	se[n].code = creature_ptr->race_idx1;
-	se[n].key = '\0';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	se[se_info.num].code = creature_ptr->race_idx1;
+	se[se_info.num].key = '\0';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
 	for (i = 0; i < MAX_RACES; i++)
 	{
 		if(race_crossing[creature_ptr->race_idx1][i] > 0 && creature_ptr->race_idx1 != i)
 		{
-			strcpy(se[n].cap, race_info[i].title);
-			se[n].code = i;
-			se[n].key = '\0';
-			se[n].d_color = TERM_L_DARK;
-			se[n].l_color = TERM_WHITE;
-			n++;
+			strcpy(se[se_info.num].cap, race_info[i].title);
+			se[se_info.num].code = i;
+			se[se_info.num].key = '\0';
+			se[se_info.num].d_color = TERM_L_DARK;
+			se[se_info.num].l_color = TERM_WHITE;
+			se_info.num++;
 		}
 	}
 
-	strcpy(se[n].cap, KW_RANDOM);
-	se[n].code = BIRTH_SELECT_RANDOM;
-	se[n].key = '*';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(se[se_info.num].cap, KW_RANDOM);
+	se[se_info.num].code = BIRTH_SELECT_RANDOM;
+	se[se_info.num].key = '*';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
-	strcpy(se[n].cap, KW_BACK_TO_START);
-	se[n].code = BIRTH_SELECT_RETURN;
-	se[n].key = 'S';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(se[se_info.num].cap, KW_BACK_TO_START);
+	se[se_info.num].code = BIRTH_SELECT_RETURN;
+	se[se_info.num].key = 'S';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
-	strcpy(se[n].cap, KW_QUIT_GAME);
-	se[n].code = BIRTH_SELECT_QUIT;
-	se[n].key = 'Q';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(se[se_info.num].cap, KW_QUIT_GAME);
+	se[se_info.num].code = BIRTH_SELECT_QUIT;
+	se[se_info.num].key = 'Q';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
 	if(npc)
 	{
@@ -2891,7 +2901,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 #else
 		put_str("Select second race:", 0, 0);
 #endif
-		i = get_selection(NULL, se, n, 0, 5, 2, 18, 20, race_detail, 0);
+		i = get_selection(&se_info, se);
 
 	if(i >= 0)
 	{
@@ -3111,6 +3121,16 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 	int list[MAX_SEXES] = {SEX_MALE, SEX_FEMALE, SEX_INTERSEX, SEX_NONE};
 	int trait_list[MAX_SEXES] = {TRAIT_MALE, TRAIT_FEMALE, TRAIT_INTERSEX, TRAIT_NOSEX};
 	int left_per = 100;
+	selection_info se_info;
+
+	se_info.mode = 0;
+	se_info.detail = NULL;
+	se_info.default_se = 0;
+	se_info.y = 5;
+	se_info.x = 2;
+	se_info.h = 18;
+	se_info.w = 20;
+	se_info.num = 0;
 
 	if(species_ptr->sex != INDEX_VARIABLE)
 	{
@@ -3120,63 +3140,63 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 
 	for (i = 0, n = 0, category_num = 0; i < MAX_SEXES; i++)
 	{
-		strcpy(se[n].cap, sex_info[list[i]].title);
-		se[n].code = list[i];
-		se[n].key = '\0';
-		id[n] = list[i];
+		strcpy(se[se_info.num].cap, sex_info[list[i]].title);
+		se[se_info.num].code = list[i];
+		se[se_info.num].key = '\0';
+		id[se_info.num] = list[i];
 		if(race_info[creature_ptr->race_idx1].sex_flag & (0x01 << list[i]) || race_info[creature_ptr->race_idx2].sex_flag & (0x01 << list[i]))
 		{
-			se[n].d_color = TERM_L_DARK;
-			se[n].l_color = TERM_WHITE;
+			se[se_info.num].d_color = TERM_L_DARK;
+			se[se_info.num].l_color = TERM_WHITE;
 			if(has_trait_species(species_ptr, trait_list[i]))
 			{
-				weight1[n] = species_ptr->flags.probability[trait_list[i]];
-				left_per -= weight1[n];
+				weight1[se_info.num] = species_ptr->flags.probability[trait_list[i]];
+				left_per -= weight1[se_info.num];
 			}
-			else weight1[n] = 0;
-			weight2[n] = 100;
+			else weight1[se_info.num] = 0;
+			weight2[se_info.num] = 100;
 		}
 		else
 		{
-			se[n].d_color = TERM_RED;
-			se[n].l_color = TERM_L_RED;
-			weight1[n] = 0;
-			weight2[n] = 0;
+			se[se_info.num].d_color = TERM_RED;
+			se[se_info.num].l_color = TERM_L_RED;
+			weight1[se_info.num] = 0;
+			weight2[se_info.num] = 0;
 		}
-		n++;
+		se_info.num++;
 		category_num++;
 	}
 
 	if(npc)
 	{
-		id[n] = MAX_SEXES;
-		weight1[n] = left_per > 0 ? left_per: 0;
-		n++;
+		id[se_info.num] = MAX_SEXES;
+		weight1[se_info.num] = left_per > 0 ? left_per: 0;
+		se_info.num++;
 		creature_ptr->sex = uneven_rand(id, weight1, n);
 		if(creature_ptr->sex == MAX_SEXES) creature_ptr->sex = (s16b)uneven_rand(id, weight2, n-1);
 		return 0;
 	}
 
-	strcpy(se[n].cap, KW_RANDOM);
-	se[n].code = BIRTH_SELECT_RANDOM;
-	se[n].key = '*';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(se[se_info.num].cap, KW_RANDOM);
+	se[se_info.num].code = BIRTH_SELECT_RANDOM;
+	se[se_info.num].key = '*';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
-	strcpy(se[n].cap, KW_BACK_TO_START);
-	se[n].code = BIRTH_SELECT_RETURN;
-	se[n].key = 'S';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(se[se_info.num].cap, KW_BACK_TO_START);
+	se[se_info.num].code = BIRTH_SELECT_RETURN;
+	se[se_info.num].key = 'S';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
-	strcpy(se[n].cap, KW_QUIT_GAME);
-	se[n].code = BIRTH_SELECT_QUIT;
-	se[n].key = 'Q';
-	se[n].d_color = TERM_UMBER;
-	se[n].l_color = TERM_L_UMBER;
-	n++;
+	strcpy(se[se_info.num].cap, KW_QUIT_GAME);
+	se[se_info.num].code = BIRTH_SELECT_QUIT;
+	se[se_info.num].key = 'Q';
+	se[se_info.num].d_color = TERM_UMBER;
+	se[se_info.num].l_color = TERM_L_UMBER;
+	se_info.num++;
 
 #if JP
 		put_str("性別を選択して下さい(赤字の性別には種族ペナルティがかかります):", 0, 0);
