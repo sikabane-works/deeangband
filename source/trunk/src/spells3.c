@@ -2214,11 +2214,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 	object_ptr = GET_ITEM(caster_ptr, item);
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-#ifdef JP
-	msg_format("%s ‚Íá¿‚¢Œõ‚ð”­‚µ‚½I",object_name);
-#else
-	msg_format("%s %s radiate%s a blinding light!", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "" : "s"));
-#endif
+	msg_format(MES_ENCHANT_BECOME_ARTIFACT(object_name, item, object_ptr->number));
 
 	if(object_is_artifact(object_ptr))
 	{

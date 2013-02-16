@@ -2568,10 +2568,13 @@ static cptr desc_stat_neg[] =
 #define MES_ENCHANT_WHICH_WEAPON "どの武器を強化しますか? "
 #define MES_ENCHANT_NO_WEAPON "強化できる武器がない。"
 #define MES_ENCHANT_FAILED "属性付加に失敗した。"
+#define MES_ENCHANT_BECOME_ARTIFACT(ITEM, POS, NUM) "%sは眩い光を発した！", (ITEM)
 #else
 #define MES_ENCHANT_WHICH_ITEM "Enchant which item? "
 #define MES_ENCHANT_NO_ITEM "You have nothing to enchant."
 #define MES_ENCHANT_WHICH_WEAPON "Enchant which weapon? "
 #define MES_ENCHANT_NO_WEAPON "You have nothing to enchant."
 #define MES_ENCHANT_FAILED "The Branding failed."
+#define MES_ENCHANT_BECOME_ARTIFACT(ITEM, POS, NUM)) "%s %s radiate%s a blinding light!", (((POS) >= 0) ? "Your" : "The"), (ITEM), (((NUM) > 1) ? "" : "s")
 #endif
+
