@@ -2152,23 +2152,13 @@ bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int nu
 	bool        okay = FALSE;
 	object_type *object_ptr;
 	char        object_name[MAX_NLEN];
-	cptr        q, s;
-
 	bool (*item_tester_hook)(creature_type *, object_type *);
 
 	/* Enchant armor if requested */
 	if(num_ac) item_tester_hook = object_is_armour2;
 	else item_tester_hook = object_allow_enchant_weapon;
 
-#ifdef JP
-	q = "どのアイテムを強化しますか? ";
-	s = "強化できるアイテムがない。";
-#else
-	q = "Enchant which item? ";
-	s = "You have nothing to enchant.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
+	if(!get_item(creature_ptr, &item, MES_ENCHANT_WHICH_ITEM, MES_ENCHANT_NO_ITEM, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Description */
@@ -2219,25 +2209,15 @@ bool artifact_scroll(creature_type *caster_ptr)
 	bool            okay = FALSE;
 	object_type     *object_ptr;
 	char            object_name[MAX_NLEN];
-	cptr            q, s;
 
-#ifdef JP
-	q = "どのアイテムを強化しますか? ";
-	s = "強化できるアイテムがない。";
-#else
-	q = "Enchant which item? ";
-	s = "You have nothing to enchant.";
-#endif
-	if(!get_item(caster_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook_nameless_weapon_armour, 0)) return FALSE;
+	if(!get_item(caster_ptr, &item, MES_ENCHANT_WHICH_ITEM, MES_ENCHANT_NO_ITEM, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook_nameless_weapon_armour, 0)) return FALSE;
 	object_ptr = GET_ITEM(caster_ptr, item);
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
 	msg_format("%s は眩い光を発した！",object_name);
 #else
-	msg_format("%s %s radiate%s a blinding light!",
-		  ((item >= 0) ? "Your" : "The"), object_name,
-		  ((object_ptr->number > 1) ? "" : "s"));
+	msg_format("%s %s radiate%s a blinding light!", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "" : "s"));
 #endif
 
 	if(object_is_artifact(object_ptr))

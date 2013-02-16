@@ -2563,10 +2563,14 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_ENCHANT_WHICH_ITEM "どのアイテムを強化しますか? "
+#define MES_ENCHANT_NO_ITEM "強化できるアイテムがない。"
 #define MES_ENCHANT_WHICH_WEAPON "どの武器を強化しますか? "
 #define MES_ENCHANT_NO_WEAPON "強化できる武器がない。"
 #define MES_ENCHANT_FAILED "属性付加に失敗した。"
 #else
+#define MES_ENCHANT_WHICH_ITEM "Enchant which item? "
+#define MES_ENCHANT_NO_ITEM "You have nothing to enchant."
 #define MES_ENCHANT_WHICH_WEAPON "Enchant which weapon? "
 #define MES_ENCHANT_NO_WEAPON "You have nothing to enchant."
 #define MES_ENCHANT_FAILED "The Branding failed."
