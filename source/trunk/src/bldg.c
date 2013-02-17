@@ -625,25 +625,13 @@ static int yaku_check(void)
 
 	switch(yaku_check_straight()){
 	case 3: /* RF! */
-#ifdef JP
-		c_put_str(TERM_YELLOW, "ロイヤルストレートフラッシュ", 4, 3);
-#else
-		c_put_str(TERM_YELLOW, "Royal Flush", 4, 3);
-#endif
+		c_put_str(TERM_YELLOW, MES_POKER_ROYAL_FLUSH, 4, 3);
 		return ODDS_RF;
 	case 2: /* SF! */
-#ifdef JP
-		c_put_str(TERM_YELLOW, "ストレートフラッシュ", 4, 3);
-#else
-		c_put_str(TERM_YELLOW, "Straight Flush", 4, 3);
-#endif
+		c_put_str(TERM_YELLOW, MES_POKER_STRAIGHT_FLUSH, 4, 3);
 		return ODDS_SF;
 	case 1:
-#ifdef JP
-		c_put_str(TERM_YELLOW, "ストレート", 4, 3);
-#else
-		c_put_str(TERM_YELLOW, "Straight", 4, 3);
-#endif
+		c_put_str(TERM_YELLOW, MES_POKER_STRAIGHT, 4, 3);
 		return ODDS_ST;
 	default:
 		/* Not straight -- fall through */
@@ -652,52 +640,31 @@ static int yaku_check(void)
 
 	if(yaku_check_flush())
 	{
-
-#ifdef JP
-	c_put_str(TERM_YELLOW, "フラッシュ", 4, 3);
-#else
-	c_put_str(TERM_YELLOW, "Flush", 4, 3);
-#endif
+		c_put_str(TERM_YELLOW, MES_POKER_FLUSH, 4, 3);
 		return ODDS_FL;
 	}
 
 	switch (yaku_check_pair())
 	{
-	
-#ifdef JP
-		case 1: c_put_str(TERM_YELLOW, "ワンペア", 4, 3); return 0;
-		case 2: c_put_str(TERM_YELLOW, "ツーペア", 4, 3); return ODDS_2P;
-		case 3: c_put_str(TERM_YELLOW, "スリーカード", 4, 3); return ODDS_3C;
-		case 4: c_put_str(TERM_YELLOW, "フルハウス", 4, 3); return ODDS_FH;
-		case 6: c_put_str(TERM_YELLOW, "フォーカード", 4, 3); return ODDS_4C;
-#else
-		case 1: c_put_str(TERM_YELLOW, "One pair", 4, 3); return 0;
-		case 2: c_put_str(TERM_YELLOW, "Two pair", 4, 3); return ODDS_2P;
-		case 3: c_put_str(TERM_YELLOW, "Three of a kind", 4, 3); return ODDS_3C;
-		case 4: c_put_str(TERM_YELLOW, "Full house", 4, 3); return ODDS_FH;
-		case 6: c_put_str(TERM_YELLOW, "Four of a kind", 4, 3); return ODDS_4C;
-#endif
+		case 1: c_put_str(TERM_YELLOW, MES_POKER_ONE_PAIR, 4, 3); return 0;
+		case 2: c_put_str(TERM_YELLOW, MES_POKER_TWO_PAIR, 4, 3); return ODDS_2P;
+		case 3: c_put_str(TERM_YELLOW, MES_POKER_THREE_OF_A_KIND, 4, 3); return ODDS_3C;
+		case 4: c_put_str(TERM_YELLOW, MES_POKER_FULL_HOUSE, 4, 3); return ODDS_FH;
+		case 6: c_put_str(TERM_YELLOW, MES_POKER_FOUR_OF_A_KIND, 4, 3); return ODDS_4C;
 
 		case 7:
 		if(!NUM_OF(cards[0]) || !NUM_OF(cards[1]))
 		{
-#ifdef JP
-			c_put_str(TERM_YELLOW, "ファイブエース", 4, 3);
-#else
-			c_put_str(TERM_YELLOW, "Five ace", 4, 3);
-#endif
+			c_put_str(TERM_YELLOW, MES_POKER_FIVE_ACE, 4, 3);
 			return ODDS_5A;
 		}
 		else
 		{
-#ifdef JP
-			c_put_str(TERM_YELLOW, "ファイブカード", 4, 3);
-#else
-			c_put_str(TERM_YELLOW, "Five of a kind", 4, 3);
-#endif
+			c_put_str(TERM_YELLOW, MES_POKER_FIVE_OF_A_KIND, 4, 3);
 			return ODDS_5C;
 		}
-	default:
+
+		default:
 		break;
 	}
 	return 0;

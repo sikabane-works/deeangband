@@ -2580,3 +2580,29 @@ static cptr desc_stat_neg[] =
 #define MES_ENCHANT_BECOME_ARTIFACT(ITEM, POS, NUM)) "%s %s radiate%s a blinding light!", (((POS) >= 0) ? "Your" : "The"), (ITEM), (((NUM) > 1) ? "" : "s")
 #endif
 
+#ifdef JP
+#define MES_POKER_ROYAL_FLUSH "ロイヤルストレートフラッシュ"
+#define MES_POKER_STRAIGHT_FLUSH "ストレートフラッシュ"
+#define MES_POKER_STRAIGHT "ストレート"
+#define MES_POKER_FLUSH "フラッシュ"
+#define MES_POKER_ONE_PAIR "ワンペア"
+#define MES_POKER_TWO_PAIR "ツーペア"
+#define MES_POKER_THREE_OF_A_KIND "スリーカード"
+#define MES_POKER_FULL_HOUSE "フルハウス"
+#define MES_POKER_FOUR_OF_A_KIND "フォーカード"
+#define MES_POKER_FIVE_ACE "ファイブエース"
+#define MES_POKER_FIVE_OF_A_KIND "ファイブカード"
+#else
+#define MES_POKER_ROYAL_FLUSH "Royal Flush"
+#define MES_POKER_STRAIGHT_FLUSH "Straight Flush"
+#define MES_POKER_STRAIGHT "Straight"
+#define MES_POKER_FLUSH "Flush"
+#define MES_POKER_ONE_PAIR "One pair"
+#define MES_POKER_TWO_PAIR "Two pair"
+#define MES_POKER_THREE_OF_A_KIND "Three of a kind"
+#define MES_POKER_FULL_HOUSE "Full house"
+#define MES_POKER_FOUR_OF_A_KIND "Four of a kind"
+#define MES_POKER_FIVE_ACE "Five ace"
+#define MES_POKER_FIVE_OF_A_KIND "Five of a kind"
+#endif
+
