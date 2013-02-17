@@ -1748,7 +1748,7 @@ static int choose_realm(s32b choices, bool npc)
 	/* Count the choices */
 	if(choices & CH_LIFE)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_LIFE]);
+		re[se_info.num].cap = realm_names[REALM_LIFE];
 		re[se_info.num].code = REALM_LIFE;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1757,7 +1757,7 @@ static int choose_realm(s32b choices, bool npc)
 	}
 	if(choices & CH_SORCERY)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_SORCERY]);
+		re[se_info.num].cap = realm_names[REALM_SORCERY];
 		re[se_info.num].code = REALM_SORCERY;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1766,7 +1766,7 @@ static int choose_realm(s32b choices, bool npc)
 	}
 	if(choices & CH_NATURE)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_NATURE]);
+		re[se_info.num].cap = realm_names[REALM_NATURE];
 		re[se_info.num].code = REALM_NATURE;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1775,7 +1775,7 @@ static int choose_realm(s32b choices, bool npc)
 	}
 	if(choices & CH_CHAOS)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_CHAOS]);
+		re[se_info.num].cap = realm_names[REALM_CHAOS];
 		re[se_info.num].code = REALM_CHAOS;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1784,7 +1784,7 @@ static int choose_realm(s32b choices, bool npc)
 	}
 	if(choices & CH_DEATH)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_DEATH]);
+		re[se_info.num].cap = realm_names[REALM_DEATH];
 		re[se_info.num].code = REALM_DEATH;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1793,7 +1793,7 @@ static int choose_realm(s32b choices, bool npc)
 	}
 	if(choices & CH_TRUMP)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_TRUMP]);
+		re[se_info.num].cap = realm_names[REALM_TRUMP];
 		re[se_info.num].code = REALM_TRUMP;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1802,7 +1802,7 @@ static int choose_realm(s32b choices, bool npc)
 	}
 	if(choices & CH_ARCANE)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_ARCANE]);
+		re[se_info.num].cap = realm_names[REALM_ARCANE];
 		re[se_info.num].code = REALM_ARCANE;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1811,7 +1811,7 @@ static int choose_realm(s32b choices, bool npc)
 	}
 	if(choices & CH_ENCHANT)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_CRAFT]);
+		re[se_info.num].cap = realm_names[REALM_CRAFT];
 		re[se_info.num].code = REALM_CRAFT;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1820,7 +1820,7 @@ static int choose_realm(s32b choices, bool npc)
 	}
 	if(choices & CH_DAEMON)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_DAEMON]);
+		re[se_info.num].cap = realm_names[REALM_DAEMON];
 		re[se_info.num].code = REALM_DAEMON;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1829,7 +1829,7 @@ static int choose_realm(s32b choices, bool npc)
 	}
 	if(choices & CH_CRUSADE)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_CRUSADE]);
+		re[se_info.num].cap = realm_names[REALM_CRUSADE];
 		re[se_info.num].code = REALM_CRUSADE;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1838,7 +1838,7 @@ static int choose_realm(s32b choices, bool npc)
 	}
 	if(choices & CH_MUSIC)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_MUSIC]);
+		re[se_info.num].cap = realm_names[REALM_MUSIC];
 		re[se_info.num].code = REALM_MUSIC;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1847,7 +1847,7 @@ static int choose_realm(s32b choices, bool npc)
 	}
 	if(choices & CH_HISSATSU)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_HISSATSU]);
+		re[se_info.num].cap = realm_names[REALM_HISSATSU];
 		re[se_info.num].code = REALM_HISSATSU;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1856,7 +1856,7 @@ static int choose_realm(s32b choices, bool npc)
 	}
 	if(choices & CH_HEX)
 	{
-		strcpy(re[se_info.num].cap, realm_names[REALM_HEX]);
+		re[se_info.num].cap = realm_names[REALM_HEX];
 		re[se_info.num].code = REALM_HEX;
 		re[se_info.num].key = '\0';
 		re[se_info.num].d_color = TERM_L_DARK;
@@ -1866,21 +1866,21 @@ static int choose_realm(s32b choices, bool npc)
 	
 	if(se_info.num <= 0) return REALM_NONE;
 
-	strcpy(re[se_info.num].cap, KW_RANDOM);
+	re[se_info.num].cap = KW_RANDOM;
 	re[se_info.num].code = BIRTH_SELECT_RANDOM;
 	re[se_info.num].key = '*';
 	re[se_info.num].d_color = TERM_UMBER;
 	re[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(re[se_info.num].cap, KW_BACK_TO_START);
+	re[se_info.num].cap = KW_BACK_TO_START;
 	re[se_info.num].code = BIRTH_SELECT_RETURN;
 	re[se_info.num].key = 'S';
 	re[se_info.num].d_color = TERM_UMBER;
 	re[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(re[se_info.num].cap, KW_QUIT_GAME);
+	re[se_info.num].cap = KW_QUIT_GAME;
 	re[se_info.num].code = BIRTH_SELECT_QUIT;
 	re[se_info.num].key = 'Q';
 	re[se_info.num].d_color = TERM_UMBER;

@@ -1849,7 +1849,7 @@ typedef struct
 
 typedef struct
 {
-	char cap[80];
+	cptr cap;
 	int code;
 	int left_code;
 	int right_code;
