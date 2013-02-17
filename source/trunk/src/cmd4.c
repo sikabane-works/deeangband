@@ -2360,9 +2360,9 @@ static errr keymap_dump(cptr fname)
 	return SUCCESS;
 }
 
-
 static selection_table macro_menu_table[10] =
 {
+#ifdef JP
 	{"ユーザー設定ファイルのロード", 0, 0, 0, '0', TERM_L_DARK, TERM_WHITE, 0},
 	{"ファイルにマクロを追加", 1, 1, 1, '1', TERM_L_DARK, TERM_WHITE, 0},
 	{"マクロの確認", 2, 2, 2, '2', TERM_L_DARK, TERM_WHITE, 0},
@@ -2373,6 +2373,18 @@ static selection_table macro_menu_table[10] =
 	{"キー配置の作成", 7, 7, 7, '7', TERM_L_DARK, TERM_WHITE, 0},
 	{"キー配置の削除", 8, 8, 8, '8', TERM_L_DARK, TERM_WHITE, 0},
 	{"マクロ行動の入力", 9, 9, 9, '9', TERM_L_DARK, TERM_WHITE, 0},
+#else
+	{"Load a user pref file", 0, 0, 0, '0', TERM_L_DARK, TERM_WHITE, 0},
+	{"Append macros to a file", 1, 1, 1, '1', TERM_L_DARK, TERM_WHITE, 0},
+	{"Query a macro", 2, 2, 2, '2', TERM_L_DARK, TERM_WHITE, 0},
+	{"Create a macro", 3, 3, 3, '3', TERM_L_DARK, TERM_WHITE, 0},
+	{"Remove a macro", 4, 4, 4, '4', TERM_L_DARK, TERM_WHITE, 0},
+	{"Append keymaps to a file", 5, 5, 5, '5', TERM_L_DARK, TERM_WHITE, 0},
+	{"Query a keymap", 6, 6, 6, '6', TERM_L_DARK, TERM_WHITE, 0},
+	{"Create a keymap", 7, 7, 7, '7', TERM_L_DARK, TERM_WHITE, 0},
+	{"Remove a keymap", 8, 8, 8, '8', TERM_L_DARK, TERM_WHITE, 0},
+	{"Enter a new action", 9, 9, 9, '9', TERM_L_DARK, TERM_WHITE, 0},
+#endif
 };
 
 // Interact with "macros"
