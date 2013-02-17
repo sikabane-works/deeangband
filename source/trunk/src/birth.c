@@ -2770,21 +2770,21 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 		return 0;
 	}
 
-	strcpy(se[se_info.num].cap, KW_RANDOM);
+	se[se_info.num].cap = KW_RANDOM;
 	se[se_info.num].code = BIRTH_SELECT_RANDOM;
 	se[se_info.num].key = '*';
 	se[se_info.num].d_color = TERM_UMBER;
 	se[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(se[se_info.num].cap, KW_BACK_TO_START);
+	se[se_info.num].cap = KW_BACK_TO_START;
 	se[se_info.num].code = BIRTH_SELECT_RETURN;
 	se[se_info.num].key = 'S';
 	se[se_info.num].d_color = TERM_UMBER;
 	se[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(se[se_info.num].cap, KW_QUIT_GAME);
+	se[se_info.num].cap = KW_QUIT_GAME;
 	se[se_info.num].code = BIRTH_SELECT_QUIT;
 	se[se_info.num].key = 'Q';
 	se[se_info.num].d_color = TERM_UMBER;
@@ -2837,11 +2837,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 		return 0;
 	}
 
-#if JP
-	strcpy(se[se_info.num].cap, "ƒŒŒŽí");
-#else
-	strcpy(se[se_info.num].cap, "Pure Breed");
-#endif
+	strcpy(se[se_info.num].cap, KW_PURE_BLOOD);
 	se[se_info.num].code = creature_ptr->race_idx1;
 	se[se_info.num].key = '\0';
 	se[se_info.num].d_color = TERM_UMBER;
@@ -2852,7 +2848,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 	{
 		if(race_crossing[creature_ptr->race_idx1][i] > 0 && creature_ptr->race_idx1 != i)
 		{
-			strcpy(se[se_info.num].cap, race_info[i].title);
+			se[se_info.num].cap = race_info[i].title;
 			se[se_info.num].code = i;
 			se[se_info.num].key = '\0';
 			se[se_info.num].d_color = TERM_L_DARK;
@@ -2861,21 +2857,21 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 		}
 	}
 
-	strcpy(se[se_info.num].cap, KW_RANDOM);
+	se[se_info.num].cap = KW_RANDOM;
 	se[se_info.num].code = BIRTH_SELECT_RANDOM;
 	se[se_info.num].key = '*';
 	se[se_info.num].d_color = TERM_UMBER;
 	se[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(se[se_info.num].cap, KW_BACK_TO_START);
+	se[se_info.num].cap = KW_BACK_TO_START;
 	se[se_info.num].code = BIRTH_SELECT_RETURN;
 	se[se_info.num].key = 'S';
 	se[se_info.num].d_color = TERM_UMBER;
 	se[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(se[se_info.num].cap, KW_QUIT_GAME);
+	se[se_info.num].cap = KW_QUIT_GAME;
 	se[se_info.num].code = BIRTH_SELECT_QUIT;
 	se[se_info.num].key = 'Q';
 	se[se_info.num].d_color = TERM_UMBER;
