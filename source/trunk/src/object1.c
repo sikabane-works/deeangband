@@ -1356,7 +1356,8 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 		{
 			object_ptr = get_equipped_slot_ptr(creature_ptr, slot, i);
 			object_desc(buf, object_ptr, 0);
-			sprintf(se[i].cap, "%-6s %s", mention_use_ptr(creature_ptr, object_ptr), buf);
+			//TODO get_selection sprintf(se[i].cap, "%-6s %s", mention_use_ptr(creature_ptr, object_ptr), buf);
+			se[i].cap = NULL;
 			se[i].code = i;
 			se[i].key = '\0';
 
@@ -1373,8 +1374,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 
 		}
 
-		strcpy(se[i - 1].cap, KW_CANCEL);
-		strcpy(se[i - 1].cap, "Cancel");
+		se[i].cap = KW_CANCEL;
 		se[i].code = 0;
 		se[i].key = ESCAPE;
 		se[i].d_color = TERM_L_DARK;

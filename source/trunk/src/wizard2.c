@@ -1465,7 +1465,7 @@ static void do_cmd_wiz_floor_object_list(void)
 			se_info.num++;
 		}
 
-		sprintf(ce[se_info.num].cap, " END ");
+		ce[se_info.num].cap = KW_CANCEL;
 		ce[se_info.num].d_color = TERM_RED;
 		ce[se_info.num].l_color = TERM_L_RED;
 		ce[se_info.num].key = ESCAPE;
@@ -1614,7 +1614,7 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 		if(trait_info[i].effect_type == TRAIT_EFFECT_TYPE_SELF || trait_info[i].effect_type == TRAIT_EFFECT_TYPE_TARGET)
 		{
 			se[se_info.num].code = i;
-			strcpy(se[se_info.num].cap, trait_info[i].title);
+			se[se_info.num].cap = trait_info[i].title;
 			se[se_info.num].key = '\0';
 			se[se_info.num].d_color = TERM_L_DARK;
 			se[se_info.num].l_color = TERM_WHITE;
@@ -1623,7 +1623,7 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 	}
 
 	se[se_info.num].code = -1;
-	strcpy(se[se_info.num].cap, KW_CANCEL);
+	se[se_info.num].cap = KW_CANCEL;
 	se[se_info.num].key = '\0';
 	se[se_info.num].d_color = TERM_L_DARK;
 	se[se_info.num].l_color = TERM_WHITE;

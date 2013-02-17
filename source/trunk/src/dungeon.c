@@ -40,7 +40,7 @@ static int select_mode(void)
 
 	for(i = 0; i < MAX_CAMPAIGNS; i++)
 	{
-		strcpy(se[i].cap, campaign_name[i]);
+		se[i].cap = campaign_name[i];
 		se[i].d_color = TERM_L_DARK;
 		se[i].l_color = TERM_WHITE;
 		se[i].key = '\0';
@@ -79,9 +79,10 @@ static int select_unique_species(void)
 			if(species_info[i].dr >= 0) sprintf(dr, "%2d", species_info[i].dr);
 			else strcpy(dr, "--");
 
-			sprintf(se[se_info.num].cap, "%-56s Lev:%2d Dr:%2s",
-				species_name + species_info[i].name,
-				estimate_level(&species_info[i]), dr);
+			se[se_info.num].cap = NULL;
+			//TODO:get_selection sprintf(se[se_info.num].cap, "%-56s Lev:%2d Dr:%2s",
+			//	species_name + species_info[i].name,
+			//	estimate_level(&species_info[i]), dr);
 			se[se_info.num].d_color = TERM_L_DARK;
 			se[se_info.num].l_color = TERM_WHITE;
 			se[se_info.num].key = '\0';
