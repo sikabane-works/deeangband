@@ -2360,19 +2360,20 @@ static errr keymap_dump(cptr fname)
 	return SUCCESS;
 }
 
-static selection_table macro_menu_table[10] =
+static selection_table macro_menu_table[] =
 {
 #ifdef JP
-	{"ユーザー設定ファイルのロード", 0, 0, 0, '0', TERM_L_DARK, TERM_WHITE, 0},
-	{"ファイルにマクロを追加", 1, 1, 1, '1', TERM_L_DARK, TERM_WHITE, 0},
-	{"マクロの確認", 2, 2, 2, '2', TERM_L_DARK, TERM_WHITE, 0},
-	{"マクロの作成", 3, 3, 3, '3', TERM_L_DARK, TERM_WHITE, 0},
-	{"マクロの削除", 4, 4, 4, '4', TERM_L_DARK, TERM_WHITE, 0},
-	{"ファイルにキー配置を追加", 5, 5, 5, '5', TERM_L_DARK, TERM_WHITE, 0},
-	{"キー配置の確認", 6, 6, 6, '6', TERM_L_DARK, TERM_WHITE, 0},
-	{"キー配置の作成", 7, 7, 7, '7', TERM_L_DARK, TERM_WHITE, 0},
-	{"キー配置の削除", 8, 8, 8, '8', TERM_L_DARK, TERM_WHITE, 0},
-	{"マクロ行動の入力", 9, 9, 9, '9', TERM_L_DARK, TERM_WHITE, 0},
+	{"ユーザー設定ファイルのロード", 0, 0, 0, NULL, TERM_L_DARK, TERM_WHITE, 0},
+	{"ファイルにマクロを追加", 1, 1, 1, NULL, TERM_L_DARK, TERM_WHITE, 0},
+	{"マクロの確認", 2, 2, 2, NULL, TERM_L_DARK, TERM_WHITE, 0},
+	{"マクロの作成", 3, 3, 3, NULL, TERM_L_DARK, TERM_WHITE, 0},
+	{"マクロの削除", 4, 4, 4, NULL, TERM_L_DARK, TERM_WHITE, 0},
+	{"ファイルにキー配置を追加", 5, 5, 5, NULL, TERM_L_DARK, TERM_WHITE, 0},
+	{"キー配置の確認", 6, 6, 6, NULL, TERM_L_DARK, TERM_WHITE, 0},
+	{"キー配置の作成", 7, 7, 7, NULL, TERM_L_DARK, TERM_WHITE, 0},
+	{"キー配置の削除", 8, 8, 8, NULL, TERM_L_DARK, TERM_WHITE, 0},
+	{"マクロ行動の入力", 9, 9, 9, NULL, TERM_L_DARK, TERM_WHITE, 0},
+	{"終了", 10, 10, 10, ESCAPE, TERM_L_DARK, TERM_WHITE, 0},
 #else
 	{"Load a user pref file", 0, 0, 0, '0', TERM_L_DARK, TERM_WHITE, 0},
 	{"Append macros to a file", 1, 1, 1, '1', TERM_L_DARK, TERM_WHITE, 0},
@@ -2384,8 +2385,11 @@ static selection_table macro_menu_table[10] =
 	{"Create a keymap", 7, 7, 7, '7', TERM_L_DARK, TERM_WHITE, 0},
 	{"Remove a keymap", 8, 8, 8, '8', TERM_L_DARK, TERM_WHITE, 0},
 	{"Enter a new action", 9, 9, 9, '9', TERM_L_DARK, TERM_WHITE, 0},
+	{"Exit", 10, 10, 10, ESCAPE, TERM_L_DARK, TERM_WHITE, 0},
 #endif
 };
+
+static selection_info macro_menu_info[] = {"", 11, 0, 4, 5, 11, 40, NULL, 0};
 
 // Interact with "macros"
 // Note that the macro "action" must be defined before the trigger.
@@ -2425,42 +2429,15 @@ void do_cmd_macros(void)
 		/* Display the current action */
 		prt(buf, 22, 0);
 
-#ifdef JP
-		prt("(1) ユーザー設定ファイルのロード", 4, 5);
-		prt("(2) ファイルにマクロを追加", 5, 5);
-		prt("(3) マクロの確認", 6, 5);
-		prt("(4) マクロの作成", 7, 5);
-		prt("(5) マクロの削除", 8, 5);
-		prt("(6) ファイルにキー配置を追加", 9, 5);
-		prt("(7) キー配置の確認", 10, 5);
-		prt("(8) キー配置の作成", 11, 5);
-		prt("(9) キー配置の削除", 12, 5);
-		prt("(0) マクロ行動の入力", 13, 5);
-		prt(PROMPT_COMMAND, 16, 0);
-#else
-		prt("(1) Load a user pref file", 4, 5);
-		prt("(2) Append macros to a file", 5, 5);
-		prt("(3) Query a macro", 6, 5);
-		prt("(4) Create a macro", 7, 5);
-		prt("(5) Remove a macro", 8, 5);
-		prt("(6) Append keymaps to a file", 9, 5);
-		prt("(7) Query a keymap", 10, 5);
-		prt("(8) Create a keymap", 11, 5);
-		prt("(9) Remove a keymap", 12, 5);
-		prt("(0) Enter a new action", 13, 5);
-		prt("Command: ", 16, 0);
-#endif
-
-		i = inkey();
+		i = get_selection(&macro_menu_info, &macro_menu_table);
 
 		/* Leave */
-		if(i == ESCAPE) break;
+		if(i == 10) break;
 
 		/* Load a 'macro' file */
-		else if(i == '1')
+		else if(i == 1)
 		{
 			errr err;
-
 #ifdef JP
 			prt("コマンド: ユーザー設定ファイルのロード", 16, 0);
 #else
@@ -2503,7 +2480,7 @@ void do_cmd_macros(void)
 		}
 
 		/* Save macros */
-		else if(i == '2')
+		else if(i == 2)
 		{
 #ifdef JP
 			prt("コマンド: マクロをファイルに追加する", 16, 0);
@@ -2530,7 +2507,7 @@ void do_cmd_macros(void)
 		}
 
 		/* Query a macro */
-		else if(i == '3')
+		else if(i == 3)
 		{
 			int k;
 
@@ -2580,7 +2557,7 @@ void do_cmd_macros(void)
 		}
 
 		/* Create a macro */
-		else if(i == '4')
+		else if(i == 4)
 		{
 #ifdef JP
 			prt("コマンド: マクロの作成", 16, 0);
@@ -2625,7 +2602,7 @@ void do_cmd_macros(void)
 		}
 
 		/* Remove a macro */
-		else if(i == '5')
+		else if(i == 5)
 		{
 #ifdef JP
 			prt("コマンド: マクロの削除", 16, 0);
@@ -2649,7 +2626,7 @@ void do_cmd_macros(void)
 		}
 
 		/* Save keymaps */
-		else if(i == '6')
+		else if(i == 6)
 		{
 #ifdef JP
 			prt("コマンド: キー配置をファイルに追加する", 16, 0);
@@ -2676,7 +2653,7 @@ void do_cmd_macros(void)
 		}
 
 		/* Query a keymap */
-		else if(i == '7')
+		else if(i == 7)
 		{
 			cptr act;
 
@@ -2725,7 +2702,7 @@ void do_cmd_macros(void)
 		}
 
 		/* Create a keymap */
-		else if(i == '8')
+		else if(i == 8)
 		{
 #ifdef JP
 			prt("コマンド: キー配置の作成", 16, 0);
@@ -2773,7 +2750,7 @@ void do_cmd_macros(void)
 		}
 
 		/* Remove a keymap */
-		else if(i == '9')
+		else if(i == 9)
 		{
 #ifdef JP
 			prt("コマンド: キー配置の削除", 16, 0);
@@ -2800,7 +2777,7 @@ void do_cmd_macros(void)
 		}
 
 		/* Enter a new action */
-		else if(i == '0')
+		else if(i == 0)
 		{
 #ifdef JP
 			prt("コマンド: マクロ行動の入力", 16, 0);

@@ -5353,9 +5353,12 @@ int get_selection(selection_info *si_ptr, selection_table *se_ptr)
 		if(se < 0) se = 0;
 		if(se >= si_ptr->num) se = si_ptr->num - 1;
 
-		if(c == '\r') return se_ptr[se].code;
-		if(c >= 'a' && c < 'a' + si_ptr->h && !se_ptr[si_ptr->h*(page-1)+c-'a'].key) return se_ptr[si_ptr->h*(page-1)+c-'a'].code;
-		for (i = 0; i < si_ptr->num; i++) if(se_ptr[i].key && se_ptr[i].key == c) return se_ptr[i].code;
+		if(c == '\r')
+			return se_ptr[se].code;
+		if(c >= 'a' && c < 'a' + si_ptr->h && !se_ptr[si_ptr->h*(page-1)+c-'a'].key)
+			return se_ptr[si_ptr->h*(page-1)+c-'a'].code;
+		for (i = 0; i < si_ptr->num; i++) if(se_ptr[i].key && se_ptr[i].key == c)
+			return se_ptr[i].code;
 
 		page = se / si_ptr->h + 1;
 
