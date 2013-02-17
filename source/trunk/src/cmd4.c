@@ -1668,13 +1668,14 @@ void do_cmd_options_aux(int page, cptr info)
 	{
 		for (se_info.num = 0; se_info.num < n; se_info.num++)
 		{
-			sprintf(se[se_info.num].cap, "%-45s:%-6s(%.19s)", option_info[opt[se_info.num]].o_desc, (*option_info[opt[se_info.num]].o_var ? KW_YES : KW_NO), option_info[opt[se_info.num]].o_text);
+			//TODO:get_selection sprintf(se[se_info.num].cap, "%-45s:%-6s(%.19s)", option_info[opt[se_info.num]].o_desc, (*option_info[opt[se_info.num]].o_var ? KW_YES : KW_NO), option_info[opt[se_info.num]].o_text);
+			se[se_info.num].cap = NULL;
 			se[se_info.num].d_color = TERM_L_DARK;
 			se[se_info.num].l_color = TERM_WHITE;
 			se[se_info.num].code = se[se_info.num].left_code = se[se_info.num].right_code = se_info.num;
 			se[se_info.num].key = '\0';			
 		}
-		strcpy(se[se_info.num].cap, "Œˆ’è");
+		se[se_info.num].cap = KW_ACCEPT;
 		se[se_info.num].d_color = TERM_BLUE;
 		se[se_info.num].l_color = TERM_L_BLUE;
 		se[se_info.num].code = se_info.num;
@@ -2390,7 +2391,7 @@ static selection_table macro_menu_table[] =
 #endif
 };
 
-static selection_info macro_menu_info[] = {"", 11, 0, 4, 5, 11, 40, NULL, 0};
+static selection_info macro_menu_info = {"", 11, 0, 4, 5, 11, 40, NULL, 0};
 
 // Interact with "macros"
 // Note that the macro "action" must be defined before the trigger.
@@ -8465,14 +8466,14 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 
 	for(se_info.num = 0; se_info.num < 17; se_info.num++)
 	{
-		strcpy(se[se_info.num].cap, knowledge_list[se_info.num]);
+		se[se_info.num].cap = knowledge_list[se_info.num];
 		se[se_info.num].d_color = TERM_L_DARK;
 		se[se_info.num].l_color = TERM_L_WHITE;
 		se[se_info.num].code = se_info.num;
 		se[se_info.num].key = '\0';
 	}
 
-	strcpy(se[se_info.num].cap, "ESC");
+	se[se_info.num].cap = KW_CANCEL;
 	se[se_info.num].d_color = TERM_L_DARK;
 	se[se_info.num].l_color = TERM_L_WHITE;
 	se[se_info.num].code = se_info.num;

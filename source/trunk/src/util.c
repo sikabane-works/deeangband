@@ -5272,7 +5272,7 @@ int get_selection(selection_info *si_ptr, selection_table *se_ptr)
 	se = si_ptr->default_se;
 
 	// cut up caption
-	for(i = 0; i < si_ptr->num; i++) se_ptr[i].cap[si_ptr->w - 5] = '\0';
+	//for(i = 0; i < si_ptr->num; i++) se_ptr[i].cap[si_ptr->w - 5] = '\0';
 
 	for(i = 0; i < si_ptr->w; i++)
 	{
@@ -5312,12 +5312,14 @@ int get_selection(selection_info *si_ptr, selection_table *se_ptr)
 			{
 				c_put_str(TERM_WHITE, ">>", si_ptr->y+i, si_ptr->x);
 				c_put_str(TERM_WHITE, buf, si_ptr->y+i, si_ptr->x+2);
-				c_put_str(se_ptr[offset].l_color, se_ptr[offset].cap, si_ptr->y+i, si_ptr->x+6);
+				if(se_ptr[offset].cap) c_put_str(se_ptr[offset].l_color, se_ptr[offset].cap, si_ptr->y+i, si_ptr->x+6);
+				else if(si_ptr->caption) si_ptr->caption(si_ptr->y+i, si_ptr->x+6, offset, TRUE);
 			}
 			else
 			{
 				c_put_str(TERM_L_DARK, buf, si_ptr->y+i, si_ptr->x+2);
-				c_put_str(se_ptr[offset].d_color, se_ptr[offset].cap, si_ptr->y+i, si_ptr->x+6);
+				if(se_ptr[offset].cap) c_put_str(se_ptr[offset].d_color, se_ptr[offset].cap, si_ptr->y+i, si_ptr->x+6);
+				else if(si_ptr->caption) si_ptr->caption(si_ptr->y+i, si_ptr->x+6, offset, FALSE);
 			}
 		}
 

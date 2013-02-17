@@ -1274,17 +1274,17 @@ static void do_cmd_wiz_creature_list(void)
 	{
 		se_info.num = 0;
 
-		for(i = 1; i < creature_max; i++)
+		for(se_info.num = 1; se_info.num < creature_max; se_info.num++)
 		{
-			sprintf(ce[se_info.num].cap, "[%4d] F:%3d D:%3d (%3d, %3d) HP:%6d/%6d %-24s", i, creature_list[i].floor_id, creature_list[i].depth,
-				creature_list[i].fx, creature_list[i].fy, creature_list[i].chp, creature_list[i].mhp, creature_list[i].name);
-			ce[se_info.num].cap[72] = '\0'; 
-			if(is_player(&creature_list[i]))
+			//TODO:get_selection sprintf(ce[se_info.num].cap, "[%4d] F:%3d D:%3d (%3d, %3d) HP:%6d/%6d %-24s", i, creature_list[i].floor_id, creature_list[i].depth,
+			//	creature_list[i].fx, creature_list[i].fy, creature_list[i].chp, creature_list[i].mhp, creature_list[i].name);
+			ce[se_info.num].cap = NULL; 
+			if(is_player(&creature_list[se_info.num]))
 			{
 				ce[se_info.num].d_color = TERM_UMBER;
 				ce[se_info.num].l_color = TERM_YELLOW;
 			}
-			else if(has_trait(&creature_list[i], TRAIT_UNIQUE))
+			else if(has_trait(&creature_list[se_info.num], TRAIT_UNIQUE))
 			{
 				ce[se_info.num].d_color = TERM_GREEN;
 				ce[se_info.num].l_color = TERM_L_GREEN;
@@ -1296,11 +1296,11 @@ static void do_cmd_wiz_creature_list(void)
 			}
 
 			ce[se_info.num].key = '\0';
-			ce[se_info.num].code = i;
+			ce[se_info.num].code = se_info.num;
 			se_info.num++;
 		}
 
-		sprintf(ce[se_info.num].cap, " END ");
+		ce[se_info.num].cap = KW_CANCEL;
 		ce[se_info.num].d_color = TERM_RED;
 		ce[se_info.num].l_color = TERM_L_RED;
 		ce[se_info.num].key = ESCAPE;
@@ -1367,11 +1367,11 @@ static void do_cmd_wiz_floor_teleport(void)
 
 		for(i = 1; i < floor_max; i++)
 		{
-			sprintf(ce[se_info.num].cap, "[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
-				floor_list[i].world_x, floor_list[i].world_y,
-				floor_list[i].width, floor_list[i].height,
-				map_name(&floor_list[i]), floor_list[i].floor_level);
-			ce[se_info.num].cap[72] = '\0'; 
+			//sprintf(ce[se_info.num].cap, "[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
+			//	floor_list[i].world_x, floor_list[i].world_y,
+			//	floor_list[i].width, floor_list[i].height,
+			//	map_name(&floor_list[i]), floor_list[i].floor_level);
+			ce[se_info.num].cap = NULL; 
 
 			if(player_ptr->floor_id == i)
 			{
@@ -1392,7 +1392,7 @@ static void do_cmd_wiz_floor_teleport(void)
 			se_info.num++;
 		}
 
-		sprintf(ce[se_info.num].cap, " END ");
+		ce[se_info.num].cap = KW_CANCEL;
 		ce[se_info.num].d_color = TERM_RED;
 		ce[se_info.num].l_color = TERM_L_RED;
 		ce[se_info.num].key = ESCAPE;
@@ -1454,8 +1454,8 @@ static void do_cmd_wiz_floor_object_list(void)
 		for(i = 1; i < object_max; i++)
 		{
 			object_desc(tmp, &object_list[i], 0);
-			sprintf(ce[se_info.num].cap, "[%4d] F:%d X:%3d Y:%3d %-35s", i, object_list[i].floor_id, object_list[i].fx, object_list[i].fy, tmp);
-			ce[se_info.num].cap[72] = '\0'; 
+			//TODO:get_selection() sprintf(ce[se_info.num].cap, "[%4d] F:%d X:%3d Y:%3d %-35s", i, object_list[i].floor_id, object_list[i].fx, object_list[i].fy, tmp);
+			ce[se_info.num].cap = NULL; 
 
 			ce[se_info.num].d_color = TERM_L_DARK;
 			ce[se_info.num].l_color = TERM_WHITE;
