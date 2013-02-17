@@ -421,17 +421,13 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 		}
 		else if(creature_ptr->class_idx != CLASS_BERSERKER)
 		{
-			msg_print(GAME_MESSAGE_SEEM_TO_CURSE);
+			msg_print(MES_CURSE_PREVENT_TAKE_OFF);
 			return;
 		}
 
 		if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE))
 		{
-#ifdef JP
-			msg_print("あなたの神域の力は呪いを凌駕している。あなたは平然と呪いの装備を外した。");
-#else
-			msg_print("Your divine power is exceeding curse. You teared a cursed equipment off calmly.");
-#endif
+			msg_print(MES_CURSE_RESIST_DIVINE);
 			object_ptr->curse_flags[0] = 0L;
 		}
 		else if(((have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) && one_in_(7)) || one_in_(4))
@@ -441,7 +437,6 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 #else
 			msg_print("You teared a cursed equipment off by sheer strength!");
 #endif
-
 			object_ptr->ident |= (IDENT_SENSE);
 			object_ptr->curse_flags[0] = 0L;
 			object_ptr->feeling = FEEL_NONE;
@@ -498,7 +493,7 @@ void do_cmd_drop(creature_type *creature_ptr)
 	/* Hack -- Cannot remove cursed items */
 	if(IS_EQUIPPED(object_ptr) && object_is_cursed(object_ptr))
 	{
-		msg_print(GAME_MESSAGE_SEEM_TO_CURSE);
+		msg_print(MES_CURSE_PREVENT_TAKE_OFF);
 		return;
 	}
 

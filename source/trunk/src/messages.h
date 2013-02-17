@@ -426,7 +426,6 @@
 #define GAME_MESSAGE_DAMAGE_DENSITY "体の分子が分解した気がする！"
 #define GAME_MESSAGE_ROCK_CRUSHING "崩れた岩に押し潰された！"
 
-#define GAME_MESSAGE_SEEM_TO_CURSE "ふーむ、どうやら呪われているようだ。"
 #define MES_PREVENT_BY_RIDING "乗馬中には出来ない。"
 #define MES_PREVENT_BY_CONFUSION "混乱状態で上手く出来ない。"
 #define MES_PREVENT_BY_BLIND "眼が見えなくて出来ない。"
@@ -550,7 +549,6 @@
 #define GAME_MESSAGE_DAMAGE_DENSITY "Your molecules feel disrupted!"
 #define GAME_MESSAGE_RCOK_CRUSHING "You are being crushed!"
 
-#define GAME_MESSAGE_SEEM_TO_CURSE "Hmmm, it seems to be cursed."
 #define MES_PREVENT_BY_RIDING "You cannot do it when riding."
 #define MES_PREVENT_BY_CONFUSION "You are too confused."
 #define MES_PREVENT_BY_BLIND "You are blind!"
@@ -2608,3 +2606,10 @@ static cptr desc_stat_neg[] =
 #define MES_POKER_FIVE_OF_A_KIND "Five of a kind"
 #endif
 
+#ifdef JP
+#define MES_CURSE_PREVENT_TAKE_OFF "ふーむ、どうやら呪われているようだ。"
+#define MES_CURSE_RESIST_DIVINE "あなたの神域の力は呪いを凌駕している。あなたは平然と呪いの装備を外した。"
+#else
+#define MES_CURSE_PREVENT_TAKE_OFF "Hmmm, it seems to be cursed."
+#define MES_CURSE_RESIST_DIVINE "Your divine power is exceeding curse. You teared a cursed equipment off calmly."
+#endif

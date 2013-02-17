@@ -3011,7 +3011,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	if(object_is_cursed(object_ptr) && IS_EQUIPPED(object_ptr))
 	{
-		msg_print(GAME_MESSAGE_SEEM_TO_CURSE);
+		msg_print(MES_CURSE_PREVENT_TAKE_OFF);
 		return FALSE;
 	}
 
