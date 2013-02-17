@@ -1737,6 +1737,7 @@ static int choose_realm(s32b choices, bool npc)
 	int picks[VALID_REALM] = {0};
 
 	se_info.mode = 0;
+	se_info.caption = NULL;
 	se_info.detail = realm_detail;
 	se_info.default_se = 0;
 	se_info.y = 5;
@@ -2726,6 +2727,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 	selection_info se_info;
 
 	se_info.mode = 0;
+	se_info.caption = NULL;
 	se_info.detail = race_detail;
 	se_info.default_se = 0;
 	se_info.y = 5;
@@ -2823,6 +2825,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 	selection_info se_info;
 
 	se_info.mode = 0;
+	se_info.caption = NULL;
 	se_info.detail = race_detail;
 	se_info.default_se = 0;
 	se_info.y = 5;
@@ -3117,6 +3120,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 	selection_info se_info;
 
 	se_info.mode = 0;
+	se_info.caption = NULL;
 	se_info.detail = NULL;
 	se_info.default_se = 0;
 	se_info.y = 5;
@@ -3222,6 +3226,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 	selection_info se_info;
 
 	se_info.mode = 0;
+	se_info.caption = NULL;
 	se_info.detail = class_detail;
 	se_info.default_se = 0;
 	se_info.y = 5;
@@ -3326,6 +3331,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 	selection_info se_info;
 
 	se_info.mode = 0;
+	se_info.caption = NULL;
 	se_info.detail = NULL;
 	se_info.default_se = 0;
 	se_info.y = 5;
@@ -3437,6 +3443,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 	selection_info se_info;
 
 	se_info.mode = 0;
+	se_info.caption = NULL;
 	se_info.detail = chara_detail;
 	se_info.default_se = 0;
 	se_info.y = 5;
@@ -3541,6 +3548,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 	selection_info se_info;
 
 	se_info.mode = 0;
+	se_info.caption = NULL;
 	se_info.detail = starting_point_detail;
 	se_info.default_se = 0;
 	se_info.y = 5;

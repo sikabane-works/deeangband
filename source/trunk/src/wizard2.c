@@ -1261,6 +1261,7 @@ static void do_cmd_wiz_creature_list(void)
 
 	se_info.mode = 0;
 	se_info.detail = NULL;
+	se_info.caption = NULL;
 	se_info.default_se = 0;
 	se_info.y = 1;
 	se_info.x = 1;
@@ -1351,6 +1352,7 @@ static void do_cmd_wiz_floor_teleport(void)
 
 	se_info.mode = 0;
 	se_info.detail = NULL;
+	se_info.caption = NULL;
 	se_info.default_se = player_ptr->floor_id;
 	se_info.y = 1;
 	se_info.x = 1;
@@ -1435,6 +1437,7 @@ static void do_cmd_wiz_floor_object_list(void)
 	ce = malloc(sizeof(selection_table) * (floor_max + 1));
 
 	se_info.mode = 0;
+	se_info.caption = NULL;
 	se_info.detail = NULL;
 	se_info.default_se = 0;
 	se_info.y = 1;
@@ -1595,6 +1598,7 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 	int i;
 	selection_info se_info;
 	se_info.mode = GET_SE_AUTO_WIDTH | GET_SE_RIGHT;
+	se_info.caption = NULL;
 	se_info.detail = NULL;
 	se_info.default_se = 0;
 	se_info.y = 1;

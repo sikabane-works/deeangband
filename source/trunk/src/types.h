@@ -1868,6 +1868,7 @@ typedef struct
 	int x;
 	int h;
 	int w;
+	void(*caption)(int, int, int);
 	void(*detail)(int);
 	s32b mode;
 } selection_info;

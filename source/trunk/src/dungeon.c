@@ -27,6 +27,7 @@ static int select_mode(void)
 	selection_info se_info;
 
 	se_info.mode = 0;
+	se_info.caption = NULL;
 	se_info.detail = game_mode_detail;
 	se_info.default_se = 0;
 	se_info.y = 10;
@@ -58,6 +59,7 @@ static int select_unique_species(void)
 	selection_info se_info;
 
 	se_info.mode = 0;
+	se_info.caption = NULL;
 	se_info.detail = NULL;
 	se_info.default_se = 0;
 	se_info.y = 2;

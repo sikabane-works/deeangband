@@ -1329,6 +1329,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 	selection_info se_info;
 
 	se_info.mode = GET_SE_NO_FRAME | GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT | GET_SE_RIGHT;
+	se_info.caption = NULL;
 	se_info.detail = NULL;
 	se_info.default_se = 0;
 	se_info.y = 1;

@@ -1651,6 +1651,7 @@ void do_cmd_options_aux(int page, cptr info)
 
 	se_info.mode = GET_SE_LEFT_RIGHT_SWITCHING;
 	se_info.detail = NULL;
+	se_info.caption = NULL;
 	se_info.default_se = 0;
 	se_info.y = 2;
 	se_info.x = 1;
@@ -2363,16 +2364,16 @@ static errr keymap_dump(cptr fname)
 static selection_table macro_menu_table[] =
 {
 #ifdef JP
-	{"ユーザー設定ファイルのロード", 0, 0, 0, NULL, TERM_L_DARK, TERM_WHITE, 0},
-	{"ファイルにマクロを追加", 1, 1, 1, NULL, TERM_L_DARK, TERM_WHITE, 0},
-	{"マクロの確認", 2, 2, 2, NULL, TERM_L_DARK, TERM_WHITE, 0},
-	{"マクロの作成", 3, 3, 3, NULL, TERM_L_DARK, TERM_WHITE, 0},
-	{"マクロの削除", 4, 4, 4, NULL, TERM_L_DARK, TERM_WHITE, 0},
-	{"ファイルにキー配置を追加", 5, 5, 5, NULL, TERM_L_DARK, TERM_WHITE, 0},
-	{"キー配置の確認", 6, 6, 6, NULL, TERM_L_DARK, TERM_WHITE, 0},
-	{"キー配置の作成", 7, 7, 7, NULL, TERM_L_DARK, TERM_WHITE, 0},
-	{"キー配置の削除", 8, 8, 8, NULL, TERM_L_DARK, TERM_WHITE, 0},
-	{"マクロ行動の入力", 9, 9, 9, NULL, TERM_L_DARK, TERM_WHITE, 0},
+	{"ユーザー設定ファイルのロード", 0, 0, 0, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"ファイルにマクロを追加", 1, 1, 1, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"マクロの確認", 2, 2, 2, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"マクロの作成", 3, 3, 3, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"マクロの削除", 4, 4, 4, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"ファイルにキー配置を追加", 5, 5, 5, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"キー配置の確認", 6, 6, 6, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"キー配置の作成", 7, 7, 7, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"キー配置の削除", 8, 8, 8, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"マクロ行動の入力", 9, 9, 9, '\0', TERM_L_DARK, TERM_WHITE, 0},
 	{"終了", 10, 10, 10, ESCAPE, TERM_L_DARK, TERM_WHITE, 0},
 #else
 	{"Load a user pref file", 0, 0, 0, '0', TERM_L_DARK, TERM_WHITE, 0},
@@ -8450,6 +8451,7 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 	selection_info se_info;
 
 	se_info.mode = 0;
+	se_info.caption = NULL;
 	se_info.detail = NULL;
 	se_info.default_se = 0;
 	se_info.y = 5;
