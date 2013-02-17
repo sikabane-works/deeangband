@@ -2617,8 +2617,7 @@ bool recharge(creature_type *creature_ptr, int power)
 			/* Multiple wands in a stack increase recharging somewhat. */
 			if((object_ptr->tval == TV_WAND) && (object_ptr->number > 1))
 			{
-				recharge_amount +=
-					(randint1(recharge_amount * (object_ptr->number - 1))) / 2;
+				recharge_amount += (randint1(recharge_amount * (object_ptr->number - 1))) / 2;
 				if(recharge_amount < 1) recharge_amount = 1;
 				if(recharge_amount > 12) recharge_amount = 12;
 			}

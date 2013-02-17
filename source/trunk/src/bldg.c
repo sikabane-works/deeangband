@@ -96,20 +96,12 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 				else if(is_owner(creature_ptr, bldg))
 				{
 					action_color = TERM_YELLOW;
-#ifdef JP
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
-#else
-					sprintf(buff, "(%ldgp)", bldg->member_costs[i]);
-#endif
 				}
 				else
 				{
 					action_color = TERM_YELLOW;
-#ifdef JP
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
-#else
-					sprintf(buff, "(%ldgp)", bldg->other_costs[i]);
-#endif
 				}
 			}
 			else if(bldg->action_restr[i] == 1)
@@ -128,22 +120,12 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 				else if(is_owner(creature_ptr, bldg))
 				{
 					action_color = TERM_YELLOW;
-#ifdef JP
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
-#else
-					sprintf(buff, "(%ldgp)", bldg->member_costs[i]);
-#endif
-
 				}
 				else
 				{
 					action_color = TERM_YELLOW;
-#ifdef JP
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
-#else
-					sprintf(buff, "(%ldgp)", bldg->other_costs[i]);
-#endif
-
 				}
 			}
 			else
@@ -151,22 +133,12 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 				if(!is_owner(creature_ptr, bldg))
 				{
 					action_color = TERM_L_DARK;
-#ifdef JP
-					strcpy(buff, "(•Â“X)");
-#else
-					strcpy(buff, "(closed)");
-#endif
-
+					strcpy(buff, MES_BLDG_CLOSED);
 				}
 				else if(bldg->member_costs[i] != 0)
 				{
 					action_color = TERM_YELLOW;
-#ifdef JP
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
-#else
-					sprintf(buff, "(%ldgp)", bldg->member_costs[i]);
-#endif
-
 				}
 				else
 				{
