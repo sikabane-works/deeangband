@@ -2301,10 +2301,7 @@ static void do_cmd_macro_aux_keymap(char *buf)
 	flush();
 }
 
-
-/*
- * Hack -- append all keymaps to the given file
- */
+// Hack -- append all keymaps to the given file
 static errr keymap_dump(cptr fname)
 {
 	static cptr mark = "Keymap Dump";
@@ -2362,6 +2359,21 @@ static errr keymap_dump(cptr fname)
 	close_auto_dump();
 	return SUCCESS;
 }
+
+
+static selection_table macro_menu_table[10] =
+{
+	{"ユーザー設定ファイルのロード", 0, 0, 0, '0', TERM_L_DARK, TERM_WHITE, 0},
+	{"ファイルにマクロを追加", 1, 1, 1, '1', TERM_L_DARK, TERM_WHITE, 0},
+	{"マクロの確認", 2, 2, 2, '2', TERM_L_DARK, TERM_WHITE, 0},
+	{"マクロの作成", 3, 3, 3, '3', TERM_L_DARK, TERM_WHITE, 0},
+	{"マクロの削除", 4, 4, 4, '4', TERM_L_DARK, TERM_WHITE, 0},
+	{"ファイルにキー配置を追加", 5, 5, 5, '5', TERM_L_DARK, TERM_WHITE, 0},
+	{"キー配置の確認", 6, 6, 6, '6', TERM_L_DARK, TERM_WHITE, 0},
+	{"キー配置の作成", 7, 7, 7, '7', TERM_L_DARK, TERM_WHITE, 0},
+	{"キー配置の削除", 8, 8, 8, '8', TERM_L_DARK, TERM_WHITE, 0},
+	{"マクロ行動の入力", 9, 9, 9, '9', TERM_L_DARK, TERM_WHITE, 0},
+};
 
 // Interact with "macros"
 // Note that the macro "action" must be defined before the trigger.
