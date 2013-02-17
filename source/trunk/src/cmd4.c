@@ -1646,6 +1646,7 @@ void do_cmd_options_aux(int page, cptr info)
 {
 	selection_table se[25];
 	selection_info se_info;
+	char option_caption[25][80];
 	int opt[24];
 	int n = 0;
 
@@ -1668,8 +1669,8 @@ void do_cmd_options_aux(int page, cptr info)
 	{
 		for (se_info.num = 0; se_info.num < n; se_info.num++)
 		{
-			//TODO:get_selection sprintf(se[se_info.num].cap, "%-45s:%-6s(%.19s)", option_info[opt[se_info.num]].o_desc, (*option_info[opt[se_info.num]].o_var ? KW_YES : KW_NO), option_info[opt[se_info.num]].o_text);
-			se[se_info.num].cap = NULL;
+			sprintf(option_caption[se_info.num], "%-45s:%-6s(%.19s)", option_info[opt[se_info.num]].o_desc, (*option_info[opt[se_info.num]].o_var ? KW_YES : KW_NO), option_info[opt[se_info.num]].o_text);
+			se[se_info.num].cap = option_caption[se_info.num];
 			se[se_info.num].d_color = TERM_L_DARK;
 			se[se_info.num].l_color = TERM_WHITE;
 			se[se_info.num].code = se[se_info.num].left_code = se[se_info.num].right_code = se_info.num;

@@ -2003,7 +2003,7 @@ static int likert(char *buf, int x, int y)
 	// Negative value
 	if(x < 0)
 	{
-		sprintf(buf, "   0[%s]", (int)(x), rank_desc[0]);
+		sprintf(buf, "   0[%s]", rank_desc[0]);
 		return TERM_L_DARK;
 	}
 
