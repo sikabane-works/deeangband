@@ -4026,8 +4026,6 @@ static void museum_remove_object(store_type *st_ptr, creature_type *creature_ptr
 
 	/* Get the actual item */
 	object_ptr = &st_ptr->stock[item];
-
-	/* Description */
 	object_desc(object_name, object_ptr, 0);
 
 	msg_print(MES_STORE_MUSEUM_WARN2);

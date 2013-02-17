@@ -2161,14 +2161,8 @@ bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int nu
 	if(!get_item(creature_ptr, &item, MES_ENCHANT_WHICH_ITEM, MES_ENCHANT_NO_ITEM, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	/* Description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-
-#ifdef JP
-	msg_format("%s ‚Í–¾‚é‚­‹P‚¢‚½I", object_name);
-#else
-	msg_format("%s %s glow%s brightly!", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "" : "s"));
-#endif
+	msg_format(MES_ENCHANT_SUCCESS(object_name, item, object_numner));
 
 	if(enchant(creature_ptr, object_ptr, num_hit, ENCH_TOHIT)) okay = TRUE;
 	if(enchant(creature_ptr, object_ptr, num_dam, ENCH_TODAM)) okay = TRUE;
@@ -2285,12 +2279,9 @@ bool identify_item(creature_type *creature_ptr, object_type *object_ptr)
 {
 	bool old_known = FALSE;
 	char object_name[MAX_NLEN];
-
-	/* Description */
 	object_desc(object_name, object_ptr, 0);
 
-	if(object_ptr->ident & IDENT_KNOWN)
-		old_known = TRUE;
+	if(object_ptr->ident & IDENT_KNOWN) old_known = TRUE;
 
 	/* Identify it fully */
 	object_aware(object_ptr);
@@ -2309,7 +2300,6 @@ bool identify_item(creature_type *creature_ptr, object_type *object_ptr)
 	strcpy(record_object_name, object_name);
 	record_turn = turn;
 
-	/* Description */
 	object_desc(object_name, object_ptr, OD_NAME_ONLY);
 
 	if(record_fix_art && !old_known && object_is_fixed_artifact(object_ptr))
@@ -2809,8 +2799,6 @@ bool bless_weapon(creature_type *creature_ptr)
 	if(!get_item(creature_ptr, &item, MES_WEP_BLESS_WHICH_OBJECT, MES_WEP_BLESS_NO_OBJECT, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon2, 0))
 		return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
-
-	/* Description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extract the flags */
@@ -2944,7 +2932,6 @@ bool pulish_shield(creature_type *creature_ptr)
 		return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	/* Description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extract the flags */

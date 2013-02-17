@@ -1778,7 +1778,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 	/* Hack -- under the player */
 	if(CREATURE_BOLD(creature_ptr, y, x))
 	{
-		/* Description */
 #ifdef JP
 		s1 = "Ç†Ç»ÇΩÇÕ";
 		s2 = "ÇÃè„";

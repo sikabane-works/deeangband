@@ -3043,8 +3043,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	/* Single object */
 	quest_ptr->number = 1;
-
-	/* Description */
 	object_desc(object_name, quest_ptr, OD_OMIT_PREFIX);
 
 	if(has_trait(creature_ptr, TRAIT_THROW_MIGHTY)) mult += 3;

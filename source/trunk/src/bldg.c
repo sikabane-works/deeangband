@@ -2611,9 +2611,7 @@ static void building_recharge(creature_type *creature_ptr)
 			/* Identify it */
 			identify_item(creature_ptr, object_ptr);
 
-			/* Description */
 			object_desc(tmp_str, object_ptr, 0);
-
 #ifdef JP
 			msg_format("%s Ç≈Ç∑ÅB", tmp_str);
 #else
