@@ -2744,7 +2744,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 	{
 		if(race_info[i].race_category < RACE_RARITY_UNSELECTABLE)
 		{
-			strcpy(se[se_info.num].cap, race_name + race_info[i].name);
+			se[se_info.num].cap = race_name + race_info[i].name;
 			se[se_info.num].code = i;
 			se[se_info.num].key = '\0';
 			se[se_info.num].d_color = TERM_L_DARK;
@@ -2837,7 +2837,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 		return 0;
 	}
 
-	strcpy(se[se_info.num].cap, KW_PURE_BLOOD);
+	se[se_info.num].cap = KW_PURE_BLOOD;
 	se[se_info.num].code = creature_ptr->race_idx1;
 	se[se_info.num].key = '\0';
 	se[se_info.num].d_color = TERM_UMBER;
@@ -2910,10 +2910,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 		creature_ptr->race_idx2 = se[t].code;
 		return 0;
 	}
-	else
-	{
-		return i;
-	}
+	else return i;
 }
 
 // Player SubRace(Eldar)
@@ -3136,7 +3133,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 
 	for (i = 0, se_info.num = 0, category_num = 0; i < MAX_SEXES; i++)
 	{
-		strcpy(se[se_info.num].cap, sex_info[list[i]].title);
+		se[se_info.num].cap = sex_info[list[i]].title;
 		se[se_info.num].code = list[i];
 		se[se_info.num].key = '\0';
 		id[se_info.num] = list[i];
@@ -3173,21 +3170,21 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 		return 0;
 	}
 
-	strcpy(se[se_info.num].cap, KW_RANDOM);
+	se[se_info.num].cap = KW_RANDOM;
 	se[se_info.num].code = BIRTH_SELECT_RANDOM;
 	se[se_info.num].key = '*';
 	se[se_info.num].d_color = TERM_UMBER;
 	se[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(se[se_info.num].cap, KW_BACK_TO_START);
+	se[se_info.num].cap = KW_BACK_TO_START;
 	se[se_info.num].code = BIRTH_SELECT_RETURN;
 	se[se_info.num].key = 'S';
 	se[se_info.num].d_color = TERM_UMBER;
 	se[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(se[se_info.num].cap, KW_QUIT_GAME);
+	se[se_info.num].cap = KW_QUIT_GAME;
 	se[se_info.num].code = BIRTH_SELECT_QUIT;
 	se[se_info.num].key = 'Q';
 	se[se_info.num].d_color = TERM_UMBER;
@@ -3246,7 +3243,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 	{
 		if(class_info[i].selectable)
 		{
-			strcpy(ce[se_info.num].cap, class_info[i].title);
+			ce[se_info.num].cap = class_info[i].title;
 			id[se_info.num] = i;
 			if(class_info[i].rarity) weight[se_info.num] = 10000 / class_info[i].rarity;
 			else weight[se_info.num] = 0;
@@ -3274,21 +3271,21 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 		return 0;
 	}
 
-	strcpy(ce[se_info.num].cap, KW_RANDOM);
+	ce[se_info.num].cap = KW_RANDOM;
 	ce[se_info.num].code = BIRTH_SELECT_RANDOM;
 	ce[se_info.num].key = '*';
 	ce[se_info.num].d_color = TERM_UMBER;
 	ce[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(ce[se_info.num].cap, KW_BACK_TO_START);
+	ce[se_info.num].cap = KW_BACK_TO_START;
 	ce[se_info.num].code = BIRTH_SELECT_RETURN;
 	ce[se_info.num].key = 'S';
 	ce[se_info.num].d_color = TERM_UMBER;
 	ce[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(ce[se_info.num].cap, KW_QUIT_GAME);
+	ce[se_info.num].cap = KW_QUIT_GAME;
 	ce[se_info.num].code = BIRTH_SELECT_QUIT;
 	ce[se_info.num].key = 'Q';
 	ce[se_info.num].d_color = TERM_UMBER;
@@ -3368,7 +3365,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 			if(!has_trait_raw(&species_info[i].flags, TRAIT_AMAN)) continue;		
 		}
 
-		strcpy(pt[se_info.num].cap, species_name + species_info[i].name);
+		pt[se_info.num].cap = species_name + species_info[i].name;
 		pt[se_info.num].code = i;
 		pt[se_info.num].key = '\0';
 		pt[se_info.num].d_color = TERM_L_DARK;
@@ -3378,21 +3375,21 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 		if(n == 400) break;
 	}
 
-	strcpy(pt[se_info.num].cap, KW_RANDOM);
+	pt[se_info.num].cap = KW_RANDOM;
 	pt[se_info.num].code = BIRTH_SELECT_RANDOM;
 	pt[se_info.num].key = '*';
 	pt[se_info.num].d_color = TERM_UMBER;
 	pt[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(pt[se_info.num].cap, KW_BACK_TO_START);
+	pt[se_info.num].cap = KW_BACK_TO_START;
 	pt[se_info.num].code = BIRTH_SELECT_RETURN;
 	pt[se_info.num].key = 'S';
 	pt[se_info.num].d_color = TERM_UMBER;
 	pt[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(pt[se_info.num].cap, KW_QUIT_GAME);
+	pt[se_info.num].cap = KW_QUIT_GAME;
 	pt[se_info.num].code = BIRTH_SELECT_QUIT;
 	pt[se_info.num].key = 'Q';
 	pt[se_info.num].d_color = TERM_UMBER;
@@ -3470,7 +3467,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 	{
 		if((chara_info[i].sex & (0x01 << creature_ptr->sex)) && (!npc || chara_info[i].rarity < 100))
 		{
-			strcpy(ce[se_info.num].cap, chara_info[i].title);
+			ce[se_info.num].cap = chara_info[i].title;
 			ce[se_info.num].code = i;
 			ce[se_info.num].key = '\0';
 			ce[se_info.num].d_color = TERM_L_DARK;
@@ -3488,21 +3485,21 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 		return 0;
 	}
 
-	strcpy(ce[se_info.num].cap, KW_RANDOM);
+	ce[se_info.num].cap = KW_RANDOM;
 	ce[se_info.num].code = BIRTH_SELECT_RANDOM;
 	ce[se_info.num].key = '*';
 	ce[se_info.num].d_color = TERM_UMBER;
 	ce[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(ce[se_info.num].cap, KW_BACK_TO_START);
+	ce[se_info.num].cap = KW_BACK_TO_START;
 	ce[se_info.num].code = BIRTH_SELECT_RETURN;
 	ce[se_info.num].key = 'S';
 	ce[se_info.num].d_color = TERM_UMBER;
 	ce[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(ce[se_info.num].cap, KW_QUIT_GAME);
+	ce[se_info.num].cap = KW_QUIT_GAME;
 	ce[se_info.num].code = BIRTH_SELECT_QUIT;
 	ce[se_info.num].key = 'Q';
 	ce[se_info.num].d_color = TERM_UMBER;
@@ -3559,7 +3556,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 	{
 		if(starting_point[i].enable)
 		{
-			strcpy(se[se_info.num].cap, starting_point[i].name);
+			se[se_info.num].cap = starting_point[i].name;
 			se[se_info.num].code = i;
 			se[se_info.num].key = '\0';
 			se[se_info.num].d_color = TERM_L_DARK;
@@ -3568,21 +3565,21 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 		}
 	}
 
-	strcpy(se[se_info.num].cap, KW_RANDOM);
+	se[se_info.num].cap = KW_RANDOM;
 	se[se_info.num].code = BIRTH_SELECT_RANDOM;
 	se[se_info.num].key = '*';
 	se[se_info.num].d_color = TERM_UMBER;
 	se[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(se[se_info.num].cap, KW_BACK_TO_START);
+	se[se_info.num].cap = KW_BACK_TO_START;
 	se[se_info.num].code = BIRTH_SELECT_RETURN;
 	se[se_info.num].key = 'S';
 	se[se_info.num].d_color = TERM_UMBER;
 	se[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	strcpy(se[se_info.num].cap, KW_QUIT_GAME);
+	se[se_info.num].cap = KW_QUIT_GAME;
 	se[se_info.num].code = BIRTH_SELECT_QUIT;
 	se[se_info.num].key = 'Q';
 	se[se_info.num].d_color = TERM_UMBER;
