@@ -44,6 +44,7 @@
 #define MES_SYS_OUT_OF_SWITCH "switchç\ï∂îÕàÕäO"
 
 #define MES_SYS_TODAY "ç°ì˙"
+#define MES_SYS_HERE "ê^è„"
 #define MES_SYS_NORTH "ñk"
 #define MES_SYS_SOUTH "ìÏ"
 #define MES_SYS_EAST "ìå"
@@ -98,6 +99,7 @@
 
 #define MES_SYS_OUT_OF_SWITCH "Out of switch."
 #define MES_SYS_TODAY "Today"
+#define MES_SYS_HERE ""
 #define MES_SYS_NORTH " North"
 #define MES_SYS_SOUTH " South"
 #define MES_SYS_EAST " East"

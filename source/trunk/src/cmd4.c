@@ -1486,20 +1486,13 @@ static void do_cmd_options_cheat(cptr info)
 
 static option_type autosave_info[2] =
 {
-	{ &autosave_l, FALSE, 255, 0x01, 0x00,
 #ifdef JP
-	    "autosave_l", "新しい階に入る度に自動セーブする" },
+	{ &autosave_l, FALSE, 255, 0x01, 0x00, "autosave_l", "新しい階に入る度に自動セーブする" },
+	{ &autosave_t, FALSE, 255, 0x02, 0x00, "autosave_t", "一定ターン毎に自動セーブする" },
 #else
-	    "autosave_l", "Autosave when entering new levels" },
+	{ &autosave_l, FALSE, 255, 0x01, 0x00, "autosave_l", "Autosave when entering new levels" },
+	{ &autosave_t, FALSE, 255, 0x02, 0x00, "autosave_t", "Timed autosave" },
 #endif
-
-	{ &autosave_t, FALSE, 255, 0x02, 0x00,
-#ifdef JP
-	    "autosave_t", "一定ターン毎に自動セーブする" },
-#else
-	    "autosave_t", "Timed autosave" },
-#endif
-
 };
 
 

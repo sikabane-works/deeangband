@@ -1137,15 +1137,7 @@ void do_cmd_locate(creature_type *creature_ptr)
 	while (1)
 	{
 		/* Describe the location */
-		if((y2 == y1) && (x2 == x1))
-		{
-#ifdef JP
-			strcpy(tmp_val, "ê^è„");
-#else
-			tmp_val[0] = '\0';
-#endif
-
-		}
+		if((y2 == y1) && (x2 == x1)) strcpy(tmp_val, MES_SYS_HERE);
 		else
 		{
 #ifdef JP
