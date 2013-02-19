@@ -1323,6 +1323,7 @@ bool can_get_item(creature_type *creature_ptr)
 int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 {
 	selection_table se[16];
+	char cap[16][100];
 	int i, n;
 	char buf[100];
 	object_type *object_ptr;
@@ -1346,18 +1347,15 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 		msg_print(s);
 		n = -1;
 	}
-	if(se_info.num == 1)
-	{
-		n = 0;
-	}
+	if(se_info.num == 1) n = 0;
 	else
 	{
 		for(i = 0; i < se_info.num; i++)
 		{
 			object_ptr = get_equipped_slot_ptr(creature_ptr, slot, i);
-			object_desc(buf, object_ptr, 0);
-			//TODO get_selection sprintf(se[i].cap, "%-6s %s", mention_use_ptr(creature_ptr, object_ptr), buf);
-			se[i].cap = NULL;
+			object_desc(cap[i], object_ptr, 0);
+			sprintf(cap[i], "%-6s %s", mention_use_ptr(creature_ptr, object_ptr), buf);
+			se[i].cap = cap;
 			se[i].code = i;
 			se[i].key = '\0';
 
@@ -1379,6 +1377,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 		se[i].key = ESCAPE;
 		se[i].d_color = TERM_L_DARK;
 		se[i].l_color = TERM_WHITE;
+		se_info.num++;
 
 		n = get_selection(&se_info, se);
 	}

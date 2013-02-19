@@ -1479,7 +1479,7 @@ static void do_cmd_wiz_floor_object_list(void)
 
 		for(i = 1; i < object_max; i++)
 		{
-			ce[se_info.num].cap = NULL; 
+			ce[se_info.num].cap = NULL;
 			ce[se_info.num].key = '\0';
 			ce[se_info.num].code = i;
 			se_info.num++;
