@@ -2670,3 +2670,11 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_INSCRIPTION_VIEW(FEATURE) "You find the following inscription on %s.", (FEATURE)
 #endif
+
+#ifdef JP
+#define MES_RACIAL_RISK_ASK "本当に今の衰弱した状態でこの能力を使いますか？"
+#define MES_RACIAL_FAILED "充分に集中できなかった。"
+#else
+#define MES_RACIAL_RISK_ASK "Really use the power in your weakened state? "
+#define MES_RACIAL_FAILED "You've failed to concentrate hard enough."
+#endif

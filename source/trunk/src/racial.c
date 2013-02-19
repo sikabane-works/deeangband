@@ -722,11 +722,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 
 	else if(creature_ptr->chp < use_hp)
 	{
-#ifdef JP
-		if(!get_check("本当に今の衰弱した状態でこの能力を使いますか？"))
-#else
-		if(!get_check("Really use the power in your weakened state? "))
-#endif
+		if(!get_check(MES_RACIAL_RISK_ASK))
 		{
 			cancel_tactical_action(creature_ptr);
 			return 0;
@@ -755,11 +751,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	if(randint1(creature_ptr->stat_cur[use_stat]) >= ((difficulty / 2) + randint1(difficulty / 2))) return 1;
 
 	if(flush_failure) flush();
-#ifdef JP
-	msg_print("充分に集中できなかった。");
-#else
-	msg_print("You've failed to concentrate hard enough.");
-#endif
+	msg_print(MES_RACIAL_FAILED);
 	return -1;
 }
 
