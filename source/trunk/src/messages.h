@@ -2618,6 +2618,8 @@ static cptr desc_stat_neg[] =
 
 #ifdef JP
 #define MES_FILE_LOADED(FILENAME) "%sÇì«Ç›çûÇ›Ç‹ÇµÇΩÅB", (FILENAME)
+#define MES_FILE_LOADED_FAIL(FILENAME) "%sÇÃì«Ç›çûÇ›Ç…é∏îsÇµÇ‹ÇµÇΩÅB", (FILENAME)
 #else
 #define MES_FILE_LOADED(FILENAME) "Loaded '%s'.", (FILENAME)
+#define MES_FILE_LOADED_FAIL(FILENAME) "Failed to load '%s'.", (FILENAME)
 #endif

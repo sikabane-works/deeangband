@@ -2457,14 +2457,7 @@ void do_cmd_macros(void)
 				msg_format("Loaded default '%s'.", tmp);
 #endif
 			}
-			else if(err)
-			{
-#ifdef JP
-				msg_format("'%s'ÇÃì«Ç›çûÇ›Ç…é∏îsÇµÇ‹ÇµÇΩÅI", tmp);
-#else
-				msg_format("Failed to load '%s'!");
-#endif
-			}
+			else if(err) msg_format(MES_FILE_LOADED_FAIL(tmp));
 			else msg_format(MES_FILE_LOADED(tmp));
 		}
 
