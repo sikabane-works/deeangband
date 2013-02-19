@@ -50,6 +50,7 @@
 #define MES_SYS_EAST "東"
 #define MES_SYS_WEST "西"
 #define MES_SYS_MONEY "所持金"
+#define MES_SYS_PRICE "価格"
 #define MES_SYS_WEIGHT "重量"
 
 #define MES_SYS_MODIFICATION "能力修正"
@@ -105,6 +106,7 @@
 #define MES_SYS_EAST " East"
 #define MES_SYS_WEST " West"
 #define MES_SYS_MONEY "AU"
+#define MES_SYS_PRICE "Price"
 #define MES_SYS_WEIGHT "Weight"
 
 #define MES_SYS_MODIFICATION "Modification"
@@ -1793,6 +1795,8 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_DROP_ITEM(NAME, SYM) "%sが落ちた。(%c)", (NAME), (SYM)
 #define MES_STORE_PAGE(NUM) "(%dページ)  ", (NUM)
 #define MES_STORE_NUM(CUR, MAX) "アイテム数:  %4d/%4d", (CUR), (MAX)
+#define MES_STORE_ITEM_DESCRIPTION "アイテムの一覧"
+#define MES_STORE_ITEM_DESCRIPTION "アイテムの一覧"
 #else
 #define MES_STORE_ENTIRE "That's all."
 #define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."
@@ -1851,6 +1855,7 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_DROP_ITEM(NAME, SYM) "You drop %s (%c).", (NAME), (SYM)
 #define MES_STORE_PAGE(NUM) "(Page%d)  ", (NUM)
 #define MES_STORE_NUM(CUR, MAX) "Objects:  %4d/%4d", (CUR), (MAX)
+#define MES_STORE_ITEM_DESCRIPTION "Item Description"
 #endif
 
 #ifdef JP

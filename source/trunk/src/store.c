@@ -2581,77 +2581,33 @@ static void store_prt_gold(creature_type *creature_ptr)
 	prt(out_val, 19 + xtra_stock, 68);
 }
 
-
-/*
- * Displays store (after clearing screen)		-RAK-
- */
+// Displays store (after clearing screen)		-RAK-
 static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 {
 	char buf[80];
 
+	cptr store_name = (cptr)(stp_name + st_ptr->name);
+	cptr ownespecies_name = species_name + species_info[st_ptr->owner_id].name;
+	cptr race_name = race_info[species_info[st_ptr->owner_id].race_idx1].title;
 
 	Term_clear();
 
-	/* The "Home" is special */
-	if(is_home(st_ptr))
+	/* Put the owner name and race */
+	sprintf(buf, "[%s](%ld - %d/%d)", store_name, (long)st_ptr->wealth, st_ptr->stock_num, st_ptr->stock_size);
+	put_str(buf, 2, 3);
+	sprintf(buf, "%s (%s)", ownespecies_name, race_name);
+	put_str(buf, 3, 5);
+
+	if(is_home(st_ptr) || is_museum(st_ptr)) // The "Home" is special
 	{
-		/* Put the owner name */
-#ifdef JP
-		put_str("[我が家]", 2, 1);
-		put_str("アイテムの一覧", 5, 4);
-#else
-		put_str("Your Home", 2, 1);
-		put_str("Item Description", 5, 3);
-#endif
-
-
-		/* If showing weights, show label */
-		if(show_weights)
-		{
-			put_str(MES_SYS_WEIGHT, 5, 72);
-		}
-	}
-
-	/* The "Home" is special */
-	else if(is_museum(st_ptr))
-	{
-		/* Put the owner name */
-#ifdef JP
-		put_str("[博物館]", 2, 1);
-		put_str("アイテムの一覧", 5, 4);
-#else
-		put_str("Museum", 2, 1);
-		put_str("Item Description", 5, 3);
-#endif
-
-		/* If showing weights, show label */
+		put_str(MES_STORE_ITEM_DESCRIPTION, 5, 3);
 		if(show_weights) put_str(MES_SYS_WEIGHT, 5, 72);
 	}
-
-	/* Normal stores */
-	else
+	else // Normal stores
 	{
-		cptr store_name = (cptr)(stp_name + st_ptr->name);
-		cptr ownespecies_name = species_name + species_info[st_ptr->owner_id].name;
-		cptr race_name = race_info[species_info[st_ptr->owner_id].race_idx1].title;
-
-		/* Put the owner name and race */
-		sprintf(buf, "[%s](%ld - %d/%d)", store_name, (long)st_ptr->wealth, st_ptr->stock_num, st_ptr->stock_size);
-		put_str(buf, 2, 3);
-		sprintf(buf, "%s (%s)", ownespecies_name, race_name);
-		put_str(buf, 3, 5);
-
-		/* Label the item descriptions */
-#ifdef JP
-		put_str("商品の一覧", 5, 7);
-		if(show_weights) put_str("重量", 5, 62);
-		put_str("価格", 5, 73);
-#else
-		put_str("Item Description", 5, 3);
-		if(show_weights) put_str("Weight", 5, 60);
-		put_str("Price", 5, 72);
-#endif
-
+		put_str(MES_STORE_ITEM_DESCRIPTION, 5, 3);
+		put_str(MES_SYS_PRICE, 5, 73);
+		if(show_weights) put_str(MES_SYS_WEIGHT, 5, 62);
 	}
 
 	/* Display the current gold */
