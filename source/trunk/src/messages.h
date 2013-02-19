@@ -285,6 +285,7 @@
 
 #ifdef JP
 #define MES_TRAP_FOUND "トラップだ。"
+#define MES_TRAP_FOUND_CHEST "箱に仕掛けられたトラップを発見した！"
 
 #define MES_TRAP_DOOR "落とし戸に落ちた！"
 #define MES_TRAP_DOOR_AVOID "落とし戸を飛び越えた。"
@@ -328,7 +329,9 @@
 #define MES_TRAP_ALARM "けたたましい音が鳴り響いた！"
 #define MES_TRAP_OPEN "大音響と共にまわりの壁が崩れた！"
 #else
+
 #define MES_TRAP_FOUND "You found a trap."
+#define MES_TRAP_FOUND_CHEST "You have discovered a trap on the chest!"
 
 #define MES_TRAP_DOOR "You have fallen through a trap door!"
 #define MES_TRAP_DOOR_AVOID "You fly over a trap door."
@@ -2106,6 +2109,7 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_OBJECT_FOUND(NUM) "%d種のアイテムがある。", (NUM)
 #define MES_OBJECT_WHICH_USE "どれを使いますか？"
 #define MES_OBJECT_NO_USE "使えるものがありません。"
 #define MES_OBJECT_WHICH_DROP "どのアイテムを落としますか? "
@@ -2128,6 +2132,7 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_WHICH_TORCH "どの松明で明かりを強めますか? "
 #define MES_OBJECT_NO_TORCH "他に松明がない。"
 #else
+#define MES_OBJECT_FOUND(NUM) "You see %d items.", (NUM)
 #define MES_OBJECT_WHICH_USE "Use which item? "
 #define MES_OBJECT_NO_USE "You have nothing to use." 
 #define MES_OBJECT_WHICH_DROP "Drop which item? "

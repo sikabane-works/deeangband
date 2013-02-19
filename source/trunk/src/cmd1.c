@@ -441,11 +441,7 @@ void search(creature_type *creature_ptr)
 
 					if(!object_is_known(object_ptr)) // Identify once
 					{
-#ifdef JP
-						msg_print("箱に仕掛けられたトラップを発見した！");
-#else
-						msg_print("You have discovered a trap on the chest!");
-#endif
+						msg_print(MES_TRAP_FOUND_CHEST);
 						object_known(object_ptr); // Know the trap
 						disturb(player_ptr, 0, 0); // Notice it
 					}
@@ -487,7 +483,6 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 	object_desc_kosuu(kazu_str, object_ptr);
 	hirottakazu = object_ptr->number;
 #endif
-	
 	slot = inven_carry(creature_ptr, object_ptr);	// Carry the object
 	object_ptr = &creature_ptr->inventory[slot];	// Get the object again
 	delete_object_idx(object_idx);	// Delete the object
@@ -578,15 +573,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 		floor_num++;
 	}
 
-	if(floor_num >= 3)
-	{
-#ifdef JP
-			msg_format("%d種のアイテムがある。", floor_num);
-#else
-			msg_format("You see %d items.", floor_num);
-#endif
-	}
-
+	if(floor_num >= 3) msg_format(MES_OBJECT_FOUND(floor_num));
 
 	/* Scan the pile of objects */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
@@ -1802,12 +1789,10 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		msg_format(MES_INSCRIPTION_VIEW(feature_name + feature_info[c_ptr->feat].name));
 		msg_format("%s", c_ptr->message);
 	}
-
 }
 
 
 static bool ignore_avoid_run;
-
 
 // Hack -- Check for a "known wall" (see below)
 static int see_wall(creature_type *creature_ptr, int dir, int y, int x)
@@ -2539,8 +2524,7 @@ static bool travel_test(creature_type *creature_ptr)
 	if(stop) return TRUE;
 
 	/* break run when leaving trap detected region */
-	if((disturb_trap_detect || alert_trap_detect)
-	    && detect_trap && !(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_IN_DETECT))
+	if((disturb_trap_detect || alert_trap_detect) && detect_trap && !(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
 		detect_trap = FALSE;

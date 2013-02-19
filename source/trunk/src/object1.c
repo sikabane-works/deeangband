@@ -3631,18 +3631,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			object_desc(object_name, object_ptr, 0);
 			msg_format(GAME_MESSAGE_SEE_OBJECT, object_name);
 		}
-
-		/* Multiple objects */
-		else
-		{
-#ifdef JP
-			msg_format("%d 種のアイテムがある。", floor_num);
-#else
-			msg_format("You see a pile of %d items.", floor_num);
-#endif
-
-		}
-
+		else msg_format(MES_OBJECT_FOUND(floor_num)); // Multiple objects
 		return;
 	}
 
