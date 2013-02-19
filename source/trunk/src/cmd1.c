@@ -1272,11 +1272,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		/* Hidden trap */
 		if(c_ptr->mimic || have_flag(f_ptr->flags, FF_SECRET))
 		{
-#ifdef JP
-			msg_print("トラップだ！");
-#else
-			msg_print("You found a trap!");
-#endif
+			msg_print(MES_TRAP_FOUND);
 
 			/* Pick a trap */
 			disclose_grid(prev_floor_ptr, creature_ptr->fy, creature_ptr->fx);
@@ -1609,11 +1605,11 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		}
 		else if(have_flag(f_ptr->flags, FF_CAN_FLY) && has_trait(steed_ptr, TRAIT_CAN_FLY))
 		{
-			/* Allow moving */
+			// Allow moving
 		}
 		else if(have_flag(f_ptr->flags, FF_CAN_SWIM) && has_trait(steed_ptr, TRAIT_CAN_SWIM))
 		{
-			/* Allow moving */
+			// Allow moving
 		}
 		else if(have_flag(f_ptr->flags, FF_WATER) &&
 			!has_trait(steed_ptr, TRAIT_AQUATIC) &&
@@ -1803,11 +1799,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 	if(!has_trait(creature_ptr, TRAIT_BLIND) && ((c_ptr->info & CAVE_GLOW) || creature_ptr->cur_lite > 0) && strlen(c_ptr->message))
 	{
-#ifdef JP
-		msg_format("%sにメッセージが刻まれている:", feature_name + feature_info[c_ptr->feat].name);
-#else
-		msg_format("You find the following inscription on %s.", feature_name + feature_info[c_ptr->feat].name);
-#endif
+		msg_format(MES_INSCRIPTION_VIEW(feature_name + feature_info[c_ptr->feat].name));
 		msg_format("%s", c_ptr->message);
 	}
 

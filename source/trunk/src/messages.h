@@ -284,6 +284,7 @@
 #endif
 
 #ifdef JP
+#define MES_TRAP_FOUND "トラップだ。"
 
 #define MES_TRAP_DOOR "落とし戸に落ちた！"
 #define MES_TRAP_DOOR_AVOID "落とし戸を飛び越えた。"
@@ -327,6 +328,7 @@
 #define MES_TRAP_ALARM "けたたましい音が鳴り響いた！"
 #define MES_TRAP_OPEN "大音響と共にまわりの壁が崩れた！"
 #else
+#define MES_TRAP_FOUND "You found a trap."
 
 #define MES_TRAP_DOOR "You have fallen through a trap door!"
 #define MES_TRAP_DOOR_AVOID "You fly over a trap door."
@@ -2645,4 +2647,10 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_FILE_LOADED(FILENAME) "Loaded '%s'.", (FILENAME)
 #define MES_FILE_LOADED_FAIL(FILENAME) "Failed to load '%s'.", (FILENAME)
+#endif
+
+#ifdef JP
+#define MES_INSCRIPTION_VIEW(FEATURE) "%sにメッセージが刻まれている:", (FEATURE)
+#else
+#define MES_INSCRIPTION_VIEW(FEATURE) "You find the following inscription on %s.", (FEATURE)
 #endif
