@@ -939,7 +939,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			c = f_ptr->x_char[F_LIT_STANDARD];
 			if(strlen(floor_ptr->cave[y][x].message)) a = TERM_BLUE;
 
-			if(floor_ptr->wild_mode)
+			if(floor_ptr->world_map)
 			{
 				/* Special lighting effects */
 				/* Handle "night" */
@@ -1029,7 +1029,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			c = f_ptr->x_char[F_LIT_STANDARD];
 			if(strlen(floor_ptr->cave[y][x].message)) a = TERM_BLUE;
 
-			if(floor_ptr->wild_mode)
+			if(floor_ptr->world_map)
 			{
 				/* Special lighting effects */
 				/* Handle "blind" or "night" */
@@ -1341,7 +1341,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 		feat_priority = 31;
 	}
 
-	if(floor_ptr->wild_mode)
+	if(floor_ptr->world_map)
 	{
 		if(y < max_wild_y && x < max_wild_x)
 		{
@@ -2183,7 +2183,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
 	display_map(creature_ptr, &cy, &cx);
 
 	/* Wait for it */
-	if(max_autopick && !floor_ptr->wild_mode)
+	if(max_autopick && !floor_ptr->world_map)
 	{
 		display_autopick = ITEM_DISPLAY;
 

@@ -1296,7 +1296,7 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 	bool fall_dam = FALSE;
 
 	if(!creature_ptr->riding) return FALSE;
-	if(floor_ptr->wild_mode) return FALSE;
+	if(floor_ptr->world_map) return FALSE;
 
 	if(dam >= 0 || force)
 	{

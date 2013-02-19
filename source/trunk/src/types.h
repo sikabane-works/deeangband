@@ -1800,7 +1800,7 @@ typedef struct
 	s32b floor_turn;		// Game turn in dungeon
 	s32b floor_turn_limit;	// Limit of game turn in dungeon
 	s16b quest;
-	byte wild_mode;			// Wilderness
+	byte world_map;
 	s16b race_population[MAX_RACES];
 	byte generated;
 	byte generate_encounter;

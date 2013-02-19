@@ -292,7 +292,7 @@ bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 	int top = MAX(1, creature_ptr->fy - dis);
 	int bottom = MIN(floor_ptr->height - 2, creature_ptr->fy + dis);
 
-	if(floor_ptr->wild_mode) return FALSE;
+	if(floor_ptr->world_map) return FALSE;
 
 	if(has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) && !(mode & TELEPORT_NONMAGICAL))
 	{

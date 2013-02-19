@@ -1440,12 +1440,8 @@ void clear_cave(floor_type *floor_ptr)
 	floor_ptr->object_level = floor_ptr->base_level;
 }
 
-
-/*
- * Generates a random dungeon level			-RAK-
- *
- * Hack -- regenerate any "overflow" levels
- */
+// Generates a random dungeon level			-RAK-
+// Hack -- regenerate any "overflow" levels
 int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag)
 {
 	int num;
@@ -1490,8 +1486,6 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 			generate_floor_creature_arena(floor_ptr); // gamble arena
 		else if(floor_ptr->quest)
 			generate_floor_quest(floor_ptr, floor_ptr->quest); // quest
-		else if(floor_ptr->wild_mode)
-			generate_floor_world(floor_ptr);
 		else if(floor_ptr->floor_level <= 0) // field
 			generate_floor_wilderness(floor_ptr);
 		else

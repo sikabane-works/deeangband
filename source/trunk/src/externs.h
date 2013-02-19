@@ -591,7 +591,7 @@ extern s16b feat_floor_rand_table[100], fill_type[100];
 extern s16b now_message;
 extern bool use_menu;
 
-/* autopick.c */
+// autopick.c
 extern void autopick_load_pref(bool disp_mes);
 extern errr process_autopick_file_command(char *buf);
 extern cptr autopick_line_from_entry(autopick_type *entry);
@@ -602,7 +602,7 @@ extern void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 extern bool autopick_autoregister(creature_type *creature_ptr, object_type *object_ptr);
 extern void do_cmd_edit_autopick(creature_type *creature_ptr);
 
-/* birth.c */
+// birth.c
 extern void add_history_from_pref_line(cptr t);
 extern void creature_wipe(creature_type *creature_ptr);
 extern bool ask_quick_start(creature_type *creature_ptr);
@@ -1671,7 +1671,7 @@ extern bool item_tester_hook_readable(creature_type *creature_ptr, object_type *
 /* wild.c */
 extern void set_floor_and_wall(byte type);
 extern void generate_floor_wilderness(floor_type *floor_ptr);
-extern void generate_floor_world(floor_type *floor_ptr);
+extern void generate_world(floor_type *floor_ptr);
 extern errr init_wilderness(void);
 extern void init_wilderness_terrains(void);
 extern void seed_wilderness(void);

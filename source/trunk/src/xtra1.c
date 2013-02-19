@@ -85,7 +85,7 @@ cptr map_name(floor_type *floor_ptr)
 #ifdef JP
 	if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest) && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET))
 		return "クエスト";
-	else if(floor_ptr->wild_mode)
+	else if(floor_ptr->world_map)
 		return "混沌の地平";
 	else if(floor_ptr->fight_arena_mode)
 		return "アリーナ";
@@ -94,7 +94,7 @@ cptr map_name(floor_type *floor_ptr)
 #else
 	if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest) && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET))
 		return "Quest";
-	else if(floor_ptr->wild_mode)
+	else if(floor_ptr->world_map)
 		return "The Surface of Chaos";
 	else if(floor_ptr->fight_arena_mode)
 		return "Arena";

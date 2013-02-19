@@ -622,7 +622,7 @@ bool set_food(creature_type *creature_ptr, int v)
 			}
 		}
 
-		if(floor_ptr->wild_mode && (new_aux < 2)) change_wild_mode(creature_ptr);
+		if(floor_ptr->world_map && (new_aux < 2)) change_wild_mode(creature_ptr);
 
 		/* Change */
 		notice = TRUE;
@@ -1594,7 +1594,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		handle_stuff(target_ptr);
 	}
 
-	if(floor_ptr->wild_mode && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp / 5)))
+	if(floor_ptr->world_map && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp / 5)))
 		change_wild_mode(player_ptr);
 
 	if(gameover) you_died(hit_from);

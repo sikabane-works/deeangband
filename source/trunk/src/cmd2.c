@@ -1898,7 +1898,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 		if((dir != 5) && (GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))) set_action(creature_ptr, ACTION_NONE);
 
 		/* Hack -- In small scale wilderness it takes MUCH more time to move */
-		if(floor_ptr->wild_mode) creature_ptr->energy_need *= ((MAX_HGT + MAX_WID) / 2);
+		if(floor_ptr->world_map) creature_ptr->energy_need *= ((MAX_HGT + MAX_WID) / 2);
 		if(creature_ptr->action == ACTION_HAYAGAKE) creature_ptr->energy_need = creature_ptr->energy_need * (45 - (creature_ptr->lev / 2)) / 100;
 
 		/* Actually move the character */
@@ -1909,7 +1909,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	}
 
 	/* Hack again -- Is there a special encounter ??? */
-	if(floor_ptr->wild_mode && !CAVE_HAVE_FLAG_BOLD(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_TOWN))
+	if(floor_ptr->world_map && !CAVE_HAVE_FLAG_BOLD(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_TOWN))
 	{
 		int tmp = 120 + creature_ptr->lev*10 - wilderness[creature_ptr->fy][creature_ptr->fx].level + 5;
 		if(tmp < 1) tmp = 1;

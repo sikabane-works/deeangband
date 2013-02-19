@@ -1096,7 +1096,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	if(!floor_ptr) floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	if(floor_ptr->wild_mode) reveal_wilderness(ny, nx);
+	if(floor_ptr->world_map) reveal_wilderness(ny, nx);
 
 	// Creature status adjustment (Remove all mirrors without explosion / Cut supersthealth)
 	if(!prev_floor_ptr || prev_floor_ptr != floor_ptr)
@@ -1343,7 +1343,7 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
-	if(!floor_ptr->floor_level && !floor_ptr->wild_mode && ((x == 0) || (x == MAX_WID - 1) || (y == 0) || (y == MAX_HGT - 1)))
+	if(!floor_ptr->floor_level && !floor_ptr->world_map && ((x == 0) || (x == MAX_WID - 1) || (y == 0) || (y == MAX_HGT - 1)))
 	{
 		int tmp_wx, tmp_wy, tmp_px, tmp_py;
 
@@ -1718,7 +1718,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	}
 
 
-	if(floor_ptr->wild_mode && have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
+	if(floor_ptr->world_map && have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
 	{
 		if(!get_check(MES_WALK_ASK_ENTERING_CHAOS))
 		{
@@ -1756,7 +1756,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		if(do_past) msg_format(MES_WALK_PUSH_PAST(m_name));
 
 		/* Change oldpx and oldpy to place the player well when going back to big mode */
-		if(floor_ptr->wild_mode)
+		if(floor_ptr->world_map)
 		{
 			if(ddy[dir] > 0)  creature_ptr->oldpy = 1;
 			if(ddy[dir] < 0)  creature_ptr->oldpy = MAX_HGT - 2;

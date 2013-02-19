@@ -4045,7 +4045,7 @@ static char inkey_from_menu(void)
 				case MENU_WILD:
 					if(!floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
 					{
-						if((byte)floor_ptr->wild_mode == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
+						if((byte)floor_ptr->world_map == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
 					}
 					break;
 				default:

@@ -564,9 +564,10 @@ static s16b conv_terrain2feat[MAX_WILDERNESS];
  * Build the wilderness area.
  * -DG-
  */
-void generate_floor_world(floor_type *floor_ptr)
+void generate_world(floor_type *floor_ptr)
 {
 	int i, j;
+	floor_ptr->world_map = TRUE;
 
 	// To prevent stupid things
 	for (i = 0; i < MAX_WID; i++)
@@ -971,7 +972,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 
 	if(subject_change_floor) return FALSE;
 
-	if(floor_ptr->wild_mode)
+	if(floor_ptr->world_map)
 	{
 		// Save the location in the global map
 		creature_ptr->wx = creature_ptr->fx;
@@ -981,7 +982,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 		cancel_tactical_action(creature_ptr);
 
 		// Go back to the ordinary map
-		//TODO floor_ptr->wild_mode = FALSE;
+		//TODO floor_ptr->world_map = FALSE;
 		subject_change_floor = TRUE;
 		return TRUE;	// Succeed
 	}
@@ -1026,7 +1027,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 	set_action(creature_ptr, ACTION_NONE);
 
 	/* Go into the global map */
-	//TODO floor_ptr->wild_mode = TRUE;
+	//TODO floor_ptr->world_map = TRUE;
 	msg_print("‚ ‚È‚½‚Í¬“×‚Ì’n•½‚ğ•à‚İn‚ß‚½c");
 
 	/* Leaving */
