@@ -1727,7 +1727,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			/* Some legal items */
 			if((i1 <= i2) && !use_menu)
 			{
-				sprintf(tmp_val, " %c-%c,'(',')',", index_to_label(i2));
+				sprintf(tmp_val, PROMPT_LABEL(index_to_label(i1), index_to_label(i2)));
 				strcat(out_val, tmp_val);
 			}
 
@@ -1749,7 +1749,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			/* Some legal items */
 			if((e1 <= e2) && !use_menu)
 			{
-				sprintf(tmp_val, " %c-%c,'(',')',", index_to_label(e2));
+				sprintf(tmp_val, PROMPT_LABEL(index_to_label(e1), index_to_label(e2)));
 				strcat(out_val, tmp_val);
 			}
 
@@ -2693,7 +2693,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 
 			if(!use_menu)
 			{
-				sprintf(tmp_val, " %c-%c,'(',')',", index_to_label(i2));
+				sprintf(tmp_val, PROMPT_LABEL(index_to_label(i1), index_to_label(i2)));
 				strcat(out_val, tmp_val);
 			}
 
@@ -2741,7 +2741,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 
 			if(!use_menu)
 			{
-				sprintf(tmp_val, " %c-%c,'(',')',", index_to_label(e2));
+				sprintf(tmp_val, PROMPT_LABEL(index_to_label(e1), index_to_label(e2)));
 				strcat(out_val, tmp_val);
 			}
 
