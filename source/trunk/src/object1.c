@@ -1329,7 +1329,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 	object_type *object_ptr;
 	selection_info se_info;
 
-	se_info.mode = GET_SE_AUTO_HEIGHT; // | GET_SE_NO_FRAME | GET_SE_RIGHT | GET_SE_AUTO_WIDTH;
+	se_info.mode = GET_SE_AUTO_HEIGHT | GET_SE_NO_FRAME | GET_SE_RIGHT | GET_SE_AUTO_WIDTH;
 	se_info.caption = NULL;
 	se_info.detail = NULL;
 	se_info.default_se = 0;
@@ -1353,7 +1353,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 		for(i = 0; i < se_info.num; i++)
 		{
 			object_ptr = get_equipped_slot_ptr(creature_ptr, slot, i);
-			object_desc(cap[i], object_ptr, 0);
+			object_desc(buf, object_ptr, 0);
 			sprintf(cap[i], "%-6s %s", mention_use_ptr(creature_ptr, object_ptr), buf);
 			se[i].cap = cap[i];
 			se[i].code = i;
