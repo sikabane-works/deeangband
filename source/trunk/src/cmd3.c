@@ -827,10 +827,7 @@ static bool item_tester_refill_lantern(creature_type *creature_ptr, object_type 
 	return FALSE;
 }
 
-
-/*
-* Refill the players lamp (from the pack or floor)
-*/
+// Refill the players lamp (from the pack or floor)
 static void do_cmd_refill_lamp(creature_type *creature_ptr)
 {
 	int item;
@@ -838,19 +835,8 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 	object_type *object_ptr;
 	object_type *j_ptr;
 
-	cptr q, s;
-
-#ifdef JP
-	q = "‚Ç‚Ì–û‚Â‚Ú‚©‚ç’‚¬‚Ü‚·‚©? ";
-	s = "–û‚Â‚Ú‚ª‚È‚¢B";
-#else
-	q = "Refill with which flask? ";
-	s = "You have no flasks of oil.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_lantern, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_REFILL_LAMP, MES_OBJECT_NO_REFILL_LAMP, (USE_INVEN | USE_FLOOR), item_tester_refill_lantern, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
-
 	cost_tactical_energy(creature_ptr, 50); // Take a partial turn
 
 	/* Access the lantern */
