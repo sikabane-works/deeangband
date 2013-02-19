@@ -920,30 +920,19 @@ static bool item_tester_refill_torch(creature_type *creature_ptr, object_type *o
 static void do_cmd_refill_torch(creature_type *creature_ptr)
 {
 	int item;
+	object_type *object1_ptr;
+	object_type *object2_ptr;
 
-	object_type *object_ptr;
-	object_type *j_ptr;
-
-	cptr q, s;
-
-#ifdef JP
-	q = "どの松明で明かりを強めますか? ";
-	s = "他に松明がない。";
-#else
-	q = "Refuel with which torch? ";
-	s = "You have no extra torches.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_torch, 0)) return;
-	object_ptr = GET_ITEM(creature_ptr, item);
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_TORCH, MES_OBJECT_NO_TORCH, (USE_INVEN | USE_FLOOR), item_tester_refill_torch, 0)) return;
+	object1_ptr = GET_ITEM(creature_ptr, item);
 
 	cost_tactical_energy(creature_ptr, 50); // Take a partial turn
 
 	/* Access the primary torch */
-	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
+	object2_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 
 	/* Refuel */
-	j_ptr->fuel += object_ptr->fuel + 5;
+	object2_ptr->fuel += object1_ptr->fuel + 5;
 
 #ifdef JP
 	msg_print("松明を結合した。");
@@ -951,20 +940,19 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 	msg_print("You combine the torches.");
 #endif
 
-
 	/* Comment */
-	if((object_ptr->name2 == EGO_LITE_DARKNESS) && (j_ptr->fuel > 0))
+	if((object1_ptr->name2 == EGO_LITE_DARKNESS) && (object2_ptr->fuel > 0))
 	{
-		j_ptr->fuel = 0;
+		object2_ptr->fuel = 0;
 #ifdef JP
 		msg_print("松明が消えてしまった！");
 #else
 		msg_print("Your torch has gone out!");
 #endif
 	}
-	else if((object_ptr->name2 == EGO_LITE_DARKNESS) || (j_ptr->name2 == EGO_LITE_DARKNESS))
+	else if((object1_ptr->name2 == EGO_LITE_DARKNESS) || (object2_ptr->name2 == EGO_LITE_DARKNESS))
 	{
-		j_ptr->fuel = 0;
+		object2_ptr->fuel = 0;
 #ifdef JP
 		msg_print("しかし松明は全く光らない。");
 #else
@@ -972,9 +960,9 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 #endif
 	}
 	/* Over-fuel message */
-	else if(j_ptr->fuel >= FUEL_TORCH)
+	else if(object2_ptr->fuel >= FUEL_TORCH)
 	{
-		j_ptr->fuel = FUEL_TORCH;
+		object2_ptr->fuel = FUEL_TORCH;
 #ifdef JP
 		msg_print("松明の寿命は十分だ。");
 #else
@@ -1019,21 +1007,21 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 */
 void do_cmd_refill(creature_type *creature_ptr)
 {
-	object_type *object_ptr;
+	object_type *object1_ptr;
 
 	/* Get the light */
-	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
+	object1_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 
 	free_posture(creature_ptr);
 
 	/* It is nothing */
-	if(object_ptr->tval != TV_LITE) msg_print(GAME_MESSAGE_LITE_NONE);
+	if(object1_ptr->tval != TV_LITE) msg_print(GAME_MESSAGE_LITE_NONE);
 
 	/* It's a lamp */
-	else if(object_ptr->sval == SV_LITE_LANTERN) do_cmd_refill_lamp(creature_ptr);
+	else if(object1_ptr->sval == SV_LITE_LANTERN) do_cmd_refill_lamp(creature_ptr);
 
 	/* It's a torch */
-	else if(object_ptr->sval == SV_LITE_TORCH) do_cmd_refill_torch(creature_ptr);
+	else if(object1_ptr->sval == SV_LITE_TORCH) do_cmd_refill_torch(creature_ptr);
 
 	/* No torch to refill */
 	else

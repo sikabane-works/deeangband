@@ -2120,6 +2120,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_CHARGE_LEFT "もう魔力が残っていない。"
 #define MES_OBJECT_WHICH_REFILL_LAMP "どの油つぼから注ぎますか? "
 #define MES_OBJECT_NO_REFILL_LAMP "油つぼがない。"
+#define MES_OBJECT_WHICH_TORCH "どの松明で明かりを強めますか? "
+#define MES_OBJECT_NO_TORCH "他に松明がない。"
 #else
 #define MES_OBJECT_WHICH_USE "Use which item? "
 #define MES_OBJECT_NO_USE "You have nothing to use." 
@@ -2140,6 +2142,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_CHARGE_LEFT "No charges left."
 #define MES_OBJECT_WHICH_REFILL_LAMP "Refill with which flask? "
 #define MES_OBJECT_NO_REFILL_LAMP "You have no flasks of oil."
+#define MES_OBJECT_WHICH_TORCH "Refuel with which torch? "
+#define MES_OBJECT_NO_TORCH "You have no extra torches."
 #endif
 
 #ifdef JP
