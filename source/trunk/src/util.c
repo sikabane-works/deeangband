@@ -5262,7 +5262,7 @@ int get_selection(selection_info *si_ptr, selection_table *se_ptr)
 		}
 	}
 
-	if(si_ptr->mode & GET_SE_AUTO_HEIGHT) si_ptr->h = MAX(si_ptr->h, si_ptr->num + 1);
+	if(si_ptr->mode & GET_SE_AUTO_HEIGHT) si_ptr->h = MAX(si_ptr->h, si_ptr->num);
 	if(si_ptr->mode & GET_SE_RIGHT) si_ptr->x = Term->wid - si_ptr->w;
 	if(si_ptr->mode & GET_SE_BOTTOM) si_ptr->y = Term->hgt - si_ptr->h;
 
