@@ -1764,11 +1764,10 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		}
 
 		// Indicate legality of the "floor" item
+		if(allow_floor) strcat(out_val, MES_INTERFACE_FLOOR_OBJECT);
 #ifdef JP
-		if(allow_floor) strcat(out_val, " '-'è∞è„,");
 		if(select_the_force) strcat(out_val, " 'w'ó˚ãCèp,");
 #else
-		if(allow_floor) strcat(out_val, " - for floor,");
 		if(select_the_force) strcat(out_val, " w for the Force,");
 #endif
 
@@ -2719,16 +2718,13 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 
 			if(allow_floor)
 			{
+				if(!use_menu) strcat(out_val, MES_INTERFACE_FLOOR_OBJECT);
 #ifdef JP
-				if(!use_menu)
-					strcat(out_val, " '-'è∞è„,");
 				else if(allow_equip)
 					strcat(out_val, " '4' è∞è„,");
 				else
 					strcat(out_val, " '4'or'6' è∞è„,");
 #else
-				if(!use_menu)
-					strcat(out_val, " - for floor,");
 				else if(allow_equip)
 					strcat(out_val, " 4 for floor,");
 				else
@@ -2770,16 +2766,13 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 
 			if(allow_floor)
 			{
+				if(!use_menu) strcat(out_val, MES_INTERFACE_FLOOR_OBJECT);
 #ifdef JP
-				if(!use_menu)
-					strcat(out_val, " '-'è∞è„,");
 				else if(allow_inven)
 					strcat(out_val, " '6' è∞è„,");
 				else
 					strcat(out_val, " '4'or'6' è∞è„,");
 #else
-				if(!use_menu)
-					strcat(out_val, " - for floor,");
 				else if(allow_inven)
 					strcat(out_val, " 6 for floor,");
 				else
@@ -3670,10 +3663,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			(void) sprintf(out_val, PROMPT_PICK, object_name);
 
 			/* Ask the user to confirm */
-			if(!get_check(out_val))
-			{
-				return;
-			}
+			if(!get_check(out_val)) return;
 		}
 
 		/* Access the object */

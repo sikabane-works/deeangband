@@ -1872,6 +1872,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_ENTER_SCROLL_DOWN " Enter éü,"
 #define MES_INTERFACE_CTRL "CTRL: "
 #define MES_INTERFACE_OPTION "<ï˚å¸>Ç≈à⁄ìÆ, EnterÇ≈åàíË, ESCÇ≈ÉLÉÉÉìÉZÉã, ?Ç≈ÉwÉãÉv: "
+#define MES_INTERFACE_FLOOR_OBJECT " '-'è∞è„,"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -1882,6 +1883,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_ENTER_SCROLL_DOWN " Enter for scroll down,"
 #define MES_INTERFACE_CTRL "Control: "
 #define MES_INTERFACE_OPTION "Move to <dir>, Select to Enter, Cancel to ESC, ? to help: "
+#define MES_INTERFACE_FLOOR_OBJECT " - for floor,"
 #endif
 
 #ifdef JP
