@@ -1352,6 +1352,26 @@ static void do_cmd_wiz_creature_list(void)
 	free(ce);
 }
 
+static void floor_list_func(int y, int x, int i, bool selected)
+{
+	int col;
+	if(player_ptr->floor_id == i)
+	{
+		if(selected) col = TERM_L_GREEN;
+		else col = TERM_GREEN;
+	}
+	else
+	{
+		if(selected) col = TERM_WHITE;
+		else col = TERM_L_DARK;
+	}
+
+	c_prt(col, format("[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
+			floor_list[i].world_x, floor_list[i].world_y,
+			floor_list[i].width, floor_list[i].height,
+			map_name(&floor_list[i]), floor_list[i].floor_level),
+			y, x);}
+
 // Floor Teleport
 static void do_cmd_wiz_floor_teleport(void)
 {
@@ -1362,7 +1382,7 @@ static void do_cmd_wiz_floor_teleport(void)
 
 	se_info.mode = 0;
 	se_info.detail = NULL;
-	se_info.caption = NULL;
+	se_info.caption = floor_list_func;
 	se_info.default_se = player_ptr->floor_id;
 	se_info.y = 1;
 	se_info.x = 1;
@@ -1377,29 +1397,9 @@ static void do_cmd_wiz_floor_teleport(void)
 
 		for(i = 1; i < floor_max; i++)
 		{
-			//sprintf(ce[se_info.num].cap, "[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
-			//	floor_list[i].world_x, floor_list[i].world_y,
-			//	floor_list[i].width, floor_list[i].height,
-			//	map_name(&floor_list[i]), floor_list[i].floor_level);
 			ce[se_info.num].cap = NULL; 
-
-			if(player_ptr->floor_id == i)
-			{
-				ce[se_info.num].d_color = TERM_GREEN;
-				ce[se_info.num].l_color = TERM_L_GREEN;
-				ce[se_info.num].key = '\0';
-				ce[se_info.num].code = i;
-			}
-
-			else
-			{
-				ce[se_info.num].d_color = TERM_L_DARK;
-				ce[se_info.num].l_color = TERM_WHITE;
-				ce[se_info.num].key = '\0';
-				ce[se_info.num].code = i;
-			}
-
-			se_info.num++;
+			ce[se_info.num].key = '\0';
+			ce[se_info.num].code = i;
 		}
 
 		ce[se_info.num].cap = KW_CANCEL;
@@ -1466,13 +1466,10 @@ static void do_cmd_wiz_floor_object_list(void)
 			object_desc(tmp, &object_list[i], 0);
 			//TODO:get_selection() sprintf(ce[se_info.num].cap, "[%4d] F:%d X:%3d Y:%3d %-35s", i, object_list[i].floor_id, object_list[i].fx, object_list[i].fy, tmp);
 			ce[se_info.num].cap = NULL; 
-
 			ce[se_info.num].d_color = TERM_L_DARK;
 			ce[se_info.num].l_color = TERM_WHITE;
 			ce[se_info.num].key = '\0';
 			ce[se_info.num].code = i;
-
-			se_info.num++;
 		}
 
 		ce[se_info.num].cap = KW_CANCEL;
