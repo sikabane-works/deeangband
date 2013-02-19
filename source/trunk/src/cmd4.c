@@ -2874,7 +2874,7 @@ static selection_table visual_menu_table[] =
 #endif
 };
 
-static selection_info visual_menu_info = {"", 11, 0, 4, 5, 11, 40, NULL, 0};
+static selection_info visual_menu_info = {"", 12, 0, 1, 1, 12, 60, NULL, 0};
 
 static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int direct_species_idx);
 static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int direct_k_idx);
@@ -2902,9 +2902,7 @@ void do_cmd_visuals(void)
 	while (1)
 	{
 		Term_clear();
-
-		get_selection(&visual_menu_info, visual_menu_table);
-
+		i = get_selection(&visual_menu_info, visual_menu_table);
 		if(i == 11) break;
 
 		switch (i)
