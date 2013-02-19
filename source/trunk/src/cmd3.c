@@ -412,19 +412,12 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 	if(object_is_cursed(object_ptr)) // Item is cursed
 	{
 		if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE))
-		{
-#ifdef JP
-			msg_print("なんてこった！あなたは神域の力に呪われている！");
-#else
-			msg_print("What the hell! You are cursed by divine power!");
-#endif
-		}
+			msg_print(MES_CURSE_PREVENT_TAKE_OFF2);
 		else if(creature_ptr->class_idx != CLASS_BERSERKER)
 		{
 			msg_print(MES_CURSE_PREVENT_TAKE_OFF);
 			return;
 		}
-
 		if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE))
 		{
 			msg_print(MES_CURSE_RESIST_DIVINE);
@@ -432,30 +425,16 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 		}
 		else if(((have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) && one_in_(7)) || one_in_(4))
 		{
-#ifdef JP
-			msg_print("呪われた装備を力づくで剥がした！");
-#else
-			msg_print("You teared a cursed equipment off by sheer strength!");
-#endif
+			msg_print(MES_CURSE_RESIST_FORCE);
 			object_ptr->ident |= (IDENT_SENSE);
 			object_ptr->curse_flags[0] = 0L;
 			object_ptr->feeling = FEEL_NONE;
 			prepare_update(creature_ptr, CRU_BONUS); // Recalculate the bonuses
 			prepare_window(PW_EQUIP);
-
-#ifdef JP
-			msg_print("呪いを打ち破った。");
-#else
-			msg_print("You break the curse.");
-#endif
 		}
 		else
 		{
-#ifdef JP
-			msg_print("装備を外せなかった。");
-#else
-			msg_print("You couldn't remove the equipment.");
-#endif
+			msg_print(MES_CURSE_PREVENT_TAKE_OFF3);
 			cost_tactical_energy(creature_ptr, 50);
 			return;
 		}
