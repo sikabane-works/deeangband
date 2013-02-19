@@ -287,8 +287,6 @@ bool gain_magic(creature_type *creature_ptr)
 #endif
 		return FALSE;
 	}
-
-
 	if(!object_is_known(object_ptr))
 	{
 #ifdef JP
@@ -298,7 +296,6 @@ bool gain_magic(creature_type *creature_ptr)
 #endif
 		return FALSE;
 	}
-
 	if(object_ptr->timeout)
 	{
 #ifdef JP
@@ -439,16 +436,8 @@ bool choose_kamae(creature_type *creature_ptr)
 		}
 		else if((choice == 'a') || (choice == 'A'))
 		{
-			if(creature_ptr->action == ACTION_KAMAE)
-			{
-				set_action(creature_ptr, ACTION_NONE);
-			}
-			else
-#ifdef JP
-				msg_print("もともと構えていない。");
-#else
-				msg_print("You are not assuming a posture.");
-#endif
+			if(creature_ptr->action == ACTION_KAMAE) set_action(creature_ptr, ACTION_NONE);
+			else msg_print(MES_POSTURE_NO_POSTURE);
 			screen_load();
 			return TRUE;
 		}
@@ -476,23 +465,13 @@ bool choose_kamae(creature_type *creature_ptr)
 	set_action(creature_ptr, ACTION_KAMAE);
 
 	if(creature_ptr->posture & (KAMAE_GENBU << new_kamae))
-	{
-#ifdef JP
-		msg_print("構え直した。");
-#else
-		msg_print("You reassume a posture.");
-#endif
-	}
+		msg_print(MES_POSTURE_REASSUME);
 	else
 	{
 		creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
 		prepare_update(creature_ptr, CRU_BONUS);
 		prepare_redraw(PR_STATE);
-#ifdef JP
-		msg_format("%sの構えをとった。",kamae_shurui[new_kamae].desc);
-#else
-		msg_format("You assume a posture of %s form.",kamae_shurui[new_kamae].desc);
-#endif
+		msg_format(MES_POSTURE_ASSUMED(kamae_shurui[new_kamae].desc));
 		creature_ptr->posture |= (KAMAE_GENBU << new_kamae);
 	}
 	play_redraw |= PR_STATE;

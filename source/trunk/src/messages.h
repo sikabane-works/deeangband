@@ -2584,11 +2584,17 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_POSTURE_NO_POSTURE "もともと構えていない。"
 #define MES_POSTURE_S_STEALTH_LITE "影の覆いが薄れた気がする。"
 #define MES_POSTURE_S_STEALTH_DARK "影の覆いが濃くなった！"
+#define MES_POSTURE_REASSUME "構え直した。"
+#define MES_POSTURE_ASSUMED(POSTURE) "%sの構えをとった。", (POSTURE)
 #else
+#define MES_POSTURE_NO_POSTURE "You are not assuming a posture."
 #define MES_POSTURE_S_STEALTH_LITE "Your mantle of shadow become thin."
 #define MES_POSTURE_S_STEALTH_DARK "Your mantle of shadow restored its original darkness."
+#define MES_POSTURE_REASSUME "You reassume a posture."
+#define MES_POSTURE_ASSUMED(POSTURE) "You assume a posture of %s form.", (POSTURE)
 #endif
 
 #ifdef JP
