@@ -2431,14 +2431,11 @@ void do_cmd_macros(void)
 		if(i == 10) break;
 
 		/* Load a 'macro' file */
-		else if(i == 1)
+		prt(format("%s: %s", PROMPT_COMMAND, macro_menu_table[i].cap), 16, 0);
+
+		if(i == 0)
 		{
 			errr err;
-#ifdef JP
-			prt("コマンド: ユーザー設定ファイルのロード", 16, 0);
-#else
-			prt("Command: Load a user pref file", 16, 0);
-#endif
 			prt(PROMPT_FILE, 18, 0);
 
 			/* Default filename */
@@ -2462,13 +2459,8 @@ void do_cmd_macros(void)
 		}
 
 		/* Save macros */
-		else if(i == 2)
+		else if(i == 1)
 		{
-#ifdef JP
-			prt("コマンド: マクロをファイルに追加する", 16, 0);
-#else
-			prt("Command: Append macros to a file", 16, 0);
-#endif
 			prt(PROMPT_FILE, 18, 0);
 
 			/* Default filename */
@@ -2489,15 +2481,9 @@ void do_cmd_macros(void)
 		}
 
 		/* Query a macro */
-		else if(i == 3)
+		else if(i == 2)
 		{
 			int k;
-
-#ifdef JP
-			prt("コマンド: マクロの確認", 16, 0);
-#else
-			prt("Command: Query a macro", 16, 0);
-#endif
 			prt(PROMPT_TRIGGER_KEY, 18, 0);
 
 			/* Get a macro trigger */
@@ -2539,13 +2525,8 @@ void do_cmd_macros(void)
 		}
 
 		/* Create a macro */
-		else if(i == 4)
+		else if(i == 3)
 		{
-#ifdef JP
-			prt("コマンド: マクロの作成", 16, 0);
-#else
-			prt("Command: Create a macro", 16, 0);
-#endif
 			prt(PROMPT_TRIGGER_KEY, 18, 0);
 
 			/* Get a macro trigger */
@@ -2584,13 +2565,8 @@ void do_cmd_macros(void)
 		}
 
 		/* Remove a macro */
-		else if(i == 5)
+		else if(i == 4)
 		{
-#ifdef JP
-			prt("コマンド: マクロの削除", 16, 0);
-#else
-			prt("Command: Remove a macro", 16, 0);
-#endif
 			prt(PROMPT_TRIGGER_KEY, 18, 0);
 
 			/* Get a macro trigger */
@@ -2608,13 +2584,8 @@ void do_cmd_macros(void)
 		}
 
 		/* Save keymaps */
-		else if(i == 6)
+		else if(i == 5)
 		{
-#ifdef JP
-			prt("コマンド: キー配置をファイルに追加する", 16, 0);
-#else
-			prt("Command: Append keymaps to a file", 16, 0);
-#endif
 			prt(PROMPT_FILE, 18, 0);
 
 			/* Default filename */
@@ -2635,15 +2606,9 @@ void do_cmd_macros(void)
 		}
 
 		/* Query a keymap */
-		else if(i == 7)
+		else if(i == 6)
 		{
 			cptr act;
-
-#ifdef JP
-			prt("コマンド: キー配置の確認", 16, 0);
-#else
-			prt("Command: Query a keymap", 16, 0);
-#endif
 			prt(PROMPT_KEYPRESS, 18, 0);
 
 			/* Get a keymap trigger */
@@ -2684,13 +2649,8 @@ void do_cmd_macros(void)
 		}
 
 		/* Create a keymap */
-		else if(i == 8)
+		else if(i == 7)
 		{
-#ifdef JP
-			prt("コマンド: キー配置の作成", 16, 0);
-#else
-			prt("Command: Create a keymap", 16, 0);
-#endif
 			prt(PROMPT_KEYPRESS, 18, 0);
 
 			/* Get a keymap trigger */
@@ -2732,13 +2692,8 @@ void do_cmd_macros(void)
 		}
 
 		/* Remove a keymap */
-		else if(i == 9)
+		else if(i == 8)
 		{
-#ifdef JP
-			prt("コマンド: キー配置の削除", 16, 0);
-#else
-			prt("Command: Remove a keymap", 16, 0);
-#endif
 			prt(PROMPT_KEYPRESS, 18, 0);
 
 			/* Get a keymap trigger */
@@ -2759,15 +2714,13 @@ void do_cmd_macros(void)
 		}
 
 		/* Enter a new action */
-		else if(i == 0)
+		else if(i == 9)
 		{
 #ifdef JP
-			prt("コマンド: マクロ行動の入力", 16, 0);
 			clear_from(20);
 			c_prt(TERM_L_RED, "カーソルキーの左右でカーソル位置を移動。BackspaceかDeleteで一文字削除。", 22, 0);
 			prt("マクロ行動: ", 20, 0);
 #else
-			prt("Command: Enter a new action", 16, 0);
 			clear_from(20);
 			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
 			prt("Action: ", 20, 0);
