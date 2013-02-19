@@ -2103,6 +2103,8 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_OBJECT_WHICH_USE "どれを使いますか？"
 #define MES_OBJECT_NO_USE "使えるものがありません。"
+#define MES_OBJECT_WHICH_DROP "どのアイテムを落としますか? "
+#define MES_OBJECT_NO_DROP "落とせるアイテムを持っていない。"
 #define MES_OBJECT_WHICH_OBSERVE "どのアイテムを調べますか? "
 #define MES_OBJECT_NO_OBSERVE "調べられるアイテムがない。"
 #define MES_OBJECT_WHICH_INDEN "どのアイテムを鑑定しますか? "
@@ -2119,6 +2121,8 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_OBJECT_WHICH_USE "Use which item? "
 #define MES_OBJECT_NO_USE "You have nothing to use." 
+#define MES_OBJECT_WHICH_DROP "Drop which item? "
+#define MES_OBJECT_NO_DROP "You have nothing to drop."
 #define MES_OBJECT_WHICH_OBSERVE "Examine which item? "
 #define MES_OBJECT_NO_OBSERVE "You have nothing to examine."
 #define MES_OBJECT_WHICH_INDEN "Identify which item? "

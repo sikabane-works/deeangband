@@ -445,19 +445,9 @@ void do_cmd_drop(creature_type *creature_ptr)
 {
 	int item, amt = 1;
 	object_type *object_ptr;
-	cptr q, s;
 
 	free_posture(creature_ptr);
-
-#ifdef JP
-	q = "どのアイテムを落としますか? ";
-	s = "落とせるアイテムを持っていない。";
-#else
-	q = "Drop which item? ";
-	s = "You have nothing to drop.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_DROP, MES_OBJECT_NO_DROP, (USE_EQUIP | USE_INVEN), NULL, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Hack -- Cannot remove cursed items */
