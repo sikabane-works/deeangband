@@ -1354,20 +1354,17 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 		{
 			object_ptr = get_equipped_slot_ptr(creature_ptr, slot, i);
 			object_desc(buf, object_ptr, 0);
-			sprintf(cap[i], "%-6s %s", mention_use_ptr(creature_ptr, object_ptr), buf);
+			sprintf(cap[i], "%-6s %s", mention_use_idx(creature_ptr, slot, i), buf);
 			se[i].cap = cap[i];
 			se[i].code = i;
 			se[i].key = '\0';
 
-			if(object_ptr->timeout)
+			se[i].d_color = tval_to_acttr[object_ptr->tval % 128];
+			se[i].l_color = tval_to_acttr[object_ptr->tval % 128];
+			if(object_ptr->timeout || se[i].l_color == TERM_DARK)
 			{
 				 se[i].d_color = TERM_L_DARK;
 				 se[i].l_color = TERM_L_DARK;
-			}
-			else
-			{
-				se[i].d_color = tval_to_acttr[object_ptr->tval % 128];
-				se[i].l_color = tval_to_acttr[object_ptr->tval % 128];
 			}
 
 		}
