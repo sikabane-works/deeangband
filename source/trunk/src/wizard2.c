@@ -1252,7 +1252,25 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 
 static void creature_list_func(int y, int x, int i, bool selected)
 {
-	prt(format("[%4d] F:%3d D:%3d (%3d, %3d) HP:%6d/%6d %-24s", i, 
+	int col;
+
+	if(is_player(&creature_list[i]))
+	{
+		if(selected) col = TERM_YELLOW;
+		else col = TERM_UMBER;
+	}
+	else if(has_trait(&creature_list[i], TRAIT_UNIQUE))
+	{
+		if(selected) col = TERM_L_GREEN;
+		else col = TERM_GREEN;
+	}
+	else
+	{
+		if(selected) col = TERM_WHITE;
+		else col = TERM_L_DARK;
+	}
+
+	c_prt(col, format("[%4d] F:%3d D:%3d (%3d,%3d)HP:%6d/%6d -%24s", i, 
 		creature_list[i].floor_id, creature_list[i].depth,
 		creature_list[i].fx, creature_list[i].fy,
 		creature_list[i].chp, creature_list[i].mhp, creature_list[i].name),
@@ -1288,22 +1306,6 @@ static void do_cmd_wiz_creature_list(void)
 
 		for(se_info.num = 1; se_info.num < creature_max; se_info.num++)
 		{
-			if(is_player(&creature_list[se_info.num]))
-			{
-				ce[se_info.num].d_color = TERM_UMBER;
-				ce[se_info.num].l_color = TERM_YELLOW;
-			}
-			else if(has_trait(&creature_list[se_info.num], TRAIT_UNIQUE))
-			{
-				ce[se_info.num].d_color = TERM_GREEN;
-				ce[se_info.num].l_color = TERM_L_GREEN;
-			}
-			else
-			{
-				ce[se_info.num].d_color = TERM_L_DARK;
-				ce[se_info.num].l_color = TERM_WHITE;
-			}
-
 			ce[se_info.num].cap = NULL; 
 			ce[se_info.num].key = '\0';
 			ce[se_info.num].code = se_info.num;
