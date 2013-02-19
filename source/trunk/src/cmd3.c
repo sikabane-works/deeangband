@@ -394,19 +394,10 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 {
 	int item;
 	object_type *object_ptr;
-	cptr q, s;
 
 	free_posture(creature_ptr);
 
-#ifdef JP
-	q = "‚Ç‚ê‚ğ‘•”õ‚©‚ç‚Í‚¸‚µ‚Ü‚·‚©? ";
-	s = "‚Í‚¸‚¹‚é‘•”õ‚ª‚È‚¢B";
-#else
-	q = "Take off which item? ";
-	s = "You are not wearing anything to take off.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_EQUIP_WHICH_TAKEOFF, MES_EQUIP_NO_TAKEOFF, (USE_EQUIP), NULL, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	if(object_is_cursed(object_ptr)) // Item is cursed

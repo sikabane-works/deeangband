@@ -2168,8 +2168,6 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_INSCRIBING_PROMPT "Inscription"
 #endif
 
-
-
 #ifdef JP
 #define MES_BOUNTY_DETAIL "死体を持ち帰れば報酬を差し上げます。"
 #define MES_BOUNTY_TODAY "本日の賞金首"
@@ -2183,6 +2181,8 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_EQUIP_WHICH_TAKEOFF "どれを装備からはずしますか? "
+#define MES_EQUIP_NO_TAKEOFF "はずせる装備がない。"
 #define MES_EQUIP_HEAVY_BOW "こんな重い弓を装備しているのは大変だ。"
 #define MES_EQUIP_FITTING_BOW "この弓なら装備していても辛くない。"
 #define MES_EQUIP_RELIEVE_HEAVY_BOW "重い弓を装備からはずして体が楽になった。"
@@ -2198,6 +2198,8 @@ static cptr desc_stat_neg[] =
 #define MES_EQUIP_UNCONTROL_STEED "馬を操れない。"
 #define MES_EQUIP_CONTROL_STEED "馬を操れるようになった。"
 #else
+#define MES_EQUIP_WHICH_TAKEOFF "Take off which item? "
+#define MES_EQUIP_NO_TAKEOFF "You are not wearing anything to take off."
 #define MES_EQUIP_HEAVY_BOW "You have trouble wielding such a heavy bow."
 #define MES_EQUIP_FITTING_BOW "You have no trouble wielding your bow."
 #define MES_EQUIP_RELIEVE_HEAVY_BOW "You feel relieved to put down your heavy bow."
