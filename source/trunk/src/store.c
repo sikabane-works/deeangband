@@ -2562,29 +2562,17 @@ static void display_inventory(creature_type *creature_ptr, store_type *st_ptr)
 	{
 		/* Show "more" reminder (after the last item) */
 		prt(MES_SYS_MORE, k + 6, 3);
-#ifdef JP
-		put_str(format("(%dページ)  ", store_top/store_bottom + 1), 5, 20);
-#else
-		put_str(format("(Page %d)  ", store_top/store_bottom + 1), 5, 20);
-#endif
-
+		put_str(format(MES_STORE_PAGE(store_top/store_bottom + 1)), 5, 20);
 	}
 
 	if(is_home(st_ptr) || is_museum(st_ptr))
 	{
 		k = st_ptr->stock_size;
-#ifdef JP
-		put_str(format("アイテム数:  %4d/%4d", st_ptr->stock_num, k), 19 + xtra_stock, 27);
-#else
-		put_str(format("Objects:  %4d/%4d", st_ptr->stock_num, k), 19 + xtra_stock, 30);
-#endif
+		put_str(format(MES_STORE_NUM(st_ptr->stock_num, k)), 19 + xtra_stock, 27);
 	}
 }
 
-
-/*
- * Displays players gold					-RAK-
- */
+// Displays players gold -RAK-
 static void store_prt_gold(creature_type *creature_ptr)
 {
 	char out_val[64];

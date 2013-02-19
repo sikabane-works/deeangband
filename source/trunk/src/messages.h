@@ -1791,6 +1791,8 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_OVERFLOW2 "ザックからアイテムがあふれそうなので、あわてて店から出た..."
 #define MES_STORE_OVERFLOW3 "ザックからアイテムがあふれそうなので、あわてて家から出た..."
 #define MES_STORE_DROP_ITEM(NAME, SYM) "%sが落ちた。(%c)", (NAME), (SYM)
+#define MES_STORE_PAGE(NUM) "(%dページ)  ", (NUM)
+#define MES_STORE_NUM(CUR, MAX) "アイテム数:  %4d/%4d", (CUR), (MAX)
 #else
 #define MES_STORE_ENTIRE "That's all."
 #define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."
@@ -1847,6 +1849,8 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_OVERFLOW2 "Your pack is so full that you flee the store..."
 #define MES_STORE_OVERFLOW3 "Your pack is so full that you flee your home..."
 #define MES_STORE_DROP_ITEM(NAME, SYM) "You drop %s (%c).", (NAME), (SYM)
+#define MES_STORE_PAGE(NUM) "(Page%d)  ", (NUM)
+#define MES_STORE_NUM(CUR, MAX) "Objects:  %4d/%4d", (CUR), (MAX)
 #endif
 
 #ifdef JP
