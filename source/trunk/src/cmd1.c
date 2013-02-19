@@ -1081,12 +1081,11 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 					ok_move = PATTERN_TILE_1;
 					break;
 				default:
-					if(wizard) msg_warning(DEBUG_MESSAGE_FUNNY_PATTERN(pattern_type_cur));
+					if(wizard) msg_warning(MES_DEBUG_FUNNY_PATTERN(pattern_type_cur));
 					return TRUE; // Goof-up
 			}
 
-			if((pattern_type_new == ok_move) ||
-			    (pattern_type_new == pattern_type_cur))
+			if((pattern_type_new == ok_move) || (pattern_type_new == pattern_type_cur))
 				return TRUE;
 			else
 			{
@@ -1175,7 +1174,6 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		}
 
 		prepare_update(creature_ptr, PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_DISTANCE);
-
 		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 		/* Remove "unsafe" flag */
@@ -1224,7 +1222,6 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	if(have_flag(f_ptr->flags, FF_STORE) && !(mpe_mode & MCE_NO_ENTER))
 	{
 		disturb(creature_ptr, 0, 0);
-
 		cancel_tactical_action(creature_ptr);
 		command_new = SPECIAL_KEY_STORE;
 	}
@@ -1233,7 +1230,6 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	else if(have_flag(f_ptr->flags, FF_BLDG) && !(mpe_mode & MCE_NO_ENTER))
 	{
 		disturb(player_ptr, 0, 0);
-
 		cancel_tactical_action(creature_ptr);
 		command_new = SPECIAL_KEY_BUILDING;
 	}

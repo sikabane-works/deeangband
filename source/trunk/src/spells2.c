@@ -1656,11 +1656,11 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 						{
 							char object_name[MAX_NLEN];
 							object_desc(object_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
-							msg_format(DEBUG_MESSAGE_ARTIFACT_CANCEL(object_name));
+							msg_format(MES_DEBUG_ARTIFACT_CANCEL(object_name));
 						}
 					}
 					else if(in_generate && cheat_peek && object_ptr->art_name)
-						msg_print(DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL);
+						msg_print(MES_DEBUG_RANDOM_ARTIFACT_CANCEL);
 				}
 			}
 

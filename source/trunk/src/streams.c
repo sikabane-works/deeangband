@@ -286,10 +286,10 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 						{
 							char object_name[MAX_NLEN];
 							object_desc(object_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
-							msg_format(DEBUG_MESSAGE_ARTIFACT_CANCEL2(object_name));
+							msg_format(MES_DEBUG_ARTIFACT_CANCEL2(object_name));
 						}
 					}
-					else if(cheat_peek && object_ptr->art_name) msg_print(DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL2);
+					else if(cheat_peek && object_ptr->art_name) msg_print(MES_DEBUG_RANDOM_ARTIFACT_CANCEL2);
 				}
 
 				/* Delete objects */
@@ -321,7 +321,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 
 		if(dummy >= SAFE_MAX_ATTEMPTS)
 		{
-			if(cheat_room) msg_warning(DEBUG_MESSAGE_FAILED_STREAMER);
+			if(cheat_room) msg_warning(MES_DEBUG_FAILED_STREAMER);
 			return;
 		}
 
@@ -403,7 +403,7 @@ void destroy_level(floor_type *floor_ptr)
 {
 	int y1, x1, n;
 
-	if(cheat_room) msg_print(DEBUG_MESSAGE_DESTROYED_FLOOR);
+	if(cheat_room) msg_print(MES_DEBUG_DESTROYED_FLOOR);
 
 	/* Drop a few epi-centers (usually about two) */
 	for (n = 0; n < randint1(5); n++)

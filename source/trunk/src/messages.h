@@ -1572,55 +1572,55 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #endif
 
 #ifdef JP
-#define DEBUG_MESSAGE_ROOM_NUM "部屋数: %d"
-#define DEBUG_MESSAGE_GLASS_ROOM "[ガラスの部屋]"
-#define DEBUG_MESSAGE_ROOM_OF "[%sの部屋]"
-#define DEBUG_MESSAGE_CRYPT_ROOM "[聖堂]"
-#define DEBUG_MESSAGE_TRAP_PIT_ROOM "[%s%sの罠ピット]"
-#define DEBUG_MESSAGE_BIAS_ARTIFACT "運の偏ったアーティファクト: %d。"
-#define DEBUG_MESSAGE_NO_BIAS_ARTIFACT "偏っていないアーティファクト"
-#define DEBUG_MESSAGE_DIE_CHOICE "死にますか?"
-#define DEBUG_MESSAGE_LAKE "湖を生成。"
-#define DEBUG_MESSAGE_CAVE "洞窟を生成。"
-#define DEBUG_MESSAGE_ARENA "アリーナレベル"
-#define DEBUG_MESSAGE_DEC_CREATURE(FROM, TO) "クリーチャー数基本値を %d から %d に減らします", (FROM), (TO)
-#define DEBUG_MESSAGE_SMALL_LEVEL "小さなフロア"
-#define DEBUG_MESSAGE_FLOOR_SIZE(WIDTH, HEIGHT) "[W:%d, H:%d]"
-#define DEBUG_MESSAGE_VAULT(NAME) "地下室(%s)", (NAME)
-#define DEBUG_MESSAGE_GREATER_VAULT(NAME) "巨大な地下室(%s)", (NAME)
-#define DEBUG_MESSAGE_FAILED_VAULT "巨大な地下室を配置できません。"
-#define DEBUG_MESSAGE_ARTIFACT_CANCEL(OBJECT) "伝説のアイテム (%s) は生成中に*破壊*された。", (OBJECT)
-#define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL "ランダム・アーティファクトの1つは生成中に*破壊*された。"
-#define DEBUG_MESSAGE_ARTIFACT_CANCEL2(OBJECT) "伝説のアイテム (%s) はストリーマーにより削除された。", (OBJECT)
-#define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL2 "ランダム・アーティファクトの1つはストリーマーにより削除された。"
-#define DEBUG_MESSAGE_FAILED_STREAMER "ストリーマーの生成に失敗した。"
-#define DEBUG_MESSAGE_DESTROYED_FLOOR "破壊された階"
-#define DEBUG_MESSAGE_FUNNY_PATTERN(FEATURE) "おかしなパターン歩行、%d。", (FEATURE)
+#define MES_DEBUG_ROOM_NUM "部屋数: %d"
+#define MES_DEBUG_GLASS_ROOM "[ガラスの部屋]"
+#define MES_DEBUG_ROOM_OF "[%sの部屋]"
+#define MES_DEBUG_CRYPT_ROOM "[聖堂]"
+#define MES_DEBUG_TRAP_PIT_ROOM "[%s%sの罠ピット]"
+#define MES_DEBUG_BIAS_ARTIFACT "運の偏ったアーティファクト: %d。"
+#define MES_DEBUG_NO_BIAS_ARTIFACT "偏っていないアーティファクト"
+#define MES_DEBUG_DIE_CHOICE "死にますか?"
+#define MES_DEBUG_LAKE "湖を生成。"
+#define MES_DEBUG_CAVE "洞窟を生成。"
+#define MES_DEBUG_ARENA "アリーナレベル"
+#define MES_DEBUG_DEC_CREATURE(FROM, TO) "クリーチャー数基本値を %d から %d に減らします", (FROM), (TO)
+#define MES_DEBUG_SMALL_LEVEL "小さなフロア"
+#define MES_DEBUG_FLOOR_SIZE(WIDTH, HEIGHT) "[W:%d, H:%d]"
+#define MES_DEBUG_VAULT(NAME) "地下室(%s)", (NAME)
+#define MES_DEBUG_GREATER_VAULT(NAME) "巨大な地下室(%s)", (NAME)
+#define MES_DEBUG_FAILED_VAULT "巨大な地下室を配置できません。"
+#define MES_DEBUG_ARTIFACT_CANCEL(OBJECT) "伝説のアイテム (%s) は生成中に*破壊*された。", (OBJECT)
+#define MES_DEBUG_RANDOM_ARTIFACT_CANCEL "ランダム・アーティファクトの1つは生成中に*破壊*された。"
+#define MES_DEBUG_ARTIFACT_CANCEL2(OBJECT) "伝説のアイテム (%s) はストリーマーにより削除された。", (OBJECT)
+#define MES_DEBUG_RANDOM_ARTIFACT_CANCEL2 "ランダム・アーティファクトの1つはストリーマーにより削除された。"
+#define MES_DEBUG_FAILED_STREAMER "ストリーマーの生成に失敗した。"
+#define MES_DEBUG_DESTROYED_FLOOR "破壊された階"
+#define MES_DEBUG_FUNNY_PATTERN(FEATURE) "おかしなパターン歩行、%d。", (FEATURE)
 #else
-#define DEBUG_MESSAGE_ROOM_NUM "Number of Rooms: %d"
-#define DEBUG_MESSAGE_GLASS_ROOM "[Glass Room]"
-#define DEBUG_MESSAGE_ROOM_OF "[Room of %s]"
-#define DEBUG_MESSAGE_CRYPT_ROOM "[Crypt]"
-#define DEBUG_MESSAGE_TRAP_PIT_ROOM "[Trapped creature pit (%s%s)]"
-#define DEBUG_MESSAGE_BIAS_ARTIFACT "Biased artifact: %d."
-#define DEBUG_MESSAGE_NO_BIAS_ARTIFACT "No biased artifact."
-#define DEBUG_MESSAGE_DIE_CHOICE "Die?"
-#define DEBUG_MESSAGE_LAKE "Lake on the level."
-#define DEBUG_MESSAGE_CAVE "Cavern on level."
-#define DEBUG_MESSAGE_ARENA "Arena level."
-#define DEBUG_MESSAGE_DEC_CREATURE(FROM, TO) "Reduced creatures base from %d to %d", (FROM), (TO)
-#define DEBUG_MESSAGE_SMALL_LEVEL "A small dungeon level."
-#define DEBUG_MESSAGE_FLOOR_SIZE(WIDTH, HEIGHT) "[W:%d, H:%d]"
-#define DEBUG_MESSAGE_VAULT(NAME) "Vault(%s)", (NAME)
-#define DEBUG_MESSAGE_GREATER_VAULT(NAME) "Greater vault (%s)", (NAME)
-#define DEBUG_MESSAGE_FAILED_VAULT "Could not place greater vault."
-#define DEBUG_MESSAGE_ARTIFACT_CANCEL(OBJECT) "Artifact (%s) was *destroyed* during generation.", (OBJECT)
-#define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL "One of the random artifacts was *destroyed* during generation."
-#define DEBUG_MESSAGE_ARTIFACT_CANCEL2(OBJECT) "Artifact (%s) was deleted by streamer.", (OBJECT)
-#define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL2 "One of the random artifacts was deleted by streamer."
-#define DEBUG_MESSAGE_FAILED_STREAMER "Could not place streamer!"
-#define DEBUG_MESSAGE_DESTROYED_FLOOR "Destroyed Floor"
-#define DEBUG_MESSAGE_FUNNY_PATTERN(FEATURE) "Funny Pattern walking, %d.", (FEATURE)
+#define MES_DEBUG_ROOM_NUM "Number of Rooms: %d"
+#define MES_DEBUG_GLASS_ROOM "[Glass Room]"
+#define MES_DEBUG_ROOM_OF "[Room of %s]"
+#define MES_DEBUG_CRYPT_ROOM "[Crypt]"
+#define MES_DEBUG_TRAP_PIT_ROOM "[Trapped creature pit (%s%s)]"
+#define MES_DEBUG_BIAS_ARTIFACT "Biased artifact: %d."
+#define MES_DEBUG_NO_BIAS_ARTIFACT "No biased artifact."
+#define MES_DEBUG_DIE_CHOICE "Die?"
+#define MES_DEBUG_LAKE "Lake on the level."
+#define MES_DEBUG_CAVE "Cavern on level."
+#define MES_DEBUG_ARENA "Arena level."
+#define MES_DEBUG_DEC_CREATURE(FROM, TO) "Reduced creatures base from %d to %d", (FROM), (TO)
+#define MES_DEBUG_SMALL_LEVEL "A small dungeon level."
+#define MES_DEBUG_FLOOR_SIZE(WIDTH, HEIGHT) "[W:%d, H:%d]"
+#define MES_DEBUG_VAULT(NAME) "Vault(%s)", (NAME)
+#define MES_DEBUG_GREATER_VAULT(NAME) "Greater vault (%s)", (NAME)
+#define MES_DEBUG_FAILED_VAULT "Could not place greater vault."
+#define MES_DEBUG_ARTIFACT_CANCEL(OBJECT) "Artifact (%s) was *destroyed* during generation.", (OBJECT)
+#define MES_DEBUG_RANDOM_ARTIFACT_CANCEL "One of the random artifacts was *destroyed* during generation."
+#define MES_DEBUG_ARTIFACT_CANCEL2(OBJECT) "Artifact (%s) was deleted by streamer.", (OBJECT)
+#define MES_DEBUG_RANDOM_ARTIFACT_CANCEL2 "One of the random artifacts was deleted by streamer."
+#define MES_DEBUG_FAILED_STREAMER "Could not place streamer!"
+#define MES_DEBUG_DESTROYED_FLOOR "Destroyed Floor"
+#define MES_DEBUG_FUNNY_PATTERN(FEATURE) "Funny Pattern walking, %d.", (FEATURE)
 #endif
 
 #ifdef JP

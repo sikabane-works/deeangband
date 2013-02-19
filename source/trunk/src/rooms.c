@@ -2913,7 +2913,7 @@ static bool build_vault_pre(floor_type *floor_ptr, int type)
 	// Find and reserve some space in the dungeon.  Get center of room.
 	if(!find_space(floor_ptr, &yval, &xval, abs(y), abs(x))) return FALSE;
 
-	if(cheat_room) msg_format(DEBUG_MESSAGE_VAULT(vault_name + v_ptr->name));
+	if(cheat_room) msg_format(MES_DEBUG_VAULT(vault_name + v_ptr->name));
 
 	/* Hack -- Build the vault */
 	build_vault(floor_ptr, yval, xval, v_ptr->hgt, v_ptr->wid, vault_text + v_ptr->text, xoffset, yoffset, transno);
@@ -2946,7 +2946,7 @@ static bool build_type8(floor_type *floor_ptr)
 	/* No greater vault found */
 	if(dummy >= SAFE_MAX_ATTEMPTS)
 	{
-		if(cheat_room) msg_warning(DEBUG_MESSAGE_FAILED_VAULT);
+		if(cheat_room) msg_warning(MES_DEBUG_FAILED_VAULT);
 		return FALSE;
 	}
 
@@ -2980,7 +2980,7 @@ static bool build_type8(floor_type *floor_ptr)
 	 */
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if(!find_space(floor_ptr, &yval, &xval, abs(y) + 2, abs(x) + 2)) return FALSE;
-	if(cheat_room) msg_format(DEBUG_MESSAGE_GREATER_VAULT(vault_name + v_ptr->name));
+	if(cheat_room) msg_format(MES_DEBUG_GREATER_VAULT(vault_name + v_ptr->name));
 
 	// Hack -- Build the vault
 	build_vault(floor_ptr, yval, xval, v_ptr->hgt, v_ptr->wid, vault_text + v_ptr->text, xoffset, yoffset, transno);
@@ -5455,7 +5455,7 @@ static bool build_type12(floor_type *floor_ptr)
 		vault_traps(floor_ptr, y0, x0, 4, 4, randint0(3) + 2);
 	}
 
-	if(cheat_room) msg_print(DEBUG_MESSAGE_CRYPT_ROOM);
+	if(cheat_room) msg_print(MES_DEBUG_CRYPT_ROOM);
 	return TRUE;
 }
 
@@ -5734,7 +5734,7 @@ static bool build_type13(floor_type *floor_ptr)
 		}
 	}
 
-	if(cheat_room) msg_format(DEBUG_MESSAGE_TRAP_PIT_ROOM, n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
+	if(cheat_room) msg_format(MES_DEBUG_TRAP_PIT_ROOM, n_ptr->name, pit_subtype_string(cur_pit_type, FALSE));
 
 	/* Select the entries */
 	for (i = 0; i < 8; i++)
@@ -5833,7 +5833,7 @@ static bool build_type14(floor_type *floor_ptr)
 	c_ptr->mimic = c_ptr->feat;
 	c_ptr->feat = trap;
 
-	if(cheat_room) msg_format(DEBUG_MESSAGE_ROOM_OF, feature_name + feature_info[trap].name);
+	if(cheat_room) msg_format(MES_DEBUG_ROOM_OF, feature_name + feature_info[trap].name);
 	return TRUE;
 }
 
@@ -6075,7 +6075,7 @@ static bool build_type15(floor_type *floor_ptr)
 		break;
 	}
 
-	if(cheat_room) msg_print(DEBUG_MESSAGE_GLASS_ROOM);
+	if(cheat_room) msg_print(MES_DEBUG_GLASS_ROOM);
 	return TRUE;
 }
 
@@ -6304,7 +6304,7 @@ bool generate_rooms(floor_type *floor_ptr)
 	}
 
 	if(rooms_built < 1) return FALSE;
-	if(cheat_room) msg_format(DEBUG_MESSAGE_ROOM_NUM , rooms_built);
+	if(cheat_room) msg_format(MES_DEBUG_ROOM_NUM , rooms_built);
 
 	return TRUE;
 }

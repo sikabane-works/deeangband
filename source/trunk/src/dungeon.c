@@ -5042,7 +5042,7 @@ static void accidental_death(void)
 	else
 	{
 		// Mega-Hack -- Allow player to cheat death
-		if((wizard || cheat_live) && !get_check(DEBUG_MESSAGE_DIE_CHOICE)) cheat_death();
+		if((wizard || cheat_live) && !get_check(MES_DEBUG_DIE_CHOICE)) cheat_death();
 	}
 }
 

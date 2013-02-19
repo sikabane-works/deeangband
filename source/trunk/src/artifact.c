@@ -1656,8 +1656,8 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 
 	if(cheat_xtra)
 	{
-		if(artifact_bias) msg_format(DEBUG_MESSAGE_BIAS_ARTIFACT, artifact_bias);
-		else msg_print(DEBUG_MESSAGE_NO_BIAS_ARTIFACT);
+		if(artifact_bias) msg_format(MES_DEBUG_BIAS_ARTIFACT, artifact_bias);
+		else msg_print(MES_DEBUG_NO_BIAS_ARTIFACT);
 	}
 
 	object_ptr->art_name = quark_add(new_name);	// Save the inscription

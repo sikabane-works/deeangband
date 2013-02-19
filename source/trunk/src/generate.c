@@ -622,7 +622,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 
 		if(dungeon_ptr->laketype)
 		{
-			if(cheat_room) msg_print(DEBUG_MESSAGE_LAKE);
+			if(cheat_room) msg_print(MES_DEBUG_LAKE);
 			build_lake(floor_ptr, dungeon_ptr->laketype);
 		}
 	}
@@ -635,7 +635,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 
 		/* make a large fractal cave in the middle of the dungeon */
 
-		if(cheat_room) msg_print(DEBUG_MESSAGE_CAVE);
+		if(cheat_room) msg_print(MES_DEBUG_CAVE);
 		build_cavern(floor_ptr);
 	}
 #endif /* ALLOW_CAVERNS_AND_LAKES */
@@ -698,7 +698,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	if(ironman_empty_levels || ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_ARENA) && (empty_levels && one_in_(EMPTY_LEVEL))))
 	{
 		dungeon_ptr->empty_level = TRUE;
-		if(cheat_room) msg_print(DEBUG_MESSAGE_ARENA);
+		if(cheat_room) msg_print(MES_DEBUG_ARENA);
 	}
 
 	if(dungeon_ptr->empty_level)
@@ -994,7 +994,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		i += 1;
 
 		if(i > small_tester) i = small_tester;
-		else if(cheat_hear) msg_format(DEBUG_MESSAGE_DEC_CREATURE(small_tester, i));
+		else if(cheat_hear) msg_format(MES_DEBUG_DEC_CREATURE(small_tester, i));
 	}
 
 	// Put some creatures in the dungeon
@@ -1315,7 +1315,7 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_SMALLEST)) &&
 	    !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BIG))
 	{
-		if(cheat_room) msg_print(DEBUG_MESSAGE_SMALL_LEVEL);
+		if(cheat_room) msg_print(MES_DEBUG_SMALL_LEVEL);
 
 		if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_SMALLEST)
 		{
@@ -1357,7 +1357,7 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 		panel_col_min = floor_ptr->width;
 
 	}
-	if(cheat_room) msg_format(DEBUG_MESSAGE_FLOOR_SIZE(floor_ptr->width, floor_ptr->height));
+	if(cheat_room) msg_format(MES_DEBUG_FLOOR_SIZE(floor_ptr->width, floor_ptr->height));
 
 	// Make a dungeon
 	if(!create_cave_structure(floor_ptr))
