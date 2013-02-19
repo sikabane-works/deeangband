@@ -2385,7 +2385,7 @@ static selection_table macro_menu_table[] =
 #endif
 };
 
-static selection_info macro_menu_info = {"", 11, 0, 4, 5, 11, 40, NULL, 0};
+static selection_info macro_menu_info = {"", 11, 0, 4, 5, 11, 40, NULL, NULL, GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT};
 
 // Interact with "macros"
 // Note that the macro "action" must be defined before the trigger.
@@ -2465,14 +2465,7 @@ void do_cmd_macros(void)
 				msg_format("Failed to load '%s'!");
 #endif
 			}
-			else
-			{
-#ifdef JP
-				msg_format("'%s'Çì«Ç›çûÇ›Ç‹ÇµÇΩÅB", tmp);
-#else
-				msg_format("Loaded '%s'.", tmp);
-#endif
-			}
+			else msg_format(MES_FILE_LOADED(tmp));
 		}
 
 		/* Save macros */
@@ -2874,7 +2867,7 @@ static selection_table visual_menu_table[] =
 #endif
 };
 
-static selection_info visual_menu_info = {"", 12, 0, 1, 1, 12, 60, NULL, 0};
+static selection_info visual_menu_info = {"", 12, 0, 1, 1, 12, 60, NULL, NULL, GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT};
 
 static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int direct_species_idx);
 static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int direct_k_idx);

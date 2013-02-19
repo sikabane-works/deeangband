@@ -771,14 +771,7 @@ void autopick_load_pref(bool disp_mes)
 	/* Load the file */
 	err = process_autopick_file(buf);
 
-	if(err == 0 && disp_mes)
-	{
-#ifdef JP
-		msg_format("%sÇì«Ç›çûÇ›Ç‹ÇµÇΩÅB", buf);
-#else
-		msg_format("Loaded '%s'.", buf);
-#endif
-	}
+	if(err == 0 && disp_mes) msg_format(MES_FILE_LOADED(buf));
 
 	/* No file found */
 	if(0 > err)
@@ -788,15 +781,7 @@ void autopick_load_pref(bool disp_mes)
 
 		/* Load the file */
 		err = process_autopick_file(buf);
-
-		if(err == 0 && disp_mes)
-		{
-#ifdef JP
-			msg_format("%sÇì«Ç›çûÇ›Ç‹ÇµÇΩÅB", buf);
-#else
-			msg_format("Loaded '%s'.", buf);
-#endif
-		}
+		if(err == 0 && disp_mes) msg_format(MES_FILE_LOADED(buf));
 	}
 
 	if(err && disp_mes)

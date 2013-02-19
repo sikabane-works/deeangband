@@ -2615,3 +2615,9 @@ static cptr desc_stat_neg[] =
 #define MES_CURSE_PREVENT_TAKE_OFF "Hmmm, it seems to be cursed."
 #define MES_CURSE_RESIST_DIVINE "Your divine power is exceeding curse. You teared a cursed equipment off calmly."
 #endif
+
+#ifdef JP
+#define MES_FILE_LOADED(FILENAME) "%sÇì«Ç›çûÇ›Ç‹ÇµÇΩÅB", (FILENAME)
+#else
+#define MES_FILE_LOADED(FILENAME) "Loaded '%s'.", (FILENAME)
+#endif
