@@ -2425,7 +2425,7 @@ void do_cmd_macros(void)
 		/* Display the current action */
 		prt(buf, 22, 0);
 
-		i = get_selection(&macro_menu_info, &macro_menu_table);
+		i = get_selection(&macro_menu_info, macro_menu_table);
 
 		/* Leave */
 		if(i == 10) break;
@@ -2842,38 +2842,39 @@ static bool cmd_visuals_aux(int i, int *num, int max)
 	return TRUE;
 }
 
-static void print_visuals_menu(cptr choice_msg)
+
+static selection_table visual_menu_table[] =
 {
 #ifdef JP
-	prt("[ 画面表示の設定 ]", 1, 0);
-	prt("(0) ユーザー設定ファイルのロード", 3, 5);
-	prt("(1) クリーチャーの 色/文字 をファイルに書き出す", 4, 5);
-	prt("(2) アイテムの   色/文字 をファイルに書き出す", 5, 5);
-	prt("(3) 地形の       色/文字 をファイルに書き出す", 6, 5);
-	prt("(4) クリーチャーの 色/文字 を変更する (数値操作)", 7, 5);
-	prt("(5) アイテムの   色/文字 を変更する (数値操作)", 8, 5);
-	prt("(6) 地形の       色/文字 を変更する (数値操作)", 9, 5);
-	prt("(7) クリーチャーの 色/文字 を変更する (シンボルエディタ)", 10, 5);
-	prt("(8) アイテムの   色/文字 を変更する (シンボルエディタ)", 11, 5);
-	prt("(9) 地形の       色/文字 を変更する (シンボルエディタ)", 12, 5);
-	prt("(R) 画面表示方法の初期化", 13, 5);
-	prt(format("コマンド: %s", choice_msg ? choice_msg : ""), 15, 0);
+	{"ユーザー設定ファイルのロード", 0, 0, 0, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"クリーチャーの色/文字をファイルに書き出す", 1, 1, 1, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"アイテムの色/文字をファイルに書き出す", 2, 2, 2, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"地形の色/文字 をファイルに書き出す", 3, 3, 3, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"クリーチャーの色/文字 を変更する (数値操作)", 4, 4, 4, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"アイテムの色/文字 を変更する (数値操作)", 5, 5, 5, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"地形の色/文字 を変更する (数値操作)", 6, 6, 6, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"クリーチャーの色/文字 を変更する (シンボルエディタ)", 7, 7, 7, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"アイテムの色/文字 を変更する (シンボルエディタ)", 8, 8, 8, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"地形の色/文字 を変更する (シンボルエディタ)", 9, 9, 9, '\0', TERM_L_DARK, TERM_WHITE, 0},
+	{"画面表示方法の初期化", 10, 10, 10, 'r', TERM_L_DARK, TERM_WHITE, 0},
+	{"終了", 11, 11, 11, ESCAPE, TERM_L_DARK, TERM_WHITE, 0},
 #else
-	prt("Interact with Visuals", 1, 0);
-	prt("(0) Load a user pref file", 3, 5);
-	prt("(1) Dump creature attr/chars", 4, 5);
-	prt("(2) Dump object attr/chars", 5, 5);
-	prt("(3) Dump feature attr/chars", 6, 5);
-	prt("(4) Change creature attr/chars (numeric operation)", 7, 5);
-	prt("(5) Change object attr/chars (numeric operation)", 8, 5);
-	prt("(6) Change feature attr/chars (numeric operation)", 9, 5);
-	prt("(7) Change creature attr/chars (visual mode)", 10, 5);
-	prt("(8) Change object attr/chars (visual mode)", 11, 5);
-	prt("(9) Change feature attr/chars (visual mode)", 12, 5);
-	prt("(R) Reset visuals", 13, 5);
-	prt(format("Command: %s", choice_msg ? choice_msg : ""), 15, 0);
+	{"Load a user pref file", 0, 0, 0, '0', TERM_L_DARK, TERM_WHITE, 0},
+	{"Dump creature attr/chars", 1, 1, 1, '1', TERM_L_DARK, TERM_WHITE, 0},
+	{"Dump object attr/chars", 2, 2, 2, '2', TERM_L_DARK, TERM_WHITE, 0},
+	{"Dump feature attr/chars", 3, 3, 3, '3', TERM_L_DARK, TERM_WHITE, 0},
+	{"Change creature attr/chars (numeric operation)", 4, 4, 4, '4', TERM_L_DARK, TERM_WHITE, 0},
+	{"Change object attr/chars (numeric operation)", 5, 5, 5, '5', TERM_L_DARK, TERM_WHITE, 0},
+	{"Change feature attr/chars (numeric operation)", 6, 6, 6, '6', TERM_L_DARK, TERM_WHITE, 0},
+	{"Change creature attr/chars (visual mode)", 7, 7, 7, '7', TERM_L_DARK, TERM_WHITE, 0},
+	{"Change object attr/chars (visual mode)", 8, 8, 8, '8', TERM_L_DARK, TERM_WHITE, 0},
+	{"Change feature attr/chars (visual mode)", 9, 9, 9, '9', TERM_L_DARK, TERM_WHITE, 0},
+	{"Reset visuals", 10, 10, 10, 'r', TERM_L_DARK, TERM_WHITE, 0},
+	{"Exit", 11, 11, 11, ESCAPE, TERM_L_DARK, TERM_WHITE, 0},
 #endif
-}
+};
+
+static selection_info visual_menu_info = {"", 11, 0, 4, 5, 11, 40, NULL, 0};
 
 static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int direct_species_idx);
 static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int direct_k_idx);
@@ -2902,17 +2903,14 @@ void do_cmd_visuals(void)
 	{
 		Term_clear();
 
-		/* Ask for a choice */
-		print_visuals_menu(NULL);
+		get_selection(&visual_menu_info, visual_menu_table);
 
-		i = inkey();
-
-		if(i == ESCAPE) break;
+		if(i == 11) break;
 
 		switch (i)
 		{
 		/* Load a 'pref' file */
-		case '0':
+		case 0:
 #ifdef JP
 			prt("コマンド: ユーザー設定ファイルのロード", 15, 0);
 #else
@@ -2932,7 +2930,7 @@ void do_cmd_visuals(void)
 			break;
 
 		/* Dump creature attr/chars */
-		case '1':
+		case 1:
 		{
 			static cptr mark = "Creature attr/chars";
 
@@ -2990,7 +2988,7 @@ void do_cmd_visuals(void)
 		}
 
 		/* Dump object attr/chars */
-		case '2':
+		case 2:
 		{
 			static cptr mark = "Object attr/chars";
 
@@ -3065,7 +3063,7 @@ void do_cmd_visuals(void)
 		}
 
 		/* Dump feature attr/chars */
-		case '3':
+		case 3:
 		{
 			static cptr mark = "Feature attr/chars";
 
@@ -3128,7 +3126,7 @@ void do_cmd_visuals(void)
 		}
 
 		/* Modify creature attr/chars (numeric operation) */
-		case '4':
+		case 4:
 		{
 #ifdef JP
 			static cptr choice_msg = "クリーチャーの[色/文字]を変更します";
@@ -3220,9 +3218,7 @@ void do_cmd_visuals(void)
 					break;
 				case 'v':
 					do_cmd_knowledge_creatures(&need_redraw, TRUE, r);
-
 					Term_clear();
-					print_visuals_menu(choice_msg);
 					break;
 				}
 			}
@@ -3231,7 +3227,7 @@ void do_cmd_visuals(void)
 		}
 
 		/* Modify object attr/chars (numeric operation) */
-		case '5':
+		case 5:
 		{
 #ifdef JP
 			static cptr choice_msg = "アイテムの[色/文字]を変更します";
@@ -3319,9 +3315,7 @@ void do_cmd_visuals(void)
 					break;
 				case 'v':
 					do_cmd_knowledge_objects(&need_redraw, TRUE, k);
-
 					Term_clear();
-					print_visuals_menu(choice_msg);
 					break;
 				}
 			}
@@ -3330,7 +3324,7 @@ void do_cmd_visuals(void)
 		}
 
 		/* Modify feature attr/chars (numeric operation) */
-		case '6':
+		case 6:
 		{
 #ifdef JP
 			static cptr choice_msg = "地形の[色/文字]を変更します";
@@ -3434,9 +3428,7 @@ void do_cmd_visuals(void)
 					break;
 				case 'v':
 					do_cmd_knowledge_features(&need_redraw, TRUE, f, &lighting_level);
-
 					Term_clear();
-					print_visuals_menu(choice_msg);
 					break;
 				}
 			}
@@ -3445,17 +3437,17 @@ void do_cmd_visuals(void)
 		}
 
 		/* Modify creature attr/chars (visual mode) */
-		case '7':
+		case 7:
 			do_cmd_knowledge_creatures(&need_redraw, TRUE, -1);
 			break;
 
 		/* Modify object attr/chars (visual mode) */
-		case '8':
+		case 8:
 			do_cmd_knowledge_objects(&need_redraw, TRUE, -1);
 			break;
 
 		/* Modify feature attr/chars (visual mode) */
-		case '9':
+		case 9:
 		{
 			int lighting_level = F_LIT_STANDARD;
 			do_cmd_knowledge_features(&need_redraw, TRUE, -1, &lighting_level);
@@ -3463,8 +3455,7 @@ void do_cmd_visuals(void)
 		}
 
 		/* Reset visuals */
-		case 'R':
-		case 'r':
+		case 10:
 			reset_visuals();
 #ifdef JP
 			msg_print("画面上の[色/文字]を初期値にリセットしました。");
