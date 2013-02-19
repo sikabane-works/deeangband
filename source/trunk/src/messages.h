@@ -325,7 +325,7 @@
 #define MES_TRAP_TY_CURSE "何かがピカッと光った！"
 #define MES_TRAP_ARMAGEDDON "突然天界の戦争に巻き込まれた！"
 #define MES_TRAP_ALARM "けたたましい音が鳴り響いた！"
-
+#define MES_TRAP_OPEN "大音響と共にまわりの壁が崩れた！"
 #else
 
 #define MES_TRAP_DOOR "You have fallen through a trap door!"
@@ -368,6 +368,7 @@
 #define MES_TRAP_TY_CURSE "There is a flash of shimmering light!"
 #define MES_TRAP_ARMAGEDDON "Suddenly, you are surrounded by immotal beings!"
 #define MES_TRAP_ALARM "An alarm sounds!"
+#define MES_TRAP_OPEN "Suddenly, surrounding walls are opened!"
 #endif
 
 #if JP
@@ -1594,6 +1595,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL2 "ランダム・アーティファクトの1つはストリーマーにより削除された。"
 #define DEBUG_MESSAGE_FAILED_STREAMER "ストリーマーの生成に失敗した。"
 #define DEBUG_MESSAGE_DESTROYED_FLOOR "破壊された階"
+#define DEBUG_MESSAGE_FUNNY_PATTERN(FEATURE) "おかしなパターン歩行、%d。", (FEATURE)
 #else
 #define DEBUG_MESSAGE_ROOM_NUM "Number of Rooms: %d"
 #define DEBUG_MESSAGE_GLASS_ROOM "[Glass Room]"
@@ -1618,6 +1620,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DEBUG_MESSAGE_RANDOM_ARTIFACT_CANCEL2 "One of the random artifacts was deleted by streamer."
 #define DEBUG_MESSAGE_FAILED_STREAMER "Could not place streamer!"
 #define DEBUG_MESSAGE_DESTROYED_FLOOR "Destroyed Floor"
+#define DEBUG_MESSAGE_FUNNY_PATTERN(FEATURE) "Funny Pattern walking, %d.", (FEATURE)
 #endif
 
 #ifdef JP

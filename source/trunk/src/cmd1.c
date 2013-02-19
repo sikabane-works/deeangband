@@ -921,11 +921,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			break;
 
 		case TRAP_OPEN:
-#ifdef JP
-			msg_print("大音響と共にまわりの壁が崩れた！");
-#else
-			msg_print("Suddenly, surrounding walls are opened!");
-#endif
+			msg_print(MES_TRAP_OPEN);
 			(void)project(NULL, 0, 3, y, x, 0, DO_EFFECT_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			(void)project(NULL, 0, 3, y, x - 4, 0, DO_EFFECT_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			(void)project(NULL, 0, 3, y, x + 4, 0, DO_EFFECT_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
@@ -1085,14 +1081,8 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 					ok_move = PATTERN_TILE_1;
 					break;
 				default:
-					if(wizard)
-#ifdef JP
-						msg_warning("おかしなパターン歩行、%d。", pattern_type_cur);
-#else
-						msg_warning("Funny Pattern walking, %d.", pattern_type_cur);
-#endif
-
-					return TRUE; /* Goof-up */
+					if(wizard) msg_warning(DEBUG_MESSAGE_FUNNY_PATTERN(pattern_type_cur));
+					return TRUE; // Goof-up
 			}
 
 			if((pattern_type_new == ok_move) ||

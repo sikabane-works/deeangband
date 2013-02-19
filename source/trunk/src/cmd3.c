@@ -1035,10 +1035,7 @@ void do_cmd_refill(creature_type *creature_ptr)
 	}
 }
 
-
-/*
-* Target command
-*/
+// Target command
 void do_cmd_target(creature_type *creature_ptr)
 {
 	if(target_set(creature_ptr, 0,TARGET_KILL)) msg_print(GAME_MESSAGE_TARGET_SET);
@@ -1050,9 +1047,7 @@ void do_cmd_look(creature_type *creature_ptr)
 	if(target_set(creature_ptr, 0, TARGET_LOOK)) msg_print(GAME_MESSAGE_TARGET_SET);
 }
 
-/*
-* Allow the player to examine other sectors on the map
-*/
+// Allow the player to examine other sectors on the map
 void do_cmd_locate(creature_type *creature_ptr)
 {
 	int		dir, y1, x1, y2, x2;
@@ -1079,8 +1074,7 @@ void do_cmd_locate(creature_type *creature_ptr)
 #else
 			sprintf(tmp_val, "%s%s of",
 #endif
-				((y2 < y1) ? MES_SYS_NORTH : (y2 > y1) ? MES_SYS_SOUTH : ""),
-				((x2 < x1) ? MES_SYS_WEST : (x2 > x1) ? MES_SYS_EAST : ""));
+				((y2 < y1) ? MES_SYS_NORTH : (y2 > y1) ? MES_SYS_SOUTH : ""), ((x2 < x1) ? MES_SYS_WEST : (x2 > x1) ? MES_SYS_EAST : ""));
 
 		}
 
