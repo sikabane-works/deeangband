@@ -206,6 +206,8 @@
 #define KW_STUDY "学ぶ"
 #define KW_SOMETHING_STRANGE "何か奇妙な物"
 #define KW_NOTHING_TARGET "指定なし"
+#define KW_UNEXPLORED_ZONE "未踏破地帯"
+#define KW_ROAD "道"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -291,6 +293,8 @@
 #define KW_STUDY "Study"
 #define KW_SOMETHING_STRANGE "something strange"
 #define KW_NOTHING_TARGET "nothing"
+#define KW_UNEXPLORED_ZONE "unexplored zone"
+#define KW_ROAD "road"
 #endif
 
 #ifdef JP
@@ -1661,7 +1665,14 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #endif
 
 #ifdef JP
+#define MES_DUNGEON_INFO(NAME, LEVEL) "%s(%d階相当)", (NAME), (LEVEL)
+#else
+#define MES_DUNGEON_INFO(NAME, LEVEL) "%s(level %d)", (NAME), (LEVEL)
+#endif
+
+#ifdef JP
 #define MES_QUEST_INFO(LEVEL) "クエスト情報 (危険度: %d 階相当)", (LEVEL)
+#define MES_QUEST_INFO2(NAME, LEVEL) "クエスト「%s」(%d階相当)", (NAME), (LEVEL)
 #define MES_QUEST_NO_QUEST "今のところクエストはありません。"
 #define MES_QUEST_DEFAULT_KILLING "クエスト: %sを %d体倒す"
 #define MES_QUEST_WARN_UNCOMPLETE "あなたは現在のクエストを終了させていません！\nCTRL-Qを使えばクエストの状態がチェックできます。\nクエストを終わらせたら戻って来て下さい。\n"
@@ -1675,6 +1686,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_EXIT_WARNING "この階を一度去ると二度と戻って来られません。"
 #define MES_QUEST_ASK_EXIT "本当にこの階を去りますか？"
 #else
+#define MES_QUEST_INFO2(NAME, LEVEL) "the entrance to the quest '%s'(level %d)", (NAME), (LEVEL)
 #define MES_QUEST_INFO(LEVEL) ("Quest Information (Danger level: %d)", (LEVEL))
 #define MES_QUEST_NO_QUEST "I don't have a quest for you at the moment."
 #define MES_QUEST_DEFAULT_KILLING "Your quest: kill %d %s"
@@ -1896,6 +1908,8 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_CTRL "CTRL: "
 #define MES_INTERFACE_OPTION "<方向>で移動, Enterで決定, ESCでキャンセル, ?でヘルプ: "
 #define MES_INTERFACE_FLOOR_OBJECT " '-'床上,"
+#define MES_INTERFACE_TARGET_1 "q止 t決 p自 o現 +次 -前"
+#define MES_INTERFACE_TARGET_2 "q止 p自 o現 +次 -前"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -1907,6 +1921,8 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_CTRL "Control: "
 #define MES_INTERFACE_OPTION "Move to <dir>, Select to Enter, Cancel to ESC, ? to help: "
 #define MES_INTERFACE_FLOOR_OBJECT " - for floor,"
+#define MES_INTERFACE_TARGET_1 "q,t,p,o,+,-,<dir>"
+#define MES_INTERFACE_TARGET_2 "q,p,o,+,-,<dir>"
 #endif
 
 #ifdef JP

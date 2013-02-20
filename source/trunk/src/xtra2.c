@@ -2123,13 +2123,11 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		/* Hack -- special handling for quest entrances */
 		if(floor_ptr->world_map && !wilderness[y][x].known)
 		{
+			name = KW_UNEXPLORED_ZONE;
 #ifdef JP
-			name = "未踏破地帯";
 			s1 = "";
 			s2 = "";
 			s3 = "";
-#else
-			name = "unexplored zone";
 #endif
 		}
 		else
@@ -2137,41 +2135,21 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			if(have_flag(f_ptr->flags, FF_QUEST_ENTER))
 			{
 				int j;
-
-				/* Clear the text */
 				for (j = 0; j < 10; j++) questp_text[j][0] = '\0';
 				questp_text_line = 0;
-
 				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT, c_ptr->special);
-
-#ifdef JP
-				name = format("クエスト「%s」(%d階相当)", quest[c_ptr->special].name, quest[c_ptr->special].level);
-#else
-				name = format("the entrance to the quest '%s'(level %d)", quest[c_ptr->special].name, quest[c_ptr->special].level);
-#endif
+				name = format(MES_QUEST_INFO2(quest[c_ptr->special].name, quest[c_ptr->special].level));
 			}
 
 			/* Hack -- special handling for building doors */
 			else if(have_flag(f_ptr->flags, FF_BLDG) && !floor_ptr->fight_arena_mode)
 				name = building[f_ptr->subtype].name;
 			else if(have_flag(f_ptr->flags, FF_ENTRANCE))
-			{
-#ifdef JP
-				name = format("%s(%d階相当)", dungeon_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth);
-#else
-				name = format("%s(level %d)", dungeon_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth);
-#endif
-			}
+				name = format(MES_DUNGEON_INFO(dungeon_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth));
 			else if(have_flag(f_ptr->flags, FF_TOWN))
 				name = town[c_ptr->special].name;
 			else if(floor_ptr->world_map && (feat == feat_floor))
-			{
-#ifdef JP
-				name = "道";
-#else
-				name = "road";
-#endif
-			}
+				name = KW_ROAD;
 			else name = feature_name + f_ptr->name;
 
 			// Pick a prefix
@@ -2333,27 +2311,10 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 			/* Access */
 			c_ptr = &floor_ptr->cave[y][x];
 
-			/* Allow target */
 			if(target_able(aimer_ptr, c_ptr->creature_idx))
-			{
-#ifdef JP
-				strcpy(info, "q止 t決 p自 o現 +次 -前");
-#else
-				strcpy(info, "q,t,p,o,+,-,<dir>");
-#endif
-
-			}
-
-			/* Dis-allow target */
+				strcpy(info, MES_INTERFACE_TARGET_1);
 			else
-			{
-#ifdef JP
-				strcpy(info, "q止 p自 o現 +次 -前");
-#else
-				strcpy(info, "q,p,o,+,-,<dir>");
-#endif
-
-			}
+				strcpy(info, MES_INTERFACE_TARGET_2);
 
 			/* Describe and Prompt */
 			while (!(query = target_set_aux(aimer_ptr, y, x, mode, info)));
