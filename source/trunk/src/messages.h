@@ -1910,6 +1910,9 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_FLOOR_OBJECT " '-'床上,"
 #define MES_INTERFACE_TARGET_1 "q止 t決 p自 o現 +次 -前"
 #define MES_INTERFACE_TARGET_2 "q止 p自 o現 +次 -前"
+#define MES_INTERFACE_TARGET_3 "q止 t決 p自 m近 +次 -前"
+#define MES_INTERFACE_TARGET_4 "方向 ('*'でターゲット選択, ESCで中断)? "
+#define MES_INTERFACE_TARGET_5 "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? "
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -1923,6 +1926,9 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_FLOOR_OBJECT " - for floor,"
 #define MES_INTERFACE_TARGET_1 "q,t,p,o,+,-,<dir>"
 #define MES_INTERFACE_TARGET_2 "q,p,o,+,-,<dir>"
+#define MES_INTERFACE_TARGET_3 "q,t,p,m,+,-,<dir>"
+#define MES_INTERFACE_TARGET_4 "Direction ('*' to choose a target, Escape to cancel)? "
+#define MES_INTERFACE_TARGET_5 "Direction ('5' for target, '*' to re-target, Escape to cancel)? "
 #endif
 
 #ifdef JP

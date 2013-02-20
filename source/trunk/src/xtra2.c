@@ -2325,20 +2325,15 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 			/* Assume no "direction" */
 			d = 0;
 
-			if(use_menu)
-			{
-				if(query == '\r') query = 't';
-			}  
+			if(use_menu) if(query == '\r') query = 't';
 
 			/* Analyze */
 			switch (query)
 			{
 			case ESCAPE:
 			case 'q':
-				{
-					done = TRUE;
-					break;
-				}
+				done = TRUE;
+				break;
 
 			case 't':
 			case '.':
@@ -2363,63 +2358,47 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 			case ' ':
 			case '*':
 			case '+':
+				if(++m == temp_n)
 				{
-					if(++m == temp_n)
-					{
-						m = 0;
-						if(!expand_list) done = TRUE;
-					}
-					break;
+					m = 0;
+					if(!expand_list) done = TRUE;
 				}
+				break;
 
 			case '-':
+				if(m-- == 0)
 				{
-					if(m-- == 0)
-					{
-						m = temp_n - 1;
-						if(!expand_list) done = TRUE;
-					}
-					break;
+					m = temp_n - 1;
+					if(!expand_list) done = TRUE;
 				}
+				break;
 
 			case 'p':
-				{
-					/* Recenter the map around the player */
-					verify_panel(aimer_ptr);
-
-					prepare_update(aimer_ptr, PU_CREATURES);
-
-					prepare_redraw(PR_MAP);
-
-					prepare_window(PW_OVERHEAD);
-
-					handle_stuff(aimer_ptr);
-
-					target_set_prepare(aimer_ptr, mode);
-
-					y = aimer_ptr->fy;
-					x = aimer_ptr->fx;
-				}
+				/* Recenter the map around the player */
+				verify_panel(aimer_ptr);
+				prepare_update(aimer_ptr, PU_CREATURES);
+				prepare_redraw(PR_MAP);
+				prepare_window(PW_OVERHEAD);
+				handle_stuff(aimer_ptr);
+				target_set_prepare(aimer_ptr, mode);
+				y = aimer_ptr->fy;
+				x = aimer_ptr->fx;
+				flag = FALSE;
+				break;
 
 			case 'o':
-				{
-					flag = FALSE;
-					break;
-				}
+				flag = FALSE;
+				break;
 
 			case 'm':
-				{
-					break;
-				}
+				break;
 
 			default:
-				{
-					/* Extract the action (if any) */
-					d = get_keymap_dir(query);
+				/* Extract the action (if any) */
+				d = get_keymap_dir(query);
 
-					if(!d) bell();
-					break;
-				}
+				if(!d) bell();
+				break;
 			}
 
 			/* Hack -- move around */
@@ -2512,11 +2491,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 			c_ptr = &floor_ptr->cave[y][x];	// Access
 
 			/* Default prompt */
-#ifdef JP
-			strcpy(info, "q止 t決 p自 m近 +次 -前");
-#else
-			strcpy(info, "q,t,p,m,+,-,<dir>");
-#endif
+			strcpy(info, MES_INTERFACE_TARGET_3);
 
 			/* Describe and Prompt (enable "TARGET_LOOK") */
 			while (!(query = target_set_aux(aimer_ptr, y, x, mode | TARGET_LOOK, info)));
@@ -2690,14 +2665,8 @@ bool get_aim_dir(creature_type *creature_ptr, int range, int *dp)
 
 	while (!dir)	// Ask until satisfied
 	{
-#ifdef JP
-		if(!target_okay(creature_ptr)) p = "方向 ('*'でターゲット選択, ESCで中断)? ";
-		else p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
-#else
-		if(!target_okay(creature_ptr)) p = "Direction ('*' to choose a target, Escape to cancel)? ";
-		else p = "Direction ('5' for target, '*' to re-target, Escape to cancel)? ";
-#endif
-
+		if(!target_okay(creature_ptr)) p = MES_INTERFACE_TARGET_4;
+		else p = MES_INTERFACE_TARGET_5;
 		if(!get_com(p, &command, TRUE)) break;	// Get a command (or Cancel)
 		if(use_menu) if(command == '\r') command = 't';
 
