@@ -1990,6 +1990,9 @@ static cptr desc_stat_neg[] =
 #define MES_STUDY_NO_SPELL(REALM) "その本には学ぶべき%sがない。", (REALM)
 #define MES_STUDY_PERFECT_LEARNED(REALM) "その%sは完全に使いこなせるので学ぶ必要はない。", (REALM)
 #define MES_SPELL_CHANGE_REALM_ASK "本当に魔法の領域を変更しますか？"
+#define MES_SPELL_CANNOT "呪文を唱えられない！"
+#define MES_SPELL_NO_MORE_SPELLING "これ以上新しい呪文を詠唱することはできない。"
+#define MES_SPELL_ALREADY "その呪文はすでに詠唱中だ。"
 #else
 #define MES_STUDY_NO_READING "You cannot read books!"
 #define MES_STUDY_NO_SLOT(REALM) "You cannot learn any new %ss!", (REALM)
@@ -1997,6 +2000,9 @@ static cptr desc_stat_neg[] =
 #define MES_STUDY_NO_SPELL(REALM) "You cannot learn any %ss in that book.", (REALM)
 #define MES_STUDY_PERFECT_LEARNED(REALM) "You don't need to study this %s anymore.", (REALM)
 #define MES_SPELL_CHANGE_REALM_ASK "Really, change magic realm? "
+#define MES_SPELL_CANNOT "You cannot cast spells!"
+#define MES_SPELL_NO_MORE_SPELLING "Can not spell new spells more."
+#define MES_SPELL_ALREADY "You are already casting it."
 #endif
 
 #ifdef JP

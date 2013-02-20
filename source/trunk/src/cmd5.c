@@ -728,15 +728,10 @@ void do_cmd_cast(creature_type *creature_ptr)
 	object_type	*object_ptr;
 	magic_type	*s_ptr;
 
-
 	/* Require spell ability */
 	if(!creature_ptr->realm1 && (creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_RED_MAGE))
 	{
-#ifdef JP
-		msg_print("呪文を唱えられない！");
-#else
-		msg_print("You cannot cast spells!");
-#endif
+		msg_print(MES_SPELL_CANNOT);
 		return;
 	}
 
@@ -766,11 +761,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 		if(hex_spell_fully(creature_ptr))
 		{
 			bool flag = FALSE;
-#ifdef JP
-			msg_print("これ以上新しい呪文を詠唱することはできない。");
-#else
-			msg_print("Can not spell new spells more.");
-#endif
+			msg_print(MES_SPELL_NO_MORE_SPELLING);
 			flush();
 			if(creature_ptr->lev >= 35) flag = stop_hex_spell(creature_ptr);
 			if(!flag) return;
@@ -847,11 +838,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	{
 		if(HEX_SPELLING(creature_ptr, spell))
 		{
-#ifdef JP
-			msg_print("その呪文はすでに詠唱中だ。");
-#else
-			msg_print("You are already casting it.");
-#endif
+			msg_print(MES_SPELL_ALREADY);
 			return;
 		}
 	}
