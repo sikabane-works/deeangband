@@ -149,7 +149,6 @@ void do_cmd_wield(creature_type *creature_ptr)
 {
 	int i, n, item, slot, old_item;
 	object_type forge, *quest_ptr, *object_ptr, *old_equipped_ptr;
-	cptr act;
 	char object_name[MAX_NLEN];
 
 	int need_switch_wielding = 0;
@@ -253,23 +252,13 @@ void do_cmd_wield(creature_type *creature_ptr)
 
 	set_inventory_weight(creature_ptr); // Increase the weight
 
-#ifdef JP
-	act = "%s(%c)‚ð‘•”õ‚µ‚½B";
-#else
-	act = "You are wearing %s (%c).";
-#endif
-
 	object_desc(object_name, object_ptr, 0); // Describe the result
-	msg_format(act, object_name, index_to_label(slot)); // Message
+	msg_format(MES_EQUIP_DONE(object_name, index_to_label(slot))); // Message
 
 	// Warn Cursed.
 	if(object_is_cursed(object_ptr))
 	{
-#ifdef JP
-		msg_print("‚¤‚íI ‚·‚³‚Ü‚¶‚­—â‚½‚¢I");
-#else
-		msg_print("Oops! It feels deathly cold!");
-#endif
+		msg_print(MES_EQUIP_CURSED);
 		object_ptr->ident |= (IDENT_SENSE); // Note the curse
 	}
 

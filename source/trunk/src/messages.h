@@ -2270,6 +2270,8 @@ static cptr desc_stat_neg[] =
 #define MES_EQUIP_NO_TAKEOFF "はずせる装備がない。"
 #define MES_EQUIP_ASK_CURSED_WIELD(NAME, CURSED) "本当に%s{%s}を使いますか？", (NAME), (CURSED)
 #define MES_EQUIP_ASK_BECOME_VAMPIRE(NAME) "%sを装備すると真性の吸血鬼になります。よろしいですか？", (NAME)
+#define MES_EQUIP_DONE(NAME, SYM) "%s(%c)を装備した。", (NAME), (SYM)
+#define MES_EQUIP_CURSED "うわ！ すさまじく冷たい！"
 #define MES_EQUIP_HEAVY_BOW "こんな重い弓を装備しているのは大変だ。"
 #define MES_EQUIP_FITTING_BOW "この弓なら装備していても辛くない。"
 #define MES_EQUIP_RELIEVE_HEAVY_BOW "重い弓を装備からはずして体が楽になった。"
@@ -2293,6 +2295,8 @@ static cptr desc_stat_neg[] =
 #define MES_EQUIP_NO_TAKEOFF "You are not wearing anything to take off."
 #define MES_EQUIP_ASK_CURSED_WIELD(NAME, CURSED) "Really use the %s {%s}? ", (NAME), (CURSED)
 #define MES_EQUIP_ASK_BECOME_VAMPIRE(NAME) "%s will transforms you into a true vampire permanently when equiped. Do you become a vampire?", (NAME)
+#define MES_EQUIP_DONE(NAME, SYM) "You are wearing %s (%c).", (NAME), (SYM)
+#define MES_EQUIP_CURSED "Oops! It feels deathly cold!"
 #define MES_EQUIP_HEAVY_BOW "You have trouble wielding such a heavy bow."
 #define MES_EQUIP_FITTING_BOW "You have no trouble wielding your bow."
 #define MES_EQUIP_RELIEVE_HEAVY_BOW "You feel relieved to put down your heavy bow."
