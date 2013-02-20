@@ -1003,7 +1003,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	else if(object_ptr->fuel == 0)
 	{
 		disturb(player_ptr, 0, 0);
-		msg_print(GAME_MESSAGE_LITE_OUT);
+		msg_print(MES_LITEOUT);
 		prepare_update(creature_ptr, CRU_TORCH | CRU_BONUS);
 	}
 
@@ -1013,7 +1013,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 		if((object_ptr->fuel < 50) && (!(object_ptr->fuel % 5)) && (turn % (TURNS_PER_TICK*2)))
 		{
 			if(disturb_minor) disturb(player_ptr, 0, 0);
-			msg_print(GAME_MESSAGE_LITE_FAINT);
+			msg_print(MES_LITEFAINT);
 		}
 	}
 
@@ -1021,7 +1021,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	else if((object_ptr->fuel < 100) && (!(object_ptr->fuel % 10)))
 	{
 		if(disturb_minor) disturb(player_ptr, 0, 0);
-		msg_print(GAME_MESSAGE_LITE_FAINT);
+		msg_print(MES_LITEFAINT);
 	}
 }
 

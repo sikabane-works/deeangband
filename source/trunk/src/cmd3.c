@@ -962,7 +962,7 @@ void do_cmd_refill(creature_type *creature_ptr)
 	free_posture(creature_ptr);
 
 	/* It is nothing */
-	if(object1_ptr->tval != TV_LITE) msg_print(GAME_MESSAGE_LITE_NONE);
+	if(object1_ptr->tval != TV_LITE) msg_print(MES_LITENONE);
 
 	/* It's a lamp */
 	else if(object1_ptr->sval == SV_LITE_LANTERN) do_cmd_refill_lamp(creature_ptr);
