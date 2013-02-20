@@ -1594,21 +1594,10 @@ void do_cmd_pet(creature_type *master_ptr)
 
 	num = 0;
 
-#ifdef JP
-	power_desc[num] = "ペットを放す";
-#else
-	power_desc[num] = "dismiss pets";
-#endif
-
+	power_desc[num] = MES_PETCOM_DISMISS_PET;
 	powers[num++] = PET_DISMISS;
 
-#ifdef JP
-	sprintf(target_buf, "ペットのターゲットを指定 (現在：%s)",
-		(pet_t_m_idx ? (has_trait(master_ptr, TRAIT_HALLUCINATION) ? "何か奇妙な物" : (species_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "指定なし"));
-#else
-	sprintf(target_buf, "specify a target of pet (now:%s)",
-		(pet_t_m_idx ? (has_trait(master_ptr, TRAIT_HALLUCINATION) ? "something strange" : (species_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "nothing"));
-#endif
+	sprintf(target_buf, MES_PETCOM_TARGETING((pet_t_m_idx ? (has_trait(master_ptr, TRAIT_HALLUCINATION) ? KW_SOMETHING_STRANGE : (species_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : KW_NOTHING_TARGET)));
 	power_desc[num] = target_buf;
 
 	powers[num++] = PET_TARGET;

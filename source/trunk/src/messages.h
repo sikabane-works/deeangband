@@ -204,6 +204,8 @@
 #define KW_MIRACLE "奇跡"
 #define KW_SPELL "魔法"
 #define KW_STUDY "学ぶ"
+#define KW_SOMETHING_STRANGE "何か奇妙な物"
+#define KW_NOTHING_TARGET "指定なし"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -287,6 +289,8 @@
 #define KW_MIRACLE "Miracle"
 #define KW_SPELL "Spell"
 #define KW_STUDY "Study"
+#define KW_SOMETHING_STRANGE "something strange"
+#define KW_NOTHING_TARGET "nothing"
 #endif
 
 #ifdef JP
@@ -2597,6 +2601,14 @@ static cptr desc_stat_neg[] =
 #define MES_STEED_BUMP_WALL(STEED) "You have nearly fallen from %s, but bumped into wall.", (STEED)
 #define MES_STEED_GOOD_RANDING(STEED) "You are thrown from %s, but make a good landing.", (STEED)
 #define MES_STEED_WAKE_UP(STEED) "You have waked %s up.", (STEED)
+#endif
+
+#ifdef JP
+#define MES_PETCOM_DISMISS_PET "ペットを放す"
+#define MES_PETCOM_TARGETING(CURRENT) "ペットのターゲットを指定 (現在：%s)", (CURRENT)
+#else
+#define MES_PETCOM_DISMISS_PET "dismiss pets"
+#define MES_PETCOM_TARGETING(CURRENT) "specify a target of pet (now:%s)", (CURRENT)
 #endif
 
 #ifdef JP
