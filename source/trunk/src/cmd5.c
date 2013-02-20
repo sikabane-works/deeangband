@@ -1521,21 +1521,12 @@ static void do_name_pet(creature_type *master_ptr)
 
 		if(!has_trait_species(&species_info[pet_ptr->species_idx], TRAIT_UNIQUE))
 		{
-#ifdef JP
-			msg_print("そのクリーチャーの名前は変えられない！");
-#else
-			msg_format("You cannot change name of this creature!");
-#endif
+			msg_print(MES_PET_CANNOT_CHANGE_NAME);
 			return;
 		}
 		creature_desc(m_name, pet_ptr, 0);
 
-#ifdef JP
-		msg_format("%sに名前をつける。", m_name);
-#else
-		msg_format("Name %s.", m_name);
-#endif
-
+		msg_format(MES_PET_CHANGE_NAME(m_name));
 		msg_print(NULL);
 
 		/* Start with nothing */
