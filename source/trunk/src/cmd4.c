@@ -2170,13 +2170,7 @@ void do_cmd_pref(void)
 
 void do_cmd_reload_autopick(void)
 {
-#ifdef JP
-	if(!get_check("自動拾い設定ファイルをロードしますか? ")) return;
-#else
-	if(!get_check("Reload auto-pick preference file? ")) return;
-#endif
-
-	/* Load the file with messages */
+	if(!get_check(MES_AUTOPICK_LOAD_FILE)) return;
 	autopick_load_pref(TRUE);
 }
 
@@ -2201,11 +2195,7 @@ static errr macro_dump(cptr fname)
 	if(!open_auto_dump(buf, mark)) return (-1);
 
 	/* Start dumping */
-#ifdef JP
-	auto_dump_printf("\n# 自動マクロセーブ\n\n");
-#else
-	auto_dump_printf("\n# Automatic macro dump\n\n");
-#endif
+	auto_dump_printf(MES_AUTOPICK_AUTODUMP);
 
 	/* Dump them */
 	for (i = 0; i < macro__num; i++)

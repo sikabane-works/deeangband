@@ -2022,6 +2022,8 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_AUTOPICK_LOAD_FILE "自動拾い設定ファイルをロードしますか? "
+#define MES_AUTOPICK_AUTODUMP "\n# 自動マクロセーブ\n\n"
 #define MES_AUTOPICK_PATTERN_NOT_FOUND(STR) "パターンが見つかりません: %s", (STR)
 #define MES_AUTOPICK_SKIP_INACTIVE_LINE(STR) "無効状態の行をスキップしました。(%sを検索中)", (STR)
 #define MES_AUTOPICK_FOUND_ONLY_INACTIVE(STR) "無効状態の行だけが見付かりました。(%sを検索中)", (STR)
@@ -2036,6 +2038,8 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_CUR_DELETE "この行は後で削除されます。"
 #define MES_AUTOPICK_CUR_BYPASS "この行は現在は無効な状態です。"
 #else
+#define MES_AUTOPICK_LOAD_FILE "Reload auto-pick preference file? "
+#define MES_AUTOPICK_AUTODUMP "\n# Automatic macro dump\n\n"
 #define MES_AUTOPICK_PATTERN_NOT_FOUND(STR) "Pattern not found: %s", (STR)
 #define MES_AUTOPICK_SKIP_INACTIVE_LINE(STR) "Some inactive lines are skipped. (Searching %s)", (STR)
 #define MES_AUTOPICK_FOUND_ONLY_INACTIVE(STR) "Found only an inactive line. (Searching %s)", (STR)
