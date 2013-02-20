@@ -812,9 +812,11 @@
 #ifdef JP
 #define MES_SUMMON_NOTHING "何も現れなかった..."
 #define MES_SUMMON_SERVANT "御用でございますか？我が主。"
+#define MES_SUMMON_FEELING "何かが間近に現れた音がする。"
 #else
 #define MES_SUMMON_NOTHING "Nobody ever turns up..."
 #define MES_SUMMON_SERVANT "'What is thy bidding... Master?'"
+#define MES_SUMMON_FEELING "You hear something appear nearby."
 #endif
 
 #ifdef JP

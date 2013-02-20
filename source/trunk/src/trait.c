@@ -2769,14 +2769,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		*/
 	}
 
-	if(summoned)
-	{
-#ifdef JP
-		if(blind && count) msg_print("何かが間近に現れた音がする。");
-#else
-		if(blind && count) msg_print("You hear something appear nearby.");
-#endif
-	}
+	if(summoned) if(blind && count) msg_print(MES_SUMMON_FEELING);
 
 	return effected;
 }
@@ -2787,11 +2780,7 @@ const u32b *t_need(int num, ...)
 	static u32b arr[MAX_TRAITS_FLAG];
 	va_list vp;
 	va_start(vp, num);
-
-	for(i = 0; i < num; i++)
-	{
-		add_flag(arr, va_arg(vp, int));
-	}
+	for(i = 0; i < num; i++) add_flag(arr, va_arg(vp, int));
 
 	va_end(vp);
 	return arr;
@@ -2803,11 +2792,7 @@ const u32b *t_except(int num, ...)
 	static u32b arr2[MAX_TRAITS_FLAG];
 	va_list vp;
 	va_start(vp, num);
-
-	for(i = 0; i < num; i++)
-	{
-		add_flag(arr2, va_arg(vp, int));
-	}
+	for(i = 0; i < num; i++) add_flag(arr2, va_arg(vp, int));
 
 	va_end(vp);
 	return arr2;
