@@ -815,9 +815,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 #else
 		msg_print("Your lamp is full.");
 #endif
-
 	}
-
 	/* Decrease the item (from the pack) */
 	if(item >= 0)
 	{
@@ -837,10 +835,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 	prepare_update(creature_ptr, CRU_TORCH);
 }
 
-
-/*
-* An "item_tester_hook" for refilling torches
-*/
+// An "item_tester_hook" for refilling torches
 static bool item_tester_refill_torch(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Torches are okay */
@@ -850,10 +845,7 @@ static bool item_tester_refill_torch(creature_type *creature_ptr, object_type *o
 	return FALSE;
 }
 
-
-/*
-* Refuel the players torch (from the pack or floor)
-*/
+// Refuel the players torch (from the pack or floor)
 static void do_cmd_refill_torch(creature_type *creature_ptr)
 {
 	int item;
@@ -880,34 +872,15 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 	else if((object1_ptr->name2 == EGO_LITE_DARKNESS) || (object2_ptr->name2 == EGO_LITE_DARKNESS))
 	{
 		object2_ptr->fuel = 0;
-#ifdef JP
-		msg_print("しかし松明は全く光らない。");
-#else
-		msg_print("Curiously, your torche don't light.");
-#endif
+		msg_print(MES_LITE_TORCH_DARKEN);
 	}
-	/* Over-fuel message */
 	else if(object2_ptr->fuel >= FUEL_TORCH)
 	{
 		object2_ptr->fuel = FUEL_TORCH;
-#ifdef JP
-		msg_print("松明の寿命は十分だ。");
-#else
-		msg_print("Your torch is fully fueled.");
-#endif
-
+		msg_print(MES_LITE_TORCH_FULL);
 	}
-
-	/* Refuel message */
 	else
-	{
-#ifdef JP
-		msg_print("松明はいっそう明るく輝いた。");
-#else
-		msg_print("Your torch glows more brightly.");
-#endif
-
-	}
+		msg_print(MES_LITE_TORCH_GLOW);
 
 	/* Decrease the item (from the pack) */
 	if(item >= 0)

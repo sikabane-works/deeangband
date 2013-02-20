@@ -2830,6 +2830,9 @@ static cptr desc_stat_neg[] =
 #define MES_LITE_FUEL_GONE "ランプが消えてしまった！"
 #define MES_LITE_TORCH_COMBINE "松明を結合した。"
 #define MES_LITE_TORCH_GONE "松明が消えてしまった！"
+#define MES_LITE_TORCH_DARKEN "しかし松明は全く光らない"
+#define MES_LITE_TORCH_FULL "松明の寿命は十分だ。"
+#define MES_LITE_TORCH_GLOW "松明はいっそう明るく輝いた。"
 #else
 #define MES_LITE_FAINT "Your light is growing faint."
 #define MES_LITE_OUT "Your light has gone out!"
@@ -2839,4 +2842,7 @@ static cptr desc_stat_neg[] =
 #define MES_LITE_FUEL_GONE "Your lamp has gone out!"
 #define MES_LITE_TORCH_COMBINE "You combine the torches."
 #define MES_LITE_TORCH_GONE "Your torch has gone out!"
+#define MES_LITE_TORCH_DARKEN "Curiously, your torche don't light."
+#define MES_LITE_TORCH_FULL "Your torch is fully fueled."
+#define MES_LITE_TORCH_GLOW "Your torch glows more brightly."
 #endif
