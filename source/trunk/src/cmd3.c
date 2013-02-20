@@ -151,7 +151,6 @@ void do_cmd_wield(creature_type *creature_ptr)
 	object_type forge, *quest_ptr, *object_ptr, *old_equipped_ptr;
 	cptr act;
 	char object_name[MAX_NLEN];
-	cptr q, s;
 
 	int need_switch_wielding = 0;
 
@@ -161,16 +160,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	object_ptr = GET_ITEM(creature_ptr, item);
 	quest_ptr = &forge;
 
-	// Equip Flag
-#ifdef JP
-	q = "‚Ç‚±‚É‘•”õ‚µ‚Ü‚·‚©?";
-	s = "‚»‚ê‚Í‘•”õ‚Å‚«‚È‚¢B";
-#else
-	q = "Equip which hand? ";
-	s = "You can't equip it";
-#endif
-
-	n = get_equip_slot(creature_ptr, object_kind_info[object_ptr->k_idx].slot, q, s);
+	n = get_equip_slot(creature_ptr, object_kind_info[object_ptr->k_idx].slot, MES_EQUIP_WHICH_SLOT, MES_EQUIP_NO_SLOT);
 	if(n < 0) return;
 
 	// Recalculate bonuses

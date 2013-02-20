@@ -2264,6 +2264,8 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_EQUIP_WHICH_WIELD "どれを装備しますか? "
 #define MES_EQUIP_NO_WIELD "装備可能なアイテムがない。"
+#define MES_EQUIP_WHICH_SLOT "どこに装備しますか?"
+#define MES_EQUIP_NO_SLOT "それは装備できない。"
 #define MES_EQUIP_WHICH_TAKEOFF "どれを装備からはずしますか? "
 #define MES_EQUIP_NO_TAKEOFF "はずせる装備がない。"
 #define MES_EQUIP_HEAVY_BOW "こんな重い弓を装備しているのは大変だ。"
@@ -2283,6 +2285,8 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_EQUIP_WHICH_WIELD "Wear/Wield which item? "
 #define MES_EQUIP_NO_WIELD "You have nothing you can wear or wield."
+#define MES_EQUIP_WHICH_SLOT "Equip which hand? "
+#define MES_EQUIP_NO_SLOT "You can't equip it"
 #define MES_EQUIP_WHICH_TAKEOFF "Take off which item? "
 #define MES_EQUIP_NO_TAKEOFF "You are not wearing anything to take off."
 #define MES_EQUIP_HEAVY_BOW "You have trouble wielding such a heavy bow."
