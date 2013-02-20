@@ -779,47 +779,37 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 {
 	int item;
 
-	object_type *object_ptr;
-	object_type *j_ptr;
+	object_type *object1_ptr;
+	object_type *object2_ptr;
 
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_REFILL_LAMP, MES_OBJECT_NO_REFILL_LAMP, (USE_INVEN | USE_FLOOR), item_tester_refill_lantern, 0)) return;
-	object_ptr = GET_ITEM(creature_ptr, item);
+	object1_ptr = GET_ITEM(creature_ptr, item);
 	cost_tactical_energy(creature_ptr, 50); // Take a partial turn
 
 	/* Access the lantern */
-	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
+	object2_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
+	object2_ptr->fuel += object1_ptr->fuel;
 
-	/* Refuel */
-	j_ptr->fuel += object_ptr->fuel;
-
-#ifdef JP
-	msg_print("ランプに油を注いだ。");
-#else
-	msg_print("You fuel your lamp.");
-#endif
+	msg_print(MES_LITE_FUEL_LAMP);
 
 	/* Comment */
-	if((object_ptr->name2 == EGO_LITE_DARKNESS) && (j_ptr->fuel > 0))
+	if((object1_ptr->name2 == EGO_LITE_DARKNESS) && (object2_ptr->fuel > 0))
 	{
-		j_ptr->fuel = 0;
-#ifdef JP
-		msg_print("ランプが消えてしまった！");
-#else
-		msg_print("Your lamp has gone out!");
-#endif
+		object2_ptr->fuel = 0;
+		msg_print(MES_LITE_FUEL_GONE);
 	}
-	else if((object_ptr->name2 == EGO_LITE_DARKNESS) || (j_ptr->name2 == EGO_LITE_DARKNESS))
+	else if((object1_ptr->name2 == EGO_LITE_DARKNESS) || (object2_ptr->name2 == EGO_LITE_DARKNESS))
 	{
-		j_ptr->fuel = 0;
+		object2_ptr->fuel = 0;
 #ifdef JP
 		msg_print("しかしランプは全く光らない。");
 #else
 		msg_print("Curiously, your lamp doesn't light.");
 #endif
 	}
-	else if(j_ptr->fuel >= FUEL_LAMP)
+	else if(object2_ptr->fuel >= FUEL_LAMP)
 	{
-		j_ptr->fuel = FUEL_LAMP;
+		object2_ptr->fuel = FUEL_LAMP;
 #ifdef JP
 		msg_print("ランプの油は一杯だ。");
 #else
@@ -962,7 +952,7 @@ void do_cmd_refill(creature_type *creature_ptr)
 	free_posture(creature_ptr);
 
 	/* It is nothing */
-	if(object1_ptr->tval != TV_LITE) msg_print(MES_LITENONE);
+	if(object1_ptr->tval != TV_LITE) msg_print(MES_LITE_NONE);
 
 	/* It's a lamp */
 	else if(object1_ptr->sval == SV_LITE_LANTERN) do_cmd_refill_lamp(creature_ptr);

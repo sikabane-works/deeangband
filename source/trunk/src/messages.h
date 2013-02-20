@@ -442,7 +442,7 @@
 #define MES_TRAP_WARNING "* 注意:この先はトラップの感知範囲外です！ *"
 #define MES_TRAP_DESTROY "トラップを粉砕した。"
 
-#define MES_LITEAREA "光が辺りを覆った。"
+#define MES_LITE_AREA "光が辺りを覆った。"
 #define GAME_MESSAGE_UNLITE_AREA "暗闇が辺りを覆った。"
 
 #define GAME_MESSAGE_DESTROY "燃えるような閃光が発生した！"
@@ -471,7 +471,7 @@
 #define MES_PREVENT_BY_CREATURE(NAME) "%sが邪魔だ。", (NAME)
 #define GAME_MESSAGE_FISHING_PREVENT_BY_FEATURE "そこは水辺ではない。"
 #define GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON "ダンジョンが魔法を吸収した！"
-#define MES_LITEPREVENT_BY_DUNGEON "ダンジョンが光を吸収した。"
+#define MES_LITE_PREVENT_BY_DUNGEON "ダンジョンが光を吸収した。"
 #define GAME_MESSAGE_TELE_PREVENT_BY_CREATURE "テレポートを邪魔された！"
 #define GAME_MESSAGE_HAYAGAKE_PREVENT "ここでは素早く動けない。"
 #define GAME_MESSAGE_ATTEMPT_ANYWAY "それでも挑戦しますか? "
@@ -561,7 +561,7 @@
 #define MES_TRAP_WARNING "*Leaving trap detect region!*"
 #define MES_TRAP_DESTROY "You destroyed the trap."
 
-#define MES_LITEAREA "You are surrounded by a light."
+#define MES_LITE_AREA "You are surrounded by a light."
 #define GAME_MESSAGE_UNLITE_AREA "Darkness surrounds you."
 
 #define GAME_MESSAGE_DESTROY "There is a searing blast of light!"
@@ -590,7 +590,7 @@
 #define MES_PREVENT_BY_CREATURE(NAME) "%^s is stand in your way.", (NAME)
 #define GAME_MESSAGE_FISHING_PREVENT_BY_FEATURE "There is no fishing place."
 #define GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON "The dungeon absorbs all attempted magic!"
-#define MES_LITEPREVENT_BY_DUNGEON "The darkness of this dungeon absorb your light."
+#define MES_LITE_PREVENT_BY_DUNGEON "The darkness of this dungeon absorb your light."
 #define GAME_MESSAGE_TELE_PREVENT_BY_CREATURE "Your teleportation is blocked!"
 #define GAME_MESSAGE_HAYAGAKE_PREVENT "You cannot run in here."
 #define GAME_MESSAGE_ATTEMPT_ANYWAY "Attempt it anyway? "
@@ -2822,13 +2822,17 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
-#define MES_LITEFAINT "明かりが微かになってきている。"
-#define MES_LITEOUT "明かりが消えてしまった！"
-#define MES_LITENONE "光源を装備していない。"
-#define MES_LITENOREFILL "この光源は寿命を延ばせない。"
+#define MES_LITE_FAINT "明かりが微かになってきている。"
+#define MES_LITE_OUT "明かりが消えてしまった！"
+#define MES_LITE_NONE "光源を装備していない。"
+#define MES_LITE_NOREFILL "この光源は寿命を延ばせない。"
+#define MES_LITE_FUEL_LAMP "ランプに油を注いだ。"
+#define MES_LITE_FUEL_GONE "ランプが消えてしまった！"
 #else
-#define MES_LITEFAINT "Your light is growing faint."
-#define MES_LITEOUT "Your light has gone out!"
-#define MES_LITENONE "You are not wielding a light."
-#define MES_LITENOREFILL "Your light cannot be refilled."
+#define MES_LITE_FAINT "Your light is growing faint."
+#define MES_LITE_OUT "Your light has gone out!"
+#define MES_LITE_NONE "You are not wielding a light."
+#define MES_LITE_NOREFILL "Your light cannot be refilled."
+#define MES_LITE_FUEL_LAMP "You fuel your lamp."
+#define MES_LITE_FUEL_GONE "Your lamp has gone out!"
 #endif

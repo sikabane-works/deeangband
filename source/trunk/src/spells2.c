@@ -2401,11 +2401,11 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 
 	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)
 	{
-		msg_print(MES_LITEPREVENT_BY_DUNGEON);
+		msg_print(MES_LITE_PREVENT_BY_DUNGEON);
 		return FALSE;
 	}
 
-	if(!has_trait(player_ptr, TRAIT_BLIND)) msg_print(MES_LITEAREA);
+	if(!has_trait(player_ptr, TRAIT_BLIND)) msg_print(MES_LITE_AREA);
 	(void)project(creature_ptr, 0, rad, creature_ptr->fy, creature_ptr->fx, dam, DO_EFFECT_LITE_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
 	lite_room(creature_ptr, creature_ptr->fy, creature_ptr->fx);
 	return TRUE;
