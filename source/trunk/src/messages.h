@@ -2582,6 +2582,7 @@ static cptr desc_stat_neg[] =
 #define MES_PET_DISMISS_ASK(PET, REMAIN) "%sを放しますか？ [Yes/No/Unnamed (%d体)]", (PET), (REMAIN)
 #define MES_PET_RELEASE(PET) "%s を放した。", (PET)
 #define MES_PET_DISMISS(NUM) "%d 体のペットを放しました。", (NUM)
+#define MES_PET_NOTHING "ペットがいない！"
 #define MES_PET_NO_PET "そのクリーチャーはペットではない。"
 #define MES_PET_CANNOT_CHANGE_NAME "そのクリーチャーの名前は変えられない。"
 #define MES_PET_CHANGE_NAME(NAME) "%sに名前をつける。", (NAME)
@@ -2594,6 +2595,7 @@ static cptr desc_stat_neg[] =
 #define MES_PET_DISMISS_ASK(PET, REMAIN) "Dismiss %s? [Yes/No/Unnamed (%d remain)]", (PET), (REMAIN)
 #define MES_PET_RELEASE(PET) "Dismissed %s.", (PET)
 #define MES_PET_DISMISS(NUM) "You have dismissed %d pet%s.", (NUM), ((NUM) == 1 ? "" : "s")
+#define MES_PET_NOTHING "You have no pets."
 #define MES_PET_NO_PET "This creature is not a pet."
 #define MES_PET_CANNOT_CHANGE_NAME "You cannot change name of this creature."
 #define MES_PET_CHANGE_NAME(NAME) "Name %s.", (NAME)
@@ -2615,6 +2617,12 @@ static cptr desc_stat_neg[] =
 #define MES_PETCOM_OPEN_DOORS_OFF "ドアを開ける (現在:OFF)"
 #define MES_PETCOM_OPEN_PICKUP_ITEM_ON "アイテムを拾う (現在:ON)"
 #define MES_PETCOM_OPEN_PICKUP_ITEM_OFF "アイテムを拾う (現在:OFF)"
+#define MES_PETCOM_ALLOW_TELEPORT_ON "テレポート系魔法を使う (現在:ON)"
+#define MES_PETCOM_ALLOW_TELEPORT_OFF "テレポート系魔法を使う (現在:OFF)"
+#define MES_PETCOM_ATTACK_SPELL_ON "攻撃魔法を使う (現在:ON)"
+#define MES_PETCOM_ATTACK_SPELL_OFF "攻撃魔法を使う (現在:OFF)"
+#define MES_PETCOM_SUMMON_SPELL_ON "召喚魔法を使う (現在:ON)"
+#define MES_PETCOM_SUMMON_SPELL_OFF "召喚魔法を使う (現在:OFF)"
 #else
 #define MES_PETCOM_DISMISS_PET "dismiss pets"
 #define MES_PETCOM_TARGETING(CURRENT) "specify a target of pet (now:%s)", (CURRENT)
@@ -2627,6 +2635,12 @@ static cptr desc_stat_neg[] =
 #define MES_PETCOM_OPEN_DOORS_OFF "pets open doors (now Off)"
 #define MES_PETCOM_OPEN_PICKUP_ITEM_ON "pets pick up items (now On)"
 #define MES_PETCOM_OPEN_PICKUP_ITEM_OFF "pets pick up items (now Off)"
+#define MES_PETCOM_ALLOW_TELEPORT_ON "allow teleport (now On)"
+#define MES_PETCOM_ALLOW_TELEPORT_OFF "allow teleport (now Off)"
+#define MES_PETCOM_ATTACK_SPELL_ON "allow cast attack spell (now On)"
+#define MES_PETCOM_ATTACK_SPELL_OFF "allow cast attack spell (now Off)"
+#define MES_PETCOM_SUMMON_SPELL_ON "allow cast summon spell (now On)"
+#define MES_PETCOM_SUMMON_SPELL_OFF "allow cast summon spell (now Off)"
 #endif
 
 #ifdef JP

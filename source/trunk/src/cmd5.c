@@ -1635,57 +1635,21 @@ void do_cmd_pet(creature_type *master_ptr)
 	powers[num++] = PET_TAKE_ITEMS;
 
 	if(master_ptr->pet_extra_flags & PF_TELEPORT)
-	{
-#ifdef JP
-		power_desc[num] = "テレポート系魔法を使う (現在:ON)";
-#else
-		power_desc[num] = "allow teleport (now On)";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_ALLOW_TELEPORT_ON;
 	else
-	{
-#ifdef JP
-		power_desc[num] = "テレポート系魔法を使う (現在:OFF)";
-#else
-		power_desc[num] = "allow teleport (now Off)";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_ALLOW_TELEPORT_OFF;
 	powers[num++] = PET_TELEPORT;
 
 	if(master_ptr->pet_extra_flags & PF_ATTACK_SPELL)
-	{
-#ifdef JP
-		power_desc[num] = "攻撃魔法を使う (現在:ON)";
-#else
-		power_desc[num] = "allow cast attack spell (now On)";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_ATTACK_SPELL_ON;
 	else
-	{
-#ifdef JP
-		power_desc[num] = "攻撃魔法を使う (現在:OFF)";
-#else
-		power_desc[num] = "allow cast attack spell (now Off)";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_ATTACK_SPELL_OFF;
 	powers[num++] = PET_ATTACK_SPELL;
 
 	if(master_ptr->pet_extra_flags & PF_TRAIT_S_SPELL)
-	{
-#ifdef JP
-		power_desc[num] = "召喚魔法を使う (現在:ON)";
-#else
-		power_desc[num] = "allow cast summon spell (now On)";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_SUMMON_SPELL_ON;
 	else
-	{
-#ifdef JP
-		power_desc[num] = "召喚魔法を使う (現在:OFF)";
-#else
-		power_desc[num] = "allow cast summon spell (now Off)";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_SUMMON_SPELL_OFF;
 	powers[num++] = PET_TRAIT_S_SPELL;
 
 	if(master_ptr->pet_extra_flags & PF_BALL_SPELL)
@@ -1991,11 +1955,7 @@ void do_cmd_pet(creature_type *master_ptr)
 
 			if(!pet_ctr)
 			{
-#ifdef JP
-				msg_print("ペットがいない！");
-#else
-				msg_print("You have no pets!");
-#endif
+				msg_print(MES_PET_NOTHING);
 				break;
 			}
 			do_cmd_pet_dismiss(master_ptr);
@@ -2075,52 +2035,35 @@ void do_cmd_pet(creature_type *master_ptr)
 		}
 		/* flag - allow pets to teleport */
 	case PET_TELEPORT:
-		{
-			if(master_ptr->pet_extra_flags & PF_TELEPORT) master_ptr->pet_extra_flags &= ~(PF_TELEPORT);
-			else master_ptr->pet_extra_flags |= (PF_TELEPORT);
-			break;
-		}
+		if(master_ptr->pet_extra_flags & PF_TELEPORT) master_ptr->pet_extra_flags &= ~(PF_TELEPORT);
+		else master_ptr->pet_extra_flags |= (PF_TELEPORT);
+		break;
 		/* flag - allow pets to cast attack spell */
 	case PET_ATTACK_SPELL:
-		{
-			if(master_ptr->pet_extra_flags & PF_ATTACK_SPELL) master_ptr->pet_extra_flags &= ~(PF_ATTACK_SPELL);
-			else master_ptr->pet_extra_flags |= (PF_ATTACK_SPELL);
-			break;
-		}
+		if(master_ptr->pet_extra_flags & PF_ATTACK_SPELL) master_ptr->pet_extra_flags &= ~(PF_ATTACK_SPELL);
+		else master_ptr->pet_extra_flags |= (PF_ATTACK_SPELL);
+		break;
 		/* flag - allow pets to cast attack spell */
 	case PET_TRAIT_S_SPELL:
-		{
-			if(master_ptr->pet_extra_flags & PF_TRAIT_S_SPELL) master_ptr->pet_extra_flags &= ~(PF_TRAIT_S_SPELL);
-			else master_ptr->pet_extra_flags |= (PF_TRAIT_S_SPELL);
-			break;
-		}
+		if(master_ptr->pet_extra_flags & PF_TRAIT_S_SPELL) master_ptr->pet_extra_flags &= ~(PF_TRAIT_S_SPELL);
+		else master_ptr->pet_extra_flags |= (PF_TRAIT_S_SPELL);
+		break;
 		/* flag - allow pets to cast attack spell */
 	case PET_BALL_SPELL:
-		{
-			if(master_ptr->pet_extra_flags & PF_BALL_SPELL) master_ptr->pet_extra_flags &= ~(PF_BALL_SPELL);
-			else master_ptr->pet_extra_flags |= (PF_BALL_SPELL);
-			break;
-		}
-
+		if(master_ptr->pet_extra_flags & PF_BALL_SPELL) master_ptr->pet_extra_flags &= ~(PF_BALL_SPELL);
+		else master_ptr->pet_extra_flags |= (PF_BALL_SPELL);
+		break;
 	case PET_RIDING:
-		{
-			(void)do_riding(master_ptr, FALSE);
-			break;
-		}
-
+		(void)do_riding(master_ptr, FALSE);
+		break;
 	case PET_NAME:
-		{
-			do_name_pet(master_ptr);
-			break;
-		}
-
+		do_name_pet(master_ptr);
+		break;
 	case PET_RYOUTE:
-		{
-			if(master_ptr->pet_extra_flags & PF_RYOUTE) master_ptr->pet_extra_flags &= ~(PF_RYOUTE);
-			else master_ptr->pet_extra_flags |= (PF_RYOUTE);
-			prepare_update(master_ptr, CRU_BONUS);
-			handle_stuff(master_ptr);
-			break;
-		}
+		if(master_ptr->pet_extra_flags & PF_RYOUTE) master_ptr->pet_extra_flags &= ~(PF_RYOUTE);
+		else master_ptr->pet_extra_flags |= (PF_RYOUTE);
+		prepare_update(master_ptr, CRU_BONUS);
+		handle_stuff(master_ptr);
+		break;
 	}
 }
