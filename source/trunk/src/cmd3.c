@@ -868,24 +868,14 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 	/* Access the primary torch */
 	object2_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 
-	/* Refuel */
 	object2_ptr->fuel += object1_ptr->fuel + 5;
 
-#ifdef JP
-	msg_print("¼–¾‚ğŒ‹‡‚µ‚½B");
-#else
-	msg_print("You combine the torches.");
-#endif
+	msg_print(MES_LITE_TORCH_COMBINE);
 
-	/* Comment */
 	if((object1_ptr->name2 == EGO_LITE_DARKNESS) && (object2_ptr->fuel > 0))
 	{
 		object2_ptr->fuel = 0;
-#ifdef JP
-		msg_print("¼–¾‚ªÁ‚¦‚Ä‚µ‚Ü‚Á‚½I");
-#else
-		msg_print("Your torch has gone out!");
-#endif
+		msg_print(MES_LITE_TORCH_GONE);
 	}
 	else if((object1_ptr->name2 == EGO_LITE_DARKNESS) || (object2_ptr->name2 == EGO_LITE_DARKNESS))
 	{
@@ -939,37 +929,18 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 }
 
 
-/*
-* Refill the players lamp, or restock his torches
-*/
+// Refill the players lamp, or restock his torches
 void do_cmd_refill(creature_type *creature_ptr)
 {
 	object_type *object1_ptr;
 
-	/* Get the light */
 	object1_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
-
 	free_posture(creature_ptr);
 
-	/* It is nothing */
 	if(object1_ptr->tval != TV_LITE) msg_print(MES_LITE_NONE);
-
-	/* It's a lamp */
 	else if(object1_ptr->sval == SV_LITE_LANTERN) do_cmd_refill_lamp(creature_ptr);
-
-	/* It's a torch */
 	else if(object1_ptr->sval == SV_LITE_TORCH) do_cmd_refill_torch(creature_ptr);
-
-	/* No torch to refill */
-	else
-	{
-#ifdef JP
-		msg_print("‚±‚ÌŒõŒ¹‚Íõ–½‚ğ‰„‚Î‚¹‚È‚¢B");
-#else
-		msg_print();
-#endif
-
-	}
+	else msg_print(MES_LITE_NO_REFILL);
 }
 
 // Target command
