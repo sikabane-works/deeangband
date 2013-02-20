@@ -109,7 +109,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 
 	/* Build a prompt (accept all spells) */
 #ifdef JP
-	jverb1( prompt, jverb_buf );
+	jverb1(prompt, jverb_buf);
 	(void) strnfmt(out_val, 78, "(%^s:%c-%c, '*'で一覧, ESCで中断) どの%sを%^sますか? ",
 		p, I2A(0), I2A(num - 1), p, jverb_buf );
 #else
@@ -608,11 +608,7 @@ void do_cmd_study(creature_type *creature_ptr)
 	if(object_ptr->tval == REALM2_BOOK(creature_ptr)) increment = 32;
 	else if(object_ptr->tval != REALM1_BOOK(creature_ptr))
 	{
-#ifdef JP
-		if(!get_check("本当に魔法の領域を変更しますか？")) return;
-#else
-		if(!get_check("Really, change magic realm? ")) return;
-#endif
+		if(!get_check(MES_SPELL_CHANGE_REALM_ASK)) return;
 		change_realm2(creature_ptr, tval2realm(object_ptr->tval));
 		increment = 32;
 	}
@@ -624,14 +620,7 @@ void do_cmd_study(creature_type *creature_ptr)
 
 	/* Mage -- Learn a selected spell */
 	if(magic_info[creature_ptr->class_idx].spell_book != TV_LIFE_BOOK)
-	{
-		/* Ask for a spell, allow cancel */
-#ifdef JP
-		if(!get_spell(creature_ptr, &spell, "学ぶ", sval, FALSE, object_ptr->tval - TV_LIFE_BOOK + 1) && (spell == -1)) return;
-#else
-		if(!get_spell(creature_ptr, &spell, "study", sval, FALSE, object_ptr->tval - TV_LIFE_BOOK + 1) && (spell == -1)) return;
-#endif
-	}
+		if(!get_spell(creature_ptr, &spell, KW_STUDY, sval, FALSE, object_ptr->tval - TV_LIFE_BOOK + 1) && (spell == -1)) return;
 
 	/* Priest -- Learn a random prayer */
 	else

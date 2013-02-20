@@ -203,6 +203,7 @@
 #define KW_SONG "歌"
 #define KW_MIRACLE "奇跡"
 #define KW_SPELL "魔法"
+#define KW_STUDY "学ぶ"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -285,6 +286,7 @@
 #define KW_SONG "Song"
 #define KW_MIRACLE "Miracle"
 #define KW_SPELL "Spell"
+#define KW_STUDY "Study"
 #endif
 
 #ifdef JP
@@ -1987,12 +1989,14 @@ static cptr desc_stat_neg[] =
 #define MES_STUDY_SLOT(REALM, NUM) "あと %d 種の%sを学べる。", (NUM), (REALM)
 #define MES_STUDY_NO_SPELL(REALM) "その本には学ぶべき%sがない。", (REALM)
 #define MES_STUDY_PERFECT_LEARNED(REALM) "その%sは完全に使いこなせるので学ぶ必要はない。", (REALM)
+#define MES_SPELL_CHANGE_REALM_ASK "本当に魔法の領域を変更しますか？"
 #else
 #define MES_STUDY_NO_READING "You cannot read books!"
 #define MES_STUDY_NO_SLOT(REALM) "You cannot learn any new %ss!", (REALM)
 #define MES_STUDY_SLOT(REALM, NUM) "You can learn %d new %s%s.", (REALM), (NUM), ((NUM) == 1 ? "":"s")
 #define MES_STUDY_NO_SPELL(REALM) "You cannot learn any %ss in that book.", (REALM)
 #define MES_STUDY_PERFECT_LEARNED(REALM) "You don't need to study this %s anymore.", (REALM)
+#define MES_SPELL_CHANGE_REALM_ASK "Really, change magic realm? "
 #endif
 
 #ifdef JP
