@@ -763,14 +763,8 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 // An "item_tester_hook" for refilling lanterns
 static bool item_tester_refill_lantern(creature_type *creature_ptr, object_type *object_ptr)
 {
-	/* Flasks of oil are okay */
 	if(object_ptr->tval == TV_FLASK) return TRUE;
-
-	/* Laterns are okay */
-	if((object_ptr->tval == TV_LITE) &&
-		(object_ptr->sval == SV_LITE_LANTERN)) return TRUE;
-
-	/* Assume not okay */
+	if((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_LANTERN)) return TRUE;
 	return FALSE;
 }
 
@@ -801,20 +795,12 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 	else if((object1_ptr->name2 == EGO_LITE_DARKNESS) || (object2_ptr->name2 == EGO_LITE_DARKNESS))
 	{
 		object2_ptr->fuel = 0;
-#ifdef JP
-		msg_print("しかしランプは全く光らない。");
-#else
-		msg_print("Curiously, your lamp doesn't light.");
-#endif
+		msg_print(MES_LITE_FUEL_DARKEN);
 	}
 	else if(object2_ptr->fuel >= FUEL_LAMP)
 	{
 		object2_ptr->fuel = FUEL_LAMP;
-#ifdef JP
-		msg_print("ランプの油は一杯だ。");
-#else
-		msg_print("Your lamp is full.");
-#endif
+		msg_print(MES_LITE_FUEL_FULL);
 	}
 	/* Decrease the item (from the pack) */
 	if(item >= 0)
