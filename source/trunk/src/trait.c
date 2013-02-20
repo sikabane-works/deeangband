@@ -2459,11 +2459,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_POLYMORPH:
-#ifdef JP
-		if(!get_check("変身します。よろしいですか？")) return FALSE;
-#else
-		if(!get_check("You will polymorph your self. Are you sure? ")) return FALSE;
-#endif
+		if(!get_check(MES_POLYSELF_ASK)) return FALSE;
 		do_poly_self(caster_ptr);
 		break;
 
@@ -2578,21 +2574,13 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_ENLIGHTENMENT:
-#ifdef JP
-		msg_print("自分の置かれている状況が脳裏に浮かんできた...");
-#else
-		msg_print("An image of your surroundings forms in your mind...");
-#endif
+		msg_print(MES_DETECT_ENLIGHTMENT);
 		wiz_lite(floor_ptr, caster_ptr, FALSE);
 		effected = TRUE;
 		break;
 
 	case TRAIT_STAR_ENLIGHTENMENT:
-#ifdef JP
-		msg_print("更なる啓蒙を感じた...");
-#else
-		msg_print("You begin to feel more enlightened...");
-#endif
+		msg_print(MES_DETECT_MORE_ENLIGHTMENT);
 		msg_print(NULL);
 		wiz_lite(floor_ptr, caster_ptr, FALSE);
 		(void)do_inc_stat(caster_ptr, STAT_INT);
