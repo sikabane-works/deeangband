@@ -2461,13 +2461,7 @@ void do_cmd_macros(void)
 
 			/* Dump the macros */
 			(void)macro_dump(tmp);
-
-#ifdef JP
-			msg_print("マクロを追加しました。");
-#else
-			msg_print("Appended macros.");
-#endif
-
+			msg_print(MES_MACRO_ADDED);
 		}
 
 		/* Query a macro */
@@ -2483,15 +2477,7 @@ void do_cmd_macros(void)
 			k = macro_find_exact(buf);
 
 			/* Nothing found */
-			if(k < 0)
-			{
-#ifdef JP
-				msg_print("そのキーにはマクロは定義されていません。");
-#else
-				msg_print("Found no macro.");
-#endif
-
-			}
+			if(k < 0) msg_print(MES_MACRO_NOT_FOUND);
 
 			/* Found one */
 			else
@@ -2504,13 +2490,7 @@ void do_cmd_macros(void)
 
 				/* Display the current action */
 				prt(buf, 22, 0);
-
-#ifdef JP
-				msg_print("マクロを確認しました。");
-#else
-				msg_print("Found a macro.");
-#endif
-
+				msg_print(MES_MACRO_FOUND);
 			}
 		}
 

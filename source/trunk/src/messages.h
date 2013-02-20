@@ -2770,3 +2770,14 @@ static cptr desc_stat_neg[] =
 #define MES_RACIAL_RISK_ASK "Really use the power in your weakened state? "
 #define MES_RACIAL_FAILED "You've failed to concentrate hard enough."
 #endif
+
+
+#ifdef JP
+#define MES_MACRO_ADDED "マクロを追加しました。"
+#define MES_MACRO_NOT_FOUND "そのキーにはマクロは定義されていません。"
+#define MES_MACRO_FOUND "マクロを確認しました。"
+#else
+#define MES_MACRO_ADDED "Appended macros."
+#define MES_MACRO_NOT_FOUND "Found no macro."
+#define MES_MACRO_FOUND "Found a macro"
+#endif
