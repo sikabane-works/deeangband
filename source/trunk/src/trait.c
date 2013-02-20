@@ -1978,7 +1978,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 			if(id == -3)
 			{
-				if(!choose_kamae(caster_ptr)) return FALSE;
+				if(!choose_combat_option(caster_ptr)) return FALSE;
 				prepare_update(caster_ptr, CRU_BONUS);
 			}
 			else if(id == -4)
@@ -2105,7 +2105,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #endif
 				return FALSE;
 			}
-			if(!choose_kata(caster_ptr)) return FALSE;
+			if(!choose_combat_option(caster_ptr)) return FALSE;
 			prepare_update(caster_ptr, CRU_BONUS);
 			break;
 		}

@@ -391,7 +391,7 @@ bool can_do_cmd_cast(creature_type *creature_ptr)
 }
 
 
-bool choose_kamae(creature_type *creature_ptr)
+bool choose_combat_option(creature_type *creature_ptr)
 {
 	char choice;
 	int new_kamae = 0;
@@ -401,6 +401,24 @@ bool choose_kamae(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 		msg_print(MES_PREVENT_BY_CONFUSION);
+		return FALSE;
+	}
+	if(has_trait(creature_ptr, TRAIT_STUN))
+	{
+#ifdef JP
+		msg_print("意識がはっきりとしない。");
+#else
+		msg_print("You are not clear headed");
+#endif
+		return FALSE;
+	}
+	if(has_trait(creature_ptr, TRAIT_AFRAID))
+	{
+#ifdef JP
+		msg_print("体が震えて構えられない！");
+#else
+		msg_print("You are trembling with fear!");
+#endif
 		return FALSE;
 	}
 
@@ -478,137 +496,6 @@ bool choose_kamae(creature_type *creature_ptr)
 	screen_load();
 	return TRUE;
 }
-
-bool choose_kata(creature_type *creature_ptr)
-{
-	char choice;
-	int new_kata = 0;
-	int i;
-	char buf[80];
-
-	if(has_trait(creature_ptr, TRAIT_CONFUSED))
-	{
-		msg_print(MES_PREVENT_BY_CONFUSION);
-		return FALSE;
-	}
-
-	if(has_trait(creature_ptr, TRAIT_STUN))
-	{
-#ifdef JP
-		msg_print("意識がはっきりとしない。");
-#else
-		msg_print("You are not clear headed");
-#endif
-		return FALSE;
-	}
-
-	if(has_trait(creature_ptr, TRAIT_AFRAID))
-	{
-#ifdef JP
-		msg_print("体が震えて構えられない！");
-#else
-		msg_print("You are trembling with fear!");
-#endif
-		return FALSE;
-	}
-
-	screen_save();
-
-#ifdef JP
-	prt(" a) 型を崩す", 2, 20);
-#else
-	prt(" a) No Form", 2, 20);
-#endif
-
-	for (i = 0; i < MAX_KATA; i++)
-	{
-		if(creature_ptr->lev >= kata_shurui[i].min_level)
-		{
-#ifdef JP
-			sprintf(buf," %c) %sの型    %s",I2A(i+1), kata_shurui[i].desc, kata_shurui[i].info);
-#else
-			sprintf(buf," %c) Form of %-12s  %s",I2A(i+1), kata_shurui[i].desc, kata_shurui[i].info);
-#endif
-			prt(buf, 3+i, 20);
-		}
-	}
-
-	prt("", 1, 0);
-#ifdef JP
-	prt("        どの型で構えますか？", 1, 14);
-#else
-	prt("        Choose Form: ", 1, 14);
-#endif
-
-	while(1)
-	{
-		choice = inkey();
-
-		if(choice == ESCAPE)
-		{
-			screen_load();
-			return FALSE;
-		}
-		else if((choice == 'a') || (choice == 'A'))
-		{
-			if(creature_ptr->action == ACTION_KATA) set_action(creature_ptr, ACTION_NONE);
-			else
-#ifdef JP
-				msg_print("もともと構えていない。");
-#else
-				msg_print("You are not assuming posture.");
-#endif
-			screen_load();
-			return TRUE;
-		}
-		else if((choice == 'b') || (choice == 'B'))
-		{
-			new_kata = 0;
-			break;
-		}
-		else if(((choice == 'c') || (choice == 'C')) && (creature_ptr->lev > 29))
-		{
-			new_kata = 1;
-			break;
-		}
-		else if(((choice == 'd') || (choice == 'D')) && (creature_ptr->lev > 34))
-		{
-			new_kata = 2;
-			break;
-		}
-		else if(((choice == 'e') || (choice == 'E')) && (creature_ptr->lev > 39))
-		{
-			new_kata = 3;
-			break;
-		}
-	}
-	set_action(creature_ptr, ACTION_KATA);
-
-	if(creature_ptr->posture & (KATA_IAI << new_kata))
-	{
-#ifdef JP
-		msg_print("構え直した。");
-#else
-		msg_print("You reassume a posture.");
-#endif
-	}
-	else
-	{
-		creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
-		prepare_update(creature_ptr, CRU_BONUS | PU_CREATURES);
-#ifdef JP
-		msg_format("%sの型で構えた。",kata_shurui[new_kata].desc);
-#else
-		msg_format("You assume a posture of %s form.",kata_shurui[new_kata].desc);
-#endif
-		creature_ptr->posture |= (KATA_IAI << new_kata);
-	}
-	prepare_redraw(PR_STATE);
-	prepare_redraw(PR_STATUS);
-	screen_load();
-	return TRUE;
-}
-
 
 typedef struct power_desc_type power_desc_type;
 

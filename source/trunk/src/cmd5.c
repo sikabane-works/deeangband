@@ -16,25 +16,10 @@ cptr spell_category_name(int tval)
 {
 	switch (tval)
 	{
-#ifdef JP
-	case TV_HISSATSU_BOOK:
-		return "•KŽE‹Z";
-	case TV_LIFE_BOOK:
-		return "‹F‚è";
-	case TV_MUSIC_BOOK:
-		return "‰Ì";
-	default:
-		return "Žô•¶";
-#else
-	case TV_HISSATSU_BOOK:
-		return "art";
-	case TV_LIFE_BOOK:
-		return "prayer";
-	case TV_MUSIC_BOOK:
-		return "song";
-	default:
-		return "spell";
-#endif
+	case TV_HISSATSU_BOOK: return KW_HISSATSU;
+	case TV_LIFE_BOOK: return KW_MIRACLE;
+	case TV_MUSIC_BOOK: return KW_SONG;
+	default: return KW_SPELL;
 	}
 }
 

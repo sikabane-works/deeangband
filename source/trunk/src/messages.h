@@ -199,6 +199,10 @@
 #define KW_EMPTY "‹ó"
 #define KW_TRIED "–¢”»–¾"
 #define KW_PRICE_OFF "%ˆø‚«"
+#define KW_HISSATSU "•KE‹Z"
+#define KW_SONG "‰Ì"
+#define KW_MIRACLE "ŠïÕ"
+#define KW_SPELL "–‚–@"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -277,6 +281,10 @@
 #define KW_EMPTY "empty"
 #define KW_TRIED "tried"
 #define KW_PRICE_OFF "%off"
+#define KW_HISSATSU "Art"
+#define KW_SONG "Song"
+#define KW_MIRACLE "Miracle"
+#define KW_SPELL "Spell"
 #endif
 
 #ifdef JP
