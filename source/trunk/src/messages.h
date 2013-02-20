@@ -2606,9 +2606,19 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_PETCOM_DISMISS_PET "ペットを放す"
 #define MES_PETCOM_TARGETING(CURRENT) "ペットのターゲットを指定 (現在：%s)", (CURRENT)
+#define MES_PETCOM_STAY_CLOSE "近くにいろ"
+#define MES_PETCOM_FOLLOW_ME "ついて来い"
+#define MES_PETCOM_SEEK_AND_DESTROY "敵を見つけて倒せ"
+#define MES_PETCOM_GIVE_ME_SPACE "少し離れていろ"
+#define MES_PETCOM_STAY_AWAY "離れていろ"
 #else
 #define MES_PETCOM_DISMISS_PET "dismiss pets"
 #define MES_PETCOM_TARGETING(CURRENT) "specify a target of pet (now:%s)", (CURRENT)
+#define MES_PETCOM_STAY_CLOSE "stay close"
+#define MES_PETCOM_FOLLOW_ME "follow me"
+#define MES_PETCOM_SEEK_AND_DESTROY "seek and destroy"
+#define MES_PETCOM_GIVE_ME_SPACE "give me space"
+#define MES_PETCOM_STAY_AWAY "stay away"
 #endif
 
 #ifdef JP

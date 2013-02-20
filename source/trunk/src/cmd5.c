@@ -1601,49 +1601,24 @@ void do_cmd_pet(creature_type *master_ptr)
 	power_desc[num] = target_buf;
 
 	powers[num++] = PET_TARGET;
-
-#ifdef JP
-	power_desc[num] = "‹ß‚­‚É‚¢‚ë";
-#else
-	power_desc[num] = "stay close";
-#endif
+	power_desc[num] = MES_PETCOM_STAY_CLOSE;
 
 	if(master_ptr->pet_follow_distance == PET_CLOSE_DIST) mode = num;
 	powers[num++] = PET_STAY_CLOSE;
 
-#ifdef JP
-	power_desc[num] = "‚Â‚¢‚Ä—ˆ‚¢";
-#else
-	power_desc[num] = "follow me";
-#endif
-
+	power_desc[num] = MES_PETCOM_FOLLOW_ME;
 	if(master_ptr->pet_follow_distance == PET_FOLLOW_DIST) mode = num;
 	powers[num++] = PET_FOLLOW_ME;
 
-#ifdef JP
-	power_desc[num] = "“G‚ðŒ©‚Â‚¯‚Ä“|‚¹";
-#else
-	power_desc[num] = "seek and destroy";
-#endif
-
+	power_desc[num] = MES_PETCOM_SEEK_AND_DESTROY;
 	if(master_ptr->pet_follow_distance == PET_DESTROY_DIST) mode = num;
 	powers[num++] = PET_SEEK_AND_DESTROY;
 
-#ifdef JP
-	power_desc[num] = "­‚µ—£‚ê‚Ä‚¢‚ë";
-#else
-	power_desc[num] = "give me space";
-#endif
-
+	power_desc[num] = MES_PETCOM_GIVE_ME_SPACE;
 	if(master_ptr->pet_follow_distance == PET_SPACE_DIST) mode = num;
 	powers[num++] = PET_ALLOW_SPACE;
 
-#ifdef JP
-	power_desc[num] = "—£‚ê‚Ä‚¢‚ë";
-#else
-	power_desc[num] = "stay away";
-#endif
-
+	power_desc[num] = MES_PETCOM_STAY_AWAY;
 	if(master_ptr->pet_follow_distance == PET_AWAY_DIST) mode = num;
 	powers[num++] = PET_STAY_AWAY;
 
