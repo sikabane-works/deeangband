@@ -1653,39 +1653,15 @@ void do_cmd_pet(creature_type *master_ptr)
 	powers[num++] = PET_TRAIT_S_SPELL;
 
 	if(master_ptr->pet_extra_flags & PF_BALL_SPELL)
-	{
-#ifdef JP
-		power_desc[num] = "プレイヤーを巻き込む範囲魔法を使う (現在:ON)";
-#else
-		power_desc[num] = "allow involve player in area spell (now On)";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_INVOLVE_ON;
 	else
-	{
-#ifdef JP
-		power_desc[num] = "プレイヤーを巻き込む範囲魔法を使う (現在:OFF)";
-#else
-		power_desc[num] = "allow involve player in area spell (now Off)";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_INVOLVE_OFF;
 	powers[num++] = PET_BALL_SPELL;
 
 	if(master_ptr->riding)
-	{
-#ifdef JP
-		power_desc[num] = "ペットから降りる";
-#else
-		power_desc[num] = "get off a pet";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_GET_OFF;
 	else
-	{
-#ifdef JP
-		power_desc[num] = "ペットに乗る";
-#else
-		power_desc[num] = "ride a pet";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_RIDE;
 	powers[num++] = PET_RIDING;
 
 #ifdef JP

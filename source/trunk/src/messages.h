@@ -2623,6 +2623,10 @@ static cptr desc_stat_neg[] =
 #define MES_PETCOM_ATTACK_SPELL_OFF "攻撃魔法を使う (現在:OFF)"
 #define MES_PETCOM_SUMMON_SPELL_ON "召喚魔法を使う (現在:ON)"
 #define MES_PETCOM_SUMMON_SPELL_OFF "召喚魔法を使う (現在:OFF)"
+#define MES_PETCOM_INVOLVE_ON "プレイヤーを巻き込む範囲魔法を使う (現在:ON)"
+#define MES_PETCOM_INVOLVE_OFF "プレイヤーを巻き込む範囲魔法を使う (現在:OFF)"
+#define MES_PETCOM_GET_OFF "ペットから降りる"
+#define MES_PETCOM_RIDE "ペットに乗る"
 #else
 #define MES_PETCOM_DISMISS_PET "dismiss pets"
 #define MES_PETCOM_TARGETING(CURRENT) "specify a target of pet (now:%s)", (CURRENT)
@@ -2641,6 +2645,10 @@ static cptr desc_stat_neg[] =
 #define MES_PETCOM_ATTACK_SPELL_OFF "allow cast attack spell (now Off)"
 #define MES_PETCOM_SUMMON_SPELL_ON "allow cast summon spell (now On)"
 #define MES_PETCOM_SUMMON_SPELL_OFF "allow cast summon spell (now Off)"
+#define MES_PETCOM_INVOLVE_ON "allow involve player in area spell (now On)"
+#define MES_PETCOM_INVOLVE_OFF "allow involve player in area spell (now Off)"
+#define MES_PETCOM_GET_OFF "get off a pet"
+#define MES_PETCOM_RIDE "ride a pet"
 #endif
 
 #ifdef JP
