@@ -208,6 +208,7 @@
 #define KW_NOTHING_TARGET "指定なし"
 #define KW_UNEXPLORED_ZONE "未踏破地帯"
 #define KW_ROAD "道"
+#define KW_MESSAGE "メッセージ"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -295,6 +296,7 @@
 #define KW_NOTHING_TARGET "nothing"
 #define KW_UNEXPLORED_ZONE "unexplored zone"
 #define KW_ROAD "road"
+#define KW_MESSAGE "message"
 #endif
 
 #ifdef JP
@@ -2809,7 +2811,6 @@ static cptr desc_stat_neg[] =
 #define MES_RACIAL_FAILED "You've failed to concentrate hard enough."
 #endif
 
-
 #ifdef JP
 #define MES_MACRO_ADDED "マクロを追加しました。"
 #define MES_MACRO_NOT_FOUND "そのキーにはマクロは定義されていません。"
@@ -2818,4 +2819,12 @@ static cptr desc_stat_neg[] =
 #define MES_MACRO_ADDED "Appended macros."
 #define MES_MACRO_NOT_FOUND "Found no macro."
 #define MES_MACRO_FOUND "Found a macro"
+#endif
+
+#ifdef JP
+#define MES_INSCRIPTION_DONE "自分の真下にメッセージを刻む:"
+#define MES_INSCRIPTION_VANISHED "メッセージは消え去った。"
+#else
+#define MES_INSCRIPTION_DONE "Inscribe messages on your floor."
+#define MES_INSCRIPTION_VANISHED "Messages vanished."
 #endif

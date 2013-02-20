@@ -722,25 +722,16 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	char tmp[CAVE_MESSAGE_LENGTH];
 
-#ifdef JP
-	msg_format("自分の真下にメッセージを刻む:");
-#else
-	msg_format("Inscribe messages on your floor.");
-#endif
+	msg_format(MES_INSCRIPTION_DONE);
 
 	msg_print(NULL);
 
 	tmp[0] = '\0';
 	strcpy(tmp, floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].message);
 
-	/* Get a new inscription (possibly empty) */
-#ifdef JP
-	if(get_string("メッセージ", tmp, CAVE_MESSAGE_LENGTH)){
-#else
-	if(get_string("Message", tmp, CAVE_MESSAGE_LENGTH)){
-#endif
+	// Get a new inscription (possibly empty)
+	if(get_string(KW_MESSAGE, tmp, CAVE_MESSAGE_LENGTH))
 		strcpy(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].message, tmp);
-	}
 	else
 	{
 		msg_print(GAME_MESSAGE_TARGET_CANCELED);
@@ -765,12 +756,7 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 		while (one_in_(6));
 		strcpy(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].message, "");
 
-#ifdef JP
-		msg_print("メッセージは消え去った。");
-#else
-		msg_print("Messages vanished.");
-#endif
-
+		msg_print(MES_INSCRIPTION_VANISHED);
 	}
 }
 
