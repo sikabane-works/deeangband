@@ -1623,39 +1623,15 @@ void do_cmd_pet(creature_type *master_ptr)
 	powers[num++] = PET_STAY_AWAY;
 
 	if(master_ptr->pet_extra_flags & PF_OPEN_DOORS)
-	{
-#ifdef JP
-		power_desc[num] = "ドアを開ける (現在:ON)";
-#else
-		power_desc[num] = "pets open doors (now On)";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_OPEN_DOORS_ON;
 	else
-	{
-#ifdef JP
-		power_desc[num] = "ドアを開ける (現在:OFF)";
-#else
-		power_desc[num] = "pets open doors (now Off)";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_OPEN_DOORS_OFF;
 	powers[num++] = PET_OPEN_DOORS;
 
 	if(master_ptr->pet_extra_flags & PF_PICKUP_ITEMS)
-	{
-#ifdef JP
-		power_desc[num] = "アイテムを拾う (現在:ON)";
-#else
-		power_desc[num] = "pets pick up items (now On)";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_OPEN_PICKUP_ITEM_ON;
 	else
-	{
-#ifdef JP
-		power_desc[num] = "アイテムを拾う (現在:OFF)";
-#else
-		power_desc[num] = "pets pick up items (now Off)";
-#endif
-	}
+		power_desc[num] = MES_PETCOM_OPEN_PICKUP_ITEM_OFF;
 	powers[num++] = PET_TAKE_ITEMS;
 
 	if(master_ptr->pet_extra_flags & PF_TELEPORT)

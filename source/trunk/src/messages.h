@@ -2611,6 +2611,10 @@ static cptr desc_stat_neg[] =
 #define MES_PETCOM_SEEK_AND_DESTROY "敵を見つけて倒せ"
 #define MES_PETCOM_GIVE_ME_SPACE "少し離れていろ"
 #define MES_PETCOM_STAY_AWAY "離れていろ"
+#define MES_PETCOM_OPEN_DOORS_ON "ドアを開ける (現在:ON)"
+#define MES_PETCOM_OPEN_DOORS_OFF "ドアを開ける (現在:OFF)"
+#define MES_PETCOM_OPEN_PICKUP_ITEM_ON "アイテムを拾う (現在:ON)"
+#define MES_PETCOM_OPEN_PICKUP_ITEM_OFF "アイテムを拾う (現在:OFF)"
 #else
 #define MES_PETCOM_DISMISS_PET "dismiss pets"
 #define MES_PETCOM_TARGETING(CURRENT) "specify a target of pet (now:%s)", (CURRENT)
@@ -2619,6 +2623,10 @@ static cptr desc_stat_neg[] =
 #define MES_PETCOM_SEEK_AND_DESTROY "seek and destroy"
 #define MES_PETCOM_GIVE_ME_SPACE "give me space"
 #define MES_PETCOM_STAY_AWAY "stay away"
+#define MES_PETCOM_OPEN_DOORS_ON "pets open doors (now On)"
+#define MES_PETCOM_OPEN_DOORS_OFF "pets open doors (now Off)"
+#define MES_PETCOM_OPEN_PICKUP_ITEM_ON "pets pick up items (now On)"
+#define MES_PETCOM_OPEN_PICKUP_ITEM_OFF "pets pick up items (now Off)"
 #endif
 
 #ifdef JP
