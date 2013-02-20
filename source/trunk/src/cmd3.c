@@ -156,16 +156,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	int need_switch_wielding = 0;
 
 	free_posture(creature_ptr);
-
-#ifdef JP
-	q = "どれを装備しますか? ";
-	s = "装備可能なアイテムがない。";
-#else
-	q = "Wear/Wield which item? ";
-	s = "You have nothing you can wear or wield.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_wear, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_EQUIP_WHICH_WIELD, MES_EQUIP_NO_WIELD, (USE_INVEN | USE_FLOOR), item_tester_hook_wear, 0)) return;
 
 	object_ptr = GET_ITEM(creature_ptr, item);
 	quest_ptr = &forge;

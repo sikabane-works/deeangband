@@ -2809,28 +2809,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 
 	/* Notice confusion */
 	if(command_dir != dir)
-	{
 		if(has_trait(creature_ptr, TRAIT_CONFUSED)) msg_format(GAME_MESSAGE_IS_CONFUSED, creature_name);
-		else
-		{
-			char m_name[MAX_NLEN];
-			creature_type *m_ptr = &creature_list[creature_ptr->riding];
-
-			creature_desc(m_name, m_ptr, 0);
-			if(m_ptr->timed_trait[TRAIT_CONFUSED])
-			{
-				msg_format(GAME_MESSAGE_IS_CONFUSED, m_name);
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%sÇÕévÇ¢í ÇËÇ…ìÆÇ¢ÇƒÇ≠ÇÍÇ»Ç¢ÅB", m_name);
-#else
-				msg_format("You cannot control %s.", m_name);
-#endif
-			}
-		}
-	}
 
 	/* Save direction */
 	(*dp) = dir;
