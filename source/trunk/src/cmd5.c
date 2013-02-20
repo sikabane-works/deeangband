@@ -1286,12 +1286,8 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 
 			/* レベルの低い乗馬からは落馬しにくい */
 			if(randint0(dam / 2 + do_thrown_from_ridinglevel * 2) < cur / 30 + 10)
-			{
 				if((has_trait(creature_ptr, TRAIT_RODEO) && !creature_ptr->riding_two_handed) || !one_in_(creature_ptr->lev*(creature_ptr->riding_two_handed ? 2 : 3) + 30))
-				{
 					return FALSE;
-				}
-			}
 		}
 
 		/* Check around the player */
@@ -1327,11 +1323,7 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 		if(!sn)
 		{
 			creature_desc(m_name, m_ptr, 0);
-#ifdef JP
-			msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
-#else
-			msg_format("You have nearly fallen from %s, but bumped into wall.",m_name);
-#endif
+			msg_format(MES_STEED_BUMP_WALL(m_name));
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, species_ptr->level+3, COD_BUNP_WALL, NULL, -1);
 			return FALSE;
 		}
@@ -1363,11 +1355,7 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 	if(has_trait(creature_ptr, TRAIT_CAN_FLY) && !force)
 	{
 		creature_desc(m_name, m_ptr, 0);
-#ifdef JP
-		msg_format("%sから落ちたが、空中でうまく体勢を立て直して着地した。",m_name);
-#else
-		msg_format("You are thrown from %s, but make a good landing.",m_name);
-#endif
+		msg_format(MES_STEED_GOOD_RANDING(m_name));
 	}
 	else
 	{

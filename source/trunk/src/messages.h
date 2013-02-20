@@ -2579,12 +2579,16 @@ static cptr desc_stat_neg[] =
 #define MES_PET_RELEASE(PET) "%s を放した。", (PET)
 #define MES_PET_DISMISS(NUM) "%d 体のペットを放しました。", (NUM)
 #define MES_PER_UNNAMED_DESC "'U'nnamed は、乗馬以外の名前のないペットだけを全て解放します。"
+#define MES_STEED_BUMP_WALL(STEED) "%sから振り落とされそうになって、壁にぶつかった。", (STEED)
+#define MES_STEED_GOOD_RANDING(STEED) "%sから落ちたが、空中でうまく体勢を立て直して着地した。", (STEED)
 #else
 #define MES_STEED_GOT_OFF(STEED) "You have got off %s. ", (STEED)
 #define MES_PET_DISMISS_ASK(PET, REMAIN) "Dismiss %s? [Yes/No/Unnamed (%d remain)]", (PET), (REMAIN)
 #define MES_PET_RELEASE(PET) "Dismissed %s.", (PET)
 #define MES_PET_DISMISS(NUM) "You have dismissed %d pet%s.", (NUM), ((NUM) == 1 ? "" : "s")
 #define MES_PER_UNNAMED_DESC "'U'nnamed means all your pets except named pets and your mount."
+#define MES_STEED_BUMP_WALL(STEED) "You have nearly fallen from %s, but bumped into wall.", (STEED)
+#define MES_STEED_GOOD_RANDING(STEED) "You are thrown from %s, but make a good landing.", (STEED)
 #endif
 
 #ifdef JP
