@@ -750,11 +750,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 			if(count)
 			{
-#ifdef JP
-				msg_print("「者ども、ひかえおろう！！！このお方をどなたとこころえる。」");
-#else
-				msg_format("%^s says 'WHO do you think this person is! Bow your head, down your knees!'", kakusan);
-#endif
+				msg_print(MES_SUMMON_INROU);
 				sukekaku = TRUE;
 				project_all_vision(caster_ptr, DO_EFFECT_STUN, 120);
 				project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 120);
@@ -2737,7 +2733,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		(void)restore_exp(caster_ptr);
 		break;
 
-
 	case 3: /* TRAIT_LAUNCHER */
 		/* Gives a multiplier of 2 at first, up to 3 at 40th */
 		if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE;
@@ -2748,15 +2743,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	}
 
-	if(fumble_summoned)
-	{
-#ifdef JP
-		msg_format("召喚された%sは召喚者に敵意を向けている。", summoned_name);
-#else
-		msg_print("The summoned %s are angry!", summoned_name);
-#endif
-	}
-
+	if(fumble_summoned) msg_format(MES_SUMMON_FUMBLE(summoned_name));
 	if(kichigai_talk)
 	{
 		if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK)) msg_print("やりやがったな！");

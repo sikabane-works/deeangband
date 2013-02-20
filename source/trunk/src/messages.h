@@ -813,10 +813,14 @@
 #define MES_SUMMON_NOTHING "何も現れなかった..."
 #define MES_SUMMON_SERVANT "御用でございますか？我が主。"
 #define MES_SUMMON_FEELING "何かが間近に現れた音がする。"
+#define MES_SUMMON_FUMBLE(HOSTILE) "召喚された%sは召喚者に敵意を向けている。", (HOSTILE)
+#define MES_SUMMON_INROU "「者ども、ひかえおろう！！！このお方をどなたとこころえる。」"
 #else
 #define MES_SUMMON_NOTHING "Nobody ever turns up..."
 #define MES_SUMMON_SERVANT "'What is thy bidding... Master?'"
 #define MES_SUMMON_FEELING "You hear something appear nearby."
+#define MES_SUMMON_FUMBLE(HOSTILE) "The summoned %s are angry.", (HOSTILE)
+#define MES_SUMMON_INROU "'WHO do you think this person is! Bow your head, down your knees!'"
 #endif
 
 #ifdef JP
