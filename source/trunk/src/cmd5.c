@@ -1461,15 +1461,11 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 		if(has_trait_from_timed(steed_ptr, TRAIT_PARALYZED) || has_trait_from_timed(steed_ptr, TRAIT_SLEPT))
 		{
-			char steed_name[80];
+			char steed_name[MAX_NLEN];
 			creature_desc(steed_name, steed_ptr, 0);
 			(void)set_timed_trait(steed_ptr, TRAIT_PARALYZED, 0, TRUE);
 			(void)set_timed_trait(steed_ptr, TRAIT_SLEPT, 0, TRUE);
-#ifdef JP
-			msg_format("%sを起こした。", steed_name);
-#else
-			msg_format("You have waked %s up.", steed_name);
-#endif
+			msg_format(MES_STEED_WAKE_UP(steed_name));
 		}
 
 		if(rider_ptr->action == ACTION_KAMAE) set_action(rider_ptr, ACTION_NONE);
@@ -1519,11 +1515,7 @@ static void do_name_pet(creature_type *master_ptr)
 
 		if(!is_pet(player_ptr, pet_ptr))
 		{
-#ifdef JP
-			msg_print("そのクリーチャーはペットではない。");
-#else
-			msg_format("This creature is not a pet.");
-#endif
+			msg_print(MES_PET_NO_PET);
 			return;
 		}
 
