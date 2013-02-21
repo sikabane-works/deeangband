@@ -436,13 +436,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
 			(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
 
-#ifdef JP
-			if(get_check("帰還の力を使いますか？"))
-#else
-			if(get_check("Activate recall? "))
-#endif
-				(void)word_of_recall(caster_ptr, randint0(21) + 15);
-
+			if(get_check(MES_RECALL_ASK)) (void)word_of_recall(caster_ptr, randint0(21) + 15);
 			break;
 		}
 
@@ -553,12 +547,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				(void)stair_creation(caster_ptr, floor_ptr);
 				break;
 			default:
-#ifdef JP
-				if(get_check("この階を去りますか？"))
-#else
-				if(get_check("Leave this level? "))
-#endif
-
+				if(get_check(MES_TELEPORT_LEVEL_ASK))
 				{
 					if(autosave_l) do_cmd_save_game(TRUE);
 					subject_change_floor = TRUE;
