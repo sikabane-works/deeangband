@@ -86,14 +86,14 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			if(strlen(trait_text + trait_ptr->activate_text))
 				msg_format(trait_text + trait_ptr->activate_text, caster_name);
 			else		
-				msg_format("%sは%sを発動した。", caster_name, trait_info[id].title);
+				msg_format(MES_TRAIT_DEFAULT_ACTIVATE(caster_name, trait_info[id].title));
 		}
 		else
 		{
 			if(strlen(trait_text + trait_ptr->blind_activate_text))
 				msg_format(trait_text + trait_ptr->blind_activate_text, caster_name);
 			else		
-				msg_format("%sは%sを発動した。", caster_name, trait_info[id].title);
+				msg_format(MES_TRAIT_DEFAULT_ACTIVATE(caster_name, trait_info[id].title));
 		}
 	}
 
@@ -211,16 +211,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			if(!(pet && (user_level < 50))) mode |= PC_ALLOW_GROUP;
 			if(pet) mode |= PC_FORCE_PET;
 			else mode |= PC_NO_PET;
-
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, ((user_level * 3) / 2), TRAIT_S_ELEMENTAL, mode))
-			{
-#ifdef JP
-				msg_print("エレメンタルが現れた...");
-#else
-				msg_print("An elemental materializes...");
-#endif
-			}
-
 			break;
 		}
 
