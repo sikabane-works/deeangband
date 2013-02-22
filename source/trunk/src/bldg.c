@@ -2843,11 +2843,7 @@ bool tele_town(creature_type *creature_ptr)
 
 	if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
-#ifdef JP
-		msg_print("この魔法は外でしか使えない！");
-#else
-		msg_print("This spell can only be used outside!");
-#endif
+		msg_print(GAME_MESSAGE_ARENA_LIMIT);
 		return FALSE;
 	}
 
@@ -2867,22 +2863,13 @@ bool tele_town(creature_type *creature_ptr)
 
 	if(!num)
 	{
-#ifdef JP
-		msg_print("まだ行けるところがない。");
-#else
-		msg_print("You have not yet visited any town.");
-#endif
-
+		msg_print(MES_TELEPORT_NO_TOWN);
 		msg_print(NULL);
 		screen_load();
 		return FALSE;
 	}
 
-#ifdef JP
-	prt("どこに行きますか:", 0, 0);
-#else
-	prt("Which town you go: ", 0, 0);
-#endif
+	prt(MES_TELEPORT_WHICH_TOWN, 0, 0);
 	while(1)
 	{
 		i = inkey();
@@ -2917,22 +2904,15 @@ bool tele_town(creature_type *creature_ptr)
 }
 
 
-/*
- *  research_mon
- *  -KMW-
- */
+//  -KMW-
 static bool research_creature(creature_type *creature_ptr)
 {
 	int i, n, species_idx;
 	char sym, query;
 	char buf[128];
-
 	bool notpicked;
-
 	bool recall = FALSE;
-
 	u16b why = 0;
-
 	u16b	*who;
 
 	/* XTRA HACK WHATSEARCH */
@@ -2944,7 +2924,6 @@ static bool research_creature(creature_type *creature_ptr)
 	/* XTRA HACK REMEMBER */
 	static int old_sym = '\0';
 	static int old_i = 0;
-
 
 	screen_save();
 
