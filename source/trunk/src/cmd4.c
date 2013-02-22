@@ -920,6 +920,13 @@ void do_cmd_diary(void)
 		{KW_CANCEL, 5, 0, 0, ESCAPE, TERM_L_DARK, TERM_WHITE, FALSE},
 	};
 	se_info.header = MES_DIARY_MENU;
+	se_info.caption = NULL;
+	se_info.detail = NULL;
+	se_info.default_se = 0;
+	se_info.num = 6;
+	se_info.x = 5;
+	se_info.y = 2;
+	se_info.mode = GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT;
 
 	FILE_TYPE(FILE_TYPE_TEXT);
 	screen_save();
@@ -927,36 +934,22 @@ void do_cmd_diary(void)
 	/* Interact until done */
 	while (1)
 	{
-		Term_clear();
-
-		prt(PROMPT_COMMAND, 18, 0);
-
-		i = inkey();
-
-		if(i == ESCAPE) break;
+		i = get_selection(&se_info, se_table);
+		if(i == 5) break;
 
 		switch (i)
 		{
-		case '1':
-			do_cmd_disp_nikki(player_ptr);
-			break;
-		case '2':
-			do_cmd_bunshou();
-			break;
-		case '3':
-			do_cmd_last_get();
-			break;
-		case '4':
-			do_cmd_erase_nikki();
-			break;
-		case 'r': case 'R':
+		case 0: do_cmd_disp_nikki(player_ptr); break;
+		case 1: do_cmd_bunshou(); break;
+		case 2: do_cmd_last_get(); break;
+		case 3: do_cmd_erase_nikki(); break;
+		case 4:
 			screen_load();
 			prepare_movie_hooks();
 			return;
 		default: /* Unknown option */
 			bell();
 		}
-
 		msg_print(NULL);
 	}
 
