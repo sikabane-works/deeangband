@@ -2086,6 +2086,7 @@ static cptr desc_stat_neg[] =
 #define MES_RECHAGE_BROKEN1(NAME) "乱暴な魔法のために%sが壊れた！", (NAME)
 #define MES_RECHAGE_BROKEN2(NAME) "乱暴な魔法のために%sが一本壊れた！", (NAME)
 #define MES_RECHAGE_BROKEN3(NAME) "乱暴な魔法のために%sが全て壊れた！", (NAME)
+#define MES_RECHAGE_COMMENT "再充填の費用はアイテムの種類によります。"
 #else
 #define MES_BLDG_RECHARGE_WHICH_ITEM "Recharge which item? "
 #define MES_BLDG_RECHARGE_NO_ITEM "You have nothing to recharge."
@@ -2101,6 +2102,7 @@ static cptr desc_stat_neg[] =
 #define MES_RECHAGE_BROKEN1(NAME) "Wild magic consumes your %s!", (NAME)
 #define MES_RECHAGE_BROKEN2(NAME) "Wild magic consumes one of your %s!", (NAME)
 #define MES_RECHAGE_BROKEN3(NAME) "Wild magic consumes all your %s!", (NAME)
+#define MES_RECHAGE_COMMENT "The prices of recharge depend on the type."
 #endif
 
 #ifdef JP

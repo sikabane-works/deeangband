@@ -2504,7 +2504,6 @@ static void building_recharge(creature_type *creature_ptr)
 	int         item, lev;
 	object_type *object_ptr;
 	object_kind *object_kind_ptr;
-	cptr        q, s;
 	int         price;
 	int         charges;
 	int         max_charges;
@@ -2514,15 +2513,9 @@ static void building_recharge(creature_type *creature_ptr)
 
 	/* Display some info */
 	clear_bldg(4, 18);
-#ifdef JP
-	prt("  再充填の費用はアイテムの種類によります。", 6, 0);
-#else
-	prt("  The prices of recharge depend on the type.", 6, 0);
-#endif
-	q = MES_BLDG_RECHARGE_WHICH_ITEM;
-	s = MES_BLDG_RECHARGE_NO_ITEM;
+	prt(MES_RECHAGE_COMMENT, 6, 2);
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_BLDG_RECHARGE_WHICH_ITEM, MES_BLDG_RECHARGE_NO_ITEM, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return;
 
 	object_ptr = GET_ITEM(creature_ptr, item);
 	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
@@ -2704,14 +2697,10 @@ static void building_recharge_all(creature_type *creature_ptr)
 	int         price = 0;
 	int         total_cost = 0;
 
-	/* Display some info */
+	// Display some info
 	msg_flag = FALSE;
 	clear_bldg(4, 18);
-#ifdef JP
-	prt("  再充填の費用はアイテムの種類によります。", 6, 0);
-#else
-	prt("  The prices of recharge depend on the type.", 6, 0);
-#endif
+	prt(MES_RECHAGE_COMMENT, 6, 2);
 
 	/* Calculate cost */
 	for ( i = 0; i < INVEN_TOTAL; i++)
