@@ -2370,9 +2370,7 @@ static void updatebargain(store_type *st_ptr, s32b price, s32b minprice, int num
 	{
 		/* Just count the good haggles */
 		if(st_ptr->good_buy < MAX_SHORT)
-		{
 			st_ptr->good_buy++;
-		}
 	}
 
 	/* Count the failed haggles */
@@ -2380,9 +2378,7 @@ static void updatebargain(store_type *st_ptr, s32b price, s32b minprice, int num
 	{
 		/* Just count the bad haggles */
 		if(st_ptr->bad_buy < MAX_SHORT)
-		{
 			st_ptr->bad_buy++;
-		}
 	}
 }
 
@@ -2394,9 +2390,8 @@ static void updatebargain(store_type *st_ptr, s32b price, s32b minprice, int num
 static void display_entry(store_type *st_ptr, creature_type *creature_ptr, int pos)
 {
 	int 		i, cur_col;
-	object_type 	*object_ptr;
+	object_type *object_ptr;
 	s32b		x;
-
 	char		object_name[MAX_NLEN];
 	char		out_val[160], weight[80];
 
@@ -2441,14 +2436,8 @@ static void display_entry(store_type *st_ptr, creature_type *creature_ptr, int p
 		{
 			/* Only show the weight of an individual item */
 			format_weight(weight, object_ptr->weight);
-#ifdef JP
 			sprintf(out_val, "%10s", weight);
 			put_str(out_val, i+6, 67);
-#else
-			(void)sprintf(out_val, "%10s", weight);
-			put_str(out_val, i+6, 68);
-#endif
-
 		}
 	}
 
@@ -2490,7 +2479,7 @@ static void display_entry(store_type *st_ptr, creature_type *creature_ptr, int p
 
 			/* Actually draw the price (not fixed) */
 #ifdef JP
-(void)sprintf(out_val, "%9ldå≈", (long)x);
+			(void)sprintf(out_val, "%9ldå≈", (long)x);
 #else
 			(void)sprintf(out_val, "%9ld F", (long)x);
 #endif

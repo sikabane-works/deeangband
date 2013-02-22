@@ -1358,9 +1358,7 @@ static option_type cheat_info[CHEAT_MAX] =
 #endif
 };
 
-/*
- * Interact with some options for cheating
- */
+// Interact with some options for cheating
 static void do_cmd_options_cheat(cptr info)
 {
 	char	ch;
@@ -1384,10 +1382,7 @@ static void do_cmd_options_cheat(cptr info)
 
 #ifdef JP
 		/* 詐欺オプションをうっかりいじってしまう人がいるようなので注意 */
-		prt("                                 <<  注意  >>", 11, 0);
-		prt("      詐欺オプションを一度でも設定すると、スコア記録が残らなくなります！", 12, 0);
-		prt("      後に解除してもダメですので、勝利者を目指す方はここのオプションはい", 13, 0);
-		prt("      じらないようにして下さい。", 14, 0);
+		prt(MES_OPTION_WARN_CHEAT2, 11, 8);
 #endif
 		/* Display the options */
 		for (i = 0; i < n; i++)
@@ -1398,7 +1393,7 @@ static void do_cmd_options_cheat(cptr info)
 			if(i == k) a = TERM_L_BLUE;
 
 			/* Display the option text */
-			sprintf(buf, "%-48s: %s (%s)", cheat_info[i].o_desc, (*cheat_info[i].o_var ? KW_YES : KW_NO), cheat_info[i].o_text);
+			sprintf(buf, "%-48s:%6s (%s)", cheat_info[i].o_desc, (*cheat_info[i].o_var ? KW_YES : KW_NO), cheat_info[i].o_text);
 			c_prt(a, buf, i + 2, 0);
 		}
 
@@ -1546,7 +1541,7 @@ static void do_cmd_options_autosave(cptr info)
 			if(i == k) a = TERM_L_BLUE;
 
 			/* Display the option text */
-			sprintf(buf, "%-48s: %s (%s)", autosave_info[i].o_desc, (*autosave_info[i].o_var ? KW_YES : KW_NO), autosave_info[i].o_text);
+			sprintf(buf, "%-48s:%6s (%s)", autosave_info[i].o_desc, (*autosave_info[i].o_var ? KW_YES : KW_NO), autosave_info[i].o_text);
 			c_prt(a, buf, i + 2, 0);
 		}
 

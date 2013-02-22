@@ -753,11 +753,8 @@ static int coords_to_damageir(creature_type *creature_ptr, int y, int x)
 
 /*
  * Perform the basic "open" command on doors
- *
  * Assume destination is a closed/locked/jammed door
- *
  * Assume there is no creature blocking the destination
- *
  * Returns TRUE if repeated commands may continue
  */
 static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)

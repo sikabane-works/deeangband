@@ -2531,12 +2531,14 @@ static cptr desc_stat_neg[] =
 
 #ifdef JP
 #define MES_OPTION_WARN_CHEAT "詐欺師は決して勝利できない。"
+#define MES_OPTION_WARN_CHEAT2 "<<  注意  >>\n詐欺オプションを一度でも設定すると、スコア記録が残らなくなります！\n後に解除してもダメですので、勝利者を目指す方はここのオプションはい\nじらないようにして下さい。"
 #define MES_OPTION_UNUSED "(未使用)"
 #define MES_OPTION_MAIN_TITLE "[ オプションの設定 ]"
 #define MES_OPTION_CMD_HP_WARNING "コマンド: 低ヒットポイント警告"
 #define MES_OPTION_CMD_MP_CHECK "コマンド: 低魔力色閾値"
 #else
 #define MES_OPTION_WARN_CHEAT "Cheaters never win."
+#define MES_OPTION_WARN_CHEAT2 ""
 #define MES_OPTION_UNUSED "(Unused option)"
 #define MES_OPTION_MAIN_TITLE [ Game Options ]"
 #define MES_OPTION_CMD_HP_WARNING "Command: Hitpoint Warning"
