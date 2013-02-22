@@ -3983,7 +3983,7 @@ static void process_player_command(creature_type *creature_ptr)
 
 	case '|':
 		{
-			do_cmd_nikki(creature_ptr);
+			do_cmd_diary();
 			break;
 		}
 

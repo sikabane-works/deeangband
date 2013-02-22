@@ -4314,7 +4314,7 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 
 		case '|':
 		{
-			do_cmd_nikki(guest_ptr);
+			do_cmd_diary();
 			break;
 		}
 

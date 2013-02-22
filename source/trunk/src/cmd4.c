@@ -905,11 +905,11 @@ static void do_cmd_erase_nikki(void)
 }
 
 
-void do_cmd_nikki(creature_type *player_ptr)
+void do_cmd_diary(void)
 {
 	int i;
 	selection_info se_info;
-	static cptr se_caption[] =
+	static const cptr se_caption[] =
 	{
 #ifdef JP
 		"(1) ‹L˜^‚ðŒ©‚é",
@@ -924,6 +924,16 @@ void do_cmd_nikki(creature_type *player_ptr)
 		"(4) Delete your record",
 		"(R) Record playing movie / or stop it",
 #endif
+	};
+
+	static selection_table se_table[] =
+	{
+		{KW_CANCEL, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
+		{KW_CANCEL, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
+		{KW_CANCEL, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
+		{KW_CANCEL, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
+		{KW_CANCEL, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
+		{KW_CANCEL, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
 	};
 
 #ifdef JP
