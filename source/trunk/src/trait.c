@@ -1523,13 +1523,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 
 	case TRAIT_SELF_DETONATIONS:
-#ifdef JP
-		msg_print("体の中で激しい爆発が起きた！");
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "爆発の薬", NULL, -1);
-#else
-		msg_print("Massive explosions rupture your body!");
-		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "a potion of Detonation", NULL, -1);
-#endif
+		msg_print(MES_TRAIT_SELF_DETONATION);
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), COD_POTION_OF_DETONATION, NULL, -1);
 
 		(void)add_timed_trait(caster_ptr, TRAIT_STUN, 75, TRUE);
 		(void)add_timed_trait(caster_ptr, TRAIT_CUT, 5000, TRUE);

@@ -922,6 +922,7 @@
 #define COD_TRIPPING "転倒"
 #define COD_FALL_RIDING "落馬"
 #define COD_POTION_OF_RUIN "破滅の薬"
+#define COD_POTION_OF_DETONATION "爆発の薬"
 #define COD_POISON_NEEDLE "毒針"
 #define COD_SCROLL_OF_FIRE "炎の巻物"
 #define COD_SCROLL_OF_ICE "氷の巻物"
@@ -985,6 +986,7 @@
 #define COD_FALL_RIDING "Falling from riding"
 #define COD_TRIPPING "Tripping"
 #define COD_POTION_OF_RUIN "a potion of ruin"
+#define COD_POTION_OF_DETONATION "a potion of Detonation"
 #define COD_POISON_NEEDLE "a potion needle"
 #define COD_SCROLL_OF_FIRE "a Scroll of Fire"
 #define COD_SCROLL_OF_ICE "a Scroll of Ice"
@@ -2710,6 +2712,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_RUINATION "身も心も弱ってきて、精気が抜けていくようだ。"
 #define MES_TRAIT_KNOWLEDGE "自分自身のことが少しは分かった気がする..."
 #define MES_TRAIT_OKURE_NIISAN "「オクレ兄さん！」"
+#define MES_TRAIT_SELF_DETONATION "体の中で激しい爆発が起きた！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -2717,6 +2720,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_RUINATION "Your nerves and muscles feel weak and lifeless!"
 #define MES_TRAIT_KNOWLEDGE "You begin to know yourself a little better..."
 #define MES_TRAIT_OKURE_NIISAN "Brother OKURE!"
+#define MES_TRAIT_SELF_DETONATION "Massive explosions rupture your body!"
 #endif
 
 #ifdef JP
