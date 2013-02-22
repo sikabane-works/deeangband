@@ -2837,11 +2837,7 @@ bool tele_town(creature_type *creature_ptr)
 
 	if(floor_ptr->floor_level)
 	{
-#ifdef JP
-		msg_print("この魔法は地上でしか使えない！");
-#else
-		msg_print("This spell can only be used on the surface!");
-#endif
+		msg_print(MES_PREVENT_MAGIC_BY_DUNGEON);
 		return FALSE;
 	}
 

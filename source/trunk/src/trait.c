@@ -664,7 +664,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_WATER))
 			{
-				msg_print(GAME_MESSAGE_MAGIC_PREVENT_BY_DUNGEON);
+				msg_print(MES_PREVENT_MAGIC_BY_DUNGEON);
 				return FALSE;
 			}
 			else if(floor_ptr->cave[y][x].creature_idx)

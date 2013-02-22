@@ -2401,7 +2401,7 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 
 	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)
 	{
-		msg_print(MES_LITE_PREVENT_BY_DUNGEON);
+		msg_print(MES_PREVENT_LITE_BY_DUNGEON);
 		return FALSE;
 	}
 
@@ -2530,7 +2530,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 
 	if(has_trait(target_ptr, TRAIT_RES_TELE))
 	{
-		msg_print(GAME_MESSAGE_TELE_PREVENT_BY_CREATURE);
+		msg_print(MES_PREVENT_TELEPORT_BY_CREATURE);
 		if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 		return FALSE;
 	}
