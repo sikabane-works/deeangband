@@ -2552,10 +2552,22 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_DIARY_MENU "記録の設定"
+#define MES_DIARY_MENU1 "記録を見る"
+#define MES_DIARY_MENU2 "文章を記録する"
+#define MES_DIARY_MENU3 "直前に入手又は鑑定したものを記録する"
+#define MES_DIARY_MENU4 "記録を消去する"
+#define MES_DIARY_MENU5 "プレイ動画を記録する/中止する"
 #define MES_DIARY_ASK_ERASE "本当に記録を消去しますか？"
 #define MES_DIARY_DELETED "記録を消去しました。"
 #define MES_DIARY_DELETE_FAIL(FILE) "%s の消去に失敗しました。", (FILE)
 #else
+#define MES_DIARY_MENU "Play Record"
+#define MES_DIARY_MENU1 "Display your record"
+#define MES_DIARY_MENU2 "Add record"
+#define MES_DIARY_MENU3 "Record item you last get/identify"
+#define MES_DIARY_MENU4 "Delete your record"
+#define MES_DIARY_MENU5 "Record playing movie / or stop it"
 #define MES_DIARY_ASK_ERASE "Do you really want to delete all your record? "
 #define MES_DIARY_DELETED "deleted record."
 #define MES_DIARY_DELETE_FAIL(FILE) "failed to delete %s.", (FILE)

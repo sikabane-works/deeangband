@@ -909,42 +909,19 @@ void do_cmd_diary(void)
 {
 	int i;
 	selection_info se_info;
-	static const cptr se_caption[] =
-	{
-#ifdef JP
-		"(1) 記録を見る",
-		"(2) 文章を記録する",
-		"(3) 直前に入手又は鑑定したものを記録する",
-		"(4) 記録を消去する",
-		"(R) プレイ動画を記録する/中止する",
-#else
-		"(1) Display your record",
-		"(2) Add record",
-		"(3) Record item you last get/identify",
-		"(4) Delete your record",
-		"(R) Record playing movie / or stop it",
-#endif
-	};
 
 	static selection_table se_table[] =
 	{
-		{KW_CANCEL, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
-		{KW_CANCEL, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
-		{KW_CANCEL, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
-		{KW_CANCEL, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
-		{KW_CANCEL, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
-		{KW_CANCEL, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
+		{MES_DIARY_MENU1, 0, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
+		{MES_DIARY_MENU2, 1, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
+		{MES_DIARY_MENU3, 2, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
+		{MES_DIARY_MENU4, 3, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
+		{MES_DIARY_MENU5, 4, 0, 0, 0, TERM_L_DARK, TERM_WHITE, FALSE},
+		{KW_CANCEL, 5, 0, 0, ESCAPE, TERM_L_DARK, TERM_WHITE, FALSE},
 	};
+	se_info.header = MES_DIARY_MENU;
 
-#ifdef JP
-//	se_info.caption = "[ 記録の設定 ]";
-#else
-//	se_info.caption = "[ Play Record ]";
-#endif
-
-	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
-
 	screen_save();
 
 	/* Interact until done */
