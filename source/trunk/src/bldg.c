@@ -2818,7 +2818,6 @@ static void building_recharge_all(creature_type *creature_ptr)
 
 	/* Combine / Reorder the pack (later) */
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-
 	prepare_window(PW_INVEN);
 
 	/* Pay the price */
@@ -2928,11 +2927,7 @@ static bool research_creature(creature_type *creature_ptr)
 	screen_save();
 
 	/* Get a character, or abort */
-#ifdef JP
-	if(!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):", &sym, FALSE)) 
-#else
-	if(!get_com("Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): ", &sym, FALSE))
-#endif
+	if(!get_com(MES_INTERFACE_RESERACH2, &sym, FALSE)) 
 	{
 		screen_load();
 		return FALSE;
@@ -3093,16 +3088,11 @@ static bool research_creature(creature_type *creature_ptr)
 		/* Extract a race */
 		species_idx = who[i];
 
-		/* Hack -- Begin the prompt */
+		// Hack -- Begin the prompt
 		roff_top(species_idx);
 
-		/* Hack -- Complete the prompt */
-#ifdef JP
-		Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
-#else
-		Term_addstr(-1, TERM_WHITE, " [(r)ecall, ESC, space to continue]");
-#endif
-
+		// Hack -- Complete the prompt
+		Term_addstr(-1, TERM_WHITE, MES_INTERFACE_RESERACH);
 
 		/* Interact */
 		while (1)
@@ -3663,10 +3653,8 @@ int quest_number(floor_type *floor_ptr)
 }
 
 
-/*
- * Return the index of the random quest on this level
- * (or zero)
- */
+// Return the index of the random quest on this level
+// (or zero)
 int random_quest_number(floor_type *floor_ptr)
 {
 	int i;
@@ -3675,13 +3663,9 @@ int random_quest_number(floor_type *floor_ptr)
 
 	for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 	{
-		if((quest[i].type == QUEST_TYPE_RANDOM) &&
-		    (quest[i].status == QUEST_STATUS_TAKEN) &&
-			(quest[i].level == floor_ptr->floor_level) &&
-		    (quest[i].dungeon == DUNGEON_DOD))
-		{
+		if((quest[i].type == QUEST_TYPE_RANDOM) && (quest[i].status == QUEST_STATUS_TAKEN) &&
+			(quest[i].level == floor_ptr->floor_level) && (quest[i].dungeon == DUNGEON_DOD))
 			return i;
-		}
 	}
 	return 0;
 }
