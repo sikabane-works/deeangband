@@ -2892,3 +2892,13 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_LITE_BY_DUNGEON "The darkness of this dungeon absorb your light."
 #define MES_PREVENT_TELEPORT_BY_CREATURE "Your teleportation is blocked!"
 #endif
+
+#ifdef JP
+#define MES_CLOSE_NO_TARGET "‚»‚±‚É‚Í•Â‚¶‚é‚à‚Ì‚ªŒ©“–‚½‚ç‚È‚¢B"
+#define MES_DOOR_STUCK "‰½‚©‚ª‚Â‚Á‚©‚¦‚Ä•Â‚Ü‚ç‚È‚¢B"
+#define MES_DOOR_BROKEN "”à‚Í‰ó‚ê‚Ä‚µ‚Ü‚Á‚Ä‚¢‚éB"
+#else
+#define MES_CLOSE_NO_TARGET "You see nothing there to close."
+#define MES_DOOR_STUCK "There seems stuck."
+#define MES_DOOR_BROKEN "The door appears to be broken."
+#endif

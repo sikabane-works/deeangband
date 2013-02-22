@@ -897,8 +897,6 @@ void do_cmd_open(creature_type *creature_ptr)
 		{
 			cost_tactical_energy(creature_ptr, 100);
 			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
-
-			/* Attack */
 			close_combat(creature_ptr, y, x, 0);
 		}
 
@@ -947,33 +945,13 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 		s16b closed_feat = feat_state(floor_ptr, old_feat, FF_CLOSE);
 
 		/* Hack -- object in the way */
-		if((c_ptr->object_idx || (c_ptr->info & CAVE_OBJECT)) &&
-		    (closed_feat != old_feat) && !have_flag(feature_info[closed_feat].flags, FF_DROP))
-		{
-#ifdef JP
-			msg_print("何かがつっかえて閉まらない。");
-#else
-			msg_print("There seems stuck.");
-#endif
-		}
+		if((c_ptr->object_idx || (c_ptr->info & CAVE_OBJECT)) && (closed_feat != old_feat) && !have_flag(feature_info[closed_feat].flags, FF_DROP))
+			msg_print(MES_DOOR_STUCK);
 		else
 		{
-			/* Close the door */
 			cave_alter_feat(floor_ptr, y, x, FF_CLOSE);
-
-			/* Broken door */
-			if(old_feat == c_ptr->feat)
-			{
-#ifdef JP
-				msg_print("ドアは壊れてしまっている。");
-#else
-				msg_print("The door appears to be broken.");
-#endif
-			}
-			else
-			{
-				sound(SOUND_SHUTDOOR);
-			}
+			if(old_feat == c_ptr->feat) msg_print(MES_DOOR_BROKEN);
+			else sound(SOUND_SHUTDOOR);
 		}
 	}
 
@@ -1031,21 +1009,13 @@ void do_cmd_close(creature_type *creature_ptr)
 
 		/* Require open/broken door */
 		if(!have_flag(feature_info[feat].flags, FF_CLOSE))
-		{
-#ifdef JP
-			msg_print("そこには閉じるものが見当たらない。");
-#else
-			msg_print("You see nothing there to close.");
-#endif
-		}
+			msg_print(MES_CLOSE_NO_TARGET);
 
 		/* Creature in the way */
 		else if(c_ptr->creature_idx)
 		{
 			cost_tactical_energy(creature_ptr, 100);
 			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
-
-			/* Attack */
 			close_combat(creature_ptr, y, x, 0);
 		}
 
