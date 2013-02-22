@@ -3620,11 +3620,7 @@ void quest_discovery(int q_idx)
 		/* Hack -- "unique" creatures must be "unique" */
 		if(has_trait_species(species_ptr, TRAIT_UNIQUE) && (0 == species_ptr->max_num))
 		{
-#ifdef JP
-			msg_print("この階は以前は誰かによって守られていたようだ…。");
-#else
-			msg_print("It seems that this level was protected by someone before...");
-#endif
+			msg_print(MES_QUEST_TARGET_GONE);
 			quest[q_idx].status = QUEST_STATUS_FINISHED;
 		}
 		else
@@ -3643,9 +3639,7 @@ void quest_discovery(int q_idx)
 }
 
 
-/*
- * Hack -- Check if a level is a "quest" level
- */
+// Hack -- Check if a level is a "quest" level
 int quest_number(floor_type *floor_ptr)
 {
 	int i;
@@ -3689,7 +3683,5 @@ int random_quest_number(floor_type *floor_ptr)
 			return i;
 		}
 	}
-
-	/* Nope */
 	return 0;
 }
