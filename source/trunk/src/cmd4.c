@@ -908,6 +908,29 @@ static void do_cmd_erase_nikki(void)
 void do_cmd_nikki(creature_type *player_ptr)
 {
 	int i;
+	selection_info se_info;
+	static cptr se_caption[] =
+	{
+#ifdef JP
+		"(1) 記録を見る",
+		"(2) 文章を記録する",
+		"(3) 直前に入手又は鑑定したものを記録する",
+		"(4) 記録を消去する",
+		"(R) プレイ動画を記録する/中止する",
+#else
+		"(1) Display your record",
+		"(2) Add record",
+		"(3) Record item you last get/identify",
+		"(4) Delete your record",
+		"(R) Record playing movie / or stop it",
+#endif
+	};
+
+#ifdef JP
+//	se_info.caption = "[ 記録の設定 ]";
+#else
+//	se_info.caption = "[ Play Record ]";
+#endif
 
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
@@ -919,24 +942,6 @@ void do_cmd_nikki(creature_type *player_ptr)
 	{
 		Term_clear();
 
-		/* Give some choices */
-#ifdef JP
-		prt("[ 記録の設定 ]", 2, 0);
-		prt("(1) 記録を見る", 4, 5);
-		prt("(2) 文章を記録する", 5, 5);
-		prt("(3) 直前に入手又は鑑定したものを記録する", 6, 5);
-		prt("(4) 記録を消去する", 7, 5);
-
-		prt("(R) プレイ動画を記録する/中止する", 9, 5);
-#else
-		prt("[ Play Record ]", 2, 0);
-		prt("(1) Display your record", 4, 5);
-		prt("(2) Add record", 5, 5);
-		prt("(3) Record item you last get/identify", 6, 5);
-		prt("(4) Delete your record", 7, 5);
-
-		prt("(R) Record playing movie / or stop it", 9, 5);
-#endif
 		prt(PROMPT_COMMAND, 18, 0);
 
 		i = inkey();
@@ -1489,7 +1494,6 @@ static option_type autosave_info[2] =
 	{ &autosave_t, FALSE, 255, 0x02, 0x00, "autosave_t", "Timed autosave" },
 #endif
 };
-
 
 static s16b toggle_frequency(s16b current)
 {
