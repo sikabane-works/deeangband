@@ -2772,20 +2772,12 @@ static void building_recharge_all(creature_type *creature_ptr)
 	/* Check if the player has enough money */
 	if(creature_ptr->au < total_cost)
 	{
-#ifdef JP
-		msg_format("すべてのアイテムを再充填するには＄%d 必要です！", total_cost );
-#else
-		msg_format("You need %d gold to recharge all items!",total_cost);
-#endif
+		msg_format(MES_BLDG_RECHARGE_NO_MONEY_ALL(total_cost));
 		msg_print(NULL);
 		return;
 	}
 
-#ifdef JP
-	if(!get_check(format("すべてのアイテムを ＄%d で再充填しますか？", total_cost))) return;
-#else
-	if(!get_check(format("Recharge all items for %d gold? ", total_cost))) return;
-#endif
+	if(!get_check(format(MES_BLDG_RECHARGE_ALL_ASK(total_cost)))) return;
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_ptr = &creature_ptr->inventory[i];
