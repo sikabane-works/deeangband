@@ -184,8 +184,7 @@ extern bool multi_rew;
  * Software options (set via the '=' command).  See "tables.c"
  */
 
-/*** Input Options ***/
-
+// Input Options
 extern bool rogue_like_commands;	/* Rogue-like commands */
 extern bool always_pickup;	/* Pick things up by default */
 extern bool carry_query_flag;	/* Prompt before picking things up */
@@ -204,9 +203,7 @@ extern bool use_command;	/* Allow unified use command */
 extern bool over_exert;	/* Allow casting spells when short of mana */
 extern bool numpad_as_cursorkey;	/* Use numpad keys as cursor key in editor mode */
 
-
-/*** Map Screen Options ***/
-
+// Map Screen Options
 extern bool center_player;	/* Center map while walking (*slow*) */
 extern bool center_running;	/* Centering even while running */
 extern bool view_yellow_lite;	/* Use special colors for torch-lit grids */
@@ -232,9 +229,7 @@ extern bool abbrev_extra;	/* Describe obj's extra resistances by abbreviation */
 extern bool abbrev_all;	/* Describe obj's all resistances by abbreviation */
 extern bool ignore_unview;	/* Ignore whenever any creature does */
 
-
-/*** Game-Play Options ***/
-
+// Game-Play Options
 extern bool stack_force_notes;	/* Merge inscriptions when stacking */
 extern bool stack_force_costs;	/* Merge discounts when stacking */
 extern bool expand_list;	/* Expand the power of the list commands */
@@ -311,7 +306,6 @@ extern bool record_danger;	/* Record hitpoint warning */
 extern bool record_arena;	/* Record arena victories */
 extern bool record_ident;	/* Record first identified items */
 extern bool record_named_pet;	/* Record informations of named pets */
-
 
 extern bool cheat_peek;
 extern bool cheat_hear;

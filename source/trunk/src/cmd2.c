@@ -1439,11 +1439,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 
 	if(PERCENT(j))
 	{
-#ifdef JP
-		msg_format("%s‚ð‰ðœ‚µ‚½B", name);
-#else
-		msg_format("You have disarmed the %s.", name);
-#endif
+		msg_format(MES_DISARM_DONE(name));
 		gain_exp(creature_ptr, power);
 		cave_alter_feat(floor_ptr, y, x, FF_DISARM);
 		walk_creature(creature_ptr, dir, easy_disarm, FALSE);
@@ -1528,14 +1524,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		object_idx = chest_check(floor_ptr, y, x); // Check for chests
 
 		/* Disarm a trap */
-		if(!is_trap(feat) && !object_idx)
-		{
-#ifdef JP
-			msg_print("‚»‚±‚É‚Í‰ðœ‚·‚é‚à‚Ì‚ªŒ©“–‚½‚ç‚È‚¢B");
-#else
-			msg_print("You see nothing there to disarm.");
-#endif
-		}
+		if(!is_trap(feat) && !object_idx) msg_print(MES_DISARM_NONE);
 
 		/* Creature in the way */
 		else if(c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
@@ -1543,20 +1532,8 @@ void do_cmd_disarm(creature_type *creature_ptr)
 			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
-
-		/* Disarm chest */
-		else if(object_idx)
-		{
-			/* Disarm the chest */
-			more = do_cmd_disarm_chest(creature_ptr, y, x, object_idx);
-		}
-
-		/* Disarm trap */
-		else
-		{
-			/* Disarm the trap */
-			more = do_cmd_disarm_aux(creature_ptr, y, x, dir);
-		}
+		else if(object_idx) more = do_cmd_disarm_chest(creature_ptr, y, x, object_idx);
+		else more = do_cmd_disarm_aux(creature_ptr, y, x, dir);
 	}
 
 	/* Cancel repeat unless told not to */
@@ -1684,13 +1661,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
-
-		/* Bash a closed door */
-		else
-		{
-			/* Bash the door */
-			more = do_cmd_bash_aux(creature_ptr, y, x, dir);
-		}
+		else more = do_cmd_bash_aux(creature_ptr, y, x, dir);
 	}
 
 	/* Unless valid action taken, cancel bash */

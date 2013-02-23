@@ -2359,11 +2359,15 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_DISARM_DONE(TRAP) "%sを解除した。", (TRAP)
+#define MES_DISARM_NONE "そこには解除するものが見当たらない。"
 #define MES_DISARM_NO_TRAP "トラップが見あたらない。"
 #define MES_DISARM_NO_TRAP_CHEST "箱にはトラップが仕掛けられていない。"
 #define MES_DISARM_FAILED(TARGET) "%sの解除に失敗した。", (TARGET)
 #define MES_DISARM_FUMBLE "トラップを作動させてしまった！"
 #else
+#define MES_DISARM_DONE(TRAP) "You have disarmed the %s.", (TRAP)
+#define MES_DISARM_NONE "You see nothing there to disarm."
 #define MES_DISARM_NO_TRAP "You don't see any traps."
 #define MES_DISARM_NO_TRAP_CHEST "The chest is not trapped."
 #define MES_DISARM_FAILED(TARGET) "You failed to disarm the %s.", (TARGET)
