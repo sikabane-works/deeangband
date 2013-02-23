@@ -152,6 +152,7 @@
 #define KW_ROD "ロッド"
 #define KW_YOU "あなた"
 #define KW_CREATURE_PROFILE "クリーチャーのプロフィール"
+#define KW_CREATURE_PROFILE_EDITED "クリーチャーのプロフィール - 編集済み"
 #define KW_GOOD "善"
 #define KW_EVIL "悪"
 #define KW_LAW "秩序"
@@ -240,6 +241,7 @@
 #define KW_ROD "rod"
 #define KW_YOU "You"
 #define KW_CREATURE_PROFILE "Creature Profile"
+#define KW_CREATURE_PROFILE_EDITED "Creature Profile - Edited"
 #define KW_GOOD "Good"
 #define KW_EVIL "Evil"
 #define KW_LAW "Law"
@@ -2030,6 +2032,10 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_AUTOPICK_WHICH_ENTRY "どのアイテムを登録しますか"
+#define MES_AUTOPICK_NO_ENTRY "アイテムを持っていない。"
+#define MES_AUTOPICK_WHICH_SEARCH "どのアイテムを検索しますか? "
+#define MES_AUTOPICK_NO_SEARCH "アイテムを持っていない。"
 #define MES_AUTOPICK_LOAD_FILE "自動拾い設定ファイルをロードしますか? "
 #define MES_AUTOPICK_AUTODUMP "\n# 自動マクロセーブ\n\n"
 #define MES_AUTOPICK_PATTERN_NOT_FOUND(STR) "パターンが見つかりません: %s", (STR)
@@ -2046,6 +2052,10 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_CUR_DELETE "この行は後で削除されます。"
 #define MES_AUTOPICK_CUR_BYPASS "この行は現在は無効な状態です。"
 #else
+#define MES_AUTOPICK_WHICH_ENTRY "Enter which item? "
+#define MES_AUTOPICK_NO_ENTRY "You have nothing to enter."
+#define MES_AUTOPICK_WHICH_SEARCH "Search which item? "
+#define MES_AUTOPICK_NO_SEARCH "You have nothing to search."
 #define MES_AUTOPICK_LOAD_FILE "Reload auto-pick preference file? "
 #define MES_AUTOPICK_AUTODUMP "\n# Automatic macro dump\n\n"
 #define MES_AUTOPICK_PATTERN_NOT_FOUND(STR) "Pattern not found: %s", (STR)

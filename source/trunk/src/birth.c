@@ -4010,11 +4010,7 @@ static void edit_history(creature_type *creature_ptr)
 		{
 			Term_erase(0, 11, 255);
 			Term_erase(0, 17, 255);
-#ifdef JP
-			put_str("(クリーチャーのプロフィール - 編集済み)", 2, 20);
-#else
-			put_str("(Creature Profile - Edited)", 2, 20);
-#endif
+			put_str(KW_CREATURE_PROFILE_EDITED, 2, 20);
 			break;
 		}
 		else if(c == ESCAPE)

@@ -3245,55 +3245,31 @@ static object_type *choose_object(creature_type *creature_ptr, cptr q, cptr s)
 	return GET_ITEM(creature_ptr, item);
 }
 
-
-/*
- * Choose an item and get auto-picker entry from it.
- */
+// Choose an item and get auto-picker entry from it.
 static bool entry_from_choosed_object(creature_type *creature_ptr, autopick_type *entry)
 {
 	object_type *object_ptr;
-	cptr q, s;
-
-#ifdef JP
-	q = "どのアイテムを登録しますか? ";
-	s = "アイテムを持っていない。";
-#else
-	q = "Enter which item? ";
-	s = "You have nothing to enter.";
-#endif
-	object_ptr = choose_object(creature_ptr, q, s);
+	object_ptr = choose_object(creature_ptr, MES_AUTOPICK_WHICH_ENTRY, MES_AUTOPICK_NO_ENTRY);
 	if(!object_ptr) return FALSE;
 
 	autopick_entry_from_object(creature_ptr, entry, object_ptr);
 	return TRUE;
 }
 
-
-/*
- * Choose an item for search
- */
+// Choose an item for search
 static byte get_object_for_search(creature_type *creature_ptr, object_type **o_handle, cptr *search_strp)
 {
 	char buf[MAX_NLEN+20];
 	object_type *object_ptr;
-	cptr q, s;
-
-#ifdef JP
-	q = "どのアイテムを検索しますか? ";
-	s = "アイテムを持っていない。";
-#else
-	q = "Enter which item? ";
-	s = "You have nothing to enter.";
-#endif
-	object_ptr = choose_object(creature_ptr, q, s);
-	if(!object_ptr) return 0;
+	object_ptr = choose_object(creature_ptr, MES_AUTOPICK_WHICH_SEARCH, MES_AUTOPICK_NO_SEARCH);
+	if(!object_ptr) return FALSE;
 
 	*o_handle = object_ptr;
 
 	string_free(*search_strp);
 	object_desc(buf, *o_handle, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
 	*search_strp = string_make(format("<%s>", buf));
-	return 1;
+	return TRUE;
 }
 
 
