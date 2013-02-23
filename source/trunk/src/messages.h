@@ -2189,6 +2189,8 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_OBJECT_WHICH_IMPROVE "どのアイテムを改良しますか？"
+#define MES_OBJECT_NO_IMPROVE "改良できるものがありません。"
 #define MES_OBJECT_FOUND(NUM) "%d種のアイテムがある。", (NUM)
 #define MES_OBJECT_WHICH_USE "どれを使いますか？"
 #define MES_OBJECT_NO_USE "使えるものがありません。"
@@ -2213,6 +2215,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_TORCH "他に松明がない。"
 #define MES_OBJECT_DROPPED(NAME, SYM) "%s(%c)を落とした。", (NAME), (SYM)
 #else
+#define MES_OBJECT_WHICH_IMPROVE "Improve which item? "
+#define MES_OBJECT_NO_IMPROVE "You have nothing to improve."
 #define MES_OBJECT_FOUND(NUM) "You see %d items.", (NUM)
 #define MES_OBJECT_WHICH_USE "Use which item? "
 #define MES_OBJECT_NO_USE "You have nothing to use." 

@@ -2392,7 +2392,6 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	int         i, item;
 	bool        okay = FALSE;
 	object_type *object_ptr;
-	cptr        q, s;
 	int         maxenchant = (creature_ptr->lev / 5);
 	char        tmp_str[MAX_NLEN];
 
@@ -2400,16 +2399,12 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 #ifdef JP
 	prt(format("現在のあなたの技量だと、+%d まで改良できます。", maxenchant), 5, 0);
 	prt(format(" 改良の料金は一個につき＄%d です。", cost), 7, 0);
-	q = "どのアイテムを改良しますか？";
-	s = "改良できるものがありません。";
 #else
 	prt(format("  Based on your skill, we can improve up to +%d.", maxenchant), 5, 0);
 	prt(format("  The price for the service is %d gold per item.", cost), 7, 0);
-	q = "Improve which item? ";
-	s = "You have nothing to improve.";
 #endif
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL, item_tester_tval)) return FALSE;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_IMPROVE, MES_OBJECT_NO_IMPROVE, (USE_INVEN | USE_EQUIP), NULL, item_tester_tval)) return FALSE;
 	object_ptr = &creature_ptr->inventory[item];	// Get the item (in the pack)
 
 	/* Check if the player has enough money */

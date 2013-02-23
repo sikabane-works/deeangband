@@ -5180,7 +5180,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	int i;
 	bool flag,redraw;
 	char choice;
-	cptr            q, s;
 	object_type *object_ptr;
 	int ask = TRUE;
 	char out_val[160];
@@ -5209,7 +5208,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		redraw = FALSE;
 
 #ifdef JP
-		(void) strnfmt(out_val, 78, "('*'で一覧, ESCで中断) どの能力を付加しますか？");
+		(void)strnfmt(out_val, 78, "('*'で一覧, ESCで中断) どの能力を付加しますか？");
 #else
 		(void)strnfmt(out_val, 78, "(*=List, ESC=exit) Add which ability? ");
 #endif
@@ -5478,15 +5477,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	else
 		item_tester_hook = object_is_weapon_armour_ammo2;
 
-#ifdef JP
-	q = "どのアイテムを改良しますか？";
-	s = "改良できるアイテムがありません。";
-#else
-	q = "Improve which item? ";
-	s = "You have nothing to improve.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook, item_tester_tval)) return;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_IMPROVE, MES_OBJECT_NO_IMPROVE, (USE_INVEN | USE_FLOOR), item_tester_hook, item_tester_tval)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	if((mode != 10) && (object_is_artifact(object_ptr) || object_is_smith(object_ptr)))
