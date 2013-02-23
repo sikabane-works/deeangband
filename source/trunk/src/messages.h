@@ -483,8 +483,6 @@
 #define GAME_MESSAGE_PACK_COMBINE "ザックの中のアイテムをまとめ直した。"
 #define GAME_MESSAGE_STAFF_UNSTACK "杖をまとめなおした。"
 
-#define GAME_MESSAGE_UMBUSHED "襲撃だ！"
-
 #define GAME_MESSAGE_PROJECTILE_HITS "%sが%sに命中した。"
 
 #define GAME_MESSAGE_FIELD_MAGIC_FAILED1 "床上のアイテムが呪文を跳ね返した。"
@@ -582,8 +580,6 @@
 #define GAME_MESSAGE_PACK_COMBINE "You combine some items in your pack."
 #define GAME_MESSAGE_STAFF_UNSTACK "You unstack your staff."
 
-#define GAME_MESSAGE_UMBUSHED "You are ambushed !"
-
 #define GAME_MESSAGE_PROJECTILE_HITS "The %s hits %s."
 
 #define GAME_MESSAGE_FIELD_MAGIC_FAILED1 "The object resists the spell."
@@ -598,6 +594,14 @@
 #define GAME_MESSAGE_TARGET_CANCELED "Canceled."
 
 #define GAME_MESSAGE_GOODBYE(NAME) ("Goodbye, %s!", (NAME))
+#endif
+
+#ifdef JP
+#define MES_FIELD_UMBUSHED "襲撃だ！"
+#define MES_FIELD_ASK_CHAOS "本当に〈混沌〉の領域に入りますか？"
+#else
+#define MES_FIELD_UMBUSHED "You are ambushed !"
+#define MES_FIELD_ASK_CHAOS "Really want to enter territory of chaos? "
 #endif
 
 #ifdef JP
@@ -2169,6 +2173,8 @@ static cptr desc_stat_neg[] =
 #define MES_WALK_NEVER_SWIM "泳げない。"
 #define MES_WALK_NEVER_LAND "陸に上がれない。"
 #define MES_WALK_STEED_FEAR(STEED) "%sが恐怖していて制御できない。", (STEED)
+#define MES_WALK_STEED_STUNED(STEED) "%sが朦朧としていてうまく動けない！", (STEED)
+#define MES_WALK_TOO_HOT(FEATURE) "熱くて%sの上に行けない。", (FEATURE)
 #define MES_WALK_MUST_FLY(FEATURE) "空を飛ばないと%sの上には行けない。", (FEATURE)
 #define MES_WALK_BLOCK(FEATURE) "%sが行く手をはばんでいる。", (FEATURE)
 #define MES_WALK_ASK_ENTERING_CHAOS "本当に〈混沌〉の領域に入りますか？"
@@ -2180,6 +2186,8 @@ static cptr desc_stat_neg[] =
 #define MES_WALK_NEVER_SWIM "Can't swim"
 #define MES_WALK_NEVER_LAND "Can't land"
 #define MES_WALK_STEED_FEAR(STEED) "%^s is too scared to control.", (STEED)
+#define MES_WALK_STEED_STUNED(STEED) "You cannot control stunned %s!", (STEED)
+#define MES_WALK_TOO_HOT(FEATURE) "Too hot to go through %s.", (FEATURE)
 #define MES_WALK_MUST_FLY(FEATURE) "You need to fly to go through the %s.", (FEATURE)
 #define MES_WALK_BLOCK(FEATURE) "There is %s %s blocking your way.", is_a_vowel((FEATURE)[0]) ? "an" : "a", (FEATURE)
 #define MES_WALK_ASK_ENTERING_CHAOS "Really want to enter territory of chaos? "

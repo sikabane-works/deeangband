@@ -1844,7 +1844,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 		if(((wilderness[creature_ptr->fy][creature_ptr->fx].level + 5) > (creature_ptr->lev / 2)) && randint0(tmp) < (21-creature_ptr->skill_stl))
 		{
 			/* Inform the player of his horrible fate :=) */
-			msg_print(GAME_MESSAGE_UMBUSHED);
+			msg_print(MES_FIELD_UMBUSHED);
 
 			/* Go into large wilderness view */
 			creature_ptr->oldpy = (s16b)randint1(MAX_HGT-2);

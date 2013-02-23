@@ -1345,11 +1345,7 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				cost_tactical_energy(creature_ptr, 100);
 				return;
 			}
-#ifdef JP
-			else if(get_check("–{“–‚Éq¬“×r‚Ì—Ìˆæ‚É“ü‚è‚Ü‚·‚©H"))
-#else
-			else if(get_check("Really want to enter territory of chaos? "))
-#endif
+			else if(get_check(MES_FIELD_ASK_CHAOS))
 			{
 				creature_ptr->wy = tmp_wy;
 				creature_ptr->wx = tmp_wx;
@@ -1534,11 +1530,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		}
 		else if(have_flag(f_ptr->flags, FF_LAVA) && !has_trait(steed_ptr, TRAIT_RES_FIRE))
 		{
-#ifdef JP
-			msg_format("%s‚Ìã‚És‚¯‚È‚¢B", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#else
-			msg_print("Too hot to go through.");
-#endif
+			msg_format(MES_WALK_TOO_HOT(feature_name + feature_info[get_feat_mimic(c_ptr)].name));
 			cancel_tactical_action(creature_ptr);
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
@@ -1548,11 +1540,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		{
 			char m_name[MAX_NLEN];
 			creature_desc(m_name, steed_ptr, 0);
-#ifdef JP
-			msg_format("%s‚ªžNžO‚Æ‚µ‚Ä‚¢‚Ä‚¤‚Ü‚­“®‚¯‚È‚¢I",m_name);
-#else
-			msg_format("You cannot control stunned %s!",m_name);
-#endif
+			msg_format(MES_WALK_STEED_STUNED(m_name));
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
@@ -1708,7 +1696,6 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		msg_format("%s", c_ptr->message);
 	}
 }
-
 
 static bool ignore_avoid_run;
 
