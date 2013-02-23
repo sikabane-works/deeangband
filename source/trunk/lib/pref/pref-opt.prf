@@ -24,7 +24,6 @@ X:confirm_destroy
 Y:confirm_wear
 Y:confirm_quest
 X:target_pet
-Y:easy_open
 Y:easy_disarm
 X:use_command
 X:over_exert

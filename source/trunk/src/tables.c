@@ -2620,13 +2620,11 @@ option_type option_info[] =
 
 #ifdef JP
 	{ &target_pet,    FALSE, OPT_PAGE_INPUT, 2, 5, "target_pet",     "ペットをターゲットにする" },
-	{ &easy_open,     TRUE, OPT_PAGE_INPUT, 5, 7, "easy_open",      "自動的にドアを開ける" },
 	{ &easy_disarm,   TRUE, OPT_PAGE_INPUT, 5, 8, "easy_disarm",    "自動的に罠を解除する" },
 	{ &use_command,   FALSE, OPT_PAGE_INPUT, 5, 10, "use_command",    "「使う(a)」コマンドでアイテムを何でも使える" },
 	{ &over_exert,    FALSE, OPT_PAGE_INPUT, 0, 29, "over_exert",     "MPが足りなくても魔法に挑戦する" },
 #else
 	{ &target_pet,    FALSE, OPT_PAGE_INPUT, 2, 5, "target_pet",     "Allow targetting pets" },
-	{ &easy_open,     TRUE, OPT_PAGE_INPUT, 5, 7, "easy_open",      "Automatically open doors" },
 	{ &easy_disarm,   TRUE, OPT_PAGE_INPUT, 5, 8, "easy_disarm",    "Automatically disarm traps" },
 	{ &use_command,   FALSE, OPT_PAGE_INPUT, 5, 10, "use_command",    "Allow unified use command" },
 	{ &over_exert,    FALSE, OPT_PAGE_INPUT, 0, 29, "over_exert",     "Allow casting spells when short of mana" },

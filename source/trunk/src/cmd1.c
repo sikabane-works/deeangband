@@ -576,10 +576,7 @@ static int check_hit(creature_type *creature_ptr, int power)
 	/* Hack -- 5% hit, 5% miss */
 	if(k < 10) return (k < 5);
 
-	if(creature_ptr->chara_idx == CHARA_NAMAKE)
-		if(one_in_(20)) return TRUE;
-
-
+	if(creature_ptr->chara_idx == CHARA_NAMAKE || one_in_(20)) return TRUE;
 	if(power <= 0) return FALSE;
 
 	/* Total armor */
@@ -1622,7 +1619,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			else
 			{
 				/* Closed doors */
-				if(easy_open && is_closed_door(feat) && easy_open_door(creature_ptr, y, x)) return;
+				if(is_closed_door(feat) && easy_open_door(creature_ptr, y, x)) return;
 				msg_format(MES_WALK_BLOCK(name));
 
 				/*
@@ -2523,13 +2520,6 @@ void travel_step(creature_type *creature_ptr)
 
 		if(travel.cost[creature_ptr->fy+ddy[i]][creature_ptr->fx+ddx[i]] < travel.cost[creature_ptr->fy+ddy[dir]][creature_ptr->fx+ddx[dir]])
 			dir = i;
-	}
-
-	/* Close door */
-	if(!easy_open && is_closed_door(floor_ptr->cave[creature_ptr->fy+ddy[dir]][creature_ptr->fx+ddx[dir]].feat))
-	{
-		disturb(player_ptr, 0, 0);
-		return;
 	}
 
 	travel.dir = dir;

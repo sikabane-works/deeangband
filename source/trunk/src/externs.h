@@ -199,7 +199,6 @@ extern bool confirm_destroy;	/* Prompt for destruction of known worthless items 
 extern bool confirm_wear;	/* Confirm to wear/wield known cursed items */
 extern bool confirm_quest;	/* Prompt before exiting a quest level */
 extern bool target_pet;	/* Allow targetting pets */
-extern bool easy_open;	/* Automatically open doors */
 extern bool easy_disarm;	/* Automatically disarm traps */
 extern bool use_command;	/* Allow unified use command */
 extern bool over_exert;	/* Allow casting spells when short of mana */
@@ -1601,7 +1600,6 @@ extern bool repeat_pull(int *what);
 extern void repeat_check(void);
 
 // variable.c
-extern bool easy_open;
 extern s16b arena_number;		/* creature number in arena -KMW- */
 
 extern s16b species_window_idx;	/* Species info trackee */

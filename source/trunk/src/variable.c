@@ -162,7 +162,6 @@ bool confirm_destroy;		// Prompt for destruction of known worthless items
 bool confirm_wear;			// Confirm to wear/wield known cursed items
 bool confirm_quest;			// Prompt before exiting a quest level
 bool target_pet;			// Allow targetting pets
-bool easy_open;				// Automatically open doors
 bool easy_disarm;			// Automatically disarm traps
 bool use_command;			// Allow unified use command
 bool over_exert;			// Allow casting spells when short of mana

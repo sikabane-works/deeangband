@@ -832,27 +832,22 @@ void do_cmd_open(creature_type *creature_ptr)
 	s16b object_idx;
 	bool more = FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	int num_doors, num_chests;
 
 	free_posture(creature_ptr);
 
-	/* Option: Pick a direction */
-	if(easy_open)
+	/* Count closed doors (locked or jammed) */
+	num_doors = count_dt(creature_ptr, &y, &x, is_closed_door, FALSE);
+
+	/* Count chests (locked) */
+	num_chests = count_chests(creature_ptr, &y, &x, FALSE);
+
+	/* See if only one target */
+	if(num_doors || num_chests)
 	{
-		int num_doors, num_chests;
-
-		/* Count closed doors (locked or jammed) */
-		num_doors = count_dt(creature_ptr, &y, &x, is_closed_door, FALSE);
-
-		/* Count chests (locked) */
-		num_chests = count_chests(creature_ptr, &y, &x, FALSE);
-
-		/* See if only one target */
-		if(num_doors || num_chests)
-		{
-			bool too_many = (num_doors && num_chests) || (num_doors > 1) ||
-			    (num_chests > 1);
-			if(!too_many) command_dir = coords_to_damageir(creature_ptr, y, x);
-		}
+		bool too_many = (num_doors && num_chests) || (num_doors > 1) ||
+		    (num_chests > 1);
+		if(!too_many) command_dir = coords_to_damageir(creature_ptr, y, x);
 	}
 
 	/* Allow repeated command */
@@ -966,14 +961,9 @@ void do_cmd_close(creature_type *creature_ptr)
 
 	free_posture(creature_ptr);
 
-	// Option: Pick a direction
-	if(easy_open)
+	if(count_dt(creature_ptr, &y, &x, is_open, FALSE) == 1)
 	{
-		// Count open doors
-		if(count_dt(creature_ptr, &y, &x, is_open, FALSE) == 1)
-		{
-			command_dir = coords_to_damageir(creature_ptr, y, x);
-		}
+		command_dir = coords_to_damageir(creature_ptr, y, x);
 	}
 
 	/* Allow repeated command */
