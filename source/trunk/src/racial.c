@@ -264,36 +264,19 @@ bool gain_magic(creature_type *creature_ptr)
 	int item;
 	int pval;
 	int ext = 0;
-	cptr q, s;
 	object_type *object_ptr;
 	char object_name[MAX_NLEN];
-
-#ifdef JP
-	q = "どのアイテムの魔力を取り込みますか? ";
-	s = "魔力を取り込めるアイテムがない。";
-#else
-	q = "Gain power of which item? ";
-	s = "You have nothing to gain power.";
-#endif
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return FALSE;
+	if(!get_item(creature_ptr, &item, MES_GAINMAGIC_WHICH_ITEM, MES_GAINMAGIC_NO_ITEM, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	if(object_ptr->tval == TV_STAFF && object_ptr->sval == SV_STAFF_NOTHING)
 	{
-#ifdef JP
-		msg_print("この杖には発動の為の能力は何も備わっていないようだ。");
-#else
-		msg_print("This staff doesn't have any magical ability.");
-#endif
+		msg_print(MES_GAINMAGIC_NO_MAGIC);
 		return FALSE;
 	}
 	if(!object_is_known(object_ptr))
 	{
-#ifdef JP
-		msg_print("鑑定されていないと取り込めない。");
-#else
-		msg_print("You need to identify before absorbing.");
-#endif
+		msg_print(MES_GAINMAGIC_NEED_IDENTIFY);
 		return FALSE;
 	}
 	if(object_ptr->timeout)

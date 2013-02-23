@@ -2969,3 +2969,16 @@ static cptr desc_stat_neg[] =
 #define MES_DOOR_STUCK "There seems stuck."
 #define MES_DOOR_BROKEN "The door appears to be broken."
 #endif
+
+
+#ifdef JP
+#define MES_GAINMAGIC_WHICH_ITEM "どのアイテムの魔力を取り込みますか? "
+#define MES_GAINMAGIC_NO_ITEM "魔力を取り込めるアイテムがない。"
+#define MES_GAINMAGIC_NO_MAGIC "この杖には発動の為の能力は何も備わっていないようだ。"
+#define MES_GAINMAGIC_NEED_IDENTIFY "鑑定されていないと取り込めない。"
+#else
+#define MES_GAINMAGIC_WHICH_ITEM "Gain power of which item? "
+#define MES_GAINMAGIC_NO_ITEM "You have nothing to gain power."
+#define MES_GAINMAGIC_NO_MAGIC "This staff doesn't have any magical ability."
+#define MES_GAINMAGIC_NEED_IDENTIFY "You need to identify before absorbing."
+#endif
