@@ -164,7 +164,6 @@ bool confirm_quest;			// Prompt before exiting a quest level
 bool target_pet;			// Allow targetting pets
 bool easy_open;				// Automatically open doors
 bool easy_disarm;			// Automatically disarm traps
-bool easy_floor;			// Display floor stacks in a list
 bool use_command;			// Allow unified use command
 bool over_exert;			// Allow casting spells when short of mana
 bool numpad_as_cursorkey;	// Use numpad keys as cursor key in editor mode

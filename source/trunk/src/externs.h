@@ -201,7 +201,6 @@ extern bool confirm_quest;	/* Prompt before exiting a quest level */
 extern bool target_pet;	/* Allow targetting pets */
 extern bool easy_open;	/* Automatically open doors */
 extern bool easy_disarm;	/* Automatically disarm traps */
-extern bool easy_floor;	/* Display floor stacks in a list */
 extern bool use_command;	/* Allow unified use command */
 extern bool over_exert;	/* Allow casting spells when short of mana */
 extern bool numpad_as_cursorkey;	/* Use numpad keys as cursor key in editor mode */
@@ -1624,7 +1623,6 @@ extern bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, i
 extern void py_pickup_floor(creature_type *creature_ptr, bool pickup);
 
 // variable.c
-extern bool easy_floor;
 extern u32b creature_idx_latest;
 
 /* obj_kind.c */

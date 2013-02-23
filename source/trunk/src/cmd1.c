@@ -556,87 +556,8 @@ void carry(creature_type *creature_ptr, bool pickup)
 	handle_stuff(creature_ptr);
 
 	autopick_pickup_items(creature_ptr, c_ptr); // Automatically pickup/destroy/inscribe items
-
-	if(easy_floor)
-	{
-		py_pickup_floor(creature_ptr, pickup);
-		return;
-	}
-
-	for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
-	{
-		object_type *object_ptr;
-		object_ptr = &object_list[this_object_idx];
-		next_object_idx = object_ptr->next_object_idx;
-
-		disturb(player_ptr, 0, 0); // Hack -- disturb
-		floor_num++;
-	}
-
-	if(floor_num >= 3) msg_format(MES_OBJECT_FOUND(floor_num));
-
-	/* Scan the pile of objects */
-	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
-	{
-		object_type *object_ptr;
-		object_ptr = &object_list[this_object_idx]; // Acquire object
-		object_desc(object_name, object_ptr, 0); // Describe the object
-		next_object_idx = object_ptr->next_object_idx; // Acquire next object
-		disturb(player_ptr, 0, 0); // Hack -- disturb
-
-		if(object_ptr->tval == TV_GOLD) // Pick up gold
-		{
-			int value = (long)object_ptr->pval;
-			delete_object_idx(this_object_idx); // Delete the gold
-			msg_format(GAME_MESSAGE_GET_MONEY, (long)value, object_name);
-			sound(SOUND_SELL);
-			creature_ptr->au += value;
-			prepare_redraw(PR_GOLD);
-			prepare_window(PW_PLAYER);
-		}
-
-		/* Pick up objects */
-		else
-		{
-			/* Hack - some objects were handled in autopick_pickup_items(). */
-			if(object_ptr->marked & OM_NOMSG)
-			{
-				/* Clear the flag. */
-				object_ptr->marked &= ~OM_NOMSG;
-			}
-			/* Describe the object */
-			else if(!pickup)
-			{
-				if(floor_num < 3)
-				{
-					msg_format(GAME_MESSAGE_SEE_OBJECT, object_name);
-				}
-			}
-
-			else if(!inven_carry_okay(creature_ptr, object_ptr)) msg_format(GAME_MESSAGE_PACK_NO_ROOM, object_name);
-
-			/* Pick up the item (if requested and allowed) */
-			else
-			{
-				int okay = TRUE;
-
-				/* Hack -- query every item */
-				if(carry_query_flag)
-				{
-					char out_val[MAX_NLEN+20];
-					sprintf(out_val, PROMPT_PICK, object_name);
-					okay = get_check(out_val);
-				}
-
-				/* Attempt to pick up an object. */
-				if(okay)
-				{
-					/* Pick up the object */
-					py_pickup_aux(creature_ptr, this_object_idx);
-				}
-			}
-		}
-	}
+	py_pickup_floor(creature_ptr, pickup);
+	return;
 }
 
 

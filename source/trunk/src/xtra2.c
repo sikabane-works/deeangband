@@ -1760,19 +1760,15 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 	int floor_list[23], floor_num = 0;
 
-	/* Scan all objects in the grid */
-	if(easy_floor)
-	{
-		floor_num = scan_floor(floor_list, floor_ptr, y, x, 0x02);
+	floor_num = scan_floor(floor_list, floor_ptr, y, x, 0x02);
 
-		if(floor_num)
-		{
+	if(floor_num)
+	{
 #ifdef JP
-			x_info = "x•¨ ";
+		x_info = "x•¨ ";
 #else
-			x_info = "x,";
+		x_info = "x,";
 #endif
-		}
 	}
 
 	/* Hack -- under the player */

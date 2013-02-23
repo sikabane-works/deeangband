@@ -1558,8 +1558,6 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 	return target_item_label;
 }
 
-// This version of get_item() is called by get_item() when
-// the easy_floor is on.
 bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -2728,9 +2726,7 @@ static bool py_pickup_floor_aux(creature_type *creature_ptr)
 
 /*
  * Make the player carry everything in a grid
- *
  * If "pickup" is FALSE then only gold will be picked up
- *
  * This is called by py_pickup() when easy_floor is TRUE.
  */
 void py_pickup_floor(creature_type *creature_ptr, bool pickup)

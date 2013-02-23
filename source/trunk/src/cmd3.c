@@ -21,10 +21,7 @@ void do_cmd_inven(creature_type *creature_ptr)
 {
 	char out_val[160];
 	char buf1[80], buf2[80];
-
-	command_wrk = FALSE;
-
-	if(easy_floor) command_wrk = (USE_INVEN);
+	command_wrk = (USE_INVEN);
 
 	screen_save();
 
@@ -69,10 +66,7 @@ void do_cmd_equip(creature_type *creature_ptr)
 {
 	char out_val[160];
 	char buf1[80], buf2[80];
-
-	command_wrk = TRUE;
-
-	if(easy_floor) command_wrk = (USE_EQUIP);
+	command_wrk = (USE_EQUIP);
 
 	screen_save();
 
