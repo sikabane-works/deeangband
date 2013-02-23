@@ -3234,10 +3234,7 @@ static bool insert_return_code(text_body_type *tb)
 	return TRUE;
 }
 
-
-/*
- * Choose an item and get auto-picker entry from it.
- */
+// Choose an item and get auto-picker entry from it.
 static object_type *choose_object(creature_type *creature_ptr, cptr q, cptr s)
 {
 	int item;
@@ -3272,10 +3269,7 @@ static byte get_object_for_search(creature_type *creature_ptr, object_type **o_h
 	return TRUE;
 }
 
-
-/*
- * Prepare for search by destroyed object
- */
+// Prepare for search by destroyed object
 static byte get_destroyed_object_for_search(object_type **o_handle, cptr *search_strp)
 {
 	char buf[MAX_NLEN+20];
@@ -3290,10 +3284,7 @@ static byte get_destroyed_object_for_search(object_type **o_handle, cptr *search
 	return 1;
 }
 
-
-/*
- * Choose an item or string for search
- */
+// Choose an item or string for search
 static byte get_string_for_search(creature_type *creature_ptr, object_type **o_handle, cptr *search_strp)
 {
 	int pos = 0;
@@ -4275,14 +4266,11 @@ static int do_command_menu(int level, int start)
 static chain_str_type *new_chain_str(cptr str)
 {
 	chain_str_type *chain;
-
 	size_t len = strlen(str);
-
 	chain = (chain_str_type *)ralloc(sizeof(chain_str_type) + len * sizeof(char));
 
 	strcpy(chain->s, str);
 	chain->next = NULL;
-
 	return chain;
 }
 
@@ -4702,22 +4690,10 @@ static void draw_text_editor(text_body_type *tb)
 			describe_autopick(buf, entry);
 
 			if(tb->states[tb->cy] & LSTAT_AUTOREGISTER)
-			{
-#ifdef JP
-				strcat(buf, "この行は後で削除されます。");
-#else
-				strcat(buf, "  This line will be delete later.");
-#endif
-			}
+				strcat(buf, MES_AUTOPICK_CUR_DELETE);
 
 			if(tb->states[tb->cy] & LSTAT_BYPASS)
-			{
-#ifdef JP
-				strcat(buf, "この行は現在は無効な状態です。");
-#else
-				strcat(buf, "  This line is bypassed currently.");
-#endif
-			}
+				strcat(buf, MES_AUTOPICK_CUR_BYPASS);
 
 			roff_to_buf(buf, 81, temp, sizeof(temp));
 			t = temp;
@@ -4742,10 +4718,7 @@ static void draw_text_editor(text_body_type *tb)
 	}
 }
 
-
-/*
- * Kill segment of a line
- */
+// Kill segment of a line
 static void kill_line_segment(text_body_type *tb, int y, int x0, int x1, bool whole)
 {
 	char buf[MAX_LINELEN];
