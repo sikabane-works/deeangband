@@ -604,10 +604,14 @@
 #define MES_SMITH_WHICH_DRAIN "どのアイテムから抽出しますか？"
 #define MES_SMITH_NO_DRAIN "抽出できるアイテムがありません。"
 #define MES_SMITH_DRAIN_ASK(OBJECT) "本当に%sから抽出してよろしいですか？", (OBJECT)
+#define MES_SMITH_DRAIN_NOTHING "エッセンスは抽出できませんでした。"
+#define MES_SMITH_DRAINED_ESSENCE "抽出したエッセンス:"
 #else
 #define MES_SMITH_WHICH_DRAIN "Extract from which item? "
 #define MES_SMITH_NO_DRAIN "You have nothing you can extract from."
 #define MES_SMITH_DRAIN_ASK(OBJECT) "Really extract from %s? ", (OBJECT)
+#define MES_SMITH_DRAIN_NOTHING "You were not able to extract any essence."
+#define MES_SMITH_DRAINED_ESSENCE "Extracted essences:"
 #endif
 
 

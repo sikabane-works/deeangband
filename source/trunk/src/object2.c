@@ -1329,9 +1329,7 @@ bool can_player_destroy_object(creature_type *creature_ptr, object_type *object_
 		/* We have "felt" it (again) */
 		object_ptr->ident |= (IDENT_SENSE);
 
-		/* Combine the pack */
 		prepare_update(creature_ptr, CRU_COMBINE);
-
 		prepare_window(PW_INVEN | PW_EQUIP);
 
 		return FALSE;
@@ -5048,21 +5046,10 @@ static void drain_essence(creature_type *creature_ptr)
 			observe = TRUE;
 		}
 	}
-	if(!observe)
-	{
-#ifdef JP
-		msg_print("エッセンスは抽出できませんでした。");
-#else
-		msg_print("You were not able to extract any essence.");
-#endif
-	}
+	if(!observe) msg_print(MES_SMITH_DRAIN_NOTHING);
 	else
 	{
-#ifdef JP
-		msg_print("抽出したエッセンス:");
-#else
-		msg_print("Extracted essences:");
-#endif
+		msg_print(MES_SMITH_DRAINED_ESSENCE);
 		for (i = 0; essence_name[i]; i++)
 		{
 			if(!essence_name[i][0]) continue;
@@ -5075,9 +5062,7 @@ static void drain_essence(creature_type *creature_ptr)
 		}
 	}
 
-	/* Combine the pack */
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-
 	prepare_window(PW_INVEN);
 }
 
@@ -5723,9 +5708,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	msg_format("You have added ability of %s to %s.", es_ptr->add_name, object_name);
 #endif
 
-	/* Combine the pack */
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-
 	prepare_window(PW_INVEN);
 }
 
@@ -5772,9 +5755,7 @@ static void erase_essence(creature_type *creature_ptr)
 	msg_print("You removed all essence you have added.");
 #endif
 
-	/* Combine the pack */
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-
 	prepare_window(PW_INVEN);
 }
 

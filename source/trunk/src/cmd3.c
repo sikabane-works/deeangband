@@ -663,9 +663,7 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 	/* Remove the incription */
 	object_ptr->inscription = 0;
 
-	/* Combine the pack */
 	prepare_update(creature_ptr, CRU_COMBINE);
-
 	prepare_window(PW_INVEN | PW_EQUIP);
 
 	/* .‚â$‚ÌŠÖŒW‚Å, ÄŒvZ‚ª•K—v‚È‚Í‚¸ -- henkma */
@@ -706,9 +704,7 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 		/* Save the inscription */
 		object_ptr->inscription = quark_add(out_val);
 
-		/* Combine the pack */
 		prepare_update(creature_ptr, CRU_COMBINE);
-
 		prepare_window(PW_INVEN | PW_EQUIP);
 
 		/* .‚â$‚ÌŠÖŒW‚Å, ÄŒvZ‚ª•K—v‚È‚Í‚¸ -- henkma */
