@@ -5216,7 +5216,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 		/* Get a spell from the user */
 
-		choice = (always_show_list || use_menu) ? ESCAPE:1;
+		choice = (use_menu) ? ESCAPE:1;
 		while (!flag)
 		{
 			bool able[22];

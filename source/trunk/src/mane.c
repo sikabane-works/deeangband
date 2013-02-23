@@ -122,7 +122,7 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 
 	/* Get a spell from the user */
 
-	choice= always_show_list ? ESCAPE:1 ;
+	choice= ESCAPE;
 	while (!flag)
 	{
 		if(choice==ESCAPE) choice = ' '; 

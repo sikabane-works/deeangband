@@ -188,7 +188,6 @@ bool hilite_player;			// Hilite the player with the cursor
 
 bool plain_descriptions;	// Plain object descriptions
 bool plain_pickup;			// Plain pickup messages(japanese only)
-bool always_show_list;		// Always show list when choosing items
 bool show_labels;			// Show labels in object listings
 bool show_weights;			// Show weights in object listings
 bool show_item_graph;		// Show items graphics

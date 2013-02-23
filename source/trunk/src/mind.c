@@ -530,7 +530,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 	if(use_menu && !only_browse) screen_save();
 	/* Get a spell from the user */
 
-	choice= (always_show_list || use_menu) ? ESCAPE:1 ;
+	choice= use_menu;
 	while (!flag)
 	{
 		if(choice==ESCAPE) choice = ' '; 

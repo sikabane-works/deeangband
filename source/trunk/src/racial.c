@@ -684,7 +684,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 	if(use_menu) screen_save();
 	 /* Get a spell from the user */
 
-	choice = (always_show_list || use_menu) ? ESCAPE:1;
+	choice = use_menu ? ESCAPE:1;
 	while (!flag)
 	{
 		if( choice==ESCAPE ) choice = ' '; 

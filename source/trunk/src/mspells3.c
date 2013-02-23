@@ -416,7 +416,7 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 
 	/* Get a spell from the user */
 
-	choice= (always_show_list || use_menu) ? ESCAPE:1 ;
+	choice= (use_menu) ESCAPE:1;
 	while (!flag)
 	{
 		if(choice==ESCAPE) choice = ' '; 

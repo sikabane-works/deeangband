@@ -119,7 +119,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 
 	/* Get a spell from the user */
 
-	choice = (always_show_list || use_menu) ? ESCAPE : 1;
+	choice = (use_menu) ? ESCAPE : 1;
 	while (!flag)
 	{
 		if(choice == ESCAPE) choice = ' '; 
@@ -1777,7 +1777,7 @@ void do_cmd_pet(creature_type *master_ptr)
 				I2A(0), I2A(num - 1));
 		}
 
-		choice = (always_show_list || use_menu) ? ESCAPE : 1;
+		choice = (use_menu) ? ESCAPE : 1;
 
 		/* Get a command from the user */
 		while (!flag)

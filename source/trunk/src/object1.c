@@ -1678,16 +1678,10 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		}
 	}
 
-
 	msg_print(NULL);
 
-
-	/* Not done */
 	done = FALSE;
-
-	/* No item selected */
 	item = FALSE;
-
 
 	/* Full creature_ptr->inventory */
 	i1 = 0;
@@ -1740,12 +1734,8 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	/* Count "okay" floor items */
 	floor_num = 0;
 
-	/* Restrict floor usage */
-	if(floor)
-	{
-		/* Scan all objects in the grid */
-		floor_num = scan_floor(floor_list, floor_ptr, creature_ptr->fy, creature_ptr->fx, 0x03);
-	}
+	// Restrict floor usage / Scan all objects in the grid
+	if(floor) floor_num = scan_floor(floor_list, floor_ptr, creature_ptr->fy, creature_ptr->fx, 0x03);
 
 	/* Accept inventory */
 	if(i1 <= i2) allow_inven = TRUE;
@@ -1761,11 +1751,8 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 	{
 		/* Cancel creature_ptr->command_see */
 		command_see = FALSE;
-
 		oops = TRUE;
-
 		done = TRUE;
-
 		if(select_the_force) {
 		    *cp = INVEN_FORCE;
 		    item = TRUE;
@@ -1801,10 +1788,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		}
 	}
 
-	/*
-	 * 追加オプション(always_show_list)が設定されている場合は常に一覧を表示する
-	 */
-	if((always_show_list == TRUE) || use_menu) command_see = TRUE;
+	if(use_menu) command_see = TRUE;
 
 	/* Hack -- start out in "display" mode */
 	if(command_see)

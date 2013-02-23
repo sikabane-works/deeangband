@@ -225,7 +225,6 @@ extern bool hilite_player;	/* Hilite the player with the cursor */
 // Text Display Options
 extern bool plain_descriptions;	/* Plain object descriptions */
 extern bool plain_pickup;	/* Plain pickup messages(japanese only) */
-extern bool always_show_list;	/* Always show list when choosing items */
 extern bool show_labels;	/* Show labels in object listings */
 extern bool show_weights;	/* Show weights in object listings */
 extern bool show_item_graph;	/* Show items graphics */

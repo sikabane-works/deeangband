@@ -2807,7 +2807,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	
 	screen_save();
 
-	request_list = always_show_list;
+	request_list = TRUE;
 
 	/* Get a spell from the user */
 	while (!flag)

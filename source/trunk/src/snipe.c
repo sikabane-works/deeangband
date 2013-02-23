@@ -202,7 +202,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 	else (void)strnfmt(out_val, 78, MES_CAST_WHICH_USE(p, I2A(0), I2A(num - 1)));
 
 	/* Get a spell from the user */
-	choice = always_show_list ? ESCAPE : 1;
+	choice = ESCAPE;
 	while (!flag)
 	{
 		if(choice == ESCAPE) choice = ' ';
