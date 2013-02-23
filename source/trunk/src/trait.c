@@ -1270,7 +1270,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #ifdef JP
 					msg_print("あなたは静かに着地した。");
 #else
-					msg_print("You float gently down to the ground.");
+					msg_print("You floated gently down to the ground.");
 #endif
 				}
 				else
