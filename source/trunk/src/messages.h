@@ -601,6 +601,17 @@
 #endif
 
 #ifdef JP
+#define MES_SMITH_WHICH_DRAIN "どのアイテムから抽出しますか？"
+#define MES_SMITH_NO_DRAIN "抽出できるアイテムがありません。"
+#define MES_SMITH_DRAIN_ASK(OBJECT) "本当に%sから抽出してよろしいですか？", (OBJECT)
+#else
+#define MES_SMITH_WHICH_DRAIN "Extract from which item? "
+#define MES_SMITH_NO_DRAIN "You have nothing you can extract from."
+#define MES_SMITH_DRAIN_ASK(OBJECT) "Really extract from %s? ", (OBJECT)
+#endif
+
+
+#ifdef JP
 #define MES_PROBING_START "調査中..."
 #define MES_PROBING_FORMAT "%s 属性:%s 性別:%s HP:%d/%d AC:%d 速度:%s%d 腕:%d 知:%d 賢:%d 器:%d 耐:%d 魅:%d 経験:"
 #else

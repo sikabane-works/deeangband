@@ -4891,33 +4891,20 @@ static void drain_essence(creature_type *creature_ptr)
 	int old_ds, old_dd, old_to_hit, old_to_damage, old_ac, old_to_ac, old_pval, old_name2, old_timeout;
 	u32b old_flgs[MAX_TRAITS_FLAG], new_flgs[MAX_TRAITS_FLAG];
 	object_type *object_ptr;
-	cptr            q, s;
 	byte iy, ix, marked, number;
 	s16b next_object_idx;
 	s32b weight;
 
 	for (i = 0; i < sizeof(drain_value) / sizeof(int); i++) drain_value[i] = 0;
 
-#ifdef JP
-	q = "どのアイテムから抽出しますか？";
-	s = "抽出できるアイテムがありません。";
-#else
-	q = "Extract from which item? ";
-	s = "You have nothing you can extract from.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), object_is_weapon_armour_ammo2, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_SMITH_WHICH_DRAIN, MES_SMITH_NO_DRAIN, (USE_INVEN | USE_FLOOR), object_is_weapon_armour_ammo2, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	if(object_is_known(object_ptr) && !object_is_nameless(creature_ptr, object_ptr))
 	{
 		char object_name[MAX_NLEN];
 		object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-#ifdef JP
-		if(!get_check(format("本当に%sから抽出してよろしいですか？", object_name))) return;
-#else
-		if(!get_check(format("Really extract from %s? ", object_name))) return;
-#endif
+		if(!get_check(format(MES_SMITH_DRAIN_ASK(object_name)))) return;
 	}
 
 	cost_tactical_energy(creature_ptr, 100);

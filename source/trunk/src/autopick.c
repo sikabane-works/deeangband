@@ -4942,8 +4942,6 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 		if(tb->mark)
 		{
 			tb->mark = 0;
-
-			/* Now dirty */
 			tb->dirty_flags |= DIRTY_ALL;
 		}
 
