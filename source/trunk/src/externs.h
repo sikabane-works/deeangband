@@ -1102,7 +1102,6 @@ extern int show_item_list(int target_item, creature_type *creature_ptr, u32b fla
 extern void toggle_inven_equip(void);
 extern bool can_get_item(creature_type *creature_ptr);
 extern int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s);
-extern bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval);
 
 // object2.c
 extern void weapon_boost(object_type *object_ptr, int level, int power);
@@ -1621,7 +1620,7 @@ extern bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir
 // object1.c
 extern int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode);
 extern int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_width);
-extern bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval);
+extern bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval);
 extern void py_pickup_floor(creature_type *creature_ptr, bool pickup);
 
 // variable.c
