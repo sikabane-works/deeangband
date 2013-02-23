@@ -1632,8 +1632,14 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 #ifdef JP
 #define MES_BIRTH_SELECT_CAMPAIGN "キャンペーンを選択して下さい"
+#define MES_BIRTH_PROFILE_LOAD_ASK "プロフィールファイルをロードしますか? "
+#define MES_BIRTH_PROFILE_LOAD_FAILED "プロフィールファイルの読み込みに失敗しました。"
+#define MES_BIRTH_PROFILE_LOAD_NO_DATA "有効なプロフィールはこのファイルにありません。"
 #else
 #define MES_BIRTH_SELECT_CAMPAIGN "Select Campaign"
+#define MES_BIRTH_PROFILE_LOAD_ASK "Load profile preference file? "
+#define MES_BIRTH_PROFILE_LOAD_FAILED "Failed to load profile preference."
+#define MES_BIRTH_PROFILE_LOAD_NO_DATA "There does not exist valid profile preference."
 #endif
 
 #ifdef JP

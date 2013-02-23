@@ -3829,12 +3829,7 @@ static bool do_cmd_histpref(creature_type *creature_ptr)
 	char *s, *t;
 	char temp[HISTORY_ROW * HISTORY_COL];
 	char histbuf[HISTPREF_LIMIT];
-
-#ifdef JP
-	if(!get_check("プロフィールファイルをロードしますか? ")) return FALSE;
-#else
-	if(!get_check("Load profile preference file? ")) return FALSE;
-#endif
+	if(!get_check(MES_BIRTH_PROFILE_LOAD_ASK)) return FALSE;
 
 	/* Prepare the buffer */
 	histbuf[0] = '\0';
@@ -3852,25 +3847,16 @@ static bool do_cmd_histpref(creature_type *creature_ptr)
 
 	if(err)
 	{
-#ifdef JP
-		msg_print("プロフィールファイルの読み込みに失敗しました。");
-#else
-		msg_print("Failed to load profile preference.");
-#endif
+		msg_print(MES_BIRTH_PROFILE_LOAD_FAILED);
 		msg_print(NULL);
 
 		/* Kill the buffer */
 		histpref_buf = NULL;
-
 		return FALSE;
 	}
 	else if(!histpref_buf[0])
 	{
-#ifdef JP
-		msg_print("有効なプロフィールはこのファイルにありません。");
-#else
-		msg_print("There does not exist valid profile preference.");
-#endif
+		msg_print(MES_BIRTH_PROFILE_LOAD_NO_DATA);
 		msg_print(NULL);
 
 		/* Kill the buffer */
