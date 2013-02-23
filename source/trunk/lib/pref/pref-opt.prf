@@ -51,7 +51,6 @@ X:hilite_player
 Y:plain_descriptions
 X:plain_pickup
 Y:show_labels
-Y:show_weights
 Y:show_item_graph
 Y:equippy_chars
 X:compress_savefile

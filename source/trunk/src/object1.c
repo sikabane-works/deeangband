@@ -620,6 +620,8 @@ static void display_item_aux(creature_type *creature_ptr, int idx, int y)
 	int		n;
 	int		wid, hgt;
 	byte	attr = TERM_WHITE;
+	int wgt;
+	char buf[80];
 
 	object_type *object_ptr = &creature_ptr->inventory[idx];
 	Term_get_size(&wid, &hgt);	// Get size
@@ -648,14 +650,10 @@ static void display_item_aux(creature_type *creature_ptr, int idx, int y)
 	Term_putstr(15, y, n, attr, object_name);		// Display the entry itself
 	Term_erase(15 + n, y, 255);						// Erase the rest of the line
 
-	if(show_weights)	// Display the weight if needed
-	{
-		int wgt = object_ptr->weight * object_ptr->number;
-		char buf[80];
-		format_weight(buf, wgt);
-		(void)sprintf(tmp_val, "%10s", buf);
-		prt(tmp_val, y, wid - 10);
-	}
+	wgt = object_ptr->weight * object_ptr->number;
+	format_weight(buf, wgt);
+	(void)sprintf(tmp_val, "%10s", buf);
+	prt(tmp_val, y, wid - 10);
 }
 
 // Choice window "shadow" of the "show_item_list()" function
@@ -990,6 +988,8 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 	int target_item_label = 0;
 	int wid, hgt;
 	char inven_label[52 + 1];
+	int wgt;
+	char buf[80];
 
 	int slot[INVEN_TOTAL];
 	int num[INVEN_TOTAL];
@@ -1022,7 +1022,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 				(void)strcpy(out_desc[k], object_name);
 
 				l = strlen(out_desc[k]); // Find the predicted "line length"
-				if(show_weights) l += 15; // Be sure to account for the weight
+				l += 15; // Be sure to account for the weight
 
 				if(show_item_graph) // Account for icon if displayed
 				{
@@ -1069,7 +1069,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 			l = strlen(out_desc[k]);
 
 			/* Be sure to account for the weight */
-			if(show_weights) l += 15;
+			l += 15;
 
 			/* Account for icon if displayed */
 			if(show_item_graph)
@@ -1161,16 +1161,12 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 		c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use_ptr(creature_ptr, object_ptr) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
-		// Display the weight if needed
-		if(show_weights)
-		{
-			int wgt = object_ptr->weight * object_ptr->number;
-			char buf[80];
-			format_weight(buf, wgt);
-			(void)sprintf(tmp_val, "%10s", buf);
+		wgt = object_ptr->weight * object_ptr->number;
 
-			prt(tmp_val, j + 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 10 : len + 3);
-		}
+		// Display the weight
+		format_weight(buf, wgt);
+		(void)sprintf(tmp_val, "%10s", buf);
+		prt(tmp_val, j + 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 10 : len + 3);
 	}
 
 	/* Make a "shadow" below the list (only if needed) */
@@ -1483,7 +1479,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 		l = strlen(out_desc[k]) + 5;
 
 		/* Be sure to account for the weight */
-		if(show_weights) l += 9;
+		l += 9;
 
 		if(object_ptr->tval != TV_GOLD) dont_need_to_show_weights = FALSE;
 
@@ -1494,7 +1490,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 		k++;
 	}
 
-	if(show_weights && dont_need_to_show_weights) len -= 9;
+	if(dont_need_to_show_weights) len -= 9;
 
 	/* Save width */
 	*min_width = len;
@@ -1541,7 +1537,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 		c_put_str(out_color[j], out_desc[j], j + 1, col + 3);
 
 		/* Display the weight if needed */
-		if(show_weights && (object_ptr->tval != TV_GOLD))
+		if(object_ptr->tval != TV_GOLD)
 		{
 			char weight[80];
 			int wgt = object_ptr->weight * object_ptr->number;

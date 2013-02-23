@@ -90,7 +90,7 @@ cptr            p = "•KŽEŒ•";
 
 	/* Get a spell from the user */
 
-	choice= ESCAPE : 1;
+	choice= ESCAPE;
 	while (!flag)
 	{
 		if(choice==ESCAPE) choice = ' '; 

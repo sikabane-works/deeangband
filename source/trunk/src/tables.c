@@ -2678,12 +2678,10 @@ option_type option_info[] =
 	{ &plain_descriptions, TRUE, OPT_PAGE_TEXT, 5, 1, "plain_descriptions", "アイテムの記述を簡略にする" },
 	{ &plain_pickup,  FALSE, OPT_PAGE_TEXT, 6, 6, "plain_pickup",   "「拾った」メッセージを簡略化する" },
 	{ &show_labels,   TRUE, OPT_PAGE_TEXT, 0, 10, "show_labels",    "装備一覧で装備場所を表示する" },
-	{ &show_weights,  TRUE, OPT_PAGE_TEXT, 0, 11, "show_weights",   "アイテム一覧で重量を表示する" },
 #else
 	{ &plain_descriptions, TRUE, OPT_PAGE_TEXT, 5, 1, "plain_descriptions", "Plain object descriptions" },
 	{ &plain_pickup,  FALSE, OPT_PAGE_JAPANESE_ONLY, 6, 6, "plain_pickup",   "Plain pickup messages(japanese only)" },
 	{ &show_labels,   TRUE, OPT_PAGE_TEXT, 0, 10, "show_labels",    "Show labels in object listings" },
-	{ &show_weights,  TRUE, OPT_PAGE_TEXT, 0, 11, "show_weights",   "Show weights in object listings" },
 #endif
 
 #ifdef JP

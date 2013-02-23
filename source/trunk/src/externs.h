@@ -226,7 +226,6 @@ extern bool hilite_player;	/* Hilite the player with the cursor */
 extern bool plain_descriptions;	/* Plain object descriptions */
 extern bool plain_pickup;	/* Plain pickup messages(japanese only) */
 extern bool show_labels;	/* Show labels in object listings */
-extern bool show_weights;	/* Show weights in object listings */
 extern bool show_item_graph;	/* Show items graphics */
 extern bool equippy_chars;	/* Display 'equippy' chars */
 extern bool compress_savefile;	/* Compress messages in savefiles */

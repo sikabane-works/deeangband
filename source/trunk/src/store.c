@@ -2424,7 +2424,7 @@ static void display_entry(store_type *st_ptr, creature_type *creature_ptr, int p
 		maxwid = 75;
 
 		/* Leave room for weights, if necessary -DRS- */
-		if(show_weights) maxwid -= 10;
+		maxwid -= 10;
 
 		/* Describe the object */
 		object_desc(object_name, object_ptr, 0);
@@ -2432,13 +2432,10 @@ static void display_entry(store_type *st_ptr, creature_type *creature_ptr, int p
 		c_put_str(tval_to_acttr[object_ptr->tval], object_name, i+6, cur_col);
 
 		/* Show weights */
-		if(show_weights)
-		{
-			/* Only show the weight of an individual item */
-			format_weight(weight, object_ptr->weight);
-			sprintf(out_val, "%10s", weight);
-			put_str(out_val, i+6, 67);
-		}
+		/* Only show the weight of an individual item */
+		format_weight(weight, object_ptr->weight);
+		sprintf(out_val, "%10s", weight);
+		put_str(out_val, i+6, 67);
 	}
 
 	/* Describe an item (fully) in a store */
@@ -2448,27 +2445,15 @@ static void display_entry(store_type *st_ptr, creature_type *creature_ptr, int p
 		maxwid = 65;
 
 		/* Leave room for weights, if necessary -DRS- */
-		if(show_weights) maxwid -= 7;
+		maxwid -= 7;
 
 		/* Describe the object (fully) */
 		object_desc(object_name, object_ptr, 0);
 		object_name[maxwid] = '\0';
 		c_put_str(tval_to_acttr[object_ptr->tval], object_name, i+6, cur_col);
 
-		/* Show weights */
-		if(show_weights)
-		{
-			/* Only show the weight of an individual item */
-			int wgt = object_ptr->weight;
-#ifdef JP
-			sprintf(out_val, "%3d.%1d", wgt / 10 , wgt % 10);
-			put_str(out_val, i+6, 60);
-#else
-			(void)sprintf(out_val, "%3d.%d", wgt / 10, wgt % 10);
-			put_str(out_val, i+6, 61);
-#endif
-
-		}
+		sprintf(out_val, "%3d.%1d", object_ptr->weight / 10 , object_ptr->weight % 10);
+		put_str(out_val, i+6, 60);
 
 		/* Display a "fixed" cost */
 		if(object_ptr->ident & (IDENT_FIXED))
@@ -2587,17 +2572,11 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 	sprintf(buf, "%s (%s)", ownespecies_name, race_name);
 	put_str(buf, 3, 5);
 
-	if(is_home(st_ptr) || is_museum(st_ptr)) // The "Home" is special
-	{
-		put_str(MES_STORE_ITEM_DESCRIPTION, 5, 3);
-		if(show_weights) put_str(MES_SYS_WEIGHT, 5, 72);
-	}
-	else // Normal stores
-	{
-		put_str(MES_STORE_ITEM_DESCRIPTION, 5, 3);
+	if(!(is_home(st_ptr) || is_museum(st_ptr))) // The "Home" is special
 		put_str(MES_SYS_PRICE, 5, 73);
-		if(show_weights) put_str(MES_SYS_WEIGHT, 5, 62);
-	}
+
+	put_str(MES_STORE_ITEM_DESCRIPTION, 5, 3);
+	put_str(MES_SYS_WEIGHT, 5, 72);
 
 	/* Display the current gold */
 	store_prt_gold(creature_ptr);
