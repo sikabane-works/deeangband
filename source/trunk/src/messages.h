@@ -2051,6 +2051,8 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_CUR_TRUE "現在の式の値は「真(=1)」です。"
 #define MES_AUTOPICK_CUR_DELETE "この行は後で削除されます。"
 #define MES_AUTOPICK_CUR_BYPASS "この行は現在は無効な状態です。"
+#define MES_AUTOPICK_DISCARD_QUIT "全ての変更を破棄してから終了します。よろしいですか？ "
+#define MES_AUTOPICK_DISCARD_REVERT "全ての変更を破棄して元の状態に戻します。よろしいですか？ "
 #else
 #define MES_AUTOPICK_WHICH_ENTRY "Enter which item? "
 #define MES_AUTOPICK_NO_ENTRY "You have nothing to enter."
@@ -2071,6 +2073,8 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_CUR_TRUE "The expression is 'True'(=1) currently."
 #define MES_AUTOPICK_CUR_DELETE "This line will be delete later."
 #define MES_AUTOPICK_CUR_BYPASS "This line is bypassed currently."
+#define MES_AUTOPICK_DISCARD_QUIT "Discard all changes and quit. Are you sure? "
+#define MES_AUTOPICK_DISCARD_REVERT "Discard all changes and revert to original file. Are you sure? "
 #endif
 
 #ifdef JP

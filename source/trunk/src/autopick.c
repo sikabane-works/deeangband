@@ -4910,26 +4910,14 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 	{
 	case EC_QUIT:
 		if(tb->changed)
-		{
-#ifdef JP
-			if(!get_check("全ての変更を破棄してから終了します。よろしいですか？ ")) break;
-#else
-			if(!get_check("Discard all changes and quit. Are you sure? ")) break;
-#endif
-		}
+			if(!get_check(MES_AUTOPICK_DISCARD_QUIT)) break;
 		return QUIT_WITHOUT_SAVE;
 
 	case EC_SAVEQUIT:
 		return QUIT_AND_SAVE;
 
-	case EC_REVERT:
-		/* Revert to original */
-#ifdef JP
-		if(!get_check("全ての変更を破棄して元の状態に戻します。よろしいですか？ ")) break;
-#else
-		if(!get_check("Discard all changes and revert to original file. Are you sure? ")) break;
-#endif
-
+	case EC_REVERT:		
+		if(!get_check(MES_AUTOPICK_DISCARD_REVERT)) break;
 		free_text_lines(tb->lines_list);
 		tb->lines_list = read_pickprefeature_text_lines(&tb->filename_mode);
 		tb->dirty_flags |= DIRTY_ALL | DIRTY_MODE | DIRTY_EXPRESSION;
