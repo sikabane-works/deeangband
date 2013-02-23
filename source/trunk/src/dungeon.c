@@ -4148,14 +4148,8 @@ static void pack_overflow(creature_type *creature_ptr)
 		disturb(player_ptr, 0, 0);
 		msg_print(GAME_MESSAGE_PACK_OVERFLOW);
 
-		/* Describe */
 		object_desc(object_name, object_ptr, 0);
-
-#ifdef JP
-		msg_format("%s(%c)‚ð—Ž‚Æ‚µ‚½B", object_name, index_to_label(INVEN_TOTAL));
-#else
-		msg_format("You drop %s (%c).", object_name, index_to_label(INVEN_TOTAL));
-#endif
+		msg_format(MES_OBJECT_DROPPED(object_name, index_to_label(INVEN_TOTAL)));
 
 		/* Drop it (carefully) near the player */
 		(void)drop_near(floor_ptr, object_ptr, 0, creature_ptr->fy, creature_ptr->fx);

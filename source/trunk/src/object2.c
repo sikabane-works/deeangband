@@ -4026,15 +4026,8 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 	/* Modify quantity */
 	quest_ptr->number = amt;
 
-	/* Describe local object */
 	object_desc(object_name, quest_ptr, 0);
-
-#ifdef JP
-	msg_format("%s(%c)‚ð—Ž‚Æ‚µ‚½B", object_name, index_to_label(item));
-#else
-	msg_format("You drop %s (%c).", object_name, index_to_label(item));
-#endif
-
+	msg_format(MES_OBJECT_DROPPED(object_name, index_to_label(item)));
 
 	/* Drop it near the player */
 	(void)drop_near(floor_ptr, quest_ptr, 0, creature_ptr->fy, creature_ptr->fx);

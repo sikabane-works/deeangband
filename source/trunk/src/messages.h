@@ -2211,6 +2211,7 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_REFILL_LAMP "ñ˚Ç¬Ç⁄Ç™Ç»Ç¢ÅB"
 #define MES_OBJECT_WHICH_TORCH "Ç«ÇÃèºñæÇ≈ñæÇ©ÇËÇã≠ÇﬂÇ‹Ç∑Ç©? "
 #define MES_OBJECT_NO_TORCH "ëºÇ…èºñæÇ™Ç»Ç¢ÅB"
+#define MES_OBJECT_DROPPED(NAME, SYM) "%s(%c)ÇóéÇ∆ÇµÇΩÅB", (NAME), (SYM)
 #else
 #define MES_OBJECT_FOUND(NUM) "You see %d items.", (NUM)
 #define MES_OBJECT_WHICH_USE "Use which item? "
@@ -2234,6 +2235,7 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_REFILL_LAMP "You have no flasks of oil."
 #define MES_OBJECT_WHICH_TORCH "Refuel with which torch? "
 #define MES_OBJECT_NO_TORCH "You have no extra torches."
+#define MES_OBJECT_DROPPED(NAME, SYM) "You drop %s (%c).", (NAME), (SYM)
 #endif
 
 #ifdef JP
