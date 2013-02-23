@@ -188,7 +188,6 @@ bool hilite_player;			// Hilite the player with the cursor
 
 bool plain_descriptions;	// Plain object descriptions
 bool plain_pickup;			// Plain pickup messages(japanese only)
-bool show_labels;			// Show labels in object listings
 bool show_item_graph;		// Show items graphics
 bool equippy_chars;			// Display 'equippy' chars
 bool compress_savefile;		// Compress messages in savefiles
