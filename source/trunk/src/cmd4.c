@@ -7735,29 +7735,21 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 #endif
 						}
 						else
-#ifdef JP
-							sprintf(note,"「%s」にいる「%s」を倒す。", dungeon_name, name);
-#else
-							sprintf(note,"kill %s in %s.", name, dungeon_name);
-#endif
+							sprintf(note, MES_QUEST_TYPE_KILL_ONE(dungeon_name, name));
 						break;
 
 					case QUEST_TYPE_FIND_ARTIFACT:
 						d_ptr = &dungeon_info[quest[i].dungeon];
 						strcpy(dungeon_name, dungeon_name + d_ptr->name);
 						strcpy(name, artifact_name + artifact_info[quest[i].k_idx].name);
-#ifdef JP
-						sprintf(note,"「%s」にある「%s」を見つけ出す。", dungeon_name, name);
-#else
-						sprintf(note,"Find out %s in %s.", name, dungeon_name);
-#endif
+						sprintf(note, MES_QUEST_TYPE_FIND_OBJECT(dungeon_name, name));
 						break;
 
 					case QUEST_TYPE_FIND_EXIT:
 #ifdef JP
-						sprintf(note,"探索する。");
+						sprintf(note, "探索する。");
 #else
-						sprintf(note,"Search.");
+						sprintf(note, "Search.");
 #endif
 						break;
 

@@ -1701,6 +1701,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_TARGET_GONE "この階は以前は誰かによって守られていたようだ…。"
 #define MES_QUEST_EXIT_WARNING "この階を一度去ると二度と戻って来られません。"
 #define MES_QUEST_ASK_EXIT "本当にこの階を去りますか？"
+#define MES_QUEST_TYPE_KILL_ONE(FLOOR, TARGET) "「%s」にいる「%s」を倒す。", (FLOOR), (TARGET)
+#define MES_QUEST_TYPE_FIND_OBJECT(FLOOR, TARGET) "「%s」にある「%s」を見つけ出す。", (FLOOR), (TARGET)
 #else
 #define MES_QUEST_INFO2(NAME, LEVEL) "the entrance to the quest '%s'(level %d)", (NAME), (LEVEL)
 #define MES_QUEST_INFO(LEVEL) ("Quest Information (Danger level: %d)", (LEVEL))
@@ -1717,6 +1719,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_TARGET_GONE "It seems that this level was protected by someone before..."
 #define MES_QUEST_EXIT_WARNING "You can't come back here once you leave this floor."
 #define MES_QUEST_ASK_EXIT "Really leave this floor? "
+#define MES_QUEST_TYPE_KILL_ONE(FLOOR, TARGET) "kill %s in %s.", (TARGET), (FLOOR)
+#define MES_QUEST_TYPE_FIND_OBJECT(FLOOR, TARGET) "Find out %s in %s.", (FLOOR), (TARGET)
 #endif
 
 static cptr desc_stat_pos[] =
