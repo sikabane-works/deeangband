@@ -8258,43 +8258,13 @@ static void do_cmd_knowledge_autopick(void)
 	{
 		cptr tmp;
 		byte act = autopick_list[k].action;
-		if(act & DONT_AUTOPICK)
-		{
-#ifdef JP
-			tmp = "ï˙íu";
-#else
-			tmp = "Leave";
-#endif
-		}
-		else if(act & DO_AUTODESTROY)
-		{
-#ifdef JP
-			tmp = "îjâÛ";
-#else
-			tmp = "Destroy";
-#endif
-		}
-		else if(act & DO_AUTOPICK)
-		{
-#ifdef JP
-			tmp = "èEÇ§";
-#else
-			tmp = "Pickup";
-#endif
-		}
-		else /* if(act & DO_QUERY_AUTOPICK) */ /* Obvious */
-		{
-#ifdef JP
-			tmp = "ämîF";
-#else
-			tmp = "Query";
-#endif
-		}
+		if(act & DONT_AUTOPICK) tmp = KW_LEAVE;
+		else if(act & DO_AUTODESTROY) tmp = KW_DESTROY;
+		else if(act & DO_AUTOPICK) tmp = KW_PICKUP;
+		else tmp = KW_QUERY;
 
-		if(act & DO_DISPLAY)
-			fprintf(fff, "%11s", format("[%s]", tmp));
-		else
-			fprintf(fff, "%11s", format("(%s)", tmp));
+		if(act & DO_DISPLAY) fprintf(fff, "%11s", format("[%s]", tmp));
+		else fprintf(fff, "%11s", format("(%s)", tmp));
 
 		tmp = autopick_line_from_entry(&autopick_list[k]);
 		fprintf(fff, " %s", tmp);

@@ -210,6 +210,10 @@
 #define KW_UNEXPLORED_ZONE "未踏破地帯"
 #define KW_ROAD "道"
 #define KW_MESSAGE "メッセージ"
+#define KW_LEAVE "放置"
+#define KW_DESTROY "破壊"
+#define KW_PICKUP "拾う"
+#define KW_QUERY "確認"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -299,6 +303,10 @@
 #define KW_UNEXPLORED_ZONE "unexplored zone"
 #define KW_ROAD "road"
 #define KW_MESSAGE "message"
+#define KW_LEAVE "Leave"
+#define KW_DESTROY "Destroy"
+#define KW_PICKUP "Pickup"
+#define KW_QUERY "Query"
 #endif
 
 #ifdef JP
