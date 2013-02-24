@@ -1750,11 +1750,15 @@ static cptr desc_stat_neg[] =
 
 #ifdef JP
 #define MES_CREATURE_LEVELUP(LEV) "レベル %d にようこそ。", (LEV)
+#define MES_CREATURE_HP_GAIN(POINT) "最大ヒット・ポイントが %d 増加した！", (POINT)
+#define MES_CREATURE_MP_GAIN(POINT) "最大マジック・ポイントが %d 増加した！", (POINT)
 #define MES_CREATURE_DEC_STATUS(CREATURE, DEC) "%sはひどく%sなった。", (CREATURE)->name, (DEC)
 #define MES_CREATURE_DEC_STATUS_CANCEL(CREATURE, DEC) "%sはひどく%sなりかけたが、元に戻った", (CREATURE)->name, (DEC)
 #define MES_CREATURE_LIFE_RATE(NUM) "現在の体力ランク : %d/100", (NUM)
 #else
 #define MES_CREATURE_LEVELUP(LEV) "Welcome to level %d.", (LEV)
+#define MES_CREATURE_HP_GAIN(POINT) "Max-HitPoint increased in %d.", (POINT)
+#define MES_CREATURE_MP_GAIN(POINT) "Max-ManaPoint increased in %d.", (POINT)
 #define MES_CREATURE_DEC_STATUS(CREATURE, DEC) "%s become very %s.", (CREATURE)->name, (DEC)
 #define MES_CREATURE_DEC_STATUS_CANCEL(CREATURE, DEC) "%s become %s for a moment, but the feeling passes.", (CREATURE)->name, (DEC)
 #define MES_CREATURE_LIFE_RATE(NUM) "Your current Life Rating is %d/100.", (NUM)
@@ -2032,6 +2036,8 @@ static cptr desc_stat_neg[] =
 #define MES_SPELL_CANNOT "呪文を唱えられない！"
 #define MES_SPELL_NO_MORE_SPELLING "これ以上新しい呪文を詠唱することはできない。"
 #define MES_SPELL_ALREADY "その呪文はすでに詠唱中だ。"
+#define MES_SPELL_FORGET(REALM, SPELL) "%sの%sを忘れてしまった。", (REALM), (SPELL)
+#define MES_SPELL_REMEMBER(REALM, SPELL) "%sの%sを思い出した。", (REALM), (SPELL)
 #else
 #define MES_STUDY_NO_READING "You cannot read books!"
 #define MES_STUDY_NO_SLOT(REALM) "You cannot learn any new %ss!", (REALM)
@@ -2042,6 +2048,8 @@ static cptr desc_stat_neg[] =
 #define MES_SPELL_CANNOT "You cannot cast spells!"
 #define MES_SPELL_NO_MORE_SPELLING "Can not spell new spells more."
 #define MES_SPELL_ALREADY "You are already casting it."
+#define MES_SPELL_FORGET(REALM, SPELL) "You have forgotten the %s of %s.", (SPELL), (REALM)
+#define MES_SPELL_REMEMBER(REALM, SPELL) "You have remembered the %s of %s.", (SPELL), (REALM)
 #endif
 
 #ifdef JP

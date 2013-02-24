@@ -1643,11 +1643,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 				which = creature_ptr->realm2;
 			}
 
-#ifdef JP
-			if(message) msg_format("%sの%sを忘れてしまった。", do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
-#else
-			if(message) msg_format("You have forgotten the %s of %s.", p, do_spell(creature_ptr, which, j%32, SPELL_NAME));
-#endif
+			if(message) msg_format(MES_SPELL_FORGET(do_spell(creature_ptr, which, j%32, SPELL_NAME), p));
 
 			/* One more can be learned */
 			creature_ptr->new_spells++;
@@ -1711,12 +1707,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 				which = creature_ptr->realm2;
 			}
 
-#ifdef JP
-			if(message) msg_format("%sの%sを思い出した。", do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
-#else
-			if(message) msg_format("You have remembered the %s of %s.", p, do_spell(creature_ptr, which, j%32, SPELL_NAME));
-#endif
-
+			if(message) msg_format(MES_SPELL_REMEMBER(do_spell(creature_ptr, which, j%32, SPELL_NAME), p));
 
 			/* One less can be learned */
 			creature_ptr->new_spells--;
@@ -1753,13 +1744,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 	{
 		/* Message if needed */
 		if(creature_ptr->new_spells)
-		{
-#ifdef JP
-			if(message) msg_format("あと %d 種の%sを学べる。", creature_ptr->new_spells, p);
-#else
-			if(message) msg_format("You can learn %d more %s%s.", creature_ptr->new_spells, p, (creature_ptr->new_spells != 1) ? "s" : "");
-#endif
-		}
+			if(message) msg_format(MES_STUDY_SLOT(creature_ptr->new_spells, p));
 
 		/* Save the new_spells value */
 		creature_ptr->old_spells = creature_ptr->new_spells;
@@ -1864,10 +1849,8 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 			creature_ptr->csp_frac = 0;
 		}
 
-#ifdef JP
 		if(creature_ptr->level_up && (msp > creature_ptr->msp))
-			if(message) msg_format("最大マジック・ポイントが %d 増加した！", (msp - creature_ptr->msp));
-#endif
+			if(message) msg_format(MES_CREATURE_MP_GAIN(msp - creature_ptr->msp));
 		
 		creature_ptr->msp = msp; // Save new mana
 		prepare_redraw(PR_MANA | PW_PLAYER | PW_SPELL); // Display mana later
@@ -1951,10 +1934,9 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 			creature_ptr->chp_frac = 0;
 		}
 
-#ifdef JP
 		if(creature_ptr->level_up && (mhp > creature_ptr->mhp)) 
-			if(message) msg_format("最大ヒット・ポイントが %d 増加した！", (mhp - creature_ptr->mhp) );
-#endif
+			if(message) msg_format(MES_CREATURE_HP_GAIN(mhp - creature_ptr->mhp));
+
 		/* Save the new max-hitpoints */
 		creature_ptr->mhp = mhp;
 		creature_ptr->mmhp = mhp;
@@ -1966,14 +1948,8 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 	}
 }
 
-
-
-/*
- * Extract and set the current "lite radius"
- *
- * SWD: Experimental modification: multiple light sources have additive effect.
- *
- */
+// Extract and set the current "lite radius"
+// SWD: Experimental modification: multiple light sources have additive effect.
 static void calc_lite(creature_type *creature_ptr)
 {
 	int i;
