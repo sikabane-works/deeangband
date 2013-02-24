@@ -7852,11 +7852,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 	/* Print the current random quest  */
 	if(rand_tmp_str[0]) fprintf(fff, rand_tmp_str);
 
-#ifdef JP
-	if(!total) fprintf(fff, "  ‚È‚µ\n");
-#else
-	if(!total) fprintf(fff, "  Nothing.\n");
-#endif
+	if(!total) fprintf(fff, "  %s\n", KW_NOTHING);
 }
 
 
@@ -7932,11 +7928,7 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 			fprintf(fff, tmp_str);
 		}
 	}
-#ifdef JP
-	if(!total) fprintf(fff, "  ‚È‚µ\n");
-#else
-	if(!total) fprintf(fff, "  Nothing.\n");
-#endif
+	if(!total) fprintf(fff, "  %s\n", KW_NOTHING);
 }
 
 
@@ -7995,17 +7987,10 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 			fprintf(fff, tmp_str);
 		}
 	}
-#ifdef JP
-	if(!total) fprintf(fff, "  ‚È‚µ\n");
-#else
-	if(!total) fprintf(fff, "  Nothing.\n");
-#endif
+	if(!total) fprintf(fff, "  %s\n", KW_NOTHING);
 }
 
-
-/*
- * Print all random quests
- */
+// Print all random quests
 static void do_cmd_knowledge_quests_wiz_random(FILE *fff)
 {
 	char tmp_str[120];
@@ -8035,11 +8020,7 @@ static void do_cmd_knowledge_quests_wiz_random(FILE *fff)
 			fprintf(fff, tmp_str);
 		}
 	}
-#ifdef JP
-	if(!total) fprintf(fff, "  ‚È‚µ\n");
-#else
-	if(!total) fprintf(fff, "  Nothing.\n");
-#endif
+	if(!total) fprintf(fff, "  %s\n", KW_NOTHING);
 }
 
 
