@@ -1329,11 +1329,11 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	creature_desc(creature_name, creature_ptr, 0);
 
-	if(has_trait(creature_ptr, TRAIT_POISONED) && !IS_INVULN(creature_ptr)) // Take damage from poison
+	// Take damage from poison
+	if(has_trait(creature_ptr, TRAIT_POISONED) && !IS_INVULN(creature_ptr))
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, COD_POISON, NULL, -1);
 
-
-	/* Take damage from cuts */
+	// Take damage from cuts
 	if(has_trait(creature_ptr, TRAIT_CUT) && !IS_INVULN(creature_ptr))
 	{
 		int dam;
@@ -3293,27 +3293,6 @@ static void process_player_command(creature_type *creature_ptr)
 		}
 
 		/*** Wizard Commands ***/
-
-		/* Toggle Wizard Mode */
-	case KTRL('W'):
-		{
-			if(wizard)
-			{
-				wizard = FALSE;
-				msg_print(MES_SYS_WIZARD_MODE_OFF);
-
-			}
-			else if(enter_wizard_mode(creature_ptr))
-			{
-				wizard = TRUE;
-				msg_print(MES_SYS_WIZARD_MODE_ON);
-			}
-
-			// Update creatures
-			prepare_update(creature_ptr, PU_CREATURES);
-			prepare_redraw(PR_TITLE);
-			break;
-		}
 
 		/* Special "debug" commands */
 	case KTRL('A'):
