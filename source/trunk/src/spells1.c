@@ -1787,12 +1787,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 			case 1: case 2: case 3: case 4: case 5:
 				if(has_trait(target_ptr, TRAIT_ANDROID)) break;
-#ifdef JP
-				msg_format("%s‚Ì‚Ì—¬‚ê‚ª‹t–ß‚è‚µ‚½‚æ‚¤‚¾B", target_name);
-#else
-				//TODO
-				msg_print("You feel life has clocked back.");
-#endif
+				msg_format(MES_EFFECT_TIME_DONE(target_name));
 				lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE);
 				break;
 			case 6: case 7: case 8: case 9:
@@ -1843,11 +1838,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_GRAVITY:
-#ifdef JP
-		msg_print("ü•Ó‚Ìd—Í‚ª‚ä‚ª‚ñ‚¾B");
-#else
-		msg_print("Gravity warps around you.");
-#endif
+		msg_print(MES_EFFECT_GRAVITY_DONE);
 		teleport_creature(target_ptr, 5, TELEPORT_PASSIVE);
 		if(!has_trait(target_ptr, TRAIT_CAN_FLY)) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
 		if(!(has_trait(target_ptr, TRAIT_RES_SOUN) || has_trait(target_ptr, TRAIT_CAN_FLY)))

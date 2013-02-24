@@ -1643,11 +1643,15 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 #ifdef JP
 #define MES_EFFECT_CHAOS_DONE "あなたの身体はカオスの力で捻じ曲げられた！"
+#define MES_EFFECT_TIME_DONE(TARGET) "%sの時の流れが逆戻りした。", (TARGET)
+#define MES_EFFECT_GRAVITY_DONE "周辺の重力がゆがんだ。"
 #define MES_EFFECT_MIRROR_CRUSH "鏡が割れた！"
 #define MES_EFFECT_MIND_BACKFIRE "%^sの堕落した精神は攻撃を跳ね返した！"
 #define MES_EFFECT_DISARM_TRAP "カチッと音がした。"
 #else
 #define MES_EFFECT_CHAOS_DONE "Your body is twisted by chaos!"
+#define MES_EFFECT_TIME_DONE(TARGET) "You saw %s' life has clocked back.", (TARGET)
+#define MES_EFFECT_GRAVITY_DONE "Gravity warps around you."
 #define MES_EFFECT_MIRROR_CRUSH "The mirror was crashed!"
 #define MES_EFFECT_MIND_BACKFIRE "%^s corrupted mind backlashes your attack!"
 #define MES_EFFECT_DISARM_TRAP "Click!"
