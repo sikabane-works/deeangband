@@ -7746,11 +7746,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 						break;
 
 					case QUEST_TYPE_FIND_EXIT:
-#ifdef JP
-						sprintf(note, "探索する。");
-#else
-						sprintf(note, "Search.");
-#endif
+						sprintf(note, MES_QUEST_TYPE_SEARCH);
 						break;
 
 					case QUEST_TYPE_KILL_NUMBER:
@@ -7762,11 +7758,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 						break;
 
 					case QUEST_TYPE_KILL_ALL:
-#ifdef JP
-						sprintf(note,"全てのクリーチャーを倒す。");
-#else
-						sprintf(note,"Kill all creatures.");
-#endif
+						sprintf(note, MES_QUEST_TYPE_KILL_ALL);
 						break;
 					}
 				}
