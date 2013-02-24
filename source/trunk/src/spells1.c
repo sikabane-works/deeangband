@@ -740,7 +740,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 				/* Check line of sound */
 				if(known && (old_feat != c_ptr->feat))
 				{
-					msg_print(EFFECT_MES_DISARM_TRAP);
+					msg_print(MES_EFFECT_DISARM_TRAP);
 					obvious = TRUE;
 				}
 			}
@@ -1061,7 +1061,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		{
 			if(is_mirror_grid(c_ptr))
 			{
-				msg_print(EFFECT_MES_MIRROR_CRUSH);
+				msg_print(MES_EFFECT_MIRROR_CRUSH);
 				sound(SOUND_GLASS);
 				remove_mirror(player_ptr, y, x);
 				project(aimer_ptr, 0, 2, y, x, aimer_ptr->lev / 2 + 5, DO_EFFECT_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
@@ -1092,7 +1092,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		{
 			if(is_mirror_grid(c_ptr) && aimer_ptr->lev < 40)
 			{
-				msg_print(EFFECT_MES_MIRROR_CRUSH);
+				msg_print(MES_EFFECT_MIRROR_CRUSH);
 				sound(SOUND_GLASS);
 				remove_mirror(player_ptr, y, x);
 				project(aimer_ptr, 0, 2, y, x, aimer_ptr->lev / 2 + 5, DO_EFFECT_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
@@ -1462,7 +1462,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 
 						if(known && (object_ptr->marked & OM_FOUND))
 						{
-							msg_print(EFFECT_MES_DISARM_TRAP);
+							msg_print(MES_EFFECT_DISARM_TRAP);
 							obvious = TRUE;
 						}
 					}
@@ -1754,11 +1754,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			(void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint1(10), TRUE);
 			if(one_in_(3))
 			{
-#ifdef JP
-				msg_print("あなたの身体はカオスの力で捻じ曲げられた！");
-#else
-				msg_print("Your body is twisted by chaos!");
-#endif
+				msg_print(MES_EFFECT_CHAOS_DONE);
 				(void)gain_trait(target_ptr, 0, TRUE);
 			}
 		}
@@ -2362,7 +2358,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				(target_ptr->lev * 2 > caster_ptr->lev / 2) && one_in_(2))
 			{
 				note = NULL;
-				msg_format(EFFECT_MES_MIND_BACKFIRE, target_name);
+				msg_format(MES_EFFECT_MIND_BACKFIRE, target_name);
 				{
 					if(one_in_(4))
 					{
@@ -2433,7 +2429,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(has_trait(target_ptr, TRAIT_UNDEAD) && has_trait(target_ptr, TRAIT_DEMON) && (target_ptr->lev * 2 > caster_ptr->lev / 2) && (one_in_(2)))
 			{
 				note = NULL;
-				msg_format(EFFECT_MES_MIND_BACKFIRE, target_name);
+				msg_format(MES_EFFECT_MIND_BACKFIRE, target_name);
 #ifdef JP
 				msg_print("超能力パワーを吸いとられた！");
 #else
@@ -2513,7 +2509,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				(one_in_(2)))
 			{
 				note = NULL;
-				msg_format(EFFECT_MES_MIND_BACKFIRE, target_name);
+				msg_format(MES_EFFECT_MIND_BACKFIRE, target_name);
 				{
 					switch (randint1(4))
 					{

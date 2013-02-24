@@ -1642,13 +1642,15 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #endif
 
 #ifdef JP
-#define EFFECT_MES_MIRROR_CRUSH "鏡が割れた！"
-#define EFFECT_MES_MIND_BACKFIRE "%^sの堕落した精神は攻撃を跳ね返した！"
-#define EFFECT_MES_DISARM_TRAP "カチッと音がした。"
+#define MES_EFFECT_CHAOS_DONE "あなたの身体はカオスの力で捻じ曲げられた！"
+#define MES_EFFECT_MIRROR_CRUSH "鏡が割れた！"
+#define MES_EFFECT_MIND_BACKFIRE "%^sの堕落した精神は攻撃を跳ね返した！"
+#define MES_EFFECT_DISARM_TRAP "カチッと音がした。"
 #else
-#define EFFECT_MES_MIRROR_CRUSH "The mirror was crashed!"
-#define EFFECT_MES_MIND_BACKFIRE "%^s corrupted mind backlashes your attack!"
-#define EFFECT_MES_DISARM_TRAP "Click!"
+#define MES_EFFECT_CHAOS_DONE "Your body is twisted by chaos!"
+#define MES_EFFECT_MIRROR_CRUSH "The mirror was crashed!"
+#define MES_EFFECT_MIND_BACKFIRE "%^s corrupted mind backlashes your attack!"
+#define MES_EFFECT_DISARM_TRAP "Click!"
 #endif
 
 #ifdef JP
@@ -2921,6 +2923,7 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_BY_NO_LITE "明かりがなくて出来ない。"
 #define MES_PREVENT_BY_HALLUCINATION "幻覚に阻まれてできない。"
 #define MES_PREVENT_BY_STUNED "頭が朦朧としていて集中できない。"
+#define MES_PREVENT_BY_AFRAID "恐怖に怯えてできない"
 #define MES_PREVENT_BY_PET "今はペットを操ることに集中していないと。"
 #define MES_PREVENT_BY_NO_MIRROR "鏡の上でないと集中できない。"
 #define MES_PREVENT_BY_NO_BAREBAND "素手じゃないとできません。"
@@ -2943,6 +2946,7 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_BY_NO_LITE "You have no light to read by."
 #define MES_PREVENT_BY_HALLUCINATION "You are too hallucinated!"
 #define MES_PREVENT_BY_STUNED "You are too stuned!"
+#define MES_PREVENT_BY_AFRAID "You are trembling with fear."
 #define MES_PREVENT_BY_PET "You need concentration on the pets now."
 #define MES_PREVENT_BY_NO_MIRROR "Here are not any mirrors!"
 #define MES_PREVENT_BY_NO_BAREBAND "You need to be bare hand."
@@ -2976,9 +2980,13 @@ static cptr desc_stat_neg[] =
 #define MES_GAINMAGIC_NO_ITEM "魔力を取り込めるアイテムがない。"
 #define MES_GAINMAGIC_NO_MAGIC "この杖には発動の為の能力は何も備わっていないようだ。"
 #define MES_GAINMAGIC_NEED_IDENTIFY "鑑定されていないと取り込めない。"
+#define MES_GAINMAGIC_STILL_CHARGING "充填中のアイテムは取り込めない。"
+#define MES_GAINMAGIC_ABSORBED(OBJECT) "%sの魔力を取り込んだ。", (OBJECT)
 #else
 #define MES_GAINMAGIC_WHICH_ITEM "Gain power of which item? "
 #define MES_GAINMAGIC_NO_ITEM "You have nothing to gain power."
 #define MES_GAINMAGIC_NO_MAGIC "This staff doesn't have any magical ability."
 #define MES_GAINMAGIC_NEED_IDENTIFY "You need to identify before absorbing."
+#define MES_GAINMAGIC_STILL_CHARGING "This item is still charging."
+#define MES_GAINMAGIC_ABSORBED(OBJECT) "You absorb magic of %s.", (OBJECT)
 #endif

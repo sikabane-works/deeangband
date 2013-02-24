@@ -35,14 +35,13 @@ bool do_cmd_archer(creature_type *creature_ptr)
 	char ch;
 
 	object_type	forge;
-	object_type     *quest_ptr;
+	object_type *quest_ptr;
 	char com[80];
 	char object_name[MAX_NLEN];
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	quest_ptr = &forge;
-
 	
 #ifdef JP
 	if(creature_ptr->lev >= 20) sprintf(com, "[S]弾, [A]矢, [B]クロスボウの矢 :");
@@ -281,15 +280,12 @@ bool gain_magic(creature_type *creature_ptr)
 	}
 	if(object_ptr->timeout)
 	{
-#ifdef JP
-		msg_print("充填中のアイテムは取り込めない。");
-#else
-		msg_print("This item is still charging.");
-#endif
+		msg_print(MES_GAINMAGIC_STILL_CHARGING);
 		return FALSE;
 	}
 
 	pval = object_ptr->pval;
+	//TODO:reimplement
 	if(IS_ROD(object_ptr))
 		ext = 72;
 	else if(object_ptr->tval == TV_WAND)
@@ -323,11 +319,7 @@ bool gain_magic(creature_type *creature_ptr)
 	}
 
 	object_desc(object_name, object_ptr, 0);
-#ifdef JP
-	msg_format("%sの魔力を取り込んだ。", object_name);
-#else
-	msg_format("You absorb magic of %s.", object_name);
-#endif
+	msg_format(MES_GAINMAGIC_ABSORBED(object_name));
 
 	/* Eliminate the item (from the pack) */
 	if(item >= 0)
@@ -388,20 +380,12 @@ bool choose_combat_option(creature_type *creature_ptr)
 	}
 	if(has_trait(creature_ptr, TRAIT_STUN))
 	{
-#ifdef JP
-		msg_print("意識がはっきりとしない。");
-#else
-		msg_print("You are not clear headed");
-#endif
+		msg_print(MES_PREVENT_BY_STUNED);
 		return FALSE;
 	}
 	if(has_trait(creature_ptr, TRAIT_AFRAID))
 	{
-#ifdef JP
-		msg_print("体が震えて構えられない！");
-#else
-		msg_print("You are trembling with fear!");
-#endif
+		msg_print(MES_PREVENT_BY_AFRAID);
 		return FALSE;
 	}
 
