@@ -2852,7 +2852,10 @@ static void display_creature_trait(creature_type *creature_ptr)
 		{
 			c_put_str(TERM_WHITE, format("E%s", trait_info[i].title), n + 2, 1);
 			if(wizard)
-				c_put_str(TERM_WHITE, format("[%d]", creature_ptr->timed_trait[i]), n + 2, 30);
+			{
+				if(!creature_ptr->timed_trait[i]) c_put_str(TERM_WHITE, "[CONST]", n + 2, 30);
+				else c_put_str(TERM_L_GREEN, format("[%5d]", creature_ptr->timed_trait[i]), n + 2, 30);
+			}
 			n++;
 		}
 		if(n > 10) break;

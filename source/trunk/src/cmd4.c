@@ -8322,7 +8322,7 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 	selection_table se[20];
 	selection_info se_info;
 
-	se_info.mode = 0;
+	se_info.mode = GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT;
 	se_info.caption = NULL;
 	se_info.detail = NULL;
 	se_info.default_se = 0;
