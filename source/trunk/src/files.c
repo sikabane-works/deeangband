@@ -2851,6 +2851,8 @@ static void display_creature_trait(creature_type *creature_ptr)
 		if(has_trait(creature_ptr, i) && trait_info[i].display_priority > 0)
 		{
 			c_put_str(TERM_WHITE, format("E%s", trait_info[i].title), n + 2, 1);
+			if(wizard)
+				c_put_str(TERM_WHITE, format("[%d]", creature_ptr->timed_trait[i]), n + 2, 30);
 			n++;
 		}
 		if(n > 10) break;

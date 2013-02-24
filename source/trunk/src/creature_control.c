@@ -3062,11 +3062,12 @@ void deal_item(creature_type *creature_ptr)
 	number = 0;
 	// TODO Inventory Count
 
+
 	quest_ptr = &forge;
 
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
-		make_random_object(quest_ptr, AM_UNCURSED, 0, object_level, NULL);
+		make_random_object(quest_ptr, AM_GOOD, 0, object_level, 0);
 		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
