@@ -5106,15 +5106,8 @@ static void play_loop(void)
 		if((floor_ptr->floor_level == dungeon_info[floor_ptr->dun_type].maxdepth) && dungeon_info[floor_ptr->dun_type].final_guardian)
 		{
 			if(species_info[dungeon_info[floor_ptr->dun_type].final_guardian].max_num)
-#ifdef JP
-				msg_format("‚±‚ÌŠK‚É‚Í%s‚ÌŽå‚Å‚ ‚é%s‚ª±‚ñ‚Å‚¢‚éB",
-				dungeon_name + dungeon_info[floor_ptr->dun_type].name, 
-				species_name+species_info[dungeon_info[floor_ptr->dun_type].final_guardian].name);
-#else
-				msg_format("%^s lives in this level as the keeper of %s.",
-				species_name+species_info[dungeon_info[floor_ptr->dun_type].final_guardian].name, 
-				dungeon_name + dungeon_info[floor_ptr->dun_type].name);
-#endif
+				msg_format(MES_QUEST_LORD(dungeon_name + dungeon_info[floor_ptr->dun_type].name, 
+				species_name+species_info[dungeon_info[floor_ptr->dun_type].final_guardian].name));
 		}
 
 		if(!load_game && (player_ptr->posture & NINJA_S_STEALTH)) set_superstealth(player_ptr, FALSE);
