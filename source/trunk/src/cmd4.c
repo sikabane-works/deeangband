@@ -3154,12 +3154,7 @@ void do_cmd_visuals(void)
 				Term_queue_bigchar(43, 19, da, dc, 0, 0);
 
 				/* Label the Current values */
-#ifdef JP
-				Term_putstr(10, 20, -1, TERM_WHITE, format("現在値  色 / 文字 = %3d / %3d", ca, cc));
-#else
-				Term_putstr(10, 20, -1, TERM_WHITE, format("Current attr/char = %3d / %3d", ca, cc));
-#endif
-
+				Term_putstr(10, 20, -1, TERM_WHITE, format(MES_VISUAL_COL_SYM(ca, cc)));
 				Term_putstr(40, 20, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
 				Term_putstr(0, 22, -1, TERM_WHITE, MES_SYS_VISUAL_COMMAND);
@@ -3249,27 +3244,11 @@ void do_cmd_visuals(void)
 #endif
 
 				Term_putstr(40, 19, -1, TERM_WHITE, empty_symbol);
-
 				Term_queue_bigchar(43, 19, da, dc, 0, 0);
-
-				/* Label the Current values */
-#ifdef JP
-				Term_putstr(10, 20, -1, TERM_WHITE,
-					    format("現在値  色 / 文字 = %3d / %3d", ca, cc));
-#else
-				Term_putstr(10, 20, -1, TERM_WHITE,
-					    format("Current attr/char = %3d / %3d", ca, cc));
-#endif
-
+				Term_putstr(10, 20, -1, TERM_WHITE, format(MES_VISUAL_COL_SYM(ca, cc)));
 				Term_putstr(40, 20, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
-
-#ifdef JP
-				Term_putstr(0, 22, -1, TERM_WHITE, "コマンド (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): ");
-#else
-				Term_putstr(0, 22, -1, TERM_WHITE, "Command (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): ");
-#endif
-
+				Term_putstr(0, 22, -1, TERM_WHITE, MES_INTERFACE_VISUAL);
 				i = inkey();
 
 				/* All done */

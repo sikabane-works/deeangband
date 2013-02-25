@@ -1948,6 +1948,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_TARGET_5 "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? "
 #define MES_INTERFACE_RESERACH " ['r'思い出, ' 'で続行, ESC]"
 #define MES_INTERFACE_RESERACH2 "クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):"
+#define MES_INTERFACE_VISUAL "コマンド (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): "
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -1966,6 +1967,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_TARGET_5 "Direction ('5' for target, '*' to re-target, Escape to cancel)? "
 #define MES_INTERFACE_RESERACH " [(r)ecall, ESC, space to continue]"
 #define MES_INTERFACE_RESERACH2 "Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): "
+#define MES_INTERFACE_VISUAL "Command (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): "
 #endif
 
 #ifdef JP
@@ -3021,4 +3023,10 @@ static cptr desc_stat_neg[] =
 #define MES_GAINMAGIC_NEED_IDENTIFY "You need to identify before absorbing."
 #define MES_GAINMAGIC_STILL_CHARGING "This item is still charging."
 #define MES_GAINMAGIC_ABSORBED(OBJECT) "You absorb magic of %s.", (OBJECT)
+#endif
+
+#ifdef JP
+#define MES_VISUAL_COL_SYM(COL, SYM) "現在値  色 / 文字 = %3d / %3d", (COL), (SYM)
+#else
+#define MES_VISUAL_COL_SYM(COL, SYM) "Current attr/char = %3d / %3d", (COL), (SYM)
 #endif
