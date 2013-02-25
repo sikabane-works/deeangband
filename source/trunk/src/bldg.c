@@ -1985,20 +1985,10 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 		case BUILDING_FUNCTION_FOOD: /* Buy food & drink */
 			if(creature_ptr->food >= CREATURE_FOOD_FULL)
 			{
-#ifdef JP
-				msg_print("今は満腹だ。");
-#else
-				msg_print("You are full now.");
-#endif
+				msg_print(MES_INN_FULL);
 				return FALSE;
 			}
-
-#ifdef JP
-			msg_print("バーテンはいくらかの食べ物とビールをくれた。");
-#else
-			msg_print("The barkeep gives you some gruel and a beer.");
-#endif
-
+			msg_print(MES_INN_FOOD);
 			(void)set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
 			break;
 
@@ -2040,11 +2030,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 
 				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
 				{
-#ifdef JP
-					msg_print("眠りに就くと恐ろしい光景が心をよぎった。");
-#else
-					msg_print("Horrible visions flit through your mind as you sleep.");
-#endif
+					msg_print(MES_INSANITY_NIGHTMARE_PRE);
 					get_species_num_prep_trait(NULL, t_need(1, TRAIT_ELDRITCH_HORROR), NULL, 0);
 					while(1)
 					{
