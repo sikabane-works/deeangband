@@ -1871,11 +1871,7 @@ static bool kankin(creature_type *creature_ptr)
 				object_type forge;
 
 				object_desc(object_name, object_ptr, 0);
-#ifdef JP
-				sprintf(buf, "%sを渡しますか？",object_name);
-#else
-				sprintf(buf, "Hand %s over? ",object_name);
-#endif
+				sprintf(buf, MES_BOUNTY_HAND_OVER(object_name));
 				if(!get_check(buf)) continue;
 
 				/* Hand it first */
@@ -1887,11 +1883,7 @@ static bool kankin(creature_type *creature_ptr)
 
 				// Count number of unique corpses already handed
 				for (num = 0, k = 0; k < MAX_BOUNTY; k++) if(kubi_species_idx[k] >= 10000) num++;
-#ifdef JP
-				msg_format("これで合計 %d ポイント獲得しました。", num);
-#else
-				msg_format("You earned %d point%s total.", num, (num > 1 ? "s" : ""));
-#endif
+				msg_format(MES_BOUNTY_EARN_POINT(num));
 
 				// Prepare to make a prize
 				object_prep(&forge, lookup_kind(prize_list[num-1].tval, prize_list[num-1].sval), ITEM_FREE_SIZE);
@@ -1908,11 +1900,7 @@ static bool kankin(creature_type *creature_ptr)
 				 */
 				item_new = inven_carry(creature_ptr, &forge);
 				object_desc(object_name, &forge, 0);	// Describe the object
-#ifdef JP
-				msg_format("%s(%c)を貰った。", object_name, index_to_label(item_new));
-#else
-				msg_format("You get %s (%c). ", object_name, index_to_label(item_new));
-#endif
+				msg_format(MES_BOUNTY_GET_REWARD(object_name, index_to_label(item_new)));
 
 				autopick_alter_item(creature_ptr, item_new, FALSE);	// Auto-inscription
 				handle_stuff(creature_ptr);
@@ -1924,11 +1912,7 @@ static bool kankin(creature_type *creature_ptr)
 
 	if(!change)
 	{
-#ifdef JP
-		msg_print("賞金を得られそうなものは持っていなかった。");
-#else
-		msg_print("You have nothing.");
-#endif
+		msg_print(MES_BOUNTY_NOTHING);
 		msg_print(NULL);
 		return FALSE;
 	}

@@ -765,6 +765,10 @@
 #define MES_BLDG_TODAY_TARGET3(PRICE) "骨   ---- $%d", (PRICE)
 #define MES_BLDG_TSUCHINOKO1 "一獲千金の大チャンス！！！\nターゲット：幻の珍獣「ツチノコ」"
 #define MES_BLDG_TSUCHINOKO2 "生け捕り ---- $1,000,000\n死体     ----   $200,000\n骨       ----   $100,000"
+#define MES_BOUNTY_HAND_OVER(CORPSE) "%sを渡しますか？", (CORPSE)
+#define MES_BOUNTY_EARN_POINT(NUM) "これで合計 %d ポイント獲得しました。", (NUM)
+#define MES_BOUNTY_GET_REWARD(OBJECT, SYM) "%s(%c)を貰った。", (OBJECT), (SYM)
+#define MES_BOUNTY_NOTHING "賞金を得られそうなものは持っていなかった。"
 
 #else
 #define MES_BLDG_CLOSED "(closed)"
@@ -779,6 +783,10 @@
 #define MES_BLDG_TODAY_TARGET3(PRICE) "skeleton ---- $%d", (PRICE)
 #define MES_BLDG_TSUCHINOKO1 "Big chance to quick money!!!\ntarget: the rarest animal 'Tsuchinoko'"
 #define MES_BLDG_TSUCHINOKO2 "catch alive ---- $1,000,000\ncorpse      ----   $200,000\nbones       ----   $100,000"
+#define MES_BOUNTY_HAND_OVER(CORPSE) "Hand %s over? ", (CORPSE)
+#define MES_BOUNTY_EARN_POINT(NUM) "You earned %d point%s total.", (NUM), ((NUM) > 1 ? "s" : "") 
+#define MES_BOUNTY_GET_REWARD(OBJECT, SYM) "You get %s (%c). ", (OBJECT), (SYM)
+#define MES_BOUNTY_NOTHING "You have nothing."
 
 #endif
 
