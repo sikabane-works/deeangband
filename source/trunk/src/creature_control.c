@@ -1914,9 +1914,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 			}
 
 			if((mode & CD_IGNORE_HALLU) && !is_original_ap(creature_ptr))
-			{
 				strcat(desc, format("(%s)", species_name + species_info[creature_ptr->species_idx].name));
-			}
 
 			/* Handle the Possessive as a special afterthought */
 			if(mode & CD_POSSESSIVE)
@@ -2161,14 +2159,7 @@ void sanity_blast_aux(creature_type *watcher_ptr, int power)
 	// Amnesia
 	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
-		if(lose_all_info(watcher_ptr))
-		{
-#ifdef JP
-			msg_print("あまりの恐怖に全てのことを忘れてしまった！");
-#else
-			msg_print("You forget everything in your utmost terror!");
-#endif
-		}
+		if(lose_all_info(watcher_ptr)) msg_print(MES_TRAIT_SANITY_BLAST_AMNESIA);
 		return;
 	}
 
@@ -2814,11 +2805,7 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 	{
 		char m_name[MAX_NLEN];
 		creature_desc(m_name, creature_ptr, 0);
-#ifdef JP
-		msg_format("突然%sが変身した。", old_m_name);
-#else
-		msg_format("Suddenly, %s transforms!", old_m_name);
-#endif
+		msg_format(MES_POLYMORPH_DONE(old_m_name));
 		if(!has_trait(creature_ptr, TRAIT_RIDING))
 			if(do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_print(GAME_MESSAGE_FALL_RIDING);
 	}

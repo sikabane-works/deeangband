@@ -1799,11 +1799,13 @@ static cptr desc_stat_neg[] =
 #define MES_POLYSELF_FEELING "あなたは変化の訪れを感じた..."
 #define MES_POLYSELF_ORDINARY "奇妙なくらい普通になった気がする。"
 #define MES_POLYSELF_DIFFICULT_FORM "現在の姿で生きていくのは困難なようだ！"
+#define MES_POLYMORPH_DONE(CREATURE) "突然%sが変身した。", (CREATURE)
 #else
 #define MES_POLYSELF_ASK "You will polymorph your self. Are you sure? "
 #define MES_POLYSELF_FEELING "You feel a change coming over you..."
 #define MES_POLYSELF_ORDINARY "You feel oddly normal."
 #define MES_POLYSELF_DIFFICULT_FORM "You find living difficult in your present form!"
+#define MES_POLYMORPH_DONE(CREATURE) "Suddenly, %s transforms!", (CREATURE)
 #endif
 
 #ifdef JP
@@ -2800,6 +2802,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_KNOWLEDGE "自分自身のことが少しは分かった気がする..."
 #define MES_TRAIT_OKURE_NIISAN "「オクレ兄さん！」"
 #define MES_TRAIT_SELF_DETONATION "体の中で激しい爆発が起きた！"
+#define MES_TRAIT_SANITY_BLAST_AMNESIA "あまりの恐怖に全てのことを忘れてしまった！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -2808,6 +2811,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_KNOWLEDGE "You begin to know yourself a little better..."
 #define MES_TRAIT_OKURE_NIISAN "Brother OKURE!"
 #define MES_TRAIT_SELF_DETONATION "Massive explosions rupture your body!"
+#define MES_TRAIT_SANITY_BLAST_AMNESIA "You forget everything in your utmost terror!"
 #endif
 
 #ifdef JP
