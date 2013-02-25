@@ -279,13 +279,8 @@ static bool open_auto_dump(cptr buf, cptr mark)
 	/* Initialize counter */
 	auto_dump_line_num = 0;
 
-#ifdef JP
-	auto_dump_printf("# *警告!!* 以降の行は自動生成されたものです。\n");
-	auto_dump_printf("# *警告!!* 後で自動的に削除されるので編集しないでください。\n");
-#else
-	auto_dump_printf("# *Warning!*  The lines below are an automatic dump.\n");
-	auto_dump_printf("# Don't edit them; changes will be deleted and replaced automatically.\n");
-#endif
+	auto_dump_printf(MES_SYS_AUTODUMP_WARNING1);
+	auto_dump_printf(MES_SYS_AUTODUMP_WARNING2);
 
 	return TRUE;
 }
@@ -299,14 +294,8 @@ static void close_auto_dump(void)
 
 	/* Prepare a footer mark string */
 	sprintf(footer_mark_str, auto_dump_footer, auto_dump_mark);
-
-#ifdef JP
-	auto_dump_printf("# *警告!!* 以上の行は自動生成されたものです。\n");
-	auto_dump_printf("# *警告!!* 後で自動的に削除されるので編集しないでください。\n");
-#else
-	auto_dump_printf("# *Warning!*  The lines above are an automatic dump.\n");
-	auto_dump_printf("# Don't edit them; changes will be deleted and replaced automatically.\n");
-#endif
+	auto_dump_printf(MES_SYS_AUTODUMP_WARNING3);
+	auto_dump_printf(MES_SYS_AUTODUMP_WARNING2);
 
 	/* End of dump */
 	fprintf(auto_dump_stream, "%s (%d)\n", footer_mark_str, auto_dump_line_num);
@@ -3324,11 +3313,7 @@ void do_cmd_visuals(void)
 		/* Reset visuals */
 		case 10:
 			reset_visuals();
-#ifdef JP
-			msg_print("画面上の[色/文字]を初期値にリセットしました。");
-#else
-			msg_print("Visual attr/char tables reset.");
-#endif
+			msg_print(MES_VISUAL_RESET);
 			need_redraw = TRUE;
 			break;
 

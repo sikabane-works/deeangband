@@ -62,6 +62,11 @@
 #define MES_SYS_CHARGE_NUM(NUM) "回分"
 
 #define MES_SYS_SKILL "技能値"
+
+#define MES_SYS_AUTODUMP_WARNING1 "# *警告!!* 以降の行は自動生成されたものです。\n"
+#define MES_SYS_AUTODUMP_WARNING2 "# *警告!!* 後で自動的に削除されるので編集しないでください。\n"
+#define MES_SYS_AUTODUMP_WARNING3 "# *警告!!* 以上の行は自動生成されたものです。\n"
+
 #else
 
 #define MES_SYS_MORE "-- MORE --"
@@ -118,6 +123,11 @@
 #define MES_SYS_CHARGE_NUM(NUM) ((NUM) > 1 ? " charges" : "charge")
 
 #define MES_SYS_SKILL "Proficiency"
+
+#define MES_SYS_AUTODUMP_WARNING1 "# *Warning!*  The lines below are an automatic dump.\n"
+#define MES_SYS_AUTODUMP_WARNING2 "# Don't edit them; changes will be deleted and replaced automatically.\n"
+#define MES_SYS_AUTODUMP_WARNING3 "# *Warning!*  The lines above are an automatic dump.\n"
+
 #endif
  
 #if JP
@@ -3027,6 +3037,10 @@ static cptr desc_stat_neg[] =
 
 #ifdef JP
 #define MES_VISUAL_COL_SYM(COL, SYM) "現在値  色 / 文字 = %3d / %3d", (COL), (SYM)
+#define MES_VISUAL_RESET "画面上の[色/文字]を初期値にリセットしました。"
 #else
 #define MES_VISUAL_COL_SYM(COL, SYM) "Current attr/char = %3d / %3d", (COL), (SYM)
+#define MES_VISUAL_RESET "Visual attr/char tables reset."
+
 #endif
+
