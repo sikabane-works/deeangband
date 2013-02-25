@@ -208,14 +208,7 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 						subject_change_floor = TRUE;
 						leave_bldg = TRUE;
 					}
-					else
-					{
-#ifdef JP
-						msg_print("Žc”O‚¾B");
-#else
-						msg_print("We are disappointed.");
-#endif
-					}
+					else msg_print(MES_ARENA_EXTRA_CANCELED);
 				}
 				else
 				{
@@ -266,11 +259,7 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 			{
 				species_ptr = &species_info[arena_info[arena_number].species_idx];
 				name = (species_name + species_ptr->name);
-#ifdef JP
-				msg_format("%s ‚É’§í‚·‚é‚à‚Ì‚Í‚¢‚È‚¢‚©H", name);
-#else
-				msg_format("Do I hear any challenges against: %s", name);
-#endif
+				msg_format(MES_ARENA_CHALLENGE(name));
 			}
 			break;
 
@@ -687,11 +676,7 @@ static void display_kaeruka(int hoge, int kaeruka[])
 	}
 	if(hoge > 4) col = TERM_YELLOW;
 	else col = TERM_WHITE;
-#ifdef JP
-	c_put_str(col, "Œˆ’è", 16, 38);
-#else
-	c_put_str(col, "Sure", 16, 38);
-#endif
+	c_put_str(col, KW_SURE, 16, 38);
 
 	/* Hilite current option */
 	if(hoge < 5) move_cursor(14, 5+hoge*16);

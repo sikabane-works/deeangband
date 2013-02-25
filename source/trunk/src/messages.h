@@ -175,6 +175,7 @@
 #define KW_YES "はい"
 #define KW_NO "いいえ"
 #define KW_DONE "完了"
+#define KW_SURE "決定"
 #define KW_CANCEL "キャンセル"
 #define KW_FAILED "失敗"
 #define KW_NONE "なし"
@@ -269,6 +270,7 @@
 #define KW_YES "Yes"
 #define KW_NO "No"
 #define KW_DONE "Done"
+#define KW_SURE "Sure"
 #define KW_NOTHING "Nothing"
 #define KW_CANCEL "Cancel"
 #define KW_FAILED "Failed"
@@ -615,12 +617,16 @@
 #define MES_ARENA_BERSERK "狂戦士化していて頭が回らない！"
 #define MES_ARENA_EXTRA "君のために最強の挑戦者を用意しておいた。"
 #define MES_ARENA_EXTRA_ASK "挑戦するかね？"
+#define MES_ARENA_EXTRA_CANCELED "残念だ。"
+#define MES_ARENA_CHALLENGE(NAME) "%s に挑戦するものはいないか？", (NAME)
 #else
 #define MES_ARENA_READY "Ready..Fight!"
 #define MES_ARENA_LIMIT "The arena absorbs all attempted magic!"
 #define MES_ARENA_BERSERK "You cannot think directly!"
 #define MES_ARENA_EXTRA "The strongest challenger is waiting for you."
 #define MES_ARENA_EXTRA_ASK "Do you fight? "
+#define MES_ARENA_EXTRA_CANCELED "We are disappointed."
+#define MES_ARENA_CHALLENGE(NAME) "Do I hear any challenges against: %s", (NAME)
 #endif
 
 #ifdef JP
