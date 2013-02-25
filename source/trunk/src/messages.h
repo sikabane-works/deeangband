@@ -3041,6 +3041,14 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_VISUAL_COL_SYM(COL, SYM) "Current attr/char = %3d / %3d", (COL), (SYM)
 #define MES_VISUAL_RESET "Visual attr/char tables reset."
-
 #endif
 
+#ifdef JP
+#define MES_CR_DESC_RIDING "(乗馬中)"
+#define MES_CR_DESC_CHAMELEON "(カメレオン)"
+#define MES_CR_DESC_CHAMELEON_LORD "(カメレオンの王)"
+#else
+#define MES_CR_DESC_RIDING "(Riding)"
+#define MES_CR_DESC_CHAMELEON "(Chameleon)"
+#define MES_CR_DESC_CHAMELEON_LORD "(Chameleon Lord)"
+#endif

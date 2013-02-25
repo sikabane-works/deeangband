@@ -1903,32 +1903,14 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 			}
 
 			if(player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr))
-			{
-#ifdef JP
-				strcat(desc,"(乗馬中)");
-#else
-				strcat(desc,"(riding)");
-#endif
-			}
+				strcat(desc, MES_CR_DESC_RIDING);
 
 			if((mode & CD_IGNORE_HALLU) && (creature_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
 			{
 				if(has_trait_species(species_ptr, TRAIT_UNIQUE))
-				{
-#ifdef JP
-					strcat(desc,"(カメレオンの王)");
-#else
-					strcat(desc,"(Chameleon Lord)");
-#endif
-				}
+					strcat(desc, MES_CR_DESC_CHAMELEON_LORD);
 				else
-				{
-#ifdef JP
-					strcat(desc,"(カメレオン)");
-#else
-					strcat(desc,"(Chameleon)");
-#endif
-				}
+					strcat(desc, MES_CR_DESC_CHAMELEON);
 			}
 
 			if((mode & CD_IGNORE_HALLU) && !is_original_ap(creature_ptr))
