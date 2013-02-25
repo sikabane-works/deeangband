@@ -1942,11 +1942,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 	if(saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
-#ifdef JP
-		msg_format("ñ≤ÇÃíÜÇ≈%sÇ…í«Ç¢Ç©ÇØÇÁÇÍÇΩÅB", m_name);
-#else
-		msg_format("%^s chases you through your dreams.", m_name);
-#endif
+		msg_format(MES_INSANITY_NIGHTMARE(m_name));
 		return;
 	}
 

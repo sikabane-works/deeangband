@@ -2230,11 +2230,16 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_INSANITY_NIGHTMARE(ELDRITCH) "夢の中で%sに追いかけられた。", (ELDRITCH)
 #define MES_INSANITY_FACED(ADJ, ELDRITCH) "%s%sの顔を見てしまった！", (ADJ), (ELDRITCH)
 #define MES_INSANITY_GLANCE(ADJ, ELDRITCH) "%s%sの顔が垣間見えた。", (ADJ), (ELDRITCH)
+#define MES_INSANITY_AMNESIA "あまりの恐怖に全てのことを忘れてしまった！"
+
 #else
+#define MES_INSANITY_NIGHTMARE(ELDRITCH) "%^s chases you through your dreams.", (ELDRITCH)
 #define MES_INSANITY_FACED(ADJ, ELDRITCH) "You behold the %s visage of %s.", (ADJ), (ELDRITCH)
 #define MES_INSANITY_GLANCE(ADJ, ELDRITCH) "You glance at the %s visage of %s.", (ADJ), (ELDRITCH)
+#define MES_INSANITY_AMNESIA "You forget everything in your utmost terror!"
 #endif
 
 #ifdef JP
@@ -2823,7 +2828,6 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_KNOWLEDGE "自分自身のことが少しは分かった気がする..."
 #define MES_TRAIT_OKURE_NIISAN "「オクレ兄さん！」"
 #define MES_TRAIT_SELF_DETONATION "体の中で激しい爆発が起きた！"
-#define MES_TRAIT_SANITY_BLAST_AMNESIA "あまりの恐怖に全てのことを忘れてしまった！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -2832,7 +2836,6 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_KNOWLEDGE "You begin to know yourself a little better..."
 #define MES_TRAIT_OKURE_NIISAN "Brother OKURE!"
 #define MES_TRAIT_SELF_DETONATION "Massive explosions rupture your body!"
-#define MES_TRAIT_SANITY_BLAST_AMNESIA "You forget everything in your utmost terror!"
 #endif
 
 #ifdef JP

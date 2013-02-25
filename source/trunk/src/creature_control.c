@@ -2159,7 +2159,7 @@ void sanity_blast_aux(creature_type *watcher_ptr, int power)
 	// Amnesia
 	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
-		if(lose_all_info(watcher_ptr)) msg_print(MES_TRAIT_SANITY_BLAST_AMNESIA);
+		if(lose_all_info(watcher_ptr)) msg_print(MES_INSANITY_AMNESIA);
 		return;
 	}
 
