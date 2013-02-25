@@ -365,11 +365,7 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 
 	if(!fff)
 	{
-#ifdef JP
-		msg_format("%sプレイ記録を一時停止します。", MES_SYS_FAILED_FILEOPEN2, buf);
-#else
-		msg_format("%s. Play-Record is disabled temporally.", MES_SYS_FAILED_FILEOPEN2, buf);
-#endif
+		msg_format(MES_SYS_FAILED_FILEOPEN2, buf);
 		msg_format(NULL);
 		disable_nikki=TRUE;
 		return (-1);
