@@ -358,7 +358,7 @@ bool can_do_cmd_cast(creature_type *creature_ptr)
 	}
 	else if(has_trait(creature_ptr, TRAIT_S_HERO))
 	{
-		msg_format(GAME_MESSAGE_ARENA_BERSERK);
+		msg_format(MES_ARENA_BERSERK);
 		return FALSE;
 	}
 	else

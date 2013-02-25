@@ -3551,7 +3551,7 @@ static void process_player_command(creature_type *creature_ptr)
 				}
 				else if(has_trait(creature_ptr, TRAIT_S_HERO) && (creature_ptr->class_idx != CLASS_BERSERKER))
 				{
-					msg_format(GAME_MESSAGE_ARENA_BERSERK);
+					msg_format(MES_ARENA_BERSERK);
 					cancel_tactical_action(creature_ptr);
 				}
 				else
@@ -3628,7 +3628,7 @@ static void process_player_command(creature_type *creature_ptr)
 					do_cmd_activate(creature_ptr);
 				else
 				{
-					msg_print(GAME_MESSAGE_ARENA_LIMIT);
+					msg_print(MES_ARENA_LIMIT);
 					msg_print(NULL);
 				}
 			}
@@ -3675,7 +3675,7 @@ static void process_player_command(creature_type *creature_ptr)
 					do_cmd_aim_wand(creature_ptr);
 				else
 				{
-					msg_print(GAME_MESSAGE_ARENA_LIMIT);
+					msg_print(MES_ARENA_LIMIT);
 					msg_print(NULL);
 				}
 			}
@@ -3689,7 +3689,7 @@ static void process_player_command(creature_type *creature_ptr)
 			{
 				if(floor_ptr->fight_arena_mode)
 				{
-					msg_print(GAME_MESSAGE_ARENA_LIMIT);
+					msg_print(MES_ARENA_LIMIT);
 					msg_print(NULL);
 				}
 				else if(use_command && rogue_like_commands)
@@ -3713,7 +3713,7 @@ static void process_player_command(creature_type *creature_ptr)
 					do_cmd_quaff_potion(creature_ptr);
 				else
 				{
-					msg_print(GAME_MESSAGE_ARENA_LIMIT);
+					msg_print(MES_ARENA_LIMIT);
 					msg_print(NULL);
 				}
 			}
@@ -3729,7 +3729,7 @@ static void process_player_command(creature_type *creature_ptr)
 					do_cmd_read_scroll(creature_ptr);
 				else
 				{
-					msg_print(GAME_MESSAGE_ARENA_LIMIT);
+					msg_print(MES_ARENA_LIMIT);
 					msg_print(NULL);
 				}
 			}
@@ -3743,7 +3743,7 @@ static void process_player_command(creature_type *creature_ptr)
 			{
 				if(floor_ptr->fight_arena_mode)
 				{
-					msg_print(GAME_MESSAGE_ARENA_LIMIT);
+					msg_print(MES_ARENA_LIMIT);
 					msg_print(NULL);
 				}
 				else if(use_command && !rogue_like_commands)
@@ -5086,7 +5086,7 @@ static void play_loop(void)
 			}
 			else
 			{
-				msg_print(GAME_MESSAGE_ARENA_READY);
+				msg_print(MES_ARENA_READY);
 				msg_print(NULL);
 			}
 		}

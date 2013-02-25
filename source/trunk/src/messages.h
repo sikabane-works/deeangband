@@ -490,10 +490,6 @@
 
 #define GAME_MESSAGE_TELEPORT_PREVENTED "不思議な力がテレポートを防いだ！"
 
-#define GAME_MESSAGE_ARENA_READY "試合開始！"
-#define GAME_MESSAGE_ARENA_LIMIT "アリーナが魔法を吸収した！"
-#define GAME_MESSAGE_ARENA_BERSERK "狂戦士化していて頭が回らない！"
-
 #define GAME_MESSAGE_SEE_OBJECT "%sがある。"
 #define GAME_MESSAGE_GET_MONEY " $%ld の価値がある%sを見つけた。"
 #define GAME_MESSAGE_PACK_NO_ROOM "ザックには%sを入れる隙間がない。"
@@ -587,9 +583,6 @@
 
 #define GAME_MESSAGE_TELEPORT_PREVENTED "A mysterious force prevents you from teleporting!"
 
-#define GAME_MESSAGE_ARENA_READY "Ready..Fight!"
-#define GAME_MESSAGE_ARENA_LIMIT "The arena absorbs all attempted magic!"
-#define GAME_MESSAGE_ARENA_BERSERK "You cannot think directly!"
 
 #define GAME_MESSAGE_SEE_OBJECT "You see %s."
 #define GAME_MESSAGE_GET_MONEY "You collect %ld gold pieces worth of %s."
@@ -614,6 +607,20 @@
 #define GAME_MESSAGE_TARGET_CANCELED "Canceled."
 
 #define GAME_MESSAGE_GOODBYE(NAME) ("Goodbye, %s!", (NAME))
+#endif
+
+#ifdef JP
+#define MES_ARENA_READY "試合開始！"
+#define MES_ARENA_LIMIT "アリーナが魔法を吸収した！"
+#define MES_ARENA_BERSERK "狂戦士化していて頭が回らない！"
+#define MES_ARENA_EXTRA "君のために最強の挑戦者を用意しておいた。"
+#define MES_ARENA_EXTRA_ASK "挑戦するかね？"
+#else
+#define MES_ARENA_READY "Ready..Fight!"
+#define MES_ARENA_LIMIT "The arena absorbs all attempted magic!"
+#define MES_ARENA_BERSERK "You cannot think directly!"
+#define MES_ARENA_EXTRA "The strongest challenger is waiting for you."
+#define MES_ARENA_EXTRA_ASK "Do you fight? "
 #endif
 
 #ifdef JP

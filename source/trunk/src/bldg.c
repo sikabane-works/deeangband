@@ -198,15 +198,9 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 			{
 				if(arena_number < MAX_ARENA_MONS+2)
 				{
-#ifdef JP
-					msg_print("君のために最強の挑戦者を用意しておいた。");
+					msg_print(MES_ARENA_EXTRA);
 					msg_print(NULL);
-					if(get_check("挑戦するかね？"))
-#else
-					msg_print("The strongest challenger is waiting for you.");
-					msg_print(NULL);
-					if(get_check("Do you fight? "))
-#endif
+					if(get_check(MES_ARENA_EXTRA_ASK))
 					{
 						arena_settled = FALSE;
 						reset_timed_trait(creature_ptr);
@@ -2826,7 +2820,7 @@ bool tele_town(creature_type *creature_ptr)
 
 	if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
-		msg_print(GAME_MESSAGE_ARENA_LIMIT);
+		msg_print(MES_ARENA_LIMIT);
 		return FALSE;
 	}
 
