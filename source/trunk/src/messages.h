@@ -3101,3 +3101,13 @@ static cptr desc_stat_neg[] =
 #define MES_INN_FOOD "The barkeep gives you some gruel and a beer."
 #endif
 
+#ifdef JP
+#define MES_RESEARCH_FULL_LIST "全クリーチャーのリスト"
+#define MES_RESEARCH_UNIQUE_LIST "ユニーク・クリーチャーのリスト"
+#define MES_RESEARCH_NON_UNIQUE_LIST "非ユニーク・クリーチャーのリスト"
+#else
+#define MES_RESEARCH_FULL_LIST "Full creature list."
+#define MES_RESEARCH_UNIQUE_LIST "Unique creature list."
+#define MES_RESEARCH_NON_UNIQUE_LIST "Non-unique creature list."
+#endif
+

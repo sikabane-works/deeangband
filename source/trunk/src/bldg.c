@@ -2850,29 +2850,17 @@ static bool research_creature(creature_type *creature_ptr)
 	if(sym == KTRL('A'))
 	{
 		all = TRUE;
-#ifdef JP
-		strcpy(buf, "全クリーチャーのリスト");
-#else
-		strcpy(buf, "Full creature list.");
-#endif
+		strcpy(buf, MES_RESEARCH_FULL_LIST);
 	}
 	else if(sym == KTRL('U'))
 	{
 		all = uniq = TRUE;
-#ifdef JP
-		strcpy(buf, "ユニーク・クリーチャーのリスト");
-#else
-		strcpy(buf, "Unique creature list.");
-#endif
+		strcpy(buf, MES_RESEARCH_UNIQUE_LIST);
 	}
 	else if(sym == KTRL('N'))
 	{
 		all = norm = TRUE;
-#ifdef JP
-		strcpy(buf, "ユニーク外クリーチャーのリスト");
-#else
-		strcpy(buf, "Non-unique creature list.");
-#endif
+		strcpy(buf, MES_RESEARCH_NON_UNIQUE_LIST);
 	}
 	else if(sym == KTRL('M'))
 	{
