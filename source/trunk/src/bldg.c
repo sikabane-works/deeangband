@@ -72,9 +72,16 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 {
 	char buff[20];
 	int i;
-	byte action_color;
 	char tmp_str[80];
-
+	selection_info si_info;
+	selection_table st_info[9];
+	si_info.x = 35;
+	si_info.y = 15;
+	si_info.detail = NULL;
+	si_info.caption = NULL;
+	si_info.mode = GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT;
+	si_info.num = 0;
+	
 	Term_clear();
 	sprintf(tmp_str, "[%s]", bldg->name);
 	prt(tmp_str, 2, 1);
@@ -87,20 +94,22 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 		{
 			if(bldg->action_restr[i] == 0)
 			{
-				if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
-					(!is_owner(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
+				if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) || (!is_owner(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
-					action_color = TERM_WHITE;
+					st_info[i].l_color = TERM_WHITE;
+					st_info[i].d_color = TERM_L_DARK;
 					buff[0] = '\0';
 				}
 				else if(is_owner(creature_ptr, bldg))
 				{
-					action_color = TERM_YELLOW;
+					st_info[i].l_color = TERM_YELLOW;
+					st_info[i].d_color = TERM_UMBER;
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
 				}
 				else
 				{
-					action_color = TERM_YELLOW;
+					st_info[i].l_color = TERM_YELLOW;
+					st_info[i].d_color = TERM_UMBER;
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
 				}
 			}
@@ -108,23 +117,27 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 			{
 				if(!is_member(creature_ptr, bldg))
 				{
-					action_color = TERM_L_DARK;
+					st_info[i].l_color = TERM_L_DARK;
+					st_info[i].d_color = TERM_L_DARK;
 					strcpy(buff, MES_BLDG_CLOSED);
 				}
 				else if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
 					(is_member(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
-					action_color = TERM_WHITE;
+					st_info[i].l_color = TERM_WHITE;
+					st_info[i].d_color = TERM_L_DARK;
 					buff[0] = '\0';
 				}
 				else if(is_owner(creature_ptr, bldg))
 				{
-					action_color = TERM_YELLOW;
+					st_info[i].l_color = TERM_YELLOW;
+					st_info[i].d_color = TERM_UMBER;
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
 				}
 				else
 				{
-					action_color = TERM_YELLOW;
+					st_info[i].l_color = TERM_YELLOW;
+					st_info[i].d_color = TERM_UMBER;
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
 				}
 			}
@@ -132,23 +145,26 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 			{
 				if(!is_owner(creature_ptr, bldg))
 				{
-					action_color = TERM_L_DARK;
+					st_info[i].l_color = TERM_WHITE;
+					st_info[i].d_color = TERM_L_DARK;
 					strcpy(buff, MES_BLDG_CLOSED);
 				}
 				else if(bldg->member_costs[i] != 0)
 				{
-					action_color = TERM_YELLOW;
+					st_info[i].l_color = TERM_YELLOW;
+					st_info[i].d_color = TERM_UMBER;
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
 				}
 				else
 				{
-					action_color = TERM_WHITE;
+					st_info[i].l_color = TERM_WHITE;
+					st_info[i].d_color = TERM_L_DARK;
 					buff[0] = '\0';
 				}
 			}
 
 			sprintf(tmp_str," %c) %s %s", bldg->letters[i], bldg->act_names[i], buff);
-			c_put_str(action_color, tmp_str, 19+(i/2), 35*(i%2));
+			//c_put_str(action_color, tmp_str, 19+(i/2), 35*(i%2));
 		}
 	}
 
