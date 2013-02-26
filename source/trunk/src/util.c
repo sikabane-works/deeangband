@@ -5330,6 +5330,7 @@ int get_selection(selection_info *si_ptr, selection_table *se_ptr)
 		}
 
 		if(si_ptr->detail) si_ptr->detail(se_ptr[se].code);
+		if(si_ptr->mode & GET_SE_VIEW_ONLY) return 0;
 
 		c = inkey();
 		if(c == '2')
