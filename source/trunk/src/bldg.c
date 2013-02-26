@@ -83,6 +83,7 @@ static int building_select(creature_type *creature_ptr, building_type* bldg)
 	si_info.caption = NULL;
 	si_info.mode = NULL;
 	si_info.num = 0;
+	si_info.default_se = 0;
 	
 	Term_clear();
 	prt(format("[%s]", bldg->name), 2, 1);
@@ -177,6 +178,7 @@ static int building_select(creature_type *creature_ptr, building_type* bldg)
 					sprintf(cap_buf[si_info.num], "%26s %14s", bldg->act_names[i], buff);
 				}
 			}
+			st_info[si_info.num].code = si_info.num;
 			st_info[si_info.num].cap = cap_buf[si_info.num];
 			si_info.num++;
 		}
@@ -186,14 +188,13 @@ static int building_select(creature_type *creature_ptr, building_type* bldg)
 	st_info[si_info.num].d_color = TERM_L_DARK;
 	st_info[si_info.num].key = ESCAPE;
 	st_info[si_info.num].cap = MES_BULD_EXIT;
+	st_info[si_info.num].code = -1;
 	si_info.num++;
 
 	return get_selection(&si_info, st_info);
 }
 
-/*
- * arena commands
- */
+// arena commands
 static void arena_comm(creature_type *creature_ptr, int cmd)
 {
 	species_type    *species_ptr;
@@ -3463,7 +3464,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		building_prt_gold(creature_ptr);
 		command = building_select(creature_ptr, bldg);
 
-		if(command == ESCAPE)
+		if(command == -1)
 		{
 			leave_bldg = TRUE;
 			floor_ptr->fight_arena_mode = FALSE;
