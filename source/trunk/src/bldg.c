@@ -72,7 +72,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 {
 	char buff[20];
 	int i, n;
-	char tmp_str[80];
+	char cap_buf[9][80];
 	selection_info si_info;
 	selection_table st_info[9];
 	si_info.x = 35;
@@ -83,10 +83,8 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 	si_info.num = 0;
 	
 	Term_clear();
-	sprintf(tmp_str, "[%s]", bldg->name);
-	prt(tmp_str, 2, 1);
-	sprintf(tmp_str, "%s (%s)", bldg->ownespecies_name, bldg->owner_race);
-	prt(tmp_str, 3, 5);
+	prt(format("[%s]", bldg->name), 2, 1);
+	prt(format("%s (%s)", bldg->ownespecies_name, bldg->owner_race), 3, 5);
 
 	for (i = 0, n = 0; i < 8; i++)
 	{
@@ -99,6 +97,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 					st_info[n].l_color = TERM_WHITE;
 					st_info[n].d_color = TERM_L_DARK;
 					st_info[n].key = '\0';
+					sprintf(cap_buf[n], "%40s", bldg->act_names[i]);
 				}
 				else if(is_owner(creature_ptr, bldg))
 				{
@@ -106,6 +105,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 					st_info[n].d_color = TERM_UMBER;
 					st_info[n].key = '\0';
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
+					sprintf(cap_buf[n], "%26s %14s", bldg->act_names[i], buff);
 				}
 				else
 				{
