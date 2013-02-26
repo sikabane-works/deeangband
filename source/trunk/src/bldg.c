@@ -68,18 +68,20 @@ static void building_prt_gold(creature_type *creature_ptr)
 }
 
 // Display a building.
-static void show_building(creature_type *creature_ptr, building_type* bldg)
+static int building_select(creature_type *creature_ptr, building_type* bldg)
 {
 	char buff[20];
 	int i;
 	char cap_buf[9][80];
 	selection_info si_info;
 	selection_table st_info[9];
-	si_info.x = 35;
-	si_info.y = 15;
+	si_info.x = 2;
+	si_info.y = 12;
+	si_info.w = 45;
+	si_info.h = 11;
 	si_info.detail = NULL;
 	si_info.caption = NULL;
-	si_info.mode = GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT | GET_SE_VIEW_ONLY;
+	si_info.mode = NULL;
 	si_info.num = 0;
 	
 	Term_clear();
@@ -186,8 +188,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 	st_info[si_info.num].cap = MES_BULD_EXIT;
 	si_info.num++;
 
-	get_selection(&si_info, st_info);
-
+	return get_selection(&si_info, st_info);
 }
 
 /*
@@ -3135,7 +3136,6 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 
 	case BUILDING_FUNCTION_STORE:
 		store_process(creature_ptr, &st_list[bldg->action_misc[i]]);
-		show_building(creature_ptr, bldg);
 		break;
 
 	case BUILDING_FUNCTION_RESEARCH_ITEM:
@@ -3260,7 +3260,6 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 #else
 		select_dungeon = choose_dungeon("teleport", 4, 0);
 #endif
-		show_building(creature_ptr, bldg);
 		if(!select_dungeon) return;
 
 		max_depth = dungeon_info[select_dungeon].maxdepth;
@@ -3454,7 +3453,6 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	command_rep = 0;
 	command_new = 0;
 
-	show_building(creature_ptr, bldg);
 	leave_bldg = FALSE;
 
 	while (!leave_bldg)
@@ -3463,8 +3461,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		prt("", 1, 0);
 
 		building_prt_gold(creature_ptr);
-
-		command = inkey();
+		command = building_select(creature_ptr, bldg);
 
 		if(command == ESCAPE)
 		{
