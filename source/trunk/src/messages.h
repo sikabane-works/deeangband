@@ -2186,37 +2186,39 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
-#define MES_BLDG_RECHARGE_WHICH_ITEM "‚Ç‚ÌƒAƒCƒeƒ€‚É–‚—Í‚ð[“U‚µ‚Ü‚·‚©? "
-#define MES_BLDG_RECHARGE_NO_ITEM "–‚—Í‚ð[“U‚·‚×‚«ƒAƒCƒeƒ€‚ª‚È‚¢B"
-#define MES_BLDG_RECHARGE_NO_NEED "‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB"
-#define MES_BLDG_RECHARGE_NO_MONEY(NAME, MONEY) "%s‚ðÄ[“U‚·‚é‚É‚Í%d •K—v‚Å‚·I", (NAME), (MONEY)
-#define MES_BLDG_RECHARGE_NO_MONEY_ALL(MONEY) "‚·‚×‚Ä‚ÌƒAƒCƒeƒ€‚ðÄ[“U‚·‚é‚É‚Í%d •K—v‚Å‚·I", (MONEY)
-#define MES_BLDG_RECHARGE_ALL_ASK(MONEY) "‚·‚×‚Ä‚ÌƒAƒCƒeƒ€‚ð %d ‚ÅÄ[“U‚µ‚Ü‚·‚©H", (MONEY)
-#define MES_BLDG_RECHAEGED(NAME, MONEY, NUM) "%s‚ð%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", (NAME), (MONEY), (NUM)
-#define MES_BLDG_RECHAEGED_ALL(MONEY) "%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", (MONEY)
-#define MES_RECHAGE_FAILED(NAME) "–‚—Í‚ª‹t—¬‚µ‚½I%s‚ÍŠ®‘S‚É–‚—Í‚ðŽ¸‚Á‚½B", (NAME)
-#define MES_RECHAGE_FAILED2 "–‚—Í‚ª‹t•¬ŽË‚µ‚ÄAƒƒbƒh‚©‚ç‚³‚ç‚É–‚—Í‚ð‹z‚¢Žæ‚Á‚Ä‚µ‚Ü‚Á‚½I"
-#define MES_RECHAGE_FAILED3(NAME) "%s‚Í”j‘¹‚ð–Æ‚ê‚½‚ªA–‚—Í‚ª‘S‚ÄŽ¸‚í‚ê‚½B", (NAME)
-#define MES_RECHAGE_BROKEN1(NAME) "—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", (NAME)
-#define MES_RECHAGE_BROKEN2(NAME) "—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ªˆê–{‰ó‚ê‚½I", (NAME)
-#define MES_RECHAGE_BROKEN3(NAME) "—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‘S‚Ä‰ó‚ê‚½I", (NAME)
-#define MES_RECHAGE_COMMENT "Ä[“U‚Ì”ï—p‚ÍƒAƒCƒeƒ€‚ÌŽí—Þ‚É‚æ‚è‚Ü‚·B"
+#define MES_RECHARGE_WHICH_ITEM "‚Ç‚ÌƒAƒCƒeƒ€‚É–‚—Í‚ð[“U‚µ‚Ü‚·‚©? "
+#define MES_RECHARGE_NO_ITEM "–‚—Í‚ð[“U‚·‚×‚«ƒAƒCƒeƒ€‚ª‚È‚¢B"
+#define MES_RECHARGE_NO_NEED "‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB"
+#define MES_RECHARGE_NO_MONEY(NAME, MONEY) "%s‚ðÄ[“U‚·‚é‚É‚Í%d •K—v‚Å‚·I", (NAME), (MONEY)
+#define MES_RECHARGE_NO_MONEY_ALL(MONEY) "‚·‚×‚Ä‚ÌƒAƒCƒeƒ€‚ðÄ[“U‚·‚é‚É‚Í%d •K—v‚Å‚·I", (MONEY)
+#define MES_RECHARGE_ALL_ASK(MONEY) "‚·‚×‚Ä‚ÌƒAƒCƒeƒ€‚ð %d ‚ÅÄ[“U‚µ‚Ü‚·‚©H", (MONEY)
+#define MES_RECHARGED(NAME, MONEY, NUM) "%s‚ð%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", (NAME), (MONEY), (NUM)
+#define MES_RECHARGED_ALL(MONEY) "%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", (MONEY)
+#define MES_RECHARGE_FAILED(NAME) "–‚—Í‚ª‹t—¬‚µ‚½I%s‚ÍŠ®‘S‚É–‚—Í‚ðŽ¸‚Á‚½B", (NAME)
+#define MES_RECHARGE_FAILED2 "–‚—Í‚ª‹t•¬ŽË‚µ‚ÄAƒƒbƒh‚©‚ç‚³‚ç‚É–‚—Í‚ð‹z‚¢Žæ‚Á‚Ä‚µ‚Ü‚Á‚½I"
+#define MES_RECHARGE_FAILED3(NAME) "%s‚Í”j‘¹‚ð–Æ‚ê‚½‚ªA–‚—Í‚ª‘S‚ÄŽ¸‚í‚ê‚½B", (NAME)
+#define MES_RECHARGE_BROKEN1(NAME) "—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", (NAME)
+#define MES_RECHARGE_BROKEN2(NAME) "—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ªˆê–{‰ó‚ê‚½I", (NAME)
+#define MES_RECHARGE_BROKEN3(NAME) "—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‘S‚Ä‰ó‚ê‚½I", (NAME)
+#define MES_RECHARGE_COMMENT "Ä[“U‚Ì”ï—p‚ÍƒAƒCƒeƒ€‚ÌŽí—Þ‚É‚æ‚è‚Ü‚·B"
+#define MES_RECHARGE_COUNT(MONEY) "ˆê‰ñ•ª%d ‚Å‰½‰ñ•ª[“U‚µ‚Ü‚·‚©H", (MONEY)
 #else
-#define MES_BLDG_RECHARGE_WHICH_ITEM "Recharge which item? "
-#define MES_BLDG_RECHARGE_NO_ITEM "You have nothing to recharge."
-#define MES_BLDG_RECHARGE_NO_NEED "That doesn't need to be recharged."
-#define MES_BLDG_RECHARGE_NO_MONEY(NAME, MONEY) "You need %d gold to recharge %s!", (MONEY), (NAME)
-#define MES_BLDG_RECHARGE_NO_MONEY_ALL(MONEY) "You need %d gold to recharge all items!", (MONEY)
-#define MES_BLDG_RECHARGE_ALL_ASK(MONEY) "Recharge all items for %d gold? ", (MONEY)
-#define MES_BLDG_RECHAEGED(NAME, MONEY, NUM) "%^s %s recharged for %d gold.", (NAME), ((NUM)> 1) ? "were" : "was"), (MONEY) 
-#define MES_BLDG_RECHAEGED_ALL(MONEY) "You pay %d gold.", (MONEY)
-#define MES_RECHAGE_FAILED(NAME) "The recharging backfires - %s is completely drained!", (NAME)
-#define MES_RECHAGE_FAILED2 "The recharge backfires, draining the rod further!"
-#define MES_RECHAGE_FAILED3(NAME) "You save your %s from destruction, but all charges are lost.", (NAME)
-#define MES_RECHAGE_BROKEN1(NAME) "Wild magic consumes your %s!", (NAME)
-#define MES_RECHAGE_BROKEN2(NAME) "Wild magic consumes one of your %s!", (NAME)
-#define MES_RECHAGE_BROKEN3(NAME) "Wild magic consumes all your %s!", (NAME)
-#define MES_RECHAGE_COMMENT "The prices of recharge depend on the type."
+#define MES_RECHARGE_WHICH_ITEM "Recharge which item? "
+#define MES_RECHARGE_NO_ITEM "You have nothing to recharge."
+#define MES_RECHARGE_NO_NEED "That doesn't need to be recharged."
+#define MES_RECHARGE_NO_MONEY(NAME, MONEY) "You need %d gold to recharge %s!", (MONEY), (NAME)
+#define MES_RECHARGE_NO_MONEY_ALL(MONEY) "You need %d gold to recharge all items!", (MONEY)
+#define MES_RECHARGE_ALL_ASK(MONEY) "Recharge all items for %d gold? ", (MONEY)
+#define MES_RECHARGED(NAME, MONEY, NUM) "%^s %s recharged for %d gold.", (NAME), ((NUM)> 1) ? "were" : "was"), (MONEY) 
+#define MES_RECHARGED_ALL(MONEY) "You pay %d gold.", (MONEY)
+#define MES_RECHARGE_FAILED(NAME) "The recharging backfires - %s is completely drained!", (NAME)
+#define MES_RECHARGE_FAILED2 "The recharge backfires, draining the rod further!"
+#define MES_RECHARGE_FAILED3(NAME) "You save your %s from destruction, but all charges are lost.", (NAME)
+#define MES_RECHARGE_BROKEN1(NAME) "Wild magic consumes your %s!", (NAME)
+#define MES_RECHARGE_BROKEN2(NAME) "Wild magic consumes one of your %s!", (NAME)
+#define MES_RECHARGE_BROKEN3(NAME) "Wild magic consumes all your %s!", (NAME)
+#define MES_RECHARGE_COMMENT "The prices of recharge depend on the type."
+#define MES_RECHARGE_COUNT(MONEY) "Add how many charges for %d gold? ", (MONEY)
 #endif
 
 #ifdef JP

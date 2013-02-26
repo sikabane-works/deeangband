@@ -2209,10 +2209,7 @@ static void castle_quest(creature_type *creature_ptr)
 	}
 }
 
-
-/*
- * Display town history
- */
+// Display town history
 static void town_history(void)
 {
 	screen_save();
@@ -2448,9 +2445,9 @@ static void building_recharge(creature_type *creature_ptr)
 
 	/* Display some info */
 	clear_bldg(4, 18);
-	prt(MES_RECHAGE_COMMENT, 6, 2);
+	prt(MES_RECHARGE_COMMENT, 6, 2);
 
-	if(!get_item(creature_ptr, &item, MES_BLDG_RECHARGE_WHICH_ITEM, MES_BLDG_RECHARGE_NO_ITEM, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_RECHARGE_WHICH_ITEM, MES_RECHARGE_NO_ITEM, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return;
 
 	object_ptr = GET_ITEM(creature_ptr, item);
 	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
@@ -2463,11 +2460,11 @@ static void building_recharge(creature_type *creature_ptr)
 	if(!object_is_known(object_ptr))
 	{		
 #ifdef JP
-		msg_format("[“U‚·‚é‘O‚ÉŠÓ’è‚³‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·I");
+		msg_format("[“U‚·‚é‘O‚ÉŠÓ’è‚³‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·B");
 		msg_print(NULL);
 		if((creature_ptr->au >= 50) && get_check("50‚ÅŠÓ’è‚µ‚Ü‚·‚©H "))
 #else
-		msg_format("The item must be identified first!");
+		msg_format("The item must be identified firstB");
 		msg_print(NULL);
 		if((creature_ptr->au >= 50) && get_check("Identify for 50 gold? "))
 #endif
@@ -2507,7 +2504,7 @@ static void building_recharge(creature_type *creature_ptr)
 		else
 		{
 			price = 0;
-			msg_format(MES_BLDG_RECHARGE_NO_NEED);
+			msg_format(MES_RECHARGE_NO_NEED);
 			return;
 		}
 	}
@@ -2556,7 +2553,7 @@ static void building_recharge(creature_type *creature_ptr)
 	if(creature_ptr->au < price)
 	{
 		object_desc(tmp_str, object_ptr, OD_NAME_ONLY);
-		msg_format(MES_BLDG_RECHARGE_NO_MONEY(tmp_str, price));
+		msg_format(MES_RECHARGE_NO_MONEY(tmp_str, price));
 		return;
 	}
 	if(IS_ROD(object_ptr))
@@ -2572,17 +2569,10 @@ static void building_recharge(creature_type *creature_ptr)
 	}
 	else
 	{
-		if(object_ptr->tval == TV_STAFF)
-			max_charges = object_kind_ptr->pval - object_ptr->pval;
-		else
-			max_charges = object_ptr->number * object_kind_ptr->pval - object_ptr->pval;
+		if(object_ptr->tval == TV_STAFF) max_charges = object_kind_ptr->pval - object_ptr->pval;
+		else max_charges = object_ptr->number * object_kind_ptr->pval - object_ptr->pval;
+		charges = get_quantity(format(MES_RECHARGE_COUNT(price)), MIN(creature_ptr->au / price, max_charges));
 
-		/* Get the quantity for staves and wands */
-#ifdef JP
-		charges = get_quantity(format("ˆê‰ñ•ª%d ‚Å‰½‰ñ•ª[“U‚µ‚Ü‚·‚©H", price), MIN(creature_ptr->au / price, max_charges));
-#else
-		charges = get_quantity(format("Add how many charges for %d gold? ", price), MIN(creature_ptr->au / price, max_charges));
-#endif
 		/* Do nothing */
 		if(charges < 1) return;
 
@@ -2598,7 +2588,7 @@ static void building_recharge(creature_type *creature_ptr)
 
 	/* Give feedback */
 	object_desc(tmp_str, object_ptr, 0);
-	msg_format(MES_BLDG_RECHAEGED(tmp_str, price, object_ptr->number));
+	msg_format(MES_RECHARGED(tmp_str, price, object_ptr->number));
 
 	/* Combine / Reorder the pack (later) */
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
@@ -2635,7 +2625,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 	// Display some info
 	msg_flag = FALSE;
 	clear_bldg(4, 18);
-	prt(MES_RECHAGE_COMMENT, 6, 2);
+	prt(MES_RECHARGE_COMMENT, 6, 2);
 
 	/* Calculate cost */
 	for ( i = 0; i < INVEN_TOTAL; i++)
@@ -2688,7 +2678,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 
 	if(!total_cost)
 	{
-		msg_print(MES_BLDG_RECHARGE_NO_ITEM);
+		msg_print(MES_RECHARGE_NO_ITEM);
 		msg_print(NULL);
 		return;
 	}
@@ -2696,12 +2686,12 @@ static void building_recharge_all(creature_type *creature_ptr)
 	/* Check if the player has enough money */
 	if(creature_ptr->au < total_cost)
 	{
-		msg_format(MES_BLDG_RECHARGE_NO_MONEY_ALL(total_cost));
+		msg_format(MES_RECHARGE_NO_MONEY_ALL(total_cost));
 		msg_print(NULL);
 		return;
 	}
 
-	if(!get_check(format(MES_BLDG_RECHARGE_ALL_ASK(total_cost)))) return;
+	if(!get_check(format(MES_RECHARGE_ALL_ASK(total_cost)))) return;
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_ptr = &creature_ptr->inventory[i];
@@ -2737,7 +2727,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 		}
 	}
 
-	msg_format(MES_BLDG_RECHAEGED_ALL(total_cost));
+	msg_format(MES_RECHARGED_ALL(total_cost));
 	msg_print(NULL);
 
 	/* Combine / Reorder the pack (later) */

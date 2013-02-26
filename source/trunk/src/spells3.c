@@ -2545,8 +2545,8 @@ bool recharge(creature_type *creature_ptr, int power)
 
 	cptr q, s;
 	char object_name[MAX_NLEN];
-	q = MES_BLDG_RECHARGE_WHICH_ITEM;
-	s = MES_BLDG_RECHARGE_NO_ITEM;
+	q = MES_RECHARGE_WHICH_ITEM;
+	s = MES_RECHARGE_NO_ITEM;
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
@@ -2651,7 +2651,7 @@ bool recharge(creature_type *creature_ptr, int power)
 		if(object_is_fixed_artifact(object_ptr))
 		{
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);
-			msg_format(MES_RECHAGE_FAILED(object_name));
+			msg_format(MES_RECHARGE_FAILED(object_name));
 
 			if(IS_ROD(object_ptr) && (object_ptr->timeout < 10000))
 				object_ptr->timeout = (object_ptr->timeout + 100) * 2;
@@ -2717,13 +2717,13 @@ bool recharge(creature_type *creature_ptr, int power)
 			{
 				if(IS_ROD(object_ptr))
 				{
-					msg_print(MES_RECHAGE_FAILED2);
+					msg_print(MES_RECHARGE_FAILED2);
 					if(object_ptr->timeout < 10000)
 						object_ptr->timeout = (object_ptr->timeout + 100) * 2;
 				}
 				else if(object_ptr->tval == TV_WAND)
 				{
-					msg_format(MES_RECHAGE_FAILED3(object_name));
+					msg_format(MES_RECHARGE_FAILED3(object_name));
 					object_ptr->pval = 0;
 				}
 				/* Staffs aren't drained. */
@@ -2732,8 +2732,8 @@ bool recharge(creature_type *creature_ptr, int power)
 			/* Destroy an object or one in a stack of objects. */
 			if(fail_type == 2)
 			{
-				if(object_ptr->number > 1) msg_format(MES_RECHAGE_BROKEN2(object_name));
-				else msg_format(MES_RECHAGE_BROKEN1(object_name));
+				if(object_ptr->number > 1) msg_format(MES_RECHARGE_BROKEN2(object_name));
+				else msg_format(MES_RECHARGE_BROKEN1(object_name));
 
 				/* Reduce rod stack maximum timeout, drain wands. */
 				if(IS_ROD(object_ptr)) object_ptr->timeout = (object_ptr->number - 1) * object_kind_ptr->pval;
@@ -2759,8 +2759,8 @@ bool recharge(creature_type *creature_ptr, int power)
 			/* Destroy all members of a stack of objects. */
 			if(fail_type == 3)
 			{
-				if(object_ptr->number > 1) msg_format(MES_RECHAGE_BROKEN3(object_name));
-				else msg_format(MES_RECHAGE_BROKEN1(object_name));
+				if(object_ptr->number > 1) msg_format(MES_RECHARGE_BROKEN3(object_name));
+				else msg_format(MES_RECHARGE_BROKEN1(object_name));
 
 				if(item >= 0)
 				{
@@ -4648,7 +4648,7 @@ bool eat_magic(creature_type *creature_ptr, int power)
 			{
 				if(object_ptr->number > 1)
 				{
-					msg_format(MES_RECHAGE_BROKEN1(object_name));
+					msg_format(MES_RECHARGE_BROKEN1(object_name));
 
 					/* Reduce rod stack maximum timeout, drain wands. */
 					if(IS_ROD(object_ptr)) object_ptr->timeout = MIN(object_ptr->timeout, object_kind_ptr->pval * (object_ptr->number - 1));
@@ -4656,7 +4656,7 @@ bool eat_magic(creature_type *creature_ptr, int power)
 
 				}
 				else
-					msg_format(MES_RECHAGE_BROKEN1(object_name));
+					msg_format(MES_RECHARGE_BROKEN1(object_name));
 
 				/* Reduce and describe creature_ptr->inventory */
 				if(item >= 0)
@@ -4679,9 +4679,9 @@ bool eat_magic(creature_type *creature_ptr, int power)
 			if(fail_type == 3)
 			{
 				if(object_ptr->number > 1)
-					msg_format(MES_RECHAGE_BROKEN3(object_name));
+					msg_format(MES_RECHARGE_BROKEN3(object_name));
 				else
-					msg_format(MES_RECHAGE_BROKEN1(object_name));
+					msg_format(MES_RECHARGE_BROKEN1(object_name));
 
 				/* Reduce and describe creature_ptr->inventory */
 				if(item >= 0)
