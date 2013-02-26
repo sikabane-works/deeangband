@@ -2202,6 +2202,7 @@ static cptr desc_stat_neg[] =
 #define MES_RECHARGE_BROKEN3(NAME) "—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‘S‚Ä‰ó‚ê‚½I", (NAME)
 #define MES_RECHARGE_COMMENT "Ä[“U‚Ì”ï—p‚ÍƒAƒCƒeƒ€‚ÌŽí—Þ‚É‚æ‚è‚Ü‚·B"
 #define MES_RECHARGE_COUNT(MONEY) "ˆê‰ñ•ª%d ‚Å‰½‰ñ•ª[“U‚µ‚Ü‚·‚©H", (MONEY)
+#define MES_RECHARGE_ROD_PRICE(NUM, MONEY) "ƒƒbƒh%d–{‚ð%d ‚ÅÄ[“U‚µ‚Ü‚·‚©H", (NUM), (MONEY)
 #else
 #define MES_RECHARGE_WHICH_ITEM "Recharge which item? "
 #define MES_RECHARGE_NO_ITEM "You have nothing to recharge."
@@ -2219,6 +2220,7 @@ static cptr desc_stat_neg[] =
 #define MES_RECHARGE_BROKEN3(NAME) "Wild magic consumes all your %s!", (NAME)
 #define MES_RECHARGE_COMMENT "The prices of recharge depend on the type."
 #define MES_RECHARGE_COUNT(MONEY) "Add how many charges for %d gold? ", (MONEY)
+#define MES_RECHARGE_ROD_PRICE(NUM, MONEY) "Recharge the %s for %d gold? ", (((NUM) > 1) ? "rods" : "rod"), (MONEY)), 
 #endif
 
 #ifdef JP

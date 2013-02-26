@@ -2558,12 +2558,8 @@ static void building_recharge(creature_type *creature_ptr)
 	}
 	if(IS_ROD(object_ptr))
 	{
-#ifdef JP
-		if(get_check(format("‚»‚Ìƒƒbƒh‚ğ%d ‚ÅÄ[“U‚µ‚Ü‚·‚©H", price)))
-#else
-		if(get_check(format("Recharge the %s for %d gold? ", ((object_ptr->number > 1) ? "rods" : "rod"), price)))
-#endif
-			object_ptr->timeout = 0;	// Recharge fully
+		if(get_check(format(MES_RECHARGE_ROD_PRICE(object_ptr->number, price))))
+			object_ptr->timeout = 0;
 		else
 			return;
 	}
