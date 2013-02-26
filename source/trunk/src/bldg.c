@@ -113,6 +113,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 					st_info[n].d_color = TERM_UMBER;
 					st_info[n].key = '\0';
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
+					sprintf(cap_buf[n], "%26s %14s", bldg->act_names[i], buff);
 				}
 			}
 			else if(bldg->action_restr[i] == 1)
@@ -137,6 +138,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 					st_info[n].d_color = TERM_UMBER;
 					st_info[n].key = '\0';
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
+					sprintf(cap_buf[n], "%26s %14s", bldg->act_names[i], buff);
 				}
 				else
 				{
@@ -144,6 +146,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 					st_info[n].d_color = TERM_UMBER;
 					st_info[n].key = '\0';
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
+					sprintf(cap_buf[n], "%26s %14s", bldg->act_names[i], buff);
 				}
 			}
 			else
@@ -161,17 +164,18 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 					st_info[n].d_color = TERM_UMBER;
 					st_info[n].key = '\0';
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
+					sprintf(cap_buf[n], "%26s %14s", bldg->act_names[i], buff);
 				}
 				else
 				{
 					st_info[n].l_color = TERM_WHITE;
 					st_info[n].d_color = TERM_L_DARK;
 					st_info[n].key = '\0';
+					sprintf(buff, "($%ld)", bldg->other_costs[i]);
+					sprintf(cap_buf[n], "%26s %14s", bldg->act_names[i], buff);
 				}
 			}
-
-			//sprintf(tmp_str," %c) %s %s", bldg->letters[i], bldg->act_names[i], buff);
-			//c_put_str(action_color, tmp_str, 19+(i/2), 35*(i%2));
+			n++;
 		}
 	}
 
@@ -179,6 +183,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 	st_info[n].d_color = TERM_L_DARK;
 	st_info[n].key = ESCAPE;
 	st_info[n].cap = MES_BULD_EXIT;
+	n++;
 
 }
 
