@@ -71,7 +71,7 @@ static void building_prt_gold(creature_type *creature_ptr)
 static void show_building(creature_type *creature_ptr, building_type* bldg)
 {
 	char buff[20];
-	int i, n;
+	int i;
 	char cap_buf[9][80];
 	selection_info si_info;
 	selection_table st_info[9];
@@ -79,14 +79,14 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 	si_info.y = 15;
 	si_info.detail = NULL;
 	si_info.caption = NULL;
-	si_info.mode = GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT;
+	si_info.mode = GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT | GET_SE_VIEW_ONLY;
 	si_info.num = 0;
 	
 	Term_clear();
 	prt(format("[%s]", bldg->name), 2, 1);
 	prt(format("%s (%s)", bldg->ownespecies_name, bldg->owner_race), 3, 5);
 
-	for (i = 0, n = 0; i < 8; i++)
+	for (i = 0; i < 8; i++)
 	{
 		if(bldg->letters[i])
 		{
@@ -94,96 +94,99 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 			{
 				if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) || (!is_owner(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
-					st_info[n].l_color = TERM_WHITE;
-					st_info[n].d_color = TERM_L_DARK;
-					st_info[n].key = '\0';
-					sprintf(cap_buf[n], "%40s", bldg->act_names[i]);
+					st_info[si_info.num].l_color = TERM_WHITE;
+					st_info[si_info.num].d_color = TERM_L_DARK;
+					st_info[si_info.num].key = '\0';
+					sprintf(cap_buf[si_info.num], "%40s", bldg->act_names[i]);
 				}
 				else if(is_owner(creature_ptr, bldg))
 				{
-					st_info[n].l_color = TERM_YELLOW;
-					st_info[n].d_color = TERM_UMBER;
-					st_info[n].key = '\0';
+					st_info[si_info.num].l_color = TERM_YELLOW;
+					st_info[si_info.num].d_color = TERM_UMBER;
+					st_info[si_info.num].key = '\0';
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
-					sprintf(cap_buf[n], "%26s %14s", bldg->act_names[i], buff);
+					sprintf(cap_buf[si_info.num], "%26s %14s", bldg->act_names[i], buff);
 				}
 				else
 				{
-					st_info[n].l_color = TERM_YELLOW;
-					st_info[n].d_color = TERM_UMBER;
-					st_info[n].key = '\0';
+					st_info[si_info.num].l_color = TERM_YELLOW;
+					st_info[si_info.num].d_color = TERM_UMBER;
+					st_info[si_info.num].key = '\0';
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
-					sprintf(cap_buf[n], "%26s %14s", bldg->act_names[i], buff);
+					sprintf(cap_buf[si_info.num], "%26s %14s", bldg->act_names[i], buff);
 				}
 			}
 			else if(bldg->action_restr[i] == 1)
 			{
 				if(!is_member(creature_ptr, bldg))
 				{
-					st_info[n].l_color = TERM_L_DARK;
-					st_info[n].d_color = TERM_L_DARK;
-					st_info[n].key = '\0';
+					st_info[si_info.num].l_color = TERM_L_DARK;
+					st_info[si_info.num].d_color = TERM_L_DARK;
+					st_info[si_info.num].key = '\0';
 					strcpy(buff, MES_BLDG_CLOSED);
 				}
 				else if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) || (is_member(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
-					st_info[n].l_color = TERM_WHITE;
-					st_info[n].d_color = TERM_L_DARK;
-					st_info[n].key = '\0';
+					st_info[si_info.num].l_color = TERM_WHITE;
+					st_info[si_info.num].d_color = TERM_L_DARK;
+					st_info[si_info.num].key = '\0';
 					buff[0] = '\0';
 				}
 				else if(is_owner(creature_ptr, bldg))
 				{
-					st_info[n].l_color = TERM_YELLOW;
-					st_info[n].d_color = TERM_UMBER;
-					st_info[n].key = '\0';
+					st_info[si_info.num].l_color = TERM_YELLOW;
+					st_info[si_info.num].d_color = TERM_UMBER;
+					st_info[si_info.num].key = '\0';
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
-					sprintf(cap_buf[n], "%26s %14s", bldg->act_names[i], buff);
+					sprintf(cap_buf[si_info.num], "%26s %14s", bldg->act_names[i], buff);
 				}
 				else
 				{
-					st_info[n].l_color = TERM_YELLOW;
-					st_info[n].d_color = TERM_UMBER;
-					st_info[n].key = '\0';
+					st_info[si_info.num].l_color = TERM_YELLOW;
+					st_info[si_info.num].d_color = TERM_UMBER;
+					st_info[si_info.num].key = '\0';
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
-					sprintf(cap_buf[n], "%26s %14s", bldg->act_names[i], buff);
+					sprintf(cap_buf[si_info.num], "%26s %14s", bldg->act_names[i], buff);
 				}
 			}
 			else
 			{
 				if(!is_owner(creature_ptr, bldg))
 				{
-					st_info[n].l_color = TERM_WHITE;
-					st_info[n].d_color = TERM_L_DARK;
-					st_info[n].key = '\0';
+					st_info[si_info.num].l_color = TERM_WHITE;
+					st_info[si_info.num].d_color = TERM_L_DARK;
+					st_info[si_info.num].key = '\0';
 					strcpy(buff, MES_BLDG_CLOSED);
 				}
 				else if(bldg->member_costs[i] != 0)
 				{
-					st_info[n].l_color = TERM_YELLOW;
-					st_info[n].d_color = TERM_UMBER;
-					st_info[n].key = '\0';
+					st_info[si_info.num].l_color = TERM_YELLOW;
+					st_info[si_info.num].d_color = TERM_UMBER;
+					st_info[si_info.num].key = '\0';
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
-					sprintf(cap_buf[n], "%26s %14s", bldg->act_names[i], buff);
+					sprintf(cap_buf[si_info.num], "%26s %14s", bldg->act_names[i], buff);
 				}
 				else
 				{
-					st_info[n].l_color = TERM_WHITE;
-					st_info[n].d_color = TERM_L_DARK;
-					st_info[n].key = '\0';
+					st_info[si_info.num].l_color = TERM_WHITE;
+					st_info[si_info.num].d_color = TERM_L_DARK;
+					st_info[si_info.num].key = '\0';
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
-					sprintf(cap_buf[n], "%26s %14s", bldg->act_names[i], buff);
+					sprintf(cap_buf[si_info.num], "%26s %14s", bldg->act_names[i], buff);
 				}
 			}
-			n++;
+			st_info[si_info.num].cap = cap_buf[si_info.num];
+			si_info.num++;
 		}
 	}
 
-	st_info[n].l_color = TERM_WHITE;
-	st_info[n].d_color = TERM_L_DARK;
-	st_info[n].key = ESCAPE;
-	st_info[n].cap = MES_BULD_EXIT;
-	n++;
+	st_info[si_info.num].l_color = TERM_WHITE;
+	st_info[si_info.num].d_color = TERM_L_DARK;
+	st_info[si_info.num].key = ESCAPE;
+	st_info[si_info.num].cap = MES_BULD_EXIT;
+	si_info.num++;
+
+	get_selection(&si_info, st_info);
 
 }
 
@@ -3134,6 +3137,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		store_process(creature_ptr, &st_list[bldg->action_misc[i]]);
 		show_building(creature_ptr, bldg);
 		break;
+
 	case BUILDING_FUNCTION_RESEARCH_ITEM:
 		paid = identify_fully(creature_ptr, FALSE);
 		break;
