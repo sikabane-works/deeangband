@@ -3182,15 +3182,9 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		break;
 
 	case BUILDING_FUNCTION_IDENTS: /* needs work */
-#ifdef JP
-		if(!get_check("持ち物を全て鑑定してよろしいですか？")) break;
+		if(!get_check(MES_OBJECT_INDETIFY_ALL_ASK)) break;
 		identify_pack(creature_ptr);
-		msg_print(" 持ち物全てが鑑定されました。");
-#else
-		if(!get_check("Do you pay for identify all your possession? ")) break;
-		identify_pack(creature_ptr);
-		msg_print("Your possessions have been identified.");
-#endif
+		msg_print(MES_OBJECT_INDETIFIED_ALL);
 		paid = TRUE;
 		break;
 

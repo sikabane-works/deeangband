@@ -2308,6 +2308,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_WHICH_TORCH "どの松明で明かりを強めますか? "
 #define MES_OBJECT_NO_TORCH "他に松明がない。"
 #define MES_OBJECT_DROPPED(NAME, SYM) "%s(%c)を落とした。", (NAME), (SYM)
+#define MES_OBJECT_INDETIFY_ALL_ASK "持ち物を全て鑑定してよろしいですか？"
+#define MES_OBJECT_INDETIFIED_ALL "持ち物全てが鑑定されました。"
 #else
 #define MES_OBJECT_WHICH_IMPROVE "Improve which item? "
 #define MES_OBJECT_NO_IMPROVE "You have nothing to improve."
@@ -2334,6 +2336,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_WHICH_TORCH "Refuel with which torch? "
 #define MES_OBJECT_NO_TORCH "You have no extra torches."
 #define MES_OBJECT_DROPPED(NAME, SYM) "You drop %s (%c).", (NAME), (SYM)
+#define MES_OBJECT_INDETIFY_ALL_ASK "Do you pay for identify all your possession? "
+#define MES_OBJECT_INDETIFIED_ALL "Your possessions have been identified."
 #endif
 
 #ifdef JP
