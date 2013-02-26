@@ -77,7 +77,7 @@ static int building_select(creature_type *creature_ptr, building_type* bldg)
 	selection_table st_info[9];
 	si_info.x = 2;
 	si_info.y = 12;
-	si_info.w = 45;
+	si_info.w = 48;
 	si_info.h = 11;
 	si_info.detail = NULL;
 	si_info.caption = NULL;
@@ -3449,9 +3449,6 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 	while (!leave_bldg)
 	{
-		validcmd = FALSE;
-		prt("", 1, 0);
-
 		building_prt_gold(creature_ptr);
 		command = building_select(creature_ptr, bldg);
 
@@ -3462,21 +3459,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 			floor_ptr->gamble_arena_mode = FALSE;
 			break;
 		}
-
-		for (i = 0; i < 8; i++)
-		{
-			if(bldg->letters[i])
-			{
-				if(bldg->letters[i] == command)
-				{
-					validcmd = TRUE;
-					break;
-				}
-			}
-		}
-
-		if(validcmd) bldg_process_player_command(creature_ptr, bldg, i);
-
+		else bldg_process_player_command(creature_ptr, bldg, command);
 		notice_stuff(creature_ptr);
 		handle_stuff(creature_ptr);
 	}
@@ -3485,10 +3468,8 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	msg_print(NULL);
 
 	/* Reinit wilderness to activate quests ... */
-	if(creature_ptr->reinit_wilderness)
-	{
-		subject_change_floor = TRUE;
-	}
+	if(creature_ptr->reinit_wilderness) subject_change_floor = TRUE;
+
 
 	/* Clear the screen */
 	Term_clear();
