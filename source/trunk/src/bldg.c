@@ -2010,12 +2010,8 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 				s32b oldturn = turn;
 				int prev_day, prev_hour, prev_min;
 				extract_day_hour_min(&prev_day, &prev_hour, &prev_min);
-#ifdef JP
-				do_cmd_write_diary(DIARY_BUNSHOU, 0, "宿屋に泊まった。");
-#else
-				if((prev_hour >= 6) && (prev_hour <= 17)) do_cmd_write_diary(DIARY_BUNSHOU, 0, "stay over daytime at the inn.");
-				else do_cmd_write_diary(DIARY_BUNSHOU, 0, "stay over night at the inn.");
-#endif
+				if((prev_hour >= 6) && (prev_hour <= 17)) do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_INN_OVER_DAY);
+				else do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_INN_STAY_NIGHT);
 				turn = (turn / (TURNS_PER_TICK*TOWN_DAWN/2) + 1) * (TURNS_PER_TICK*TOWN_DAWN/2);
 				if(CURRENT_FLOOR_PTR->floor_turn < CURRENT_FLOOR_PTR->floor_turn_limit)
 				{
@@ -2041,11 +2037,10 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 
 #ifdef JP
 					msg_print("あなたは絶叫して目を覚ました。");
-					do_cmd_write_diary(DIARY_BUNSHOU, 0, "悪夢にうなされてよく眠れなかった。");
 #else
 					msg_print("You awake screaming.");
-					do_cmd_write_diary(DIARY_BUNSHOU, 0, "be troubled by a nightmare.");
 #endif
+					do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_INN_NIGHTMARE);
 				}
 				else
 				{

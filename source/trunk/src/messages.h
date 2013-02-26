@@ -1553,6 +1553,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_TRAP_DOOR "落とし戸に落ちた"
 #define DIARY_PINCH "%sによってピンチに陥った。"
 #define DIARY_PATRON(REWARD) "パトロンの報酬で%s", (REWARD)
+#define DIARY_INN_OVER_DAY "宿屋で昼間を過ごした。"
+#define DIARY_INN_STAY_NIGHT "宿屋で一夜を明かした。"
+#define DIARY_INN_NIGHTMARE "悪夢にうなされてよく眠れなかった。"
 #else
 
 #define DIARY_CREATE_PLAYER "-------- Create Player --------"
@@ -1570,6 +1573,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_TRAP_DOOR "You have fallen through a trap door."
 #define DIARY_PINCH "A critical situation because of %s".
 #define DIARY_PATRON(REWARD) "The patron rewards you with %s.", (REWARD)
+#define DIARY_INN_OVER_DAY "stay over daytime at the inn."
+#define DIARY_INN_STAY_NIGHT "stay over night at the inn."
+#define DIARY_INN_NIGHTMARE "be troubled by a nightmare."
 #endif
 
 #ifdef JP
