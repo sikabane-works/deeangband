@@ -758,6 +758,7 @@
 #define MES_BLDG_LOSER "「敗者に用はない。」"
 #define MES_BLDG_ARENA_FIGHT "ゲートは閉まっている。相手があなたを待っている！"
 #define MES_BLDG_NO_RIGHT "それを選択する権利はありません！"
+#define MES_BULD_EXIT "建物を出る"
 
 #define MES_BLDG_GET_PRICE "賞金 %ld＄を手に入れた。"
 #define MES_BLDG_TODAY_TARGET1(TARGET) "ターゲット： %s", (TARGET)
@@ -776,6 +777,7 @@
 #define MES_BLDG_LOSER "'There's no place here for a LOSER like you!'"
 #define MES_BLDG_ARENA_FIGHT "The gates are closed.  The enemy awaits!"
 #define MES_BLDG_NO_RIGHT "You have no right to choose that!"
+#define MES_BULD_EXIT "Exit building"
 
 #define MES_BLDG_GET_PRICE "You get %ldgp."
 #define MES_BLDG_TODAY_TARGET1(TARGET) "target: %s", (TARGET)

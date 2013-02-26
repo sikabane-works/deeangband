@@ -71,7 +71,7 @@ static void building_prt_gold(creature_type *creature_ptr)
 static void show_building(creature_type *creature_ptr, building_type* bldg)
 {
 	char buff[20];
-	int i;
+	int i, n;
 	char tmp_str[80];
 	selection_info si_info;
 	selection_table st_info[9];
@@ -88,7 +88,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 	sprintf(tmp_str, "%s (%s)", bldg->ownespecies_name, bldg->owner_race);
 	prt(tmp_str, 3, 5);
 
-	for (i = 0; i < 8; i++)
+	for (i = 0, n = 0; i < 8; i++)
 	{
 		if(bldg->letters[i])
 		{
@@ -96,20 +96,22 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 			{
 				if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) || (!is_owner(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
-					st_info[i].l_color = TERM_WHITE;
-					st_info[i].d_color = TERM_L_DARK;
-					buff[0] = '\0';
+					st_info[n].l_color = TERM_WHITE;
+					st_info[n].d_color = TERM_L_DARK;
+					st_info[n].key = '\0';
 				}
 				else if(is_owner(creature_ptr, bldg))
 				{
-					st_info[i].l_color = TERM_YELLOW;
-					st_info[i].d_color = TERM_UMBER;
+					st_info[n].l_color = TERM_YELLOW;
+					st_info[n].d_color = TERM_UMBER;
+					st_info[n].key = '\0';
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
 				}
 				else
 				{
-					st_info[i].l_color = TERM_YELLOW;
-					st_info[i].d_color = TERM_UMBER;
+					st_info[n].l_color = TERM_YELLOW;
+					st_info[n].d_color = TERM_UMBER;
+					st_info[n].key = '\0';
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
 				}
 			}
@@ -117,27 +119,30 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 			{
 				if(!is_member(creature_ptr, bldg))
 				{
-					st_info[i].l_color = TERM_L_DARK;
-					st_info[i].d_color = TERM_L_DARK;
+					st_info[n].l_color = TERM_L_DARK;
+					st_info[n].d_color = TERM_L_DARK;
+					st_info[n].key = '\0';
 					strcpy(buff, MES_BLDG_CLOSED);
 				}
-				else if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
-					(is_member(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
+				else if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) || (is_member(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
-					st_info[i].l_color = TERM_WHITE;
-					st_info[i].d_color = TERM_L_DARK;
+					st_info[n].l_color = TERM_WHITE;
+					st_info[n].d_color = TERM_L_DARK;
+					st_info[n].key = '\0';
 					buff[0] = '\0';
 				}
 				else if(is_owner(creature_ptr, bldg))
 				{
-					st_info[i].l_color = TERM_YELLOW;
-					st_info[i].d_color = TERM_UMBER;
+					st_info[n].l_color = TERM_YELLOW;
+					st_info[n].d_color = TERM_UMBER;
+					st_info[n].key = '\0';
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
 				}
 				else
 				{
-					st_info[i].l_color = TERM_YELLOW;
-					st_info[i].d_color = TERM_UMBER;
+					st_info[n].l_color = TERM_YELLOW;
+					st_info[n].d_color = TERM_UMBER;
+					st_info[n].key = '\0';
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
 				}
 			}
@@ -145,34 +150,35 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 			{
 				if(!is_owner(creature_ptr, bldg))
 				{
-					st_info[i].l_color = TERM_WHITE;
-					st_info[i].d_color = TERM_L_DARK;
+					st_info[n].l_color = TERM_WHITE;
+					st_info[n].d_color = TERM_L_DARK;
+					st_info[n].key = '\0';
 					strcpy(buff, MES_BLDG_CLOSED);
 				}
 				else if(bldg->member_costs[i] != 0)
 				{
-					st_info[i].l_color = TERM_YELLOW;
-					st_info[i].d_color = TERM_UMBER;
+					st_info[n].l_color = TERM_YELLOW;
+					st_info[n].d_color = TERM_UMBER;
+					st_info[n].key = '\0';
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
 				}
 				else
 				{
-					st_info[i].l_color = TERM_WHITE;
-					st_info[i].d_color = TERM_L_DARK;
-					buff[0] = '\0';
+					st_info[n].l_color = TERM_WHITE;
+					st_info[n].d_color = TERM_L_DARK;
+					st_info[n].key = '\0';
 				}
 			}
 
-			sprintf(tmp_str," %c) %s %s", bldg->letters[i], bldg->act_names[i], buff);
+			//sprintf(tmp_str," %c) %s %s", bldg->letters[i], bldg->act_names[i], buff);
 			//c_put_str(action_color, tmp_str, 19+(i/2), 35*(i%2));
 		}
 	}
 
-#ifdef JP
-	prt(" ESC) åöï®ÇèoÇÈ", 23, 0);
-#else
-	prt(" ESC) Exit building", 23, 0);
-#endif
+	st_info[n].l_color = TERM_WHITE;
+	st_info[n].d_color = TERM_L_DARK;
+	st_info[n].key = ESCAPE;
+	st_info[n].cap = MES_BULD_EXIT;
 
 }
 
