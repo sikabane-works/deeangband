@@ -846,9 +846,11 @@
 #endif
 
 #ifdef JP
+#define GAME_MESSAGE_OBJECT_DISENCHANTED(OBJECT) "%sÇÕóÚâªÇµÇƒÇµÇ‹Ç¡ÇΩÅB", (OBJECT)
 #define GAME_MESSAGE_OBJECT_KILLED "âÛÇÍÇƒÇµÇ‹Ç¡ÇΩÅB"
 #define GAME_MESSAGE_OBJECT_DUSTED "äDÇ…Ç»Ç¡ÇΩÅB"
 #else
+#define GAME_MESSAGE_OBJECT_DISENCHANTED(OBJECT) "Your %s was disenchanted.", (OBJECT)
 #define GAME_MESSAGE_OBJECT_KILLED (plural ? " are destroyed!" : " is destroyed!")
 #define GAME_MESSAGE_OBJECT_DUSTED (plural ? " become dust." : " becomes dust.")
 #endif

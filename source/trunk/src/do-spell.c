@@ -10063,11 +10063,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 						object_ptr->to_ac -= randint1(3) % 2;
 						if(object_ptr->to_ac < 0) object_ptr->to_ac = 0;
 					}
-#ifdef JP
-					msg_format("%s ÇÕóÚâªÇµÇƒÇµÇ‹Ç¡ÇΩÅB", object_name);
-#else
-					msg_format("Your %s was disenchanted!", object_name);
-#endif
+					msg_format(GAME_MESSAGE_OBJECT_DISENCHANTED(object_name));
 				}
 			}
 			else
@@ -10510,11 +10506,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 						object_ptr->to_ac -= randint1(3) % 2;
 						if(object_ptr->to_ac < 0) object_ptr->to_ac = 0;
 					}
-#ifdef JP
-					msg_format("%s ÇÕóÚâªÇµÇƒÇµÇ‹Ç¡ÇΩÅB", object_name);
-#else
-					msg_format("Your %s was disenchanted!", object_name);
-#endif
+					msg_format(GAME_MESSAGE_OBJECT_DISENCHANTED(object_name));
 				}
 			}
 			else
