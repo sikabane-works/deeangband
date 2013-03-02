@@ -1688,6 +1688,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DEBUG_FAILED_STREAMER "ストリーマーの生成に失敗した。"
 #define MES_DEBUG_DESTROYED_FLOOR "破壊された階"
 #define MES_DEBUG_FUNNY_PATTERN(FEATURE) "おかしなパターン歩行、%d。", (FEATURE)
+#define MES_DEBUG_FAILED_FLOOR "ダンジョン生成に失敗"
+#define MES_DEBUG_TOO_ITEM "アイテムが多過ぎる"
+#define MES_DEBUG_TOO_CREATURE "クリーチャーが多過ぎる"
+#define MES_DEBUG_FLOOR_RETAKE(WHY) "生成やり直し(%s)"
 #else
 #define MES_DEBUG_ROOM_NUM "Number of Rooms: %d"
 #define MES_DEBUG_GLASS_ROOM "[Glass Room]"
@@ -1717,6 +1721,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DEBUG_FAILED_STREAMER "Could not place streamer!"
 #define MES_DEBUG_DESTROYED_FLOOR "Destroyed Floor"
 #define MES_DEBUG_FUNNY_PATTERN(FEATURE) "Funny Pattern walking, %d.", (FEATURE)
+#define MES_DEBUG_FAILED_FLOOR "could not place player"
+#define MES_DEBUG_TOO_ITEM "too many objects"
+#define MES_DEBUG_TOO_CREATURE "too many creatures"
+#define MES_DEBUG_FLOOR_RETAKE(WHY) "Generation restarted (%s)"
 #endif
 
 #ifdef JP

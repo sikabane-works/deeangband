@@ -1122,7 +1122,6 @@ static void generate_floor_arena(floor_type *floor_ptr, int height, int width)
 			floor_ptr->cave[y][x].feat = feat_floor; // Create empty floor
 
 	build_arena(floor_ptr, height, width);
-
 	place_creature_species(player_ptr, floor_ptr, player_ptr->fy + 5, player_ptr->fx, arena_info[arena_number].species_idx, (PC_NO_KAGE | PC_NO_PET));
 }
 
@@ -1232,10 +1231,7 @@ static void generate_floor_creature_arena(floor_type *floor_ptr)
 	}
 }
 
-
-/*
- * Generate a quest level
- */
+// Generate a quest level
 static void generate_floor_quest(floor_type *floor_ptr, int quest_id)
 {
 	int x, y;
@@ -1263,9 +1259,7 @@ static void generate_floor_quest(floor_type *floor_ptr, int quest_id)
 	process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON | INIT_ASSIGN, quest_id);
 }
 
-/*
- * Generate a fortless level
- */
+// Generate a fortless level
 static void generate_floor_fortress(floor_type *floor_ptr, int type)
 {
 	int x, y;
@@ -1361,12 +1355,7 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 	// Make a dungeon
 	if(!create_cave_structure(floor_ptr))
 	{
-#ifdef JP
-		*why = "ダンジョン生成に失敗";
-#else
-		*why = "could not place player";
-#endif
-
+		*why = MES_DEBUG_FAILED_FLOOR;
 		return FALSE;
 	}
 
@@ -1401,10 +1390,7 @@ void wipe_generate_floor_flags(floor_type *floor_ptr)
 	}
 }
 
-
-/*
- *  Clear and empty the cave
- */
+//  Clear and empty the cave
 void clear_cave(floor_type *floor_ptr)
 {
 	int x, y;
@@ -1444,9 +1430,7 @@ void clear_cave(floor_type *floor_ptr)
 int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag)
 {
 	int num;
-
 	int floor_id = floor_pop();
-
 	floor_type *floor_ptr = &floor_list[floor_id];
 
 	// Prepare new floor data
@@ -1493,35 +1477,19 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 		// Prevent object over-flow
 		if(object_max >= max_object_idx)
 		{
-#ifdef JP
-			why = "アイテムが多すぎる";
-#else
-			why = "too many objects";
-#endif
-
+			why = MES_DEBUG_TOO_ITEM;
 			okay = FALSE;
 		}
 
 		// Prevent creature over-flow
 		else if(creature_max >= max_creature_idx)
 		{
-#ifdef JP
-			why = "クリーチャーが多すぎる";
-#else
-			why = "too many creatures";
-#endif
-
+			why = MES_DEBUG_TOO_CREATURE;
 			okay = FALSE;
 		}
 
 		if(okay) break;
-
-#ifdef JP
-		if(why) msg_format("生成やり直し(%s)", why);
-#else
-		if(why) msg_format("Generation restarted (%s)", why);
-#endif
-
+		if(why) msg_format(MES_DEBUG_FLOOR_RETAKE(why));
 		wipe_object_list(0);
 		wipe_creature_list(0);
 	}
