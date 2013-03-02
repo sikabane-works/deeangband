@@ -1667,6 +1667,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DEBUG_TRAP_PIT_ROOM "[%s%sの罠ピット]"
 #define MES_DEBUG_BIAS_ARTIFACT "運の偏ったアーティファクト: %d。"
 #define MES_DEBUG_NO_BIAS_ARTIFACT "偏っていないアーティファクト"
+#define MES_DEBUG_FIXED_ARTIFACT(OBJECT) "固定アーティファクト(%s)", (OBJECT)
+#define MES_DEBUG_RANDOM_ARTIFACT(OBJECT) "ランダムアーティファクト(%s)", (OBJECT)
+#define MES_DEBUG_EGO_ITEM(OBJECT) "エゴアイテム(%s)", (OBJECT)
+#define MES_DEBUG_NORMAL_ITEM(OBJECT) "アイテム(%s)", (OBJECT)
 #define MES_DEBUG_DIE_CHOICE "死にますか?"
 #define MES_DEBUG_LAKE "湖を生成。"
 #define MES_DEBUG_CAVE "洞窟を生成。"
@@ -1692,6 +1696,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DEBUG_TRAP_PIT_ROOM "[Trapped creature pit (%s%s)]"
 #define MES_DEBUG_BIAS_ARTIFACT "Biased artifact: %d."
 #define MES_DEBUG_NO_BIAS_ARTIFACT "No biased artifact."
+#define MES_DEBUG_FIXED_ARTIFACT(OBJECT) "Fixed Artifact (%s)", (OBJECT)
+#define MES_DEBUG_RANDOM_ARTIFACT(OBJECT) "Random Artifact (%s)", (OBJECT)
+#define MES_DEBUG_EGO_ITEM(OBJECT) "Ego Item (%s)", (OBJECT)
+#define MES_DEBUG_NORMAL_ITEM(OBJECT) "Item (%s)", (OBJECT)
 #define MES_DEBUG_DIE_CHOICE "Die?"
 #define MES_DEBUG_LAKE "Lake on the level."
 #define MES_DEBUG_CAVE "Cavern on level."

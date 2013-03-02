@@ -1017,11 +1017,8 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 s32b object_value_real(object_type *object_ptr)
 {
 	s32b value;
-
 	u32b flgs[MAX_TRAITS_FLAG];
-
 	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
-
 
 	/* Hack -- "worthless" items */
 	if(!object_kind_info[object_ptr->k_idx].cost) return (0L);
@@ -1383,11 +1380,8 @@ void reduce_charges(object_type *object_ptr, int amt)
 	* charges of the stack needs to be reduced, unless all the items are
 	* being destroyed. -LM-
 	*/
-	if(((object_ptr->tval == TV_WAND) || IS_ROD(object_ptr)) &&
-		(amt < object_ptr->number))
-	{
+	if(((object_ptr->tval == TV_WAND) || IS_ROD(object_ptr)) && (amt < object_ptr->number))
 		object_ptr->pval -= object_ptr->pval * amt / object_ptr->number;
-	}
 }
 
 
@@ -1746,18 +1740,10 @@ static void object_mention(object_type *object_ptr)
 {
 	char object_name[MAX_NLEN];
 	object_desc(object_name, object_ptr, (OD_NAME_ONLY | OD_STORE)); // Describe
-
-#ifdef JP
-	if(object_is_fixed_artifact(object_ptr)) msg_format("伝説のアイテム (%s)", object_name);
-	else if(object_is_fixed_artifact(object_ptr)) msg_print("ランダム・アーティファクト");
-	else if(object_is_ego(object_ptr)) msg_format("名のあるアイテム (%s)", object_name);
-	else msg_format("アイテム (%s)", object_name);
-#else
-	if(object_is_fixed_artifact(object_ptr)) msg_format("Artifact (%s)", object_name);
-	else if(object_is_fixed_artifact(object_ptr)) msg_print("Random artifact");
-	else if(object_is_ego(object_ptr)) msg_format("Ego-item (%s)", object_name);
-	else msg_format("Object (%s)", object_name);
-#endif
+	if(object_is_fixed_artifact(object_ptr)) msg_format(MES_DEBUG_FIXED_ARTIFACT(object_name));
+	else if(object_is_fixed_artifact(object_ptr)) msg_print(MES_DEBUG_RANDOM_ARTIFACT(object_name));
+	else if(object_is_ego(object_ptr)) msg_format(MES_DEBUG_EGO_ITEM(object_name));
+	else msg_format(MES_DEBUG_NORMAL_ITEM(object_name));
 }
 
 
@@ -2681,10 +2667,7 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 		if(have_flag(a_ptr->flags, TRAIT_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
 		if(have_flag(a_ptr->flags, TRAIT_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
 
-
-		/* Cheat -- peek at the item */
 		if(cheat_peek) object_mention(object_ptr);
-
 		return;
 	}
 
@@ -2732,10 +2715,7 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 			if(e_ptr->max_pval) object_ptr->pval -= (s16b)randint1(e_ptr->max_pval);
 		}
 
-		// Cheat -- describe the item
 		if(cheat_peek) object_mention(object_ptr);
-
-		// Done
 		return;
 	}
 
