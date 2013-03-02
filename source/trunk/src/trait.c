@@ -2065,20 +2065,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_POSTURE:
-		{
-			if(!get_equipped_slot_num(caster_ptr, INVEN_SLOT_HAND))
-			{
-#ifdef JP
-				msg_print("武器を持たないといけません。");
-#else
-				msg_print("You need to wield a weapon.");
-#endif
-				return FALSE;
-			}
-			if(!choose_combat_option(caster_ptr)) return FALSE;
-			prepare_update(caster_ptr, CRU_BONUS);
-			break;
-		}
+		if(!choose_combat_option(caster_ptr)) return FALSE;
+		prepare_update(caster_ptr, CRU_BONUS);
+		break;
 
 	case TRAIT_RODEO:
 		{
@@ -2094,11 +2083,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			if(!do_riding(caster_ptr, TRUE)) return TRUE;
 			steed_ptr = &creature_list[caster_ptr->riding];
 			creature_desc(steed_name, steed_ptr, 0);
-#ifdef JP
-			msg_format("%sに乗った。", steed_name);
-#else
-			msg_format("You ride on %s.", steed_name);
-#endif
+			msg_format(MES_STEED_RIDE_ON(steed_ptr));
+
 			if(is_pet(player_ptr, steed_ptr)) break;
 			user_level = steed_ptr->lev;
 			if(has_trait(steed_ptr, TRAIT_UNIQUE)) user_level = user_level * 3 / 2;
@@ -2108,11 +2094,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				&& !has_trait(steed_ptr, TRAIT_GUARDIAN) && !has_trait(steed_ptr, TRAIT_UNIQUE)
 				&& (user_level < caster_ptr->lev * 3 / 2 + randint0(caster_ptr->lev / 5)))
 			{
-#ifdef JP
-				msg_format("%sを手なずけた。", steed_name);
-#else
-				msg_format("You tame %s.", steed_name);
-#endif
+				msg_format(MES_STEED_TAMED(steed_ptr));
 				set_pet(caster_ptr, steed_ptr);
 			}
 			else

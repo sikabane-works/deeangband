@@ -1741,7 +1741,7 @@ static void object_mention(object_type *object_ptr)
 	char object_name[MAX_NLEN];
 	object_desc(object_name, object_ptr, (OD_NAME_ONLY | OD_STORE)); // Describe
 	if(object_is_fixed_artifact(object_ptr)) msg_format(MES_DEBUG_FIXED_ARTIFACT(object_name));
-	else if(object_is_fixed_artifact(object_ptr)) msg_print(MES_DEBUG_RANDOM_ARTIFACT(object_name));
+	else if(object_is_fixed_artifact(object_ptr)) msg_format(MES_DEBUG_RANDOM_ARTIFACT(object_name));
 	else if(object_is_ego(object_ptr)) msg_format(MES_DEBUG_EGO_ITEM(object_name));
 	else msg_format(MES_DEBUG_NORMAL_ITEM(object_name));
 }
@@ -1790,10 +1790,10 @@ static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object
 		object_ptr->name1 = i; // Mega-Hack -- mark the item as an artifact	
 
 		random_artifact_resistance(owner_ptr, object_ptr, a_ptr); // Hack: Some artifacts get random extra powers
-		return TRUE; // Success
+		return TRUE;
 	}
 
-	return FALSE; // Failure
+	return FALSE;
 }
 
 
@@ -1833,9 +1833,10 @@ static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_p
 
 		object_ptr->name1 = i; // Hack -- mark the item as an artifact
 		random_artifact_resistance(owner_ptr, object_ptr, a_ptr); // Hack: Some artifacts get random extra powers
-		return TRUE; // Success
+		return TRUE;
 	}
-	return FALSE; // Failure
+
+	return FALSE;
 }
 
 // Choose random ego type
