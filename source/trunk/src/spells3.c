@@ -1900,7 +1900,6 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 		/* Hack -- Assume felt */
 		object_ptr->ident |= (IDENT_SENSE);
 
-		/* Take note */
 		object_ptr->feeling = FEEL_NONE;
 		prepare_update(creature_ptr, CRU_BONUS);
 		prepare_window(PW_EQUIP);
@@ -2784,7 +2783,6 @@ bool bless_weapon(creature_type *caster_ptr)
 		/* Hack -- Assume felt */
 		object_ptr->ident |= (IDENT_SENSE);
 
-		/* Take note */
 		object_ptr->feeling = FEEL_NONE;
 
 		prepare_update(caster_ptr, CRU_BONUS);

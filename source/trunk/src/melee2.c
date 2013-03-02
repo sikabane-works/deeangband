@@ -2302,7 +2302,6 @@ static void process_nonplayer(int m_idx)
 					/* Only give a message for "take_item" */
 					if(do_take && has_trait(creature_ptr, TRAIT_STUPID) && one_in_(3))
 					{
-						/* Take note */
 						did_take_item = TRUE;
 
 						/* Describe observable situations */
@@ -2320,7 +2319,6 @@ static void process_nonplayer(int m_idx)
 					/* Pick up the item */
 					else if(do_take)
 					{
-						/* Take note */
 						did_take_item = TRUE;
 
 						/* Describe observable situations */
@@ -2350,7 +2348,6 @@ static void process_nonplayer(int m_idx)
 					/* Destroy the item if not a pet */
 					else if(!is_pet(player_ptr, creature_ptr))
 					{
-						/* Take note */
 						did_kill_item = TRUE;
 
 						/* Describe observable situations */

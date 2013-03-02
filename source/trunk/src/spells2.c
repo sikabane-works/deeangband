@@ -1333,7 +1333,6 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 		/* Skip "wrong" creatures */
 		if(species_ptr->d_char != typ) continue;
 
-		/* Take note */
 		result |= genocide_aux(caster_ptr, i, power, player_cast, 4, COD_GENOCIDE_SYMBOL);
 	}
 

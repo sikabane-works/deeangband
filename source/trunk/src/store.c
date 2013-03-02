@@ -1103,12 +1103,8 @@ static cptr comment_7d[MAX_COMMENT_7D] =
 
 };
 
-
-/*
- * Let a shop-keeper React to a purchase
- *
- * We paid "price", it was worth "value", and we thought it was worth "guess"
- */
+// Let a shop-keeper React to a purchase
+// We paid "price", it was worth "value", and we thought it was worth "guess
 static void purchase_analyze(creature_type *guest_ptr, s32b price, s32b value, s32b guess)
 {
 	/* Item was worthless, but we bought it */
@@ -1225,16 +1221,11 @@ static s32b price_item(creature_type *creature_ptr, object_type *object_ptr, int
 	}
 
 	if(price <= 0L) return (1L);
-
-	/* Return the price */
 	return (price);
 }
 
-
-/*
- * Certain "cheap" objects should be created in "piles"
- * Some objects can be sold at a "discount" (in small piles)
- */
+// Certain "cheap" objects should be created in "piles"
+// Some objects can be sold at a "discount" (in small piles)
 static void mass_produce(store_type *st_ptr, object_type *object_ptr)
 {
 	int size = 1;
@@ -1242,11 +1233,9 @@ static void mass_produce(store_type *st_ptr, object_type *object_ptr)
 
 	s32b cost = object_value(object_ptr);
 
-
-	/* Analyze the type */
 	switch (object_ptr->tval)
 	{
-		/* Food, Flasks, and Lites */
+		// Food, Flasks, and Lites
 		case TV_FOOD:
 		case TV_FLASK:
 		case TV_LITE:
@@ -1344,8 +1333,8 @@ static void mass_produce(store_type *st_ptr, object_type *object_ptr)
 		{
 			if(is_black_market(st_ptr) && one_in_(3))
 			{
-				if(cost < 1601L) size += diceroll(1, 5);
-				else if(cost < 3201L) size += diceroll(1, 3);
+				if(cost <= 1600L) size += diceroll(1, 5);
+				else if(cost <= 3200L) size += diceroll(1, 3);
 			}
 			break;
 		}
@@ -1358,18 +1347,7 @@ static void mass_produce(store_type *st_ptr, object_type *object_ptr)
 	else if(one_in_(300)) discount = 75;
 	else if(one_in_(500)) discount = 90;
 
-	if(object_ptr->art_name)
-	{
-		if(cheat_peek && discount)
-		{
-#ifdef JP
-			msg_print("ランダムアーティファクトは値引きなし。");
-#else
-			msg_print("No discount on random artifacts.");
-#endif
-		}
-		discount = 0;
-	}
+	if(object_is_artifact(object_ptr)) discount = 0;
 
 	/* Save the discount */
 	object_ptr->discount = discount;
@@ -1439,9 +1417,7 @@ static bool store_object_similar(object_type *object1_ptr, object_type *object2_
 }
 
 
-/*
- * Allow a store item to absorb another item
- */
+// Allow a store item to absorb another item
 static void store_object_absorb(object_type *object_ptr, object_type *j_ptr)
 {
 	int max_num = IS_ROD(object_ptr) ? MIN(99, MAX_SHORT / object_kind_info[object_ptr->k_idx].pval) : 99;
@@ -1837,7 +1813,6 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 						}
 					}
 
-					/* Take note */
 					combined = TRUE;
 
 					break;
@@ -1862,14 +1837,11 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 
 		/* Scan every occupied slot */
 		for (j = 0; j < st_ptr->stock_num; j++)
-		{
 			if(object_sort_comp(player_ptr, object_ptr, o_value, &st_ptr->stock[j])) break;
-		}
 
 		/* Never move down */
 		if(j >= i) continue;
 
-		/* Take note */
 		flag = TRUE;
 
 		/* Get local object */

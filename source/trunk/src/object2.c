@@ -4135,7 +4135,6 @@ void reorder_pack(creature_type *creature_ptr)
 		/* Never move down */
 		if(j >= i) continue;
 
-		/* Take note */
 		flag = TRUE;
 
 		/* Get local object */

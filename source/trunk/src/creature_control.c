@@ -2511,7 +2511,6 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 				/* Handle "cold blooded" creatures */
 				if(has_trait(target_ptr, TRAIT_COLD_BLOOD) || !has_trait(target_ptr, TRAIT_AURA_FIRE))
 				{
-					/* Take note */
 					do_cold_blood = TRUE;
 				}
 
@@ -2529,7 +2528,6 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 				/* Handle "invisible" creatures */
 				if(has_trait(target_ptr, TRAIT_INVISIBLE))
 				{
-					/* Take note */
 					do_invisible = TRUE;
 
 					/* See invisible */
