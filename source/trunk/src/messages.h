@@ -7,6 +7,13 @@
 #define KEYWORD_CURSED "cursed"
 #endif
 
+#ifdef JP
+#define MES_INITIALIZE_USER "[ユーザー設定ファイルを初期化しています]"
+#define MES_INITIALIZE_COMPLETE "[初期化終了]"
+#else
+#define MES_INITIALIZE_USER "[Initializing user pref files]"
+#define MES_INITIALIZE_COMPLETE "[Initialization complete]"
+#endif
 
 #ifdef JP
 

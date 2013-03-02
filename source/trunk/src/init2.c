@@ -1882,12 +1882,8 @@ void init_angband(void)
 
 	/*** Load default user pref files ***/
 
-	/* Initialize feature info */
-#ifdef JP
-	note("[ユーザー設定ファイルを初期化しています...]");
-#else
-	note("[Initializing user pref files...]");
-#endif
+	// Initialize feature info
+	note(MES_INITIALIZE_USER);
 
 	/* Access the "basic" pref file */
 	strcpy(buf, "pref.prf");
@@ -1900,12 +1896,7 @@ void init_angband(void)
 
 	/* Process that file */
 	process_pref_file(buf);
-
-#ifdef JP
-	note("[初期化終了]");
-#else
-	note("[Initialization complete]");
-#endif
+	note(MES_INITIALIZE_COMPLETE);
 
 }
 
