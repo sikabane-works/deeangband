@@ -3167,3 +3167,11 @@ static cptr desc_stat_neg[] =
 #define MES_AVTIVATE_TIMEOUT "It whines, glows and fades..."
 #define MES_AVTIVATE_DONE "You activate it..."
 #endif
+
+#ifdef JP
+#define MES_TUNNEL_NONE "ÇªÇ±Ç…ÇÕâΩÇ‡å©ìñÇΩÇÁÇ»Ç¢ÅB"
+#define MES_TUNNEL_NO_TARGET "ÇªÇ±Ç…ÇÕå@ÇÈÇ‡ÇÃÇ™å©ìñÇΩÇÁÇ»Ç¢ÅB"
+#else
+#define MES_TUNNEL_NONE "You see nothing there."
+#define MES_TUNNEL_NO_TARGET "You see nothing there to tunnel."
+#endif

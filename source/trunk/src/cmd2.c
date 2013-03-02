@@ -1028,23 +1028,14 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 	/* Must have knowledge */
 	if(!(c_ptr->info & CAVE_MARK))
 	{
-#ifdef JP
-		msg_print("ÇªÇ±Ç…ÇÕâΩÇ‡å©ìñÇΩÇÁÇ»Ç¢ÅB");
-#else
-		msg_print("You see nothing there.");
-#endif
+		msg_print(MES_TUNNEL_NONE);
 		return FALSE;
 	}
 
 	/* Must be a wall/door/etc */
 	if(!CAVE_HAVE_FLAG_GRID(c_ptr, FF_TUNNEL))
 	{
-#ifdef JP
-		msg_print("ÇªÇ±Ç…ÇÕå@ÇÈÇ‡ÇÃÇ™å©ìñÇΩÇÁÇ»Ç¢ÅB");
-#else
-		msg_print("You see nothing there to tunnel.");
-#endif
-
+		msg_print(MES_TUNNEL_NO_TARGET);
 		return FALSE;
 	}
 
