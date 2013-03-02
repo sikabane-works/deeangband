@@ -378,24 +378,12 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 	if(write_level)
 	{
 		if(floor_ptr->fight_arena_mode)
-#ifdef JP
-			note_level = "アリーナ:";
-#else
-			note_level = "Arane:";
-#endif
+			note_level = DIARY_PLACE_ARENA;
 		else if(!floor_ptr || !floor_ptr->floor_level)
-#ifdef JP
-			note_level = "地上:";
-#else
-			note_level = "Surface:";
-#endif
+			note_level = DIARY_PLACE_SURFACE;
 		else if(q_idx && (is_fixed_quest_idx(q_idx)
 		         && !(q_idx == QUEST_SERPENT)))
-#ifdef JP
-			note_level = "クエスト:";
-#else
-			note_level = "Quest:";
-#endif
+			note_level = DIARY_PLACE_QUEST;
 		else
 		{
 			sprintf(note_level_buf, KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dun_type].name, floor_ptr->floor_level));

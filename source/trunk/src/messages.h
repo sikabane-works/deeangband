@@ -1561,6 +1561,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 #ifdef JP
 
+#define DIARY_PLACE_ARENA "アリーナ:"
+#define DIARY_PLACE_SURFACE "地上:"
+#define DIARY_PLACE_QUEST "クエスト:"
+
 #define DIARY_CREATE_PLAYER "-------- プレイヤー作成 --------"
 #define DIARY_GAMEOVER "-------- ゲームオーバー --------"
 #define DIARY_SAVEQUIT "----ゲーム中断----"
@@ -1580,6 +1584,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_INN_STAY_NIGHT "宿屋で一夜を明かした。"
 #define DIARY_INN_NIGHTMARE "悪夢にうなされてよく眠れなかった。"
 #else
+
+#define DIARY_PLACE_ARENA "Arena:"
+#define DIARY_PLACE_SURFACE "Surface:"
+#define DIARY_PLACE_QUEST "Quest:"
 
 #define DIARY_CREATE_PLAYER "-------- Create Player --------"
 #define DIARY_GAMEOVER "--------   Game  Over   --------"
