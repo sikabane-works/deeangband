@@ -2364,16 +2364,7 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 	/* Modify quantity */ 
 	i_ptr->number = 1; 
  
-	if(item >= 0) 
-	{ 
-		inven_item_increase(creature_ptr, item, -1); 
-		inven_item_optimize(creature_ptr, item); 
-	} 
-	else 
-	{ 
-		floor_item_increase(0 - item, -1); 
-		floor_item_optimize(0 - item); 
-	} 
+	cost_item(creature_ptr, item, -1, FALSE);
  
 	/* Get the wield slot */ 
 	object_ptr = &creature_ptr->inventory[slot]; 

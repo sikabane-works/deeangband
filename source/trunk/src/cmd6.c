@@ -369,7 +369,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		(void)set_food(creature_ptr, creature_ptr->food + object_ptr->pval);
 	}
 
-	cost_item(creature_ptr, item, -1);
+	cost_item(creature_ptr, item, -1, TRUE);
 }
 
 
@@ -451,18 +451,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 	quest_ptr->number = 1;
 
 	// Reduce and describe inventory or floor item
-	if(item >= 0)
-	{
-		inven_item_increase(caster_ptr, item, -1);
-		inven_item_describe(caster_ptr, item);
-		inven_item_optimize(caster_ptr, item);
-	}
-	else
-	{
-		floor_item_increase(0 - item, -1);
-		floor_item_describe(caster_ptr, 0 - item);
-		floor_item_optimize(0 - item);
-	}
+	cost_item(caster_ptr, item, -1, TRUE);
 
 	sound(SOUND_QUAFF);	// Sound
 	effected = FALSE; // Not effectedified yet
@@ -1166,22 +1155,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 	if(!used_up) return;
 
 	sound(SOUND_SCROLL);
-
-	/* Destroy a scroll in the pack */
-	if(item >= 0)
-	{
-		inven_item_increase(caster_ptr, item, -1);
-		inven_item_describe(caster_ptr, item);
-		inven_item_optimize(caster_ptr, item);
-	}
-
-	/* Destroy a scroll on the floor */
-	else
-	{
-		floor_item_increase(0 - item, -1);
-		floor_item_describe(caster_ptr, 0 - item);
-		floor_item_optimize(0 - item);
-	}
+	cost_item(caster_ptr, item, -1, TRUE);
 }
 
 
