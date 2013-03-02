@@ -3143,4 +3143,12 @@ static cptr desc_stat_neg[] =
 #define MES_HEX_WHICH_NO_ARMOUR "You wield no piece of armours."
 #endif
 
-
+#ifdef JP
+#define MES_AVTIVATE_FAILED "うまく始動させることができなかった。"
+#define MES_AVTIVATE_TIMEOUT "それは微かに音を立て、輝き、消えた..."
+#define MES_AVTIVATE_DONE "始動させた..."
+#else
+#define MES_AVTIVATE_FAILED "You failed to activate it properly."
+#define MES_AVTIVATE_TIMEOUT "It whines, glows and fades..."
+#define MES_AVTIVATE_DONE "You activate it..."
+#endif

@@ -2100,54 +2100,7 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
 // Hack -- activate the ring of power
 void ring_of_power(creature_type *creature_ptr, int dir)
 {
-	switch (randint1(10))	// Pick a random effect
-	{
-		case 1:
-		case 2:
-		{
-#ifdef JP
-			msg_print("あなたは悪性のオーラに包み込まれた。");
-#else
-			msg_print("You are surrounded by a malignant aura.");
-#endif
-			sound(SOUND_EVIL);
-
-			// Decrease all stats (permanently)
-			(void)dec_stat(creature_ptr, STAT_STR, 50, TRUE);
-			(void)dec_stat(creature_ptr, STAT_INT, 50, TRUE);
-			(void)dec_stat(creature_ptr, STAT_WIS, 50, TRUE);
-			(void)dec_stat(creature_ptr, STAT_DEX, 50, TRUE);
-			(void)dec_stat(creature_ptr, STAT_CON, 50, TRUE);
-			(void)dec_stat(creature_ptr, STAT_CHA, 50, TRUE);
-
-			// Lose some experience (permanently)
-			creature_ptr->exp -= (creature_ptr->exp / 4);
-			creature_ptr->max_exp -= (creature_ptr->exp / 4);
-			check_experience(creature_ptr);
-
-			break;
-		}
-
-		case 3:
-		{
-#ifdef JP
-			msg_print("あなたは強力なオーラに包み込まれた。");
-#else
-			msg_print("You are surrounded by a powerful aura.");
-#endif
-			// Dispel creatures
-			project_all_vision(creature_ptr, DO_EFFECT_DISP_ALL, 1000);
-			break;
-		}
-
-		case 4: case 5: case 6:
-			breath(creature_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, 600, 3, -1);
-			break;
-
-		case 7: case 8: case 9: case 10:
-			cast_bolt(creature_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, 500, 0);		// Mana Bolt
-			break;
-	}
+	//TODO Reimplementing
 }
 
 static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
@@ -2240,35 +2193,16 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	if(!success)
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("うまく始動させることができなかった。");
-#else
-		msg_print("You failed to activate it properly.");
-#endif
-
+		msg_print(MES_AVTIVATE_FAILED);
 		sound(SOUND_FAIL);
 		return;
 	}
 
-	/* Check the recharge */
-	if(object_ptr->timeout)
-	{
-#ifdef JP
-		msg_print("それは微かに音を立て、輝き、消えた...");
-#else
-		msg_print("It whines, glows and fades...");
-#endif
-
-		return;
-	}
+	// Check the recharge
+	if(object_ptr->timeout) msg_print(MES_AVTIVATE_TIMEOUT);
 
 	// Activate the artifact
-#ifdef JP
-	msg_print("始動させた...");
-#else
-	msg_print("You activate it...");
-#endif
-
+	msg_print(MES_AVTIVATE_DONE);
 	sound(SOUND_ZAP); // Sound
 
 	if(object_ptr->art_name)
