@@ -129,26 +129,15 @@ void get_table_name_aux(char *out_string)
 #endif
 }
 
-
-/*
- * Create a name from random parts with quotes.
- */
+// Create a name from random parts with quotes.
 void get_table_name(char *out_string)
 {
 	char buff[80];
 	get_table_name_aux(buff);
-
-#ifdef JP
-	sprintf(out_string, "Åw%sÅx", buff);
-#else
-	sprintf(out_string, "'%s'", buff);
-#endif
+	sprintf(out_string, BRACKET_ARTIFACT, buff);
 }
 
-
-/*
- * Make random Sindarin name
- */
+// Make random Sindarin name
 void get_table_sindarin_aux(char *out_string)
 {
 	char Syllable[80];

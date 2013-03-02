@@ -1,4 +1,12 @@
 
+#ifdef JP
+#define BRACKET_ARTIFACT "『%s』"
+#define BRACKET_DAMMY_ARTIFACT "《%s》"
+#else
+#define BRACKET_ARTIFACT "'%s'"
+#define BRACKET_DAMMY_ARTIFACT "'%s'"
+#endif
+
 // Keywords
 
 #ifdef JP

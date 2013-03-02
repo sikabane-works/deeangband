@@ -1645,11 +1645,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 			else get_table_name_aux(dummy_name);
 		}
 
-#ifdef JP
-		sprintf(new_name, "Ås%sÅt", dummy_name);
-#else
-		sprintf(new_name, "'%s'", dummy_name);
-#endif
+		sprintf(new_name, BRACKET_DAMMY_ARTIFACT, dummy_name);
 
 	}
 	else get_random_name(new_name, object_is_armour(object_ptr), power_level, artifact_bias);
