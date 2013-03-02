@@ -1818,6 +1818,7 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_DEC_STATUS_CANCEL(CREATURE, DEC) "%sはひどく%sなりかけたが、元に戻った", (CREATURE)->name, (DEC)
 #define MES_CREATURE_RES_STATUS(CREATURE, RES) "%sは元通りに%sなった。", (CREATURE)->name, (RES)
 #define MES_CREATURE_LIFE_RATE(NUM) "現在の体力ランク : %d/100", (NUM)
+#define MES_CREATURE_RES_EXP "ソウルが回復したような気がする。"
 #else
 #define MES_CREATURE_LEVELUP(LEV) "Welcome to level %d.", (LEV)
 #define MES_CREATURE_HP_GAIN(POINT) "Max-HitPoint increased in %d.", (POINT)
@@ -1827,6 +1828,7 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_DEC_STATUS_CANCEL(CREATURE, DEC) "%s become %s for a moment, but the feeling passes.", (CREATURE)->name, (DEC)
 #define MES_CREATURE_RES_STATUS(CREATURE, RES) "%s became %s as before.", (CREATURE)->name, (RES)
 #define MES_CREATURE_LIFE_RATE(NUM) "Your current Life Rating is %d/100.", (NUM)
+#define MES_CREATURE_RES_EXP "You feel your soul energies returning."
 #endif
 
 #ifdef JP

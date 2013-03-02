@@ -902,13 +902,7 @@ bool restore_exp(creature_type *creature_ptr)
 	if(creature_ptr->exp < creature_ptr->max_exp)
 	{
 		if(is_seen(player_ptr, creature_ptr))
-		{
-#ifdef JP
-			msg_print("¶–½—Í‚ª–ß‚Á‚Ä‚«‚½‹C‚ª‚·‚éB");
-#else
-			msg_print("You feel your life energies returning.");
-#endif
-		}
+			msg_print(MES_CREATURE_RES_EXP);
 
 		creature_ptr->exp = creature_ptr->max_exp;
 		check_experience(creature_ptr);
