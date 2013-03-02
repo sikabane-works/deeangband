@@ -1039,7 +1039,7 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 		return FALSE;
 	}
 
-	/* Okay */
+
 	return TRUE;
 }
 

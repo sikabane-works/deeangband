@@ -3723,7 +3723,7 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 	if(has_trait_species(species_ptr, TRAIT_CHAMELEON) && !has_trait_species(z_ptr, TRAIT_CHAMELEON))
 		return FALSE;
 
-	/* Okay */
+
 	return TRUE;
 }
 

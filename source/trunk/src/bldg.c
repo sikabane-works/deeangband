@@ -1445,7 +1445,7 @@ static bool vault_aux_battle(int species_idx)
 		  has_ball_flags(&species_ptr->flags) || has_breath_flags(&species_ptr->flags)))
 			return FALSE;
 
-	/* Okay */
+
 	return TRUE;
 }
 

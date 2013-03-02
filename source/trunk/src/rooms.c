@@ -1441,7 +1441,7 @@ static bool vault_aux_jelly(int species_idx)
 	/* Require icky thing, jelly, mold, or mushroom */
 	if(!my_strchr("ijm,", species_ptr->d_char)) return FALSE;
 
-	/* Okay */
+
 	return TRUE;
 }
 
@@ -1456,7 +1456,7 @@ static bool vault_aux_animal(int species_idx)
 	if(!vault_creature_okay(species_idx)) return FALSE;			// Validate the creature
 	if(!has_trait_species(species_ptr, TRAIT_ANIMAL)) return FALSE;	// Require "animal" flag
 
-	/* Okay */
+
 	return TRUE;
 }
 
@@ -1474,7 +1474,7 @@ static bool vault_aux_undead(int species_idx)
 	/* Require Undead */
 	if(!has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;
 
-	/* Okay */
+
 	return TRUE;
 }
 
@@ -1524,7 +1524,7 @@ static bool vault_aux_kennel(int species_idx)
 	/* Require a Zephyr Hound or a dog */
 	if(!my_strchr("CZ", species_ptr->d_char)) return FALSE;
   
-	/* Okay */
+
 	return TRUE;
 }
 
@@ -1542,7 +1542,7 @@ static bool vault_aux_mimic(int species_idx)
 	/* Require mimic */
 	if(!my_strchr("!$&(/=?[\\|", species_ptr->d_char)) return FALSE;
 
-	/* Okay */
+
 	return TRUE;
 }
 
@@ -1575,7 +1575,7 @@ static bool vault_aux_symbol_e(int species_idx)
 	/* Decline incorrect symbol */
 	if(species_ptr->d_char != vault_aux_char) return FALSE;
 
-	/* Okay */
+
 	return TRUE;
 }
 
@@ -1597,7 +1597,7 @@ static bool vault_aux_symbol_g(int species_idx)
 	/* Decline incorrect symbol */
 	if(species_ptr->d_char != vault_aux_char) return FALSE;
 
-	/* Okay */
+
 	return TRUE;
 }
 
@@ -1650,7 +1650,7 @@ static bool vault_aux_giant(int species_idx)
 	/* Decline undead */
 	if(has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;
 
-	/* Okay */
+
 	return TRUE;
 }
 
@@ -1674,7 +1674,7 @@ static bool vault_aux_dragon(int species_idx)
 	/* Decline undead */
 	if(has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;
 
-	/* Okay */
+
 	return TRUE;
 }
 
@@ -1694,7 +1694,7 @@ static bool vault_aux_demon(int species_idx)
 	/* Require demon */
 	if(!has_trait_species(species_ptr, TRAIT_DEMON)) return FALSE;
 
-	/* Okay */
+
 	return TRUE;
 }
 
@@ -1714,7 +1714,7 @@ static bool vault_aux_cthulhu(int species_idx)
 	/* Require eldritch horror */
 	if(!has_trait_species(species_ptr, TRAIT_ELDRITCH_HORROR)) return FALSE;
 
-	/* Okay */
+
 	return TRUE;
 }
 

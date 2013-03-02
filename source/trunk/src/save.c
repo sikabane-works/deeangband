@@ -1374,7 +1374,7 @@ int load_player(void)
 
 #endif
 
-	/* Okay */
+
 	if(!err)
 	{
 		/* Open the savefile */

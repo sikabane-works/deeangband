@@ -2236,7 +2236,7 @@ static bool item_creature_okay(int species_idx)
 	if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH)) return FALSE;
 	if(has_trait_species(species_ptr, TRAIT_UNIQUE2)) return FALSE;
 
-	/* Okay */
+
 	return TRUE;
 }
 
