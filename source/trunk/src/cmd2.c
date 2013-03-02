@@ -1784,9 +1784,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 			cost_tactical_energy(creature_ptr, 100);
 			msg_format(MES_SPIKE_JAM(feature_name + feature_info[feat].name));
 			cave_alter_feat(floor_ptr, y, x, FF_SPIKE);
-			inven_item_increase(creature_ptr, item, -1);
-			inven_item_describe(creature_ptr, item);
-			inven_item_optimize(creature_ptr, item);
+			cost_item(creature_ptr, item, -1, TRUE);
 		}
 	}
 }

@@ -719,20 +719,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 	{
 		msg_print(MES_TRAP_S_H_DEMON);
 		msg_print(MES_SUMMON_SERVANT);
-
-		// Decrease the item (from the pack or the floor)
-		if(item >= 0)
-		{
-			inven_item_increase(creature_ptr, item, -1);
-			inven_item_describe(creature_ptr, item);
-			inven_item_optimize(creature_ptr, item);
-		}
-		else
-		{
-			floor_item_increase(0 - item, -1);
-			floor_item_describe(creature_ptr, 0 - item);
-			floor_item_optimize(0 - item);
-		}
+		cost_item(creature_ptr, item, -1, TRUE);
 	}
 	else
 	{

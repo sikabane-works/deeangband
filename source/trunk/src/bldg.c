@@ -1784,9 +1784,7 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format(MES_BLDG_GET_PRICE, 1000000L * object_ptr->number);
 				creature_ptr->au += 1000000L * object_ptr->number;
 				prepare_redraw(PR_GOLD);
-				inven_item_increase(creature_ptr, i, -object_ptr->number);
-				inven_item_describe(creature_ptr, i);
-				inven_item_optimize(creature_ptr, i);
+				cost_item(creature_ptr, i, -object_ptr->number, TRUE);
 			}
 			change = TRUE;
 		}
@@ -1807,9 +1805,7 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format(MES_BLDG_GET_PRICE, 200000L * object_ptr->number);
 				creature_ptr->au += 200000L * object_ptr->number;
 				prepare_redraw(PR_GOLD);
-				inven_item_increase(creature_ptr, i, -object_ptr->number);
-				inven_item_describe(creature_ptr, i);
-				inven_item_optimize(creature_ptr, i);
+				cost_item(creature_ptr, i, -object_ptr->number, TRUE);
 			}
 			change = TRUE;
 		}
@@ -1830,9 +1826,7 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format(MES_BLDG_GET_PRICE, 100000L * object_ptr->number);
 				creature_ptr->au += 100000L * object_ptr->number;
 				prepare_redraw(PR_GOLD);
-				inven_item_increase(creature_ptr, i, -object_ptr->number);
-				inven_item_describe(creature_ptr, i);
-				inven_item_optimize(creature_ptr, i);
+				cost_item(creature_ptr, i, -object_ptr->number, TRUE);
 			}
 			change = TRUE;
 		}
@@ -1851,9 +1845,7 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format(MES_BLDG_GET_PRICE, (species_info[today_mon].level * 50 + 100) * object_ptr->number);
 				creature_ptr->au += (species_info[today_mon].level * 50 + 100) * object_ptr->number;
 				prepare_redraw(PR_GOLD);
-				inven_item_increase(creature_ptr, i, -object_ptr->number);
-				inven_item_describe(creature_ptr, i);
-				inven_item_optimize(creature_ptr, i);
+				cost_item(creature_ptr, i, -object_ptr->number, TRUE);
 			}
 			change = TRUE;
 		}
@@ -1873,9 +1865,7 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format(MES_BLDG_GET_PRICE, (species_info[today_mon].level * 30 + 60) * object_ptr->number);
 				creature_ptr->au += (species_info[today_mon].level * 30 + 60) * object_ptr->number;
 				prepare_redraw(PR_GOLD);
-				inven_item_increase(creature_ptr, i, -object_ptr->number);
-				inven_item_describe(creature_ptr, i);
-				inven_item_optimize(creature_ptr, i);
+				cost_item(creature_ptr, i, -object_ptr->number, TRUE);
 			}
 			change = TRUE;
 		}
@@ -1897,10 +1887,7 @@ static bool kankin(creature_type *creature_ptr)
 				sprintf(buf, MES_BOUNTY_HAND_OVER(object_name));
 				if(!get_check(buf)) continue;
 
-				/* Hand it first */
-				inven_item_increase(creature_ptr, i, -object_ptr->number);
-				inven_item_describe(creature_ptr, i);
-				inven_item_optimize(creature_ptr, i);
+				cost_item(creature_ptr, i, -object_ptr->number, TRUE);
 
 				kubi_species_idx[j] += 10000;
 

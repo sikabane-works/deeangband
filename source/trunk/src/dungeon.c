@@ -4130,13 +4130,8 @@ static void pack_overflow(creature_type *creature_ptr)
 		object_desc(object_name, object_ptr, 0);
 		msg_format(MES_OBJECT_DROPPED(object_name, index_to_label(INVEN_TOTAL)));
 
-		/* Drop it (carefully) near the player */
 		(void)drop_near(floor_ptr, object_ptr, 0, creature_ptr->fy, creature_ptr->fx);
-
-		/* Modify, Describe, Optimize */
-		inven_item_increase(creature_ptr, INVEN_TOTAL, -255);
-		inven_item_describe(creature_ptr, INVEN_TOTAL);
-		inven_item_optimize(creature_ptr, INVEN_TOTAL);
+		cost_item(creature_ptr, INVEN_TOTAL, -255, TRUE);
 
 		notice_stuff(creature_ptr);
 		handle_stuff(creature_ptr);

@@ -2152,16 +2152,9 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						//TODO j_ptr->held_m_idx = m_idx;
 					}
 
-					/* Steal the items */
-					inven_item_increase(target_ptr, i, -1);
-					inven_item_optimize(target_ptr, i);
-
-					/* Obvious */
+					cost_item(target_ptr, i, -1, FALSE);
 					obvious = TRUE;
-
-					/* Blink away */
 					blinked = TRUE;
-
 					break;
 				}
 
