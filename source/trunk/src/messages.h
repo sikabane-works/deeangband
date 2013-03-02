@@ -1661,7 +1661,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DEBUG_FLOOR_SIZE(WIDTH, HEIGHT) "[W:%d, H:%d]"
 #define MES_DEBUG_VAULT(NAME) "地下室(%s)", (NAME)
 #define MES_DEBUG_GREATER_VAULT(NAME) "巨大な地下室(%s)", (NAME)
-#define MES_DEBUG_FAILED_VAULT "巨大な地下室を配置できません。"
+#define MES_DEBUG_FAILED_VAULT "地下室を配置できません。"
 #define MES_DEBUG_ARTIFACT_CANCEL(OBJECT) "伝説のアイテム (%s) は生成中に*破壊*された。", (OBJECT)
 #define MES_DEBUG_RANDOM_ARTIFACT_CANCEL "ランダム・アーティファクトの1つは生成中に*破壊*された。"
 #define MES_DEBUG_ARTIFACT_CANCEL2(OBJECT) "伝説のアイテム (%s) はストリーマーにより削除された。", (OBJECT)
@@ -1686,7 +1686,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DEBUG_FLOOR_SIZE(WIDTH, HEIGHT) "[W:%d, H:%d]"
 #define MES_DEBUG_VAULT(NAME) "Vault(%s)", (NAME)
 #define MES_DEBUG_GREATER_VAULT(NAME) "Greater vault (%s)", (NAME)
-#define MES_DEBUG_FAILED_VAULT "Could not place greater vault."
+#define MES_DEBUG_FAILED_VAULT "Could not place vault."
 #define MES_DEBUG_ARTIFACT_CANCEL(OBJECT) "Artifact (%s) was *destroyed* during generation.", (OBJECT)
 #define MES_DEBUG_RANDOM_ARTIFACT_CANCEL "One of the random artifacts was *destroyed* during generation."
 #define MES_DEBUG_ARTIFACT_CANCEL2(OBJECT) "Artifact (%s) was deleted by streamer.", (OBJECT)

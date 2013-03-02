@@ -1966,30 +1966,35 @@ static vault_aux_type pit_types[] =
 };
 
 
-// Nest types code
-#define NEST_TYPE_CLONE        0
-#define NEST_TYPE_JELLY        1
-#define NEST_TYPE_SYMBOL_GOOD  2
-#define NEST_TYPE_SYMBOL_EVIL  3
-#define NEST_TYPE_MIMIC        4
-#define NEST_TYPE_LOVECRAFTIAN 5
-#define NEST_TYPE_KENNEL       6
-#define NEST_TYPE_ANIMAL       7
-#define NEST_TYPE_CHAPEL       8
-#define NEST_TYPE_UNDEAD       9
+//Nesttypescode
+enum NEST_TYPE
+{
+NEST_TYPE_CLONE,
+NEST_TYPE_JELLY,
+NEST_TYPE_SYMBOL_GOOD,
+NEST_TYPE_SYMBOL_EVIL,
+NEST_TYPE_MIMIC,
+NEST_TYPE_LOVECRAFTIAN,
+NEST_TYPE_KENNEL,
+NEST_TYPE_ANIMAL,
+NEST_TYPE_CHAPEL,
+NEST_TYPE_UNDEAD,
+};
 
-// Pit types code
-#define PIT_TYPE_ORC           0
-#define PIT_TYPE_TROLL         1
-#define PIT_TYPE_GIANT         2
-#define PIT_TYPE_LOVECRAFTIAN  3
-#define PIT_TYPE_SYMBOL_GOOD   4
-#define PIT_TYPE_SYMBOL_EVIL   5
-#define PIT_TYPE_CHAPEL        6
-#define PIT_TYPE_DRAGON        7
-#define PIT_TYPE_DEMON         8
-#define PIT_TYPE_DARK_ELF      9
-
+//Pittypescode
+enum PIT_TYPE
+{
+PIT_TYPE_ORC,
+PIT_TYPE_TROLL,
+PIT_TYPE_GIANT,
+PIT_TYPE_LOVECRAFTIAN,
+PIT_TYPE_SYMBOL_GOOD,
+PIT_TYPE_SYMBOL_EVIL,
+PIT_TYPE_CHAPEL,
+PIT_TYPE_DRAGON,
+PIT_TYPE_DEMON,
+PIT_TYPE_DARK_ELF,
+};
 
 /*
  * Hack -- Get the string describing subtype of pit/nest
@@ -2877,14 +2882,7 @@ static bool build_vault_pre(floor_type *floor_ptr, int type)
 	/* No lesser vault found */
 	if(dummy >= SAFE_MAX_ATTEMPTS)
 	{
-		if(cheat_room)
-		{
-#ifdef JP
-			msg_warning("地下室を配置できません。");
-#else
-			msg_warning("Could not place vault.");
-#endif
-		}
+		if(cheat_room) msg_warning(MES_DEBUG_FAILED_VAULT);
 		return FALSE;
 	}
 
