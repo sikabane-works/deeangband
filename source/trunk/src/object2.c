@@ -3647,7 +3647,6 @@ bool inven_carry_okay(creature_type *creature_ptr, object_type *object_ptr)
 		if(object_similar(object2_ptr, object_ptr)) return TRUE;
 	}
 
-	/* Nope */
 	return FALSE;
 }
 

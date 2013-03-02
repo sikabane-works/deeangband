@@ -60,14 +60,10 @@ static bool object_easy_know(int i)
 		}
 	}
 
-	/* Nope */
 	return FALSE;
 }
 
-
-/*
- * Create a name from random parts.
- */
+// Create a name from random parts.
 void get_table_name_aux(char *out_string)
 {
 #ifdef JP

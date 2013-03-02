@@ -2517,7 +2517,6 @@ bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_
 	/* Hack -- Recharge rods */
 	if(IS_ROD(object_ptr)) return TRUE;
 
-	/* Nope */
 	return FALSE;
 }
 

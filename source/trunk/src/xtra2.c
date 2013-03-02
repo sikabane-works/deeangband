@@ -1606,7 +1606,6 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 		if(have_flag(feature_info[get_feat_mimic(c_ptr)].flags, FF_NOTICE)) return TRUE;
 	}
 
-	/* Nope */
 	return FALSE;
 }
 

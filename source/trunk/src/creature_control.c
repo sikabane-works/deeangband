@@ -4000,7 +4000,6 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 
 	}
 
-	/* Nope */
 	return FALSE;
 }
 

@@ -1019,9 +1019,7 @@ void do_cmd_close(creature_type *creature_ptr)
 }
 
 
-/*
- * Determine if a given grid may be "tunneled"
- */
+// Determine if a given grid may be "tunneled"
 static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -1035,8 +1033,6 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 #else
 		msg_print("You see nothing there.");
 #endif
-
-		/* Nope */
 		return FALSE;
 	}
 
@@ -1049,7 +1045,6 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 		msg_print("You see nothing there to tunnel.");
 #endif
 
-		/* Nope */
 		return FALSE;
 	}
 
