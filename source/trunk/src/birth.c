@@ -2364,7 +2364,7 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 	/* Modify quantity */ 
 	i_ptr->number = 1; 
  
-	cost_item(creature_ptr, item, -1, FALSE);
+	reduce_item(creature_ptr, item, -1, FALSE);
  
 	/* Get the wield slot */ 
 	object_ptr = &creature_ptr->inventory[slot]; 

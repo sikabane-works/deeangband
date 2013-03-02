@@ -2152,7 +2152,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						//TODO j_ptr->held_m_idx = m_idx;
 					}
 
-					cost_item(target_ptr, i, -1, FALSE);
+					reduce_item(target_ptr, i, -1, FALSE);
 					obvious = TRUE;
 					blinked = TRUE;
 					break;
@@ -2178,18 +2178,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if(!is_valid_object(object_ptr)) continue; // Skip non-objects
 					if((object_ptr->tval != TV_FOOD) && !((object_ptr->tval == TV_CORPSE) && (object_ptr->sval))) continue; // Skip non-food objects
 					object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Get a description
-
 #ifdef JP
 					msg_format("%s(%c)‚ð%sH‚×‚ç‚ê‚Ä‚µ‚Ü‚Á‚½I", object_name, index_to_label(i), ((object_ptr->number > 1) ? "ˆê‚Â" : ""));
 #else
 					msg_format("%sour %s (%c) was eaten!", ((object_ptr->number > 1) ? "One of y" : "Y"), object_name, index_to_label(i));
 #endif
-
-					/* Steal the items */
-					inven_item_increase(target_ptr, i, -1);
-					inven_item_optimize(target_ptr, i);
-
-					/* Obvious */
+					reduce_item(target_ptr, i, -1, FALSE);
 					obvious = TRUE;
 
 					break;

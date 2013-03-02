@@ -560,7 +560,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 
 	/* Reduce the charges of rods/wands */
 	reduce_charges(object_ptr, amt);
-	cost_item(creature_ptr, item, -1, TRUE);
+	reduce_item(creature_ptr, item, -1, TRUE);
 
 	if(high_level_book(quest_ptr))
 	{
@@ -778,7 +778,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 		msg_print(MES_LITE_FUEL_FULL);
 	}
 
-	cost_item(creature_ptr, item, -1, FALSE);
+	reduce_item(creature_ptr, item, -1, FALSE);
 	prepare_update(creature_ptr, CRU_TORCH);
 }
 
@@ -829,7 +829,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 	else
 		msg_print(MES_LITE_TORCH_GLOW);
 
-	cost_item(creature_ptr, item, -1, FALSE);
+	reduce_item(creature_ptr, item, -1, FALSE);
 	prepare_update(creature_ptr, CRU_TORCH);
 }
 

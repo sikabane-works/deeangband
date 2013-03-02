@@ -2012,22 +2012,7 @@ bool alchemy(creature_type *creature_ptr)
 
 	}
 
-	/* Eliminate the item (from the pack) */
-	if(item >= 0)
-	{
-		inven_item_increase(creature_ptr, item, -amt);
-		inven_item_describe(creature_ptr, item);
-		inven_item_optimize(creature_ptr, item);
-	}
-
-	/* Eliminate the item (from the floor) */
-	else
-	{
-		floor_item_increase(0 - item, -amt);
-		floor_item_describe(creature_ptr, 0 - item);
-		floor_item_optimize(0 - item);
-	}
-
+	reduce_item(creature_ptr, item, -amt, TRUE);
 	return TRUE;
 }
 
@@ -2744,22 +2729,7 @@ bool recharge(creature_type *creature_ptr, int power)
 				/* Reduce rod stack maximum timeout, drain wands. */
 				if(IS_ROD(object_ptr)) object_ptr->timeout = (object_ptr->number - 1) * object_kind_ptr->pval;
 				if(object_ptr->tval == TV_WAND) object_ptr->pval = 0;
-
-				/* Reduce and describe creature_ptr->inventory */
-				if(item >= 0)
-				{
-					inven_item_increase(creature_ptr, item, -1);
-					inven_item_describe(creature_ptr, item);
-					inven_item_optimize(creature_ptr, item);
-				}
-
-				/* Reduce and describe floor item */
-				else
-				{
-					floor_item_increase(0 - item, -1);
-					floor_item_describe(creature_ptr, 0 - item);
-					floor_item_optimize(0 - item);
-				}
+				reduce_item(creature_ptr, item, -1, TRUE);
 			}
 
 			/* Destroy all members of a stack of objects. */
@@ -2767,19 +2737,7 @@ bool recharge(creature_type *creature_ptr, int power)
 			{
 				if(object_ptr->number > 1) msg_format(MES_RECHARGE_BROKEN3(object_name));
 				else msg_format(MES_RECHARGE_BROKEN1(object_name));
-
-				if(item >= 0)
-				{
-					inven_item_increase(creature_ptr, item, -999);
-					inven_item_describe(creature_ptr, item);
-					inven_item_optimize(creature_ptr, item);
-				}
-				else
-				{
-					floor_item_increase(0 - item, -999);
-					floor_item_describe(creature_ptr, 0 - item);
-					floor_item_optimize(0 - item);
-				}
+				reduce_item(creature_ptr, item, -999, TRUE);
 			}
 		}
 	}
@@ -3994,12 +3952,7 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 
 				/* Reduce the charges of rods/wands */
 				reduce_charges(object_ptr, amt);
-
-				/* Destroy "amt" items */
-				inven_item_increase(creature_ptr, i, -amt);
-				inven_item_optimize(creature_ptr, i);
-
-				/* Count the casualties */
+				reduce_item(creature_ptr, i, -amt, FALSE);
 				k += amt;
 			}
 		}
