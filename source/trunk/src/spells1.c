@@ -4742,7 +4742,6 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 		/* Player affected one creature (without "jumping") */
 		if(is_player(caster_ptr) && (project_m_n == 1) && !jump)
 		{
-			/* Location */
 			x = project_m_x;
 			y = project_m_y;
 

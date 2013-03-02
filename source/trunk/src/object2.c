@@ -2465,15 +2465,6 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			}
 
 			object_ptr->pval = i;
-
-			if(cheat_peek)
-			{
-#ifdef JP
-				msg_format("%s‚Ì‘œ", species_name + species_ptr->name);
-#else
-				msg_format("Statue of %s", species_name + species_ptr->name);
-#endif
-			}
 			object_aware(object_ptr);
 			object_known(object_ptr);
 
@@ -2589,16 +2580,9 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 	/* Apply curse */
 	if(mode & AM_CURSED)
 	{
-		/* Assume 'cursed' */
-		if(power > ITEM_RANK_NORMAL)
-		{
-			power = 0 - power;
-		}
-		/* Everything else gets more badly cursed */
-		else
-		{
-			power--;
-		}
+		// Assume 'cursed' / Everything else gets more badly cursed
+		if(power > ITEM_RANK_NORMAL) power = 0 - power;
+		else power--;
 	}
 
 	/* Assume no rolls */
@@ -2748,10 +2732,7 @@ void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr
 	object_ptr->name2 = ego;
 }
 
-
-/*
-* Hack -- determine if a template is "good"
-*/
+// Hack -- determine if a template is "good"
 static bool kind_is_good(int k_idx)
 {
 	object_kind *object_kind_ptr = &object_kind_info[k_idx];
@@ -2883,14 +2864,11 @@ bool make_random_object(object_type *object_ptr, u32b mode, u32b gon_mode, int l
 
 
 /*
-* Attempt to place an object (normal or good/great) at the given location.
-*
-* This routine plays nasty games to generate the "special artifacts".
-*
-* This routine uses "object_level" for the "generation level".
-*
-* This routine requires a clean floor grid destination.
-*/
+ * Attempt to place an object (normal or good/great) at the given location.
+ * This routine plays nasty games to generate the "special artifacts".
+ * This routine uses "object_level" for the "generation level".
+ * This routine requires a clean floor grid destination.
+ */
 void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj_num_hook)(int k_idx))
 {
 	s16b object_idx;
@@ -2924,7 +2902,6 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj
 		/* Structure Copy */
 		object_copy(object_ptr, quest_ptr);
 
-		/* Location */
 		object_ptr->fy = y;
 		object_ptr->fx = x;
 
@@ -2980,11 +2957,8 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 	/* Acquire grid */
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
-
 	object_type forge;
 	object_type *quest_ptr;
-
-
 
 	if(!IN_BOUNDS(floor_ptr, y, x)) return;
 
@@ -3003,9 +2977,6 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 
 	/* Make some gold */
 	if(!make_gold(floor_ptr, quest_ptr, 0, 0)) return;
-
-
-	/* Make an object */
 	object_idx = object_pop();
 
 	if(object_idx)
@@ -3083,15 +3054,11 @@ s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, int y
 			#endif
 			*/
 		}
-		return SUCCESS; // Failure
+		return FALSE;
 	}
 
-
-	/* Score */
-	bs = -1;
-
-	/* Picker */
-	bn = 0;
+	bs = -1; // score
+	bn = 0; // picker
 
 	by = y;
 	bx = x;
@@ -3105,7 +3072,6 @@ s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, int y
 			d = (dy * dy) + (dx * dx); // Calculate actual distance
 			if(d > 10) continue; // Ignore distant grids
 
-			/* Location */
 			ty = y + dy;
 			tx = x + dx;
 

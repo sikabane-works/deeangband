@@ -1980,7 +1980,6 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	{
 		for (j = 0; j < floor_ptr->height; ++j)
 		{
-			/* Location */
 			x = i / xrat + 1;
 			y = j / yrat + 1;
 
@@ -2014,7 +2013,6 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	{
 		for (i = 0; i < floor_ptr->width; ++i)
 		{
-			/* Location */
 			x = i / xrat + 1;
 			y = j / yrat + 1;
 

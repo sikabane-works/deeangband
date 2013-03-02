@@ -287,7 +287,6 @@ static void alloc_object(floor_type *floor_ptr, creature_type *player_ptr, int s
 
 			dummy++;
 
-			/* Location */
 			y = randint0(floor_ptr->height);
 			x = randint0(floor_ptr->width);
 

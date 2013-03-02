@@ -96,7 +96,6 @@ static void wr_object(object_type *object_ptr)
 	/*** Write only un-obvious elements ***/
 	wr_s16b(object_ptr->k_idx);
 
-	/* Location */
 	wr_byte(object_ptr->floor_id);
 	wr_byte(object_ptr->fy);
 	wr_byte(object_ptr->fx);

@@ -537,7 +537,6 @@ bool detect_objects_gold(creature_type *creature_ptr, int range)
 		/* Skip held objects */
 		if(object_ptr->held_m_idx) continue;
 
-		/* Location */
 		y = object_ptr->fy;
 		x = object_ptr->fx;
 
@@ -589,7 +588,6 @@ bool detect_objects_normal(creature_type *creature_ptr, int range)
 		/* Skip held objects */
 		if(object_ptr->held_m_idx) continue;
 
-		/* Location */
 		y = object_ptr->fy;
 		x = object_ptr->fx;
 
@@ -644,7 +642,6 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 		/* Skip held objects */
 		if(object_ptr->held_m_idx) continue;
 
-		/* Location */
 		y = object_ptr->fy;
 		x = object_ptr->fx;
 
@@ -715,7 +712,6 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 		/* Skip dead creatures */
 		if(!target_ptr->species_idx) continue;
 
-		/* Location */
 		y = target_ptr->fy;
 		x = target_ptr->fx;
 
@@ -764,7 +760,6 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
 
-		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
@@ -820,7 +815,6 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
 
-		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
@@ -882,7 +876,6 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
 
-		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
@@ -936,7 +929,6 @@ bool detect_creatures_mind(creature_type *creature_ptr, int range)
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
 
-		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
@@ -990,7 +982,6 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
 
-		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
@@ -1050,7 +1041,6 @@ bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_fla
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
 
-		/* Location */
 		y = m_ptr->fy;
 		x = m_ptr->fx;
 
