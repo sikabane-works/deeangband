@@ -870,13 +870,7 @@ bool do_res_stat(creature_type *creature_ptr, int stat)
 	if(res_stat(creature_ptr, stat)) // Attempt to increase
 	{
 		if(is_seen(player_ptr, creature_ptr))
-		{
-#ifdef JP
-			msg_format("%sは元通りに%sなった。", creature_name, desc_stat_pos[stat]);
-#else
-			msg_format("%s become less %s.", creature_name, desc_stat_neg[stat]);
-#endif
-		}
+			msg_format(MES_CREATURE_RES_STATUS(creature_ptr, desc_stat_pos[stat]));
 		return TRUE;
 	}
 	return FALSE;
@@ -890,27 +884,12 @@ bool do_inc_stat(creature_type *creature_ptr, int stat)
 
 	if(inc_stat(creature_ptr, stat)) // Attempt to increase
 	{
-		if(is_seen(player_ptr, creature_ptr))
-		{
-#ifdef JP
-			msg_format("ワーオ！%sはとても%sなった！", creature_ptr->name, desc_stat_pos[stat]);
-#else
-			msg_format("Wow! %s became very %s!", creature_ptr->name, desc_stat_pos[stat]);
-#endif
-		}
+		if(is_seen(player_ptr, creature_ptr)) msg_format(MES_CREATURE_INC_STATUS(creature_ptr, desc_stat_pos[stat]));
 		return TRUE;
 	}
-
 	if(res) // Restoration worked
 	{
-		if(is_seen(player_ptr, creature_ptr))
-		{
-#ifdef JP
-			msg_format("元通りに%sなった気がする。", desc_stat_pos[stat]);
-#else
-			msg_format("You feel less %s.", desc_stat_neg[stat]);
-#endif
-		}
+		if(is_seen(player_ptr, creature_ptr)) msg_format(MES_CREATURE_RES_STATUS(creature_ptr, desc_stat_pos[stat]));
 		return TRUE;
 	}
 

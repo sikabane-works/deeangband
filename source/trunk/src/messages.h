@@ -846,13 +846,13 @@
 #endif
 
 #ifdef JP
-#define GAME_MESSAGE_OBJECT_DISENCHANTED(OBJECT) "%sは劣化してしまった。", (OBJECT)
-#define GAME_MESSAGE_OBJECT_KILLED "壊れてしまった。"
-#define GAME_MESSAGE_OBJECT_DUSTED "灰になった。"
+#define MES_OBJECT_DISENCHANTED(OBJECT) "%sは劣化してしまった。", (OBJECT)
+#define MES_OBJECT_KILLED "壊れてしまった。"
+#define MES_OBJECT_DUSTED "灰になった。"
 #else
-#define GAME_MESSAGE_OBJECT_DISENCHANTED(OBJECT) "Your %s was disenchanted.", (OBJECT)
-#define GAME_MESSAGE_OBJECT_KILLED (plural ? " are destroyed!" : " is destroyed!")
-#define GAME_MESSAGE_OBJECT_DUSTED (plural ? " become dust." : " becomes dust.")
+#define MES_OBJECT_DISENCHANTED(OBJECT) "Your %s was disenchanted.", (OBJECT)
+#define MES_OBJECT_KILLED (plural ? " are destroyed!" : " is destroyed!")
+#define MES_OBJECT_DUSTED (plural ? " become dust." : " becomes dust.")
 #endif
 
 #ifdef JP
@@ -1813,15 +1813,19 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_LEVELUP(LEV) "レベル %d にようこそ。", (LEV)
 #define MES_CREATURE_HP_GAIN(POINT) "最大ヒット・ポイントが %d 増加した！", (POINT)
 #define MES_CREATURE_MP_GAIN(POINT) "最大マジック・ポイントが %d 増加した！", (POINT)
+#define MES_CREATURE_INC_STATUS(CREATURE, INC) "ワーオ！%sはとても%sなった！", (CREATURE)->name, (INC)
 #define MES_CREATURE_DEC_STATUS(CREATURE, DEC) "%sはひどく%sなった。", (CREATURE)->name, (DEC)
 #define MES_CREATURE_DEC_STATUS_CANCEL(CREATURE, DEC) "%sはひどく%sなりかけたが、元に戻った", (CREATURE)->name, (DEC)
+#define MES_CREATURE_RES_STATUS(CREATURE, RES) "%sは元通りに%sなった。", (CREATURE)->name, (RES)
 #define MES_CREATURE_LIFE_RATE(NUM) "現在の体力ランク : %d/100", (NUM)
 #else
 #define MES_CREATURE_LEVELUP(LEV) "Welcome to level %d.", (LEV)
 #define MES_CREATURE_HP_GAIN(POINT) "Max-HitPoint increased in %d.", (POINT)
 #define MES_CREATURE_MP_GAIN(POINT) "Max-ManaPoint increased in %d.", (POINT)
-#define MES_CREATURE_DEC_STATUS(CREATURE, DEC) "%s become very %s.", (CREATURE)->name, (DEC)
+#define MES_CREATURE_INC_STATUS(CREATURE, INC) "Wow! %s became very %s!", (CREATURE)->name, (INC)
+#define MES_CREATURE_DEC_STATUS(CREATURE, DEC) "%s beaome very %s.", (CREATURE)->name, (DEC)
 #define MES_CREATURE_DEC_STATUS_CANCEL(CREATURE, DEC) "%s become %s for a moment, but the feeling passes.", (CREATURE)->name, (DEC)
+#define MES_CREATURE_RES_STATUS(CREATURE, RES) "%s became %s as before.", (CREATURE)->name, (RES)
 #define MES_CREATURE_LIFE_RATE(NUM) "Your current Life Rating is %d/100.", (NUM)
 #endif
 
