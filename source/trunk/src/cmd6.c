@@ -369,19 +369,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		(void)set_food(creature_ptr, creature_ptr->food + object_ptr->pval);
 	}
 
-	// Destroy a food in the pack / on the floor
-	if(item >= 0)
-	{
-		inven_item_increase(creature_ptr, item, -1);
-		inven_item_describe(creature_ptr, item);
-		inven_item_optimize(creature_ptr, item);
-	}
-	else
-	{
-		floor_item_increase(0 - item, -1);
-		floor_item_describe(creature_ptr, 0 - item);
-		floor_item_optimize(0 - item);
-	}
+	cost_item(creature_ptr, item, -1);
 }
 
 

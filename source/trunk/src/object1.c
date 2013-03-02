@@ -2855,3 +2855,19 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		}
 	}
 }
+
+void cost_item(creature_type *user_ptr, int id, int num)
+{
+	if(id >= 0)
+	{
+		inven_item_increase(user_ptr, id, -num);
+		inven_item_describe(user_ptr, id);
+		inven_item_optimize(user_ptr, id);
+	}
+	else
+	{
+		floor_item_increase(0 - id, -num);
+		floor_item_describe(user_ptr, 0 - id);
+		floor_item_optimize(0 - id);
+	}
+}
