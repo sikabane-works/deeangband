@@ -10,6 +10,7 @@
 
 #ifdef JP
 
+#define MES_SYS_YOU_DIED(CREATURE) (has_trait((CREATURE), TRAIT_ANDROID) ? "あなたは壊れました" : "あなたは死にました")
 #define MES_SYS_MORE "-- 続く --"
 #define MES_SYS_WIZARD_MODE_ON "ウィザードモード突入。"
 #define MES_SYS_WIZARD_MODE_OFF "ウィザードモード解除。"
@@ -69,6 +70,7 @@
 
 #else
 
+#define MES_SYS_YOU_DIED(CREATURE) (has_trait((CREATURE), TRAIT_ANDROID) ? "You were broken." : "You died.")
 #define MES_SYS_MORE "-- MORE --"
 #define MES_SYS_WIZARD_MODE_ON "Wizard mode on."
 #define MES_SYS_WIZARD_MODE_OFF "Wizard mode off."
@@ -619,6 +621,7 @@
 #define MES_ARENA_EXTRA_ASK "挑戦するかね？"
 #define MES_ARENA_EXTRA_CANCELED "残念だ。"
 #define MES_ARENA_CHALLENGE(NAME) "%s に挑戦するものはいないか？", (NAME)
+#define MES_ARENA_LOST(TARGET) "あなたは%sの前に敗れ去った。", (TARGET)->name
 #else
 #define MES_ARENA_READY "Ready..Fight!"
 #define MES_ARENA_LIMIT "The arena absorbs all attempted magic!"
@@ -627,6 +630,7 @@
 #define MES_ARENA_EXTRA_ASK "Do you fight? "
 #define MES_ARENA_EXTRA_CANCELED "We are disappointed."
 #define MES_ARENA_CHALLENGE(NAME) "Do I hear any challenges against: %s", (NAME)
+#define MES_ARENA_LOST(TARGET) "You are beaten by %s.", (TARGET)->name;
 #endif
 
 #ifdef JP

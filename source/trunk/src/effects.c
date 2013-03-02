@@ -1192,11 +1192,7 @@ static void you_died(cptr hit_from)
 	if(floor_ptr->fight_arena_mode)
 	{
 		cptr target_name = species_name + species_info[arena_info[arena_number].species_idx].name;
-#ifdef JP
-		msg_format("‚ ‚È‚½‚Í%s‚Ì‘O‚É”s‚ê‹‚Á‚½B", target_name);
-#else
-		msg_format("You are beaten by %s.", target_name);
-#endif
+		msg_format(MES_ARENA_LOST(player_ptr));
 		msg_print(NULL);
 		if(record_arena) do_cmd_write_diary(DIARY_ARENA, -1 - arena_number, target_name);
 	}
@@ -1269,11 +1265,7 @@ static void you_died(cptr hit_from)
 		/* Hack -- Note death */
 		if(!last_words)
 		{
-#ifdef JP
-			msg_format("‚ ‚È‚½‚Í%s‚Ü‚µ‚½B", android ? "‰ó‚ê" : "€‚É");
-#else
-			msg_print(android ? "You are broken." : "You die.");
-#endif
+			msg_print(MES_SYS_YOU_DIED(player_ptr));
 			msg_print(NULL);
 		}
 		else
