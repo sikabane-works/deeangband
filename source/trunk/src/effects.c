@@ -944,29 +944,17 @@ void do_poly_wounds(creature_type *creature_ptr)
 	s16b wounds = creature_ptr->timed_trait[TRAIT_CUT];
 	s32b hit_p = (creature_ptr->mhp - creature_ptr->chp);
 	s16b change = diceroll(creature_ptr->lev, 5);
-	bool Nasty_effect = one_in_(5);
+	bool nasty_effect = one_in_(5);
 
-	if(!(wounds || hit_p || Nasty_effect)) return;
-
-	if(is_seen(player_ptr, creature_ptr))
-	{
-#ifdef JP
-		msg_print("•‰‚Á‚Ä‚¢‚½‚ª‚æ‚èŒy‚­‚È‚Á‚½B");
-#else
-		msg_print("Your wounds are polymorphed into less serious ones.");
-#endif
-	}
+	if(!(wounds || hit_p || nasty_effect)) return;
+	if(is_seen(player_ptr, creature_ptr)) msg_print(MES_POLYSELF_LESS_WOUND);
 
 	heal_creature(creature_ptr, change);
-	if(Nasty_effect)
+	if(nasty_effect)
 	{
 		if(is_seen(player_ptr, creature_ptr))
 		{
-#ifdef JP
-			msg_print("V‚½‚È‚ª‚Å‚«‚½I");
-#else
-			msg_print("A new wound was created!");
-#endif
+			msg_print(MES_POLYSELF_LESS_WOUND);
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, change / 2, COD_POLYMORPHED_WOUND, NULL, -1);
 		}
 		set_timed_trait(creature_ptr, TRAIT_CUT, change, FALSE);

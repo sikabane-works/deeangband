@@ -1837,12 +1837,16 @@ static cptr desc_stat_neg[] =
 #define MES_POLYSELF_ORDINARY "奇妙なくらい普通になった気がする。"
 #define MES_POLYSELF_DIFFICULT_FORM "現在の姿で生きていくのは困難なようだ！"
 #define MES_POLYMORPH_DONE(CREATURE) "突然%sが変身した。", (CREATURE)
+#define MES_POLYSELF_LESS_WOUND "負っていた傷がより軽くなった。"
+#define MES_POLYSELF_MORE_WOUND "新たな傷ができた！"
 #else
 #define MES_POLYSELF_ASK "You will polymorph your self. Are you sure? "
 #define MES_POLYSELF_FEELING "You feel a change coming over you..."
 #define MES_POLYSELF_ORDINARY "You feel oddly normal."
 #define MES_POLYSELF_DIFFICULT_FORM "You find living difficult in your present form!"
 #define MES_POLYMORPH_DONE(CREATURE) "Suddenly, %s transforms!", (CREATURE)
+#define MES_POLYSELF_LESS_WOUND "Your wounds are polymorphed into less serious ones."
+#define MES_POLYSELF_MORE_WOUND "A new wound was created!"
 #endif
 
 #ifdef JP
