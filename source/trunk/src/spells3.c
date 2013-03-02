@@ -917,21 +917,10 @@ bool reset_recall(creature_type *creature_ptr)
 	return TRUE;
 }
 
-// Apply disenchantment to the player's stuff
-// XXX XXX XXX This function is also called from the "melee" code
-// Return "TRUE" if the player notices anything
-bool apply_disenchant(creature_type *creature_ptr, int mode)
+bool object_disenchant(creature_type *owner_ptr, object_type *object_ptr, int mode)
 {
-	int             t = 0, item;
-	object_type     *object_ptr;
-	char            object_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	int to_hit, to_damage, to_ac, to_ev, to_vo, pval;
-
-	// Get the item
-	item = randint0(INVEN_TOTAL);
-	object_ptr = &creature_ptr->inventory[item];
-	if(!IS_EQUIPPED(object_ptr)) return FALSE;
-	if(!is_valid_object(object_ptr)) return FALSE; // No item, nothing happens
 
 	// Disenchant equipments only -- No disenchant on creature ball
 	if(!object_is_weapon_armour_ammo(object_ptr)) return FALSE;
@@ -948,9 +937,9 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 	if(object_is_artifact(object_ptr) && (randint0(100) < 71))
 	{
 #ifdef JP
-		msg_format("%s(%c)は劣化を跳ね返した！",object_name, index_to_label(t) );
+		msg_format("%sは劣化を跳ね返した！", object_name);
 #else
-		msg_format("Your %s (%c) resist%s disenchantment!", object_name, index_to_label(t), ((object_ptr->number != 1) ? "" : "s"));
+		msg_format("Your %s resist%s disenchantment!", object_name, ((object_ptr->number != 1) ? "" : "s"));
 #endif
 		return TRUE;
 	}
@@ -982,16 +971,34 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 	    (to_ac != object_ptr->to_ac) || (pval != object_ptr->pval))
 	{
 #ifdef JP
-		msg_format("%s(%c)は劣化してしまった！", object_name, index_to_label(t) );
+		msg_format("%sは劣化してしまった！", object_name);
 #else
-		msg_format("Your %s (%c) %s disenchanted!", object_name, index_to_label(t), ((object_ptr->number != 1) ? "were" : "was"));
+		msg_format("Your %s %s disenchanted!", object_name, ((object_ptr->number != 1) ? "were" : "was"));
 #endif
-		prepare_update(creature_ptr, CRU_BONUS);
+		prepare_update(owner_ptr, CRU_BONUS);
 		prepare_window(PW_EQUIP | PW_PLAYER);
-		calc_android_exp(creature_ptr);
+		calc_android_exp(owner_ptr);
 	}
 
 	return TRUE;
+}
+
+// Apply disenchantment to the player's stuff
+// XXX XXX XXX This function is also called from the "melee" code
+// Return "TRUE" if the player notices anything
+bool apply_disenchant(creature_type *creature_ptr, int mode)
+{
+	int item;
+	object_type *object_ptr;
+
+	// Get the item
+	item = randint0(INVEN_TOTAL);
+	object_ptr = &creature_ptr->inventory[item];
+
+	if(!IS_EQUIPPED(object_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE; // No item, nothing happens
+
+	return object_disenchant(creature_ptr, object_ptr, mode);
 }
 
 
