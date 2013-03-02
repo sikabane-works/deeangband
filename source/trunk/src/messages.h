@@ -3175,3 +3175,14 @@ static cptr desc_stat_neg[] =
 #define MES_TUNNEL_NONE "You see nothing there."
 #define MES_TUNNEL_NO_TARGET "You see nothing there to tunnel."
 #endif
+
+#ifdef JP
+#define MES_EAT_LESS_EFFECT_BY_VAMPIRE "Ç†Ç»ÇΩÇÃÇÊÇ§Ç»é“Ç…Ç∆Ç¡ÇƒêHó∆Ç»Ç«ãÕÇ©Ç»âhó{Ç…ÇµÇ©Ç»ÇÁÇ»Ç¢ÅB"
+#define MES_EAT_LESS_EFFECT_BY_VAMPIRE2 "Ç†Ç»ÇΩÇÃãQÇ¶ÇÕêVëNÇ»ååÇ…ÇÊÇ¡ÇƒÇÃÇ›ñûÇΩÇ≥ÇÍÇÈÅI"
+#define MES_EAT_LESS_EFFECT_MORTAL_FOOD "ê∂é“ÇÃêHï®ÇÕÇ†Ç»ÇΩÇ…Ç∆Ç¡ÇƒÇŸÇ∆ÇÒÇ«âhó{Ç…Ç»ÇÁÇ»Ç¢ÅB"
+#else
+#define MES_EAT_LESS_EFFECT_BY_VAMPIRE "Mere victuals hold scant sustenance for a being such as yourself."
+#define MES_EAT_LESS_EFFECT_BY_VAMPIRE2 "Your hunger can only be satisfied with fresh blood!"
+#define MES_EAT_LESS_EFFECT_MORTAL_FOOD "The food of mortals is poor sustenance for you."
+#endif
+

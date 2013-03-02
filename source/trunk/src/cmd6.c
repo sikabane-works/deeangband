@@ -223,19 +223,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	{
 		// Reduced nutritional benefit
 		(void)set_food(creature_ptr, creature_ptr->food + (object_ptr->pval / 10));
-#ifdef JP	
-		msg_print("‚ ‚È‚½‚Ì‚æ‚¤‚ÈŽÒ‚É‚Æ‚Á‚ÄH—Æ‚È‚Ç‹Í‚©‚È‰h—{‚É‚µ‚©‚È‚ç‚È‚¢B");
-#else
-		msg_print("Mere victuals hold scant sustenance for a being such as yourself.");
-#endif
-
-		if(creature_ptr->food < CREATURE_FOOD_ALERT)   // Hungry
-#ifdef JP
-			msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
-#else
-			msg_print("Your hunger can only be satisfied with fresh blood!");
-#endif
-
+		msg_print(MES_EAT_LESS_EFFECT_BY_VAMPIRE);
+		// Hungry
+		if(creature_ptr->food < CREATURE_FOOD_ALERT) msg_print(MES_EAT_LESS_EFFECT_BY_VAMPIRE2);
 	}
 	else if(has_trait(creature_ptr, TRAIT_UNDEAD) && (object_ptr->tval == TV_STAFF || object_ptr->tval == TV_WAND))
 	{
@@ -365,11 +355,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	}
 	else if(has_trait(creature_ptr, TRAIT_NONLIVING) || has_trait(creature_ptr, TRAIT_UNDEAD) || has_trait(creature_ptr, TRAIT_DEMON))
 	{
-#ifdef JP
-		msg_print("¶ŽÒ‚ÌH•¨‚Í‚ ‚È‚½‚É‚Æ‚Á‚Ä‚Ù‚Æ‚ñ‚Ç‰h—{‚É‚È‚ç‚È‚¢B");
-#else
-		msg_print("The food of mortals is poor sustenance for you.");
-#endif
+		msg_print(MES_EAT_LESS_EFFECT_MORTAL_FOOD);
 		set_food(creature_ptr, creature_ptr->food + ((object_ptr->pval) / 20));
 	}
 	else if(object_ptr->tval == TV_FOOD && object_ptr->sval == SV_FOOD_WAYBREAD)
