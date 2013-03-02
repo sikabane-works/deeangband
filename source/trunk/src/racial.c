@@ -182,7 +182,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 #else
 		msg_print("You make some ammo.");
 #endif
-		reduce_item(creature_ptr, item, -1, TRUE);
+		increase_item(creature_ptr, item, -1, TRUE);
 		slot = inven_carry(creature_ptr, quest_ptr);
 
 		/* Auto-inscription */
@@ -224,7 +224,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		msg_print("You make some ammo.");
 #endif
 
-		reduce_item(creature_ptr, item, -1, TRUE);
+		increase_item(creature_ptr, item, -1, TRUE);
 		slot = inven_carry(creature_ptr, quest_ptr);
 
 		/* Auto-inscription */
@@ -296,7 +296,7 @@ bool gain_magic(creature_type *creature_ptr)
 	object_desc(object_name, object_ptr, 0);
 	msg_format(MES_GAINMAGIC_ABSORBED(object_name));
 
-	reduce_item(creature_ptr, item, -999, TRUE);
+	increase_item(creature_ptr, item, -999, TRUE);
 	cost_tactical_energy(creature_ptr, 100);
 	return TRUE;
 }

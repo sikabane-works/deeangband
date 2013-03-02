@@ -719,7 +719,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 	{
 		msg_print(MES_TRAP_S_H_DEMON);
 		msg_print(MES_SUMMON_SERVANT);
-		reduce_item(creature_ptr, item, -1, TRUE);
+		increase_item(creature_ptr, item, -1, TRUE);
 	}
 	else
 	{

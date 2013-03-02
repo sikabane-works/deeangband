@@ -4131,7 +4131,7 @@ static void pack_overflow(creature_type *creature_ptr)
 		msg_format(MES_OBJECT_DROPPED(object_name, index_to_label(INVEN_TOTAL)));
 
 		(void)drop_near(floor_ptr, object_ptr, 0, creature_ptr->fy, creature_ptr->fx);
-		reduce_item(creature_ptr, INVEN_TOTAL, -255, TRUE);
+		increase_item(creature_ptr, INVEN_TOTAL, -255, TRUE);
 
 		notice_stuff(creature_ptr);
 		handle_stuff(creature_ptr);

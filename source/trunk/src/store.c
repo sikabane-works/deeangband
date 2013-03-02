@@ -3804,11 +3804,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 		msg_format(MES_STORE_DROP(object_name, index_to_label(item)));
 		choice = 0;
 
-		/* Take it from the players creature_ptr->inventory */
-		inven_item_increase(creature_ptr, item, -amt);
-		inven_item_describe(creature_ptr, item);
-		inven_item_optimize(creature_ptr, item);
-
+		increase_item(creature_ptr, item, -amt, TRUE);
 		handle_stuff(creature_ptr);
 
 		/* Let the home carry it */
@@ -3829,12 +3825,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 		msg_format(MES_STORE_DROP(object_name, index_to_label(item)));
 
 		choice = 0;
-
-		/* Take it from the players creature_ptr->inventory */
-		inven_item_increase(creature_ptr, item, -amt);
-		inven_item_describe(creature_ptr, item);
-		inven_item_optimize(creature_ptr, item);
-
+		increase_item(creature_ptr, item, -amt, TRUE);
 		handle_stuff(creature_ptr);
 
 		/* Let the home carry it */
@@ -4497,11 +4488,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 				object_desc(object_name, quest_ptr, 0);
 				msg_format(MES_STORE_DROP_ITEM(object_name, index_to_label(item)));
 
-				/* Remove it from the players creature_ptr->inventory */
-				inven_item_increase(creature_ptr, item, -255);
-				inven_item_describe(creature_ptr, item);
-				inven_item_optimize(creature_ptr, item);
-
+				increase_item(creature_ptr, item, -255, TRUE);
 				handle_stuff(creature_ptr);
 
 				/* Let the home carry it */

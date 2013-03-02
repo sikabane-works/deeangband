@@ -2856,7 +2856,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 	}
 }
 
-void reduce_item(creature_type *user_ptr, int id, int num, bool desc)
+void increase_item(creature_type *user_ptr, int id, int num, bool desc)
 {
 	if(id >= 0)
 	{

@@ -2152,7 +2152,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						//TODO j_ptr->held_m_idx = m_idx;
 					}
 
-					reduce_item(target_ptr, i, -1, FALSE);
+					increase_item(target_ptr, i, -1, FALSE);
 					obvious = TRUE;
 					blinked = TRUE;
 					break;
@@ -2183,7 +2183,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #else
 					msg_format("%sour %s (%c) was eaten!", ((object_ptr->number > 1) ? "One of y" : "Y"), object_name, index_to_label(i));
 #endif
-					reduce_item(target_ptr, i, -1, FALSE);
+					increase_item(target_ptr, i, -1, FALSE);
 					obvious = TRUE;
 
 					break;

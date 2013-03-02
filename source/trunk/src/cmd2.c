@@ -1784,7 +1784,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 			cost_tactical_energy(creature_ptr, 100);
 			msg_format(MES_SPIKE_JAM(feature_name + feature_info[feat].name));
 			cave_alter_feat(floor_ptr, y, x, FF_SPIKE);
-			reduce_item(creature_ptr, item, -1, TRUE);
+			increase_item(creature_ptr, item, -1, TRUE);
 		}
 	}
 }
@@ -2386,7 +2386,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	quest_ptr->number = 1;
 
 	// Reduce and describe inventory or floor item
-	reduce_item(creature_ptr, item, -1, FALSE);
+	increase_item(creature_ptr, item, -1, FALSE);
 
 	sound(SOUND_SHOOT);
 
@@ -2986,7 +2986,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	if(has_trait_object(quest_ptr, TRAIT_TRUE_RETURNING_THROW) || boomerang) return_when_thrown = TRUE;
 
-	reduce_item(creature_ptr, item, -1, FALSE);
+	increase_item(creature_ptr, item, -1, FALSE);
 
 	if(IS_EQUIPPED(object_ptr))
 	{

@@ -3956,7 +3956,7 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 
 	}
 
-	reduce_item(creature_ptr, item, -amt, FALSE);
+	increase_item(creature_ptr, item, -amt, FALSE);
 
 	// Carry the object
 	slot = inven_carry(creature_ptr, quest_ptr);
@@ -4027,7 +4027,7 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 	msg_format(MES_OBJECT_DROPPED(object_name, index_to_label(item)));
 
 	(void)drop_near(floor_ptr, quest_ptr, 0, creature_ptr->fy, creature_ptr->fx);
-	reduce_item(creature_ptr, item, -amt, TRUE);
+	increase_item(creature_ptr, item, -amt, TRUE);
 }
 
 
