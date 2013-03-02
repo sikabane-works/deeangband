@@ -2029,31 +2029,7 @@ static cptr pit_subtype_string(int type, bool nest)
 			break;
 		case PIT_TYPE_DRAGON:
 			switch (vault_aux_dragon_mask4)
-			{
-				//TODO
-#if 0
-
-#ifdef JP
-			case RF4_BR_ACID: strcpy(inner_buf, "(é_)");   break;
-			case RF4_BR_ELEC: strcpy(inner_buf, "(àÓç»)"); break;
-			case RF4_BR_FIRE: strcpy(inner_buf, "(âŒâä)"); break;
-			case RF4_BR_COLD: strcpy(inner_buf, "(ó‚ãC)"); break;
-			case RF4_BR_POIS: strcpy(inner_buf, "(ì≈)");   break;
-			case (RF4_BR_ACID | RF4_BR_ELEC | RF4_BR_FIRE | RF4_BR_COLD | RF4_BR_POIS):
-				strcpy(inner_buf, "(ñúêF)"); break;
-			default: strcpy(inner_buf, "(ñ¢íËã`)"); break;
-#else
-			case RF4_BR_ACID: strcpy(inner_buf, "(acid)");      break;
-			case RF4_BR_ELEC: strcpy(inner_buf, "(lightning)"); break;
-			case RF4_BR_FIRE: strcpy(inner_buf, "(fire)");      break;
-			case RF4_BR_COLD: strcpy(inner_buf, "(frost)");     break;
-			case RF4_BR_POIS: strcpy(inner_buf, "(poison)");    break;
-			case (RF4_BR_ACID | RF4_BR_ELEC | RF4_BR_FIRE | RF4_BR_COLD | RF4_BR_POIS):
-				strcpy(inner_buf, "(multi-hued)"); break;
-			default: strcpy(inner_buf, "(undefined)"); break;
-#endif
-#endif
-			}
+				//TODO:
 			break;
 		}
 	}
@@ -2062,7 +2038,7 @@ static cptr pit_subtype_string(int type, bool nest)
 }
 
 
-/* A struct for nest creature information with cheat_hear */
+// A struct for nest creature information with cheat_hear
 typedef struct
 {
 	s16b species_idx;
@@ -2071,9 +2047,7 @@ typedef struct
 nest_info_type;
 
 
-/*
- * Comp function for sorting nest creature information
- */
+// Comp function for sorting nest creature information
 static bool ang_sort_comp_nest_info(vptr u, vptr v, int a, int b)
 {
 	nest_info_type *nest_info = (nest_info_type *)u;

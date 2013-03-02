@@ -10018,13 +10018,8 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			object_type *object_ptr;
 			u32b f[MAX_TRAITS_FLAG];
 
-#ifdef JP
-			q = "どれを呪いますか？";
-			s = "武器を装備していない。";
-#else
-			q = "Which weapon do you curse?";
-			s = "You wield no weapons.";
-#endif
+			q = MES_HEX_WHICH_CURSE;
+			s = MES_HEX_WHICH_NO_WEAPON;
 
 			if(!get_item(caster_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_weapon_except_bow, 0)) return FALSE;
 
@@ -10443,13 +10438,8 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			object_type *object_ptr;
 			u32b f[MAX_TRAITS_FLAG];
 
-#ifdef JP
-			q = "どれを呪いますか？";
-			s = "防具を装備していない。";
-#else
-			q = "Which piece of armour do you curse?";
-			s = "You wield no piece of armours.";
-#endif
+			q = MES_HEX_WHICH_CURSE;
+			s = MES_HEX_WHICH_NO_ARMOUR;
 
 			if(!get_item(caster_ptr, &item, q, s, (USE_EQUIP), object_is_armour2, 0)) return FALSE;
 

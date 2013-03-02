@@ -3133,3 +3133,14 @@ static cptr desc_stat_neg[] =
 #define MES_RESEARCH_NON_UNIQUE_LIST "Non-unique creature list."
 #endif
 
+#ifdef JP
+#define MES_HEX_WHICH_CURSE "‚Ç‚ê‚ğô‚¢‚Ü‚·‚©H"
+#define MES_HEX_WHICH_NO_WEAPON "•Ší‚ğ‘•”õ‚µ‚Ä‚¢‚È‚¢B"
+#define MES_HEX_WHICH_NO_ARMOUR "–h‹ï‚ğ‘•”õ‚µ‚Ä‚¢‚È‚¢B"
+#else
+#define MES_HEX_WHICH_CURSE "Which weapon do you curse?"
+#define MES_HEX_WHICH_NO_WEAPON "You wield no weapons."
+#define MES_HEX_WHICH_NO_ARMOUR "You wield no piece of armours."
+#endif
+
+
