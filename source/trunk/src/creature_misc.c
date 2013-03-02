@@ -384,52 +384,6 @@ static s16b calc_creature_standard_size(species_type * mr_ptr){
 	return calc_bodysize(tmpht, tmpwt);	
 }
 
-
-void estimate_enemy_hp(species_type *mr_ptr, int *result)
-{
-	// TODO :: NEW CALC
-	int con_p, bonus;
-	int num, size, dice;
-	int convert_lv;
-
-	convert_lv = mr_ptr->level;
-
-	if(convert_lv >= 128) convert_lv = 127;
-
-	num = 10;
-
-	size = calc_creature_standard_size(mr_ptr);
-
-	dice = size >= 10 ? 5 + size / 2 : size;
-	if(mr_ptr->race_idx1 != INDEX_NONE)
-		dice += race_info[mr_ptr->race_idx1].r_mhp;
-	if(mr_ptr->class_idx == CLASS_SORCERER)
-		dice /= 2;
-	if(mr_ptr->class_idx != INDEX_NONE)
-		dice += class_info[mr_ptr->class_idx].c_mhp;
-	if(mr_ptr->chara_idx != INDEX_NONE)
-		dice += chara_info[mr_ptr->chara_idx].a_mhp;
-
-	con_p = mr_ptr->stat_max[STAT_CON] / STAT_FRACTION - 3;
-	if(con_p < 0) con_p = 0;
-
-	bonus = ((int)(adj_con_mhp[con_p]) - 128) * num / 4;
-
-	if(mr_ptr->dr >= 1)
-	{
-		result[0] = num * dice + bonus;
-	}
-	else
-	{
-		result[0] = num * (dice + 1) / 2 + bonus;
-	}
-	if(result[0] < 1) result[0] = 1;
-	result[1] = num;
-	result[2] = dice;
-	result[3] = bonus;
-	return;
-}
-
 void initialize_skill(creature_type *creature_ptr)
 {
 	int i, tmp_cls;

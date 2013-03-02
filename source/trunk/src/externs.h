@@ -797,7 +797,6 @@ extern void set_creature_sp_percent(creature_type *creature_ptr, int percentage)
 extern s16b calc_bodysize(s32b ht, s32b wt);
 extern s16b calc_punishment_slay(creature_type *creature_ptr, int alignment);
 extern s16b calc_race_standard_size(race_type *ir_ptr);
-extern void estimate_enemy_hp(species_type *mr_ptr, int *result);
 extern void initialize_skill(creature_type *creature_ptr);
 
 extern bool have_shoot_weapon(creature_type *creature_ptr);
@@ -1291,6 +1290,7 @@ extern int set_elec_destroy(object_type *object_ptr);
 extern int set_fire_destroy(object_type *object_ptr);
 extern int set_cold_destroy(object_type *object_ptr);
 extern int inven_damage(creature_type *creature_ptr, inven_func typ, int perc);
+extern int dissolve_armour(creature_type *creature_ptr);
 extern bool rustproof(creature_type *creature_ptr);
 extern bool curse_armor(creature_type *creature_ptr);
 extern bool curse_weapon(creature_type *target_ptr, bool force, int slot);

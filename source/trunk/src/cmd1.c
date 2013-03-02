@@ -545,8 +545,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	int max_len = 0;
-	s16b this_object_idx, floor_num = 0, next_object_idx = 0;
-	char object_name[MAX_NLEN];
+	s16b floor_num = 0, next_object_idx = 0;
 	
 	verify_panel(creature_ptr); // Recenter the map around the player
 	prepare_update(creature_ptr, PU_CREATURES);

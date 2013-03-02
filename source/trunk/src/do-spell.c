@@ -5557,10 +5557,10 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 				int type;
 				switch (randint1(4))
 				{
-					case 1:  type = DO_EFFECT_FIRE;break;
-					case 2:  type = DO_EFFECT_ELEC;break;
-					case 3:  type = DO_EFFECT_COLD;break;
-					default: type = DO_EFFECT_ACID;break;
+					case 1:  type = DO_EFFECT_FIRE; break;
+					case 2:  type = DO_EFFECT_ELEC; break;
+					case 3:  type = DO_EFFECT_COLD; break;
+					default: type = DO_EFFECT_ACID; break;
 				}
 				cast_ball(caster_ptr, type, MAX_RANGE_SUB, dam, rad);
 			}

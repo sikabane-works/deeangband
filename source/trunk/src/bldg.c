@@ -81,7 +81,7 @@ static int building_select(creature_type *creature_ptr, building_type* bldg)
 	si_info.h = 11;
 	si_info.detail = NULL;
 	si_info.caption = NULL;
-	si_info.mode = NULL;
+	si_info.mode = 0;
 	si_info.num = 0;
 	si_info.default_se = 0;
 	
@@ -3367,15 +3367,12 @@ void do_cmd_quest(creature_type *creature_ptr)
 }
 
 
-/*
- * Do building commands
- */
+// Do building commands
 void do_cmd_bldg(creature_type *creature_ptr)
 {
-	int             i, which;
-	char            command;
-	bool            validcmd;
-	building_type   *bldg;
+	int which;
+	char command;
+	building_type *bldg;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	cost_tactical_energy(creature_ptr, 100);

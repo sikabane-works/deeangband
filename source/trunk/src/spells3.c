@@ -3941,13 +3941,11 @@ int set_cold_destroy(object_type *object_ptr)
 }
 
 
-/*
- * Destroys a type of item on a given percent chance
- * Note that missiles are no longer necessarily all destroyed
- * Destruction taken from "melee.c" code for "stealing".
- * New-style wands and rods handled correctly. -LM-
- * Returns number of items destroyed.
- */
+// Destroys a type of item on a given percent chance
+// Note that missiles are no longer necessarily all destroyed
+// Destruction taken from "melee.c" code for "stealing".
+// New-style wands and rods handled correctly. -LM-
+// Returns number of items destroyed.
 int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 {
 	int         i, j, k, amt;
@@ -4033,19 +4031,13 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 		}
 	}
 
-	/* Return the casualty count */
 	return (k);
 }
 
-
-/*
- * Acid has hit the player, attempt to affect some armor.
- *
- * Note that the "base armor" of an object never changes.
- *
- * If any armor is damaged (or resists), the player takes less damage.
- */
-static int minus_ac(creature_type *creature_ptr)
+// Acid has hit the creature, attempt to affect some armor.
+// Note that the "base armor" of an object never changes.
+// If any armor is damaged (or resists), the creature takes less damage.
+int dissolve_armour(creature_type *creature_ptr)
 {
 	int i;
 	object_type *object_ptr = NULL;

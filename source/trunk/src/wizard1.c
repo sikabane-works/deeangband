@@ -1208,18 +1208,11 @@ static void spoil_artifact(cptr fname)
 	msg_print("Successfully created a spoiler file.");
 }
 
-
-
-
-
-/*
- * Create a spoiler file for creatures   -BEN-
- */
+// Create a spoiler file for creatures   -BEN-
 static void spoil_species_desc(cptr fname)
 {
 	int i, j, n = 0;
 	int tmpht, tmpwt, tmpsize;
-	int hpdata[4];
 	int stat[6];
 
 	u16b why = 2;
@@ -1368,18 +1361,6 @@ static void spoil_species_desc(cptr fname)
 		/* Armor Class */
 		sprintf(ac, "%d", species_ptr->ac);
 
-		/* Hitpoints */
-		//TODO:: EstimateHP
-		estimate_enemy_hp(species_ptr, hpdata);
-		sprintf(hp, "%5d", hpdata[0]);
-		if(species_ptr->dr >= 1)
-		{
-			sprintf(hp_desc, "(%dx%d%+d)", hpdata[1], hpdata[2], hpdata[3]);
-		}
-		else
-		{
-			sprintf(hp_desc, "(%dd%d%+d)", hpdata[1], hpdata[2], hpdata[3]);
-		}
 
 		/* height & weight & size */
 
@@ -1709,16 +1690,12 @@ static void roff_func(byte attr, cptr str)
 	spoil_out(str);
 }
 
-
-/*
- * Create a spoiler file for creatures (-SHAWN-)
- */
+// Create a spoiler file for creatures (-SHAWN-)
 static void spoil_species_info(cptr fname)
 {
 	char buf[1024];
 	int i, l, n = 0;
 	int tmpht;
-	int hpdata[4];
 
 	u16b why = 2;
 	s16b *who;
@@ -1846,13 +1823,6 @@ static void spoil_species_info(cptr fname)
 		        species_ptr->stat_max[STAT_STR] / STAT_FRACTION, species_ptr->stat_max[STAT_INT] / STAT_FRACTION,
 		        species_ptr->stat_max[STAT_WIS] / STAT_FRACTION, species_ptr->stat_max[STAT_DEX] / STAT_FRACTION,
 		        species_ptr->stat_max[STAT_CON] / STAT_FRACTION, species_ptr->stat_max[STAT_CHA] / STAT_FRACTION);
-		spoil_out(buf);
-
-
-		/* Hitpoints */
-		estimate_enemy_hp(species_ptr, hpdata);
-		sprintf(buf, "Hp:%d (%dx%d+%d)", hpdata[0], hpdata[1], hpdata[2], hpdata[3]);
-
 		spoil_out(buf);
 
 		/* Armor Class */
