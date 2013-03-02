@@ -2795,16 +2795,16 @@ bool recharge(creature_type *creature_ptr, int power)
 }
 
 // Bless a weapon
-bool bless_weapon(creature_type *creature_ptr)
+bool bless_weapon(creature_type *caster_ptr)
 {
 	int             item;
 	object_type     *object_ptr;
 	u32b flgs[MAX_TRAITS_FLAG];
 	char            object_name[MAX_NLEN];
 
-	if(!get_item(creature_ptr, &item, MES_WEP_BLESS_WHICH_OBJECT, MES_WEP_BLESS_NO_OBJECT, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon2, 0))
+	if(!get_item(caster_ptr, &item, MES_WEP_BLESS_WHICH_OBJECT, MES_WEP_BLESS_NO_OBJECT, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon2, 0))
 		return FALSE;
-	object_ptr = GET_ITEM(creature_ptr, item);
+	object_ptr = GET_ITEM(caster_ptr, item);
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extract the flags */
@@ -2830,7 +2830,7 @@ bool bless_weapon(creature_type *creature_ptr)
 		/* Take note */
 		object_ptr->feeling = FEEL_NONE;
 
-		prepare_update(creature_ptr, CRU_BONUS);
+		prepare_update(caster_ptr, CRU_BONUS);
 		prepare_window(PW_EQUIP);
 	}
 
@@ -2868,48 +2868,16 @@ bool bless_weapon(creature_type *creature_ptr)
 	{
 		bool dis_happened = FALSE;
 		msg_print(MES_WEP_BLESS_RESIST);
-
-		/* Disenchant tohit */
-		if(object_ptr->to_hit > 0)
-		{
-			object_ptr->to_hit--;
-			dis_happened = TRUE;
-		}
-
-		if((object_ptr->to_hit > 5) && (PERCENT(33))) object_ptr->to_hit--;
-
-		/* Disenchant todam */
-		if(object_ptr->to_damage > 0)
-		{
-			object_ptr->to_damage--;
-			dis_happened = TRUE;
-		}
-
-		if((object_ptr->to_damage > 5) && (PERCENT(33))) object_ptr->to_damage--;
-
-		/* Disenchant toac */
-		if(object_ptr->to_ac > 0)
-		{
-			object_ptr->to_ac--;
-			dis_happened = TRUE;
-		}
-
-		if((object_ptr->to_ac > 5) && (PERCENT(33))) object_ptr->to_ac--;
-
 		if(dis_happened)
 		{
 			msg_print(MES_WEP_BLESS_FAILED);
-#ifdef JP
-			msg_format("%s ‚Í—ò‰»‚µ‚½I", object_name);
-#else
-			msg_format("%s %s %s disenchanted!", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "were" : "was"));
-#endif
+			object_disenchant(caster_ptr, object_ptr, 0);
 		}
 	}
 
-	prepare_update(creature_ptr, CRU_BONUS);
+	prepare_update(caster_ptr, CRU_BONUS);
 	prepare_window(PW_EQUIP | PW_PLAYER);
-	calc_android_exp(creature_ptr);
+	calc_android_exp(caster_ptr);
 
 	return TRUE;
 }

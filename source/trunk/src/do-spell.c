@@ -10046,25 +10046,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 				msg_format("%s resists the effect.", object_name);
 #endif
-				if(one_in_(3))
-				{
-					if(object_ptr->to_damage > 0)
-					{
-						object_ptr->to_damage -= randint1(3) % 2;
-						if(object_ptr->to_damage < 0) object_ptr->to_damage = 0;
-					}
-					if(object_ptr->to_hit > 0)
-					{
-						object_ptr->to_hit -= randint1(3) % 2;
-						if(object_ptr->to_hit < 0) object_ptr->to_hit = 0;
-					}
-					if(object_ptr->to_ac > 0)
-					{
-						object_ptr->to_ac -= randint1(3) % 2;
-						if(object_ptr->to_ac < 0) object_ptr->to_ac = 0;
-					}
-					msg_format(GAME_MESSAGE_OBJECT_DISENCHANTED(object_name));
-				}
+				if(one_in_(3)) object_disenchant(caster_ptr, object_ptr, 0);
 			}
 			else
 			{
@@ -10489,25 +10471,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 				msg_format("%s resists the effect.", object_name);
 #endif
-				if(one_in_(3))
-				{
-					if(object_ptr->to_damage > 0)
-					{
-						object_ptr->to_damage -= randint1(3) % 2;
-						if(object_ptr->to_damage < 0) object_ptr->to_damage = 0;
-					}
-					if(object_ptr->to_hit > 0)
-					{
-						object_ptr->to_hit -= randint1(3) % 2;
-						if(object_ptr->to_hit < 0) object_ptr->to_hit = 0;
-					}
-					if(object_ptr->to_ac > 0)
-					{
-						object_ptr->to_ac -= randint1(3) % 2;
-						if(object_ptr->to_ac < 0) object_ptr->to_ac = 0;
-					}
-					msg_format(GAME_MESSAGE_OBJECT_DISENCHANTED(object_name));
-				}
+				if(one_in_(3)) object_disenchant(caster_ptr, object_ptr, 0);
 			}
 			else
 			{

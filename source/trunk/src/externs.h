@@ -1271,7 +1271,7 @@ extern bool mundane_spell(creature_type *creature_ptr, bool only_equip);
 extern bool identify_item(creature_type *creature_ptr, object_type *object_ptr);
 extern bool identify_fully(creature_type *creature_ptr, bool only_equip);
 extern bool recharge(creature_type *creature_ptr, int num);
-extern bool bless_weapon(creature_type *creature_ptr);
+extern bool bless_weapon(creature_type *caster_ptr);
 extern bool pulish_shield(creature_type *creature_ptr);
 extern bool potion_smash_effect(int who, int y, int x, int k_idx);
 extern void display_spell_list(creature_type *creature_ptr);
