@@ -2153,7 +2153,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	msg_print(MES_AVTIVATE_DONE);
 	sound(SOUND_ZAP); // Sound
 
-	if(object_ptr->art_name)
+	if(object_is_random_artifact(object_ptr))
 	{
 		(void)activate_object(creature_ptr, object_ptr);
 		prepare_window(PW_INVEN | PW_EQUIP);

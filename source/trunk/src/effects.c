@@ -1912,7 +1912,7 @@ void calc_android_exp(creature_type *creature_ptr)
 		{
 			level += MAX(3, (object_ego_info[object_ptr->name2].rating - 5)/2);
 		}
-		else if(object_ptr->art_name)
+		else if(object_is_random_artifact(object_ptr))
 		{
 			s32b total_flags = flag_cost(object_ptr, object_ptr->pval);
 			int fake_level;

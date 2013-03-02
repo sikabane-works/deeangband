@@ -3689,12 +3689,12 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b 
 
 	/* Fixed artifacts, random artifacts and ego items */
 	if(object_is_fixed_artifact(object_ptr)) o_type = 3;
-	else if(object_ptr->art_name) o_type = 2;
+	else if(object_is_random_artifact(object_ptr)) o_type = 2;
 	else if(object_is_ego(object_ptr)) o_type = 1;
 	else o_type = 0;
 
 	if(object_is_fixed_artifact(object2_ptr)) j_type = 3;
-	else if(object2_ptr->art_name) j_type = 2;
+	else if(object_is_random_artifact(object2_ptr)) j_type = 2;
 	else if(object_is_ego(object2_ptr)) j_type = 1;
 	else j_type = 0;
 

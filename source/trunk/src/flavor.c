@@ -1757,7 +1757,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	if(known)
 	{
 		if(object_is_fixed_artifact(object_ptr)) t = object_desc_str(t, "★");
-		else if(object_ptr->art_name) t = object_desc_str(t, "☆");
+		else if(object_is_random_artifact(object_ptr)) t = object_desc_str(t, "☆");
 	}
 
 #else
@@ -1873,7 +1873,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	if(known)
 	{
 		/* ランダム・アーティファクト */
-		if(object_ptr->art_name)
+		if(object_is_random_artifact(object_ptr))
 		{
 			cptr temp = quark_str(object_ptr->art_name);
 
@@ -1977,7 +1977,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	{
 		/* ランダムアーティファクトの名前はセーブファイルに記録
 		   されるので、英語版の名前もそれらしく変換する */
-		if(object_ptr->art_name)
+		if(object_is_random_artifact(object_ptr))
 		{
 			char temp[256];
 			int itemp;
@@ -2042,7 +2042,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	if(known && !have_flag(flgs, TRAIT_FULL_NAME))
 	{
 		/* Is it a new random artifact ? */
-		if(object_ptr->art_name)
+		if(object_is_random_artifact(object_ptr))
 		{
 			t = object_desc_chr(t, ' ');
 			t = object_desc_str(t, quark_str(object_ptr->art_name));
