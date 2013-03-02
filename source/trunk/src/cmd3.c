@@ -792,22 +792,8 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 		object2_ptr->fuel = FUEL_LAMP;
 		msg_print(MES_LITE_FUEL_FULL);
 	}
-	/* Decrease the item (from the pack) */
-	if(item >= 0)
-	{
-		inven_item_increase(creature_ptr, item, -1);
-		inven_item_describe(creature_ptr, item);
-		inven_item_optimize(creature_ptr, item);
-	}
 
-	/* Decrease the item (from the floor) */
-	else
-	{
-		floor_item_increase(0 - item, -1);
-		floor_item_describe(creature_ptr, 0 - item);
-		floor_item_optimize(0 - item);
-	}
-
+	cost_item(creature_ptr, item, -1);
 	prepare_update(creature_ptr, CRU_TORCH);
 }
 

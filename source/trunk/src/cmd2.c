@@ -2388,17 +2388,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	quest_ptr->number = 1;
 
 	// Reduce and describe inventory or floor item
-	if(item >= 0)
-	{
-		inven_item_increase(creature_ptr, item, -1);
-		inven_item_describe(creature_ptr, item);
-		inven_item_optimize(creature_ptr, item);
-	}
-	else
-	{
-		floor_item_increase(0 - item, -1);
-		floor_item_optimize(0 - item);
-	}
+	cost_item(creature_ptr, item, -1);
 
 	sound(SOUND_SHOOT);
 
@@ -2996,23 +2986,10 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		}
 	}
 
-	if(has_trait_object(quest_ptr, TRAIT_TRUE_RETURNING_THROW) || boomerang)
-		return_when_thrown = TRUE;
+	if(has_trait_object(quest_ptr, TRAIT_TRUE_RETURNING_THROW) || boomerang) return_when_thrown = TRUE;
 
-	/* Reduce and describe creature_ptr->inventory */
-	if(item >= 0)
-	{
-		inven_item_increase(creature_ptr, item, -1);
-		if(!return_when_thrown) inven_item_describe(creature_ptr, item);
-		inven_item_optimize(creature_ptr, item);
-	}
+	cost_item(creature_ptr, item, -1);
 
-	/* Reduce and describe floor item */
-	else
-	{
-		floor_item_increase(0 - item, -1);
-		floor_item_optimize(0 - item);
-	}
 	if(IS_EQUIPPED(object_ptr))
 	{
 		equiped_item = TRUE;
