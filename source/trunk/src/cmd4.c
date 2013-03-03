@@ -404,7 +404,7 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 		{
 			if(num)
 			{
-				fprintf(fff, "%s\n",note);
+				fprintf(fff, "%s\n", note);
 				do_level = FALSE;
 			}
 			else
@@ -708,100 +708,24 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 
 #define MAX_SUBTITLE (sizeof(subtitle) / sizeof(subtitle[0]))
 
-static void do_cmd_disp_nikki(creature_type *creature_ptr)
+static void do_cmd_disp_diary(creature_type *creature_ptr)
 {
 	char nikki_title[256];
 	char file_name[80];
 	char buf[1024];
-	char tmp[80];
-#ifdef JP
-	static const char subtitle[][30] = {
-						"Å‹­‚Ì“÷‘Ì‚ð‹‚ß‚Ä",
-						"l¶‚»‚ê‚Í‚Í‚©‚È‚¢",
-						"–¾“ú‚ÉŒü‚©‚Á‚Ä",
-						"’I‚©‚ç‚Ú‚½‚à‚¿",
-						"‚ ‚Æ‚ÌÕ‚è",
-						"‚»‚ê‚Í‚¢‚¢l‚¦‚¾",
-						"‰½‚Æ‚Å‚àŒ¾‚¦",
-						"“e‚É‚àŠp‚É‚à",
-						"ƒEƒ\‚¾‚¯‚Ç",
-						"‚à‚Í‚â‚±‚ê‚Ü‚Å",
-						"‚È‚ñ‚Å‚±‚¤‚È‚é‚Ì",
-						"‚»‚ê‚Í–³—‚¾",
-						"“|‚·‚×‚«“G‚ÍƒQ›ƒc",
-						"‚ñ`H•·‚±‚¦‚ñ‚È‚Ÿ",
-					   "ƒIƒŒ‚Ì–¼‚ðŒ¾‚Á‚Ä‚Ý‚ë",
-					   "“ª‚ª•Ï‚É‚È‚Á‚¿‚á‚Á‚½",
-					   "ŒÝŠ·‚µ‚Ü‚¹‚ñ",
-					   "‚¹‚Á‚©‚­‚¾‚©‚ç",
-					   "‚Ü‚¾‚Ü‚¾ŠÃ‚¢‚Ë",
-					   "‚Þ‚²‚¢‚Þ‚²‚·‚¬‚é",
-					   "‚±‚ñ‚È‚à‚ñ‚¶‚á‚È‚¢",
-					   "‚¾‚ß‚¾‚±‚è‚á",
-					   "ŽŸ‚¢‚Á‚Ä‚Ý‚æ‚¤",
-					   "‚¿‚å‚Á‚Æ‚¾‚¯‚æ",
-					   "ˆ£‚µ‚«–`Œ¯ŽÒ",
-					   "–ì–]‚Ì‰Ê‚Ä",
-					   "–³ŒÀ’n–",
-					   "_‚ÉŒ–‰Ü‚ð”„‚éŽÒ",
-					   "–¢’m‚Ì¢ŠE‚Ö",
-					   "Å‚‚Ì“ª”]‚ð‹‚ß‚Ä"};
-#else
-	static const char subtitle[][51] ={"Quest of The World's Toughest Body",
-					   "Attack is the best form of defence.",
-					   "Might is right.",
-					   "An unexpected windfall",
-					   "A drowning man will catch at a straw",
-					   "Don't count your chickens before they are hatched.",
-					   "It is no use crying over spilt milk.",
-					   "Seeing is believing.",
-					   "Strike the iron while it is hot.",
-					   "I don't care what follows.",
-					   "To dig a well to put out a house on fire.",
-					   "Tomorrow is another day.",
-					   "Easy come, easy go.",
-					   "The more haste, the less speed.",
-					   "Where there is life, there is hope.",
-					   "There is no royal road to *WINNER*.",
-					   "Danger past, God forgotten.",
-					   "The best thing to do now is to run away.",
-					   "Life is but an empty dream.",
-					   "Dead men tell no tales.",
-					   "A book that remains shut is but a block.",
-					   "Misfortunes never come singly.",
-					   "A little knowledge is a dangerous thing.",
-					   "History repeats itself.",
-					   "*WINNER* was not built in a day.",
-					   "Ignorance is bliss.",
-					   "To lose is to win?",
-					   "No medicine can cure folly.",
-					   "All good things come to an end.",
-					   "M$ Empire strikes back.",
-					   "To see is to believe",
-					   "Time is money.",
-					   "Quest of The World's Greatest Brain"};
-#endif
 
 	sprintf(file_name,"playrecord-%s.txt",savefile_base);
 
-	/* Build the filename */
+	// Build the filename
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, file_name);
 
-	if(creature_ptr->class_idx == CLASS_WARRIOR || creature_ptr->class_idx == CLASS_MONK || creature_ptr->class_idx == CLASS_SAMURAI || creature_ptr->class_idx == CLASS_BERSERKER)
-		strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-1)]);
-	else if(creature_ptr->class_idx == CLASS_MAGE || creature_ptr->class_idx == CLASS_HIGH_MAGE || creature_ptr->class_idx == CLASS_SORCERER)
-		strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-1)+1]);
-	else strcpy(tmp,subtitle[randint0(MAX_SUBTITLE-2)+1]);
-
 #ifdef JP
-	sprintf(nikki_title, "u%s%s%s‚Ì“`à -%s-v",
-		chara_info[creature_ptr->chara_idx].title, chara_info[creature_ptr->chara_idx].no ? "‚Ì" : "", creature_ptr->name, tmp);
+	sprintf(nikki_title, "u%s%s%s‚Ì“`àv", chara_info[creature_ptr->chara_idx].title, creature_ptr->name);
 #else
-	sprintf(nikki_title, "Legend of %s %s '%s'",
-		chara_info[creature_ptr->chara_idx].title, creature_ptr->name, tmp);
+	sprintf(nikki_title, "Legend of %s %s", chara_info[creature_ptr->chara_idx].title, creature_ptr->name);
 #endif
 
-	/* Display the file contents */
+	// Display the file contents
 	show_file(FALSE, buf, nikki_title, -1, 0);
 }
 
@@ -907,7 +831,7 @@ void do_cmd_diary(void)
 
 		switch (i)
 		{
-		case 0: do_cmd_disp_nikki(player_ptr); break;
+		case 0: do_cmd_disp_diary(player_ptr); break;
 		case 1: do_cmd_bunshou(); break;
 		case 2: do_cmd_last_get(); break;
 		case 3: do_cmd_erase_nikki(); break;
