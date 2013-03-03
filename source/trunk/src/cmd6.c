@@ -581,11 +581,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 	{
 		if(quest_ptr->tval == TV_FLASK)
 		{
-#ifdef JP
-			msg_print("オイルを補給した。");
-#else
-			msg_print("You replenish yourself with the oil.");
-#endif
+			msg_print(MES_QUAFF_FLASK);
 			set_food(caster_ptr, caster_ptr->food + 5000);
 		}
 		else set_food(caster_ptr, caster_ptr->food + ((quest_ptr->pval) / 20));
@@ -593,11 +589,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 
 	if(IS_RACE(caster_ptr, RACE_ENT))
 	{
-#ifdef JP
-		msg_print("水分を取り込んだ。");
-#else
-		msg_print("You are moistened.");
-#endif
+		msg_print(MES_QUAFF_MOIST);
 		set_food(caster_ptr, MIN(caster_ptr->food + quest_ptr->pval + MAX(0, quest_ptr->pval * 10) + 2000, CREATURE_FOOD_MAX - 1));
 	}
 	else (void)set_food(caster_ptr, caster_ptr->food + quest_ptr->pval);

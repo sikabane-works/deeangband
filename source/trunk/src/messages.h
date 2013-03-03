@@ -3275,6 +3275,8 @@ static cptr desc_stat_neg[] =
 #define MES_QUAFF_DRUNKER2 "何も思い出せない。どうやってここへ来たのかも分からない！"
 #define MES_EFFECT_LOST_MEMORY "過去の記憶が薄れていく気がする。"
 #define MES_QUAFF_SKELETON_EFFECT "液体の一部はあなたのアゴを素通りして落ちた！"
+#define MES_QUAFF_FLASK "オイルを補給した。"
+#define MES_QUAFF_MOIST "水分を取り込んだ。"
 #else
 #define MES_QUAFF_WATER ""
 #define MES_QUAFF_APPLE_JUICE ""
@@ -3283,4 +3285,6 @@ static cptr desc_stat_neg[] =
 #define MES_QUAFF_DRUNKER2 "You can't remember a thing, or how you got here!"
 #define MES_EFFECT_LOST_MEMORY "You feel your memories fade."
 #define MES_QUAFF_SKELETON_EFFECT "Some of the fluid falls through your jaws!"
+#define MES_QUAFF_FLASK "You replenish yourself with the oil."
+#define MES_QUAFF_MOIST "You are moistened."
 #endif
