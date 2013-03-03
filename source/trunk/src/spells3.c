@@ -1510,41 +1510,19 @@ void call_the_void(creature_type *creature_ptr)
 
 	if(do_call)
 	{
-		for (i = 1; i < 10; i++)
-		{
-			if(i - 5) cast_ball(creature_ptr, DO_EFFECT_ROCKET, i, 175, 2);
-		}
-
-		for (i = 1; i < 10; i++)
-		{
-			if(i - 5) cast_ball(creature_ptr, DO_EFFECT_MANA, i, 175, 3);
-		}
-
-		for (i = 1; i < 10; i++)
-		{
-			if(i - 5) cast_ball(creature_ptr, DO_EFFECT_NUKE, i, 175, 4);
-		}
+		for (i = 0; i < 10; i++) if(i - 5) cast_ball(creature_ptr, DO_EFFECT_ROCKET, i, 175, 2);
+		for (i = 0; i < 10; i++) if(i - 5) cast_ball(creature_ptr, DO_EFFECT_MANA, i, 175, 3);
+		for (i = 0; i < 10; i++) if(i - 5) cast_ball(creature_ptr, DO_EFFECT_NUKE, i, 175, 4);
 	}
 
 	/* Prevent destruction of quest levels and town */
 	else if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
-	{
 		msg_print(GAME_MESSAGE_EARTHQUAKE);
-	}
 
 	else
 	{
-#ifdef JP
-		msg_format("‚ ‚È‚½‚Í%s‚ð•Ç‚É‹ß‚·‚¬‚éêŠ‚Å¥‚¦‚Ä‚µ‚Ü‚Á‚½I",
-			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "‹F‚è" : "Žô•¶"));
-		msg_print("‘å‚«‚È”š”­‰¹‚ª‚ ‚Á‚½I");
-#else
-		msg_format("You %s the %s too close to a wall!",
-			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
-			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "prayer" : "spell"));
-		msg_print("There is a loud explosion!");
-#endif
-
+		msg_print(MES_CALL_OF_VOID_EXPRO1);
+		msg_print(MES_CALL_OF_VOID_EXPRO2);
 		if(one_in_(666)) if(!vanish_dungeon(floor_ptr));
 		else
 		{

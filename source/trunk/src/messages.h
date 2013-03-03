@@ -2608,6 +2608,8 @@ static cptr desc_stat_neg[] =
 #define MES_EARTHQUAKE_CRUSHED1 "岩石があなたに直撃した!"
 #define MES_EARTHQUAKE_CRUSHED2 "あなたは床と壁との間に挟まれてしまった！"
 #define MES_EARTHQUAKE_CANCELED "ダンジョンが揺れた。"
+#define MES_CALL_OF_VOID_EXPRO1 "あなたは壁に近すぎる場所で発動してしまった！"
+#define MES_CALL_OF_VOID_EXPRO2 "大きな爆発音があった！"
 #define MES_VANISH_DUNGEON_CANCELED "ダンジョンは一瞬静まり返った。" 
 #else
 #define MES_EARTHQUAKE_DONE1 "The cave ceiling collapses!"
@@ -2618,6 +2620,8 @@ static cptr desc_stat_neg[] =
 #define MES_EARTHQUAKE_CRUSHED1 "You are bashed by rubble!"
 #define MES_EARTHQUAKE_CRUSHED2 "You are crushed between the floor and ceiling!"
 #define MES_EARTHQUAKE_CANCELED "The dungeon trembles."
+#define MES_CALL_OF_VOID_EXPRO1 "You evoked the void too close to a wall!"
+#define MES_CALL_OF_VOID_EXPRO2 "There is a loud explosion!"
 #define MES_VANISH_DUNGEON_CANCELED "The dungeon silences a moment."
 #endif
 
