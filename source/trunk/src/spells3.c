@@ -1527,11 +1527,6 @@ void call_the_void(creature_type *creature_ptr)
 		else
 		{
 			if(destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 15 + creature_ptr->lev + randint0(11), FALSE))
-#ifdef JP
-				msg_print("ƒ_ƒ“ƒWƒ‡ƒ“‚ª•ö‰ó‚µ‚½...");
-#else
-				msg_print("The dungeon collapses...");
-#endif
 			else msg_print(MES_EARTHQUAKE_CANCELED);
 		}
 
