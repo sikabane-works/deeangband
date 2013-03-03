@@ -718,12 +718,7 @@ static void do_cmd_disp_diary(creature_type *creature_ptr)
 
 	// Build the filename
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, file_name);
-
-#ifdef JP
-	sprintf(nikki_title, "u%s%s%s‚Ì“`àv", chara_info[creature_ptr->chara_idx].title, creature_ptr->name);
-#else
-	sprintf(nikki_title, "Legend of %s %s", chara_info[creature_ptr->chara_idx].title, creature_ptr->name);
-#endif
+	sprintf(nikki_title, DIARY_TITLE(creature_ptr));
 
 	// Display the file contents
 	show_file(FALSE, buf, nikki_title, -1, 0);

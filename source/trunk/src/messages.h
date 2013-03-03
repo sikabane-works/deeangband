@@ -1566,6 +1566,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_PLACE_ARENA "アリーナ:"
 #define DIARY_PLACE_SURFACE "地上:"
 #define DIARY_PLACE_QUEST "クエスト:"
+#define DIARY_TITLE(CREATURE) "「%s%sの伝説」", chara_info[(CREATURE)->chara_idx].title, (CREATURE)->name
 
 #define DIARY_CREATE_PLAYER "-------- プレイヤー作成 --------"
 #define DIARY_GAMEOVER "-------- ゲームオーバー --------"
@@ -1592,6 +1593,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_PLACE_ARENA "Arena:"
 #define DIARY_PLACE_SURFACE "Surface:"
 #define DIARY_PLACE_QUEST "Quest:"
+#define DIARY_TITLE(CREATURE) "Legend of %s %s", chara_info[(CREATURE)->chara_idx].title, (CREATURE)->name
 
 #define DIARY_CREATE_PLAYER "-------- Create Player --------"
 #define DIARY_GAMEOVER "--------   Game  Over   --------"
