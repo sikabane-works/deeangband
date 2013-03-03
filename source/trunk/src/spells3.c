@@ -1558,13 +1558,7 @@ void call_the_void(creature_type *creature_ptr)
 #else
 				msg_print("The dungeon collapses...");
 #endif
-
-			else
-#ifdef JP
-				msg_print("ƒ_ƒ“ƒWƒ‡ƒ“‚Í‘å‚«‚­—h‚ê‚½B");
-#else
-				msg_print("The dungeon trembles.");
-#endif
+			else msg_print(MES_EARTHQUAKE_CANCELED);
 		}
 
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), COD_CALL_OF_VOLD, NULL, -1);

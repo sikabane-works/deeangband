@@ -1099,14 +1099,6 @@ static int staff_effect(creature_type *caster_ptr, int sval, bool *use_charge, b
 			int y, x;
 			int attempts;
 
-			if(!has_trait(caster_ptr, TRAIT_BLIND) && !magic)
-			{
-#ifdef JP
-				msg_print("ñ‚Ìæ‚ª–¾‚é‚­‹P‚¢‚½...");
-#else
-				msg_print("The end of the staff glows brightly...");
-#endif
-			}
 			for (k = 0; k < num; k++)
 			{
 				attempts = 1000;
@@ -1202,11 +1194,7 @@ static int staff_effect(creature_type *caster_ptr, int sval, bool *use_charge, b
 			if(earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10))
 				ident = TRUE;
 			else
-#ifdef JP
-				msg_print("ƒ_ƒ“ƒWƒ‡ƒ“‚ª—h‚ê‚½B");
-#else
-				msg_print("The dungeon trembles.");
-#endif
+				msg_print(MES_EARTHQUAKE_CANCELED);
 			break;
 		}
 
