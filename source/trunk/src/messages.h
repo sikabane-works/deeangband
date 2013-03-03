@@ -3268,6 +3268,8 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_QUAFF_WHICH_POTION "どの薬を飲みますか? "
+#define MES_QUAFF_NO_POTION "飲める薬がない。"
 #define MES_QUAFF_WATER "口の中がさっぱりした。"
 #define MES_QUAFF_APPLE_JUICE "甘くてサッパリとしていて、とてもおいしい。"
 #define MES_QUAFF_LESS_THIRSTY "のどの渇きが少しおさまった。"
@@ -3278,6 +3280,8 @@ static cptr desc_stat_neg[] =
 #define MES_QUAFF_FLASK "オイルを補給した。"
 #define MES_QUAFF_MOIST "水分を取り込んだ。"
 #else
+#define MES_QUAFF_WHICH_POTION "Quaff which potion? "
+#define MES_QUAFF_NO_POTION "You have no potions to quaff."
 #define MES_QUAFF_WATER ""
 #define MES_QUAFF_APPLE_JUICE ""
 #define MES_QUAFF_LESS_THIRSTY "You feel less thirsty."

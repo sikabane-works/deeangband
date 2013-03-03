@@ -615,14 +615,8 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 	cptr q, s;
 
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
-
-#ifdef JP
-	q = "Ç«ÇÃñÚÇà˘Ç›Ç‹Ç∑Ç©? ";
-	s = "à˘ÇﬂÇÈñÚÇ™Ç»Ç¢ÅB";
-#else
-	q = "Quaff which potion? ";
-	s = "You have no potions to quaff.";
-#endif
+	q = MES_QUAFF_WHICH_POTION;
+	s = MES_QUAFF_NO_POTION;
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_quaff, 0)) return;
 	do_cmd_quaff_potion_aux(creature_ptr, item);
