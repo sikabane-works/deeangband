@@ -462,11 +462,7 @@ void do_cmd_browse(creature_type *creature_ptr)
 	while(TRUE)
 	{
 		/* Ask for a spell, allow cancel */
-#ifdef JP
-		if(!get_spell(creature_ptr, &spell, "読む", object_ptr->sval, TRUE, use_realm))
-#else
-		if(!get_spell(creature_ptr, &spell, "browse", object_ptr->sval, TRUE, use_realm))
-#endif
+		if(!get_spell(creature_ptr, &spell, MES_CAST_BROWSE, object_ptr->sval, TRUE, use_realm))
 		{
 			/* If cancelled, leave immediately. */
 			if(spell == -1) break;
@@ -481,9 +477,7 @@ void do_cmd_browse(creature_type *creature_ptr)
 				prt(GAME_MESSAGE_NO_STUDY_TECH, 0, 0);
 			(void)inkey();
 
-
 			screen_load();
-
 			return;
 		}
 
@@ -524,9 +518,9 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 	creature_ptr->spell_forgotten2 = 0L;
 
 #ifdef JP
-	sprintf(tmp,"魔法の領域を%sから%sに変更した。", realm_names[creature_ptr->realm2], realm_names[next_realm]);
+	sprintf(tmp, "魔法の領域を%sから%sに変更した。", realm_names[creature_ptr->realm2], realm_names[next_realm]);
 #else
-	sprintf(tmp,"change magic realm from %s to %s.", realm_names[creature_ptr->realm2], realm_names[next_realm]);
+	sprintf(tmp, "change magic realm from %s to %s.", realm_names[creature_ptr->realm2], realm_names[next_realm]);
 #endif
 	do_cmd_write_diary(DIARY_BUNSHOU, 0, tmp);
 	creature_ptr->old_realm |= 1 << (creature_ptr->realm2-1);
@@ -683,7 +677,6 @@ void do_cmd_study(creature_type *creature_ptr)
 	}
 
 	cost_tactical_energy(creature_ptr, 100);
-
 	sound(SOUND_STUDY);
 
 	/* One less spell available */
@@ -1666,23 +1659,8 @@ void do_cmd_pet(creature_type *master_ptr)
 			(master_ptr->can_melee[1] && (empty_hands(master_ptr, FALSE) == EMPTY_HAND_RARM) &&
 			object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVEN_SLOT_HAND, 1))))
 		{
-			if(master_ptr->pet_extra_flags & PF_RYOUTE)
-			{
-#ifdef JP
-				power_desc[num] = "武器を片手で持つ";
-#else
-				power_desc[num] = "use one hand to control a riding pet";
-#endif
-			}
-			else
-			{
-#ifdef JP
-				power_desc[num] = "武器を両手で持つ";
-#else
-				power_desc[num] = "use both hands for a weapon";
-#endif
-			}
-
+			if(master_ptr->pet_extra_flags & PF_RYOUTE) power_desc[num] = MES_COMBATOP_WEAPON_ONE_HANDED;
+			else power_desc[num] = MES_COMBATOP_WEAPON_TWO_HANDED;
 			powers[num++] = PET_RYOUTE;
 		}
 		else
@@ -1716,22 +1694,9 @@ void do_cmd_pet(creature_type *master_ptr)
 				else if((empty_hands(master_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(master_ptr, INVEN_SLOT_HAND))
 				{
 					if(master_ptr->pet_extra_flags & PF_RYOUTE)
-					{
-#ifdef JP
-						power_desc[num] = "格闘を行わない";
-#else
-						power_desc[num] = "use one hand to control a riding pet";
-#endif
-					}
+						power_desc[num] = MES_COMBATOP_BAREHAND_OFF;
 					else
-					{
-#ifdef JP
-						power_desc[num] = "格闘を行う";
-#else
-						power_desc[num] = "use one hand for melee";
-#endif
-					}
-
+						power_desc[num] = MES_COMBATOP_BAREHAND_ON;
 					powers[num++] = PET_RYOUTE;
 				}
 				break;

@@ -2788,6 +2788,7 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_CAST_BROWSE "読む"
 #define MES_CAST_DISABLE(REALM, CAST) "その%sを%sことはできません。", (REALM), (CAST)
 #define MES_CAST_WHICH_BOOK "どの呪文書を使いますか? "
 #define MES_CAST_NO_BOOK "呪文書がない！"
@@ -2803,6 +2804,7 @@ static cptr desc_stat_neg[] =
 #define MES_CAST_WHICH_KNOW(SKILL, FROM, TO) "(%^s %c-%c, '*'で一覧, ESC) どの%sについて知りますか？", (SKILL), (FROM), (TO), (SKILL)
 #define MES_CAST_WHICH_USE(SKILL, FROM, TO) "(%^s %c-%c, '*'で一覧, ESC) どの%sを使いますか？", (SKILL), (FROM), (TO), (SKILL)
 #else
+#define MES_CAST_BROWSE "browse"
 #define MES_CAST_DISABLE(REALM, CAST) "You may not %s that %s.", (CAST), (REALM)
 #define MES_CAST_WHICH_BOOK "Use which book? "
 #define MES_CAST_NO_BOOK "You have no spell books!"
@@ -3223,3 +3225,14 @@ static cptr desc_stat_neg[] =
 #define MES_EAT_LESS_EFFECT_MORTAL_FOOD "The food of mortals is poor sustenance for you."
 #endif
 
+#ifdef JP
+#define MES_COMBATOP_WEAPON_ONE_HANDED "武器を片手で持つ"
+#define MES_COMBATOP_WEAPON_TWO_HANDED "武器を両手で持つ"
+#define MES_COMBATOP_BAREHAND_ON "格闘を行う"
+#define MES_COMBATOP_BAREHAND_OFF "格闘を行わない"
+#else
+#define MES_COMBATOP_WEAPON_ONE_HANDED "use one hand to control a riding pet"
+#define MES_COMBATOP_WEAPON_TWO_HANDED "use both hands for a weapon"
+#define MES_COMBATOP_BAREHAND_ON "use one hand for melee"
+#define MES_COMBATOP_BAREHAND_OFF "use one hand to control a riding pet"
+#endif
