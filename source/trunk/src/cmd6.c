@@ -927,13 +927,8 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			}
 
 			/* An error occured */
-#ifdef JP
-			if(err) strcpy(Rumor, "嘘の噂もある。");
-			msg_print("巻物にはメッセージが書かれている:");
-#else
-			if(err) strcpy(Rumor, "Some rumors are wrong.");
-			msg_print("There is message on the scroll. It says:");
-#endif
+			if(err) strcpy(Rumor, MES_SCROLL_RUMOR_DEFAULT);
+			msg_print(MES_SCROLL_MESSAGE);
 			msg_print(NULL);
 			msg_format("%s", Rumor);
 			msg_print(NULL);
@@ -1042,7 +1037,6 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 {
 	object_type *object_ptr;
 	int  item;
-	cptr q, s;
 
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
@@ -1063,15 +1057,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 		return;
 	}
 
-#ifdef JP
-	q = "どの巻物を読みますか? ";
-	s = "読める巻物がない。";
-#else
-	q = "Read which scroll? ";
-	s = "You have no scrolls to read.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_readable, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_SCROLL_WHICH_READ, MES_SCROLL_NO_READ, (USE_INVEN | USE_FLOOR), item_tester_hook_readable, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	do_cmd_read_scroll_aux(creature_ptr, item, object_is_aware(object_ptr));	// Read the scroll

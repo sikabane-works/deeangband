@@ -3294,10 +3294,18 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_SCROLL_WHICH_READ "どの巻物を読みますか? "
+#define MES_SCROLL_NO_READ "読める巻物がない。"
+#define MES_SCROLL_RUMOR_DEFAULT "嘘の噂もある。"
 #define MES_SCROLL_DISABLE "巻物なんて読めない。"
 #define MES_SCROLL_USED "巻物は煙を立てて消え去った！"
+#define MES_SCROLL_MESSAGE "巻物にはメッセージが書かれている:"
 #else
+#define MES_SCROLL_WHICH_READ "Read which scroll? "
+#define MES_SCROLL_NO_READ "You have no scrolls to read."
+#define MES_SCROLL_RUMOR_DEFAULT "Some rumors are wrong."
 #define MES_SCROLL_DISABLE "You cannot read."
 #define MES_SCROLL_USED "The scroll disappears in a puff of smoke!"
+#define MES_SCROLL_MESSAGE "There is message on the scroll. It says:"
 #endif
 
