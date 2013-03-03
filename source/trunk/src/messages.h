@@ -3248,6 +3248,8 @@ static cptr desc_stat_neg[] =
 #define MES_FOOD_SLIME_MOLD "これはなんとも形容しがたい味だ。"
 #define MES_FOOD_WAYBREAD "これはひじょうに美味だ。"
 #define MES_FOOD_DRINK "のどごし爽やかだ。"
+#define MES_FOOD_SKELETON_FAILED1 "食べ物がアゴを素通りして落ちた！"
+#define MES_FOOD_SKELETON_FAILED2 "食べ物がアゴを素通りして落ち、消えた！"
 #else
 #define MES_FOOD_BISCUIT "That tastes good."
 #define MES_FOOD_RATION "That tastes good."
@@ -3255,4 +3257,6 @@ static cptr desc_stat_neg[] =
 #define MES_FOOD_SLIME_MOLD "That tastes good."
 #define MES_FOOD_WAYBREAD "That tastes good."
 #define MES_FOOD_DRINK "That tastes good."
+#define MES_FOOD_SKELETON_FAILED1 "The food falls through your jaws!"
+#define MES_FOOD_SKELETON_FAILED2 "The food falls through your jaws and vanishes!"
 #endif

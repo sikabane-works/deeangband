@@ -193,8 +193,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	{
 		cptr staff;
 
-		if(object_ptr->tval == TV_STAFF &&
-		    (item < 0) && (object_ptr->number > 1))
+		if(object_ptr->tval == TV_STAFF && (item < 0) && (object_ptr->number > 1))
 		{
 #ifdef JP
 			msg_print("まずは杖を拾わなければ。");
@@ -285,19 +284,11 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	}
 	else if(has_trait(creature_ptr, TRAIT_SKELETON))
 	{
-
-		if(!((object_ptr->sval == SV_FOOD_WAYBREAD) ||
-		      (object_ptr->sval < SV_FOOD_BISCUIT)))
+		if(!((object_ptr->sval == SV_FOOD_WAYBREAD) || (object_ptr->sval < SV_FOOD_BISCUIT)))
 		{
 			object_type forge;
 			object_type *quest_ptr = &forge;
-
-#ifdef JP
-			msg_print("食べ物がアゴを素通りして落ちた！");
-#else
-			msg_print("The food falls through your jaws!");
-#endif
-
+			msg_print(MES_FOOD_SKELETON_FAILED1);
 
 			/* Create the item */
 			object_prep(quest_ptr, lookup_kind(object_ptr->tval, object_ptr->sval), ITEM_FREE_SIZE);
@@ -305,15 +296,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			/* Drop the object from heaven */
 			(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);
 		}
-		else
-		{
-#ifdef JP
-			msg_print("食べ物がアゴを素通りして落ち、消えた！");
-#else
-			msg_print("The food falls through your jaws and vanishes!");
-#endif
-
-		}
+		else msg_print(MES_FOOD_SKELETON_FAILED2);
 	}
 	else if(has_trait(creature_ptr, TRAIT_NONLIVING) || has_trait(creature_ptr, TRAIT_UNDEAD) || has_trait(creature_ptr, TRAIT_DEMON))
 	{
