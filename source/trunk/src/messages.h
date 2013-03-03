@@ -3240,3 +3240,15 @@ static cptr desc_stat_neg[] =
 #define MES_COMBATOP_BAREHAND_ON "use one hand for melee"
 #define MES_COMBATOP_BAREHAND_OFF "use one hand to control a riding pet"
 #endif
+
+#ifdef JP
+#define MES_FOOD_BISCUIT "甘くてサクサクしてとてもおいしい。"
+#define MES_FOOD_RATION "これはおいしい。"
+#define MES_FOOD_JERKY "歯ごたえがあっておいしい。"
+#define MES_FOOD_SLIME_MOLD "これはなんとも形容しがたい味だ。"
+#else
+#define MES_FOOD_BISCUIT "That tastes good."
+#define MES_FOOD_RATION "That tastes good."
+#define MES_FOOD_JERKY "That tastes good."
+#define MES_FOOD_SLIME_MOLD "That tastes good."
+#endif

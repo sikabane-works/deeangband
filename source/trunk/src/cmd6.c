@@ -131,46 +131,25 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0, TRUE)) ident = TRUE;
 				break;
 
-#ifdef JP
-			/* それぞれの食べ物の感想をオリジナルより細かく表現 */
 			case SV_FOOD_BISCUIT:
-			{
-				msg_print("甘くてサクサクしてとてもおいしい。");
+				msg_print(MES_FOOD_BISCUIT);
 				ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_JERKY:
-			{
-				msg_print("歯ごたえがあっておいしい。");
+				msg_print(MES_FOOD_JERKY);
 				ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_SLIME_MOLD:
-			{
-				msg_print("これはなんとも形容しがたい味だ。");
+				msg_print(MES_FOOD_SLIME_MOLD);
 				ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_RATION:
-			{
-				msg_print("これはおいしい。");
+				msg_print(MES_FOOD_RATION);
 				ident = TRUE;
 				break;
-			}
-#else
-			case SV_FOOD_RATION:
-			case SV_FOOD_BISCUIT:
-			case SV_FOOD_JERKY:
-			case SV_FOOD_SLIME_MOLD:
-			{
-				msg_print("That tastes good.");
-				ident = TRUE;
-				break;
-			}
-#endif
 
 			case SV_FOOD_WAYBREAD:
 			{
