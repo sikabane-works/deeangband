@@ -1526,8 +1526,8 @@ void call_the_void(creature_type *creature_ptr)
 		if(one_in_(666)) if(!vanish_dungeon(floor_ptr));
 		else
 		{
-			if(destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 15 + creature_ptr->lev + randint0(11), FALSE))
-			else msg_print(MES_EARTHQUAKE_CANCELED);
+			if(!destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 15 + creature_ptr->lev + randint0(11), FALSE))
+				msg_print(MES_EARTHQUAKE_CANCELED);
 		}
 
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), COD_CALL_OF_VOLD, NULL, -1);
