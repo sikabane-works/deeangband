@@ -1379,7 +1379,10 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 
 	/* Prevent vasishing of quest levels and town */
 	if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
+	{
+		msg_print(MES_VANISH_DUNGEON_CANCELED);
 		return FALSE;
+	}
 
 	/* Scan all normal grids */
 	for (y = 1; y < floor_ptr->height - 1; y++)
@@ -1542,14 +1545,7 @@ void call_the_void(creature_type *creature_ptr)
 		msg_print("There is a loud explosion!");
 #endif
 
-		if(one_in_(666))
-		{
-#ifdef JP
-			if(!vanish_dungeon(floor_ptr)) msg_print("ƒ_ƒ“ƒWƒ‡ƒ“‚ÍˆêuÃ‚Ü‚è•Ô‚Á‚½B");
-#else
-			if(!vanish_dungeon(floor_ptr)) msg_print("The dungeon silences a moment.");
-#endif
-		}
+		if(one_in_(666)) if(!vanish_dungeon(floor_ptr));
 		else
 		{
 			if(destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 15 + creature_ptr->lev + randint0(11), FALSE))

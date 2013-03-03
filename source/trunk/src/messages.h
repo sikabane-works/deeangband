@@ -2608,6 +2608,7 @@ static cptr desc_stat_neg[] =
 #define MES_EARTHQUAKE_CRUSHED1 "岩石があなたに直撃した!"
 #define MES_EARTHQUAKE_CRUSHED2 "あなたは床と壁との間に挟まれてしまった！"
 #define MES_EARTHQUAKE_CANCELED "ダンジョンが揺れた。"
+#define MES_VANISH_DUNGEON_CANCELED "ダンジョンは一瞬静まり返った。" 
 #else
 #define MES_EARTHQUAKE_DONE1 "The cave ceiling collapses!"
 #define MES_EARTHQUAKE_DONE2 "The cave floor twists in an unnatural way!"
@@ -2617,6 +2618,7 @@ static cptr desc_stat_neg[] =
 #define MES_EARTHQUAKE_CRUSHED1 "You are bashed by rubble!"
 #define MES_EARTHQUAKE_CRUSHED2 "You are crushed between the floor and ceiling!"
 #define MES_EARTHQUAKE_CANCELED "The dungeon trembles."
+#define MES_VANISH_DUNGEON_CANCELED "The dungeon silences a moment."
 #endif
 
 #ifdef JP
