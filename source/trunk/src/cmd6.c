@@ -347,19 +347,9 @@ static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *o
 void do_cmd_eat_food(creature_type *creature_ptr)
 {
 	int         item;
-	cptr        q, s;
 
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
-
-#ifdef JP
-	q = "‚Ç‚ê‚ğH‚×‚Ü‚·‚©? ";
-	s = "H‚×•¨‚ª‚È‚¢B";
-#else
-	q = "Eat which item? ";
-	s = "You have nothing to eat.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_eatable, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_FOOD_WHICH_EAT, MES_FOOD_NO_EAT, (USE_INVEN | USE_FLOOR), item_tester_hook_eatable, 0)) return;
 	do_cmd_eat_food_aux(creature_ptr, item);
 }
 

@@ -3242,6 +3242,8 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_FOOD_WHICH_EAT "どれを食べますか? "
+#define MES_FOOD_NO_EAT "食べ物がない。"
 #define MES_FOOD_BISCUIT "甘くてサクサクしてとてもおいしい。"
 #define MES_FOOD_RATION "これはおいしい。"
 #define MES_FOOD_JERKY "歯ごたえがあっておいしい。"
@@ -3251,6 +3253,8 @@ static cptr desc_stat_neg[] =
 #define MES_FOOD_SKELETON_FAILED1 "食べ物がアゴを素通りして落ちた！"
 #define MES_FOOD_SKELETON_FAILED2 "食べ物がアゴを素通りして落ち、消えた！"
 #else
+#define MES_FOOD_WHICH_EAT "Eat which item? "
+#define MES_FOOD_NO_EAT "You have nothing to eat."
 #define MES_FOOD_BISCUIT "That tastes good."
 #define MES_FOOD_RATION "That tastes good."
 #define MES_FOOD_JERKY "That tastes good."
