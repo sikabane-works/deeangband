@@ -395,13 +395,8 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 	{
 		case DIARY_HIGAWARI:
 		{
-#ifdef JP
-			if(day < MAX_DAYS) fprintf(fff, "%d日目\n", day);
-			else fputs("*****日目\n", fff);
-#else
-			if(day < MAX_DAYS) fprintf(fff, "Day %d\n", day);
-			else fputs("Day *****\n", fff);
-#endif
+			if(day < MAX_DAYS) fprintf(fff, DIATY_DATE(day));
+			else fputs(DIATY_COUNTSTOP_DATE, fff);
 			do_level = FALSE;
 			break;
 		}
@@ -448,7 +443,7 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 		{
 			if(quest[num].flags & QUEST_FLAG_SILENT) break;
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s クエスト「%s」から命からがら逃げ帰った。\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, " %2d:%02d %20s クエスト「%s」から逃げ帰った。\n", hour, min, note_level, quest[num].name);
 #else
 			fprintf(fff, " %2d:%02d %20s run away from quest '%s'.\n", hour, min, note_level, quest[num].name);
 #endif
@@ -590,7 +585,7 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 #ifdef JP
 				fprintf(fff, "                 闘技場のすべての敵に勝利し、チャンピオンとなった。\n");
 #else
-				fprintf(fff, "                 won all fight to become a Chanpion.\n");
+				fprintf(fff, "                 won all fight to become a Champion.\n");
 #endif
 				do_level = FALSE;
 			}

@@ -1561,6 +1561,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 #ifdef JP
 
+#define DIATY_DATE(DAY) "%d日目\n", (DAY)
+#define DIATY_COUNTSTOP_DATE "*****日目\n"
 #define DIARY_PLACE_ARENA "アリーナ:"
 #define DIARY_PLACE_SURFACE "地上:"
 #define DIARY_PLACE_QUEST "クエスト:"
@@ -1585,6 +1587,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_INN_NIGHTMARE "悪夢にうなされてよく眠れなかった。"
 #else
 
+#define DIATY_DATE(DAY) "Day %d\n", (DAY)
+#define DIATY_COUNTSTOP_DATE "Day *****\n"
 #define DIARY_PLACE_ARENA "Arena:"
 #define DIARY_PLACE_SURFACE "Surface:"
 #define DIARY_PLACE_QUEST "Quest:"
