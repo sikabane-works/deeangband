@@ -3292,3 +3292,12 @@ static cptr desc_stat_neg[] =
 #define MES_QUAFF_FLASK "You replenish yourself with the oil."
 #define MES_QUAFF_MOIST "You are moistened."
 #endif
+
+#ifdef JP
+#define MES_SCROLL_DISABLE "Šª•¨‚È‚ñ‚Ä“Ç‚ß‚È‚¢B"
+#define MES_SCROLL_USED "Šª•¨‚Í‰Œ‚ğ—§‚Ä‚ÄÁ‚¦‹‚Á‚½I"
+#else
+#define MES_SCROLL_DISABLE "You cannot read."
+#define MES_SCROLL_USED "The scroll disappears in a puff of smoke!"
+#endif
+
