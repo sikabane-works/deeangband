@@ -3228,11 +3228,15 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_COMBATOP_WEAPON_ONE_HANDED "•Ší‚ğ•Ğè‚Å‚Â"
 #define MES_COMBATOP_WEAPON_TWO_HANDED "•Ší‚ğ—¼è‚Å‚Â"
+#define MES_COMBATOP_BAREHAND_ONE_HANDED "•Ğè‚ÅŠi“¬‚·‚é"
+#define MES_COMBATOP_BAREHAND_TWO_HANDED "—¼è‚ÅŠi“¬‚·‚é"
 #define MES_COMBATOP_BAREHAND_ON "Ši“¬‚ğs‚¤"
 #define MES_COMBATOP_BAREHAND_OFF "Ši“¬‚ğs‚í‚È‚¢"
 #else
 #define MES_COMBATOP_WEAPON_ONE_HANDED "use one hand to control a riding pet"
 #define MES_COMBATOP_WEAPON_TWO_HANDED "use both hands for a weapon"
+#define MES_COMBATOP_BAREHAND_ONE_HANDED "use one hand to control a riding pet"
+#define MES_COMBATOP_BAREHAND_TWO_HANDED "use both hands for melee"
 #define MES_COMBATOP_BAREHAND_ON "use one hand for melee"
 #define MES_COMBATOP_BAREHAND_OFF "use one hand to control a riding pet"
 #endif

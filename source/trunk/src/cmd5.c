@@ -1673,22 +1673,9 @@ void do_cmd_pet(creature_type *master_ptr)
 				if(empty_hands(master_ptr, FALSE) == (EMPTY_HAND_RARM | EMPTY_HAND_LARM))
 				{
 					if(master_ptr->pet_extra_flags & PF_RYOUTE)
-					{
-#ifdef JP
-						power_desc[num] = "•ÐŽè‚ÅŠi“¬‚·‚é";
-#else
-						power_desc[num] = "use one hand to control a riding pet";
-#endif
-					}
+						power_desc[num] = MES_COMBATOP_BAREHAND_ONE_HANDED;
 					else
-					{
-#ifdef JP
-						power_desc[num] = "—¼Žè‚ÅŠi“¬‚·‚é";
-#else
-						power_desc[num] = "use both hands for melee";
-#endif
-					}
-
+						power_desc[num] = MES_COMBATOP_BAREHAND_TWO_HANDED;
 					powers[num++] = PET_RYOUTE;
 				}
 				else if((empty_hands(master_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(master_ptr, INVEN_SLOT_HAND))
