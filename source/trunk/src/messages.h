@@ -3246,9 +3246,13 @@ static cptr desc_stat_neg[] =
 #define MES_FOOD_RATION "これはおいしい。"
 #define MES_FOOD_JERKY "歯ごたえがあっておいしい。"
 #define MES_FOOD_SLIME_MOLD "これはなんとも形容しがたい味だ。"
+#define MES_FOOD_WAYBREAD "これはひじょうに美味だ。"
+#define MES_FOOD_DRINK "のどごし爽やかだ。"
 #else
 #define MES_FOOD_BISCUIT "That tastes good."
 #define MES_FOOD_RATION "That tastes good."
 #define MES_FOOD_JERKY "That tastes good."
 #define MES_FOOD_SLIME_MOLD "That tastes good."
+#define MES_FOOD_WAYBREAD "That tastes good."
+#define MES_FOOD_DRINK "That tastes good."
 #endif

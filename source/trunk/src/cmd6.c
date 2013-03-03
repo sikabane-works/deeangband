@@ -152,32 +152,15 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				break;
 
 			case SV_FOOD_WAYBREAD:
-			{
-#ifdef JP
-				msg_print("Ç±ÇÍÇÕÇ–Ç∂ÇÂÇ§Ç…î¸ñ°ÇæÅB");
-#else
-				msg_print("That tastes good.");
-#endif
-			}
-
-#ifdef JP
-			case SV_FOOD_PINT_OF_ALE:
-			case SV_FOOD_PINT_OF_WINE:
-			{
-				msg_print("ÇÃÇ«Ç≤ÇµëuÇ‚Ç©ÇæÅB");
+				msg_print(MES_FOOD_WAYBREAD);
 				ident = TRUE;
 				break;
-			}
-#else
+
 			case SV_FOOD_PINT_OF_ALE:
 			case SV_FOOD_PINT_OF_WINE:
-			{
-				msg_print("That tastes good.");
+				msg_print(MES_FOOD_DRINK);
 				ident = TRUE;
 				break;
-			}
-#endif
-
 		}
 	}
 
