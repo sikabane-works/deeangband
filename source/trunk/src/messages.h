@@ -3099,6 +3099,7 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_MAGIC_BY_DUNGEON "ダンジョンが魔法を吸収した！"
 #define MES_PREVENT_LITE_BY_DUNGEON "ダンジョンが光を吸収した。"
 #define MES_PREVENT_TELEPORT_BY_CREATURE "テレポートを邪魔された！"
+#define MES_PREVENT_QUAFF_BY_TIMESTOP "瓶から液体が流れ出てこない！"
 #else
 #define MES_PREVENT_BY_RIDING "You cannot do it when riding."
 #define MES_PREVENT_BY_CONFUSION "You are too confused."
@@ -3122,6 +3123,7 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_FISHING_BY_FEATURE "There is no fishing place."
 #define MES_PREVENT_LITE_BY_DUNGEON "The darkness of this dungeon absorb your light."
 #define MES_PREVENT_TELEPORT_BY_CREATURE "Your teleportation is blocked!"
+#define MES_PREVENT_QUAFF_BY_TIMESTOP "The potion doesn't flow out from a bottle."
 #endif
 
 #ifdef JP
@@ -3263,4 +3265,14 @@ static cptr desc_stat_neg[] =
 #define MES_FOOD_DRINK "That tastes good."
 #define MES_FOOD_SKELETON_FAILED1 "The food falls through your jaws!"
 #define MES_FOOD_SKELETON_FAILED2 "The food falls through your jaws and vanishes!"
+#endif
+
+#ifdef JP
+#define MES_QUAFF_WATER "口の中がさっぱりした。"
+#define MES_QUAFF_APPLE_JUICE "甘くてサッパリとしていて、とてもおいしい。"
+#define MES_QUAFF_LESS_THIRSTY "のどの渇きが少しおさまった。"
+#else
+#define MES_QUAFF_WATER ""
+#define MES_QUAFF_APPLE_JUICE ""
+#define MES_QUAFF_LESS_THIRSTY "You feel less thirsty."
 #endif

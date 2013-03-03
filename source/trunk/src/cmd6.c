@@ -367,11 +367,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 	if(caster_ptr->time_stopper)
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("瓶から水が流れ出てこない！");
-#else
-		msg_print("The potion doesn't flow out from a bottle.");
-#endif
+		msg_print(MES_PREVENT_QUAFF_BY_TIMESTOP);
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -402,34 +398,22 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 	{
 		switch (quest_ptr->sval)
 		{
-#ifdef JP
-			/* 飲みごたえをオリジナルより細かく表現 */
 		case SV_POTION_WATER:
-			msg_print("口の中がさっぱりした。");
-			msg_print("のどの渇きが少しおさまった。");
+			msg_print(MES_QUAFF_WATER);
+			msg_print(MES_QUAFF_LESS_THIRSTY);
 			effected = TRUE;
 			break;
 
 		case SV_POTION_APPLE_JUICE:
-			msg_print("甘くてサッパリとしていて、とてもおいしい。");
-			msg_print("のどの渇きが少しおさまった。");
+			msg_print(MES_QUAFF_APPLE_JUICE);
+			msg_print(MES_QUAFF_LESS_THIRSTY);
 			effected = TRUE;
 			break;
 
 		case SV_POTION_SLIME_MOLD:
-			msg_print("なんとも不気味な味だ。");
-			msg_print("のどの渇きが少しおさまった。");
+			msg_print(MES_QUAFF_LESS_THIRSTY);
 			effected = TRUE;
 			break;
-
-#else
-		case SV_POTION_WATER:
-		case SV_POTION_APPLE_JUICE:
-		case SV_POTION_SLIME_MOLD:
-			msg_print("You feel less thirsty.");
-			effected = TRUE;
-			break;
-#endif
 
 		case SV_POTION_POISON:
 			if(!has_trait(caster_ptr, TRAIT_RES_POIS))
