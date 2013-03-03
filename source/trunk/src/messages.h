@@ -1567,6 +1567,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_PLACE_SURFACE "地上:"
 #define DIARY_PLACE_QUEST "クエスト:"
 #define DIARY_TITLE(CREATURE) "「%s%sの伝説」", chara_info[(CREATURE)->chara_idx].title, (CREATURE)->name
+#define DIARY_NOTE "内容"
 
 #define DIARY_CREATE_PLAYER "-------- プレイヤー作成 --------"
 #define DIARY_GAMEOVER "-------- ゲームオーバー --------"
@@ -1594,6 +1595,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_PLACE_SURFACE "Surface:"
 #define DIARY_PLACE_QUEST "Quest:"
 #define DIARY_TITLE(CREATURE) "Legend of %s %s", chara_info[(CREATURE)->chara_idx].title, (CREATURE)->name
+#define DIARY_NOTE "Diary Note"
 
 #define DIARY_CREATE_PLAYER "-------- Create Player --------"
 #define DIARY_GAMEOVER "--------   Game  Over   --------"
@@ -2786,6 +2788,7 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_CAST_DISABLE(REALM, CAST) "その%sを%sことはできません。", (REALM), (CAST)
 #define MES_CAST_WHICH_BOOK "どの呪文書を使いますか? "
 #define MES_CAST_NO_BOOK "呪文書がない！"
 #define MES_CAST_NONE "呪文を唱えられない！"
@@ -2800,6 +2803,7 @@ static cptr desc_stat_neg[] =
 #define MES_CAST_WHICH_KNOW(SKILL, FROM, TO) "(%^s %c-%c, '*'で一覧, ESC) どの%sについて知りますか？", (SKILL), (FROM), (TO), (SKILL)
 #define MES_CAST_WHICH_USE(SKILL, FROM, TO) "(%^s %c-%c, '*'で一覧, ESC) どの%sを使いますか？", (SKILL), (FROM), (TO), (SKILL)
 #else
+#define MES_CAST_DISABLE(REALM, CAST) "You may not %s that %s.", (CAST), (REALM)
 #define MES_CAST_WHICH_BOOK "Use which book? "
 #define MES_CAST_NO_BOOK "You have no spell books!"
 #define MES_CAST_NONE "You cannot cast spells!"

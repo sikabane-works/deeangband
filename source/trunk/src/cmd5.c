@@ -222,12 +222,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 		if(!spell_okay(creature_ptr, spell, learned, FALSE, use_realm))
 		{
 			bell();
-#ifdef JP
-			msg_format("‚»‚Ì%s‚ð%s‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB", p, prompt);
-#else
-			msg_format("You may not %s that %s.", prompt, p);
-#endif
-
+			msg_format(MES_CAST_DISABLE(p, prompt));
 			continue;
 		}
 
@@ -238,23 +233,15 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 
 			/* Access the spell */
 			if(!is_magic(use_realm))
-			{
 				s_ptr = &technic_info[use_realm - MIN_TECHNIC][spell];
-			}
 			else
-			{
 				s_ptr = &magic_info[creature_ptr->class_idx].info[use_realm][spell];
-			}
 
 			/* Extract mana consumption rate */
 			if(use_realm == REALM_HISSATSU)
-			{
 				need_mana = s_ptr->smana;
-			}
 			else
-			{
 				need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, use_realm);
-			}
 
 #ifdef JP
 			jverb1( prompt, jverb_buf );

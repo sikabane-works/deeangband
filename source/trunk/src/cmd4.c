@@ -729,11 +729,7 @@ static void do_cmd_bunshou(void)
 	char tmp[80] = "\0";
 	char bunshou[80] = "\0";
 
-#ifdef JP
-	if(get_string("“à—e", tmp, 79))
-#else
-	if(get_string("diary note", tmp, 79))
-#endif
+	if(get_string(DIARY_NOTE, tmp, 79))
 	{
 		strcpy(bunshou, tmp);
 		do_cmd_write_diary(DIARY_BUNSHOU, 0, bunshou);
