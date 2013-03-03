@@ -447,13 +447,8 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 					else wiz_dark(floor_ptr, caster_ptr);
 					(void)teleport_player_aux(caster_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 					wiz_dark(floor_ptr, caster_ptr);
-#ifdef JP
-					msg_print("知らない場所で目が醒めた。頭痛がする。");
-					msg_print("何も思い出せない。どうやってここへ来たのかも分からない！");
-#else
-					msg_print("You wake up somewhere with a sore head...");
-					msg_print("You can't remember a thing, or how you got here!");
-#endif
+					msg_print(MES_QUAFF_DRUNKER1);
+					msg_print(MES_QUAFF_DRUNKER2);
 				}
 			}
 			break;
@@ -466,11 +461,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 		case SV_POTION_LOSE_MEMORIES:
 			if(!has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (caster_ptr->exp > 0))
 			{
-#ifdef JP
-				msg_print("過去の記憶が薄れていく気がする。");
-#else
-				msg_print("You feel your memories fade.");
-#endif
+				msg_print(MES_EFFECT_LOST_MEMORY);
 				lose_exp(caster_ptr, caster_ptr->exp / 4);
 				effected = TRUE;
 			}
@@ -566,11 +557,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 
 	if(has_trait(caster_ptr, TRAIT_SKELETON))
 	{
-#ifdef JP
-msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
-#else
-		msg_print("Some of the fluid falls through your jaws!");
-#endif
+		msg_print(MES_QUAFF_SKELETON_EFFECT);
 		(void)potion_smash_effect(0, caster_ptr->fy, caster_ptr->fx, quest_ptr->k_idx);
 	}
 
