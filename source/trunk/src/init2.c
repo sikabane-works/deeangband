@@ -1444,11 +1444,7 @@ static errr init_object_alloc(void)
 	for (i = 1; i < MAX_DEPTH; i++) num[i] += num[i-1];
 
 	// Paranoia
-#ifdef JP
-	if(!num[0]) quit("町のアイテムがない！");
-#else
-	if(!num[0]) quit("No town objects!");
-#endif
+	if(!num[0]) quit(MES_SYS_NO_TOWN_ITEM);
 
 	/*** Initialize object allocation info ***/
 
@@ -1694,21 +1690,11 @@ void init_angband(void)
 	if(fd < 0)
 	{
 		char why[1024];
-
-#ifdef JP
-		sprintf(why, "'%s'ファイルにアクセスできません!", buf);
-#else
-		sprintf(why, "Cannot access the '%s' file!", buf);
-#endif
-
-
-		/* Crash and burn */
+		sprintf(why, MES_SYS_FAILED_FILEOPEN2, buf);
 		init_angband_aux(why);
 	}
 
-	/* Close it */
 	(void)fd_close(fd);
-
 
 	/*** Display the "news" file ***/
 
@@ -1764,15 +1750,7 @@ void init_angband(void)
 		if(fd < 0)
 		{
 			char why[1024];
-
-#ifdef JP
-			sprintf(why, "'%s'ファイルを作成できません!", buf);
-#else
-			sprintf(why, "Cannot create the '%s' file!", buf);
-#endif
-
-
-			/* Crash and burn */
+			sprintf(why, MES_SYS_FAILED_FILEOPEN2, buf);
 			init_angband_aux(why);
 		}
 	}

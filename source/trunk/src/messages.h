@@ -83,6 +83,8 @@
 #define MES_SYS_AUTODUMP_WARNING2 "# *警告!!* 後で自動的に削除されるので編集しないでください。\n"
 #define MES_SYS_AUTODUMP_WARNING3 "# *警告!!* 以上の行は自動生成されたものです。\n"
 
+#define MES_SYS_NO_TOWN_ITEM "町のアイテムがない！"
+
 #else
 
 #define MES_SYS_YOU_DIED(CREATURE) (has_trait((CREATURE), TRAIT_ANDROID) ? "You were broken." : "You died.")
@@ -144,6 +146,8 @@
 #define MES_SYS_AUTODUMP_WARNING1 "# *Warning!*  The lines below are an automatic dump.\n"
 #define MES_SYS_AUTODUMP_WARNING2 "# Don't edit them; changes will be deleted and replaced automatically.\n"
 #define MES_SYS_AUTODUMP_WARNING3 "# *Warning!*  The lines above are an automatic dump.\n"
+
+#define MES_SYS_NO_TOWN_ITEM "No town objects!"
 
 #endif
  
