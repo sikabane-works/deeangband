@@ -1850,8 +1850,8 @@ void gain_exp_64(creature_type *creature_ptr, s32b amount, u32b amount_frac)
 
 
 /*
-* Gain experience
-*/
+ * Gain experience
+ */
 void gain_exp(creature_type *creature_ptr, s32b amount)
 {
 	gain_exp_64(creature_ptr, amount, 0L);
@@ -1859,11 +1859,7 @@ void gain_exp(creature_type *creature_ptr, s32b amount)
 
 void gain_exp_mes(creature_type *creature_ptr, s32b amount)
 {
-#ifdef JP
-	msg_print("更に経験を積んだような気がする。");
-#else
-	msg_print("You feel more experienced.");
-#endif
+	msg_print(MES_CREATURE_GAIN_EXP);
 	gain_exp_64(creature_ptr, amount, 0L);
 }
 
