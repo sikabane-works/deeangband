@@ -606,6 +606,7 @@ typedef struct object_type object_type;
 struct object_type
 {
 	s16b k_idx;			/* Kind index (zero if "dead") */
+	char name[128];
 
 	byte floor_id;		/* floor */
 	byte fy;			/* Y-position on map, or zero */
