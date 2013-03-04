@@ -1560,8 +1560,6 @@ static errr init_alloc(void)
 	return SUCCESS;
 }
 
-
-
 /*
  * Hack -- take notes on line 23
  */
@@ -1570,48 +1568,6 @@ static void note(cptr str)
 	Term_erase(0, 23, 255);
 	Term_putstr(20, 23, -1, TERM_WHITE, str);
 	Term_fresh();
-}
-
-
-
-/*
- * Hack -- Explain a broken "lib" folder and quit (see below).
- *
- * XXX XXX XXX This function is "messy" because various things
- * may or may not be initialized, but the "plog()" and "quit()"
- * functions are "supposed" to work under any conditions.
- */
-static void init_angband_aux(cptr why)
-{
-	/* Why */
-	plog(why);
-
-#ifdef JP
-	/* Explain */
-	plog("'lib'ディレクトリが存在しないか壊れているようです。");
-
-	/* More details */
-	plog("ひょっとするとアーカイブが正しく解凍されていないのかもしれません。");
-
-	/* Explain */
-	plog("該当する'README'ファイルを読んで確認してみて下さい。");
-
-	/* Quit with error */
-	quit("致命的なエラー。");
-#else
-	/* Explain */
-	plog("The 'lib' directory is probably missing or broken.");
-
-	/* More details */
-	plog("Perhaps the archive was not extracted correctly.");
-
-	/* Explain */
-	plog("See the 'README' file for more information.");
-
-	/* Quit with error */
-	quit("Fatal Error.");
-#endif
-
 }
 
 
@@ -1691,7 +1647,7 @@ void init_angband(void)
 	{
 		char why[1024];
 		sprintf(why, MES_SYS_FAILED_FILEOPEN2, buf);
-		init_angband_aux(why);
+		plog(why);
 	}
 
 	(void)fd_close(fd);
@@ -1751,7 +1707,7 @@ void init_angband(void)
 		{
 			char why[1024];
 			sprintf(why, MES_SYS_FAILED_FILEOPEN2, buf);
-			init_angband_aux(why);
+			plog(why);
 		}
 	}
 
