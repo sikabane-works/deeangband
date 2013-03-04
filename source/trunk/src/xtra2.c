@@ -269,24 +269,13 @@ static int get_coin_type(int species_idx)
 // Hack -- determine if a template is Book
 static bool kind_is_book(int k_idx)
 {
-	object_kind *object_kind_ptr = &object_kind_info[k_idx];
-	if((object_kind_ptr->tval >= TV_LIFE_BOOK) && (object_kind_ptr->tval <= TV_CRUSADE_BOOK)) return TRUE;	
-	return FALSE;	// Assume not good
+	return has_trait_object(&object_kind_info[k_idx], TRAIT_BOOK);
 }
 
 // Hack -- determine if a template is Good book
 static bool kind_is_good_book(int k_idx)
 {
-	object_kind *object_kind_ptr = &object_kind_info[k_idx];
-
-	/* Analyze the item type */
-	if((object_kind_ptr->tval >= TV_LIFE_BOOK) && (object_kind_ptr->tval <= TV_CRUSADE_BOOK) && (object_kind_ptr->tval != TV_ARCANE_BOOK) && (object_kind_ptr->sval > 1))
-	{
-		return TRUE;
-	}
-
-	/* Assume not good */
-	return FALSE;
+	return has_trait_object(&object_kind_info[k_idx], TRAIT_BOOK) && has_trait_object(&object_kind_info[k_idx], TRAIT_GOOD_ITEM);
 }
 
 // Check for "Quest" completion when a quest creature is killed or charmed.
