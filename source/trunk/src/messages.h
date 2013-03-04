@@ -3350,3 +3350,11 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_CURRENT_WAGER(MONEY) "Current Wager:    %9ld", (MONEY)
 #define MES_GAMBLE_ROLE_AGAIN "Hit any key to roll again"
 #endif
+
+#ifdef JP
+#define MES_INFO_KILL_COUNT "殺したクリーチャーの数"
+#define MES_INFO_BOUNTY "賞金首の一覧"
+#else
+#define MES_INFO_KILL_COUNT "Kill Count"
+#define MES_INFO_BOUNTY "Wanted creatures"
+#endif

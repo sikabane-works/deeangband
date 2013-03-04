@@ -5746,12 +5746,7 @@ static void do_cmd_knowledge_kill_count(void)
 	my_fclose(fff);
 
 	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "殺したクリーチャーの数", 0, 0);
-#else
-	show_file(TRUE, file_name, "Kill Count", 0, 0);
-#endif
-
+	show_file(TRUE, file_name, MES_INFO_KILL_COUNT, 0, 0);
 
 	/* Remove the file */
 	fd_kill(file_name);
@@ -7378,14 +7373,7 @@ static void do_cmd_knowledge_kubi(creature_type *creature_ptr)
 	
 	my_fclose(fff);
 	
-	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "賞金首の一覧", 0, 0);
-#else
-	show_file(TRUE, file_name, "Wanted creatures", 0, 0);
-#endif
-	
-	/* Remove the file */
+	show_file(TRUE, file_name, MES_INFO_BOUNTY, 0, 0);
 	fd_kill(file_name);
 }
 
