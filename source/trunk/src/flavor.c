@@ -1136,6 +1136,11 @@ static void get_inscription(char *buff, object_type *object_ptr)
 }
 
 
+void object_desc_new(char *buf, object_type *object_ptr, u32b mode)
+{
+	object_desc(object_ptr->name, object_ptr, mode);
+}
+
 /*
  * Creates a description of the item "object_ptr", and stores it in "out_val".
  *
