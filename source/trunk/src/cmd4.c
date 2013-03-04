@@ -7490,16 +7490,7 @@ static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 	dump_yourself(creature_ptr, fff);
 
 	my_fclose(fff);
-	
-	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "自分に関する情報", 0, 0);
-#else
-	show_file(TRUE, file_name, "HP-rate & Max stat", 0, 0);
-#endif
-
-	
-	/* Remove the file */
+		show_file(TRUE, file_name, MES_INFO_SELF, 0, 0);
 	fd_kill(file_name);
 }
 
@@ -7908,17 +7899,8 @@ static void do_cmd_knowledge_quests(void)
 
 	my_fclose(fff);
 
-	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "クエスト達成状況", 0, 0);
-#else
-	show_file(TRUE, file_name, "Quest status", 0, 0);
-#endif
-
-	/* Remove the file */
+	show_file(TRUE, file_name, MES_INFO_QUEST, 0, 0);
 	fd_kill(file_name);
-
-	/* Free Memory */
 	C_KILL(quest_num, max_quests, int);
 }
 

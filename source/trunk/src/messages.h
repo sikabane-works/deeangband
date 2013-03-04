@@ -3356,9 +3356,13 @@ static cptr desc_stat_neg[] =
 #define MES_INFO_BOUNTY "賞金首の一覧"
 #define MES_INFO_BOUNTY_NONE "賞金首はもう残っていません。"
 #define MES_INFO_DUNGEON "今までに入ったダンジョン"
+#define MES_INFO_SELF "自分に関する情報"
+#define MES_INFO_QUEST "クエスト達成状況"
 #else
 #define MES_INFO_KILL_COUNT "Kill Count"
 #define MES_INFO_BOUNTY "Wanted creatures"
 #define MES_INFO_BOUNTY_NONE "There is no more wanted creature."
 #define MES_INFO_DUNGEON "Dungeon"
+#define MES_INFO_SELF "HP-rate & Max stat"
+#define MES_INFO_QUEST "Quest status"
 #endif
