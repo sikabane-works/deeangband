@@ -3327,3 +3327,10 @@ static cptr desc_stat_neg[] =
 #define MES_SCROLL_MESSAGE "There is message on the scroll. It says:"
 #endif
 
+#ifdef JP
+#define MES_GAMBLE_TOTAL_WON "「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」"
+#define MES_GAMBLE_TOTAL_LOST "「金をスッてしまったな、わはは！うちに帰った方がいいぜ。」"
+#else
+#define MES_GAMBLE_TOTAL_WON "You came out a winner! We'll win next time, I'm sure."
+#define MES_GAMBLE_TOTAL_LOST "You lost gold! Haha, better head home."
+#endif

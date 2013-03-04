@@ -1398,21 +1398,9 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 			prt("", 18, 37);
 			if(creature_ptr->au >= oldgold)
-			{
-#ifdef JP
-				msg_print("「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」");
-#else
-				msg_print("You came out a winner! We'll win next time, I'm sure.");
-#endif
-			}
+				msg_print(MES_GAMBLE_TOTAL_WON);
 			else
-			{
-#ifdef JP
-				msg_print("「金をスッてしまったな、わはは！うちに帰った方がいいぜ。」");
-#else
-				msg_print("You lost gold! Haha, better head home.");
-#endif
-			}
+				msg_print(MES_GAMBLE_TOTAL_LOST);
 		}
 		msg_print(NULL);
 	}
