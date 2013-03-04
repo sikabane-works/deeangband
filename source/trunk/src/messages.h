@@ -3358,6 +3358,10 @@ static cptr desc_stat_neg[] =
 #define MES_INFO_DUNGEON "今までに入ったダンジョン"
 #define MES_INFO_SELF "自分に関する情報"
 #define MES_INFO_QUEST "クエスト達成状況"
+#define MES_INFO_HOME "我が家のアイテム"
+#define MES_INFO_AUTOPICK "自動拾い/破壊 設定リスト"
+#define MES_INFO_AUTOPICK_NO_LINE "自動破壊/拾いには何も登録されていません。"
+#define MES_INFO_AUTOPICK_LINE(NUM) "   自動拾い/破壊には現在 %d行登録されています。\n\n", (NUM)
 #else
 #define MES_INFO_KILL_COUNT "Kill Count"
 #define MES_INFO_BOUNTY "Wanted creatures"
@@ -3365,4 +3369,8 @@ static cptr desc_stat_neg[] =
 #define MES_INFO_DUNGEON "Dungeon"
 #define MES_INFO_SELF "HP-rate & Max stat"
 #define MES_INFO_QUEST "Quest status"
+#define MES_INFO_HOME "Home inventory"
+#define MES_INFO_AUTOPICK "Auto-picker/Destroyer"
+#define MES_INFO_AUTOPICK_NO_LINE "No preference for auto picker/destroyer."
+#define MES_INFO_AUTOPICK_LINE(NUM) "   There are %d registered lines for auto picker/destroyer.\n\n", (NUM)
 #endif

@@ -7983,16 +7983,7 @@ static void do_cmd_knowledge_home(void)
 */
 
 	my_fclose(fff);
-
-	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "â‰Ç™â∆ÇÃÉAÉCÉeÉÄ", 0, 0);
-#else
-	show_file(TRUE, file_name, "Home inventory", 0, 0);
-#endif
-
-
-	/* Remove the file */
+	show_file(TRUE, file_name, MES_INFO_HOME, 0, 0);
 	fd_kill(file_name);
 }
 
@@ -8016,22 +8007,8 @@ static void do_cmd_knowledge_autopick(void)
 	    return;
 	}
 
-	if(!max_autopick)
-	{
-#ifdef JP
-	    fprintf(fff, "é©ìÆîjâÛ/èEÇ¢Ç…ÇÕâΩÇ‡ìoò^Ç≥ÇÍÇƒÇ¢Ç‹ÇπÇÒÅB");
-#else
-	    fprintf(fff, "No preference for auto picker/destroyer.");
-#endif
-	}
-	else
-	{
-#ifdef JP
-	    fprintf(fff, "   é©ìÆèEÇ¢/îjâÛÇ…ÇÕåªç› %dçsìoò^Ç≥ÇÍÇƒÇ¢Ç‹Ç∑ÅB\n\n", max_autopick);
-#else
-	    fprintf(fff, "   There are %d registered lines for auto picker/destroyer.\n\n", max_autopick);
-#endif
-	}
+	if(!max_autopick) fprintf(fff, MES_INFO_AUTOPICK_NO_LINE);
+	else fprintf(fff, MES_INFO_AUTOPICK_LINE(max_autopick));
 
 	for (k = 0; k < max_autopick; k++)
 	{
@@ -8051,14 +8028,7 @@ static void do_cmd_knowledge_autopick(void)
 		fprintf(fff, "\n");
 	}
 	my_fclose(fff);
-	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "é©ìÆèEÇ¢/îjâÛ ê›íËÉäÉXÉg", 0, 0);
-#else
-	show_file(TRUE, file_name, "Auto-picker/Destroyer", 0, 0);
-#endif
-
-	/* Remove the file */
+	show_file(TRUE, file_name, MES_INFO_AUTOPICK, 0, 0);
 	fd_kill(file_name);
 }
 
