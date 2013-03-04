@@ -2057,6 +2057,9 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_RESERACH " ['r'思い出, ' 'で続行, ESC]"
 #define MES_INTERFACE_RESERACH2 "クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):"
 #define MES_INTERFACE_VISUAL "コマンド (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): "
+#define MES_INTERFACE_SKILL_LIST "Lv   MP 失率 効果"
+#define MES_INTERFACE_SKILL_LIST2 "  Lv   MP"
+#define MES_INTERFACE_SKILL_LIST3 "熟練度 Lv   MP 失率 効果"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2076,6 +2079,9 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_RESERACH " [(r)ecall, ESC, space to continue]"
 #define MES_INTERFACE_RESERACH2 "Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): "
 #define MES_INTERFACE_VISUAL "Command (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): "
+#define MES_INTERFACE_SKILL_LIST "Lv Mana Fail Info"
+#define MES_INTERFACE_SKILL_LIST2 "  Lv Mana"
+#define MES_INTERFACE_SKILL_LIST3 "Profic Lv   SP Fail Effect"
 #endif
 
 #ifdef JP

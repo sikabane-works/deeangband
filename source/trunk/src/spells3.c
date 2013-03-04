@@ -2995,9 +2995,7 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 
 /*
  * Hack -- Display all known spells in a window
- *
  * XXX XXX XXX Need to analyze size of the window.
- *
  * XXX XXX XXX Need more color coding.
  */
 void display_spell_list(creature_type *creature_ptr)
@@ -3046,20 +3044,16 @@ void display_spell_list(creature_type *creature_ptr)
 		/* Display a list of spells */
 		prt("", y, x);
 		put_str(KW_NAME, y, x + 5);
-#ifdef JP
-		put_str("Lv   MP é∏ó¶ å¯â ", y, x + 35);
-#else
-		put_str("Lv Mana Fail Info", y, x + 35);
-#endif
+		put_str(MES_INTERFACE_SKILL_LIST, y, x + 35);
 
 		switch(creature_ptr->class_idx)
 		{
 		case CLASS_MINDCRAFTER: use_mind = MIND_MINDCRAFTER;break;
-		case CLASS_FORCETRAINER:          use_mind = MIND_KI;break;
+		case CLASS_FORCETRAINER: use_mind = MIND_KI;break;
 		case CLASS_BERSERKER: use_mind = MIND_BERSERKER; use_hp = TRUE; break;
 		case CLASS_MIRROR_MASTER: use_mind = MIND_MIRROR_MASTER; break;
 		case CLASS_NINJA: use_mind = MIND_NINJUTSU; use_hp = TRUE; break;
-		default:                use_mind = 0;break;
+		default: use_mind = 0;break;
 		}
 
 		/* Dump the spells */
@@ -3116,9 +3110,7 @@ void display_spell_list(creature_type *creature_ptr)
 			mindcraft_info(creature_ptr, comment, use_mind, i);
 
 			/* Dump the spell */
-			sprintf(psi_desc, "  %c) %-30s%2d %4d %3d%%%s",
-			    I2A(i), spell.name,
-			    spell.min_lev, spell.mana_cost, chance, comment);
+			sprintf(psi_desc, "  %c) %-30s%2d %4d %3d%%%s", I2A(i), spell.name, spell.min_lev, spell.mana_cost, chance, comment);
 
 			Term_putstr(x, y + i + 1, -1, a, psi_desc);
 		}
@@ -3293,21 +3285,12 @@ s16b spell_chance(creature_type *creature_ptr, int spell, int use_realm)
 	int             need_mana;
 	int penalty = (magic_info[creature_ptr->class_idx].spell_stat == STAT_WIS) ? 10 : 4;
 
-
-
 	if(!magic_info[creature_ptr->class_idx].spell_book) return (100);
-
 	if(use_realm == REALM_HISSATSU) return 0;
 
 	/* Access the spell */
-	if(!is_magic(use_realm))
-	{
-		s_ptr = &technic_info[use_realm - MIN_TECHNIC][spell];
-	}
-	else
-	{
-		s_ptr = &magic_info[creature_ptr->class_idx].info[use_realm][spell];
-	}
+	if(!is_magic(use_realm)) s_ptr = &technic_info[use_realm - MIN_TECHNIC][spell];
+	else s_ptr = &magic_info[creature_ptr->class_idx].info[use_realm][spell];
 
 	/* Extract the base spell failure rate */
 	chance = s_ptr->sfail;
@@ -3325,10 +3308,7 @@ s16b spell_chance(creature_type *creature_ptr, int spell, int use_realm)
 	need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, use_realm);
 
 	/* Not enough mana to cast */
-	if(need_mana > creature_ptr->csp)
-	{
-		chance += 5 * (need_mana - creature_ptr->csp);
-	}
+	if(need_mana > creature_ptr->csp) chance += 5 * (need_mana - creature_ptr->csp);
 
 	if((use_realm != creature_ptr->realm1) && ((creature_ptr->class_idx == CLASS_MAGE) || (creature_ptr->class_idx == CLASS_PRIEST))) chance += 5;
 
@@ -3340,9 +3320,7 @@ s16b spell_chance(creature_type *creature_ptr, int spell, int use_realm)
 	 * (added high mage, mindcrafter)
 	 */
 	if(magic_info[creature_ptr->class_idx].spell_xtra & MAGIC_FAIL_5PERCENT)
-	{
 		if(minfail < 5) minfail = 5;
-	}
 
 	/* Hack -- Priest prayer penalty for "edged" weapons  -DGK */
 	if(((creature_ptr->class_idx == CLASS_PRIEST) || (creature_ptr->class_idx == CLASS_SORCERER))) chance += 25;
@@ -3399,13 +3377,9 @@ bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study
 
 	/* Access the spell */
 	if(!is_magic(use_realm))
-	{
 		s_ptr = &technic_info[use_realm - MIN_TECHNIC][spell];
-	}
 	else
-	{
 		s_ptr = &magic_info[creature_ptr->class_idx].info[use_realm][spell];
-	}
 
 	/* Spell is illegal */
 	if(s_ptr->slevel > creature_ptr->lev) return FALSE;
@@ -3415,8 +3389,7 @@ bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study
 	    (creature_ptr->spell_forgotten2 & (1L << spell)) :
 	    (creature_ptr->spell_forgotten1 & (1L << spell)))
 	{
-		/* Never okay */
-		return FALSE;
+		return FALSE; /* Never okay */
 	}
 
 	if(creature_ptr->class_idx == CLASS_SORCERER) return TRUE;
@@ -3463,17 +3436,9 @@ void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, i
 	/* Title the list */
 	prt("", y, x);
 	if(use_realm == REALM_HISSATSU)
-#ifdef JP
-		strcpy(buf,"  Lv   MP");
-#else
-		strcpy(buf,"  Lv   SP");
-#endif
+		strcpy(buf, MES_INTERFACE_SKILL_LIST2);
 	else
-#ifdef JP
-		strcpy(buf,"ènó˚ìx Lv   MP é∏ó¶ å¯â ");
-#else
-		strcpy(buf,"Profic Lv   SP Fail Effect");
-#endif
+		strcpy(buf, MES_INTERFACE_SKILL_LIST3);
 
 	put_str(KW_NAME, y, x + 5);
 	put_str(buf, y, x + 29);
