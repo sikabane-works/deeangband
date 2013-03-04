@@ -314,11 +314,7 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 		if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) == 0)
 		{
 			if(object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
-#ifdef JP
-				msg_format("%s‚ð—¼Žè‚Å\‚¦‚½B", object_name);
-#else
-				msg_format("You are wielding %s with both hands.", object_name);
-#endif
+				msg_format(MES_EQUIP_BOTH_HAND(object_ptr));
 		}
 		else if(!(empty_hands(creature_ptr, FALSE) & EMPTY_HAND_RARM) && !object_is_cursed(object_ptr))
 		{
@@ -429,30 +425,6 @@ void do_cmd_drop(creature_type *creature_ptr)
 	prepare_redraw(PR_EQUIPPY);
 }
 
-
-static bool high_level_book(object_type *object_ptr)
-{
-	if((object_ptr->tval == TV_LIFE_BOOK) ||
-		(object_ptr->tval == TV_SORCERY_BOOK) ||
-		(object_ptr->tval == TV_NATURE_BOOK) ||
-		(object_ptr->tval == TV_CHAOS_BOOK) ||
-		(object_ptr->tval == TV_DEATH_BOOK) ||
-		(object_ptr->tval == TV_TRUMP_BOOK) ||
-		(object_ptr->tval == TV_CRAFT_BOOK) ||
-		(object_ptr->tval == TV_DAEMON_BOOK) ||
-		(object_ptr->tval == TV_CRUSADE_BOOK) ||
-		(object_ptr->tval == TV_MUSIC_BOOK) ||
-		(object_ptr->tval == TV_HEX_BOOK))
-	{
-		if(object_ptr->sval > 1)
-			return TRUE;
-		else
-			return FALSE;
-	}
-
-	return FALSE;
-}
-
 // Destroy an item
 void do_cmd_destroy(creature_type *creature_ptr)
 {
@@ -460,9 +432,9 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	int			old_number;
 	bool		force = FALSE;
 
-	object_type *object_ptr;
+	object_type *object1_ptr;
 	object_type forge;
-	object_type *quest_ptr = &forge;
+	object_type *object2_ptr = &forge;
 
 	char object_name[MAX_NLEN];
 	char out_val[MAX_NLEN+40];
@@ -472,12 +444,12 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	/* Hack -- force destruction */
 	if(command_arg > 0) force = TRUE;
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_DESTROY, MES_OBJECT_NO_DESTROY, (USE_INVEN | USE_FLOOR), NULL, 0)) return;
-	object_ptr = GET_ITEM(creature_ptr, item);
+	object1_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Verify unless quantity given beforehand */
-	if(!force && (confirm_destroy || (object_value(object_ptr) > 0)))
+	if(!force && (confirm_destroy || (object_value(object1_ptr) > 0)))
 	{
-		object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
+		object_desc(object_name, object1_ptr, OD_OMIT_PREFIX);
 		sprintf(out_val, MES_OBJECT_DESTROY_VERIFY(object_name));
 		msg_print(NULL);
 
@@ -507,7 +479,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 			if(i == 'A')
 			{
 				/* Add an auto-destroy preference line */
-				if(autopick_autoregister(creature_ptr, object_ptr))
+				if(autopick_autoregister(creature_ptr, object1_ptr))
 				{
 					/* Auto-destroy it */
 					autopick_alter_item(creature_ptr, item, TRUE);
@@ -520,23 +492,23 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	}
 
 	/* See how many items */
-	if(object_ptr->number > 1)
+	if(object1_ptr->number > 1)
 	{
 		/* Get a quantity */
-		amt = get_quantity(NULL, object_ptr->number);
+		amt = get_quantity(NULL, object1_ptr->number);
 
 		/* Allow user abort */
 		if(amt <= 0) return;
 	}
 
 	/* Describe the object */
-	old_number = object_ptr->number;
-	object_ptr->number = amt;
-	object_desc(object_name, object_ptr, 0);
-	object_ptr->number = old_number;
+	old_number = object1_ptr->number;
+	object1_ptr->number = amt;
+	object_desc(object_name, object1_ptr, 0);
+	object1_ptr->number = old_number;
 
 	// Artifacts cannot be destroyed
-	if(!can_player_destroy_object(creature_ptr, object_ptr))
+	if(!can_player_destroy_object(creature_ptr, object1_ptr))
 	{
 		msg_format(MES_OBJECT_CANNOT_DESTROY(object_name));
 		return;
@@ -545,16 +517,16 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	// Take a turn
 	cost_tactical_energy(creature_ptr, 100);
 
-	object_copy(quest_ptr, object_ptr);
+	object_copy(object2_ptr, object1_ptr);
 	msg_format(MES_OBJECT_DESTROY(object_name));
 
 	sound(SOUND_DESTITEM);
 
 	/* Reduce the charges of rods/wands */
-	reduce_charges(object_ptr, amt);
+	reduce_charges(object1_ptr, amt);
 	increase_item(creature_ptr, item, -1, TRUE);
 
-	if(high_level_book(quest_ptr))
+	if(has_trait_object(object2_ptr, TRAIT_BOOK) && has_trait_object(object2_ptr, TRAIT_GOOD_ITEM))
 	{
 		bool gain_expr = FALSE;
 
@@ -568,23 +540,23 @@ void do_cmd_destroy(creature_type *creature_ptr)
 		else if(creature_ptr->class_idx == CLASS_PALADIN)
 		{
 			if(is_good_realm(creature_ptr->realm1))
-				if(!is_good_realm(tval2realm(quest_ptr->tval))) gain_expr = TRUE;
+				if(!is_good_realm(tval2realm(object2_ptr->tval))) gain_expr = TRUE;
 			else
-				if(is_good_realm(tval2realm(quest_ptr->tval))) gain_expr = TRUE;
+				if(is_good_realm(tval2realm(object2_ptr->tval))) gain_expr = TRUE;
 		}
 
 		if(gain_expr && (creature_ptr->exp < CREATURE_MAX_EXP))
 		{
 			s32b tester_exp = creature_ptr->max_exp / 20;
 			if(tester_exp > 10000) tester_exp = 10000;
-			if(quest_ptr->sval < 3) tester_exp /= 4;
+			if(object2_ptr->sval < 3) tester_exp /= 4;
 			if(tester_exp<1) tester_exp = 1;
 
 			gain_exp_mes(creature_ptr, tester_exp * amt);
 		}
 	}
 
-	if(IS_EQUIPPED(object_ptr)) calc_android_exp(creature_ptr);
+	if(IS_EQUIPPED(object1_ptr)) calc_android_exp(creature_ptr);
 }
 
 
