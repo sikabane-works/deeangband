@@ -5184,14 +5184,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	for (k = 0; k < n; k++)
 	{
 		artifact_type *a_ptr = &artifact_info[who[k]];
-
-
-#ifdef JP
-		strcpy(base_name, "未知の伝説のアイテム");
-#else
-		strcpy(base_name, "Unknown Artifact");
-#endif
-
+		strcpy(base_name, MES_INFO_UNKNOWN_ARTIFACT);
 
 		/* Obtain the base object type */
 		z = lookup_kind(a_ptr->tval, a_ptr->sval);
@@ -5228,23 +5221,11 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 
 	}
 
-	/* Free the "who" array */
 	C_KILL(who, max_artifact_idx, s16b);
-
-	/* Free the "okay" array */
 	C_KILL(okay, max_artifact_idx, bool);
 
 	my_fclose(fff);
-
-	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "既知の伝説のアイテム", 0, 0);
-#else
-	show_file(TRUE, file_name, "Artifacts Seen", 0, 0);
-#endif
-
-
-	/* Remove the file */
+	show_file(TRUE, file_name, MES_INFO_KNOWN_ARTIFACT, 0, 0);
 	fd_kill(file_name);
 }
 
@@ -5538,9 +5519,7 @@ void plural_aux(char *Name)
 	}
 }
 
-/*
- * Display current pets
- */
+// Display current pets
 static void do_cmd_knowledge_pets(creature_type *master_ptr)
 {
 	int             i;
@@ -5550,7 +5529,6 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 	int             t_friends = 0;
 	int             show_upkeep = 0;
 	char            file_name[1024];
-
 
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);

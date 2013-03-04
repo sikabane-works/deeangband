@@ -3369,6 +3369,8 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_INFO_UNKNOWN_ARTIFACT "未知のアーティファクト"
+#define MES_INFO_KNOWN_ARTIFACT "既知のアーティファクト"
 #define MES_INFO_KILL_COUNT "殺したクリーチャーの数"
 #define MES_INFO_BOUNTY "賞金首の一覧"
 #define MES_INFO_BOUNTY_NONE "賞金首はもう残っていません。"
@@ -3380,6 +3382,8 @@ static cptr desc_stat_neg[] =
 #define MES_INFO_AUTOPICK_NO_LINE "自動破壊/拾いには何も登録されていません。"
 #define MES_INFO_AUTOPICK_LINE(NUM) "   自動拾い/破壊には現在 %d行登録されています。\n\n", (NUM)
 #else
+#define MES_INFO_UNKNOWN_ARTIFACT "Unknown Artifact"
+#define MES_INFO_KNOWN_ARTIFACT "Artifacts Seen"
 #define MES_INFO_KILL_COUNT "Kill Count"
 #define MES_INFO_BOUNTY "Wanted creatures"
 #define MES_INFO_BOUNTY_NONE "There is no more wanted creature."
