@@ -1875,27 +1875,19 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 	return (cnt);
 }
 
-
-/*
- * Remove most curses
- */
+// Remove most curses
 bool remove_curse(creature_type *creature_ptr)
 {
 	return (remove_curse_aux(creature_ptr, FALSE));
 }
 
-/*
- * Remove all curses
- */
+// Remove all curses
 bool remove_all_curse(creature_type *creature_ptr)
 {
 	return (remove_curse_aux(creature_ptr, TRUE));
 }
 
-
-/*
- * Turns an object into gold, gain some of its value in a shop
- */
+// Turns an object into gold, gain some of its value in a shop
 bool alchemy(creature_type *creature_ptr)
 {
 	int item, amt = 1;
@@ -1906,20 +1898,9 @@ bool alchemy(creature_type *creature_ptr)
 	char object_name[MAX_NLEN];
 	char out_val[MAX_NLEN+40];
 
-	cptr q, s;
-
-	/* Hack -- force destruction */
 	if(command_arg > 0) force = TRUE;
 
-#ifdef JP
-	q = "どのアイテムを金に変えますか？";
-	s = "金に変えられる物がありません。";
-#else
-	q = "Turn which item to gold? ";
-	s = "You have nothing to turn to gold.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return FALSE;
+	if(!get_item(creature_ptr, &item, MES_ALCHEMY_WHICH_OBJECT, MES_ALCHEMY_NO_OBJECT, (USE_INVEN | USE_FLOOR), NULL, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* See how many items */
@@ -1978,10 +1959,7 @@ bool alchemy(creature_type *creature_ptr)
 	return TRUE;
 }
 
-
-/*
- * Break the curse of an item
- */
+// Break the curse of an item
 static void break_curse(object_type *object_ptr)
 {
 	if(object_is_cursed(object_ptr) && !(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) && !(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) && (PERCENT(25)))
