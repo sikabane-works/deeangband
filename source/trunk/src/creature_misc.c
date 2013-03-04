@@ -668,6 +668,12 @@ bool has_trait_species(species_type *species_ptr, int type)
 	return FALSE;
 }
 
+bool has_trait_object_kind(object_kind *kind_ptr, int type)
+{
+	if(kind_ptr->add_creature_traits.add_lev[type]) return TRUE;
+	return FALSE;
+}
+
 bool has_trait_object(object_type *object_ptr, int type)
 {
 	if(have_flag(object_ptr->trait_flags, type)) return TRUE;
