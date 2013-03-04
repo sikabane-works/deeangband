@@ -1790,12 +1790,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 		if(auto_more) target_ptr->now_damaged = TRUE; // stop auto_more even if DAMAGE_USELIFE
 
-#ifdef JP
-		msg_print("*** 警告:低ヒット・ポイント！ ***");
-#else
-		msg_print("*** LOW HITPOINT WARNING! ***");
-#endif
-
+		msg_print(MES_SYS_HP_WARNING);
 		msg_print(NULL);
 		flush();
 	}

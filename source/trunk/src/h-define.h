@@ -80,29 +80,19 @@
 #define FORCEUPPER(A)  ((islower((A))) ? toupper((A)) : (A))
 
 
-/*
- * Non-typed minimum value macro
- */
+/* value macro */
 #undef MIN
-#define MIN(a,b)	(((a) > (b)) ? (b)  : (a))
-
-/*
- * Non-typed maximum value macro
- */
+#define MIN(a,b)	(((a) > (b)) ? (b):(a))
 #undef MAX
-#define MAX(a,b)	(((a) < (b)) ? (b)  : (a))
-
-/*
- * Non-typed absolute value macro
- */
+#define MAX(a,b)	(((a) < (b)) ? (b):(a))
 #undef ABS
-#define ABS(a)		(((a) < 0)   ? (-(a)) : (a))
+#define ABS(a)		(((a) < 0) ? (-(a)):(a))
 
 /*
  * Non-typed sign extractor macro
  */
 #undef SGN
-#define SGN(a)		(((a) < 0)   ? (-1) : ((a) != 0))
+#define SGN(a)		(((a) < 0) ? (-1):((a) != 0))
 
 
 /*
@@ -119,7 +109,6 @@
 #define I2D(X)	((X) + '0')
 #define KTRL(X)	((X) & 0x1F)
 #define ESCAPE	'\033'
-
 
 #endif
 

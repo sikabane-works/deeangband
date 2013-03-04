@@ -87,6 +87,7 @@
 
 #define MES_SYS_ASK_SCREEN_DUMP "記念撮影しますか？ [(y)es/(h)tml/(n)o] "
 #define MES_SYS_SCREEN_DUMPED "画面(記念撮影)をファイルに書き出しました。"
+#define MES_SYS_HP_WARNING "*** 警告:低ヒット・ポイント！ ***"
 
 #else
 
@@ -154,6 +155,8 @@
 
 #define MES_SYS_ASK_SCREEN_DUMP "Save screen dump? [(y)es/(h)tml/(n)o] "
 #define MES_SYS_SCREEN_DUMPED "Screen dump saved."
+#define MES_SYS_HP_WARNING "*** LOW HITPOINT WARNING! ***"
+
 #endif
  
 #if JP
