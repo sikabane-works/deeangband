@@ -7361,14 +7361,7 @@ static void do_cmd_knowledge_kubi(creature_type *creature_ptr)
 			}
 		}
 
-		if(!listed)
-		{
-#ifdef JP
-			fprintf(fff,"\n%s\n", "賞金首はもう残っていません。");
-#else
-			fprintf(fff,"\n%s\n", "There is no more wanted creature.");
-#endif
-		}
+		if(!listed) fprintf(fff,"\n%s\n", MES_INFO_BOUNTY_NONE);
 	}
 	
 	my_fclose(fff);
@@ -7448,16 +7441,7 @@ static void do_cmd_knowledge_dungeon()
 	}
 	
 	my_fclose(fff);
-	
-	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "今までに入ったダンジョン", 0, 0);
-#else
-	show_file(TRUE, file_name, "Dungeon", 0, 0);
-#endif
-
-	
-	/* Remove the file */
+	show_file(TRUE, file_name, MES_INFO_DUNGEON, 0, 0);
 	fd_kill(file_name);
 }
 

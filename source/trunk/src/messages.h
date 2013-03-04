@@ -3354,7 +3354,11 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_INFO_KILL_COUNT "殺したクリーチャーの数"
 #define MES_INFO_BOUNTY "賞金首の一覧"
+#define MES_INFO_BOUNTY_NONE "賞金首はもう残っていません。"
+#define MES_INFO_DUNGEON "今までに入ったダンジョン"
 #else
 #define MES_INFO_KILL_COUNT "Kill Count"
 #define MES_INFO_BOUNTY "Wanted creatures"
+#define MES_INFO_BOUNTY_NONE "There is no more wanted creature."
+#define MES_INFO_DUNGEON "Dungeon"
 #endif
