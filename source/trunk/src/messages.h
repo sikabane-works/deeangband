@@ -3328,9 +3328,15 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_GAMBLE_WON "あなたの勝ち"
+#define MES_GAMBLE_LOST "あなたの負け"
 #define MES_GAMBLE_TOTAL_WON "「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」"
-#define MES_GAMBLE_TOTAL_LOST "「金をスッてしまったな、わはは！うちに帰った方がいいぜ。」"
+#define MES_GAMBLE_TOTAL_LOST "「金をスッてしまったな、わはは！うちに帰った方がいいぜ"
+#define MES_GAMBLE_PAYOFF(ODDS) "倍率: %d", (ODDS)
 #else
+#define MES_GAMBLE_WON "YOU WON"
+#define MES_GAMBLE_LOST "You Lost"
 #define MES_GAMBLE_TOTAL_WON "You came out a winner! We'll win next time, I'm sure."
 #define MES_GAMBLE_TOTAL_LOST "You lost gold! Haha, better head home."
+#define MES_GAMBLE_PAYOFF(ODDS) "Payoff: %d", (ODDS)
 #endif

@@ -1350,23 +1350,13 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 				if(win)
 				{
 					creature_ptr->au += odds * wager;
-#ifdef JP
-					prt("Ç†Ç»ÇΩÇÃèüÇø", 16, 37);
-					sprintf(tmp_str, "î{ó¶: %d", odds);
-#else
-					prt("YOU WON", 16, 37);
-					sprintf(tmp_str, "Payoff: %d", odds);
-#endif
+					prt(MES_GAMBLE_WON, 16, 37);
+					sprintf(tmp_str, MES_GAMBLE_PAYOFF(odds));
 					prt(tmp_str, 17, 37);
 				}
 				else
 				{
-#ifdef JP
-					prt("Ç†Ç»ÇΩÇÃïâÇØ", 16, 37);
-#else
-					prt("You Lost", 16, 37);
-#endif
-
+					prt(MES_GAMBLE_LOST, 16, 37);
 					prt("", 17, 37);
 				}
 #ifdef JP
