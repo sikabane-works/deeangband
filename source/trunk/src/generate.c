@@ -66,11 +66,11 @@
  * Note that the dungeon generation routines are much different (2.7.5)
  * and perhaps "DUN_ROOMS" should be less than 50.
  *
- * XXX XXX XXX Note that it is possible to create a room which is only
+ *  Note that it is possible to create a room which is only
  * connected to itself, because the "tunnel generation" code allows a
  * tunnel to leave a room, wander around, and then re-enter the room.
  *
- * XXX XXX XXX Note that it is possible to create a set of rooms which
+ *  Note that it is possible to create a set of rooms which
  * are only connected to other rooms in that set, since there is nothing
  * explicit in the code to prevent this from happening.  But this is less
  * likely than the "isolated room" problem, because each room attempts to
@@ -95,7 +95,7 @@
  * but we must be careful not to allow, for example, the user to display
  * hidden traps in a different way from floors, or secret doors in a way
  * different from granite walls, or even permanent granite in a different
- * way from granite.  XXX XXX XXX
+ * way from granite.  
  */
 
 #include "angband.h"
@@ -405,7 +405,7 @@ static int next_to_corr(floor_type *floor_ptr, int y1, int x1)
 
 /*
  * Determine if the given location is "between" two walls,
- * and "next to" two corridor spaces.  XXX XXX XXX
+ * and "next to" two corridor spaces.  
  *
  * Assumes "IN_BOUNDS(floor_ptr, y, x)"
  */

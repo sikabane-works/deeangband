@@ -1621,7 +1621,7 @@
 #define ENCH_FORCE      0x08 /* Force enchantment */
 
 /*
- * Bit flags for the "target_set" function XXX XXX XXX
+ * Bit flags for the "target_set" function 
  *
  *      KILL: Target creatures
  *      LOOK: Describe grid fully

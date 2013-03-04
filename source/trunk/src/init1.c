@@ -1701,7 +1701,7 @@ errr parse_feature_info(char *buf, header *head)
 				while (*t == ' ' || *t == '|') t++;
 			}
 
-			/* XXX XXX XXX Hack -- Read feature subtype */
+			/*  Hack -- Read feature subtype */
 			if(1 == sscanf(s, "SUBTYPE_%d", &i))
 			{
 				/* Extract a "subtype" */
@@ -1713,7 +1713,7 @@ errr parse_feature_info(char *buf, header *head)
 				continue;
 			}
 
-			/* XXX XXX XXX Hack -- Read feature power */
+			/*  Hack -- Read feature power */
 			if(1 == sscanf(s, "POWER_%d", &i))
 			{
 				/* Extract a "power" */
@@ -2263,7 +2263,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_ADD_DEPTH_RARITY:
-				/* XXX XXX XXX Simply read each number following a colon */
+				/*  Simply read each number following a colon */
 				for (j = 0, s = tmp; s; ++j)
 				{
 						/* Default chance */

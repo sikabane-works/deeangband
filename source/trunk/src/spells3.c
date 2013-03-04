@@ -984,7 +984,7 @@ bool object_disenchant(creature_type *owner_ptr, object_type *object_ptr, int mo
 }
 
 // Apply disenchantment to the player's stuff
-// XXX XXX XXX This function is also called from the "melee" code
+//  This function is also called from the "melee" code
 // Return "TRUE" if the player notices anything
 bool apply_disenchant(creature_type *creature_ptr, int mode)
 {
@@ -2461,7 +2461,7 @@ bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_
  * strongly they recharge.  Staffs, however, each get fewer charges if
  * stacked.
  *
- * XXX XXX XXX Beware of "sliding index errors".
+ *  Beware of "sliding index errors".
  */
 bool recharge(creature_type *creature_ptr, int power)
 {
@@ -2995,8 +2995,8 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 
 /*
  * Hack -- Display all known spells in a window
- * XXX XXX XXX Need to analyze size of the window.
- * XXX XXX XXX Need more color coding.
+ *  Need to analyze size of the window.
+ *  Need more color coding.
  */
 void display_spell_list(creature_type *creature_ptr)
 {

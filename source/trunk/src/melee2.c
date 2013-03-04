@@ -533,13 +533,13 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
  * It is probably better to replace these arrays with code to compute
  * the relevant arrays, even if the storage is pre-allocated in hard
  * coded sizes.  At the very least, code should be included which is
- * able to generate and dump these arrays (ala "los()").  XXX XXX XXX
+ * able to generate and dump these arrays (ala "los()").  
  *
- * Also, the storage needs could be halved by using bytes.  XXX XXX XXX
+ * Also, the storage needs could be halved by using bytes.  
  *
  * These arrays could be combined into two big arrays, using sub-arrays
  * to hold the offsets and lengths of each portion of the sub-arrays, and
- * this could perhaps also be used somehow in the "look" code.  XXX XXX XXX
+ * this could perhaps also be used somehow in the "look" code.  
  */
 
 
@@ -1438,7 +1438,7 @@ static void do_creature_speaking(creature_type *creature_ptr)
  * fixate on opening a door even if they cannot open it.  Actually,
  * the same thing happens to normal creatures when they hit a door
  *
- * XXX XXX XXX In addition, creatures which *cannot* open or bash
+ *  In addition, creatures which *cannot* open or bash
  * down a door will still stand there trying to open it...
  *
  * XXX Technically, need to check for creature in the way
@@ -1881,7 +1881,7 @@ static void process_nonplayer(int m_idx)
 				/* Locked doors (not jammed) */
 				else
 				{
-					/* Try to unlock it XXX XXX XXX */
+					/* Try to unlock it  */
 					if(randint0(creature_ptr->chp / 10) > f_ptr->power)
 					{
 						/* Unlock the door */
@@ -1899,7 +1899,7 @@ static void process_nonplayer(int m_idx)
 			if(may_bash && has_trait(creature_ptr, TRAIT_BASH_DOOR) && have_flag(f_ptr->flags, FF_BASH) &&
 				(!is_pet(player_ptr, creature_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
-				/* Attempt to Bash XXX XXX XXX */
+				/* Attempt to Bash  */
 				if(check_hp_for_feat_destruction(f_ptr, creature_ptr) && (randint0(creature_ptr->chp / 10) > f_ptr->power))
 				{
 					if(have_flag(f_ptr->flags, FF_GLASS))
@@ -2125,7 +2125,7 @@ static void process_nonplayer(int m_idx)
 				/* Wake up the moved creature */
 				(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, 0, TRUE);
 
-				/* XXX XXX XXX Message */
+				/*  Message */
 			}
 		}
 

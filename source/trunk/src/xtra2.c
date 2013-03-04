@@ -248,7 +248,7 @@ void check_experience(creature_type *creature_ptr)
 * Hack -- Return the "automatic coin type" of a creature race
 * Used to allocate proper treasure when "Creeping coins" die
 *
-* XXX XXX XXX Note the use of actual "creature names"
+*  Note the use of actual "creature names"
 */
 static int get_coin_type(int species_idx)
 {
@@ -1526,7 +1526,7 @@ static s16b target_pick(int y1, int x1, int dy, int dx)
 		/* Approximate Double Distance */
 		v = ((x4 > y4) ? (x4 + x4 + y4) : (y4 + y4 + x4));
 
-		/* XXX XXX XXX Penalize location */
+		/*  Penalize location */
 
 		/* Track best */
 		if((b_i >= 0) && (v >= b_v)) continue;
@@ -1730,7 +1730,7 @@ static void evaluate_creature_exp(creature_type *player_ptr, char *buf, creature
 * recall info and the health bar info to track that creature.
 *
 * Eventually, we may allow multiple objects per grid, or objects
-* and terrain features in the same grid. XXX XXX XXX
+* and terrain features in the same grid. 
 *
 * This function must handle blindness/hallucination.
 */
@@ -2218,7 +2218,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 *
 * All locations must be on the current panel.  Consider the use of
 * "panel_bounds()" to allow "off-panel" targets, perhaps by using
-* some form of "scrolling" the map around the cursor.  XXX XXX XXX
+* some form of "scrolling" the map around the cursor.  
 * That is, consider the possibility of "auto-scrolling" the screen
 * while the cursor moves around.  This may require changes in the
 * "update_creature_view()" code to allow "visibility" even if off panel, and

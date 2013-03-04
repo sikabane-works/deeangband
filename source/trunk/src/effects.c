@@ -537,7 +537,7 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 * 7500 food units, without overflowing the 32767 maximum limit.
 *
 * Perhaps we should disturb the player with various messages,
-* especially messages about hunger status changes.  XXX XXX XXX
+* especially messages about hunger status changes.  
 *
 * Digestion of food is handled in "dungeon.c", in which, normally,
 * the player digests about 20 food units per 100 game turns, more
@@ -1352,9 +1352,9 @@ static void you_died(cptr hit_from)
 /*
 * Decreases players hit points and sets death flag if necessary
 *
-* XXX XXX XXX Invulnerability needs to be changed into a "shield"
+*  Invulnerability needs to be changed into a "shield"
 *
-* XXX XXX XXX Hack -- this function allows the user to save (or quit)
+*  Hack -- this function allows the user to save (or quit)
 * the game when he dies, since the "You die." message is shown before
 * setting the player to "dead".
 */
@@ -1767,7 +1767,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 	if(fear && !has_trait(target_ptr, TRAIT_AFRAID))
 	{
-		/* XXX XXX XXX Hack -- Add some timed fear */
+		/*  Hack -- Add some timed fear */
 		int percentage = (100L * target_ptr->chp) / target_ptr->mhp;
 		(void)set_timed_trait(target_ptr, TRAIT_AFRAID, (randint1(10) + (((damage >= target_ptr->chp) && (percentage > 7)) ? 20 : ((11 - percentage) * 5))), TRUE);
 	}

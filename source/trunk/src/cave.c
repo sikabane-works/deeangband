@@ -2154,7 +2154,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 /*
  * Display a "small-scale" map of the dungeon for the player
  *
- * Currently, the "player" is displayed on the map.  XXX XXX XXX
+ * Currently, the "player" is displayed on the map.  
  */
 void do_cmd_view_map(creature_type *creature_ptr)
 {

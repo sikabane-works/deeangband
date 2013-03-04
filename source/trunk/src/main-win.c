@@ -46,20 +46,20 @@
  *
  * The "Term_xtra_win_clear()" function should probably do a low-level
  * clear of the current window, and redraw the borders and other things,
- * if only for efficiency.  XXX XXX XXX
+ * if only for efficiency.  
  *
  * A simpler method is needed for selecting the "tile size" for windows.
- * XXX XXX XXX
+ * 
  *
  * The various "warning" messages assume the existance of the "screen.w"
  * window, I think, and only a few calls actually check for its existance,
  * this may be okay since "NULL" means "on top of all windows". (?)  The
  * user must never be allowed to "hide" the main window, or the "menubar"
- * will disappear.  XXX XXX XXX
+ * will disappear.  
  *
  * Special "Windows Help Files" can be placed into "lib/xtra/help/" for
  * use with the "winhelp.exe" program.  These files *may* be available
- * at the ftp site somewhere, but I have not seen them.  XXX XXX XXX
+ * at the ftp site somewhere, but I have not seen them.  
  *
  *
  * Initial framework (and most code) by Ben Harrison (benh@phial.com).
@@ -194,7 +194,7 @@
 
 
 /*
- * This may need to be removed for some compilers XXX XXX XXX
+ * This may need to be removed for some compilers 
  */
 #if 0
 #define STRICT
@@ -281,7 +281,7 @@
 # include "readdib.h"
 
 /*
- * Hack -- Fake declarations from "dos.h" XXX XXX XXX
+ * Hack -- Fake declarations from "dos.h" 
  */
 #ifdef WIN32
 #define INVALID_FILE_NAME (DWORD)0xFFFFFFFF
@@ -411,7 +411,7 @@ struct _term_data
 
 
 /*
- * Maximum number of windows XXX XXX XXX
+ * Maximum number of windows 
  */
 #define MAX_TERM_DATA 8
 
@@ -1209,7 +1209,7 @@ static void load_prefs(void)
 #ifdef USE_SOUND
 
 /*
- * XXX XXX XXX - Taken from files.c.
+ *  - Taken from files.c.
  *
  * Extract "tokens" from a buffer
  *
@@ -1495,7 +1495,7 @@ static bool init_graphics(void)
 		/* Activate a palette */
 		if(!new_palette())
 		{
-			/* Free bitmap XXX XXX XXX */
+			/* Free bitmap  */
 
 #ifdef JP
 			plog("パレットを実現できません！");
@@ -1915,7 +1915,7 @@ static errr Term_xtra_win_flush(void)
 /*
  * Hack -- clear the screen
  *
- * Make this more efficient XXX XXX XXX
+ * Make this more efficient 
  */
 static errr Term_xtra_win_clear(void)
 {
@@ -2229,7 +2229,7 @@ static errr Term_wipe_win(int x, int y, int n)
  *
  * One would think there is a more efficient method for telling a window
  * what color it should be using to draw with, but perhaps simply changing
- * it every time is not too inefficient.  XXX XXX XXX
+ * it every time is not too inefficient.  
  */
 static errr Term_text_win(int x, int y, int n, byte a, const char *s)
 {
@@ -2675,7 +2675,7 @@ static void term_data_link(term_data *td)
  * to over-ride selected values, then create the windows, and fonts.
  *
  * Must use SW_SHOW not SW_SHOWNA, since on 256 color display
- * must make active to realize the palette.  XXX XXX XXX
+ * must make active to realize the palette.  
  */
 static void init_windows(void)
 {
@@ -2849,7 +2849,7 @@ static void init_windows(void)
 	SetWindowPos(td->w, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 
 
-	/* New palette XXX XXX XXX */
+	/* New palette  */
 	(void)new_palette();
 
 
@@ -3818,7 +3818,7 @@ static void process_menus(WORD wCmd)
 
 				if(hwndSaver)
 				{
-					/* Push the window to the bottom XXX XXX XXX */
+					/* Push the window to the bottom  */
 					SetWindowPos(hwndSaver, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 				}
 				else
@@ -4283,7 +4283,7 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 
 				case SIZE_MAXIMIZED:
 				{
-					/* fall through XXX XXX XXX */
+					/* fall through  */
 				}
 
 				case SIZE_RESTORED:
@@ -4747,7 +4747,7 @@ static void hook_quit(cptr str)
 	save_prefs();
 
 
-	/*** Could use 'Term_nuke_win()' XXX XXX XXX */
+	/*** Could use 'Term_nuke_win()'  */
 
 	/* Destroy all windows */
 	for (i = MAX_TERM_DATA - 1; i >= 0; --i)
@@ -4799,7 +4799,7 @@ static void init_stuff(void)
 	/* Get program name with full path */
 	GetModuleFileName(hInstance, path, 512);
 
-	/* Save the "program name" XXX XXX XXX */
+	/* Save the "program name"  */
 	argv0 = path;
 
 	/* Get the name of the "*.ini" file */

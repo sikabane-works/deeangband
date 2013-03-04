@@ -348,7 +348,7 @@ s32b div_round(s32b n, s32b d)
  * "external" program parts like the main-*.c files.  It preserves
  * the current RNG state to prevent influences on game-play.
  *
- * Could also use rand() from <stdlib.h> directly. XXX XXX XXX
+ * Could also use rand() from <stdlib.h> directly. 
  */
 u32b Rand_simple(u32b m)
 {

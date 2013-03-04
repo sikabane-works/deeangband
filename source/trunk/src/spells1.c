@@ -239,7 +239,7 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
 * uses fewer than "range" grids for the projection path, so the result
 * of this function should never be compared directly to "range".  Note
 * that the initial grid (y1,x1) is never saved into the grid array, not
-* even if the initial grid is also the final grid.  XXX XXX XXX
+* even if the initial grid is also the final grid.  
 *
 * The "flg" flags can be used to modify the behavior of this function.
 *
@@ -253,7 +253,7 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
 * that the path should be "angled" slightly if needed to avoid any wall
 * grids, allowing the player to "target" any grid which is in "view".
 * This flag is non-trivial and has not yet been implemented, but could
-* perhaps make use of the "vinfo" array (above).  XXX XXX XXX
+* perhaps make use of the "vinfo" array (above).  
 *
 * This function returns the number of grids (if any) in the path.  This
 * function will return zero if and only if(y1,x1) and (y2,x2) are equal.
@@ -572,9 +572,9 @@ static s16b creature_target_y;
 *
 * We return "TRUE" if the effect of the projection is "obvious".
 *
-* XXX XXX XXX We also "see" grids which are "memorized", probably a hack
+*  We also "see" grids which are "memorized", probably a hack
 *
-* XXX XXX XXX Perhaps we should affect doors?
+*  Perhaps we should affect doors?
 */
 static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr, int r, int y, int x, int dam, int typ)
 {
@@ -1203,7 +1203,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 * Note that we determine if the player can "see" anything that happens
 * by taking into account: blindness, line-of-sight, and illumination.
 *
-* XXX XXX XXX We also "see" grids which are "memorized", probably a hack
+*  We also "see" grids which are "memorized", probably a hack
 *
 * We return "TRUE" if the effect of the projection is "obvious".
 */

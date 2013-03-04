@@ -1551,8 +1551,8 @@ void object_absorb(object_type *object1_ptr, object_type *object2_ptr)
 	/* Hack -- blend "feelings" */
 	if(object2_ptr->feeling) object1_ptr->feeling = object2_ptr->feeling;
 
-	/* Hack -- could average discounts XXX XXX XXX */
-	/* Hack -- save largest discount XXX XXX XXX */
+	/* Hack -- could average discounts  */
+	/* Hack -- save largest discount  */
 	if(object1_ptr->discount < object2_ptr->discount) object1_ptr->discount = object2_ptr->discount;
 
 	/* Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM- */
@@ -3350,7 +3350,7 @@ void init_normal_traps(void)
 /*
 * Get random trap
 *
-* XXX XXX XXX This routine should be redone to reflect trap "level".
+*  This routine should be redone to reflect trap "level".
 * That is, it does not make sense to have spiked pits at 50 feet.
 * Actually, it is not this routine, but the "trap instantiation"
 * code, which should also check for "trap doors" on quest levels.

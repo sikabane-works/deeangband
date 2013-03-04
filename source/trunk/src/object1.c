@@ -27,9 +27,9 @@
  * flag.  This is useful for switching "graphics" on/off.
  *
  * The features, objects, and creatures, should all be encoded in the
- * relevant "font.pref" and/or "graf.prf" files.  XXX XXX XXX
+ * relevant "font.pref" and/or "graf.prf" files.  
  *
- * The "prefs" parameter is no longer meaningful.  XXX XXX XXX
+ * The "prefs" parameter is no longer meaningful.  
  */
 void reset_visuals(void)
 {

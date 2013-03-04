@@ -3261,7 +3261,7 @@ extern void do_cmd_debug(creature_type *creature_ptr);
 
 // Parse and execute the current command
 // Give "Warning" on illegal commands.
-// XXX XXX XXX Make some "blocks"
+//  Make some "blocks"
 static void process_player_command(creature_type *creature_ptr)
 {
 	int old_now_message = now_message;

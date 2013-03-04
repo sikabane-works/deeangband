@@ -470,7 +470,7 @@ errr top_twenty(creature_type *player_ptr)
 	/* Save the player name (80 chars) */
 	sprintf(the_score.who, "%-.80s", player_ptr->name);
 
-	/* Save the player info XXX XXX XXX */
+	/* Save the player info  */
 	sprintf(the_score.uid, "%7u", player_uid);
 	sprintf(the_score.sex, "%c", (player_ptr->sex ? 'm' : 'f'));
 	sprintf(the_score.p_r, "%2d", player_ptr->race_idx1);
@@ -571,7 +571,7 @@ errr predict_score(creature_type *player_ptr)
 	/* Save the player name (80 chars) */
 	sprintf(the_score.who, "%-.80s", player_ptr->name);
 
-	/* Save the player info XXX XXX XXX */
+	/* Save the player info  */
 	sprintf(the_score.uid, "%7u", player_uid);
 	sprintf(the_score.sex, "%c", (player_ptr->sex ? 'm' : 'f'));
 	sprintf(the_score.p_r, "%2d", player_ptr->race_idx1);

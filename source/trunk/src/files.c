@@ -4527,7 +4527,7 @@ errr make_character_dump(creature_type *creature_ptr, FILE *fff)
 /*
  * Hack -- Dump a character description file
  *
- * XXX XXX XXX Allow the "full" flag to dump additional info,
+ *  Allow the "full" flag to dump additional info,
  * and trigger its usage from various places in the code.
  */
 errr file_character(cptr name)
@@ -4794,7 +4794,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	/* Redirect the name */
 	name = filename;
 
-	/* Hack XXX XXX XXX */
+	/* Hack  */
 	if(what)
 	{
 		strcpy(caption, what);
@@ -5465,7 +5465,7 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
  * Perhaps we should NOT ask for a name (at "birth()") on
  * Unix machines?  XXX XXX
  *
- * What a horrible name for a global function.  XXX XXX XXX
+ * What a horrible name for a global function.  
  */
 void get_name(creature_type *creature_ptr)
 {

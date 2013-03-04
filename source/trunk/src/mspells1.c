@@ -561,12 +561,12 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
  *
  * Returns "TRUE" if a spell (or whatever) was (successfully) cast.
  *
- * XXX XXX XXX This function could use some work, but remember to
+ *  This function could use some work, but remember to
  * keep it as optimized as possible, while retaining generic code.
  *
  * Verify the various "blind-ness" checks in the code.
  *
- * XXX XXX XXX Note that several effects should really not be "seen"
+ *  Note that several effects should really not be "seen"
  * if the player is blind.  See also "effects.c" for other "mistakes".
  *
  * Perhaps creatures should breathe at locations *near* the player,

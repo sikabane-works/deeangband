@@ -885,7 +885,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 	char tmp_val[80];
 
 
-	/* XXX XXX XXX Mega-Hack -- allow multiple artifacts */
+	/*  Mega-Hack -- allow multiple artifacts */
 	if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->name1].cur_num = 0;
 
 
@@ -965,7 +965,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 			/* Create an object */
 			make_random_object(quest_ptr, mode, 0, floor_ptr->object_level, NULL);
 
-			/* XXX XXX XXX Mega-Hack -- allow multiple artifacts */
+			/*  Mega-Hack -- allow multiple artifacts */
 			if(object_is_fixed_artifact(quest_ptr)) artifact_info[quest_ptr->name1].cur_num = 0;
 
 
@@ -1670,7 +1670,7 @@ static void do_cmd_wiz_summon(creature_type *creature_ptr, int num)
 /*
  * Summon a creature of the specified type
  *
- * XXX XXX XXX This function is rather dangerous
+ *  This function is rather dangerous
  */
 static void do_cmd_wiz_named(creature_type *creature_ptr, int species_idx)
 {
@@ -1682,7 +1682,7 @@ static void do_cmd_wiz_named(creature_type *creature_ptr, int species_idx)
 /*
  * Summon a creature of the specified type
  *
- * XXX XXX XXX This function is rather dangerous
+ *  This function is rather dangerous
  */
 static void do_cmd_wiz_named_friendly(creature_type *creature_ptr, int species_idx)
 {

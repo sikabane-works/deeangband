@@ -42,7 +42,7 @@
  * the existing "number of turns to protect for", and where each hit
  * by a creature will reduce the shield by that amount.
  *
- * XXX XXX XXX
+ * 
  */
 
 

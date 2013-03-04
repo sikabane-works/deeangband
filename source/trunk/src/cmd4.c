@@ -960,7 +960,7 @@ void do_cmd_change_name(creature_type *creature_ptr)
  */
 void do_cmd_message_one(void)
 {
-	/* Recall one message XXX XXX XXX */
+	/* Recall one message  */
 	prt(format("> %s", message_str(0)), 0, 0);
 }
 
@@ -1242,7 +1242,7 @@ static void do_cmd_options_cheat(cptr info)
 	{
 		int dir;
 
-		/* Prompt XXX XXX XXX */
+		/* Prompt  */
 #ifdef JP
 		sprintf(buf, "%s ( リターンで次へ, y/n でセット, ESC で決定 )", info);
 #else
@@ -1392,7 +1392,7 @@ static void do_cmd_options_autosave(cptr info)
 	/* Interact with the player */
 	while (TRUE)
 	{
-		/* Prompt XXX XXX XXX */
+		/* Prompt  */
 #ifdef JP
 		sprintf(buf, "%s ( リターンで次へ, y/n でセット, F で頻度を入力, ESC で決定 ) ", info);
 #else
@@ -2013,7 +2013,7 @@ void do_cmd_options(void)
 /*
  * Ask for a "user pref line" and process it
  *
- * XXX XXX XXX Allow absolute file names?
+ *  Allow absolute file names?
  */
 void do_cmd_pref(void)
 {
@@ -2137,7 +2137,7 @@ static void do_cmd_macro_aux(char *buf)
 
 // Hack -- ask for a keymap "trigger" (see below)
 // Note that both "flush()" calls are extremely important.  This may
-// no longer be true, since "util.c" is much simpler now.  XXX XXX XXX
+// no longer be true, since "util.c" is much simpler now.  
 static void do_cmd_macro_aux_keymap(char *buf)
 {
 	char tmp[1024];
@@ -2243,7 +2243,7 @@ static selection_info macro_menu_info = {"", 11, 0, 4, 5, 11, 40, NULL, NULL, GE
 
 // Interact with "macros"
 // Note that the macro "action" must be defined before the trigger.
-// Could use some helpful instructions on this page.  XXX XXX XXX
+// Could use some helpful instructions on this page.  
 void do_cmd_macros(void)
 {
 	int i;
@@ -5579,7 +5579,7 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 
 /*
  * Total kill count
- * Note that the player ghosts are ignored.  XXX XXX XXX
+ * Note that the player ghosts are ignored.  
  */
 static void do_cmd_knowledge_kill_count(void)
 {

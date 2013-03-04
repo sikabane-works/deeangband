@@ -1298,7 +1298,7 @@ static void fix_player(creature_type *player_ptr)
 /*
  * Hack -- display recent messages in sub-windows
  *
- * XXX XXX XXX Adjust for width and split messages
+ *  Adjust for width and split messages
  */
 static void fix_message(void)
 {

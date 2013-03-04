@@ -1526,7 +1526,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, obje
 	/* Hack -- The Home is simple */
 	if(is_home(st_ptr) || is_museum(st_ptr)) return TRUE;
 
-	/* XXX XXX XXX Ignore "worthless" items */
+	/*  Ignore "worthless" items */
 	//if(object_value(object_ptr) <= 0) return FALSE;
 
 	/* Black Market is simple too */
@@ -3130,7 +3130,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 	final_ask *= object_ptr->number;
 
 
-	/* XXX XXX XXX Display commands */
+	/*  Display commands */
 
 	/* Haggling parameters */
 	min_per = 100; //TOFO ot_ptr->haggle_per;
@@ -4383,7 +4383,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 			prt(MES_STORE_COMMAND_LIST5, 23 + xtra_stock, 27);
 		}
 
-		/* Shop commands XXX XXX XXX */
+		/* Shop commands  */
 		/* 基本的なコマンドの追加表示 */
 		else
 		{
@@ -4413,7 +4413,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		notice_stuff(creature_ptr);
 		handle_stuff(creature_ptr);
 
-		/* XXX XXX XXX Pack Overflow */
+		/*  Pack Overflow */
 		if(creature_ptr->inventory[INVEN_TOTAL].k_idx)
 		{
 			int item = INVEN_TOTAL;

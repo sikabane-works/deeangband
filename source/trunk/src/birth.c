@@ -53,7 +53,7 @@ struct hist_type
  *   Half-Orc      --> 19 --> 20 -->  2 -->  3 --> 50 --> 51 --> 52 --> 53
  *   Half-Troll    --> 22 --> 23 --> 62 --> 63 --> 64 --> 65 --> 66
  *
- * XXX XXX XXX This table *must* be correct or drastic errors may occur!
+ *  This table *must* be correct or drastic errors may occur!
  */
 static hist_type bg[] =
 {

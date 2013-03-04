@@ -785,7 +785,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 		/* Extract the lock power */
 		j = f_ptr->power;
 
-		/* Extract the difficulty XXX XXX XXX */
+		/* Extract the difficulty  */
 		j = i - (j * 4);
 
 		/* Always have a small chance of success */
@@ -1290,7 +1290,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 		/* Extract the lock power */
 		j = f_ptr->power;
 
-		/* Extract the difficulty XXX XXX XXX */
+		/* Extract the difficulty  */
 		j = i - (j * 4);
 
 		/* Always have a small chance of success */
@@ -1548,7 +1548,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	cost_tactical_energy(creature_ptr, 100);
 	msg_format(MES_BASH_DO(name));
 
-	/* Compare bash power to door power XXX XXX XXX */
+	/* Compare bash power to door power  */
 	temp = (bash - (temp * 10));
 
 	if(creature_ptr->class_idx == CLASS_BERSERKER) temp *= 2;
@@ -1658,7 +1658,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 /*
  * Manipulate an adjacent grid in some way
  * Attack creatures, tunnel through walls, disarm traps, open doors.
- * Consider confusion XXX XXX XXX
+ * Consider confusion 
  * This command must always take a turn, to prevent free detection
  * of invisible creatures.
  */
@@ -1711,7 +1711,7 @@ void do_cmd_alter(creature_type *creature_ptr)
 }
 
 // Find the index of some "spikes", if possible.
-// XXX XXX XXX Let user choose a pile of spikes, perhaps?
+//  Let user choose a pile of spikes, perhaps?
 static bool get_spike(creature_type *creature_ptr, int *ip)
 {
 	int i;
@@ -1948,7 +1948,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 	if(command_arg > 9999) command_arg = 9999;
 	if(creature_ptr->posture & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
 
-	/* Take a turn XXX XXX XXX (?) */
+	/* Take a turn  (?) */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Save the rest code */
@@ -2574,7 +2574,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				}
 				else
 				{
-					/* Apply special damage XXX XXX XXX */
+					/* Apply special damage  */
 					tdam = tot_dam_aux_shot(creature_ptr, quest_ptr, tdam, steed_ptr);
 					tdam = critical_shot(creature_ptr, quest_ptr->weight, quest_ptr->to_hit, tdam);
 
@@ -3113,7 +3113,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 				/* Hack -- Base damage from thrown object */
 				tdam = diceroll(quest_ptr->dd, quest_ptr->ds);
-				/* Apply special damage XXX XXX XXX */
+				/* Apply special damage  */
 				tdam = tot_dam_aux(creature_ptr, quest_ptr, tdam, m_ptr, 0, TRUE);
 				tdam = critical_shot(creature_ptr, quest_ptr->weight, quest_ptr->to_hit, tdam);
 				if(quest_ptr->to_damage > 0)

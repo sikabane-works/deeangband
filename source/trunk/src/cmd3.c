@@ -1010,7 +1010,7 @@ void ang_sort_swap_hook(vptr u, vptr v, int a, int b)
 *
 * The responses may be sorted in several ways, see below.
 *
-* Note that the player ghosts are ignored. XXX XXX XXX
+* Note that the player ghosts are ignored. 
 */
 void do_cmd_query_symbol(creature_type *creature_ptr)
 {
@@ -1162,7 +1162,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	}
 
 
-	/* Prompt XXX XXX XXX */
+	/* Prompt  */
 #ifdef JP
 	put_str("v‚¢o‚ğŒ©‚Ü‚·‚©? (k:EŠQ‡/y/n): ", 0, 36);
 #else

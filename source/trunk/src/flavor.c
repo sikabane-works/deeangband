@@ -1952,7 +1952,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			{
 				char k = t[-1];
 
-				/* XXX XXX XXX Mega-Hack */
+				/*  Mega-Hack */
 
 				/* Hack -- "Cutlass-es" and "Torch-es" */
 				if((k == 's') || (k == 'h')) *t++ = 'e';

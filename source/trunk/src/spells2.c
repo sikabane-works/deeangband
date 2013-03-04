@@ -80,7 +80,7 @@ bool cast_ball_hide(creature_type *caster_ptr, int typ, int range, int dam, int 
 *
 * See also "identify_fully(creature_ptr, )".
 *
-* XXX XXX XXX Use the "show_file()" method, perhaps.
+*  Use the "show_file()" method, perhaps.
 */
 void creature_knowledge(creature_type *creature_ptr)
 {

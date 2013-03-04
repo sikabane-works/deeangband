@@ -3592,7 +3592,7 @@ static bool generate_fracave(floor_type *floor_ptr, int y0, int x0, int xsize, i
 	}
 
 	/*
-	 * XXX XXX XXX There is a slight problem when tunnels pierce the caves:
+	 *  There is a slight problem when tunnels pierce the caves:
 	 * Extra doors appear inside the system.  (Its not very noticeable though.)
 	 * This can be removed by "filling" from the outside in.  This allows a separation
 	 * from _outer_ with _inner_.  (Internal walls are  _outer_ instead.)
