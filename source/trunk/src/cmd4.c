@@ -4857,11 +4857,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 
 	int wid, hgt;
 
-#ifdef JP
-	prt("‹L”OB‰e‚µ‚Ü‚·‚©H [(y)es/(h)tml/(n)o] ", 0, 0);
-#else
-	prt("Save screen dump? [(y)es/(h)tml/(n)o] ", 0, 0);
-#endif
+	prt(MES_SYS_ASK_SCREEN_DUMP, 0, 0);
 	while(TRUE)
 	{
 		char c = inkey();
@@ -4963,10 +4959,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 			/* Dump each row */
 			for (x = 0; x < wid - 1; x++)
 			{
-				/* Get the attr/char */
 				(void)(Term_what(x, y, &a, &c));
-
-				/* Dump it */
 				buf[x] = hack[a&0x0F];
 			}
 
@@ -4980,16 +4973,8 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		/* Skip a line */
 		fprintf(fff, "\n");
 
-
-		/* Close it */
 		my_fclose(fff);
-
-#ifdef JP
-	msg_print("‰æ–Ê(‹L”OB‰e)‚ğƒtƒ@ƒCƒ‹‚É‘‚«o‚µ‚Ü‚µ‚½B");
-#else
-		msg_print("Screen dump saved.");
-#endif
-
+		msg_print(MES_SYS_SCREEN_DUMPED);
 		msg_print(NULL);
 
 
