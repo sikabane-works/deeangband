@@ -36,7 +36,7 @@
  */
 #undef huge
 #ifdef WIN32
-# define huge /* oops */
+#define huge
 #endif
 
 

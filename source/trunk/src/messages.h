@@ -2503,6 +2503,7 @@ static cptr desc_stat_neg[] =
 #define MES_EQUIP_LIGHT_ARMOR "バランスがとれるようになった。"
 #define MES_EQUIP_UNCONTROL_STEED "馬を操れない。"
 #define MES_EQUIP_CONTROL_STEED "馬を操れるようになった。"
+#define MES_EQUIP_BOTH_HAND(OBJECT) "%sを両手で構えた。", (OBJECT)->name
 #else
 #define MES_EQUIP_WHICH_WIELD "Wear/Wield which item? "
 #define MES_EQUIP_NO_WIELD "You have nothing you can wear or wield."
@@ -2528,6 +2529,7 @@ static cptr desc_stat_neg[] =
 #define MES_EQUIP_LIGHT_ARMOR "You regain your balance."
 #define MES_EQUIP_UNCONTROL_STEED "You are using both hand for fighting, and you can't control a riding pet."
 #define MES_EQUIP_CONTROL_STEED "You began to control riding pet with one hand."
+#define MES_EQUIP_BOTH_HAND(OBJECT) "You are wielding %s with both hands.", (OBJECT)->name
 #endif
 
 #ifdef JP

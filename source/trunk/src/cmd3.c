@@ -291,11 +291,7 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 				inven_item_increase(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1), -((int)object_ptr->number));
 				inven_item_optimize(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1));
 				if(object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
-#ifdef JP
-					msg_format("%sを両手で構えた。", object_name);
-#else
-					msg_format("You are wielding %s with both hands.", object_name);
-#endif
+					msg_format(MES_EQUIP_BOTH_HAND(object_ptr));
 				else
 #ifdef JP
 					msg_format("%sを%sで構えた。", object_name, (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "左手" : "右手"));
@@ -306,11 +302,7 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 			else
 			{
 				if(object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
-#ifdef JP
-					msg_format("%sを両手で構えた。", object_name);
-#else
-					msg_format("You are wielding %s with both hands.", object_name);
-#endif
+					msg_format(MES_EQUIP_BOTH_HAND(object_ptr));
 			}
 		}
 	}

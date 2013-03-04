@@ -5579,7 +5579,6 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 
 /*
  * Total kill count
- *
  * Note that the player ghosts are ignored.  XXX XXX XXX
  */
 static void do_cmd_knowledge_kill_count(void)
@@ -6223,18 +6222,10 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			if(!visual_only) prt("Kills", 4, 73);
 #endif
 
-			for (i = 0; i < 78; i++)
-			{
-				Term_putch(i, 5, TERM_WHITE, '=');
-			}
+			for (i = 0; i < 78; i++) Term_putch(i, 5, TERM_WHITE, '=');
 
 			if(direct_species_idx < 0)
-			{
-				for (i = 0; i < browser_rows; i++)
-				{
-					Term_putch(max + 1, 6 + i, TERM_WHITE, '|');
-				}
-			}
+				for (i = 0; i < browser_rows; i++) Term_putch(max + 1, 6 + i, TERM_WHITE, '|');
 
 			redraw = FALSE;
 		}
@@ -6545,10 +6536,7 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
 	}
 
 	/* Clear remaining lines */
-	for (; i < per_page; i++)
-	{
-		Term_erase(col, row + i, 255);
-	}
+	for (; i < per_page; i++) Term_erase(col, row + i, 255);
 }
 
 /*
