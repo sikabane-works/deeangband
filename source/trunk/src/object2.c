@@ -3526,7 +3526,7 @@ void floor_item_charges(int item)
 void floor_item_describe(creature_type *creature_type, int item)
 {
 	object_type *object_ptr = &object_list[item];
-	char        object_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	object_desc(object_name, object_ptr, 0);
 
@@ -5077,14 +5077,9 @@ static int choose_essence(void)
 		{
 			int i;
 
-			for (i = 0; i < mode_max; i++)
-				prt(format("  %c) %s", 'a' + i, menu_name[i]), 2 + i, 14);
+			for (i = 0; i < mode_max; i++) prt(format("  %c) %s", 'a' + i, menu_name[i]), 2 + i, 14);
 
-#ifdef JP
-			if(!get_com("何を付加しますか:", &choice, TRUE))
-#else
-			if(!get_com("Command :", &choice, TRUE))
-#endif
+			if(!get_com(MES_SMITH_WHICH_ENCHANT, &choice, TRUE))
 			{
 				screen_load();
 				return 0;
@@ -5130,22 +5125,13 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 	if(!repeat_pull(&i) || i<0 || i>=max_num)
 	{
-
-		/* Nothing chosen yet */
 		flag = FALSE;
-
-		/* No redraw yet */
 		redraw = FALSE;
 
-#ifdef JP
-		(void)strnfmt(out_val, 78, "('*'で一覧, ESCで中断) どの能力を付加しますか？");
-#else
-		(void)strnfmt(out_val, 78, "(*=List, ESC=exit) Add which ability? ");
-#endif
+		(void)strnfmt(out_val, 78, MES_SMITH_WHICH_ABILITY);
 		if(use_menu) screen_save();
 
 		/* Get a spell from the user */
-
 		choice = (use_menu) ? ESCAPE:1;
 		while (!flag)
 		{
