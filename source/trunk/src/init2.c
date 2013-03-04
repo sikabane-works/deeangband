@@ -1677,9 +1677,7 @@ void init_angband(void)
 	sprintf(ver, "[Ver.%d.%d.%d]", VER_MAJOR, VER_MINOR, VER_PATCH);
 	Term_putstr(25, 2, -1, TERM_WHITE, ver);
 
-	/* Flush it */
 	Term_fresh();
-
 
 	/*** Verify (or create) the "high score" file ***/
 

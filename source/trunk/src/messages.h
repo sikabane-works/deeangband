@@ -2381,6 +2381,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_EXAMING(OBJECT) "%sを調べている..." ,(OBJECT)
 #define MES_OBJECT_NO_SPECIAL "特に変わったところはないようだ。"
 #define MES_OBJECT_DROP_FEET "何かが足下に転がってきた。"
+#define MES_OBJECT_CHARGE_LEFT(NUM) "あと %d 回分の魔力が残っている。", (NUM)
+#define MES_OBJECT_CHARGE_LEFT2(NUM) "この床上のアイテムは、あと %d 回分の魔力が残っている。", (NUM)
 #define MES_OBJECT_NO_CHARGE_LEFT "もう魔力が残っていない。"
 #define MES_OBJECT_WHICH_REFILL_LAMP "どの油つぼから注ぎますか? "
 #define MES_OBJECT_NO_REFILL_LAMP "油つぼがない。"
@@ -2409,6 +2411,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_EXAMING(OBJECT) "Examining %s...", (OBJECT)
 #define MES_OBJECT_NO_SPECIAL "You see nothing special."
 #define MES_OBJECT_DROP_FEET "You feel something roll beneath your feet."
+#define MES_OBJECT_CHARGE_LEFT(NUM) "You have %d charges remaining.", (NUM)
+#define MES_OBJECT_CHARGE_LEFT2(NUM) "There is %d charge remaining.", (NUM)
 #define MES_OBJECT_NO_CHARGE_LEFT "No charges left."
 #define MES_OBJECT_WHICH_REFILL_LAMP "Refill with which flask? "
 #define MES_OBJECT_NO_REFILL_LAMP "You have no flasks of oil."

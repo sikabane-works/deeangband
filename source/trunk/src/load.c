@@ -91,7 +91,6 @@ static void note(cptr msg)
 	/* Advance one line (wrap if needed) */
 	if(++y >= 24) y = 2;
 
-	/* Flush it */
 	Term_fresh();
 }
 

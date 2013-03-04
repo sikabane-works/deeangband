@@ -3429,11 +3429,7 @@ void inven_item_charges(creature_type *creature_ptr, int item)
 	if(!object_is_known(object_ptr)) return;
 
 	if(object_ptr->pval <= 0) msg_print(MES_OBJECT_NO_CHARGE_LEFT);
-#ifdef JP
-	else msg_format("あと %d 回分の魔力が残っている。", object_ptr->pval);
-#else
-	else msg_format("You have %d charges remaining.", object_ptr->pval);
-#endif
+	else msg_format(MES_OBJECT_CHARGE_LEFT(object_ptr->pval));
 
 }
 
@@ -3520,11 +3516,7 @@ void floor_item_charges(int item)
 	if(!object_is_known(object_ptr)) return;
 
 	if(object_ptr->pval <= 0) msg_print(MES_OBJECT_NO_CHARGE_LEFT);
-#ifdef JP
-	else msg_format("この床上のアイテムは、あと %d 回分の魔力が残っている。", object_ptr->pval);
-#else
-	else msg_format("There is %d charge remaining.", object_ptr->pval);
-#endif
+	else msg_format(MES_OBJECT_CHARGE_LEFT2(object_ptr->pval));
 }
 
 

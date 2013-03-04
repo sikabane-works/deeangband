@@ -2801,8 +2801,6 @@ void msg_print(cptr msg)
 
 		/* Display part of the message */
 		Term_putstr(0, 0, split, TERM_WHITE, t);
-
-		/* Flush it */
 		msg_flush(split + 1);
 
 		/* Memorize the piece */
