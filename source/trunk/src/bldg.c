@@ -1359,15 +1359,10 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					prt(MES_GAMBLE_LOST, 16, 37);
 					prt("", 17, 37);
 				}
-#ifdef JP
-				sprintf(tmp_str, "Œ»Ý‚ÌŠŽ‹à:     %9ld", creature_ptr->au);
+
+				sprintf(tmp_str, MES_GAMBLE_CURRENT_MONEY(creature_ptr->au));
 				prt(tmp_str, 22, 2);
-				prt("‚à‚¤ˆê“x(Y/N)H", 18, 37);
-#else
-				sprintf(tmp_str, "Current Gold:     %9ld", creature_ptr->au);
-				prt(tmp_str, 22, 2);
-				prt("Again(Y/N)?", 18, 37);
-#endif
+				prt(MES_GAMBLE_AGAIN, 18, 37);
 				move_cursor(18, 52);
 				again = inkey();
 				prt("", 16, 37);

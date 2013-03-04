@@ -3333,10 +3333,14 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_TOTAL_WON "「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」"
 #define MES_GAMBLE_TOTAL_LOST "「金をスッてしまったな、わはは！うちに帰った方がいいぜ"
 #define MES_GAMBLE_PAYOFF(ODDS) "倍率: %d", (ODDS)
+#define MES_GAMBLE_AGAIN "もう一度(Y/N)？"
+#define MES_GAMBLE_CURRENT_MONEY(MONEY) "現在の所持金:     %9ld", (MONEY)
 #else
 #define MES_GAMBLE_WON "YOU WON"
 #define MES_GAMBLE_LOST "You Lost"
 #define MES_GAMBLE_TOTAL_WON "You came out a winner! We'll win next time, I'm sure."
 #define MES_GAMBLE_TOTAL_LOST "You lost gold! Haha, better head home."
 #define MES_GAMBLE_PAYOFF(ODDS) "Payoff: %d", (ODDS)
+#define MES_GAMBLE_AGAIN "Again(Y/N)?"
+#define MES_GAMBLE_CURRENT_MONEY(MONEY) "Current Gold:     %9ld", (MONEY)
 #endif
