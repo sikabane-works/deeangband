@@ -1116,18 +1116,10 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 			odds = 0;
 			oldgold = creature_ptr->au;
 
-#ifdef JP
-			sprintf(tmp_str, "ƒQ[ƒ€‘O‚ÌŠ‹à: %9ld", oldgold);
+			sprintf(tmp_str, MES_GAMBLE_BEFORE_MONEY(oldgold));
 			prt(tmp_str, 20, 2);
-			sprintf(tmp_str, "Œ»İ‚ÌŠ|‚¯‹à:     %9ld", wager);
+			sprintf(tmp_str, MES_GAMBLE_CURRENT_WAGER(wager));
 			prt(tmp_str, 21, 2);
-#else
-			sprintf(tmp_str, "Gold before game: %9ld", oldgold);
-			prt(tmp_str, 20, 2);
-			sprintf(tmp_str, "Current Wager:    %9ld", wager);
-			prt(tmp_str, 21, 2);
-#endif
-
 
 			// Prevent savefile-scumming of the casino
 			Rand_value = (u32b)time(NULL);
@@ -1191,11 +1183,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					else
 						do
 						{
-#ifdef JP
-							msg_print("‚È‚É‚©ƒL[‚ğ‰Ÿ‚·‚Æ‚à‚¤ˆê‰ñU‚è‚Ü‚·B");
-#else
-							msg_print("Hit any key to roll again");
-#endif
+							msg_print(MES_GAMBLE_ROLE_AGAIN);
 							msg_print(NULL);
 							roll1 = randint1(6);
 							roll2 = randint1(6);
