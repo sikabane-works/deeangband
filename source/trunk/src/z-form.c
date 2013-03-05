@@ -456,10 +456,8 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 			{
 				int arg;
 
-				/* Access next argument */
 				arg = va_arg(vp, int);
 
-				/* Format the argument */
 				sprintf(tmp, aux, arg);
 
 				break;
@@ -472,20 +470,16 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				{
 					long arg;
 
-					/* Access next argument */
 					arg = va_arg(vp, long);
 
-					/* Format the argument */
 					sprintf(tmp, aux, arg);
 				}
 				else
 				{
 					int arg;
 
-					/* Access next argument */
 					arg = va_arg(vp, int);
 
-					/* Format the argument */
 					sprintf(tmp, aux, arg);
 				}
 
@@ -499,20 +493,16 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				{
 					unsigned long arg;
 
-					/* Access next argument */
 					arg = va_arg(vp, unsigned long);
 
-					/* Format the argument */
 					sprintf(tmp, aux, arg);
 				}
 				else
 				{
 					unsigned int arg;
 
-					/* Access next argument */
 					arg = va_arg(vp, unsigned int);
 
-					/* Format the argument */
 					sprintf(tmp, aux, arg);
 				}
 
@@ -526,10 +516,8 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 			{
 				double arg;
 
-				/* Access next argument */
 				arg = va_arg(vp, double);
 
-				/* Format the argument */
 				sprintf(tmp, aux, arg);
 
 				break;
@@ -540,10 +528,8 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 			{
 				vptr arg;
 
-				/* Access next argument */
 				arg = va_arg(vp, vptr);
 
-				/* Format the argument */
 				sprintf(tmp, aux, arg);
 
 				break;
@@ -555,7 +541,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				cptr arg;
 				char arg2[1024];
 
-				/* Access next argument */
 				arg = va_arg(vp, cptr);
 
 				/* Hack -- convert NULL to EMPTY */
@@ -565,7 +550,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				strncpy(arg2, arg, 1024);
 				arg2[1023] = '\0';
 
-				/* Format the argument */
 				sprintf(tmp, aux, arg2);
 
 				break;
@@ -577,7 +561,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 			{
 				vptr arg;
 
-				/* Access next argument */
 				arg = va_arg(vp, vptr);
 
 				/* Format the "user data" */
