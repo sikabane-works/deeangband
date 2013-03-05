@@ -2288,7 +2288,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	/* Sniper - Cannot shot a single arrow twice */
 	if((creature_ptr->snipe_type == SP_DOUBLE) && (object_ptr->number < 2)) creature_ptr->snipe_type = SP_NONE;
 
-	/* Describe the object */
 	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
 
 	/* Use the proper number of shots */

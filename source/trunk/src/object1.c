@@ -1053,7 +1053,6 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 			if(!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(creature_ptr, object_ptr, hook, 0)) continue;
 			if(!((IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_EQUIPMENT)) || (!IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_INVENTORY)))) continue;
 
-			/* Describe the object */
 			object_desc(object_name, object_ptr, 0);
 
 			/* Save the object index, color, and description */
@@ -1463,7 +1462,6 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 	{
 		object_ptr = &object_list[floor_list[i]];
 
-		/* Describe the object */
 		object_desc(object_name, object_ptr, 0);
 
 		/* Save the index */
@@ -2729,7 +2727,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		/* Access the object */
 		object_ptr = &object_list[this_object_idx];
 
-		/* Describe the object */
 		object_desc(object_name, object_ptr, 0);
 
 		/* Access the next object */
@@ -2793,7 +2790,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Access the object */
 			object_ptr = &object_list[floor_object_idx];
 
-			/* Describe the object */
 			object_desc(object_name, object_ptr, 0);
 			msg_format(GAME_MESSAGE_SEE_OBJECT, object_name);
 		}
@@ -2810,7 +2806,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Access the object */
 			object_ptr = &object_list[floor_object_idx];
 
-			/* Describe the object */
 			object_desc(object_name, object_ptr, 0);
 			msg_format(GAME_MESSAGE_PACK_NO_ROOM, object_name);
 		}
@@ -2831,7 +2826,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Access the object */
 			object_ptr = &object_list[floor_object_idx];
 
-			/* Describe the object */
 			object_desc(object_name, object_ptr, 0);
 			(void) sprintf(out_val, PROMPT_PICK, object_name);
 

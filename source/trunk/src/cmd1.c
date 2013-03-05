@@ -478,7 +478,6 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 	object_ptr = &object_list[object_idx];
 
 #ifdef JP
-	/* Describe the object */
 	object_desc(old_name, object_ptr, OD_NAME_ONLY);
 	object_desc_kosuu(kazu_str, object_ptr);
 	hirottakazu = object_ptr->number;

@@ -1706,7 +1706,6 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 			{
 				char object_name[MAX_NLEN];
 
-				/* Describe the object */
 				object_desc(object_name, object_ptr, 0);
 				msg_format(GAME_MESSAGE_PACK_NO_ROOM, object_name);
 				/* Hack - remember that the item has given a message here. */
@@ -1771,11 +1770,7 @@ static bool clear_auto_register(void)
 		pref_fff = my_fopen(pref_file, "r");
 	}
 
-	if(!pref_fff)
-	{
-		/* No file yet */
-		return TRUE;
-	}
+	if(!pref_fff) return TRUE;
 
 	/* Open a new (temporary) file */
 	tmp_fff = my_fopen_temp(tmp_file, sizeof(tmp_file));

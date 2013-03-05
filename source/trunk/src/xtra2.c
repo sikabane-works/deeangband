@@ -1918,7 +1918,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 				/* Acquire object */
 				object_ptr = &object_list[floor_list[0]];
 
-				/* Describe the object */
 				object_desc(object_name, object_ptr, 0);
 
 #ifdef JP
@@ -2035,7 +2034,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			/* Obtain an object description */
 			object_desc(object_name, object_ptr, 0);
 
-			/* Describe the object */
 #ifdef JP
 			sprintf(out_val, "%s%s%s%s[%s]", s1, object_name, s2, s3, info);
 #else

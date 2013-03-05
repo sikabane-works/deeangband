@@ -501,7 +501,6 @@ void do_cmd_destroy(creature_type *creature_ptr)
 		if(amt <= 0) return;
 	}
 
-	/* Describe the object */
 	old_number = object1_ptr->number;
 	object1_ptr->number = amt;
 	object_desc(object_name, object1_ptr, 0);

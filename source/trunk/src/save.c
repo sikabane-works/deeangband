@@ -16,11 +16,8 @@
 /*
  * Some "local" parameters, used to help write savefiles
  */
-
 static FILE     *fff;           /* Current save "file" */
-
 static byte     xor_byte;       /* Simple encryption */
-
 static u32b     v_stamp = 0L;   /* A simple "checksum" on the actual values */
 static u32b     x_stamp = 0L;   /* A simple "checksum" on the encoded bytes */
 
@@ -1116,8 +1113,6 @@ static bool save_player_aux(char *name)
 	bool ok = FALSE;
 	int fd = -1;
 	int mode = 0644;
-
-	/* No file yet */
 	fff = NULL;
 
 	/* File type is "SAVE" */

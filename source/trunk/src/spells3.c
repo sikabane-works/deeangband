@@ -1914,7 +1914,6 @@ bool alchemy(creature_type *creature_ptr)
 	}
 
 
-	/* Describe the object */
 	old_number = object_ptr->number;
 	object_ptr->number = amt;
 	object_desc(object_name, object_ptr, 0);

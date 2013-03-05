@@ -2398,7 +2398,6 @@ static void display_entry(store_type *st_ptr, creature_type *creature_ptr, int p
 		/* Leave room for weights, if necessary -DRS- */
 		maxwid -= 10;
 
-		/* Describe the object */
 		object_desc(object_name, object_ptr, 0);
 		object_name[maxwid] = '\0';
 		c_put_str(tval_to_acttr[object_ptr->tval], object_name, i+6, cur_col);
