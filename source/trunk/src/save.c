@@ -1444,17 +1444,12 @@ int load_player(void)
 	}
 #endif
 
-	// Okay
 	if(!err)
 	{
 		// Give a conversion warning
 		if((VER_MAJOR != ver_major) || (VER_MINOR != ver_minor) || (VER_PATCH != ver_patch))
 		{
-#ifdef JP
-			msg_format("バージョン %d.%d.%d 用のセーブ・ファイルを変換しました。", ver_major , ver_minor, ver_patch);
-#else
-			msg_format("Converted a %d.%d.%d savefile.", ver_major , ver_minor, ver_patch);
-#endif
+			msg_format(MES_SYS_SAVEFILE_CONVERTED(ver_major , ver_minor, ver_patch));
 			msg_print(NULL);
 		}
 

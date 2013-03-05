@@ -1613,7 +1613,7 @@ static bool vault_aux_orc(int species_idx)
 	if(!has_trait_species(species_ptr, TRAIT_ORC)) return FALSE;		// Require orc
 	if(has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;					// Decline undead
 
-	return TRUE; // Okay
+	return TRUE;
 }
 
 
@@ -1628,7 +1628,7 @@ static bool vault_aux_troll(int species_idx)
 	if(has_trait_species(species_ptr, TRAIT_TROLL)) return FALSE;	// Require troll
 	if(has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;					// Decline undead
 
-	return TRUE; // Okay
+	return TRUE;
 }
 
 
@@ -5445,7 +5445,6 @@ static bool vault_aux_trapped_pit(int species_idx)
 	// No wall passing creature
 	if(has_trait_raw(&species_ptr->flags, TRAIT_KILL_WALL) || has_trait_raw(&species_ptr->flags, TRAIT_PASS_WALL)) return FALSE;
 
-	// Okay
 	return TRUE;
 }
 

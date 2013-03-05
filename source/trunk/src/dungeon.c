@@ -372,10 +372,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_ROGUE:
 	case CLASS_NINJA:
 		{
-			/* Okay sensing */
 			if(0 != randint0(20000L / (plev * plev + 40))) return;
-
-			/* Heavy sensing */
 			heavy = TRUE;
 
 			break;
@@ -438,9 +435,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_MONK:
 	case CLASS_FORCETRAINER:
 		{
-			/* Okay sensing */
 			if(0 != randint0(20000L / (plev * plev + 40))) return;
-
 			break;
 		}
 

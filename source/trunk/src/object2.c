@@ -3131,8 +3131,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, int y
 			/* Track it */
 			by = ty;
 			bx = tx;
-
-			flag = TRUE; // Okay
+			flag = TRUE;
 		}
 	}
 
@@ -3171,7 +3170,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, int y
 		/* Require floor space */
 		if(!cave_drop_bold(floor_ptr, by, bx)) continue;
 
-		flag = TRUE; // Okay
+		flag = TRUE;
 	}
 
 

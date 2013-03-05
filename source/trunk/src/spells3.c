@@ -3403,7 +3403,6 @@ bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study
 		return (!study_pray);
 	}
 
-	/* Okay to study, not to cast */
 	return (!learned);
 }
 
