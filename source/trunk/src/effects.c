@@ -1824,8 +1824,8 @@ void inc_mana(creature_type *creature_ptr, int val)
 
 
 /*
-* Gain experience
-*/
+ * Gain experience
+ */
 void gain_exp_64(creature_type *creature_ptr, s32b amount, u32b amount_frac)
 {
 	if(IS_DEAD(creature_ptr)) return;
@@ -1852,14 +1852,9 @@ void gain_exp_64(creature_type *creature_ptr, s32b amount, u32b amount_frac)
 /*
  * Gain experience
  */
-void gain_exp(creature_type *creature_ptr, s32b amount)
+void gain_exp(creature_type *creature_ptr, s32b amount, bool mes)
 {
-	gain_exp_64(creature_ptr, amount, 0L);
-}
-
-void gain_exp_mes(creature_type *creature_ptr, s32b amount)
-{
-	msg_print(MES_CREATURE_GAIN_EXP);
+	if(mes) msg_print(MES_CREATURE_GAIN_EXP);
 	gain_exp_64(creature_ptr, amount, 0L);
 }
 

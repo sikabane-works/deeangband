@@ -2203,7 +2203,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	// Increase Experience
 	case 'x':
-		gain_exp(creature_ptr, command_arg ? command_arg : (creature_ptr->exp + 1));
+		gain_exp(creature_ptr, command_arg ? command_arg : (creature_ptr->exp + 1), TRUE);
 		break;
 
 	// X: No Use

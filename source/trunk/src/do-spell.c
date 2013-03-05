@@ -549,7 +549,7 @@ static void cast_shuffle(creature_type *caster_ptr)
 		{
 			s32b ee = (caster_ptr->exp / 25) + 1;
 			if(ee > 5000) ee = 5000;
-			gain_exp_mes(caster_ptr, ee);
+			gain_exp(caster_ptr, ee, TRUE);
 		}
 	}
 }

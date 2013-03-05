@@ -2941,7 +2941,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 				s32b ee = (creature_ptr->exp / 2) + 10;
 				if(ee > 100000L) ee = 100000L;
 				reward = MES_DIARY_PATRON_GAIN_EXP;
-				gain_exp_mes(creature_ptr, ee);
+				gain_exp(creature_ptr, ee, TRUE);
 			}
 			break;
 
