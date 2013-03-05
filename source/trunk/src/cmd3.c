@@ -1145,22 +1145,16 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		return;
 	}
 
-
-	/* Prompt  */
 #ifdef JP
 	put_str("évÇ¢èoÇå©Ç‹Ç∑Ç©? (k:éEäQèá/y/n): ", 0, 36);
 #else
 	put_str("Recall details? (k/y/n): ", 0, 40);
 #endif
 
-
 	query = inkey();
-
 	prt(buf, 0, 0);
-
 	why = 2;
 
-	/* Sort the array */
 	ang_sort(who, &why, n, ang_sort_comp_hook, ang_sort_swap_hook);
 
 	/* Sort by kills (and level) */
@@ -1201,16 +1195,12 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 
 		handle_stuff(creature_ptr);
 
-		/* Interact */
-		while (1)
+		while (TRUE)
 		{
-			/* Recall */
 			if(recall)
 			{
 				screen_save();
-
-				/* Recall on screen */
-				//screen_roff(who[i], 0);
+				//TODO screen_roff(who[i], 0);
 			}
 
 			/* Hack -- Begin the prompt */
@@ -1223,7 +1213,6 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 			Term_addstr(-1, TERM_WHITE, " [(r)ecall, ESC]");
 #endif
 
-			/* Command */
 			query = inkey();
 
 			/* Unrecall */

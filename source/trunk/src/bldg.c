@@ -2964,10 +2964,8 @@ static bool research_creature(creature_type *creature_ptr)
 		// Hack -- Complete the prompt
 		Term_addstr(-1, TERM_WHITE, MES_INTERFACE_RESERACH);
 
-		/* Interact */
-		while (1)
+		while(TRUE)
 		{
-			/* Recall */
 			if(recall)
 			{
 				/*** Recall on screen ***/
@@ -2988,8 +2986,6 @@ static bool research_creature(creature_type *creature_ptr)
 				old_sym = sym;
 				old_i = i;
 			}
-
-			/* Command */
 			query = inkey();
 
 			/* Normal commands */

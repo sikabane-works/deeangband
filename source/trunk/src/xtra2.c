@@ -1818,26 +1818,17 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		/* Get the creature name ("a kobold") */
 		creature_desc(m_name, m_ptr, CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
-		/* Hack -- track this creature race */
 		species_type_track(m_ptr->ap_species_idx);
-
-		/* Hack -- health bar for this creature */
 		health_track(c_ptr->creature_idx);
-
-		/* Hack -- handle stuff */
 		handle_stuff(creature_ptr);
 
-		/* Interact */
-		while (1)
+		while(TRUE)
 		{
 			char acount[10];
 
-			/* Recall */
 			if(recall)
 			{
 				screen_save();
-
-				/* Recall on screen */
 				screen_roff(m_ptr);
 
 				/* Hack -- Complete the prompt (again) */
@@ -1846,10 +1837,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 #else
 				Term_addstr(-1, TERM_WHITE, format("  [r,%s%s]", x_info, info));
 #endif
-
-				/* Command */
 				query = inkey();
-
 				screen_load();
 
 				/* Normal commands */
@@ -1877,8 +1865,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 			/* Place cursor */
 			move_cursor_relative(y, x);
-
-			/* Command */
 			query = inkey();
 
 			/* Normal commands */
@@ -1943,8 +1929,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 				prt(out_val, 0, 0);
 				move_cursor_relative(y, x);
-
-				/* Command */
 				query = inkey();
 
 				/* End this grid */
@@ -1963,8 +1947,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 				prt(out_val, 0, 0);
 				move_cursor_relative(y, x);
-
-				/* Command */
 				query = inkey();
 
 				/* No request for listing */

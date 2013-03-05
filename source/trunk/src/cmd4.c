@@ -6292,7 +6292,6 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			/* Mega Hack -- track this creature race */
 			if(mon_cnt) species_type_track(mon_idx[mon_cur]);
 
-			/* Hack -- handle stuff */
 			handle_stuff(player_ptr);
 		}
 
@@ -6783,7 +6782,6 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 			/* The "current" object changed */
 			if(object_old != object_idx[object_cur])
 			{
-				/* Hack -- handle stuff */
 				handle_stuff(player_ptr);
 
 				/* Remember the "current" object */
@@ -6834,7 +6832,6 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 			case 'R':
 			case 'r':
 			{
-				/* Recall on screen */
 				if(!visual_list && !visual_only && (grp_cnt > 0))
 				{
 					desc_obj_fake(object_idx[object_cur]);
