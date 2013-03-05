@@ -3402,3 +3402,16 @@ static cptr desc_stat_neg[] =
 #define MES_INFO_AUTOPICK_NO_LINE "No preference for auto picker/destroyer."
 #define MES_INFO_AUTOPICK_LINE(NUM) "   There are %d registered lines for auto picker/destroyer.\n\n", (NUM)
 #endif
+
+#ifdef JP
+#define MES_QUERY_ALL_CREATURE "全クリーチャーのリスト"
+#define MES_QUERY_UNIQUE "ユニーク・クリーチャーのリスト"
+#define MES_QUERY_NON_UNIQUE "ユニーク外クリーチャーのリスト"
+#define MES_QUERY_STEED "乗馬可能クリーチャーのリスト"
+#else
+#define MES_QUERY_ALL_CREATURE "Full creature list."
+#define MES_QUERY_UNIQUE "Unique creature list."
+#define MES_QUERY_NON_UNIQUE "Non-unique creature list."
+#define MES_QUERY_STEED "Ridable creature list."
+#endif
+

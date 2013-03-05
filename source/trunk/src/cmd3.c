@@ -1045,38 +1045,22 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	if(sym == KTRL('A'))
 	{
 		all = TRUE;
-#ifdef JP
-		strcpy(buf, "全クリーチャーのリスト");
-#else
-		strcpy(buf, "Full creature list.");
-#endif
+		strcpy(buf, MES_QUERY_ALL_CREATURE);
 	}
 	else if(sym == KTRL('U'))
 	{
 		all = uniq = TRUE;
-#ifdef JP
-		strcpy(buf, "ユニーク・クリーチャーのリスト");
-#else
-		strcpy(buf, "Unique creature list.");
-#endif
+		strcpy(buf, MES_QUERY_UNIQUE);
 	}
 	else if(sym == KTRL('N'))
 	{
 		all = norm = TRUE;
-#ifdef JP
-		strcpy(buf, "ユニーク外クリーチャーのリスト");
-#else
-		strcpy(buf, "Non-unique creature list.");
-#endif
+		strcpy(buf, MES_QUERY_NON_UNIQUE);
 	}
 	else if(sym == KTRL('R'))
 	{
 		all = ride = TRUE;
-#ifdef JP
-		strcpy(buf, "乗馬可能クリーチャーのリスト");
-#else
-		strcpy(buf, "Ridable creature list.");
-#endif
+		strcpy(buf, MES_QUERY_STEED);
 	}
 	/* XTRA HACK WHATSEARCH */
 	else if(sym == KTRL('M'))
