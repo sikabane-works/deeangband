@@ -1931,6 +1931,8 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_STORE_RUMOR "店主は耳うちした:"
+#define MES_STORE_ASK_PRICE "提示する価格? "
 #define MES_STORE_ENTIRE "これで全部です。"
 #define MES_STORE_ITEM_LIMIT "そんなにアイテムを持てない。"
 #define MES_STORE_ITEM_LIMIT2 "ザックにそのアイテムを入れる隙間がない。"
@@ -1991,6 +1993,8 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_ITEM_DESCRIPTION "アイテムの一覧"
 #define MES_STORE_ITEM_DESCRIPTION "アイテムの一覧"
 #else
+#define MES_STORE_RUMOR "The shopkeeper whispers something into your ear:"
+#define MES_STORE_ASK_PRICE "What price do you ask? "
 #define MES_STORE_ENTIRE "That's all."
 #define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."
 #define MES_STORE_ITEM_LIMIT2 "You cannot carry that many items."

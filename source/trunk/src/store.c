@@ -579,12 +579,7 @@ static byte temple_table[STABLE_TEMPLE_MAX][2] =
 };
 
 
-
-
-#define RUMOR_CHANCE 8
-
-#define MAX_COMMENT_1	6
-
+#define MAX_COMMENT_1 6
 static cptr comment_1[MAX_COMMENT_1] =
 {
 #ifdef JP
@@ -888,11 +883,10 @@ static void say_comment_1(store_type *st_ptr)
 
 	if(one_in_(RUMOR_CHANCE))
 	{
+		msg_print(MES_STORE_RUMOR);
 #ifdef JP
-		msg_print("“XŽå‚ÍŽ¨‚¤‚¿‚µ‚½:");
 		if(!get_rnd_line_jonly(TEXT_FILES_RUMOR, 0, rumour, 10))
 #else
-		msg_print("The shopkeeper whispers something into your ear:");
 		if(!get_rnd_line(TEXT_FILES_RUMOR, 0, rumour))
 #endif
 		msg_print(rumour);
@@ -2867,20 +2861,17 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 		/* No need to haggle */
 		if(noneed)
 		{
-			/* Message summary */
 #ifdef JP
 			msg_print("Œ‹‹Ç‚±‚Ì‹àŠz‚É‚Ü‚Æ‚Ü‚Á‚½B");
 #else
 			msg_print("You eventually agree upon the price.");
 #endif
-
 			msg_print(NULL);
 		}
 
 		/* No haggle option */
 		else
 		{
-			/* Message summary */
 #ifdef JP
 			msg_print("‚·‚ñ‚È‚è‚Æ‚±‚Ì‹àŠz‚É‚Ü‚Æ‚Ü‚Á‚½B");
 #else
@@ -3106,7 +3097,6 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 		/* No haggle option */
 		else
 		{
-			/* Message summary */
 #ifdef JP
 			msg_print("‚·‚ñ‚È‚è‚Æ‚±‚Ì‹àŠz‚É‚Ü‚Æ‚Ü‚Á‚½B");
 #else
@@ -3116,10 +3106,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 			msg_print(NULL);
 		}
 
-		/* Final price */
 		cur_ask = final_ask;
-
-		/* Final offer */
 		final = TRUE;
 		pmt = KW_FINAL_OFFER_PRICE;
 	}
@@ -3129,7 +3116,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 	final_ask *= object_ptr->number;
 
 
-	/*  Display commands */
+	/* Display commands */
 
 	/* Haggling parameters */
 	min_per = 100; //TOFO ot_ptr->haggle_per;
@@ -3145,7 +3132,6 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 	/* No incremental haggling yet */
 	allow_inc = FALSE;
 
-	/* Haggle */
 	for (flag = FALSE; !flag; )
 	{
 		while (1)
@@ -3154,16 +3140,9 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 
 			(void)sprintf(out_val, "%s :  %ld", pmt, (long)cur_ask);
 			put_str(out_val, 1, 0);
-#ifdef JP
-			cancel = receive_offer(st_ptr, "’ñŽ¦‚·‚é‰¿Ši? ", &offer, last_offer, -1, cur_ask, final);
-#else
-			cancel = receive_offer(st_ptr, "What price do you ask? ", &offer, last_offer, -1, cur_ask, final);
-#endif
+			cancel = receive_offer(st_ptr, MES_STORE_ASK_PRICE, &offer, last_offer, -1, cur_ask, final);
 
-			if(cancel)
-			{
-				flag = TRUE;
-			}
+			if(cancel) flag = TRUE;
 			else if(offer < cur_ask)
 			{
 				say_comment_6();

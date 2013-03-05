@@ -1,6 +1,7 @@
 
 // 2012 D'angband  game-contants.h
 
+#define RUMOR_CHANCE 8
 #define EARTHQUAKE_MAX_RANGE 12
 #define MAX_TELEPORT_DISTANCE 200
 
