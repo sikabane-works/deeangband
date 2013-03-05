@@ -41,6 +41,7 @@
 #define MES_SYS_AUTO_SAVING "自動セーブ中"
 #define MES_SYS_GAME_SAVING "ゲームをセーブしています..."
 #define MES_SYS_QUITING_KEY "リターンキーか ESC キーを押して下さい。"
+#define MES_SYS_SAVEFILE_ERROR(NUM, MAJ, MIN, EXT) "エラー(%s)がバージョン%d.%d.%d 用セーブファイル読み込中に発生。",(NUM), (MAJ), (MIN), (EXT)
 #define MES_SYS_SAVE_FAILED "セーブ失敗！"
 #define MES_SYS_SCORE_FAILED "スコア・ファイルが使用できません。"
 #define MES_SYS_PANIC_SAVE_SUCCEED "緊急セーブ成功！"
@@ -108,6 +109,7 @@
 #define MES_SYS_AUTO_SAVING "Autosaving the game..."
 #define MES_SYS_GAME_SAVING "Saving game..."
 #define MES_SYS_QUITING_KEY "Press Return (or Escape)."
+#define MES_SYS_SAVEFILE_ERROR(NUM, MAJ, MIN, EXT) "Error (%s) reading %d.%d.%d savefile.", (NUM), (MAJ), (MIN), (EXT)
 #define MES_SYS_SAVE_FAILED "death save failed!"
 #define MES_SYS_SCORE_FAILED "Score file unavailable."
 #define MES_SYS_PANIC_SAVE_SUCCEED "Panic save succeeded!"

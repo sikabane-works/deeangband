@@ -1530,11 +1530,7 @@ int load_player(void)
 
 #endif
 
-#ifdef JP
-	msg_format("エラー(%s)がバージョン%d.%d.%d 用セーブファイル読み込中に発生。", what, ver_major, ver_minor, ver_patch);
-#else
-	msg_format("Error (%s) reading %d.%d.%d savefile.", what, ver_major, ver_minor, ver_patch);
-#endif
+	msg_format(MES_SYS_SAVEFILE_ERROR(what, ver_major, ver_minor, ver_patch));
 	msg_print(NULL);
 
 	return err;
