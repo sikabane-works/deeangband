@@ -241,11 +241,7 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 			}
 			else if(creature_ptr->riding && (creature_ptr->class_idx != CLASS_BEASTMASTER) && (creature_ptr->class_idx != CLASS_CAVALRY))
 			{
-#ifdef JP
-				msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
-#else
-				msg_print("You don't have permission to enter with pet.");
-#endif
+				msg_print(MES_ARENA_NO_PET);
 				msg_print(NULL);
 			}
 			else
@@ -260,20 +256,10 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 
 		case BUILDING_FUNCTION_POSTER:
 			if(arena_number == MAX_ARENA_MONS)
-#ifdef JP
-				msg_print("あなたは勝利者だ。 アリーナでのセレモニーに参加しなさい。");
-#else
-				msg_print("You are victorious. Enter the arena for the ceremony.");
-#endif
+				msg_print(MES_ARENA_YOU_ARE_WINNER);
 
 			else if(arena_number > MAX_ARENA_MONS)
-			{
-#ifdef JP
-				msg_print("あなたはすべての敵に勝利した。");
-#else
-				msg_print("You have won against all foes.");
-#endif
-			}
+				msg_print(MES_ARENA_CLEARED);
 			else
 			{
 				species_ptr = &species_info[arena_info[arena_number].species_idx];

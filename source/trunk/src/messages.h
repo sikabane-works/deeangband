@@ -658,6 +658,9 @@
 #define MES_ARENA_CHALLENGE(NAME) "%s に挑戦するものはいないか？", (NAME)
 #define MES_ARENA_LOST(TARGET) "あなたは%sの前に敗れ去った。", (TARGET)->name
 #define MES_ARENA_FEEL_GLORY "あなたはアリーナに入り、しばらくの間栄光にひたった。"
+#define MES_ARENA_NO_PET "ペットに乗ったままではアリーナへ入れさせてもらえなかった。"
+#define MES_ARENA_YOU_ARE_WINNER "あなたは勝利者だ。 アリーナでのセレモニーに参加しなさい。"
+#define MES_ARENA_CLEARED "あなたはすべての敵に勝利した。"
 #else
 #define MES_ARENA_READY "Ready..Fight!"
 #define MES_ARENA_LIMIT "The arena absorbs all attempted magic!"
@@ -668,6 +671,9 @@
 #define MES_ARENA_CHALLENGE(NAME) "Do I hear any challenges against: %s", (NAME)
 #define MES_ARENA_LOST(TARGET) "You are beaten by %s.", (TARGET)->name;
 #define MES_ARENA_FEEL_GLORY "You enter the arena briefly and bask in your glory."
+#define MES_ARENA_NO_PET "You don't have permission to enter with pet."
+#define MES_ARENA_YOU_ARE_WINNER "You are victorious. Enter the arena for the ceremony."
+#define MES_ARENA_CLEARED "You have won against all foes."
 #endif
 
 #ifdef JP
