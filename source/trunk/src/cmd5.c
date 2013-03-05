@@ -915,7 +915,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 				creature_ptr->spell_worked2 |= (1L << spell);
 
 			/* Gain experience */
-			gain_exp(creature_ptr, e * s_ptr->slevel, FALSE);
+			gain_exp(creature_ptr, e * s_ptr->slevel, 0, FALSE);
 
 			prepare_window(PW_OBJECT);
 

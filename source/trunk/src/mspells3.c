@@ -848,7 +848,7 @@ void learn_trait(creature_type *creature_ptr, int trait_index)
 #else
 		msg_format("You have learned %s!", trait_info[trait_index].title);
 #endif
-		gain_exp(creature_ptr, trait_info[trait_index].base_level * trait_info[trait_index].mp_cost, TRUE);
+		gain_exp(creature_ptr, trait_info[trait_index].base_level * trait_info[trait_index].mp_cost, 0, TRUE);
 
 		sound(SOUND_STUDY);
 

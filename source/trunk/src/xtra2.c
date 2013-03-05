@@ -945,8 +945,7 @@ void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *targe
 		exp_limit = (creature_exp[attacker_ptr->lev] * 2) / (5 + attacker_ptr->lev / 10);
 	new_exp = new_exp > exp_limit ? exp_limit : new_exp;
 
-	/* Gain experience */
-	gain_exp_64(attacker_ptr, new_exp, new_exp_frac);
+	gain_exp(attacker_ptr, new_exp, new_exp_frac, FALSE);
 }
 
 
@@ -2941,7 +2940,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 				s32b ee = (creature_ptr->exp / 2) + 10;
 				if(ee > 100000L) ee = 100000L;
 				reward = MES_DIARY_PATRON_GAIN_EXP;
-				gain_exp(creature_ptr, ee, TRUE);
+				gain_exp(creature_ptr, ee, 0, TRUE);
 			}
 			break;
 

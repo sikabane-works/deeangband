@@ -606,7 +606,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 		if(PERCENT(j))
 		{
 			msg_print(GAME_MESSAGE_SUCCESS_PICKING);
-			gain_exp(creature_ptr, 1, FALSE);
+			gain_exp(creature_ptr, 1, 0, FALSE);
 			flag = TRUE;
 		}
 
@@ -796,7 +796,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 			msg_print(GAME_MESSAGE_SUCCESS_PICKING);
 			cave_alter_feat(floor_ptr, y, x, FF_OPEN); // Open the door
 			sound(SOUND_OPENDOOR); // Sound
-			gain_exp(creature_ptr, 1, FALSE); // Experience
+			gain_exp(creature_ptr, 1, 0, FALSE); // Experience
 		}
 
 		else
@@ -1301,7 +1301,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 			msg_print(GAME_MESSAGE_SUCCESS_PICKING);
 			cave_alter_feat(floor_ptr, y, x, FF_OPEN);
 			sound(SOUND_OPENDOOR);
-			gain_exp(creature_ptr, 1, FALSE);
+			gain_exp(creature_ptr, 1, 0, FALSE);
 		}
 
 		else
@@ -1357,7 +1357,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 #else
 		msg_print("You have disarmed the chest.");
 #endif
-		gain_exp(creature_ptr, object_ptr->pval, FALSE);
+		gain_exp(creature_ptr, object_ptr->pval, 0, FALSE);
 		object_ptr->pval = (0 - object_ptr->pval);
 	}
 
@@ -1426,7 +1426,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	if(PERCENT(j))
 	{
 		msg_format(MES_DISARM_DONE(name));
-		gain_exp(creature_ptr, power, FALSE);
+		gain_exp(creature_ptr, power, 0, FALSE);
 		cave_alter_feat(floor_ptr, y, x, FF_DISARM);
 		walk_creature(creature_ptr, dir, easy_disarm, FALSE);
 	}

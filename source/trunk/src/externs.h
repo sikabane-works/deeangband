@@ -1004,7 +1004,6 @@ extern bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr
 extern void process_creatures(void);
 extern u32b get_curse(int power, object_type *object_ptr);
 extern void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance);
-extern void creature_gain_exp(int m_idx, int s_idx);
 
 // creature1.c
 extern void roff_top(int species_idx);
@@ -1440,8 +1439,7 @@ extern bool restore_exp(creature_type *creature_ptr);
 extern bool lose_all_info(creature_type *creature_ptr);
 extern bool dec_mana(creature_type *creature_ptr, int val);
 extern void inc_mana(creature_type *creature_ptr, int val);
-extern void gain_exp_64(creature_type *creature_ptr, s32b amount, u32b amount_frac);
-extern void gain_exp(creature_type *creature_ptr, s32b amount, bool mes);
+extern void gain_exp(creature_type *creature_ptr, s32b amount, u32b frac, bool mes);
 extern void calc_android_exp(creature_type *creature_ptr);
 extern void lose_exp(creature_type *creature_ptr, s32b amount);
 extern bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life_prob);

@@ -1826,36 +1826,24 @@ void inc_mana(creature_type *creature_ptr, int val)
 /*
  * Gain experience
  */
-void gain_exp_64(creature_type *creature_ptr, s32b amount, u32b amount_frac)
+void gain_exp(creature_type *creature_ptr, s32b amount, u32b amount_frac, bool mes)
 {
 	if(IS_DEAD(creature_ptr)) return;
-
 	if(has_trait(creature_ptr, TRAIT_ANDROID)) return;
+
+	if(mes) msg_print(MES_CREATURE_GAIN_EXP);
 
 	/* Gain some experience */
 	s64b_add(&(creature_ptr->exp), &(creature_ptr->exp_frac), amount, amount_frac);
 
-	/* Slowly recover from experience drainage */
+	// Slowly recover from experience drainage - Gain max experience (20%) (was 10%)
 	if(creature_ptr->exp < creature_ptr->max_exp)
-	{
-		/* Gain max experience (20%) (was 10%) */
 		creature_ptr->max_exp += amount / 5;
-	}
 
 	// TODO New Evolution Process
 
 	// Check Experience
 	check_experience(creature_ptr);
-}
-
-
-/*
- * Gain experience
- */
-void gain_exp(creature_type *creature_ptr, s32b amount, bool mes)
-{
-	if(mes) msg_print(MES_CREATURE_GAIN_EXP);
-	gain_exp_64(creature_ptr, amount, 0L);
 }
 
 void calc_android_exp(creature_type *creature_ptr)

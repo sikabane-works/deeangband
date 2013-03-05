@@ -552,7 +552,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 			if(object2_ptr->sval < 3) tester_exp /= 4;
 			if(tester_exp<1) tester_exp = 1;
 
-			gain_exp(creature_ptr, tester_exp * amt, TRUE);
+			gain_exp(creature_ptr, tester_exp * amt, 0, TRUE);
 		}
 	}
 

@@ -174,7 +174,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	if(ident && !object_is_aware(object_ptr))
 	{
 		object_aware(object_ptr);
-		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, FALSE);
+		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, 0, FALSE);
 	}
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -508,7 +508,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			{
 				s32b ee = (caster_ptr->exp / 2) + 10;
 				if(ee > 100000L) ee = 100000L;
-				gain_exp(caster_ptr, ee, TRUE);
+				gain_exp(caster_ptr, ee, 0, TRUE);
 				effected = TRUE;
 			}
 			break;
@@ -571,7 +571,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 	if(effected && !object_is_aware(quest_ptr))
 	{
 		object_aware(quest_ptr);
-		gain_exp(caster_ptr, (lev + (caster_ptr->lev >> 1)) / caster_ptr->lev, FALSE);
+		gain_exp(caster_ptr, (lev + (caster_ptr->lev >> 1)) / caster_ptr->lev, 0, FALSE);
 	}
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -1019,7 +1019,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 	if(ident && !object_is_aware(object_ptr))
 	{
 		object_aware(object_ptr);
-		gain_exp(caster_ptr, (lev + (caster_ptr->lev >> 1)) / caster_ptr->lev, FALSE);
+		gain_exp(caster_ptr, (lev + (caster_ptr->lev >> 1)) / caster_ptr->lev, 0, FALSE);
 	}
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -1346,7 +1346,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	if(ident && !object_is_aware(object_ptr))
 	{
 		object_aware(object_ptr);
-		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, FALSE);
+		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, 0, FALSE);
 	}
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -1646,7 +1646,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	if(ident && !object_is_aware(object_ptr)) // Apply identification
 	{
 		object_aware(object_ptr);
-		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, FALSE);
+		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, 0, FALSE);
 	}
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -1856,7 +1856,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	if(ident && !object_is_aware(object_ptr)) // Successfully determined the object function
 	{
 		object_aware(object_ptr);
-		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, FALSE);
+		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, 0, FALSE);
 	}
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
