@@ -657,6 +657,7 @@
 #define MES_ARENA_EXTRA_CANCELED "残念だ。"
 #define MES_ARENA_CHALLENGE(NAME) "%s に挑戦するものはいないか？", (NAME)
 #define MES_ARENA_LOST(TARGET) "あなたは%sの前に敗れ去った。", (TARGET)->name
+#define MES_ARENA_FEEL_GLORY "あなたはアリーナに入り、しばらくの間栄光にひたった。"
 #else
 #define MES_ARENA_READY "Ready..Fight!"
 #define MES_ARENA_LIMIT "The arena absorbs all attempted magic!"
@@ -666,6 +667,7 @@
 #define MES_ARENA_EXTRA_CANCELED "We are disappointed."
 #define MES_ARENA_CHALLENGE(NAME) "Do I hear any challenges against: %s", (NAME)
 #define MES_ARENA_LOST(TARGET) "You are beaten by %s.", (TARGET)->name;
+#define MES_ARENA_FEEL_GLORY "You enter the arena briefly and bask in your glory."
 #endif
 
 #ifdef JP

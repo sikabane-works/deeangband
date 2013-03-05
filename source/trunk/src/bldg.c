@@ -235,11 +235,7 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 				}
 				else
 				{
-#ifdef JP
-					msg_print("あなたはアリーナに入り、しばらくの間栄光にひたった。");
-#else
-					msg_print("You enter the arena briefly and bask in your glory.");
-#endif
+					msg_print(MES_ARENA_FEEL_GLORY);
 					msg_print(NULL);
 				}
 			}
