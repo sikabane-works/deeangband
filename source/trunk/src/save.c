@@ -1107,7 +1107,7 @@ static bool wr_savefile_new(void)
 }
 
 // Medium level player saver
-//  Angband 2.8.0 will use "fd" instead of "fff" if possible
+// Angband 2.8.0 will use "fd" instead of "fff" if possible
 static bool save_player_aux(char *name)
 {
 	bool ok = FALSE;
@@ -1136,7 +1136,6 @@ static bool save_player_aux(char *name)
 		/* Grab permissions */
 		safe_setuid_grab();
 
-		/* Open the savefile */
 		fff = my_fopen(name, "wb");
 
 		/* Drop permissions */
@@ -1208,8 +1207,6 @@ bool save_player(void)
 
 		/* Grab permissions */
 		safe_setuid_grab();
-
-		/* Remove it */
 		fd_kill(temp);
 
 		/* Preserve old savefile */
@@ -1419,29 +1416,14 @@ int load_player(void)
 
 		/* Attempt to load */
 		err = rd_savefile_new();
-
-		/* Message (below) */
-#ifdef JP
-		if(err) what = "セーブファイルを解析出来ません。";
-#else
-		if(err) what = "Cannot parse savefile";
-#endif
+		if(err) what = MES_SYS_SAVEFILE_ERROR2;
 
 	}
 
-
 	if(!err)
 	{
-		/* Invalid turn */
 		if(!turn) err = -1;
-
-		/* Message (below) */
-#ifdef JP
-		if(err) what = "セーブファイルが壊れています";
-#else
-		if(err) what = "Broken savefile";
-#endif
-
+		if(err) what = MES_SYS_SAVEFILE_ERROR3;
 	}
 
 #ifdef VERIFY_TIMESTAMP
@@ -1457,8 +1439,6 @@ int load_player(void)
 #else
 			what = "Invalid timestamp";
 #endif
-
-
 			err = -1;
 		}
 	}
