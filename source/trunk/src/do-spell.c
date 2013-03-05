@@ -621,7 +621,7 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 	x = creature_ptr->fx;
 	y = creature_ptr->fy;
 
-	while (1)
+	while(TRUE)
 	{
 		/* Hack -- Stop at the target */
 		if((y == ty) && (x == tx)) break;

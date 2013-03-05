@@ -343,7 +343,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 		}
 
 		/* Create the projection path */
-		while (1)
+		while(TRUE)
 		{
 			/* Save grid */
 			gp[n++] = GRID(y, x);
@@ -430,7 +430,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 		}
 
 		/* Create the projection path */
-		while (1)
+		while(TRUE)
 		{
 			/* Save grid */
 			gp[n++] = GRID(y, x);
@@ -499,7 +499,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 		x = x1 + sx;
 
 		/* Create the projection path */
-		while (1)
+		while(TRUE)
 		{
 			/* Save grid */
 			gp[n++] = GRID(y, x);

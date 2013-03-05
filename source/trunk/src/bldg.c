@@ -1436,7 +1436,7 @@ void battle_creatures(void)
 		ave_creature_level = MAX(i, ave_creature_level);
 	}
 
-	while (1)
+	while(TRUE)
 	{
 		total = 0;
 		tekitou = FALSE;
@@ -1445,7 +1445,7 @@ void battle_creatures(void)
 			int species_idx, j;
 			get_species_num_prep(NULL, vault_aux_battle, NULL, NULL, 0);
 
-			while (1)
+			while(TRUE)
 			{
 				floor_ptr->gamble_arena_mode = TRUE;
 				species_idx = get_species_num(CURRENT_FLOOR_PTR, ave_creature_level);
@@ -1563,7 +1563,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 #else
 		prt("Which creature: ", 0, 0);
 #endif
-		while(1)
+		while(TRUE)
 		{
 			i = inkey();
 
@@ -2000,7 +2000,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
 				{
 					get_species_num_prep_trait(NULL, t_need(1, TRAIT_ELDRITCH_HORROR), NULL, 0);
-					while(1)
+					while(TRUE)
 					{
 						have_nightmare(creature_ptr, get_species_num(CURRENT_FLOOR_PTR, MAX_DEPTH));
 						if(!one_in_(3)) break;
@@ -2751,7 +2751,7 @@ bool tele_town(creature_type *creature_ptr)
 	}
 
 	prt(MES_TELEPORT_WHICH_TOWN, 0, 0);
-	while(1)
+	while(TRUE)
 	{
 		i = inkey();
 

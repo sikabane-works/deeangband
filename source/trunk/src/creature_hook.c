@@ -161,7 +161,7 @@ void screen_roff(creature_type *creature_ptr)
 	Term_erase(0, 1, 255);
 
 	/* Forever */
-	while (1)
+	while(TRUE)
 	{
 		update_play_time();
 

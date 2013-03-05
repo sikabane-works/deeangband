@@ -348,7 +348,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 	creature_ptr->equip_cnt = 0;
 
 	/* Read until done */
-	while (1)
+	while(TRUE)
 	{
 		u16b n;
 
@@ -890,7 +890,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->energy_need);
 
 	// Load timed trait
-	while(1)
+	while(TRUE)
 	{
 		rd_s16b(&tmp16s);
 		if(tmp16s < 0) break;
@@ -1199,7 +1199,7 @@ static errr rd_floor(floor_type *floor_ptr)
 	}
 
 	// Dump connection other floor
-	while(1)
+	while(TRUE)
 	{
 		s16b px, py, cx, cy;
 		rd_s16b(&px);

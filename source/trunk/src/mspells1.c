@@ -236,7 +236,7 @@ u32b get_curse(int power, object_type *object_ptr)
 {
 	u32b new_curse;
 
-	while(1)
+	while(TRUE)
 	{
 		new_curse = (1 << (randint0(MAX_TRAITS))); //TODO:  SEARCH CURSE
 		if(power == 2) if(!(new_curse & TRC_HEAVY_MASK)) continue;

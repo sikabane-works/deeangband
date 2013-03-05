@@ -287,7 +287,7 @@ void set_base_hp(creature_type *creature_ptr)
 	int i;
 
 	/* Rerate */
-	while (1)
+	while(TRUE)
 	{
 		/* Pre-calculate level 1 hitdice */
 		creature_ptr->base_hp[0] = creature_ptr->hitdice;

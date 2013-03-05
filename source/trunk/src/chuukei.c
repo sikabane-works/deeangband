@@ -211,7 +211,7 @@ void flush_ringbuf(void)
 	FD_ZERO(&fdset);
 	FD_SET(sd, &fdset);
 
-	while (1)
+	while(TRUE)
 	{
 		fd_set tmp_fdset;
 		int result;
@@ -249,7 +249,7 @@ void flush_ringbuf(void)
 
 	if(ring.inlen == 0) return;
 
-	while (1)
+	while(TRUE)
 	{
 		int result;
 
@@ -877,7 +877,7 @@ static bool get_nextbuf(char *buf)
 {
 	char *ptr = buf;
 
-	while (1)
+	while(TRUE)
 	{
 		*ptr = ring.buf[ring.rptr ++];
 		ring.inlen --;
@@ -1018,7 +1018,7 @@ void browse_chuukei()
 	Term_fresh();
 	Term_xtra(TERM_XTRA_REACT, 0);
 
-	while (1)
+	while(TRUE)
 	{
 		fd_set tmp_fdset;
 		struct timeval tmp_tv;
@@ -1049,7 +1049,7 @@ void browse_chuukei()
 	Term_fresh();
 	Term_xtra(TERM_XTRA_REACT, 0);
 
-	while (1)
+	while(TRUE)
 	{
 		UInt32	unreadData = 0;
 		int n;

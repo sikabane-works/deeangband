@@ -3134,7 +3134,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 
 	for (flag = FALSE; !flag; )
 	{
-		while (1)
+		while(TRUE)
 		{
 			loop_flag = TRUE;
 
@@ -3999,7 +3999,7 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 
 
 			//creature_type *creature_ptr =
-			while (1)
+			while(TRUE)
 			{
 				update_play_time();
 

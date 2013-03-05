@@ -2451,7 +2451,7 @@ bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int
 	/* Blast */
 	for (i = 0; i < num; i++)
 	{
-		while (1)
+		while(TRUE)
 		{
 			/* Get targets for some bolts */
 			y = rand_spread(ly, ld * dev / 20);
@@ -2844,7 +2844,7 @@ void wall_breaker(creature_type *creature_ptr)
 
 		for (i = 0; i < num; i++)
 		{
-			while (1)
+			while(TRUE)
 			{
 				scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 10, 0);
 				if(!CREATURE_BOLD(creature_ptr, y, x)) break;

@@ -469,7 +469,7 @@ errr report_score(creature_type *player_ptr)
 
 	Term_clear();
 
-	while (1)
+	while(TRUE)
 	{
 		char buff[160];
 		prt(MES_SYS_CONNECTING, 0, 0);

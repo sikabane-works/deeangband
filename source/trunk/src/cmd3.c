@@ -839,7 +839,7 @@ void do_cmd_locate(creature_type *creature_ptr)
 	x2 = x1 = panel_col_min;
 
 	/* Show panels until done */
-	while (1)
+	while(TRUE)
 	{
 		/* Describe the location */
 		if((y2 == y1) && (x2 == x1)) strcpy(tmp_val, MES_SYS_HERE);
@@ -1184,7 +1184,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	i = n - 1;
 
 	/* Scan the creature memory */
-	while (1)
+	while(TRUE)
 	{
 		/* Extract a race */
 		species_idx = who[i];

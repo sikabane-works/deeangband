@@ -232,7 +232,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 			int d = DUN_STR_RNG;
 
 			/* Pick a nearby grid */
-			while (1)
+			while(TRUE)
 			{
 				ty = rand_spread(y, d);
 				tx = rand_spread(x, d);

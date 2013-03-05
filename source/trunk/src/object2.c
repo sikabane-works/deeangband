@@ -2289,7 +2289,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			{
 				while (!object_ptr->name2)
 				{
-					while (1)
+					while(TRUE)
 					{
 						bool okay_flag = TRUE;
 
@@ -2354,7 +2354,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			species_type *species_ptr;
 
 			/* Pick a random non-unique creature race */
-			while (1)
+			while(TRUE)
 			{
 				i = randint1(max_species_idx - 1);
 
@@ -2408,7 +2408,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			get_species_num_prep(NULL, item_creature_okay, NULL, NULL, 0);
 
 			/* Pick a random non-unique creature race */
-			while (1)
+			while(TRUE)
 			{
 				i = get_species_num(floor_ptr, floor_ptr->floor_level);
 
@@ -2452,7 +2452,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			species_type *species_ptr;
 
 			/* Pick a random creature race */
-			while (1)
+			while(TRUE)
 			{
 				i = randint1(max_species_idx - 1);
 
@@ -3359,7 +3359,7 @@ s16b choose_random_trap(floor_type *floor_ptr)
 	s16b feat;
 
 	/* Pick a trap */
-	while (1)
+	while(TRUE)
 	{
 		/* Hack -- pick a trap */
 		feat = normal_traps[randint0(MAX_NORMAL_TRAPS)];

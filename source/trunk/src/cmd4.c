@@ -815,7 +815,7 @@ void do_cmd_diary(void)
 	screen_save();
 
 	/* Interact until done */
-	while (1)
+	while(TRUE)
 	{
 		i = get_selection(&se_info, se_table);
 		if(i == 5) break;
@@ -913,7 +913,7 @@ void do_cmd_change_name(creature_type *creature_ptr)
 	screen_save();
 
 	/* Forever */
-	while (1)
+	while(TRUE)
 	{
 		update_play_time();
 
@@ -1013,7 +1013,7 @@ void do_cmd_messages(int num_now)
 	Term_clear();
 
 	/* Process requests until done */
-	while (1)
+	while(TRUE)
 	{
 		int j;
 		int skey;
@@ -1760,7 +1760,7 @@ void do_cmd_options(void)
 	screen_save();
 
 	/* Interact */
-	while (1)
+	while(TRUE)
 	{
 		int n = OPT_NUM;
 
@@ -1772,7 +1772,7 @@ void do_cmd_options(void)
 		/* Why are we here */
 		prt(MES_OPTION_MAIN_TITLE, 1, 0);
 
-		while(1)
+		while(TRUE)
 		{
 			/* Give some choices */
 			for (i = 0; i < n; i++)
@@ -1905,7 +1905,7 @@ void do_cmd_options(void)
 				prt("Command: Base Delay Factor", 19, 0);
 #endif
 
-				while (1)
+				while(TRUE)
 				{
 					int msec = delay_factor * delay_factor * delay_factor;
 #ifdef JP
@@ -1936,7 +1936,7 @@ void do_cmd_options(void)
 			{
 				clear_from(18);
 				prt(MES_OPTION_CMD_HP_WARNING, 19, 0);
-				while (1)
+				while(TRUE)
 				{
 #ifdef JP
 					prt(format("現在の低ヒットポイント警告: %d0%%", hitpoint_warn), 22, 0);
@@ -1966,7 +1966,7 @@ void do_cmd_options(void)
 			{
 				clear_from(18);
 				prt(MES_OPTION_CMD_MP_CHECK, 19, 0);
-				while (1)
+				while(TRUE)
 				{
 #ifdef JP
 					prt(format("現在の低魔力色閾値: %d0%%", mana_warn), 22, 0);
@@ -2261,7 +2261,7 @@ void do_cmd_macros(void)
 
 
 	/* Process requests until done */
-	while (1)
+	while(TRUE)
 	{
 		Term_clear();
 
@@ -2672,7 +2672,7 @@ void do_cmd_visuals(void)
 	screen_save();
 
 	/* Interact until done */
-	while (1)
+	while(TRUE)
 	{
 		Term_clear();
 		i = get_selection(&visual_menu_info, visual_menu_table);
@@ -2908,7 +2908,7 @@ void do_cmd_visuals(void)
 			prt(format("%s%s", PROMPT_COMMAND, choice_msg), 15, 0);
 
 			/* Hack -- query until done */
-			while (1)
+			while(TRUE)
 			{
 				species_type *species_ptr = &species_info[r];
 				char c;
@@ -3010,7 +3010,7 @@ void do_cmd_visuals(void)
 			prt(format("%s%s", PROMPT_COMMAND, choice_msg), 15, 0);
 
 			/* Hack -- query until done */
-			while (1)
+			while(TRUE)
 			{
 				object_kind *object_kind_ptr = &object_kind_info[k];
 				char c;
@@ -3103,7 +3103,7 @@ void do_cmd_visuals(void)
 			prt(format("%s%s", PROMPT_COMMAND, choice_msg), 15, 0);
 
 			/* Hack -- query until done */
-			while (1)
+			while(TRUE)
 			{
 				feature_type *f_ptr = &feature_info[f];
 				char c;
@@ -3243,7 +3243,7 @@ void do_cmd_colors(void)
 
 
 	/* Interact until done */
-	while (1)
+	while(TRUE)
 	{
 		Term_clear();
 
@@ -3370,7 +3370,7 @@ void do_cmd_colors(void)
 
 
 			/* Hack -- query until done */
-			while (1)
+			while(TRUE)
 			{
 				cptr name;
 				byte j;
@@ -6399,7 +6399,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 
 							(void)show_item_list(0, &creature_list[i], SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY, NULL);
 							/* Forever */
-							while (1)
+							while(TRUE)
 							{
 								c = inkey();
 
@@ -6430,7 +6430,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 
 							(void)show_item_list(0, &creature_list[i], SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, NULL);
 							/* Forever */
-							while (1)
+							while(TRUE)
 							{
 								c = inkey();
 

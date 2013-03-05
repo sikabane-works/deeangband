@@ -43,7 +43,7 @@ int distance (int y1, int x1, int y2, int x2)
 	/* Simple case */
 	if(!dy || !dx) return d;
 
-	while (1)
+	while(TRUE)
 	{
 		/* Approximate error */
 		err = (target - d * d) / (2 * d);
@@ -2185,7 +2185,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
 	{
 		display_autopick = ITEM_DISPLAY;
 
-		while (1)
+		while(TRUE)
 		{
 			int i;
 			byte flag;

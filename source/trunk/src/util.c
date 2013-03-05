@@ -1115,7 +1115,7 @@ static void triggespecies_text_to_acscii(char **bufptr, cptr *strptr)
 	str++;
 
 	/* Examine modifier keys */
-	while (1)
+	while(TRUE)
 	{
 		for (i=0; macro_modifier_chr[i]; i++)
 		{
@@ -2652,7 +2652,7 @@ static void msg_flush(int x)
 		Term_putstr(x, 0, -1, a, MES_SYS_MORE);
 
 		/* Get an acceptable keypress */
-		while (1)
+		while(TRUE)
 		{
 			int cmd = inkey();
 			if(cmd == ESCAPE) {
@@ -2910,7 +2910,7 @@ void put_str(cptr str, int row, int col)
 void c_prt(byte attr, cptr str, int row, int col)
 {
 	int c = 0, n = 1;
-	while(1)
+	while(TRUE)
 	{
 		for(; str[n] != '\n' && str[n]; n++);
 		Term_erase(col, row, 255);
@@ -4012,7 +4012,7 @@ static char inkey_from_menu(void)
 
 	screen_save();
 
-	while(1)
+	while(TRUE)
 	{
 		int i;
 		char sub_cmd;
@@ -4179,7 +4179,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 
 	use_menu = FALSE;
 
-	while (1)
+	while(TRUE)
 	{
 		/* Hack -- auto-commands */
 		if(command_new)
@@ -4223,7 +4223,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 			prt(PROMPT_COUNT, 0, 0);
 
 			/* Get a command count */
-			while (1)
+			while(TRUE)
 			{
 				/* Get a new keypress */
 				cmd = inkey();

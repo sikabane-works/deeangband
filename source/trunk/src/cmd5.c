@@ -350,7 +350,7 @@ static void confirm_use_force(creature_type *creature_ptr, bool browse_only)
 	prt("(w for the Force, ESC) Hit 'w' or ESC. ", 0, 0);
 #endif
 
-	while (1)
+	while(TRUE)
 	{
 		which = inkey();
 

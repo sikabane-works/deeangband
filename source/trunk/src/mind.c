@@ -1918,7 +1918,7 @@ void do_cmd_mind_browse(creature_type *creature_ptr)
 
 	screen_save();
 
-	while(1)
+	while(TRUE)
 	{
 		/* get power */
 		if(!get_mind_power(creature_ptr, &n, TRUE))

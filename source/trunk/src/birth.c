@@ -4370,7 +4370,7 @@ bool ask_quick_start(creature_type *creature_ptr)
 
 	Term_clear();
 
-	while (1)
+	while(TRUE)
 	{
 		char c;
 

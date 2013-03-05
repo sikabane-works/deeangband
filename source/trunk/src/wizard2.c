@@ -1322,7 +1322,7 @@ static void do_cmd_wiz_creature_list(void)
 		if(i == creature_max) break;
 
 		mode = 0;
-		while(1)
+		while(TRUE)
 		{
 			display_creature_status(mode, &creature_list[i]);
 			k = inkey();
@@ -1392,7 +1392,7 @@ static void do_cmd_wiz_floor_teleport(void)
 
 	screen_save();
 
-	while(1)
+	while(TRUE)
 	{
 		se_info.num = 0;
 
@@ -1473,7 +1473,7 @@ static void do_cmd_wiz_floor_object_list(void)
 
 	screen_save();
 
-	while(1)
+	while(TRUE)
 	{
 		se_info.num = 0;
 

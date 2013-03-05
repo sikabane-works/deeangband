@@ -69,7 +69,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 		for (i = 0; i < 500; i++)
 		{
 			/* Pick a (possibly illegal) location */
-			while (1)
+			while(TRUE)
 			{
 				ny = rand_spread(oy, dis);
 				nx = rand_spread(ox, dis);
@@ -170,7 +170,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 		for (i = 0; i < 500; i++)
 		{
 			/* Pick a (possibly illegal) location */
-			while (1)
+			while(TRUE)
 			{
 				ny = rand_spread(ty, dis);
 				nx = rand_spread(tx, dis);
@@ -480,10 +480,10 @@ void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
 	}
 
 	/* Find a usable location */
-	while (1)
+	while(TRUE)
 	{
 		/* Pick a nearby legal location */
-		while (1)
+		while(TRUE)
 		{
 			y = rand_spread(ny, dis);
 			x = rand_spread(nx, dis);
@@ -777,7 +777,7 @@ int choose_dungeon(cptr note, int y, int x)
 #else
 	prt(format("Which dungeon do you %s?: ", note), 0, 0);
 #endif
-	while(1)
+	while(TRUE)
 	{
 		i = inkey();
 		if((i == ESCAPE) || !num)

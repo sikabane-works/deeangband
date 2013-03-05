@@ -131,7 +131,7 @@ s32b Rand_div(u32b m)
 	if(Rand_quick)
 	{
 		/* Wait for it */
-		while (1)
+		while(TRUE)
 		{
 			/* Cycle the generator */
 			r = (Rand_value = LCRNG(Rand_value));
@@ -147,7 +147,7 @@ s32b Rand_div(u32b m)
 	else
 	{
 		/* Wait for it */
-		while (1)
+		while(TRUE)
 		{
 			int j;
 

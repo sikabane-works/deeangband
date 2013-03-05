@@ -4656,7 +4656,7 @@ void determine_bounty_uniques(void)
 	reset_species_preps();
 	for (i = 0; i < MAX_BOUNTY; i++)
 	{
-		while (1)
+		while(TRUE)
 		{
 			kubi_species_idx[i] = get_species_num(CURRENT_FLOOR_PTR, MAX_DEPTH - 1);
 			species_ptr = &species_info[kubi_species_idx[i]];

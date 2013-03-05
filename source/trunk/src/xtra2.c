@@ -145,7 +145,7 @@ void check_experience(creature_type *creature_ptr)
 				{
 					int choice;
 					screen_save();
-					while(1)
+					while(TRUE)
 					{
 						int n;
 						char tmp[32];
@@ -182,7 +182,7 @@ void check_experience(creature_type *creature_ptr)
 						prt("        Which stat do you want to raise?", 1, 14);
 #endif
 
-						while(1)
+						while(TRUE)
 						{
 							choice = inkey();
 							if((choice >= 'a') && (choice <= 'f')) break;
@@ -1907,7 +1907,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 	{
 		int min_width = 0;
 
-		while (1)
+		while(TRUE)
 		{
 			if(floor_num == 1)
 			{
@@ -1956,7 +1956,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			/** Display list of items **/
 
 			/* Continue scrolling list if requested */
-			while (1)
+			while(TRUE)
 			{
 				int i, object_idx;
 
@@ -3667,7 +3667,7 @@ void display_creature_dump(creature_type *creature_ptr)
 	screen_save();	// Save the screen
 
 
-	while (1)	// Forever
+	while(TRUE)	// Forever
 	{
 		update_play_time();
 		display_creature_status(m, creature_ptr);	// Display the player

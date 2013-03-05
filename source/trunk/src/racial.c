@@ -371,7 +371,7 @@ bool choose_combat_option(creature_type *creature_ptr)
 		}
 	}
 
-	while(1)
+	while(TRUE)
 	{
 		choice = inkey();
 
