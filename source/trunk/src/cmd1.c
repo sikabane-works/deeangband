@@ -80,7 +80,7 @@ s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
  * Extract the "total damage" from a given object hitting a given creature.
  *
  * Note that "flasks of oil" do NOT do fire damage, although they
- * certainly could be made to do so.  XXX XXX
+ * certainly could be made to do so.  
  *
  * Note that most brands and slays are x3, except Slay Animal (x2),
  * Slay Evil (x2), and Kill dragon (x5).

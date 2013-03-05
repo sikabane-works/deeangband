@@ -1829,7 +1829,7 @@ errr Term_draw(int x, int y, byte a, char c)
 /*
  * Using the given attr, add the given char at the cursor.
  *
- * We return "-2" if the character is "illegal". XXX XXX
+ * We return "-2" if the character is "illegal". 
  *
  * We return "-1" if the cursor is currently unusable.
  *

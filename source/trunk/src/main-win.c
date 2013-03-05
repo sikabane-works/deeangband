@@ -1297,7 +1297,7 @@ static void load_sound_prefs(void)
  * This function is never called before all windows are ready.
  *
  * This function returns FALSE if the new palette could not be
- * prepared, which should normally be a fatal error.  XXX XXX
+ * prepared, which should normally be a fatal error.  
  *
  * Note that only some machines actually use a "palette".
  */

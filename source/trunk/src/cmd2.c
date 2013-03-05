@@ -305,7 +305,7 @@ static s16b chest_check(floor_type *floor_ptr, int y, int x)
 		object_type *object_ptr;
 		object_ptr = &object_list[this_object_idx];    // Acquire object
 		next_object_idx = object_ptr->next_object_idx; // Acquire next object
-		/* Skip unknown chests XXX XXX */
+		/* Skip unknown chests  */
 		/* if(!(object_ptr->marked & OM_FOUND)) continue; */
 		if(object_ptr->tval == TV_CHEST) return (this_object_idx); // Check for chest
 	}
@@ -1150,7 +1150,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 #else
 				msg_format("You chop away at the %s.", name);
 #endif
-				/* Occasional Search XXX XXX */
+				/* Occasional Search  */
 				if(PERCENT(25)) search(creature_ptr);
 			}
 			else
@@ -1169,7 +1169,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 
 	if(is_hidden_door(c_ptr))
 	{
-		/* Occasional Search XXX XXX */
+		/* Occasional Search  */
 		if(PERCENT(25)) search(creature_ptr);
 	}
 

@@ -364,7 +364,7 @@ static void alloc_object(floor_type *floor_ptr, creature_type *player_ptr, int s
  *
  * Note -- Assumes "IN_BOUNDS(floor_ptr, y1, x1)"
  *
- * XXX XXX This routine currently only counts actual "empty floor"
+ *  This routine currently only counts actual "empty floor"
  * grids which are not in rooms.  We might want to also count stairs,
  * open doors, closed doors, etc.
  */

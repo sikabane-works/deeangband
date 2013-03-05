@@ -5463,7 +5463,7 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
  * Assumes that "display_creature_status(creature_ptr)" has just been called
  *
  * Perhaps we should NOT ask for a name (at "birth()") on
- * Unix machines?  XXX XXX
+ * Unix machines?
  *
  * What a horrible name for a global function.  
  */
@@ -6274,7 +6274,7 @@ void close_game(void)
  * This routine is called only in very rare situations, and only
  * by certain visual systems, when they experience fatal errors.
  *
- * XXX XXX Hack -- clear the death flag when creating a HANGUP
+ *  Hack -- clear the death flag when creating a HANGUP
  * save file so that player can see tombstone when restart.
  */
 void exit_game_panic(creature_type *player_ptr)

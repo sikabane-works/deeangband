@@ -2275,7 +2275,7 @@ void sanity_blast_aux(creature_type *watcher_ptr, int power)
 * Creatures which are not on the current panel may be "visible" to
 * the player, and their descriptions will include an "offscreen"
 * reference.  Currently, offscreen creatures cannot be targetted
-* or viewed directly, but old targets will remain set.  XXX XXX
+* or viewed directly, but old targets will remain set.  
 *
 * The player can choose to be disturbed by several things, including
 * "disturb_move" (creature which is viewable moves in some way), and

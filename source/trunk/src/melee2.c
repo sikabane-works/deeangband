@@ -960,7 +960,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	/* Apply fear if possible and necessary */
 	if(is_pet(player_ptr, nonplayer_ptr) && will_run)
 	{
-		/* XXX XXX Not very "smart" */
+		/*  Not very "smart" */
 		y = (-y), x = (-x);
 	}
 	else
@@ -983,7 +983,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 
 			if(!done)
 			{
-				/* This is not a very "smart" method XXX XXX */
+				/* This is not a very "smart" method  */
 				y = tmp_y;
 				x = tmp_x;
 			}

@@ -15,7 +15,6 @@
 static int num_more = 0;
 static char inkey_macro_trigger_string[1024];	// Save macro trigger string for use in inkey_special()
 
-
 #ifdef SET_UID
 
 # ifndef HAVE_USLEEP
@@ -41,15 +40,7 @@ int usleep(huge usecs)
 	/* Was: int readfds, writefds, exceptfds; */
 	/* Was: readfds = writefds = exceptfds = 0; */
 
-
-
-#ifdef JP
-	if(usecs > 4000000L) core("•s“–‚È usleep() ŒÄ‚Ño‚µ");
-#else
 	if(usecs > 4000000L) core("Illegal usleep() call");
-#endif
-
-
 
 	/* Wait for it */
 	Timer.tv_sec = (usecs / 1000000L);
@@ -64,8 +55,7 @@ int usleep(huge usecs)
 
 	return 0;
 }
-
-# endif
+#endif
 
 
 /*
@@ -585,9 +575,7 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
  */
 errr my_fputs(FILE *fff, cptr buf, huge n)
 {
-	/* XXX XXX */
 	n = n ? n : 0;
-
 	/* Dump, ignore errors */
 	(void)fprintf(fff, "%s\n", buf);
 
@@ -793,7 +781,6 @@ int fd_open(cptr file, int flags)
  */
 errr fd_lock(int fd, int what)
 {
-	/* XXX XXX */
 	what = what ? what : 0;
 
 	/* Verify the fd */
@@ -1570,7 +1557,7 @@ static sint macro_find_maybe(cptr pat)
 		/* Skip macros which do not contain the pattern */
 		if(!prefix(macro__pat[i], pat)) continue;
 
-		/* Skip macros which exactly match the pattern XXX XXX */
+		/* Skip macros which exactly match the pattern  */
 		if(streq(macro__pat[i], pat)) continue;
 
 		/* Found one */

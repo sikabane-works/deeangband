@@ -3235,7 +3235,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 * to know if this is actually a ball or a bolt spell
 *
 *
-* We return "TRUE" if any "obvious" effects were observed.  XXX XXX Actually,
+* We return "TRUE" if any "obvious" effects were observed.   Actually,
 * we just assume that the effects were obvious, for historical reasons.
 */
 

@@ -3491,7 +3491,7 @@ void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, i
 			continue;
 		}
 
-		/* XXX XXX Could label spells above the players level */
+		/*  Could label spells above the players level */
 
 		/* Get extra info */
 		strcpy(info, do_spell(creature_ptr, use_realm, spell, SPELL_INFO));

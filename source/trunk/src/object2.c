@@ -1769,7 +1769,7 @@ static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object
 		if(have_flag(a_ptr->flags, TRAIT_QUESTITEM)) continue;
 		if(!have_flag(a_ptr->flags, TRAIT_INSTA_ART)) continue;
 
-		// XXX XXX Enforce minimum "depth" (loosely)
+		//  Enforce minimum "depth" (loosely)
 		if(a_ptr->level > level)
 		{
 			int d = (a_ptr->level - level) * 2;
@@ -1779,7 +1779,7 @@ static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object
 		if(!one_in_(a_ptr->rarity)) continue; // Artifact "rarity roll"
 		k_idx = lookup_kind(a_ptr->tval, a_ptr->sval); // Find the base object
 
-		// XXX XXX Enforce minimum "object" level (loosely)
+		//  Enforce minimum "object" level (loosely)
 		if(object_kind_info[k_idx].level > level)
 		{
 			int d = (object_kind_info[k_idx].level - level) * 5; // Acquire the "out-of-depth factor"
@@ -1823,7 +1823,7 @@ static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_p
 		if(a_ptr->tval != object_ptr->tval) continue;
 		if(a_ptr->sval != object_ptr->sval) continue;
 
-		// XXX XXX Enforce minimum "depth" (loosely)
+		//  Enforce minimum "depth" (loosely)
 		if(a_ptr->level > floor_ptr->floor_level)
 		{
 			int d = (a_ptr->level - floor_ptr->floor_level) * 2;

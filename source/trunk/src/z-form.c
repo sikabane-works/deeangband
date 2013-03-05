@@ -162,7 +162,6 @@ static uint vstrnfmt_aux_dflt(char *buf, uint max, cptr fmt, vptr arg)
 	uint len;
 	char tmp[32];
 
-	/* XXX XXX */
 	fmt = fmt ? fmt : 0;
 
 	/* Pointer display */
@@ -527,9 +526,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 			case 'p':
 			{
 				vptr arg;
-
 				arg = va_arg(vp, vptr);
-
 				sprintf(tmp, aux, arg);
 
 				break;
