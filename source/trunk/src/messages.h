@@ -2333,14 +2333,14 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
-#define MES_INSANITY_NIGHTMARE_PRE "眠りに就くと恐ろしい光景が心をよぎった。"
+#define MES_INSANITY_NIGHTMARE_PRE "恐ろしい光景が心をよぎった。"
 #define MES_INSANITY_NIGHTMARE(ELDRITCH) "夢の中で%sに追いかけられた。", (ELDRITCH)
 #define MES_INSANITY_FACED(ADJ, ELDRITCH) "%s%sの顔を見てしまった！", (ADJ), (ELDRITCH)
 #define MES_INSANITY_GLANCE(ADJ, ELDRITCH) "%s%sの顔が垣間見えた。", (ADJ), (ELDRITCH)
 #define MES_INSANITY_AMNESIA "あまりの恐怖に全てのことを忘れてしまった！"
 
 #else
-#define MES_INSANITY_NIGHTMARE_PRE "Horrible visions flit through your mind as you sleep."
+#define MES_INSANITY_NIGHTMARE_PRE "Horrible visions flit through your mind."
 #define MES_INSANITY_NIGHTMARE(ELDRITCH) "%^s chases you through your dreams.", (ELDRITCH)
 #define MES_INSANITY_FACED(ADJ, ELDRITCH) "You behold the %s visage of %s.", (ADJ), (ELDRITCH)
 #define MES_INSANITY_GLANCE(ADJ, ELDRITCH) "You glance at the %s visage of %s.", (ADJ), (ELDRITCH)

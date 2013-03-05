@@ -1897,6 +1897,8 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	char m_name[MAX_NLEN];
 	cptr desc = species_name + eldritch_ptr->name;
 
+	msg_print(MES_INSANITY_NIGHTMARE_PRE);
+
 	// Describe it
 #ifndef JP
 	if(!has_trait_species(eldritch_ptr, TRAIT_UNIQUE))
@@ -1997,7 +1999,6 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 
 				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
 				{
-					msg_print(MES_INSANITY_NIGHTMARE_PRE);
 					get_species_num_prep_trait(NULL, t_need(1, TRAIT_ELDRITCH_HORROR), NULL, 0);
 					while(1)
 					{
