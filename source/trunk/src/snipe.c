@@ -492,8 +492,6 @@ void do_cmd_snipe(creature_type *creature_ptr)
 	spell = snipe_powers[n];
 
 	sound(SOUND_SHOOT);
-
-	/* Cast the spell */
 	cast = cast_sniper_spell(creature_ptr, n);
 
 	if(!cast) return;

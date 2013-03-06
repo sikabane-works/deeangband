@@ -371,21 +371,13 @@ msg_print("‰½‚à‹Z‚ð’m‚ç‚È‚¢B");
 
 	sound(SOUND_ZAP);
 
-	/* Cast the spell */
 	if(!do_spell(creature_ptr, REALM_HISSATSU, n, SPELL_CAST)) return;
-
 	cost_tactical_energy(creature_ptr, 100);
-
-	/* Use some mana */
 	creature_ptr->csp -= spell.smana;
-
-	/* Limit */
 	if(creature_ptr->csp < 0) creature_ptr->csp = 0;
 
 	prepare_redraw(PR_MANA);
-
-	prepare_window(PW_PLAYER);
-	prepare_window(PW_SPELL);
+	prepare_window(PW_PLAYER | PW_SPELL);
 }
 
 

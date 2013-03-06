@@ -724,9 +724,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 		msg_format(MES_CAST_FAILED("Dammy"));
 		sound(SOUND_FAIL);
 
-		if(n >= TRAIT_S_KIN)
-			/* Cast the spell */
-			cast = cast_learned_spell(creature_ptr, n, FALSE);
+		if(n >= TRAIT_S_KIN) cast = cast_learned_spell(creature_ptr, n, FALSE);
 	}
 	else
 	{

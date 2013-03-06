@@ -1803,24 +1803,19 @@ void do_cmd_mind(creature_type *creature_ptr)
 		switch(use_mind)
 		{
 		case MIND_MINDCRAFTER:
-			/* Cast the spell */
 			cast = cast_mindcrafter_spell(creature_ptr, n);
 			break;
 		case MIND_KI:
-			/* Cast the spell */
 			cast = cast_force_spell(creature_ptr, n);
 			break;
 		case MIND_BERSERKER:
-			/* Cast the spell */
 			cast = cast_berserk_spell(creature_ptr, n);
 			break;
 		case MIND_MIRROR_MASTER:
-			/* Cast the spell */
 			if( is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) )on_mirror = TRUE;
 			cast = cast_mirror_spell(creature_ptr, n);
 			break;
 		case MIND_NINJUTSU:
-			/* Cast the spell */
 			cast = cast_ninja_spell(creature_ptr, n);
 			break;
 		default:
