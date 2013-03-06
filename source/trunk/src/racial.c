@@ -35,13 +35,13 @@ bool do_cmd_archer(creature_type *creature_ptr)
 	char ch;
 
 	object_type	forge;
-	object_type *quest_ptr;
+	object_type *object_ptr;
 	char com[80];
 	char object_name[MAX_NLEN];
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	quest_ptr = &forge;
+	object_ptr = &forge;
 	
 #ifdef JP
 	if(creature_ptr->lev >= 20) sprintf(com, "[S]弾, [A]矢, [B]クロスボウの矢 :");
@@ -119,19 +119,19 @@ bool do_cmd_archer(creature_type *creature_ptr)
 			s16b slot;
 
 			/* Get local object */
-			quest_ptr = &forge;
+			object_ptr = &forge;
 
 			/* Hack -- Give the player some small firestones */
-			object_prep(quest_ptr, lookup_kind(TV_SHOT, m_bonus(1, creature_ptr->lev) + 1), ITEM_FREE_SIZE);
-			quest_ptr->number = (byte)rand_range(15,30);
-			object_aware(quest_ptr);
-			object_known(quest_ptr);
-			apply_magic(creature_ptr, quest_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
-			quest_ptr->discount = 99;
+			object_prep(object_ptr, lookup_kind(TV_SHOT, m_bonus(1, creature_ptr->lev) + 1), ITEM_FREE_SIZE);
+			object_ptr->number = (byte)rand_range(15,30);
+			object_aware(object_ptr);
+			object_known(object_ptr);
+			apply_magic(creature_ptr, object_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
+			object_ptr->discount = 99;
 
-			slot = inven_carry(creature_ptr, quest_ptr);
+			slot = inven_carry(creature_ptr, object_ptr);
 
-			object_desc(object_name, quest_ptr, 0);
+			object_desc(object_name, object_ptr, 0);
 			msg_format(MES_SMITH_MADE(object_ptr));
 
 			/* Auto-inscription */
@@ -158,24 +158,24 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		s = "You have no item to convert.";
 #endif
 		if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
-		quest_ptr = GET_ITEM(creature_ptr, item);
+		object_ptr = GET_ITEM(creature_ptr, item);
 
 		/* Get local object */
-		quest_ptr = &forge;
+		object_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
-		object_prep(quest_ptr, lookup_kind(TV_ARROW, m_bonus(1, creature_ptr->lev)+ 1), ITEM_FREE_SIZE);
-		quest_ptr->number = (byte)rand_range(5, 10);
-		object_aware(quest_ptr);
-		object_known(quest_ptr);
-		apply_magic(creature_ptr, quest_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
+		object_prep(object_ptr, lookup_kind(TV_ARROW, m_bonus(1, creature_ptr->lev)+ 1), ITEM_FREE_SIZE);
+		object_ptr->number = (byte)rand_range(5, 10);
+		object_aware(object_ptr);
+		object_known(object_ptr);
+		apply_magic(creature_ptr, object_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
 
-		quest_ptr->discount = 99;
+		object_ptr->discount = 99;
 
-		object_desc(object_name, quest_ptr, 0);
+		object_desc(object_name, object_ptr, 0);
 		msg_format(MES_SMITH_MADE(object_ptr));
 		increase_item(creature_ptr, item, -1, TRUE);
-		slot = inven_carry(creature_ptr, quest_ptr);
+		slot = inven_carry(creature_ptr, object_ptr);
 
 		/* Auto-inscription */
 		if(slot >= 0) autopick_alter_item(creature_ptr, slot, FALSE);
@@ -195,24 +195,24 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		s = "You have no item to convert.";
 #endif
 		if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
-		quest_ptr = GET_ITEM(creature_ptr, item);
+		object_ptr = GET_ITEM(creature_ptr, item);
 
 		/* Get local object */
-		quest_ptr = &forge;
+		object_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
-		object_prep(quest_ptr, lookup_kind(TV_BOLT, m_bonus(1, creature_ptr->lev)+1), ITEM_FREE_SIZE);
-		quest_ptr->number = (byte)rand_range(4, 8);
-		object_aware(quest_ptr);
-		object_known(quest_ptr);
-		apply_magic(creature_ptr, quest_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
+		object_prep(object_ptr, lookup_kind(TV_BOLT, m_bonus(1, creature_ptr->lev)+1), ITEM_FREE_SIZE);
+		object_ptr->number = (byte)rand_range(4, 8);
+		object_aware(object_ptr);
+		object_known(object_ptr);
+		apply_magic(creature_ptr, object_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
 
-		quest_ptr->discount = 99;
+		object_ptr->discount = 99;
 
-		object_desc(object_name, quest_ptr, 0);
+		object_desc(object_name, object_ptr, 0);
 		msg_format(MES_SMITH_MADE(object_ptr));
 		increase_item(creature_ptr, item, -1, TRUE);
-		slot = inven_carry(creature_ptr, quest_ptr);
+		slot = inven_carry(creature_ptr, object_ptr);
 
 		/* Auto-inscription */
 		if(slot >= 0) autopick_alter_item(creature_ptr, slot, FALSE);
@@ -587,12 +587,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 	/* No redraw yet */
 	redraw = FALSE;
 
-#ifdef JP
-	(void) strnfmt(out_val, 78, "(特殊能力 %c-%c, *'で一覧, ESCで中断) どの特殊能力を使いますか？",
-#else
-	(void) strnfmt(out_val, 78, "(Powers %c-%c, *=List, ESC=exit) Use which power? ",
-#endif
-		I2A(0), (num <= 26) ? I2A(num - 1) : '0' + num - 27);
+	//TODO:Reimplement
 
 	if(!repeat_pull(&i) || i < 0 || i >= num) {
 
