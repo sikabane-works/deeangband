@@ -613,15 +613,7 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 		if(ask)
 		{
 			char tmp_val[160];
-
-#ifdef JP
-			(void)strnfmt(tmp_val, 78, "%s‚Ì–‚–@‚ğ¥‚¦‚Ü‚·‚©H", trait_info[spellnum[i]].title);
-#else
-			(void)strnfmt(tmp_val, 78, "Use %s? ", trait_info[spellnum[i]].title);
-#endif
-
-
-			/* Belay that order */
+			(void)strnfmt(tmp_val, 78, MES_CAST_ASK(trait_info[spellnum[i]].title));
 			if(!get_check(tmp_val)) continue;
 		}
 

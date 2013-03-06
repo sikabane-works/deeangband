@@ -312,7 +312,6 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_YELLOW, "#     # ", row + 5, col);
 			c_put_str(TERM_YELLOW, "#    #  ", row + 6, col);
 			c_put_str(TERM_YELLOW, ".####   ", row + 7, col);
-
 			break;
 		case 1: /* orange */
 			c_put_str(TERM_ORANGE, "   ##   ", row, col);
@@ -323,20 +322,9 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_ORANGE, " #....# ", row + 5, col);
 			c_put_str(TERM_ORANGE, "  #..#  ", row + 6, col);
 			c_put_str(TERM_ORANGE, "   ##   ", row + 7, col);
-
 			break;
 		case 2: /* sword */
-#ifdef JP
-			c_put_str(TERM_SLATE, "   ƒ©   " , row, col);
-			c_put_str(TERM_SLATE, "   ||   " , row + 1, col);
-			c_put_str(TERM_SLATE, "   ||   " , row + 2, col);
-			c_put_str(TERM_SLATE, "   ||   " , row + 3, col);
-			c_put_str(TERM_SLATE, "   ||   " , row + 4, col);
-			c_put_str(TERM_SLATE, "   ||   " , row + 5, col);
-			c_put_str(TERM_UMBER, " |=ˆŸ=| " , row + 6, col);
-			c_put_str(TERM_UMBER, "   –Ú   " , row + 7, col);
-#else
-			c_put_str(TERM_SLATE, "   /\\   " , row, col);
+			c_put_str(TERM_SLATE, "   ##   " , row, col);
 			c_put_str(TERM_SLATE, "   ##   " , row + 1, col);
 			c_put_str(TERM_SLATE, "   ##   " , row + 2, col);
 			c_put_str(TERM_SLATE, "   ##   " , row + 3, col);
@@ -344,8 +332,6 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_SLATE, "   ##   " , row + 5, col);
 			c_put_str(TERM_UMBER, " ###### " , row + 6, col);
 			c_put_str(TERM_UMBER, "   ##   " , row + 7, col);
-#endif
-
 			break;
 		case 3: /* shield */
 			c_put_str(TERM_SLATE, " ###### ", row, col);
@@ -542,7 +528,6 @@ static int yaku_check_pair(void)
 	    matching = 7;
 	    break;
 	  default:
-	    /* don't reach */
 	    break;
 	  }
 	}

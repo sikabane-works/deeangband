@@ -2865,6 +2865,8 @@ static cptr desc_stat_neg[] =
 #define MES_CAST_DAMAGE_HEALTH "体を悪くしてしまった！"
 #define MES_CAST_WHICH_KNOW(SKILL, FROM, TO) "(%^s %c-%c, '*'で一覧, ESC) どの%sについて知りますか？", (SKILL), (FROM), (TO), (SKILL)
 #define MES_CAST_WHICH_USE(SKILL, FROM, TO) "(%^s %c-%c, '*'で一覧, ESC) どの%sを使いますか？", (SKILL), (FROM), (TO), (SKILL)
+#define MES_CAST_ASK(SPELL) "%sの魔法を唱えますか？", (SPELL)
+
 #else
 #define MES_CAST_BROWSE "browse"
 #define MES_CAST_DISABLE(REALM, CAST) "You may not %s that %s.", (CAST), (REALM)
@@ -2881,6 +2883,7 @@ static cptr desc_stat_neg[] =
 #define MES_CAST_DAMAGE_HEALTH "You have damaged your health!"
 #define MES_CAST_WHICH_KNOW(SKILL, FROM, TO) "(%^ss %c-%c, *=List, ESC=exit) Browse which %s? ", (SKILL), (FROM), (TO), (SKILL)
 #define MES_CAST_WHICH_USE(SKILL, FROM, TO) "(%^ss %c-%c, *=List, ESC=exit) Use which %s? ", (SKILL), (FROM), (TO), (SKILL)
+#define MES_CAST_ASK(SPELL) "Use %s? ", (SPELL)
 #endif
 
 #ifdef JP 
