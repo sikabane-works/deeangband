@@ -883,7 +883,7 @@
 #endif
 
 #ifdef JP
-#define MES_SUMMON_NOTHING "何も現れなかった..."
+#define MES_SUMMON_NOTHING "何も現れなかった。"
 #define MES_SUMMON_SERVANT "御用でございますか？我が主。"
 #define MES_SUMMON_FEELING "何かが間近に現れた音がする。"
 #define MES_SUMMON_FUMBLE(HOSTILE) "召喚された%sは召喚者に敵意を向けている。", (HOSTILE)

@@ -617,15 +617,12 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 			if(!get_check(tmp_val)) continue;
 		}
 
-		/* Stop the loop */
 		flag = TRUE;
 	}
 
 	if(redraw) screen_load();
 
-	/* Show choices */
 	prepare_window(PW_SPELL);
-
 	window_stuff(player_ptr);
 
 	/* Abort if needed */
@@ -645,39 +642,7 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 // is 'imitator'.
 static bool cast_learned_spell(creature_type *caster_ptr, int spell, bool success)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int            dir = 0;
-	int           plev = pseudo_plev(caster_ptr);
-	int     summon_lev = caster_ptr->lev * 2 / 3 + randint1(caster_ptr->lev/2);
-	int             hp = caster_ptr->chp;
-	int             damage = 0;
-	bool   pet = success;
-	bool   no_trump = FALSE;
-	u32b p_mode, u_mode = 0L, g_mode;
-
-	if(pet)
-	{
-		p_mode = PC_FORCE_PET;
-		g_mode = 0;
-	}
-	else
-	{
-		p_mode = PC_NO_PET;
-		g_mode = PC_ALLOW_GROUP;
-	}
-
-	if(!success || (randint1(50+plev) < plev/10)) u_mode = PC_ALLOW_UNIQUE;
 	do_active_trait(caster_ptr, spell, TRUE);
-
-	if(no_trump)
-	{
-#ifdef JP
-msg_print("‰½‚àŒ»‚ê‚È‚©‚Á‚½B");
-#else
-msg_print("No one have appeared.");
-#endif
-	}
-
 	return TRUE;
 }
 
