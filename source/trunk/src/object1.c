@@ -1979,22 +1979,8 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 				else if(allow_inven) strcat(out_val, MES_INTERFACE_INVEN);
 				else if(allow_equip) strcat(out_val, MES_INTERFACE_EQUIP);
 			}
-			else if(allow_inven)
-			{
-#ifdef JP
-				strcat(out_val, " '/' éùÇøï®,");
-#else
-				strcat(out_val, " / for Inven,");
-#endif
-			}
-			else if(allow_equip)
-			{
-#ifdef JP
-				strcat(out_val, " '/'ëïîıïi,");
-#else
-				strcat(out_val, " / for Equip,");
-#endif
-			}
+			else if(allow_inven) strcat(out_val, MES_INTERFACE_FOR_INVEN);
+			else if(allow_equip) strcat(out_val, MES_INTERFACE_FOR_EQUIP);
 			if(command_see && !use_menu) strcat(out_val, MES_INTERFACE_ENTER_SCROLL_DOWN);
 		}
 
@@ -2088,7 +2074,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 				if(command_see)
 				{
 					screen_load();
-
 					screen_save();
 				}
 
@@ -2147,7 +2132,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 				if(command_see)
 				{
 					screen_load();
-
 					screen_save();
 				}
 
@@ -2273,7 +2257,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 				if(command_see)
 				{
 					screen_load();
-
 					screen_save();
 				}
 
