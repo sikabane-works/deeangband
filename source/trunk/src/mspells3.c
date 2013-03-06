@@ -721,11 +721,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	if(PERCENT(chance))
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("魔法をうまく唱えられなかった。");
-#else
-		msg_print("You failed to concentrate hard enough!");
-#endif
+		msg_format(MES_CAST_FAILED("Dammy"));
 		sound(SOUND_FAIL);
 
 		if(n >= TRAIT_S_KIN)
@@ -751,17 +747,9 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	else
 	{
 		int oops = need_mana;
-
-		/* No mana left */
 		creature_ptr->csp = 0;
 		creature_ptr->csp_frac = 0;
-
-#ifdef JP
-		msg_print("精神を集中しすぎて気を失ってしまった！");
-#else
-		msg_print("You faint from the effort!");
-#endif
-
+		msg_print(MES_CAST_FAINT);
 
 		/* Hack -- Bypass free action */
 		(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, randint1(5 * oops + 1), TRUE);
@@ -770,12 +758,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 		if(PERCENT(50))
 		{
 			bool perm = (PERCENT(25));
-#ifdef JP
-			msg_print("体を悪くしてしまった！");
-#else
-			msg_print("You have damaged your health!");
-#endif
-			/* Reduce constitution */
+			msg_print(MES_CAST_DAMAGE_HEALTH);
 			(void)dec_stat(creature_ptr, STAT_CON, 15 + randint1(10), perm);
 		}
 	}
