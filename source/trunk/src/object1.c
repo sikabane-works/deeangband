@@ -2227,7 +2227,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			case '?':
 			case ' ':
 			{
-				/* Hide the list */
 				if(command_see)
 				{
 					/* Flip flag */
@@ -2236,7 +2235,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 					screen_load();
 				}
 
-				/* Show the list */
 				else
 				{
 					screen_save();

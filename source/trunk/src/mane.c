@@ -131,7 +131,6 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 		/* Request redraw */
 		if((choice == ' ') || (choice == '*') || (choice == '?'))
 		{
-			/* Show the list */
 			if(!redraw)
 			{
 				char psi_desc[80];
@@ -191,7 +190,6 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 				prt("", y + i + 1, x);
 			}
 
-			/* Hide the list */
 			else
 			{
 				/* Hide list */

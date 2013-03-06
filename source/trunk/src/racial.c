@@ -673,7 +673,6 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 		/* Request redraw */
 		if((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
 		{
-			/* Show the list */
 			if(!redraw || use_menu)
 			{
 				byte y = 1, x = 0;
@@ -727,7 +726,6 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 				}
 			}
 
-			/* Hide the list */
 			else
 			{
 				/* Hide list */

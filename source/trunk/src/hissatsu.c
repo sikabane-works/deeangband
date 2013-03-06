@@ -175,7 +175,6 @@ cptr            p = "•KŽEŒ•";
 		/* Request redraw */
 		if((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
 		{
-			/* Show the list */
 			if(!redraw || use_menu)
 			{
 				char psi_desc[80];
@@ -234,7 +233,6 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 				}
 			}
 
-			/* Hide the list */
 			else
 			{
 				/* Hide list */

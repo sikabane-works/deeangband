@@ -171,7 +171,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 			/* Request redraw */
 			if((choice == ' ') || (choice == '*') || (choice == '?'))
 			{
-				/* Show the list */
 				if(!redraw)
 				{
 					redraw = TRUE;
@@ -179,7 +178,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 					print_spells(creature_ptr, menu_line, spells, num, 1, 15, use_realm);
 				}
 
-				/* Hide the list */
 				else
 				{
 					if(use_menu) continue;
@@ -1766,7 +1764,6 @@ void do_cmd_pet(creature_type *master_ptr)
 			/* Request redraw */
 			if((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
 			{
-				/* Show the list */
 				if(!redraw || use_menu)
 				{
 					byte y = 1, x = 0;
@@ -1794,7 +1791,6 @@ void do_cmd_pet(creature_type *master_ptr)
 					prt("", y + MIN(ctr, 17), x);
 				}
 
-				/* Hide the list */
 				else
 				{
 					/* Hide list */

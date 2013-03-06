@@ -2547,7 +2547,6 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	/* Get a spell from the user */
 	while (!flag)
 	{
-		/* Show the list */
 		if(request_list || use_menu)
 		{
 			byte y, x = 0;
@@ -2733,7 +2732,6 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 		/* Request redraw */
 		if(!use_menu && ((choice == ' ') || (choice == '*') || (choice == '?')))
 		{
-			/* Hide the list */
 			if(request_list)
 			{
 				/* Hide list */

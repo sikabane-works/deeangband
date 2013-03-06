@@ -577,7 +577,6 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 		/* Request redraw */
 		if((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
 		{
-			/* Show the list */
 			if(!redraw || use_menu)
 			{
 				char psi_desc[80];
@@ -689,7 +688,6 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 				prt("", y + i + 1, x);
 			}
 
-			/* Hide the list */
 			else if(!only_browse)
 			{
 				/* Hide list */

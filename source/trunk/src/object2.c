@@ -5194,7 +5194,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			/* Request redraw */
 			if((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
 			{
-				/* Show the list */
 				if(!redraw || use_menu)
 				{
 					byte y, x = 10;
@@ -5320,7 +5319,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 					}
 				}
 
-				/* Hide the list */
 				else
 				{
 					/* Hide list */
