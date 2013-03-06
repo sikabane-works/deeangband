@@ -180,8 +180,6 @@ cptr            p = "•KŽEŒ•";
 			{
 				char psi_desc[80];
 				int line;
-
-				/* Show list */
 				redraw = TRUE;
 
 				if(!use_menu) screen_save();

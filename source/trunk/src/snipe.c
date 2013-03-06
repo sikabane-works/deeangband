@@ -215,8 +215,6 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 			if(!redraw)
 			{
 				char psi_desc[80];
-
-				/* Show list */
 				redraw = TRUE;
 
 				if(!only_browse) screen_save();
@@ -224,11 +222,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 				/* Display a list of spells */
 				prt("", y, x);
 				put_str(KW_NAME, y, x + 5);
-#ifdef JP
-				if(only_browse) put_str("Lv   èWíÜìx", y, x + 35);
-#else
-				if(only_browse) put_str("Lv Pow", y, x + 35);
-#endif
+				if(only_browse) put_str(MES_INTERFACE_SNIPE_LIST, y, x + 35);
 
 				/* Dump the spells */
 				for (i = 0; i < MAX_SNIPE_POWERS; i++)
@@ -410,15 +404,10 @@ static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 
 	if(object_ptr->tval != TV_BOW)
 	{
-#ifdef JP
-		msg_print("ã|ÇëïîıÇµÇƒÇ¢Ç»Ç¢ÅI");
-#else
-		msg_print("You wield no bow!");
-#endif
+		msg_print(MES_PREVENT_BY_NO_BOW);
 		return FALSE;
 	}
 
-	/* spell code */
 	switch (spell)
 	{
 	case 0: /* Concentration */
@@ -495,11 +484,8 @@ void do_cmd_snipe(creature_type *creature_ptr)
 	cast = cast_sniper_spell(creature_ptr, n);
 
 	if(!cast) return;
-
 	prepare_redraw(PR_HP | PR_MANA);
-
-	prepare_window(PW_PLAYER);
-	prepare_window(PW_SPELL);
+	prepare_window(PW_PLAYER | PW_SPELL);
 }
 
 /*

@@ -5203,8 +5203,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 					byte col;
 
 					strcpy(dummy, "");
-
-					/* Show list */
 					redraw = TRUE;
 
 					if(!use_menu) screen_save();

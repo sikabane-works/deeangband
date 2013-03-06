@@ -2098,6 +2098,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_SKILL_LIST "Lv   MP 失率 効果"
 #define MES_INTERFACE_SKILL_LIST2 "  Lv   MP"
 #define MES_INTERFACE_SKILL_LIST3 "熟練度 Lv   MP 失率 効果"
+#define MES_INTERFACE_SNIPE_LIST "Lv   集中度"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2120,6 +2121,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_SKILL_LIST "Lv Mana Fail Info"
 #define MES_INTERFACE_SKILL_LIST2 "  Lv Mana"
 #define MES_INTERFACE_SKILL_LIST3 "Profic Lv   SP Fail Effect"
+#define MES_INTERFACE_SNIPE_LIST "Lv Pow"
 #endif
 
 #ifdef JP
@@ -3152,6 +3154,7 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_BY_PET "今はペットを操ることに集中していないと。"
 #define MES_PREVENT_BY_NO_MIRROR "鏡の上でないと集中できない。"
 #define MES_PREVENT_BY_NO_BAREBAND "素手じゃないとできません。"
+#define MES_PREVENT_BY_NO_BOW "弓を装備していない！"
 #define MES_PREVENT_BY_HP "HPが足りません."
 #define MES_PREVENT_BY_MP "MPが足りません。"
 #define MES_PREVENT_BY_LEVEL "この能力を使用するにはレベル %d に達していなければなりません。"
@@ -3176,6 +3179,7 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_BY_PET "You need concentration on the pets now."
 #define MES_PREVENT_BY_NO_MIRROR "Here are not any mirrors!"
 #define MES_PREVENT_BY_NO_BAREBAND "You need to be bare hand."
+#define MES_PREVENT_BY_NO_BOW "You wield no bow!"
 #define MES_PREVENT_BY_HP "You do not have enough hit-point to use this power."
 #define MES_PREVENT_BY_MP "You do not have enough mana to use this power."
 #define MES_PREVENT_BY_LEVEL "You need to attain level %d to use this power."

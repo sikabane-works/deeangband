@@ -491,8 +491,6 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 			if(!redraw || use_menu)
 			{
 				char psi_desc[80];
-
-				/* Show list */
 				redraw = TRUE;
 
 				if(!use_menu) screen_save();

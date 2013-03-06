@@ -174,12 +174,8 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 				/* Show the list */
 				if(!redraw)
 				{
-					/* Show list */
 					redraw = TRUE;
-
 					screen_save();
-
-					/* Display a list of spells */
 					print_spells(creature_ptr, menu_line, spells, num, 1, 15, use_realm);
 				}
 
@@ -1775,12 +1771,8 @@ void do_cmd_pet(creature_type *master_ptr)
 				{
 					byte y = 1, x = 0;
 					int ctr = 0;
-
-					/* Show list */
 					redraw = TRUE;
-
 					if(!use_menu) screen_save();
-
 					prt("", y++, x);
 
 					/* Print list */

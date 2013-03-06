@@ -582,8 +582,6 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 			{
 				char psi_desc[80];
 				bool has_weapon[2];
-
-				/* Show list */
 				redraw = TRUE;
 
 				if(!only_browse && !use_menu) screen_save();
@@ -767,7 +765,6 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 	int        dir;
 	int        plev = creature_ptr->lev;
 
-	/* spell code */
 	switch (spell)
 	{
 	case 0:   /* Precog */
@@ -942,7 +939,6 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 
 	if(heavy_armor(creature_ptr)) boost /= 2;
 
-	/* spell code */
 	switch (spell)
 	{
 	case 0:
@@ -1114,7 +1110,6 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 	int tmp;
 	int	x,y;
 
-	/* spell code */
 	switch (spell)
 	{
 		/* mirror of seeing */
@@ -1364,7 +1359,6 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 	int dir;
 	int plev = caster_ptr->lev;
 
-	/* spell code */
 	switch (spell)
 	{
 	case 0:

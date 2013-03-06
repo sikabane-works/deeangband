@@ -135,8 +135,6 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 			if(!redraw)
 			{
 				char psi_desc[80];
-
-				/* Show list */
 				redraw = TRUE;
 
 				screen_save();

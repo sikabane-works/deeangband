@@ -683,8 +683,6 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 				int x1, y1;
 
 				strcpy(dummy, "");
-
-				/* Show list */
 				redraw = TRUE;
 
 				if(!use_menu) screen_save();
