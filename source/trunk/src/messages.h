@@ -693,6 +693,8 @@
 #endif
 
 #ifdef JP
+#define MES_SMITH_WHICH_STUFF "どのアイテムから作りますか？ "
+#define MES_SMITH_NO_STUFF "材料を持っていない。"
 #define MES_SMITH_WHICH_DRAIN "どのアイテムから抽出しますか？"
 #define MES_SMITH_NO_DRAIN "抽出できるアイテムがありません。"
 #define MES_SMITH_DRAIN_ASK(OBJECT) "本当に%sから抽出してよろしいですか？", (OBJECT)
@@ -702,6 +704,8 @@
 #define MES_SMITH_WHICH_ABILITY "('*'で一覧, ESCで中断) どの能力を付加しますか？"
 #define MES_SMITH_MADE(OBJECT) "%sを作った。", (OBJECT)->name
 #else
+#define MES_SMITH_WHICH_STUFF "Convert which item? "
+#define MES_SMITH_NO_STUFF "You have no item to convert."
 #define MES_SMITH_WHICH_DRAIN "Extract from which item? "
 #define MES_SMITH_NO_DRAIN "You have nothing you can extract from."
 #define MES_SMITH_DRAIN_ASK(OBJECT) "Really extract from %s? ", (OBJECT)

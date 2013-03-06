@@ -18,7 +18,6 @@
 static bool item_tester_hook_convertible(creature_type *creature_ptr, object_type *object_ptr)
 {
 	if((object_ptr->tval==TV_JUNK) || (object_ptr->tval==TV_SKELETON)) return TRUE;
-
 	if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON)) return TRUE;
 	/* Assume not */
 	return FALSE;
@@ -147,17 +146,9 @@ bool do_cmd_archer(creature_type *creature_ptr)
 	else if(ext == 2)
 	{
 		int item;
-		cptr q, s;
 		s16b slot;
 
-#ifdef JP
-		q = "どのアイテムから作りますか？ ";
-		s = "材料を持っていない。";
-#else
-		q = "Convert which item? ";
-		s = "You have no item to convert.";
-#endif
-		if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
+		if(!get_item(creature_ptr, &item, MES_SMITH_WHICH_STUFF, MES_SMITH_NO_STUFF, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
 		object_ptr = GET_ITEM(creature_ptr, item);
 
 		/* Get local object */
@@ -184,17 +175,9 @@ bool do_cmd_archer(creature_type *creature_ptr)
 	else if(ext == 3)
 	{
 		int item;
-		cptr q, s;
 		s16b slot;
 
-#ifdef JP
-		q = "どのアイテムから作りますか？ ";
-		s = "材料を持っていない。";
-#else
-		q = "Convert which item? ";
-		s = "You have no item to convert.";
-#endif
-		if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
+		if(!get_item(creature_ptr, &item, MES_SMITH_WHICH_STUFF, MES_SMITH_NO_STUFF, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
 		object_ptr = GET_ITEM(creature_ptr, item);
 
 		/* Get local object */
