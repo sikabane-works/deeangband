@@ -630,36 +630,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, 3 * caster_ptr->lev / 2);
 		break;
 
-
-		/*
-		case ART_MURAMASA:
-		{
-		#ifdef JP
-		if(get_check("本当に使いますか？"))
-		#else
-		if(get_check("Are you sure?!"))
-		#endif
-		{
-		#ifdef JP
-		msg_print("村正が震えた．．．");
-		#else
-		msg_print("The Muramasa pulsates...");
-		#endif
-		do_inc_stat(caster_ptr, STAT_STR);
-		if(one_in_(2))
-		{
-		#ifdef JP
-		msg_print("村正は壊れた！");
-		#else
-		msg_print("The Muramasa is destroyed!");
-		#endif
-		curse_weapon(caster_ptr, TRUE, item);
-		}
-		}
-		break;
-		}
-		*/
-
 	case TRAIT_FISHING:
 		{
 			if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_WATER))

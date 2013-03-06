@@ -263,6 +263,7 @@
 #define KW_DESTROY "îjâÛ"
 #define KW_PICKUP "èEÇ§"
 #define KW_QUERY "ämîF"
+#define KW_TRY "ñ{ìñÇ…"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -358,6 +359,7 @@
 #define KW_DESTROY "Destroy"
 #define KW_PICKUP "Pickup"
 #define KW_QUERY "Query"
+#define KW_TRY "Try"
 #endif
 
 #ifdef JP

@@ -1264,14 +1264,7 @@ static bool get_item_allow(creature_type *creature_ptr, int item)
 	{
 		/* Check the "restriction" */
 		if((s[1] == command_cmd) || (s[1] == '*'))
-		{
-			/* Verify the choice */
-#ifdef JP
-			if(!verify(creature_ptr, "–{“–‚É", item)) return FALSE;
-#else
-			if(!verify("Really try", item)) return FALSE;
-#endif
-		}
+			if(!verify(creature_ptr, KW_TRY, item)) return FALSE;
 
 		/* Find another '!' */
 		s = my_strchr(s + 1, '!');
@@ -2575,13 +2568,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 					break;
 				}
 
-				/* Verify the item */
-#ifdef JP
-				if(ver && !verify(creature_ptr, "–{“–‚É", k))
-#else
-				if(ver && !verify("Try", k))
-#endif
-
+				if(ver && !verify(creature_ptr, KW_TRY, k))
 				{
 					done = TRUE;
 					break;
