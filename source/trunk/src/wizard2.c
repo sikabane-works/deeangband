@@ -1778,11 +1778,7 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 
 	sprintf(tmp_val, "%d", prev_feat);
 
-#ifdef JP
-	if(!get_string("地形", tmp_val, 3)) return;
-#else
-	if(!get_string("Feature", tmp_val, 3)) return;
-#endif
+	if(!get_string(KW_FEATURE, tmp_val, 3)) return;
 
 	/* Extract */
 	tmp_feat = atoi(tmp_val);
@@ -1790,12 +1786,7 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	else if(tmp_feat >= max_feature_idx) tmp_feat = max_feature_idx - 1;
 
 	sprintf(tmp_val, "%d", prev_mimic);
-
-#ifdef JP
-	if(!get_string("地形 (mimic)", tmp_val, 3)) return;
-#else
-	if(!get_string("Feature (mimic)", tmp_val, 3)) return;
-#endif
+	if(!get_string(KW_CAMOUFLAGE, tmp_val, 3)) return;
 
 	/* Extract */
 	tmp_mimic = atoi(tmp_val);

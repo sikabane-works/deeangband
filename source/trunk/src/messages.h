@@ -264,6 +264,8 @@
 #define KW_PICKUP "拾う"
 #define KW_QUERY "確認"
 #define KW_TRY "本当に"
+#define KW_FEATURE "地形"
+#define KW_CAMOUFLAGE "偽装地形"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -360,6 +362,8 @@
 #define KW_PICKUP "Pickup"
 #define KW_QUERY "Query"
 #define KW_TRY "Try"
+#define KW_FEATURE "Feature"
+#define KW_CAMOUFLAGE "Camouflage"
 #endif
 
 #ifdef JP
