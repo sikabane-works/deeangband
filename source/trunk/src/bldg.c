@@ -277,13 +277,33 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 	}
 }
 
+static cptr slot_fruit_name[] =
+{
+#ifdef JP
+	" レモン ",
+	"オレンジ",
+	"   剣   ",
+	"   盾   ",
+	" プラム ",
+	"チェリー",
+#else
+	" Lemon  ",
+	" Orange ",
+	" Sword  ",
+	" Shield ",
+	"  Plum  ",
+	" Cherry ",
+#endif
+};
+
 // display fruit for dice slots
 static void display_fruit(int row, int col, int fruit)
 {
+	prt(slot_fruit_name[fruit], row + 8, col);
+
 	switch (fruit)
 	{
 		case 0: /* lemon */
-#ifdef JP
 			c_put_str(TERM_YELLOW, "   ####.", row, col);
 			c_put_str(TERM_YELLOW, "  #    #", row + 1, col);
 			c_put_str(TERM_YELLOW, " #     #", row + 2, col);
@@ -292,22 +312,9 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_YELLOW, "#     # ", row + 5, col);
 			c_put_str(TERM_YELLOW, "#    #  ", row + 6, col);
 			c_put_str(TERM_YELLOW, ".####   ", row + 7, col);
-			prt(                   " レモン ", row + 8, col);
-#else
-			c_put_str(TERM_YELLOW, "   ####.", row, col);
-			c_put_str(TERM_YELLOW, "  #    #", row + 1, col);
-			c_put_str(TERM_YELLOW, " #     #", row + 2, col);
-			c_put_str(TERM_YELLOW, "#      #", row + 3, col);
-			c_put_str(TERM_YELLOW, "#      #", row + 4, col);
-			c_put_str(TERM_YELLOW, "#     # ", row + 5, col);
-			c_put_str(TERM_YELLOW, "#    #  ", row + 6, col);
-			c_put_str(TERM_YELLOW, ".####   ", row + 7, col);
-			prt(                   " Lemon  ", row + 8, col);
-#endif
 
 			break;
 		case 1: /* orange */
-#ifdef JP
 			c_put_str(TERM_ORANGE, "   ##   ", row, col);
 			c_put_str(TERM_ORANGE, "  #..#  ", row + 1, col);
 			c_put_str(TERM_ORANGE, " #....# ", row + 2, col);
@@ -316,18 +323,6 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_ORANGE, " #....# ", row + 5, col);
 			c_put_str(TERM_ORANGE, "  #..#  ", row + 6, col);
 			c_put_str(TERM_ORANGE, "   ##   ", row + 7, col);
-			prt(                   "オレンジ", row + 8, col);
-#else
-			c_put_str(TERM_ORANGE, "   ##   ", row, col);
-			c_put_str(TERM_ORANGE, "  #..#  ", row + 1, col);
-			c_put_str(TERM_ORANGE, " #....# ", row + 2, col);
-			c_put_str(TERM_ORANGE, "#......#", row + 3, col);
-			c_put_str(TERM_ORANGE, "#......#", row + 4, col);
-			c_put_str(TERM_ORANGE, " #....# ", row + 5, col);
-			c_put_str(TERM_ORANGE, "  #..#  ", row + 6, col);
-			c_put_str(TERM_ORANGE, "   ##   ", row + 7, col);
-			prt(                   " Orange ", row + 8, col);
-#endif
 
 			break;
 		case 2: /* sword */
@@ -340,7 +335,6 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_SLATE, "   ||   " , row + 5, col);
 			c_put_str(TERM_UMBER, " |=亜=| " , row + 6, col);
 			c_put_str(TERM_UMBER, "   目   " , row + 7, col);
-			prt(                  "   剣   " , row + 8, col);
 #else
 			c_put_str(TERM_SLATE, "   /\\   " , row, col);
 			c_put_str(TERM_SLATE, "   ##   " , row + 1, col);
@@ -350,12 +344,10 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_SLATE, "   ##   " , row + 5, col);
 			c_put_str(TERM_UMBER, " ###### " , row + 6, col);
 			c_put_str(TERM_UMBER, "   ##   " , row + 7, col);
-			prt(                  " Sword  " , row + 8, col);
 #endif
 
 			break;
 		case 3: /* shield */
-#ifdef JP
 			c_put_str(TERM_SLATE, " ###### ", row, col);
 			c_put_str(TERM_SLATE, "#      #", row + 1, col);
 			c_put_str(TERM_SLATE, "# ++++ #", row + 2, col);
@@ -364,22 +356,9 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_SLATE, " #    # ", row + 5, col);
 			c_put_str(TERM_SLATE, "  #  #  ", row + 6, col);
 			c_put_str(TERM_SLATE, "   ##   ", row + 7, col);
-			prt(                  "   盾   ", row + 8, col);
-#else
-			c_put_str(TERM_SLATE, " ###### ", row, col);
-			c_put_str(TERM_SLATE, "#      #", row + 1, col);
-			c_put_str(TERM_SLATE, "# ++++ #", row + 2, col);
-			c_put_str(TERM_SLATE, "# +==+ #", row + 3, col);
-			c_put_str(TERM_SLATE, "#  ++  #", row + 4, col);
-			c_put_str(TERM_SLATE, " #    # ", row + 5, col);
-			c_put_str(TERM_SLATE, "  #  #  ", row + 6, col);
-			c_put_str(TERM_SLATE, "   ##   ", row + 7, col);
-			prt(                  " Shield ", row + 8, col);
-#endif
 
 			break;
 		case 4: /* plum */
-#ifdef JP
 			c_put_str(TERM_VIOLET, "   ##   ", row, col);
 			c_put_str(TERM_VIOLET, " ###### ", row + 1, col);
 			c_put_str(TERM_VIOLET, "########", row + 2, col);
@@ -388,22 +367,9 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_VIOLET, " ###### ", row + 5, col);
 			c_put_str(TERM_VIOLET, "  ####  ", row + 6, col);
 			c_put_str(TERM_VIOLET, "   ##   ", row + 7, col);
-			prt(                   " プラム ", row + 8, col);
-#else
-			c_put_str(TERM_VIOLET, "   ##   ", row, col);
-			c_put_str(TERM_VIOLET, " ###### ", row + 1, col);
-			c_put_str(TERM_VIOLET, "########", row + 2, col);
-			c_put_str(TERM_VIOLET, "########", row + 3, col);
-			c_put_str(TERM_VIOLET, "########", row + 4, col);
-			c_put_str(TERM_VIOLET, " ###### ", row + 5, col);
-			c_put_str(TERM_VIOLET, "  ####  ", row + 6, col);
-			c_put_str(TERM_VIOLET, "   ##   ", row + 7, col);
-			prt(                   "  Plum  ", row + 8, col);
-#endif
 
 			break;
 		case 5: /* cherry */
-#ifdef JP
 			c_put_str(TERM_RED, "      ##", row, col);
 			c_put_str(TERM_RED, "   ###  ", row + 1, col);
 			c_put_str(TERM_RED, "  #..#  ", row + 2, col);
@@ -412,18 +378,6 @@ static void display_fruit(int row, int col, int fruit)
 			c_put_str(TERM_RED, "#..##..#", row + 5, col);
 			c_put_str(TERM_RED, "#..##..#", row + 6, col);
 			c_put_str(TERM_RED, " ##  ## ", row + 7, col);
-			prt(                "チェリー", row + 8, col);
-#else
-			c_put_str(TERM_RED, "      ##", row, col);
-			c_put_str(TERM_RED, "   ###  ", row + 1, col);
-			c_put_str(TERM_RED, "  #..#  ", row + 2, col);
-			c_put_str(TERM_RED, "  #..#  ", row + 3, col);
-			c_put_str(TERM_RED, " ###### ", row + 4, col);
-			c_put_str(TERM_RED, "#..##..#", row + 5, col);
-			c_put_str(TERM_RED, "#..##..#", row + 6, col);
-			c_put_str(TERM_RED, " ##  ## ", row + 7, col);
-			prt(                " Cherry ", row + 8, col);
-#endif
 
 			break;
 	}
