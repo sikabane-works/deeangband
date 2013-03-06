@@ -132,11 +132,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 			slot = inven_carry(creature_ptr, quest_ptr);
 
 			object_desc(object_name, quest_ptr, 0);
-#ifdef JP
-			msg_format("%s‚ğì‚Á‚½B", object_name);
-#else
-			msg_print("You make some ammo.");
-#endif
+			msg_format(MES_SMITH_MADE(object_ptr));
 
 			/* Auto-inscription */
 			if(slot >= 0) autopick_alter_item(creature_ptr, slot, FALSE);
@@ -177,11 +173,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		quest_ptr->discount = 99;
 
 		object_desc(object_name, quest_ptr, 0);
-#ifdef JP
-		msg_format("%s‚ğì‚Á‚½B", object_name);
-#else
-		msg_print("You make some ammo.");
-#endif
+		msg_format(MES_SMITH_MADE(object_ptr));
 		increase_item(creature_ptr, item, -1, TRUE);
 		slot = inven_carry(creature_ptr, quest_ptr);
 
@@ -218,12 +210,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		quest_ptr->discount = 99;
 
 		object_desc(object_name, quest_ptr, 0);
-#ifdef JP
-		msg_format("%s‚ğì‚Á‚½B", object_name);
-#else
-		msg_print("You make some ammo.");
-#endif
-
+		msg_format(MES_SMITH_MADE(object_ptr));
 		increase_item(creature_ptr, item, -1, TRUE);
 		slot = inven_carry(creature_ptr, quest_ptr);
 

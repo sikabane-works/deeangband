@@ -1038,12 +1038,9 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_p
 
 	sprintf(tmp_val, "%d", object_ptr->number);
 
-	if(get_string("Quantity", tmp_val, 2))
+	if(get_string(KW_QUANTITY, tmp_val, 2))
 	{
-		/* Extract */
 		tmp_int = atoi(tmp_val);
-
-
 		if(tmp_int < 1) tmp_int = 1;
 		if(tmp_int > 99) tmp_int = 99;
 
@@ -1780,7 +1777,6 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 
 	if(!get_string(KW_FEATURE, tmp_val, 3)) return;
 
-	/* Extract */
 	tmp_feat = atoi(tmp_val);
 	if(tmp_feat < 0) tmp_feat = 0;
 	else if(tmp_feat >= max_feature_idx) tmp_feat = max_feature_idx - 1;
@@ -1788,7 +1784,6 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	sprintf(tmp_val, "%d", prev_mimic);
 	if(!get_string(KW_CAMOUFLAGE, tmp_val, 3)) return;
 
-	/* Extract */
 	tmp_mimic = atoi(tmp_val);
 	if(tmp_mimic < 0) tmp_mimic = 0;
 	else if(tmp_mimic >= max_feature_idx) tmp_mimic = max_feature_idx - 1;

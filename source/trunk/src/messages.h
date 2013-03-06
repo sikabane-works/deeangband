@@ -266,6 +266,7 @@
 #define KW_TRY "本当に"
 #define KW_FEATURE "地形"
 #define KW_CAMOUFLAGE "偽装地形"
+#define KW_QUANTITY "個数"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -364,6 +365,7 @@
 #define KW_TRY "Try"
 #define KW_FEATURE "Feature"
 #define KW_CAMOUFLAGE "Camouflage"
+#define KW_QUANTITY "Quantity"
 #endif
 
 #ifdef JP
@@ -698,6 +700,7 @@
 #define MES_SMITH_DRAINED_ESSENCE "抽出したエッセンス:"
 #define MES_SMITH_WHICH_ENCHANT "何を付加しますか:"
 #define MES_SMITH_WHICH_ABILITY "('*'で一覧, ESCで中断) どの能力を付加しますか？"
+#define MES_SMITH_MADE(OBJECT) "%sを作った。", (OBJECT)->name
 #else
 #define MES_SMITH_WHICH_DRAIN "Extract from which item? "
 #define MES_SMITH_NO_DRAIN "You have nothing you can extract from."
@@ -706,6 +709,7 @@
 #define MES_SMITH_DRAINED_ESSENCE "Extracted essences:"
 #define MES_SMITH_WHICH_ENCHANT "Command :"
 #define MES_SMITH_WHICH_ABILITY "(*=List, ESC=exit) Add which ability? "
+#define MES_SMITH_MADE(OBJECT) "You made %s", (OBJECT)->name
 #endif
 
 
