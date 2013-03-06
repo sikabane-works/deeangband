@@ -337,12 +337,7 @@ static void confirm_use_force(creature_type *creature_ptr, bool browse_only)
 		return;
 	}
 
-	/* Show the prompt */
-#ifdef JP
-	prt("('w'—û‹Cp, ESC) 'w'‚©ESC‚ğ‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢B ", 0, 0);
-#else
-	prt("(w for the Force, ESC) Hit 'w' or ESC. ", 0, 0);
-#endif
+	prt(MES_INTERFACE_FORCE, 0, 0);
 
 	while(TRUE)
 	{

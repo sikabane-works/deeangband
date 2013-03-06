@@ -1998,11 +1998,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			if(command_see && !use_menu) strcat(out_val, MES_INTERFACE_ENTER_SCROLL_DOWN);
 		}
 
-#ifdef JP
-		if(select_the_force) strcat(out_val, " 'w'ó˚ãCèp,");
-#else
-		if(select_the_force) strcat(out_val, " w for the Force,");
-#endif
+		if(select_the_force) strcat(out_val, MES_INTERFACE_FORCE2);
 
 		/* Finish the prompt */
 		strcat(out_val, " ESC");
@@ -2010,7 +2006,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		/* Build the prompt */
 		sprintf(tmp_val, "(%s) %s", out_val, pmt);
 
-		/* Show the prompt */
 		prt(tmp_val, 0, 0);
 
 		which = inkey();

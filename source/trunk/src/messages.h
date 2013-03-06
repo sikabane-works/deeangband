@@ -2099,6 +2099,8 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_SKILL_LIST2 "  Lv   MP"
 #define MES_INTERFACE_SKILL_LIST3 "熟練度 Lv   MP 失率 効果"
 #define MES_INTERFACE_SNIPE_LIST "Lv   集中度"
+#define MES_INTERFACE_FORCE "('w'練気術, ESC) 'w'かESCを押してください。 "
+#define MES_INTERFACE_FORCE2 " 'w'練気術,"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2122,6 +2124,8 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_SKILL_LIST2 "  Lv Mana"
 #define MES_INTERFACE_SKILL_LIST3 "Profic Lv   SP Fail Effect"
 #define MES_INTERFACE_SNIPE_LIST "Lv Pow"
+#define MES_INTERFACE_FORCE "(w for the Force, ESC) Hit 'w' or ESC. "
+#define MES_INTERFACE_FORCE2 " w for the Force,"
 #endif
 
 #ifdef JP
