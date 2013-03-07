@@ -698,6 +698,8 @@
 #define MES_SMITH_DRAINED_ESSENCE "抽出したエッセンス:"
 #define MES_SMITH_WHICH_ENCHANT "何を付加しますか:"
 #define MES_SMITH_WHICH_ABILITY "('*'で一覧, ESCで中断) どの能力を付加しますか？"
+#define MES_SMITH_WHICH_ERASE "どのアイテムのエッセンスを消去しますか？"
+#define MES_SMITH_NO_ERASE "エッセンスを付加したアイテムがありません。"
 #define MES_SMITH_MADE(OBJECT) "%sを作った。", (OBJECT)->name
 #define MES_SMITH_USE_ESSENCE "エッセンスを%d個使用します。"
 #define MES_SMITH_ASK_ADD(ESSENCE) "%sを付加しますか？ ", (ESSENCE)
@@ -706,6 +708,7 @@
 #define MES_SMITH_CANNOT_INCREASE "このアイテムの能力修正を強化することはできない。"
 #define MES_SMITH_PVAL_BECOME_ONE "修正値は1になります。よろしいですか？"
 #define MES_SMITH_HOW_MANY_ENCHANT(NUM) "いくつ付加しますか？ (1-%d)", (NUM)
+#define MES_SMITH_ADDED_ESSENCE(OBJECT, TYPE) "%sに%sの能力を付加しました。", (OBJECT)->name, (TYPE)
 #else
 #define MES_SMITH_WHICH_STUFF "Convert which item? "
 #define MES_SMITH_NO_STUFF "You have no item to convert."
@@ -717,6 +720,8 @@
 #define MES_SMITH_DRAINED_ESSENCE "Extracted essences:"
 #define MES_SMITH_WHICH_ENCHANT "Command :"
 #define MES_SMITH_WHICH_ABILITY "(*=List, ESC=exit) Add which ability? "
+#define MES_SMITH_WHICH_ERASE "Remove from which item? "
+#define MES_SMITH_NO_ERASE "You have nothing to remove essence."
 #define MES_SMITH_MADE(OBJECT) "You made %s", (OBJECT)->name
 #define MES_SMITH_USE_ESSENCE "It will take %d essences."
 #define MES_SMITH_ASK_ADD(ESSENCE) "Add the abilitiy of %s? ", (ESSENCE)
@@ -725,6 +730,7 @@
 #define MES_SMITH_CANNOT_INCREASE "You cannot increase magic number of this item."
 #define MES_SMITH_PVAL_BECOME_ONE "The magic number of this weapon will become 1. Are you sure? "
 #define MES_SMITH_HOW_MANY_ENCHANT(NUM) "Enchant how many? (1-%d)", (NUM)
+#define MES_SMITH_ADDED_ESSENCE(OBJECT, TYPE) "You have added ability of %s to %s.", (OBJECT)->name, (TYPE)
 #endif
 
 

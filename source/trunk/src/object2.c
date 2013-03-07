@@ -5557,13 +5557,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	}
 
 	cost_tactical_energy(creature_ptr, 100);
-
-#ifdef JP
-	msg_format("%sに%sの能力を付加しました。", object_name, es_ptr->add_name);
-#else
-	msg_format("You have added ability of %s to %s.", es_ptr->add_name, object_name);
-#endif
-
+	msg_format(MES_SMITH_ADDED_ESSENCE(object_ptr, es_ptr->add_name));
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 	prepare_window(PW_INVEN);
 }
@@ -5572,20 +5566,11 @@ static void add_essence(creature_type *creature_ptr, int mode)
 static void erase_essence(creature_type *creature_ptr)
 {
 	int item;
-	cptr q, s;
 	object_type *object_ptr;
 	char object_name[MAX_NLEN];
 	u32b flgs[MAX_TRAITS_FLAG];
 
-#ifdef JP
-	q = "どのアイテムのエッセンスを消去しますか？";
-	s = "エッセンスを付加したアイテムがありません。";
-#else
-	q = "Remove from which item? ";
-	s = "You have nothing to remove essence.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), object_is_smith2, 0)) return;
+	if(!get_item(creature_ptr, &item, MES_SMITH_WHICH_ERASE, MES_SMITH_NO_ERASE, (USE_INVEN | USE_FLOOR), object_is_smith2, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
