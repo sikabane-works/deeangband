@@ -1095,7 +1095,6 @@ void phlogiston(creature_type *creature_ptr)
 	/* It's a torch */
 	else if((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_TORCH)) max_flog = FUEL_TORCH;
 
-	/* No torch to refill */
 	else
 	{
 		msg_print(MES_LITE_PHLOGISTON_NONE);
@@ -1108,26 +1107,14 @@ void phlogiston(creature_type *creature_ptr)
 		return;
 	}
 
-	/* Refuel */
 	object_ptr->fuel += (max_flog / 2);
-
-#ifdef JP
-msg_print("照明用アイテムに燃素を補充した。");
-#else
-	msg_print("You add phlogiston to your light item.");
-#endif
-
+	msg_print(MES_LITE_PHLOGISTON_REFUEL);
 
 	/* Comment */
 	if(object_ptr->fuel >= max_flog)
 	{
 		object_ptr->fuel = max_flog;
-#ifdef JP
-msg_print("照明用アイテムは満タンになった。");
-#else
-		msg_print("Your light item is full.");
-#endif
-
+		msg_print(MES_LITE_PHLOGISTON_FULL);
 	}
 
 	prepare_update(creature_ptr, CRU_TORCH);

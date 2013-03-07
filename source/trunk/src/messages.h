@@ -3172,6 +3172,8 @@ static cptr desc_stat_neg[] =
 #define MES_LITE_TORCH_GLOW "松明はいっそう明るく輝いた。"
 #define MES_LITE_PHLOGISTON_NONE "燃素を消費するアイテムを装備していません。"
 #define MES_LITE_PHLOGISTON_NO_MORE "このアイテムにはこれ以上燃素を補充できません。"
+#define MES_LITE_PHLOGISTON_REFUEL "照明用アイテムに燃素を補充した。"
+#define MES_LITE_PHLOGISTON_FULL "照明用アイテムは満タンになった。"
 #else
 #define MES_LITE_FAINT "Your light is growing faint."
 #define MES_LITE_OUT "Your light has gone out!"
@@ -3188,6 +3190,8 @@ static cptr desc_stat_neg[] =
 #define MES_LITE_TORCH_GLOW "Your torch glows more brightly."
 #define MES_LITE_PHLOGISTON_NONE "You are not wielding anything which uses phlogiston
 #define MES_LITE_PHLOGISTON_NO_MORE "No more phlogiston can be put in this item."
+#define MES_LITE_PHLOGISTON_REFUEL "You add phlogiston to your light item."
+#define MES_LITE_PHLOGISTON_FULL "Your light item is full."
 #endif
 
 #ifdef JP
