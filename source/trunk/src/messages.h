@@ -703,6 +703,8 @@
 #define MES_SMITH_ASK_ADD(ESSENCE) "%sを付加しますか？ ", (ESSENCE)
 #define MES_SMITH_NO_ESSENCE "エッセンスが足りない。"
 #define MES_SMITH_NEED_ESSENCE(NUM) "エッセンスが%d必要です。", (NUM)
+#define MES_SMITH_CANNOT_INCREASE "このアイテムの能力修正を強化することはできない。"
+#define MES_SMITH_PVAL_BECOME_ONE "修正値は1になります。よろしいですか？"
 #else
 #define MES_SMITH_WHICH_STUFF "Convert which item? "
 #define MES_SMITH_NO_STUFF "You have no item to convert."
@@ -719,6 +721,8 @@
 #define MES_SMITH_ASK_ADD(ESSENCE) "Add the abilitiy of %s? ", (ESSENCE)
 #define MES_SMITH_NO_ESSENCE "You don't have enough essences."
 #define MES_SMITH_NEED_ESSENCE(NUM) "It will take %d essences.", (NUM)
+#define MES_SMITH_CANNOT_INCREASE "You cannot increase magic number of this item."
+#define MES_SMITH_PVAL_BECOME_ONE "The magic number of this weapon will become 1. Are you sure? "
 #endif
 
 

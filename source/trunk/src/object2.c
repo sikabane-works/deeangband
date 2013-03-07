@@ -5405,24 +5405,12 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		{
 			if(object_ptr->pval < 0)
 			{
-#ifdef JP
-				msg_print("このアイテムの能力修正を強化することはできない。");
-#else
-				msg_print("You cannot increase magic number of this item.");
-#endif
+				msg_print(MES_SMITH_CANNOT_INCREASE);
 				return;
 			}
 			else if(es_ptr->add == TRAIT_BLOWS)
 			{
-				if(object_ptr->pval > 1)
-				{
-#ifdef JP
-					if(!get_check("修正値は1になります。よろしいですか？")) return;
-#else
-					if(!get_check("The magic number of this weapon will become 1. Are you sure? ")) return;
-#endif
-				}
-
+				if(object_ptr->pval > 1) if(!get_check(MES_SMITH_PVAL_BECOME_ONE)) return;
 				object_ptr->pval = 1;
 				msg_format(MES_SMITH_USE_ESSENCE, use_essence);
 			}
@@ -5437,7 +5425,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				char tmp_val[160];
 				int pval;
 				int limit = MIN(5, creature_ptr->essence_num1[es_ptr->essence]/es_ptr->value);
-
 #ifdef JP
 				sprintf(tmp, "いくつ付加しますか？ (1-%d)", limit);
 #else
