@@ -1098,23 +1098,13 @@ void phlogiston(creature_type *creature_ptr)
 	/* No torch to refill */
 	else
 	{
-#ifdef JP
-msg_print("燃素を消費するアイテムを装備していません。");
-#else
-		msg_print("You are not wielding anything which uses phlogiston.");
-#endif
-
+		msg_print(MES_LITE_PHLOGISTON_NONE);
 		return;
 	}
 
 	if(object_ptr->fuel >= max_flog)
 	{
-#ifdef JP
-msg_print("このアイテムにはこれ以上燃素を補充できません。");
-#else
-		msg_print("No more phlogiston can be put in this item.");
-#endif
-
+		msg_print(MES_LITE_PHLOGISTON_NO_MORE);
 		return;
 	}
 

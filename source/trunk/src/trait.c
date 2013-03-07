@@ -1700,26 +1700,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					y = cy;
 					x = cx;
 					count++;
-					if(count == 1)
-#ifdef JP
-						msg_format("「幽鬼戦隊%d号、ナズグル・ブラック！」", count);
-#else
-						msg_format("A Nazgul says 'Nazgul-Rangers Number %d, Nazgul-Black!'",count);
-#endif
-					else
-#ifdef JP
-						msg_format("「同じく%d号、ナズグル・ブラック！」", count);
-#else
-						msg_format("Another one says 'Number %d, Nazgul-Black!'",count);
-#endif
 					msg_print(NULL);
 				}
 			}
-#ifdef JP
-			msg_format("「%d人そろって、リングレンジャー！」", count);
-#else
-			msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
-#endif
 			msg_print(NULL);
 		}
 
