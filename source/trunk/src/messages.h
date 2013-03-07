@@ -3493,3 +3493,16 @@ static cptr desc_stat_neg[] =
 #define MES_QUERY_STEED "Ridable creature list."
 #endif
 
+#ifdef JP
+#define MES_BECOME_BRAND_SHARPNESS "は鋭さを増した！"
+#define MES_BECOME_BRAND_EARTHQUAKE "は破壊力を増した！"
+#define MES_BECOME_BRAND_SLAYHUMAN "は人間の血を求めている！"
+#define MES_BECOME_BRAND_ELEC "は電撃に覆われた！"
+#else
+#define MES_BECOME_BRAND_SHARPNESS "becomes very sharp!"
+#define MES_BECOME_BRAND_EARTHQUAKE "seems very powerful."
+#define MES_BECOME_BRAND_SLAYHUMAN "seems to be looking for humans!"
+#define MES_BECOME_BRAND_ELEC "covered with lightning!"
+#endif
+
+

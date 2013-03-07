@@ -724,7 +724,6 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 
 	msg_print(MES_LITE_FUEL_LAMP);
 
-	/* Comment */
 	if((object1_ptr->name2 == EGO_LITE_DARKNESS) && (object2_ptr->fuel > 0))
 	{
 		object2_ptr->fuel = 0;

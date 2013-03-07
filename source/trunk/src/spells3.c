@@ -1110,7 +1110,6 @@ void phlogiston(creature_type *creature_ptr)
 	object_ptr->fuel += (max_flog / 2);
 	msg_print(MES_LITE_PHLOGISTON_REFUEL);
 
-	/* Comment */
 	if(object_ptr->fuel >= max_flog)
 	{
 		object_ptr->fuel = max_flog;
@@ -1149,12 +1148,7 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 		case 17:
 			if(object_ptr->tval == TV_SWORD)
 			{
-#ifdef JP
-				act = "は鋭さを増した！";
-#else
-				act = "becomes very sharp!";
-#endif
-
+				act = MES_BECOME_BRAND_SHARPNESS;
 				object_ptr->name2 = EGO_SHARPNESS;
 				object_ptr->pval = m_bonus(5, floor_ptr->floor_level) + 1;
 
@@ -1163,35 +1157,22 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 			}
 			else
 			{
-#ifdef JP
-				act = "は破壊力を増した！";
-#else
-				act = "seems very powerful.";
-#endif
+				act = MES_BECOME_BRAND_EARTHQUAKE;
 				object_ptr->name2 = EGO_EARTHQUAKES;
 				object_ptr->pval = m_bonus(3, floor_ptr->floor_level);
 			}
 			break;
 		case 16:
-#ifdef JP
-			act = "は人間の血を求めている！";
-#else
-			act = "seems to be looking for humans!";
-#endif
+			act = MES_BECOME_BRAND_SLAYHUMAN;
 			object_ptr->name2 = EGO_SLAY_HUMAN;
 			break;
 		case 15:
-#ifdef JP
-			act = "は電撃に覆われた！";
-#else
-			act = "covered with lightning!";
-#endif
-
+			act = MES_BECOME_BRAND_ELEC;
 			object_ptr->name2 = EGO_BRAND_ELEC;
 			break;
 		case 14:
 #ifdef JP
-act = "は酸に覆われた！";
+			act = "は酸に覆われた！";
 #else
 			act = "coated with acid!";
 #endif
