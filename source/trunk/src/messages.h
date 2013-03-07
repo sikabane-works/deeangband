@@ -552,6 +552,7 @@
 
 #define GAME_MESSAGE_CALL_ARTIFACT "このアーティファクトを何と名付けますか？"
 #define GAME_MESSAGE_SMITH_USE_ESSENCE "エッセンスを%d個使用します。"
+#define GAME_MESSAGE_SMITH_ASK_ADD(ESSENCE) "%sを付加しますか？ ", (ESSENCE)
 #define GAME_MESSAGE_SMITH_NO_ESSENCE "エッセンスが足りない。"
 
 #define GAME_MESSAGE_TARGET_SET "ターゲット決定。"
@@ -647,6 +648,7 @@
 #define GAME_MESSAGE_CALL_ARTIFACT "What do you want to call the artifact?"
 
 #define GAME_MESSAGE_SMITH_USE_ESSENCE "It will take %d essences."
+#define GAME_MESSAGE_SMITH_ASK_ADD(ESSENCE) "Add the abilitiy of %s? ", (ESSENCE)
 #define GAME_MESSAGE_SMITH_NO_ESSENCE "You don't have enough essences."
 
 #define GAME_MESSAGE_TARGET_SET "Target selected."

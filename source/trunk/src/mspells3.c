@@ -587,7 +587,6 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 		{
 			ask = isupper(choice);
 
-			/* Lowercase */
 			if(ask) choice = tolower(choice);
 
 			/* Extract request */

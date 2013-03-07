@@ -250,7 +250,6 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 			{
 				ask = (isupper(choice));
 
-				/* Lowercase */
 				if(ask) choice = tolower(choice);
 
 				/* Extract request */

@@ -203,7 +203,6 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 
 		ask = isupper(choice);
 
-		/* Lowercase */
 		if(ask) choice = tolower(choice);
 
 		/* Extract request */

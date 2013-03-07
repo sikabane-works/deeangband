@@ -5334,7 +5334,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			{
 				ask = (isupper(choice));
 
-				/* Lowercase */
 				if(ask) choice = tolower(choice);
 
 				/* Extract request */
@@ -5352,14 +5351,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			if(ask)
 			{
 				char tmp_val[160];
-
-#ifdef JP
-				(void) strnfmt(tmp_val, 78, "%sÇïtâ¡ÇµÇ‹Ç∑Ç©ÅH ", essence_info[num[i]].add_name);
-#else
-				(void) strnfmt(tmp_val, 78, "Add the abilitiy of %s? ", essence_info[num[i]].add_name);
-#endif
-
-				/* Belay that order */
+				(void) strnfmt(tmp_val, 78, GAME_MESSAGE_SMITH_ASK_ADD(essence_info[num[i]].add_name));
 				if(!get_check(tmp_val)) continue;
 			}
 

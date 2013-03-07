@@ -691,7 +691,6 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 			{
 				ask = (isupper(choice));
 
-				/* Lowercase */
 				if(ask) choice = tolower(choice);
 
 				/* Extract request */
