@@ -1187,39 +1187,19 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 			object_ptr->name2 = EGO_SLAY_UNDEAD;
 			break;
 		case 10:
-#ifdef JP
-			act = "は動物の血を求めている！";
-#else
-			act = "seems to be looking for animals!";
-#endif
-
+			act = MES_BECOME_BRAND_SLAYANIMAL;
 			object_ptr->name2 = EGO_SLAY_ANIMAL;
 			break;
 		case 9:
-#ifdef JP
-			act = "はドラゴンの血を求めている！";
-#else
-			act = "seems to be looking for dragons!";
-#endif
-
+			act = MES_BECOME_BRAND_SLAYDRAGON;
 			object_ptr->name2 = EGO_SLAY_DRAGON;
 			break;
 		case 8:
-#ifdef JP
-			act = "はトロルの血を求めている！";
-#else
-			act = "seems to be looking for troll!s";
-#endif
-
+			act = MES_BECOME_BRAND_SLAYTROLL;
 			object_ptr->name2 = EGO_SLAY_TROLL;
 			break;
 		case 7:
-#ifdef JP
-			act = "はオークの血を求めている！";
-#else
-			act = "seems to be looking for orcs!";
-#endif
-
+			act = MES_BECOME_BRAND_SLAYORC;
 			object_ptr->name2 = EGO_SLAY_ORC;
 			break;
 		case 6:
