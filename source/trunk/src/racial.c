@@ -41,16 +41,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	object_ptr = &forge;
-	
-#ifdef JP
-	if(creature_ptr->lev >= 20) sprintf(com, "[S]’e, [A]–î, [B]ƒNƒƒXƒ{ƒE‚Ì–î :");
-	else if(creature_ptr->lev >= 10) sprintf(com, "[S]’e, [A]–î:");
-	else sprintf(com, "[S]’e:");
-#else
-	if(creature_ptr->lev >= 20)	sprintf(com, "Create [S]hots, Create [A]rrow or Create [B]olt ?");
-	else if(creature_ptr->lev >= 10) sprintf(com, "Create [S]hots or Create [A]rrow ?");
-	else sprintf(com, "Create [S]hots ?");
-#endif
+	sprintf(com, MES_SMITH_WHICH_AMMO);
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{

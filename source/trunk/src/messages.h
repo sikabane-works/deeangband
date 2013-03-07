@@ -695,6 +695,7 @@
 #ifdef JP
 #define MES_SMITH_WHICH_STUFF "どのアイテムから作りますか？ "
 #define MES_SMITH_NO_STUFF "材料を持っていない。"
+#define MES_SMITH_WHICH_AMMO "[S]弾, [A]矢, [B]クロスボウの矢 :"
 #define MES_SMITH_WHICH_DRAIN "どのアイテムから抽出しますか？"
 #define MES_SMITH_NO_DRAIN "抽出できるアイテムがありません。"
 #define MES_SMITH_DRAIN_ASK(OBJECT) "本当に%sから抽出してよろしいですか？", (OBJECT)
@@ -706,6 +707,7 @@
 #else
 #define MES_SMITH_WHICH_STUFF "Convert which item? "
 #define MES_SMITH_NO_STUFF "You have no item to convert."
+#define MES_SMITH_WHICH_AMMO "Create [S]hots, Create [A]rrow or Create [B]olt ?"
 #define MES_SMITH_WHICH_DRAIN "Extract from which item? "
 #define MES_SMITH_NO_DRAIN "You have nothing you can extract from."
 #define MES_SMITH_DRAIN_ASK(OBJECT) "Really extract from %s? ", (OBJECT)
