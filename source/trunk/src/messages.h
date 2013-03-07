@@ -551,9 +551,6 @@
 #define GAME_MESSAGE_FIELD_MAGIC_FAILED1 "床上のアイテムが呪文を跳ね返した。"
 
 #define GAME_MESSAGE_CALL_ARTIFACT "このアーティファクトを何と名付けますか？"
-#define GAME_MESSAGE_SMITH_USE_ESSENCE "エッセンスを%d個使用します。"
-#define GAME_MESSAGE_SMITH_ASK_ADD(ESSENCE) "%sを付加しますか？ ", (ESSENCE)
-#define GAME_MESSAGE_SMITH_NO_ESSENCE "エッセンスが足りない。"
 
 #define GAME_MESSAGE_TARGET_SET "ターゲット決定。"
 #define GAME_MESSAGE_TARGET_ABORT "ターゲット解除。"
@@ -647,10 +644,6 @@
 
 #define GAME_MESSAGE_CALL_ARTIFACT "What do you want to call the artifact?"
 
-#define GAME_MESSAGE_SMITH_USE_ESSENCE "It will take %d essences."
-#define GAME_MESSAGE_SMITH_ASK_ADD(ESSENCE) "Add the abilitiy of %s? ", (ESSENCE)
-#define GAME_MESSAGE_SMITH_NO_ESSENCE "You don't have enough essences."
-
 #define GAME_MESSAGE_TARGET_SET "Target selected."
 #define GAME_MESSAGE_TARGET_ABORT "Target aborted."
 #define GAME_MESSAGE_TARGET_CANCELED "Canceled."
@@ -706,6 +699,10 @@
 #define MES_SMITH_WHICH_ENCHANT "何を付加しますか:"
 #define MES_SMITH_WHICH_ABILITY "('*'で一覧, ESCで中断) どの能力を付加しますか？"
 #define MES_SMITH_MADE(OBJECT) "%sを作った。", (OBJECT)->name
+#define MES_SMITH_USE_ESSENCE "エッセンスを%d個使用します。"
+#define MES_SMITH_ASK_ADD(ESSENCE) "%sを付加しますか？ ", (ESSENCE)
+#define MES_SMITH_NO_ESSENCE "エッセンスが足りない。"
+#define MES_SMITH_NEED_ESSENCE(NUM) "エッセンスが%d必要です。", (NUM)
 #else
 #define MES_SMITH_WHICH_STUFF "Convert which item? "
 #define MES_SMITH_NO_STUFF "You have no item to convert."
@@ -718,6 +715,10 @@
 #define MES_SMITH_WHICH_ENCHANT "Command :"
 #define MES_SMITH_WHICH_ABILITY "(*=List, ESC=exit) Add which ability? "
 #define MES_SMITH_MADE(OBJECT) "You made %s", (OBJECT)->name
+#define MES_SMITH_USE_ESSENCE "It will take %d essences."
+#define MES_SMITH_ASK_ADD(ESSENCE) "Add the abilitiy of %s? ", (ESSENCE)
+#define MES_SMITH_NO_ESSENCE "You don't have enough essences."
+#define MES_SMITH_NEED_ESSENCE(NUM) "It will take %d essences.", (NUM)
 #endif
 
 

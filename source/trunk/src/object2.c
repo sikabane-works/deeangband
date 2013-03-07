@@ -5350,7 +5350,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			if(ask)
 			{
 				char tmp_val[160];
-				(void) strnfmt(tmp_val, 78, GAME_MESSAGE_SMITH_ASK_ADD(essence_info[num[i]].add_name));
+				(void) strnfmt(tmp_val, 78, MES_SMITH_ASK_ADD(essence_info[num[i]].add_name));
 				if(!get_check(tmp_val)) continue;
 			}
 
@@ -5358,9 +5358,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		}
 
 		if(redraw) screen_load();
-
 		if(!flag) return;
-
 		repeat_push(i);
 	}
 
@@ -5393,19 +5391,14 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	if(object_ptr->number > 1)
 	{
 		use_essence *= object_ptr->number;
-#ifdef JP
-		msg_format("%d個あるのでエッセンスは%d必要です。", object_ptr->number, use_essence);
-#else
-		msg_format("It will take %d essences.",use_essence);
-#endif
-
+		msg_format(MES_SMITH_NEED_ESSENCE(use_essence));
 	}
 
 	if(es_ptr->essence != -1)
 	{
 		if(creature_ptr->essence_num1[es_ptr->essence] < use_essence)
 		{
-			msg_print(GAME_MESSAGE_SMITH_NO_ESSENCE);
+			msg_print(MES_SMITH_NO_ESSENCE);
 			return;
 		}
 		if(is_pval_flag(es_ptr->add))
@@ -5431,12 +5424,12 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				}
 
 				object_ptr->pval = 1;
-				msg_format(GAME_MESSAGE_SMITH_USE_ESSENCE, use_essence);
+				msg_format(MES_SMITH_USE_ESSENCE, use_essence);
 			}
 			else if(object_ptr->pval > 0)
 			{
 				use_essence *= object_ptr->pval;
-				msg_format(GAME_MESSAGE_SMITH_USE_ESSENCE, use_essence);
+				msg_format(MES_SMITH_USE_ESSENCE, use_essence);
 			}
 			else
 			{
@@ -5458,12 +5451,12 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				else if(pval < 1) pval = 1;
 				object_ptr->pval += pval;
 				use_essence *= pval;
-				msg_format(GAME_MESSAGE_SMITH_USE_ESSENCE, use_essence);
+				msg_format(MES_SMITH_USE_ESSENCE, use_essence);
 			}
 
 			if(creature_ptr->essence_num1[es_ptr->essence] < use_essence)
 			{
-				msg_print(GAME_MESSAGE_SMITH_NO_ESSENCE);
+				msg_print(MES_SMITH_NO_ESSENCE);
 				return;
 			}
 		}
@@ -5483,10 +5476,10 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			if(val > creature_ptr->lev/7+3) val = creature_ptr->lev/7+3;
 			else if(val < 1) val = 1;
 			use_essence *= val;
-			msg_format(GAME_MESSAGE_SMITH_USE_ESSENCE, use_essence);
+			msg_format(MES_SMITH_USE_ESSENCE, use_essence);
 			if(creature_ptr->essence_num1[es_ptr->essence] < use_essence)
 			{
-				msg_print(GAME_MESSAGE_SMITH_NO_ESSENCE);
+				msg_print(MES_SMITH_NO_ESSENCE);
 				return;
 			}
 			get_to_hit = ((val+1)/2+randint0(val/2+1));
@@ -5571,7 +5564,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		}
 		if(!success)
 		{
-			msg_print(GAME_MESSAGE_SMITH_NO_ESSENCE);
+			msg_print(MES_SMITH_NO_ESSENCE);
 			return;
 		}
 		if(es_ptr->add == ESSENCE_SUSTAIN)
