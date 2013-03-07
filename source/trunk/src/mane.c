@@ -192,7 +192,6 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 
 			else
 			{
-				/* Hide list */
 				redraw = FALSE;
 
 				screen_load();

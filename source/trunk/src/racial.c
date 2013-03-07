@@ -642,17 +642,8 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 
 				if(!use_menu) screen_save();
 
-				/* Print header(s) */
-				
-#ifdef JP
-				if(num < 18) prt("                            Lv   MP ¸—¦", y++, x);
-				else prt("                            Lv   MP ¸—¦                            Lv   MP ¸—¦", y++, x);
-#else
-				if(num < 18) prt("                            Lv Cost Fail", y++, x);
-				else prt("                            Lv Cost Fail                            Lv Cost Fail", y++, x);
-#endif
+				if(num < 18) prt(MES_INTERFACE_RACIAL_LIST, y++, x);
 
-				/* Print list */
 				while (ctr < num)
 				{
 					x1 = ((ctr < 18) ? x : x + 40);
@@ -684,9 +675,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 
 			else
 			{
-				/* Hide list */
 				redraw = FALSE;
-
 				screen_load();
 			}
 

@@ -2734,7 +2734,6 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 		{
 			if(request_list)
 			{
-				/* Hide list */
 				request_list = FALSE;
 				
 				screen_load();

@@ -248,7 +248,6 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 
 			else
 			{
-				/* Hide list */
 				redraw = FALSE;
 
 				if(!only_browse) screen_load();

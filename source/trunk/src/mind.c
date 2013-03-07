@@ -690,7 +690,6 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 
 			else if(!only_browse)
 			{
-				/* Hide list */
 				redraw = FALSE;
 
 				screen_load();

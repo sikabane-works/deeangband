@@ -182,7 +182,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 				{
 					if(use_menu) continue;
 
-					/* Hide list */
 					redraw = FALSE;
 
 					screen_load();
@@ -1788,7 +1787,6 @@ void do_cmd_pet(creature_type *master_ptr)
 
 				else
 				{
-					/* Hide list */
 					redraw = FALSE;
 
 					screen_load();

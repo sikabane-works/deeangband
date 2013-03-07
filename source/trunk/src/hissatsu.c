@@ -235,7 +235,6 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 
 			else
 			{
-				/* Hide list */
 				redraw = FALSE;
 
 				screen_load();

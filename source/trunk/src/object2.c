@@ -5321,7 +5321,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 				else
 				{
-					/* Hide list */
 					redraw = FALSE;
 
 					screen_load();

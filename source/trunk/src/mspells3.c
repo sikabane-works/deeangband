@@ -574,7 +574,6 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 
 			else
 			{
-				/* Hide list */
 				redraw = FALSE;
 
 				screen_load();
