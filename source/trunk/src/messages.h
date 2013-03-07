@@ -699,6 +699,7 @@
 #define MES_SMITH_WHICH_ENCHANT "何を付加しますか:"
 #define MES_SMITH_WHICH_ABILITY "('*'で一覧, ESCで中断) どの能力を付加しますか？"
 #define MES_SMITH_WHICH_ERASE "どのアイテムのエッセンスを消去しますか？"
+#define MES_SMITH_ERASED "エッセンスを取り去った。"
 #define MES_SMITH_NO_ERASE "エッセンスを付加したアイテムがありません。"
 #define MES_SMITH_MADE(OBJECT) "%sを作った。", (OBJECT)->name
 #define MES_SMITH_USE_ESSENCE "エッセンスを%d個使用します。"
@@ -721,6 +722,7 @@
 #define MES_SMITH_WHICH_ENCHANT "Command :"
 #define MES_SMITH_WHICH_ABILITY "(*=List, ESC=exit) Add which ability? "
 #define MES_SMITH_WHICH_ERASE "Remove from which item? "
+#define MES_SMITH_ERASED "You removed all essence you have added."
 #define MES_SMITH_NO_ERASE "You have nothing to remove essence."
 #define MES_SMITH_MADE(OBJECT) "You made %s", (OBJECT)->name
 #define MES_SMITH_USE_ESSENCE "It will take %d essences."

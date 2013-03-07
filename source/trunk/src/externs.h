@@ -1150,7 +1150,7 @@ extern void reorder_pack(creature_type *creature_ptr);
 extern void display_koff(creature_type *creature_ptr, int k_idx);
 extern object_type *choose_warning_item(creature_type *caster_ptr);
 extern bool process_warning(creature_type *player_ptr, int xx, int yy);
-extern void do_cmd_kaji(creature_type *creature_ptr, bool only_browse);
+extern void do_cmd_smith(creature_type *creature_ptr, bool only_browse);
 extern void set_inventory_weight(creature_type *creature_ptr);
 extern bool is_valid_object(object_type *object_ptr);
 

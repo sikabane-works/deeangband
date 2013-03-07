@@ -3501,7 +3501,7 @@ static void process_player_command(creature_type *creature_ptr)
 				(creature_ptr->class_idx == CLASS_MIRROR_MASTER) 
 				) do_cmd_mind_browse(creature_ptr);
 			else if(creature_ptr->class_idx == CLASS_SMITH)
-				do_cmd_kaji(creature_ptr, TRUE);
+				do_cmd_smith(creature_ptr, TRUE);
 			else if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
 				do_cmd_magic_eater(creature_ptr, TRUE);
 			else if(creature_ptr->class_idx == CLASS_SNIPER)
@@ -3566,7 +3566,7 @@ static void process_player_command(creature_type *creature_ptr)
 					else if(creature_ptr->class_idx == CLASS_BLUE_MAGE)
 						do_cmd_cast_learned(creature_ptr);
 					else if(creature_ptr->class_idx == CLASS_SMITH)
-						do_cmd_kaji(creature_ptr, FALSE);
+						do_cmd_smith(creature_ptr, FALSE);
 					else if(creature_ptr->class_idx == CLASS_SNIPER)
 						do_cmd_snipe(creature_ptr);
 					else

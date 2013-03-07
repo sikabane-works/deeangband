@@ -4098,7 +4098,7 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 			     (guest_ptr->class_idx == CLASS_MIRROR_MASTER) 
 			     ) do_cmd_mind_browse(guest_ptr);
 			else if(guest_ptr->class_idx == CLASS_SMITH)
-				do_cmd_kaji(guest_ptr, TRUE);
+				do_cmd_smith(guest_ptr, TRUE);
 			else if(guest_ptr->class_idx == CLASS_MAGIC_EATER)
 				do_cmd_magic_eater(guest_ptr, TRUE);
 			else if(guest_ptr->class_idx == CLASS_SNIPER)

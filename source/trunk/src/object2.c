@@ -5590,17 +5590,13 @@ static void erase_essence(creature_type *creature_ptr)
 	object_ptr->forged_type = 0;
 	object_flags(object_ptr, flgs);
 	if(!(have_pval_flags(flgs))) object_ptr->pval = 0;
-#ifdef JP
-	msg_print("エッセンスを取り去った。");
-#else
-	msg_print("You removed all essence you have added.");
-#endif
+	msg_print(MES_SMITH_ERASED);
 
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 	prepare_window(PW_INVEN);
 }
 
-void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
+void do_cmd_smith(creature_type *creature_ptr, bool only_browse)
 {
 	int mode = 0;
 	char choice;
