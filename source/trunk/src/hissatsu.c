@@ -272,7 +272,6 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 
 		j = sentaku[i];
 
-		/* Verify it */
 		if(ask)
 		{
 			char tmp_val[160];
@@ -282,7 +281,6 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 			if(!get_check(tmp_val)) continue;
 		}
 
-		/* Stop the loop */
 		flag = TRUE;
 	}
 

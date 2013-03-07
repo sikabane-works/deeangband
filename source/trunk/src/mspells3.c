@@ -603,7 +603,6 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 		/* Save the spell index */
 		spell = &trait_info[spellnum[i]];
 
-		/* Verify it */
 		if(ask)
 		{
 			char tmp_val[160];

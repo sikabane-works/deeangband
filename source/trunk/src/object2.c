@@ -5347,7 +5347,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				continue;
 			}
 
-			/* Verify it */
 			if(ask)
 			{
 				char tmp_val[160];
@@ -5355,7 +5354,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				if(!get_check(tmp_val)) continue;
 			}
 
-			/* Stop the loop */
 			flag = TRUE;
 		}
 

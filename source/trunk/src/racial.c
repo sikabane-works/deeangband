@@ -710,7 +710,6 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 			continue;
 		}
 
-		/* Verify it */
 		if(ask)
 		{
 			char tmp_val[160];
@@ -720,7 +719,6 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 			if(!get_check(tmp_val)) continue;
 		}
 
-		/* Stop the loop */
 		flag = TRUE;
 	}
 

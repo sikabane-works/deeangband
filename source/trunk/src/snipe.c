@@ -275,7 +275,6 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 		/* Save the spell index */
 		spell = snipe_powers[i];
 
-		/* Verify it */
 		if(ask)
 		{
 			char tmp_val[160];
@@ -285,7 +284,6 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 			if(!get_check(tmp_val)) continue;
 		}
 
-		/* Stop the loop */
 		flag = TRUE;
 	}
 

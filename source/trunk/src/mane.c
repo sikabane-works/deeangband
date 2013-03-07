@@ -218,7 +218,6 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 		/* Save the spell index */
 		spell_ = trait_info[creature_ptr->mane_spell[i]];
 
-		/* Verify it */
 		if(ask)
 		{
 			char tmp_val[160];
@@ -231,7 +230,6 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 			if(!get_check(tmp_val)) continue;
 		}
 
-		/* Stop the loop */
 		flag = TRUE;
 	}
 

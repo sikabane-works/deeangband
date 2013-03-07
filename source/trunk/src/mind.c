@@ -719,7 +719,6 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 		/* Save the spell index */
 		spell = mind_ptr->info[i];
 
-		/* Verify it */
 		if(ask)
 		{
 			char tmp_val[160];
@@ -728,7 +727,6 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 			if(!get_check(tmp_val)) continue;
 		}
 
-		/* Stop the loop */
 		flag = TRUE;
 	}
 

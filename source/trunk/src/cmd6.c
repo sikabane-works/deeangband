@@ -2774,7 +2774,6 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 
 		if(!only_browse)
 		{
-			/* Verify it */
 			if(ask)
 			{
 				char tmp_val[160];
@@ -2837,7 +2836,6 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			continue;
 		}
 
-		/* Stop the loop */
 		flag = TRUE;
 	}
 

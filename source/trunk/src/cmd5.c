@@ -218,7 +218,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 			continue;
 		}
 
-		/* Verify it */
 		if(ask)
 		{
 			char tmp_val[160];
@@ -250,7 +249,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 			/* Belay that order */
 			if(!get_check(tmp_val)) continue;
 		}
-		/* Stop the loop */
 		flag = TRUE;
 	}
 
@@ -1812,7 +1810,6 @@ void do_cmd_pet(creature_type *master_ptr)
 				continue;
 			}
 
-			/* Verify it */
 			if(ask)
 			{
 				strnfmt(buf, 78, MES_SYS_ASK_USE, power_desc[i]);
@@ -1820,7 +1817,6 @@ void do_cmd_pet(creature_type *master_ptr)
 				if(!get_check(buf)) continue;
 			}
 
-			/* Stop the loop */
 			flag = TRUE;
 		}
 
