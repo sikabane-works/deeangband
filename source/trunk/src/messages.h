@@ -3498,11 +3498,19 @@ static cptr desc_stat_neg[] =
 #define MES_BECOME_BRAND_EARTHQUAKE "は破壊力を増した！"
 #define MES_BECOME_BRAND_SLAYHUMAN "は人間の血を求めている！"
 #define MES_BECOME_BRAND_ELEC "は電撃に覆われた！"
+#define MES_BECOME_BRAND_ACID "は酸に覆われた！"
+#define MES_BECOME_BRAND_SLAYEVIL "は邪悪な者への裁きを求めている！"
+#define MES_BECOME_BRAND_SLAYDEMON "は異世界の住人の肉体を求めている！"
+#define MES_BECOME_BRAND_SLAYUNDEAD "は不死者を求めている！"
 #else
 #define MES_BECOME_BRAND_SHARPNESS "becomes very sharp!"
 #define MES_BECOME_BRAND_EARTHQUAKE "seems very powerful."
 #define MES_BECOME_BRAND_SLAYHUMAN "seems to be looking for humans!"
 #define MES_BECOME_BRAND_ELEC "covered with lightning!"
+#define MES_BECOME_BRAND_ACID "coated with acid!"
+#define MES_BECOME_BRAND_SLAYEVIL "seems to be looking for evil creatures!"
+#define MES_BECOME_BRAND_SLAYDEMON "seems to be looking for demons!"
+#define MES_BECOME_BRAND_SLAYUNDEAD "seems to be looking for undead!"
 #endif
 
 

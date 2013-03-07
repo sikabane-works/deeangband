@@ -1171,39 +1171,19 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 			object_ptr->name2 = EGO_BRAND_ELEC;
 			break;
 		case 14:
-#ifdef JP
-			act = "‚ÍŽ_‚É•¢‚í‚ê‚½I";
-#else
-			act = "coated with acid!";
-#endif
-
+			act = MES_BECOME_BRAND_ACID;
 			object_ptr->name2 = EGO_BRAND_ACID;
 			break;
 		case 13:
-#ifdef JP
-act = "‚ÍŽ×ˆ«‚È‚é‰ö•¨‚ð‹‚ß‚Ä‚¢‚éI";
-#else
-			act = "seems to be looking for evil creatures!";
-#endif
-
+			act = MES_BECOME_BRAND_SLAYEVIL;
 			object_ptr->name2 = EGO_SLAY_EVIL;
 			break;
 		case 12:
-#ifdef JP
-act = "‚ÍˆÙ¢ŠE‚ÌZl‚Ì“÷‘Ì‚ð‹‚ß‚Ä‚¢‚éI";
-#else
-			act = "seems to be looking for demons!";
-#endif
-
+			act = MES_BECOME_BRAND_SLAYDEMON;
 			object_ptr->name2 = EGO_SLAY_DEMON;
 			break;
 		case 11:
-#ifdef JP
-act = "‚ÍŽr‚ð‹‚ß‚Ä‚¢‚éI";
-#else
-			act = "seems to be looking for undead!";
-#endif
-
+			act = MES_BECOME_BRAND_SLAYUNDEAD;
 			object_ptr->name2 = EGO_SLAY_UNDEAD;
 			break;
 		case 10:
