@@ -3887,19 +3887,16 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 	object_type *quest_ptr;
 	object_type *object_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-
 	char object_name[MAX_NLEN];
 
 
 	/* Access original object */
 	object_ptr = &creature_ptr->inventory[item];
 
-	/* Error check */
 	if(amt <= 0) return;
 
 	/* Not too many */
 	if(amt > object_ptr->number) amt = object_ptr->number;
-
 
 	// Take off equipment
 	/*
@@ -4008,12 +4005,11 @@ void combine_pack(creature_type *creature_ptr)
 // Note special handling of the "overflow" slot
 void reorder_pack(creature_type *creature_ptr)
 {
-	int             i, j, k;
-	s32b            o_value;
-	object_type     forge;
-	object_type     *quest_ptr;
-	object_type     *object_ptr;
-	bool            flag = FALSE;
+	int i, j, k;
+	s32b o_value;
+	object_type forge;
+	object_type *object1_ptr, *object2_ptr;
+	bool flag = FALSE;
 
 	/* Re-order the pack (forwards) */
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -4021,18 +4017,18 @@ void reorder_pack(creature_type *creature_ptr)
 		/* Mega-Hack -- allow "proper" over-flow */
 		if((i == INVEN_TOTAL) && (creature_ptr->inven_cnt == INVEN_TOTAL)) break;
 
-		object_ptr = &creature_ptr->inventory[i];
+		object1_ptr = &creature_ptr->inventory[i];
 
 		/* Skip empty slots */
-		if(!is_valid_object(object_ptr)) continue;
+		if(!is_valid_object(object1_ptr)) continue;
 
 		/* Get the "value" of the item */
-		o_value = object_value(object_ptr);
+		o_value = object_value(object1_ptr);
 
 		/* Scan every occupied slot */
 		for (j = 0; j < INVEN_TOTAL; j++)
 		{
-			if(object_sort_comp(creature_ptr, object_ptr, o_value, &creature_ptr->inventory[j])) break;
+			if(object_sort_comp(creature_ptr, object1_ptr, o_value, &creature_ptr->inventory[j])) break;
 		}
 
 		/* Never move down */
@@ -4040,10 +4036,10 @@ void reorder_pack(creature_type *creature_ptr)
 
 		flag = TRUE;
 
-		quest_ptr = &forge;
+		object2_ptr = &forge;
 
 		/* Save a copy of the moving item */
-		object_copy(quest_ptr, &creature_ptr->inventory[i]);
+		object_copy(object2_ptr, &creature_ptr->inventory[i]);
 
 		/* Slide the objects */
 		for (k = i; k > j; k--)
@@ -4053,7 +4049,7 @@ void reorder_pack(creature_type *creature_ptr)
 		}
 
 		/* Insert the moving item */
-		object_copy(&creature_ptr->inventory[j], quest_ptr);
+		object_copy(&creature_ptr->inventory[j], object2_ptr);
 
 		prepare_window(PW_INVEN);
 	}
