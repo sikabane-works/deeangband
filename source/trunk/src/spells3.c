@@ -1877,14 +1877,8 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 	}
 
 	if(!res) return FALSE;
-
-	prepare_update(creature_ptr, CRU_BONUS);
-
-	/* Combine / Reorder the pack (later) */
-	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-
+	prepare_update(creature_ptr, CRU_BONUS | CRU_COMBINE | CRU_REORDER);
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
-
 	calc_android_exp(creature_ptr);
 
 	return TRUE;
@@ -3423,7 +3417,6 @@ bool hates_acid(object_type *object_ptr)
 			return TRUE;
 		}
 
-		/* Ouch */
 		case TV_CHEST:
 		{
 			return TRUE;
@@ -3708,20 +3701,11 @@ int dissolve_armour(creature_type *creature_ptr)
 	// Object resists
 	if(have_flag(flgs, TRAIT_IGNORE_ACID))
 	{
-#ifdef JP
-		msg_format("しかし%sには効果がなかった！", object_name);
-#else
-		msg_format("Your %s is unaffected!", object_name);
-#endif
+		msg_format(MES_DISENCHANT_NO_EFFECT(object_name));
 		return TRUE;
 	}
 
-#ifdef JP
-	msg_format("%sがダメージを受けた！", object_name);
-#else
-	msg_format("Your %s is damaged!", object_name);
-#endif
-
+	msg_format(MES_DISENCHANT_DAMAGED(object_name));
 	object_ptr->to_ac--; // Damage the item
 
 	prepare_update(creature_ptr, CRU_BONUS);		// Calculate bonuses

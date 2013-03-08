@@ -3564,3 +3564,11 @@ static cptr desc_stat_neg[] =
 #define MES_ALT_REAL_START "The view around you begins to change..."
 #define MES_ALT_REAL_CANCEL "The view around you got back..."
 #endif
+
+#ifdef JP
+#define MES_DISENCHANT_NO_EFFECT(OBJECT) "しかし%sには効果がなかった！", (OBJECT)->name
+#define MES_DISENCHANT_DAMAGED(OBJECT) "%sがダメージを受けた！", (OBJECT)->name
+#else
+#define MES_DISENCHANT_NO_EFFECT(OBJECT) "Your %s is unaffected!", (OBJECT)->name
+#define MES_DISENCHANT_DAMAGED(OBJECT) "Your %s is damaged!", (OBJECT)->name
+#endif
