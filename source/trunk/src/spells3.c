@@ -1425,7 +1425,6 @@ void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool requir
 		return;
 	}
 
-	/* Use a target */
 	if(dir == 5 && target_okay(creature_ptr))
 	{
 		tx = target_col;
@@ -1470,10 +1469,8 @@ void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool requir
 	}
 	else
 	{
-		/* Use a direction */
-		ty = creature_ptr->fy; /* Where to drop the item */
+		ty = creature_ptr->fy;
 		tx = creature_ptr->fx;
-
 		do
 		{
 			ty += ddy[dir];
@@ -1523,25 +1520,14 @@ void alter_reality(creature_type *creature_ptr)
 	if(!creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 	{
 		int turns = randint0(21) + 15;
-
 		creature_ptr->timed_trait[TRAIT_ALTER_REALITY] = turns;
-#ifdef JP
-		msg_print("‰ñ‚è‚ÌŒiF‚ª•Ï‚í‚èŽn‚ß‚½...");
-#else
-		msg_print("The view around you begins to change...");
-#endif
-
+		msg_print(MES_ALT_REAL_START);
 		prepare_redraw(PR_STATUS);
 	}
 	else
 	{
 		creature_ptr->timed_trait[TRAIT_ALTER_REALITY] = 0;
-#ifdef JP
-		msg_print("ŒiF‚ªŒ³‚É–ß‚Á‚½...");
-#else
-		msg_print("The view around you got back...");
-#endif
-
+		msg_print(MES_ALT_REAL_CANCEL);
 		prepare_redraw(PR_STATUS);
 	}
 	return;
@@ -1561,14 +1547,10 @@ bool warding_glyph(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	/* Create a glyph */
 	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info |= CAVE_OBJECT;
 	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].mimic = feat_glyph;
-
 	note_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
-
 	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
-
 	return TRUE;
 }
 

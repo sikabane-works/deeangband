@@ -3556,3 +3556,11 @@ static cptr desc_stat_neg[] =
 #define MES_FETCH_TOO_HEAVY "The object is too heavy."
 #define MES_FETCH_DONE(OBJECT) "%^s flies through the air to your feet.", (OBJECT)->name
 #endif
+
+#ifdef JP
+#define MES_ALT_REAL_START "‰ñ‚è‚ÌŒiF‚ª•Ï‚í‚èn‚ß‚½..."
+#define MES_ALT_REAL_CANCEL "ŒiF‚ªŒ³‚É–ß‚Á‚½..."
+#else
+#define MES_ALT_REAL_START "The view around you begins to change..."
+#define MES_ALT_REAL_CANCEL "The view around you got back..."
+#endif
