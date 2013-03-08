@@ -3587,4 +3587,10 @@ static cptr desc_stat_neg[] =
 #define MES_RUSTPROOF_PROTECTED(OBJECT) "The %s %s now protected against corrosion.", (OBJECT)->name, (((OBJECT)->number > 1) ? "are" : "is")
 #endif
 
-
+#ifdef JP
+#define MES_DDOOR_FAILED "¸—ìŠE‚©‚ç•¨¿ŠE‚É–ß‚é‚¤‚Ü‚­‚¢‚©‚È‚©‚Á‚½I"
+#define MES_DMIRROR_FAILED "‹¾‚Ì¢ŠE‚ğ‚¤‚Ü‚­’Ê‚ê‚È‚©‚Á‚½I"
+#else
+#define MES_DDOOR_FAILED "You fail to exit the astral plane correctly!"
+#define MES_DMIRROR_FAILED "You fail to pass the mirror plane correctly!"
+#endif

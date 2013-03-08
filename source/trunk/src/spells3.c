@@ -3973,13 +3973,7 @@ bool dimension_door(creature_type *creature_ptr)
 	if(!tgt_pt(creature_ptr, &x, &y)) return FALSE;
 
 	if(dimension_door_aux(creature_ptr, x, y)) return TRUE;
-
-#ifdef JP
-	msg_print("¸—ìŠE‚©‚ç•¨¿ŠE‚É–ß‚é‚¤‚Ü‚­‚¢‚©‚È‚©‚Á‚½I");
-#else
-	msg_print("You fail to exit the astral plane correctly!");
-#endif
-
+	msg_print(MES_DDOOR_FAILED);
 	return TRUE;
 }
 
@@ -3993,15 +3987,8 @@ bool mirror_tunnel(creature_type *creature_ptr)
 
 	/* Rerutn FALSE if cancelled */
 	if(!tgt_pt(creature_ptr, &x, &y)) return FALSE;
-
 	if(dimension_door_aux(creature_ptr, x, y)) return TRUE;
-
-#ifdef JP
-	msg_print("‹¾‚Ì¢ŠE‚ğ‚¤‚Ü‚­’Ê‚ê‚È‚©‚Á‚½I");
-#else
-	msg_print("You fail to pass the mirror plane correctly!");
-#endif
-
+	msg_print(MES_DMIRROR_FAILED);
 	return TRUE;
 }
 
