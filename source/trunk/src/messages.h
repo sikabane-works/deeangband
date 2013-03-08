@@ -3537,4 +3537,12 @@ static cptr desc_stat_neg[] =
 #define MES_BECOME_BRAND_FORMAT(OBJECT, BRAND) "Your %s %s", (OBJECT), (BRAND)
 #endif
 
-
+#ifdef JP
+#define MES_FETCH_STAND "©•ª‚Ì‘«‚Ì‰º‚É‚ ‚é•¨‚Íæ‚ê‚Ü‚¹‚ñB"
+#define MES_FETCH_TOO_FAR "‚»‚ñ‚È‚É‰“‚­‚É‚ ‚é•¨‚Íæ‚ê‚Ü‚¹‚ñI"
+#define MES_FETCH_NO_OBJECT "‚»‚±‚É‚Í‰½‚à‚ ‚è‚Ü‚¹‚ñB"
+#else
+#define MES_FETCH_STAND "You can't fetch when you're already standing on something."
+#define MES_FETCH_TOO_FAR "You can't fetch something that far away!"
+#define MES_FETCH_NO_OBJECT "There is no object at this place."
+#endif

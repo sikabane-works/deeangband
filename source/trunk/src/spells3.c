@@ -1421,12 +1421,7 @@ void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool requir
 	/* Check to see if an object is already there */
 	if(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx)
 	{
-#ifdef JP
-		msg_print("é©ï™ÇÃë´ÇÃâ∫Ç…Ç†ÇÈï®ÇÕéÊÇÍÇ‹ÇπÇÒÅB");
-#else
-		msg_print("You can't fetch when you're already standing on something.");
-#endif
-
+		msg_print(MES_FETCH_STAND);
 		return;
 	}
 
@@ -1438,12 +1433,7 @@ void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool requir
 
 		if(distance(creature_ptr->fy, creature_ptr->fx, ty, tx) > MAX_RANGE)
 		{
-#ifdef JP
-			msg_print("ÇªÇÒÇ»Ç…âìÇ≠Ç…Ç†ÇÈï®ÇÕéÊÇÍÇ‹ÇπÇÒÅI");
-#else
-			msg_print("You can't fetch something that far away!");
-#endif
-
+			msg_print(MES_FETCH_TOO_FAR);
 			return;
 		}
 
@@ -1452,12 +1442,7 @@ void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool requir
 		/* We need an item to fetch */
 		if(!c_ptr->object_idx)
 		{
-#ifdef JP
-			msg_print("ÇªÇ±Ç…ÇÕâΩÇ‡Ç†ÇËÇ‹ÇπÇÒÅB");
-#else
-			msg_print("There is no object at this place.");
-#endif
-
+			msg_print(MES_FETCH_NO_OBJECT);
 			return;
 		}
 
