@@ -2352,15 +2352,9 @@ static void building_recharge(creature_type *creature_ptr)
 	/* The item must be "known" */
 	if(!object_is_known(object_ptr))
 	{		
-#ifdef JP
-		msg_format("充填する前に鑑定されている必要があります。");
+		msg_format(MES_RECHARGE_NEED_IDENTIFY);
 		msg_print(NULL);
-		if((creature_ptr->au >= 50) && get_check("＄50で鑑定しますか？ "))
-#else
-		msg_format("The item must be identified first。");
-		msg_print(NULL);
-		if((creature_ptr->au >= 50) && get_check("Identify for 50 gold? "))
-#endif
+		if((creature_ptr->au >= 50) && get_check(format(MES_RECHARGE_ASK_IDENTIFY(50))))
 		{
 			/* Pay the price */
 			creature_ptr->au -= 50;
