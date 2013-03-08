@@ -2492,7 +2492,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 				/* Stacks of rods display an exact count of charging rods. */
 				if(object_ptr->number > 1)
 				{
-					if(object_kind_ptr->pval == 0) object_kind_ptr->pval = 1; // Paranoia.
+					if(object_kind_ptr->pval == 0) object_kind_ptr->pval = 1;
 
 					/* Find out how many rods are charging, by dividing
 					 * current timeout by each rod's maximum timeout.

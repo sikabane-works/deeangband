@@ -1443,7 +1443,6 @@ static errr init_object_alloc(void)
 	// Collect the level indexes
 	for (i = 1; i < MAX_DEPTH; i++) num[i] += num[i-1];
 
-	// Paranoia
 	if(!num[0]) quit(MES_SYS_NO_TOWN_ITEM);
 
 	/*** Initialize object allocation info ***/

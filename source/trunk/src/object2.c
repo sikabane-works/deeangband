@@ -1717,7 +1717,7 @@ s16b m_bonus(int max, int level)
 {
 	int bonus, stand, extra, value;
 
-	if(level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;	// Paranoia -- enforce maximal "level"
+	if(level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
 	bonus = ((max * level) / MAX_DEPTH);				// The "bonus" moves towards the max
 	extra = ((max * level) % MAX_DEPTH);				// Hack -- determine fraction of error
 
@@ -1806,7 +1806,7 @@ static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_p
 	int i;
 	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
 	if(!floor_ptr->floor_level) return FALSE; // No artifacts in the town 
-	if(object_ptr->number != 1) return FALSE; // Paranoia -- no "plural" artifacts
+	if(object_ptr->number != 1) return FALSE;
 
 	// Check the artifact list (skip the "specials")
 	for (i = 0; i < max_artifact_idx; i++)
@@ -2879,7 +2879,7 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj
 	object_type forge;
 	object_type *quest_ptr;
 
-	if(!IN_BOUNDS(floor_ptr, y, x)) return; // Paranoia -- check bounds
+	if(!IN_BOUNDS(floor_ptr, y, x)) return;
 	if(!cave_drop_bold(floor_ptr, y, x)) return; // Require floor space
 	if(c_ptr->object_idx) return; // Avoid stacking on other objects
 
@@ -3689,9 +3689,7 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int i, j, k;
 	int n = -1;
-
 	object_type *object2_ptr;
-
 
 	/* Check for combining */
 	for (j = 0; j < INVEN_TOTAL; j++)
@@ -3710,17 +3708,12 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 			/* Combine the items */
 			object_absorb(object2_ptr, object_ptr);
 
-			/* Increase the weight */
 			set_inventory_weight(creature_ptr);
 			prepare_update(creature_ptr, CRU_BONUS);
 			prepare_window(PW_INVEN);
-
 			return (j);
 		}
 	}
-
-
-
 	if(creature_ptr->inven_cnt > INVEN_TOTAL) return (-1);
 
 	/* Find an empty slot */
@@ -3735,8 +3728,6 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 	/* Use that slot */
 	i = j;
 
-
-	/* Reorder the pack */
 	if(i < INVEN_TOTAL)
 	{
 		/* Get the "value" of the item */
@@ -3762,36 +3753,25 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 		object_wipe(&creature_ptr->inventory[i]);
 	}
 
-
 	/* Copy the item */
 	object_copy(&creature_ptr->inventory[i], object_ptr);
 
 	/* Access new object */
 	object2_ptr = &creature_ptr->inventory[i];
 
-	/* Forget stack */
+	/* Forget info */
 	object2_ptr->next_object_idx = 0;
-
-	/* Forget creature */
 	object2_ptr->held_m_idx = 0;
-
-	/* Forget location */
 	object2_ptr->fy = object2_ptr->fx = 0;
 
 	/* Player touches it, and no longer marked */
 	object2_ptr->marked = OM_TOUCHED;
 
-	/* Increase the weight */
 	set_inventory_weight(creature_ptr);
 
 	/* Count the items */
 	creature_ptr->inven_cnt++;
-
-	prepare_update(creature_ptr, CRU_BONUS);
-
-	/* Combine and Reorder pack */
-	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-
+	prepare_update(creature_ptr, CRU_BONUS | CRU_COMBINE | CRU_REORDER);
 	prepare_window(PW_INVEN);
 
 	/* Return the slot */
@@ -3813,43 +3793,31 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 {
 	//TODO
 	int slot;
-
 	object_type forge;
-	object_type *quest_ptr;
-
-	object_type *object_ptr;
-
+	object_type *object1_ptr, *object2_ptr;
 	cptr act;
-
 	char object_name[MAX_NLEN];
 
-
 	// Get the item to take off
-	object_ptr = &creature_ptr->inventory[item];
+	object1_ptr = &creature_ptr->inventory[item];
 
-	object_ptr->equipped_slot_type = INVEN_SLOT_INVENTORY;
-	object_ptr->equipped_slot_num = 0;
+	object1_ptr->equipped_slot_type = INVEN_SLOT_INVENTORY;
+	object1_ptr->equipped_slot_num = 0;
 
-	// Paranoia
 	if(amt <= 0) return (-1);
+	if(amt > object1_ptr->number) amt = object1_ptr->number;
 
-	// Verify
-	if(amt > object_ptr->number) amt = object_ptr->number;
-
-	// Get local object
-	quest_ptr = &forge;
-
-	// Obtain a local object
-	object_copy(quest_ptr, object_ptr);
+	object2_ptr = &forge;
+	object_copy(object2_ptr, object1_ptr);
 
 	// Modify quantity
-	quest_ptr->number = amt;
+	object2_ptr->number = amt;
 
 	// Describe the object
-	object_desc(object_name, quest_ptr, 0);
+	object_desc(object_name, object2_ptr, 0);
 
 	// Took off weapon
-	if(GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_HAND && object_is_melee_weapon(creature_ptr, object_ptr))
+	if(GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_HAND && object_is_melee_weapon(creature_ptr, object1_ptr))
 	{
 #ifdef JP
 		act = "ÇëïîıÇ©ÇÁÇÕÇ∏ÇµÇΩ";
@@ -3895,7 +3863,7 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	increase_item(creature_ptr, item, -amt, FALSE);
 
 	// Carry the object
-	slot = inven_carry(creature_ptr, quest_ptr);
+	slot = inven_carry(creature_ptr, object2_ptr);
 
 #ifdef JP
 	msg_format("%s(%c)%sÅB", object_name, index_to_label(slot), act);

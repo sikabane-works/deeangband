@@ -109,7 +109,7 @@ void init_saved_floors(bool force)
 //
 static void kill_floor(floor_type *sf_ptr)
 {
-	if(!sf_ptr) return; // Paranoia
+	if(!sf_ptr) return;
 	// TODO
 }
 
@@ -518,12 +518,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 
 	// Extract current floor data 
 	sf_ptr = &floor_list[creature_ptr->floor_id];
-
-	// Paranoia 
-	if(!sf_ptr)
-	{
-		sf_ptr = &floor_list[creature_ptr->floor_id]; // No floor id? -- Create now!
-	} 
+	if(!sf_ptr) sf_ptr = &floor_list[creature_ptr->floor_id]; // No floor id? -- Create now!
 
 	// Choose randomly 
 	if(up && down)

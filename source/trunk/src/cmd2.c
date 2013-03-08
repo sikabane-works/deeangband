@@ -3288,15 +3288,12 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 			/* Wear the new stuff */
 			object_copy(object_ptr, quest_ptr);
-
-			/* Increase the weight */
 			set_inventory_weight(creature_ptr);
 
 			/* Increment the equip counter by hand */
 			creature_ptr->equip_cnt++;
 
 			prepare_update(creature_ptr, CRU_BONUS | CRU_TORCH | CRU_MANA);
-
 			prepare_window(PW_EQUIP);
 		}
 		else

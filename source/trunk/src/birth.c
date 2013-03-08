@@ -2371,7 +2371,6 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 	/* Wear the new stuff */ 
 	object_copy(object_ptr, i_ptr); 
  
-	/* Increase the weight */ 
 	set_inventory_weight(creature_ptr);
  
 	/* Increment the equip counter by hand */ 

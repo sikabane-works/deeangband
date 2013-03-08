@@ -658,7 +658,7 @@ bool inc_stat(creature_type *creature_ptr, int stat)
 		else if(value < (creature_ptr->stat_mod_max_max[stat] - 20))
 		{
 			gain = (((creature_ptr->stat_mod_max_max[stat]) - value) / 2 + 3) / 2; // Approximate gain value
-			if(gain < 1) gain = 1;	// Paranoia
+			if(gain < 1) gain = 1;
 			value += randint1(gain) + gain / 2;	// Apply the bonus
 			if(value > (creature_ptr->stat_mod_max_max[stat] - 1)) value = creature_ptr->stat_mod_max_max[stat] - 1; // Maximal value
 		}
