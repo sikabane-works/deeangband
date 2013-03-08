@@ -3834,14 +3834,9 @@ bool brand_bolts(creature_type *creature_ptr)
 		if(object_is_cursed(object_ptr) || object_is_broken(object_ptr)) continue;
 		if(PERCENT(75)) continue;	// Randomize
 
-#ifdef JP
-		msg_print("クロスボウの矢が炎のオーラに包まれた！");
-#else
-		msg_print("Your bolts are covered in a fiery aura!");
-#endif
+		msg_format("%s %s", object_ptr->name, MES_BECOME_BRAND_FIRE);
 		object_ptr->name2 = EGO_FLAME;	// Ego-item
 		enchant(creature_ptr, object_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);	// Enchant
-
 		return TRUE;	// Notice
 	}
 
