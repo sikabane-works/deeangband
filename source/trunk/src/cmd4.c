@@ -5195,7 +5195,6 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 			object_type forge;
 			object_type *quest_ptr;
 
-			/* Get local object */
 			quest_ptr = &forge;
 
 			/* Create fake object */
@@ -6546,7 +6545,6 @@ static void desc_obj_fake(int k_idx)
 	object_type *object_ptr;
 	object_type object_type_body;
 
-	/* Get local object */
 	object_ptr = &object_type_body;
 
 	/* Wipe the object */

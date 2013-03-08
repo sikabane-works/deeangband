@@ -1613,8 +1613,6 @@ void identify_pack(creature_type *creature_ptr)
 
 		/* Skip non-objects */
 		if(!is_valid_object(object_ptr)) continue;
-
-		/* Identify it */
 		identify_item(creature_ptr, object_ptr);
 
 		/* Auto-inscription */
@@ -2096,9 +2094,7 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	/* Identify it */
 	old_known = identify_item(creature_ptr, object_ptr);
-
 	object_desc(object_name, object_ptr, 0);
 
 	if(IS_EQUIPPED(object_ptr))
@@ -2211,8 +2207,6 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
-
-	/* Identify it */
 	old_known = identify_item(creature_ptr, object_ptr);
 
 	/* Mark the item as fully known */
@@ -4053,7 +4047,6 @@ bool eat_magic(creature_type *creature_ptr, int power)
 					object_type forge;
 					object_type *quest_ptr;
 
-					/* Get local object */
 					quest_ptr = &forge;
 
 					/* Obtain a local object */

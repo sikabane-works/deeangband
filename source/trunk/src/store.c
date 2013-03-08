@@ -1838,7 +1838,6 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 
 		flag = TRUE;
 
-		/* Get local object */
 		j_ptr = &forge;
 
 		/* Save a copy of the moving item */
@@ -2210,7 +2209,6 @@ static int store_replacement(store_type *st_ptr, int num)
 			level = rand_range(1, st_ptr->level);			// Hack -- fake level for apply_magic()
 		}
 
-		/* Get local object */
 		quest_ptr = &forge;
 
 		/* Set Standard Item Size */
@@ -3288,7 +3286,6 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 	/* Assume the player wants just one of them */
 	amt = 1;
 
-	/* Get local object */
 	j_ptr = &forge;
 
 	/* Get a copy of the object */
@@ -3327,7 +3324,6 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 		if(amt <= 0) return;
 	}
 
-	/* Get local object */
 	j_ptr = &forge;
 
 	/* Get desired object */
@@ -3596,7 +3592,6 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 		if(amt <= 0) return;
 	}
 
-	/* Get local object */
 	quest_ptr = &forge;
 
 	/* Get a copy of the object */
@@ -3664,11 +3659,8 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 
 			/* Get the "apparent" value */
 			dummy = object_value(quest_ptr) * quest_ptr->number;
-
-			/* Identify it */
 			identify_item(creature_ptr, object_ptr);
 
-			/* Get local object */
 			quest_ptr = &forge;
 
 			/* Get a copy of the object */
@@ -3744,7 +3736,6 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 		else msg_print(MES_STORE_MUSEUM_WARN);
 		if(!get_check(format(MES_STORE_MUSEUM_ASK(o2_name)))) return;
 
-		/* Identify it */
 		identify_item(creature_ptr, quest_ptr);
 		quest_ptr->ident |= IDENT_MENTAL;
 
@@ -4428,7 +4419,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 				char object_name[MAX_NLEN];
 				msg_print(GAME_MESSAGE_PACK_OVERFLOW);
 
-				/* Get local object */
 				quest_ptr = &forge;
 
 				/* Grab a copy of the item */

@@ -2357,8 +2357,6 @@ static void building_recharge(creature_type *creature_ptr)
 		if((creature_ptr->au >= 50) && get_check(format(MES_RECHARGE_ASK_IDENTIFY(50))))
 		{
 			creature_ptr->au -= 50;
-
-			/* Identify it */
 			identify_item(creature_ptr, object_ptr);
 			object_desc(tmp_str, object_ptr, 0);
 			msg_format(MES_RECHARGE_INDENTIFIED(object_ptr));
@@ -2467,14 +2465,9 @@ static void building_recharge(creature_type *creature_ptr)
 	object_desc(tmp_str, object_ptr, 0);
 	msg_format(MES_RECHARGED(tmp_str, price, object_ptr->number));
 
-	/* Combine / Reorder the pack (later) */
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-
 	prepare_window(PW_INVEN);
-
 	creature_ptr->au -= price;
-
-	/* Finished */
 	return;
 }
 
@@ -2576,7 +2569,6 @@ static void building_recharge_all(creature_type *creature_ptr)
 		/* skip non magic device */
 		if(object_ptr->tval < TV_STAFF || object_ptr->tval > TV_ROD) continue;
 
-		/* Identify it */
 		if(!object_is_known(object_ptr))
 		{
 			identify_item(creature_ptr, object_ptr);
@@ -2606,13 +2598,10 @@ static void building_recharge_all(creature_type *creature_ptr)
 	msg_format(MES_RECHARGED_ALL(total_cost));
 	msg_print(NULL);
 
-	/* Combine / Reorder the pack (later) */
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 	prepare_window(PW_INVEN);
 
 	creature_ptr->au -= total_cost;
-
-	/* Finished */
 	return;
 }
 

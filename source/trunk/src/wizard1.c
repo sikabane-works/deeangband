@@ -196,7 +196,6 @@ static void kind_info(char *buf, char *dam, char *wgt, int *lev, s32b *val, int 
 	object_type *quest_ptr;
 
 
-	/* Get local object */
 	quest_ptr = &forge;
 
 	/* Prepare a fake item */
@@ -1181,7 +1180,6 @@ static void spoil_artifact(cptr fname)
 			/* We only want objects in the current group */
 			if(a_ptr->tval != group_artifact[i].tval) continue;
 
-			/* Get local object */
 			quest_ptr = &forge;
 
 			/* Wipe the object */

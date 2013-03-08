@@ -237,7 +237,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			object_type forge;
 			object_type *quest_ptr;
 
-			/* Get local object */
 			quest_ptr = &forge;
 
 			/* Obtain a local object */

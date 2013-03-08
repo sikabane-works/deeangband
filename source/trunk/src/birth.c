@@ -2357,7 +2357,6 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 	if(slot == INVEN_SLOT_INVENTORY) return -1; 
 	if(creature_ptr->inventory[slot].k_idx) return -1; 
  
-	/* Get local object */ 
 	i_ptr = &object_type_body; 
 	object_copy(i_ptr, object_ptr); 
  

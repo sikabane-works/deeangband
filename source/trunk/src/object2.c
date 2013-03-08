@@ -2969,7 +2969,6 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 	if(c_ptr->object_idx) return;
 
 
-	/* Get local object */
 	quest_ptr = &forge;
 
 	/* Wipe the object */
@@ -3294,7 +3293,6 @@ void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, boo
 	/* Acquirement */
 	while (num--)
 	{
-		/* Get local object */
 		i_ptr = &object_type_body;
 
 		/* Wipe the object */
@@ -3949,7 +3947,6 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 	*/
 
 
-	/* Get local object */
 	quest_ptr = &forge;
 
 	/* Obtain local object */
@@ -4075,7 +4072,6 @@ void reorder_pack(creature_type *creature_ptr)
 
 		flag = TRUE;
 
-		/* Get local object */
 		quest_ptr = &forge;
 
 		/* Save a copy of the moving item */
@@ -4125,7 +4121,6 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 	/* No info */
 	if(!k_idx) return;
 
-	/* Get local object */
 	quest_ptr = &forge;
 
 	/* Prepare the object */

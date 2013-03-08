@@ -108,7 +108,6 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		{
 			s16b slot;
 
-			/* Get local object */
 			object_ptr = &forge;
 
 			/* Hack -- Give the player some small firestones */
@@ -142,7 +141,6 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		if(!get_item(creature_ptr, &item, MES_SMITH_WHICH_STUFF, MES_SMITH_NO_STUFF, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
 		object_ptr = GET_ITEM(creature_ptr, item);
 
-		/* Get local object */
 		object_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
@@ -171,7 +169,6 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		if(!get_item(creature_ptr, &item, MES_SMITH_WHICH_STUFF, MES_SMITH_NO_STUFF, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
 		object_ptr = GET_ITEM(creature_ptr, item);
 
-		/* Get local object */
 		object_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */

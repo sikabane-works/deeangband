@@ -490,7 +490,6 @@ static errr rd_store(store_type *st_ptr)
 		object_type forge;
 		object_type *quest_ptr;
 
-		/* Get local object */
 		quest_ptr = &forge;
 
 		/* Wipe the object */

@@ -2375,7 +2375,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	y = creature_ptr->fy;
 	x = creature_ptr->fx;
 
-	/* Get local object */
 	quest_ptr = &forge;
 
 	/* Obtain a local object */
@@ -2930,7 +2929,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		}
 	}
 
-	/* Get local object */
 	quest_ptr = &forge;
 
 	/* Obtain a local object */

@@ -611,7 +611,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 		if(arena_info[arena_number].tval)
 		{
-			/* Get local object */
 			quest_ptr = &forge;
 
 			/* Prepare to make a prize */
@@ -852,7 +851,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	/* Drop some objects */
 	for (j = 0; j < number; j++)
 	{
-		/* Get local object */
 		quest_ptr = &forge;
 
 		/* Wipe the object */

@@ -745,7 +745,6 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 	if(object_is_artifact(object_ptr)) return;
 
 
-	/* Get local object */
 	quest_ptr = &forge;
 
 	/* Copy the object */
@@ -956,7 +955,6 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 			}
 
 
-			/* Get local object */
 			quest_ptr = &forge;
 
 			/* Wipe the object */
@@ -1203,7 +1201,6 @@ static void wiz_create_item(creature_type *creature_ptr)
 		}
 	}
 
-	/* Get local object */
 	quest_ptr = &forge;
 
 	/* Create the item */
@@ -1596,7 +1593,6 @@ static void do_cmd_wiz_learn(void)
 		/* Induce awareness */
 		if(object_kind_ptr->level <= command_arg)
 		{
-			/* Get local object */
 			quest_ptr = &forge;
 
 			/* Prepare object */
