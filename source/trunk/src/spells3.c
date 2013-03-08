@@ -3748,6 +3748,8 @@ static void shatter_object(object_type *object_ptr)
 	object_ptr->to_hit = 0;
 	object_ptr->to_damage = 0;
 	object_ptr->ac = 0;
+	object_ptr->ev = 0;
+	object_ptr->vo = 0;
 	object_ptr->dd = 0;
 	object_ptr->ds = 0;
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) object_ptr->trait_flags[i] = 0;
@@ -3774,13 +3776,7 @@ bool curse_armor(creature_type *creature_ptr)
 
 	/* Attempt a saving throw for artifacts */
 	if(object_is_artifact(object_ptr) && (PERCENT(50)))
-	{
-#ifdef JP
-		msg_format("%sが%sを包み込もうとしたが、%sはそれを跳ね返した！", "恐怖の暗黒オーラ", "防具", object_name);
-#else
-		msg_format("A %s tries to %s, but your %s resists the effects!", "terrible black aura", "surround your armor", object_name);
-#endif
-	}
+		msg_format(MES_OBJECT_RESISTED_CURSE(object_ptr));
 	else
 	{
 		msg_format(GAME_MESSAGE_BLACK_AURA_TO_OBJECT, object_name);
@@ -3809,14 +3805,7 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);	// Describe
 
 	if(object_is_artifact(object_ptr) && (PERCENT(50)) && !force)	// Attempt a saving throw
-	{
-#ifdef JP
-		msg_format("%sが%sを包み込もうとしたが、%sはそれを跳ね返した！", "恐怖の暗黒オーラ", "武器", object_name);
-#else
-		msg_format("A %s tries to %s, but your %s resists the effects!", "terrible black aura", "surround your weapon", object_name);
-#endif
-
-	}
+		msg_format(MES_OBJECT_RESISTED_CURSE(object_ptr));
 	else
 	{
 		if(!force) msg_format(GAME_MESSAGE_BLACK_AURA_TO_OBJECT, object_name);
@@ -3825,7 +3814,6 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 		prepare_update(target_ptr, CRU_BONUS | CRU_MANA);	// Recalculate bonuses and mana
 		prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 	}
-
 	return TRUE;
 }
 
