@@ -1477,34 +1477,20 @@ static int wand_effect(creature_type *caster_ptr, int sval, int dir, bool magic)
 			switch (randint1(5))
 			{
 				case 1:
-				{
 					breath(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, 240, 3, -1);
 					break;
-				}
-
 				case 2:
-				{
 					breath(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, 210, 3, -1);
 					break;
-				}
-
 				case 3:
-				{
 					breath(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, 240, 3, -1);
 					break;
-				}
-
 				case 4:
-				{
 					breath(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 210, 3, -1);
 					break;
-				}
-
 				default:
-				{
 					breath(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, 180, 3, -1);
 					break;
-				}
 			}
 
 			ident = TRUE;
@@ -1560,11 +1546,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	/* Mega-Hack -- refuse to aim a pile from the ground */
 	if((item < 0) && (object_ptr->number > 1))
 	{
-#ifdef JP
-		msg_print("Ç‹Ç∏ÇÕñÇñ@ñ_ÇèEÇÌÇ»ÇØÇÍÇŒÅB");
-#else
-		msg_print("You must first pick up the wands.");
-#endif
+		msg_print(MES_OBJECT_WAND_NEED_PICKUP);
 		return;
 	}
 
@@ -1650,22 +1632,9 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 
 void do_cmd_aim_wand(creature_type *creature_ptr)
 {
-	int     item;
-	cptr    q, s;
-
+	int item;
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
-
-#ifdef JP
-	q = "Ç«ÇÃñÇñ@ñ_Ç≈ë_Ç¢Ç‹Ç∑Ç©? ";
-	s = "égÇ¶ÇÈñÇñ@ñ_Ç™Ç»Ç¢ÅB";
-#else
-	q = "Aim which wand? ";
-	s = "You have no wand to aim.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_WAND)) return;
-
-	/* Aim the wand */
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_WAND, MES_OBJECT_NO_WAND, (USE_INVEN | USE_FLOOR), NULL, TV_WAND)) return;
 	do_cmd_aim_wand_aux(creature_ptr, item);
 }
 

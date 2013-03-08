@@ -2513,9 +2513,15 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_OBJECT_WHICH_STAFF "どの杖を使いますか? "
 #define MES_OBJECT_NO_STAFF "使える杖がない。"
+#define MES_OBJECT_WHICH_WAND "どの魔法棒で狙いますか? "
+#define MES_OBJECT_NO_WAND "使える魔法棒がない。" 
+#define MES_OBJECT_WAND_NEED_PICKUP "まずは魔法棒を拾わなければ。"
 #else
 #define MES_OBJECT_WHICH_STAFF "Use which staff? "
 #define MES_OBJECT_NO_STAFF "You have no staff to use."
+#define MES_OBJECT_WHICH_WAND "Aim which wand? "
+#define MES_OBJECT_NO_WAND "You have no wand to aim."
+#define MES_OBJECT_WAND_NEED_PICKUP "You must first pick up the wands."
 #endif
 
 #ifdef JP
