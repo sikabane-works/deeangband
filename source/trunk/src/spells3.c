@@ -1220,43 +1220,20 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 			object_ptr->name2 = EGO_BRAND_POIS;
 			break;
 		case 2:
-#ifdef JP
-			act = "は純ログルスに飲み込まれた。";
-#else
-			act = "is engulfed in raw Logrus!";
-#endif
-
+			act = MES_BECOME_BRAND_CHAOS;
 			object_ptr->name2 = EGO_CHAOTIC;
 			break;
 		case 1:
-#ifdef JP
-			act = "は炎のシールドに覆われた！";
-#else
-			act = "is covered in a fiery shield!";
-#endif
-
+			act = MES_BECOME_BRAND_FIRE;
 			object_ptr->name2 = EGO_BRAND_FIRE;
 			break;
 		default:
-#ifdef JP
-			act = "は深く冷たいブルーに輝いた！";
-#else
-			act = "glows deep, icy blue!";
-#endif
-
+			act = MES_BECOME_BRAND_COLD;
 			object_ptr->name2 = EGO_BRAND_COLD;
 			break;
 		}
-
-#ifdef JP
-		msg_format("あなたの%s%s", object_name, act);
-#else
-		msg_format("Your %s %s", object_name, act);
-#endif
-
-
+		msg_format(MES_BECOME_BRAND_FORMAT(object_name, act));
 		enchant(creature_ptr, object_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
-
 		object_ptr->discount = 99;
 	}
 	else

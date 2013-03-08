@@ -3510,6 +3510,10 @@ static cptr desc_stat_neg[] =
 #define MES_BECOME_BRAND_TRUMP "は非常に不安定になったようだ。"
 #define MES_BECOME_BRAND_VAMPIRIC "は血を求めている！"
 #define MES_BECOME_BRAND_POIS "は毒に覆われた。"
+#define MES_BECOME_BRAND_CHAOS "は純ログルスに飲み込まれた。"
+#define MES_BECOME_BRAND_FIRE "は炎のシールドに覆われた！"
+#define MES_BECOME_BRAND_COLD "は深く冷たいブルーに輝いた！"
+#define MES_BECOME_BRAND_FORMAT(OBJECT, BRAND) "あなたの%s%s", (OBJECT), (BRAND)
 #else
 #define MES_BECOME_BRAND_SHARPNESS "becomes very sharp!"
 #define MES_BECOME_BRAND_EARTHQUAKE "seems very powerful."
@@ -3527,6 +3531,10 @@ static cptr desc_stat_neg[] =
 #define MES_BECOME_BRAND_TRUMP "seems very unstable now."
 #define MES_BECOME_BRAND_VAMPIRIC "thirsts for blood!"
 #define MES_BECOME_BRAND_POIS "is coated with poison."
+#define MES_BECOME_BRAND_CHAOS "is engulfed in raw Logrus!"
+#define MES_BECOME_BRAND_FIRE "is covered in a fiery shield!"
+#define MES_BECOME_BRAND_COLD "glows deep, icy blue!"
+#define MES_BECOME_BRAND_FORMAT(OBJECT, BRAND) "Your %s %s", (OBJECT), (BRAND)
 #endif
 
 
