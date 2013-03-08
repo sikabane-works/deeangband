@@ -2356,18 +2356,12 @@ static void building_recharge(creature_type *creature_ptr)
 		msg_print(NULL);
 		if((creature_ptr->au >= 50) && get_check(format(MES_RECHARGE_ASK_IDENTIFY(50))))
 		{
-			/* Pay the price */
 			creature_ptr->au -= 50;
 
 			/* Identify it */
 			identify_item(creature_ptr, object_ptr);
-
 			object_desc(tmp_str, object_ptr, 0);
-#ifdef JP
-			msg_format("%s ‚Å‚·B", tmp_str);
-#else
-			msg_format("You have: %s.", tmp_str);
-#endif
+			msg_format(MES_RECHARGE_INDENTIFIED(object_ptr));
 
 			/* Auto-inscription */
 			autopick_alter_item(creature_ptr, item, FALSE);
@@ -2478,7 +2472,6 @@ static void building_recharge(creature_type *creature_ptr)
 
 	prepare_window(PW_INVEN);
 
-	/* Pay the price */
 	creature_ptr->au -= price;
 
 	/* Finished */
@@ -2617,7 +2610,6 @@ static void building_recharge_all(creature_type *creature_ptr)
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 	prepare_window(PW_INVEN);
 
-	/* Pay the price */
 	creature_ptr->au -= total_cost;
 
 	/* Finished */

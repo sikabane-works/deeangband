@@ -2365,6 +2365,7 @@ static cptr desc_stat_neg[] =
 #define MES_RECHARGE_ROD_PRICE(NUM, MONEY) "ロッド%d本を＄%d で再充填しますか？", (NUM), (MONEY)
 #define MES_RECHARGE_NEED_IDENTIFY "充填する前に鑑定されている必要があります。"
 #define MES_RECHARGE_ASK_IDENTIFY(MONEY) "＄%dで鑑定しますか？ ", (MONEY)
+#define MES_RECHARGE_INDENTIFIED(OBJECT) "%s です。", (OBJECT)->name
 #else
 #define MES_RECHARGE_WHICH_ITEM "Recharge which item? "
 #define MES_RECHARGE_NO_ITEM "You have nothing to recharge."
@@ -2385,6 +2386,7 @@ static cptr desc_stat_neg[] =
 #define MES_RECHARGE_ROD_PRICE(NUM, MONEY) "Recharge the %s for %d gold? ", (((NUM) > 1) ? "rods" : "rod"), (MONEY)), 
 #define MES_RECHARGE_NEED_IDENTIFY "The item must be identified first。"
 #define MES_RECHARGE_ASK_IDENTIFY(MONEY) "Identify for %d gold? ", (MONEY)
+#define MES_RECHARGE_INDENTIFIED(OBJECT) "You have: %s.", (OBJECT)->name
 #endif
 
 #ifdef JP
