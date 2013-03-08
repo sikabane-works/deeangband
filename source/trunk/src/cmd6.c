@@ -1713,17 +1713,12 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	bool use_charge = TRUE;
 
 	object_kind *object_kind_ptr;
-
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	// Mega-Hack -- refuse to zap a pile from the ground
 	if((item < 0) && (object_ptr->number > 1))
 	{
-#ifdef JP
-		msg_print("まずはロッドを拾わなければ。");
-#else
-		msg_print("You must first pick up the rods.");
-#endif
+		msg_print(MES_OBJECT_ROD_NEED_PICKUP);
 		return;
 	}
 
@@ -1761,11 +1756,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	if(!success)
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("うまくロッドを使えなかった。");
-#else
-		msg_print("You failed to use the rod properly.");
-#endif
+		msg_print(MES_OBJECT_ROD_FAILED);
 		sound(SOUND_FAIL);
 		return;
 	}
