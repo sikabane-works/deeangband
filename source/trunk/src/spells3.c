@@ -1203,40 +1203,20 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 			object_ptr->name2 = EGO_SLAY_ORC;
 			break;
 		case 6:
-#ifdef JP
-			act = "は巨人の血を求めている！";
-#else
-			act = "seems to be looking for giants!";
-#endif
-
+			act = MES_BECOME_BRAND_SLAYGIANT;
 			object_ptr->name2 = EGO_SLAY_GIANT;
 			break;
 		case 5:
-#ifdef JP
-			act = "は非常に不安定になったようだ。";
-#else
-			act = "seems very unstable now.";
-#endif
-
+			act = MES_BECOME_BRAND_TRUMP;
 			object_ptr->name2 = EGO_TRUMP;
 			object_ptr->pval = (s16b)randint1(2);
 			break;
 		case 4:
-#ifdef JP
-			act = "は血を求めている！";
-#else
-			act = "thirsts for blood!";
-#endif
-
+			act = MES_BECOME_BRAND_VAMPIRIC;
 			object_ptr->name2 = EGO_VAMPIRIC;
 			break;
 		case 3:
-#ifdef JP
-			act = "は毒に覆われた。";
-#else
-			act = "is coated with poison.";
-#endif
-
+			act = MES_BECOME_BRAND_POIS;
 			object_ptr->name2 = EGO_BRAND_POIS;
 			break;
 		case 2:
@@ -1269,7 +1249,7 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 		}
 
 #ifdef JP
-msg_format("あなたの%s%s", object_name, act);
+		msg_format("あなたの%s%s", object_name, act);
 #else
 		msg_format("Your %s %s", object_name, act);
 #endif

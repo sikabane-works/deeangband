@@ -3506,6 +3506,10 @@ static cptr desc_stat_neg[] =
 #define MES_BECOME_BRAND_SLAYDRAGON "はドラゴンの血を求めている！"
 #define MES_BECOME_BRAND_SLAYTROLL "はトロルの血を求めている！"
 #define MES_BECOME_BRAND_SLAYORC "はオークの血を求めている！"
+#define MES_BECOME_BRAND_SLAYGIANT "は巨人の血を求めている！"
+#define MES_BECOME_BRAND_TRUMP "は非常に不安定になったようだ。"
+#define MES_BECOME_BRAND_VAMPIRIC "は血を求めている！"
+#define MES_BECOME_BRAND_POIS "は毒に覆われた。"
 #else
 #define MES_BECOME_BRAND_SHARPNESS "becomes very sharp!"
 #define MES_BECOME_BRAND_EARTHQUAKE "seems very powerful."
@@ -3519,6 +3523,10 @@ static cptr desc_stat_neg[] =
 #define MES_BECOME_BRAND_SLAYDRAGON "seems to be looking for dragons!"
 #define MES_BECOME_BRAND_SLAYTROLL "seems to be looking for troll!s"
 #define MES_BECOME_BRAND_SLAYORC "seems to be looking for orcs!"
+#define MES_BECOME_BRAND_SLAYGIANT "seems to be looking for giants!"
+#define MES_BECOME_BRAND_TRUMP "seems very unstable now."
+#define MES_BECOME_BRAND_VAMPIRIC "thirsts for blood!"
+#define MES_BECOME_BRAND_POIS "is coated with poison."
 #endif
 
 
