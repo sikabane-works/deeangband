@@ -3701,11 +3701,11 @@ int dissolve_armour(creature_type *creature_ptr)
 	// Object resists
 	if(have_flag(flgs, TRAIT_IGNORE_ACID))
 	{
-		msg_format(MES_DISENCHANT_NO_EFFECT(object_name));
+		msg_format(MES_DISENCHANT_NO_EFFECT(object_ptr));
 		return TRUE;
 	}
 
-	msg_format(MES_DISENCHANT_DAMAGED(object_name));
+	msg_format(MES_DISENCHANT_DAMAGED(object_ptr));
 	object_ptr->to_ac--; // Damage the item
 
 	prepare_update(creature_ptr, CRU_BONUS);		// Calculate bonuses
@@ -3720,17 +3720,8 @@ bool rustproof(creature_type *creature_ptr)
 	int         item;
 	object_type *object_ptr;
 	char        object_name[MAX_NLEN];
-	cptr        q, s;
 
-#ifdef JP
-	q = "‚Ç‚Ì–h‹ï‚ÉŽKŽ~‚ß‚ð‚µ‚Ü‚·‚©H";
-	s = "ŽKŽ~‚ß‚Å‚«‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
-#else
-	q = "Rustproof which piece of armour? ";
-	s = "You have nothing to rustproof.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour2, 0)) return FALSE;
+	if(!get_item(creature_ptr, &item, MES_RUSTPROOF_WHICH_OBJECT, MES_RUSTPROOF_NO_OBJECT, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour2, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	// Description
@@ -3741,7 +3732,7 @@ bool rustproof(creature_type *creature_ptr)
 	if((object_ptr->to_ac < 0) && !object_is_cursed(object_ptr))
 	{
 #ifdef JP
-		msg_format("%s‚ÍV•i“¯—l‚É‚È‚Á‚½I",object_name);
+		msg_format("%s‚ÍV•i“¯—l‚É‚È‚Á‚½I", object_name);
 #else
 		msg_format("%s %s look%s as good as new!", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "" : "s"));
 #endif

@@ -3572,3 +3572,13 @@ static cptr desc_stat_neg[] =
 #define MES_DISENCHANT_NO_EFFECT(OBJECT) "Your %s is unaffected!", (OBJECT)->name
 #define MES_DISENCHANT_DAMAGED(OBJECT) "Your %s is damaged!", (OBJECT)->name
 #endif
+
+#ifdef JP
+#define MES_RUSTPROOF_WHICH_OBJECT "‚Ç‚Ì–h‹ï‚ÉK~‚ß‚ğ‚µ‚Ü‚·‚©H"
+#define MES_RUSTPROOF_NO_OBJECT "K~‚ß‚Å‚«‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB"
+#else
+#define MES_RUSTPROOF_WHICH_OBJECT "Rustproof which piece of armour? "
+#define MES_RUSTPROOF_NO_OBJECT "You have nothing to rustproof."
+#endif
+
+
