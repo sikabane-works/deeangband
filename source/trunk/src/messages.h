@@ -3576,9 +3576,13 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_RUSTPROOF_WHICH_OBJECT "‚Ç‚Ì–h‹ï‚ÉK~‚ß‚ğ‚µ‚Ü‚·‚©H"
 #define MES_RUSTPROOF_NO_OBJECT "K~‚ß‚Å‚«‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB"
+#define MES_RUSTPROOF_AS_NEW(OBJECT) "%s‚ÍV•i“¯—l‚É‚È‚Á‚½I", (OBJECT)->name
+#define MES_RUSTPROOF_PROTECTED(OBJECT) "%s‚Í•…H‚µ‚È‚­‚È‚Á‚½B", (OBJECT)->name
 #else
 #define MES_RUSTPROOF_WHICH_OBJECT "Rustproof which piece of armour? "
 #define MES_RUSTPROOF_NO_OBJECT "You have nothing to rustproof."
+#define MES_RUSTPROOF_AS_NEW(OBJECT) "The %s look%s as good as new!", (OBJECT)->name, (((OBJECT)->number > 1) ? "" : "s")
+#define MES_RUSTPROOF_PROTECTED(OBJECT) "The %s %s now protected against corrosion.", (OBJECT)->name, (((OBJECT)->number > 1) ? "are" : "is")
 #endif
 
 

@@ -3724,27 +3724,15 @@ bool rustproof(creature_type *creature_ptr)
 	if(!get_item(creature_ptr, &item, MES_RUSTPROOF_WHICH_OBJECT, MES_RUSTPROOF_NO_OBJECT, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour2, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	// Description
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-
 	add_flag(object_ptr->trait_flags, TRAIT_IGNORE_ACID);
-
 	if((object_ptr->to_ac < 0) && !object_is_cursed(object_ptr))
 	{
-#ifdef JP
-		msg_format("%sは新品同様になった！", object_name);
-#else
-		msg_format("%s %s look%s as good as new!", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "" : "s"));
-#endif
+		msg_format(MES_RUSTPROOF_AS_NEW(object_ptr));
 		object_ptr->to_ac = 0;
 	}
 
-#ifdef JP
-		msg_format("%sは腐食しなくなった。", object_name);
-#else
-		msg_format("%s %s %s now protected against corrosion.", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "are" : "is"));
-#endif
-
+	msg_format(MES_RUSTPROOF_PROTECTED(object_ptr));
 	calc_android_exp(creature_ptr);
 	return TRUE;
 }
