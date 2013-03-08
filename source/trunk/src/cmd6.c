@@ -254,7 +254,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			set_inventory_weight(creature_ptr);
 			item = inven_carry(creature_ptr, quest_ptr);
 
-			msg_format(GAME_MESSAGE_STAFF_UNSTACK);
+			msg_format(MES_STAFF_UNSTACK);
 		}
 
 		// Describe charges in the pack / on the floor
@@ -1366,7 +1366,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 		object_ptr->number--;	// Unstack the used item
 		set_inventory_weight(creature_ptr);
 		item = inven_carry(creature_ptr, quest_ptr);
-		msg_print(GAME_MESSAGE_STAFF_UNSTACK);
+		msg_print(MES_STAFF_UNSTACK);
 	}
 
 	if(item >= 0) inven_item_charges(creature_ptr, item);	// Describe charges in the pack

@@ -2622,9 +2622,7 @@ bool pulish_shield(creature_type *creature_ptr)
 #ifdef JP
 		msg_format("%s‚Í‹P‚¢‚½I", object_name);
 #else
-		msg_format("%s %s shine%s!",
-		    ((item >= 0) ? "Your" : "The"), object_name,
-		    ((object_ptr->number > 1) ? "" : "s"));
+		msg_format("The %s shine%s!", object_name, ((object_ptr->number > 1) ? "" : "s"));
 #endif
 		object_ptr->name2 = EGO_REFLECTION;
 		enchant(creature_ptr, object_ptr, randint0(3) + 4, ENCH_TOAC);
@@ -4015,15 +4013,7 @@ bool eat_magic(creature_type *creature_ptr, int power)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return FALSE;
-
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	lev = object_kind_info[object_ptr->k_idx].level;
@@ -4098,7 +4088,7 @@ bool eat_magic(creature_type *creature_ptr, int power)
 					set_inventory_weight(creature_ptr);
 					item = inven_carry(creature_ptr, quest_ptr);
 
-					msg_print(GAME_MESSAGE_STAFF_UNSTACK);
+					msg_print(MES_STAFF_UNSTACK);
 				}
 			}
 			else
