@@ -3595,7 +3595,6 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 	floor_type	*floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if((has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) return 0;
-
 	if(floor_ptr->fight_arena_mode) return 0;
 
 	/* Count the casualties */
@@ -4167,14 +4166,10 @@ bool eat_magic(creature_type *creature_ptr, int power)
 				if(object_ptr->number > 1)
 				{
 					msg_format(MES_RECHARGE_BROKEN1(object_name));
-
-					/* Reduce rod stack maximum timeout, drain wands. */
 					if(IS_ROD(object_ptr)) object_ptr->timeout = MIN(object_ptr->timeout, object_kind_ptr->pval * (object_ptr->number - 1));
 					else if(object_ptr->tval == TV_WAND) object_ptr->pval = object_ptr->pval * (object_ptr->number - 1) / object_ptr->number;
-
 				}
-				else
-					msg_format(MES_RECHARGE_BROKEN1(object_name));
+				else msg_format(MES_RECHARGE_BROKEN1(object_name));
 
 				increase_item(creature_ptr, item, -1, TRUE);
 			}
