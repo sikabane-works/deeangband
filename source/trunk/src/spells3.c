@@ -4000,19 +4000,9 @@ bool eat_magic(creature_type *creature_ptr, int power)
 
 	bool fail = FALSE;
 	byte fail_type = 1;
-
-	cptr q, s;
 	char object_name[MAX_NLEN];
 
-#ifdef JP
-	q = "どのアイテムから魔力を吸収しますか？";
-	s = "魔力を吸収できるアイテムがありません。";
-#else
-	q = "Drain which item? ";
-	s = "You have nothing to drain.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return FALSE;
+	if(!get_item(creature_ptr, &item, MES_EATMAGIC_WHICH_ITEM, MES_EATMAGIC_NO_ITEM, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
@@ -4031,14 +4021,7 @@ bool eat_magic(creature_type *creature_ptr, int power)
 		else
 		{
 			if(object_ptr->timeout > (object_ptr->number - 1) * object_kind_ptr->pval)
-			{
-#ifdef JP
-				msg_print("充填中のロッドから魔力を吸収することはできません。");
-#else
-				msg_print("You can't absorb energy from a discharged rod.");
-#endif
-
-			}
+				msg_print(MES_EATMAGIC_DISCHARGED_ROD);
 			else
 			{
 				inc_mana(creature_ptr, lev);

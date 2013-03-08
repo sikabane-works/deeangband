@@ -3594,3 +3594,17 @@ static cptr desc_stat_neg[] =
 #define MES_DDOOR_FAILED "You fail to exit the astral plane correctly!"
 #define MES_DMIRROR_FAILED "You fail to pass the mirror plane correctly!"
 #endif
+
+#ifdef JP
+#define MES_EATMAGIC_WHICH_ITEM "どのアイテムから魔力を吸収しますか？"
+#define MES_EATMAGIC_NO_ITEM "魔力を吸収できるアイテムがありません。"
+#define MES_EATMAGIC_DISCHARGED_ROD "充填中のロッドから魔力を吸収することはできません。"
+#else
+#define MES_EATMAGIC_WHICH_ITEM "Drain which item? "
+#define MES_EATMAGIC_NO_ITEM "You have nothing to drain."
+#define MES_EATMAGIC_DISCHARGED_ROD "You can't absorb energy from a discharged rod."
+#endif
+
+
+
+
