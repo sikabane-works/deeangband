@@ -4153,26 +4153,11 @@ bool eat_magic(creature_type *creature_ptr, int power)
 			/* Drain object or stack of objects. */
 			if(fail_type == 1)
 			{
+				msg_format(MES_EATMAGIC_LOST_MANA(object_ptr));
 				if(IS_ROD(object_ptr))
-				{
-#ifdef JP
-					msg_print("ロッドは破損を免れたが、魔力は全て失なわれた。");
-#else
-					msg_format("You save your rod from destruction, but all charges are lost.", object_name);
-#endif
-
 					object_ptr->timeout = object_kind_ptr->pval * object_ptr->number;
-				}
 				else if(object_ptr->tval == TV_WAND)
-				{
-#ifdef JP
-					msg_format("%sは破損を免れたが、魔力が全て失われた。", object_name);
-#else
-					msg_format("You save your %s from destruction, but all charges are lost.", object_name);
-#endif
-
 					object_ptr->pval = 0;
-				}
 				/* Staffs aren't drained. */
 			}
 
