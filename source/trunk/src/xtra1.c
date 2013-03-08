@@ -1993,10 +1993,7 @@ static void calc_lite(creature_type *creature_ptr)
 		}
 		else
 		{
-			/* Skip empty slots */
 			if(!is_valid_object(object_ptr)) continue;
-
-			/* Extract the flags */
 			object_flags(object_ptr, flgs);
 
 			// does this item glow?
@@ -2033,7 +2030,6 @@ static void calc_lite(creature_type *creature_ptr)
 
 		/* Remember the old lite */
 		creature_ptr->old_lite = creature_ptr->cur_lite;
-
 		if((creature_ptr->cur_lite > 0) && (creature_ptr->posture & NINJA_S_STEALTH)) set_superstealth(creature_ptr, FALSE);
 	}
 }

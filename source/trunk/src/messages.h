@@ -2511,6 +2511,14 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_OBJECT_WHICH_STAFF "どの杖を使いますか? "
+#define MES_OBJECT_NO_STAFF "使える杖がない。"
+#else
+#define MES_OBJECT_WHICH_STAFF "Use which staff? "
+#define MES_OBJECT_NO_STAFF "You have no staff to use."
+#endif
+
+#ifdef JP
 #define MES_OBJECT_DESTROY(OBJECT) "%sを壊した。", (OBJECT)
 #define MES_OBJECT_CANNOT_DESTROY(OBJECT) "%sは破壊不可能だ。", (OBJECT)
 #define MES_OBJECT_WHICH_DESTROY "どのアイテムを壊しますか? "

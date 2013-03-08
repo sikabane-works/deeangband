@@ -1822,8 +1822,6 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 	for (i = 0; i < st_ptr->stock_num; i++)
 	{
 		object_ptr = &st_ptr->stock[i];
-
-		/* Skip empty slots */
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Get the "value" of the item */

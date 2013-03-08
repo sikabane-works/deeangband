@@ -473,10 +473,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		bool okay = FALSE;
-
 		object_ptr = &creature_ptr->inventory[i];
-
-		/* Skip empty slots */
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Valid "tval" codes */
@@ -612,10 +609,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		bool okay = FALSE;
-
 		object_ptr = &creature_ptr->inventory[i];
-
-		/* Skip empty slots */
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Valid "tval" codes */

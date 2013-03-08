@@ -4016,20 +4016,13 @@ void reorder_pack(creature_type *creature_ptr)
 	{
 		/* Mega-Hack -- allow "proper" over-flow */
 		if((i == INVEN_TOTAL) && (creature_ptr->inven_cnt == INVEN_TOTAL)) break;
-
 		object1_ptr = &creature_ptr->inventory[i];
-
-		/* Skip empty slots */
 		if(!is_valid_object(object1_ptr)) continue;
-
-		/* Get the "value" of the item */
 		o_value = object_value(object1_ptr);
 
 		/* Scan every occupied slot */
 		for (j = 0; j < INVEN_TOTAL; j++)
-		{
 			if(object_sort_comp(creature_ptr, object1_ptr, o_value, &creature_ptr->inventory[j])) break;
-		}
 
 		/* Never move down */
 		if(j >= i) continue;

@@ -1376,18 +1376,8 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 void do_cmd_use_staff(creature_type *creature_ptr)
 {
 	int  item;
-	cptr q, s;
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
-
-#ifdef JP
-	q = "‚Ç‚Ìñ‚ğg‚¢‚Ü‚·‚©? ";
-	s = "g‚¦‚éñ‚ª‚È‚¢B";
-#else
-	q = "Use which staff? ";
-	s = "You have no staff to use.";
-#endif
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_STAFF)) return;
-
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_STAFF, MES_OBJECT_NO_STAFF, (USE_INVEN | USE_FLOOR), NULL, TV_STAFF)) return;
 	do_cmd_use_staff_aux(creature_ptr, item);
 }
 
