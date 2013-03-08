@@ -1490,13 +1490,7 @@ void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool requir
 
 	if(object_ptr->weight > wgt)
 	{
-		/* Too heavy to 'fetch' */
-#ifdef JP
-		msg_print("そのアイテムは重過ぎます。");
-#else
-		msg_print("The object is too heavy.");
-#endif
-
+		msg_print(MES_FETCH_TOO_HEAVY);
 		return;
 	}
 
@@ -1508,12 +1502,7 @@ void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool requir
 	object_ptr->fx = (byte)creature_ptr->fx;
 
 	object_desc(object_name, object_ptr, OD_NAME_ONLY);
-#ifdef JP
-	msg_format("%^sがあなたの足元に飛んできた。", object_name);
-#else
-	msg_format("%^s flies through the air to your feet.", object_name);
-#endif
-
+	msg_format(MES_FETCH_DONE(object_ptr));
 
 	note_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 	prepare_redraw(PR_MAP);

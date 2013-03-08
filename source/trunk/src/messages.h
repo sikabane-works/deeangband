@@ -3544,6 +3544,8 @@ static cptr desc_stat_neg[] =
 #define MES_FETCH_OUT_CONTROL "アイテムがコントロールを外れて落ちた。"
 #define MES_FETCH_OUT_SIGHT "そこはあなたの視界に入っていません。"
 #define MES_FETCH_WALL "そこは壁の向こうです。"
+#define MES_FETCH_TOO_HEAVY "そのアイテムは重過ぎます。"
+#define MES_FETCH_DONE(OBJECT) "%^sがあなたの足元に飛んできた。", (OBJECT)->name
 #else
 #define MES_FETCH_STAND "You can't fetch when you're already standing on something."
 #define MES_FETCH_TOO_FAR "You can't fetch something that far away!"
@@ -3551,4 +3553,6 @@ static cptr desc_stat_neg[] =
 #define MES_FETCH_OUT_CONTROL "The item slips from your control."
 #define MES_FETCH_OUT_SIGHT "You have no direct line of sight to that location."
 #define MES_FETCH_WALL "You have no direct line of sight to that location."
+#define MES_FETCH_TOO_HEAVY "The object is too heavy."
+#define MES_FETCH_DONE(OBJECT) "%^s flies through the air to your feet.", (OBJECT)->name
 #endif
