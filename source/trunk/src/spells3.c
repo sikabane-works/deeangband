@@ -4074,14 +4074,7 @@ bool eat_magic(creature_type *creature_ptr, int power)
 					msg_print(MES_STAFF_UNSTACK);
 				}
 			}
-			else
-			{
-#ifdef JP
-				msg_print("‹zû‚Å‚«‚é–‚—Í‚ª‚ ‚è‚Ü‚¹‚ñI");
-#else
-				msg_print("There's no energy there to absorb!");
-#endif
-			}
+			else msg_print(MES_EATMAGIC_EMPTY);
 			if(!object_ptr->pval) object_ptr->ident |= IDENT_EMPTY;
 		}
 	}
@@ -4093,11 +4086,8 @@ bool eat_magic(creature_type *creature_ptr, int power)
 		if(object_is_fixed_artifact(object_ptr))
 		{
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);
-#ifdef JP
-			msg_format("–‚—Í‚ª‹t—¬‚µ‚½I%s‚ÍŠ®‘S‚É–‚—Í‚ğ¸‚Á‚½B", object_name);
-#else
-			msg_format("The recharging backfires - %s is completely drained!", object_name);
-#endif
+			msg_format(MES_EATMAGIC_BACKFIRE(object_ptr));
+
 			/* Artifact rods. */
 			if(IS_ROD(object_ptr))
 				object_ptr->timeout = object_kind_ptr->pval * object_ptr->number;

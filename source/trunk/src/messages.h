@@ -3599,10 +3599,14 @@ static cptr desc_stat_neg[] =
 #define MES_EATMAGIC_WHICH_ITEM "‚Ç‚ÌƒAƒCƒeƒ€‚©‚ç–‚—Í‚ð‹zŽû‚µ‚Ü‚·‚©H"
 #define MES_EATMAGIC_NO_ITEM "–‚—Í‚ð‹zŽû‚Å‚«‚éƒAƒCƒeƒ€‚ª‚ ‚è‚Ü‚¹‚ñB"
 #define MES_EATMAGIC_DISCHARGED_ROD "[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ð‹zŽû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB"
+#define MES_EATMAGIC_EMPTY "‹zŽû‚Å‚«‚é–‚—Í‚ª‚ ‚è‚Ü‚¹‚ñI"
+#define MES_EATMAGIC_BACKFIRE(OBJECT) "–‚—Í‚ª‹t—¬‚µ‚½I%s‚ÍŠ®‘S‚É–‚—Í‚ðŽ¸‚Á‚½B", (OBJECT)->name
 #else
 #define MES_EATMAGIC_WHICH_ITEM "Drain which item? "
 #define MES_EATMAGIC_NO_ITEM "You have nothing to drain."
 #define MES_EATMAGIC_DISCHARGED_ROD "You can't absorb energy from a discharged rod."
+#define MES_EATMAGIC_EMPTY "There's no energy there to absorb!"
+#define MES_EATMAGIC_BACKFIRE(OBJECT) "The recharging backfires - %s is completely drained!", (OBJECT)->name
 #endif
 
 
