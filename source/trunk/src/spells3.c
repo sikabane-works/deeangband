@@ -1449,12 +1449,7 @@ void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool requir
 		/* No fetching from vault */
 		if(c_ptr->info & CAVE_ICKY)
 		{
-#ifdef JP
-			msg_print("アイテムがコントロールを外れて落ちた。");
-#else
-			msg_print("The item slips from your control.");
-#endif
-
+			msg_print(MES_FETCH_OUT_CONTROL);
 			return;
 		}
 
@@ -1463,22 +1458,12 @@ void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool requir
 		{
 			if(!player_has_los_bold(ty, tx))
 			{
-#ifdef JP
-				msg_print("そこはあなたの視界に入っていません。");
-#else
-				msg_print("You have no direct line of sight to that location.");
-#endif
-
+				msg_print(MES_FETCH_OUT_SIGHT);
 				return;
 			}
 			else if(!projectable(floor_ptr, range, creature_ptr->fy, creature_ptr->fx, ty, tx))
 			{
-#ifdef JP
-				msg_print("そこは壁の向こうです。");
-#else
-				msg_print("You have no direct line of sight to that location.");
-#endif
-
+				msg_print(MES_FETCH_WALL);
 				return;
 			}
 		}

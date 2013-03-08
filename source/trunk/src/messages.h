@@ -3541,8 +3541,14 @@ static cptr desc_stat_neg[] =
 #define MES_FETCH_STAND "自分の足の下にある物は取れません。"
 #define MES_FETCH_TOO_FAR "そんなに遠くにある物は取れません！"
 #define MES_FETCH_NO_OBJECT "そこには何もありません。"
+#define MES_FETCH_OUT_CONTROL "アイテムがコントロールを外れて落ちた。"
+#define MES_FETCH_OUT_SIGHT "そこはあなたの視界に入っていません。"
+#define MES_FETCH_WALL "そこは壁の向こうです。"
 #else
 #define MES_FETCH_STAND "You can't fetch when you're already standing on something."
 #define MES_FETCH_TOO_FAR "You can't fetch something that far away!"
 #define MES_FETCH_NO_OBJECT "There is no object at this place."
+#define MES_FETCH_OUT_CONTROL "The item slips from your control."
+#define MES_FETCH_OUT_SIGHT "You have no direct line of sight to that location."
+#define MES_FETCH_WALL "You have no direct line of sight to that location."
 #endif
