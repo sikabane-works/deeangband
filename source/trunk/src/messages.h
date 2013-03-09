@@ -468,187 +468,187 @@
 #endif
 
 #if JP
-#define GAME_MESSAGE_COMPLETE_QUEST "クエストを達成した。"
-#define GAME_MESSAGE_CURRENT_QUEST "《遂行中のクエスト》"
-#define GAME_MESSAGE_COMPLETED_QUEST "《達成したクエスト》"
-#define GAME_MESSAGE_FAILED_QUEST "《失敗したクエスト》"
-#define GAME_MESSAGE_REMAINING_QUEST "《残っているクエスト》"
+#define MES_COMPLETE_QUEST "クエストを達成した。"
+#define MES_CURRENT_QUEST "《遂行中のクエスト》"
+#define MES_COMPLETED_QUEST "《達成したクエスト》"
+#define MES_FAILED_QUEST "《失敗したクエスト》"
+#define MES_REMAINING_QUEST "《残っているクエスト》"
 
-#define GAME_MESSAGE_FAILED "失敗した。"
-#define GAME_MESSAGE_ENCHANTMENT_FAILED "強化に失敗した。"
-#define GAME_MESSAGE_IMPROVEMENT_FAILED "改良に失敗した。"
-#define GAME_MESSAGE_RESIST_THE_EFFECT "しかし効力を跳ね返した。"
-#define GAME_MESSAGE_IS_IMMUNE "には完全な耐性がある。"
-#define GAME_MESSAGE_RESISTED "には耐性がある。"
-#define GAME_MESSAGE_IS_UNAFFECTED "には効果がなかった。"
-#define GAME_MESSAGE_NO_EFFECT "効果がなかった。"
-#define GAME_MESSAGE_IS_CONFUSED "は目が見えない"
-#define GAME_MESSAGE_IS_BLIND "は混乱している。"
-#define GAME_MESSAGE_CREATURE_IN_THE_WAY "クリーチャーが立ちふさがっている。"
-#define GAME_MESSAGE_MANA_RECOVERLY "頭がハッキリとした。"
-#define GAME_MESSAGE_SUCCESS_PICKING "鍵をはずした。"
-#define GAME_MESSAGE_FAILED_PICKING "鍵をはずせなかった。"
-#define GAME_MESSAGE_FOUND_SOMETHING "何かを発見した！"
+#define MES_FAILED "失敗した。"
+#define MES_ENCHANTMENT_FAILED "強化に失敗した。"
+#define MES_IMPROVEMENT_FAILED "改良に失敗した。"
+#define MES_RESIST_THE_EFFECT "しかし効力を跳ね返した。"
+#define MES_IS_IMMUNE "には完全な耐性がある。"
+#define MES_RESISTED "には耐性がある。"
+#define MES_IS_UNAFFECTED "には効果がなかった。"
+#define MES_NO_EFFECT "効果がなかった。"
+#define MES_IS_CONFUSED "は目が見えない"
+#define MES_IS_BLIND "は混乱している。"
+#define MES_CREATURE_IN_THE_WAY "クリーチャーが立ちふさがっている。"
+#define MES_MANA_RECOVERLY "頭がハッキリとした。"
+#define MES_SUCCESS_PICKING "鍵をはずした。"
+#define MES_FAILED_PICKING "鍵をはずせなかった。"
+#define MES_FOUND_SOMETHING "何かを発見した！"
 
-#define GAME_MESSAGE_BREAK_P_RUNE "守りのルーンが壊れた！"
-#define GAME_MESSAGE_BREAK_E_RUNE "ルーンが爆発した！"
-#define GAME_MESSAGE_DISARM_E_RUNE "爆発のルーンは解除された。"
+#define MES_BREAK_P_RUNE "守りのルーンが壊れた！"
+#define MES_BREAK_E_RUNE "ルーンが爆発した！"
+#define MES_DISARM_E_RUNE "爆発のルーンは解除された。"
 
-#define GAME_MESSAGE_HEAR_NOISE "何かが聞こえた。"
+#define MES_HEAR_NOISE "何かが聞こえた。"
 
-#define GAME_MESSAGE_NO_STUDY_SPELL "読める呪文がない。"
-#define GAME_MESSAGE_NO_STUDY_TECH "学べる技がない。"
+#define MES_NO_STUDY_SPELL "読める呪文がない。"
+#define MES_NO_STUDY_TECH "学べる技がない。"
 
-#define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "恐怖の暗黒オーラがあなたの%sを包み込んだ！"
-#define GAME_MESSAGE_REMOVED_OBJECT_CURSE "誰かに見守られているような気がする。"
-#define GAME_MESSAGE_COMBAT_TALK_STAIR "「なんだこの階段は！？」"
-#define GAME_MESSAGE_PERILOUS_SECRET "石を制御できない。"
-#define GAME_MESSAGE_RESISTED_FEAR "しかし恐怖に侵されなかった。"
-#define GAME_MESSAGE_NO_MONEY "お金が足りません。"
-#define GAME_MESSAGE_NO_MONEY_INSULT "おい！金がないじゃないか！出ていけ！"
-#define GAME_MESSAGE_BOUNTY_1 "%s を換金しますか？"
+#define MES_BLACK_AURA_TO_OBJECT "恐怖の暗黒オーラがあなたの%sを包み込んだ！"
+#define MES_REMOVED_OBJECT_CURSE "誰かに見守られているような気がする。"
+#define MES_COMBAT_TALK_STAIR "「なんだこの階段は！？」"
+#define MES_PERILOUS_SECRET "石を制御できない。"
+#define MES_RESISTED_FEAR "しかし恐怖に侵されなかった。"
+#define MES_NO_MONEY "お金が足りません。"
+#define MES_NO_MONEY_INSULT "おい！金がないじゃないか！出ていけ！"
+#define MES_BOUNTY_1 "%s を換金しますか？"
 
 #define MES_TRAP_WARNING "* 注意:この先はトラップの感知範囲外です！ *"
 #define MES_TRAP_DESTROY "トラップを粉砕した。"
 
 #define MES_LITE_AREA "光が辺りを覆った。"
-#define GAME_MESSAGE_UNLITE_AREA "暗闇が辺りを覆った。"
+#define MES_UNLITE_AREA "暗闇が辺りを覆った。"
 
-#define GAME_MESSAGE_DESTROY "燃えるような閃光が発生した！"
+#define MES_DESTROY "燃えるような閃光が発生した！"
 
-#define GAME_MESSAGE_FAILED_RUNAWAY "うまく逃げられなかった。"
+#define MES_FAILED_RUNAWAY "うまく逃げられなかった。"
 
-#define GAME_MESSAGE_DAMAGE_DENSITY "体の分子が分解した気がする！"
-#define GAME_MESSAGE_ROCK_CRUSHING "崩れた岩に押し潰された！"
+#define MES_DAMAGE_DENSITY "体の分子が分解した気がする！"
+#define MES_ROCK_CRUSHING "崩れた岩に押し潰された！"
 
-#define GAME_MESSAGE_HAYAGAKE_PREVENT "ここでは素早く動けない。"
-#define GAME_MESSAGE_ATTEMPT_ANYWAY "それでも挑戦しますか? "
+#define MES_HAYAGAKE_PREVENT "ここでは素早く動けない。"
+#define MES_ATTEMPT_ANYWAY "それでも挑戦しますか? "
 
-#define GAME_MESSAGE_IMPROVE_LIMIT "そのアイテムはこれ以上改良できない。"
+#define MES_IMPROVE_LIMIT "そのアイテムはこれ以上改良できない。"
 
-#define GAME_MESSAGE_NO_HAPPEN "何も起こらなかった。"
-#define GAME_MESSAGE_RIDING_FAILED "うまく乗れなかった。"
-#define GAME_MESSAGE_CONVERT_FAILED "変換に失敗した。"
-#define GAME_MESSAGE_NO_DICRECTION_CREATURE "その方向にはクリーチャーはいません。"
-#define GAME_MESSAGE_FALL_RIDING "乗騎から地面に落とされた。"
+#define MES_NO_HAPPEN "何も起こらなかった。"
+#define MES_RIDING_FAILED "うまく乗れなかった。"
+#define MES_CONVERT_FAILED "変換に失敗した。"
+#define MES_NO_DICRECTION_CREATURE "その方向にはクリーチャーはいません。"
+#define MES_FALL_RIDING "乗騎から地面に落とされた。"
 
-#define GAME_MESSAGE_FIND_TRAP "トラップを発見した。"
-#define GAME_MESSAGE_FIND_DOOR "隠しドアを発見した。"
+#define MES_FIND_TRAP "トラップを発見した。"
+#define MES_FIND_DOOR "隠しドアを発見した。"
 
-#define GAME_MESSAGE_TELEPORT_PREVENTED "不思議な力がテレポートを防いだ！"
+#define MES_TELEPORT_PREVENTED "不思議な力がテレポートを防いだ！"
 
-#define GAME_MESSAGE_SEE_OBJECT "%sがある。"
-#define GAME_MESSAGE_GET_MONEY " $%ld の価値がある%sを見つけた。"
-#define GAME_MESSAGE_PACK_NO_ROOM "ザックには%sを入れる隙間がない。"
-#define GAME_MESSAGE_PACK_NO_ROOM_FLOOR "ザックには床にあるどのアイテムも入らない。"
-#define GAME_MESSAGE_PACK_OVERFLOW "ザックからアイテムがあふれた！"
-#define GAME_MESSAGE_PACK_REORDER "ザックの中のアイテムを並べ直した。"
-#define GAME_MESSAGE_PACK_COMBINE "ザックの中のアイテムをまとめ直した。"
+#define MES_SEE_OBJECT "%sがある。"
+#define MES_GET_MONEY " $%ld の価値がある%sを見つけた。"
+#define MES_PACK_NO_ROOM "ザックには%sを入れる隙間がない。"
+#define MES_PACK_NO_ROOM_FLOOR "ザックには床にあるどのアイテムも入らない。"
+#define MES_PACK_OVERFLOW "ザックからアイテムがあふれた！"
+#define MES_PACK_REORDER "ザックの中のアイテムを並べ直した。"
+#define MES_PACK_COMBINE "ザックの中のアイテムをまとめ直した。"
 #define MES_STAFF_UNSTACK "杖をまとめなおした。"
 
-#define GAME_MESSAGE_PROJECTILE_HITS "%sが%sに命中した。"
+#define MES_PROJECTILE_HITS "%sが%sに命中した。"
 
-#define GAME_MESSAGE_FIELD_MAGIC_FAILED1 "床上のアイテムが呪文を跳ね返した。"
+#define MES_FIELD_MAGIC_FAILED1 "床上のアイテムが呪文を跳ね返した。"
 
-#define GAME_MESSAGE_CALL_ARTIFACT "このアーティファクトを何と名付けますか？"
+#define MES_CALL_ARTIFACT "このアーティファクトを何と名付けますか？"
 
-#define GAME_MESSAGE_TARGET_SET "ターゲット決定。"
-#define GAME_MESSAGE_TARGET_ABORT "ターゲット解除。"
-#define GAME_MESSAGE_TARGET_CANCELED "中断した。"
+#define MES_TARGET_SET "ターゲット決定。"
+#define MES_TARGET_ABORT "ターゲット解除。"
+#define MES_TARGET_CANCELED "中断した。"
 
-#define GAME_MESSAGE_GOODBYE(NAME) ("さようなら、%s!", (NAME))
+#define MES_GOODBYE(NAME) ("さようなら、%s!", (NAME))
 #else
 
-#define GAME_MESSAGE_COMPLETE_QUEST "You completed the quest."
-#define GAME_MESSAGE_CURRENT_QUEST "< Current Quest >"
-#define GAME_MESSAGE_COMPLETED_QUEST "< Completed Quest >"
-#define GAME_MESSAGE_FAILED_QUEST "< Failed Quest >"
-#define GAME_MESSAGE_REMAINING_QUEST "< Remaining Quest >"
+#define MES_COMPLETE_QUEST "You completed the quest."
+#define MES_CURRENT_QUEST "< Current Quest >"
+#define MES_COMPLETED_QUEST "< Completed Quest >"
+#define MES_FAILED_QUEST "< Failed Quest >"
+#define MES_REMAINING_QUEST "< Remaining Quest >"
 
-#define GAME_MESSAGE_FAILED "Failed."
-#define GAME_MESSAGE_ENCHANTMENT_FAILED "The enchantment failed."
-#define GAME_MESSAGE_IMPROVEMENT_FAILED "The improvement failed."
-#define GAME_MESSAGE_RESIST_THE_EFFECT "You resist the effects."
-#define GAME_MESSAGE_IS_IMMUNE "is immune."
-#define GAME_MESSAGE_RESISTED "resists."
-#define GAME_MESSAGE_IS_UNAFFECTED "You are unaffected."
-#define GAME_MESSAGE_NO_EFFECT "There is no effect."
-#define GAME_MESSAGE_IS_CONFUSED "is confused"
-#define GAME_MESSAGE_IS_BLIND "is blind!"
-#define GAME_MESSAGE_CREATURE_IN_THE_WAY "There is a creature in the way."
-#define GAME_MESSAGE_MANA_RECOVERLY "You feel your head clear."
-#define GAME_MESSAGE_SUCCESS_PICKING "You have picked the lock."
-#define GAME_MESSAGE_FAILED_PICKING "You failed to pick the lock."
-#define GAME_MESSAGE_FOUND_SOMETHING "You have found something!"
+#define MES_FAILED "Failed."
+#define MES_ENCHANTMENT_FAILED "The enchantment failed."
+#define MES_IMPROVEMENT_FAILED "The improvement failed."
+#define MES_RESIST_THE_EFFECT "You resist the effects."
+#define MES_IS_IMMUNE "is immune."
+#define MES_RESISTED "resists."
+#define MES_IS_UNAFFECTED "You are unaffected."
+#define MES_NO_EFFECT "There is no effect."
+#define MES_IS_CONFUSED "is confused"
+#define MES_IS_BLIND "is blind!"
+#define MES_CREATURE_IN_THE_WAY "There is a creature in the way."
+#define MES_MANA_RECOVERLY "You feel your head clear."
+#define MES_SUCCESS_PICKING "You have picked the lock."
+#define MES_FAILED_PICKING "You failed to pick the lock."
+#define MES_FOUND_SOMETHING "You have found something!"
 
-#define GAME_MESSAGE_BREAK_P_RUNE "The rune of protection is broken!"
-#define GAME_MESSAGE_BREAK_E_RUNE "The rune explodes!"
-#define GAME_MESSAGE_DISARM_E_RUNE "An explosive rune was disarmed."
-#define GAME_MESSAGE_HEAR_NOISE "You hear noise."
+#define MES_BREAK_P_RUNE "The rune of protection is broken!"
+#define MES_BREAK_E_RUNE "The rune explodes!"
+#define MES_DISARM_E_RUNE "An explosive rune was disarmed."
+#define MES_HEAR_NOISE "You hear noise."
 
-#define GAME_MESSAGE_NO_STUDY_SPELL "No spells to browse."
-#define GAME_MESSAGE_NO_STUDY_TECH "No techniques to browse."
+#define MES_NO_STUDY_SPELL "No spells to browse."
+#define MES_NO_STUDY_TECH "No techniques to browse."
 
-#define GAME_MESSAGE_BLACK_AURA_TO_OBJECT "A terrible black aura blasts your %s!"
-#define GAME_MESSAGE_REMOVED_OBJECT_CURSE "You feel as if someone is watching over you."
-#define GAME_MESSAGE_COMBAT_TALK_STAIR "'What's a fucking stair!?'"
-#define GAME_MESSAGE_PERILOUS_SECRET "You are too weak to control the stone!"
-#define GAME_MESSAGE_RESISTED_FEAR "You stand your ground!"
-#define GAME_MESSAGE_NO_MONEY "You do not have the gold."
-#define GAME_MESSAGE_NO_MONEY_INSULT "Hey! You don't have the gold - get out of here!"
-#define GAME_MESSAGE_BOUNTY_1 "Convert %s into money?"
+#define MES_BLACK_AURA_TO_OBJECT "A terrible black aura blasts your %s!"
+#define MES_REMOVED_OBJECT_CURSE "You feel as if someone is watching over you."
+#define MES_COMBAT_TALK_STAIR "'What's a fucking stair!?'"
+#define MES_PERILOUS_SECRET "You are too weak to control the stone!"
+#define MES_RESISTED_FEAR "You stand your ground!"
+#define MES_NO_MONEY "You do not have the gold."
+#define MES_NO_MONEY_INSULT "Hey! You don't have the gold - get out of here!"
+#define MES_BOUNTY_1 "Convert %s into money?"
 
 #define MES_TRAP_WARNING "*Leaving trap detect region!*"
 #define MES_TRAP_DESTROY "You destroyed the trap."
 
 #define MES_LITE_AREA "You are surrounded by a light."
-#define GAME_MESSAGE_UNLITE_AREA "Darkness surrounds you."
+#define MES_UNLITE_AREA "Darkness surrounds you."
 
-#define GAME_MESSAGE_DESTROY "There is a searing blast of light!"
+#define MES_DESTROY "There is a searing blast of light!"
 
-#define GAME_MESSAGE_FAILED_RUNAWAY "You are failed to run away."
+#define MES_FAILED_RUNAWAY "You are failed to run away."
 
-#define GAME_MESSAGE_DAMAGE_DENSITY "Your molecules feel disrupted!"
-#define GAME_MESSAGE_RCOK_CRUSHING "You are being crushed!"
+#define MES_DAMAGE_DENSITY "Your molecules feel disrupted!"
+#define MES_RCOK_CRUSHING "You are being crushed!"
 
-#define GAME_MESSAGE_HAYAGAKE_PREVENT "You cannot run in here."
-#define GAME_MESSAGE_ATTEMPT_ANYWAY "Attempt it anyway? "
+#define MES_HAYAGAKE_PREVENT "You cannot run in here."
+#define MES_ATTEMPT_ANYWAY "Attempt it anyway? "
 
-#define GAME_MESSAGE_IMPROVE_LIMIT "This item is no more able to be improved."
+#define MES_IMPROVE_LIMIT "This item is no more able to be improved."
 
-#define GAME_MESSAGE_NO_HAPPEN "Nothing happens."
-#define GAME_MESSAGE_CONVERT_FAILED "You failed to convert."
-#define GAME_MESSAGE_RIDING_FAILED "You failed to ride."
-#define GAME_MESSAGE_NO_DICRECTION_CREATURE "There is no creature."
+#define MES_NO_HAPPEN "Nothing happens."
+#define MES_CONVERT_FAILED "You failed to convert."
+#define MES_RIDING_FAILED "You failed to ride."
+#define MES_NO_DICRECTION_CREATURE "There is no creature."
 
-#define GAME_MESSAGE_FALL_RIDING "You have fallen from your riding pet."
+#define MES_FALL_RIDING "You have fallen from your riding pet."
 
-#define GAME_MESSAGE_FIND_TRAP "You have found a trap."
-#define GAME_MESSAGE_FIND_DOOR "You have found a secret door."
+#define MES_FIND_TRAP "You have found a trap."
+#define MES_FIND_DOOR "You have found a secret door."
 
-#define GAME_MESSAGE_TELEPORT_PREVENTED "A mysterious force prevents you from teleporting!"
+#define MES_TELEPORT_PREVENTED "A mysterious force prevents you from teleporting!"
 
 
-#define GAME_MESSAGE_SEE_OBJECT "You see %s."
-#define GAME_MESSAGE_GET_MONEY "You collect %ld gold pieces worth of %s."
-#define GAME_MESSAGE_PACK_NO_ROOM "You have no room for %s."
-#define GAME_MESSAGE_PACK_NO_ROOM_FLOOR "You have no room for any of the objects on the floor."
-#define GAME_MESSAGE_PACK_OVERFLOW "Your pack overflows!"
-#define GAME_MESSAGE_PACK_REORDER "You reorder some items in your pack."
-#define GAME_MESSAGE_PACK_COMBINE "You combine some items in your pack."
+#define MES_SEE_OBJECT "You see %s."
+#define MES_GET_MONEY "You collect %ld gold pieces worth of %s."
+#define MES_PACK_NO_ROOM "You have no room for %s."
+#define MES_PACK_NO_ROOM_FLOOR "You have no room for any of the objects on the floor."
+#define MES_PACK_OVERFLOW "Your pack overflows!"
+#define MES_PACK_REORDER "You reorder some items in your pack."
+#define MES_PACK_COMBINE "You combine some items in your pack."
 #define MES_STAFF_UNSTACK "You unstack your staff."
 
-#define GAME_MESSAGE_PROJECTILE_HITS "The %s hits %s."
+#define MES_PROJECTILE_HITS "The %s hits %s."
 
-#define GAME_MESSAGE_FIELD_MAGIC_FAILED1 "The object resists the spell."
+#define MES_FIELD_MAGIC_FAILED1 "The object resists the spell."
 
-#define GAME_MESSAGE_CALL_ARTIFACT "What do you want to call the artifact?"
+#define MES_CALL_ARTIFACT "What do you want to call the artifact?"
 
-#define GAME_MESSAGE_TARGET_SET "Target selected."
-#define GAME_MESSAGE_TARGET_ABORT "Target aborted."
-#define GAME_MESSAGE_TARGET_CANCELED "Canceled."
+#define MES_TARGET_SET "Target selected."
+#define MES_TARGET_ABORT "Target aborted."
+#define MES_TARGET_CANCELED "Canceled."
 
-#define GAME_MESSAGE_GOODBYE(NAME) ("Goodbye, %s!", (NAME))
+#define MES_GOODBYE(NAME) ("Goodbye, %s!", (NAME))
 #endif
 
 #ifdef JP
@@ -751,37 +751,37 @@
 #endif
 
 #ifdef JP
-#define GAME_MESSAGE_FATAL_SPOT "%sの急所に突き刺さった！"
-#define GAME_MESSAGE_SUICIDE_BOMBER "爆発して粉々になった。"
-#define GAME_MESSAGE_CARSE_OF_BLOOD_DEAD "%^sは死の間際に恐ろしい血の呪いを%^sにかけた！"
-#define GAME_MESSAGE_LOST_LIFE1 "生命力を少し吸い取られた気がする！"
-#define GAME_MESSAGE_LOST_LIFE2 "生命力が体から吸い取られた気がする！"
-#define GAME_MESSAGE_BLOE_AWAY "%sを吹き飛ばした！"
-#define GAME_MESSAGE_CAMP_GET_ANGRY "%sは怒った！"
-#define GAME_MESSAGE_HOSTILE "%^sは敵にまわった！"
-#define GAME_MESSAGE_BOUNTY_DEAD "%sの首には報奨がかかっている。"
+#define MES_FATAL_SPOT "%sの急所に突き刺さった！"
+#define MES_SUICIDE_BOMBER "爆発して粉々になった。"
+#define MES_CARSE_OF_BLOOD_DEAD "%^sは死の間際に恐ろしい血の呪いを%^sにかけた！"
+#define MES_LOST_LIFE1 "生命力を少し吸い取られた気がする！"
+#define MES_LOST_LIFE2 "生命力が体から吸い取られた気がする！"
+#define MES_BLOE_AWAY "%sを吹き飛ばした！"
+#define MES_CAMP_GET_ANGRY "%sは怒った！"
+#define MES_HOSTILE "%^sは敵にまわった！"
+#define MES_BOUNTY_DEAD "%sの首には報奨がかかっている。"
 #else
-#define GAME_MESSAGE_FATAL_SPOT "Your shot sticked on a fatal spot of %s!"
-#define GAME_MESSAGE_SUICIDE_BOMBER "%^s explodes into tiny shreds."
-#define GAME_MESSAGE_CARSE_OF_BLOOD_DEAD "On death and dying, %^s puts a terrible blood curse on %^s!"
-#define GAME_MESSAGE_LOST_LIFE1 "You feel your life slipping away!"
-#define GAME_MESSAGE_LOST_LIFE2 "You feel your life draining away..."
-#define GAME_MESSAGE_BLOE_AWAY "You blow %s away!"
-#define GAME_MESSAGE_CAMP_GET_ANGRY "%^s gets angry!"
-#define GAME_MESSAGE_HOSTILE "%^s suddenly becomes hostile!"
-#define GAME_MESSAGE_BOUNTY_DEAD "There is a price on %s's head."
+#define MES_FATAL_SPOT "Your shot sticked on a fatal spot of %s!"
+#define MES_SUICIDE_BOMBER "%^s explodes into tiny shreds."
+#define MES_CARSE_OF_BLOOD_DEAD "On death and dying, %^s puts a terrible blood curse on %^s!"
+#define MES_LOST_LIFE1 "You feel your life slipping away!"
+#define MES_LOST_LIFE2 "You feel your life draining away..."
+#define MES_BLOE_AWAY "You blow %s away!"
+#define MES_CAMP_GET_ANGRY "%^s gets angry!"
+#define MES_HOSTILE "%^s suddenly becomes hostile!"
+#define MES_BOUNTY_DEAD "There is a price on %s's head."
 #endif
 
 #ifdef JP
-#define GAME_MESSAGE_RESTORE_SOME_MP "少し頭がハッキリした。"
+#define MES_RESTORE_SOME_MP "少し頭がハッキリした。"
 #else
-#define GAME_MESSAGE_RESTORE_SOME_MP "You feel your head clear a little."
+#define MES_RESTORE_SOME_MP "You feel your head clear a little."
 #endif
 
 #ifdef JP
-#define GAME_MESSAGE_EARTHQUAKE "地面が揺れた。"
+#define MES_EARTHQUAKE "地面が揺れた。"
 #else
-#define GAME_MESSAGE_EARTHQUAKE "The ground trembles."
+#define MES_EARTHQUAKE "The ground trembles."
 #endif
 
 
@@ -825,21 +825,21 @@
 
 
 #ifdef JP
-#define GAME_MESSAGE_FEELING_QUESTDUN "典型的なクエストのダンジョンのようだ。"
-#define GAME_MESSAGE_FEELING_WILD_POINT "何かありそうな荒野のようだ。"
-#define GAME_MESSAGE_FEELING_TOWN "典型的な町のようだ。"
-#define GAME_MESSAGE_FEELING_WILD "典型的な荒野のようだ。"
+#define MES_FEELING_QUESTDUN "典型的なクエストのダンジョンのようだ。"
+#define MES_FEELING_WILD_POINT "何かありそうな荒野のようだ。"
+#define MES_FEELING_TOWN "典型的な町のようだ。"
+#define MES_FEELING_WILD "典型的な荒野のようだ。"
 #else
-#define GAME_MESSAGE_FEELING_QUESTDUN "Looks like a typical quest level.";
-#define GAME_MESSAGE_FEELING_WILD_POINT "Looks like a strange wilderness."
-#define GAME_MESSAGE_FEELING_TOWN "Looks like a typical town."
-#define GAME_MESSAGE_FEELING_WILD "Looks like a typical wilderness."
+#define MES_FEELING_QUESTDUN "Looks like a typical quest level.";
+#define MES_FEELING_WILD_POINT "Looks like a strange wilderness."
+#define MES_FEELING_TOWN "Looks like a typical town."
+#define MES_FEELING_WILD "Looks like a typical wilderness."
 #endif
 
 #ifdef JP
-#define GAME_MESSAGE_CANNOT_GO_MORE "それ以上先には進めない。"
+#define MES_CANNOT_GO_MORE "それ以上先には進めない。"
 #else
-#define GAME_MESSAGE_CANNOT_GO_MORE "You cannot go any more."
+#define MES_CANNOT_GO_MORE "You cannot go any more."
 #endif
 
 #ifdef JP

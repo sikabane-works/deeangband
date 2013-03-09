@@ -341,7 +341,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			else
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-					msg_format(GAME_MESSAGE_IS_UNAFFECTED);
+					msg_format(MES_IS_UNAFFECTED);
 			}
 		}
 
@@ -351,7 +351,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			{
 				k = target_ptr->chp + 1;
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-					msg_format(GAME_MESSAGE_FATAL_SPOT, target_name);
+					msg_format(MES_FATAL_SPOT, target_name);
 			}
 			else k = 1;
 		}
@@ -386,7 +386,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				{
 					k = target_ptr->chp + 1;
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-						msg_format(GAME_MESSAGE_FATAL_SPOT, target_name);
+						msg_format(MES_FATAL_SPOT, target_name);
 				}
 			}
 		}
@@ -510,7 +510,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			if(has_trait(target_ptr, TRAIT_UNIQUE))
 			{
 				if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-				msg_format(GAME_MESSAGE_IS_UNAFFECTED);
+				msg_format(MES_IS_UNAFFECTED);
 				resists_tele = TRUE;
 			}
 			else if(target_ptr->lev > randint1(60))
@@ -549,7 +549,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 #endif
 				weak = FALSE;
 			}
-			else msg_format(GAME_MESSAGE_IS_UNAFFECTED);
+			else msg_format(MES_IS_UNAFFECTED);
 
 			target_ptr = &creature_list[c_ptr->creature_idx];	// Hack -- Get new creature
 			creature_desc(target_name, target_ptr, 0);			// We need a different name...
@@ -866,10 +866,10 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 	if(has_trait(target_ptr, TRAIT_NO_CONF)) // Confuse the creature
 	{
 		if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-		if(is_seen(player_ptr, target_ptr)) msg_format(GAME_MESSAGE_IS_UNAFFECTED);
+		if(is_seen(player_ptr, target_ptr)) msg_format(MES_IS_UNAFFECTED);
 	}
 	else if(randint0(100) < target_ptr->lev * 2)
-		if(is_seen(player_ptr, target_ptr)) msg_format(GAME_MESSAGE_IS_UNAFFECTED);
+		if(is_seen(player_ptr, target_ptr)) msg_format(MES_IS_UNAFFECTED);
 		else (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(attacker_ptr->lev) / 5, TRUE);
 }
 
@@ -1639,7 +1639,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				else
 					act = "explodes";
 #endif
-				take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, attacker_ptr->chp + 1, COD_SUICIDE_BOMBER, GAME_MESSAGE_SUICIDE_BOMBER, -1);
+				take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, attacker_ptr->chp + 1, COD_SUICIDE_BOMBER, MES_SUICIDE_BOMBER, -1);
 				explode = TRUE;
 				break;
 			}
@@ -2364,12 +2364,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else if(has_trait(target_ptr, TRAIT_FEARLESS))
 				{
-					msg_print(GAME_MESSAGE_RESISTED_FEAR);
+					msg_print(MES_RESISTED_FEAR);
 					obvious = TRUE;
 				}
 				/*TODO saving_throw else if(randint0(100 + species_ptr->level/2) < target_ptr->skill_rob)
 				{
-				msg_print(GAME_MESSAGE_RESISTED_FEAR);
+				msg_print(MES_RESISTED_FEAR);
 
 				obvious = TRUE;
 				}
@@ -2396,7 +2396,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					/* Do nothing */
 				}
 				else if(has_trait(target_ptr, TRAIT_FREE_ACTION))
-					msg_print(GAME_MESSAGE_IS_UNAFFECTED);
+					msg_print(MES_IS_UNAFFECTED);
 				/*TODO saving_throw else if(randint0(100 + species_ptr->level/2) < target_ptr->skill_rob)
 				{
 				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);

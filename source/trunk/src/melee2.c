@@ -1505,7 +1505,7 @@ static void process_nonplayer(int m_idx)
 	{
 		if(do_thrown_from_riding(player_ptr, 0, TRUE))
 		{
-			msg_print(GAME_MESSAGE_FALL_RIDING);
+			msg_print(MES_FALL_RIDING);
 		}
 	}
 
@@ -1585,7 +1585,7 @@ static void process_nonplayer(int m_idx)
 #endif
 				if(do_thrown_from_riding(player_ptr, -1, FALSE))
 				{
-					msg_print(GAME_MESSAGE_FALL_RIDING);
+					msg_print(MES_FALL_RIDING);
 				}
 
 				// Check for quest completion
@@ -1624,7 +1624,7 @@ static void process_nonplayer(int m_idx)
 		if(is_pet(player_ptr, creature_ptr) || see_m)
 		{
 			creature_desc(creature_name, creature_ptr, is_pet(player_ptr, creature_ptr) ? CD_ASSUME_VISIBLE : 0);
-			msg_format(GAME_MESSAGE_HOSTILE, creature_name);
+			msg_format(MES_HOSTILE, creature_name);
 		}
 		set_hostile(player_ptr, creature_ptr);
 	}
@@ -1970,7 +1970,7 @@ static void process_nonplayer(int m_idx)
 			if(!is_pet(player_ptr, creature_ptr) && (randint1(BREAK_GLYPH) < species_ptr->level))
 			{
 				/* Describe observable breakage */
-				if(c_ptr->info & CAVE_MARK) msg_print(GAME_MESSAGE_BREAK_P_RUNE);
+				if(c_ptr->info & CAVE_MARK) msg_print(MES_BREAK_P_RUNE);
 
 				/* Forget the rune */
 				c_ptr->info &= ~(CAVE_MARK);
@@ -2000,13 +2000,13 @@ static void process_nonplayer(int m_idx)
 					/* Describe observable breakage */
 					if(c_ptr->info & CAVE_MARK)
 					{
-						msg_print(GAME_MESSAGE_BREAK_E_RUNE);
+						msg_print(MES_BREAK_E_RUNE);
 						project(player_ptr, 0, 2, ny, nx, 2 * (player_ptr->lev + diceroll(7, 7)), DO_EFFECT_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 					}
 				}
 				else
 				{
-					msg_print(GAME_MESSAGE_DISARM_E_RUNE);
+					msg_print(MES_DISARM_E_RUNE);
 				}
 
 				/* Forget the rune */
@@ -2459,7 +2459,7 @@ static void process_creature(int i)
 	if(!player_ptr->no_flowed) creature_ptr->sc_flag2 &= ~SC_FLAG2_NOFLOW;
 	if(is_player(creature_ptr) && creature_ptr->hear_noise && !ignore_unview)
 	{
-		msg_print(GAME_MESSAGE_HEAR_NOISE);
+		msg_print(MES_HEAR_NOISE);
 	}
 	creature_ptr->hear_noise = FALSE;	// Clear creature fighting indicator
 

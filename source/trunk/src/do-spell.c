@@ -939,7 +939,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_curse(caster_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
+				if(remove_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -1078,7 +1078,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_all_curse(caster_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
+				if(remove_all_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -5839,7 +5839,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_curse(creature_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
+				if(remove_curse(creature_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -6179,7 +6179,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_all_curse(creature_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
+				if(remove_all_curse(creature_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -7232,7 +7232,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_curse(caster_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
+				if(remove_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -7517,7 +7517,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_all_curse(caster_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
+				if(remove_all_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -8860,7 +8860,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_FIRE);
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -8904,7 +8904,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_MINEUCHI);
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -8962,7 +8962,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 	
 			if(!floor_ptr->cave[y][x].creature_idx)
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 	
@@ -9007,7 +9007,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_POISON);
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -9036,7 +9036,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_ZANMA);
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -9065,7 +9065,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, 0);
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 			if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
@@ -9096,7 +9096,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				}
 				if((ty != oy) || (tx != ox))
 				{
-					msg_format(GAME_MESSAGE_BLOE_AWAY, m_name);
+					msg_format(MES_BLOE_AWAY, m_name);
 					floor_ptr->cave[oy][ox].creature_idx = 0;
 					floor_ptr->cave[ty][tx].creature_idx = m_idx;
 					m_ptr->fy = ty;
@@ -9190,7 +9190,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_COLD);
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -9219,7 +9219,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_KYUSHO);
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -9248,7 +9248,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_MAJIN);
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -9277,7 +9277,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_SUTEMI);
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 			caster_ptr->sutemi = TRUE;
@@ -9307,7 +9307,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_ELEC);
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -9504,7 +9504,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					close_combat(caster_ptr, y, x, HISSATSU_3DAN);
 				else
 				{
-					msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+					msg_print(MES_NO_DICRECTION_CREATURE);
 					return NULL;
 				}
 	
@@ -9580,7 +9580,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_DRAIN);
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -9678,7 +9678,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			}
 			if(has_trait(caster_ptr, TRAIT_PREVENT_TELEPORT))
 			{
-				msg_print(GAME_MESSAGE_TELEPORT_PREVENTED);
+				msg_print(MES_TELEPORT_PREVENTED);
 				break;
 			}
 			project(caster_ptr, 0, 0, y, x, HISSATSU_ISSEN, DO_EFFECT_ATTACK, PROJECT_BEAM | PROJECT_KILL, -1);
@@ -9715,7 +9715,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			}
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 		}
@@ -9801,7 +9801,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				close_combat(caster_ptr, y, x, HISSATSU_UNDEAD);
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
 #ifdef JP
@@ -10033,7 +10033,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			else
 			{
 				int power = 0;
-				msg_format(GAME_MESSAGE_BLACK_AURA_TO_OBJECT, object_name);
+				msg_format(MES_BLACK_AURA_TO_OBJECT, object_name);
 				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 				if(object_is_artifact(object_ptr) || object_is_ego(object_ptr))
@@ -10453,7 +10453,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			else
 			{
 				int power = 0;
-				msg_format(GAME_MESSAGE_BLACK_AURA_TO_OBJECT, object_name);
+				msg_format(MES_BLACK_AURA_TO_OBJECT, object_name);
 				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 				if(object_is_artifact(object_ptr) || object_is_ego(object_ptr))

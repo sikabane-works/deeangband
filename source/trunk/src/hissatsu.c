@@ -389,7 +389,7 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr))
 	{
-		msg_print(GAME_MESSAGE_IS_BLIND);
+		msg_print(MES_IS_BLIND);
 		return;
 	}
 

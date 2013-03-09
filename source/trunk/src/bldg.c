@@ -972,7 +972,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 	{
 		if(creature_ptr->au < 1)
 		{
-			msg_print(GAME_MESSAGE_NO_MONEY_INSULT);
+			msg_print(MES_NO_MONEY_INSULT);
 			msg_print(NULL);
 			screen_load();
 			return FALSE;
@@ -1008,7 +1008,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 			if(wager > creature_ptr->au)
 			{
-				msg_print(GAME_MESSAGE_NO_MONEY_INSULT);
+				msg_print(MES_NO_MONEY_INSULT);
 				msg_print(NULL);
 				screen_load();
 				return FALSE;
@@ -1279,7 +1279,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 				prt("", 18, 37);
 				if(wager > creature_ptr->au)
 				{
-					msg_print(GAME_MESSAGE_NO_MONEY_INSULT);
+					msg_print(MES_NO_MONEY_INSULT);
 					msg_print(NULL);
 
 					/* Get out here */
@@ -1450,7 +1450,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 
 	if(creature_ptr->au < 1) // No money
 	{
-		msg_print(GAME_MESSAGE_NO_MONEY_INSULT);
+		msg_print(MES_NO_MONEY_INSULT);
 		msg_print(NULL);
 		screen_load();
 		return FALSE;
@@ -1534,7 +1534,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 
 			if(wager > creature_ptr->au)
 			{
-				msg_print(GAME_MESSAGE_NO_MONEY_INSULT);
+				msg_print(MES_NO_MONEY_INSULT);
 				msg_print(NULL);
 				screen_load();
 				return FALSE;
@@ -1660,7 +1660,7 @@ static bool kankin(creature_type *creature_ptr)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
-			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
+			sprintf(buf, MES_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
 				msg_format(MES_BLDG_GET_PRICE, 1000000L * object_ptr->number);
@@ -1681,7 +1681,7 @@ static bool kankin(creature_type *creature_ptr)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
-			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
+			sprintf(buf, MES_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
 				msg_format(MES_BLDG_GET_PRICE, 200000L * object_ptr->number);
@@ -1702,7 +1702,7 @@ static bool kankin(creature_type *creature_ptr)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
-			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
+			sprintf(buf, MES_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
 				msg_format(MES_BLDG_GET_PRICE, 100000L * object_ptr->number);
@@ -1721,7 +1721,7 @@ static bool kankin(creature_type *creature_ptr)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
-			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
+			sprintf(buf, MES_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
 				msg_format(MES_BLDG_GET_PRICE, (species_info[today_mon].level * 50 + 100) * object_ptr->number);
@@ -1741,7 +1741,7 @@ static bool kankin(creature_type *creature_ptr)
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
-			sprintf(buf, GAME_MESSAGE_BOUNTY_1 ,object_name);
+			sprintf(buf, MES_BOUNTY_1 ,object_name);
 			if(get_check(buf))
 			{
 				msg_format(MES_BLDG_GET_PRICE, (species_info[today_mon].level * 30 + 60) * object_ptr->number);
@@ -2173,7 +2173,7 @@ static bool resize_item(creature_type *creature_ptr)
 	{
 		if(object_ptr->to_size >= resizelimit || object_ptr->to_size <= -resizelimit)
 		{
-			msg_print(GAME_MESSAGE_IMPROVE_LIMIT);
+			msg_print(MES_IMPROVE_LIMIT);
 			return FALSE;
 		}
 
@@ -2291,7 +2291,7 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	if(!okay)	// Failure
 	{
 		if(flush_failure) flush();
-		msg_print(GAME_MESSAGE_IMPROVEMENT_FAILED);
+		msg_print(MES_IMPROVEMENT_FAILED);
 		return FALSE;
 	}
 	else
@@ -2957,7 +2957,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	    (((bldg->member_costs[i] > creature_ptr->au) && is_owner(creature_ptr, bldg)) ||
 	     ((bldg->other_costs[i] > creature_ptr->au) && !is_owner(creature_ptr, bldg))))
 	{
-		msg_print(GAME_MESSAGE_NO_MONEY);
+		msg_print(MES_NO_MONEY);
 		return;
 	}
 

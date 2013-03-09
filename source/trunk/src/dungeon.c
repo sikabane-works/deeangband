@@ -1573,12 +1573,12 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 			if(has_trait(creature_ptr, TRAIT_PASS_WALL))
 			{
-				msg_print(GAME_MESSAGE_DAMAGE_DENSITY);
+				msg_print(MES_DAMAGE_DENSITY);
 				dam_desc = COD_DENSITY;
 			}
 			else
 			{
-				msg_print(GAME_MESSAGE_ROCK_CRUSHING);
+				msg_print(MES_ROCK_CRUSHING);
 				dam_desc = COD_SOLID_ROCK;
 			}
 
@@ -4114,7 +4114,7 @@ static void pack_overflow(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[INVEN_TOTAL];
 
 		disturb(player_ptr, 0, 0);
-		msg_print(GAME_MESSAGE_PACK_OVERFLOW);
+		msg_print(MES_PACK_OVERFLOW);
 
 		object_desc(object_name, object_ptr, 0);
 		msg_format(MES_OBJECT_DROPPED(object_name, index_to_label(INVEN_TOTAL)));
@@ -4251,7 +4251,7 @@ void process_player(creature_type *creature_ptr)
 			{
 				flush();
 				disturb(player_ptr, 0, 0);
-				msg_print(GAME_MESSAGE_TARGET_CANCELED);
+				msg_print(MES_TARGET_CANCELED);
 			}
 		}
 	}

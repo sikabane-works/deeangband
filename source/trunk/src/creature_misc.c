@@ -914,7 +914,7 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 
 	if(message)
 	{
-		if(t == 0) note = GAME_MESSAGE_IS_IMMUNE;
+		if(t == 0) note = MES_IS_IMMUNE;
 
 		else if(t < 200)
 			note = MES_DAMAGE_RES1;

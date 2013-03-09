@@ -674,7 +674,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	{
 		msg_print(MES_PREVENT_BY_MP);
 		if(!over_exert) return FALSE;
-		if(!get_check(GAME_MESSAGE_ATTEMPT_ANYWAY)) return FALSE;
+		if(!get_check(MES_ATTEMPT_ANYWAY)) return FALSE;
 	}
 
 	/* Spell failure chance */

@@ -609,9 +609,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				prepare_redraw(PR_MANA);
 			}
 
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), GAME_MESSAGE_PERILOUS_SECRET, NULL, -1);
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), MES_PERILOUS_SECRET, NULL, -1);
 			if(one_in_(5)) (void)add_timed_trait(caster_ptr, TRAIT_CONFUSED, randint1(10), TRUE);
-			if(one_in_(20)) take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), GAME_MESSAGE_PERILOUS_SECRET, NULL, -1);
+			if(one_in_(20)) take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), MES_PERILOUS_SECRET, NULL, -1);
 			break;
 		}
 
@@ -705,7 +705,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				project_all_vision(caster_ptr, DO_EFFECT_STASIS, 120);
 				sukekaku = FALSE;
 			}
-			else msg_print(GAME_MESSAGE_NO_HAPPEN);
+			else msg_print(MES_NO_HAPPEN);
 			break;
 		}
 
@@ -748,10 +748,10 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_REMOVE_CURSE_1:
-		if(remove_curse(caster_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
+		if(remove_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
 
 	case TRAIT_REMOVE_CURSE_2:
-		if(remove_all_curse(caster_ptr)) msg_print(GAME_MESSAGE_REMOVED_OBJECT_CURSE);
+		if(remove_all_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
 
 	case TRAIT_RESTORE_MANA:
 		{
@@ -767,11 +767,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				caster_ptr->current_charge[i] -= ((caster_ptr->max_charge[i] < 10) ? EATER_ROD_CHARGE*3 : caster_ptr->max_charge[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
 				if(caster_ptr->current_charge[i] < 0) caster_ptr->current_charge[i] = 0;
 			}
-			msg_print(GAME_MESSAGE_MANA_RECOVERLY);
+			msg_print(MES_MANA_RECOVERLY);
 			prepare_window(PW_PLAYER);
 
 			inc_mana(caster_ptr, caster_ptr->msp);
-			msg_print(GAME_MESSAGE_MANA_RECOVERLY);
+			msg_print(MES_MANA_RECOVERLY);
 			prepare_redraw(PW_PLAYER | PW_SPELL);
 			effected = TRUE;
 
@@ -1118,12 +1118,12 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
 			{
-				msg_print(GAME_MESSAGE_IS_UNAFFECTED);
+				msg_print(MES_IS_UNAFFECTED);
 			}
 			/* TODO saving_throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-			msg_print(GAME_MESSAGE_RESIST_THE_EFFECT]);
+			msg_print(MES_RESIST_THE_EFFECT]);
 			}
 			else
 			*/
@@ -1382,13 +1382,13 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_RES_ALL))
 				{
 					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-					msg_format(GAME_MESSAGE_IS_UNAFFECTED, target_name);
+					msg_format(MES_IS_UNAFFECTED, target_name);
 					break;
 				}
 				else if(target_ptr->lev > randint1(100))
 				{
 					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-					msg_format(GAME_MESSAGE_RESISTED, target_name);
+					msg_format(MES_RESISTED, target_name);
 					break;
 				}
 			}
@@ -1428,7 +1428,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_TELE_LEVEL:
 		{
-			if(has_trait(target_ptr, TRAIT_RES_NEXU)) msg_print(GAME_MESSAGE_IS_UNAFFECTED);
+			if(has_trait(target_ptr, TRAIT_RES_NEXU)) msg_print(MES_IS_UNAFFECTED);
 			{
 #ifdef JP
 				msg_print("記憶が薄れてしまった。");
@@ -1443,7 +1443,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		/*
 		else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 		{
-		msg_print(GAME_MESSAGE_RESIST_THE_EFFECT]);
+		msg_print(MES_RESIST_THE_EFFECT]);
 		}
 		else
 		{
@@ -1469,7 +1469,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		if(has_trait(target_ptr, TRAIT_RES_NEXU) || has_trait(target_ptr, TRAIT_RES_TELE) ||
 		has_trait(target_ptr, TRAIT_QUESTOR) || (target_ptr->lev + randint1(50) > user_level + randint1(60)))
 		{
-		msg_print(GAME_MESSAGE_IS_UNAFFECTED);
+		msg_print(MES_IS_UNAFFECTED);
 		}
 		else teleport_level(caster_ptr, target_m_idx);
 		break;
@@ -1480,7 +1480,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		/* TODO saving_throw
 		if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 		{
-		msg_print(GAME_MESSAGE_RESIST_THE_EFFECT]);
+		msg_print(MES_RESIST_THE_EFFECT]);
 		}
 		else if(lose_all_info(target_ptr))
 		*/
@@ -1836,12 +1836,12 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			if(floor_ptr->cave[y][x].creature_idx)
 			{
 				close_combat(caster_ptr, y, x, 0);
-				if(randint0(caster_ptr->skill_dis) < 7) msg_print(GAME_MESSAGE_FAILED_RUNAWAY);
+				if(randint0(caster_ptr->skill_dis) < 7) msg_print(MES_FAILED_RUNAWAY);
 				else teleport_creature(caster_ptr, 30, 0L);
 			}
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				msg_print(NULL);
 			}
 			break;
@@ -1863,7 +1863,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			int gain_sp = take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, COD_HP_TO_MP, NULL, -1) / 5;
 			if(gain_sp) inc_mana(caster_ptr, gain_sp);
-			else msg_print(GAME_MESSAGE_CONVERT_FAILED);
+			else msg_print(MES_CONVERT_FAILED);
 			break;
 		}
 
@@ -1873,7 +1873,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			dec_mana(caster_ptr, caster_ptr->lev / 5); 
 			heal_creature(caster_ptr, caster_ptr->lev);
 		}
-		else msg_print(GAME_MESSAGE_CONVERT_FAILED);
+		else msg_print(MES_CONVERT_FAILED);
 		break;
 
 	case TRAIT_CONFUSING_LIGHT:
@@ -1926,7 +1926,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				}
 				else
 				{
-					msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+					msg_print(MES_NO_DICRECTION_CREATURE);
 					msg_print(NULL);
 				}
 			}
@@ -1940,7 +1940,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				msg_print(MES_PREVENT_BY_PET);
 				return FALSE;
 			}
-			msg_print(GAME_MESSAGE_RESTORE_SOME_MP);
+			msg_print(MES_RESTORE_SOME_MP);
 			inc_mana(caster_ptr, 3 + caster_ptr->lev / 20);
 			break;
 		}
@@ -2079,7 +2079,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			if(is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]))
 			{
-				msg_print(GAME_MESSAGE_RESTORE_SOME_MP);
+				msg_print(MES_RESTORE_SOME_MP);
 				inc_mana(caster_ptr, caster_ptr->lev * caster_ptr->lev / 100);
 			}
 			else msg_print(MES_PREVENT_BY_NO_MIRROR);
@@ -2092,7 +2092,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			else
 			{
 				if(!have_flag(feature_ptr->flags, FF_PROJECT) || (!has_trait(caster_ptr, TRAIT_CAN_FLY) && have_flag(feature_ptr->flags, FF_DEEP)))
-					msg_print(GAME_MESSAGE_HAYAGAKE_PREVENT);
+					msg_print(MES_HAYAGAKE_PREVENT);
 				else set_action(caster_ptr, ACTION_HAYAGAKE);
 			}
 			cancel_tactical_action(caster_ptr);

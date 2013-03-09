@@ -1258,13 +1258,13 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		bool see_m = is_seen(user_ptr, target_ptr);
 
 		creature_desc(target_name, target_ptr, 0);
-		if(see_m) msg_format(GAME_MESSAGE_IS_UNAFFECTED, target_name);
+		if(see_m) msg_format(MES_IS_UNAFFECTED, target_name);
 
 		(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
 
 		if(is_friendly(player_ptr, target_ptr) && !is_pet(player_ptr, target_ptr))
 		{
-			if(see_m) msg_format(GAME_MESSAGE_CAMP_GET_ANGRY, target_name);
+			if(see_m) msg_format(MES_CAMP_GET_ANGRY, target_name);
 			set_hostile(user_ptr, target_ptr);
 		}
 		if(one_in_(13)) set_timed_trait(target_ptr, TRAIT_NO_GENOCIDE, PERMANENT_TIMED, FALSE);
@@ -1730,7 +1730,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		/* Hack -- Affect player */
 		if(flag)
 		{
-			msg_print(GAME_MESSAGE_DESTROY);
+			msg_print(MES_DESTROY);
 
 			if(!has_trait(caster_ptr, TRAIT_NO_BLIND) && !has_trait(caster_ptr, TRAIT_RES_LITE))
 				(void)add_timed_trait(caster_ptr, TRAIT_BLIND, 10 + randint1(10), TRUE);
@@ -1977,7 +1977,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 
 bool earthquake(creature_type *target_ptr, int cy, int cx, int r)
 {
-	msg_print(GAME_MESSAGE_EARTHQUAKE);
+	msg_print(MES_EARTHQUAKE);
 	return earthquake_aux(target_ptr, cy, cx, r, 0);
 }
 
@@ -2407,7 +2407,7 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 */
 bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 {
-	if(!has_trait(player_ptr, TRAIT_BLIND)) msg_print(GAME_MESSAGE_UNLITE_AREA);
+	if(!has_trait(player_ptr, TRAIT_BLIND)) msg_print(MES_UNLITE_AREA);
 	(void)project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, DO_EFFECT_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
 	unlite_room(caster_ptr, caster_ptr->fy, caster_ptr->fx);
 	return TRUE;
@@ -2492,7 +2492,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 
 	if(has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 	{
-		msg_print(GAME_MESSAGE_TELEPORT_PREVENTED);
+		msg_print(MES_TELEPORT_PREVENTED);
 		return FALSE;
 	}
 
@@ -2508,7 +2508,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 
 	if((c_ptr->info & CAVE_ICKY) || (distance(ty, tx, creature_ptr->fy, creature_ptr->fx) > creature_ptr->lev * 3 / 2 + 10))
 	{
-		msg_print(GAME_MESSAGE_FAILED);
+		msg_print(MES_FAILED);
 		return FALSE;
 	}
 
@@ -2649,7 +2649,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			if(!one_in_(6)) break;
 
 		case 10: case 11: case 12:
-			msg_print(GAME_MESSAGE_LOST_LIFE2);
+			msg_print(MES_LOST_LIFE2);
 			lose_exp(creature_ptr, creature_ptr->exp / 16);
 			if(!one_in_(6)) break;
 
@@ -2964,7 +2964,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 
 		if(!floor_ptr->cave[ny][nx].creature_idx)
 		{
-			if(tm_idx) msg_print(GAME_MESSAGE_FAILED);
+			if(tm_idx) msg_print(MES_FAILED);
 			else msg_print(MES_RUSH_NO_ENTER);
 			break;
 		}
@@ -2980,7 +2980,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 
 		if(tm_idx != floor_ptr->cave[ny][nx].creature_idx)
 		{
-			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
+			msg_print(MES_CREATURE_IN_THE_WAY);
 		}
 		else if(!CREATURE_BOLD(creature_ptr, ty, tx))
 		{

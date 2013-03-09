@@ -1042,7 +1042,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	/* Check some conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND))
 	{
-		msg_print(GAME_MESSAGE_IS_BLIND);
+		msg_print(MES_IS_BLIND);
 		return;
 	}
 	if(no_lite(creature_ptr))
@@ -1229,7 +1229,7 @@ static int staff_effect(creature_type *caster_ptr, int sval, bool *use_charge, b
 
 		case SV_STAFF_NOTHING:
 		{
-			msg_print(GAME_MESSAGE_NO_HAPPEN);
+			msg_print(MES_NO_HAPPEN);
 			if(has_trait(caster_ptr, TRAIT_MAGIC_EATER))
 			{
 #ifdef JP
@@ -2263,7 +2263,7 @@ void do_cmd_use(creature_type *creature_ptr)
 			// Check some conditions
 			if(has_trait(creature_ptr, TRAIT_BLIND))
 			{
-				msg_print(GAME_MESSAGE_IS_BLIND);
+				msg_print(MES_IS_BLIND);
 				return;
 			}
 			if(no_lite(creature_ptr))

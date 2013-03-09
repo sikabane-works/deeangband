@@ -3483,7 +3483,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 
 			/* Player cannot afford it */
 			else // Simple message (no insult)
-				msg_print(GAME_MESSAGE_NO_MONEY);
+				msg_print(MES_NO_MONEY);
 		}
 	}
 
@@ -4415,7 +4415,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 				object_type *quest_ptr;
 
 				char object_name[MAX_NLEN];
-				msg_print(GAME_MESSAGE_PACK_OVERFLOW);
+				msg_print(MES_PACK_OVERFLOW);
 
 				quest_ptr = &forge;
 

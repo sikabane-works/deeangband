@@ -1986,12 +1986,12 @@ bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life
 	/* Hold experience failed */
 	if(has_trait(creature_ptr, TRAIT_HOLD_LIFE))
 	{
-		msg_print(GAME_MESSAGE_LOST_LIFE1);
+		msg_print(MES_LOST_LIFE1);
 		lose_exp(creature_ptr, slip);
 	}
 	else
 	{
-		msg_print(GAME_MESSAGE_LOST_LIFE2);
+		msg_print(MES_LOST_LIFE2);
 		lose_exp(creature_ptr, drain);
 	}
 

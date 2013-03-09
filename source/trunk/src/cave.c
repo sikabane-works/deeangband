@@ -4660,7 +4660,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 			found = TRUE;
 		}
 
-		if(found && floor_ptr->generated && creature_can_see_bold(player_ptr, y, x)) msg_print(GAME_MESSAGE_FOUND_SOMETHING);
+		if(found && floor_ptr->generated && creature_can_see_bold(player_ptr, y, x)) msg_print(MES_FOUND_SOMETHING);
 	}
 
 	if(feature_action_flags[action] & FAF_CRASH_GLASS)

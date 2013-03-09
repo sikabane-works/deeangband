@@ -358,7 +358,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 					if(!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
-						msg_print(GAME_MESSAGE_COMPLETE_QUEST);
+						msg_print(MES_COMPLETE_QUEST);
 						msg_print(NULL);
 					}
 
@@ -391,7 +391,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 					{
 						quest[i].status = QUEST_STATUS_COMPLETED;
 						quest[i].complev = (byte)player_ptr->lev;
-						msg_print(GAME_MESSAGE_COMPLETE_QUEST);
+						msg_print(MES_COMPLETE_QUEST);
 						msg_print(NULL);
 					}
 				}
@@ -421,7 +421,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 					if(!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
-						msg_print(GAME_MESSAGE_COMPLETE_QUEST);
+						msg_print(MES_COMPLETE_QUEST);
 						msg_print(NULL);
 					}
 
@@ -451,7 +451,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 					if(!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
-						msg_print(GAME_MESSAGE_COMPLETE_QUEST);
+						msg_print(MES_COMPLETE_QUEST);
 						msg_print(NULL);
 					}
 					quest[i].cur_num = 0;
@@ -554,7 +554,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	if(has_trait(dead_ptr, TRAIT_UNIQUE) && !has_trait(dead_ptr, TRAIT_CLONED))
 		for (i = 0; i < MAX_BOUNTY; i++)
 			if((kubi_species_idx[i] == dead_ptr->species_idx) && !(dead_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
-				msg_format(GAME_MESSAGE_BOUNTY_DEAD, dead_name);
+				msg_format(MES_BOUNTY_DEAD, dead_name);
 
 	if(record_named_pet && is_pet(player_ptr, dead_ptr) && dead_ptr->nickname)
 		do_cmd_write_diary(DIARY_NAMED_PET, 3, dead_name);
@@ -580,7 +580,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		bool stop_ty = FALSE;
 		int count = 0;
 
-		msg_format(GAME_MESSAGE_CARSE_OF_BLOOD_DEAD, dead_name, slayer_name);
+		msg_format(MES_CARSE_OF_BLOOD_DEAD, dead_name, slayer_name);
 		curse_equipment(slayer_ptr, 100, 50);	
 		do stop_ty = activate_ty_curse(slayer_ptr, stop_ty, &count);
 		while (--curses);
@@ -636,7 +636,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	}
 
 	//TODO if(dead_ptr == &creature_list[slayer_ptr->riding])
-	//	if(do_thrown_from_riding(slayer_ptr, -1, FALSE)) msg_print(GAME_MESSAGE_FALL_RIDING);
+	//	if(do_thrown_from_riding(slayer_ptr, -1, FALSE)) msg_print(MES_FALL_RIDING);
 
 	/* Drop a dead corpse? */
 	if(one_in_(has_trait(dead_ptr, TRAIT_UNIQUE) ? 1 : 4) &&
@@ -2667,7 +2667,7 @@ bool get_aim_dir(creature_type *creature_ptr, int range, int *dp)
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) dir = ddd[randint0(8)];
 
 	/* Notice confusion */
-	if(command_dir != dir) msg_format(GAME_MESSAGE_IS_CONFUSED, creature_name);
+	if(command_dir != dir) msg_format(MES_IS_CONFUSED, creature_name);
 
 	/* Save direction */
 	(*dp) = dir;
@@ -2770,7 +2770,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 
 	/* Notice confusion */
 	if(command_dir != dir)
-		if(has_trait(creature_ptr, TRAIT_CONFUSED)) msg_format(GAME_MESSAGE_IS_CONFUSED, creature_name);
+		if(has_trait(creature_ptr, TRAIT_CONFUSED)) msg_format(MES_IS_CONFUSED, creature_name);
 
 	/* Save direction */
 	(*dp) = dir;
@@ -2829,7 +2829,7 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	}
 
 	/* Notice confusion */
-	if(command_dir != dir) msg_format(GAME_MESSAGE_IS_CONFUSED, creature_name);
+	if(command_dir != dir) msg_format(MES_IS_CONFUSED, creature_name);
 
 	/* Save direction */
 	(*dp) = dir;
@@ -2911,7 +2911,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 			if(has_trait(creature_ptr, TRAIT_ANDROID))
 			{
-				msg_print(GAME_MESSAGE_NO_HAPPEN);
+				msg_print(MES_NO_HAPPEN);
 			}
 			else if(creature_ptr->exp < CREATURE_MAX_EXP)
 			{
@@ -2925,7 +2925,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_LOSE_EXP:
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_LOSE_EXP);
-			if(has_trait(creature_ptr, TRAIT_ANDROID)) msg_print(GAME_MESSAGE_NO_HAPPEN);
+			if(has_trait(creature_ptr, TRAIT_ANDROID)) msg_print(MES_NO_HAPPEN);
 			else
 			{
 				lose_exp(creature_ptr, creature_ptr->exp / 6);
@@ -3635,7 +3635,7 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 		dir = ddd[randint0(8)];
 	}
 
-	if(command_dir != dir) msg_format(GAME_MESSAGE_IS_CONFUSED, creature_name); // Notice confusion and warn user.
+	if(command_dir != dir) msg_format(MES_IS_CONFUSED, creature_name); // Notice confusion and warn user.
 
 	/* Save direction */
 	(*dp) = dir;

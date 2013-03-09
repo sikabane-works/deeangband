@@ -502,14 +502,14 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	    floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
 		// arena or quest 
-		msg_print(GAME_MESSAGE_NO_EFFECT);
+		msg_print(MES_NO_EFFECT);
 		return;
 	}
 
 	// Artifacts resists 
 	if(!cave_valid_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
 	{
-		msg_print(GAME_MESSAGE_FIELD_MAGIC_FAILED1);
+		msg_print(MES_FIELD_MAGIC_FAILED1);
 		return;
 	}
 

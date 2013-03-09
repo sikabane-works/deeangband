@@ -222,7 +222,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 			if(record_fix_quest) do_cmd_write_diary(DIARY_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;
 			quest[i].complev = (byte)creature_ptr->lev;
-			msg_print(GAME_MESSAGE_COMPLETE_QUEST);
+			msg_print(MES_COMPLETE_QUEST);
 			msg_print(NULL);
 		}
 	}
@@ -672,7 +672,7 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 		strcpy(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].message, tmp);
 	else
 	{
-		msg_print(GAME_MESSAGE_TARGET_CANCELED);
+		msg_print(MES_TARGET_CANCELED);
 		return;
 	}
 
@@ -813,13 +813,13 @@ void do_cmd_refill(creature_type *creature_ptr)
 // Target command
 void do_cmd_target(creature_type *creature_ptr)
 {
-	if(target_set(creature_ptr, 0,TARGET_KILL)) msg_print(GAME_MESSAGE_TARGET_SET);
-	else msg_print(GAME_MESSAGE_TARGET_ABORT);
+	if(target_set(creature_ptr, 0,TARGET_KILL)) msg_print(MES_TARGET_SET);
+	else msg_print(MES_TARGET_ABORT);
 }
 
 void do_cmd_look(creature_type *creature_ptr)
 {
-	if(target_set(creature_ptr, 0, TARGET_LOOK)) msg_print(GAME_MESSAGE_TARGET_SET);
+	if(target_set(creature_ptr, 0, TARGET_LOOK)) msg_print(MES_TARGET_SET);
 }
 
 // Allow the player to examine other sectors on the map

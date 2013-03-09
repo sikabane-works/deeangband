@@ -296,7 +296,7 @@ bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 
 	if(has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) && !(mode & TELEPORT_NONMAGICAL))
 	{
-		msg_print(GAME_MESSAGE_TELEPORT_PREVENTED);
+		msg_print(MES_TELEPORT_PREVENTED);
 		return FALSE;
 	}
 
@@ -475,7 +475,7 @@ void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
 
 	if(has_trait(caster_ptr, TRAIT_PREVENT_TELEPORT) && !(mode & TELEPORT_NONMAGICAL))
 	{
-		msg_print(GAME_MESSAGE_TELEPORT_PREVENTED);
+		msg_print(MES_TELEPORT_PREVENTED);
 		return;
 	}
 
@@ -561,7 +561,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 				if(one_in_(3))
 				{
 					teleport_creature(creature_ptr, 200, TELEPORT_PASSIVE);
-					msg_print(GAME_MESSAGE_FAILED);
+					msg_print(MES_FAILED);
 				}
 				else teleport_creature_to(creature_ptr, creature_ptr->fy, creature_ptr->fx, 0L);
 				cost_tactical_energy(creature_ptr, 100);
@@ -589,13 +589,13 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	// No effect in some case
 	if(TELE_LEVEL_IS_INEFF(floor_ptr, creature_ptr, m_idx))
 	{
-		if(see_m) msg_print(GAME_MESSAGE_NO_EFFECT);
+		if(see_m) msg_print(MES_NO_EFFECT);
 		return;
 	}
 
 	if((m_idx <= 0) && has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT)) /* To player */
 	{
-		msg_print(GAME_MESSAGE_TELEPORT_PREVENTED);
+		msg_print(MES_TELEPORT_PREVENTED);
 		return;
 	}
 
@@ -817,7 +817,7 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 	// Ironman option
 	if(floor_ptr->fight_arena_mode || ironman_downward)
 	{
-		msg_print(GAME_MESSAGE_NO_HAPPEN);
+		msg_print(MES_NO_HAPPEN);
 		return TRUE;
 	}
 
@@ -879,7 +879,7 @@ bool reset_recall(creature_type *creature_ptr)
 
 	if(ironman_downward)
 	{
-		msg_print(GAME_MESSAGE_NO_HAPPEN);
+		msg_print(MES_NO_HAPPEN);
 		return TRUE;
 	}
 
@@ -1392,7 +1392,7 @@ void call_the_void(creature_type *creature_ptr)
 
 	/* Prevent destruction of quest levels and town */
 	else if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
-		msg_print(GAME_MESSAGE_EARTHQUAKE);
+		msg_print(MES_EARTHQUAKE);
 
 	else
 	{
@@ -1513,7 +1513,7 @@ void alter_reality(creature_type *creature_ptr)
 	// Ironman option
 	if(floor_ptr->fight_arena_mode || ironman_downward)
 	{
-		msg_print(GAME_MESSAGE_NO_HAPPEN);
+		msg_print(MES_NO_HAPPEN);
 		return;
 	}
 
@@ -1543,7 +1543,7 @@ bool warding_glyph(creature_type *creature_ptr)
 
 	if(!cave_clean_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
 	{
-		msg_print(GAME_MESSAGE_FIELD_MAGIC_FAILED1);
+		msg_print(MES_FIELD_MAGIC_FAILED1);
 		return FALSE;
 	}
 
@@ -1560,7 +1560,7 @@ bool place_mirror(creature_type *caster_ptr)
 
 	if(!cave_clean_bold(floor_ptr, caster_ptr->fy, caster_ptr->fx))
 	{
-		msg_print(GAME_MESSAGE_FIELD_MAGIC_FAILED1);
+		msg_print(MES_FIELD_MAGIC_FAILED1);
 		return FALSE;
 	}
 
@@ -1583,7 +1583,7 @@ bool explosive_rune(creature_type *creature_ptr)
 
 	if(!cave_clean_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
 	{
-		msg_print(GAME_MESSAGE_FIELD_MAGIC_FAILED1);
+		msg_print(MES_FIELD_MAGIC_FAILED1);
 		return FALSE;
 	}
 
@@ -1910,7 +1910,7 @@ bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int nu
 	if(!okay)
 	{
 		if(flush_failure) flush();
-		msg_print(GAME_MESSAGE_ENCHANTMENT_FAILED);
+		msg_print(MES_ENCHANTMENT_FAILED);
 	}
 
 	calc_android_exp(creature_ptr);
@@ -2006,7 +2006,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 	if(!okay)
 	{
 		if(flush_failure) flush();
-		msg_print(GAME_MESSAGE_ENCHANTMENT_FAILED);
+		msg_print(MES_ENCHANTMENT_FAILED);
 	}
 
 	calc_android_exp(caster_ptr);
@@ -2628,7 +2628,7 @@ bool pulish_shield(creature_type *creature_ptr)
 	else
 	{
 		if(flush_failure) flush();
-		msg_print(GAME_MESSAGE_FAILED);
+		msg_print(MES_FAILED);
 	}
 	calc_android_exp(creature_ptr);
 
@@ -3770,7 +3770,7 @@ bool curse_armor(creature_type *creature_ptr)
 		msg_format(MES_OBJECT_RESISTED_CURSE(object_ptr));
 	else
 	{
-		msg_format(GAME_MESSAGE_BLACK_AURA_TO_OBJECT, object_name);
+		msg_format(MES_BLACK_AURA_TO_OBJECT, object_name);
 		shatter_object(object_ptr);
 
 		// Recalculate bonuses and mana
@@ -3799,7 +3799,7 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 		msg_format(MES_OBJECT_RESISTED_CURSE(object_ptr));
 	else
 	{
-		if(!force) msg_format(GAME_MESSAGE_BLACK_AURA_TO_OBJECT, object_name);
+		if(!force) msg_format(MES_BLACK_AURA_TO_OBJECT, object_name);
 		shatter_object(object_ptr);
 
 		prepare_update(target_ptr, CRU_BONUS | CRU_MANA);	// Recalculate bonuses and mana
@@ -3832,7 +3832,7 @@ bool brand_bolts(creature_type *creature_ptr)
 	}
 
 	if(flush_failure) flush();
-	msg_print(GAME_MESSAGE_ENCHANTMENT_FAILED);
+	msg_print(MES_ENCHANTMENT_FAILED);
 	return TRUE;
 }
 

@@ -5838,7 +5838,7 @@ static void print_tomb(creature_type *creature_ptr)
 		center_string(buf, tmp);
 		put_str(buf, 17, 11);
 
-		msg_format(GAME_MESSAGE_GOODBYE(creature_ptr->name));
+		msg_format(MES_GOODBYE(creature_ptr->name));
 	}
 }
 

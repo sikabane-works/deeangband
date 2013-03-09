@@ -36,7 +36,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	/* Quest up stairs */
 	if(have_flag(f_ptr->flags, FF_QUEST))
 	{
-		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
+		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(MES_COMBAT_TALK_STAIR);
 		else msg_print(MES_FEATURE_UP_STAIR);
 
 		leave_quest_check(creature_ptr);
@@ -117,7 +117,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	}
 
 	if(record_stair) do_cmd_write_diary(DIARY_STAIR, 0-up_num, DIARY_UP_STAIR);
-	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
+	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(MES_COMBAT_TALK_STAIR);
 
 #ifdef JP
 	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("‚È‚ñ‚¾‚±‚ÌŠK’i‚ÍI");
@@ -154,7 +154,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	/* Quest down stairs */
 	else if(have_flag(f_ptr->flags, FF_QUEST))
 	{
-		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
+		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(MES_COMBAT_TALK_STAIR);
 		else msg_print(MES_FEATURE_DOWN_STAIR);
 
 		leave_quest_check(creature_ptr);
@@ -229,7 +229,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			else
 			{
 
-				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
+				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(MES_COMBAT_TALK_STAIR);
 				else
 #ifdef JP
 				msg_print("ŠK’i‚ğ‰º‚è‚ÄV‚½‚È‚é–À‹{‚Ö‚Æ‘«‚ğ“¥‚İ“ü‚ê‚½B");
@@ -594,7 +594,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 		/* Success -- May still have traps */
 		if(PERCENT(j))
 		{
-			msg_print(GAME_MESSAGE_SUCCESS_PICKING);
+			msg_print(MES_SUCCESS_PICKING);
 			gain_exp(creature_ptr, 1, 0, FALSE);
 			flag = TRUE;
 		}
@@ -605,7 +605,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 			/* We may continue repeating */
 			more = TRUE;
 			if(flush_failure) flush();
-			msg_print(GAME_MESSAGE_FAILED_PICKING);
+			msg_print(MES_FAILED_PICKING);
 		}
 	}
 
@@ -782,7 +782,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 
 		if(PERCENT(j))
 		{
-			msg_print(GAME_MESSAGE_SUCCESS_PICKING);
+			msg_print(MES_SUCCESS_PICKING);
 			cave_alter_feat(floor_ptr, y, x, FF_OPEN); // Open the door
 			sound(SOUND_OPENDOOR); // Sound
 			gain_exp(creature_ptr, 1, 0, FALSE); // Experience
@@ -791,7 +791,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 		else
 		{
 			if(flush_failure) flush();
-			msg_print(GAME_MESSAGE_FAILED_PICKING);
+			msg_print(MES_FAILED_PICKING);
 			more = TRUE;
 		}
 	}
@@ -877,7 +877,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		else if(c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
 			cost_tactical_energy(creature_ptr, 100);
-			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
+			msg_print(MES_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
 
@@ -991,7 +991,7 @@ void do_cmd_close(creature_type *creature_ptr)
 		else if(c_ptr->creature_idx)
 		{
 			cost_tactical_energy(creature_ptr, 100);
-			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
+			msg_print(MES_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
 
@@ -1229,7 +1229,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		else if(c_ptr->creature_idx)
 		{
 			cost_tactical_energy(creature_ptr, 100);
-			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
+			msg_print(MES_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
 
@@ -1287,7 +1287,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 
 		if(PERCENT(j))
 		{
-			msg_print(GAME_MESSAGE_SUCCESS_PICKING);
+			msg_print(MES_SUCCESS_PICKING);
 			cave_alter_feat(floor_ptr, y, x, FF_OPEN);
 			sound(SOUND_OPENDOOR);
 			gain_exp(creature_ptr, 1, 0, FALSE);
@@ -1296,7 +1296,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 		else
 		{
 			if(flush_failure) flush();
-			msg_print(GAME_MESSAGE_FAILED_PICKING);
+			msg_print(MES_FAILED_PICKING);
 		}
 	}
 	else
@@ -1504,7 +1504,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		/* Creature in the way */
 		else if(c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
-			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
+			msg_print(MES_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
 		else if(object_idx) more = do_cmd_disarm_chest(creature_ptr, y, x, object_idx);
@@ -1633,7 +1633,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 		else if(c_ptr->creature_idx)
 		{
 			cost_tactical_energy(creature_ptr, 100);
-			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
+			msg_print(MES_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
 		else more = do_cmd_bash_aux(creature_ptr, y, x, dir);
@@ -1765,7 +1765,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 		else if(c_ptr->creature_idx)
 		{
 			cost_tactical_energy(creature_ptr, 100);
-			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
+			msg_print(MES_CREATURE_IN_THE_WAY);
 			close_combat(creature_ptr, y, x, 0);
 		}
 		else
@@ -2532,7 +2532,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 					/* Get "the creature" or "it" */
 					creature_desc(m_name, steed_ptr, 0);
-					msg_format(GAME_MESSAGE_PROJECTILE_HITS, object_name, m_name);
+					msg_format(MES_PROJECTILE_HITS, object_name, m_name);
 
 					if(steed_ptr->see_others)
 					{
@@ -2555,7 +2555,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 						creature_desc(m_name, steed_ptr, 0);
 
 						tdam = steed_ptr->chp + 1;
-						msg_format(GAME_MESSAGE_FATAL_SPOT, m_name);
+						msg_format(MES_FATAL_SPOT, m_name);
 					}
 					else tdam = 1;
 				}
@@ -3055,7 +3055,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 					/* Get "the creature" or "it" */
 					creature_desc(m_name, m_ptr, 0);
-					msg_format(GAME_MESSAGE_PROJECTILE_HITS, object_name, m_name);
+					msg_format(MES_PROJECTILE_HITS, object_name, m_name);
 
 					if(m_ptr->see_others)
 					{
@@ -3150,7 +3150,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				{
 					char m_name[MAX_NLEN];
 					creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
-					msg_format(GAME_MESSAGE_CAMP_GET_ANGRY, m_name);
+					msg_format(MES_CAMP_GET_ANGRY, m_name);
 
 					set_hostile(creature_ptr, &creature_list[floor_ptr->cave[y][x].creature_idx]);
 				}

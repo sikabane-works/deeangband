@@ -457,9 +457,9 @@ void do_cmd_browse(creature_type *creature_ptr)
 
 			/* Notify that there's nothing to see, and wait. */
 			if(use_realm == REALM_HISSATSU)
-				prt(GAME_MESSAGE_NO_STUDY_SPELL, 0, 0);
+				prt(MES_NO_STUDY_SPELL, 0, 0);
 			else
-				prt(GAME_MESSAGE_NO_STUDY_TECH, 0, 0);
+				prt(MES_NO_STUDY_TECH, 0, 0);
 			(void)inkey();
 
 			screen_load();
@@ -542,7 +542,7 @@ void do_cmd_study(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr))
 	{
-		msg_print(GAME_MESSAGE_IS_BLIND);
+		msg_print(MES_IS_BLIND);
 		return;
 	}
 
@@ -706,7 +706,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 		if(creature_ptr->class_idx == CLASS_FORCETRAINER) confirm_use_force(creature_ptr, FALSE);
 		else
 		{
-			msg_print(GAME_MESSAGE_IS_BLIND);
+			msg_print(MES_IS_BLIND);
 			flush();
 		}
 		return;
@@ -834,7 +834,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 			prayer);
 #endif
 		if(!over_exert) return;
-		if(!get_check_strict(GAME_MESSAGE_ATTEMPT_ANYWAY, CHECK_OKAY_CANCEL)) return;
+		if(!get_check_strict(MES_ATTEMPT_ANYWAY, CHECK_OKAY_CANCEL)) return;
 
 	}
 
@@ -1362,7 +1362,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		if(c_ptr->creature_idx)
 		{
 			cost_tactical_energy(rider_ptr, 100);
-			msg_print(GAME_MESSAGE_CREATURE_IN_THE_WAY);
+			msg_print(MES_CREATURE_IN_THE_WAY);
 			close_combat(rider_ptr, y, x, 0);
 			return FALSE;
 		}
@@ -1419,7 +1419,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		}
 		if(species_info[steed_ptr->species_idx].level > randint1((rider_ptr->skill_exp[SKILL_RIDING] / 50 + rider_ptr->lev / 2 + 20)))
 		{
-			msg_print(GAME_MESSAGE_RIDING_FAILED);
+			msg_print(MES_RIDING_FAILED);
 			cost_tactical_energy(rider_ptr, 100);
 			return FALSE;
 		}

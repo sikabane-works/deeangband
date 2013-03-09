@@ -3998,7 +3998,7 @@ void combine_pack(creature_type *creature_ptr)
 		}
 	}
 	while (combined);
-	//TODO if(flag && is_player(creature_ptr)) msg_print(GAME_MESSAGE_PACK_COMBINE);
+	//TODO if(flag && is_player(creature_ptr)) msg_print(MES_PACK_COMBINE);
 }
 
 // Reorder items in the pack
@@ -4047,7 +4047,7 @@ void reorder_pack(creature_type *creature_ptr)
 		prepare_window(PW_INVEN);
 	}
 
-	//TODO if(flag && is_player(creature_ptr)) msg_print(GAME_MESSAGE_PACK_REORDER);
+	//TODO if(flag && is_player(creature_ptr)) msg_print(MES_PACK_REORDER);
 }
 
 
@@ -5332,7 +5332,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 	if((mode != 10) && (object_is_artifact(object_ptr) || object_is_smith(object_ptr)))
 	{
-		msg_print(GAME_MESSAGE_IMPROVE_LIMIT);
+		msg_print(MES_IMPROVE_LIMIT);
 		return;
 	}
 
@@ -5425,7 +5425,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		{
 			if((object_ptr->to_hit >= creature_ptr->lev/5+5) && (object_ptr->to_damage >= creature_ptr->lev/5+5))
 			{
-				msg_print(GAME_MESSAGE_IMPROVEMENT_FAILED);
+				msg_print(MES_IMPROVEMENT_FAILED);
 				cost_tactical_energy(creature_ptr, 100);
 				return;
 			}
@@ -5439,7 +5439,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		{
 			if(object_ptr->to_ac >= creature_ptr->lev/5+5)
 			{
-				msg_print(GAME_MESSAGE_IMPROVEMENT_FAILED);
+				msg_print(MES_IMPROVEMENT_FAILED);
 				cost_tactical_energy(creature_ptr, 100);
 				return;
 			}

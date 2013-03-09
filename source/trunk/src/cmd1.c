@@ -419,12 +419,12 @@ void search(creature_type *creature_ptr)
 				if(c_ptr->mimic && is_trap(c_ptr->feat)) // Invisible trap
 				{
 					disclose_grid(floor_ptr, y, x);
-					msg_print(GAME_MESSAGE_FIND_TRAP);
+					msg_print(MES_FIND_TRAP);
 					disturb(player_ptr, 0, 0);
 				}
 				if(is_hidden_door(c_ptr)) // Secret door
 				{
-					msg_print(GAME_MESSAGE_FIND_DOOR);
+					msg_print(MES_FIND_DOOR);
 					disclose_grid(floor_ptr, y, x); // Disclose
 					disturb(player_ptr, 0, 0);
 				}
@@ -527,7 +527,7 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 			if(record_fix_quest) do_cmd_write_diary(DIARY_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;
 			quest[i].complev = (byte)creature_ptr->lev;
-			msg_print(GAME_MESSAGE_COMPLETE_QUEST);
+			msg_print(MES_COMPLETE_QUEST);
 			msg_print(NULL);
 		}
 	}
@@ -1097,7 +1097,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		     (!has_trait(creature_ptr, TRAIT_CAN_FLY) && have_flag(f_ptr->flags, FF_DEEP))))
 		{
 
-			if(is_player(creature_ptr)) msg_print(GAME_MESSAGE_HAYAGAKE_PREVENT);
+			if(is_player(creature_ptr)) msg_print(MES_HAYAGAKE_PREVENT);
 			cost_tactical_energy(creature_ptr, 100);
 			set_action(creature_ptr, ACTION_NONE);
 		}
@@ -1153,7 +1153,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 			if(record_fix_quest) do_cmd_write_diary(DIARY_FIX_QUEST_C, floor_ptr->quest, NULL);
 			quest[floor_ptr->quest].status = QUEST_STATUS_COMPLETED;
 			quest[floor_ptr->quest].complev = (byte)creature_ptr->lev;
-			msg_print(GAME_MESSAGE_COMPLETE_QUEST);
+			msg_print(MES_COMPLETE_QUEST);
 			msg_print(NULL);
 		}
 
@@ -1579,7 +1579,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		{
 			/* Boundary floor mimic */
 			if(boundary_floor(c_ptr, f_ptr, mimic_f_ptr))
-				msg_print(GAME_MESSAGE_CANNOT_GO_MORE);
+				msg_print(MES_CANNOT_GO_MORE);
 
 			/* Wall (or secret door) */
 			else
@@ -1596,7 +1596,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			// Boundary floor mimic
 			if(boundary_floor(c_ptr, f_ptr, mimic_f_ptr))
 			{
-				msg_print(GAME_MESSAGE_CANNOT_GO_MORE);
+				msg_print(MES_CANNOT_GO_MORE);
 				if(!(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_STUN) || has_trait(creature_ptr, TRAIT_HALLUCINATION)))
 					cancel_tactical_action(creature_ptr);
 			}
@@ -2448,7 +2448,7 @@ static bool travel_test(creature_type *creature_ptr)
 	/* Cannot travel when blind */
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr))
 	{
-		msg_print(GAME_MESSAGE_IS_BLIND);
+		msg_print(MES_IS_BLIND);
 		return TRUE;
 	}
 

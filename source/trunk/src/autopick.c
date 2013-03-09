@@ -1707,7 +1707,7 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 				char object_name[MAX_NLEN];
 
 				object_desc(object_name, object_ptr, 0);
-				msg_format(GAME_MESSAGE_PACK_NO_ROOM, object_name);
+				msg_format(MES_PACK_NO_ROOM, object_name);
 				/* Hack - remember that the item has given a message here. */
 				object_ptr->marked |= OM_NOMSG;
 

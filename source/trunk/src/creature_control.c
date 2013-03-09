@@ -2805,7 +2805,7 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 		creature_desc(m_name, creature_ptr, 0);
 		msg_format(MES_POLYMORPH_DONE(old_m_name));
 		if(!has_trait(creature_ptr, TRAIT_RIDING))
-			if(do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_print(GAME_MESSAGE_FALL_RIDING);
+			if(do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_print(MES_FALL_RIDING);
 	}
 
 	oldmhp = creature_ptr->mmhp;
@@ -3313,7 +3313,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	{
 		if(randint1(BREAK_GLYPH) < (species_ptr->level + 20))
 		{
-			if(c_ptr->info & CAVE_MARK) msg_print(GAME_MESSAGE_BREAK_P_RUNE);
+			if(c_ptr->info & CAVE_MARK) msg_print(MES_BREAK_P_RUNE);
 			c_ptr->info &= ~(CAVE_MARK);	// Forget the rune
 			c_ptr->info &= ~(CAVE_OBJECT);	// Break the rune
 			c_ptr->mimic = 0;
@@ -3504,12 +3504,12 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 			/* Describe observable breakage */
 			if(c_ptr->info & CAVE_MARK)
 			{
-				msg_print(GAME_MESSAGE_BREAK_E_RUNE);
+				msg_print(MES_BREAK_E_RUNE);
 				project(NULL, 0, 2, y, x, diceroll(10, 7), DO_EFFECT_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 		}
 		else
-			msg_print(GAME_MESSAGE_DISARM_E_RUNE);
+			msg_print(MES_DISARM_E_RUNE);
 
 		/* Forget the rune */
 		c_ptr->info &= ~(CAVE_MARK);

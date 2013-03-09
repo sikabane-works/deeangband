@@ -3563,7 +3563,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	// No useful feeling in quests
 	if(floor_ptr->quest && !random_quest_number(floor_ptr))
 	{
-		msg_print(GAME_MESSAGE_FEELING_QUESTDUN);
+		msg_print(MES_FEELING_QUESTDUN);
 		return;
 	}
 
@@ -3576,12 +3576,12 @@ void do_cmd_feeling(creature_type *creature_ptr)
 		if(!strcmp(town[floor_ptr->town_num].name, "wilderness"))
 #endif
 		{
-			msg_print(GAME_MESSAGE_FEELING_WILD_POINT);
+			msg_print(MES_FEELING_WILD_POINT);
 			return;
 		}
 		else
 		{
-			msg_print(GAME_MESSAGE_FEELING_TOWN);
+			msg_print(MES_FEELING_TOWN);
 			return;
 		}
 	}
@@ -3589,7 +3589,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	// No useful feeling in the wilderness
 	else if(!floor_ptr->floor_level)
 	{
-		msg_print(GAME_MESSAGE_FEELING_WILD);
+		msg_print(MES_FEELING_WILD);
 		return;
 	}
 
@@ -7443,7 +7443,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 	int rand_level = 100;
 	int total = 0;
 
-	fprintf(fff, GAME_MESSAGE_CURRENT_QUEST);
+	fprintf(fff, MES_CURRENT_QUEST);
 	fprintf(fff, "\n\n");
 
 	for (i = 1; i < max_quests; i++)
@@ -7605,7 +7605,7 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 	int i;
 	int total = 0;
 
-	fprintf(fff, GAME_MESSAGE_COMPLETED_QUEST);
+	fprintf(fff, MES_COMPLETED_QUEST);
 	fprintf(fff, "\n\n");
 
 	for (i = 1; i < max_quests; i++)
@@ -7681,7 +7681,7 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 	int i;
 	int total = 0;
 
-	fprintf(fff, GAME_MESSAGE_FAILED_QUEST);
+	fprintf(fff, MES_FAILED_QUEST);
 	fprintf(fff, "\n\n");
 
 	for (i = 1; i < max_quests; i++)
@@ -7737,7 +7737,7 @@ static void do_cmd_knowledge_quests_wiz_random(FILE *fff)
 	int i;
 	int total = 0;
 
-	fprintf(fff, GAME_MESSAGE_REMAINING_QUEST);
+	fprintf(fff, MES_REMAINING_QUEST);
 	fprintf(fff, "\n\n");
 
 	for (i = 1; i < max_quests; i++)

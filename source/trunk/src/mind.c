@@ -1018,7 +1018,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 					}
 					if((ty != oy) || (tx != ox))
 					{
-						msg_format(GAME_MESSAGE_BLOE_AWAY, m_name);
+						msg_format(MES_BLOE_AWAY, m_name);
 						floor_ptr->cave[oy][ox].creature_idx = 0;
 						floor_ptr->cave[ty][tx].creature_idx = m_idx;
 						m_ptr->fy = ty;
@@ -1059,7 +1059,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 				if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, TRAIT_S_PHANTOM, PC_FORCE_PET))
 					success = TRUE;
 			if(success) msg_print(MES_SUMMON_SERVANT);
-			else msg_print(GAME_MESSAGE_NO_HAPPEN);
+			else msg_print(MES_NO_HAPPEN);
 			break;
 		}
 	case 11:
@@ -1284,7 +1284,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 
 			if(!floor_ptr->cave[y][x].creature_idx)
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				return FALSE;
 			}
 
@@ -1408,7 +1408,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			if(floor_ptr->cave[y][x].creature_idx)
 			{
 				close_combat(caster_ptr, y, x, 0);
-				if(randint0(caster_ptr->skill_dis) < 7) msg_print(GAME_MESSAGE_FAILED_RUNAWAY);
+				if(randint0(caster_ptr->skill_dis) < 7) msg_print(MES_FAILED_RUNAWAY);
 				else
 				{
 					teleport_creature(caster_ptr, 30, 0L);
@@ -1416,7 +1416,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			}
 			else
 			{
-				msg_print(GAME_MESSAGE_NO_DICRECTION_CREATURE);
+				msg_print(MES_NO_DICRECTION_CREATURE);
 				msg_print(NULL);
 			}
 			break;
@@ -1663,7 +1663,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 	{
 		msg_print(MES_PREVENT_BY_MP);
 		if(!over_exert) return;
-		if(!get_check(GAME_MESSAGE_ATTEMPT_ANYWAY)) return;
+		if(!get_check(MES_ATTEMPT_ANYWAY)) return;
 	}
 
 	if(chance)

@@ -2647,7 +2647,7 @@ static bool py_pickup_floor_aux(creature_type *creature_ptr)
 #else
 	q = "Get which item? ";
 #endif
-	s = GAME_MESSAGE_PACK_NO_ROOM_FLOOR;
+	s = MES_PACK_NO_ROOM_FLOOR;
 
 	if(get_item(creature_ptr, &item, q, s, (USE_FLOOR), inven_carry_okay, 0))
 	{
@@ -2701,7 +2701,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		/* Pick up gold */
 		if(object_ptr->tval == TV_GOLD)
 		{
-			msg_format(GAME_MESSAGE_GET_MONEY, (long)object_ptr->pval, object_name);
+			msg_format(MES_GET_MONEY, (long)object_ptr->pval, object_name);
 
 			/* Collect the gold */
 			creature_ptr->au += object_ptr->pval;
@@ -2754,7 +2754,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			object_ptr = &object_list[floor_object_idx];
 
 			object_desc(object_name, object_ptr, 0);
-			msg_format(GAME_MESSAGE_SEE_OBJECT, object_name);
+			msg_format(MES_SEE_OBJECT, object_name);
 		}
 		else msg_format(MES_OBJECT_FOUND(floor_num)); // Multiple objects
 		return;
@@ -2770,10 +2770,10 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			object_ptr = &object_list[floor_object_idx];
 
 			object_desc(object_name, object_ptr, 0);
-			msg_format(GAME_MESSAGE_PACK_NO_ROOM, object_name);
+			msg_format(MES_PACK_NO_ROOM, object_name);
 		}
 
-		else msg_print(GAME_MESSAGE_PACK_NO_ROOM_FLOOR);
+		else msg_print(MES_PACK_NO_ROOM_FLOOR);
 
 		return;
 	}
