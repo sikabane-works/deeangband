@@ -412,7 +412,7 @@ errr process_pref_file_command(char *buf)
 
 
 	/* Require "?:*" format */
-	if(buf[1] != ':') return 1;
+	if(buf[1] != ':') return FAILURE;
 
 
 	switch (buf[0])
@@ -421,7 +421,7 @@ errr process_pref_file_command(char *buf)
 	/* Process "H:<history>" */
 	case 'H':
 		add_history_from_pref_line(buf + 2);
-		return 0;
+		return SUCCESS;
 
 	/* Process "R:<num>:<a>/<c>" -- attr/char for creature races */
 	case 'R':
@@ -431,11 +431,11 @@ errr process_pref_file_command(char *buf)
 			i = (huge)strtol(zz[0], NULL, 0);
 			n1 = strtol(zz[1], NULL, 0);
 			n2 = strtol(zz[2], NULL, 0);
-			if(i >= max_species_idx) return 1;
+			if(i >= max_species_idx) return FAILURE;
 			species_ptr = &species_info[i];
 			if(n1 || (!(n2 & 0x80) && n2)) species_ptr->x_attr = n1; /* Allow TERM_DARK text */
 			if(n2) species_ptr->x_char = n2;
-			return 0;
+			return SUCCESS;
 		}
 		break;
 
@@ -447,11 +447,11 @@ errr process_pref_file_command(char *buf)
 			i = (huge)strtol(zz[0], NULL, 0);
 			n1 = strtol(zz[1], NULL, 0);
 			n2 = strtol(zz[2], NULL, 0);
-			if(i >= max_object_kind_idx) return 1;
+			if(i >= max_object_kind_idx) return FAILURE;
 			object_kind_ptr = &object_kind_info[i];
 			if(n1 || (!(n2 & 0x80) && n2)) object_kind_ptr->x_attr = n1; /* Allow TERM_DARK text */
 			if(n2) object_kind_ptr->x_char = n2;
-			return 0;
+			return SUCCESS;
 		}
 		break;
 
@@ -464,11 +464,11 @@ errr process_pref_file_command(char *buf)
 			feature_type *f_ptr;
 			int num = tokenize(buf + 2, F_LIT_MAX * 2 + 1, zz, TOKENIZE_CHECKQUOTE);
 
-			if((num != 3) && (num != 4) && (num != F_LIT_MAX * 2 + 1)) return 1;
-			else if((num == 4) && !streq(zz[3], "LIT")) return 1;
+			if((num != 3) && (num != 4) && (num != F_LIT_MAX * 2 + 1)) return FAILURE;
+			else if((num == 4) && !streq(zz[3], "LIT")) return FAILURE;
 
 			i = (huge)strtol(zz[0], NULL, 0);
-			if(i >= max_feature_idx) return 1;
+			if(i >= max_feature_idx) return FAILURE;
 			f_ptr = &feature_info[i];
 
 			n1 = strtol(zz[1], NULL, 0);
@@ -507,7 +507,7 @@ errr process_pref_file_command(char *buf)
 				break;
 			}
 		}
-		return 0;
+		return SUCCESS;
 
 	/* Process "S:<num>:<a>/<c>" -- attr/char for special things */
 	case 'S':
@@ -518,7 +518,7 @@ errr process_pref_file_command(char *buf)
 			n2 = strtol(zz[2], NULL, 0);
 			misc_to_acttr[j] = n1;
 			misc_to_char[j] = n2;
-			return 0;
+			return SUCCESS;
 		}
 		break;
 
@@ -538,7 +538,7 @@ errr process_pref_file_command(char *buf)
 					if(n2) object_kind_ptr->d_char = n2;
 				}
 			}
-			return 0;
+			return SUCCESS;
 		}
 		break;
 
@@ -549,14 +549,14 @@ errr process_pref_file_command(char *buf)
 			j = (byte)strtol(zz[0], NULL, 0) % 128;
 			n1 = strtol(zz[1], NULL, 0);
 			if(n1) tval_to_acttr[j] = n1;
-			return 0;
+			return SUCCESS;
 		}
 		break;
 
 	/* Process "A:<str>" -- save an "action" for later */
 	case 'A':
 		text_to_acscii(macro__buf, buf+2);
-		return 0;
+		return SUCCESS;
 
 	/* Process "P:<str>" -- normal macro */
 	case 'P':
@@ -565,7 +565,7 @@ errr process_pref_file_command(char *buf)
 
 		text_to_acscii(tmp, buf+2);
 		macro_add(tmp, macro__buf);
-		return 0;
+		return SUCCESS;
 	}
 
 	/* Process "C:<str>" -- create keymap */
@@ -574,20 +574,20 @@ errr process_pref_file_command(char *buf)
 		int mode;
 		char tmp[1024];
 
-		if(tokenize(buf+2, 2, zz, TOKENIZE_CHECKQUOTE) != 2) return 1;
+		if(tokenize(buf+2, 2, zz, TOKENIZE_CHECKQUOTE) != 2) return FAILURE;
 
 		mode = strtol(zz[0], NULL, 0);
-		if((mode < 0) || (mode >= KEYMAP_MODES)) return 1;
+		if((mode < 0) || (mode >= KEYMAP_MODES)) return FAILURE;
 
 		text_to_acscii(tmp, zz[1]);
-		if(!tmp[0] || tmp[1]) return 1;
+		if(!tmp[0] || tmp[1]) return FAILURE;
 		i = (byte)(tmp[0]);
 
 		string_free(keymap_act[mode][i]);
 
 		keymap_act[mode][i] = string_make(macro__buf);
 
-		return 0;
+		return SUCCESS;
 	}
 
 	/* Process "V:<num>:<kv>:<rv>:<gv>:<bv>" -- visual info */
@@ -599,7 +599,7 @@ errr process_pref_file_command(char *buf)
 			angband_color_table[i][1] = (byte)strtol(zz[2], NULL, 0);
 			angband_color_table[i][2] = (byte)strtol(zz[3], NULL, 0);
 			angband_color_table[i][3] = (byte)strtol(zz[4], NULL, 0);
-			return 0;
+			return SUCCESS;
 		}
 		break;
 
@@ -625,7 +625,7 @@ errr process_pref_file_command(char *buf)
 					msg_format("Birth options can not changed! '%s'", buf);
 #endif
 					msg_print(NULL);
-					return 0;
+					return SUCCESS;
 				}
 
 				if(buf[0] == 'X')
@@ -640,18 +640,13 @@ errr process_pref_file_command(char *buf)
 					option_flag[os] |= (1L << ob);
 					(*option_info[i].o_var) = TRUE;
 				}
-				return 0;
+				return SUCCESS;
 			}
 		}
 
-		/* don't know that option. ignore it.*/
-#ifdef JP
-		msg_format("オプションの名前が正しくありません： %s", buf);
-#else
-		msg_format("Ignored invalid option: %s", buf);
-#endif
+		msg_format(MES_PLEFFILE_INVALID_OPTION(buf));
 		msg_print(NULL);
-		return 0;
+		return SUCCESS;
 
 	/* Process "Z:<type>:<str>" -- set spell color */
 	case 'Z':
@@ -659,7 +654,7 @@ errr process_pref_file_command(char *buf)
 		/* Find the colon */
 		char *t = my_strchr(buf + 2, ':');
 
-		if(!t) return 1;
+		if(!t) return FAILURE;
 
 		/* Nuke the colon */
 		*(t++) = '\0';
@@ -672,7 +667,7 @@ errr process_pref_file_command(char *buf)
 				/* Remember this color set */
 				gf_color[gf_desc[i].num] = quark_add(t);
 
-				return 0;
+				return SUCCESS;
 			}
 		}
 
@@ -720,7 +715,7 @@ errr process_pref_file_command(char *buf)
 				max_macrotrigger = 0;
 			}
 
-			if(*zz[0] == '\0') return 0; /* clear template */
+			if(*zz[0] == '\0') return SUCCESS; /* clear template */
 
 			/* Number of modifier flags */
 			num = strlen(zz[1]);
@@ -729,7 +724,7 @@ errr process_pref_file_command(char *buf)
 			num = MIN(MAX_MACRO_MOD, num);
 
 			/* Stop if number of modifier is not correct */
-			if(2 + num != tok) return 1;
+			if(2 + num != tok) return FAILURE;
 
 			/* Get a template string */
 			macro_template = string_make(zz[0]);
@@ -752,12 +747,8 @@ errr process_pref_file_command(char *buf)
 			char *t, *s;
 			if(max_macrotrigger >= MAX_MACRO_TRIG)
 			{
-#ifdef JP
-				msg_print("マクロトリガーの設定が多すぎます!");
-#else
-				msg_print("Too many macro triggers!");
-#endif
-				return 1;
+				msg_print(MES_PLEFFILE_TOO_MACRO);
+				return FAILURE;
 			}
 			m = max_macrotrigger;
 			max_macrotrigger++;
@@ -778,23 +769,14 @@ errr process_pref_file_command(char *buf)
 			/* Get the corresponding key code */
 			macro_trigger_keycode[0][m] = string_make(zz[1]);
 
-			if(tok == 3)
-			{
-				/* Key code of a combination of it with the shift key */
-				macro_trigger_keycode[1][m] = string_make(zz[2]);
-			}
-			else
-			{
-				macro_trigger_keycode[1][m] = string_make(zz[1]);
-			}
+			if(tok == 3) macro_trigger_keycode[1][m] = string_make(zz[2]);
+			else macro_trigger_keycode[1][m] = string_make(zz[1]);
 		}
-
-		/* No error */
-		return 0;
+		return SUCCESS;
 	}
 	}
 
-	return 1;
+	return FAI+URE;
 }
 
 

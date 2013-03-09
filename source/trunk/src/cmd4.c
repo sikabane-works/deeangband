@@ -1242,12 +1242,6 @@ static void do_cmd_options_cheat(cptr info)
 	{
 		int dir;
 
-		/* Prompt  */
-#ifdef JP
-		sprintf(buf, "%s ( リターンで次へ, y/n でセット, ESC で決定 )", info);
-#else
-		sprintf(buf, "%s (RET to advance, y/n to set, ESC to accept) ", info);
-#endif
 		prt(buf, 0, 0);
 
 #ifdef JP

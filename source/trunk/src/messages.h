@@ -3659,4 +3659,11 @@ static cptr desc_stat_neg[] =
 #define MES_INMAGIC_NO_TYPE "You don't have that type of magic."
 #endif
 
+#ifdef JP
+#define MES_PLEFFILE_TOO_MACRO "マクロトリガーの設定が多すぎます!"
+#define MES_PLEFFILE_INVALID_OPTION(NAME) "オプションの名前が正しくありません： %s", (NAME)
+#else
+#define MES_PLEFFILE_TOO_MACRO "Too many macro triggers!"
+#define MES_PLEFFILE_INVALID_OPTION(NAME) "Ignored invalid option: %s", (NAME)
+#endif
 
