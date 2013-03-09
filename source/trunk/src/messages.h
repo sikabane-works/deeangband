@@ -888,6 +888,8 @@
 #define GAME_MESSAGE_FEATURE_UP_STAIR "上の階に降りた。"
 #define GAME_MESSAGE_FEATURE_DOWN_STAIR "下の階に降りた。"
 #define GAME_MESSAGE_FEATURE_CREATE_STAIR "魔法の階段が現れた..."
+#define MES_FEATURE_TRAP_DOOR_SELF "わざと落とし戸に落ちた。"
+#define MES_FEATURE_ENTER_DUNGEON(MES) "%sへ入った。", (MES)
 
 #define GAME_MESSAGE_FEATURE_STUCK "%sはがっちりと閉じられているようだ。"
 #define GAME_MESSAGE_FEATURE_CLOSED_DUNGEON "ダンジョンの入口は塞がれている！"
@@ -907,6 +909,8 @@
 #define GAME_MESSAGE_FEATURE_UP_STAIR "You enter the up staircase."
 #define GAME_MESSAGE_FEATURE_DOWN_STAIR "You enter the down staircase."
 #define GAME_MESSAGE_FEATURE_CREATE_STAIR "A magical staircase appears..."
+#define MES_FEATURE_TRAP_DOOR_SELF "You deliberately jump through the trap door."
+#define MES_FEATURE_ENTER_DUNGEON(MES) "You entered %s.", (MES)
 
 #define GAME_MESSAGE_FEATURE_STUCK "The %s appears to be stuck."
 #define GAME_MESSAGE_FEATURE_CLOSED_DUNGEON "The entrance of this dungeon is closed!"

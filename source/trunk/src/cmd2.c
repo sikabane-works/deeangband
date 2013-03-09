@@ -217,24 +217,13 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			else do_cmd_write_diary(DIARY_STAIR, down_num, DIARY_DOWN_STAIR);
 		}
 
-		if(fall_trap)
-		{
-#ifdef JP
-			msg_print("‚í‚´‚Æ—Ž‚Æ‚µŒË‚É—Ž‚¿‚½B");
-#else
-			msg_print("You deliberately jump through the trap door.");
-#endif
-		}
+		if(fall_trap) msg_print(MES_FEATURE_TRAP_DOOR_SELF);
 		else
 		{
 			if(target_dungeon)
 			{
-/*
-#ifdef JP
-				msg_format("%s‚Ö“ü‚Á‚½B", dungeon_text + dungeon_info[floor_ptr->dun_type].text);
-#else
-				msg_format("You entered %s.", dungeon_text + dungeon_info[floor_ptr->dun_type].text);
-#endif
+/* // TODO 
+				msg_format(MES_FEATURE_ENTER_DUNGEON(dungeon_text + dungeon_info[floor_ptr->dun_type].text));
 */
 			}
 			else
@@ -2856,10 +2845,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	free_posture(creature_ptr);
 
-	if(shuriken)
-	{
-		item = shuriken;
-	}
+	if(shuriken) item = shuriken;
 	else if(boomerang)
 	{
 		if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
@@ -3329,7 +3315,6 @@ static void forget_travel_flow(floor_type *floor_ptr)
 		for (x = 0; x < floor_ptr->width; x++)
 		{
 			travel.cost[y][x] = TRAVEL_UNABLE; // Forget the old data
-
 		}
 	}
 }
