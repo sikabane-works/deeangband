@@ -4362,11 +4362,7 @@ static void dump_aux_home_museum(FILE *fff)
 		int i;
 		int x = 1;
 
-#ifdef JP
-		fprintf(fff, "  [‰ä‚ª‰Æ‚ÌƒAƒCƒeƒ€]\n");
-#else
-		fprintf(fff, "  [Home inventory]\n");
-#endif
+		fprintf(fff, "  [%s]\n", MES_INFO_HOME);
 
 		// Dump all available items
 		for (i = 0; i < st_ptr->stock_num; i++)

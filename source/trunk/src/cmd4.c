@@ -7793,11 +7793,7 @@ static void do_cmd_knowledge_home(void)
 			int x = 1;
 #endif
 			// Header with name of the town
-#ifdef JP
-			fprintf(fff, "  [ ‰ä‚ª‰Æ‚ÌƒAƒCƒeƒ€ ]\n");
-#else
-			fprintf(fff, "  [Home inventory]\n");
-#endif
+			fprintf(fff, "  [%s]\n", MES_INFO_HOME);
 
 			// Dump all available items
 			for (i = 0; i < st_ptr->stock_num; i++)
