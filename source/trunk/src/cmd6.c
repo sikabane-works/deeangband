@@ -1807,7 +1807,6 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 void do_cmd_zap_rod(creature_type *creature_ptr)
 {
 	int item;
-	cptr q, s;
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_ROD, MES_OBJECT_NO_ROD, (USE_INVEN | USE_FLOOR), NULL, TV_ROD)) return;
 	do_cmd_zap_rod_aux(creature_ptr, item);
@@ -1877,7 +1876,7 @@ static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
  */
 static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 {
-	int         dir, lev, chance, fail, i;
+	int dir, lev, chance, fail, i;
 	object_type *object_ptr;
 	bool success;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -2159,23 +2158,11 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 					success = TRUE;
 				}
 			}
-			if(!success)
-#ifdef JP
-				msg_print("おっと、解放に失敗した。");
-#else
-				msg_print("Oops.  You failed to release your pet.");
-#endif
+			if(!success) msg_print(MES_OBJECT_MBALL_FAILED);
 		}
 		return;
 	}
-
-	/* Mistake */
-#ifdef JP
-	msg_print("おっと、このアイテムは始動できない。");
-#else
-	msg_print("Oops.  That object cannot be activated.");
-#endif
-
+	msg_print(MES_OBJECT_ACTIVATE_NONE);
 }
 
 
