@@ -3651,6 +3651,12 @@ static cptr desc_stat_neg[] =
 #define MES_EATMAGIC_LOST_MANA(OBJECT) "You save your %s from destruction, but all charges are lost.", (OBEJCT)->name
 #endif
 
-
+#ifdef JP
+#define MES_INMAGIC_LIST "[A] 杖, [B] 魔法棒, [C] ロッド:"
+#define MES_INMAGIC_NO_TYPE "その種類の魔法は覚えていない。"
+#else
+#define MES_INMAGIC_LIST "[A] staff, [B] wand, [C] rod:"
+#define MES_INMAGIC_NO_TYPE "You don't have that type of magic."
+#endif
 
 

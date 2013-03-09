@@ -2165,7 +2165,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	msg_print(MES_OBJECT_ACTIVATE_NONE);
 }
 
-
 void do_cmd_activate(creature_type *creature_ptr)
 {
 	int item;
@@ -2173,7 +2172,6 @@ void do_cmd_activate(creature_type *creature_ptr)
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_ACTIVATE, MES_OBJECT_NO_ACTIVATE, (USE_EQUIP), item_tester_hook_activate, 0)) return;
 	do_cmd_activate_aux(creature_ptr, item);
 }
-
 
 /*
  * Hook to determine if an object is useable
@@ -2214,10 +2212,8 @@ static bool item_tester_hook_use(creature_type *creature_ptr, object_type *objec
 							if(has_trait_object(object_ptr, i)) return TRUE;
 			}
 		}
-	}
-
-	
-	return FALSE; // Assume not
+	}	
+	return FALSE;
 }
 
 
@@ -2305,13 +2301,12 @@ void do_cmd_use(creature_type *creature_ptr)
 
 static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 {
-	int ext=0;
+	int ext = 0;
 	char choice;
 	bool flag, request_list;
 	int tval = 0;
-	int             ask = TRUE, i = 0;
-	char            out_val[160];
-
+	int ask = TRUE, i = 0;
+	char out_val[160];
 	int menu_line = (use_menu ? 1 : 0);
 	int sn;
 
@@ -2324,10 +2319,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			return sn;
 	}
 
-	for (i = 0; i < 108; i++)
-	{
-		if(creature_ptr->max_charge[i]) break;
-	}
+	for (i = 0; i < 108; i++) if(creature_ptr->max_charge[i]) break;
 	if(i == 108)
 	{
 #ifdef JP
@@ -2390,14 +2382,8 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	{
 	while (TRUE)
 	{
-#ifdef JP
-		if(!get_com("[A] 杖, [B] 魔法棒, [C] ロッド:", &choice, TRUE))
-#else
-		if(!get_com("[A] staff, [B] wand, [C] rod:", &choice, TRUE))
-#endif
-		{
+		if(!get_com(MES_INMAGIC_LIST, &choice, TRUE))
 			return -1;
-		}
 		if(choice == 'A' || choice == 'a')
 		{
 			ext = 0;
@@ -2428,11 +2414,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	}
 	if(i == ext+EATER_EXT)
 	{
-#ifdef JP
-		msg_print("その種類の魔法は覚えていない！");
-#else
-		msg_print("You don't have that type of magic!");
-#endif
+		msg_print(MES_INMAGIC_NO_TYPE);
 		return -1;
 	}
 
