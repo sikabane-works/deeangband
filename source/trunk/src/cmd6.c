@@ -2168,23 +2168,9 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 void do_cmd_activate(creature_type *creature_ptr)
 {
-	int     item;
-	cptr    q, s;
-
-
+	int item;
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
-
-#ifdef JP
-	q = "どのアイテムを始動させますか? ";
-	s = "始動できるアイテムを装備していない。";
-#else
-	q = "Activate which item? ";
-	s = "You have nothing to activate.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_activate, 0)) return;
-
-	/* Activate the item */
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_ACTIVATE, MES_OBJECT_NO_ACTIVATE, (USE_EQUIP), item_tester_hook_activate, 0)) return;
 	do_cmd_activate_aux(creature_ptr, item);
 }
 
