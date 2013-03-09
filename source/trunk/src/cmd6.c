@@ -1808,17 +1808,8 @@ void do_cmd_zap_rod(creature_type *creature_ptr)
 {
 	int item;
 	cptr q, s;
-
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
-
-#ifdef JP
-	q = "どのロッドを振りますか? ";
-	s = "使えるロッドがない。";
-#else
-	q = "Zap which rod? ";
-	s = "You have no rod to zap.";
-#endif
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_ROD)) return;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_ROD, MES_OBJECT_NO_ROD, (USE_INVEN | USE_FLOOR), NULL, TV_ROD)) return;
 	do_cmd_zap_rod_aux(creature_ptr, item);
 }
 
