@@ -2534,6 +2534,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_ACTIVATE_NONE "このアイテムは始動できない。"
 #define MES_OBJECT_WHICH_THROW "何を投げますか? "
 #define MES_OBJECT_NO_THROW "投げるアイテムがない。"
+#define MES_OBJECT_WHICH_FIRE "どれを撃ちますか? "
+#define MES_OBJECT_NO_FIRE "発射されるアイテムがありません。"
 #else
 #define MES_OBJECT_WHICH_STAFF "Use which staff? "
 #define MES_OBJECT_NO_STAFF "You have no staff to use."
@@ -2552,6 +2554,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_ACTIVATE_NONE "That object cannot be activated."
 #define MES_OBJECT_WHICH_THROW "Throw which item? "
 #define MES_OBJECT_NO_THROW "You have nothing to throw."
+#define MES_OBJECT_WHICH_FIRE "Fire which item? "
+#define MES_OBJECT_NO_FIRE "You have nothing to fire."
 #endif
 
 #ifdef JP

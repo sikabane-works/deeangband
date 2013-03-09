@@ -2751,8 +2751,6 @@ void do_cmd_fire(creature_type *creature_ptr)
 {
 	int item;
 	object_type *j_ptr;
-	cptr q, s;
-
 	creature_ptr->is_fired = FALSE;	/* not fired yet */
 
 	/* Get the "bow" (if any) */
@@ -2783,15 +2781,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 
 	free_posture(creature_ptr);
 
-#ifdef JP
-	q = "どれを撃ちますか? ";
-	s = "発射されるアイテムがありません。";
-#else
-	q = "Fire which item? ";
-	s = "You have nothing to fire.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, creature_ptr->tval_ammo))
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_FIRE, MES_OBJECT_NO_FIRE, (USE_INVEN | USE_FLOOR), NULL, creature_ptr->tval_ammo))
 	{
 		flush();
 		return;
@@ -3367,10 +3357,7 @@ static bool travel_flow_aux(creature_type *creature_ptr, int y, int x, int n, bo
 	{
 		if(!wall) return wall;
 	}
-	else
-	{
-		wall = FALSE;
-	}
+	else wall = FALSE;
 
 	/* Save the flow cost */
 	travel.cost[y][x] = n;
@@ -3470,9 +3457,5 @@ void do_cmd_travel(creature_type *creature_ptr)
 	dy = abs(creature_ptr->fy - y);
 	sx = ((x == creature_ptr->fx) || (dx < dy)) ? 0 : ((x > creature_ptr->fx) ? 1 : -1);
 	sy = ((y == creature_ptr->fy) || (dy < dx)) ? 0 : ((y > creature_ptr->fy) ? 1 : -1);
-
-	for (i = 1; i <= 9; i++)
-	{
-		if((sx == ddx[i]) && (sy == ddy[i])) travel.dir = i;
-	}
+	for (i = 1; i <= 9; i++) if((sx == ddx[i]) && (sy == ddy[i])) travel.dir = i;
 }
