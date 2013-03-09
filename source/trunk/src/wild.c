@@ -654,12 +654,12 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 		/* Process "W:F:<letter>:<terrain>:<town>:<road>:<name> */
 #ifdef JP
 	case 'E':
-		return 0;
+		return SUCCESS;
 	case 'F':
 	case 'J':
 #else
 	case 'J':
-		return 0;
+		return SUCCESS;
 	case 'F':
 	case 'E':
 #endif
@@ -693,11 +693,7 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 			else
 				w_letter[index].name[0] = 0;
 		}
-		else
-		{
-			return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
-		}
-		
+		else return PARSE_ERROR_TOO_FEW_ARGUMENTS;
 		break;
 	}
 	
@@ -737,19 +733,11 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 			{
 				player_ptr->wy = atoi(zz[0]);
 				player_ptr->wx = atoi(zz[1]);
-				
-				if((player_ptr->wx < 1) ||
-				    (player_ptr->wx > max_wild_x) ||
-				    (player_ptr->wy < 1) ||
-				    (player_ptr->wy > max_wild_y))
-				{
-					return (PARSE_ERROR_OUT_OF_BOUNDS);
-				}
+				if((player_ptr->wx < 1) || (player_ptr->wx > max_wild_x) ||
+				    (player_ptr->wy < 1) || (player_ptr->wy > max_wild_y))
+					return PARSE_ERROR_OUT_OF_BOUNDS;
 			}
-			else
-			{
-				return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
-			}
+			else return PARSE_ERROR_TOO_FEW_ARGUMENTS;
 		}
 		
 		break;
@@ -994,13 +982,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 		if(!m_ptr->species_idx) continue;
 		if(is_pet(player_ptr, m_ptr) && i != creature_ptr->riding) have_pet = TRUE;
 		if(!enemy_is_still_here(m_ptr)) continue;
-
-#ifdef JP
-		msg_print("敵がすぐ近くにいるときは混沌の地平に入れない！");
-#else
-		msg_print("You cannot enter global map, since there is some creatures nearby!");
-#endif
-
+		msg_print(MES_FIELD_TOO_NEAR_ENEMY);
 		cancel_tactical_action(creature_ptr);
 		return FALSE;
 	}
@@ -1025,10 +1007,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 
 	/* Cancel any special action */
 	set_action(creature_ptr, ACTION_NONE);
-
-	/* Go into the global map */
-	//TODO floor_ptr->world_map = TRUE;
-	msg_print("あなたは混沌の地平を歩み始めた…");
+	msg_print(MES_FIELD_START);
 
 	/* Leaving */
 	subject_change_floor = TRUE;

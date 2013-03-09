@@ -336,73 +336,73 @@ static named_num gf_desc[] =
 
 
 /*
- * Parse a sub-file of the "extra info" (format shown below)
- *
- * Each "action" line has an "action symbol" in the first column,
- * followed by a colon, followed by some command specific info,
- * usually in the form of "tokens" separated by colons or slashes.
- *
- * Blank lines, lines starting with white space, and lines starting
- * with pound signs ("#") are ignored (as comments).
- *
- * Note the use of "tokenize()" to allow the use of both colons and
- * slashes as delimeters, while still allowing final tokens which
- * may contain any characters including "delimiters".
- *
- * Note the use of "strtol()" to allow all "integers" to be encoded
- * in decimal, hexidecimal, or octal form.
- *
- * Note that "creature zero" is used for the "player" attr/char, "object
- * zero" will be used for the "stack" attr/char, and "feature zero" is
- * used for the "nothing" attr/char.
- *
- * Parse another file recursively, see below for details
- *   %:<filename>
- *
- * Specify the attr/char values for "creatures" by race index
- *   R:<num>:<a>:<c>
- *
- * Specify the attr/char values for "objects" by kind index
- *   K:<num>:<a>:<c>
- *
- * Specify the attr/char values for "features" by feature index
- *   F:<num>:<a>:<c>
- *
- * Specify the attr/char values for unaware "objects" by kind tval
- *   U:<tv>:<a>:<c>
- *
- * Specify the attr/char values for player_ptr->inventory "objects" by kind tval
- *   E:<tv>:<a>:<c>
- *
- * Define a macro action, given an encoded macro action
- *   A:<str>
- *
- * Create a normal macro, given an encoded macro trigger
- *   P:<str>
- *
- * Create a command macro, given an encoded macro trigger
- *   C:<str>
- *
- * Create a keyset mapping
- *   S:<key>:<key>:<dir>
- *
- * Turn an option off, given its name
- *   X:<str>
- *
- * Turn an option on, given its name
- *   Y:<str>
- *
- * Specify visual information, given an index, and some data
- *   V:<num>:<kv>:<rv>:<gv>:<bv>
- *
- * Specify the set of colors to use when drawing a zapped spell
- *   Z:<type>:<str>
- *
- * Specify a macro trigger template and macro trigger names.
- *   T:<template>:<modifier chr>:<modifier name1>:<modifier name2>:...
- *   T:<trigger>:<keycode>:<shift-keycode>
- *
- */
+* Parse a sub-file of the "extra info" (format shown below)
+*
+* Each "action" line has an "action symbol" in the first column,
+* followed by a colon, followed by some command specific info,
+* usually in the form of "tokens" separated by colons or slashes.
+*
+* Blank lines, lines starting with white space, and lines starting
+* with pound signs ("#") are ignored (as comments).
+*
+* Note the use of "tokenize()" to allow the use of both colons and
+* slashes as delimeters, while still allowing final tokens which
+* may contain any characters including "delimiters".
+*
+* Note the use of "strtol()" to allow all "integers" to be encoded
+* in decimal, hexidecimal, or octal form.
+*
+* Note that "creature zero" is used for the "player" attr/char, "object
+* zero" will be used for the "stack" attr/char, and "feature zero" is
+* used for the "nothing" attr/char.
+*
+* Parse another file recursively, see below for details
+*   %:<filename>
+*
+* Specify the attr/char values for "creatures" by race index
+*   R:<num>:<a>:<c>
+*
+* Specify the attr/char values for "objects" by kind index
+*   K:<num>:<a>:<c>
+*
+* Specify the attr/char values for "features" by feature index
+*   F:<num>:<a>:<c>
+*
+* Specify the attr/char values for unaware "objects" by kind tval
+*   U:<tv>:<a>:<c>
+*
+* Specify the attr/char values for player_ptr->inventory "objects" by kind tval
+*   E:<tv>:<a>:<c>
+*
+* Define a macro action, given an encoded macro action
+*   A:<str>
+*
+* Create a normal macro, given an encoded macro trigger
+*   P:<str>
+*
+* Create a command macro, given an encoded macro trigger
+*   C:<str>
+*
+* Create a keyset mapping
+*   S:<key>:<key>:<dir>
+*
+* Turn an option off, given its name
+*   X:<str>
+*
+* Turn an option on, given its name
+*   Y:<str>
+*
+* Specify visual information, given an index, and some data
+*   V:<num>:<kv>:<rv>:<gv>:<bv>
+*
+* Specify the set of colors to use when drawing a zapped spell
+*   Z:<type>:<str>
+*
+* Specify a macro trigger template and macro trigger names.
+*   T:<template>:<modifier chr>:<modifier name1>:<modifier name2>:...
+*   T:<trigger>:<keycode>:<shift-keycode>
+*
+*/
 
 errr process_pref_file_command(char *buf)
 {
@@ -414,13 +414,13 @@ errr process_pref_file_command(char *buf)
 
 	switch (buf[0])
 	{
-	/* Mega-Hack -- read external player's history file */
-	/* Process "H:<history>" */
+		/* Mega-Hack -- read external player's history file */
+		/* Process "H:<history>" */
 	case 'H':
 		add_history_from_pref_line(buf + 2);
 		return SUCCESS;
 
-	/* Process "R:<num>:<a>/<c>" -- attr/char for creature races */
+		/* Process "R:<num>:<a>/<c>" -- attr/char for creature races */
 	case 'R':
 		if(tokenize(buf+2, 3, zz, TOKENIZE_CHECKQUOTE) == 3)
 		{
@@ -436,7 +436,7 @@ errr process_pref_file_command(char *buf)
 		}
 		break;
 
-	/* Process "K:<num>:<a>/<c>"  -- attr/char for object kinds */
+		/* Process "K:<num>:<a>/<c>"  -- attr/char for object kinds */
 	case 'K':
 		if(tokenize(buf+2, 3, zz, TOKENIZE_CHECKQUOTE) == 3)
 		{
@@ -452,10 +452,10 @@ errr process_pref_file_command(char *buf)
 		}
 		break;
 
-	/* Process "F:<num>:<a>/<c>" -- attr/char for terrain features */
-	/* "F:<num>:<a>/<c>" */
-	/* "F:<num>:<a>/<c>:LIT" */
-	/* "F:<num>:<a>/<c>:<la>/<lc>:<da>/<dc>" */
+		/* Process "F:<num>:<a>/<c>" -- attr/char for terrain features */
+		/* "F:<num>:<a>/<c>" */
+		/* "F:<num>:<a>/<c>:LIT" */
+		/* "F:<num>:<a>/<c>:<la>/<lc>:<da>/<dc>" */
 	case 'F':
 		{
 			feature_type *f_ptr;
@@ -476,7 +476,7 @@ errr process_pref_file_command(char *buf)
 			/* Mega-hack -- feat supports lighting */
 			switch (num)
 			{
-			/* No lighting support */
+				/* No lighting support */
 			case 3:
 				n1 = f_ptr->x_attr[F_LIT_STANDARD];
 				n2 = f_ptr->x_char[F_LIT_STANDARD];
@@ -487,12 +487,12 @@ errr process_pref_file_command(char *buf)
 				}
 				break;
 
-			/* Use default lighting */
+				/* Use default lighting */
 			case 4:
 				apply_default_feat_lighting(f_ptr->x_attr, f_ptr->x_char);
 				break;
 
-			/* Use desired lighting */
+				/* Use desired lighting */
 			case F_LIT_MAX * 2 + 1:
 				for (j = F_LIT_NS_BEGIN; j < F_LIT_MAX; j++)
 				{
@@ -506,7 +506,7 @@ errr process_pref_file_command(char *buf)
 		}
 		return SUCCESS;
 
-	/* Process "S:<num>:<a>/<c>" -- attr/char for special things */
+		/* Process "S:<num>:<a>/<c>" -- attr/char for special things */
 	case 'S':
 		if(tokenize(buf+2, 3, zz, TOKENIZE_CHECKQUOTE) == 3)
 		{
@@ -519,7 +519,7 @@ errr process_pref_file_command(char *buf)
 		}
 		break;
 
-	/* Process "U:<tv>:<a>/<c>" -- attr/char for unaware items */
+		/* Process "U:<tv>:<a>/<c>" -- attr/char for unaware items */
 	case 'U':
 		if(tokenize(buf+2, 3, zz, TOKENIZE_CHECKQUOTE) == 3)
 		{
@@ -539,7 +539,7 @@ errr process_pref_file_command(char *buf)
 		}
 		break;
 
-	/* Process "E:<tv>:<a>" -- attribute for inventory objects */
+		/* Process "E:<tv>:<a>" -- attribute for inventory objects */
 	case 'E':
 		if(tokenize(buf+2, 2, zz, TOKENIZE_CHECKQUOTE) == 2)
 		{
@@ -550,44 +550,44 @@ errr process_pref_file_command(char *buf)
 		}
 		break;
 
-	/* Process "A:<str>" -- save an "action" for later */
+		/* Process "A:<str>" -- save an "action" for later */
 	case 'A':
 		text_to_acscii(macro__buf, buf+2);
 		return SUCCESS;
 
-	/* Process "P:<str>" -- normal macro */
+		/* Process "P:<str>" -- normal macro */
 	case 'P':
-	{
-		char tmp[1024];
+		{
+			char tmp[1024];
 
-		text_to_acscii(tmp, buf+2);
-		macro_add(tmp, macro__buf);
-		return SUCCESS;
-	}
+			text_to_acscii(tmp, buf+2);
+			macro_add(tmp, macro__buf);
+			return SUCCESS;
+		}
 
-	/* Process "C:<str>" -- create keymap */
+		/* Process "C:<str>" -- create keymap */
 	case 'C':
-	{
-		int mode;
-		char tmp[1024];
+		{
+			int mode;
+			char tmp[1024];
 
-		if(tokenize(buf+2, 2, zz, TOKENIZE_CHECKQUOTE) != 2) return FAILURE;
+			if(tokenize(buf+2, 2, zz, TOKENIZE_CHECKQUOTE) != 2) return FAILURE;
 
-		mode = strtol(zz[0], NULL, 0);
-		if((mode < 0) || (mode >= KEYMAP_MODES)) return FAILURE;
+			mode = strtol(zz[0], NULL, 0);
+			if((mode < 0) || (mode >= KEYMAP_MODES)) return FAILURE;
 
-		text_to_acscii(tmp, zz[1]);
-		if(!tmp[0] || tmp[1]) return FAILURE;
-		i = (byte)(tmp[0]);
+			text_to_acscii(tmp, zz[1]);
+			if(!tmp[0] || tmp[1]) return FAILURE;
+			i = (byte)(tmp[0]);
 
-		string_free(keymap_act[mode][i]);
+			string_free(keymap_act[mode][i]);
 
-		keymap_act[mode][i] = string_make(macro__buf);
+			keymap_act[mode][i] = string_make(macro__buf);
 
-		return SUCCESS;
-	}
+			return SUCCESS;
+		}
 
-	/* Process "V:<num>:<kv>:<rv>:<gv>:<bv>" -- visual info */
+		/* Process "V:<num>:<kv>:<rv>:<gv>:<bv>" -- visual info */
 	case 'V':
 		if(tokenize(buf+2, 5, zz, TOKENIZE_CHECKQUOTE) == 5)
 		{
@@ -600,15 +600,15 @@ errr process_pref_file_command(char *buf)
 		}
 		break;
 
-	/* Process "X:<str>" -- turn option off */
-	/* Process "Y:<str>" -- turn option on */
+		/* Process "X:<str>" -- turn option off */
+		/* Process "Y:<str>" -- turn option on */
 	case 'X':
 	case 'Y':
 		for (i = 0; option_info[i].o_desc; i++)
 		{
 			if(option_info[i].o_var &&
-			    option_info[i].o_text &&
-			    streq(option_info[i].o_text, buf + 2))
+				option_info[i].o_text &&
+				streq(option_info[i].o_text, buf + 2))
 			{
 				int os = option_info[i].o_set;
 				int ob = option_info[i].o_bit;
@@ -645,132 +645,132 @@ errr process_pref_file_command(char *buf)
 		msg_print(NULL);
 		return SUCCESS;
 
-	/* Process "Z:<type>:<str>" -- set spell color */
+		/* Process "Z:<type>:<str>" -- set spell color */
 	case 'Z':
-	{
-		/* Find the colon */
-		char *t = my_strchr(buf + 2, ':');
-
-		if(!t) return FAILURE;
-
-		/* Nuke the colon */
-		*(t++) = '\0';
-
-		for (i = 0; gf_desc[i].name; i++)
 		{
-			/* Match this type */
-			if(streq(gf_desc[i].name, buf + 2))
-			{
-				/* Remember this color set */
-				gf_color[gf_desc[i].num] = quark_add(t);
+			/* Find the colon */
+			char *t = my_strchr(buf + 2, ':');
 
-				return SUCCESS;
+			if(!t) return FAILURE;
+
+			/* Nuke the colon */
+			*(t++) = '\0';
+
+			for (i = 0; gf_desc[i].name; i++)
+			{
+				/* Match this type */
+				if(streq(gf_desc[i].name, buf + 2))
+				{
+					/* Remember this color set */
+					gf_color[gf_desc[i].num] = quark_add(t);
+
+					return SUCCESS;
+				}
 			}
+
+			break;
 		}
 
-		break;
-	}
-
-	/* Initialize macro trigger names and a template */
-	/* Process "T:<trigger>:<keycode>:<shift-keycode>" */
-	/* Process "T:<template>:<modifier chr>:<modifier name>:..." */
-	case 'T':
-	{
-		int tok = tokenize(buf+2, 2+MAX_MACRO_MOD, zz, 0);
-
+		/* Initialize macro trigger names and a template */
+		/* Process "T:<trigger>:<keycode>:<shift-keycode>" */
 		/* Process "T:<template>:<modifier chr>:<modifier name>:..." */
-		if(tok >= 4)
+	case 'T':
 		{
-			int i;
-			int num;
+			int tok = tokenize(buf+2, 2+MAX_MACRO_MOD, zz, 0);
 
-			if(macro_template != NULL)
+			/* Process "T:<template>:<modifier chr>:<modifier name>:..." */
+			if(tok >= 4)
 			{
-				num = strlen(macro_modifier_chr);
+				int i;
+				int num;
 
-				/* Kill the template string */
-				string_free(macro_template);
-				macro_template = NULL;
+				if(macro_template != NULL)
+				{
+					num = strlen(macro_modifier_chr);
 
-				/* Kill flag characters of modifier keys */
-				string_free(macro_modifier_chr);
+					/* Kill the template string */
+					string_free(macro_template);
+					macro_template = NULL;
 
-				/* Kill corresponding modifier names */
+					/* Kill flag characters of modifier keys */
+					string_free(macro_modifier_chr);
+
+					/* Kill corresponding modifier names */
+					for (i = 0; i < num; i++)
+					{
+						string_free(macro_modifiespecies_name[i]);
+					}
+
+					/* Kill trigger name strings */
+					for (i = 0; i < max_macrotrigger; i++)
+					{
+						string_free(macro_triggespecies_name[i]);
+						string_free(macro_trigger_keycode[0][i]);
+						string_free(macro_trigger_keycode[1][i]);
+					}
+
+					max_macrotrigger = 0;
+				}
+
+				if(*zz[0] == '\0') return SUCCESS; /* clear template */
+
+				/* Number of modifier flags */
+				num = strlen(zz[1]);
+
+				/* Limit the number */
+				num = MIN(MAX_MACRO_MOD, num);
+
+				/* Stop if number of modifier is not correct */
+				if(2 + num != tok) return FAILURE;
+
+				/* Get a template string */
+				macro_template = string_make(zz[0]);
+
+				/* Get flag characters of modifier keys */
+				macro_modifier_chr = string_make(zz[1]);
+
+				/* Get corresponding modifier names */
 				for (i = 0; i < num; i++)
 				{
-					string_free(macro_modifiespecies_name[i]);
+					macro_modifiespecies_name[i] = string_make(zz[2+i]);
 				}
+			}
 
-				/* Kill trigger name strings */
-				for (i = 0; i < max_macrotrigger; i++)
+			/* Process "T:<trigger>:<keycode>:<shift-keycode>" */
+			else if(tok >= 2)
+			{
+				char buf[1024];
+				int m;
+				char *t, *s;
+				if(max_macrotrigger >= MAX_MACRO_TRIG)
 				{
-					string_free(macro_triggespecies_name[i]);
-					string_free(macro_trigger_keycode[0][i]);
-					string_free(macro_trigger_keycode[1][i]);
+					msg_print(MES_PLEFFILE_TOO_MACRO);
+					return FAILURE;
 				}
+				m = max_macrotrigger;
+				max_macrotrigger++;
 
-				max_macrotrigger = 0;
+				/* Take into account the escape character  */
+				t = buf;
+				s = zz[0];
+				while (*s)
+				{
+					if('\\' == *s) s++;
+					*t++ = *s++;
+				}
+				*t = '\0';
+
+				/* Get a trigger name */
+				macro_triggespecies_name[m] = string_make(buf);
+
+				/* Get the corresponding key code */
+				macro_trigger_keycode[0][m] = string_make(zz[1]);
+
+				if(tok == 3) macro_trigger_keycode[1][m] = string_make(zz[2]);
+				else macro_trigger_keycode[1][m] = string_make(zz[1]);
 			}
-
-			if(*zz[0] == '\0') return SUCCESS; /* clear template */
-
-			/* Number of modifier flags */
-			num = strlen(zz[1]);
-
-			/* Limit the number */
-			num = MIN(MAX_MACRO_MOD, num);
-
-			/* Stop if number of modifier is not correct */
-			if(2 + num != tok) return FAILURE;
-
-			/* Get a template string */
-			macro_template = string_make(zz[0]);
-
-			/* Get flag characters of modifier keys */
-			macro_modifier_chr = string_make(zz[1]);
-
-			/* Get corresponding modifier names */
-			for (i = 0; i < num; i++)
-			{
-				macro_modifiespecies_name[i] = string_make(zz[2+i]);
-			}
+			return SUCCESS;
 		}
-
-		/* Process "T:<trigger>:<keycode>:<shift-keycode>" */
-		else if(tok >= 2)
-		{
-			char buf[1024];
-			int m;
-			char *t, *s;
-			if(max_macrotrigger >= MAX_MACRO_TRIG)
-			{
-				msg_print(MES_PLEFFILE_TOO_MACRO);
-				return FAILURE;
-			}
-			m = max_macrotrigger;
-			max_macrotrigger++;
-
-			/* Take into account the escape character  */
-			t = buf;
-			s = zz[0];
-			while (*s)
-			{
-				if('\\' == *s) s++;
-				*t++ = *s++;
-			}
-			*t = '\0';
-
-			/* Get a trigger name */
-			macro_triggespecies_name[m] = string_make(buf);
-
-			/* Get the corresponding key code */
-			macro_trigger_keycode[0][m] = string_make(zz[1]);
-
-			if(tok == 3) macro_trigger_keycode[1][m] = string_make(zz[2]);
-			else macro_trigger_keycode[1][m] = string_make(zz[1]);
-		}
-		return SUCCESS;
-	}
 	}
 
 	return FAILURE;

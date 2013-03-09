@@ -682,9 +682,13 @@
 #ifdef JP
 #define MES_FIELD_UMBUSHED "襲撃だ！"
 #define MES_FIELD_ASK_CHAOS "本当に〈混沌〉の領域に入りますか？"
+#define MES_FIELD_START "あなたは混沌の地平を歩み始めた…"
+#define MES_FIELD_TOO_NEAR_ENEMY "敵がすぐ近くにいるときは混沌の地平に入れない！"
 #else
 #define MES_FIELD_UMBUSHED "You are ambushed !"
 #define MES_FIELD_ASK_CHAOS "Really want to enter territory of chaos? "
+#define MES_FIELD_START "You begin to walk the horizon of chaos..."
+#define MES_FIELD_TOO_NEAR_ENEMY "You cannot enter global map, since there is some creatures nearby!"
 #endif
 
 #ifdef JP
