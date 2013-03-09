@@ -5025,11 +5025,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		case '/':
 		case KTRL('s'):
 			/* Get "finder" */
-#ifdef JP
-			prt("åüçı: ", hgt - 1, 0);
-#else
-			prt("Find: ", hgt - 1, 0);
-#endif
+			prt(MES_SYS_FIND, hgt - 1, 0);
 
 			strcpy(back_str, finder_str);
 			if(askfor(finder_str, 80))

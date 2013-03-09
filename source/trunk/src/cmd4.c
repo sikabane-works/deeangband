@@ -1092,12 +1092,7 @@ void do_cmd_messages(int num_now)
 		case KTRL('s'):
 			{
 				int z;
-
-#ifdef JP
-				prt("åüçı: ", hgt - 1, 0);
-#else
-				prt("Find: ", hgt - 1, 0);
-#endif
+				prt(MES_SYS_FIND, hgt - 1, 0);
 
 				/* Get a "finder" string, or continue */
 				strcpy(back_str, finder_str);
