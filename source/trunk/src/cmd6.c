@@ -1767,22 +1767,14 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	if((object_ptr->number == 1) && (object_ptr->timeout))
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("このロッドはまだ魔力を充填している最中だ。");
-#else
-		msg_print("The rod is still charging.");
-#endif
+		msg_print(MES_OBJECT_STILL_CHARGING1);
 		return;
 	}
 	// A stack of rods lacks enough energy.
 	else if((object_ptr->number > 1) && (object_ptr->timeout > object_kind_ptr->pval * (object_ptr->number - 1)))
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("そのロッドはまだ充填中です。");
-#else
-		msg_print("The rods are all still charging.");
-#endif
+		msg_print(MES_OBJECT_STILL_CHARGING2);
 		return;
 	}
 

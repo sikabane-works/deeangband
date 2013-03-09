@@ -2518,6 +2518,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_WAND_NEED_PICKUP "まずは魔法棒を拾わなければ。"
 #define MES_OBJECT_ROD_NEED_PICKUP "まずはロッドを拾わなければ。"
 #define MES_OBJECT_ROD_FAILED "うまくロッドを使えなかった。"
+#define MES_OBJECT_STILL_CHARGING1 "このロッドはまだ魔力を充填している最中だ。"
+#define MES_OBJECT_STILL_CHARGING2 "そのロッドはまだ充填中です。"
 #else
 #define MES_OBJECT_WHICH_STAFF "Use which staff? "
 #define MES_OBJECT_NO_STAFF "You have no staff to use."
@@ -2526,6 +2528,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_WAND_NEED_PICKUP "You must first pick up the wands."
 #define MES_OBJECT_ROD_NEED_PICKUP "You must first pick up the rods."
 #define MES_OBJECT_ROD_FAILED "You failed to use the rod properly."
+#define MES_OBJECT_STILL_CHARGING1 "The rod is still charging."
+#define MES_OBJECT_STILL_CHARGING2 "The rods are still charging."
 #endif
 
 #ifdef JP
