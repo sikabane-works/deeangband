@@ -2861,7 +2861,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	int msec = delay_factor * delay_factor * delay_factor;
 
 	u32b flgs[MAX_TRAITS_FLAG];
-	cptr q, s;
 	bool come_back = FALSE;
 	bool do_drop = TRUE;
 
@@ -2875,15 +2874,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	{
 		if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 		{
-#ifdef JP
-			q = "どの武器を投げますか? ";
-			s = "投げる武器がない。";
-#else
-			q = "Throw which item? ";
-			s = "You have nothing to throw.";
-#endif
-
-			if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_boomerang, 0))
+			if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_THROW, MES_OBJECT_NO_THROW, (USE_EQUIP), item_tester_hook_boomerang, 0))
 			{
 				flush();
 				return FALSE;
@@ -2892,15 +2883,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	}
 	else
 	{
-#ifdef JP
-		q = "どのアイテムを投げますか? ";
-		s = "投げるアイテムがない。";
-#else
-		q = "Throw which item? ";
-		s = "You have nothing to throw.";
-#endif
-
-		if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), item_tester_hook_boomerang, 0))
+		if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_THROW, MES_OBJECT_NO_THROW, (USE_INVEN | USE_FLOOR | USE_EQUIP), item_tester_hook_boomerang, 0))
 		{
 			flush();
 			return FALSE;
