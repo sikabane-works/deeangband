@@ -989,12 +989,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 
 	if(have_pet)
 	{
-#ifdef JP
-		cptr msg = "ペットを置いて混沌の地平に入りますか？";
-#else
-		cptr msg = "Do you leave your pets behind? ";
-#endif
-
+		cptr msg = MES_FIELD_LEAVE_SERVANT;
 		if(!get_check_strict(msg, CHECK_OKAY_CANCEL))
 		{
 			cancel_tactical_action(creature_ptr);
@@ -1019,8 +1014,6 @@ bool change_wild_mode(creature_type *creature_ptr)
 	/* Remember the position */
 	creature_ptr->oldpx = creature_ptr->fx;
 	creature_ptr->oldpy = creature_ptr->fy;
-
-	/* Succeed */
 	return TRUE;
 }
 
