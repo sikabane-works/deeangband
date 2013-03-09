@@ -1071,9 +1071,9 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 	if(have_flag(f_ptr->flags, FF_PERMANENT))
 	{
 		if(have_flag(mimic_f_ptr->flags, FF_PERMANENT))
-			msg_print(GAME_MESSAGE_DIGGING_PERMANENT1);
+			msg_print(MES_DIGGING_PERMANENT1);
 		else
-			msg_print(GAME_MESSAGE_DIGGING_PERMANENT2);
+			msg_print(MES_DIGGING_PERMANENT2);
 	}
 
 	/* Dig or tunnel */
@@ -1082,7 +1082,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 		/* Dig */
 		if(creature_ptr->skill_dig > randint0(20 * power))
 		{
-			msg_format(GAME_MESSAGE_DIGGED1(name));
+			msg_format(MES_DIGGING_DONE1(name));
 
 			/* Remove the feature */
 			cave_alter_feat(floor_ptr, y, x, FF_TUNNEL);
@@ -1093,7 +1093,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 		else
 		{
 			/* Message, keep digging */
-			msg_format(GAME_MESSAGE_DIGGED2(name));
+			msg_format(MES_DIGGING_DONE2(name));
 			more = TRUE;
 		}
 	}

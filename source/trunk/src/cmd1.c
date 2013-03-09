@@ -921,7 +921,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 	{
 		if(!is_pattern_tile_cur && !has_trait(creature_ptr, TRAIT_CONFUSED) && !has_trait(creature_ptr, TRAIT_STUN) && !has_trait(creature_ptr, TRAIT_HALLUCINATION))
 		{
-			if(get_check(GAME_MESSAGE_PATTERN_LIMIT1)) return TRUE;
+			if(get_check(MES_PATTERN_LIMIT1)) return TRUE;
 			else return FALSE;
 		}
 		else return TRUE;
@@ -933,7 +933,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 		if(is_pattern_tile_cur) return TRUE;
 		else
 		{
-			msg_print(GAME_MESSAGE_PATTERN_LIMIT2);
+			msg_print(MES_PATTERN_LIMIT2);
 			return FALSE;
 		}
 	}
@@ -944,7 +944,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 		if(is_pattern_tile_new) return TRUE;
 		else
 		{
-			msg_print(GAME_MESSAGE_PATTERN_LIMIT3);
+			msg_print(MES_PATTERN_LIMIT3);
 			return FALSE;
 		}
 	}
@@ -954,7 +954,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 	{
 		if(!is_pattern_tile_new)
 		{
-			msg_print(GAME_MESSAGE_PATTERN_LIMIT4);
+			msg_print(MES_PATTERN_LIMIT4);
 			return FALSE;
 		}
 		else return TRUE;
@@ -963,7 +963,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 	{
 		if(!is_pattern_tile_cur)
 		{
-			msg_print(GAME_MESSAGE_PATTERN_LIMIT2);
+			msg_print(MES_PATTERN_LIMIT2);
 			return FALSE;
 		}
 		else
@@ -993,9 +993,9 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 			else
 			{
 				if(!is_pattern_tile_new)
-					msg_print(GAME_MESSAGE_PATTERN_LIMIT4);
+					msg_print(MES_PATTERN_LIMIT4);
 				else
-					msg_print(GAME_MESSAGE_PATTERN_LIMIT3);
+					msg_print(MES_PATTERN_LIMIT3);
 				return FALSE;
 			}
 		}

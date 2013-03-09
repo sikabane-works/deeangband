@@ -740,7 +740,7 @@ static void wreck_the_pattern(floor_type *floor_ptr, creature_type *creature_ptr
 
 	if(pattern_type == PATTERN_TILE_WRECKED) return; // Ruined already
 
-	msg_print(GAME_MESSAGE_PATTERN_WRECKED);
+	msg_print(MES_PATTERN_WRECKED);
 
 	if(!IS_INVULN(creature_ptr)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), COD_PATTERN_DAMAGE_3, NULL, -1);
 	to_ruin = randint1(45) + 35;
@@ -773,7 +773,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 	case PATTERN_TILE_END:
 		do_active_trait(creature_ptr, TRAIT_SELF_HEALING_100D100, TRUE);
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx, feat_pattern_old);
-		msg_print(GAME_MESSAGE_PATTERN_GOAL);
+		msg_print(MES_PATTERN_GOAL);
 
 		/*
 		* We could make the healing effect of the

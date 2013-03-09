@@ -896,12 +896,12 @@
 #define MES_FEATURE_CHECK_DUNGEON "ここには%sの入り口(%d階相当)があります"
 #define MES_FEATURE_ASK_ENTER_DUNGEON "本当にこのダンジョンに入りますか？"
 
-#define GAME_MESSAGE_PATTERN_LIMIT1 "パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"
-#define GAME_MESSAGE_PATTERN_LIMIT2 "パターンの上を歩くにはスタート地点から歩き始めなくてはなりません。"
-#define GAME_MESSAGE_PATTERN_LIMIT3 "パターンの上は正しい順序で歩かねばなりません。"
-#define GAME_MESSAGE_PATTERN_LIMIT4 "パターンを踏み外してはいけません。"
-#define GAME_MESSAGE_PATTERN_GOAL "「パターン」のこの部分は他の部分より強力でないようだ。"
-#define GAME_MESSAGE_PATTERN_WRECKED "パターンを血で汚してしまった！何か恐ろしい事が起こりそうだ！"
+#define MES_PATTERN_LIMIT1 "パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"
+#define MES_PATTERN_LIMIT2 "パターンの上を歩くにはスタート地点から歩き始めなくてはなりません。"
+#define MES_PATTERN_LIMIT3 "パターンの上は正しい順序で歩かねばなりません。"
+#define MES_PATTERN_LIMIT4 "パターンを踏み外してはいけません。"
+#define MES_PATTERN_GOAL "「パターン」のこの部分は他の部分より強力でないようだ。"
+#define MES_PATTERN_WRECKED "パターンを血で汚してしまった！何か恐ろしい事が起こりそうだ！"
 
 #else
 #define MES_FEATURE_NO_UP_STAIR "I see no up staircase here."
@@ -917,12 +917,12 @@
 #define MES_FEATURE_CHECK_DUNGEON "There is the entrance of %s (Danger level: %d)"
 #define MES_FEATURE_ASK_ENTER_DUNGEON "Do you really get in this dungeon? "
 
-#define GAME_MESSAGE_PATTERN_LIMIT1 "If you start walking the Pattern, you must walk the whole way. Ok? "
-#define GAME_MESSAGE_PATTERN_LIMIT2 "You must start walking the Pattern from the startpoint."
-#define GAME_MESSAGE_PATTERN_LIMIT3 "You must walk the Pattern in correct order."
-#define GAME_MESSAGE_PATTERN_LIMIT4 "You may not step off from the Pattern."
-#define GAME_MESSAGE_PATTERN_GOAL "This section of the Pattern looks less powerful."
-#define GAME_MESSAGE_PATTERN_WRECKED "You bleed on the Pattern! Something terrible happens!"
+#define MES_PATTERN_LIMIT1 "If you start walking the Pattern, you must walk the whole way. Ok? "
+#define MES_PATTERN_LIMIT2 "You must start walking the Pattern from the startpoint."
+#define MES_PATTERN_LIMIT3 "You must walk the Pattern in correct order."
+#define MES_PATTERN_LIMIT4 "You may not step off from the Pattern."
+#define MES_PATTERN_GOAL "This section of the Pattern looks less powerful."
+#define MES_PATTERN_WRECKED "You bleed on the Pattern! Something terrible happens!"
 #endif
 
 #ifdef JP
@@ -952,15 +952,15 @@
 #endif
 
 #ifdef JP
-#define GAME_MESSAGE_DIGGING_PERMANENT1 "この岩は硬すぎて掘れないようだ。"
-#define GAME_MESSAGE_DIGGING_PERMANENT2 "そこは掘れない!"
-#define GAME_MESSAGE_DIGGED1(NAME) ("%sをくずした。", (NAME))
-#define GAME_MESSAGE_DIGGED2(NAME) ("%sをくずしている。", (NAME))
+#define MES_DIGGING_PERMANENT1 "この岩は硬すぎて掘れないようだ。"
+#define MES_DIGGING_PERMANENT2 "そこは掘れない!"
+#define MES_DIGGING_DONE1(NAME) ("%sをくずした。", (NAME))
+#define MES_DIGGING_DONE2(NAME) ("%sをくずしている。", (NAME))
 #else
-#define GAME_MESSAGE_DIGGING_PERMANENT1 "This seems to be permanent rock."
-#define GAME_MESSAGE_DIGGING_PERMANENT2 "You can't tunnel through that!"
-#define GAME_MESSAGE_DIGGED1(NAME) ("You have removed the %s.", (NAME))
-#define GAME_MESSAGE_DIGGED2(NAME) ("You dig into the %s.", (NAME))
+#define MES_DIGGING_PERMANENT1 "This seems to be permanent rock."
+#define MES_DIGGING_PERMANENT2 "You can't tunnel through that!"
+#define MES_DIGGING_DONE1(NAME) ("You have removed the %s.", (NAME))
+#define MES_DIGGING_DONE2(NAME) ("You dig into the %s.", (NAME))
 #endif
 
 #ifdef JP
