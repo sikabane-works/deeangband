@@ -1887,6 +1887,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_TYPE_FIND_OBJECT(FLOOR, TARGET) "「%s」にある「%s」を見つけ出す。", (FLOOR), (TARGET)
 #define MES_QUEST_TYPE_SEARCH "探索する。"
 #define MES_QUEST_TYPE_KILL_ALL "全てのクリーチャーを倒す。"
+#define MES_QUEST_TYPE_KILL_NUMBER(MAX, CUR) "%d 体のクリーチャーを倒す。(%d 体殺害)", (MAX), (CUR)
 #else
 #define MES_QUEST_INFO2(NAME, LEVEL) "the entrance to the quest '%s'(level %d)", (NAME), (LEVEL)
 #define MES_QUEST_INFO(LEVEL) ("Quest Information (Danger level: %d)", (LEVEL))
@@ -1908,6 +1909,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_TYPE_FIND_OBJECT(FLOOR, TARGET) "Find out %s in %s.", (FLOOR), (TARGET)
 #define MES_QUEST_TYPE_SEARCH "Search."
 #define MES_QUEST_TYPE_KILL_ALL "Kill all creatures."
+#define MES_QUEST_TYPE_KILL_NUMBER(MAX, CUR) "Kill %d creatures, have killed %d.", (MAX), (CUR)
 #endif
 
 static cptr desc_stat_pos[] =

@@ -6244,19 +6244,9 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			handle_stuff(player_ptr);
 		}
 
-		if(visual_list)
-		{
-			place_visual_list_cursor(max + 3, 7, species_ptr->x_attr, species_ptr->x_char, attr_top, char_left);
-		}
-		else if(!column)
-		{
-			Term_gotoxy(0, 6 + (grp_cur - grp_top));
-		}
-		else
-		{
-			Term_gotoxy(max + 3, 6 + (mon_cur - mon_top));
-		}
-
+		if(visual_list) place_visual_list_cursor(max + 3, 7, species_ptr->x_attr, species_ptr->x_char, attr_top, char_left);
+		else if(!column) Term_gotoxy(0, 6 + (grp_cur - grp_top));
+		else Term_gotoxy(max + 3, 6 + (mon_cur - mon_top));
 		ch = inkey();
 
 		/* Do visual mode command if needed */
@@ -6630,26 +6620,17 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 			prt(format("%s - アイテム", !visual_only ? "知識" : "表示"), 2, 0);
 			if(direct_k_idx < 0) prt("グループ", 4, 0);
 			if(wizard || visual_only) prt("Idx", 4, 70);
-			prt("文字", 4, 74);
 #else
 			prt(format("%s - objects", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
 			if(direct_k_idx < 0) prt("Group", 4, 0);
 			if(wizard || visual_only) prt("Idx", 4, 70);
-			prt("Sym", 4, 75);
 #endif
-
-			for (i = 0; i < 78; i++)
-			{
-				Term_putch(i, 5, TERM_WHITE, '=');
-			}
+			prt(KW_SYM, 4, 74);
+			for (i = 0; i < 78; i++) Term_putch(i, 5, TERM_WHITE, '=');
 
 			if(direct_k_idx < 0)
-			{
 				for (i = 0; i < browser_rows; i++)
-				{
 					Term_putch(max + 1, 6 + i, TERM_WHITE, '|');
-				}
-			}
 
 			redraw = FALSE;
 		}
@@ -6712,14 +6693,12 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 		prt(format("<方向>%s%s%s, ESC",
 			(!visual_list && !visual_only) ? ", 'r'で詳細を見る" : "",
 			visual_list ? ", ENTERで決定" : ", 'v'でシンボル変更",
-			(attspecies_idx || chaspecies_idx) ? ", 'c', 'p'でペースト" : ", 'c'でコピー"),
-			hgt - 1, 0);
+			(attspecies_idx || chaspecies_idx) ? ", 'c', 'p'でペースト" : ", 'c'でコピー"), hgt - 1, 0);
 #else
 		prt(format("<dir>%s%s%s, ESC",
 			(!visual_list && !visual_only) ? ", 'r' to recall" : "",
 			visual_list ? ", ENTER to accept" : ", 'v' for visuals",
-			(attspecies_idx || chaspecies_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy"),
-			hgt - 1, 0);
+			(attspecies_idx || chaspecies_idx) ? ", 'c', 'p' to paste" : ", 'c' to copy"), hgt - 1, 0);
 #endif
 
 		if(!visual_only)
@@ -6738,17 +6717,11 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 		}
 
 		if(visual_list)
-		{
 			place_visual_list_cursor(max + 3, 7, flavor_object_kind_ptr->x_attr, flavor_object_kind_ptr->x_char, attr_top, char_left);
-		}
 		else if(!column)
-		{
 			Term_gotoxy(0, 6 + (grp_cur - grp_top));
-		}
 		else
-		{
 			Term_gotoxy(max + 3, 6 + (object_cur - object_top));
-		}
 
 		ch = inkey();
 
@@ -6840,7 +6813,6 @@ static void display_feature_list(int col, int row, int per_page, int *feat_idx,
 		{
 			/* Display lighting level */
 			c_prt(attr, format("(%s)", lighting_level_str[lighting_level]), row_i, col + 1 + strlen(feature_name + f_ptr->name));
-
 			c_prt(attr, format("%02x/%02x", f_ptr->x_attr[lighting_level], f_ptr->x_char[lighting_level]), row_i, f_idx_col - ((wizard || visual_only) ? 6 : 2));
 		}
 		if(wizard || visual_only)
@@ -6853,23 +6825,16 @@ static void display_feature_list(int col, int row, int per_page, int *feat_idx,
 
 		Term_putch(lit_col[F_LIT_NS_BEGIN], row_i, TERM_SLATE, '(');
 		for (j = F_LIT_NS_BEGIN + 1; j < F_LIT_MAX; j++)
-		{
 			Term_putch(lit_col[j], row_i, TERM_SLATE, '/');
-		}
 		Term_putch(lit_col[F_LIT_MAX - 1] + (use_bigtile ? 3 : 2), row_i, TERM_SLATE, ')');
 
 		/* Mega-hack -- Use non-standard colour */
 		for (j = F_LIT_NS_BEGIN; j < F_LIT_MAX; j++)
-		{
 			Term_queue_bigchar(lit_col[j] + 1, row_i, f_ptr->x_attr[j], f_ptr->x_char[j], 0, 0);
-		}
 	}
 
 	/* Clear remaining lines */
-	for (; i < per_page; i++)
-	{
-		Term_erase(col, row + i, 255);
-	}
+	for (; i < per_page; i++) Term_erase(col, row + i, 255);
 }
 
 
@@ -7075,17 +7040,11 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 		cur_char_ptr = &f_ptr->x_char[*lighting_level];
 
 		if(visual_list)
-		{
 			place_visual_list_cursor(max + 3, 7, *cur_attr_ptr, *cur_char_ptr, attr_top, char_left);
-		}
 		else if(!column)
-		{
 			Term_gotoxy(0, 6 + (grp_cur - grp_top));
-		}
 		else
-		{
 			Term_gotoxy(max + 3, 6 + (feat_cur - feat_top));
-		}
 
 		ch = inkey();
 
@@ -7239,12 +7198,12 @@ static void do_cmd_knowledge_kubi(creature_type *creature_ptr)
 #ifdef JP
 		fprintf(fff, "今日のターゲット : %s\n", (today_mon ? species_name + species_info[today_mon].name : "不明"));
 		fprintf(fff, "\n");
-		fprintf(fff, "賞金首の一覧\n");
 #else
 		fprintf(fff, "Today target : %s\n", (today_mon ? species_name + species_info[today_mon].name : "unknown"));
 		fprintf(fff, "\n");
-		fprintf(fff, "List of wanted creatures\n");
 #endif
+		fprintf(fff, MES_INFO_BOUNTY);
+		fprintf(fff, "\n");
 		fprintf(fff, "----------------------------------------------\n");
 
 		for (i = 0; i < MAX_BOUNTY; i++)
@@ -7469,11 +7428,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 						break;
 
 					case QUEST_TYPE_KILL_NUMBER:
-#ifdef JP
-						sprintf(note,"%d 体のクリーチャーを倒す。(あと %d 体)", quest[i].max_num, quest[i].max_num - quest[i].cur_num);
-#else
-						sprintf(note,"Kill %d creatures, have killed %d.", quest[i].max_num, quest[i].cur_num);
-#endif
+						sprintf(note, MES_QUEST_TYPE_KILL_NUMBER(quest[i].max_num, quest[i].cur_num));
 						break;
 
 					case QUEST_TYPE_KILL_ALL:
