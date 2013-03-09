@@ -29,7 +29,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	/* Verify stairs */
 	if(!have_flag(f_ptr->flags, FF_LESS))
 	{
-		msg_print(GAME_MESSAGE_FEATURE_NO_UP_STAIR);
+		msg_print(MES_FEATURE_NO_UP_STAIR);
 		return;
 	}
 
@@ -37,7 +37,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	if(have_flag(f_ptr->flags, FF_QUEST))
 	{
 		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
-		else msg_print(GAME_MESSAGE_FEATURE_UP_STAIR);
+		else msg_print(MES_FEATURE_UP_STAIR);
 
 		leave_quest_check(creature_ptr);
 		floor_ptr->quest = c_ptr->special;
@@ -144,7 +144,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 
 	if(!have_flag(f_ptr->flags, FF_MORE))
 	{
-		msg_print(GAME_MESSAGE_FEATURE_NO_DOWN_STAIR);
+		msg_print(MES_FEATURE_NO_DOWN_STAIR);
 		return;
 	}
 
@@ -155,7 +155,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	else if(have_flag(f_ptr->flags, FF_QUEST))
 	{
 		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(GAME_MESSAGE_COMBAT_TALK_STAIR);
-		else msg_print(GAME_MESSAGE_FEATURE_DOWN_STAIR);
+		else msg_print(MES_FEATURE_DOWN_STAIR);
 
 		leave_quest_check(creature_ptr);
 		subject_change_floor = TRUE;
@@ -174,13 +174,13 @@ void do_cmd_go_down(creature_type *creature_ptr)
 
 			if(ironman_downward && (target_dungeon != DUNGEON_ANGBAND))
 			{
-				msg_print(GAME_MESSAGE_FEATURE_CLOSED_DUNGEON);
+				msg_print(MES_FEATURE_CLOSED_DUNGEON);
 				return;
 			}
 			if(!max_dlv[target_dungeon])
 			{
-				msg_format(GAME_MESSAGE_FEATURE_CHECK_DUNGEON, dungeon_name + dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
-				if(!get_check(GAME_MESSAGE_FEATURE_ENTER_DUNGEON)) return;
+				msg_format(MES_FEATURE_CHECK_DUNGEON, dungeon_name + dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
+				if(!get_check(MES_FEATURE_ASK_ENTER_DUNGEON)) return;
 			}
 
 			/* Save old player position */
@@ -759,7 +759,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 	/* Seeing true feature code (ignore mimic) */
 
 	/* Jammed door */
-	if(!have_flag(f_ptr->flags, FF_OPEN)) msg_format(GAME_MESSAGE_FEATURE_STUCK, feature_name + feature_info[get_feat_mimic(c_ptr)].name);
+	if(!have_flag(f_ptr->flags, FF_OPEN)) msg_format(MES_FEATURE_STUCK, feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 
 	/* Locked door */
 	else if(f_ptr->power)
@@ -1264,7 +1264,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	if(!is_closed_door(c_ptr->feat)) return FALSE; // Must be a closed door
-	if(!have_flag(f_ptr->flags, FF_OPEN)) msg_format(GAME_MESSAGE_FEATURE_STUCK, feature_name + feature_info[get_feat_mimic(c_ptr)].name);
+	if(!have_flag(f_ptr->flags, FF_OPEN)) msg_format(MES_FEATURE_STUCK, feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 
 	/* Locked door */
 	else if(f_ptr->power)

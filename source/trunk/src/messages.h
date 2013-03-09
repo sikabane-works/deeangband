@@ -883,18 +883,18 @@
 #endif
 
 #ifdef JP
-#define GAME_MESSAGE_FEATURE_NO_UP_STAIR "ここには上り階段が見当たらない。"
-#define GAME_MESSAGE_FEATURE_NO_DOWN_STAIR "ここには下り階段が見当たらない。"
-#define GAME_MESSAGE_FEATURE_UP_STAIR "上の階に降りた。"
-#define GAME_MESSAGE_FEATURE_DOWN_STAIR "下の階に降りた。"
-#define GAME_MESSAGE_FEATURE_CREATE_STAIR "魔法の階段が現れた..."
+#define MES_FEATURE_NO_UP_STAIR "ここには上り階段が見当たらない。"
+#define MES_FEATURE_NO_DOWN_STAIR "ここには下り階段が見当たらない。"
+#define MES_FEATURE_UP_STAIR "上の階に降りた。"
+#define MES_FEATURE_DOWN_STAIR "下の階に降りた。"
+#define MES_FEATURE_CREATE_STAIR "魔法の階段が現れた..."
 #define MES_FEATURE_TRAP_DOOR_SELF "わざと落とし戸に落ちた。"
 #define MES_FEATURE_ENTER_DUNGEON(MES) "%sへ入った。", (MES)
 
-#define GAME_MESSAGE_FEATURE_STUCK "%sはがっちりと閉じられているようだ。"
-#define GAME_MESSAGE_FEATURE_CLOSED_DUNGEON "ダンジョンの入口は塞がれている！"
-#define GAME_MESSAGE_FEATURE_CHECK_DUNGEON "ここには%sの入り口(%d階相当)があります"
-#define GAME_MESSAGE_FEATURE_ENTER_DUNGEON "本当にこのダンジョンに入りますか？"
+#define MES_FEATURE_STUCK "%sはがっちりと閉じられているようだ。"
+#define MES_FEATURE_CLOSED_DUNGEON "ダンジョンの入口は塞がれている！"
+#define MES_FEATURE_CHECK_DUNGEON "ここには%sの入り口(%d階相当)があります"
+#define MES_FEATURE_ASK_ENTER_DUNGEON "本当にこのダンジョンに入りますか？"
 
 #define GAME_MESSAGE_PATTERN_LIMIT1 "パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"
 #define GAME_MESSAGE_PATTERN_LIMIT2 "パターンの上を歩くにはスタート地点から歩き始めなくてはなりません。"
@@ -904,18 +904,18 @@
 #define GAME_MESSAGE_PATTERN_WRECKED "パターンを血で汚してしまった！何か恐ろしい事が起こりそうだ！"
 
 #else
-#define GAME_MESSAGE_FEATURE_NO_UP_STAIR "I see no up staircase here."
-#define GAME_MESSAGE_FEATURE_NO_DOWN_STAIR "I see no down staircase here."
-#define GAME_MESSAGE_FEATURE_UP_STAIR "You enter the up staircase."
-#define GAME_MESSAGE_FEATURE_DOWN_STAIR "You enter the down staircase."
-#define GAME_MESSAGE_FEATURE_CREATE_STAIR "A magical staircase appears..."
+#define MES_FEATURE_NO_UP_STAIR "I see no up staircase here."
+#define MES_FEATURE_NO_DOWN_STAIR "I see no down staircase here."
+#define MES_FEATURE_UP_STAIR "You enter the up staircase."
+#define MES_FEATURE_DOWN_STAIR "You enter the down staircase."
+#define MES_FEATURE_CREATE_STAIR "A magical staircase appears..."
 #define MES_FEATURE_TRAP_DOOR_SELF "You deliberately jump through the trap door."
 #define MES_FEATURE_ENTER_DUNGEON(MES) "You entered %s.", (MES)
 
-#define GAME_MESSAGE_FEATURE_STUCK "The %s appears to be stuck."
-#define GAME_MESSAGE_FEATURE_CLOSED_DUNGEON "The entrance of this dungeon is closed!"
-#define GAME_MESSAGE_FEATURE_CHECK_DUNGEON "There is the entrance of %s (Danger level: %d)"
-#define GAME_MESSAGE_FEATURE_ENTER_DUNGEON "Do you really get in this dungeon? "
+#define MES_FEATURE_STUCK "The %s appears to be stuck."
+#define MES_FEATURE_CLOSED_DUNGEON "The entrance of this dungeon is closed!"
+#define MES_FEATURE_CHECK_DUNGEON "There is the entrance of %s (Danger level: %d)"
+#define MES_FEATURE_ASK_ENTER_DUNGEON "Do you really get in this dungeon? "
 
 #define GAME_MESSAGE_PATTERN_LIMIT1 "If you start walking the Pattern, you must walk the whole way. Ok? "
 #define GAME_MESSAGE_PATTERN_LIMIT2 "You must start walking the Pattern from the startpoint."

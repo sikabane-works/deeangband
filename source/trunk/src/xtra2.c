@@ -472,7 +472,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 		}
 
 		/* Explain the staircase */
-		msg_print(GAME_MESSAGE_FEATURE_CREATE_STAIR);
+		msg_print(MES_FEATURE_CREATE_STAIR);
 
 		cave_set_feat(floor_ptr, y, x, feat_down_stair); // Create stairs down
 		prepare_update(player_ptr, PU_FLOW); // Remember to update everything
