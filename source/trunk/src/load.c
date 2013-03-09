@@ -191,7 +191,6 @@ static void rd_string(char *str, int max)
 		if(!tmp8u) break;
 	}
 
-	/* Terminate */
 	str[max-1] = '\0';
 
 

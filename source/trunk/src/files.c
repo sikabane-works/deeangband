@@ -407,13 +407,10 @@ static named_num gf_desc[] =
 errr process_pref_file_command(char *buf)
 {
 	int i, j, n1, n2;
-
 	char *zz[16];
-
 
 	/* Require "?:*" format */
 	if(buf[1] != ':') return FAILURE;
-
 
 	switch (buf[0])
 	{
@@ -776,7 +773,7 @@ errr process_pref_file_command(char *buf)
 	}
 	}
 
-	return FAI+URE;
+	return FAILURE;
 }
 
 
@@ -1690,41 +1687,6 @@ static void display_player_middle(creature_type *creature_ptr)
 			melee_num++;
 		}
 	}
-
-	/*
-	if(creature_ptr->can_melee[0])
-	{
-		display_player_melee_bonus(creature_ptr, 0, has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? ENTRY_LEFT_HAND1 : ENTRY_RIGHT_HAND1);
-	}
-
-	if(creature_ptr->can_melee[1])
-	{
-		display_player_melee_bonus(creature_ptr, 1, has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? ENTRY_RIGHT_HAND2: ENTRY_LEFT_HAND2);
-	}
-	else if((creature_ptr->class_idx == CLASS_MONK) && (empty_hands(creature_ptr, TRUE) & EMPTY_HAND_RARM))
-	{
-		int i;
-		if(creature_ptr->posture & KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU)
-		{
-			for (i = 0; i < MAX_KAMAE; i++)
-			{
-				if((creature_ptr->posture >> i) & KAMAE_GENBU) break;
-			}
-			if(i < MAX_KAMAE)
-#ifdef JP
-				display_player_one_line(ENTRY_POSTURE, format("%s‚Ì\‚¦", kamae_shurui[i].desc), TERM_YELLOW);
-#else
-				display_player_one_line(ENTRY_POSTURE, format("%s form", kamae_shurui[i].desc), TERM_YELLOW);
-#endif
-		}
-		else
-#ifdef JP
-				display_player_one_line(ENTRY_POSTURE, "\‚¦‚È‚µ", TERM_YELLOW);
-#else
-				display_player_one_line(ENTRY_POSTURE, "none", TERM_YELLOW);
-#endif
-	}
-	*/
 
 	/* Apply weapon bonuses */
 	if(bow_ptr->k_idx)
@@ -3530,8 +3492,6 @@ static void dump_aux_display_creature_status(creature_type *creature_ptr, FILE *
 		{
 			/* Get the attr/char */
 			(void)(Term_what(x, y, &a, &c));
-
-			/* Dump it */
 			buf[x] = c;
 		}
 
@@ -3557,8 +3517,6 @@ static void dump_aux_display_creature_status(creature_type *creature_ptr, FILE *
 		{
 			/* Get the attr/char */
 			(void)(Term_what(x, y, &a, &c));
-
-			/* Dump it */
 			buf[x] = c;
 		}
 
@@ -5381,7 +5339,6 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 
 #endif
 
-	/* Terminate */
 	player_base[k] = '\0';
 
 	/* Require a "base" name */

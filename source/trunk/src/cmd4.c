@@ -240,8 +240,6 @@ static void auto_dump_printf(cptr fmt, ...)
 
 	/* Count number of lines */
 	for (p = buf; *p; p++) if(*p == '\n') auto_dump_line_num++;
-
-	/* Dump it */
 	fprintf(auto_dump_stream, "%s", buf);
 }
 
@@ -2116,7 +2114,6 @@ static void do_cmd_macro_aux(char *buf)
 		i = inkey();
 	}
 
-	/* Terminate */
 	buf[n] = '\0';
 
 	flush();
@@ -4932,12 +4929,9 @@ void do_cmd_save_screen(creature_type *player_ptr)
 			{
 				/* Get the attr/char */
 				(void)(Term_what(x, y, &a, &c));
-
-				/* Dump it */
 				buf[x] = c;
 			}
 
-			/* Terminate */
 			buf[x] = '\0';
 
 			/* End the row */
@@ -4957,7 +4951,6 @@ void do_cmd_save_screen(creature_type *player_ptr)
 				buf[x] = hack[a&0x0F];
 			}
 
-			/* Terminate */
 			buf[x] = '\0';
 
 			/* End the row */

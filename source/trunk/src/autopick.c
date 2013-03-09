@@ -3540,7 +3540,6 @@ static byte get_string_for_search(creature_type *creature_ptr, object_type **o_h
 				}
 			}
 
-			/* Terminate */
 			buf[pos] = '\0';
 
 			/* Write back the left part of string */
@@ -4797,7 +4796,6 @@ static bool insert_macro_line(text_body_type *tb)
 		i = inkey();
 	}
 
-	/* Terminate */
 	buf[n] = '\0';
 
 	flush();
@@ -5235,7 +5233,6 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 				buf[i++] = *yank_str++;
 			}
 
-			/* Terminate */
 			buf[i] = '\0';
 
 			chain = chain->next;
@@ -5267,7 +5264,6 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 				buf[i++] = *rest_ptr++;
 			}
 
-			/* Terminate */
 			buf[i] = '\0';
 
 			/* Replace this line with new one */

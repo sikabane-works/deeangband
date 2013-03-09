@@ -70,7 +70,6 @@ static void roff_aux(species_type *species_ptr, int mode)
 
 		if(tmp[0])
 		{
-			/* Dump it */
 			hooked_roff(tmp);
 
 			/* Start a new line */

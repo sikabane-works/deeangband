@@ -334,7 +334,6 @@ static char *object_desc_chr(char *t, char c)
 	/* Copy the char */
 	*t++ = c;
 
-	/* Terminate */
 	*t = '\0';
 
 	return (t);
@@ -350,7 +349,6 @@ static char *object_desc_str(char *t, cptr s)
 	/* Copy the string */
 	while (*s) *t++ = *s++;
 
-	/* Terminate */
 	*t = '\0';
 
 	return (t);
@@ -382,7 +380,6 @@ static char *object_desc_num(char *t, uint n)
 		p = p / 10;
 	}
 
-	/* Terminate */
 	*t = '\0';
 
 	return (t);
@@ -537,7 +534,6 @@ static char *object_desc_int(char *t, sint v)
 		p = p / 10;
 	}
 
-	/* Terminate */
 	*t = '\0';
 
 	return (t);
@@ -1972,7 +1968,6 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		}
 	}
 
-	/* Terminate */
 	*t = '\0';
 
 

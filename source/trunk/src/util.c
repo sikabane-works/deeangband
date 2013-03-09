@@ -402,7 +402,6 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 			/* Handle newline */
 			if(*s == '\n')
 			{
-				/* Terminate */
 				buf[i] = '\0';
 
 				return SUCCESS;
@@ -1305,7 +1304,6 @@ void text_to_acscii(char *buf, cptr str)
 		}
 	}
 
-	/* Terminate */
 	*s = '\0';
 }
 
@@ -1460,7 +1458,6 @@ void ascii_to_text(char *buf, cptr str)
 		}
 	}
 
-	/* Terminate */
 	*s = '\0';
 }
 
@@ -2594,7 +2591,6 @@ void message_add(cptr str)
 		message__buf[message__head + i] = str[i];
 	}
 
-	/* Terminate */
 	message__buf[message__head + i] = '\0';
 
 	/* Advance the "head" pointer */
@@ -3354,7 +3350,6 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 				}
 			}
 
-			/* Terminate */
 			buf[pos] = '\0';
 
 			/* Write back the left part of string */
