@@ -4820,9 +4820,7 @@ static void do_cmd_save_screen_html(void)
 
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp);
-
 	msg_print(NULL);
-
 	do_cmd_save_screen_html_aux(buf, 1);
 }
 
@@ -5046,7 +5044,6 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 static void ang_sort_art_swap(vptr u, vptr v, int a, int b)
 {
 	u16b *who = (u16b*)(u);
-
 	u16b holder;
 
 	/* Unused */
@@ -5065,13 +5062,9 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	int i, k, z, x, y, n = 0;
 	u16b why = 3;
 	s16b *who;
-
 	FILE *fff;
-
 	char file_name[1024];
-
 	char base_name[MAX_NLEN];
-
 	bool *okay;
 
 	/* Open a new file */
@@ -5141,16 +5134,9 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *object_ptr = &owner_ptr->inventory[i];
-
-		/* Ignore non-objects */
 		if(!is_valid_object(object_ptr)) continue;
-
-		/* Ignore non-artifacts */
 		if(!object_is_fixed_artifact(object_ptr)) continue;
-
-		/* Ignore known items */
 		if(object_is_known(object_ptr)) continue;
-
 		okay[object_ptr->name1] = FALSE;
 	}
 
@@ -5744,10 +5730,7 @@ static void browser_cursor(char ch, int *column, int *grp_cur, int grp_cnt,
 		/* Hack -- scroll down full screen */
 		d = 9;
 	}
-	else
-	{
-		d = get_keymap_dir(ch);
-	}
+	else d = get_keymap_dir(ch);
 
 	if(!d) return;
 
@@ -5840,10 +5823,7 @@ static void display_visual_list(int col, int row, int height, int width, byte at
 	int i, j;
 
 	/* Clear the display lines */
-	for (i = 0; i < height; i++)
-	{
-		Term_erase(col, row + i, width);
-	}
+	for (i = 0; i < height; i++) Term_erase(col, row + i, width);
 
 	/* Bigtile mode uses double width */
 	if(use_bigtile) width /= 2;
@@ -5969,8 +5949,6 @@ static bool visual_mode_command(char ch, bool *visual_list_ptr,
 	case 'c':
 		{
 			int i;
-
-			/* Set the visual */
 			attspecies_idx = *cur_attr_ptr;
 			chaspecies_idx = *cur_char_ptr;
 
@@ -5987,7 +5965,6 @@ static bool visual_mode_command(char ch, bool *visual_list_ptr,
 	case 'p':
 		if(attspecies_idx || (!(chaspecies_idx & 0x80) && chaspecies_idx)) /* Allow TERM_DARK text */
 		{
-			/* Set the char */
 			*cur_attr_ptr = attspecies_idx;
 			*attr_top_ptr = MAX(0, (*cur_attr_ptr & 0x7f) - 5);
 			if(!*visual_list_ptr) *need_redraw = TRUE;
@@ -5995,7 +5972,6 @@ static bool visual_mode_command(char ch, bool *visual_list_ptr,
 
 		if(chaspecies_idx)
 		{
-			/* Set the char */
 			*cur_char_ptr = chaspecies_idx;
 			*char_left_ptr = MAX(0, *cur_char_ptr - 10);
 			if(!*visual_list_ptr) *need_redraw = TRUE;
@@ -6026,10 +6002,8 @@ static bool visual_mode_command(char ch, bool *visual_list_ptr,
 			/* Force correct code for both ASCII character and tile */
 			if(c & 0x80) a |= 0x80;
 
-			/* Set the visual */
 			*cur_attr_ptr = a;
 			*cur_char_ptr = c;
-
 
 			/* Move the frame */
 			if((ddx[d] < 0) && *char_left_ptr > MAX(0, (int)c - 10)) (*char_left_ptr)--;
@@ -6072,13 +6046,9 @@ static void display_creature_list(int col, int row, int per_page, s16b mon_idx[]
 
 		/* Hack -- visual_list mode */
 		if(per_page == 1)
-		{
 			c_prt(attr, format("%02x/%02x", species_ptr->x_attr, species_ptr->x_char), row + i, (wizard || visual_only) ? 56 : 61);
-		}
 		if(wizard || visual_only)
-		{
 			c_prt(attr, format("%d", species_idx), row + i, 62);
-		}
 
 		/* Erase chars before overwritten by the race letter */
 		Term_erase(69, row + i, 255);
@@ -6193,16 +6163,14 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			prt(format("%s - クリーチャー", !visual_only ? "知識" : "表示"), 2, 0);
 			if(direct_species_idx < 0) prt("グループ", 4, 0);
 			if(wizard || visual_only) prt("Idx", 4, 62);
-			prt("文字", 4, 67);
-			if(!visual_only) prt("殺害数", 4, 72);
 #else
 			prt(format("%s - creatures", !visual_only ? "Knowledge" : "Visuals"), 2, 0);
 			if(direct_species_idx < 0) prt("Group", 4, 0);
 			if(wizard || visual_only) prt("Idx", 4, 62);
-			prt("Sym", 4, 68);
-			if(!visual_only) prt("Kills", 4, 73);
 #endif
 
+			prt(KW_SYM, 4, 67);
+			if(!visual_only) prt(KW_KILLS, 4, 72);
 			for (i = 0; i < 78; i++) Term_putch(i, 5, TERM_WHITE, '=');
 
 			if(direct_species_idx < 0)

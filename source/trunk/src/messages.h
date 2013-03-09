@@ -269,6 +269,8 @@
 #define KW_FEATURE "’nŒ`"
 #define KW_CAMOUFLAGE "‹U‘•’nŒ`"
 #define KW_QUANTITY "ŒÂ”"
+#define KW_KILLS "EŠQ”"
+#define KW_SYM "•¶š"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -368,6 +370,8 @@
 #define KW_FEATURE "Feature"
 #define KW_CAMOUFLAGE "Camouflage"
 #define KW_QUANTITY "Quantity"
+#define KW_KILLS "Kills"
+#define KW_SYM "Sym"
 #endif
 
 #ifdef JP
@@ -1578,6 +1582,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_PICK "%s‚ğE‚¢‚Ü‚·‚©? " 
 	#define PROMPT_DIRECTION "•ûŒü‚Í(ESC‚Å’†’f)? "
 	#define PROMPT_LABEL(N1, N2) " %c-%c,'(',')',", (N1), (N2)
+	#define PROMPT_FIND "ŒŸõ(^I:‚¿•¨ ^L:”j‰ó‚³‚ê‚½•¨): "
 #else
 	#define PROMPT_COMMAND "Command: "
 	#define PROMPT_KEYPRESS "Keypress: "
@@ -1591,6 +1596,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_PICK "Pick up %s? " 
 	#define PROMPT_DIRECTION "Direction (Escape to cancel)? "
 	#define PROMPT_LABEL(N1, N2) " %c-%c,'(',')',", (N1), (N2)
+	#define PROMPT_FIND "Search key(^I:inven ^L:destroyed): "
 #endif
 
 #ifdef JP

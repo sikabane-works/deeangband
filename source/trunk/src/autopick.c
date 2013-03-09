@@ -3292,12 +3292,7 @@ static byte get_string_for_search(creature_type *creature_ptr, object_type **o_h
 	byte color = TERM_YELLOW;
 	char buf[MAX_NLEN+20];
 	const int len = 80;
-
-#ifdef JP
-	char prompt[] = "åüçı(^I:éùÇøï® ^L:îjâÛÇ≥ÇÍÇΩï®): ";
-#else
-	char prompt[] = "Search key(^I:inven ^L:destroyed): ";
-#endif
+	char prompt[] = PROMPT_FIND;
 	int col = sizeof(prompt) - 1;
 
 	/* Prepare string buffer for edit */
@@ -3305,11 +3300,7 @@ static byte get_string_for_search(creature_type *creature_ptr, object_type **o_h
 	else buf[0] = '\0';
 
 	/* Object searching mode */
-	if(*o_handle)
-	{
-		color = TERM_L_GREEN;
-	}
-
+	if(*o_handle) color = TERM_L_GREEN;
 	prt(prompt, 0, 0);
 
 	/* Process input */
