@@ -1629,12 +1629,7 @@ void do_cmd_pet(creature_type *master_ptr)
 		power_desc[num] = MES_PETCOM_RIDE;
 	powers[num++] = PET_RIDING;
 
-#ifdef JP
-	power_desc[num] = "ペットに名前をつける";
-#else
-	power_desc[num] = "name pets";
-#endif
-
+	power_desc[num] = MES_PETCOM_GIVE_PET_NAME;
 	powers[num++] = PET_NAME;
 
 	if(master_ptr->riding)
@@ -1680,30 +1675,9 @@ void do_cmd_pet(creature_type *master_ptr)
 	{
 		flag = FALSE; // Nothing chosen yet
 		redraw = FALSE; // No redraw yet
-
-		if(use_menu)
-		{
-			screen_save(); // Save the screen
-#ifdef JP
-			strnfmt(out_val, 78, "(コマンド、ESC=終了) コマンドを選んでください:");
-#else
-			strnfmt(out_val, 78, "(Command, ESC=exit) Choose command from menu.");
-#endif
-		}
-		else
-		{
-			strnfmt(out_val, 78,
-#ifdef JP
-				"(コマンド %c-%c、'*'=一覧、ESC=終了) コマンドを選んでください:",
-#else
-				"(Command %c-%c, *=List, ESC=exit) Select a command: ",
-#endif
-				I2A(0), I2A(num - 1));
-		}
-
+		screen_save(); // Save the screen
 		choice = (use_menu) ? ESCAPE : 1;
 
-		/* Get a command from the user */
 		while (!flag)
 		{
 			if(choice == ESCAPE) choice = ' ';
