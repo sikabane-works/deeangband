@@ -43,7 +43,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		floor_ptr->quest = c_ptr->special;
 
 		if(!quest[floor_ptr->quest].status) quest[floor_ptr->quest].status = QUEST_STATUS_TAKEN;	// Activate the quest
-		if(!floor_ptr->quest) floor_ptr->floor_level = 0;	// Leaving a quest
+		if(!floor_ptr->quest) floor_ptr->depth = 0;	// Leaving a quest
 		subject_change_floor = TRUE;	// Leaving
 
 		creature_ptr->oldpx = 0;
@@ -52,7 +52,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		return;
 	}
 
-	if(!floor_ptr->floor_level) go_up = TRUE;
+	if(!floor_ptr->depth) go_up = TRUE;
 	else
 	{
 		quest_type *quest_ptr = &quest[floor_ptr->quest];
@@ -90,7 +90,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		leave_quest_check(creature_ptr);
 
 		floor_ptr->quest = c_ptr->special;
-		floor_ptr->floor_level = 0;
+		floor_ptr->depth = 0;
 		up_num = 0;
 	}
 
@@ -112,8 +112,8 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		}
 
 		/* Get out from current dungeon */
-		if(floor_ptr->floor_level - up_num < dungeon_info[floor_ptr->dun_type].mindepth)
-			up_num = floor_ptr->floor_level;
+		if(floor_ptr->depth - up_num < dungeon_info[floor_ptr->dun_type].mindepth)
+			up_num = floor_ptr->depth;
 	}
 
 	if(record_stair) do_cmd_write_diary(DIARY_STAIR, 0-up_num, DIARY_UP_STAIR);
@@ -121,10 +121,10 @@ void do_cmd_go_up(creature_type *creature_ptr)
 
 #ifdef JP
 	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
-	else if(up_num == floor_ptr->floor_level) msg_print("地上に戻った。");
+	else if(up_num == floor_ptr->depth) msg_print("地上に戻った。");
 	else msg_print("階段を上って新たなる迷宮へと足を踏み入れた。");
 #else
-	if(up_num == floor_ptr->floor_level) msg_print("You go back to the surface.");
+	if(up_num == floor_ptr->depth) msg_print("You go back to the surface.");
 	else msg_print("You enter a maze of up staircases.");
 #endif
 	subject_change_floor = TRUE;
@@ -168,7 +168,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	{
 		int target_dungeon = 0;
 
-		if(!floor_ptr->floor_level)
+		if(!floor_ptr->depth)
 		{
 			target_dungeon = have_flag(f_ptr->flags, FF_ENTRANCE) ? c_ptr->special : DUNGEON_ANGBAND;
 
@@ -204,7 +204,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		if(have_flag(f_ptr->flags, FF_SHAFT)) down_num += 2;
 		else down_num += 1;
 
-		if(!floor_ptr->floor_level)
+		if(!floor_ptr->depth)
 		{
 			/* Enter the dungeon just now */
 			creature_ptr->enter_dungeon = TRUE;
@@ -426,7 +426,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 		for (i = 0; i < num; i++)
 		{
-			if(randint1(100) < floor_ptr->floor_level)
+			if(randint1(100) < floor_ptr->depth)
 				activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 			else
 				(void)summon_specific(0, y, x, mon_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));

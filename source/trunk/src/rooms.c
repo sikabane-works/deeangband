@@ -513,7 +513,7 @@ static bool build_type1(floor_type *floor_ptr)
 	}
 
 	/* Choose lite or dark */
-	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
+	light = ((floor_ptr->depth <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 	/* Get corner values */
 	y1 = yval - ysize / 2;
@@ -688,7 +688,7 @@ static bool build_type2(floor_type *floor_ptr)
 	if(!find_space(floor_ptr, &yval, &xval, 25, 25)) return FALSE;
 
 	/* Choose lite or dark */
-	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
+	light = ((floor_ptr->depth <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 	/* Determine extents of the first room */
 	y1a = yval - randint1(10);
@@ -823,7 +823,7 @@ static bool build_type3(floor_type *floor_ptr)
 	if(!find_space(floor_ptr, &yval, &xval, dy*2+3, dx*2+3)) return FALSE;
 
 	/* Choose lite or dark */
-	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
+	light = ((floor_ptr->depth <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 	/* For now, always 3x3 */
 	wx = wy = 1;
@@ -1078,7 +1078,7 @@ static bool build_type4(floor_type *floor_ptr)
 	if(!find_space(floor_ptr, &yval, &xval, y+2, x+2)) return FALSE;
 
 	/* Choose lite or dark */
-	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
+	light = ((floor_ptr->depth <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 
 	/* Large room */
@@ -1728,7 +1728,7 @@ static void vault_prep_clone(floor_type *floor_ptr)
 	get_species_num_prep_trait(NULL, NULL, t_need(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
 
 	/* Pick a race to clone */
-	vault_aux_race = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
+	vault_aux_race = get_species_num(floor_ptr, floor_ptr->depth + 10);
 
 	/* Remove the creature restriction */
 	reset_species_preps();
@@ -1746,7 +1746,7 @@ static void vault_prep_symbol(floor_type *floor_ptr)
 	get_species_num_prep_trait(NULL, NULL, t_need(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
 
 	/* Pick a race to clone */
-	species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
+	species_idx = get_species_num(floor_ptr, floor_ptr->depth + 10);
 
 	/* Remove the creature restriction */
 	reset_species_preps();
@@ -1875,13 +1875,13 @@ static int pick_vault_type(floor_type *floor_ptr, vault_aux_type *l_ptr, s16b al
 		if(!n_ptr->name) break;
 
 		/* Ignore excessive depth */
-		if(n_ptr->level > floor_ptr->floor_level) continue;
+		if(n_ptr->level > floor_ptr->depth) continue;
 
 		/* Not matched with pit/nest flag */
 		if(!(allow_flag_mask & (1L << count))) continue;
 
 		/* Count this possibility */
-		total += n_ptr->chance * MAX_DEPTH / (MIN(floor_ptr->floor_level, MAX_DEPTH - 1) - n_ptr->level + 5);
+		total += n_ptr->chance * MAX_DEPTH / (MIN(floor_ptr->depth, MAX_DEPTH - 1) - n_ptr->level + 5);
 	}
 
 	/* Pick a random type */
@@ -1893,13 +1893,13 @@ static int pick_vault_type(floor_type *floor_ptr, vault_aux_type *l_ptr, s16b al
 		if(!n_ptr->name) break;
 
 		/* Ignore excessive depth */
-		if(n_ptr->level > floor_ptr->floor_level) continue;
+		if(n_ptr->level > floor_ptr->depth) continue;
 
 		/* Not matched with pit/nest flag */
 		if(!(allow_flag_mask & (1L << count))) continue;
 
 		/* Count this possibility */
-		total += n_ptr->chance * MAX_DEPTH / (MIN(floor_ptr->floor_level, MAX_DEPTH - 1) - n_ptr->level + 5);
+		total += n_ptr->chance * MAX_DEPTH / (MIN(floor_ptr->depth, MAX_DEPTH - 1) - n_ptr->level + 5);
 
 		/* Found the type */
 		if(tmp < total) break;
@@ -2154,7 +2154,7 @@ static bool build_type5(floor_type *floor_ptr)
 		while (attempts--)
 		{
 			/* Get a (hard) creature type */
-			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 11);
+			species_idx = get_species_num(floor_ptr, floor_ptr->depth + 11);
 			species_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
@@ -2367,7 +2367,7 @@ static bool build_type6(floor_type *floor_ptr)
 		while (attempts--)
 		{
 			/* Get a (hard) creature type */
-			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 11);
+			species_idx = get_species_num(floor_ptr, floor_ptr->depth + 11);
 			species_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
@@ -3639,7 +3639,7 @@ static bool build_type9(floor_type *floor_ptr)
 	light = done = FALSE;
 	room = TRUE;
 
-	if((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
+	if((floor_ptr->depth <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	while (!done)
 	{
@@ -3676,7 +3676,7 @@ void build_cavern(floor_type *floor_ptr)
 	bool done, light;
 
 	light = done = FALSE;
-	if((floor_ptr->floor_level <= randint1(50)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
+	if((floor_ptr->depth <= randint1(50)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	/* Make a cave the size of the dungeon */
 	xsize = floor_ptr->width - 1;
@@ -4520,7 +4520,7 @@ void build_maze_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysiz
 	if(cheat_room && is_vault) msg_print("Maze Vault");
 
 	/* Choose lite or dark */
-	light = ((floor_ptr->floor_level <= randint1(25)) && is_vault && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
+	light = ((floor_ptr->depth <= randint1(25)) && is_vault && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 	/* Pick a random room size - randomized by calling routine */
 	dy = ysize / 2 - 1;
@@ -5170,17 +5170,17 @@ static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsi
 	xsize = xhsize * 2;
 	ysize = yhsize * 2;
 
-	if(floor_ptr->floor_level < 25)
+	if(floor_ptr->depth < 25)
 	{
 		/* Earth vault  (Rubble) */
 		type = LAKE_T_EARTH_VAULT;
 	}
-	else if(floor_ptr->floor_level < 50)
+	else if(floor_ptr->depth < 50)
 	{
 		/* Air vault (Trees) */
 		type = LAKE_T_AIR_VAULT;
 	}
-	else if(floor_ptr->floor_level < 75)
+	else if(floor_ptr->depth < 75)
 	{
 		/* Water vault (shallow water) */
 		type = LAKE_T_WATER_VAULT;
@@ -5304,7 +5304,7 @@ static bool build_type11(floor_type *floor_ptr)
 	int light = FALSE;
 
 	/* Occasional light */
-	if((randint1(floor_ptr->floor_level) <= 15) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
+	if((randint1(floor_ptr->depth) <= 15) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	rad = randint0(23);
 
@@ -5357,7 +5357,7 @@ static bool build_type12(floor_type *floor_ptr)
 	h4 = randint1(32) - 16;
 
 	/* Occasional light */
-	if((randint1(floor_ptr->floor_level) <= 5) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
+	if((randint1(floor_ptr->depth) <= 5) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	rad = randint1(9);
 
@@ -5561,7 +5561,7 @@ static bool build_type13(floor_type *floor_ptr)
 		while (attempts--)
 		{
 			/* Get a (hard) creature type */
-			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 0);
+			species_idx = get_species_num(floor_ptr, floor_ptr->depth + 0);
 			species_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
@@ -5754,7 +5754,7 @@ static bool build_type14(floor_type *floor_ptr)
 	if(!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
 
 	/* Choose lite or dark */
-	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
+	light = ((floor_ptr->depth <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 
 	/* Get corner values */
@@ -5792,7 +5792,7 @@ static bool build_type14(floor_type *floor_ptr)
 		place_outer_grid(c_ptr);
 	}
 
-	if(floor_ptr->floor_level < 30 + randint1(30))
+	if(floor_ptr->depth < 30 + randint1(30))
 		if(one_in_(3)) trap = feat_trap_piranha;
 		else if(one_in_(2)) trap = feat_trap_acid_flow;
 		else trap = feat_trap_poison_flow;
@@ -5835,7 +5835,7 @@ static bool build_type15(floor_type *floor_ptr)
 	if(!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
 
 	/* Choose lite or dark */
-	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
+	light = ((floor_ptr->depth <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 	/* Get corner values */
 	y1 = yval - ysize / 2;
@@ -5889,7 +5889,7 @@ static bool build_type15(floor_type *floor_ptr)
 			/* Place fixed lite berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
 			{
-				int species_idx = get_species_num(floor_ptr, floor_ptr->floor_level);
+				int species_idx = get_species_num(floor_ptr, floor_ptr->depth);
 
 				y = yval + 2 * ddy_ddd[dir1];
 				x = xval + 2 * ddx_ddd[dir1];
@@ -5954,7 +5954,7 @@ static bool build_type15(floor_type *floor_ptr)
 			get_species_num_prep_trait(NULL, t_need(2, TRAIT_BR_LITE, TRAIT_BA_LITE), 
 				t_need(7, TRAIT_VAULT, TRAIT_PASS_WALL, TRAIT_KILL_WALL, TRAIT_BR_DISI), 0);
 
-			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level);
+			species_idx = get_species_num(floor_ptr, floor_ptr->depth);
 			if(species_idx) place_creature_species(NULL, floor_ptr, yval, xval, species_idx, 0L);
 
 			/* Walls around the breather */
@@ -6019,7 +6019,7 @@ static bool build_type15(floor_type *floor_ptr)
 			/* Place shard berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
 			{
-				int species_idx = get_species_num(floor_ptr, floor_ptr->floor_level);
+				int species_idx = get_species_num(floor_ptr, floor_ptr->depth);
 
 				y = yval + ddy_ddd[dir1];
 				x = xval + ddx_ddd[dir1];
@@ -6099,7 +6099,7 @@ bool generate_rooms(floor_type *floor_ptr)
 	int prob_list[ROOM_T_MAX];
 	int rooms_built = 0;
 	int area_size = 100 * (floor_ptr->height*floor_ptr->width) / (MAX_HGT*MAX_WID);
-	int level_index = MIN(10, div_round(floor_ptr->floor_level, 10));
+	int level_index = MIN(10, div_round(floor_ptr->depth, 10));
 
 	/* Number of each type of room on this level */
 	s16b room_num[ROOM_T_MAX];
@@ -6116,7 +6116,7 @@ bool generate_rooms(floor_type *floor_ptr)
 	for (i = 0; i < ROOM_T_MAX; i++)
 	{
 		/* No rooms allowed above their minimum depth. */
-		if(floor_ptr->floor_level < room_object_ptr[i].min_level)
+		if(floor_ptr->depth < room_object_ptr[i].min_level)
 			prob_list[i] = 0;
 		else
 			prob_list[i] = room_object_ptr[i].prob[level_index];

@@ -239,7 +239,7 @@ static void generate_area(floor_type *floor_ptr, int y, int x, bool border, bool
 
 	floor_ptr->town_num = wilderness[y][x].town;		// Number of the town (if any)
 	floor_ptr->base_level = wilderness[y][x].level;		// Set the base level
-	floor_ptr->floor_level = 0;							// Set the dungeon level
+	floor_ptr->depth = 0;							// Set the dungeon level
 	floor_ptr->creature_level = floor_ptr->base_level;	// Set the creature generation level
 	floor_ptr->object_level = floor_ptr->base_level;	// Set the object generation level
 
@@ -970,7 +970,6 @@ bool change_wild_mode(creature_type *creature_ptr)
 		cancel_tactical_action(creature_ptr);
 
 		// Go back to the ordinary map
-		//TODO floor_ptr->world_map = FALSE;
 		subject_change_floor = TRUE;
 		return TRUE;	// Succeed
 	}

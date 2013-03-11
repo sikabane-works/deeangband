@@ -2612,7 +2612,7 @@ bool tele_town(creature_type *creature_ptr)
 	int num = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(floor_ptr->floor_level)
+	if(floor_ptr->depth)
 	{
 		msg_print(MES_PREVENT_MAGIC_BY_DUNGEON);
 		return FALSE;
@@ -3374,7 +3374,7 @@ int quest_number(floor_type *floor_ptr)
 
 		if((quest[i].type == QUEST_TYPE_KILL_LEVEL) &&
 			!(quest[i].flags & QUEST_FLAG_PRESET) &&
-			(quest[i].level == floor_ptr->floor_level) &&
+			(quest[i].level == floor_ptr->depth) &&
 		    (quest[i].dungeon == floor_ptr->dun_type))
 			return (i);
 	}
@@ -3395,7 +3395,7 @@ int random_quest_number(floor_type *floor_ptr)
 	for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 	{
 		if((quest[i].type == QUEST_TYPE_RANDOM) && (quest[i].status == QUEST_STATUS_TAKEN) &&
-			(quest[i].level == floor_ptr->floor_level) && (quest[i].dungeon == DUNGEON_DOD))
+			(quest[i].level == floor_ptr->depth) && (quest[i].dungeon == DUNGEON_DOD))
 			return i;
 	}
 	return 0;

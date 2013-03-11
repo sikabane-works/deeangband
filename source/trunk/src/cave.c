@@ -2988,14 +2988,14 @@ void update_creature_lite(floor_type *floor_ptr)
 			else if(rad > 0)
 			{
 				if(!(has_trait(player_ptr, TRAIT_SELF_LITE_1) || has_trait(player_ptr, TRAIT_SELF_LITE_2)) && 
-					(has_trait(player_ptr, TRAIT_PARALYZED) || (!floor_ptr->floor_level && is_daytime()) || floor_ptr->gamble_arena_mode)) continue;
+					(has_trait(player_ptr, TRAIT_PARALYZED) || (!floor_ptr->depth && is_daytime()) || floor_ptr->gamble_arena_mode)) continue;
 				if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) rad = 1;
 				add_creature_lite = creature_lite_hack;
 				f_flag = FF_LOS;
 			}
 			else
 			{
-				if(!(has_trait(player_ptr, TRAIT_SELF_DARK_1) || has_trait(player_ptr, TRAIT_SELF_DARK_2)) && (has_trait(player_ptr, TRAIT_PARALYZED) || (!floor_ptr->floor_level && !is_daytime()))) continue;
+				if(!(has_trait(player_ptr, TRAIT_SELF_DARK_1) || has_trait(player_ptr, TRAIT_SELF_DARK_2)) && (has_trait(player_ptr, TRAIT_PARALYZED) || (!floor_ptr->depth && !is_daytime()))) continue;
 				add_creature_lite = mon_dark_hack;
 				f_flag = FF_PROJECT;
 				rad = -rad; /* Use absolute value */
@@ -3515,7 +3515,7 @@ void update_view(creature_type *creature_ptr)
 	/*** Initialize ***/
 
 	/* Optimize */
-	if(view_reduce_view && !floor_ptr->floor_level)
+	if(view_reduce_view && !floor_ptr->depth)
 	{
 		/* Full radius (10) */
 		full = MAX_SIGHT / 2;
@@ -4653,7 +4653,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 		}
 
 		/* Handle item */
-		if(have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (PERCENT(15 - floor_ptr->floor_level / 2)))
+		if(have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (PERCENT(15 - floor_ptr->depth / 2)))
 		{
 			/* Place object */
 			place_object(floor_ptr, y, x, 0L, NULL);
@@ -4669,7 +4669,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 
 		if(have_flag(old_f_ptr->flags, FF_GLASS) && floor_ptr->generated)
 		{
-			project(NULL, 0, 1, y, x, MIN(floor_ptr->floor_level, 100) / 4, DO_EFFECT_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+			project(NULL, 0, 1, y, x, MIN(floor_ptr->depth, 100) / 4, DO_EFFECT_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 		}
 	}
 }

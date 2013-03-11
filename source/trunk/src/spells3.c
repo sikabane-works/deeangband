@@ -610,12 +610,12 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	}
 
 	/* Down only */ 
-	if((ironman_downward && (m_idx <= 0)) || (floor_ptr->floor_level <= dungeon_info[floor_ptr->dun_type].mindepth))
+	if((ironman_downward && (m_idx <= 0)) || (floor_ptr->depth <= dungeon_info[floor_ptr->dun_type].mindepth))
 	{
 		if(see_m) msg_format(MES_TELEPORT_LEVEL_DOWN(m_name));
 		if(m_idx <= 0) /* To player */
 		{
-			if(!floor_ptr->floor_level)
+			if(!floor_ptr->depth)
 			{
 				floor_ptr->dun_type = creature_ptr->recall_dungeon;
 				creature_ptr->oldpy = creature_ptr->fy;
@@ -626,9 +626,9 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 
 			if(autosave_l) do_cmd_save_game(TRUE);
 
-			if(!floor_ptr->floor_level)
+			if(!floor_ptr->depth)
 			{
-				floor_ptr->floor_level = dungeon_info[floor_ptr->dun_type].mindepth;
+				floor_ptr->depth = dungeon_info[floor_ptr->dun_type].mindepth;
 				//prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE);
 			}
 			else
@@ -642,7 +642,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	}
 
 	/* Up only */
-	else if(quest_number(floor_ptr) || (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth))
+	else if(quest_number(floor_ptr) || (floor_ptr->depth >= dungeon_info[floor_ptr->dun_type].maxdepth))
 	{
 		if(see_m) msg_format(MES_TELEPORT_LEVEL_UP(m_name));
 		if(m_idx <= 0) /* To player */
@@ -681,7 +681,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 		if(m_idx <= 0) /* To player */
 		{
 			/* Never reach this code on the surface */
-			/* if(!floor_ptr->floor_level) floor_ptr->dun_type = creature_ptr->recall_dungeon; */
+			/* if(!floor_ptr->depth) floor_ptr->dun_type = creature_ptr->recall_dungeon; */
 
 			if(record_stair) do_cmd_write_diary(DIARY_TELE_LEV, 1, NULL);
 
@@ -821,7 +821,7 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 		return TRUE;
 	}
 
-	if(floor_ptr->floor_level && (max_dlv[floor_ptr->dun_type] > floor_ptr->floor_level) && !floor_ptr->quest && !creature_ptr->timed_trait[TRAIT_WORD_RECALL])
+	if(floor_ptr->depth && (max_dlv[floor_ptr->dun_type] > floor_ptr->depth) && !floor_ptr->quest && !creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
 #ifdef JP
 		if(get_check("‚±‚±‚ÍÅ[“ž’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
@@ -829,7 +829,7 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 		if(get_check("Reset recall depth? "))
 #endif
 		{
-			max_dlv[floor_ptr->dun_type] = floor_ptr->floor_level;
+			max_dlv[floor_ptr->dun_type] = floor_ptr->depth;
 			if(record_maxdepth)
 #ifdef JP
 				do_cmd_write_diary(DIARY_TRUMP, floor_ptr->dun_type, "‹AŠÒ‚Ì‚Æ‚«‚É");
@@ -841,7 +841,7 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 	}
 	if(!creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
-		if(!floor_ptr->floor_level)
+		if(!floor_ptr->depth)
 		{
 			int select_dungeon;
 #ifdef JP
@@ -1150,7 +1150,7 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 			{
 				act = MES_BECOME_BRAND_SHARPNESS;
 				object_ptr->name2 = EGO_SHARPNESS;
-				object_ptr->pval = m_bonus(5, floor_ptr->floor_level) + 1;
+				object_ptr->pval = m_bonus(5, floor_ptr->depth) + 1;
 
 				if((object_ptr->sval == SV_HAYABUSA) && (object_ptr->pval > 2))
 					object_ptr->pval = 2;
@@ -1159,7 +1159,7 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 			{
 				act = MES_BECOME_BRAND_EARTHQUAKE;
 				object_ptr->name2 = EGO_EARTHQUAKES;
-				object_ptr->pval = m_bonus(3, floor_ptr->floor_level);
+				object_ptr->pval = m_bonus(3, floor_ptr->depth);
 			}
 			break;
 		case 16:
@@ -1253,7 +1253,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	creature_type *m_ptr;
 
 	/* Prevent vasishing of quest levels and town */
-	if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
+	if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->depth)
 	{
 		msg_print(MES_VANISH_DUNGEON_CANCELED);
 		return FALSE;
@@ -1391,7 +1391,7 @@ void call_the_void(creature_type *creature_ptr)
 	}
 
 	/* Prevent destruction of quest levels and town */
-	else if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
+	else if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->depth)
 		msg_print(MES_EARTHQUAKE);
 
 	else
@@ -3858,7 +3858,7 @@ static s16b poly_species_idx(int pre_species_idx)
 	for (i = 0; i < 1000; i++)
 	{
 		/* Pick a new race, using a level calculation */
-		r = get_species_num(floor_ptr, (floor_ptr->floor_level + species_ptr->level) / 2 + 5);
+		r = get_species_num(floor_ptr, (floor_ptr->depth + species_ptr->level) / 2 + 5);
 
 		/* Handle failure */
 		if(!r) break;

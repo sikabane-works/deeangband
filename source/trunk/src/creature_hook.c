@@ -359,7 +359,7 @@ static bool creature_hook_floor(int species_idx)
 creature_hook_type get_creature_hook(void)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	if(!floor_ptr->floor_level && !floor_ptr->quest)
+	if(!floor_ptr->depth && !floor_ptr->quest)
 	{
 		switch (wilderness[player_ptr->wy][player_ptr->wx].terrain)
 		{

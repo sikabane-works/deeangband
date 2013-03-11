@@ -3343,7 +3343,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 				sprintf(statmsg, "...You %s after the winning.", streq(gameover_from, "Seppuku") ? "did Seppuku" : "retired from the adventure");
 #endif
 			}
-			else if(!floor_ptr->floor_level)
+			else if(!floor_ptr->depth)
 			{
 #ifdef JP
 				sprintf(statmsg, "c‚ ‚È‚½‚Í%s‚Å%s‚ÉŽE‚³‚ê‚½B", map_name(floor_ptr), gameover_from);
@@ -3366,15 +3366,15 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			else
 			{
 #ifdef JP
-				sprintf(statmsg, "c‚ ‚È‚½‚ÍA%s‚Ì%dŠK‚Å%s‚ÉŽE‚³‚ê‚½B", map_name(floor_ptr), floor_ptr->floor_level, gameover_from);
+				sprintf(statmsg, "c‚ ‚È‚½‚ÍA%s‚Ì%dŠK‚Å%s‚ÉŽE‚³‚ê‚½B", map_name(floor_ptr), floor_ptr->depth, gameover_from);
 #else
-				sprintf(statmsg, "...You were killed by %s on level %d of %s.", gameover_from, floor_ptr->floor_level, map_name(floor_ptr));
+				sprintf(statmsg, "...You were killed by %s on level %d of %s.", gameover_from, floor_ptr->depth, map_name(floor_ptr));
 #endif
 			}
 		}
 		else
 		{
-			if(!floor_ptr->floor_level)
+			if(!floor_ptr->depth)
 			{
 #ifdef JP
 				sprintf(statmsg, "c‚ ‚È‚½‚ÍŒ»ÝA %s ‚É‚¢‚éB", map_name(floor_ptr));
@@ -3404,9 +3404,9 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			else
 			{
 #ifdef JP
-				sprintf(statmsg, "c‚ ‚È‚½‚ÍŒ»ÝA %s ‚Ì %d ŠK‚Å’Tõ‚µ‚Ä‚¢‚éB", map_name(floor_ptr), floor_ptr->floor_level);
+				sprintf(statmsg, "c‚ ‚È‚½‚ÍŒ»ÝA %s ‚Ì %d ŠK‚Å’Tõ‚µ‚Ä‚¢‚éB", map_name(floor_ptr), floor_ptr->depth);
 #else
-				sprintf(statmsg, "...Now, you are exploring level %d of %s.", floor_ptr->floor_level, map_name(floor_ptr));
+				sprintf(statmsg, "...Now, you are exploring level %d of %s.", floor_ptr->depth, map_name(floor_ptr));
 #endif
 			}
 		}
@@ -5778,7 +5778,7 @@ static void print_tomb(creature_type *creature_ptr)
 
 		if(!streq(gameover_from, "ripe") && !streq(gameover_from, "Seppuku"))
 		{
-			if(floor_ptr->floor_level == 0)
+			if(floor_ptr->depth == 0)
 			{
 				cptr town = floor_ptr->town_num ? "ŠX" : "r–ì";
 				if(streq(gameover_from, COD_QUITTING))
@@ -5794,18 +5794,18 @@ static void print_tomb(creature_type *creature_ptr)
 			{
 				if(streq(gameover_from, COD_QUITTING))
 				{
-					sprintf(tmp, "’n‰º %d ŠK‚ÅŽ€‚ñ‚¾", floor_ptr->floor_level);
+					sprintf(tmp, "’n‰º %d ŠK‚ÅŽ€‚ñ‚¾", floor_ptr->depth);
 				}
 				else
 				{
-					sprintf(tmp, "‚É’n‰º %d ŠK‚ÅŽE‚³‚ê‚½", floor_ptr->floor_level);
+					sprintf(tmp, "‚É’n‰º %d ŠK‚ÅŽE‚³‚ê‚½", floor_ptr->depth);
 				}
 			}
 			center_string(buf, tmp);
 			put_str(buf, 15 + extra_line, 11);
 		}
 #else
-		(void)sprintf(tmp, "Killed on Level %d", floor_ptr->floor_level);
+		(void)sprintf(tmp, "Killed on Level %d", floor_ptr->depth);
 		center_string(buf, tmp);
 		put_str(buf, 14, 11);
 

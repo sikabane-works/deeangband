@@ -200,7 +200,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_S_PHANTOM:
-		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, TRAIT_S_PHANTOM, (PC_ALLOW_GROUP | PC_FORCE_PET));
+		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_PHANTOM, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
 	case TRAIT_S_ELEMENTAL:
@@ -552,7 +552,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_S_DAWN_LEGION:
-		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, TRAIT_S_DAWN_LEGION, (PC_ALLOW_GROUP | PC_FORCE_PET));
+		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_DAWN_LEGION, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
 
@@ -1624,7 +1624,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_S_CYBER:
 		{
-			int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
+			int max_cyber = (floor_ptr->depth / 50) + randint1(3);
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			if(max_cyber > 4) max_cyber = 4;
 			for (k = 0; k < max_cyber; k++) summon_specific(caster_ptr, target_row, target_col, user_level, TRAIT_S_CYBER, mode);

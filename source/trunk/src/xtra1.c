@@ -91,6 +91,8 @@ cptr map_name(floor_type *floor_ptr)
 		return "アリーナ";
 	else if(floor_ptr->gamble_arena_mode)
 		return "闘技場";
+	else if(floor_ptr->depth <= 0)
+		return "地表";
 #else
 	if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest) && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET))
 		return "Quest";
@@ -100,8 +102,10 @@ cptr map_name(floor_type *floor_ptr)
 		return "Arena";
 	else if(floor_ptr->gamble_arena_mode)
 		return "Creature Arena";
+	else if(floor_ptr->depth <= 0)
+		return "Surface";
 #endif
-	else if(!floor_ptr->floor_level && floor_ptr->town_num)
+	else if(!floor_ptr->depth && floor_ptr->town_num)
 		return town[floor_ptr->town_num].name;
 	else
 		return dungeon_name + dungeon_info[floor_ptr->dun_type].name;
@@ -674,11 +678,11 @@ static void prt_depth(creature_type *creature_ptr)
 	col_depth = wid + COL_DEPTH;
 	row_depth = hgt + ROW_DEPTH;
 
-	if(!floor_ptr->floor_level) strcpy(depths, KW_SURFACE);
+	if(!floor_ptr->depth) strcpy(depths, KW_SURFACE);
 	else if(floor_ptr->quest && !floor_ptr->dun_type) strcpy(depths, KW_QUEST);
 	else
 	{
-		(void)sprintf(depths, KW_FLOOR_NUM(floor_ptr->floor_level));
+		(void)sprintf(depths, KW_FLOOR_NUM(floor_ptr->depth));
 		/* Get color of level based on feeling  -JSV- */
 		switch (creature_ptr->floor_feeling)
 		{

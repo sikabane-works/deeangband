@@ -696,9 +696,9 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		{
 			num = 2 + randint1(3);
 			for (i = 0; i < num; i++)
-				(void)summon_specific(0, y, x, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+				(void)summon_specific(0, y, x, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 
-			if(floor_ptr->floor_level > randint1(100)) /* No nasty effect for low levels */
+			if(floor_ptr->depth > randint1(100)) /* No nasty effect for low levels */
 			{
 				bool stop_ty = FALSE;
 				int count = 0;
@@ -840,7 +840,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			msg_print(MES_TRAP_ARMAGEDDON);
 
 			/* Summon Demons and Angels */
-			for (lev = floor_ptr->floor_level; lev >= 20; lev -= 1 + lev/16)
+			for (lev = floor_ptr->depth; lev >= 20; lev -= 1 + lev/16)
 			{
 				num = levs[MIN(lev/10, 9)];
 				for (i = 0; i < num; i++)
@@ -880,8 +880,8 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			/* Water fills room */
 			cast_ball_hide(creature_ptr, DO_EFFECT_WATER_FLOW, MAX_RANGE_SUB, 1, 10);
 			/* Summon Piranhas */
-			num = 1 + floor_ptr->floor_level/20;
-			for (i = 0; i < num; i++) (void)summon_specific(0, y, x, floor_ptr->floor_level, TRAIT_S_PIRANHAS, (PC_ALLOW_GROUP | PC_NO_PET));
+			num = 1 + floor_ptr->depth/20;
+			for (i = 0; i < num; i++) (void)summon_specific(0, y, x, floor_ptr->depth, TRAIT_S_PIRANHAS, (PC_ALLOW_GROUP | PC_NO_PET));
 			break;
 
 		case TRAP_ACID_FLOW:
@@ -1083,7 +1083,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		if((!has_trait(creature_ptr, TRAIT_BLIND) && !no_lite(creature_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
 
 		/* For get everything when requested hehe I'm *NASTY* */
-		if(prev_floor_ptr->floor_level && (dungeon_info[prev_floor_ptr->dun_type].flags1 & DF1_FORGET)) wiz_dark(prev_floor_ptr, creature_ptr);
+		if(prev_floor_ptr->depth && (dungeon_info[prev_floor_ptr->dun_type].flags1 & DF1_FORGET)) wiz_dark(prev_floor_ptr, creature_ptr);
 
 		if(mpe_mode & MCE_HANDLE_STUFF) handle_stuff(creature_ptr);
 
@@ -1160,7 +1160,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		leave_quest_check(creature_ptr);
 
 		floor_ptr->quest = c_ptr->special;
-		prev_floor_ptr->floor_level = 0;
+		prev_floor_ptr->depth = 0;
 		creature_ptr->oldpx = 0;
 		creature_ptr->oldpy = 0;
 
@@ -1202,7 +1202,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		}
 	}
 
-	creature_ptr->depth = floor_ptr->floor_level;
+	creature_ptr->depth = floor_ptr->depth;
 	return CREATURE_BOLD(creature_ptr, ny, nx) && !gameover && !subject_change_floor;
 }
 
@@ -1259,7 +1259,7 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
-	if(!floor_ptr->floor_level && !floor_ptr->world_map && ((x == 0) || (x == MAX_WID - 1) || (y == 0) || (y == MAX_HGT - 1)))
+	if(!floor_ptr->depth && !floor_ptr->world_map && ((x == 0) || (x == MAX_WID - 1) || (y == 0) || (y == MAX_HGT - 1)))
 	{
 		int tmp_wx, tmp_wy, tmp_px, tmp_py;
 

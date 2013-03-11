@@ -1539,7 +1539,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 	bool      flag = FALSE;
 
 	/* Prevent destruction of quest levels and town */
-	if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
+	if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->depth)
 		return FALSE;
 
 	/* Lose creature light */
@@ -2103,7 +2103,7 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 
 		if(do_dark) // Darken the grid
 		{
-			if(floor_ptr->floor_level || !is_daytime())
+			if(floor_ptr->depth || !is_daytime())
 			{
 				for (j = 0; j < DIRECTION_NUM; j++)
 				{
@@ -2645,7 +2645,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			if(!one_in_(6)) break;
 
 		case 7: case 8: case 9: case 18:
-			(*count) += summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+			(*count) += summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			if(!one_in_(6)) break;
 
 		case 10: case 11: case 12:
@@ -2685,7 +2685,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			/*
 			* Only summon Cyberdemons deep in the dungeon.
 			*/
-			if((floor_ptr->floor_level > 65) && !stop_ty)
+			if((floor_ptr->depth > 65) && !stop_ty)
 			{
 				(*count) += summon_cyber(NULL, creature_ptr->fy, creature_ptr->fx);
 				stop_ty = TRUE;
@@ -2737,11 +2737,11 @@ int activate_hi_summon(creature_type *creature_ptr, int y, int x, bool can_pet)
 
 	if(!pet) mode |= PC_NO_PET;
 
-	summon_lev = (pet ? creature_ptr->lev * 2 / 3 + randint1(creature_ptr->lev / 2) : floor_ptr->floor_level);
+	summon_lev = (pet ? creature_ptr->lev * 2 / 3 + randint1(creature_ptr->lev / 2) : floor_ptr->depth);
 
-	for (i = 0; i < (randint1(7) + (floor_ptr->floor_level / 40)); i++)
+	for (i = 0; i < (randint1(7) + (floor_ptr->depth / 40)); i++)
 	{
-		switch (randint1(25) + (floor_ptr->floor_level / 20))
+		switch (randint1(25) + (floor_ptr->depth / 20))
 		{
 		case 1: case 2:
 			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_ANT, mode);
@@ -2799,7 +2799,7 @@ int summon_cyber(creature_type *summoner_ptr, int y, int x)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(summoner_ptr);
 	int i;
-	int max_cyber = (floor_ptr->floor_level / 50) + randint1(2);
+	int max_cyber = (floor_ptr->depth / 50) + randint1(2);
 	int count = 0;
 	u32b mode = PC_ALLOW_GROUP;
 

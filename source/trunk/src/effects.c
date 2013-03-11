@@ -1227,15 +1227,15 @@ static void you_died(cptr hit_from)
 			char buf[24];	
 #ifdef JP
 			if(floor_ptr->fight_arena_mode) strcpy(buf,"アリーナ");
-			else if(!floor_ptr->floor_level) strcpy(buf,"地上");
+			else if(!floor_ptr->depth) strcpy(buf,"地上");
 			else if(q_idx && (is_fixed_quest_idx(q_idx) && !(q_idx == QUEST_SERPENT))) strcpy(buf, "クエスト");
-			else sprintf(buf,"%d階", floor_ptr->floor_level);
+			else sprintf(buf,"%d階", floor_ptr->depth);
 			sprintf(tmp, "%sで%sに殺された。", buf, gameover_from);
 #else
 			if(floor_ptr->fight_arena_mode) strcpy(buf,"in the Arena");
-			else if(!floor_ptr->floor_level) strcpy(buf,"on the surface");
+			else if(!floor_ptr->depth) strcpy(buf,"on the surface");
 			else if(q_idx && (is_fixed_quest_idx(q_idx) && !(q_idx == QUEST_SERPENT))) strcpy(buf, "in a quest");
-			else sprintf(buf,"level %d", floor_ptr->floor_level);
+			else sprintf(buf,"level %d", floor_ptr->depth);
 			sprintf(tmp, "killed by %s %s.", gameover_from, buf);
 #endif
 			do_cmd_write_diary(DIARY_BUNSHOU, 0, tmp);

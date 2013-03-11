@@ -64,8 +64,8 @@
 #define TELE_LEVEL_IS_INEFF(FLOOR, USER, TARGET) \
 	((FLOOR)->fight_arena_mode || (FLOOR)->gamble_arena_mode || \
 	 ((FLOOR)->quest && !random_quest_number(FLOOR)) || \
-	 (((TARGET) <= 0) && (quest_number(FLOOR) || ((FLOOR)->floor_level >= dungeon_info[(FLOOR)->dun_type].maxdepth)) && \
-	  ((FLOOR)->floor_level >= 1) && ironman_downward))
+	 (((TARGET) <= 0) && (quest_number(FLOOR) || ((FLOOR)->depth >= dungeon_info[(FLOOR)->dun_type].maxdepth)) && \
+	  ((FLOOR)->depth >= 1) && ironman_downward))
 
 #define MUSIC_SINGING(C, X) ((C)->now_singing == (X))
 #define MUSIC_SINGING_ANY(C) ((C)->now_singing)

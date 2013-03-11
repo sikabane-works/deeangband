@@ -656,14 +656,14 @@ static void pattern_teleport(creature_type *creature_ptr)
 
 		/* Only downward in ironman mode */
 		if(ironman_downward)
-			min_level = floor_ptr->floor_level;
+			min_level = floor_ptr->depth;
 
 		/* Maximum level */
 		if(floor_ptr->dun_type == DUNGEON_ANGBAND)
 		{
-			if(floor_ptr->floor_level > 100)
+			if(floor_ptr->depth > 100)
 				max_level = MAX_DEPTH - 1;
-			else if(floor_ptr->floor_level == 100)
+			else if(floor_ptr->depth == 100)
 				max_level = 100;
 		}
 		else
@@ -679,7 +679,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 #endif
 
 
-		sprintf(tmp_val, "%d", floor_ptr->floor_level);
+		sprintf(tmp_val, "%d", floor_ptr->depth);
 
 		/* Ask for a level */
 		if(!get_string(ppp, tmp_val, 10)) return;
@@ -715,7 +715,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 	if(autosave_l) do_cmd_save_game(TRUE);
 
 	// Change level
-	floor_ptr->floor_level = command_arg;
+	floor_ptr->depth = command_arg;
 
 	leave_quest_check(creature_ptr);
 	if(record_stair) do_cmd_write_diary(DIARY_PAT_TELE,0,NULL);
@@ -1342,7 +1342,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	// (Vampires) Take damage from sunlight
 	if(has_trait(creature_ptr, TRAIT_HURT_LITE))
 	{
-		if(!floor_ptr->floor_level && !has_trait(creature_ptr, TRAIT_RES_LITE) && !IS_INVULN(creature_ptr) && is_daytime())
+		if(!floor_ptr->depth && !has_trait(creature_ptr, TRAIT_RES_LITE) && !IS_INVULN(creature_ptr) && is_daytime())
 		{
 			if((floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{
@@ -1885,7 +1885,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(pet) mode |= PC_FORCE_PET;
 		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
-		if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DEMON, mode))
+		if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, mode))
 		{
 #ifdef JP
 			msg_print("あなたはデーモンを引き寄せた！");
@@ -1984,7 +1984,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(pet) mode |= PC_FORCE_PET;
 		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
-		if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_ANIMAL, mode))
+		if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_ANIMAL, mode))
 		{
 #ifdef JP
 			msg_print("動物を引き寄せた！");
@@ -2071,7 +2071,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(pet) mode |= PC_FORCE_PET;
 		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
-		if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DRAGON, mode))
+		if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DRAGON, mode))
 		{
 #ifdef JP
 			msg_print("ドラゴンを引き寄せた！");
@@ -2341,7 +2341,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Call animal */
 	if((has_trait(creature_ptr, TRAIT_CALL_ANIMAL)) && one_in_(2500))
 	{
-		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_ANIMAL,
+		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_ANIMAL,
 			(PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 		{
 			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -2357,7 +2357,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Call demon */
 	if((has_trait(creature_ptr, TRAIT_CALL_DEMON)) && one_in_(1111))
 	{
-		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 		{
 			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
@@ -2372,7 +2372,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Call dragon */
 	if((has_trait(creature_ptr, TRAIT_CALL_DRAGON)) && one_in_(800))
 	{
-		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DRAGON,
+		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DRAGON,
 			(PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 		{
 			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -2571,7 +2571,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 			disturb(player_ptr, 0, 0);
 
 			// Determine the level
-			if(floor_ptr->floor_level || floor_ptr->quest)
+			if(floor_ptr->depth || floor_ptr->quest)
 			{
 #ifdef JP
 				msg_print("上に引っ張りあげられる感じがする！");
@@ -2581,9 +2581,9 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 
 				if(floor_ptr->dun_type) creature_ptr->recall_dungeon = floor_ptr->dun_type;
 				if(record_stair)
-					do_cmd_write_diary(DIARY_RECALL, floor_ptr->floor_level, NULL);
+					do_cmd_write_diary(DIARY_RECALL, floor_ptr->depth, NULL);
 
-				floor_ptr->floor_level = 0;
+				floor_ptr->depth = 0;
 				floor_ptr->dun_type = 0;
 
 				leave_quest_check(creature_ptr);
@@ -2603,26 +2603,26 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				floor_ptr->dun_type = creature_ptr->recall_dungeon;
 
 				if(record_stair)
-					do_cmd_write_diary(DIARY_RECALL, floor_ptr->floor_level, NULL);
+					do_cmd_write_diary(DIARY_RECALL, floor_ptr->depth, NULL);
 
 				/* New depth */
-				floor_ptr->floor_level = max_dlv[floor_ptr->dun_type];
-				if(floor_ptr->floor_level < 1) floor_ptr->floor_level = 1;
+				floor_ptr->depth = max_dlv[floor_ptr->dun_type];
+				if(floor_ptr->depth < 1) floor_ptr->depth = 1;
 
 				/* Nightmare mode makes recall more dangerous */
 				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) && !randint0(666) && (floor_ptr->dun_type == DUNGEON_ANGBAND))
 				{
-					if(floor_ptr->floor_level < 50)
+					if(floor_ptr->depth < 50)
 					{
-						floor_ptr->floor_level *= 2;
+						floor_ptr->depth *= 2;
 					}
-					else if(floor_ptr->floor_level < 99)
+					else if(floor_ptr->depth < 99)
 					{
-						floor_ptr->floor_level = (floor_ptr->floor_level + 99) / 2;
+						floor_ptr->depth = (floor_ptr->depth + 99) / 2;
 					}
-					else if(floor_ptr->floor_level > 100)
+					else if(floor_ptr->depth > 100)
 					{
-						floor_ptr->floor_level = dungeon_info[floor_ptr->dun_type].maxdepth - 1;
+						floor_ptr->depth = dungeon_info[floor_ptr->dun_type].maxdepth - 1;
 					}
 				}
 
@@ -2655,7 +2655,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 					{
 						if((quest[i].type == QUEST_TYPE_RANDOM) &&
 							(quest[i].status == QUEST_STATUS_TAKEN) &&
-							(quest[i].level < floor_ptr->floor_level))
+							(quest[i].level < floor_ptr->depth))
 						{
 							quest[i].status = QUEST_STATUS_FAILED;
 							quest[i].complev = (byte)creature_ptr->lev;
@@ -2687,7 +2687,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 			disturb(player_ptr, 0, 0);
 
 			/* Determine the level */
-			if(!quest_number(floor_ptr) && floor_ptr->floor_level)
+			if(!quest_number(floor_ptr) && floor_ptr->depth)
 			{
 #ifdef JP
 				msg_print("世界が変わった！");
@@ -2757,7 +2757,7 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 	int rating = 0;
 	int i;
 
-	if(!floor_ptr->floor_level) return 0; // Hack -- no feeling in the town
+	if(!floor_ptr->depth) return 0; // Hack -- no feeling in the town
 
 	for (i = 1; i < creature_max; i++) // Examine each creature
 	{
@@ -2771,13 +2771,13 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 
 		if(has_trait(creature_ptr, TRAIT_UNIQUE)) // Unique creatures
 		{
-			if(species_ptr->level + 10 > floor_ptr->floor_level) // Nearly out-of-depth unique creatures
-				delta += (species_ptr->level + 10 - floor_ptr->floor_level) * 2 * base; // Boost rating by twice delta-depth
+			if(species_ptr->level + 10 > floor_ptr->depth) // Nearly out-of-depth unique creatures
+				delta += (species_ptr->level + 10 - floor_ptr->depth) * 2 * base; // Boost rating by twice delta-depth
 		}
 		else
 		{
-			if(species_ptr->level > floor_ptr->floor_level) // Out-of-depth creatures
-				delta += (species_ptr->level - floor_ptr->floor_level) * base; // Boost rating by delta-depth
+			if(species_ptr->level > floor_ptr->depth) // Out-of-depth creatures
+				delta += (species_ptr->level - floor_ptr->depth) * base; // Boost rating by delta-depth
 		}
 
 		// Unusually crowded creatures get a little bit of rating boost
@@ -2817,8 +2817,8 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 		}
 
 		if(!object_is_cursed(object_ptr) && !object_is_broken(object_ptr) && 
-			kind_ptr->level > floor_ptr->floor_level) // Out-of-depth objects
-			delta += (kind_ptr->level - floor_ptr->floor_level) * base; // Rating increase
+			kind_ptr->level > floor_ptr->depth) // Out-of-depth objects
+			delta += (kind_ptr->level - floor_ptr->depth) * base; // Rating increase
 
 		rating += RATING_BOOST(delta);
 	}
@@ -2844,11 +2844,11 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 	int quest_num;
 	int delay;
 
-	if(!floor_ptr->floor_level) return; // No feeling on the surface
+	if(!floor_ptr->depth) return; // No feeling on the surface
 	if(floor_ptr->gamble_arena_mode) return;		 // No feeling in the arena
 
 	// Extract delay time
-	delay = MAX(10, 150 - creature_ptr->skill_fos) * (150 - floor_ptr->floor_level) * TURNS_PER_TICK / 100;
+	delay = MAX(10, 150 - creature_ptr->skill_fos) * (150 - floor_ptr->depth) * TURNS_PER_TICK / 100;
 	if(turn < creature_ptr->feeling_turn + delay && !cheat_xtra) return;
 
 	// No feeling in a quest
@@ -2956,7 +2956,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 {
 
 	/* While in town/wilderness */
-	if(!floor_ptr->floor_level && !floor_ptr->quest && !floor_ptr->gamble_arena_mode && !floor_ptr->fight_arena_mode)
+	if(!floor_ptr->depth && !floor_ptr->quest && !floor_ptr->gamble_arena_mode && !floor_ptr->fight_arena_mode)
 	{
 		/* Hack -- Daybreak/Nighfall in town */
 		if(!(turn % ((TURNS_PER_TICK * TOWN_DAWN) / 2)))
@@ -3440,7 +3440,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Go up staircase */
 	case '<':
 		{
-			if(!floor_ptr->world_map && !floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
+			if(!floor_ptr->world_map && !floor_ptr->depth && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
 			{
 				change_wild_mode(creature_ptr);
 			}
@@ -3514,7 +3514,7 @@ static void process_player_command(creature_type *creature_ptr)
 				{
 					msg_print(MES_CAST_NONE);
 				}
-				else if(floor_ptr->floor_level && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH))
+				else if(floor_ptr->depth && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH))
 				{
 					msg_print(MES_PREVENT_MAGIC_BY_DUNGEON);
 					msg_print(NULL);
@@ -4039,7 +4039,7 @@ void do_creature_fishing(creature_type *creature_ptr)
 			int species_idx;
 			bool success = FALSE;
 			get_species_num_prep_trait(NULL, t_need(1, TRAIT_AQUATIC), t_need(1, TRAIT_UNIQUE), 0);
-			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level ? floor_ptr->floor_level : wilderness[creature_ptr->wy][creature_ptr->wx].level);
+			species_idx = get_species_num(floor_ptr, floor_ptr->depth ? floor_ptr->depth : wilderness[creature_ptr->wy][creature_ptr->wx].level);
 			msg_print(NULL);
 			if(species_idx && one_in_(2))
 			{
@@ -4767,7 +4767,7 @@ static void cheat_death(void)
 
 	gameover = FALSE;
 
-	CURRENT_FLOOR_PTR->floor_level = 0;
+	CURRENT_FLOOR_PTR->depth = 0;
 	leaving_quest = 0;
 	if(CURRENT_FLOOR_PTR->dun_type) player_ptr->recall_dungeon = CURRENT_FLOOR_PTR->dun_type;
 	CURRENT_FLOOR_PTR->dun_type = 0;
@@ -4993,7 +4993,7 @@ static void play_loop(void)
 		if(!floor_ptr->generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
 		if(panic_save) panic_save = FALSE; // TODO
 
-		floor_ptr->base_level = floor_ptr->floor_level; 	   // Set the base level
+		floor_ptr->base_level = floor_ptr->depth; 	   // Set the base level
 		subject_change_floor = FALSE;  // Not leaving
 
 		// Reset the "command" vars
@@ -5030,10 +5030,10 @@ static void play_loop(void)
 		}
 
 		// Track maximum dungeon level (if not in quest -KMW-)
-		if((max_dlv[floor_ptr->dun_type] < floor_ptr->floor_level) && !floor_ptr->quest)
+		if((max_dlv[floor_ptr->dun_type] < floor_ptr->depth) && !floor_ptr->quest)
 		{
-			max_dlv[floor_ptr->dun_type] = floor_ptr->floor_level;
-			if(record_maxdepth) do_cmd_write_diary(DIARY_MAXDEAPTH, floor_ptr->floor_level, NULL);
+			max_dlv[floor_ptr->dun_type] = floor_ptr->depth;
+			if(record_maxdepth) do_cmd_write_diary(DIARY_MAXDEAPTH, floor_ptr->depth, NULL);
 		}
 
 		panel_bounds_center(); // Validate the panel
@@ -5087,7 +5087,7 @@ static void play_loop(void)
 			floor_ptr->quest = random_quest_number(floor_ptr);
 		}
 
-		if((floor_ptr->floor_level == dungeon_info[floor_ptr->dun_type].maxdepth) && dungeon_info[floor_ptr->dun_type].final_guardian)
+		if((floor_ptr->depth == dungeon_info[floor_ptr->dun_type].maxdepth) && dungeon_info[floor_ptr->dun_type].final_guardian)
 		{
 			if(species_info[dungeon_info[floor_ptr->dun_type].final_guardian].max_num)
 				msg_format(MES_QUEST_LORD(dungeon_name + dungeon_info[floor_ptr->dun_type].name, 
@@ -5103,7 +5103,7 @@ static void play_loop(void)
 		floor_ptr->object_level = floor_ptr->base_level;
 
 		if(player_ptr->energy_need > 0 && !floor_ptr->gamble_arena_mode &&
-			(floor_ptr->floor_level || subject_change_dungeon || floor_ptr->fight_arena_mode))
+			(floor_ptr->depth || subject_change_dungeon || floor_ptr->fight_arena_mode))
 			cancel_tactical_action(player_ptr);
 
 		/* Not leaving dungeon */

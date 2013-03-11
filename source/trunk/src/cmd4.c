@@ -377,14 +377,14 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 	{
 		if(floor_ptr->fight_arena_mode)
 			note_level = DIARY_PLACE_ARENA;
-		else if(!floor_ptr || !floor_ptr->floor_level)
+		else if(!floor_ptr || !floor_ptr->depth)
 			note_level = DIARY_PLACE_SURFACE;
 		else if(q_idx && (is_fixed_quest_idx(q_idx)
 		         && !(q_idx == QUEST_SERPENT)))
 			note_level = DIARY_PLACE_QUEST;
 		else
 		{
-			sprintf(note_level_buf, KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dun_type].name, floor_ptr->floor_level));
+			sprintf(note_level_buf, KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dun_type].name, floor_ptr->depth));
 			note_level = note_level_buf;
 		}
 	}
@@ -497,8 +497,8 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 			}
 			else
 			{
-				if(!(floor_ptr->floor_level+num)) to = KW_SURFACE;
-				else to = format(KW_FLOOR_NUM(floor_ptr->floor_level+num));
+				if(!(floor_ptr->depth+num)) to = KW_SURFACE;
+				else to = format(KW_FLOOR_NUM(floor_ptr->depth+num));
 			}
 
 #ifdef JP 
@@ -601,10 +601,10 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 		case DIARY_WIZ_TELE:
 		{
 			cptr to;
-			if(!floor_ptr->floor_level)
+			if(!floor_ptr->depth)
 				to = KW_SURFACE;
 			else
-				to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dun_type].name, floor_ptr->floor_level));
+				to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dun_type].name, floor_ptr->depth));
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s %sへとウィザード・テレポートで移動した。\n", hour, min, note_level, to);
 #else
@@ -615,10 +615,10 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 		case DIARY_PAT_TELE:
 		{
 			cptr to;
-			if(!floor_ptr->floor_level)
+			if(!floor_ptr->depth)
 				to = KW_SURFACE;
 			else
-				to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dun_type].name, floor_ptr->floor_level));
+				to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dun_type].name, floor_ptr->depth));
 
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s %sへとパターンの力で移動した。\n", hour, min, note_level, to);
@@ -3561,7 +3561,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	}
 
 	// No useful feeling in town
-	else if(floor_ptr->town_num && !floor_ptr->floor_level)
+	else if(floor_ptr->town_num && !floor_ptr->depth)
 	{
 #ifdef JP
 		if(!strcmp(town[floor_ptr->town_num].name, "混沌の地平"))
@@ -3580,7 +3580,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	}
 
 	// No useful feeling in the wilderness
-	else if(!floor_ptr->floor_level)
+	else if(!floor_ptr->depth)
 	{
 		msg_print(MES_FEELING_WILD);
 		return;

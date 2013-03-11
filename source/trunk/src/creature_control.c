@@ -1201,7 +1201,7 @@ static bool restrict_creature_to_dungeon(int species_idx)
 	}
 	if(d_ptr->flags1 & DF1_BEGINNER)
 	{
-		if(species_ptr->level > floor_ptr->floor_level)
+		if(species_ptr->level > floor_ptr->depth)
 			return FALSE;
 	}
 
@@ -1310,7 +1310,7 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, c
 		{
 			if(has_trait_species(species_ptr, TRAIT_QUESTOR))	continue; // Hack -- don't create questors
 			if(has_trait_species(species_ptr, TRAIT_GUARDIAN))	continue;
-			if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (species_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
+			if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (species_ptr->level > floor_ptr->depth)) continue; // Depth Creatures never appear out of depth
 		}
 
 		entry->prob2 = entry->prob1; // Accept this creature
@@ -1379,7 +1379,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 		{
 			if(has_trait_species(species_ptr, TRAIT_QUESTOR))		continue;
 			if(has_trait_species(species_ptr, TRAIT_GUARDIAN))	continue;
-			if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (species_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
+			if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (species_ptr->level > floor_ptr->depth)) continue; // Depth Creatures never appear out of depth
 		}
 
 		entry->prob2 = entry->prob1; // Accept this creature
@@ -2756,10 +2756,10 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 
 		if(old_unique)
 			level = species_info[SPECIES_CHAMELEON_K].level;
-		else if(!floor_ptr->floor_level)
+		else if(!floor_ptr->depth)
 			level = wilderness[player_ptr->wy][player_ptr->wx].level;
 		else
-			level = floor_ptr->floor_level;
+			level = floor_ptr->depth;
 
 		if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON) level+= 2+randint1(3);
 
@@ -3279,7 +3279,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		}
 			
 		// Depth creatures may NOT be created out of depth, unless in Nightmare mode
-		if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && (floor_ptr->floor_level < species_ptr->level) &&
+		if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && (floor_ptr->depth < species_ptr->level) &&
 			(!has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR) || (has_trait_species(species_ptr, TRAIT_QUESTOR))))
 		{
 			if(cheat_hear) msg_format("[max_creature_idx: No Nightmare mode.]");
@@ -3345,7 +3345,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 	// Place the creature at the location
 	creature_ptr->floor_id = get_floor_id(floor_ptr);
-	creature_ptr->depth = floor_ptr->floor_level;
+	creature_ptr->depth = floor_ptr->depth;
 	creature_ptr->fy = y;
 	creature_ptr->fx = x;
 
@@ -3622,16 +3622,16 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 	total = randint1(10);
 
 	/* Hard creatures, small groups */
-	if(species_ptr->level > floor_ptr->floor_level)
+	if(species_ptr->level > floor_ptr->depth)
 	{
-		extra = species_ptr->level - floor_ptr->floor_level;
+		extra = species_ptr->level - floor_ptr->depth;
 		extra = 0 - randint1(extra);
 	}
 
 	/* Easy creatures, large groups */
-	else if(species_ptr->level < floor_ptr->floor_level)
+	else if(species_ptr->level < floor_ptr->depth)
 	{
-		extra = floor_ptr->floor_level - species_ptr->level;
+		extra = floor_ptr->depth - species_ptr->level;
 		extra = randint1(extra);
 	}
 
@@ -3884,7 +3884,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 	{
 		scatter(floor_ptr, &cy, &cx, y, x, 5, 0);
 
-		(void)summon_specific(&creature_list[m_idx], cy, cx, floor_ptr->floor_level + 5, TRAIT_S_KIN, PC_ALLOW_GROUP);
+		(void)summon_specific(&creature_list[m_idx], cy, cx, floor_ptr->depth + 5, TRAIT_S_KIN, PC_ALLOW_GROUP);
 
 		y = cy;
 		x = cx;
@@ -3900,7 +3900,7 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 {
 	int guardian = dungeon_info[floor_ptr->dun_type].final_guardian;
 
-	if(guardian && (dungeon_info[floor_ptr->dun_type].maxdepth == floor_ptr->floor_level) && (species_info[guardian].cur_num < species_info[guardian].max_num))
+	if(guardian && (dungeon_info[floor_ptr->dun_type].maxdepth == floor_ptr->depth) && (species_info[guardian].cur_num < species_info[guardian].max_num))
 	{
 		int oy;
 		int ox;
@@ -3953,7 +3953,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 		x = randint0(floor_ptr->width);
 
 		// Require empty floor grid (was "naked")
-		if(floor_ptr->floor_level)
+		if(floor_ptr->depth)
 		{
 			if(!cave_empty_bold2(floor_ptr, y, x)) continue;
 		}
@@ -3979,7 +3979,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 		return FALSE;
 	}
 
-	if(randint1(5000) <= floor_ptr->floor_level)
+	if(randint1(5000) <= floor_ptr->depth)
 	{
 		if(alloc_horde(NULL, floor_ptr, y, x))
 		{
@@ -4060,7 +4060,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(y, x), summon_specific_okay, type);
 
 	/* Pick a creature, using the level calculation */
-	species_idx = get_species_num(floor_ptr, (floor_ptr->floor_level + lev) / 2 + 5);
+	species_idx = get_species_num(floor_ptr, (floor_ptr->depth + lev) / 2 + 5);
 
 	if(!species_idx) return FALSE; // Handle failure
 	if((type == TRAIT_S_BLUE_HORROR) || (type == TRAIT_S_DAWN_LEGION)) mode |= PC_NO_KAGE;

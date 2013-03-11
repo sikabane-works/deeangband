@@ -1805,7 +1805,7 @@ static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_p
 {
 	int i;
 	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
-	if(!floor_ptr->floor_level) return FALSE; // No artifacts in the town 
+	if(!floor_ptr->depth) return FALSE; // No artifacts in the town 
 	if(object_ptr->number != 1) return FALSE;
 
 	// Check the artifact list (skip the "specials")
@@ -1824,9 +1824,9 @@ static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_p
 		if(a_ptr->sval != object_ptr->sval) continue;
 
 		//  Enforce minimum "depth" (loosely)
-		if(a_ptr->level > floor_ptr->floor_level)
+		if(a_ptr->level > floor_ptr->depth)
 		{
-			int d = (a_ptr->level - floor_ptr->floor_level) * 2;
+			int d = (a_ptr->level - floor_ptr->depth) * 2;
 			if(!one_in_(d)) continue;
 		}
 		if(!one_in_(a_ptr->rarity)) continue; // We must make the "rarity roll"
@@ -2363,7 +2363,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 				species_ptr = &species_info[i];
 
-				check = (floor_ptr->floor_level < species_ptr->level) ? (species_ptr->level - floor_ptr->floor_level) : 0;
+				check = (floor_ptr->depth < species_ptr->level) ? (species_ptr->level - floor_ptr->depth) : 0;
 
 				/* Ignore dead creatures */
 				if(!species_ptr->rarity) continue;
@@ -2410,11 +2410,11 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			/* Pick a random non-unique creature race */
 			while(TRUE)
 			{
-				i = get_species_num(floor_ptr, floor_ptr->floor_level);
+				i = get_species_num(floor_ptr, floor_ptr->depth);
 
 				species_ptr = &species_info[i];
 
-				check = (floor_ptr->floor_level < species_ptr->level) ? (species_ptr->level - floor_ptr->floor_level) : 0;
+				check = (floor_ptr->depth < species_ptr->level) ? (species_ptr->level - floor_ptr->depth) : 0;
 
 				/* Ignore dead creatures */
 				if(!species_ptr->rarity) continue;
@@ -2478,7 +2478,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			if(obj_level <= 0) break;	// Hack -- skip ruined chests
 			object_ptr->pval = (s16b)randint1(obj_level);	// Hack -- pick a "difficulty"
 			if(object_ptr->sval == SV_CHEST_KANDUME) object_ptr->pval = 6;
-			object_ptr->chest_value = floor_ptr->floor_level + 5;
+			object_ptr->chest_value = floor_ptr->depth + 5;
 			if(object_ptr->pval > 55) object_ptr->pval = 55 + (byte)randint0(5);	// Never exceed "difficulty" of 55 to 59
 
 			break;
@@ -3369,7 +3369,7 @@ s16b choose_random_trap(floor_type *floor_ptr)
 		if(floor_ptr->fight_arena_mode || quest_number(floor_ptr)) continue;
 
 		/* Hack -- no trap doors on the deepest level */
-		if(floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth) continue;
+		if(floor_ptr->depth >= dungeon_info[floor_ptr->dun_type].maxdepth) continue;
 
 		break;
 	}

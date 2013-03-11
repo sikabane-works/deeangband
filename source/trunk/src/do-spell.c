@@ -262,7 +262,7 @@ static void cast_invoke_spirits(creature_type *caster_ptr, int dir)
 	if(die < 8)
 	{
 		msg_print(INVOKE_SPIRIT_LOW1);
-		(void)summon_specific(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+		(void)summon_specific(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 	else if(die < 14)
 	{
@@ -385,7 +385,7 @@ void wild_magic(creature_type *caster_ptr, int spell)
 	case 35:
 		while (counter++ < 8)
 		{
-			(void)summon_specific(0, caster_ptr->fy, caster_ptr->fx, (floor_ptr->floor_level * 3) / 2, type, (PC_ALLOW_GROUP | PC_NO_PET));
+			(void)summon_specific(0, caster_ptr->fy, caster_ptr->fx, (floor_ptr->depth * 3) / 2, type, (PC_ALLOW_GROUP | PC_NO_PET));
 		}
 		break;
 	case 36:
@@ -432,7 +432,7 @@ static void cast_shuffle(creature_type *caster_ptr)
 	else if(die < 14)
 	{
 		msg_print(SHUFFLE_DEVIL);
-		summon_specific(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+		summon_specific(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 	else if(die < 18)
 	{
@@ -454,7 +454,7 @@ static void cast_shuffle(creature_type *caster_ptr)
 	else if(die < 30)
 	{
 		msg_print(SHUFFLE_STRANGE);
-		trump_summoning(caster_ptr, 1, FALSE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->floor_level * 3 / 2), (32 + randint1(6)), PC_ALLOW_GROUP | PC_ALLOW_UNIQUE);
+		trump_summoning(caster_ptr, 1, FALSE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->depth * 3 / 2), (32 + randint1(6)), PC_ALLOW_GROUP | PC_ALLOW_UNIQUE);
 	}
 	else if(die < 33)
 	{
@@ -504,22 +504,22 @@ static void cast_shuffle(creature_type *caster_ptr)
 	else if(die < 82)
 	{
 		msg_print(SHUFFLE_FRIEND);
-		trump_summoning(caster_ptr, 1, TRUE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_MOLD, 0L);
+		trump_summoning(caster_ptr, 1, TRUE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->depth * 3 / 2), TRAIT_S_MOLD, 0L);
 	}
 	else if(die < 84)
 	{
 		msg_print(SHUFFLE_FRIEND);
-		trump_summoning(caster_ptr, 1, TRUE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_BAT, 0L);
+		trump_summoning(caster_ptr, 1, TRUE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->depth * 3 / 2), TRAIT_S_BAT, 0L);
 	}
 	else if(die < 86)
 	{
 		msg_print(SHUFFLE_FRIEND);
-		trump_summoning(caster_ptr, 1, TRUE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_VORTEX, 0L);
+		trump_summoning(caster_ptr, 1, TRUE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->depth * 3 / 2), TRAIT_S_VORTEX, 0L);
 	}
 	else if(die < 88)
 	{
 		msg_print(SHUFFLE_FRIEND);
-		trump_summoning(caster_ptr, 1, TRUE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_CREEPING_COIN, 0L);
+		trump_summoning(caster_ptr, 1, TRUE, caster_ptr->fy, caster_ptr->fx, (floor_ptr->depth * 3 / 2), TRAIT_S_CREEPING_COIN, 0L);
 	}
 	else if(die < 96)
 	{
