@@ -5486,6 +5486,7 @@ void world_wipe()
 	start_time = (u32b)time(NULL) - 1;
 	record_object_name[0] = '\0';
 
+	generate_world(&floor_list[floor_pop()]);
 }
 
 void become_winner(creature_type *creature_ptr)
