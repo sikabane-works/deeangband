@@ -1008,8 +1008,6 @@ void resize_map(void)
 	prepare_update(player_ptr, PU_CREATURES);
 
 	prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
-
-	/* Hack -- update */
 	handle_stuff(player_ptr);
 
 	Term_redraw();
@@ -1028,8 +1026,6 @@ void redraw_window(void)
 {
 	prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 	prepare_window(PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
-
-	/* Hack -- update */
 	handle_stuff(player_ptr);
 	Term_redraw();
 }
@@ -1063,13 +1059,9 @@ bool change_panel(int dy, int dx)
 		/* Save the new panel info */
 		panel_row_min = y;
 		panel_col_min = x;
-
 		panel_bounds_center();
-
 		prepare_update(player_ptr, PU_CREATURES);
-
 		prepare_redraw(PR_MAP);
-
 		handle_stuff(player_ptr);
 
 		return TRUE;
@@ -1177,20 +1169,11 @@ cptr look_creature_desc(creature_type *m_ptr, u32b mode)
 	perc = 100L * m_ptr->chp / m_ptr->mhp;
 
 	/* Healthy creatures */
-	
-#ifdef JP
-	if(m_ptr->chp >= m_ptr->mhp) desc = living ? "無傷" : "無ダメージ";
-	else if(perc >= 60) desc = living ? "軽傷" : "小ダメージ";
-	else if(perc >= 25) desc = living ? "負傷" : "中ダメージ";
-	else if(perc >= 10) desc = living ? "重傷" : "大ダメージ";
-	else desc = living ? "半死半生" : "倒れかけ";
-#else
-	if(m_ptr->chp >= m_ptr->mhp) desc = living ? "unhurt" : "undamaged";
-	else if(perc >= 60) desc = living ? "somewhat wounded" : "somewhat damaged";
-	else if(perc >= 25) desc = living ? "wounded" : "damaged";
-	else if(perc >= 10) desc = living ? "badly wounded" : "badly damaged";
-	else desc = living ? "almost dead" : "almost destroyed";
-#endif
+	if(m_ptr->chp >= m_ptr->mhp) desc = living ? MES_CREATURE_LIFE_COND1 : MES_CREATURE_NO_LIFE_COND1;
+	else if(perc >= 60) desc = living ? MES_CREATURE_LIFE_COND2 : MES_CREATURE_NO_LIFE_COND2;
+	else if(perc >= 25) desc = living ? MES_CREATURE_LIFE_COND3 : MES_CREATURE_NO_LIFE_COND3;
+	else if(perc >= 10) desc = living ? MES_CREATURE_LIFE_COND4 : MES_CREATURE_NO_LIFE_COND4;
+	else desc = living ? MES_CREATURE_LIFE_COND5 : MES_CREATURE_NO_LIFE_COND5;
 
 	/* Need attitude information? */
 	if(!(mode & 0x01))

@@ -3703,3 +3703,27 @@ static cptr desc_stat_neg[] =
 #define MES_PLEFFILE_INVALID_OPTION(NAME) "Ignored invalid option: %s", (NAME)
 #endif
 
+#ifdef JP
+#define MES_CREATURE_LIFE_COND1 "無傷"
+#define MES_CREATURE_LIFE_COND2 "軽傷"
+#define MES_CREATURE_LIFE_COND3 "負傷"
+#define MES_CREATURE_LIFE_COND4 "重症"
+#define MES_CREATURE_LIFE_COND5 "半死半生"
+#define MES_CREATURE_NO_LIFE_COND1 "無ダメージ"
+#define MES_CREATURE_NO_LIFE_COND2 "小ダメージ"
+#define MES_CREATURE_NO_LIFE_COND3 "中ダメージ"
+#define MES_CREATURE_NO_LIFE_COND4 "大ダメージ"
+#define MES_CREATURE_NO_LIFE_COND5 "倒れかけ"
+#else
+#define MES_CREATURE_LIFE_COND1 "unhurt"
+#define MES_CREATURE_LIFE_COND2 "somewhat wounded"
+#define MES_CREATURE_LIFE_COND3 "wounded"
+#define MES_CREATURE_LIFE_COND4 "badly wounded"
+#define MES_CREATURE_LIFE_COND5 "almost dead"
+#define MES_CREATURE_NO_LIFE_COND1 "undamaged"
+#define MES_CREATURE_NO_LIFE_COND2 "somewhat damaged"
+#define MES_CREATURE_NO_LIFE_COND3 "damaged"
+#define MES_CREATURE_NO_LIFE_COND4 "badly damaged"
+#define MES_CREATURE_NO_LIFE_COND5 "almost destroyed"
+#endif
+

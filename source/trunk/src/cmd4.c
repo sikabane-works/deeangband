@@ -875,8 +875,6 @@ void do_cmd_redraw(void)
 	prepare_window(PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	update_play_time();
-
-	/* Hack -- update */
 	handle_stuff(player_ptr);
 
 	/*
@@ -4790,15 +4788,12 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 		my_fclose(tmpfff);
 	}
 
-	/* Skip a line */
 	fprintf(fff, "\n");
-
-	/* Close it */
 	my_fclose(fff);
 
 	if(message) {
 #ifdef JP
-	msg_print("画面(記念撮影)をファイルに書き出しました。");
+		msg_print("画面(記念撮影)をファイルに書き出しました。");
 #else
 		msg_print("Screen dump saved.");
 #endif
@@ -4865,10 +4860,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 	{
 		use_graphics = FALSE;
 		reset_visuals();
-
 		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
-
-		/* Hack -- update */
 		handle_stuff(player_ptr);
 	}
 
@@ -4931,9 +4923,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 			fprintf(fff, "%s\n", buf);
 		}
 
-		/* Skip a line */
 		fprintf(fff, "\n");
-
 
 		for (y = 0; y < hgt; y++)
 		{
@@ -4950,7 +4940,6 @@ void do_cmd_save_screen(creature_type *player_ptr)
 			fprintf(fff, "%s\n", buf);
 		}
 
-		/* Skip a line */
 		fprintf(fff, "\n");
 
 		my_fclose(fff);
@@ -4965,10 +4954,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 	{
 		use_graphics = TRUE;
 		reset_visuals();
-
 		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
-
-		/* Hack -- update */
 		handle_stuff(player_ptr);
 	}
 }
