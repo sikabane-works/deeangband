@@ -271,6 +271,9 @@
 #define KW_QUANTITY "ŒÂ”"
 #define KW_KILLS "EŠQ”"
 #define KW_SYM "•¶š"
+#define KW_PET "ƒyƒbƒg"
+#define KW_FRIEND "—FŒR"
+#define KW_CLONE "ƒNƒ[ƒ“"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -372,6 +375,9 @@
 #define KW_QUANTITY "Quantity"
 #define KW_KILLS "Kills"
 #define KW_SYM "Sym"
+#define KW_PET "Pet"
+#define KW_FRIEND "Friend"
+#define KW_CLONE "Clone"
 #endif
 
 #ifdef JP

@@ -1178,28 +1178,18 @@ cptr look_creature_desc(creature_type *m_ptr, u32b mode)
 	/* Need attitude information? */
 	if(!(mode & 0x01))
 		attitude = "";
-#ifdef JP
-	else if(is_pet(player_ptr, m_ptr)) attitude = ", ペット";
-	else if(is_friendly(player_ptr, m_ptr)) attitude = ", 友好的";
-#else
-	else if(is_pet(player_ptr, m_ptr)) attitude = ", pet";
-	else if(is_friendly(player_ptr, m_ptr)) attitude = ", friendly";
-#endif
+	else if(is_pet(player_ptr, m_ptr)) attitude = KW_PET;
+	else if(is_friendly(player_ptr, m_ptr)) attitude = KW_FRIEND;
 	else attitude = "";
 
 	if(has_trait(m_ptr, TRAIT_CLONED))
-		clone = ", clone";
+		clone = KW_CLONE;
 	else
 		clone = "";
 
 	/* Display creature's level --- idea borrowed from ToME */
 	if(ap_r_ptr->r_tkills && !has_trait(m_ptr, TRAIT_KAGE))
-	{
-		if(cheat_hear)
-			return format("Lv%d, %s%s%s [Ego:%d]", ap_r_ptr->level, desc, attitude, clone, m_ptr->creature_ego_idx);
-		else
-			return format("Lv%d, %s%s%s", ap_r_ptr->level, desc, attitude, clone);
-	}
+		return format("Lv%d, %s%s%s", ap_r_ptr->level, desc, attitude, clone);
 	else 
 		return format("Lv???, %s%s%s", desc, attitude, clone);
 }
