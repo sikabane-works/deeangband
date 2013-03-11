@@ -3287,22 +3287,8 @@ static void process_menus(WORD wCmd)
 		/* Open game */
 		case IDM_FILE_MOVIE:
 		{
-			if(!initialized)
-			{
-#ifdef JP
-				plog("まだ初期化中です...");
-#else
-				plog("You cannot do that yet...");
-#endif
-			}
-			else if(game_in_progress)
-			{
-#ifdef JP
-				plog("プレイ中はムービーをロードすることができません！");
-#else
-				plog("You can't open a movie while you're playing!");
-#endif
-			}
+			if(!initialized) plog(MES_SYS_WIN_INITIALIZE_NOW);
+			else if(game_in_progress) plog(MES_SYS_WIN_CANNOT_OPEN_MOVIE);
 			else
 			{
 				memset(&ofn, 0, sizeof(ofn));
