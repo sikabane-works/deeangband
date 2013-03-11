@@ -4023,10 +4023,8 @@ static char inkey_from_menu(void)
 					if(player_ptr->class_idx == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
 					break;
 				case MENU_WILD:
-					if(!floor_ptr->depth && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
-					{
-						if((byte)floor_ptr->world_map == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
-					}
+					if(!floor_ptr->depth && !floor_ptr->fight_arena_mode && !floor_ptr->quest && (byte)floor_ptr->world_map == special_menu_info[hoge].jouken_naiyou)
+						menu_name = special_menu_info[hoge].name;
 					break;
 				default:
 					break;
@@ -4132,16 +4130,13 @@ static char inkey_from_menu(void)
  *
  * Note that this command is used both in the dungeon and in
  * stores, and must be careful to work in both situations.
- *
  * Note that "guest_ptr->command_new" may not work any more.  
  */
 void request_command(creature_type *guest_ptr, int shopping)
 {
 	int i;
-
 	char cmd;
 	int mode;
-
 	cptr act;
 
 #ifdef JP
@@ -4222,10 +4217,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 					/* Stop count at 9999 */
 					if(command_arg >= 1000)
 					{
-						/* Warn */
 						bell();
-
-						/* Limit */
 						command_arg = 9999;
 					}
 
@@ -4241,10 +4233,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 				}
 
 				/* Exit on "unusable" input */
-				else
-				{
-					break;
-				}
+				else break;
 			}
 
 			/* Hack -- Handle "zero" */
@@ -4267,9 +4256,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 				/* Get a real command */
 				if(!get_com(PROMPT_COMMAND, (char *)&cmd, FALSE))
 				{
-					/* Clear count */
 					command_arg = 0;
-
 					continue;
 				}
 			}

@@ -6304,9 +6304,7 @@ struct dungeon_grid
 	int random;			/* Number of the random effect */
 };
 
-
 static dungeon_grid letter[255];
-
 
 /*
  * Process "F:<letter>:<terrain>:<cave_info>:<creature>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid
@@ -6315,8 +6313,6 @@ static errr parse_line_feature(char *buf, u32b flags)
 {
 	int num;
 	char *zz[9];
-
-
 	if(flags & INIT_ONLY_BUILDINGS) return PARSE_ERROR_NONE;
 
 	/* Tokenize the line */
