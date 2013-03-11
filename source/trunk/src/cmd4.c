@@ -1773,8 +1773,6 @@ void do_cmd_options(void)
 			skey = inkey_special(TRUE);
 			if(!(skey & SKEY_MASK)) k = (char)skey;
 			else k = 0;
-
-			/* Exit */
 			if(k == ESCAPE) break;
 
 			if(my_strchr("\n\r ", k))
@@ -1783,10 +1781,7 @@ void do_cmd_options(void)
 				break;
 			}
 
-			for (i = 0; i < n; i++)
-			{
-				if(tolower(k) == option_fields[i].key) break;
-			}
+			for (i = 0; i < n; i++) if(tolower(k) == option_fields[i].key) break;
 
 			/* Command is found */
 			if(i < n) break;
@@ -6304,23 +6299,15 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 						if(mon_idx[mon_cur] == creature_list[i].species_idx)
 						{
 							screen_save();
-
 							(void)show_item_list(0, &creature_list[i], SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY, NULL);
-							/* Forever */
 							while(TRUE)
 							{
 								c = inkey();
-
-								/* Exit */
 								if(c == ESCAPE) break;
-
 							}
-
 							screen_load();
 							break;
-
 						}
-
 				}
 				break;
 
@@ -6335,18 +6322,12 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 						if(mon_idx[mon_cur] == creature_list[i].species_idx)
 						{
 							screen_save();
-
 							(void)show_item_list(0, &creature_list[i], SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, NULL);
-							/* Forever */
 							while(TRUE)
 							{
 								c = inkey();
-
-								/* Exit */
 								if(c == ESCAPE) break;
-
 							}
-
 							screen_load();
 							break;
 

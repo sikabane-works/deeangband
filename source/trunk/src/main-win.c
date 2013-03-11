@@ -3205,34 +3205,19 @@ static void process_menus(WORD wCmd)
 
 				if(!can_save)
 				{
-#ifdef JP
-					plog("今はセーブすることは出来ません。");
-#else
-					plog("You may not do that right now.");
-#endif
-
+					plog(MES_SYS_WIN_CANNOT_SAVE);
 					break;
 				}
 
 				/* Hack -- Forget messages */
 				msg_flag = FALSE;
 
-				/* Save the game */
 				do_cmd_save_game(FALSE);
 			}
-			else
-			{
-#ifdef JP
-				plog("今、セーブすることは出来ません。");
-#else
-				plog("You may not do that right now.");
-#endif
-
-			}
+			else plog(MES_SYS_WIN_CANNOT_SAVE);
 			break;
 		}
 
-		/* Exit */
 		case IDM_FILE_EXIT:
 		{
 			if(game_in_progress && character_generated)
@@ -3240,12 +3225,7 @@ static void process_menus(WORD wCmd)
 
 				if(!can_save)
 				{
-#ifdef JP
-					plog("今は終了できません。");
-#else
-					plog("You may not do that right now.");
-#endif
-
+					plog(MES_SYS_WIN_CANNOT_EXIT);
 					break;
 				}
 
@@ -4706,8 +4686,6 @@ static void hack_quit(cptr str)
 
 	/* Destroy the icon */
 	if(hIcon) DestroyIcon(hIcon);
-
-	/* Exit */
 	exit(0);
 }
 

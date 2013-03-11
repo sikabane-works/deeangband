@@ -176,7 +176,16 @@
 #define MES_SYS_FIND "Find: "
 
 #endif
- 
+
+#if JP
+#define MES_SYS_WIN_CANNOT_SAVE "今はセーブすることは出来ません。"
+#define MES_SYS_WIN_CANNOT_EXIT "今は終了できません。"
+#else
+#define MES_SYS_WIN_CANNOT_SAVE "You may not do that right now."
+#define MES_SYS_WIN_CANNOT_EXIT "You may not do that right now."
+#endif
+
+
 #if JP
 #define KW_CREATURE "クリーチャー"
 #define KW_NAME "名前"
