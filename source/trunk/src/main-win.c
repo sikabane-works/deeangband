@@ -3316,13 +3316,7 @@ static void process_menus(WORD wCmd)
 
 		case IDM_WINDOW_VIS_0:
 		{
-#ifdef JP
-			plog("メインウィンドウは非表示にできません！");
-#else
-			plog("You are not allowed to do that!");
-#endif
-
-
+			plog(MES_SYS_WIN_MAIN_MUST_ENABLE);
 			break;
 		}
 
@@ -3443,17 +3437,11 @@ static void process_menus(WORD wCmd)
 		case IDM_WINDOW_I_WID_7:
 		{
 			i = wCmd - IDM_WINDOW_I_WID_0;
-
 			if((i < 0) || (i >= MAX_TERM_DATA)) break;
-
 			td = &data[i];
-
 			td->tile_wid += 1;
-
 			term_getsize(td);
-
 			term_window_resize(td);
-
 			break;
 		}
 
@@ -3468,17 +3456,11 @@ static void process_menus(WORD wCmd)
 		case IDM_WINDOW_D_WID_7:
 		{
 			i = wCmd - IDM_WINDOW_D_WID_0;
-
 			if((i < 0) || (i >= MAX_TERM_DATA)) break;
-
 			td = &data[i];
-
 			td->tile_wid -= 1;
-
 			term_getsize(td);
-
 			term_window_resize(td);
-
 			break;
 		}
 
@@ -3493,17 +3475,11 @@ static void process_menus(WORD wCmd)
 		case IDM_WINDOW_I_HGT_7:
 		{
 			i = wCmd - IDM_WINDOW_I_HGT_0;
-
 			if((i < 0) || (i >= MAX_TERM_DATA)) break;
-
 			td = &data[i];
-
 			td->tile_hgt += 1;
-
 			term_getsize(td);
-
 			term_window_resize(td);
-
 			break;
 		}
 
@@ -3518,23 +3494,16 @@ static void process_menus(WORD wCmd)
 		case IDM_WINDOW_D_HGT_7:
 		{
 			i = wCmd - IDM_WINDOW_D_HGT_0;
-
 			if((i < 0) || (i >= MAX_TERM_DATA)) break;
-
 			td = &data[i];
-
 			td->tile_hgt -= 1;
-
 			term_getsize(td);
-
 			term_window_resize(td);
-
 			break;
 		}
 
 		case IDM_OPTIONS_NO_GRAPHICS:
 		{
-
 			if(!inkey_flag)
 			{
 				plog("You may not do that right now.");
@@ -4163,11 +4132,7 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 			{
 				if(!can_save)
 				{
-#ifdef JP
-					plog("今は終了できません。");
-#else
-					plog("You may not do that right now.");
-#endif
+					plog(MES_SYS_WIN_CANNOT_EXIT);
 					return 0;
 				}
 

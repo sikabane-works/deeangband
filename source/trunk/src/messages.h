@@ -182,11 +182,13 @@
 #define MES_SYS_WIN_CANNOT_EXIT "今は終了できません。"
 #define MES_SYS_WIN_INITIALIZE_NOW "まだ初期化中です..."
 #define MES_SYS_WIN_CANNOT_OPEN_MOVIE "プレイ中はムービーをロードすることができません！"
+#define MES_SYS_WIN_MAIN_MUST_ENABLE "メインウィンドウは非表示にできません！"
 #else
 #define MES_SYS_WIN_CANNOT_SAVE "You may not do that right now."
 #define MES_SYS_WIN_CANNOT_EXIT "You may not do that right now."
 #define MES_SYS_WIN_INITIALIZE_NOW "You cannot do that yet..."
 #define MES_SYS_WIN_CANNOT_OPEN_MOVIE "You can't open a movie while you're playing!"
+#define MES_SYS_WIN_MAIN_MUST_ENABLE "You are not allowed to do that!"
 #endif
 
 
