@@ -6281,20 +6281,15 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 				if(cheat_know && (has_trait_species(&species_info[mon_idx[mon_cur]], TRAIT_UNIQUE)))
 				{
 					int m = 0;
-
 					int i;
 					for(i = 0; i < max_creature_idx; i++)
 						if(mon_idx[mon_cur] == creature_list[i].species_idx)
 						{
 							screen_save();
-
 							creature_knowledge(&creature_list[i]);
-
 							screen_load();
 							break;
-
 						}
-
 				}
 				break;
 

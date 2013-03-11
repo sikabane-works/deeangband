@@ -591,7 +591,7 @@ object_type object_null;
 creature_type *creature_list;
 
 /*
- * The array of stores [max_st_idx]
+ * The array of stores [max_store_idx]
  */
 store_type *st_list;
 
@@ -889,7 +889,7 @@ u16b max_dungeon_idx;			// Maximum number of dungeon in dungeon_info.txt
 u16b max_object_idx;			// Maximum number of objects in the level
 u16b max_trait_idx;				// Maximum number of traits_precondition
 u16b max_creature_idx;			// Maximum number of creatures in simulate
-u16b max_st_idx;				// Maximum number of store pre info in the world
+u16b max_store_idx;				// Maximum number of store pre info in the world
 u16b max_authorities_idx;		// Maximum number of authorities
 u16b unique_max;				// Maximum number of uniques in the world
 

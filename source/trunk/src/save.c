@@ -1071,9 +1071,9 @@ static bool wr_savefile_new(void)
 
 	tmp16u = max_towns;
 	wr_u16b(tmp16u);
-	wr_u16b(max_st_idx);
+	wr_u16b(max_store_idx);
 
-	for(i = 0; i < max_st_idx; i++)
+	for(i = 0; i < max_store_idx; i++)
 			wr_store(&st_list[i]);
 
 	/* Write screen dump for sending score */

@@ -5380,7 +5380,7 @@ void add_game_turn(creature_type *creature_ptr, int num)
 	s32b rollback_turns;
 
 	turn += num;
-	for(i = 0; i < max_st_idx; i++) st_list[i].last_visit += num;
+	for(i = 0; i < max_store_idx; i++) st_list[i].last_visit += num;
 
 	rollback_days = 1 + (turn - turn_limit) / (TURNS_PER_TICK * TOWN_DAWN);
 	rollback_turns = TURNS_PER_TICK * TOWN_DAWN * rollback_days;

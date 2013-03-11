@@ -487,7 +487,7 @@ extern u16b max_dungeon_idx;
 extern u16b max_object_idx;
 extern u16b max_creature_idx;
 extern u16b max_trait_idx;
-extern u16b max_st_idx;
+extern u16b max_store_idx;
 extern s32b max_wild_x;
 extern s32b max_wild_y;
 

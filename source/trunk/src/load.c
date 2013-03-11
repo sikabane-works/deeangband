@@ -1525,10 +1525,10 @@ static errr rd_savefile_new_aux(void)
 	rd_u16b(&max_towns);
 	C_MAKE(town, max_towns, town_type);
 
-	rd_u16b(&max_st_idx);
+	rd_u16b(&max_store_idx);
 
-	C_MAKE(st_list, max_st_idx, store_type);
-	for(i = 0; i < max_st_idx; i++) rd_store(&st_list[i]);
+	C_MAKE(st_list, max_store_idx, store_type);
+	for(i = 0; i < max_store_idx; i++) rd_store(&st_list[i]);
 
 	rd_string(buf, sizeof(buf));
 	if(buf[0]) screen_dump = string_make(buf);

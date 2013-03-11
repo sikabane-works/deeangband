@@ -4575,9 +4575,9 @@ void init_stores(void)
 	int i, j;
 	char buf[80];
 
-	max_st_idx = max_store_idx;
-	C_MAKE(st_list, max_st_idx, store_type);
-	C_WIPE(st_list, max_st_idx, store_type);
+	max_store_idx = max_store_idx;
+	C_MAKE(st_list, max_store_idx, store_type);
+	C_WIPE(st_list, max_store_idx, store_type);
 	j = 0;
 
 	for(i = 0; i < max_store_idx; i++)
