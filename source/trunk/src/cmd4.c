@@ -5273,29 +5273,17 @@ static void do_cmd_knowledge_uniques(void)
 
 	if(n_alive_surface)
 	{
-#ifdef JP
-		fprintf(fff, "     ínè„  ê∂ë∂: %3dëÃ\n", n_alive_surface);
-#else
-		fprintf(fff, "      Surface  alive: %3d\n", n_alive_surface);
-#endif
+		fprintf(fff, MES_KNOW_ALIVE_UNIQUE_LIST1(n_alive_surface));
 		n_alive_total += n_alive_surface;
 	}
 	for (i = 0; i <= max_lev; i++)
 	{
-#ifdef JP
-		fprintf(fff, "%3d-%3däK  ê∂ë∂: %3dëÃ\n", 1 + i * 10, 10 + i * 10, n_alive[i]);
-#else
-		fprintf(fff, "Level %3d-%3d  alive: %3d\n", 1 + i * 10, 10 + i * 10, n_alive[i]);
-#endif
+		fprintf(fff, MES_KNOW_ALIVE_UNIQUE_LIST2(1 + i * 10, 10 + i * 10, n_alive[i]));
 		n_alive_total += n_alive[i];
 	}
 	if(n_alive_over100)
 	{
-#ifdef JP
-		fprintf(fff, "101-   äK  ê∂ë∂: %3dëÃ\n", n_alive_over100);
-#else
-		fprintf(fff, "Level 101-     alive: %3d\n", n_alive_over100);
-#endif
+		fprintf(fff, MES_KNOW_ALIVE_UNIQUE_LIST3(101, n_alive_over100));
 		n_alive_total += n_alive_over100;
 	}
 

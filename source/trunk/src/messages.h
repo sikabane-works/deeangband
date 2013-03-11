@@ -2752,13 +2752,21 @@ static cptr desc_stat_neg[] =
 #define MES_KNOW_NO_ALIVE_UNIQUES "既知の生存ユニークはいません。\n"
 #define MES_KNOW_NO_KILLED "あなたはまだ誰も殺していない。\n\n"
 #define MES_KNOW_KILLED(NUMBER) "あなたは%ld体のクリーチャーを殺している。\n\n", (NUMBER)
+#define MES_KNOW_ALIVE_UNIQUE_LIST1(NUM) "     地上  生存: %3d体\n", (NUM)
+#define MES_KNOW_ALIVE_UNIQUE_LIST2(FROM, TO, NUM) "%3d-%3d階  生存: %3d体\n", (FROM), (TO), (NUM)
+#define MES_KNOW_ALIVE_UNIQUE_LIST3(TO, NUM) "%s-   階  生存: %3d体\n", (TO), (NUM)
 #else
 #define MES_KNOW_PET "Current Pets"
 #define MES_KNOW_ALIVE_UNIQUES "Alive Uniques"
 #define MES_KNOW_NO_ALIVE_UNIQUES "No known uniques alive.\n"
 #define MES_KNOW_NO_KILLED "You have killed no creatures yet.\n\n"
 #define MES_KNOW_KILLED(NUMBER) "You have killed %ld %s.\n\n", (NUMBER), ((NUMBER) == 1) ? "creature" : "creatures"
+#define MES_KNOW_ALIVE_UNIQUE_LIST1(NUM) "      Surface  alive: %3d\n", (NUM)
+#define MES_KNOW_ALIVE_UNIQUE_LIST2(FROM, TO, NUM) "Level %3d-%3d  alive: %3d\n", (FROM), (TO), (NUM)
+#define MES_KNOW_ALIVE_UNIQUE_LIST3(TO, NUM) "Level %3d-     alive: %3d\n", (TO), (NUM)
 #endif
+
+
 
 #ifdef JP
 #define MES_RUSH_NO_ENTER "ここには入身では入れない。"
