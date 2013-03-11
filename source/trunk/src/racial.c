@@ -648,12 +648,8 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 
 					if(use_menu)
 					{
-#ifdef JP
-						if(ctr == (menu_line-1)) strcpy(dummy, " t ");
-#else
-						if(ctr == (menu_line-1)) strcpy(dummy, " >  ");
-#endif
-						else strcpy(dummy, "    ");
+						if(ctr == (menu_line-1)) strcpy(dummy, KET_D_ANGLE);
+						else strcpy(dummy, "  ");
 					}
 					else
 					{

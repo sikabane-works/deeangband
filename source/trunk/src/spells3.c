@@ -3276,13 +3276,9 @@ void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, i
 		if(use_menu && target_spell)
 		{
 			if(i == (target_spell-1))
-#ifdef JP
-				strcpy(out_val, "  t ");
-#else
-				strcpy(out_val, "  >  ");
-#endif
+				strcpy(out_val, KET_D_ANGLE);
 			else
-				strcpy(out_val, "     ");
+				strcpy(out_val, "  ");
 		}
 		else sprintf(out_val, "  %c) ", I2A(i));
 		/* Skip illegible spells */

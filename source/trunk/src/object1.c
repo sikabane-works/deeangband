@@ -1124,11 +1124,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 		{
 			if(j == (target_item-1))
 			{
-#ifdef JP
-				strcpy(tmp_val, "t");
-#else
-				strcpy(tmp_val, "> ");
-#endif
+				strcpy(tmp_val, KET_D_ANGLE);
 				target_item_label = i;
 			}
 			else strcpy(tmp_val, "  ");
@@ -1506,11 +1502,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 		{
 			if(j == (target_item-1))
 			{
-#ifdef JP
-				strcpy(tmp_val, "t");
-#else
-				strcpy(tmp_val, "> ");
-#endif
+				strcpy(tmp_val, KET_D_ANGLE);
 				target_item_label = i;
 			}
 			else strcpy(tmp_val, "   ");

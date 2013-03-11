@@ -4036,11 +4036,7 @@ static char inkey_from_menu(void)
 		}
 		max_num = i;
 		kisuu = max_num % 2;
-#ifdef JP
-		put_str("t",basey + 1 + num / 2, basex + 2 + (num % 2) * 24);
-#else
-		put_str("> ",basey + 1 + num / 2, basex + 2 + (num % 2) * 24);
-#endif
+		put_str(KET_D_ANGLE,basey + 1 + num / 2, basex + 2 + (num % 2) * 24);
 
 		/* Place the cursor on the player */
 		move_cursor_relative(player_ptr->fy, player_ptr->fx);

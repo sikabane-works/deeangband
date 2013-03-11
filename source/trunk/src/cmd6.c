@@ -2337,9 +2337,9 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 		while(!tval)
 		{
 #ifdef JP
-			prt(format(" %s 杖", (menu_line == 1) ? "》" : "  "), 2, 14);
-			prt(format(" %s 魔法棒", (menu_line == 2) ? "》" : "  "), 3, 14);
-			prt(format(" %s ロッド", (menu_line == 3) ? "》" : "  "), 4, 14);
+			prt(format(" %s 杖", (menu_line == 1) ? KET_D_ANGLE : "  "), 2, 14);
+			prt(format(" %s 魔法棒", (menu_line == 2) ? KET_D_ANGLE : "  "), 3, 14);
+			prt(format(" %s ロッド", (menu_line == 3) ? KET_D_ANGLE : "  "), 4, 14);
 			prt("どの種類の魔法を使いますか？", 0, 0);
 #else
 			prt(format(" %s staff", (menu_line == 1) ? "> " : "  "), 2, 14);
@@ -2466,12 +2466,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 
 				if(use_menu)
 				{
-					if(ctr == (menu_line-1))
-#ifdef JP
-						strcpy(dummy, "》");
-#else
-					strcpy(dummy, "> ");
-#endif
+					if(ctr == (menu_line-1)) strcpy(dummy, KET_D_ANGLE);
 					else strcpy(dummy, "  ");
 						
 				}

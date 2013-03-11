@@ -4984,11 +4984,11 @@ static int choose_essence(void)
 			int i;
 #ifdef JP
 			for (i = 0; i < mode_max; i++)
-				prt(format(" %s %s", (menu_line == 1+i) ? "》" : "  ", menu_name[i]), 2 + i, 14);
+				prt(format(" %s %s", (menu_line == 1+i) ? KET_D_ANGLE : "  ", menu_name[i]), 2 + i, 14);
 			prt("どの種類のエッセンス付加を行いますか？", 0, 0);
 #else
 			for (i = 0; i < mode_max; i++)
-				prt(format(" %s %s", (menu_line == 1+i) ? "> " : "  ", menu_name[i]), 2 + i, 14);
+				prt(format(" %s %s", (menu_line == 1+i) ? KET_D_ANGLE : "  ", menu_name[i]), 2 + i, 14);
 			prt("Choose from menu.", 0, 0);
 #endif
 
@@ -5176,12 +5176,8 @@ static void add_essence(creature_type *creature_ptr, int mode)
 						if(use_menu)
 						{
 							if(ctr == (menu_line-1))
-#ifdef JP
-								strcpy(dummy, "》 ");
-#else
-								strcpy(dummy, ">  ");
-#endif
-							else strcpy(dummy, "   ");
+								strcpy(dummy, KET_D_ANGLE);
+							else strcpy(dummy, "  ");
 
 						}
 						/* letter/number for power selection */
@@ -5585,18 +5581,18 @@ void do_cmd_smith(creature_type *creature_ptr, bool only_browse)
 				while(!mode)
 				{
 #ifdef JP
-					prt(format(" %s エッセンス一覧", (menu_line == 1) ? "》" : "  "), 2, 14);
-					prt(format(" %s エッセンス抽出", (menu_line == 2) ? "》" : "  "), 3, 14);
-					prt(format(" %s エッセンス消去", (menu_line == 3) ? "》" : "  "), 4, 14);
-					prt(format(" %s エッセンス付加", (menu_line == 4) ? "》" : "  "), 5, 14);
-					prt(format(" %s 武器/防具強化", (menu_line == 5) ? "》" : "  "), 6, 14);
+					prt(format(" %s エッセンス一覧", (menu_line == 1) ? KET_D_ANGLE : "  "), 2, 14);
+					prt(format(" %s エッセンス抽出", (menu_line == 2) ? KET_D_ANGLE : "  "), 3, 14);
+					prt(format(" %s エッセンス消去", (menu_line == 3) ? KET_D_ANGLE : "  "), 4, 14);
+					prt(format(" %s エッセンス付加", (menu_line == 4) ? KET_D_ANGLE : "  "), 5, 14);
+					prt(format(" %s 武器/防具強化", (menu_line == 5) ? KET_D_ANGLE : "  "), 6, 14);
 					prt(format("どの種類の技術を%sますか？", only_browse ? "調べ" : "使い"), 0, 0);
 #else
-					prt(format(" %s List essences", (menu_line == 1) ? "> " : "  "), 2, 14);
-					prt(format(" %s Extract essence", (menu_line == 2) ? "> " : "  "), 3, 14);
-					prt(format(" %s Remove essence", (menu_line == 3) ? "> " : "  "), 4, 14);
-					prt(format(" %s Add essence", (menu_line == 4) ? "> " : "  "), 5, 14);
-					prt(format(" %s Enchant weapon/armor", (menu_line == 5) ? "> " : "  "), 6, 14);
+					prt(format(" %s List essences", (menu_line == 1) ? KET_D_ANGLE : "  "), 2, 14);
+					prt(format(" %s Extract essence", (menu_line == 2) ? KET_D_ANGLE : "  "), 3, 14);
+					prt(format(" %s Remove essence", (menu_line == 3) ? KET_D_ANGLE : "  "), 4, 14);
+					prt(format(" %s Add essence", (menu_line == 4) ? KET_D_ANGLE : "  "), 5, 14);
+					prt(format(" %s Enchant weapon/armor", (menu_line == 5) ? KET_D_ANGLE : "  "), 6, 14);
 					prt(format("Choose command from menu."), 0, 0);
 #endif
 					choice = inkey();

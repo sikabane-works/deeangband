@@ -206,11 +206,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 					if(use_menu)
 					{
 						if(i == (menu_line-1))
-#ifdef JP
-							strcpy(psi_desc, "  t");
-#else
-							strcpy(psi_desc, "  > ");
-#endif
+							strcpy(psi_desc, KET_D_ANGLE);
 						else strcpy(psi_desc, "    ");
 						
 					}

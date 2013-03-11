@@ -662,12 +662,8 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 
 					if(use_menu)
 					{
-#ifdef JP
-						if(i == (menu_line-1)) strcpy(psi_desc, "  t ");
-#else
-						if(i == (menu_line-1)) strcpy(psi_desc, "  >  ");
-#endif
-						else strcpy(psi_desc, "     ");
+						if(i == (menu_line-1)) strcpy(psi_desc, KET_D_ANGLE);
+						else strcpy(psi_desc, "  ");
 					}
 					else
 						sprintf(psi_desc, "  %c) ",I2A(i));

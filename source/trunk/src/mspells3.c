@@ -288,18 +288,18 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 		while(!mode)
 		{
 #ifdef JP
-			prt(format(" %s ボルト", (menu_line == 1) ? "》" : "  "), 2, 14);
-			prt(format(" %s ボール", (menu_line == 2) ? "》" : "  "), 3, 14);
-			prt(format(" %s ブレス", (menu_line == 3) ? "》" : "  "), 4, 14);
-			prt(format(" %s 召喚", (menu_line == 4) ? "》" : "  "), 5, 14);
-			prt(format(" %s その他", (menu_line == 5) ? "》" : "  "), 6, 14);
+			prt(format(" %s ボルト", (menu_line == 1) ? KET_D_ANGLE : "  "), 2, 14);
+			prt(format(" %s ボール", (menu_line == 2) ? KET_D_ANGLE : "  "), 3, 14);
+			prt(format(" %s ブレス", (menu_line == 3) ? KET_D_ANGLE : "  "), 4, 14);
+			prt(format(" %s 召喚", (menu_line == 4) ? KET_D_ANGLE : "  "), 5, 14);
+			prt(format(" %s その他", (menu_line == 5) ? KET_D_ANGLE : "  "), 6, 14);
 			prt("どの種類の魔法を使いますか？", 0, 0);
 #else
-			prt(format(" %s bolt", (menu_line == 1) ? "> " : "  "), 2, 14);
-			prt(format(" %s ball", (menu_line == 2) ? "> " : "  "), 3, 14);
-			prt(format(" %s breath", (menu_line == 3) ? "> " : "  "), 4, 14);
-			prt(format(" %s sommoning", (menu_line == 4) ? "> " : "  "), 5, 14);
-			prt(format(" %s others", (menu_line == 5) ? "> " : "  "), 6, 14);
+			prt(format(" %s bolt", (menu_line == 1) ? KET_D_ANGLE : "  "), 2, 14);
+			prt(format(" %s ball", (menu_line == 2) ? KET_D_ANGLE : "  "), 3, 14);
+			prt(format(" %s breath", (menu_line == 3) ? KET_D_ANGLE : "  "), 4, 14);
+			prt(format(" %s sommoning", (menu_line == 4) ? KET_D_ANGLE : "  "), 5, 14);
+			prt(format(" %s others", (menu_line == 5) ? KET_D_ANGLE : "  "), 6, 14);
 			prt("use which type of magic? ", 0, 0);
 #endif
 			choice = inkey();
@@ -554,12 +554,8 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 
 					if(use_menu)
 					{
-#ifdef JP
-						if(i == (menu_line-1)) strcpy(psi_desc, "  》");
-#else
-						if(i == (menu_line-1)) strcpy(psi_desc, "  > ");
-#endif
-						else strcpy(psi_desc, "    ");
+						if(i == (menu_line-1)) strcpy(psi_desc, KET_D_ANGLE);
+						else strcpy(psi_desc, "  ");
 					}
 					else sprintf(psi_desc, "  %c)", I2A(i));
 

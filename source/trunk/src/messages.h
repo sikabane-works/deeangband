@@ -7,6 +7,14 @@
 #define BRACKET_DAMMY_ARTIFACT "'%s'"
 #endif
 
+#ifdef JP
+#define BRACK_D_ANGLE "Ås"
+#define KET_D_ANGLE "Åt"
+#else
+#define BRACK_D_ANGLE "<<"
+#define KET_D_ANGLE ">>"
+#endif
+
 // Keywords
 
 #ifdef JP
