@@ -4415,36 +4415,19 @@ void do_cmd_load_screen(void)
 	}
 
 	my_fclose(fff);
-
-#ifdef JP
-	prt("ファイルに書き出された画面(記念撮影)をロードしました。", 0, 0);
-#else
-	msg_print("Screen dump loaded.");
-#endif
-
+	prt(MES_SYS_SCREEN_LOADED, 0, 0);
 	flush();
 	inkey();
-
-
 	screen_load();
 }
 
-
-
-
-cptr inven_res_label = 
 #ifdef JP
- "                               酸電火冷毒光闇破轟獄因沌劣 盲怖乱痺透命感消復浮";
-#else
- "                               AcElFiCoPoLiDkShSoNtNxCaDi BlFeCfFaSeHlEpSdRgLv";
-#endif
-
-
-#ifdef JP
+cptr inven_res_label = "                               酸電火冷毒光闇破轟獄因沌劣 盲怖乱痺透命感消復浮";
 #define IM_FLAG_STR  "＊"
 #define HAS_FLAG_STR "＋"
 #define NO_FLAG_STR  "・"
 #else
+cptr inven_res_label = "                               AcElFiCoPoLiDkShSoNtNxCaDi BlFeCfFaSeHlEpSdRgLv";
 #define IM_FLAG_STR  "* "
 #define HAS_FLAG_STR "+ "
 #define NO_FLAG_STR  ". "
