@@ -2044,15 +2044,15 @@ typedef struct
 	s16b species_idx;
 	bool used;
 }
-nest_info_type;
+nestore_info_type;
 
 
 // Comp function for sorting nest creature information
-static bool ang_sort_comp_nest_info(vptr u, vptr v, int a, int b)
+static bool ang_sort_comp_nestore_info(vptr u, vptr v, int a, int b)
 {
-	nest_info_type *nest_info = (nest_info_type *)u;
-	int w1 = nest_info[a].species_idx;
-	int w2 = nest_info[b].species_idx;
+	nestore_info_type *nestore_info = (nestore_info_type *)u;
+	int w1 = nestore_info[a].species_idx;
+	int w2 = nestore_info[b].species_idx;
 	species_type *r1_ptr = &species_info[w1];
 	species_type *r2_ptr = &species_info[w2];
 	int z1, z2;
@@ -2061,8 +2061,8 @@ static bool ang_sort_comp_nest_info(vptr u, vptr v, int a, int b)
 	(void)v;
 
 	/* Extract used info */
-	z1 = nest_info[a].used;
-	z2 = nest_info[b].used;
+	z1 = nestore_info[a].used;
+	z2 = nestore_info[b].used;
 
 	/* Compare used status */
 	if(z1 < z2) return FALSE;
@@ -2084,17 +2084,17 @@ static bool ang_sort_comp_nest_info(vptr u, vptr v, int a, int b)
 /*
  * Swap function for sorting nest creature information
  */
-static void ang_sort_swap_nest_info(vptr u, vptr v, int a, int b)
+static void ang_sort_swap_nestore_info(vptr u, vptr v, int a, int b)
 {
-	nest_info_type *nest_info = (nest_info_type *)u;
-	nest_info_type holder;
+	nestore_info_type *nestore_info = (nestore_info_type *)u;
+	nestore_info_type holder;
 
 	/* Unused */
 	(void)v;
 
-	holder = nest_info[a];
-	nest_info[a] = nest_info[b];
-	nest_info[b] = holder;
+	holder = nestore_info[a];
+	nestore_info[a] = nestore_info[b];
+	nestore_info[b] = holder;
 }
 
 
@@ -2123,7 +2123,7 @@ static bool build_type5(floor_type *floor_ptr)
 {
 	int y, x, y1, x1, y2, x2, xval, yval;
 	int i;
-	nest_info_type nest_info[NUM_NEST_SPECIES_TYPE];
+	nestore_info_type nestore_info[NUM_NEST_SPECIES_TYPE];
 
 	creature_type align;
 
@@ -2170,8 +2170,8 @@ static bool build_type5(floor_type *floor_ptr)
 		if(is_enemy_of_good_species(species_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
 		if(is_enemy_of_evil_species(species_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
-		nest_info[i].species_idx = species_idx;
-		nest_info[i].used = FALSE;
+		nestore_info[i].species_idx = species_idx;
+		nestore_info[i].used = FALSE;
 	}
 
 	x = rand_range(0, 16);
@@ -2265,29 +2265,29 @@ static bool build_type5(floor_type *floor_ptr)
 			int species_idx;
 
 			i = randint0(NUM_NEST_SPECIES_TYPE);
-			species_idx = nest_info[i].species_idx;
+			species_idx = nestore_info[i].species_idx;
 
 			/* Place that "random" creature (no groups) */
 			(void)place_creature_species(NULL, floor_ptr, y, x, species_idx, 0L);
 
-			nest_info[i].used = TRUE;
+			nestore_info[i].used = TRUE;
 		}
 	}
 
 	if(cheat_room && cheat_hear)
 	{
-		ang_sort(nest_info, NULL, NUM_NEST_SPECIES_TYPE, ang_sort_comp_nest_info, ang_sort_swap_nest_info);
+		ang_sort(nestore_info, NULL, NUM_NEST_SPECIES_TYPE, ang_sort_comp_nestore_info, ang_sort_swap_nestore_info);
 
 		/* Dump the entries (prevent multi-printing) */
 		for (i = 0; i < NUM_NEST_SPECIES_TYPE; i++)
 		{
-			if(!nest_info[i].used) break;
+			if(!nestore_info[i].used) break;
 			for (; i < NUM_NEST_SPECIES_TYPE - 1; i++)
 			{
-				if(nest_info[i].species_idx != nest_info[i + 1].species_idx) break;
-				if(!nest_info[i + 1].used) break;
+				if(nestore_info[i].species_idx != nestore_info[i + 1].species_idx) break;
+				if(!nestore_info[i + 1].used) break;
 			}
-			msg_print(species_name + species_info[nest_info[i].species_idx].name);
+			msg_print(species_name + species_info[nestore_info[i].species_idx].name);
 		}
 	}
 

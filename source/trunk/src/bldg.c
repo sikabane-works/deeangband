@@ -74,7 +74,7 @@ static int building_select(creature_type *creature_ptr, building_type* bldg)
 	int i;
 	char cap_buf[9][80];
 	selection_info si_info;
-	selection_table st_info[9];
+	selection_table store_info[9];
 	si_info.x = 2;
 	si_info.y = 12;
 	si_info.w = 48;
@@ -97,21 +97,21 @@ static int building_select(creature_type *creature_ptr, building_type* bldg)
 			{
 				if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) || (!is_owner(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
-					st_info[si_info.num].l_color = TERM_WHITE;
-					st_info[si_info.num].d_color = TERM_L_DARK;
+					store_info[si_info.num].l_color = TERM_WHITE;
+					store_info[si_info.num].d_color = TERM_L_DARK;
 					sprintf(cap_buf[si_info.num], "%-40s", bldg->act_names[i]);
 				}
 				else if(is_owner(creature_ptr, bldg))
 				{
-					st_info[si_info.num].l_color = TERM_YELLOW;
-					st_info[si_info.num].d_color = TERM_UMBER;
+					store_info[si_info.num].l_color = TERM_YELLOW;
+					store_info[si_info.num].d_color = TERM_UMBER;
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
 					sprintf(cap_buf[si_info.num], "%-26s %-14s", bldg->act_names[i], buff);
 				}
 				else
 				{
-					st_info[si_info.num].l_color = TERM_YELLOW;
-					st_info[si_info.num].d_color = TERM_UMBER;
+					store_info[si_info.num].l_color = TERM_YELLOW;
+					store_info[si_info.num].d_color = TERM_UMBER;
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
 					sprintf(cap_buf[si_info.num], "%-26s %-14s", bldg->act_names[i], buff);
 				}
@@ -120,27 +120,27 @@ static int building_select(creature_type *creature_ptr, building_type* bldg)
 			{
 				if(!is_member(creature_ptr, bldg))
 				{
-					st_info[si_info.num].l_color = TERM_L_DARK;
-					st_info[si_info.num].d_color = TERM_L_DARK;
+					store_info[si_info.num].l_color = TERM_L_DARK;
+					store_info[si_info.num].d_color = TERM_L_DARK;
 					strcpy(buff, MES_BLDG_CLOSED);
 				}
 				else if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) || (is_member(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
-					st_info[si_info.num].l_color = TERM_WHITE;
-					st_info[si_info.num].d_color = TERM_L_DARK;
+					store_info[si_info.num].l_color = TERM_WHITE;
+					store_info[si_info.num].d_color = TERM_L_DARK;
 					sprintf(cap_buf[si_info.num], "%-40s", bldg->act_names[i]);
 				}
 				else if(is_owner(creature_ptr, bldg))
 				{
-					st_info[si_info.num].l_color = TERM_YELLOW;
-					st_info[si_info.num].d_color = TERM_UMBER;
+					store_info[si_info.num].l_color = TERM_YELLOW;
+					store_info[si_info.num].d_color = TERM_UMBER;
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
 					sprintf(cap_buf[si_info.num], "%-26s %-14s", bldg->act_names[i], buff);
 				}
 				else
 				{
-					st_info[si_info.num].l_color = TERM_YELLOW;
-					st_info[si_info.num].d_color = TERM_UMBER;
+					store_info[si_info.num].l_color = TERM_YELLOW;
+					store_info[si_info.num].d_color = TERM_UMBER;
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
 					sprintf(cap_buf[si_info.num], "%-26s %-14s", bldg->act_names[i], buff);
 				}
@@ -149,40 +149,40 @@ static int building_select(creature_type *creature_ptr, building_type* bldg)
 			{
 				if(!is_owner(creature_ptr, bldg))
 				{
-					st_info[si_info.num].l_color = TERM_WHITE;
-					st_info[si_info.num].d_color = TERM_L_DARK;
+					store_info[si_info.num].l_color = TERM_WHITE;
+					store_info[si_info.num].d_color = TERM_L_DARK;
 					strcpy(buff, MES_BLDG_CLOSED);
 				}
 				else if(bldg->member_costs[i] != 0)
 				{
-					st_info[si_info.num].l_color = TERM_YELLOW;
-					st_info[si_info.num].d_color = TERM_UMBER;
+					store_info[si_info.num].l_color = TERM_YELLOW;
+					store_info[si_info.num].d_color = TERM_UMBER;
 					sprintf(buff, "($%ld)", bldg->member_costs[i]);
 					sprintf(cap_buf[si_info.num], "%-26s %-14s", bldg->act_names[i], buff);
 				}
 				else
 				{
-					st_info[si_info.num].l_color = TERM_WHITE;
-					st_info[si_info.num].d_color = TERM_L_DARK;
+					store_info[si_info.num].l_color = TERM_WHITE;
+					store_info[si_info.num].d_color = TERM_L_DARK;
 					sprintf(buff, "($%ld)", bldg->other_costs[i]);
 					sprintf(cap_buf[si_info.num], "%-26s %-14s", bldg->act_names[i], buff);
 				}
 			}
-			st_info[si_info.num].key = bldg->letters[i];
-			st_info[si_info.num].code = si_info.num;
-			st_info[si_info.num].cap = cap_buf[si_info.num];
+			store_info[si_info.num].key = bldg->letters[i];
+			store_info[si_info.num].code = si_info.num;
+			store_info[si_info.num].cap = cap_buf[si_info.num];
 			si_info.num++;
 		}
 	}
 
-	st_info[si_info.num].l_color = TERM_WHITE;
-	st_info[si_info.num].d_color = TERM_L_DARK;
-	st_info[si_info.num].key = ESCAPE;
-	st_info[si_info.num].cap = MES_BULD_EXIT;
-	st_info[si_info.num].code = -1;
+	store_info[si_info.num].l_color = TERM_WHITE;
+	store_info[si_info.num].d_color = TERM_L_DARK;
+	store_info[si_info.num].key = ESCAPE;
+	store_info[si_info.num].cap = MES_BULD_EXIT;
+	store_info[si_info.num].code = -1;
 	si_info.num++;
 
-	return get_selection(&si_info, st_info);
+	return get_selection(&si_info, store_info);
 }
 
 // arena commands
