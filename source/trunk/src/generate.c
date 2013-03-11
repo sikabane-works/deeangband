@@ -1438,19 +1438,18 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 	//floor_ptr->visit_mark = latest_visit_mark++;
 
 	floor_ptr->generated = FALSE;
+	floor_ptr->global_map = FALSE;
 
 	floor_ptr->world_x = world_x;
 	floor_ptr->world_y = world_y;
 	floor_ptr->dun_type = dungeon_id;
 
-	floor_ptr->depth     = depth;
-	floor_ptr->depth    = depth;
-	floor_ptr->enemy_level = depth;  // Current creature creation level
-	floor_ptr->object_level   = depth;  // Current object creation level
-	floor_ptr->town_num = wilderness[world_y][world_x].town;	// Number of the town (if any)
-
+	floor_ptr->depth = depth;
+	floor_ptr->depth = depth;
+	floor_ptr->enemy_level = depth; 
+	floor_ptr->object_level = depth;
+	floor_ptr->town_num = wilderness[world_y][world_x].town;
 	floor_ptr->floor_turn = 1;
-	floor_ptr->floor_turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
 
 	// Fill the arrays of floors and walls in the good proportions
 	set_floor_and_wall(floor_ptr->dun_type);

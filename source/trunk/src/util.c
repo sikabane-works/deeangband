@@ -4023,7 +4023,7 @@ static char inkey_from_menu(void)
 					if(player_ptr->class_idx == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
 					break;
 				case MENU_WILD:
-					if(!floor_ptr->depth && !floor_ptr->fight_arena_mode && !floor_ptr->quest && (byte)floor_ptr->world_map == special_menu_info[hoge].jouken_naiyou)
+					if(!floor_ptr->depth && !floor_ptr->fight_arena_mode && !floor_ptr->quest && (byte)floor_ptr->global_map == special_menu_info[hoge].jouken_naiyou)
 						menu_name = special_menu_info[hoge].name;
 					break;
 				default:

@@ -1798,9 +1798,8 @@ typedef struct
 	s16b num_repro;       // Current reproducer count
 	cave_type cave[MAX_HGT][MAX_WID];
 	s32b floor_turn;		// Game turn in dungeon
-	s32b floor_turn_limit;	// Limit of game turn in dungeon
 	s16b quest;
-	byte world_map;
+	byte global_map;
 	s16b race_population[MAX_RACES];
 	byte generated;
 	byte generate_encounter;

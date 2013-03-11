@@ -1749,7 +1749,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 	if(!is_valid_creature(creature_ptr)) return;
 	if(floor_ptr->gamble_arena_mode) return;
-	if(floor_ptr->world_map) return;	// No effect on the global map
+	if(floor_ptr->global_map) return;	// No effect on the global map
 
 	if(has_trait(creature_ptr, TRAIT_BERS_RAGE) && one_in_(3000))
 	{
@@ -2626,7 +2626,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 					}
 				}
 
-				if(floor_ptr->world_map)
+				if(floor_ptr->global_map)
 				{
 					creature_ptr->wy = creature_ptr->fy;
 					creature_ptr->wx = creature_ptr->fx;
@@ -2977,7 +2977,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 				msg_print("The sun has risen.");
 #endif
 
-				if(!floor_ptr->world_map)
+				if(!floor_ptr->global_map)
 				{
 					/* Hack -- Scan the town */
 					for (y = 0; y < floor_ptr->height; y++)
@@ -3011,7 +3011,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 				msg_print("The sun has fallen.");
 #endif
 
-				if(!floor_ptr->world_map)
+				if(!floor_ptr->global_map)
 				{
 					/* Hack -- Scan the town */
 					for (y = 0; y < floor_ptr->height; y++)
@@ -3299,21 +3299,21 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Wear/wield equipment */
 	case 'w':
 		{
-			if(!floor_ptr->world_map) do_cmd_wield(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_wield(creature_ptr);
 			break;
 		}
 
 		/* Take off equipment */
 	case 't':
 		{
-			if(!floor_ptr->world_map) do_cmd_takeoff(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_takeoff(creature_ptr);
 			break;
 		}
 
 		/* Drop an item */
 	case 'd':
 		{
-			if(!floor_ptr->world_map) do_cmd_drop(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_drop(creature_ptr);
 			break;
 		}
 
@@ -3360,11 +3360,11 @@ static void process_player_command(creature_type *creature_ptr)
 
 		
 	case '+': // Alter a grid
-		if(!floor_ptr->world_map) do_cmd_alter(creature_ptr);
+		if(!floor_ptr->global_map) do_cmd_alter(creature_ptr);
 		break;
 		
 	case 'T': // Dig a tunnel
-		if(!floor_ptr->world_map) do_cmd_tunnel(creature_ptr);
+		if(!floor_ptr->global_map) do_cmd_tunnel(creature_ptr);
 		break;
 
 	case ';': // Move (usually pick up things)
@@ -3378,7 +3378,7 @@ static void process_player_command(creature_type *creature_ptr)
 	//*** Running, Resting, Searching, Staying
 
 	case '.': // Begin Running -- Arg is Max Distance
-		if(!floor_ptr->world_map) do_cmd_run(creature_ptr);
+		if(!floor_ptr->global_map) do_cmd_run(creature_ptr);
 		break;
 
 		/* Stay still (usually pick things up) */
@@ -3426,21 +3426,21 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Enter building -KMW- */
 	case SPECIAL_KEY_BUILDING:
 		{
-			if(!floor_ptr->world_map) do_cmd_bldg(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_bldg(creature_ptr);
 			break;
 		}
 
 		/* Enter quest level -KMW- */
 	case SPECIAL_KEY_QUEST:
 		{
-			if(!floor_ptr->world_map) do_cmd_quest(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_quest(creature_ptr);
 			break;
 		}
 
 		/* Go up staircase */
 	case '<':
 		{
-			if(!floor_ptr->world_map && !floor_ptr->depth && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
+			if(!floor_ptr->global_map && !floor_ptr->depth && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
 			{
 				change_wild_mode(creature_ptr);
 			}
@@ -3449,25 +3449,25 @@ static void process_player_command(creature_type *creature_ptr)
 			break;
 		}
 	case '>':
-			if(floor_ptr->world_map)
+			if(floor_ptr->global_map)
 				change_wild_mode(creature_ptr);
 			else
 				do_cmd_go_down(creature_ptr);
 			break;
 	case 'o': // Open a door or chest
-			if(!floor_ptr->world_map) do_cmd_open(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_open(creature_ptr);
 			break;
 	case 'c': // Close
-			if(!floor_ptr->world_map) do_cmd_close(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_close(creature_ptr);
 			break;
 	case 'j': // Jam a door with spikes
-			if(!floor_ptr->world_map) do_cmd_spike(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_spike(creature_ptr);
 			break;
 	case 'B': // Bash
-			if(!floor_ptr->world_map) do_cmd_bash(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_bash(creature_ptr);
 			break;
 	case 'D': // Disarm a trap or chest
-			if(!floor_ptr->world_map) do_cmd_disarm(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_disarm(creature_ptr);
 			break;
 
 		/*** Magic and Prayers ***/
@@ -3508,7 +3508,7 @@ static void process_player_command(creature_type *creature_ptr)
 	case 'm':
 		{
 			// -KMW-
-			if(!floor_ptr->world_map)
+			if(!floor_ptr->global_map)
 			{
 				if((creature_ptr->class_idx == CLASS_WARRIOR) || (creature_ptr->class_idx == CLASS_ARCHER) || (creature_ptr->class_idx == CLASS_CAVALRY))
 				{
@@ -3573,7 +3573,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Issue a pet command */
 	case 'p':
 		{
-			if(!floor_ptr->world_map) do_cmd_pet(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_pet(creature_ptr);
 			break;
 		}
 
@@ -3611,7 +3611,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Activate an artifact */
 	case 'A':
 		{
-			if(!floor_ptr->world_map)
+			if(!floor_ptr->global_map)
 			{
 				if(!floor_ptr->fight_arena_mode)
 					do_cmd_activate(creature_ptr);
@@ -3641,14 +3641,14 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Fire an item */
 	case 'f':
 		{
-			if(!floor_ptr->world_map) do_cmd_fire(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_fire(creature_ptr);
 			break;
 		}
 
 		/* Throw an item */
 	case 'v':
 		{
-			if(!floor_ptr->world_map)
+			if(!floor_ptr->global_map)
 			{
 				do_cmd_throw(creature_ptr);
 			}
@@ -3658,7 +3658,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Aim a wand */
 	case 'a':
 		{
-			if(!floor_ptr->world_map)
+			if(!floor_ptr->global_map)
 			{
 				if(!floor_ptr->fight_arena_mode)
 					do_cmd_aim_wand(creature_ptr);
@@ -3674,7 +3674,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Zap a rod */
 	case 'z':
 		{
-			if(!floor_ptr->world_map)
+			if(!floor_ptr->global_map)
 			{
 				if(floor_ptr->fight_arena_mode)
 				{
@@ -3696,7 +3696,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Quaff a potion */
 	case 'q':
 		{
-			if(!floor_ptr->world_map)
+			if(!floor_ptr->global_map)
 			{
 				if(!floor_ptr->fight_arena_mode)
 					do_cmd_quaff_potion(creature_ptr);
@@ -3712,7 +3712,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Read a scroll */
 	case 'r':
 		{
-			if(!floor_ptr->world_map)
+			if(!floor_ptr->global_map)
 			{
 				if(!floor_ptr->fight_arena_mode)
 					do_cmd_read_scroll(creature_ptr);
@@ -3728,7 +3728,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Use a staff */
 	case 'u':
 		{
-			if(!floor_ptr->world_map)
+			if(!floor_ptr->global_map)
 			{
 				if(floor_ptr->fight_arena_mode)
 				{
@@ -3748,7 +3748,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Use racial power */
 	case 'U':
 		{
-			if(!floor_ptr->world_map) do_cmd_racial_power(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_racial_power(creature_ptr);
 			break;
 		}
 
@@ -3779,7 +3779,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Target creature or location */
 	case '*':
 		{
-			if(!floor_ptr->world_map) do_cmd_target(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_target(creature_ptr);
 			break;
 		}
 
@@ -3885,7 +3885,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Repeat level feeling */
 	case KTRL('F'):
 		{
-			if(!floor_ptr->world_map) do_cmd_feeling(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_feeling(creature_ptr);
 			break;
 		}
 
@@ -3992,7 +3992,7 @@ static void process_player_command(creature_type *creature_ptr)
 
 	case '`':
 		{
-			if(!floor_ptr->world_map) do_cmd_travel(creature_ptr);
+			if(!floor_ptr->global_map) do_cmd_travel(creature_ptr);
 			break;
 		}
 
@@ -4540,11 +4540,10 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 		// Count game turns
 		turn++;
 
-		if(floor_ptr->floor_turn < floor_ptr->floor_turn_limit)
-		{
-			if(!floor_ptr->world_map) floor_ptr->floor_turn++;
-			else if(floor_ptr->world_map && !(turn % ((MAX_HGT + MAX_WID) / 2))) floor_ptr->floor_turn++;
-		}
+		//TODO add Game turn
+
+		if(floor_ptr->floor_turn < MAX_GAME_TURN && !floor_ptr->global_map)
+			floor_ptr->floor_turn++;
 
 		prevent_turn_overflow(player_ptr);
 

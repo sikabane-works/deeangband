@@ -1109,7 +1109,7 @@ static errr rd_floor(floor_type *floor_ptr)
 
 	rd_byte(&floor_ptr->fight_arena_mode);
 	rd_byte(&floor_ptr->gamble_arena_mode);
-	rd_byte(&floor_ptr->world_map);
+	rd_byte(&floor_ptr->global_map);
 	rd_s16b(&floor_ptr->town_num);
 
 	for (i = 0; i < MAX_RACES; i++) rd_s16b(&floor_ptr->race_population[i]);
@@ -1118,7 +1118,6 @@ static errr rd_floor(floor_type *floor_ptr)
 	rd_s16b(&floor_ptr->height);
 	rd_s16b(&floor_ptr->width);
 	rd_s32b(&floor_ptr->floor_turn);
-	rd_s32b(&floor_ptr->floor_turn_limit);
 
 	/*** Read template for cave_type ***/
 

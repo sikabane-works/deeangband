@@ -3250,7 +3250,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if(has_trait_species(species_ptr, TRAIT_UNIQUE)) mode &= ~PC_KAGE;
 
 	// DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!!
-	if(floor_ptr->world_map) return max_creature_idx;
+	if(floor_ptr->global_map) return max_creature_idx;
 
 	if(!IN_BOUNDS(floor_ptr, y, x)) // Verify location
 	{

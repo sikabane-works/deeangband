@@ -698,7 +698,7 @@ static void wr_floor(floor_type *floor_ptr)
 	wr_u32b(floor_ptr->visit_mark);
 	wr_byte(floor_ptr->fight_arena_mode);
 	wr_byte(floor_ptr->gamble_arena_mode);
-	wr_byte(floor_ptr->world_map);
+	wr_byte(floor_ptr->global_map);
 	wr_s16b(floor_ptr->town_num); // -KMW-
 
 	for (i = 0; i < MAX_RACES; i++) wr_s16b(floor_ptr->race_population[i]);
@@ -708,7 +708,6 @@ static void wr_floor(floor_type *floor_ptr)
 	wr_u16b(floor_ptr->width);
 
 	wr_s32b(floor_ptr->floor_turn);
-	wr_s32b(floor_ptr->floor_turn_limit);
 
 	/*********** Make template for cave_type **********/
 

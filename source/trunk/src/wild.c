@@ -567,7 +567,7 @@ static s16b conv_terrain2feat[MAX_WILDERNESS];
 void generate_world(floor_type *floor_ptr)
 {
 	int i, j;
-	floor_ptr->world_map = TRUE;
+	floor_ptr->global_map = TRUE;
 
 	// To prevent stupid things
 	for (i = 0; i < MAX_WID; i++)
@@ -960,7 +960,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 
 	if(subject_change_floor) return FALSE;
 
-	if(floor_ptr->world_map)
+	if(floor_ptr->global_map)
 	{
 		// Save the location in the global map
 		creature_ptr->wx = creature_ptr->fx;

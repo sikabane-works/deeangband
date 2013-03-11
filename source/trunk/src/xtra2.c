@@ -1518,7 +1518,7 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 
 	/* Bounds */
 	if(!(IN_BOUNDS(floor_ptr, y, x))) return FALSE;
-	if(floor_ptr->world_map && !wilderness[y][x].known) return FALSE;
+	if(floor_ptr->global_map && !wilderness[y][x].known) return FALSE;
 
 	/* Player grid is always interesting */
 	if(CREATURE_BOLD(creature_ptr, y, x)) return TRUE;
@@ -2055,7 +2055,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		cptr name;
 
 		/* Hack -- special handling for quest entrances */
-		if(floor_ptr->world_map && !wilderness[y][x].known)
+		if(floor_ptr->global_map && !wilderness[y][x].known)
 		{
 			name = KW_UNEXPLORED_ZONE;
 #ifdef JP
@@ -2082,7 +2082,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 				name = format(MES_DUNGEON_INFO(dungeon_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth));
 			else if(have_flag(f_ptr->flags, FF_TOWN))
 				name = town[c_ptr->special].name;
-			else if(floor_ptr->world_map && (feat == feat_floor))
+			else if(floor_ptr->global_map && (feat == feat_floor))
 				name = KW_ROAD;
 			else name = feature_name + f_ptr->name;
 
