@@ -910,7 +910,7 @@ extern bool psychometry(creature_type *creature_ptr);
 extern void leave_level(int level);
 extern void enter_level(int level);
 extern s32b turn_real(creature_type *creature_ptr, s32b hoge);
-extern void prevent_turn_overflow(creature_type *creature_ptr);
+extern void add_game_turn(creature_type *creature_ptr, int num);
 
 
 /* files.c */

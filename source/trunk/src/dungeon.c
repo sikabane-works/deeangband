@@ -4538,9 +4538,7 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 		if(subject_change_floor) break;
 
 		// Count game turns
-		turn++;
-		prevent_turn_overflow(player_ptr);
-
+		add_game_turn(player_ptr, 1);
 		add_floor_turn(floor_ptr, 1);
 	}
 
@@ -5376,12 +5374,13 @@ s32b turn_real(creature_type *creature_ptr, s32b hoge)
 * ターンのオーバーフローに対する対処
 * ターン及びターンを記録する変数をターンの限界の1日前まで巻き戻す.
 */
-void prevent_turn_overflow(creature_type *creature_ptr)
+void add_game_turn(creature_type *creature_ptr, int num)
 {
-	int rollback_days;//, i, j;
+	int rollback_days, i;//, j;
 	s32b rollback_turns;
 
-	if(turn < turn_limit) return;
+	turn += num;
+	for(i = 0; i < max_st_idx; i++) st_list[i].last_visit += num;
 
 	rollback_days = 1 + (turn - turn_limit) / (TURNS_PER_TICK * TOWN_DAWN);
 	rollback_turns = TURNS_PER_TICK * TOWN_DAWN * rollback_days;
