@@ -4539,16 +4539,17 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 
 		// Count game turns
 		turn++;
-
-		//TODO add Game turn
-
-		if(floor_ptr->floor_turn < MAX_GAME_TURN && !floor_ptr->global_map)
-			floor_ptr->floor_turn++;
-
 		prevent_turn_overflow(player_ptr);
 
+		add_floor_turn(floor_ptr, 1);
 	}
 
+}
+
+void add_floor_turn(floor_type *floor_ptr, int num)
+{
+	if(!floor_ptr->global_map) floor_ptr->floor_turn += num;
+	if(floor_ptr->floor_turn > MAX_GAME_TURN) floor_ptr->floor_turn = MAX_GAME_TURN;
 }
 
 
