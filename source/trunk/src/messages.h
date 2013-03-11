@@ -3217,12 +3217,14 @@ static cptr desc_stat_neg[] =
 #define MES_CURSE_PREVENT_TAKE_OFF "ふーむ、どうやら呪われているようだ。"
 #define MES_CURSE_PREVENT_TAKE_OFF2 "なんてこった！あなたは神域の力に呪われている！"
 #define MES_CURSE_PREVENT_TAKE_OFF3 "装備を外せなかった。"
+#define MES_CURSE_PREVENT_TAKE_OFF4(OBJECT) "%sは呪われているようだ。", (OBJECT)->name
 #define MES_CURSE_RESIST_FORCE "呪われた装備を力づくで剥がした！"
 #define MES_CURSE_RESIST_DIVINE "あなたの神域の力は呪いを凌駕している。あなたは平然と呪いの装備を外した。"
 #else
 #define MES_CURSE_PREVENT_TAKE_OFF "Hmmm, it seems to be cursed."
 #define MES_CURSE_PREVENT_TAKE_OFF2 "What the hell! You are cursed by divine power!"
 #define MES_CURSE_PREVENT_TAKE_OFF3 "You couldn't remove the equipment."
+#define MES_CURSE_PREVENT_TAKE_OFF4(OBJECT) "The %s appears to be cursed.", (OBJECT)->name
 #define MES_CURSE_RESIST_FORCE "You teared a cursed equipment off by sheer strength!"
 #define MES_CURSE_RESIST_DIVINE "Your divine power is exceeding curse. You teared a cursed equipment off calmly."
 #endif

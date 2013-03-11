@@ -168,15 +168,8 @@ void do_cmd_wield(creature_type *creature_ptr)
 	if(object_is_cursed(old_equipped_ptr))
 	{
 		object_desc(object_name, old_equipped_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
-
-		/*
-		#ifdef JP
-		msg_format("%s%sÇÕéÙÇÌÇÍÇƒÇ¢ÇÈÇÊÇ§ÇæÅB", describe_use(creature_ptr, slot) , object_name );
-		#else
-		msg_format("The %s you are %s appears to be cursed.", object_name, describe_use(creature_ptr, slot));
-		#endif
-		*/
-		return; // Cancel the command
+		msg_format(MES_CURSE_PREVENT_TAKE_OFF4(object_ptr));
+		return;
 	}
 
 	if(confirm_wear && ((object_is_cursed(object_ptr) && object_is_known(object_ptr)) ||
