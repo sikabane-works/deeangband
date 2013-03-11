@@ -847,15 +847,7 @@ void do_cmd_locate(creature_type *creature_ptr)
 		}
 
 		/* Prepare to ask which way to look */
-		sprintf(out_val,
-#ifdef JP
-			"マップ位置 [%d(%02d),%d(%02d)] (プレイヤーの%s)  方向?",
-#else
-			"Map sector [%d(%02d),%d(%02d)], which is%s your sector.  Direction?",
-#endif
-
-			y2 / (hgt / 2), y2 % (hgt / 2),
-			x2 / (wid / 2), x2 % (wid / 2), tmp_val);
+		sprintf(out_val, MES_INTERFACE_LOCATE(y2, x2, tmp_val));
 
 		/* Assume no direction */
 		dir = 0;

@@ -2190,6 +2190,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_FORCE2 " 'w'練気術,"
 #define MES_INTERFACE_FOR_INVEN " '/' 持ち物,"
 #define MES_INTERFACE_FOR_EQUIP " '/' 装備品,"
+#define MES_INTERFACE_LOCATE(Y, X, DIR) "マップ位置 [%d,%d] (プレイヤーの%s)  方向?"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2218,6 +2219,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_FORCE2 " w for the Force,"
 #define MES_INTERFACE_FOR_INVEN " / for Inven,"
 #define MES_INTERFACE_FOR_EQUIP " / for Equip,"
+#define MES_INTERFACE_LOCATE(Y, X, DIR) "Map sector [%d,%d], which is %s your sector.  Direction?"
 #endif
 
 #ifdef JP
