@@ -74,7 +74,7 @@ extern int dun_tun_jct;
  * Hack -- Dungeon allocation "types"
  */
 #define ALLOC_TYP_RUBBLE	1	/* Rubble */
-#define ALLOC_TYP_TRAP		3	/* Trap */
+#define ALLOC_TYP_TRAP		3
 #define ALLOC_TYP_GOLD		4	/* Gold */
 #define ALLOC_TYP_OBJECT	5	/* Object */
 #define ALLOC_TYP_INVIS		6	/* Invisible wall */

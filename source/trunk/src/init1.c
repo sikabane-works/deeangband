@@ -6293,15 +6293,15 @@ typedef struct dungeon_grid dungeon_grid;
 
 struct dungeon_grid
 {
-	int		feature;		/* Terrain feature */
-	int		creature;		/* Creature */
-	int		object;			/* Object */
-	int		ego;			/* Ego-Item */
-	int		artifact;		/* Artifact */
-	int		trap;			/* Trap */
-	int		cave_info;		/* Flags for CAVE_MARK, CAVE_GLOW, CAVE_ICKY, CAVE_ROOM */
-	int		special;		/* Reserved for special terrain info */
-	int		random;			/* Number of the random effect */
+	int feature;		/* Terrain feature */
+	int creature;		/* Creature */
+	int object;			/* Object */
+	int ego;			/* Ego-Item */
+	int artifact;		/* Artifact */
+	int trap;
+	int cave_info;		/* Flags for CAVE_MARK, CAVE_GLOW, CAVE_ICKY, CAVE_ROOM */
+	int special;		/* Reserved for special terrain info */
+	int random;			/* Number of the random effect */
 };
 
 
@@ -6342,12 +6342,9 @@ static errr parse_line_feature(char *buf, u32b flags)
 			case 9:
 				letter[index].special = atoi(zz[8]);
 				/* Fall through */
-			/* Trap */
 			case 8:
 				if((zz[7][0] == '*') && !zz[7][1])
-				{
 					letter[index].random |= RANDOM_TRAP;
-				}
 				else
 				{
 					letter[index].trap = feature_tag_to_index(zz[7]);

@@ -2685,7 +2685,6 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				place_secret_door(floor_ptr, y, x, DOOR_CURTAIN);
 				break;
 
-				/* Trap */
 			case '^':
 				place_trap(floor_ptr, y, x);
 				break;
@@ -4063,11 +4062,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 						floor_ptr->object_level = floor_ptr->depth;
 					}
 				}
-				else if(value < 50)
-				{
-					/* Trap */
-					place_trap(floor_ptr, y, x);
-				}
+				else if(value < 50) place_trap(floor_ptr, y, x);
 				else
 				{
 					/* Various Stuff */
