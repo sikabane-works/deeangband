@@ -1016,7 +1016,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	alloc_object(floor_ptr, player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_OBJECT, randnor(DUN_AMT_ITEM, 3));
 	alloc_object(floor_ptr, player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_GOLD, randnor(DUN_AMT_GOLD, 3));
 
-	floor_ptr->object_level = floor_ptr->base_level; // Set back to default
+	floor_ptr->object_level = floor_ptr->depth; // Set back to default
 
 	if(!alloc_guardian(floor_ptr, TRUE)) return FALSE; // Put the Guardian
 
@@ -1246,10 +1246,10 @@ static void generate_floor_quest(floor_type *floor_ptr, int quest_id)
 	}
 
 	/* Set the quest level */
-	floor_ptr->base_level = quest[quest_id].level;
-	floor_ptr->depth = floor_ptr->base_level;
-	floor_ptr->object_level = floor_ptr->base_level;
-	floor_ptr->creature_level = floor_ptr->base_level;
+	floor_ptr->depth = quest[quest_id].level;
+	floor_ptr->depth = floor_ptr->depth;
+	floor_ptr->object_level = floor_ptr->depth;
+	floor_ptr->creature_level = floor_ptr->depth;
 	floor_ptr->quest = quest_id;
 
 	if(record_stair) do_cmd_write_diary(DIARY_TO_QUEST, quest_id, NULL);
@@ -1418,11 +1418,11 @@ void clear_cave(floor_type *floor_ptr)
 	//TODO clear creatures and objects.
 
 	// Set the base level
-	floor_ptr->base_level = floor_ptr->depth;
+	floor_ptr->depth = floor_ptr->depth;
 	// Reset the creature generation level
-	floor_ptr->creature_level = floor_ptr->base_level;
+	floor_ptr->creature_level = floor_ptr->depth;
 	// Reset the object generation level
-	floor_ptr->object_level = floor_ptr->base_level;
+	floor_ptr->object_level = floor_ptr->depth;
 }
 
 // Generates a random dungeon level			-RAK-
@@ -1443,7 +1443,7 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 	floor_ptr->world_y = world_y;
 	floor_ptr->dun_type = dungeon_id;
 
-	floor_ptr->base_level     = depth;
+	floor_ptr->depth     = depth;
 	floor_ptr->depth    = depth;
 	floor_ptr->creature_level = depth;  // Current creature creation level
 	floor_ptr->object_level   = depth;  // Current object creation level

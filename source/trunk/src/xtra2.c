@@ -879,7 +879,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	}
 
 	/* Reset the object level */
-	floor_ptr->object_level = floor_ptr->base_level;
+	floor_ptr->object_level = floor_ptr->depth;
 
 	/* Take note of any dropped treasure */
 	if(visible && (dump_item || dump_gold))

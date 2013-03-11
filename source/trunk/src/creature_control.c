@@ -2831,14 +2831,14 @@ static int initial_r_appearance(int species_idx)
 	int attempts = 1000;
 	int ap_species_idx;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	int min = MIN(floor_ptr->base_level - 5, 50);
+	int min = MIN(floor_ptr->depth - 5, 50);
 
 	if(has_trait_species(&species_info[species_idx], TRAIT_TANUKI)) return species_idx;
 	get_species_num_prep_trait(NULL, NULL, t_need(6, TRAIT_UNIQUE, TRAIT_MULTIPLY, TRAIT_FRIENDLY, TRAIT_CHAMELEON, TRAIT_AQUATIC, TRAIT_SUICIDE_BOMBER), 0);
 
 	while (--attempts)
 	{
-		ap_species_idx = get_species_num(floor_ptr, floor_ptr->base_level + 10);
+		ap_species_idx = get_species_num(floor_ptr, floor_ptr->depth + 10);
 		if(species_info[ap_species_idx].level >= min) return ap_species_idx;
 	}
 

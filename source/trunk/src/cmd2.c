@@ -319,6 +319,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 	int number;
 	bool small;
 	u32b mode = AM_GOOD;
+	int level;
 
 	object_type forge;
 	object_type *quest_ptr;
@@ -332,9 +333,9 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 		number = 5;
 		small = FALSE;
 		mode |= AM_GREAT;
-		floor_ptr->object_level = object_ptr->chest_value;
+		level = object_ptr->chest_value;
 	}
-	else floor_ptr->object_level = ABS(object_ptr->pval) + 10; // Determine the "value" of the items
+	else level = ABS(object_ptr->pval) + 10; // Determine the "value" of the items
 	if(!object_ptr->pval) number = 0; // Zero pval means empty chest
 
 	for (; number > 0; --number) // Drop some objects (non-chests)
@@ -344,7 +345,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 
 		// Small chests often drop gold
 		if(small && (PERCENT(25))) if(!make_gold(floor_ptr, quest_ptr, 0, 0)) continue; // Make some gold
-		else if(!make_random_object(quest_ptr, mode, TRAIT_NO_CHEST, floor_ptr->object_level, NULL)) continue; // Make object
+		else if(!make_random_object(quest_ptr, mode, TRAIT_NO_CHEST, level, NULL)) continue; // Make object
 
 		if(scatter) // If chest scatters its contents, pick any floor square.
 		{
@@ -363,9 +364,6 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 		}
 		else drop_near(floor_ptr, quest_ptr, -1, y, x); // Normally, drop object near the chest.
 	}
-
-	floor_ptr->object_level = floor_ptr->base_level; // Reset the object level 
-
 	object_ptr->pval = 0; // Empty
 	object_known(object_ptr); // Known
 }

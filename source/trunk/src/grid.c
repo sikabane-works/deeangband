@@ -446,9 +446,9 @@ void vault_creatures(floor_type *floor_ptr, int y1, int x1, int num)
 			if(!cave_empty_grid(c_ptr)) continue;
 
 			/* Place the creature (allow groups) */
-			floor_ptr->creature_level = floor_ptr->base_level + 2;
+			floor_ptr->creature_level = floor_ptr->depth + 2;
 			(void)place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
-			floor_ptr->creature_level = floor_ptr->base_level;
+			floor_ptr->creature_level = floor_ptr->depth;
 		}
 	}
 }

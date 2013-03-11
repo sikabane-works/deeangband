@@ -2727,9 +2727,9 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 
 			case 'A':
 				/* Reward for Pattern walk */
-				floor_ptr->object_level = floor_ptr->base_level + 12;
+				floor_ptr->object_level = floor_ptr->depth + 12;
 				place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT, NULL);
-				floor_ptr->object_level = floor_ptr->base_level;
+				floor_ptr->object_level = floor_ptr->depth;
 				break;
 			}
 		}
@@ -2771,42 +2771,42 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				/* Creature */
 				case '&':
 				{
-					floor_ptr->creature_level = floor_ptr->base_level + 5;
+					floor_ptr->creature_level = floor_ptr->depth + 5;
 					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
-					floor_ptr->creature_level = floor_ptr->base_level;
+					floor_ptr->creature_level = floor_ptr->depth;
 					break;
 				}
 
 				/* Meaner creature */
 				case '@':
 				{
-					floor_ptr->creature_level = floor_ptr->base_level + 11;
+					floor_ptr->creature_level = floor_ptr->depth + 11;
 					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
-					floor_ptr->creature_level = floor_ptr->base_level;
+					floor_ptr->creature_level = floor_ptr->depth;
 					break;
 				}
 
 				/* Meaner creature, plus treasure */
 				case '9':
 				{
-					floor_ptr->creature_level = floor_ptr->base_level + 9;
+					floor_ptr->creature_level = floor_ptr->depth + 9;
 					place_creature(NULL, floor_ptr, y, x, PC_ALLOW_SLEEP);
-					floor_ptr->creature_level = floor_ptr->base_level;
-					floor_ptr->object_level = floor_ptr->base_level + 7;
+					floor_ptr->creature_level = floor_ptr->depth;
+					floor_ptr->object_level = floor_ptr->depth + 7;
 					place_object(floor_ptr, y, x, AM_GOOD, NULL);
-					floor_ptr->object_level = floor_ptr->base_level;
+					floor_ptr->object_level = floor_ptr->depth;
 					break;
 				}
 
 				/* Nasty creature and treasure */
 				case '8':
 				{
-					floor_ptr->creature_level = floor_ptr->base_level + 40;
+					floor_ptr->creature_level = floor_ptr->depth + 40;
 					place_creature(NULL, floor_ptr, y, x, PC_ALLOW_SLEEP);
-					floor_ptr->creature_level = floor_ptr->base_level;
-					floor_ptr->object_level = floor_ptr->base_level + 20;
+					floor_ptr->creature_level = floor_ptr->depth;
+					floor_ptr->object_level = floor_ptr->depth + 20;
 					place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT, NULL);
-					floor_ptr->object_level = floor_ptr->base_level;
+					floor_ptr->object_level = floor_ptr->depth;
 					break;
 				}
 
@@ -2815,15 +2815,15 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				{
 					if(PERCENT(50))
 					{
-						floor_ptr->creature_level = floor_ptr->base_level + 3;
+						floor_ptr->creature_level = floor_ptr->depth + 3;
 						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
-						floor_ptr->creature_level = floor_ptr->base_level;
+						floor_ptr->creature_level = floor_ptr->depth;
 					}
 					if(PERCENT(50))
 					{
-						floor_ptr->object_level = floor_ptr->base_level + 7;
+						floor_ptr->object_level = floor_ptr->depth + 7;
 						place_object(floor_ptr, y, x, 0L, NULL);
-						floor_ptr->object_level = floor_ptr->base_level;
+						floor_ptr->object_level = floor_ptr->depth;
 					}
 					break;
 				}
@@ -3992,29 +3992,29 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				if(value < 0)
 				{
 					/* Meanest creature + treasure */
-					floor_ptr->creature_level = floor_ptr->base_level + 40;
+					floor_ptr->creature_level = floor_ptr->depth + 40;
 					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
-					floor_ptr->creature_level = floor_ptr->base_level;
-					floor_ptr->object_level = floor_ptr->base_level + 20;
+					floor_ptr->creature_level = floor_ptr->depth;
+					floor_ptr->object_level = floor_ptr->depth + 20;
 					place_object(floor_ptr, y, x, AM_GOOD, NULL);
-					floor_ptr->object_level = floor_ptr->base_level;
+					floor_ptr->object_level = floor_ptr->depth;
 				}
 				else if(value < 5)
 				{
 					/* Mean creature +treasure */
-					floor_ptr->creature_level = floor_ptr->base_level + 20;
+					floor_ptr->creature_level = floor_ptr->depth + 20;
 					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
-					floor_ptr->creature_level = floor_ptr->base_level;
-					floor_ptr->object_level = floor_ptr->base_level + 10;
+					floor_ptr->creature_level = floor_ptr->depth;
+					floor_ptr->object_level = floor_ptr->depth + 10;
 					place_object(floor_ptr, y, x, AM_GOOD, NULL);
-					floor_ptr->object_level = floor_ptr->base_level;
+					floor_ptr->object_level = floor_ptr->depth;
 				}
 				else if(value < 10)
 				{
 					/* Creature */
-					floor_ptr->creature_level = floor_ptr->base_level + 9;
+					floor_ptr->creature_level = floor_ptr->depth + 9;
 					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
-					floor_ptr->creature_level = floor_ptr->base_level;
+					floor_ptr->creature_level = floor_ptr->depth;
 				}
 				else if(value < 17)
 				{
@@ -4042,9 +4042,9 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				else if(value < 30)
 				{
 					/* Creature and trap */
-					floor_ptr->creature_level = floor_ptr->base_level + 5;
+					floor_ptr->creature_level = floor_ptr->depth + 5;
 					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
-					floor_ptr->creature_level = floor_ptr->base_level;
+					floor_ptr->creature_level = floor_ptr->depth;
 					place_trap(floor_ptr, y, x);
 				}
 				else if(value < 40)
@@ -4052,15 +4052,15 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					/* Creature or object */
 					if(PERCENT(50))
 					{
-						floor_ptr->creature_level = floor_ptr->base_level + 3;
+						floor_ptr->creature_level = floor_ptr->depth + 3;
 						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
-						floor_ptr->creature_level = floor_ptr->base_level;
+						floor_ptr->creature_level = floor_ptr->depth;
 					}
 					if(PERCENT(50))
 					{
-						floor_ptr->object_level = floor_ptr->base_level + 7;
+						floor_ptr->object_level = floor_ptr->depth + 7;
 						place_object(floor_ptr, y, x, 0L, NULL);
-						floor_ptr->object_level = floor_ptr->base_level;
+						floor_ptr->object_level = floor_ptr->depth;
 					}
 				}
 				else if(value < 50)

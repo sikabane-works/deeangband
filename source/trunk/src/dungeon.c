@@ -4992,8 +4992,6 @@ static void play_loop(void)
 
 		if(!floor_ptr->generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
 		if(panic_save) panic_save = FALSE; // TODO
-
-		floor_ptr->base_level = floor_ptr->depth; 	   // Set the base level
 		subject_change_floor = FALSE;  // Not leaving
 
 		// Reset the "command" vars
@@ -5099,8 +5097,8 @@ static void play_loop(void)
 		/*** Process this dungeon level ***/
 
 		// Reset the creature and object generation level
-		floor_ptr->creature_level = floor_ptr->base_level;
-		floor_ptr->object_level = floor_ptr->base_level;
+		floor_ptr->creature_level = floor_ptr->depth;
+		floor_ptr->object_level = floor_ptr->depth;
 
 		if(player_ptr->energy_need > 0 && !floor_ptr->gamble_arena_mode &&
 			(floor_ptr->depth || subject_change_dungeon || floor_ptr->fight_arena_mode))

@@ -685,7 +685,7 @@ static void wr_floor(floor_type *floor_ptr)
 	/*** Basic info ***/
 
 	// Dungeon floor specific info follows
-	wr_s16b(floor_ptr->base_level);
+	wr_s16b(floor_ptr->depth);
 	wr_s16b(floor_ptr->depth);
 	wr_s16b(floor_ptr->creature_level);
 	wr_s16b(floor_ptr->object_level);

@@ -1096,7 +1096,7 @@ static errr rd_floor(floor_type *floor_ptr)
 
 	/* Dungeon floor specific info follows */
 
-	rd_s16b(&floor_ptr->base_level);
+	rd_s16b(&floor_ptr->depth);
 	rd_s16b(&floor_ptr->depth);
 	rd_s16b(&floor_ptr->creature_level);
 	rd_s16b(&floor_ptr->object_level);

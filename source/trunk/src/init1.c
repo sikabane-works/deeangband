@@ -6702,9 +6702,9 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			/* Create a creature */
 			if(random & RANDOM_MONSTER)
 			{
-				floor_ptr->creature_level = floor_ptr->base_level + creature_index;
+				floor_ptr->creature_level = floor_ptr->depth + creature_index;
 				place_creature(NULL, floor_ptr, *y, *x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
-				floor_ptr->creature_level = floor_ptr->base_level;
+				floor_ptr->creature_level = floor_ptr->depth;
 			}
 			else if(creature_index)
 			{
@@ -6751,25 +6751,25 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			/* Object (and possible trap) */
 			if((random & RANDOM_OBJECT) && (random & RANDOM_TRAP))
 			{
-				floor_ptr->object_level = floor_ptr->base_level + object_index;
+				floor_ptr->object_level = floor_ptr->depth + object_index;
 
 				// Random trap and random treasure defined
 				// 25% chance for trap and 75% chance for object
 				if(PERCENT(75)) place_object(floor_ptr, *y, *x, 0L, NULL);
 				else place_trap(floor_ptr, *y, *x);
 
-				floor_ptr->object_level = floor_ptr->base_level;
+				floor_ptr->object_level = floor_ptr->depth;
 			}
 			else if(random & RANDOM_OBJECT)
 			{
-				floor_ptr->object_level = floor_ptr->base_level + object_index;
+				floor_ptr->object_level = floor_ptr->depth + object_index;
 
 				// Create an out of deep object
 				if(PERCENT(75)) place_object(floor_ptr, *y, *x, 0L, NULL);
 				else if(PERCENT(80)) place_object(floor_ptr, *y, *x, AM_GOOD, NULL);
 				else place_object(floor_ptr, *y, *x, AM_GOOD | AM_GREAT, NULL);
 
-				floor_ptr->object_level = floor_ptr->base_level;
+				floor_ptr->object_level = floor_ptr->depth;
 			}
 			/* Random trap */
 			else if(random & RANDOM_TRAP)
@@ -6795,7 +6795,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				}
 
 				/* Apply magic (no messages, no artifacts) */
-				apply_magic(player_ptr, object_ptr, floor_ptr->base_level, AM_NO_FIXED_ART | AM_GOOD, 0);
+				apply_magic(player_ptr, object_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD, 0);
 
 				drop_here(floor_ptr, object_ptr, *y, *x);
 			}
