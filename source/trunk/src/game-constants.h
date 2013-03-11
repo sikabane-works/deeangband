@@ -119,7 +119,7 @@
 #define GREAT_OBJ       10
 
 /*
- * There is a 1/25 (4%) chance of inflating the requested creature_level
+ * There is a 1/25 (4%) chance of inflating the requested enemy_level
  * during the creation of a creatures (see "get_species_num" in "creature.c").
  * Lower values yield harder creatures more often.
  */

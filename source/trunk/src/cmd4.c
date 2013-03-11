@@ -3886,7 +3886,7 @@ static cptr creature_group_char[] =
 /*
  * hook function to sort creatures by level
  */
-static bool ang_sort_comp_creature_level(vptr u, vptr v, int a, int b)
+static bool ang_sort_comp_enemy_level(vptr u, vptr v, int a, int b)
 {
 	u16b *who = (u16b*)(u);
 

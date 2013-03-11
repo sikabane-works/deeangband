@@ -1786,7 +1786,7 @@ typedef struct
 	byte gamble_arena_mode;
 
 	s16b depth;
-	s16b creature_level;  // Current creature creation level
+	s16b enemy_level;  // Current creature creation level
 	s16b object_level;    // Current object creation level
 	byte dun_type;
 	s32b world_x;

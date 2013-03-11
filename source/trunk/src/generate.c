@@ -1249,7 +1249,7 @@ static void generate_floor_quest(floor_type *floor_ptr, int quest_id)
 	floor_ptr->depth = quest[quest_id].level;
 	floor_ptr->depth = floor_ptr->depth;
 	floor_ptr->object_level = floor_ptr->depth;
-	floor_ptr->creature_level = floor_ptr->depth;
+	floor_ptr->enemy_level = floor_ptr->depth;
 	floor_ptr->quest = quest_id;
 
 	if(record_stair) do_cmd_write_diary(DIARY_TO_QUEST, quest_id, NULL);
@@ -1420,7 +1420,7 @@ void clear_cave(floor_type *floor_ptr)
 	// Set the base level
 	floor_ptr->depth = floor_ptr->depth;
 	// Reset the creature generation level
-	floor_ptr->creature_level = floor_ptr->depth;
+	floor_ptr->enemy_level = floor_ptr->depth;
 	// Reset the object generation level
 	floor_ptr->object_level = floor_ptr->depth;
 }
@@ -1445,7 +1445,7 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 
 	floor_ptr->depth     = depth;
 	floor_ptr->depth    = depth;
-	floor_ptr->creature_level = depth;  // Current creature creation level
+	floor_ptr->enemy_level = depth;  // Current creature creation level
 	floor_ptr->object_level   = depth;  // Current object creation level
 	floor_ptr->town_num = wilderness[world_y][world_x].town;	// Number of the town (if any)
 

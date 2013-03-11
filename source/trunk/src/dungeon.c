@@ -5097,7 +5097,7 @@ static void play_loop(void)
 		/*** Process this dungeon level ***/
 
 		// Reset the creature and object generation level
-		floor_ptr->creature_level = floor_ptr->depth;
+		floor_ptr->enemy_level = floor_ptr->depth;
 		floor_ptr->object_level = floor_ptr->depth;
 
 		if(player_ptr->energy_need > 0 && !floor_ptr->gamble_arena_mode &&

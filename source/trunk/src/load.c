@@ -1098,7 +1098,7 @@ static errr rd_floor(floor_type *floor_ptr)
 
 	rd_s16b(&floor_ptr->depth);
 	rd_s16b(&floor_ptr->depth);
-	rd_s16b(&floor_ptr->creature_level);
+	rd_s16b(&floor_ptr->enemy_level);
 	rd_s16b(&floor_ptr->object_level);
 
 	rd_byte(&floor_ptr->dun_type);

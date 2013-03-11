@@ -240,7 +240,7 @@ static void generate_area(floor_type *floor_ptr, int y, int x, bool border, bool
 	floor_ptr->town_num = wilderness[y][x].town;		// Number of the town (if any)
 	floor_ptr->depth = wilderness[y][x].level;		// Set the base level
 	floor_ptr->depth = 0;							// Set the dungeon level
-	floor_ptr->creature_level = floor_ptr->depth;	// Set the creature generation level
+	floor_ptr->enemy_level = floor_ptr->depth;	// Set the creature generation level
 	floor_ptr->object_level = floor_ptr->depth;	// Set the object generation level
 
 	if(floor_ptr->town_num)	// Create the town

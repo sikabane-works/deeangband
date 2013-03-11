@@ -1337,7 +1337,7 @@ void battle_creatures(void)
 	//TODO :: NEW CALCULATION
 	int total, i;
 	int max_dl = 0;
-	int ave_creature_level;
+	int ave_enemy_level;
 	int power[GAMBLE_ARENA_GLADIATOR_MAX];
 	bool tekitou;
 	bool old_gamble_arena_mode = floor_ptr->gamble_arena_mode;
@@ -1345,16 +1345,16 @@ void battle_creatures(void)
 	for (i = 0; i < max_dungeon_idx; i++)
 		if(max_dl < max_dlv[i]) max_dl = max_dlv[i];
 
-	ave_creature_level = randint1(MIN(max_dl, 122)) + 5;
+	ave_enemy_level = randint1(MIN(max_dl, 122)) + 5;
 	if(PERCENT(60))
 	{
 		i = randint1(MIN(max_dl, 122))+5;
-		ave_creature_level = MAX(i, ave_creature_level);
+		ave_enemy_level = MAX(i, ave_enemy_level);
 	}
 	if(PERCENT(30))
 	{
 		i = randint1(MIN(max_dl, 122))+5;
-		ave_creature_level = MAX(i, ave_creature_level);
+		ave_enemy_level = MAX(i, ave_enemy_level);
 	}
 
 	while(TRUE)
@@ -1369,13 +1369,13 @@ void battle_creatures(void)
 			while(TRUE)
 			{
 				floor_ptr->gamble_arena_mode = TRUE;
-				species_idx = get_species_num(CURRENT_FLOOR_PTR, ave_creature_level);
+				species_idx = get_species_num(CURRENT_FLOOR_PTR, ave_enemy_level);
 				floor_ptr->gamble_arena_mode = old_gamble_arena_mode;
 				if(!species_idx) continue;
 
 				if(has_trait_species(&species_info[species_idx], TRAIT_UNIQUE) || has_trait_species(&species_info[species_idx], TRAIT_UNIQUE2))
 				{
-					if((species_info[species_idx].level + 10) > ave_creature_level) continue;
+					if((species_info[species_idx].level + 10) > ave_enemy_level) continue;
 				}
 
 				for (j = 0; j < i; j++)

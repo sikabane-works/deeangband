@@ -3823,14 +3823,14 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 
 
 // Hack -- attempt to place a creature at the given location
-// Attempt to find a creature appropriate to the "creature_level"
+// Attempt to find a creature appropriate to the "enemy_level"
 bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, u32b mode)
 {
 	int species_idx;
 
 	// Pick a creature
 	get_species_num_prep(NULL, NULL, NULL, NULL, 0); //TODO get_creature_hook(), get_creature_hook2(y, x)
-	species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
+	species_idx = get_species_num(floor_ptr, floor_ptr->enemy_level);
 	if(!species_idx) return FALSE;
 
 	return place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode); // Attempt to place the creature
@@ -3851,7 +3851,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 	while (--attempts)
 	{
 		/* Pick a creature */
-		species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
+		species_idx = get_species_num(floor_ptr, floor_ptr->enemy_level);
 
 		/* Handle failure */
 		if(!species_idx) return FALSE;
@@ -3935,7 +3935,7 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 * Attempt to allocate a random creature in the dungeon.
 * Place the creature at least "dis" distance from the player.
 * Use "slp" to choose the initial "sleep" status
-* Use "creature_level" for the creature level
+* Use "enemy_level" for the creature level
 */
 bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u32b mode)
 {
