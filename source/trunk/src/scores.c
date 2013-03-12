@@ -518,8 +518,6 @@ errr predict_score(creature_type *player_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	high_score   the_score;
 
-
-	/* No score file */
 	if(highscore_fd < 0)
 	{
 		msg_print(MES_SYS_SCORE_FAILED);

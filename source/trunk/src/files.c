@@ -6016,12 +6016,10 @@ static void show_info(creature_type *creature_ptr)
 	*/
 }
 
-
 static bool check_score(creature_type *player_ptr)
 {
 	Term_clear();
 
-	/* No score file */
 	if(highscore_fd < 0)
 	{
 		msg_print(MES_SYS_SCORE_FAILED);
@@ -6032,11 +6030,7 @@ static bool check_score(creature_type *player_ptr)
 	/* Wizard-mode pre-empts scoring */
 	if(noscore & 0x000F)
 	{
-#ifdef JP
-		msg_print("ウィザード・モードではスコアが記録されません。");
-#else
-		msg_print("Score not registered for wizards.");
-#endif
+		msg_print(MES_SCORE_DISABLE_WIZARD);
 		msg_print(NULL);
 		return FALSE;
 	}
@@ -6044,11 +6038,7 @@ static bool check_score(creature_type *player_ptr)
 	/* Unique mode pre-empts scoring */
 	if(noscore & 0x0004)
 	{
-#ifdef JP
-		msg_print("ユニーク・モードではスコアが記録されません。");
-#else
-		msg_print("Score not registered for uniques.");
-#endif
+		msg_print(MES_SCORE_DISABLE_UNIQUE);
 		msg_print(NULL);
 		return FALSE;
 	}
@@ -6056,24 +6046,14 @@ static bool check_score(creature_type *player_ptr)
 	/* Cheaters are not scored */
 	if(noscore & 0xFF00)
 	{
-#ifdef JP
-		msg_print("詐欺をやった人はスコアが記録されません。");
-#else
-		msg_print("Score not registered for cheaters.");
-#endif
-
+		msg_print(MES_SCORE_DISABLE_CHEAT);
 		msg_print(NULL);
 		return FALSE;
 	}
 
 	if(!player_ptr->total_winner && streq(gameover_from, COD_INTERRUPTING))
 	{
-#ifdef JP
-		msg_print("強制終了のためスコアが記録されません。");
-#else
-		msg_print("Score not registered due to interruption.");
-#endif
-
+		msg_print(MES_SCORE_DISABLE_INTERUPT);
 		msg_print(NULL);
 		return FALSE;
 	}
@@ -6081,12 +6061,7 @@ static bool check_score(creature_type *player_ptr)
 	/* Quitter */
 	if(!player_ptr->total_winner && streq(gameover_from, COD_QUITTING))
 	{
-#ifdef JP
-		msg_print("途中終了のためスコアが記録されません。");
-#else
-		msg_print("Score not registered due to quitting.");
-#endif
-
+		msg_print(MES_SCORE_DISABLE_QUIT);
 		msg_print(NULL);
 		return FALSE;
 	}
@@ -6095,7 +6070,6 @@ static bool check_score(creature_type *player_ptr)
 
 /*
  * Close up the current game (player may or may not be dead)
- *
  * This function is called only from "main.c" and "signals.c".
  */
 void close_game(void)
@@ -6112,7 +6086,6 @@ void close_game(void)
 
 	/* Flush the input */
 	flush();
-
 
 	/* No suspending now */
 	signals_ignore_tstp();
