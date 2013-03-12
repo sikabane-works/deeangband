@@ -896,12 +896,9 @@ void do_cmd_locate(creature_type *creature_ptr)
 bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 {
 	u16b *who = (u16b*)(u);
-
 	u16b *why = (u16b*)(v);
-
 	int w1 = who[a];
 	int w2 = who[b];
-
 	int z1, z2;
 
 	/* Sort by player kills */
@@ -970,7 +967,6 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 void ang_sort_swap_hook(vptr u, vptr v, int a, int b)
 {
 	u16b *who = (u16b*)(u);
-
 	u16b holder;
 
 	/* Unused */
@@ -1013,17 +1009,11 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	u16b	*who;
 
 	/* Get a character, or abort */
-#ifdef JP
-	if(!get_com("知りたい文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^R乗馬,^M名前): ", &sym, FALSE)) return;
-#else
-	if(!get_com("Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): ", &sym, FALSE)) return;
-#endif
+	if(!get_com(MES_INTERFACE_INPUT_SYM, &sym, FALSE)) return;
 
 	/* Find that character info, and describe it */
 	for (i = 0; ident_info[i]; ++i)
-	{
 		if(sym == ident_info[i][0]) break;
-	}
 
 	if(sym == KTRL('A'))
 	{
@@ -1049,11 +1039,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	else if(sym == KTRL('M'))
 	{
 		all = TRUE;
-#ifdef JP
-		if(!get_string("名前(英語の場合小文字で可)",temp, 70))
-#else
-		if(!get_string("Enter name:",temp, 70))
-#endif
+		if(!get_string(MES_INTERFACE_ENTER_NAME, temp, 70))
 		{
 			temp[0]=0;
 			return;
