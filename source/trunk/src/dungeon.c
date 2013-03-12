@@ -5254,10 +5254,8 @@ void play_game(bool new_game)
 		seed = (u32b)(time(NULL));
 
 #ifdef SET_UID
-
 		/* Mutate the seed on Unix machines */
 		seed = ((seed >> 3) * (getpid() << 1));
-
 #endif
 
 		/* Use the complex RNG */
@@ -5291,7 +5289,6 @@ void play_game(bool new_game)
 	/* Flush the message */
 	Term_fresh();
 
-
 	/* Hack -- Enter wizard mode */
 	if(arg_wizard)
 	{
@@ -5317,12 +5314,7 @@ void play_game(bool new_game)
 	if(new_game)
 	{
 		char buf[80];
-
-#ifdef JP
-		sprintf(buf, "%s‚É~‚è—§‚Á‚½B", map_name(GET_FLOOR_PTR(player_ptr)));
-#else
-		sprintf(buf, "You are standing in the %s.", map_name(GET_FLOOR_PTR(player_ptr)));
-#endif
+		sprintf(buf, MES_DIARY_STAND_IN(map_name(GET_FLOOR_PTR(player_ptr))));
 		do_cmd_write_diary(DIARY_BUNSHOU, 0, buf);
 	}
 

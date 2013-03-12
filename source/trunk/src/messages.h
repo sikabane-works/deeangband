@@ -2916,6 +2916,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_SERVANT "クリーチャーがペットになった。"
 #define MES_DIARY_PATRON_DEMONIC_SERVANT "悪魔がペットになった。"
 #define MES_DIARY_PATRON_UNDEAD_SERVANT "アンデッドがペットになった。"
+#define MES_DIARY_STAND_IN(PLACE) "%sに降り立った。", (PLACE)
 #define MES_DIARY_PATRON_HEALING "体力が回復した。"
 #define MES_DIARY_WINNER "見事にD\'angbandの勝利者となった！"
 #else
@@ -2974,6 +2975,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_DEMONIC_SERVANT "a demonic servant"
 #define MES_DIARY_PATRON_UNDEAD_SERVANT "an undead servant"
 #define MES_DIARY_PATRON_HEALING "healing"
+#define MES_DIARY_STAND_IN(PLACE) "You are standing in the %s.", (PLACE)
 #define MES_DIARY_WINNER "become *WINNER* of D\'angband finely!"
 #endif
 
