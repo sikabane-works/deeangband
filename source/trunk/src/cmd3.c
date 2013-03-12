@@ -1009,7 +1009,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	u16b	*who;
 
 	/* Get a character, or abort */
-	if(!get_com(MES_INTERFACE_INPUT_SYM, &sym, FALSE)) return;
+	if(!get_com(MES_QUERY_INPUT_SYM, &sym, FALSE)) return;
 
 	/* Find that character info, and describe it */
 	for (i = 0; ident_info[i]; ++i)
@@ -1039,16 +1039,12 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	else if(sym == KTRL('M'))
 	{
 		all = TRUE;
-		if(!get_string(MES_INTERFACE_ENTER_NAME, temp, 70))
+		if(!get_string(MES_QUERY_INPUT_ENTER_NAME, temp, 70))
 		{
 			temp[0]=0;
 			return;
 		}
-#ifdef JP
-		sprintf(buf, "名前:%sにマッチ",temp);
-#else
-		sprintf(buf, "Creatures with a name \"%s\"",temp);
-#endif
+		sprintf(buf, MES_QUERY_MARCH(temp));
 	}
 	else if(ident_info[i]) sprintf(buf, "%c - %s.", sym, ident_info[i] + 2);
 	else sprintf(buf, "%c - %s", sym, MES_SYS_UNKNOWN_SYMBOL);
@@ -1114,11 +1110,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		return;
 	}
 
-#ifdef JP
-	put_str("思い出を見ますか? (k:殺害順/y/n): ", 0, 36);
-#else
-	put_str("Recall details? (k/y/n): ", 0, 40);
-#endif
+	put_str(MES_QUERY_ASK_RECALL, 0, 38);
 
 	query = inkey();
 	prt(buf, 0, 0);

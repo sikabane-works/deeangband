@@ -2191,8 +2191,6 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_FOR_INVEN " '/' 持ち物,"
 #define MES_INTERFACE_FOR_EQUIP " '/' 装備品,"
 #define MES_INTERFACE_LOCATE(Y, X, DIR) "マップ位置 [%d,%d] (プレイヤーの%s)  方向?"
-#define MES_INTERFACE_INPUT_SYM "知りたい文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^R乗馬,^M名前): "
-#define MES_INTERFACE_ENTER_NAME "名前(英語の場合小文字で可)"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2222,8 +2220,6 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_FOR_INVEN " / for Inven,"
 #define MES_INTERFACE_FOR_EQUIP " / for Equip,"
 #define MES_INTERFACE_LOCATE(Y, X, DIR) "Map sector [%d,%d], which is %s your sector.  Direction?"
-#define MES_INTERFACE_INPUT_SYM "Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): "
-#define MES_INTERFACE_ENTER_NAME "Enter name:"
 #endif
 
 #ifdef JP
@@ -3605,11 +3601,19 @@ static cptr desc_stat_neg[] =
 #define MES_QUERY_UNIQUE "ユニーク・クリーチャーのリスト"
 #define MES_QUERY_NON_UNIQUE "ユニーク外クリーチャーのリスト"
 #define MES_QUERY_STEED "乗馬可能クリーチャーのリスト"
+#define MES_QUERY_INPUT_SYM "知りたい文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^R乗馬,^M名前): "
+#define MES_QUERY_INPUT_ENTER_NAME "名前(英語の場合小文字で可)"
+#define MES_QUERY_MARCH(KEYWORD) "名前:%sにマッチ", (KEYWORD)
+#define MES_QUERY_ASK_RECALL "思い出を見ますか? (k:殺害順/y/n): "
 #else
 #define MES_QUERY_ALL_CREATURE "Full creature list."
 #define MES_QUERY_UNIQUE "Unique creature list."
 #define MES_QUERY_NON_UNIQUE "Non-unique creature list."
 #define MES_QUERY_STEED "Ridable creature list."
+#define MES_QUERY_INPUT_SYM "Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): "
+#define MES_QUERY_INPUT_ENTER_NAME "Enter name:"
+#define MES_QUERY_MARCH(KEYWORD) "Creatures with a name \"%s\"", (KEYWORD)
+#define MES_QUERY_ASK_RECALL "Recall details? (k/y/n): "
 #endif
 
 #ifdef JP
