@@ -2892,6 +2892,7 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_DEMON_SERVANT(PATRON) "%sは褒美として悪魔の使いをよこした！", (PATRON)
 #define MES_PATRON_UNDEAD_SERVANT(PATRON) "%sは褒美としてアンデッドの使いをよこした！", (PATRON)
 #define MES_PATRON_SERVANT(PATRON) "%sは褒美として使いをよこした！", (PATRON)
+#define MES_PATRON_PRAISE_WINNER "『よくやった、我がしもべよ！』"
 #define MES_PATRON_ERROR_REWARD1(PATRON) "%sの声がどもった:", (PATRON)
 #define MES_PATRON_ERROR_REWARD2(TYPE, EFFECT) "「あー、あー、答えは %d/%d。文句はあるかい？」", (TYPE), (EFFECT)
 #define MES_DIARY_PATRON_DESTROYED(OBJECT) "%sが破壊された。", (OBJECT)
@@ -2916,6 +2917,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_DEMONIC_SERVANT "悪魔がペットになった。"
 #define MES_DIARY_PATRON_UNDEAD_SERVANT "アンデッドがペットになった。"
 #define MES_DIARY_PATRON_HEALING "体力が回復した。"
+#define MES_DIARY_WINNER "見事にD\'angbandの勝利者となった！"
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -2947,6 +2949,7 @@ static cptr desc_stat_neg[] =
 #define MES_PATRON_DEMON_SERVANT(PATRON) "%s rewards you with a demonic servant!", (PATRON)
 #define MES_PATRON_UNDEAD_SERVANT(PATRON) "%s rewards you with an undead servant!", (PATRON)
 #define MES_PATRON_SERVANT(PATRON) "%s rewards you with a servant!", (PATRON)
+#define MES_PATRON_PRAISE_WINNER "'Thou art donst well, my devotee!'"
 #define MES_PATRON_ERROR_REWARD1(PATRON) "The voice of %s stammers:", (PATRON)
 #define MES_PATRON_ERROR_REWARD2(TYPE, EFFECT) "'Uh... uh... the answer's %d/%d, what's the question?'", (TYPE), (EFFECT)
 #define MES_DIARY_PATRON_DESTROYED(OBJECT) "destroying %s", (OBJECT)
@@ -2971,6 +2974,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_DEMONIC_SERVANT "a demonic servant"
 #define MES_DIARY_PATRON_UNDEAD_SERVANT "an undead servant"
 #define MES_DIARY_PATRON_HEALING "healing"
+#define MES_DIARY_WINNER "become *WINNER* of D\'angband finely!"
 #endif
 
 #ifdef JP

@@ -5488,23 +5488,17 @@ void become_winner(creature_type *creature_ptr)
 		creature_ptr->total_winner = TRUE;
 		prepare_redraw(PR_TITLE);
 		// Congratulations
-#ifdef JP
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, "見事にD\'angbandの勝利者となった！");
+		do_cmd_write_diary(DIARY_BUNSHOU, 0, MES_DIARY_WINNER);
 		if(creature_ptr->patron_idx != INDEX_NONE)
 		{
-			msg_format("%sからの声が響いた。", species_name + species_info[creature_ptr->patron_idx].name);
-			msg_print("『よくやった、我がしもべよ！』");
+			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_PRAISE_WINNER);
 		}
+#ifdef JP
 		msg_print("*** おめでとう ***");
 		msg_print("あなたはゲームをコンプリートしました。");
 		msg_print("準備が整ったら引退(自殺コマンド)しても結構です。");
 #else
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
-		if(creature_ptr->patron_idx != INDEX_NONE)
-		{
-			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
-			msg_print("'Thou art donst well, my devotee!'");
-		}
 		msg_print("*** CONGRATULATIONS ***");
 		msg_print("You have won the game!");
 		msg_print("You may retire (commit suicide) when you are ready.");
