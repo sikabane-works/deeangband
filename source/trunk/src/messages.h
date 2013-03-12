@@ -1878,6 +1878,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_BURN_UP "îRÇ¶ÇΩ"
 #define MES_EFFECT_CRUSHED "ï≤ç”Ç≥ÇÍÇΩ"
 #define MES_EFFECT_A_TREE_(MES) "ñÿÇÕ%sÅB", (MES)
+#define MES_EFFECT_CRUSHED2(MES) "%sÇ™äÑÇÍÇΩÅI", (MES)
 #else
 #define MES_EFFECT_CHAOS_DONE "Your body is twisted by chaos!"
 #define MES_EFFECT_TIME_DONE(TARGET) "You saw %s' life has clocked back.", (TARGET)
@@ -1893,6 +1894,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_BURN_UP "burns up!"
 #define MES_EFFECT_CRUSHED "was crushed."
 #define MES_EFFECT_A_TREE_(MES) "A tree %s", (MES)
+#define MES_EFFECT_CRUSHED2(MES) "The %s was crashed!", (MES)
 #endif
 
 #ifdef JP

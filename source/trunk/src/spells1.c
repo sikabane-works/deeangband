@@ -1033,11 +1033,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			{
 				if(known && (c_ptr->info & CAVE_MARK))
 				{
-#ifdef JP
-					msg_format("%s‚ªŠ„‚ê‚½I", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#else
-					msg_format("The %s was crashed!", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#endif
+					msg_format(MES_EFFECT_CRUSHED2(feature_name + feature_info[get_feat_mimic(c_ptr)].name));
 					sound(SOUND_GLASS);
 				}
 
@@ -1064,11 +1060,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			{
 				if(known && (c_ptr->info & CAVE_MARK))
 				{
-#ifdef JP
-					msg_format("%s‚ªŠ„‚ê‚½I", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#else
-					msg_format("The %s was crashed!", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#endif
+					msg_format(MES_EFFECT_CRUSHED2(feature_name + feature_info[get_feat_mimic(c_ptr)].name));
 					sound(SOUND_GLASS);
 				}
 
