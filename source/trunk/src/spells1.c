@@ -561,21 +561,15 @@ static s16b creature_target_y;
 
 
 /*
-* We are called from "project()" to "damage" terrain features
-*
-* We are called both for "beam" effects and "ball" effects.
-*
-* The "r" parameter is the "distance from ground zero".
-*
-* Note that we determine if the player can "see" anything that happens
-* by taking into account: blindness, line-of-sight, and illumination.
-*
-* We return "TRUE" if the effect of the projection is "obvious".
-*
-*  We also "see" grids which are "memorized", probably a hack
-*
-*  Perhaps we should affect doors?
-*/
+ * We are called from "project()" to "damage" terrain features
+ * We are called both for "beam" effects and "ball" effects.
+ * The "r" parameter is the "distance from ground zero".
+ * Note that we determine if the player can "see" anything that happens
+ * by taking into account: blindness, line-of-sight, and illumination.
+ * We return "TRUE" if the effect of the projection is "obvious".
+ *  We also "see" grids which are "memorized", probably a hack
+ *  Perhaps we should affect doors?
+ */
 static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr, int r, int y, int x, int dam, int typ)
 {
 	floor_type      *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
@@ -584,9 +578,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 
 	bool obvious = FALSE;
 	bool known = player_has_los_bold(y, x);
-
-	/* Reduce damage by distance */
-	dam = (dam + r) / (r + 1);
+	dam = (dam + r) / (r + 1); /* Reduce damage by distance */
 
 	if(have_flag(f_ptr->flags, FF_TREE))
 	{
@@ -596,38 +588,18 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		case DO_EFFECT_POIS:
 		case DO_EFFECT_NUKE:
 		case DO_EFFECT_DEATH_RAY:
-#ifdef JP
-			message = "ŒÍ‚ê‚½";break;
-#else
-			message = "was blasted.";break;
-#endif
+			message = MES_EFFECT_BLASTED; break;
 		case DO_EFFECT_TIME:
-#ifdef JP
-			message = "k‚ñ‚¾";break;
-#else
-			message = "shrank.";break;
-#endif
+			message = MES_EFFECT_SHRANK; break;
 		case DO_EFFECT_ACID:
-#ifdef JP
-			message = "—n‚¯‚½";break;
-#else
-			message = "melted.";break;
-#endif
+			message = MES_EFFECT_MELTED; break;
 		case DO_EFFECT_COLD:
 		case DO_EFFECT_ICE:
-#ifdef JP
-			message = "“€‚èAÓ‚¯ŽU‚Á‚½";break;
-#else
-			message = "was frozen and smashed.";break;
-#endif
+			message = MES_EFFECT_FROZEN; break;
 		case DO_EFFECT_FIRE:
 		case DO_EFFECT_ELEC:
 		case DO_EFFECT_PLASMA:
-#ifdef JP
-			message = "”R‚¦‚½";break;
-#else
-			message = "burns up!";break;
-#endif
+			message = MES_EFFECT_BURN_UP; break;
 		case DO_EFFECT_METEOR:
 		case DO_EFFECT_CHAOS:
 		case DO_EFFECT_MANA:
@@ -639,24 +611,14 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		case DO_EFFECT_DISENCHANT:
 		case DO_EFFECT_FORCE:
 		case DO_EFFECT_GRAVITY:
-#ifdef JP
-			message = "•²Ó‚³‚ê‚½";break;
-#else
-			message = "was crushed.";break;
-#endif
+			message = MES_EFFECT_CRUSHED; break;
 		default:
 			message = NULL;break;
 		}
 		if(message)
 		{
-#ifdef JP
-			msg_format("–Ø‚Í%sB", message);
-#else
-			msg_format("A tree %s", message);
-#endif
+			msg_format(MES_EFFECT_A_TREE_(message));
 			cave_set_feat(floor_ptr, y, x, one_in_(3) ? feat_brake : feat_grass);
-
-			/* Observe */
 			if(c_ptr->info & (CAVE_MARK)) obvious = TRUE;
 		}
 	}

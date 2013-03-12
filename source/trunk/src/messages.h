@@ -1871,6 +1871,13 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_MIND_BACKFIRE "%^sの堕落した精神は攻撃を跳ね返した！"
 #define MES_EFFECT_DISARM_TRAP "カチッと音がした。"
 #define MES_EFFECT_CUT_ARROW "矢を斬り捨てた！"
+#define MES_EFFECT_BLASTED "枯れた"
+#define MES_EFFECT_SHRANK "縮んだ"
+#define MES_EFFECT_MELTED "溶けた"
+#define MES_EFFECT_FROZEN "凍り、砕け散った"
+#define MES_EFFECT_BURN_UP "燃えた"
+#define MES_EFFECT_CRUSHED "粉砕された"
+#define MES_EFFECT_A_TREE_(MES) "木は%s。", (MES)
 #else
 #define MES_EFFECT_CHAOS_DONE "Your body is twisted by chaos!"
 #define MES_EFFECT_TIME_DONE(TARGET) "You saw %s' life has clocked back.", (TARGET)
@@ -1879,6 +1886,13 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_MIND_BACKFIRE "%^s corrupted mind backlashes your attack!"
 #define MES_EFFECT_DISARM_TRAP "Click!"
 #define MES_EFFECT_CUT_ARROW "You cut down the arrow!"
+#define MES_EFFECT_BLASTED "was blasted."
+#define MES_EFFECT_SHRANK "shrank."
+#define MES_EFFECT_MELTED "melted."
+#define MES_EFFECT_FROZEN "was frozen and smashed."
+#define MES_EFFECT_BURN_UP "burns up!"
+#define MES_EFFECT_CRUSHED "was crushed."
+#define MES_EFFECT_A_TREE_(MES) "A tree %s", (MES)
 #endif
 
 #ifdef JP
