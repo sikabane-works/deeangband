@@ -393,11 +393,7 @@ bool send_world_score(bool do_send)
 			err = report_score(player_ptr);
 			screen_load();
 			if(err) return FALSE;
-#ifdef JP
-			prt("完了。何かキーを押してください。", 0, 0);
-#else
-			prt("Completed.  Hit any key.", 0, 0);
-#endif
+			prt(MES_SCORE_SEND, 0, 0);
 			(void)inkey();
 		}
 		else return FALSE;
@@ -427,8 +423,7 @@ errr top_twenty(creature_type *player_ptr)
 	(void)WIPE(&the_score, high_score);
 
 	/* Save the version */
-	sprintf(the_score.what, "%u.%u.%u",
-		VER_MAJOR, VER_MINOR, VER_PATCH);
+	sprintf(the_score.what, "%u.%u.%u", VER_MAJOR, VER_MINOR, VER_PATCH);
 
 	/* Calculate and save the points */
 	sprintf(the_score.pts, "%9ld", (long)total_points(player_ptr));
@@ -471,13 +466,8 @@ errr top_twenty(creature_type *player_ptr)
 	/* Save the cause of death (31 chars) */
 	if(strlen(gameover_from) >= sizeof(the_score.how))
 	{
-#ifdef JP
-		my_strcpy(the_score.how, gameover_from, sizeof(the_score.how) - 2);
-		strcat(the_score.how, "…");
-#else
 		my_strcpy(the_score.how, gameover_from, sizeof(the_score.how) - 3);
 		strcat(the_score.how, "...");
-#endif
 	}
 	else strcpy(the_score.how, gameover_from);
 
@@ -515,8 +505,6 @@ errr top_twenty(creature_type *player_ptr)
 		display_scores_aux(0, 5, j, NULL);
 		display_scores_aux(j - 2, j + 7, j, NULL);
 	}
-
-
 	return SUCCESS;
 }
 

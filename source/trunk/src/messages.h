@@ -3778,8 +3778,10 @@ static cptr desc_stat_neg[] =
 #define MES_SCORE_PUSHKEY "[ ESCで中断, その他のキーで続けます ]"
 #define MES_SCORE_ASK_SEND_SCORE "スコアをスコア・サーバに登録しますか? "
 #define MES_SCORE_SENDING "送信中．．"
+#define MES_SCORE_SEND "完了。何かキーを押してください。"
 #else
 #define MES_SCORE_PUSHKEY "[Press ESC to quit, any other key to continue.]"
 #define MES_SCORE_ASK_SEND_SCORE "Do you send score to the world score sever? "
 #define MES_SCORE_SENDING "Sending..."
+#define MES_SCORE_SEND "Completed.  Hit any key."
 #endif
