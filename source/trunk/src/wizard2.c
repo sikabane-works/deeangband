@@ -52,7 +52,6 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 
 	/* Rerate */
 	set_base_hp(creature_ptr);
-
 	percent = (int)(((long)creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] * 200L) / (2 * creature_ptr->hitdice + ((CREATURE_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
 
 	/* Update and redraw hitpoints */
@@ -65,20 +64,12 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 
 	if(display)
 	{
-#ifdef JP
-		msg_format("現在の体力ランクは %d/100 です。", percent);
-#else
-		msg_format("Your life rate is %d/100 now.", percent);
-#endif
+		msg_format(MES_CREATURE_LIFERATE_NOW(percent));
 		creature_ptr->knowledge |= KNOW_HPRATE;
 	}
 	else
 	{
-#ifdef JP
-		msg_print("体力ランクが変わった。");
-#else
-		msg_print("Life rate is changed.");
-#endif
+		msg_print(MES_CREATURE_LIFERATE_CHANGED);
 		creature_ptr->knowledge &= ~(KNOW_HPRATE);
 	}
 }
