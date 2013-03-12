@@ -3774,3 +3774,12 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_NO_LIFE_COND5 "almost destroyed"
 #endif
 
+#ifdef JP
+#define MES_SCORE_PUSHKEY "[ ESCで中断, その他のキーで続けます ]"
+#define MES_SCORE_ASK_SEND_SCORE "スコアをスコア・サーバに登録しますか? "
+#define MES_SCORE_SENDING "送信中．．"
+#else
+#define MES_SCORE_PUSHKEY "[Press ESC to quit, any other key to continue.]"
+#define MES_SCORE_ASK_SEND_SCORE "Do you send score to the world score sever? "
+#define MES_SCORE_SENDING "Sending..."
+#endif

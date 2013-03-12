@@ -335,11 +335,7 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 		}
 
 		/* Wait for response */
-#ifdef JP
-		prt("[ ESCで中断, その他のキーで続けます ]", hgt - 1, 21);
-#else
-		prt("[Press ESC to quit, any other key to continue.]", hgt - 1, 17);
-#endif
+		prt(MES_SCORE_PUSHKEY, hgt - 1, 21);
 
 		j = inkey();
 		prt("", hgt - 1, 0);
@@ -387,27 +383,16 @@ bool send_world_score(bool do_send)
 #ifdef WORLD_SCORE
 	if(send_score && do_send)
 	{
-#ifdef JP
-		else if(get_check_strict("スコアをスコア・サーバに登録しますか? ", (CHECK_NO_ESCAPE | CHECK_NO_HISTORY)))
-#else
-		else if(get_check_strict("Do you send score to the world score sever? ", (CHECK_NO_ESCAPE | CHECK_NO_HISTORY)))
-#endif
+		if(get_check_strict(MES_SCORE_ASK_SEND_SCORE, (CHECK_NO_ESCAPE | CHECK_NO_HISTORY)))
 		{
 			errr err;
 			prt("",0,0);
-#ifdef JP
-			prt("送信中．．",0,0);
-#else
-			prt("Sending...",0,0);
-#endif
+			prt(MES_SCORE_SENDING, 0, 0);
 			Term_fresh();
 			screen_save();
 			err = report_score(player_ptr);
 			screen_load();
-			if(err)
-			{
-				return FALSE;
-			}
+			if(err) return FALSE;
 #ifdef JP
 			prt("完了。何かキーを押してください。", 0, 0);
 #else
