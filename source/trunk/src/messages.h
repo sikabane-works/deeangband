@@ -3784,6 +3784,8 @@ static cptr desc_stat_neg[] =
 #define MES_SCORE_DISABLE_CHEAT "詐欺をやった人はスコアが記録されません。"
 #define MES_SCORE_DISABLE_INTERUPT "強制終了のためスコアが記録されません。"
 #define MES_SCORE_DISABLE_QUIT "途中終了のためスコアが記録されません。"
+#define MES_SCORE_SAVE_DEATH "死んだデータをセーブしますか？ "
+#define MES_SCORE_STAND_BY "後でスコアを登録するために待機しますか？"
 #else
 #define MES_SCORE_PUSHKEY "[Press ESC to quit, any other key to continue.]"
 #define MES_SCORE_ASK_SEND_SCORE "Do you send score to the world score sever? "
@@ -3794,4 +3796,6 @@ static cptr desc_stat_neg[] =
 #define MES_SCORE_DISABLE_CHEAT "Score not registered for cheaters."
 #define MES_SCORE_DISABLE_INTERUPT "Score not registered due to interruption."
 #define MES_SCORE_DISABLE_QUIT "Score not registered due to quitting."
+#define MES_SCORE_SAVE_DEATH "Save death? "
+#define MES_SCORE_STAND_BY "Stand by for later score registration? "
 #endif

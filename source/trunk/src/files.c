@@ -6109,19 +6109,12 @@ void close_game(void)
 		if(player_ptr->total_winner) kingly(player_ptr);
 
 		/* Save memories */
-#ifdef JP
-		if(!cheat_save || get_check("死んだデータをセーブしますか？ "))
-#else
-		if(!cheat_save || get_check("Save death? "))
-#endif
-		{
+		if(!cheat_save || get_check(MES_SCORE_SAVE_DEATH))
 			if(!save_player()) msg_print(MES_SYS_SAVE_FAILED);
-		}
 		else do_send = FALSE;
 
 		/* You are dead */
 		print_tomb(player_ptr);
-
 		flush();
 
 		/* Show more info */
@@ -6133,11 +6126,7 @@ void close_game(void)
 		{
 			if((!send_world_score(do_send)))
 			{
-#ifdef JP
-				if(get_check_strict("後でスコアを登録するために待機しますか？", (CHECK_NO_ESCAPE | CHECK_NO_HISTORY)))
-#else
-				if(get_check_strict("Stand by for later score registration? ", (CHECK_NO_ESCAPE | CHECK_NO_HISTORY)))
-#endif
+				if(get_check_strict(MES_SCORE_STAND_BY, (CHECK_NO_ESCAPE | CHECK_NO_HISTORY)))
 				{
 					wait_report_score = TRUE;
 					gameover = FALSE;
@@ -6147,10 +6136,7 @@ void close_game(void)
 			if(!wait_report_score)
 				(void)top_twenty(player_ptr);
 		}
-		else if(highscore_fd >= 0)
-		{
-			display_scores_aux(0, 10, -1, NULL);
-		}
+		else if(highscore_fd >= 0) display_scores_aux(0, 10, -1, NULL);
 	}
 
 	/* Still alive */
