@@ -1168,12 +1168,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 			roff_top(species_idx);
 
 			/* Hack -- Complete the prompt */
-#ifdef JP
-			Term_addstr(-1, TERM_WHITE, " ['r'évÇ¢èo, ESC]");
-#else
-			Term_addstr(-1, TERM_WHITE, " [(r)ecall, ESC]");
-#endif
-
+			Term_addstr(-1, TERM_WHITE, MES_QUERY_INTERFACE_RECALL);
 			query = inkey();
 
 			/* Unrecall */

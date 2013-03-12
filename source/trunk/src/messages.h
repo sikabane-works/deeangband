@@ -3605,6 +3605,7 @@ static cptr desc_stat_neg[] =
 #define MES_QUERY_INPUT_ENTER_NAME "名前(英語の場合小文字で可)"
 #define MES_QUERY_MARCH(KEYWORD) "名前:%sにマッチ", (KEYWORD)
 #define MES_QUERY_ASK_RECALL "思い出を見ますか? (k:殺害順/y/n): "
+#define MES_QUERY_INTERFACE_RECALL "['r'思い出, ESC]"
 #else
 #define MES_QUERY_ALL_CREATURE "Full creature list."
 #define MES_QUERY_UNIQUE "Unique creature list."
@@ -3614,6 +3615,7 @@ static cptr desc_stat_neg[] =
 #define MES_QUERY_INPUT_ENTER_NAME "Enter name:"
 #define MES_QUERY_MARCH(KEYWORD) "Creatures with a name \"%s\"", (KEYWORD)
 #define MES_QUERY_ASK_RECALL "Recall details? (k/y/n): "
+#define MES_QUERY_INTERFACE_RECALL "[(r)ecall, ESC]"
 #endif
 
 #ifdef JP
