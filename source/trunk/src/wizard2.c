@@ -942,7 +942,6 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 				/* Allow interupt */
 				if(inkey())
 				{
-					/* Flush */
 					flush();
 
 					/* Stop rolling */

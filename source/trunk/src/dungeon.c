@@ -5355,10 +5355,7 @@ void play_game(bool new_game)
 	}
 
 	play_loop();
-
-	/* Close stuff */
 	close_game();
-
 	quit(NULL);
 }
 

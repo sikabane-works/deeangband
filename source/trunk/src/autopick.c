@@ -4845,7 +4845,6 @@ static bool insert_keymap_line(text_body_type *tb)
 	buf[0] = inkey();
 	buf[1] = '\0';
 
-	/* Flush */
 	flush();
 
 	/* Convert the trigger */

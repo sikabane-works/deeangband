@@ -920,7 +920,6 @@ static void Term_fresh_row_pict(int y, int x1, int x2)
 		if((na == oa) && (nc == oc) && (nta == ota) && (ntc == otc))
 #endif
 		{
-			/* Flush */
 			if(fn)
 			{
 				/* Draw pending attr/char pairs */
@@ -954,7 +953,6 @@ static void Term_fresh_row_pict(int y, int x1, int x2)
 		if(fn++ == 0) fx = x;
 	}
 
-	/* Flush */
 	if(fn)
 	{
 		/* Draw pending attr/char pairs */
@@ -1056,7 +1054,6 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 		if((na == oa) && (nc == oc) && (nta == ota) && (ntc == otc))
 #endif
 		{
-			/* Flush */
 			if(fn)
 			{
 				/* Draw pending chars (normal) */
@@ -1101,7 +1098,6 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 		/* Handle high-bit attr/chars */
 		if((na & AF_TILE1) && (nc & 0x80))
 		{
-			/* Flush */
 			if(fn)
 			{
 				/* Draw pending chars (normal) */
@@ -1135,7 +1131,6 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 #endif
 
 		{
-			/* Flush */
 			if(fn)
 			{
 				/* Draw the pending chars */
@@ -1167,7 +1162,6 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 		if(fn++ == 0) fx = x;
 	}
 
-	/* Flush */
 	if(fn)
 	{
 		/* Draw pending chars (normal) */
@@ -1268,7 +1262,6 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 		if((na == oa) && (nc == oc))
 #endif
 		{
-			/* Flush */
 			if(fn)
 			{
 				/* Draw pending chars (normal) */
@@ -1312,7 +1305,6 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 #endif
 
 		{
-			/* Flush */
 			if(fn)
 			{
 				/* Draw the pending chars */
@@ -1344,7 +1336,6 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 		if(fn++ == 0) fx = x;
 	}
 
-	/* Flush */
 	if(fn)
 	{
 		/* Draw pending chars (normal) */

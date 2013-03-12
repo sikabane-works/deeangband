@@ -6557,8 +6557,6 @@ static void handle_signal_simple(int sig)
 		forget_lite(CURRENT_FLOOR_PTR);
 		forget_view(CURRENT_FLOOR_PTR);
 		clear_creature_lite(CURRENT_FLOOR_PTR);
-
-		/* Close stuff */
 		close_game();
 		quit(COD_INTERRUPTING);
 
@@ -6576,17 +6574,13 @@ static void handle_signal_simple(int sig)
 
 		/* Stop playing */
 		playing = FALSE;
-
-		/* Suicide */
 		gameover = TRUE;
 
 		/* Leaving */
 		subject_change_floor = TRUE;
 
-		/* Close stuff */
 		close_game();
 		quit(COD_INTERRUPTING);
-
 	}
 
 	/* Give warning (after 4) */
@@ -6605,7 +6599,6 @@ static void handle_signal_simple(int sig)
 		Term_putstr(0, 0, -1, TERM_WHITE, "Contemplating suicide!");
 #endif
 
-		/* Flush */
 		Term_fresh();
 	}
 
