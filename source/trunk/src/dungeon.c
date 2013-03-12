@@ -5494,17 +5494,10 @@ void become_winner(creature_type *creature_ptr)
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
 			msg_print(MES_PATRON_PRAISE_WINNER);
 		}
-#ifdef JP
-		msg_print("*** おめでとう ***");
-		msg_print("あなたはゲームをコンプリートしました。");
-		msg_print("準備が整ったら引退(自殺コマンド)しても結構です。");
-#else
-		msg_print("*** CONGRATULATIONS ***");
-		msg_print("You have won the game!");
-		msg_print("You may retire (commit suicide) when you are ready.");
-#endif
+		msg_print(MES_WINNER_WON1);
+		msg_print(MES_WINNER_WON2);
+		msg_print(MES_WINNER_WON3);
 
 		// Angband
 		reveal_wilderness(70, 27);
-
 }

@@ -3825,3 +3825,14 @@ static cptr desc_stat_neg[] =
 #define MES_SCORE_SAVE_DEATH "Save death? "
 #define MES_SCORE_STAND_BY "Stand by for later score registration? "
 #endif
+
+#ifdef JP
+#define MES_WINNER_WON1 "*** おめでとう ***"
+#define MES_WINNER_WON2 "あなたはキャンペーンをコンプリートしました。"
+#define MES_WINNER_WON3 "いつでも引退(自殺コマンド)することができます。"
+#else
+#define MES_WINNER_WON1 "*** CONGRATULATIONS ***"
+#define MES_WINNER_WON2 "You have won the game!"
+#define MES_WINNER_WON3 "You may retire (commit suicide) when you are ready."
+#endif
+
