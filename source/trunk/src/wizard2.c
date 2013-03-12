@@ -50,16 +50,13 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 {
 	int percent;
 
-	/* Rerate */
 	set_base_hp(creature_ptr);
 	percent = (int)(((long)creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] * 200L) / (2 * creature_ptr->hitdice + ((CREATURE_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
 
 	/* Update and redraw hitpoints */
 	prepare_update(creature_ptr, CRU_HP);
 	prepare_redraw(PR_HP);
-
 	prepare_window(PW_PLAYER);
-
 	handle_stuff(creature_ptr);
 
 	if(display)

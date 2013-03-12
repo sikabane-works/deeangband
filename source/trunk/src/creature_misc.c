@@ -286,7 +286,6 @@ void set_base_hp(creature_type *creature_ptr)
 
 	int i;
 
-	/* Rerate */
 	while(TRUE)
 	{
 		/* Pre-calculate level 1 hitdice */
@@ -653,18 +652,13 @@ bool has_trait_from_inventory(creature_type *creature_ptr, int type)
 
 bool has_trait_from_timed(creature_type *creature_ptr, int type)
 {
-	if(creature_ptr->timed_trait[type])
-		return TRUE;
+	if(creature_ptr->timed_trait[type]) return TRUE;
 	return FALSE;
 }
 
 bool has_trait_species(species_type *species_ptr, int type)
 {
-	if(species_ptr->flags.add_lev[type])
-	{
-		return TRUE;
-	}
-
+	if(species_ptr->flags.add_lev[type]) return TRUE;
 	return FALSE;
 }
 
@@ -709,7 +703,6 @@ int has_trait_num(creature_type *creature_ptr, int type)
 	}
 
 	if(has_trait_from_timed(creature_ptr, type)) return num++;
-
 	return num;
 }
 
@@ -782,13 +775,9 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 		break;
 
 	case DO_EFFECT_ARROW:
-		if(message && !has_trait(target_ptr, TRAIT_BLIND) && has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
+		if(!has_trait(target_ptr, TRAIT_BLIND) && has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
 		{
-#ifdef JP
-			if(message) msg_print("–î‚ğa‚èÌ‚Ä‚½I");
-#else
-			if(message) msg_print("You cut down the arrow!");
-#endif
+			if(message) msg_print(MES_EFFECT_CUT_ARROW);
 			t = 0;
 		}
 		break;
