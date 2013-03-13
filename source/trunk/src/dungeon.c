@@ -4729,23 +4729,10 @@ static void cheat_death(void)
 {
 	int i;
 
-	/* Mark social class, reset age, if needed */
-	if(player_ptr->sc){
-		player_ptr->sc = 0;
-		player_ptr->age = 0;
-	}
-
-	// Increase age
-	player_ptr->age++;
-
 	/* Mark savefile */
 	noscore |= 0x0001;
 
-#ifdef JP
-	msg_print("ウィザードモードに念を送り、死を欺いた。");
-#else
-	msg_print("You invoke wizard mode and cheat death.");
-#endif
+	msg_print(MES_CHEAT_DEATH);
 	msg_print(NULL);
 
 	heal_creature(player_ptr, player_ptr->mhp);
@@ -4778,12 +4765,7 @@ static void cheat_death(void)
 	player_ptr->oldpx = 95;
 
 	subject_change_floor = TRUE;
-
-#ifdef JP
-	do_cmd_write_diary(DIARY_BUNSHOU, 1, "                            しかし、生き返った。");
-#else
-	do_cmd_write_diary(DIARY_BUNSHOU, 1, "                            but revived.");
-#endif
+	do_cmd_write_diary(DIARY_BUNSHOU, 1, MES_DIARY_CHEAT_DEATH);
 
 	// Prepare next floor
 	move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);

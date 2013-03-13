@@ -2920,6 +2920,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_UNDEAD_SERVANT "アンデッドがペットになった。"
 #define MES_DIARY_STAND_IN(PLACE) "%sに降り立った。", (PLACE)
 #define MES_DIARY_PATRON_HEALING "体力が回復した。"
+#define MES_DIARY_CHEAT_DEATH "                            しかし、生き返った。"
 #define MES_DIARY_WINNER "見事にD\'angbandの勝利者となった！"
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
@@ -2978,6 +2979,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_UNDEAD_SERVANT "an undead servant"
 #define MES_DIARY_PATRON_HEALING "healing"
 #define MES_DIARY_STAND_IN(PLACE) "You are standing in the %s.", (PLACE)
+#define MES_DIARY_CHEAT_DEATH "                            but revived."
 #define MES_DIARY_WINNER "become *WINNER* of D\'angband finely!"
 #endif
 
@@ -3838,5 +3840,11 @@ static cptr desc_stat_neg[] =
 #define MES_WINNER_WON1 "*** CONGRATULATIONS ***"
 #define MES_WINNER_WON2 "You have won the game!"
 #define MES_WINNER_WON3 "You may retire (commit suicide) when you are ready."
+#endif
+
+#ifdef JP
+#define MES_CHEAT_DEATH "ウィザードモードに念を送り、死を欺いた。"
+#else
+#define MES_CHEAT_DEATH "You invoke wizard mode and cheat death."
 #endif
 
