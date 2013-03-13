@@ -5209,11 +5209,7 @@ void play_game(bool new_game)
 	if(err)
 	{
 		char tmp[80];
-#ifdef JP
-		sprintf(tmp, "セーブファイルが壊れています: ERR:%d", err);
-#else
-		sprintf(tmp, "broken savefile: ERR:%d", err);
-#endif
+		sprintf(tmp, MES_SYS_SAVEFILE_ERROR4(err));
 		quit(tmp);
 	}
 
@@ -5302,10 +5298,7 @@ void play_game(bool new_game)
 				player_ptr->fy = player_ptr->fx = 10; // Avoid crash in update_view()
 			}
 		}
-		else if(gameover)
-		{
-			quit("Already dead.");
-		}
+		else if(gameover) quit("Already dead.");
 	}
 
 	// Character is now "complete"

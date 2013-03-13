@@ -52,6 +52,7 @@
 #define MES_SYS_SAVEFILE_ERROR(NUM, MAJ, MIN, EXT) "エラー(%s)がバージョン%d.%d.%d 用セーブファイル読み込中に発生。",(NUM), (MAJ), (MIN), (EXT)
 #define MES_SYS_SAVEFILE_ERROR2 "セーブファイルを解析出来ません。"
 #define MES_SYS_SAVEFILE_ERROR3 "セーブファイルが壊れています"
+#define MES_SYS_SAVEFILE_ERROR4(ERROR_NUM) "セーブファイルが壊れています: ERR:%d", (ERROR_NUM)
 #define MES_SYS_SAVEFILE_CONVERTED(MAJ, MIN, EXT) "バージョン %d.%d.%d 用のセーブ・ファイルを変換しました。", (MAJ), (MIN), (EXT)
 #define MES_SYS_SAVE_FAILED "セーブ失敗！"
 #define MES_SYS_SCORE_FAILED "スコア・ファイルが使用できません。"
@@ -125,6 +126,7 @@
 #define MES_SYS_SAVEFILE_ERROR(NUM, MAJ, MIN, EXT) "Error (%s) reading %d.%d.%d savefile.", (NUM), (MAJ), (MIN), (EXT)
 #define MES_SYS_SAVEFILE_ERROR2 "Cannot parse savefile."
 #define MES_SYS_SAVEFILE_ERROR3 "Broken savefile"
+#define MES_SYS_SAVEFILE_ERROR4(ERROR_NUM) "broken savefile: ERR:%d", (ERROR_NUM)
 #define MES_SYS_SAVEFILE_CONVERTED(MAJ, MIN, EXT) "Converted a %d.%d.%d savefile.", (MAJ), (MIN), (EXT)
 #define MES_SYS_SAVE_FAILED "death save failed!"
 #define MES_SYS_SCORE_FAILED "Score file unavailable."
