@@ -89,16 +89,10 @@ void check_experience(creature_type *creature_ptr)
 	while ((creature_ptr->lev > 1) &&
 		(creature_ptr->exp < ((android ? creature_exp_a : creature_exp)[creature_ptr->lev - 2] * creature_ptr->expfact / 100L)) || creature_ptr->lev > creature_ptr->max_lev)
 	{
-		/* Lose a level */
 		creature_ptr->lev--;
-
-		/* Update some stuff */
 		prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
-
 		prepare_redraw(PR_LEV | PR_TITLE);
-
 		prepare_window(PW_PLAYER);
-
 		handle_stuff(creature_ptr);
 	}
 
@@ -127,8 +121,6 @@ void check_experience(creature_type *creature_ptr)
 		sound(SOUND_LEVEL);
 
 		if(is_player(creature_ptr)) msg_format(MES_CREATURE_LEVELUP(creature_ptr->lev));
-
-		/* Update some stuff */
 		prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 		prepare_redraw(PR_LEV | PR_TITLE | PR_EXP);
 		prepare_window(PW_PLAYER | PW_SPELL | PW_INVEN);
@@ -206,22 +198,14 @@ void check_experience(creature_type *creature_ptr)
 
 		if(level_mutation)
 		{
-
-			if(is_player(creature_ptr))
-			{
-#ifdef JP
-				msg_print("あなたは変わった気がする...");
-#else
-				msg_print("You feel different...");
-#endif
-			}
+			if(is_player(creature_ptr)) msg_print(MES_POLYSELF_FEELING);
 			(void)gain_trait(creature_ptr, 0, is_player(creature_ptr));
 			level_mutation = FALSE;
 		}
 
 		/*
-		* 報酬でレベルが上ると再帰的に check_experience() が呼ばれるので順番を最後にする。
-		*/
+		 * 報酬でレベルが上ると再帰的に check_experience() が呼ばれるので順番を最後にする。
+		 */
 		//TODO: reward argument
 		if(level_reward)
 		{
@@ -229,13 +213,9 @@ void check_experience(creature_type *creature_ptr)
 			level_reward = FALSE;
 		}
 
-		/* Update some stuff */
 		prepare_update(creature_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
-
 		prepare_redraw(PR_LEV | PR_TITLE);
-
 		prepare_window(PW_PLAYER | PW_SPELL);
-
 		handle_stuff(creature_ptr);
 	}
 
