@@ -3916,13 +3916,8 @@ static void edit_history(creature_type *creature_ptr)
 		creature_ptr->history[i][HISTORY_COL - 1] = '\0';
 	}
 	display_creature_status(1, creature_ptr);
-#ifdef JP
-	c_put_str(TERM_L_GREEN, "(クリーチャーのプロフィール - 編集モード)", 2, 20);
-	put_str("[ カーソルキーで移動、Enterで終了、Ctrl-Aでファイル読み込み ]", 23, 10);
-#else
-	c_put_str(TERM_L_GREEN, "(Creature Profile - Edit Mode)", 2, 20);
-	put_str("[ Cursor key for Move, Enter for End, Ctrl-A for Read pref ]", 23, 10);
-#endif
+	c_put_str(TERM_L_GREEN, KW_CREATURE_PROFILE_EDITING, 2, 20);
+	put_str(MES_INTERFACE_EDIT_HISTORY, 23, 10);
 
 	while (TRUE)
 	{

@@ -59,20 +59,15 @@ void check_experience(creature_type *creature_ptr)
 
 	if(creature_ptr->max_lev > CREATURE_MAX_LEVEL) creature_ptr->max_lev = CREATURE_MAX_LEVEL;
 
-	/* Hack -- lower limit */
 	if(creature_ptr->exp < 0) creature_ptr->exp = 0;
 	if(creature_ptr->max_exp < 0) creature_ptr->max_exp = 0;
 	if(creature_ptr->max_max_exp < 0) creature_ptr->max_max_exp = 0;
 
-	/* Hack -- upper limit */
 	if(creature_ptr->exp > CREATURE_MAX_EXP) creature_ptr->exp = CREATURE_MAX_EXP;
 	if(creature_ptr->max_exp > CREATURE_MAX_EXP) creature_ptr->max_exp = CREATURE_MAX_EXP;
 	if(creature_ptr->max_max_exp > CREATURE_MAX_EXP) creature_ptr->max_max_exp = CREATURE_MAX_EXP;
 
-	/* Hack -- maintain "max" experience */
 	if(creature_ptr->exp > creature_ptr->max_exp) creature_ptr->max_exp = creature_ptr->exp;
-
-	/* Hack -- maintain "max max" experience */
 	if(creature_ptr->max_exp > creature_ptr->max_max_exp) creature_ptr->max_max_exp = creature_ptr->max_exp;
 
 	if(is_player(creature_ptr))
@@ -101,7 +96,6 @@ void check_experience(creature_type *creature_ptr)
 	while ((creature_ptr->lev < creature_ptr->max_lev) &&
 		(creature_ptr->exp >= ((android ? creature_exp_a : creature_exp)[creature_ptr->lev-1] * creature_ptr->expfact / 100L)))
 	{
-		/* Gain a level */
 		creature_ptr->lev++;
 
 		/* Save the highest level */
@@ -163,13 +157,9 @@ void check_experience(creature_type *creature_ptr)
 					do_inc_stat(creature_ptr, choice - 'a');
 					screen_load();
 				}
-				else
-				{
-					do_inc_stat(creature_ptr, randint0(STAT_MAX));
-				}
+				else do_inc_stat(creature_ptr, randint0(STAT_MAX));
 			}
-			else if(!(creature_ptr->max_plv % 2))
-				do_inc_stat(creature_ptr, randint0(STAT_MAX));
+			else if(!(creature_ptr->max_plv % 2)) do_inc_stat(creature_ptr, randint0(STAT_MAX));
 		}
 
 		if(level_mutation)

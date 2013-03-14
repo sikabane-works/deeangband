@@ -228,6 +228,7 @@
 #define KW_ROD "ロッド"
 #define KW_YOU "あなた"
 #define KW_CREATURE_PROFILE "クリーチャーのプロフィール"
+#define KW_CREATURE_PROFILE_EDITING "クリーチャーのプロフィール - 編集中"
 #define KW_CREATURE_PROFILE_EDITED "クリーチャーのプロフィール - 編集済み"
 #define KW_GOOD "善"
 #define KW_EVIL "悪"
@@ -332,6 +333,7 @@
 #define KW_ROD "rod"
 #define KW_YOU "You"
 #define KW_CREATURE_PROFILE "Creature Profile"
+#define KW_CREATURE_PROFILE_EDITING "Creature Profile - Edit Mode"
 #define KW_CREATURE_PROFILE_EDITED "Creature Profile - Edited"
 #define KW_GOOD "Good"
 #define KW_EVIL "Evil"
@@ -2213,6 +2215,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_FOR_INVEN " '/' 持ち物,"
 #define MES_INTERFACE_FOR_EQUIP " '/' 装備品,"
 #define MES_INTERFACE_LOCATE(Y, X, DIR) "マップ位置 [%d,%d] (プレイヤーの%s)  方向?"
+#define MES_INTERFACE_EDIT_HISTORY "[ カーソルキーで移動、Enterで終了、Ctrl-Aでファイル読み込み ]"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2242,6 +2245,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_FOR_INVEN " / for Inven,"
 #define MES_INTERFACE_FOR_EQUIP " / for Equip,"
 #define MES_INTERFACE_LOCATE(Y, X, DIR) "Map sector [%d,%d], which is %s your sector.  Direction?"
+#define MES_INTERFACE_EDIT_HISTORY "[ Cursor key for Move, Enter for End, Ctrl-A for Read pref ]"
 #endif
 
 #ifdef JP
