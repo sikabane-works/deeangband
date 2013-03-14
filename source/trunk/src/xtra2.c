@@ -142,37 +142,13 @@ void check_experience(creature_type *creature_ptr)
 						int n;
 						char tmp[32];
 
-#ifdef JP
-						cnv_stat(creature_ptr->stat_max[0], tmp);
-						prt(format("        a) 腕力 (現在値 %s)", tmp), 2, 14);
-						cnv_stat(creature_ptr->stat_max[1], tmp);
-						prt(format("        b) 知能 (現在値 %s)", tmp), 3, 14);
-						cnv_stat(creature_ptr->stat_max[2], tmp);
-						prt(format("        c) 賢さ (現在値 %s)", tmp), 4, 14);
-						cnv_stat(creature_ptr->stat_max[3], tmp);
-						prt(format("        d) 器用 (現在値 %s)", tmp), 5, 14);
-						cnv_stat(creature_ptr->stat_max[4], tmp);
-						prt(format("        e) 耐久 (現在値 %s)", tmp), 6, 14);
-						cnv_stat(creature_ptr->stat_max[5], tmp);
-						prt(format("        f) 魅力 (現在値 %s)", tmp), 7, 14);
+						for(n = 0; n < STAT_MAX; n++)
+						{
+							cnv_stat(creature_ptr->stat_max[n], tmp);
+							prt(format("        %c) %10s (%s)", 'a'+n, stat_names[n], tmp), 2, 14);
+						}
 						prt("", 8, 14);
-						prt("        どの能力値を上げますか？", 1, 14);
-#else
-						cnv_stat(creature_ptr->stat_max[0], tmp);
-						prt(format("        a) Str (cur %s)", tmp), 2, 14);
-						cnv_stat(creature_ptr->stat_max[1], tmp);
-						prt(format("        b) Int (cur %s)", tmp), 3, 14);
-						cnv_stat(creature_ptr->stat_max[2], tmp);
-						prt(format("        c) Wis (cur %s)", tmp), 4, 14);
-						cnv_stat(creature_ptr->stat_max[3], tmp);
-						prt(format("        d) Dex (cur %s)", tmp), 5, 14);
-						cnv_stat(creature_ptr->stat_max[4], tmp);
-						prt(format("        e) Con (cur %s)", tmp), 6, 14);
-						cnv_stat(creature_ptr->stat_max[5], tmp);
-						prt(format("        f) Chr (cur %s)", tmp), 7, 14);
-						prt("", 8, 14);
-						prt("        Which stat do you want to raise?", 1, 14);
-#endif
+						prt(MES_CREATURE_WHICH_GAIN, 1, 14);
 
 						while(TRUE)
 						{
