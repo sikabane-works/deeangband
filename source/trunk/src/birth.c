@@ -4281,17 +4281,10 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			// Prepare a prompt (must squeeze everything in)
 			Term_gotoxy(2, 23);
 			Term_addch(TERM_WHITE, b1);
-#ifdef JP
-			Term_addstr(-1, TERM_WHITE, ", 'h' その他の情報");
-			Term_addstr(-1, TERM_WHITE, ", Enter この数値に決定");
-#else
-			if(mode) Term_addstr(-1, TERM_WHITE, ", 'h' Misc.");
-			Term_addstr(-1, TERM_WHITE, ", or Enter to accept");
-#endif
-
+			if(mode) Term_addstr(-1, TERM_WHITE, MES_INTERFACE_CREATURE_DUMP1);
+			Term_addstr(-1, TERM_WHITE, MES_INTERFACE_CREATURE_DUMP2);
 			Term_addch(TERM_WHITE, b2);
 
-			
 			c = inkey();	// Prompt and get a command
 
 			if(c == 'Q') birth_quit();
@@ -4333,19 +4326,9 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	}
 
 	get_max_stats(creature_ptr);
-
 	if(auto_generate) return TRUE;
-
-	// Prompt for it
-#ifdef JP
-	prt("[ 'Q' 中断, 'S' 初めから, Enter ゲーム開始 ]", 23, 14);
-#else
-	prt("['Q'uit, 'S'tart over, or Enter to continue]", 23, 10);
-#endif
-
-	
+	prt(MES_INTERFACE_CREATURE_DUMP3, 23, 10);
 	c = inkey();	// Get a key
-
 	if(c == 'Q') birth_quit();
 	if(c == 'S') return FALSE;	// Start over
 	return TRUE;					// Accept

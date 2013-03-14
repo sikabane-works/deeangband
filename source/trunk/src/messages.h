@@ -2216,6 +2216,9 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_FOR_EQUIP " '/' 装備品,"
 #define MES_INTERFACE_LOCATE(Y, X, DIR) "マップ位置 [%d,%d] (プレイヤーの%s)  方向?"
 #define MES_INTERFACE_EDIT_HISTORY "[ カーソルキーで移動、Enterで終了、Ctrl-Aでファイル読み込み ]"
+#define MES_INTERFACE_CREATURE_DUMP1 ", 'h' その他の情報"
+#define MES_INTERFACE_CREATURE_DUMP2 ", Enter この数値に決定"
+#define MES_INTERFACE_CREATURE_DUMP3 "[ 'Q' 中断, 'S' 初めから, Enter ゲーム開始 ]"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2246,6 +2249,9 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_FOR_EQUIP " / for Equip,"
 #define MES_INTERFACE_LOCATE(Y, X, DIR) "Map sector [%d,%d], which is %s your sector.  Direction?"
 #define MES_INTERFACE_EDIT_HISTORY "[ Cursor key for Move, Enter for End, Ctrl-A for Read pref ]"
+#define MES_INTERFACE_CREATURE_DUMP1 ", 'h' Misc."
+#define MES_INTERFACE_CREATURE_DUMP2 ", or Enter to accept"
+#define MES_INTERFACE_CREATURE_DUMP3 "['Q'uit, 'S'tart over, or Enter to continue]"
 #endif
 
 #ifdef JP
