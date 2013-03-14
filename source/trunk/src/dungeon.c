@@ -4776,12 +4776,7 @@ void waited_report_score(void)
 	char buf[1024];
 	bool success;
 
-#ifdef JP
-	if(!get_check_strict("待機していたスコア登録を今行ないますか？", CHECK_NO_HISTORY))
-#else
-	if(!get_check_strict("Do you register score now? ", CHECK_NO_HISTORY))
-#endif
-		quit(0);
+	if(!get_check_strict(MES_SCORE_REGISTER_NOW, CHECK_NO_HISTORY)) quit(0);
 
 	prepare_update(player_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	update_creature(player_ptr, TRUE);
@@ -4800,17 +4795,9 @@ void waited_report_score(void)
 	/* Handle score, show Top scores */
 	success = send_world_score(TRUE);
 
-#ifdef JP
-	if(!success && !get_check_strict("スコア登録を諦めますか？", CHECK_NO_HISTORY))
-#else
-	if(!success && !get_check_strict("Do you give up score registration? ", CHECK_NO_HISTORY))
-#endif
+	if(!success && !get_check_strict(MES_SCORE_REGISTER_CEASE, CHECK_NO_HISTORY))
 	{
-#ifdef JP
-		prt("引き続き待機します。", 0, 0);
-#else
-		prt("standing by for future registration...", 0, 0);
-#endif
+		prt(MES_SCORE_STAND_BY_NEXT, 0, 0);
 		(void)inkey();
 	}
 	else
