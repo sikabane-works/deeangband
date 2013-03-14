@@ -3866,3 +3866,10 @@ static cptr desc_stat_neg[] =
 #define MES_CHEAT_DEATH "You invoke wizard mode and cheat death."
 #endif
 
+#ifdef JP
+#define MES_QUICKSTART_DESC "クイック・スタートを使うと以前と全く同じキャラクターで始められます。"
+#define MES_QUICKSTART_ASK "クイック・スタートを使いますか？[y/N]"
+#else
+#define MES_QUICKSTART_DESC "Do you want to use the quick start function(same character as your last one)."
+#define MES_QUICKSTART_ASK "Use quick start? [y/N]" 
+#endif

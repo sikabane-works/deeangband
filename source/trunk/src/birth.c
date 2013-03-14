@@ -4349,22 +4349,14 @@ bool ask_quick_start(creature_type *creature_ptr)
 	while(TRUE)
 	{
 		char c;
-
-#ifdef JP
-		put_str("クイック・スタートを使うと以前と全く同じキャラクターで始められます。", 11, 5);
-		put_str("クイック・スタートを使いますか？[y/N]", 14, 10);
-#else
-		put_str("Do you want to use the quick start function(same character as your last one).", 11, 2);
-		put_str("Use quick start? [y/N]", 14, 10);
-#endif
+		put_str(MES_QUICKSTART_DESC, 11, 5);
+		put_str(MES_QUICKSTART_ASK, 14, 10);
 		c = inkey();
 
 		if(c == 'Q') quit(NULL);
 		else if(c == 'S') return FALSE;
 		else if(c == '?')
-		{
 			show_help(TEXT_FILES_BIRTH_AUTO_ROLLER);
-		}
 		else if((c == 'y') || (c == 'Y'))
 		{
 			/* Yes */
