@@ -1685,15 +1685,13 @@ static void put_initial_status(creature_type *creature_ptr)
 {
 	cptr race, cls;
 
-#ifdef JP
-		put_str("Ží‘°  :                                                                         ", 1, 1);
-		put_str("E‹Æ  :                                                                         ", 2, 1);
-		put_str("Žå_  :                                                                         ", 3, 1);
-#else
-		put_str("Race  :                                                                         ", 1, 1);
-		put_str("Class :                                                                         ", 2, 1);
-		put_str("Patron:                                                                         ", 3, 1);
-#endif
+	put_str("      :                                                                         ", 1, 1);
+	put_str("      :                                                                         ", 2, 1);
+	put_str("      :                                                                         ", 3, 1);
+	put_str(KW_RACE, 1, 1);
+	put_str(KW_CLASS, 2, 1);
+	put_str(KW_PATRON, 3, 1);
+
 	if(creature_ptr->race_idx1 != INDEX_NONE)
 	{
 		race = desc_race_name(creature_ptr, CD_SEX | CD_PURE_RACE);
@@ -1721,10 +1719,7 @@ static void put_initial_status(creature_type *creature_ptr)
 static void show_help(cptr helpfile)
 {
 	screen_save();
-
-	/* Peruse the help file */
 	(void)show_file(TRUE, helpfile, NULL, 0, 0);
-
 	screen_load();
 }
 
@@ -1888,10 +1883,8 @@ static int choose_realm(s32b choices, bool npc)
 	re[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-	if(!npc)
-		i = get_selection(&se_info, re);
-	else
-		return re[randint0(se_info.num - 3)].code;
+	if(!npc) i = get_selection(&se_info, re);
+	else return re[randint0(se_info.num - 3)].code;
 
 	if(i >= 0) return i;
 	else if(i == BIRTH_SELECT_RANDOM) return re[randint0(se_info.num - 3)].code;
@@ -1915,11 +1908,7 @@ static bool get_creature_realms(creature_type *creature_ptr, species_type *speci
 
 	if(!npc)
 	{
-#if JP
-		put_str("—Ìˆæ‚ð‘I‘ð‚µ‚Ä‰º‚³‚¢:", 0, 0);
-#else
-		put_str("Select a realm:", 0, 0);
-#endif
+		put_str(MES_BIRTH_REALM, 0, 0);
 		put_initial_status(creature_ptr);
 	}
 
@@ -1935,28 +1924,18 @@ static bool get_creature_realms(creature_type *creature_ptr, species_type *speci
 		creature_ptr->realm2 = 255;
 		i = choose_realm(realm_choices1[creature_ptr->class_idx], npc);
 
-		if(i == BIRTH_SELECT_RETURN)
-			return BIRTH_SELECT_RETURN;
-		else if(i == BIRTH_SELECT_QUIT)
-			return BIRTH_SELECT_QUIT;
-		else
-			creature_ptr->realm1 = i;
+		if(i == BIRTH_SELECT_RETURN) return BIRTH_SELECT_RETURN;
+		else if(i == BIRTH_SELECT_QUIT) return BIRTH_SELECT_QUIT;
+		else creature_ptr->realm1 = i;
 	}
 
 	if(!npc)
 	{
-#if JP
-		put_str("—Ìˆæ‚ð‘I‘ð‚µ‚Ä‰º‚³‚¢:", 0, 0);
-#else
-		put_str("Select a realm:", 0, 0);
-#endif
+		put_str(MES_BIRTH_REALM, 0, 0);
 		put_initial_status(creature_ptr);
 	}
 
-	if(species_ptr->realm2 != INDEX_VARIABLE)
-	{
-		creature_ptr->realm2 = species_ptr->realm2;
-	}
+	if(species_ptr->realm2 != INDEX_VARIABLE) creature_ptr->realm2 = species_ptr->realm2;
 	else
 	{
 		
@@ -2058,7 +2037,6 @@ static void get_history(creature_type *creature_ptr)
 	/* Get apparent length */
 	n = strlen(s);
 
-	/* History  */
 	if(history)
 	{
 		/* Clear the previous history strings */
