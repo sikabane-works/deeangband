@@ -1930,9 +1930,6 @@ typedef struct authority_type {
 
 typedef struct karma_type {
 	cptr title;			/* Type of autority */
-#ifdef JP
-	cptr E_title;		/* English Name */
-#endif
 	int good_adj;
 	int evil_adj;
 	int order_adj;

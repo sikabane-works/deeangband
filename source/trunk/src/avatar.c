@@ -28,245 +28,77 @@
 
 karma_type karma[MAX_KARMA] =
 {
-	{
 #ifdef JP
-		"óùëz",
+	{"óùëz", 12, -4, -4, -4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"é¿óò", -12, 4, 4, 4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"í≤òa", 4, -12, 4, 4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"å«çÇ", -4, 12, -4, -4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"êﬂêß", 3, -4, 5, -4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"ñzï˙", -4, 3, -4, 5, KARMA_CALC_PLUS, KARMA_NONE},
+	{"íÂêﬂ", 2, 0, 6, -8, KARMA_CALC_PLUS, KARMA_NONE},
+	{"èÓó~", 0, 2, -8, 6, KARMA_CALC_PLUS, KARMA_NONE},
+	{"éúîﬂ", 10, -10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"ó‚çì", -10, 10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"êΩé¿", 4, -3, 4, -5, KARMA_CALC_PLUS, KARMA_NONE},
+	{"‡¬‡œ", -3, 4, -5, 4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"ä∞ëÂ", 4, -4, -4, 4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"é∑îO", -4, 4, 4, -4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"úóíW", 5, -8, 3, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Ê√ó~", -8, 5, 0, 3, KARMA_CALC_PLUS, KARMA_NONE},
+	{"å™ãï", 5, -8, 3, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"ò¸ñù", -8, 5, 3, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"èÉñp", 10, -10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"‡»ã^", -10, 10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"îMêS", 0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"â˘ã^", 0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"ãŒï◊", 0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"ñ≥à◊", 0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"ënë¢", 8, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"îjâÛ", 0, 8, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"âıäy", 0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"ãÍí…", 0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"ïxóT", 1, 1, 3, 3, KARMA_CALC_PLUS, KARMA_NONE},
+	{"ë∏åµ", 3, 3, 1, 1, KARMA_CALC_PLUS, KARMA_NONE},
+	{"îééØ", 2, 2, 2, 2, KARMA_CALC_PLUS, KARMA_NONE},
+	{"óEñ“", 2, 2, 2, 2, KARMA_CALC_PLUS, KARMA_NONE},
+	{"évó∂", 2, 2, 2, 2, KARMA_CALC_PLUS, KARMA_NONE},
+	{"ìVâ^", -1, -1, -1, -1, KARMA_CALC_PLUS, KARMA_NONE},
+#else
+	{"Ideal", 12, -4, -4, -4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Pragmatic", -12, 4, 4, 4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Harmony", 4, -12, 4, 4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Aloofness", -4, 12, -4, -4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Temperate", 3, -4, 5, -4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Indulgent", -4, 3, -4, 5, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Chaste", 2, 0, 6, -8, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Passion", 0, 2, -8, 6, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Mercy", 10, -10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Cruelty", -10, 10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Honest", 4, -3, 4, -5, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Clever", -3, 4, -5, 4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Forgiving", 4, -4, -4, 4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Avenge", -4, 4, 4, -4, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Generous", 5, -8, 3, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Greed", -8, 5, 0, 3, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Modest", 5, -8, 3, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Proud", -8, 5, 3, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Trusting", 10, -10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Suspicion", -10, 10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Zealotry", 0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Scepticism", 0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Deligent", 0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Idleness", 0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Creation", 8, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Destruction", 0, 8, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Pleasure", 0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Pain", 0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Wealth", 1, 1, 3, 3, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Presitige", 3, 3, 1, 1, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Erudition", 2, 2, 2, 2, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Brave", 2, 2, 2, 2, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Discretion", 2, 2, 2, 2, KARMA_CALC_PLUS, KARMA_NONE},
+	{"Fortune", -1, -1, -1, -1, KARMA_CALC_PLUS, KARMA_NONE},
 #endif
-	"Ideal",
-		12, -4, -4, -4, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"é¿óò",
-#endif
-	"Pragmatic",
-		-12, 4, 4, 4, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"í≤òa",
-#endif
-	"Harmony",
-		4, -12, 4, 4, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"å«çÇ",
-#endif
-	"Aloofness",
-		-4, 12, -4, -4, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"êﬂêß",
-#endif
-	"Temperate",
-		3, -4, 5, -4, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"ñzï˙",
-#endif
-	"Indulgent",
-		-4, 3, -4, 5, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"íÂêﬂ",
-#endif
-	"Chaste",
-		2, 0, 6, -8, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"èÓó~",
-#endif
-	"Passion",
-		0, 2, -8, 6, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"éúîﬂ",
-#endif
-	"Mercy",
-		10, -10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"ó‚çì",
-#endif
-	"Cruelty",
-		-10, 10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"êΩé¿",
-#endif
-	"Honest",
-		4, -3, 4, -5, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"‡¬‡œ",
-#endif
-	"Clever",
-		-3, 4, -5, 4, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"ä∞ëÂ",
-#endif
-	"Forgiving",
-		4, -4, -4, 4, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"é∑îO",
-#endif
-	"Avenge",
-		-4, 4, 4, -4, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"úóíW",
-#endif
-	"Generous",
-		5, -8, 3, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"Ê√ó~",
-#endif
-	"Greed",
-		-8, 5, 0, 3, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"å™ãï",
-#endif
-	"Modest",
-		5, -8, 3, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"ò¸ñù",
-#endif
-	"Proud",
-		-8, 5, 3, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"èÉñp",
-#endif
-	"Trusting",
-		10, -10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"‡»ã^",
-#endif
-	"Suspicion",
-		-10, 10, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"îMêS",
-#endif
-	"Zealotry",
-		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"â˘ã^",
-#endif
-	"Scepticism",
-		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"ãŒï◊",
-#endif
-	"Deligent",
-		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"ñ≥à◊",
-#endif
-	"Idleness",
-		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"ënë¢",
-#endif
-	"Creation",
-		8, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"îjâÛ",
-#endif
-	"Destruction",
-		0, 8, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"âıäy",
-#endif
-	"Pleasure",
-		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"ãÍí…",
-#endif
-	"Pain",
-		0, 0, 0, 0, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"ïxóT",
-#endif
-	"Wealth",
-		1, 1, 3, 3, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"ë∏åµ",
-#endif
-	"Presitige",
-		3, 3, 1, 1, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"îééØ",
-#endif
-	"Erudition",
-		2, 2, 2, 2, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"óEñ“",
-#endif
-	"Brave",
-		2, 2, 2, 2, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"évó∂",
-#endif
-	"Discretion",
-		2, 2, 2, 2, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-	{
-#ifdef JP
-		"ìVâ^",
-#endif
-	"Fortune",
-		-1, -1, -1, -1, KARMA_CALC_PLUS, KARMA_NONE,
-	},
-
 };
 
 void set_karma(creature_type *creature_ptr, int karma, int amount)
@@ -298,7 +130,6 @@ void dump_karmas(creature_type *creature_ptr, FILE *OutFile)
 void authority_desc(char *tmp, creature_type *creature_ptr)
 {
 	int i;
-	/* Authority */
 	tmp[0] = '\0';
 
 	for(i = 0; i < max_authorities_idx; i++)
