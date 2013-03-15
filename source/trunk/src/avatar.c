@@ -279,7 +279,8 @@ void chg_karma(creature_type *creature_ptr, int karma, int amount)
 	creature_ptr->karmas[karma] += amount;
 }
 
-int karma_number(creature_type *creature_ptr, int karma){
+int karma_number(creature_type *creature_ptr, int karma)
+{
 	return creature_ptr->karmas[karma];
 }
 
@@ -291,17 +292,7 @@ void dump_karmas(creature_type *creature_ptr, FILE *OutFile)
 	if(!OutFile) return;
 
 	for (v_nr = 0; v_nr < MAX_KARMA; v_nr++)
-	{
-		if(creature_ptr->karmas[v_nr] > 0)
-		{
-#ifdef JP
-		fprintf(OutFile, "[%s]‚Ì‹Æ: %d\n",
-#else
-		fprintf(OutFile, "Your karma of %s is %d.",
-#endif
-			karma[v_nr].title, creature_ptr->karmas[v_nr]);
-		}
-	}
+		fprintf(OutFile, MES_CREATURE_KARMA(karma[v_nr].title, creature_ptr->karmas[v_nr]));
 }
 
 void authority_desc(char *tmp, creature_type *creature_ptr)

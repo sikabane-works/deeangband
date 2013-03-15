@@ -2038,6 +2038,7 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_RES_EXP "ソウルが回復したような気がする。"
 #define MES_CREATURE_GAIN_EXP "更にソウルを得たような気がする。"
 #define MES_CREATURE_WHICH_GAIN "どの能力値を上げますか？"
+#define MES_CREATURE_KARMA(TYPE, NUM) "[%s]の業: %d\n", (TYPE), (NUM)
 #else
 #define MES_CREATURE_LEVELUP(LEV) "Welcome to level %d.", (LEV)
 #define MES_CREATURE_HP_GAIN(POINT) "Max-HitPoint increased in %d.", (POINT)
@@ -2050,6 +2051,7 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_RES_EXP "You feel your soul energies returning."
 #define MES_CREATURE_GAIN_EXP "You feel more souls."
 #define MES_CREATURE_WHICH_GAIN "Which stat do you want to raise?"
+#define MES_CREATURE_KARMA(TYPE, NUM) "Your karma of %s is %d.", (TYPE), (NUM)
 #endif
 
 #ifdef JP
