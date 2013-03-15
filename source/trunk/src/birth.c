@@ -3585,11 +3585,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 
 	if(!npc)
 	{
-#if JP
-		put_str("開始地点を選択して下さい:", 0, 0);
-#else
-		put_str("Select a starting point:", 0, 0);
-#endif
+		put_str(MES_BIRTH_START_POINT, 0, 0);
 		i = get_selection(&se_info, se);
 	}
 	else
@@ -3614,9 +3610,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 		return 0;
 	}
 	else
-	{
 		return i;
-	}
 
 	return 0;
 }
@@ -3629,7 +3623,6 @@ static bool get_stat_limits(creature_type *creature_ptr)
 	char buf[80], cur[80];
 	char inp[80];
 
-	/* Clean up */
 	clear_from(0);
 
 	/* Extra infomation */
@@ -3785,12 +3778,9 @@ static bool get_stat_limits(creature_type *creature_ptr)
 		}
 		if(c == ESCAPE || ((c == ' ' || c == '\r' || c == '\n') && cs == 6))break;
 	}
-	
-	for (i = 0; i < STAT_MAX; i++)
-	{
-		/* Save the minimum stat */
-		stat_limit[i] = cval[i];
-	}
+
+	/* Save the minimum stat */
+	for (i = 0; i < STAT_MAX; i++) stat_limit[i] = cval[i];
 
 	return TRUE;
 }
