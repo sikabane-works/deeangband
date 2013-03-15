@@ -171,13 +171,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	{
 		if(creature_ptr->karmas[v_nr] > 0)
 		{
-#ifdef JP
-			sprintf(v_string[v_nr], "[%s]‚Ì‹Æ: %d\n",
-#else
-			sprintf(v_string[v_nr], "Your karma of %s is %d.",
-#endif
-				karma[v_nr].title, creature_ptr->karmas[v_nr]);
-
+			MES_CREATURE_KARMA(karma[v_nr].title, creature_ptr->karmas[v_nr]);
 			info[i++] = v_string[v_nr];
 		}
 	}

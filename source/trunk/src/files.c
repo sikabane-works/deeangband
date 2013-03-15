@@ -4257,11 +4257,10 @@ static void dump_aux_karmas(creature_type *creature_ptr, FILE *fff)
 	char buf[100];
 	show_alignment(buf, creature_ptr);
 
+	fprintf(fff, "\n\n  [%s]\n\n", KW_KARMA);
 #ifdef JP
-	fprintf(fff, "\n\n  [ƒvƒŒƒCƒ„[‚Ì‹Æ]\n\n");
 	fprintf(fff, "‘®« : %s\n", buf);
 #else
-	fprintf(fff, "\n\n  [Virtues]\n\n");
 	fprintf(fff, "Your alighnment : %s\n", buf);
 #endif
 	fprintf(fff, "\n");

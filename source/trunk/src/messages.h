@@ -217,6 +217,7 @@
 #define KW_EXP_NEXT "次レベル"
 #define KW_EXP_DEC "ソウルx"
 #define KW_MONEY "所持金"
+#define KW_KARMA "業"
 #define KW_FAIL "失率"
 #define KW_UNKNOWN "未知"
 #define KW_FORGOTTEN "忘却"
@@ -303,6 +304,7 @@
 #define KW_PET "ペット"
 #define KW_FRIEND "友軍"
 #define KW_CLONE "クローン"
+#define KW_WANTED "賞金首"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -323,6 +325,7 @@
 #define KW_EXP_DEC "Soul"
 #define KW_EXP_NEXT "NEXT"
 #define KW_MONEY "Money"
+#define KW_KARMA "Karma"
 #define KW_FAIL "Fail"
 #define KW_UNKNOWN "Unknown"
 #define KW_FORGOTTEN "Forgotten"
@@ -409,6 +412,7 @@
 #define KW_PET "Pet"
 #define KW_FRIEND "Friend"
 #define KW_CLONE "Clone"
+#define KW_WANTED "Wanted"
 #endif
 
 #ifdef JP

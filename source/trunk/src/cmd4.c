@@ -3597,7 +3597,7 @@ static cptr creature_group_text[] =
 #ifdef JP
 	"ユニーク",	/* "Uniques" */
 	"乗馬可能なクリーチャー",	/* "Riding" */
-	"賞金首", /* "Wanted */
+	KW_WANTED, /* "Wanted */
 	"アンバーの王族", /* "Ambertite" */
 	"アリ",
 	"コウモリ",
