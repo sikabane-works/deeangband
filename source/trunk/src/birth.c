@@ -4429,28 +4429,16 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 			sprintf(buf, DIARY_SELECT_HALFRACE(race_info[creature_ptr->race_idx1].title, race_info[creature_ptr->race_idx2].title));
 		do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
 
-	#ifdef JP
-		sprintf(buf, "職業に%sを選択した。", class_info[creature_ptr->class_idx].title);
-	#else
-		sprintf(buf, "choose %s class.", class_info[creature_ptr->class_idx].title);
-	#endif
+		sprintf(buf, DIARY_SELECT_CLASS(class_info[creature_ptr->class_idx].title));
 		do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
 
 		if(creature_ptr->realm1)
 		{
-	#ifdef JP
-			sprintf(buf, "魔法の領域に%s%sを選択した。",realm_names[creature_ptr->realm1], creature_ptr->realm2 ? format("と%s",realm_names[creature_ptr->realm2]) : "");
-	#else
-			sprintf(buf, "choose %s%s realm.",realm_names[creature_ptr->realm1], creature_ptr->realm2 ? format(" realm and %s",realm_names[creature_ptr->realm2]) : "");
-	#endif
+			sprintf(buf, DIARY_SELECT_REALM(realm_names[creature_ptr->realm1]));
 			do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
 		}
 
-	#ifdef JP
-		sprintf(buf, "性格に%sを選択した。", chara_info[creature_ptr->chara_idx].title);
-	#else
-		sprintf(buf, "choose %s.", chara_info[creature_ptr->chara_idx].title);
-	#endif
+		sprintf(buf, DIARY_SELECT_CHALA(chara_info[creature_ptr->chara_idx].title));
 		do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
 
 	}

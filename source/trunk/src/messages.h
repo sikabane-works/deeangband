@@ -1702,6 +1702,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_SELECTSEX(SEX) "性別に%sを選択した。", (SEX)
 #define DIARY_SELECT_PURERACE(RACE) "種族に%sを選択した。", (RACE)
 #define DIARY_SELECT_HALFRACE(RACE1, RACE2) "種族に%sと%sの混血を選択した。", (RACE1), (RACE2)
+#define DIARY_SELECT_CLASS(CLASS) "職業に%sを選択した。", (CLASS)
+#define DIARY_SELECT_REALM(REALM) "魔法の領域に%sを選択した。", (REALM)
+#define DIARY_SELECT_CHALA(CHALA) "性格に%sを選択した。", (CHALA)
 #define DIARY_RETIRED "ダンジョンの探索から引退した。"
 #define DIARY_SUICIDE "絶望して自殺した。"
 #define DIARY_WINNING_SEPPUKU "勝利の後切腹した。"
@@ -1733,6 +1736,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_SELECTSEX(SEX) "choose %s personality.", (SEX)
 #define DIARY_SELECT_PURERACE(RACE) "choose %s race.", (RACE)
 #define DIARY_SELECT_HALFRACE(RACE1, RACE2) "choose %s and %s races.", (RACE1), (RACE2)
+#define DIARY_SELECT_CLASS(CLASS) "choose %s class.", (CLASS)
+#define DIARY_SELECT_REALM(REALM) "choose %s realm.", (REALM)
+#define DIARY_SELECT_CHALA(CHALA) "choose %s.", (CHALA)
 #define DIARY_RETIRED "retired exploring dungeons."
 #define DIARY_SUICIDE "give up all hope to commit suicide."
 #define DIARY_WINNING_SEPPUKU "did Seppuku after the winning."
