@@ -4454,14 +4454,8 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 	cptr t;
 
 	if(!fff) return;
-
 	roff_to_buf(race_text + race_info[creature_ptr->race_idx1].text, 78, temp, sizeof(temp));
-
-#ifdef JP
-	fprintf(fff, "\n\nŽí‘°: %s\n", race_info[creature_ptr->race_idx1].title);
-#else
-	fprintf(fff, "\n\nRace: %s\n", race_info[creature_ptr->race_idx1].title);
-#endif
+	fprintf(fff, "\n\n%s: %s\n", KW_RACE, race_info[creature_ptr->race_idx1].title);
 
 	t = temp;
 	for (i = 0; i < 10; i++)
@@ -4497,11 +4491,7 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 	if(creature_ptr->realm1)
 	{
 		roff_to_buf(realm_jouhou[technic2magic(creature_ptr->realm1)-1], 78, temp, sizeof(temp));
-#ifdef JP
-		fprintf(fff, "–‚–@: %s\n", realm_names[creature_ptr->realm1]);
-#else
-		fprintf(fff, "Realm: %s\n", realm_names[creature_ptr->realm1]);
-#endif
+		fprintf(fff, "%s: %s\n", KW_REALM, realm_names[creature_ptr->realm1]);
 		t = temp;
 		for (i = 0; i < STAT_MAX; i++)
 		{
@@ -4515,11 +4505,7 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 	if(creature_ptr->realm2)
 	{
 		roff_to_buf(realm_jouhou[technic2magic(creature_ptr->realm2)-1], 78, temp, sizeof(temp));
-#ifdef JP
-		fprintf(fff, "–‚–@: %s\n", realm_names[creature_ptr->realm2]);
-#else
-		fprintf(fff, "Realm: %s\n", realm_names[creature_ptr->realm2]);
-#endif
+		fprintf(fff, "%s: %s\n", KW_REALM, realm_names[creature_ptr->realm2]);
 		t = temp;
 		for (i = 0; i < STAT_MAX; i++)
 		{
