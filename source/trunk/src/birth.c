@@ -3397,11 +3397,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 		return 0;
 	}
 
-#if JP
-	put_str("å_‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢:", 0, 0);
-#else
-	put_str("Select a patron:", 0, 0);
-#endif
+	put_str(MES_BIRTH_PATRON, 0, 0);
 	if(!npc) put_initial_status(creature_ptr);
 	i = get_selection(&se_info, pt);
 
@@ -3415,10 +3411,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 		creature_ptr->patron_idx = pt[randint0(n - 3)].code;
 		return 0;
 	}
-	else
-	{
-		return i;
-	}
+	else return i;
 
 }
 
@@ -3502,11 +3495,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 	ce[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-#if JP
-	put_str("«Ši‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢:", 0, 0);
-#else
-	put_str("Select a personality:", 0, 0);
-#endif
+	put_str(MES_BIRTH_PERSONALITY, 0, 0);
 
 	if(!npc) put_initial_status(creature_ptr);
 	i = get_selection(&se_info, ce);
@@ -3521,11 +3510,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 		creature_ptr->chara_idx = uneven_rand(id, weight, se_info.num - 3);
 		return 0;
 	}
-	else
-	{
-		return i;
-	}
-
+	else return i;
 	return 0;
 }
 
