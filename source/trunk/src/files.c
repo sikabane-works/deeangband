@@ -1491,7 +1491,7 @@ static struct
 	{58, 1, 21, 0, 0, 0, ""},
 	{58, 2, 15, 0, 0, 0, ""},
 	{34, 6, 8, 0, 0, 0, "g•ª"},
-	{ 1, 8, 51, 0, 0, 0, "‘®«"},
+	{ 1, 8, 51, 0, 0, 0, KW_ALIGNMENT},
 	{29, 14, 21, 0, 0, 0, "‹­‰»“x"},
 	{29, 16, 21, 0, 0, 0, "ŸƒŒƒxƒ‹"},
 	{34, 7, 23, 0, 0, 0, "‘ÌŠi"},
@@ -1551,7 +1551,7 @@ static struct
 	{58, 1, 14, 0, 0, 0, "Hgt"},
 	{58, 2, 14, 0, 0, 0, "Wgt"},
 	{29, 7, 21, 0, 0, 0, "Social Class"},
-	{ 1, 8, 51, 0, 0, 0, "Align"},
+	{ 1, 8, 51, 0, 0, 0, KW_ALIGNMENT},
 	{29, 14, 21, 0, 0, 0, "Construction"},
 	{29, 16, 21, 0, 0, 0, "Const to Adv"},
 	{29, 6, 21, 0, 0, 0, "Size"},
@@ -4258,11 +4258,7 @@ static void dump_aux_karmas(creature_type *creature_ptr, FILE *fff)
 	show_alignment(buf, creature_ptr);
 
 	fprintf(fff, "\n\n  [%s]\n\n", KW_KARMA);
-#ifdef JP
-	fprintf(fff, "‘®« : %s\n", buf);
-#else
-	fprintf(fff, "Your alighnment : %s\n", buf);
-#endif
+	fprintf(fff, "%s: %s\n", KW_ALIGNMENT, buf);
 	fprintf(fff, "\n");
 	dump_karmas(creature_ptr, fff);
 }

@@ -218,6 +218,7 @@
 #define KW_EXP_DEC "ソウルx"
 #define KW_MONEY "所持金"
 #define KW_KARMA "業"
+#define KW_ALIGNMENT "属性"
 #define KW_FAIL "失率"
 #define KW_UNKNOWN "未知"
 #define KW_FORGOTTEN "忘却"
@@ -326,6 +327,7 @@
 #define KW_EXP_NEXT "NEXT"
 #define KW_MONEY "Money"
 #define KW_KARMA "Karma"
+#define KW_ALIGNMENT "Alignment"
 #define KW_FAIL "Fail"
 #define KW_UNKNOWN "Unknown"
 #define KW_FORGOTTEN "Forgotten"
@@ -1003,11 +1005,15 @@
 #define MES_DIGGING_PERMANENT2 "そこは掘れない!"
 #define MES_DIGGING_DONE1(NAME) ("%sをくずした。", (NAME))
 #define MES_DIGGING_DONE2(NAME) ("%sをくずしている。", (NAME))
+#define MES_DIGGING_CUT(TARGET) "%sを切っている。", (TARGET)
+#define MES_DIGGING_TUNNEL(TARGET) "%sに穴を掘っている。", (TARGET)
 #else
 #define MES_DIGGING_PERMANENT1 "This seems to be permanent rock."
 #define MES_DIGGING_PERMANENT2 "You can't tunnel through that!"
 #define MES_DIGGING_DONE1(NAME) ("You have removed the %s.", (NAME))
 #define MES_DIGGING_DONE2(NAME) ("You dig into the %s.", (NAME))
+#define MES_DIGGING_CUT(TARGET) "You chop away at the %s.", (TARGET)
+#define MES_DIGGING_TUNNEL(TARGET) "You tunnel into the %s.", (TARGET)
 #endif
 
 #ifdef JP

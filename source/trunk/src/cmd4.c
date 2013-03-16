@@ -7177,11 +7177,7 @@ static void do_cmd_knowledge_karmas(creature_type *creature_ptr)
 	
 	if(fff)
 	{
-#ifdef JP
-		fprintf(fff, "Œ»İ‚Ì‘®« : %s\n\n", buf);
-#else
-		fprintf(fff, "Your alighnment : %s\n\n", buf);
-#endif
+		fprintf(fff, "%s: %s\n\n", KW_ALIGNMENT, buf);
 		dump_karmas(creature_ptr, fff);
 	}
 	

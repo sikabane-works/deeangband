@@ -160,11 +160,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	info[i++] = "";
 
 	show_alignment(buf2, creature_ptr);
-#ifdef JP
-	sprintf(Dummy, "Œ»İ‚Ì‘®« : %s", buf2);
-#else
-	sprintf(Dummy, "Your alighnment : %s", buf2);
-#endif
+	sprintf(Dummy, "%s: %s", KW_ALIGNMENT, buf2);
 	strcpy(buf[1], Dummy);
 	info[i++] = buf[1];
 	for (v_nr = 0; v_nr < MAX_KARMA; v_nr++)

@@ -1131,35 +1131,15 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 		{
 			if(tree)
 			{
-				/* We may continue chopping */
-#ifdef JP
-				msg_format("%s‚ğØ‚Á‚Ä‚¢‚éB", name);
-#else
-				msg_format("You chop away at the %s.", name);
-#endif
-				/* Occasional Search  */
+				msg_format(MES_DIGGING_CUT(name));
 				if(PERCENT(25)) search(creature_ptr);
 			}
-			else
-			{
-				/* We may continue tunelling */
-#ifdef JP
-				msg_format("%s‚ÉŒŠ‚ğŒ@‚Á‚Ä‚¢‚éB", name);
-#else
-				msg_format("You tunnel into the %s.", name);
-#endif
-			}
-
+			else msg_format(MES_DIGGING_TUNNEL(name));
 			more = TRUE;
 		}
 	}
 
-	if(is_hidden_door(c_ptr))
-	{
-		/* Occasional Search  */
-		if(PERCENT(25)) search(creature_ptr);
-	}
-
+	if(is_hidden_door(c_ptr)) if(PERCENT(25)) search(creature_ptr);
 	return more;
 }
 
