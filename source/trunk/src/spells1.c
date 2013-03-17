@@ -2855,7 +2855,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//92
 
 	case DO_EFFECT_BLOOD_CURSE:
-		break;
 		if((typ == DO_EFFECT_BLOOD_CURSE) && one_in_(4))
 		{
 			int curse_flg = (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP);
@@ -3187,47 +3186,19 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 // (Deskull)
 static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg, int spell)
 {
-	int k = 0;
-
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	bool obvious = TRUE; // Hack -- assume obvious
 	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE); // Player blind-ness
-
-	/* Hack -- messages */
-	cptr act = NULL;
 
 	int get_damage = 0;
 
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 
-	// Is the creature "seen"?
-	bool seen = target_ptr->see_others;
-	bool seen_msg = is_seen(player_ptr, target_ptr);
-	bool slept = (bool)has_trait(target_ptr, TRAIT_SLEPT);
-
-	/* Can the player know about this effect? */
-	bool known = ((target_ptr->cdis <= MAX_SIGHT) || floor_ptr->gamble_arena_mode);
-
-	bool skipped = FALSE;	// Were the effects "irrelevant"?
-	bool get_angry = FALSE;	// Gets the creature angry at the source of the effect?
-	bool do_poly = FALSE;	// Polymorph setting (true or false)
-	int do_dist = 0;	// Teleport setting (max distance)
-	int do_conf = 0;	// Confusion setting (amount to confuse)
-	int do_stun = 0;	// Stunning setting (amount to stun)
-	int do_sleep = 0;	// Sleep amount (amount to sleep)
-	int do_fear = 0;	// Fear amount (amount to fear)
-	int do_time = 0;	// Time amount (amount to time)
-
 #ifndef JP
 	char m_poss[10];
 #endif
-
-	int photo = 0;
-
-	int ty = target_ptr->fy;
-	int tx = target_ptr->fx;
 
 	//if((player_ptr->posture & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev * 3 / 5+20)) && (caster_ptr != &creature_list[player_ptr->riding]))
 	//	if(kawarimi(player_ptr, TRUE)) return FALSE;
