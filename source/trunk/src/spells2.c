@@ -37,7 +37,7 @@ void breath(creature_type *caster_ptr, int typ, int range, int power, int rad, i
 void cast_ball_aux(int y, int x, creature_type *caster_ptr, int typ, int power, int rad, int trait_id)
 {
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	(void)project(caster_ptr, 0, rad, y, x, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+	(void)project(caster_ptr, 0, rad, y, x, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, trait_id);
 }
 
 bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad)
@@ -46,7 +46,7 @@ bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad)
 	if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(caster_ptr, 0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
+	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
 bool cast_grenade(creature_type *caster_ptr, int typ, int range, int dam, int rad)
