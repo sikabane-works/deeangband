@@ -1392,7 +1392,7 @@ extern size_t my_strcat(char *buf, const char *src, size_t bufsize);
 extern char *my_strstr(const char *haystack, const char *needle);
 extern char *my_strchr(const char *ptr, char ch);
 extern void str_tolower(char *str);
-extern char inkey_special(bool numpad_cursor);
+extern int inkey_special(bool numpad_cursor);
 
 
 // xtra1.c
