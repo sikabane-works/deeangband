@@ -57,12 +57,7 @@ static void hooked_roff(cptr str)
  */
 static void roff_aux(species_type *species_ptr, int mode)
 {
-	bool            old = FALSE;
-
-	int             msex = 0;
-
 	bool nightmare = has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR) && !(mode & 0x02);
-	int speed = nightmare ? species_ptr->speed + 5 : species_ptr->speed;
 
 	/* Descriptions */
 	{
@@ -235,7 +230,6 @@ bool species_hook_dungeon(int species_idx)
 	if(!has_trait_species(species_ptr, TRAIT_WILD_ONLY)) return TRUE;
 	else
 	{
-		dungeon_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
 		if(has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN)) return TRUE;
 		return FALSE;
 	}

@@ -203,7 +203,6 @@ static void cast_wonder(creature_type *caster_ptr, int dir)
 	int plev = caster_ptr->lev;
 	int die = randint1(100) + plev / 5;
 	// TODO: add Karma of Fortune feature.
-	int vir = 0;
 
 	if(die > 100)
 	{
@@ -254,7 +253,6 @@ static void cast_invoke_spirits(creature_type *caster_ptr, int dir)
 	int plev = caster_ptr->lev;
 	int die = randint1(100) + plev / 5;
 	// TODO: Add Karma of Fortune feature.
-	int vir = 0;
 
 	msg_print(INVOKE_SPIRIT_START);
 	if(die > 100) msg_print(INVOKE_SPIRIT_HIGH_POWER);
@@ -564,7 +562,7 @@ static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 
 	for (i = 0; i < b; i++)
 	{
-		int y, x;
+		int y = 0, x = 0;
 		int count;
 
 		for (count = 0; count <= 20; count++)
@@ -3428,7 +3426,6 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 				{
 					/* Special effect first */
 					int effect = randint1(1000);
-					int dir = 0;
 					if(effect == 666)
 						cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, plev * 200, 0);
 					else if(effect < 500)
@@ -6878,7 +6875,6 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 50 + plev;
-			int power = 20 + plev;
 			int rad = 3 + plev / 20;
 
 			if(info) return format("%s%d+%d", s_dam, dam/2, dam/2);
@@ -7658,7 +7654,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 				for (i = 0; i < 12; i++)
 				{
 					int attempt = 10;
-					int my, mx;
+					int my = 0, mx = 0;
 
 					while (attempt--)
 					{
@@ -9887,7 +9883,6 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
-	bool fail = (mode == SPELL_FAIL) ? TRUE : FALSE;
 	bool cont = (mode == SPELL_CONT) ? TRUE : FALSE;
 	bool stop = (mode == SPELL_STOP) ? TRUE : FALSE;
 

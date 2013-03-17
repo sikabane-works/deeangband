@@ -961,7 +961,6 @@ void do_poly_wounds(creature_type *creature_ptr)
 void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 {
 	cptr title = race_info[new_race].title;
-	int  old_race = creature_ptr->race_idx1;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if(is_seen(player_ptr, creature_ptr))

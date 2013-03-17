@@ -23,7 +23,6 @@ static int select_mode(void)
 {
 	int i;
 	selection_table se[10];
-	int t = sizeof(creature_type);
 	selection_info se_info;
 
 	se_info.mode = 0;
@@ -55,7 +54,6 @@ static int select_unique_species(void)
 	int i;
 	char dr[4];
 	selection_table se[10];
-	int t = sizeof(creature_type);
 	selection_info se_info;
 
 	se_info.mode = 0;
@@ -1213,7 +1211,6 @@ static void recharged_notice(object_type *object_ptr)
 
 static void check_music(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	magic_type *s_ptr;
 	int spell;
 	s32b need_mana;
