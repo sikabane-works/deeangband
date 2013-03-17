@@ -1006,14 +1006,18 @@
 #define MES_DIGGING_DONE1(NAME) ("%sをくずした。", (NAME))
 #define MES_DIGGING_DONE2(NAME) ("%sをくずしている。", (NAME))
 #define MES_DIGGING_CUT(TARGET) "%sを切っている。", (TARGET)
+#define MES_DIGGING_CUT_DONE(TARGET) "%sを切り払った。", (TARGET)
 #define MES_DIGGING_TUNNEL(TARGET) "%sに穴を掘っている。", (TARGET)
+#define MES_DIGGING_TUNNEL_DONE "穴を掘り終えた。"
 #else
 #define MES_DIGGING_PERMANENT1 "This seems to be permanent rock."
 #define MES_DIGGING_PERMANENT2 "You can't tunnel through that!"
 #define MES_DIGGING_DONE1(NAME) ("You have removed the %s.", (NAME))
 #define MES_DIGGING_DONE2(NAME) ("You dig into the %s.", (NAME))
 #define MES_DIGGING_CUT(TARGET) "You chop away at the %s.", (TARGET)
+#define MES_DIGGING_CUT_DONE(TARGET) "You have cleared away the %s.", (TARGET)
 #define MES_DIGGING_TUNNEL(TARGET) "You tunnel into the %s.", (TARGET)
+#define MES_DIGGING_TUNNEL_DONE "You have finished the tunnel."
 #endif
 
 #ifdef JP

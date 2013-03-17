@@ -1033,11 +1033,8 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 
 /*
  * Perform the basic "tunnel" command
- *
  * Assumes that no creature is blocking the destination
- *
  * Do not use twall anymore
- *
  * Returns TRUE if repeated commands may continue
  */
 static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
@@ -1103,22 +1100,12 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 		/* Tunnel */
 		if(creature_ptr->skill_dig > power + randint0(40 * power))
 		{
-#ifdef JP
-			if(tree) msg_format("%s‚ðØ‚è•¥‚Á‚½B", name);
+			if(tree) msg_format(MES_DIGGING_CUT_DONE(name));
 			else
 			{
-				msg_print("ŒŠ‚ðŒ@‚èI‚¦‚½B");
+				msg_print(MES_DIGGING_TUNNEL_DONE);
 				prepare_update(creature_ptr, PU_FLOW);
 			}
-#else
-			if(tree) msg_format("You have cleared away the %s.", name);
-			else
-			{
-				msg_print("You have finished the tunnel.");
-				prepare_update(creature_ptr, PU_FLOW);
-			}
-#endif
-
 			if(have_flag(f_ptr->flags, FF_GLASS)) sound(SOUND_GLASS);
 
 			/* Remove the feature */
