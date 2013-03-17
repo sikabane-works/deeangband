@@ -303,8 +303,6 @@ void compact_objects(int size)
 
 			/* Apply the saving throw */
 			if(PERCENT(chance)) continue;
-
-			/* Delete the object */
 			delete_object_idx(i);
 
 			/* Count it */

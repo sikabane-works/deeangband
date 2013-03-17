@@ -1143,24 +1143,17 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 	return (obvious);	// Return "Anything seen?"
 }
 
-
-
 /*
-* We are called from "project()" to "damage" objects
-*
-* We are called both for "beam" effects and "ball" effects.
-*
-* Perhaps we should only SOMETIMES damage things on the ground.
-*
-* The "r" parameter is the "distance from ground zero".
-*
-* Note that we determine if the player can "see" anything that happens
-* by taking into account: blindness, line-of-sight, and illumination.
-*
-*  We also "see" grids which are "memorized", probably a hack
-*
-* We return "TRUE" if the effect of the projection is "obvious".
-*/
+ * We are called from "project()" to "damage" objects
+ * We are called both for "beam" effects and "ball" effects.
+ * Perhaps we should only SOMETIMES damage things on the ground.
+ * The "r" parameter is the "distance from ground zero".
+ * Note that we determine if the player can "see" anything that happens
+ * by taking into account: blindness, line-of-sight, and illumination.
+ *
+ * We also "see" grids which are "memorized", probably a hack
+ * We return "TRUE" if the effect of the projection is "obvious".
+ */
 static bool project_object(creature_type *caster_ptr, int r, int y, int x, int dam, int typ)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
@@ -1504,9 +1497,6 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 
 				k_idx = object_ptr->k_idx;
 				is_potion = object_is_potion(caster_ptr, object_ptr);
-
-
-				/* Delete the object */
 				delete_object_idx(this_object_idx);
 
 				/* Potions produce effects when 'shattered' */

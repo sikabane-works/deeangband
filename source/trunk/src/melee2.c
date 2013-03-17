@@ -2313,8 +2313,6 @@ static void process_nonplayer(int m_idx)
 
 						/* Describe observable situations */
 						if(player_has_los_bold(ny, nx)) msg_format(MES_OBJECT_DESTORY(creature_name, object_name));
-
-						/* Delete the object */
 						delete_object_idx(this_object_idx);
 					}
 				}

@@ -215,25 +215,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_S_DEMON:
-		{
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			summon_specific(caster_ptr, target_row, target_col, user_level, TRAIT_S_DEMON, (mode | u_mode));
 			break;
-		}
-		{
-			count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_DEMON, PC_ALLOW_GROUP);
-			break;
-		}
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, TRAIT_S_DEMON, (g_mode | p_mode)))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
 
 	case TRAIT_S_UNDEAD:
 		{
@@ -245,21 +229,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 			if(!pet || ((user_level > 24) && one_in_(3))) mode |= PC_ALLOW_GROUP;
 			if(pet) mode |= PC_FORCE_PET;
-			else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
-			break;
-		}
-		{
 			count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_UNDEAD, PC_ALLOW_GROUP);
-			break;
-		}
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, TRAIT_S_UNDEAD, (g_mode | p_mode)))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
 			break;
 		}
 
