@@ -526,8 +526,8 @@ void do_cmd_study(creature_type *creature_ptr)
 {
 	int	i, item, sval;
 	int	increment = 0;
-	bool    learned = FALSE;
-	int item_tester_tval;
+	bool learned = FALSE;
+	int item_tester_tval = 0;
 
 	/* Spells of realm2 will have an increment of +32 */
 	int	spell = -1;
@@ -687,8 +687,6 @@ void do_cmd_cast(creature_type *creature_ptr)
 	int item_tester_tval;
 
 	bool over_exerted = FALSE;
-
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cptr prayer;
 	object_type	*object_ptr;
 	magic_type	*s_ptr;
@@ -907,9 +905,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 		}
 		if(magic_info[creature_ptr->class_idx].spell_xtra & MAGIC_GAIN_EXP)
 		{
-			s16b cur_exp = creature_ptr->spell_exp[realm];
 			s16b exp_gain = 0;
-
 			//TODO gain_skill(creature_ptr, TODO, amount)
 		}
 	}
@@ -1075,8 +1071,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 	/* Process the creatures (backwards) */
 	for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
 	{
-		if(is_pet(player_ptr, &creature_list[pet_ctr]))
-			who[max_pet++] = pet_ctr;
+		if(is_pet(player_ptr, &creature_list[pet_ctr])) who[max_pet++] = pet_ctr;
 	}
 
 	ang_sort(who, &dummy_why, max_pet, ang_sort_comp_pet_dismiss, ang_sort_swap_hook);

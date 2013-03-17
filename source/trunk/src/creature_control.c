@@ -695,10 +695,7 @@ species_type *real_species_ptr(creature_type *m_ptr)
 void delete_species_idx(creature_type *creature_ptr)
 {
 	int x, y;
-	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
-
-	s16b next_object_idx = 0;
 
 	// Get location
 	y = creature_ptr->fy;
@@ -857,8 +854,6 @@ void birth_uniques(void)
 {
 	int i;
 	char buf[80];
-
-	int t = sizeof(creature_type);
 
 	// Init Unique Count
 	unique_max = 0;
@@ -2690,7 +2685,6 @@ static bool creature_hook_chameleon_lord(int species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
-	species_type *old_r_ptr = &species_info[m_ptr->species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	if(!(has_trait_species(species_ptr, TRAIT_UNIQUE))) return FALSE;
@@ -3014,7 +3008,6 @@ void deal_item(creature_type *creature_ptr)
 	object_type	*quest_ptr;
 	int i, number;
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
-	u32b mo_mode = 0L;
 	int object_level;
 
 	creature_ptr->carrying_weight = 0;
@@ -3245,7 +3238,6 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	creature_type	*creature_ptr;
 	species_type	*species_ptr = &species_info[species_idx];
 	creature_type cr;
-	cptr name = (species_name + species_ptr->name);
 
 	if(has_trait_species(species_ptr, TRAIT_UNIQUE)) mode &= ~PC_KAGE;
 
@@ -4004,9 +3996,6 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 // Hack -- help decide if a creature race is "okay" to summon
 static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(summoner_ptr);
-	species_type *species_ptr = &species_info[species_idx];
-
 	if(!species_hook_dungeon(species_idx)) return FALSE; // Hack - Only summon dungeon creatures
 
 	if(summoner_ptr > 0)
