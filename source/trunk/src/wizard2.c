@@ -681,13 +681,10 @@ static int wiz_create_itemtype(void)
 /*
  * Tweak an item
  */
-static void wiz_tweak_item(creature_type *creature_ptr, object_type *object_ptr)
+static void wiz_tweak_item(object_type *object_ptr)
 {
 	cptr p;
 	char tmp_val[80];
-
-
-	/* Hack -- leave artifacts alone */
 	if(object_is_artifact(object_ptr)) return;
 
 	p = "Enter new 'pval' setting: ";
@@ -1112,7 +1109,7 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 
 		if(ch == 's' || ch == 'S') wiz_statistics(creature_ptr, quest_ptr);
 		if(ch == 'r' || ch == 'R') wiz_reroll_item(creature_ptr, quest_ptr);
-		if(ch == 't' || ch == 'T') wiz_tweak_item(creature_ptr, quest_ptr);
+		if(ch == 't' || ch == 'T') wiz_tweak_item(quest_ptr);
 		if(ch == 'q' || ch == 'Q') wiz_quantity_item(creature_ptr, quest_ptr);
 	}
 
@@ -2056,9 +2053,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 	// Dump option bits usage
 	case 'O':
 		msg_print("This function is being reimpleneted now.");
-		break;
-		//TODO
-		do_cmd_dump_options();
+		//TODO do_cmd_dump_options();
 		break;
 
 	// Phase Door

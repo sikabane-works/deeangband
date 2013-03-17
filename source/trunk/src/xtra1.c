@@ -4152,7 +4152,6 @@ void set_subrace(creature_type *creature_ptr, int n, bool b)
 cptr desc_race_name(creature_type *creature_ptr, u32b mode){
 	char name[80];
 	char subname[80];
-	race_type *rcreature_ptr = &race_info[creature_ptr->race_idx1];
 	name[0] = '\0';
 	subname[0] = '\0';
 

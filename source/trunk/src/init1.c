@@ -751,8 +751,7 @@ static cptr store_pre_info_flags[] =
 	"XXX",
 };
 
-
-static parse_special_melee(special_blow_type *blow_ptr, char *tmp)
+static int parse_special_melee(special_blow_type *blow_ptr, char *tmp)
 {
 	int offset = 0;
 	int num = strlen(tmp);
@@ -5199,9 +5198,9 @@ errr parse_class_info_csv(char *buf, header *head)
 					break;
 
 				case CL_INFO_A_CHA:
-					break;
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_ptr->c_adj_b[STAT_CHA] = (s16b)b;
+					break;
 
 				case CL_INFO_C_DIS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;

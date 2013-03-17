@@ -1489,15 +1489,15 @@ struct trait_type
 	s16b exp;
 	s16b charge;	// Base Charge
 	s16b speed;
-	s32b text;
-	s32b E_text;
-	s32b get_text;
-	s32b E_get_text;
-	s32b lost_text;
-	s32b E_lost_text;
-	s32b activate_text;
-	s32b alias_text;
-	s32b blind_activate_text;
+	u32b text;
+	u32b E_text;
+	u32b get_text;
+	u32b E_get_text;
+	u32b lost_text;
+	u32b E_lost_text;
+	u32b activate_text;
+	u32b alias_text;
+	u32b blind_activate_text;
 	traits_precondition flags;
 
 	s16b base_level;
