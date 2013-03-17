@@ -52,9 +52,7 @@ bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad)
 bool cast_grenade(creature_type *caster_ptr, int typ, int range, int dam, int rad)
 {
 	int tx = 0, ty = 0;
-
-	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(0, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
+	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
 bool cast_ball_hide(creature_type *caster_ptr, int typ, int range, int dam, int rad)
@@ -62,9 +60,7 @@ bool cast_ball_hide(creature_type *caster_ptr, int typ, int range, int dam, int 
 	int tx, ty;
 	tx = target_col;
 	ty = target_row;
-
-	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(0, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE, -1));
+	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE, -1));
 }
 
 
@@ -745,10 +741,7 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *species_ptr = &species_info[m_ptr->species_idx];
-
-		/* Skip dead creatures */
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		y = m_ptr->fy;
 		x = m_ptr->fx;
@@ -800,10 +793,9 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead creatures */
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		y = m_ptr->fy;
 		x = m_ptr->fx;
