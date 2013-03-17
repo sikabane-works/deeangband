@@ -2281,13 +2281,7 @@ static void process_nonplayer(int m_idx)
 
 						/* Describe observable situations */
 						if(creature_ptr->see_others && creature_can_see_bold(player_ptr, ny, nx))
-						{
-#ifdef JP
-							msg_format("%^s‚Í%s‚ğE‚¨‚¤‚Æ‚µ‚½‚ªA‚¾‚ß‚¾‚Á‚½B", creature_name, object_name);
-#else
-							msg_format("%^s tries to pick up %s, but fails.", creature_name, object_name);
-#endif
-						}
+							msg_format(MES_OBJECT_PICK_FAILED(creature_name, object_name));
 					}
 
 					/* Pick up the item */
@@ -2297,13 +2291,7 @@ static void process_nonplayer(int m_idx)
 
 						/* Describe observable situations */
 						if(creature_can_see_bold(player_ptr, ny, nx))
-						{
-#ifdef JP
-							msg_format("%^s‚ª%s‚ğE‚Á‚½B", creature_name, object_name);
-#else
-							msg_format("%^s picks up %s.", creature_name, object_name);
-#endif
-						}
+							msg_format(MES_OBJECT_PICKED(creature_name, object_name));
 
 						/* Excise the object */
 						excise_object_idx(this_object_idx);
@@ -2324,14 +2312,7 @@ static void process_nonplayer(int m_idx)
 						did_kill_item = TRUE;
 
 						/* Describe observable situations */
-						if(player_has_los_bold(ny, nx))
-						{
-#ifdef JP
-							msg_format("%^s‚ª%s‚ğ”j‰ó‚µ‚½B", creature_name, object_name);
-#else
-							msg_format("%^s destroys %s.", creature_name, object_name);
-#endif
-						}
+						if(player_has_los_bold(ny, nx)) msg_format(MES_OBJECT_DESTORY(creature_name, object_name));
 
 						/* Delete the object */
 						delete_object_idx(this_object_idx);

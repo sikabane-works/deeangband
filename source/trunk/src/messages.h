@@ -2605,6 +2605,9 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_DROPPED(NAME, SYM) "%s(%c)を落とした。", (NAME), (SYM)
 #define MES_OBJECT_INDETIFY_ALL_ASK "持ち物を全て鑑定してよろしいですか？"
 #define MES_OBJECT_INDETIFIED_ALL "持ち物全てが鑑定されました。"
+#define MES_OBJECT_PICKED(CREATURE, OBJECT) "%^sが%sを拾った。", (CREATURE), (OBJECT)
+#define MES_OBJECT_PICK_FAILED(CREATURE, OBJECT) "%^sは%sを拾おうとしたが、だめだった。", (CREATURE), (OBJECT)
+#define MES_OBJECT_DESTORY(CREATURE, OBJECT) "%^sが%sを破壊した。", (CREATURE), (OBJECT)
 #else
 #define MES_OBJECT_WHICH_IMPROVE "Improve which item? "
 #define MES_OBJECT_NO_IMPROVE "You have nothing to improve."
@@ -2635,6 +2638,9 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_DROPPED(NAME, SYM) "You drop %s (%c).", (NAME), (SYM)
 #define MES_OBJECT_INDETIFY_ALL_ASK "Do you pay for identify all your possession? "
 #define MES_OBJECT_INDETIFIED_ALL "Your possessions have been identified."
+#define MES_OBJECT_PICK_FAILED(CREATURE, OBJECT) "%^s tries to pick up %s, but fails.", (CREATURE), (OBJECT)
+#define MES_OBJECT_PICKED(CREATURE, OBJECT) "%^s picks up %s.", (CREATURE), (OBJECT)
+#define MES_OBJECT_DESTORY(CREATURE, OBJECT) "%^s destroys %s.", (CREATURE), (OBJECT)
 #endif
 
 #ifdef JP
