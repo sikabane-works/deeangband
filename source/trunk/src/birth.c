@@ -1729,7 +1729,6 @@ static int choose_realm(s32b choices, bool npc)
 	int i;
 	selection_table re[MAX_REALMS + 3];
 	selection_info se_info;
-	int picks[VALID_REALM] = {0};
 
 	se_info.mode = 0;
 	se_info.caption = NULL;
@@ -2086,7 +2085,8 @@ static void get_history(creature_type *creature_ptr)
 
 static void set_exp(creature_type *creature_ptr, species_type *species_ptr)
 {
-	s32b exp1, exp2, rate1, rate2;
+	s32b exp1, rate1;
+	u32b exp2, rate2;
 
 	exp1 = 0;
 	exp2 = species_ptr->exp;
@@ -2401,7 +2401,7 @@ void race_detail(int code)
 {
 	bool e;
 	int base = 5;
-	int i, pena = 0;
+	int i;
 	char buf[100], temp[58*18];
 	cptr t;
 
@@ -2470,7 +2470,7 @@ void subrace_detail(int code)
 {
 	bool e;
 	int base = 5;
-	int i, pena = 0;
+	int i;
 	char buf[100], temp[58*18];
 	cptr t;
 
@@ -2531,7 +2531,7 @@ void class_detail(int code)
 {
 	bool e;
 	int base = 5;
-	int i, pena = 0;
+	int i;
 	char buf[100], temp[58*18];
 	cptr t;
 	put_str("                                                      " , base, 24);
@@ -2586,7 +2586,7 @@ void chara_detail(int code)
 {
 	bool e;
 	int base = 5;
-	int i, pena = 0;
+	int i;
 	char buf[100], temp[58*18];
 	cptr t;
 
@@ -2634,7 +2634,7 @@ void realm_detail(int code)
 {
 	bool e;
 	int base = 5;
-	int i, pena = 0;
+	int i;
 	char temp[58*18];
 	cptr t;
 
@@ -2662,7 +2662,7 @@ void starting_point_detail(int code)
 {
 	bool e;
 	int base = 5;
-	int i, pena = 0;
+	int i;
 	char temp[58*18];
 	cptr t;
 
@@ -3076,7 +3076,7 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
 }
 
 // Creature sex
-static bool get_creature_sex(creature_type *creature_ptr, species_type *species_ptr, bool npc)
+static int get_creature_sex(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
 	int i, category_num;
 	selection_table se[MAX_SEXES + 3];
@@ -3179,10 +3179,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 		creature_ptr->sex = se[randint0(category_num)].code;
 		return 0;
 	}
-	else
-	{
-		return i;
-	}
+	else return i;
 }
 
 // Player class
@@ -3489,7 +3486,6 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 		return 0;
 	}
 	else return i;
-	return 0;
 }
 
 // Player Starting Point
@@ -3572,10 +3568,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 		creature_ptr->start_wx = starting_point[j].wx;
 		return 0;
 	}
-	else
-		return i;
-
-	return 0;
+	else return i;
 }
 
 static bool get_stat_limits(creature_type *creature_ptr)
@@ -4049,14 +4042,11 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	int i;
 	int mode = 0;
 
-	bool flag = FALSE;
 	bool prev = FALSE;
 	bool player_generate = flags & GC_PLAYER;
 	bool auto_generate = flags & GC_AUTO;
 
 	char c;
-
-	char p2 = ')';
 	char b1 = '[';
 	char b2 = ']';
 
@@ -4207,7 +4197,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		/* Roll for gold */
 		get_money(creature_ptr);
 
-		/* Input loop */
+		c = '\0';
 		while (TRUE)
 		{
 			set_experience(creature_ptr);
