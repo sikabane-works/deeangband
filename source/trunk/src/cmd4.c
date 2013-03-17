@@ -6258,7 +6258,6 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 			case 'n':
 				if(cheat_know && (has_trait_species(&species_info[mon_idx[mon_cur]], TRAIT_UNIQUE)))
 				{
-					int m = 0;
 					int i;
 					for(i = 0; i < max_creature_idx; i++)
 						if(mon_idx[mon_cur] == creature_list[i].species_idx)
@@ -6275,8 +6274,6 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 				if(cheat_know && (has_trait_species(&species_info[mon_idx[mon_cur]], TRAIT_UNIQUE)))
 				{
 					char c;
-					int m = 0;
-
 					int i;
 					for(i = 0; i < max_creature_idx; i++)
 						if(mon_idx[mon_cur] == creature_list[i].species_idx)
@@ -6298,8 +6295,6 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 				if(cheat_know && (has_trait_species(&species_info[mon_idx[mon_cur]], TRAIT_UNIQUE)))
 				{
 					char c;
-					int m = 0;
-
 					int i;
 					for(i = 0; i < max_creature_idx; i++)
 						if(mon_idx[mon_cur] == creature_list[i].species_idx)
@@ -7110,7 +7105,7 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 /*
  * List wanted creatures
  */
-static void do_cmd_knowledge_kubi(creature_type *creature_ptr)
+static void do_cmd_knowledge_bounty(void)
 {
 	int i;
 	FILE *fff;	
@@ -7696,7 +7691,6 @@ static void do_cmd_knowledge_home(void)
 	char file_name[1024];
 //	store_type  *st_ptr;
 //	char object_name[MAX_NLEN];
-	cptr		paren = ")";
 
 	process_dungeon_file(CURRENT_FLOOR_PTR, WORLD_INFO_FILE, 0, 0, max_wild_y, max_wild_x, 0, 0);
 
@@ -7812,7 +7806,7 @@ static void do_cmd_knowledge_autopick(void)
 // Interact with "knowledge"
 void do_cmd_knowledge(creature_type *creature_ptr)
 {
-	int j, p = 0;
+	int j;
 	bool need_redraw = FALSE;
 	selection_table se[20];
 	selection_info se_info;
@@ -7869,7 +7863,7 @@ void do_cmd_knowledge(creature_type *creature_ptr)
 			do_cmd_knowledge_kill_count();
 			break;
 		case 5: /* wanted */
-			do_cmd_knowledge_kubi(creature_ptr);
+			do_cmd_knowledge_bounty();
 			break;
 		case 6: /* Pets */
 			do_cmd_knowledge_pets(creature_ptr);
