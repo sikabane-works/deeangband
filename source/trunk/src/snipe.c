@@ -308,9 +308,6 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 
 int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *target_ptr)
 {
-	species_type *species_ptr = &species_info[target_ptr->species_idx];
-	bool seen = is_seen(creature_ptr, target_ptr);
-
 	switch (creature_ptr->snipe_type)
 	{
 	case SP_LITE:
@@ -393,7 +390,6 @@ int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *targ
 // is 'mindcrafter'.
 static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 {
-	bool flag = FALSE;
 	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 0);
 
 	if(object_ptr->tval != TV_BOW)
@@ -442,34 +438,27 @@ static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 void do_cmd_snipe(creature_type *creature_ptr)
 {
 	int             n = 0;
-	int             plev = creature_ptr->lev;
-	int             old_chp = creature_ptr->chp;
 	snipe_power     spell;
 	bool            cast;
 
-
-	/* not if confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 		msg_print(MES_PREVENT_BY_CONFUSION);
 		return;
 	}
 
-	/* not if hullucinated */
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION))
 	{
 		msg_print(MES_PREVENT_BY_HALLUCINATION);
 		return;
 	}
 
-	/* not if stuned */
 	if(has_trait(creature_ptr, TRAIT_STUN))
 	{
 		msg_print(MES_PREVENT_BY_STUNED);
 		return;
 	}
 
-	/* get power */
 	if(!get_snipe_power(creature_ptr, &n, FALSE)) return;
 
 	spell = snipe_powers[n];
