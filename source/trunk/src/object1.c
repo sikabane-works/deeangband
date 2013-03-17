@@ -332,12 +332,7 @@ bool screen_object(object_type *object_ptr, u32b mode)
 	int k = 0;
 	//TODO: reimplement
 
-#ifdef JP
-	prt("[‰½‚©ƒL[‚ğ‰Ÿ‚·‚ÆƒQ[ƒ€‚É–ß‚è‚Ü‚·]", k, 15);
-#else
-	prt("[Press any key to continue]", k, 15);
-#endif
-
+	prt(MES_SYS_ANY_KEY, k, 15);
 	inkey();
 
 	screen_load();

@@ -49,6 +49,7 @@
 #define MES_SYS_AUTO_SAVING "自動セーブ中"
 #define MES_SYS_GAME_SAVING "ゲームをセーブしています..."
 #define MES_SYS_QUITING_KEY "リターンキーか ESC キーを押して下さい。"
+#define MES_SYS_ANY_KEY "[何かキーを押すとゲームに戻ります]"
 #define MES_SYS_SAVEFILE_ERROR(NUM, MAJ, MIN, EXT) "エラー(%s)がバージョン%d.%d.%d 用セーブファイル読み込中に発生。",(NUM), (MAJ), (MIN), (EXT)
 #define MES_SYS_SAVEFILE_ERROR2 "セーブファイルを解析出来ません。"
 #define MES_SYS_SAVEFILE_ERROR3 "セーブファイルが壊れています"
@@ -123,6 +124,7 @@
 #define MES_SYS_AUTO_SAVING "Autosaving the game..."
 #define MES_SYS_GAME_SAVING "Saving game..."
 #define MES_SYS_QUITING_KEY "Press Return (or Escape)."
+#define MES_SYS_ANY_KEY "[Press any key to continue]"
 #define MES_SYS_SAVEFILE_ERROR(NUM, MAJ, MIN, EXT) "Error (%s) reading %d.%d.%d savefile.", (NUM), (MAJ), (MIN), (EXT)
 #define MES_SYS_SAVEFILE_ERROR2 "Cannot parse savefile."
 #define MES_SYS_SAVEFILE_ERROR3 "Broken savefile"
