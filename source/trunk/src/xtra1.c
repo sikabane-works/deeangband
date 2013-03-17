@@ -3311,10 +3311,8 @@ static void set_melee_status(creature_type *creature_ptr)
 
 		if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 		{
-			int tval = weapon_ptr->tval - TV_WEAPON_BEGIN;
-			int sval = weapon_ptr->sval;
-			int boost = 0; //TODO calc skill
-
+			int boost = 0;
+			//TODO calc boost.
 			creature_ptr->to_hit[i] += boost > 0 ? boost : 0;
 			creature_ptr->dis_to_hit[i] += boost > 0 ? boost : 0;
 			creature_ptr->action_cost[MELLE_WEAPON_INDEX + i] = calc_weapon_melee_cost(creature_ptr, weapon_ptr);
@@ -3350,8 +3348,6 @@ static void set_melee_status(creature_type *creature_ptr)
 	// Different calculation for monks with empty hands
 	if((empty_hands_status & EMPTY_HAND_RARM) && !creature_ptr->can_melee[1])
 	{
-		int blow_base = creature_ptr->lev + adj_dex_blow[creature_ptr->stat_ind[STAT_DEX]];
-
 		if(creature_ptr->class_idx == CLASS_FORCETRAINER)
 		{
 			if(creature_ptr->charged_force)

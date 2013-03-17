@@ -2136,7 +2136,6 @@ bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 		byte ix = object_ptr->fx;                 /* X-position on map, or zero */
 		s16b next_object_idx = object_ptr->next_object_idx; /* Next object in stack (if any) */
 		byte marked = object_ptr->marked;         /* Object is marked */
-		s32b weight = object_ptr->number * object_ptr->weight;
 		u16b inscription = object_ptr->inscription;
 
 		/* Wipe it clean */
@@ -3156,7 +3155,6 @@ s16b spell_chance(creature_type *creature_ptr, int spell, int use_realm)
 	if((use_realm == creature_ptr->realm1) || (use_realm == creature_ptr->realm2)
 	    || (creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))
 	{
-		s16b exp = experience_of_spell(creature_ptr, spell, use_realm);
 		//TODO if(exp >= SPELL_EXP_EXPERT) chance--;
 		//TODO if(exp >= SPELL_EXP_MASTER) chance--;
 	}
@@ -3267,8 +3265,6 @@ void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, i
 			need_mana = s_ptr->smana;
 		else
 		{
-			s16b exp = experience_of_spell(creature_ptr, spell, use_realm);
-
 			/* Extract mana consumption rate */
 			need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, use_realm);
 		}

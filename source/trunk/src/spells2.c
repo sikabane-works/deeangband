@@ -635,7 +635,6 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *target_ptr = &creature_list[i];
-		species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 		/* Skip dead creatures */
 		if(!target_ptr->species_idx) continue;
@@ -795,7 +794,6 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
@@ -848,7 +846,6 @@ bool detect_creatures_mind(creature_type *creature_ptr, int range)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
@@ -960,7 +957,6 @@ bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_fla
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
@@ -1305,11 +1301,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *species_ptr = &species_info[m_ptr->species_idx];
-
-
 		if(!m_ptr->species_idx) continue;
-
 		if(!has_trait(m_ptr, TRAIT_UNDEAD)) continue;
 
 		/* Skip distant creatures */
