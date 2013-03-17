@@ -164,7 +164,6 @@ static void compact_objects_aux(int i1, int i2)
 	object_type *object_ptr;
 	floor_type *floor_ptr;
 
-	/* Do nothing */
 	if(i1 == i2) return;
 
 	/* Repair objects */

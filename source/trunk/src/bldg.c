@@ -1578,7 +1578,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 	return FALSE;
 }
 
-static void today_target(creature_type *creature_ptr)
+static void today_target(void)
 {
 	char buf[160];
 	species_type *species_ptr = &species_info[today_mon];
@@ -1901,7 +1901,6 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 			}
 			else
 			{
-				s32b oldturn = turn;
 				int prev_day, prev_hour, prev_min;
 				extract_day_hour_min(&prev_day, &prev_hour, &prev_min);
 				if((prev_hour >= 6) && (prev_hour <= 17)) do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_INN_OVER_DAY);
@@ -2441,7 +2440,6 @@ static void building_recharge(creature_type *creature_ptr)
 		else max_charges = object_ptr->number * object_kind_ptr->pval - object_ptr->pval;
 		charges = get_quantity(format(MES_RECHARGE_COUNT(price)), MIN(creature_ptr->au / price, max_charges));
 
-		/* Do nothing */
 		if(charges < 1) return;
 
 		/* Get the new price */
@@ -2957,7 +2955,6 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	switch (bact)
 	{
 	case BUILDING_FUNCTION_NOTHING:
-		/* Do nothing */
 		break;
 
 	case BUILDING_FUNCTION_STORE:
@@ -3136,7 +3133,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		break;
 
 	case BUILDING_FUNCTION_TARGET:
-		today_target(creature_ptr);
+		today_target();
 		break;
 
 	case BUILDING_FUNCTION_KANKIN:

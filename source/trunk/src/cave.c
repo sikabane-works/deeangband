@@ -1227,11 +1227,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				 * Creatures with both CHAR_CLEAR and ATTR_CLEAR
 				 * flags are always unseen.
 				 */
-				if(has_trait(creature_ptr, TRAIT_CHAR_CLEAR) && has_trait(creature_ptr, TRAIT_ATTR_CLEAR))
-				{
-					/* Do nothing */
-				}
-				else
+				if(!(has_trait(creature_ptr, TRAIT_CHAR_CLEAR) && has_trait(creature_ptr, TRAIT_ATTR_CLEAR)))
 				{
 					/* Hallucinatory creature */
 					image_creature(ap, cp);
@@ -1267,7 +1263,6 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 					/***  Creature's attr  ***/
 					if(has_trait(creature_ptr, TRAIT_ATTR_CLEAR) && (*ap != TERM_DARK) && !use_graphics)
 					{
-						/* Clear-attr */
 						/* Do nothing */
 					}
 					else if(has_trait(creature_ptr, TRAIT_ATTR_MULTI) && !use_graphics)
@@ -1299,7 +1294,6 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 					/***  Creature's char  ***/
 					if(has_trait(creature_ptr, TRAIT_CHAR_CLEAR) && (*cp != ' ') && !use_graphics)
 					{
-						/* Clear-char */
 						/* Do nothing */
 					}
 					else if(has_trait(creature_ptr, TRAIT_SHAPECHANGER))

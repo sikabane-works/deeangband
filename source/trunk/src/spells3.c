@@ -2784,7 +2784,7 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 			radius = 1;
 			break;
 		default:
-			/* Do nothing */  ;
+			break;
 	}
 
 	(void)project(&creature_list[who], 0, radius, y, x, dam, dt, (PROJECT_JUMP | PROJECT_ITEM | PROJECT_KILL), -1);
