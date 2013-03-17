@@ -2263,7 +2263,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_WEIGH_MAG:
-		report_magics(caster_ptr);
+		//TODO Erase
 		break;
 
 	case TRAIT_STERILITY:

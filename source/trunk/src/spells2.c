@@ -83,21 +83,16 @@ void creature_knowledge(creature_type *creature_ptr)
 	int i = 0, j, k;
 
 	int v_nr = 0;
-	char v_string [MAX_KARMA] [128];
+	char v_string [MAX_KARMA][128];
 	char s_string [6] [128];
-
 	u32b flgs[MAX_TRAITS_FLAG];
-
 	object_type *object_ptr;
 
 	char Dummy[80];
 	char Dummy2[10][80];
 	char buf[2][80];
 	char buf2[100];
-
 	cptr info[280];
-
-	int plev = creature_ptr->lev;
 
 	int percent;
 
@@ -339,59 +334,6 @@ static cptr report_magic_durations[] =
 	"until you hit a creature"
 #endif
 };
-
-
-/*
-* Report all currently active magical effects.
-*/
-void report_magics(creature_type *creature_ptr)
-{
-	int     i = 0, j, k;
-	char    Dummy[80];
-	cptr    info[128];
-	int     info2[128];
-
-	screen_save();
-
-	for (k = 1; k < 24; k++) prt("", k, 3);
-
-	/* Label the information */
-#ifdef JP
-	prt("           –‚–@        :", 1, 5);
-#else
-	prt("     Your Current Magic:", 1, 5);
-#endif
-
-
-	/* We will print on top of the map (column 13) */
-	for (k = 2, j = 0; j < i; j++)
-	{
-		/* Show the info */
-#ifdef JP
-		sprintf(Dummy, "‚ ‚È‚½‚Í%s%s", info[j],
-#else
-		sprintf(Dummy, "%s %s.", info[j],
-#endif
-
-			report_magic_durations[info2[j]]);
-		prt(Dummy, k++, 5);
-
-		/* Every 20 entries (lines 2 to 21), start over */
-		if((k == 22) && (j + 1 < i))
-		{
-			prt(MES_SYS_MORE, k, 5);
-			inkey();
-			for (; k > 2; k--) prt("", k, 5);
-		}
-	}
-
-	prt(MES_SYS_HIT_ANY_KEY, k, 3);
-
-	inkey();
-
-	screen_load();
-}
-
 
 static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, bool known)
 {
@@ -1758,7 +1700,6 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 	int             i, t, y, x, yy, xx, dy, dx;
 	int             damage = 0;
 	int             sn = 0, sy = 0, sx = 0;
-	bool            hurt = FALSE;
 	cave_type       *c_ptr;
 	bool            map[32][32];
 	floor_type      *floor_ptr = GET_FLOOR_PTR(caster_ptr);
@@ -2814,7 +2755,7 @@ void wall_breaker(creature_type *creature_ptr)
 			if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
 			if(!CREATURE_BOLD(creature_ptr, y, x)) break;
 		}
-		project(0, 0, 0, y, x, 20 + randint1(30), DO_EFFECT_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+		project(creature_ptr, 0, 0, creature_ptr->fy, creature_ptr->fx, 20 + randint1(30), DO_EFFECT_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 	}
 	else if(randint1(100) > 30)
 	{

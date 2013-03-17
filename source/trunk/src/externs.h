@@ -1225,7 +1225,6 @@ extern int activate_hi_summon(creature_type *creature_ptr, int y, int x, bool ca
 extern int summon_cyber(creature_type *summoner_ptr, int y, int x);
 extern void wall_breaker(creature_type *creature_ptr);
 extern s32b flag_cost(object_type *object_ptr, int plusses);
-extern void report_magics(creature_type *creature_ptr);
 extern bool teleport_swap(creature_type *creature_ptr, int dir);
 extern bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_ptr);
 extern bool project_all_vision(creature_type *caster_ptr, int typ, int dam);
