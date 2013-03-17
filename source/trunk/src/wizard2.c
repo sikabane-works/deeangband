@@ -299,12 +299,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 
 	sprintf(tmp_val, "%d", 0); // Default
 
-	// Query
-#ifdef JP
-	if(!get_string("ènó˚ìx", tmp_val, 9)) return;
-#else
-	if(!get_string("Proficiency", tmp_val, 9)) return;
-#endif
+	if(!get_string(KW_PROFICIENCY, tmp_val, 9)) return;
 	tmp_s16b = atoi(tmp_val); // Extract
 
 	if(tmp_s16b < SKILL_P_MIN) tmp_s16b = SKILL_P_MIN;
