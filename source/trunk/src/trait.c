@@ -757,12 +757,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			dispel_creature(caster_ptr);
 			break;
 		}
-		{
-			dispel_creature(target_ptr);
-			if(target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
-			learn_trait(target_ptr, TRAIT_DISPEL);
-			break;
-		}
 
 	case TRAIT_SHOOT:
 		cast_bolt(caster_ptr, DO_EFFECT_ARROW, MAX_RANGE_SUB, damage, 0);
@@ -1076,29 +1070,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_HOLD:
 		cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1);
 		break;
-		{
-			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
-			{
-				msg_print(MES_IS_UNAFFECTED);
-			}
-			/* TODO saving_throw
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-			msg_print(MES_RESIST_THE_EFFECT]);
-			}
-			else
-			*/
-			else (void)add_timed_trait(target_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE);
-			learn_trait(target_ptr, TRAIT_HOLD);
-			break;
-		}
 
 	case TRAIT_HAND_DOOM:
 		cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, MAX_RANGE_SUB, 200, 0);
-		break;
-
-		damage = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
-		//breath(target_row, target_col,caster_ptr, DO_EFFECT_HAND_DOOM, damage, 0, FALSE, TRAIT_HAND_DOOM);
 		break;
 
 	case TRAIT_INVULNER:
@@ -1106,36 +1080,27 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BLINK:
-		teleport_creature(caster_ptr, 10, 0L);
-		break;
+		if(teleport_barrier(target_ptr, caster_ptr))
 		{
-
-			if(teleport_barrier(target_ptr, caster_ptr))
-			{
 #ifdef JP
-				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", target_name);
+			msg_format("魔法のバリアが%^sのテレポートを邪魔した。", target_name);
 #else
-				msg_format("Magic barrier obstructs teleporting of %^s.", target_name);
+			msg_format("Magic barrier obstructs teleporting of %^s.", target_name);
 #endif
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sが瞬時に消えた。", target_name);
-#else
-				msg_format("%^s blinks away.", target_name);
-#endif
-				teleport_away(caster_ptr, 10, 0L);
-				prepare_update(caster_ptr, PU_CREATURES);
-			}
-			break;
 		}
+		else
+		{
+#ifdef JP
+			msg_format("%^sが瞬時に消えた。", target_name);
+#else
+			msg_format("%^s blinks away.", target_name);
+#endif
+			teleport_away(caster_ptr, 10, 0L);
+			prepare_update(caster_ptr, PU_CREATURES);
+		}
+		break;
 
 	case TRAIT_ACTIVE_TELEPORT:
-		teleport_creature(caster_ptr, 100, 0L);
-		break;
-		{
-
 			if(teleport_barrier(target_ptr, caster_ptr))
 			{
 #ifdef JP
@@ -1154,7 +1119,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				teleport_away_followable(caster_ptr);
 			}
 			break;
-		}
 
 	case TRAIT_WORLD:
 		caster_ptr->time_stopper = TRUE;
@@ -1362,17 +1326,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
 			break;
 		}
-		{
-#ifdef JP
-			msg_format("%^sがあなたを引き戻した。", target_name);
-#else
-			msg_format("%^s commands you to return.", target_name);
-#endif
-
-			teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_PASSIVE);
-			learn_trait(target_ptr, TRAIT_TELE_TO);
-			break;
-		}
 
 	case TRAIT_DARKNESS:
 		(void)unlite_area(caster_ptr, 10, 3);
@@ -1466,10 +1419,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_S_KIN:
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < 4; k++) (void)summon_kin_player(caster_ptr, user_level, target_row, target_col, (PC_FORCE_PET | PC_ALLOW_GROUP));
-		break;
-
 		{
 			if(caster_ptr->species_idx == SPECIES_SERPENT)
 			{
@@ -1530,12 +1479,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				break;
 
 			default:
-				//summon_kin_type = species_ptr->d_char; // Big hack 
-
-				for (k = 0; k < 4; k++)
-				{
-					count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_KIN, PC_ALLOW_GROUP);
-				}
+				for (k = 0; k < 4; k++) count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_KIN, PC_ALLOW_GROUP);
 				break;
 			}
 			break;
