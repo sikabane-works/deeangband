@@ -1172,23 +1172,11 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 
 		/* No tunnelling through doors */
 		if(have_flag(feature_info[feat].flags, FF_DOOR))
-		{
-#ifdef JP
-			msg_print("ƒhƒA‚ÍŒ@‚ê‚È‚¢B");
-#else
-			msg_print("You cannot tunnel through doors.");
-#endif
-		}
+			msg_print(MES_DIGGING_TUNNEL_DOOR);
 
 		/* No tunnelling through most features */
 		else if(!have_flag(feature_info[feat].flags, FF_TUNNEL))
-		{
-#ifdef JP
-			msg_print("‚»‚±‚ÍŒ@‚ê‚È‚¢B");
-#else
-			msg_print("You can't tunnel through that.");
-#endif
-		}
+			msg_print(MES_DIGGING_TUNNEL_DISABLE);
 
 		/* A creature is in the way */
 		else if(c_ptr->creature_idx)
@@ -1199,11 +1187,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		}
 
 		/* Try digging */
-		else
-		{
-			/* Tunnel through walls */
-			more = do_cmd_tunnel_aux(creature_ptr, y, x);
-		}
+		else more = do_cmd_tunnel_aux(creature_ptr, y, x);
 	}
 
 	/* Cancel repetition unless we can continue */
