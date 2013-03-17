@@ -85,10 +85,9 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 */
 static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, s16b hand, int mode)
 {
-	int		num = 0, k, bonus, chance;
-
-	floor_type      *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
-	cave_type       *c_ptr = &floor_ptr->cave[y][x];
+	int k, bonus, chance;
+	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	// Access the weapon
 	object_type *weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, hand);
@@ -103,7 +102,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	int  chaos_effect = 0;
 	bool stab_fleeing = FALSE;
 	bool fatal_spot = FALSE;
-	bool tramping = FALSE;
 	bool do_quake = FALSE;
 	bool weak = FALSE;
 	bool drain_msg = TRUE;
@@ -136,16 +134,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 	object_desc(weapon_name, weapon_ptr, OD_NAME_ONLY);
 
-	if(object_is_melee_weapon(attacker_ptr, weapon_ptr))
-	{
-		// Weapon skill mastering
-		if(target_ptr->lev + 10 > attacker_ptr->lev && attacker_ptr->class_idx != INDEX_NONE)
-		{
-			int tval = attacker_ptr->inventory[hand].tval - TV_WEAPON_BEGIN;
-			int sval = attacker_ptr->inventory[hand].sval;
-			//TODO skill gain
-		}
-	}
+	// Weapon skill mastering
+	//TODO skill gain
 
 	// Disturb the creature
 	if(has_trait_from_timed(target_ptr, TRAIT_SLEPT)) 
@@ -556,7 +546,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	}
 	else if(has_trait_object(weapon_ptr, TRAIT_SEIZING_ATTACK))
 	{
-		creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 		//TODO reimplement get item process.
 	}
 
@@ -710,17 +699,10 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 	}
 }
 
-static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
-{
-	creature_type   *m_ptr = &creature_list[m_idx];
-	species_type    *species_ptr = &species_info[m_ptr->species_idx];
-}
-
 static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x)
 {
 	char attacker_name[MAX_NLEN], target_name[MAX_NLEN];
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
-	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 	int special_effect = 0, stun_effect = 0, times = 0, max_times;
 	int min_level = 1;
@@ -854,7 +836,6 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
-	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	if(has_trait(attacker_ptr, TRAIT_CONFUSING_MELEE)) // Cancel glowing hands
 	{
@@ -999,8 +980,6 @@ bool is_melee_limitation_field(floor_type *floor_ptr)
 bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 {
 	int i;
-
-	bool fear = FALSE;
 	bool dead = FALSE;
 
 	floor_type      *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
@@ -3114,10 +3093,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 static void tramping_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
 	char attacker_name[100], target_name[100];
-
-	floor_type      *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
-	cave_type       *c_ptr = &floor_ptr->cave[y][x];
-	species_type    *species_ptr = &species_info[target_ptr->species_idx];
 
 	if(!mdeath)
 	{

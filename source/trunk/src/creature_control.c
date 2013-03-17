@@ -776,8 +776,6 @@ void compact_creatures(int size)
 	if(size) msg_print("Compacting creatures...");
 #endif
 
-	return;
-
 	/* Compact at least 'size' objects */
 	for (num = 0, cnt = 1; num < size; cnt++)
 	{

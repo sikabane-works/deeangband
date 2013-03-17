@@ -1231,6 +1231,7 @@ bool saving_throw(creature_type *creature_ptr, int type, int difficulty, u32b op
 	case SAVING_AC: power = creature_ptr->ac + creature_ptr->to_ac; break;
 	case SAVING_EV: power = creature_ptr->ev + creature_ptr->to_ev; break;
 	case SAVING_VO: power = creature_ptr->vo + creature_ptr->to_vo; break;
+	default: power = 0;
 	};
 
 	challange = difficulty - power;
