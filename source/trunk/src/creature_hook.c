@@ -57,8 +57,6 @@ static void hooked_roff(cptr str)
  */
 static void roff_aux(species_type *species_ptr, int mode)
 {
-	bool nightmare = has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR) && !(mode & 0x02);
-
 	/* Descriptions */
 	{
 		cptr tmp = species_text + species_ptr->text;
@@ -225,8 +223,6 @@ void output_creature_spoiler(int species_idx, void (*roff_func)(byte attr, cptr 
 bool species_hook_dungeon(int species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
-	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-
 	if(!has_trait_species(species_ptr, TRAIT_WILD_ONLY)) return TRUE;
 	else
 	{

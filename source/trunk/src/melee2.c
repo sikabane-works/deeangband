@@ -2370,7 +2370,6 @@ static void process_creature(int i)
 
 	// Access the creature
 	creature_type *creature_ptr = &creature_list[i];
-	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Ignore dead or out of floot creatures

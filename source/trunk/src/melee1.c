@@ -702,7 +702,6 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x)
 {
 	char attacker_name[MAX_NLEN], target_name[MAX_NLEN];
-	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 	int special_effect = 0, stun_effect = 0, times = 0, max_times;
 	int min_level = 1;
@@ -835,8 +834,6 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 
 static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
-
 	if(has_trait(attacker_ptr, TRAIT_CONFUSING_MELEE)) // Cancel glowing hands
 	{
 		set_timed_trait(attacker_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);

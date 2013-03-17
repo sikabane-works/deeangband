@@ -64,18 +64,10 @@ static bool int_outof(species_type *species_ptr, int prob)
  */
 static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u32b *f6p)
 {
-	species_type *species_ptr = &species_info[caster_ptr->species_idx];
-
-	u32b f4 = (*f4p);
-	u32b f5 = (*f5p);
-	u32b f6 = (*f6p);
-
 	u32b smart = 0L;
-
 
 	/* Too stupid to know anything */
 	if(has_trait(caster_ptr, TRAIT_STUPID)) return;
-
 
 	/* Must be cheating or learning */
 	if(!smart_cheat && !smart_learn) return;
@@ -623,9 +615,6 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	bool            no_inate = FALSE;
 	bool            do_spell = DO_SPELL_NONE;
 	int             dam = 0;
-	u32b mode = 0L;
-	int s_num_6 = 6;
-	int s_num_4 = 4;
 
 	// Target location
 	int x = target_ptr->fx;
@@ -635,26 +624,18 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	int x_br_lite = 0;
 	int y_br_lite = 0;
 
-	// Summon count
-	int count = 0;
-
 	/* Extract the blind-ness */
 	bool blind = (has_trait(target_ptr, TRAIT_BLIND) ? TRUE : FALSE);
 
 	/* Extract the "see-able-ness" */
 	bool seen = (!blind && caster_ptr->see_others);
-
 	bool maneable = player_has_los_bold(caster_ptr->fy, caster_ptr->fx);
-	bool learnable = (seen && maneable && !the_world);
 
 	/* Check "projectable" */
 	bool direct;
-
 	bool in_no_magic_dungeon = (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && floor_ptr->depth
 		&& (!floor_ptr->quest || is_fixed_quest_idx(floor_ptr->quest));
-
 	bool can_use_lite_area = FALSE;
-
 	bool can_remember;
 
 	/* Cannot cast spells when confused */

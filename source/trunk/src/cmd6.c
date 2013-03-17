@@ -1108,9 +1108,7 @@ static int staff_effect(creature_type *caster_ptr, int sval, bool *use_charge, b
 					if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
 					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
 				}
-
-				project(caster_ptr, 0, 0, y, x, diceroll(6 + caster_ptr->lev / 8, 10), DO_EFFECT_LITE_WEAK,
-						  (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
+				project(caster_ptr, 0, 0, y, x, diceroll(6 + caster_ptr->lev / 8, 10), DO_EFFECT_LITE_WEAK, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}
 			ident = TRUE;
 			break;
