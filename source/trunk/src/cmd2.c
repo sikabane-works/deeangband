@@ -1290,11 +1290,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	else if(object_ptr->pval <= 0 || !chest_traps[object_ptr->pval]) msg_print(MES_DISARM_NO_TRAP_CHEST);
 	else if(PERCENT(j)) // Success (get a lot of experience)
 	{
-#ifdef JP
-		msg_print("箱に仕掛けられていたトラップを解除した。");
-#else
-		msg_print("You have disarmed the chest.");
-#endif
+		msg_print(MES_DISARM_CHEST);
 		gain_exp(creature_ptr, object_ptr->pval, 0, FALSE);
 		object_ptr->pval = (0 - object_ptr->pval);
 	}
