@@ -43,7 +43,7 @@ static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, 
 bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int oy, ox, d, i, min, m_idx;
+	int oy, ox, d, i, min, m_idx = 0;
 	int tries = 0;
 	int ny = 0, nx = 0;
 	bool look = TRUE;
@@ -3901,7 +3901,6 @@ bool polymorph_creature(creature_type *creature_ptr)
 	if(new_species_idx != old_species_idx)
 	{
 		u32b mode = 0L;
-		s16b next_object_idx = 0;
 
 		/* Get the creatures attitude */
 		if(is_friendly(player_ptr, creature_ptr)) mode |= PC_FORCE_FRIENDLY;

@@ -326,22 +326,6 @@ void object_flags_known(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG])
 	}
 }
 
-
-/*
- * Determine the "Activation" (if any) for an artifact
- * Return a string, or NULL for "no activation"
- */
-cptr item_activation(object_type *object_ptr)
-{
-
-#ifdef JP
-	return "‹ó‹C‚Ì‘§";
-#else
-	return "breathe air";
-#endif
-
-}
-
 // Describe a "fully identified" item
 bool screen_object(object_type *object_ptr, u32b mode)
 {
@@ -384,7 +368,7 @@ s16b label_to_item(creature_type *creature_ptr, int c)
 // Return a string mentioning how a given item is carried
 cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 {
-	cptr p;
+	cptr p = NULL;
 
 	/* Examine the location */
 	switch (slot)

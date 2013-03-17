@@ -4518,7 +4518,6 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 			if(grids <= 1)
 			{
 				creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
-				species_type *ref_ptr = &species_info[m_ptr->species_idx];
 
 				if((flg & PROJECT_REFLECTABLE) && floor_ptr->cave[y][x].creature_idx && has_trait(m_ptr, TRAIT_REFLECTING) &&
 					((floor_ptr->cave[y][x].creature_idx != player_ptr->riding) || !(flg & PROJECT_PLAYER)) &&

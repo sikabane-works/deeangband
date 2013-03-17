@@ -1076,7 +1076,6 @@ extern s16b m_bonus(int max, int level);
 extern void reset_visuals(void);
 extern void object_flags(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG]);
 extern void object_flags_known(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG]);
-extern cptr item_activation(object_type *object_ptr);
 extern bool screen_object(object_type *object_ptr, u32b mode);
 extern char index_to_label(int i);
 extern s16b label_to_item(creature_type *creature_ptr, int c);
