@@ -261,7 +261,6 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 
 	creature_type *creature_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
 	/* Creature location */
 	y1 = creature_ptr->fy;
@@ -760,7 +759,6 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *species_ptr = &species_info[m_ptr->species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	int fy = m_ptr->fy;
@@ -830,7 +828,6 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 {
 	creature_type *nonplayer_ptr = &creature_list[m_idx];
-	species_type *species_ptr = &species_info[nonplayer_ptr->species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	int          y, ay, x, ax;
 	int          move_val = 0;
@@ -945,7 +942,6 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	}
 
 	if(!done)
-
 	{
 		/* Flow towards the player */
 		(void)get_moves_aux(player_ptr, m_idx, &y2, &x2, no_flow);

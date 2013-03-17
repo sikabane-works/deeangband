@@ -905,7 +905,6 @@ void do_cmd_cast(creature_type *creature_ptr)
 		}
 		if(magic_info[creature_ptr->class_idx].spell_xtra & MAGIC_GAIN_EXP)
 		{
-			s16b exp_gain = 0;
 			//TODO gain_skill(creature_ptr, TODO, amount)
 		}
 	}

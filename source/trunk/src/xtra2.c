@@ -1725,7 +1725,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 	if(c_ptr->creature_idx && creature_list[c_ptr->creature_idx].see_others)
 	{
 		creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
-		species_type *ap_r_ptr = &species_info[m_ptr->ap_species_idx];
 		char m_name[120];
 		bool recall = FALSE;
 
@@ -1822,8 +1821,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 	if(floor_num)
 	{
-		int min_width = 0;
-
 		while(TRUE)
 		{
 			if(floor_num == 1)
