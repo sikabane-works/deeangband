@@ -34,24 +34,15 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	int count = 0;
 
 	int x = 0, y = 0;
-	int learnable = FALSE;
-
-	bool g_mode = FALSE;
-	bool p_mode = FALSE;
-	bool pet = FALSE;
-	bool no_trump = FALSE;
-	int summon_lev = 0;
 
 	bool kichigai_talk = FALSE;
 	bool summoned = FALSE;
-	bool powerful_summoned = FALSE;
 	bool fumble_summoned = FALSE;
 
 	cptr summoned_name = "";
 
 	// process flags
 	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE);
-	bool seen = (!blind && caster_ptr->see_others);
 
 	if(randint1(50 + user_level) < user_level / 10) u_mode = PC_ALLOW_UNIQUE;
 
@@ -1685,57 +1676,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			break;
 		}
 
-		{
-			{
-				for (k = 0; k < s_num_6; k++)
-				{
-					count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-				}
-			}
-			if(blind && count)
-			{
-#ifdef JP
-				msg_print("間近で何か多くのものが這い回る音が聞こえる。");
-#else
-				msg_print("You hear many creepy things appear nearby.");
-#endif
-
-			}
-			break;
-		}
-
-		{
-
-			{
-				for (k = 0; k < s_num_6; k++)
-				{
-					count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-				}
-			}
-			if(blind && count)
-			{
-#ifdef JP
-				msg_print("間近で何か多くのものが這い回る音が聞こえる。");
-#else
-				msg_print("You hear many creepy things appear nearby.");
-#endif
-
-			}
-			break;
-		}
-
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, TRAIT_S_HI_UNDEAD, (g_mode | p_mode | u_mode)))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
-
-
 	case TRAIT_S_HI_DRAGON:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
@@ -1959,8 +1899,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_POSTURE2:
 		{
-			int max_csp = MAX(caster_ptr->msp*4, caster_ptr->lev*5+5);
-
 			if(caster_ptr->total_friends)
 			{
 				msg_print(MES_PREVENT_BY_PET);
