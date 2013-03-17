@@ -263,7 +263,7 @@ static void rd_object(object_type *object_ptr)
 	rd_s32b(&object_ptr->volume);
 	rd_s32b(&object_ptr->weight);
 	rd_byte(&object_ptr->name1);
-	rd_s16b(&object_ptr->name2);
+	rd_u16b(&object_ptr->name2);
 
 	rd_s32b(&object_ptr->timeout);
 	rd_s16b(&object_ptr->charge_const);
@@ -314,8 +314,8 @@ static void rd_object(object_type *object_ptr)
 	rd_s16b(&object_ptr->size_lower);
 	rd_s16b(&object_ptr->to_size);
 
-	for(i = 0; i < MAX_TRAITS_FLAG; i++) rd_s32b(&object_ptr->trait_flags[i]);
-	for(i = 0; i < MAX_TRAITS_FLAG; i++) rd_s32b(&object_ptr->curse_flags[i]);
+	for(i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&object_ptr->trait_flags[i]);
+	for(i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&object_ptr->curse_flags[i]);
 
 	return;
 }
@@ -349,7 +349,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 	/* Read until done */
 	while(TRUE)
 	{
-		u16b n;
+		u16b n = 0;
 
 		rd_u16b(&n); // Get the next item index
 		if(n == 0xFFFF) break; // Nope, we reached the end
@@ -797,14 +797,14 @@ static void rd_creature(creature_type *creature_ptr)
 	if(tmp16u > CREATURE_MAX_LEVEL) note(format("Too many (%u) hitpoint entries!", tmp16u));
 	for (i = 0; i < tmp16u; i++) rd_s16b(&creature_ptr->base_hp[i]);
 
-	for (i = 0; i < 8; i++) rd_s32b(&creature_ptr->authority[i]);
+	for (i = 0; i < 8; i++) rd_u32b(&creature_ptr->authority[i]);
 	for (i = 0; i < MAX_REALM; i++) rd_s16b(&creature_ptr->spell_exp[i]);
 	for (i = 0; i < MAX_SKILLS; i++) rd_s16b(&creature_ptr->skill_exp[i]);
 
 	// Class skill
-	for (i = 0; i < MAX_TRAITS_FLAG; i++) rd_s32b(&creature_ptr->blue_learned_trait[i]);
+	for (i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&creature_ptr->blue_learned_trait[i]);
 
-	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_u32b(&creature_ptr->current_charge[i]);
+	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_s32b(&creature_ptr->current_charge[i]);
 	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_byte(&creature_ptr->max_charge[i]);		
 
 	if(MUSIC_SINGING_ANY(creature_ptr)) creature_ptr->action = ACTION_SING;
@@ -889,8 +889,8 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->learned_spells);
 	rd_s16b(&creature_ptr->add_spells);
 
-	rd_s16b(&creature_ptr->start_wx);
-	rd_s16b(&creature_ptr->start_wy);
+	rd_u16b(&creature_ptr->start_wx);
+	rd_u16b(&creature_ptr->start_wy);
 
 	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) rd_byte(&creature_ptr->spell_order[i]);
 
@@ -1287,7 +1287,7 @@ static errr rd_savefile_new_aux(void)
 	/*** Creatures ***/
 
 	// Read the creature count
-	rd_u16b(&limit);
+	rd_s16b(&limit);
 	if(limit > max_creature_idx) return LOAD_ERROR_TOO_MANY_CREATURE;
 
 	//TODO
@@ -1322,7 +1322,7 @@ static errr rd_savefile_new_aux(void)
 	}
 
 	/*** Objects ***/
-	rd_u16b(&limit); // Read the item count
+	rd_s16b(&limit); // Read the item count
 	if(limit > max_object_idx) return LOAD_ERROR_TOO_MANY_ITEM; // Verify maximum
 	for (i = 1; i < limit; i++)	// Read dropped items
 	{
