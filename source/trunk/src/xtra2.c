@@ -626,7 +626,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 			for (i = 0; i < 2; i++)
 			{
-				int wy = y, wx = x;
 				bool pet = is_pet(player_ptr, dead_ptr);
 				u32b mode = 0L;
 
@@ -741,9 +740,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	// Mega-Hack -- drop fixed items
 	if(drop_chosen_item)
 	{
-		int a_idx = 0;
-		int chance = 0;
-
 		if(has_trait(dead_ptr, TRAIT_GUARDIAN) && (dungeon_info[floor_ptr->dun_type].final_guardian == dead_ptr->species_idx))
 		{
 			int k_idx = dungeon_info[floor_ptr->dun_type].final_object ? dungeon_info[floor_ptr->dun_type].final_object
