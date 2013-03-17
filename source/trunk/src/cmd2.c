@@ -794,12 +794,9 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 		}
 	}
 
-	/* Closed door */
 	else
 	{
-		/* Open the door */
 		cave_alter_feat(floor_ptr, y, x, FF_OPEN);
-
 		sound(SOUND_OPENDOOR);
 	}
 
@@ -887,11 +884,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		}
 
 		/* Handle doors */
-		else
-		{
-			/* Open the door */
-			more = do_cmd_open_aux(creature_ptr, y, x);
-		}
+		else more = do_cmd_open_aux(creature_ptr, y, x);
 	}
 
 	/* Cancel repeat unless we may continue */
@@ -1337,12 +1330,10 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 
 	/* Extract trap "power" */
 	int power = f_ptr->power;
-
 	bool more = FALSE;
 
 	/* Get the "disarm" factor */
 	int i = creature_ptr->skill_dis;
-
 	int j;
 
 	cost_tactical_energy(creature_ptr, 100);
@@ -1418,10 +1409,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 	{
 		/* Set repeat count */
 		command_rep = command_arg - 1;
-
 		prepare_redraw(PR_STATE);
-
-		/* Cancel the arg */
 		command_arg = 0;
 	}
 
@@ -1484,7 +1472,6 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 
 	/* Compare bash power to door power  */
 	temp = (bash - (temp * 10));
-
 	if(creature_ptr->class_idx == CLASS_BERSERKER) temp *= 2;
 
 	/* Hack -- always have a chance */
@@ -1500,7 +1487,6 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 		if((PERCENT(50)) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
 			cave_alter_feat(floor_ptr, y, x, FF_BASH);
 
-		/* Open the door */
 		else cave_alter_feat(floor_ptr, y, x, FF_OPEN);
 
 		/* Hack -- Fall through the door */

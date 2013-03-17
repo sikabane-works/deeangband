@@ -1946,13 +1946,7 @@ static void process_nonplayer(int m_idx)
 						return;
 					}
 				}
-
-				/* Open the door */
-				else
-				{
-					cave_alter_feat(floor_ptr, ny, nx, FF_OPEN);
-				}
-
+				else cave_alter_feat(floor_ptr, ny, nx, FF_OPEN);
 				f_ptr = &feature_info[c_ptr->feat];
 
 				/* Handle viewable doors */
@@ -1972,11 +1966,7 @@ static void process_nonplayer(int m_idx)
 				/* Describe observable breakage */
 				if(c_ptr->info & CAVE_MARK) msg_print(MES_BREAK_P_RUNE);
 
-				/* Forget the rune */
-				c_ptr->info &= ~(CAVE_MARK);
-
-				/* Break the rune */
-				c_ptr->info &= ~(CAVE_OBJECT);
+				c_ptr->info &= ~(CAVE_MARK | CAVE_OBJECT);
 				c_ptr->mimic = 0;
 
 				/* Allow movement */
@@ -2004,10 +1994,7 @@ static void process_nonplayer(int m_idx)
 						project(player_ptr, 0, 2, ny, nx, 2 * (player_ptr->lev + diceroll(7, 7)), DO_EFFECT_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 					}
 				}
-				else
-				{
-					msg_print(MES_DISARM_E_RUNE);
-				}
+				else msg_print(MES_DISARM_E_RUNE);
 
 				/* Forget the rune */
 				c_ptr->info &= ~(CAVE_MARK);
@@ -2033,8 +2020,6 @@ static void process_nonplayer(int m_idx)
 			{
 				/* Hack -- memorize lack of attacks */
 				if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_NEVER_BLOW);
-
-				/* Do not move */
 				do_move = FALSE;
 			}
 
@@ -2197,8 +2182,6 @@ static void process_nonplayer(int m_idx)
 		{
 			/* Hack -- memorize lack of moves */
 			if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_NEVER_MOVE);
-
-			/* Do not move */
 			do_move = FALSE;
 		}
 
@@ -2238,18 +2221,11 @@ static void process_nonplayer(int m_idx)
 
 				/* Update the creature */
 				update_creature_view(player_ptr, m_idx, TRUE);
-
 				lite_spot(floor_ptr, oy, ox);
-
 				lite_spot(floor_ptr, ny, nx);
 			}
-			else
-			{
-				/* sound(SOUND_WALK); */
-
-				/* Move the player */
-				if(!move_creature(player_ptr, NULL, ny, nx, MCE_DONT_PICKUP)) break;
-			}
+			/* Move the player */
+			else if(!move_creature(player_ptr, NULL, ny, nx, MCE_DONT_PICKUP)) break;
 
 			/* Possible disturb */
 			if(creature_ptr->see_others &&
@@ -2289,8 +2265,7 @@ static void process_nonplayer(int m_idx)
 						 * silliness like a novice rogue pockets full of statues
 						 * and corpses.
 						 */
-						if((object_ptr->tval == TV_CORPSE) ||
-						    (object_ptr->tval == TV_STATUE)) continue;
+						if((object_ptr->tval == TV_CORPSE) || (object_ptr->tval == TV_STATUE)) continue;
 					}
 
 					/* Acquire the object name */
