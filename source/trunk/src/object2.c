@@ -2148,7 +2148,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				//TODO add EGO
 				while(!object_ptr->name2)
 				{
-					object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 					switch(randint1(21))
 					{
 					case 16: case 17: case 18: case 19: case 20:
@@ -2820,7 +2819,6 @@ bool make_random_object(object_type *object_ptr, u32b mode, u32b gon_mode, int l
 	int prob, base;
 	int k_idx;
 	byte obj_level;
-	floor_type *floor_ptr = GET_FLOOR_PTR(object_ptr);
 
 	prob = ((mode & AM_GOOD) ? 10 : 1000); // Chance of "special object"
 	base = ((mode & AM_GOOD) ? (level + 10) : level); // Base level for the object

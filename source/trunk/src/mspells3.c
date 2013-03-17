@@ -251,7 +251,6 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 	int             y = 1;
 	int             x = 18;
 	int             minfail = 0;
-	int             plev = creature_ptr->lev;
 	int             chance = 0;
 	int             ask = TRUE, mode = 0;
 	int             spellnum[MAX_TRAITS];
@@ -642,14 +641,11 @@ static bool cast_learned_spell(creature_type *caster_ptr, int spell, bool succes
  */
 bool do_cmd_cast_learned(creature_type *creature_ptr)
 {
-	int             n = 0;
-	int             chance;
-	int             minfail = 0;
-	int             plev = creature_ptr->lev;
+	int n = 0;
+	int chance, need_mana;
+	int minfail = 0;
 	trait_type *spell;
-	bool            cast;
-	int             need_mana;
-
+	bool cast;
 
 	/* not if confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))

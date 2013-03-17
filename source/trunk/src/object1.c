@@ -686,9 +686,7 @@ void display_inven(creature_type *creature_ptr)
 // Choice window "shadow" of the "show_item_list()" function
 void display_equip(creature_type *creature_ptr)
 {
-	register        int i, j, l, n;
-	byte            attr = TERM_WHITE;
-	int             wid, hgt;
+	int i, j, l, n, wid, hgt;
 
 	Term_get_size(&wid, &hgt);	// Get size
 

@@ -526,13 +526,10 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 	power_desc_type power_desc[36];
 	int             num, i = 0;
 	int             ask = TRUE;
-	int             lvl = creature_ptr->lev;
 	bool            flag, redraw, cast = FALSE;
-	bool            warrior = (class_info[creature_ptr->class_idx].type == CLASS_TYPE_WARRIOR ? TRUE : FALSE);
 	char            choice;
 	char            out_val[160];
 	int menu_line = (use_menu ? 1 : 0);
-
 
 	for (num = 0; num < 36; num++)
 	{
