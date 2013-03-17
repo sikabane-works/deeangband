@@ -19,7 +19,6 @@
 static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_ptr)
 {
 	int aura_damage = 0;
-	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	if(has_trait(target_ptr, TRAIT_AURA_FIRE))
 	{

@@ -38,8 +38,6 @@ void init_saved_floors(bool force)
 
 	for (i = 0; i < MAX_FLOORS; i++)
 	{
-		floor_type *sf_ptr = &floor_list[i];
-
 		// File name 
 		sprintf(floor_savefile, "%s.F%02d", savefile, i);
 

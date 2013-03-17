@@ -86,7 +86,6 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 	int             y = 1;
 	int             x = 18;
 	int             minfail = 0;
-	int             plev = creature_ptr->lev;
 	int             chance = 0;
 	int             ask;
 	char            choice;
@@ -260,7 +259,6 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 	int             n = 0, j;
 	int             chance;
 	int             minfail = 0;
-	int             plev = creature_ptr->lev;
 	trait_type spell_;
 	bool            cast;
 

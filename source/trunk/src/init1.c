@@ -3062,20 +3062,14 @@ static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 }
 
 
-/*
- * Grab one (basic) flag in a species_type from a textual string
- */
+/* Grab one (basic) flag in a species_type from a textual string */
 static errr grab_one_race_flags(traits_precondition *flag_ptr, cptr what, byte add, byte remove)
 {
-
-
 #ifdef JP
 	msg_format("未知の種族フラグ '%s'。", what);
 #else
 	msg_format("Unknown race flag '%s'.", what);
 #endif
-
-
 	return PARSE_ERROR_GENERIC;
 }
 
