@@ -1938,7 +1938,6 @@ static int breakage_chance(creature_type *creature_ptr, object_type *object_ptr)
 static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr)
 {
 	int mult = 10;
-	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	/* Some "weapons" and "ammo" do extra damage */
 	switch (object_ptr->tval)
@@ -2421,9 +2420,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		{
 			int armour;
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
-
 			creature_type *steed_ptr = &creature_list[c_ptr->creature_idx];
-			species_type *species_ptr = &species_info[steed_ptr->species_idx];
 
 			/* Check the visibility */
 			visible = steed_ptr->see_others;
@@ -2448,7 +2445,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			/* Did we hit it (penalize range) */
 			if(test_hit_fire(creature_ptr, chance - cur_dis, armour, steed_ptr->see_others))
 			{
-				bool fear = FALSE;
 				int tdam = tdam_base;
 
 				/* Get extra damage from concentration */
@@ -2613,7 +2609,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	if(stick_to)
 	{
 		int m_idx = floor_ptr->cave[y][x].creature_idx;
-		creature_type *steed_ptr = &creature_list[m_idx];
 		int object_idx = object_pop();
 
 		if(!object_idx)
@@ -2749,7 +2744,7 @@ static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type 
 bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int shuriken)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int dir, item;
+	int dir, item = 0;
 	int i, j, y, x, ty, tx, prev_y, prev_x;
 	int ny[19], nx[19];
 	int chance, tdam, tdis;
@@ -2758,7 +2753,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	object_type forge;
 	object_type *quest_ptr;
-
 	object_type *object_ptr;
 
 	bool hit_body = FALSE;
@@ -2965,7 +2959,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
-			species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 			/* Check the visibility */
 			visible = m_ptr->see_others;
@@ -2975,10 +2968,9 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			/* Did we hit it (penalize range) */
 			if(test_hit_fire(creature_ptr, chance - cur_dis, m_ptr->ac + m_ptr->to_ac, m_ptr->see_others))
 			{
-				bool fear = FALSE;
-
 				/* Handle unseen creature */
 				if(!visible) MES_SHOOT_MARK(object_name);
+
 				/* Handle visible creature */
 				else
 				{

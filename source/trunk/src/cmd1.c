@@ -88,7 +88,6 @@ s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
 s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr, int mode, bool thrown)
 {
 	int mult = 10;
-	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	u32b flgs[MAX_TRAITS_FLAG];
 	object_flags(object_ptr, flgs); // Extract the flags
@@ -543,8 +542,6 @@ void carry(creature_type *creature_ptr, bool pickup)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
-	int max_len = 0;
-	s16b floor_num = 0, next_object_idx = 0;
 	
 	verify_panel(creature_ptr); // Recenter the map around the player
 	prepare_update(creature_ptr, PU_CREATURES);
@@ -1257,11 +1254,10 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	if(!floor_ptr->depth && !floor_ptr->global_map && ((x == 0) || (x == MAX_WID - 1) || (y == 0) || (y == MAX_HGT - 1)))
 	{
-		int tmp_wx, tmp_wy, tmp_px, tmp_py;
+		int tmp_wx = 0, tmp_wy = 0, tmp_px = 0, tmp_py = 0;
 
 		// Can the player enter the grid?//
 		if(c_ptr->mimic && creature_can_cross_terrain(creature_ptr, c_ptr->mimic, 0))
@@ -1403,9 +1399,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	creature_type *target_ptr;
-
 	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
-	species_type *riding_r_ptr = &species_info[creature_ptr->riding ? steed_ptr->species_idx : 0]; 
 
 	char m_name[MAX_NLEN];
 
@@ -1430,8 +1424,6 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	/* Hack -- attack creatures */
 	if(c_ptr->creature_idx && (target_ptr->see_others || can_enter || can_kill_walls))
 	{
-		species_type *species_ptr = &species_info[target_ptr->species_idx];
-
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if(!is_hostile(target_ptr) &&
 		    !(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_HALLUCINATION) || !target_ptr->see_others || has_trait(creature_ptr, TRAIT_STUN) ||
@@ -2406,7 +2398,7 @@ static bool travel_test(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	int prev_dir, new_dir, check_dir = 0;
+	int prev_dir, new_dir;
 	int row, col;
 	int i, max;
 	bool stop = TRUE;
@@ -2485,8 +2477,6 @@ void travel_step(creature_type *creature_ptr)
 	int i;
 	int dir = travel.dir;
 	int old_run = travel.run;
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-
 	find_prevdir = dir;
 
 	if(travel_test(creature_ptr))
