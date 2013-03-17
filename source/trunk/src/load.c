@@ -695,52 +695,6 @@ static void rd_options(void)
 	}
 }
 
-
-
-/*
- * Save quick start data
- */
-static void load_quick_start(species_type *species_ptr)
-{
-	byte tmp8u;
-	int i;
-
-	rd_s16b(&species_ptr->sex);
-	rd_s16b(&species_ptr->race_idx1);
-	rd_s16b(&species_ptr->race_idx2);
-	for (i = 0; i < RACE_FLAG_MAX; i++) rd_u32b(&species_ptr->sub_race[i]);
-	rd_s16b(&species_ptr->class_idx);
-	rd_s16b(&species_ptr->chara_idx);
-	rd_s16b(&species_ptr->realm1);
-	rd_s16b(&species_ptr->realm2);
-	rd_s32b(&species_ptr->age);
-	rd_s32b(&species_ptr->m_b_ht);
-	rd_s32b(&species_ptr->m_m_ht);
-	rd_s32b(&species_ptr->f_b_ht);
-	rd_s32b(&species_ptr->f_m_ht);
-	rd_s32b(&species_ptr->m_b_wt);
-	rd_s32b(&species_ptr->m_m_wt);
-	rd_s32b(&species_ptr->f_b_wt);
-	rd_s32b(&species_ptr->f_m_wt);
-	rd_s16b(&species_ptr->sc);
-	rd_s32b(&species_ptr->au);
-
-	for (i = 0; i < STAT_MAX; i++) rd_s16b(&species_ptr->stat_max[i]);
-	for (i = 0; i < STAT_MAX; i++) rd_s16b(&species_ptr->stat_max_max[i]);
-
-	for (i = 0; i < CREATURE_MAX_LEVEL; i++) rd_s16b(&species_ptr->base_hp[i]);
-
-	rd_s16b(&species_ptr->patron_idx);
-	rd_s16b(&species_ptr->father_idx);
-	rd_s16b(&species_ptr->mother_idx);
-
-	for (i = 0; i < HISTORY_ROW; i++) rd_string(species_ptr->history[i], sizeof(species_ptr->history[i]));
-
-	/* UNUSED : Was number of random quests */
-	rd_byte(&tmp8u);
-
-}
-
 static void rd_creature(creature_type *creature_ptr)
 {
 	int i;
