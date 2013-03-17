@@ -1492,7 +1492,6 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			/* Acquire the creature name */
 			creature_desc(m_name, steed_ptr, 0);
 
-			/* Dump a message */
 			msg_format(MES_WALK_STEED_FEAR(m_name));
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);

@@ -2282,7 +2282,6 @@ static void process_nonplayer(int m_idx)
 						/* Describe observable situations */
 						if(creature_ptr->see_others && creature_can_see_bold(player_ptr, ny, nx))
 						{
-							/* Dump a message */
 #ifdef JP
 							msg_format("%^s‚Í%s‚ðE‚¨‚¤‚Æ‚µ‚½‚ªA‚¾‚ß‚¾‚Á‚½B", creature_name, object_name);
 #else
@@ -2299,7 +2298,6 @@ static void process_nonplayer(int m_idx)
 						/* Describe observable situations */
 						if(creature_can_see_bold(player_ptr, ny, nx))
 						{
-							/* Dump a message */
 #ifdef JP
 							msg_format("%^s‚ª%s‚ðE‚Á‚½B", creature_name, object_name);
 #else
@@ -2328,7 +2326,6 @@ static void process_nonplayer(int m_idx)
 						/* Describe observable situations */
 						if(player_has_los_bold(ny, nx))
 						{
-							/* Dump a message */
 #ifdef JP
 							msg_format("%^s‚ª%s‚ð”j‰ó‚µ‚½B", creature_name, object_name);
 #else
@@ -2351,8 +2348,7 @@ static void process_nonplayer(int m_idx)
 	 *  Forward movements failed, but now received LOS attack!
 	 *  Try to flow by smell.
 	 */
-	if(player_ptr->no_flowed && i > 2 &&  creature_ptr->target_y)
-		creature_ptr->sc_flag2 &= ~SC_FLAG2_NOFLOW;
+	if(player_ptr->no_flowed && i > 2 &&  creature_ptr->target_y) creature_ptr->sc_flag2 &= ~SC_FLAG2_NOFLOW;
 
 	/* If we haven't done anything, try casting a spell again */
 	if(!do_turn && !do_move && !has_trait(creature_ptr, TRAIT_AFRAID) && !is_riding_mon && aware)
@@ -2362,46 +2358,27 @@ static void process_nonplayer(int m_idx)
 			if(make_attack_spell(creature_ptr, player_ptr)) return;
 	}
 
-
 	/* Notice changes in view */
 	if(do_view)
 	{
-		/* Update some things */
 		prepare_update(creature_ptr, PU_FLOW);
-
 		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 	}
 
 	/* Notice changes in view */
 	if(do_move && (is_self_ld_creature(creature_ptr) || is_darken_creature(creature_ptr))
 		|| ((has_trait(creature_ptr, TRAIT_HAS_LITE_1) || has_trait(creature_ptr, TRAIT_HAS_LITE_2)) && !floor_ptr->gamble_arena_mode))
-	{
-		/* Update some things */
 		prepare_update(creature_ptr, PU_SPECIES_LITE);
-	}
 
 	/* Learn things from observable creature */
 	if(is_original_ap_and_seen(player_ptr, creature_ptr))
 	{
-		/* Creature opened a door */
 		if(did_open_door) reveal_creature_info(creature_ptr, TRAIT_OPEN_DOOR);
-
-		/* Creature bashed a door */
 		if(did_bash_door) reveal_creature_info(creature_ptr, TRAIT_BASH_DOOR);
-
-		/* Creature tried to pick something up */
 		if(did_take_item) reveal_creature_info(creature_ptr, TRAIT_TAKE_ITEM);
-
-		/* Creature tried to crush something */
 		if(did_kill_item) reveal_creature_info(creature_ptr, TRAIT_KILL_ITEM);
-
-		/* Creature pushed past another creature */
 		if(did_move_body) reveal_creature_info(creature_ptr, TRAIT_MOVE_BODY);
-
-		/* Creature passed through a wall */
 		if(did_pass_wall) reveal_creature_info(creature_ptr, TRAIT_PASS_WALL);
-
-		/* Creature destroyed a wall */
 		if(did_pass_wall) reveal_creature_info(creature_ptr, TRAIT_KILL_WALL);
 	}
 
