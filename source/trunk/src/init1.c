@@ -3047,32 +3047,14 @@ errr parse_object_ego_csv(char *buf, header *head)
  */
 static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 {
-	if(grab_one_flag(&stp_ptr->flags, store_pre_info_flags, what) == 0)
-		return PARSE_ERROR_NONE;
-
+	if(grab_one_flag(&stp_ptr->flags, store_pre_info_flags, what) == 0) return PARSE_ERROR_NONE;
 #ifdef JP
 	msg_format("未知の店フラグ '%s'。", what);
 #else
 	msg_format("Unknown store flag '%s'.", what);
 #endif
-
-
-	return PARSE_ERROR_GENERIC;
-
-}
-
-
-/* Grab one (basic) flag in a species_type from a textual string */
-static errr grab_one_race_flags(traits_precondition *flag_ptr, cptr what, byte add, byte remove)
-{
-#ifdef JP
-	msg_format("未知の種族フラグ '%s'。", what);
-#else
-	msg_format("Unknown race flag '%s'.", what);
-#endif
 	return PARSE_ERROR_GENERIC;
 }
-
 
 /*
  * Grab one (spell) flag in a species_type from a textual string
