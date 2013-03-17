@@ -274,7 +274,7 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
 			break;
 		}
 
-		if(isupper(c)) c = tolower(c);
+		if(isupper(c)) c = (char)tolower(c);
 
 		buf[i] = c;
 	}
@@ -4186,7 +4186,7 @@ static int do_command_menu(int level, int start)
 				else if(menu_data[i].key != -1)
 				{
 					com_key_str[0] = '^';
-					com_key_str[1] = menu_data[i].key + '@';
+					com_key_str[1] = (char)menu_data[i].key + '@';
 					com_key_str[2] = '\0';
 				}
 				else
@@ -4761,7 +4761,9 @@ static bool insert_macro_line(text_body_type *tb)
 {
 	char tmp[1024];
 	char buf[1024];
-	int i, n = 0;
+	char i;
+	int n = 0;
+	sint j;
 
 	flush();
 
@@ -4805,9 +4807,9 @@ static bool insert_macro_line(text_body_type *tb)
 	tb->lines_list[tb->cy] = string_make(format("P:%s", tmp));
 
 	/* Acquire action */
-	i = macro_find_exact(buf);
+	j = macro_find_exact(buf);
 
-	if(i == -1)
+	if(j == -1)
 	{
 		/* Nothing defined */
 		tmp[0] = '\0';
@@ -5763,7 +5765,7 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 /*
  * Insert single letter at cursor position.
  */
-static void insert_single_letter(text_body_type *tb, int key)
+static void insert_single_letter(text_body_type *tb, char key)
 {
 	int i, j, len;
 	char buf[MAX_LINELEN];
@@ -5776,7 +5778,7 @@ static void insert_single_letter(text_body_type *tb, int key)
 #ifdef JP
 	if(iskanji(key))
 	{
-		int next;
+		char next;
 
 		inkey_base = TRUE;
 		next = inkey();
@@ -5792,8 +5794,7 @@ static void insert_single_letter(text_body_type *tb, int key)
 	else
 #endif
 	{
-		if(j+1 < MAX_LINELEN)
-			buf[j++] = key;
+		if(j+1 < MAX_LINELEN) buf[j++] = key;
 		tb->cx++;
 	}
 
@@ -5908,7 +5909,7 @@ void do_cmd_edit_autopick(creature_type *creature_ptr)
 	char buf[MAX_LINELEN];
 
 	int i;
-	int key = -1;
+	char key = -1;
 
 	s32b old_autosave_turn = 0L;
 	byte quit = 0;
@@ -6046,10 +6047,7 @@ void do_cmd_edit_autopick(creature_type *creature_ptr)
 		}
 
 		/* Other commands */
-		else
-		{
-			com_id = get_com_id(key);
-		}
+		else com_id = get_com_id(key);
 
 		if(com_id) quit = do_editor_command(creature_ptr, tb, com_id);
 	} /* while (TRUE) */
