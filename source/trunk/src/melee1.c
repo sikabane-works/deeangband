@@ -407,8 +407,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			{
 				if(has_trait(target_ptr, TRAIT_HUMANOID))
 				{
-					int to_hit = weapon_ptr->to_hit;
-					int to_damage = weapon_ptr->to_damage;
+					s16b to_hit = weapon_ptr->to_hit;
+					s16b to_damage = weapon_ptr->to_damage;
 					int i, flag;
 
 					flag = 1;
@@ -975,7 +975,7 @@ bool is_melee_limitation_field(floor_type *floor_ptr)
 
 bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 {
-	int i;
+	s16b i;
 	bool dead = FALSE;
 
 	floor_type      *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
@@ -1095,7 +1095,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 			return FALSE;
 		}
 
-		i = uneven_rand(select_list, select_weight, action_num);
+		i = (s16b)uneven_rand(select_list, select_weight, action_num);
 
 		// Hack -- Apply "protection from evil"
 		if(has_trait(target_ptr, TRAIT_PROT_EVIL) && is_enemy_of_good_creature(target_ptr) && (target_ptr->lev >= attacker_ptr->lev) && ((randint0(100) + target_ptr->lev) > 50))
