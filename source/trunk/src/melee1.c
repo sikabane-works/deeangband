@@ -699,7 +699,7 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 	}
 }
 
-static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x)
+static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr)
 {
 	char attacker_name[MAX_NLEN], target_name[MAX_NLEN];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
@@ -1129,7 +1129,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 			break;
 
 		case MELEE_TYPE_BARE_HAND:
-			barehand_attack(attacker_ptr, target_ptr, y, x); 
+			barehand_attack(attacker_ptr, target_ptr); 
 			//TODO gain_skill(attacker, SKILL_MULTI_WEAPON, amount); 
 			break;
 
