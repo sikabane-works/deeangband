@@ -1101,7 +1101,8 @@ static int staff_effect(creature_type *caster_ptr, int sval, bool *use_charge, b
 			for (k = 0; k < num; k++)
 			{
 				attempts = 1000;
-
+				y = caster_ptr->fy;
+				x = caster_ptr->fx;
 				while (attempts--)
 				{
 					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
@@ -1380,7 +1381,7 @@ void do_cmd_use_staff(creature_type *creature_ptr)
 }
 
 
-static int wand_effect(creature_type *caster_ptr, int sval, int dir, bool magic)
+static int wand_effect(creature_type *caster_ptr, int sval, bool magic)
 {
 	int ident = FALSE;
 
@@ -1607,7 +1608,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 		if(has_trait_object(object_ptr, i))
 			do_active_trait(creature_ptr, i, FALSE);
 
-	ident = wand_effect(creature_ptr, object_ptr->sval, dir, FALSE);
+	ident = wand_effect(creature_ptr, object_ptr->sval, FALSE);
 
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER); // Combine / Reorder the pack (later)
 
@@ -2797,7 +2798,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 		else if(tval == TV_WAND)
 		{
 			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-			wand_effect(creature_ptr, sval, dir, TRUE);
+			wand_effect(creature_ptr, sval, TRUE);
 		}
 		else
 		{

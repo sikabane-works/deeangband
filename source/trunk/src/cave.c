@@ -1539,8 +1539,8 @@ void display_dungeon(creature_type *creature_ptr)
 	byte a;
 	char c;
 
-	byte ta;
-	char tc;
+	byte ta = 0;
+	char tc = 0;
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -1572,13 +1572,9 @@ void display_dungeon(creature_type *creature_ptr)
 				/* Access darkness */
 				feature_type *f_ptr = &feature_info[feat_none];
 
-				/* Normal attr */
+				/* Normal attr / char */
 				a = f_ptr->x_attr[F_LIT_STANDARD];
-
-				/* Normal char */
 				c = f_ptr->x_char[F_LIT_STANDARD];
-
-				/* Hack -- Queue it */
 				Term_queue_char(x - creature_ptr->fx + Term->wid / 2 - 1, y - creature_ptr->fy + Term->hgt / 2 - 1, a, c, ta, tc);
 			}
 		}
