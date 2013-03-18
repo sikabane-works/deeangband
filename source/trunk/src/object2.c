@@ -2369,7 +2369,6 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 				/* Prefer less out-of-depth creatures */
 				if(randint0(check)) continue;
-
 				break;
 			}
 
@@ -2377,19 +2376,6 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 			/* Some figurines are cursed */
 			if(one_in_(6)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-			if(cheat_peek)
-			{
-#ifdef JP
-				msg_format("%s‚ÌlŒ`, [‚³ +%d%s",
-#else
-				msg_format("Figurine of %s, depth +%d%s",
-#endif
-
-					species_name + species_ptr->name, check - 1,
-					!object_is_cursed(object_ptr) ? "" : " {cursed}");
-			}
-
 			break;
 		}
 
@@ -2426,16 +2412,6 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			}
 
 			object_ptr->pval = i;
-
-			if(cheat_peek)
-			{
-#ifdef JP
-				msg_format("%s‚ÌŽ€‘Ì, [‚³ +%d", species_name + species_ptr->name, check - 1);
-#else
-				msg_format("Corpse of %s, depth +%d", species_name + species_ptr->name, check - 1);
-#endif
-			}
-
 			object_aware(object_ptr);
 			object_known(object_ptr);
 			break;
