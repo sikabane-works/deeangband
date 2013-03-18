@@ -268,7 +268,7 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 // Check should creature cast dispel spell.
 bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 {
-//TODO: reimplement
+	//TODO: reimplement
 	return FALSE;	// No need to cast dispel spell
 }
 

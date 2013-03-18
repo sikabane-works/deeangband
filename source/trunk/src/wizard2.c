@@ -1031,29 +1031,7 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_p
 /* debug command for blue mage */
 static void do_cmd_wiz_blue_mage(creature_type *creature_ptr)
 {
-
-	int				i = 0;
-	int				j = 0;
-	s32b            f4 = 0, f5 = 0, f6 = 0;	
-
-	for (j=1; j<6; j++)
-	{
-
-		//TODO set_rf_masks(&f4, &f5, &f6, j);
-
-		for (i = 0; i < 32; i++)
-		{
-			if((0x00000001 << i) & f4) creature_ptr->blue_learned_trait[i] = 1;
-		}
-		for (; i < (REALM_MAGIC_NUMBER * 2); i++)
-		{
-			if((0x00000001 << (i - 32)) & f5) creature_ptr->blue_learned_trait[i] = 1;
-		}
-		for (; i < 96; i++)
-		{
-			if((0x00000001 << (i - 64)) & f6) creature_ptr->blue_learned_trait[i] = 1;
-		}
-	}
+	//TODO reimplement
 }
 
 
