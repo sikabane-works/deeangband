@@ -1618,7 +1618,9 @@
 #define ENCH_TOHIT      0x01 /* Enchant to hit */
 #define ENCH_TODAM      0x02 /* Enchant to damage */
 #define ENCH_TOAC       0x04 /* Enchant to AC */
-#define ENCH_FORCE      0x08 /* Force enchantment */
+#define ENCH_TOEV       0x08 /* Enchant to AC */
+#define ENCH_TOVO       0x10 /* Enchant to AC */
+#define ENCH_FORCE      0x20 /* Force enchantment */
 
 /*
  * Bit flags for the "target_set" function 

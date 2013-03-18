@@ -1872,6 +1872,41 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 				if(object_ptr->to_ac >= 0) break_curse(object_ptr);
 			}
 		}
+
+		/* Enchant to evasion */
+		if(eflag & ENCH_TOEV)
+		{
+			if(object_ptr->to_ev < 0) chance = 0;
+			else if(object_ptr->to_ev > 15) chance = 1000;
+			else chance = enchant_table[object_ptr->to_ev];
+
+			if(force || ((randint1(1000) > chance) && (!a || (PERCENT(50)))))
+			{
+				object_ptr->to_ev++;
+				res = TRUE;
+
+				/* only when you get it above -1 -CFT */
+				if(object_ptr->to_ev >= 0) break_curse(object_ptr);
+			}
+		}
+
+		/* Enchant to volation */
+		if(eflag & ENCH_TOVO)
+		{
+			if(object_ptr->to_vo < 0) chance = 0;
+			else if(object_ptr->to_vo > 15) chance = 1000;
+			else chance = enchant_table[object_ptr->to_vo];
+
+			if(force || ((randint1(1000) > chance) && (!a || (PERCENT(50)))))
+			{
+				object_ptr->to_vo++;
+				res = TRUE;
+
+				/* only when you get it above -1 -CFT */
+				if(object_ptr->to_vo >= 0) break_curse(object_ptr);
+			}
+		}
+
 	}
 
 	if(!res) return FALSE;
@@ -1906,6 +1941,8 @@ bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int nu
 	if(enchant(creature_ptr, object_ptr, num_hit, ENCH_TOHIT)) okay = TRUE;
 	if(enchant(creature_ptr, object_ptr, num_dam, ENCH_TODAM)) okay = TRUE;
 	if(enchant(creature_ptr, object_ptr, num_ac, ENCH_TOAC)) okay = TRUE;
+	if(enchant(creature_ptr, object_ptr, num_ev, ENCH_TOEV)) okay = TRUE;
+	if(enchant(creature_ptr, object_ptr, num_vo, ENCH_TOVO)) okay = TRUE;
 
 	if(!okay)
 	{
