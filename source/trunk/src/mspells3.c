@@ -582,7 +582,7 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 		{
 			ask = isupper(choice);
 
-			if(ask) choice = tolower(choice);
+			if(ask) choice = (char)tolower(choice);
 
 			/* Extract request */
 			i = (islower(choice) ? A2I(choice) : -1);
@@ -621,16 +621,6 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 
 	repeat_push(*sn);
 
-	return TRUE;
-}
-
-
-
-// do_cmd_cast calls this function if the player's class
-// is 'imitator'.
-static bool cast_learned_spell(creature_type *caster_ptr, int spell, bool success)
-{
-	do_active_trait(caster_ptr, spell, TRUE);
 	return TRUE;
 }
 
@@ -708,16 +698,11 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 		if(flush_failure) flush();
 		msg_format(MES_CAST_FAILED("Dammy"));
 		sound(SOUND_FAIL);
-
-		if(n >= TRAIT_S_KIN) cast = cast_learned_spell(creature_ptr, n, FALSE);
 	}
 	else
 	{
 		sound(SOUND_ZAP);
-
-		/* Cast the spell */
-		cast = cast_learned_spell(creature_ptr, n, TRUE);
-
+		cast = do_active_trait(creature_ptr, n, TRUE);
 		if(!cast) return FALSE;
 	}
 
