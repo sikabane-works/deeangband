@@ -1303,11 +1303,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	if((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (creature_ptr->class_idx == CLASS_BERSERKER))
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("杖をうまく使えなかった。");
-#else
-		msg_print("You failed to use the staff properly.");
-#endif
+		msg_print(MES_OBJECT_STAFF_FAILED);
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -1580,11 +1576,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	if((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (creature_ptr->class_idx == CLASS_BERSERKER))
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("魔法棒をうまく使えなかった。");
-#else
-		msg_print("You failed to use the wand properly.");
-#endif
+		msg_print(MES_OBJECT_WAND_FAILED);
 		sound(SOUND_FAIL);
 		return;
 	}
