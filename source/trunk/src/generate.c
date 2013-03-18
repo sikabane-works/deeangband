@@ -491,7 +491,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 
 			for (k = 0; k < SAFE_MAX_ATTEMPTS; k++)
 			{
-				int x, y;
+				int x = player_ptr->fx, y = player_ptr->fy;
 				int l;
 
 				/* Find an empty grid */

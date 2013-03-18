@@ -763,20 +763,9 @@ int choose_dungeon(cptr note, int y, int x)
 		dun[num++] = i;
 	}
 
-	if(!num)
-	{
-#ifdef JP
-		prt("      選べるダンジョンがない。", y, x);
-#else
-		prt("      No dungeon is available.", y, x);
-#endif
-	}
+	if(!num) prt(MES_TELEPORT_NO_DUNGEON, y, x);
+	prt(format(MES_TELEPORT_WHICH(note)), 0, 0);
 
-#ifdef JP
-	prt(format("どのダンジョン%sしますか:", note), 0, 0);
-#else
-	prt(format("Which dungeon do you %s?: ", note), 0, 0);
-#endif
 	while(TRUE)
 	{
 		i = inkey();

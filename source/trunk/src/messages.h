@@ -588,7 +588,6 @@
 #define MES_FIND_TRAP "トラップを発見した。"
 #define MES_FIND_DOOR "隠しドアを発見した。"
 
-#define MES_TELEPORT_PREVENTED "不思議な力がテレポートを防いだ！"
 
 #define MES_SEE_OBJECT "%sがある。"
 #define MES_GET_MONEY " $%ld の価値がある%sを見つけた。"
@@ -678,8 +677,6 @@
 
 #define MES_FIND_TRAP "You have found a trap."
 #define MES_FIND_DOOR "You have found a secret door."
-
-#define MES_TELEPORT_PREVENTED "A mysterious force prevents you from teleporting!"
 
 
 #define MES_SEE_OBJECT "You see %s."
@@ -3931,3 +3928,14 @@ static cptr desc_stat_neg[] =
 #define MES_QUICKSTART_DESC "Do you want to use the quick start function(same character as your last one)."
 #define MES_QUICKSTART_ASK "Use quick start? [y/N]" 
 #endif
+
+#ifdef JP
+#define MES_TELEPORT_PREVENTED "不思議な力がテレポートを防いだ！"
+#define MES_TELEPORT_NO_DUNGEON "選べるダンジョンがない。"
+#define MES_TELEPORT_WHICH(NOTE) "どのダンジョン%sしますか:", (NOTE)
+#else
+#define MES_TELEPORT_PREVENTED "A mysterious force prevents you from teleporting!"
+#define MES_TELEPORT_NO_DUNGEON "No dungeon is available."
+#define MES_TELEPORT_WHICH(NOTE) "Which dungeon do you %s?: ", (NOTE)
+#endif
+
