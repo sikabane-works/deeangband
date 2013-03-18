@@ -265,26 +265,26 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				}
 				else
 				{
-					switch (mult)
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 					{
-						if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+						switch (mult)
 						{
 #ifdef JP
-					case 2: msg_format("%s‚ğa‚Á‚½I", target_name); break;
-					case 3: msg_format("%s‚ğ‚Ô‚Á‚½a‚Á‚½I", target_name); break;
-					case 4: msg_format("%s‚ğƒƒbƒ^a‚è‚É‚µ‚½I", target_name); break;
-					case 5: msg_format("%s‚ğƒƒbƒ^ƒƒ^‚Éa‚Á‚½I", target_name); break;
-					case 6: msg_format("%s‚ğhg‚É‚µ‚½I", target_name); break;
-					case 7: msg_format("%s‚ğa‚Á‚Äa‚Á‚Äa‚è‚Ü‚­‚Á‚½I", target_name); break;
-					default: msg_format("%s‚ğ×Ø‚ê‚É‚µ‚½I", target_name); break;
+						case 2: msg_format("%s‚ğa‚Á‚½I", target_name); break;
+						case 3: msg_format("%s‚ğ‚Ô‚Á‚½a‚Á‚½I", target_name); break;
+						case 4: msg_format("%s‚ğƒƒbƒ^a‚è‚É‚µ‚½I", target_name); break;
+						case 5: msg_format("%s‚ğƒƒbƒ^ƒƒ^‚Éa‚Á‚½I", target_name); break;
+						case 6: msg_format("%s‚ğhg‚É‚µ‚½I", target_name); break;
+						case 7: msg_format("%s‚ğa‚Á‚Äa‚Á‚Äa‚è‚Ü‚­‚Á‚½I", target_name); break;
+						default: msg_format("%s‚ğ×Ø‚ê‚É‚µ‚½I", target_name); break;
 #else
-					case 2: msg_format("You gouge %s!", target_name); break;
-					case 3: msg_format("You maim %s!", target_name); break;
-					case 4: msg_format("You carve %s!", target_name); break;
-					case 5: msg_format("You cleave %s!", target_name); break;
-					case 6: msg_format("You smite %s!", target_name); break;
-					case 7: msg_format("You eviscerate %s!", target_name); break;
-					default: msg_format("You shred %s!", target_name); break;
+						case 2: msg_format("You gouge %s!", target_name); break;
+						case 3: msg_format("You maim %s!", target_name); break;
+						case 4: msg_format("You carve %s!", target_name); break;
+						case 5: msg_format("You cleave %s!", target_name); break;
+						case 6: msg_format("You smite %s!", target_name); break;
+						case 7: msg_format("You eviscerate %s!", target_name); break;
+						default: msg_format("You shred %s!", target_name); break;
 #endif
 						}
 					}
@@ -832,14 +832,13 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			add_timed_trait(target_ptr, TRAIT_STUN, stun_effect, TRUE);
 }
 
-static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
+static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr)
 {
 	if(has_trait(attacker_ptr, TRAIT_CONFUSING_MELEE)) // Cancel glowing hands
 	{
 		set_timed_trait(attacker_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
 		if(is_seen(player_ptr, attacker_ptr)) prepare_redraw(PR_STATUS);
 	}
-
 	if(has_trait(target_ptr, TRAIT_NO_CONF)) // Confuse the creature
 	{
 		if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
