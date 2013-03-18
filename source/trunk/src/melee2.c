@@ -839,6 +839,9 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	bool         no_flow = ((nonplayer_ptr->sc_flag2 & SC_FLAG2_NOFLOW) && (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
 	bool         can_pass_wall = (has_trait(nonplayer_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || has_trait(player_ptr, TRAIT_PASS_WALL)));
 
+	y = nonplayer_ptr->fy;
+	x = nonplayer_ptr->fx;
+
 	/* Counter attack to an enemy creature */
 	if(!will_run && nonplayer_ptr->target_y)
 	{
@@ -956,7 +959,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	/* Apply fear if possible and necessary */
 	if(is_pet(player_ptr, nonplayer_ptr) && will_run)
 	{
-		/*  Not very "smart" */
+		/* Not very "smart" */
 		y = (-y), x = (-x);
 	}
 	else

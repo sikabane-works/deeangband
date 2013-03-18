@@ -4088,7 +4088,7 @@ void gamble_arena_limitation(void)
 			update_creature_view(player_ptr, i, FALSE);
 		}
 
-		prt_time(player_ptr);
+		prt_time();
 	}
 }
 
@@ -4204,8 +4204,7 @@ void process_player(creature_type *creature_ptr)
 	int i;
 
 	/*** Apply energy ***/
-
-	if(!command_rep) prt_time(creature_ptr);
+	if(!command_rep) prt_time();
 
 	/*** Check for interupts ***/
 

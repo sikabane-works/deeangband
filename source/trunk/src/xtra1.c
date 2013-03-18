@@ -53,7 +53,7 @@ void extract_day_hour_min(int *day, int *hour, int *min)
 /*
  * Print time
  */
-void prt_time(creature_type *player_ptr)
+void prt_time(void)
 {
 	int day, hour, min;
 
@@ -3853,7 +3853,7 @@ void redraw_stuff(creature_type *creature_ptr)
 		play_redraw &= ~(PR_LEV | PR_EXP | PR_GOLD);
 		play_redraw &= ~(PR_ARMOR | PR_HP | PR_MANA);
 		play_redraw &= ~(PR_DEPTH | PR_HEALTH | PR_UHEALTH);
-		prt_time(creature_ptr);
+		prt_time();
 		if(wizard) prt_wiz_pos(creature_ptr);
 		prt_dungeon();
 	}
