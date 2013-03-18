@@ -57,43 +57,6 @@ static bool int_outof(species_type *species_ptr, int prob)
 	return (PERCENT(prob));
 }
 
-
-
-/*
- * Remove the "bad" spells from a spell list
- */
-static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u32b *f6p)
-{
-	u32b smart = 0L;
-
-	/* Too stupid to know anything */
-	if(has_trait(caster_ptr, TRAIT_STUPID)) return;
-
-	/* Must be cheating or learning */
-	if(!smart_cheat && !smart_learn) return;
-
-
-	/* Update acquired knowledge */
-	if(smart_learn)
-	{
-		//TODO if(caster_ptr->smart && (PERCENT(1))) caster_ptr->smart &= (SM_FRIENDLY | SM_PET | SM_CLONED);
-	}
-
-
-	/* Cheat if requested */
-	if(smart_cheat)
-	{
-		//TODO
-	}
-
-
-	/* Nothing known */
-	if(!smart) return;
-
-	//TODO reimprement.
-}
-
-
 // Determine if there is a space near the player in which
 // a summoned creature can appear
 bool summon_possible(creature_type *target_ptr, int y1, int x1)
@@ -819,7 +782,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	//TODO if(!f4 && !f5 && !f6) return FALSE;
 
 	/* Remove the "ineffective" spells */
-	//TODO remove_bad_spells(caster_ptr, &f4, &f5, &f6);
+	//TODO reimplement
 
 	if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
