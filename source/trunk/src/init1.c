@@ -3058,18 +3058,13 @@ static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 /*
  * Grab one (spell) flag in a species_type from a textual string
  */
-static int grab_one_authority_flag(species_type *species_ptr, cptr what)
+static int grab_one_authority_flag(cptr what)
 {
 	int i;
 
-	/* Check flags */
 	for (i = 0; i < max_authorities_idx; i++)
-	{
 		if(streq(what, authority_info[i].id_e))
-		{
 			return i;
-		}
-	}
 
 	return -1;
 }
@@ -3630,7 +3625,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					}
 
 					// Parse this entry
-					if((b = grab_one_authority_flag(&species_info[n], s)) < 0) return PARSE_ERROR_INVALID_FLAG;
+					if((b = grab_one_authority_flag(s)) < 0) return PARSE_ERROR_INVALID_FLAG;
 					species_ptr->authority[b / 32] |= (0x0001 << (b % 32));
 
 					// Start the next entry
