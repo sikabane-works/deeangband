@@ -76,7 +76,7 @@ extern byte adj_con_fix[STAT_TABLE_SIZE];
 extern s16b adj_con_mhp[STAT_TABLE_SIZE];
 extern int adj_dr_mhp[DR_TABLE_SIZE];
 extern int adj_dr_saving[DR_TABLE_SIZE];
-extern int adj_dr_speed[DR_TABLE_SIZE];
+extern s16b adj_dr_speed[DR_TABLE_SIZE];
 extern int adj_dr_ac[DR_TABLE_SIZE];
 extern byte adj_chr_chm[STAT_TABLE_SIZE];
 extern s16b adj_weight_action_point[PERCENTAGE / 5 + 1];

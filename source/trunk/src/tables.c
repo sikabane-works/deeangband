@@ -1660,7 +1660,7 @@ int adj_dr_saving[DR_TABLE_SIZE] =
 /*
  * Stat Table (DR) -- plus speed)
  */
-int adj_dr_speed[DR_TABLE_SIZE] =
+s16b adj_dr_speed[DR_TABLE_SIZE] =
 {
 	0, /* 0 */
 

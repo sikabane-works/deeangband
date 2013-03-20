@@ -2778,7 +2778,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	// Clear all the flags
 	creature_ptr->cursed = 0L;
 
-	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = -1;
+	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = INVEN_TOTAL;
 	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
 
 	creature_ptr->no_flowed = FALSE;
@@ -3031,8 +3031,8 @@ static void set_melee_status(creature_type *creature_ptr)
 		if(hold < bow_ptr->weight / 10)
 		{
 			/* Hard to wield a heavy bow */
-			creature_ptr->to_hit_b  += 2 * (hold - (s16b)bow_ptr->weight / 10);
-			creature_ptr->dis_to_hit_b  += 2 * (hold - (s16b)bow_ptr->weight / 10);
+			creature_ptr->to_hit_b  += 2 * (s16b)(hold - bow_ptr->weight / 10);
+			creature_ptr->dis_to_hit_b  += 2 * (s16b)(hold - bow_ptr->weight / 10);
 
 			/* Heavy Bow */
 			creature_ptr->heavy_shoot = TRUE;
@@ -3415,8 +3415,8 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	int i, j;
 	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 	species_type *riding_r_ptr = &species_info[steed_ptr->species_idx];
-	int speed = steed_ptr->speed;
-	int penalty = 0;
+	s16b speed = steed_ptr->speed;
+	s16b penalty = 0;
 
 	j = creature_ptr->carrying_weight;
 
