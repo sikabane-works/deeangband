@@ -242,7 +242,7 @@ bool gain_magic(creature_type *creature_ptr)
 				gain_num = (gain_num/3 + randint0(gain_num/3)) / 256;
 				if(gain_num < 1) gain_num = 1;
 			}
-			creature_ptr->max_charge[object_ptr->sval + ext] += gain_num;
+			creature_ptr->max_charge[object_ptr->sval + ext] += (byte_hack)gain_num;
 			if(creature_ptr->max_charge[object_ptr->sval + ext] > 99) creature_ptr->max_charge[object_ptr->sval + ext] = 99;
 			creature_ptr->current_charge[object_ptr->sval + ext] += pval * 0x10000;
 			if(creature_ptr->current_charge[object_ptr->sval + ext] > 99 * 0x10000) creature_ptr->current_charge[object_ptr->sval + ext] = 99 * 0x10000;
@@ -401,8 +401,8 @@ struct power_desc_type
  */
 static int racial_chance(creature_type *creature_ptr, power_desc_type *pd_ptr)
 {
-	s16b min_level  = pd_ptr->level;
-	int  difficulty = pd_ptr->fail;
+	int min_level  = pd_ptr->level;
+	int difficulty = pd_ptr->fail;
 
 	int i;
 	int val;
@@ -447,10 +447,10 @@ static int  racial_cost;
  */
 static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 {
-	s16b min_level  = pd_ptr->level;
-	int  use_stat   = pd_ptr->stat;
-	int  difficulty = pd_ptr->fail;
-	int  use_hp = 0;
+	int min_level = pd_ptr->level;
+	int use_stat = pd_ptr->stat;
+	int difficulty = pd_ptr->fail;
+	int use_hp = 0;
 
 	racial_cost = pd_ptr->cost;
 
@@ -626,7 +626,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 			if(!redraw || use_menu)
 			{
 				byte y = 1, x = 0;
-				int ctr = 0;
+				char ctr = 0;
 				char dummy[80];
 				char letter;
 				int x1, y1;
@@ -681,7 +681,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 			{
 				ask = (isupper(choice));
 
-				if(ask) choice = tolower(choice);
+				if(ask) choice = (char)tolower(choice);
 
 				/* Extract request */
 				i = (islower(choice) ? A2I(choice) : -1);
