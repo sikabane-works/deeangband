@@ -2146,8 +2146,8 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 	floor_type *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
 
 	int		i, d, m, t, bd;
-	int		y = aimer_ptr->fy;
-	int		x = aimer_ptr->fx;
+	s16b	y = aimer_ptr->fy;
+	s16b	x = aimer_ptr->fx;
 
 	bool	done = FALSE;
 	bool	flag = TRUE;
@@ -2278,8 +2278,8 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 			if(d)
 			{
 				/* Modified to scroll to creature */
-				int y2 = panel_row_min;
-				int x2 = panel_col_min;
+				s16b y2 = panel_row_min;
+				s16b x2 = panel_col_min;
 
 				/* Find a new creature */
 				i = target_pick(temp_y[m], temp_x[m], ddy[d], ddx[d]);
@@ -2573,7 +2573,7 @@ bool get_aim_dir(creature_type *creature_ptr, int range, int *dp)
 	if(!dir) return FALSE; // No direction
 
 	/* Save the direction */
-	command_dir = dir;
+	command_dir = (s16b)dir;
 
 	// Check for confusion / Random direction
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) dir = ddd[randint0(8)];
@@ -2642,7 +2642,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	if(!dir) return FALSE;
 
 	/* Save desired direction */
-	command_dir = dir;
+	command_dir = (s16b)dir;
 
 	/* Apply "confusion" */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
@@ -2727,7 +2727,7 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	if(!dir) return FALSE;
 
 	/* Save desired direction */
-	command_dir = dir;
+	command_dir = (s16b)dir;
 
 	/* Apply "confusion" */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
@@ -3262,8 +3262,8 @@ static void tgt_pt_prepare(creature_type *creature_ptr)
 			if(!tgt_pt_accept(creature_ptr, y, x)) continue;
 
 			// Save the location
-			temp_x[temp_n] = x;
-			temp_y[temp_n] = y;
+			temp_x[temp_n] = (byte_hack)x;
+			temp_y[temp_n] = (byte_hack)y;
 			temp_n++;
 		}
 	}
