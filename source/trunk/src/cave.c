@@ -4874,11 +4874,10 @@ void health_track(int m_idx)
 /*
  * Hack -- track the given creature race
  */
-void species_type_track(int species_idx)
+void species_type_track(s16b species_idx)
 {
 	/* Save this creature ID */
 	species_window_idx = species_idx;
-
 	prepare_window(PW_MONSTER);
 }
 
@@ -4887,7 +4886,7 @@ void species_type_track(int species_idx)
 /*
  * Hack -- track the given object kind
  */
-void object_kind_track(int k_idx)
+void object_kind_track(s16b k_idx)
 {
 	/* Save this object ID */
 	play_window_object_kind_idx = k_idx;

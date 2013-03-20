@@ -4177,8 +4177,8 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 		/* Collect beam grids */
 		if(flg & (PROJECT_BEAM))
 		{
-			gy[grids] = y;
-			gx[grids] = x;
+			gy[grids] = (byte_hack)y;
+			gx[grids] = (byte_hack)x;
 			grids++;
 		}
 
@@ -4317,14 +4317,14 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 						}
 
 						/* Save this grid */
-						gy[grids] = y;
-						gx[grids] = x;
+						gy[grids] = (byte_hack)y;
+						gx[grids] = (byte_hack)x;
 						grids++;
 					}
 				}
 
 				/* Encode some more "radius" info */
-				gm[dist+1] = grids;
+				gm[dist+1] = (byte_hack)grids;
 			}
 		}
 	}
@@ -4529,16 +4529,16 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 					/* Choose 'new' target */
 					do
 					{
-						t_y = y_saver - 1 + (byte)randint1(3);
-						t_x = x_saver - 1 + (byte)randint1(3);
+						t_y = (byte_hack)(randint1(3) + y_saver) - 1;
+						t_x = (byte_hack)(randint1(3) + x_saver) - 1;
 						max_attempts--;
 					}
 					while (max_attempts && IN_BOUNDS2U(floor_ptr, t_y, t_x) && !projectable(floor_ptr, MAX_RANGE, y, x, t_y, t_x));
 
 					if(max_attempts < 1)
 					{
-						t_y = y_saver;
-						t_x = x_saver;
+						t_y = (byte_hack)y_saver;
+						t_x = (byte_hack)x_saver;
 					}
 
 					if(is_seen(player_ptr, m_ptr))
