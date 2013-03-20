@@ -192,7 +192,7 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
  * Note that this function is responsible for about one to five percent
  * of the processor use in normal conditions...
  */
-static int mon_will_run(creature_type *creature_ptr, int m_idx)
+static bool mon_will_run(creature_type *creature_ptr, int m_idx)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 

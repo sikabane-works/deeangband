@@ -777,7 +777,7 @@ static void prt_state(creature_type *creature_ptr)
 {
 	byte attr = TERM_WHITE;
 
-	char text[5];
+	char text[7];
 
 	/* Repeating */
 	if(command_rep)
@@ -808,42 +808,12 @@ static void prt_state(creature_type *creature_ptr)
 		{
 			case ACTION_REST:
 			{
-				int i;
+				char i;
 				strcpy(text, "    ");
 
-				/* Extensive (timed) rest */
-				if(creature_ptr->resting >= 1000)
+				if(creature_ptr->resting > 0)
 				{
-					i = creature_ptr->resting / 100;
-					text[3] = '0';
-					text[2] = '0';
-					text[1] = '0' + (i % 10);
-					text[0] = '0' + (i / 10);
-				}
-
-				/* Long (timed) rest */
-				else if(creature_ptr->resting >= 100)
-				{
-					i = creature_ptr->resting;
-					text[3] = '0' + (i % 10);
-					i = i / 10;
-					text[2] = '0' + (i % 10);
-					text[1] = '0' + (i / 10);
-				}
-
-				/* Medium (timed) rest */
-				else if(creature_ptr->resting >= 10)
-				{
-					i = creature_ptr->resting;
-					text[3] = '0' + (i % 10);
-					text[2] = '0' + (i / 10);
-				}
-
-				/* Short (timed) rest */
-				else if(creature_ptr->resting > 0)
-				{
-					i = creature_ptr->resting;
-					text[3] = '0' + (i);
+					sprintf(text, "%5d", creature_ptr->resting);
 				}
 
 				/* Rest until healed */
