@@ -4597,6 +4597,7 @@ void init_stores(void)
 static void store_set_table(store_type *st_ptr)
 {
 	int k;
+	s16b k_idx;
 
 	/* Assume full table */
 	st_ptr->table_num = 0;
@@ -4645,8 +4646,6 @@ static void store_set_table(store_type *st_ptr)
 	{
 		for (k = 0; k < STABLE_GENERAL_MAX; k++)
 		{
-			int k_idx;
-
 			// Extract the tval/sval codes
 			int tv = general_store_table[k][0];
 			int sv = general_store_table[k][1];
@@ -4671,8 +4670,6 @@ static void store_set_table(store_type *st_ptr)
 	{
 		for (k = 0; k < STABLE_SCULPTURE_MAX; k++)
 		{
-			int k_idx;
-
 			// Extract the tval/sval codes
 			int tv = sculpture_table[k][0];
 			int sv = sculpture_table[k][1];
@@ -4697,8 +4694,6 @@ static void store_set_table(store_type *st_ptr)
 	{
 		for (k = 0; k < STABLE_PAINT_MAX; k++)
 		{
-			int k_idx;
-
 			// Extract the tval/sval codes
 			int tv = paint_table[k][0];
 			int sv = paint_table[k][1];
@@ -4723,8 +4718,6 @@ static void store_set_table(store_type *st_ptr)
 	{
 		for (k = 0; k < STABLE_ARMOURY_MAX; k++)
 		{
-			int k_idx;
-
 			// Extract the tval/sval codes
 			int tv = armoury_table[k][0];
 			int sv = armoury_table[k][1];
@@ -4749,8 +4742,6 @@ static void store_set_table(store_type *st_ptr)
 	{
 		for (k = 0; k < STABLE_WEAPON_MAX; k++)
 		{
-			int k_idx;
-
 			// Extract the tval/sval codes
 			int tv = weapon_table[k][0];
 			int sv = weapon_table[k][1];
@@ -4775,8 +4766,6 @@ static void store_set_table(store_type *st_ptr)
 	{
 		for (k = 0; k < STABLE_ALCHEMY_MAX; k++)
 		{
-			int k_idx;
-
 			// Extract the tval/sval codes
 			int tv = alchemy_table[k][0];
 			int sv = alchemy_table[k][1];
@@ -4801,8 +4790,6 @@ static void store_set_table(store_type *st_ptr)
 	{
 		for (k = 0; k < STABLE_MAGIC_ITEM_MAX; k++)
 		{
-			int k_idx;
-
 			// Extract the tval/sval codes
 			int tv = magic_item_table[k][0];
 			int sv = magic_item_table[k][1];
@@ -4827,8 +4814,6 @@ static void store_set_table(store_type *st_ptr)
 	{
 		for (k = 0; k < STABLE_ORIENTAL_WEAPON_MAX; k++)
 		{
-			int k_idx;
-
 			// Extract the tval/sval codes
 			int tv = oriental_weapon_table[k][0];
 			int sv = oriental_weapon_table[k][1];
@@ -4853,7 +4838,7 @@ static void store_set_table(store_type *st_ptr)
 	{
 		for (k = 0; k < STABLE_OTAKU_MAX; k++)
 		{
-			int k_idx;
+			s16b k_idx;
 
 			// Extract the tval/sval codes
 			int tv = otaku_table[k][0];
@@ -4879,7 +4864,6 @@ static void store_set_table(store_type *st_ptr)
 	{
 		for (k = 0; k < STABLE_MORGUE_MAX; k++)
 		{
-			int k_idx;
 
 			// Extract the tval/sval codes
 			int tv = morgue_table[k][0];
@@ -4905,8 +4889,6 @@ static void store_set_table(store_type *st_ptr)
 	{
 		for (k = 0; k < STABLE_TEMPLE_MAX; k++)
 		{
-			int k_idx;
-
 			// Extract the tval/sval codes
 			int tv = temple_table[k][0];
 			int sv = temple_table[k][1];
@@ -4931,8 +4913,6 @@ static void store_set_table(store_type *st_ptr)
 	{
 		for (k = 0; k < STABLE_BOOK_MAX; k++)
 		{
-			int k_idx;
-
 			// Extract the tval/sval codes
 			int tv = book_table[k][0];
 			int sv = book_table[k][1];
