@@ -808,25 +808,13 @@ static void prt_state(creature_type *creature_ptr)
 		{
 			case ACTION_REST:
 			{
-				char i;
 				strcpy(text, "    ");
 
-				if(creature_ptr->resting > 0)
-				{
-					sprintf(text, "%5d", creature_ptr->resting);
-				}
-
+				if(creature_ptr->resting > 0) sprintf(text, "%5d", creature_ptr->resting);
 				/* Rest until healed */
-				else if(creature_ptr->resting == -1)
-				{
-					text[0] = text[1] = text[2] = text[3] = '*';
-				}
-
+				else if(creature_ptr->resting == -1) text[0] = text[1] = text[2] = text[3] = '*';
 				/* Rest until done */
-				else if(creature_ptr->resting == -2)
-				{
-					text[0] = text[1] = text[2] = text[3] = '&';
-				}
+				else if(creature_ptr->resting == -2) text[0] = text[1] = text[2] = text[3] = '&';
 				break;
 			}
 			
@@ -1380,7 +1368,7 @@ static void fix_dungeon(creature_type *creature_ptr)
 /*
  * Hack -- display creature recall in sub-windows
  */
-static void fix_creature(creature_type *creature_ptr)
+static void fix_creature(void)
 {
 	int j;
 
@@ -4030,7 +4018,7 @@ void window_stuff(creature_type *creature_ptr)
 	if(play_window & (PW_MONSTER))
 	{
 		play_window &= ~(PW_MONSTER);
-		fix_creature(creature_ptr);
+		fix_creature();
 	}
 
 	// Display object recall
