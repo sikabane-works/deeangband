@@ -866,7 +866,7 @@ void birth_uniques(void)
 		{
 			creature_type save_ptr;
 			unique_max++;
-			generate_creature(NULL, i, &save_ptr, GC_AUTO);
+			generate_creature(NULL, i, GC_AUTO);
 		}
 	}
 
@@ -3313,7 +3313,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		else return max_creature_idx;
 	}
 
-	creature_ptr = generate_creature(c_ptr, species_idx, &cr, GC_AUTO); 
+	creature_ptr = generate_creature(c_ptr, species_idx, GC_AUTO); 
 	hack_m_idx_ii = c_ptr->creature_idx;
 
 	// Hack -- Appearance transfer

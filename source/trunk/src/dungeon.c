@@ -4859,7 +4859,7 @@ static void new_game_setting(void)
 		screen_load();
 
 		// Roll up a new character
-		player_ptr = generate_creature(NULL, species, &player_prev, GC_PLAYER);
+		player_ptr = generate_creature(NULL, species, GC_PLAYER);
 		player_ptr->wx = player_ptr->start_wx;
 		player_ptr->wy = player_ptr->start_wy;
 

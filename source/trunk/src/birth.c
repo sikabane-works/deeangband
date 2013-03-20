@@ -1897,7 +1897,7 @@ static int choose_realm(s32b choices, bool npc)
  */
 static bool get_creature_realms(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
-	int i;
+	s16b i;
 
 	if(!npc)
 	{
@@ -4037,7 +4037,7 @@ static void edit_history(creature_type *creature_ptr)
  * from continuously rolling up characters, which can be VERY
  * expensive CPU wise.  And it cuts down on player stupidity.
  */
-static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, creature_type *save_ptr, u32b flags)
+static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, u32b flags)
 {
 	int i;
 	int mode = 0;
@@ -4335,7 +4335,7 @@ bool ask_quick_start(creature_type *creature_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_type *save_ptr, u32b flags)
+creature_type* generate_creature(cave_type *c_ptr, int species_idx, u32b flags)
 {
 	char buf[80];
 	int id;
@@ -4351,7 +4351,7 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 	if(c_ptr) c_ptr->creature_idx = id;
 
 	// Create a new character
-	while (!generate_creature_aux(creature_ptr, species_idx, save_ptr, flags));
+	while (!generate_creature_aux(creature_ptr, species_idx, flags));
 
 	if(flags & GC_PLAYER)
 	{
