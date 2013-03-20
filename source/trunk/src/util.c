@@ -1031,7 +1031,7 @@ static char hexify(uint i)
 /*
  * Convert a octal-digit into a decimal
  */
-static int deoct(char c)
+static char deoct(char c)
 {
 	if(isdigit(c)) return (D2I(c));
 	return SUCCESS;
@@ -1040,7 +1040,7 @@ static int deoct(char c)
 /*
  * Convert a hexidecimal-digit into a decimal
  */
-static int dehex(char c)
+static char dehex(char c)
 {
 	if(isdigit(c)) return (D2I(c));
 	if(islower(c)) return (A2I(c) + 10);
@@ -1057,8 +1057,8 @@ static int my_stricmp(cptr a, cptr b)
 	/* Scan the strings */
 	for (s1 = a, s2 = b; TRUE; s1++, s2++)
 	{
-		z1 = FORCEUPPER(*s1);
-		z2 = FORCEUPPER(*s2);
+		z1 = (char)FORCEUPPER(*s1);
+		z2 = (char)FORCEUPPER(*s2);
 		if(z1 < z2) return (-1);
 		if(z1 > z2) return FAILURE;
 		if(!z1) return SUCCESS;
@@ -1073,8 +1073,8 @@ static int my_strnicmp(cptr a, cptr b, int n)
 	/* Scan the strings */
 	for (s1 = a, s2 = b; n > 0; s1++, s2++, n--)
 	{
-		z1 = FORCEUPPER(*s1);
-		z2 = FORCEUPPER(*s2);
+		z1 = (char)FORCEUPPER(*s1);
+		z2 = (char)FORCEUPPER(*s2);
 		if(z1 < z2) return (-1);
 		if(z1 > z2) return FAILURE;
 		if(!z1) return SUCCESS;
@@ -1261,8 +1261,8 @@ void text_to_acscii(char *buf, cptr str)
 			/* Octal-mode */
 			else if(*str == '0')
 			{
-				*s = 8 * deoct(*++str);
-				*s++ += deoct(*++str);
+				*s = 8 * (char)deoct(*++str);
+				*s++ += (char)deoct(*++str);
 			}
 
 			/* Octal-mode */
@@ -3551,10 +3551,10 @@ bool get_com(cptr prompt, char *command, bool z_escape)
 
 // Request a "quantity" from the user
 // Hack -- allow "command_arg" to specify a quantity
-s16b get_quantity(cptr prompt, int max)
+s16b get_quantity(cptr prompt, s16b max)
 {
 	bool res;
-	int amt;
+	s16b amt;
 	char tmp[80];
 	char buf[80];
 
