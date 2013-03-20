@@ -911,9 +911,9 @@ void panel_bounds_center(void)
 	int wid, hgt;
 	get_screen_size(&wid, &hgt);
 
-	panel_row_max = panel_row_min + hgt - 1;
+	panel_row_max = panel_row_min + (s16b)hgt - 1;
 	panel_row_prt = panel_row_min - 1;
-	panel_col_max = panel_col_min + wid - 1;
+	panel_col_max = panel_col_min + (s16b)wid - 1;
 	panel_col_prt = panel_col_min - 13;
 }
 
@@ -999,8 +999,8 @@ bool change_panel(int dy, int dx)
 	if((y != panel_row_min) || (x != panel_col_min))
 	{
 		/* Save the new panel info */
-		panel_row_min = y;
-		panel_col_min = x;
+		panel_row_min = (s16b)y;
+		panel_col_min = (s16b)x;
 		panel_bounds_center();
 		prepare_update(player_ptr, PU_CREATURES);
 		prepare_redraw(PR_MAP);
@@ -1082,8 +1082,8 @@ void verify_panel(creature_type *creature_ptr)
 	if((prow_min == panel_row_min) && (pcol_min == panel_col_min)) return;
 
 	/* Save the new panel info */
-	panel_row_min = prow_min;
-	panel_col_min = pcol_min;
+	panel_row_min = (s16b)prow_min;
+	panel_col_min = (s16b)pcol_min;
 
 	/* Hack -- optional disturb on "panel change" */
 	if(disturb_panel && !center_player) disturb(player_ptr, 0, 0);
@@ -1447,7 +1447,7 @@ static s16b target_pick(int y1, int x1, int dy, int dx)
 		b_i = i; b_v = v;
 	}
 
-	return (b_i);
+	return (s16b)(b_i);
 }
 
 
@@ -1540,8 +1540,8 @@ static void target_set_prepare(creature_type *creature_ptr, int mode)
 			if((mode & (TARGET_KILL)) && !target_pet && is_pet(creature_ptr, &creature_list[c_ptr->creature_idx])) continue;
 
 			// Save the location
-			temp_x[temp_n] = x;
-			temp_y[temp_n] = y;
+			temp_x[temp_n] = (byte_hack)x;
+			temp_y[temp_n] = (byte_hack)y;
 			temp_n++;
 		}
 	}
@@ -1910,7 +1910,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 					i = object_list[i].next_object_idx;
 
 				/* Add after the last object. */
-				object_list[i].next_object_idx = object_idx;
+				object_list[i].next_object_idx = (s16b)object_idx;
 
 				/* Loop and re-display the list */
 			}
@@ -3461,9 +3461,9 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 
 bool get_hack_dir(creature_type *creature_ptr, int *dp)
 {
-	int		dir;
-	cptr    p;
-	char    command;
+	int dir;
+	cptr p;
+	char command;
 	char creature_name[MAX_NLEN];
 	creature_desc(creature_name, creature_ptr, 0);
 
@@ -3538,7 +3538,7 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 	if(!dir) return FALSE;
 
 	/* Save the direction */
-	command_dir = dir;
+	command_dir = (s16b)dir;
 
 	/* Check for confusion */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
