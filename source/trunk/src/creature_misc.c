@@ -11,7 +11,7 @@ int estimate_level(species_type *species_ptr)
 	int i;
 	int exp = species_ptr->exp;
 	int factor = calc_expfact_sp(species_ptr);
-	int *table;
+	s32b *table;
 
 	if(has_trait_raw(&species_ptr->flags, TRAIT_ANDROID)) table = creature_exp_a;
 	else table = creature_exp;
@@ -330,7 +330,7 @@ s16b calc_bodysize(s32b ht, s32b wt){
 
 s16b calc_punishment_slay(creature_type *creature_ptr, int alignment)
 {
-	int t;
+	s16b t;
 	switch(alignment)
 	{
 		case ALIGNMENT_GOOD:
@@ -521,13 +521,6 @@ bool is_enemy_of_balance_species(species_type *creature_ptr)
 {
 	//TODO
 	return FALSE;
-}
-
-
-void set_observance_flags(creature_type *creature_ptr, int num, u32b flags)
-{
-	//TODO
-	return;
 }
 
 void set_traits_precondition(traits_precondition *flags_pre_ptr, int type, int low, int high)

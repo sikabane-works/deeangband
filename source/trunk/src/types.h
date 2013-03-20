@@ -1263,8 +1263,8 @@ struct creature_type
 	u32b spell_forgotten2;	// bit mask of spells learned but forgotten 
 	byte spell_order[64];	// order spells learned/remembered/forgotten 
 
-	s16b skill_exp[MAX_SKILLS];       // Proficiency of misc. skill 
-	s16b spell_exp[MAX_REALMS];
+	s32b skill_exp[MAX_SKILLS];       // Proficiency of misc. skill 
+	s32b spell_exp[MAX_REALMS];
 
 	s16b mane_spell[MAX_MANE];
 	s16b mane_dam[MAX_MANE];
