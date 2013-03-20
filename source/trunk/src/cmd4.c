@@ -1781,7 +1781,7 @@ void do_cmd_options(void)
 				break;
 			}
 
-			for (i = 0; i < n; i++) if(tolower(k) == option_fields[i].key) break;
+			for (i = 0; i < n; i++) if((char)tolower(k) == option_fields[i].key) break;
 
 			/* Command is found */
 			if(i < n) break;

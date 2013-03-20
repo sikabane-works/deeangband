@@ -1044,7 +1044,7 @@ static int dehex(char c)
 {
 	if(isdigit(c)) return (D2I(c));
 	if(islower(c)) return (A2I(c) + 10);
-	if(isupper(c)) return (A2I(tolower(c)) + 10);
+	if(isupper(c)) return (A2I((char)tolower(c)) + 10);
 	return SUCCESS;
 }
 
@@ -5056,7 +5056,7 @@ void str_tolower(char *str)
 			continue;
 		}
 #endif
-		*str = tolower(*str);
+		*str = (char)tolower(*str);
 	}
 }
 

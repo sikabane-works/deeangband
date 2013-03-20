@@ -194,7 +194,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 
 			ask = (isupper(choice));
 
-			if(ask) choice = tolower(choice);
+			if(ask) choice = (char)tolower(choice);
 
 			/* Extract request */
 			i = (islower(choice) ? A2I(choice) : -1);
@@ -1765,7 +1765,7 @@ void do_cmd_pet(creature_type *master_ptr)
 			{
 				ask = (isupper(choice));
 
-				if(ask) choice = tolower(choice);
+				if(ask) choice = (char)tolower(choice);
 
 				/* Extract request */
 				i = (islower(choice) ? A2I(choice) : -1);

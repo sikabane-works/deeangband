@@ -5007,7 +5007,7 @@ static int choose_essence(void)
 				return 0;
 			}
 
-			if(isupper(choice)) choice = tolower(choice);
+			if(isupper(choice)) choice = (char)tolower(choice);
 
 			if('a' <= choice && choice <= 'a' + (char)mode_max - 1)
 				mode = (int)choice - 'a' + 1;
@@ -5253,7 +5253,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			{
 				ask = (isupper(choice));
 
-				if(ask) choice = tolower(choice);
+				if(ask) choice = (char)tolower(choice);
 
 				/* Extract request */
 				i = (islower(choice) ? A2I(choice) : -1);

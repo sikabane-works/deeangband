@@ -86,7 +86,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 			}
 
 			if(!get_com(out_val, &choice, TRUE)) break;
-			if(isupper(choice)) choice = tolower(choice);
+			if(isupper(choice)) choice = (char)tolower(choice);
 
 			if(choice == 'l')	/* All */
 			{

@@ -246,7 +246,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 			{
 				ask = (isupper(choice));
 
-				if(ask) choice = tolower(choice);
+				if(ask) choice = (char)tolower(choice);
 
 				/* Extract request */
 				i = (islower(choice) ? A2I(choice) : -1);

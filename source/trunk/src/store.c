@@ -2597,7 +2597,7 @@ static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
 		if(islower(command))
 			k = A2I(command);
 		else if(isupper(command))
-			k = A2I(tolower(command)) + 26;
+			k = A2I((char)tolower(command)) + 26;
 		else
 			k = -1;
 

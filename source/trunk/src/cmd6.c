@@ -2625,7 +2625,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			{
 				ask = (isupper(choice));
 
-				if(ask) choice = tolower(choice);
+				if(ask) choice = (char)tolower(choice);
 
 				/* Extract request */
 				i = (islower(choice) ? A2I(choice) : -1);

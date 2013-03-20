@@ -699,7 +699,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 		{
 			ask = isupper(choice);
 
-			if(ask) choice = tolower(choice);
+			if(ask) choice = (char)tolower(choice);
 
 			/* Extract request */
 			i = (islower(choice) ? A2I(choice) : -1);

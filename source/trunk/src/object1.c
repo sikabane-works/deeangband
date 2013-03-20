@@ -2504,7 +2504,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 
 				/* Extract "query" setting */
 				ver = isupper(which);
-				which = tolower(which);
+				which = (char)tolower(which);
 
 				/* Convert letter to creature_ptr->inventory index */
 				if(command_wrk == (USE_INVEN) || command_wrk == (USE_EQUIP))

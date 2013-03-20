@@ -146,7 +146,7 @@ void set_proxy(char *default_url, int default_port)
 	for ( i = 0 ; i < 7 ; i++ )
 	{
 		if( isalpha(tmp[i]) )
-			tmp[i]= tolower(tmp[i]);
+			tmp[i]= (char)tolower(tmp[i]);
 	}
 	if(!strncmp(s, "http://", 7))
 	{
