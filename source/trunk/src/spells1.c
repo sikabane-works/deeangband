@@ -346,7 +346,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 		while(TRUE)
 		{
 			/* Save grid */
-			gp[n++] = GRID(y, x);
+			gp[n++] = (u16b)GRID(y, x);
 
 			/* Hack -- Check maximum range */
 			if((n + (k >> 1)) >= range) break;

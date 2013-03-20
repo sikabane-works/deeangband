@@ -423,8 +423,8 @@ static bool find_space(floor_type *floor_ptr, int *y, int *x, int height, int wi
 	/* Save the room location */
 	if(dungeon_ptr->cent_n < CENT_MAX)
 	{
-		dungeon_ptr->cent[dungeon_ptr->cent_n].y = *y;
-		dungeon_ptr->cent[dungeon_ptr->cent_n].x = *x;
+		dungeon_ptr->cent[dungeon_ptr->cent_n].y = (byte_hack)*y;
+		dungeon_ptr->cent[dungeon_ptr->cent_n].x = (byte_hack)*x;
 		dungeon_ptr->cent_n++;
 	}
 
@@ -2148,7 +2148,8 @@ static bool build_type5(floor_type *floor_ptr)
 	/* Pick some creature types */
 	for (i = 0; i < NUM_NEST_SPECIES_TYPE; i++)
 	{
-		int species_idx = 0, attempts = 100;
+		s16b species_idx = 0;
+		int attempts = 100;
 		species_type *species_ptr = NULL;
 
 		while (attempts--)
@@ -3004,7 +3005,7 @@ static void store_height(floor_type *floor_ptr, int x, int y, int val)
 	    (val <= fill_data.c1)) val = fill_data.c1 + 1;
 
 	/* store the value in height-map format */
-	floor_ptr->cave[y][x].feat = val;
+	floor_ptr->cave[y][x].feat = (s16b)val;
 
 	return;
 }
@@ -3065,7 +3066,7 @@ static void store_height(floor_type *floor_ptr, int x, int y, int val)
  */
 static void generate_hmap(floor_type *floor_ptr, int y0, int x0, int xsiz, int ysiz, int grd, int roug, int cutoff)
 {
-	int xhsize, yhsize, xsize, ysize, maxsize;
+	s16b xhsize, yhsize, xsize, ysize, maxsize;
 
 	/*
 	 * fixed point variables- these are stored as 256 x normal value
@@ -3080,8 +3081,8 @@ static void generate_hmap(floor_type *floor_ptr, int y0, int x0, int xsiz, int y
 	u16b xm, xp, ym, yp;
 
 	/* redefine size so can change the value if out of range */
-	xsize = xsiz;
-	ysize = ysiz;
+	xsize = (s16b)xsiz;
+	ysize = (s16b)ysiz;
 
 
 	if(xsize > 254) xsize = 254;
@@ -4593,7 +4594,6 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	y2 = y0 + dy;
 	x2 = x0 + dx;
 
-
 	/* generate the room */
 	for (x = x1 - 2; x <= x2 + 2; x++)
 	{
@@ -4627,7 +4627,6 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 		if(!IN_BOUNDS(floor_ptr, y,x2+2)) break;
 
 		floor_ptr->cave[y][x2+2].info |= (CAVE_ROOM | CAVE_ICKY);
-
 		place_outer_noperm_bold(floor_ptr, y, x2+2);
 	}
 
