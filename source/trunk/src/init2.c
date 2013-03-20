@@ -381,7 +381,7 @@ static errr init_info_raw(int fd, header *head)
 /*
  * Initialize the header of an *_info.raw file.
  */
-static void init_header(header *head, int num, int len)
+static void init_header(header *head, s16b num, s16b len)
 {
 	/* Save the "version" */
 	head->v_major = VER_MAJOR;
@@ -1147,7 +1147,7 @@ s16b feature_tag_to_index_in_init(cptr str)
  */
 static errr init_feat_variables(void)
 {
-	int i;
+	s16b i;
 
 	/* Nothing */
 	feat_none = feature_tag_to_index_in_init("NONE");
@@ -1411,7 +1411,8 @@ static errr init_other(void)
  */
 static errr init_object_alloc(void)
 {
-	int i, j;
+	u16b i; 
+	int j;
 	object_kind *object_kind_ptr;
 	alloc_entry *table;
 	s16b num[MAX_DEPTH];
@@ -1464,13 +1465,14 @@ static errr init_object_alloc(void)
 			/* Count the "legal" entries */
 			if(object_kind_ptr->chance[j])
 			{
-				int p, x, y, z;
+				byte_hack p, x;
+				int y, z;
 
 				/* Extract the base level */
 				x = object_kind_ptr->locale[j];
 
 				/* Extract the base probability */
-				p = (100 / object_kind_ptr->chance[j]);
+				p = (byte_hack)(100 / object_kind_ptr->chance[j]);
 
 				/* Skip entries preceding our locale */
 				y = (x > 0) ? num[x-1] : 0;
@@ -1533,13 +1535,13 @@ static errr init_alloc(void)
 		/* Count valid pairs */
 		if(species_ptr->rarity)
 		{
-			int p, x;
+			byte_hack p, x;
 
 			/* Extract the base level */
 			x = species_ptr->level;
 
 			/* Extract the base probability */
-			p = (100 / species_ptr->rarity);
+			p = (byte_hack)(100 / species_ptr->rarity);
 
 			/* Load the entry */
 			alloc_species_table[i].index = (int)elements[i].pointer;
