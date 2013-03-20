@@ -2274,7 +2274,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 	// Calculate stats
 	for (i = 0; i < STAT_MAX; i++)
 	{
-		int top, use, ind;
+		s16b top, use, ind;
 
 		// Extract the new "stat_use" value for the stat
 		top = creature_ptr->stat_max[i] + creature_ptr->stat_add[i];
@@ -2517,7 +2517,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 {
 	int i;
 	object_type *object_ptr;
-	int bonus_to_hit, bonus_to_damage, slot;
+	s16b bonus_to_hit, bonus_to_damage, slot;
 	u32b flgs[MAX_TRAITS_FLAG];
 	int default_hand = 1;
 
