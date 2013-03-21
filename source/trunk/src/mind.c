@@ -1099,7 +1099,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 	int dir;
 	int plev = creature_ptr->lev;
 	int tmp;
-	int	x,y;
+	COODINATES x, y;
 
 	switch (spell)
 	{
@@ -1254,7 +1254,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 // is 'berserker'.
 static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 {
-	int y, x;
+	COODINATES y, x;
 	int dir;
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -1346,9 +1346,8 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int x, y;
+	COODINATES x, y;
 	int dir;
-	int plev = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -1356,18 +1355,18 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		(void)unlite_area(caster_ptr, 0, 3);
 		break;
 	case 1:
-		if(plev > 44)
+		if(caster_ptr->lev > 44)
 		{
 			wiz_lite(floor_ptr, caster_ptr, TRUE);
 		}
 		detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
-		if(plev > 4)
+		if(caster_ptr->lev > 4)
 		{
 			detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
 			detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
 			detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
 		}
-		if(plev > 14)
+		if(caster_ptr->lev > 14)
 		{
 			detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
 		}
@@ -1427,9 +1426,9 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		set_timed_trait(caster_ptr, TRAIT_LEVITATION, randint1(20) + 20, FALSE);
 		break;
 	case 9:
-		SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 50 + plev, plev / 10 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 50 + caster_ptr->lev, caster_ptr->lev / 10 + 2, -1);
 		teleport_creature(caster_ptr, 30, 0L);
-		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, plev, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, caster_ptr->lev, FALSE);
 		break;
 	case 10:
 		return rush_attack(caster_ptr, NULL);
@@ -1470,7 +1469,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			char m_name[MAX_NLEN];
 			int i;
 			int path_n;
-			u16b path_g[512];
+			COODINATES path_g[512];
 			COODINATES ty, tx;
 
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
@@ -1535,7 +1534,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			break;
 		}
 	case 13:
-		cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev*3, 3);
+		cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, caster_ptr->lev*3, 3);
 		break;
 	case 14:
 		if(!get_aim_dir(caster_ptr, NO_RANGE_LIMIT, &dir)) return FALSE;
@@ -1545,13 +1544,13 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		explosive_rune(caster_ptr);
 		break;
 	case 16:
-		(void)set_timed_trait(caster_ptr, TRAIT_PASS_WALL, randint1(plev/2) + plev/2, FALSE);
-		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, plev, FALSE);
+		(void)set_timed_trait(caster_ptr, TRAIT_PASS_WALL, randint1(caster_ptr->lev/2) + caster_ptr->lev/2, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, caster_ptr->lev, FALSE);
 		break;
 	case 17:
-		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + plev * 2 / 3, plev / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + plev * 2 / 3, plev / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + plev * 2 / 3, plev / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
 		teleport_creature(caster_ptr, 30, 0L);
 		break;
 	case 18:
@@ -1567,10 +1566,9 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 				while (attempts--)
 				{
 					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
-
 					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
 				}
-				project(caster_ptr, 0, 0, y, x, diceroll(6 + plev / 8, 10), typ, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
+				project(caster_ptr, 0, 0, y, x, diceroll(6 + caster_ptr->lev / 8, 10), typ, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}
 			break;
 		}
