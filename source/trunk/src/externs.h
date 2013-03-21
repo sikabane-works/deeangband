@@ -674,7 +674,7 @@ extern void search(creature_type *creature_ptr);
 extern void py_pickup_aux(creature_type *creature_ptr, int object_idx);
 extern void carry(creature_type *creature_ptr, bool pickup);
 extern bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x);
-extern bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, int nx, u32b mpe_mode);
+extern bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES ny, COODINATES nx, u32b mpe_mode);
 extern bool trap_can_be_ignored(creature_type *creature_ptr, int feat);
 extern void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap);
 extern void run_step(creature_type *creature_ptr, int dir);
@@ -1171,9 +1171,9 @@ extern bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y
 extern void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, byte *gx, byte *gy, byte *gm, int *pgm_rad, int rad, int y1, int x1, int y2, int x2, int typ);
 extern int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int trait_id);
 extern u16b bolt_pict(int y, int x, int ny, int nx, int typ);
-extern sint project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int y2, int x2, int flg);
+extern sint project_path(COODINATES *gp, int range, floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int flg);
 extern int dist_to_line(int y, int x, int y1, int x1, int y2, int x2);
-extern bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int dam, int typ, int flg, int trait_id);
+extern bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODINATES x, int dam, int typ, int flg, int trait_id);
 extern bool binding_field(creature_type *caster_ptr, int range, int dam);
 extern void seal_of_mirror(creature_type *caster_ptr, int dam);
 

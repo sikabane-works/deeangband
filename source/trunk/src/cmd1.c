@@ -1002,7 +1002,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 
 
 // Move the creature
-bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, int nx, u32b mpe_mode)
+bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES ny, COODINATES nx, u32b mpe_mode)
 {
 	floor_type *prev_floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &prev_floor_ptr->cave[ny][nx];

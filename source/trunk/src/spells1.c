@@ -261,7 +261,7 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
 * This algorithm is similar to, but slightly different from, the one used
 * by "update_view_los()", and very different from the one used by "los()".
 */
-int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int y2, int x2, int flg)
+int project_path(COODINATES *gp, int range, floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int flg)
 {
 	int y, x;
 
@@ -3209,7 +3209,7 @@ static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, in
 
 	if((has_trait(target_ptr, TRAIT_REFLECTING) || ((target_ptr->posture & KATA_FUUJIN) && !has_trait(target_ptr, TRAIT_BLIND))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
-		byte t_y, t_x;
+		COODINATES t_y, t_x;
 		int max_attempts = 10;
 
 #ifdef JP
@@ -3760,7 +3760,7 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
 * in the blast radius, in case the "illumination" of the grid was changed,
 * and "update_view()" and "update_creatures()" need to be called.
 */
-bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int dam, int typ, int flg, int trait_id)
+bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODINATES x, int dam, int typ, int flg, int trait_id)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i, t, dist;

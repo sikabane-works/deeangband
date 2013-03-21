@@ -1517,9 +1517,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 
 			/* Update the creature (new location) */
 			update_creature_view(player_ptr, m_idx, TRUE);
-
 			lite_spot(floor_ptr, target_row, target_col);
-
 			lite_spot(floor_ptr, ty, tx);
 
 			if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
