@@ -1213,7 +1213,7 @@ extern bool cast_bolt(creature_type *caster_ptr, int typ, int range, int dam, in
 extern bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad);
 extern bool cast_grenade(creature_type *caster_ptr, int typ, int range, int dam, int rad);
 extern bool cast_ball_hide(creature_type *caster_ptr, int typ, int range, int dam, int rad);
-extern bool fire_meteor(int who, int typ, int x, int y, int dam, int rad);
+extern bool fire_meteor(int who, int typ, COODINATES x, COODINATES y, int dam, int rad);
 extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev);
 extern void call_chaos(creature_type *creature_ptr);
 extern bool cast_beam(creature_type *caster_ptr, int typ, int range, int dam, int trait_id);

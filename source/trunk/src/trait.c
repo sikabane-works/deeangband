@@ -33,7 +33,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	int count = 0;
 
-	int x = 0, y = 0;
+	COODINATES x = 0, y = 0;
 
 	bool kichigai_talk = FALSE;
 	bool summoned = FALSE;
