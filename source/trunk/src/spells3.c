@@ -43,7 +43,8 @@ static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, 
 bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int oy, ox, d, i, min, m_idx = 0;
+	int oy, ox, d, min, i;
+	s16b m_idx = 0, point;
 	int tries = 0;
 	int ny = 0, nx = 0;
 	bool look = TRUE;
@@ -109,10 +110,10 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	floor_ptr->cave[oy][ox].creature_idx = 0;
 
 	/*TODO::!*/
-	for(i = 0; i < 10000; i++)
-		if(&creature_list[i] == creature_ptr)
+	for(point = 0; point < 10000; i++)
+		if(&creature_list[point] == creature_ptr)
 		{
-			m_idx = i;
+			m_idx = point;
 			break;
 		}
 
@@ -721,8 +722,8 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 int choose_dungeon(cptr note, int y, int x)
 {
 	int select_dungeon;
-	int i, num = 0;
-	s16b *dun;
+	int num = 0;
+	s16b i, *dun;
 
 	/* Hack -- No need to choose dungeon in some case */
 	if(ironman_downward)

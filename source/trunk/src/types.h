@@ -44,6 +44,11 @@
  * and increase the complexity of the code.
  */
 
+typedef u32b CREATURE_ID;
+typedef byte TVAL;
+typedef byte SVAL;
+typedef byte SYMBOL;
+
 
 /*
  * Creature flags
@@ -97,10 +102,10 @@ struct feature_type
 	byte power;
 
 	byte d_attr[F_LIT_MAX];   /* Default feature attribute */
-	byte d_char[F_LIT_MAX];   /* Default feature character */
+	SYMBOL d_char[F_LIT_MAX];   /* Default feature character */
 
 	byte x_attr[F_LIT_MAX];   /* Desired feature attribute */
-	byte x_char[F_LIT_MAX];   /* Desired feature character */
+	SYMBOL x_char[F_LIT_MAX];   /* Desired feature character */
 
 };
 
@@ -119,8 +124,8 @@ struct object_kind
 	u32b text;			/* Text (offset) */
 	u32b flavospecies_name;		/* Flavor name (offset) */
 
-	byte tval;			/* Object type */
-	byte sval;			/* Object sub type */
+	TVAL tval;			/* Object type */
+	SVAL sval;			/* Object sub type */
 	s16b pval;			/* Object extra info */
 
 	s16b stat_val[STAT_MAX]; // Stat
@@ -163,9 +168,9 @@ struct object_kind
 	byte extra;			/* Something */
 
 	byte d_attr;		/* Default object attribute */
-	byte d_char;		/* Default object character */
+	SYMBOL d_char;		/* Default object character */
 	byte x_attr;		/* Desired object attribute */
-	byte x_char;		/* Desired object character */
+	SYMBOL x_char;		/* Desired object character */
 	s16b flavor;		/* Special object flavor (or zero) */
 	bool easy_know;		/* This object is always known (if aware) */
 
@@ -194,8 +199,8 @@ struct artifact_type
 	u32b name;			/* Name (offset) */
 	u32b text;			/* Text (offset) */
 
-	byte tval;			/* Artifact type */
-	byte sval;			/* Artifact sub type */
+	TVAL tval;			/* Artifact type */
+	SVAL sval;			/* Artifact sub type */
 
 	s16b stat[STAT_MAX]; // stat info.
 
@@ -425,10 +430,10 @@ struct species_type
 	byte rarity;			/* Rarity of creature */
 
 	byte d_attr;			/* Default creature attribute */
-	byte d_char;			/* Default creature character */
+	SYMBOL d_char;			/* Default creature character */
 
 	byte x_attr;			/* Desired creature attribute */
-	byte x_char;			/* Desired creature character */
+	SYMBOL x_char;			/* Desired creature character */
 
 	byte max_num;			/* Maximum population allowed per level */
 	byte cur_num;			/* Creature population on current level */
@@ -612,8 +617,8 @@ struct object_type
 	byte fy;			/* Y-position on map, or zero */
 	byte fx;			/* X-position on map, or zero */
 
-	byte tval;			/* Item type (from kind) */
-	byte sval;			/* Item sub-type (from kind) */
+	TVAL tval;			/* Item type (from kind) */
+	SVAL sval;			/* Item sub-type (from kind) */
 
 	s16b stat_val[STAT_MAX]; // Stat
 	s16b pval;			/* Item extra-parameter */
@@ -1122,19 +1127,18 @@ struct chara_type
 
 
 typedef struct creature_type creature_type;
-
 struct creature_type
 {
-	u32b creature_idx;
+	CREATURE_ID creature_idx;
 
 	char name[128];
 
 	byte player;	// Player Flag 
 
 	byte d_attr;			// Default creature attribute
-	byte d_char;			// Default creature character
+	SYMBOL d_char;			// Default creature character
 	byte x_attr;			// Desired creature attribute
-	byte x_char;			// Desired creature character
+	SYMBOL x_char;			// Desired creature character
 
 	s16b oldpy;		// Previous player location -KMW- 
 	s16b oldpx;		// Previous player location -KMW- 
@@ -1398,9 +1402,8 @@ struct creature_type
 
 	s16b num_fire;		// Number of shots 
 
-	byte tval_xtra;		// Correct xtra tval 
-
-	byte tval_ammo;		// Correct ammo tval 
+	TVAL tval_xtra;		// Correct xtra tval 
+	TVAL tval_ammo;		// Correct ammo tval 
 
 	s16b speed;		// speed 
 
@@ -1827,8 +1830,8 @@ typedef struct
 typedef struct
 {
 	s16b species_idx; /* Creature (0 means victory prizing) */
-	byte tval;  /* tval of prize (0 means no prize) */
-	byte sval;  /* sval of prize */
+	TVAL tval;  /* tval of prize (0 means no prize) */
+	SVAL sval;  /* sval of prize */
 } arena_type;
 
 
@@ -1959,6 +1962,6 @@ typedef struct half_race_description {
 } half_race_description;
 
 typedef struct object_id {
-	s16b tval;
-	s16b sval; 
+	TVAL tval;
+	SVAL sval; 
 } object_id;
