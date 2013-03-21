@@ -254,8 +254,8 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 		creature_type *mover_ptr;
 
 		// Pick a (possibly illegal) location
-		int ny = rand_spread(oy, dis);
-		int nx = rand_spread(ox, dis);
+		COODINATES ny = (COODINATES)rand_spread(oy, dis);
+		COODINATES nx = (COODINATES)rand_spread(ox, dis);
 
 		tries++;
 		if(tries > 10000) return; // Stop after 1000 tries
@@ -305,9 +305,8 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
  
 static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stair_ptr, floor_type *old_floor_ptr, floor_type *new_floor_ptr, u32b flag)
 {
-	int x, y, sx = 0, sy = 0;
-	int x_table[20];
-	int y_table[20];
+	COODINATES sx = 0, sy = 0, x, y;
+	COODINATES x_table[20], y_table[20];
 	int num = 0;
 	int i;
 
@@ -362,9 +361,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 	}
 
 	if(sx)
-	{
 		move_creature(creature_ptr, new_floor_ptr, sy, sx, MCE_NO_ENTER); // Already fixed
-	}
 	else if(!num)
 	{
 		if(!feat_uses_special(stair_ptr->feat)) stair_ptr->special = 0; // Mega Hack -- It's not the stairs you enter.  Disable it.

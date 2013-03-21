@@ -1447,12 +1447,12 @@ static void do_creature_speaking(creature_type *creature_ptr)
  */
 static void process_nonplayer(CREATURE_ID m_idx)
 {
-	creature_type    *creature_ptr = &creature_list[m_idx];
-	floor_type       *floor_ptr = GET_FLOOR_PTR(creature_ptr); 
+	creature_type *creature_ptr = &creature_list[m_idx];
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr); 
 	char creature_name[80];
 
-	species_type    *species_ptr = &species_info[creature_ptr->species_idx];
-	species_type    *ap_species_ptr = &species_info[creature_ptr->ap_species_idx];
+	species_type *species_ptr = &species_info[creature_ptr->species_idx];
+	species_type *ap_species_ptr = &species_info[creature_ptr->ap_species_idx];
 
 	int             i, d, oy, ox, ny, nx;
 	int             mm[8];
