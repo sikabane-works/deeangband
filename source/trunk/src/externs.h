@@ -972,7 +972,7 @@ extern int get_floor_id(floor_type *floor_ptr);
 extern bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr);
 extern void wipe_generate_floor_flags(floor_type *floor_ptr);
 extern void clear_cave(floor_type *floor_ptr);
-extern int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag);
+extern int generate_floor(int dungeon_id, int world_y, int world_x, FLOOR_LEV depth, floor_type *prev_ptr, u32b flag);
 
 // init1.c
 extern byte color_char_to_acttr(char c);

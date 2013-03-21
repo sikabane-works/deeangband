@@ -44,11 +44,15 @@
  * and increase the complexity of the code.
  */
 
+typedef u32b FLAGS_32;
+
 typedef u32b CREATURE_ID;
 typedef byte TVAL;
 typedef byte SVAL;
 typedef byte SYMBOL;
 typedef byte CREATURE_LEV;
+typedef byte FLOOR_LEV;
+typedef s16b COODINATES;
 
 /*
  * Creature flags
@@ -92,7 +96,7 @@ struct feature_type
 
 	s16b mimic;               /* Feature to mimic */
 
-	u32b flags[FF_FLAG_SIZE]; /* Flags */
+	FLAGS_32 flags[FF_FLAG_SIZE]; /* Flags */
 
 	u16b priority;            /* Map priority */
 	s16b destroyed;           /* Default destroyed state */
@@ -156,16 +160,16 @@ struct object_kind
 	s16b charge_const;
 	s16b charge_dice;
 
-	u32b flags[MAX_TRAITS_FLAG];	// Flags
+	FLAGS_32 flags[MAX_TRAITS_FLAG];	// Flags
 	traits_precondition add_creature_traits;
 
-	u32b gen_flags;		/* flags for generate */
+	FLAGS_32 gen_flags;		/* flags for generate */
 
 	byte locale[4];		/* Allocation level(s) */
 	byte chance[4];		/* Allocation chance(s) */
 
-	byte level;			/* Level */
-	byte extra;			/* Something */
+	FLOOR_LEV level;
+	byte extra;	
 
 	byte d_attr;		/* Default object attribute */
 	SYMBOL d_char;		/* Default object character */
@@ -225,12 +229,12 @@ struct artifact_type
 
 	s32b cost;			/* Artifact "cost" */
 
-	u32b flags[MAX_TRAITS_FLAG];       /* Artifact Flags */
+	FLAGS_32 flags[MAX_TRAITS_FLAG];       /* Artifact Flags */
 	traits_precondition add_creature_traits;
 
-	u32b gen_flags;		/* flags for generate */
+	FLAGS_32 gen_flags;		/* flags for generate */
 
-	byte level;			/* Artifact level */
+	FLOOR_LEV level;			/* Artifact level */
 	byte rarity;		/* Artifact rarity */
 
 	byte cur_num;		/* Number created (0 or 1) */
@@ -262,7 +266,7 @@ struct ego_item_type
 	byte slot;			/* Standard slot value */
 	byte rating;		/* Rating boost */
 
-	byte level;			/* Minimum level */
+	FLOOR_LEV level;	/* Minimum level */
 	byte rarity;		/* Object rarity */
 
 	byte max_to_hit;		// Maximum to-hit bonus
@@ -278,7 +282,7 @@ struct ego_item_type
 	s16b charge_const;
 	s16b charge_dice;
 
-	u32b flags[MAX_TRAITS_FLAG];	/* Ego-Item Flags */
+	FLAGS_32 flags[MAX_TRAITS_FLAG];	/* Ego-Item Flags */
 	traits_precondition add_creature_traits;
 
 	u32b gen_flags;		/* flags for generate */
@@ -368,7 +372,7 @@ struct species_type
 
 	s16b realm1;       /* First magic realm */
 	s16b realm2;       /* Second magic realm */
-	u32b authority[8];      /* Autority flags*/
+	FLAGS_32 authority[8];      /* Autority flags*/
 
 	s32b age;
 	s16b sc;
@@ -614,8 +618,8 @@ struct object_type
 	char name[128];
 
 	byte floor_id;		/* floor */
-	byte fy;			/* Y-position on map, or zero */
-	byte fx;			/* X-position on map, or zero */
+	COODINATES fy;		/* Y-position on map, or zero */
+	COODINATES fx;		/* X-position on map, or zero */
 
 	TVAL tval;			/* Item type (from kind) */
 	SVAL sval;			/* Item sub-type (from kind) */
@@ -671,8 +675,8 @@ struct object_type
 
 	byte feeling;          /* Game generated inscription number (eg, pseudo-id) */
 
-	u32b trait_flags[MAX_TRAITS_FLAG];
-	u32b curse_flags[MAX_TRAITS_FLAG]; // Flags for curse
+	FLAGS_32 trait_flags[MAX_TRAITS_FLAG];
+	FLAGS_32 curse_flags[MAX_TRAITS_FLAG]; // Flags for curse
 
 	s16b next_object_idx;	// Next object in stack (if any)
 	s16b held_m_idx;		// Creature holding us (if any)
@@ -698,7 +702,7 @@ struct alloc_entry
 {
 	s16b index;		/* The actual index */
 
-	byte level;		/* Base dungeon level */
+	FLOOR_LEV level; /* Base dungeon level */
 	byte prob1;		/* Probability, pass 1 */
 	byte prob2;		/* Probability, pass 2 */
 	byte prob3;		/* Probability, pass 3 */
@@ -796,9 +800,9 @@ struct store_type
 	s16b stock_size;		/* Stock -- Total Size of Array */
 	object_type *stock;		/* Stock -- Actual stock items */
 
-	u32b flags;
+	FLAGS_32 flags;
 	s32b wealth;
-	byte level;
+	FLOOR_LEV level;
 };
 
 
@@ -812,8 +816,8 @@ struct store_pre_type
 	s16b owner_id;
 	u16b size;
 	s32b wealth;
-	u32b flags;
-	byte level;
+	FLAGS_32 flags;
+	FLOOR_LEV level;
 };
 
 
@@ -1151,8 +1155,8 @@ struct creature_type
 	s16b creature_ego_idx;		// Ego index
 	s16b starting_idx;			// Starting indx	
 	byte sub_align;		    // Sub-alignment for a neutral creature 
-	u32b sub_race[8];       // Sub-Race flags 
-	u32b authority[8];      // Autority flags
+	FLAGS_32 sub_race[8];       // Sub-Race flags 
+	FLAGS_32 authority[8];      // Autority flags
 	s16b sex;				// Sex index 
 	bool sexual_penalty;	// Sexual penalty flag 
 	s16b class_idx;		    // Class index 
@@ -1405,16 +1409,14 @@ struct creature_type
 	TVAL tval_xtra;		// Correct xtra tval 
 	TVAL tval_ammo;		// Correct ammo tval 
 
-	s16b speed;		// speed 
+	s16b speed; // speed 
 
-	byte fy;		// Y location on map 
-	byte fx;		// X location on map 
-
-	s32b wx;	// Coordinates in the wilderness 
-	s32b wy;
+	COODINATES fy; // Y location on map 
+	COODINATES fx; // X location on map 
+	COODINATES wx; // Coordinates in the wilderness 
+	COODINATES wy;
 
 	s16b depth;
-
 	byte cdis;		// Current dis from player 
 
 	byte sc_flag;	// Extra creature flags 
@@ -1522,8 +1524,8 @@ struct martial_arts
 {
 	cptr	name;		// Arts name
 	cptr    desc;       // A verbose attack description
-	int     min_level;  // Minimum level to use
-	int     chance;     // Chance of 'success'
+	FLOOR_LEV min_level;  // Minimum level to use
+	byte chance;     // Chance of 'success'
 	int     dd;         // Damage dice
 	int     ds;         // Damage sides
 	int     effect;     // Special effects
@@ -1534,7 +1536,7 @@ typedef struct kamae kamae;
 struct kamae
 {
 	cptr    desc;       /* A verbose kamae description */
-	int     min_level;  /* Minimum level to use */
+	FLOOR_LEV min_level;  /* Minimum level to use */
 	cptr    info;
 };
 
@@ -1542,7 +1544,7 @@ struct kamae
 typedef struct mind_type mind_type;
 struct mind_type
 {
-	int     min_lev;
+	FLOOR_LEV min_lev;
 	int     mana_cost;
 	int     fail;
 	cptr    name;
@@ -1559,7 +1561,7 @@ struct mind_power
 typedef struct racial_power racial_power;
 struct racial_power
 {
-	int     level;
+	FLOOR_LEV level;
 	int     smana;
 	int     fail;
 	int     manedam;
@@ -1622,7 +1624,7 @@ struct wilderness_type
 	int         town;
 	int         road;
 	u32b        seed;
-	s16b        level;
+	FLOOR_LEV level;
 	byte        entrance;
 	byte        known;
 };
@@ -1643,8 +1645,8 @@ struct town_type
 typedef struct dun_type dun_type;
 struct dun_type
 {
-	byte min_level; /* Minimum level in the dungeon */
-	byte max_level; /* Maximum dungeon level allowed */
+	FLOOR_LEV min_level; /* Minimum level in the dungeon */
+	FLOOR_LEV max_level; /* Maximum dungeon level allowed */
 
 	cptr name;      /* The name of the dungeon */
 };
@@ -1737,10 +1739,10 @@ struct dungeon_type {
 	s16b nest;
 	byte mode;		/* Mode of combinaison of the creature flags */
 
-	s16b min_m_alloc_level;	/* Minimal number of creatures per level */
+	FLOOR_LEV min_m_alloc_level; /* Minimal number of creatures per level */
 	s16b max_m_alloc_chance; /* There is a 1/max_m_alloc_chance chance per round of creating a new creature */
 
-	u32b flags1;		/* Flags 1 */
+	FLAGS_32 flags1;		/* Flags 1 */
 
 	traits_precondition c_flags;
 
@@ -1788,9 +1790,9 @@ typedef struct
 	byte fight_arena_mode;
 	byte gamble_arena_mode;
 
-	s16b depth;
-	s16b enemy_level;  // Current creature creation level
-	s16b object_level;    // Current object creation level
+	FLOOR_LEV depth;
+	FLOOR_LEV enemy_level;  // Current creature creation level
+	FLOOR_LEV object_level;    // Current object creation level
 	byte dun_type;
 	s32b world_x;
 	s32b world_y;
@@ -1807,9 +1809,7 @@ typedef struct
 	byte generated;
 	byte generate_encounter;
 	s16b town_num;			// Current town number
-
 } floor_type;
-
 
 /*
  *  A structure type for terrain template of saving dungeon floor

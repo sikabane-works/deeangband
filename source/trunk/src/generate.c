@@ -1427,7 +1427,7 @@ void clear_cave(floor_type *floor_ptr)
 
 // Generates a random dungeon level			-RAK-
 // Hack -- regenerate any "overflow" levels
-int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag)
+int generate_floor(int dungeon_id, int world_y, int world_x, FLOOR_LEV depth, floor_type *prev_ptr, u32b flag)
 {
 	int num;
 	int floor_id = floor_pop();

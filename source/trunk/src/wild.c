@@ -623,11 +623,11 @@ typedef struct wilderness_grid wilderness_grid;
 
 struct wilderness_grid
 {
-	int		terrain;    /* Terrain type */
-	int		town;       /* Town number */
-	s16b	level;		/* Level of the wilderness */
-	byte	road;       /* Road */
-	char	name[32];	/* Name of the town/wilderness */
+	int terrain;    /* Terrain type */
+	int town;       /* Town number */
+	FLOOR_LEV level;		/* Level of the wilderness */
+	byte road;       /* Road */
+	char name[32];	/* Name of the town/wilderness */
 };
 
 

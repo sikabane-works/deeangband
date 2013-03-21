@@ -3348,9 +3348,7 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
 	if(z1 && z2)
 	{
 		cave_ptr->info |= (CAVE_XTRA);
-
 		cave_view_hack(cave_ptr, y, x);
-
 		return (wall);
 	}
 
@@ -3358,7 +3356,6 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
 	if(z1)
 	{
 		cave_view_hack(cave_ptr, y, x);
-
 		return (wall);
 	}
 
