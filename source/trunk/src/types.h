@@ -1288,8 +1288,8 @@ struct creature_type
 	cptr last_message;        // Last message on death or retirement 
 	char history[HISTORY_ROW][HISTORY_COL];  	  // Textual "history" for the Player 
 
-	s16b riding;              // Riding on a creature of this index 
-	s16b ridden;              // Ridden on a creature of this index 
+	CREATURE_ID riding; /* Riding on a creature of this index */ 
+	CREATURE_ID ridden; /* Ridden on a creature of this index */
 	byte knowledge;           // Knowledge about yourself 
 	s32b visit;               // Visited towns 
 

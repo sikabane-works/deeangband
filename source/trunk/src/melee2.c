@@ -20,7 +20,7 @@
 /*
  * Calculate the direction to the next enemy
  */
-static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
+static bool get_enemy_dir(creature_type *creature_ptr, CREATURE_ID m_idx, int *mm)
 {
 	int i;
 	int x = 0, y = 0;
@@ -251,7 +251,7 @@ static bool mon_will_run(creature_type *creature_ptr, int m_idx)
 
 
 // Search spell castable grid
-static bool get_moves_aux2(int m_idx, int *yp, int *xp)
+static bool get_moves_aux2(CREATURE_ID m_idx, int *yp, int *xp)
 {
 	int i, y, x, y1, x1, best = 999;
 
@@ -350,7 +350,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
  * being close enough to chase directly.  I have no idea what will
  * happen if you combine "smell" with low "alert_range" values.
  */
-static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp, bool no_flow)
+static bool get_moves_aux(creature_type *mover_ptr, CREATURE_ID m_idx, int *yp, int *xp, bool no_flow)
 {
 	int i, y, x, y1, x1, best;
 
@@ -666,7 +666,7 @@ static sint *dist_offsets_x[10] =
 *
 * Return TRUE if a safe location is available.
 */
-static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int *xp)
+static bool find_safety(creature_type *avoid_target_ptr, CREATURE_ID m_idx, int *yp, int *xp)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(avoid_target_ptr);
@@ -825,7 +825,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 
 
 // Choose "logical" directions for creature movement
-static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
+static bool get_moves(CREATURE_ID m_idx, creature_type *player_ptr, int *mm)
 {
 	creature_type *nonplayer_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
@@ -1445,7 +1445,7 @@ static void do_creature_speaking(creature_type *creature_ptr)
  *
  * A "direction" of "5" means "pick a random direction".
  */
-static void process_nonplayer(int m_idx)
+static void process_nonplayer(CREATURE_ID m_idx)
 {
 	creature_type    *creature_ptr = &creature_list[m_idx];
 	floor_type       *floor_ptr = GET_FLOOR_PTR(creature_ptr); 
