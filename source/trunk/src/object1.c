@@ -357,7 +357,7 @@ s16b label_to_item(creature_type *creature_ptr, int c)
 	i = (islower(c) ? A2I(c) : -1);						// Convert
 	if((i < 0) || (i > INVEN_TOTAL)) return (-1);		// Verify the index
 	if(!creature_ptr->inventory[i].k_idx) return (-1);	// Empty slots can never be chosen
-	return i;	// Return the index
+	return (s16b)i;	// Return the index
 }
 
 // Return a string mentioning how a given item is carried
@@ -1518,7 +1518,8 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	char n1 = ' ', n2 = ' ', which = ' ';
-	int j, k, i1, i2, e1, e2;
+	int j, k; 
+	char i1, i2, e1, e2;
 	bool done, item;
 	bool oops = FALSE;
 
@@ -1816,8 +1817,8 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			k = MIN(floor_top + 23, floor_num) - 1;
 
 			/* Extract the legal requests */
-			n1 = I2A(j - floor_top);
-			n2 = I2A(k - floor_top);
+			n1 = (char)I2A(j - floor_top);
+			n2 = (char)I2A(k - floor_top);
 
 			if(command_see) get_item_label = show_floor(floor_ptr, menu_line, creature_ptr->fy, creature_ptr->fx, &min_width);
 		}
@@ -2190,7 +2191,8 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			case '\r':
 			case '+':
 			{
-				int i, object_idx;
+				int i;
+				s16b object_idx;
 				cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 
 				if(command_wrk != (USE_FLOOR)) break;
@@ -2619,17 +2621,12 @@ static bool py_pickup_floor_aux(creature_type *creature_ptr)
 	s = MES_PACK_NO_ROOM_FLOOR;
 
 	if(get_item(creature_ptr, &item, q, s, (USE_FLOOR), inven_carry_okay, 0))
-	{
-		this_object_idx = 0 - item;
-	}
+		this_object_idx = 0 - (s16b)item;
 	else
-	{
 		return FALSE;
-	}
 
 	// Pick up the object
 	py_pickup_aux(creature_ptr, this_object_idx);
-
 	return TRUE;
 }
 
