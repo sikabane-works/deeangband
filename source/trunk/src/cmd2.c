@@ -2182,7 +2182,8 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int dir, range;
-	int i, j, y, x, ny, nx, ty, tx, prev_y, prev_x;
+	int i, j;
+	COODINATES y, x, ny, nx, ty, tx, prev_y, prev_x;
 	int tdam_base, tdis, thits, tmul;
 	int bonus, chance = 0;
 	int cur_dis, visible;
@@ -2391,10 +2392,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 		/* Sniper */
 		if(creature_ptr->snipe_type == SP_KILL_TRAP)
-		{
-			project(creature_ptr, 0, 0, ny, nx, 0, DO_EFFECT_KILL_TRAP,
-				(PROJECT_JUMP | PROJECT_HIDE | PROJECT_GRID | PROJECT_ITEM), -1);
-		}
+			project(creature_ptr, 0, 0, ny, nx, 0, DO_EFFECT_KILL_TRAP, (PROJECT_JUMP | PROJECT_HIDE | PROJECT_GRID | PROJECT_ITEM), -1);
 
 		/* Sniper */
 		if(creature_ptr->snipe_type == SP_EVILNESS)
