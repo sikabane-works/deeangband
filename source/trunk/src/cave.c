@@ -4871,7 +4871,7 @@ void health_track(int m_idx)
 /*
  * Hack -- track the given creature race
  */
-void species_type_track(s16b species_idx)
+void species_type_track(SPECIES_ID species_idx)
 {
 	/* Save this creature ID */
 	species_window_idx = species_idx;

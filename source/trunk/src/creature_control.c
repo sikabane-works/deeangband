@@ -3230,7 +3230,7 @@ void deal_item(creature_type *creature_ptr)
 	return;
 }
 
-static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, int creature_ego_idx, u32b mode)
+static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, int species_idx, int creature_ego_idx, u32b mode)
 {
 	cave_type		*c_ptr = &floor_ptr->cave[y][x];
 	creature_type	*creature_ptr;
@@ -3604,8 +3604,8 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 
 	int hack_n = 0;
 
-	byte hack_y[GROUP_MAX];
-	byte hack_x[GROUP_MAX];
+	COODINATES hack_y[GROUP_MAX];
+	COODINATES hack_x[GROUP_MAX];
 
 
 	/* Pick a group size */
@@ -4422,7 +4422,7 @@ void message_pain(int m_idx, int dam)
 	}
 }
 
-bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, int x)
+bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, COODINATES y, COODINATES x)
 {
 	if(floor_ptr->cave[y][x].creature_idx != 0) return FALSE;
 	creature_ptr->fy = y;

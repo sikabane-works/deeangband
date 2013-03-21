@@ -658,7 +658,7 @@ extern void mmove2(int *y, int *x, int y1, int x1, int y2, int x2);
 extern bool projectable(floor_type *floor_ptr, int range, int y1, int x1, int y2, int x2);
 extern void scatter(floor_type *floor_ptr, int *yp, int *xp, int y, int x, int d, int mode);
 extern void health_track(int m_idx);
-extern void species_type_track(s16b species_idx);
+extern void species_type_track(SPECIES_ID species_idx);
 extern void object_kind_track(s16b k_idx);
 extern void disturb(creature_type *player_ptr, int stop_search, int flush_output);
 extern void glow_deep_lava_and_bldg(floor_type *floor_ptr);
@@ -1590,7 +1590,7 @@ extern void repeat_check(void);
 // variable.c
 extern s16b arena_number;		/* creature number in arena -KMW- */
 
-extern s16b species_window_idx;	/* Species info trackee */
+extern SPECIES_ID species_window_idx;	/* Species info trackee */
 
 
 /* cmd2.c */

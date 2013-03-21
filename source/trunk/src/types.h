@@ -47,6 +47,9 @@
 typedef u32b FLAGS_32;
 
 typedef u32b CREATURE_ID;
+typedef u32b SPECIES_ID;
+typedef u16b TOWN_ID;
+
 typedef byte TVAL;
 typedef byte SVAL;
 typedef byte SYMBOL;
@@ -355,8 +358,8 @@ struct species_type
 	u32b E_text;                    /* English Text (offset) */
 #endif
 
-	s16b species_idx;			    /* Species index */
-	s16b ap_species_idx;		    /* Species appearance index */
+	SPECIES_ID species_idx;			    /* Species index */
+	SPECIES_ID ap_species_idx;		    /* Species appearance index */
 
 	s16b camp;
 	s16b race_idx1;                 /* Race index 1*/
@@ -427,7 +430,7 @@ struct species_type
 
 	special_blow_type blow[MAX_SPECIAL_BLOWS];	/* Up to four blows per round */
 
-	s16b next_species_idx;
+	SPECIES_ID next_species_idx;
 	u32b next_exp;
 
 	CREATURE_LEV level;				/* Level of creature */
@@ -561,7 +564,7 @@ struct cave_type
 	u16b cy;           // Connected y
 	s16b feat;		   // Hack -- feature type
 	s16b object_idx;   // Object in this grid
-	s16b creature_idx; // Creature in this grid
+	CREATURE_ID creature_idx; // Creature in this grid
 	s16b special;      // Special cave info
 	s16b mimic;        // Feature to mimic
 	byte cost;         // Hack -- cost of flowing
@@ -751,8 +754,8 @@ struct quest_type
 	s16b type;              /* The quest type */
 
 	char name[60];          /* Quest name */
-	s16b level;             /* Dungeon level */
-	s16b species_idx;             /* Creature race */
+	FLOOR_LEV level;             /* Dungeon level */
+	SPECIES_ID species_idx;             /* Creature race */
 
 	s16b cur_num;           /* Number killed */
 	s16b max_num;           /* Number required */
@@ -1150,8 +1153,8 @@ struct creature_type
 	s16b race_idx1;			    // Race index
 	s16b race_idx2;			    // Race index
 	s16b mimic_race_idx;		// Mimic Race index
-	s16b species_idx;			// Species index
-	s16b ap_species_idx;		// Species appearance index
+	SPECIES_ID species_idx;			// Species index
+	SPECIES_ID ap_species_idx;		// Species appearance index
 	s16b creature_ego_idx;		// Ego index
 	s16b starting_idx;			// Starting indx	
 	byte sub_align;		    // Sub-alignment for a neutral creature 
@@ -1662,8 +1665,8 @@ struct tag_type
 	void    *pointer;
 };
 
-typedef bool (*creature_hook_type)(int species_idx);
-typedef bool (*creature_hook_type2)(creature_type *player_ptr, int species_idx);
+typedef bool (*creature_hook_type)(SPECIES_ID species_idx);
+typedef bool (*creature_hook_type2)(creature_type *player_ptr, SPECIES_ID species_idx);
 
 /*
  * This seems like a pretty standard "typedef"
@@ -1794,8 +1797,8 @@ typedef struct
 	FLOOR_LEV enemy_level;  // Current creature creation level
 	FLOOR_LEV object_level;    // Current object creation level
 	byte dun_type;
-	s32b world_x;
-	s32b world_y;
+	COODINATES world_x;
+	COODINATES world_y;
 	s32b last_visit;      // Time count of last visit. 0 for new floor.
 	u32b visit_mark;      // Older has always smaller mark.
 	s16b width;
@@ -1808,7 +1811,7 @@ typedef struct
 	s16b race_population[MAX_RACES];
 	byte generated;
 	byte generate_encounter;
-	s16b town_num;			// Current town number
+	TOWN_ID town_num;			// Current town number
 } floor_type;
 
 /*
@@ -1829,7 +1832,7 @@ typedef struct
  */
 typedef struct
 {
-	s16b species_idx; /* Creature (0 means victory prizing) */
+	SPECIES_ID species_idx; /* Creature (0 means victory prizing) */
 	TVAL tval;  /* tval of prize (0 means no prize) */
 	SVAL sval;  /* sval of prize */
 } arena_type;
