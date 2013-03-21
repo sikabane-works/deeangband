@@ -46,7 +46,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	int oy, ox, d, min, i;
 	s16b m_idx = 0, point;
 	int tries = 0;
-	int ny = 0, nx = 0;
+	COODINATES ny = 0, nx = 0;
 	bool look = TRUE;
 
 	if(!creature_ptr->species_idx) return FALSE;

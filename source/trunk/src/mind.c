@@ -972,9 +972,10 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 7:
 		{
-			int y, x, dam;
-			if(!get_aim_dir(creature_ptr, 1, &dir)) return FALSE;
+			COODINATES y, x;
+			int dam;
 
+			if(!get_aim_dir(creature_ptr, 1, &dir)) return FALSE;
 			y = creature_ptr->fy + ddy[dir];
 			x = creature_ptr->fx + ddx[dir];
 			dam = diceroll(8 + ((plev - 5) / 4) + boost / 12, 8);
@@ -982,9 +983,9 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 			if(floor_ptr->cave[y][x].creature_idx)
 			{
 				int i;
-				int ty = y, tx = x;
-				int oy = y, ox = x;
-				int m_idx = floor_ptr->cave[y][x].creature_idx;
+				COODINATES ty = y, tx = x;
+				COODINATES oy = y, ox = x;
+				CREATURE_ID m_idx = floor_ptr->cave[y][x].creature_idx;
 				creature_type *m_ptr = &creature_list[m_idx];
 				species_type *species_ptr = &species_info[m_ptr->species_idx];
 				char m_name[MAX_NLEN];
@@ -1470,7 +1471,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			int i;
 			int path_n;
 			u16b path_g[512];
-			int ty,tx;
+			COODINATES ty, tx;
 
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
@@ -1490,8 +1491,8 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			ty = target_row, tx = target_col;
 			for (i = 1; i < path_n; i++)
 			{
-				int ny = GRID_Y(path_g[i]);
-				int nx = GRID_X(path_g[i]);
+				COODINATES ny = GRID_Y(path_g[i]);
+				COODINATES nx = GRID_X(path_g[i]);
 				cave_type *c_ptr = &floor_ptr->cave[ny][nx];
 
 				if(IN_BOUNDS(floor_ptr, ny, nx) && cave_empty_bold(floor_ptr, ny, nx) &&

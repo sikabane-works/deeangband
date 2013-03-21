@@ -2921,7 +2921,7 @@ bool make_gold(floor_type *floor_ptr, object_type *object2_ptr, int value, int c
 
 // Places a treasure (Gold or Gems) at given location
 // The location must be a legal, clean, floor grid.
-void place_gold(floor_type *floor_ptr, int y, int x)
+void place_gold(floor_type *floor_ptr, COODINATES y, COODINATES x)
 {
 	s16b object_idx;
 
