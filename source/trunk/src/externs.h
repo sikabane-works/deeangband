@@ -595,7 +595,7 @@ extern void do_cmd_edit_autopick(creature_type *creature_ptr);
 extern void add_history_from_pref_line(cptr t);
 extern void creature_wipe(creature_type *creature_ptr);
 extern bool ask_quick_start(creature_type *creature_ptr);
-extern creature_type* generate_creature(cave_type *c_ptr, int species_idx, u32b flags);
+extern creature_type* generate_creature(cave_type *c_ptr, s16b species_idx, u32b flags);
 extern void get_max_stats(creature_type *creature_ptr);
 extern void determine_random_questor(quest_type *quest_ptr);
 extern void dump_yourself(creature_type *creature_ptr, FILE *fff);

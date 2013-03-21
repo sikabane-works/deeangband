@@ -1724,7 +1724,7 @@ static void show_help(cptr helpfile)
 }
 
 // Choose from one of the available magical realms
-static int choose_realm(s32b choices, bool npc)
+static s16b choose_realm(s32b choices, bool npc)
 {
 	int i;
 	selection_table re[MAX_REALMS + 3];
@@ -1883,11 +1883,11 @@ static int choose_realm(s32b choices, bool npc)
 	se_info.num++;
 
 	if(!npc) i = get_selection(&se_info, re);
-	else return re[randint0(se_info.num - 3)].code;
+	else return (s16b)re[randint0(se_info.num - 3)].code;
 
-	if(i >= 0) return i;
-	else if(i == BIRTH_SELECT_RANDOM) return re[randint0(se_info.num - 3)].code;
-	else return i;
+	if(i >= 0) return (s16b)i;
+	else if(i == BIRTH_SELECT_RANDOM) return (s16b)re[randint0(se_info.num - 3)].code;
+	else return (s16b)i;
 
 }
 
@@ -1979,9 +1979,9 @@ void get_max_stats(creature_type *creature_ptr)
 	{
 		j = STAT_VALUE_BASE_MAX_MAX + dice[i] * 10;
 		// Save that value
-		creature_ptr->stat_max_max[i] = j;
-		if(creature_ptr->stat_max[i] > j) creature_ptr->stat_max[i] = j;
-		if(creature_ptr->stat_cur[i] > j) creature_ptr->stat_cur[i] = j;
+		creature_ptr->stat_max_max[i] = (s16b)j;
+		if(creature_ptr->stat_max[i] > j) creature_ptr->stat_max[i] = (s16b)j;
+		if(creature_ptr->stat_cur[i] > j) creature_ptr->stat_cur[i] = (s16b)j;
 	}
 	creature_ptr->knowledge &= ~(KNOW_STAT);
 
@@ -2242,7 +2242,7 @@ void creature_wipe(creature_type *creature_ptr)
  */
 void determine_random_questor(quest_type *quest_ptr)
 {
-	int          species_idx;
+	s16b species_idx;
 	species_type *species_ptr;
 	int i = 0;
 
@@ -2735,7 +2735,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 
 	if(npc)
 	{
-		creature_ptr->race_idx1 = uneven_rand(id, weight, se_info.num);
+		creature_ptr->race_idx1 = (s16b)uneven_rand(id, weight, se_info.num);
 		return 0;
 	}
 
@@ -2770,12 +2770,12 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 
 	if(i >= 0)
 	{
-		creature_ptr->race_idx1 = i;
+		creature_ptr->race_idx1 = (s16b)i;
 		return 0;
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		creature_ptr->race_idx1 = se[randint0(se_info.num - 3)].code;
+		creature_ptr->race_idx1 = (s16b)se[randint0(se_info.num - 3)].code;
 		return 0;
 	}
 	else
@@ -2852,7 +2852,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 	{
 		if(one_in_(RATE_OF_HALF_RACE))
 		{
-			creature_ptr->race_idx2 = se[randint0(se_info.num-3)].code;
+			creature_ptr->race_idx2 = (s16b)se[randint0(se_info.num-3)].code;
 			return 0;
 		}
 		else
@@ -2871,13 +2871,13 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 
 	if(i >= 0)
 	{
-		creature_ptr->race_idx2 = i;
+		creature_ptr->race_idx2 = (s16b)i;
 		return 0;
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
 		int t = randint0(se_info.num-3);
-		creature_ptr->race_idx2 = se[t].code;
+		creature_ptr->race_idx2 = (s16b)se[t].code;
 		return 0;
 	}
 	else return i;
@@ -3136,7 +3136,7 @@ static int get_creature_sex(creature_type *creature_ptr, species_type *species_p
 		id[se_info.num] = MAX_SEXES;
 		weight1[se_info.num] = left_per > 0 ? left_per: 0;
 		se_info.num++;
-		creature_ptr->sex = uneven_rand(id, weight1, se_info.num);
+		creature_ptr->sex = (s16b)uneven_rand(id, weight1, se_info.num);
 		if(creature_ptr->sex == MAX_SEXES) creature_ptr->sex = (s16b)uneven_rand(id, weight2, se_info.num-1);
 		return 0;
 	}
@@ -3171,12 +3171,12 @@ static int get_creature_sex(creature_type *creature_ptr, species_type *species_p
 
 	if(i >= 0)
 	{
-		creature_ptr->sex = i;
+		creature_ptr->sex = (s16b)i;
 		return 0;
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		creature_ptr->sex = se[randint0(category_num)].code;
+		creature_ptr->sex = (s16b)se[randint0(category_num)].code;
 		return 0;
 	}
 	else return i;
@@ -3236,7 +3236,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 
 	if(npc)
 	{
-		creature_ptr->class_idx = uneven_rand(id, weight, n);
+		creature_ptr->class_idx = (s16b)uneven_rand(id, weight, n);
 		return 0;
 	}
 
@@ -3272,19 +3272,15 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 
 	if(i >= 0)
 	{
-		creature_ptr->class_idx = i;
+		creature_ptr->class_idx = (s16b)i;
 		return 0;
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		creature_ptr->class_idx = ce[randint0(n - 3)].code;
+		creature_ptr->class_idx = (s16b)ce[randint0(n - 3)].code;
 		return 0;
 	}
-	else
-	{
-		return i;
-	}
-
+	else return i;
 }
 
 // Player patron
@@ -3368,7 +3364,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 
 	if(npc)
 	{
-		creature_ptr->patron_idx = pt[randint0(se_info.num)].code;
+		creature_ptr->patron_idx = (s16b)pt[randint0(se_info.num)].code;
 		return 0;
 	}
 
@@ -3378,12 +3374,12 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 
 	if(i >= 0)
 	{
-		creature_ptr->patron_idx = i;
+		creature_ptr->patron_idx = (s16b)i;
 		return 0;
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		creature_ptr->patron_idx = pt[randint0(n - 3)].code;
+		creature_ptr->patron_idx = (s16b)pt[randint0(n - 3)].code;
 		return 0;
 	}
 	else return i;
@@ -3445,7 +3441,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 
 	if(npc)
 	{
-		creature_ptr->chara_idx = uneven_rand(id, weight, se_info.num);
+		creature_ptr->chara_idx = (s16b)uneven_rand(id, weight, se_info.num);
 		return 0;
 	}
 
@@ -3477,12 +3473,12 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 
 	if(i >= 0)
 	{
-		creature_ptr->chara_idx = i;
+		creature_ptr->chara_idx = (s16b)i;
 		return 0;
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		creature_ptr->chara_idx = uneven_rand(id, weight, se_info.num - 3);
+		creature_ptr->chara_idx = (s16b)uneven_rand(id, weight, se_info.num - 3);
 		return 0;
 	}
 	else return i;
@@ -3574,7 +3570,8 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 static bool get_stat_limits(creature_type *creature_ptr)
 {
 	int i, j, m, cs, os;
-	int mval[STAT_MAX], cval[STAT_MAX];
+	int mval[STAT_MAX];
+	s16b cval[STAT_MAX];
 	char c;
 	char buf[80], cur[80];
 	char inp[80];
@@ -4037,7 +4034,7 @@ static void edit_history(creature_type *creature_ptr)
  * from continuously rolling up characters, which can be VERY
  * expensive CPU wise.  And it cuts down on player stupidity.
  */
-static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, u32b flags)
+static bool generate_creature_aux(creature_type *creature_ptr, s16b species_idx, u32b flags)
 {
 	int i;
 	int mode = 0;
@@ -4335,7 +4332,7 @@ bool ask_quick_start(creature_type *creature_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-creature_type* generate_creature(cave_type *c_ptr, int species_idx, u32b flags)
+creature_type* generate_creature(cave_type *c_ptr, s16b species_idx, u32b flags)
 {
 	char buf[80];
 	int id;
@@ -4348,7 +4345,7 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, u32b flags)
 	// Get a new creature record
 	creature_ptr = &creature_list[id];
 
-	if(c_ptr) c_ptr->creature_idx = id;
+	if(c_ptr) c_ptr->creature_idx = (s16b)id;
 
 	// Create a new character
 	while (!generate_creature_aux(creature_ptr, species_idx, flags));
