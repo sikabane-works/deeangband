@@ -48,7 +48,7 @@ typedef u32b CREATURE_ID;
 typedef byte TVAL;
 typedef byte SVAL;
 typedef byte SYMBOL;
-
+typedef byte CREATURE_LEV;
 
 /*
  * Creature flags
@@ -56,8 +56,8 @@ typedef byte SYMBOL;
 typedef struct traits_precondition traits_precondition;
 struct traits_precondition
 {
-	byte add_lev[MAX_TRAITS];
-	byte remove_lev[MAX_TRAITS];
+	CREATURE_LEV add_lev[MAX_TRAITS];
+	CREATURE_LEV remove_lev[MAX_TRAITS];
 	byte probability[MAX_TRAITS];
 	bool applied[MAX_TRAITS];
 };
@@ -426,7 +426,7 @@ struct species_type
 	s16b next_species_idx;
 	u32b next_exp;
 
-	byte level;				/* Level of creature */
+	CREATURE_LEV level;				/* Level of creature */
 	byte rarity;			/* Rarity of creature */
 
 	byte d_attr;			/* Default creature attribute */
@@ -759,7 +759,7 @@ struct quest_type
 	byte flags;             /* quest flags */
 	byte dungeon;           /* quest dungeon */
 
-	byte complev;           /* player level (complete) */
+	CREATURE_LEV complev;           /* player level (complete) */
 };
 
 
@@ -825,7 +825,7 @@ typedef struct magic_type magic_type;
 
 struct magic_type
 {
-	byte slevel;		/* Required level (to learn) */
+	CREATURE_LEV slevel;		/* Required level (to learn) */
 	byte smana;			/* Required mana (to cast) */
 	byte sfail;			/* Minimum chance of failure */
 	byte sexp;			/* Encoded experience bonus */
@@ -941,7 +941,7 @@ struct race_type
 	u32b f_b_wt;		/* base weight (females) */
 	u32b f_m_wt;		/* mod weight (females) */
 
-	s16b lev;
+	CREATURE_LEV lev;
 	s16b dr;
 	s32b good;
 	s32b evil;
@@ -1195,8 +1195,8 @@ struct creature_type
 	s32b exp;			// Cur experience 
 	u32b exp_frac;		// Cur exp frac (times 2^16) 
 
-	s16b lev;			// Level 
-	s16b max_lev;		// Max Level 
+	CREATURE_LEV lev;			// Level 
+	CREATURE_LEV max_lev;		// Max Level 
 
 	s32b chp;			// Cur hit pts 
 	u32b chp_frac;		// Cur hit frac (times 2^16) 
@@ -1503,7 +1503,7 @@ struct trait_type
 	u32b blind_activate_text;
 	traits_precondition flags;
 
-	s16b base_level;
+	CREATURE_LEV base_level;
 	s16b mp_cost;
 	s16b use_stat;
 	s16b fail;
@@ -1732,13 +1732,13 @@ struct dungeon_type {
 
 	s16b mindepth;         /* Minimal depth */
 	s16b maxdepth;         /* Maximal depth */
-	byte min_plev;         /* Minimal plev needed to enter -- it's an anti-cheating mesure */
+	CREATURE_LEV min_plev;         /* Minimal plev needed to enter -- it's an anti-cheating mesure */
 	s16b pit;
 	s16b nest;
 	byte mode;		/* Mode of combinaison of the creature flags */
 
 	s16b min_m_alloc_level;	/* Minimal number of creatures per level */
-	s16b max_m_alloc_chance;	/* There is a 1/max_m_alloc_chance chance per round of creating a new creature */
+	s16b max_m_alloc_chance; /* There is a 1/max_m_alloc_chance chance per round of creating a new creature */
 
 	u32b flags1;		/* Flags 1 */
 
