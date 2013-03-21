@@ -305,13 +305,13 @@ static int read_chuukei_prf(cptr prfeature_name)
 		/* ポート番号 */
 		if(!strncmp(buf, "port:", 5))
 		{
-			server_port = atoi(buf + 5);
+			server_port = (s16b)strtol(buf + 5, NULL, 0);
 		}
 
 		/* ディレイ */
 		if(!strncmp(buf, "delay:", 6))
 		{
-			browse_delay = atoi(buf + 6);
+			browse_delay = (s16b)strtol(buf + 6, NULL, 0);
 		}
 	}
 
@@ -788,7 +788,7 @@ static int read_sock(void)
 			/* 'd'で始まるデータ(タイムスタンプ)の場合は
 			   描画キューに保存する処理を呼ぶ */
 			if((recv_buf[0] == 'd') &&
-			    (handle_timestamp_data(atoi(recv_buf + 1)) < 0))
+			    (handle_timestamp_data((s16b)strtol(recv_buf + 1, NULL, 0)) < 0))
 				return -1;
 
 			/* 受信データを保存 */
@@ -830,7 +830,7 @@ static int read_movie_file(void)
 			/* 'd'で始まるデータ(タイムスタンプ)の場合は
 			   描画キューに保存する処理を呼ぶ */
 			if((recv_buf[0] == 'd') &&
-			    (handle_movie_timestamp_data(atoi(recv_buf + 1)) < 0))
+			    (handle_movie_timestamp_data((s16b)strtol(recv_buf + 1, NULL, 9) < 0)))
 				return -1;
 
 			/* 受信データを保存 */
@@ -949,7 +949,7 @@ static bool flush_ringbuf_client(void)
 			strncpy(&Term->scr->c[y][x], mesg, len);
 			for (i = x; i < x+len; i++)
 			{
-				Term->scr->a[y][i] = col;
+				Term->scr->a[y][i] = (byte_hack)col;
 			}
 			break;
 
@@ -964,7 +964,7 @@ static bool flush_ringbuf_client(void)
 			strncpy(&Term->scr->c[y][x], mesg, len);
 			for (i = x; i < x+len; i++)
 			{
-				Term->scr->a[y][i] = col;
+				Term->scr->a[y][i] = (byte_hack)col;
 			}
 			break;
 
@@ -972,7 +972,7 @@ static bool flush_ringbuf_client(void)
 			update_term_size(x, y, 1);
 			(void)((*angband_term[0]->text_hook)(x, y, 1, (byte)col, mesg));
 			strncpy(&Term->scr->c[y][x], mesg, 1);
-			Term->scr->a[y][x] = col;
+			Term->scr->a[y][x] = (byte_hack)col;
 			break;
 
 		case 'w':

@@ -1860,7 +1860,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 		/* Rest some */
 		else
 		{
-			command_arg = atoi(out_val);
+			command_arg = (s16b)strtol(out_val, NULL, 10);
 			if(command_arg <= 0) return;
 		}
 	}
