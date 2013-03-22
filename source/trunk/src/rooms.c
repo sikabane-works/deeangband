@@ -341,8 +341,7 @@ static bool find_space_aux(int blocks_high, int blocks_wide, int block_y, int bl
 static bool find_space(floor_type *floor_ptr, COODINATES *y, COODINATES *x, COODINATES height, COODINATES width)
 {
 	int candidates, pick;
-	COODINATES by, bx, by1, bx1, by2, bx2;
-	int block_y = 0, block_x = 0;
+	COODINATES by, bx, by1, bx1, by2, bx2, block_y = 0, block_x = 0;
 
 	/* Find out how many blocks we need. */
 	int blocks_high = 1 + ((height - 1) / BLOCK_HGT);
@@ -678,9 +677,7 @@ static bool build_type1(floor_type *floor_ptr)
  */
 static bool build_type2(floor_type *floor_ptr)
 {
-	int			y, x, xval, yval;
-	int			y1a, x1a, y2a, x2a;
-	int			y1b, x1b, y2b, x2b;
+	COODINATES y, x, xval, yval, y1a, x1a, y2a, x2a, y1b, x1b, y2b, x2b;
 	bool		light;
 	cave_type   *c_ptr;
 
@@ -691,16 +688,16 @@ static bool build_type2(floor_type *floor_ptr)
 	light = ((floor_ptr->depth <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
 
 	/* Determine extents of the first room */
-	y1a = yval - randint1(10);
-	y2a = yval + randint1(10);
-	x1a = xval - randint1(10);
-	x2a = xval + randint1(10);
+	y1a = yval - (COODINATES)randint1(10);
+	y2a = yval + (COODINATES)randint1(10);
+	x1a = xval - (COODINATES)randint1(10);
+	x2a = xval + (COODINATES)randint1(10);
 
 	/* Determine extents of the second room */
-	y1b = yval - randint1(10);
-	y2b = yval + randint1(10);
-	x1b = xval - randint1(10);
-	x2b = xval + randint1(10);
+	y1b = yval - (COODINATES)randint1(10);
+	y2b = yval + (COODINATES)randint1(10);
+	x1b = xval - (COODINATES)randint1(10);
+	x2b = xval + (COODINATES)randint1(10);
 
 	if(cheat_room) msg_print("[OverLapping Room]");
 
@@ -5290,7 +5287,7 @@ static bool build_type10(floor_type *floor_ptr)
  */
 static bool build_type11(floor_type *floor_ptr)
 {
-	int rad, x, y, x0, y0;
+	COODINATES rad, x, y, x0, y0;
 	int light = FALSE;
 
 	/* Occasional light */
@@ -5514,7 +5511,7 @@ static bool build_type13(floor_type *floor_ptr)
 		{0, 0, -1}
 	};
 
-	int y, x, y1, x1, y2, x2, xval, yval;
+	COODINATES y, x, y1, x1, y2, x2, xval, yval;
 	int i, j;
 
 	int what[16];
