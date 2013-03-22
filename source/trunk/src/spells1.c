@@ -3531,7 +3531,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 
 
 // breath shape
-void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, byte *gx, byte *gy, byte *gm, int *pgm_rad, int rad, int y1, int x1, int y2, int x2, int typ)
+void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgrids, byte *gx, byte *gy, byte *gm, int *pgm_rad, int rad, int y1, int x1, int y2, int x2, int typ)
 {
 	int by = y1;
 	int bx = x1;
@@ -3787,8 +3787,7 @@ bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODIN
 	int grids = 0;	// Number of grids in the "blast area" (including the "beam" path)
 
 	COODINATES path_g[512];		// Actual grids in the "path"
-
-	byte gx[1024], gy[1024];	// Coordinates of the affected grids
+	COODINATES gx[1024], gy[1024];	// Coordinates of the affected grids
 	byte gm[32];	// Encoded "radius" info (see above)
 
 	/* Actual radius encoded in gm[] */

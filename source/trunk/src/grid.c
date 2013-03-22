@@ -21,7 +21,7 @@
  */
 bool new_creature_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 {
-	int	y = 0, x = 0;
+	COODINATES y = 0, x = 0;
 	int max_attempts = MAX_TRIES;
 
 	cave_type *c_ptr;
@@ -298,11 +298,11 @@ void place_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2, bool ligh
  * Create up to "num" objects near the given coordinates
  * Only really called by some of the "vault" routines.
  */
-void vault_objects(floor_type *floor_ptr, int y, int x, int num)
+void vault_objects(floor_type *floor_ptr, COODINATES y, COODINATES x, int num)
 {
 	int dummy = 0;
-	int i = 0, j = y, k = x;
-
+	int i = 0;
+	COODINATES j = y, k = x;
 	cave_type *c_ptr;
 
 

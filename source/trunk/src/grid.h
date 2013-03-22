@@ -243,7 +243,7 @@ extern void place_closed_door(floor_type *floor_ptr, int y, int x, int type);
 extern void place_floor(floor_type *floor_ptr, int x1, int x2, int y1, int y2, bool light);
 extern void place_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2, bool light);
 extern void vault_creatures(floor_type *floor_ptr, int y1, int x1, int num);
-extern void vault_objects(floor_type *floor_ptr, int y, int x, int num);
+extern void vault_objects(floor_type *floor_ptr, COODINATES y, COODINATES x, int num);
 extern void vault_trap_aux(floor_type *floor_ptr, int y, int x, int yd, int xd);
 extern void vault_traps(floor_type *floor_ptr, int y, int x, int yd, int xd, int num);
 
