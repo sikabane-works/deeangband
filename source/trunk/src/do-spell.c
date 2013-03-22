@@ -199,7 +199,7 @@ static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, int 
 static void cast_wonder(creature_type *caster_ptr, int dir)
 {
 	//TODO target_select
-	int y = 0, x = 0;
+	COODINATES y = 0, x = 0;
 	int plev = caster_ptr->lev;
 	int die = randint1(100) + plev / 5;
 	// TODO: add Karma of Fortune feature.

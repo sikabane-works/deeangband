@@ -1454,7 +1454,8 @@ static void process_nonplayer(CREATURE_ID m_idx)
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	species_type *ap_species_ptr = &species_info[creature_ptr->ap_species_idx];
 
-	int             i, d, oy, ox, ny, nx;
+	int             i, d;
+	COODINATES oy, ox, ny, nx;
 	int             mm[8];
 
 	cave_type       *c_ptr;

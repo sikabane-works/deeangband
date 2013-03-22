@@ -998,7 +998,7 @@ extern bool close_combat(creature_type *attacker_ptr, int y, int x, int mode);
 // melee2.c
 extern void breath(creature_type *caster_ptr, int typ, int range, int dam_hp, int rad, int trait_id);
 extern void breath_aux(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, int trait_id);
-extern void cast_ball_aux(int y, int x, creature_type *caster_ptr, int typ, int power, int rad, int trait_id);
+extern void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, int power, int rad, int trait_id);
 extern bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt);
 extern void process_creatures(void);
 extern u32b get_curse(int power, object_type *object_ptr);
