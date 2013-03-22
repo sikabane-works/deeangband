@@ -31,7 +31,7 @@ extern cptr macro_trigger_keycode[2][MAX_MACRO_TRIG];
 
 extern bool playing;
 
-extern s16b npc_status_id;
+extern CREATURE_ID npc_status_id;
 
 /* 
  *  List for auto-picker/destroyer entries

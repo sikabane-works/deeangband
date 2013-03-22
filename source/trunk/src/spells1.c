@@ -3763,7 +3763,8 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
 bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODINATES x, int dam, int typ, int flg, int trait_id)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int i, t, dist;
+	int i, t;
+	COODINATES dist;
 
 	COODINATES y1, x1;
 	COODINATES y2, x2;
@@ -3901,11 +3902,10 @@ bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODIN
 
 		for (i = 0; i < path_n; ++i)
 		{
-			int oy = y;
-			int ox = x;
-
-			int ny = GRID_Y(path_g[i]);
-			int nx = GRID_X(path_g[i]);
+			COODINATES oy = y;
+			COODINATES ox = x;
+			COODINATES ny = GRID_Y(path_g[i]);
+			COODINATES nx = GRID_X(path_g[i]);
 
 			/* Advance */
 			y = ny;

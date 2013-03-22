@@ -36,7 +36,7 @@ cptr macro_modifiespecies_name[MAX_MACRO_MOD];
 cptr macro_triggespecies_name[MAX_MACRO_TRIG];
 cptr macro_trigger_keycode[2][MAX_MACRO_TRIG];
 
-s16b npc_status_id = 0;	/* Health bar trackee */
+CREATURE_ID npc_status_id = 0;	/* Health bar trackee */
 
 /* 
  *  List for auto-picker/destroyer entries
