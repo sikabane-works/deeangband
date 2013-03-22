@@ -552,12 +552,12 @@ int project_path(COODINATES *gp, int range, floor_type *floor_ptr, COODINATES y1
 /*
 * Mega-Hack -- track "affected" creatures (see "project()" comments)
 */
-static int project_m_n;
-static int project_m_x;
-static int project_m_y;
+static COODINATES project_m_n;
+static COODINATES project_m_x;
+static COODINATES project_m_y;
 /* Mega-Hack -- creatures target */
-static s16b creature_target_x;
-static s16b creature_target_y;
+static COODINATES creature_target_x;
+static COODINATES creature_target_y;
 
 
 /*
@@ -1547,8 +1547,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	int do_fear = 0;		// Fear amount (amount to fear)
 	int do_time = 0;		// Time amount (amount to time)
 
-	int ty = target_ptr->fy;
-	int tx = target_ptr->fx;
+	COODINATES ty = target_ptr->fy;
+	COODINATES tx = target_ptr->fx;
 
 	int caster_power = caster_ptr->lev * 2;
 
@@ -2879,7 +2879,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						msg_print("A portal opens to a plane of raw mana!");
 #endif
 
-						project(0, 0, 8, ty,tx, dam, DO_EFFECT_MANA, curse_flg, -1);
+						project(0, 0, 8, ty, tx, dam, DO_EFFECT_MANA, curse_flg, -1);
 						if(!one_in_(6)) break;
 					}
 				case 7: case 8:
@@ -3765,13 +3765,13 @@ bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODIN
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i, t, dist;
 
-	int y1, x1;
-	int y2, x2;
-	int by, bx;
+	COODINATES y1, x1;
+	COODINATES y2, x2;
+	COODINATES by, bx;
 
 	int dist_hack = 0;
 
-	int y_saver, x_saver; // For reflecting creatures
+	COODINATES y_saver, x_saver; // For reflecting creatures
 
 	int msec = delay_factor * delay_factor * delay_factor;
 
