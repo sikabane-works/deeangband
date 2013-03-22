@@ -139,12 +139,13 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
  * no equally friendly creature is
  * between the attacker and target.
  */
-bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool friend)
+bool clean_shot(creature_type *target_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, bool friend)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 
 	/* Must be the same as projectable(floor_ptr, MAX_RANGE, ) */
-	int i, y, x;
+	int i;
+	COODINATES y, x;
 
 	int grid_n = 0;
 	u16b grid_g[512];

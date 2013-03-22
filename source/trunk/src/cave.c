@@ -4611,7 +4611,7 @@ int feat_state(floor_type *floor_ptr, int feat, int action)
  * Takes a location and action and changes the feature at that 
  * location through applying the given action.
  */
-void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
+void cave_alter_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, int action)
 {
 	/* Set old feature */
 	int oldfeat = floor_ptr->cave[y][x].feat;
@@ -4823,9 +4823,9 @@ bool projectable(floor_type *floor_ptr, int range, int y1, int x1, int y2, int x
  *
  * Currently the "m" parameter is unused.
  */
-void scatter(floor_type *floor_ptr, int *yp, int *xp, int y, int x, int d, int m)
+void scatter(floor_type *floor_ptr, COODINATES *yp, COODINATES *xp, COODINATES y, COODINATES x, int d, int m)
 {
-	int nx, ny;
+	COODINATES nx, ny;
 
 	/* Unused */
 	m = m;

@@ -1583,8 +1583,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_S_NAZGUL:
 		{
-			int cy = y;
-			int cx = x;
+			COODINATES cy = y, cx = x;
 
 			for (k = 0; k < 30; k++)
 			{

@@ -4734,8 +4734,9 @@ static void drain_essence(creature_type *creature_ptr)
 	int old_ds, old_dd, old_to_hit, old_to_damage, old_ac, old_to_ac, old_pval, old_name2, old_timeout;
 	u32b old_flgs[MAX_TRAITS_FLAG], new_flgs[MAX_TRAITS_FLAG];
 	object_type *object_ptr;
-	byte iy, ix, marked, number;
-	s16b next_object_idx;
+	COODINATES iy, ix;
+	byte_hack marked, number;
+	OBJECT_ID next_object_idx;
 	s32b weight;
 
 	for (i = 0; i < sizeof(drain_value) / sizeof(int); i++) drain_value[i] = 0;

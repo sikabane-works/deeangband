@@ -649,14 +649,14 @@ extern void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr);
 extern void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat);
 extern int conv_dungeon_feat(floor_type *floor_ptr, int newfeat);
 extern int feat_state(floor_type *floor_ptr, int feat, int action);
-extern void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action);
+extern void cave_alter_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, int action);
 extern void remove_mirror(creature_type *creature_ptr, int y, int x);
 extern bool is_mirror_grid(cave_type *c_ptr);
 extern bool is_glyph_grid(cave_type *c_ptr);
 extern bool is_explosive_rune_grid(cave_type *c_ptr);
 extern void mmove2(COODINATES *y, COODINATES *x, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
 extern bool projectable(floor_type *floor_ptr, int range, int y1, int x1, int y2, int x2);
-extern void scatter(floor_type *floor_ptr, int *yp, int *xp, int y, int x, int d, int mode);
+extern void scatter(floor_type *floor_ptr, COODINATES *yp, COODINATES *xp, COODINATES y, COODINATES x, int d, int mode);
 extern void health_track(int m_idx);
 extern void species_type_track(SPECIES_ID species_idx);
 extern void object_kind_track(s16b k_idx);
@@ -1478,7 +1478,7 @@ extern void format_weight(char * buf, int weight);
 extern void msg_warning(cptr message, ...);
 
 // mspells1.c
-extern bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool friend);
+extern bool clean_shot(creature_type *target_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, bool friend);
 extern bool summon_possible(creature_type *target_ptr, int y1, int x1);
 extern bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr);
