@@ -287,8 +287,8 @@ static void alloc_object(floor_type *floor_ptr, creature_type *player_ptr, int s
 
 			dummy++;
 
-			y = randint0(floor_ptr->height);
-			x = randint0(floor_ptr->width);
+			y = (COODINATES)randint0(floor_ptr->height);
+			x = (COODINATES)randint0(floor_ptr->width);
 
 			c_ptr = &floor_ptr->cave[y][x];
 
@@ -819,7 +819,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		/* Hack -- Scramble the room order */
 		for (i = 0; i < dungeon_ptr->cent_n; i++)
 		{
-			int ty, tx;
+			COODINATES ty, tx;
 			int pick = rand_range(0, i);
 
 			ty = dungeon_ptr->cent[i].y;

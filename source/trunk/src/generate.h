@@ -129,8 +129,8 @@ struct dun_data
 	coord tunn[TUNN_MAX];
 
 	/* Number of blocks along each axis */
-	int row_rooms;
-	int col_rooms;
+	COODINATES row_rooms;
+	COODINATES col_rooms;
 
 	/* Array of which blocks are used */
 	bool room_map[MAX_ROOTRAIT_ROW][MAX_ROOTRAIT_COL];

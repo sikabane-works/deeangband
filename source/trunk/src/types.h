@@ -585,8 +585,8 @@ typedef struct coord coord;
 
 struct coord
 {
-	byte y;
-	byte x;
+	COODINATES y;
+	COODINATES x;
 };
 
 
@@ -1186,7 +1186,7 @@ struct creature_type
 	s32b ht;			// Height 
 	s32b wt;			// Weight 
 	s16b sc;			// Social Class 
-	s16b dr;			// Divine Rank 
+	CREATURE_LEV dr; // Divine Rank 
 	s16b size;			// Body Size 
 	s16b regenerate_mod;
 
@@ -1626,7 +1626,7 @@ typedef struct wilderness_type wilderness_type;
 struct wilderness_type
 {
 	int         terrain;
-	int         town;
+	TOWN_ID town;
 	int         road;
 	u32b        seed;
 	FLOOR_LEV level;

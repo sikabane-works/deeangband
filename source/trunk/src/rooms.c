@@ -341,11 +341,10 @@ static bool find_space_aux(int blocks_high, int blocks_wide, int block_y, int bl
 static bool find_space(floor_type *floor_ptr, COODINATES *y, COODINATES *x, COODINATES height, COODINATES width)
 {
 	int candidates, pick;
-	COODINATES by, bx, by1, bx1, by2, bx2, block_y = 0, block_x = 0;
-
-	/* Find out how many blocks we need. */
-	int blocks_high = 1 + (int)((height - 1) / BLOCK_HGT);
-	int blocks_wide = 1 + (int)((width - 1) / BLOCK_WID);
+	COODINATES by, bx, by1, bx1, by2, bx2;
+	COODINATES block_y = 0, block_x = 0;
+	COODINATES blocks_high = 1 + (int)((height - 1) / BLOCK_HGT);
+	COODINATES blocks_wide = 1 + (int)((width - 1) / BLOCK_WID);
 
 	/* There are no way to allocate such huge space */
 	if(dungeon_ptr->row_rooms < blocks_high) return FALSE;
@@ -476,21 +475,17 @@ static bool find_space(floor_type *floor_ptr, COODINATES *y, COODINATES *x, COOD
  */
 static bool build_type1(floor_type *floor_ptr)
 {
-	int y, x, y2, x2, yval, xval;
-	int y1, x1, xsize, ysize;
-
+	COODINATES y, x, y2, x2, yval, xval, y1, x1, xsize, ysize;
 	bool light;
-
 	cave_type *c_ptr;
-
 	bool curtain = (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CURTAIN) &&
 		one_in_((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) ? 48 : 512);
 
 	/* Pick a room size */
-	y1 = randint1(10);
-	x1 = randint1(10);
-	y2 = randint1(10);
-	x2 = randint1(10);
+	y1 = (COODINATES)randint1(10);
+	x1 = (COODINATES)randint1(10);
+	y2 = (COODINATES)randint1(10);
+	x2 = (COODINATES)randint1(10);
 
 	xsize = x1 + x2 + 1;
 	ysize = y1 + y2 + 1;
@@ -1066,8 +1061,8 @@ static bool build_type4(floor_type *floor_ptr)
 	cave_type   *c_ptr;
 
 
-	x = 10 + rand_range(0, 40);
-	y = 10 + rand_range(0, 40);
+	x = 10 + (COODINATES)rand_range(0, 40);
+	y = 10 + (COODINATES)rand_range(0, 40);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if(!find_space(floor_ptr, &yval, &xval, y+2, x+2)) return FALSE;
@@ -3603,13 +3598,12 @@ static bool generate_fracave(floor_type *floor_ptr, int y0, int x0, int xsize, i
  */
 static bool build_type9(floor_type *floor_ptr)
 {
-	int grd, roug, cutoff, xsize, ysize, y0, x0;
-
+	COODINATES grd, roug, cutoff, xsize, ysize, y0, x0;
 	bool done, light, room;
 
 	/* get size: note 'Evenness'*/
-	xsize = randint1(20) * 2 + 6;
-	ysize = randint1(20) * 2 + 6;
+	xsize = (COODINATES)randint1(20) * 2 + 6;
+	ysize = (COODINATES)randint1(20) * 2 + 6;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if(!find_space(floor_ptr, &y0, &x0, ysize + 1, xsize + 1))
@@ -5332,16 +5326,17 @@ static bool build_type11(floor_type *floor_ptr)
  */
 static bool build_type12(floor_type *floor_ptr)
 {
-	int rad, x, y, x0, y0;
+	int rad;
+	COODINATES x, y, x0, y0;
 	int light = FALSE;
 	bool emptyflag = TRUE;
 
 	/* Make a random metric */
-	int h1, h2, h3, h4;
-	h1 = randint1(32) - 16;
-	h2 = randint1(16);
-	h3 = randint1(16);
-	h4 = randint1(32) - 16;
+	COODINATES h1, h2, h3, h4;
+	h1 = (COODINATES)randint1(32) - 16;
+	h2 = (COODINATES)randint1(16);
+	h3 = (COODINATES)randint1(16);
+	h4 = (COODINATES)randint1(32) - 16;
 
 	/* Occasional light */
 	if((randint1(floor_ptr->depth) <= 5) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;

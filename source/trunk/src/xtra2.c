@@ -228,7 +228,8 @@ static bool kind_is_good_book(int k_idx)
 void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(dead_ptr);
-	int i, j, y, x, ny, nx, i2, j2;
+	int i, j, i2, j2;
+	COODINATES y, x, ny, nx;
 	int quest_num;
 
 	bool create_stairs = FALSE;
