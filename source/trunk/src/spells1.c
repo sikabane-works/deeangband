@@ -4035,11 +4035,10 @@ bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODIN
 
 		for (i = 0; i < path_n; ++i)
 		{
-			int oy = y;
-			int ox = x;
-
-			int ny = GRID_Y(path_g[i]);
-			int nx = GRID_X(path_g[i]);
+			COODINATES oy = y;
+			COODINATES ox = x;
+			COODINATES ny = GRID_Y(path_g[i]);
+			COODINATES nx = GRID_X(path_g[i]);
 
 			/* Advance */
 			y = ny;

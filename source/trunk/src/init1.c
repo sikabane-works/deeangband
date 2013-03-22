@@ -6561,31 +6561,23 @@ static errr parse_line_building(char *buf)
 /*
  * Place the object j_ptr to a grid
  */
-static void drop_here(floor_type *floor_ptr, object_type *j_ptr, int y, int x)
+static void drop_here(floor_type *floor_ptr, object_type *drop_ptr, COODINATES y, COODINATES x)
 {
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	object_type *object_ptr;
 
 	// Get new object
-	s16b object_idx = object_pop();
+	OBJECT_ID object_idx = object_pop();
 
 	// Access new object
 	object_ptr = &object_list[object_idx];
 
 	// Structure copy
-	object_copy(object_ptr, j_ptr);
-
-	// Locate
+	object_copy(object_ptr, drop_ptr);
 	object_ptr->fy = y;
 	object_ptr->fx = x;
-
-	// No creature
 	object_ptr->held_m_idx = 0;
-
-	// Build a stack
 	object_ptr->next_object_idx = c_ptr->object_idx;
-
-	// Place the object
 	c_ptr->object_idx = object_idx;
 }
 

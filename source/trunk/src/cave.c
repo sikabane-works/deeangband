@@ -4663,7 +4663,7 @@ void cave_alter_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, int acti
 
 
 // Remove a mirror
-void remove_mirror(creature_type *creature_ptr, int y, int x)
+void remove_mirror(creature_type *creature_ptr, COODINATES y, COODINATES x)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *cave_ptr = &floor_ptr->cave[y][x];

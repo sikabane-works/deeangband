@@ -565,7 +565,7 @@ struct cave_type
 	u16b cx;           // Connected x
 	u16b cy;           // Connected y
 	s16b feat;		   // Hack -- feature type
-	s16b object_idx;   // Object in this grid
+	OBJECT_ID object_idx;   // Object in this grid
 	CREATURE_ID creature_idx; // Creature in this grid
 	s16b special;      // Special cave info
 	s16b mimic;        // Feature to mimic
