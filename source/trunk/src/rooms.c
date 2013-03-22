@@ -344,8 +344,8 @@ static bool find_space(floor_type *floor_ptr, COODINATES *y, COODINATES *x, COOD
 	COODINATES by, bx, by1, bx1, by2, bx2, block_y = 0, block_x = 0;
 
 	/* Find out how many blocks we need. */
-	int blocks_high = 1 + ((height - 1) / BLOCK_HGT);
-	int blocks_wide = 1 + ((width - 1) / BLOCK_WID);
+	int blocks_high = 1 + (int)((height - 1) / BLOCK_HGT);
+	int blocks_wide = 1 + (int)((width - 1) / BLOCK_WID);
 
 	/* There are no way to allocate such huge space */
 	if(dungeon_ptr->row_rooms < blocks_high) return FALSE;
@@ -5720,8 +5720,8 @@ static bool build_type13(floor_type *floor_ptr)
  */
 static bool build_type14(floor_type *floor_ptr)
 {
-	int y, x, y2, x2, yval, xval;
-	int y1, x1, xsize, ysize;
+	COODINATES y, x, y2, x2, yval, xval;
+	COODINATES y1, x1, xsize, ysize;
 
 	bool light;
 
@@ -5729,10 +5729,10 @@ static bool build_type14(floor_type *floor_ptr)
 	s16b trap;
 
 	/* Pick a room size */
-	y1 = randint1(8);
-	x1 = randint1(8);
-	y2 = randint1(8);
-	x2 = randint1(8);
+	y1 = (COODINATES)randint1(8);
+	x1 = (COODINATES)randint1(8);
+	y2 = (COODINATES)randint1(8);
+	x2 = (COODINATES)randint1(8);
 
 	xsize = x1 + x2 + 1;
 	ysize = y1 + y2 + 1;
