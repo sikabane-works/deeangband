@@ -425,9 +425,10 @@ void vault_traps(floor_type *floor_ptr, int y, int x, int yd, int xd, int num)
 /*
  * Hack -- Place some sleeping creatures near the given location
  */
-void vault_creatures(floor_type *floor_ptr, int y1, int x1, int num)
+void vault_creatures(floor_type *floor_ptr, COODINATES y1, COODINATES x1, int num)
 {
-	int k, i, y, x;
+	int k, i;
+	COODINATES y, x;
 	cave_type *c_ptr;
 
 	/* Try to summon "num" creatures "near" the given location */

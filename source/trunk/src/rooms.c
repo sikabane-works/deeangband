@@ -338,10 +338,10 @@ static bool find_space_aux(int blocks_high, int blocks_wide, int block_y, int bl
  * Return TRUE and values for the center of the room if all went well.
  * Otherwise, return FALSE.
  */
-static bool find_space(floor_type *floor_ptr, int *y, int *x, int height, int width)
+static bool find_space(floor_type *floor_ptr, COODINATES *y, COODINATES *x, COODINATES height, COODINATES width)
 {
 	int candidates, pick;
-	int by, bx, by1, bx1, by2, bx2;
+	COODINATES by, bx, by1, bx1, by2, bx2;
 	int block_y = 0, block_x = 0;
 
 	/* Find out how many blocks we need. */
@@ -805,19 +805,17 @@ static bool build_type2(floor_type *floor_ptr)
  */
 static bool build_type3(floor_type *floor_ptr)
 {
-	int			y, x, dy, dx, wy, wx;
-	int			y1a, x1a, y2a, x2a;
-	int			y1b, x1b, y2b, x2b;
-	int			yval, xval;
+	COODINATES y, x, dy, dx, wy, wx;
+	COODINATES y1a, x1a, y2a, x2a;
+	COODINATES y1b, x1b, y2b, x2b;
+	COODINATES yval, xval;
 	bool		light;
 	cave_type   *c_ptr;
 
 
-	/* Pick max vertical size*/
-	dy = rand_range(3, 9);
-
-	/* Pick max horizontal size*/
-	dx = rand_range(3, 9);
+	/* Pick max vertical/horizontal size*/
+	dy = (COODINATES)rand_range(3, 9);
+	dx = (COODINATES)rand_range(3, 9);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if(!find_space(floor_ptr, &yval, &xval, dy*2+3, dx*2+3)) return FALSE;
@@ -1065,8 +1063,8 @@ static bool build_type3(floor_type *floor_ptr)
  */
 static bool build_type4(floor_type *floor_ptr)
 {
-	int         y, x, y1, x1;
-	int         y2, x2, tmp, yval, xval;
+	COODINATES y, x, y1, x1, y2, x2, yval, xval;
+	int tmp;
 	bool        light;
 	cave_type   *c_ptr;
 
@@ -2334,7 +2332,7 @@ static bool build_type5(floor_type *floor_ptr)
  */
 static bool build_type6(floor_type *floor_ptr)
 {
-	int y, x, y1, x1, y2, x2, xval, yval;
+	COODINATES y, x, y1, x1, y2, x2, xval, yval;
 	int i, j, k;
 
 	int what[16];
@@ -2838,9 +2836,7 @@ static bool build_vault_pre(floor_type *floor_ptr, int type)
 {
 	vault_type *v_ptr;
 	int dummy;
-	int x, y;
-	int xval, yval;
-	int xoffset, yoffset;
+	COODINATES x, y, xval, yval, xoffset, yoffset;
 	int transno;
 
 	/* Pick a lesser vault */
@@ -5236,11 +5232,11 @@ static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsi
  */
 static bool build_type10(floor_type *floor_ptr)
 {
-	int y0, x0, xsize, ysize, vtype;
+	COODINATES y0, x0, xsize, ysize, vtype;
 
 	/* big enough to look good, small enough to be fairly common. */
-	xsize = randint1(20) + 12;
-	ysize = randint1(20) + 12;
+	xsize = (COODINATES)randint1(20) + 12;
+	ysize = (COODINATES)randint1(20) + 12;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if(!find_space(floor_ptr, &y0, &x0, ysize + 1, xsize + 1)) return FALSE;
