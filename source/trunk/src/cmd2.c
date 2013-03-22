@@ -375,7 +375,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
  * Exploding chest destroys contents (and traps).
  * Note that the chest itself is never destroyed.
  */
-static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_idx)
+static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, OBJECT_ID object_idx)
 {
 	int  i, trap;
 	object_type *object_ptr = &object_list[object_idx];

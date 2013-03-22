@@ -47,6 +47,7 @@
 typedef u32b FLAGS_32;
 
 typedef u32b CREATURE_ID;
+typedef u32b OBJECT_ID;
 typedef u32b SPECIES_ID;
 typedef u16b TOWN_ID;
 
