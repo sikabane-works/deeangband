@@ -263,16 +263,16 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
 */
 int project_path(COODINATES *gp, int range, floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int flg)
 {
-	int y, x;
+	COODINATES y, x;
 
 	int n = 0;
 	int k = 0;
 
 	/* Absolute */
-	int ay, ax;
+	COODINATES ay, ax;
 
 	/* Offsets */
-	int sy, sx;
+	COODINATES sy, sx;
 
 	/* Fractions */
 	int frac;
@@ -570,7 +570,7 @@ static s16b creature_target_y;
  *  We also "see" grids which are "memorized", probably a hack
  *  Perhaps we should affect doors?
  */
-static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr, int r, int y, int x, int dam, int typ)
+static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr, int r, COODINATES y, COODINATES x, int dam, int typ)
 {
 	floor_type      *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
@@ -3785,7 +3785,7 @@ bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODIN
 	int path_n = 0;	// Number of grids in the "path"
 	int grids = 0;	// Number of grids in the "blast area" (including the "beam" path)
 
-	u16b path_g[512];		// Actual grids in the "path"
+	COODINATES path_g[512];		// Actual grids in the "path"
 
 	byte gx[1024], gy[1024];	// Coordinates of the affected grids
 	byte gm[32];	// Encoded "radius" info (see above)

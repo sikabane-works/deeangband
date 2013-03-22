@@ -13,9 +13,9 @@
 #include "angband.h"
 
 // Get the actual center point of ball spells (rad > 1) (originally from TOband)
-void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *tx, int flg)
+void get_project_point(creature_type *caster_ptr, COODINATES sy, COODINATES sx, COODINATES *ty, COODINATES *tx, FLAGS_32 flg)
 {
-	u16b path_g[128];
+	COODINATES path_g[128];
 	int  path_n, i;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
