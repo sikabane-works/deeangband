@@ -2164,8 +2164,8 @@ static bool build_type5(floor_type *floor_ptr)
 		nestore_info[i].used = FALSE;
 	}
 
-	x = rand_range(0, 16);
-	y = rand_range(0, x);
+	x = (COODINATES)rand_range(0, 16);
+	y = (COODINATES)rand_range(0, x);
 	x = x - y + 9;
 	y += 9;
 
@@ -2376,8 +2376,8 @@ static bool build_type6(floor_type *floor_ptr)
 		what[i] = species_idx;
 	}
 
-	x = rand_range(0, 18);
-	y = rand_range(0, x);
+	x = (COODINATES)rand_range(0, 18);
+	y = (COODINATES)rand_range(0, x);
 	x = x - y + 9;
 	y += 9;
 
@@ -2566,7 +2566,7 @@ static void coord_trans(COODINATES *x, COODINATES *y, COODINATES xoffset, COODIN
 /*
  * Hack -- fill in "vault" rooms
  */
-static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int xmax, cptr data, int xoffset, int yoffset, int transno)
+static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval, COODINATES ymax, COODINATES xmax, cptr data, COODINATES xoffset, COODINATES yoffset, int transno)
 {
 	COODINATES dx, dy, x, y, i, j;
 	cptr t;
@@ -2866,7 +2866,7 @@ static bool build_vault_pre(floor_type *floor_ptr, int type)
 	else yoffset = 0;
 
 	// Find and reserve some space in the dungeon.  Get center of room.
-	if(!find_space(floor_ptr, &yval, &xval, abs(y), abs(x))) return FALSE;
+	if(!find_space(floor_ptr, &yval, &xval, (COODINATES)abs(y), (COODINATES)abs(x))) return FALSE;
 
 	if(cheat_room) msg_format(MES_DEBUG_VAULT(vault_name + v_ptr->name));
 
@@ -2883,10 +2883,8 @@ static bool build_type8(floor_type *floor_ptr)
 {
 	vault_type *v_ptr;
 	int dummy;
-	int xval, yval;
-	int x, y;
+	COODINATES xval, yval, x, y, xoffset, yoffset;
 	int transno;
-	int xoffset, yoffset;
 
 	/* Pick a greater vault */
 	for (dummy = 0; dummy < SAFE_MAX_ATTEMPTS; dummy++)
@@ -2952,15 +2950,15 @@ typedef struct fill_data_type fill_data_type;
 struct fill_data_type
 {
 	/* area size */
-	int xmin;
-	int ymin;
-	int xmax;
-	int ymax;
+	COODINATES xmin;
+	COODINATES ymin;
+	COODINATES xmax;
+	COODINATES ymax;
 
 	/* cutoffs */
-	int c1;
-	int c2;
-	int c3;
+	COODINATES c1;
+	COODINATES c2;
+	COODINATES c3;
 
 	/* features to fill with */
 	int feat1;
