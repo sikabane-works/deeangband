@@ -57,6 +57,7 @@ typedef byte CREATURE_LEV;
 typedef byte FLOOR_LEV;
 typedef s16b COODINATES;
 
+typedef s32b STAT;
 /*
  * Creature flags
  */
@@ -135,7 +136,7 @@ struct object_kind
 	SVAL sval;			/* Object sub type */
 	s16b pval;			/* Object extra info */
 
-	s16b stat_val[STAT_MAX]; // Stat
+	STAT stat_val[STAT_MAX]; // Stat
 
 	s16b search;
 	s16b stealth;
@@ -209,7 +210,7 @@ struct artifact_type
 	TVAL tval;			/* Artifact type */
 	SVAL sval;			/* Artifact sub type */
 
-	s16b stat[STAT_MAX]; // stat info.
+	STAT stat[STAT_MAX]; // stat info.
 
 	s16b pval;			/* Artifact extra info */
 
@@ -279,7 +280,7 @@ struct ego_item_type
 	s16b bow_mul;			// Bonus to bow_mul
 
 	byte max_pval;		// Maximum pval
-	s16b max_stat[STAT_MAX];		// Maximum stat
+	STAT max_stat[STAT_MAX];		// Maximum stat
 	s32b cost;			/* Ego-item "cost" */
 
 	s16b charge_const;
@@ -382,9 +383,9 @@ struct species_type
 
 	s32b au;
 
-	s16b stat_max[STAT_MAX];			/* Current modified stats */
-	s16b stat_max_max[STAT_MAX];		/* Maximal "maximal" stat values */
-	s16b stat_bonus;
+	STAT stat_max[STAT_MAX];			/* Current modified stats */
+	STAT stat_max_max[STAT_MAX];		/* Maximal "maximal" stat values */
+	STAT stat_bonus;
 	s16b base_hp[CREATURE_MAX_LEVEL];
 
 	s32b karmas[MAX_KARMA];
@@ -491,11 +492,11 @@ typedef struct creature_ego creature_ego;
 
 struct creature_ego
 {
-	u32b name;				/* Name (offset) */
+	u32b name; /* Name (offset) */
 #ifdef JP
-	u32b E_name;                    /* ‰pŒê–¼ (offset) */
+	u32b E_name; /* English Name (offset) */
 #endif
-	s16b stat[STAT_MAX];		/* Current modified stats */
+	STAT stat[STAT_MAX]; /* Current modified stats */
 };
 
 
@@ -627,7 +628,7 @@ struct object_type
 	TVAL tval;			/* Item type (from kind) */
 	SVAL sval;			/* Item sub-type (from kind) */
 
-	s16b stat_val[STAT_MAX]; // Stat
+	STAT stat_val[STAT_MAX]; // Stat
 	s16b pval;			/* Item extra-parameter */
 
 	byte discount;		/* Discount (if any) */
@@ -906,7 +907,7 @@ struct race_type
 	byte rarity;      /* Race Rarelity */
 	byte sex_flag;		/* Legal Sex */
 
-	s16b r_adj[STAT_MAX];		/* Racial stat bonuses(on main-race) */
+	STAT r_adj[STAT_MAX];		/* Racial stat bonuses(on main-race) */
 	s16b r_dis;			/* disarming */
 	s16b r_dev;			/* magic devices */
 	s16b r_rob;			/* saving throw */
@@ -918,7 +919,7 @@ struct race_type
 	s16b r_thn;			/* combat (normal) */
 	s16b r_thb;			/* combat (shooting) */
 
-	s16b r_s_adj[STAT_MAX];		/* Racial stat bonuses(on sub-race) */
+	STAT r_s_adj[STAT_MAX];		/* Racial stat bonuses(on sub-race) */
 	s16b r_s_dis;			/* disarming */
 	s16b r_s_dev;			/* magic devices */
 	s16b r_s_rob;			/* saving throw */
@@ -1022,8 +1023,8 @@ struct class_type
 	s16b rarity;
 	byte selectable;
 
-	s16b c_adj[STAT_MAX];		/* Class stat modifier */
-	s16b c_adj_b[STAT_MAX];	/* Class stat bonus */
+	STAT c_adj[STAT_MAX];		/* Class stat modifier */
+	STAT c_adj_b[STAT_MAX];	/* Class stat bonus */
 
 	s16b c_dis;			/* class disarming */
 	s16b c_dev;			/* class magic devices */
@@ -1062,7 +1063,7 @@ struct player_patron
 #endif
 
 
-	s16b p_adj[STAT_MAX];		/* patron stat bonuses */
+	STAT p_adj[STAT_MAX];		/* patron stat bonuses */
 
 	s16b p_dis;			/* patron disarming */
 	s16b p_dev;			/* patron magic devices */
@@ -1096,7 +1097,7 @@ struct chara_type
 
 	s16b rarity;		/* chara rarity (Over 100 was no selected on auto select) */
 
-	s16b a_adj[STAT_MAX];		/* chara stat bonuses */
+	STAT a_adj[STAT_MAX];		/* chara stat bonuses */
 
 	s16b a_dis;			/* chara disarming */
 	s16b a_dev;			/* chara magic devices */
@@ -1216,13 +1217,13 @@ struct creature_type
 
 	s16b max_plv;		// Max Player Level 
 
-	s16b stat_cur[STAT_MAX];			// Current "natural" stat values
-	s16b stat_max[STAT_MAX];			// Current "maximal" stat values
-	s16b stat_max_max[STAT_MAX];	    // Maximal "maximal" stat values
-	s16b stat_mod_max_max[STAT_MAX];	// Modified Maximal "maximal" stat values by divine rank
-	s16b stat_use[STAT_MAX];			// Current modified stats
-	s16b stat_top[STAT_MAX];			// Maximal modified stats
-	s16b stat_add[STAT_MAX];			// Modifiers to stat values
+	STAT stat_cur[STAT_MAX];			// Current "natural" stat values
+	STAT stat_max[STAT_MAX];			// Current "maximal" stat values
+	STAT stat_max_max[STAT_MAX];	    // Maximal "maximal" stat values
+	STAT stat_mod_max_max[STAT_MAX];	// Modified Maximal "maximal" stat values by divine rank
+	STAT stat_use[STAT_MAX];			// Current modified stats
+	STAT stat_top[STAT_MAX];			// Maximal modified stats
+	STAT stat_add[STAT_MAX];			// Modifiers to stat values
 	s16b stat_ind[STAT_MAX];			// Indexes into stat tables
 
 	s16b learned_spells;
