@@ -612,7 +612,7 @@ extern void world_wipe(void);
 extern void become_winner(creature_type *creature_ptr);
 
 // cave.c
-extern int distance(int y1, int x1, int y2, int x2);
+extern COODINATES distance(int y1, int x1, int y2, int x2);
 extern bool is_trap(int feat);
 extern bool is_known_trap(cave_type *c_ptr);
 extern bool is_closed_door(int feat);

@@ -52,13 +52,13 @@ bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad)
 
 bool cast_grenade(creature_type *caster_ptr, int typ, int range, int dam, int rad)
 {
-	int tx = 0, ty = 0;
+	COODINATES tx = 0, ty = 0;
 	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
 bool cast_ball_hide(creature_type *caster_ptr, int typ, int range, int dam, int rad)
 {
-	int tx, ty;
+	COODINATES tx, ty;
 	tx = target_col;
 	ty = target_row;
 	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE, -1));
@@ -1053,8 +1053,9 @@ bool detect_all(creature_type *creature_ptr, int range)
 */
 bool project_all_vision(creature_type *caster_ptr, int typ, int dam)
 {
-	int     i, x, y;
-	bool    obvious = FALSE;
+	int i;
+	COODINATES x, y;
+	bool obvious = FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	creature_type *target_ptr;
 
@@ -2338,8 +2339,7 @@ bool fire_meteor(int who, int typ, COODINATES y, COODINATES x, int dam, int rad)
 
 bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev)
 {
-	int ly, lx, ld;
-	int ty, tx, y, x;
+	COODINATES ly, lx, ty, tx, y, x, ld;
 	int i;
 
 	/* Assume okay */
@@ -2388,7 +2388,7 @@ bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int
 // Switch position with a creature.
 bool teleport_swap(creature_type *creature_ptr, int dir)
 {
-	int tx, ty;
+	COODINATES tx, ty;
 	cave_type * c_ptr;
 	creature_type * target_ptr;
 	species_type * species_ptr;
@@ -2737,7 +2737,7 @@ void wall_breaker(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
-	int y, x;
+	COODINATES y, x;
 	int attempts = 1000;
 
 	if(randint1(80 + creature_ptr->lev) < 70)
@@ -2829,7 +2829,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int dir;
-	int tx, ty;
+	COODINATES tx, ty;
 	int tm_idx = 0;
 	u16b path_g[32];
 	int path_n, i;
@@ -2868,8 +2868,8 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 	{
 		creature_type *m_ptr;
 
-		int ny = GRID_Y(path_g[i]);
-		int nx = GRID_X(path_g[i]);
+		COODINATES ny = GRID_Y(path_g[i]);
+		COODINATES nx = GRID_X(path_g[i]);
 
 		if(cave_empty_bold(floor_ptr, ny, nx) && creature_can_cross_terrain(creature_ptr, floor_ptr->cave[ny][nx].feat, 0))
 		{

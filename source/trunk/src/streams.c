@@ -203,8 +203,8 @@ void add_river(floor_type *floor_ptr, int feat1, int feat2)
  */
 void build_streamer(floor_type *floor_ptr, int feat, int chance)
 {
-	int		i, tx, ty;
-	int		y, x, dir;
+	int i, dir;
+	COODINATES tx, ty, y, x;
 	int dummy = 0;
 
 	cave_type *c_ptr;
@@ -215,8 +215,8 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 	bool streamer_may_have_gold = have_flag(streamer_ptr->flags, FF_MAY_HAVE_GOLD);
 
 	/* Hack -- Choose starting point */
-	y = rand_spread(floor_ptr->height / 2, floor_ptr->height / 6);
-	x = rand_spread(floor_ptr->width / 2, floor_ptr->width / 6);
+	y = (COODINATES)rand_spread(floor_ptr->height / 2, floor_ptr->height / 6);
+	x = (COODINATES)rand_spread(floor_ptr->width / 2, floor_ptr->width / 6);
 
 	/* Choose a random compass direction */
 	dir = randint0(8);
@@ -229,13 +229,13 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 		/* One grid per density */
 		for (i = 0; i < DUN_STR_DEN; i++)
 		{
-			int d = DUN_STR_RNG;
+			COODINATES d = DUN_STR_RNG;
 
 			/* Pick a nearby grid */
 			while(TRUE)
 			{
-				ty = rand_spread(y, d);
-				tx = rand_spread(x, d);
+				ty = (COODINATES)rand_spread(y, d);
+				tx = (COODINATES)rand_spread(x, d);
 				if(!IN_BOUNDS2(floor_ptr, ty, tx)) continue;
 				break;
 			}

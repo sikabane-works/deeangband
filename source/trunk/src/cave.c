@@ -27,7 +27,7 @@ static int feat_priority;
 /*
  * Distance between two points via Newton-Raphson technique
  */
-int distance (int y1, int x1, int y2, int x2)
+COODINATES distance (int y1, int x1, int y2, int x2)
 {
 	int dy = (y1 > y2) ? (y1 - y2) : (y2 - y1);
 	int dx = (x1 > x2) ? (x1 - x2) : (x2 - x1);
