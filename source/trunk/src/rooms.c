@@ -2932,7 +2932,7 @@ static bool build_type8(floor_type *floor_ptr)
 	 * prevent generation of vaults with no-entrance.
 	 */
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if(!find_space(floor_ptr, &yval, &xval, abs(y) + 2, abs(x) + 2)) return FALSE;
+	if(!find_space(floor_ptr, &yval, &xval, (COODINATES)abs(y) + 2, (COODINATES)abs(x) + 2)) return FALSE;
 	if(cheat_room) msg_format(MES_DEBUG_GREATER_VAULT(vault_name + v_ptr->name));
 
 	// Hack -- Build the vault
@@ -3045,7 +3045,7 @@ static void store_height(floor_type *floor_ptr, int x, int y, int val)
  *    small values are good for smooth walls.
  *  size=length of the side of the square cave system.
  */
-static void generate_hmap(floor_type *floor_ptr, int y0, int x0, int xsiz, int ysiz, int grd, int roug, int cutoff)
+static void generate_hmap(floor_type *floor_ptr, COODINATES y0, COODINATES x0, COODINATES xsiz, COODINATES ysiz, int grd, int roug, COODINATES cutoff)
 {
 	s16b xhsize, yhsize, xsize, ysize, maxsize;
 
@@ -3402,7 +3402,7 @@ static void cave_fill(floor_type *floor_ptr, byte y, byte x)
 }
 
 
-static bool generate_fracave(floor_type *floor_ptr, int y0, int x0, int xsize, int ysize, int cutoff, bool light, bool room)
+static bool generate_fracave(floor_type *floor_ptr, COODINATES y0, COODINATES x0, COODINATES xsize, COODINATES ysize, COODINATES cutoff, bool light, COODINATES room)
 {
 	int x, y, i, xhsize, yhsize;
 
@@ -4337,7 +4337,8 @@ static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, i
 /* Create a random vault out of a fractal cave */
 static void build_cave_vault(floor_type *floor_ptr, int x0, int y0, int xsiz, int ysiz)
 {
-	int grd, roug, cutoff, xhsize, yhsize, xsize, ysize, x, y;
+	COODINATES cutoff, xhsize, yhsize, xsize, ysize, x, y;
+	int grd, roug;
 	bool done, light, room;
 
 	/* round to make sizes even */
