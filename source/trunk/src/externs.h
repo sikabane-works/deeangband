@@ -654,7 +654,7 @@ extern void remove_mirror(creature_type *creature_ptr, int y, int x);
 extern bool is_mirror_grid(cave_type *c_ptr);
 extern bool is_glyph_grid(cave_type *c_ptr);
 extern bool is_explosive_rune_grid(cave_type *c_ptr);
-extern void mmove2(int *y, int *x, int y1, int x1, int y2, int x2);
+extern void mmove2(COODINATES *y, COODINATES *x, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
 extern bool projectable(floor_type *floor_ptr, int range, int y1, int x1, int y2, int x2);
 extern void scatter(floor_type *floor_ptr, int *yp, int *xp, int y, int x, int d, int mode);
 extern void health_track(int m_idx);
@@ -972,7 +972,7 @@ extern int get_floor_id(floor_type *floor_ptr);
 extern bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr);
 extern void wipe_generate_floor_flags(floor_type *floor_ptr);
 extern void clear_cave(floor_type *floor_ptr);
-extern int generate_floor(int dungeon_id, int world_y, int world_x, FLOOR_LEV depth, floor_type *prev_ptr, u32b flag);
+extern int generate_floor(int dungeon_id, COODINATES world_y, COODINATES world_x, FLOOR_LEV depth, floor_type *prev_ptr, FLAGS_32 flag);
 
 // init1.c
 extern byte color_char_to_acttr(char c);

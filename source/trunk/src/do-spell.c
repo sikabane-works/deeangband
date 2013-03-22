@@ -248,7 +248,7 @@ static void cast_wonder(creature_type *caster_ptr, int dir)
 static void cast_invoke_spirits(creature_type *caster_ptr, int dir)
 {
 	//TODO: target
-	int y = 0, x = 0;
+	COODINATES y = 0, x = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int plev = caster_ptr->lev;
 	int die = randint1(100) + plev / 5;
@@ -598,8 +598,7 @@ static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int x, y, tx, ty;
-	int nx, ny;
+	COODINATES x, y, tx, ty, nx, ny;
 	int dir, i;
 	int b = 10 + randint1(10);
 
@@ -9486,9 +9485,8 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 			for (i = 0; i < 3; i++)
 			{
-				int y, x;
-				int ny, nx;
-				int m_idx;
+				COODINATES y, x, ny, nx;
+				CREATURE_ID m_idx;
 				cave_type *c_ptr;
 				creature_type *m_ptr;
 	

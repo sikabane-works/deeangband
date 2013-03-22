@@ -270,8 +270,8 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
  */
 static void alloc_object(floor_type *floor_ptr, creature_type *player_ptr, int set, int typ, int num)
 {
-	int y = 0, x = 0, k;
-	int dummy = 0;
+	COODINATES y = 0, x = 0;
+	int dummy = 0, k;
 	cave_type *c_ptr;
 
 	/* A small level has few objects. */
@@ -1427,7 +1427,7 @@ void clear_cave(floor_type *floor_ptr)
 
 // Generates a random dungeon level			-RAK-
 // Hack -- regenerate any "overflow" levels
-int generate_floor(int dungeon_id, int world_y, int world_x, FLOOR_LEV depth, floor_type *prev_ptr, u32b flag)
+int generate_floor(int dungeon_id, COODINATES world_y, COODINATES world_x, FLOOR_LEV depth, floor_type *prev_ptr, FLAGS_32 flag)
 {
 	int num;
 	int floor_id = floor_pop();
