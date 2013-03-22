@@ -1056,10 +1056,9 @@ static bool build_type3(floor_type *floor_ptr)
 static bool build_type4(floor_type *floor_ptr)
 {
 	COODINATES y, x, y1, x1, y2, x2, yval, xval;
-	int tmp;
+	COODINATES tmp;
 	bool        light;
 	cave_type   *c_ptr;
-
 
 	x = 10 + (COODINATES)rand_range(0, 40);
 	y = 10 + (COODINATES)rand_range(0, 40);
@@ -1230,7 +1229,7 @@ static bool build_type4(floor_type *floor_ptr)
 			/* Occasionally, two more Large Inner Pillars */
 			if(one_in_(2))
 			{
-				tmp = randint1(2);
+				tmp = (COODINATES)randint1(2);
 				for (y = yval - 1; y <= yval + 1; y++)
 				{
 					for (x = xval - 5 - tmp; x <= xval - 3 - tmp; x++)
@@ -2111,7 +2110,7 @@ static void ang_sort_swap_nestore_info(vptr u, vptr v, int a, int b)
  */
 static bool build_type5(floor_type *floor_ptr)
 {
-	int y, x, y1, x1, y2, x2, xval, yval;
+	COODINATES y, x, y1, x1, y2, x2, xval, yval;
 	int i;
 	nestore_info_type nestore_info[NUM_NEST_SPECIES_TYPE];
 
@@ -2531,10 +2530,9 @@ static bool build_type6(floor_type *floor_ptr)
 
 
 /* coordinate translation code */
-static void coord_trans(int *x, int *y, int xoffset, int yoffset, int transno)
+static void coord_trans(COODINATES *x, COODINATES *y, COODINATES xoffset, COODINATES yoffset, int transno)
 {
-	int i;
-	int temp;
+	COODINATES i, temp;
 
 	/*
 	 * transno specifies what transformation is required. (0-7)
@@ -2570,12 +2568,9 @@ static void coord_trans(int *x, int *y, int xoffset, int yoffset, int transno)
  */
 static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int xmax, cptr data, int xoffset, int yoffset, int transno)
 {
-	int dx, dy, x, y, i, j;
-
+	COODINATES dx, dy, x, y, i, j;
 	cptr t;
-
 	cave_type *c_ptr;
-
 
 	/* Place dungeon features and objects */
 	for (t = data, dy = 0; dy < ymax; dy++)
@@ -5477,7 +5472,7 @@ static bool vault_aux_trapped_pit(int species_idx)
  */
 static bool build_type13(floor_type *floor_ptr)
 {
-	static int placing[][3] = {
+	static COODINATES placing[][3] = {
 		{-2, -9, 0}, {-2, -8, 0}, {-3, -7, 0}, {-3, -6, 0},
 		{+2, -9, 0}, {+2, -8, 0}, {+3, -7, 0}, {+3, -6, 0},
 		{-2, +9, 0}, {-2, +8, 0}, {-3, +7, 0}, {-3, +6, 0},
@@ -5803,8 +5798,8 @@ static bool kind_is_potion(int k_idx)
  */
 static bool build_type15(floor_type *floor_ptr)
 {
-	int y, x, y2, x2, yval, xval;
-	int y1, x1, xsize, ysize;
+	COODINATES y, x, y2, x2, yval, xval;
+	COODINATES y1, x1, xsize, ysize;
 	bool light;
 
 	cave_type *c_ptr;
