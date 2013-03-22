@@ -557,17 +557,16 @@ static void cast_shuffle(creature_type *caster_ptr)
 static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int i;
+	int i, d;
 	int b = 10 + randint1(10);
+	COODINATES y = 0, x = 0;
+	COODINATES dy, dx;
+	int count;
 
 	for (i = 0; i < b; i++)
 	{
-		int y = 0, x = 0;
-		int count;
-
 		for (count = 0; count <= 20; count++)
 		{
-			int dy, dx, d;
 
 			x = caster_ptr->fx - 8 + randint0(17);
 			y = caster_ptr->fy - 8 + randint0(17);
@@ -649,10 +648,10 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 
 		while (count--)
 		{
-			int dx, dy;
+			COODINATES dx, dy;
 
-			x = tx - 5 + randint0(11);
-			y = ty - 5 + randint0(11);
+			x = tx - 5 + (COODINATES)randint0(11);
+			y = ty - 5 + (COODINATES)randint0(11);
 
 			dx = (tx > x) ? (tx - x) : (x - tx);
 			dy = (ty > y) ? (ty - y) : (y - ty);
@@ -8941,7 +8940,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(caster_ptr->riding)
 			{
@@ -9070,9 +9069,9 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			if(floor_ptr->cave[y][x].creature_idx)
 			{
 				int i;
-				int ty = y, tx = x;
-				int oy = y, ox = x;
-				int m_idx = floor_ptr->cave[y][x].creature_idx;
+				COODINATES ty = y, tx = x;
+				COODINATES oy = y, ox = x;
+				CREATURE_ID m_idx = floor_ptr->cave[y][x].creature_idx;
 				creature_type *m_ptr = &creature_list[m_idx];
 				char m_name[MAX_NLEN];
 	
