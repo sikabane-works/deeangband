@@ -945,7 +945,8 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 */
 bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_flag)
 {
-	int  i, y, x;
+	int  i;
+	COODINATES y, x;
 	bool flag = FALSE;
 #ifdef JP
 	cptr desc_creatures = "変なクリーチャー";
@@ -2269,12 +2270,13 @@ void lite_room(creature_type *creature_ptr, COODINATES y1, COODINATES x1)
 
 
 /*
-* Darken all rooms containing the given location
-*/
-void unlite_room(creature_type *caster_ptr, int y1, int x1)
+ * Darken all rooms containing the given location
+ */
+void unlite_room(creature_type *caster_ptr, COODINATES y1, COODINATES x1)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int i, x, y;
+	int i;
+	COODINATES x, y;
 
 	cave_temp_unlite_room_aux(caster_ptr, y1, x1); // Add the initial grid
 

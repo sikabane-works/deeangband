@@ -127,14 +127,14 @@ bool shimmer_objects;	/* Hack -- optimize multi-hued objects */
 bool repair_creatures;	/* Hack -- optimize detect creatures */
 bool repair_objects;	/* Hack -- optimize detect objects */
 
-s16b object_max = 1;			/* Number of allocated objects */
-s16b object_cnt = 0;			/* Number of live objects */
+OBJECT_ID object_max = 1;			/* Number of allocated objects */
+OBJECT_ID object_cnt = 0;			/* Number of live objects */
 
-s16b creature_max = 1;			/* Number of allocated creatures */
-s16b creature_cnt = 0;			/* Number of live creatures */
+CREATURE_ID creature_max = 1;			/* Number of allocated creatures */
+CREATURE_ID creature_cnt = 0;			/* Number of live creatures */
+CREATURE_ID hack_m_idx = 0;	/* Hack -- see "process_creatures()" */
+CREATURE_ID hack_m_idx_ii = 0;
 
-s16b hack_m_idx = 0;	/* Hack -- see "process_creatures()" */
-s16b hack_m_idx_ii = 0;
 bool multi_rew = FALSE;
 
 s32b friend_align = 0;
