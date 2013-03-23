@@ -21,7 +21,7 @@
 
 
 // Recursive fractal algorithm to place water through the dungeon.
-static void recursive_river(floor_type *floor_ptr, COODINATES x1, COODINATES y1, COODINATES x2, COODINATES y2, int feat1, int feat2, COODINATES width)
+static void recursive_river(floor_type *floor_ptr, COODINATES x1, COODINATES y1, COODINATES x2, COODINATES y2, FEATURE_ID feat1, FEATURE_ID feat2, COODINATES width)
 {
 	COODINATES length, l, changex, changey;
 	COODINATES ty, tx, dx, dy, x, y;
@@ -42,14 +42,14 @@ static void recursive_river(floor_type *floor_ptr, COODINATES x1, COODINATES y1,
 		if(dy != 0)
 		{
 			/* perturbation perpendicular to path */
-			changex = (COODINATES)randint1(abs(dy)) * 2 - abs(dy);
+			changex = (COODINATES)randint1(abs(dy)) * 2 - (COODINATES)abs(dy);
 		}
 		else changex = 0;
 
 		if(dx != 0)
 		{
 			/* perturbation perpendicular to path */
-			changey = (COODINATES)randint1(abs(dx)) * 2 - abs(dx);
+			changey = (COODINATES)randint1(abs(dx)) * 2 - (COODINATES)abs(dx);
 		}
 		else changey = 0;
 
@@ -130,7 +130,7 @@ static void recursive_river(floor_type *floor_ptr, COODINATES x1, COODINATES y1,
 /*
  * Places water /lava through dungeon.
  */
-void add_river(floor_type *floor_ptr, int feat1, int feat2)
+void add_river(floor_type *floor_ptr, FEATURE_ID feat1, FEATURE_ID feat2)
 {
 	COODINATES y2, x2;
 	COODINATES y1 = 0, x1 = 0;
@@ -194,9 +194,10 @@ void add_river(floor_type *floor_ptr, int feat1, int feat2)
  * basic vein, one with hidden gold, and one with known gold.  The
  * hidden gold types are currently unused.
  */
-void build_streamer(floor_type *floor_ptr, int feat, int chance)
+void build_streamer(floor_type *floor_ptr, FEATURE_ID feat, int chance)
 {
-	int i, dir;
+	int i;
+	DIRECTION dir;
 	COODINATES tx, ty, y, x;
 	int dummy = 0;
 
@@ -212,7 +213,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 	x = (COODINATES)rand_spread(floor_ptr->width / 2, floor_ptr->width / 6);
 
 	/* Choose a random compass direction */
-	dir = randint0(8);
+	dir = (DIRECTION)randint0(8);
 
 	/* Place streamer into dungeon */
 	while (dummy < SAFE_MAX_ATTEMPTS)

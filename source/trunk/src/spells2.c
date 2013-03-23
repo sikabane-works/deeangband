@@ -338,8 +338,8 @@ static cptr report_magic_durations[] =
 
 static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, bool known)
 {
-	int       x, y;
-	bool      detect = FALSE;
+	COODINATES  x, y;
+	bool detect = FALSE;
 	cave_type *c_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -445,10 +445,11 @@ bool detect_treasure(creature_type *creature_ptr, int range)
 
 
 // Detect all "gold" objects on the current panel
-bool detect_objects_gold(creature_type *creature_ptr, int range)
+bool detect_objects_gold(creature_type *creature_ptr, COODINATES range)
 {
-	int i, y, x;
-	int range2 = range;
+	int i;
+	COODINATES y, x;
+	COODINATES range2 = range;
 
 	bool detect = FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);

@@ -1183,7 +1183,7 @@ extern bool detect_traps(creature_type *creature_ptr, int range, bool known);
 extern bool detect_doors(creature_type *creature_ptr, int range);
 extern bool detect_stairs(creature_type *creature_ptr, int range);
 extern bool detect_treasure(creature_type *creature_ptr, int range);
-extern bool detect_objects_gold(creature_type *creature_ptr, int range);
+extern bool detect_objects_gold(creature_type *creature_ptr, COODINATES range);
 extern bool detect_objects_normal(creature_type *creature_ptr, int range);
 extern bool detect_objects_magic(creature_type *creature_ptr, int range);
 extern bool detect_creatures_normal(creature_type *creature_ptr, int range);
