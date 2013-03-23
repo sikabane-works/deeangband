@@ -3532,8 +3532,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 // breath shape
 void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgrids, byte *gx, byte *gy, byte *gm, int *pgm_rad, int rad, int y1, int x1, int y2, int x2, int typ)
 {
-	int by = y1;
-	int bx = x1;
+	COODINATES by = y1, bx = x1;
 	int brad = 0;
 	int brev = rad * rad / dist;
 	int bdis = 0;
@@ -3543,13 +3542,13 @@ void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgri
 
 	while (bdis <= mdis)
 	{
-		int x, y;
+		COODINATES x, y;
 
 		if((0 < dist) && (path_n < dist))
 		{
-			int ny = GRID_Y(path_g[path_n]);
-			int nx = GRID_X(path_g[path_n]);
-			int nd = distance(ny, nx, y1, x1);
+			COODINATES ny = GRID_Y(path_g[path_n]);
+			COODINATES nx = GRID_X(path_g[path_n]);
+			COODINATES nd = distance(ny, nx, y1, x1);
 
 			/* Get next base point */
 			if(bdis >= nd)
@@ -4132,7 +4131,7 @@ bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODIN
 		}
 		for( i = 0; i < path_n ; i++ )
 		{
-			int x,y;
+			COODINATES x, y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
 			(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SUPER_RAY, flg, TRUE, trait_id);
@@ -4150,7 +4149,7 @@ bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODIN
 					}
 				}
 			}
-			(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,DO_EFFECT_SUPER_RAY);
+			(void)project_feature(caster_ptr, caster_ptr, 0, y, x, dam, DO_EFFECT_SUPER_RAY);
 		}
 		return notice;
 	}
@@ -4158,10 +4157,9 @@ bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODIN
 	/* Project along the path */
 	for (i = 0; i < path_n; ++i)
 	{
-		int oy = y;
-		int ox = x;
-		int ny = GRID_Y(path_g[i]);
-		int nx = GRID_X(path_g[i]);
+		COODINATES oy = y, ox = x;
+		COODINATES ny = GRID_Y(path_g[i]);
+		COODINATES nx = GRID_X(path_g[i]);
 
 		if(flg & PROJECT_DISI) if(cave_stop_disintegration(floor_ptr, ny, nx) && (rad > 0)) break;
 		else if(flg & PROJECT_LOS) if(!CAVE_LOS_BOLD(floor_ptr, ny, nx) && (rad > 0)) break;
@@ -4254,7 +4252,7 @@ bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODIN
 	/* Hack -- make sure beams get to "explode" */
 	gm[1] = grids;
 
-	dist = path_n;
+	dist = (COODINATES)path_n;
 	dist_hack = dist;
 
 	range = 0;
