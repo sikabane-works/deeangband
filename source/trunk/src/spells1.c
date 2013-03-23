@@ -18,11 +18,10 @@ static int do_thrown_from_ridingdam_m;
 static int do_thrown_from_ridingdam_p;
 
 // Get another mirror. for SEEKER 
-static void next_mirror(floor_type *floor_ptr, int* next_y, int* next_x, int cury, int curx)
+static void next_mirror(floor_type *floor_ptr, COODINATES* next_y, COODINATES* next_x, COODINATES cury, COODINATES curx)
 {
-	int mirror_x[10], mirror_y[10];
-	int mirror_num=0;
-	int x, y;
+	COODINATES x, y, mirror_x[10], mirror_y[10];
+	int mirror_num = 0;
 	int num;
 
 	for(x = 0; x < floor_ptr->width; x++)
@@ -39,13 +38,13 @@ static void next_mirror(floor_type *floor_ptr, int* next_y, int* next_x, int cur
 
 	if(mirror_num)
 	{
-		num = randint0(mirror_num);
+		num = (COODINATES)randint0(mirror_num);
 		*next_y = mirror_y[num];
 		*next_x = mirror_x[num];
 		return;
 	}
-	*next_y = cury + randint0(5) - 2;
-	*next_x = curx + randint0(5) - 2;
+	*next_y = cury + (COODINATES)randint0(5) - 2;
+	*next_x = curx + (COODINATES)randint0(5) - 2;
 	return;
 }
 
@@ -4001,7 +4000,7 @@ bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODIN
 		}
 		for(i = last_i; i < path_n; i++)
 		{
-			int x,y;
+			COODINATES x, y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
 			if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SEEKER, flg, TRUE, trait_id))
@@ -4020,7 +4019,7 @@ bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODIN
 					}
 				}
 			}
-			(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,DO_EFFECT_SEEKER);
+			(void)project_feature(caster_ptr, caster_ptr, 0, y, x, dam, DO_EFFECT_SEEKER);
 		}
 		return notice;
 	}
@@ -4787,17 +4786,15 @@ bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODIN
 bool binding_field(creature_type *caster_ptr, int range, int dam)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int mirror_x[10], mirror_y[10];
+	COODINATES mirror_x[10], mirror_y[10];
 	int mirror_num=0;               // Number of mirror
-	int x,y;
+	COODINATES x, y, x1, x2, y1, y2;
 	int centersign;
-	int x1,x2,y1,y2;
 	u16b p;
 	int msec= delay_factor*delay_factor*delay_factor;
 
 	/* ŽOŠpŒ`‚Ì’¸“_ */
-	int point_x[3];
-	int point_y[3];
+	COODINATES point_x[3], point_y[3];
 
 	/* Default target of creaturespell is player */
 	creature_target_y=caster_ptr->fy;
@@ -4822,21 +4819,21 @@ bool binding_field(creature_type *caster_ptr, int range, int dam)
 
 	if( mirror_num < 2 )return FALSE;
 
-	point_x[0] = randint0( mirror_num );
+	point_x[0] = (COODINATES)randint0(mirror_num);
 	do {
-		point_x[1] = randint0( mirror_num );
+		point_x[1] = (COODINATES)randint0(mirror_num);
 	}
-	while( point_x[0] == point_x[1] );
+	while(point_x[0] == point_x[1]);
 
-	point_y[0]=mirror_y[point_x[0]];
-	point_x[0]=mirror_x[point_x[0]];
-	point_y[1]=mirror_y[point_x[1]];
-	point_x[1]=mirror_x[point_x[1]];
-	point_y[2]=caster_ptr->fy;
-	point_x[2]=caster_ptr->fx;
+	point_y[0] = mirror_y[point_x[0]];
+	point_x[0] = mirror_x[point_x[0]];
+	point_y[1] = mirror_y[point_x[1]];
+	point_x[1] = mirror_x[point_x[1]];
+	point_y[2] = caster_ptr->fy;
+	point_x[2] = caster_ptr->fx;
 
-	x=point_x[0]+point_x[1]+point_x[2];
-	y=point_y[0]+point_y[1]+point_y[2];
+	x = point_x[0] + point_x[1] + point_x[2];
+	y = point_y[0] + point_y[1] + point_y[2];
 
 	centersign = (point_x[0]*3-x)*(point_y[1]*3-y)
 		- (point_y[0]*3-y)*(point_x[1]*3-x);
@@ -4885,7 +4882,7 @@ bool binding_field(creature_type *caster_ptr, int range, int dam)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
-					(void)project_feature(caster_ptr, NULL,0,y,x,dam,DO_EFFECT_MANA); 
+					(void)project_feature(caster_ptr, NULL, 0, y, x, dam, DO_EFFECT_MANA); 
 				}
 			}
 		}
@@ -4936,7 +4933,7 @@ bool binding_field(creature_type *caster_ptr, int range, int dam)
 void seal_of_mirror(creature_type *caster_ptr, int dam)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int x,y;
+	COODINATES x, y;
 
 	for( x = 0 ; x < floor_ptr->width ; x++ )
 	{
@@ -4949,7 +4946,7 @@ void seal_of_mirror(creature_type *caster_ptr, int dam)
 				{
 					if( !floor_ptr->cave[y][x].creature_idx )
 					{
-						remove_mirror(player_ptr, y,x);
+						remove_mirror(player_ptr, y, x);
 					}
 				}
 			}
