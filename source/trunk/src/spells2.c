@@ -497,10 +497,11 @@ bool detect_objects_gold(creature_type *creature_ptr, COODINATES range)
 /*
 * Detect all "normal" objects on the current panel
 */
-bool detect_objects_normal(creature_type *creature_ptr, int range)
+bool detect_objects_normal(creature_type *creature_ptr, COODINATES range)
 {
-	int i, y, x;
-	int range2 = range;
+	int i;
+	COODINATES y, x;
+	COODINATES range2 = range;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	bool detect = FALSE;
@@ -1451,10 +1452,11 @@ bool probing(floor_type *floor_ptr)
 * Later we may use one function for both "destruction" and
 * "earthquake" by using the "full" to select "destruction".
 */
-bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_generate)
+bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODINATES r, bool in_generate)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int       y, x, k, t;
+	COODINATES y, x;
+	int k, t;
 	cave_type *c_ptr;
 	bool      flag = FALSE;
 

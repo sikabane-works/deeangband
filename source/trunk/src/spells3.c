@@ -470,9 +470,9 @@ void teleport_player_away(creature_type *creature_ptr, int dis)
  * This function is slightly obsessive about correctness.
  * This function allows teleporting into vaults (!)
  */
-void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
+void teleport_creature_to(creature_type *caster_ptr, COODINATES ny, COODINATES nx, FLAGS_32 mode)
 {
-	int y, x, dis = 0, ctr = 0;
+	COODINATES y, x, dis = 0, ctr = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	if(has_trait(caster_ptr, TRAIT_PREVENT_TELEPORT) && !(mode & TELEPORT_NONMAGICAL))

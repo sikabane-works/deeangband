@@ -1184,7 +1184,7 @@ extern bool detect_doors(creature_type *creature_ptr, int range);
 extern bool detect_stairs(creature_type *creature_ptr, int range);
 extern bool detect_treasure(creature_type *creature_ptr, int range);
 extern bool detect_objects_gold(creature_type *creature_ptr, COODINATES range);
-extern bool detect_objects_normal(creature_type *creature_ptr, int range);
+extern bool detect_objects_normal(creature_type *creature_ptr, COODINATES range);
 extern bool detect_objects_magic(creature_type *creature_ptr, int range);
 extern bool detect_creatures_normal(creature_type *creature_ptr, int range);
 extern bool detect_creatures_invis(creature_type *creature_ptr, int range);
@@ -1201,7 +1201,7 @@ extern bool symbol_genocide(creature_type *caster_ptr, int power, bool player_ca
 extern bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast);
 extern bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast);
 extern bool probing(floor_type *floor_ptr);
-extern bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_generate);
+extern bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODINATES r, bool in_generate);
 extern bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r, CREATURE_ID m_idx);
 extern bool earthquake(creature_type *target_ptr, COODINATES cy, COODINATES cx, COODINATES r);
 extern void lite_room(creature_type *creature_ptr, COODINATES y1, COODINATES x1);
@@ -1238,7 +1238,7 @@ extern bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, in
 extern bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, u32b mode);
 extern void teleport_creature(creature_type *creature_ptr, int dis, u32b mode);
 extern void teleport_player_away(creature_type *creature_ptr, int dis);
-extern void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode);
+extern void teleport_creature_to(creature_type *caster_ptr, COODINATES ny, COODINATES nx, FLAGS_32 mode);
 extern void teleport_away_followable(creature_type *creature_ptr);
 extern void teleport_level(creature_type *creature_ptr, int m_idx);
 extern int choose_dungeon(cptr note, int y, int x);
