@@ -3045,7 +3045,7 @@ static void store_height(floor_type *floor_ptr, int x, int y, int val)
  *    small values are good for smooth walls.
  *  size=length of the side of the square cave system.
  */
-static void generate_hmap(floor_type *floor_ptr, COODINATES y0, COODINATES x0, COODINATES xsiz, COODINATES ysiz, int grd, int roug, COODINATES cutoff)
+static void generate_hmap(floor_type *floor_ptr, COODINATES y0, COODINATES x0, COODINATES xsiz, COODINATES ysiz, COODINATES grd, COODINATES roug, COODINATES cutoff)
 {
 	s16b xhsize, yhsize, xsize, ysize, maxsize;
 
@@ -3630,7 +3630,7 @@ static bool build_type9(floor_type *floor_ptr)
 		grd = 1 << (randint0(4));
 
 		/* want average of about 16 */
-		roug = randint1(8) * randint1(4);
+		roug = (COODINATES)(randint1(8) * randint1(4));
 
 		/* about size/2 */
 		cutoff = randint1(xsize / 4) + randint1(ysize / 4) +
@@ -3652,7 +3652,7 @@ static bool build_type9(floor_type *floor_ptr)
  */
 void build_cavern(floor_type *floor_ptr)
 {
-	int grd, roug, cutoff, xsize, ysize, x0, y0;
+	COODINATES grd, roug, cutoff, xsize, ysize, x0, y0;
 	bool done, light;
 
 	light = done = FALSE;
@@ -3671,10 +3671,10 @@ void build_cavern(floor_type *floor_ptr)
 	while (!done)
 	{
 		/* testing values for these parameters: feel free to adjust */
-		grd = randint1(4) + 4;
+		grd = (COODINATES)randint1(4) + 4;
 
 		/* want average of about 16 */
-		roug = randint1(8) * randint1(4);
+		roug = (COODINATES)(randint1(8) * randint1(4));
 
 		/* about size/2 */
 		cutoff = xsize / 2;
@@ -3836,7 +3836,7 @@ static bool generate_lake(floor_type *floor_ptr, int y0, int x0, int xsize, int 
  */
 void build_lake(floor_type *floor_ptr, int type)
 {
-	int grd, roug, xsize, ysize, x0, y0;
+	COODINATES grd, roug, xsize, ysize, x0, y0;
 	bool done = FALSE;
 	int c1, c2, c3;
 
@@ -4337,8 +4337,7 @@ static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, i
 /* Create a random vault out of a fractal cave */
 static void build_cave_vault(floor_type *floor_ptr, int x0, int y0, int xsiz, int ysiz)
 {
-	COODINATES cutoff, xhsize, yhsize, xsize, ysize, x, y;
-	int grd, roug;
+	COODINATES cutoff, xhsize, yhsize, xsize, ysize, x, y, grd, roug;
 	bool done, light, room;
 
 	/* round to make sizes even */
@@ -5133,7 +5132,7 @@ static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsi
 	int grd, roug;
 	int c1, c2, c3;
 	bool done = FALSE;
-	int xsize, ysize, xhsize, yhsize, x, y, i;
+	COODINATES xsize, ysize, xhsize, yhsize, x, y, i;
 	int type;
 
 
