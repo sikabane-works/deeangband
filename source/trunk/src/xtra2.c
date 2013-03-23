@@ -462,7 +462,9 @@ int specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, i
 */
 void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bool drop_item)
 {
-	int i, j, y, x, droped_id;
+	int i, j;
+	COODINATES y, x;
+	OBJECT_ID droped_id;
 	floor_type *floor_ptr = GET_FLOOR_PTR(dead_ptr);
 	species_type *species_ptr = &species_info[dead_ptr->species_idx];
 	char slayer_name[MAX_NLEN], dead_name[MAX_NLEN];
@@ -659,14 +661,11 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		{
 			if(!one_in_(7))
 			{
-				int wy = y, wx = x;
+				COODINATES wy = y, wx = x;
 				int attempts = 100;
 				bool pet = is_pet(player_ptr, dead_ptr);
 
-				do
-				{
-					scatter(floor_ptr, &wy, &wx, y, x, 20, 0);
-				}
+				do scatter(floor_ptr, &wy, &wx, y, x, 20, 0);
 				while (!(IN_BOUNDS(floor_ptr, wy, wx) && cave_empty_bold2(floor_ptr, wy, wx)) && --attempts);
 
 				if(attempts > 0)
@@ -1457,7 +1456,7 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	s16b this_object_idx, next_object_idx = 0;
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 
 	/* Bounds */
 	if(!(IN_BOUNDS(floor_ptr, y, x))) return FALSE;
@@ -1561,8 +1560,7 @@ static void target_set_prepare(creature_type *creature_ptr, int mode)
 
 	if(creature_ptr->riding && target_pet && (temp_n > 1) && (mode & (TARGET_KILL)))
 	{
-		byte tmp;
-
+		COODINATES tmp;
 		tmp = temp_y[0];
 		temp_y[0] = temp_y[1];
 		temp_y[1] = tmp;
@@ -1651,7 +1649,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	s16b this_object_idx, next_object_idx = 0;
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 	cptr s1 = "", s2 = "", s3 = "", x_info = "";
 	bool boring = TRUE;
 	s16b feat;
