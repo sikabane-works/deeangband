@@ -251,7 +251,7 @@ static bool mon_will_run(creature_type *creature_ptr, int m_idx)
 
 
 // Search spell castable grid
-static bool get_moves_aux2(CREATURE_ID m_idx, int *yp, int *xp)
+static bool get_moves_aux2(CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp)
 {
 	int i;
 	COODINATES y, x, y1, x1;
@@ -352,7 +352,7 @@ static bool get_moves_aux2(CREATURE_ID m_idx, int *yp, int *xp)
  * being close enough to chase directly.  I have no idea what will
  * happen if you combine "smell" with low "alert_range" values.
  */
-static bool get_moves_aux(creature_type *mover_ptr, CREATURE_ID m_idx, int *yp, int *xp, bool no_flow)
+static bool get_moves_aux(creature_type *mover_ptr, CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp, bool no_flow)
 {
 	COODINATES i, y, x, y1, x1;
 	int best;
@@ -751,7 +751,7 @@ static bool find_safety(creature_type *avoid_target_ptr, CREATURE_ID m_idx, COOD
  *
  * Return TRUE if a good location is available.
  */
-static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
+static bool find_hiding(creature_type *player_ptr, CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
@@ -1735,7 +1735,7 @@ static void process_nonplayer(CREATURE_ID m_idx)
 			if(avoid || lonely || distant)
 			{
 				/* Remember the leash length */
-				int dis = player_ptr->pet_follow_distance;
+				COODINATES dis = player_ptr->pet_follow_distance;
 
 				/* Hack -- adjust follow distance temporarily */
 				if(player_ptr->pet_follow_distance > PET_SEEK_DIST) player_ptr->pet_follow_distance = PET_SEEK_DIST;
