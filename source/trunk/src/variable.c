@@ -431,18 +431,12 @@ char *message__buf;
 
 
 /*
- * The array of normal options
+ * The array of normal/window options
  */
-u32b option_flag[WINDOW_MAX];
-u32b option_mask[WINDOW_MAX];
-
-
-/*
- * The array of window options
- */
-u32b window_flag[WINDOW_MAX];
-u32b window_mask[WINDOW_MAX];
-
+FLAGS_32 option_flag[WINDOW_MAX];
+FLAGS_32 option_mask[WINDOW_MAX];
+FLAGS_32 window_flag[WINDOW_MAX];
+FLAGS_32 window_mask[WINDOW_MAX];
 
 /*
  * The array of window pointers

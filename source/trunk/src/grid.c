@@ -552,9 +552,7 @@ void set_floor(floor_type *floor_ptr, int x, int y)
  */
 bool build_tunnel(floor_type *floor_ptr, COODINATES row1, COODINATES col1, COODINATES row2, COODINATES col2)
 {
-	int y, x;
-	int tmp_row, tmp_col;
-	int row_dir, col_dir;
+	COODINATES y, x, tmp_row, tmp_col, row_dir, col_dir;
 	int start_row, start_col;
 	int main_loop_count = 0;
 
