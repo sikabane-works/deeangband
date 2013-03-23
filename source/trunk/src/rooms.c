@@ -3645,7 +3645,6 @@ static bool build_type9(floor_type *floor_ptr)
 	return TRUE;
 }
 
-#ifdef ALLOW_CAVERNS_AND_LAKES
 /*
  * Builds a cave system in the center of the dungeon.
  */
@@ -3881,8 +3880,6 @@ void build_lake(floor_type *floor_ptr, int type)
 		done = generate_lake(floor_ptr, y0 + 1, x0 + 1, xsize, ysize, c1, c2, c3, type);
 	}
 }
-#endif /* ALLOW_CAVERNS_AND_LAKES */
-
 
 /*
  * Routine used by the random vault creators to add a door to a location
@@ -5118,7 +5115,6 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 }
 
 
-#ifdef ALLOW_CAVERNS_AND_LAKES
 /*
  * This routine uses a modified version of the lake code to make a
  * distribution of some terrain type over the vault.  This type
@@ -5207,7 +5203,6 @@ static void build_elemental_vault(floor_type *floor_ptr, COODINATES x0, COODINAT
 	/* Fill with creatures and treasure, low difficulty */
 	fill_treasure(floor_ptr, x0 - xhsize + 1, x0 - xhsize + xsize - 1, y0 - yhsize + 1, y0 - yhsize + ysize - 1, randint1(5));
 }
-#endif /* ALLOW_CAVERNS_AND_LAKES */
 
 
 /*
@@ -5225,21 +5220,12 @@ static bool build_type10(floor_type *floor_ptr)
 	if(!find_space(floor_ptr, &y0, &x0, ysize + 1, xsize + 1)) return FALSE;
 
 	/* Select type of vault */
-#ifdef ALLOW_CAVERNS_AND_LAKES
 	do
 	{
 		vtype = (COODINATES)randint1(15);
 	}
 	while ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) &&
 		((vtype == 1) || (vtype == 3) || (vtype == 8) || (vtype == 9) || (vtype == 11)));
-#else /* ALLOW_CAVERNS_AND_LAKES */
-	do
-	{
-		vtype = (COODINATES)randint1(7);
-	}
-	while ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) &&
-		((vtype == 1) || (vtype == 3)));
-#endif /* ALLOW_CAVERNS_AND_LAKES */
 
 	switch (vtype)
 	{
@@ -5251,9 +5237,7 @@ static bool build_type10(floor_type *floor_ptr)
 		case 5: case 13: build_mini_c_vault(floor_ptr, x0, y0, xsize, ysize); break;
 		case 6: case 14: build_castle_vault(floor_ptr, x0, y0, xsize, ysize); break;
 		case 7: case 15: build_target_vault(floor_ptr, x0, y0, xsize, ysize); break;
-#ifdef ALLOW_CAVERNS_AND_LAKES
 		case 8: build_elemental_vault(floor_ptr, x0, y0, xsize, ysize); break;
-#endif /* ALLOW_CAVERNS_AND_LAKES */
 		/* I know how to add a few more... give me some time. */
 
 

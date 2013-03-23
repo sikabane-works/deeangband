@@ -64,13 +64,9 @@ struct room_info_type
         byte min_level;
 };
 
-
 /* Externs */
-#ifdef ALLOW_CAVERNS_AND_LAKES
 extern void build_lake(floor_type *floor_ptr, int type);
 extern void build_cavern(floor_type *floor_ptr);
-#endif /* ALLOW_CAVERNS_AND_LAKES */
-
 extern bool generate_rooms(floor_type *floor_ptr);
 extern void build_maze_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize, bool is_vault);
 

@@ -563,7 +563,6 @@ static void set_bound_perm_wall(cave_type *c_ptr)
 // There were moved from create_cave_structure().
 static void generate_caverns_and_lakes(floor_type *floor_ptr)
 {
-#ifdef ALLOW_CAVERNS_AND_LAKES
 	/* Possible "destroyed" level */
 	if((floor_ptr->depth > 30) && one_in_(DUN_DEST*2) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DESTROY))
 	{
@@ -637,7 +636,6 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 		if(cheat_room) msg_print(MES_DEBUG_CAVE);
 		build_cavern(floor_ptr);
 	}
-#endif /* ALLOW_CAVERNS_AND_LAKES */
 
 	/* Hack -- No destroyed "quest" levels */
 	if(quest_number(floor_ptr)) dungeon_ptr->destroyed = FALSE;
