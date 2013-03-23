@@ -3047,16 +3047,16 @@ static void store_height(floor_type *floor_ptr, int x, int y, int val)
  */
 static void generate_hmap(floor_type *floor_ptr, COODINATES y0, COODINATES x0, COODINATES xsiz, COODINATES ysiz, COODINATES grd, COODINATES roug, COODINATES cutoff)
 {
-	s16b xhsize, yhsize, xsize, ysize, maxsize;
+	COODINATES xhsize, yhsize, xsize, ysize, maxsize;
 
 	/*
 	 * fixed point variables- these are stored as 256 x normal value
 	 * this gives 8 binary places of fractional part + 8 places of normal part
 	 */
 
-	u16b xstep, xhstep, ystep, yhstep;
-	u16b xstep2, xhstep2, ystep2, yhstep2;
-	u16b i, j, ii, jj, diagsize, xxsize, yysize;
+	COODINATES xstep, xhstep, ystep, yhstep;
+	COODINATES xstep2, xhstep2, ystep2, yhstep2, xxsize, yysize;
+	u16b i, j, ii, jj, diagsize;
 	
 	/* Cache for speed */
 	u16b xm, xp, ym, yp;
@@ -3633,8 +3633,7 @@ static bool build_type9(floor_type *floor_ptr)
 		roug = (COODINATES)(randint1(8) * randint1(4));
 
 		/* about size/2 */
-		cutoff = randint1(xsize / 4) + randint1(ysize / 4) +
-			 randint1(xsize / 4) + randint1(ysize / 4);
+		cutoff = (COODINATES)(randint1(xsize / 4) + randint1(ysize / 4) + randint1(xsize / 4) + randint1(ysize / 4));
 
 		/* make it */
 		generate_hmap(floor_ptr, y0, x0, xsize, ysize, grd, roug, cutoff);
@@ -3687,7 +3686,7 @@ void build_cavern(floor_type *floor_ptr)
 	}
 }
 
-static bool generate_lake(floor_type *floor_ptr, int y0, int x0, int xsize, int ysize, int c1, int c2, int c3, int type)
+static bool generate_lake(floor_type *floor_ptr, COODINATES y0, COODINATES x0, COODINATES xsize, COODINATES ysize, COODINATES c1, COODINATES c2, COODINATES c3, int type)
 {
 	int x, y, i, xhsize, yhsize;
 	int feat1, feat2, feat3;
@@ -3838,7 +3837,7 @@ void build_lake(floor_type *floor_ptr, int type)
 {
 	COODINATES grd, roug, xsize, ysize, x0, y0;
 	bool done = FALSE;
-	int c1, c2, c3;
+	COODINATES c1, c2, c3;
 
 	/* paranoia - exit if lake type out of range. */
 	if((type < LAKE_T_LAVA) || (type > LAKE_T_FIRE_VAULT))
@@ -4335,7 +4334,7 @@ static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, i
 
 
 /* Create a random vault out of a fractal cave */
-static void build_cave_vault(floor_type *floor_ptr, int x0, int y0, int xsiz, int ysiz)
+static void build_cave_vault(floor_type *floor_ptr, COODINATES x0, COODINATES y0, COODINATES xsiz, COODINATES ysiz)
 {
 	COODINATES cutoff, xhsize, yhsize, xsize, ysize, x, y, grd, roug;
 	bool done, light, room;
@@ -5127,10 +5126,10 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
  *
  * Miniture rooms are then scattered across the vault.
  */
-static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsiz, int ysiz)
+static void build_elemental_vault(floor_type *floor_ptr, COODINATES x0, COODINATES y0, COODINATES xsiz, COODINATES ysiz)
 {
-	int grd, roug;
-	int c1, c2, c3;
+	COODINATES grd, roug;
+	COODINATES c1, c2, c3;
 	bool done = FALSE;
 	COODINATES xsize, ysize, xhsize, yhsize, x, y, i;
 	int type;
@@ -5171,7 +5170,7 @@ static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsi
 		grd = 1 << (randint0(3));
 
 		/* want average of about 16 */
-		roug = randint1(8) * randint1(4);
+		roug = (COODINATES)randint1(8) * (COODINATES)randint1(4);
 
 		/* Make up size of various componants */
 		/* Floor */
@@ -5229,14 +5228,14 @@ static bool build_type10(floor_type *floor_ptr)
 #ifdef ALLOW_CAVERNS_AND_LAKES
 	do
 	{
-		vtype = randint1(15);
+		vtype = (COODINATES)randint1(15);
 	}
 	while ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) &&
 		((vtype == 1) || (vtype == 3) || (vtype == 8) || (vtype == 9) || (vtype == 11)));
 #else /* ALLOW_CAVERNS_AND_LAKES */
 	do
 	{
-		vtype = randint1(7);
+		vtype = (COODINATES)randint1(7);
 	}
 	while ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) &&
 		((vtype == 1) || (vtype == 3)));
