@@ -27,16 +27,16 @@ static int feat_priority;
 /*
  * Distance between two points via Newton-Raphson technique
  */
-COODINATES distance (int y1, int x1, int y2, int x2)
+COODINATES distance (COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2)
 {
-	int dy = (y1 > y2) ? (y1 - y2) : (y2 - y1);
-	int dx = (x1 > x2) ? (x1 - x2) : (x2 - x1);
+	COODINATES dy = (y1 > y2) ? (y1 - y2) : (y2 - y1);
+	COODINATES dx = (x1 > x2) ? (x1 - x2) : (x2 - x1);
 
 	/* Squared distance */
-	int target = (dy * dy) + (dx * dx);
+	COODINATES target = (dy * dy) + (dx * dx);
 
 	/* Approximate distance: hypot(dy,dx) = max(dy,dx) + min(dy,dx) / 2 */
-	int d = (dy > dx) ? (dy + (dx >> 1)) : (dx + (dy >> 1));
+	COODINATES d = (dy > dx) ? (dy + (dx >> 1)) : (dx + (dy >> 1));
 
 	int err;
 
@@ -589,12 +589,10 @@ bool no_lite(creature_type *creature_ptr)
  *
  * Used by destruction spells, and for placing stairs, etc.
  */
-bool cave_valid_bold(floor_type *floor_ptr, int y, int x)
+bool cave_valid_bold(floor_type *floor_ptr, COODINATES y, COODINATES x)
 {
 	cave_type *cave_ptr = &floor_ptr->cave[y][x];
-
-	s16b this_object_idx, next_object_idx = 0;
-
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 
 	/* Forbid perma-grids */
 	if(cave_perma_grid(cave_ptr)) return FALSE;

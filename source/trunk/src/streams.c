@@ -21,11 +21,10 @@
 
 
 // Recursive fractal algorithm to place water through the dungeon.
-static void recursive_river(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int feat1, int feat2, int width)
+static void recursive_river(floor_type *floor_ptr, COODINATES x1, COODINATES y1, COODINATES x2, COODINATES y2, int feat1, int feat2, COODINATES width)
 {
-	int dx, dy, length, l, x, y;
-	int changex, changey;
-	int ty, tx;
+	COODINATES length, l, changex, changey;
+	COODINATES ty, tx, dx, dy, x, y;
 	bool done;
 	cave_type *c_ptr;
 
@@ -43,22 +42,16 @@ static void recursive_river(floor_type *floor_ptr, int x1, int y1, int x2, int y
 		if(dy != 0)
 		{
 			/* perturbation perpendicular to path */
-			changex = randint1(abs(dy)) * 2 - abs(dy);
+			changex = (COODINATES)randint1(abs(dy)) * 2 - abs(dy);
 		}
-		else
-		{
-			changex = 0;
-		}
+		else changex = 0;
 
 		if(dx != 0)
 		{
 			/* perturbation perpendicular to path */
-			changey = randint1(abs(dx)) * 2 - abs(dx);
+			changey = (COODINATES)randint1(abs(dx)) * 2 - abs(dx);
 		}
-		else
-		{
-			changey = 0;
-		}
+		else changey = 0;
 
 		if(!IN_BOUNDS(floor_ptr, y1 + dy + changey, x1 + dx + changex))
 		{
@@ -345,9 +338,9 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
  * Put trees near a hole in the dungeon roof  (rubble on ground + up stairway)
  * This happens in real world lava tubes.
  */
-void place_trees(floor_type *floor_ptr, int x, int y)
+void place_trees(floor_type *floor_ptr, COODINATES x, COODINATES y)
 {
-	int i, j;
+	COODINATES i, j;
 	cave_type *c_ptr;
 
 	/* place trees/ rubble in ovalish distribution */

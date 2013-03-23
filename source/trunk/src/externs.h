@@ -488,8 +488,7 @@ extern OBJECT_ID max_object_idx;
 extern CREATURE_ID max_creature_idx;
 extern u16b max_trait_idx;
 extern u16b max_store_idx;
-extern s32b max_wild_x;
-extern s32b max_wild_y;
+extern COODINATES max_wild_x, max_wild_y;
 
 /* Unique Data for D'angband*/
 extern u16b unique_max;
@@ -612,7 +611,7 @@ extern void world_wipe(void);
 extern void become_winner(creature_type *creature_ptr);
 
 // cave.c
-extern COODINATES distance(int y1, int x1, int y2, int x2);
+extern COODINATES distance(COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
 extern bool is_trap(int feat);
 extern bool is_known_trap(cave_type *c_ptr);
 extern bool is_closed_door(int feat);
@@ -620,7 +619,7 @@ extern bool is_hidden_door(cave_type *c_ptr);
 extern bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2);
 extern void update_local_illumination(floor_type *floor_ptr, int y, int x);
 extern bool creature_can_see_bold(creature_type *viewer_ptr, int y, int x);
-extern bool cave_valid_bold(floor_type *floor_ptr, int y, int x);
+extern bool cave_valid_bold(floor_type *floor_ptr, COODINATES y, COODINATES x);
 extern bool no_lite(creature_type *creature_ptr);
 extern void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX]);
 extern void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte *tap, char *tcp);
@@ -1234,7 +1233,7 @@ extern void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, b
 
 // spells3.c
 extern bool teleport_away(creature_type *creature_ptr, int dis, u32b mode);
-extern void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx, int power, u32b mode);
+extern void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, COODINATES tx, int power, FLAGS_32 mode);
 extern bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode);
 extern bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, u32b mode);
 extern void teleport_creature(creature_type *creature_ptr, int dis, u32b mode);
@@ -1479,7 +1478,7 @@ extern void msg_warning(cptr message, ...);
 
 // mspells1.c
 extern bool clean_shot(creature_type *target_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, bool friend);
-extern bool summon_possible(creature_type *target_ptr, int y1, int x1);
+extern bool summon_possible(creature_type *target_ptr, COODINATES y1, COODINATES x1);
 extern bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool make_attack_spell(creature_type *creature_ptr, creature_type *target_ptr);

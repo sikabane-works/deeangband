@@ -59,10 +59,10 @@ static bool int_outof(species_type *species_ptr, int prob)
 
 // Determine if there is a space near the player in which
 // a summoned creature can appear
-bool summon_possible(creature_type *target_ptr, int y1, int x1)
+bool summon_possible(creature_type *target_ptr, COODINATES y1, COODINATES x1)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
-	int y, x;
+	COODINATES y, x;
 
 	/* Start at the player's location, and check 2 grids in each dir */
 	for (y = y1 - 2; y <= y1 + 2; y++)
@@ -90,10 +90,10 @@ bool summon_possible(creature_type *target_ptr, int y1, int x1)
 bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int xx, yy;
-	int y = target_ptr->fy;
-	int x = target_ptr->fx;
-	s16b this_object_idx, next_object_idx = 0;
+	COODINATES xx, yy;
+	COODINATES y = target_ptr->fy;
+	COODINATES x = target_ptr->fx;
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 	cave_type *c_ptr;
 
 	for (xx = x - 5; xx <= x + 5; xx++)

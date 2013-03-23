@@ -43,7 +43,7 @@ static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, 
 bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int oy, ox, d, min, i;
+	COODINATES oy, ox, d, min, i;
 	s16b m_idx = 0, point;
 	int tries = 0;
 	COODINATES ny = 0, nx = 0;
@@ -140,7 +140,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 }
 
 // Teleport creature next to a grid near the given location
-void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx, int power, u32b mode)
+void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, COODINATES tx, int power, FLAGS_32 mode)
 {
 	int ny, nx, oy, ox, d, i, min;
 	int attempts = 500;
@@ -3949,7 +3949,7 @@ bool polymorph_creature(creature_type *creature_ptr)
 /*
  * Dimension Door
  */
-static bool dimension_door_aux(creature_type *creature_ptr, int x, int y)
+static bool dimension_door_aux(creature_type *creature_ptr, COODINATES x, COODINATES y)
 {
 	int	plev = creature_ptr->lev;
 
@@ -3978,7 +3978,7 @@ static bool dimension_door_aux(creature_type *creature_ptr, int x, int y)
  */
 bool dimension_door(creature_type *creature_ptr)
 {
-	int x = 0, y = 0;
+	COODINATES x = 0, y = 0;
 
 	/* Rerutn FALSE if cancelled */
 	if(!tgt_pt(creature_ptr, &x, &y)) return FALSE;
@@ -3994,7 +3994,7 @@ bool dimension_door(creature_type *creature_ptr)
  */
 bool mirror_tunnel(creature_type *creature_ptr)
 {
-	int x = 0, y = 0;
+	COODINATES x = 0, y = 0;
 
 	/* Rerutn FALSE if cancelled */
 	if(!tgt_pt(creature_ptr, &x, &y)) return FALSE;

@@ -891,8 +891,7 @@ u16b unique_max;				// Maximum number of uniques in the world
 /*
  * Maximum size of the wilderness
  */
-s32b max_wild_x;
-s32b max_wild_y;
+COODINATES max_wild_x, max_wild_y;
 
 /*
  * Quest info
