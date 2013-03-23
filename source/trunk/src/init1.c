@@ -6585,12 +6585,10 @@ static void drop_here(floor_type *floor_ptr, object_type *drop_ptr, COODINATES y
 /*
  * Parse a sub-file of the "extra info"
  */
-static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x, u32b flags, int quest_id)
+static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATES ymin, COODINATES xmin, COODINATES ymax, COODINATES xmax, COODINATES *y, COODINATES *x, FLAGS_32 flags, int quest_id)
 {
 	int i;
-
 	char *zz[100];
-
 
 	/* Skip "empty" lines */
 	if(!buf[0]) return PARSE_ERROR_NONE;
@@ -6886,7 +6884,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				/* Place player in a quest level */
 				if(quest)
 				{
-					int y, x;
+					COODINATES y, x;
 
 					/* Delete the creature (if any) */
 					delete_creature(floor_ptr, player_ptr->fy, player_ptr->fx);

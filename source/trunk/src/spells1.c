@@ -1158,7 +1158,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
-	s16b this_object_idx, next_object_idx = 0;
+	COODINATES this_object_idx, next_object_idx = 0;
 
 	bool obvious = FALSE;
 	bool known = player_has_los_bold(y, x);

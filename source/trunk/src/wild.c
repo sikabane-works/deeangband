@@ -637,7 +637,7 @@ static wilderness_grid w_letter[255];
 /*
  * Parse a sub-file of the "extra info"
  */
-errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x)
+errr parse_line_wilderness(char *buf, COODINATES ymin, COODINATES xmin, COODINATES ymax, COODINATES xmax, COODINATES *y, COODINATES *x)
 {
 	int i, num;
 	char *zz[33];
@@ -645,7 +645,6 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 	/* Unused */
 	(void)ymin;
 	(void)ymax;
-
 
 	if(!(buf[0] == 'W')) return (PARSE_ERROR_GENERIC);
 
