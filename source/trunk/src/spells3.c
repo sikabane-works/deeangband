@@ -2680,7 +2680,7 @@ bool pulish_shield(creature_type *creature_ptr)
  *          the potion was in her inventory);
  *    object_ptr --- pointer to the potion object.
  */
-bool potion_smash_effect(int who, int y, int x, int k_idx)
+bool potion_smash_effect(int who, COODINATES y, COODINATES x, int k_idx)
 {
 	int     radius = 2;
 	int     dt = 0;

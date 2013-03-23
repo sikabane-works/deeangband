@@ -683,8 +683,8 @@ struct object_type
 	FLAGS_32 trait_flags[MAX_TRAITS_FLAG];
 	FLAGS_32 curse_flags[MAX_TRAITS_FLAG]; // Flags for curse
 
-	s16b next_object_idx;	// Next object in stack (if any)
-	s16b held_m_idx;		// Creature holding us (if any)
+	OBJECT_ID next_object_idx; // Next object in stack (if any)
+	CREATURE_ID held_m_idx; // Creature holding us (if any)
 	s16b creator_idx;		// Creater
 	s16b source_idx;		// Item Source
 
