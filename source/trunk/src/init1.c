@@ -7377,7 +7377,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 }
 
 
-errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, int ymax, int xmax, u32b flags, int quest_id)
+errr process_dungeon_file(floor_type *floor_ptr, cptr name, COODINATES ymin, COODINATES xmin, COODINATES ymax, COODINATES xmax, FLAGS_32 flags, int quest_id)
 {
 	FILE *fp;
 	char buf[1024];

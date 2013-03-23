@@ -44,13 +44,13 @@
  * and increase the complexity of the code.
  */
 
-typedef u32b FLAGS_32;
+typedef s32b FLAGS_32;
 
-typedef u32b CREATURE_ID;
-typedef u32b OBJECT_ID;
-typedef u32b SPECIES_ID;
-typedef u16b FEATURE_ID;
-typedef u16b TOWN_ID;
+typedef s32b CREATURE_ID;
+typedef s32b OBJECT_ID;
+typedef s32b SPECIES_ID;
+typedef s16b FEATURE_ID;
+typedef s16b TOWN_ID;
 
 typedef byte TVAL;
 typedef byte SVAL;

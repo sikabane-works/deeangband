@@ -3322,8 +3322,8 @@ static bool hack_isnt_wall(floor_type *floor_ptr, int y, int x, int c1, int c2, 
  */
 static void cave_fill(floor_type *floor_ptr, byte y, byte x)
 {
-	int i, j, d;
-	int ty, tx;
+	COODINATES i, j, d;
+	COODINATES ty, tx;
 
 	int flow_tail = 1;
 	int flow_head = 0;
@@ -4354,11 +4354,10 @@ static void build_cave_vault(floor_type *floor_ptr, COODINATES x0, COODINATES y0
 		grd = 1 << randint0(4);
 
 		/* want average of about 16 */
-		roug = randint1(8) * randint1(4);
+		roug = (COODINATES)randint1(8) * (COODINATES)randint1(4);
 
 		/* about size/2 */
-		cutoff = randint1(xsize / 4) + randint1(ysize / 4) +
-			 randint1(xsize / 4) + randint1(ysize / 4);
+		cutoff = (COODINATES)randint1(xsize / 4) + (COODINATES)randint1(ysize / 4) + (COODINATES)randint1(xsize / 4) + (COODINATES)randint1(ysize / 4);
 
 		/* make it */
 		generate_hmap(floor_ptr, y0, x0, xsize, ysize, grd, roug, cutoff);

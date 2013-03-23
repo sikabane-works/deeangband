@@ -977,7 +977,7 @@ extern int generate_floor(int dungeon_id, COODINATES world_y, COODINATES world_x
 // init1.c
 extern byte color_char_to_acttr(char c);
 extern s16b feature_tag_to_index(cptr str);
-extern errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, int ymax, int xmax, u32b flags, int quest_id);
+extern errr process_dungeon_file(floor_type *floor_ptr, cptr name, COODINATES ymin, COODINATES xmin, COODINATES ymax, COODINATES xmax, FLAGS_32 flags, int quest_id);
 
 // init2.c
 extern void init_file_paths(char *path);

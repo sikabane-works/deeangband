@@ -2192,7 +2192,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			case '+':
 			{
 				int i;
-				s16b object_idx;
+				OBJECT_ID object_idx;
 				cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 
 				if(command_wrk != (USE_FLOOR)) break;
@@ -2638,7 +2638,7 @@ static bool py_pickup_floor_aux(creature_type *creature_ptr)
  */
 void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 {
-	s16b this_object_idx, next_object_idx = 0;
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 
 	char object_name[MAX_NLEN];
 	object_type *object_ptr;
