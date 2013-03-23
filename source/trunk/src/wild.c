@@ -60,7 +60,7 @@ static void perturb_point_mid(floor_type *floor_ptr, int x1, int x2, int x3, int
 	 * Average the four corners & perturb it a bit.
 	 * tmp is a random int +/- rough
 	 */
-	int tmp2 = rough*2 + 1;
+	int tmp2 = rough * 2 + 1;
 	int tmp = randint1(tmp2) - (rough + 1);
 	int avg = ((x1 + x2 + x3 + x4) / 4) + tmp;
 
@@ -348,7 +348,8 @@ static border_type border;
  */
 void generate_floor_wilderness(floor_type *floor_ptr)
 {
-	int i, y, x, lim;
+	int i, lim;
+	COODINATES y, x;
 	cave_type *c_ptr;
 	feature_type *f_ptr;
 
@@ -730,8 +731,8 @@ errr parse_line_wilderness(char *buf, COODINATES ymin, COODINATES xmin, COODINAT
 		{
 			if(tokenize(buf+4, 2, zz, 0) == 2)
 			{
-				player_ptr->wy = atoi(zz[0]);
-				player_ptr->wx = atoi(zz[1]);
+				player_ptr->wy = (COODINATES) strtol(zz[0], NULL, 10);
+				player_ptr->wx = (COODINATES) strtol(zz[1], NULL, 10);
 				if((player_ptr->wx < 1) || (player_ptr->wx > max_wild_x) ||
 				    (player_ptr->wy < 1) || (player_ptr->wy > max_wild_y))
 					return PARSE_ERROR_OUT_OF_BOUNDS;

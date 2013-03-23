@@ -49,6 +49,7 @@ typedef u32b FLAGS_32;
 typedef u32b CREATURE_ID;
 typedef u32b OBJECT_ID;
 typedef u32b SPECIES_ID;
+typedef u16b FEATURE_ID;
 typedef u16b TOWN_ID;
 
 typedef byte TVAL;
@@ -564,7 +565,7 @@ struct cave_type
 	u16b info;		   // Hack -- cave flags
 	u16b cx;           // Connected x
 	u16b cy;           // Connected y
-	s16b feat;		   // Hack -- feature type
+	FEATURE_ID feat;		   // Hack -- feature type
 	OBJECT_ID object_idx;   // Object in this grid
 	CREATURE_ID creature_idx; // Creature in this grid
 	s16b special;      // Special cave info

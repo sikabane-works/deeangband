@@ -1658,7 +1658,7 @@ extern void generate_world(floor_type *floor_ptr);
 extern errr init_wilderness(void);
 extern void init_wilderness_terrains(void);
 extern void seed_wilderness(void);
-extern errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x);
+extern errr parse_line_wilderness(char *buf, COODINATES ymin, COODINATES xmin, COODINATES ymax, COODINATES xmax, COODINATES *y, COODINATES *x);
 extern bool change_wild_mode(creature_type *creature_ptr);
 extern void reveal_wilderness(int y, int x);
 

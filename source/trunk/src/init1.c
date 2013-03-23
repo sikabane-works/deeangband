@@ -6638,8 +6638,8 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 
 //			c_ptr->special = 11;
 
-			int object_index = letter[idx].object;
-			int creature_index = letter[idx].creature;
+			OBJECT_ID object_index = letter[idx].object;
+			CREATURE_ID creature_index = letter[idx].creature;
 			int random = letter[idx].random;
 			int artifact_index = letter[idx].artifact;
 
