@@ -1250,14 +1250,14 @@ bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 	 (have_flag((MF)->flags, FF_MOVE) || have_flag((MF)->flags, FF_CAN_FLY)) && \
 	 have_flag((MF)->flags, FF_PROJECT) && !have_flag((MF)->flags, FF_OPEN))
 
-static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap, int x, int y)
+static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap, COODINATES x, COODINATES y)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	if(!floor_ptr->depth && !floor_ptr->global_map && ((x == 0) || (x == MAX_WID - 1) || (y == 0) || (y == MAX_HGT - 1)))
 	{
-		int tmp_wx = 0, tmp_wy = 0, tmp_px = 0, tmp_py = 0;
+		COODINATES tmp_wx = 0, tmp_wy = 0, tmp_px = 0, tmp_py = 0;
 
 		// Can the player enter the grid?//
 		if(c_ptr->mimic && creature_can_cross_terrain(creature_ptr, c_ptr->mimic, 0))
@@ -1881,12 +1881,12 @@ static byte chome[] =
 { 0, 8, 9, 10, 7, 0, 11, 6, 5, 4 };
 
 // The direction we are running
-static byte find_current;
+static DIRECTION find_current;
 
 /*
  * The direction we came from
  */
-static byte find_prevdir;
+static DIRECTION find_prevdir;
 
 /*
  * We are looking for open area
@@ -2016,10 +2016,10 @@ static void run_init(creature_type *creature_ptr, int dir)
 static bool run_test(creature_type *creature_ptr)
 {
 	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int         prev_dir, new_dir, check_dir = 0;
+	DIRECTION prev_dir, new_dir, check_dir = 0;
 	int         row, col;
 	int         i, max, inv;
-	int         option = 0, option2 = 0;
+	DIRECTION option = 0, option2 = 0;
 	cave_type   *c_ptr;
 	s16b        feat;
 	feature_type *f_ptr;

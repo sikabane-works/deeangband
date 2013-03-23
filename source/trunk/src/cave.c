@@ -2542,7 +2542,7 @@ void forget_lite(floor_type *floor_ptr)
  */
 void update_lite(creature_type *creature_ptr)
 {
-	int i, x, y, min_x, max_x, min_y, max_y;
+	COODINATES i, x, y, min_x, max_x, min_y, max_y;
 	int p = creature_ptr->cur_lite;
 	cave_type *cave_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -4723,7 +4723,7 @@ bool is_explosive_rune_grid(cave_type *cave_ptr)
  */
 void mmove2(COODINATES *y, COODINATES *x, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2)
 {
-	int dy, dx, dist, shift;
+	COODINATES dy, dx, dist, shift;
 
 	/* Extract the distance travelled */
 	dy = (*y < y1) ? y1 - *y : *y - y1;

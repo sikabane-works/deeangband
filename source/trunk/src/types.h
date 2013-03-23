@@ -58,8 +58,10 @@ typedef byte SYMBOL;
 typedef byte CREATURE_LEV;
 typedef byte FLOOR_LEV;
 typedef s16b COODINATES;
-
 typedef s32b STAT;
+
+typedef byte DIRECTION;
+
 /*
  * Creature flags
  */
