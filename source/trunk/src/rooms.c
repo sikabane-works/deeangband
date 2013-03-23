@@ -3947,7 +3947,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 	cy = (y1 + y2) / 2;
 
 	/* Rough measure of size of vault= sum of lengths of sides */
-	size = abs(x2 - x1) + abs(y2 - y1);
+	size = (COODINATES)abs(x2 - x1) + (COODINATES)abs(y2 - y1);
 
 	for (x = x1; x <= x2; x++)
 	{
@@ -4076,7 +4076,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
  * Note: If two centers are on the same point then this algorithm will create a
  *       blank bubble filled with walls. - This is prevented from happening.
  */
-static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize)
+static void build_bubble_vault(floor_type *floor_ptr, COODINATES x0, COODINATES y0, COODINATES xsize, COODINATES ysize)
 {
 	#define BUBBLENUM 10		/* number of bubbles */
 
@@ -4089,8 +4089,8 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	bool done;
 
 	/* Offset from center to top left hand corner */
-	int xhsize = xsize / 2;
-	int yhsize = ysize / 2;
+	COODINATES xhsize = xsize / 2;
+	COODINATES yhsize = ysize / 2;
 
 
 	if(cheat_room) msg_print("Bubble Vault");
@@ -4199,8 +4199,8 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	/* Try to add some random doors */
 	for (i = 0; i < 500; i++)
 	{
-		x = randint1(xsize - 3) - xhsize + x0 + 1;
-		y = randint1(ysize - 3) - yhsize + y0 + 1;
+		x = (COODINATES)randint1(xsize - 3) - xhsize + x0 + 1;
+		y = (COODINATES)randint1(ysize - 3) - yhsize + y0 + 1;
 		add_door(floor_ptr, x, y);
 	}
 
@@ -4481,10 +4481,10 @@ static void r_visit(floor_type *floor_ptr, int y1, int x1, int y2, int x2, int n
 }
 
 
-void build_maze_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize, bool is_vault)
+void build_maze_vault(floor_type *floor_ptr, COODINATES x0, COODINATES y0, COODINATES xsize, COODINATES ysize, bool is_vault)
 {
-	int y, x, dy, dx;
-	int y1, x1, y2, x2;
+	COODINATES y, x, dy, dx;
+	COODINATES y1, x1, y2, x2;
 	int m, n, num_vertices, *visited;
 	bool light;
 	cave_type *c_ptr;
@@ -4552,10 +4552,10 @@ void build_maze_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysiz
  * The vault has two entrances on opposite sides to guarantee
  * a way to get in even if the vault abuts a side of the dungeon.
  */
-static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize)
+static void build_mini_c_vault(floor_type *floor_ptr, COODINATES x0, COODINATES y0, COODINATES xsize, COODINATES ysize)
 {
-	int dy, dx;
-	int y1, x1, y2, x2, y, x, total;
+	COODINATES dy, dx;
+	COODINATES y1, x1, y2, x2, y, x, total;
 	int m, n, num_vertices;
 	int *visited;
 
