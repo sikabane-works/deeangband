@@ -139,13 +139,13 @@ static void recursive_river(floor_type *floor_ptr, int x1, int y1, int x2, int y
  */
 void add_river(floor_type *floor_ptr, int feat1, int feat2)
 {
-	int y2, x2;
-	int y1 = 0, x1 = 0;
-	int wid;
+	COODINATES y2, x2;
+	COODINATES y1 = 0, x1 = 0;
+	COODINATES wid;
 
 	/* Hack -- Choose starting point */
-	y2 = randint1(floor_ptr->height / 2 - 2) + floor_ptr->height / 2;
-	x2 = randint1(floor_ptr->width / 2 - 2) + floor_ptr->width / 2;
+	y2 = (COODINATES)randint1(floor_ptr->height / 2 - 2) + floor_ptr->height / 2;
+	x2 = (COODINATES)randint1(floor_ptr->width / 2 - 2) + floor_ptr->width / 2;
 
 	/* Hack -- Choose ending point somewhere on boundary */
 	switch(randint1(4))
@@ -153,7 +153,7 @@ void add_river(floor_type *floor_ptr, int feat1, int feat2)
 		case 1:
 		{
 			/* top boundary */
-			x1 = randint1(floor_ptr->width-2)+1;
+			x1 = (COODINATES)randint1(floor_ptr->width-2)+1;
 			y1 = 1;
 			break;
 		}
@@ -161,26 +161,26 @@ void add_river(floor_type *floor_ptr, int feat1, int feat2)
 		{
 			/* left boundary */
 			x1 = 1;
-			y1 = randint1(floor_ptr->height-2)+1;
+			y1 = (COODINATES)randint1(floor_ptr->height-2)+1;
 			break;
 		}
 		case 3:
 		{
 			/* right boundary */
-			x1 = floor_ptr->width-1;
-			y1 = randint1(floor_ptr->height-2)+1;
+			x1 = floor_ptr->width - 1;
+			y1 = (COODINATES)randint1(floor_ptr->height-2)+1;
 			break;
 		}
 		case 4:
 		{
 			/* bottom boundary */
-			x1 = randint1(floor_ptr->width-2)+1;
+			x1 = (COODINATES)randint1(floor_ptr->width-2)+1;
 			y1 = floor_ptr->height-1;
 			break;
 		}
 	}
 
-	wid = randint1(DUN_WAT_RNG);
+	wid = (COODINATES)randint1(DUN_WAT_RNG);
 	recursive_river(floor_ptr, x1, y1, x2, y2, feat1, feat2, wid);
 
 	/* Hack - Save the location as a "room" */
@@ -265,7 +265,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 
 			if(c_ptr->object_idx && !have_flag(streamer_ptr->flags, FF_DROP))
 			{
-				s16b this_object_idx, next_object_idx = 0;
+				OBJECT_ID this_object_idx, next_object_idx = 0;
 
 				/* Scan all objects in the grid */
 				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
