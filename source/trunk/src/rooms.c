@@ -3858,17 +3858,17 @@ void build_lake(floor_type *floor_ptr, int type)
 	while (!done)
 	{
 		/* testing values for these parameters: feel free to adjust */
-		grd = randint1(3) + 4;
+		grd = (COODINATES)randint1(3) + 4;
 
 		/* want average of about 16 */
-		roug = randint1(8) * randint1(4);
+		roug = (COODINATES)randint1(8) * (COODINATES)randint1(4);
 
 		/* Make up size of various componants */
 		/* Floor */
 		c3 = 3 * xsize / 4;
 
 		/* Deep water/lava */
-		c1 = randint0(c3 / 2) + randint0(c3 / 2) - 5;
+		c1 = (COODINATES)randint0(c3 / 2) + (COODINATES)randint0(c3 / 2) - 5;
 
 		/* Shallow boundary */
 		c2 = (c1 + c3) / 2;
@@ -4083,7 +4083,8 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	/* array of center points of bubbles */
 	coord center[BUBBLENUM];
 
-	int i, j, x, y;
+	int i, j;
+	COODINATES x, y;
 	u16b min1, min2, temp;
 	bool done;
 
@@ -4107,8 +4108,8 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 		{
 			done = TRUE;
 
-			x = randint1(xsize - 3) + 1;
-			y = randint1(ysize - 3) + 1;
+			x = (COODINATES)randint1(xsize - 3) + 1;
+			y = (COODINATES)randint1(ysize - 3) + 1;
 
 			for (j = 0; j < i; j++)
 			{
@@ -5173,7 +5174,7 @@ static void build_elemental_vault(floor_type *floor_ptr, COODINATES x0, COODINAT
 		c3 = 2 * xsize / 3;
 
 		/* Deep water/lava */
-		c1 = randint0(c3 / 2) + randint0(c3 / 2) - 5;
+		c1 = (COODINATES)randint0(c3 / 2) + (COODINATES)randint0(c3 / 2) - 5;
 
 		/* Shallow boundary */
 		c2 = (c1 + c3) / 2;
@@ -5263,7 +5264,7 @@ static bool build_type11(floor_type *floor_ptr)
 	/* Occasional light */
 	if((randint1(floor_ptr->depth) <= 15) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
-	rad = randint0(23);
+	rad = (COODINATES)randint0(23);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if(!find_space(floor_ptr, &y0, &x0, rad * 2 + 1, rad * 2 + 1)) return FALSE;
@@ -5302,8 +5303,7 @@ static bool build_type11(floor_type *floor_ptr)
  */
 static bool build_type12(floor_type *floor_ptr)
 {
-	int rad;
-	COODINATES x, y, x0, y0;
+	COODINATES x, y, x0, y0, rad;
 	int light = FALSE;
 	bool emptyflag = TRUE;
 
@@ -5317,7 +5317,7 @@ static bool build_type12(floor_type *floor_ptr)
 	/* Occasional light */
 	if((randint1(floor_ptr->depth) <= 5) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
-	rad = randint1(9);
+	rad = (COODINATES)randint1(9);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if(!find_space(floor_ptr, &y0, &x0, rad * 2 + 3, rad * 2 + 3)) return FALSE;
@@ -5786,8 +5786,8 @@ static bool build_type15(floor_type *floor_ptr)
 	cave_type *c_ptr;
 
 	/* Pick a room size */
-	xsize = rand_range(7, 18);
-	ysize = rand_range(7, 18);
+	xsize = (COODINATES)rand_range(7, 18);
+	ysize = (COODINATES)rand_range(7, 18);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
 	if(!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;

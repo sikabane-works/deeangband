@@ -1689,11 +1689,12 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 * for a single turn, unless that creature can pass_walls or kill_walls.
 * This has allowed massive simplification of the "creature" code.
 */
-bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
+bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r, CREATURE_ID m_idx)
 {
-	int             i, t, y, x, yy, xx, dy, dx;
+	COODINATES i, t, y, x, yy, xx, dy, dx;
+	COODINATES sy = 0, sx = 0;
 	int             damage = 0;
-	int             sn = 0, sy = 0, sx = 0;
+	int             sn = 0;
 	cave_type       *c_ptr;
 	bool            map[32][32];
 	floor_type      *floor_ptr = GET_FLOOR_PTR(caster_ptr);
