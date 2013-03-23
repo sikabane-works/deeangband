@@ -253,7 +253,9 @@ static bool mon_will_run(creature_type *creature_ptr, int m_idx)
 // Search spell castable grid
 static bool get_moves_aux2(CREATURE_ID m_idx, int *yp, int *xp)
 {
-	int i, y, x, y1, x1, best = 999;
+	int i;
+	COODINATES y, x, y1, x1;
+	int best = 999;
 
 	cave_type *c_ptr;
 	bool can_open_door = FALSE;
@@ -352,7 +354,8 @@ static bool get_moves_aux2(CREATURE_ID m_idx, int *yp, int *xp)
  */
 static bool get_moves_aux(creature_type *mover_ptr, CREATURE_ID m_idx, int *yp, int *xp, bool no_flow)
 {
-	int i, y, x, y1, x1, best;
+	COODINATES i, y, x, y1, x1;
+	int best;
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(mover_ptr);
 	cave_type *c_ptr;
@@ -456,9 +459,9 @@ static bool get_moves_aux(creature_type *mover_ptr, CREATURE_ID m_idx, int *yp, 
 * but instead of heading directly for it, the creature should "swerve"
 * around the player so that he has a smaller chance of getting hit.
 */
-static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
+static bool get_fear_moves_aux(CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp)
 {
-	int y, x, y1, x1, fy, fx, gy = 0, gx = 0;
+	COODINATES y, x, y1, x1, fy, fx, gy = 0, gx = 0;
 	int score = -1;
 	int i;
 
@@ -657,16 +660,17 @@ static COODINATES *dist_offsets_x[10] =
 *
 * Return TRUE if a safe location is available.
 */
-static bool find_safety(creature_type *avoid_target_ptr, CREATURE_ID m_idx, int *yp, int *xp)
+static bool find_safety(creature_type *avoid_target_ptr, CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp)
 {
+	int i;
+
 	creature_type *m_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(avoid_target_ptr);
 
-	int fy = m_ptr->fy;
-	int fx = m_ptr->fx;
+	COODINATES fy = m_ptr->fy, fx = m_ptr->fx;
 
-	int y, x, dy, dx, d, dis, i;
-	int gy = 0, gx = 0, gdis = 0;
+	COODINATES y, x, dy, dx, d, dis;
+	COODINATES gy = 0, gx = 0, gdis = 0;
 
 	COODINATES *y_offsets;
 	COODINATES *x_offsets;
@@ -817,10 +821,10 @@ static bool get_moves(CREATURE_ID m_idx, creature_type *player_ptr, int *mm)
 {
 	creature_type *nonplayer_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	int          y, ay, x, ax;
+	COODINATES y, ay, x, ax;
 	int          move_val = 0;
-	int          y2 = player_ptr->fy;
-	int          x2 = player_ptr->fx;
+	COODINATES y2 = player_ptr->fy;
+	COODINATES x2 = player_ptr->fx;
 	bool         done = FALSE;
 	bool         will_run = mon_will_run(player_ptr, m_idx);
 	cave_type    *c_ptr;
@@ -954,8 +958,7 @@ static bool get_moves(CREATURE_ID m_idx, creature_type *player_ptr, int *mm)
 	{
 		if(!done && will_run)
 		{
-			int tmp_x = (-x);
-			int tmp_y = (-y);
+			COODINATES tmp_x = (-x), tmp_y = (-y);
 
 			/* Try to find safe place */
 			if(find_safety(player_ptr, m_idx, &y, &x))
@@ -1383,8 +1386,8 @@ static void do_creature_speaking(creature_type *creature_ptr)
 	if(!floor_ptr->gamble_arena_mode)
 	{
 		floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-		int oy = creature_ptr->fy;
-		int	ox = creature_ptr->fx;
+		COODINATES oy = creature_ptr->fy;
+		COODINATES ox = creature_ptr->fx;
 		bool aware = TRUE;
 
 		// Hack! "Cyber" creature makes noise...

@@ -1123,7 +1123,7 @@ extern bool make_random_object(object_type *object_ptr, u32b mode, u32b gon_mode
 extern void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj_num_hook)(int k_idx));
 extern bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value, int type);
 extern void place_gold(floor_type *floor_ptr, COODINATES y, COODINATES x);
-extern s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, int y, int x);
+extern s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, COODINATES y, COODINATES x);
 extern void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, bool known);
 extern void init_normal_traps(void);
 extern s16b choose_random_trap(floor_type *floor_ptr);
@@ -1146,7 +1146,7 @@ extern void combine_pack(creature_type *creature_ptr);
 extern void reorder_pack(creature_type *creature_ptr);
 extern void display_koff(creature_type *creature_ptr, int k_idx);
 extern object_type *choose_warning_item(creature_type *caster_ptr);
-extern bool process_warning(creature_type *player_ptr, int xx, int yy);
+extern bool process_warning(creature_type *player_ptr, COODINATES xx, COODINATES yy);
 extern void do_cmd_smith(creature_type *creature_ptr, bool only_browse);
 extern void set_inventory_weight(creature_type *creature_ptr);
 extern bool is_valid_object(object_type *object_ptr);
@@ -1171,7 +1171,7 @@ extern void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, in
 extern int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int trait_id);
 extern u16b bolt_pict(int y, int x, int ny, int nx, int typ);
 extern sint project_path(COODINATES *gp, int range, floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int flg);
-extern int dist_to_line(int y, int x, int y1, int x1, int y2, int x2);
+extern COODINATES dist_to_line(COODINATES y, COODINATES x, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
 extern bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODINATES x, int dam, int typ, int flg, int trait_id);
 extern bool binding_field(creature_type *caster_ptr, int range, int dam);
 extern void seal_of_mirror(creature_type *caster_ptr, int dam);

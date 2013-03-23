@@ -3279,21 +3279,21 @@ static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, in
 
 
 /*
-* Find the distance from (x, y) to a line.
-*/
-int dist_to_line(int y, int x, int y1, int x1, int y2, int x2)
+ * Find the distance from (x, y) to a line.
+ */
+COODINATES dist_to_line(COODINATES y, COODINATES x, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2)
 {
 	/* Vector from (x, y) to (x1, y1) */
-	int py = y1 - y;
-	int px = x1 - x;
+	COODINATES py = y1 - y;
+	COODINATES px = x1 - x;
 
 	/* Normal vector */
-	int ny = x2 - x1;
-	int nx = y1 - y2;
+	COODINATES ny = x2 - x1;
+	COODINATES nx = y1 - y2;
 
 	/* Length of N */
-	int pd = distance(y1, x1, y, x);
-	int nd = distance(y1, x1, y2, x2);
+	COODINATES pd = distance(y1, x1, y, x);
+	COODINATES nd = distance(y1, x1, y2, x2);
 
 	if(pd > nd) return distance(y, x, y2, x2);
 
@@ -3301,7 +3301,7 @@ int dist_to_line(int y, int x, int y1, int x1, int y2, int x2)
 	nd = ((nd) ? ((py * ny + px * nx) / nd) : 0);
 
 	/* Absolute value */
-	return((nd >= 0) ? nd : 0 - nd);
+	return ((nd >= 0) ? nd : 0 - nd);
 }
 
 

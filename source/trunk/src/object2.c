@@ -2990,7 +2990,7 @@ void place_gold(floor_type *floor_ptr, COODINATES y, COODINATES x)
 * the object can combine, stack, or be placed.  Artifacts will try very
 * hard to be placed, including "teleporting" to a useful grid if needed.
 */
-s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, int y, int x)
+s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, COODINATES y, COODINATES x)
 {
 	int i, k, d, s;
 	int bs, bn;
@@ -4134,10 +4134,10 @@ static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, 
 }
 
 // Examine the grid (xx,yy) and warn the player if there are any danger
-bool process_warning(creature_type *target_ptr, int xx, int yy)
+bool process_warning(creature_type *target_ptr, COODINATES xx, COODINATES yy)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
-	int mx, my;
+	COODINATES mx, my;
 	cave_type *c_ptr;
 	char object_name[MAX_NLEN];
 
