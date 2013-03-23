@@ -2147,7 +2147,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, COODINATES y, COODINAT
 }
 
 // Aux function -- see below
-static void cave_temp_room_aux2(creature_type *caster_ptr, int y, int x, bool only_room, bool (*pass_bold)(floor_type *, int, int))
+static void cave_temp_room_aux2(creature_type *caster_ptr, COODINATES y, COODINATES x, bool only_room, bool (*pass_bold)(floor_type *, int, int))
 {
 	cave_type *c_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
@@ -2202,7 +2202,7 @@ static bool cave_pass_lite_bold(floor_type *floor_ptr, int y, int x)
 /*
 * Aux function -- see below
 */
-static void cave_temp_lite_room_aux(creature_type *caster_ptr, int y, int x)
+static void cave_temp_lite_room_aux(creature_type *caster_ptr, COODINATES y, COODINATES x)
 {
 	cave_temp_room_aux2(caster_ptr, y, x, FALSE, cave_pass_lite_bold);
 }
@@ -2210,7 +2210,7 @@ static void cave_temp_lite_room_aux(creature_type *caster_ptr, int y, int x)
 /*
 * Aux function -- see below
 */
-static bool cave_pass_dark_bold(floor_type *floor_ptr, int y, int x)
+static bool cave_pass_dark_bold(floor_type *floor_ptr, COODINATES y, COODINATES x)
 {
 	return CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT);
 }
@@ -2218,7 +2218,7 @@ static bool cave_pass_dark_bold(floor_type *floor_ptr, int y, int x)
 /*
 * Aux function -- see below
 */
-static void cave_temp_unlite_room_aux(creature_type *caster_ptr, int y, int x)
+static void cave_temp_unlite_room_aux(creature_type *caster_ptr, COODINATES y, COODINATES x)
 {
 	cave_temp_room_aux2(caster_ptr, y, x, TRUE, cave_pass_dark_bold);
 }
@@ -2227,11 +2227,12 @@ static void cave_temp_unlite_room_aux(creature_type *caster_ptr, int y, int x)
 
 
 /*
-* Illuminate any room containing the given location.
-*/
-void lite_room(creature_type *creature_ptr, int y1, int x1)
+ * Illuminate any room containing the given location.
+ */
+void lite_room(creature_type *creature_ptr, COODINATES y1, COODINATES x1)
 {
-	int i, x, y;
+	int i;
+	COODINATES x, y;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Add the initial grid */

@@ -3528,7 +3528,7 @@ static void set_flow_flag(creature_type *creature_ptr)
 {
 	int i;
 	bool have_sw = FALSE, have_kabe = FALSE;
-	s16b this_object_idx, next_object_idx = 0;
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	for (i = 0; i < INVEN_TOTAL; i++)

@@ -281,17 +281,18 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u3
  */
 
 
-bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
+bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, u32b mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int candidates_at[MAX_TELEPORT_DISTANCE + 1];
 	int total_candidates, cur_candidates;
-	int y = 0, x = 0, min, pick, i;
+	COODINATES y = 0, x = 0;
+	int min, pick, i;
 
-	int left = MAX(1, creature_ptr->fx - dis);
-	int right = MIN(floor_ptr->width - 2, creature_ptr->fx + dis);
-	int top = MAX(1, creature_ptr->fy - dis);
-	int bottom = MIN(floor_ptr->height - 2, creature_ptr->fy + dis);
+	COODINATES left = MAX(1, creature_ptr->fx - dis);
+	COODINATES right = MIN(floor_ptr->width - 2, creature_ptr->fx + dis);
+	COODINATES top = MAX(1, creature_ptr->fy - dis);
+	COODINATES bottom = MIN(floor_ptr->height - 2, creature_ptr->fy + dis);
 
 	if(floor_ptr->global_map) return FALSE;
 
@@ -1237,7 +1238,7 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 // Vanish all walls in this floor
 static bool vanish_dungeon(floor_type *floor_ptr)
 {
-	int          y, x;
+	COODINATES y, x;
 	cave_type    *c_ptr;
 	feature_type *f_ptr;
 	creature_type *m_ptr;
@@ -1402,7 +1403,8 @@ void call_the_void(creature_type *creature_ptr)
 // Fetch an item (teleport it right underneath the caster)
 void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool require_los)
 {
-	int ty, tx, i;
+	COODINATES ty, tx;
+	int i;
 	cave_type *c_ptr;
 	object_type *object_ptr;
 	char object_name[MAX_NLEN];

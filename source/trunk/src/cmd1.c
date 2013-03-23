@@ -396,8 +396,9 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
  */
 void search(creature_type *creature_ptr)
 {
-	int y, x, chance;
-	s16b this_object_idx, next_object_idx = 0;
+	COODINATES y, x;
+	int chance;
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 	cave_type *c_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -1390,8 +1391,8 @@ static void plus_move_cost(creature_type *creature_ptr, int x, int y)
 void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap)
 {
 	// Find the result of moving
-	int y = creature_ptr->fy + ddy[dir];
-	int x = creature_ptr->fx + ddx[dir];
+	COODINATES y = creature_ptr->fy + ddy[dir];
+	COODINATES x = creature_ptr->fx + ddx[dir];
 
 	// Examine the destination
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -1915,7 +1916,7 @@ static bool find_breakleft;
  *       #x#                 @x#
  *       @p.                  p
  */
-static void run_init(creature_type *creature_ptr, int dir)
+static void run_init(creature_type *creature_ptr, DIRECTION dir)
 {
 	int             row, col, deepleft, deepright;
 	int             i, shortleft, shortright;
@@ -2053,7 +2054,7 @@ static bool run_test(creature_type *creature_ptr)
 	/* Look at every newly adjacent square. */
 	for (i = -max; i <= max; i++)
 	{
-		s16b this_object_idx, next_object_idx = 0;
+		OBJECT_ID this_object_idx, next_object_idx = 0;
 
 		/* New direction */
 		new_dir = cycle[chome[prev_dir] + i];
@@ -2347,7 +2348,7 @@ static bool run_test(creature_type *creature_ptr)
 
 
 // Take one step along the current "run" path
-void run_step(creature_type *creature_ptr, int dir)
+void run_step(creature_type *creature_ptr, DIRECTION dir)
 {
 	/* Start running */
 	if(dir)

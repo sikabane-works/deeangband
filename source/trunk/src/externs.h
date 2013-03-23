@@ -677,7 +677,7 @@ extern bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, 
 extern bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES ny, COODINATES nx, u32b mpe_mode);
 extern bool trap_can_be_ignored(creature_type *creature_ptr, int feat);
 extern void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap);
-extern void run_step(creature_type *creature_ptr, int dir);
+extern void run_step(creature_type *creature_ptr, DIRECTION dir);
 extern void travel_step(creature_type *creature_ptr);
 
 // cmd2.c
@@ -1168,7 +1168,7 @@ extern void remove_loc(void);
 
 // spells1.c
 extern bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int x2);
-extern void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgrids, byte *gx, byte *gy, byte *gm, int *pgm_rad, int rad, int y1, int x1, int y2, int x2, int typ);
+extern void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgrids, byte *gx, byte *gy, byte *gm, int *pgm_rad, COODINATES rad, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int typ);
 extern int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int trait_id);
 extern u16b bolt_pict(int y, int x, int ny, int nx, int typ);
 extern sint project_path(COODINATES *gp, int range, floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int flg);
@@ -1205,7 +1205,7 @@ extern bool probing(floor_type *floor_ptr);
 extern bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_generate);
 extern bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r, CREATURE_ID m_idx);
 extern bool earthquake(creature_type *target_ptr, COODINATES cy, COODINATES cx, COODINATES r);
-extern void lite_room(creature_type *creature_ptr, int y1, int x1);
+extern void lite_room(creature_type *creature_ptr, COODINATES y1, COODINATES x1);
 extern void unlite_room(creature_type *caster_ptr, int y1, int x1);
 extern bool lite_area(creature_type *creature_ptr, int dam, int rad);
 extern bool unlite_area(creature_type *caster_ptr, int dam, int rad);
@@ -1236,7 +1236,7 @@ extern void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, b
 extern bool teleport_away(creature_type *creature_ptr, int dis, u32b mode);
 extern void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx, int power, u32b mode);
 extern bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode);
-extern bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode);
+extern bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, u32b mode);
 extern void teleport_creature(creature_type *creature_ptr, int dis, u32b mode);
 extern void teleport_player_away(creature_type *creature_ptr, int dis);
 extern void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode);
