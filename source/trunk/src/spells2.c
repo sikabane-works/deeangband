@@ -2370,8 +2370,8 @@ bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int
 		while(TRUE)
 		{
 			/* Get targets for some bolts */
-			y = rand_spread(ly, ld * dev / 20);
-			x = rand_spread(lx, ld * dev / 20);
+			y = (COODINATES)rand_spread(ly, ld * dev / 20);
+			x = (COODINATES)rand_spread(lx, ld * dev / 20);
 
 			if(distance(ly, lx, y, x) <= ld * dev / 20) break;
 		}
@@ -2835,7 +2835,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 	int path_n, i;
 	bool tmp_mdeath = FALSE;
 	bool moved = FALSE;
-	int range = 5;
+	int COODINATES = 5;
 	char m_name[MAX_NLEN];
 
 	if(mdeath) *mdeath = FALSE;

@@ -31,8 +31,8 @@ bool new_creature_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 	while (max_attempts--)
 	{
 		// Pick a legal spot
-		y = rand_range(1, floor_ptr->height - 2);
-		x = rand_range(1, floor_ptr->width - 2);
+		y = (COODINATES)rand_range(1, floor_ptr->height - 2);
+		x = (COODINATES)rand_range(1, floor_ptr->width - 2);
 
 		c_ptr = &floor_ptr->cave[y][x];
 
@@ -315,8 +315,8 @@ void vault_objects(floor_type *floor_ptr, COODINATES y, COODINATES x, int num)
 			/* Pick a random location */
 			while (dummy < SAFE_MAX_ATTEMPTS)
 			{
-				j = rand_spread(y, 2);
-				k = rand_spread(x, 3);
+				j = (COODINATES)rand_spread(y, 2);
+				k = (COODINATES)rand_spread(x, 3);
 				dummy++;
 				if(!IN_BOUNDS(floor_ptr, j, k)) continue;
 				break;
@@ -550,7 +550,7 @@ void set_floor(floor_type *floor_ptr, int x, int y)
  *   outer -- outer room walls
  *   solid -- solid room walls
  */
-bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
+bool build_tunnel(floor_type *floor_ptr, COODINATES row1, COODINATES col1, COODINATES row2, COODINATES col2)
 {
 	int y, x;
 	int tmp_row, tmp_col;

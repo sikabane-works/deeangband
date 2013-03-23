@@ -254,5 +254,5 @@ extern void rand_dir(int *rdir, int *cdir);
 extern bool get_floor(floor_type *floor_ptr, int x, int y);
 extern void set_floor(floor_type *floor_ptr, int x, int y);
 
-extern bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2);
+extern bool build_tunnel(floor_type *floor_ptr, COODINATES row1, COODINATES col1, COODINATES row2, COODINATES col2);
 extern bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int type, int cutoff);
