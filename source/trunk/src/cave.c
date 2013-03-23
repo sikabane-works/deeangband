@@ -2543,7 +2543,7 @@ void forget_lite(floor_type *floor_ptr)
 void update_lite(creature_type *creature_ptr)
 {
 	COODINATES i, x, y, min_x, max_x, min_y, max_y;
-	int p = creature_ptr->cur_lite;
+	COODINATES p = creature_ptr->cur_lite;
 	cave_type *cave_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -2748,13 +2748,12 @@ void update_lite(creature_type *creature_ptr)
 	prepare_update(creature_ptr, PU_DELAY_VIS);
 }
 
-
-static s16b mon_fy, mon_fx;
+static COODINATES mon_fy, mon_fx;
 
 /*
  * Add a square to the changes array
  */
-static void creature_lite_hack(creature_type *creature_ptr, int y, int x)
+static void creature_lite_hack(creature_type *creature_ptr, COODINATES y, COODINATES x)
 {
 	cave_type *cave_ptr;
 	int       midpoint, dpf, d;
@@ -4021,7 +4020,7 @@ static u16b flow_y = 0;
 void update_flow(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int x, y, d;
+	COODINATES x, y, d;
 	int flow_head = 1;
 	int flow_tail = 0;
 
@@ -4056,7 +4055,7 @@ void update_flow(creature_type *creature_ptr)
 	/* Now process the queue */
 	while (flow_head != flow_tail)
 	{
-		int ty, tx;
+		COODINATES ty, tx;
 
 		/* Extract the next entry */
 		ty = temp_y[flow_tail];
