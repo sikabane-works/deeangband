@@ -4591,7 +4591,7 @@ int conv_dungeon_feat(floor_type *floor_ptr, int newfeat)
  * Take a feature, determine what that feature becomes
  * through applying the given action.
  */
-int feat_state(floor_type *floor_ptr, int feat, int action)
+FEATURE_ID feat_state(floor_type *floor_ptr, FEATURE_ID feat, int action)
 {
 	feature_type *f_ptr = &feature_info[feat];
 	int i;
@@ -4834,8 +4834,8 @@ void scatter(floor_type *floor_ptr, COODINATES *yp, COODINATES *xp, COODINATES y
 	while (TRUE)
 	{
 		/* Pick a new location */
-		ny = rand_spread(y, d);
-		nx = rand_spread(x, d);
+		ny = (COODINATES)rand_spread(y, d);
+		nx = (COODINATES)rand_spread(x, d);
 
 		/* Ignore annoying locations */
 		if(!IN_BOUNDS(floor_ptr, ny, nx)) continue;
