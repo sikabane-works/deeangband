@@ -589,7 +589,7 @@ static int check_hit(creature_type *creature_ptr, int power)
 static void hit_trap(creature_type *creature_ptr, bool break_trap)
 {
 	int i, num, dam;
-	int x = creature_ptr->fx, y = creature_ptr->fy;
+	COODINATES x = creature_ptr->fx, y = creature_ptr->fy;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Get the cave grid */
@@ -1023,11 +1023,11 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 
 	if(!(mpe_mode & MCE_STAYING))
 	{
-		int oy = creature_ptr->fy;
-		int ox = creature_ptr->fx;
+		COODINATES oy = creature_ptr->fy;
+		COODINATES ox = creature_ptr->fx;
 		cave_type *oc_ptr = &prev_floor_ptr->cave[oy][ox];
-		int om_idx = oc_ptr->creature_idx;
-		int nm_idx = c_ptr->creature_idx;
+		CREATURE_ID om_idx = oc_ptr->creature_idx;
+		CREATURE_ID nm_idx = c_ptr->creature_idx;
 
 		/* Move the player */
 		if(ny) creature_ptr->fy = ny;

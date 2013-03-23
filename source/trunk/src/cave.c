@@ -3300,15 +3300,12 @@ void forget_view(floor_type *floor_ptr)
  *
  * This function now returns "TRUE" if vision is "blocked" by grid (y,x).
  */
-static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, int x1, int y2, int x2)
+static bool update_view_aux(creature_type *creature_ptr, COODINATES y, COODINATES x, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2)
 {
 	bool f1, f2, v1, v2, z1, z2, wall;
-
 	cave_type *cave_ptr;
-
 	cave_type *g1_cave_ptr;
 	cave_type *g2_cave_ptr;
-
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Access the grids */
@@ -3383,7 +3380,6 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
 	if(los(floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x))
 	{
 		cave_view_hack(cave_ptr, y, x);
-
 		return (wall);
 	}
 
@@ -3487,15 +3483,13 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
  */
 void update_view(creature_type *creature_ptr)
 {
-	int n, m, d, k, y, x, z;
-
-	int se, sw, ne, nw, es, en, ws, wn;
-
-	int full, over;
+	COODINATES n, m, d, k, y, x, z;
+	COODINATES se, sw, ne, nw, es, en, ws, wn;
+	COODINATES full, over;
 
 	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
-	int y_max = floor_ptr->height - 1;
-	int x_max = floor_ptr->width - 1;
+	COODINATES y_max = floor_ptr->height - 1;
+	COODINATES x_max = floor_ptr->width - 1;
 
 	cave_type *cave_ptr;
 
@@ -3656,14 +3650,12 @@ void update_view(creature_type *creature_ptr)
 	/* Initialize the "west strips" */
 	ws = wn = d;
 
-
 	/*** Step 4 -- Divide each "octant" into "strips" ***/
 
 	/* Now check each "diagonal" (in parallel) */
 	for (n = 1; n <= over / 2; n++)
 	{
-		int ypn, ymn, xpn, xmn;
-
+		COODINATES ypn, ymn, xpn, xmn;
 
 		/* Acquire the "bounds" of the maximal circle */
 		z = over - n - n;
@@ -4787,7 +4779,7 @@ void mmove2(COODINATES *y, COODINATES *x, COODINATES y1, COODINATES x1, COODINAT
  *
  * This is slightly (but significantly) different from "los(y1,x1,y2,x2)".
  */
-bool projectable(floor_type *floor_ptr, int range, int y1, int x1, int y2, int x2)
+bool projectable(floor_type *floor_ptr, COODINATES range, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2)
 {
 	int y, x;
 
