@@ -16,25 +16,25 @@
 /*
  * Global array for looping through the "keypad directions"
  */
-s16b ddd[DIRECTION_NUM] =
+DIRECTION ddd[DIRECTION_NUM] =
 { 2, 8, 6, 4, 3, 1, 9, 7, 5 };
 
 /*
  * Global arrays for converting "keypad direction" into offsets
  */
-s16b ddx[10] =
+COODINATES ddx[10] =
 { 0, -1, 0, 1, -1, 0, 1, -1, 0, 1 };
 
-s16b ddy[10] =
+COODINATES ddy[10] =
 { 0, 1, 1, 1, 0, 0, 0, -1, -1, -1 };
 
 /*
  * Global arrays for optimizing "ddx[ddd[i]]" and "ddy[ddd[i]]"
  */
-s16b ddx_ddd[DIRECTION_NUM] =
+COODINATES ddx_ddd[DIRECTION_NUM] =
 { 0, 0, 1, -1, 1, -1, 1, -1, 0 };
 
-s16b ddy_ddd[DIRECTION_NUM] =
+COODINATES ddy_ddd[DIRECTION_NUM] =
 { 1, -1, 0, 0, 1, 1, -1, -1, 0 };
 
 
@@ -47,10 +47,10 @@ s16b cdd[8] =
 /*
  * Global arrays for optimizing "ddx[cdd[i]]" and "ddy[cdd[i]]"
  */
-s16b ddx_cdd[8] =
+COODINATES ddx_cdd[8] =
 { 0, 1, 1, 1, 0, -1, -1, -1 };
 
-s16b ddy_cdd[8] =
+COODINATES ddy_cdd[8] =
 { 1, 1, 0, -1, -1, -1, 0, 1 };
 
 

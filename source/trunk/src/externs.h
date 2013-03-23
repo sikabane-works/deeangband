@@ -41,14 +41,14 @@ extern int max_max_autopick;
 extern autopick_type *autopick_list;
 
 /* tables.c */
-extern s16b ddd[9];
-extern s16b ddx[10];
-extern s16b ddy[10];
-extern s16b ddx_ddd[DIRECTION_NUM];
-extern s16b ddy_ddd[DIRECTION_NUM];
+extern DIRECTION ddd[9];
+extern COODINATES ddx[10];
+extern COODINATES ddy[10];
+extern COODINATES ddx_ddd[DIRECTION_NUM];
+extern COODINATES ddy_ddd[DIRECTION_NUM];
 extern s16b cdd[8];
-extern s16b ddx_cdd[8];
-extern s16b ddy_cdd[8];
+extern COODINATES ddx_cdd[8];
+extern COODINATES ddy_cdd[8];
 extern char hexsym[16];
 extern char listsym[];
 extern cptr color_char;
