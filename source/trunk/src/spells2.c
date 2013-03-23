@@ -2835,7 +2835,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 	int path_n, i;
 	bool tmp_mdeath = FALSE;
 	bool moved = FALSE;
-	int COODINATES = 5;
+	COODINATES range = 5;
 	char m_name[MAX_NLEN];
 
 	if(mdeath) *mdeath = FALSE;
@@ -2922,7 +2922,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 // Remove all mirrors in this floor
 void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, bool explode)
 {
-	int x, y;
+	COODINATES x, y;
 
 	for (x = 0; x < floor_ptr->width; x++)
 	{
