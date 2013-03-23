@@ -626,9 +626,10 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 /*
 * Detect all "normal" creatures on the current panel
 */
-bool detect_creatures_normal(creature_type *creature_ptr, int range)
+bool detect_creatures_normal(creature_type *creature_ptr, COODINATES range)
 {
-	int i, y, x;
+	int i;
+	COODINATES y, x;
 
 	bool flag = FALSE;
 
@@ -674,9 +675,10 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 /*
 * Detect all "invisible" creatures around the player
 */
-bool detect_creatures_invis(creature_type *creature_ptr, int range)
+bool detect_creatures_invis(creature_type *creature_ptr, COODINATES range)
 {
-	int i, y, x;
+	int i;
+	COODINATES y, x;
 	bool flag = FALSE;
 
 	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;

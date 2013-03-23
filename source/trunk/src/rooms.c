@@ -3937,9 +3937,9 @@ static void add_door(floor_type *floor_ptr, int x, int y)
 /*
  * Routine that fills the empty areas of a room with treasure and creatures.
  */
-static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2, int difficulty)
+static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, COODINATES y1, COODINATES y2, int difficulty)
 {
-	int x, y, cx, cy, size;
+	COODINATES x, y, cx, cy, size;
 	s32b value;
 
 	/* center of room:*/
@@ -4879,11 +4879,11 @@ static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, 
 *
 *This makes a vault that looks like a castle/ city in the dungeon.
 */
-static void build_castle_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize)
+static void build_castle_vault(floor_type *floor_ptr, COODINATES x0, COODINATES y0, COODINATES xsize, COODINATES ysize)
 {
-	int dy, dx;
-	int y1, x1, y2, x2;
-	int y, x;
+	COODINATES dy, dx;
+	COODINATES y1, x1, y2, x2;
+	COODINATES y, x;
 
 	/* Pick a random room size */
 	dy = ysize / 2 - 1;
@@ -5000,16 +5000,16 @@ static int dist2(int x1, int y1, int x2, int y2,
  * This is made by two concentric "crypts" with perpendicular
  * walls creating the cross-hairs.
  */
-static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize)
+static void build_target_vault(floor_type *floor_ptr, COODINATES x0, COODINATES y0, COODINATES xsize, COODINATES ysize)
 {
-	int rad, x, y;
+	COODINATES rad, x, y;
 
 	/* Make a random metric */
-	int h1, h2, h3, h4;
-	h1 = randint1(32) - 16;
-	h2 = randint1(16);
-	h3 = randint1(32);
-	h4 = randint1(32) - 16;
+	COODINATES h1, h2, h3, h4;
+	h1 = (COODINATES)randint1(32) - 16;
+	h2 = (COODINATES)randint1(16);
+	h3 = (COODINATES)randint1(32);
+	h4 = (COODINATES)randint1(32) - 16;
 
 	if(cheat_room) msg_print("Target Vault");
 
@@ -5111,7 +5111,7 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	add_door(floor_ptr, x0, y0 - y);
 
 	/* Fill with stuff - medium difficulty */
-	fill_treasure(floor_ptr, x0 - rad, x0 + rad, y0 - rad, y0 + rad, randint1(3) + 3);
+	fill_treasure(floor_ptr, x0 - rad, x0 + rad, y0 - rad, y0 + rad, (COODINATES)randint1(3) + 3);
 }
 
 

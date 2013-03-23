@@ -3274,7 +3274,7 @@ static void tgt_pt_prepare(creature_type *creature_ptr)
 /*
 * old -- from PsiAngband.
 */
-bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
+bool tgt_pt(creature_type *creature_ptr, COODINATES *x_ptr, COODINATES *y_ptr)
 {
 	char ch = 0;
 	int d, x, y, n;

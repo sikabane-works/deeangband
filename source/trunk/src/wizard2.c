@@ -74,7 +74,7 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 // Dimension Door
 static bool wiz_dimension_door(creature_type *creature_ptr)
 {
-	int	x = 0, y = 0;
+	COODINATES x = 0, y = 0;
 	if(!tgt_pt(creature_ptr, &x, &y)) return FALSE;
 	teleport_creature_to(creature_ptr, y, x, TELEPORT_NONMAGICAL);
 	return TRUE;
