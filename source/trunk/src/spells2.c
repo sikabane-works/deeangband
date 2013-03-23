@@ -1893,7 +1893,7 @@ bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COO
 	return TRUE; // Success
 }
 
-bool earthquake(creature_type *target_ptr, int cy, int cx, int r)
+bool earthquake(creature_type *target_ptr, COODINATES cy, COODINATES cx, COODINATES r)
 {
 	msg_print(MES_EARTHQUAKE);
 	return earthquake_aux(target_ptr, cy, cx, r, 0);
@@ -2102,7 +2102,7 @@ static int next_to_walls_adj(floor_type *floor_ptr, int cy, int cx, bool (*pass_
 }
 
 // Aux function -- see below
-static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool only_room, bool (*pass_bold)(int, int))
+static void cave_temp_room_aux(creature_type *caster_ptr, COODINATES y, COODINATES x, bool only_room, bool (*pass_bold)(int, int))
 {
 	cave_type *c_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);

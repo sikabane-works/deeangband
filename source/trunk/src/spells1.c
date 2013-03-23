@@ -1158,7 +1158,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
-	COODINATES this_object_idx, next_object_idx = 0;
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 
 	bool obvious = FALSE;
 	bool known = player_has_los_bold(y, x);
@@ -3535,10 +3535,10 @@ void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgri
 	COODINATES by = y1, bx = x1;
 	int brad = 0;
 	int brev = rad * rad / dist;
-	int bdis = 0;
-	int cdis;
+	COODINATES bdis = 0;
+	COODINATES cdis;
 	int path_n = 0;
-	int mdis = distance(y1, x1, y2, x2) + rad;
+	COODINATES mdis = distance(y1, x1, y2, x2) + rad;
 
 	while (bdis <= mdis)
 	{
