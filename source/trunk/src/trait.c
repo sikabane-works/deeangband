@@ -22,7 +22,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	bool effected = FALSE;
 
 	char caster_name[100] = KW_IT, target_name[100] = KW_IT;
-	int i, k, dir = 0;
+	int i, k;
+	DIRECTION dir = 0;
 	int user_level = caster_ptr->lev;
 	int damage = 0;
 	u32b mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
@@ -343,7 +344,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_STAR_DESTROY:
-		if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + randint0(5), FALSE)) effected = TRUE;
+		if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE)) effected = TRUE;
 		break;
 
 	case TRAIT_MAGIC_CHARGE_2:
@@ -1228,8 +1229,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				{
 					int dummy_hp = (caster_ptr->chp + 1) / 2;
 					int dummy_mhp = caster_ptr->mhp/2;
-					int dummy_y = caster_ptr->fy;
-					int dummy_x = caster_ptr->fx;
+					COODINATES dummy_y = caster_ptr->fy;
+					COODINATES dummy_x = caster_ptr->fx;
 
 					if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
 					delete_species_idx(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
@@ -1254,8 +1255,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				{
 					int dummy_hp = 0;
 					int dummy_mhp = 0;
-					int dummy_y = caster_ptr->fy;
-					int dummy_x = caster_ptr->fx;
+					COODINATES dummy_y = caster_ptr->fy;
+					COODINATES dummy_x = caster_ptr->fx;
 
 					if(!species_info[SPECIES_BANOR].cur_num || !species_info[SPECIES_LUPART].cur_num) return FALSE;
 					for (k = 1; k < creature_max; k++)

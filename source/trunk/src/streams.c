@@ -404,8 +404,8 @@ void destroy_level(floor_type *floor_ptr)
 	for (n = 0; n < randint1(5); n++)
 	{
 		/* Pick an epi-center */
-		x1 = rand_range(5, floor_ptr->width - 1 - 5);
-		y1 = rand_range(5, floor_ptr->height - 1 - 5);
+		x1 = (COODINATES)rand_range(5, floor_ptr->width - 1 - 5);
+		y1 = (COODINATES)rand_range(5, floor_ptr->height - 1 - 5);
 
 		//TODO: use dammy creature
 		(void)destroy_area(player_ptr, y1, x1, 15, TRUE);
