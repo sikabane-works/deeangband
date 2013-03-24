@@ -1599,7 +1599,7 @@ extern bool easy_open_door(creature_type *creature_ptr, COODINATES y, COODINATES
 extern bool easy_disarm;
 
 /* cmd2.c */
-extern bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir);
+extern bool do_cmd_disarm_aux(creature_type *creature_ptr, COODINATES y, COODINATES x, DIRECTION dir);
 
 // object1.c
 extern int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode);

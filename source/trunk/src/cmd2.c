@@ -1260,7 +1260,7 @@ bool easy_open_door(creature_type *creature_ptr, COODINATES y, COODINATES x)
  * Assume there is no creature blocking the destination
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b object_idx)
+static bool do_cmd_disarm_chest(creature_type *creature_ptr, COODINATES y, COODINATES x, OBJECT_ID object_idx)
 {
 	int i, j;
 	bool more = FALSE;
@@ -1319,7 +1319,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
  * Returns TRUE if repeated commands may continue
  */
 
-bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
+bool do_cmd_disarm_aux(creature_type *creature_ptr, COODINATES y, COODINATES x, DIRECTION dir)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -1382,8 +1382,9 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 void do_cmd_disarm(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int y, x, dir;
-	s16b object_idx;
+	COODINATES y, x;
+	DIRECTION dir;
+	OBJECT_ID object_idx;
 	bool more = FALSE;
 
 	free_posture(creature_ptr);
@@ -1459,7 +1460,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
  * Assume there is no creature blocking the destination
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
+static bool do_cmd_bash_aux(creature_type *creature_ptr, COODINATES y, COODINATES x, DIRECTION dir)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x]; // Get grid
@@ -1532,7 +1533,8 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 void do_cmd_bash(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int			y, x, dir;
+	COODINATES y, x;
+	DIRECTION dir;
 	cave_type	*c_ptr;
 	bool		more = FALSE;
 
