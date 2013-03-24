@@ -427,8 +427,8 @@ errr process_pref_file_command(char *buf)
 		{
 			species_type *species_ptr;
 			i = (huge)strtol(zz[0], NULL, 0);
-			n1 = strtol(zz[1], NULL, 0);
-			n2 = strtol(zz[2], NULL, 0);
+			n1 = (COLOR_ID)strtol(zz[1], NULL, 0);
+			n2 = (COLOR_ID)strtol(zz[2], NULL, 0);
 			if(i >= max_species_idx) return FAILURE;
 			species_ptr = &species_info[i];
 			if(n1 || (!(n2 & 0x80) && n2)) species_ptr->x_attr = n1; /* Allow TERM_DARK text */
@@ -443,8 +443,8 @@ errr process_pref_file_command(char *buf)
 		{
 			object_kind *object_kind_ptr;
 			i = (huge)strtol(zz[0], NULL, 0);
-			n1 = strtol(zz[1], NULL, 0);
-			n2 = strtol(zz[2], NULL, 0);
+			n1 = (COLOR_ID)strtol(zz[1], NULL, 0);
+			n2 = (COLOR_ID)strtol(zz[2], NULL, 0);
 			if(i >= max_object_kind_idx) return FAILURE;
 			object_kind_ptr = &object_kind_info[i];
 			if(n1 || (!(n2 & 0x80) && n2)) object_kind_ptr->x_attr = n1; /* Allow TERM_DARK text */
@@ -469,8 +469,8 @@ errr process_pref_file_command(char *buf)
 			if(i >= max_feature_idx) return FAILURE;
 			f_ptr = &feature_info[i];
 
-			n1 = strtol(zz[1], NULL, 0);
-			n2 = strtol(zz[2], NULL, 0);
+			n1 = (COLOR_ID)strtol(zz[1], NULL, 0);
+			n2 = (COLOR_ID)strtol(zz[2], NULL, 0);
 			if(n1 || (!(n2 & 0x80) && n2)) f_ptr->x_attr[F_LIT_STANDARD] = n1; /* Allow TERM_DARK text */
 			if(n2) f_ptr->x_char[F_LIT_STANDARD] = n2;
 
@@ -497,8 +497,8 @@ errr process_pref_file_command(char *buf)
 			case F_LIT_MAX * 2 + 1:
 				for (j = F_LIT_NS_BEGIN; j < F_LIT_MAX; j++)
 				{
-					n1 = strtol(zz[j * 2 + 1], NULL, 0);
-					n2 = strtol(zz[j * 2 + 2], NULL, 0);
+					n1 = (COLOR_ID)strtol(zz[j * 2 + 1], NULL, 0);
+					n2 = (COLOR_ID)strtol(zz[j * 2 + 2], NULL, 0);
 					if(n1 || (!(n2 & 0x80) && n2)) f_ptr->x_attr[j] = n1; /* Allow TERM_DARK text */
 					if(n2) f_ptr->x_char[j] = n2;
 				}
@@ -512,8 +512,8 @@ errr process_pref_file_command(char *buf)
 		if(tokenize(buf+2, 3, zz, TOKENIZE_CHECKQUOTE) == 3)
 		{
 			j = (byte)strtol(zz[0], NULL, 0);
-			n1 = strtol(zz[1], NULL, 0);
-			n2 = strtol(zz[2], NULL, 0);
+			n1 = (COLOR_ID)strtol(zz[1], NULL, 0);
+			n2 = (COLOR_ID)strtol(zz[2], NULL, 0);
 			misc_to_acttr[j] = n1;
 			misc_to_char[j] = n2;
 			return SUCCESS;
@@ -525,8 +525,8 @@ errr process_pref_file_command(char *buf)
 		if(tokenize(buf+2, 3, zz, TOKENIZE_CHECKQUOTE) == 3)
 		{
 			j = (huge)strtol(zz[0], NULL, 0);
-			n1 = strtol(zz[1], NULL, 0);
-			n2 = strtol(zz[2], NULL, 0);
+			n1 = (COLOR_ID)strtol(zz[1], NULL, 0);
+			n2 = (COLOR_ID)strtol(zz[2], NULL, 0);
 			for (i = 1; i < max_object_kind_idx; i++)
 			{
 				object_kind *object_kind_ptr = &object_kind_info[i];
@@ -545,7 +545,7 @@ errr process_pref_file_command(char *buf)
 		if(tokenize(buf+2, 2, zz, TOKENIZE_CHECKQUOTE) == 2)
 		{
 			j = (byte)strtol(zz[0], NULL, 0) % 128;
-			n1 = strtol(zz[1], NULL, 0);
+			n1 = (COLOR_ID)strtol(zz[1], NULL, 0);
 			if(n1) tval_to_acttr[j] = n1;
 			return SUCCESS;
 		}
@@ -1861,11 +1861,11 @@ static void display_player_middle(creature_type *creature_ptr)
 }
 
 // Returns a "rating" of x depending on y
-static int likert(char *buf, int x, int y)
+static COLOR_ID likert(char *buf, int x, int y)
 {
-	int id;
+	COLOR_ID id;
 
-	static int rank_color[] =
+	static COLOR_ID rank_color[] =
 	{
 		TERM_L_DARK,
 		TERM_RED,
@@ -1943,7 +1943,7 @@ static int likert(char *buf, int x, int y)
 	};
 
 	if(y <= 0) y = 1;
-	id = (x / y) > 21 ? 21 : (x / y);
+	id = (x / y) > 21 ? 21 : (COLOR_ID)(x / y);
 
 	// Negative value
 	if(x < 0)
@@ -1970,7 +1970,7 @@ static void display_player_various(creature_type * creature_ptr)
 	char		desc[40];
 	int         muta_att = 0;
 	int		shots, shot_frac;
-	int col;
+	COLOR_ID col;
 
 	object_type		*object_ptr;
 
