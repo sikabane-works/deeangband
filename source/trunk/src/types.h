@@ -54,6 +54,7 @@ typedef s16b TOWN_ID;
 
 typedef byte TVAL;
 typedef byte SVAL;
+typedef byte COLOR_ID;
 typedef byte SYMBOL;
 typedef byte CREATURE_LEV;
 typedef byte FLOOR_LEV;
@@ -113,10 +114,10 @@ struct feature_type
 	byte subtype;
 	byte power;
 
-	byte d_attr[F_LIT_MAX];   /* Default feature attribute */
+	COLOR_ID d_attr[F_LIT_MAX];   /* Default feature attribute */
 	SYMBOL d_char[F_LIT_MAX];   /* Default feature character */
 
-	byte x_attr[F_LIT_MAX];   /* Desired feature attribute */
+	COLOR_ID x_attr[F_LIT_MAX];   /* Desired feature attribute */
 	SYMBOL x_char[F_LIT_MAX];   /* Desired feature character */
 
 };
@@ -179,9 +180,9 @@ struct object_kind
 	FLOOR_LEV level;
 	byte extra;	
 
-	byte d_attr;		/* Default object attribute */
+	COLOR_ID d_attr;		/* Default object attribute */
 	SYMBOL d_char;		/* Default object character */
-	byte x_attr;		/* Desired object attribute */
+	COLOR_ID x_attr;		/* Desired object attribute */
 	SYMBOL x_char;		/* Desired object character */
 	s16b flavor;		/* Special object flavor (or zero) */
 	bool easy_know;		/* This object is always known (if aware) */
@@ -441,11 +442,11 @@ struct species_type
 	CREATURE_LEV level;				/* Level of creature */
 	byte rarity;			/* Rarity of creature */
 
-	byte d_attr;			/* Default creature attribute */
-	SYMBOL d_char;			/* Default creature character */
+	COLOR_ID d_attr; /* Default creature attribute */
+	SYMBOL d_char; /* Default creature character */
 
-	byte x_attr;			/* Desired creature attribute */
-	SYMBOL x_char;			/* Desired creature character */
+	COLOR_ID x_attr; /* Desired creature attribute */
+	SYMBOL x_char; /* Desired creature character */
 
 	byte max_num;			/* Maximum population allowed per level */
 	byte cur_num;			/* Creature population on current level */
@@ -1147,9 +1148,9 @@ struct creature_type
 
 	byte player;	// Player Flag 
 
-	byte d_attr;			// Default creature attribute
+	COLOR_ID d_attr;			// Default creature attribute
 	SYMBOL d_char;			// Default creature character
-	byte x_attr;			// Desired creature attribute
+	COLOR_ID x_attr;			// Desired creature attribute
 	SYMBOL x_char;			// Desired creature character
 
 	s16b oldpy;		// Previous player location -KMW- 
