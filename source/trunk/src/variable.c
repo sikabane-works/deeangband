@@ -301,9 +301,9 @@ s16b panel_col_prt, panel_row_prt;
 /*
  * Targetting variables
  */
-s16b target_who;
-s16b target_col;
-s16b target_row;
+CREATURE_ID target_who;
+COODINATES target_col;
+COODINATES target_row;
 
 
 /*

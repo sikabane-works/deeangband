@@ -142,7 +142,8 @@ bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode)
 // Teleport creature next to a grid near the given location
 void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, COODINATES tx, int power, FLAGS_32 mode)
 {
-	int ny, nx, oy, ox, d, i, min;
+	COODINATES ny, nx, oy, ox;
+	int d, i, min;
 	int attempts = 500;
 	int dis = 2;
 	bool look = TRUE;
@@ -173,8 +174,8 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, 
 			/* Pick a (possibly illegal) location */
 			while(TRUE)
 			{
-				ny = rand_spread(ty, dis);
-				nx = rand_spread(tx, dis);
+				ny = (COODINATES)rand_spread(ty, dis);
+				nx = (COODINATES)rand_spread(tx, dis);
 				d = distance(ty, tx, ny, nx);
 				if((d >= min) && (d <= dis)) break;
 			}
@@ -389,14 +390,12 @@ bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, u32b mode)
 	return TRUE;
 }
 
-void teleport_creature(creature_type *creature_ptr, int dis, u32b mode)
+void teleport_creature(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int yy, xx;
-
-	// Save the old location
-	int oy = creature_ptr->fy;
-	int ox = creature_ptr->fx;
+	COODINATES yy, xx;
+	COODINATES oy = creature_ptr->fy;
+	COODINATES ox = creature_ptr->fx;
 
 	if(!teleport_player_aux(creature_ptr, dis, mode)) return;
 

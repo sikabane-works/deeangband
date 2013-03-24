@@ -395,7 +395,8 @@ void place_trees(floor_type *floor_ptr, COODINATES x, COODINATES y)
  */
 void destroy_level(floor_type *floor_ptr)
 {
-	int y1, x1, n;
+	COODINATES y1, x1;
+	int n;
 
 	if(cheat_room) msg_print(MES_DEBUG_DESTROYED_FLOOR);
 
