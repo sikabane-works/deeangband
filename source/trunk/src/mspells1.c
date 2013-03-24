@@ -465,15 +465,15 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 
 
 
-static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, int *yp, int *xp, int f_flag, bool (*path_check)(floor_type *, int, int, int, int, int))
+static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, COODINATES *yp, COODINATES *xp, int f_flag, bool (*path_check)(floor_type *, int, int, int, int, int))
 {
 	int i;
 	int tonari;
-	static int tonari_y[4][8] = {{-1, -1, -1, 0, 0, 1, 1, 1},
+	static COODINATES tonari_y[4][8] = {{-1, -1, -1, 0, 0, 1, 1, 1},
 			                     {-1, -1, -1, 0, 0, 1, 1, 1},
 			                     { 1, 1, 1, 0, 0, -1, -1, -1},
 			                     { 1, 1, 1, 0, 0, -1, -1, -1}};
-	static int tonari_x[4][8] = {{-1, 0, 1, -1, 1, -1, 0, 1},
+	static COODINATES tonari_x[4][8] = {{-1, 0, 1, -1, 1, -1, 0, 1},
 			                     { 1, 0, -1, 1, -1, 1, 0, -1},
 			                     {-1, 0, 1, -1, 1, -1, 0, 1},
 			                     { 1, 0, -1, 1, -1, 1, 0, -1}};
@@ -486,8 +486,8 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
 
 	for (i = 0; i < 8; i++)
 	{
-		int next_x = *xp + tonari_x[tonari][i];
-		int next_y = *yp + tonari_y[tonari][i];
+		COODINATES next_x = *xp + tonari_x[tonari][i];
+		COODINATES next_y = *yp + tonari_y[tonari][i];
 		cave_type *c_ptr;
 
 		/* Access the next grid */
@@ -685,7 +685,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		}
 		else if(has_trait(target_ptr, TRAIT_BA_LITE) && (caster_ptr->cdis <= MAX_RANGE))
 		{
-			int by = y, bx = x;
+			COODINATES by = y, bx = x;
 			get_project_point(caster_ptr, caster_ptr->fy, caster_ptr->fx, &by, &bx, 0L);
 			if((distance(by, bx, y, x) <= 3) && los(floor_ptr, by, bx, y, x) && one_in_(5))
 			{
