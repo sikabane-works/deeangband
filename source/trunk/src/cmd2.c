@@ -283,10 +283,10 @@ void do_cmd_search(creature_type *creature_ptr)
 }
 
 // Determine if a grid contains a chest
-static s16b chest_check(floor_type *floor_ptr, int y, int x)
+static s16b chest_check(floor_type *floor_ptr, COODINATES y, COODINATES x)
 {
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	s16b this_object_idx, next_object_idx = 0;
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 
 	// Scan all objects in the grid
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
@@ -314,12 +314,12 @@ static s16b chest_check(floor_type *floor_ptr, int y, int x)
  * chest is based on the "power" of the chest, which is in turn based
  * on the level on which the chest is generated.
  */
-static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b object_idx)
+static void chest_death(bool scatter, floor_type *floor_ptr, COODINATES y, COODINATES x, OBJECT_ID object_idx)
 {
 	int number;
 	bool small;
-	u32b mode = AM_GOOD;
-	int level;
+	FLAGS_32 mode = AM_GOOD;
+	FLOOR_LEV level;
 
 	object_type forge;
 	object_type *quest_ptr;
@@ -353,8 +353,8 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 			for (i = 0; i < 200; i++)
 			{
 				// Pick a totally random spot.
-				y = randint0(MAX_HGT);
-				x = randint0(MAX_WID);
+				y = (COODINATES)randint0(MAX_HGT);
+				x = (COODINATES)randint0(MAX_WID);
 
 				// Must be an empty floor.
 				if(!cave_empty_bold(floor_ptr, y, x)) continue;
@@ -560,7 +560,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
  * Assume there is no creature blocking the destination
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b object_idx)
+static bool do_cmd_open_chest(creature_type *creature_ptr, COODINATES y, COODINATES x, OBJECT_ID object_idx)
 {
 	int i, j;
 	bool flag = TRUE;
@@ -680,9 +680,11 @@ static int count_dt(creature_type *creature_ptr, int *y, int *x, bool (*test)(in
  * Return the number of chests around (or under) the character.
  * If requested, count only trapped chests.
  */
-static int count_chests(creature_type *creature_ptr, int *y, int *x, bool trapped)
+static int count_chests(creature_type *creature_ptr, COODINATES *y, COODINATES *x, bool trapped)
 {
-	int d, count, object_idx;
+	DIRECTION d;
+	int count;
+	OBJECT_ID object_idx;
 	object_type *object_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -693,8 +695,8 @@ static int count_chests(creature_type *creature_ptr, int *y, int *x, bool trappe
 	for (d = 0; d < DIRECTION_NUM; d++)
 	{
 		/* Extract adjacent (legal) location */
-		int yy = creature_ptr->fy + ddy_ddd[d];
-		int xx = creature_ptr->fx + ddx_ddd[d];
+		COODINATES yy = creature_ptr->fy + ddy_ddd[d];
+		COODINATES xx = creature_ptr->fx + ddx_ddd[d];
 
 		if((object_idx = chest_check(floor_ptr, yy, xx)) == 0) continue; // No (visible) chest is there
 
@@ -744,7 +746,7 @@ static int coords_to_damageir(creature_type *creature_ptr, int y, int x)
  * Assume there is no creature blocking the destination
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
+static bool do_cmd_open_aux(creature_type *creature_ptr, COODINATES y, COODINATES x)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i, j;
@@ -812,8 +814,9 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
  */
 void do_cmd_open(creature_type *creature_ptr)
 {
-	int y, x, dir;
-	s16b object_idx;
+	COODINATES y, x;
+	DIRECTION dir;
+	OBJECT_ID object_idx;
 	bool more = FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int num_doors, num_chests;
@@ -849,7 +852,7 @@ void do_cmd_open(creature_type *creature_ptr)
 	/* Get a "repeated" direction */
 	if(get_rep_dir(creature_ptr, &dir, TRUE))
 	{
-		s16b feat;
+		FEATURE_ID feat;
 		cave_type *c_ptr;
 
 		/* Get requested location */
@@ -1135,10 +1138,11 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, COODINATES y, COODINA
  */
 void do_cmd_tunnel(creature_type *creature_ptr)
 {
-	int y, x, dir;
+	COODINATES y, x;
+	DIRECTION dir;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr;
-	s16b feat;
+	FEATURE_ID feat;
 	bool more = FALSE;
 
 	free_posture(creature_ptr);
@@ -2743,8 +2747,8 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int dir, item = 0;
-	int i, j, y, x, ty, tx, prev_y, prev_x;
-	int ny[19], nx[19];
+	int i, j;
+	COODINATES ny[19], nx[19], y, x, ty, tx, prev_y, prev_x;
 	int chance, tdam, tdis;
 	int mul, div;
 	int cur_dis, visible;
