@@ -2865,7 +2865,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				case 1: case 2:
 					if(!count)
 					{
-						earthquake(player_ptr, ty, tx, 4 + randint0(4));
+						earthquake(player_ptr, ty, tx, 4 + (COODINATES)randint0(4));
 						if(!one_in_(6)) break;
 					}
 				case 3: case 4: case 5: case 6:
@@ -3530,7 +3530,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 
 
 // breath shape
-void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgrids, byte *gx, byte *gy, byte *gm, int *pgm_rad, COODINATES rad, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int typ)
+void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgrids, COODINATES *gx, COODINATES *gy, byte *gm, int *pgm_rad, COODINATES rad, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int typ)
 {
 	COODINATES by = y1, bx = x1;
 	int brad = 0;
@@ -4781,7 +4781,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 	return (notice);
 }
 
-bool binding_field(creature_type *caster_ptr, int range, int dam)
+bool binding_field(creature_type *caster_ptr, COODINATES range, int dam)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	COODINATES mirror_x[10], mirror_y[10];

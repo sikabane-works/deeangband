@@ -3277,7 +3277,8 @@ static void tgt_pt_prepare(creature_type *creature_ptr)
 bool tgt_pt(creature_type *creature_ptr, COODINATES *x_ptr, COODINATES *y_ptr)
 {
 	char ch = 0;
-	int d, x, y, n;
+	int d, n;
+	COODINATES x, y;
 	bool success = FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -3389,13 +3390,12 @@ bool tgt_pt(creature_type *creature_ptr, COODINATES *x_ptr, COODINATES *y_ptr)
 			/* Handle "direction" */
 			if(d)
 			{
-				int dx = ddx[d];
-				int dy = ddy[d];
+				COODINATES dx = ddx[d], dy = ddy[d];
 
 				/* XTRA HACK MOVEFAST */
 				if(move_fast)
 				{
-					int mag = MIN(wid / 2, hgt / 2);
+					COODINATES mag = (COODINATES)MIN(wid / 2, hgt / 2);
 					x += dx * mag;
 					y += dy * mag;
 				}

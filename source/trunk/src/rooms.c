@@ -2323,8 +2323,7 @@ static bool build_type5(floor_type *floor_ptr)
  */
 static bool build_type6(floor_type *floor_ptr)
 {
-	COODINATES y, x, y1, x1, y2, x2, xval, yval;
-	int i, j, k;
+	COODINATES y, x, y1, x1, y2, x2, xval, yval, i, j, k;
 
 	int what[16];
 
