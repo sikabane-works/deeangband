@@ -124,7 +124,7 @@ static cptr info_power_dice(int dice, int sides)
 /*
  * Generate radius info string such as "rad 100"
  */
-static cptr info_radius(int rad)
+static cptr info_radius(COODINATES rad)
 {
 	return format("%s %d", KW_RAD, rad);
 }
@@ -196,7 +196,7 @@ static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, int 
  * while keeping the results quite random.  It also allows some potent
  * effects only at high level.
  */
-static void cast_wonder(creature_type *caster_ptr, int dir)
+static void cast_wonder(creature_type *caster_ptr, DIRECTION dir)
 {
 	//TODO target_select
 	COODINATES y = 0, x = 0;
@@ -232,7 +232,7 @@ static void cast_wonder(creature_type *caster_ptr, int dir)
 	else if(die < 96) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 80 + plev, 3, -1);
 	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100 + plev, -1);
 	else if(die < 104) earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 12);
-	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + randint0(5), FALSE);
+	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE);
 	else if(die < 108) symbol_genocide(caster_ptr, plev+50, TRUE);
 	else if(die < 110) project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 120);
 	else
@@ -288,7 +288,7 @@ static void cast_invoke_spirits(creature_type *caster_ptr, int dir)
 	else if(die < 96) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 80 + plev, 3, -1);
 	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100 + plev, -1);
 	else if(die < 104) earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 12);
-	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + randint0(5), FALSE);
+	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (DIRECTION)randint0(5), FALSE);
 	else if(die < 108) symbol_genocide(caster_ptr, plev+50, TRUE);
 	else if(die < 110) project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 120);
 	else
@@ -554,7 +554,7 @@ static void cast_shuffle(creature_type *caster_ptr)
 
 
 // Drop 10+1d10 meteor ball at random places near the player
-static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
+static void cast_meteor(creature_type *caster_ptr, int dam, COODINATES rad)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i, d;
@@ -568,8 +568,8 @@ static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 		for (count = 0; count <= 20; count++)
 		{
 
-			x = caster_ptr->fx - 8 + randint0(17);
-			y = caster_ptr->fy - 8 + randint0(17);
+			x = caster_ptr->fx - 8 + (COODINATES)randint0(17);
+			y = caster_ptr->fy - 8 + (COODINATES)randint0(17);
 
 			dx = (caster_ptr->fx > x) ? (caster_ptr->fx - x) : (x - caster_ptr->fx);
 			dy = (caster_ptr->fy > y) ? (caster_ptr->fy - y) : (y - caster_ptr->fy);
@@ -594,7 +594,7 @@ static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 
 
 // Drop 10+1d10 disintegration ball at random places near the target
-static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
+static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, COODINATES rad)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	COODINATES x, y, tx, ty, nx, ny;
@@ -851,7 +851,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 2;
 			int sides = plev / 2;
-			int rad = plev / 10 + 1;
+			COODINATES rad = (COODINATES)plev / 10 + 1;
 
 			if(info) return info_damage(dice, sides, 0);
 			if(cast) lite_area(caster_ptr, diceroll(dice, sides), rad);
@@ -867,7 +867,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
     	{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -1007,7 +1007,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_MAP;
+			COODINATES rad = DETECT_RAD_MAP;
 
 			if(info) return info_radius(rad);
 
@@ -1207,7 +1207,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = 1;
+			COODINATES rad = 1;
 
 			if(info) return info_radius(rad);
 
@@ -1246,7 +1246,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -1388,7 +1388,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -1430,7 +1430,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -1455,7 +1455,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 2;
 			int sides = plev / 2;
-			int rad = plev / 10 + 1;
+			COODINATES rad = (COODINATES)plev / 10 + 1;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -1547,7 +1547,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_MAP;
+			COODINATES rad = DETECT_RAD_MAP;
 
 			if(info) return info_radius(rad);
 
@@ -1652,7 +1652,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -1690,7 +1690,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -2036,7 +2036,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -2076,7 +2076,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -2130,7 +2130,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 2;
 			int sides = plev / 2;
-			int rad = (plev / 10) + 1;
+			COODINATES rad = (COODINATES)(plev / 10) + 1;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -2255,8 +2255,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad1 = DETECT_RAD_MAP;
-			int rad2 = DETECT_RAD_DEFAULT;
+			COODINATES rad1 = DETECT_RAD_MAP;
+			COODINATES rad2 = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(MAX(rad1, rad2));
 
@@ -2520,7 +2520,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = 10;
+			COODINATES rad = 10;
 
 			if(info) return info_radius(rad);
 
@@ -2575,7 +2575,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 70 + plev * 3 / 2;
-			int rad = plev / 12 + 1;
+			COODINATES rad = (COODINATES)plev / 12 + 1;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, dam, rad);
@@ -2593,7 +2593,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 90 + plev * 3 / 2;
-			int rad = plev / 12 + 1;
+			COODINATES rad = (COODINATES)plev / 12 + 1;
 
 			if(info) return info_damage(0, 0, dam);
 
@@ -2616,7 +2616,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 100 + plev * 3 / 2;
-			int rad = plev / 12 + 1;
+			COODINATES rad = (COODINATES)plev / 12 + 1;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, dam, rad);
@@ -2634,7 +2634,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 150;
-			int rad = 8;
+			COODINATES rad = 8;
 
 			if(info) return info_damage(0, 0, dam/2);
 
@@ -2746,7 +2746,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Destroys all traps in adjacent squares.";
 #endif
 		{
-			int rad = 1;
+			COODINATES rad = 1;
 			if(info) return info_radius(rad);
 			if(cast) project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
 		}
@@ -2764,7 +2764,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 2;
 			int sides = plev / 2;
-			int rad = (plev / 10) + 1;
+			COODINATES rad = (COODINATES)(plev / 10) + 1;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -2808,7 +2808,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 3;
 			int sides = 5;
-			int rad = (plev < 30) ? 2 : 3;
+			COODINATES rad = (plev < 30) ? 2 : 3;
 			int base;
 
 			if(has_trait(caster_ptr, TRAIT_MAGIC_SPECIALIST))
@@ -2932,7 +2932,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 60 + plev;
-			int rad = plev / 10 + 2;
+			COODINATES rad = (COODINATES)plev / 10 + 2;
 
 			if(info) return info_damage(0, 0, dam/2);
 
@@ -2978,7 +2978,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = plev + 55;
-			int rad = 2;
+			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, dam, rad);
@@ -3032,7 +3032,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = plev * 2 + 99;
-			int rad = plev / 5;
+			COODINATES rad = (COODINATES)plev / 5;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, dam, rad);
@@ -3106,7 +3106,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = plev + 70;
-			int rad = 3 + plev / 40;
+			COODINATES rad = 3 + (COODINATES)plev / 40;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, dam, rad);
@@ -3145,7 +3145,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     	{
 			int dam = 120 + plev * 2;
-			int rad = 2;
+			COODINATES rad = 2;
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_grenade(caster_ptr, DO_EFFECT_ROCKET, MAX_RANGE_SUB, dam, rad);
 		}
@@ -3234,7 +3234,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = plev * 2;
-			int rad = 2;
+			COODINATES rad = 2;
 
 			if(info) return info_multi_damage(dam);
 
@@ -3256,7 +3256,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 300 + 3 * plev;
-			int rad = 8;
+			DIRECTION rad = 8;
 
 			if(info) return info_damage(0, 0, dam/2);
 			if(cast) SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
@@ -3315,7 +3315,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 300 + plev * 4;
-			int rad = 4;
+			COODINATES rad = 4;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, dam, rad);
@@ -3333,7 +3333,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = caster_ptr->chp;
-			int rad = 2;
+			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, dam, rad);
@@ -3389,10 +3389,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
-
+			DIRECTION rad = DETECT_RAD_DEFAULT;
 			if(info) return info_radius(rad);
-
 			if(cast)
 			{
 				detect_creatures_nonliving(caster_ptr, rad);
@@ -3412,7 +3410,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 3 + (plev - 1) / 5;
 			int sides = 4;
-			int rad = 0;
+			COODINATES rad = 0;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -3447,10 +3445,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
-
+			DIRECTION rad = DETECT_RAD_DEFAULT;
 			if(info) return info_radius(rad);
-
 			if(cast)
 			{
 				detect_creatures_evil(caster_ptr, rad);
@@ -3469,7 +3465,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 10 + plev / 2;
-			int rad = 2;
+			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, dam, rad);
@@ -3560,7 +3556,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 3;
 			int sides = 6;
-			int rad = (plev < 30) ? 2 : 3;
+			COODINATES rad = (plev < 30) ? 2 : 3;
 			int base;
 
 			if(has_trait(caster_ptr, TRAIT_MAGIC_SPECIALIST))
@@ -3602,10 +3598,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = (30 + plev) * 2;
-			int rad = plev / 10 + 2;
-
+			DIRECTION rad = plev / 10 + 2;
 			if(info) return info_damage(0, 0, dam/2);
-
 			if(cast)
 			{
 				project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, DO_EFFECT_POIS, PROJECT_KILL | PROJECT_ITEM, -1);
@@ -3867,7 +3861,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 100 + plev * 2;
-			int rad = 4;
+			COODINATES rad = 4;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, dam, rad);
@@ -4034,7 +4028,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 666;
-			int rad = 3;
+			COODINATES rad = 3;
 
 			if(info) return info_damage(0, 0, dam);
 
@@ -4741,7 +4735,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -4846,7 +4840,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = plev * 2;
-			int rad = 2;
+			COODINATES rad = 2;
 
 			if(info) return info_multi_damage(dam);
 
@@ -5020,14 +5014,9 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
-
+			COODINATES rad = DETECT_RAD_DEFAULT;
 			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_creatures_invis(caster_ptr, rad);
-			}
+			if(cast) detect_creatures_invis(caster_ptr, rad);
 		}
 		break;
 
@@ -5041,7 +5030,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -5085,7 +5074,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 2;
 			int sides = plev / 2;
-			int rad = plev / 10 + 1;
+			COODINATES rad = (COODINATES)plev / 10 + 1;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -5134,7 +5123,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -5174,7 +5163,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -5196,7 +5185,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -5217,7 +5206,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -5530,7 +5519,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 75 + plev;
-			int rad = 2;
+			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
 
@@ -5559,7 +5548,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -6348,7 +6337,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -6477,7 +6466,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 3;
 			int sides = 6;
-			int rad = (plev < 30) ? 2 : 3;
+			COODINATES rad = (plev < 30) ? 2 : 3;
 			int base;
 			base = plev + plev / 3;
 
@@ -6508,7 +6497,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_MAP;
+			COODINATES rad = DETECT_RAD_MAP;
 
 			if(info) return info_radius(rad);
 
@@ -6569,7 +6558,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = plev + 55;
-			int rad = 2;
+			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, dam, rad);
@@ -6604,7 +6593,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = plev * 3 / 2 + 100;
-			int rad = plev / 20 + 2;
+			COODINATES rad = (COODINATES)plev / 20 + 2;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, dam, rad);
@@ -6716,7 +6705,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = (55 + plev) * 2;
-			int rad = 3;
+			COODINATES rad = 3;
 
 			if(info) return info_damage(0, 0, dam/2);
 
@@ -6738,7 +6727,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif    
 		{
 			int dam = plev * 3 / 2 + 80;
-			int rad = 2 + plev / 40;
+			COODINATES rad = 2 + (COODINATES)plev / 40;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, dam, rad);
@@ -6801,7 +6790,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 100 + plev * 2;
-			int rad = 4;
+			COODINATES rad = 4;
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, dam, rad);
 		}
@@ -6873,7 +6862,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 50 + plev;
-			int rad = 3 + plev / 20;
+			COODINATES rad = 3 + (COODINATES)plev / 20;
 
 			if(info) return format("%s%d+%d", s_dam, dam/2, dam/2);
 
@@ -6931,7 +6920,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = plev * 15;
-			int rad = plev / 5;
+			COODINATES rad = (COODINATES)plev / 5;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, dam, rad);
@@ -6949,7 +6938,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 600;
-			int rad = 0;
+			COODINATES rad = 0;
 
 			if(info) return info_damage(0, 0, dam);
 
@@ -7030,7 +7019,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -7180,7 +7169,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 3;
 			int sides = 6;
-			int rad = (plev < 30) ? 2 : 3;
+			COODINATES rad = (plev < 30) ? 2 : 3;
 			int base;
 
 			base = plev + plev / 3;
@@ -7434,7 +7423,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = 100 + plev * 2;
-			int rad = 4;
+			COODINATES rad = 4;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, dam, rad);
@@ -7585,7 +7574,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dam = plev * 3 + 25;
-			int rad = 2;
+			COODINATES rad = 2;
 
 			if(info) return info_multi_damage(dam);
 
@@ -7860,7 +7849,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 2;
 			int sides = plev / 2;
-			int rad = plev / 10 + 1;
+			COODINATES rad = (COODINATES)plev / 10 + 1;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -7970,7 +7959,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			int rad = DETECT_RAD_DEFAULT;
+			COODINATES rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
 
@@ -8064,7 +8053,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			int rad = 1;
+			COODINATES rad = 1;
 
 			if(info) return info_radius(rad);
 
@@ -8319,7 +8308,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int rad = plev / 15 + 1;
+			COODINATES rad = (COODINATES)plev / 15 + 1;
 			int power = plev * 3 + 1;
 
 			if(info) return info_radius(rad);
@@ -8487,7 +8476,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			int rad = 10;
+			COODINATES rad = 10;
 
 			if(info) return info_radius(rad);
 
@@ -8660,7 +8649,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 50 + plev;
 			int sides = 10;
-			int rad = 0;
+			COODINATES rad = 0;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -10111,7 +10100,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 		if(cont)
 		{
-			int rad = 2 + (power / 50);
+			COODINATES rad = 2 + (COODINATES)(power / 50);
 
 			caster_ptr->revenge_turn--;
 
