@@ -923,7 +923,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 static bool cast_force_spell(creature_type *creature_ptr, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int             dir;
+	DIRECTION dir;
 	int             plev = creature_ptr->lev;
 	int             boost = creature_ptr->charged_force;
 
@@ -1096,8 +1096,8 @@ static int number_of_mirrors(creature_type *creature_ptr)
 static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int dir;
-	int plev = creature_ptr->lev;
+	DIRECTION dir;
+	CREATURE_LEV plev = creature_ptr->lev;
 	int tmp;
 	COODINATES x, y;
 
@@ -1255,7 +1255,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 {
 	COODINATES y, x;
-	int dir;
+	DIRECTION dir;
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -1347,7 +1347,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	COODINATES x, y;
-	int dir;
+	DIRECTION dir;
 
 	switch (spell)
 	{
