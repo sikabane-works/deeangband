@@ -153,7 +153,7 @@ static bool alloc_stairs_aux(floor_type *floor_ptr, int y, int x, int walls)
 /*
  * Places some staircases near walls
  */
-static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
+static bool alloc_stairs(floor_type *floor_ptr, FEATURE_ID feat, int num, int walls)
 {
 	int i;
 	int shaft_num = 0;
@@ -488,10 +488,9 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 		for (j = 0; j < (quest[i].max_num - quest[i].cur_num); j++)
 		{
 			int k;
-
 			for (k = 0; k < SAFE_MAX_ATTEMPTS; k++)
 			{
-				int x = player_ptr->fx, y = player_ptr->fy;
+				COODINATES x = player_ptr->fx, y = player_ptr->fy;
 				int l;
 
 				/* Find an empty grid */
@@ -499,10 +498,8 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 				{
 					cave_type    *c_ptr;
 					feature_type *f_ptr;
-
-					y = randint0(floor_ptr->height);
-					x = randint0(floor_ptr->width);
-
+					y = (COODINATES)randint0(floor_ptr->height);
+					x = (COODINATES)randint0(floor_ptr->width);
 					c_ptr = &floor_ptr->cave[y][x];
 					f_ptr = &feature_info[c_ptr->feat];
 
@@ -650,8 +647,8 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
  */
 static bool create_cave_structure(floor_type *floor_ptr)
 {
-	int i, k, y, x;
-
+	int i, k;
+	COODINATES y, x;
 	dun_data dun_body;
 
 	// Global data
@@ -764,9 +761,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		if(floor_ptr->depth == 1)
 		{
 			while (one_in_(DUN_MOS_DEN))
-			{
-				place_trees(floor_ptr, randint1(floor_ptr->width - 2), randint1(floor_ptr->height - 2));
-			}
+				place_trees(floor_ptr, (COODINATES)randint1(floor_ptr->width - 2), (COODINATES)randint1(floor_ptr->height - 2));
 		}
 
 		/* Destroy the level if necessary */
