@@ -8737,7 +8737,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	int dir;
+	DIRECTION dir;
 	int plev = caster_ptr->lev;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
@@ -9047,7 +9047,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -9654,10 +9654,8 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
-
+			COODINATES y, x;
 			if(!tgt_pt(caster_ptr, &x, &y)) return NULL;
-
 			if(!cave_player_teleportable_bold(caster_ptr, y, x, 0L) ||
 			    (distance(y, x, caster_ptr->fy, caster_ptr->fx) > MAX_SIGHT / 2) ||
 			    !projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, y, x))
@@ -10775,7 +10773,8 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 		if(cast)
 		{
-			int i, y, x, dir;
+			int i;
+			COODINATES y, x, dir;
 			bool flag;
 
 			for (i = 0; i < 3; i++)
@@ -10786,8 +10785,8 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 
 				for (dir = 0; dir < 8; dir++)
 				{
-					int dy = y + ddy_ddd[dir];
-					int dx = x + ddx_ddd[dir];
+					COODINATES dy = y + ddy_ddd[dir];
+					COODINATES dx = x + ddx_ddd[dir];
 					if(dir == 5) continue;
 					if(floor_ptr->cave[dy][dx].creature_idx) flag = TRUE;
 				}

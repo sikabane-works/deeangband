@@ -2693,9 +2693,9 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 }
 
 
-bool get_rep_dir2(creature_type *creature_ptr, int *dp)
+bool get_rep_dir2(creature_type *creature_ptr, DIRECTION *dp)
 {
-	int dir;
+	DIRECTION dir;
 	char creature_name[MAX_NLEN];
 	creature_desc(creature_name, creature_ptr, 0);
 
