@@ -158,11 +158,8 @@ quit("setregid(): ³‚µ‚­‹–‰Â‚ªæ‚ê‚Ü‚¹‚ñI");
 s16b tokenize(char *buf, s16b num, char **tokens, int mode)
 {
 	int i = 0;
-
 	char *s = buf;
 
-
-	/* Process */
 	while (i < num - 1)
 	{
 		char *t;

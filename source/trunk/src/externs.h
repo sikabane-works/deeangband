@@ -1056,7 +1056,7 @@ extern void sanity_blast_aux(creature_type *watcher_ptr, int power);
 extern void update_creature_view(creature_type *creature_ptr, int m_idx, bool full);
 extern void update_creatures(bool full);
 extern bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, FLAGS_32 mode);
-extern bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, u32b mode);
+extern bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
 extern void deal_item(creature_type *creature_ptr);
 extern bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x);
 extern bool alloc_guardian(floor_type *floor_ptr, bool def_val);
@@ -1127,7 +1127,7 @@ extern s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance
 extern void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, bool known);
 extern void init_normal_traps(void);
 extern s16b choose_random_trap(floor_type *floor_ptr);
-extern void disclose_grid(floor_type *floor_ptr, int y, int x);
+extern void disclose_grid(floor_type *floor_ptr, COODINATES y, COODINATES x);
 extern void place_trap(floor_type *floor_ptr, int y, int x);
 extern void inven_item_charges(creature_type *creature_ptr, int item);
 extern void inven_item_describe(creature_type *creature_ptr, int item);

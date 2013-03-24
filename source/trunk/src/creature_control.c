@@ -3783,7 +3783,8 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 		/* Try to place several "escorts" */
 		for (i = 0; i < 32; i++)
 		{
-			int nx, ny, z, d = 3;
+			COODINATES nx, ny;
+			int z, d = 3;
 
 			scatter(floor_ptr, &ny, &nx, y, x, d, 0); // Pick a location
 
@@ -3814,9 +3815,9 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 
 // Hack -- attempt to place a creature at the given location
 // Attempt to find a creature appropriate to the "enemy_level"
-bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, u32b mode)
+bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode)
 {
-	int species_idx;
+	SPECIES_ID species_idx;
 
 	// Pick a creature
 	get_species_num_prep(NULL, NULL, NULL, NULL, 0); //TODO get_creature_hook(), get_creature_hook2(y, x)

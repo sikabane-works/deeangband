@@ -1226,11 +1226,8 @@ static void load_prefs(void)
 static s16b tokenize_whitespace(char *buf, s16b num, char **tokens)
 {
 	int k = 0;
-
 	char *s = buf;
 
-
-	/* Process */
 	while (k < num)
 	{
 		char *t;
@@ -4527,8 +4524,6 @@ LRESULT FAR PASCAL AngbandSaverProc(HWND hWnd, UINT uMsg,
 
 	int dx, dy;
 
-
-	/* Process */
 	switch (uMsg)
 	{
 		case WM_NCCREATE:
@@ -4541,15 +4536,6 @@ LRESULT FAR PASCAL AngbandSaverProc(HWND hWnd, UINT uMsg,
 			SetCursor(NULL);
 			return 0;
 		}
-
-#if 0
-		case WM_ACTIVATE:
-		{
-			if(LOWORD(wParam) == WA_INACTIVE) break;
-
-			/* else fall through */
-		}
-#endif
 
 		case WM_LBUTTONDOWN:
 		case WM_MBUTTONDOWN:

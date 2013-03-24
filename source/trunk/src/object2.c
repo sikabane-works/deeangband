@@ -23,9 +23,8 @@ void excise_object_idx(int object_idx)
 	object_type *object2_ptr;
 	floor_type *floor_ptr;
 
-	s16b this_object_idx, next_object_idx = 0;
-
-	s16b prev_object_idx = 0;
+	OBJECT_ID this_object_idx, next_object_idx = 0;
+	OBJECT_ID prev_object_idx = 0;
 
 	/* Object */
 	object2_ptr = &object_list[object_idx];
@@ -132,7 +131,7 @@ void delete_object_idx(int object_idx)
 void delete_object(floor_type *floor_ptr, int y, int x)
 {
 	cave_type *c_ptr;
-	s16b this_object_idx, next_object_idx = 0;
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 
 	if(!IN_BOUNDS(floor_ptr, y, x)) return;	// Refuse "illegal" locations
 	c_ptr = &floor_ptr->cave[y][x];			// Grid
@@ -2994,12 +2993,10 @@ s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, COODI
 {
 	int i, k, d, s;
 	int bs, bn;
-	int by, bx;
-	int dy, dx;
-	int ty, tx = 0;
+	COODINATES by, bx, dy, dx, ty, tx = 0;
 
-	s16b object_idx = 0;
-	s16b this_object_idx, next_object_idx = 0;
+	OBJECT_ID object_idx = 0;
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 
 	cave_type *c_ptr;
 
@@ -3127,8 +3124,8 @@ s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, COODI
 	for (i = 0; !flag && (i < 1000); i++)
 	{
 		/* Bounce around */
-		ty = rand_spread(by, 1);
-		tx = rand_spread(bx, 1);
+		ty = (COODINATES)rand_spread(by, 1);
+		tx = (COODINATES)rand_spread(bx, 1);
 
 		/* Verify location */
 		if(!IN_BOUNDS(floor_ptr, ty, tx)) continue;
@@ -3255,7 +3252,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, COODI
 }
 
 // Scatter some "great" objects near the player
-void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, bool known)
+void acquirement(floor_type *floor_ptr, COODINATES y1, COODINATES x1, int num, bool great, bool known)
 {
 	object_type *i_ptr;
 	object_type object_type_body;
@@ -3349,12 +3346,11 @@ s16b choose_random_trap(floor_type *floor_ptr)
 }
 
 // Disclose an invisible trap
-void disclose_grid(floor_type *floor_ptr, int y, int x)
+void disclose_grid(floor_type *floor_ptr, COODINATES y, COODINATES x)
 {
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
-	if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_SECRET))
-		cave_alter_feat(floor_ptr, y, x, FF_SECRET);
+	if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_SECRET)) cave_alter_feat(floor_ptr, y, x, FF_SECRET);
 	else if(c_ptr->mimic)
 	{
 		c_ptr->mimic = 0;
