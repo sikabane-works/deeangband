@@ -2961,9 +2961,9 @@ struct fill_data_type
 	COODINATES c3;
 
 	/* features to fill with */
-	int feat1;
-	int feat2;
-	int feat3;
+	FEATURE_ID feat1;
+	FEATURE_ID feat2;
+	FEATURE_ID feat3;
 
 	int info1;
 	int info2;
@@ -3244,7 +3244,7 @@ static void generate_hmap(floor_type *floor_ptr, COODINATES y0, COODINATES x0, C
 }
 
 
-static bool hack_isnt_wall(floor_type *floor_ptr, int y, int x, int c1, int c2, int c3, int feat1, int feat2, int feat3, int info1, int info2, int info3)
+static bool hack_isnt_wall(floor_type *floor_ptr, int y, int x, int c1, int c2, int c3, FEATURE_ID feat1, FEATURE_ID feat2, FEATURE_ID feat3, int info1, int info2, int info3)
 {
 	/*
 	 * function used to convert from height-map back to the
@@ -3687,8 +3687,9 @@ void build_cavern(floor_type *floor_ptr)
 
 static bool generate_lake(floor_type *floor_ptr, COODINATES y0, COODINATES x0, COODINATES xsize, COODINATES ysize, COODINATES c1, COODINATES c2, COODINATES c3, int type)
 {
-	int x, y, i, xhsize, yhsize;
-	int feat1, feat2, feat3;
+	int i;
+	COODINATES x, y, xhsize, yhsize;
+	FEATURE_ID feat1, feat2, feat3;
 
 	/* offsets to middle from corner */
 	xhsize = xsize / 2;
@@ -4284,7 +4285,7 @@ static void build_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2)
 
 /* Create a random vault that looks like a collection of overlapping rooms */
 
-static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize)
+static void build_room_vault(floor_type *floor_ptr, COODINATES x0, COODINATES y0, COODINATES xsize, COODINATES ysize)
 {
 	int i;
 	COODINATES x1, x2, y1, y2, xhsize, yhsize;
@@ -4312,18 +4313,18 @@ static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, i
 	/* add ten random rooms */
 	for (i = 0; i < 10; i++)
 	{
-		x1 = randint1(xhsize) * 2 + x0 - xhsize;
-		x2 = randint1(xhsize) * 2 + x0 - xhsize;
-		y1 = randint1(yhsize) * 2 + y0 - yhsize;
-		y2 = randint1(yhsize) * 2 + y0 - yhsize;
+		x1 = (COODINATES)randint1(xhsize) * 2 + x0 - xhsize;
+		x2 = (COODINATES)randint1(xhsize) * 2 + x0 - xhsize;
+		y1 = (COODINATES)randint1(yhsize) * 2 + y0 - yhsize;
+		y2 = (COODINATES)randint1(yhsize) * 2 + y0 - yhsize;
 		build_room(floor_ptr, x1, x2, y1, y2);
 	}
 
 	/* Add some random doors */
 	for (i = 0; i < 500; i++)
 	{
-		x1 = randint1(xsize - 3) - xhsize + x0 + 1;
-		y1 = randint1(ysize - 3) - yhsize + y0 + 1;
+		x1 = (COODINATES)randint1(xsize - 3) - xhsize + x0 + 1;
+		y1 = (COODINATES)randint1(ysize - 3) - yhsize + y0 + 1;
 		add_door(floor_ptr, x1, y1);
 	}
 
@@ -4650,14 +4651,14 @@ static void build_mini_c_vault(floor_type *floor_ptr, COODINATES x0, COODINATES 
 	if(one_in_(2))
 	{
 		/* left and right */
-		y = randint1(dy) + dy / 2;
+		y = (COODINATES)randint1(dy) + dy / 2;
 		place_inner_bold(floor_ptr, y1 + y, x1 - 1);
 		place_inner_bold(floor_ptr, y1 + y, x2 + 1);
 	}
 	else
 	{
 		/* top and bottom */
-		x = randint1(dx) + dx / 2;
+		x = (COODINATES)randint1(dx) + dx / 2;
 		place_inner_bold(floor_ptr, y1 - 1, x1 + x);
 		place_inner_bold(floor_ptr, y2 + 1, x1 + x);
 	}
