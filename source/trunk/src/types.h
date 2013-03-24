@@ -62,6 +62,7 @@ typedef s16b COODINATES;
 typedef s32b STAT;
 
 typedef byte DIRECTION;
+typedef s32b POWER;
 
 /*
  * Creature flags

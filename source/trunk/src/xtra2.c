@@ -515,7 +515,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			if(dead_ptr->blow[i].method == RBM_EXPLODE)
 			{
 				int typ = mbe_info[dead_ptr->blow[i].effect].explode_type;
-				int damage = diceroll(dead_ptr->blow[i].d_dice, dead_ptr->blow[i].d_side);
+				POWER damage = diceroll(dead_ptr->blow[i].d_dice, dead_ptr->blow[i].d_side);
 				project(dead_ptr, 0, 3, y, x, damage, typ, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 				break;
 			}
@@ -845,7 +845,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 * Get the coefficient first, and multiply (potentially huge) base
 * experience point of a creature later.
 */
-void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *target_ptr)
+void get_exp_from_mon(creature_type *attacker_ptr, POWER dam, creature_type *target_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	s32b new_exp;

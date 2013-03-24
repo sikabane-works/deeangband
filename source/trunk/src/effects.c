@@ -1353,7 +1353,7 @@ static void you_died(cptr hit_from)
 * setting the player to "dead".
 */
 
-int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int trait_id)
+int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, POWER damage_type, POWER damage, cptr hit_from, cptr note, int trait_id)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	int old_chp = target_ptr->chp;

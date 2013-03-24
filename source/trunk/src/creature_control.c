@@ -4103,7 +4103,7 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 
 // Dump a message describing a creature's reaction to damage
 // Technically should attempt to treat "Beholder"'s as jelly's
-void message_pain(int m_idx, int dam)
+void message_pain(int m_idx, POWER dam)
 {
 	long oldhp, newhp, tmp;
 	int percentage;

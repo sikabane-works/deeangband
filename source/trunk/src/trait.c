@@ -25,7 +25,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	int i, k;
 	DIRECTION dir = 0;
 	CREATURE_LEV user_level = caster_ptr->lev;
-	int damage = 0;
+	POWER damage = 0;
 	FLAGS_32 mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
 	FLAGS_32 u_mode = 0L;
 

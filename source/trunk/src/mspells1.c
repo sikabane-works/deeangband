@@ -578,7 +578,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 #endif
 	bool            no_inate = FALSE;
 	bool            do_spell = DO_SPELL_NONE;
-	int             dam = 0;
+	POWER dam = 0;
 
 	// Target location
 	COODINATES x = target_ptr->fx;

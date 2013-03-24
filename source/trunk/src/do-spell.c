@@ -88,7 +88,7 @@ static cptr info_delay(int base, int sides)
 /*
  * Generate multiple-damage info string such as "dam 25 each"
  */
-static cptr info_multi_damage(int dam)
+static cptr info_multi_damage(POWER dam)
 {
 	return format("%s Še%d", KW_DAM, dam);
 }
@@ -554,7 +554,7 @@ static void cast_shuffle(creature_type *caster_ptr)
 
 
 // Drop 10+1d10 meteor ball at random places near the player
-static void cast_meteor(creature_type *caster_ptr, int dam, COODINATES rad)
+static void cast_meteor(creature_type *caster_ptr, POWER dam, COODINATES rad)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i, d;
@@ -594,7 +594,7 @@ static void cast_meteor(creature_type *caster_ptr, int dam, COODINATES rad)
 
 
 // Drop 10+1d10 disintegration ball at random places near the target
-static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, COODINATES rad)
+static bool cast_wrath_of_the_god(creature_type *creature_ptr, POWER dam, COODINATES rad)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	COODINATES x, y, tx, ty, nx, ny;
@@ -2574,7 +2574,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 70 + plev * 3 / 2;
+			POWER dam = 70 + plev * 3 / 2;
 			COODINATES rad = (COODINATES)plev / 12 + 1;
 
 			if(info) return info_damage(0, 0, dam);
@@ -2592,7 +2592,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 90 + plev * 3 / 2;
+			POWER dam = 90 + plev * 3 / 2;
 			COODINATES rad = (COODINATES)plev / 12 + 1;
 
 			if(info) return info_damage(0, 0, dam);
@@ -2615,7 +2615,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 100 + plev * 3 / 2;
+			POWER dam = 100 + plev * 3 / 2;
 			COODINATES rad = (COODINATES)plev / 12 + 1;
 
 			if(info) return info_damage(0, 0, dam);
@@ -2633,7 +2633,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 150;
+			POWER dam = 150;
 			COODINATES rad = 8;
 
 			if(info) return info_damage(0, 0, dam/2);
@@ -2931,7 +2931,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 60 + plev;
+			POWER dam = 60 + plev;
 			COODINATES rad = (COODINATES)plev / 10 + 2;
 
 			if(info) return info_damage(0, 0, dam/2);
@@ -2977,7 +2977,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = plev + 55;
+			POWER dam = plev + 55;
 			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
@@ -3031,7 +3031,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = plev * 2 + 99;
+			POWER dam = plev * 2 + 99;
 			COODINATES rad = (COODINATES)plev / 5;
 
 			if(info) return info_damage(0, 0, dam);
@@ -3105,7 +3105,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = plev + 70;
+			POWER dam = plev + 70;
 			COODINATES rad = 3 + (COODINATES)plev / 40;
 
 			if(info) return info_damage(0, 0, dam);
@@ -3144,7 +3144,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Fires a magic rocket.";
 #endif
     	{
-			int dam = 120 + plev * 2;
+			POWER dam = 120 + plev * 2;
 			COODINATES rad = 2;
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_grenade(caster_ptr, DO_EFFECT_ROCKET, MAX_RANGE_SUB, dam, rad);
@@ -3233,7 +3233,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = plev * 2;
+			POWER dam = plev * 2;
 			COODINATES rad = 2;
 
 			if(info) return info_multi_damage(dam);
@@ -3255,7 +3255,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 300 + 3 * plev;
+			POWER dam = 300 + 3 * plev;
 			DIRECTION rad = 8;
 
 			if(info) return info_damage(0, 0, dam/2);
@@ -3314,7 +3314,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 300 + plev * 4;
+			POWER dam = 300 + plev * 4;
 			COODINATES rad = 4;
 
 			if(info) return info_damage(0, 0, dam);
@@ -3332,7 +3332,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = caster_ptr->chp;
+			POWER dam = caster_ptr->chp;
 			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
@@ -3464,7 +3464,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 10 + plev / 2;
+			POWER dam = 10 + plev / 2;
 			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
@@ -3597,7 +3597,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = (30 + plev) * 2;
+			POWER dam = (30 + plev) * 2;
 			DIRECTION rad = plev / 10 + 2;
 			if(info) return info_damage(0, 0, dam/2);
 			if(cast)
@@ -3658,7 +3658,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				int dam = base + diceroll(dice, sides);
+				POWER dam = base + diceroll(dice, sides);
 				if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1))
 				{
 					heal_creature(caster_ptr, dam);
@@ -3819,7 +3819,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 100;
+			POWER dam = 100;
 
 			if(info) return format("%s3*%d", s_dam, dam);
 
@@ -3860,7 +3860,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 100 + plev * 2;
+			POWER dam = 100 + plev * 2;
 			COODINATES rad = 4;
 
 			if(info) return info_damage(0, 0, dam);
@@ -4027,7 +4027,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 666;
+			POWER dam = 666;
 			COODINATES rad = 3;
 
 			if(info) return info_damage(0, 0, dam);
@@ -4839,7 +4839,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = plev * 2;
+			POWER dam = plev * 2;
 			COODINATES rad = 2;
 
 			if(info) return info_multi_damage(dam);
@@ -5518,7 +5518,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 75 + plev;
+			POWER dam = 75 + plev;
 			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
@@ -6557,7 +6557,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = plev + 55;
+			POWER dam = plev + 55;
 			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
@@ -6592,7 +6592,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = plev * 3 / 2 + 100;
+			POWER dam = plev * 3 / 2 + 100;
 			COODINATES rad = (COODINATES)plev / 20 + 2;
 
 			if(info) return info_damage(0, 0, dam);
@@ -6704,7 +6704,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = (55 + plev) * 2;
+			POWER dam = (55 + plev) * 2;
 			COODINATES rad = 3;
 
 			if(info) return info_damage(0, 0, dam/2);
@@ -6726,7 +6726,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Fires a ball of plasma.";
 #endif    
 		{
-			int dam = plev * 3 / 2 + 80;
+			POWER dam = plev * 3 / 2 + 80;
 			COODINATES rad = 2 + (COODINATES)plev / 40;
 
 			if(info) return info_damage(0, 0, dam);
@@ -6789,7 +6789,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 100 + plev * 2;
+			POWER dam = 100 + plev * 2;
 			COODINATES rad = 4;
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, dam, rad);
@@ -6861,7 +6861,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 50 + plev;
+			POWER dam = 50 + plev;
 			COODINATES rad = 3 + (COODINATES)plev / 20;
 
 			if(info) return format("%s%d+%d", s_dam, dam/2, dam/2);
@@ -6919,7 +6919,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = plev * 15;
+			POWER dam = plev * 15;
 			COODINATES rad = (COODINATES)plev / 5;
 
 			if(info) return info_damage(0, 0, dam);
@@ -6937,7 +6937,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 600;
+			POWER dam = 600;
 			COODINATES rad = 0;
 
 			if(info) return info_damage(0, 0, dam);
@@ -7273,7 +7273,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = plev * 5;
+			POWER dam = plev * 5;
 
 			if(info) return info_damage(0, 0, dam);
 
@@ -7295,7 +7295,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam_sides = plev * 6;
+			POWER dam_sides = plev * 6;
 			int heal = 100;
 
 #ifdef JP
@@ -7422,7 +7422,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = 100 + plev * 2;
+			POWER dam = 100 + plev * 2;
 			COODINATES rad = 4;
 
 			if(info) return info_damage(0, 0, dam);
@@ -7573,7 +7573,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dam = plev * 3 + 25;
+			POWER dam = plev * 3 + 25;
 			COODINATES rad = 2;
 
 			if(info) return info_multi_damage(dam);
@@ -9409,7 +9409,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			for (i = 0; i < 2; i++) // TODO
 			{
-				int damage;
+				POWER damage;
 	
 				if(!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i)) break;
 				object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i);
@@ -9732,7 +9732,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			for (i = 0; i < 2; i++)
 			{
-				int damage;
+				POWER damage;
 				if(!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i)) break;
 				object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i);
 				basedam = (object_ptr->dd * (object_ptr->ds + 1)) * 50;

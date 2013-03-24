@@ -13,17 +13,17 @@
 #include "angband.h"
 #include "grid.h"
 
-bool cast_bolt(creature_type *caster_ptr, int typ, int range, int dam, int trait_id)
+bool cast_bolt(creature_type *caster_ptr, int typ, int range, POWER dam, int trait_id)
 {
 	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, trait_id);
 }
 
-bool cast_beam(creature_type *caster_ptr, int typ, int range, int dam, int trait_id)
+bool cast_beam(creature_type *caster_ptr, int typ, int range, POWER dam, int trait_id)
 {
 	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, trait_id);
 }
 
-bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, int dam, int prob)
+bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, POWER dam, int prob)
 {
 	if(PERCENT(prob)) return (cast_beam(caster_ptr, range, typ, dam, 0));
 	else return cast_bolt(caster_ptr, typ, range, dam, 0);
@@ -40,7 +40,7 @@ void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int ty
 	(void)project(caster_ptr, 0, rad, y, x, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, trait_id);
 }
 
-bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, int dam, COODINATES rad)
+bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad)
 {
 	COODINATES tx = 0, ty = 0;
 	int dir = 0;
@@ -50,13 +50,13 @@ bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, int dam, CO
 	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
-bool cast_grenade(creature_type *caster_ptr, int typ, int range, int dam, int rad)
+bool cast_grenade(creature_type *caster_ptr, int typ, int range, POWER dam, int rad)
 {
 	COODINATES tx = 0, ty = 0;
 	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
-bool cast_ball_hide(creature_type *caster_ptr, int typ, int range, int dam, int rad)
+bool cast_ball_hide(creature_type *caster_ptr, int typ, int range, POWER dam, int rad)
 {
 	COODINATES tx, ty;
 	tx = target_col;
@@ -1061,7 +1061,7 @@ bool detect_all(creature_type *creature_ptr, int range)
 * To avoid misbehavior when creature deaths have side-effects,
 * this is done in two passes. -- JDL
 */
-bool project_all_vision(creature_type *caster_ptr, int typ, int dam)
+bool project_all_vision(creature_type *caster_ptr, int typ, POWER dam)
 {
 	int i;
 	COODINATES x, y;
@@ -1155,7 +1155,7 @@ void aggravate_creatures(creature_type *target_ptr)
 
 
 // Delete a non-unique/non-quest creature
-bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cast, int dam_side, cptr spell_name)
+bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cast, POWER dam_side, cptr spell_name)
 {
 	int          msec = delay_factor * delay_factor * delay_factor;
 	creature_type *target_ptr = &creature_list[m_idx];
@@ -1704,7 +1704,7 @@ bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COO
 {
 	COODINATES i, t, y, x, yy, xx, dy, dx;
 	COODINATES sy = 0, sx = 0;
-	int             damage = 0;
+	POWER damage = 0;
 	int             sn = 0;
 	cave_type       *c_ptr;
 	bool            map[32][32];
@@ -1926,7 +1926,7 @@ void discharge_minion(creature_type *caster_ptr)
 
 	for (i = 1; i < creature_max; i++)
 	{
-		int dam;
+		POWER dam;
 		creature_type *target_ptr = &creature_list[i];
 
 		if(!target_ptr->species_idx || !is_pet(player_ptr, target_ptr)) continue;
@@ -2315,7 +2315,7 @@ void unlite_room(creature_type *caster_ptr, COODINATES y1, COODINATES x1)
 
 // Hack -- call light around the player
 // Affect all creatures in the projection radius
-bool lite_area(creature_type *creature_ptr, int dam, COODINATES rad)
+bool lite_area(creature_type *creature_ptr, POWER dam, COODINATES rad)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -2336,7 +2336,7 @@ bool lite_area(creature_type *creature_ptr, int dam, COODINATES rad)
 * Hack -- call darkness around the player
 * Affect all creatures in the projection radius
 */
-bool unlite_area(creature_type *caster_ptr, int dam, COODINATES rad)
+bool unlite_area(creature_type *caster_ptr, POWER dam, COODINATES rad)
 {
 	if(!has_trait(player_ptr, TRAIT_BLIND)) msg_print(MES_UNLITE_AREA);
 	(void)project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, DO_EFFECT_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
@@ -2344,7 +2344,7 @@ bool unlite_area(creature_type *caster_ptr, int dam, COODINATES rad)
 	return TRUE;
 }
 
-bool fire_meteor(int who, int typ, COODINATES y, COODINATES x, int dam, COODINATES rad)
+bool fire_meteor(int who, int typ, COODINATES y, COODINATES x, POWER dam, COODINATES rad)
 {
 	/* Analyze the "target" and the caster. */
 	return (project(&creature_list[who], 0, rad, y, x, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
@@ -2540,7 +2540,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 		case 30: case 31:
 			if(!(*count))
 			{
-				int dam = diceroll(10, 10);
+				POWER dam = diceroll(10, 10);
 				msg_print(MES_TY_CURSE_PURE_MANA);
 				project(0, 0, 8, creature_ptr->fy, creature_ptr->fx, dam, DO_EFFECT_MANA, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, COD_PURE_MANA, NULL, -1);

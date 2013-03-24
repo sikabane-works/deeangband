@@ -569,7 +569,7 @@ static COODINATES creature_target_y;
  *  We also "see" grids which are "memorized", probably a hack
  *  Perhaps we should affect doors?
  */
-static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr, int r, COODINATES y, COODINATES x, int dam, int typ)
+static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr, int r, COODINATES y, COODINATES x, POWER dam, int typ)
 {
 	floor_type      *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
@@ -1153,7 +1153,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
  * We also "see" grids which are "memorized", probably a hack
  * We return "TRUE" if the effect of the projection is "obvious".
  */
-static bool project_object(creature_type *caster_ptr, int r, int y, int x, int dam, int typ)
+static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER dam, int typ)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -1513,7 +1513,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 	return (obvious);
 }
 
-static void project_creature_aux(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam, int spell, bool see_s_msg)
+static void project_creature_aux(creature_type *caster_ptr, creature_type *target_ptr, int typ, POWER dam, int spell, bool see_s_msg)
 {
 	int k;
 	cptr act, note, note_dies;
@@ -2871,7 +2871,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				case 3: case 4: case 5: case 6:
 					if(!count)
 					{
-						int dam = diceroll(10, 10);
+						POWER dam = diceroll(10, 10);
 #ifdef JP
 						msg_print("èÉêàÇ»ñÇóÕÇÃéüå≥Ç÷ÇÃî‡Ç™äJÇ¢ÇΩÅI");
 #else
@@ -3183,7 +3183,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 // This function integrated with project_m and became project_creature().
 // (Deskull)
-static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg, int spell)
+static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, int y, int x, POWER dam, int typ, int flg, bool see_s_msg, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
@@ -3758,7 +3758,7 @@ void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgri
 * in the blast radius, in case the "illumination" of the grid was changed,
 * and "update_view()" and "update_creatures()" need to be called.
 */
-bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODINATES y, COODINATES x, int dam, int typ, int flg, int trait_id)
+bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODINATES y, COODINATES x, POWER dam, int typ, int flg, int trait_id)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i, t;
@@ -4781,7 +4781,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 	return (notice);
 }
 
-bool binding_field(creature_type *caster_ptr, COODINATES range, int dam)
+bool binding_field(creature_type *caster_ptr, COODINATES range, POWER dam)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	COODINATES mirror_x[10], mirror_y[10];
@@ -4928,7 +4928,7 @@ bool binding_field(creature_type *caster_ptr, COODINATES range, int dam)
 	return TRUE;
 }
 
-void seal_of_mirror(creature_type *caster_ptr, int dam)
+void seal_of_mirror(creature_type *caster_ptr, POWER dam)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	COODINATES x, y;

@@ -4137,14 +4137,14 @@ bool process_warning(creature_type *target_ptr, COODINATES xx, COODINATES yy)
 	cave_type *c_ptr;
 	char object_name[MAX_NLEN];
 
-	int dam_max = 0;
+	POWER dam_max = 0;
 	static int old_damage = 0;
 
 	for (mx = xx - WARNING_AWARE_RANGE; mx < xx + WARNING_AWARE_RANGE + 1; mx++)
 	{
 		for (my = yy - WARNING_AWARE_RANGE; my < yy + WARNING_AWARE_RANGE + 1; my++)
 		{
-			int dam_max0 = 0;
+			POWER dam_max0 = 0;
 			creature_type *attacker_ptr;
 			species_type *species_ptr;
 

@@ -229,7 +229,7 @@ void revenge_spell(creature_type *creature_ptr)
 	}
 }
 
-void revenge_store(creature_type *creature_ptr, int dam)
+void revenge_store(creature_type *creature_ptr, POWER dam)
 {
 	if(creature_ptr->revenge_turn <= 0) return;
 	creature_ptr->revenge_turn += dam;

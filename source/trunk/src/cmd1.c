@@ -37,7 +37,7 @@ bool test_hit_fire(creature_type *attacker_ptr, int chance, int ev, int vis)
  * Critical hits (from objects thrown by player)
  * Factor in item weight, total plusses, and player level.
  */
-s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
+s16b critical_shot(creature_type *creature_ptr, int weight, int plus, POWER dam)
 {
 	int i, k;
 

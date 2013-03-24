@@ -1305,7 +1305,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 static bool vault_aux_battle(int species_idx)
 {
 	int i;
-	int dam = 0;
+	POWER dam = 0;
 
 	species_type *species_ptr = &species_info[species_idx];
 	

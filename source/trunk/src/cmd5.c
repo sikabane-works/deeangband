@@ -1205,7 +1205,7 @@ static bool player_can_ride_aux(creature_type *creature_ptr, cave_type *c_ptr, b
 	return can_enter;
 }
 
-bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
+bool do_thrown_from_riding(creature_type *creature_ptr, POWER dam, bool force)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i, y, x, oy, ox;

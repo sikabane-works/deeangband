@@ -2685,7 +2685,7 @@ bool potion_smash_effect(int who, COODINATES y, COODINATES x, int k_idx)
 {
 	int     radius = 2;
 	int     dt = 0;
-	int     dam = 0;
+	POWER dam = 0;
 	bool    angry = FALSE;
 
 	object_kind *object_kind_ptr = &object_kind_info[k_idx];

@@ -1322,7 +1322,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	// Take damage from cuts
 	if(has_trait(creature_ptr, TRAIT_CUT) && !IS_INVULN(creature_ptr))
 	{
-		int dam;
+		POWER dam;
 
 		// Mortal wound or Deep Gash
 		if(creature_ptr->timed_trait[TRAIT_CUT] > 1000) dam = 200;
@@ -1391,7 +1391,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	if(have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
 	{
-		int damage = calc_damage(NULL, creature_ptr, randint0(50) + 20, DO_EFFECT_CHAOS, FALSE, FALSE);	
+		POWER damage = calc_damage(NULL, creature_ptr, randint0(50) + 20, DO_EFFECT_CHAOS, FALSE, FALSE);	
 		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP
@@ -1405,7 +1405,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	if(have_flag(f_ptr->flags, FF_LAVA) && !IS_INVULN(creature_ptr) && !has_trait(creature_ptr, TRAIT_IM_FIRE))
 	{
-		int damage = 0;
+		POWER damage = 0;
 
 		if(have_flag(f_ptr->flags, FF_DEEP))
 		{
@@ -1452,7 +1452,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	if(have_flag(f_ptr->flags, FF_POISON_SWAMP) && !IS_INVULN(creature_ptr) && !has_trait(creature_ptr, TRAIT_CAN_FLY))
 	{
-		int damage = 0;
+		POWER damage = 0;
 
 		if(have_flag(f_ptr->flags, FF_DEEP)) damage = 6000 + randint0(4000);
 		else if(!has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = 3000 + randint0(2000);
@@ -1477,7 +1477,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	if(have_flag(f_ptr->flags, FF_ACID_SWAMP) && !IS_INVULN(creature_ptr) && !has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_IM_ACID))
 	{
-		int damage = 0;
+		POWER damage = 0;
 
 		if(have_flag(f_ptr->flags, FF_DEEP)) damage = 6000 + randint0(4000);
 		else if(!has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = 3000 + randint0(2000);
@@ -1517,7 +1517,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	if(creature_ptr->riding)
 	{
 		creature_type *steed_ptr = &creature_list[creature_ptr->riding];
-		int damage;
+		POWER damage;
 		if(has_trait(steed_ptr, TRAIT_AURA_FIRE) && !has_trait(creature_ptr, TRAIT_IM_FIRE))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;

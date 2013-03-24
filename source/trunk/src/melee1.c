@@ -1194,7 +1194,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 * and which also do at least 20 damage, or, sometimes, N damage.
 * This is used only to determine "cuts" and "stuns".
 */
-static int creature_critical(int dice, int sides, int dam)
+static int creature_critical(int dice, int sides, POWER dam)
 {
 	int max = 0;
 	int total = dice * sides;
@@ -1285,7 +1285,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 	bool obvious = FALSE;
 	int power = 0;
-	int damage = 0;
+	POWER damage = 0;
 
 	cptr act = NULL;
 
@@ -2778,7 +2778,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if(!has_trait(attacker_ptr, TRAIT_RES_SHAR))
 				{
-					int dam = diceroll(2, 6);
+					POWER dam = diceroll(2, 6);
 
 #ifdef JP
 					msg_format("%^sは突然熱くなった！", attacker_name);
@@ -2800,7 +2800,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if(!has_trait(attacker_ptr, TRAIT_RES_ELEC))
 				{
-					int dam = diceroll(2, 6);
+					POWER dam = diceroll(2, 6);
 
 #ifdef JP
 					msg_format("%^sは電撃をくらった！", attacker_name);
@@ -2822,7 +2822,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if(!has_trait(attacker_ptr, TRAIT_RES_COLD))
 				{
-					int dam = diceroll(2, 6);
+					POWER dam = diceroll(2, 6);
 
 #ifdef JP
 					msg_format("%^sは冷気をくらった！", attacker_name);
@@ -2845,7 +2845,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if(!has_trait(attacker_ptr, TRAIT_RES_SHAR))
 				{
-					int dam = diceroll(2, 6);
+					POWER dam = diceroll(2, 6);
 
 #ifdef JP
 					msg_format("%^sは鏡の破片をくらった！", attacker_name);
@@ -2874,7 +2874,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				{
 					if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
 					{
-						int dam = diceroll(2, 6);
+						POWER dam = diceroll(2, 6);
 
 #ifdef JP
 						msg_format("%^sは聖なるオーラで傷ついた！", attacker_name);
@@ -2897,7 +2897,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
 				{
-					int dam = diceroll(2, 6);
+					POWER dam = diceroll(2, 6);
 #ifdef JP
 					msg_format("%^sが鋭い闘気のオーラで傷ついた！", attacker_name);
 					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
@@ -2912,7 +2912,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 			if(HEX_SPELLING(target_ptr, HEX_SHADOW_CLOAK) && !IS_DEAD(target_ptr))
 			{
-				int dam = 1;
+				POWER dam = 1;
 				object_type *object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 0);
 
 				if(!has_trait(attacker_ptr, TRAIT_RES_DARK))

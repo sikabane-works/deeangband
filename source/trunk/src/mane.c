@@ -13,9 +13,9 @@
 #include "angband.h"
 
 
-static int damage;
+static POWER damage;
 
-static void mane_info(creature_type *creature_ptr, char *p, int power, int dam)
+static void mane_info(creature_type *creature_ptr, char *p, int power, POWER dam)
 {
 	int plev = creature_ptr->lev;
 	static const char s_dam[] = KW_DAM;

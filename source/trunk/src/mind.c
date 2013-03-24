@@ -973,7 +973,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	case 7:
 		{
 			COODINATES y, x;
-			int dam;
+			POWER dam;
 
 			if(!get_aim_dir(creature_ptr, 1, &dir)) return FALSE;
 			y = creature_ptr->fy + ddy[dir];
