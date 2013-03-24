@@ -1120,7 +1120,7 @@ extern void apply_magic_specified_ego(creature_type *owner_ptr, object_type *obj
 
 extern void weapon_boost(object_type *object_ptr, int level, int power);
 extern bool make_random_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx));
-extern void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj_num_hook)(int k_idx));
+extern void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode, bool (*get_obj_num_hook)(int k_idx));
 extern bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value, int type);
 extern void place_gold(floor_type *floor_ptr, COODINATES y, COODINATES x);
 extern s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, COODINATES y, COODINATES x);
@@ -1206,13 +1206,13 @@ extern bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES 
 extern bool earthquake(creature_type *target_ptr, COODINATES cy, COODINATES cx, COODINATES r);
 extern void lite_room(creature_type *creature_ptr, COODINATES y1, COODINATES x1);
 extern void unlite_room(creature_type *caster_ptr, COODINATES y1, COODINATES x1);
-extern bool lite_area(creature_type *creature_ptr, int dam, int rad);
-extern bool unlite_area(creature_type *caster_ptr, int dam, int rad);
+extern bool lite_area(creature_type *creature_ptr, int dam, COODINATES rad);
+extern bool unlite_area(creature_type *caster_ptr, int dam, COODINATES rad);
 extern bool cast_bolt(creature_type *caster_ptr, int typ, int range, int dam, int trait_id);
 extern bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad);
 extern bool cast_grenade(creature_type *caster_ptr, int typ, int range, int dam, int rad);
 extern bool cast_ball_hide(creature_type *caster_ptr, int typ, int range, int dam, int rad);
-extern bool fire_meteor(int who, int typ, COODINATES x, COODINATES y, int dam, int rad);
+extern bool fire_meteor(int who, int typ, COODINATES x, COODINATES y, int dam, COODINATES rad);
 extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev);
 extern void call_chaos(creature_type *creature_ptr);
 extern bool cast_beam(creature_type *caster_ptr, int typ, int range, int dam, int trait_id);

@@ -4286,7 +4286,8 @@ static void build_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2)
 
 static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize)
 {
-	int i, x1, x2, y1, y2, xhsize, yhsize;
+	int i;
+	COODINATES x1, x2, y1, y2, xhsize, yhsize;
 
 	/* get offset from center */
 	xhsize = xsize / 2;

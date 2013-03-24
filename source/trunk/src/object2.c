@@ -2840,7 +2840,7 @@ bool make_random_object(object_type *object_ptr, u32b mode, u32b gon_mode, int l
  * This routine uses "object_level" for the "generation level".
  * This routine requires a clean floor grid destination.
  */
-void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj_num_hook)(int k_idx))
+void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode, bool (*get_obj_num_hook)(int k_idx))
 {
 	s16b object_idx;
 

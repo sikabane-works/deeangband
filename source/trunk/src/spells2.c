@@ -2315,7 +2315,7 @@ void unlite_room(creature_type *caster_ptr, COODINATES y1, COODINATES x1)
 
 // Hack -- call light around the player
 // Affect all creatures in the projection radius
-bool lite_area(creature_type *creature_ptr, int dam, int rad)
+bool lite_area(creature_type *creature_ptr, int dam, COODINATES rad)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -2336,7 +2336,7 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 * Hack -- call darkness around the player
 * Affect all creatures in the projection radius
 */
-bool unlite_area(creature_type *caster_ptr, int dam, int rad)
+bool unlite_area(creature_type *caster_ptr, int dam, COODINATES rad)
 {
 	if(!has_trait(player_ptr, TRAIT_BLIND)) msg_print(MES_UNLITE_AREA);
 	(void)project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, DO_EFFECT_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
@@ -2344,7 +2344,7 @@ bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 	return TRUE;
 }
 
-bool fire_meteor(int who, int typ, COODINATES y, COODINATES x, int dam, int rad)
+bool fire_meteor(int who, int typ, COODINATES y, COODINATES x, int dam, COODINATES rad)
 {
 	/* Analyze the "target" and the caster. */
 	return (project(&creature_list[who], 0, rad, y, x, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
