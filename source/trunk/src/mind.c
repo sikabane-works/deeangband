@@ -751,9 +751,9 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int        b = 0;
-	int        dir;
-	int        plev = creature_ptr->lev;
+	int b = 0;
+	DIRECTION dir;
+	CREATURE_LEV plev = creature_ptr->lev;
 
 	switch (spell)
 	{
@@ -799,7 +799,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 3:
 		/* Major displace */
-		teleport_creature(creature_ptr, plev * 5, 0L);
+		teleport_creature(creature_ptr, (COODINATES)plev * 5, 0L);
 		break;
 	case 4:
 		/* Domination */
@@ -935,13 +935,13 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		cast_ball(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5) + boost / 12, 4), 0);
 		break;
 	case 1:
-		(void)lite_area(creature_ptr, diceroll(2, (plev / 2)), (plev / 10) + 1);
+		(void)lite_area(creature_ptr, diceroll(2, (COODINATES)(plev / 2)), (COODINATES)(plev / 10) + 1);
 		break;
 	case 2:
 		set_timed_trait(creature_ptr, TRAIT_LEVITATION, randint1(30) + 30 + boost / 5, FALSE);
 		break;
 	case 3:
-		if(!get_aim_dir(creature_ptr, plev / 8 + 3, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, (COODINATES)plev / 8 + 3, &dir)) return FALSE;
 		cast_beam(creature_ptr, DO_EFFECT_MISSILE, plev / 8 + 3, diceroll(5 + ((plev - 1) / 5) + boost / 10, 5), 0);
 		break;
 	case 4:
@@ -1146,11 +1146,11 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 		/* mirror of light */
 	case 4:
-		(void)lite_area(creature_ptr, diceroll(2, (plev / 2)), (plev / 10) + 1);
+		(void)lite_area(creature_ptr, diceroll(2, (COODINATES)(plev / 2)), (COODINATES)(plev / 10) + 1);
 		break;
 		/* mirror of wandering */
 	case 5:
-		teleport_creature(creature_ptr, plev * 5, 0L);
+		teleport_creature(creature_ptr, (COODINATES)plev * 5, 0L);
 		break;
 		/* robe of dust */
 	case 6:
@@ -1162,7 +1162,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 		/* mirror clashing */
 	case 8:
-		cast_ball(creature_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, diceroll(8 + ((plev - 5) / 4), 8), (plev > 20 ? (plev - 20) / 8 + 1 : 0));
+		cast_ball(creature_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, (COODINATES)diceroll(8 + ((plev - 5) / 4), 8), (COODINATES)(plev > 20 ? (plev - 20) / 8 + 1 : 0));
 		break;
 		/* mirror sleeping */
 	case 9:
@@ -1311,7 +1311,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 			break;
 		}
 	case 3:
-		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 8+randint0(5));
+		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 8 + (COODINATES)randint0(5));
 		break;
 	case 4:
 		{
@@ -1730,7 +1730,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 						msg_print("Your mind unleashes its power in an uncontrollable storm!");
 #endif
 						/*TODO*/
-						project(creature_ptr, 0, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx, plev * 2,
+						project(creature_ptr, 0, 2 + (COODINATES)plev / 10, creature_ptr->fy, creature_ptr->fx, (COODINATES)plev * 2,
 							DO_EFFECT_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1);
 						creature_ptr->csp = MAX(0, creature_ptr->csp - plev * MAX(1, plev / 10));
 					}
@@ -1769,7 +1769,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 #endif
 
 						/*TODO*/
-						project(creature_ptr, 0, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx, plev * 2,
+						project(creature_ptr, 0, 2 + (COODINATES)plev / 10, creature_ptr->fy, creature_ptr->fx, (COODINATES)plev * 2,
 							DO_EFFECT_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1);
 						creature_ptr->csp = MAX(0, creature_ptr->csp - plev * MAX(1, plev / 10));
 					}

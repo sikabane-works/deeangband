@@ -1209,7 +1209,7 @@ extern void unlite_room(creature_type *caster_ptr, COODINATES y1, COODINATES x1)
 extern bool lite_area(creature_type *creature_ptr, int dam, COODINATES rad);
 extern bool unlite_area(creature_type *caster_ptr, int dam, COODINATES rad);
 extern bool cast_bolt(creature_type *caster_ptr, int typ, int range, int dam, int trait_id);
-extern bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad);
+extern bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, int dam, COODINATES rad);
 extern bool cast_grenade(creature_type *caster_ptr, int typ, int range, int dam, int rad);
 extern bool cast_ball_hide(creature_type *caster_ptr, int typ, int range, int dam, int rad);
 extern bool fire_meteor(int who, int typ, COODINATES x, COODINATES y, int dam, COODINATES rad);

@@ -40,7 +40,7 @@ void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int ty
 	(void)project(caster_ptr, 0, rad, y, x, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, trait_id);
 }
 
-bool cast_ball(creature_type *caster_ptr, int typ, int range, int dam, int rad)
+bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, int dam, COODINATES rad)
 {
 	COODINATES tx = 0, ty = 0;
 	int dir = 0;
