@@ -581,12 +581,12 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	int             dam = 0;
 
 	// Target location
-	int x = target_ptr->fx;
-	int y = target_ptr->fy;
+	COODINATES x = target_ptr->fx;
+	COODINATES y = target_ptr->fy;
 
 	// Target location for lite breath
-	int x_br_lite = 0;
-	int y_br_lite = 0;
+	COODINATES x_br_lite = 0;
+	COODINATES y_br_lite = 0;
 
 	/* Extract the blind-ness */
 	bool blind = (has_trait(target_ptr, TRAIT_BLIND) ? TRUE : FALSE);

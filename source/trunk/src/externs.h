@@ -616,7 +616,7 @@ extern bool is_trap(int feat);
 extern bool is_known_trap(cave_type *c_ptr);
 extern bool is_closed_door(int feat);
 extern bool is_hidden_door(cave_type *c_ptr);
-extern bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2);
+extern bool los(floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
 extern void update_local_illumination(floor_type *floor_ptr, int y, int x);
 extern bool creature_can_see_bold(creature_type *viewer_ptr, int y, int x);
 extern bool cave_valid_bold(floor_type *floor_ptr, COODINATES y, COODINATES x);
@@ -1172,7 +1172,7 @@ extern int take_damage_to_creature(creature_type *attacker_ptr, creature_type *t
 extern u16b bolt_pict(int y, int x, int ny, int nx, int typ);
 extern sint project_path(COODINATES *gp, int range, floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int flg);
 extern COODINATES dist_to_line(COODINATES y, COODINATES x, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
-extern bool project(creature_type *caster_ptr, int range, int rad, COODINATES y, COODINATES x, int dam, int typ, int flg, int trait_id);
+extern bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODINATES y, COODINATES x, int dam, int typ, int flg, int trait_id);
 extern bool binding_field(creature_type *caster_ptr, int range, int dam);
 extern void seal_of_mirror(creature_type *caster_ptr, int dam);
 
@@ -1188,11 +1188,11 @@ extern bool detect_objects_normal(creature_type *creature_ptr, COODINATES range)
 extern bool detect_objects_magic(creature_type *creature_ptr, int range);
 extern bool detect_creatures_normal(creature_type *creature_ptr, COODINATES range);
 extern bool detect_creatures_invis(creature_type *creature_ptr, COODINATES range);
-extern bool detect_creatures_evil(creature_type *creature_ptr, int range);
+extern bool detect_creatures_evil(creature_type *creature_ptr, COODINATES range);
 extern bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_flag);
 extern bool detect_creatures_string(creature_type *creature_ptr, int range, cptr);
-extern bool detect_creatures_nonliving(creature_type *creature_ptr, int range);
-extern bool detect_creatures_mind(creature_type *creature_ptr, int range);
+extern bool detect_creatures_nonliving(creature_type *creature_ptr, COODINATES range);
+extern bool detect_creatures_mind(creature_type *creature_ptr, COODINATES range);
 extern bool detect_all(creature_type *creature_ptr, int range);
 extern bool wall_stone(creature_type *caster_ptr);
 extern void aggravate_creatures(creature_type *target_ptr);
@@ -1232,7 +1232,7 @@ extern bool rush_attack(creature_type *creature_ptr, bool *mdeath);
 extern void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, bool explode);
 
 // spells3.c
-extern bool teleport_away(creature_type *creature_ptr, int dis, u32b mode);
+extern bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
 extern void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, COODINATES tx, int power, FLAGS_32 mode);
 extern bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode);
 extern bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, u32b mode);

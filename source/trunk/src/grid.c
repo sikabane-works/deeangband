@@ -458,7 +458,7 @@ void vault_creatures(floor_type *floor_ptr, COODINATES y1, COODINATES x1, int nu
 /*
  * Always picks a correct direction
  */
-void correct_dir(int *rdir, int *cdir, int y1, int x1, int y2, int x2)
+void correct_dir(COODINATES *rdir, COODINATES *cdir, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2)
 {
 	/* Extract vertical and horizontal directions */
 	*rdir = (y1 == y2) ? 0 : (y1 < y2) ? 1 : -1;
@@ -478,7 +478,7 @@ void correct_dir(int *rdir, int *cdir, int y1, int x1, int y2, int x2)
 /*
  * Pick a random direction
  */
-void rand_dir(int *rdir, int *cdir)
+void rand_dir(COODINATES *rdir, COODINATES *cdir)
 {
 	/* Pick a random direction */
 	int i = randint0(4);

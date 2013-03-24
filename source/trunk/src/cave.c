@@ -135,12 +135,10 @@ bool is_hidden_door(cave_type *cave_ptr)
  * by clever choice of target locations, you can sometimes throw a "curve".
  *
  * Note that "line of sight" is not "reflexive" in all cases.
- *
- * Use the "projectable(floor_ptr, MAX_RANGE, )" routine to test "spell/missile line of sight".
- *
+ * Use the "projectable(floor_ptr)" routine to test "spell/missile line of sight".
  * Use the "update_view()" function to determine player line-of-sight.
  */
-bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
+bool los(floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2)
 {
 	/* Delta */
 	int dx, dy;

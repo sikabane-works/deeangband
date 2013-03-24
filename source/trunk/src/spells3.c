@@ -40,7 +40,7 @@ static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, 
 // Teleport a creature, normally up to "dis" grids away.
 // Attempt to move the creature at least "dis/2" grids away.
 // But allow variation to prevent infinite loops.
-bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
+bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	COODINATES oy, ox, d, min, i;
@@ -72,8 +72,8 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 			/* Pick a (possibly illegal) location */
 			while(TRUE)
 			{
-				ny = rand_spread(oy, dis);
-				nx = rand_spread(ox, dis);
+				ny = (COODINATES)rand_spread(oy, dis);
+				nx = (COODINATES)rand_spread(ox, dis);
 				d = distance(oy, ox, ny, nx);
 				if((d >= min) && (d <= dis)) break;
 			}

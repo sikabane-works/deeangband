@@ -556,7 +556,9 @@ bool detect_objects_normal(creature_type *creature_ptr, COODINATES range)
 */
 bool detect_objects_magic(creature_type *creature_ptr, int range)
 {
-	int i, y, x, tv;
+	int i;
+	COODINATES y, x;
+	TVAL tv;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	bool detect = FALSE;
@@ -728,9 +730,10 @@ bool detect_creatures_invis(creature_type *creature_ptr, COODINATES range)
 /*
 * Detect all "evil" creatures on current panel
 */
-bool detect_creatures_evil(creature_type *creature_ptr, int range)
+bool detect_creatures_evil(creature_type *creature_ptr, COODINATES range)
 {
-	int i, y, x;
+	int i;
+	COODINATES y, x;
 	bool flag = FALSE;
 
 	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
@@ -788,10 +791,11 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 /*
 * Detect all "nonliving", "undead" or "demonic" creatures on current panel
 */
-bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
+bool detect_creatures_nonliving(creature_type *creature_ptr, COODINATES range)
 {
-	int     i, y, x;
-	bool    flag = FALSE;
+	int i;
+	COODINATES y, x;
+	bool flag = FALSE;
 
 	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
@@ -840,10 +844,11 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 /*
 * Detect all creatures it has mind on current panel
 */
-bool detect_creatures_mind(creature_type *creature_ptr, int range)
+bool detect_creatures_mind(creature_type *creature_ptr, COODINATES range)
 {
-	int     i, y, x;
-	bool    flag = FALSE;
+	int i;
+	COODINATES y, x;
+	bool flag = FALSE;
 
 	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
@@ -1546,7 +1551,7 @@ bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODI
 			/* During generation, destroyed artifacts are "preserved" */
 			if(in_generate)
 			{
-				s16b this_object_idx, next_object_idx = 0;
+				OBJECT_ID this_object_idx, next_object_idx = 0;
 
 				/* Scan all objects in the grid */
 				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
