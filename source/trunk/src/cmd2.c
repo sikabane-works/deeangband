@@ -1030,7 +1030,7 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
  * Do not use twall anymore
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
+static bool do_cmd_tunnel_aux(creature_type *creature_ptr, COODINATES y, COODINATES x)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr;
@@ -1197,7 +1197,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
  *	The code here should be nearly identical to that in
  *	do_cmd_open_test() and do_cmd_open_aux().
  */
-bool easy_open_door(creature_type *creature_ptr, int y, int x)
+bool easy_open_door(creature_type *creature_ptr, COODINATES y, COODINATES x)
 {
 	int i, j;
 

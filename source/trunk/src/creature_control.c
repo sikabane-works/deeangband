@@ -3524,11 +3524,11 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 static bool creature_scatter(int species_idx, int *yp, int *xp, floor_type *floor_ptr, int y, int x, int max_dist)
 {
-	int place_x[CREATURE_SCAT_MAXD];
-	int place_y[CREATURE_SCAT_MAXD];
+	COODINATES place_x[CREATURE_SCAT_MAXD];
+	COODINATES place_y[CREATURE_SCAT_MAXD];
+	COODINATES nx, ny;
 	int num[CREATURE_SCAT_MAXD];
 	int i;
-	int nx, ny;
 
 	if(max_dist >= CREATURE_SCAT_MAXD)
 		return FALSE;
@@ -3734,7 +3734,7 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 * Note the use of the new "creature allocation table" code to restrict
 * the "get_species_num()" function to "legal" escort types.
 */
-bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode)
+bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, FLAGS_32 mode)
 {
 	int             i, j;
 	species_type    *species_ptr = &species_info[species_idx];
@@ -3826,14 +3826,13 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 	return place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode); // Attempt to place the creature
 }
 
-bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x)
+bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x)
 {
 	species_type *species_ptr = NULL;
-	int species_idx = 0;
-	int m_idx;
+	SPECIES_ID species_idx = 0;
+	CREATURE_ID m_idx;
+	COODINATES cy = y, cx = x;
 	int attempts = 1000;
-	int cy = y;
-	int cx = x;
 
 	// Prepare allocation table
 	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL, 0);
@@ -4059,9 +4058,9 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 }
 
 /* A "dangerous" function, creates a pet of the specified type */
-bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, int oy, int ox, int species_idx, u32b mode)
+bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES oy, COODINATES ox, SPECIES_ID species_idx, FLAGS_32 mode)
 {
-	int x, y;
+	COODINATES x, y;
 
 	// Prevent illegal creatures
 	if(species_idx >= max_species_idx) return FALSE;

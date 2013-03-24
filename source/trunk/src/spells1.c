@@ -4808,8 +4808,8 @@ bool binding_field(creature_type *caster_ptr, int range, int dam)
 				player_has_los_bold(y,x) &&
 				projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)
 				){
-					mirror_y[mirror_num]=y;
-					mirror_x[mirror_num]=x;
+					mirror_y[mirror_num] = y;
+					mirror_x[mirror_num] = x;
 					mirror_num++;
 			}
 		}
@@ -4895,7 +4895,7 @@ bool binding_field(creature_type *caster_ptr, int range, int dam)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
-					(void)project_object(caster_ptr,0,y,x,dam,DO_EFFECT_MANA); 
+					(void)project_object(caster_ptr, 0, y, x, dam, DO_EFFECT_MANA); 
 				}
 			}
 		}
