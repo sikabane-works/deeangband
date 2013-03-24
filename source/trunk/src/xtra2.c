@@ -2514,9 +2514,9 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 *
 * Note that confusion over-rides any (explicit?) user choice.
 */
-bool get_aim_dir(creature_type *creature_ptr, int range, int *dp)
+bool get_aim_dir(creature_type *creature_ptr, COODINATES range, DIRECTION *dp)
 {
-	int		dir;
+	DIRECTION dir;
 	char	command;
 	cptr	p;
 	char creature_name[MAX_NLEN];

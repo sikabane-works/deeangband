@@ -24,10 +24,10 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	char caster_name[100] = KW_IT, target_name[100] = KW_IT;
 	int i, k;
 	DIRECTION dir = 0;
-	int user_level = caster_ptr->lev;
+	CREATURE_LEV user_level = caster_ptr->lev;
 	int damage = 0;
-	u32b mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
-	u32b u_mode = 0L;
+	FLAGS_32 mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
+	FLAGS_32 u_mode = 0L;
 
 	int s_num_4 = 4;
 	int s_num_6 = 6;
@@ -1645,10 +1645,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_SWORD_DANCING:
 		{
-			int y = 0, x = 0, i;
+			COODINATES y = 0, x = 0;
+			int i;
 			for (i = 0; i < STAT_MAX; i++)
 			{
-				dir = randint0(8);
+				dir = (DIRECTION)randint0(8);
 				y = caster_ptr->fy + ddy_ddd[dir];
 				x = caster_ptr->fx + ddx_ddd[dir];
 				cave_ptr = &floor_ptr->cave[y][x];
@@ -2096,7 +2097,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_VTELEPORT:
-		teleport_creature(caster_ptr, 10 + 4 * user_level, 0L);
+		teleport_creature(caster_ptr, 10 + 4 * (COODINATES)user_level, 0L);
 		break;
 
 	case TRAIT_MIND_BLST:
@@ -2104,7 +2105,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_RADIATION:
-		SELF_FIELD(caster_ptr, DO_EFFECT_NUKE, (user_level * 2), 3 + (user_level / 20), -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_NUKE, ((COODINATES)user_level * 2), 3 + ((COODINATES)user_level / 20), -1);
 		break;
 
 	case TRAIT_SMELL_MET:

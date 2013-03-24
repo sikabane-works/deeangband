@@ -1462,7 +1462,7 @@ extern void ang_sort(vptr u, vptr v, int n, bool (*ang_sort_comp)(vptr u, vptr v
 extern bool target_able(creature_type *creature_ptr, int m_idx);
 extern bool target_okay(creature_type *creature_ptr);
 extern bool target_set(creature_type *aimer, int range, int mode);
-extern bool get_aim_dir(creature_type *creature_ptr, int range, int *dp);
+extern bool get_aim_dir(creature_type *creature_ptr, COODINATES range, DIRECTION *dp);
 extern bool get_hack_dir(creature_type *creature_ptr, int *dp);
 extern bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under);
 extern bool get_rep_dir2(creature_type *creature_ptr, DIRECTION *dp);
