@@ -3522,7 +3522,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 #define CREATURE_SCAT_MAXD 10
 
-static bool creature_scatter(int species_idx, int *yp, int *xp, floor_type *floor_ptr, int y, int x, int max_dist)
+static bool creature_scatter(int species_idx, COODINATES *yp, COODINATES *xp, floor_type *floor_ptr, COODINATES y, COODINATES x, COODINATES max_dist)
 {
 	COODINATES place_x[CREATURE_SCAT_MAXD];
 	COODINATES place_y[CREATURE_SCAT_MAXD];
@@ -3646,13 +3646,13 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 	for (n = 0; (n < hack_n) && (hack_n < total); n++)
 	{
 		/* Grab the location */
-		int hx = hack_x[n];
-		int hy = hack_y[n];
+		COODINATES hx = hack_x[n];
+		COODINATES hy = hack_y[n];
 
 		/* Check each direction, up to total */
 		for (i = 0; (i < 8) && (hack_n < total); i++)
 		{
-			int mx, my;
+			COODINATES mx, my;
 
 			scatter(floor_ptr, &my, &mx, hy, hx, 4, 0);
 
@@ -3754,8 +3754,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 		int n = 0; 
 		for(j = 0; j < servant_ptr->underling_num[i]; j++)
 		{
-			int nx, ny, d = 8;
-
+			COODINATES nx, ny, d = 8;
 			scatter(floor_ptr, &ny, &nx, y, x, d, 0);			// Pick a location
 			if(!cave_empty_bold2(floor_ptr, ny, nx)) continue;	// Require empty grids
 
@@ -3892,16 +3891,15 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 
 	if(guardian && (dungeon_info[floor_ptr->dun_type].maxdepth == floor_ptr->depth) && (species_info[guardian].cur_num < species_info[guardian].max_num))
 	{
-		int oy;
-		int ox;
+		COODINATES oy, ox;
 		int try = 4000;
 
 		/* Find a good position */
 		while (try)
 		{
 			/* Get a random spot */
-			oy = randint1(floor_ptr->height - 4) + 2;
-			ox = randint1(floor_ptr->width - 4) + 2;
+			oy = (COODINATES)randint1(floor_ptr->height - 4) + 2;
+			ox = (COODINATES)randint1(floor_ptr->width - 4) + 2;
 
 			/* Is it a good spot ? */
 			if(cave_empty_bold2(floor_ptr, oy, ox) && species_can_cross_terrain(floor_ptr->cave[oy][ox].feat, &species_info[guardian], 0))
@@ -3929,8 +3927,8 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 */
 bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u32b mode)
 {
-	int			y = 0, x = 0;
-	int         attempts_left = 10000;
+	COODINATES y = 0, x = 0;
+	int attempts_left = 10000;
 
 	// Put the Guardian
 	if(alloc_guardian(floor_ptr, FALSE)) return TRUE;
@@ -3939,8 +3937,8 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 	while (attempts_left--)
 	{
 		// Pick a location
-		y = randint0(floor_ptr->height);
-		x = randint0(floor_ptr->width);
+		y = (COODINATES)randint0(floor_ptr->height);
+		x = (COODINATES)randint0(floor_ptr->width);
 
 		// Require empty floor grid (was "naked")
 		if(floor_ptr->depth)
@@ -4029,9 +4027,10 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 *
 * Note that this function may not succeed, though this is very rare.
 */
-bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int type, u32b mode)
+bool summon_specific(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, int lev, int type, FLAGS_32 mode)
 {
-	int x, y, species_idx;
+	COODINATES x, y;
+	SPECIES_ID species_idx;
 	floor_type *floor_ptr;
 
 	if(summoner_ptr) floor_ptr = GET_FLOOR_PTR(summoner_ptr);
