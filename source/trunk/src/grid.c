@@ -274,7 +274,7 @@ void place_floor(floor_type *floor_ptr, int x1, int x2, int y1, int y2, bool lig
 /*
  * Make an empty square room, only floor and wall grids (UNUSED?)
  */
-void place_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2, bool light)
+void place_room(floor_type *floor_ptr, COODINATES x1, COODINATES x2, COODINATES y1, COODINATES y2, bool light)
 {
 	COODINATES y, x;
 
@@ -733,9 +733,10 @@ bool build_tunnel(floor_type *floor_ptr, COODINATES row1, COODINATES col1, COODI
  * the boundaries of rooms. - This is used by the catacomb
  * routine.
  */
-static bool set_tunnel(floor_type *floor_ptr, int *x, int *y, bool affectwall)
+static bool set_tunnel(floor_type *floor_ptr, COODINATES *x, COODINATES *y, bool affectwall)
 {
-	int i, j, dx, dy;
+	int i, j;
+	COODINATES dx, dy;
 
 	cave_type *c_ptr = &floor_ptr->cave[*y][*x];
 
@@ -811,8 +812,8 @@ static bool set_tunnel(floor_type *floor_ptr, int *x, int *y, bool affectwall)
 		dx = 0;
 		while ((i > 0) && is_solid_bold(floor_ptr, *y + dy, *x + dx))
 		{
-			dy = randint0(3) - 1;
-			dx = randint0(3) - 1;
+			dy = (COODINATES)randint0(3) - 1;
+			dx = (COODINATES)randint0(3) - 1;
 
 			if(!IN_BOUNDS(floor_ptr, *y + dy, *x + dx))
 			{
@@ -847,9 +848,9 @@ static bool set_tunnel(floor_type *floor_ptr, int *x, int *y, bool affectwall)
  * Note that this routine is only called on "even" squares - so it gives
  * a natural checkerboard pattern.
  */
-static void create_cata_tunnel(floor_type *floor_ptr, int x, int y)
+static void create_cata_tunnel(floor_type *floor_ptr, COODINATES x, COODINATES y)
 {
-	int x1, y1;
+	COODINATES x1, y1;
 
 	/* Build tunnel */
 	x1 = x - 1;
@@ -889,15 +890,14 @@ static void create_cata_tunnel(floor_type *floor_ptr, int x, int y)
  * This, when used with longer line segments gives the "catacomb-like" tunnels seen near
  * the surface.
  */
-static void short_seg_hack(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int type, int count, bool *fail)
+static void short_seg_hack(floor_type *floor_ptr, COODINATES x1, COODINATES y1, COODINATES x2, COODINATES y2, int type, int count, bool *fail)
 {
-	int i, x, y;
-	int length;
+	COODINATES i, x, y, length;
 
 	/* Check for early exit */
 	if(!(*fail)) return;
 
-	length = distance(x1, y1, x2, y2);
+	length = (COODINATES)distance(x1, y1, x2, y2);
 
 	count++;
 
@@ -1015,8 +1015,7 @@ static void short_seg_hack(floor_type *floor_ptr, int x1, int y1, int x2, int y2
  */
 bool build_tunnel2(floor_type *floor_ptr, COODINATES x1, COODINATES y1, COODINATES x2, COODINATES y2, int type, int cutoff)
 {
-	COODINATES x3, y3, dx, dy, length;
-	int changex, changey;
+	COODINATES x3, y3, dx, dy, length, changex, changey;
 	int i;
 	bool retval, firstsuccede;
 	cave_type *c_ptr;
@@ -1032,10 +1031,10 @@ bool build_tunnel2(floor_type *floor_ptr, COODINATES x1, COODINATES y1, COODINAT
 		dy = (y2 - y1) / 2;
 
 		/* perturbation perpendicular to path */
-		changex = (randint0(abs(dy) + 2) * 2 - abs(dy) - 1) / 2;
+		changex = (COODINATES)(randint0(abs(dy) + 2) * 2 - abs(dy) - 1) / 2;
 
 		/* perturbation perpendicular to path */
-		changey = (randint0(abs(dx) + 2) * 2 - abs(dx) - 1) / 2;
+		changey = (COODINATES)(randint0(abs(dx) + 2) * 2 - abs(dx) - 1) / 2;
 
 		/* Work out "mid" ponit */
 		x3 = x1 + dx + changex;
@@ -1059,8 +1058,8 @@ bool build_tunnel2(floor_type *floor_ptr, COODINATES x1, COODINATES y1, COODINAT
 			dx = 0;
 			while ((i > 0) && is_solid_bold(floor_ptr, y3 + dy, x3 + dx))
 			{
-				dy = randint0(3) - 1;
-				dx = randint0(3) - 1;
+				dy = (COODINATES)randint0(3) - 1;
+				dx = (COODINATES)randint0(3) - 1;
 				if(!IN_BOUNDS(floor_ptr, y3 + dy, x3 + dx))
 				{
 					dx = 0;
