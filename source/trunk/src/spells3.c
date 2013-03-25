@@ -140,7 +140,7 @@ bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode)
 }
 
 // Teleport creature next to a grid near the given location
-void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, COODINATES tx, int power, FLAGS_32 mode)
+void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, COODINATES tx, POWER power, FLAGS_32 mode)
 {
 	COODINATES ny, nx, oy, ox;
 	int d, i, min;
@@ -2293,7 +2293,7 @@ bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_
  *
  *  Beware of "sliding index errors".
  */
-bool recharge(creature_type *creature_ptr, int power)
+bool recharge(creature_type *creature_ptr, POWER power)
 {
 	int item, lev;
 	int recharge_strength, recharge_amount;
@@ -4003,7 +4003,7 @@ bool mirror_tunnel(creature_type *creature_ptr)
 }
 
 
-bool eat_magic(creature_type *creature_ptr, int power)
+bool eat_magic(creature_type *creature_ptr, POWER power)
 {
 	object_type * object_ptr;
 	object_kind *object_kind_ptr;

@@ -1000,7 +1000,7 @@ void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 
 void do_poly_self(creature_type *creature_ptr)
 {
-	int power = creature_ptr->lev;
+	POWER power = creature_ptr->lev;
 	char effect_msg[80] = "";
 	int new_race;
 

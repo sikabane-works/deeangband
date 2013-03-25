@@ -2117,7 +2117,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr)
 	sanity_blast_aux(watcher_ptr, difficulty);
 }
 
-void sanity_blast_aux(creature_type *watcher_ptr, int power)
+void sanity_blast_aux(creature_type *watcher_ptr, POWER power)
 {
 	bool happened = FALSE;
 	/* Mind blast */

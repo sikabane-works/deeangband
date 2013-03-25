@@ -14,7 +14,7 @@
 
 #define pseudo_plev(C) ((((C)->lev + 40) * ((C)->lev + 40) - 1550) / 130)
 
-static void learnedungeon_info(creature_type *creature_ptr, char *p, int power)
+static void learnedungeon_info(creature_type *creature_ptr, char *p, POWER power)
 {
 	int plev = pseudo_plev(creature_ptr);
 	int hp = creature_ptr->chp;

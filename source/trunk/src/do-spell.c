@@ -106,7 +106,7 @@ static cptr info_multi_damage_dice(int dice, int sides)
 /*
  * Generate power info string such as "power 100"
  */
-static cptr info_power(int power)
+static cptr info_power(POWER power)
 {
 	return format("%s %d", KW_POW, power);
 }
@@ -1124,7 +1124,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev * 2;
+			POWER power = plev * 2;
 
 			if(info) return info_power(power);
 
@@ -1267,7 +1267,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev + 50;
+			POWER power = plev + 50;
 
 			if(info) return info_power(power);
 
@@ -1509,7 +1509,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev;
+			POWER power = plev;
 
 			if(info) return info_power(power);
 			if(cast) cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1);
@@ -1526,7 +1526,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev * 4;
+			POWER power = plev * 4;
 
 			if(info) return info_power(power);
 
@@ -1597,7 +1597,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev;
+			POWER power = plev;
 
 			if(info) return info_power(power);
 			if(cast) project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, power);
@@ -1614,7 +1614,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev;
+			POWER power = plev;
 			if(info) return info_power(power);
 			if(cast) cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, power, 0);
 		}
@@ -1939,7 +1939,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev * 2;
+			POWER power = plev * 2;
 
 			if(info) return info_power(power);
 
@@ -1977,7 +1977,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev * 4;
+			POWER power = plev * 4;
 			if(info) return info_power(power);
 			if(cast) project_all_vision(caster_ptr, DO_EFFECT_AWAY_ALL, power);
 		}
@@ -2161,7 +2161,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev;
+			POWER power = plev;
 			if(info) return info_power(power);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, power, 0);
 		}
@@ -2316,7 +2316,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev;
+			POWER power = plev;
 
 			if(info) return info_power(power);
 
@@ -2453,7 +2453,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev * 2;
+			POWER power = plev * 2;
 			if(info) return info_power(power);
 			if(cast) project_all_vision(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, power);
 		}
@@ -2995,7 +2995,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev;
+			POWER power = plev;
 			if(info) return info_power(power);
 			if(cast) cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, power, 0);
 		}
@@ -3084,7 +3084,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = 90;
+			POWER power = 90;
 
 			if(info) return info_power(power);
 
@@ -3482,7 +3482,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev;
+			POWER power = plev;
 
 			if(info) return info_power(power);
 			if(cast) cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1);
@@ -3520,7 +3520,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev;
+			POWER power = plev;
 			if(info) return info_power(power);
 			if(cast)
 			{
@@ -3617,7 +3617,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev + 50;
+			POWER power = plev + 50;
 			if(info) return info_power(power);
 			if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0);
 		}
@@ -3693,7 +3693,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev+50;
+			POWER power = plev+50;
 
 			if(info) return info_power(power);
 
@@ -4006,7 +4006,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev + 50;
+			POWER power = plev + 50;
 
 			if(info) return info_power(power);
 
@@ -4228,7 +4228,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev;
+			POWER power = plev;
 			if(info) return info_power(power);
 			if(cast) cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, power, 0);
 		}
@@ -4472,7 +4472,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev * 4;
+			POWER power = plev * 4;
 
 			if(info) return info_power(power);
 			if(cast) project_all_vision(caster_ptr, DO_EFFECT_AWAY_ALL, power);
@@ -5501,7 +5501,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev;
+			POWER power = plev;
 
 			if(info) return info_power(power);
 			if(cast) cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, power, 0);
@@ -6400,7 +6400,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev;
+			POWER power = plev;
 
 			if(info) return info_power(power);
 
@@ -7057,7 +7057,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = plev;
+			POWER power = plev;
 			if(info) return info_power(power);
 			if(cast) cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, -1);
 		}
@@ -7072,7 +7072,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Attempts to sleep creatures in the adjacent squares.";
 #endif
    		{
-			int power = plev;
+			POWER power = plev;
 			if(info) return info_power(power);
 			if(cast) project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		}
@@ -7151,7 +7151,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = MAX_SIGHT * 5;
+			POWER power = MAX_SIGHT * 5;
 			if(info) return info_power(power);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_AWAY_EVIL, MAX_RANGE_SUB, power, 0);
 		}
@@ -7190,7 +7190,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int sides = plev;
-			int power = plev;
+			POWER power = plev;
 
 			if(info) return info_damage(1, sides, 0);
 
@@ -7515,7 +7515,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int power = 100;
+			POWER power = 100;
 
 			if(info) return info_power(power);
 			if(cast) project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, power);
@@ -7598,7 +7598,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 			int b_dam = plev * 11;
 			int d_dam = plev * 4;
 			int heal = 100;
-			int power = plev * 4;
+			POWER power = plev * 4;
 
 #ifdef JP
 			if(info) return format("‰ñ%d/‘¹%d+%d", heal, d_dam, b_dam/2);
@@ -7706,7 +7706,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			int power = plev;
+			POWER power = plev;
 
 			if(info) return info_power(power);
 
@@ -7889,7 +7889,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			int power = plev;
+			POWER power = plev;
 
 			if(info) return info_power(power);
 
@@ -8106,7 +8106,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			int power = plev * 2;
+			POWER power = plev * 2;
 
 			if(info) return info_power(power);
 
@@ -8309,7 +8309,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			COODINATES rad = (COODINATES)plev / 15 + 1;
-			int power = plev * 3 + 1;
+			POWER power = plev * 3 + 1;
 
 			if(info) return info_radius(rad);
 
@@ -8388,7 +8388,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			int power = plev;
+			POWER power = plev;
 
 			if(info) return info_power(power);
 
@@ -8512,7 +8512,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			int power = plev * 4;
+			POWER power = plev * 4;
 
 			if(info) return info_power(power);
 
@@ -9873,7 +9873,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 	bool add = TRUE;
 
 	int plev = caster_ptr->lev;
-	int power;
+	POWER power;
 
 	switch (spell)
 	{
@@ -10011,7 +10011,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			}
 			else
 			{
-				int power = 0;
+				POWER power = 0;
 				msg_format(MES_BLACK_AURA_TO_OBJECT, object_name);
 				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
@@ -10431,7 +10431,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			}
 			else
 			{
-				int power = 0;
+				POWER power = 0;
 				msg_format(MES_BLACK_AURA_TO_OBJECT, object_name);
 				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 

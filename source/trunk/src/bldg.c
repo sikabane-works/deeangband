@@ -1338,7 +1338,7 @@ void battle_creatures(void)
 	int total, i;
 	int max_dl = 0;
 	int ave_enemy_level;
-	int power[GAMBLE_ARENA_GLADIATOR_MAX];
+	POWER power[GAMBLE_ARENA_GLADIATOR_MAX];
 	bool tekitou;
 	bool old_gamble_arena_mode = floor_ptr->gamble_arena_mode;
 
@@ -1814,7 +1814,7 @@ static bool kankin(creature_type *creature_ptr)
 void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 {
 	species_type *eldritch_ptr = &species_info[eldritch_idx];
-	int power = eldritch_ptr->level + 10;
+	POWER power = eldritch_ptr->level + 10;
 	char m_name[MAX_NLEN];
 	cptr desc = species_name + eldritch_ptr->name;
 

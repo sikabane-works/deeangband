@@ -328,7 +328,7 @@ typedef struct mbe_info_type mbe_info_type;
 
 struct mbe_info_type
 {
-	int power;        /* The attack "power" */
+	POWER power;        /* The attack "power" */
 	int explode_type; /* Explosion effect */
 };
 

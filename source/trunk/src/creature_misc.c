@@ -1218,7 +1218,7 @@ int calc_action_power(creature_type *creature_ptr)
 
 bool saving_throw(creature_type *creature_ptr, int type, int difficulty, u32b option)
 {
-	int power, challange, dice_total, dice;
+	POWER power, challange, dice_total, dice;
 	switch(type)
 	{
 	case SAVING_AC: power = creature_ptr->ac + creature_ptr->to_ac; break;
@@ -1265,7 +1265,7 @@ bool cancel_tactical_action(creature_type *creature_ptr)
 	return TRUE;
 }
 
-bool gain_skill(creature_type *creature_ptr, int type, int power)
+bool gain_skill(creature_type *creature_ptr, int type, POWER power)
 {
 	creature_ptr->spell_exp[type] += (power / creature_ptr->spell_exp[type]);
 	return TRUE;

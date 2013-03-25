@@ -1536,7 +1536,7 @@ void do_cmd_pet(creature_type *master_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(master_ptr);
 	int	i = 0;
 	int	num, ask;
-	int powers[36];
+	POWER powers[36];
 	cptr power_desc[36];
 	bool flag, redraw;
 	char choice;

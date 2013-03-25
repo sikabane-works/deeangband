@@ -1232,7 +1232,7 @@ static int creature_critical(int dice, int sides, POWER dam)
 * Always miss 5% of the time, Always hit 5% of the time.
 * Otherwise, match creature power against player armor.
 */
-static int check_hit(creature_type *target_ptr, int power, int level, int stun)
+static int check_hit(creature_type *target_ptr, POWER power, int level, int stun)
 {
 	int i, k, ac;
 
@@ -1284,7 +1284,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	int get_damage = 0;
 
 	bool obvious = FALSE;
-	int power = 0;
+	POWER power = 0;
 	POWER damage = 0;
 
 	cptr act = NULL;

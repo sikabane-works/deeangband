@@ -997,10 +997,10 @@ extern bool close_combat(creature_type *attacker_ptr, int y, int x, int mode);
 // melee2.c
 extern void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, int rad, int trait_id);
 extern void breath_aux(int y, int x, creature_type *caster_ptr, int typ, POWER dam_hp, int rad, int trait_id);
-extern void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, int power, int rad, int trait_id);
+extern void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, int rad, int trait_id);
 extern bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt);
 extern void process_creatures(void);
-extern u32b get_curse(int power, object_type *object_ptr);
+extern u32b get_curse(POWER power, object_type *object_ptr);
 extern void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance);
 
 // creature1.c
@@ -1052,7 +1052,7 @@ extern void creature_desc_ego_post(char *desc, creature_type *creature_ptr, spec
 extern int lore_do_probe(int species_idx);
 extern void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold);
 extern void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr);
-extern void sanity_blast_aux(creature_type *watcher_ptr, int power);
+extern void sanity_blast_aux(creature_type *watcher_ptr, POWER power);
 extern void update_creature_view(creature_type *creature_ptr, int m_idx, bool full);
 extern void update_creatures(bool full);
 extern bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, FLAGS_32 mode);
@@ -1090,8 +1090,8 @@ extern bool can_get_item(creature_type *creature_ptr);
 extern int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s);
 
 // object2.c
-extern void weapon_boost(object_type *object_ptr, int level, int power);
-extern void armour_boost(object_type *object_ptr, int level, int power);
+extern void weapon_boost(object_type *object_ptr, int level, POWER power);
+extern void armour_boost(object_type *object_ptr, int level, POWER power);
 extern void create_ego(object_type *object_ptr, int level, int ego_id);
 extern void excise_object_idx(int object_idx);
 extern void delete_object_idx(int object_idx);
@@ -1118,7 +1118,7 @@ extern void object_copy(object_type *object1_ptr, object_type *object2_ptr);
 extern void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32b mode, int specified_idx);
 extern void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr, int lev, int ego);
 
-extern void weapon_boost(object_type *object_ptr, int level, int power);
+extern void weapon_boost(object_type *object_ptr, int level, POWER power);
 extern bool make_random_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx));
 extern void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode, bool (*get_obj_num_hook)(int k_idx));
 extern bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value, int type);
@@ -1196,10 +1196,10 @@ extern bool detect_creatures_mind(creature_type *creature_ptr, COODINATES range)
 extern bool detect_all(creature_type *creature_ptr, COODINATES range);
 extern bool wall_stone(creature_type *caster_ptr);
 extern void aggravate_creatures(creature_type *target_ptr);
-extern bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cast, POWER dam_side, cptr spell_name);
-extern bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast);
-extern bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast);
-extern bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast);
+extern bool genocide_aux(creature_type *user_ptr, int m_idx, POWER power, bool player_cast, POWER dam_side, cptr spell_name);
+extern bool symbol_genocide(creature_type *caster_ptr, POWER power, bool player_cast);
+extern bool mass_genocide(creature_type *caster_ptr, POWER power, bool player_cast);
+extern bool mass_genocide_undead(creature_type *caster_ptr, POWER power, bool player_cast);
 extern bool probing(floor_type *floor_ptr);
 extern bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODINATES r, bool in_generate);
 extern bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r, CREATURE_ID m_idx);
@@ -1225,7 +1225,7 @@ extern s32b flag_cost(object_type *object_ptr, int plusses);
 extern bool teleport_swap(creature_type *creature_ptr, int dir);
 extern bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_ptr);
 extern bool project_all_vision(creature_type *caster_ptr, int typ, POWER dam);
-extern bool eat_magic(creature_type *creature_ptr, int power);
+extern bool eat_magic(creature_type *creature_ptr, POWER power);
 extern void discharge_minion(creature_type *caster_ptr);
 extern bool kawarimi(creature_type *user_ptr, bool success);
 extern bool rush_attack(creature_type *creature_ptr, bool *mdeath);
@@ -1233,7 +1233,7 @@ extern void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, b
 
 // spells3.c
 extern bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
-extern void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, COODINATES tx, int power, FLAGS_32 mode);
+extern void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, COODINATES tx, POWER power, FLAGS_32 mode);
 extern bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode);
 extern bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, u32b mode);
 extern void teleport_creature(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
@@ -1515,7 +1515,7 @@ extern void show_highclass(creature_type *creature_ptr);
 
 // mind.c
 extern mind_power mind_powers[5];
-extern void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, int power);
+extern void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, POWER power);
 extern void do_cmd_mind(creature_type *creature_ptr);
 extern void do_cmd_mind_browse(creature_type *creature_ptr);
 
@@ -1527,7 +1527,7 @@ extern bool do_cmd_cast_learned(creature_type *creature_ptr);
 extern void learn_trait(creature_type *creature_ptr, int trait_index);
 
 /* hissatsu.c */
-extern void hissatsu_info(char *p, int power);
+extern void hissatsu_info(char *p, POWER power);
 extern void do_cmd_hissatsu(creature_type *creature_ptr);
 extern void do_cmd_gain_hissatsu(creature_type *creature_ptr);
 

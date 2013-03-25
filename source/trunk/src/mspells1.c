@@ -188,7 +188,7 @@ bool clean_shot(creature_type *target_ptr, COODINATES y1, COODINATES x1, COODINA
 
 
 
-u32b get_curse(int power, object_type *object_ptr)
+u32b get_curse(POWER power, object_type *object_ptr)
 {
 	u32b new_curse;
 

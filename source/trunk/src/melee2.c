@@ -1147,7 +1147,7 @@ static bool get_moves(CREATURE_ID m_idx, creature_type *player_ptr, int *mm)
 }
 
 
-static int check_hit2(int power, int level, int ac, int stun)
+static int check_hit2(POWER power, int level, int ac, int stun)
 {
 	int i, k;
 

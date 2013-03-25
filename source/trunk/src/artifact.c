@@ -1410,7 +1410,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 }
 
 
-static void get_random_name(char *return_name, bool armour, int power, int artifact_bias)
+static void get_random_name(char *return_name, bool armour, POWER power, int artifact_bias)
 {
 	int prob = randint1(100);
 

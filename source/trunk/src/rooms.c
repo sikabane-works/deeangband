@@ -4676,7 +4676,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, COODINATES x0, COODINATES 
  * The power variable is a measure of how well defended a region is.
  * This alters the possible choices.
  */
-static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int power)
+static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, int y2, POWER power)
 {
 	int xsize, ysize;
 	int x, y;

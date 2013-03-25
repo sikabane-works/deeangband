@@ -1040,7 +1040,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, COODINATES y, COODINA
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr;
 	feature_type *f_ptr, *mimic_f_ptr;
-	int power;
+	POWER power;
 	cptr name;
 	bool more = FALSE;
 
@@ -1335,7 +1335,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 	cptr name = (feature_name + f_ptr->name);
 
 	/* Extract trap "power" */
-	int power = f_ptr->power;
+	POWER power = f_ptr->power;
 	bool more = FALSE;
 
 	/* Get the "disarm" factor */

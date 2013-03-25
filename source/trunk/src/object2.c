@@ -1937,7 +1937,7 @@ static void add_esp_weak(object_type *object_ptr, bool extra)
 // Apply magic to an item known to be a "ring" or "amulet"
 // Hack -- note special "pval boost" code for ring of speed
 // Hack -- note that some items must be cursed (or blessed)
-static void generate_process_ring_amulet(creature_type *creature_ptr, object_type *object_ptr, int level, int power)
+static void generate_process_ring_amulet(creature_type *creature_ptr, object_type *object_ptr, int level, POWER power)
 {
 	if(has_trait_object(object_ptr, TRAIT_LOW_ESP)) one_low_esp(object_ptr);
 	if(has_trait_object(object_ptr, TRAIT_XTRA_H_RES)) one_high_resistance(object_ptr);
@@ -2228,7 +2228,7 @@ static bool item_creature_okay(int species_idx)
 *
 * Hack -- note the special code for various items
 */
-static void generate_other_magic_item(creature_type *creature_ptr, object_type *object_ptr, int level, int power)
+static void generate_other_magic_item(creature_type *creature_ptr, object_type *object_ptr, int level, POWER power)
 {
 	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -5684,7 +5684,7 @@ void do_cmd_smith(creature_type *creature_ptr, bool only_browse)
 }
 
 // Weapon boost by power
-void weapon_boost(object_type *object_ptr, int level, int power)
+void weapon_boost(object_type *object_ptr, int level, POWER power)
 {
 	int tohit1 = randint1(5) + m_bonus(5, level);
 	int todam1 = randint1(5) + m_bonus(5, level);
@@ -5721,7 +5721,7 @@ void weapon_boost(object_type *object_ptr, int level, int power)
 }
 
 
-void armour_boost(object_type *object_ptr, int level, int power)
+void armour_boost(object_type *object_ptr, int level, POWER power)
 {
 	int toac1 = randint1(5) + m_bonus(5, level);
 	int toac2 = m_bonus(10, level);

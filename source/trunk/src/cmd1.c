@@ -562,7 +562,7 @@ void carry(creature_type *creature_ptr, bool pickup)
  * Always miss 5% of the time, Always hit 5% of the time.
  * Otherwise, match trap power against player armor.
  */
-static int check_hit(creature_type *creature_ptr, int power)
+static int check_hit(creature_type *creature_ptr, POWER power)
 {
 	int k, ac;
 
