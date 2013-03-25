@@ -1091,7 +1091,7 @@ static void build_arena(floor_type *floor_ptr, int height, int width)
  */
 static void generate_floor_arena(floor_type *floor_ptr, int height, int width)
 {
-	int y, x;
+	COODINATES y, x;
 	int qy = 0;
 	int qx = 0;
 
@@ -1188,7 +1188,8 @@ static void build_battle(floor_type *floor_ptr, creature_type *player_ptr)
  */
 static void generate_floor_creature_arena(floor_type *floor_ptr)
 {
-	int y, x, i;
+	COODINATES y, x;
+	int i;
 	int qy = 0;
 	int qx = 0;
 

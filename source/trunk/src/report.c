@@ -274,7 +274,8 @@ static errr make_dump(BUF* dumpbuf)
 cptr make_screen_dump(void)
 {
 	BUF *screen_buf;
-	int y, x, i;
+	COODINATES y, x;
+	int i;
 	cptr ret;
 
 	byte a = 0, old_a = 0;

@@ -979,7 +979,7 @@ void redraw_window(void)
 bool change_panel(int dy, int dx)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	int y, x;
+	COODINATES y, x;
 	int wid, hgt;
 	get_screen_size(&wid, &hgt);
 
@@ -1518,7 +1518,7 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 static void target_set_prepare(creature_type *creature_ptr, int mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int y, x;
+	COODINATES y, x;
 
 	// Reset "temp" array
 	temp_n = 0;
@@ -3245,7 +3245,7 @@ static bool tgt_pt_accept(creature_type *creature_ptr, int y, int x)
 static void tgt_pt_prepare(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int y, x;
+	COODINATES y, x;
 
 	// Reset "temp" array
 	temp_n = 0;

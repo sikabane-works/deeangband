@@ -2966,7 +2966,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 			/* Day breaks */
 			if(dawn)
 			{
-				int y, x;
+				COODINATES y, x;
 
 #ifdef JP
 				msg_print("–é‚ª–¾‚¯‚½B");
@@ -3000,7 +3000,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 			/* Night falls */
 			else
 			{
-				int y, x;
+				COODINATES y, x;
 
 #ifdef JP
 				msg_print("“ú‚ª’¾‚ñ‚¾B");
@@ -4040,7 +4040,7 @@ void do_creature_fishing(creature_type *creature_ptr)
 			msg_print(NULL);
 			if(species_idx && one_in_(2))
 			{
-				int y, x;
+				COODINATES y, x;
 				y = creature_ptr->fy+ddy[creature_ptr->tsuri_dir];
 				x = creature_ptr->fx+ddx[creature_ptr->tsuri_dir];
 				if(place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, PC_NO_KAGE))

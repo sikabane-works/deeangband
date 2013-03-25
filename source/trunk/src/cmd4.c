@@ -4632,7 +4632,8 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 
 void do_cmd_save_screen_html_aux(char *filename, int message)
 {
-	int y, x, i;
+	COODINATES y, x;
+	int i;
 
 	byte a = 0, old_a = 0;
 	char c = ' ';
@@ -4856,7 +4857,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 	}
 	else /* Dump the screen as text */
 	{
-		int y, x;
+		COODINATES y, x;
 
 		byte a = 0;
 		char c = ' ';

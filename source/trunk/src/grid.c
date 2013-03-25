@@ -276,7 +276,7 @@ void place_floor(floor_type *floor_ptr, int x1, int x2, int y1, int y2, bool lig
  */
 void place_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2, bool light)
 {
-	int y, x;
+	COODINATES y, x;
 
 	place_floor(floor_ptr, x1, x2, y1, y2, light);
 

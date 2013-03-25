@@ -4128,7 +4128,7 @@ void update_smell(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i, j;
-	int y, x;
+	COODINATES y, x;
 
 	/* Create a table that controls the spread of scent */
 	const int scent_adjust[5][5] = 
@@ -4776,8 +4776,7 @@ void mmove2(COODINATES *y, COODINATES *x, COODINATES y1, COODINATES x1, COODINAT
  */
 bool projectable(floor_type *floor_ptr, COODINATES range, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2)
 {
-	int y, x;
-
+	COODINATES y, x;
 	int grid_n = 0;
 	u16b grid_g[512];
 
@@ -4951,7 +4950,8 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
  */
 void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 {
-	int y, x, i, yy, xx;
+	COODINATES y, x, yy, xx;
+	int i;
 	cave_type *cave_ptr;
 
 	// Not in the darkness dungeon

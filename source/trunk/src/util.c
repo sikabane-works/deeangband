@@ -3125,7 +3125,7 @@ void clear_from(int row)
  */
 bool askfor_aux(char *buf, int len, bool numpad_cursor)
 {
-	int y, x;
+	COODINATES y, x;
 	int pos = 0;
 
 	/*

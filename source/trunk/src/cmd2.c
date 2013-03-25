@@ -939,7 +939,8 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, COODINATES y, COODINAT
 // Close an open door.
 void do_cmd_close(creature_type *creature_ptr)
 {
-	int y, x, dir;
+	COODINATES y, x;
+	DIRECTION dir;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	bool more = FALSE;
 

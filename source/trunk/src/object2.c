@@ -114,7 +114,7 @@ void delete_object_idx(int object_idx)
 	// Dungeon floor
 	if(!(object2_ptr->held_m_idx))
 	{
-		int y, x;
+		COODINATES y, x;
 		y = object2_ptr->fy;
 		x = object2_ptr->fx;
 		lite_spot(floor_ptr, y, x);	// Visual update
@@ -158,7 +158,7 @@ void delete_object(floor_type *floor_ptr, int y, int x)
 static void compact_objects_aux(int i1, int i2)
 {
 	int i;
-	int y, x;
+	COODINATES y, x;
 	cave_type *c_ptr;
 	object_type *object_ptr;
 	floor_type *floor_ptr;

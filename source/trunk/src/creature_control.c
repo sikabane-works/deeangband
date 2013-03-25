@@ -4080,7 +4080,7 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 {
 	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
 
-	int y, x;
+	COODINATES y, x;
 
 	if(!creature_scatter(creature_ptr->species_idx, &y, &x, floor_ptr, creature_ptr->fy, creature_ptr->fx, 1))
 		return FALSE;

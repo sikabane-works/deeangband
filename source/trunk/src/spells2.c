@@ -2075,7 +2075,7 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 static int next_to_open(floor_type *floor_ptr, int cy, int cx, bool (*pass_bold)(floor_type *, int, int))
 {
 	int i;
-	int y, x;
+	COODINATES y, x;
 	int len = 0;
 	int blen = 0;
 
@@ -2098,7 +2098,7 @@ static int next_to_open(floor_type *floor_ptr, int cy, int cx, bool (*pass_bold)
 static int next_to_walls_adj(floor_type *floor_ptr, int cy, int cx, bool (*pass_bold)(floor_type *, int, int))
 {
 	int i;
-	int y, x;
+	COODINATES y, x;
 	int c = 0;
 
 	for (i = 0; i < 8; i++)
@@ -2788,7 +2788,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 {
 	object_type forge;
 	object_type *quest_ptr = &forge;
-	int y, x;
+	COODINATES y, x;
 	char user_name[80];
 	floor_type *floor_ptr = GET_FLOOR_PTR(user_ptr);
 

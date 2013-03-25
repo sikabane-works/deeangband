@@ -1095,7 +1095,7 @@ static int staff_effect(creature_type *caster_ptr, int sval, bool *use_charge, b
 		case SV_STAFF_STARLITE:
 		{
 			int num = diceroll(5, 3);
-			int y, x;
+			COODINATES y, x;
 			int attempts;
 
 			for (k = 0; k < num; k++)

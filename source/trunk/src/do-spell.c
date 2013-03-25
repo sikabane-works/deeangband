@@ -8760,7 +8760,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(cast)
 		{
 			int cdir;
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -8831,7 +8831,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -8875,7 +8875,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -8978,7 +8978,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -9007,7 +9007,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -9129,7 +9129,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -9161,7 +9161,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -9190,7 +9190,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -9219,7 +9219,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -9248,7 +9248,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -9278,7 +9278,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -9550,7 +9550,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
@@ -9713,7 +9713,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(cast)
 		{
 			int total_damage = 0, basedam, i;
-			int y, x;
+			COODINATES y, x;
 			u32b flgs[MAX_TRAITS_FLAG];
 			object_type *object_ptr;
 	
@@ -9769,7 +9769,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			int y, x;
+			COODINATES y, x;
 
 			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 			if(dir == 5) return NULL;
