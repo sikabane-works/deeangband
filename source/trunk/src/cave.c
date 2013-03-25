@@ -1696,7 +1696,7 @@ void prt_map(creature_type *watcher_ptr)
 
 
 // print project path
-void prt_path(creature_type *creature_ptr, int range, int y, int x)
+void prt_path(creature_type *creature_ptr, COODINATES range, int y, int x)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
@@ -4192,7 +4192,7 @@ void update_smell(creature_type *creature_ptr)
 /*
  * Hack -- map the current panel (plus some) ala "magic mapping"
  */
-void map_area(creature_type *creature_ptr, int range)
+void map_area(creature_type *creature_ptr, COODINATES range)
 {
 	int             i, x, y;
 	cave_type       *cave_ptr;

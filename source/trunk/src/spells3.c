@@ -1400,7 +1400,7 @@ void call_the_void(creature_type *creature_ptr)
 }
 
 // Fetch an item (teleport it right underneath the caster)
-void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool require_los)
+void fetch(creature_type *creature_ptr, COODINATES range, int dir, int wgt, bool require_los)
 {
 	COODINATES ty, tx;
 	int i;

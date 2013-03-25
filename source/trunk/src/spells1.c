@@ -260,7 +260,7 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
 * This algorithm is similar to, but slightly different from, the one used
 * by "update_view_los()", and very different from the one used by "los()".
 */
-int project_path(COODINATES *gp, int range, floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int flg)
+int project_path(COODINATES *gp, COODINATES range, floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int flg)
 {
 	COODINATES y, x;
 

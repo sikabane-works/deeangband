@@ -2140,7 +2140,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 * This command will cancel any old target, even if used from
 * inside the "look" command.
 */
-bool target_set(creature_type *aimer_ptr, int range, int mode)
+bool target_set(creature_type *aimer_ptr, COODINATES range, int mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
 

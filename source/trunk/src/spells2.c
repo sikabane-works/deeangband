@@ -13,23 +13,23 @@
 #include "angband.h"
 #include "grid.h"
 
-bool cast_bolt(creature_type *caster_ptr, int typ, int range, POWER dam, int trait_id)
+bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int trait_id)
 {
 	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, trait_id);
 }
 
-bool cast_beam(creature_type *caster_ptr, int typ, int range, POWER dam, int trait_id)
+bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int trait_id)
 {
 	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, trait_id);
 }
 
-bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, int range, POWER dam, int prob)
+bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int prob)
 {
 	if(PERCENT(prob)) return (cast_beam(caster_ptr, range, typ, dam, 0));
 	else return cast_bolt(caster_ptr, typ, range, dam, 0);
 }
 
-void breath(creature_type *caster_ptr, int typ, int range, int power, int rad, int trait_id)
+void breath(creature_type *caster_ptr, int typ, COODINATES range, int power, int rad, int trait_id)
 {
 	(void)project(caster_ptr, range, rad, target_col, target_row, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH, trait_id);
 }
@@ -50,13 +50,13 @@ bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, 
 	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
-bool cast_grenade(creature_type *caster_ptr, int typ, int range, POWER dam, int rad)
+bool cast_grenade(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int rad)
 {
 	COODINATES tx = 0, ty = 0;
 	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
-bool cast_ball_hide(creature_type *caster_ptr, int typ, int range, POWER dam, int rad)
+bool cast_ball_hide(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int rad)
 {
 	COODINATES tx, ty;
 	tx = target_col;
@@ -336,7 +336,7 @@ static cptr report_magic_durations[] =
 #endif
 };
 
-static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, bool known)
+static bool detect_feat_flag(creature_type *creature_ptr, COODINATES range, int flag, bool known)
 {
 	COODINATES  x, y;
 	bool detect = FALSE;
@@ -394,7 +394,7 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 /*
 * Detect all traps on current panel
 */
-bool detect_traps(creature_type *creature_ptr, int range, bool known)
+bool detect_traps(creature_type *creature_ptr, COODINATES range, bool known)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_TRAP, known);
 
@@ -410,7 +410,7 @@ bool detect_traps(creature_type *creature_ptr, int range, bool known)
 /*
 * Detect all doors on current panel
 */
-bool detect_doors(creature_type *creature_ptr, int range)
+bool detect_doors(creature_type *creature_ptr, COODINATES range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_DOOR, TRUE);
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 0) detect = FALSE;
@@ -422,7 +422,7 @@ bool detect_doors(creature_type *creature_ptr, int range)
 /*
 * Detect all stairs on current panel
 */
-bool detect_stairs(creature_type *creature_ptr, int range)
+bool detect_stairs(creature_type *creature_ptr, COODINATES range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_STAIRS, TRUE);
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 0) detect = FALSE;
@@ -434,7 +434,7 @@ bool detect_stairs(creature_type *creature_ptr, int range)
 /*
 * Detect any treasure on the current panel
 */
-bool detect_treasure(creature_type *creature_ptr, int range)
+bool detect_treasure(creature_type *creature_ptr, COODINATES range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_HAS_GOLD, TRUE);
 	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->singing_turn > 6) detect = FALSE;
@@ -554,7 +554,7 @@ bool detect_objects_normal(creature_type *creature_ptr, COODINATES range)
 *
 * It can probably be argued that this function is now too powerful.
 */
-bool detect_objects_magic(creature_type *creature_ptr, int range)
+bool detect_objects_magic(creature_type *creature_ptr, COODINATES range)
 {
 	int i;
 	COODINATES y, x;
@@ -897,7 +897,7 @@ bool detect_creatures_mind(creature_type *creature_ptr, COODINATES range)
 /*
 * Detect all (string) creatures on current panel
 */
-bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
+bool detect_creatures_string(creature_type *creature_ptr, COODINATES range, cptr Match)
 {
 	int i, y, x;
 	bool flag = FALSE;
@@ -951,7 +951,7 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 /*
 * A "generic" detect creatures routine, tagged to flags3
 */
-bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_flag)
+bool detect_creatures_xxx(creature_type *creature_ptr, COODINATES range, u32b match_flag)
 {
 	int  i;
 	COODINATES y, x;
@@ -1032,7 +1032,7 @@ bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_fla
 /*
 * Detect everything
 */
-bool detect_all(creature_type *creature_ptr, int range)
+bool detect_all(creature_type *creature_ptr, COODINATES range)
 {
 	bool detect = FALSE;
 

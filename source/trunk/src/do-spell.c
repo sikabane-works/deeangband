@@ -49,7 +49,7 @@ static cptr info_duration(int base, int sides)
 /*
  * Generate range info string such as "range 5"
  */
-static cptr info_range(int range)
+static cptr info_range(COODINATES range)
 {
 #ifdef JP
 	return format("”ÍˆÍ:%d", range);
@@ -1409,7 +1409,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int range = 10;
+			COODINATES range = 10;
 
 			if(info) return info_range(range);
 
@@ -1488,7 +1488,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int range = plev * 5;
+			COODINATES range = plev * 5;
 
 			if(info) return info_range(range);
 
@@ -1821,7 +1821,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int range = plev / 2 + 10;
+			COODINATES range = plev / 2 + 10;
 
 			if(info) return info_range(range);
 
@@ -2059,7 +2059,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 3 + (plev - 1) / 5;
 			int sides = 4;
-			int range = plev / 6 + 2;
+			COODINATES range = plev / 6 + 2;
 
 			if(info) return format("%s%dd%d %s%d", s_dam, dice, sides, s_rng, range);
 			if(cast) cast_beam(caster_ptr, DO_EFFECT_ELEC, range, diceroll(dice, sides), 0);
@@ -2871,7 +2871,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int range = plev * 5;
+			COODINATES range = plev * 5;
 
 			if(info) return info_range(range);
 
@@ -4095,7 +4095,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int range = 10;
+			COODINATES range = 10;
 
 			if(info) return info_range(range);
 
@@ -4185,7 +4185,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int range = plev * 4;
+			COODINATES range = plev * 4;
 
 			if(info) return info_range(range);
 
@@ -4423,7 +4423,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int range = plev / 2 + 10;
+			COODINATES range = plev / 2 + 10;
 
 			if(info) return info_range(range);
 
@@ -5051,7 +5051,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int range = 10;
+			COODINATES range = 10;
 
 			if(info) return info_range(range);
 
@@ -5346,7 +5346,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int range = plev * 5;
+			COODINATES range = plev * 5;
 
 			if(info) return info_range(range);
 
@@ -7088,7 +7088,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int range = 25 + plev / 2;
+			COODINATES range = 25 + plev / 2;
 
 			if(info) return info_range(range);
 
