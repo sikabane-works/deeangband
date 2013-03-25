@@ -630,9 +630,10 @@ static bool is_open(int feat)
  * Return the number of features around (or under) the character.
  * Usually look for doors and floor traps.
  */
-static int count_dt(creature_type *creature_ptr, int *y, int *x, bool (*test)(int feat), bool under)
+static int count_dt(creature_type *creature_ptr, COODINATES *y, COODINATES *x, bool (*test)(int feat), bool under)
 {
-	int d, count, xx, yy;
+	int d, count;
+	COODINATES xx, yy;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Count how many matches
@@ -902,7 +903,7 @@ void do_cmd_open(creature_type *creature_ptr)
  * Assume there is no creature blocking the destination
  * Returns TRUE if repeated commands may continue
  */
-static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
+static bool do_cmd_close_aux(creature_type *creature_ptr, COODINATES y, COODINATES x)
 {
 	// Get grid and contents
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -1590,7 +1591,8 @@ void do_cmd_bash(creature_type *creature_ptr)
  */
 void do_cmd_alter(creature_type *creature_ptr)
 {
-	int			y, x, dir;
+	COODINATES y, x;
+	DIRECTION dir;
 	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type	*c_ptr;
 	bool		more = FALSE;
@@ -1676,9 +1678,10 @@ void do_cmd_spike(creature_type *creature_ptr)
 	/* Get a "repeated" direction */
 	if(get_rep_dir(creature_ptr, &dir,FALSE))
 	{
-		int y, x, item;
+		COODINATES y, x;
+		int item;
 		cave_type *c_ptr;
-		s16b feat;
+		FEATURE_ID feat;
 
 		/* Get location */
 		y = creature_ptr->fy + ddy[dir];
@@ -2850,8 +2853,8 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	if(shuriken)
 	{
-		ty = randint0(101)-50+creature_ptr->fy;
-		tx = randint0(101)-50+creature_ptr->fx;
+		ty = (COODINATES)randint0(101) - 50 + creature_ptr->fy;
+		tx = (COODINATES)randint0(101) - 50 + creature_ptr->fx;
 	}
 	else
 	{
@@ -3328,8 +3331,8 @@ static void travel_flow(creature_type *creature_ptr, int ty, int tx)
 
 void do_cmd_travel(creature_type *creature_ptr)
 {
-	int x, y, i;
-	int dx, dy, sx, sy;
+	int i;
+	COODINATES x, y, dx, dy, sx, sy;
 	feature_type *f_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
