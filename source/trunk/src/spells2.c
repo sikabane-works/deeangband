@@ -29,12 +29,12 @@ bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, COODINATES range, POW
 	else return cast_bolt(caster_ptr, typ, range, dam, 0);
 }
 
-void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER power, int rad, int trait_id)
+void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER power, COODINATES rad, int trait_id)
 {
 	(void)project(caster_ptr, range, rad, target_col, target_row, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH, trait_id);
 }
 
-void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, int rad, int trait_id)
+void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, COODINATES rad, int trait_id)
 {
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
 	(void)project(caster_ptr, 0, rad, y, x, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, trait_id);
@@ -50,13 +50,13 @@ bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, 
 	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
-bool cast_grenade(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int rad)
+bool cast_grenade(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad)
 {
 	COODINATES tx = 0, ty = 0;
 	return (project(caster_ptr, range, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
-bool cast_ball_hide(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int rad)
+bool cast_ball_hide(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad)
 {
 	COODINATES tx, ty;
 	tx = target_col;

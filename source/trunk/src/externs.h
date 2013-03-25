@@ -995,9 +995,9 @@ extern bool is_melee_limitation_field(floor_type *floor_ptr);
 extern bool close_combat(creature_type *attacker_ptr, int y, int x, int mode);
 
 // melee2.c
-extern void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, int rad, int trait_id);
-extern void breath_aux(int y, int x, creature_type *caster_ptr, int typ, POWER dam_hp, int rad, int trait_id);
-extern void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, int rad, int trait_id);
+extern void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, COODINATES rad, int trait_id);
+extern void breath_aux(int y, int x, creature_type *caster_ptr, int typ, POWER dam_hp, COODINATES rad, int trait_id);
+extern void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, COODINATES rad, int trait_id);
 extern bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt);
 extern void process_creatures(void);
 extern u32b get_curse(POWER power, object_type *object_ptr);
@@ -1210,8 +1210,8 @@ extern bool lite_area(creature_type *creature_ptr, POWER dam, COODINATES rad);
 extern bool unlite_area(creature_type *caster_ptr, POWER dam, COODINATES rad);
 extern bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int trait_id);
 extern bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
-extern bool cast_grenade(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int rad);
-extern bool cast_ball_hide(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int rad);
+extern bool cast_grenade(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
+extern bool cast_ball_hide(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
 extern bool fire_meteor(int who, int typ, COODINATES x, COODINATES y, POWER dam, COODINATES rad);
 extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev);
 extern void call_chaos(creature_type *creature_ptr);
