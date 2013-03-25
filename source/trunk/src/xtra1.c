@@ -3415,7 +3415,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	int i, j;
 	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 	species_type *riding_r_ptr = &species_info[steed_ptr->species_idx];
-	s16b speed = steed_ptr->speed;
+	SPEED speed = steed_ptr->speed;
 	s16b penalty = 0;
 
 	j = creature_ptr->carrying_weight;

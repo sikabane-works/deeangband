@@ -65,6 +65,8 @@ typedef s32b STAT;
 typedef byte DIRECTION;
 typedef s32b POWER;
 
+typedef s32b SPEED;
+
 /*
  * Creature flags
  */
@@ -148,7 +150,7 @@ struct object_kind
 	s16b search;
 	s16b stealth;
 	s16b magic_mastery;
-	s16b speed;
+	SPEED speed;
 
 	s16b to_hit;			/* Bonus to hit */
 	s16b to_damage;			/* Bonus to damage */
@@ -417,7 +419,7 @@ struct species_type
 
 	s16b sleep;				/* Inactive counter (base) */
 	byte alert_range;				/* Area affect radius (1-100) */
-	s16b speed;				/* Speed (normally 0) */
+	SPEED speed;				/* Speed (normally 0) */
 
 	u16b underling_id[MAX_UNDERLINGS];	    /* Underling ID */
 	u16b underling_d_num[MAX_UNDERLINGS];	    /* Dice Number of Underlings */
@@ -1420,7 +1422,7 @@ struct creature_type
 	TVAL tval_xtra;		// Correct xtra tval 
 	TVAL tval_ammo;		// Correct ammo tval 
 
-	s16b speed; // speed 
+	SPEED speed; // speed 
 
 	COODINATES fy; // Y location on map 
 	COODINATES fx; // X location on map 
@@ -1504,7 +1506,7 @@ struct trait_type
 	s16b hitd_m;
 	s16b exp;
 	s16b charge;	// Base Charge
-	s16b speed;
+	SPEED speed;
 	u32b text;
 	u32b E_text;
 	u32b get_text;
