@@ -627,7 +627,7 @@ static void prt_hp(creature_type *creature_ptr)
 	byte color;
 
 	put_str(KW_HP, ROW_CURHP, COL_CURHP);
-	sprintf(tmp, "%5ld", creature_ptr->chp);
+	sprintf(tmp, "%5d", creature_ptr->chp);
 
 	if(creature_ptr->chp >= creature_ptr->mhp) color = TERM_L_GREEN;
 	else if(creature_ptr->chp > (creature_ptr->mhp * hitpoint_warn) / 10) color = TERM_YELLOW;
@@ -636,7 +636,7 @@ static void prt_hp(creature_type *creature_ptr)
 	c_put_str(color, tmp, ROW_CURHP, COL_CURHP + 2);
 
 	put_str("/", ROW_CURHP, COL_CURHP + 7);
-	sprintf(tmp, "%5ld", creature_ptr->mhp);
+	sprintf(tmp, "%5d", creature_ptr->mhp);
 	color = TERM_L_GREEN;
 
 	c_put_str(color, tmp, ROW_CURHP, COL_CURHP + 8);

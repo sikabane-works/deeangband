@@ -1189,9 +1189,9 @@ struct creature_type
 	s16b camp_idx;				// Camp
 	s16b master_creature_idx;	// Master
 
-	s16b hitdice;		// Hit dice
-	s16b hitdice_base;  // Hit dice base
-	u16b expfact;       // Experience factor
+	STAT hitdice;		// Hit dice
+	STAT hitdice_base;  // Hit dice base
+	STAT expfact;       // Experience factor
 
 	s32b age;			// Characters age 
 	s32b ht;			// Height 
@@ -1297,7 +1297,7 @@ struct creature_type
 	s16b concent;      // Sniper's concentration level 
 	u16b total_friends; // number of servent.
 
-	s16b base_hp[CREATURE_MAX_LEVEL];
+	STAT base_hp[CREATURE_MAX_LEVEL];
 	cptr last_message;        // Last message on death or retirement 
 	char history[HISTORY_ROW][HISTORY_COL];  	  // Textual "history" for the Player 
 
