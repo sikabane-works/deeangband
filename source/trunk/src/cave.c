@@ -902,10 +902,10 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 	floor_type *floor_ptr = GET_FLOOR_PTR(watcher_ptr);
 	cave_type *cave_ptr = &floor_ptr->cave[y][x]; // Get the cave
 
-	s16b this_object_idx, next_object_idx = 0;
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 
 	/* Feature code (applying "mimic" field) */
-	s16b feat = get_feat_mimic(cave_ptr);
+	FEATURE_ID feat = get_feat_mimic(cave_ptr);
 
 	/* Access floor */
 	feature_type *f_ptr = &feature_info[feat];
@@ -2831,7 +2831,7 @@ static void creature_lite_hack(creature_type *creature_ptr, COODINATES y, COODIN
 /*
  * Add a square to the changes array
  */
-static void mon_dark_hack(creature_type *creature_ptr, int y, int x)
+static void mon_dark_hack(creature_type *creature_ptr, COODINATES y, COODINATES x)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *cave_ptr;
@@ -4429,7 +4429,7 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 /*
  * Change the "feat" flag for a grid, and notice/redraw the grid
  */
-void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
+void cave_set_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, FEATURE_ID feat)
 {
 	cave_type *cave_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[feat];
