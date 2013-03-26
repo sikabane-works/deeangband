@@ -4204,7 +4204,7 @@ static byte object_group_tval[] =
  * mode & 0x01 : check for non-empty group
  * mode & 0x02 : visual operation only
  */
-static int collect_objects(int grp_cur, int object_idx[], byte mode)
+static int collect_objects(int grp_cur, OBJECT_ID object_idx[], byte mode)
 {
 	int i, j, k, object_cnt = 0;
 
@@ -6333,7 +6333,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 /*
  * Display the objects in a group.
  */
-static void display_object_list(int col, int row, int per_page, int object_idx[],
+static void display_object_list(int col, int row, int per_page, OBJECT_ID object_idx[],
 	int object_cur, int object_top, bool visual_only)
 {
 	int i;

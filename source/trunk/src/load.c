@@ -1325,7 +1325,7 @@ static errr rd_savefile_new_aux(void)
 	if(limit > max_object_idx) return LOAD_ERROR_TOO_MANY_ITEM; // Verify maximum
 	for (i = 1; i < limit; i++)	// Read dropped items
 	{
-		int object_idx;
+		OBJECT_ID object_idx;
 		object_type *object_ptr;
 		object_idx = object_pop();
 		object_ptr = &object_list[object_idx];

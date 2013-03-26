@@ -18,7 +18,7 @@
 /*
 * Excise a dungeon object from any stacks
 */
-void excise_object_idx(int object_idx)
+void excise_object_idx(OBJECT_ID object_idx)
 {
 	object_type *object2_ptr;
 	floor_type *floor_ptr;
@@ -100,7 +100,7 @@ void excise_object_idx(int object_idx)
 *
 * Handle "stacks" of objects correctly.
 */
-void delete_object_idx(int object_idx)
+void delete_object_idx(OBJECT_ID object_idx)
 {
 	object_type *object2_ptr;
 	floor_type *floor_ptr;

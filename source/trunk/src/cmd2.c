@@ -2617,7 +2617,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	if(stick_to)
 	{
 		int m_idx = floor_ptr->cave[y][x].creature_idx;
-		int object_idx = object_pop();
+		OBJECT_ID object_idx = object_pop();
 
 		if(!object_idx)
 		{

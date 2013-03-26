@@ -670,7 +670,7 @@ extern s16b critical_shot(creature_type *creature_ptr, int weight, int plus, POW
 extern s16b test_critial_melee(creature_type *creature_ptr, int weight, int plus, POWER dam, s16b meichuu, int mode);
 extern s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr, int mode, bool thrown);
 extern void search(creature_type *creature_ptr);
-extern void py_pickup_aux(creature_type *creature_ptr, int object_idx);
+extern void py_pickup_aux(creature_type *creature_ptr, OBJECT_ID object_idx);
 extern void carry(creature_type *creature_ptr, bool pickup);
 extern bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x);
 extern bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES ny, COODINATES nx, u32b mpe_mode);
@@ -1093,8 +1093,8 @@ extern int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 extern void weapon_boost(object_type *object_ptr, int level, POWER power);
 extern void armour_boost(object_type *object_ptr, int level, POWER power);
 extern void create_ego(object_type *object_ptr, int level, int ego_id);
-extern void excise_object_idx(int object_idx);
-extern void delete_object_idx(int object_idx);
+extern void excise_object_idx(OBJECT_ID object_idx);
+extern void delete_object_idx(OBJECT_ID object_idx);
 extern void delete_object(floor_type *floor_ptr, int y, int x);
 extern void compact_objects(int size);
 extern void wipe_object_list(int floor_id);

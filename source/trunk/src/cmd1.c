@@ -459,7 +459,7 @@ void search(creature_type *creature_ptr)
  *
  * Delete the object afterwards.
  */
-void py_pickup_aux(creature_type *creature_ptr, int object_idx)
+void py_pickup_aux(creature_type *creature_ptr, OBJECT_ID object_idx)
 {
 	int slot, i;
 /*
