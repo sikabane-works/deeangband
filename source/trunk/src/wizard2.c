@@ -1453,7 +1453,7 @@ static void do_cmd_wiz_floor_object_list(void)
 static void do_cmd_generate_floor(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int depth = 0, wx, wy, dungeon_id = 0;
+	FLOOR_LEV depth = 0, wx, wy, dungeon_id = 0;
 
 	// Ask for level
 	if(command_arg <= 0)

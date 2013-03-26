@@ -54,7 +54,7 @@ void set_floor_and_wall(byte type)
 }
 
 // Helper for plasma generation.
-static void perturb_point_mid(floor_type *floor_ptr, int x1, int x2, int x3, int x4, int xmid, int ymid, int rough, int depth_max)
+static void perturb_point_mid(floor_type *floor_ptr, int x1, int x2, int x3, int x4, int xmid, int ymid, int rough, FLOOR_LEV depth_max)
 {
 	/*
 	 * Average the four corners & perturb it a bit.
@@ -76,7 +76,7 @@ static void perturb_point_mid(floor_type *floor_ptr, int x1, int x2, int x3, int
 }
 
 
-static void perturb_point_end(floor_type *floor_ptr, int x1, int x2, int x3, int xmid, int ymid, int rough, int depth_max)
+static void perturb_point_end(floor_type *floor_ptr, int x1, int x2, int x3, int xmid, int ymid, int rough, FLOOR_LEV depth_max)
 {
 	/*
 	 * Average the three corners & perturb it a bit.
@@ -103,7 +103,7 @@ static void perturb_point_end(floor_type *floor_ptr, int x1, int x2, int x3, int
  * are NOT actual features; They are raw heights which
  * need to be converted to features.
  */
-static void plasma_recursive(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int depth_max, int rough)
+static void plasma_recursive(floor_type *floor_ptr, int x1, int y1, int x2, int y2, FLOOR_LEV depth_max, int rough)
 {
 	// Find middle
 	int xmid = (x2 - x1) / 2 + x1;

@@ -375,7 +375,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 }
 
 
-int find_floor_id(int dungeon_id, int depth, int wx, int wy)
+int find_floor_id(int dungeon_id, FLOOR_LEV depth, COODINATES wx, COODINATES wy)
 {
 	int i;
 	floor_type *floor_ptr;

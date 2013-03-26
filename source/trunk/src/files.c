@@ -1142,7 +1142,7 @@ static errr process_pref_file_aux(cptr name, int preftype)
 		/* Process "%:<file>" */
 		if(buf[0] == '%')
 		{
-			static int depth_count = 0;
+			static FLOOR_LEV depth_count = 0;
 
 			/* Ignore if deeper than 20 level */
 			if(depth_count > 20) continue;
