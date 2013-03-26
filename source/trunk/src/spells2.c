@@ -13,12 +13,12 @@
 #include "angband.h"
 #include "grid.h"
 
-bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int trait_id)
+bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
 {
 	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, trait_id);
 }
 
-bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int trait_id)
+bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
 {
 	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, trait_id);
 }
@@ -29,12 +29,12 @@ bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, COODINATES range, POW
 	else return cast_bolt(caster_ptr, typ, range, dam, 0);
 }
 
-void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER power, COODINATES rad, int trait_id)
+void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER power, COODINATES rad, TRAIT_ID trait_id)
 {
 	(void)project(caster_ptr, range, rad, target_col, target_row, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_BREATH, trait_id);
 }
 
-void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, COODINATES rad, int trait_id)
+void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id)
 {
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
 	(void)project(caster_ptr, 0, rad, y, x, power, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, trait_id);
@@ -899,7 +899,8 @@ bool detect_creatures_mind(creature_type *creature_ptr, COODINATES range)
 */
 bool detect_creatures_string(creature_type *creature_ptr, COODINATES range, cptr Match)
 {
-	int i, y, x;
+	int i;
+	COODINATES y, x;
 	bool flag = FALSE;
 
 	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
@@ -2095,7 +2096,7 @@ static int next_to_open(floor_type *floor_ptr, COODINATES cy, COODINATES cx, boo
 }
 
 
-static int next_to_walls_adj(floor_type *floor_ptr, int cy, int cx, bool (*pass_bold)(floor_type *, int, int))
+static int next_to_walls_adj(floor_type *floor_ptr, COODINATES cy, COODINATES cx, bool (*pass_bold)(floor_type *, int, int))
 {
 	int i;
 	COODINATES y, x;
@@ -2472,8 +2473,8 @@ bool wall_stone(creature_type *caster_ptr)
 void call_chaos(creature_type *creature_ptr)
 {
 	EFFECT_ID Chaos_type;
-	int dummy;
-	int plev = creature_ptr->lev;
+	COODINATES dummy;
+	CREATURE_LEV plev = creature_ptr->lev;
 	bool line_chaos = FALSE;
 
 	int hurt_types[31] =
@@ -2534,7 +2535,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 		case 28: case 29:
 			if(!(*count))
 			{
-				earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5 + randint0(10));
+				earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5 + (COODINATES)randint0(10));
 				if(!one_in_(6)) break;
 			}
 
@@ -2816,7 +2817,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	y = user_ptr->fy;
 	x = user_ptr->fx;
 
-	teleport_creature(user_ptr, 10 + randint1(90), 0L);
+	teleport_creature(user_ptr, 10 + (COODINATES)randint1(90), 0L);
 	object_wipe(quest_ptr);
 	object_prep(quest_ptr, lookup_kind(TV_STATUE, SV_WOODEN_STATUE), ITEM_FREE_SIZE);
 	quest_ptr->pval = SPECIES_NINJA;
@@ -2843,7 +2844,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int dir;
+	DIRECTION dir;
 	COODINATES tx, ty;
 	int tm_idx = 0;
 	u16b path_g[32];

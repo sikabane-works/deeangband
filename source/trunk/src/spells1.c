@@ -3758,7 +3758,7 @@ void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgri
 * in the blast radius, in case the "illumination" of the grid was changed,
 * and "update_view()" and "update_creatures()" need to be called.
 */
-bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODINATES y, COODINATES x, POWER dam, int typ, int flg, int trait_id)
+bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODINATES y, COODINATES x, POWER dam, int typ, int flg, TRAIT_ID trait_id)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i, t;

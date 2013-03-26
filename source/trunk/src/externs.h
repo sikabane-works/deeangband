@@ -995,9 +995,9 @@ extern bool is_melee_limitation_field(floor_type *floor_ptr);
 extern bool close_combat(creature_type *attacker_ptr, int y, int x, int mode);
 
 // melee2.c
-extern void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, COODINATES rad, int trait_id);
-extern void breath_aux(int y, int x, creature_type *caster_ptr, int typ, POWER dam_hp, COODINATES rad, int trait_id);
-extern void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, COODINATES rad, int trait_id);
+extern void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
+extern void breath_aux(int y, int x, creature_type *caster_ptr, int typ, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
+extern void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id);
 extern bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt);
 extern void process_creatures(void);
 extern u32b get_curse(POWER power, object_type *object_ptr);
@@ -1168,11 +1168,11 @@ extern void remove_loc(void);
 // spells1.c
 extern bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int x2);
 extern void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgrids, COODINATES *gx, COODINATES *gy, byte *gm, int *pgm_rad, COODINATES rad, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int typ);
-extern int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, POWER damage_type, POWER damage, cptr hit_from, cptr note, int trait_id);
+extern int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, POWER damage_type, POWER damage, cptr hit_from, cptr note, TRAIT_ID trait_id);
 extern u16b bolt_pict(int y, int x, int ny, int nx, int typ);
 extern sint project_path(COODINATES *gp, COODINATES range, floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int flg);
 extern COODINATES dist_to_line(COODINATES y, COODINATES x, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
-extern bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODINATES y, COODINATES x, POWER dam, int typ, int flg, int trait_id);
+extern bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODINATES y, COODINATES x, POWER dam, int typ, int flg, TRAIT_ID trait_id);
 extern bool binding_field(creature_type *caster_ptr, COODINATES range, POWER dam);
 extern void seal_of_mirror(creature_type *caster_ptr, POWER dam);
 
@@ -1208,14 +1208,14 @@ extern void lite_room(creature_type *creature_ptr, COODINATES y1, COODINATES x1)
 extern void unlite_room(creature_type *caster_ptr, COODINATES y1, COODINATES x1);
 extern bool lite_area(creature_type *creature_ptr, POWER dam, COODINATES rad);
 extern bool unlite_area(creature_type *caster_ptr, POWER dam, COODINATES rad);
-extern bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int trait_id);
+extern bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id);
 extern bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
 extern bool cast_grenade(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
 extern bool cast_ball_hide(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad);
 extern bool fire_meteor(int who, int typ, COODINATES x, COODINATES y, POWER dam, COODINATES rad);
 extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev);
 extern void call_chaos(creature_type *creature_ptr);
-extern bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int trait_id);
+extern bool cast_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id);
 extern bool cast_bolt_or_beam(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, int prob);
 extern bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count);
 extern int activate_hi_summon(creature_type *creature_ptr, COODINATES y, COODINATES x, bool can_pet);
