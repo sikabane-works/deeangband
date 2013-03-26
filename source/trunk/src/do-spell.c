@@ -4080,8 +4080,8 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 	static const char s_random[] = KW_RANDOM;
 
-	int dir;
-	int plev = caster_ptr->lev;
+	COODINATES dir;
+	CREATURE_LEV plev = caster_ptr->lev;
 
 	switch (spell)
 	{
