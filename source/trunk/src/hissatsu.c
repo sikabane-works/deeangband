@@ -34,7 +34,7 @@ static int get_hissatsu_power(creature_type *creature_ptr, int *sn)
 	int             num = 0;
 	int             y = 1;
 	int             x = 15;
-	int             plev = creature_ptr->lev;
+	int             lev_bonus = creature_ptr->lev;
 	int             ask = TRUE;
 	char            choice;
 	char            out_val[160];
@@ -56,7 +56,7 @@ cptr            p = "•KŽEŒ•";
 	if(repeat_pull(sn))
 	{
 		/* Verify the spell */
-		if(technic_info[TECHNIC_HISSATSU][*sn].slevel <= plev)
+		if(technic_info[TECHNIC_HISSATSU][*sn].slevel <= lev_bonus)
 		{
 			return TRUE;
 		}
@@ -201,7 +201,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 					if(!(creature_ptr->spell_learned1 >> i)) break;
 
 					/* Access the spell */
-					if(spell.slevel > plev)   continue;
+					if(spell.slevel > lev_bonus)   continue;
 					if(!(creature_ptr->spell_learned1 & (1L << i))) continue;
 					if(use_menu)
 					{

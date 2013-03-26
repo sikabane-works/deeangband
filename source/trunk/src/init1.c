@@ -5801,7 +5801,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 				case DU_INFO_MIN_PLEV:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_ptr->min_plev = (byte)b;
+					dungeon_ptr->min_lev_bonus = (byte)b;
 					break;
 
 				case DU_INFO_PIT:

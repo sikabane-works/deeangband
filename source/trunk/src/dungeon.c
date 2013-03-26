@@ -309,7 +309,7 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 static void sense_inventory1(creature_type *creature_ptr)
 {
 	int         i;
-	int         plev = creature_ptr->lev;
+	int         lev_bonus = creature_ptr->lev;
 	bool        heavy = FALSE;
 	object_type *object_ptr;
 
@@ -328,7 +328,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_CAVALRY:
 		{
 			/* Good sensing */
-			if(0 != randint0(9000L / (plev * plev + 40))) return;
+			if(0 != randint0(9000L / (lev_bonus * lev_bonus + 40))) return;
 
 			/* Heavy sensing */
 			heavy = TRUE;
@@ -339,7 +339,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_SMITH:
 		{
 			/* Good sensing */
-			if(0 != randint0(6000L / (plev * plev + 50))) return;
+			if(0 != randint0(6000L / (lev_bonus * lev_bonus + 50))) return;
 
 			/* Heavy sensing */
 			heavy = TRUE;
@@ -353,7 +353,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_MAGIC_EATER:
 		{
 			/* Very bad (light) sensing */
-			if(0 != randint0(240000L / (plev + 5))) return;
+			if(0 != randint0(240000L / (lev_bonus + 5))) return;
 
 			break;
 		}
@@ -362,7 +362,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_BARD:
 		{
 			/* Good (light) sensing */
-			if(0 != randint0(10000L / (plev * plev + 40))) return;
+			if(0 != randint0(10000L / (lev_bonus * lev_bonus + 40))) return;
 
 			break;
 		}
@@ -370,7 +370,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_ROGUE:
 	case CLASS_NINJA:
 		{
-			if(0 != randint0(20000L / (plev * plev + 40))) return;
+			if(0 != randint0(20000L / (lev_bonus * lev_bonus + 40))) return;
 			heavy = TRUE;
 
 			break;
@@ -379,7 +379,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_RANGER:
 		{
 			/* Bad sensing */
-			if(0 != randint0(95000L / (plev * plev + 40))) return;
+			if(0 != randint0(95000L / (lev_bonus * lev_bonus + 40))) return;
 
 			/* Changed! */
 			heavy = TRUE;
@@ -391,7 +391,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_SNIPER:
 		{
 			/* Bad sensing */
-			if(0 != randint0(77777L / (plev * plev + 40))) return;
+			if(0 != randint0(77777L / (lev_bonus * lev_bonus + 40))) return;
 
 			/* Heavy sensing */
 			heavy = TRUE;
@@ -403,7 +403,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_RED_MAGE:
 		{
 			/* Bad sensing */
-			if(0 != randint0(75000L / (plev * plev + 40))) return;
+			if(0 != randint0(75000L / (lev_bonus * lev_bonus + 40))) return;
 
 			break;
 		}
@@ -414,7 +414,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_MIRROR_MASTER:
 		{
 			/* Bad sensing */
-			if(0 != randint0(55000L / (plev * plev + 40))) return;
+			if(0 != randint0(55000L / (lev_bonus * lev_bonus + 40))) return;
 
 			break;
 		}
@@ -422,7 +422,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_CHAOS_WARRIOR:
 		{
 			/* Bad sensing */
-			if(0 != randint0(80000L / (plev * plev + 40))) return;
+			if(0 != randint0(80000L / (lev_bonus * lev_bonus + 40))) return;
 
 			/* Changed! */
 			heavy = TRUE;
@@ -433,14 +433,14 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_MONK:
 	case CLASS_FORCETRAINER:
 		{
-			if(0 != randint0(20000L / (plev * plev + 40))) return;
+			if(0 != randint0(20000L / (lev_bonus * lev_bonus + 40))) return;
 			break;
 		}
 
 	case CLASS_TOURIST:
 		{
 			/* Good sensing */
-			if(0 != randint0(20000L / ((plev+50)*(plev+50)))) return;
+			if(0 != randint0(20000L / ((lev_bonus+50)*(lev_bonus+50)))) return;
 
 			/* Heavy sensing */
 			heavy = TRUE;
@@ -451,7 +451,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	case CLASS_BEASTMASTER:
 		{
 			/* Bad sensing */
-			if(0 != randint0(65000L / (plev * plev + 40))) return;
+			if(0 != randint0(65000L / (lev_bonus * lev_bonus + 40))) return;
 
 			break;
 		}
@@ -521,7 +521,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 static void sense_inventory2(creature_type *creature_ptr)
 {
 	int         i;
-	int         plev = creature_ptr->lev;
+	int         lev_bonus = creature_ptr->lev;
 	object_type *object_ptr;
 
 
@@ -551,7 +551,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 	case CLASS_NINJA:
 		{
 			/* Very bad (light) sensing */
-			if(0 != randint0(240000L / (plev + 5))) return;
+			if(0 != randint0(240000L / (lev_bonus + 5))) return;
 
 			break;
 		}
@@ -562,7 +562,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 	case CLASS_MONK:
 		{
 			/* Bad sensing */
-			if(0 != randint0(95000L / (plev * plev + 40))) return;
+			if(0 != randint0(95000L / (lev_bonus * lev_bonus + 40))) return;
 
 			break;
 		}
@@ -574,7 +574,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 	case CLASS_MINDCRAFTER:
 		{
 			/* Good sensing */
-			if(0 != randint0(20000L / (plev * plev + 40))) return;
+			if(0 != randint0(20000L / (lev_bonus * lev_bonus + 40))) return;
 
 			break;
 		}
@@ -587,7 +587,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 	case CLASS_BLUE_MAGE:
 		{
 			/* Good sensing */
-			if(0 != randint0(9000L / (plev * plev + 40))) return;
+			if(0 != randint0(9000L / (lev_bonus * lev_bonus + 40))) return;
 
 			break;
 		}
@@ -595,7 +595,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 	case CLASS_TOURIST:
 		{
 			/* Good sensing */
-			if(0 != randint0(20000L / ((plev+50)*(plev+50)))) return;
+			if(0 != randint0(20000L / ((lev_bonus+50)*(lev_bonus+50)))) return;
 
 			break;
 		}

@@ -295,33 +295,33 @@ void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, POWER po
 	cptr s_dur = "dur ";
 	cptr s_range = "range ";
 #endif
-	int plev = creature_ptr->lev;
+	int lev_bonus = creature_ptr->lev;
 
 	strcpy(p, "");
 
-	format_weight(buf, plev * 15);
+	format_weight(buf, lev_bonus * 15);
 	switch (use_mind)
 	{
 	case MIND_MINDCRAFTER:
 		switch (power)
 		{
 		case 0:  break;
-		case 1:  sprintf(p, " %s%dd%d", s_dam, 3 + ((plev - 1) / 4), 3 + plev/15); break;
+		case 1:  sprintf(p, " %s%dd%d", s_dam, 3 + ((lev_bonus - 1) / 4), 3 + lev_bonus/15); break;
 		case 2:  sprintf(p, " %s10", s_range); break;
-		case 3:  sprintf(p, " %s%d", s_range, plev * 5);  break;
+		case 3:  sprintf(p, " %s%d", s_range, lev_bonus * 5);  break;
 		case 4:  break;
-		case 5: sprintf(p, " %s%dd8", s_dam, 8 + ((plev - 5) / 4));  break;
-		case 6:  sprintf(p, " %s%d", s_dur, plev);  break;
+		case 5: sprintf(p, " %s%dd8", s_dam, 8 + ((lev_bonus - 5) / 4));  break;
+		case 6:  sprintf(p, " %s%d", s_dur, lev_bonus);  break;
 		case 7:  break;
-		case 8:  sprintf(p, (plev < 25 ? " %s%d" : " %sd%d"), s_dam, (plev < 25 ? plev * 3 / 2 : plev * ((plev - 5) / 10 + 1))); break;
-		case 9:  sprintf(p, " %s10+d%d", s_dur, plev * 3 / 2);  break;
+		case 8:  sprintf(p, (lev_bonus < 25 ? " %s%d" : " %sd%d"), s_dam, (lev_bonus < 25 ? lev_bonus * 3 / 2 : lev_bonus * ((lev_bonus - 5) / 10 + 1))); break;
+		case 9:  sprintf(p, " %s10+d%d", s_dur, lev_bonus * 3 / 2);  break;
 #ifdef JP
 		case 10: sprintf(p, " 最大重量:%s", buf);  break;
 #else
 		case 10: sprintf(p, " max wgt %s", buf);  break;
 #endif
-		case 11: sprintf(p, " %s%dd6", s_dam, plev / 2);  break;
-		case 12: sprintf(p, " %sd%d+%d", s_dam, plev * 3, plev * 3); break;
+		case 11: sprintf(p, " %s%dd6", s_dam, lev_bonus / 2);  break;
+		case 12: sprintf(p, " %sd%d+%d", s_dam, lev_bonus * 3, lev_bonus * 3); break;
 #ifdef JP
 		case 13: sprintf(p, " 行動:%ld回", (creature_ptr->csp + 100 - creature_ptr->energy_need - 50) / 100); break;
 #else
@@ -337,23 +337,23 @@ void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, POWER po
 
 			switch (power)
 			{
-			case 0:  sprintf(p, " %s%dd4", s_dam, 3 + ((plev - 1) / 5) + boost / 12); break;
+			case 0:  sprintf(p, " %s%dd4", s_dam, 3 + ((lev_bonus - 1) / 5) + boost / 12); break;
 			case 1:  break;
 			case 2:  sprintf(p, " %s%d+d30", s_dur, 30 + boost / 5); break;
-			case 3:  sprintf(p, " %s%dd5", s_dam, 5 + ((plev - 1) / 5) + boost / 10); break;
+			case 3:  sprintf(p, " %s%dd5", s_dam, 5 + ((lev_bonus - 1) / 5) + boost / 10); break;
 			case 4:  sprintf(p, " %s%d+d20", s_dur, 20 + boost / 5); break;
 			case 5:  break;
-			case 6:  sprintf(p, " %s%d+d%d", s_dur, 15 + boost / 7, plev / 2); break;
-			case 7:  sprintf(p, " %s%dd8", s_dam, 8 + ((plev - 5) / 5) + boost / 12); break;
-			case 8:  sprintf(p, " %s10d6+%d", s_dam, plev * 3 / 2 + boost * 3 / 5); break;
+			case 6:  sprintf(p, " %s%d+d%d", s_dur, 15 + boost / 7, lev_bonus / 2); break;
+			case 7:  sprintf(p, " %s%dd8", s_dam, 8 + ((lev_bonus - 5) / 5) + boost / 12); break;
+			case 8:  sprintf(p, " %s10d6+%d", s_dam, lev_bonus * 3 / 2 + boost * 3 / 5); break;
 			case 9:  break;
 #ifdef JP
 			case 10: sprintf(p, " 最大%d体", 1+boost/100); break;
 #else
 			case 10: sprintf(p, " max %d", 1+boost/100); break;
 #endif
-			case 11: sprintf(p, " %s%d", s_dam, 100 + plev + boost); break;
-			case 12: sprintf(p, " %s%dd15", s_dam, 10 + plev / 2 + boost * 3 / 10); break;
+			case 11: sprintf(p, " %s%d", s_dam, 100 + lev_bonus + boost); break;
+			case 12: sprintf(p, " %s%dd15", s_dam, 10 + lev_bonus / 2 + boost * 3 / 10); break;
 #ifdef JP
 			case 13: sprintf(p, " 行動:%d+d16回", 16+boost/20); break;
 #else
@@ -367,24 +367,24 @@ void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, POWER po
 			{
 			case 0:  break;
 			case 1:  break;
-			case 2:  sprintf(p, " %s%dd4", s_dam, 3 + ((plev - 1) / 5) ); break;
+			case 2:  sprintf(p, " %s%dd4", s_dam, 3 + ((lev_bonus - 1) / 5) ); break;
 			case 3:  sprintf(p, " %s10", s_range); break;
 			case 4:  break;
-			case 5:  sprintf(p, " %s%d", s_range, plev *5); break;
+			case 5:  sprintf(p, " %s%d", s_range, lev_bonus *5); break;
 			case 6:  sprintf(p, " %s20+d20", s_dur);  break;
 			case 7:  break;
-			case 8:  sprintf(p, " %s%dd8", s_dam, 8+((plev -5)/4) ); break;
+			case 8:  sprintf(p, " %s%dd8", s_dam, 8+((lev_bonus -5)/4) ); break;
 			case 9:  break;
-			case 10: sprintf(p, " %s%dd8", s_dam, 11+(plev-5)/4 ); break;
+			case 10: sprintf(p, " %s%dd8", s_dam, 11+(lev_bonus-5)/4 ); break;
 			case 11: break;
 			case 12: sprintf(p, " %s20+d20", s_dur);  break;
-			case 13: sprintf(p, " %s150+d%d", s_dam, plev*2 ); break;
+			case 13: sprintf(p, " %s150+d%d", s_dam, lev_bonus*2 ); break;
 			case 14: break;
 			case 15: break;
-			case 16: sprintf(p, " %s%d", s_range, plev/2 +10); break;
+			case 16: sprintf(p, " %s%d", s_range, lev_bonus/2 +10); break;
 			case 17: break;
 			case 18: sprintf(p, " %s6+d6", s_dur);  break;
-			case 19: sprintf(p, " %s%d", s_dam, plev*11+5 ); break;
+			case 19: sprintf(p, " %s%d", s_dam, lev_bonus*11+5 ); break;
 			case 20: sprintf(p, " %s4+d4", s_dur);  break;
 			}
 			break;
@@ -397,21 +397,21 @@ void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, POWER po
 			case 1:  break;
 			case 2:  sprintf(p, " %s10", s_range); break;
 			case 3:  break;
-			case 4:  sprintf(p, " %s%d", s_range , plev *5); break;
+			case 4:  sprintf(p, " %s%d", s_range , lev_bonus *5); break;
 			case 5:  sprintf(p, " %s30", s_range); break;
 			case 6:  break;
 			case 7:  break;
 			case 8:  sprintf(p, " %s20+d20", s_dur);  break;
-			case 9:  sprintf(p, " %s%d", s_dam, (50+plev)/2 ); break;
+			case 9:  sprintf(p, " %s%d", s_dam, (50+lev_bonus)/2 ); break;
 			case 10: break;
 			case 11: break;
 			case 12: break;
 			case 13: break;
 			case 14: break;
 			case 15: break;
-			case 16: sprintf(p, " %s%d+d%d", s_dur, plev/2, plev/2);  break;
-			case 17: sprintf(p, " %s%d*3", s_dam, (75+plev*2/3)/2 ); break;
-			case 18: sprintf(p, " %s%dd10", s_dam, 6+plev/8 ); break;
+			case 16: sprintf(p, " %s%d+d%d", s_dur, lev_bonus/2, lev_bonus/2);  break;
+			case 17: sprintf(p, " %s%d*3", s_dam, (75+lev_bonus*2/3)/2 ); break;
+			case 18: sprintf(p, " %s%dd10", s_dam, 6+lev_bonus/8 ); break;
 			case 19: sprintf(p, " %s6+d6", s_dur);  break;
 			}
 			break;
@@ -441,7 +441,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 	int             y = 1;
 	int             x = 10;
 	int             minfail = 0;
-	int             plev = creature_ptr->lev;
+	int             lev_bonus = creature_ptr->lev;
 	int             chance = 0;
 	int             ask = TRUE;
 	char            choice;
@@ -506,7 +506,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 		if(*sn == INVEN_FORCE) repeat_pull(sn);
 
 		/* Verify the spell */
-		if(mind_ptr->info[*sn].min_lev <= plev) return TRUE;
+		if(mind_ptr->info[*sn].min_lev <= lev_bonus) return TRUE;
 	}
 
 	/* Nothing chosen yet */
@@ -517,7 +517,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 
 	for (i = 0; i < MAX_MIND_POWERS; i++)
 	{
-		if(mind_ptr->info[i].min_lev <= plev)
+		if(mind_ptr->info[i].min_lev <= lev_bonus)
 		{
 			num++;
 		}
@@ -604,7 +604,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 					/* Access the spell */
 					spell = mind_ptr->info[i];
 
-					if(spell.min_lev > plev)   break;
+					if(spell.min_lev > lev_bonus)   break;
 
 					chance = spell.fail;
 
@@ -613,7 +613,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 					{
 
 						/* Reduce failure rate by "effective" level adjustment */
-						chance -= 3 * (plev - spell.min_lev);
+						chance -= 3 * (lev_bonus - spell.min_lev);
 
 						/* Reduce failure rate by INT/WIS adjustment */
 						chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] - 1);
@@ -753,23 +753,23 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int b = 0;
 	DIRECTION dir;
-	CREATURE_LEV plev = creature_ptr->lev;
+	CREATURE_LEV lev_bonus = creature_ptr->lev;
 
 	switch (spell)
 	{
 	case 0:   /* Precog */
-		if(plev > 44)
+		if(lev_bonus > 44)
 		{
 			wiz_lite(floor_ptr, creature_ptr, FALSE);
 		}
-		else if(plev > 19)
+		else if(lev_bonus > 19)
 			map_area(creature_ptr, DETECT_RAD_MAP);
 
-		if(plev < 30)
+		if(lev_bonus < 30)
 		{
 			b = detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
-			if(plev > 14) b |= detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT);
-			if(plev > 4)  {
+			if(lev_bonus > 14) b |= detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT);
+			if(lev_bonus > 4)  {
 				b |= detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
 				b |= detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
 			}
@@ -777,8 +777,8 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		else
 			b = detect_all(creature_ptr, DETECT_RAD_DEFAULT);
 
-		if((plev > 24) && (plev < 40))
-			set_timed_trait(creature_ptr, TRAIT_ESP, plev, FALSE);
+		if((lev_bonus > 24) && (lev_bonus < 40))
+			set_timed_trait(creature_ptr, TRAIT_ESP, lev_bonus, FALSE);
 
 #ifdef JP
 		if(!b) msg_print("安全な気がする。");
@@ -788,10 +788,10 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 
 		break;
 	case 1:
-		if(randint1(100) < plev * 2)
-			cast_beam(creature_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0);
+		if(randint1(100) < lev_bonus * 2)
+			cast_beam(creature_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 4), (3 + lev_bonus / 15)), 0);
 		else
-			cast_ball(creature_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0);
+			cast_ball(creature_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 4), (3 + lev_bonus / 15)), 0);
 		break;
 	case 2:
 		/* Minor displace */
@@ -799,33 +799,33 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 3:
 		/* Major displace */
-		teleport_creature(creature_ptr, (COODINATES)plev * 5, 0L);
+		teleport_creature(creature_ptr, (COODINATES)lev_bonus * 5, 0L);
 		break;
 	case 4:
 		/* Domination */
-		if(plev < 30)
+		if(lev_bonus < 30)
 		{
 			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-			cast_ball(creature_ptr, DO_EFFECT_DOMINATION, dir, plev, 0);
+			cast_ball(creature_ptr, DO_EFFECT_DOMINATION, dir, lev_bonus, 0);
 		}
 		else
-			project_all_vision(creature_ptr, DO_EFFECT_CHARM, plev * 2);
+			project_all_vision(creature_ptr, DO_EFFECT_CHARM, lev_bonus * 2);
 		break;
 	case 5:
-		cast_ball(creature_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((plev - 5) / 4), 8), (plev > 20 ? (plev - 20) / 8 + 1 : 0));
+		cast_ball(creature_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((lev_bonus - 5) / 4), 8), (lev_bonus > 20 ? (lev_bonus - 20) / 8 + 1 : 0));
 		break;
 	case 6:
 		/* Character Armour */
-		set_timed_trait(creature_ptr, TRAIT_SHIELD, plev, FALSE);
-		if(plev > 14) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ACID, plev, FALSE);
-		if(plev > 19) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, plev, FALSE);
-		if(plev > 24) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_COLD, plev, FALSE);
-		if(plev > 29) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ELEC, plev, FALSE);
-		if(plev > 34) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_POIS, plev, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_SHIELD, lev_bonus, FALSE);
+		if(lev_bonus > 14) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ACID, lev_bonus, FALSE);
+		if(lev_bonus > 19) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, lev_bonus, FALSE);
+		if(lev_bonus > 24) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_COLD, lev_bonus, FALSE);
+		if(lev_bonus > 29) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ELEC, lev_bonus, FALSE);
+		if(lev_bonus > 34) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_POIS, lev_bonus, FALSE);
 		break;
 	case 7:
 		/* Psychometry */
-		if(plev < 25)
+		if(lev_bonus < 25)
 			return psychometry(creature_ptr);
 		else
 			return ident_spell(creature_ptr, FALSE);
@@ -837,10 +837,10 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		msg_print("Mind-warping forces emanate from your brain!");
 #endif
 
-		if(plev < 25)
-			project(creature_ptr, 0, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx, (plev * 3), DO_EFFECT_PSI, PROJECT_KILL, -1);
+		if(lev_bonus < 25)
+			project(creature_ptr, 0, 2 + lev_bonus / 10, creature_ptr->fy, creature_ptr->fx, (lev_bonus * 3), DO_EFFECT_PSI, PROJECT_KILL, -1);
 		else
-			(void)project_all_vision(creature_ptr, DO_EFFECT_PSI, randint1(plev * ((plev - 5) / 10 + 1)));
+			(void)project_all_vision(creature_ptr, DO_EFFECT_PSI, randint1(lev_bonus * ((lev_bonus - 5) / 10 + 1)));
 		break;
 	case 9:
 		/* Adrenaline */
@@ -851,9 +851,9 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		* Only heal when Adrenalin Channeling is not active. We check
 		* that by checking if the player isn't fast and 'heroed' atm.
 		*/
-		if(!IS_FAST(creature_ptr) || !IS_HERO(creature_ptr)) heal_creature(creature_ptr, plev);
+		if(!IS_FAST(creature_ptr) || !IS_HERO(creature_ptr)) heal_creature(creature_ptr, lev_bonus);
 
-		b = 10 + randint1((plev * 3) / 2);
+		b = 10 + randint1((lev_bonus * 3) / 2);
 		(void)set_timed_trait(creature_ptr, TRAIT_HERO, b, FALSE);
 		(void)set_timed_trait(creature_ptr, TRAIT_FAST, b, TRUE);
 		break;
@@ -862,20 +862,20 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		/* Telekinesis */
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
-		fetch(creature_ptr, MAX_RANGE, dir, plev * 15, FALSE);
+		fetch(creature_ptr, MAX_RANGE, dir, lev_bonus * 15, FALSE);
 
 		break;
 	case 11:
 		/* Psychic Drain */
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
-		b = diceroll(plev / 2, 6);
+		b = diceroll(lev_bonus / 2, 6);
 
 		/* This is always a radius-0 ball now */
 		if(cast_ball(creature_ptr, DO_EFFECT_PSI_DRAIN, dir, b, 0)) cost_tactical_energy(creature_ptr, randint1(150));
 		break;
 	case 12:
-		cast_beam(creature_ptr, DO_EFFECT_PSY_SPEAR, MAX_RANGE_SUB, randint1(plev * 3) + plev * 3, 0);
+		cast_beam(creature_ptr, DO_EFFECT_PSY_SPEAR, MAX_RANGE_SUB, randint1(lev_bonus * 3) + lev_bonus * 3, 0);
 		break;
 	case 13:
 			if(creature_ptr->time_stopper)
@@ -924,7 +924,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	DIRECTION dir;
-	int             plev = creature_ptr->lev;
+	int             lev_bonus = creature_ptr->lev;
 	int             boost = creature_ptr->charged_force;
 
 	if(heavy_armor(creature_ptr)) boost /= 2;
@@ -932,17 +932,17 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	switch (spell)
 	{
 	case 0:
-		cast_ball(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5) + boost / 12, 4), 0);
+		cast_ball(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5) + boost / 12, 4), 0);
 		break;
 	case 1:
-		(void)lite_area(creature_ptr, diceroll(2, (COODINATES)(plev / 2)), (COODINATES)(plev / 10) + 1);
+		(void)lite_area(creature_ptr, diceroll(2, (COODINATES)(lev_bonus / 2)), (COODINATES)(lev_bonus / 10) + 1);
 		break;
 	case 2:
 		set_timed_trait(creature_ptr, TRAIT_LEVITATION, randint1(30) + 30 + boost / 5, FALSE);
 		break;
 	case 3:
-		if(!get_aim_dir(creature_ptr, (COODINATES)plev / 8 + 3, &dir)) return FALSE;
-		cast_beam(creature_ptr, DO_EFFECT_MISSILE, plev / 8 + 3, diceroll(5 + ((plev - 1) / 5) + boost / 10, 5), 0);
+		if(!get_aim_dir(creature_ptr, (COODINATES)lev_bonus / 8 + 3, &dir)) return FALSE;
+		cast_beam(creature_ptr, DO_EFFECT_MISSILE, lev_bonus / 8 + 3, diceroll(5 + ((lev_bonus - 1) / 5) + boost / 10, 5), 0);
 		break;
 	case 4:
 		set_timed_trait(creature_ptr, TRAIT_RESIST_MAGIC, randint1(20) + 20 + boost / 5, FALSE);
@@ -953,9 +953,9 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 #else
 		msg_print("You improved the Force.");
 #endif
-		creature_ptr->charged_force += (70 + plev);
+		creature_ptr->charged_force += (70 + lev_bonus);
 		prepare_update(creature_ptr, CRU_BONUS);
-		if(randint1(creature_ptr->charged_force) > (plev * 4 + 120))
+		if(randint1(creature_ptr->charged_force) > (lev_bonus * 4 + 120))
 		{
 #ifdef JP
 			msg_print("気が暴走した！");
@@ -968,7 +968,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		else return TRUE;
 		break;
 	case 6:
-		set_timed_trait(creature_ptr, TRAIT_AURA_MANA, randint1(plev / 2) + 15 + boost / 7, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_AURA_MANA, randint1(lev_bonus / 2) + 15 + boost / 7, FALSE);
 		break;
 	case 7:
 		{
@@ -978,7 +978,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 			if(!get_aim_dir(creature_ptr, 1, &dir)) return FALSE;
 			y = creature_ptr->fy + ddy[dir];
 			x = creature_ptr->fx + ddx[dir];
-			dam = diceroll(8 + ((plev - 5) / 4) + boost / 12, 8);
+			dam = diceroll(8 + ((lev_bonus - 5) / 4) + boost / 12, 8);
 			cast_beam(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, dam, 0);
 			if(floor_ptr->cave[y][x].creature_idx)
 			{
@@ -1033,7 +1033,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 			break;
 		}
 	case 8:
-		cast_ball(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(10, 6) + plev * 3 / 2 + boost * 3 / 5, (plev < 30) ? 2 : 3);
+		cast_ball(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(10, 6) + lev_bonus * 3 / 2 + boost * 3 / 5, (lev_bonus < 30) ? 2 : 3);
 		break;
 	case 9:
 		{
@@ -1053,17 +1053,17 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 			bool success = FALSE;
 
 			for (i = 0; i < 1 + boost/100; i++)
-				if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, TRAIT_S_PHANTOM, PC_FORCE_PET))
+				if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, lev_bonus, TRAIT_S_PHANTOM, PC_FORCE_PET))
 					success = TRUE;
 			if(success) msg_print(MES_SUMMON_SERVANT);
 			else msg_print(MES_NO_HAPPEN);
 			break;
 		}
 	case 11:
-		SELF_FIELD(creature_ptr, DO_EFFECT_FIRE, 200 + (2 * plev) + boost * 2, 10, -1);
+		SELF_FIELD(creature_ptr, DO_EFFECT_FIRE, 200 + (2 * lev_bonus) + boost * 2, 10, -1);
 		break;
 	case 12:
-		cast_beam(creature_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (plev / 2) + boost * 3 / 10, 15), 0);
+		cast_beam(creature_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (lev_bonus / 2) + boost * 3 / 10, 15), 0);
 		break;
 	case 13:
 		set_timed_trait(creature_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16 + boost / 20, FALSE);
@@ -1097,7 +1097,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	DIRECTION dir;
-	CREATURE_LEV plev = creature_ptr->lev;
+	CREATURE_LEV lev_bonus = creature_ptr->lev;
 	int tmp;
 	COODINATES x, y;
 
@@ -1106,11 +1106,11 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		/* mirror of seeing */
 	case 0:
 		tmp = is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ? 4 : 0;
-		if( plev + tmp > 4) detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
-		if( plev + tmp > 18) detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT);
-		if( plev + tmp > 28) set_timed_trait(creature_ptr, TRAIT_ESP, plev,FALSE);
-		if( plev + tmp > 38) map_area(creature_ptr, DETECT_RAD_MAP);
-		if( tmp == 0 && plev < 5 ){
+		if( lev_bonus + tmp > 4) detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
+		if( lev_bonus + tmp > 18) detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT);
+		if( lev_bonus + tmp > 28) set_timed_trait(creature_ptr, TRAIT_ESP, lev_bonus,FALSE);
+		if( lev_bonus + tmp > 38) map_area(creature_ptr, DETECT_RAD_MAP);
+		if( tmp == 0 && lev_bonus < 5 ){
 #ifdef JP
 			msg_print("鏡がなくて集中できなかった！");
 #else
@@ -1120,7 +1120,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 		// drip of light
 	case 1:
-		if(number_of_mirrors(creature_ptr) < 4 + plev/10 ){
+		if(number_of_mirrors(creature_ptr) < 4 + lev_bonus/10 ){
 			place_mirror(creature_ptr);
 		}
 		else {
@@ -1133,11 +1133,11 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 2:
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		if( plev > 9 && is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ) {
-			cast_beam(creature_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((plev-1)/5),4), 0);
+		if( lev_bonus > 9 && is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ) {
+			cast_beam(creature_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((lev_bonus-1)/5),4), 0);
 		}
 		else {
-			cast_bolt(creature_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((plev-1)/5),4), 0);
+			cast_bolt(creature_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((lev_bonus-1)/5),4), 0);
 		}
 		break;
 		/* warped mirror */
@@ -1146,11 +1146,11 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 		/* mirror of light */
 	case 4:
-		(void)lite_area(creature_ptr, diceroll(2, (COODINATES)(plev / 2)), (COODINATES)(plev / 10) + 1);
+		(void)lite_area(creature_ptr, diceroll(2, (COODINATES)(lev_bonus / 2)), (COODINATES)(lev_bonus / 10) + 1);
 		break;
 		/* mirror of wandering */
 	case 5:
-		teleport_creature(creature_ptr, (COODINATES)plev * 5, 0L);
+		teleport_creature(creature_ptr, (COODINATES)lev_bonus * 5, 0L);
 		break;
 		/* robe of dust */
 	case 6:
@@ -1158,49 +1158,49 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 		/* banishing mirror */
 	case 7:
-		(void)cast_beam(creature_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, plev, 0);
+		(void)cast_beam(creature_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, lev_bonus, 0);
 		break;
 		/* mirror clashing */
 	case 8:
-		cast_ball(creature_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, (COODINATES)diceroll(8 + ((plev - 5) / 4), 8), (COODINATES)(plev > 20 ? (plev - 20) / 8 + 1 : 0));
+		cast_ball(creature_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, (COODINATES)diceroll(8 + ((lev_bonus - 5) / 4), 8), (COODINATES)(lev_bonus > 20 ? (lev_bonus - 20) / 8 + 1 : 0));
 		break;
 		/* mirror sleeping */
 	case 9:
 		for(x=0;x<floor_ptr->width;x++){
 			for(y=0;y<floor_ptr->height;y++){
 				if(is_mirror_grid(&floor_ptr->cave[y][x])) {
-					project(creature_ptr, 0,2,y,x,plev,DO_EFFECT_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
+					project(creature_ptr, 0,2,y,x,lev_bonus,DO_EFFECT_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
 				}
 			}
 		}
 		break;
 		/* seeker ray */
 	case 10:
-		cast_beam(creature_ptr, DO_EFFECT_SEEKER, MAX_RANGE_SUB, diceroll(11+(plev-5)/4,8), 0);
+		cast_beam(creature_ptr, DO_EFFECT_SEEKER, MAX_RANGE_SUB, diceroll(11+(lev_bonus-5)/4,8), 0);
 		break;
 		/* seal of mirror */
 	case 11:
-		seal_of_mirror(creature_ptr, plev * 4 + 100);
+		seal_of_mirror(creature_ptr, lev_bonus * 4 + 100);
 		break;
 		/* shield of water */
 	case 12:
 		tmp = 20+randint1(20);
 		set_timed_trait(creature_ptr, TRAIT_SHIELD, tmp, FALSE);
-		if(plev > 31) set_timed_trait(creature_ptr, TRAIT_REFLECTING, tmp, FALSE);
-		if(plev > 39) set_timed_trait(creature_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
+		if(lev_bonus > 31) set_timed_trait(creature_ptr, TRAIT_REFLECTING, tmp, FALSE);
+		if(lev_bonus > 39) set_timed_trait(creature_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
 		break;
 		/* super ray */
 	case 13:
-		cast_beam(creature_ptr, DO_EFFECT_SUPER_RAY, MAX_RANGE_SUB, 150+randint1(2*plev), 0);
+		cast_beam(creature_ptr, DO_EFFECT_SUPER_RAY, MAX_RANGE_SUB, 150+randint1(2*lev_bonus), 0);
 		break;
 		/* illusion light */
 	case 14:
 		tmp = is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ? 4 : 3;
 		project_all_vision(creature_ptr, DO_EFFECT_SLOW_OTHERS, creature_ptr->lev);
-		project_all_vision(creature_ptr, DO_EFFECT_TURN_ALL, plev*tmp);
-		project_all_vision(creature_ptr, DO_EFFECT_CONF_OTHERS, plev*tmp);
-		project_all_vision(creature_ptr, DO_EFFECT_STUN, plev*tmp);
-		project_all_vision(creature_ptr, DO_EFFECT_STASIS, plev*tmp);
+		project_all_vision(creature_ptr, DO_EFFECT_TURN_ALL, lev_bonus*tmp);
+		project_all_vision(creature_ptr, DO_EFFECT_CONF_OTHERS, lev_bonus*tmp);
+		project_all_vision(creature_ptr, DO_EFFECT_STUN, lev_bonus*tmp);
+		project_all_vision(creature_ptr, DO_EFFECT_STASIS, lev_bonus*tmp);
 		break;
 		/* mirror shift */
 	case 15:
@@ -1232,9 +1232,9 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 
 	case 19:
 #ifdef JP
-		if(!binding_field(creature_ptr, MAX_RANGE, plev*11+5)) msg_print("適当な鏡を選べなかった！");
+		if(!binding_field(creature_ptr, MAX_RANGE, lev_bonus*11+5)) msg_print("適当な鏡を選べなかった！");
 #else
-		if(!binding_field(creature_ptr, MAX_RANGE, plev*11+5)) msg_print("You were not able to choose suitable mirrors!");
+		if(!binding_field(creature_ptr, MAX_RANGE, lev_bonus*11+5)) msg_print("You were not able to choose suitable mirrors!");
 #endif
 		break;
 		/* mirror of Ruffnor */
@@ -1594,7 +1594,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 	int             n = 0, b = 0;
 	int             chance;
 	int             minfail = 0;
-	int             plev = creature_ptr->lev;
+	int             lev_bonus = creature_ptr->lev;
 	int             old_csp = creature_ptr->csp;
 	mind_type       spell;
 	bool            cast;
@@ -1662,7 +1662,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 	if(chance)
 	{
 		/* Reduce failure rate by "effective" level adjustment */
-		chance -= 3 * (plev - spell.min_lev);
+		chance -= 3 * (lev_bonus - spell.min_lev);
 		chance += creature_ptr->to_m_chance;
 
 		/* Reduce failure rate by INT/WIS adjustment */
@@ -1730,9 +1730,9 @@ void do_cmd_mind(creature_type *creature_ptr)
 						msg_print("Your mind unleashes its power in an uncontrollable storm!");
 #endif
 						/*TODO*/
-						project(creature_ptr, 0, 2 + (COODINATES)plev / 10, creature_ptr->fy, creature_ptr->fx, (COODINATES)plev * 2,
+						project(creature_ptr, 0, 2 + (COODINATES)lev_bonus / 10, creature_ptr->fy, creature_ptr->fx, (COODINATES)lev_bonus * 2,
 							DO_EFFECT_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1);
-						creature_ptr->csp = MAX(0, creature_ptr->csp - plev * MAX(1, plev / 10));
+						creature_ptr->csp = MAX(0, creature_ptr->csp - lev_bonus * MAX(1, lev_bonus / 10));
 					}
 				}
 				if( use_mind == MIND_MIRROR_MASTER ){
@@ -1769,9 +1769,9 @@ void do_cmd_mind(creature_type *creature_ptr)
 #endif
 
 						/*TODO*/
-						project(creature_ptr, 0, 2 + (COODINATES)plev / 10, creature_ptr->fy, creature_ptr->fx, (COODINATES)plev * 2,
+						project(creature_ptr, 0, 2 + (COODINATES)lev_bonus / 10, creature_ptr->fy, creature_ptr->fx, (COODINATES)lev_bonus * 2,
 							DO_EFFECT_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1);
-						creature_ptr->csp = MAX(0, creature_ptr->csp - plev * MAX(1, plev / 10));
+						creature_ptr->csp = MAX(0, creature_ptr->csp - lev_bonus * MAX(1, lev_bonus / 10));
 					}
 				}
 			}

@@ -12,11 +12,11 @@
 
 #include "angband.h"
 
-#define pseudo_plev(C) ((((C)->lev + 40) * ((C)->lev + 40) - 1550) / 130)
+#define pseudo_lev_bonus(C) ((((C)->lev + 40) * ((C)->lev + 40) - 1550) / 130)
 
 static void learnedungeon_info(creature_type *creature_ptr, char *p, POWER power)
 {
-	int plev = pseudo_plev(creature_ptr);
+	int lev_bonus = pseudo_lev_bonus(creature_ptr);
 	int hp = creature_ptr->chp;
 
 	static const char s_dam[] = KW_DAM;
@@ -69,7 +69,7 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, POWER power
 		case TRAIT_BA_MANA:
 		case TRAIT_BA_DARK:
 		case TRAIT_BA_LITE:
-			sprintf(p, " %s%d+10d10", s_dam, plev * 8 + 50);
+			sprintf(p, " %s%d+10d10", s_dam, lev_bonus * 8 + 50);
 			break;
 		case TRAIT_DISPEL:
 			break;
@@ -126,34 +126,34 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, POWER power
 			sprintf(p, " %s%d", s_dam, MIN(hp/6, 150));
 			break;
 		case TRAIT_BA_NUKE:
-			sprintf(p, " %s%d+10d6", s_dam, plev * 2);
+			sprintf(p, " %s%d+10d6", s_dam, lev_bonus * 2);
 			break;
 		case TRAIT_BA_CHAO:
-			sprintf(p, " %s%d+10d10", s_dam, plev * 4);
+			sprintf(p, " %s%d+10d10", s_dam, lev_bonus * 4);
 			break;
 		case TRAIT_BA_ACID:
-			sprintf(p, " %s15+d%d", s_dam, plev * 6);
+			sprintf(p, " %s15+d%d", s_dam, lev_bonus * 6);
 			break;
 		case TRAIT_BA_ELEC:
-			sprintf(p, " %s8+d%d", s_dam, plev * 3);
+			sprintf(p, " %s8+d%d", s_dam, lev_bonus * 3);
 			break;
 		case TRAIT_BA_FIRE:
-			sprintf(p, " %s10+d%d", s_dam, plev * 7);
+			sprintf(p, " %s10+d%d", s_dam, lev_bonus * 7);
 			break;
 		case TRAIT_BA_COLD:
-			sprintf(p, " %s10+d%d", s_dam, plev * 3);
+			sprintf(p, " %s10+d%d", s_dam, lev_bonus * 3);
 			break;
 		case TRAIT_BA_POIS:
 			sprintf(p, " %s12d2", s_dam);
 			break;
 		case TRAIT_BA_NETH:
-			sprintf(p, " %s%d+10d10", s_dam, plev * 2 + 50);
+			sprintf(p, " %s%d+10d10", s_dam, lev_bonus * 2 + 50);
 			break;
 		case TRAIT_BA_WATE:
-			sprintf(p, " %s50+d%d", s_dam, plev * 4);
+			sprintf(p, " %s50+d%d", s_dam, lev_bonus * 4);
 			break;
 		case TRAIT_DRAIN_MANA:
-			sprintf(p, " %sd%d+%d", s_heal, plev, plev);
+			sprintf(p, " %sd%d+%d", s_heal, lev_bonus, lev_bonus);
 			break;
 		case TRAIT_MIND_BLAST:
 			sprintf(p, " %s8d8", s_dam);
@@ -174,40 +174,40 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, POWER power
 			sprintf(p, " %s15d15", s_dam);
 			break;
 		case TRAIT_BO_ACID:
-			sprintf(p, " %s%d+7d8", s_dam, plev * 2 / 3);
+			sprintf(p, " %s%d+7d8", s_dam, lev_bonus * 2 / 3);
 			break;
 		case TRAIT_BO_ELEC:
-			sprintf(p, " %s%d+4d8", s_dam, plev * 2 / 3);
+			sprintf(p, " %s%d+4d8", s_dam, lev_bonus * 2 / 3);
 			break;
 		case TRAIT_BO_FIRE:
-			sprintf(p, " %s%d+9d8", s_dam, plev * 2 / 3);
+			sprintf(p, " %s%d+9d8", s_dam, lev_bonus * 2 / 3);
 			break;
 		case TRAIT_BO_COLD:
-			sprintf(p, " %s%d+6d8", s_dam, plev * 2 / 3);
+			sprintf(p, " %s%d+6d8", s_dam, lev_bonus * 2 / 3);
 			break;
 		case TRAIT_BO_NETH:
-			sprintf(p, " %s%d+5d5", s_dam, 30 + plev * 8 / 3);
+			sprintf(p, " %s%d+5d5", s_dam, 30 + lev_bonus * 8 / 3);
 			break;
 		case TRAIT_BO_WATE:
-			sprintf(p, " %s%d+10d10", s_dam, plev * 2);
+			sprintf(p, " %s%d+10d10", s_dam, lev_bonus * 2);
 			break;
 		case TRAIT_BO_MANA:
-			sprintf(p, " %s50+d%d", s_dam, plev * 7);
+			sprintf(p, " %s50+d%d", s_dam, lev_bonus * 7);
 			break;
 		case TRAIT_BO_PLAS:
-			sprintf(p, " %s%d+8d7", s_dam, plev * 2 + 10);
+			sprintf(p, " %s%d+8d7", s_dam, lev_bonus * 2 + 10);
 			break;
 		case TRAIT_BO_ICEE:
-			sprintf(p, " %s%d+6d6", s_dam, plev * 2);
+			sprintf(p, " %s%d+6d6", s_dam, lev_bonus * 2);
 			break;
 		case TRAIT_MISSILE:
-			sprintf(p, " %s%d+2d6", s_dam, plev * 2 / 3);
+			sprintf(p, " %s%d+2d6", s_dam, lev_bonus * 2 / 3);
 			break;
 		case TRAIT_HASTE:
-			sprintf(p, " %sd%d+%d", s_dur, 20+plev, plev);
+			sprintf(p, " %sd%d+%d", s_dur, 20+lev_bonus, lev_bonus);
 			break;
 		case TRAIT_HEAL:
-			sprintf(p, " %s%d", s_heal, plev*4);
+			sprintf(p, " %s%d", s_heal, lev_bonus*4);
 			break;
 		case TRAIT_INVULNER:
 			sprintf(p, " %sd7+7", s_dur);
@@ -216,10 +216,10 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, POWER power
 			sprintf(p, " %s10", s_range);
 			break;
 		case TRAIT_ACTIVE_TELEPORT:
-			sprintf(p, " %s%d", s_range, plev * 5);
+			sprintf(p, " %s%d", s_range, lev_bonus * 5);
 			break;
 		case TRAIT_PSY_SPEAR:
-			sprintf(p, " %s100+d%d", s_dam, plev * 3);
+			sprintf(p, " %s100+d%d", s_dam, lev_bonus * 3);
 			break;
 		case TRAIT_ANIM_DEAD:
 			sprintf(p, " %s5", s_range);
@@ -517,8 +517,8 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 					chance = spell->fail;
 
 					/* Reduce failure rate by "effective" level adjustment */
-					//TODO if(plev > spell.level) chance -= 3 * (plev - spell.level);
-					//else chance += (spell.level - plev);
+					//TODO if(lev_bonus > spell.level) chance -= 3 * (lev_bonus - spell.level);
+					//else chance += (spell.level - lev_bonus);
 
 					/* Reduce failure rate by INT/WIS adjustment */
 					chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[STAT_INT]] - 1);
@@ -663,8 +663,8 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	chance = spell->fail;
 
 	/* Reduce failure rate by "effective" level adjustment */
-	//if(plev > spell.level) chance -= 3 * (plev - spell.level);
-	//else chance += (spell.level - plev);
+	//if(lev_bonus > spell.level) chance -= 3 * (lev_bonus - spell.level);
+	//else chance += (spell.level - lev_bonus);
 
 	/* Reduce failure rate by INT/WIS adjustment */
 	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[STAT_INT]] - 1);

@@ -2474,7 +2474,7 @@ void call_chaos(creature_type *creature_ptr)
 {
 	EFFECT_ID Chaos_type;
 	COODINATES dummy;
-	CREATURE_LEV plev = creature_ptr->lev;
+	CREATURE_LEV lev_bonus = creature_ptr->lev;
 	bool line_chaos = FALSE;
 
 	int hurt_types[31] =
@@ -2511,7 +2511,7 @@ void call_chaos(creature_type *creature_ptr)
 		if(line_chaos)
 			cast_beam(creature_ptr, Chaos_type, MAX_RANGE_SUB, 250, 0);
 		else
-			cast_ball(creature_ptr, Chaos_type, MAX_RANGE_SUB, 250, 3 + (plev / 35));
+			cast_ball(creature_ptr, Chaos_type, MAX_RANGE_SUB, 250, 3 + (lev_bonus / 35));
 	}
 }
 

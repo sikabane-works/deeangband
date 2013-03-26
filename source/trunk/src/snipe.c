@@ -123,7 +123,7 @@ void display_snipe_list(creature_type *creature_ptr)
 	int             i;
 	int             y = 1;
 	int             x = 1;
-	int             plev = creature_ptr->lev;
+	int             lev_bonus = creature_ptr->lev;
 	snipe_power     spell;
 	char            psi_desc[80];
 
@@ -141,7 +141,7 @@ void display_snipe_list(creature_type *creature_ptr)
 	{
 		/* Access the available spell */
 		spell = snipe_powers[i];
-		if(spell.min_lev > plev) continue;
+		if(spell.min_lev > lev_bonus) continue;
 		if(spell.mana_cost > (int)creature_ptr->concent) continue;
 
 		/* Dump the spell */
@@ -159,7 +159,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 	int num = 0;
 	int y = 1;
 	int x = 20;
-	int plev = creature_ptr->lev;
+	int lev_bonus = creature_ptr->lev;
 	int ask;
 	char choice;
 	char out_val[160];
@@ -177,7 +177,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 	if(repeat_pull(sn))
 	{
 		/* Verify the spell */
-		if((snipe_powers[*sn].min_lev <= plev) && (snipe_powers[*sn].mana_cost <= (int)creature_ptr->concent))
+		if((snipe_powers[*sn].min_lev <= lev_bonus) && (snipe_powers[*sn].mana_cost <= (int)creature_ptr->concent))
 		{
 			return TRUE;
 		}
@@ -191,7 +191,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 
 	for (i = 0; i < MAX_SNIPE_POWERS; i++)
 	{
-		if((snipe_powers[i].min_lev <= plev) && ((only_browse) || (snipe_powers[i].mana_cost <= (int)creature_ptr->concent)))
+		if((snipe_powers[i].min_lev <= lev_bonus) && ((only_browse) || (snipe_powers[i].mana_cost <= (int)creature_ptr->concent)))
 		{
 			num = i;
 		}
@@ -230,7 +230,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 
 					/* Access the spell */
 					spell = snipe_powers[i];
-					if(spell.min_lev > plev) continue;
+					if(spell.min_lev > lev_bonus) continue;
 					if(!only_browse && (spell.mana_cost > (int)creature_ptr->concent)) continue;
 
 					/* Dump the spell --(-- */

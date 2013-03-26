@@ -200,8 +200,8 @@ static void cast_wonder(creature_type *caster_ptr, DIRECTION dir)
 {
 	//TODO target_select
 	COODINATES y = 0, x = 0;
-	int plev = caster_ptr->lev;
-	int die = randint1(100) + plev / 5;
+	int lev_bonus = caster_ptr->lev;
+	int die = randint1(100) + lev_bonus / 5;
 	// TODO: add Karma of Fortune feature.
 
 	if(die > 100)
@@ -216,24 +216,24 @@ static void cast_wonder(creature_type *caster_ptr, DIRECTION dir)
 	if(die < 8) cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1);
 	else if(die < 14) cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1);
 	else if(die < 26) cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, diceroll(4, 6), -1);
-	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, plev, -1);
-	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(caster_ptr) - 10);
-	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev, -1);
-	else if(die < 46) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_POIS, 20 + (plev / 2), 3, -1);
+	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, lev_bonus, -1);
+	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5), 4), beam_chance(caster_ptr) - 10);
+	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, lev_bonus, -1);
+	else if(die < 46) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_POIS, 20 + (lev_bonus / 2), 3, -1);
 	else if(die < 51) (void)cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
-	else if(die < 56) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3 + ((plev - 5) / 4), 8), beam_chance(caster_ptr) - 10);
-	else if(die < 61) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5 + ((plev - 5) / 4), 8), beam_chance(caster_ptr) - 10);
-	else if(die < 66) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6 + ((plev - 5) / 4), 8), beam_chance(caster_ptr));
-	else if(die < 71) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8 + ((plev - 5) / 4), 8), beam_chance(caster_ptr));
+	else if(die < 56) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr) - 10);
+	else if(die < 61) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr) - 10);
+	else if(die < 66) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr));
+	else if(die < 71) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8 + ((lev_bonus - 5) / 4), 8), beam_chance(caster_ptr));
 	else if(die < 76) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 75, -1);
-	else if(die < 81) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, 30 + plev / 2, 2, -1);
-	else if(die < 86) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ACID, 40 + plev, 2, -1);
-	else if(die < 91) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ICE, 70 + plev, 3, -1);
-	else if(die < 96) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 80 + plev, 3, -1);
-	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100 + plev, -1);
+	else if(die < 81) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, 30 + lev_bonus / 2, 2, -1);
+	else if(die < 86) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ACID, 40 + lev_bonus, 2, -1);
+	else if(die < 91) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ICE, 70 + lev_bonus, 3, -1);
+	else if(die < 96) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 80 + lev_bonus, 3, -1);
+	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100 + lev_bonus, -1);
 	else if(die < 104) earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE);
-	else if(die < 108) symbol_genocide(caster_ptr, plev+50, TRUE);
+	else if(die < 108) symbol_genocide(caster_ptr, lev_bonus+50, TRUE);
 	else if(die < 110) project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 120);
 	else
 	{
@@ -250,8 +250,8 @@ static void cast_invoke_spirits(creature_type *caster_ptr, int dir)
 	//TODO: target
 	COODINATES y = 0, x = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int plev = caster_ptr->lev;
-	int die = randint1(100) + plev / 5;
+	int lev_bonus = caster_ptr->lev;
+	int die = randint1(100) + lev_bonus / 5;
 	// TODO: Add Karma of Fortune feature.
 
 	msg_print(INVOKE_SPIRIT_START);
@@ -272,24 +272,24 @@ static void cast_invoke_spirits(creature_type *caster_ptr, int dir)
 		msg_print(INVOKE_SPIRIT_LOW3);
 		add_timed_trait(caster_ptr, TRAIT_CONFUSED, randint1(4) + 4, TRUE);
 	}
-	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, plev, -1);
-	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((plev - 1) / 5), 4), beam_chance(caster_ptr) - 10);
-	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev, -1);
-	else if(die < 46) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_POIS, 20 + (plev / 2), 3, -1);
+	else if(die < 31) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, lev_bonus, -1);
+	else if(die < 36) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5), 4), beam_chance(caster_ptr) - 10);
+	else if(die < 41) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, lev_bonus, -1);
+	else if(die < 46) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_POIS, 20 + (lev_bonus / 2), 3, -1);
 	else if(die < 51) (void)cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
-	else if(die < 56) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3+((plev-5)/4),8), beam_chance(caster_ptr) - 10);
-	else if(die < 61) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5+((plev-5)/4),8), beam_chance(caster_ptr) - 10);
-	else if(die < 66) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6+((plev-5)/4),8), beam_chance(caster_ptr));
-	else if(die < 71) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8+((plev-5)/4),8), beam_chance(caster_ptr));
+	else if(die < 56) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(3+((lev_bonus-5)/4),8), beam_chance(caster_ptr) - 10);
+	else if(die < 61) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(5+((lev_bonus-5)/4),8), beam_chance(caster_ptr) - 10);
+	else if(die < 66) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, diceroll(6+((lev_bonus-5)/4),8), beam_chance(caster_ptr));
+	else if(die < 71) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(8+((lev_bonus-5)/4),8), beam_chance(caster_ptr));
 	else if(die < 76) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 75, -1);
-	else if(die < 81) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, 30 + plev / 2, 2, -1);
-	else if(die < 86) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ACID, 40 + plev, 2, -1);
-	else if(die < 91) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ICE, 70 + plev, 3, -1);
-	else if(die < 96) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 80 + plev, 3, -1);
-	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100 + plev, -1);
+	else if(die < 81) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ELEC, 30 + lev_bonus / 2, 2, -1);
+	else if(die < 86) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ACID, 40 + lev_bonus, 2, -1);
+	else if(die < 91) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_ICE, 70 + lev_bonus, 3, -1);
+	else if(die < 96) cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 80 + lev_bonus, 3, -1);
+	else if(die < 101) cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100 + lev_bonus, -1);
 	else if(die < 104) earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 12);
 	else if(die < 106) (void)destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (DIRECTION)randint0(5), FALSE);
-	else if(die < 108) symbol_genocide(caster_ptr, plev+50, TRUE);
+	else if(die < 108) symbol_genocide(caster_ptr, lev_bonus+50, TRUE);
 	else if(die < 110) project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 120);
 	else
 	{
@@ -408,14 +408,14 @@ void wild_magic(creature_type *caster_ptr, int spell)
 static void cast_shuffle(creature_type *caster_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int plev = caster_ptr->lev;
+	int lev_bonus = caster_ptr->lev;
 	int die;
 	// TODO: Add Karma of Fortune feature.
 	int i;
 
 	// Card sharks and high mages get a level bonus
 	if((caster_ptr->class_idx == CLASS_ROGUE) || (caster_ptr->class_idx == CLASS_HIGH_MAGE) || (caster_ptr->class_idx == CLASS_SORCERER))
-		die = (randint1(110)) + plev / 5;
+		die = (randint1(110)) + lev_bonus / 5;
 	else
 		die = randint1(120);
 
@@ -693,7 +693,7 @@ static bool item_tester_offer(creature_type *creature_ptr, object_type *object_p
  */
 static bool cast_summon_greater_demon(creature_type *creature_ptr)
 {
-	int plev = creature_ptr->lev;
+	int lev_bonus = creature_ptr->lev;
 	int item;
 	cptr q, s;
 	int summon_lev;
@@ -710,7 +710,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_offer, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	summon_lev = plev * 2 / 3 + species_info[object_ptr->pval].level;
+	summon_lev = lev_bonus * 2 / 3 + species_info[object_ptr->pval].level;
 
 	if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, summon_lev, TRAIT_S_HI_DEMON, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 	{
@@ -784,7 +784,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	int plev = caster_ptr->lev;
+	int lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -832,7 +832,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 3 + (plev - 1) / 5;
+			int dice = 3 + (lev_bonus - 1) / 5;
 			int sides = 4;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -851,8 +851,8 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dice = 2;
-			int sides = plev / 2;
-			COODINATES rad = (COODINATES)plev / 10 + 1;
+			int sides = lev_bonus / 2;
+			COODINATES rad = (COODINATES)lev_bonus / 10 + 1;
 
 			if(info) return info_damage(dice, sides, 0);
 			if(cast) lite_area(caster_ptr, diceroll(dice, sides), rad);
@@ -951,7 +951,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int sides = 8 + (plev - 5) / 4;
+			int sides = 8 + (lev_bonus - 5) / 4;
 			int dice = 8;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -1108,7 +1108,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dice = 1;
-			int sides = plev * 5;
+			int sides = lev_bonus * 5;
 
 			if(info) return info_damage(dice, sides, 0);
 			if(cast) project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, diceroll(dice, sides));
@@ -1125,7 +1125,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev * 2;
+			POWER power = lev_bonus * 2;
 
 			if(info) return info_power(power);
 
@@ -1146,7 +1146,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 5 + (plev - 5) / 3;
+			int dice = 5 + (lev_bonus - 5) / 3;
 			int sides = 15;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -1268,7 +1268,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev + 50;
+			POWER power = lev_bonus + 50;
 
 			if(info) return info_power(power);
 
@@ -1343,7 +1343,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int base = plev / 2;
+			int base = lev_bonus / 2;
 
 			if(info) return info_duration(base, base);
 
@@ -1375,7 +1375,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	int dir;
-	int plev = caster_ptr->lev;
+	int lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -1455,8 +1455,8 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dice = 2;
-			int sides = plev / 2;
-			COODINATES rad = (COODINATES)plev / 10 + 1;
+			int sides = lev_bonus / 2;
+			COODINATES rad = (COODINATES)lev_bonus / 10 + 1;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -1475,8 +1475,8 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Confuse Creature";
 		if(desc) return "Attempts to confuse a creature.";
 #endif
-		if(info) return info_power((plev * 3) / 2);
-		if(cast) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, (plev * 3) / 2, -1);
+		if(info) return info_power((lev_bonus * 3) / 2);
+		if(cast) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, (lev_bonus * 3) / 2, -1);
 		break;
 
 	case 5:
@@ -1489,7 +1489,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			COODINATES range = plev * 5;
+			COODINATES range = lev_bonus * 5;
 
 			if(info) return info_range(range);
 
@@ -1510,7 +1510,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 
 			if(info) return info_power(power);
 			if(cast) cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1);
@@ -1527,7 +1527,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev * 4;
+			POWER power = lev_bonus * 4;
 
 			if(info) return info_power(power);
 
@@ -1584,8 +1584,8 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Slow Creature";
 		if(desc) return "Attempts to slow a creature.";
 #endif
-		if(info) return info_power(plev);
-		if(cast) cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, plev * 2, -1);
+		if(info) return info_power(lev_bonus);
+		if(cast) cast_bolt(caster_ptr, DO_EFFECT_SLOW_OTHERS, MAX_RANGE_SUB, lev_bonus * 2, -1);
 		break;
 
 	case 11:
@@ -1598,7 +1598,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 
 			if(info) return info_power(power);
 			if(cast) project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, power);
@@ -1615,7 +1615,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 			if(info) return info_power(power);
 			if(cast) cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, power, 0);
 		}
@@ -1631,8 +1631,8 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int base = plev;
-			int sides = 20 + plev;
+			int base = lev_bonus;
+			int sides = 20 + lev_bonus;
 
 			if(info) return info_duration(base, sides);
 
@@ -1712,8 +1712,8 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Charm Creature";
 		if(desc) return "Attempts to charm a creature.";
 #endif
-		if(info) return info_power(plev);
-		if(cast) cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, plev, 0);
+		if(info) return info_power(lev_bonus);
+		if(cast) cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, lev_bonus, 0);
 		break;
 
 	case 18:
@@ -1822,7 +1822,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			COODINATES range = plev / 2 + 10;
+			COODINATES range = lev_bonus / 2 + 10;
 
 			if(info) return info_range(range);
 
@@ -1868,7 +1868,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 7;
 			int sides = 7;
-			int base = plev;
+			int base = lev_bonus;
 
 			if(info) return info_damage(dice, sides, base);
 
@@ -1889,7 +1889,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int weight = plev * 15;
+			int weight = lev_bonus * 15;
 
 			if(info) return info_weight(weight);
 
@@ -1940,7 +1940,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev * 2;
+			POWER power = lev_bonus * 2;
 
 			if(info) return info_power(power);
 
@@ -1978,7 +1978,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev * 4;
+			POWER power = lev_bonus * 4;
 			if(info) return info_power(power);
 			if(cast) project_all_vision(caster_ptr, DO_EFFECT_AWAY_ALL, power);
 		}
@@ -2023,7 +2023,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 	static const char s_rng[] = KW_RAN;
 
 	int dir;
-	int plev = caster_ptr->lev;
+	int lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -2058,9 +2058,9 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 3 + (plev - 1) / 5;
+			int dice = 3 + (lev_bonus - 1) / 5;
 			int sides = 4;
-			COODINATES range = plev / 6 + 2;
+			COODINATES range = lev_bonus / 6 + 2;
 
 			if(info) return format("%s%dd%d %s%d", s_dam, dice, sides, s_rng, range);
 			if(cast) cast_beam(caster_ptr, DO_EFFECT_ELEC, range, diceroll(dice, sides), 0);
@@ -2130,8 +2130,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dice = 2;
-			int sides = plev / 2;
-			COODINATES rad = (COODINATES)(plev / 10) + 1;
+			int sides = lev_bonus / 2;
+			COODINATES rad = (COODINATES)(lev_bonus / 10) + 1;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -2162,7 +2162,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 			if(info) return info_power(power);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, power, 0);
 		}
@@ -2238,7 +2238,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 3 + (plev - 5) / 4;
+			int dice = 3 + (lev_bonus - 5) / 4;
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -2282,7 +2282,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 5 + (plev - 5) / 4;
+			int dice = 5 + (lev_bonus - 5) / 4;
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -2317,7 +2317,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 
 			if(info) return info_power(power);
 
@@ -2340,7 +2340,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!(summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, plev, TRAIT_S_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET))))
+				if(!(summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, lev_bonus, TRAIT_S_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET))))
 				{
 #ifdef JP
 					msg_print("動物は現れなかった。");
@@ -2454,7 +2454,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev * 2;
+			POWER power = lev_bonus * 2;
 			if(info) return info_power(power);
 			if(cast) project_all_vision(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, power);
 		}
@@ -2575,8 +2575,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = 70 + plev * 3 / 2;
-			COODINATES rad = (COODINATES)plev / 12 + 1;
+			POWER dam = 70 + lev_bonus * 3 / 2;
+			COODINATES rad = (COODINATES)lev_bonus / 12 + 1;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, dam, rad);
@@ -2593,8 +2593,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = 90 + plev * 3 / 2;
-			COODINATES rad = (COODINATES)plev / 12 + 1;
+			POWER dam = 90 + lev_bonus * 3 / 2;
+			COODINATES rad = (COODINATES)lev_bonus / 12 + 1;
 
 			if(info) return info_damage(0, 0, dam);
 
@@ -2616,8 +2616,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = 100 + plev * 3 / 2;
-			COODINATES rad = (COODINATES)plev / 12 + 1;
+			POWER dam = 100 + lev_bonus * 3 / 2;
+			COODINATES rad = (COODINATES)lev_bonus / 12 + 1;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, dam, rad);
@@ -2684,10 +2684,10 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int d_dam = 4 * plev;
-			int b_dam = (100 + plev) * 2;
-			int b_rad = 1 + plev / 12;
-			int q_rad = 20 + plev / 2;
+			int d_dam = 4 * lev_bonus;
+			int b_dam = (100 + lev_bonus) * 2;
+			int b_rad = 1 + lev_bonus / 12;
+			int q_rad = 20 + lev_bonus / 2;
 
 			if(info) return format("%s%d+%d", s_dam, d_dam, b_dam/2);
 
@@ -2716,7 +2716,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 	static const char s_random[] = KW_RANDOM;
 
 	int dir;
-	int plev = caster_ptr->lev;
+	int lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -2730,7 +2730,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 3 + ((plev - 1) / 5);
+			int dice = 3 + ((lev_bonus - 1) / 5);
 			int sides = 4;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -2764,8 +2764,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dice = 2;
-			int sides = plev / 2;
-			COODINATES rad = (COODINATES)(plev / 10) + 1;
+			int sides = lev_bonus / 2;
+			COODINATES rad = (COODINATES)(lev_bonus / 10) + 1;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -2809,13 +2809,13 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 3;
 			int sides = 5;
-			COODINATES rad = (plev < 30) ? 2 : 3;
+			COODINATES rad = (lev_bonus < 30) ? 2 : 3;
 			int base;
 
 			if(has_trait(caster_ptr, TRAIT_MAGIC_SPECIALIST))
-				base = plev + plev / 2;
+				base = lev_bonus + lev_bonus / 2;
 			else
-				base = plev + plev / 4;
+				base = lev_bonus + lev_bonus / 4;
 
 			if(info) return info_damage(dice, sides, base);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
@@ -2832,7 +2832,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 8 + (plev - 5) / 4;
+			int dice = 8 + (lev_bonus - 5) / 4;
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -2850,7 +2850,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 8 + ((plev - 5) / 4);
+			int dice = 8 + ((lev_bonus - 5) / 4);
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -2872,7 +2872,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			COODINATES range = plev * 5;
+			COODINATES range = lev_bonus * 5;
 
 			if(info) return info_range(range);
 
@@ -2915,7 +2915,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 10 + (plev - 5) / 4;
+			int dice = 10 + (lev_bonus - 5) / 4;
 			int sides = 8;
 			if(info) return info_damage(dice, sides, 0);
 			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
@@ -2932,8 +2932,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = 60 + plev;
-			COODINATES rad = (COODINATES)plev / 10 + 2;
+			POWER dam = 60 + lev_bonus;
+			COODINATES rad = (COODINATES)lev_bonus / 10 + 2;
 
 			if(info) return info_damage(0, 0, dam/2);
 
@@ -2960,7 +2960,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 11 + (plev - 5) / 4;
+			int dice = 11 + (lev_bonus - 5) / 4;
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -2978,7 +2978,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = plev + 55;
+			POWER dam = lev_bonus + 55;
 			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
@@ -2996,7 +2996,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 			if(info) return info_power(power);
 			if(cast) cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, power, 0);
 		}
@@ -3032,8 +3032,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = plev * 2 + 99;
-			COODINATES rad = (COODINATES)plev / 5;
+			POWER dam = lev_bonus * 2 + 99;
+			COODINATES rad = (COODINATES)lev_bonus / 5;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, dam, rad);
@@ -3048,8 +3048,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Polymorph Other";
 		if(desc) return "Attempts to polymorph a creature.";
 #endif
-		if(info) return info_power(plev);
-		if(cast) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, plev, -1);
+		if(info) return info_power(lev_bonus);
+		if(cast) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, lev_bonus, -1);
 		break;
 
 	case 17:
@@ -3062,7 +3062,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 5 + plev / 10;
+			int dice = 5 + lev_bonus / 10;
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -3106,8 +3106,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = plev + 70;
-			COODINATES rad = 3 + (COODINATES)plev / 40;
+			POWER dam = lev_bonus + 70;
+			COODINATES rad = 3 + (COODINATES)lev_bonus / 40;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, dam, rad);
@@ -3145,7 +3145,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Fires a magic rocket.";
 #endif
     	{
-			POWER dam = 120 + plev * 2;
+			POWER dam = 120 + lev_bonus * 2;
 			COODINATES rad = 2;
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_grenade(caster_ptr, DO_EFFECT_ROCKET, MAX_RANGE_SUB, dam, rad);
@@ -3186,9 +3186,9 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(pet) mode |= PC_FORCE_PET;
 				else mode |= PC_NO_PET;
-				if(!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
+				if(!(pet && (lev_bonus < 50))) mode |= PC_ALLOW_GROUP;
 
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, TRAIT_S_DEMON, mode))
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_DEMON, mode))
 				{
 					msg_print(MES_TRAP_S_H_DEMON);
 
@@ -3216,7 +3216,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 9 + (plev - 5) / 4;
+			int dice = 9 + (lev_bonus - 5) / 4;
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -3234,7 +3234,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = plev * 2;
+			POWER dam = lev_bonus * 2;
 			COODINATES rad = 2;
 
 			if(info) return info_multi_damage(dam);
@@ -3256,7 +3256,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = 300 + 3 * plev;
+			POWER dam = 300 + 3 * lev_bonus;
 			DIRECTION rad = 8;
 
 			if(info) return info_damage(0, 0, dam/2);
@@ -3315,7 +3315,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = 300 + plev * 4;
+			POWER dam = 300 + lev_bonus * 4;
 			COODINATES rad = 4;
 
 			if(info) return info_damage(0, 0, dam);
@@ -3376,7 +3376,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 	static const char s_random[] = KW_RANDOM;
 
 	int dir;
-	int plev = caster_ptr->lev;
+	int lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -3409,7 +3409,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 3 + (plev - 1) / 5;
+			int dice = 3 + (lev_bonus - 1) / 5;
 			int sides = 4;
 			COODINATES rad = 0;
 
@@ -3424,13 +3424,13 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 					/* Special effect first */
 					int effect = randint1(1000);
 					if(effect == 666)
-						cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, plev * 200, 0);
+						cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, lev_bonus * 200, 0);
 					else if(effect < 500)
-						cast_ball_hide(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, 0);
+						cast_ball_hide(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, lev_bonus, 0);
 					else if(effect < 800)
-						cast_ball_hide(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, plev, 0);
+						cast_ball_hide(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, lev_bonus, 0);
 					else
-						cast_ball_hide(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, plev, 0);
+						cast_ball_hide(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, lev_bonus, 0);
 				}
 			}
 		}
@@ -3465,7 +3465,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = 10 + plev / 2;
+			POWER dam = 10 + lev_bonus / 2;
 			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
@@ -3483,7 +3483,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 
 			if(info) return info_power(power);
 			if(cast) cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1);
@@ -3521,11 +3521,11 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 			if(info) return info_power(power);
 			if(cast)
 			{
-				cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, -1);
+				cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, lev_bonus, -1);
 				cast_bolt(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, -1);
 			}
 		}
@@ -3540,8 +3540,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Attempts to charm an undead creature.";
 #endif
    		{
-			if(info) return info_power(plev);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_CONTROL_UNDEAD, MAX_RANGE_SUB, plev, 0);
+			if(info) return info_power(lev_bonus);
+			if(cast) cast_ball(caster_ptr, DO_EFFECT_CONTROL_UNDEAD, MAX_RANGE_SUB, lev_bonus, 0);
 		}
 		break;
 
@@ -3557,13 +3557,13 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 3;
 			int sides = 6;
-			COODINATES rad = (plev < 30) ? 2 : 3;
+			COODINATES rad = (lev_bonus < 30) ? 2 : 3;
 			int base;
 
 			if(has_trait(caster_ptr, TRAIT_MAGIC_SPECIALIST))
-				base = plev + plev / 2;
+				base = lev_bonus + lev_bonus / 2;
 			else
-				base = plev + plev / 4;
+				base = lev_bonus + lev_bonus / 4;
 
 			if(info) return info_damage(dice, sides, base);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, diceroll(dice, dice) + base, rad);
@@ -3580,7 +3580,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 8 + (plev - 5) / 4;
+			int dice = 8 + (lev_bonus - 5) / 4;
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -3598,8 +3598,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = (30 + plev) * 2;
-			DIRECTION rad = plev / 10 + 2;
+			POWER dam = (30 + lev_bonus) * 2;
+			DIRECTION rad = lev_bonus / 10 + 2;
 			if(info) return info_damage(0, 0, dam/2);
 			if(cast)
 			{
@@ -3618,7 +3618,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev + 50;
+			POWER power = lev_bonus + 50;
 			if(info) return info_power(power);
 			if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0);
 		}
@@ -3652,8 +3652,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dice = 1;
-			int sides = plev * 2;
-			int base = plev * 2;
+			int sides = lev_bonus * 2;
+			int base = lev_bonus * 2;
 
 			if(info) return info_damage(dice, sides, base);
 
@@ -3694,7 +3694,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev+50;
+			POWER power = lev_bonus+50;
 
 			if(info) return info_power(power);
 
@@ -3759,7 +3759,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 4 + (plev - 5) / 4;
+			int dice = 4 + (lev_bonus - 5) / 4;
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -3778,8 +3778,8 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int b_base = 25;
-			int sp_base = plev / 2;
-			int sp_sides = 20 + plev / 2;
+			int sp_base = lev_bonus / 2;
+			int sp_sides = 20 + lev_bonus / 2;
 
 			if(info) return info_duration(b_base, b_base);
 
@@ -3845,7 +3845,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int sides = plev * 3;
+			int sides = lev_bonus * 3;
 			if(info) return info_damage(1, sides, 0);
 			if(cast) project_all_vision(caster_ptr, DO_EFFECT_DISP_LIVING, randint1(sides));
 		}
@@ -3861,7 +3861,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = 100 + plev * 2;
+			POWER dam = 100 + lev_bonus * 2;
 			COODINATES rad = 4;
 
 			if(info) return info_damage(0, 0, dam);
@@ -3896,15 +3896,15 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 				bool pet = one_in_(3);
 				FLAGS_32 mode = 0L;
 
-				type = (plev > 47 ? TRAIT_S_HI_UNDEAD : TRAIT_S_UNDEAD);
+				type = (lev_bonus > 47 ? TRAIT_S_HI_UNDEAD : TRAIT_S_UNDEAD);
 
-				if(!pet || (pet && (plev > 24) && one_in_(3)))
+				if(!pet || (pet && (lev_bonus > 24) && one_in_(3)))
 					mode |= PC_ALLOW_GROUP;
 
 				if(pet) mode |= PC_FORCE_PET;
 				else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, type, mode))
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, type, mode))
 				{
 #ifdef JP
 					msg_print("冷たい風があなたの周りに吹き始めた。それは腐敗臭を運んでいる...");
@@ -3947,7 +3947,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(randint1(50) > plev)
+				if(randint1(50) > lev_bonus)
 				{
 					if(!ident_spell(caster_ptr, FALSE)) return NULL;
 				}
@@ -3969,7 +3969,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int base = 10 + plev / 2;
+			int base = 10 + lev_bonus / 2;
 
 			if(info) return info_duration(base, base);
 
@@ -4007,7 +4007,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev + 50;
+			POWER power = lev_bonus + 50;
 
 			if(info) return info_power(power);
 
@@ -4055,7 +4055,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int base = plev / 2;
+			int base = lev_bonus / 2;
 
 			if(info) return info_duration(base, base);
 
@@ -4082,7 +4082,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 	static const char s_random[] = KW_RANDOM;
 
 	DIRECTION dir;
-	CREATURE_LEV plev = caster_ptr->lev;
+	CREATURE_LEV lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -4186,7 +4186,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			COODINATES range = plev * 4;
+			COODINATES range = lev_bonus * 4;
 
 			if(info) return info_range(range);
 
@@ -4229,7 +4229,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 			if(info) return info_power(power);
 			if(cast) cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, power, 0);
 		}
@@ -4280,7 +4280,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int weight = plev * 15;
+			int weight = lev_bonus * 15;
 
 			if(info) return info_weight(weight);
 
@@ -4332,7 +4332,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("You concentrate on several trumps at once...");
 #endif
 
-				if(trump_summoning(caster_ptr, 2 + randint0(plev / 7), !fail, y, x, 0, type, 0L))
+				if(trump_summoning(caster_ptr, 2 + randint0(lev_bonus / 7), !fail, y, x, 0, type, 0L))
 				{
 					if(fail)
 					{
@@ -4360,7 +4360,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			/* Phantasmal Servant is not summoned as enemy when failed */
 			if(cast)
 			{
-				int summon_lev = plev * 2 / 3 + randint1(plev / 2);
+				int summon_lev = lev_bonus * 2 / 3 + randint1(lev_bonus / 2);
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, (summon_lev * 3 / 2), TRAIT_S_PHANTOM, 0L))
 					msg_print(MES_SUMMON_SERVANT);
 			}
@@ -4424,7 +4424,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			COODINATES range = plev / 2 + 10;
+			COODINATES range = lev_bonus / 2 + 10;
 
 			if(info) return info_range(range);
 
@@ -4473,7 +4473,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev * 4;
+			POWER power = lev_bonus * 4;
 
 			if(info) return info_power(power);
 			if(cast) project_all_vision(caster_ptr, DO_EFFECT_AWAY_ALL, power);
@@ -4593,7 +4593,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				else
 					type = 0;
 
-				if(trump_summoning(caster_ptr, (1 + (plev - 15)/ 10), !fail, caster_ptr->fy, caster_ptr->fx, 0, type, 0L))
+				if(trump_summoning(caster_ptr, (1 + (lev_bonus - 15)/ 10), !fail, caster_ptr->fy, caster_ptr->fx, 0, type, 0L))
 				{
 					if(fail)
 					{
@@ -4774,7 +4774,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int heal = plev * 10 + 200;
+			int heal = lev_bonus * 10 + 200;
 
 			if(info) return info_heal(0, 0, heal);
 
@@ -4840,7 +4840,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = plev * 2;
+			POWER dam = lev_bonus * 2;
 			COODINATES rad = 2;
 
 			if(info) return info_multi_damage(dam);
@@ -4972,7 +4972,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
-	int plev = caster_ptr->lev;
+	int lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -4986,7 +4986,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 3 + (plev - 1) / 5;
+			int dice = 3 + (lev_bonus - 1) / 5;
 			int sides = 3;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -5074,8 +5074,8 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int dice = 2;
-			int sides = plev / 2;
-			COODINATES rad = (COODINATES)plev / 10 + 1;
+			int sides = lev_bonus / 2;
+			COODINATES rad = (COODINATES)lev_bonus / 10 + 1;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -5347,7 +5347,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			COODINATES range = plev * 5;
+			COODINATES range = lev_bonus * 5;
 
 			if(info) return info_range(range);
 
@@ -5462,7 +5462,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, plev, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+				if(!summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, lev_bonus, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("エレメンタルは現れなかった。");
@@ -5502,7 +5502,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 
 			if(info) return info_power(power);
 			if(cast) cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, power, 0);
@@ -5519,7 +5519,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = 75 + plev;
+			POWER dam = 75 + lev_bonus;
 			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
@@ -5621,7 +5621,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	int plev = creature_ptr->lev;
+	int lev_bonus = creature_ptr->lev;
 
 	switch (spell)
 	{
@@ -5900,7 +5900,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
     
 		{
-			int base = 3 * plev;
+			int base = 3 * lev_bonus;
 			int sides = 25;
 
 			if(info) return info_duration(base, sides);
@@ -5942,7 +5942,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
     
 		{
-			int base = plev / 2;
+			int base = lev_bonus / 2;
 
 			if(info) return info_duration(base, base);
 
@@ -6032,8 +6032,8 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
     
 		{
-			int base = plev;
-			int sides = 20 + plev;
+			int base = lev_bonus;
+			int sides = 20 + lev_bonus;
 
 			if(info) return info_duration(base, sides);
 
@@ -6054,7 +6054,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
     
 		{
-			int base = plev / 2;
+			int base = lev_bonus / 2;
 
 			if(info) return info_duration(base, base);
 
@@ -6094,7 +6094,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, TRAIT_S_GOLEM, PC_FORCE_PET))
+				if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, lev_bonus, TRAIT_S_GOLEM, PC_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("ゴーレムを作った。");
@@ -6306,7 +6306,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 
 	static const char s_dam[] = KW_DAM;
 
-	int plev = caster_ptr->lev;
+	int lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -6320,7 +6320,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 3 + (plev - 1) / 5;
+			int dice = 3 + (lev_bonus - 1) / 5;
 			int sides = 4;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -6401,13 +6401,13 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 
 			if(info) return info_power(power);
 
 			if(cast)
 			{
-				cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, -1);
+				cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, lev_bonus, -1);
 				cast_bolt(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, -1);
 			}
 		}
@@ -6423,7 +6423,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 6 + (plev - 5) / 4;
+			int dice = 6 + (lev_bonus - 5) / 4;
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -6443,7 +6443,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, TRAIT_S_MANES, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+				if(!summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_MANES, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("古代の死霊は現れなかった。");
@@ -6467,9 +6467,9 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 3;
 			int sides = 6;
-			COODINATES rad = (plev < 30) ? 2 : 3;
+			COODINATES rad = (lev_bonus < 30) ? 2 : 3;
 			int base;
-			base = plev + plev / 3;
+			base = lev_bonus + lev_bonus / 3;
 
 			if(info) return info_damage(dice, sides, base);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
@@ -6484,8 +6484,8 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dominate Demon";
 		if(desc) return "Attempts to charm a demon.";
 #endif
-    	if(info) return info_power(plev);
-		if(cast) cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, plev, 0);
+    	if(info) return info_power(lev_bonus);
+		if(cast) cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, lev_bonus, 0);
 		break;
 
 	case 9:
@@ -6540,7 +6540,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 11 + (plev - 5) / 4;
+			int dice = 11 + (lev_bonus - 5) / 4;
 			int sides = 8;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -6558,7 +6558,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = plev + 55;
+			POWER dam = lev_bonus + 55;
 			COODINATES rad = 2;
 
 			if(info) return info_damage(0, 0, dam);
@@ -6593,8 +6593,8 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = plev * 3 / 2 + 100;
-			COODINATES rad = (COODINATES)plev / 20 + 2;
+			POWER dam = lev_bonus * 3 / 2 + 100;
+			COODINATES rad = (COODINATES)lev_bonus / 20 + 2;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, dam, rad);
@@ -6618,9 +6618,9 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(pet) mode |= PC_FORCE_PET;
 				else mode |= PC_NO_PET;
-				if(!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
+				if(!(pet && (lev_bonus < 50))) mode |= PC_ALLOW_GROUP;
 
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, plev*2/3+randint1(plev/2), TRAIT_S_DEMON, mode))
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, lev_bonus*2/3+randint1(lev_bonus/2), TRAIT_S_DEMON, mode))
 				{
 					msg_print(MES_TRAP_S_H_DEMON);
 					if(pet) msg_print(MES_SUMMON_SERVANT);
@@ -6705,7 +6705,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = (55 + plev) * 2;
+			POWER dam = (55 + lev_bonus) * 2;
 			COODINATES rad = 3;
 
 			if(info) return info_damage(0, 0, dam/2);
@@ -6727,8 +6727,8 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Fires a ball of plasma.";
 #endif    
 		{
-			POWER dam = plev * 3 / 2 + 80;
-			COODINATES rad = 2 + (COODINATES)plev / 40;
+			POWER dam = lev_bonus * 3 / 2 + 80;
+			COODINATES rad = 2 + (COODINATES)lev_bonus / 40;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, dam, rad);
@@ -6745,7 +6745,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int base = 10 + plev / 2;
+			int base = 10 + lev_bonus / 2;
 
 			if(info) return info_duration(base, base);
 
@@ -6767,8 +6767,8 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int sides1 = plev * 2;
-			int sides2 = plev * 2;
+			int sides1 = lev_bonus * 2;
+			int sides2 = lev_bonus * 2;
 
 			if(info) return format("%sd%d+d%d", s_dam, sides1, sides2);
 
@@ -6790,7 +6790,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = 100 + plev * 2;
+			POWER dam = 100 + lev_bonus * 2;
 			COODINATES rad = 4;
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, dam, rad);
@@ -6805,7 +6805,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Doom Hand";
 		if(desc) return "Attempts to make a creature's HP almost half.";
 #endif
-		if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, MAX_RANGE_SUB, plev * 2, 0);
+		if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, MAX_RANGE_SUB, lev_bonus * 2, 0);
 		break;
 
 	case 24:
@@ -6862,8 +6862,8 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = 50 + plev;
-			COODINATES rad = 3 + (COODINATES)plev / 20;
+			POWER dam = 50 + lev_bonus;
+			COODINATES rad = 3 + (COODINATES)lev_bonus / 20;
 
 			if(info) return format("%s%d+%d", s_dam, dam/2, dam/2);
 
@@ -6920,8 +6920,8 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = plev * 15;
-			COODINATES rad = (COODINATES)plev / 5;
+			POWER dam = lev_bonus * 15;
+			COODINATES rad = (COODINATES)lev_bonus / 5;
 
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, dam, rad);
@@ -6988,7 +6988,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	int dir;
-	int plev = caster_ptr->lev;
+	int lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -7002,7 +7002,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 3 + (plev - 1) / 5;
+			int dice = 3 + (lev_bonus - 1) / 5;
 			int sides = 4;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -7058,9 +7058,9 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 			if(info) return info_power(power);
-			if(cast) cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, plev, -1);
+			if(cast) cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, lev_bonus, -1);
 		}
 		break;
 
@@ -7073,7 +7073,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Attempts to sleep creatures in the adjacent squares.";
 #endif
    		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 			if(info) return info_power(power);
 			if(cast) project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		}
@@ -7089,7 +7089,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			COODINATES range = 25 + plev / 2;
+			COODINATES range = 25 + lev_bonus / 2;
 
 			if(info) return info_range(range);
 
@@ -7110,7 +7110,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 3 + (plev - 1) / 9;
+			int dice = 3 + (lev_bonus - 1) / 9;
 			int sides = 2;
 
 			if(info) return info_multi_damage_dice(dice, sides);
@@ -7170,10 +7170,10 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int dice = 3;
 			int sides = 6;
-			COODINATES rad = (plev < 30) ? 2 : 3;
+			COODINATES rad = (lev_bonus < 30) ? 2 : 3;
 			int base;
 
-			base = plev + plev / 3;
+			base = lev_bonus + lev_bonus / 3;
 
 			if(info) return info_damage(dice, sides, base);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_HOLY_FIRE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
@@ -7190,8 +7190,8 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int sides = plev;
-			POWER power = plev;
+			int sides = lev_bonus;
+			POWER power = lev_bonus;
 
 			if(info) return info_damage(1, sides, 0);
 
@@ -7253,7 +7253,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			int base = 25;
-			int sides = 3 * plev;
+			int sides = 3 * lev_bonus;
 
 			if(info) return info_duration(base, sides);
 
@@ -7274,7 +7274,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = plev * 5;
+			POWER dam = lev_bonus * 5;
 
 			if(info) return info_damage(0, 0, dam);
 
@@ -7296,7 +7296,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam_sides = plev * 6;
+			POWER dam_sides = lev_bonus * 6;
 			int heal = 100;
 
 #ifdef JP
@@ -7332,8 +7332,8 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Arrest";
 		if(desc) return "Attempts to paralyze an evil creature.";
 #endif
-		if(info) return info_power(plev * 2);
-		if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, plev * 2, 0);
+		if(info) return info_power(lev_bonus * 2);
+		if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, lev_bonus * 2, 0);
 		break;
 
 	case 18:
@@ -7367,7 +7367,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int sides = plev * 4;
+			int sides = lev_bonus * 4;
 
 			if(info) return info_damage(1, sides, 0);
 
@@ -7389,7 +7389,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int sides = plev * 4;
+			int sides = lev_bonus * 4;
 
 			if(info) return info_damage(1, sides, 0);
 			if(cast) project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, randint1(sides));
@@ -7423,7 +7423,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = 100 + plev * 2;
+			POWER dam = 100 + lev_bonus * 2;
 			COODINATES rad = 4;
 
 			if(info) return info_damage(0, 0, dam);
@@ -7448,9 +7448,9 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(pet) mode |= PC_FORCE_PET;
 				else mode |= PC_NO_PET;
-				if(!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
+				if(!(pet && (lev_bonus < 50))) mode |= PC_ALLOW_GROUP;
 
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, TRAIT_S_ANGEL, mode))
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_ANGEL, mode))
 				{
 					if(pet) msg_print(MES_SUMMON_SERVANT);
 					else
@@ -7574,7 +7574,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			POWER dam = plev * 3 + 25;
+			POWER dam = lev_bonus * 3 + 25;
 			COODINATES rad = 2;
 
 			if(info) return info_multi_damage(dam);
@@ -7596,10 +7596,10 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int b_dam = plev * 11;
-			int d_dam = plev * 4;
+			int b_dam = lev_bonus * 11;
+			int d_dam = lev_bonus * 4;
 			int heal = 100;
-			POWER power = plev * 4;
+			POWER power = lev_bonus * 4;
 
 #ifdef JP
 			if(info) return format("回%d/損%d+%d", heal, d_dam, b_dam/2);
@@ -7634,8 +7634,8 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				int base = 25;
-				int sp_sides = 20 + plev;
-				int sp_base = plev;
+				int sp_sides = 20 + lev_bonus;
+				int sp_base = lev_bonus;
 
 				int i;
 				project_all_vision(caster_ptr, DO_EFFECT_CRUSADE, caster_ptr->lev * 4);
@@ -7650,7 +7650,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 						if(cave_empty_bold2(floor_ptr, my, mx)) break; // Require empty grids
 					}
 					if(attempt < 0) continue;
-					summon_specific(NULL, my, mx, plev, TRAIT_S_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
+					summon_specific(NULL, my, mx, lev_bonus, TRAIT_S_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
 				}
 				set_timed_trait(caster_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
 				set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
@@ -7680,7 +7680,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 	static const char s_dam[] = KW_DAM;
 
 	int dir;
-	int plev = caster_ptr->lev;
+	int lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -7707,7 +7707,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 
 			if(info) return info_power(power);
 
@@ -7754,7 +7754,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if(cast || fail) stop_singing(caster_ptr);
 
 		{
-			int dice = 4 + (plev - 1) / 5;
+			int dice = 4 + (lev_bonus - 1) / 5;
 			int sides = 4;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -7790,7 +7790,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			int dice = plev / 10;
+			int dice = lev_bonus / 10;
 			int sides = 2;
 
 			if(info) return info_power_dice(dice, sides);
@@ -7849,8 +7849,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 		{
 			int dice = 2;
-			int sides = plev / 2;
-			COODINATES rad = (COODINATES)plev / 10 + 1;
+			int sides = lev_bonus / 2;
+			COODINATES rad = (COODINATES)lev_bonus / 10 + 1;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -7890,7 +7890,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 
 			if(info) return info_power(power);
 
@@ -7972,7 +7972,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				if(count >= 11)
 				{
 					map_area(caster_ptr, rad);
-					if(plev > 39 && count < 19) caster_ptr->singing_turn = count + 1;
+					if(lev_bonus > 39 && count < 19) caster_ptr->singing_turn = count + 1;
 				}
 				if(count >= 6)
 				{
@@ -7981,19 +7981,19 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 					detect_objects_gold(caster_ptr, rad);
 					detect_objects_normal(caster_ptr, rad);
 
-					if(plev > 24 && count < 11) caster_ptr->singing_turn = count + 1;
+					if(lev_bonus > 24 && count < 11) caster_ptr->singing_turn = count + 1;
 				}
 				if(count >= 3)
 				{
 					detect_creatures_invis(caster_ptr, rad);
 					detect_creatures_normal(caster_ptr, rad);
-					if(plev > 19 && count < 6) caster_ptr->singing_turn = count + 1;
+					if(lev_bonus > 19 && count < 6) caster_ptr->singing_turn = count + 1;
 				}
 				detect_traps(caster_ptr, rad, TRUE);
 				detect_doors(caster_ptr, rad);
 				detect_stairs(caster_ptr, rad);
 
-				if(plev > 14 && count < 3) caster_ptr->singing_turn = count + 1;
+				if(lev_bonus > 14 && count < 3) caster_ptr->singing_turn = count + 1;
 			}
 		}
 
@@ -8023,7 +8023,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 		{
 			int dice = 1;
-			int sides = plev * 3 / 2;
+			int sides = lev_bonus * 3 / 2;
 
 			if(info) return info_damage(dice, sides, 0);
 			if(cont) project_all_vision(caster_ptr, DO_EFFECT_PSI, diceroll(dice, sides));
@@ -8107,7 +8107,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			POWER power = plev * 2;
+			POWER power = lev_bonus * 2;
 
 			if(info) return info_power(power);
 
@@ -8142,7 +8142,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			int dice = 10 + plev / 5;
+			int dice = 10 + lev_bonus / 5;
 			int sides = 7;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -8203,7 +8203,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			int dice = 10 + plev / 15;
+			int dice = 10 + lev_bonus / 15;
 			int sides = 6;
 
 			if(info) return info_power_dice(dice, sides);
@@ -8309,8 +8309,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			COODINATES rad = (COODINATES)plev / 15 + 1;
-			POWER power = plev * 3 + 1;
+			COODINATES rad = (COODINATES)lev_bonus / 15 + 1;
+			POWER power = lev_bonus * 3 + 1;
 
 			if(info) return info_radius(rad);
 
@@ -8353,8 +8353,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			int m_sides = plev * 3;
-			int e_sides = plev * 3;
+			int m_sides = lev_bonus * 3;
+			int e_sides = lev_bonus * 3;
 
 			if(info) return format("%s1d%d+1d%d", s_dam, m_sides, e_sides);
 
@@ -8389,7 +8389,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			POWER power = plev;
+			POWER power = lev_bonus;
 
 			if(info) return info_power(power);
 
@@ -8412,7 +8412,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 15 + (plev - 1) / 2;
+			int dice = 15 + (lev_bonus - 1) / 2;
 			int sides = 10;
 
 			if(info) return info_damage(dice, sides, 0);
@@ -8513,7 +8513,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		}
 
 		{
-			POWER power = plev * 4;
+			POWER power = lev_bonus * 4;
 
 			if(info) return info_power(power);
 
@@ -8581,7 +8581,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 		{
 			int dice = 1;
-			int sides = plev * 3;
+			int sides = lev_bonus * 3;
 
 			if(info) return info_damage(dice, sides, 0);
 
@@ -8648,7 +8648,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 50 + plev;
+			int dice = 50 + lev_bonus;
 			int sides = 10;
 			COODINATES rad = 0;
 
@@ -8728,7 +8728,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	DIRECTION dir;
-	int plev = caster_ptr->lev;
+	int lev_bonus = caster_ptr->lev;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	switch (spell)
@@ -9108,7 +9108,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			if(plev > 44)
+			if(lev_bonus > 44)
 			{
 				if(!identify_fully(caster_ptr, TRUE)) return NULL;
 			}
@@ -9451,7 +9451,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 			msg_print("You roar out!");
 #endif
-			project_all_vision(caster_ptr, DO_EFFECT_SOUND, randint1(plev * 3));
+			project_all_vision(caster_ptr, DO_EFFECT_SOUND, randint1(lev_bonus * 3));
 			aggravate_creatures(caster_ptr);
 		}
 		break;
@@ -9585,9 +9585,9 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 			msg_print("You irregularly wave your weapon...");
 #endif
-			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, plev * 4);
-			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, plev * 4);
-			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, plev * 4);
+			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, lev_bonus * 4);
+			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, lev_bonus * 4);
+			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, lev_bonus * 4);
 		}
 		break;
 
@@ -9873,7 +9873,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 
 	bool add = TRUE;
 
-	int plev = caster_ptr->lev;
+	int lev_bonus = caster_ptr->lev;
 	POWER power;
 
 	switch (spell)
@@ -9943,7 +9943,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Stinking mist";
 		if(desc) return "Deals few damages of poison to all creatures in your sight.";
 #endif
-		power = plev / 2 + 5;
+		power = lev_bonus / 2 + 5;
 		if(info) return info_damage(1, power, 0);
 		if(cast || cont)
 		{
@@ -10205,7 +10205,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Vampiric mist";
 		if(desc) return "Deals few dameges of drain life to all creatures in your sight.";
 #endif
-		power = (plev / 2) + 5;
+		power = (lev_bonus / 2) + 5;
 		if(info) return info_damage(1, power, 0);
 		if(cast || cont)
 		{
@@ -10294,7 +10294,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Anti teleport barrier";
 		if(desc) return "Obstructs all teleportations by creatures in your sight.";
 #endif
-		power = plev * 3 / 2;
+		power = lev_bonus * 3 / 2;
 		if(info) return info_power(power);
 		if(cast)
 		{
@@ -10361,7 +10361,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Recharging";
 		if(desc) return "Recharges a magic device.";
 #endif
-		power = plev * 2;
+		power = lev_bonus * 2;
 		if(info) return info_power(power);
 		if(cast)
 		{
@@ -10537,7 +10537,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Pains to mana";
 		if(desc) return "Deals psychic damages to all creatures in sight, and drains some mana.";
 #endif
-		power = plev * 3 / 2;
+		power = lev_bonus * 3 / 2;
 		if(info) return info_damage(1, power, 0);
 		if(cast || cont)
 		{
@@ -10745,7 +10745,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Word of stun";
 		if(desc) return "Stuns all creatures in your sight.";
 #endif
-		power = plev * 4;
+		power = lev_bonus * 4;
 		if(info) return info_power(power);
 		if(cast || cont)
 		{
@@ -10782,7 +10782,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 				}
 
 				if(!cave_empty_bold(floor_ptr, y, x) || (floor_ptr->cave[y][x].info & CAVE_ICKY) ||
-					(distance(y, x, caster_ptr->fy, caster_ptr->fx) > plev + 2))
+					(distance(y, x, caster_ptr->fy, caster_ptr->fx) > lev_bonus + 2))
 				{
 #ifdef JP
 					msg_print("そこには移動できない。");
@@ -10794,7 +10794,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 				break;
 			}
 
-			if(flag && randint0(plev * plev / 2))
+			if(flag && randint0(lev_bonus * lev_bonus / 2))
 			{
 				teleport_creature_to(caster_ptr, y, x, 0L);
 			}
@@ -10820,7 +10820,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Anti magic barrier";
 		if(desc) return "Obstructs all magic spell of creatures in your sight.";
 #endif
-		power = plev * 3 / 2;
+		power = lev_bonus * 3 / 2;
 		if(info) return info_power(power);
 		if(cast)
 		{

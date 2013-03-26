@@ -2279,7 +2279,7 @@ bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_
  * Recharge a wand/staff/rod from the pack or on the floor.
  * This function has been rewritten in Oangband and ZAngband.
  *
- * Sorcery/Arcane -- Recharge  --> recharge(plev * 4)
+ * Sorcery/Arcane -- Recharge  --> recharge(lev_bonus * 4)
  * Chaos -- Arcane Binding     --> recharge(90)
  *
  * Scroll of recharging        --> recharge(130)
@@ -2860,7 +2860,7 @@ void display_spell_list(creature_type *creature_ptr)
 		int             y = 1;
 		int             x = 1;
 		int             minfail = 0;
-		int             plev = creature_ptr->lev;
+		int             lev_bonus = creature_ptr->lev;
 		int             chance = 0;
 		mind_type       spell;
 		char            comment[80];
@@ -2890,7 +2890,7 @@ void display_spell_list(creature_type *creature_ptr)
 
 			/* Access the available spell */
 			spell = mind_powers[use_mind].info[i];
-			if(spell.min_lev > plev) break;
+			if(spell.min_lev > lev_bonus) break;
 
 			/* Get the failure rate */
 			chance = spell.fail;
@@ -3949,16 +3949,16 @@ bool polymorph_creature(creature_type *creature_ptr)
  */
 static bool dimension_door_aux(creature_type *creature_ptr, COODINATES x, COODINATES y)
 {
-	int	plev = creature_ptr->lev;
+	int	lev_bonus = creature_ptr->lev;
 
-	cost_tactical_energy(creature_ptr, 60 - plev);
+	cost_tactical_energy(creature_ptr, 60 - lev_bonus);
 
 	if(!cave_player_teleportable_bold(creature_ptr, y, x, 0L) ||
-	    (distance(y, x, creature_ptr->fy, creature_ptr->fx) > plev / 2 + 10) ||
-	    (!randint0(plev / 10 + 10)))
+	    (distance(y, x, creature_ptr->fy, creature_ptr->fx) > lev_bonus / 2 + 10) ||
+	    (!randint0(lev_bonus / 10 + 10)))
 	{
-		cost_tactical_energy(creature_ptr, 60 - plev);
-		teleport_creature(creature_ptr, (COODINATES)(plev + 2) * 2, TELEPORT_PASSIVE);
+		cost_tactical_energy(creature_ptr, 60 - lev_bonus);
+		teleport_creature(creature_ptr, (COODINATES)(lev_bonus + 2) * 2, TELEPORT_PASSIVE);
 
 		return FALSE;
 	}

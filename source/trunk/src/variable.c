@@ -513,7 +513,7 @@ char angband_sound_name[SOUND_MAX][16] =
 	"dig",
 	"opendoor",
 	"shutdoor",
-	"tplevel",
+	"tlev_bonusel",
 	"scroll",
 	"buy",
 	"sell",

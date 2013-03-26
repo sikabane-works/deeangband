@@ -1750,7 +1750,7 @@ struct dungeon_type {
 
 	s16b mindepth;         /* Minimal depth */
 	s16b maxdepth;         /* Maximal depth */
-	CREATURE_LEV min_plev;         /* Minimal plev needed to enter -- it's an anti-cheating mesure */
+	CREATURE_LEV min_lev_bonus;         /* Minimal lev_bonus needed to enter -- it's an anti-cheating mesure */
 	s16b pit;
 	s16b nest;
 	byte mode;		/* Mode of combinaison of the creature flags */

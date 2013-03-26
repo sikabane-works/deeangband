@@ -17,7 +17,7 @@ static POWER damage;
 
 static void mane_info(creature_type *creature_ptr, char *p, POWER power, POWER dam)
 {
-	int plev = creature_ptr->lev;
+	int lev_bonus = creature_ptr->lev;
 	static const char s_dam[] = KW_DAM;
 #ifdef JP
 	cptr s_dur = "ŠúŠÔ:";
@@ -38,13 +38,13 @@ static void mane_info(creature_type *creature_ptr, char *p, POWER power, POWER d
 		switch (power)
 		{
 			case 41:
-				sprintf(p, " %sd%d+%d", s_heal, plev * 3, plev);
+				sprintf(p, " %sd%d+%d", s_heal, lev_bonus * 3, lev_bonus);
 				break;
 			case 64:
-				sprintf(p, " %sd%d+%d", s_dur, 20+plev, plev);
+				sprintf(p, " %sd%d+%d", s_dur, 20+lev_bonus, lev_bonus);
 				break;
 			case 66:
-				sprintf(p, " %s%d", s_heal, plev*6);
+				sprintf(p, " %s%d", s_heal, lev_bonus*6);
 				break;
 			case 67:
 				sprintf(p, " %sd7+7", s_dur);
@@ -53,7 +53,7 @@ static void mane_info(creature_type *creature_ptr, char *p, POWER power, POWER d
 				sprintf(p, " %s10", s_range);
 				break;
 			case 69:
-				sprintf(p, " %s%d", s_range, plev * 5);
+				sprintf(p, " %s%d", s_range, lev_bonus * 5);
 				break;
 			case 79:
 				sprintf(p, " %s5", s_range);
@@ -155,7 +155,7 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 					chance = spell_.fail;
 
 					/* Reduce failure rate by "effective" level adjustment */
-					//TODO if(plev > spell_.le) chance -= 3 * (plev - spell.level);
+					//TODO if(lev_bonus > spell_.le) chance -= 3 * (lev_bonus - spell.level);
 
 					/* Reduce failure rate by INT/WIS adjustment */
 					chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell_.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
@@ -290,7 +290,7 @@ msg_print("‚Ü‚Ë‚ç‚ê‚é‚à‚Ì‚ª‰½‚à‚È‚¢I");
 	chance = spell_.fail;
 
 	/* Reduce failure rate by "effective" level adjustment */
-	//if(plev > spell_level) chance -= 3 * (plev - spell.level);
+	//if(lev_bonus > spell_level) chance -= 3 * (lev_bonus - spell.level);
 
 	/* Reduce failure rate by 1 stat and DEX adjustment */
 	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell_.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
