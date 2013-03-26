@@ -399,7 +399,7 @@ int find_floor_id(int dungeon_id, int depth, int wx, int wy)
  * Maintain quest creatures, mark next floor_id at stairs, save current
  * floor, and prepare to enter next floor.
  */
-void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag)
+void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y, COODINATES world_x, COODINATES depth, floor_type *prev_ptr, u32b flag)
 {
 	int i, old_floor_id, floor_id, old_fx, old_fy;
 	cave_type *stair_ptr = NULL;
