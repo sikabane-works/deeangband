@@ -675,7 +675,7 @@ extern void carry(creature_type *creature_ptr, bool pickup);
 extern bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x);
 extern bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES ny, COODINATES nx, u32b mpe_mode);
 extern bool trap_can_be_ignored(creature_type *creature_ptr, int feat);
-extern void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap);
+extern void walk_creature(creature_type *creature_ptr, COODINATES dir, bool do_pickup, bool break_trap);
 extern void run_step(creature_type *creature_ptr, DIRECTION dir);
 extern void travel_step(creature_type *creature_ptr);
 

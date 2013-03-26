@@ -843,8 +843,8 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				num = levs[MIN(lev/10, 9)];
 				for (i = 0; i < num; i++)
 				{
-					int x1 = rand_spread(x, 7);
-					int y1 = rand_spread(y, 5);
+					COODINATES x1 = (COODINATES)rand_spread(x, 7);
+					COODINATES y1 = (COODINATES)rand_spread(y, 5);
 
 					/* Skip illegal grids */
 					if(!IN_BOUNDS(floor_ptr, y1, x1)) continue;
@@ -1388,7 +1388,7 @@ static void plus_move_cost(creature_type *creature_ptr, int x, int y)
 // Note that moving will *always* take a turn, and will *always* hit
 // any creature which might be in the destination grid.  Previously,
 // moving into walls was "free" and did NOT hit invisible creatures.
-void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap)
+void walk_creature(creature_type *creature_ptr, COODINATES dir, bool do_pickup, bool break_trap)
 {
 	// Find the result of moving
 	COODINATES y = creature_ptr->fy + ddy[dir];
