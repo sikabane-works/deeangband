@@ -1808,7 +1808,7 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, ARTIF
 }
 
 // Create the artifact of the specified number
-bool drop_named_art(creature_type *creature_ptr, ARTIFACT_ID a_idx, int y, int x)
+bool drop_named_art(creature_type *creature_ptr, ARTIFACT_ID a_idx, COODINATES y, COODINATES x)
 {
 	object_type forge;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);

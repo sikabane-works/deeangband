@@ -1208,8 +1208,7 @@ static bool player_can_ride_aux(creature_type *creature_ptr, cave_type *c_ptr, b
 bool do_thrown_from_riding(creature_type *creature_ptr, POWER dam, bool force)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int i, y, x, oy, ox;
-	int sn = 0, sy = 0, sx = 0;
+	COODINATES i, y, x, oy, ox, sn = 0, sy = 0, sx = 0;
 	char m_name[MAX_NLEN];
 	creature_type *m_ptr = &creature_list[creature_ptr->riding];
 	species_type *species_ptr = &species_info[m_ptr->species_idx];
@@ -1294,7 +1293,6 @@ bool do_thrown_from_riding(creature_type *creature_ptr, POWER dam, bool force)
 		creature_ptr->fx = sx;
 
 		lite_spot(floor_ptr, oy, ox);
-
 		lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 		/* Check for new panel */
