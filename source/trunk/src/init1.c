@@ -3220,7 +3220,7 @@ errr parse_species_info_csv(char *buf, header *head)
 	char *s, *t;
 	char tmp[20000], nt[80];
 	int b, ub;
-	u32b flags;
+	FLAGS_32 flags;
 
 	if(get_split_offset(split, size, buf, SPECIES_INFO_CSV_COLUMNS, ',', '"')){
 		return PARSE_ERROR_GENERIC;
@@ -6279,7 +6279,7 @@ static dungeon_grid letter[255];
 /*
  * Process "F:<letter>:<terrain>:<cave_info>:<creature>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid
  */
-static errr parse_line_feature(char *buf, u32b flags)
+static errr parse_line_feature(char *buf, FLAGS_32 flags)
 {
 	int num;
 	char *zz[9];

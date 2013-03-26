@@ -3661,7 +3661,7 @@ void notice_stuff(creature_type *creature_ptr)
 	}
 }
 
-void prepare_update(creature_type *creature_ptr, u32b flags)
+void prepare_update(creature_type *creature_ptr, FLAGS_32 flags)
 {
 	creature_ptr->creature_update |= flags;
 }
@@ -3776,7 +3776,7 @@ void update_creature(creature_type *creature_ptr, bool message)
 
 
 // Handle "play_redraw"
-void prepare_redraw(u32b flags)
+void prepare_redraw(FLAGS_32 flags)
 {
 	play_redraw |= flags;
 }
@@ -3949,7 +3949,7 @@ void redraw_stuff(creature_type *creature_ptr)
 
 
 // Handle "play_window"
-void prepare_window(u32b flags)
+void prepare_window(FLAGS_32 flags)
 {
 	play_window |= flags;
 }

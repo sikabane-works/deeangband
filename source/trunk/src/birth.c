@@ -2316,7 +2316,7 @@ static void init_turn(creature_type *creature_ptr)
 	}
 }
 
-static int wield_one(creature_type *creature_ptr, int item, u32b flags)
+static int wield_one(creature_type *creature_ptr, int item, FLAGS_32 flags)
 {
 	object_type *object_ptr; 
 	object_type *i_ptr; 
@@ -2362,7 +2362,7 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
  * Try to wield everything wieldable in the inventory. 
  * Code taken from Angband 3.1.0 under Angband license
  */ 
-static void wield_all(creature_type *creature_ptr, u32b flags) 
+static void wield_all(creature_type *creature_ptr, FLAGS_32 flags) 
 { 
 	int item;
 	/* Scan through the slots backwards */ 
@@ -2372,7 +2372,7 @@ static void wield_all(creature_type *creature_ptr, u32b flags)
 
 
 // Add an outfit object
-void add_item_to_creature(creature_type *creature_ptr, object_type *object_ptr, u32b flags)
+void add_item_to_creature(creature_type *creature_ptr, object_type *object_ptr, FLAGS_32 flags)
 {
 	s16b slot;
 
@@ -4034,7 +4034,7 @@ static void edit_history(creature_type *creature_ptr)
  * from continuously rolling up characters, which can be VERY
  * expensive CPU wise.  And it cuts down on player stupidity.
  */
-static bool generate_creature_aux(creature_type *creature_ptr, s16b species_idx, u32b flags)
+static bool generate_creature_aux(creature_type *creature_ptr, s16b species_idx, FLAGS_32 flags)
 {
 	int i;
 	int mode = 0;
@@ -4332,7 +4332,7 @@ bool ask_quick_start(creature_type *creature_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-creature_type* generate_creature(cave_type *c_ptr, s16b species_idx, u32b flags)
+creature_type* generate_creature(cave_type *c_ptr, s16b species_idx, FLAGS_32 flags)
 {
 	char buf[80];
 	int id;

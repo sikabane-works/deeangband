@@ -952,7 +952,7 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
  *
  * Hack -- do not display "trailing" empty slots
  */
-int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr))
+int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr))
 {
 	int i, j, k, l, m, n;
 	int col, cur_col, len;

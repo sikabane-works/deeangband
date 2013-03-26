@@ -112,7 +112,7 @@ static void do_cmd_summon_horde(creature_type *summoner_ptr)
 /*
  * Output a long int in binary format.
  */
-static void prt_binary(u32b flags, int row, int col)
+static void prt_binary(FLAGS_32 flags, int row, int col)
 {
 	int        	i;
 	u32b        bitmask;
