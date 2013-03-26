@@ -2715,8 +2715,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 	static const char s_dam[] = KW_DAM;
 	static const char s_random[] = KW_RANDOM;
 
-	int dir;
-	int lev_bonus = caster_ptr->lev;
+	DIRECTION dir;
+	COODINATES lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{

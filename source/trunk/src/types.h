@@ -1440,8 +1440,8 @@ struct creature_type
 
 	bool see_others;	// Creature is "visible" 
 
-	s16b target_y;		// Can attack !los player 
-	s16b target_x;		// Can attack !los player 
+	COODINATES target_y; // Can attack !los player 
+	COODINATES target_x; // Can attack !los player 
 
 	u16b nickname;		// Creature's Nickname 
 
@@ -1814,8 +1814,8 @@ typedef struct
 	COODINATES world_y;
 	s32b last_visit;      // Time count of last visit. 0 for new floor.
 	u32b visit_mark;      // Older has always smaller mark.
-	s16b width;
-	s16b height;
+	COODINATES width;
+	COODINATES height;
 	s16b num_repro;       // Current reproducer count
 	cave_type cave[MAX_HGT][MAX_WID];
 	s32b floor_turn;		// Game turn in dungeon
