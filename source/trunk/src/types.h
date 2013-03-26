@@ -155,17 +155,17 @@ struct object_kind
 	s16b magic_mastery;
 	SPEED speed;
 
-	s16b to_hit;			/* Bonus to hit */
-	s16b to_damage;			/* Bonus to damage */
-	s16b to_ac;				/* Bonus to armor */
-	s16b to_ev;				/* Bonus to evasion */
-	s16b to_vo;				/* Bonus to evasion */
+	STAT to_hit;			/* Bonus to hit */
+	STAT to_damage;			/* Bonus to damage */
+	STAT to_ac;				/* Bonus to armor */
+	STAT to_ev;				/* Bonus to evasion */
+	STAT to_vo;				/* Bonus to evasion */
 	s16b bow_mul;			/* Bonus to bow_mul */
 
 	s16b ap_rate;		// AP rate
-	s16b ac;			// Base AC
-	s16b ev;			// Base EV
-	s16b vo;			// Base VO
+	STAT ac;			// Base AC
+	STAT ev;			// Base EV
+	STAT vo;			// Base VO
 
 	byte dd, ds;		/* Damage dice/sides */
 
@@ -226,11 +226,11 @@ struct artifact_type
 
 	s16b pval;			/* Artifact extra info */
 
-	s16b to_hit;
-	s16b to_damage;
-	s16b ac;
-	s16b ev;
-	s16b vo;
+	STAT to_hit;
+	STAT to_damage;
+	STAT ac;
+	STAT ev;
+	STAT vo;
 	s16b to_ac;
 	s16b to_ev;
 	s16b to_vo;
@@ -416,9 +416,9 @@ struct species_type
 
 	s16b dr;			/* Divine Rank */
 
-	s16b ac;				// Armour Class
-	s16b ev;				// Evasion
-	s16b vo;				// Vol
+	STAT ac;				// Armour Class
+	STAT ev;				// Evasion
+	STAT vo;				// Vol
 
 	s16b sleep;				/* Inactive counter (base) */
 	byte alert_range;				/* Area affect radius (1-100) */
@@ -658,10 +658,10 @@ struct object_type
 	byte forged_type;	// forged by smith craft
 	byte chest_value;
 
-	s16b to_hit;		// Plusses to hit
-	s16b to_damage;		// Plusses to damage
-	s16b to_hit_essence;
-	s16b to_damage_essence;
+	STAT to_hit;		// Plusses to hit
+	STAT to_damage;		// Plusses to damage
+	STAT to_hit_essence;
+	STAT to_damage_essence;
 	s16b to_ac;			// Plusses to AC
 	s16b to_ev;			// Plusses to EV
 	s16b to_vo;			// Plusses to VO
@@ -672,9 +672,9 @@ struct object_type
 	s16b size_lower;    /* Size Lower */
 	s16b to_size;		/* Plusses to size */
 
-	s16b ac;			// Normal AC
-	s16b ev;			// Normal EV
-	s16b vo;			// Normal VO
+	STAT ac;			// Normal AC
+	STAT ev;			// Normal EV
+	STAT vo;			// Normal VO
 
 	byte dd, ds;		/* Damage dice/sides */
 
@@ -970,20 +970,20 @@ struct race_type
 	s32b balance;
 
 	byte infra;			/* Infra-vision	range */
-	s16b ac_base;
-	s16b ac_plus;
-	s16b ev_base;
-	s16b ev_plus;
-	s16b vo_base;
-	s16b vo_plus;
+	STAT ac_base;
+	STAT ac_plus;
+	STAT ev_base;
+	STAT ev_plus;
+	STAT vo_base;
+	STAT vo_plus;
 
 	byte sub_infra;			/* Infra-vision	range */
-	s16b ac_s_base;
-	s16b ac_s_plus;
-	s16b ev_s_base;
-	s16b ev_s_plus;
-	s16b vo_s_base;
-	s16b vo_s_plus;
+	STAT ac_s_base;
+	STAT ac_s_plus;
+	STAT ev_s_base;
+	STAT ev_s_plus;
+	STAT vo_s_base;
+	STAT vo_s_plus;
 
 	u32b choice;        /* Legal class choices */
 
@@ -1358,7 +1358,7 @@ struct creature_type
 	s32b chaos_exp;
 	s32b balance_exp;
 	s16b good_rank;
-	s16b evil_rank;
+	STAT evil_rank;
 	s16b order_rank;
 	s16b chaos_rank;
 	s16b balance_rank;
@@ -1373,21 +1373,21 @@ struct creature_type
 
 	u32b cursed;         // Player is cursed 
 
-	s16b to_damaged[MAX_WEAPONS];		// Extra dice/sides
-	s16b to_damages[MAX_WEAPONS];
-	s16b to_hit[MAX_WEAPONS];		// Bonus to hit (wield)
-	s16b to_hit_b;					// Bonus to hit (bow)
-	s16b to_hit_m;					// Bonus to hit (misc)
-	s16b to_damage[MAX_WEAPONS];	// Bonus to dam (wield)
-	s16b to_damage_m;				// Bonus to dam (misc)
+	STAT to_damaged[MAX_WEAPONS];		// Extra dice/sides
+	STAT to_damages[MAX_WEAPONS];
+	STAT to_hit[MAX_WEAPONS];		// Bonus to hit (wield)
+	STAT to_hit_b;					// Bonus to hit (bow)
+	STAT to_hit_m;					// Bonus to hit (misc)
+	STAT to_damage[MAX_WEAPONS];	// Bonus to dam (wield)
+	STAT to_damage_m;				// Bonus to dam (misc)
 
 	s16b dis_to_hit[MAX_WEAPONS];	// Known bonus to hit (wield) 
 	s16b dis_to_hit_b;	// Known bonus to hit (bow) 
 	s16b dis_to_damage[MAX_WEAPONS];	// Known bonus to dam (wield) 
 
-	s16b ac;			// Base AC
-	s16b ev;			// Base EV
-	s16b vo;			// Base VO
+	STAT ac;			// Base AC
+	STAT ev;			// Base EV
+	STAT vo;			// Base VO
 	s16b to_ac;			// Bonus to AC
 	s16b to_ev;			// Bonus to EV
 	s16b to_vo;			// Bonus to VO
@@ -1403,8 +1403,8 @@ struct creature_type
 	byte two_handed[INVEN_TOTAL];      // each Two-handed slot 
 
 	bool can_melee[MAX_MELEE_TYPE];
-	s16b action_cost[MAX_MELEE_TYPE];		// Action point
-	s16b action_priority[MAX_MELEE_TYPE];	// Action priority
+	STAT action_cost[MAX_MELEE_TYPE];		// Action point
+	STAT action_priority[MAX_MELEE_TYPE];	// Action priority
 
 	bool no_flowed;
 
@@ -1493,9 +1493,9 @@ struct trait_type
 	u32b reverse_alias[MAX_TRAITS_FLAG];
 	byte effect_type;
 	s16b adj[STAT_MAX];
-	s16b ac;
-	s16b ev;
-	s16b vo;
+	STAT ac;
+	STAT ev;
+	STAT vo;
 	s16b dis;		/* Skill: Disarming */
 	s16b dev;		/* Skill: Magic Devices */
 	s16b stl;		/* Skill: Stealth factor */
@@ -1604,9 +1604,9 @@ struct building_type
 	s32b member_costs[MAX_BUILDING_ACTION];           // Costs for class members of building
 	s32b other_costs[MAX_BUILDING_ACTION];		    // Costs for nonguild members
 	char letters[MAX_BUILDING_ACTION];                // action letters
-	s16b actions[MAX_BUILDING_ACTION];                // action codes
-	s16b action_restr[MAX_BUILDING_ACTION];           // action restrictions
-	s16b action_misc[MAX_BUILDING_ACTION];            // action misc
+	STAT actions[MAX_BUILDING_ACTION];                // action codes
+	STAT action_restr[MAX_BUILDING_ACTION];           // action restrictions
+	STAT action_misc[MAX_BUILDING_ACTION];            // action misc
 
 	s16b member_class[MAX_CLASS];   // which classes are part of guild
 	s16b member_race[MAX_RACES];    // which classes are part of guild

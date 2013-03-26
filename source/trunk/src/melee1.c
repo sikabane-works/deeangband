@@ -407,8 +407,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			{
 				if(has_trait(target_ptr, TRAIT_HUMANOID))
 				{
-					s16b to_hit = weapon_ptr->to_hit;
-					s16b to_damage = weapon_ptr->to_damage;
+					STAT to_hit = weapon_ptr->to_hit;
+					STAT to_damage = weapon_ptr->to_damage;
 					int i, flag;
 
 					flag = 1;
