@@ -1697,7 +1697,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			{
 				int dummy_y = target_ptr->fy;
 				int dummy_x = target_ptr->fx;
-				u32b mode = 0L;
+				FLAGS_32 mode = 0L;
 
 				if(is_pet(player_ptr, target_ptr)) mode |= PC_FORCE_PET;
 

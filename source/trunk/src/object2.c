@@ -2489,7 +2489,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 * "good" and "great" arguments are false.  As a total hack, if "great" is
 * true, then the item gets 3 extra "attempts" to become an artifact.
 */
-void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32b mode, int specified_idx)
+void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLAGS_32 mode, int specified_idx)
 {
 	int i, rolls, f1, f2, power;
 	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
@@ -2789,7 +2789,7 @@ static bool kind_is_good(int k_idx)
 // This routine plays nasty games to generate the "special artifacts".
 // This routine uses "object_level" for the "generation level".
 // We assume that the given object has been "wiped".
-bool make_random_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx))
+bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx))
 {
 	int prob, base;
 	int k_idx;
@@ -3256,7 +3256,7 @@ void acquirement(floor_type *floor_ptr, COODINATES y1, COODINATES x1, int num, b
 {
 	object_type *i_ptr;
 	object_type object_type_body;
-	u32b mode = AM_GOOD | (great ? AM_GREAT : 0L);
+	FLAGS_32 mode = AM_GOOD | (great ? AM_GREAT : 0L);
 
 	/* Acquirement */
 	while (num--)

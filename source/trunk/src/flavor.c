@@ -1132,7 +1132,7 @@ static void get_inscription(char *buff, object_type *object_ptr)
 }
 
 
-void object_desc_new(char *buf, object_type *object_ptr, u32b mode)
+void object_desc_new(char *buf, object_type *object_ptr, FLAGS_32 mode)
 {
 	object_desc(object_ptr->name, object_ptr, mode);
 }
@@ -1183,7 +1183,7 @@ void object_desc_new(char *buf, object_type *object_ptr, u32b mode)
  *   OD_NO_FLAVOR        : Allow to hidden flavor
  *   OD_FORCE_FLAVOR     : Get un-shuffled flavor name
  */
-void object_desc(char *buf, object_type *object_ptr, u32b mode)
+void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 {
 	cptr            kindname = object_kind_name + object_kind_info[object_ptr->k_idx].name;
 	cptr            basenm = kindname;

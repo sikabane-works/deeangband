@@ -2650,7 +2650,7 @@ int activate_hi_summon(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 	int i;
 	int count = 0;
 	int summon_lev;
-	u32b mode = PC_ALLOW_GROUP;
+	FLAGS_32 mode = PC_ALLOW_GROUP;
 	bool pet = FALSE;
 
 	if(can_pet)
@@ -2732,7 +2732,7 @@ int summon_cyber(creature_type *summoner_ptr, COODINATES y, COODINATES x)
 	int i;
 	int max_cyber = (floor_ptr->depth / 50) + randint1(2);
 	int count = 0;
-	u32b mode = PC_ALLOW_GROUP;
+	FLAGS_32 mode = PC_ALLOW_GROUP;
 
 	// Summoned by a creature
 	if(summoner_ptr) if(is_pet(player_ptr, summoner_ptr)) mode |= PC_FORCE_PET;

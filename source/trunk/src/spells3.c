@@ -13,7 +13,7 @@
 #include "angband.h"
 
 
-static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode)
+static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -226,7 +226,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, 
 }
 
 
-bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode)
+bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode)
 {
 	floor_type   *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type    *c_ptr = &floor_ptr->cave[y][x];
@@ -282,7 +282,7 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u3
  */
 
 
-bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, u32b mode)
+bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int candidates_at[MAX_TELEPORT_DISTANCE + 1];
@@ -3928,7 +3928,7 @@ bool polymorph_creature(creature_type *creature_ptr)
 	/* Handle polymorph */
 	if(new_species_idx != old_species_idx)
 	{
-		u32b mode = 0L;
+		FLAGS_32 mode = 0L;
 
 		/* Get the creatures attitude */
 		if(is_friendly(player_ptr, creature_ptr)) mode |= PC_FORCE_FRIENDLY;
@@ -4210,7 +4210,7 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 }
 
 
-bool summon_kin_player(creature_type *creature_ptr, int level, int y, int x, u32b mode)
+bool summon_kin_player(creature_type *creature_ptr, int level, int y, int x, FLAGS_32 mode)
 {
 	bool pet = (bool)(mode & PC_FORCE_PET);
 	if(!pet) mode |= PC_NO_PET;

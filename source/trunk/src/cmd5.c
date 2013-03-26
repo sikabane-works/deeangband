@@ -1328,7 +1328,8 @@ bool do_thrown_from_riding(creature_type *creature_ptr, POWER dam, bool force)
 
 bool do_riding(creature_type *rider_ptr, bool force)
 {
-	int x, y, dir = 0;
+	COODINATES x, y;
+	DIRECTION dir = 0;
 	cave_type *c_ptr;
 	creature_type *steed_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(rider_ptr);

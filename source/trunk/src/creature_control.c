@@ -1925,7 +1925,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 }
 
 
-void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type *species_ptr, u32b mode)
+void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type *species_ptr, FLAGS_32 mode)
 {
 	char buf[100];
 
@@ -3230,7 +3230,7 @@ void deal_item(creature_type *creature_ptr)
 	return;
 }
 
-static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, int species_idx, int creature_ego_idx, u32b mode)
+static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, int species_idx, int creature_ego_idx, FLAGS_32 mode)
 {
 	cave_type		*c_ptr = &floor_ptr->cave[y][x];
 	creature_type	*creature_ptr;
@@ -3595,7 +3595,7 @@ static bool creature_scatter(int species_idx, COODINATES *yp, COODINATES *xp, fl
 #define GROUP_MAX	32
 
 // Attempt to place a "group" of creatures around the given location
-static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode)
+static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, FLAGS_32 mode)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -3925,7 +3925,7 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 * Use "slp" to choose the initial "sleep" status
 * Use "enemy_level" for the creature level
 */
-bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u32b mode)
+bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, FLAGS_32 mode)
 {
 	COODINATES y = 0, x = 0;
 	int attempts_left = 10000;
@@ -4075,7 +4075,7 @@ bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, C
 
 // Let the given creature attempt to reproduce.
 // Note that "reproduction" REQUIRES empty space.
-bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
+bool multiply_creature(creature_type *creature_ptr, bool clone, FLAGS_32 mode)
 {
 	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
 

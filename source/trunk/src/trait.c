@@ -198,7 +198,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_S_ELEMENTAL:
 		{
 			bool pet = one_in_(3);
-			u32b mode = 0L;
+			FLAGS_32 mode = 0L;
 
 			if(!(pet && (user_level < 50))) mode |= PC_ALLOW_GROUP;
 			if(pet) mode |= PC_FORCE_PET;
@@ -215,7 +215,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			bool pet = one_in_(3);
 			int type;
-			u32b mode = 0L;
+			FLAGS_32 mode = 0L;
 
 			type = (user_level > 47 ? TRAIT_S_HI_UNDEAD : TRAIT_S_UNDEAD);
 
@@ -699,7 +699,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_S_OCTOPUS:
 		{
-			u32b mode = PC_ALLOW_GROUP;
+			FLAGS_32 mode = PC_ALLOW_GROUP;
 			bool pet = !one_in_(5);
 			if(pet) mode |= PC_FORCE_PET;
 

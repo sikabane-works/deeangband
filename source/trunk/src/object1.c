@@ -327,7 +327,7 @@ void object_flags_known(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG])
 }
 
 // Describe a "fully identified" item
-bool screen_object(object_type *object_ptr, u32b mode)
+bool screen_object(object_type *object_ptr, FLAGS_32 mode)
 {
 	int k = 0;
 	//TODO: reimplement

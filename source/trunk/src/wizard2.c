@@ -853,7 +853,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 	u32b test_roll = 1000000;
 	char ch;
 	cptr quality;
-	u32b mode;
+	FLAGS_32 mode;
 
 	object_type forge;
 	object_type	*quest_ptr;

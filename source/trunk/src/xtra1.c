@@ -4103,7 +4103,7 @@ void set_subrace(creature_type *creature_ptr, int n, bool b)
 
 
 // Return Race Name
-cptr desc_race_name(creature_type *creature_ptr, u32b mode){
+cptr desc_race_name(creature_type *creature_ptr, FLAGS_32 mode){
 	char name[80];
 	char subname[80];
 	name[0] = '\0';
@@ -4260,7 +4260,7 @@ cptr desc_race_name(creature_type *creature_ptr, u32b mode){
 }
 
 
-cptr desc_class_name(creature_type *creature_ptr, u32b mode){
+cptr desc_class_name(creature_type *creature_ptr, FLAGS_32 mode){
 	char name[80];
 	name[0] = '\0';
 

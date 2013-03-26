@@ -152,7 +152,7 @@ static int beam_chance(creature_type *creature_ptr)
 }
 
 // Handle summoning and failure of trump spells
-static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, int y, int x, int lev, int type, u32b mode)
+static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, COODINATES y, COODINATES x, int lev, int type, FLAGS_32 mode)
 {
 	int who;
 	int i;
@@ -3180,7 +3180,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				u32b mode = 0L;
+				FLAGS_32 mode = 0L;
 				bool pet = !one_in_(3);
 
 				if(pet) mode |= PC_FORCE_PET;
@@ -3893,7 +3893,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				int type;
 				bool pet = one_in_(3);
-				u32b mode = 0L;
+				FLAGS_32 mode = 0L;
 
 				type = (plev > 47 ? TRAIT_S_HI_UNDEAD : TRAIT_S_UNDEAD);
 
@@ -6613,7 +6613,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				bool pet = !one_in_(3);
-				u32b mode = 0L;
+				FLAGS_32 mode = 0L;
 
 				if(pet) mode |= PC_FORCE_PET;
 				else mode |= PC_NO_PET;
@@ -7443,7 +7443,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				bool pet = !one_in_(3);
-				u32b mode = 0L;
+				FLAGS_32 mode = 0L;
 
 				if(pet) mode |= PC_FORCE_PET;
 				else mode |= PC_NO_PET;

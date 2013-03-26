@@ -460,7 +460,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 	for (i = 0; i < max_quests; i++)
 	{
 		species_type *species_ptr;
-		u32b mode;
+		FLAGS_32 mode;
 		int j;
 
 		if(quest[i].status != QUEST_STATUS_TAKEN ||

@@ -955,8 +955,8 @@ extern void get_table_sindarin_aux(char *out_string);
 extern void get_table_sindarin(char *out_string);
 extern void flavor_init(void);
 extern char *object_desc_kosuu(char *t, object_type *object_ptr);
-extern void object_desc(char *buf, object_type *object_ptr, u32b mode);
-extern void object_desc_new(char *buf, object_type *object_ptr, u32b mode);
+extern void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode);
+extern void object_desc_new(char *buf, object_type *object_ptr, FLAGS_32 mode);
 
 // floors.c
 extern void init_saved_floors(bool force);
@@ -988,7 +988,7 @@ extern cptr get_check_sum(void);
 
 // load.c
 extern errr rd_savefile_new(void);
-extern bool load_floor(floor_type *sf_ptr, u32b mode);
+extern bool load_floor(floor_type *sf_ptr, FLAGS_32 mode);
 
 // melee1.c
 extern bool is_melee_limitation_field(floor_type *floor_ptr);
@@ -1047,7 +1047,7 @@ extern errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *
 extern void reset_species_preps(void);
 extern s16b get_species_num(floor_type *floor_ptr, int level);
 extern void creature_desc(char *desc, creature_type *creature_ptr, int mode);
-extern void creature_desc_ego_pre(char *desc, creature_type *creature_ptr, species_type *species_ptr, u32b mode);
+extern void creature_desc_ego_pre(char *desc, creature_type *creature_ptr, species_type *species_ptr, FLAGS_32 mode);
 extern void creature_desc_ego_post(char *desc, creature_type *creature_ptr, species_type *species_ptr);
 extern int lore_do_probe(int species_idx);
 extern void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold);
@@ -1060,10 +1060,10 @@ extern bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, C
 extern void deal_item(creature_type *creature_ptr);
 extern bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x);
 extern bool alloc_guardian(floor_type *floor_ptr, bool def_val);
-extern bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u32b mode);
+extern bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, FLAGS_32 mode);
 extern bool summon_specific(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, int lev, int type, FLAGS_32 mode);
 extern bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES oy, COODINATES ox, SPECIES_ID species_idx, FLAGS_32 mode);
-extern bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode);
+extern bool multiply_creature(creature_type *creature_ptr, bool clone, FLAGS_32 mode);
 extern void set_new_species(creature_type *creature_ptr, bool born, int species_idx, int creature_ego_idx);
 extern bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, int x);
 extern void creature_drop_carried_objects(creature_type *m_ptr);
@@ -1074,7 +1074,7 @@ extern s16b m_bonus(int max, int level);
 extern void reset_visuals(void);
 extern void object_flags(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG]);
 extern void object_flags_known(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG]);
-extern bool screen_object(object_type *object_ptr, u32b mode);
+extern bool screen_object(object_type *object_ptr, FLAGS_32 mode);
 extern char index_to_label(int i);
 extern s16b label_to_item(creature_type *creature_ptr, int c);
 extern cptr mention_use_idx(creature_type *creature_ptr, int slot, int num);
@@ -1115,11 +1115,11 @@ extern s16b lookup_kind(int tval, int sval);
 extern void object_wipe(object_type *object_ptr);
 extern void object_prep(object_type *object_ptr, int k_idx, int size);
 extern void object_copy(object_type *object1_ptr, object_type *object2_ptr);
-extern void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32b mode, int specified_idx);
+extern void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLAGS_32 mode, int specified_idx);
 extern void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr, int lev, int ego);
 
 extern void weapon_boost(object_type *object_ptr, int level, POWER power);
-extern bool make_random_object(object_type *object_ptr, u32b mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx));
+extern bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx));
 extern void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode, bool (*get_obj_num_hook)(int k_idx));
 extern bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value, int type);
 extern void place_gold(floor_type *floor_ptr, COODINATES y, COODINATES x);
@@ -1234,8 +1234,8 @@ extern void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, b
 // spells3.c
 extern bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
 extern void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, COODINATES tx, POWER power, FLAGS_32 mode);
-extern bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode);
-extern bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, u32b mode);
+extern bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode);
+extern bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
 extern void teleport_creature(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
 extern void teleport_player_away(creature_type *creature_ptr, int dis);
 extern void teleport_creature_to(creature_type *caster_ptr, COODINATES ny, COODINATES nx, FLAGS_32 mode);
@@ -1296,7 +1296,7 @@ extern bool brand_bolts(creature_type *creature_ptr);
 extern bool polymorph_creature(creature_type *creature_ptr);
 extern bool dimension_door(creature_type *creature_ptr);
 extern bool mirror_tunnel(creature_type *creature_ptr);
-extern bool summon_kin_player(creature_type *creature_ptr, int level, int y, int x, u32b mode);
+extern bool summon_kin_player(creature_type *creature_ptr, int level, int y, int x, FLAGS_32 mode);
 
 // store.c
 extern bool combine_and_reorder_home(store_type *st_ptr, int store_num);
@@ -1414,8 +1414,8 @@ extern bool heavy_armor(creature_type *creature_ptr);
 extern s16b calc_rank(s32b align);
 extern bool get_subrace(creature_type *creature_ptr, int n);
 extern void set_subrace(creature_type *creature_ptr, int n, bool b);
-extern cptr desc_race_name(creature_type *creature_ptr, u32b mode);
-extern cptr desc_class_name(creature_type *creature_ptr, u32b mode);
+extern cptr desc_race_name(creature_type *creature_ptr, FLAGS_32 mode);
+extern cptr desc_class_name(creature_type *creature_ptr, FLAGS_32 mode);
 
 // effects.c
 extern bool add_timed_trait(creature_type *creature_ptr, int type, int v, bool message);
@@ -1456,7 +1456,7 @@ extern void resize_map(void);
 extern void redraw_window(void);
 extern bool change_panel(int dy, int dx);
 extern void verify_panel(creature_type *creature_ptr);
-extern cptr look_creature_desc(creature_type *m_ptr, u32b mode);
+extern cptr look_creature_desc(creature_type *m_ptr, FLAGS_32 mode);
 extern void ang_sort_aux(vptr u, vptr v, int p, int q, bool (*ang_sort_comp)(vptr u, vptr v, int a, int b), void (*ang_sort_swap)(vptr u, vptr v, int a, int b));
 extern void ang_sort(vptr u, vptr v, int n, bool (*ang_sort_comp)(vptr u, vptr v, int a, int b), void (*ang_sort_swap)(vptr u, vptr v, int a, int b));
 extern bool target_able(creature_type *creature_ptr, int m_idx);

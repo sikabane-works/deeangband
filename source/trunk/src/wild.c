@@ -536,7 +536,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 	/* Make some residents */
 	for (i = 0; i < lim; i++)
 	{
-		u32b mode = 0;
+		FLAGS_32 mode = 0;
 
 		if(!(floor_ptr->generate_encounter || (one_in_(2) && (!floor_ptr->town_num))))
 			mode |= PC_ALLOW_SLEEP;

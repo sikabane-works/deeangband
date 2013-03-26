@@ -630,7 +630,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			for (i = 0; i < 2; i++)
 			{
 				bool pet = is_pet(player_ptr, dead_ptr);
-				u32b mode = 0L;
+				FLAGS_32 mode = 0L;
 
 				if(pet) mode |= PC_FORCE_PET;
 				/*TODO
@@ -670,7 +670,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 				if(attempts > 0)
 				{
-					u32b mode = 0L;
+					FLAGS_32 mode = 0L;
 					if(pet) mode |= PC_FORCE_PET;
 
 					/*TODO
@@ -1095,7 +1095,7 @@ void verify_panel(creature_type *creature_ptr)
 }
 
 // Creature health description
-cptr look_creature_desc(creature_type *m_ptr, u32b mode)
+cptr look_creature_desc(creature_type *m_ptr, FLAGS_32 mode)
 {
 	species_type *ap_r_ptr = &species_info[m_ptr->ap_species_idx];
 	bool         living;

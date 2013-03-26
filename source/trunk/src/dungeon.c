@@ -1877,7 +1877,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_ATT_DEMON) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && (randint1(6666) == 666))
 	{
 		bool pet = one_in_(6);
-		u32b mode = PC_ALLOW_GROUP;
+		FLAGS_32 mode = PC_ALLOW_GROUP;
 
 		if(pet) mode |= PC_FORCE_PET;
 		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
@@ -1976,7 +1976,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_ATT_ANIMAL) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(7000))
 	{
 		bool pet = one_in_(3);
-		u32b mode = PC_ALLOW_GROUP;
+		FLAGS_32 mode = PC_ALLOW_GROUP;
 
 		if(pet) mode |= PC_FORCE_PET;
 		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
@@ -2063,7 +2063,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_ATT_DRAGON) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
 	{
 		bool pet = one_in_(5);
-		u32b mode = PC_ALLOW_GROUP;
+		FLAGS_32 mode = PC_ALLOW_GROUP;
 
 		if(pet) mode |= PC_FORCE_PET;
 		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);

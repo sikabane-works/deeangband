@@ -1421,7 +1421,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 				if(object_ptr->tval == TV_CORPSE)
 				{
 					int i;
-					u32b mode = 0L;
+					FLAGS_32 mode = 0L;
 
 					if((caster_ptr) && (is_player(caster_ptr) || is_pet(player_ptr, caster_ptr)))
 						mode |= PC_FORCE_PET;
@@ -2912,7 +2912,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				case 19: case 20: case 21: case 22:
 					{
 						bool pet = !one_in_(3);
-						u32b mode = PC_ALLOW_GROUP;
+						FLAGS_32 mode = PC_ALLOW_GROUP;
 
 						if(pet) mode |= PC_FORCE_PET;
 						else mode |= (PC_NO_PET | PC_FORCE_FRIENDLY);
