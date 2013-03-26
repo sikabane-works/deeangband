@@ -38,7 +38,7 @@ COODINATES distance (COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2)
 	/* Approximate distance: hypot(dy,dx) = max(dy,dx) + min(dy,dx) / 2 */
 	COODINATES d = (dy > dx) ? (dy + (dx >> 1)) : (dx + (dy >> 1));
 
-	int err;
+	COODINATES err;
 
 	/* Simple case */
 	if(!dy || !dx) return d;

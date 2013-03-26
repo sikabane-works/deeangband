@@ -1453,7 +1453,7 @@ static void do_cmd_wiz_floor_object_list(void)
 static void do_cmd_generate_floor(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	FLOOR_LEV depth = 0, wx, wy, dungeon_id = 0;
+	FLOOR_LEV depth = 0, depth2, wx, wy, dungeon_id = 0;
 
 	// Ask for level
 	if(command_arg <= 0)
@@ -1713,16 +1713,13 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	feature_type *f_ptr;
 	char         tmp_val[160];
 	int          tmp_feat, tmp_mimic;
-	int          y, x;
+	COODINATES y, x;
 
 	if(!tgt_pt(creature_ptr, &x, &y)) return;
 
 	c_ptr = &floor_ptr->cave[y][x];
-
 	sprintf(tmp_val, "%d", prev_feat);
-
 	if(!get_string(KW_FEATURE, tmp_val, 3)) return;
-
 	tmp_feat = atoi(tmp_val);
 	if(tmp_feat < 0) tmp_feat = 0;
 	else if(tmp_feat >= max_feature_idx) tmp_feat = max_feature_idx - 1;

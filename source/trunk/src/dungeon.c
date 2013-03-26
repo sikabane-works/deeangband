@@ -638,6 +638,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 // Go to any level (ripped off from wiz_jump)
 static void pattern_teleport(creature_type *creature_ptr)
 {
+	FLOOR_LEV depth;
 	int min_level = 0;
 	int max_level = 99;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -683,7 +684,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 		if(!get_string(ppp, tmp_val, 10)) return;
 
 		/* Extract request */
-		command_arg = atoi(tmp_val);
+		depth = atoi(tmp_val);
 	}
 #ifdef JP
 	else if(get_check("通常テレポート？"))
@@ -699,21 +700,20 @@ static void pattern_teleport(creature_type *creature_ptr)
 		return;
 	}
 
-	if(command_arg < min_level) command_arg = min_level;
-	if(command_arg > max_level) command_arg = max_level;
+	if(depth < min_level) depth = min_level;
+	if(depth > max_level) depth = max_level;
 
 	/* Accept request */
 #ifdef JP
-	msg_format("%d 階にテレポートしました。", command_arg);
+	msg_format("%d 階にテレポートしました。", depth);
 #else
-	msg_format("You teleport to dungeon level %d.", command_arg);
+	msg_format("You teleport to dungeon level %d.", depth);
 #endif
-
 
 	if(autosave_l) do_cmd_save_game(TRUE);
 
 	// Change level
-	floor_ptr->depth = command_arg;
+	floor_ptr->depth = depth;
 
 	leave_quest_check(creature_ptr);
 	if(record_stair) do_cmd_write_diary(DIARY_PAT_TELE,0,NULL);
@@ -724,7 +724,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 	* Clear all saved floors
 	* and create a first saved floor
 	*/
-	move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, command_arg, floor_ptr, 0);
+	move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, depth, floor_ptr, 0);
 
 	/* Leaving */
 	subject_change_floor = TRUE;
@@ -733,7 +733,8 @@ static void pattern_teleport(creature_type *creature_ptr)
 
 static void wreck_the_pattern(floor_type *floor_ptr, creature_type *creature_ptr)
 {
-	int to_ruin = 0, r_y, r_x;
+	int to_ruin = 0;
+	COODINATES r_y, r_x;
 	int pattern_type = feature_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat].subtype;
 
 	if(pattern_type == PATTERN_TILE_WRECKED) return; // Ruined already
