@@ -1375,7 +1375,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	int dir;
-	int lev_bonus = caster_ptr->lev;
+	POWER lev_bonus = (POWER)caster_ptr->lev;
 
 	switch (spell)
 	{

@@ -893,7 +893,7 @@ void get_exp_from_mon(creature_type *attacker_ptr, POWER dam, creature_type *tar
 /*
 * Get term size and calculate screen size
 */
-void get_screen_size(TEXT_COODE *wid_p, TEXT_COODE *hgt_p)
+void get_screen_size(TEXT_COODI *wid_p, TEXT_COODI *hgt_p)
 {
 	Term_get_size(wid_p, hgt_p);
 	*hgt_p -= ROW_MAP + 2;
@@ -980,7 +980,7 @@ bool change_panel(COODINATES dy, COODINATES dx)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	COODINATES y, x;
-	TEXT_COODE wid, hgt;
+	TEXT_COODI wid, hgt;
 	get_screen_size(&wid, &hgt);
 
 	/* Apply the motion */

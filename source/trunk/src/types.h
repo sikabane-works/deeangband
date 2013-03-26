@@ -63,7 +63,7 @@ typedef byte CREATURE_LEV;
 typedef byte FLOOR_LEV;
 typedef s16b COODINATES;
 typedef s32b STAT;
-typedef s32b TEXT_COODE;
+typedef s32b TEXT_COODI;
 
 typedef byte DIRECTION;
 typedef s32b POWER;

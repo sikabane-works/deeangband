@@ -1450,7 +1450,7 @@ extern void check_experience(creature_type *creature_ptr);
 extern void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr);
 extern int specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, int sv);
 extern void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bool drop_item);
-extern void get_screen_size(TEXT_COODE *wid_p, TEXT_COODE *hgt_p);
+extern void get_screen_size(TEXT_COODI *wid_p, TEXT_COODI *hgt_p);
 extern void panel_bounds_center(void);
 extern void resize_map(void);
 extern void redraw_window(void);

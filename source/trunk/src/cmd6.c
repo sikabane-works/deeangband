@@ -1532,7 +1532,8 @@ static int wand_effect(creature_type *caster_ptr, int sval, bool magic)
  */
 static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 {
-	int         lev, ident, chance, dir, i;
+	int lev, ident, chance, i;
+	DIRECTION dir;
 	object_type *object_ptr;
 	bool old_target_pet = target_pet;
 
@@ -1867,7 +1868,8 @@ static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
  */
 static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 {
-	int dir, lev, chance, fail, i;
+	DIRECTION dir;
+	int lev, chance, fail, i;
 	object_type *object_ptr;
 	bool success;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);

@@ -526,7 +526,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	// Search old stairs leading to the destination 
 	if(dest_floor_id)
 	{
-		int x, y;
+		COODINATES x, y;
 
 		for (y = 0; y < floor_ptr->height; y++)
 		{
