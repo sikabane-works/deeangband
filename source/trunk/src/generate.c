@@ -1089,11 +1089,10 @@ static void build_arena(floor_type *floor_ptr, int height, int width)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void generate_floor_arena(floor_type *floor_ptr, int height, int width)
+static void generate_floor_arena(floor_type *floor_ptr, COODINATES height, COODINATES width)
 {
 	COODINATES y, x;
-	int qy = 0;
-	int qx = 0;
+	COODINATES qy = 0, qx = 0;
 
 	// Small area
 	floor_ptr->height = height;
@@ -1189,9 +1188,8 @@ static void build_battle(floor_type *floor_ptr, creature_type *player_ptr)
 static void generate_floor_creature_arena(floor_type *floor_ptr)
 {
 	COODINATES y, x;
+	COODINATES qy = 0, qx = 0;
 	int i;
-	int qy = 0;
-	int qx = 0;
 
 	// Start with solid walls
 	for (y = 0; y < MAX_HGT; y++)
