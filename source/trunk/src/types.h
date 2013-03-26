@@ -380,9 +380,9 @@ struct species_type
 	u32b sub_race[8];               /* Sub-Race index */
 	s16b sex;                       /* Sex index */
 	s16b class_idx;                   /* Class index */
-	s16b patron_idx;
-	s16b father_idx;
-	s16b mother_idx;
+	SPECIES_ID patron_idx;
+	SPECIES_ID father_idx;
+	SPECIES_ID mother_idx;
 	s16b chara_idx;                 /* Chara index */
 	s16b creature_ego_idx;		    /* Creature ego index */
 

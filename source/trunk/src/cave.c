@@ -3995,8 +3995,8 @@ void forget_flow(floor_type *floor_ptr)
  * it everytime the player moves out of LOS of the last
  * "way-point".
  */
-static u16b flow_x = 0;
-static u16b flow_y = 0;
+static COODINATES flow_x = 0;
+static COODINATES flow_y = 0;
 
 
 
