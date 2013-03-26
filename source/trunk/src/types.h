@@ -1160,8 +1160,8 @@ struct creature_type
 	COLOR_ID x_attr;			// Desired creature attribute
 	SYMBOL x_char;			// Desired creature character
 
-	s16b oldpy;		// Previous player location -KMW- 
-	s16b oldpx;		// Previous player location -KMW- 
+	COODINATES oldpy; /* Previous player location -KMW- */ 
+	COODINATES oldpx; /* Previous player location -KMW- */
 
 	s16b race_idx1;			    // Race index
 	s16b race_idx2;			    // Race index
@@ -1218,16 +1218,16 @@ struct creature_type
 	CREATURE_LEV lev;			// Level 
 	CREATURE_LEV max_lev;		// Max Level 
 
-	s32b chp;			// Cur hit pts 
+	STAT chp;			// Cur hit pts 
 	u32b chp_frac;		// Cur hit frac (times 2^16) 
-	s32b mhp;			// Max hit pts 
-	s32b mmhp;			// Max Max Hit points 
+	STAT mhp;			// Max hit pts 
+	STAT mmhp;			// Max Max Hit points 
 
-	s32b msp;			// Max mana pts 
-	s32b csp;			// Cur mana pts 
+	STAT msp;			// Max mana pts 
+	STAT csp;			// Cur mana pts 
 	u32b csp_frac;		// Cur mana frac (times 2^16) 
 
-	s16b max_plv;		// Max Player Level 
+	CREATURE_LEV max_plv; // Max Player Level 
 
 	STAT stat_cur[STAT_MAX];			// Current "natural" stat values
 	STAT stat_max[STAT_MAX];			// Current "maximal" stat values
