@@ -701,7 +701,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		// Reward for "lazy" player
 		if(slayer_ptr->chara_idx == CHARA_NAMAKE)
 		{
-			int a_idx = 0;
+			ARTIFACT_ID a_idx = 0;
 			artifact_type *a_ptr = NULL;
 
 			if(!drop_chosen_item) break;
@@ -747,7 +747,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 			if(dungeon_info[floor_ptr->dun_type].final_artifact)
 			{
-				int a_idx = dungeon_info[floor_ptr->dun_type].final_artifact;
+				ARTIFACT_ID a_idx = dungeon_info[floor_ptr->dun_type].final_artifact;
 				artifact_type *a_ptr = &artifact_info[a_idx];
 
 				if(!a_ptr->cur_num)

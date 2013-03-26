@@ -52,6 +52,7 @@ typedef s32b SPECIES_ID;
 typedef s16b FEATURE_ID;
 typedef s16b TOWN_ID;
 typedef s16b EFFECT_ID;
+typedef s32b ARTIFACT_ID;
 
 typedef byte TVAL;
 typedef byte SVAL;

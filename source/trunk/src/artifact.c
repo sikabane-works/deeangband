@@ -1758,7 +1758,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 }
 
 
-bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a_idx)
+bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, ARTIFACT_ID a_idx)
 {
 	int i;
 
@@ -1808,7 +1808,7 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a
 }
 
 // Create the artifact of the specified number
-bool drop_named_art(creature_type *creature_ptr, int a_idx, int y, int x)
+bool drop_named_art(creature_type *creature_ptr, ARTIFACT_ID a_idx, int y, int x)
 {
 	object_type forge;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
