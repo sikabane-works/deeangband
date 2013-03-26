@@ -425,14 +425,14 @@ void teleport_creature(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mod
 }
 
 
-void teleport_player_away(creature_type *creature_ptr, int dis)
+void teleport_player_away(creature_type *creature_ptr, COODINATES dis)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int yy, xx;
+	COODINATES yy, xx;
 
 	/* Save the old location */
-	int oy = creature_ptr->fy;
-	int ox = creature_ptr->fx;
+	COODINATES oy = creature_ptr->fy;
+	COODINATES ox = creature_ptr->fx;
 
 	if(!teleport_player_aux(creature_ptr, dis, TELEPORT_PASSIVE)) return;
 
@@ -486,8 +486,8 @@ void teleport_creature_to(creature_type *caster_ptr, COODINATES ny, COODINATES n
 		/* Pick a nearby legal location */
 		while(TRUE)
 		{
-			y = rand_spread(ny, dis);
-			x = rand_spread(nx, dis);
+			y = (COODINATES)rand_spread(ny, dis);
+			x = (COODINATES)rand_spread(nx, dis);
 			if(IN_BOUNDS(floor_ptr, y, x)) break;
 		}
 
@@ -1346,7 +1346,6 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	prepare_update(player_ptr, PU_CREATURES);
 	prepare_redraw(PR_MAP);
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
-
 	return TRUE;
 }
 
@@ -1354,7 +1353,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 void call_the_void(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int i;
+	COODINATES i;
 	cave_type *c_ptr;
 	bool do_call = TRUE;
 
@@ -3959,7 +3958,7 @@ static bool dimension_door_aux(creature_type *creature_ptr, COODINATES x, COODIN
 	    (!randint0(plev / 10 + 10)))
 	{
 		cost_tactical_energy(creature_ptr, 60 - plev);
-		teleport_creature(creature_ptr, (plev + 2) * 2, TELEPORT_PASSIVE);
+		teleport_creature(creature_ptr, (COODINATES)(plev + 2) * 2, TELEPORT_PASSIVE);
 
 		return FALSE;
 	}
@@ -4210,7 +4209,7 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 }
 
 
-bool summon_kin_player(creature_type *creature_ptr, int level, int y, int x, FLAGS_32 mode)
+bool summon_kin_player(creature_type *creature_ptr, int level, COODINATES y, COODINATES x, FLAGS_32 mode)
 {
 	bool pet = (bool)(mode & PC_FORCE_PET);
 	if(!pet) mode |= PC_NO_PET;

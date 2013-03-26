@@ -1237,7 +1237,7 @@ extern void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINAT
 extern bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode);
 extern bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
 extern void teleport_creature(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
-extern void teleport_player_away(creature_type *creature_ptr, int dis);
+extern void teleport_player_away(creature_type *creature_ptr, COODINATES dis);
 extern void teleport_creature_to(creature_type *caster_ptr, COODINATES ny, COODINATES nx, FLAGS_32 mode);
 extern void teleport_away_followable(creature_type *creature_ptr);
 extern void teleport_level(creature_type *creature_ptr, int m_idx);

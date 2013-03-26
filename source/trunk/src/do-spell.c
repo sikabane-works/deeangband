@@ -598,7 +598,8 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, POWER dam, COODIN
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	COODINATES x, y, tx, ty, nx, ny;
-	int dir, i;
+	DIRECTION dir;
+	int i;
 	int b = 10 + randint1(10);
 
 	if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
@@ -4080,7 +4081,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 	static const char s_random[] = KW_RANDOM;
 
-	COODINATES dir;
+	DIRECTION dir;
 	CREATURE_LEV plev = caster_ptr->lev;
 
 	switch (spell)
