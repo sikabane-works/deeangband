@@ -3055,14 +3055,14 @@ static void generate_hmap(floor_type *floor_ptr, COODINATES y0, COODINATES x0, C
 
 	COODINATES xstep, xhstep, ystep, yhstep;
 	COODINATES xstep2, xhstep2, ystep2, yhstep2, xxsize, yysize;
-	u16b i, j, ii, jj, diagsize;
+	COODINATES i, j, ii, jj, diagsize;
 	
 	/* Cache for speed */
-	u16b xm, xp, ym, yp;
+	COODINATES xm, xp, ym, yp;
 
 	/* redefine size so can change the value if out of range */
-	xsize = (s16b)xsiz;
-	ysize = (s16b)ysiz;
+	xsize = xsiz;
+	ysize = ysiz;
 
 
 	if(xsize > 254) xsize = 254;
@@ -4085,7 +4085,7 @@ static void build_bubble_vault(floor_type *floor_ptr, COODINATES x0, COODINATES 
 
 	int i, j;
 	COODINATES x, y;
-	u16b min1, min2, temp;
+	COODINATES min1, min2, temp;
 	bool done;
 
 	/* Offset from center to top left hand corner */
