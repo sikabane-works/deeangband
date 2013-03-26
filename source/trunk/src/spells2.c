@@ -2072,7 +2072,7 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 }
 
 // Determine how much contiguous open space this grid is next to
-static int next_to_open(floor_type *floor_ptr, int cy, int cx, bool (*pass_bold)(floor_type *, int, int))
+static int next_to_open(floor_type *floor_ptr, COODINATES cy, COODINATES cx, bool (*pass_bold)(floor_type *, int, int))
 {
 	int i;
 	COODINATES y, x;
@@ -2471,7 +2471,8 @@ bool wall_stone(creature_type *caster_ptr)
 
 void call_chaos(creature_type *creature_ptr)
 {
-	int Chaos_type, dummy;
+	EFFECT_ID Chaos_type;
+	int dummy;
 	int plev = creature_ptr->lev;
 	bool line_chaos = FALSE;
 
@@ -2643,7 +2644,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 }
 
 
-int activate_hi_summon(creature_type *creature_ptr, int y, int x, bool can_pet)
+int activate_hi_summon(creature_type *creature_ptr, COODINATES y, COODINATES x, bool can_pet)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
@@ -2725,7 +2726,7 @@ int activate_hi_summon(creature_type *creature_ptr, int y, int x, bool can_pet)
 	return count;
 }
 
-int summon_cyber(creature_type *summoner_ptr, int y, int x)
+int summon_cyber(creature_type *summoner_ptr, COODINATES y, COODINATES x)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(summoner_ptr);
 	int i;
