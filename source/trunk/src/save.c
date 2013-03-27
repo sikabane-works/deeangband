@@ -355,9 +355,9 @@ static void save_quick_start(species_type *species_ptr)
 	for (i = 0; i < STAT_MAX; i++) WRITE_STAT(species_ptr->stat_max_max[i]);
 	for (i = 0; i < CREATURE_MAX_LEVEL; i++) wr_s16b(species_ptr->base_hp[i]);
 
-	wr_s16b(species_ptr->patron_idx);
-	wr_s16b(species_ptr->father_idx);
-	wr_s16b(species_ptr->mother_idx);
+	WRITE_SPECIES_ID(species_ptr->patron_idx);
+	WRITE_SPECIES_ID(species_ptr->father_idx);
+	WRITE_SPECIES_ID(species_ptr->mother_idx);
 
 	for (i = 0; i < HISTORY_ROW; i++) wr_string(species_ptr->history[i]);
 
@@ -386,8 +386,8 @@ static void wr_creature(creature_type *creature_ptr)
 	for (i = 0; i < HISTORY_ROW; i++) wr_string(creature_ptr->history[i]);
 
 	// Race/Class/Gender/Spells
-	wr_s16b(creature_ptr->species_idx);
-	wr_s16b(creature_ptr->ap_species_idx);
+	WRITE_SPECIES_ID(creature_ptr->species_idx);
+	WRITE_SPECIES_ID(creature_ptr->ap_species_idx);
 	wr_s16b(creature_ptr->camp_idx);
 	wr_s16b(creature_ptr->race_idx1);
 	wr_s16b(creature_ptr->race_idx2);
@@ -402,7 +402,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->realm2);
 
 	wr_s16b(creature_ptr->camp_idx);
-	wr_s16b(creature_ptr->master_creature_idx);
+	WRITE_SPECIES_ID(creature_ptr->master_creature_idx);
 
 	WRITE_STAT(creature_ptr->hitdice);
 	WRITE_STAT(creature_ptr->expfact);
@@ -509,9 +509,9 @@ static void wr_creature(creature_type *creature_ptr)
 
 	wr_s16b(creature_ptr->see_infra);
 
-	wr_s16b(creature_ptr->patron_idx);
-	wr_s16b(creature_ptr->father_idx);
-	wr_s16b(creature_ptr->mother_idx);
+	WRITE_SPECIES_ID(creature_ptr->patron_idx);
+	WRITE_SPECIES_ID(creature_ptr->father_idx);
+	WRITE_SPECIES_ID(creature_ptr->mother_idx);
 
 	for (i = 0; i < MAX_KARMA; i++) wr_s32b(creature_ptr->karmas[i]);
 
@@ -1022,7 +1022,7 @@ static bool wr_savefile_new(void)
 			wr_s16b(quest[i].cur_num);
 			wr_s16b(quest[i].max_num);
 			wr_s16b(quest[i].type);
-			wr_s16b(quest[i].species_idx);
+			WRITE_SPECIES_ID(quest[i].species_idx);
 			wr_s16b(quest[i].k_idx);
 			wr_byte(quest[i].flags);
 			wr_byte(quest[i].dungeon);

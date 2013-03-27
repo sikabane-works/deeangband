@@ -49,6 +49,9 @@ typedef s32b FLAGS_32;
 typedef s32b CREATURE_ID;
 typedef s32b OBJECT_ID;
 typedef s32b SPECIES_ID;
+#define READ_SPECIES_ID(VALUE) rd_s32b((SPECIES_ID *)VALUE);
+#define WRITE_SPECIES_ID(VALUE) wr_s32b((SPECIES_ID)VALUE);
+
 typedef s16b FEATURE_ID;
 typedef s16b TOWN_ID;
 typedef s16b EFFECT_ID;

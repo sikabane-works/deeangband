@@ -723,8 +723,8 @@ static void rd_creature(creature_type *creature_ptr)
 	for (i = 0; i < HISTORY_ROW; i++) rd_string(creature_ptr->history[i], sizeof(creature_ptr->history[i]));
 
 	// Class/Race/Chara/Gender/Spells
-	rd_s16b(&creature_ptr->species_idx);
-	rd_s16b(&creature_ptr->ap_species_idx);
+	READ_SPECIES_ID(&creature_ptr->species_idx);
+	READ_SPECIES_ID(&creature_ptr->ap_species_idx);
 	rd_s16b(&creature_ptr->camp_idx);
 	rd_s16b(&creature_ptr->race_idx1);
 	rd_s16b(&creature_ptr->race_idx2);
@@ -739,7 +739,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->realm2);
 
 	rd_s16b(&creature_ptr->camp_idx);
-	rd_s16b(&creature_ptr->master_creature_idx);
+	READ_SPECIES_ID(&creature_ptr->master_creature_idx);
 
 	// Special Race/Class info
 	READ_STAT(&creature_ptr->hitdice);
@@ -851,9 +851,9 @@ static void rd_creature(creature_type *creature_ptr)
 
 	rd_byte(&creature_ptr->recall_dungeon);
 	rd_s16b(&creature_ptr->see_infra);
-	rd_s16b(&creature_ptr->patron_idx);
-	rd_s16b(&creature_ptr->father_idx);
-	rd_s16b(&creature_ptr->mother_idx);
+	READ_SPECIES_ID(&creature_ptr->patron_idx);
+	READ_SPECIES_ID(&creature_ptr->father_idx);
+	READ_SPECIES_ID(&creature_ptr->mother_idx);
 
 	for (i = 0; i < MAX_KARMA; i++) rd_s32b(&creature_ptr->karmas[i]);
 
@@ -1381,7 +1381,7 @@ static errr rd_savefile_new_aux(void)
 					rd_s16b(&quest[i].type);
 
 					/* Load quest creature index */
-					rd_s16b(&quest[i].species_idx);
+					READ_SPECIES_ID(&quest[i].species_idx);
 
 					if((quest[i].type == QUEST_TYPE_RANDOM) && (!quest[i].species_idx))
 					{
