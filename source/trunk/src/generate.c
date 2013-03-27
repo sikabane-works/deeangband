@@ -770,7 +770,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		/* Hack -- Add some rivers */
 		if(one_in_(3) && (randint1(floor_ptr->depth) > 5))
 		{
-			COODINATES feat1 = 0, feat2 = 0;
+			FEATURE_ID feat1 = 0, feat2 = 0;
 
 			/* Choose water or lava or poison swamp*/
 			if((randint1(MAX_DEPTH * 2) - 1 > floor_ptr->depth) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_WATER_RIVER))

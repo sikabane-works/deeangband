@@ -1438,9 +1438,7 @@ void print_rel(creature_type *creature_ptr, char c, byte a, int y, int x)
 void note_spot(floor_type *floor_ptr, int y, int x)
 {
 	cave_type *cave_ptr = &floor_ptr->cave[y][x];
-
-	s16b this_object_idx, next_object_idx = 0;
-
+	OBJECT_ID this_object_idx, next_object_idx = 0;
 
 	/* Blind players see nothing */
 	if(has_trait(player_ptr, TRAIT_BLIND)) return;
@@ -1627,8 +1625,8 @@ void prt_map(creature_type *watcher_ptr)
 	int     v;
 
 	// map bounds
-	s16b xmin, xmax, ymin, ymax;
-	int wid, hgt;
+	TEXT_COODI xmin, xmax, ymin, ymax;
+	TEXT_COODI wid, hgt;
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(watcher_ptr);
 
@@ -4601,10 +4599,10 @@ FEATURE_ID feat_state(floor_type *floor_ptr, FEATURE_ID feat, int action)
 void cave_alter_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, int action)
 {
 	/* Set old feature */
-	int oldfeat = floor_ptr->cave[y][x].feat;
+	FEATURE_ID oldfeat = floor_ptr->cave[y][x].feat;
 
 	/* Get the new feat */
-	int newfeat = feat_state(floor_ptr, oldfeat, action);
+	FEATURE_ID newfeat = feat_state(floor_ptr, oldfeat, action);
 
 	/* No change */
 	if(newfeat == oldfeat) return;
@@ -4778,7 +4776,7 @@ bool projectable(floor_type *floor_ptr, COODINATES range, COODINATES y1, COODINA
 {
 	COODINATES y, x;
 	int grid_n = 0;
-	u16b grid_g[512];
+	COODINATES grid_g[512];
 
 	/* Check the projection path */
 	grid_n = project_path(grid_g, (range ? range : MAX_RANGE), floor_ptr, y1, x1, y2, x2, 0);
