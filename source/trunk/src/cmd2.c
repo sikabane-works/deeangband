@@ -727,7 +727,7 @@ static int count_chests(creature_type *creature_ptr, COODINATES *y, COODINATES *
 /*
  * Convert an adjacent location to a direction.
  */
-static int coords_to_damageir(creature_type *creature_ptr, int y, int x)
+static int coords_to_dir(creature_type *creature_ptr, int y, int x)
 {
 	int d[3][3] = { {7, 4, 1}, {8, 5, 2}, {9, 6, 3} };
 	int dy, dx;
@@ -835,7 +835,7 @@ void do_cmd_open(creature_type *creature_ptr)
 	{
 		bool too_many = (num_doors && num_chests) || (num_doors > 1) ||
 		    (num_chests > 1);
-		if(!too_many) command_dir = coords_to_damageir(creature_ptr, y, x);
+		if(!too_many) command_dir = coords_to_dir(creature_ptr, y, x);
 	}
 
 	/* Allow repeated command */
@@ -948,7 +948,7 @@ void do_cmd_close(creature_type *creature_ptr)
 
 	if(count_dt(creature_ptr, &y, &x, is_open, FALSE) == 1)
 	{
-		command_dir = coords_to_damageir(creature_ptr, y, x);
+		command_dir = coords_to_dir(creature_ptr, y, x);
 	}
 
 	/* Allow repeated command */
@@ -964,7 +964,7 @@ void do_cmd_close(creature_type *creature_ptr)
 	}
 
 	/* Get a "repeated" direction */
-	if(get_rep_dir(creature_ptr, &dir,FALSE))
+	if(get_rep_dir(creature_ptr, &dir, FALSE))
 	{
 		cave_type *c_ptr;
 		s16b feat;
@@ -1407,7 +1407,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		{
 			bool too_many = (num_traps && num_chests) || (num_traps > 1) ||
 			    (num_chests > 1);
-			if(!too_many) command_dir = coords_to_damageir(creature_ptr, y, x);
+			if(!too_many) command_dir = coords_to_dir(creature_ptr, y, x);
 		}
 	}
 

@@ -662,9 +662,9 @@ struct object_type
 	STAT to_damage;		// Plusses to damage
 	STAT to_hit_essence;
 	STAT to_damage_essence;
-	s16b to_ac;			// Plusses to AC
-	s16b to_ev;			// Plusses to EV
-	s16b to_vo;			// Plusses to VO
+	STAT to_ac;			// Plusses to AC
+	STAT to_ev;			// Plusses to EV
+	STAT to_vo;			// Plusses to VO
 	s16b bow_mul;		// Multiply of Bow Damage
 	s16b bow_energy;	// Energy Cost of Bow
 

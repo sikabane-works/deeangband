@@ -1464,7 +1464,7 @@ extern bool target_okay(creature_type *creature_ptr);
 extern bool target_set(creature_type *aimer, COODINATES range, int mode);
 extern bool get_aim_dir(creature_type *creature_ptr, COODINATES range, DIRECTION *dp);
 extern bool get_hack_dir(creature_type *creature_ptr, int *dp);
-extern bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under);
+extern bool get_rep_dir(creature_type *creature_ptr, DIRECTION *dp, bool under);
 extern bool get_rep_dir2(creature_type *creature_ptr, DIRECTION *dp);
 extern void gain_level_reward(creature_type *creature_ptr, int chosen_reward);
 extern bool tgt_pt (creature_type *creature_ptr, COODINATES *x, COODINATES *y);

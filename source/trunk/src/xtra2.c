@@ -2608,9 +2608,9 @@ bool get_aim_dir(creature_type *creature_ptr, COODINATES range, DIRECTION *dp)
 * This function tracks and uses the "global direction", and uses
 * that as the "desired direction", to which "confusion" is applied.
 */
-bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
+bool get_rep_dir(creature_type *creature_ptr, DIRECTION *dp, bool under)
 {
-	int dir;
+	DIRECTION dir;
 	char creature_name[MAX_NLEN];
 	creature_desc(creature_name, creature_ptr, 0);
 
