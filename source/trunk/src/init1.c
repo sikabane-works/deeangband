@@ -1119,7 +1119,7 @@ errr parse_vault_info(char *buf, header *head)
 		if(!*s) return PARSE_ERROR_GENERIC;
 
 		/* Get the index */
-		i = atoi(buf+2);
+		i = strtol(buf + 2, NULL, 10);
 
 		/* Verify information */
 		if(i <= error_idx) return (4);
@@ -1186,7 +1186,7 @@ errr parse_skill_info(char *buf, header *head)
 	/* Process 'N' for "New/Number/Name" */
 	if(buf[0] == 'N')
 	{
-		i = atoi(buf+2);
+		i = strtol(buf + 2, NULL, 10);
 		if(i <= error_idx) return (4);
 		if(i >= head->info_num) return (2);
 		error_idx = i;
@@ -1225,7 +1225,7 @@ errr parse_magic_info(char *buf, header *head)
 	if(buf[0] == 'N')
 	{
 		/* Get the index */
-		i = atoi(buf+2);
+		i = strtol(buf + 2, NULL, 10);
 
 			/* Verify information */
 		if(i <= error_idx) return (4);
@@ -1536,7 +1536,7 @@ errr parse_feature_info(char *buf, header *head)
 		}
 
 		/* Get the index */
-		i = atoi(buf+2);
+		i = strtol(buf + 2, NULL, 10);
 
 		/* Verify information */
 		if(i <= error_idx) return (4);
@@ -3737,7 +3737,7 @@ errr parse_re_info(char *buf, header *head)
 #endif
 
 		/* Get the index */
-		i = atoi(buf+2);
+		i = strtol(buf + 2, NULL, 10);
 
 
 		/* Verify information */
@@ -5754,9 +5754,9 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					dungeon_ptr->floor[0].feat = feature_tag_to_index(zz[0]);
 					dungeon_ptr->floor[0].percent = strtol(zz[1], NULL, 10);
 					dungeon_ptr->floor[1].feat = feature_tag_to_index(zz[2]);
-					dungeon_ptr->floor[1].percent = atoi(zz[3]);
+					dungeon_ptr->floor[1].percent = strtol(zz[3], NULL, 10);
 					dungeon_ptr->floor[2].feat = feature_tag_to_index(zz[4]);
-					dungeon_ptr->floor[2].percent = atoi(zz[5]);
+					dungeon_ptr->floor[2].percent = strtol(zz[5], NULL, 10);
 					break;
 
 				case DU_INFO_FEAT_PROB_FILL:
@@ -5764,9 +5764,9 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					dungeon_ptr->fill[0].feat = feature_tag_to_index(zz[0]);
 					dungeon_ptr->fill[0].percent = strtol(zz[1], NULL, 10);
 					dungeon_ptr->fill[1].feat = feature_tag_to_index(zz[2]);
-					dungeon_ptr->fill[1].percent = atoi(zz[3]);
+					dungeon_ptr->fill[1].percent = strtol(zz[3], NULL, 10);
 					dungeon_ptr->fill[2].feat = feature_tag_to_index(zz[4]);
-					dungeon_ptr->fill[2].percent = atoi(zz[5]);
+					dungeon_ptr->fill[2].percent = strtol(zz[5], NULL, 10);
 					break;
 
 				case DU_INFO_OUTER_WALL:
@@ -6306,7 +6306,7 @@ static errr parse_line_feature(char *buf, FLAGS_32 flags)
 		{
 			/* Special */
 			case 9:
-				letter[index].special = atoi(zz[8]);
+				letter[index].special = strtol(zz[8], NULL, 10);
 				/* Fall through */
 			case 8:
 				if((zz[7][0] == '*') && !zz[7][1])
@@ -6326,7 +6326,7 @@ static errr parse_line_feature(char *buf, FLAGS_32 flags)
 				}
 				else
 				{
-					letter[index].artifact = atoi(zz[6]);
+					letter[index].artifact = strtol(zz[6], NULL, 10);
 				}
 				/* Fall through */
 			/* Ego-item */
@@ -6338,7 +6338,7 @@ static errr parse_line_feature(char *buf, FLAGS_32 flags)
 				}
 				else
 				{
-					letter[index].ego = atoi(zz[5]);
+					letter[index].ego = strtol(zz[5], NULL, 10);
 				}
 				/* Fall through */
 			/* Object */
@@ -6346,11 +6346,11 @@ static errr parse_line_feature(char *buf, FLAGS_32 flags)
 				if(zz[4][0] == '*')
 				{
 					letter[index].random |= RANDOM_OBJECT;
-					if(zz[4][1]) letter[index].object = atoi(zz[4] + 1);
+					if(zz[4][1]) letter[index].object = strtol(zz[4] + 1, NULL, 10);
 				}
 				else
 				{
-					letter[index].object = atoi(zz[4]);
+					letter[index].object = strtol(zz[4], NULL, 10);
 				}
 				/* Fall through */
 			/* Creature */
@@ -6367,12 +6367,12 @@ static errr parse_line_feature(char *buf, FLAGS_32 flags)
 				}
 				else
 				{
-					letter[index].creature = atoi(zz[3]);
+					letter[index].creature = strtol(zz[3], NULL, 10);
 				}
 				/* Fall through */
 			/* Cave info */
 			case 3:
-				letter[index].cave_info = atoi(zz[2]);
+				letter[index].cave_info = strtol(zz[2], NULL, 10);
 				/* Fall through */
 			/* Feature */
 			case 2:
@@ -6465,22 +6465,22 @@ static errr parse_line_building(char *buf)
 				strcpy(building[index].act_names[action_index], zz[1]);
 
 				/* Cost of the action for members */
-				building[index].member_costs[action_index] = atoi(zz[2]);
+				building[index].member_costs[action_index] = strtol(zz[2], NULL, 10);
 
 				/* Cost of the action for non-members */
-				building[index].other_costs[action_index] = atoi(zz[3]);
+				building[index].other_costs[action_index] = strtol(zz[3], NULL, 10);
 
 				/* Letter assigned to the action */
 				building[index].letters[action_index] = zz[4][0];
 
 				/* Action code */
-				building[index].actions[action_index] = atoi(zz[5]);
+				building[index].actions[action_index] = strtol(zz[5], NULL, 10);
 
 				/* Action restriction */
-				building[index].action_restr[action_index] = atoi(zz[6]);
+				building[index].action_restr[action_index] = strtol(zz[6], NULL, 10);
 
 				/* Action restriction */
-				if(num >= 8) building[index].action_misc[action_index] = atoi(zz[7]);
+				if(num >= 8) building[index].action_misc[action_index] = strtol(zz[7], NULL, 10);
 
 
 				break;
@@ -6498,7 +6498,7 @@ static errr parse_line_building(char *buf)
 			n = tokenize(buf+2, MAX_CLASS, zz, 0);
 			for (i = 0; i < n; i++)
 			{
-				building[index].member_class[i] = atoi(zz[i]);
+				building[index].member_class[i] = strtol(zz[i], NULL, 10);
 			}
 			if(n < MAX_RACES)
 			{
@@ -6516,7 +6516,7 @@ static errr parse_line_building(char *buf)
 			n = tokenize(buf+2, MAX_RACES, zz, 0);
 			for (i = 0; i < n; i++)
 			{
-				building[index].member_race[i] = atoi(zz[i]);
+				building[index].member_race[i] = strtol(zz[i], NULL, 10);
 			}
 			if(n < MAX_RACES)
 			{
@@ -6533,7 +6533,7 @@ static errr parse_line_building(char *buf)
 			{
 				for (i = 0; i < MAX_REALMS; i++)
 				{
-					building[index].member_realm[i+1] = atoi(zz[i]);
+					building[index].member_realm[i+1] = strtol(zz[i], NULL, 10);
 				}
 
 				break;
@@ -6812,16 +6812,16 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 
 				if(num < 9) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
 
-				quest_ptr->type    = atoi(zz[2]);
-				quest_ptr->num_mon = atoi(zz[3]);
-				quest_ptr->cur_num = atoi(zz[4]);
-				quest_ptr->max_num = atoi(zz[5]);
-				quest_ptr->level   = atoi(zz[6]);
-				quest_ptr->species_idx   = atoi(zz[7]);
-				quest_ptr->k_idx   = atoi(zz[8]);
-				quest_ptr->dungeon = atoi(zz[9]);
+				quest_ptr->type    = strtol(zz[2], NULL, 10);
+				quest_ptr->num_mon = strtol(zz[3], NULL, 10);
+				quest_ptr->cur_num = strtol(zz[4], NULL, 10);
+				quest_ptr->max_num = strtol(zz[5], NULL, 10);
+				quest_ptr->level   = strtol(zz[6], NULL, 10);
+				quest_ptr->species_idx   = strtol(zz[7], NULL, 10);
+				quest_ptr->k_idx   = strtol(zz[8], NULL, 10);
+				quest_ptr->dungeon = strtol(zz[9], NULL, 10);
 
-				if(num > 10) quest_ptr->flags  = atoi(zz[10]);
+				if(num > 10) quest_ptr->flags  = strtol(zz[10], NULL, 10);
 
 				species_ptr = &species_info[quest_ptr->species_idx];
 				//if(has_trait_species(species_ptr, TRAIT_UNIQUE))
@@ -6922,7 +6922,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 		n = tokenize(buf+2, MAX_RACES, zz, 0);
 		for (i = 0; i < n; i++)
 		{
-			floor_ptr->race_population[i] = atoi(zz[i]);
+			floor_ptr->race_population[i] = strtol(zz[i], NULL, 10);
 		}
 		if(n < MAX_RACES)
 		{

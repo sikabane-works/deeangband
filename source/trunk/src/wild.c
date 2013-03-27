@@ -674,17 +674,17 @@ errr parse_line_wilderness(char *buf, COODINATES ymin, COODINATES xmin, COODINAT
 				w_letter[index].terrain = 0;
 			
 			if(num > 2)
-				w_letter[index].level = atoi(zz[2]);
+				w_letter[index].level = strtol(zz[2], NULL, 10);
 			else
 				w_letter[index].level = 0;
 			
 			if(num > 3)
-				w_letter[index].town = atoi(zz[3]);
+				w_letter[index].town = strtol(zz[3], NULL, 10);
 			else
 				w_letter[index].town = 0;
 			
 			if(num > 4)
-				w_letter[index].road = atoi(zz[4]);
+				w_letter[index].road = strtol(zz[4], NULL, 10);
 			else
 				w_letter[index].road = 0;
 			
