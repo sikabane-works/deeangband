@@ -2159,9 +2159,9 @@ bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 	msg_print(MES_FEATURE_KILLED);
 
 	{
-		byte iy = object_ptr->fy;                 /* Y-position on map, or zero */
-		byte ix = object_ptr->fx;                 /* X-position on map, or zero */
-		s16b next_object_idx = object_ptr->next_object_idx; /* Next object in stack (if any) */
+		COODINATES iy = object_ptr->fy;                 /* Y-position on map, or zero */
+		COODINATES ix = object_ptr->fx;                 /* X-position on map, or zero */
+		OBJECT_ID next_object_idx = object_ptr->next_object_idx; /* Next object in stack (if any) */
 		byte marked = object_ptr->marked;         /* Object is marked */
 		u16b inscription = object_ptr->inscription;
 

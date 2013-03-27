@@ -1743,13 +1743,13 @@ struct dungeon_type {
 
 	feat_prob floor[DUNGEON_FEAT_PROB_NUM]; /* Floor probability */
 	feat_prob fill[DUNGEON_FEAT_PROB_NUM];  /* Cave wall probability */
-	s16b outer_wall;                        /* Outer wall tile */
-	s16b inner_wall;                        /* Inner wall tile */
-	s16b stream1;                           /* stream tile */
-	s16b stream2;                           /* stream tile */
+	FEATURE_ID outer_wall;                        /* Outer wall tile */
+	FEATURE_ID inner_wall;                        /* Inner wall tile */
+	FEATURE_ID stream1;                           /* stream tile */
+	FEATURE_ID stream2;                           /* stream tile */
 
-	s16b mindepth;         /* Minimal depth */
-	s16b maxdepth;         /* Maximal depth */
+	FLOOR_LEV mindepth;         /* Minimal depth */
+	FLOOR_LEV maxdepth;         /* Maximal depth */
 	CREATURE_LEV min_lev_bonus;         /* Minimal lev_bonus needed to enter -- it's an anti-cheating mesure */
 	s16b pit;
 	s16b nest;

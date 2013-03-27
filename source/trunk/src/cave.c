@@ -4544,7 +4544,7 @@ void cave_set_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, FEATURE_ID
 }
 
 
-int conv_dungeon_feat(floor_type *floor_ptr, int newfeat)
+FEATURE_ID conv_dungeon_feat(floor_type *floor_ptr, FEATURE_ID newfeat)
 {
 	feature_type *f_ptr = &feature_info[newfeat];
 
