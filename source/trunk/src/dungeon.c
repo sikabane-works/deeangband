@@ -684,7 +684,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 		if(!get_string(ppp, tmp_val, 10)) return;
 
 		/* Extract request */
-		depth = atoi(tmp_val);
+		depth = strtol(tmp_val, NULL, 10);
 	}
 #ifdef JP
 	else if(get_check("通常テレポート？"))

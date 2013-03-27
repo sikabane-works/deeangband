@@ -5752,7 +5752,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 				case DU_INFO_FEAT_PROB_FLOOR:
 					if(tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return PARSE_ERROR_GENERIC; // Scan for the values
 					dungeon_ptr->floor[0].feat = feature_tag_to_index(zz[0]);
-					dungeon_ptr->floor[0].percent = atoi(zz[1]);
+					dungeon_ptr->floor[0].percent = strtol(zz[1], NULL, 10);
 					dungeon_ptr->floor[1].feat = feature_tag_to_index(zz[2]);
 					dungeon_ptr->floor[1].percent = atoi(zz[3]);
 					dungeon_ptr->floor[2].feat = feature_tag_to_index(zz[4]);
@@ -5762,7 +5762,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 				case DU_INFO_FEAT_PROB_FILL:
 					if(tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return PARSE_ERROR_GENERIC; // Scan for the values
 					dungeon_ptr->fill[0].feat = feature_tag_to_index(zz[0]);
-					dungeon_ptr->fill[0].percent = atoi(zz[1]);
+					dungeon_ptr->fill[0].percent = strtol(zz[1], NULL, 10);
 					dungeon_ptr->fill[1].feat = feature_tag_to_index(zz[2]);
 					dungeon_ptr->fill[1].percent = atoi(zz[3]);
 					dungeon_ptr->fill[2].feat = feature_tag_to_index(zz[4]);
@@ -6890,7 +6890,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 					delete_creature(floor_ptr, player_ptr->fy, player_ptr->fx);
 
 					y = atoi(zz[0]);
-					x = atoi(zz[1]);
+					x = strtol(zz[1], NULL, 10);
 
 					player_ptr->fy = y;
 					player_ptr->fx = x;
@@ -6899,7 +6899,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				else if(!player_ptr->oldpx && !player_ptr->oldpy)
 				{
 					player_ptr->oldpy = atoi(zz[0]);
-					player_ptr->oldpx = atoi(zz[1]);
+					player_ptr->oldpx = strtol(zz[1], NULL, 10);
 				}
 			}
 		}
@@ -6940,13 +6940,13 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 			/* Maximum towns */
 			if(zz[0][0] == 'T')
 			{
-				max_towns = atoi(zz[1]);
+				max_towns = strtol(zz[1], NULL, 10);
 			}
 
 			/* Maximum quests */
 			else if(zz[0][0] == 'Q')
 			{
-				max_quests = atoi(zz[1]);
+				max_quests = strtol(zz[1], NULL, 10);
 			}
 
 			/* Maximum species_idx */
@@ -6955,30 +6955,30 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				/* Maximum species_idx */
 				if(zz[0][1] == 'E')
 				{
-					max_creature_ego_idx = atoi(zz[1]);
+					max_creature_ego_idx = strtol(zz[1], NULL, 10);
 				}
 				else
 				{
-					max_species_idx = atoi(zz[1]);
+					max_species_idx = strtol(zz[1], NULL, 10);
 				}
 			}
 
 			/* Maximum k_idx */
 			else if(zz[0][0] == 'K')
 			{
-				max_object_kind_idx = atoi(zz[1]);
+				max_object_kind_idx = strtol(zz[1], NULL, 10);
 			}
 
 			/* Maximum v_idx */
 			else if(zz[0][0] == 'V')
 			{
-				max_vault_idx = atoi(zz[1]);
+				max_vault_idx = strtol(zz[1], NULL, 10);
 			}
 
 			/* Maximum f_idx */
 			else if(zz[0][0] == 'F')
 			{
-				max_feature_idx = atoi(zz[1]);
+				max_feature_idx = strtol(zz[1], NULL, 10);
 			}
 
 			/* Maximum a_idx */
@@ -6987,42 +6987,42 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				/* Maximum species_idx */
 				if(zz[0][1] == 'U')
 				{
-					max_authorities_idx = atoi(zz[1]);
+					max_authorities_idx = strtol(zz[1], NULL, 10);
 				}
 				else
 				{
-					max_artifact_idx = atoi(zz[1]);
+					max_artifact_idx = strtol(zz[1], NULL, 10);
 				}
 			}
 
 			/* Maximum e_idx */
 			else if(zz[0][0] == 'E')
 			{
-				max_object_ego_idx = atoi(zz[1]);
+				max_object_ego_idx = strtol(zz[1], NULL, 10);
 			}
 
 			/* Maximum d_idx */
 			else if(zz[0][0] == 'D')
 			{
-				max_dungeon_idx = atoi(zz[1]); 
+				max_dungeon_idx = strtol(zz[1], NULL, 10); 
 			}
 
 			/* Maximum object_idx */
 			else if(zz[0][0] == 'O')
 			{
-				max_object_idx = atoi(zz[1]);
+				max_object_idx = strtol(zz[1], NULL, 10);
 			}
 
 			/* Maximum m_idx */
 			else if(zz[0][0] == 'M')
 			{
-				max_creature_idx = atoi(zz[1]);
+				max_creature_idx = strtol(zz[1], NULL, 10);
 			}
 
 			/* Maximum m_idx */
 			else if(zz[0][0] == 'C')
 			{
-				max_trait_idx = atoi(zz[1]);
+				max_trait_idx = strtol(zz[1], NULL, 10);
 			}
 
 			/* Wilderness size */
@@ -7030,10 +7030,10 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 			{
 				/* Maximum wild_x_size */
 				if(zz[0][1] == 'X')
-					max_wild_x = atoi(zz[1]);
+					max_wild_x = strtol(zz[1], NULL, 10);
 				/* Maximum wild_y_size */
 				if(zz[0][1] == 'Y')
-					max_wild_y = atoi(zz[1]);
+					max_wild_y = strtol(zz[1], NULL, 10);
 			}
 
 			/* Maximum species_idx */
@@ -7042,7 +7042,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				/* Maximum species_idx */
 				if(zz[0][1] == 'T')
 				{
-					max_store_idx = atoi(zz[1]);
+					max_store_idx = strtol(zz[1], NULL, 10);
 				}
 			}
 

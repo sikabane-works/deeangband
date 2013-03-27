@@ -5345,7 +5345,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				strcpy(tmp_val, "1");
 
 				if(!get_string(tmp, tmp_val, 1)) return;
-				pval = atoi(tmp_val);
+				pval = strtol(tmp_val, NULL, 10);
 				if(pval > limit) pval = limit;
 				else if(pval < 1) pval = 1;
 				object_ptr->pval += pval;
@@ -5367,7 +5367,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 			strcpy(tmp_val, "1");
 			if(!get_string(format(MES_SMITH_HOW_MANY_ENCHANT(creature_ptr->lev/7+3)), tmp_val, 2)) return;
-			val = atoi(tmp_val);
+			val = strtol(tmp_val, NULL, 10);
 			if(val > creature_ptr->lev/7+3) val = creature_ptr->lev/7+3;
 			else if(val < 1) val = 1;
 			use_essence *= val;

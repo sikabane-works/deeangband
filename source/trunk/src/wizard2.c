@@ -86,7 +86,7 @@ static void wiz_drop_named_art(creature_type* creature_ptr)
 	char tmp_val[20] = "";
 	int i = 0;
 	if(!get_string("Artifact ID", tmp_val, 10)) return;	// Ask for a level
-	i = atoi(tmp_val);
+	i = strtol(tmp_val, NULL, 10);
 	(void)drop_named_art(creature_ptr, i, creature_ptr->fy, creature_ptr->fx); // Create the artifact
 	msg_print("Allocated."); // All done
 }
@@ -291,7 +291,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 		sprintf(tmp_val, "%d", creature_ptr->stat_max[i]); // Default
 
 		if(!get_string(ppp, tmp_val, 3)) return; // Query
-		tmp_int = atoi(tmp_val); // Extract
+		tmp_int = strtol(tmp_val, NULL, 10); // Extract
 		if(tmp_int > creature_ptr->stat_mod_max_max[i]) tmp_int = creature_ptr->stat_mod_max_max[i]; // Verify
 		else if(tmp_int < 3) tmp_int = 3;
 
@@ -301,7 +301,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 	sprintf(tmp_val, "%d", 0); // Default
 
 	if(!get_string(KW_PROFICIENCY, tmp_val, 9)) return;
-	tmp_s16b = atoi(tmp_val); // Extract
+	tmp_s16b = strtol(tmp_val, NULL, 10); // Extract
 
 	if(tmp_s16b < SKILL_P_MIN) tmp_s16b = SKILL_P_MIN;
 	if(tmp_s16b > SKILL_P_MAX) tmp_s16b = SKILL_P_MAX;
@@ -345,7 +345,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->dr));
 	if(!get_string("Divine Rank", tmp_val, 2)) return;
-	tmp_int = atoi(tmp_val);
+	tmp_int = strtol(tmp_val, NULL, 10);
 
 	if(tmp_int < -1) tmp_int = -1;
 	if(tmp_int > 30) tmp_int = 30;
@@ -355,7 +355,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->authority[0]));
 	if(!get_string("Authority", tmp_val, 2)) return;
-	creature_ptr->authority[0] = atoi(tmp_val);
+	creature_ptr->authority[0] = strtol(tmp_val, NULL, 10);
 }
 
 
@@ -686,25 +686,25 @@ static void wiz_tweak_item(object_type *object_ptr)
 	p = "Enter new 'pval' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->pval);
 	if(!get_string(p, tmp_val, 5)) return;
-	object_ptr->pval = atoi(tmp_val);
+	object_ptr->pval = strtol(tmp_val, NULL, 10);
 	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_ac' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_ac);
 	if(!get_string(p, tmp_val, 5)) return;
-	object_ptr->to_ac = atoi(tmp_val);
+	object_ptr->to_ac = strtol(tmp_val, NULL, 10);
 	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_hit' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_hit);
 	if(!get_string(p, tmp_val, 5)) return;
-	object_ptr->to_hit = atoi(tmp_val);
+	object_ptr->to_hit = strtol(tmp_val, NULL, 10);
 	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_damage' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_damage);
 	if(!get_string(p, tmp_val, 5)) return;
-	object_ptr->to_damage = atoi(tmp_val);
+	object_ptr->to_damage = strtol(tmp_val, NULL, 10);
 	wiz_display_item(object_ptr);
 }
 
@@ -1018,7 +1018,7 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_p
 
 	if(get_string(KW_QUANTITY, tmp_val, 2))
 	{
-		tmp_int = atoi(tmp_val);
+		tmp_int = strtol(tmp_val, NULL, 10);
 		if(tmp_int < 1) tmp_int = 1;
 		if(tmp_int > 99) tmp_int = 99;
 
@@ -1471,7 +1471,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 		sprintf(tmp_val, "%d", dungeon_id);
 		if(!get_string(ppp, tmp_val, 2)) return;
 
-		tmp_dungeon_level = atoi(tmp_val);
+		tmp_dungeon_level = strtol(tmp_val, NULL, 10);
 		if(!dungeon_info[tmp_dungeon_level].maxdepth || (tmp_dungeon_level > max_dungeon_idx)) tmp_dungeon_level = DUNGEON_DOD;
 
 		// Prompt
@@ -1482,7 +1482,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 		if(!get_string(ppp, tmp_val, 10)) return;
 
 		// Extract request
-		command_arg = atoi(tmp_val);
+		command_arg = strtol(tmp_val, NULL, 10);
 
 		dungeon_id = tmp_dungeon_level;
 	}
@@ -2112,7 +2112,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 			if(!get_string("Ego Num", tmp_val, 3)) return;
 			if(!get_string("Kind Num", tmp_val2, 3)) return;
 
-			tmp_int = atoi(tmp_val);
+			tmp_int = strtol(tmp_val, NULL, 10);
 			tmp_int2 = atoi(tmp_val2);
 
 			object_wipe(&ob);

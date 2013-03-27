@@ -669,7 +669,7 @@ errr parse_line_wilderness(char *buf, COODINATES ymin, COODINATES xmin, COODINAT
 			int index = zz[0][0];
 			
 			if(num > 1)
-				w_letter[index].terrain = atoi(zz[1]);
+				w_letter[index].terrain = strtol(zz[1], NULL, 10);
 			else
 				w_letter[index].terrain = 0;
 			

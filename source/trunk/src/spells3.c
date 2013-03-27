@@ -883,7 +883,7 @@ bool reset_recall(creature_type *creature_ptr)
 	sprintf(tmp_val, "%d", MAX(creature_ptr->depth, 1));
 	if(get_string(ppp, tmp_val, 10)) // Ask for a level
 	{
-		dummy = atoi(tmp_val);
+		dummy = strtol(tmp_val, NULL, 10);
 
 		if(dummy < 1) dummy = 1;
 		if(dummy > max_dlv[select_dungeon]) dummy = max_dlv[select_dungeon];
