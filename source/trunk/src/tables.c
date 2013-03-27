@@ -1504,7 +1504,7 @@ byte adj_con_fix[STAT_TABLE_SIZE] =
 /*
  * Stat Table (CON) -- extra 1/4-hitpoints per level (plus 128)
  */
-s16b adj_con_mhp[STAT_TABLE_SIZE] =
+STAT adj_con_mhp[STAT_TABLE_SIZE] =
 {
 	-16 /* 3.0 */,
 	-14 /* 4.0 */,

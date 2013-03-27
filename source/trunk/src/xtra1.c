@@ -1853,10 +1853,10 @@ static void calc_mana(creature_type *creature_ptr, bool message)
  */
 static void calc_hitpoints(creature_type *creature_ptr, bool message)
 {
-	int bonus, mhp;
+	STAT bonus, mhp;
 
 	/* Un-inflate "half-hitpoint bonus per level" value */
-	bonus = ((int)(adj_con_mhp[creature_ptr->stat_ind[STAT_CON]])) * creature_ptr->lev / 4;
+	bonus = adj_con_mhp[creature_ptr->stat_ind[STAT_CON]] * creature_ptr->lev / 4;
 
 	// Divine Bonuses
 	if(creature_ptr->dr >= 0) bonus += adj_dr_mhp[creature_ptr->dr] * creature_ptr->hitdice;
@@ -2274,7 +2274,8 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 	// Calculate stats
 	for (i = 0; i < STAT_MAX; i++)
 	{
-		s16b top, use, ind;
+		STAT top, use;
+		int ind;
 
 		// Extract the new "stat_use" value for the stat
 		top = creature_ptr->stat_max[i] + creature_ptr->stat_add[i];
@@ -2517,7 +2518,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 {
 	int i;
 	object_type *object_ptr;
-	s16b bonus_to_hit, bonus_to_damage, slot;
+	STAT bonus_to_hit, bonus_to_damage, slot;
 	u32b flgs[MAX_TRAITS_FLAG];
 	int default_hand = 1;
 
