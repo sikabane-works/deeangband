@@ -3599,7 +3599,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
     
 		{
 			POWER dam = (30 + lev_bonus) * 2;
-			DIRECTION rad = lev_bonus / 10 + 2;
+			COODINATES rad = lev_bonus / 10 + 2;
 			if(info) return info_damage(0, 0, dam/2);
 			if(cast)
 			{
@@ -7965,7 +7965,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				int count = caster_ptr->singing_turn;
+				GAME_TURN count = caster_ptr->singing_turn;
 
 				if(count >= 19) wiz_lite(floor_ptr, caster_ptr, FALSE);
 				if(count >= 11)

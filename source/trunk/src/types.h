@@ -70,6 +70,9 @@ typedef s32b POWER;
 
 typedef s32b SPEED;
 
+typedef s32b GAME_TIME;
+typedef s32b GAME_TURN;
+
 /*
  * Creature flags
  */
@@ -1251,7 +1254,7 @@ struct creature_type
 
 	s32b now_singing;
 	s32b pre_singing;
-	byte singing_turn;
+	GAME_TURN singing_turn;
 
 	s32b spelling_hex;
 	s32b despelling_hex;
@@ -1259,7 +1262,7 @@ struct creature_type
 
 	byte spelling_hex_num;
 	byte revenge_type;
-	byte revenge_turn;
+	GAME_TURN revenge_turn;
 
 	s32b essence_num1[108];     /* Array for non-spellbook type magic */
 	byte essence_num2[108];     /* Flags for non-spellbook type magics */

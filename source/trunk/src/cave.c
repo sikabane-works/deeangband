@@ -2912,7 +2912,7 @@ void update_creature_lite(floor_type *floor_ptr)
 	//int creature_lite_hack, mon_dark_hack, creature_lite_n;
 	cave_type *cave_ptr;
 
-	s16b fx, fy;
+	COODINATES fx, fy;
 	void (*add_creature_lite)(creature_type *, int, int);
 	int f_flag;
 

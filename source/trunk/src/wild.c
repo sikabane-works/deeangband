@@ -193,7 +193,7 @@ static void generate_wilderness_area(floor_type *floor_ptr, int terrain, u32b se
 		s16b south_east = floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat;
 
 		/* x1, y1, x2, y2, num_depths, roughness */
-		plasma_recursive(floor_ptr, 1, 1, MAX_WID-2, MAX_HGT-2, table_size-1, roughness);
+		plasma_recursive(floor_ptr, 1, 1, MAX_WID - 2, MAX_HGT - 2, table_size - 1, roughness);
 
 		/* Hack -- copyback four corners */
 		floor_ptr->cave[1][1].feat = north_west;
