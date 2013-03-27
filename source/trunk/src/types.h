@@ -73,6 +73,9 @@ typedef s32b SPEED;
 typedef s32b GAME_TIME;
 typedef s32b GAME_TURN;
 
+typedef s32b HEIGHT;
+typedef s32b WEIGHT;
+
 /*
  * Creature flags
  */

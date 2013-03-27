@@ -3416,7 +3416,7 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_DV:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_ptr->dr = (s16b)b;
+				species_ptr->dr = (CREATURE_LEV)b;
 				break;
 
 			case SPECIES_INFO_SP:
@@ -4281,7 +4281,7 @@ errr parse_trait_csv(char *buf, header *head)
 
 				case TRAIT_INFO_BASE_LEVEL:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_ptr->base_level = (s16b)b;
+					trait_ptr->base_level = (CREATURE_LEV)b;
 				break;
 
 				case TRAIT_INFO_MP_COST:
@@ -4618,7 +4618,7 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_LEV:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->lev = (s16b)b;
+				race_ptr->lev = (CREATURE_LEV)b;
 				break;
 
 			case RC_INFO_DR:
@@ -5791,12 +5791,12 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 				case DU_INFO_MINDEPTH:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_ptr->mindepth = (s16b)b;
+					dungeon_ptr->mindepth = (FLOOR_LEV)b;
 					break;
 
 				case DU_INFO_MAXDEPTH:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_ptr->maxdepth = (s16b)b;
+					dungeon_ptr->maxdepth = (FLOOR_LEV)b;
 					break;
 
 				case DU_INFO_MIN_PLEV:
@@ -5824,7 +5824,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 				case DU_INFO_MIN_M_ALLOC_LEVEL:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					dungeon_ptr->min_m_alloc_level = (s16b)b;
+					dungeon_ptr->min_m_alloc_level = (FLOOR_LEV)b;
 					break;
 
 				case DU_INFO_MAX_M_ALLOC_CHANCE:
@@ -7384,7 +7384,7 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, COODINATES ymin, COO
 	int num = -1;
 	errr err = 0;
 	bool bypass = FALSE;
-	int x = xmin, y = ymin;
+	COODINATES x = xmin, y = ymin;
 
 	path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, name);	// Build the filename
 	fp = my_fopen(buf, "r");	// Open the file
