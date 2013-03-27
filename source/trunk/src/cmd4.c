@@ -5070,8 +5070,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		for (x = 0; x < floor_ptr->width; x++)
 		{
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
-
-			s16b this_object_idx, next_object_idx = 0;
+			OBJECT_ID this_object_idx, next_object_idx = 0;
 
 			/* Scan all objects in the grid */
 			for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
@@ -6449,7 +6448,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 	int object_old, object_cur, object_top;
 	int grp_cnt, grp_idx[100];
 	int object_cnt;
-	int *object_idx;
+	OBJECT_ID *object_idx;
 
 	int column = 0;
 	bool flag;
