@@ -571,7 +571,7 @@ extern FEATURE_ID feat_swamp;
 extern FEATURE_ID feat_undetected;
 extern FEATURE_ID feat_chaos_tainted;
 
-extern s16b *max_dlv;
+extern FLOOR_LEV *max_dlv;
 extern FEATURE_ID feat_wall_outer;
 extern FEATURE_ID feat_wall_inner;
 extern FEATURE_ID feat_wall_solid;

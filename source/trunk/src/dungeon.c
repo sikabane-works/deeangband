@@ -639,8 +639,8 @@ static void sense_inventory2(creature_type *creature_ptr)
 static void pattern_teleport(creature_type *creature_ptr)
 {
 	FLOOR_LEV depth;
-	int min_level = 0;
-	int max_level = 99;
+	FLOOR_LEV min_level = 0;
+	FLOOR_LEV max_level = 99;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Ask for level
@@ -684,7 +684,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 		if(!get_string(ppp, tmp_val, 10)) return;
 
 		/* Extract request */
-		depth = strtol(tmp_val, NULL, 10);
+		depth = (FLOOR_LEV)strtol(tmp_val, NULL, 10);
 	}
 #ifdef JP
 	else if(get_check("通常テレポート？"))

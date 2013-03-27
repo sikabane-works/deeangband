@@ -1029,7 +1029,7 @@ FEATURE_ID feat_undetected;
 /*
  * Which dungeon ?
  */
-s16b *max_dlv;
+FLOOR_LEV *max_dlv;
 
 FEATURE_ID feat_wall_outer;
 FEATURE_ID feat_wall_inner;
