@@ -283,7 +283,7 @@ void do_cmd_search(creature_type *creature_ptr)
 }
 
 // Determine if a grid contains a chest
-static s16b chest_check(floor_type *floor_ptr, COODINATES y, COODINATES x)
+static FEATURE_ID chest_check(floor_type *floor_ptr, COODINATES y, COODINATES x)
 {
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	OBJECT_ID this_object_idx, next_object_idx = 0;
@@ -335,7 +335,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, COODINATES y, COODI
 		mode |= AM_GREAT;
 		level = object_ptr->chest_value;
 	}
-	else level = ABS(object_ptr->pval) + 10; // Determine the "value" of the items
+	else level = (FLOOR_LEV)ABS(object_ptr->pval) + 10; // Determine the "value" of the items
 	if(!object_ptr->pval) number = 0; // Zero pval means empty chest
 
 	for (; number > 0; --number) // Drop some objects (non-chests)
@@ -621,7 +621,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, COODINATES y, COODINA
 }
 
 // Return TRUE if the given feature is an open door
-static bool is_open(int feat)
+static bool is_open(FEATURE_ID feat)
 {
 	return have_flag(feature_info[feat].flags, FF_CLOSE) && (feat != feat_state(CURRENT_FLOOR_PTR, feat, FF_CLOSE));
 }
@@ -2188,7 +2188,8 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int dir, range;
+	DIRECTION dir;
+	COODINATES range;
 	int i, j;
 	COODINATES y, x, ny, nx, ty, tx, prev_y, prev_x;
 	int tdam_base, tdis, thits, tmul;
@@ -2197,12 +2198,9 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 	object_type forge;
 	object_type *quest_ptr, *object_ptr;
-
 	bool hit_body = FALSE;
-
 	char object_name[MAX_NLEN];
-
-	u16b path_g[512];	/* For calcuration of path length */
+	COODINATES path_g[512];	/* For calcuration of path length */
 
 	int msec = delay_factor * delay_factor * delay_factor;
 
@@ -3370,5 +3368,5 @@ void do_cmd_travel(creature_type *creature_ptr)
 	dy = abs(creature_ptr->fy - y);
 	sx = ((x == creature_ptr->fx) || (dx < dy)) ? 0 : ((x > creature_ptr->fx) ? 1 : -1);
 	sy = ((y == creature_ptr->fy) || (dy < dx)) ? 0 : ((y > creature_ptr->fy) ? 1 : -1);
-	for (i = 1; i <= 9; i++) if((sx == ddx[i]) && (sy == ddy[i])) travel.dir = i;
+	for (i = 1; i <= 9; i++) if((sx == ddx[i]) && (sy == ddy[i])) travel.dir = (DIRECTION)i;
 }

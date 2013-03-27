@@ -2995,10 +2995,10 @@ void do_cmd_visuals(void)
 				char c;
 				int t;
 
-				byte da = object_kind_ptr->d_attr;
-				byte dc = object_kind_ptr->d_char;
-				byte ca = object_kind_ptr->x_attr;
-				byte cc = object_kind_ptr->x_char;
+				COLOR_ID da = object_kind_ptr->d_attr;
+				SYMBOL dc = object_kind_ptr->d_char;
+				COLOR_ID ca = object_kind_ptr->x_attr;
+				SYMBOL cc = object_kind_ptr->x_char;
 
 				/* Label the object */
 #ifdef JP
