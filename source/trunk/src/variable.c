@@ -948,93 +948,93 @@ cptr screen_dump = NULL;
 
 /*** Terrain feature variables ***/
 
-s16b feat_none;		// Nothing
-s16b feat_floor;	// Floor
+FEATURE_ID feat_none;		// Nothing
+FEATURE_ID feat_floor;	// Floor
 
 // Objects
-s16b feat_glyph;
-s16b feat_explosive_rune;
-s16b feat_mirror;
+FEATURE_ID feat_glyph;
+FEATURE_ID feat_explosive_rune;
+FEATURE_ID feat_mirror;
 
 // Doors
 door_type feat_door[MAX_DOOR_TYPES];
 
 // Stairs
-s16b feat_up_stair;
-s16b feat_down_stair;
-s16b feat_entrance;
+FEATURE_ID feat_up_stair;
+FEATURE_ID feat_down_stair;
+FEATURE_ID feat_entrance;
 
 // Special traps
-s16b feat_trap_open;
-s16b feat_trap_armageddon;
-s16b feat_trap_piranha;
-s16b feat_trap_acid_flow;
-s16b feat_trap_poison_flow;
+FEATURE_ID feat_trap_open;
+FEATURE_ID feat_trap_armageddon;
+FEATURE_ID feat_trap_piranha;
+FEATURE_ID feat_trap_acid_flow;
+FEATURE_ID feat_trap_poison_flow;
 
 // Rubble
-s16b feat_rubble;
+FEATURE_ID feat_rubble;
 
 // Seams
-s16b feat_magma_vein;
-s16b feat_quartz_vein;
+FEATURE_ID feat_magma_vein;
+FEATURE_ID feat_quartz_vein;
 
 // Walls
-s16b feat_granite;
-s16b feat_permanent;
+FEATURE_ID feat_granite;
+FEATURE_ID feat_permanent;
 
 // Glass floor
-s16b feat_glass_floor;
+FEATURE_ID feat_glass_floor;
 
 // Glass walls
-s16b feat_glass_wall;
-s16b feat_permanent_glass_wall;
+FEATURE_ID feat_glass_wall;
+FEATURE_ID feat_permanent_glass_wall;
 
 // Pattern
-s16b feat_pattern_start;
-s16b feat_pattern_1;
-s16b feat_pattern_2;
-s16b feat_pattern_3;
-s16b feat_pattern_4;
-s16b feat_pattern_end;
-s16b feat_pattern_old;
-s16b feat_pattern_exit;
-s16b feat_pattern_corrupted;
+FEATURE_ID feat_pattern_start;
+FEATURE_ID feat_pattern_1;
+FEATURE_ID feat_pattern_2;
+FEATURE_ID feat_pattern_3;
+FEATURE_ID feat_pattern_4;
+FEATURE_ID feat_pattern_end;
+FEATURE_ID feat_pattern_old;
+FEATURE_ID feat_pattern_exit;
+FEATURE_ID feat_pattern_corrupted;
 
 // Various
-s16b feat_black_market;
-s16b feat_town;
+FEATURE_ID feat_black_market;
+FEATURE_ID feat_town;
 
 // Terrains
-s16b feat_deep_water;
-s16b feat_shallow_water;
-s16b feat_deep_lava;
-s16b feat_shallow_lava;
-s16b feat_deep_poison;
-s16b feat_shallow_poison;
-s16b feat_deep_acid;
-s16b feat_shallow_acid;
-s16b feat_shallow_acis;
-s16b feat_dirt;
-s16b feat_grass;
-s16b feat_flower;
-s16b feat_brake;
-s16b feat_tree;
-s16b feat_mountain;
-s16b feat_swamp;
-s16b feat_chaos_tainted;
+FEATURE_ID feat_deep_water;
+FEATURE_ID feat_shallow_water;
+FEATURE_ID feat_deep_lava;
+FEATURE_ID feat_shallow_lava;
+FEATURE_ID feat_deep_poison;
+FEATURE_ID feat_shallow_poison;
+FEATURE_ID feat_deep_acid;
+FEATURE_ID feat_shallow_acid;
+FEATURE_ID feat_shallow_acis;
+FEATURE_ID feat_dirt;
+FEATURE_ID feat_grass;
+FEATURE_ID feat_flower;
+FEATURE_ID feat_brake;
+FEATURE_ID feat_tree;
+FEATURE_ID feat_mountain;
+FEATURE_ID feat_swamp;
+FEATURE_ID feat_chaos_tainted;
 
 // Unknown grid (not detected)
-s16b feat_undetected;
+FEATURE_ID feat_undetected;
 
 /*
  * Which dungeon ?
  */
 s16b *max_dlv;
 
-s16b feat_wall_outer;
-s16b feat_wall_inner;
-s16b feat_wall_solid;
-s16b feat_floor_rand_table[100], fill_type[100];
+FEATURE_ID feat_wall_outer;
+FEATURE_ID feat_wall_inner;
+FEATURE_ID feat_wall_solid;
+FEATURE_ID feat_floor_rand_table[100], fill_type[100];
 
 s16b now_message;
 bool use_menu;

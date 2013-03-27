@@ -14,7 +14,7 @@
 #include "angband.h"
 
 
-static void set_floor_and_wall_aux(s16b feat_type[100], feat_prob prob[DUNGEON_FEAT_PROB_NUM])
+static void set_floor_and_wall_aux(FEATURE_ID feat_type[100], feat_prob prob[DUNGEON_FEAT_PROB_NUM])
 {
 	int lim[DUNGEON_FEAT_PROB_NUM], cur = 0, i;
 
@@ -802,7 +802,7 @@ errr init_wilderness(void)
 }
 
 
-static void init_terrain_table(int terrain, s16b feat_global, cptr fmt, ...)
+static void init_terrain_table(int terrain, FEATURE_ID feat_global, cptr fmt, ...)
 {
 	va_list vp;
 	cptr    p;
