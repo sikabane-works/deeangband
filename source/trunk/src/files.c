@@ -886,7 +886,7 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 			{
 				p = t;
 				t = process_pref_file_expr(&s, &f, creature_ptr);
-				if(*t && atoi(p) > atoi(t)) v = "0";
+				if(*t && strtol(p, NULL, 10) > strtol(t, NULL, 10)) v = "0";
 			}
 		}
 
@@ -904,7 +904,7 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 				t = process_pref_file_expr(&s, &f, creature_ptr);
 
 				/* Compare two numbers instead of string */
-				if(*t && atoi(p) < atoi(t)) v = "0";
+				if(*t && strtol(p, NULL, 10) < strtol(t, NULL, 10)) v = "0";
 			}
 		}
 

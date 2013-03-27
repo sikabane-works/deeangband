@@ -89,7 +89,7 @@ void (*quit_aux)(cptr) = NULL;
 
 /*
  * Exit (ala "exit()").  If 'str' is NULL, do "exit(0)".
- * If 'str' begins with "+" or "-", do "exit(atoi(str))".
+ * If 'str' begins with "+" or "-", do "exit(strtol(str, NULL, 10))".
  * Otherwise, plog() 'str' and exit with an error code of -1.
  * But always use 'quit_aux', if set, before anything else.
  */
@@ -101,7 +101,7 @@ void quit(cptr str)
 	if(!str) (void)(exit(SUCCESS));
 
 	/* Extract a "special error code" */
-	if((str[0] == '-') || (str[0] == '+')) (void)(exit(atoi(str)));
+	if((str[0] == '-') || (str[0] == '+')) (void)(exit(strtol(str, NULL, 10)));
 
 	/* Send the string to plog() */
 	plog(str);

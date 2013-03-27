@@ -6322,7 +6322,7 @@ static errr parse_line_feature(char *buf, FLAGS_32 flags)
 				if(zz[6][0] == '*')
 				{
 					letter[index].random |= RANDOM_ARTIFACT;
-					if(zz[6][1]) letter[index].artifact = atoi(zz[6] + 1);
+					if(zz[6][1]) letter[index].artifact = strtol(zz[6] + 1, NULL, 10);
 				}
 				else
 				{
@@ -6334,7 +6334,7 @@ static errr parse_line_feature(char *buf, FLAGS_32 flags)
 				if(zz[5][0] == '*')
 				{
 					letter[index].random |= RANDOM_EGO;
-					if(zz[5][1]) letter[index].ego = atoi(zz[5] + 1);
+					if(zz[5][1]) letter[index].ego = strtol(zz[5] + 1, NULL, 10);
 				}
 				else
 				{
@@ -6358,12 +6358,12 @@ static errr parse_line_feature(char *buf, FLAGS_32 flags)
 				if(zz[3][0] == '*')
 				{
 					letter[index].random |= RANDOM_MONSTER;
-					if(zz[3][1]) letter[index].creature = atoi(zz[3] + 1);
+					if(zz[3][1]) letter[index].creature = strtol(zz[3] + 1, NULL, 10);
 				}
 				else if(zz[3][0] == 'c')
 				{
 					if(!zz[3][1]) return PARSE_ERROR_GENERIC;
-					letter[index].creature = - atoi(zz[3] + 1);
+					letter[index].creature = - strtol(zz[3] + 1, NULL, 10);
 				}
 				else
 				{
@@ -6459,7 +6459,7 @@ static errr parse_line_building(char *buf)
 			if((num = tokenize(s + 2, 8, zz, 0)) >= 7)
 			{
 				/* Index of the action */
-				int action_index = atoi(zz[0]);
+				int action_index = strtol(zz[0], NULL, 10);
 
 				/* Name of the action */
 				strcpy(building[index].act_names[action_index], zz[1]);
@@ -6800,7 +6800,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 		/* Have we enough parameters? */
 		if(num < 3) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
 
-		quest_ptr = &(quest[atoi(zz[0])]); // Get the quest
+		quest_ptr = &(quest[strtol(zz[0], NULL, 10)]); // Get the quest
 
 		/* Process "Q:<q_index>:Q:<type>:<num_mon>:<cur_num>:<max_num>:<level>:<species_idx>:<k_idx>:<flags>" -- quest info */
 		if(zz[1][0] == 'Q')
@@ -6889,7 +6889,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 					/* Delete the creature (if any) */
 					delete_creature(floor_ptr, player_ptr->fy, player_ptr->fx);
 
-					y = atoi(zz[0]);
+					y = strtol(zz[0], NULL, 10);
 					x = strtol(zz[1], NULL, 10);
 
 					player_ptr->fy = y;
@@ -6898,7 +6898,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				/* Place player in the town */
 				else if(!player_ptr->oldpx && !player_ptr->oldpy)
 				{
-					player_ptr->oldpy = atoi(zz[0]);
+					player_ptr->oldpy = strtol(zz[0], NULL, 10);
 					player_ptr->oldpx = strtol(zz[1], NULL, 10);
 				}
 			}
@@ -7157,7 +7157,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			{
 				p = t;
 				t = process_dungeon_file_expr(floor_ptr, &s, &f);
-				if(*t && atoi(p) > atoi(t)) v = "0";
+				if(*t && strtol(p, NULL, 10) > strtol(t, NULL, 10)) v = "0";
 			}
 		}
 
@@ -7175,7 +7175,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 
 				/* Compare two numbers instead of string */
-				if(*t && atoi(p) < atoi(t)) v = "0";
+				if(*t && strtol(p, NULL, 10) < strtol(t, NULL, 10)) v = "0";
 			}
 		}
 

@@ -7972,7 +7972,7 @@ void do_cmd_time(creature_type *creature_ptr)
 		if(buf[0] == 'S')
 		{
 			/* Extract the starting time */
-			start = atoi(buf + 2);
+			start = strtol(buf + 2, NULL, 10);
 
 			/* Assume valid for an hour */
 			end = start + 59;
@@ -7985,7 +7985,7 @@ void do_cmd_time(creature_type *creature_ptr)
 		if(buf[0] == 'E')
 		{
 			/* Extract the ending time */
-			end = atoi(buf + 2);
+			end = strtol(buf + 2, NULL, 10);
 
 			/* Next... */
 			continue;
