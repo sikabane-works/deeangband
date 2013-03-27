@@ -417,7 +417,7 @@ struct species_type
 	u32b f_b_wt;		/* base weight (females) */
 	u32b f_m_wt;		/* mod weight (females) */
 
-	s16b dr;			/* Divine Rank */
+	CREATURE_LEV dr; /* Divine Rank */
 
 	STAT ac;				// Armour Class
 	STAT ev;				// Evasion

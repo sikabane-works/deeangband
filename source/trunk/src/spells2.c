@@ -43,7 +43,7 @@ void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int ty
 bool cast_ball(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, COODINATES rad)
 {
 	COODINATES tx = 0, ty = 0;
-	int dir = 0;
+	DIRECTION dir = 0;
 	if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
@@ -2477,7 +2477,7 @@ void call_chaos(creature_type *creature_ptr)
 	CREATURE_LEV lev_bonus = creature_ptr->lev;
 	bool line_chaos = FALSE;
 
-	int hurt_types[31] =
+	EFFECT_ID hurt_types[31] =
 	{
 		DO_EFFECT_ELEC, DO_EFFECT_POIS, DO_EFFECT_ACID, DO_EFFECT_COLD,
 		DO_EFFECT_FIRE, DO_EFFECT_MISSILE, DO_EFFECT_ARROW, DO_EFFECT_PLASMA,
@@ -2847,7 +2847,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 	DIRECTION dir;
 	COODINATES tx, ty;
 	int tm_idx = 0;
-	u16b path_g[32];
+	COODINATES path_g[32];
 	int path_n, i;
 	bool tmp_mdeath = FALSE;
 	bool moved = FALSE;

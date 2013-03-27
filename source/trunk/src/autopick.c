@@ -1679,7 +1679,7 @@ void autopick_alter_item(creature_type *creature_ptr, int item, bool destroy)
  */
 void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 {
-	s16b this_object_idx, next_object_idx = 0;
+	TEXT_COODI this_object_idx, next_object_idx = 0;
 	
 	/* Scan the pile of objects */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
