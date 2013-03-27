@@ -1028,7 +1028,7 @@ void verify_panel(creature_type *creature_ptr)
 
 	int y = creature_ptr->fy;
 	int x = creature_ptr->fx;
-	int wid, hgt;
+	TEXT_COODI wid, hgt;
 
 	int prow_min;
 	int pcol_min;
@@ -2155,7 +2155,7 @@ bool target_set(creature_type *aimer_ptr, COODINATES range, int mode)
 
 	cave_type *c_ptr;
 
-	int wid, hgt;
+	TEXT_COODI wid, hgt;
 
 	get_screen_size(&wid, &hgt);	// Get size
 	target_who = 0;	// Cancel target
@@ -2277,8 +2277,8 @@ bool target_set(creature_type *aimer_ptr, COODINATES range, int mode)
 			if(d)
 			{
 				/* Modified to scroll to creature */
-				s16b y2 = panel_row_min;
-				s16b x2 = panel_col_min;
+				TEXT_COODI y2 = panel_row_min;
+				TEXT_COODI x2 = panel_col_min;
 
 				/* Find a new creature */
 				i = target_pick(temp_y[m], temp_x[m], ddy[d], ddx[d]);

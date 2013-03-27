@@ -1324,7 +1324,7 @@ struct creature_type
 
 	s16b old_realm;           // Record of realm changes 
 
-	s16b pet_follow_distance; // Length of the imaginary "leash" for pets 
+	COODINATES pet_follow_distance; // Length of the imaginary "leash" for pets 
 	s16b pet_extra_flags;     // Various flags for controling pets 
 
 	s16b floor_id;            // Current floor location  
