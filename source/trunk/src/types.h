@@ -63,6 +63,10 @@ typedef byte CREATURE_LEV;
 typedef byte FLOOR_LEV;
 typedef s32b COODINATES;
 typedef s32b STAT;
+#define READ_STAT(VALUE) rd_s32b((s32b *)VALUE);
+#define WRITE_STAT(VALUE) wr_s32b((s32b)VALUE);
+
+
 typedef s32b TEXT_COODI;
 
 typedef byte DIRECTION;

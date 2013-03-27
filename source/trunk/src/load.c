@@ -269,19 +269,19 @@ static void rd_object(object_type *object_ptr)
 	rd_s16b(&object_ptr->charge_const);
 	rd_s16b(&object_ptr->charge_dice);
 
-	rd_s16b(&object_ptr->to_hit);
-	rd_s16b(&object_ptr->to_damage);
-	rd_s16b(&object_ptr->to_hit_essence);
-	rd_s16b(&object_ptr->to_damage_essence);
-	rd_s16b(&object_ptr->to_ac);
-	rd_s16b(&object_ptr->to_ev);
-	rd_s16b(&object_ptr->to_vo);
-	rd_s16b(&object_ptr->bow_mul);
-	rd_s16b(&object_ptr->bow_energy);
+	READ_STAT(&object_ptr->to_hit);
+	READ_STAT(&object_ptr->to_damage);
+	READ_STAT(&object_ptr->to_hit_essence);
+	READ_STAT(&object_ptr->to_damage_essence);
+	READ_STAT(&object_ptr->to_ac);
+	READ_STAT(&object_ptr->to_ev);
+	READ_STAT(&object_ptr->to_vo);
+	READ_STAT(&object_ptr->bow_mul);
+	READ_STAT(&object_ptr->bow_energy);
 
-	rd_s16b(&object_ptr->ac);
-	rd_s16b(&object_ptr->ev);
-	rd_s16b(&object_ptr->vo);
+	READ_STAT(&object_ptr->ac);
+	READ_STAT(&object_ptr->ev);
+	READ_STAT(&object_ptr->vo);
 	rd_byte(&object_ptr->dd);
 	rd_byte(&object_ptr->ds);
 
@@ -742,8 +742,8 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->master_creature_idx);
 
 	// Special Race/Class info
-	rd_s16b(&creature_ptr->hitdice);
-	rd_u16b(&creature_ptr->expfact);
+	READ_STAT(&creature_ptr->hitdice);
+	READ_STAT(&creature_ptr->expfact);
 
 	// Age/Height/Weight
 	rd_s32b(&creature_ptr->age);
@@ -771,9 +771,9 @@ static void rd_creature(creature_type *creature_ptr)
 	}
 
 	// Read the stat info
-	for (i = 0; i < STAT_MAX; i++) rd_s16b(&creature_ptr->stat_max[i]);
-	for (i = 0; i < STAT_MAX; i++) rd_s16b(&creature_ptr->stat_max_max[i]);
-	for (i = 0; i < STAT_MAX; i++) rd_s16b(&creature_ptr->stat_cur[i]);
+	for (i = 0; i < STAT_MAX; i++) READ_STAT(&creature_ptr->stat_max[i]);
+	for (i = 0; i < STAT_MAX; i++) READ_STAT(&creature_ptr->stat_max_max[i]);
+	for (i = 0; i < STAT_MAX; i++) READ_STAT(&creature_ptr->stat_cur[i]);
 
 	rd_s32b(&creature_ptr->au);
 
@@ -795,7 +795,7 @@ static void rd_creature(creature_type *creature_ptr)
 
 	rd_u16b(&tmp16u);
 	if(tmp16u > CREATURE_MAX_LEVEL) note(format("Too many (%u) hitpoint entries!", tmp16u));
-	for (i = 0; i < tmp16u; i++) rd_s16b(&creature_ptr->base_hp[i]);
+	for (i = 0; i < tmp16u; i++) READ_STAT(&creature_ptr->base_hp[i]);
 
 	for (i = 0; i < 8; i++) rd_u32b(&creature_ptr->authority[i]);
 	for (i = 0; i < MAX_REALM; i++) rd_s16b(&creature_ptr->spell_exp[i]);

@@ -109,19 +109,19 @@ static void wr_object(object_type *object_ptr)
 	wr_s16b(object_ptr->charge_const);
 	wr_s16b(object_ptr->charge_dice);
 
-	wr_s16b(object_ptr->to_hit);
-	wr_s16b(object_ptr->to_damage);
-	wr_s16b(object_ptr->to_hit_essence);
-	wr_s16b(object_ptr->to_damage_essence);
-	wr_s16b(object_ptr->to_ac);
-	wr_s16b(object_ptr->to_ev);
-	wr_s16b(object_ptr->to_vo);
-	wr_s16b(object_ptr->bow_mul);
-	wr_s16b(object_ptr->bow_energy);
+	WRITE_STAT(object_ptr->to_hit);
+	WRITE_STAT(object_ptr->to_damage);
+	WRITE_STAT(object_ptr->to_hit_essence);
+	WRITE_STAT(object_ptr->to_damage_essence);
+	WRITE_STAT(object_ptr->to_ac);
+	WRITE_STAT(object_ptr->to_ev);
+	WRITE_STAT(object_ptr->to_vo);
+	WRITE_STAT(object_ptr->bow_mul);
+	WRITE_STAT(object_ptr->bow_energy);
 
-	wr_s16b(object_ptr->ac);
-	wr_s16b(object_ptr->ev);
-	wr_s16b(object_ptr->vo);
+	WRITE_STAT(object_ptr->ac);
+	WRITE_STAT(object_ptr->ev);
+	WRITE_STAT(object_ptr->vo);
 	wr_byte(object_ptr->dd);
 	wr_byte(object_ptr->ds);
 
@@ -351,9 +351,8 @@ static void save_quick_start(species_type *species_ptr)
 	wr_s16b(species_ptr->sc);
 	wr_s32b(species_ptr->au);
 
-	for (i = 0; i < STAT_MAX; i++) wr_s16b(species_ptr->stat_max[i]);
-	for (i = 0; i < STAT_MAX; i++) wr_s16b(species_ptr->stat_max_max[i]);
-
+	for (i = 0; i < STAT_MAX; i++) WRITE_STAT(species_ptr->stat_max[i]);
+	for (i = 0; i < STAT_MAX; i++) WRITE_STAT(species_ptr->stat_max_max[i]);
 	for (i = 0; i < CREATURE_MAX_LEVEL; i++) wr_s16b(species_ptr->base_hp[i]);
 
 	wr_s16b(species_ptr->patron_idx);
@@ -405,8 +404,8 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->camp_idx);
 	wr_s16b(creature_ptr->master_creature_idx);
 
-	wr_s16b(creature_ptr->hitdice);
-	wr_u16b(creature_ptr->expfact);
+	WRITE_STAT(creature_ptr->hitdice);
+	WRITE_STAT(creature_ptr->expfact);
 
 	wr_s32b(creature_ptr->age);
 	wr_s32b(creature_ptr->ht);
@@ -433,9 +432,9 @@ static void wr_creature(creature_type *creature_ptr)
 
 
 	/* Dump the stats (maximum and current) */
-	for (i = 0; i < STAT_MAX; ++i) wr_s16b(creature_ptr->stat_max[i]);
-	for (i = 0; i < STAT_MAX; ++i) wr_s16b(creature_ptr->stat_max_max[i]);
-	for (i = 0; i < STAT_MAX; ++i) wr_s16b(creature_ptr->stat_cur[i]);
+	for (i = 0; i < STAT_MAX; ++i) WRITE_STAT(creature_ptr->stat_max[i]);
+	for (i = 0; i < STAT_MAX; ++i) WRITE_STAT(creature_ptr->stat_max_max[i]);
+	for (i = 0; i < STAT_MAX; ++i) WRITE_STAT(creature_ptr->stat_cur[i]);
 
 	wr_u32b(creature_ptr->au);
 
@@ -455,10 +454,7 @@ static void wr_creature(creature_type *creature_ptr)
 
 	tmp16u = CREATURE_MAX_LEVEL;
 	wr_u16b(tmp16u);
-	for (i = 0; i < tmp16u; i++)
-	{
-		wr_s16b(creature_ptr->base_hp[i]);
-	}
+	for (i = 0; i < tmp16u; i++) WRITE_STAT(creature_ptr->base_hp[i]);
 
 	for (i = 0; i < 8; i++) wr_s32b(creature_ptr->authority[i]);
 	for (i = 0; i < MAX_REALM; i++) wr_s16b(creature_ptr->spell_exp[i]);
