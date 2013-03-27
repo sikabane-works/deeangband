@@ -3460,7 +3460,7 @@ bool tgt_pt(creature_type *creature_ptr, COODINATES *x_ptr, COODINATES *y_ptr)
 
 bool get_hack_dir(creature_type *creature_ptr, int *dp)
 {
-	int dir;
+	DIRECTION dir;
 	cptr p;
 	char command;
 	char creature_name[MAX_NLEN];

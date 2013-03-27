@@ -727,17 +727,14 @@ static int count_chests(creature_type *creature_ptr, COODINATES *y, COODINATES *
 /*
  * Convert an adjacent location to a direction.
  */
-static int coords_to_dir(creature_type *creature_ptr, int y, int x)
+static DIRECTION coords_to_dir(creature_type *creature_ptr, COODINATES y, COODINATES x)
 {
-	int d[3][3] = { {7, 4, 1}, {8, 5, 2}, {9, 6, 3} };
-	int dy, dx;
+	DIRECTION d[3][3] = { {7, 4, 1}, {8, 5, 2}, {9, 6, 3} };
+	COODINATES dy, dx;
 
 	dy = y - creature_ptr->fy;
 	dx = x - creature_ptr->fx;
-
-
 	if(ABS(dx) > 1 || ABS(dy) > 1) return SUCCESS;
-
 	return d[dx + 1][dy + 1];
 }
 
@@ -1672,12 +1669,12 @@ static bool get_spike(creature_type *creature_ptr, int *ip)
 void do_cmd_spike(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int dir;
+	DIRECTION dir;
 
 	free_posture(creature_ptr);
 
 	/* Get a "repeated" direction */
-	if(get_rep_dir(creature_ptr, &dir,FALSE))
+	if(get_rep_dir(creature_ptr, &dir, FALSE))
 	{
 		COODINATES y, x;
 		int item;
@@ -1723,7 +1720,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 // Support code for the "Walk" and "Jump" commands
 void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 {
-	int dir;
+	DIRECTION dir;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	bool more = FALSE;
 
@@ -1780,7 +1777,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 // Start running.
 void do_cmd_run(creature_type *creature_ptr)
 {
-	int dir;
+	DIRECTION dir;
 
 	/* Hack -- no running when confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))

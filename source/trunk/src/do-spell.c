@@ -2022,7 +2022,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 	static const char s_dam[] = KW_DAM;
 	static const char s_rng[] = KW_RAN;
 
-	int dir;
+	DIRECTION dir;
 	int lev_bonus = caster_ptr->lev;
 
 	switch (spell)

@@ -1897,7 +1897,7 @@ typedef struct {
 	int cost[MAX_HGT][MAX_WID];
 	int x;
 	int y;
-	int dir;
+	DIRECTION dir;
 } travel_type;
 
 /*

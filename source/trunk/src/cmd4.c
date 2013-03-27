@@ -1231,7 +1231,7 @@ static void do_cmd_options_cheat(cptr info)
 	/* Interact with the player */
 	while (TRUE)
 	{
-		int dir;
+		DIRECTION dir;
 
 		prt(buf, 0, 0);
 
