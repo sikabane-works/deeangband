@@ -200,7 +200,7 @@ static void cast_wonder(creature_type *caster_ptr, DIRECTION dir)
 {
 	//TODO target_select
 	COODINATES y = 0, x = 0;
-	int lev_bonus = caster_ptr->lev;
+	COODINATES lev_bonus = caster_ptr->lev;
 	int die = randint1(100) + lev_bonus / 5;
 	// TODO: add Karma of Fortune feature.
 
@@ -7641,7 +7641,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 				for (i = 0; i < 12; i++)
 				{
 					int attempt = 10;
-					int my = 0, mx = 0;
+					COODINATES my = 0, mx = 0;
 
 					while (attempt--)
 					{
@@ -7678,8 +7678,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	static const char s_dam[] = KW_DAM;
 
-	int dir;
-	int lev_bonus = caster_ptr->lev;
+	DIRECTION dir;
+	COODINATES lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -10872,7 +10872,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(caster_ptr->revenge_turn <= 0)
 			{
-				int dir;
+				DIRECTION dir;
 
 				if(power)
 				{

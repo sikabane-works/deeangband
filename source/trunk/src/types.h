@@ -1388,15 +1388,15 @@ struct creature_type
 	STAT ac;			// Base AC
 	STAT ev;			// Base EV
 	STAT vo;			// Base VO
-	s16b to_ac;			// Bonus to AC
-	s16b to_ev;			// Bonus to EV
-	s16b to_vo;			// Bonus to VO
-	s16b dis_ac;		// Known base AC
-	s16b dis_ev;		// Known base EV
-	s16b dis_vo;		// Known base VO
-	s16b dis_to_ac;		// Known bonus to AC
-	s16b dis_to_ev;		// Known bonus to EV
-	s16b dis_to_vo;		// Known bonus to VO
+	STAT to_ac;			// Bonus to AC
+	STAT to_ev;			// Bonus to EV
+	STAT to_vo;			// Bonus to VO
+	STAT dis_ac;		// Known base AC
+	STAT dis_ev;		// Known base EV
+	STAT dis_vo;		// Known base VO
+	STAT dis_to_ac;		// Known bonus to AC
+	STAT dis_to_ev;		// Known bonus to EV
+	STAT dis_to_vo;		// Known bonus to VO
 
 	s16b to_m_chance;	// Minusses to cast chance 
 
