@@ -2113,7 +2113,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 			if(!get_string("Kind Num", tmp_val2, 3)) return;
 
 			tmp_int = strtol(tmp_val, NULL, 10);
-			tmp_int2 = atoi(tmp_val2);
+			tmp_int2 = strtol(tmp_val2, NULL, 10);
 
 			object_wipe(&ob);
 			object_prep(&ob, tmp_int2, creature_ptr->size);

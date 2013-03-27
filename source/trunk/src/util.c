@@ -2426,7 +2426,7 @@ void message_add(cptr str)
 			*(t - 1) = '\0';
 
 			/* Get multiplier */
-			j = atoi(t+2);
+			j = strtol(t+2, NULL, 10);
 		}
 
 		/* Limit the multiplier to 1000 */
@@ -3616,7 +3616,7 @@ s16b get_quantity(cptr prompt, s16b max)
 	if(!res) return 0;
 
 	/* Extract a number */
-	amt = atoi(buf);
+	amt = strtol(buf, NULL, 10);
 
 	/* A letter means "all" */
 	if(isalpha(buf[0])) amt = max;

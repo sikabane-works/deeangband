@@ -764,7 +764,7 @@ static char *analyze_font(char *path, int *wp, int *hp)
 	wid = strtol(p, NULL, 10);
 
 	/* Extract height */
-	hgt = s ? atoi(s+1) : 0;
+	hgt = s ? strtol(s+1, NULL, 10) : 0;
 
 	/* Save results */
 	(*wp) = wid;

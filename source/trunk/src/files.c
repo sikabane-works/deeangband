@@ -5045,7 +5045,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 
 				strcpy(tmp, "0");
 
-				if(askfor(tmp, 80)) line = atoi(tmp);
+				if(askfor(tmp, 80)) line = strtol(tmp, NULL, 10);
 			}
 			break;
 

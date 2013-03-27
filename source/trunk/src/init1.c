@@ -2269,7 +2269,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 					object_kind_ptr->chance[j] = 1;
 
 						/* Store the attack damage index */
-					object_kind_ptr->locale[j] = atoi(s+1);
+					object_kind_ptr->locale[j] = strtol(s+1, NULL, 10);
 
 						/* Find the slash */
 					t = my_strchr(s+1, '/');
@@ -2280,7 +2280,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 						/* If the slash is "nearby", use it */
 					if(t && (!s || t < s))
 					{
-						int chance = atoi(t+1);
+						int chance = strtol(t+1, NULL, 10);
 						if(chance > 0) object_kind_ptr->chance[j] = chance;
 					}
 				}
@@ -6415,7 +6415,7 @@ static errr parse_line_building(char *buf)
 	s = buf + 3;
 #endif
 	/* Get the building number */
-	index = atoi(s);
+	index = strtol(s, NULL, 10);
 
 	/* Find the colon after the building number */
 	s = my_strchr(s, ':');
@@ -7337,7 +7337,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			else if(prefix(b+1, "QUEST"))
 			{
 				/* "QUEST" uses a special parameter to determine the number of the quest */
-				sprintf(tmp, "%d", quest[atoi(b+6)].status);
+				sprintf(tmp, "%d", quest[strtol(b + 6, NULL, 10)].status);
 				v = tmp;
 			}
 
@@ -7345,7 +7345,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			else if(prefix(b+1, "RANDOM"))
 			{
 				/* "RANDOM" uses a special parameter to determine the number of the quest */
-				sprintf(tmp, "%d", (int)(seed_town%atoi(b+7)));
+				sprintf(tmp, "%d", (int)(seed_town%strtol(b+7, NULL, 10)));
 				v = tmp;
 			}
 

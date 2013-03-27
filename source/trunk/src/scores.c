@@ -54,7 +54,7 @@ static int highscore_where(high_score *score)
 	high_score		the_score;
 	int my_score;
 
-	my_score = atoi(score->pts);
+	my_score = strtol(score->pts, NULL, 10);
 
 
 	if(highscore_fd < 0) return (-1);
@@ -67,7 +67,7 @@ static int highscore_where(high_score *score)
 	{
 		int old_score;
 		if(highscore_read(&the_score)) return (i);
-		old_score = atoi(the_score.pts);
+		old_score = strtol(the_score.pts, NULL, 10);
 /*		if(strcmp(the_score.pts, score->pts) < 0) return (i); */
 		if(my_score > old_score) return (i);
 	}
@@ -216,15 +216,15 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 			}
 
 			/* Extract the race/class */
-			pr = atoi(the_score.p_r);
-			pc = atoi(the_score.p_c);
-			pa = atoi(the_score.p_a);
+			pr = strtol(the_score.p_r, NULL, 10);
+			pc = strtol(the_score.p_c, NULL, 10);
+			pa = strtol(the_score.p_a, NULL, 10);
 
 			/* Extract the level info */
-			clev = atoi(the_score.cur_lev);
-			mlev = atoi(the_score.max_lev);
-			cdun = atoi(the_score.cur_dun);
-			mdun = atoi(the_score.max_dun);
+			clev = strtol(the_score.cur_lev, NULL, 10);
+			mlev = strtol(the_score.max_lev, NULL, 10);
+			cdun = strtol(the_score.cur_dun, NULL, 10);
+			mdun = strtol(the_score.max_dun, NULL, 10);
 
 			/* Hack -- extract the gold and such */
 			user = the_score.uid;
@@ -623,8 +623,8 @@ void show_highclass(creature_type *creature_ptr)
 	{
 		if(highscore_seek(j)) break;
 		if(highscore_read(&the_score)) break;
-		pr = atoi(the_score.p_r);
-		clev = atoi(the_score.cur_lev);
+		pr = strtol(the_score.p_r, NULL, 10);
+		clev = strtol(the_score.cur_lev, NULL, 10);
 
 #ifdef JP
 		sprintf(out_val, "   %3d) %s‚Ì%s (ƒŒƒxƒ‹ %2d)", (m + 1), race_info[pr].title,the_score.who, clev);
@@ -703,8 +703,8 @@ void race_score(creature_type *player_ptr, int race_num)
 	{
 		if(highscore_seek(j)) break;
 		if(highscore_read(&the_score)) break;
-		pr = atoi(the_score.p_r);
-		clev = atoi(the_score.cur_lev);
+		pr = strtol(the_score.p_r, NULL, 10);
+		clev = strtol(the_score.cur_lev, NULL, 10);
 
 		if(pr == race_num)
 		{

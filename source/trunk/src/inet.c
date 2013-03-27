@@ -171,7 +171,7 @@ void set_proxy(char *default_url, int default_port)
 	{
 		s[len] = '\0';
 		strcpy(proxy, s);
-		proxy_port = atoi(s + (len + 1));
+		proxy_port = strtol(s + (len + 1), NULL, 10);
 	}
 	else
 	{
