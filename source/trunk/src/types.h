@@ -1184,16 +1184,16 @@ struct creature_type
 	s16b class_idx;		    // Class index 
 	bool cls_bonus;	        // Class bonus flag
 	s16b chara_idx;		    // Chara index 
-	s16b patron_idx;		// Patron index 
-	s16b father_idx;
-	s16b mother_idx;
+	SPECIES_ID patron_idx;		// Patron index 
+	SPECIES_ID father_idx;
+	SPECIES_ID mother_idx;
 	s16b realm1;            // First magic realm 
 	s16b realm2;            // Second magic realm 
 
-	u32b action_turn;		// Action turn
+	GAME_TURN action_turn;		// Action turn
 
 	s16b camp_idx;				// Camp
-	s16b master_creature_idx;	// Master
+	SPECIES_ID master_creature_idx;	// Master
 
 	STAT hitdice;		// Hit dice
 	STAT hitdice_base;  // Hit dice base

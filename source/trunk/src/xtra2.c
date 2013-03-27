@@ -908,7 +908,7 @@ void get_screen_size(TEXT_COODI *wid_p, TEXT_COODI *hgt_p)
 */
 void panel_bounds_center(void)
 {
-	int wid, hgt;
+	TEXT_COODI wid, hgt;
 	get_screen_size(&wid, &hgt);
 
 	panel_row_max = panel_row_min + (s16b)hgt - 1;
