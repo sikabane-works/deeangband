@@ -65,6 +65,9 @@ typedef byte SYMBOL;
 typedef byte CREATURE_LEV;
 typedef byte FLOOR_LEV;
 typedef s32b COODINATES;
+#define READ_COODINATES(VALUE) rd_s32b((COODINATES *)VALUE);
+#define WRITE_COODINATES(VALUE) wr_s32b((COODINATES)VALUE);
+
 typedef s32b STAT;
 #define READ_STAT(VALUE) rd_s32b((s32b *)VALUE);
 #define WRITE_STAT(VALUE) wr_s32b((s32b)VALUE);

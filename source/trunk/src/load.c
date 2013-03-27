@@ -250,8 +250,8 @@ static void rd_object(object_type *object_ptr)
 	rd_s16b(&object_ptr->k_idx);
 
 	rd_byte(&object_ptr->floor_id);
-	rd_byte(&object_ptr->fy);
-	rd_byte(&object_ptr->fx);
+	READ_COODINATES(&object_ptr->fy);
+	READ_COODINATES(&object_ptr->fx);
 
 	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	object_ptr->tval = object_kind_ptr->tval;
@@ -783,8 +783,8 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_u32b(&creature_ptr->exp_frac);
 	rd_s16b(&creature_ptr->lev);
 
-	rd_byte(&creature_ptr->fy);
-	rd_byte(&creature_ptr->fx);
+	READ_COODINATES(&creature_ptr->fy);
+	READ_COODINATES(&creature_ptr->fx);
 
 	rd_s32b(&creature_ptr->wx);
 	rd_s32b(&creature_ptr->wy);
@@ -818,8 +818,8 @@ static void rd_creature(creature_type *creature_ptr)
 	}
 	rd_s16b(&creature_ptr->mane_num);
 
-	rd_s16b(&creature_ptr->oldpx);
-	rd_s16b(&creature_ptr->oldpy);
+	READ_COODINATES(&creature_ptr->oldpx);
+	READ_COODINATES(&creature_ptr->oldpy);
 
 	rd_s32b(&creature_ptr->mhp);
 	rd_s32b(&creature_ptr->mmhp);
@@ -1068,8 +1068,8 @@ static errr rd_floor(floor_type *floor_ptr)
 	for (i = 0; i < MAX_RACES; i++) rd_s16b(&floor_ptr->race_population[i]);
 
 	rd_s16b(&floor_ptr->num_repro);
-	rd_s16b(&floor_ptr->height);
-	rd_s16b(&floor_ptr->width);
+	READ_COODINATES(&floor_ptr->height);
+	READ_COODINATES(&floor_ptr->width);
 	rd_s32b(&floor_ptr->floor_turn);
 
 	/*** Read template for cave_type ***/

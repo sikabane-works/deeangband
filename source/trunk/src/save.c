@@ -94,8 +94,8 @@ static void wr_object(object_type *object_ptr)
 	wr_s16b(object_ptr->k_idx);
 
 	wr_byte(object_ptr->floor_id);
-	wr_byte(object_ptr->fy);
-	wr_byte(object_ptr->fx);
+	WRITE_COODINATES(object_ptr->fy);
+	WRITE_COODINATES(object_ptr->fx);
 
 	wr_s16b(object_ptr->pval);
 	wr_byte(object_ptr->discount);
@@ -322,6 +322,7 @@ static void wr_options(void)
 	for (i = 0; i < 8; i++) wr_u32b(window_mask[i]);
 }
 
+
 static void wr_creature(creature_type *creature_ptr)
 {
 	int i;
@@ -401,8 +402,8 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_u32b(creature_ptr->exp_frac);
 	wr_s16b(creature_ptr->lev);
 
-	wr_byte(creature_ptr->fy);
-	wr_byte(creature_ptr->fx);
+	WRITE_COODINATES(creature_ptr->fy);
+	WRITE_COODINATES(creature_ptr->fx);
 
 	wr_s32b(creature_ptr->wx);
 	wr_s32b(creature_ptr->wy);
@@ -431,8 +432,8 @@ static void wr_creature(creature_type *creature_ptr)
 	}
 	wr_s16b(creature_ptr->mane_num);
 
-	wr_s16b(creature_ptr->oldpx);
-	wr_s16b(creature_ptr->oldpy);
+	WRITE_COODINATES(creature_ptr->oldpx);
+	WRITE_COODINATES(creature_ptr->oldpy);
 
 	wr_s32b(creature_ptr->mhp);
 	wr_s32b(creature_ptr->mmhp);
@@ -655,8 +656,8 @@ static void wr_floor(floor_type *floor_ptr)
 	for (i = 0; i < MAX_RACES; i++) wr_s16b(floor_ptr->race_population[i]);
 
 	wr_u16b(floor_ptr->num_repro);
-	wr_u16b(floor_ptr->height);
-	wr_u16b(floor_ptr->width);
+	WRITE_COODINATES(floor_ptr->height);
+	WRITE_COODINATES(floor_ptr->width);
 
 	wr_s32b(floor_ptr->floor_turn);
 
