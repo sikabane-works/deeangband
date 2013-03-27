@@ -95,7 +95,7 @@ static void wiz_drop_named_art(creature_type* creature_ptr)
 // Summon a horde of creatures
 static void do_cmd_summon_horde(creature_type *summoner_ptr)
 {
-	int wy = summoner_ptr->fy, wx = summoner_ptr->fx;
+	COODINATES wy = summoner_ptr->fy, wx = summoner_ptr->fx;
 	int attempts = 1000;
 	floor_type *floor_ptr = GET_FLOOR_PTR(summoner_ptr);
 
@@ -278,7 +278,8 @@ static void do_cmd_wiz_bamf(creature_type *caster_ptr)
 // Aux function for "do_cmd_wiz_change()".	-RAK-
 static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 {
-	int i, j, tmp_int;
+	int i, j;
+	COODINATES tmp_int;
 	long tmp_long;
 	s16b tmp_s16b;
 	char tmp_val[160];
@@ -1453,7 +1454,9 @@ static void do_cmd_wiz_floor_object_list(void)
 static void do_cmd_generate_floor(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	FLOOR_LEV depth = 0, depth2, wx, wy, dungeon_id = 0;
+	FLOOR_LEV depth = 0;
+	COODINATES wx, wy;
+	int dungeon_id = 0;
 
 	// Ask for level
 	if(command_arg <= 0)
@@ -1712,7 +1715,7 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	cave_type    *c_ptr;
 	feature_type *f_ptr;
 	char         tmp_val[160];
-	int          tmp_feat, tmp_mimic;
+	FEATURE_ID tmp_feat, tmp_mimic;
 	COODINATES y, x;
 
 	if(!tgt_pt(creature_ptr, &x, &y)) return;
@@ -1720,14 +1723,14 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	c_ptr = &floor_ptr->cave[y][x];
 	sprintf(tmp_val, "%d", prev_feat);
 	if(!get_string(KW_FEATURE, tmp_val, 3)) return;
-	tmp_feat = atoi(tmp_val);
+	tmp_feat = (FEATURE_ID)strtol(tmp_val, NULL, 10);
 	if(tmp_feat < 0) tmp_feat = 0;
 	else if(tmp_feat >= max_feature_idx) tmp_feat = max_feature_idx - 1;
 
 	sprintf(tmp_val, "%d", prev_mimic);
 	if(!get_string(KW_CAMOUFLAGE, tmp_val, 3)) return;
 
-	tmp_mimic = atoi(tmp_val);
+	tmp_mimic = (FEATURE_ID)strtol(tmp_val, NULL, 10);
 	if(tmp_mimic < 0) tmp_mimic = 0;
 	else if(tmp_mimic >= max_feature_idx) tmp_mimic = max_feature_idx - 1;
 
