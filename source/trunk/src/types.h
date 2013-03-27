@@ -1381,9 +1381,9 @@ struct creature_type
 	STAT to_damage[MAX_WEAPONS];	// Bonus to dam (wield)
 	STAT to_damage_m;				// Bonus to dam (misc)
 
-	s16b dis_to_hit[MAX_WEAPONS];	// Known bonus to hit (wield) 
-	s16b dis_to_hit_b;	// Known bonus to hit (bow) 
-	s16b dis_to_damage[MAX_WEAPONS];	// Known bonus to dam (wield) 
+	STAT dis_to_hit[MAX_WEAPONS];	// Known bonus to hit (wield) 
+	STAT dis_to_hit_b;	// Known bonus to hit (bow) 
+	STAT dis_to_damage[MAX_WEAPONS];	// Known bonus to dam (wield) 
 
 	STAT ac;			// Base AC
 	STAT ev;			// Base EV

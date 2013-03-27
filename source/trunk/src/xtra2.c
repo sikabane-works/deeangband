@@ -2145,8 +2145,8 @@ bool target_set(creature_type *aimer_ptr, COODINATES range, int mode)
 	floor_type *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
 
 	int		i, d, m, t, bd;
-	s16b	y = aimer_ptr->fy;
-	s16b	x = aimer_ptr->fx;
+	COODINATES y = aimer_ptr->fy;
+	COODINATES x = aimer_ptr->fx;
 
 	bool	done = FALSE;
 	bool	flag = TRUE;
@@ -3282,7 +3282,7 @@ bool tgt_pt(creature_type *creature_ptr, COODINATES *x_ptr, COODINATES *y_ptr)
 	bool success = FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	int wid, hgt;
+	TEXT_COODI wid, hgt;
 	get_screen_size(&wid, &hgt);
 
 	x = creature_ptr->fx;
