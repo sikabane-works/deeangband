@@ -61,6 +61,7 @@ typedef s32b TRAIT_ID;
 typedef s32b STORE_ID;
 typedef s32b QUEST_ID;
 typedef s32b DUNGEON_ID;
+typedef s32b FLOOR_ID;
 
 typedef byte TVAL;
 typedef byte SVAL;
@@ -94,6 +95,8 @@ typedef s32b GAME_TURN;
 
 typedef s32b HEIGHT;
 typedef s32b WEIGHT;
+
+typedef s32b POPULATION;
 
 /*
  * Creature flags
@@ -278,13 +281,12 @@ struct artifact_type
 	FLOOR_LEV level;			/* Artifact level */
 	byte rarity;		/* Artifact rarity */
 
-	byte cur_num;		/* Number created (0 or 1) */
-	byte max_num;		/* Unused (should be "1") */
+	POPULATION cur_num;		/* Number created (0 or 1) */
+	POPULATION max_num;		/* Unused (should be "1") */
 
-	s16b floor_id;          /* Leaved on this location last time */
+	FLOOR_ID floor_id;          /* Leaved on this location last time */
 
 	s16b fuel;
-
 	s16b ap_rate;		// AP rate
 
 	s16b charge_const;
@@ -481,8 +483,8 @@ struct species_type
 	COLOR_ID x_attr; /* Desired creature attribute */
 	SYMBOL x_char; /* Desired creature character */
 
-	byte max_num;			/* Maximum population allowed per level */
-	byte cur_num;			/* Creature population on current level */
+	POPULATION max_num;			/* Maximum population allowed per level */
+	POPULATION cur_num;			/* Creature population on current level */
 
 	s16b floor_id;          /* Location of unique creature */
 
@@ -796,8 +798,8 @@ struct quest_type
 	FLOOR_LEV level;             /* Dungeon level */
 	SPECIES_ID species_idx;             /* Creature race */
 
-	s16b cur_num;           /* Number killed */
-	s16b max_num;           /* Number required */
+	POPULATION cur_num;           /* Number killed */
+	POPULATION max_num;           /* Number required */
 
 	s16b k_idx;             /* object index */
 	s16b num_mon;           /* number of creatures on level */
@@ -1471,15 +1473,15 @@ struct creature_type
 
 	STRING_OFFSET nickname;		// Creature's Nickname 
 
-	s16b parent_m_idx;
+	CREATURE_ID parent_m_idx;
 
-	u16b underling_id[MAX_UNDERLINGS];	    // Underling ID 
-	u16b underling_num[MAX_UNDERLINGS];	    // Dice Number of Underlings 
+	SPECIES_ID underling_id[MAX_UNDERLINGS];	    // Underling ID 
+	POPULATION underling_num[MAX_UNDERLINGS];	    // Dice Number of Underlings 
 
 	special_blow_type blow[MAX_SPECIAL_BLOWS];	// Up to four blows per round 
 
-	u16b start_wx; // Starting Wilderness_X
-	u16b start_wy; // Statring Wilderness_Y
+	COODINATES start_wx; // Starting Wilderness_X
+	COODINATES start_wy; // Statring Wilderness_Y
 
 	byte snipe_type;
 	bool is_fired;
