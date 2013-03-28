@@ -486,7 +486,7 @@ extern u16b max_object_ego_idx;
 extern u16b max_dungeon_idx;
 extern OBJECT_ID max_object_idx;
 extern CREATURE_ID max_creature_idx;
-extern u16b max_trait_idx;
+extern TRAIT_ID max_trait_idx;
 extern u16b max_store_idx;
 extern COODINATES max_wild_x, max_wild_y;
 
@@ -1372,7 +1372,7 @@ extern s16b get_quantity(cptr prompt, s16b max);
 extern void pause_line(int row);
 extern void request_command(creature_type *guest_ptr, int shopping);
 extern bool is_a_vowel(int ch);
-extern int get_keymap_dir(char ch);
+extern DIRECTION get_keymap_dir(char ch);
 extern errr type_string(cptr str, uint len);
 extern void roff_to_buf(cptr str, int wlen, char *tbuf, size_t bufsize);
 extern int get_selection(selection_info *si_ptr, selection_table *se_ptr);

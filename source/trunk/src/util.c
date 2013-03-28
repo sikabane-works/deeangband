@@ -4419,9 +4419,9 @@ bool is_a_vowel(int ch)
  * generally only apply to single keys, which makes it no more
  * than 128, so a char should suffice... but keymap_act is 256...
  */
-int get_keymap_dir(char ch)
+DIRECTION get_keymap_dir(char ch)
 {
-	int d = 0;
+	DIRECTION d = 0;
 
 	/* Already a direction? */
 	if(isdigit(ch))
@@ -4434,16 +4434,10 @@ int get_keymap_dir(char ch)
 		cptr act, s;
 
 		/* Roguelike */
-		if(rogue_like_commands)
-		{
-			mode = KEYMAP_MODE_ROGUE;
-		}
+		if(rogue_like_commands) mode = KEYMAP_MODE_ROGUE;
 
 		/* Original */
-		else
-		{
-			mode = KEYMAP_MODE_ORIG;
-		}
+		else mode = KEYMAP_MODE_ORIG;
 
 		/* Extract the action (if any) */
 		act = keymap_act[mode][(byte)(ch)];
@@ -4459,7 +4453,6 @@ int get_keymap_dir(char ch)
 			}
 		}
 	}
-
 
 	if(d == 5) d = 0;
 

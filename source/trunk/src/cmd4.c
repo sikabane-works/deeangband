@@ -5936,8 +5936,8 @@ static bool visual_mode_command(char ch, bool *visual_list_ptr,
 		{
 			int eff_width;
 			int d = get_keymap_dir(ch);
-			byte a = (*cur_attr_ptr & 0x7f);
-			byte c = *cur_char_ptr;
+			COODINATES a = (*cur_attr_ptr & 0x7f);
+			COODINATES c = *cur_char_ptr;
 
 			if(use_bigtile) eff_width = width / 2;
 			else eff_width = width;
