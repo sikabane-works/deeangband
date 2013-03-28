@@ -879,7 +879,7 @@ u16b max_vault_idx;				// Maximum number of vaults in vault_info.txt
 FEATURE_ID max_feature_idx;		// Maximum number of terrain features in feature_info.txt
 ARTIFACT_ID max_artifact_idx;	// Maximum number of artifacts in artifact_info.txt
 u16b max_object_ego_idx;		// Maximum number of ego-items in e_info.txt
-u16b max_dungeon_idx;			// Maximum number of dungeon in dungeon_info.txt
+DUNGEON_ID max_dungeon_idx;		// Maximum number of dungeon in dungeon_info.txt
 OBJECT_ID max_object_idx;		// Maximum number of objects in the level
 TRAIT_ID max_trait_idx;			// Maximum number of traits_precondition
 CREATURE_ID max_creature_idx;	// Maximum number of creatures in simulate

@@ -1310,7 +1310,8 @@ errr parse_magic_info(char *buf, header *head)
 
 	else if(buf[0] == 'T')
 	{
-		int level, mana, fail, exp;
+		CREATURE_LEV level;
+		int mana, fail, exp;
 
 		if(!readable) return PARSE_ERROR_GENERIC;
 		/* Scan for the values */
@@ -1982,7 +1983,8 @@ static enum OBJECT_KIND_INFO object_kind_info_csv_code[OBJECT_KIND_INFO_CSV_COLU
 errr parse_object_kind_csv(char *buf, header *head)
 {
 	int split[80], size[80];
-	int i, j, b, c;
+	int i, b, c;
+	TVAL j;
 	char *s, *t;
 	char tmp[10000], nt[80];
 
@@ -6959,7 +6961,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				}
 				else
 				{
-					max_species_idx = strtol(zz[1], NULL, 10);
+					max_species_idx = (SPECIES_ID)strtol(zz[1], NULL, 10);
 				}
 			}
 

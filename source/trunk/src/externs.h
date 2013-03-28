@@ -483,7 +483,7 @@ extern u16b max_vault_idx;
 extern FEATURE_ID max_feature_idx;
 extern ARTIFACT_ID max_artifact_idx;
 extern u16b max_object_ego_idx;
-extern u16b max_dungeon_idx;
+extern DUNGEON_ID max_dungeon_idx;
 extern OBJECT_ID max_object_idx;
 extern CREATURE_ID max_creature_idx;
 extern TRAIT_ID max_trait_idx;
