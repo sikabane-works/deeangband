@@ -2074,8 +2074,8 @@ static errr macro_dump(cptr fname)
  */
 static void do_cmd_macro_aux(char *buf)
 {
-	int i, n = 0;
-
+	int n = 0;
+	char key;
 	char tmp[1024];
 
 	flush();
@@ -2084,13 +2084,13 @@ static void do_cmd_macro_aux(char *buf)
 	inkey_base = TRUE;
 
 	/* First key */
-	i = inkey();
+	key = inkey();
 
 	/* Read the pattern */
-	while (i)
+	while (key)
 	{
 		/* Save the key */
-		buf[n++] = i;
+		buf[n++] = key;
 
 		/* Do not process macros */
 		inkey_base = TRUE;
@@ -2099,7 +2099,7 @@ static void do_cmd_macro_aux(char *buf)
 		inkey_scan = TRUE;
 
 		/* Attempt to read a key */
-		i = inkey();
+		key = inkey();
 	}
 
 	buf[n] = '\0';
@@ -2173,7 +2173,7 @@ static errr keymap_dump(cptr fname)
 		if(!act) continue;
 
 		/* Encode the key */
-		buf[0] = i;
+		buf[0] = (char)i;
 		buf[1] = '\0';
 		ascii_to_text(key, buf);
 
@@ -2638,6 +2638,7 @@ static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int d
 void do_cmd_visuals(void)
 {
 	int i;
+	char key;
 	char tmp[160];
 	char buf[1024];
 	bool need_redraw = FALSE;
@@ -2929,14 +2930,14 @@ void do_cmd_visuals(void)
 				Term_putstr(40, 20, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
 
-				i = inkey();
+				key = inkey();
 
 				/* All done */
-				if(i == ESCAPE) break;
+				if(key == ESCAPE) break;
 
-				if(iscntrl(i)) c = 'a' + i - KTRL('A');
-				else if(isupper(i)) c = 'a' + i - 'A';
-				else c = i;
+				if(iscntrl(i)) c = 'a' + key - KTRL('A');
+				else if(isupper(i)) c = 'a' + key - 'A';
+				else c = key;
 
 				switch (c)
 				{
@@ -2945,7 +2946,7 @@ void do_cmd_visuals(void)
 						int prev_r = r;
 						do
 						{
-							if(!cmd_visuals_aux(i, &r, max_species_idx))
+							if(!cmd_visuals_aux(key, &r, max_species_idx))
 							{
 								r = prev_r;
 								break;
@@ -2956,13 +2957,13 @@ void do_cmd_visuals(void)
 					break;
 				case 'a':
 					t = (int)species_ptr->x_attr;
-					(void)cmd_visuals_aux(i, &t, 256);
+					(void)cmd_visuals_aux(key, &t, 256);
 					species_ptr->x_attr = (byte)t;
 					need_redraw = TRUE;
 					break;
 				case 'c':
 					t = (int)species_ptr->x_char;
-					(void)cmd_visuals_aux(i, &t, 256);
+					(void)cmd_visuals_aux(key, &t, 256);
 					species_ptr->x_char = (byte)t;
 					need_redraw = TRUE;
 					break;
@@ -3021,14 +3022,14 @@ void do_cmd_visuals(void)
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
 				Term_putstr(0, 22, -1, TERM_WHITE, MES_SYS_VISUAL_COMMAND);
 
-				i = inkey();
+				key = inkey();
 
 				/* All done */
-				if(i == ESCAPE) break;
+				if(key == ESCAPE) break;
 
-				if(iscntrl(i)) c = 'a' + i - KTRL('A');
-				else if(isupper(i)) c = 'a' + i - 'A';
-				else c = i;
+				if(iscntrl(i)) c = 'a' + key - KTRL('A');
+				else if(isupper(i)) c = 'a' + key - 'A';
+				else c = key;
 
 				switch (c)
 				{
@@ -3037,7 +3038,7 @@ void do_cmd_visuals(void)
 						int prev_k = k;
 						do
 						{
-							if(!cmd_visuals_aux(i, &k, max_object_kind_idx))
+							if(!cmd_visuals_aux(key, &k, max_object_kind_idx))
 							{
 								k = prev_k;
 								break;
@@ -3048,13 +3049,13 @@ void do_cmd_visuals(void)
 					break;
 				case 'a':
 					t = (int)object_kind_ptr->x_attr;
-					(void)cmd_visuals_aux(i, &t, 256);
+					(void)cmd_visuals_aux(key, &t, 256);
 					object_kind_ptr->x_attr = (byte)t;
 					need_redraw = TRUE;
 					break;
 				case 'c':
 					t = (int)object_kind_ptr->x_char;
-					(void)cmd_visuals_aux(i, &t, 256);
+					(void)cmd_visuals_aux(key, &t, 256);
 					object_kind_ptr->x_char = (byte)t;
 					need_redraw = TRUE;
 					break;
@@ -3111,14 +3112,14 @@ void do_cmd_visuals(void)
 				Term_putstr(40, 20, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 20, ca, cc, 0, 0);
 				Term_putstr(0, 22, -1, TERM_WHITE, MES_INTERFACE_VISUAL);
-				i = inkey();
+				key = inkey();
 
 				/* All done */
-				if(i == ESCAPE) break;
+				if(key == ESCAPE) break;
 
-				if(iscntrl(i)) c = 'a' + i - KTRL('A');
-				else if(isupper(i)) c = 'a' + i - 'A';
-				else c = i;
+				if(iscntrl(key)) c = 'a' + key - KTRL('A');
+				else if(isupper(key)) c = 'a' + key - 'A';
+				else c = key;
 
 				switch (c)
 				{
@@ -3127,7 +3128,7 @@ void do_cmd_visuals(void)
 						int prev_f = f;
 						do
 						{
-							if(!cmd_visuals_aux(i, &f, max_feature_idx))
+							if(!cmd_visuals_aux(key, &f, max_feature_idx))
 							{
 								f = prev_f;
 								break;
@@ -3138,7 +3139,7 @@ void do_cmd_visuals(void)
 					break;
 				case 'a':
 					t = (int)f_ptr->x_attr[lighting_level];
-					(void)cmd_visuals_aux(i, &t, 256);
+					(void)cmd_visuals_aux(key, &t, 256);
 					f_ptr->x_attr[lighting_level] = (byte)t;
 					need_redraw = TRUE;
 					break;
