@@ -57,6 +57,7 @@ typedef s16b TOWN_ID;
 typedef s16b EFFECT_ID;
 typedef s32b ARTIFACT_ID;
 typedef s32b TRAIT_ID;
+typedef s32b STORE_ID;
 
 typedef byte TVAL;
 typedef byte SVAL;
@@ -1371,16 +1372,16 @@ struct creature_type
 	bool sutemi;
 	bool counter;
 
-	s32b good_exp;
-	s32b evil_exp;
-	s32b order_exp;
-	s32b chaos_exp;
-	s32b balance_exp;
-	s16b good_rank;
+	STAT good_exp;
+	STAT evil_exp;
+	STAT order_exp;
+	STAT chaos_exp;
+	STAT balance_exp;
+	STAT good_rank;
 	STAT evil_rank;
-	s16b order_rank;
-	s16b chaos_rank;
-	s16b balance_rank;
+	STAT order_rank;
+	STAT chaos_rank;
+	STAT balance_rank;
 
 	COODINATES run_py;
 	COODINATES run_px;

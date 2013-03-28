@@ -523,7 +523,7 @@ bool is_enemy_of_balance_species(species_type *creature_ptr)
 	return FALSE;
 }
 
-void set_traits_precondition(traits_precondition *flags_pre_ptr, int type, int low, int high)
+void set_traits_precondition(traits_precondition *flags_pre_ptr, int type, CREATURE_LEV low, CREATURE_LEV high)
 {
 	flags_pre_ptr->add_lev[type] = low;
 	flags_pre_ptr->remove_lev[type] = high;

@@ -476,7 +476,7 @@ extern building_type building[MAX_BLDG];
 extern u16b max_quests;
 extern SPECIES_ID max_species_idx;
 extern u16b max_creature_ego_idx;
-extern u16b max_store_idx;
+extern STORE_ID max_store_idx;
 extern u16b max_authorities_idx;
 extern u16b max_object_kind_idx;
 extern u16b max_vault_idx;
@@ -487,7 +487,7 @@ extern u16b max_dungeon_idx;
 extern OBJECT_ID max_object_idx;
 extern CREATURE_ID max_creature_idx;
 extern TRAIT_ID max_trait_idx;
-extern u16b max_store_idx;
+extern STORE_ID max_store_idx;
 extern COODINATES max_wild_x, max_wild_y;
 
 /* Unique Data for D'angband*/
