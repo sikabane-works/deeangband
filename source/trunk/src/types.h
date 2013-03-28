@@ -715,8 +715,8 @@ struct object_type
 
 	OBJECT_ID next_object_idx; // Next object in stack (if any)
 	CREATURE_ID held_m_idx; /* Creature holding us (if any) */
-	s16b creator_idx;		// Creater
-	CREATURE_ID source_idx; /* Item Source */
+	SPECIES_ID creator_idx;		// Creater
+	SPECIES_ID source_idx; /* Item Source */
 
 	byte equipped_slot_type;
 	byte equipped_slot_num;

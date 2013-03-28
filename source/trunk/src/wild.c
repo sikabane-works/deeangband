@@ -54,14 +54,14 @@ void set_floor_and_wall(byte type)
 }
 
 // Helper for plasma generation.
-static void perturb_point_mid(floor_type *floor_ptr, COODINATES x1, COODINATES x2, COODINATES x3, COODINATES x4, COODINATES xmid, COODINATES ymid, int rough, FLOOR_LEV depth_max)
+static void perturb_point_mid(floor_type *floor_ptr, COODINATES x1, COODINATES x2, COODINATES x3, COODINATES x4, COODINATES xmid, COODINATES ymid, FLOOR_LEV rough, FLOOR_LEV depth_max)
 {
 	/*
 	 * Average the four corners & perturb it a bit.
 	 * tmp is a random int +/- rough
 	 */
-	int tmp2 = rough * 2 + 1;
-	FEATURE_ID tmp = randint1(tmp2) - (rough + 1);
+	FEATURE_ID tmp2 = rough * 2 + 1;
+	FEATURE_ID tmp = (FLOOR_LEV)randint1(tmp2) - (rough + 1);
 	FEATURE_ID avg = ((x1 + x2 + x3 + x4) / 4) + tmp;
 
 	// Division always rounds down, so we round up again
@@ -82,7 +82,7 @@ static void perturb_point_end(floor_type *floor_ptr, int x1, int x2, int x3, int
 	 * Average the three corners & perturb it a bit.
 	 * tmp is a random int +/- rough
 	 */
-	int tmp2 = rough * 2 + 1;
+	FEATURE_ID tmp2 = rough * 2 + 1;
 	FEATURE_ID tmp = randint0(tmp2) - rough;
 	FEATURE_ID avg = ((x1 + x2 + x3) / 3) + tmp;
 
@@ -132,9 +132,9 @@ static s16b terrain_table[MAX_WILDERNESS][MAX_FEAT_IN_TERRAIN];
 
 static void generate_wilderness_area(floor_type *floor_ptr, int terrain, u32b seed, bool border, bool corner)
 {
-	int x1, y1;
-	int table_size = sizeof(terrain_table[0]) / sizeof(s16b);
-	int roughness = 1; // The roughness of the level.
+	COODINATES x1, y1;
+	FEATURE_ID table_size = sizeof(terrain_table[0]) / sizeof(s16b);
+	FLOOR_LEV roughness = 1; // The roughness of the level.
 
 	// Unused
 	(void)border;
