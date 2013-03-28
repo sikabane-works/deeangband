@@ -1699,7 +1699,7 @@ void prt_path(creature_type *creature_ptr, COODINATES range, int y, int x)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
 	int path_n;
-	u16b path_g[512];
+	COODINATES path_g[512];
 	int default_color = TERM_SLATE;
 
 	if(range <= 0) return;

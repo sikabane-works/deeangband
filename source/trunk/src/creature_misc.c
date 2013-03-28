@@ -328,9 +328,9 @@ s16b calc_bodysize(s32b ht, s32b wt){
 	return (s16b)size;	
 }
 
-s16b calc_punishment_slay(creature_type *creature_ptr, int alignment)
+STAT calc_punishment_slay(creature_type *creature_ptr, int alignment)
 {
-	s16b t;
+	STAT t;
 	switch(alignment)
 	{
 		case ALIGNMENT_GOOD:

@@ -2681,7 +2681,7 @@ static bool research_creature(creature_type *creature_ptr)
 	bool notpicked;
 	bool recall = FALSE;
 	u16b why = 0;
-	u16b	*who;
+	SPECIES_ID *who;
 
 	/* XTRA HACK WHATSEARCH */
 	bool    all = FALSE;
@@ -2754,9 +2754,8 @@ static bool research_creature(creature_type *creature_ptr)
 	/* Display the result */
 	prt(buf, 16, 10);
 
-
 	/* Allocate the "who" array */
-	C_MAKE(who, max_species_idx, u16b);
+	C_MAKE(who, max_species_idx, SPECIES_ID);
 
 	/* Collect matching creatures */
 	for (n = 0, i = 1; i < max_species_idx; i++)
@@ -2813,10 +2812,8 @@ static bool research_creature(creature_type *creature_ptr)
 	if(!n)
 	{
 		/* Free the "who" array */
-		C_KILL(who, max_species_idx, u16b);
-
+		C_KILL(who, max_species_idx, SPECIES_ID);
 		screen_load();
-
 		return FALSE;
 	}
 
@@ -2911,7 +2908,7 @@ static bool research_creature(creature_type *creature_ptr)
 	/* prt(buf, 5, 5);*/
 
 	/* Free the "who" array */
-	C_KILL(who, max_species_idx, u16b);
+	C_KILL(who, max_species_idx, SPECIES_ID);
 
 	screen_load();
 
@@ -2927,7 +2924,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	int bact = bldg->actions[i];
 	int bcost;
 	bool paid = FALSE;
-	int amt;
+	FLOOR_LEV amt;
 	msg_flag = FALSE;
 	msg_print(NULL);
 
@@ -3091,9 +3088,9 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		if(select_dungeon == DUNGEON_ANGBAND) if(quest[QUEST_SERPENT].status != QUEST_STATUS_FINISHED) max_depth = 99;
 
 #ifdef JP
-		amt = get_quantity(format("%sの何階にテレポートしますか？", dungeon_name + dungeon_info[select_dungeon].name), max_depth);
+		amt = (FLOOR_LEV)get_quantity(format("%sの何階にテレポートしますか？", dungeon_name + dungeon_info[select_dungeon].name), max_depth);
 #else
-		amt = get_quantity(format("Teleport to which level of %s? ", dungeon_name + dungeon_info[select_dungeon].name), max_depth);
+		amt = (FLOOR_LEV)get_quantity(format("Teleport to which level of %s? ", dungeon_name + dungeon_info[select_dungeon].name), max_depth);
 #endif
 
 		if(amt > 0)

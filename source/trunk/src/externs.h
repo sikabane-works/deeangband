@@ -794,7 +794,7 @@ extern void set_hitdice(creature_type *creature_ptr);
 extern void set_creature_hp_percent(creature_type *creature_ptr, int percentage);
 extern void set_creature_sp_percent(creature_type *creature_ptr, int percentage);
 extern s16b calc_bodysize(s32b ht, s32b wt);
-extern s16b calc_punishment_slay(creature_type *creature_ptr, int alignment);
+extern STAT calc_punishment_slay(creature_type *creature_ptr, int alignment);
 extern s16b calc_race_standard_size(race_type *ir_ptr);
 extern void initialize_skill(creature_type *creature_ptr);
 

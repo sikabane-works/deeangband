@@ -59,6 +59,7 @@ typedef s32b ARTIFACT_ID;
 typedef s32b TRAIT_ID;
 typedef s32b STORE_ID;
 typedef s32b QUEST_ID;
+typedef s32b DUNGEON_ID;
 
 typedef byte TVAL;
 typedef byte SVAL;
@@ -594,8 +595,8 @@ typedef struct cave_type cave_type;
 struct cave_type
 {
 	u16b info;		   // Hack -- cave flags
-	u16b cx;           // Connected x
-	u16b cy;           // Connected y
+	COODINATES cx;           // Connected x
+	COODINATES cy;           // Connected y
 	FEATURE_ID feat;		   // Hack -- feature type
 	OBJECT_ID object_idx;   // Object in this grid
 	CREATURE_ID creature_idx; // Creature in this grid
@@ -798,7 +799,7 @@ struct quest_type
 	s16b num_mon;           /* number of creatures on level */
 
 	byte flags;             /* quest flags */
-	byte dungeon;           /* quest dungeon */
+	DUNGEON_ID dungeon;           /* quest dungeon */
 
 	CREATURE_LEV complev;           /* player level (complete) */
 };
