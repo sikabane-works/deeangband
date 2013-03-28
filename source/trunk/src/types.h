@@ -85,6 +85,7 @@ typedef byte DIRECTION;
 typedef s32b POWER;
 
 typedef s32b SPEED;
+typedef s32b ENERGY;
 
 typedef s32b GAME_TIME;
 typedef s32b GAME_TURN;
@@ -1294,7 +1295,7 @@ struct creature_type
 
 	byte recall_dungeon;	// Dungeon set to be recalled 
 
-	s16b energy_need;	// Energy needed for next move 
+	ENERGY energy_need;	// Energy needed for next move 
 
 	s16b food;			// Current nutrition 
 

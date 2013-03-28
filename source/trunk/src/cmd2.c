@@ -2747,7 +2747,8 @@ static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type 
 bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int shuriken)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int dir, item = 0;
+	DIRECTION dir;
+	int item = 0;
 	int i, j;
 	COODINATES ny[19], nx[19], y, x, ty, tx, prev_y, prev_x;
 	int chance, tdam, tdis;
