@@ -97,7 +97,7 @@ typedef s32b HEIGHT;
 typedef s32b WEIGHT;
 
 typedef s32b POPULATION;
-
+typedef s32b SKILL_EXP;
 /*
  * Creature flags
  */
@@ -1315,11 +1315,11 @@ struct creature_type
 	u32b spell_forgotten2;	// bit mask of spells learned but forgotten 
 	byte spell_order[64];	// order spells learned/remembered/forgotten 
 
-	s32b skill_exp[MAX_SKILLS];       // Proficiency of misc. skill 
-	s32b spell_exp[MAX_REALMS];
+	SKILL_EXP skill_exp[MAX_SKILLS];       // Proficiency of misc. skill 
+	SKILL_EXP spell_exp[MAX_REALMS];
 
 	s16b mane_spell[MAX_MANE];
-	s16b mane_dam[MAX_MANE];
+	POWER mane_dam[MAX_MANE];
 	s16b mane_num;
 
 	s16b concent;      // Sniper's concentration level 

@@ -1223,7 +1223,7 @@ void ang_sort(vptr u, vptr v, int n,
 * Future versions may restrict the ability to target "trappers"
 * and "mimics", but the semantics is a little bit weird.
 */
-bool target_able(creature_type *creature_ptr, int m_idx)
+bool target_able(creature_type *creature_ptr, CREATURE_ID m_idx)
 {
 	creature_type *target_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -2140,7 +2140,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 * This command will cancel any old target, even if used from
 * inside the "look" command.
 */
-bool target_set(creature_type *aimer_ptr, COODINATES range, int mode)
+bool target_set(creature_type *aimer_ptr, COODINATES range, FLAGS_32 mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
 
