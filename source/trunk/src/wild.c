@@ -61,7 +61,7 @@ static void perturb_point_mid(floor_type *floor_ptr, COODINATES x1, COODINATES x
 	 * tmp is a random int +/- rough
 	 */
 	int tmp2 = rough * 2 + 1;
-	int tmp = randint1(tmp2) - (rough + 1);
+	FEATURE_ID tmp = randint1(tmp2) - (rough + 1);
 	FEATURE_ID avg = ((x1 + x2 + x3 + x4) / 4) + tmp;
 
 	// Division always rounds down, so we round up again
@@ -83,7 +83,7 @@ static void perturb_point_end(floor_type *floor_ptr, int x1, int x2, int x3, int
 	 * tmp is a random int +/- rough
 	 */
 	int tmp2 = rough * 2 + 1;
-	int tmp = randint0(tmp2) - rough;
+	FEATURE_ID tmp = randint0(tmp2) - rough;
 	FEATURE_ID avg = ((x1 + x2 + x3) / 3) + tmp;
 
 	if((x1 + x2 + x3) % 3) avg++; // Division always rounds down, so we round up again
@@ -674,7 +674,7 @@ errr parse_line_wilderness(char *buf, COODINATES ymin, COODINATES xmin, COODINAT
 				w_letter[index].terrain = 0;
 			
 			if(num > 2)
-				w_letter[index].level = strtol(zz[2], NULL, 10);
+				w_letter[index].level = (FLOOR_LEV)strtol(zz[2], NULL, 10);
 			else
 				w_letter[index].level = 0;
 			
