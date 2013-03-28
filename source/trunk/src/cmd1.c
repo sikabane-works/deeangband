@@ -2475,8 +2475,7 @@ static bool travel_test(creature_type *creature_ptr)
 // Travel command
 void travel_step(creature_type *creature_ptr)
 {
-	int i;
-	int dir = travel.dir;
+	DIRECTION i, dir = travel.dir;
 	int old_run = travel.run;
 	find_prevdir = dir;
 

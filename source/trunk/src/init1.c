@@ -6816,8 +6816,8 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				quest_ptr->num_mon = strtol(zz[3], NULL, 10);
 				quest_ptr->cur_num = strtol(zz[4], NULL, 10);
 				quest_ptr->max_num = strtol(zz[5], NULL, 10);
-				quest_ptr->level   = strtol(zz[6], NULL, 10);
-				quest_ptr->species_idx   = strtol(zz[7], NULL, 10);
+				quest_ptr->level   = (FLOOR_LEV)strtol(zz[6], NULL, 10);
+				quest_ptr->species_idx = (SPECIES_ID)strtol(zz[7], NULL, 10);
 				quest_ptr->k_idx   = strtol(zz[8], NULL, 10);
 				quest_ptr->dungeon = strtol(zz[9], NULL, 10);
 
@@ -6978,7 +6978,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 			/* Maximum f_idx */
 			else if(zz[0][0] == 'F')
 			{
-				max_feature_idx = strtol(zz[1], NULL, 10);
+				max_feature_idx = (FEATURE_ID)strtol(zz[1], NULL, 10);
 			}
 
 			/* Maximum a_idx */

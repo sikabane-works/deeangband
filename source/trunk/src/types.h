@@ -1382,8 +1382,8 @@ struct creature_type
 	s16b chaos_rank;
 	s16b balance_rank;
 
-	s16b run_py;
-	s16b run_px;
+	COODINATES run_py;
+	COODINATES run_px;
 
 	//** Extracted fields **
 
