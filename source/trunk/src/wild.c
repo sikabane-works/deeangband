@@ -54,7 +54,7 @@ void set_floor_and_wall(byte type)
 }
 
 // Helper for plasma generation.
-static void perturb_point_mid(floor_type *floor_ptr, int x1, int x2, int x3, int x4, int xmid, int ymid, int rough, FLOOR_LEV depth_max)
+static void perturb_point_mid(floor_type *floor_ptr, COODINATES x1, COODINATES x2, COODINATES x3, COODINATES x4, COODINATES xmid, COODINATES ymid, int rough, FLOOR_LEV depth_max)
 {
 	/*
 	 * Average the four corners & perturb it a bit.
@@ -62,7 +62,7 @@ static void perturb_point_mid(floor_type *floor_ptr, int x1, int x2, int x3, int
 	 */
 	int tmp2 = rough * 2 + 1;
 	int tmp = randint1(tmp2) - (rough + 1);
-	int avg = ((x1 + x2 + x3 + x4) / 4) + tmp;
+	FEATURE_ID avg = ((x1 + x2 + x3 + x4) / 4) + tmp;
 
 	// Division always rounds down, so we round up again
 	if(((x1 + x2 + x3 + x4) % 4) > 1) avg++;
@@ -84,7 +84,7 @@ static void perturb_point_end(floor_type *floor_ptr, int x1, int x2, int x3, int
 	 */
 	int tmp2 = rough * 2 + 1;
 	int tmp = randint0(tmp2) - rough;
-	int avg = ((x1 + x2 + x3) / 3) + tmp;
+	FEATURE_ID avg = ((x1 + x2 + x3) / 3) + tmp;
 
 	if((x1 + x2 + x3) % 3) avg++; // Division always rounds down, so we round up again
 
@@ -625,7 +625,7 @@ typedef struct wilderness_grid wilderness_grid;
 struct wilderness_grid
 {
 	int terrain;    /* Terrain type */
-	int town;       /* Town number */
+	TOWN_ID town;       /* Town number */
 	FLOOR_LEV level;		/* Level of the wilderness */
 	byte road;       /* Road */
 	char name[32];	/* Name of the town/wilderness */
@@ -679,7 +679,7 @@ errr parse_line_wilderness(char *buf, COODINATES ymin, COODINATES xmin, COODINAT
 				w_letter[index].level = 0;
 			
 			if(num > 3)
-				w_letter[index].town = strtol(zz[3], NULL, 10);
+				w_letter[index].town = (TOWN_ID)strtol(zz[3], NULL, 10);
 			else
 				w_letter[index].town = 0;
 			
