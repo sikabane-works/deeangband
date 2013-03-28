@@ -1313,7 +1313,7 @@ static errr init_other(void)
 	player_ptr = &creature_list[1];
 
 	// Allocate and Wipe the max dungeon level
-	C_MAKE(max_dlv, max_dungeon_idx, s16b);
+	C_MAKE(max_dlv, max_dungeon_idx, FLOOR_LEV);
 
 	/*** Prepare the various "bizarre" arrays ***/
 

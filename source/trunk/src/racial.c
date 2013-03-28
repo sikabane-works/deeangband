@@ -79,7 +79,8 @@ bool do_cmd_archer(creature_type *creature_ptr)
 
 	if(ext == 1)
 	{
-		int x,y, dir;
+		COODINATES x, y;
+		DIRECTION dir;
 		cave_type *c_ptr;
 
 		if(!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;

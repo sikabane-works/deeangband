@@ -383,7 +383,7 @@ extern town_type *town;
 extern u16b start_point_size;
 extern s16b alloc_kind_size;
 extern alloc_entry *alloc_kind_table;
-extern s16b alloc_species_size;
+extern SPECIES_ID alloc_species_size;
 extern alloc_entry *alloc_species_table;
 extern byte misc_to_acttr[256];
 extern char misc_to_char[256];

@@ -609,7 +609,7 @@ alloc_entry *alloc_kind_table;
 
 // The size of "alloc_species_table" (at most max_species_idx)
 // The entries in the "race allocator table"
-s16b alloc_species_size;
+SPECIES_ID alloc_species_size;
 alloc_entry *alloc_species_table;
 
 /*

@@ -145,10 +145,9 @@ bool clean_shot(creature_type *target_ptr, COODINATES y1, COODINATES x1, COODINA
 
 	/* Must be the same as projectable(floor_ptr, MAX_RANGE, ) */
 	int i;
-	COODINATES y, x;
-
 	int grid_n = 0;
-	u16b grid_g[512];
+	COODINATES y, x;
+	COODINATES grid_g[512];
 
 	/* Check the projection path */
 	grid_n = project_path(grid_g, MAX_RANGE, floor_ptr, y1, x1, y2, x2, 0);
