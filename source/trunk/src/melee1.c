@@ -85,7 +85,8 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 */
 static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, s16b hand, int mode)
 {
-	int k, bonus, chance;
+	POWER k;
+	int bonus, chance;
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
