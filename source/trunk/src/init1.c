@@ -6946,7 +6946,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 			/* Maximum quests */
 			else if(zz[0][0] == 'Q')
 			{
-				max_quests = strtol(zz[1], NULL, 10);
+				max_quests = (QUEST_ID)strtol(zz[1], NULL, 10);
 			}
 
 			/* Maximum species_idx */

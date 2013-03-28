@@ -139,8 +139,8 @@ static void wr_object(object_type *object_ptr)
 	//wr_string(quark_str(object_ptr->inscription));
 	//wr_string(quark_str(object_ptr->art_name));
 
-	wr_s16b(object_ptr->creator_idx);
-	wr_s16b(object_ptr->source_idx);
+	WRITE_SPECIES_ID(object_ptr->creator_idx);
+	WRITE_SPECIES_ID(object_ptr->source_idx);
 
 	wr_byte(object_ptr->equipped_slot_type);
 	wr_byte(object_ptr->equipped_slot_num);

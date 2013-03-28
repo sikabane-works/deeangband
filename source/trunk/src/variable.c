@@ -869,7 +869,7 @@ wilderness_type **wilderness;
  */
 building_type building[MAX_BLDG];
 
-u16b max_quests;				// Maximum number of quests
+QUEST_ID max_quests;			// Maximum number of quests
 SPECIES_ID max_species_idx;		// Maximum number of creatures in species_info.txt
 u16b max_creature_ego_idx;		// Maximum number of creatures in re_info.txt
 STORE_ID max_store_idx;			// Maximum number of creatures in store_pre_info.txt

@@ -58,6 +58,7 @@ typedef s16b EFFECT_ID;
 typedef s32b ARTIFACT_ID;
 typedef s32b TRAIT_ID;
 typedef s32b STORE_ID;
+typedef s32b QUEST_ID;
 
 typedef byte TVAL;
 typedef byte SVAL;

@@ -473,7 +473,7 @@ extern cptr ANGBAND_DIR_USER;
 extern cptr ANGBAND_DIR_XTRA;
 extern wilderness_type **wilderness;
 extern building_type building[MAX_BLDG];
-extern u16b max_quests;
+extern QUEST_ID max_quests;
 extern SPECIES_ID max_species_idx;
 extern u16b max_creature_ego_idx;
 extern STORE_ID max_store_idx;
