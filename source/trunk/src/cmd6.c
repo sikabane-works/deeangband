@@ -1995,12 +1995,12 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 		{
 			int pet_ctr, i;
-			u16b *who;
+			CREATURE_ID *who;
 			int max_pet = 0;
 			u16b dummy_why;
 
 			/* Allocate the "who" array */
-			C_MAKE(who, max_creature_idx, u16b);
+			C_MAKE(who, max_creature_idx, CREATURE_ID);
 
 			/* Process the creatures (backwards) */
 			for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
@@ -2019,7 +2019,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			}
 
 			/* Free the "who" array */
-			C_KILL(who, max_creature_idx, u16b);
+			C_KILL(who, max_creature_idx, CREATURE_ID);
 		}
 		object_ptr->timeout = 100+randint1(100);
 		return;
@@ -2430,7 +2430,8 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 		if(request_list || use_menu)
 		{
 			byte y, x = 0;
-			int ctr, chance;
+			char ctr;
+			int chance;
 			int k_idx;
 			char dummy[80];
 			int x1, y1, level;
@@ -2780,8 +2781,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	}
 	else
 	{
-		int dir = 0;
-
+		DIRECTION dir = 0;
 		if(tval == TV_ROD)
 		{
 			if((sval >= SV_ROD_MIN_DIRECTION) && (sval != SV_ROD_HAVOC) && (sval != SV_ROD_AGGRAVATE) && (sval != SV_ROD_PESTICIDE))
