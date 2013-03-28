@@ -86,6 +86,7 @@ typedef s32b POWER;
 
 typedef s32b SPEED;
 typedef s32b ENERGY;
+typedef s32b SAVING;
 
 typedef s32b GAME_TIME;
 typedef s32b GAME_TURN;
@@ -180,15 +181,15 @@ struct object_kind
 
 	STAT to_hit;			/* Bonus to hit */
 	STAT to_damage;			/* Bonus to damage */
-	STAT to_ac;				/* Bonus to armor */
-	STAT to_ev;				/* Bonus to evasion */
-	STAT to_vo;				/* Bonus to evasion */
+	SAVING to_ac;				/* Bonus to armor */
+	SAVING to_ev;				/* Bonus to evasion */
+	SAVING to_vo;				/* Bonus to evasion */
 	s16b bow_mul;			/* Bonus to bow_mul */
 
 	s16b ap_rate;		// AP rate
-	STAT ac;			// Base AC
-	STAT ev;			// Base EV
-	STAT vo;			// Base VO
+	SAVING ac;			// Base AC
+	SAVING ev;			// Base EV
+	SAVING vo;			// Base VO
 
 	byte dd, ds;		/* Damage dice/sides */
 
@@ -251,12 +252,12 @@ struct artifact_type
 
 	STAT to_hit;
 	STAT to_damage;
-	STAT ac;
-	STAT ev;
-	STAT vo;
-	s16b to_ac;
-	s16b to_ev;
-	s16b to_vo;
+	SAVING ac;
+	SAVING ev;
+	SAVING vo;
+	SAVING to_ac;
+	SAVING to_ev;
+	SAVING to_vo;
 	s16b bow_mul;			// Bonus to bow_mul
 
 	s16b size_lower;		/* Regular body size */
@@ -308,10 +309,11 @@ struct ego_item_type
 	FLOOR_LEV level;	/* Minimum level */
 	byte rarity;		/* Object rarity */
 
-	byte max_to_hit;		// Maximum to-hit bonus
-	byte max_to_damage;		// Maximum to-dam bonus
-	byte max_to_ac;			// Maximum to-ac bonus
-	byte max_to_ev;			// Maximum to-ac bonus
+	SAVING max_to_hit;		// Maximum to-hit bonus
+	SAVING max_to_damage;		// Maximum to-dam bonus
+	SAVING max_to_ac;			// Maximum to-ac bonus
+	SAVING max_to_ev;			// Maximum to-ac bonus
+	SAVING max_to_vo;			// Maximum to-ac bonus
 	s16b bow_mul;			// Bonus to bow_mul
 
 	byte max_pval;		// Maximum pval
@@ -439,9 +441,9 @@ struct species_type
 
 	CREATURE_LEV dr; /* Divine Rank */
 
-	STAT ac;				// Armour Class
-	STAT ev;				// Evasion
-	STAT vo;				// Vol
+	SAVING ac;				// Armour Class
+	SAVING ev;				// Evasion
+	SAVING vo;				// Vol
 
 	s16b sleep;				/* Inactive counter (base) */
 	byte alert_range;				/* Area affect radius (1-100) */
@@ -685,9 +687,9 @@ struct object_type
 	STAT to_damage;		// Plusses to damage
 	STAT to_hit_essence;
 	STAT to_damage_essence;
-	STAT to_ac;			// Plusses to AC
-	STAT to_ev;			// Plusses to EV
-	STAT to_vo;			// Plusses to VO
+	SAVING to_ac;			// Plusses to AC
+	SAVING to_ev;			// Plusses to EV
+	SAVING to_vo;			// Plusses to VO
 	s16b bow_mul;		// Multiply of Bow Damage
 	s16b bow_energy;	// Energy Cost of Bow
 
@@ -695,9 +697,9 @@ struct object_type
 	s16b size_lower;    /* Size Lower */
 	s16b to_size;		/* Plusses to size */
 
-	STAT ac;			// Normal AC
-	STAT ev;			// Normal EV
-	STAT vo;			// Normal VO
+	SAVING ac;			// Normal AC
+	SAVING ev;			// Normal EV
+	SAVING vo;			// Normal VO
 
 	byte dd, ds;		/* Damage dice/sides */
 
@@ -993,20 +995,20 @@ struct race_type
 	s32b balance;
 
 	byte infra;			/* Infra-vision	range */
-	STAT ac_base;
-	STAT ac_plus;
-	STAT ev_base;
-	STAT ev_plus;
-	STAT vo_base;
-	STAT vo_plus;
+	SAVING ac_base;
+	SAVING ac_plus;
+	SAVING ev_base;
+	SAVING ev_plus;
+	SAVING vo_base;
+	SAVING vo_plus;
 
 	byte sub_infra;			/* Infra-vision	range */
-	STAT ac_s_base;
-	STAT ac_s_plus;
-	STAT ev_s_base;
-	STAT ev_s_plus;
-	STAT vo_s_base;
-	STAT vo_s_plus;
+	SAVING ac_s_base;
+	SAVING ac_s_plus;
+	SAVING ev_s_base;
+	SAVING ev_s_plus;
+	SAVING vo_s_base;
+	SAVING vo_s_plus;
 
 	u32b choice;        /* Legal class choices */
 
@@ -1408,18 +1410,18 @@ struct creature_type
 	STAT dis_to_hit_b;	// Known bonus to hit (bow) 
 	STAT dis_to_damage[MAX_WEAPONS];	// Known bonus to dam (wield) 
 
-	STAT ac;			// Base AC
-	STAT ev;			// Base EV
-	STAT vo;			// Base VO
-	STAT to_ac;			// Bonus to AC
-	STAT to_ev;			// Bonus to EV
-	STAT to_vo;			// Bonus to VO
-	STAT dis_ac;		// Known base AC
-	STAT dis_ev;		// Known base EV
-	STAT dis_vo;		// Known base VO
-	STAT dis_to_ac;		// Known bonus to AC
-	STAT dis_to_ev;		// Known bonus to EV
-	STAT dis_to_vo;		// Known bonus to VO
+	SAVING ac;			// Base AC
+	SAVING ev;			// Base EV
+	SAVING vo;			// Base VO
+	SAVING to_ac;			// Bonus to AC
+	SAVING to_ev;			// Bonus to EV
+	SAVING to_vo;			// Bonus to VO
+	SAVING dis_ac;		// Known base AC
+	SAVING dis_ev;		// Known base EV
+	SAVING dis_vo;		// Known base VO
+	SAVING dis_to_ac;		// Known bonus to AC
+	SAVING dis_to_ev;		// Known bonus to EV
+	SAVING dis_to_vo;		// Known bonus to VO
 
 	s16b to_m_chance;	// Minusses to cast chance 
 
@@ -1516,9 +1518,9 @@ struct trait_type
 	u32b reverse_alias[MAX_TRAITS_FLAG];
 	byte effect_type;
 	s16b adj[STAT_MAX];
-	STAT ac;
-	STAT ev;
-	STAT vo;
+	SAVING ac;
+	SAVING ev;
+	SAVING vo;
 	s16b dis;		/* Skill: Disarming */
 	s16b dev;		/* Skill: Magic Devices */
 	s16b stl;		/* Skill: Stealth factor */
