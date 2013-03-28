@@ -44,6 +44,7 @@
  * and increase the complexity of the code.
  */
 
+typedef u32b STRING_OFFSET;
 typedef s32b FLAGS_32;
 
 typedef s32b CREATURE_ID;
@@ -130,9 +131,9 @@ typedef struct feature_type feature_type;
 
 struct feature_type
 {
-	u32b name;                /* Name (offset) */
-	u32b text;                /* Text (offset) */
-	s16b tag;                 /* Tag (offset) */
+	STRING_OFFSET name;                /* Name (offset) */
+	STRING_OFFSET text;                /* Text (offset) */
+	STRING_OFFSET tag;                 /* Tag (offset) */
 
 	s16b mimic;               /* Feature to mimic */
 
@@ -164,9 +165,9 @@ typedef struct object_kind object_kind;
 
 struct object_kind
 {
-	u32b name;			/* Name (offset) */
-	u32b text;			/* Text (offset) */
-	u32b flavospecies_name;		/* Flavor name (offset) */
+	STRING_OFFSET name;			/* Name (offset) */
+	STRING_OFFSET text;			/* Text (offset) */
+	STRING_OFFSET flavor_bane;		/* Flavor name (offset) */
 
 	TVAL tval;			/* Object type */
 	SVAL sval;			/* Object sub type */
@@ -193,7 +194,7 @@ struct object_kind
 
 	byte dd, ds;		/* Damage dice/sides */
 
-	s16b weight;		/* Weight */
+	WEIGHT weight;		/* Weight */
 
 	s32b cost;			/* Object "base cost" */
 
@@ -240,8 +241,8 @@ typedef struct artifact_type artifact_type;
 
 struct artifact_type
 {
-	u32b name;			/* Name (offset) */
-	u32b text;			/* Text (offset) */
+	STRING_OFFSET name;			/* Name (offset) */
+	STRING_OFFSET text;			/* Text (offset) */
 
 	TVAL tval;			/* Artifact type */
 	SVAL sval;			/* Artifact sub type */
@@ -299,8 +300,8 @@ typedef struct ego_item_type ego_item_type;
 
 struct ego_item_type
 {
-	u32b name;			/* Name (offset) */
-	u32b text;			/* Text (offset) */
+	STRING_OFFSET name;			/* Name (offset) */
+	STRING_OFFSET text;			/* Text (offset) */
 
 	s16b ap_rate;		// AP rate
 	byte slot;			/* Standard slot value */
@@ -387,13 +388,13 @@ typedef struct species_type species_type;
 
 struct species_type
 {
-	u32b name;				/* Name (offset) */
+	STRING_OFFSET name;				/* Name (offset) */
 #ifdef JP
-	u32b E_name;                    /* English Name (offset) */
+	STRING_OFFSET E_name;                    /* English Name (offset) */
 #endif
-	u32b text;				/* Text (offset) */
+	STRING_OFFSET text;				/* Text (offset) */
 #ifdef JP
-	u32b E_text;                    /* English Text (offset) */
+	STRING_OFFSET E_text;                    /* English Text (offset) */
 #endif
 
 	SPECIES_ID species_idx;			    /* Species index */
@@ -529,9 +530,9 @@ typedef struct creature_ego creature_ego;
 
 struct creature_ego
 {
-	u32b name; /* Name (offset) */
+	STRING_OFFSET name; /* Name (offset) */
 #ifdef JP
-	u32b E_name; /* English Name (offset) */
+	STRING_OFFSET E_name; /* English Name (offset) */
 #endif
 	STAT stat[STAT_MAX]; /* Current modified stats */
 };
@@ -545,8 +546,8 @@ typedef struct vault_type vault_type;
 
 struct vault_type
 {
-	u32b name;			/* Name (offset) */
-	u32b text;			/* Text (offset) */
+	STRING_OFFSET name;			/* Name (offset) */
+	STRING_OFFSET text;			/* Text (offset) */
 
 	byte typ;			/* Vault type */
 
@@ -673,9 +674,9 @@ struct object_type
 	byte number;		/* Number of items */
 	s32b volume;        /* Volume of items */
 
-	s32b weight;		/* Item weight */
+	WEIGHT weight;		/* Item weight */
 
-	byte name1;			/* Artifact type, if any */
+	ARTIFACT_ID name1;			/* Artifact type, if any */
 	u16b name2;			/* Ego-Item type, if any */
 
 	s16b fuel;
@@ -712,7 +713,7 @@ struct object_type
 	byte marked;		/* Object is marked */
 
 	u16b inscription;	/* Inscription index */
-	u16b art_name;      /* Artifact name (random artifacts) */
+	ARTIFACT_ID art_name;      /* Artifact name (random artifacts) */
 
 	byte feeling;          /* Game generated inscription number (eg, pseudo-id) */
 
@@ -816,8 +817,8 @@ typedef struct store_type store_type;
 
 struct store_type
 {
-	u32b name;
-	u32b E_name;
+	STRING_OFFSET name;
+	STRING_OFFSET E_name;
 
 	byte type;				/* Store type */
 
@@ -851,8 +852,8 @@ typedef struct store_pre_type store_pre_type;
 
 struct store_pre_type
 {
-	u32b name;
-	u32b E_name;
+	STRING_OFFSET name;
+	STRING_OFFSET E_name;
 
 	s16b owner_id;
 	u16b size;
@@ -929,14 +930,14 @@ struct race_type
 	cptr E_title;		/* English */
 #endif
 
-	u32b name;			/* Name (offset) */
+	STRING_OFFSET name;			/* Name (offset) */
 #ifdef JP
-	u32b E_name;        /* English (offset) */
+	STRING_OFFSET E_name;        /* English (offset) */
 #endif
 
-	u32b text;			/* text (offset) */
+	STRING_OFFSET text;			/* text (offset) */
 #ifdef JP
-	u32b E_text;        /* English (offset) */
+	STRING_OFFSET E_text;        /* English (offset) */
 #endif
 
 
@@ -1046,14 +1047,14 @@ struct class_type
 	cptr E_title;		/* âpåÍêEã∆ */
 
 #endif
-	u32b name;			/* Name (offset) */
+	STRING_OFFSET name;			/* Name (offset) */
 #ifdef JP
-	u32b E_name;        /* English (offset) */
+	STRING_OFFSET E_name;        /* English (offset) */
 #endif
 
-	u32b text;			/* text (offset) */
+	STRING_OFFSET text;			/* text (offset) */
 #ifdef JP
-	u32b E_text;        /* English (offset) */
+	STRING_OFFSET E_text;        /* English (offset) */
 #endif
 
 	byte type;
@@ -1123,13 +1124,13 @@ typedef struct chara_type chara_type;
 struct chara_type
 {
 	cptr title;			/* Type of chara */
-	u32b name;			/* Name (offset) */
-	u32b text;			/* text (offset) */
+	STRING_OFFSET name;			/* Name (offset) */
+	STRING_OFFSET text;			/* text (offset) */
 
 #ifdef JP
 	cptr E_title;		/* English */
-	u32b E_name;        /* English (offset) */
-	u32b E_text;        /* English (offset) */
+	STRING_OFFSET E_name;        /* English (offset) */
+	STRING_OFFSET E_text;        /* English (offset) */
 #endif
 
 	s16b rarity;		/* chara rarity (Over 100 was no selected on auto select) */
@@ -1468,7 +1469,7 @@ struct creature_type
 	COODINATES target_y; // Can attack !los player 
 	COODINATES target_x; // Can attack !los player 
 
-	u16b nickname;		// Creature's Nickname 
+	STRING_OFFSET nickname;		// Creature's Nickname 
 
 	s16b parent_m_idx;
 
@@ -1757,14 +1758,14 @@ feat_prob;
 /* A structure for the != dungeon types */
 typedef struct dungeon_type dungeon_type;
 struct dungeon_type {
-	u32b name;		/* Name */
-	u32b text;		/* Description */
+	STRING_OFFSET name;		/* Name */
+	STRING_OFFSET text;		/* Description */
 
-	u32b E_name;		/* Name */
-	u32b E_text;		/* Description */
+	STRING_OFFSET E_name;		/* Name */
+	STRING_OFFSET E_text;		/* Description */
 
-	byte dy;
-	byte dx;
+	COODINATES dy;
+	COODINATES dx;
 
 	feat_prob floor[DUNGEON_FEAT_PROB_NUM]; /* Floor probability */
 	feat_prob fill[DUNGEON_FEAT_PROB_NUM];  /* Cave wall probability */
