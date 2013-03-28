@@ -63,7 +63,11 @@ typedef byte SVAL;
 typedef byte COLOR_ID;
 typedef byte SYMBOL;
 typedef byte CREATURE_LEV;
+
 typedef byte FLOOR_LEV;
+#define READ_FLOOR_LEV(VALUE) rd_byte((FLOOR_LEV *)VALUE);
+#define WRITE_FLOOR_LEV(VALUE) wr_byte((FLOOR_LEV)VALUE);
+
 typedef s32b COODINATES;
 #define READ_COODINATES(VALUE) rd_s32b((COODINATES *)VALUE);
 #define WRITE_COODINATES(VALUE) wr_s32b((COODINATES)VALUE);
@@ -71,7 +75,6 @@ typedef s32b COODINATES;
 typedef s32b STAT;
 #define READ_STAT(VALUE) rd_s32b((s32b *)VALUE);
 #define WRITE_STAT(VALUE) wr_s32b((s32b)VALUE);
-
 
 typedef s32b TEXT_COODI;
 

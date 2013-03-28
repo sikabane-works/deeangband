@@ -941,7 +941,7 @@ static void rd_extra(void)
 
 	for(i = 0; i < max; i++)
 	{
-		rd_s16b(&max_dlv[i]);
+		READ_FLOOR_LEV(&max_dlv[i]);
 		if(max_dlv[i] > dungeon_info[i].maxdepth) max_dlv[i] = dungeon_info[i].maxdepth;
 	}
 
@@ -1050,9 +1050,9 @@ static errr rd_floor(floor_type *floor_ptr)
 
 	/* Dungeon floor specific info follows */
 
-	rd_s16b(&floor_ptr->depth);
-	rd_s16b(&floor_ptr->enemy_level);
-	rd_s16b(&floor_ptr->object_level);
+	READ_FLOOR_LEV(&floor_ptr->depth);
+	READ_FLOOR_LEV(&floor_ptr->enemy_level);
+	READ_FLOOR_LEV(&floor_ptr->object_level);
 
 	rd_byte(&floor_ptr->dun_type);
 	rd_s32b(&floor_ptr->world_x);
@@ -1368,7 +1368,7 @@ static errr rd_savefile_new_aux(void)
 			if(i < max_quests)
 			{
 				rd_s16b(&quest[i].status);
-				rd_s16b(&quest[i].level);
+				READ_FLOOR_LEV(&quest[i].level);
 				rd_byte(&quest[i].complev);
 
 				/* Load quest status if quest is running */

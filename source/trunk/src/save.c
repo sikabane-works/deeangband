@@ -550,7 +550,7 @@ static void wr_extra(void)
 	/* Max Player and Dungeon Levels */
 	tmp8u = (byte)max_dungeon_idx;
 	wr_byte(tmp8u);
-	for (i = 0; i < tmp8u; i++) wr_s16b(max_dlv[i]);
+	for (i = 0; i < tmp8u; i++) WRITE_FLOOR_LEV(max_dlv[i]);
 
 	/* Write the "object seeds" */
 	wr_u32b(seed_flavor);
@@ -639,9 +639,9 @@ static void wr_floor(floor_type *floor_ptr)
 	/*** Basic info ***/
 
 	// Dungeon floor specific info follows
-	wr_s16b(floor_ptr->depth);
-	wr_s16b(floor_ptr->enemy_level);
-	wr_s16b(floor_ptr->object_level);
+	WRITE_FLOOR_LEV(floor_ptr->depth);
+	WRITE_FLOOR_LEV(floor_ptr->enemy_level);
+	WRITE_FLOOR_LEV(floor_ptr->object_level);
 
 	wr_byte(floor_ptr->dun_type);
 	wr_s32b(floor_ptr->world_x);
@@ -970,7 +970,7 @@ static bool wr_savefile_new(void)
 
 		/* And the dungeon level too */
 		/* (prevents problems with multi-level quests) */
-		wr_s16b(quest[i].level);
+		WRITE_FLOOR_LEV(quest[i].level);
 
 		wr_byte(quest[i].complev);
 
