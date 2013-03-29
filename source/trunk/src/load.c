@@ -889,8 +889,8 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->learned_spells);
 	rd_s16b(&creature_ptr->add_spells);
 
-	rd_u16b(&creature_ptr->start_wx);
-	rd_u16b(&creature_ptr->start_wy);
+	READ_COODINATES(&creature_ptr->start_wx);
+	READ_COODINATES(&creature_ptr->start_wy);
 
 	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) rd_byte(&creature_ptr->spell_order[i]);
 
@@ -900,7 +900,7 @@ static void rd_creature(creature_type *creature_ptr)
 	set_experience(creature_ptr);
 	set_creature_bonuses(creature_ptr, FALSE);
 
-	rd_s16b(&creature_ptr->pet_follow_distance);
+	READ_COODINATES(&creature_ptr->pet_follow_distance);
 	rd_s16b(&creature_ptr->pet_extra_flags);
 
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&creature_ptr->mutative_trait[i]);

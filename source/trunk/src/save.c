@@ -499,8 +499,8 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->learned_spells);
 	wr_s16b(creature_ptr->add_spells);
 
-	wr_s16b(creature_ptr->start_wx);
-	wr_s16b(creature_ptr->start_wy);
+	WRITE_COODINATES(creature_ptr->start_wx);
+	WRITE_COODINATES(creature_ptr->start_wy);
 
 	/* Dump the ordered spells */
 	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++)
@@ -511,7 +511,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_u16b(creature_ptr->total_winner);
 
 	// Write the pet command settings
-	wr_s16b(creature_ptr->pet_follow_distance);
+	WRITE_COODINATES(creature_ptr->pet_follow_distance);
 	wr_s16b(creature_ptr->pet_extra_flags);
 
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) wr_u32b(creature_ptr->mutative_trait[i]);
@@ -829,8 +829,8 @@ static void wr_floor(floor_type *floor_ptr)
 			{
 				wr_s16b(x);
 				wr_s16b(y);
-				wr_s16b(floor_ptr->cave[y][x].cx);
-				wr_s16b(floor_ptr->cave[y][x].cy);
+				WRITE_COODINATES(floor_ptr->cave[y][x].cx);
+				WRITE_COODINATES(floor_ptr->cave[y][x].cy);
 			}
 		}
 	}
