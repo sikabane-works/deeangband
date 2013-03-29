@@ -81,6 +81,8 @@ typedef s32b STAT;
 #define READ_STAT(VALUE) rd_s32b((s32b *)VALUE);
 #define WRITE_STAT(VALUE) wr_s32b((s32b)VALUE);
 
+typedef s32b TRYING;
+
 typedef s32b TEXT_COODI;
 
 typedef byte DIRECTION;
@@ -1438,15 +1440,15 @@ struct creature_type
 
 	s16b see_infra;		// Infravision range 
 
-	s16b skill_dis;		// Skill: Disarming 
-	s16b skill_dev;		// Skill: Magic Devices 
-	s16b skill_stl;		// Skill: Stealth factor 
-	s16b skill_srh;		// Skill: Searching ability 
-	s16b skill_fos;		// Skill: Searching frequency 
-	s16b skill_thn;		// Skill: To hit (normal) 
-	s16b skill_thb;		// Skill: To hit (shooting) 
-	s16b skill_tht;		// Skill: To hit (throwing) 
-	s16b skill_dig;		// Skill: Digging 
+	TRYING skill_dis;		// Skill: Disarming 
+	TRYING skill_dev;		// Skill: Magic Devices 
+	TRYING skill_stl;		// Skill: Stealth factor 
+	TRYING skill_srh;		// Skill: Searching ability 
+	TRYING skill_fos;		// Skill: Searching frequency 
+	TRYING skill_thn;		// Skill: To hit (normal) 
+	TRYING skill_thb;		// Skill: To hit (shooting) 
+	TRYING skill_tht;		// Skill: To hit (throwing) 
+	TRYING skill_dig;		// Skill: Digging 
 
 	s16b num_fire;		// Number of shots 
 
