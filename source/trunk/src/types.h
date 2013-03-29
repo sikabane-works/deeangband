@@ -46,6 +46,8 @@
 
 typedef u32b STRING_OFFSET;
 typedef s32b FLAGS_32;
+#define READ_FLAGS_32(VALUE) rd_s32b((FLAGS_32 *)VALUE);
+#define WRITE_FLAGS_32(VALUE) wr_s32b((FLAGS_32)VALUE);
 
 typedef s32b CREATURE_ID;
 typedef s32b OBJECT_ID;
@@ -78,8 +80,8 @@ typedef s32b COODINATES;
 #define WRITE_COODINATES(VALUE) wr_s32b((COODINATES)VALUE);
 
 typedef s32b STAT;
-#define READ_STAT(VALUE) rd_s32b((s32b *)VALUE);
-#define WRITE_STAT(VALUE) wr_s32b((s32b)VALUE);
+#define READ_STAT(VALUE) rd_s32b((STAT *)VALUE);
+#define WRITE_STAT(VALUE) wr_s32b((STAT)VALUE);
 
 typedef s32b TRYING;
 
