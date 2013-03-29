@@ -1363,7 +1363,8 @@ void battle_creatures(void)
 		tekitou = FALSE;
 		for(i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
-			int species_idx, j;
+			COODINATES species_idx;
+			int j;
 			get_species_num_prep(NULL, vault_aux_battle, NULL, NULL, 0);
 
 			while(TRUE)

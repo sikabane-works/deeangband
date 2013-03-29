@@ -1700,7 +1700,7 @@ void prt_path(creature_type *creature_ptr, COODINATES range, int y, int x)
 	int i;
 	int path_n;
 	COODINATES path_g[512];
-	int default_color = TERM_SLATE;
+	COLOR_ID default_color = TERM_SLATE;
 
 	if(range <= 0) return;
 

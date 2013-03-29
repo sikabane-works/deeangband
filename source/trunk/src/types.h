@@ -610,10 +610,10 @@ struct cave_type
 	CREATURE_ID creature_idx; // Creature in this grid
 	s16b special;      // Special cave info
 	s16b mimic;        // Feature to mimic
-	byte cost;         // Hack -- cost of flowing
-	byte dist;         // Hack -- distance from player
+	POWER cost;         // Hack -- cost of flowing
+	COODINATES dist;         // Hack -- distance from player
 	byte when;         // Hack -- when cost was computed
-	s16b owner_idx;    // Owner of trap, mirror and so on.
+	CREATURE_ID owner_idx;    // Owner of trap, mirror and so on.
 	char message[CAVE_MESSAGE_LENGTH];
 };
 

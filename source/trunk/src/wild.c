@@ -106,8 +106,8 @@ static void perturb_point_end(floor_type *floor_ptr, COODINATES x1, COODINATES x
 static void plasma_recursive(floor_type *floor_ptr, COODINATES x1, COODINATES y1, COODINATES x2, COODINATES y2, FLOOR_LEV depth_max, FLOOR_LEV rough)
 {
 	// Find middle
-	int xmid = (x2 - x1) / 2 + x1;
-	int ymid = (y2 - y1) / 2 + y1;
+	COODINATES xmid = (x2 - x1) / 2 + x1;
+	COODINATES ymid = (y2 - y1) / 2 + y1;
 
 	// Are we done?
 	if(x1 + 1 == x2) return;
