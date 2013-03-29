@@ -291,7 +291,7 @@ static void rd_object(object_type *object_ptr)
 	// Object flags
 
 	// Creature holding object
-	rd_s16b(&object_ptr->held_m_idx);
+	READ_CREATURE_ID(&object_ptr->held_m_idx);
 
 	rd_s16b(&object_ptr->fuel);
 
@@ -705,7 +705,7 @@ static void rd_creature(creature_type *creature_ptr)
 	u16b tmp16u;
 	s16b tmp16s;
 
-	rd_u32b(&creature_ptr->creature_idx);
+	READ_CREATURE_ID(&creature_ptr->creature_idx);
 	rd_byte(&creature_ptr->player);
 
 	rd_byte(&creature_ptr->d_attr);
@@ -873,8 +873,8 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s32b(&creature_ptr->feeling_turn);
 	rd_s16b(&creature_ptr->alert_range);
 
-	rd_s16b(&creature_ptr->riding);
-	rd_s16b(&creature_ptr->ridden);
+	READ_CREATURE_ID(&creature_ptr->riding);
+	READ_CREATURE_ID(&creature_ptr->ridden);
 	rd_s16b(&creature_ptr->floor_id);
 
 	rd_s32b(&creature_ptr->visit);

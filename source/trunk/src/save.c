@@ -128,12 +128,9 @@ static void wr_object(object_type *object_ptr)
 	wr_byte(object_ptr->ident);
 	wr_byte(object_ptr->marked);
 
-	wr_s16b(object_ptr->held_m_idx);
-
+	WRITE_CREATURE_ID(object_ptr->held_m_idx);
 	wr_s16b(object_ptr->fuel);
-
 	wr_byte(object_ptr->forged_type);
-
 	wr_byte(object_ptr->feeling);
 
 	//wr_string(quark_str(object_ptr->inscription));
@@ -483,8 +480,8 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s32b(creature_ptr->feeling_turn);
 	wr_s16b(creature_ptr->alert_range);
 
-	wr_s16b(creature_ptr->riding);
-	wr_s16b(creature_ptr->ridden);
+	WRITE_CREATURE_ID(creature_ptr->riding);
+	WRITE_CREATURE_ID(creature_ptr->ridden);
 
 	wr_s16b(creature_ptr->floor_id);
 	wr_s32b(creature_ptr->visit);
@@ -936,7 +933,7 @@ static bool wr_savefile_new(void)
 
 	/*** Dump the creatures ***/
 	wr_u16b(unique_max); // Unique creatures
-	wr_u16b(creature_max); // Total creatures
+	WRITE_CREATURE_ID(creature_max); // Total creatures
 	for (i = 1; i < creature_max; i++) wr_creature(&creature_list[i]); // Dump the creatures
 
 	// Dump the object memory
@@ -1046,7 +1043,7 @@ static bool wr_savefile_new(void)
 
 	/*** Dump the creatures ***/
 
-	wr_u16b(creature_max);	// Total creatures
+	WRITE_CREATURE_ID(creature_max);	// Total creatures
 	for (i = 1; i < creature_max; i++)	// Dump the creatures
 	{
 		creature_type *m_ptr = &creature_list[i];
