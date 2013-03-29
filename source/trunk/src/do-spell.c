@@ -196,7 +196,7 @@ static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, COOD
  * while keeping the results quite random.  It also allows some potent
  * effects only at high level.
  */
-static void cast_wonder(creature_type *caster_ptr, DIRECTION dir)
+static void cast_wonder(creature_type *caster_ptr)
 {
 	//TODO target_select
 	COODINATES y = 0, x = 0;
@@ -245,7 +245,7 @@ static void cast_wonder(creature_type *caster_ptr, DIRECTION dir)
 }
 
 
-static void cast_invoke_spirits(creature_type *caster_ptr, int dir)
+static void cast_invoke_spirits(creature_type *caster_ptr)
 {
 	//TODO: target
 	COODINATES y = 0, x = 0;
@@ -2897,10 +2897,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-
 				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				cast_wonder(caster_ptr, dir);
+				cast_wonder(caster_ptr);
 			}
 		}
 		break;
@@ -3743,7 +3741,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				cast_invoke_spirits(caster_ptr, dir);
+				cast_invoke_spirits(caster_ptr);
 			}
 		}
 		break;

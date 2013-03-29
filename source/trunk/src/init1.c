@@ -6265,15 +6265,15 @@ typedef struct dungeon_grid dungeon_grid;
 
 struct dungeon_grid
 {
-	int feature;		/* Terrain feature */
-	int creature;		/* Creature */
-	int object;			/* Object */
-	int ego;			/* Ego-Item */
-	int artifact;		/* Artifact */
+	FEATURE_ID feature;	/* Terrain feature */
+	SPECIES_ID creature; /* Creature */
+	OBJECT_KIND_ID object; /* Object */
+	OBJECT_EGO_ID ego; /* Ego-Item */
+	ARTIFACT_ID artifact; /* Artifact */
 	FEATURE_ID trap;
-	int cave_info;		/* Flags for CAVE_MARK, CAVE_GLOW, CAVE_ICKY, CAVE_ROOM */
-	int special;		/* Reserved for special terrain info */
-	int random;			/* Number of the random effect */
+	int cave_info; /* Flags for CAVE_MARK, CAVE_GLOW, CAVE_ICKY, CAVE_ROOM */
+	int special; /* Reserved for special terrain info */
+	int random; /* Number of the random effect */
 };
 
 static dungeon_grid letter[255];
