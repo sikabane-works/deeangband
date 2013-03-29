@@ -58,6 +58,8 @@ typedef s32b SPECIES_ID;
 typedef s16b FEATURE_ID;
 typedef s16b TOWN_ID;
 typedef s16b EFFECT_ID;
+typedef s32b OBJECT_KIND_ID;
+typedef s32b OBJECT_EGO_ID;
 typedef s32b ARTIFACT_ID;
 typedef s32b TRAIT_ID;
 typedef s32b STORE_ID;
@@ -99,6 +101,7 @@ typedef s32b GAME_TURN;
 
 typedef s32b HEIGHT;
 typedef s32b WEIGHT;
+typedef s32b BODY_SIZE;
 
 typedef s32b POPULATION;
 typedef s32b SKILL_EXP;
@@ -229,8 +232,8 @@ struct object_kind
 	bool aware;			/* The player is "aware" of the item's effects */
 	bool tried;			/* The player has "tried" one of the items */
 
-	s16b min_size;      // size limit
-	s16b max_size;      // size limit
+	BODY_SIZE min_size;      // size limit
+	BODY_SIZE max_size;      // size limit
 	byte slot;          // equipment slot
 };
 
@@ -268,8 +271,8 @@ struct artifact_type
 	SAVING to_vo;
 	s16b bow_mul;			// Bonus to bow_mul
 
-	s16b size_lower;		/* Regular body size */
-	s16b size_upper;		/* Regular body size */
+	BODY_SIZE size_lower;		/* Regular body size */
+	BODY_SIZE size_upper;		/* Regular body size */
 
 	byte dd, ds;		/* Damage when hits */
 
@@ -700,9 +703,9 @@ struct object_type
 	s16b bow_mul;		// Multiply of Bow Damage
 	s16b bow_energy;	// Energy Cost of Bow
 
-	s16b size_upper;	/* Size Upper */
-	s16b size_lower;    /* Size Lower */
-	s16b to_size;		/* Plusses to size */
+	BODY_SIZE size_upper;	/* Size Upper */
+	BODY_SIZE size_lower;    /* Size Lower */
+	BODY_SIZE to_size;		/* Plusses to size */
 
 	SAVING ac;			// Normal AC
 	SAVING ev;			// Normal EV
@@ -1230,7 +1233,7 @@ struct creature_type
 	s32b wt;			// Weight 
 	s16b sc;			// Social Class 
 	CREATURE_LEV dr; // Divine Rank 
-	s16b size;			// Body Size 
+	BODY_SIZE size;			// Body Size 
 	s16b regenerate_mod;
 
 	s16b inven_cnt;			// Number of items in inventory 
