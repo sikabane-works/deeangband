@@ -818,10 +818,11 @@ void do_cmd_look(creature_type *creature_ptr)
 // Allow the player to examine other sectors on the map
 void do_cmd_locate(creature_type *creature_ptr)
 {
-	int		dir, y1, x1, y2, x2;
-	char	tmp_val[80];
-	char	out_val[160];
-	int wid, hgt;
+	DIRECTION dir;
+	COODINATES y1, x1, y2, x2;
+	char tmp_val[80];
+	char out_val[160];
+	TEXT_COODI wid, hgt;
 
 	get_screen_size(&wid, &hgt);
 

@@ -811,8 +811,8 @@ struct quest_type
 	POPULATION cur_num;           /* Number killed */
 	POPULATION max_num;           /* Number required */
 
-	s16b k_idx;             /* object index */
-	s16b num_mon;           /* number of creatures on level */
+	OBJECT_KIND_ID k_idx;             /* object index */
+	POPULATION num_mon;           /* number of creatures on level */
 
 	byte flags;             /* quest flags */
 	DUNGEON_ID dungeon;           /* quest dungeon */

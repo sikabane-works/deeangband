@@ -4087,8 +4087,6 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 				spells[num++] = spell;
 			}
 		}
-
-		/* Print spells */
 		print_spells(creature_ptr, 0, spells, num, 2, 0, use_realm);
 	}
 }
