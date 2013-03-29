@@ -4981,7 +4981,7 @@ void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 	prepare_redraw(PR_MAP);
 }
 
-void connect_cave_to(cave_type *stair_ptr, int floor_id, int y, int x)
+void connect_cave_to(cave_type *stair_ptr, FLOOR_ID floor_id, COODINATES y, COODINATES x)
 {
 	stair_ptr->special = floor_id;
 	stair_ptr->cx = x;

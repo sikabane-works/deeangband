@@ -658,10 +658,10 @@ extern bool projectable(floor_type *floor_ptr, COODINATES range, COODINATES y1, 
 extern void scatter(floor_type *floor_ptr, COODINATES *yp, COODINATES *xp, COODINATES y, COODINATES x, int d, int mode);
 extern void health_track(int m_idx);
 extern void species_type_track(SPECIES_ID species_idx);
-extern void object_kind_track(s16b k_idx);
+extern void object_kind_track(OBJECT_ID k_idx);
 extern void disturb(creature_type *player_ptr, int stop_search, int flush_output);
 extern void glow_deep_lava_and_bldg(floor_type *floor_ptr);
-extern void connect_cave_to(cave_type *stair_ptr, int floor_id, int y, int x);
+extern void connect_cave_to(cave_type *stair_ptr, FLOOR_ID floor_id, COODINATES y, COODINATES x);
 
 // cmd1.c
 extern bool test_hit_fire(creature_type *attacker_ptr, int chance, int ev, int vis);

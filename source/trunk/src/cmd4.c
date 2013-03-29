@@ -6467,7 +6467,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 	browser_rows = hgt - 8;
 
 	/* Allocate the "object_idx" array */
-	C_MAKE(object_idx, max_object_kind_idx, int);
+	C_MAKE(object_idx, max_object_kind_idx, OBJECT_ID);
 
 	max = 0;
 	grp_cnt = 0;
@@ -6700,7 +6700,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 	}
 
 	/* Free the "object_idx" array */
-	C_KILL(object_idx, max_object_kind_idx, int);
+	C_KILL(object_idx, max_object_kind_idx, OBJECT_ID);
 }
 
 
