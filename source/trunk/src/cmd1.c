@@ -37,7 +37,7 @@ bool test_hit_fire(creature_type *attacker_ptr, int chance, int ev, int vis)
  * Critical hits (from objects thrown by player)
  * Factor in item weight, total plusses, and player level.
  */
-POWER critical_shot(creature_type *creature_ptr, int weight, int plus, POWER dam)
+POWER critical_shot(creature_type *creature_ptr, WEIGHT weight, int plus, POWER dam)
 {
 	int i, k;
 
@@ -1388,7 +1388,7 @@ static void plus_move_cost(creature_type *creature_ptr, int x, int y)
 // Note that moving will *always* take a turn, and will *always* hit
 // any creature which might be in the destination grid.  Previously,
 // moving into walls was "free" and did NOT hit invisible creatures.
-void walk_creature(creature_type *creature_ptr, COODINATES dir, bool do_pickup, bool break_trap)
+void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, bool break_trap)
 {
 	// Find the result of moving
 	COODINATES y = creature_ptr->fy + ddy[dir];

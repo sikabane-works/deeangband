@@ -1758,7 +1758,7 @@ struct high_score
 
 typedef struct
 {
-	s16b feat;    /* Feature tile */
+	FLOOR_ID feat;    /* Feature tile */
 	byte percent; /* Chance of type */
 }
 feat_prob;

@@ -666,8 +666,8 @@ extern void connect_cave_to(cave_type *stair_ptr, FLOOR_ID floor_id, COODINATES 
 // cmd1.c
 extern bool test_hit_fire(creature_type *attacker_ptr, int chance, int ev, int vis);
 extern bool test_hit_melee(creature_type *attacker_ptr, int chance, int ac, int vis);
-extern POWER critical_shot(creature_type *creature_ptr, int weight, int plus, POWER dam);
-extern POWER test_critial_melee(creature_type *creature_ptr, int weight, int plus, POWER dam, STAT meichuu, int mode);
+extern POWER critical_shot(creature_type *creature_ptr, WEIGHT weight, int plus, POWER dam);
+extern POWER test_critial_melee(creature_type *creature_ptr, WEIGHT weight, int plus, POWER dam, STAT meichuu, int mode);
 extern s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr, int mode, bool thrown);
 extern void search(creature_type *creature_ptr);
 extern void py_pickup_aux(creature_type *creature_ptr, OBJECT_ID object_idx);
@@ -675,7 +675,7 @@ extern void carry(creature_type *creature_ptr, bool pickup);
 extern bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x);
 extern bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES ny, COODINATES nx, u32b mpe_mode);
 extern bool trap_can_be_ignored(creature_type *creature_ptr, int feat);
-extern void walk_creature(creature_type *creature_ptr, COODINATES dir, bool do_pickup, bool break_trap);
+extern void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, bool break_trap);
 extern void run_step(creature_type *creature_ptr, DIRECTION dir);
 extern void travel_step(creature_type *creature_ptr);
 
