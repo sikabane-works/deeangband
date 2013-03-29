@@ -81,6 +81,9 @@ typedef s32b COODINATES;
 #define READ_COODINATES(VALUE) rd_s32b((COODINATES *)VALUE);
 #define WRITE_COODINATES(VALUE) wr_s32b((COODINATES)VALUE);
 
+typedef s32b DICE_NUM;
+typedef s32b DICE_SIDE;
+
 typedef s32b STAT;
 #define READ_STAT(VALUE) rd_s32b((STAT *)VALUE);
 #define WRITE_STAT(VALUE) wr_s32b((STAT)VALUE);

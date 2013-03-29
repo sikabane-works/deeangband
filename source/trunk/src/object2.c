@@ -2989,7 +2989,7 @@ void place_gold(floor_type *floor_ptr, COODINATES y, COODINATES x)
 * the object can combine, stack, or be placed.  Artifacts will try very
 * hard to be placed, including "teleporting" to a useful grid if needed.
 */
-s16b drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, COODINATES y, COODINATES x)
+OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, COODINATES y, COODINATES x)
 {
 	int i, k, d, s;
 	int bs, bn;
@@ -3320,9 +3320,9 @@ void init_normal_traps(void)
 * Actually, it is not this routine, but the "trap instantiation"
 * code, which should also check for "trap doors" on quest levels.
 */
-s16b choose_random_trap(floor_type *floor_ptr)
+FEATURE_ID choose_random_trap(floor_type *floor_ptr)
 {
-	s16b feat;
+	FEATURE_ID feat;
 
 	/* Pick a trap */
 	while(TRUE)
