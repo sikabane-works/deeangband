@@ -381,7 +381,7 @@ static errr init_info_raw(int fd, header *head)
 /*
  * Initialize the header of an *_info.raw file.
  */
-static void init_header(header *head, s16b num, s16b len)
+static void init_header(header *head, int num, int len)
 {
 	/* Save the "version" */
 	head->v_major = VER_MAJOR;
