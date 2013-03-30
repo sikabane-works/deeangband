@@ -643,7 +643,7 @@ static int count_dt(creature_type *creature_ptr, COODINATES *y, COODINATES *x, b
 	for (d = 0; d < DIRECTION_NUM; d++)
 	{
 		cave_type *c_ptr;
-		s16b feat;
+		FEATURE_ID feat;
 
 		/* if not searching under player continue */
 		if((d == 8) && !under) continue;
@@ -964,7 +964,7 @@ void do_cmd_close(creature_type *creature_ptr)
 	if(get_rep_dir(creature_ptr, &dir, FALSE))
 	{
 		cave_type *c_ptr;
-		s16b feat;
+		FEATURE_ID feat;
 
 		/* Get requested location */
 		y = creature_ptr->fy + ddy[dir];
@@ -1421,7 +1421,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 	if(get_rep_dir(creature_ptr, &dir,TRUE))
 	{
 		cave_type *c_ptr;
-		s16b feat;
+		FEATURE_ID feat;
 
 		/* Get location */
 		y = creature_ptr->fy + ddy[dir];
@@ -1549,7 +1549,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 	/* Get a "repeated" direction */
 	if(get_rep_dir(creature_ptr, &dir,FALSE))
 	{
-		s16b feat;
+		FEATURE_ID feat;
 
 		/* Bash location */
 		y = creature_ptr->fy + ddy[dir];
@@ -1608,7 +1608,7 @@ void do_cmd_alter(creature_type *creature_ptr)
 	/* Get a direction */
 	if(get_rep_dir(creature_ptr, &dir,TRUE))
 	{
-		s16b feat;
+		FEATURE_ID feat;
 		feature_type *f_ptr;
 
 		/* Get location */
