@@ -122,8 +122,8 @@ static void wr_object(object_type *object_ptr)
 	WRITE_STAT(object_ptr->ac);
 	WRITE_STAT(object_ptr->ev);
 	WRITE_STAT(object_ptr->vo);
-	wr_byte(object_ptr->dd);
-	wr_byte(object_ptr->ds);
+	WRITE_DICE_NUM(object_ptr->dd);
+	WRITE_DICE_SIDE(object_ptr->ds);
 
 	wr_byte(object_ptr->ident);
 	wr_byte(object_ptr->marked);
@@ -146,8 +146,8 @@ static void wr_object(object_type *object_ptr)
 	WRITE_BODY_SIZE(object_ptr->size_lower);
 	WRITE_BODY_SIZE(object_ptr->to_size);
 
-	for(i = 0; i < MAX_TRAITS_FLAG; i++) wr_s32b(object_ptr->trait_flags[i]);
-	for(i = 0; i < MAX_TRAITS_FLAG; i++) wr_s32b(object_ptr->curse_flags[i]);
+	for(i = 0; i < MAX_TRAITS_FLAG; i++) WRITE_FLAGS_32(object_ptr->trait_flags[i]);
+	for(i = 0; i < MAX_TRAITS_FLAG; i++) WRITE_FLAGS_32(object_ptr->curse_flags[i]);
 
 
 }
@@ -201,7 +201,7 @@ static void wr_store(store_type *st_ptr)
 	wr_s16b(st_ptr->bad_buy);
 
 	wr_s32b(st_ptr->last_visit);
-	wr_u32b(st_ptr->flags);
+	WRITE_FLAGS_32(st_ptr->flags);
 	wr_byte(st_ptr->level);
 
 	/* Save the stock */
@@ -304,16 +304,16 @@ static void wr_options(void)
 	/*** Normal options ***/
 
 	/* Dump the flags */
-	for (i = 0; i < 8; i++) wr_u32b(option_flag[i]);
+	for (i = 0; i < 8; i++) WRITE_FLAGS_32(option_flag[i]);
 
 	/* Dump the masks */
-	for (i = 0; i < 8; i++) wr_u32b(option_mask[i]);
+	for (i = 0; i < 8; i++) WRITE_FLAGS_32(option_mask[i]);
 
 
 	/*** Window options ***/
 
 	/* Dump the flags */
-	for (i = 0; i < 8; i++) wr_u32b(window_flag[i]);
+	for (i = 0; i < 8; i++) WRITE_FLAGS_32(window_flag[i]);
 
 	/* Dump the masks */
 	for (i = 0; i < 8; i++) wr_u32b(window_mask[i]);

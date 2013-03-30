@@ -282,8 +282,8 @@ static void rd_object(object_type *object_ptr)
 	READ_STAT(&object_ptr->ac);
 	READ_STAT(&object_ptr->ev);
 	READ_STAT(&object_ptr->vo);
-	rd_byte(&object_ptr->dd);
-	rd_byte(&object_ptr->ds);
+	READ_DICE_NUM(&object_ptr->dd);
+	READ_DICE_SIDE(&object_ptr->ds);
 
 	rd_byte(&object_ptr->ident);
 	rd_byte(&object_ptr->marked);
@@ -314,8 +314,8 @@ static void rd_object(object_type *object_ptr)
 	READ_BODY_SIZE(&object_ptr->size_lower);
 	READ_BODY_SIZE(&object_ptr->to_size);
 
-	for(i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&object_ptr->trait_flags[i]);
-	for(i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&object_ptr->curse_flags[i]);
+	for(i = 0; i < MAX_TRAITS_FLAG; i++) READ_FLAGS_32(&object_ptr->trait_flags[i]);
+	for(i = 0; i < MAX_TRAITS_FLAG; i++) READ_FLAGS_32(&object_ptr->curse_flags[i]);
 
 	return;
 }
@@ -476,7 +476,7 @@ static errr rd_store(store_type *st_ptr)
 
 	/* Read last visit */
 	rd_s32b(&st_ptr->last_visit);
-	rd_u32b(&st_ptr->flags);
+	READ_FLAGS_32(&st_ptr->flags);
 	rd_byte(&st_ptr->level);
 
 	/* Extract the owner (see above) */
@@ -729,7 +729,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->race_idx1);
 	rd_s16b(&creature_ptr->race_idx2);
 	rd_s16b(&creature_ptr->mimic_race_idx);
-	for (i = 0; i < RACE_FLAG_MAX; i++) rd_u32b(&creature_ptr->sub_race[i]);
+	for (i = 0; i < RACE_FLAG_MAX; i++) READ_FLAGS_32(&creature_ptr->sub_race[i]);
 	rd_s16b(&creature_ptr->creature_ego_idx);
 	rd_s16b(&creature_ptr->class_idx);
 	rd_s16b(&creature_ptr->chara_idx);
@@ -797,7 +797,7 @@ static void rd_creature(creature_type *creature_ptr)
 	if(tmp16u > CREATURE_MAX_LEVEL) note(format("Too many (%u) hitpoint entries!", tmp16u));
 	for (i = 0; i < tmp16u; i++) READ_STAT(&creature_ptr->base_hp[i]);
 
-	for (i = 0; i < 8; i++) rd_u32b(&creature_ptr->authority[i]);
+	for (i = 0; i < 8; i++) READ_FLAGS_32(&creature_ptr->authority[i]);
 	for (i = 0; i < MAX_REALM; i++) rd_s16b(&creature_ptr->spell_exp[i]);
 	for (i = 0; i < MAX_SKILLS; i++) rd_s16b(&creature_ptr->skill_exp[i]);
 
