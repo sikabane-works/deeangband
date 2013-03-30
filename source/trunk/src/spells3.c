@@ -1682,13 +1682,13 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 // Remove most curses
 bool remove_curse(creature_type *creature_ptr)
 {
-	return (remove_curse_aux(creature_ptr, FALSE));
+	return (remove_curse_aux(creature_ptr, FALSE) > 0);
 }
 
 // Remove all curses
 bool remove_all_curse(creature_type *creature_ptr)
 {
-	return (remove_curse_aux(creature_ptr, TRUE));
+	return (remove_curse_aux(creature_ptr, TRUE) > 0);
 }
 
 // Turns an object into gold, gain some of its value in a shop
@@ -3030,16 +3030,6 @@ void display_spell_list(creature_type *creature_ptr)
 	}
 }
 
-
-/*
- * Returns experience of a spell
- */
-int experience_of_spell(creature_type *creature_ptr, int spell, int use_realm)
-{
-	return creature_ptr->spell_exp[use_realm];
-}
-
-
 /*
  * Modify mana consumption rate using spell exp and dec_mana
  */
@@ -3052,17 +3042,13 @@ int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, REALM_I
 	/* Realm magic */
 	if((realm > REALM_NONE) && (realm <= MAX_REALM))
 	{
-		//TODO need_mana = need_mana * (MANSTAT_CONST + SPELL_EXP_EXPERT - experience_of_spell(creature_ptr, spell, realm)) + (MANSTAT_CONST - 1);
 		need_mana *= has_trait(creature_ptr, TRAIT_DEC_MANA) ? DEC_MANA_DIV : MANA_DIV;
 		need_mana /= MANSTAT_CONST * MANA_DIV;
 		if(need_mana < 1) need_mana = 1;
 	}
 
 	/* Non-realm magic */
-	else
-	{
-		if(has_trait(creature_ptr, TRAIT_DEC_MANA)) need_mana = (need_mana + 1) * DEC_MANA_DIV / MANA_DIV;
-	}
+	else if(has_trait(creature_ptr, TRAIT_DEC_MANA)) need_mana = (need_mana + 1) * DEC_MANA_DIV / MANA_DIV;
 
 #undef DEC_MANA_DIV
 #undef MANA_DIV
