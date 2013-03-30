@@ -1090,16 +1090,16 @@ extern bool can_get_item(creature_type *creature_ptr);
 extern int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s);
 
 // object2.c
-extern void weapon_boost(object_type *object_ptr, int level, POWER power);
-extern void armour_boost(object_type *object_ptr, int level, POWER power);
+extern void weapon_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
+extern void armour_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
 extern void create_ego(object_type *object_ptr, int level, int ego_id);
 extern void excise_object_idx(OBJECT_ID object_idx);
 extern void delete_object_idx(OBJECT_ID object_idx);
 extern void delete_object(floor_type *floor_ptr, int y, int x);
 extern void compact_objects(int size);
 extern void wipe_object_list(int floor_id);
-extern s16b object_pop(void);
-extern s16b get_obj_num(int floor, FLAGS_32 flags);
+extern OBJECT_ID object_pop(void);
+extern OBJECT_ID get_obj_num(FLOOR_LEV floor, FLAGS_32 flags);
 extern void object_known(object_type *object_ptr);
 extern void object_aware(object_type *object_ptr);
 extern void object_tried(object_type *object_ptr);

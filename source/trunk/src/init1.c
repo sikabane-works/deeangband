@@ -1853,7 +1853,6 @@ void retouch_feature_info(header *head)
 		int j;
 
 		search_real_feat(&f_ptr->mimic);
-
 		search_real_feat(&f_ptr->destroyed);
 
 		for (j = 0; j < MAX_FEAT_STATES; j++) search_real_feat(&f_ptr->state[j].result);

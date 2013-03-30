@@ -255,12 +255,12 @@ struct feature_type
 	STRING_OFFSET text;                /* Text (offset) */
 	STRING_OFFSET tag;                 /* Tag (offset) */
 
-	s16b mimic;               /* Feature to mimic */
+	FEATURE_ID mimic;               /* Feature to mimic */
 
 	FLAGS_32 flags[FF_FLAG_SIZE]; /* Flags */
 
 	u16b priority;            /* Map priority */
-	s16b destroyed;           /* Default destroyed state */
+	FEATURE_ID destroyed;           /* Default destroyed state */
 	feature_state state[MAX_FEAT_STATES];
 
 	byte subtype;
@@ -1563,7 +1563,7 @@ struct creature_type
 	TRYING skill_tht;		// Skill: To hit (throwing) 
 	TRYING skill_dig;		// Skill: Digging 
 
-	s16b num_fire;		// Number of shots 
+	STAT num_fire;		// Number of shots 
 
 	TVAL tval_xtra;		// Correct xtra tval 
 	TVAL tval_ammo;		// Correct ammo tval 
@@ -1761,14 +1761,14 @@ struct building_type
 typedef struct border_type border_type;
 struct border_type
 {
-	s16b north[MAX_WID];
-	s16b south[MAX_WID];
-	s16b east[MAX_HGT];
-	s16b west[MAX_HGT];
-	s16b north_west;
-	s16b north_east;
-	s16b south_west;
-	s16b south_east;
+	FEATURE_ID north[MAX_WID];
+	FEATURE_ID south[MAX_WID];
+	FEATURE_ID east[MAX_HGT];
+	FEATURE_ID west[MAX_HGT];
+	FEATURE_ID north_west;
+	FEATURE_ID north_east;
+	FEATURE_ID south_west;
+	FEATURE_ID south_east;
 };
 
 
@@ -2002,9 +2002,9 @@ typedef struct
 	s16b open;
 	s16b broken;
 	s16b closed;
-	s16b locked[MAX_LJ_DOORS];
+	FEATURE_ID locked[MAX_LJ_DOORS];
 	s16b num_locked;
-	s16b jammed[MAX_LJ_DOORS];
+	FEATURE_ID jammed[MAX_LJ_DOORS];
 	s16b num_jammed;
 } door_type;
 

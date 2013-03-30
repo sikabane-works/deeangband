@@ -395,7 +395,7 @@ void wipe_object_list(int floor_id)
 * This routine should almost never fail, but in case it does,
 * we must be sure to handle "failure" of this routine.
 */
-s16b object_pop(void)
+OBJECT_ID object_pop(void)
 {
 	int i;
 
@@ -481,7 +481,7 @@ static errr get_obj_num_prep(bool (*get_obj_num_hook)(int k_idx))
 * Note that if no objects are "appropriate", then this function will
 * fail, and return zero, but this should *almost* never happen.
 */
-s16b get_obj_num(int level, u32b flag)
+OBJECT_ID get_obj_num(FLOOR_LEV level, u32b flag)
 {
 	int             i, j, p;
 	int             k_idx;
@@ -5336,7 +5336,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			{
 				char tmp[80];
 				char tmp_val[160];
-				int pval;
+				PVAL pval;
 				int limit = MIN(5, creature_ptr->essence_num1[es_ptr->essence]/es_ptr->value);
 				sprintf(tmp, MES_SMITH_HOW_MANY_ENCHANT(limit));
 				strcpy(tmp_val, "1");
@@ -5681,7 +5681,7 @@ void do_cmd_smith(creature_type *creature_ptr, bool only_browse)
 }
 
 // Weapon boost by power
-void weapon_boost(object_type *object_ptr, int level, POWER power)
+void weapon_boost(object_type *object_ptr, FLOOR_LEV level, POWER power)
 {
 	int tohit1 = randint1(5) + m_bonus(5, level);
 	int todam1 = randint1(5) + m_bonus(5, level);
@@ -5718,7 +5718,7 @@ void weapon_boost(object_type *object_ptr, int level, POWER power)
 }
 
 
-void armour_boost(object_type *object_ptr, int level, POWER power)
+void armour_boost(object_type *object_ptr, FLOOR_LEV level, POWER power)
 {
 	int toac1 = randint1(5) + m_bonus(5, level);
 	int toac2 = m_bonus(10, level);
@@ -5785,12 +5785,12 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 		}
 		else if(object_ptr->name2 == EGO_ATTACKS)
 		{
-			object_ptr->pval = (s16b)randint1(e_ptr->max_pval*level/100+1);
+			object_ptr->pval = (PVAL)randint1(e_ptr->max_pval*level/100+1);
 			if(object_ptr->pval > 3) object_ptr->pval = 3;
 			if((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_HAYABUSA))
-				object_ptr->pval += (s16b)randint1(2);
+				object_ptr->pval += (PVAL)randint1(2);
 		}
-		else object_ptr->pval += (s16b)randint1(e_ptr->max_pval);
+		else object_ptr->pval += (PVAL)randint1(e_ptr->max_pval);
 
 		if((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_HAYABUSA) && (object_ptr->pval > 2) && (object_ptr->name2 != EGO_ATTACKS))
 			object_ptr->pval = 2;
@@ -5811,7 +5811,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 	case EGO_EARTHQUAKES:
 		if(one_in_(3) && (level > 60)) add_flag(object_ptr->trait_flags, TRAIT_BLOWS);
-		else object_ptr->pval = m_bonus(3, level);
+		else object_ptr->pval = (PVAL)m_bonus(3, level);
 		break;
 
 	}
