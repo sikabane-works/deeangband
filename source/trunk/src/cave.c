@@ -1868,7 +1868,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	byte ta;
 	char tc;
 
-	byte tp;
+	int tp;
 
 	byte **bigma;
 	char **bigmc;
@@ -4192,11 +4192,11 @@ void update_smell(creature_type *creature_ptr)
  */
 void map_area(creature_type *creature_ptr, COODINATES range)
 {
-	int             i, x, y;
-	cave_type       *cave_ptr;
-	s16b            feat;
-	feature_type    *f_ptr;
-	floor_type      *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	int i, x, y;
+	cave_type *cave_ptr;
+	FEATURE_ID feat;
+	feature_type *f_ptr;
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
@@ -4270,7 +4270,7 @@ void map_area(creature_type *creature_ptr, COODINATES range)
 void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 {
 	int i, y, x;
-	s16b feat;
+	FEATURE_ID feat;
 	feature_type *f_ptr;
 
 	/* Memorize objects */

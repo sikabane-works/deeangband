@@ -3212,7 +3212,10 @@ static int species_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
 
 errr parse_species_info_csv(char *buf, header *head)
 {
-	int id, tval, sval, prob, ego, num, side, offset;
+	int id;
+	TVAL tval;
+	SVAL sval;
+	int prob, ego, num, side, offset;
 	int split[80], size[80];
 	int i, j, k;
 	char *s, *t;

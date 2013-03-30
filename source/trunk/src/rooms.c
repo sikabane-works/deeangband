@@ -5697,7 +5697,7 @@ static bool build_type14(floor_type *floor_ptr)
 	bool light;
 
 	cave_type *c_ptr;
-	s16b trap;
+	FEATURE_ID trap;
 
 	/* Pick a room size */
 	y1 = (COODINATES)randint1(8);

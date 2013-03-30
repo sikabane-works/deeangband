@@ -243,7 +243,7 @@ typedef struct feature_state feature_state;
 struct feature_state
 {
 	byte action;
-	s16b result;
+	FEATURE_ID result;
 };
 
 
@@ -1458,12 +1458,12 @@ struct creature_type
 	COODINATES pet_follow_distance; // Length of the imaginary "leash" for pets 
 	s16b pet_extra_flags;     // Various flags for controling pets 
 
-	s16b floor_id;            // Current floor location  
+	FLOOR_ID floor_id;            // Current floor location  
 
 	bool autopick_autoregister; // auto register is in-use or not 
 
 	byte floor_feeling;		// Most recent dungeon feeling
-	s32b feeling_turn;		// The turn of the last dungeon feeling 
+	GAME_TURN feeling_turn;		// The turn of the last dungeon feeling 
 
 	s16b alert_range;
 
