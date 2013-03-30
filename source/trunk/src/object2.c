@@ -1350,7 +1350,7 @@ void distribute_charges(object_type *object_ptr, object_type *quest_ptr, int amt
 	*/
 	if((object_ptr->tval == TV_WAND) || IS_ROD(object_ptr))
 	{
-		quest_ptr->pval = object_ptr->pval * amt / object_ptr->number;
+		quest_ptr->pval = object_ptr->pval * amt / (PVAL)object_ptr->number;
 		if(amt < object_ptr->number) object_ptr->pval -= quest_ptr->pval;
 
 		/* Hack -- Rods also need to have their timeouts distributed.  The
@@ -1377,7 +1377,7 @@ void reduce_charges(object_type *object_ptr, int amt)
 	* being destroyed. -LM-
 	*/
 	if(((object_ptr->tval == TV_WAND) || IS_ROD(object_ptr)) && (amt < object_ptr->number))
-		object_ptr->pval -= object_ptr->pval * amt / object_ptr->number;
+		object_ptr->pval -= object_ptr->pval * amt / (PVAL)object_ptr->number;
 }
 
 
@@ -1554,13 +1554,13 @@ void object_absorb(object_type *object1_ptr, object_type *object2_ptr)
 	/* Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM- */
 	if(IS_ROD(object1_ptr))
 	{
-		object1_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / object2_ptr->number;
-		object1_ptr->timeout += object2_ptr->timeout * (object2_ptr->number - diff) / object2_ptr->number;
+		object1_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / (PVAL)object2_ptr->number;
+		object1_ptr->timeout += object2_ptr->timeout * (object2_ptr->number - diff) / (PVAL)object2_ptr->number;
 	}
 
 	/* Hack -- if wands are stacking, combine the charges. -LM- */
 	if(object1_ptr->tval == TV_WAND)
-		object1_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / object2_ptr->number;
+		object1_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / (PVAL)object2_ptr->number;
 }
 
 
@@ -1953,7 +1953,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 			case SV_RING_ATTACKS: // Stat bonus
 				{
 
-					object_ptr->pval = m_bonus(2, level);
+					object_ptr->pval = (PVAL)m_bonus(2, level);
 					if(one_in_(15)) object_ptr->pval++;
 					if(object_ptr->pval < 1) object_ptr->pval = 1;
 
@@ -2343,7 +2343,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 	case TV_FIGURINE:
 		{
-			int i = 1;
+			PVAL i = 1;
 			int check;
 
 			species_type *species_ptr;
@@ -2380,7 +2380,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 	case TV_CORPSE:
 		{
-			int i = 1;
+			PVAL i = 1;
 			int check;
 
 			species_type *species_ptr;
@@ -5511,7 +5511,7 @@ static void erase_essence(creature_type *creature_ptr)
 
 void do_cmd_smith(creature_type *creature_ptr, bool only_browse)
 {
-	int mode = 0;
+	DIRECTION mode = 0;
 	char choice;
 
 	int menu_line = (use_menu ? 1 : 0);

@@ -2517,8 +2517,8 @@ bool target_set(creature_type *aimer_ptr, COODINATES range, FLAGS_32 mode)
 bool get_aim_dir(creature_type *creature_ptr, COODINATES range, DIRECTION *dp)
 {
 	DIRECTION dir;
-	char	command;
-	cptr	p;
+	char command;
+	cptr p;
 	char creature_name[MAX_NLEN];
 	creature_desc(creature_name, creature_ptr, 0);
 

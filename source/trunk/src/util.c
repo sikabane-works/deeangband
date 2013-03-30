@@ -4486,7 +4486,7 @@ void repeat_push(int what)
 }
 
 
-bool repeat_pull(int *what)
+bool repeat_pull(DIRECTION *what)
 {
 	/* All out of keys */
 	if(repeat__idx == repeat__cnt) return FALSE;

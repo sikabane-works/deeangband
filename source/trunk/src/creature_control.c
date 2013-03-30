@@ -1449,9 +1449,10 @@ static int mysqrt(int n)
 * Note that if no creatures are "appropriate", then this function will
 * fail, and return zero, but this should *almost* never happen.
 */
-s16b get_species_num(floor_type *floor_ptr, int level)
+SPECIES_ID get_species_num(floor_type *floor_ptr, FLOOR_LEV level)
 {
-	int i, species_idx;
+	int i;
+	SPECIES_ID species_idx;
 	//TODO int p, j;
 	long value, total;
 
@@ -3235,7 +3236,6 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	cave_type		*c_ptr = &floor_ptr->cave[y][x];
 	creature_type	*creature_ptr;
 	species_type	*species_ptr = &species_info[species_idx];
-	creature_type cr;
 
 	if(has_trait_species(species_ptr, TRAIT_UNIQUE)) mode &= ~PC_KAGE;
 
@@ -4027,7 +4027,7 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 *
 * Note that this function may not succeed, though this is very rare.
 */
-bool summon_specific(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, int lev, int type, FLAGS_32 mode)
+bool summon_specific(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, FLOOR_LEV lev, int type, FLAGS_32 mode)
 {
 	COODINATES x, y;
 	SPECIES_ID species_idx;
