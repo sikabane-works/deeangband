@@ -749,7 +749,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s32b(&creature_ptr->age);
 	rd_s32b(&creature_ptr->ht);
 	rd_s32b(&creature_ptr->wt);
-	rd_s16b(&creature_ptr->dr);
+	READ_CREATURE_LEV(&creature_ptr->dr);
 
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
@@ -781,7 +781,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s32b(&creature_ptr->max_max_exp);
 	rd_s32b(&creature_ptr->exp);
 	rd_u32b(&creature_ptr->exp_frac);
-	rd_s16b(&creature_ptr->lev);
+	READ_CREATURE_LEV(&creature_ptr->lev);
 
 	READ_COODINATES(&creature_ptr->fy);
 	READ_COODINATES(&creature_ptr->fx);
@@ -830,7 +830,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s32b(&creature_ptr->csp);
 	rd_u32b(&creature_ptr->csp_frac);
 
-	rd_s16b(&creature_ptr->max_plv);
+	READ_CREATURE_LEV(&creature_ptr->max_plv);
 
 	// Repair maximum player level
 	if(creature_ptr->max_plv < creature_ptr->lev) creature_ptr->max_plv = creature_ptr->lev;

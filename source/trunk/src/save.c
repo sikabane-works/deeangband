@@ -397,7 +397,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_u32b(creature_ptr->max_max_exp);
 	wr_u32b(creature_ptr->exp);
 	wr_u32b(creature_ptr->exp_frac);
-	wr_s16b(creature_ptr->lev);
+	WRITE_CREATURE_LEV(creature_ptr->lev);
 
 	WRITE_COODINATES(creature_ptr->fy);
 	WRITE_COODINATES(creature_ptr->fx);
@@ -441,7 +441,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s32b(creature_ptr->csp);
 	wr_u32b(creature_ptr->csp_frac);
 
-	wr_s16b(creature_ptr->max_plv);
+	WRITE_CREATURE_LEV(creature_ptr->max_plv);
 
 	wr_s16b(creature_ptr->sc);
 	wr_s16b(creature_ptr->concent);
