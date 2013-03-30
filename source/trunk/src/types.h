@@ -113,6 +113,10 @@ typedef byte SVAL;
 #define READ_SVAL(VALUE) rd_s32b((SVAL *)VALUE);
 #define WRITE_SVAL(VALUE) wr_s32b((SVAL)VALUE);
 
+typedef byte PVAL;
+#define READ_PVAL(VALUE) rd_s32b((PVAL *)VALUE);
+#define WRITE_PVAL(VALUE) wr_s32b((PVAL)VALUE);
+
 typedef byte COLOR_ID;
 #define READ_COLOR_ID(VALUE) rd_s32b((COLOR_ID *)VALUE);
 #define WRITE_COLOR_ID(VALUE) wr_s32b((COLOR_ID)VALUE);
@@ -279,7 +283,7 @@ struct object_kind
 
 	TVAL tval;			/* Object type */
 	SVAL sval;			/* Object sub type */
-	s16b pval;			/* Object extra info */
+	PVAL pval;			/* Object extra info */
 
 	STAT stat_val[STAT_MAX]; // Stat
 
@@ -357,7 +361,7 @@ struct artifact_type
 
 	STAT stat[STAT_MAX]; // stat info.
 
-	s16b pval;			/* Artifact extra info */
+	PVAL pval;			/* Artifact extra info */
 
 	STAT to_hit;
 	STAT to_damage;
@@ -424,7 +428,7 @@ struct ego_item_type
 	SAVING max_to_vo;			// Maximum to-ac bonus
 	s16b bow_mul;			// Bonus to bow_mul
 
-	byte max_pval;		// Maximum pval
+	PVAL max_pval;		// Maximum pval
 	STAT max_stat[STAT_MAX];		// Maximum stat
 	s32b cost;			/* Ego-item "cost" */
 
@@ -657,9 +661,7 @@ struct vault_type
 	STRING_OFFSET text;			/* Text (offset) */
 
 	byte typ;			/* Vault type */
-
 	byte rat;			/* Vault rating */
-
 	COODINATES hgt;			/* Vault height */
 	COODINATES wid;			/* Vault width */
 };
@@ -774,7 +776,7 @@ struct object_type
 	SVAL sval;			/* Item sub-type (from kind) */
 
 	STAT stat_val[STAT_MAX]; // Stat
-	s16b pval;			/* Item extra-parameter */
+	PVAL pval;			/* Item extra-parameter */
 
 	byte discount;		/* Discount (if any) */
 
