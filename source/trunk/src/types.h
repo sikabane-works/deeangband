@@ -209,6 +209,9 @@ typedef s32b SKILL_EXP;
 #define READ_SKILL_EXP(VALUE) rd_s32b((SKILL_EXP *)VALUE);
 #define WRITE_SKILL_EXP(VALUE) wr_s32b((SKILL_EXP)VALUE);
 
+typedef s32b PERCENT;
+#define READ_PERCENT(VALUE) rd_s32b((PERCENT *)VALUE);
+#define WRITE_PERCENT(VALUE) wr_s32b((PERCENT)VALUE);
 
 
 /*
@@ -1507,8 +1510,8 @@ struct creature_type
 
 	//** Extracted fields **
 
-	u32b equipping_weight;	// Total weight being carried 
-	u32b carrying_weight;	// Total weight being carried 
+	WEIGHT equipping_weight;	// Total weight being carried 
+	WEIGHT carrying_weight;	// Total weight being carried 
 
 	u32b cursed;         // Player is cursed 
 
@@ -1571,7 +1574,7 @@ struct creature_type
 	COODINATES wx; // Coordinates in the wilderness 
 	COODINATES wy;
 
-	s16b depth;
+	FLOOR_LEV depth;
 	byte cdis;		// Current dis from player 
 
 	byte sc_flag;	// Extra creature flags 

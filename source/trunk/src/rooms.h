@@ -68,5 +68,5 @@ struct room_info_type
 extern void build_lake(floor_type *floor_ptr, int type);
 extern void build_cavern(floor_type *floor_ptr);
 extern bool generate_rooms(floor_type *floor_ptr);
-extern void build_maze_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysize, bool is_vault);
+extern void build_maze_vault(floor_type *floor_ptr, COODINATES x0, COODINATES y0, COODINATES xsize, COODINATES ysize, bool is_vault);
 
