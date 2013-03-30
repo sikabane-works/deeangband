@@ -2834,7 +2834,7 @@ static int initial_r_appearance(int species_idx)
 	return species_idx;
 }
 
-static void deal_magic_book_aux(creature_type *creature_ptr, int realm)
+static void deal_magic_book_aux(creature_type *creature_ptr, REALM_ID realm)
 {
 	int min, max, tv;
 	object_type forge;

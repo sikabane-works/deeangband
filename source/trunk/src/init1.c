@@ -1217,7 +1217,7 @@ errr parse_magic_info(char *buf, header *head)
 	static magic_table_type *m_ptr = NULL;
 
 	/* ---Hack--- */
-	static int realm, magic_idx = 0, readable = 0;
+	static REALM_ID realm, magic_idx = 0, readable = 0;
 
 
 	/* Process 'N' for "New/Number/Name" */

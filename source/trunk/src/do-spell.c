@@ -10934,7 +10934,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 /*
  * Do everything for each spell
  */
-cptr do_spell(creature_type *creature_ptr, int realm, int spell, int mode)
+cptr do_spell(creature_type *creature_ptr, REALM_ID realm, int spell, int mode)
 {
 	switch (realm)
 	{

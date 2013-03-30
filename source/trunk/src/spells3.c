@@ -3034,7 +3034,7 @@ void display_spell_list(creature_type *creature_ptr)
 /*
  * Returns experience of a spell
  */
-s16b experience_of_spell(creature_type *creature_ptr, int spell, int use_realm)
+int experience_of_spell(creature_type *creature_ptr, int spell, int use_realm)
 {
 	return creature_ptr->spell_exp[use_realm];
 }
@@ -3043,7 +3043,7 @@ s16b experience_of_spell(creature_type *creature_ptr, int spell, int use_realm)
 /*
  * Modify mana consumption rate using spell exp and dec_mana
  */
-int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, int realm)
+int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, REALM_ID realm)
 {
 #define MANSTAT_CONST   2400
 #define MANA_DIV        4

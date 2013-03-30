@@ -106,6 +106,10 @@ typedef s32b FLOOR_ID;
 #define READ_FLOOR_ID(VALUE) rd_s32b((FLOOR_ID *)VALUE);
 #define WRITE_FLOOR_ID(VALUE) wr_s32b((FLOOR_ID)VALUE);
 
+typedef s32b REALM_ID;
+#define READ_REALM_ID(VALUE) rd_s32b((REALM_ID *)VALUE);
+#define WRITE_REALM_ID(VALUE) wr_s32b((REALM_ID)VALUE);
+
 typedef byte TVAL;
 #define READ_TVAL(VALUE) rd_s32b((TVAL *)VALUE);
 #define WRITE_TVAL(VALUE) wr_s32b((TVAL)VALUE);

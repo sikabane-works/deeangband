@@ -895,7 +895,7 @@ extern int get_skill_level(creature_type *creature_ptr, int type);
 
 // do-spell.c
 extern void stop_singing(creature_type *creature_ptr);
-extern cptr do_spell(creature_type *creature_ptr, int realm, int spell, int mode);
+extern cptr do_spell(creature_type *creature_ptr, REALM_ID realm, int spell, int mode);
 extern void wild_magic(creature_type *creature_ptr, int spell);
 
 // dungeon.c
@@ -1272,13 +1272,13 @@ extern bool bless_weapon(creature_type *caster_ptr);
 extern bool pulish_shield(creature_type *creature_ptr);
 extern bool potion_smash_effect(int who, COODINATES y, COODINATES x, int k_idx);
 extern void display_spell_list(creature_type *creature_ptr);
-extern s16b experience_of_spell(creature_type *creature_ptr, int spell, int realm);
-extern int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, int realm);
+extern int experience_of_spell(creature_type *creature_ptr, int spell, REALM_ID realm);
+extern int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, REALM_ID realm);
 extern int mod_spell_chance_1(creature_type *creature_ptr, int chance);
 extern int mod_spell_chance_2(creature_type *creature_ptr, int chance);
-extern s16b spell_chance(creature_type *creature_ptr, int spell,int realm);
-extern bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study_pray, int realm);
-extern void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, int num, int y, int x, int realm);
+extern s16b spell_chance(creature_type *creature_ptr, int spell,REALM_ID realm);
+extern bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study_pray, REALM_ID realm);
+extern void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, int num, int y, int x, REALM_ID realm);
 extern bool hates_acid(object_type *object_ptr);
 extern bool hates_elec(object_type *object_ptr);
 extern bool hates_fire(object_type *object_ptr);
