@@ -1312,8 +1312,8 @@ extern void battle_creatures(void);
 extern void do_cmd_bldg(creature_type *creature_ptr);
 extern void do_cmd_quest(creature_type *creature_ptr);
 extern void quest_discovery(int q_idx);
-extern int quest_number(floor_type *floor_ptr);
-extern int random_quest_number(floor_type *floor_ptr);
+extern QUEST_ID quest_number(floor_type *floor_ptr);
+extern QUEST_ID random_quest_number(floor_type *floor_ptr);
 extern bool tele_town(creature_type *creature_ptr);
 
 // util.c

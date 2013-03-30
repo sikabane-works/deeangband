@@ -1457,10 +1457,7 @@ static void auto_inscribe_item(creature_type *creature_ptr, object_type *object_
 {
 	/* Are there auto-inscription? */
 	if(idx < 0 || !autopick_list[idx].insc) return;
-
-	if(!object_ptr->inscription)
-		object_ptr->inscription = quark_add(autopick_list[idx].insc);
-
+	if(!object_ptr->inscription) object_ptr->inscription = quark_add(autopick_list[idx].insc);
 	prepare_window(PW_EQUIP | PW_INVEN);
 
 	/* {.} and {$} effect warning and TRAIT_ACTIVE_TELEPORT_SELF */

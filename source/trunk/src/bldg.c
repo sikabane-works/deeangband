@@ -3349,7 +3349,7 @@ void quest_discovery(int q_idx)
 
 
 // Hack -- Check if a level is a "quest" level
-int quest_number(floor_type *floor_ptr)
+QUEST_ID quest_number(floor_type *floor_ptr)
 {
 	int i;
 
@@ -3374,7 +3374,7 @@ int quest_number(floor_type *floor_ptr)
 
 // Return the index of the random quest on this level
 // (or zero)
-int random_quest_number(floor_type *floor_ptr)
+QUEST_ID random_quest_number(floor_type *floor_ptr)
 {
 	int i;
 
