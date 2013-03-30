@@ -984,8 +984,8 @@ static bool wr_savefile_new(void)
 		}
 	}
 
-	wr_s32b(max_wild_x);
-	wr_s32b(max_wild_y);
+	WRITE_COODINATES(max_wild_x);
+	WRITE_COODINATES(max_wild_y);
 
 	/* Dump the wilderness seeds */
 	for (i = 0; i < max_wild_x; i++)

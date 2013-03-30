@@ -1199,8 +1199,8 @@ static errr rd_savefile_new_aux(void)
 {
 	int i, j;
 	s16b limit;
-	s32b wild_x_size;
-	s32b wild_y_size;
+	COODINATES wild_x_size;
+	COODINATES wild_y_size;
 	u16b tmp16u;
 	char buf[SCREEN_BUF_SIZE];
 
