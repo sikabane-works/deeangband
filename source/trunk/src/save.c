@@ -978,7 +978,7 @@ static bool wr_savefile_new(void)
 			wr_s16b(quest[i].max_num);
 			wr_s16b(quest[i].type);
 			WRITE_SPECIES_ID(quest[i].species_idx);
-			wr_s16b(quest[i].k_idx);
+			WRITE_OBJECT_KIND_ID(quest[i].k_idx);
 			wr_byte(quest[i].flags);
 			wr_byte(quest[i].dungeon);
 		}

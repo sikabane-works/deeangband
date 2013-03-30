@@ -1389,7 +1389,7 @@ static errr rd_savefile_new_aux(void)
 					}
 
 					/* Load quest item index */
-					rd_s16b(&quest[i].k_idx);
+					READ_OBJECT_KIND_ID(&quest[i].k_idx);
 
 					if(quest[i].k_idx) add_flag(artifact_info[quest[i].k_idx].flags, TRAIT_QUESTITEM);
 					rd_byte(&quest[i].flags);
