@@ -87,17 +87,14 @@ bool creating_savefile;		/* New savefile is currently created */
 u32b seed_flavor;		/* Hack -- consistent object colors */
 u32b seed_town;			/* Hack -- consistent town layout */
 
-s16b command_cmd;		/* Current "Angband Command" */
-
-s16b command_arg;		/* Gives argument of current command */
-s16b command_rep;		/* Gives repetition of current command */
+int command_cmd;		/* Current "Angband Command" */
+int command_arg;		/* Gives argument of current command */
+int command_rep;		/* Gives repetition of current command */
 DIRECTION command_dir;		/* Gives direction of current command */
-
-s16b command_see;		// See "object1.c"
-s16b command_wrk;		// See "object1.c"
-s16b command_gap = 999;	// See "object1.c"
-
-s16b command_new;		/* Command chaining from inven/equip view */
+int command_see;		// See "object1.c"
+int command_wrk;		// See "object1.c"
+int command_gap = 999;	// See "object1.c"
+int command_new;		/* Command chaining from inven/equip view */
 
 bool msg_flag;			/* Used in msg_print() for "buffering" */
 

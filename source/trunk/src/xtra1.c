@@ -3417,7 +3417,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 	species_type *riding_r_ptr = &species_info[steed_ptr->species_idx];
 	SPEED speed = steed_ptr->speed;
-	s16b penalty = 0;
+	STAT penalty = 0;
 
 	j = creature_ptr->carrying_weight;
 
@@ -3459,7 +3459,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	}
 	else
 	{
-		penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[SKILL_RIDING] / 80;
+		penalty = species_info[creature_list[creature_ptr->riding].species_idx].level - (STAT)creature_ptr->skill_exp[SKILL_RIDING] / 80;
 		penalty += 30;
 		if(penalty < 30) penalty = 30;
 	}

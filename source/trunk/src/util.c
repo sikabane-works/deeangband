@@ -2213,7 +2213,7 @@ void quark_init(void)
 /*
  * Add a new "quark" to the set of quarks.
  */
-s16b quark_add(cptr str)
+int quark_add(cptr str)
 {
 	int i;
 

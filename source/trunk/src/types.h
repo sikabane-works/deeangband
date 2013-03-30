@@ -1458,8 +1458,8 @@ struct creature_type
 	bool teleport_town;
 	bool enter_dungeon;     // Just enter the dungeon 
 
-	s16b new_spells;	// Number of spells available 
-	s16b old_spells;
+	STAT new_spells;	// Number of spells available 
+	STAT old_spells;
 
 	s16b old_food_aux;	// Old value of food 
 
