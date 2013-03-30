@@ -1204,7 +1204,7 @@ static errr rd_savefile_new_aux(void)
 	u16b tmp16u;
 	char buf[SCREEN_BUF_SIZE];
 
-	int creature_idx;
+	CREATURE_ID creature_idx;
 	creature_type *creature_ptr;
 
 	u32b n_x_check, n_v_check;

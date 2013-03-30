@@ -55,10 +55,6 @@ byte ver_extra;
 
 byte sf_extra;		/* Savefile's encoding key */
 
-byte ver_major;           /* Savefile version for D\'angband */
-byte ver_minor;
-byte ver_patch;
-
 /*
  * Savefile information
  */
@@ -589,17 +585,16 @@ creature_type *creature_list;
  */
 store_type *st_list;
 
-/*
- * Maximum number of towns
- */
-u16b max_towns;
 
 /*
  * Starting Town wilderness coodinate
  */
 u16b start_point_size;
 
-// The towns [max_towns]
+/*
+ * Maximum number of towns
+ */
+TOWN_ID max_towns;
 town_type *town;
 
 // The size of "alloc_kind_table" (at most max_object_kind_idx * 4)
@@ -922,7 +917,7 @@ bool can_save = FALSE;        /* Game can be saved */
 
 s16b the_world;
 
-s16b battle_creature[GAMBLE_ARENA_GLADIATOR_MAX];
+SPECIES_ID battle_creature[GAMBLE_ARENA_GLADIATOR_MAX];
 int sel_creature;
 int battle_odds;
 int kakekin;
@@ -931,7 +926,7 @@ u32b creature_odds[GAMBLE_ARENA_GLADIATOR_MAX];
 int pet_t_m_idx;
 int riding_t_m_idx;
 
-s16b kubi_species_idx[MAX_BOUNTY];
+SPECIES_ID kubi_species_idx[MAX_BOUNTY];
 s16b today_mon;
 
 bool write_level;
