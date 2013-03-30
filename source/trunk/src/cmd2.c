@@ -3228,8 +3228,8 @@ void do_cmd_throw(creature_type *creature_ptr)
 
 static int flow_head = 0;
 static int flow_tail = 0;
-static s16b temp2_x[MAX_SHORT];
-static s16b temp2_y[MAX_SHORT];
+static COODINATES temp2_x[MAX_SHORT];
+static COODINATES temp2_y[MAX_SHORT];
 
 // Hack: forget the "flow" information
 static void forget_travel_flow(floor_type *floor_ptr)
@@ -3246,7 +3246,7 @@ static void forget_travel_flow(floor_type *floor_ptr)
 	}
 }
 
-static bool travel_flow_aux(creature_type *creature_ptr, int y, int x, int n, bool wall)
+static bool travel_flow_aux(creature_type *creature_ptr, COODINATES y, COODINATES x, int n, bool wall)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];

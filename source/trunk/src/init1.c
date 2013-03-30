@@ -6940,36 +6940,21 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 		if(tokenize(buf+2, 2, zz, 0) == 2)
 		{
 			/* Maximum towns */
-			if(zz[0][0] == 'T')
-			{
-				max_towns = strtol(zz[1], NULL, 10);
-			}
+			if(zz[0][0] == 'T') max_towns = (TOWN_ID)strtol(zz[1], NULL, 10);
 
 			/* Maximum quests */
-			else if(zz[0][0] == 'Q')
-			{
-				max_quests = (QUEST_ID)strtol(zz[1], NULL, 10);
-			}
+			else if(zz[0][0] == 'Q') max_quests = (QUEST_ID)strtol(zz[1], NULL, 10);
 
 			/* Maximum species_idx */
 			else if(zz[0][0] == 'R')
 			{
 				/* Maximum species_idx */
-				if(zz[0][1] == 'E')
-				{
-					max_creature_ego_idx = strtol(zz[1], NULL, 10);
-				}
-				else
-				{
-					max_species_idx = (SPECIES_ID)strtol(zz[1], NULL, 10);
-				}
+				if(zz[0][1] == 'E') max_creature_ego_idx = strtol(zz[1], NULL, 10);
+				else max_species_idx = (SPECIES_ID)strtol(zz[1], NULL, 10);
 			}
 
 			/* Maximum k_idx */
-			else if(zz[0][0] == 'K')
-			{
-				max_object_kind_idx = strtol(zz[1], NULL, 10);
-			}
+			else if(zz[0][0] == 'K') max_object_kind_idx = (OBJECT_KIND_ID)strtol(zz[1], NULL, 10);
 
 			/* Maximum v_idx */
 			else if(zz[0][0] == 'V')

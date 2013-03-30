@@ -924,7 +924,7 @@ int pet_t_m_idx;
 int riding_t_m_idx;
 
 SPECIES_ID kubi_species_idx[MAX_BOUNTY];
-s16b today_mon;
+SPECIES_ID today_mon;
 
 bool write_level;
 

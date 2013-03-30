@@ -5618,7 +5618,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	int lev_bonus = creature_ptr->lev;
+	FLOOR_LEV lev_bonus = creature_ptr->lev;
 
 	switch (spell)
 	{
@@ -6303,7 +6303,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 
 	static const char s_dam[] = KW_DAM;
 
-	int lev_bonus = caster_ptr->lev;
+	FLOOR_LEV lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{

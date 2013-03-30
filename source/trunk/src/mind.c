@@ -438,10 +438,10 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 {
 	int             i;
 	int             num = 0;
-	int             y = 1;
-	int             x = 10;
+	COODINATES y = 1;
+	COODINATES x = 10;
 	int             minfail = 0;
-	int             lev_bonus = creature_ptr->lev;
+	CREATURE_LEV lev_bonus = creature_ptr->lev;
 	int             chance = 0;
 	int             ask = TRUE;
 	char            choice;
@@ -924,8 +924,8 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	DIRECTION dir;
-	int             lev_bonus = creature_ptr->lev;
-	int             boost = creature_ptr->charged_force;
+	FLOOR_LEV lev_bonus = creature_ptr->lev;
+	int boost = creature_ptr->charged_force;
 
 	if(heavy_armor(creature_ptr)) boost /= 2;
 

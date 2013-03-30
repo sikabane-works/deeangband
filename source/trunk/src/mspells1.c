@@ -464,7 +464,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 
 
 
-static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, COODINATES *yp, COODINATES *xp, int f_flag, bool (*path_check)(floor_type *, int, int, int, int, int))
+static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, COODINATES *yp, COODINATES *xp, int f_flag, bool (*path_check)(floor_type *, COODINATES, COODINATES, COODINATES, COODINATES, COODINATES))
 {
 	int i;
 	int tonari;
