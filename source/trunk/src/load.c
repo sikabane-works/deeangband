@@ -262,7 +262,7 @@ static void rd_object(object_type *object_ptr)
 	rd_byte(&object_ptr->number);
 	rd_s32b(&object_ptr->volume);
 	rd_s32b(&object_ptr->weight);
-	rd_byte(&object_ptr->name1);
+	READ_ARTIFACT_ID(&object_ptr->name1);
 	rd_u16b(&object_ptr->name2);
 
 	rd_s32b(&object_ptr->timeout);

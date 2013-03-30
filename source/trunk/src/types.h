@@ -809,9 +809,10 @@ struct object_type
 	SAVING ev;			// Normal EV
 	SAVING vo;			// Normal VO
 
-	byte dd, ds;		/* Damage dice/sides */
+	DICE_NUM dd;
+	DICE_SIDE ds; /* Damage dice/sides */
 
-	s32b timeout;		/* Timeout Counter */
+	GAME_TIME timeout;		/* Timeout Counter */
 	s16b charge_const;
 	s16b charge_dice;
 

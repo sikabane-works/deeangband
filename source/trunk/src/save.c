@@ -102,7 +102,7 @@ static void wr_object(object_type *object_ptr)
 	wr_byte(object_ptr->number);
 	wr_s32b(object_ptr->volume);
 	wr_s32b(object_ptr->weight);
-	wr_byte(object_ptr->name1);
+	WRITE_ARTIFACT_ID(object_ptr->name1);
 	wr_u16b(object_ptr->name2);
 
 	wr_s32b(object_ptr->timeout);
