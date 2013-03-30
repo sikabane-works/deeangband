@@ -508,7 +508,7 @@ bool species_can_cross_terrain(s16b feat, species_type *species_ptr, u16b mode)
 /*
  * Check if creature can cross terrain
  */
-bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feature, u16b mode)
+bool creature_can_cross_terrain(creature_type *creature_ptr, FEATURE_ID feature, u16b mode)
 {
 	feature_type *f_ptr = &feature_info[feature];
 

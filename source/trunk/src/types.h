@@ -45,6 +45,7 @@
  */
 
 typedef u32b STRING_OFFSET;
+
 typedef s32b FLAGS_32;
 #define READ_FLAGS_32(VALUE) rd_s32b((FLAGS_32 *)VALUE);
 #define WRITE_FLAGS_32(VALUE) wr_s32b((FLAGS_32)VALUE);
@@ -61,15 +62,15 @@ typedef s32b SPECIES_ID;
 #define READ_SPECIES_ID(VALUE) rd_s32b((SPECIES_ID *)VALUE);
 #define WRITE_SPECIES_ID(VALUE) wr_s32b((SPECIES_ID)VALUE);
 
-typedef s16b FEATURE_ID;
+typedef s32b FEATURE_ID;
 #define READ_FEATURE_ID(VALUE) rd_s32b((FEATURE_ID *)VALUE);
 #define WRITE_FEATURE_ID(VALUE) wr_s32b((FEATURE_ID)VALUE);
 
-typedef s16b TOWN_ID;
+typedef s32b TOWN_ID;
 #define READ_TOWN_ID(VALUE) rd_s32b((TOWN_ID *)VALUE);
 #define WRITE_TOWN_ID(VALUE) wr_s32b((TOWN_ID)VALUE);
 
-typedef s16b EFFECT_ID;
+typedef s32b EFFECT_ID;
 #define READ_EFFECT_ID(VALUE) rd_s32b((EFFECT_ID *)VALUE);
 #define WRITE_EFFECT_ID(VALUE) wr_s32b((EFFECT_ID)VALUE);
 
@@ -126,12 +127,12 @@ typedef byte SYMBOL;
 #define WRITE_SYMBOL(VALUE) wr_s32b((SYMBOL)VALUE);
 
 typedef s32b CREATURE_LEV;
-#define READ_CREATURE_LEV(VALUE) rd_byte((CREATURE_LEV *)VALUE);
-#define WRITE_CREATURE_LEV(VALUE) wr_byte((CREATURE_LEV)VALUE);
+#define READ_CREATURE_LEV(VALUE) rd_s32b((CREATURE_LEV *)VALUE);
+#define WRITE_CREATURE_LEV(VALUE) wr_s32b((CREATURE_LEV)VALUE);
 
 typedef s32b FLOOR_LEV;
-#define READ_FLOOR_LEV(VALUE) rd_byte((FLOOR_LEV *)VALUE);
-#define WRITE_FLOOR_LEV(VALUE) wr_byte((FLOOR_LEV)VALUE);
+#define READ_FLOOR_LEV(VALUE) rd_s32b((FLOOR_LEV *)VALUE);
+#define WRITE_FLOOR_LEV(VALUE) wr_s32b((FLOOR_LEV)VALUE);
 
 typedef s32b COODINATES;
 #define READ_COODINATES(VALUE) rd_s32b((COODINATES *)VALUE);
@@ -721,7 +722,7 @@ struct cave_type
 	OBJECT_ID object_idx;   // Object in this grid
 	CREATURE_ID creature_idx; // Creature in this grid
 	s16b special;      // Special cave info
-	s16b mimic;        // Feature to mimic
+	FLOOR_ID mimic;        // Feature to mimic
 	POWER cost;         // Hack -- cost of flowing
 	COODINATES dist;         // Hack -- distance from player
 	byte when;         // Hack -- when cost was computed
@@ -1975,7 +1976,7 @@ typedef struct
 typedef struct
 {
 	u16b info;
-	s16b feat;
+	FEATURE_ID feat;
 	s16b mimic;
 	s16b special;
 	u16b occurrence;
