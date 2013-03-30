@@ -780,15 +780,14 @@ struct object_type
 
 	byte discount;		/* Discount (if any) */
 
-	byte number;		/* Number of items */
+	POPULATION number; /* Number of items */
 	s32b volume;        /* Volume of items */
 
 	WEIGHT weight;		/* Item weight */
 
 	ARTIFACT_ID name1;			/* Artifact type, if any */
-	u16b name2;			/* Ego-Item type, if any */
-
-	s16b fuel;
+	OBJECT_EGO_ID name2;			/* Ego-Item type, if any */
+	GAME_TIME fuel;
 
 	byte forged_type;	// forged by smith craft
 	byte chest_value;
@@ -1605,10 +1604,10 @@ struct creature_type
 	u32b creature_update;
 
 	s16b time_stopper;
-	byte tsuri_dir;
+	DIRECTION tsuri_dir;
 
-	s16b running;	// Current counter for running, if any
-	s16b resting;	// Current counter for resting, if any
+	GAME_TURN running;	// Current counter for running, if any
+	GAME_TURN resting;	// Current counter for resting, if any
 	bool reinit_wilderness;
 
 

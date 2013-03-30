@@ -2418,8 +2418,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 	case TV_STATUE:
 		{
-			int i = 1;
-
+			PVAL i = 1;
 			species_type *species_ptr;
 
 			/* Pick a random creature race */

@@ -165,10 +165,12 @@ void one_ability(object_type *object_ptr)
 
 static void curse_artifact(creature_type *creature_ptr, object_type * object_ptr)
 {
-	if(object_ptr->pval > 0) object_ptr->pval = 0 - (object_ptr->pval + (s16b)randint1(4));
-	if(object_ptr->to_ac > 0) object_ptr->to_ac = 0 - (object_ptr->to_ac + (s16b)randint1(4));
-	if(object_ptr->to_hit > 0) object_ptr->to_hit = 0 - (object_ptr->to_hit + (s16b)randint1(4));
-	if(object_ptr->to_damage > 0) object_ptr->to_damage = 0 - (object_ptr->to_damage + (s16b)randint1(4));
+	//TODO if(object_ptr->pval > 0) object_ptr->pval = 0 - (object_ptr->pval + (s16b)randint1(4));
+	if(object_ptr->to_ac > 0) object_ptr->to_ac = 0 - (object_ptr->to_ac + (STAT)randint1(4));
+	if(object_ptr->to_ev > 0) object_ptr->to_ev = 0 - (object_ptr->to_ev + (STAT)randint1(4));
+	if(object_ptr->to_vo > 0) object_ptr->to_vo = 0 - (object_ptr->to_vo + (STAT)randint1(4));
+	if(object_ptr->to_hit > 0) object_ptr->to_hit = 0 - (object_ptr->to_hit + (STAT)randint1(4));
+	if(object_ptr->to_damage > 0) object_ptr->to_damage = 0 - (object_ptr->to_damage + (STAT)randint1(4));
 
 	add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 	add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
