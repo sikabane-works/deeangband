@@ -1815,7 +1815,7 @@ s16b feature_tag_to_index(cptr str)
 /*
  * Search for real index corresponding to this fake tag
  */
-static void search_real_feat(s16b *feat)
+static void search_real_feat(FEATURE_ID *feat)
 {
 	int i;
 
@@ -1828,7 +1828,7 @@ static void search_real_feat(s16b *feat)
 		if((-(*feat)) == feature_info[i].tag)
 		{
 			/* Record real index */
-			*feat = (s16b)i;
+			*feat = (FEATURE_ID)i;
 			return;
 		}
 	}

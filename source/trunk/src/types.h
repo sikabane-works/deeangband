@@ -660,8 +660,8 @@ struct vault_type
 
 	byte rat;			/* Vault rating */
 
-	byte hgt;			/* Vault height */
-	byte wid;			/* Vault width */
+	COODINATES hgt;			/* Vault height */
+	COODINATES wid;			/* Vault width */
 };
 
 
