@@ -208,7 +208,7 @@ void place_random_door(floor_type *floor_ptr, int y, int x, bool room)
 void place_closed_door(floor_type *floor_ptr, int y, int x, int type)
 {
 	int tmp;
-	s16b feat = feat_none;
+	FEATURE_ID feat = feat_none;
 
 	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{

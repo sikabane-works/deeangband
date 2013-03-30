@@ -1140,7 +1140,7 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 			{
 				act = MES_BECOME_BRAND_SHARPNESS;
 				object_ptr->name2 = EGO_SHARPNESS;
-				object_ptr->pval = m_bonus(5, floor_ptr->depth) + 1;
+				object_ptr->pval = (PVAL)m_bonus(5, floor_ptr->depth) + 1;
 
 				if((object_ptr->sval == SV_HAYABUSA) && (object_ptr->pval > 2))
 					object_ptr->pval = 2;
@@ -1149,7 +1149,7 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 			{
 				act = MES_BECOME_BRAND_EARTHQUAKE;
 				object_ptr->name2 = EGO_EARTHQUAKES;
-				object_ptr->pval = m_bonus(3, floor_ptr->depth);
+				object_ptr->pval = (PVAL)m_bonus(3, floor_ptr->depth);
 			}
 			break;
 		case 16:
@@ -1199,7 +1199,7 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 		case 5:
 			act = MES_BECOME_BRAND_TRUMP;
 			object_ptr->name2 = EGO_TRUMP;
-			object_ptr->pval = (s16b)randint1(2);
+			object_ptr->pval = (PVAL)randint1(2);
 			break;
 		case 4:
 			act = MES_BECOME_BRAND_VAMPIRIC;

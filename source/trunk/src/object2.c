@@ -1350,7 +1350,7 @@ void distribute_charges(object_type *object_ptr, object_type *quest_ptr, int amt
 	*/
 	if((object_ptr->tval == TV_WAND) || IS_ROD(object_ptr))
 	{
-		quest_ptr->pval = object_ptr->pval * amt / (PVAL)object_ptr->number;
+		quest_ptr->pval = object_ptr->pval * (PVAL)amt / (PVAL)object_ptr->number;
 		if(amt < object_ptr->number) object_ptr->pval -= quest_ptr->pval;
 
 		/* Hack -- Rods also need to have their timeouts distributed.  The
@@ -2322,7 +2322,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			/* The wand or staff gets a number of initial charges equal
 			* to between 1/2 (+1) and the full object kind's pval. -LM-
 			*/
-			object_ptr->pval = object_kind_ptr->pval / 2 + (s16b)randint1((object_kind_ptr->pval + 1) / 2);
+			object_ptr->pval = object_kind_ptr->pval / 2 + (PVAL)randint1((object_kind_ptr->pval + 1) / 2);
 			break;
 		}
 
@@ -2351,7 +2351,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			/* Pick a random non-unique creature race */
 			while(TRUE)
 			{
-				i = randint1(max_species_idx - 1);
+				i = (PVAL)randint1(max_species_idx - 1);
 
 				if(!item_creature_okay(i)) continue;
 				if(i == SPECIES_TSUCHINOKO) continue;
@@ -2910,7 +2910,7 @@ bool make_gold(floor_type *floor_ptr, object_type *object2_ptr, int value, int c
 
 	/* Determine how much the treasure is "worth" */
 	if(value <= 0)
-		object2_ptr->pval = (s16b)(base + (8 * randint1(base)) + randint1(8));
+		object2_ptr->pval = (PVAL)(base + (8 * randint1(base)) + randint1(8));
 	else
 		object2_ptr->pval = value;
 
@@ -2921,7 +2921,7 @@ bool make_gold(floor_type *floor_ptr, object_type *object2_ptr, int value, int c
 // The location must be a legal, clean, floor grid.
 void place_gold(floor_type *floor_ptr, COODINATES y, COODINATES x)
 {
-	s16b object_idx;
+	OBJECT_ID object_idx;
 
 	/* Acquire grid */
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -5039,7 +5039,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		num[max_num++] = i;
 	}
 
-	if(!repeat_pull(&i) || i<0 || i>=max_num)
+	if(!repeat_pull(&i) || i < 0 || i >= max_num)
 	{
 		flag = FALSE;
 		redraw = FALSE;

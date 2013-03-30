@@ -187,10 +187,10 @@ static void generate_wilderness_area(floor_type *floor_ptr, int terrain, u32b se
 	if(!corner)
 	{
 		/* Hack -- preserve four corners */
-		s16b north_west = floor_ptr->cave[1][1].feat;
-		s16b south_west = floor_ptr->cave[MAX_HGT - 2][1].feat;
-		s16b north_east = floor_ptr->cave[1][MAX_WID - 2].feat;
-		s16b south_east = floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat;
+		FEATURE_ID north_west = floor_ptr->cave[1][1].feat;
+		FEATURE_ID south_west = floor_ptr->cave[MAX_HGT - 2][1].feat;
+		FEATURE_ID north_east = floor_ptr->cave[1][MAX_WID - 2].feat;
+		FEATURE_ID south_east = floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat;
 
 		/* x1, y1, x2, y2, num_depths, roughness */
 		plasma_recursive(floor_ptr, 1, 1, MAX_WID - 2, MAX_HGT - 2, table_size - 1, roughness);
@@ -559,7 +559,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 }
 
 
-static s16b conv_terrain2feat[MAX_WILDERNESS];
+static FEATURE_ID conv_terrain2feat[MAX_WILDERNESS];
 
 /*
  * Build the wilderness area.

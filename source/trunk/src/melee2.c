@@ -198,7 +198,7 @@ static bool mon_will_run(creature_type *creature_ptr, int m_idx)
 
 	species_type *species_ptr = &species_info[m_ptr->species_idx];
 
-	u16b p_lev, m_lev;
+	CREATURE_LEV p_lev, m_lev;
 	u32b p_chp, p_mhp;
 	u32b m_chp, m_mhp;
 	u32b p_val, m_val;

@@ -1118,7 +1118,7 @@ extern void object_copy(object_type *object1_ptr, object_type *object2_ptr);
 extern void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLAGS_32 mode, int specified_idx);
 extern void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr, int lev, int ego);
 
-extern void weapon_boost(object_type *object_ptr, int level, POWER power);
+extern void weapon_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
 extern bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx));
 extern void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode, bool (*get_obj_num_hook)(int k_idx));
 extern bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value, int type);
