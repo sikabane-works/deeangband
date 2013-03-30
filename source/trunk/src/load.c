@@ -257,13 +257,13 @@ static void rd_object(object_type *object_ptr)
 	object_ptr->tval = object_kind_ptr->tval;
 	object_ptr->sval = object_kind_ptr->sval;
 
-	rd_s16b(&object_ptr->pval);
+	READ_PVAL(&object_ptr->pval);
 	rd_byte(&object_ptr->discount);
-	rd_byte(&object_ptr->number);
+	READ_POPULATION(&object_ptr->number);
 	rd_s32b(&object_ptr->volume);
 	rd_s32b(&object_ptr->weight);
 	READ_ARTIFACT_ID(&object_ptr->name1);
-	rd_u16b(&object_ptr->name2);
+	READ_OBJECT_EGO_ID(&object_ptr->name2);
 
 	rd_s32b(&object_ptr->timeout);
 	rd_s16b(&object_ptr->charge_const);
@@ -292,11 +292,8 @@ static void rd_object(object_type *object_ptr)
 
 	// Creature holding object
 	READ_CREATURE_ID(&object_ptr->held_m_idx);
-
-	rd_s16b(&object_ptr->fuel);
-
+	READ_GAME_TIME(&object_ptr->fuel);
 	rd_byte(&object_ptr->forged_type);
-
 	rd_byte(&object_ptr->feeling);
 
 	//rd_string(buf, sizeof(buf));
@@ -477,7 +474,7 @@ static errr rd_store(store_type *st_ptr)
 	/* Read last visit */
 	rd_s32b(&st_ptr->last_visit);
 	READ_FLAGS_32(&st_ptr->flags);
-	rd_byte(&st_ptr->level);
+	READ_FLOOR_LEV(&st_ptr->level);
 
 	/* Extract the owner (see above) */
 	st_ptr->owner_id = own;
@@ -789,7 +786,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s32b(&creature_ptr->wx);
 	rd_s32b(&creature_ptr->wy);
 
-	rd_s16b(&creature_ptr->depth);
+	READ_FLOOR_LEV(&creature_ptr->depth);
 
 	// Read creature's HP array
 
@@ -798,8 +795,8 @@ static void rd_creature(creature_type *creature_ptr)
 	for (i = 0; i < tmp16u; i++) READ_STAT(&creature_ptr->base_hp[i]);
 
 	for (i = 0; i < 8; i++) READ_FLAGS_32(&creature_ptr->authority[i]);
-	for (i = 0; i < MAX_REALM; i++) rd_s16b(&creature_ptr->spell_exp[i]);
-	for (i = 0; i < MAX_SKILLS; i++) rd_s16b(&creature_ptr->skill_exp[i]);
+	for (i = 0; i < MAX_REALM; i++) READ_SKILL_EXP(&creature_ptr->spell_exp[i]);
+	for (i = 0; i < MAX_SKILLS; i++) READ_SKILL_EXP(&creature_ptr->skill_exp[i]);
 
 	// Class skill
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&creature_ptr->blue_learned_trait[i]);
@@ -814,7 +811,7 @@ static void rd_creature(creature_type *creature_ptr)
 	for (i = 0; i < MAX_MANE; i++)
 	{
 		rd_s16b(&creature_ptr->mane_spell[i]);
-		rd_s16b(&creature_ptr->mane_dam[i]);
+		READ_POWER(&creature_ptr->mane_dam[i]);
 	}
 	rd_s16b(&creature_ptr->mane_num);
 
@@ -839,7 +836,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->concent);
 
 	rd_s16b(&creature_ptr->food);
-	rd_s16b(&creature_ptr->energy_need);
+	READ_ENERGY(&creature_ptr->energy_need);
 
 	// Load timed trait
 	while(TRUE)
@@ -875,7 +872,7 @@ static void rd_creature(creature_type *creature_ptr)
 
 	READ_CREATURE_ID(&creature_ptr->riding);
 	READ_CREATURE_ID(&creature_ptr->ridden);
-	rd_s16b(&creature_ptr->floor_id);
+	READ_FLOOR_ID(&creature_ptr->floor_id);
 
 	rd_s32b(&creature_ptr->visit);
 
@@ -957,7 +954,7 @@ static void rd_extra(void)
 	rd_s32b(&turn);
 	rd_s32b(&turn_limit);
 	rd_s32b(&old_battle);
-	rd_s16b(&today_mon);
+	READ_SPECIES_ID(&today_mon);
 
 	rd_u32b(&play_time);
 	start_time = (u32b)time(NULL);
@@ -1063,7 +1060,7 @@ static errr rd_floor(floor_type *floor_ptr)
 	rd_byte(&floor_ptr->fight_arena_mode);
 	rd_byte(&floor_ptr->gamble_arena_mode);
 	rd_byte(&floor_ptr->global_map);
-	rd_s16b(&floor_ptr->town_num);
+	READ_TOWN_ID(&floor_ptr->town_num);
 
 	for (i = 0; i < MAX_RACES; i++) rd_s16b(&floor_ptr->race_population[i]);
 
@@ -1087,7 +1084,7 @@ static errr rd_floor(floor_type *floor_ptr)
 
 		// Read it
 		rd_u16b(&ct_ptr->info);
-		rd_s16b(&ct_ptr->feat);
+		READ_FEATURE_ID(&ct_ptr->feat);
 		rd_s16b(&ct_ptr->mimic);
 		rd_s16b(&ct_ptr->special);
 	}
@@ -1369,7 +1366,7 @@ static errr rd_savefile_new_aux(void)
 			{
 				rd_s16b(&quest[i].status);
 				READ_FLOOR_LEV(&quest[i].level);
-				rd_byte(&quest[i].complev);
+				READ_CREATURE_LEV(&quest[i].complev);
 
 				/* Load quest status if quest is running */
 				if((quest[i].status == QUEST_STATUS_TAKEN) ||
@@ -1393,7 +1390,7 @@ static errr rd_savefile_new_aux(void)
 
 					if(quest[i].k_idx) add_flag(artifact_info[quest[i].k_idx].flags, TRAIT_QUESTITEM);
 					rd_byte(&quest[i].flags);
-					rd_byte(&quest[i].dungeon);
+					READ_DUNGEON_ID(&quest[i].dungeon);
 				}
 			}
 			/* Ignore the empty quests from old versions */
@@ -1460,7 +1457,7 @@ static errr rd_savefile_new_aux(void)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
 		READ_POPULATION(&a_ptr->cur_num);
-		rd_s16b(&a_ptr->floor_id);
+		READ_FLOOR_ID(&a_ptr->floor_id);
 	}
 
 	/* Read the extra stuff */
@@ -1475,10 +1472,10 @@ static errr rd_savefile_new_aux(void)
 	if(player_ptr->class_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
 
 	/* Read number of towns */
-	rd_u16b(&max_towns);
+	READ_TOWN_ID(&max_towns);
 	C_MAKE(town, max_towns, town_type);
 
-	rd_u16b(&max_store_idx);
+	READ_STORE_ID(&max_store_idx);
 
 	C_MAKE(st_list, max_store_idx, store_type);
 	for(i = 0; i < max_store_idx; i++) rd_store(&st_list[i]);

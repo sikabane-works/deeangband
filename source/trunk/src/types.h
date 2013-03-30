@@ -167,16 +167,16 @@ typedef byte DIRECTION;
 #define WRITE_DIRECTION(VALUE) wr_s32b((DIRECTION)VALUE);
 
 typedef s32b POWER;
-#define READ_DIRECTION(VALUE) rd_s32b((DIRECTION *)VALUE);
-#define WRITE_DIRECTION(VALUE) wr_s32b((DIRECTION)VALUE);
+#define READ_POWER(VALUE) rd_s32b((POWER *)VALUE);
+#define WRITE_POWER(VALUE) wr_s32b((POWER)VALUE);
 
 typedef s32b SPEED;
 #define READ_SPEED(VALUE) rd_s32b((SPEED *)VALUE);
 #define WRITE_SPEED(VALUE) wr_s32b((SPEED)VALUE);
 
 typedef s32b ENERGY;
-#define READ_SPEED(VALUE) rd_s32b((SPEED *)VALUE);
-#define WRITE_SPEED(VALUE) wr_s32b((SPEED)VALUE);
+#define READ_ENERGY(VALUE) rd_s32b((ENERGY *)VALUE);
+#define WRITE_ENERGY(VALUE) wr_s32b((ENERGY)VALUE);
 
 typedef s32b SAVING;
 #define READ_SAVING(VALUE) rd_s32b((SAVING *)VALUE);
@@ -792,7 +792,7 @@ struct object_type
 
 	byte discount;		/* Discount (if any) */
 
-	POPULATION number; /* Number of items */
+	QUANTITY number; /* Number of items */
 	s32b volume;        /* Volume of items */
 
 	WEIGHT weight;		/* Item weight */
