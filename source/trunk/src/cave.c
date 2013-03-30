@@ -2913,7 +2913,7 @@ void update_creature_lite(floor_type *floor_ptr)
 	cave_type *cave_ptr;
 
 	COODINATES fx, fy;
-	void (*add_creature_lite)(creature_type *, int, int);
+	void (*add_creature_lite)(creature_type *, COODINATES, COODINATES);
 	int f_flag;
 
 	s16b end_temp;

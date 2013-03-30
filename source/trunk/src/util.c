@@ -3550,10 +3550,10 @@ bool get_com(cptr prompt, char *command, bool z_escape)
 
 // Request a "quantity" from the user
 // Hack -- allow "command_arg" to specify a quantity
-s16b get_quantity(cptr prompt, s16b max)
+QUANTITY get_quantity(cptr prompt, QUANTITY max)
 {
 	bool res;
-	s16b amt;
+	QUANTITY amt;
 	char tmp[80];
 	char buf[80];
 

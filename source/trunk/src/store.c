@@ -3236,7 +3236,9 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
  */
 static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 {
-	int i, amt, choice;
+	int i;
+	QUANTITY amt;
+	int choice;
 	int item, item_new;
 
 	s32b price, best;
