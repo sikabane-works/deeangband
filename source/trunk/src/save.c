@@ -530,14 +530,11 @@ static void wr_extra(void)
 	wr_byte((byte) quick_ok);
 
 
-	for (i = 0; i < MAX_BOUNTY; i++)
-	{
-		wr_s16b(kubi_species_idx[i]);
-	}
+	for (i = 0; i < MAX_BOUNTY; i++) WRITE_SPECIES_ID(kubi_species_idx[i]);
 
 	for (i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 	{
-		wr_s16b(battle_creature[i]);
+		WRITE_SPECIES_ID(battle_creature[i]);
 		wr_u32b(creature_odds[i]);
 	}
 
@@ -974,8 +971,8 @@ static bool wr_savefile_new(void)
 		/* Save quest status if quest is running */
 		if(quest[i].status == QUEST_STATUS_TAKEN || quest[i].status == QUEST_STATUS_COMPLETED || !is_fixed_quest_idx(i))
 		{
-			wr_s16b(quest[i].cur_num);
-			wr_s16b(quest[i].max_num);
+			WRITE_POPULATION(quest[i].cur_num);
+			WRITE_POPULATION(quest[i].max_num);
 			wr_s16b(quest[i].type);
 			WRITE_SPECIES_ID(quest[i].species_idx);
 			WRITE_OBJECT_KIND_ID(quest[i].k_idx);
@@ -1011,7 +1008,7 @@ static bool wr_savefile_new(void)
 	for (i = 0; i < tmp16u; i++)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
-		wr_byte(a_ptr->cur_num);
+		WRITE_POPULATION(a_ptr->cur_num);
 		wr_s16b(a_ptr->floor_id);
 	}
 

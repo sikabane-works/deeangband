@@ -925,11 +925,11 @@ static void rd_extra(void)
 	rd_byte(&tmp8u);
 	quick_ok = (bool)tmp8u;
 
-	for (i = 0; i < MAX_BOUNTY; i++) rd_s16b(&kubi_species_idx[i]);
+	for (i = 0; i < MAX_BOUNTY; i++) READ_SPECIES_ID(&kubi_species_idx[i]);
 
 	for (i = 0; i < 4; i++)
 	{
-		rd_s16b(&battle_creature[i]);
+		READ_SPECIES_ID(&battle_creature[i]);
 		rd_u32b(&creature_odds[i]);
 	}
 
@@ -1376,8 +1376,8 @@ static errr rd_savefile_new_aux(void)
 				    (quest[i].status == QUEST_STATUS_COMPLETED) ||
 				    (i >= MIN_RANDOM_QUEST) && (i <= (MIN_RANDOM_QUEST + max_rquests_load)))
 				{
-					rd_s16b(&quest[i].cur_num);
-					rd_s16b(&quest[i].max_num);
+					READ_POPULATION(&quest[i].cur_num);
+					READ_POPULATION(&quest[i].max_num);
 					rd_s16b(&quest[i].type);
 
 					/* Load quest creature index */
@@ -1459,7 +1459,7 @@ static errr rd_savefile_new_aux(void)
 	for (i = 0; i < tmp16u; i++)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
-		rd_byte(&a_ptr->cur_num);
+		READ_POPULATION(&a_ptr->cur_num);
 		rd_s16b(&a_ptr->floor_id);
 	}
 
