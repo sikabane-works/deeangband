@@ -905,7 +905,7 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, COODINATES y, COODINAT
 	// Get grid and contents
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type  *c_ptr = &floor_ptr->cave[y][x];
-	s16b       old_feat = c_ptr->feat;
+	FEATURE_ID old_feat = c_ptr->feat;
 	bool       more = FALSE;
 
 	cost_tactical_energy(creature_ptr, 100);
@@ -915,7 +915,7 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, COODINATES y, COODINAT
 	/* Open door */
 	if(have_flag(feature_info[old_feat].flags, FF_CLOSE))
 	{
-		s16b closed_feat = feat_state(floor_ptr, old_feat, FF_CLOSE);
+		FEATURE_ID closed_feat = feat_state(floor_ptr, old_feat, FF_CLOSE);
 
 		/* Hack -- object in the way */
 		if((c_ptr->object_idx || (c_ptr->info & CAVE_OBJECT)) && (closed_feat != old_feat) && !have_flag(feature_info[closed_feat].flags, FF_DROP))

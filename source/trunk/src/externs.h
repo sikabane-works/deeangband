@@ -1016,7 +1016,7 @@ extern creature_hook_type get_creature_hook2(int y, int x);
 extern void set_pet(creature_type *master_ptr, creature_type *m_ptr);
 extern void set_hostile(creature_type *master_ptr, creature_type *m_ptr);
 extern void anger_creature(creature_type *hostile_ptr, creature_type *m_ptr);
-extern bool species_can_cross_terrain(s16b feat, species_type *species_ptr, u16b mode);
+extern bool species_can_cross_terrain(FEATURE_ID feat, species_type *species_ptr, u16b mode);
 extern bool creature_can_cross_terrain(creature_type *creature_ptr, FEATURE_ID feature, u16b mode);
 extern bool species_can_enter(floor_type *floor_ptr, int y, int x, species_type *species_ptr, u16b mode);
 extern bool creature_can_enter(int y, int x, creature_type *creature_ptr, u16b mode);

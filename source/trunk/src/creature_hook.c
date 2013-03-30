@@ -458,7 +458,7 @@ void anger_creature(creature_type *hostile_ptr, creature_type *m_ptr)
 /*
  * Check if creature can cross terrain
  */
-bool species_can_cross_terrain(s16b feat, species_type *species_ptr, u16b mode)
+bool species_can_cross_terrain(FEATURE_ID feat, species_type *species_ptr, u16b mode)
 {
 	feature_type *f_ptr = &feature_info[feat];
 
