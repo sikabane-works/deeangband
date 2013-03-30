@@ -103,7 +103,7 @@ static void wr_object(object_type *object_ptr)
 	wr_s32b(object_ptr->volume);
 	wr_s32b(object_ptr->weight);
 	WRITE_ARTIFACT_ID(object_ptr->name1);
-	wr_u16b(object_ptr->name2);
+	WRITE_OBJECT_EGO_ID(object_ptr->name2);
 
 	wr_s32b(object_ptr->timeout);
 	wr_s16b(object_ptr->charge_const);
@@ -129,7 +129,7 @@ static void wr_object(object_type *object_ptr)
 	wr_byte(object_ptr->marked);
 
 	WRITE_CREATURE_ID(object_ptr->held_m_idx);
-	wr_s16b(object_ptr->fuel);
+	WRITE_GAME_TIME(object_ptr->fuel);
 	wr_byte(object_ptr->forged_type);
 	wr_byte(object_ptr->feeling);
 
@@ -202,7 +202,7 @@ static void wr_store(store_type *st_ptr)
 
 	wr_s32b(st_ptr->last_visit);
 	WRITE_FLAGS_32(st_ptr->flags);
-	wr_byte(st_ptr->level);
+	WRITE_FLOOR_LEV(st_ptr->level);
 
 	/* Save the stock */
 	for (j = 0; j < st_ptr->stock_num; j++)
@@ -365,7 +365,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s32b(creature_ptr->age);
 	wr_s32b(creature_ptr->ht);
 	wr_s32b(creature_ptr->wt);
-	wr_s16b(creature_ptr->dr);
+	WRITE_CREATURE_LEV(creature_ptr->dr);
 
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
@@ -402,18 +402,18 @@ static void wr_creature(creature_type *creature_ptr)
 	WRITE_COODINATES(creature_ptr->fy);
 	WRITE_COODINATES(creature_ptr->fx);
 
-	wr_s32b(creature_ptr->wx);
-	wr_s32b(creature_ptr->wy);
+	WRITE_COODINATES(creature_ptr->wx);
+	WRITE_COODINATES(creature_ptr->wy);
 
-	wr_s16b(creature_ptr->depth);
+	WRITE_FLOOR_LEV(creature_ptr->depth);
 
 	tmp16u = CREATURE_MAX_LEVEL;
 	wr_u16b(tmp16u);
 	for (i = 0; i < tmp16u; i++) WRITE_STAT(creature_ptr->base_hp[i]);
 
 	for (i = 0; i < 8; i++) wr_s32b(creature_ptr->authority[i]);
-	for (i = 0; i < MAX_REALM; i++) wr_s16b(creature_ptr->spell_exp[i]);
-	for (i = 0; i < MAX_SKILLS; i++) wr_s16b(creature_ptr->skill_exp[i]);
+	for (i = 0; i < MAX_REALM; i++) WRITE_SKILL_EXP(creature_ptr->spell_exp[i]);
+	for (i = 0; i < MAX_SKILLS; i++) WRITE_SKILL_EXP(creature_ptr->skill_exp[i]);
 
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) wr_s32b(creature_ptr->blue_learned_trait[i]);
 
@@ -425,7 +425,7 @@ static void wr_creature(creature_type *creature_ptr)
 	for (i = 0; i < MAX_MANE; i++)
 	{
 		wr_s16b(creature_ptr->mane_spell[i]);
-		wr_s16b(creature_ptr->mane_dam[i]);
+		WRITE_POWER(creature_ptr->mane_dam[i]);
 	}
 	wr_s16b(creature_ptr->mane_num);
 
@@ -447,7 +447,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->concent);
 
 	wr_s16b(creature_ptr->food);
-	wr_s16b(creature_ptr->energy_need);
+	WRITE_ENERGY(creature_ptr->energy_need);
 
 	// Save timed trait
 	for(i = 0; i < MAX_TRAITS; i++)
@@ -483,7 +483,7 @@ static void wr_creature(creature_type *creature_ptr)
 	WRITE_CREATURE_ID(creature_ptr->riding);
 	WRITE_CREATURE_ID(creature_ptr->ridden);
 
-	wr_s16b(creature_ptr->floor_id);
+	WRITE_FLOOR_ID(creature_ptr->floor_id);
 	wr_s32b(creature_ptr->visit);
 
 	/* Write spell data */
@@ -558,7 +558,7 @@ static void wr_extra(void)
 	wr_s32b(turn);
 	wr_s32b(turn_limit);
 	wr_s32b(old_battle);
-	wr_s16b(today_mon);
+	WRITE_SPECIES_ID(today_mon);
 
 	wr_u32b(play_time);
 
@@ -645,7 +645,7 @@ static void wr_floor(floor_type *floor_ptr)
 	wr_byte(floor_ptr->fight_arena_mode);
 	wr_byte(floor_ptr->gamble_arena_mode);
 	wr_byte(floor_ptr->global_map);
-	wr_s16b(floor_ptr->town_num); // -KMW-
+	WRITE_TOWN_ID(floor_ptr->town_num); // -KMW-
 
 	for (i = 0; i < MAX_RACES; i++) wr_s16b(floor_ptr->race_population[i]);
 
@@ -736,7 +736,7 @@ static void wr_floor(floor_type *floor_ptr)
 
 		// Dump it
 		wr_u16b(ct_ptr->info);
-		wr_s16b(ct_ptr->feat);
+		WRITE_FEATURE_ID(ct_ptr->feat);
 		wr_s16b(ct_ptr->mimic);
 		wr_s16b(ct_ptr->special);
 	}
@@ -935,7 +935,7 @@ static bool wr_savefile_new(void)
 
 	// Dump the object memory
 	tmp16u = max_object_kind_idx;
-	wr_u16b(tmp16u);
+	WRITE_OBJECT_KIND_ID(max_object_kind_idx);
 	for (i = 0; i < tmp16u; i++) wr_xtra(i);
 
 	/*** Dump objects ***/
@@ -965,8 +965,7 @@ static bool wr_savefile_new(void)
 		/* And the dungeon level too */
 		/* (prevents problems with multi-level quests) */
 		WRITE_FLOOR_LEV(quest[i].level);
-
-		wr_byte(quest[i].complev);
+		WRITE_CREATURE_LEV(quest[i].complev);
 
 		/* Save quest status if quest is running */
 		if(quest[i].status == QUEST_STATUS_TAKEN || quest[i].status == QUEST_STATUS_COMPLETED || !is_fixed_quest_idx(i))
@@ -977,7 +976,7 @@ static bool wr_savefile_new(void)
 			WRITE_SPECIES_ID(quest[i].species_idx);
 			WRITE_OBJECT_KIND_ID(quest[i].k_idx);
 			wr_byte(quest[i].flags);
-			wr_byte(quest[i].dungeon);
+			WRITE_DUNGEON_ID(quest[i].dungeon);
 		}
 	}
 
@@ -1009,7 +1008,7 @@ static bool wr_savefile_new(void)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
 		WRITE_POPULATION(a_ptr->cur_num);
-		wr_s16b(a_ptr->floor_id);
+		WRITE_FLOOR_ID(a_ptr->floor_id);
 	}
 
 	/* Write the "extra" information */
@@ -1017,7 +1016,7 @@ static bool wr_savefile_new(void)
 
 	tmp16u = max_towns;
 	wr_u16b(tmp16u);
-	wr_u16b(max_store_idx);
+	WRITE_STORE_ID(max_store_idx);
 
 	for(i = 0; i < max_store_idx; i++)
 			wr_store(&st_list[i]);
