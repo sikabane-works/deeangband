@@ -310,9 +310,9 @@ static void rd_object(object_type *object_ptr)
 	rd_byte(&object_ptr->equipped_slot_type);
 	rd_byte(&object_ptr->equipped_slot_num);
 
-	rd_s16b(&object_ptr->size_upper);
-	rd_s16b(&object_ptr->size_lower);
-	rd_s16b(&object_ptr->to_size);
+	READ_BODY_SIZE(&object_ptr->size_upper);
+	READ_BODY_SIZE(&object_ptr->size_lower);
+	READ_BODY_SIZE(&object_ptr->to_size);
 
 	for(i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&object_ptr->trait_flags[i]);
 	for(i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&object_ptr->curse_flags[i]);

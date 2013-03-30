@@ -142,9 +142,9 @@ static void wr_object(object_type *object_ptr)
 	wr_byte(object_ptr->equipped_slot_type);
 	wr_byte(object_ptr->equipped_slot_num);
 
-	wr_s16b(object_ptr->size_upper);
-	wr_s16b(object_ptr->size_lower);
-	wr_s16b(object_ptr->to_size);
+	WRITE_BODY_SIZE(object_ptr->size_upper);
+	WRITE_BODY_SIZE(object_ptr->size_lower);
+	WRITE_BODY_SIZE(object_ptr->to_size);
 
 	for(i = 0; i < MAX_TRAITS_FLAG; i++) wr_s32b(object_ptr->trait_flags[i]);
 	for(i = 0; i < MAX_TRAITS_FLAG; i++) wr_s32b(object_ptr->curse_flags[i]);
