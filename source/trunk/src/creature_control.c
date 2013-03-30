@@ -789,11 +789,8 @@ void compact_creatures(int size)
 		for (i = 1; i < creature_max; i++)
 		{
 			creature_type *m_ptr = &creature_list[i];
-
 			species_type *species_ptr = &species_info[m_ptr->species_idx];
-
-
-			if(!m_ptr->species_idx) continue;
+			if(!is_valid_creature(m_ptr)) continue;
 
 			/* Hack -- High level creatures start out "immune" */
 			if(species_ptr->level > cur_lev) continue;
@@ -818,7 +815,6 @@ void compact_creatures(int size)
 			if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 			{
 				char m_name[MAX_NLEN];
-
 				creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 				do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_COMPACT, m_name);
 			}
@@ -838,7 +834,7 @@ void compact_creatures(int size)
 		creature_type *m_ptr = &creature_list[i];
 
 		/* Skip real creatures */
-		if(m_ptr->species_idx) continue;
+		if(is_valid_creature(m_ptr)) continue;
 
 		/* Move last creature into open hole */
 		move_creature_object(creature_max - 1, i);
@@ -2669,7 +2665,7 @@ void update_creatures(bool full)
 		creature_type *m_ptr = &creature_list[i];
 
 		/* Skip dead creatures */
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		/* Update the creature */
 		update_creature_view(player_ptr, i, full);

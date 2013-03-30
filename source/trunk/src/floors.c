@@ -205,7 +205,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 		creature_type *m_ptr = &creature_list[i];
 
 		// Skip dead creatures 
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		// Extract real creature race 
 		species_ptr = real_species_ptr(m_ptr);

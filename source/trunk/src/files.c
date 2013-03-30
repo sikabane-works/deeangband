@@ -3660,7 +3660,7 @@ static void dump_aux_pet(creature_type *creature_ptr, FILE *fff)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 		if(!is_pet(player_ptr, m_ptr)) continue;
 		pet_settings = TRUE;
 		if(!m_ptr->nickname && (creature_ptr->riding != i)) continue;

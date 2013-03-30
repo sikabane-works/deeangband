@@ -2242,17 +2242,16 @@ void creature_wipe(creature_type *creature_ptr)
  */
 void determine_random_questor(quest_type *quest_ptr)
 {
-	s16b species_idx;
+	SPECIES_ID species_idx;
 	species_type *species_ptr;
 	int i = 0;
 
-	get_species_num_prep_trait(NULL, t_need(1, TRAIT_UNIQUE),
-		t_except(4, TRAIT_QUESTOR, TRAIT_FRIENDLY, TRAIT_AQUATIC, TRAIT_WILD_ONLY), 0);
+	get_species_num_prep_trait(NULL, t_need(1, TRAIT_UNIQUE), t_except(4, TRAIT_QUESTOR, TRAIT_FRIENDLY, TRAIT_AQUATIC, TRAIT_WILD_ONLY), 0);
 
 	do
 	{
 		// Random creatures 5 - 10 levels out of depth (depending on level)
-		species_idx = get_species_num(CURRENT_FLOOR_PTR, quest_ptr->level + 5 + randint1(quest_ptr->level / 10));
+		species_idx = get_species_num(CURRENT_FLOOR_PTR, quest_ptr->level + 5 + (FLOOR_LEV)randint1(quest_ptr->level / 10));
 		species_ptr = &species_info[species_idx];
 
 		if(species_ptr->rarity > 100) continue;

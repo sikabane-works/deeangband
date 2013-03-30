@@ -125,11 +125,11 @@ typedef byte SYMBOL;
 #define READ_SYMBOL(VALUE) rd_s32b((SYMBOL *)VALUE);
 #define WRITE_SYMBOL(VALUE) wr_s32b((SYMBOL)VALUE);
 
-typedef byte CREATURE_LEV;
+typedef s32b CREATURE_LEV;
 #define READ_CREATURE_LEV(VALUE) rd_byte((CREATURE_LEV *)VALUE);
 #define WRITE_CREATURE_LEV(VALUE) wr_byte((CREATURE_LEV)VALUE);
 
-typedef byte FLOOR_LEV;
+typedef s32b FLOOR_LEV;
 #define READ_FLOOR_LEV(VALUE) rd_byte((FLOOR_LEV *)VALUE);
 #define WRITE_FLOOR_LEV(VALUE) wr_byte((FLOOR_LEV)VALUE);
 
@@ -565,16 +565,16 @@ struct species_type
 	byte alert_range;				/* Area affect radius (1-100) */
 	SPEED speed;				/* Speed (normally 0) */
 
-	u16b underling_id[MAX_UNDERLINGS];	    /* Underling ID */
-	u16b underling_d_num[MAX_UNDERLINGS];	    /* Dice Number of Underlings */
-	u16b underling_d_side[MAX_UNDERLINGS];	    /* Dice Side of Underlings */
+	SPECIES_ID underling_id[MAX_UNDERLINGS];	    /* Underling ID */
+	DICE_NUM underling_d_num[MAX_UNDERLINGS];	    /* Dice Number of Underlings */
+	DICE_SIDE underling_d_side[MAX_UNDERLINGS];	    /* Dice Side of Underlings */
 
-	u16b artifact_id[INVEN_TOTAL];
-	u16b artifact_tval[INVEN_TOTAL];
-	u16b artifact_sval[INVEN_TOTAL];
+	ARTIFACT_ID artifact_id[INVEN_TOTAL];
+	TVAL artifact_tval[INVEN_TOTAL];
+	SVAL artifact_sval[INVEN_TOTAL];
 	u16b artifact_prob[INVEN_TOTAL];
 	u32b artifact_flag[INVEN_TOTAL];
-	u16b artifact_ego[INVEN_TOTAL];
+	OBJECT_EGO_ID artifact_ego[INVEN_TOTAL];
 
 	s32b exp;				/* Exp value for kill */
 

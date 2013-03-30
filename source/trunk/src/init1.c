@@ -1211,7 +1211,6 @@ errr parse_skill_info(char *buf, header *head)
 errr parse_magic_info(char *buf, header *head)
 {
 	int i;
-
 	char *s;
 
 	/* Current entry */
@@ -1324,8 +1323,6 @@ errr parse_magic_info(char *buf, header *head)
 		m_ptr->info[realm][magic_idx].sexp = exp;
 		magic_idx ++;
 	}
-
-
 	else return (6);
 
 	return PARSE_ERROR_NONE;

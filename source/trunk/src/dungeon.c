@@ -4080,7 +4080,7 @@ void gamble_arena_limitation(void)
 		{
 			creature_type *m_ptr = &creature_list[i];
 
-			if(!m_ptr->species_idx) continue;
+			if(!is_valid_creature(m_ptr)) continue;
 
 			/* Hack -- Detect creature */
 			m_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW);

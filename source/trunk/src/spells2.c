@@ -805,7 +805,7 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, COODINATES range)
 		creature_type *m_ptr = &creature_list[i];
 
 		/* Skip dead creatures */
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		y = m_ptr->fy;
 		x = m_ptr->fx;
@@ -858,7 +858,7 @@ bool detect_creatures_mind(creature_type *creature_ptr, COODINATES range)
 		creature_type *m_ptr = &creature_list[i];
 
 		/* Skip dead creatures */
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		y = m_ptr->fy;
 		x = m_ptr->fx;
@@ -912,7 +912,7 @@ bool detect_creatures_string(creature_type *creature_ptr, COODINATES range, cptr
 		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead creatures */
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		y = m_ptr->fy;
 		x = m_ptr->fx;
@@ -971,7 +971,7 @@ bool detect_creatures_xxx(creature_type *creature_ptr, COODINATES range, u32b ma
 		creature_type *m_ptr = &creature_list[i];
 
 		/* Skip dead creatures */
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		y = m_ptr->fy;
 		x = m_ptr->fx;
@@ -1251,7 +1251,7 @@ bool symbol_genocide(creature_type *caster_ptr, POWER power, bool player_cast)
 		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		/* Skip "wrong" creatures */
 		if(species_ptr->d_char != typ) continue;
@@ -1282,7 +1282,7 @@ bool mass_genocide(creature_type *caster_ptr, POWER power, bool player_cast)
 		creature_type *m_ptr = &creature_list[i];
 
 
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		/* Skip distant creatures */
 		if(m_ptr->cdis > MAX_SIGHT) continue;
@@ -1314,7 +1314,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, POWER power, bool player_ca
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 		if(!has_trait(m_ptr, TRAIT_UNDEAD)) continue;
 
 		/* Skip distant creatures */
@@ -1351,7 +1351,7 @@ bool probing(floor_type *floor_ptr)
 		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		/* Require line of sight */
 		if(!player_has_los_bold(m_ptr->fy, m_ptr->fx)) continue;

@@ -1652,7 +1652,7 @@ static void do_cmd_wiz_zap(creature_type *creature_ptr)
 		creature_type *m_ptr = &creature_list[i];
 
 
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		/* Skip the mount */
 		if(i == creature_ptr->riding) continue;
@@ -1687,7 +1687,7 @@ static void do_cmd_wiz_zap_all(creature_type *creature_ptr)
 		creature_type *m_ptr = &creature_list[i];
 
 
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 
 		/* Skip the mount */
 		if(i == creature_ptr->riding) continue;

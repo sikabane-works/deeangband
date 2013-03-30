@@ -1217,7 +1217,7 @@ static void generate_floor_creature_arena(floor_type *floor_ptr)
 	for(i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 		m_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW); // Hack -- Detect creature
 		update_creature_view(player_ptr, i, FALSE); // Update the creature
 	}

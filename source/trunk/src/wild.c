@@ -978,7 +978,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(m_ptr)) continue;
 		if(is_pet(player_ptr, m_ptr) && i != creature_ptr->riding) have_pet = TRUE;
 		if(!enemy_is_still_here(m_ptr)) continue;
 		msg_print(MES_FIELD_TOO_NEAR_ENEMY);
