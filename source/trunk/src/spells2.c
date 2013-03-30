@@ -2650,7 +2650,7 @@ int activate_hi_summon(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
 	int count = 0;
-	int summon_lev;
+	FLOOR_LEV summon_lev;
 	FLAGS_32 mode = PC_ALLOW_GROUP;
 	bool pet = FALSE;
 
@@ -2669,7 +2669,7 @@ int activate_hi_summon(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 
 	if(!pet) mode |= PC_NO_PET;
 
-	summon_lev = (pet ? creature_ptr->lev * 2 / 3 + randint1(creature_ptr->lev / 2) : floor_ptr->depth);
+	summon_lev = (pet ? creature_ptr->lev * 2 / 3 + (FLOOR_LEV)randint1(creature_ptr->lev / 2) : floor_ptr->depth); // TODO CREATURE/FLOOR_LEV
 
 	for (i = 0; i < (randint1(7) + (floor_ptr->depth / 40)); i++)
 	{

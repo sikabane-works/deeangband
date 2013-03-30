@@ -381,7 +381,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 	object_type *object_ptr = &object_list[object_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	int mon_level = object_ptr->chest_value;
+	FLOOR_LEV mon_level = (FLOOR_LEV)object_ptr->chest_value;
 
 	if(object_ptr->pval <= 0) return; // Ignore disarmed chests
 	trap = chest_traps[object_ptr->pval]; // Obtain the traps

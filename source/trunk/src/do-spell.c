@@ -152,13 +152,13 @@ static int beam_chance(creature_type *creature_ptr)
 }
 
 // Handle summoning and failure of trump spells
-static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, COODINATES y, COODINATES x, int lev, int type, FLAGS_32 mode)
+static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, COODINATES y, COODINATES x, FLOOR_LEV lev, int type, FLAGS_32 mode)
 {
 	int who;
 	int i;
 	bool success = FALSE;
 
-	if(!lev) lev = creature_ptr->lev * 2 / 3 + randint1(creature_ptr->lev / 2); // Default level
+	if(!lev) lev = creature_ptr->lev * 2 / 3 + (FLOOR_LEV)randint1(creature_ptr->lev / 2); // TODO Default level
 
 	if(pet)
 	{
@@ -696,7 +696,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 	int lev_bonus = creature_ptr->lev;
 	int item;
 	cptr q, s;
-	int summon_lev;
+	FLOOR_LEV summon_lev;
 	object_type *object_ptr;
 
 #ifdef JP
@@ -2023,7 +2023,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 	static const char s_rng[] = KW_RAN;
 
 	DIRECTION dir;
-	int lev_bonus = caster_ptr->lev;
+	FLOOR_LEV lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -4357,7 +4357,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			/* Phantasmal Servant is not summoned as enemy when failed */
 			if(cast)
 			{
-				int summon_lev = lev_bonus * 2 / 3 + randint1(lev_bonus / 2);
+				FLOOR_LEV summon_lev = lev_bonus * 2 / 3 + (FLOOR_LEV)randint1(lev_bonus / 2);
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, (summon_lev * 3 / 2), TRAIT_S_PHANTOM, 0L))
 					msg_print(MES_SUMMON_SERVANT);
 			}
@@ -4969,7 +4969,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
-	int lev_bonus = caster_ptr->lev;
+	FLOOR_LEV lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
