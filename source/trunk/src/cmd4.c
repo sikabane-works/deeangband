@@ -1541,7 +1541,7 @@ static void do_cmd_options_win(void)
 	int x = 0;
 	char ch;
 	bool go = TRUE;
-	u32b old_flag[8];
+	FLAGS_32 old_flag[8];
 
 
 	// Memorize old flags
@@ -5027,7 +5027,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
 	int i, k, z, x, y, n = 0;
 	u16b why = 3;
-	s16b *who;
+	ARTIFACT_ID *who;
 	FILE *fff;
 	char file_name[1024];
 	char base_name[MAX_NLEN];
@@ -5043,7 +5043,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	}
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_artifact_idx, s16b);
+	C_MAKE(who, max_artifact_idx, ARTIFACT_ID);
 
 	/* Allocate the "okay" array */
 	C_MAKE(okay, max_artifact_idx, bool);
@@ -5153,7 +5153,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 
 	}
 
-	C_KILL(who, max_artifact_idx, s16b);
+	C_KILL(who, max_artifact_idx, ARTIFACT_ID);
 	C_KILL(okay, max_artifact_idx, bool);
 
 	my_fclose(fff);

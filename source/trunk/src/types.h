@@ -46,9 +46,9 @@
 
 typedef u32b STRING_OFFSET;
 
-typedef s32b FLAGS_32;
-#define READ_FLAGS_32(VALUE) rd_s32b((FLAGS_32 *)VALUE);
-#define WRITE_FLAGS_32(VALUE) wr_s32b((FLAGS_32)VALUE);
+typedef u32b FLAGS_32;
+#define READ_FLAGS_32(VALUE) rd_u32b((FLAGS_32 *)VALUE);
+#define WRITE_FLAGS_32(VALUE) wr_u32b((FLAGS_32)VALUE);
 
 typedef s32b CREATURE_ID;
 #define READ_CREATURE_ID(VALUE) rd_s32b((CREATURE_ID *)VALUE);
