@@ -6977,7 +6977,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				}
 				else
 				{
-					max_artifact_idx = strtol(zz[1], NULL, 10);
+					max_artifact_idx = (ARTIFACT_ID)strtol(zz[1], NULL, 10);
 				}
 			}
 

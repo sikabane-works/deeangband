@@ -473,7 +473,7 @@ typedef struct special_blow_type special_blow_type;
 struct special_blow_type
 {
 	byte method;
-	byte effect;
+	EFFECT_ID effect;
 	DICE_NUM d_dice;
 	DICE_SIDE d_side;
 };

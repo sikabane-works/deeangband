@@ -455,7 +455,7 @@ static void wr_creature(creature_type *creature_ptr)
 		if(has_trait_from_timed(creature_ptr, i))
 		{
 			wr_s16b(i);
-			wr_s16b(creature_ptr->timed_trait[i]);
+			WRITE_GAME_TIME(creature_ptr->timed_trait[i]);
 		}
 	}
 	wr_s16b(-1);
@@ -623,7 +623,8 @@ static void wr_floor(floor_type *floor_ptr)
 	u16b num_temp = 0;
 	int dummy_why;
 
-	int i, y, x;
+	int i;
+	COODINATES y, x;
 
 	u16b tmp16u;
 
@@ -821,8 +822,8 @@ static void wr_floor(floor_type *floor_ptr)
 		{
 			if(floor_ptr->cave[y][x].cx && floor_ptr->cave[y][x].cy)
 			{
-				wr_s16b(x);
-				wr_s16b(y);
+				WRITE_COODINATES(x);
+				WRITE_COODINATES(y);
 				WRITE_COODINATES(floor_ptr->cave[y][x].cx);
 				WRITE_COODINATES(floor_ptr->cave[y][x].cy);
 			}
@@ -939,7 +940,7 @@ static bool wr_savefile_new(void)
 
 	/*** Dump objects ***/
 
-	wr_u16b(object_max); // Total objects
+	WRITE_OBJECT_ID(object_max); // Total objects
 
 	// Dump the objects
 	for (i = 1; i < object_max; i++) wr_object(&object_list[i]); // Dump it
@@ -996,9 +997,8 @@ static bool wr_savefile_new(void)
 	}
 
 	/* Hack -- Dump the artifacts */
-	tmp16u = max_artifact_idx;
-	wr_u16b(tmp16u);
-	for (i = 0; i < tmp16u; i++)
+	WRITE_ARTIFACT_ID(max_artifact_idx);
+	for (i = 0; i < max_artifact_idx; i++)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
 		WRITE_POPULATION(a_ptr->cur_num);
@@ -1008,12 +1008,10 @@ static bool wr_savefile_new(void)
 	/* Write the "extra" information */
 	wr_extra();
 
-	tmp16u = max_towns;
-	wr_u16b(tmp16u);
+	WRITE_TOWN_ID(max_towns);
 	WRITE_STORE_ID(max_store_idx);
 
-	for(i = 0; i < max_store_idx; i++)
-			wr_store(&st_list[i]);
+	for(i = 0; i < max_store_idx; i++) wr_store(&st_list[i]);
 
 	/* Write screen dump for sending score */
 	if(screen_dump && (wait_report_score || !gameover))
