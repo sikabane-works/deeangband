@@ -1558,7 +1558,7 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 	else if(!can_enter && !can_kill_walls)
 	{
 		/* Feature code (applying "mimic" field) */
-		s16b feat = get_feat_mimic(c_ptr);
+		FEATURE_ID feat = get_feat_mimic(c_ptr);
 		feature_type *mimic_f_ptr = &feature_info[feat];
 		cptr name = feature_name + mimic_f_ptr->name;
 
@@ -1705,7 +1705,7 @@ static int see_wall(creature_type *creature_ptr, int dir, int y, int x)
 	if(c_ptr->info & (CAVE_MARK)) // Must be known to the player
 	{
 		// Feature code (applying "mimic" field)
-		s16b         feat = get_feat_mimic(c_ptr);
+		FEATURE_ID feat = get_feat_mimic(c_ptr);
 		feature_type *f_ptr = &feature_info[feat];
 
 		// Wall grids are known walls
@@ -2018,11 +2018,11 @@ static bool run_test(creature_type *creature_ptr)
 {
 	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	DIRECTION prev_dir, new_dir, check_dir = 0;
-	int         row, col;
-	int         i, max, inv;
+	int row, col;
+	int i, max, inv;
 	DIRECTION option = 0, option2 = 0;
 	cave_type   *c_ptr;
-	s16b        feat;
+	FEATURE_ID feat;
 	feature_type *f_ptr;
 
 	// Where we came from

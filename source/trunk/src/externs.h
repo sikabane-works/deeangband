@@ -869,8 +869,8 @@ extern bool has_magic_power(creature_type *creature_ptr);
 extern bool has_status(creature_type *creature_ptr, int stat);
 
 extern int get_equip_weapon_num(creature_type *creature_ptr);
-extern u32b calc_equipping_weight_limit(creature_type *creature_ptr);
-extern u32b calc_carrying_weight_limit(creature_type *creature_ptr);
+extern WEIGHT calc_equipping_weight_limit(creature_type *creature_ptr);
+extern WEIGHT calc_carrying_weight_limit(creature_type *creature_ptr);
 
 extern creature_type *find_unique_instance(int n);
 
@@ -1039,8 +1039,8 @@ extern void delete_creature(floor_type *floor_ptr, int y, int x);
 extern void compact_creatures(int size);
 extern void birth_uniques(void);
 
-extern void wipe_creature_list(int floor_id);
-extern s16b creature_pop(void);
+extern void wipe_creature_list(FLOOR_ID floor_id);
+extern CREATURE_ID creature_pop(void);
 extern errr get_species_num_new();
 extern errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3, int summon_specific_type);
 extern errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, const u32b *except, FLAGS_32 flags);

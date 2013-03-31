@@ -875,7 +875,7 @@ void birth_uniques(void)
 * This is an efficient method of simulating multiple calls to the
 * "delete_creature()" function, with no visual effects.
 */
-void wipe_creature_list(int floor_id)
+void wipe_creature_list(FLOOR_ID floor_id)
 {
 	int i;
 
@@ -933,7 +933,7 @@ void wipe_creature_list(int floor_id)
 
 // Acquires and returns the index of a "free" creature.
 // This routine should almost never fail, but it *can* happen.
-s16b creature_pop(void)
+CREATURE_ID creature_pop(void)
 {
 	CREATURE_ID i;
 	creature_type *creature_ptr;
