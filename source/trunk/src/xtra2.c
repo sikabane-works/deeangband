@@ -196,7 +196,7 @@ void check_experience(creature_type *creature_ptr)
 *
 *  Note the use of actual "creature names"
 */
-static int get_coin_type(int species_idx)
+static int get_coin_type(SPECIES_ID species_idx)
 {
 	switch (species_idx)
 	{

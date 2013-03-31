@@ -1415,7 +1415,7 @@ static u32b vault_aux_dragon_mask4;
 /*
  * Helper function for "creature nest (jelly)"
  */
-static bool vault_aux_jelly(int species_idx)
+static bool vault_aux_jelly(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1438,7 +1438,7 @@ static bool vault_aux_jelly(int species_idx)
 /*
  * Helper function for "creature nest (animal)"
  */
-static bool vault_aux_animal(int species_idx)
+static bool vault_aux_animal(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1453,7 +1453,7 @@ static bool vault_aux_animal(int species_idx)
 /*
  * Helper function for "creature nest (undead)"
  */
-static bool vault_aux_undead(int species_idx)
+static bool vault_aux_undead(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1471,7 +1471,7 @@ static bool vault_aux_undead(int species_idx)
 /*
  * Helper function for "creature nest (chapel)"
  */
-static bool vault_aux_chapel_g(int species_idx)
+static bool vault_aux_chapel_g(SPECIES_ID species_idx)
 {
 	static int chapel_list[] = {
 		SPECIES_NOV_PRIEST, SPECIES_NOV_PALADIN, SPECIES_NOV_PRIEST_G, SPECIES_NOV_PALADIN_G, 
@@ -1503,7 +1503,7 @@ static bool vault_aux_chapel_g(int species_idx)
 /*
  * Helper function for "creature nest (kennel)"
  */
-static bool vault_aux_kennel(int species_idx)
+static bool vault_aux_kennel(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1521,7 +1521,7 @@ static bool vault_aux_kennel(int species_idx)
 /*
  * Helper function for "creature nest (mimic)"
  */
-static bool vault_aux_mimic(int species_idx)
+static bool vault_aux_mimic(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1538,7 +1538,7 @@ static bool vault_aux_mimic(int species_idx)
 /*
  * Helper function for "creature nest (clone)"
  */
-static bool vault_aux_clone(int species_idx)
+static bool vault_aux_clone(SPECIES_ID species_idx)
 {
 	/* Validate the creature */
 	if(!vault_creature_okay(species_idx)) return FALSE;
@@ -1550,7 +1550,7 @@ static bool vault_aux_clone(int species_idx)
 /*
  * Helper function for "creature nest (symbol clone)"
  */
-static bool vault_aux_symbol_e(int species_idx)
+static bool vault_aux_symbol_e(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1572,7 +1572,7 @@ static bool vault_aux_symbol_e(int species_idx)
 /*
  * Helper function for "creature nest (symbol clone)"
  */
-static bool vault_aux_symbol_g(int species_idx)
+static bool vault_aux_symbol_g(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1594,7 +1594,7 @@ static bool vault_aux_symbol_g(int species_idx)
 /*
  * Helper function for "creature pit (orc)"
  */
-static bool vault_aux_orc(int species_idx)
+static bool vault_aux_orc(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1609,7 +1609,7 @@ static bool vault_aux_orc(int species_idx)
 /*
  * Helper function for "creature pit (troll)"
  */
-static bool vault_aux_troll(int species_idx)
+static bool vault_aux_troll(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1624,7 +1624,7 @@ static bool vault_aux_troll(int species_idx)
 /*
  * Helper function for "creature pit (giant)"
  */
-static bool vault_aux_giant(int species_idx)
+static bool vault_aux_giant(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1647,7 +1647,7 @@ static bool vault_aux_giant(int species_idx)
 /*
  * Helper function for "creature pit (dragon)"
  */
-static bool vault_aux_dragon(int species_idx)
+static bool vault_aux_dragon(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1671,7 +1671,7 @@ static bool vault_aux_dragon(int species_idx)
 /*
  * Helper function for "creature pit (demon)"
  */
-static bool vault_aux_demon(int species_idx)
+static bool vault_aux_demon(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1691,7 +1691,7 @@ static bool vault_aux_demon(int species_idx)
 /*
  * Helper function for "creature pit (lovecraftian)"
  */
-static bool vault_aux_cthulhu(int species_idx)
+static bool vault_aux_cthulhu(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -1729,7 +1729,7 @@ static void vault_prep_clone(floor_type *floor_ptr)
  */
 static void vault_prep_symbol(floor_type *floor_ptr)
 {
-	int species_idx;
+	SPECIES_ID species_idx;
 
 	/* Apply the creature restriction */
 	get_species_num_prep_trait(NULL, NULL, t_need(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
@@ -1817,7 +1817,7 @@ static void vault_prep_dragon(floor_type *floor_ptr)
 /*
  * Helper function for "creature pit (dark elf)"
  */
-static bool vault_aux_dark_elf(int species_idx)
+static bool vault_aux_dark_elf(SPECIES_ID species_idx)
 {
 	int i;
 	static int dark_elf_list[] =
@@ -1845,7 +1845,7 @@ typedef struct vault_aux_type vault_aux_type;
 struct vault_aux_type
 {
 	cptr name;
-	bool (*hook_func)(int species_idx);
+	bool (*hook_func)(SPECIES_ID species_idx);
 	void (*prep_func)(floor_type *floor_ptr);
 	int level;
 	int chance;
@@ -2030,7 +2030,7 @@ static cptr pit_subtype_string(int type, bool nest)
 // A struct for nest creature information with cheat_hear
 typedef struct
 {
-	s16b species_idx;
+	SPECIES_ID species_idx;
 	bool used;
 }
 nestore_info_type;
@@ -2137,7 +2137,7 @@ static bool build_type5(floor_type *floor_ptr)
 	/* Pick some creature types */
 	for (i = 0; i < NUM_NEST_SPECIES_TYPE; i++)
 	{
-		s16b species_idx = 0;
+		SPECIES_ID species_idx = 0;
 		int attempts = 100;
 		species_type *species_ptr = NULL;
 
@@ -2252,7 +2252,7 @@ static bool build_type5(floor_type *floor_ptr)
 	{
 		for (x = x1; x <= x2; x++)
 		{
-			int species_idx;
+			SPECIES_ID species_idx;
 
 			i = randint0(NUM_NEST_SPECIES_TYPE);
 			species_idx = nestore_info[i].species_idx;
@@ -2350,7 +2350,7 @@ static bool build_type6(floor_type *floor_ptr)
 	/* Pick some creature types */
 	for (i = 0; i < 16; i++)
 	{
-		int species_idx = 0, attempts = 100;
+		SPECIES_ID species_idx = 0, attempts = 100;
 		species_type *species_ptr = NULL;
 
 		while (attempts--)
@@ -5393,7 +5393,7 @@ static bool build_type12(floor_type *floor_ptr)
 /*
  * Helper function for "trapped creature pit"
  */
-static bool vault_aux_trapped_pit(int species_idx)
+static bool vault_aux_trapped_pit(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -5513,7 +5513,7 @@ static bool build_type13(floor_type *floor_ptr)
 	/* Pick some creature types */
 	for (i = 0; i < 16; i++)
 	{
-		int species_idx = 0, attempts = 100;
+		SPECIES_ID species_idx = 0, attempts = 100;
 		species_type *species_ptr = NULL;
 
 		while (attempts--)
@@ -5847,7 +5847,7 @@ static bool build_type15(floor_type *floor_ptr)
 			/* Place fixed lite berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
 			{
-				int species_idx = get_species_num(floor_ptr, floor_ptr->depth);
+				SPECIES_ID species_idx = get_species_num(floor_ptr, floor_ptr->depth);
 
 				y = yval + 2 * ddy_ddd[dir1];
 				x = xval + 2 * ddx_ddd[dir1];
@@ -5889,7 +5889,7 @@ static bool build_type15(floor_type *floor_ptr)
 
 	case 2: /* 1 lite breather + random object */
 		{
-			int species_idx, dir1;
+			SPECIES_ID species_idx, dir1;
 
 			/* Pillars */
 			c_ptr = &floor_ptr->cave[y1 + 1][x1 + 1];
@@ -5977,7 +5977,7 @@ static bool build_type15(floor_type *floor_ptr)
 			/* Place shard berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
 			{
-				int species_idx = get_species_num(floor_ptr, floor_ptr->depth);
+				SPECIES_ID species_idx = get_species_num(floor_ptr, floor_ptr->depth);
 
 				y = yval + ddy_ddd[dir1];
 				x = xval + ddx_ddd[dir1];

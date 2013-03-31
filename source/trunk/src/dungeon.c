@@ -4034,7 +4034,7 @@ void do_creature_fishing(creature_type *creature_ptr)
 		Term_xtra(TERM_XTRA_DELAY, 10);
 		if(one_in_(1000))
 		{
-			int species_idx;
+			SPECIES_ID species_idx;
 			bool success = FALSE;
 			get_species_num_prep_trait(NULL, t_need(1, TRAIT_AQUATIC), t_need(1, TRAIT_UNIQUE), 0);
 			species_idx = get_species_num(floor_ptr, floor_ptr->depth ? floor_ptr->depth : wilderness[creature_ptr->wy][creature_ptr->wx].level);

@@ -1618,7 +1618,7 @@ static void do_cmd_wiz_summon(creature_type *creature_ptr, int num)
  *
  *  This function is rather dangerous
  */
-static void do_cmd_wiz_named(creature_type *creature_ptr, int species_idx)
+static void do_cmd_wiz_named(creature_type *creature_ptr, SPECIES_ID species_idx)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	(void)summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, species_idx, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
@@ -1630,7 +1630,7 @@ static void do_cmd_wiz_named(creature_type *creature_ptr, int species_idx)
  *
  *  This function is rather dangerous
  */
-static void do_cmd_wiz_named_friendly(creature_type *creature_ptr, int species_idx)
+static void do_cmd_wiz_named_friendly(creature_type *creature_ptr, SPECIES_ID species_idx)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	(void)summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, species_idx, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP | PC_FORCE_PET));

@@ -2206,7 +2206,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 /*
 * Hack -- help pick an item type
 */
-static bool item_creature_okay(int species_idx)
+static bool item_creature_okay(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 

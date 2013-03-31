@@ -1302,7 +1302,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 	return TRUE;
 }
 
-static bool vault_aux_battle(int species_idx)
+static bool vault_aux_battle(SPECIES_ID species_idx)
 {
 	int i;
 	POWER dam = 0;

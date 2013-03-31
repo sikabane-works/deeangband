@@ -80,7 +80,7 @@ static void roff_aux(species_type *species_ptr, int mode)
 /*
  * Hack -- Display the "name" and "attr/chars" of a creature race
  */
-void roff_top(int species_idx)
+void roff_top(SPECIES_ID species_idx)
 {
 	species_type	*species_ptr = &species_info[species_idx];
 
@@ -183,7 +183,7 @@ void screen_roff(creature_type *creature_ptr)
 /*
  * Hack -- describe the given creature race in the current "term" window
  */
-void display_roff(int species_idx)
+void display_roff(SPECIES_ID species_idx)
 {
 	int y;
 
@@ -211,7 +211,7 @@ void display_roff(int species_idx)
 /*
  * Hack -- output description of the given creature race
  */
-void output_creature_spoiler(int species_idx, void (*roff_func)(byte attr, cptr str))
+void output_creature_spoiler(SPECIES_ID species_idx, void (*roff_func)(byte attr, cptr str))
 {
 	hook_c_roff = roff_func;
 
@@ -220,7 +220,7 @@ void output_creature_spoiler(int species_idx, void (*roff_func)(byte attr, cptr 
 }
 
 
-bool species_hook_dungeon(int species_idx)
+bool species_hook_dungeon(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	if(!has_trait_species(species_ptr, TRAIT_WILD_ONLY)) return TRUE;
@@ -232,21 +232,21 @@ bool species_hook_dungeon(int species_idx)
 }
 
 
-static bool creature_hook_ocean(int species_idx)
+static bool creature_hook_ocean(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	return has_trait_species(species_ptr, TRAIT_WILD_OCEAN);
 }
 
 
-static bool creature_hook_shore(int species_idx)
+static bool creature_hook_shore(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	return has_trait_species(species_ptr, TRAIT_WILD_SHORE);
 }
 
 
-static bool creature_hook_waste(int species_idx)
+static bool creature_hook_waste(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -257,7 +257,7 @@ static bool creature_hook_waste(int species_idx)
 }
 
 
-static bool creature_hook_town(int species_idx)
+static bool creature_hook_town(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -268,33 +268,33 @@ static bool creature_hook_town(int species_idx)
 }
 
 
-static bool creature_hook_wood(int species_idx)
+static bool creature_hook_wood(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	return (has_trait_species(species_ptr, TRAIT_WILD_WOOD) || has_trait_species(species_ptr, TRAIT_WILD_ALL));
 }
 
 
-static bool creature_hook_volcano(int species_idx)
+static bool creature_hook_volcano(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	return has_trait_species(species_ptr, TRAIT_WILD_WOOD);
 }
 
 
-static bool creature_hook_mountain(int species_idx)
+static bool creature_hook_mountain(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	return has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN);
 }
 
-static bool creature_hook_grass(int species_idx)
+static bool creature_hook_grass(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	return (has_trait_species(species_ptr, TRAIT_WILD_GRASS) || has_trait_species(species_ptr, TRAIT_WILD_ALL));
 }
 
-static bool creature_hook_deep_water(int species_idx)
+static bool creature_hook_deep_water(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -307,7 +307,7 @@ static bool creature_hook_deep_water(int species_idx)
 }
 
 
-static bool creature_hook_shallow_water(int species_idx)
+static bool creature_hook_shallow_water(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -320,7 +320,7 @@ static bool creature_hook_shallow_water(int species_idx)
 }
 
 
-static bool creature_hook_lava(int species_idx)
+static bool creature_hook_lava(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -335,7 +335,7 @@ static bool creature_hook_lava(int species_idx)
 }
 
 
-static bool creature_hook_floor(int species_idx)
+static bool creature_hook_floor(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -645,7 +645,7 @@ bool creature_living(creature_type *creature_ptr)
 /*
  * Is this creature declined to be questor or bounty?
  */
-bool no_questor_or_bounty_uniques(int species_idx)
+bool no_questor_or_bounty_uniques(SPECIES_ID species_idx)
 {
 	switch (species_idx)
 	{

@@ -1162,7 +1162,7 @@ static int chameleon_change_m_idx = 0;
 
 // Some dungeon types restrict the possible creatures.
 // Return TRUE is the creature is OK and FALSE otherwise
-static bool restrict_creature_to_dungeon(int species_idx)
+static bool restrict_creature_to_dungeon(SPECIES_ID species_idx)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	dungeon_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
@@ -1987,7 +1987,7 @@ void creature_desc_ego_post(char* desc, creature_type *creature_ptr, species_typ
 *
 * Return the number of new flags learnt.  -Mogami-
 */
-int lore_do_probe(int species_idx)
+int lore_do_probe(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	int i, n = 0;
@@ -2676,7 +2676,7 @@ void update_creatures(bool full)
 /*
 * Hack -- the index of the summoning creature
 */
-static bool creature_hook_chameleon_lord(int species_idx)
+static bool creature_hook_chameleon_lord(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
@@ -2693,7 +2693,7 @@ static bool creature_hook_chameleon_lord(int species_idx)
 	return TRUE;
 }
 
-static bool creature_hook_chameleon(int species_idx)
+static bool creature_hook_chameleon(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
@@ -2718,7 +2718,7 @@ static bool creature_hook_chameleon(int species_idx)
 	return (*(get_creature_hook()))(species_idx);
 }
 
-void set_new_species(creature_type *creature_ptr, bool born, int species_idx, int creature_ego_idx)
+void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_idx, int creature_ego_idx)
 {
 	int i, m_idx = 0;
 	int oldmhp;
@@ -2815,7 +2815,7 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 
 
 //  Set initial racial appearance of a creature
-static int initial_r_appearance(int species_idx)
+static int initial_r_appearance(SPECIES_ID species_idx)
 {
 	int attempts = 1000;
 	int ap_species_idx;
@@ -3227,7 +3227,7 @@ void deal_item(creature_type *creature_ptr)
 	return;
 }
 
-static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, int species_idx, int creature_ego_idx, FLAGS_32 mode)
+static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, int creature_ego_idx, FLAGS_32 mode)
 {
 	cave_type		*c_ptr = &floor_ptr->cave[y][x];
 	creature_type	*creature_ptr;
@@ -3518,7 +3518,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 #define CREATURE_SCAT_MAXD 10
 
-static bool creature_scatter(int species_idx, COODINATES *yp, COODINATES *xp, floor_type *floor_ptr, COODINATES y, COODINATES x, COODINATES max_dist)
+static bool creature_scatter(SPECIES_ID species_idx, COODINATES *yp, COODINATES *xp, floor_type *floor_ptr, COODINATES y, COODINATES x, COODINATES max_dist)
 {
 	COODINATES place_x[CREATURE_SCAT_MAXD];
 	COODINATES place_y[CREATURE_SCAT_MAXD];
@@ -3591,7 +3591,7 @@ static bool creature_scatter(int species_idx, COODINATES *yp, COODINATES *xp, fl
 #define GROUP_MAX	32
 
 // Attempt to place a "group" of creatures around the given location
-static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, FLAGS_32 mode)
+static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, SPECIES_ID species_idx, FLAGS_32 mode)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
@@ -3679,7 +3679,7 @@ static int place_creature_m_idx = 0;
 /*
 * Hack -- help pick an escort type
 */
-static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
+static bool place_creature_okay(creature_type *summoner_ptr, SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[place_species_idx];
 	creature_type *m_ptr = &creature_list[place_creature_m_idx];
@@ -3986,7 +3986,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, F
 }
 
 // Hack -- help decide if a creature race is "okay" to summon
-static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
+static bool summon_specific_okay(creature_type *summoner_ptr, SPECIES_ID species_idx)
 {
 	if(!species_hook_dungeon(species_idx)) return FALSE; // Hack - Only summon dungeon creatures
 

@@ -5986,7 +5986,7 @@ static void display_creature_list(int col, int row, int per_page, s16b mon_idx[]
 		byte attr;
 
 		/* Get the race index */
-		int species_idx = mon_idx[mon_top + i] ;
+		SPECIES_ID species_idx = mon_idx[mon_top + i] ;
 
 		/* Access the race */
 		species_type *species_ptr = &species_info[species_idx];

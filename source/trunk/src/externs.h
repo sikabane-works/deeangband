@@ -1004,12 +1004,12 @@ extern u32b get_curse(POWER power, object_type *object_ptr);
 extern void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance);
 
 // creature1.c
-extern void roff_top(int species_idx);
+extern void roff_top(SPECIES_ID species_idx);
 extern void screen_roff(creature_type *creature_ptr);
-extern void display_roff(int species_idx);
-extern void output_creature_spoiler(int species_idx, void (*roff_func)(byte attr, cptr str));
+extern void display_roff(SPECIES_ID species_idx);
+extern void output_creature_spoiler(SPECIES_ID species_idx, void (*roff_func)(byte attr, cptr str));
 extern void create_name(int type, char *name);
-extern bool species_hook_dungeon(int species_idx);
+extern bool species_hook_dungeon(SPECIES_ID species_idx);
 
 extern creature_hook_type get_creature_hook(void);
 extern creature_hook_type get_creature_hook2(int y, int x);
@@ -1024,7 +1024,7 @@ extern bool are_mutual_enemies(creature_type *m_ptr1, creature_type *m_ptr2);
 extern bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *target_ptr);
 extern bool species_living(species_type *species_ptr);
 extern bool creature_living(creature_type *creature_ptr);
-extern bool no_questor_or_bounty_uniques(int species_idx);
+extern bool no_questor_or_bounty_uniques(SPECIES_ID species_idx);
 
 
 /* creature2.c */
@@ -1049,7 +1049,7 @@ extern SPECIES_ID get_species_num(floor_type *floor_ptr, FLOOR_LEV level);
 extern void creature_desc(char *desc, creature_type *creature_ptr, int mode);
 extern void creature_desc_ego_pre(char *desc, creature_type *creature_ptr, species_type *species_ptr, FLAGS_32 mode);
 extern void creature_desc_ego_post(char *desc, creature_type *creature_ptr, species_type *species_ptr);
-extern int lore_do_probe(int species_idx);
+extern int lore_do_probe(SPECIES_ID species_idx);
 extern void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold);
 extern void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr);
 extern void sanity_blast_aux(creature_type *watcher_ptr, POWER power);
@@ -1064,7 +1064,7 @@ extern bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int
 extern bool summon_specific(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, FLOOR_LEV lev, int type, FLAGS_32 mode);
 extern bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES oy, COODINATES ox, SPECIES_ID species_idx, FLAGS_32 mode);
 extern bool multiply_creature(creature_type *creature_ptr, bool clone, FLAGS_32 mode);
-extern void set_new_species(creature_type *creature_ptr, bool born, int species_idx, int creature_ego_idx);
+extern void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_idx, int creature_ego_idx);
 extern bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, int x);
 extern void creature_drop_carried_objects(creature_type *m_ptr);
 
@@ -1306,7 +1306,7 @@ extern void init_stores(void);
 extern void store_create(store_type *st_ptr, store_pre_type *st_pre_ptr);
 
 // bldg.c
-extern void have_nightmare(creature_type *watcher_ptr, int species_idx);
+extern void have_nightmare(creature_type *watcher_ptr, SPECIES_ID species_idx);
 extern void battle_creatures(void);
 extern void do_cmd_bldg(creature_type *creature_ptr);
 extern void do_cmd_quest(creature_type *creature_ptr);
