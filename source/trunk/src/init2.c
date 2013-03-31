@@ -1535,13 +1535,13 @@ static errr init_alloc(void)
 		/* Count valid pairs */
 		if(species_ptr->rarity)
 		{
-			byte_hack p, x;
+			int p, x;
 
 			/* Extract the base level */
 			x = species_ptr->level;
 
 			/* Extract the base probability */
-			p = (byte_hack)(100 / species_ptr->rarity);
+			p = 100 / species_ptr->rarity;
 
 			/* Load the entry */
 			alloc_species_table[i].index = (int)elements[i].pointer;

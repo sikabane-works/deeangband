@@ -218,6 +218,9 @@ typedef s32b PERCENT;
 #define READ_PERCENT(VALUE) rd_s32b((PERCENT *)VALUE);
 #define WRITE_PERCENT(VALUE) wr_s32b((PERCENT)VALUE);
 
+typedef s32b PROB;
+#define READ_PROB(VALUE) rd_s32b((PROB *)VALUE);
+#define WRITE_PROB(VALUE) wr_s32b((PROB)VALUE);
 
 /*
  * Creature flags
@@ -866,9 +869,9 @@ struct alloc_entry
 	s16b index;		/* The actual index */
 
 	FLOOR_LEV level; /* Base dungeon level */
-	byte prob1;		/* Probability, pass 1 */
-	byte prob2;		/* Probability, pass 2 */
-	byte prob3;		/* Probability, pass 3 */
+	PROB prob1;		/* Probability, pass 1 */
+	PROB prob2;		/* Probability, pass 2 */
+	PROB prob3;		/* Probability, pass 3 */
 
 	u16b total;		/* Unused for now */
 };

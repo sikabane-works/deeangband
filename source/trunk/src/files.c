@@ -4101,10 +4101,10 @@ static void dump_aux_creatures(FILE *fff)
 {
 	/* Creatures slain */
 
-	int k;
+	SPECIES_ID k;
 	long uniq_total = 0;
 	long norm_total = 0;
-	s16b *who;
+	SPECIES_ID *who;
 
 	/* Sort by creature level */
 	u16b why = 2;
@@ -4116,7 +4116,7 @@ static void dump_aux_creatures(FILE *fff)
 #endif
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_species_idx, s16b);
+	C_MAKE(who, max_species_idx, SPECIES_ID);
 
 	/* Count creature kills */
 	for (k = 1; k < max_species_idx; k++)
@@ -4203,7 +4203,7 @@ static void dump_aux_creatures(FILE *fff)
 	}
 
 	/* Free the "who" array */
-	C_KILL(who, max_species_idx, s16b);
+	C_KILL(who, max_species_idx, SPECIES_ID);
 }
 
 static void dump_aux_race_history(creature_type *creature_ptr, FILE *fff)
@@ -5560,7 +5560,7 @@ void do_cmd_save_and_exit(creature_type *creature_ptr)
 long total_points(creature_type *player_ptr)
 {
 	int i, mult = 100;
-	s16b max_dl = 0;
+	FLOOR_LEV max_dl = 0;
 	u32b point, point_h, point_l;
 	int arena_win = MIN(arena_number, MAX_ARENA_MONS);
 
