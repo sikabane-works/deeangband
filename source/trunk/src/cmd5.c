@@ -12,7 +12,7 @@
 
 #include "angband.h"
 
-cptr spell_category_name(int tval)
+cptr spell_category_name(TVAL tval)
 {
 	switch (tval)
 	{
@@ -33,7 +33,7 @@ cptr spell_category_name(int tval)
 * The "prompt" should be "cast", "recite", or "study"
 * The "known" should be TRUE for cast/pray, FALSE for study
 */
-static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval, bool learned, int use_realm)
+static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, SVAL sval, bool learned, int use_realm)
 {
 	int         i;
 	int         spell = -1;

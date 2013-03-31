@@ -3835,7 +3835,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 	else if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
 		char s[EATER_EXT][MAX_NLEN];
-		int tval, ext, k_idx;
+		TVAL tval, ext, k_idx;
 		int i, magic_num;
 
 #ifdef JP

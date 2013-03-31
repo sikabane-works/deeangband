@@ -1063,7 +1063,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 }
 
 
-static int staff_effect(creature_type *caster_ptr, int sval, bool *use_charge, bool magic, bool known)
+static int staff_effect(creature_type *caster_ptr, SVAL sval, bool *use_charge, bool magic, bool known)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int k;
@@ -1377,7 +1377,7 @@ void do_cmd_use_staff(creature_type *creature_ptr)
 }
 
 
-static int wand_effect(creature_type *caster_ptr, int sval, bool magic)
+static int wand_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 {
 	int ident = FALSE;
 
@@ -1631,7 +1631,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
 }
 
 
-static int rod_effect(creature_type *caster_ptr, int sval, int dir, bool *use_charge, bool magic)
+static int rod_effect(creature_type *caster_ptr, SVAL sval, int dir, bool *use_charge, bool magic)
 {
 	int ident = FALSE;
 
@@ -2297,7 +2297,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	int ext = 0;
 	char choice;
 	bool flag, request_list;
-	int tval = 0;
+	TVAL tval = 0;
 	int ask = TRUE, i = 0;
 	char out_val[160];
 	int menu_line = (use_menu ? 1 : 0);
@@ -2728,7 +2728,11 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
  */
 void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 {
-	int item, chance, level, k_idx, tval, sval;
+	SVAL item;
+	int chance, level;
+	OBJECT_KIND_ID k_idx;
+	TVAL tval;
+	SVAL sval;
 	bool use_charge = TRUE;
 
 	// Not when confused
@@ -2744,8 +2748,8 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 		cancel_tactical_action(creature_ptr);
 		return;
 	}
-	if(item >= EATER_EXT*2) {tval = TV_ROD;sval = item - EATER_EXT*2;}
-	else if(item >= EATER_EXT) {tval = TV_WAND;sval = item - EATER_EXT;}
+	if(item >= EATER_EXT*2) {tval = TV_ROD; sval = item - EATER_EXT*2;}
+	else if(item >= EATER_EXT) {tval = TV_WAND; sval = item - EATER_EXT;}
 	else {tval = TV_STAFF;sval = item;}
 	k_idx = lookup_kind(tval, sval);
 

@@ -754,7 +754,7 @@ extern void do_cmd_checkquest(void);
 extern void do_cmd_time(creature_type *creature_ptr);
 
 // cmd5.c
-extern cptr spell_category_name(int tval);
+extern cptr spell_category_name(TVAL tval);
 extern void do_cmd_browse(creature_type *creature_ptr);
 extern void do_cmd_study(creature_type *creature_ptr);
 extern void do_cmd_cast(creature_type *creature_ptr);
@@ -1111,7 +1111,7 @@ extern void reduce_charges(object_type *object_ptr, PVAL amt);
 extern int object_similar_part(object_type *object1_ptr, object_type *object2_ptr);
 extern bool object_similar(object_type *object1_ptr, object_type *object2_ptr);
 extern void object_absorb(object_type *object1_ptr, object_type *object2_ptr);
-extern s16b lookup_kind(int tval, int sval);
+extern OBJECT_KIND_ID lookup_kind(TVAL tval, SVAL sval);
 extern void object_wipe(object_type *object_ptr);
 extern void object_prep(object_type *object_ptr, int k_idx, int size);
 extern void object_copy(object_type *object1_ptr, object_type *object2_ptr);

@@ -1567,7 +1567,7 @@ void object_absorb(object_type *object1_ptr, object_type *object2_ptr)
 /*
 * Find the index of the object_kind with the given tval and sval
 */
-s16b lookup_kind(int tval, int sval)
+OBJECT_KIND_ID lookup_kind(TVAL tval, SVAL sval)
 {
 	int k;
 	int num = 0;
@@ -4728,9 +4728,10 @@ static void drain_essence(creature_type *creature_ptr)
 	u32b old_flgs[MAX_TRAITS_FLAG], new_flgs[MAX_TRAITS_FLAG];
 	object_type *object_ptr;
 	COODINATES iy, ix;
-	byte_hack marked, number;
+	byte_hack marked;
+	QUANTITY number;
 	OBJECT_ID next_object_idx;
-	s32b weight;
+	WEIGHT weight;
 
 	for (i = 0; i < sizeof(drain_value) / sizeof(int); i++) drain_value[i] = 0;
 

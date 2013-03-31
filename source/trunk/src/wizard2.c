@@ -584,7 +584,7 @@ static int wiz_create_itemtype(void)
 {
 	int i, num, max_num;
 	int col, row;
-	int tval;
+	TVAL tval;
 
 	cptr tval_desc;
 	char ch;
