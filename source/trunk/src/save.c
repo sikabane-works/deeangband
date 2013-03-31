@@ -934,9 +934,8 @@ static bool wr_savefile_new(void)
 	for (i = 1; i < creature_max; i++) wr_creature(&creature_list[i]); // Dump the creatures
 
 	// Dump the object memory
-	tmp16u = max_object_kind_idx;
 	WRITE_OBJECT_KIND_ID(max_object_kind_idx);
-	for (i = 0; i < tmp16u; i++) wr_xtra(i);
+	for (i = 0; i < max_object_kind_idx; i++) wr_xtra(i);
 
 	/*** Dump objects ***/
 
@@ -945,16 +944,11 @@ static bool wr_savefile_new(void)
 	// Dump the objects
 	for (i = 1; i < object_max; i++) wr_object(&object_list[i]); // Dump it
 
-	/* Dump the towns */
-	tmp16u = max_towns;
-	wr_u16b(tmp16u);
+	WRITE_TOWN_ID(max_towns); /* Dump the towns */
+	WRITE_QUEST_ID(max_quests); /* Dump the quests */
 
 	/* Dump the quests */
-	tmp16u = max_quests;
-	wr_u16b(tmp16u);
-
-	/* Dump the quests */
-	tmp8u = MAX_RANDOM_QUEST-MIN_RANDOM_QUEST;
+	tmp8u = MAX_RANDOM_QUEST - MIN_RANDOM_QUEST;
 	wr_byte(tmp8u);
 
 	for (i = 0; i < max_quests; i++)

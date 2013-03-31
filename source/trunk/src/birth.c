@@ -4331,7 +4331,7 @@ bool ask_quick_start(creature_type *creature_ptr)
  * Note that we may be called with "junk" leftover in the various
  * fields, so we must be sure to clear them first.
  */
-creature_type* generate_creature(cave_type *c_ptr, s16b species_idx, FLAGS_32 flags)
+creature_type* generate_creature(cave_type *c_ptr, SPECIES_ID species_idx, FLAGS_32 flags)
 {
 	char buf[80];
 	int id;

@@ -1391,10 +1391,10 @@ struct creature_type
 	s16b learned_spells;
 	s16b add_spells;
 
-	s16b timed_trait[MAX_TRAITS];
-	u32b mutative_trait[MAX_TRAITS_FLAG];
-	u32b current_trait[MAX_TRAITS_FLAG];
-	u32b blue_learned_trait[MAX_TRAITS_FLAG];
+	GAME_TIME timed_trait[MAX_TRAITS];
+	FLAGS_32 mutative_trait[MAX_TRAITS_FLAG];
+	FLAGS_32 current_trait[MAX_TRAITS_FLAG];
+	FLAGS_32 blue_learned_trait[MAX_TRAITS_FLAG];
 
 	s32b current_charge[MAGIC_EATER_SKILL_MAX];
 	byte max_charge[MAGIC_EATER_SKILL_MAX];

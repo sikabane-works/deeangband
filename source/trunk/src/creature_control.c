@@ -935,7 +935,7 @@ void wipe_creature_list(int floor_id)
 // This routine should almost never fail, but it *can* happen.
 s16b creature_pop(void)
 {
-	int i;
+	CREATURE_ID i;
 	creature_type *creature_ptr;
 
 	for (i = 1; i < creature_max; i++) // Recycle dead creatures

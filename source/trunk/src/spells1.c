@@ -693,7 +693,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			/* Locked doors are unlocked */
 			if(is_closed_door(c_ptr->feat) && f_ptr->power && have_flag(f_ptr->flags, FF_OPEN))
 			{
-				s16b old_feat = c_ptr->feat;
+				FEATURE_ID old_feat = c_ptr->feat;
 
 				/* Unlock the door */
 				cave_alter_feat(floor_ptr, y, x, FF_DISARM);
@@ -753,7 +753,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		{
 			if(have_flag(f_ptr->flags, FF_SPIKE))
 			{
-				s16b old_mimic = c_ptr->mimic;
+				FLOOR_ID old_mimic = c_ptr->mimic;
 				feature_type *mimic_f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 
 				cave_alter_feat(floor_ptr, y, x, FF_SPIKE);
