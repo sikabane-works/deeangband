@@ -30,8 +30,8 @@
  */
 static int get_hissatsu_power(creature_type *creature_ptr, int *sn)
 {
-	int             i, j = 0;
-	int             num = 0;
+	char i;
+	int j = 0, num = 0;
 	int             y = 1;
 	int             x = 15;
 	int             lev_bonus = creature_ptr->lev;
@@ -178,7 +178,7 @@ cptr            p = "•KŽEŒ•";
 			if(!redraw || use_menu)
 			{
 				char psi_desc[80];
-				int line;
+				char line;
 				redraw = TRUE;
 
 				if(!use_menu) screen_save();
