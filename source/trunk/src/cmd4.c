@@ -5195,7 +5195,7 @@ static void do_cmd_knowledge_uniques(void)
 	}
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_species_idx, s16b);
+	C_MAKE(who, max_species_idx, SPECIES_ID);
 
 	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
@@ -5279,7 +5279,7 @@ static void do_cmd_knowledge_uniques(void)
 	}
 
 	/* Free the "who" array */
-	C_KILL(who, max_species_idx, s16b);
+	C_KILL(who, max_species_idx, SPECIES_ID);
 
 	my_fclose(fff);
 	show_file(TRUE, file_name, MES_KNOW_ALIVE_UNIQUES, 0, 0);
@@ -5976,7 +5976,7 @@ static bool visual_mode_command(char ch, bool *visual_list_ptr,
 /*
  * Display the creatures in a group.
  */
-static void display_creature_list(int col, int row, int per_page, s16b mon_idx[], int mon_cur, int mon_top, bool visual_only)
+static void display_creature_list(int col, int row, int per_page, SPECIES_ID mon_idx[], SPECIES_ID mon_cur, SPECIES_ID mon_top, bool visual_only)
 {
 	int i;
 
