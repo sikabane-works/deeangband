@@ -2836,12 +2836,13 @@ static int initial_r_appearance(SPECIES_ID species_idx)
 
 static void deal_magic_book_aux(creature_type *creature_ptr, REALM_ID realm)
 {
-	int min, max, tv;
+	int min, max;
+	TVAL tv;
 	object_type forge;
 	object_type *quest_ptr;
 
 	quest_ptr = &forge;
-	tv = TV_LIFE_BOOK + realm - 1;
+	tv = (TVAL)(TV_LIFE_BOOK + realm - 1);
 
 	// First Book
 	min = (creature_ptr->lev > 15 ? 2 : 1);
@@ -2998,10 +2999,12 @@ static u32b calc_deal_item_rank(creature_type *creature_ptr, object_type *object
 
 void deal_item(creature_type *creature_ptr)
 {
-	int tv, sv;
+	TVAL tv;
+	SVAL sv;
 	object_type	forge;
 	object_type	*quest_ptr;
-	int i, number;
+	TVAL i;
+	QUANTITY number;
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	int object_level;
 
@@ -3175,9 +3178,9 @@ void deal_item(creature_type *creature_ptr)
 
 			/* Hack to initialize spellbooks */
 			if(tv == TV_SORCERY_BOOK && creature_ptr->realm1)
-				tv = TV_LIFE_BOOK + creature_ptr->realm1 - 1;
+				tv = (TVAL)(TV_LIFE_BOOK + creature_ptr->realm1 - 1);
 			else if(tv == TV_DEATH_BOOK && creature_ptr->realm2)
-				tv = TV_LIFE_BOOK + creature_ptr->realm2 - 1;
+				tv = (TVAL)(TV_LIFE_BOOK + creature_ptr->realm2 - 1);
 
 			else if(tv == TV_RING && sv == SV_RING_RES_FEAR &&
 				IS_PURE_RACE(creature_ptr, RACE_BARBARIAN))
