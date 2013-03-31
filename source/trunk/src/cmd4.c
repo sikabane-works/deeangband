@@ -3932,7 +3932,7 @@ static bool ang_sort_comp_creature_exp(vptr u, vptr v, int a, int b)
  * mode & 0x01 : check for non-empty group
  * mode & 0x02 : visual operation only
  */
-static int collect_creatures(int grp_cur, s16b creature_idx[], byte mode)
+static int collect_creatures(int grp_cur, CREATURE_ID creature_idx[], byte mode)
 {
 	int i, mon_cnt = 0, ego = 0;
 	int dummy_why;
@@ -5170,7 +5170,7 @@ static void do_cmd_knowledge_uniques(void)
 {
 	int i, k, n = 0;
 	u16b why = 2;
-	s16b *who;
+	SPECIES_ID *who;
 
 	FILE *fff;
 
@@ -5937,8 +5937,8 @@ static bool visual_mode_command(char ch, bool *visual_list_ptr,
 		{
 			int eff_width;
 			int d = get_keymap_dir(ch);
-			COODINATES a = (*cur_attr_ptr & 0x7f);
-			COODINATES c = *cur_char_ptr;
+			COLOR_ID a = (*cur_attr_ptr & 0x7f);
+			SYMBOL c = *cur_char_ptr;
 
 			if(use_bigtile) eff_width = width / 2;
 			else eff_width = width;
@@ -6025,14 +6025,14 @@ static void display_creature_list(int col, int row, int per_page, s16b mon_idx[]
 /*
  * Display known creatures.
  */
-static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int direct_species_idx)
+static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, SPECIES_ID direct_species_idx)
 {
 	int i, len, max;
 	int grp_cur, grp_top, old_grp_cur;
-	int mon_cur, mon_top;
 	int grp_cnt, grp_idx[100];
 	int mon_cnt;
-	s16b *mon_idx;
+	SPECIES_ID mon_cur, mon_top;
+	SPECIES_ID *mon_idx;
 
 	int column = 0;
 	bool flag;
@@ -6050,7 +6050,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 	browser_rows = hgt - 8;
 
 	/* Allocate the "mon_idx" array */
-	C_MAKE(mon_idx, max_species_idx, s16b);
+	C_MAKE(mon_idx, max_species_idx, SPECIES_ID);
 
 	max = 0;
 	grp_cnt = 0;

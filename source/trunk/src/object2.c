@@ -1369,7 +1369,7 @@ void distribute_charges(object_type *object_ptr, object_type *quest_ptr, int amt
 	}
 }
 
-void reduce_charges(object_type *object_ptr, int amt)
+void reduce_charges(object_type *object_ptr, PVAL amt)
 {
 	/*
 	* Hack -- If rods or wand are destroyed, the total maximum timeout or
@@ -1377,7 +1377,7 @@ void reduce_charges(object_type *object_ptr, int amt)
 	* being destroyed. -LM-
 	*/
 	if(((object_ptr->tval == TV_WAND) || IS_ROD(object_ptr)) && (amt < object_ptr->number))
-		object_ptr->pval -= object_ptr->pval * amt / (PVAL)object_ptr->number;
+		object_ptr->pval -= object_ptr->pval * (PVAL)amt / (PVAL)object_ptr->number;
 }
 
 

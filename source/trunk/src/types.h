@@ -471,8 +471,8 @@ struct special_blow_type
 {
 	byte method;
 	byte effect;
-	byte d_dice;
-	byte d_side;
+	DICE_NUM d_dice;
+	DICE_SIDE d_side;
 };
 
 
@@ -1871,7 +1871,7 @@ struct high_score
 typedef struct
 {
 	FLOOR_ID feat;    /* Feature tile */
-	byte percent; /* Chance of type */
+	PERCENT percent; /* Chance of type */
 }
 feat_prob;
 

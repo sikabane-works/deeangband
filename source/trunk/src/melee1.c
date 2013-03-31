@@ -2075,7 +2075,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Find an item */
 				for (k = 0; k < 10; k++)
 				{
-					s16b object_idx;
+					OBJECT_ID object_idx;
 
 					/* Pick an item */
 					i = randint0(INVEN_TOTAL);

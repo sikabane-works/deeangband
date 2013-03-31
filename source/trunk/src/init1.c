@@ -794,8 +794,8 @@ static int parse_special_melee(special_blow_type *blow_ptr, char *tmp)
 		blow_ptr[k].effect = ae;
 
 		/* Extract the damage dice and sides */
-		blow_ptr[k].d_dice = n1;
-		blow_ptr[k].d_side = n2;
+		blow_ptr[k].d_dice = (DICE_NUM)n1;
+		blow_ptr[k].d_side = (DICE_SIDE)n2;
 
 		k++;
 
@@ -1162,8 +1162,8 @@ errr parse_vault_info(char *buf, header *head)
 		/* Save the values */
 		v_ptr->typ = typ;
 		v_ptr->rat = rat;
-		v_ptr->hgt = hgt;
-		v_ptr->wid = wid;
+		v_ptr->hgt = (COODINATES)hgt;
+		v_ptr->wid = (COODINATES)wid;
 	}
 
 	else	return (6);
@@ -5762,12 +5762,12 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 				case DU_INFO_FEAT_PROB_FILL:
 					if(tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return PARSE_ERROR_GENERIC; // Scan for the values
-					dungeon_ptr->fill[0].feat = feature_tag_to_index(zz[0]);
-					dungeon_ptr->fill[0].percent = strtol(zz[1], NULL, 10);
-					dungeon_ptr->fill[1].feat = feature_tag_to_index(zz[2]);
-					dungeon_ptr->fill[1].percent = strtol(zz[3], NULL, 10);
-					dungeon_ptr->fill[2].feat = feature_tag_to_index(zz[4]);
-					dungeon_ptr->fill[2].percent = strtol(zz[5], NULL, 10);
+					dungeon_ptr->fill[0].feat = (FLOOR_ID)feature_tag_to_index(zz[0]);
+					dungeon_ptr->fill[0].percent = (PERCENT)strtol(zz[1], NULL, 10);
+					dungeon_ptr->fill[1].feat = (FLOOR_ID)feature_tag_to_index(zz[2]);
+					dungeon_ptr->fill[1].percent = (PERCENT)strtol(zz[3], NULL, 10);
+					dungeon_ptr->fill[2].feat = (FLOOR_ID)feature_tag_to_index(zz[4]);
+					dungeon_ptr->fill[2].percent = (PERCENT)strtol(zz[5], NULL, 10);
 					break;
 
 				case DU_INFO_OUTER_WALL:
