@@ -1386,19 +1386,19 @@ static int wand_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 	{
 		// TODO: add Karma of Fortune feature.
 		int vir = 0;
-		sval = randint0(SV_WAND_WONDER);
+		sval = (SVAL)randint0(SV_WAND_WONDER);
 
 		if(vir)
 		{
 			if(caster_ptr->karmas[vir - 1] > 0)
 			{
 				while (randint1(300) < caster_ptr->karmas[vir - 1]) sval++;
-				if(sval > SV_WAND_COLD_BALL) sval = randint0(4) + SV_WAND_ACID_BALL;
+				if(sval > SV_WAND_COLD_BALL) sval = (SVAL)randint0(4) + SV_WAND_ACID_BALL;
 			}
 			else
 			{
 				while (randint1(300) < (0-caster_ptr->karmas[vir - 1])) sval--;
-				if(sval < SV_WAND_HEAL_OTHER_CREATURE) sval = randint0(3) + SV_WAND_HEAL_OTHER_CREATURE;
+				if(sval < SV_WAND_HEAL_OTHER_CREATURE) sval = (SVAL)randint0(3) + SV_WAND_HEAL_OTHER_CREATURE;
 			}
 		}
 	}
@@ -2294,11 +2294,12 @@ void do_cmd_use(creature_type *creature_ptr)
 
 static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 {
-	int ext = 0;
+	SVAL ext = 0;
 	char choice;
 	bool flag, request_list;
 	TVAL tval = 0;
-	int ask = TRUE, i = 0;
+	int ask = TRUE;
+	SVAL i = 0;
 	char out_val[160];
 	int menu_line = (use_menu ? 1 : 0);
 	int sn;
@@ -2361,7 +2362,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			case '\r':
 			case 'x':
 			case 'X':
-				ext = (menu_line-1)*EATER_EXT;
+				ext = (SVAL)((menu_line-1) * EATER_EXT);
 				if(menu_line == 1) tval = TV_STAFF;
 				else if(menu_line == 2) tval = TV_WAND;
 				else tval = TV_ROD;
@@ -2653,7 +2654,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			if(ask)
 			{
 				char tmp_val[160];
-				(void) strnfmt(tmp_val, 78, MES_SYS_ASK_USE, object_kind_name + object_kind_info[lookup_kind(tval ,i)].name);
+				(void) strnfmt(tmp_val, 78, MES_SYS_ASK_USE, object_kind_name + object_kind_info[lookup_kind(tval, i)].name);
 
 				/* Belay that order */
 				if(!get_check(tmp_val)) continue;
@@ -2743,6 +2744,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	}
 
 	item = select_magic_eater(creature_ptr, only_browse);
+
 	if(item == -1)
 	{
 		cancel_tactical_action(creature_ptr);

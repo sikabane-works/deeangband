@@ -86,6 +86,10 @@ typedef s32b ARTIFACT_ID;
 #define READ_ARTIFACT_ID(VALUE) rd_s32b((ARTIFACT_ID *)VALUE);
 #define WRITE_ARTIFACT_ID(VALUE) wr_s32b((ARTIFACT_ID)VALUE);
 
+typedef s32b AUTHORITY_ID;
+#define READ_AUTHORITY_ID(VALUE) rd_s32b((AUTHORITY_ID *)VALUE);
+#define WRITE_AUTHORITY_ID(VALUE) wr_s32b((AUTHORITY_ID)VALUE);
+
 typedef s32b TRAIT_ID;
 #define READ_TRAIT_ID(VALUE) rd_s32b((TRAIT_ID *)VALUE);
 #define WRITE_TRAIT_ID(VALUE) wr_s32b((TRAIT_ID)VALUE);
@@ -793,7 +797,7 @@ struct object_type
 	STAT stat_val[STAT_MAX]; // Stat
 	PVAL pval;			/* Item extra-parameter */
 
-	byte discount;		/* Discount (if any) */
+	PERCENT discount;		/* Discount (if any) */
 
 	QUANTITY number; /* Number of items */
 	s32b volume;        /* Volume of items */

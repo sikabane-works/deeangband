@@ -6326,15 +6326,14 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, SPEC
 	}
 
 	/* Free the "mon_idx" array */
-	C_KILL(mon_idx, max_species_idx, s16b);
+	C_KILL(mon_idx, max_species_idx, SPECIES_ID);
 }
 
 
 /*
  * Display the objects in a group.
  */
-static void display_object_list(int col, int row, int per_page, OBJECT_ID object_idx[],
-	int object_cur, int object_top, bool visual_only)
+static void display_object_list(int col, int row, int per_page, OBJECT_ID object_idx[], OBJECT_ID object_cur, OBJECT_ID object_top, bool visual_only)
 {
 	int i;
 
