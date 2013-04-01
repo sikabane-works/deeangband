@@ -1532,8 +1532,8 @@ extern void do_cmd_gain_hissatsu(creature_type *creature_ptr);
 
 // mutation.c
 extern int count_bits(u32b x);
-extern bool gain_trait(creature_type *creature_ptr, int choose_mut, bool message);
-extern bool lose_trait(creature_type *creature_ptr, int choose_mut);
+extern bool gain_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message);
+extern bool lose_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message);
 extern void remove_all_mutative_traits(creature_type *creature_ptr);
 extern void dump_traits(creature_type *creature_ptr, FILE *OutFile);
 extern void do_cmd_knowledge_traits(creature_type *creature_ptr);

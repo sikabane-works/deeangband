@@ -91,14 +91,13 @@ static void wr_object(object_type *object_ptr)
 	int i;
 
 	/*** Write only un-obvious elements ***/
-	wr_s16b(object_ptr->k_idx);
-
-	wr_byte(object_ptr->floor_id);
+	WRITE_OBJECT_KIND_ID(object_ptr->k_idx);
+	WRITE_FLOOR_ID(object_ptr->floor_id);
 	WRITE_COODINATES(object_ptr->fy);
 	WRITE_COODINATES(object_ptr->fx);
 
-	wr_s16b(object_ptr->pval);
-	wr_byte(object_ptr->discount);
+	WRITE_PVAL(object_ptr->pval);
+	WRITE_PERCENT(object_ptr->discount);
 	WRITE_QUANTITY(object_ptr->number);
 	wr_s32b(object_ptr->volume);
 	wr_s32b(object_ptr->weight);

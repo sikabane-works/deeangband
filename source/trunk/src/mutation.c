@@ -13,16 +13,18 @@
 #include "angband.h"
 
 
-bool gain_trait(creature_type *creature_ptr, int choose_mut, bool messsage)
+bool gain_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message)
 {
-	//TODO
+	add_flag(creature_ptr->mutative_trait, choose_mut);
+	if(message) msg_print(trait_name + trait_info[choose_mut].get_text);
 	return TRUE;
 }
 
 
-bool lose_trait(creature_type *creature_ptr, int choose_mut)
+bool lose_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message)
 {
-	//TODO
+	remove_flag(creature_ptr->mutative_trait, choose_mut);
+	if(message) msg_print(trait_name + trait_info[choose_mut].lost_text);
 	return TRUE;
 }
 

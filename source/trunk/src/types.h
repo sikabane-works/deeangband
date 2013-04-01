@@ -2007,7 +2007,7 @@ typedef struct
 {
 	u16b info;
 	FEATURE_ID feat;
-	s16b mimic;
+	FEATURE_ID mimic;
 	s16b special;
 	u16b occurrence;
 } cave_template_type;
