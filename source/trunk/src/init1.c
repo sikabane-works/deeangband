@@ -1318,7 +1318,7 @@ errr parse_magic_info(char *buf, header *head)
 
 		m_ptr->info[realm][magic_idx].slevel = level;
 		m_ptr->info[realm][magic_idx].smana = mana;
-		m_ptr->info[realm][magic_idx].sfail = fail;
+		m_ptr->info[realm][magic_idx].sfail = (PERCENT)fail;
 		m_ptr->info[realm][magic_idx].sexp = exp;
 		magic_idx ++;
 	}

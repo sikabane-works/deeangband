@@ -3948,12 +3948,12 @@ void combine_pack(creature_type *creature_ptr)
 						// Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM-
 						if(IS_ROD(object_ptr))
 						{
-							object_ptr->pval =  object_ptr->pval * remain / old_num;
-							object_ptr->timeout = object_ptr->timeout * remain / old_num;
+							object_ptr->pval = (PVAL)(object_ptr->pval * remain / old_num);
+							object_ptr->timeout = (GAME_TIME)(object_ptr->timeout * remain / old_num);
 						}
 
 						// Hack -- if wands are stacking, combine the charges. -LM-
-						if(object_ptr->tval == TV_WAND) object_ptr->pval = object_ptr->pval * remain / old_num;
+						if(object_ptr->tval == TV_WAND) object_ptr->pval = (PVAL)(object_ptr->pval * remain / old_num);
 					}
 
 					prepare_window(PW_INVEN);

@@ -791,28 +791,28 @@ typedef struct object_type object_type;
 
 struct object_type
 {
-	s16b k_idx;			/* Kind index (zero if "dead") */
+	OBJECT_KIND_ID k_idx; /* Kind index (zero if "dead") */
 	char name[128];
 
-	byte floor_id;		/* floor */
-	COODINATES fy;		/* Y-position on map, or zero */
-	COODINATES fx;		/* X-position on map, or zero */
+	FLOOR_ID floor_id; /* floor */
+	COODINATES fy; /* Y-position on map, or zero */
+	COODINATES fx; /* X-position on map, or zero */
 
-	TVAL tval;			/* Item type (from kind) */
-	SVAL sval;			/* Item sub-type (from kind) */
+	TVAL tval; /* Item type (from kind) */
+	SVAL sval; /* Item sub-type (from kind) */
 
-	STAT stat_val[STAT_MAX]; // Stat
-	PVAL pval;			/* Item extra-parameter */
+	STAT stat_val[STAT_MAX]; /* Stat */
+	PVAL pval; /* Item extra-parameter */
 
-	PERCENT discount;		/* Discount (if any) */
+	PERCENT discount; /* Discount (if any) */
 
 	QUANTITY number; /* Number of items */
-	s32b volume;        /* Volume of items */
+	s32b volume; /* Volume of items */
 
-	WEIGHT weight;		/* Item weight */
+	WEIGHT weight; /* Item weight */
 
-	ARTIFACT_ID name1;			/* Artifact type, if any */
-	OBJECT_EGO_ID name2;			/* Ego-Item type, if any */
+	ARTIFACT_ID name1; /* Artifact type, if any */
+	OBJECT_EGO_ID name2; /* Ego-Item type, if any */
 	GAME_TIME fuel;
 
 	byte forged_type;	// forged by smith craft
@@ -1008,7 +1008,7 @@ struct magic_type
 {
 	CREATURE_LEV slevel;		/* Required level (to learn) */
 	byte smana;			/* Required mana (to cast) */
-	byte sfail;			/* Minimum chance of failure */
+	PERCENT sfail;			/* Minimum chance of failure */
 	byte sexp;			/* Encoded experience bonus */
 };
 
