@@ -5,6 +5,9 @@
 
 bool object_is_potion(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
+	if(!has_trait(creature_ptr, TRAIT_HUMANOID)) return FALSE; //TODO need implement TRAIT_CAN_QUAFF
 	return (object_kind_info[object_ptr->k_idx].tval == TV_POTION);
 }
 
@@ -12,22 +15,14 @@ bool object_is_potion(creature_type *creature_ptr, object_type *object_ptr)
 bool object_is_shoukinkubi(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int i;
-
-	/* Require corpse or skeleton */
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(object_ptr->tval != TV_CORPSE) return FALSE;
-
-	/* Today's wanted */
 	if(today_mon > 0 && (streq(species_name + species_info[object_ptr->pval].name, species_name + species_info[today_mon].name))) return TRUE;
-
-	/* Tsuchinoko */
 	if(object_ptr->pval == SPECIES_TSUCHINOKO) return TRUE;
-
-	/* Unique creature */
 	for (i = 0; i < MAX_BOUNTY; i++)
 		if(object_ptr->pval == kubi_species_idx[i]) break;
 	if(i < MAX_BOUNTY) return TRUE;
-
-	/* Not wanted */
 	return FALSE;
 }
 
@@ -37,6 +32,8 @@ bool object_is_shoukinkubi(creature_type *creature_ptr, object_type *object_ptr)
  */
 bool object_is_favorite(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	/* Only melee weapons match */
 	if(!(object_ptr->tval == TV_POLEARM ||
 	      object_ptr->tval == TV_SWORD ||
@@ -105,7 +102,8 @@ bool object_is_favorite(creature_type *creature_ptr, object_type *object_ptr)
  */
 bool object_is_rare(creature_type *creature_ptr, object_type *object_ptr)
 {
-	// creature_ptr currently null
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 
 	switch(object_ptr->tval)
 	{
@@ -171,11 +169,15 @@ bool object_is_rare(creature_type *creature_ptr, object_type *object_ptr)
  */
 bool object_is_weapon(object_type *object_ptr)
 {
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(object_kind_info[object_ptr->k_idx].slot == INVEN_SLOT_ARMS) return TRUE;
 	return FALSE;
 }
+
 bool object_is_weapon2(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	return object_is_weapon(object_ptr);
 }
 
@@ -185,11 +187,15 @@ bool object_is_weapon2(creature_type *creature_ptr, object_type *object_ptr)
  */
 bool object_is_weapon_ammo(object_type *object_ptr)
 {
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(TV_MISSILE_BEGIN <= object_ptr->tval && object_ptr->tval <= TV_WEAPON_END) return TRUE;
 	return FALSE;
 }
+
 bool object_is_weapon_ammo2(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(TV_MISSILE_BEGIN <= object_ptr->tval && object_ptr->tval <= TV_WEAPON_END) return TRUE;
 	return FALSE;
 }
@@ -199,6 +205,7 @@ bool object_is_weapon_ammo2(creature_type *creature_ptr, object_type *object_ptr
  */
 bool object_is_ammo(object_type *object_ptr)
 {
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(TV_MISSILE_BEGIN <= object_ptr->tval && object_ptr->tval <= TV_MISSILE_END) return TRUE;
 	return FALSE;
 }
@@ -209,11 +216,15 @@ bool object_is_ammo(object_type *object_ptr)
  */
 bool object_is_armour(object_type *object_ptr)
 {
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(TV_ARMOR_BEGIN <= object_ptr->tval && object_ptr->tval <= TV_ARMOR_END) return TRUE;
 	return FALSE;
 }
+
 bool object_is_armour2(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	return object_is_armour(object_ptr);
 }
 
@@ -223,15 +234,16 @@ bool object_is_armour2(creature_type *creature_ptr, object_type *object_ptr)
  */
 bool object_is_weapon_armour_ammo(object_type *object_ptr)
 {
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(object_is_weapon_ammo(object_ptr) || object_is_armour(object_ptr)) return TRUE;
-
 	return FALSE;
-
 }
+
 bool object_is_weapon_armour_ammo2(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(object_is_weapon_ammo(object_ptr) || object_is_armour(object_ptr)) return TRUE;
-
 	return FALSE;
 }
 
@@ -241,8 +253,9 @@ bool object_is_weapon_armour_ammo2(creature_type *creature_ptr, object_type *obj
  */
 bool object_is_melee_weapon(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(TV_DIGGING <= object_ptr->tval && object_ptr->tval <= TV_SWORD) return TRUE;
-
 	return FALSE;
 }
 
@@ -263,14 +276,16 @@ bool object_is_wearable(object_type *object_ptr)
  */
 bool object_is_equipment(object_type *object_ptr)
 {
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(TV_EQUIP_BEGIN <= object_ptr->tval && object_ptr->tval <= TV_EQUIP_END) return TRUE;
-
 	return FALSE;
 }
+
 bool object_is_equipment2(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(TV_EQUIP_BEGIN <= object_ptr->tval && object_ptr->tval <= TV_EQUIP_END) return TRUE;
-
 	return FALSE;
 }
 
@@ -280,6 +295,8 @@ bool object_is_equipment2(creature_type *creature_ptr, object_type *object_ptr)
  */
 bool object_refuse_enchant_weapon(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(has_trait_object(object_ptr, TRAIT_CRITICAL_SLAYING)) return TRUE;
 	return FALSE;
 }
@@ -312,6 +329,7 @@ bool object_allow_enchant_melee_weapon(creature_type *creature_ptr, object_type 
  */
 bool object_is_smith(object_type *object_ptr)
 {
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(object_is_weapon_armour_ammo(object_ptr) && object_ptr->forged_type) return TRUE;
 	return FALSE;
 }
@@ -319,8 +337,9 @@ bool object_is_smith(object_type *object_ptr)
 
 bool object_is_smith2(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(object_is_weapon_armour_ammo(object_ptr) && object_ptr->forged_type) return TRUE;
-
 	return FALSE;
 }
 
@@ -348,11 +367,10 @@ bool object_is_artifact_aux(object_type *object_ptr)
  */
 bool object_is_nameless(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(!object_is_artifact(object_ptr) && !object_is_ego(object_ptr) && !object_is_smith(object_ptr))
 		return TRUE;
-
-
-
 	return FALSE;
 }
 
@@ -373,6 +391,8 @@ bool object_allow_two_hands_wielding(creature_type *creature_ptr, object_type *o
  */
 bool item_tester_hook_readable(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if((object_ptr->tval==TV_SCROLL) || (object_ptr->tval==TV_PARCHMENT) || has_trait_object(object_ptr, TRAIT_CAN_READ)) return TRUE;
 	return FALSE; // Assume not
 }
