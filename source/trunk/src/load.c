@@ -1084,7 +1084,7 @@ static errr rd_floor(floor_type *floor_ptr)
 		// Read it
 		rd_u16b(&ct_ptr->info);
 		READ_FEATURE_ID(&ct_ptr->feat);
-		rd_s16b(&ct_ptr->mimic);
+		READ_FEATURE_ID(&ct_ptr->mimic);
 		rd_s16b(&ct_ptr->special);
 	}
 
