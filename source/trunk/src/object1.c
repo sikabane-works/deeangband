@@ -103,7 +103,7 @@ void reset_visuals(void)
 /*
  * Obtain the "flags" for an item
  */
-void object_flags(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG])
+void object_flags(object_type *object_ptr, FLAGS_32 flgs[MAX_TRAITS_FLAG])
 {
 	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	int i;
@@ -206,7 +206,7 @@ void object_flags(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG])
 /*
  * Obtain the "flags" for an item which are known to the player
  */
-void object_flags_known(object_type *object_ptr, u32b flgs[MAX_TRAITS_FLAG])
+void object_flags_known(object_type *object_ptr, FLAGS_32 flgs[MAX_TRAITS_FLAG])
 {
 	bool spoil = FALSE;
 	int i;

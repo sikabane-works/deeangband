@@ -1652,7 +1652,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 	OBJECT_ID this_object_idx, next_object_idx = 0;
 	cptr s1 = "", s2 = "", s3 = "", x_info = "";
 	bool boring = TRUE;
-	s16b feat;
+	FEATURE_ID feat;
 	feature_type *f_ptr;
 	int query = '\001';
 	char out_val[MAX_NLEN+80];
@@ -1983,8 +1983,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		/* Forget feature */
 		feat = feat_none;
 	}
-
-
 	f_ptr = &feature_info[feat];
 
 	/* Terrain feature if needed */
@@ -2759,7 +2757,9 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 	object_type forge;
 	char wrath_reason[32] = "";
 	int nasty_chance = 6;
-	int dummy = 0, dummy2 = 0;
+	int dummy;
+	TVAL tval;
+	SVAL sval;
 	int type, effect;
 	cptr reward = NULL;
 	char object_name[MAX_NLEN];
@@ -2864,94 +2864,94 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = MES_DIARY_PATRON_CHAOS_WP;
 
 			quest_ptr = &forge;
-			dummy = TV_SWORD;
+			tval = TV_SWORD;
 			switch (randint1(creature_ptr->lev))
 			{
 			case 0: case 1:
-				dummy2 = SV_DAGGER;
+				sval = SV_DAGGER;
 				break;
 			case 2: case 3:
-				dummy2 = SV_MAIN_GAUCHE;
+				sval = SV_MAIN_GAUCHE;
 				break;
 			case 4:
-				dummy2 = SV_TANTO;
+				sval = SV_TANTO;
 				break;
 			case 5: case 6:
-				dummy2 = SV_RAPIER;
+				sval = SV_RAPIER;
 				break;
 			case 7: case 8:
-				dummy2 = SV_SMALL_SWORD;
+				sval = SV_SMALL_SWORD;
 				break;
 			case 9: case 10:
-				dummy2 = SV_BASILLARD;
+				sval = SV_BASILLARD;
 				break;
 			case 11: case 12: case 13:
-				dummy2 = SV_SHORT_SWORD;
+				sval = SV_SHORT_SWORD;
 				break;
 			case 14: case 15:
-				dummy2 = SV_SABRE;
+				sval = SV_SABRE;
 				break;
 			case 16: case 17:
-				dummy2 = SV_CUTLASS;
+				sval = SV_CUTLASS;
 				break;
 			case 18:
-				dummy2 = SV_WAKIZASHI;
+				sval = SV_WAKIZASHI;
 				break;
 			case 19:
-				dummy2 = SV_KHOPESH;
+				sval = SV_KHOPESH;
 				break;
 			case 20:
-				dummy2 = SV_TULWAR;
+				sval = SV_TULWAR;
 				break;
 			case 21:
-				dummy2 = SV_BROAD_SWORD;
+				sval = SV_BROAD_SWORD;
 				break;
 			case 22: case 23:
-				dummy2 = SV_LONG_SWORD;
+				sval = SV_LONG_SWORD;
 				break;
 			case 24: case 25:
-				dummy2 = SV_SCIMITAR;
+				sval = SV_SCIMITAR;
 				break;
 			case 26:
-				dummy2 = SV_NINJATO;
+				sval = SV_NINJATO;
 				break;
 			case 27:
-				dummy2 = SV_KATANA;
+				sval = SV_KATANA;
 				break;
 			case 28: case 29:
-				dummy2 = SV_BASTARD_SWORD;
+				sval = SV_BASTARD_SWORD;
 				break;
 			case 30:
-				dummy2 = SV_GREAT_SCIMITAR;
+				sval = SV_GREAT_SCIMITAR;
 				break;
 			case 31:
-				dummy2 = SV_CLAYMORE;
+				sval = SV_CLAYMORE;
 				break;
 			case 32:
-				dummy2 = SV_ESPADON;
+				sval = SV_ESPADON;
 				break;
 			case 33:
-				dummy2 = SV_TWO_HANDED_SWORD;
+				sval = SV_TWO_HANDED_SWORD;
 				break;
 			case 34:
-				dummy2 = SV_FLAMBERGE;
+				sval = SV_FLAMBERGE;
 				break;
 			case 35:
-				dummy2 = SV_NO_DACHI;
+				sval = SV_NO_DACHI;
 				break;
 			case 36:
-				dummy2 = SV_EXECUTIONERS_SWORD;
+				sval = SV_EXECUTIONERS_SWORD;
 				break;
 			case 37:
-				dummy2 = SV_ZWEIHANDER;
+				sval = SV_ZWEIHANDER;
 				break;
 			case 38:
-				dummy2 = SV_HAYABUSA;
+				sval = SV_HAYABUSA;
 				break;
 			default:
-				dummy2 = SV_BLADE_OF_CHAOS;
+				sval = SV_BLADE_OF_CHAOS;
 			}
-			object_prep(quest_ptr, lookup_kind(dummy, dummy2), ITEM_FREE_SIZE);
+			object_prep(quest_ptr, lookup_kind(tval, sval), ITEM_FREE_SIZE);
 			quest_ptr->to_hit = 3 + randint1(floor_ptr->depth) % 10;
 			quest_ptr->to_damage = 3 + randint1(floor_ptr->depth) % 10;
 			one_resistance(quest_ptr);
