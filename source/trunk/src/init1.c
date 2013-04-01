@@ -912,7 +912,7 @@ static bool add_tmp(u32b *offset, header *head, cptr buf)
  * Returns FALSE when there isn't enough space available to store
  * the name.
  */
-static bool add_tag(s16b *offset, header *head, cptr buf)
+static bool add_tag(STRING_OFFSET *offset, header *head, cptr buf)
 {
 	u32b i;
 

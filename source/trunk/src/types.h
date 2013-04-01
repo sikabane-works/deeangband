@@ -70,6 +70,10 @@ typedef s32b TOWN_ID;
 #define READ_TOWN_ID(VALUE) rd_s32b((TOWN_ID *)VALUE);
 #define WRITE_TOWN_ID(VALUE) wr_s32b((TOWN_ID)VALUE);
 
+typedef s32b METHOD_ID;
+#define READ_METHOD_ID(VALUE) rd_s32b((METHOD_ID *)VALUE);
+#define WRITE_METHOD_ID(VALUE) wr_s32b((METHOD_ID)VALUE);
+
 typedef s32b EFFECT_ID;
 #define READ_EFFECT_ID(VALUE) rd_s32b((EFFECT_ID *)VALUE);
 #define WRITE_EFFECT_ID(VALUE) wr_s32b((EFFECT_ID)VALUE);
@@ -476,7 +480,7 @@ typedef struct special_blow_type special_blow_type;
 
 struct special_blow_type
 {
-	byte method;
+	METHOD_ID method;
 	EFFECT_ID effect;
 	DICE_NUM d_dice;
 	DICE_SIDE d_side;
