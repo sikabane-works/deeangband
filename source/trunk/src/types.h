@@ -1019,9 +1019,9 @@ typedef struct magic_type magic_type;
 struct magic_type
 {
 	CREATURE_LEV slevel;		/* Required level (to learn) */
-	byte smana;			/* Required mana (to cast) */
+	STAT smana;			/* Required mana (to cast) */
 	PERCENT sfail;			/* Minimum chance of failure */
-	byte sexp;			/* Encoded experience bonus */
+	STAT sexp;			/* Encoded experience bonus */
 };
 
 
