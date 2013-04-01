@@ -301,7 +301,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 	sprintf(tmp_val, "%d", 0); // Default
 
 	if(!get_string(KW_PROFICIENCY, tmp_val, 9)) return;
-	tmp_s16b = strtol(tmp_val, NULL, 10); // Extract
+	tmp_s16b = (s16b)strtol(tmp_val, NULL, 10); // Extract
 
 	if(tmp_s16b < SKILL_P_MIN) tmp_s16b = SKILL_P_MIN;
 	if(tmp_s16b > SKILL_P_MAX) tmp_s16b = SKILL_P_MAX;
@@ -508,7 +508,7 @@ static void wiz_display_item(object_type *object_ptr)
  */
 typedef struct tval_desc
 {
-	int        tval;
+	TVAL        tval;
 	cptr       desc;
 } tval_desc;
 
@@ -686,13 +686,13 @@ static void wiz_tweak_item(object_type *object_ptr)
 	p = "Enter new 'pval' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->pval);
 	if(!get_string(p, tmp_val, 5)) return;
-	object_ptr->pval = strtol(tmp_val, NULL, 10);
+	object_ptr->pval = (TVAL)strtol(tmp_val, NULL, 10);
 	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_ac' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_ac);
 	if(!get_string(p, tmp_val, 5)) return;
-	object_ptr->to_ac = strtol(tmp_val, NULL, 10);
+	object_ptr->to_ac = (SAVING)strtol(tmp_val, NULL, 10);
 	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_hit' setting: ";
@@ -1026,7 +1026,7 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_p
 		object_ptr->number = tmp_int;
 	}
 
-	if(IS_ROD(object_ptr)) object_ptr->pval = object_ptr->pval * object_ptr->number / tmp_qnt;
+	if(IS_ROD(object_ptr)) object_ptr->pval = object_ptr->pval * (PVAL)object_ptr->number / tmp_qnt;
 }
 
 /* debug command for blue mage */

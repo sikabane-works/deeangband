@@ -2889,7 +2889,7 @@ void put_str(cptr str, int row, int col)
  * Display a string on the screen using an attribute, and clear
  * to the end of the line.
  */
-void c_prt(byte attr, cptr str, int row, int col)
+void c_prt(COLOR_ID attr, cptr str, int row, int col)
 {
 	int c = 0, n = 1;
 	while(TRUE)

@@ -1353,7 +1353,7 @@ extern void screen_save(void);
 extern void screen_load(void);
 extern void c_put_str(byte attr, cptr str, int row, int col);
 extern void put_str(cptr str, int row, int col);
-extern void c_prt(byte attr, cptr str, int row, int col);
+extern void c_prt(COLOR_ID attr, cptr str, int row, int col);
 extern void prt(cptr str, int row, int col);
 extern void c_roff(byte attr, cptr str);
 extern void roff(cptr str);
