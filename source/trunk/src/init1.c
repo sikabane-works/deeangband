@@ -6947,7 +6947,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 			else if(zz[0][0] == 'R')
 			{
 				/* Maximum species_idx */
-				if(zz[0][1] == 'E') max_creature_ego_idx = strtol(zz[1], NULL, 10);
+				if(zz[0][1] == 'E') max_creature_ego_idx = (CREATURE_EGO_ID)strtol(zz[1], NULL, 10);
 				else max_species_idx = (SPECIES_ID)strtol(zz[1], NULL, 10);
 			}
 

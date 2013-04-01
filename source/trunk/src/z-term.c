@@ -501,7 +501,6 @@ static errr Term_pict_hack(int x, int y, int n, const byte *ap, cptr cp, const b
 
 /*
  * Mentally draw an attr/char at a given location
- *
  * Assumes given location and values are valid.
  */
 void Term_queue_char(int x, int y, byte a, char c, byte ta, char tc)
@@ -1470,17 +1469,13 @@ static void Term_fresh_row_text(int y, int x1, int x2)
  */
 errr Term_fresh(void)
 {
-	int x, y;
-
-	int w = Term->wid;
-	int h = Term->hgt;
-
-	int y1 = Term->y1;
-	int y2 = Term->y2;
-
+	byte_hack x, y;
+	byte_hack w = Term->wid;
+	byte_hack h = Term->hgt;
+	byte_hack y1 = Term->y1;
+	byte_hack y2 = Term->y2;
 	term_win *old = Term->old;
 	term_win *scr = Term->scr;
-
 
 	/* Do nothing unless "mapped" */
 	if(!Term->mapped_flag) return FAILURE;
