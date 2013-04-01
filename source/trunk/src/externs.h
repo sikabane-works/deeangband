@@ -905,8 +905,6 @@ extern void determine_bounty_uniques(void);
 extern void determine_today_mon(creature_type *creature_ptr, bool conv_old);
 extern void play_game(bool new_game);
 extern bool psychometry(creature_type *creature_ptr);
-extern void leave_level(int level);
-extern void enter_level(int level);
 extern s32b turn_real(creature_type *creature_ptr, s32b hoge);
 extern void add_game_turn(creature_type *creature_ptr, int num);
 
@@ -914,7 +912,7 @@ extern void add_game_turn(creature_type *creature_ptr, int num);
 /* files.c */
 extern void safe_setuid_drop(void);
 extern void safe_setuid_grab(void);
-extern s16b tokenize(char *buf, s16b num, char **tokens, int mode);
+extern int tokenize(char *buf, s16b num, char **tokens, int mode);
 extern void display_creature_status(int mode, creature_type *creature_ptr);
 extern errr make_character_dump(creature_type *creature_ptr, FILE *fff);
 extern errr file_character(cptr name);

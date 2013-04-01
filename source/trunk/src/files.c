@@ -155,7 +155,7 @@ quit("setregid(): ê≥ÇµÇ≠ãñâ¬Ç™éÊÇÍÇ‹ÇπÇÒÅI");
  * Hack -- An empty buffer, or a final delimeter, yields an "empty" token.
  * Hack -- We will always extract at least one token
  */
-s16b tokenize(char *buf, s16b num, char **tokens, int mode)
+int tokenize(char *buf, s16b num, char **tokens, int mode)
 {
 	int i = 0;
 	char *s = buf;
@@ -3814,29 +3814,22 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 			if(!pcol) strcat(p[col], KW_NONE);
 			else
 			{
-				if(p[col][strlen(p[col])-2] == ',')
-				{
-					p[col][strlen(p[col])-2] = '\0';
-				}
-				else
-				{
-					p[col][strlen(p[col])-10] = '\0';
-				}
+				if(p[col][strlen(p[col])-2] == ',') p[col][strlen(p[col])-2] = '\0';
+				else p[col][strlen(p[col])-10] = '\0';
 			}
 			
 			strcat(p[col], "\n");
 		}
 
-		for (i=0;i<=col;i++)
-		{
-			fprintf(fff, p[i]);
-		}
+		for (i = 0; i <= col; i++) fprintf(fff, p[i]);
 	}
 	else if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
 		char s[EATER_EXT][MAX_NLEN];
-		TVAL tval, ext, k_idx;
+		TVAL tval, ext;
+		OBJECT_KIND_ID k_idx;
 		int i, magic_num;
+		SVAL sval;
 
 #ifdef JP
 		fprintf(fff, "\n\n  [éÊÇËçûÇÒÇæñÇñ@ìπãÔ]\n");
@@ -3878,14 +3871,14 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 			}
 
 			/* Get magic device names that were eaten */
-			for (i = 0; i < EATER_EXT; i++)
+			for (sval = 0; sval < EATER_EXT; sval++)
 			{
-				int idx = EATER_EXT * ext + i;
+				int idx = EATER_EXT * ext + sval;
 
 				magic_num = creature_ptr->max_charge[idx];
 				if(!magic_num) continue;
 
-				k_idx = lookup_kind(tval, i);
+				k_idx = lookup_kind(tval, sval);
 				if(!k_idx) continue;
 				sprintf(s[eat_num], "%23s (%2d)", (object_kind_name + object_kind_info[k_idx].name), magic_num);
 				eat_num++;
@@ -3988,11 +3981,7 @@ static void dump_aux_last_message(creature_type *creature_ptr, FILE *fff)
 	}
 }
 
-
-/*
- *
- */
-static void dump_aux_recall(creature_type *creature_ptr, FILE *fff)
+static void dump_aux_recall(FILE *fff)
 {
 	int y;
 
@@ -4426,7 +4415,7 @@ errr make_character_dump(creature_type *creature_ptr, FILE *fff)
 	dump_aux_display_creature_status(creature_ptr, fff);
 	dump_aux_last_message(creature_ptr, fff);
 	dump_aux_options(creature_ptr, fff);
-	dump_aux_recall(creature_ptr, fff);
+	dump_aux_recall(fff);
 	dump_aux_quest(fff);
 	dump_aux_arena(fff);
 	dump_aux_creatures(fff);
