@@ -687,8 +687,8 @@ struct vault_type
 	STRING_OFFSET name;			/* Name (offset) */
 	STRING_OFFSET text;			/* Text (offset) */
 
-	byte typ;			/* Vault type */
-	byte rat;			/* Vault rating */
+	int typ;			/* Vault type */
+	PROB rat;			/* Vault rating */
 	COODINATES hgt;			/* Vault height */
 	COODINATES wid;			/* Vault width */
 };

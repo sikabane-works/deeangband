@@ -1153,15 +1153,14 @@ errr parse_vault_info(char *buf, header *head)
 	/* Process 'X' for "Extra info" (one line only) */
 	else if(buf[0] == 'X')
 	{
-		int typ, rat, hgt, wid;
+		int rat, hgt, wid;
 
 		/* Scan for the values */
 		if(4 != sscanf(buf+2, "%d:%d:%d:%d",
 			&typ, &rat, &hgt, &wid)) return PARSE_ERROR_GENERIC;
 
 		/* Save the values */
-		v_ptr->typ = typ;
-		v_ptr->rat = rat;
+		v_ptr->rat = (PROB)rat;
 		v_ptr->hgt = (COODINATES)hgt;
 		v_ptr->wid = (COODINATES)wid;
 	}
@@ -1745,7 +1744,7 @@ errr parse_feature_info(char *buf, header *head)
 	/* Process 'K' for "States" (up to four lines + default (which cannot be last)) */
 	else if(buf[0] == 'K')
 	{
-		s16b offset;
+		STRING_OFFSET offset;
 
 		/* Find the next empty state slot (if any) */
 		for (i = 0; i < MAX_FEAT_STATES; i++) if(f_ptr->state[i].action == FF_FLAG_MAX) break;
