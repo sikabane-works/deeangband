@@ -135,12 +135,11 @@ bool do_cmd_archer(creature_type *creature_ptr)
 	/**********Create arrows*********/
 	else if(ext == 2)
 	{
-		int item;
+		OBJECT_ID item;
 		INVEN_SLOT slot;
 
 		if(!get_item(creature_ptr, &item, MES_SMITH_WHICH_STUFF, MES_SMITH_NO_STUFF, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
 		object_ptr = GET_ITEM(creature_ptr, item);
-
 		object_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
@@ -164,7 +163,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 	else if(ext == 3)
 	{
 		int item;
-		s16b slot;
+		INVEN_SLOT slot;
 
 		if(!get_item(creature_ptr, &item, MES_SMITH_WHICH_STUFF, MES_SMITH_NO_STUFF, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
 		object_ptr = GET_ITEM(creature_ptr, item);
@@ -172,8 +171,8 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		object_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
-		object_prep(object_ptr, lookup_kind(TV_BOLT, m_bonus(1, creature_ptr->lev)+1), ITEM_FREE_SIZE);
-		object_ptr->number = (byte)rand_range(4, 8);
+		object_prep(object_ptr, lookup_kind(TV_BOLT, (SVAL)m_bonus(1, creature_ptr->lev)+1), ITEM_FREE_SIZE);
+		object_ptr->number = (QUANTITY)rand_range(4, 8);
 		object_aware(object_ptr);
 		object_known(object_ptr);
 		apply_magic(creature_ptr, object_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);

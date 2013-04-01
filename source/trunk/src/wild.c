@@ -527,9 +527,8 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 		player_ptr->teleport_town = FALSE;
 	}
 
-	creature_place(floor_ptr, player_ptr, player_ptr->oldpy, player_ptr->oldpx);
+	move_creature(floor_ptr, player_ptr, player_ptr->oldpy, player_ptr->oldpx, 0);
 	/* subject_change_floor_dungeon = FALSE;*/
-
 
 	lim = (floor_ptr->generate_encounter==TRUE) ? MIN_M_ALLOC_TN * 2 : MIN_M_ALLOC_TN;
 

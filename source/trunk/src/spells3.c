@@ -213,7 +213,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, 
 	floor_ptr->cave[ny][nx].creature_idx = m_idx;
 
 	/* Move the creature */
-	creature_place(floor_ptr, m_ptr, ny, nx);
+	move_creature(m_ptr, floor_ptr, ny, nx, 0);
 
 	/* Update the creature (new location) */
 	update_creature_view(player_ptr, m_idx, TRUE);

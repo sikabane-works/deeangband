@@ -4420,14 +4420,6 @@ void message_pain(int m_idx, POWER dam)
 	}
 }
 
-bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, COODINATES y, COODINATES x)
-{
-	if(floor_ptr->cave[y][x].creature_idx != 0) return FALSE;
-	creature_ptr->fy = y;
-	creature_ptr->fx = x;
-	return TRUE;
-}
-
 // Drop all items carried by a creature
 void creature_drop_carried_objects(creature_type *creature_ptr)
 {
