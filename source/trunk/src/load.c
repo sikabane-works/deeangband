@@ -247,9 +247,8 @@ static void rd_object(object_type *object_ptr)
 	int i;
 	object_kind *object_kind_ptr;
 
-	rd_s16b(&object_ptr->k_idx);
-
-	rd_byte(&object_ptr->floor_id);
+	READ_OBJECT_KIND_ID(&object_ptr->k_idx);
+	READ_FLOOR_ID(&object_ptr->floor_id);
 	READ_COODINATES(&object_ptr->fy);
 	READ_COODINATES(&object_ptr->fx);
 
@@ -258,7 +257,7 @@ static void rd_object(object_type *object_ptr)
 	object_ptr->sval = object_kind_ptr->sval;
 
 	READ_PVAL(&object_ptr->pval);
-	rd_byte(&object_ptr->discount);
+	READ_PERCENT(&object_ptr->discount);
 	READ_POPULATION(&object_ptr->number);
 	rd_s32b(&object_ptr->volume);
 	rd_s32b(&object_ptr->weight);
@@ -458,7 +457,7 @@ static errr rd_store(store_type *st_ptr)
 
 	/* Read the basic info */
 
-	rd_u32b(&st_ptr->name);
+	READ_STRING_OFFSET(&st_ptr->name);
 	rd_s32b(&st_ptr->wealth);
 
 	rd_s32b(&st_ptr->store_open);
@@ -709,7 +708,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_byte(&creature_ptr->d_char);
 	rd_byte(&creature_ptr->x_attr);
 	rd_byte(&creature_ptr->x_char);
-	rd_u32b(&creature_ptr->action_turn);
+	READ_GAME_TURN(&creature_ptr->action_turn);
 
 	rd_string(creature_ptr->name, sizeof(creature_ptr->name));
 
@@ -843,7 +842,7 @@ static void rd_creature(creature_type *creature_ptr)
 	{
 		rd_s16b(&tmp16s);
 		if(tmp16s < 0) break;
-		rd_s16b(&creature_ptr->timed_trait[tmp16s]);
+		READ_GAME_TIME(&creature_ptr->timed_trait[tmp16s]);
 	}
 
 	rd_byte(&creature_ptr->recall_dungeon);

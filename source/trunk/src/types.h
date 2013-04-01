@@ -45,11 +45,14 @@
  */
 
 typedef s32b STRING_OFFSET;
+#define READ_STRING_OFFSET(VALUE) rd_s32b((STRING_OFFSET *)VALUE);
+#define WRITE_STRING_OFFSET(VALUE) wr_s32b((STRING_OFFSET)VALUE);
+
 typedef s32b PRIORITY;
 
 typedef s32b VAULT_ID;
-#define READ_VAULT_ID(VALUE) rd_u32b((VAULT_ID *)VALUE);
-#define WRITE_VAULT_ID(VALUE) wr_u32b((VAULT_ID)VALUE);
+#define READ_VAULT_ID(VALUE) rd_s32b((VAULT_ID *)VALUE);
+#define WRITE_VAULT_ID(VALUE) wr_s32b((VAULT_ID)VALUE);
 
 typedef s32b AUTHORITY_ID;
 #define READ_AUTHORITY_ID(VALUE) rd_u32b((AUTHORITY_ID *)VALUE);
@@ -128,16 +131,16 @@ typedef s32b REALM_ID;
 #define WRITE_REALM_ID(VALUE) wr_s32b((REALM_ID)VALUE);
 
 typedef byte TVAL;
-#define READ_TVAL(VALUE) rd_s32b((TVAL *)VALUE);
-#define WRITE_TVAL(VALUE) wr_s32b((TVAL)VALUE);
+#define READ_TVAL(VALUE) rd_byte((TVAL *)VALUE);
+#define WRITE_TVAL(VALUE) wr_byte((TVAL)VALUE);
 
 typedef byte SVAL;
-#define READ_SVAL(VALUE) rd_s32b((SVAL *)VALUE);
-#define WRITE_SVAL(VALUE) wr_s32b((SVAL)VALUE);
+#define READ_SVAL(VALUE) rd_byte((SVAL *)VALUE);
+#define WRITE_SVAL(VALUE) wr_byte((SVAL)VALUE);
 
 typedef byte PVAL;
-#define READ_PVAL(VALUE) rd_s32b((PVAL *)VALUE);
-#define WRITE_PVAL(VALUE) wr_s32b((PVAL)VALUE);
+#define READ_PVAL(VALUE) rd_byte((PVAL *)VALUE);
+#define WRITE_PVAL(VALUE) wr_byte((PVAL)VALUE);
 
 typedef byte COLOR_ID;
 #define READ_COLOR_ID(VALUE) rd_s32b((COLOR_ID *)VALUE);
