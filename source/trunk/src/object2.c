@@ -3651,7 +3651,7 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b 
 * Note that this code must remove any location/stack information
 * from the object once it is placed into the inventory.
 */
-s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
+INVEN_SLOT inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int i, j, k;
 	int n = -1;

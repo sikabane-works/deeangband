@@ -230,6 +230,10 @@ typedef s32b PROB;
 #define READ_PROB(VALUE) rd_s32b((PROB *)VALUE);
 #define WRITE_PROB(VALUE) wr_s32b((PROB)VALUE);
 
+typedef s32b INVEN_SLOT;
+#define READ_INVEN_SLOT(VALUE) rd_s32b((INVEN_SLOT *)VALUE);
+#define WRITE_INVEN_SLOT(VALUE) wr_s32b((INVEN_SLOT)VALUE);
+
 /*
  * Creature flags
  */
@@ -1020,7 +1024,7 @@ typedef struct magic_table_type magic_table_type;
 
 struct magic_table_type
 {
-	int spell_book;		/* Tval of spell books (if any) */
+	TVAL spell_book;	/* Tval of spell books (if any) */
 	int spell_xtra;		/* Something for later */
 
 	int spell_stat;		/* Stat for spells (if any)  */
