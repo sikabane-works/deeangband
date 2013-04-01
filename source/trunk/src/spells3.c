@@ -2682,10 +2682,10 @@ bool pulish_shield(creature_type *creature_ptr)
  */
 bool potion_smash_effect(CREATURE_ID who, COODINATES y, COODINATES x, OBJECT_KIND_ID k_idx)
 {
-	int     radius = 2;
-	int     dt = 0;
+	int radius = 2;
+	int dt = 0;
 	POWER dam = 0;
-	bool    angry = FALSE;
+	bool angry = FALSE;
 
 	object_kind *object_kind_ptr = &object_kind_info[k_idx];
 

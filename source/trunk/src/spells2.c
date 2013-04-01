@@ -1333,7 +1333,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, POWER power, bool player_ca
 bool probing(floor_type *floor_ptr)
 {
 	int i, speed;
-	int cu, cv;
+	bool_hack cu, cv;
 	bool probe = FALSE;
 	char buf[256];
 	cptr align;
@@ -2073,7 +2073,7 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 }
 
 // Determine how much contiguous open space this grid is next to
-static int next_to_open(floor_type *floor_ptr, COODINATES cy, COODINATES cx, bool (*pass_bold)(floor_type *, int, int))
+static int next_to_open(floor_type *floor_ptr, COODINATES cy, COODINATES cx, bool (*pass_bold)(floor_type *, COODINATES, COODINATES))
 {
 	int i;
 	COODINATES y, x;
@@ -2096,7 +2096,7 @@ static int next_to_open(floor_type *floor_ptr, COODINATES cy, COODINATES cx, boo
 }
 
 
-static int next_to_walls_adj(floor_type *floor_ptr, COODINATES cy, COODINATES cx, bool (*pass_bold)(floor_type *, int, int))
+static int next_to_walls_adj(floor_type *floor_ptr, COODINATES cy, COODINATES cx, bool (*pass_bold)(floor_type *, COODINATES, COODINATES))
 {
 	int i;
 	COODINATES y, x;
@@ -2159,7 +2159,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, COODINATES y, COODINAT
 }
 
 // Aux function -- see below
-static void cave_temp_room_aux2(creature_type *caster_ptr, COODINATES y, COODINATES x, bool only_room, bool (*pass_bold)(floor_type *, int, int))
+static void cave_temp_room_aux2(creature_type *caster_ptr, COODINATES y, COODINATES x, bool only_room, bool (*pass_bold)(floor_type *, COODINATES, COODINATES))
 {
 	cave_type *c_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
@@ -2206,7 +2206,7 @@ static void cave_temp_room_aux2(creature_type *caster_ptr, COODINATES y, COODINA
 /*
 * Aux function -- see below
 */
-static bool cave_pass_lite_bold(floor_type *floor_ptr, int y, int x)
+static bool cave_pass_lite_bold(floor_type *floor_ptr, COODINATES y, COODINATES x)
 {
 	return CAVE_LOS_BOLD(floor_ptr, y, x);
 }
@@ -2789,7 +2789,7 @@ void wall_breaker(creature_type *creature_ptr)
 bool kawarimi(creature_type *user_ptr, bool success)
 {
 	object_type forge;
-	object_type *quest_ptr = &forge;
+	object_type *object_ptr = &forge;
 	COODINATES y, x;
 	char user_name[80];
 	floor_type *floor_ptr = GET_FLOOR_PTR(user_ptr);
@@ -2818,12 +2818,12 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	x = user_ptr->fx;
 
 	teleport_creature(user_ptr, 10 + (COODINATES)randint1(90), 0L);
-	object_wipe(quest_ptr);
-	object_prep(quest_ptr, lookup_kind(TV_STATUE, SV_WOODEN_STATUE), ITEM_FREE_SIZE);
-	quest_ptr->pval = SPECIES_NINJA;
+	object_wipe(object_ptr);
+	object_prep(object_ptr, lookup_kind(TV_STATUE, SV_WOODEN_STATUE), ITEM_FREE_SIZE);
+	object_ptr->pval = SPECIES_NINJA;
 
 	/* Drop it in the dungeon */
-	(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
+	(void)drop_near(floor_ptr, object_ptr, -1, y, x);
 
 #ifdef JP
 	if(success) msg_format("%s‚ÍUŒ‚‚ğó‚¯‚é‘O‚É‘f‘‚­g‚ğ‚Ğ‚é‚ª‚¦‚µ‚½B", user_name);

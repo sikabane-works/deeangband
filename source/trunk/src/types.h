@@ -138,7 +138,7 @@ typedef byte SVAL;
 #define READ_SVAL(VALUE) rd_byte((SVAL *)VALUE);
 #define WRITE_SVAL(VALUE) wr_byte((SVAL)VALUE);
 
-typedef byte PVAL;
+typedef s16b PVAL;
 #define READ_PVAL(VALUE) rd_byte((PVAL *)VALUE);
 #define WRITE_PVAL(VALUE) wr_byte((PVAL)VALUE);
 
