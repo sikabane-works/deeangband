@@ -811,7 +811,7 @@ static int parse_special_melee(special_blow_type *blow_ptr, char *tmp)
  * Returns FALSE when there isn't enough space available to store
  * the text.
  */
-static bool add_text(u32b *offset, header *head, cptr buf, bool normal_text)
+static bool add_text(STRING_OFFSET *offset, header *head, cptr buf, bool normal_text)
 {
 	/* Hack -- Verify space */
 	if(head->text_size + strlen(buf) + 8 > FAKE_TEXT_SIZE)
@@ -865,7 +865,7 @@ static bool add_text(u32b *offset, header *head, cptr buf, bool normal_text)
  * Returns FALSE when there isn't enough space available to store
  * the name.
  */
-static bool add_name(u32b *offset, header *head, cptr buf)
+static bool add_name(STRING_OFFSET *offset, header *head, cptr buf)
 {
 	/* Hack -- Verify space */
 	if(head->name_size + strlen(buf) + 8 > FAKE_NAME_SIZE)

@@ -1654,40 +1654,40 @@ struct trait_type
 {
 	char id2[50];
 	byte display_priority;
-	s16b pre_id;
-	s16b anti_id;
+	TRAIT_ID pre_id;
+	TRAIT_ID anti_id;
 	char title[50];
 	char e_title[50];
 	traits_precondition alias;
-	u32b reverse_alias[MAX_TRAITS_FLAG];
+	FLAGS_32 reverse_alias[MAX_TRAITS_FLAG];
 	byte effect_type;
 	s16b adj[STAT_MAX];
 	SAVING ac;
 	SAVING ev;
 	SAVING vo;
-	s16b dis;		/* Skill: Disarming */
-	s16b dev;		/* Skill: Magic Devices */
-	s16b stl;		/* Skill: Stealth factor */
-	s16b srh;		/* Skill: Searching ability */
-	s16b fos;		/* Skill: Searching frequency */
-	s16b thn;		/* Skill: To hit (normal) */
-	s16b thb;		/* Skill: To hit (shooting) */
-	s16b tht;		/* Skill: To hit (throwing) */
-	s16b dig;		/* Skill: Digging */
+	TRYING dis;		/* Skill: Disarming */
+	TRYING dev;		/* Skill: Magic Devices */
+	TRYING stl;		/* Skill: Stealth factor */
+	TRYING srh;		/* Skill: Searching ability */
+	TRYING fos;		/* Skill: Searching frequency */
+	TRYING thn;		/* Skill: To hit (normal) */
+	TRYING thb;		/* Skill: To hit (shooting) */
+	TRYING tht;		/* Skill: To hit (throwing) */
+	TRYING dig;		/* Skill: Digging */
 	s16b infra;
 	s16b hitd_m;
 	s16b exp;
 	s16b charge;	// Base Charge
 	SPEED speed;
-	u32b text;
-	u32b E_text;
-	u32b get_text;
-	u32b E_get_text;
-	u32b lost_text;
-	u32b E_lost_text;
-	u32b activate_text;
-	u32b alias_text;
-	u32b blind_activate_text;
+	STRING_OFFSET text;
+	STRING_OFFSET E_text;
+	STRING_OFFSET get_text;
+	STRING_OFFSET E_get_text;
+	STRING_OFFSET lost_text;
+	STRING_OFFSET E_lost_text;
+	STRING_OFFSET activate_text;
+	STRING_OFFSET alias_text;
+	STRING_OFFSET blind_activate_text;
 	traits_precondition flags;
 
 	CREATURE_LEV base_level;
