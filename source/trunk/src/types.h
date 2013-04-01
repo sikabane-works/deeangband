@@ -45,6 +45,7 @@
  */
 
 typedef s32b STRING_OFFSET;
+typedef s32b PRIORITY;
 
 typedef s32b VAULT_ID;
 #define READ_VAULT_ID(VALUE) rd_u32b((VAULT_ID *)VALUE);
@@ -286,7 +287,7 @@ struct feature_type
 
 	FLAGS_32 flags[FF_FLAG_SIZE]; /* Flags */
 
-	u16b priority;            /* Map priority */
+	PRIORITY priority;            /* Map priority */
 	FEATURE_ID destroyed;           /* Default destroyed state */
 	feature_state state[MAX_FEAT_STATES];
 

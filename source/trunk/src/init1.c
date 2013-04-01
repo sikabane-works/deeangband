@@ -1733,12 +1733,8 @@ errr parse_feature_info(char *buf, header *head)
 	else if(buf[0] == 'W')
 	{
 		int priority;
-
-		/* Scan for the value */
 		if(1 != sscanf(buf+2, "%d", &priority)) return (PARSE_ERROR_GENERIC);
-
-		/* Save the value */
-		f_ptr->priority = priority;
+		f_ptr->priority = (PRIORITY)priority;
 	}
 
 	/* Process 'K' for "States" (up to four lines + default (which cannot be last)) */

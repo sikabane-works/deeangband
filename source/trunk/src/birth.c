@@ -2321,7 +2321,7 @@ static int wield_one(creature_type *creature_ptr, int item, FLAGS_32 flags)
 	object_type *i_ptr; 
 	object_type object_type_body; 
  
-	int slot; 
+	INVEN_SLOT slot; 
 
 	object_ptr = &creature_ptr->inventory[item]; 
  
@@ -2373,7 +2373,7 @@ static void wield_all(creature_type *creature_ptr, FLAGS_32 flags)
 // Add an outfit object
 void add_item_to_creature(creature_type *creature_ptr, object_type *object_ptr, FLAGS_32 flags)
 {
-	s16b slot;
+	INVEN_SLOT slot;
 
 	if(is_player(creature_ptr) && (flags & ADD_OUTFIT_EQUIP))
 	{
@@ -3182,7 +3182,7 @@ static int get_creature_sex(creature_type *creature_ptr, species_type *species_p
 }
 
 // Player class
-static bool get_creature_class(creature_type *creature_ptr, species_type *species_ptr, bool npc)
+static int get_creature_class(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
 	int i, n, id[MAX_CLASS], weight[MAX_CLASS];
 	selection_table ce[MAX_CLASS+3];
@@ -3283,7 +3283,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 }
 
 // Player patron
-static bool get_creature_patron(creature_type *creature_ptr, species_type *species_ptr, bool npc)
+static int get_creature_patron(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
 	int i, n = 0;
 	selection_table pt[400+3];
@@ -3386,7 +3386,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 }
 
 // Player Chara
-static bool get_creature_chara(creature_type *creature_ptr, species_type *species_ptr, bool npc)
+static int get_creature_chara(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
 	int i;
 	selection_table ce[MAX_CHARA + 3];
@@ -3484,7 +3484,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 }
 
 // Player Starting Point
-static bool get_starting_point(creature_type *creature_ptr, bool npc)
+static int get_starting_point(creature_type *creature_ptr, bool npc)
 {
 	int i, j, n;
 	selection_table se[STARTING_MAX + 3];
@@ -4033,7 +4033,7 @@ static void edit_history(creature_type *creature_ptr)
  * from continuously rolling up characters, which can be VERY
  * expensive CPU wise.  And it cuts down on player stupidity.
  */
-static bool generate_creature_aux(creature_type *creature_ptr, s16b species_idx, FLAGS_32 flags)
+static bool generate_creature_aux(creature_type *creature_ptr, SPECIES_ID species_idx, FLAGS_32 flags)
 {
 	int i;
 	int mode = 0;

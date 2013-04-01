@@ -438,7 +438,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 }
 
-int specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, int sv)
+int specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, TVAL tv, SVAL sv)
 {
 	object_type forge;
 	object_prep(&forge, lookup_kind(tv, sv), ITEM_FREE_SIZE);

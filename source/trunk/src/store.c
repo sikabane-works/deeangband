@@ -1796,7 +1796,7 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 						/* Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM- */
 						if(IS_ROD(object_ptr))
 						{
-							object_ptr->pval =  object_ptr->pval * remain / old_num;
+							object_ptr->pval = (PVAL)(object_ptr->pval * remain / old_num);
 							object_ptr->timeout = object_ptr->timeout * remain / old_num;
 						}
 
