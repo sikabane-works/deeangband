@@ -56,14 +56,14 @@ struct header
 	byte v_patch;		// Version -- patch
 	byte v_extra;		// Version -- extra
 
-	u32b info_num;		// Number of "info" records
-	u32b info_len;		// Size of each "info" record
-	u32b head_size;		// Size of the "header" in bytes
-	u32b info_size;		// Size of the "info" array in bytes
-	u32b name_size;		// Size of the "name" array in bytes
-	u32b text_size;		// Size of the "text" array in bytes
-	u32b tmp_size;		// Size of the "tmp" array in bytes
-	u32b tag_size;		// Size of the "tag" array in bytes
+	s32b info_num;		// Number of "info" records
+	s32b info_len;		// Size of each "info" record
+	s32b head_size;		// Size of the "header" in bytes
+	s32b info_size;		// Size of the "info" array in bytes
+	s32b name_size;		// Size of the "name" array in bytes
+	s32b text_size;		// Size of the "text" array in bytes
+	s32b tmp_size;		// Size of the "tmp" array in bytes
+	s32b tag_size;		// Size of the "tag" array in bytes
 	void *object_ptr;
 	char *name_ptr;
 	char *text_ptr;

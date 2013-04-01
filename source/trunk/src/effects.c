@@ -936,7 +936,7 @@ bool lose_all_info(creature_type *creature_ptr)
 void do_poly_wounds(creature_type *creature_ptr)
 {
 	// Changed to always provide at least _some_ healing
-	s16b wounds = creature_ptr->timed_trait[TRAIT_CUT];
+	GAME_TIME wounds = creature_ptr->timed_trait[TRAIT_CUT];
 	s32b hit_p = (creature_ptr->mhp - creature_ptr->chp);
 	s16b change = diceroll(creature_ptr->lev, 5);
 	bool nasty_effect = one_in_(5);

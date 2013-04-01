@@ -914,7 +914,7 @@ static bool add_tmp(u32b *offset, header *head, cptr buf)
  */
 static bool add_tag(STRING_OFFSET *offset, header *head, cptr buf)
 {
-	u32b i;
+	int i;
 
 	/* Search for an existing (fake) tag */
 	for (i = 1; i < head->tag_size; i += strlen(&head->tag_ptr[i]) + 1)
@@ -1598,7 +1598,7 @@ errr parse_feature_info(char *buf, header *head)
 	/* Process 'M' for "Mimic" (one line only) */
 	else if(buf[0] == 'M')
 	{
-		s16b offset;
+		STRING_OFFSET offset;
 
 		if(!add_tag(&offset, head, buf + 2)) return PARSE_ERROR_OUT_OF_MEMORY;
 

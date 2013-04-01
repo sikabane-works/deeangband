@@ -44,13 +44,13 @@
  * and increase the complexity of the code.
  */
 
-typedef u32b STRING_OFFSET;
+typedef s32b STRING_OFFSET;
 
-typedef u32b VAULT_ID;
+typedef s32b VAULT_ID;
 #define READ_VAULT_ID(VALUE) rd_u32b((VAULT_ID *)VALUE);
 #define WRITE_VAULT_ID(VALUE) wr_u32b((VAULT_ID)VALUE);
 
-typedef u32b AUTHORITY_ID;
+typedef s32b AUTHORITY_ID;
 #define READ_AUTHORITY_ID(VALUE) rd_u32b((AUTHORITY_ID *)VALUE);
 #define WRITE_AUTHORITY_ID(VALUE) wr_u32b((AUTHORITY_ID)VALUE);
 
