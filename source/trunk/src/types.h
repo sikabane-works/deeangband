@@ -684,13 +684,12 @@ typedef struct vault_type vault_type;
 
 struct vault_type
 {
-	STRING_OFFSET name;			/* Name (offset) */
-	STRING_OFFSET text;			/* Text (offset) */
+	STRING_OFFSET name; /* Name (offset) */
+	STRING_OFFSET text; /* Text (offset) */
 
-	int typ;			/* Vault type */
-	PROB rat;			/* Vault rating */
-	COODINATES hgt;			/* Vault height */
-	COODINATES wid;			/* Vault width */
+	PROB rat; /* Vault rating */
+	COODINATES hgt; /* Vault height */
+	COODINATES wid; /* Vault width */
 };
 
 

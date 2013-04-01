@@ -2830,9 +2830,6 @@ static bool build_vault_pre(floor_type *floor_ptr, int type)
 	{
 		/* Access a random vault record */
 		v_ptr = &vault_info[randint0(max_vault_idx)];
-
-		/* Accept the first lesser vault */
-		if(v_ptr->typ == type) break;
 	}
 
 	/* No lesser vault found */
@@ -2871,72 +2868,6 @@ static bool build_vault_pre(floor_type *floor_ptr, int type)
 
 	/* Hack -- Build the vault */
 	build_vault(floor_ptr, yval, xval, v_ptr->hgt, v_ptr->wid, vault_text + v_ptr->text, xoffset, yoffset, transno);
-	return TRUE;
-}
-
-
-/*
- * Type 8 -- greater vaults (see "vault_info.txt")
- */
-static bool build_type8(floor_type *floor_ptr)
-{
-	vault_type *v_ptr;
-	int dummy;
-	COODINATES xval, yval, x, y, xoffset, yoffset;
-	int transno;
-
-	/* Pick a greater vault */
-	for (dummy = 0; dummy < SAFE_MAX_ATTEMPTS; dummy++)
-	{
-		/* Access a random vault record */
-		v_ptr = &vault_info[randint0(max_vault_idx)];
-
-		/* Accept the first greater vault */
-		if(v_ptr->typ == 8) break;
-	}
-
-	/* No greater vault found */
-	if(dummy >= SAFE_MAX_ATTEMPTS)
-	{
-		if(cheat_room) msg_warning(MES_DEBUG_FAILED_VAULT);
-		return FALSE;
-	}
-
-	/* pick type of transformation (0-7) */
-	transno = randint0(8);
-
-	/* calculate offsets */
-	x = v_ptr->wid;
-	y = v_ptr->hgt;
-
-	/* Some huge vault cannot be ratated to fit in the dungeon */
-	if(x+2 > floor_ptr->height-2)
-	{
-		/* Forbid 90 or 270 degree ratation */
-		transno &= ~1;
-	}
-
-	coord_trans(&x, &y, 0, 0, transno);
-
-	if(x < 0) xoffset = - x - 1;
-	else xoffset = 0;
-
-	if(y < 0) yoffset = - y - 1;
-	else yoffset = 0;
-
-	/*
-	 * Try to allocate space for room.  If fails, exit
-	 *
-	 * Hack -- Prepare a bit larger space (+2, +2) to 
-	 * prevent generation of vaults with no-entrance.
-	 */
-	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if(!find_space(floor_ptr, &yval, &xval, (COODINATES)abs(y) + 2, (COODINATES)abs(x) + 2)) return FALSE;
-	if(cheat_room) msg_format(MES_DEBUG_GREATER_VAULT(vault_name + v_ptr->name));
-
-	// Hack -- Build the vault
-	build_vault(floor_ptr, yval, xval, v_ptr->hgt, v_ptr->wid, vault_text + v_ptr->text, xoffset, yoffset, transno);
-
 	return TRUE;
 }
 

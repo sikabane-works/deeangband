@@ -1153,7 +1153,7 @@ errr parse_vault_info(char *buf, header *head)
 	/* Process 'X' for "Extra info" (one line only) */
 	else if(buf[0] == 'X')
 	{
-		int rat, hgt, wid;
+		int typ, rat, hgt, wid;
 
 		/* Scan for the values */
 		if(4 != sscanf(buf+2, "%d:%d:%d:%d",
