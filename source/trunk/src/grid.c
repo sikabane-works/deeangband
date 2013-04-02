@@ -127,7 +127,7 @@ void place_random_stairs(floor_type *floor_ptr, int y, int x)
 void place_random_door(floor_type *floor_ptr, int y, int x, bool room)
 {
 	int tmp, type;
-	s16b feat = feat_none;
+	FEATURE_ID feat = feat_none;
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	/* Initialize mimic info */

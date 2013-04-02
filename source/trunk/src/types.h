@@ -1982,7 +1982,7 @@ typedef struct
 	FLOOR_LEV depth;
 	FLOOR_LEV enemy_level;  // Current creature creation level
 	FLOOR_LEV object_level;    // Current object creation level
-	byte dun_type;
+	DUNGEON_ID dun_type;
 	COODINATES world_x;
 	COODINATES world_y;
 	s32b last_visit;      // Time count of last visit. 0 for new floor.

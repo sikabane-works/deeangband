@@ -1434,7 +1434,7 @@ int generate_floor(int dungeon_id, COODINATES world_y, COODINATES world_x, FLOOR
 
 	floor_ptr->world_x = world_x;
 	floor_ptr->world_y = world_y;
-	floor_ptr->dun_type = dungeon_id;
+	floor_ptr->dun_type = (DUNGEON_ID)dungeon_id;
 
 	floor_ptr->depth = depth;
 	floor_ptr->depth = depth;

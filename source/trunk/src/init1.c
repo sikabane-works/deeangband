@@ -6808,16 +6808,16 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 
 				if(num < 9) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
 
-				quest_ptr->type    = strtol(zz[2], NULL, 10);
+				quest_ptr->type = strtol(zz[2], NULL, 10);
 				quest_ptr->num_mon = (POPULATION)strtol(zz[3], NULL, 10);
 				quest_ptr->cur_num = (POPULATION)strtol(zz[4], NULL, 10);
 				quest_ptr->max_num = (POPULATION)strtol(zz[5], NULL, 10);
-				quest_ptr->level   = (FLOOR_LEV)strtol(zz[6], NULL, 10);
+				quest_ptr->level = (FLOOR_LEV)strtol(zz[6], NULL, 10);
 				quest_ptr->species_idx = (SPECIES_ID)strtol(zz[7], NULL, 10);
-				quest_ptr->k_idx   = strtol(zz[8], NULL, 10);
+				quest_ptr->k_idx = (OBJECT_KIND_ID)strtol(zz[8], NULL, 10);
 				quest_ptr->dungeon = (DUNGEON_ID)strtol(zz[9], NULL, 10);
 
-				if(num > 10) quest_ptr->flags  = strtol(zz[10], NULL, 10);
+				if(num > 10) quest_ptr->flags = strtol(zz[10], NULL, 10);
 
 				species_ptr = &species_info[quest_ptr->species_idx];
 				//if(has_trait_species(species_ptr, TRAIT_UNIQUE))
