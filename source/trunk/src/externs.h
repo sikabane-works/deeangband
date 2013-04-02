@@ -829,10 +829,10 @@ extern bool is_enemy_of_balance_species(species_type *creature_ptr);
 
 extern void set_traits_precondition(traits_precondition *flags_pre_ptr, int type, CREATURE_LEV low, CREATURE_LEV high);
 
-extern void reveal_species_info(species_type *species_ptr, int type);
-extern void reveal_creature_info(creature_type *creature_ptr, int type);
+extern void reveal_species_info(species_type *species_ptr, TRAIT_ID type);
+extern void reveal_creature_info(creature_type *creature_ptr, TRAIT_ID type);
 
-extern bool has_trait_raw(traits_precondition *cf_ptr, int type);
+extern bool has_trait_raw(traits_precondition *cf_ptr, TRAIT_ID type);
 
 extern bool has_trait_from_race(creature_type *creature_ptr, int type);
 extern bool has_trait_from_class(creature_type *creature_ptr, int type);
@@ -1273,7 +1273,7 @@ extern int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, 
 extern int mod_spell_chance_1(creature_type *creature_ptr, int chance);
 extern int mod_spell_chance_2(creature_type *creature_ptr, int chance);
 extern s16b spell_chance(creature_type *creature_ptr, int spell, REALM_ID realm);
-extern bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study_pray, REALM_ID realm);
+extern bool spell_okay(creature_type *creature_ptr, TRAIT_ID spell, bool learned, bool study_pray, REALM_ID realm);
 extern void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, int num, int y, int x, REALM_ID realm);
 extern bool hates_acid(object_type *object_ptr);
 extern bool hates_elec(object_type *object_ptr);

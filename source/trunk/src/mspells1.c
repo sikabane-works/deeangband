@@ -268,6 +268,9 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 // Check should creature cast dispel spell.
 bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 {
+	if(!is_valid_creature(caster_ptr)) return FALSE;
+	if(!is_valid_creature(target_ptr)) return FALSE;
+
 	//TODO: reimplement
 	return FALSE;	// No need to cast dispel spell
 }
@@ -287,7 +290,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
  *
  * This function may well be an efficiency bottleneck.
  */
-static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_ptr, int spells[], byte num)
+static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_ptr, int spells[], int num)
 {
 	species_type *species_ptr = &species_info[caster_ptr->species_idx];
 

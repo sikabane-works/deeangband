@@ -3178,7 +3178,7 @@ s16b spell_chance(creature_type *creature_ptr, int spell, REALM_ID use_realm)
  * The spell must be legible, not forgotten, and also, to cast,
  * it must be known, and to study, it must not be known.
  */
-bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study_pray, int use_realm)
+bool spell_okay(creature_type *creature_ptr, TRAIT_ID spell, bool learned, bool study_pray, REALM_ID use_realm)
 {
 	magic_type *s_ptr;
 
@@ -3218,7 +3218,7 @@ bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study
 /*
  * Print a list of spells (for browsing or casting or viewing)
  */
-void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, int num, int y, int x, int use_realm)
+void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, int num, int y, int x, REALM_ID use_realm)
 {
 	int             i, spell, increment = 64;
 	magic_type      *s_ptr;

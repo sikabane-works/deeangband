@@ -529,22 +529,22 @@ void set_traits_precondition(traits_precondition *flags_pre_ptr, int type, CREAT
 	flags_pre_ptr->remove_lev[type] = high;
 }
 
-void reveal_species_info(species_type *species_ptr, int type)
+void reveal_species_info(species_type *species_ptr, TRAIT_ID type)
 {
 	//TODO
 }
 
-void reveal_creature_info(creature_type *creature_ptr, int type)
+void reveal_creature_info(creature_type *creature_ptr, TRAIT_ID type)
 {
 	//TODO
 }
 
-bool has_trait_raw(traits_precondition *cf_ptr, int type)
+bool has_trait_raw(traits_precondition *cf_ptr, TRAIT_ID type)
 {
 	return cf_ptr->add_lev[type];
 }
 
-bool has_trait_from_race(creature_type *creature_ptr, int type)
+bool has_trait_from_race(creature_type *creature_ptr, TRAIT_ID type)
 {
 	if(IS_PURE(creature_ptr))
 	{
