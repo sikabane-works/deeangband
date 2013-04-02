@@ -49,35 +49,6 @@ static void hooked_roff(cptr str)
 
 
 /*
- * Hack -- display creature information using "hooked_roff()"
- *
- * This function should only be called with the cursor placed at the
- * left edge of the screen, on a cleared line, in which the recall is
- * to take place.  One extra blank line is left after the recall.
- */
-static void roff_aux(species_type *species_ptr, int mode)
-{
-	/* Descriptions */
-	{
-		cptr tmp = species_text + species_ptr->text;
-
-		if(tmp[0])
-		{
-			hooked_roff(tmp);
-
-			/* Start a new line */
-			hooked_roff("\n");
-		}
-	}
-
-	/* All done */
-	hooked_roff("\n");
-
-}
-
-
-
-/*
  * Hack -- Display the "name" and "attr/chars" of a creature race
  */
 void roff_top(SPECIES_ID species_idx)
@@ -199,9 +170,6 @@ void display_roff(SPECIES_ID species_idx)
 
 	hook_c_roff = c_roff;
 
-	/* Recall creature */
-	roff_aux(&species_info[species_idx], 0);
-
 	/* Describe creature */
 	roff_top(species_idx);
 }
@@ -214,9 +182,6 @@ void display_roff(SPECIES_ID species_idx)
 void output_creature_spoiler(SPECIES_ID species_idx, void (*roff_func)(byte attr, cptr str))
 {
 	hook_c_roff = roff_func;
-
-	/* Recall creature */
-	roff_aux(&species_info[species_idx], 0x03);
 }
 
 
@@ -614,7 +579,10 @@ bool are_mutual_enemies(creature_type *m_ptr, creature_type *n_ptr)
  */
 bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *target_ptr)
 {
+	if(!is_valid_creature(thinker_ptr) || !is_valid_creature(target_ptr)) return FALSE;
+
 	// TODO: Apply new feature
+
 	return FALSE;
 }
 

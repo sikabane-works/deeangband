@@ -958,7 +958,7 @@ extern void object_desc_new(char *buf, object_type *object_ptr, FLAGS_32 mode);
 
 // floors.c
 extern void init_saved_floors(bool force);
-extern s16b floor_pop(void);
+extern FLOOR_ID floor_pop(void);
 extern int find_floor_id(int dungeon_id, FLOOR_LEV depth, COODINATES wx, COODINATES wy);
 extern void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y, COODINATES world_x, COODINATES depth, floor_type *prev_ptr, u32b flag);
 extern void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr);
@@ -1065,7 +1065,7 @@ extern void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID s
 extern void creature_drop_carried_objects(creature_type *m_ptr);
 
 // object1.c
-extern s16b m_bonus(int max, int level);
+extern STAT m_bonus(STAT max, FLOOR_LEV level);
 
 extern void reset_visuals(void);
 extern void object_flags(object_type *object_ptr, FLAGS_32 flgs[MAX_TRAITS_FLAG]);

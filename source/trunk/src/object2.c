@@ -1709,7 +1709,7 @@ void object_prep(object_type *object_ptr, int k_idx, int size)
 * 120    0.03  0.11  0.31  0.46  1.31  2.48  4.60  7.78 11.67 25.53 45.72
 * 128    0.02  0.01  0.13  0.33  0.83  1.41  3.24  6.17  9.57 14.22 64.07
 */
-s16b m_bonus(int max, int level)
+STAT m_bonus(STAT max, FLOOR_LEV level)
 {
 	int bonus, stand, extra, value;
 
@@ -2424,7 +2424,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			/* Pick a random creature race */
 			while(TRUE)
 			{
-				i = randint1(max_species_idx - 1);
+				i = (PVAL)randint1(max_species_idx - 1);
 
 				species_ptr = &species_info[i];
 
@@ -2791,8 +2791,8 @@ static bool kind_is_good(int k_idx)
 bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx))
 {
 	int prob, base;
-	int k_idx;
-	byte obj_level;
+	OBJECT_KIND_ID k_idx;
+	FLOOR_LEV obj_level;
 
 	prob = ((mode & AM_GOOD) ? 10 : 1000); // Chance of "special object"
 	base = ((mode & AM_GOOD) ? (level + 10) : level); // Base level for the object
@@ -4122,6 +4122,7 @@ object_type *choose_warning_item(creature_type *caster_ptr)
 // Calculate blow damages
 static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, special_blow_type *blow_ptr)
 {
+	if(!is_valid_creature(attacker_ptr) || !is_valid_creature(target_ptr)) return 0;
 	//TODO: apply New Feature
 	return 0;
 }

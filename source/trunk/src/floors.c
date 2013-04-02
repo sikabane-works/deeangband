@@ -116,7 +116,7 @@ static void kill_floor(floor_type *sf_ptr)
 // Initialize new saved floor and get its floor id.  If number of
 // saved floors are already MAX_FLOORS, kill the oldest one.
 //
-s16b floor_pop(void)
+FLOOR_ID floor_pop(void)
 {
 	floor_type *floor_ptr;
 	int i;
