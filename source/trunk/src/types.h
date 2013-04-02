@@ -1366,10 +1366,10 @@ struct creature_type
 	STAT hitdice_base;  // Hit dice base
 	STAT expfact;       // Experience factor
 
-	s32b age;			// Characters age 
-	s32b ht;			// Height 
-	s32b wt;			// Weight 
-	s16b sc;			// Social Class 
+	STAT age;			// Characters age 
+	HEIGHT ht;			// Height 
+	WEIGHT wt;			// Weight 
+	STAT sc;			// Social Class 
 	CREATURE_LEV dr; // Divine Rank 
 	BODY_SIZE size;			// Body Size 
 	s16b regenerate_mod;

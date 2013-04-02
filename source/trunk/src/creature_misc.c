@@ -1046,6 +1046,7 @@ bool has_non_magic_skill_flags(traits_precondition *flags_pre_ptr)
 
 bool has_magic_power(creature_type *creature_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
 	return TRUE;
 }
 
@@ -1190,6 +1191,7 @@ int calc_weapon_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr)
 
 int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *weapon_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return 100;
 	return 100 * weapon_ptr->dd * weapon_ptr->ds;
 }
 
