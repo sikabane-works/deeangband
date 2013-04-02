@@ -974,18 +974,18 @@ bool is_melee_limitation_field(floor_type *floor_ptr)
 }
 
 
-bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
+bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, int mode)
 {
-	s16b i;
+	int i;
 	bool dead = FALSE;
 
-	floor_type      *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
-	cave_type       *c_ptr = &floor_ptr->cave[y][x];
-	creature_type   *target_ptr;
-	object_type			*weapon_ptr;
-	special_blow_type	*special_ptr;
-	char			attacker_name[MAX_NLEN];
-	char            target_name[MAX_NLEN];
+	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
+	creature_type *target_ptr;
+	object_type *weapon_ptr;
+	special_blow_type *special_ptr;
+	char attacker_name[MAX_NLEN];
+	char target_name[MAX_NLEN];
 
 	int select_list[MAX_MELEE_TYPE];
 	int select_weight[MAX_MELEE_TYPE];

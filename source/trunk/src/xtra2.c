@@ -823,13 +823,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	/* Reset the object level */
 	floor_ptr->object_level = floor_ptr->depth;
 
-	/* Take note of any dropped treasure */
-	if(visible && (dump_item || dump_gold))
-	{
-		/* Take notes on treasure */
-		lore_treasure(dead_ptr, dump_item, dump_gold);
-	}
-
 	/* Only process "Quest Creatures" */
 	if(!has_trait(dead_ptr, TRAIT_QUESTOR)) return;
 	if(floor_ptr->gamble_arena_mode) return;

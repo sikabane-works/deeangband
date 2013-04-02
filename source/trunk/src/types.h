@@ -649,9 +649,6 @@ struct species_type
 	byte r_xtra1;			/* Something (unused) */
 	byte r_xtra2;			/* Something (unused) */
 
-	byte r_drop_gold;		/* Max number of gold dropped at once */
-	byte r_drop_item;		/* Max number of item dropped at once */
-
 	byte r_cast_spell;		/* Max number of other spells seen */
 
 	byte r_blows[MAX_SPECIAL_BLOWS];		/* Number of times each blow type was seen */

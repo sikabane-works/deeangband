@@ -990,7 +990,7 @@ extern bool load_floor(floor_type *sf_ptr, FLAGS_32 mode);
 
 // melee1.c
 extern bool is_melee_limitation_field(floor_type *floor_ptr);
-extern bool close_combat(creature_type *attacker_ptr, int y, int x, int mode);
+extern bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, int mode);
 
 // melee2.c
 extern void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
@@ -1048,7 +1048,6 @@ extern void creature_desc(char *desc, creature_type *creature_ptr, int mode);
 extern void creature_desc_ego_pre(char *desc, creature_type *creature_ptr, species_type *species_ptr, FLAGS_32 mode);
 extern void creature_desc_ego_post(char *desc, creature_type *creature_ptr, species_type *species_ptr);
 extern int lore_do_probe(SPECIES_ID species_idx);
-extern void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold);
 extern void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr);
 extern void sanity_blast_aux(creature_type *watcher_ptr, POWER power);
 extern void update_creature_view(creature_type *creature_ptr, int m_idx, bool full);

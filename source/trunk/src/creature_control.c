@@ -2031,37 +2031,6 @@ int lore_do_probe(SPECIES_ID species_idx)
 	return n;
 }
 
-
-/*
-* Take note that the given creature just dropped some treasure
-*
-* Note that learning the "GOOD"/"GREAT" flags gives information
-* about the treasure (even when the creature is killed for the first
-* time, such as uniques, and the treasure has not been examined yet).
-*
-* This "indirect" method is used to prevent the player from learning
-* exactly how much treasure a creature can drop from observing only
-* a single example of a drop.  This method actually observes how much
-* gold and items are dropped, and remembers that information to be
-* described later by the creature recall code.
-*/
-void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold)
-{
-	species_type *species_ptr = &species_info[creature_ptr->species_idx];
-
-	/* If the creature doesn't have original appearance, don't note */
-	if(!is_original_ap(creature_ptr)) return;
-
-	if(num_item > species_ptr->r_drop_item) species_ptr->r_drop_item = num_item;
-	if(num_gold > species_ptr->r_drop_gold) species_ptr->r_drop_gold = num_gold;
-
-	/* Update creature recall window */
-	if(species_window_idx == creature_ptr->species_idx)
-	{
-		prepare_window(PW_MONSTER);
-	}
-}
-
 void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr)
 {
 	int difficulty = 100;
