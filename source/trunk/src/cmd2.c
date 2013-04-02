@@ -630,7 +630,7 @@ static bool is_open(FEATURE_ID feat)
  * Return the number of features around (or under) the character.
  * Usually look for doors and floor traps.
  */
-static int count_dt(creature_type *creature_ptr, COODINATES *y, COODINATES *x, bool (*test)(int feat), bool under)
+static int count_dt(creature_type *creature_ptr, COODINATES *y, COODINATES *x, bool (*test)(FEATURE_ID feat), bool under)
 {
 	int d, count;
 	COODINATES xx, yy;

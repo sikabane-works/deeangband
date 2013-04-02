@@ -827,7 +827,7 @@ extern bool is_enemy_of_chaos_species(species_type *creature_ptr);
 extern bool is_enemy_of_balance_creature(creature_type *creature_ptr);
 extern bool is_enemy_of_balance_species(species_type *creature_ptr);
 
-extern void set_traits_precondition(traits_precondition *flags_pre_ptr, int type, int low, int high);
+extern void set_traits_precondition(traits_precondition *flags_pre_ptr, int type, CREATURE_LEV low, CREATURE_LEV high);
 
 extern void reveal_species_info(species_type *species_ptr, int type);
 extern void reveal_creature_info(creature_type *creature_ptr, int type);

@@ -3183,7 +3183,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 // This function integrated with project_m and became project_creature().
 // (Deskull)
-static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, int y, int x, POWER dam, int typ, int flg, bool see_s_msg, int spell)
+static bool project_creature(creature_type *caster_ptr, int r, int y, int x, POWER dam, int typ, int flg, bool see_s_msg, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
@@ -3977,7 +3977,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SEEKER, flg, TRUE, trait_id)) notice = TRUE;
+					if(project_creature(caster_ptr, 0, y, x, dam, DO_EFFECT_SEEKER, flg, TRUE, trait_id)) notice = TRUE;
 					if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
 						if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
 							creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
@@ -4002,7 +4002,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 			COODINATES x, y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SEEKER, flg, TRUE, trait_id))
+			if(project_creature(caster_ptr, 0, y, x, dam, DO_EFFECT_SEEKER, flg, TRUE, trait_id))
 				notice=TRUE;
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
 				if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
@@ -4134,7 +4134,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 			COODINATES x, y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SUPER_RAY, flg, TRUE, trait_id);
+			(void)project_creature(caster_ptr, 0, y, x, dam, DO_EFFECT_SUPER_RAY, flg, TRUE, trait_id);
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
 				if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
 					creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
@@ -4645,7 +4645,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 			}
 
 			/* Affect the creature in the grid */
-			if(project_creature(caster_ptr, "Dammy", effective_dist, y, x, dam, typ, flg, see_s_msg, trait_id)) notice = TRUE;
+			if(project_creature(caster_ptr, effective_dist, y, x, dam, typ, flg, see_s_msg, trait_id)) notice = TRUE;
 		}
 
 		/* Player affected one creature (without "jumping") */
@@ -4743,7 +4743,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 			}
 
 			/* Affect the player */
-			if(project_creature(caster_ptr, who_name, effective_dist, y, x, dam, typ, flg, TRUE, trait_id)) notice = TRUE;
+			if(project_creature(caster_ptr, effective_dist, y, x, dam, typ, flg, TRUE, trait_id)) notice = TRUE;
 		}
 	}
 
@@ -4910,7 +4910,7 @@ bool binding_field(creature_type *caster_ptr, COODINATES range, POWER dam)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
-					(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_MANA,
+					(void)project_creature(caster_ptr, 0, y, x, dam, DO_EFFECT_MANA,
 						(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE,0);
 				}
 			}
@@ -4939,7 +4939,7 @@ void seal_of_mirror(creature_type *caster_ptr, POWER dam)
 		{
 			if( is_mirror_grid(&floor_ptr->cave[y][x]))
 			{
-				if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_GENOCIDE,
+				if(project_creature(caster_ptr, 0, y, x, dam, DO_EFFECT_GENOCIDE,
 					(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP), TRUE, 0))
 				{
 					if( !floor_ptr->cave[y][x].creature_idx )
