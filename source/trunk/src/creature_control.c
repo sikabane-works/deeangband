@@ -746,9 +746,10 @@ void delete_creature(floor_type *floor_ptr, int y, int x)
 /*
 * Move an object from index i1 to index i2 in the object list
 */
-static void move_creature_object(int i1, int i2)
+static void move_creature_object(int to, int from)
 {
-	//TODO reimplement
+	creature_list[to] = creature_list[from];
+	creature_wipe(&creature_list[from]);
 }
 
 

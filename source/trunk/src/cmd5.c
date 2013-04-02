@@ -252,24 +252,16 @@ static int get_spell(creature_type *creature_ptr, DIRECTION *sn, cptr prompt, SV
 		flag = TRUE;
 	}
 
-
 	if(redraw) screen_load();
-
-
-	/* Show choices */
 	prepare_window(PW_SPELL);
-
 	window_stuff(player_ptr);
-
 
 	/* Abort if needed */
 	if(!flag) return FALSE;
 
 	/* Save the choice */
 	(*sn) = spell;
-
 	repeat_push(*sn);
-
 	return TRUE;
 }
 

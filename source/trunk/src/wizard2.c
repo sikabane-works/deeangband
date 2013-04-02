@@ -1120,11 +1120,9 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 static void wiz_create_item(creature_type *creature_ptr)
 {
 	object_type	forge;
-	object_type *quest_ptr;
+	object_type *object_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-
-	int k_idx;
-
+	OBJECT_KIND_ID k_idx;
 
 	screen_save();
 
@@ -1160,16 +1158,16 @@ static void wiz_create_item(creature_type *creature_ptr)
 		}
 	}
 
-	quest_ptr = &forge;
+	object_ptr = &forge;
 
 	/* Create the item */
-	object_prep(quest_ptr, k_idx, ITEM_FREE_SIZE);
+	object_prep(object_ptr, k_idx, ITEM_FREE_SIZE);
 
 	/* Apply magic */
-	apply_magic(creature_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART, 0);
+	apply_magic(creature_ptr, object_ptr, floor_ptr->depth, AM_NO_FIXED_ART, 0);
 
 	/* Drop the object from heaven */
-	(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);
+	(void)drop_near(floor_ptr, object_ptr, -1, creature_ptr->fy, creature_ptr->fx);
 
 	/* All done */
 	msg_print("Allocated.");
