@@ -1000,20 +1000,20 @@ void ang_sort_swap_hook(vptr u, vptr v, int a, int b)
 */
 void do_cmd_query_symbol(creature_type *creature_ptr)
 {
-	int		i, n, species_idx;
-	char	sym, query;
-	char	buf[128];
+	int i, n;
+	SPECIES_ID species_idx;
+	char sym, query;
+	char buf[128];
+	bool all = FALSE;
+	bool uniq = FALSE;
+	bool norm = FALSE;
+	bool ride = FALSE;
+	char temp[80] = "";
 
-	bool	all = FALSE;
-	bool	uniq = FALSE;
-	bool	norm = FALSE;
-	bool	ride = FALSE;
-	char    temp[80] = "";
+	bool recall = FALSE;
 
-	bool	recall = FALSE;
-
-	u16b	why = 0;
-	u16b	*who;
+	int why = 0;
+	SPECIES_ID *who;
 
 	/* Get a character, or abort */
 	if(!get_com(MES_QUERY_INPUT_SYM, &sym, FALSE)) return;
@@ -1056,11 +1056,8 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	else if(ident_info[i]) sprintf(buf, "%c - %s.", sym, ident_info[i] + 2);
 	else sprintf(buf, "%c - %s", sym, MES_SYS_UNKNOWN_SYMBOL);
 
-	/* Display the result */
 	prt(buf, 0, 0);
-
-	/* Allocate the "who" array */
-	C_MAKE(who, max_species_idx, u16b);
+	C_MAKE(who, max_species_idx, SPECIES_ID);
 
 	/* Collect matching creatures */
 	for (n = 0, i = 1; i < max_species_idx; i++)
@@ -1112,8 +1109,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	/* Nothing to recall */
 	if(!n)
 	{
-		/* Free the "who" array */
-		C_KILL(who, max_species_idx, u16b);
+		C_KILL(who, max_species_idx, SPECIES_ID);
 		return;
 	}
 
@@ -1135,9 +1131,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	/* Catch "escape" */
 	if(query != 'y')
 	{
-		/* Free the "who" array */
-		C_KILL(who, max_species_idx, u16b);
-
+		C_KILL(who, max_species_idx, SPECIES_ID);
 		return;
 	}
 
@@ -1212,10 +1206,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		}
 	}
 
-	/* Free the "who" array */
-	C_KILL(who, max_species_idx, u16b);
-
-	/* Re-display the identity */
+	C_KILL(who, max_species_idx, SPECIES_ID);
 	prt(buf, 0, 0);
 }
 
