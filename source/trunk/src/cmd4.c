@@ -2628,7 +2628,7 @@ static selection_table visual_menu_table[] =
 
 static selection_info visual_menu_info = {"", 12, 0, 1, 1, 12, 60, NULL, NULL, GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT};
 
-static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int direct_species_idx);
+static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, SPECIES_ID direct_species_idx);
 static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int direct_k_idx);
 static void do_cmd_knowledge_features(bool *need_redraw, bool visual_only, int direct_f_idx, int *lighting_level);
 
@@ -5505,7 +5505,7 @@ static void do_cmd_knowledge_kill_count(void)
 {
 	int i, k, n = 0;
 	u16b why = 2;
-	s16b *who;
+	SPECIES_ID *who;
 	FILE *fff;
 	char file_name[1024];
 	s32b Total = 0;
@@ -5520,7 +5520,7 @@ static void do_cmd_knowledge_kill_count(void)
 	}
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_species_idx, s16b);
+	C_MAKE(who, max_species_idx, SPECIES_ID);
 	{
 		/* Creatures slain */
 		int kk;
@@ -5623,7 +5623,7 @@ static void do_cmd_knowledge_kill_count(void)
 
 
 	/* Free the "who" array */
-	C_KILL(who, max_species_idx, s16b);
+	C_KILL(who, max_species_idx, SPECIES_ID);
 
 	my_fclose(fff);
 
@@ -6030,7 +6030,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, SPEC
 	int i, len, max;
 	int grp_cur, grp_top, old_grp_cur;
 	int grp_cnt, grp_idx[100];
-	int mon_cnt;
+	SPECIES_ID mon_cnt;
 	SPECIES_ID mon_cur, mon_top;
 	SPECIES_ID *mon_idx;
 

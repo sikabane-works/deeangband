@@ -109,6 +109,9 @@ static void object_kind_info_reset(void)
 //TODO
 static byte value_check_aux1(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
+
 	/* Artifacts */
 	if(object_is_artifact(object_ptr))
 	{
@@ -153,6 +156,9 @@ static byte value_check_aux1(creature_type *creature_ptr, object_type *object_pt
 */
 static byte value_check_aux2(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
+
 	/* Cursed items (all of them) */
 	if(object_is_cursed(object_ptr)) return FEEL_CURSED;
 
@@ -3173,7 +3179,7 @@ static void process_world(void)
 
 
 // Verify use of "wizard" mode
-static bool enter_wizard_mode(creature_type *creature_ptr)
+static bool enter_wizard_mode(void)
 {
 	// Ask first time
 	if(!noscore)
@@ -5254,7 +5260,7 @@ void play_game(bool new_game)
 	/* Hack -- Enter wizard mode */
 	if(arg_wizard)
 	{
-		if(enter_wizard_mode(player_ptr))
+		if(enter_wizard_mode())
 		{
 			wizard = TRUE;
 

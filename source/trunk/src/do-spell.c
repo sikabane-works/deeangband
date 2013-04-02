@@ -9838,6 +9838,8 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 /* Hex */
 static bool item_tester_hook_weapon_except_bow(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	switch (object_ptr->tval)
 	{
 		case TV_SWORD:
@@ -9854,6 +9856,8 @@ static bool item_tester_hook_weapon_except_bow(creature_type *creature_ptr, obje
 
 static bool item_tester_hook_cursed(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	return (bool)(object_is_cursed(object_ptr));
 }
 

@@ -123,6 +123,9 @@ static bool item_tester_hook_wear(creature_type *creature_ptr, object_type *obje
 
 static bool item_tester_hook_mochikae(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
+
 	/* Check for a usable slot */
 	if(((object_ptr->tval >= TV_DIGGING) && (object_ptr->tval <= TV_SWORD)) ||
 		(object_ptr->tval == TV_SHIELD) || (object_ptr->tval == TV_CAPTURE) ||
@@ -134,6 +137,8 @@ static bool item_tester_hook_mochikae(creature_type *creature_ptr, object_type *
 
 bool item_tester_hook_hand(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(WIELD_SLOT(object_ptr) == INVEN_SLOT_HAND) return TRUE; // Check for a usable slot
 	return FALSE; // Assume not wearable
 }
@@ -694,6 +699,8 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 // An "item_tester_hook" for refilling lanterns
 static bool item_tester_refill_lantern(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if(object_ptr->tval == TV_FLASK) return TRUE;
 	if((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_LANTERN)) return TRUE;
 	return FALSE;
@@ -740,10 +747,9 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 // An "item_tester_hook" for refilling torches
 static bool item_tester_refill_torch(creature_type *creature_ptr, object_type *object_ptr)
 {
-	/* Torches are okay */
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	if((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_TORCH)) return TRUE;
-
-	/* Assume not okay */
 	return FALSE;
 }
 

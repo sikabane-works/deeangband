@@ -1810,6 +1810,9 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
 	int i;
 	u32b flgs[MAX_TRAITS_FLAG];
 
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
+
 	if(!object_is_known(object_ptr)) return FALSE;	// Not known
 	object_flags(object_ptr, flgs);						// Extract the flags
 
