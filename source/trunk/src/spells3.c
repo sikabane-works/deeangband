@@ -110,7 +110,7 @@ bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode)
 	floor_ptr->cave[oy][ox].creature_idx = 0;
 
 	/*TODO::!*/
-	for(point = 0; point < 10000; i++)
+	for(point = 0; point < 10000; point++)
 		if(&creature_list[point] == creature_ptr)
 		{
 			m_idx = point;
@@ -416,9 +416,7 @@ void teleport_creature(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mod
 				 * totally unkillable suckers...
 				 */
 				if(has_trait(m_ptr, TRAIT_ACTIVE_TELEPORT) && !has_trait(m_ptr, TRAIT_RES_TELE))
-				{
-					if(!m_ptr->timed_trait[TRAIT_PARALYZED]) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
-				}
+					if(!has_trait(m_ptr, TRAIT_PARALYZED)) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
 			}
 		}
 	}
@@ -454,9 +452,7 @@ void teleport_player_away(creature_type *creature_ptr, COODINATES dis)
 				 * totally unkillable suckers...
 				 */
 				if(has_trait(creature_ptr, TRAIT_ACTIVE_TELEPORT) && !has_trait(creature_ptr, TRAIT_RES_TELE))
-				{
-					if(!creature_ptr->timed_trait[TRAIT_PARALYZED]) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, species_ptr->level, 0L);
-				}
+					if(!has_trait(creature_ptr, TRAIT_PARALYZED))teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, species_ptr->level, 0L);
 			}
 		}
 	}
