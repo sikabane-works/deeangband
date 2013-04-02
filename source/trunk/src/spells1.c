@@ -147,8 +147,8 @@ static byte spell_color(int type)
 	/* Normal tiles or ASCII */
 	else
 	{
-		byte a;
-		char c;
+		COLOR_ID a;
+		SYMBOL c;
 
 		/* Lookup the default colors for this type */
 		cptr s = quark_str(gf_color[type]);
@@ -569,7 +569,7 @@ static COODINATES creature_target_y;
  *  We also "see" grids which are "memorized", probably a hack
  *  Perhaps we should affect doors?
  */
-static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr, int r, COODINATES y, COODINATES x, POWER dam, int typ)
+static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODINATES x, POWER dam, int typ)
 {
 	floor_type      *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
@@ -3992,7 +3992,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 							}
 						}
 					}
-					(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,DO_EFFECT_SEEKER);
+					(void)project_feature(caster_ptr, 0, y, x, dam, DO_EFFECT_SEEKER);
 				}
 				last_i = i;
 			}
@@ -4018,7 +4018,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 					}
 				}
 			}
-			(void)project_feature(caster_ptr, caster_ptr, 0, y, x, dam, DO_EFFECT_SEEKER);
+			(void)project_feature(caster_ptr, 0, y, x, dam, DO_EFFECT_SEEKER);
 		}
 		return notice;
 	}
@@ -4115,7 +4115,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,DO_EFFECT_SUPER_RAY);
+					(void)project_feature(caster_ptr, 0, y, x, dam, DO_EFFECT_SUPER_RAY);
 				}
 				path_n = i;
 				second_step =i+1;
@@ -4149,7 +4149,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 					}
 				}
 			}
-			(void)project_feature(caster_ptr, caster_ptr, 0, y, x, dam, DO_EFFECT_SUPER_RAY);
+			(void)project_feature(caster_ptr, 0, y, x, dam, DO_EFFECT_SUPER_RAY);
 		}
 		return notice;
 	}
@@ -4439,15 +4439,9 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 			if(breath)
 			{
 				int d = dist_to_line(y, x, y1, x1, by, bx);
-
-				/* Affect the grid */
-				if(project_feature(caster_ptr, caster_ptr, d, y, x, dam, typ)) notice = TRUE;
+				if(project_feature(caster_ptr, d, y, x, dam, typ)) notice = TRUE;
 			}
-			else
-			{
-				/* Affect the grid */
-				if(project_feature(caster_ptr, caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
-			}
+			else if(project_feature(caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
 		}
 	}
 
@@ -4880,7 +4874,7 @@ bool binding_field(creature_type *caster_ptr, COODINATES range, POWER dam)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
-					(void)project_feature(caster_ptr, NULL, 0, y, x, dam, DO_EFFECT_MANA); 
+					(void)project_feature(caster_ptr, 0, y, x, dam, DO_EFFECT_MANA); 
 				}
 			}
 		}
