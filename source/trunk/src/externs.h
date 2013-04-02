@@ -1292,7 +1292,7 @@ extern bool brand_bolts(creature_type *creature_ptr);
 extern bool polymorph_creature(creature_type *creature_ptr);
 extern bool dimension_door(creature_type *creature_ptr);
 extern bool mirror_tunnel(creature_type *creature_ptr);
-extern bool summon_kin_player(creature_type *creature_ptr, int level, int y, int x, FLAGS_32 mode);
+extern bool summon_kin_player(creature_type *creature_ptr, FLOOR_LEV level, COODINATES y, COODINATES x, FLAGS_32 mode);
 
 // store.c
 extern bool combine_and_reorder_home(store_type *st_ptr, int store_num);

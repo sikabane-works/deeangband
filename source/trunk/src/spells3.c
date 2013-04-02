@@ -2079,13 +2079,14 @@ bool identify_item(creature_type *creature_ptr, object_type *object_ptr)
 
 static bool item_tester_hook_identify(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
 	return (bool)!object_is_known(object_ptr);
 }
 
 static bool item_tester_hook_identify_weapon_armour(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if(object_is_known(object_ptr))
-		return FALSE;
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(object_is_known(object_ptr)) return FALSE;
 	return object_is_weapon_armour_ammo(object_ptr);
 }
 
@@ -2182,10 +2183,9 @@ bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 	return TRUE;
 }
 
-
-
 static bool item_tester_hook_identify_fully(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
 	return (bool)(!object_is_known(object_ptr) || !(object_ptr->ident & IDENT_MENTAL));
 }
 
@@ -2262,15 +2262,10 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
  */
 bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_ptr)
 {
-	/* Recharge staffs */
+	if(creature_ptr && !is_valid_creature(creature_ptr)) return FALSE;
 	if(object_ptr->tval == TV_STAFF) return TRUE;
-
-	/* Recharge wands */
 	if(object_ptr->tval == TV_WAND) return TRUE;
-
-	/* Hack -- Recharge rods */
 	if(IS_ROD(object_ptr)) return TRUE;
-
 	return FALSE;
 }
 
@@ -3847,9 +3842,9 @@ bool brand_bolts(creature_type *creature_ptr)
  *
  * Note that this function is one of the more "dangerous" ones...
  */
-static s16b poly_species_idx(int pre_species_idx)
+static SPECIES_ID poly_species_idx(SPECIES_ID pre_species_idx)
 {
-	s16b after_species_idx = pre_species_idx;
+	SPECIES_ID after_species_idx = pre_species_idx;
 	species_type *species_ptr = &species_info[pre_species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
@@ -4195,7 +4190,7 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 }
 
 
-bool summon_kin_player(creature_type *creature_ptr, int level, COODINATES y, COODINATES x, FLAGS_32 mode)
+bool summon_kin_player(creature_type *creature_ptr, FLOOR_LEV level, COODINATES y, COODINATES x, FLAGS_32 mode)
 {
 	bool pet = (bool)(mode & PC_FORCE_PET);
 	if(!pet) mode |= PC_NO_PET;
