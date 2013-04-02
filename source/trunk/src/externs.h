@@ -612,9 +612,9 @@ extern void become_winner(creature_type *creature_ptr);
 
 // cave.c
 extern COODINATES distance(COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
-extern bool is_trap(int feat);
+extern bool is_trap(FEATURE_ID feat);
 extern bool is_known_trap(cave_type *c_ptr);
-extern bool is_closed_door(int feat);
+extern bool is_closed_door(FEATURE_ID feat);
 extern bool is_hidden_door(cave_type *c_ptr);
 extern bool los(floor_type *floor_ptr, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
 extern void update_local_illumination(floor_type *floor_ptr, int y, int x);

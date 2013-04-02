@@ -1942,7 +1942,7 @@ static int breakage_chance(creature_type *creature_ptr, object_type *object_ptr)
 }
 
 
-static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr)
+static int tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr)
 {
 	int mult = 10;
 
@@ -2729,9 +2729,8 @@ void do_cmd_fire(creature_type *creature_ptr)
 
 static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
 	if((object_ptr->tval == TV_DIGGING) || (object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM) || (object_ptr->tval == TV_HAFTED)) return TRUE;
-
-	/* Assume not */
 	return FALSE;
 }
 

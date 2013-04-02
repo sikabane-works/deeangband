@@ -62,7 +62,7 @@ COODINATES distance (COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2)
 /*
  * Return TRUE if the given feature is a trap
  */
-bool is_trap(int feat)
+bool is_trap(FEATURE_ID feat)
 {
 	return have_flag(feature_info[feat].flags, FF_TRAP);
 }
@@ -83,7 +83,7 @@ bool is_known_trap(cave_type *cave_ptr)
 /*
  * Return TRUE if the given grid is a closed door
  */
-bool is_closed_door(int feat)
+bool is_closed_door(FEATURE_ID feat)
 {
 	feature_type *f_ptr = &feature_info[feat];
 
