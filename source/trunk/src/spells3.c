@@ -221,12 +221,10 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, 
 	lite_spot(floor_ptr, oy, ox);
 	lite_spot(floor_ptr, ny, nx);
 
-	if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-		prepare_update(player_ptr, PU_SPECIES_LITE);
+	if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr)) prepare_update(player_ptr, PU_SPECIES_LITE);
 }
 
-
-bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode)
+bool cave_player_teleportable_bold(creature_type *creature_ptr, COODINATES y, COODINATES x, FLAGS_32 mode)
 {
 	floor_type   *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type    *c_ptr = &floor_ptr->cave[y][x];
@@ -305,8 +303,7 @@ bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, FLAGS_32 m
 
 	/* Initialize counters */
 	total_candidates = 0;
-	for (i = 0; i <= MAX_TELEPORT_DISTANCE; i++)
-		candidates_at[i] = 0;
+	for (i = 0; i <= MAX_TELEPORT_DISTANCE; i++) candidates_at[i] = 0;
 
 	/* Limit the distance */
 	if(dis > MAX_TELEPORT_DISTANCE) dis = MAX_TELEPORT_DISTANCE;

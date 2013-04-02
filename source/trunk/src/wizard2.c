@@ -1003,7 +1003,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 /*
  * Change the quantity of a the item
  */
-static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_ptr)
+static void wiz_quantity_item(object_type *object_ptr)
 {
 	int         tmp_int, tmp_qnt;
 	char        tmp_val[100];
@@ -1026,12 +1026,13 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_p
 		object_ptr->number = tmp_int;
 	}
 
-	if(IS_ROD(object_ptr)) object_ptr->pval = object_ptr->pval * (PVAL)object_ptr->number / tmp_qnt;
+	if(IS_ROD(object_ptr)) object_ptr->pval = object_ptr->pval * (PVAL)object_ptr->number / (PVAL)tmp_qnt;
 }
 
 /* debug command for blue mage */
 static void do_cmd_wiz_blue_mage(creature_type *creature_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return;
 	//TODO reimplement
 }
 
@@ -1047,8 +1048,8 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 {
 	int item;
 	object_type	forge;
-	object_type *quest_ptr;
-	object_type *object_ptr;
+	object_type *object1_ptr;
+	object_type *object2_ptr;
 	char ch;
 	bool changed;
 	cptr q, s;
@@ -1056,18 +1057,18 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 	q = "Play with which object? ";
 	s = "You have nothing to play with.";
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
-	object_ptr = GET_ITEM(creature_ptr, item);
+	object1_ptr = GET_ITEM(creature_ptr, item);
 	
 	changed = FALSE;
 
 	screen_save();
 
-	quest_ptr = &forge;
-	object_copy(quest_ptr, object_ptr);
+	object2_ptr = &forge;
+	object_copy(object2_ptr, object1_ptr);
 
 	while (TRUE)
 	{
-		wiz_display_item(quest_ptr); // Display the item
+		wiz_display_item(object2_ptr); // Display the item
 
 		if(!get_com("[a]ccept [s]tatistics [r]eroll [t]weak [q]uantity? ", &ch, FALSE)) // Get choice
 		{
@@ -1081,10 +1082,10 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 			break;
 		}
 
-		if(ch == 's' || ch == 'S') wiz_statistics(creature_ptr, quest_ptr);
-		if(ch == 'r' || ch == 'R') wiz_reroll_item(creature_ptr, quest_ptr);
-		if(ch == 't' || ch == 'T') wiz_tweak_item(quest_ptr);
-		if(ch == 'q' || ch == 'Q') wiz_quantity_item(creature_ptr, quest_ptr);
+		if(ch == 's' || ch == 'S') wiz_statistics(creature_ptr, object2_ptr);
+		if(ch == 'r' || ch == 'R') wiz_reroll_item(creature_ptr, object2_ptr);
+		if(ch == 't' || ch == 'T') wiz_tweak_item(object2_ptr);
+		if(ch == 'q' || ch == 'Q') wiz_quantity_item(object2_ptr);
 	}
 
 	screen_load();
@@ -1096,7 +1097,7 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 		msg_print("Changes accepted.");
 
 		if(item >= 0) set_inventory_weight(creature_ptr); // Recalcurate object's weight
-		object_copy(object_ptr, quest_ptr); // Change
+		object_copy(object1_ptr, object2_ptr); // Change
 
 		prepare_update(creature_ptr, CRU_BONUS | CRU_COMBINE | CRU_REORDER);
 		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
@@ -1204,7 +1205,7 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 
 static void creature_list_func(int y, int x, int i, bool selected)
 {
-	int col;
+	COLOR_ID col;
 
 	if(is_player(&creature_list[i]))
 	{
@@ -1306,7 +1307,7 @@ static void do_cmd_wiz_creature_list(void)
 
 static void floor_list_func(int y, int x, int i, bool selected)
 {
-	int col;
+	COLOR_ID col;
 	if(player_ptr->floor_id == i)
 	{
 		if(selected) col = TERM_L_GREEN;
@@ -1392,7 +1393,7 @@ static void do_cmd_wiz_floor_teleport(void)
 static void object_list_func(int y, int x, int i, bool selected)
 {
 	char tmp[100];
-	int col;
+	COLOR_ID col;
 
 	if(selected) col = TERM_WHITE;
 	else col = TERM_L_DARK;

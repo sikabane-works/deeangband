@@ -1230,7 +1230,7 @@ extern void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, b
 // spells3.c
 extern bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
 extern void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, COODINATES tx, POWER power, FLAGS_32 mode);
-extern bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode);
+extern bool cave_player_teleportable_bold(creature_type *creature_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
 extern bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
 extern void teleport_creature(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
 extern void teleport_player_away(creature_type *creature_ptr, COODINATES dis);
