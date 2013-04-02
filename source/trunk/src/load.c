@@ -834,7 +834,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->sc);
 	rd_s16b(&creature_ptr->concent);
 
-	rd_s16b(&creature_ptr->food);
+	READ_STAT(&creature_ptr->food);
 	READ_ENERGY(&creature_ptr->energy_need);
 
 	// Load timed trait
@@ -845,7 +845,7 @@ static void rd_creature(creature_type *creature_ptr)
 		READ_GAME_TIME(&creature_ptr->timed_trait[tmp16s]);
 	}
 
-	rd_byte(&creature_ptr->recall_dungeon);
+	READ_DUNGEON_ID(&creature_ptr->recall_dungeon);
 	rd_s16b(&creature_ptr->see_infra);
 	READ_SPECIES_ID(&creature_ptr->patron_idx);
 	READ_SPECIES_ID(&creature_ptr->father_idx);
@@ -1050,9 +1050,9 @@ static errr rd_floor(floor_type *floor_ptr)
 	READ_FLOOR_LEV(&floor_ptr->enemy_level);
 	READ_FLOOR_LEV(&floor_ptr->object_level);
 
-	rd_byte(&floor_ptr->dun_type);
-	rd_s32b(&floor_ptr->world_x);
-	rd_s32b(&floor_ptr->world_y);
+	READ_DUNGEON_ID(&floor_ptr->dun_type);
+	READ_COODINATES(&floor_ptr->world_x);
+	READ_COODINATES(&floor_ptr->world_y);
 	rd_s32b(&floor_ptr->last_visit);
 	rd_u32b(&floor_ptr->visit_mark);
 

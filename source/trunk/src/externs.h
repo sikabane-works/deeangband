@@ -1121,7 +1121,7 @@ extern void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAG
 extern bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value, int type);
 extern void place_gold(floor_type *floor_ptr, COODINATES y, COODINATES x);
 extern OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, COODINATES y, COODINATES x);
-extern void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, bool known);
+extern void acquirement(floor_type *floor_ptr, COODINATES y1, COODINATES x1, QUANTITY num, bool great, bool known);
 extern void init_normal_traps(void);
 extern FLOOR_ID choose_random_trap(floor_type *floor_ptr);
 extern void disclose_grid(floor_type *floor_ptr, COODINATES y, COODINATES x);

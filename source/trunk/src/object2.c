@@ -3251,7 +3251,7 @@ OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, 
 }
 
 // Scatter some "great" objects near the player
-void acquirement(floor_type *floor_ptr, COODINATES y1, COODINATES x1, int num, bool great, bool known)
+void acquirement(floor_type *floor_ptr, COODINATES y1, COODINATES x1, QUANTITY num, bool great, bool known)
 {
 	object_type *i_ptr;
 	object_type object_type_body;
