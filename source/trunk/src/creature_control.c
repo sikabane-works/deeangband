@@ -744,8 +744,8 @@ void delete_creature(floor_type *floor_ptr, int y, int x)
 
 
 /*
-* Move an object from index i1 to index i2 in the object list
-*/
+ * Move an object from index i1 to index i2 in the object list
+ */
 static void move_creature_object(int to, int from)
 {
 	creature_list[to] = creature_list[from];
@@ -861,7 +861,6 @@ void birth_uniques(void)
 
 		if(has_trait_species(&species_info[i], TRAIT_UNIQUE))
 		{
-			creature_type save_ptr;
 			unique_max++;
 			generate_creature(NULL, i, GC_AUTO);
 		}
