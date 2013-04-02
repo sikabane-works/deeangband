@@ -40,7 +40,7 @@ static int get_spell(creature_type *creature_ptr, DIRECTION *sn, cptr prompt, SV
 	int         num = 0;
 	int         ask = TRUE;
 	int         need_mana;
-	byte        spells[64];
+	int        spells[64];
 	bool        flag, redraw, okay;
 	char        choice;
 	magic_type  *s_ptr;

@@ -1272,7 +1272,7 @@ extern void display_spell_list(creature_type *creature_ptr);
 extern int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, REALM_ID realm);
 extern int mod_spell_chance_1(creature_type *creature_ptr, int chance);
 extern int mod_spell_chance_2(creature_type *creature_ptr, int chance);
-extern s16b spell_chance(creature_type *creature_ptr, int spell,REALM_ID realm);
+extern s16b spell_chance(creature_type *creature_ptr, int spell, REALM_ID realm);
 extern bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study_pray, REALM_ID realm);
 extern void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, int num, int y, int x, REALM_ID realm);
 extern bool hates_acid(object_type *object_ptr);
@@ -1647,7 +1647,7 @@ extern bool object_allow_two_hands_wielding(creature_type *creature_ptr, object_
 extern bool item_tester_hook_readable(creature_type *creature_ptr, object_type *object_ptr);
 
 /* wild.c */
-extern void set_floor_and_wall(byte type);
+extern void set_floor_and_wall(DUNGEON_ID type);
 extern void generate_floor_wilderness(floor_type *floor_ptr);
 extern void generate_world(floor_type *floor_ptr);
 extern errr init_wilderness(void);

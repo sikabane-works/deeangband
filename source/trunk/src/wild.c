@@ -34,7 +34,7 @@ static void set_floor_and_wall_aux(FEATURE_ID feat_type[100], feat_prob prob[DUN
 /*
  * Fill the arrays of floors and walls in the good proportions
  */
-void set_floor_and_wall(byte type)
+void set_floor_and_wall(DUNGEON_ID type)
 {
 	static byte cur_type = 255;
 	dungeon_type *d_ptr;

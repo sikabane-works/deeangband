@@ -1443,7 +1443,7 @@ struct creature_type
 	s32b karmas[MAX_KARMA];
 	s16b karmas_rank[MAX_KARMA];
 
-	byte recall_dungeon;	// Dungeon set to be recalled 
+	DUNGEON_ID recall_dungeon;	// Dungeon set to be recalled 
 
 	ENERGY energy_need;	// Energy needed for next move 
 

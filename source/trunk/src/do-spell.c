@@ -678,6 +678,7 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, POWER dam, COODIN
 // An "item_tester_hook" for offer
 static bool item_tester_offer(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(creature_ptr && !is_valid_creature(creature_ptr)) return FALSE;
 	/* Flasks of oil are okay */
 	if(object_ptr->tval != TV_CORPSE) return FALSE;
 	if(object_ptr->sval != SV_CORPSE) return FALSE;

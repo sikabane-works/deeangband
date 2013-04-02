@@ -3086,7 +3086,7 @@ int mod_spell_chance_2(creature_type *creature_ptr, int chance)
 /*
  * Returns spell chance of failure for spell -RAK-
  */
-s16b spell_chance(creature_type *creature_ptr, int spell, int use_realm)
+s16b spell_chance(creature_type *creature_ptr, int spell, REALM_ID use_realm)
 {
 	int             chance, minfail;
 	magic_type      *s_ptr;
