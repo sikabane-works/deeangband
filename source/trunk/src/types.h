@@ -139,8 +139,8 @@ typedef byte SVAL;
 #define WRITE_SVAL(VALUE) wr_byte((SVAL)VALUE);
 
 typedef s16b PVAL;
-#define READ_PVAL(VALUE) rd_byte((PVAL *)VALUE);
-#define WRITE_PVAL(VALUE) wr_byte((PVAL)VALUE);
+#define READ_PVAL(VALUE) rd_s16b((PVAL *)VALUE);
+#define WRITE_PVAL(VALUE) wr_s16b((PVAL)VALUE);
 
 typedef byte COLOR_ID;
 #define READ_COLOR_ID(VALUE) rd_s32b((COLOR_ID *)VALUE);

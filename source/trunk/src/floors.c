@@ -375,7 +375,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 }
 
 
-int find_floor_id(int dungeon_id, FLOOR_LEV depth, COODINATES wx, COODINATES wy)
+FLOOR_ID find_floor_id(DUNGEON_ID dungeon_id, FLOOR_LEV depth, COODINATES wx, COODINATES wy)
 {
 	int i;
 	floor_type *floor_ptr;
@@ -587,10 +587,9 @@ void reset_cave_creature_reference(void)
 
 }
 
-int get_floor_id(floor_type *floor_ptr)
+FLOOR_ID get_floor_id(floor_type *floor_ptr)
 {
-	int i;
-	for(i = 1; i < floor_max; i++)
-		if(floor_ptr == &floor_list[i]) return i;
+	FLOOR_ID i;
+	for(i = 1; i < floor_max; i++) if(floor_ptr == &floor_list[i]) return i;
 	return 0;
 }

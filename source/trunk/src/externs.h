@@ -958,11 +958,11 @@ extern void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode);
 // floors.c
 extern void init_saved_floors(bool force);
 extern FLOOR_ID floor_pop(void);
-extern int find_floor_id(int dungeon_id, FLOOR_LEV depth, COODINATES wx, COODINATES wy);
+extern FLOOR_ID find_floor_id(DUNGEON_ID dungeon_id, FLOOR_LEV depth, COODINATES wx, COODINATES wy);
 extern void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y, COODINATES world_x, COODINATES depth, floor_type *prev_ptr, u32b flag);
 extern void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr);
 extern void reset_cave_creature_reference(void);
-extern int get_floor_id(floor_type *floor_ptr);
+extern FLOOR_ID get_floor_id(floor_type *floor_ptr);
 
 // generate.c
 extern bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr);

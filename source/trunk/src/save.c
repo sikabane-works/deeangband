@@ -442,10 +442,10 @@ static void wr_creature(creature_type *creature_ptr)
 
 	WRITE_CREATURE_LEV(creature_ptr->max_plv);
 
-	wr_s16b(creature_ptr->sc);
+	WRITE_STAT(creature_ptr->sc);
 	wr_s16b(creature_ptr->concent);
 
-	wr_s16b(creature_ptr->food);
+	WRITE_STAT(creature_ptr->food);
 	WRITE_ENERGY(creature_ptr->energy_need);
 
 	// Save timed trait
@@ -459,7 +459,7 @@ static void wr_creature(creature_type *creature_ptr)
 	}
 	wr_s16b(-1);
 
-	wr_byte(creature_ptr->recall_dungeon);
+	WRITE_DUNGEON_ID(creature_ptr->recall_dungeon);
 
 	wr_s16b(creature_ptr->see_infra);
 
@@ -637,9 +637,9 @@ static void wr_floor(floor_type *floor_ptr)
 	WRITE_FLOOR_LEV(floor_ptr->enemy_level);
 	WRITE_FLOOR_LEV(floor_ptr->object_level);
 
-	wr_byte(floor_ptr->dun_type);
-	wr_s32b(floor_ptr->world_x);
-	wr_s32b(floor_ptr->world_y);
+	WRITE_DUNGEON_ID(floor_ptr->dun_type);
+	WRITE_COODINATES(floor_ptr->world_x);
+	WRITE_COODINATES(floor_ptr->world_y);
 	wr_s32b(floor_ptr->last_visit);
 	wr_u32b(floor_ptr->visit_mark);
 	wr_byte(floor_ptr->fight_arena_mode);
@@ -737,7 +737,7 @@ static void wr_floor(floor_type *floor_ptr)
 		// Dump it
 		wr_u16b(ct_ptr->info);
 		WRITE_FEATURE_ID(ct_ptr->feat);
-		wr_s16b(ct_ptr->mimic);
+		WRITE_FEATURE_ID(ct_ptr->mimic);
 		wr_s16b(ct_ptr->special);
 	}
 
