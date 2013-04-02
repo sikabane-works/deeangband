@@ -179,12 +179,12 @@ void get_table_sindarin(char *out_string)
  */
 static void shuffle_flavors(byte tval)
 {
-	s16b *k_idx_list;
-	int k_idx_list_num = 0;
+	OBJECT_KIND_ID *k_idx_list;
+	OBJECT_KIND_ID k_idx_list_num = 0;
 	int i;
 
 	/* Allocate an array for a list of k_idx */
-	C_MAKE(k_idx_list, max_object_kind_idx, s16b);
+	C_MAKE(k_idx_list, max_object_kind_idx, OBJECT_KIND_ID);
 
 	/* Search objects with given tval for shuffle */
 	for (i = 0; i < max_object_kind_idx; i++)
@@ -220,7 +220,7 @@ static void shuffle_flavors(byte tval)
 	}
 
 	/* Free an array for a list of k_idx */
-	C_KILL(k_idx_list, max_object_kind_idx, s16b);
+	C_KILL(k_idx_list, max_object_kind_idx, OBJECT_KIND_ID);
 }
 
 /*
@@ -1129,12 +1129,6 @@ static void get_inscription(char *buff, object_type *object_ptr)
 		}
 	}
 	*ptr = '\0';
-}
-
-
-void object_desc_new(char *buf, object_type *object_ptr, FLAGS_32 mode)
-{
-	object_desc(object_ptr->name, object_ptr, mode);
 }
 
 /*
