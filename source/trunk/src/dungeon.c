@@ -3226,7 +3226,7 @@ static bool enter_wizard_mode(void)
 
 
 // Verify use of "debug" commands
-static bool enter_debug_mode(creature_type *creature_ptr)
+static bool enter_debug_mode(void)
 {
 	// Ask first time
 	if(!noscore)
@@ -3291,10 +3291,7 @@ static void process_player_command(creature_type *creature_ptr)
 	case KTRL('A'):
 		{
 			/* Enter debug mode */
-			if(enter_debug_mode(creature_ptr))
-			{
-				do_cmd_debug(creature_ptr);
-			}
+			if(enter_debug_mode()) do_cmd_debug(creature_ptr);
 			break;
 		}
 
@@ -4482,7 +4479,7 @@ void process_player(creature_type *creature_ptr)
 * This function will not exit until the level is completed,
 * the user dies, or the game is terminated.
 */
-static void turn_loop(floor_type *floor_ptr, bool load_game)
+static void turn_loop(floor_type *floor_ptr)
 {
 	// Main loop
 	while (TRUE)
@@ -5077,7 +5074,7 @@ static void play_loop(void)
 		/* Not leaving dungeon */
 		subject_change_dungeon = FALSE;
 
-		turn_loop(floor_ptr, load_game); // Process the level, Turn loop
+		turn_loop(floor_ptr); // Process the level, Turn loop
 
 		// Inside a quest and non-unique questor?
 		if(quest_num && !has_trait_species(&species_info[quest[quest_num].species_idx], TRAIT_UNIQUE))
