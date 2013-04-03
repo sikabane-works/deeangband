@@ -343,15 +343,15 @@ static void wr_creature(creature_type *creature_ptr)
 	WRITE_SPECIES_ID(creature_ptr->species_idx);
 	WRITE_SPECIES_ID(creature_ptr->ap_species_idx);
 	wr_s16b(creature_ptr->camp_idx);
-	wr_s16b(creature_ptr->race_idx1);
-	wr_s16b(creature_ptr->race_idx2);
-	wr_s16b(creature_ptr->mimic_race_idx);
+	WRITE_RACE_ID(creature_ptr->race_idx1);
+	WRITE_RACE_ID(creature_ptr->race_idx2);
+	WRITE_RACE_ID(creature_ptr->mimic_race_idx);
 	for (i = 0; i < RACE_FLAG_MAX; i++) wr_u32b(creature_ptr->sub_race[i]);
 	wr_s16b(creature_ptr->creature_ego_idx);
-	wr_s16b(creature_ptr->class_idx);
-	wr_s16b(creature_ptr->chara_idx);
+	WRITE_CLASS_ID(creature_ptr->class_idx);
+	WRITE_CHARA_ID(creature_ptr->chara_idx);
 	wr_s16b(creature_ptr->starting_idx);
-	wr_s16b(creature_ptr->sex);
+	WRITE_SEX_ID(creature_ptr->sex);
 	wr_s16b(creature_ptr->realm1);
 	wr_s16b(creature_ptr->realm2);
 

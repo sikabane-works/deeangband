@@ -722,15 +722,15 @@ static void rd_creature(creature_type *creature_ptr)
 	READ_SPECIES_ID(&creature_ptr->species_idx);
 	READ_SPECIES_ID(&creature_ptr->ap_species_idx);
 	rd_s16b(&creature_ptr->camp_idx);
-	rd_s16b(&creature_ptr->race_idx1);
-	rd_s16b(&creature_ptr->race_idx2);
-	rd_s16b(&creature_ptr->mimic_race_idx);
+	READ_RACE_ID(&creature_ptr->race_idx1);
+	READ_RACE_ID(&creature_ptr->race_idx2);
+	READ_RACE_ID(&creature_ptr->mimic_race_idx);
 	for (i = 0; i < RACE_FLAG_MAX; i++) READ_FLAGS_32(&creature_ptr->sub_race[i]);
 	rd_s16b(&creature_ptr->creature_ego_idx);
-	rd_s16b(&creature_ptr->class_idx);
-	rd_s16b(&creature_ptr->chara_idx);
+	READ_CLASS_ID(&creature_ptr->class_idx);
+	READ_CHARA_ID(&creature_ptr->chara_idx);
 	rd_s16b(&creature_ptr->starting_idx);
-	rd_s16b(&creature_ptr->sex);
+	READ_SEX_ID(&creature_ptr->sex);
 	rd_s16b(&creature_ptr->realm1);
 	rd_s16b(&creature_ptr->realm2);
 
@@ -831,7 +831,7 @@ static void rd_creature(creature_type *creature_ptr)
 	// Repair maximum player level
 	if(creature_ptr->max_plv < creature_ptr->lev) creature_ptr->max_plv = creature_ptr->lev;
 
-	rd_s16b(&creature_ptr->sc);
+	READ_STAT(&creature_ptr->sc);
 	rd_s16b(&creature_ptr->concent);
 
 	READ_STAT(&creature_ptr->food);
