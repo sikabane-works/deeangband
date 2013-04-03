@@ -770,49 +770,6 @@ typedef struct
 
 } pval_info_type;
 
-
-/*
- * An "object analysis structure"
- *
- * It will be filled with descriptive strings detailing an object's
- * various magical powers. The "ignore X" traits_precondition are not noted since
- * all artifacts ignore "normal" destruction.
- */
-
-typedef struct
-{
-	/* "The Longsword Dragonsmiter (6d4) (+20, +25)" */
-	char description[MAX_NLEN];
-
-	/* Description of what is affected by an object's pval */
-	pval_info_type pval_info;
-
-	/* A list of an object's slaying preferences */
-	cptr slays[N_ELEMENTS(slay_flags_desc) + 1];
-
-	/* A list if an object's elemental brands */
-	cptr brands[N_ELEMENTS(brand_flags_desc) + 1];
-
-	/* A list of immunities granted by an object */
-	cptr immunities[N_ELEMENTS(immune_flags_desc) + 1];
-
-	/* A list of resistances granted by an object */
-	cptr resistances[N_ELEMENTS(resist_flags_desc) + 1];
-
-	/* A list of stats sustained by an object */
-	cptr sustains[N_ELEMENTS(sustain_flags_desc)  - 1 + 1];
-
-	/* Additional ability or resistance */
-	char addition[80];
-
-	/* A string describing an artifact's activation */
-	cptr activation;
-
-	/* "Level 20, Rarity 30, 3.0 lbs, 20000 Gold" */
-	char misc_desc[80];
-} obj_desc_list;
-
-
 /*
  * Write out `n' of the character `c' to the spoiler file
  */
@@ -870,7 +827,7 @@ static cptr *spoiler_flag_aux(const u32b trait_flags[MAX_TRAITS_FLAG], const fla
 
 
 // Fill in an object description structure for a given object
-static void object_analyze(object_type *object_ptr, obj_desc_list *desc_ptr)
+static void object_analyze(object_type *object_ptr)
 {
 	//TODO
 }
@@ -1019,65 +976,9 @@ static void spoiler_outlist(cptr header, cptr *list, char separator)
 
 /* Create a spoiler file entry for an artifact */
 
-static void spoiler_print_art(obj_desc_list *art_ptr)
+static void spoiler_print_art(void)
 {
-	pval_info_type *pval_ptr = &art_ptr->pval_info;
-
-	char buf[80];
-
-	/* Don't indent the first line */
-	fprintf(fff, "%s\n", art_ptr->description);
-
-	/* An "empty" pval description indicates that the pval affects nothing */
-	if(pval_ptr->pval_desc[0])
-	{
-		/* Mention the effects of pval */
-#ifdef JP
-		sprintf(buf, "%s‚ÌC³:", pval_ptr->pval_desc);
-#else
-		sprintf(buf, "%s to", pval_ptr->pval_desc);
-#endif
-		spoiler_outlist(buf, pval_ptr->pval_affects, ITEM_SEP);
-	}
-
-	/* Now deal with the description lists */
-
-#ifdef JP
-	spoiler_outlist("‘Î:", art_ptr->slays, ITEM_SEP);
-	spoiler_outlist("•Ší‘®«:", art_ptr->brands, LIST_SEP);
-	spoiler_outlist("–Æ‰u:", art_ptr->immunities, ITEM_SEP);
-	spoiler_outlist("‘Ï«:", art_ptr->resistances, ITEM_SEP);
-	spoiler_outlist("ˆÛŽ:", art_ptr->sustains, ITEM_SEP);
-#else
-	spoiler_outlist("Slay", art_ptr->slays, ITEM_SEP);
-	spoiler_outlist("", art_ptr->brands, LIST_SEP);
-	spoiler_outlist("Immunity to", art_ptr->immunities, ITEM_SEP);
-	spoiler_outlist("Resist", art_ptr->resistances, ITEM_SEP);
-	spoiler_outlist("Sustain", art_ptr->sustains, ITEM_SEP);
-#endif
-//	spoiler_outlist("", art_ptr->misc_magic, LIST_SEP);
-
-	if(art_ptr->addition[0])
-	{
-#ifdef JP
-		fprintf(fff, "%s’Ç‰Á: %s\n", INDENT1, art_ptr->addition);
-#else
-		fprintf(fff, "%sAdditional %s\n", INDENT1, art_ptr->addition);
-#endif
-	}
-
-	/* Write out the possible activation at the primary indention level */
-	if(art_ptr->activation)
-	{
-#ifdef JP
-		fprintf(fff, "%s”­“®: %s\n", INDENT1, art_ptr->activation);
-#else
-		fprintf(fff, "%sActivates for %s\n", INDENT1, art_ptr->activation);
-#endif
-	}
-
-	/* End with the miscellaneous facts */
-	fprintf(fff, "%s%s\n\n", INDENT1, art_ptr->misc_desc);
+	/*TODO*/
 }
 
 
@@ -1135,8 +1036,6 @@ static void spoil_artifact(cptr fname)
 	object_type forge;
 	object_type *quest_ptr;
 
-	obj_desc_list artifact;
-
 	char buf[1024];
 
 
@@ -1185,11 +1084,8 @@ static void spoil_artifact(cptr fname)
 			/* Attempt to "forge" the artifact */
 			if(!make_fake_artifact(quest_ptr, j)) continue;
 
-			/* Analyze the artifact */
-			object_analyze(quest_ptr, &artifact);
+			/*TODO print*/
 
-			/* Write out the artifact description to the spoiler file */
-			spoiler_print_art(&artifact);
 		}
 	}
 
@@ -2156,33 +2052,28 @@ void do_cmd_spoilers(void)
 /*
  * Fill in an object description structure for a given object
  */
-static void random_artifact_analyze(object_type *object_ptr, obj_desc_list *desc_ptr)
+static void random_artifact_analyze(object_type *object_ptr)
 {
 	/* TODO */
 }
 
 /* Create a spoiler file entry for an artifact */
-static void spoiler_print_randart(object_type *object_ptr, obj_desc_list *art_ptr)
+static void spoiler_print_randart(object_type *object_ptr)
 {
-	pval_info_type *pval_ptr = &art_ptr->pval_info;
-	char buf[80];
 	/* TODO */
 }
 
 /* Create a part of file for random artifacts */
 static void spoil_random_artifact_aux(object_type *object_ptr, int i)
 {
-	obj_desc_list artifact;
 
 	if(!object_is_known(object_ptr) || !object_ptr->art_name
 		|| object_ptr->tval != group_artifact[i].tval)
 		return;
 
+	/*TODO*/
 	/* Analyze the artifact */
-	random_artifact_analyze(object_ptr, &artifact);
-
 	/* Write out the artifact description to the spoiler file */
-	spoiler_print_randart(object_ptr, &artifact);
 }
 
 /*
