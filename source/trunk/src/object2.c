@@ -2840,11 +2840,8 @@ bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, i
  */
 void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode, bool (*get_obj_num_hook)(int k_idx))
 {
-	s16b object_idx;
-
-	/* Acquire grid */
+	OBJECT_ID object_idx;
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-
 	object_type forge;
 	object_type *quest_ptr;
 

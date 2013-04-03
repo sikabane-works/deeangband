@@ -234,6 +234,10 @@ typedef s32b WEIGHT;
 #define READ_WEIGHT(VALUE) rd_s32b((WEIGHT *)VALUE);
 #define WRITE_WEIGHT(VALUE) wr_s32b((WEIGHT)VALUE);
 
+typedef s32b PRICE;
+#define READ_PRICE(VALUE) rd_s32b((PRICE *)VALUE);
+#define WRITE_PRICE(VALUE) wr_s32b((PRICE)VALUE);
+
 typedef s32b BODY_SIZE;
 #define READ_BODY_SIZE(VALUE) rd_s32b((BODY_SIZE *)VALUE);
 #define WRITE_BODY_SIZE(VALUE) wr_s32b((BODY_SIZE)VALUE);
@@ -841,7 +845,7 @@ struct object_type
 	GAME_TIME fuel;
 
 	byte forged_type;	// forged by smith craft
-	byte chest_value;
+	PRICE chest_value;
 
 	STAT to_hit;		// Plusses to hit
 	STAT to_damage;		// Plusses to damage
@@ -1794,9 +1798,9 @@ struct building_type
 	STAT action_restr[MAX_BUILDING_ACTION];           // action restrictions
 	STAT action_misc[MAX_BUILDING_ACTION];            // action misc
 
-	s16b member_class[MAX_CLASS];   // which classes are part of guild
-	s16b member_race[MAX_RACES];    // which classes are part of guild
-	s16b member_realm[MAX_REALMS+1]; // which realms are part of guild
+	CLASS_ID member_class[MAX_CLASS];   // which classes are part of guild
+	RACE_ID member_race[MAX_RACES];    // which classes are part of guild
+	REALM_ID member_realm[MAX_REALMS+1]; // which realms are part of guild
 };
 
 

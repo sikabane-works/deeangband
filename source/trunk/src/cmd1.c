@@ -1251,7 +1251,7 @@ bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 	 (have_flag((MF)->flags, FF_MOVE) || have_flag((MF)->flags, FF_CAN_FLY)) && \
 	 have_flag((MF)->flags, FF_PROJECT) && !have_flag((MF)->flags, FF_OPEN))
 
-static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap, COODINATES x, COODINATES y)
+static void exit_area(creature_type *creature_ptr, COODINATES x, COODINATES y)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -1412,7 +1412,7 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 	bool do_past = FALSE;
 
 	// Exit the area
-	exit_area(creature_ptr, dir, do_pickup, break_trap, x, y);
+	exit_area(creature_ptr, x, y);
 
 	/* Get the creature */
 	target_ptr = &creature_list[c_ptr->creature_idx];
