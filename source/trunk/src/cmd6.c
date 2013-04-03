@@ -2300,17 +2300,17 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	bool flag, request_list;
 	TVAL tval = 0;
 	int ask = TRUE;
-	SVAL i = 0;
+	int i = 0;
 	char out_val[160];
 	int menu_line = (use_menu ? 1 : 0);
-	int sn;
+	SVAL sn;
 
 	if(repeat_pull(&sn))
 	{
 		/* Verify the spell */
-		if(sn >= EATER_EXT*2 && !(creature_ptr->current_charge[sn] > object_kind_info[lookup_kind(TV_ROD, sn-EATER_EXT*2)].pval * (creature_ptr->max_charge[sn] - 1) * EATER_ROD_CHARGE))
+		if(sn >= EATER_EXT * 2 && !(creature_ptr->current_charge[sn] > object_kind_info[lookup_kind(TV_ROD, sn - EATER_EXT*2)].pval * (creature_ptr->max_charge[sn] - 1) * EATER_ROD_CHARGE))
 			return sn;
-		else if(sn < EATER_EXT*2 && !(creature_ptr->current_charge[sn] < EATER_CHARGE))
+		else if(sn < EATER_EXT * 2 && !(creature_ptr->current_charge[sn] < EATER_CHARGE))
 			return sn;
 	}
 
@@ -2655,14 +2655,14 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			if(ask)
 			{
 				char tmp_val[160];
-				(void) strnfmt(tmp_val, 78, MES_SYS_ASK_USE, object_kind_name + object_kind_info[lookup_kind(tval, i)].name);
+				(void) strnfmt(tmp_val, 78, MES_SYS_ASK_USE, object_kind_name + object_kind_info[lookup_kind(tval, (SVAL)i)].name);
 
 				/* Belay that order */
 				if(!get_check(tmp_val)) continue;
 			}
 			if(tval == TV_ROD)
 			{
-				if(creature_ptr->current_charge[ext+i]  > object_kind_info[lookup_kind(tval, i)].pval * (creature_ptr->max_charge[ext+i] - 1) * EATER_ROD_CHARGE)
+				if(creature_ptr->current_charge[ext+i]  > object_kind_info[lookup_kind(tval, (SVAL)i)].pval * (creature_ptr->max_charge[ext+i] - 1) * EATER_ROD_CHARGE)
 				{
 #ifdef JP
 					msg_print("ÇªÇÃñÇñ@ÇÕÇ‹Çæè[ìUÇµÇƒÇ¢ÇÈç≈íÜÇæÅB");
@@ -2702,7 +2702,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			Term_erase(7, 21, 255);
 			Term_erase(7, 20, 255);
 
-			roff_to_buf(object_kind_text + object_kind_info[lookup_kind(tval, i)].text, 62, temp, sizeof(temp));
+			roff_to_buf(object_kind_text + object_kind_info[lookup_kind(tval, (SVAL)i)].text, 62, temp, sizeof(temp));
 			for (j = 0, line = 21; temp[j]; j += 1 + strlen(&temp[j]))
 			{
 				prt(&temp[j], line, 10);
@@ -2744,7 +2744,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 		return;
 	}
 
-	item = select_magic_eater(creature_ptr, only_browse);
+	item = (SVAL)select_magic_eater(creature_ptr, only_browse);
 
 	if(item == -1)
 	{
