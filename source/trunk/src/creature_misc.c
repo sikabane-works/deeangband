@@ -1289,7 +1289,7 @@ bool cancel_tactical_action(creature_type *creature_ptr)
 	return TRUE;
 }
 
-bool gain_skill(creature_type *creature_ptr, int type, POWER power)
+bool gain_skill(creature_type *creature_ptr, SKILL_ID type, POWER power)
 {
 	creature_ptr->spell_exp[type] += (power / creature_ptr->spell_exp[type]);
 	return TRUE;
