@@ -624,9 +624,9 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 // cancelled before use.  XXX Reading them still takes a turn, though.
 static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool known)
 {
-	int         i, k, used_up, ident, lev;
+	int i, k, used_up, ident, lev;
 	object_type *object_ptr;
-	char        Rumor[1024];
+	char Rumor[1024];
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	object_ptr = GET_ITEM(caster_ptr, item);
