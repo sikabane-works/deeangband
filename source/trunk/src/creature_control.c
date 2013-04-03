@@ -1953,9 +1953,9 @@ void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type
 		char tmp[80];
 		tmp[0] = '\0';
 #ifdef JP
-		sprintf(tmp, "サイズ%dの", creature_ptr->size);
+		sprintf(tmp, "サイズ%dの");
 #else
-		sprintf(tmp, "Size:%d ", creature_ptr->size);
+		sprintf(tmp, "Size:%d ");
 #endif
 		(void)strcat(desc, tmp);
 	}
@@ -3023,7 +3023,7 @@ void deal_item(creature_type *creature_ptr)
 		else
 		{
 			object_type ob;
-			object_prep(&ob, lookup_kind(species_ptr->artifact_tval[i], species_ptr->artifact_sval[i]), creature_ptr->size);
+			object_prep(&ob, lookup_kind(species_ptr->artifact_tval[i], species_ptr->artifact_sval[i]));
 			create_ego(&ob, object_level, species_ptr->artifact_ego[i]);
 			add_item_to_creature(creature_ptr, &ob, TRUE);
 		}
@@ -3039,13 +3039,13 @@ void deal_item(creature_type *creature_ptr)
 
 	if(IS_RACE(creature_ptr, RACE_BALROG))
 	{
-		object_prep(quest_ptr, lookup_kind(TV_LITE, SV_LITE_UDUN), creature_ptr->size);
+		object_prep(quest_ptr, lookup_kind(TV_LITE, SV_LITE_UDUN));
 		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
 	if(IS_RACE(creature_ptr, RACE_ISTARI))
 	{
-		object_prep(quest_ptr, lookup_kind(TV_HAFTED, SV_ISTARISTAFF), creature_ptr->size);
+		object_prep(quest_ptr, lookup_kind(TV_HAFTED, SV_ISTARISTAFF));
 		add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 	}
 
@@ -3163,7 +3163,7 @@ void deal_item(creature_type *creature_ptr)
 			}
 
 			/* Hack -- Give the player an object */
-			object_prep(quest_ptr, lookup_kind(tv, sv), creature_ptr->size);
+			object_prep(quest_ptr, lookup_kind(tv, sv));
 
 			/* Assassins begin the game with a poisoned dagger */
 			if((tv == TV_SWORD || tv == TV_HAFTED) && (creature_ptr->class_idx == CLASS_ROGUE && creature_ptr->realm1 == REALM_DEATH)) // Only assassins get a poisoned weapon
