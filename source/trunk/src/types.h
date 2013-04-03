@@ -1431,7 +1431,7 @@ struct creature_type
 	STAT stat_use[STAT_MAX];			// Current modified stats
 	STAT stat_top[STAT_MAX];			// Maximal modified stats
 	STAT stat_add[STAT_MAX];			// Modifiers to stat values
-	s16b stat_ind[STAT_MAX];			// Indexes into stat tables
+	RANK stat_ind[STAT_MAX];			// Indexes into stat tables
 
 	s16b learned_spells;
 	s16b add_spells;

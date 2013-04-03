@@ -2217,7 +2217,7 @@ static void set_character_bonuses(creature_type *creature_ptr)
 
 static void set_posture_bonuses(creature_type *creature_ptr)
 {
-	u32b limit;
+	WEIGHT limit;
 	int empty_hands_status = empty_hands(creature_ptr, TRUE);
 
 	if(creature_ptr->posture & KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU)
@@ -2275,7 +2275,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 	for (i = 0; i < STAT_MAX; i++)
 	{
 		STAT top, use;
-		int ind;
+		RANK ind;
 
 		// Extract the new "stat_use" value for the stat
 		top = creature_ptr->stat_max[i] + creature_ptr->stat_add[i];
