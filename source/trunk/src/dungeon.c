@@ -1287,8 +1287,7 @@ static object_type *choose_cursed_obj_name(creature_type *creature_ptr, u32b fla
 	int choices[INVEN_TOTAL];
 	int number = 0;
 
-
-	if(!(creature_ptr->cursed & flag)) return NULL;
+	//TODO if(!(creature_ptr->cursed & flag)) return NULL;
 
 	/* Search Inventry */
 	for (i = 0; i < INVEN_TOTAL; i++)

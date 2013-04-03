@@ -1493,9 +1493,9 @@ struct creature_type
 	SKILL_EXP skill_exp[MAX_SKILLS];       // Proficiency of misc. skill 
 	SKILL_EXP spell_exp[MAX_REALMS];
 
-	s16b mane_spell[MAX_MANE];
+	TRAIT_ID mane_spell[MAX_MANE];
 	POWER mane_dam[MAX_MANE];
-	s16b mane_num;
+	QUANTITY mane_num;
 
 	s16b concent;      // Sniper's concentration level 
 	u16b total_friends; // number of servent.

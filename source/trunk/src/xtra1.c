@@ -2533,7 +2533,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		/* Extract the item flags */
 		object_flags(object_ptr, flgs);
 
-		creature_ptr->cursed |= (object_ptr->curse_flags[0] & (0xFFFFFFF0L));
+		//TODO creature_ptr->cursed |= (object_ptr->curse_flags[0] & (0xFFFFFFF0L));
 
 		// Affect stats
 		creature_ptr->stat_add[STAT_STR] += object_ptr->stat_val[STAT_STR];
@@ -2777,7 +2777,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->see_infra = 0;
 
 	// Clear all the flags
-	creature_ptr->cursed = 0L;
+	//TODO creature_ptr->cursed = 0L;
 
 	for(i = 0; i < INVEN_TOTAL; i++) creature_ptr->two_handed[i] = INVEN_TOTAL;
 	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] = creature_ptr->stat_max_max[i];
@@ -3510,7 +3510,7 @@ static void fix_creature_status(creature_type *creature_ptr)
 	// Hack -- aura of fire also provides light
 	//TODO if(creature_ptr->sh_fire) creature_ptr->lite = TRUE;
 
-	if(has_trait(creature_ptr, TRAIT_PASSIVE_TELEPORT)) creature_ptr->cursed &= ~(TRAIT_PASSIVE_TELEPORT);
+	//TODO if(has_trait(creature_ptr, TRAIT_PASSIVE_TELEPORT)) creature_ptr->cursed &= ~(TRAIT_PASSIVE_TELEPORT);
 
 	if((IS_RACE(creature_ptr, RACE_S_FAIRY)) && has_trait(creature_ptr, TRAIT_ANTIPATHY))
 	{
