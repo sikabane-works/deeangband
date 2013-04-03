@@ -31,6 +31,7 @@ bool lose_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message)
 
 void dump_traits(creature_type *creature_ptr, FILE *OutFile)
 {
+	if(!is_valid_creature(creature_ptr)) return;
 	if(!OutFile) return;
 
 	//TODO
@@ -92,6 +93,7 @@ int count_bits(u32b x)
 
 static int count_mutations(creature_type *creature_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return 0;
 	//TODO
 	return 0;
 }

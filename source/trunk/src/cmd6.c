@@ -1629,7 +1629,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
 }
 
 
-static int rod_effect(creature_type *caster_ptr, SVAL sval, int dir, bool *use_charge, bool magic)
+static int rod_effect(creature_type *caster_ptr, SVAL sval, bool *use_charge, bool magic)
 {
 	int ident = FALSE;
 
@@ -1823,8 +1823,9 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
 }
 
 // Hack -- activate the ring of power
-void ring_of_power(creature_type *creature_ptr, int dir)
+void ring_of_power(creature_type *creature_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return;
 	//TODO Reimplementing
 }
 

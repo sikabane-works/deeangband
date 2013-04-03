@@ -409,7 +409,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BIZARRE_THING_OF_THE_RING:
-		ring_of_power(caster_ptr, dir);
+		ring_of_power(caster_ptr);
 		break;
 
 	case TRAIT_STAR_BALL2:
