@@ -1606,7 +1606,7 @@ void object_copy(object_type *object1_ptr, object_type *object2_ptr)
 }
 
 // Prepare an object based on an object kind.
-void object_prep(object_type *object_ptr, OBJECT_KIND_ID k_idx, int size)
+void object_prep(object_type *object_ptr, OBJECT_KIND_ID k_idx)
 {
 	int i;
 
@@ -1617,6 +1617,8 @@ void object_prep(object_type *object_ptr, OBJECT_KIND_ID k_idx, int size)
 
 	/* Save the kind index */
 	object_ptr->k_idx = k_idx;
+	//TODO object_ptr->size_lower = object_kind_ptr->lower_size; 
+	//TODO object_ptr->size_upper = object_kind_ptr->upper_size; 
 
 	/* Efficiency -- tval/sval */
 	object_ptr->tval = object_kind_ptr->tval;
@@ -1635,7 +1637,7 @@ void object_prep(object_type *object_ptr, OBJECT_KIND_ID k_idx, int size)
 	object_ptr->to_ev = object_kind_ptr->to_ev;
 	object_ptr->to_vo = object_kind_ptr->to_vo;
 
-	// Default power
+	/* Default power */
 	object_ptr->ac = object_kind_ptr->ac;
 	object_ptr->ev = object_kind_ptr->ev;
 	object_ptr->vo = object_kind_ptr->vo;
@@ -1643,6 +1645,7 @@ void object_prep(object_type *object_ptr, OBJECT_KIND_ID k_idx, int size)
 	object_ptr->ds = object_kind_ptr->ds;
 
 	object_ptr->weight = object_kind_ptr->weight;
+	for(i = 0; i < STAT_MAX; i++) object_ptr->stat_val[i] = object_kind_ptr->stat_val[i];
 
 	// Charge time.
 	object_ptr->charge_const = object_kind_ptr->charge_const;
@@ -1782,7 +1785,7 @@ static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object
 			if(!one_in_(d)) continue; // Roll for out-of-depth creation
 		}
 
-		object_prep(object_ptr, k_idx, ITEM_FREE_SIZE); // Assign the template
+		object_prep(object_ptr, k_idx); // Assign the template
 		object_ptr->name1 = i; // Mega-Hack -- mark the item as an artifact	
 
 		random_artifact_resistance(owner_ptr, object_ptr, a_ptr); // Hack: Some artifacts get random extra powers
@@ -2806,7 +2809,7 @@ bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, i
 		k_idx = get_obj_num(level, gon_mode); // Pick a random object
 		if(!k_idx) return FALSE; // Handle failure
 
-		object_prep(object_ptr, k_idx, ITEM_FREE_SIZE); // Prepare the object
+		object_prep(object_ptr, k_idx); // Prepare the object
 	}
 
 	apply_magic(player_ptr, object_ptr, level, mode, 0); // Apply magic (allow artifacts)
@@ -2900,7 +2903,7 @@ bool make_gold(floor_type *floor_ptr, object_type *object2_ptr, int value, int c
 	if(i >= MAX_GOLD) i = MAX_GOLD - 1;
 
 	/* Prepare a gold object */
-	object_prep(object2_ptr, OBJ_GOLD_LIST + i, ITEM_FREE_SIZE);
+	object_prep(object2_ptr, OBJ_GOLD_LIST + i);
 
 	/* Hack -- Base coin cost */
 	base = object_kind_info[OBJ_GOLD_LIST+i].cost;
@@ -4044,7 +4047,7 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 	quest_ptr = &forge;
 
 	/* Prepare the object */
-	object_prep(quest_ptr, k_idx, ITEM_FREE_SIZE);
+	object_prep(quest_ptr, k_idx);
 
 	object_desc(object_name, quest_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
 
@@ -4780,7 +4783,7 @@ static void drain_essence(creature_type *creature_ptr)
 	weight = object_ptr->weight;
 	number = object_ptr->number;
 
-	object_prep(object_ptr, object_ptr->k_idx, ITEM_FREE_SIZE);
+	object_prep(object_ptr, object_ptr->k_idx);
 
 	object_ptr->fy=iy;
 	object_ptr->fx=ix;

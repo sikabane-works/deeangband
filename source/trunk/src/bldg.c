@@ -1779,7 +1779,7 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format(MES_BOUNTY_EARN_POINT(num));
 
 				// Prepare to make a prize
-				object_prep(&forge, lookup_kind(prize_list[num-1].tval, prize_list[num-1].sval), ITEM_FREE_SIZE);
+				object_prep(&forge, lookup_kind(prize_list[num-1].tval, prize_list[num-1].sval));
 				apply_magic(creature_ptr, &forge, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 				// Identify it fully

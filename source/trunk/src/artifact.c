@@ -1775,7 +1775,7 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, ARTIF
 	if(!i) return FALSE;
 
 	/* Create the artifact */
-	object_prep(quest_ptr, i, ITEM_FREE_SIZE);
+	object_prep(quest_ptr, i);
 
 	/* Save the name */
 	quest_ptr->name1 = (byte_hack)a_idx;

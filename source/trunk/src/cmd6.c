@@ -290,7 +290,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			msg_print(MES_FOOD_SKELETON_FAILED1);
 
 			/* Create the item */
-			object_prep(quest_ptr, lookup_kind(object_ptr->tval, object_ptr->sval), ITEM_FREE_SIZE);
+			object_prep(quest_ptr, lookup_kind(object_ptr->tval, object_ptr->sval));
 
 			/* Drop the object from heaven */
 			(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);

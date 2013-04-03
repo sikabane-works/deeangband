@@ -2160,7 +2160,7 @@ bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 		u16b inscription = object_ptr->inscription;
 
 		/* Wipe it clean */
-		object_prep(object_ptr, object_ptr->k_idx, ITEM_FREE_SIZE);
+		object_prep(object_ptr, object_ptr->k_idx);
 
 		object_ptr->fy = iy;
 		object_ptr->fx = ix;

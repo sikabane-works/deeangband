@@ -441,7 +441,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 int specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, TVAL tv, SVAL sv)
 {
 	object_type forge;
-	object_prep(&forge, lookup_kind(tv, sv), ITEM_FREE_SIZE);
+	object_prep(&forge, lookup_kind(tv, sv));
 	apply_magic(creature_ptr, &forge, creature_ptr->lev, AM_NO_FIXED_ART, 0);
 	return drop_near(floor_ptr, &forge, -1, creature_ptr->fy, creature_ptr->fx);
 }
@@ -563,7 +563,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			quest_ptr = &forge;
 
 			/* Prepare to make a prize */
-			object_prep(quest_ptr, lookup_kind(arena_info[arena_number].tval, arena_info[arena_number].sval), ITEM_FREE_SIZE);
+			object_prep(quest_ptr, lookup_kind(arena_info[arena_number].tval, arena_info[arena_number].sval));
 
 			apply_magic(dead_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
@@ -768,7 +768,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			if(k_idx)
 			{
 				quest_ptr = &forge;	// Get local object
-				object_prep(quest_ptr, k_idx, ITEM_FREE_SIZE);	// Prepare to make a reward
+				object_prep(quest_ptr, k_idx);	// Prepare to make a reward
 				apply_magic(dead_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);	// Drop it in the dungeon
 			}
@@ -2944,7 +2944,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			default:
 				sval = SV_BLADE_OF_CHAOS;
 			}
-			object_prep(quest_ptr, lookup_kind(tval, sval), ITEM_FREE_SIZE);
+			object_prep(quest_ptr, lookup_kind(tval, sval));
 			quest_ptr->to_hit = 3 + randint1(floor_ptr->depth) % 10;
 			quest_ptr->to_damage = 3 + randint1(floor_ptr->depth) % 10;
 			one_resistance(quest_ptr);

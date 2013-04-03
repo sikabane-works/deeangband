@@ -2788,7 +2788,7 @@ void do_cmd_visuals(void)
 					object_type forge;
 
 					/* Prepare dummy object */
-					object_prep(&forge, i, ITEM_FREE_SIZE);
+					object_prep(&forge, i);
 
 					/* Get un-shuffled flavor name */
 					object_desc(object_name, &forge, OD_FORCE_FLAVOR);
@@ -5131,7 +5131,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 			quest_ptr = &forge;
 
 			/* Create fake object */
-			object_prep(quest_ptr, z, ITEM_FREE_SIZE);
+			object_prep(quest_ptr, z);
 
 			/* Make it an artifact */
 			quest_ptr->name1 = (byte)who[k];
@@ -6419,7 +6419,7 @@ static void desc_obj_fake(int k_idx)
 	object_wipe(object_ptr);
 
 	/* Create the artifact */
-	object_prep(object_ptr, k_idx, ITEM_FREE_SIZE);
+	object_prep(object_ptr, k_idx);
 
 	/* It's fully know */
 	object_ptr->ident |= IDENT_KNOWN;

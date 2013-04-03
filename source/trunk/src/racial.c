@@ -111,7 +111,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 			object_ptr = &forge;
 
 			/* Hack -- Give the player some small firestones */
-			object_prep(object_ptr, lookup_kind(TV_SHOT, (SVAL)m_bonus(1, creature_ptr->lev) + 1), ITEM_FREE_SIZE);
+			object_prep(object_ptr, lookup_kind(TV_SHOT, (SVAL)m_bonus(1, creature_ptr->lev) + 1));
 			object_ptr->number = (byte)rand_range(15,30);
 			object_aware(object_ptr);
 			object_known(object_ptr);
@@ -143,7 +143,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		object_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
-		object_prep(object_ptr, lookup_kind(TV_ARROW, (SVAL)m_bonus(1, creature_ptr->lev)+ 1), ITEM_FREE_SIZE);
+		object_prep(object_ptr, lookup_kind(TV_ARROW, (SVAL)m_bonus(1, creature_ptr->lev)+ 1));
 		object_ptr->number = (byte)rand_range(5, 10);
 		object_aware(object_ptr);
 		object_known(object_ptr);
@@ -171,7 +171,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		object_ptr = &forge;
 
 		/* Hack -- Give the player some small firestones */
-		object_prep(object_ptr, lookup_kind(TV_BOLT, (SVAL)m_bonus(1, creature_ptr->lev)+1), ITEM_FREE_SIZE);
+		object_prep(object_ptr, lookup_kind(TV_BOLT, (SVAL)m_bonus(1, creature_ptr->lev)+1));
 		object_ptr->number = (QUANTITY)rand_range(4, 8);
 		object_aware(object_ptr);
 		object_known(object_ptr);
