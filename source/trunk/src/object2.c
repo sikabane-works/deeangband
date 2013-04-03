@@ -2446,7 +2446,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 	case TV_CHEST:
 		{
-			byte obj_level = object_kind_info[object_ptr->k_idx].level;
+			FLOOR_LEV obj_level = object_kind_info[object_ptr->k_idx].level;
 
 			if(obj_level <= 0) break;	// Hack -- skip ruined chests
 			object_ptr->pval = (s16b)randint1(obj_level);	// Hack -- pick a "difficulty"

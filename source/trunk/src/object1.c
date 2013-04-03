@@ -330,6 +330,7 @@ void object_flags_known(object_type *object_ptr, FLAGS_32 flgs[MAX_TRAITS_FLAG])
 bool screen_object(object_type *object_ptr, FLAGS_32 mode)
 {
 	int k = 0;
+	if(!is_valid_object(object_ptr)) return FALSE;
 	//TODO: reimplement
 
 	prt(MES_SYS_ANY_KEY, k, 15);
