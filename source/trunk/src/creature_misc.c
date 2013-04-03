@@ -473,9 +473,9 @@ bool is_enemy_of_evil_creature(creature_type *creature_ptr)
 	return calc_punishment_slay(creature_ptr, ALIGNMENT_EVIL) > 100;
 }
 
-bool is_enemy_of_evil_species(species_type *creature_ptr)
+bool is_enemy_of_evil_species(species_type *species_ptr)
 {
-	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!species_ptr) return FALSE;
 	//TODO
 	return FALSE;
 }
@@ -486,9 +486,9 @@ bool is_enemy_of_good_creature(creature_type *creature_ptr)
 	return calc_punishment_slay(creature_ptr, ALIGNMENT_GOOD) > 100;
 }
 
-bool is_enemy_of_good_species(species_type *creature_ptr)
+bool is_enemy_of_good_species(species_type *species_ptr)
 {
-	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!species_ptr) return FALSE;
 	//TODO
 	return FALSE;
 }
@@ -498,9 +498,9 @@ bool is_enemy_of_order_creature(creature_type *creature_ptr)
 	return calc_punishment_slay(creature_ptr, ALIGNMENT_ORDER) > 100;
 }
 
-bool is_enemy_of_order_species(species_type *creature_ptr)
+bool is_enemy_of_order_species(species_type *species_ptr)
 {
-	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!species_ptr) return FALSE;
 	//TODO
 	return FALSE;
 }
@@ -510,9 +510,9 @@ bool is_enemy_of_chaos_creature(creature_type *creature_ptr)
 	return calc_punishment_slay(creature_ptr, ALIGNMENT_CHAOS) > 100;
 }
 
-bool is_enemy_of_chaos_species(species_type *creature_ptr)
+bool is_enemy_of_chaos_species(species_type *species_ptr)
 {
-	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!species_ptr) return FALSE;
 	//TODO
 	return FALSE;
 }
@@ -523,9 +523,9 @@ bool is_enemy_of_balance_creature(creature_type *creature_ptr)
 	return calc_punishment_slay(creature_ptr, ALIGNMENT_BALANCE) > 100;
 }
 
-bool is_enemy_of_balance_species(species_type *creature_ptr)
+bool is_enemy_of_balance_species(species_type *species_ptr)
 {
-	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!species_ptr) return FALSE;
 	//TODO
 	return FALSE;
 }
@@ -538,12 +538,13 @@ void set_traits_precondition(traits_precondition *flags_pre_ptr, int type, CREAT
 
 void reveal_species_info(species_type *species_ptr, TRAIT_ID type)
 {
+	if(!species_ptr || type < 0) return;
 	//TODO
 }
 
 void reveal_creature_info(creature_type *creature_ptr, TRAIT_ID type)
 {
-	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_creature(creature_ptr) || type < 0) return;
 	//TODO
 }
 
@@ -967,48 +968,56 @@ void set_unreached_race_level_penalty(creature_type *creature_ptr)
 
 bool has_breath_flags(traits_precondition *flags_pre_ptr)
 {
+	if(!flags_pre_ptr) return FALSE;
 	//TODO reimplement
 	return FALSE;
 }
 
 bool has_summon_flags(traits_precondition *flags_pre_ptr)
 {
+	if(!flags_pre_ptr) return FALSE;
 	//TODO reimplement
 	return FALSE;
 }
 
 bool has_big_ball_flags(traits_precondition *flags_pre_ptr)
 {
+	if(!flags_pre_ptr) return FALSE;
 	//TODO reimplement
 	return FALSE;
 }
 
 bool has_ball_flags(traits_precondition *flags_pre_ptr)
 {
+	if(!flags_pre_ptr) return FALSE;
 	//TODO reimplement
 	return FALSE;
 }
 
 bool has_beam_flags(traits_precondition *flags_pre_ptr)
 {
+	if(!flags_pre_ptr) return FALSE;
 	//TODO reimplement
 	return FALSE;
 }
 
 bool has_bolt_flags(traits_precondition *flags_pre_ptr)
 {
+	if(!flags_pre_ptr) return FALSE;
 	//TODO reimplement
 	return FALSE;
 }
 
 bool has_intelligence_skill_flags(traits_precondition *flags_pre_ptr)
 {
+	if(!flags_pre_ptr) return FALSE;
 	//TODO reimplement
 	return FALSE;
 }
 
 bool has_riding_disable_skill_flags(traits_precondition *flags_pre_ptr)
 {
+	if(!flags_pre_ptr) return FALSE;
 	//TODO reimplement
 	/*
 	if(has_trait_raw(flags_pre_ptr, TRAIT_SHRIEK)) return TRUE;	
@@ -1024,6 +1033,7 @@ bool has_riding_disable_skill_flags(traits_precondition *flags_pre_ptr)
 
 bool has_attack_skill_flags(traits_precondition *flags_pre_ptr)
 {
+	if(!flags_pre_ptr) return FALSE;
 	//TODO reimplement
 	return FALSE;
 }
@@ -1206,12 +1216,14 @@ int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *weapon_
 int calc_special_melee_cost(creature_type *creature_ptr, special_blow_type *special_ptr)
 {
 	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!special_ptr) return FALSE;
 	return 10;
 }
 
 int calc_special_melee_priority(creature_type *creature_ptr, special_blow_type *special_ptr)
 {
 	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!special_ptr) return FALSE;
 	return 10;
 }
 

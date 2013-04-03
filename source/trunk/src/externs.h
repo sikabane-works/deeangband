@@ -817,15 +817,15 @@ extern bool is_variable_patron_species(species_type *species_ptr);
 extern bool is_variable_chara_species(species_type *species_ptr);
 
 extern bool is_enemy_of_evil_creature(creature_type *creature_ptr);
-extern bool is_enemy_of_evil_species(species_type *creature_ptr);
+extern bool is_enemy_of_evil_species(species_type *species_ptr);
 extern bool is_enemy_of_good_creature(creature_type *creature_ptr);
-extern bool is_enemy_of_good_species(species_type *creature_ptr);
+extern bool is_enemy_of_good_species(species_type *species_ptr);
 extern bool is_enemy_of_order_creature(creature_type *creature_ptr);
-extern bool is_enemy_of_order_species(species_type *creature_ptr);
+extern bool is_enemy_of_order_species(species_type *species_ptr);
 extern bool is_enemy_of_chaos_creature(creature_type *creature_ptr);
-extern bool is_enemy_of_chaos_species(species_type *creature_ptr);
+extern bool is_enemy_of_chaos_species(species_type *species_ptr);
 extern bool is_enemy_of_balance_creature(creature_type *creature_ptr);
-extern bool is_enemy_of_balance_species(species_type *creature_ptr);
+extern bool is_enemy_of_balance_species(species_type *species_ptr);
 
 extern void set_traits_precondition(traits_precondition *flags_pre_ptr, int type, CREATURE_LEV low, CREATURE_LEV high);
 
@@ -834,7 +834,7 @@ extern void reveal_creature_info(creature_type *creature_ptr, TRAIT_ID type);
 
 extern bool has_trait_raw(traits_precondition *cf_ptr, TRAIT_ID type);
 
-extern bool has_trait_from_race(creature_type *creature_ptr, int type);
+extern bool has_trait_from_race(creature_type *creature_ptr, TRAIT_ID type);
 extern bool has_trait_from_class(creature_type *creature_ptr, int type);
 extern bool has_trait_from_chara(creature_type *creature_ptr, int type);
 extern bool has_trait_from_inventory(creature_type *creature_ptr, int type);
