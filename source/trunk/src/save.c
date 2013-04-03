@@ -352,8 +352,8 @@ static void wr_creature(creature_type *creature_ptr)
 	WRITE_CHARA_ID(creature_ptr->chara_idx);
 	wr_s16b(creature_ptr->starting_idx);
 	WRITE_SEX_ID(creature_ptr->sex);
-	wr_s16b(creature_ptr->realm1);
-	wr_s16b(creature_ptr->realm2);
+	WRITE_REALM_ID(creature_ptr->realm1);
+	WRITE_REALM_ID(creature_ptr->realm2);
 
 	wr_s16b(creature_ptr->camp_idx);
 	WRITE_SPECIES_ID(creature_ptr->master_creature_idx);

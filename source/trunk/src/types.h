@@ -1367,8 +1367,8 @@ struct creature_type
 	SPECIES_ID patron_idx;		// Patron index 
 	SPECIES_ID father_idx;
 	SPECIES_ID mother_idx;
-	s16b realm1;            // First magic realm 
-	s16b realm2;            // Second magic realm 
+	REALM_ID realm1;            // First magic realm 
+	REALM_ID realm2;            // Second magic realm 
 
 	GAME_TURN action_turn;		// Action turn
 

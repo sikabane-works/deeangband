@@ -731,8 +731,8 @@ static void rd_creature(creature_type *creature_ptr)
 	READ_CHARA_ID(&creature_ptr->chara_idx);
 	rd_s16b(&creature_ptr->starting_idx);
 	READ_SEX_ID(&creature_ptr->sex);
-	rd_s16b(&creature_ptr->realm1);
-	rd_s16b(&creature_ptr->realm2);
+	READ_REALM_ID(&creature_ptr->realm1);
+	READ_REALM_ID(&creature_ptr->realm2);
 
 	rd_s16b(&creature_ptr->camp_idx);
 	READ_SPECIES_ID(&creature_ptr->master_creature_idx);
