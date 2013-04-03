@@ -364,7 +364,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 		move_creature(creature_ptr, new_floor_ptr, sy, sx, MCE_NO_ENTER); // Already fixed
 	else if(!num)
 	{
-		if(!feat_uses_special(stair_ptr->feat)) stair_ptr->special = 0; // Mega Hack -- It's not the stairs you enter.  Disable it.
+		if(!feat_uses_special(stair_ptr->feat)) stair_ptr->to_floor = 0; // Mega Hack -- It's not the stairs you enter.  Disable it.
 		(void)new_creature_spot(new_floor_ptr, creature_ptr);
 	}
 	else
@@ -429,11 +429,11 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 	}
 
 	// Get back to old saved floor.
-	if(stair_ptr->special && stair_ptr->cy && stair_ptr->cx)
+	if(stair_ptr->to_floor && stair_ptr->cy && stair_ptr->cx)
 	{
-		new_floor_ptr = &floor_list[stair_ptr->special]; // Saved floor is exist.  Use it.
+		new_floor_ptr = &floor_list[stair_ptr->to_floor]; // Saved floor is exist.  Use it.
 		move_creature(creature_ptr, new_floor_ptr, stair_ptr->cy, stair_ptr->cx, 0);
-		floor_id = stair_ptr->special;
+		floor_id = stair_ptr->to_floor;
 	}
 
 	// Create New Floor
@@ -449,7 +449,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 		//connect_cave_to(&new_floor_ptr->cave[player_ptr->fy][player_ptr->fx], old_floor_id, old_fy, old_fx);
 	}
 
-	if(stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
+	if(stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->to_floor = floor_id; // Connect from here
 
 	// If you can return, you need to save previous floor
 
@@ -534,12 +534,12 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 			{
 				cave_type *c_ptr = &floor_ptr->cave[y][x];
 
-				if(!c_ptr->special) continue;
+				if(!c_ptr->to_floor) continue;
 				if(feat_uses_special(c_ptr->feat)) continue;
-				if(c_ptr->special != dest_floor_id) continue;
+				if(c_ptr->to_floor != dest_floor_id) continue;
 
 				// Remove old stairs 
-				c_ptr->special = 0;
+				c_ptr->to_floor = 0;
 				cave_set_feat(floor_ptr, y, x, feat_floor_rand_table[randint0(100)]);
 			}
 		}

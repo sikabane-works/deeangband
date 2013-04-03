@@ -50,6 +50,10 @@ typedef s32b STRING_OFFSET;
 
 typedef s32b PRIORITY;
 
+typedef s32b RANK;
+#define READ_RANK(VALUE) rd_s32b((RANK *)VALUE);
+#define WRITE_RANK(VALUE) wr_s32b((RANK)VALUE);
+
 typedef s32b RACE_ID;
 #define READ_RACE_ID(VALUE) rd_s32b((RACE_ID *)VALUE);
 #define WRITE_RACE_ID(VALUE) wr_s32b((RACE_ID)VALUE);

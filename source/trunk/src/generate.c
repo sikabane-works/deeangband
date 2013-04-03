@@ -1399,6 +1399,7 @@ void clear_cave(floor_type *floor_ptr)
 			c_ptr->object_idx = 0;
 			c_ptr->creature_idx = 0;
 			c_ptr->special = 0;
+			c_ptr->to_floor = 0;
 			c_ptr->mimic = 0;
 			c_ptr->cost = 0;
 			c_ptr->dist = 0;

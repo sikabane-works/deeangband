@@ -1606,7 +1606,7 @@ void object_copy(object_type *object1_ptr, object_type *object2_ptr)
 }
 
 // Prepare an object based on an object kind.
-void object_prep(object_type *object_ptr, int k_idx, int size)
+void object_prep(object_type *object_ptr, OBJECT_KIND_ID k_idx, int size)
 {
 	int i;
 

@@ -1108,7 +1108,7 @@ extern bool object_similar(object_type *object1_ptr, object_type *object2_ptr);
 extern void object_absorb(object_type *object1_ptr, object_type *object2_ptr);
 extern OBJECT_KIND_ID lookup_kind(TVAL tval, SVAL sval);
 extern void object_wipe(object_type *object_ptr);
-extern void object_prep(object_type *object_ptr, int k_idx, int size);
+extern void object_prep(object_type *object_ptr, OBJECT_KIND_ID k_idx, int size);
 extern void object_copy(object_type *object1_ptr, object_type *object2_ptr);
 extern void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLAGS_32 mode, int specified_idx);
 extern void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr, int lev, int ego);
