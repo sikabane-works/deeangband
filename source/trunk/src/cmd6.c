@@ -337,8 +337,6 @@ static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *o
 		    my_strchr("pht", species_info[object_ptr->pval].d_char))
 			return TRUE;
 	}
-
-	/* Assume not */
 	return FALSE;
 }
 

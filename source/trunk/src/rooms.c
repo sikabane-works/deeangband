@@ -1834,7 +1834,6 @@ static bool vault_aux_dark_elf(SPECIES_ID species_idx)
 	for (i = 0; dark_elf_list[i]; i++)
 		if(species_idx == dark_elf_list[i]) return TRUE;
 
-	/* Assume not */
 	return FALSE;
 }
 
