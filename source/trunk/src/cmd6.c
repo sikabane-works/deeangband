@@ -1774,7 +1774,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		if(has_trait_object(object_ptr, i))
 			do_active_trait(creature_ptr, i, FALSE);
 
-	ident = rod_effect(creature_ptr, object_ptr->sval, dir, &use_charge, FALSE);
+	ident = rod_effect(creature_ptr, object_ptr->sval, &use_charge, FALSE);
 	if(use_charge)
 	{
 		object_ptr->timeout += object_ptr->charge_const; // Increase the timeout
@@ -2794,7 +2794,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 		{
 			if((sval >= SV_ROD_MIN_DIRECTION) && (sval != SV_ROD_HAVOC) && (sval != SV_ROD_AGGRAVATE) && (sval != SV_ROD_PESTICIDE))
 				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-			rod_effect(creature_ptr, sval, dir, &use_charge, TRUE);
+			rod_effect(creature_ptr, sval, &use_charge, TRUE);
 			if(!use_charge) return;
 		}
 		else if(tval == TV_WAND)

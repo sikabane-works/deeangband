@@ -1411,7 +1411,7 @@ struct creature_type
 	byte equip_now[INVEN_TOTAL];         // equipment flag
 	s16b item_slot_num[MAX_INVENTORY_SLOTS];
 
-	s32b au;			// Current Gold 
+	PRICE au;			// Current Gold 
 
 	s32b max_max_exp;	// Max max experience (only to calculate score) 
 	s32b max_exp;		// Max experience 
@@ -1452,8 +1452,8 @@ struct creature_type
 	s32b current_charge[MAGIC_EATER_SKILL_MAX];
 	byte max_charge[MAGIC_EATER_SKILL_MAX];
 
-	s32b now_singing;
-	s32b pre_singing;
+	TRAIT_ID now_singing;
+	TRAIT_ID pre_singing;
 	GAME_TURN singing_turn;
 
 	s32b spelling_hex;
