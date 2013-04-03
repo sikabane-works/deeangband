@@ -1099,7 +1099,7 @@ static cptr comment_7d[MAX_COMMENT_7D] =
 
 // Let a shop-keeper React to a purchase
 // We paid "price", it was worth "value", and we thought it was worth "guess
-static void purchase_analyze(creature_type *guest_ptr, s32b price, s32b value, s32b guess)
+static void purchase_analyze(s32b price, s32b value, s32b guess)
 {
 	/* Item was worthless, but we bought it */
 	if((value <= 0) && (price > value))
@@ -3693,7 +3693,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 			if(record_sell) do_cmd_write_diary(DIARY_SELL, 0, object_name);
 
 			if(!((object_ptr->tval == TV_FIGURINE) && (value > 0))) /* Analyze the prices (and comment verbally) unless a figurine*/
-				purchase_analyze(creature_ptr, price, value, dummy);
+				purchase_analyze(price, value, dummy);
 
 			/*
 			 * Hack -- Allocate charges between those wands or rods sold

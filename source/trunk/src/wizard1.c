@@ -2158,75 +2158,18 @@ void do_cmd_spoilers(void)
  */
 static void random_artifact_analyze(object_type *object_ptr, obj_desc_list *desc_ptr)
 {
-	//TODO
+	/* TODO */
 }
 
 /* Create a spoiler file entry for an artifact */
-
 static void spoiler_print_randart(object_type *object_ptr, obj_desc_list *art_ptr)
 {
 	pval_info_type *pval_ptr = &art_ptr->pval_info;
-
 	char buf[80];
-
-	/* Don't indent the first line */
-	fprintf(fff, "%s\n", art_ptr->description);
-	
-	/* unidentified */
-	if(!(object_ptr->ident & (IDENT_MENTAL)))
-	{
-#ifdef JP
-		fprintf(fff, "%s•s–¾\n",INDENT1);
-#else
-		fprintf(fff, "%sUnknown\n",INDENT1);
-#endif
-	}
-	else {
-		/* An "empty" pval description indicates that the pval affects nothing */
-		if(pval_ptr->pval_desc[0])
-		{
-			/* Mention the effects of pval */
-#ifdef JP
-			sprintf(buf, "%s‚ÌC³:", pval_ptr->pval_desc);
-#else
-			sprintf(buf, "%s to", pval_ptr->pval_desc);
-#endif
-			spoiler_outlist(buf, pval_ptr->pval_affects, ITEM_SEP);
-		}
-
-		/* Now deal with the description lists */
-
-#ifdef JP
-		spoiler_outlist("‘Î:", art_ptr->slays, ITEM_SEP);
-		spoiler_outlist("•Ší‘®«:", art_ptr->brands, LIST_SEP);
-		spoiler_outlist("–Æ‰u:", art_ptr->immunities, ITEM_SEP);
-		spoiler_outlist("‘Ï«:", art_ptr->resistances, ITEM_SEP);
-		spoiler_outlist("ˆÛŽ:", art_ptr->sustains, ITEM_SEP);
-#else
-		spoiler_outlist("Slay", art_ptr->slays, ITEM_SEP);
-		spoiler_outlist("", art_ptr->brands, LIST_SEP);
-		spoiler_outlist("Immunity to", art_ptr->immunities, ITEM_SEP);
-		spoiler_outlist("Resist", art_ptr->resistances, ITEM_SEP);
-		spoiler_outlist("Sustain", art_ptr->sustains, ITEM_SEP);
-#endif
-//		spoiler_outlist("", art_ptr->misc_magic, LIST_SEP);
-
-		/* Write out the possible activation at the primary indention level */
-		if(art_ptr->activation)
-		{
-#ifdef JP
-			fprintf(fff, "%s”­“®: %s\n", INDENT1, art_ptr->activation);
-#else
-			fprintf(fff, "%sActivates for %s\n", INDENT1, art_ptr->activation);
-#endif
-		}
-	}
-	/* End with the miscellaneous facts */
-	fprintf(fff, "%s%s\n\n", INDENT1, art_ptr->misc_desc);
+	/* TODO */
 }
 
 /* Create a part of file for random artifacts */
-
 static void spoil_random_artifact_aux(object_type *object_ptr, int i)
 {
 	obj_desc_list artifact;
