@@ -50,6 +50,22 @@ typedef s32b STRING_OFFSET;
 
 typedef s32b PRIORITY;
 
+typedef s32b RACE_ID;
+#define READ_RACE_ID(VALUE) rd_s32b((RACE_ID *)VALUE);
+#define WRITE_RACE_ID(VALUE) wr_s32b((RACE_ID)VALUE);
+
+typedef s32b CLASS_ID;
+#define READ_CLASS_ID(VALUE) rd_s32b((CLASS_ID *)VALUE);
+#define WRITE_CLASS_ID(VALUE) wr_s32b((CLASS_ID)VALUE);
+
+typedef s32b CHARA_ID;
+#define READ_CHARA_ID(VALUE) rd_s32b((CHARA_ID *)VALUE);
+#define WRITE_CHARA_ID(VALUE) wr_s32b((CHARA_ID)VALUE);
+
+typedef s32b SEX_ID;
+#define READ_SEX_ID(VALUE) rd_s32b((SEX_ID *)VALUE);
+#define WRITE_SEX_ID(VALUE) wr_s32b((SEX_ID)VALUE);
+
 typedef s32b VAULT_ID;
 #define READ_VAULT_ID(VALUE) rd_s32b((VAULT_ID *)VALUE);
 #define WRITE_VAULT_ID(VALUE) wr_s32b((VAULT_ID)VALUE);
@@ -1333,9 +1349,9 @@ struct creature_type
 	COODINATES oldpy; /* Previous player location -KMW- */ 
 	COODINATES oldpx; /* Previous player location -KMW- */
 
-	s16b race_idx1;			    // Race index
-	s16b race_idx2;			    // Race index
-	s16b mimic_race_idx;		// Mimic Race index
+	RACE_ID race_idx1;			    // Race index
+	RACE_ID race_idx2;			    // Race index
+	RACE_ID mimic_race_idx;		// Mimic Race index
 	SPECIES_ID species_idx;			// Species index
 	SPECIES_ID ap_species_idx;		// Species appearance index
 	s16b creature_ego_idx;		// Ego index
@@ -1343,11 +1359,11 @@ struct creature_type
 	byte sub_align;		    // Sub-alignment for a neutral creature 
 	FLAGS_32 sub_race[8];       // Sub-Race flags 
 	FLAGS_32 authority[8];      // Autority flags
-	s16b sex;				// Sex index 
+	SEX_ID sex;				// Sex index 
 	bool sexual_penalty;	// Sexual penalty flag 
-	s16b class_idx;		    // Class index 
+	CLASS_ID class_idx;		    // Class index 
 	bool cls_bonus;	        // Class bonus flag
-	s16b chara_idx;		    // Chara index 
+	CHARA_ID chara_idx;		    // Chara index 
 	SPECIES_ID patron_idx;		// Patron index 
 	SPECIES_ID father_idx;
 	SPECIES_ID mother_idx;

@@ -829,6 +829,7 @@ static cptr *spoiler_flag_aux(const u32b trait_flags[MAX_TRAITS_FLAG], const fla
 // Fill in an object description structure for a given object
 static void object_analyze(object_type *object_ptr)
 {
+	if(!is_valid_object(object_ptr)) return;
 	//TODO
 }
 
@@ -2054,12 +2055,14 @@ void do_cmd_spoilers(void)
  */
 static void random_artifact_analyze(object_type *object_ptr)
 {
+	if(!is_valid_object(object_ptr)) return;
 	/* TODO */
 }
 
 /* Create a spoiler file entry for an artifact */
 static void spoiler_print_randart(object_type *object_ptr)
 {
+	if(!is_valid_object(object_ptr)) return;
 	/* TODO */
 }
 
