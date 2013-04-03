@@ -447,19 +447,19 @@ int specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, TVAL tv, 
 }
 
 /*
-* Handle the "death" of a creature.
-*
-* Disperse treasures centered at the creature location based on the
-* various flags contained in the creature flags fields.
-*
-* Check for "Quest" completion when a quest creature is killed.
-*
-* Note that only the player can induce "creature_dead_effect()" on Uniques.
-* Thus (for now) all Quest creatures should be Uniques.
-*
-* Note that creatures can now carry objects, and when a creature dies,
-* it drops all of its objects, which may disappear in crowded rooms.
-*/
+ * Handle the "death" of a creature.
+ *
+ * Disperse treasures centered at the creature location based on the
+ * various flags contained in the creature flags fields.
+ *
+ * Check for "Quest" completion when a quest creature is killed.
+ *
+ * Note that only the player can induce "creature_dead_effect()" on Uniques.
+ * Thus (for now) all Quest creatures should be Uniques.
+ *
+ * Note that creatures can now carry objects, and when a creature dies,
+ * it drops all of its objects, which may disappear in crowded rooms.
+ */
 void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bool drop_item)
 {
 	int i, j;
@@ -468,15 +468,11 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	floor_type *floor_ptr = GET_FLOOR_PTR(dead_ptr);
 	species_type *species_ptr = &species_info[dead_ptr->species_idx];
 	char slayer_name[MAX_NLEN], dead_name[MAX_NLEN];
-
 	int dump_item = 0;
 	int dump_gold = 0;
-
 	int number = 0;
 
-	bool visible = is_seen(slayer_ptr, dead_ptr) && !has_trait(slayer_ptr, TRAIT_HALLUCINATION);
-
-	u32b mo_mode = 0L;
+	FLAGS_32 mo_mode = 0L;
 
 	bool do_gold = FALSE; // TODO
 	bool do_item = FALSE; // TODO

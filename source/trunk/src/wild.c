@@ -626,7 +626,7 @@ struct wilderness_grid
 	int terrain;    /* Terrain type */
 	TOWN_ID town;       /* Town number */
 	FLOOR_LEV level;		/* Level of the wilderness */
-	byte road;       /* Road */
+	FLAGS_8 road;       /* Road */
 	char name[32];	/* Name of the town/wilderness */
 };
 
@@ -683,7 +683,7 @@ errr parse_line_wilderness(char *buf, COODINATES ymin, COODINATES xmin, COODINAT
 				w_letter[index].town = 0;
 			
 			if(num > 4)
-				w_letter[index].road = strtol(zz[4], NULL, 10);
+				w_letter[index].road = (FLAGS_8)strtol(zz[4], NULL, 10);
 			else
 				w_letter[index].road = 0;
 			

@@ -78,6 +78,10 @@ typedef s32b AUTHORITY_ID;
 #define READ_AUTHORITY_ID(VALUE) rd_u32b((AUTHORITY_ID *)VALUE);
 #define WRITE_AUTHORITY_ID(VALUE) wr_u32b((AUTHORITY_ID)VALUE);
 
+typedef byte FLAGS_8;
+#define READ_FLAGS_8(VALUE) rd_u32b((FLAGS_8 *)VALUE);
+#define WRITE_FLAGS_8(VALUE) wr_u32b((FLAGS_8)VALUE);
+
 typedef u32b FLAGS_32;
 #define READ_FLAGS_32(VALUE) rd_u32b((FLAGS_32 *)VALUE);
 #define WRITE_FLAGS_32(VALUE) wr_u32b((FLAGS_32)VALUE);
@@ -631,8 +635,8 @@ struct species_type
 	ARTIFACT_ID artifact_id[INVEN_TOTAL];
 	TVAL artifact_tval[INVEN_TOTAL];
 	SVAL artifact_sval[INVEN_TOTAL];
-	u16b artifact_prob[INVEN_TOTAL];
-	u32b artifact_flag[INVEN_TOTAL];
+	PERCENT artifact_prob[INVEN_TOTAL];
+	FLAGS_32 artifact_flag[INVEN_TOTAL];
 	OBJECT_EGO_ID artifact_ego[INVEN_TOTAL];
 
 	s32b exp;				/* Exp value for kill */
