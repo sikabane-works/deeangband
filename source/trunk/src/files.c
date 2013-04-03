@@ -2137,23 +2137,6 @@ static void known_obj_immunity(u32b flgs[MAX_TRAITS_FLAG], creature_type *creatu
 	}
 }
 
-static void player_immunity(u32b flgs[MAX_TRAITS_FLAG], creature_type *creature_ptr)
-{
-	int i;
-	for (i = 0; i < MAX_TRAITS_FLAG; i++) flgs[i] = 0L;
-
-	/* TODO 
-	if(IS_RACE(creature_ptr, RACE_LICH))
-		add_flag(flgs, TRAIT_RES_NETH);
-	if(creature_ptr->mimic_race_idx == MIMIC_VAMPIRE || IS_RACE(creature_ptr, RACE_VAMPIRE))
-		add_flag(flgs, TRAIT_RES_DARK);
-	if(creature_ptr->mimic_race_idx == MIMIC_DEMON_LORD)
-		add_flag(flgs, TRAIT_RES_FIRE);
-	if(IS_RACE(creature_ptr, RACE_YEEK) && creature_ptr->lev > 19)
-		add_flag(flgs, TRAIT_RES_ACID);
-	*/
-}
-
 static void tim_player_immunity(u32b flgs[MAX_TRAITS_FLAG], creature_type *creature_ptr)
 {
 	int i;
@@ -2311,8 +2294,8 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	all_player_flags f;
 
 	/* Extract flags and store */
-	player_immunity(f.player_imm, creature_ptr);
-	tim_player_immunity(f.tim_player_imm, creature_ptr);
+	//TODO player_immunity(f.player_imm, creature_ptr);
+	//TODO tim_player_immunity(f.tim_player_imm, creature_ptr);
 	known_obj_immunity(f.known_obj_imm, creature_ptr);
 	player_vuln_flags(f.player_vuln, creature_ptr);
 
@@ -2509,8 +2492,8 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	all_player_flags f;
 
 	/* Extract flags and store */
-	player_immunity(f.player_imm, creature_ptr);
-	tim_player_immunity(f.tim_player_imm, creature_ptr);
+	//TODO player_immunity(f.player_imm, creature_ptr);
+	//TODO tim_player_immunity(f.tim_player_imm, creature_ptr);
 	known_obj_immunity(f.known_obj_imm, creature_ptr);
 	player_vuln_flags(f.player_vuln, creature_ptr);
 
@@ -2567,8 +2550,8 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	all_player_flags f;
 
 	/* Extract flags and store */
-	player_immunity(f.player_imm, creature_ptr);
-	tim_player_immunity(f.tim_player_imm, creature_ptr);
+	//TODO player_immunity(f.player_imm, creature_ptr);
+	//TODO tim_player_immunity(f.tim_player_imm, creature_ptr);
 	known_obj_immunity(f.known_obj_imm, creature_ptr);
 	player_vuln_flags(f.player_vuln, creature_ptr);
 
@@ -2691,8 +2674,8 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 	all_player_flags f;
 
 	/* Extract flags and store */
-	player_immunity(f.player_imm, creature_ptr);
-	tim_player_immunity(f.tim_player_imm, creature_ptr);
+	//TODO player_immunity(f.player_imm, creature_ptr);
+	//TODO tim_player_immunity(f.tim_player_imm, creature_ptr);
 	known_obj_immunity(f.known_obj_imm, creature_ptr);
 	player_vuln_flags(f.player_vuln, creature_ptr);
 
