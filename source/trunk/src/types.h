@@ -768,7 +768,8 @@ struct cave_type
 	FEATURE_ID feat;		   // Hack -- feature type
 	OBJECT_ID object_idx;   // Object in this grid
 	CREATURE_ID creature_idx; // Creature in this grid
-	s16b special;      // Special cave info
+	s16b special;
+	FLOOR_ID to_floor;      // Special cave info
 	FLOOR_ID mimic;        // Feature to mimic
 	POWER cost;         // Hack -- cost of flowing
 	COODINATES dist;         // Hack -- distance from player
