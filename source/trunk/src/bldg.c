@@ -1812,7 +1812,7 @@ static bool kankin(creature_type *creature_ptr)
 	return TRUE;
 }
 
-void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
+void have_nightmare(creature_type *watcher_ptr, SPECIES_ID eldritch_idx)
 {
 	species_type *eldritch_ptr = &species_info[eldritch_idx];
 	POWER power = eldritch_ptr->level + 10;
@@ -2106,6 +2106,7 @@ static void town_history(void)
 // Hook to specify "ammo"
 static bool item_tester_hook_ammo(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
 	switch (object_ptr->tval)
 	{
 		case TV_SHOT:
@@ -3199,8 +3200,7 @@ void do_cmd_quest(creature_type *creature_ptr)
 // Do building commands
 void do_cmd_bldg(creature_type *creature_ptr)
 {
-	int which;
-	char command;
+	int which, command;
 	building_type *bldg;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
