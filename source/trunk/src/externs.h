@@ -576,7 +576,7 @@ extern FEATURE_ID feat_wall_outer;
 extern FEATURE_ID feat_wall_inner;
 extern FEATURE_ID feat_wall_solid;
 extern FEATURE_ID feat_floor_rand_table[100], fill_type[100];
-extern s16b now_message;
+extern int now_message;
 extern bool use_menu;
 
 // autopick.c

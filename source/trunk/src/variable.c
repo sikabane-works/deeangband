@@ -1028,7 +1028,7 @@ FEATURE_ID feat_wall_inner;
 FEATURE_ID feat_wall_solid;
 FEATURE_ID feat_floor_rand_table[100], fill_type[100];
 
-s16b now_message;
+int now_message;
 bool use_menu;
 
 #ifdef CHUUKEI

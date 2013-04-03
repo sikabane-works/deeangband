@@ -286,7 +286,7 @@ static void spoil_obj_desc(cptr fname)
 {
 	int i, k, s, t, n = 0, group_start = 0;
 
-	u16b who[200];
+	OBJECT_ID who[200];
 
 	char buf[1024];
 
@@ -1211,7 +1211,7 @@ static void spoil_species_desc(cptr fname)
 	int stat[6];
 
 	u16b why = 2;
-	s16b *who;
+	SPECIES_ID *who;
 
 	char buf[1024];
 
@@ -1248,7 +1248,7 @@ static void spoil_species_desc(cptr fname)
 	}
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_species_idx, s16b);
+	C_MAKE(who, max_species_idx, SPECIES_ID);
 
 	/* Dump the header */
 	fprintf(fff, "Creature Spoilers for %s Version %d.%d.%d\n", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
@@ -1485,7 +1485,7 @@ static void spoil_species_desc(cptr fname)
 
 
 	/* Free the "who" array */
-	C_KILL(who, max_species_idx, s16b);
+	C_KILL(who, max_species_idx, SPECIES_ID);
 
 	/* Check for errors */
 	if(ferror(fff) || my_fclose(fff))
@@ -1693,7 +1693,7 @@ static void spoil_species_info(cptr fname)
 	int tmpht;
 
 	u16b why = 2;
-	s16b *who;
+	SPECIES_ID *who;
 
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, fname);
@@ -1718,7 +1718,7 @@ static void spoil_species_info(cptr fname)
 	spoil_out("------------------------------------------\n\n");
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_species_idx, s16b);
+	C_MAKE(who, max_species_idx, SPECIES_ID);
 
 	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
@@ -1845,7 +1845,7 @@ static void spoil_species_info(cptr fname)
 	}
 
 	/* Free the "who" array */
-	C_KILL(who, max_species_idx, s16b);
+	C_KILL(who, max_species_idx, SPECIES_ID);
 
 	/* Check for errors */
 	if(ferror(fff) || my_fclose(fff))
