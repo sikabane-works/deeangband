@@ -509,7 +509,7 @@ struct ego_item_type
 	FLAGS_32 flags[MAX_TRAITS_FLAG];	/* Ego-Item Flags */
 	traits_precondition add_creature_traits;
 
-	u32b gen_flags;		/* flags for generate */
+	FLAGS_32 gen_flags;		/* flags for generate */
 };
 
 
@@ -583,25 +583,25 @@ struct species_type
 	SPECIES_ID ap_species_idx;		    /* Species appearance index */
 
 	s16b camp;
-	s16b race_idx1;                 /* Race index 1*/
-	s16b race_idx2;                 /* Race index 2*/
+	RACE_ID race_idx1;                 /* Race index 1*/
+	RACE_ID race_idx2;                 /* Race index 2*/
 	u32b sub_race[8];               /* Sub-Race index */
-	s16b sex;                       /* Sex index */
-	s16b class_idx;                   /* Class index */
+	SEX_ID sex;                       /* Sex index */
+	CLASS_ID class_idx;                   /* Class index */
 	SPECIES_ID patron_idx;
 	SPECIES_ID father_idx;
 	SPECIES_ID mother_idx;
-	s16b chara_idx;                 /* Chara index */
+	CHARA_ID chara_idx;                 /* Chara index */
 	s16b creature_ego_idx;		    /* Creature ego index */
 
-	s16b realm1;       /* First magic realm */
-	s16b realm2;       /* Second magic realm */
+	REALM_ID realm1;       /* First magic realm */
+	REALM_ID realm2;       /* Second magic realm */
 	FLAGS_32 authority[8];      /* Autority flags*/
 
 	s32b age;
-	s16b sc;
+	RANK sc;
 
-	s32b au;
+	PRICE au;
 
 	STAT stat_max[STAT_MAX];			/* Current modified stats */
 	STAT stat_max_max[STAT_MAX];		/* Maximal "maximal" stat values */
@@ -612,15 +612,15 @@ struct species_type
 
 	char history[HISTORY_ROW][HISTORY_COL];
 
-	u32b m_b_ht;		/* base height (males) */
-	u32b m_m_ht;		/* mod height (males) */
-	u32b m_b_wt;		/* base weight (males) */
-	u32b m_m_wt;		/* mod weight (males) */
+	HEIGHT m_b_ht; /* base height (males) */
+	HEIGHT m_m_ht; /* mod height (males) */
+	WEIGHT m_b_wt; /* base weight (males) */
+	WEIGHT m_m_wt; /* mod weight (males) */
 
-	u32b f_b_ht;		/* base height (females) */
-	u32b f_m_ht;		/* mod height (females)	  */
-	u32b f_b_wt;		/* base weight (females) */
-	u32b f_m_wt;		/* mod weight (females) */
+	HEIGHT f_b_ht; /* base height (females) */
+	HEIGHT f_m_ht; /* mod height (females)	  */
+	WEIGHT f_b_wt; /* base weight (females) */
+	WEIGHT f_m_wt; /* mod weight (females) */
 
 	CREATURE_LEV dr; /* Divine Rank */
 
