@@ -1316,7 +1316,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	int upkeep_regen;
 	int regen_amount = CREATURE_REGEN_NORMAL;	// Default regeneration
 
-	if(!is_valid_creature_aux(creature_ptr)) return;
+	if(!is_valid_creature(creature_ptr)) return;
 
 	creature_desc(creature_name, creature_ptr, 0);
 
@@ -1752,6 +1752,8 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(!is_valid_creature(creature_ptr)) return;
 	if(floor_ptr->gamble_arena_mode) return;
 	if(floor_ptr->global_map) return;	// No effect on the global map
+
+	return;
 
 	if(has_trait(creature_ptr, TRAIT_BERS_RAGE) && one_in_(3000))
 	{
@@ -2397,7 +2399,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Handle HP draining */
 	if((has_trait(creature_ptr, TRAIT_DRAIN_HP)) && one_in_(666))
 	{
-
 		object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 		msg_format("%s‚Í‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I", object_name);
@@ -2423,19 +2424,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(one_in_(999) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
 		object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
-
 		//TODO if(object_ptr->name1 == ART_JUDGE)
-		{
-#ifdef JP
-			if(object_is_known(object_ptr)) msg_print("wR”»‚Ì•óÎx‚Í‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I");
-			else msg_print("‚È‚É‚©‚ª‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I");
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev, 50), "R”»‚Ì•óÎ", NULL, -1);
-#else
-			if(object_is_known(object_ptr)) msg_print("The Jewel of Judgement drains life from you!");
-			else msg_print("Something drains life from you!");
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev, 50), "the Jewel of Judgement", "", -1);
-#endif
-		}
 	}
 }
 

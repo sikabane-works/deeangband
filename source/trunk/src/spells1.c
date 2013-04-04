@@ -3199,12 +3199,11 @@ static bool project_creature(creature_type *caster_ptr, int r, int y, int x, POW
 	char m_poss[10];
 #endif
 
+	//TODO
 	//if((player_ptr->posture & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev * 3 / 5+20)) && (caster_ptr != &creature_list[player_ptr->riding]))
 	//	if(kawarimi(player_ptr, TRUE)) return FALSE;
 
 	if(caster_ptr == target_ptr) return FALSE; // Caster cannot hurt himself
-	if(!is_valid_creature_aux(target_ptr)) return FALSE;
-	//if(caster_ptr == &creature_list[player_ptr->riding]) return FALSE;
 
 	if((has_trait(target_ptr, TRAIT_REFLECTING) || ((target_ptr->posture & KATA_FUUJIN) && !has_trait(target_ptr, TRAIT_BLIND))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
