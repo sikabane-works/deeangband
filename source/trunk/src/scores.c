@@ -255,7 +255,6 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 			sprintf(out_val, "%3d.%9s  %s%s%s",
 				place, the_score.pts,
 				chara_info[pa].title, (chara_info[pa].no ? "‚Ì" : ""), the_score.who);
-
 #else
 			sprintf(out_val, "%3d.%9s  %s %s the %s %s, Level %d",
 				place, the_score.pts,

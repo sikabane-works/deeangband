@@ -380,7 +380,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				}
 			}
 		}
-		else msg_format(MES_MELEE_ATTACK, attacker_name, target_name, weapon_name);
+		else
+			msg_format(MES_MELEE_ATTACK, attacker_name, target_name, weapon_name);
 
 		if(k <= 0) can_drain = FALSE;
 		if(drain_result > target_ptr->chp) drain_result = target_ptr->chp;
@@ -1015,174 +1016,16 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, int m
 		health_track(c_ptr->creature_idx); // Track a new creature
 	}
 
+	/*
 	if(zantetsuken_cancel(attacker_ptr, target_ptr)) return FALSE; // Cease by Zantetsu-Ken
 	if(is_melee_limitation_field(floor_ptr)) return FALSE; // No melee flag
 	if(cease_for_friend(attacker_ptr, target_ptr)) return FALSE; // Stop if friendly
 	if(fear_cancel(attacker_ptr, target_ptr)) return FALSE; // Ceased by fear
 	if(cease_by_counter(attacker_ptr, target_ptr)) return FALSE; // Ceased by Iai Counter
 	if(kawarimi(target_ptr, TRUE)) return FALSE; // Ceased by Kawarimi
+	*/
 
 	//TODO gain_skill(attacker, SKILL_RIDING, amount);
-
-	riding_t_m_idx = c_ptr->creature_idx;
-
-	action_power = calc_action_power(attacker_ptr);
-	action_num = 0;
-	tried_num = 0;
-	cost_tactical_energy(attacker_ptr, 100);
-
-	do
-	{
-		if(IS_DEAD(target_ptr)) break;
-		action_num = 0;
-
-		for(i = 0; i < MAX_MELEE_TYPE; i++)
-		{
-			switch(i)
-			{
-			case MELEE_TYPE_WEAPON_1ST:
-			case MELEE_TYPE_WEAPON_2ND:
-			case MELEE_TYPE_WEAPON_3RD:
-			case MELEE_TYPE_WEAPON_4TH:
-			case MELEE_TYPE_WEAPON_5TH:
-			case MELEE_TYPE_WEAPON_6TH:
-			case MELEE_TYPE_WEAPON_7TH:
-			case MELEE_TYPE_WEAPON_8TH:
-				weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, i - MELEE_TYPE_WEAPON_1ST);
-				action_cost[i] = calc_weapon_melee_cost(attacker_ptr, weapon_ptr);
-
-				if(attacker_ptr->can_melee[i] && action_cost[i] <= action_power)
-				{
-					select_weight[action_num] = calc_weapon_melee_priority(attacker_ptr, weapon_ptr);
-					select_list[action_num] = i;
-					action_num++;
-				}
-				break;
-
-			case MELEE_TYPE_SPECIAL_1ST:
-			case MELEE_TYPE_SPECIAL_2ND:
-			case MELEE_TYPE_SPECIAL_3RD:
-			case MELEE_TYPE_SPECIAL_4TH:
-				special_ptr = &attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST];
-				action_cost[i] = calc_special_melee_cost(attacker_ptr, special_ptr);
-				if(attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST].effect > 0 && action_cost[i] <= action_power)
-				{
-					select_weight[action_num] = calc_special_melee_priority(attacker_ptr, special_ptr);
-					select_list[action_num] = i;
-					action_num++;
-				}
-				break;
-
-			case MELEE_TYPE_BARE_HAND:
-				break;
-
-			case MELEE_TYPE_STAMP:
-				break;
-
-			case MELEE_TYPE_HORNS:
-			case MELEE_TYPE_BEAK:
-			case MELEE_TYPE_SCOR_TAIL:
-			case MELEE_TYPE_TRUNK:
-			case MELEE_TYPE_TENTACLES:
-				break;
-
-			}
-		}
-
-		if(!action_num)	
-		{
-			if(tried_num <= 0 && is_player(attacker_ptr))
-				msg_format(MES_MELEE_NO_METHOD(attacker_name));
-			return FALSE;
-		}
-
-		i = (s16b)uneven_rand(select_list, select_weight, action_num);
-
-		// Hack -- Apply "protection from evil"
-		if(has_trait(target_ptr, TRAIT_PROT_EVIL) && is_enemy_of_good_creature(target_ptr) && (target_ptr->lev >= attacker_ptr->lev) && ((randint0(100) + target_ptr->lev) > 50))
-		{
-			//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr)) species_ptr->r_flags3 |= RF3_EVIL; // Remember the Evil-ness
-			msg_format(MES_MELEE_PROTECTED(attacker_name));
-			return FALSE;
-		}
-
-		switch(i)
-		{
-		case MELEE_TYPE_WEAPON_1ST:
-		case MELEE_TYPE_WEAPON_2ND:
-		case MELEE_TYPE_WEAPON_3RD:
-		case MELEE_TYPE_WEAPON_4TH:
-		case MELEE_TYPE_WEAPON_5TH:
-		case MELEE_TYPE_WEAPON_6TH:
-		case MELEE_TYPE_WEAPON_7TH:
-		case MELEE_TYPE_WEAPON_8TH:
-			if(attacker_ptr->can_melee[i]) weapon_attack(attacker_ptr, target_ptr, y, x, i + MELEE_TYPE_WEAPON_1ST, mode);
-			//TODO gain_skill(attacker, SKILL_MULTI_WEAPON, amount); 
-			break;
-
-		case MELEE_TYPE_SPECIAL_1ST:
-		case MELEE_TYPE_SPECIAL_2ND:
-		case MELEE_TYPE_SPECIAL_3RD:
-		case MELEE_TYPE_SPECIAL_4TH:
-			special_melee(attacker_ptr, target_ptr, i - MELEE_TYPE_SPECIAL_1ST);
-			//TODO gain_skill(attacker, SKILL_MULTI_WEAPON, amount); 
-			break;
-
-		case MELEE_TYPE_BARE_HAND:
-			barehand_attack(attacker_ptr, target_ptr); 
-			//TODO gain_skill(attacker, SKILL_MULTI_WEAPON, amount); 
-			break;
-
-		case MELEE_TYPE_STAMP:
-			break;
-
-		case MELEE_TYPE_HORNS:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_HORNS);
-			break;
-
-		case MELEE_TYPE_BEAK:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_BEAK);
-			break;
-
-		case MELEE_TYPE_SCOR_TAIL:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_SCOR_TAIL);
-			break;
-
-		case MELEE_TYPE_TRUNK:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_TRUNK);
-			break;
-
-		case MELEE_TYPE_TENTACLES:
-			natural_attack(attacker_ptr, target_ptr, TRAIT_TENTACLES);
-			break;
-
-		}
-
-		tried_num++;
-		action_power -= action_cost[i];
-
-		if((target_ptr->counter || (target_ptr->posture & KATA_MUSOU)) && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))
-		{
-			target_ptr->csp -= 7;
-			msg_format(MES_MELEE_COUNTER(attacker_name));
-			close_combat(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_COUNTER);
-			prepare_redraw(PR_MANA);
-		}
-
-	} while(tried_num < 10 && !IS_DEAD(target_ptr));
-
-	if(!tried_num)
-	{
-#ifdef JP
-		msg_format("%s‚Í%sUŒ‚‚Å‚«‚È‚¢B", attacker_name, (!empty_hands(attacker_ptr, FALSE)) ? "—¼Žè‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
-#else
-		msg_print("You cannot do attacking.");
-#endif
-		return FALSE;
-	}
-
-	if((attacker_ptr->posture & KATA_IAI) && ((mode != HISSATSU_IAI) || dead))
-		set_action(attacker_ptr, ACTION_NONE);
 
 	return dead;
 }
