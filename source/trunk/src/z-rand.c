@@ -398,9 +398,13 @@ u32b Rand_simple(u32b m)
 int uneven_rand(int *id_list, int *weight_list, int num)
 {
 	int i;
-
 	long value, total = 0L;
 	
+	if(!num){
+		msg_warning("zero selection of uneven rand.");
+		return 0;
+	}
+
 	for (i = 0; i < num; i++)
 		if(weight_list[i] > 0) total += weight_list[i];
 
