@@ -1521,7 +1521,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[target_ptr->fy][target_ptr->fx];
 
-	int photo = 0;
+	SPECIES_ID photo = 0;
 	bool skipped = FALSE;
 	bool dissolves_dying = FALSE;
 	bool light_dying = FALSE;

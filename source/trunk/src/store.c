@@ -2569,8 +2569,8 @@ static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
 	*com_val = (-1);
 
 	/* Build the prompt */
-	lo = I2A(i);
-	hi = (j > 25) ? toupper(I2A(j - 26)) : I2A(j);
+	lo = (char)I2A(i);
+	hi = (char)((j > 25) ? toupper(I2A(j - 26)) : I2A(j));
 #ifdef JP
 	(void)sprintf(out_val, "(%s:%c-%c, ESCで中断) %s",
 		((is_home(st_ptr) || is_museum(st_ptr)) ? "アイテム" : "商品"), lo, hi, pmt);
