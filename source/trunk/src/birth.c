@@ -3133,9 +3133,9 @@ static int get_creature_sex(creature_type *creature_ptr, species_type *species_p
 	if(npc)
 	{
 		id[se_info.num] = MAX_SEXES;
-		weight1[se_info.num] = left_per > 0 ? left_per: 0;
+		weight1[se_info.num] = left_per > 0 ? left_per: 1;
 		se_info.num++;
-		creature_ptr->sex = (s16b)uneven_rand(id, weight1, se_info.num);
+		creature_ptr->sex = (SEX_ID)uneven_rand(id, weight1, se_info.num);
 		if(creature_ptr->sex == MAX_SEXES) creature_ptr->sex = (s16b)uneven_rand(id, weight2, se_info.num-1);
 		return 0;
 	}

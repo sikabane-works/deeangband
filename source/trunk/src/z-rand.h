@@ -36,24 +36,21 @@
  * The integer X falls along a uniform distribution.
  * For example, if M is 100, you get "percentile dice"
  */
-#define randint0(M) \
-	((s32b)Rand_div(M))
+#define randint0(M) ((s32b)Rand_div(M))
 
 /*
  * Generates a random long integer X where A<=X<=B
  * The integer X falls along a uniform distribution.
  * Note: rand_range(0,N-1) == randint0(N)
  */
-#define rand_range(A,B) \
-	((A) + (randint0(1+(B)-(A))))
+#define rand_range(A,B) ((A) + (randint0(1+(B)-(A))))
 
 /*
  * Generate a random long integer X where A-D<=X<=A+D
  * The integer X falls along a uniform distribution.
  * Note: rand_spread(A,D) == rand_range(A-D,A+D)
  */
-#define rand_spread(A,D) \
-	((A) + (randint0(1+(D)+(D))) - (D))
+#define rand_spread(A,D) ((A) + (randint0(1+(D)+(D))) - (D))
 
 
 /*
