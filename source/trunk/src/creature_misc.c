@@ -31,8 +31,8 @@ bool is_player(creature_type *creature_ptr)
 
 bool is_valid_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr == NULL) return TRUE;
-	if(!creature_ptr->fx || !creature_ptr->fy || creature_ptr->chp > 0) return FALSE;
+	if(creature_ptr == NULL) return FALSE;
+	if(creature_ptr->fx > 0 && !creature_ptr->fy > 0 && creature_ptr->chp >= 0) return TRUE;
 	return FALSE;
 }
 
