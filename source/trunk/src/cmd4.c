@@ -1222,9 +1222,8 @@ static option_type cheat_info[CHEAT_MAX] =
 // Interact with some options for cheating
 static void do_cmd_options_cheat(cptr info)
 {
-	char	ch;
-	int		i, k = 0, n = CHEAT_MAX;
-	char	buf[80];
+	char ch, buf[80];
+	int i, k = 0, n = CHEAT_MAX;
 
 	Term_clear();
 
@@ -5664,8 +5663,7 @@ static void display_group_list(int col, int row, int wid, int per_page,
 /* 
  * Move the cursor in a browser window 
  */
-static void browser_cursor(char ch, int *column, int *grp_cur, int grp_cnt, 
-						   int *list_cur, int list_cnt)
+static void browser_cursor(char ch, int *column, int *grp_cur, int grp_cnt, int *list_cur, int list_cnt)
 {
 	int d;
 	int col = *column;
@@ -6317,9 +6315,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, SPEC
 
 			default:
 			{
-				/* Move the cursor */
 				browser_cursor(ch, &column, &grp_cur, grp_cnt, &mon_cur, mon_cnt);
-
 				break;
 			}
 		}

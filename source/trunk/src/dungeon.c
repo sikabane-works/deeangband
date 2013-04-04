@@ -275,7 +275,7 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	{
 #ifdef JP
 		msg_format("ƒUƒbƒN‚Ì’†‚Ì%s(%c)‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
-			object_name, index_to_label(slot),game_inscriptions[feel]);
+			object_name, index_to_label(slot), game_inscriptions[feel]);
 #else
 		msg_format("You feel the %s (%c) in your pack %s %s...",
 			object_name, index_to_label(slot),
@@ -1176,7 +1176,6 @@ bool psychometry(creature_type *creature_ptr)
 static void recharged_notice(object_type *object_ptr)
 {
 	char object_name[MAX_NLEN];
-
 	cptr s;
 
 	/* No inscription */

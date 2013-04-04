@@ -520,7 +520,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	sound(SOUND_DESTITEM);
 
 	/* Reduce the charges of rods/wands */
-	reduce_charges(object1_ptr, amt);
+	reduce_charges(object1_ptr, (PVAL)amt);
 	increase_item(creature_ptr, item, -1, TRUE);
 
 	if(has_trait_object(object2_ptr, TRAIT_BOOK) && has_trait_object(object2_ptr, TRAIT_GOOD_ITEM))
@@ -631,12 +631,9 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 	/* Start with nothing */
 	strcpy(out_val, "");
 
-	/* Use old inscription */
-	if(object_ptr->inscription)
-	{
-		/* Start with the old inscription */
-		strcpy(out_val, quark_str(object_ptr->inscription));
-	}
+	/* Use old inscription / Start with the old inscription */
+
+	if(object_ptr->inscription) strcpy(out_val, quark_str(object_ptr->inscription));
 
 	/* Get a new inscription (possibly empty) */
 	if(get_string(MES_OBJECT_INSCRIBING_PROMPT, out_val, 80))

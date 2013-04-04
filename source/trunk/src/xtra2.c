@@ -1634,7 +1634,7 @@ static void evaluate_creature_exp(creature_type *player_ptr, char *buf, creature
 *
 * This function must handle blindness/hallucination.
 */
-static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, cptr info)
+static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES x, int mode, cptr info)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];

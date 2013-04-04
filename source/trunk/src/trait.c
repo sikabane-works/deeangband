@@ -725,7 +725,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			for (; i < EATER_EXT * 3; i++)
 			{
-				int k_idx = lookup_kind(TV_ROD, i - EATER_EXT * 2);
+				OBJECT_KIND_ID k_idx = lookup_kind(TV_ROD, (SVAL)(i - EATER_EXT * 2));
 				caster_ptr->current_charge[i] -= ((caster_ptr->max_charge[i] < 10) ? EATER_ROD_CHARGE*3 : caster_ptr->max_charge[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
 				if(caster_ptr->current_charge[i] < 0) caster_ptr->current_charge[i] = 0;
 			}

@@ -31,8 +31,18 @@ bool is_player(creature_type *creature_ptr)
 
 bool is_valid_creature(creature_type *creature_ptr)
 {
+	if(creature_ptr == NULL)
+	{
+		msg_warning("Null Pointer Creature.");
+		return TRUE;
+	}
 //	return (creature_ptr->chp > 0);
-	return (!creature_ptr->fx && !creature_ptr->fy && creature_ptr->chp > 0);
+	if(!creature_ptr->fx || !creature_ptr->fy || creature_ptr->chp > 0)
+	{
+		msg_warning("Funny Status Creature.");
+		return FALSE;
+	}
+	return FALSE
 }
 
 bool is_valid_creature_aux(creature_type *creature_ptr)
