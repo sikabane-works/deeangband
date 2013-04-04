@@ -31,18 +31,9 @@ bool is_player(creature_type *creature_ptr)
 
 bool is_valid_creature(creature_type *creature_ptr)
 {
-	if(creature_ptr == NULL)
-	{
-		msg_warning("Null Pointer Creature.");
-		return TRUE;
-	}
-//	return (creature_ptr->chp > 0);
-	if(!creature_ptr->fx || !creature_ptr->fy || creature_ptr->chp > 0)
-	{
-		msg_warning("Funny Status Creature.");
-		return FALSE;
-	}
-	return FALSE
+	if(creature_ptr == NULL) return TRUE;
+	if(!creature_ptr->fx || !creature_ptr->fy || creature_ptr->chp > 0) return FALSE;
+	return FALSE;
 }
 
 bool is_valid_creature_aux(creature_type *creature_ptr)
@@ -57,9 +48,7 @@ bool is_valid_creature_aux(creature_type *creature_ptr)
 void set_sex(creature_type *creature_ptr)
 {
 	species_type *mr_ptr;
-
 	mr_ptr = &species_info[creature_ptr->species_idx]; 
-
 	creature_ptr->sex = mr_ptr->sex;
 
 	//TODO non-unique's some flags effect

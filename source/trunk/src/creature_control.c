@@ -2632,11 +2632,7 @@ void update_creatures(bool full)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-
-		/* Skip dead creatures */
 		if(!is_valid_creature(m_ptr)) continue;
-
-		/* Update the creature */
 		update_creature_view(player_ptr, i, full);
 	}
 }
