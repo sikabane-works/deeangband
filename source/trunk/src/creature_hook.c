@@ -181,6 +181,7 @@ void display_roff(SPECIES_ID species_idx)
  */
 void output_creature_spoiler(SPECIES_ID species_idx, void (*roff_func)(byte attr, cptr str))
 {
+	if(species_idx < 0) return;
 	hook_c_roff = roff_func;
 }
 

@@ -591,9 +591,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				if(!isspace(tmp[q]))
 				{
 					/* Capitalize if possible */
-					if(islower(tmp[q]))
-						tmp[q] = toupper(tmp[q]);
-
+					if(islower(tmp[q])) tmp[q] = toupper(tmp[q]);
 					break;
 				}
 			}

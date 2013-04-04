@@ -1350,7 +1350,7 @@ static void mass_produce(store_type *st_ptr, object_type *object_ptr)
 	object_ptr->number = size - (size * discount / 100);
 
 	/* Ensure that mass-produced rods and wands get the correct pvals. */
-	if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND)) object_ptr->pval *= object_ptr->number;
+	if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND)) object_ptr->pval *= (PVAL)object_ptr->number;
 }
 
 
@@ -1422,12 +1422,10 @@ static void store_object_absorb(object_type *object_ptr, object_type *j_ptr)
 	object_ptr->number = (total > max_num) ? max_num : total;
 
 	/* Hack -- if rods are stacking, add the pvals (maximum timeouts) together. -LM- */
-	if(IS_ROD(object_ptr))
-		object_ptr->pval += j_ptr->pval * (j_ptr->number - diff) / j_ptr->number;
+	if(IS_ROD(object_ptr)) object_ptr->pval += j_ptr->pval * (PVAL)((j_ptr->number - diff) / j_ptr->number);
 
 	/* Hack -- if wands are stacking, combine the charges. -LM- */
-	if(object_ptr->tval == TV_WAND)
-		object_ptr->pval += j_ptr->pval * (j_ptr->number - diff) / j_ptr->number;
+	if(object_ptr->tval == TV_WAND) object_ptr->pval += j_ptr->pval * (PVAL)((j_ptr->number - diff) / j_ptr->number);
 }
 
 
@@ -1517,6 +1515,7 @@ static bool is_blessed(object_type *object_ptr)
 // Note that a shop-keeper must refuse to buy "worthless" items
 static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
 	/* Hack -- The Home is simple */
 	if(is_home(st_ptr) || is_museum(st_ptr)) return TRUE;
 
@@ -1801,10 +1800,7 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 						}
 
 						/* Hack -- if wands are stacking, combine the charges. -LM- */
-						else if(object_ptr->tval == TV_WAND)
-						{
-							object_ptr->pval = object_ptr->pval * remain / old_num;
-						}
+						else if(object_ptr->tval == TV_WAND) object_ptr->pval = (PVAL)(object_ptr->pval * remain / old_num);
 					}
 
 					combined = TRUE;
@@ -2104,6 +2100,7 @@ static void store_item_optimize(store_type *st_ptr, int item)
 static bool black_market_crap(store_type *st_ptr, object_type *object_ptr)
 {
 //	int 	i, j;
+	if(!st_ptr) return FALSE;
 
 	/* Ego items are never crap */
 	if(object_is_ego(object_ptr)) return FALSE;
@@ -2159,9 +2156,7 @@ static void store_delete(store_type *st_ptr)
 
 	/* Hack -- decrement the maximum timeouts and total charges of rods and wands. -LM- */
 	if((st_ptr->stock[what].tval == TV_ROD) || (st_ptr->stock[what].tval == TV_WAND))
-	{
-		st_ptr->stock[what].pval -= num * st_ptr->stock[what].pval / st_ptr->stock[what].number;
-	}
+		st_ptr->stock[what].pval -= (PVAL)(num * st_ptr->stock[what].pval / st_ptr->stock[what].number);
 
 	/* Actually destroy (part of) the item */
 	store_item_increase(st_ptr, what, -num);
@@ -2241,8 +2236,7 @@ static int store_replacement(store_type *st_ptr, int num)
 		}*/
 
 		size = 10;
-
-		object_prep(quest_ptr, i, size);
+		object_prep(quest_ptr, i);
 
 		/* Create a new object of the chosen kind */
 
@@ -3295,7 +3289,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 	 * If a rod or wand, allocate total maximum timeouts or charges
 	 * between those purchased and left on the shelf.
 	 */
-	reduce_charges(j_ptr, object_ptr->number - amt);
+	reduce_charges(j_ptr, (PVAL)(object_ptr->number - amt));
 
 	/* Modify quantity */
 	j_ptr->number = amt;
@@ -3333,7 +3327,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 	 * If a rod or wand, allocate total maximum timeouts or charges
 	 * between those purchased and left on the shelf.
 	 */
-	reduce_charges(j_ptr, object_ptr->number - amt);
+	reduce_charges(j_ptr, (PVAL)(object_ptr->number - amt));
 
 	/* Modify quantity */
 	j_ptr->number = amt;
@@ -3604,10 +3598,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 	 * Hack -- If a rod or wand, allocate total maximum
 	 * timeouts or charges to those being sold. -LM-
 	 */
-	if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND))
-	{
-		quest_ptr->pval = object_ptr->pval * amt / object_ptr->number;
-	}
+	if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND)) quest_ptr->pval = (PVAL)(object_ptr->pval * amt / object_ptr->number);
 
 	/* Get a full description */
 	object_desc(object_name, quest_ptr, 0);
@@ -3677,9 +3668,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 			 * how many charges he really paid for. -LM-
 			 */
 			if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND))
-			{
-				quest_ptr->pval = object_ptr->pval * amt / object_ptr->number;
-			}
+				quest_ptr->pval = (PVAL)(object_ptr->pval * amt / object_ptr->number);
 
 			/* Get the "actual" value */
 			value = object_value(quest_ptr) * quest_ptr->number;
