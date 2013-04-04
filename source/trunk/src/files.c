@@ -1378,7 +1378,7 @@ errr check_load_init(void)
 #define ENTRY_SHOOT 6
 #define ENTRY_THROW 7
 #define ENTRY_SPEED 8
-#define ENTRY_ACTION_POWER 9
+//#define ENTRY_ACTION_POWER 9
 #define ENTRY_BASE_AC 10
 #define ENTRY_BASE_EV 11
 #define ENTRY_LEVEL 12
@@ -1807,7 +1807,6 @@ static void display_player_middle(creature_type *creature_ptr)
 	}
 
 	sprintf(buf, "%d ", calc_action_power(creature_ptr));
-	display_player_one_line(ENTRY_ACTION_POWER, buf, TERM_L_BLUE);
 
 	/* Dump experience */
 	if(has_trait(creature_ptr, TRAIT_ANDROID)) e = ENTRY_EXP_ANDR;

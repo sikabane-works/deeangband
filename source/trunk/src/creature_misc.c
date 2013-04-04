@@ -32,7 +32,7 @@ bool is_player(creature_type *creature_ptr)
 bool is_valid_creature(creature_type *creature_ptr)
 {
 	if(creature_ptr == NULL) return FALSE;
-	if(creature_ptr->fx > 0 && !creature_ptr->fy > 0 && creature_ptr->chp >= 0) return TRUE;
+	if(creature_ptr->fx > 0 && creature_ptr->fy > 0 && creature_ptr->chp >= 0) return TRUE;
 	return FALSE;
 }
 
@@ -1209,7 +1209,7 @@ int calc_weapon_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr)
 int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *weapon_ptr)
 {
 	if(!is_valid_creature(creature_ptr)) return 100;
-	return 100 * weapon_ptr->dd * weapon_ptr->ds;
+	return 100;
 }
 
 int calc_special_melee_cost(creature_type *creature_ptr, special_blow_type *special_ptr)
@@ -1228,15 +1228,12 @@ int calc_special_melee_priority(creature_type *creature_ptr, special_blow_type *
 
 int calc_action_power(creature_type *creature_ptr)
 {
-	int point;
-
-	point = creature_ptr->skill_thn / 4;
-
-	// Hex - extra mights gives to action_point
-	if(HEX_SPELLING(creature_ptr, HEX_XTRA_MIGHT) || HEX_SPELLING(creature_ptr, HEX_BUILDING))
-		point += (point * 6 / 5);
-
-	return point;
+	if(!is_valid_creature(creature_ptr))
+	{
+		msg_warning("Invalid creature in calc_action_power()");
+		return 0;
+	}
+	return 100;
 }
 
 bool saving_throw(creature_type *creature_ptr, int type, int difficulty, FLAGS_32 option)
