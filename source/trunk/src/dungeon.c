@@ -1755,6 +1755,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 	return;
 
+#if 0
 	if(has_trait(creature_ptr, TRAIT_BERS_RAGE) && one_in_(3000))
 	{
 		disturb(player_ptr, 0, 0);
@@ -2426,6 +2427,8 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 		//TODO if(object_ptr->name1 == ART_JUDGE)
 	}
+
+#endif
 }
 
 /*
@@ -5308,50 +5311,10 @@ s32b turn_real(creature_type *creature_ptr, s32b hoge)
 		return hoge;
 }
 
-/*
-* ターンのオーバーフローに対する対処
-* ターン及びターンを記録する変数をターンの限界の1日前まで巻き戻す.
-*/
-void add_game_turn(creature_type *creature_ptr, int num)
+void add_game_turn(creature_type *creature_ptr, GAME_TIME num)
 {
-	int rollback_days, i;//, j;
-	s32b rollback_turns;
-
+	//TODO Limit OverFlow
 	game_turn += num;
-	for(i = 0; i < max_store_idx; i++) st_list[i].last_visit += num;
-
-	rollback_days = 1 + (game_turn - turn_limit) / (TURNS_PER_TICK * TOWN_DAWN);
-	rollback_turns = TURNS_PER_TICK * TOWN_DAWN * rollback_days;
-
-	if(game_turn > rollback_turns) game_turn -= rollback_turns;
-	else game_turn = 1;
-	if(old_battle > rollback_turns) old_battle -= rollback_turns;
-	else old_battle = 1;
-	if(creature_ptr->feeling_turn > rollback_turns) creature_ptr->feeling_turn -= rollback_turns;
-	else creature_ptr->feeling_turn = 1;
-
-	/*TODO  */
-	/*
-	for (i = 1; i < max_towns; i++)
-	{
-	for (j = 0; j < MAX_STORES; j++)
-	{
-	store_type *st_ptr = &town[i].store[j];
-
-	if(st_ptr->last_visit > -10L * TURNS_PER_TICK * STORE_TICKS)
-	{
-	st_ptr->last_visit -= rollback_turns;
-	if(st_ptr->last_visit < -10L * TURNS_PER_TICK * STORE_TICKS) st_ptr->last_visit = -10L * TURNS_PER_TICK * STORE_TICKS;
-	}
-
-	if(st_ptr->store_open)
-	{
-	st_ptr->store_open -= rollback_turns;
-	if(st_ptr->store_open < 1) st_ptr->store_open = 1;
-	}
-	}
-	}
-	*/
 }
 
 void world_wipe()

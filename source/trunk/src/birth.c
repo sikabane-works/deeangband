@@ -2302,9 +2302,9 @@ void init_dungeon_quests(void)
  */
 static void init_turn(creature_type *creature_ptr)
 {
+	/* Undead start just after midnight */
 	if(has_trait(creature_ptr, TRAIT_UNDEAD))
 	{
-		/* Undead start just after midnight */
 		game_turn = (TURNS_PER_TICK * 3 * TOWN_DAWN) / 4 + 1;
 		turn_limit = TURNS_PER_TICK * TOWN_DAWN * MAX_DAYS + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
 	}
