@@ -3043,9 +3043,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 
 			// Update creatures
 			prepare_update(player_ptr, PU_CREATURES | PU_SPECIES_LITE);
-
 			prepare_redraw(PR_MAP);
-
 			prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 			//TODO
@@ -4482,38 +4480,14 @@ static void turn_loop(floor_type *floor_ptr)
 		if(object_cnt + 32 < object_max) compact_objects(0);
 		*/
 
-		notice_stuff(player_ptr);
-		handle_stuff(player_ptr);
-
-		// Hack -- Hilite the player
-		move_cursor_relative(player_ptr->fy, player_ptr->fx);
-
-		// Optional fresh//
-		if(fresh_after) Term_fresh();
-
-		// Hack -- Notice death or departure
-		if(!playing || gameover) break;
-
-		// Process all of the creatures in this floor.
 		process_creatures();
-
-		notice_stuff(player_ptr);
-		handle_stuff(player_ptr);
-
-		// Hack -- Hilite the player
 		move_cursor_relative(player_ptr->fy, player_ptr->fx);
-
-		// Optional fresh
 		if(fresh_after) Term_fresh();
 
 		// Hack -- Notice death or departure
 		if(!playing || gameover) break;
 
-		// Process the world
 		process_world();
-
-		notice_stuff(player_ptr);
-		handle_stuff(player_ptr);
 
 		// Hack -- Hilite the player
 		move_cursor_relative(player_ptr->fy, player_ptr->fx);
@@ -4947,8 +4921,8 @@ static void play_loop(void)
 
 		floor_ptr = GET_FLOOR_PTR(player_ptr); 
 
-		if(!floor_ptr->generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
-		if(panic_save) panic_save = FALSE; // TODO
+		//if(!floor_ptr->generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
+		panic_save = FALSE; // TODO
 		subject_change_floor = FALSE;  // Not leaving
 
 		// Reset the "command" vars
@@ -4997,23 +4971,15 @@ static void play_loop(void)
 
 		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
 		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);
-
 		prepare_update(player_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
 		prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_CREATURES | PU_DISTANCE | PU_FLOW);
-
-		/* Handle "update" and "play_redraw" and "play_window" */
-		//TODO DELETE?
-		//handle_stuff(creature_ptr);
-
 		prepare_update(player_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_COMBINE | CRU_REORDER);
 		notice_stuff(player_ptr);
-
 		handle_stuff(player_ptr); // Handle "update" and "play_redraw" and "play_window"
 
 		Term_fresh();
 
-		if(quest_num && (is_fixed_quest_idx(quest_num) &&
-			!( quest_num == QUEST_SERPENT ||
+		if(quest_num && (is_fixed_quest_idx(quest_num) && !(quest_num == QUEST_SERPENT ||
 			!(quest[quest_num].flags & QUEST_FLAG_PRESET)))) do_cmd_feeling(player_ptr);
 
 		if(floor_ptr->gamble_arena_mode)
@@ -5054,12 +5020,9 @@ static void play_loop(void)
 		/*** Process this dungeon level ***/
 
 		// Reset the creature and object generation level
-		floor_ptr->enemy_level = floor_ptr->depth;
-		floor_ptr->object_level = floor_ptr->depth;
 
 		if(player_ptr->energy_need > 0 && !floor_ptr->gamble_arena_mode &&
-			(floor_ptr->depth || subject_change_dungeon || floor_ptr->fight_arena_mode))
-			cancel_tactical_action(player_ptr);
+			(floor_ptr->depth || subject_change_dungeon || floor_ptr->fight_arena_mode)) cancel_tactical_action(player_ptr);
 
 		/* Not leaving dungeon */
 		subject_change_dungeon = FALSE;

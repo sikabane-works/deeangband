@@ -2364,7 +2364,6 @@ static void process_creature(int i)
 	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Ignore dead or out of floot creatures
-	if(!IS_IN_THIS_FLOOR(creature_ptr)) return;
 	if(!is_player(creature_ptr) && floor_ptr->global_map) return;
 
 	// Handle "fresh" creatures
@@ -2384,7 +2383,7 @@ static void process_creature(int i)
 	}
 	creature_ptr->hear_noise = FALSE;	// Clear creature fighting indicator
 
-	// Digest cost
+	/* Digest cost */
 	speed = creature_ptr->speed;
 	if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) && !is_player(creature_ptr)) speed += 5; // Creatures move quickly in curse of Iluvatar mode
 	creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this creature some energy
