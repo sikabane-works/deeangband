@@ -98,8 +98,8 @@ int command_new;		/* Command chaining from inven/equip view */
 
 bool msg_flag;			/* Used in msg_print() for "buffering" */
 
-s32b turn;				/* Current game turn */
-s32b turn_limit;		/* Limit of game turn */
+GAME_TURN turn;				/* Current game turn */
+GAME_TURN turn_limit;		/* Limit of game turn */
 s32b old_battle;
 
 bool use_sound;			/* The "sound" mode is enabled */
@@ -849,7 +849,7 @@ cptr ANGBAND_DIR_USER;
 cptr ANGBAND_DIR_XTRA;
 
 char record_object_name[MAX_NLEN];
-s32b record_turn;
+GAME_TURN record_turn;
 
 /*
  * Wilderness
