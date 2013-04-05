@@ -1837,20 +1837,8 @@ static void display_player_middle(creature_type *creature_ptr)
 	/* Dump gold */
 	display_player_one_line(ENTRY_GOLD, format("%ld", creature_ptr->au), TERM_L_GREEN);
 
-	// Dump Day
-	{
-		int day, hour, min;
-		extract_day_hour_min(&day, &hour, &min);
-
-#ifdef JP
-		if(day < MAX_DAYS) sprintf(buf, "%d“ú–Ú %2d:%02d", day, hour, min);
-		else sprintf(buf, "*****“ú–Ú %2d:%02d", hour, min);
-#else
-		if(day < MAX_DAYS) sprintf(buf, "Day %d %2d:%02d", day, hour, min);
-		else sprintf(buf, "Day ***** %2d:%02d", hour, min);
-#endif
-	}
-	display_player_one_line(ENTRY_DAY, buf, TERM_L_GREEN);
+	// Dump Day(TODO)
+	//display_player_one_line(ENTRY_DAY, buf, TERM_L_GREEN);
 
 	/* Dump play time */
 	display_player_one_line(ENTRY_PLAY_TIME, format("%.2lu:%.2lu:%.2lu", play_time / (60 * 60), (play_time / 60) % 60, play_time % 60), TERM_L_GREEN);

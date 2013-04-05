@@ -60,18 +60,24 @@ void prt_time(void)
 	/* Dump 13 spaces to clear */
 	c_put_str(TERM_WHITE, "             ", ROW_DAY, COL_DAY);
 
-	extract_day_hour_min(&day, &hour, &min);
+	if(wizard)
+	{
+		c_put_str(TERM_WHITE, format("Turn: %9d", turn), ROW_DAY, COL_DAY);
+	}
+	else
+	{
+		extract_day_hour_min(&day, &hour, &min);
 
-	/* Dump the info itself */
+		/* Dump the info itself */
 #ifdef JP
-	if(day < 1000) c_put_str(TERM_WHITE, format("%2d“ú–Ú", day), ROW_DAY, COL_DAY);
-	else c_put_str(TERM_WHITE, "***“ú–Ú", ROW_DAY, COL_DAY);
+		if(day < 1000) c_put_str(TERM_WHITE, format("%2d“ú–Ú", day), ROW_DAY, COL_DAY);
+		else c_put_str(TERM_WHITE, "***“ú–Ú", ROW_DAY, COL_DAY);
 #else
-	if(day < 1000) c_put_str(TERM_WHITE, format("Day%3d", day), ROW_DAY, COL_DAY);
-	else c_put_str(TERM_WHITE, "Day***", ROW_DAY, COL_DAY);
+		if(day < 1000) c_put_str(TERM_WHITE, format("Day%3d", day), ROW_DAY, COL_DAY);
+		else c_put_str(TERM_WHITE, "Day***", ROW_DAY, COL_DAY);
 #endif
-
-	c_put_str(TERM_WHITE, format("%2d:%02d", hour, min), ROW_DAY, COL_DAY+7);
+		c_put_str(TERM_WHITE, format("%2d:%02d", hour, min), ROW_DAY, COL_DAY+7);
+	}
 }
 
 void prt_wiz_pos(creature_type *player_ptr)
