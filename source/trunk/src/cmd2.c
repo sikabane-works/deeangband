@@ -101,18 +101,18 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		if(have_flag(f_ptr->flags, FF_SHAFT))
 		{
 			// Create a way back
-			move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth - 2, floor_ptr, CFM_SAVE_FLOORS);
+			move_floor(creature_ptr, floor_ptr->dungeon_id, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth - 2, floor_ptr, CFM_SAVE_FLOORS);
 			up_num = 2;
 		}
 		else
 		{
 			// Create a way back
-			move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth - 1, floor_ptr, CFM_SAVE_FLOORS);
+			move_floor(creature_ptr, floor_ptr->dungeon_id, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth - 1, floor_ptr, CFM_SAVE_FLOORS);
 			up_num = 1;
 		}
 
 		/* Get out from current dungeon */
-		if(floor_ptr->depth - up_num < dungeon_info[floor_ptr->dun_type].mindepth)
+		if(floor_ptr->depth - up_num < dungeon_info[floor_ptr->dungeon_id].mindepth)
 			up_num = floor_ptr->depth;
 	}
 
@@ -208,7 +208,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		{
 			/* Enter the dungeon just now */
 			creature_ptr->enter_dungeon = TRUE;
-			down_num = dungeon_info[floor_ptr->dun_type].mindepth;
+			down_num = dungeon_info[floor_ptr->dungeon_id].mindepth;
 		}
 
 		if(record_stair)
@@ -223,7 +223,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			if(target_dungeon)
 			{
 /* // TODO 
-				msg_format(MES_FEATURE_ENTER_DUNGEON(dungeon_text + dungeon_info[floor_ptr->dun_type].text));
+				msg_format(MES_FEATURE_ENTER_DUNGEON(dungeon_text + dungeon_info[floor_ptr->dungeon_id].text));
 */
 			}
 			else

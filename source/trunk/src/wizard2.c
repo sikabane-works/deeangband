@@ -1486,8 +1486,8 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 		dungeon_id = tmp_dungeon_level;
 	}
 
-	if(command_arg < dungeon_info[floor_ptr->dun_type].mindepth) command_arg = 0;
-	if(command_arg > dungeon_info[floor_ptr->dun_type].maxdepth) command_arg = dungeon_info[dungeon_id].maxdepth;
+	if(command_arg < dungeon_info[floor_ptr->dungeon_id].mindepth) command_arg = 0;
+	if(command_arg > dungeon_info[floor_ptr->dungeon_id].maxdepth) command_arg = dungeon_info[dungeon_id].maxdepth;
 
 	// Accept request
 	msg_format("You jump to dungeon level %d.", command_arg);
@@ -1496,8 +1496,8 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 
 	// Change level
 	depth = command_arg;
-	wx = dungeon_info[floor_ptr->dun_type].dx;
-	wy = dungeon_info[floor_ptr->dun_type].dy;
+	wx = dungeon_info[floor_ptr->dungeon_id].dx;
+	wy = dungeon_info[floor_ptr->dungeon_id].dy;
 
 	//prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE);
 	if(!floor_ptr->depth) dungeon_id = 0;

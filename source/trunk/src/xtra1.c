@@ -117,7 +117,7 @@ cptr map_name(floor_type *floor_ptr)
 		return "Surface";
 #endif
 	else
-		return dungeon_name + dungeon_info[floor_ptr->dun_type].name;
+		return dungeon_name + dungeon_info[floor_ptr->dungeon_id].name;
 }
 
 /*
@@ -688,7 +688,7 @@ static void prt_depth(creature_type *creature_ptr)
 	row_depth = hgt + ROW_DEPTH;
 
 	if(!floor_ptr->depth) strcpy(depths, KW_SURFACE);
-	else if(floor_ptr->quest && !floor_ptr->dun_type) strcpy(depths, KW_QUEST);
+	else if(floor_ptr->quest && !floor_ptr->dungeon_id) strcpy(depths, KW_QUEST);
 	else
 	{
 		(void)sprintf(depths, KW_FLOOR_NUM(floor_ptr->depth));
@@ -1979,7 +1979,7 @@ static void calc_lite(creature_type *creature_ptr)
 
 	/* max radius is 14 (was 5) without rewriting other code -- */
 	/* see cave.c:update_lite() and defines.h:LITE_MAX */
-	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS && creature_ptr->cur_lite > 1)
+	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS && creature_ptr->cur_lite > 1)
 		creature_ptr->cur_lite = 1;
 
 	/*

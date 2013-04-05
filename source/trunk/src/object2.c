@@ -2501,14 +2501,14 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 	if(lev > MAX_DEPTH - 1) lev = MAX_DEPTH - 1; // Maximum "level" for various things
 
 	f1 = lev + 10; // Base chance of being "good"
-	if(f1 > dungeon_info[floor_ptr->dun_type].obj_good) f1 = dungeon_info[floor_ptr->dun_type].obj_good; // Maximal chance of being "good"
+	if(f1 > dungeon_info[floor_ptr->dungeon_id].obj_good) f1 = dungeon_info[floor_ptr->dungeon_id].obj_good; // Maximal chance of being "good"
 
 	/* Base chance of being "great" */
 	f2 = f1 * 2 / 3;
 
 	/* Maximal chance of being "great" */
-	if((owner_ptr && owner_ptr->chara_idx != CHARA_MUNCHKIN) && (f2 > dungeon_info[floor_ptr->dun_type].obj_great))
-		f2 = dungeon_info[floor_ptr->dun_type].obj_great;
+	if((owner_ptr && owner_ptr->chara_idx != CHARA_MUNCHKIN) && (f2 > dungeon_info[floor_ptr->dungeon_id].obj_great))
+		f2 = dungeon_info[floor_ptr->dungeon_id].obj_great;
 
 	if(has_trait(owner_ptr, TRAIT_GOOD_LUCK))
 	{
@@ -3336,7 +3336,7 @@ FEATURE_ID choose_random_trap(floor_type *floor_ptr)
 		if(floor_ptr->fight_arena_mode || quest_number(floor_ptr)) continue;
 
 		/* Hack -- no trap doors on the deepest level */
-		if(floor_ptr->depth >= dungeon_info[floor_ptr->dun_type].maxdepth) continue;
+		if(floor_ptr->depth >= dungeon_info[floor_ptr->dungeon_id].maxdepth) continue;
 
 		break;
 	}
@@ -4166,7 +4166,7 @@ bool process_warning(creature_type *target_ptr, COODINATES xx, COODINATES yy)
 			}
 
 			// Creature melee attacks
-			if(!(has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
+			if(!(has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) && !(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_MELEE))
 			{
 				if(mx <= xx + 1 && mx >= xx - 1 && my <= yy + 1 && my >= yy - 1)
 				{

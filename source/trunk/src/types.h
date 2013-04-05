@@ -1861,8 +1861,8 @@ struct town_type
 };
 
 /* Dungeons */
-typedef struct dun_type dun_type;
-struct dun_type
+typedef struct dungeon_id dungeon_id;
+struct dungeon_id
 {
 	FLOOR_LEV min_level; /* Minimum level in the dungeon */
 	FLOOR_LEV max_level; /* Maximum dungeon level allowed */
@@ -2012,7 +2012,7 @@ typedef struct
 	FLOOR_LEV depth;
 	FLOOR_LEV enemy_level;  // Current creature creation level
 	FLOOR_LEV object_level;    // Current object creation level
-	DUNGEON_ID dun_type;
+	DUNGEON_ID dungeon_id;
 	COODINATES world_x;
 	COODINATES world_y;
 	s32b last_visit;      // Time count of last visit. 0 for new floor.

@@ -2919,7 +2919,7 @@ void update_creature_lite(floor_type *floor_ptr)
 	s16b end_temp;
 
 	/* Non-Ninja player in the darkness */
-	int dis_lim = ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !has_trait(player_ptr, TRAIT_SEE_DARKNESS)) ?
+	int dis_lim = ((dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS) && !has_trait(player_ptr, TRAIT_SEE_DARKNESS)) ?
 		(MAX_SIGHT / 2 + 1) : (MAX_SIGHT + 3);
 
 	/* Clear all creature lit squares */
@@ -2972,7 +2972,7 @@ void update_creature_lite(floor_type *floor_ptr)
 			{
 				if(!(has_trait(player_ptr, TRAIT_SELF_LITE_1) || has_trait(player_ptr, TRAIT_SELF_LITE_2)) && 
 					(has_trait(player_ptr, TRAIT_PARALYZED) || (!floor_ptr->depth && is_daytime()) || floor_ptr->gamble_arena_mode)) continue;
-				if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) rad = 1;
+				if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS) rad = 1;
 				add_creature_lite = creature_lite_hack;
 				f_flag = FF_LOS;
 			}
@@ -4198,7 +4198,7 @@ void map_area(creature_type *creature_ptr, COODINATES range)
 	feature_type *f_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 
 
 	/* Scan that area */
@@ -4316,7 +4316,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 					f_ptr = &feature_info[get_feat_mimic(cave_ptr)];
 
 					/* Perma-lite the grid */
-					if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !ninja)
+					if(!(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS) && !ninja)
 					{
 						cave_ptr->info |= (CAVE_GLOW);
 					}
@@ -4442,7 +4442,7 @@ void cave_set_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, FEATURE_ID
 		cave_ptr->feat = feat;
 
 		/* Hack -- glow the GLOW terrain */
-		if(have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+		if(have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS))
 		{
 			int i, yy, xx;
 
@@ -4470,7 +4470,7 @@ void cave_set_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, FEATURE_ID
 	/* Remove flag for mirror/glyph */
 	cave_ptr->info &= ~(CAVE_OBJECT);
 
-	if(old_mirror && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+	if(old_mirror && (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS))
 	{
 		cave_ptr->info &= ~(CAVE_GLOW);
 		if(!view_torch_grids) cave_ptr->info &= ~(CAVE_MARK);
@@ -4503,7 +4503,7 @@ void cave_set_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, FEATURE_ID
 	}
 
 	/* Hack -- glow the GLOW terrain */
-	if(have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+	if(have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS))
 	{
 		int i, yy, xx;
 		cave_type *cc_ptr;
@@ -4561,9 +4561,9 @@ FEATURE_ID conv_dungeon_feat(floor_type *floor_ptr, FEATURE_ID newfeat)
 		case CONVERT_TYPE_SOLID:
 			return feat_wall_solid;
 		case CONVERT_TYPE_STREAM1:
-			return dungeon_info[floor_ptr->dun_type].stream1;
+			return dungeon_info[floor_ptr->dungeon_id].stream1;
 		case CONVERT_TYPE_STREAM2:
-			return dungeon_info[floor_ptr->dun_type].stream2;
+			return dungeon_info[floor_ptr->dungeon_id].stream2;
 		default:
 			return newfeat;
 		}
@@ -4657,7 +4657,7 @@ void remove_mirror(creature_type *creature_ptr, COODINATES y, COODINATES x)
 	cave_ptr->info &= ~(CAVE_OBJECT);
 	cave_ptr->mimic = 0;
 
-	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)
+	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS)
 	{
 		cave_ptr->info &= ~(CAVE_GLOW);
 		if(!view_torch_grids) cave_ptr->info &= ~(CAVE_MARK);
@@ -4953,7 +4953,7 @@ void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 	cave_type *cave_ptr;
 
 	// Not in the darkness dungeon
-	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) return;
+	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS) return;
 
 	for (y = 0; y < floor_ptr->height; y++)
 	{

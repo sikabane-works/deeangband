@@ -3363,7 +3363,7 @@ QUEST_ID quest_number(floor_type *floor_ptr)
 		if((quest[i].type == QUEST_TYPE_KILL_LEVEL) &&
 			!(quest[i].flags & QUEST_FLAG_PRESET) &&
 			(quest[i].level == floor_ptr->depth) &&
-		    (quest[i].dungeon == floor_ptr->dun_type))
+		    (quest[i].dungeon == floor_ptr->dungeon_id))
 			return (i);
 	}
 
@@ -3378,7 +3378,7 @@ QUEST_ID random_quest_number(floor_type *floor_ptr)
 {
 	int i;
 
-	if(floor_ptr->dun_type != DUNGEON_DOD) return 0;
+	if(floor_ptr->dungeon_id != DUNGEON_DOD) return 0;
 
 	for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 	{

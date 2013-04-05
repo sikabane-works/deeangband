@@ -382,7 +382,7 @@ FLOOR_ID find_floor_id(DUNGEON_ID dungeon_id, FLOOR_LEV depth, COODINATES wx, CO
 	for(i = 1; i < floor_max; i++)
 	{
 		floor_ptr = &floor_list[i];
-		if(dungeon_id < 0 || floor_ptr->dun_type == dungeon_id)
+		if(dungeon_id < 0 || floor_ptr->dungeon_id == dungeon_id)
 		{
 			if(depth < 0 || floor_ptr->depth == depth)
 			{
@@ -421,7 +421,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 		if((quest[i].status == QUEST_STATUS_TAKEN) && 
 			 ((quest[i].type == QUEST_TYPE_KILL_LEVEL) || (quest[i].type == QUEST_TYPE_RANDOM)) &&
 		     (quest[i].level == old_floor_ptr->depth) &&
-		     (old_floor_ptr->dun_type == quest[i].dungeon) &&
+		     (old_floor_ptr->dungeon_id == quest[i].dungeon) &&
 		     !(quest[i].flags & QUEST_FLAG_PRESET))
 		{
 			quest_species_idx = quest[i].species_idx;
@@ -492,7 +492,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	if(ironman_downward) up = FALSE;
 
 	// Forbid down staircases on quest level 
-	if(quest_number(floor_ptr) || (floor_ptr->depth >= dungeon_info[floor_ptr->dun_type].maxdepth)) down = FALSE;
+	if(quest_number(floor_ptr) || (floor_ptr->depth >= dungeon_info[floor_ptr->dungeon_id].maxdepth)) down = FALSE;
 
 	// No effect out of standard dungeon floor 
 	if(!floor_ptr->depth || (!up && !down) || (floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) ||
@@ -555,14 +555,14 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	if(up)
 	{
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx,
-			(dest_sf_ptr->last_visit && dest_sf_ptr->depth <= floor_ptr->depth - 2 && sf_ptr->dun_type == floor_ptr->dun_type &&
+			(dest_sf_ptr->last_visit && dest_sf_ptr->depth <= floor_ptr->depth - 2 && sf_ptr->dungeon_id == floor_ptr->dungeon_id &&
 			 dest_sf_ptr->world_x == creature_ptr->wx && dest_sf_ptr->world_y == creature_ptr->wy) ?
 			feat_state(floor_ptr, feat_up_stair, FF_SHAFT) : feat_up_stair);
 	}
 	else
 	{
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx,
-			(dest_sf_ptr->last_visit && dest_sf_ptr->depth >= floor_ptr->depth + 2 && sf_ptr->dun_type == floor_ptr->dun_type &&
+			(dest_sf_ptr->last_visit && dest_sf_ptr->depth >= floor_ptr->depth + 2 && sf_ptr->dungeon_id == floor_ptr->dungeon_id &&
 			 dest_sf_ptr->world_x == creature_ptr->wx && dest_sf_ptr->world_y == creature_ptr->wy) ?
 			feat_state(floor_ptr, feat_down_stair, FF_SHAFT) : feat_down_stair);
 	}

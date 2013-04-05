@@ -599,7 +599,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 	/* Check "projectable" */
 	bool direct;
-	bool in_no_magic_dungeon = (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && floor_ptr->depth
+	bool in_no_magic_dungeon = (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_MAGIC) && floor_ptr->depth
 		&& (!floor_ptr->quest || is_fixed_quest_idx(floor_ptr->quest));
 	bool can_use_lite_area = FALSE;
 	bool can_remember;
@@ -750,7 +750,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 		if(!has_trait(caster_ptr, TRAIT_STUPID))
 		{
-			//TODO if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
+			//TODO if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS) f6 &= ~(RF6_DARKNESS);
 			//TODO else if((target_ptr->class_idx == CLASS_NINJA) && !can_use_lite_area) f6 &= ~(RF6_DARKNESS);
 		}
 	}

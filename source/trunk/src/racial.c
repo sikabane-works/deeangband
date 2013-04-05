@@ -263,7 +263,7 @@ bool can_do_cmd_cast(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(floor_ptr->depth && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC))
+	if(floor_ptr->depth && (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_MAGIC))
 	{
 		msg_print(MES_PREVENT_MAGIC_BY_DUNGEON);
 		msg_print(NULL);

@@ -933,7 +933,7 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 	case DO_EFFECT_LITE:
 		{
 			/* Turn on the light */
-			if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+			if(!(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS))
 			{
 				c_ptr->info |= (CAVE_GLOW);
 

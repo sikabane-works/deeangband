@@ -664,7 +664,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 			min_level = floor_ptr->depth;
 
 		/* Maximum level */
-		if(floor_ptr->dun_type == DUNGEON_ANGBAND)
+		if(floor_ptr->dungeon_id == DUNGEON_ANGBAND)
 		{
 			if(floor_ptr->depth > 100)
 				max_level = MAX_DEPTH - 1;
@@ -673,8 +673,8 @@ static void pattern_teleport(creature_type *creature_ptr)
 		}
 		else
 		{
-			max_level = dungeon_info[floor_ptr->dun_type].maxdepth;
-			min_level = dungeon_info[floor_ptr->dun_type].mindepth;
+			max_level = dungeon_info[floor_ptr->dungeon_id].maxdepth;
+			min_level = dungeon_info[floor_ptr->dungeon_id].mindepth;
 		}
 
 #ifdef JP
@@ -730,7 +730,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 	* Clear all saved floors
 	* and create a first saved floor
 	*/
-	move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, depth, floor_ptr, 0);
+	move_floor(creature_ptr, floor_ptr->dungeon_id, creature_ptr->wy, creature_ptr->wx, depth, floor_ptr, 0);
 
 	/* Leaving */
 	subject_change_floor = TRUE;
@@ -2573,12 +2573,12 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				msg_print("You feel yourself yanked upwards!");
 #endif
 
-				if(floor_ptr->dun_type) creature_ptr->recall_dungeon = floor_ptr->dun_type;
+				if(floor_ptr->dungeon_id) creature_ptr->recall_dungeon = floor_ptr->dungeon_id;
 				if(record_stair)
 					do_cmd_write_diary(DIARY_RECALL, floor_ptr->depth, NULL);
 
 				floor_ptr->depth = 0;
-				floor_ptr->dun_type = 0;
+				floor_ptr->dungeon_id = 0;
 
 				leave_quest_check(creature_ptr);
 
@@ -2594,17 +2594,17 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				msg_print("You feel yourself yanked downwards!");
 #endif
 
-				floor_ptr->dun_type = creature_ptr->recall_dungeon;
+				floor_ptr->dungeon_id = creature_ptr->recall_dungeon;
 
 				if(record_stair)
 					do_cmd_write_diary(DIARY_RECALL, floor_ptr->depth, NULL);
 
 				/* New depth */
-				floor_ptr->depth = max_dlv[floor_ptr->dun_type];
+				floor_ptr->depth = max_dlv[floor_ptr->dungeon_id];
 				if(floor_ptr->depth < 1) floor_ptr->depth = 1;
 
 				/* Nightmare mode makes recall more dangerous */
-				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) && !randint0(666) && (floor_ptr->dun_type == DUNGEON_ANGBAND))
+				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) && !randint0(666) && (floor_ptr->dungeon_id == DUNGEON_ANGBAND))
 				{
 					if(floor_ptr->depth < 50)
 					{
@@ -2616,7 +2616,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 					}
 					else if(floor_ptr->depth > 100)
 					{
-						floor_ptr->depth = dungeon_info[floor_ptr->dun_type].maxdepth - 1;
+						floor_ptr->depth = dungeon_info[floor_ptr->dungeon_id].maxdepth - 1;
 					}
 				}
 
@@ -2641,7 +2641,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				/* Leaving */
 				subject_change_floor = TRUE;
 
-				if(floor_ptr->dun_type == DUNGEON_DOD)
+				if(floor_ptr->dungeon_id == DUNGEON_DOD)
 				{
 					int i;
 
@@ -3090,7 +3090,7 @@ static void process_world(void)
 	/*** Process the creatures ***/
 
 	/* Check for creature generation. */
-	if(one_in_(dungeon_info[floor_ptr->dun_type].max_m_alloc_chance) &&
+	if(one_in_(dungeon_info[floor_ptr->dungeon_id].max_m_alloc_chance) &&
 		!floor_ptr->fight_arena_mode && !floor_ptr->quest && !floor_ptr->gamble_arena_mode) // Make a new creature
 		(void)alloc_creature(floor_ptr, player_ptr, MAX_SIGHT + 5, 0);
 
@@ -3503,7 +3503,7 @@ static void process_player_command(creature_type *creature_ptr)
 				{
 					msg_print(MES_CAST_NONE);
 				}
-				else if(floor_ptr->depth && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH))
+				else if(floor_ptr->depth && (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_MAGIC) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH))
 				{
 					msg_print(MES_PREVENT_MAGIC_BY_DUNGEON);
 					msg_print(NULL);
@@ -4718,8 +4718,8 @@ static void cheat_death(void)
 
 	CURRENT_FLOOR_PTR->depth = 0;
 	leaving_quest = 0;
-	if(CURRENT_FLOOR_PTR->dun_type) player_ptr->recall_dungeon = CURRENT_FLOOR_PTR->dun_type;
-	CURRENT_FLOOR_PTR->dun_type = 0;
+	if(CURRENT_FLOOR_PTR->dungeon_id) player_ptr->recall_dungeon = CURRENT_FLOOR_PTR->dungeon_id;
+	CURRENT_FLOOR_PTR->dungeon_id = 0;
 
 	// Start Point Set
 	player_ptr->wy = player_ptr->start_wy;
@@ -4956,9 +4956,9 @@ static void play_loop(void)
 		}
 
 		// Track maximum dungeon level (if not in quest -KMW-)
-		if((max_dlv[floor_ptr->dun_type] < floor_ptr->depth) && !floor_ptr->quest)
+		if((max_dlv[floor_ptr->dungeon_id] < floor_ptr->depth) && !floor_ptr->quest)
 		{
-			max_dlv[floor_ptr->dun_type] = floor_ptr->depth;
+			max_dlv[floor_ptr->dungeon_id] = floor_ptr->depth;
 			if(record_maxdepth) do_cmd_write_diary(DIARY_MAXDEAPTH, floor_ptr->depth, NULL);
 		}
 
@@ -4999,17 +4999,17 @@ static void play_loop(void)
 		if(!playing || gameover) return;
 
 		/* Print quest message if appropriate */
-		if(!floor_ptr->quest && (floor_ptr->dun_type == DUNGEON_DOD))
+		if(!floor_ptr->quest && (floor_ptr->dungeon_id == DUNGEON_DOD))
 		{
 			quest_discovery(random_quest_number(floor_ptr));
 			floor_ptr->quest = random_quest_number(floor_ptr);
 		}
 
-		if((floor_ptr->depth == dungeon_info[floor_ptr->dun_type].maxdepth) && dungeon_info[floor_ptr->dun_type].final_guardian)
+		if((floor_ptr->depth == dungeon_info[floor_ptr->dungeon_id].maxdepth) && dungeon_info[floor_ptr->dungeon_id].final_guardian)
 		{
-			if(species_info[dungeon_info[floor_ptr->dun_type].final_guardian].max_num)
-				msg_format(MES_QUEST_LORD(dungeon_name + dungeon_info[floor_ptr->dun_type].name, 
-				species_name+species_info[dungeon_info[floor_ptr->dun_type].final_guardian].name));
+			if(species_info[dungeon_info[floor_ptr->dungeon_id].final_guardian].max_num)
+				msg_format(MES_QUEST_LORD(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, 
+				species_name+species_info[dungeon_info[floor_ptr->dungeon_id].final_guardian].name));
 		}
 
 		if(!load_game && (player_ptr->posture & NINJA_S_STEALTH)) set_superstealth(player_ptr, FALSE);
@@ -5192,7 +5192,7 @@ void play_game(bool new_game)
 	panel_col_min = MAX_WID;
 
 	/* Fill the arrays of floors and walls in the good proportions */
-	set_floor_and_wall(CURRENT_FLOOR_PTR->dun_type);
+	set_floor_and_wall(CURRENT_FLOOR_PTR->dungeon_id);
 
 	/* Flavor the objects */
 	flavor_init();

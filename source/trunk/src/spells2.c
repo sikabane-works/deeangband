@@ -343,7 +343,7 @@ static bool detect_feat_flag(creature_type *creature_ptr, COODINATES range, int 
 	cave_type *c_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan the current panel */
 	for (y = 1; y < floor_ptr->height - 1; y++)
@@ -454,7 +454,7 @@ bool detect_objects_gold(creature_type *creature_ptr, COODINATES range)
 	bool detect = FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) range2 /= 3;
+	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS) range2 /= 3;
 
 	// Scan objects
 	for (i = 1; i < object_max; i++)
@@ -506,7 +506,7 @@ bool detect_objects_normal(creature_type *creature_ptr, COODINATES range)
 
 	bool detect = FALSE;
 
-	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range2 /= 3;
+	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range2 /= 3;
 
 	/* Scan objects */
 	for (i = 1; i < object_max; i++)
@@ -563,7 +563,7 @@ bool detect_objects_magic(creature_type *creature_ptr, COODINATES range)
 
 	bool detect = FALSE;
 
-	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 	/* Scan all objects */
 	for (i = 1; i < object_max; i++)
 	{
@@ -635,7 +635,7 @@ bool detect_creatures_normal(creature_type *creature_ptr, COODINATES range)
 
 	bool flag = FALSE;
 
-	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -683,7 +683,7 @@ bool detect_creatures_invis(creature_type *creature_ptr, COODINATES range)
 	COODINATES y, x;
 	bool flag = FALSE;
 
-	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -736,7 +736,7 @@ bool detect_creatures_evil(creature_type *creature_ptr, COODINATES range)
 	COODINATES y, x;
 	bool flag = FALSE;
 
-	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -797,7 +797,7 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, COODINATES range)
 	COODINATES y, x;
 	bool flag = FALSE;
 
-	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -850,7 +850,7 @@ bool detect_creatures_mind(creature_type *creature_ptr, COODINATES range)
 	COODINATES y, x;
 	bool flag = FALSE;
 
-	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -903,7 +903,7 @@ bool detect_creatures_string(creature_type *creature_ptr, COODINATES range, cptr
 	COODINATES y, x;
 	bool flag = FALSE;
 
-	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -963,7 +963,7 @@ bool detect_creatures_xxx(creature_type *creature_ptr, COODINATES range, u32b ma
 	cptr desc_creatures = "weird creatures";
 #endif
 
-	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -1636,7 +1636,7 @@ bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODI
 				c_ptr = &floor_ptr->cave[y][x];
 
 				if(is_mirror_grid(c_ptr)) c_ptr->info |= CAVE_GLOW;
-				else if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+				else if(!(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS))
 				{
 					int i, yy, xx;
 					cave_type *cc_ptr;
@@ -1875,7 +1875,7 @@ bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COO
 			c_ptr = &floor_ptr->cave[yy][xx];	// Access the grid
 
 			if(is_mirror_grid(c_ptr)) c_ptr->info |= CAVE_GLOW;
-			else if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+			else if(!(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS))
 			{
 				int ii, yyy, xxx;
 				cave_type *cc_ptr;
@@ -2320,7 +2320,7 @@ bool lite_area(creature_type *creature_ptr, POWER dam, COODINATES rad)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)
+	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS)
 	{
 		msg_print(MES_PREVENT_LITE_BY_DUNGEON);
 		return FALSE;

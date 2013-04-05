@@ -966,7 +966,7 @@ static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_
 
 bool is_melee_limitation_field(floor_type *floor_ptr)
 {
-	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_MELEE)
 	{
 		msg_print(MES_MELEE_NO_MELEE_DUNGEON);
 		return TRUE;
@@ -1135,7 +1135,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 	// Not allowed to attack
 	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) return FALSE;
-	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE) return FALSE;
+	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_MELEE) return FALSE;
 
 	if(!is_hostile(attacker_ptr)) return FALSE; // ...nor if friendly
 

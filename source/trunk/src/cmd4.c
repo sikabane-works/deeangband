@@ -384,7 +384,7 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 			note_level = DIARY_PLACE_QUEST;
 		else
 		{
-			sprintf(note_level_buf, KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dun_type].name, floor_ptr->depth));
+			sprintf(note_level_buf, KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
 			note_level = note_level_buf;
 		}
 	}
@@ -472,9 +472,9 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 		case DIARY_MAXDEAPTH:
 		{
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s %sの最深階%d階に到達した。\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dun_type].name, num);
+			fprintf(fff, " %2d:%02d %20s %sの最深階%d階に到達した。\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, num);
 #else
-			fprintf(fff, " %2d:%02d %20s reached level %d of %s for the first time.\n", hour, min, note_level, num, dungeon_name + dungeon_info[floor_ptr->dun_type].name);
+			fprintf(fff, " %2d:%02d %20s reached level %d of %s for the first time.\n", hour, min, note_level, num, dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
 #endif
 			break;
 		}
@@ -512,9 +512,9 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 		{
 			if(!num)
 #ifdef JP
-				fprintf(fff, " %2d:%02d %20s 帰還を使って%sの%d階へ下りた。\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dun_type].name, max_dlv[floor_ptr->dun_type]);
+				fprintf(fff, " %2d:%02d %20s 帰還を使って%sの%d階へ下りた。\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, max_dlv[floor_ptr->dungeon_id]);
 #else
-				fprintf(fff, " %2d:%02d %20s recalled to dungeon level %d of %s.\n", hour, min, note_level, max_dlv[floor_ptr->dun_type], dungeon_name + dungeon_info[floor_ptr->dun_type].name);
+				fprintf(fff, " %2d:%02d %20s recalled to dungeon level %d of %s.\n", hour, min, note_level, max_dlv[floor_ptr->dungeon_id], dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
 #endif
 			else
 #ifdef JP
@@ -604,7 +604,7 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 			if(!floor_ptr->depth)
 				to = KW_SURFACE;
 			else
-				to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dun_type].name, floor_ptr->depth));
+				to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s %sへとウィザード・テレポートで移動した。\n", hour, min, note_level, to);
 #else
@@ -618,7 +618,7 @@ errr do_cmd_write_diary(int type, int num, cptr note)
 			if(!floor_ptr->depth)
 				to = KW_SURFACE;
 			else
-				to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dun_type].name, floor_ptr->depth));
+				to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
 
 #ifdef JP
 			fprintf(fff, " %2d:%02d %20s %sへとパターンの力で移動した。\n", hour, min, note_level, to);

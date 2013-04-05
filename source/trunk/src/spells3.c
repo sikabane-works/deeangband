@@ -604,14 +604,14 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	}
 
 	/* Down only */ 
-	if((ironman_downward && (m_idx <= 0)) || (floor_ptr->depth <= dungeon_info[floor_ptr->dun_type].mindepth))
+	if((ironman_downward && (m_idx <= 0)) || (floor_ptr->depth <= dungeon_info[floor_ptr->dungeon_id].mindepth))
 	{
 		if(see_m) msg_format(MES_TELEPORT_LEVEL_DOWN(m_name));
 		if(m_idx <= 0) /* To player */
 		{
 			if(!floor_ptr->depth)
 			{
-				floor_ptr->dun_type = creature_ptr->recall_dungeon;
+				floor_ptr->dungeon_id = creature_ptr->recall_dungeon;
 				creature_ptr->oldpy = creature_ptr->fy;
 				creature_ptr->oldpx = creature_ptr->fx;
 			}
@@ -622,7 +622,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 
 			if(!floor_ptr->depth)
 			{
-				floor_ptr->depth = dungeon_info[floor_ptr->dun_type].mindepth;
+				floor_ptr->depth = dungeon_info[floor_ptr->dungeon_id].mindepth;
 				//prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE);
 			}
 			else
@@ -636,7 +636,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	}
 
 	/* Up only */
-	else if(quest_number(floor_ptr) || (floor_ptr->depth >= dungeon_info[floor_ptr->dun_type].maxdepth))
+	else if(quest_number(floor_ptr) || (floor_ptr->depth >= dungeon_info[floor_ptr->dungeon_id].maxdepth))
 	{
 		if(see_m) msg_format(MES_TELEPORT_LEVEL_UP(m_name));
 		if(m_idx <= 0) /* To player */
@@ -675,7 +675,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 		if(m_idx <= 0) /* To player */
 		{
 			/* Never reach this code on the surface */
-			/* if(!floor_ptr->depth) floor_ptr->dun_type = creature_ptr->recall_dungeon; */
+			/* if(!floor_ptr->depth) floor_ptr->dungeon_id = creature_ptr->recall_dungeon; */
 
 			if(record_stair) do_cmd_write_diary(DIARY_TELE_LEV, 1, NULL);
 
@@ -804,7 +804,7 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 		return TRUE;
 	}
 
-	if(floor_ptr->depth && (max_dlv[floor_ptr->dun_type] > floor_ptr->depth) && !floor_ptr->quest && !creature_ptr->timed_trait[TRAIT_WORD_RECALL])
+	if(floor_ptr->depth && (max_dlv[floor_ptr->dungeon_id] > floor_ptr->depth) && !floor_ptr->quest && !creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
 #ifdef JP
 		if(get_check("‚±‚±‚ÍÅ[“ž’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
@@ -812,12 +812,12 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 		if(get_check("Reset recall depth? "))
 #endif
 		{
-			max_dlv[floor_ptr->dun_type] = floor_ptr->depth;
+			max_dlv[floor_ptr->dungeon_id] = floor_ptr->depth;
 			if(record_maxdepth)
 #ifdef JP
-				do_cmd_write_diary(DIARY_TRUMP, floor_ptr->dun_type, "‹AŠÒ‚Ì‚Æ‚«‚É");
+				do_cmd_write_diary(DIARY_TRUMP, floor_ptr->dungeon_id, "‹AŠÒ‚Ì‚Æ‚«‚É");
 #else
-				do_cmd_write_diary(DIARY_TRUMP, floor_ptr->dun_type, "when recall from dungeon");
+				do_cmd_write_diary(DIARY_TRUMP, floor_ptr->dungeon_id, "when recall from dungeon");
 #endif
 		}
 

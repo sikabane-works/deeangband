@@ -736,14 +736,14 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	// Mega-Hack -- drop fixed items
 	if(drop_chosen_item)
 	{
-		if(has_trait(dead_ptr, TRAIT_GUARDIAN) && (dungeon_info[floor_ptr->dun_type].final_guardian == dead_ptr->species_idx))
+		if(has_trait(dead_ptr, TRAIT_GUARDIAN) && (dungeon_info[floor_ptr->dungeon_id].final_guardian == dead_ptr->species_idx))
 		{
-			int k_idx = dungeon_info[floor_ptr->dun_type].final_object ? dungeon_info[floor_ptr->dun_type].final_object
+			int k_idx = dungeon_info[floor_ptr->dungeon_id].final_object ? dungeon_info[floor_ptr->dungeon_id].final_object
 				: lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
 
-			if(dungeon_info[floor_ptr->dun_type].final_artifact)
+			if(dungeon_info[floor_ptr->dungeon_id].final_artifact)
 			{
-				ARTIFACT_ID a_idx = dungeon_info[floor_ptr->dun_type].final_artifact;
+				ARTIFACT_ID a_idx = dungeon_info[floor_ptr->dungeon_id].final_artifact;
 				artifact_type *a_ptr = &artifact_info[a_idx];
 
 				if(!a_ptr->cur_num)
@@ -757,7 +757,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 					}
 
 					// Prevent rewarding both artifact and "default" object
-					if(!dungeon_info[floor_ptr->dun_type].final_object) k_idx = 0;
+					if(!dungeon_info[floor_ptr->dungeon_id].final_object) k_idx = 0;
 				}
 			}
 
@@ -769,9 +769,9 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);	// Drop it in the dungeon
 			}
 #ifdef JP
-			msg_format("‚ ‚È‚½‚Í%s‚ð§”e‚µ‚½I", dungeon_name + dungeon_info[floor_ptr->dun_type].name);
+			msg_format("‚ ‚È‚½‚Í%s‚ð§”e‚µ‚½I", dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
 #else
-			msg_format("You have conquered %s!", dungeon_name + dungeon_info[floor_ptr->dun_type].name);
+			msg_format("You have conquered %s!", dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
 #endif
 		}
 	}

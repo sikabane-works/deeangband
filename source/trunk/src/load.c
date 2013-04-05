@@ -1050,7 +1050,7 @@ static errr rd_floor(floor_type *floor_ptr)
 	READ_FLOOR_LEV(&floor_ptr->enemy_level);
 	READ_FLOOR_LEV(&floor_ptr->object_level);
 
-	READ_DUNGEON_ID(&floor_ptr->dun_type);
+	READ_DUNGEON_ID(&floor_ptr->dungeon_id);
 	READ_COODINATES(&floor_ptr->world_x);
 	READ_COODINATES(&floor_ptr->world_y);
 	rd_s32b(&floor_ptr->last_visit);

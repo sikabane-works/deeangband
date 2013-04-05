@@ -624,7 +624,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				/* Still alive and autosave enabled */
 				if(autosave_l && (creature_ptr->chp >= 0)) do_cmd_save_game(TRUE);
 				do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_TRAP_DOOR);
-				move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, CFM_RAND_PLACE | CFM_RAND_CONNECT);
+				move_floor(creature_ptr, floor_ptr->dungeon_id, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
 				/* Leaving */
 				subject_change_floor = TRUE;
@@ -1081,7 +1081,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		if((!has_trait(creature_ptr, TRAIT_BLIND) && !no_lite(creature_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
 
 		/* For get everything when requested hehe I'm *NASTY* */
-		if(prev_floor_ptr->depth && (dungeon_info[prev_floor_ptr->dun_type].flags1 & DF1_FORGET)) wiz_dark(prev_floor_ptr, creature_ptr);
+		if(prev_floor_ptr->depth && (dungeon_info[prev_floor_ptr->dungeon_id].flags1 & DF1_FORGET)) wiz_dark(prev_floor_ptr, creature_ptr);
 
 		if(mpe_mode & MCE_HANDLE_STUFF) handle_stuff(creature_ptr);
 

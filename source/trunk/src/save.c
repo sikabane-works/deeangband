@@ -637,7 +637,7 @@ static void wr_floor(floor_type *floor_ptr)
 	WRITE_FLOOR_LEV(floor_ptr->enemy_level);
 	WRITE_FLOOR_LEV(floor_ptr->object_level);
 
-	WRITE_DUNGEON_ID(floor_ptr->dun_type);
+	WRITE_DUNGEON_ID(floor_ptr->dungeon_id);
 	WRITE_COODINATES(floor_ptr->world_x);
 	WRITE_COODINATES(floor_ptr->world_y);
 	wr_s32b(floor_ptr->last_visit);

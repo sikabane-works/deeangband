@@ -9050,7 +9050,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print(MES_NO_DICRECTION_CREATURE);
 				return NULL;
 			}
-			if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+			if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_MELEE)
 			{
 				return "";
 			}
@@ -9489,7 +9489,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					return NULL;
 				}
 	
-				if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+				if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_MELEE)
 				{
 					return "";
 				}

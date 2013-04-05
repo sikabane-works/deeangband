@@ -2020,7 +2020,7 @@ static void process_nonplayer(CREATURE_ID m_idx)
 			}
 
 			/* In anti-melee dungeon, stupid or confused creature takes useless turn */
-			if(do_move && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
+			if(do_move && (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_MELEE))
 			{
 				if(!has_trait(creature_ptr, TRAIT_CONFUSED))
 				{
@@ -2078,7 +2078,7 @@ static void process_nonplayer(CREATURE_ID m_idx)
 						if(close_combat(creature_ptr, ny, nx, 0)) return;
 
 						/* In anti-melee dungeon, stupid or confused creature takes useless turn */
-						else if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+						else if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_MELEE)
 						{
 							if(has_trait(creature_ptr, TRAIT_CONFUSED)) return;
 							else if(has_trait(creature_ptr, TRAIT_STUPID))

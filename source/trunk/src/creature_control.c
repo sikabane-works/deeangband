@@ -1165,7 +1165,7 @@ static int chameleon_change_m_idx = 0;
 static bool restrict_creature_to_dungeon(SPECIES_ID species_idx)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	dungeon_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
+	dungeon_type *d_ptr = &dungeon_info[floor_ptr->dungeon_id];
 	species_type *species_ptr = &species_info[species_idx];
 	//byte a;
 
@@ -1307,7 +1307,7 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, c
 
 		if((!floor_ptr->quest || is_fixed_quest_idx(floor_ptr->quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
 		{
-			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
+			int hoge = entry->prob2 * dungeon_info[floor_ptr->dungeon_id].special_div;
 			entry->prob2 = hoge / 64;
 			if(randint0(64) < (hoge & 0x3f)) entry->prob2++;
 		}
@@ -1360,7 +1360,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 
 		//if(!summon_unique_okay && ((has_trait_species(species_ptr, TRAIT_UNIQUE)) || has_trait_species(species_ptr, TRAIT_NAZGUL))) continue;
 		//if((summon_specific_who < 0) && ((has_trait_species(species_ptr, TRAIT_UNIQUE)) || has_trait_species(species_ptr, TRAIT_NAZGUL))) continue;
-		//if(!(has_trait_species(species_ptr, TRAIT_CHAMELEON) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON))) continue;
+		//if(!(has_trait_species(species_ptr, TRAIT_CHAMELEON) && (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_CHAMELEON))) continue;
 
 		//if(!summon_specific_aux(species_ptr, summon_specific_type)) continue;
 
@@ -1376,7 +1376,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 		//TODO if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
 		/*
 		{
-		int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
+		int hoge = entry->prob2 * dungeon_info[floor_ptr->dungeon_id].special_div;
 		entry->prob2 = hoge / 64;
 		if(randint0(64) < (hoge & 0x3f)) entry->prob2++;
 		}
@@ -1462,7 +1462,7 @@ SPECIES_ID get_species_num(floor_type *floor_ptr, FLOOR_LEV level)
 	pls_kakuritu = MAX(NASTY_ENEMY_MAX, NASTY_ENEMY_BASE - ((floor_ptr->floor_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
 	pls_level = MIN(NASTY_ENEMY_PLUS_MIN, 3 + floor_ptr->floor_turn / (TURNS_PER_TICK * 20000L) - hoge / 40 + MIN(5, level/10));
 
-	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_MAZE)
+	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_MAZE)
 	{
 		pls_kakuritu = MIN(pls_kakuritu / 2, pls_kakuritu - 10);
 		if(pls_kakuritu < 2) pls_kakuritu = 2;
@@ -1471,7 +1471,7 @@ SPECIES_ID get_species_num(floor_type *floor_ptr, FLOOR_LEV level)
 	}
 
 	// Boost the level
-	if(!floor_ptr->gamble_arena_mode && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER))
+	if(!floor_ptr->gamble_arena_mode && !(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_BEGINNER))
 	{
 		// Nightmare mode allows more out-of depth creatures
 		if(has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR) && !randint0(pls_kakuritu))
@@ -2262,7 +2262,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 	bool easy = FALSE;
 
 	/* Non-Ninja player in the darkness */
-	bool in_darkness = (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) && !has_trait(creature_ptr, TRAIT_SEE_DARKNESS);
+	bool in_darkness = (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS) && !has_trait(creature_ptr, TRAIT_SEE_DARKNESS);
 
 	/* Do disturb? */
 	if(disturb_high)
@@ -2715,7 +2715,7 @@ void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_
 		else
 			level = floor_ptr->depth;
 
-		if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON) level+= 2+randint1(3);
+		if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_CHAMELEON) level+= 2+randint1(3);
 
 		species_idx = get_species_num(floor_ptr, level);
 		species_ptr = &species_info[species_idx];
@@ -3848,9 +3848,9 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES 
 */
 bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 {
-	int guardian = dungeon_info[floor_ptr->dun_type].final_guardian;
+	int guardian = dungeon_info[floor_ptr->dungeon_id].final_guardian;
 
-	if(guardian && (dungeon_info[floor_ptr->dun_type].maxdepth == floor_ptr->depth) && (species_info[guardian].cur_num < species_info[guardian].max_num))
+	if(guardian && (dungeon_info[floor_ptr->dungeon_id].maxdepth == floor_ptr->depth) && (species_info[guardian].cur_num < species_info[guardian].max_num))
 	{
 		COODINATES oy, ox;
 		int try = 4000;

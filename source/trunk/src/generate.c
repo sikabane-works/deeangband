@@ -165,7 +165,7 @@ static bool alloc_stairs(floor_type *floor_ptr, FEATURE_ID feat, int num, int wa
 		/* No up stairs in town or in ironman mode */
 		if(ironman_downward || !floor_ptr->depth) return TRUE;
 
-		if(floor_ptr->depth > dungeon_info[floor_ptr->dun_type].mindepth)
+		if(floor_ptr->depth > dungeon_info[floor_ptr->dungeon_id].mindepth)
 			shaft_num = (randint1(num+1))/2;
 	}
 	else if(have_flag(f_ptr->flags, FF_MORE))
@@ -183,9 +183,9 @@ static bool alloc_stairs(floor_type *floor_ptr, FEATURE_ID feat, int num, int wa
 		}
 
 		/* No downstairs at the bottom */
-		if(floor_ptr->depth >= dungeon_info[floor_ptr->dun_type].maxdepth) return TRUE;
+		if(floor_ptr->depth >= dungeon_info[floor_ptr->dungeon_id].maxdepth) return TRUE;
 
-		if((floor_ptr->depth < dungeon_info[floor_ptr->dun_type].maxdepth-1)) //TODO !quest_number(floor_ptr->depth+1))
+		if((floor_ptr->depth < dungeon_info[floor_ptr->dungeon_id].maxdepth-1)) //TODO !quest_number(floor_ptr->depth+1))
 			shaft_num = (randint1(num)+1)/2;
 	}
 
@@ -446,7 +446,7 @@ static void try_door(floor_type *floor_ptr, int y, int x)
 	if(floor_ptr->cave[y][x].info & (CAVE_ROOM)) return;
 
 	/* Occasional door (if allowed) */
-	if((randint0(100) < dun_tun_jct) && possible_doorway(floor_ptr, y, x) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS))
+	if((randint0(100) < dun_tun_jct) && possible_doorway(floor_ptr, y, x) && !(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_DOORS))
 		place_random_door(floor_ptr, y, x, FALSE);
 }
 
@@ -467,7 +467,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 		    (quest[i].type != QUEST_TYPE_KILL_LEVEL &&
 		     quest[i].type != QUEST_TYPE_RANDOM) ||
 		    quest[i].level != floor_ptr->depth ||
-		    floor_ptr->dun_type != quest[i].dungeon ||
+		    floor_ptr->dungeon_id != quest[i].dungeon ||
 		    (quest[i].flags & QUEST_FLAG_PRESET))
 		{
 			/* Ignore it */
@@ -561,7 +561,7 @@ static void set_bound_perm_wall(cave_type *c_ptr)
 static void generate_caverns_and_lakes(floor_type *floor_ptr)
 {
 	/* Possible "destroyed" level */
-	if((floor_ptr->depth > 30) && one_in_(DUN_DEST*2) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DESTROY))
+	if((floor_ptr->depth > 30) && one_in_(DUN_DEST*2) && (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DESTROY))
 	{
 		dungeon_ptr->destroyed = TRUE;
 
@@ -571,15 +571,15 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 
 	/* Make a lake some of the time */
 	if(one_in_(LAKE_LEVEL) && !dungeon_ptr->empty_level && !dungeon_ptr->destroyed &&
-	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_MASK))
+	    (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_LAKE_MASK))
 	{
 		int count = 0;
-		if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_WATER) count += 3;
-		if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_LAVA) count += 3;
-		if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_RUBBLE) count += 3;
-		if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_TREE) count += 3;
+		if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_LAKE_WATER) count += 3;
+		if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_LAKE_LAVA) count += 3;
+		if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_LAKE_RUBBLE) count += 3;
+		if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_LAKE_TREE) count += 3;
 
-		if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_LAVA)
+		if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_LAKE_LAVA)
 		{
 			/* Lake of Lava */
 			if((floor_ptr->depth > 80) && (randint0(count) < 2)) dungeon_ptr->laketype = LAKE_T_LAVA;
@@ -590,7 +590,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 			count--;
 		}
 
-		if((dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_WATER) && !dungeon_ptr->laketype)
+		if((dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_LAKE_WATER) && !dungeon_ptr->laketype)
 		{
 			/* Lake of Water */
 			if((floor_ptr->depth > 50) && randint0(count) < 2) dungeon_ptr->laketype = LAKE_T_WATER;
@@ -601,7 +601,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 			count--;
 		}
 
-		if((dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_RUBBLE) && !dungeon_ptr->laketype)
+		if((dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_LAKE_RUBBLE) && !dungeon_ptr->laketype)
 		{
 			/* Lake of rubble */
 			if((floor_ptr->depth > 35) && (randint0(count) < 2)) dungeon_ptr->laketype = LAKE_T_CAVE;
@@ -613,7 +613,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 		}
 
 		/* Lake of tree */
-		if((floor_ptr->depth > 5) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAKE_TREE) && !dungeon_ptr->laketype) dungeon_ptr->laketype = LAKE_T_AIR_VAULT;
+		if((floor_ptr->depth > 5) && (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_LAKE_TREE) && !dungeon_ptr->laketype) dungeon_ptr->laketype = LAKE_T_AIR_VAULT;
 
 		if(dungeon_ptr->laketype)
 		{
@@ -623,7 +623,7 @@ static void generate_caverns_and_lakes(floor_type *floor_ptr)
 	}
 
 	if((floor_ptr->depth > DUN_CAVERN) && !dungeon_ptr->empty_level &&
-	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CAVERN) &&
+	    (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_CAVERN) &&
 	    !dungeon_ptr->laketype && !dungeon_ptr->destroyed && (randint1(1000) < floor_ptr->depth))
 	{
 		dungeon_ptr->cavern = TRUE;
@@ -660,7 +660,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	dungeon_ptr->laketype = 0;
 
 	// Fill the arrays of floors and walls in the good proportions
-	set_floor_and_wall(floor_ptr->dun_type);
+	set_floor_and_wall(floor_ptr->dungeon_id);
 
 	// Prepare allocation table
 	get_species_num_prep(NULL, get_creature_hook(), NULL, NULL, 0);
@@ -689,7 +689,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	dungeon_ptr->cent_n = 0;
 
 	// Empty arena levels
-	if(ironman_empty_levels || ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_ARENA) && (empty_levels && one_in_(EMPTY_LEVEL))))
+	if(ironman_empty_levels || ((dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_ARENA) && (empty_levels && one_in_(EMPTY_LEVEL))))
 	{
 		dungeon_ptr->empty_level = TRUE;
 		if(cheat_room) msg_print(MES_DEBUG_ARENA);
@@ -736,7 +736,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	generate_caverns_and_lakes(floor_ptr);
 
 	// Build maze
-	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_MAZE)
+	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_MAZE)
 	{
 		build_maze_vault(floor_ptr, floor_ptr->width / 2 - 1, floor_ptr->height / 2 - 1, floor_ptr->width - 4, floor_ptr->height - 4, FALSE);
 
@@ -773,22 +773,22 @@ static bool create_cave_structure(floor_type *floor_ptr)
 			FEATURE_ID feat1 = 0, feat2 = 0;
 
 			/* Choose water or lava or poison swamp*/
-			if((randint1(MAX_DEPTH * 2) - 1 > floor_ptr->depth) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_WATER_RIVER))
+			if((randint1(MAX_DEPTH * 2) - 1 > floor_ptr->depth) && (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_WATER_RIVER))
 			{
 				feat1 = feat_deep_water;
 				feat2 = feat_shallow_water;
 			}
-			else if  (dungeon_info[floor_ptr->dun_type].flags1 & DF1_LAVA_RIVER & one_in_(3))
+			else if  (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_LAVA_RIVER & one_in_(3))
 			{
 				feat1 = feat_deep_lava;
 				feat2 = feat_shallow_lava;
 			}
-			else if  (dungeon_info[floor_ptr->dun_type].flags1 & DF1_POISON_RIVER & one_in_(2))
+			else if  (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_POISON_RIVER & one_in_(2))
 			{
 				feat1 = feat_deep_poison;
 				feat2 = feat_shallow_poison;
 			}
-			else if  (dungeon_info[floor_ptr->dun_type].flags1 & DF1_ACID_RIVER)
+			else if  (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_ACID_RIVER)
 			{
 				feat1 = feat_deep_acid;
 				feat2 = feat_shallow_acid;
@@ -840,7 +840,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 			dungeon_ptr->wall_n = 0;
 
 			/* Connect the room to the previous room */
-			if(randint1(floor_ptr->depth) > dungeon_info[floor_ptr->dun_type].tunnel_percent)
+			if(randint1(floor_ptr->depth) > dungeon_info[floor_ptr->dungeon_id].tunnel_percent)
 			{
 				/* make cave-like tunnel */
 				(void)build_tunnel2(floor_ptr, dungeon_ptr->cent[i].x, dungeon_ptr->cent[i].y, x, y, 2, 2);
@@ -896,7 +896,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 				place_floor_grid(c_ptr);
 
 				/* Occasional doorway */
-				if((randint0(100) < dun_tun_pen) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS))
+				if((randint0(100) < dun_tun_pen) && !(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_DOORS))
 				{
 					/* Place a random door */
 					place_random_door(floor_ptr, y, x, TRUE);
@@ -933,21 +933,21 @@ static bool create_cave_structure(floor_type *floor_ptr)
 
 	if(!dungeon_ptr->laketype)
 	{
-		if(dungeon_info[floor_ptr->dun_type].stream2)
+		if(dungeon_info[floor_ptr->dungeon_id].stream2)
 		{
 			// Hack -- Add some quartz streamers
 			for (i = 0; i < DUN_STR_QUA; i++)
 			{
-				build_streamer(floor_ptr, dungeon_info[floor_ptr->dun_type].stream2, DUN_STR_QC);
+				build_streamer(floor_ptr, dungeon_info[floor_ptr->dungeon_id].stream2, DUN_STR_QC);
 			}
 		}
 
-		if(dungeon_info[floor_ptr->dun_type].stream1)
+		if(dungeon_info[floor_ptr->dungeon_id].stream1)
 		{
 			// Hack -- Add some magma streamers
 			for (i = 0; i < DUN_STR_MAG; i++)
 			{
-				build_streamer(floor_ptr, dungeon_info[floor_ptr->dun_type].stream1, DUN_STR_MC);
+				build_streamer(floor_ptr, dungeon_info[floor_ptr->dungeon_id].stream1, DUN_STR_MC);
 			}
 		}
 	}
@@ -974,7 +974,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	if(k < 2) k = 2;
 
 	// Pick a base number of creatures
-	i = dungeon_info[floor_ptr->dun_type].min_m_alloc_level;
+	i = dungeon_info[floor_ptr->dungeon_id].min_m_alloc_level;
 
 	// To make small levels a bit more playable
 	if(floor_ptr->height < MAX_HGT || floor_ptr->width < MAX_WID)
@@ -997,7 +997,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	alloc_object(floor_ptr, player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_TRAP, randint1(k));
 
 	// Put some rubble in corridors (except NO_CAVE dungeon (Castle))
-	if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE)) alloc_object(floor_ptr, player_ptr, ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));
+	if(!(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_CAVE)) alloc_object(floor_ptr, player_ptr, ALLOC_SET_CORR, ALLOC_TYP_RUBBLE, randint1(k));
 
 	// Mega Hack -- No object at first level of deeper dungeon
 	if(player_ptr->enter_dungeon && floor_ptr->depth > 1) floor_ptr->object_level = 1; // No stair scum!
@@ -1013,7 +1013,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 
 	if(!alloc_guardian(floor_ptr, TRUE)) return FALSE; // Put the Guardian
 
-	if(dungeon_ptr->empty_level && (!one_in_(DARK_EMPTY) || (randint1(100) > floor_ptr->depth)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+	if(dungeon_ptr->empty_level && (!one_in_(DARK_EMPTY) || (randint1(100) > floor_ptr->depth)) && !(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS))
 	{
 		// Lite the cave
 		for (y = 0; y < floor_ptr->height; y++)
@@ -1281,33 +1281,33 @@ static bool generate_floor_dungeon(floor_type *floor_ptr, cptr *why)
 	i = 0;
 	while(i < MAX_DUNEGON_FORTLESS)
 	{
-		int p = !one_in_(dungeon_info[floor_ptr->dun_type].vault_quest_probability[i]);
-		if(dungeon_info[floor_ptr->dun_type].vault_quest_level[i] <= floor_ptr->depth &&
-		   dungeon_info[floor_ptr->dun_type].vault_quest_level_max[i] >= floor_ptr->depth && !p)
+		int p = !one_in_(dungeon_info[floor_ptr->dungeon_id].vault_quest_probability[i]);
+		if(dungeon_info[floor_ptr->dungeon_id].vault_quest_level[i] <= floor_ptr->depth &&
+		   dungeon_info[floor_ptr->dungeon_id].vault_quest_level_max[i] >= floor_ptr->depth && !p)
 		   break;
 		   i++;
 	}
 
 	if(i != MAX_DUNEGON_FORTLESS)
 	{
-		if(cheat_room) msg_format("Fortless level -- type %d.", dungeon_info[floor_ptr->dun_type].vault_quest_type[i]);
-		generate_floor_fortress(floor_ptr, dungeon_info[floor_ptr->dun_type].vault_quest_type[i]);
+		if(cheat_room) msg_format("Fortless level -- type %d.", dungeon_info[floor_ptr->dungeon_id].vault_quest_type[i]);
+		generate_floor_fortress(floor_ptr, dungeon_info[floor_ptr->dungeon_id].vault_quest_type[i]);
 		return TRUE;
 	}
 
 	if((always_small_levels || ironman_small_levels || one_in_(SMALL_LEVEL) ||
-	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER) ||
-	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_SMALLEST)) &&
-	    !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BIG))
+	    (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_BEGINNER) ||
+	    (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_SMALLEST)) &&
+	    !(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_BIG))
 	{
 		if(cheat_room) msg_print(MES_DEBUG_SMALL_LEVEL);
 
-		if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_SMALLEST)
+		if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_SMALLEST)
 		{
 			level_height = MIN_SCREEN_HGT;
 			level_width  = MIN_SCREEN_WID;
 		}
-		else if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER)
+		else if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_BEGINNER)
 		{
 			level_height = rand_range(MIN_SCREEN_HGT, MAX_HGT / SCREEN_HGT / 4);
 			level_width  = rand_range(MIN_SCREEN_WID, MAX_WID / SCREEN_WID / 4);
@@ -1423,24 +1423,22 @@ bool generate_floor(floor_type *floor_ptr, DUNGEON_ID dungeon_id, COODINATES wor
 
 	// Prepare new floor data
 	floor_ptr->last_visit = 0;
-	//floor_ptr->visit_mark = latest_visit_mark++;
-
 	floor_ptr->generated = FALSE;
 	floor_ptr->global_map = FALSE;
-
 	floor_ptr->world_x = world_x;
 	floor_ptr->world_y = world_y;
-	floor_ptr->dun_type = (DUNGEON_ID)dungeon_id;
 
-	floor_ptr->depth = depth;
+	floor_ptr->dungeon_id = dungeon_id;
+
 	floor_ptr->depth = depth;
 	floor_ptr->enemy_level = depth; 
 	floor_ptr->object_level = depth;
+
 	floor_ptr->town_num = wilderness[world_y][world_x].town;
 	floor_ptr->floor_turn = 1;
 
 	// Fill the arrays of floors and walls in the good proportions
-	set_floor_and_wall(floor_ptr->dun_type);
+	set_floor_and_wall(floor_ptr->dungeon_id);
 
 	// Generate
 	for (num = 0; TRUE; num++)
