@@ -11,9 +11,9 @@
 /* Purpose: Creature spells and movement */
 
 /*
-* This file has several additions to it by Keldon Jones (keldon@umr.edu)
-* to improve the general quality of the AI (version 0.1.1).
-*/
+ * This file has several additions to it by Keldon Jones (keldon@umr.edu)
+ * to improve the general quality of the AI (version 0.1.1).
+ */
 
 #include "angband.h"
 
@@ -2369,16 +2369,6 @@ static void process_creature(int i)
 	/* Access and check the creature */
 	if(!is_valid_creature(creature_ptr)) return;
 
-	// Ignore dead or out of floot creatures
-	if(!is_player(creature_ptr) && floor_ptr->global_map) return;
-
-	// Handle "fresh" creatures
-	if(creature_ptr->sc_flag & SC_FLAG_BORN)
-	{
-		creature_ptr->sc_flag &= ~(SC_FLAG_BORN);
-		return;
-	}
-
 	if(creature_ptr->cdis >= AAF_LIMIT) return; // Hack -- Require proximity
 
 	// Smell and Noise
@@ -2489,10 +2479,6 @@ static void process_creature(int i)
  * Most of the rest of the time is spent in "update_view()" and "lite_spot(floor_ptr, )",
  * especially when the player is running.
  *
- * Note the special "SC_FLAG_BORN" flag, which allows us to ignore "fresh"
- * creatures while they are still being "born".  A creature is "fresh" only
- * during the turn in which it is created, and we use the "hack_m_idx" to
- * determine if the creature is yet to be processed during the current turn.
  *
  * Note the special "SC_FLAG_NICE" flag, which allows the player to get one
  * move before any "nasty" creatures get to use their spell attacks.

@@ -3350,9 +3350,6 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		repair_creatures = TRUE;
 	}
 
-	/* Hack -- see "process_creatures()" */
-	if(c_ptr->creature_idx < hack_m_idx) creature_ptr->sc_flag |= (SC_FLAG_BORN);
-
 	/*TODO
 	if(is_self_ld_creature(creature_ptr))
 	prepare_update(creature_ptr, PU_SPECIES_LITE);

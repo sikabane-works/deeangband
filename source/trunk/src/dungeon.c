@@ -4914,15 +4914,11 @@ static void play_loop(void)
 	bool load_game = TRUE;
 	floor_type *floor_ptr;
 
-	floor_ptr = GET_FLOOR_PTR(player_ptr); 
-	if(!floor_ptr->generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
-
 	// Process
 	while (TRUE)
 	{
 		int quest_num = 0;
-		
-
+		floor_ptr = GET_FLOOR_PTR(player_ptr); 		
 		panic_save = FALSE; // TODO
 		subject_change_floor = FALSE;  // Not leaving
 
@@ -5086,6 +5082,7 @@ static void play_loop(void)
 void play_game(bool new_game)
 {
 	int i, err; //j;
+	floor_type *floor_ptr;
 
 #ifdef CHUUKEI
 	if(chuukei_client)
@@ -5240,11 +5237,8 @@ void play_game(bool new_game)
 	/* React to changes */
 
 	Term_xtra(TERM_XTRA_REACT, 0);
-
 	prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
-
 	prepare_window(PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
-
 	window_stuff(player_ptr);
 
 	/* Set or clear "rogue_like_commands" if requested */
@@ -5255,14 +5249,16 @@ void play_game(bool new_game)
 	if(player_ptr->chp < 0) gameover = TRUE;
 
 	if(has_trait(player_ptr, TRAIT_ANDROID)) calc_android_exp(player_ptr);
-
 	if(new_game && ((player_ptr->class_idx == CLASS_CAVALRY) || (player_ptr->class_idx == CLASS_BEASTMASTER)))
 	{
 		int pet_species_idx = ((player_ptr->class_idx == CLASS_CAVALRY) ? SPECIES_HORSE : SPECIES_YASE_HORSE);
 		place_creature_species(player_ptr, GET_FLOOR_PTR(player_ptr), player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PC_FORCE_PET | PC_NO_KAGE));
 	}
+	floor_ptr = GET_FLOOR_PTR(player_ptr); 
+	if(!floor_ptr->generated) generate_floor(0, player_ptr->wy, player_ptr->wx, player_ptr->depth, NULL, 0);
 
 	play_loop();
+
 	close_game();
 	quit(NULL);
 }

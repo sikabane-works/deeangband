@@ -1411,10 +1411,7 @@ void clear_cave(floor_type *floor_ptr)
 	//TODO clear creatures and objects.
 
 	// Set the base level
-	floor_ptr->depth = floor_ptr->depth;
-	// Reset the creature generation level
 	floor_ptr->enemy_level = floor_ptr->depth;
-	// Reset the object generation level
 	floor_ptr->object_level = floor_ptr->depth;
 }
 
