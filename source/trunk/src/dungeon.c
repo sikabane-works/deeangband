@@ -1004,7 +1004,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	/* The light is getting dim */
 	else if(object_ptr->name2 == EGO_LITE_LONG)
 	{
-		if((object_ptr->fuel < 50) && (!(object_ptr->fuel % 5)) && (turn % (TURNS_PER_TICK*2)))
+		if((object_ptr->fuel < 50) && (!(object_ptr->fuel % 5)) && (game_turn % (TURNS_PER_TICK * 2)))
 		{
 			if(disturb_minor) disturb(player_ptr, 0, 0);
 			msg_print(MES_LITE_FAINT);
@@ -1733,7 +1733,7 @@ static void process_world_aux_light(creature_type *creature_ptr)
 			/* Decrease life-span */
 			if(object_ptr->name2 == EGO_LITE_LONG)
 			{
-				if(turn % (TURNS_PER_TICK*2)) object_ptr->fuel--;
+				if(game_turn % (TURNS_PER_TICK * 2)) object_ptr->fuel--;
 			}
 			else object_ptr->fuel--;
 
@@ -2840,7 +2840,7 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 
 	// Extract delay time
 	delay = MAX(10, 150 - creature_ptr->skill_fos) * (150 - floor_ptr->depth) * TURNS_PER_TICK / 100;
-	if(turn < creature_ptr->feeling_turn + delay && !cheat_xtra) return;
+	if(game_turn < creature_ptr->feeling_turn + delay && !cheat_xtra) return;
 
 	// No feeling in a quest
 	quest_num = quest_number(floor_ptr);
@@ -2848,7 +2848,7 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 		!(quest[quest_num].flags & QUEST_FLAG_PRESET)))) return;
 
 	new_feeling = get_dungeon_feeling(floor_ptr); // Get new dungeon feeling
-	creature_ptr->feeling_turn = turn; // Remember last time updated
+	creature_ptr->feeling_turn = game_turn; // Remember last time updated
 
 	if(creature_ptr->floor_feeling == new_feeling) return; // No change
 
@@ -2950,12 +2950,12 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 	if(!floor_ptr->depth && !floor_ptr->quest && !floor_ptr->gamble_arena_mode && !floor_ptr->fight_arena_mode)
 	{
 		/* Hack -- Daybreak/Nighfall in town */
-		if(!(turn % ((TURNS_PER_TICK * TOWN_DAWN) / 2)))
+		if(!(game_turn % ((TURNS_PER_TICK * TOWN_DAWN) / 2)))
 		{
 			bool dawn;
 
 			/* Check for dawn */
-			dawn = (!(turn % (TURNS_PER_TICK * TOWN_DAWN)));
+			dawn = (!(game_turn % (TURNS_PER_TICK * TOWN_DAWN)));
 
 			/* Day breaks */
 			if(dawn)
@@ -3064,7 +3064,7 @@ static void process_world(void)
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	creature_type *creature_ptr;
 
-	s32b prev_turn_in_today = ((turn - TURNS_PER_TICK) % A_DAY + A_DAY / 4) % A_DAY;
+	s32b prev_turn_in_today = ((game_turn - TURNS_PER_TICK) % A_DAY + A_DAY / 4) % A_DAY;
 	int prev_min = (1440 * prev_turn_in_today / A_DAY) % 60;
 
 	extract_day_hour_min(&day, &hour, &min);
@@ -3076,12 +3076,12 @@ static void process_world(void)
 	if(floor_ptr->gamble_arena_mode && !subject_change_floor) creature_arena_result(floor_ptr);
 
 	// Every 10 game turns
-	if(turn % TURNS_PER_TICK) return;
+	if(game_turn % TURNS_PER_TICK) return;
 
 	/*** Attempt timed autosave ***/
 	if(autosave_t && autosave_freq && !floor_ptr->gamble_arena_mode)
 	{
-		if(!(turn % ((s32b)autosave_freq * TURNS_PER_TICK)))
+		if(!(game_turn % ((s32b)autosave_freq * TURNS_PER_TICK)))
 			do_cmd_save_game(TRUE);
 	}
 
@@ -5317,14 +5317,14 @@ void add_game_turn(creature_type *creature_ptr, int num)
 	int rollback_days, i;//, j;
 	s32b rollback_turns;
 
-	turn += num;
+	game_turn += num;
 	for(i = 0; i < max_store_idx; i++) st_list[i].last_visit += num;
 
-	rollback_days = 1 + (turn - turn_limit) / (TURNS_PER_TICK * TOWN_DAWN);
+	rollback_days = 1 + (game_turn - turn_limit) / (TURNS_PER_TICK * TOWN_DAWN);
 	rollback_turns = TURNS_PER_TICK * TOWN_DAWN * rollback_days;
 
-	if(turn > rollback_turns) turn -= rollback_turns;
-	else turn = 1;
+	if(game_turn > rollback_turns) game_turn -= rollback_turns;
+	else game_turn = 1;
 	if(old_battle > rollback_turns) old_battle -= rollback_turns;
 	else old_battle = 1;
 	if(creature_ptr->feeling_turn > rollback_turns) creature_ptr->feeling_turn -= rollback_turns;

@@ -1441,10 +1441,10 @@ static bool kakutoujou(creature_type *creature_ptr)
 	cptr p;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if((turn - old_battle) > TURNS_PER_TICK * 250)
+	if((game_turn - old_battle) > TURNS_PER_TICK * 250)
 	{
 		battle_creatures();
-		old_battle = turn;
+		old_battle = game_turn;
 	}
 
 	screen_save();
@@ -1906,7 +1906,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 				extract_day_hour_min(&prev_day, &prev_hour, &prev_min);
 				if((prev_hour >= 6) && (prev_hour <= 17)) do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_INN_OVER_DAY);
 				else do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_INN_STAY_NIGHT);
-				add_game_turn(creature_ptr, (turn / (TURNS_PER_TICK * TOWN_DAWN / 2) + 1) * (TURNS_PER_TICK * TOWN_DAWN / 2) - turn);
+				add_game_turn(creature_ptr, (game_turn / (TURNS_PER_TICK * TOWN_DAWN / 2) + 1) * (TURNS_PER_TICK * TOWN_DAWN / 2) - game_turn);
 
 				if((prev_hour >= 18) && (prev_hour <= 23)) do_cmd_write_diary(DIARY_HIGAWARI, 0, NULL);
 				creature_ptr->chp = creature_ptr->mhp;

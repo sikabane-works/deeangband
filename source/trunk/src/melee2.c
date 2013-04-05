@@ -1236,7 +1236,7 @@ static void creature_food_digest(creature_type *creature_ptr)
 			(void)set_food(creature_ptr, creature_ptr->food - 100);
 
 		// Digest normally -- Every 50 game turns
-		else if(!(turn % (TURNS_PER_TICK * 5)))
+		else if(!(game_turn % (TURNS_PER_TICK * 5)))
 		{
 			// Basic digestion rate based on speed
 			int digestion = SPEED_TO_ENERGY(creature_ptr->speed);

@@ -5929,16 +5929,16 @@ void do_cmd_edit_autopick(creature_type *creature_ptr)
 	tb->dirty_line = -1;
 	tb->filename_mode = PT_DEFAULT;
 
-	if(turn < old_autosave_turn)
+	if(game_turn < old_autosave_turn)
 	{
-		while (old_autosave_turn > turn) old_autosave_turn -= TURNS_PER_TICK * TOWN_DAWN;
+		while (old_autosave_turn > game_turn) old_autosave_turn -= TURNS_PER_TICK * TOWN_DAWN;
 	}
 
 	/* Autosave */
-	if(turn > old_autosave_turn + 100L)
+	if(game_turn > old_autosave_turn + 100L)
 	{
 		do_cmd_save_game(TRUE);
-		old_autosave_turn = turn;
+		old_autosave_turn = game_turn;
 	}
 
 	/* HACK -- Reset start_time to stop counting play_time while edit */

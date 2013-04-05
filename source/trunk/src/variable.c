@@ -98,8 +98,8 @@ int command_new;		/* Command chaining from inven/equip view */
 
 bool msg_flag;			/* Used in msg_print() for "buffering" */
 
-GAME_TURN turn;				/* Current game turn */
-GAME_TURN turn_limit;		/* Limit of game turn */
+GAME_TURN game_turn; /* Current game turn */
+GAME_TURN turn_limit; /* Limit of game turn */
 s32b old_battle;
 
 bool use_sound;			/* The "sound" mode is enabled */

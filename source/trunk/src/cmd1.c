@@ -517,7 +517,7 @@ void py_pickup_aux(creature_type *creature_ptr, OBJECT_ID object_idx)
 	msg_format("You have %s (%c).", object_name, index_to_label(slot));
 	strcpy(record_object_name, object_name);
 #endif
-	record_turn = turn;
+	record_turn = game_turn;
 
 	// Check if completed a quest
 	for (i = 0; i < max_quests; i++)
@@ -731,7 +731,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_SLOW:
 		{
-			if(check_hit(creature_ptr, 125) && !(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			if(check_hit(creature_ptr, 125) && !(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
 			{
 				msg_print(MES_TRAP_DARTS);
 				dam = diceroll(1, 4);
@@ -749,7 +749,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print(MES_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
-				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
+				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
 			}
 			else
 			{
@@ -765,7 +765,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print(MES_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
-				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
+				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
 			}
 			else
 			{
@@ -781,7 +781,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print(MES_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
-				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
+				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
 			}
 			else
 			{

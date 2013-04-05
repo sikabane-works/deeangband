@@ -950,7 +950,7 @@ static void rd_extra(void)
 	rd_u16b(&noscore);
 
 	/* Current turn */
-	rd_s32b(&turn);
+	rd_s32b(&game_turn);
 	rd_s32b(&turn_limit);
 	rd_s32b(&old_battle);
 	READ_SPECIES_ID(&today_mon);

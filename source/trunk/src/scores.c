@@ -433,7 +433,7 @@ errr top_twenty(creature_type *player_ptr)
 	the_score.gold[9] = '\0';
 
 	/* Save the current turn */
-	sprintf(the_score.turns, "%9lu", (long)turn_real(player_ptr, turn));
+	sprintf(the_score.turns, "%9lu", (long)turn_real(player_ptr, game_turn));
 	the_score.turns[9] = '\0';
 
 #ifdef HIGHSCORE_DATE_HACK
@@ -534,7 +534,7 @@ errr predict_score(creature_type *player_ptr)
 	sprintf(the_score.gold, "%9lu", (long)player_ptr->au);
 
 	/* Save the current turn */
-	sprintf(the_score.turns, "%9lu", (long)turn_real(player_ptr, turn));
+	sprintf(the_score.turns, "%9lu", (long)turn_real(player_ptr, game_turn));
 
 	strcpy(the_score.day, MES_SYS_TODAY);
 

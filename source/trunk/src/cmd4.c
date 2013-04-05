@@ -748,15 +748,15 @@ static void do_cmd_last_get(void)
 #endif
 	if(!get_check(buf)) return;
 
-	turn_tmp = turn;
-	turn = record_turn;
+	turn_tmp = game_turn;
+	game_turn = record_turn;
 #ifdef JP
 	sprintf(buf,"%s‚ğè‚É“ü‚ê‚½B", record_object_name);
 #else
 	sprintf(buf,"descover %s.", record_object_name);
 #endif
 	do_cmd_write_diary(DIARY_BUNSHOU, 0, buf);
-	turn = turn_tmp;
+	game_turn = turn_tmp;
 }
 
 static void do_cmd_erase_nikki(void)

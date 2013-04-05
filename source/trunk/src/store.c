@@ -2637,7 +2637,7 @@ static int increase_insults(store_type *st_ptr)
 		st_ptr->bad_buy = 0;
 
 		/* Open tomorrow */
-		st_ptr->store_open = turn + TURNS_PER_TICK*TOWN_DAWN/8 + randint1(TURNS_PER_TICK*TOWN_DAWN/8);
+		st_ptr->store_open = game_turn + TURNS_PER_TICK * TOWN_DAWN / 8 + randint1(TURNS_PER_TICK * TOWN_DAWN / 8);
 
 		/* Closed */
 		return TRUE;
@@ -3369,7 +3369,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 			choice = purchase_haggle(st_ptr, guest_ptr, j_ptr, &price);
 
 			/* Hack -- Got kicked out */
-			if(st_ptr->store_open >= turn) return;
+			if(st_ptr->store_open >= game_turn) return;
 		}
 
 		/* Player wants it */
@@ -3407,7 +3407,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 
 				msg_format(MES_STORE_BOUGHT(object_name, (long)price));
 				strcpy(record_object_name, object_name);
-				record_turn = turn;
+				record_turn = game_turn;
 
 				if(record_buy) do_cmd_write_diary(DIARY_BUY, 0, object_name);
 				object_desc(object_name, object_ptr, OD_NAME_ONLY);
@@ -3629,7 +3629,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 		choice = sell_haggle(st_ptr, creature_ptr, quest_ptr, &price);
 
 		/* Kicked out */
-		if(st_ptr->store_open >= turn) return;
+		if(st_ptr->store_open >= game_turn) return;
 
 		/* Sold... */
 		if(choice == 0)
@@ -4278,7 +4278,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 	store_bottom = STORE_MIN_STOCK + xtra_stock;
 
 	/* Calculate the number of store maintainances since the last visit */
-	maintain_num = (turn - st_ptr->last_visit) / (TURNS_PER_TICK * STORE_TICKS);
+	maintain_num = (game_turn - st_ptr->last_visit) / (TURNS_PER_TICK * STORE_TICKS);
 
 	/* Maintain the store max. 10 times */
 	if(maintain_num > 10) maintain_num = 10;
@@ -4289,7 +4289,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		for (i = 0; i < maintain_num; i++)
 			store_maintenance(st_ptr);
 		/* Save the visit */
-		st_ptr->last_visit = turn;
+		st_ptr->last_visit = game_turn;
 	}
 
 	/* No command argument */
@@ -4436,7 +4436,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		if(need_redraw_store_inv) display_inventory(creature_ptr, st_ptr);
 
 		/* Hack -- get kicked out of the store */
-		if(st_ptr->store_open >= turn) leave_store = TRUE;
+		if(st_ptr->store_open >= game_turn) leave_store = TRUE;
 	}
 
 //	town_num = old_town_num;

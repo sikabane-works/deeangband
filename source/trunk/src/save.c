@@ -554,7 +554,7 @@ static void wr_extra(void)
 	wr_u16b(noscore);
 
 	/* Current turn */
-	wr_s32b(turn);
+	wr_s32b(game_turn);
 	wr_s32b(turn_limit);
 	wr_s32b(old_battle);
 	WRITE_SPECIES_ID(today_mon);
@@ -1224,13 +1224,8 @@ int load_player(void)
 	struct stat     statbuf;
 #endif
 
-	cptr    what = "generic";
-
-
-
-	turn = 0;
-
-
+	cptr what = "generic";
+	game_turn = 0;
 	gameover = FALSE;
 
 	/* Allow empty savefile name */
@@ -1357,7 +1352,7 @@ int load_player(void)
 
 	if(!err)
 	{
-		if(!turn) err = -1;
+		if(!game_turn) err = -1;
 		if(err) what = MES_SYS_SAVEFILE_ERROR3;
 	}
 

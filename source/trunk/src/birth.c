@@ -2305,12 +2305,12 @@ static void init_turn(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_UNDEAD))
 	{
 		/* Undead start just after midnight */
-		turn = (TURNS_PER_TICK * 3 * TOWN_DAWN) / 4 + 1;
+		game_turn = (TURNS_PER_TICK * 3 * TOWN_DAWN) / 4 + 1;
 		turn_limit = TURNS_PER_TICK * TOWN_DAWN * MAX_DAYS + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
 	}
 	else
 	{
-		turn = 1;
+		game_turn = 1;
 		turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
 	}
 }

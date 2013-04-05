@@ -153,7 +153,7 @@ extern int command_gap;
 extern int command_wrk;
 extern int command_new;
 extern bool msg_flag;
-extern GAME_TURN turn;
+extern GAME_TURN game_turn;
 extern GAME_TURN turn_limit;
 extern s32b old_battle;
 extern bool use_sound;

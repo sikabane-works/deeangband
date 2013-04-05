@@ -456,7 +456,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 	if((flag & CFM_SAVE_FLOORS) && !(flag & CFM_NO_RETURN))
 	{
 		get_out_creature(new_floor_ptr, creature_ptr); // Get out of the my way!
-		old_floor_ptr->last_visit = turn; // Record the last visit turn of current floor
+		old_floor_ptr->last_visit = game_turn; // Record the last visit turn of current floor
 
 		// Forget the lite and view
 		//TODO

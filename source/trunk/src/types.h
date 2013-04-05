@@ -1007,7 +1007,7 @@ struct store_type
 	s16b good_buy;			/* Number of "good" buys */
 	s16b bad_buy;			/* Number of "bad" buys */
 
-	s32b store_open;		/* Closed until this turn */
+	GAME_TIME store_open;		/* Closed until this turn */
 
 	s32b last_visit;		/* Last visited on this turn */
 

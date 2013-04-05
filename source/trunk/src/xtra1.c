@@ -35,7 +35,7 @@ static void prt_field(cptr info, int row, int col)
 bool is_daytime(void)
 {
 	s32b len = TURNS_PER_TICK * TOWN_DAWN;
-	if((turn % len) < (len / 2)) return TRUE;
+	if((game_turn % len) < (len / 2)) return TRUE;
 	else return FALSE;
 }
 
@@ -44,8 +44,8 @@ bool is_daytime(void)
  */
 void extract_day_hour_min(int *day, int *hour, int *min)
 {
-	s32b turn_in_today = (turn + A_DAY / 4 + start_hour * 1440 + start_min * 60) % A_DAY;
-	*day = (turn + A_DAY / 4) / A_DAY + 1;
+	s32b turn_in_today = (game_turn + A_DAY / 4 + start_hour * 1440 + start_min * 60) % A_DAY;
+	*day = (game_turn + A_DAY / 4) / A_DAY + 1;
 	*hour = (24 * turn_in_today / A_DAY) % 24;
 	*min = (1440 * turn_in_today / A_DAY) % 60;
 }
@@ -62,7 +62,7 @@ void prt_time(void)
 
 	if(wizard)
 	{
-		c_put_str(TERM_WHITE, format("Turn: %9d", turn), ROW_DAY, COL_DAY);
+		c_put_str(TERM_WHITE, format("Turn: %9d", game_turn), ROW_DAY, COL_DAY);
 	}
 	else
 	{
