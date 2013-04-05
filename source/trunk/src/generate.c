@@ -1093,6 +1093,7 @@ void generate_floor_arena(floor_type *floor_ptr, COODINATES height, COODINATES w
 {
 	COODINATES y, x;
 	COODINATES qy = 0, qx = 0;
+	floor_ptr->generate_type = F_GENE_FIGHTING_ARENA;
 
 	// Small area
 	floor_ptr->height = height;
@@ -1190,6 +1191,7 @@ void generate_floor_creature_arena(floor_type *floor_ptr)
 	COODINATES y, x;
 	COODINATES qy = 0, qx = 0;
 	int i;
+	floor_ptr->generate_type = F_GENE_GUMBLE_ARENA;
 
 	// Start with solid walls
 	for (y = 0; y < MAX_HGT; y++)
@@ -1227,6 +1229,7 @@ void generate_floor_creature_arena(floor_type *floor_ptr)
 void generate_floor_quest(floor_type *floor_ptr, QUEST_ID quest_id)
 {
 	int x, y;
+	floor_ptr->generate_type = F_GENE_QUEST;
 
 	/* Start with perm walls */
 	for (y = 0; y < floor_ptr->height; y++)
@@ -1255,6 +1258,7 @@ void generate_floor_quest(floor_type *floor_ptr, QUEST_ID quest_id)
 static void generate_floor_fortress(floor_type *floor_ptr, int type)
 {
 	int x, y;
+	floor_ptr->generate_type = F_GENE_FORTLESS;
 
 	// Start with perm walls
 	for (y = 0; y < floor_ptr->height; y++)

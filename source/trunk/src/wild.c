@@ -135,6 +135,7 @@ static void generate_wilderness_area(floor_type *floor_ptr, int terrain, u32b se
 	COODINATES x1, y1;
 	FEATURE_ID table_size = sizeof(terrain_table[0]) / sizeof(s16b);
 	FLOOR_LEV roughness = 1; // The roughness of the level.
+	floor_ptr->generate_type = F_GENE_WILDERNESS;
 
 	// Unused
 	(void)border;
