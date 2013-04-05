@@ -1274,7 +1274,7 @@ static void generate_floor_fortress(floor_type *floor_ptr, int type)
 
 
 // Make a real level
-static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
+static bool generate_floor_dungeon(floor_type *floor_ptr, cptr *why)
 {
 	int level_height, level_width, i;
 
@@ -1447,7 +1447,6 @@ bool generate_floor(floor_type *floor_ptr, DUNGEON_ID dungeon_id, COODINATES wor
 	{
 		bool okay = TRUE;
 		cptr why = NULL;
-
 		clear_cave(floor_ptr); // Clear and empty the cave
 
 		if(floor_ptr->fight_arena_mode)
@@ -1459,7 +1458,7 @@ bool generate_floor(floor_type *floor_ptr, DUNGEON_ID dungeon_id, COODINATES wor
 		else if(floor_ptr->depth <= 0) // field
 			generate_floor_wilderness(floor_ptr);
 		else
-			okay = generate_floor_cave(floor_ptr, &why); // dungeon
+			okay = generate_floor_dungeon(floor_ptr, &why); // dungeon
 
 		// Prevent object over-flow
 		if(object_max >= max_object_idx)
