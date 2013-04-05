@@ -2004,8 +2004,18 @@ typedef struct {
 /*
  *  A structure type for the saved floor
  */
+enum FLOOR_GENERATED_TYPE_ID {
+	F_GENE_WILDERNESS,
+	F_GENE_CITY,
+	F_GENE_DUNGEON,
+	F_GENE_FIGHTING_ARENA,
+	F_GENE_GUMBLE_ARENA,
+	F_GENE_QUEST,
+};
+
 typedef struct 
 {
+	enum FLOOR_GENERATED_TYPE_ID generate_type;
 	byte fight_arena_mode;
 	byte gamble_arena_mode;
 

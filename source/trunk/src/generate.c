@@ -1185,7 +1185,7 @@ static void build_battle(floor_type *floor_ptr, creature_type *player_ptr)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void generate_floor_creature_arena(floor_type *floor_ptr)
+void generate_floor_creature_arena(floor_type *floor_ptr)
 {
 	COODINATES y, x;
 	COODINATES qy = 0, qx = 0;
@@ -1278,6 +1278,7 @@ static bool generate_floor_dungeon(floor_type *floor_ptr, cptr *why)
 {
 	int level_height, level_width, i;
 
+	floor_ptr->generate_type = F_GENE_DUNGEON;
 	i = 0;
 	while(i < MAX_DUNEGON_FORTLESS)
 	{
@@ -1421,7 +1422,7 @@ bool generate_floor(floor_type *floor_ptr, DUNGEON_ID dungeon_id, COODINATES wor
 {
 	int num;
 
-	// Prepare new floor data
+	/* Prepare new floor data */
 	floor_ptr->last_visit = 0;
 	floor_ptr->generated = FALSE;
 	floor_ptr->global_map = FALSE;
@@ -1441,37 +1442,34 @@ bool generate_floor(floor_type *floor_ptr, DUNGEON_ID dungeon_id, COODINATES wor
 	set_floor_and_wall(floor_ptr->dungeon_id);
 
 	// Generate
-	for (num = 0; TRUE; num++)
+	if(depth <= 0) generate_floor_wilderness(floor_ptr);
+	else 
 	{
-		bool okay = TRUE;
-		cptr why = NULL;
-		clear_cave(floor_ptr); // Clear and empty the cave
-
-		if(floor_ptr->gamble_arena_mode)
-			generate_floor_creature_arena(floor_ptr); // gamble arena
-		else if(floor_ptr->depth <= 0) // field
-			generate_floor_wilderness(floor_ptr);
-		else
-			okay = generate_floor_dungeon(floor_ptr, &why); // dungeon
-
-		// Prevent object over-flow
-		if(object_max >= max_object_idx)
+		for (num = 0; TRUE; num++)
 		{
-			why = MES_DEBUG_TOO_ITEM;
-			okay = FALSE;
-		}
+			bool okay = TRUE;
+			cptr why = NULL;
+			clear_cave(floor_ptr); // Clear and empty the cave
 
-		// Prevent creature over-flow
-		else if(creature_max >= max_creature_idx)
-		{
-			why = MES_DEBUG_TOO_CREATURE;
-			okay = FALSE;
-		}
+			okay = generate_floor_dungeon(floor_ptr, &why);
 
-		if(okay) break;
-		if(why) msg_format(MES_DEBUG_FLOOR_RETAKE(why));
-		wipe_object_list(0);
-		wipe_creature_list(0);
+			// Prevent object over-flow
+			if(object_max >= max_object_idx)
+			{
+				why = MES_DEBUG_TOO_ITEM;
+				okay = FALSE;
+			}
+			else if(creature_max >= max_creature_idx)
+			{
+				why = MES_DEBUG_TOO_CREATURE;
+				okay = FALSE;
+			}
+
+			if(okay) break;
+			if(why) msg_format(MES_DEBUG_FLOOR_RETAKE(why));
+			wipe_object_list(0);
+			wipe_creature_list(0);
+		}
 	}
 
 	// Glow deep lava and building entrances
@@ -1485,6 +1483,5 @@ bool generate_floor(floor_type *floor_ptr, DUNGEON_ID dungeon_id, COODINATES wor
 	if(player_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(floor_ptr, player_ptr, (bool)(player_ptr->class_idx == CLASS_NINJA));
 
 	floor_ptr->generated = TRUE;
-
 	return TRUE;
 }

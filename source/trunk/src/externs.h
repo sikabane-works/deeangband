@@ -970,6 +970,7 @@ extern void clear_cave(floor_type *floor_ptr);
 extern bool generate_floor(floor_type *floor_ptr, DUNGEON_ID dungeon_id, COODINATES world_y, COODINATES world_x, FLOOR_LEV depth, floor_type *prev_ptr, FLAGS_32 flag);
 extern void generate_floor_quest(floor_type *floor_ptr, QUEST_ID quest_id);
 extern void generate_floor_arena(floor_type *floor_ptr, COODINATES height, COODINATES width);
+extern void generate_floor_creature_arena(floor_type *floor_ptr);
 
 // init1.c
 extern byte color_char_to_acttr(char c);
