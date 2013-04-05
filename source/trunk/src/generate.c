@@ -1089,7 +1089,7 @@ static void build_arena(floor_type *floor_ptr, int height, int width)
 /*
  * Town logic flow for generation of arena -KMW-
  */
-static void generate_floor_arena(floor_type *floor_ptr, COODINATES height, COODINATES width)
+void generate_floor_arena(floor_type *floor_ptr, COODINATES height, COODINATES width)
 {
 	COODINATES y, x;
 	COODINATES qy = 0, qx = 0;
@@ -1223,8 +1223,8 @@ static void generate_floor_creature_arena(floor_type *floor_ptr)
 	}
 }
 
-// Generate a quest level
-static void generate_floor_quest(floor_type *floor_ptr, int quest_id)
+/* Generate a quest level */
+void generate_floor_quest(floor_type *floor_ptr, QUEST_ID quest_id)
 {
 	int x, y;
 
@@ -1447,12 +1447,8 @@ bool generate_floor(floor_type *floor_ptr, DUNGEON_ID dungeon_id, COODINATES wor
 		cptr why = NULL;
 		clear_cave(floor_ptr); // Clear and empty the cave
 
-		if(floor_ptr->fight_arena_mode)
-			generate_floor_arena(floor_ptr, 41, 41); // fighting arena
-		else if(floor_ptr->gamble_arena_mode)
+		if(floor_ptr->gamble_arena_mode)
 			generate_floor_creature_arena(floor_ptr); // gamble arena
-		else if(floor_ptr->quest)
-			generate_floor_quest(floor_ptr, floor_ptr->quest); // quest
 		else if(floor_ptr->depth <= 0) // field
 			generate_floor_wilderness(floor_ptr);
 		else
