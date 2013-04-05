@@ -4914,14 +4914,15 @@ static void play_loop(void)
 	bool load_game = TRUE;
 	floor_type *floor_ptr;
 
+	floor_ptr = GET_FLOOR_PTR(player_ptr); 
+	if(!floor_ptr->generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
+
 	// Process
 	while (TRUE)
 	{
 		int quest_num = 0;
+		
 
-		floor_ptr = GET_FLOOR_PTR(player_ptr); 
-
-		//if(!floor_ptr->generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
 		panic_save = FALSE; // TODO
 		subject_change_floor = FALSE;  // Not leaving
 

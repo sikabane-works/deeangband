@@ -1202,6 +1202,11 @@ static void creature_speaking(creature_type *creature_ptr)
 
 static void creature_lack_food(creature_type *creature_ptr)
 {
+	if(!is_valid_creature(creature_ptr))
+	{
+		msg_warning("Invalid creature in creature_lack_food()");
+		return;
+	}
 	if((creature_ptr->food < CREATURE_FOOD_FAINT))
 	{
 		// Faint occasionally
@@ -2358,10 +2363,11 @@ static void process_nonplayer(CREATURE_ID m_idx)
 static void process_creature(int i)
 {
 	int speed;
-
-	// Access the creature
 	creature_type *creature_ptr = &creature_list[i];
 	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+
+	/* Access and check the creature */
+	if(!is_valid_creature(creature_ptr)) return;
 
 	// Ignore dead or out of floot creatures
 	if(!is_player(creature_ptr) && floor_ptr->global_map) return;

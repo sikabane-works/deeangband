@@ -1933,13 +1933,8 @@ errr Term_addstr(int n, byte a, cptr s)
 errr Term_putch(int x, int y, byte a, char c)
 {
 	errr res;
-
-	/* Move first */
 	if((res = Term_gotoxy(x, y)) != 0) return (res);
-
-	/* Then add the char */
 	if((res = Term_addch(a, c)) != 0) return (res);
-
 	return SUCCESS;
 }
 
