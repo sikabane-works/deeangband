@@ -5174,10 +5174,8 @@ void play_game(bool new_game)
 		seed = ((seed >> 3) * (getpid() << 1));
 #endif
 
-		/* Use the complex RNG */
+		/* Use and Seed the complex RNG */
 		Rand_quick = FALSE;
-
-		/* Seed the "complex" RNG */
 		Rand_state_init(seed);
 	}
 
@@ -5211,7 +5209,6 @@ void play_game(bool new_game)
 		if(enter_wizard_mode())
 		{
 			wizard = TRUE;
-
 			if(gameover || !player_ptr->fy || !player_ptr->fx)
 			{
 				init_saved_floors(TRUE); // Initialize the saved floors data
@@ -5235,7 +5232,6 @@ void play_game(bool new_game)
 	playing = TRUE;
 
 	/* React to changes */
-
 	Term_xtra(TERM_XTRA_REACT, 0);
 	prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 	prepare_window(PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
@@ -5245,20 +5241,21 @@ void play_game(bool new_game)
 	if(arg_force_original) rogue_like_commands = FALSE;
 	if(arg_force_roguelike) rogue_like_commands = TRUE;
 
-	/* Hack -- Enforce "delayed death" */
-	if(player_ptr->chp < 0) gameover = TRUE;
-
-	if(has_trait(player_ptr, TRAIT_ANDROID)) calc_android_exp(player_ptr);
-	if(new_game && ((player_ptr->class_idx == CLASS_CAVALRY) || (player_ptr->class_idx == CLASS_BEASTMASTER)))
-	{
-		int pet_species_idx = ((player_ptr->class_idx == CLASS_CAVALRY) ? SPECIES_HORSE : SPECIES_YASE_HORSE);
-		place_creature_species(player_ptr, GET_FLOOR_PTR(player_ptr), player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PC_FORCE_PET | PC_NO_KAGE));
-	}
+	/* Generate floor for game start. */
 	floor_ptr = GET_FLOOR_PTR(player_ptr); 
-	if(!floor_ptr->generated) generate_floor(0, player_ptr->wy, player_ptr->wx, player_ptr->depth, NULL, 0);
+	if(!floor_ptr->generated) generate_floor(floor_ptr, 0, player_ptr->wy, player_ptr->wx, player_ptr->depth, NULL, 0);
+
+	/* Hack -- Enforce "delayed death" */
+	if(!is_valid_creature(player_ptr))
+	{
+#ifdef JP
+		msg_print("Ç†Ç»ÇΩÇÕê∂Ç‹ÇÍÇΩèuä‘Ç…ë¶éÄÇµÇΩÅB");
+#else
+#endif
+		gameover = TRUE;
+	}
 
 	play_loop();
-
 	close_game();
 	quit(NULL);
 }

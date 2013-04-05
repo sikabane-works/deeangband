@@ -439,7 +439,9 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 	// Create New Floor
 	else
 	{
-		floor_id = generate_floor(dungeon_id, world_y, world_x, depth, old_floor_ptr, 0);
+		int floor_id = floor_pop();
+		floor_type *floor_ptr = &floor_list[floor_id];
+		generate_floor(floor_ptr, dungeon_id, world_y, world_x, depth, old_floor_ptr, 0);
 		new_floor_ptr = &floor_list[floor_id];
 
 		// Choose random stairs

@@ -1417,11 +1417,9 @@ void clear_cave(floor_type *floor_ptr)
 
 // Generates a random dungeon level			-RAK-
 // Hack -- regenerate any "overflow" levels
-int generate_floor(DUNGEON_ID dungeon_id, COODINATES world_y, COODINATES world_x, FLOOR_LEV depth, floor_type *prev_ptr, FLAGS_32 flag)
+bool generate_floor(floor_type *floor_ptr, DUNGEON_ID dungeon_id, COODINATES world_y, COODINATES world_x, FLOOR_LEV depth, floor_type *prev_ptr, FLAGS_32 flag)
 {
 	int num;
-	int floor_id = floor_pop();
-	floor_type *floor_ptr = &floor_list[floor_id];
 
 	// Prepare new floor data
 	floor_ptr->last_visit = 0;
@@ -1488,7 +1486,6 @@ int generate_floor(DUNGEON_ID dungeon_id, COODINATES world_y, COODINATES world_x
 
 	// Reset flag
 	player_ptr->enter_dungeon = FALSE;
-
 	wipe_generate_floor_flags(floor_ptr);
 
 	// Hack -- Munchkin characters always get whole map 
@@ -1496,5 +1493,5 @@ int generate_floor(DUNGEON_ID dungeon_id, COODINATES world_y, COODINATES world_x
 
 	floor_ptr->generated = TRUE;
 
-	return floor_id;
+	return TRUE;
 }
