@@ -387,7 +387,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 	if(mult > 150) mult = 150;
 
 	/* Return the total damage */
-	return (tdam * mult / 10);
+	return (s16b)(tdam * mult / 10);
 }
 
 

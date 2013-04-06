@@ -3985,7 +3985,7 @@ static void dump_aux_recall(FILE *fff)
 /*
  *
  */
-static void dump_aux_options(creature_type *creature_ptr, FILE *fff)
+static void dump_aux_options(FILE *fff)
 {
 
 #ifdef JP
@@ -4165,7 +4165,7 @@ static void dump_aux_creatures(FILE *fff)
 	C_KILL(who, max_species_idx, SPECIES_ID);
 }
 
-static void dump_aux_race_history(creature_type *creature_ptr, FILE *fff)
+static void dump_aux_race_history(FILE *fff)
 {
 
 #ifdef JP
@@ -4384,13 +4384,13 @@ errr make_character_dump(creature_type *creature_ptr, FILE *fff)
 
 	dump_aux_display_creature_status(creature_ptr, fff);
 	dump_aux_last_message(creature_ptr, fff);
-	dump_aux_options(creature_ptr, fff);
+	dump_aux_options(fff);
 	dump_aux_recall(fff);
 	dump_aux_quest(fff);
 	dump_aux_arena(fff);
 	dump_aux_creatures(fff);
 	dump_aux_karmas(creature_ptr, fff);
-	dump_aux_race_history(creature_ptr, fff);
+	dump_aux_race_history(fff);
 	dump_aux_realm_history(creature_ptr, fff);
 	dump_aux_class_special(creature_ptr, fff);
 	dump_aux_mutations(creature_ptr, fff);
@@ -5503,7 +5503,7 @@ void do_cmd_save_game(int is_autosave)
 /*
  * Save the game and exit
  */
-void do_cmd_save_and_exit(creature_type *creature_ptr)
+void do_cmd_save_and_exit(void)
 {
 	playing = FALSE;
 

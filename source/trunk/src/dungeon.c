@@ -3927,7 +3927,7 @@ static void process_player_command(creature_type *creature_ptr)
 	case KTRL('X'):
 	case SPECIAL_KEY_QUIT:
 		{
-			do_cmd_save_and_exit(creature_ptr);
+			do_cmd_save_and_exit();
 			break;
 		}
 

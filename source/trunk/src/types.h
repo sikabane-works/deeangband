@@ -910,8 +910,8 @@ struct object_type
 	SPECIES_ID creator_idx;		// Creater
 	SPECIES_ID source_idx; /* Item Source */
 
-	byte equipped_slot_type;
-	byte equipped_slot_num;
+	INVENTORY_ID equipped_slot_type;
+	QUANTITY equipped_slot_num;
 };
 
 

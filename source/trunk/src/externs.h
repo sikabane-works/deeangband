@@ -930,7 +930,7 @@ extern void set_creature_name(bool sf, creature_type *creature_ptr);
 extern void get_name(creature_type *creature_ptr);
 extern void do_cmd_suicide(creature_type *creature_ptr);
 extern void do_cmd_save_game(int is_autosave);
-extern void do_cmd_save_and_exit(creature_type *creature_ptr);
+extern void do_cmd_save_and_exit(void);
 extern long total_points(creature_type *player_ptr);
 extern void close_game(void);
 extern void exit_game_panic(creature_type *player_ptr);

@@ -2448,7 +2448,7 @@ static void building_recharge(creature_type *creature_ptr)
 		price *= charges;
 
 		/* Recharge */
-		object_ptr->pval += charges;
+		object_ptr->pval += (PVAL)charges;
 
 		/* We no longer think the item is empty */
 		object_ptr->ident &= ~(IDENT_EMPTY);
@@ -2581,7 +2581,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 			break;
 		case TV_WAND:
 			if(object_ptr->pval < object_ptr->number * object_kind_ptr->pval)
-				object_ptr->pval = object_ptr->number * object_kind_ptr->pval;
+				object_ptr->pval = (PVAL)object_ptr->number * object_kind_ptr->pval;
 			/* We no longer think the item is empty */
 			object_ptr->ident &= ~(IDENT_EMPTY);
 			break;
