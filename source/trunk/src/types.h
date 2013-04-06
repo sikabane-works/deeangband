@@ -1457,8 +1457,8 @@ struct creature_type
 	FLAGS_32 current_trait[MAX_TRAITS_FLAG];
 	FLAGS_32 blue_learned_trait[MAX_TRAITS_FLAG];
 
-	s32b current_charge[MAGIC_EATER_SKILL_MAX];
-	byte max_charge[MAGIC_EATER_SKILL_MAX];
+	STAT current_charge[MAGIC_EATER_SKILL_MAX];
+	QUANTITY max_charge[MAGIC_EATER_SKILL_MAX];
 
 	TRAIT_ID now_singing;
 	TRAIT_ID pre_singing;

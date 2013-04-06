@@ -798,10 +798,10 @@ static void rd_creature(creature_type *creature_ptr)
 	for (i = 0; i < MAX_SKILLS; i++) READ_SKILL_EXP(&creature_ptr->skill_exp[i]);
 
 	// Class skill
-	for (i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&creature_ptr->blue_learned_trait[i]);
+	for (i = 0; i < MAX_TRAITS_FLAG; i++) READ_FLAGS_32(&creature_ptr->blue_learned_trait[i]);
 
-	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_s32b(&creature_ptr->current_charge[i]);
-	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) rd_byte(&creature_ptr->max_charge[i]);		
+	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) READ_QUANTITY(&creature_ptr->current_charge[i]);
+	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) READ_QUANTITY(&creature_ptr->max_charge[i]);		
 
 	if(MUSIC_SINGING_ANY(creature_ptr)) creature_ptr->action = ACTION_SING;
 
@@ -1061,7 +1061,7 @@ static errr rd_floor(floor_type *floor_ptr)
 	rd_byte(&floor_ptr->global_map);
 	READ_TOWN_ID(&floor_ptr->town_num);
 
-	for (i = 0; i < MAX_RACES; i++) rd_s16b(&floor_ptr->race_population[i]);
+	for (i = 0; i < MAX_RACES; i++) READ_PROB(&floor_ptr->race_population[i]);
 
 	rd_s16b(&floor_ptr->num_repro);
 	READ_COODINATES(&floor_ptr->height);

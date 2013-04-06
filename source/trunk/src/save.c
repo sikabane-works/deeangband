@@ -138,8 +138,8 @@ static void wr_object(object_type *object_ptr)
 	WRITE_SPECIES_ID(object_ptr->creator_idx);
 	WRITE_SPECIES_ID(object_ptr->source_idx);
 
-	wr_byte(object_ptr->equipped_slot_type);
-	wr_byte(object_ptr->equipped_slot_num);
+	WRITE_QUANTITY(object_ptr->equipped_slot_type);
+	WRITE_QUANTITY(object_ptr->equipped_slot_num);
 
 	WRITE_BODY_SIZE(object_ptr->size_upper);
 	WRITE_BODY_SIZE(object_ptr->size_lower);
@@ -414,10 +414,10 @@ static void wr_creature(creature_type *creature_ptr)
 	for (i = 0; i < MAX_REALM; i++) WRITE_SKILL_EXP(creature_ptr->spell_exp[i]);
 	for (i = 0; i < MAX_SKILLS; i++) WRITE_SKILL_EXP(creature_ptr->skill_exp[i]);
 
-	for (i = 0; i < MAX_TRAITS_FLAG; i++) wr_s32b(creature_ptr->blue_learned_trait[i]);
+	for (i = 0; i < MAX_TRAITS_FLAG; i++) WRITE_FLAGS_32(creature_ptr->blue_learned_trait[i]);
 
-	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) wr_u32b(creature_ptr->current_charge[i]);
-	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) wr_byte(creature_ptr->max_charge[i]);		
+	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) WRITE_QUANTITY(creature_ptr->current_charge[i]);
+	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) WRITE_QUANTITY(creature_ptr->max_charge[i]);		
 
 	wr_s16b(creature_ptr->old_realm);
 
@@ -647,7 +647,7 @@ static void wr_floor(floor_type *floor_ptr)
 	wr_byte(floor_ptr->global_map);
 	WRITE_TOWN_ID(floor_ptr->town_num); // -KMW-
 
-	for (i = 0; i < MAX_RACES; i++) wr_s16b(floor_ptr->race_population[i]);
+	for (i = 0; i < MAX_RACES; i++) WRITE_PROB(floor_ptr->race_population[i]);
 
 	wr_u16b(floor_ptr->num_repro);
 	WRITE_COODINATES(floor_ptr->height);
