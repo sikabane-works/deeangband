@@ -4491,7 +4491,6 @@ bool repeat_pull(DIRECTION *what)
 
 	/* Grab the next key, advance */
 	*what = repeat__key[repeat__idx++];
-
 	return TRUE;
 }
 

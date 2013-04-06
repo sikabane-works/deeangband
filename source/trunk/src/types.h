@@ -214,6 +214,10 @@ typedef byte DIRECTION;
 #define READ_DIRECTION(VALUE) rd_s32b((DIRECTION *)VALUE);
 #define WRITE_DIRECTION(VALUE) wr_s32b((DIRECTION)VALUE);
 
+typedef byte KEY;
+#define READ_KEY(VALUE) rd_byte((KEY *)VALUE);
+#define WRITE_KEY(VALUE) wr_byte((KEY)VALUE);
+
 typedef s32b POWER;
 #define READ_POWER(VALUE) rd_s32b((POWER *)VALUE);
 #define WRITE_POWER(VALUE) wr_s32b((POWER)VALUE);

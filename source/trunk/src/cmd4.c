@@ -1220,7 +1220,7 @@ static option_type cheat_info[CHEAT_MAX] =
 };
 
 // Interact with some options for cheating
-static void do_cmd_options_cheat(cptr info)
+static void do_cmd_options_cheat(void)
 {
 	char ch, buf[80];
 	int i, k = 0, n = CHEAT_MAX;
@@ -1839,7 +1839,7 @@ void do_cmd_options(void)
 					bell();
 					break;
 				}
-				do_cmd_options_cheat(MES_OPTION_WARN_CHEAT);
+				do_cmd_options_cheat();
 				break;
 			}
 
@@ -4331,17 +4331,13 @@ static char hack[17] = "dwsorgbuDWvyRGBU";
  */
 void do_cmd_load_screen(void)
 {
-	int i, y, x;
-
-	byte a = 0;
-	char c = ' ';
-
+	COLOR_ID i;
+	int y, x;
+	COLOR_ID a = 0;
+	SYMBOL c = ' ';
 	bool okay = TRUE;
-
 	FILE *fff;
-
 	char buf[1024];
-
 	int wid, hgt;
 
 	Term_get_size(&wid, &hgt);

@@ -129,7 +129,7 @@ static void wr_object(object_type *object_ptr)
 
 	WRITE_CREATURE_ID(object_ptr->held_m_idx);
 	WRITE_GAME_TIME(object_ptr->fuel);
-	wr_byte(object_ptr->forged_type);
+	WRITE_FORGED_ID(object_ptr->forged_type);
 	wr_byte(object_ptr->feeling);
 
 	//wr_string(quark_str(object_ptr->inscription));
@@ -347,7 +347,7 @@ static void wr_creature(creature_type *creature_ptr)
 	WRITE_RACE_ID(creature_ptr->race_idx2);
 	WRITE_RACE_ID(creature_ptr->mimic_race_idx);
 	for (i = 0; i < RACE_FLAG_MAX; i++) wr_u32b(creature_ptr->sub_race[i]);
-	wr_s16b(creature_ptr->creature_ego_idx);
+	WRITE_CREATURE_EGO_ID(creature_ptr->creature_ego_idx);
 	WRITE_CLASS_ID(creature_ptr->class_idx);
 	WRITE_CHARA_ID(creature_ptr->chara_idx);
 	wr_s16b(creature_ptr->starting_idx);
