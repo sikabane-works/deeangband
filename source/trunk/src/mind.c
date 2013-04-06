@@ -434,10 +434,10 @@ void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, POWER po
 * when you run it. It's probably easy to fix but I haven't tried,
 * sorry.
 */
-static int get_mind_power(creature_type *creature_ptr, DIRECTION *sn, bool only_browse)
+static int get_mind_power(creature_type *creature_ptr, KEY *sn, bool only_browse)
 {
 	DIRECTION i;
-	int num = 0;
+	KEY num = 0;
 	COODINATES y = 1;
 	COODINATES x = 10;
 	int             minfail = 0;
@@ -453,7 +453,7 @@ static int get_mind_power(creature_type *creature_ptr, DIRECTION *sn, bool only_
 	mind_power      *mind_ptr;
 	bool            flag, redraw;
 	int             use_mind;
-	int menu_line = (use_menu ? 1 : 0);
+	KEY menu_line = (use_menu ? 1 : 0);
 
 	switch(creature_ptr->class_idx)
 	{
@@ -1591,7 +1591,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 void do_cmd_mind(creature_type *creature_ptr)
 {
 	floor_type      *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	DIRECTION n = 0;
+	KEY n = 0;
 	int b = 0;
 	int             chance;
 	int             minfail = 0;
@@ -1881,7 +1881,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 */
 void do_cmd_mind_browse(creature_type *creature_ptr)
 {
-	DIRECTION n = 0;
+	KEY n = 0;
 	int j, line;
 	char temp[62*5];
 	int use_mind = 0;

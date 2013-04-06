@@ -984,7 +984,6 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, int m
 	creature_type *target_ptr;
 	char attacker_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
-	int action_power = calc_action_power(attacker_ptr);
 
 	target_ptr = &creature_list[c_ptr->creature_idx];
 
@@ -1949,7 +1948,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						*/
 						if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND))
 						{
-							j_ptr->pval = object_ptr->pval / object_ptr->number;
+							j_ptr->pval = object_ptr->pval / (PVAL)object_ptr->number;
 							object_ptr->pval -= j_ptr->pval;
 						}
 
