@@ -602,7 +602,7 @@ enum RBE_TYPE
 /*
  * Spell types used by project(), and related functions.
  */
-enum ATTACK_SOURCE_TYPE
+enum EFFECT_ID
 {
 	DO_EFFECT_MELEE,
 	DO_EFFECT_ELEC,
