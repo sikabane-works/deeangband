@@ -316,7 +316,7 @@ void do_cmd_hissatsu(creature_type *creature_ptr)
 		msg_print(MES_PREVENT_BY_CONFUSION);
 		return;
 	}
-	if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
+	if(!get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND))
 	{
 		if(flush_failure) flush();
 #ifdef JP

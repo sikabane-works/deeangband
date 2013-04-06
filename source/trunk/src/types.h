@@ -274,9 +274,9 @@ typedef s32b PROB;
 #define READ_PROB(VALUE) rd_s32b((PROB *)VALUE);
 #define WRITE_PROB(VALUE) wr_s32b((PROB)VALUE);
 
-typedef s32b INVEN_SLOT;
-#define READ_INVEN_SLOT(VALUE) rd_s32b((INVEN_SLOT *)VALUE);
-#define WRITE_INVEN_SLOT(VALUE) wr_s32b((INVEN_SLOT)VALUE);
+typedef enum INVENTORY_ID INVENTORY_ID;
+#define READ_INVENTORY_ID(VALUE) rd_s32b((s32b *)VALUE);
+#define WRITE_INVENTORY_ID(VALUE) wr_s32b((s32b)VALUE);
 
 /*
  * Creature flags
@@ -1409,7 +1409,7 @@ struct creature_type
 	object_type inventory[INVEN_TOTAL];  // Inventory 
 	s16b iven_fitting_rate[INVEN_TOTAL]; // Inventory Fitting Rate 
 	byte equip_now[INVEN_TOTAL];         // equipment flag
-	s16b item_slot_num[MAX_INVENTORY_SLOTS];
+	QUANTITY item_slot_num[MAX_INVENTORY_IDS];
 
 	PRICE au;			// Current Gold 
 

@@ -79,8 +79,8 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, POWER power
 		case TRAIT_SHOOT:
 		{
 			object_type *object_ptr = NULL;
-			if      (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 0);
-			else if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1) object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
+			if      (get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0) object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 0);
+			else if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 1) object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 1);
 			else
 				sprintf(p, " %s1", s_dam);
 			if(object_ptr)

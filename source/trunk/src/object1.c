@@ -370,33 +370,33 @@ cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 	switch (slot)
 	{
 #ifdef JP
-		case INVEN_SLOT_INVENTORY: p = "ŠŽ"; break;
-		case INVEN_SLOT_ARMS: p = "˜r•”"; break;
-		case INVEN_SLOT_FEET: p = "‹r•”"; break;
-		case INVEN_SLOT_TAIL: p = "”ö•”"; break;
-		case INVEN_SLOT_INTAKE: p = "‘Ì“à"; break;
-		case INVEN_SLOT_AMMO: p = "–î’e"; break;
-		case INVEN_SLOT_AMULET: p = "Œì•„"; break;
-		case INVEN_SLOT_LITE: p = "ŒõŒ¹"; break;
-		case INVEN_SLOT_INSTRUMENT: p = "ŠyŠí"; break;
-		case INVEN_SLOT_BODY: p = "‘Ì"; break;
-		case INVEN_SLOT_OUTER: p = "ãˆß"; break;
+		case INVENTORY_ID_INVENTORY: p = "ŠŽ"; break;
+		case INVENTORY_ID_ARMS: p = "˜r•”"; break;
+		case INVENTORY_ID_FEET: p = "‹r•”"; break;
+		case INVENTORY_ID_TAIL: p = "”ö•”"; break;
+		case INVENTORY_ID_INTAKE: p = "‘Ì“à"; break;
+		case INVENTORY_ID_AMMO: p = "–î’e"; break;
+		case INVENTORY_ID_AMULET: p = "Œì•„"; break;
+		case INVENTORY_ID_LITE: p = "ŒõŒ¹"; break;
+		case INVENTORY_ID_INSTRUMENT: p = "ŠyŠí"; break;
+		case INVENTORY_ID_BODY: p = "‘Ì"; break;
+		case INVENTORY_ID_OUTER: p = "ãˆß"; break;
 #else
-		case INVEN_SLOT_INVENTORY: p = "In pack"; break;
-		case INVEN_SLOT_ARMS: p = "On hands"; break;
-		case INVEN_SLOT_FEET: p = "On feet"; break;
-		case INVEN_SLOT_TAIL: p = "On tail"; break;
-		case INVEN_SLOT_INTAKE: p = "Intake"; break;
-		case INVEN_SLOT_AMMO: p = "Projectile"; break;
-		case INVEN_SLOT_AMULET: p = "Amulet"; break;
-		case INVEN_SLOT_LITE: p = "Light source"; break;
-		case INVEN_SLOT_INSTRUMENT: p = "Instrument"; break;
-		case INVEN_SLOT_BODY: p = "On body"; break;
-		case INVEN_SLOT_OUTER: p = "About body"; break;
+		case INVENTORY_ID_INVENTORY: p = "In pack"; break;
+		case INVENTORY_ID_ARMS: p = "On hands"; break;
+		case INVENTORY_ID_FEET: p = "On feet"; break;
+		case INVENTORY_ID_TAIL: p = "On tail"; break;
+		case INVENTORY_ID_INTAKE: p = "Intake"; break;
+		case INVENTORY_ID_AMMO: p = "Projectile"; break;
+		case INVENTORY_ID_AMULET: p = "Amulet"; break;
+		case INVENTORY_ID_LITE: p = "Light source"; break;
+		case INVENTORY_ID_INSTRUMENT: p = "Instrument"; break;
+		case INVENTORY_ID_BODY: p = "On body"; break;
+		case INVENTORY_ID_OUTER: p = "About body"; break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_HAND:  
+		case INVENTORY_ID_HAND:  
 			if(creature_ptr->heavy_wield[num])
 			{
 				p = "‰^”À’†"; break;
@@ -432,24 +432,24 @@ cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 			}
 			break;
 #else
-		case INVEN_SLOT_HAND:
+		case INVENTORY_ID_HAND:
 			p = creature_ptr->heavy_wield[0] ? "Just lifting" : (creature_ptr->can_melee[0] ? "Wielding" : "On arm"); break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_BOW:
+		case INVENTORY_ID_BOW:
 			p = "ŽËŒ‚—p";
 //			p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "‰^”À’†" : "ŽËŒ‚—p"; break;
 			break;
 #else
-		case INVEN_SLOT_BOW:
+		case INVENTORY_ID_BOW:
 			p = "Shooting";
 //			p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
 			break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_HEAD:
+		case INVENTORY_ID_HEAD:
 			switch(num)
 			{
 				case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "“ª•”" : "‘æ‚P“ª"; break;
@@ -464,11 +464,11 @@ cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 			}
 			break;
 #else
-		case INVEN_SLOT_HEAD: p = "On head"; break;
+		case INVENTORY_ID_HEAD: p = "On head"; break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_RING:
+		case INVENTORY_ID_RING:
 			switch(num)
 			{
 				case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "‰EŽw" : "‘æ‚PŽw"; break;
@@ -477,7 +477,7 @@ cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 			}
 			break;
 #else
-		case INVEN_SLOT_RING: p = "Ring"; break; break;
+		case INVENTORY_ID_RING: p = "Ring"; break; break;
 #endif
 	}
 
@@ -501,30 +501,30 @@ cptr describe_use(creature_type *creature_ptr, int i)
 	switch (i)
 	{
 #ifdef JP
-		case INVEN_SLOT_HAND:  p = creature_ptr->heavy_wield[0] ? "‰^”À’†‚Ì" : ((creature_ptr->two_handed && creature_ptr->can_melee[0]) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
-		case INVEN_SLOT_BOW:   p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "Ž‚Â‚¾‚¯‚Å¸ˆê”t‚Ì" : "ŽËŒ‚—p‚É‘•”õ‚µ‚Ä‚¢‚é"; break;
-		case INVEN_SLOT_RING: p = (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "¶Žè‚ÌŽw‚É‚Í‚ß‚Ä‚¢‚é" : "‰EŽè‚ÌŽw‚É‚Í‚ß‚Ä‚¢‚é"); break;
-		case INVEN_SLOT_AMULET:	p = "Žñ‚É‚©‚¯‚Ä‚¢‚é";		break;
-		case INVEN_SLOT_LITE:	p = "ŒõŒ¹‚É‚µ‚Ä‚¢‚é";		break;
-		case INVEN_SLOT_BODY:	p = "‘Ì‚É’…‚Ä‚¢‚é";			break;
-		case INVEN_SLOT_OUTER:	p = "g‚É‚Ü‚Æ‚Á‚Ä‚¢‚é";		break;
-		case INVEN_SLOT_HEAD:	p = "“ª‚É‚©‚Ô‚Á‚Ä‚¢‚é";		break;
-		case INVEN_SLOT_ARMS:	p = "Žè‚É‚Â‚¯‚Ä‚¢‚é";		break;
-		case INVEN_SLOT_FEET:	p = "‘«‚É‚Í‚¢‚Ä‚¢‚é";		break;
-		case INVEN_SLOT_INTAKE:	p = "‘Ì“à‚ÉŽæ‚èž‚ñ‚Å‚¢‚é";	break;
+		case INVENTORY_ID_HAND:  p = creature_ptr->heavy_wield[0] ? "‰^”À’†‚Ì" : ((creature_ptr->two_handed && creature_ptr->can_melee[0]) ? "—¼Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "¶Žè‚É‘•”õ‚µ‚Ä‚¢‚é" : "‰EŽè‚É‘•”õ‚µ‚Ä‚¢‚é")); break;
+		case INVENTORY_ID_BOW:   p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "Ž‚Â‚¾‚¯‚Å¸ˆê”t‚Ì" : "ŽËŒ‚—p‚É‘•”õ‚µ‚Ä‚¢‚é"; break;
+		case INVENTORY_ID_RING: p = (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "¶Žè‚ÌŽw‚É‚Í‚ß‚Ä‚¢‚é" : "‰EŽè‚ÌŽw‚É‚Í‚ß‚Ä‚¢‚é"); break;
+		case INVENTORY_ID_AMULET:	p = "Žñ‚É‚©‚¯‚Ä‚¢‚é";		break;
+		case INVENTORY_ID_LITE:	p = "ŒõŒ¹‚É‚µ‚Ä‚¢‚é";		break;
+		case INVENTORY_ID_BODY:	p = "‘Ì‚É’…‚Ä‚¢‚é";			break;
+		case INVENTORY_ID_OUTER:	p = "g‚É‚Ü‚Æ‚Á‚Ä‚¢‚é";		break;
+		case INVENTORY_ID_HEAD:	p = "“ª‚É‚©‚Ô‚Á‚Ä‚¢‚é";		break;
+		case INVENTORY_ID_ARMS:	p = "Žè‚É‚Â‚¯‚Ä‚¢‚é";		break;
+		case INVENTORY_ID_FEET:	p = "‘«‚É‚Í‚¢‚Ä‚¢‚é";		break;
+		case INVENTORY_ID_INTAKE:	p = "‘Ì“à‚ÉŽæ‚èž‚ñ‚Å‚¢‚é";	break;
 		default:				p = "ƒUƒbƒN‚É“ü‚Á‚Ä‚¢‚é";	break;
 #else
-		case INVEN_SLOT_HAND:  p = creature_ptr->heavy_wield[0] ? "just lifting" : (creature_ptr->can_melee[0] ? "attacking creatures with" : "wearing on your arm"); break;
-		case INVEN_SLOT_BOW:   p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
-		case INVEN_SLOT_RING: p = (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
-		case INVEN_SLOT_AMULET:	p = "wearing around your neck";	break;
-		case INVEN_SLOT_LITE:	p = "using to light the way";	break;
-		case INVEN_SLOT_BODY:	p = "wearing on your body";		break;
-		case INVEN_SLOT_OUTER:	p = "wearing on your back";		break;
-		case INVEN_SLOT_HEAD:	p = "wearing on your head";		break;
-		case INVEN_SLOT_ARMS:	p = "wearing on your hands";	break;
-		case INVEN_SLOT_FEET:	p = "wearing on your feet";		break;
-		case INVEN_SLOT_INTAKE:	p = "intaking in your body";	break;
+		case INVENTORY_ID_HAND:  p = creature_ptr->heavy_wield[0] ? "just lifting" : (creature_ptr->can_melee[0] ? "attacking creatures with" : "wearing on your arm"); break;
+		case INVENTORY_ID_BOW:   p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
+		case INVENTORY_ID_RING: p = (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
+		case INVENTORY_ID_AMULET:	p = "wearing around your neck";	break;
+		case INVENTORY_ID_LITE:	p = "using to light the way";	break;
+		case INVENTORY_ID_BODY:	p = "wearing on your body";		break;
+		case INVENTORY_ID_OUTER:	p = "wearing on your back";		break;
+		case INVENTORY_ID_HEAD:	p = "wearing on your head";		break;
+		case INVENTORY_ID_ARMS:	p = "wearing on your hands";	break;
+		case INVENTORY_ID_FEET:	p = "wearing on your feet";		break;
+		case INVENTORY_ID_INTAKE:	p = "intaking in your body";	break;
 		default:				p = "carrying in your pack";	break;
 #endif
 	}
@@ -671,9 +671,9 @@ void display_equip(creature_type *creature_ptr)
 	Term_get_size(&wid, &hgt);	// Get size
 
 	n = 0;
-	for (i = 0; i < MAX_INVENTORY_SLOTS; i++)
+	for (i = 0; i < MAX_INVENTORY_IDS; i++)
 	{
-		if(i == INVEN_SLOT_INVENTORY) continue;
+		if(i == INVENTORY_ID_INVENTORY) continue;
 		for(j = 0; j < creature_ptr->item_slot_num[i]; j++)
 		{
 			l = get_equipped_slot_idx(creature_ptr, i, j);
@@ -980,9 +980,9 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 
 	if(flags & SHOW_ITEM_EQUIPMENT)
 	{
-		for(k = 0, i = 0; i < MAX_INVENTORY_SLOTS; i++)
+		for(k = 0, i = 0; i < MAX_INVENTORY_IDS; i++)
 		{
-			if(i == INVEN_SLOT_INVENTORY) continue;
+			if(i == INVENTORY_ID_INVENTORY) continue;
 			n = creature_ptr->item_slot_num[i]; 
 			for(j = 0; j < n; j++)
 			{
@@ -1058,7 +1058,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 			/* Maintain the maximum length */
 			if(l > len) len = l;
 
-			slot[k] = GET_INVEN_SLOT_TYPE(creature_ptr, i);
+			slot[k] = GET_INVENTORY_ID_TYPE(creature_ptr, i);
 			num[k] = IS_EQUIPPED(object_ptr);
 
 			/* Advance to next "line" */
@@ -1304,7 +1304,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 	screen_save();
 	c_put_str(TERM_L_BLUE, r, 0, 0);
 
-	if(se_info.num == 0 || slot == INVEN_SLOT_INVENTORY)
+	if(se_info.num == 0 || slot == INVENTORY_ID_INVENTORY)
 	{
 		msg_print(s);
 		n = -1;

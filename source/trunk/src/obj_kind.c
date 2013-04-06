@@ -170,7 +170,7 @@ bool object_is_rare(creature_type *creature_ptr, object_type *object_ptr)
 bool object_is_weapon(object_type *object_ptr)
 {
 	if(!is_valid_object(object_ptr)) return FALSE;
-	if(object_kind_info[object_ptr->k_idx].slot == INVEN_SLOT_ARMS) return TRUE;
+	if(object_kind_info[object_ptr->k_idx].slot == INVENTORY_ID_ARMS) return TRUE;
 	return FALSE;
 }
 

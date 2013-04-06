@@ -1135,28 +1135,28 @@ void set_creature_equip_slot_num(creature_type *creature_ptr)
 	race_type *race_ptr = &race_info[creature_ptr->race_idx1];
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
-	creature_ptr->item_slot_num[INVEN_SLOT_HAND] = species_ptr->slot_hand < 0 ? race_ptr->slot_hand : species_ptr->slot_hand;
+	creature_ptr->item_slot_num[INVENTORY_ID_HAND] = species_ptr->slot_hand < 0 ? race_ptr->slot_hand : species_ptr->slot_hand;
 
-	creature_ptr->item_slot_num[INVEN_SLOT_RING] = species_ptr->slot_ring < 0 ? race_ptr->slot_ring : species_ptr->slot_ring;
-	creature_ptr->item_slot_num[INVEN_SLOT_AMULET] = species_ptr->slot_amulet < 0 ? race_ptr->slot_amulet : species_ptr->slot_amulet;
+	creature_ptr->item_slot_num[INVENTORY_ID_RING] = species_ptr->slot_ring < 0 ? race_ptr->slot_ring : species_ptr->slot_ring;
+	creature_ptr->item_slot_num[INVENTORY_ID_AMULET] = species_ptr->slot_amulet < 0 ? race_ptr->slot_amulet : species_ptr->slot_amulet;
 
-	creature_ptr->item_slot_num[INVEN_SLOT_BODY] = species_ptr->slot_body < 0 ? race_ptr->slot_body : species_ptr->slot_body;
-	creature_ptr->item_slot_num[INVEN_SLOT_OUTER] = species_ptr->slot_outer < 0 ? race_ptr->slot_outer : species_ptr->slot_outer;
-	creature_ptr->item_slot_num[INVEN_SLOT_HEAD] = species_ptr->slot_head < 0 ? race_ptr->slot_head : species_ptr->slot_hand;
-	creature_ptr->item_slot_num[INVEN_SLOT_ARMS] = species_ptr->slot_arms < 0 ? race_ptr->slot_arms : species_ptr->slot_arms;
-	creature_ptr->item_slot_num[INVEN_SLOT_FEET] = species_ptr->slot_feet < 0 ? race_ptr->slot_feet : species_ptr->slot_feet;
-	creature_ptr->item_slot_num[INVEN_SLOT_TAIL] = species_ptr->slot_tail < 0 ? race_ptr->slot_tail : species_ptr->slot_tail;
-	creature_ptr->item_slot_num[INVEN_SLOT_INTAKE] = species_ptr->slot_intake < 0 ? race_ptr->slot_intake : species_ptr->slot_intake;
+	creature_ptr->item_slot_num[INVENTORY_ID_BODY] = species_ptr->slot_body < 0 ? race_ptr->slot_body : species_ptr->slot_body;
+	creature_ptr->item_slot_num[INVENTORY_ID_OUTER] = species_ptr->slot_outer < 0 ? race_ptr->slot_outer : species_ptr->slot_outer;
+	creature_ptr->item_slot_num[INVENTORY_ID_HEAD] = species_ptr->slot_head < 0 ? race_ptr->slot_head : species_ptr->slot_hand;
+	creature_ptr->item_slot_num[INVENTORY_ID_ARMS] = species_ptr->slot_arms < 0 ? race_ptr->slot_arms : species_ptr->slot_arms;
+	creature_ptr->item_slot_num[INVENTORY_ID_FEET] = species_ptr->slot_feet < 0 ? race_ptr->slot_feet : species_ptr->slot_feet;
+	creature_ptr->item_slot_num[INVENTORY_ID_TAIL] = species_ptr->slot_tail < 0 ? race_ptr->slot_tail : species_ptr->slot_tail;
+	creature_ptr->item_slot_num[INVENTORY_ID_INTAKE] = species_ptr->slot_intake < 0 ? race_ptr->slot_intake : species_ptr->slot_intake;
 
-	creature_ptr->item_slot_num[INVEN_SLOT_BOW] = creature_ptr->item_slot_num[INVEN_SLOT_HAND] ? 1 : 0;
-	creature_ptr->item_slot_num[INVEN_SLOT_AMMO] = creature_ptr->item_slot_num[INVEN_SLOT_BOW] ? 1 : 0;
+	creature_ptr->item_slot_num[INVENTORY_ID_BOW] = creature_ptr->item_slot_num[INVENTORY_ID_HAND] ? 1 : 0;
+	creature_ptr->item_slot_num[INVENTORY_ID_AMMO] = creature_ptr->item_slot_num[INVENTORY_ID_BOW] ? 1 : 0;
 
-	creature_ptr->item_slot_num[INVEN_SLOT_INSTRUMENT] = creature_ptr->item_slot_num[INVEN_SLOT_HAND] ? 1 : 0;
-	creature_ptr->item_slot_num[INVEN_SLOT_LITE] = 1;
+	creature_ptr->item_slot_num[INVENTORY_ID_INSTRUMENT] = creature_ptr->item_slot_num[INVENTORY_ID_HAND] ? 1 : 0;
+	creature_ptr->item_slot_num[INVENTORY_ID_LITE] = 1;
 
-	creature_ptr->item_slot_num[INVEN_SLOT_INVENTORY] = INVEN_TOTAL;
-	for(i = INVEN_SLOT_INVENTORY + 1; i < MAX_INVENTORY_SLOTS; i++)
-		creature_ptr->item_slot_num[INVEN_SLOT_INVENTORY] -= creature_ptr->item_slot_num[i];
+	creature_ptr->item_slot_num[INVENTORY_ID_INVENTORY] = INVEN_TOTAL;
+	for(i = INVENTORY_ID_INVENTORY + 1; i < MAX_INVENTORY_IDS; i++)
+		creature_ptr->item_slot_num[INVENTORY_ID_INVENTORY] -= creature_ptr->item_slot_num[i];
 }
 
 int get_equipped_slot_num(creature_type *creature_ptr, int slot)

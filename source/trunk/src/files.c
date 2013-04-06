@@ -1644,7 +1644,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	int show_todam = 0;
 
 	// Range weapon
-	object_type *bow_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 0);
+	object_type *bow_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BOW, 0);
 
 	int tmul = 0;
 	int i, j, k, e;
@@ -1659,7 +1659,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	{
 		if(creature_ptr->can_melee[i])
 		{
-			object_type *weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i);
+			object_type *weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, i);
 			j = calc_weapon_melee_cost(creature_ptr, weapon_ptr);
 			k = calc_weapon_melee_priority(creature_ptr, weapon_ptr);
 			c_put_str(TERM_L_BLUE, mention_use_ptr(creature_ptr, weapon_ptr), 15 + melee_num, 1);
@@ -1965,7 +1965,7 @@ static void display_player_various(creature_type * creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_TENTACLES)) muta_att++;
 
 	/* Shooting Skill (with current bow and normal missile) */
-	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 0);
+	object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BOW, 0);
 
 	/* If the player is wielding one? */
 	if(is_valid_object(object_ptr))
@@ -2079,7 +2079,7 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *creat
 		object_ptr = &creature_ptr->inventory[i]; // Object
 
 		if(!IS_EQUIPPED(object_ptr)) continue;
-		if((mode & DP_WP) && GET_INVEN_SLOT_TYPE(creature_ptr, i) != INVEN_SLOT_HAND) continue;
+		if((mode & DP_WP) && GET_INVENTORY_ID_TYPE(creature_ptr, i) != INVENTORY_ID_HAND) continue;
 
 		a = object_attr(object_ptr);
 		c = object_char(object_ptr);
@@ -2199,7 +2199,7 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 		object_ptr = &creature_ptr->inventory[i];
 
 		if(!IS_EQUIPPED(object_ptr)) continue;
-		if((mode & DP_WP) && WIELD_SLOT(object_ptr) != INVEN_SLOT_HAND) continue;
+		if((mode & DP_WP) && WIELD_SLOT(object_ptr) != INVENTORY_ID_HAND) continue;
 
 		/* Known flags */
 		object_flags_known(object_ptr, flgs);
@@ -2255,7 +2255,7 @@ static cptr get_equipped_flag_label(creature_type *creature_ptr, u16b mode)
 	for(i = 0, n = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
-		if((mode & DP_WP) && WIELD_SLOT(object_ptr) != INVEN_SLOT_HAND) continue;
+		if((mode & DP_WP) && WIELD_SLOT(object_ptr) != INVENTORY_ID_HAND) continue;
 		if(IS_EQUIPPED(object_ptr))
 		{
 			res[n] = list[i];
@@ -4253,7 +4253,7 @@ static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 			if(!IS_EQUIPPED(&creature_ptr->inventory[i])) continue;
 
 			object_desc(object_name, &creature_ptr->inventory[i], 0);
-			if((((i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 0)) && creature_ptr->can_melee[0]) || ((i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2)) && creature_ptr->can_melee[0])) && creature_ptr->two_handed)
+			if((((i == get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 0)) && creature_ptr->can_melee[0]) || ((i == get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 2)) && creature_ptr->can_melee[0])) && creature_ptr->two_handed)
 #ifdef JP
 				strcpy(object_name, "(•Ší‚ğ—¼è‚¿)");
 #else

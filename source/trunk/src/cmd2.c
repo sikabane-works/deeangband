@@ -2672,7 +2672,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 	creature_ptr->is_fired = FALSE;	/* not fired yet */
 
 	/* Get the "bow" (if any) */
-	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 0);
+	j_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BOW, 0);
 
 	/* Require a launcher */
 	if(!j_ptr->tval)
@@ -2776,7 +2776,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	if(shuriken) item = shuriken;
 	else if(boomerang)
 	{
-		if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
+		if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND))
 		{
 			if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_THROW, MES_OBJECT_NO_THROW, (USE_EQUIP), item_tester_hook_boomerang, 0))
 			{
@@ -3166,7 +3166,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	if(come_back)
 	{
-		if(GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_ARMS)
+		if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_ARMS)
 		{
 			/* Access the wield slot */
 			object_ptr = &creature_ptr->inventory[item];

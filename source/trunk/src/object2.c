@@ -2291,7 +2291,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 					{
 						bool okay_flag = TRUE;
 
-						object_ptr->name2 = get_random_ego(INVEN_SLOT_LITE, TRUE);
+						object_ptr->name2 = get_random_ego(INVENTORY_ID_LITE, TRUE);
 
 						switch (object_ptr->name2)
 						{
@@ -2306,7 +2306,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			}
 			else if(power == -2)
 			{
-				object_ptr->name2 = get_random_ego(INVEN_SLOT_LITE, FALSE);
+				object_ptr->name2 = get_random_ego(INVENTORY_ID_LITE, FALSE);
 
 				switch (object_ptr->name2)
 				{
@@ -3655,7 +3655,7 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b 
 * Note that this code must remove any location/stack information
 * from the object once it is placed into the inventory.
 */
-INVEN_SLOT inven_carry(creature_type *creature_ptr, object_type *object_ptr)
+INVENTORY_ID inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int i, j, k;
 	int n = -1;
@@ -3771,7 +3771,7 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	// Get the item to take off
 	object1_ptr = &creature_ptr->inventory[item];
 
-	object1_ptr->equipped_slot_type = INVEN_SLOT_INVENTORY;
+	object1_ptr->equipped_slot_type = INVENTORY_ID_INVENTORY;
 	object1_ptr->equipped_slot_num = 0;
 
 	if(amt <= 0) return (-1);
@@ -3787,7 +3787,7 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	object_desc(object_name, object2_ptr, 0);
 
 	// Took off weapon
-	if(GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_HAND && object_is_melee_weapon(creature_ptr, object1_ptr))
+	if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_HAND && object_is_melee_weapon(creature_ptr, object1_ptr))
 	{
 #ifdef JP
 		act = "‚ð‘•”õ‚©‚ç‚Í‚¸‚µ‚½";
@@ -3797,7 +3797,7 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	}
 
 	// Took off bow
-	else if(GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_BOW)
+	else if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_BOW)
 	{
 #ifdef JP
 		act = "‚ð‘•”õ‚©‚ç‚Í‚¸‚µ‚½";
@@ -3807,7 +3807,7 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	}
 
 	// Took off light
-	else if(GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_LITE)
+	else if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_LITE)
 	{
 #ifdef JP
 		act = "‚ðŒõŒ¹‚©‚ç‚Í‚¸‚µ‚½";

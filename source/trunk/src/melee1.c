@@ -91,7 +91,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	// Access the weapon
-	object_type *weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, hand);
+	object_type *weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVENTORY_ID_HAND, hand);
 
 	char attacker_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
@@ -345,7 +345,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 			else k = 1;
 		}
-		else if((attacker_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) && ((attacker_ptr->cur_lite <= 0) || one_in_(7)))
+		else if((attacker_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(attacker_ptr, INVENTORY_ID_HAND) && ((attacker_ptr->cur_lite <= 0) || one_in_(7)))
 		{
 			if(one_in_(ambush ? 13 : (stab_fleeing || fatal_spot) ? 15 : 27))
 			{
@@ -861,7 +861,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 	if(IS_FEMALE(target_ptr) && has_trait(target_ptr, TRAIT_HUMANOID) &&
 		!(has_trait(attacker_ptr, TRAIT_STUN) || has_trait(attacker_ptr, TRAIT_CONFUSED) || has_trait(attacker_ptr, TRAIT_HALLUCINATION) || !target_ptr->see_others))
 	{
-		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
+		n = get_equipped_slot_num(attacker_ptr, INVENTORY_ID_HAND);
 		for(i = 0; i < n; i++)
 		{
 			if(has_trait(attacker_ptr, TRAIT_ZANTETSU_EFFECT))
@@ -919,7 +919,7 @@ static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_
 		creature_desc(attacker_name, attacker_ptr, 0);
 		creature_desc(target_name, target_ptr, 0);
 
-		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
+		n = get_equipped_slot_num(attacker_ptr, INVENTORY_ID_HAND);
 		for(i = 0; i < n; i++)
 		{
 			if(has_trait_object(&attacker_ptr->inventory[i], TRAIT_STORM_BRINGER))
@@ -2003,7 +2003,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_EAT_LITE:
 			{
 				/* Access the lite */
-				object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_LITE, 0);
+				object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_LITE, 0);
 
 				/* Take some damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
@@ -2747,7 +2747,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			if(HEX_SPELLING(target_ptr, HEX_SHADOW_CLOAK) && !IS_DEAD(target_ptr))
 			{
 				POWER dam = 1;
-				object_type *object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 0);
+				object_type *object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_HAND, 0);
 
 				if(!has_trait(attacker_ptr, TRAIT_RES_DARK))
 				{
@@ -2758,7 +2758,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					}
 
 					/* Cursed armor makes damages doubled */
-					object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_BODY, 0);
+					object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_BODY, 0);
 					if((object_ptr->k_idx) && object_is_cursed(object_ptr)) dam *= 2;
 
 #ifdef JP
@@ -2775,10 +2775,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					int j;
 					int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 					int typ[4][2] = {
-					{ INVEN_SLOT_HEAD, DO_EFFECT_CONF_OTHERS },
-					{ INVEN_SLOT_HAND, DO_EFFECT_OLD_SLEEP },
-					{ INVEN_SLOT_ARM, DO_EFFECT_TURN_ALL },
-					{ INVEN_SLOT_FEET, DO_EFFECT_SLOW_OTHERS }
+					{ INVENTORY_ID_HEAD, DO_EFFECT_CONF_OTHERS },
+					{ INVENTORY_ID_HAND, DO_EFFECT_OLD_SLEEP },
+					{ INVENTORY_ID_ARM, DO_EFFECT_TURN_ALL },
+					{ INVENTORY_ID_FEET, DO_EFFECT_SLOW_OTHERS }
 					};
 
 					// Some cursed armours gives an extra effect

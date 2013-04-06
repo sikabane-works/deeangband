@@ -593,8 +593,8 @@ static int get_mind_power(creature_type *creature_ptr, DIRECTION *sn, bool only_
 #else
 				put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU)) ? KW_HP : KW_MP), y, x + 35);
 #endif
-				has_weapon[0] = get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0;
-				has_weapon[1] = get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1;
+				has_weapon[0] = get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0;
+				has_weapon[1] = get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 1;
 
 				/* Dump the spells */
 				for (i = 0; i < MAX_MIND_POWERS; i++)
@@ -1634,8 +1634,8 @@ void do_cmd_mind(creature_type *creature_ptr)
 	if(use_mind == MIND_KI)
 	{
 		if(heavy_armor(creature_ptr)) chance += 20;
-		else if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) chance += 10;
-		else if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1) chance += 10;
+		else if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0) chance += 10;
+		else if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 1) chance += 10;
 		if(n == 5)
 		{
 			int j;
