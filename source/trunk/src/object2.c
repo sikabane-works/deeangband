@@ -1554,13 +1554,13 @@ void object_absorb(object_type *object1_ptr, object_type *object2_ptr)
 	/* Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM- */
 	if(IS_ROD(object1_ptr))
 	{
-		object1_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / (PVAL)object2_ptr->number;
-		object1_ptr->timeout += object2_ptr->timeout * (object2_ptr->number - diff) / (PVAL)object2_ptr->number;
+		object1_ptr->pval += object2_ptr->pval * (PVAL)(object2_ptr->number - diff) / (PVAL)object2_ptr->number;
+		object1_ptr->timeout += object2_ptr->timeout * (object2_ptr->number - diff) / (PVAL) object2_ptr->number;
 	}
 
 	/* Hack -- if wands are stacking, combine the charges. -LM- */
 	if(object1_ptr->tval == TV_WAND)
-		object1_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / (PVAL)object2_ptr->number;
+		object1_ptr->pval += object2_ptr->pval * (PVAL)(object2_ptr->number - diff) / (PVAL)object2_ptr->number;
 }
 
 
@@ -2394,6 +2394,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			/* Pick a random non-unique creature race */
 			while(TRUE)
 			{
+				SPECIES_ID i;
 				i = get_species_num(floor_ptr, floor_ptr->depth);
 
 				species_ptr = &species_info[i];
@@ -2700,6 +2701,7 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 // Apply magic at specified ego.
 void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr, int lev, int ego)
 {
+	if(!is_valid_creature(owner_ptr)) return;
 	if(object_is_weapon(object_ptr)) weapon_boost(object_ptr, lev, ITEM_RANK_GREAT);
 	if(object_is_armour(object_ptr)) armour_boost(object_ptr, lev, ITEM_RANK_GREAT);
 	object_ptr->name2 = ego;
@@ -2912,7 +2914,7 @@ bool make_gold(floor_type *floor_ptr, object_type *object2_ptr, int value, int c
 	if(value <= 0)
 		object2_ptr->pval = (PVAL)(base + (8 * randint1(base)) + randint1(8));
 	else
-		object2_ptr->pval = value;
+		object2_ptr->pval = (PVAL)value;
 
 	return TRUE;
 }
@@ -3486,10 +3488,12 @@ void floor_item_charges(int item)
 /*
 * Describe an item in the creature_ptr->inventory.
 */
-void floor_item_describe(creature_type *creature_type, int item)
+void floor_item_describe(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr = &object_list[item];
 	char object_name[MAX_NLEN];
+
+	if(!is_valid_creature(creature_ptr)) return;
 
 	object_desc(object_name, object_ptr, 0);
 
@@ -3790,7 +3794,6 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 #else
 		act = "You were wielding";
 #endif
-
 	}
 
 	// Took off bow
@@ -3801,7 +3804,6 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 #else
 		act = "You were holding";
 #endif
-
 	}
 
 	// Took off light
@@ -3812,7 +3814,6 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 #else
 		act = "You were holding";
 #endif
-
 	}
 
 	// Took off something
@@ -3823,7 +3824,6 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 #else
 		act = "You were wearing";
 #endif
-
 	}
 
 	increase_item(creature_ptr, item, -amt, FALSE);
@@ -3836,9 +3836,7 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 #else
 	msg_format("%s %s (%c).", act, object_name, index_to_label(slot));
 #endif
-
-	// Return slot
-	return (slot);
+	return (slot); // Return slot
 }
 
 
@@ -4072,9 +4070,9 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 
 	/* Display spells in readible books */
 	{
-		int     spell = -1;
-		int     num = 0;
-		byte    spells[64];
+		int spell = -1;
+		int num = 0;
+		int spells[64];
 
 		/* Extract spells */
 		for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
@@ -4225,6 +4223,7 @@ bool process_warning(creature_type *target_ptr, COODINATES xx, COODINATES yy)
 
 static bool item_tester_hook_melee_ammo(creature_type *creature_ptr, object_type *object_ptr)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
 	switch (object_ptr->tval)
 	{
 	case TV_HAFTED:

@@ -426,7 +426,7 @@ static void wr_creature(creature_type *creature_ptr)
 		wr_s16b(creature_ptr->mane_spell[i]);
 		WRITE_POWER(creature_ptr->mane_dam[i]);
 	}
-	wr_s16b(creature_ptr->mane_num);
+	WRITE_QUANTITY(creature_ptr->mane_num);
 
 	WRITE_COODINATES(creature_ptr->oldpx);
 	WRITE_COODINATES(creature_ptr->oldpy);

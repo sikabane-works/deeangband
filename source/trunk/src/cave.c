@@ -4867,7 +4867,7 @@ void species_type_track(SPECIES_ID species_idx)
 /*
  * Hack -- track the given object kind
  */
-void object_kind_track(s16b k_idx)
+void object_kind_track(OBJECT_KIND_ID k_idx)
 {
 	/* Save this object ID */
 	play_window_object_kind_idx = k_idx;
