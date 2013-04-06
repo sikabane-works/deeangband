@@ -36,11 +36,11 @@ cptr spell_category_name(TVAL tval)
 static int get_spell(creature_type *creature_ptr, KEY *sn, cptr prompt, SVAL sval, bool learned, int use_realm)
 {
 	int         i;
-	int         spell = -1;
+	KEY spell = -1;
 	int         num = 0;
 	int         ask = TRUE;
 	int         need_mana;
-	int        spells[64];
+	KEY spells[64];
 	bool        flag, redraw, okay;
 	char        choice;
 	magic_type  *s_ptr;
@@ -359,10 +359,12 @@ static void confirm_use_force(creature_type *creature_ptr, bool browse_only)
 */
 void do_cmd_browse(creature_type *creature_ptr)
 {
-	int		item, sval, use_realm = 0, j, line;
-	int		spell = -1;
-	int		num = 0;
-	int		select_flag = 0;
+	int item;
+	SVAL sval;
+	int use_realm = 0, j, line;
+	KEY spell = -1;
+	int num = 0;
+	int select_flag = 0;
 
 	byte	spells[64];
 	char	temp[62*4];
@@ -523,7 +525,7 @@ void do_cmd_study(creature_type *creature_ptr)
 	int item_tester_tval = 0;
 
 	/* Spells of realm2 will have an increment of +32 */
-	int	spell = -1;
+	KEY	spell = -1;
 	cptr p = spell_category_name(magic_info[creature_ptr->class_idx].spell_book);
 	object_type *object_ptr;
 
