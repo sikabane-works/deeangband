@@ -33,7 +33,7 @@ cptr spell_category_name(TVAL tval)
 * The "prompt" should be "cast", "recite", or "study"
 * The "known" should be TRUE for cast/pray, FALSE for study
 */
-static int get_spell(creature_type *creature_ptr, DIRECTION *sn, cptr prompt, SVAL sval, bool learned, int use_realm)
+static int get_spell(creature_type *creature_ptr, KEY *sn, cptr prompt, SVAL sval, bool learned, int use_realm)
 {
 	int         i;
 	int         spell = -1;
@@ -673,7 +673,8 @@ void do_cmd_cast(creature_type *creature_ptr)
 {
 	int	item;
 	SVAL sval;
-	int spell, realm;
+	KEY spell;
+	REALM_ID realm;
 	int	chance;
 	int	increment = 0;
 	int	use_realm;
@@ -1528,8 +1529,9 @@ static void do_name_pet(creature_type *master_ptr)
 void do_cmd_pet(creature_type *master_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(master_ptr);
-	DIRECTION i = 0;
-	int	num, ask;
+	KEY i = 0;
+	KEY num;
+	int ask;
 	POWER powers[36];
 	cptr power_desc[36];
 	bool flag, redraw;
@@ -1542,8 +1544,7 @@ void do_cmd_pet(creature_type *master_ptr)
 
 	char buf[160];
 	char target_buf[160];
-
-	int menu_line = use_menu ? 1 : 0;
+	KEY menu_line = use_menu ? 1 : 0;
 
 	num = 0;
 

@@ -889,7 +889,7 @@ static bool add_name(STRING_OFFSET *offset, header *head, cptr buf)
 
 // Deskull
 // Add temporary buffer for reprocess
-static bool add_tmp(u32b *offset, header *head, cptr buf)
+static bool add_tmp(STRING_OFFSET *offset, header *head, cptr buf)
 {
 	// Hack -- Verify space
 	if(head->tmp_size + strlen(buf) + 8 > FAKE_TMP_BUFFER_SIZE) return FAILURE;
@@ -3551,7 +3551,9 @@ errr parse_species_info_csv(char *buf, header *head)
 				offset = 0;
 				k = 0;
 				while(tmp[offset]) {
-					id = tval = sval = prob = ego = 0;
+					id = prob = ego = 0;
+					tval = 0;
+					sval = 0;
 					flags = 0;
 					if(4 == sscanf(tmp + offset, "%d:%d:%d:%d", &id, &tval, &sval, &prob)) {}
 					else if(2 == sscanf(tmp + offset, "ART:%d:%d%%", &id, &prob)) {}
@@ -6917,13 +6919,9 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 
 		n = tokenize(buf+2, MAX_RACES, zz, 0);
 		for (i = 0; i < n; i++)
-		{
-			floor_ptr->race_population[i] = strtol(zz[i], NULL, 10);
-		}
+			floor_ptr->race_population[i] = (PROB)strtol(zz[i], NULL, 10);
 		if(n < MAX_RACES)
-		{
-			for (i = n; i < MAX_RACES ; i++) floor_ptr->race_population[i] = 0;
-		}
+			for (i = n; i < MAX_RACES; i++) floor_ptr->race_population[i] = 0;
 		return PARSE_ERROR_NONE;
 
 	}

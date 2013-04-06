@@ -1579,7 +1579,7 @@ extern void fsetfileinfo(cptr path, u32b fcreator, u32b ftype);
 
 /* util.c */
 extern void repeat_push(int what);
-extern bool repeat_pull(DIRECTION *what);
+extern bool repeat_pull(KEY *what);
 extern void repeat_check(void);
 
 // variable.c

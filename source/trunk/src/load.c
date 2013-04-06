@@ -303,8 +303,8 @@ static void rd_object(object_type *object_ptr)
 	READ_SPECIES_ID(&object_ptr->creator_idx);
 	READ_SPECIES_ID(&object_ptr->source_idx);
 
-	rd_byte(&object_ptr->equipped_slot_type);
-	rd_byte(&object_ptr->equipped_slot_num);
+	READ_INVENTORY_ID(&object_ptr->equipped_slot_type);
+	READ_QUANTITY(&object_ptr->equipped_slot_num);
 
 	READ_BODY_SIZE(&object_ptr->size_upper);
 	READ_BODY_SIZE(&object_ptr->size_lower);

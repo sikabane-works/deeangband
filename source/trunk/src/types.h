@@ -214,9 +214,9 @@ typedef byte DIRECTION;
 #define READ_DIRECTION(VALUE) rd_s32b((DIRECTION *)VALUE);
 #define WRITE_DIRECTION(VALUE) wr_s32b((DIRECTION)VALUE);
 
-typedef byte KEY;
-#define READ_KEY(VALUE) rd_byte((KEY *)VALUE);
-#define WRITE_KEY(VALUE) wr_byte((KEY)VALUE);
+typedef char KEY;
+#define READ_KEY(VALUE) rd_char((KEY *)VALUE);
+#define WRITE_KEY(VALUE) wr_char((KEY)VALUE);
 
 typedef s32b POWER;
 #define READ_POWER(VALUE) rd_s32b((POWER *)VALUE);
@@ -2043,7 +2043,7 @@ typedef struct
 	s32b floor_turn;		// Game turn in dungeon
 	QUEST_ID quest;
 	byte global_map;
-	s16b race_population[MAX_RACES];
+	PROB race_population[MAX_RACES];
 	byte generated;
 	byte generate_encounter;
 	TOWN_ID town_num;			// Current town number
