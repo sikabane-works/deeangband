@@ -2017,7 +2017,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			for (i = 0; i < max_pet; i++)
 			{
 				pet_ctr = who[i];
-				teleport_creature_to2(pet_ctr, creature_ptr, creature_ptr->fy, creature_ptr->fx, 100, TELEPORT_PASSIVE);
+				teleport_creature_to2(pet_ctr, creature_ptr->fy, creature_ptr->fx, 100, TELEPORT_PASSIVE);
 			}
 
 			/* Free the "who" array */

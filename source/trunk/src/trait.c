@@ -1324,7 +1324,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			msg_format("You command %s to return.", target_name);
 #endif
 
-			teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
+			teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
 			break;
 		}
 

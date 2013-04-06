@@ -140,7 +140,7 @@ bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode)
 }
 
 // Teleport creature next to a grid near the given location
-void teleport_creature_to2(int m_idx, creature_type *target_ptr, COODINATES ty, COODINATES tx, POWER power, FLAGS_32 mode)
+void teleport_creature_to2(CREATURE_ID m_idx, COODINATES ty, COODINATES tx, POWER power, FLAGS_32 mode)
 {
 	COODINATES ny, nx, oy, ox;
 	int d, i, min;
@@ -413,7 +413,7 @@ void teleport_creature(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mod
 				 * totally unkillable suckers...
 				 */
 				if(has_trait(m_ptr, TRAIT_ACTIVE_TELEPORT) && !has_trait(m_ptr, TRAIT_RES_TELE))
-					if(!has_trait(m_ptr, TRAIT_PARALYZED)) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
+					if(!has_trait(m_ptr, TRAIT_PARALYZED)) teleport_creature_to2(tmp_m_idx, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
 			}
 		}
 	}
@@ -449,7 +449,7 @@ void teleport_player_away(creature_type *creature_ptr, COODINATES dis)
 				 * totally unkillable suckers...
 				 */
 				if(has_trait(creature_ptr, TRAIT_ACTIVE_TELEPORT) && !has_trait(creature_ptr, TRAIT_RES_TELE))
-					if(!has_trait(creature_ptr, TRAIT_PARALYZED))teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, species_ptr->level, 0L);
+					if(!has_trait(creature_ptr, TRAIT_PARALYZED))teleport_creature_to2(tmp_m_idx, creature_ptr->fy, creature_ptr->fx, species_ptr->level, 0L);
 			}
 		}
 	}
@@ -3646,7 +3646,7 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 				}
 
 				/* Reduce the charges of rods/wands */
-				reduce_charges(object_ptr, amt);
+				reduce_charges(object_ptr, (PVAL)amt);
 				increase_item(creature_ptr, i, -amt, FALSE);
 				k += amt;
 			}

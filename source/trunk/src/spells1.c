@@ -159,7 +159,7 @@ static byte spell_color(int type)
 		c = s[randint0(strlen(s))];
 
 		/* Lookup this color */
-		a = my_strchr(color_char, c) - color_char;
+		a = (COLOR_ID)(my_strchr(color_char, c) - color_char);
 
 		/* Invalid color (note check for < 0 removed, gave a silly
 		* warning because bytes are always >= 0 -- RG) */
@@ -3529,7 +3529,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 
 
 // breath shape
-void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgrids, COODINATES *gx, COODINATES *gy, byte *gm, int *pgm_rad, COODINATES rad, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int typ)
+void breath_shape(COODINATES *path_g, floor_type *floor_ptr, int dist, int *pgrids, COODINATES *gx, COODINATES *gy, int *gm, int *pgm_rad, COODINATES rad, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2, int typ)
 {
 	COODINATES by = y1, bx = x1;
 	int brad = 0;
