@@ -2685,7 +2685,7 @@ static bool creature_hook_chameleon(SPECIES_ID species_idx)
 	return (*(get_creature_hook()))(species_idx);
 }
 
-void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_idx, int creature_ego_idx)
+void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_idx, CREATURE_EGO_ID creature_ego_idx)
 {
 	int i, m_idx = 0;
 	int oldmhp;

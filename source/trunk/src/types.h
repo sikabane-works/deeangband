@@ -278,6 +278,10 @@ typedef enum INVENTORY_ID INVENTORY_ID;
 #define READ_INVENTORY_ID(VALUE) rd_s32b((s32b *)VALUE);
 #define WRITE_INVENTORY_ID(VALUE) wr_s32b((s32b)VALUE);
 
+typedef s32b FORGED_ID;
+#define READ_FORGED_ID(VALUE) rd_s32b((FORGED_ID *)VALUE);
+#define WRITE_FORGED_ID(VALUE) wr_s32b((FORGED_ID)VALUE);
+
 /*
  * Creature flags
  */
@@ -857,7 +861,7 @@ struct object_type
 	OBJECT_EGO_ID name2; /* Ego-Item type, if any */
 	GAME_TIME fuel;
 
-	byte forged_type;	// forged by smith craft
+	FORGED_ID forged_type;	// forged by smith craft
 	PRICE chest_value;
 
 	STAT to_hit;		// Plusses to hit
@@ -1371,7 +1375,7 @@ struct creature_type
 	RACE_ID mimic_race_idx;		// Mimic Race index
 	SPECIES_ID species_idx;			// Species index
 	SPECIES_ID ap_species_idx;		// Species appearance index
-	s16b creature_ego_idx;		// Ego index
+	CREATURE_EGO_ID creature_ego_idx; // Ego index
 	s16b starting_idx;			// Starting indx	
 	byte sub_align;		    // Sub-alignment for a neutral creature 
 	FLAGS_32 sub_race[8];       // Sub-Race flags 

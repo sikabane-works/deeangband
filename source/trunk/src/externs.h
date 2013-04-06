@@ -1062,7 +1062,7 @@ extern bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int
 extern bool summon_specific(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, FLOOR_LEV lev, int type, FLAGS_32 mode);
 extern bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES oy, COODINATES ox, SPECIES_ID species_idx, FLAGS_32 mode);
 extern bool multiply_creature(creature_type *creature_ptr, bool clone, FLAGS_32 mode);
-extern void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_idx, int creature_ego_idx);
+extern void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_idx, CREATURE_EGO_ID creature_ego_idx);
 extern void creature_drop_carried_objects(creature_type *m_ptr);
 
 // object1.c
