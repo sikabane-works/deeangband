@@ -153,9 +153,9 @@ void display_snipe_list(creature_type *creature_ptr)
 
 
 // Select Sniping Skill
-static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_browse)
+static int get_snipe_power(creature_type *creature_ptr, KEY *sn, bool only_browse)
 {
-	int i;
+	KEY i;
 	int num = 0;
 	int y = 1;
 	int x = 20;
@@ -437,9 +437,9 @@ static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
  */
 void do_cmd_snipe(creature_type *creature_ptr)
 {
-	int             n = 0;
-	snipe_power     spell;
-	bool            cast;
+	KEY n = 0;
+	snipe_power spell;
+	bool cast;
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
@@ -477,7 +477,7 @@ void do_cmd_snipe(creature_type *creature_ptr)
  */
 void do_cmd_snipe_browse(creature_type *creature_ptr)
 {
-	int n = 0;
+	KEY n = 0;
 	int j, line;
 	char temp[62 * 4];
 

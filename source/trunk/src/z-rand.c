@@ -248,14 +248,12 @@ static s16b randnor_table[RANDNOR_NUM] =
  *
  * Note that the binary search takes up to 16 quick iterations.
  */
-s16b randnor(int mean, int stand)
+int randnor(int mean, int stand)
 {
-	s16b tmp;
-	s16b offset;
-
-	s16b low = 0;
-	s16b high = RANDNOR_NUM;
-
+	int tmp;
+	int offset;
+	int low = 0;
+	int high = RANDNOR_NUM;
 
 	if(stand < 1) return (mean);
 
