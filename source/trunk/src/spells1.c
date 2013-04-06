@@ -3785,7 +3785,7 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 
 	COODINATES path_g[512];		// Actual grids in the "path"
 	COODINATES gx[1024], gy[1024];	// Coordinates of the affected grids
-	byte gm[32];	// Encoded "radius" info (see above)
+	int gm[32];	// Encoded "radius" info (see above)
 
 	/* Actual radius encoded in gm[] */
 	int gm_rad = rad;

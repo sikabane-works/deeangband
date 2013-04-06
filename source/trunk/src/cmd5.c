@@ -670,7 +670,9 @@ void do_cmd_study(creature_type *creature_ptr)
 // Cast a spell
 void do_cmd_cast(creature_type *creature_ptr)
 {
-	int	item, sval, spell, realm;
+	int	item;
+	SVAL sval;
+	int spell, realm;
 	int	chance;
 	int	increment = 0;
 	int	use_realm;
@@ -770,8 +772,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Ask for a spell */
 #ifdef JP
 	if(!get_spell(creature_ptr, &spell, 
-		((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "‰r¥‚·‚é" : (magic_info[creature_ptr->class_idx].spell_book == TV_MUSIC_BOOK) ? "‰Ì‚¤" : "¥‚¦‚é"), 
-		sval, TRUE, realm))
+		((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "‰r¥‚·‚é" : (magic_info[creature_ptr->class_idx].spell_book == TV_MUSIC_BOOK) ? "‰Ì‚¤" : "¥‚¦‚é"), sval, TRUE, realm))
 	{
 		if(spell == -2) msg_format("‚»‚Ì–{‚É‚Í’m‚Á‚Ä‚¢‚é%s‚ª‚È‚¢B", prayer);
 		return;

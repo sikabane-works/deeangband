@@ -1260,8 +1260,10 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, c
 {
 	int i, j, passed_num = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	species_type	*species_ptr;
+	species_type *species_ptr;
 	bool skip;
+
+	if(summoner_ptr != NULL && !is_valid_creature(summoner_ptr)) return FAILURE;
 
 	// Scan the allocation table
 	for (i = 0; i < alloc_species_size; i++)
@@ -2895,7 +2897,7 @@ static void deal_food(creature_type *creature_ptr)
 		for (i = rand_range(3, 4); i > 0; i--)
 		{
 			object_prep(quest_ptr, lookup_kind(TV_CORPSE, SV_CORPSE));
-			quest_ptr->pval = get_species_num(CURRENT_FLOOR_PTR, 2);
+			quest_ptr->pval = (PVAL)get_species_num(CURRENT_FLOOR_PTR, 2);
 			quest_ptr->number = 1;
 			add_item_to_creature(creature_ptr, quest_ptr, 0);
 		}

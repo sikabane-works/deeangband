@@ -362,7 +362,7 @@ s16b label_to_item(creature_type *creature_ptr, int c)
 }
 
 // Return a string mentioning how a given item is carried
-cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
+cptr mention_use_idx(creature_type *creature_ptr, INVENTORY_ID slot, int num)
 {
 	cptr p = NULL;
 

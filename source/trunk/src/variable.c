@@ -1051,7 +1051,7 @@ bool gameover = FALSE;
 bool arena_settled = TRUE;
 bool subject_change_floor = FALSE;
 bool subject_change_dungeon = FALSE;
-s16b play_window_object_kind_idx = FALSE;
+OBJECT_KIND_ID play_window_object_kind_idx = FALSE;
 
 u32b game_load_count = 0;
 

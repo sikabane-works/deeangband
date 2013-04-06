@@ -1074,7 +1074,7 @@ extern void object_flags_known(object_type *object_ptr, FLAGS_32 flgs[MAX_TRAITS
 extern bool screen_object(object_type *object_ptr, FLAGS_32 mode);
 extern char index_to_label(int i);
 extern s16b label_to_item(creature_type *creature_ptr, int c);
-extern cptr mention_use_idx(creature_type *creature_ptr, int slot, int num);
+extern cptr mention_use_idx(creature_type *creature_ptr, INVENTORY_ID slot, int num);
 extern cptr mention_use_ptr(creature_type *creature_ptr, object_type *object_ptr);
 extern cptr describe_use(creature_type *creature_ptr, int i);
 extern bool check_book_realm(creature_type *creature_ptr, const byte book_tval, const byte book_sval);
@@ -1747,7 +1747,7 @@ extern bool gameover;
 extern bool arena_settled;
 extern bool subject_change_floor;
 extern bool subject_change_dungeon;
-extern s16b play_window_object_kind_idx;
+extern OBJECT_KIND_ID play_window_object_kind_idx;
 
 extern u32b game_load_count;
 

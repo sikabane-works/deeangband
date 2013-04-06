@@ -2241,7 +2241,7 @@ int quark_add(cptr str)
 /*
  * This function looks up a quark
  */
-cptr quark_str(s16b i)
+cptr quark_str(ARTIFACT_ID i)
 {
 	cptr q;
 
