@@ -58,11 +58,11 @@ typedef enum RACE_ID RACE_ID;
 #define READ_RACE_ID(VALUE) rd_s32b((RACE_ID *)VALUE);
 #define WRITE_RACE_ID(VALUE) wr_s32b((RACE_ID)VALUE);
 
-typedef s32b CLASS_ID;
+typedef enum CLASS_ID CLASS_ID;
 #define READ_CLASS_ID(VALUE) rd_s32b((CLASS_ID *)VALUE);
 #define WRITE_CLASS_ID(VALUE) wr_s32b((CLASS_ID)VALUE);
 
-typedef s32b CHARA_ID;
+typedef enum CHARA_ID CHARA_ID;
 #define READ_CHARA_ID(VALUE) rd_s32b((CHARA_ID *)VALUE);
 #define WRITE_CHARA_ID(VALUE) wr_s32b((CHARA_ID)VALUE);
 
