@@ -54,7 +54,7 @@ typedef s32b RANK;
 #define READ_RANK(VALUE) rd_s32b((RANK *)VALUE);
 #define WRITE_RANK(VALUE) wr_s32b((RANK)VALUE);
 
-typedef s32b RACE_ID;
+typedef enum RACE_ID RACE_ID;
 #define READ_RACE_ID(VALUE) rd_s32b((RACE_ID *)VALUE);
 #define WRITE_RACE_ID(VALUE) wr_s32b((RACE_ID)VALUE);
 
@@ -130,7 +130,7 @@ typedef s32b ARTIFACT_ID;
 #define READ_ARTIFACT_ID(VALUE) rd_s32b((ARTIFACT_ID *)VALUE);
 #define WRITE_ARTIFACT_ID(VALUE) wr_s32b((ARTIFACT_ID)VALUE);
 
-typedef s32b TRAIT_ID;
+typedef enum TRAIT_ID TRAIT_ID;
 #define READ_TRAIT_ID(VALUE) rd_s32b((TRAIT_ID *)VALUE);
 #define WRITE_TRAIT_ID(VALUE) wr_s32b((TRAIT_ID)VALUE);
 
