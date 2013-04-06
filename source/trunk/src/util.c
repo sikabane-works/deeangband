@@ -2284,7 +2284,7 @@ cptr quark_str(ARTIFACT_ID i)
 /*
  * How many messages are "available"?
  */
-s16b message_num(void)
+int message_num(void)
 {
 	int last, next, n;
 

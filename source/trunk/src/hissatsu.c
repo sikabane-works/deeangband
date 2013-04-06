@@ -28,16 +28,16 @@
  * when you run it. It's probably easy to fix but I haven't tried,
  * sorry.
  */
-static int get_hissatsu_power(creature_type *creature_ptr, int *sn)
+static int get_hissatsu_power(creature_type *creature_ptr, KEY *sn)
 {
 	char i;
-	int j = 0, num = 0;
-	int             y = 1;
-	int             x = 15;
-	int             lev_bonus = creature_ptr->lev;
-	int             ask = TRUE;
-	char            choice;
-	char            out_val[160];
+	KEY j = 0, num = 0;
+	int y = 1;
+	int x = 15;
+	int lev_bonus = creature_ptr->lev;
+	int ask = TRUE;
+	char choice;
+	char out_val[160];
 	char sentaku[32];
 #ifdef JP
 cptr            p = "•KŽEŒ•";
@@ -46,8 +46,8 @@ cptr            p = "•KŽEŒ•";
 #endif
 
 	magic_type spell;
-	bool            flag, redraw;
-	int menu_line = (use_menu ? 1 : 0);
+	bool flag, redraw;
+	KEY menu_line = (use_menu ? 1 : 0);
 
 	/* Assume cancelled */
 	*sn = (-1);
@@ -306,9 +306,8 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
  */
 void do_cmd_hissatsu(creature_type *creature_ptr)
 {
-	int             n = 0;
-	magic_type      spell;
-
+	KEY n = 0;
+	magic_type spell;
 
 	/* not if confused */
 	if(has_trait(creature_ptr, TRAIT_CONFUSED))
@@ -436,7 +435,7 @@ msg_print("V‚µ‚¢•KŽE‹Z‚ðŠo‚¦‚é‚±‚Æ‚Í‚Å‚«‚È‚¢I");
 			/* Stop at the first empty space */
 			if(creature_ptr->spell_order[j] == 99) break;
 		}
-		creature_ptr->spell_order[j] = i;
+		creature_ptr->spell_order[j] = (byte_hack)i;
 		gain = TRUE;
 	}
 
