@@ -1750,6 +1750,7 @@ static void vault_prep_symbol(floor_type *floor_ptr)
  */
 static void vault_prep_dragon(floor_type *floor_ptr)
 {
+	if(floor_ptr == NULL) return;
 #if 0
 	/* Pick dragon type */
 	switch (randint0(6))
@@ -2817,9 +2818,9 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 }
 
 // Build vaults (see "vault_info.txt")
-static bool build_vault_pre(floor_type *floor_ptr, int type)
+static bool build_vault_pre(floor_type *floor_ptr)
 {
-	vault_type *v_ptr;
+	vault_type *v_ptr = NULL;
 	int dummy;
 	COODINATES x, y, xval, yval, xoffset, yoffset;
 	int transno;
@@ -5957,8 +5958,8 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_INNER_FEAT:    return build_type4(floor_ptr);
 	case ROOM_T_NEST:          return build_type5(floor_ptr);
 	case ROOM_T_PIT:           return build_type6(floor_ptr);
-	case ROOM_T_LESSER_VAULT:  return build_vault_pre(floor_ptr, 7);
-	case ROOM_T_GREATER_VAULT: return build_vault_pre(floor_ptr, 8);
+	case ROOM_T_LESSER_VAULT:  return build_vault_pre(floor_ptr);
+	case ROOM_T_GREATER_VAULT: return build_vault_pre(floor_ptr);
 	case ROOM_T_FRACAVE:       return build_type9(floor_ptr);
 	case ROOM_T_RANDOM_VAULT:  return build_type10(floor_ptr);
 	case ROOM_T_OVAL:          return build_type11(floor_ptr);

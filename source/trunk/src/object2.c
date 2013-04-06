@@ -5343,7 +5343,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				strcpy(tmp_val, "1");
 
 				if(!get_string(tmp, tmp_val, 1)) return;
-				pval = strtol(tmp_val, NULL, 10);
+				pval = (PVAL)strtol(tmp_val, NULL, 10);
 				if(pval > limit) pval = limit;
 				else if(pval < 1) pval = 1;
 				object_ptr->pval += pval;

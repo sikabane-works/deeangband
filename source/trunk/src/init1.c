@@ -5747,12 +5747,12 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 				case DU_INFO_FEAT_PROB_FLOOR:
 					if(tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return PARSE_ERROR_GENERIC; // Scan for the values
-					dungeon_ptr->floor[0].feat = feature_tag_to_index(zz[0]);
-					dungeon_ptr->floor[0].percent = strtol(zz[1], NULL, 10);
-					dungeon_ptr->floor[1].feat = feature_tag_to_index(zz[2]);
-					dungeon_ptr->floor[1].percent = strtol(zz[3], NULL, 10);
-					dungeon_ptr->floor[2].feat = feature_tag_to_index(zz[4]);
-					dungeon_ptr->floor[2].percent = strtol(zz[5], NULL, 10);
+					dungeon_ptr->floor[0].feat = (FLOOR_ID)feature_tag_to_index(zz[0]);
+					dungeon_ptr->floor[0].percent = (PERCENT)strtol(zz[1], NULL, 10);
+					dungeon_ptr->floor[1].feat = (FLOOR_ID)feature_tag_to_index(zz[2]);
+					dungeon_ptr->floor[1].percent = (PERCENT)strtol(zz[3], NULL, 10);
+					dungeon_ptr->floor[2].feat = (FLOOR_ID)feature_tag_to_index(zz[4]);
+					dungeon_ptr->floor[2].percent = (PERCENT)strtol(zz[5], NULL, 10);
 					break;
 
 				case DU_INFO_FEAT_PROB_FILL:
