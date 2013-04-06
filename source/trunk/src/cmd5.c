@@ -315,11 +315,11 @@ static bool creature_has_no_spellbooks(creature_type *creature_ptr)
 
 static void confirm_use_force(creature_type *creature_ptr, bool browse_only)
 {
-	int  item;
+	INVENTORY_ID item;
 	char which;
 
 	/* Get the item index */
-	if(repeat_pull(&item) && (item == INVEN_FORCE))
+	if(repeat_pull((KEY *)&item) && (item == INVEN_FORCE))
 	{
 		browse_only ? do_cmd_mind_browse(creature_ptr) : do_cmd_mind(creature_ptr);
 		return;
@@ -520,7 +520,7 @@ void do_cmd_study(creature_type *creature_ptr)
 {
 	int	i, item;
 	SVAL sval;
-	int	increment = 0;
+	KEY increment = 0;
 	bool learned = FALSE;
 	int item_tester_tval = 0;
 
@@ -587,7 +587,7 @@ void do_cmd_study(creature_type *creature_ptr)
 	else
 	{
 		int k = 0;
-		int gift = -1;
+		KEY gift = -1;
 
 		/* Extract spells */
 		for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
@@ -1162,8 +1162,8 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 		}
 	}
 
-	Term->scr->cu = cu;
-	Term->scr->cv = cv;
+	Term->scr->cu = (bool_hack)cu;
+	Term->scr->cv = (bool_hack)cv;
 	Term_fresh();
 
 	C_KILL(who, max_creature_idx, CREATURE_ID);

@@ -2380,7 +2380,7 @@ bool recharge(creature_type *creature_ptr, POWER power)
 			}
 
 			/* Recharge the wand or staff. */
-			object_ptr->pval += recharge_amount;
+			object_ptr->pval += (PVAL)recharge_amount;
 
 
 			/* Hack -- we no longer "know" the item */
@@ -3021,11 +3021,13 @@ void display_spell_list(creature_type *creature_ptr)
 /*
  * Modify mana consumption rate using spell exp and dec_mana
  */
-int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, REALM_ID realm)
+int mod_need_mana(creature_type *creature_ptr, int need_mana, TRAIT_ID spell, REALM_ID realm)
 {
 #define MANSTAT_CONST   2400
 #define MANA_DIV        4
 #define DEC_MANA_DIV    3
+
+	if(spell < 0) return 0;
 
 	/* Realm magic */
 	if((realm > REALM_NONE) && (realm <= MAX_REALM))
@@ -3079,7 +3081,7 @@ int mod_spell_chance_2(creature_type *creature_ptr, int chance)
 /*
  * Returns spell chance of failure for spell -RAK-
  */
-s16b spell_chance(creature_type *creature_ptr, int spell, REALM_ID use_realm)
+PERCENT spell_chance(creature_type *creature_ptr, int spell, REALM_ID use_realm)
 {
 	int             chance, minfail;
 	magic_type      *s_ptr;
@@ -4152,7 +4154,7 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 				{
 					msg_format(MES_RECHARGE_BROKEN1(object_name));
 					if(IS_ROD(object_ptr)) object_ptr->timeout = MIN(object_ptr->timeout, object_kind_ptr->pval * (object_ptr->number - 1));
-					else if(object_ptr->tval == TV_WAND) object_ptr->pval = object_ptr->pval * (object_ptr->number - 1) / object_ptr->number;
+					else if(object_ptr->tval == TV_WAND) object_ptr->pval = (PVAL)(object_ptr->pval * (object_ptr->number - 1) / object_ptr->number);
 				}
 				else msg_format(MES_RECHARGE_BROKEN1(object_name));
 
