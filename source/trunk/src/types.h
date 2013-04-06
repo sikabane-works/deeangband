@@ -131,8 +131,8 @@ typedef s32b ARTIFACT_ID;
 #define WRITE_ARTIFACT_ID(VALUE) wr_s32b((ARTIFACT_ID)VALUE);
 
 typedef enum TRAIT_ID TRAIT_ID;
-#define READ_TRAIT_ID(VALUE) rd_s32b((TRAIT_ID *)VALUE);
-#define WRITE_TRAIT_ID(VALUE) wr_s32b((TRAIT_ID)VALUE);
+#define READ_TRAIT_ID(VALUE) rd_s32b((s32b *)VALUE);
+#define WRITE_TRAIT_ID(VALUE) wr_s32b((s32b)VALUE);
 
 typedef s32b STORE_ID;
 #define READ_STORE_ID(VALUE) rd_s32b((STORE_ID *)VALUE);

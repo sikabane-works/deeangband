@@ -516,7 +516,8 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 */
 void do_cmd_study(creature_type *creature_ptr)
 {
-	int	i, item, sval;
+	int	i, item;
+	SVAL sval;
 	int	increment = 0;
 	bool learned = FALSE;
 	int item_tester_tval = 0;
@@ -1044,10 +1045,11 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 {
 	creature_type	*m_ptr;
 	bool		all_pets = FALSE;
-	int pet_ctr, i;
+	CREATURE_ID pet_ctr;
+	int i;
 	int Dismissed = 0;
 
-	u16b *who;
+	CREATURE_ID *who;
 	u16b dummy_why;
 	int max_pet = 0;
 	int cu, cv;
@@ -1058,7 +1060,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 	Term->scr->cv = 1;
 
 	/* Allocate the "who" array */
-	C_MAKE(who, max_creature_idx, u16b);
+	C_MAKE(who, max_creature_idx, CREATURE_ID);
 
 	/* Process the creatures (backwards) */
 	for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
@@ -1161,7 +1163,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 	Term->scr->cv = cv;
 	Term_fresh();
 
-	C_KILL(who, max_creature_idx, u16b);
+	C_KILL(who, max_creature_idx, CREATURE_ID);
 	msg_format(MES_PET_DISMISS(Dismissed));
 
 	if(Dismissed == 0 && all_pets) msg_print(MES_PER_UNNAMED_DESC);

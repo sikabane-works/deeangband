@@ -292,7 +292,7 @@ static void rd_object(object_type *object_ptr)
 	// Creature holding object
 	READ_CREATURE_ID(&object_ptr->held_m_idx);
 	READ_GAME_TIME(&object_ptr->fuel);
-	rd_byte(&object_ptr->forged_type);
+	READ_FORGED_ID(&object_ptr->forged_type);
 	rd_byte(&object_ptr->feeling);
 
 	//rd_string(buf, sizeof(buf));
@@ -726,7 +726,7 @@ static void rd_creature(creature_type *creature_ptr)
 	READ_RACE_ID(&creature_ptr->race_idx2);
 	READ_RACE_ID(&creature_ptr->mimic_race_idx);
 	for (i = 0; i < RACE_FLAG_MAX; i++) READ_FLAGS_32(&creature_ptr->sub_race[i]);
-	rd_s16b(&creature_ptr->creature_ego_idx);
+	READ_CREATURE_EGO_ID(&creature_ptr->creature_ego_idx);
 	READ_CLASS_ID(&creature_ptr->class_idx);
 	READ_CHARA_ID(&creature_ptr->chara_idx);
 	rd_s16b(&creature_ptr->starting_idx);
@@ -809,10 +809,10 @@ static void rd_creature(creature_type *creature_ptr)
 
 	for (i = 0; i < MAX_MANE; i++)
 	{
-		rd_s16b(&creature_ptr->mane_spell[i]);
+		READ_TRAIT_ID(&creature_ptr->mane_spell[i]);
 		READ_POWER(&creature_ptr->mane_dam[i]);
 	}
-	rd_s16b(&creature_ptr->mane_num);
+	READ_QUANTITY(&creature_ptr->mane_num);
 
 	READ_COODINATES(&creature_ptr->oldpx);
 	READ_COODINATES(&creature_ptr->oldpy);
