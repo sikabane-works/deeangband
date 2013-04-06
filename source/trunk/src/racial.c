@@ -523,13 +523,13 @@ void free_posture(creature_type *creature_ptr)
 void do_cmd_racial_power(creature_type *creature_ptr)
 {
 	power_desc_type power_desc[36];
-	int num;
-	DIRECTION i = 0;
-	int             ask = TRUE;
-	bool            flag, redraw, cast = FALSE;
-	char            choice;
-	char            out_val[160];
-	DIRECTION menu_line = (use_menu ? 1 : 0);
+	KEY num;
+	KEY i = 0;
+	int ask = TRUE;
+	bool flag, redraw, cast = FALSE;
+	char choice;
+	char out_val[160];
+	KEY menu_line = (use_menu ? 1 : 0);
 
 	for (num = 0; num < 36; num++)
 	{

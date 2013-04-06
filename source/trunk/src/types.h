@@ -1644,7 +1644,7 @@ struct creature_type
 	COODINATES wy;
 
 	FLOOR_LEV depth;
-	byte cdis;		// Current dis from player 
+	COODINATES cdis; /* Current dis from player */
 
 	byte sc_flag;	// Extra creature flags 
 	byte sc_flag2;	// Extra creature flags 

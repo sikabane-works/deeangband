@@ -639,7 +639,7 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 	if(get_string(MES_OBJECT_INSCRIBING_PROMPT, out_val, 80))
 	{
 		/* Save the inscription */
-		object_ptr->inscription = quark_add(out_val);
+		object_ptr->inscription = (s16b)quark_add(out_val);
 
 		prepare_update(creature_ptr, CRU_COMBINE);
 		prepare_window(PW_INVEN | PW_EQUIP);

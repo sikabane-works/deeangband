@@ -2547,9 +2547,9 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
  */
 static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
 {
-	char	command;
-	char	out_val[160];
-	char	lo, hi;
+	char command;
+	char out_val[160];
+	char lo, hi;
 
 	/* Get the item index */
 	if(repeat_pull(com_val))

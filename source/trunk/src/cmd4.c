@@ -5943,8 +5943,8 @@ static bool visual_mode_command(char ch, bool *visual_list_ptr,
 			if((a == 0x7f) && (ddy[d] > 0)) d = 0;
 			if((c == 0xff) && (ddx[d] > 0)) d = 0;
 
-			a += ddy[d];
-			c += ddx[d];
+			a += (COLOR_ID)ddy[d];
+			c += (SYMBOL)ddx[d];
 
 			/* Force correct code for both ASCII character and tile */
 			if(c & 0x80) a |= 0x80;
