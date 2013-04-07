@@ -1223,7 +1223,7 @@ static void load_prefs(void)
  *
  * We save pointers to the tokens in "tokens", and return the number found.
  */
-static s16b tokenize_whitespace(char *buf, s16b num, char **tokens)
+static int tokenize_whitespace(char *buf, s16b num, char **tokens)
 {
 	int k = 0;
 	char *s = buf;
@@ -1251,7 +1251,6 @@ static s16b tokenize_whitespace(char *buf, s16b num, char **tokens)
 		s = t;
 	}
 
-	/* Count */
 	return (k);
 }
 

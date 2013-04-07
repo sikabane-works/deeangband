@@ -2324,7 +2324,10 @@ static int wield_one(creature_type *creature_ptr, int item, FLAGS_32 flags)
 	INVENTORY_ID slot; 
 
 	object_ptr = &creature_ptr->inventory[item]; 
- 
+
+	// temporary
+	if(!flags) return FALSE;
+
 	// Skip non-objects
 	if(!is_valid_object(object_ptr)) return -1; 
  
@@ -2885,6 +2888,10 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 // Player SubRace(Eldar)
 static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(npc) return TRUE;
+	return FALSE;
+
 /*
 	int i, n = 0;
 	selection_table se[3 + 3];
@@ -2970,6 +2977,10 @@ static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 // Creature SubRace(Dragon & Draconian)
 static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool npc)
 {
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(npc) return TRUE;
+	return FALSE;
+
 	/*
 	int i, n = 0;
 	selection_table se[15];

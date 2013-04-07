@@ -244,7 +244,7 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, POWER power
  * when you run it. It's probably easy to fix but I haven't tried,
  * sorry.
  */
-static int get_learned_power(creature_type *creature_ptr, int *sn)
+static int get_learned_power(creature_type *creature_ptr, KEY *sn)
 {
 	int             i = 0;
 	int             num = 0;
@@ -617,7 +617,7 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 	if(!flag) return FALSE;
 
 	/* Save the choice */
-	(*sn) = spellnum[i];
+	(*sn) = (KEY)spellnum[i];
 
 	repeat_push(*sn);
 
@@ -631,7 +631,7 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
  */
 bool do_cmd_cast_learned(creature_type *creature_ptr)
 {
-	int n = 0;
+	KEY n = 0;
 	int chance, need_mana;
 	int minfail = 0;
 	trait_type *spell;

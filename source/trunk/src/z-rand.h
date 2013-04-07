@@ -72,7 +72,7 @@
 
 extern bool Rand_quick;
 extern u32b Rand_value;
-extern u16b Rand_place;
+extern int Rand_place;
 extern u32b Rand_state[RAND_DEG];
 
 
