@@ -1627,7 +1627,7 @@ static void autopick_delayed_alter_aux(creature_type *creature_ptr, int item)
  */
 void autopick_delayed_alter(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* 
@@ -3229,7 +3229,7 @@ static bool insert_return_code(text_body_type *tb)
 // Choose an item and get auto-picker entry from it.
 static object_type *choose_object(creature_type *creature_ptr, cptr q, cptr s)
 {
-	int item;
+	OBJECT_ID item;
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), NULL, 0)) return NULL;
 	return GET_ITEM(creature_ptr, item);
 }

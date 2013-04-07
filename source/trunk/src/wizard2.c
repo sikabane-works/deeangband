@@ -1046,7 +1046,7 @@ static void do_cmd_wiz_blue_mage(creature_type *creature_ptr)
  */
 static void do_cmd_wiz_play(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 	object_type	forge;
 	object_type *object1_ptr;
 	object_type *object2_ptr;

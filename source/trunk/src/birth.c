@@ -2366,7 +2366,7 @@ static int wield_one(creature_type *creature_ptr, int item, FLAGS_32 flags)
  */ 
 static void wield_all(creature_type *creature_ptr, FLAGS_32 flags) 
 { 
-	int item;
+	OBJECT_ID item;
 	/* Scan through the slots backwards */ 
 	for (item = INVEN_TOTAL - 1; item >= 0; item--) wield_one(creature_ptr, item, flags);
 	return; 

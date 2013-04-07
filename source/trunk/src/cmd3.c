@@ -146,7 +146,9 @@ bool item_tester_hook_hand(creature_type *creature_ptr, object_type *object_ptr)
 // Wield or wear a single item from the pack or floor
 void do_cmd_wield(creature_type *creature_ptr)
 {
-	int i, n, item, slot, old_item;
+	int i, n;
+	OBJECT_ID item, old_item;
+	int slot;
 	object_type forge, *quest_ptr, *object_ptr, *old_equipped_ptr;
 	char object_name[MAX_NLEN];
 
@@ -333,7 +335,7 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 // Take off an item
 void do_cmd_takeoff(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 	object_type *object_ptr;
 
 	free_posture(creature_ptr);
@@ -384,7 +386,8 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 // Drop an item
 void do_cmd_drop(creature_type *creature_ptr)
 {
-	int item, amt = 1;
+	OBJECT_ID item;
+	int amt = 1;
 	object_type *object_ptr;
 
 	free_posture(creature_ptr);
@@ -562,7 +565,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 */
 void do_cmd_observe(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 	object_type *object_ptr;
 	char object_name[MAX_NLEN];
 
@@ -587,7 +590,7 @@ void do_cmd_observe(creature_type *creature_ptr)
 // XXX Mention item (when done)?
 void do_cmd_uninscribe(creature_type *creature_ptr)
 {
-	int   item;
+	OBJECT_ID item;
 	object_type *object_ptr;
 
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_UNINSCRIBE, MES_OBJECT_NO_UNINSCRIBE, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
@@ -614,7 +617,7 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 // Inscribe an object with a comment
 void do_cmd_inscribe(creature_type *creature_ptr)
 {
-	int			item;
+	OBJECT_ID item;
 	object_type		*object_ptr;
 	char		object_name[MAX_NLEN];
 	char		out_val[80];
@@ -706,7 +709,7 @@ static bool item_tester_refill_lantern(creature_type *creature_ptr, object_type 
 // Refill the players lamp (from the pack or floor)
 static void do_cmd_refill_lamp(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 
 	object_type *object1_ptr;
 	object_type *object2_ptr;
@@ -753,7 +756,7 @@ static bool item_tester_refill_torch(creature_type *creature_ptr, object_type *o
 // Refuel the players torch (from the pack or floor)
 static void do_cmd_refill_torch(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 	object_type *object1_ptr;
 	object_type *object2_ptr;
 

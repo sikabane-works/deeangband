@@ -971,7 +971,7 @@ bool object_disenchant(creature_type *owner_ptr, object_type *object_ptr, int mo
 // Return "TRUE" if the player notices anything
 bool apply_disenchant(creature_type *creature_ptr, int mode)
 {
-	int item;
+	OBJECT_ID item;
 	object_type *object_ptr;
 
 	// Get the item
@@ -1106,7 +1106,7 @@ void phlogiston(creature_type *creature_ptr)
 // Brand the current weapon
 void brand_weapon(creature_type *creature_ptr, int brand_type)
 {
-	int         item;
+	OBJECT_ID item;
 	object_type *object_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -1687,7 +1687,8 @@ bool remove_all_curse(creature_type *creature_ptr)
 // Turns an object into gold, gain some of its value in a shop
 bool alchemy(creature_type *creature_ptr)
 {
-	int item, amt = 1;
+	OBJECT_ID item;
+	int amt = 1;
 	int old_number;
 	long price;
 	bool force = FALSE;
@@ -1905,7 +1906,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 // Returns TRUE if attempted, FALSE if cancelled
 bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int num_ac, int num_ev, int num_vo)
 {
-	int         item;
+	OBJECT_ID item;
 	bool        okay = FALSE;
 	object_type *object_ptr;
 	char        object_name[MAX_NLEN];
@@ -1958,7 +1959,7 @@ static bool item_tester_hook_nameless_weapon_armour(creature_type *creature_ptr,
 
 bool artifact_scroll(creature_type *caster_ptr)
 {
-	int             item;
+	OBJECT_ID item;
 	bool            okay = FALSE;
 	object_type     *object_ptr;
 	char            object_name[MAX_NLEN];
@@ -2090,7 +2091,7 @@ static bool item_tester_hook_identify_weapon_armour(creature_type *creature_ptr,
  */
 bool ident_spell(creature_type *creature_ptr, bool only_equip)
 {
-	int             item;
+	OBJECT_ID item;
 	object_type     *object_ptr;
 	char            object_name[MAX_NLEN];
 	cptr            q, s;
@@ -2140,7 +2141,7 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
  */
 bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 {
-	int             item;
+	OBJECT_ID item;
 	object_type     *object_ptr;
 	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr);
 
@@ -2195,7 +2196,7 @@ static bool item_tester_hook_identify_fully_weapon_armour(creature_type *creatur
  */
 bool identify_fully(creature_type *creature_ptr, bool only_equip)
 {
-	int             item;
+	OBJECT_ID item;
 	object_type     *object_ptr;
 	char            object_name[MAX_NLEN];
 	cptr            q, s;
@@ -2282,7 +2283,8 @@ bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_
  */
 bool recharge(creature_type *creature_ptr, POWER power)
 {
-	int item, lev;
+	OBJECT_ID item;
+	int lev;
 	int recharge_strength, recharge_amount;
 
 	object_type *object_ptr;
@@ -2511,7 +2513,7 @@ bool recharge(creature_type *creature_ptr, POWER power)
 // Bless a weapon
 bool bless_weapon(creature_type *caster_ptr)
 {
-	int             item;
+	OBJECT_ID item;
 	object_type     *object_ptr;
 	u32b flgs[MAX_TRAITS_FLAG];
 	char            object_name[MAX_NLEN];
@@ -2601,7 +2603,7 @@ bool bless_weapon(creature_type *caster_ptr)
  */
 bool pulish_shield(creature_type *creature_ptr)
 {
-	int             item;
+	OBJECT_ID item;
 	object_type     *object_ptr;
 	u32b flgs[MAX_TRAITS_FLAG];
 	char            object_name[MAX_NLEN];
@@ -3703,7 +3705,7 @@ int dissolve_armour(creature_type *creature_ptr)
 
 bool rustproof(creature_type *creature_ptr)
 {
-	int         item;
+	OBJECT_ID item;
 	object_type *object_ptr;
 	char        object_name[MAX_NLEN];
 
@@ -3982,7 +3984,8 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 {
 	object_type * object_ptr;
 	object_kind *object_kind_ptr;
-	int lev, item;
+	OBJECT_ID item;
+	int lev; 
 	int recharge_strength = 0;
 
 	bool fail = FALSE;

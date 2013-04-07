@@ -1063,7 +1063,7 @@ void leave_quest_check(creature_type *creature_ptr)
 */
 bool psychometry(creature_type *creature_ptr)
 {
-	int             item;
+	OBJECT_ID item;
 	object_type     *object_ptr;
 	char            object_name[MAX_NLEN];
 	byte            feel;

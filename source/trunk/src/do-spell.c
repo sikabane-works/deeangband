@@ -695,7 +695,7 @@ static bool item_tester_offer(creature_type *creature_ptr, object_type *object_p
 static bool cast_summon_greater_demon(creature_type *creature_ptr)
 {
 	int lev_bonus = creature_ptr->lev;
-	int item;
+	OBJECT_ID item;
 	cptr q, s;
 	FLOOR_LEV summon_lev;
 	object_type *object_ptr;
@@ -9981,7 +9981,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 		if(cast)
 		{
-			int item;
+			OBJECT_ID item;
 			char *q, *s;
 			char object_name[MAX_NLEN];
 			object_type *object_ptr;
@@ -10401,7 +10401,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 		if(cast)
 		{
-			int item;
+			OBJECT_ID item;
 			char *q, *s;
 			char object_name[MAX_NLEN];
 			object_type *object_ptr;
@@ -10660,7 +10660,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 		if(cast)
 		{
-			int item;
+			OBJECT_ID item;
 			char *s, *q;
 			u32b f[MAX_TRAITS_FLAG];
 			object_type *object_ptr;

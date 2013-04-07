@@ -1515,7 +1515,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 	return target_item_label;
 }
 
-bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
+bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	char n1 = ' ', n2 = ' ', which = ' ';
@@ -2611,7 +2611,7 @@ static bool py_pickup_floor_aux(creature_type *creature_ptr)
 
 	cptr q, s;
 
-	int item;
+	OBJECT_ID item;
 
 	/* Get an object */
 #ifdef JP

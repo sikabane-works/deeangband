@@ -343,7 +343,7 @@ static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *o
 // Eat some food (from the pack or floor)
 void do_cmd_eat_food(creature_type *creature_ptr)
 {
-	int         item;
+	OBJECT_ID item;
 
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 	if(!get_item(creature_ptr, &item, MES_FOOD_WHICH_EAT, MES_FOOD_NO_EAT, (USE_INVEN | USE_FLOOR), item_tester_hook_eatable, 0)) return;
@@ -608,7 +608,7 @@ static bool item_tester_hook_quaff(creature_type *creature_ptr, object_type *obj
 // Quaff some potion (from the pack or floor)
 void do_cmd_quaff_potion(creature_type *creature_ptr)
 {
-	int  item;
+	OBJECT_ID item;
 
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 	if(!get_item(creature_ptr, &item, MES_QUAFF_WHICH_POTION, MES_QUAFF_NO_POTION, (USE_INVEN | USE_FLOOR), item_tester_hook_quaff, 0)) return;
@@ -1033,7 +1033,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 void do_cmd_read_scroll(creature_type *creature_ptr)
 {
 	object_type *object_ptr;
-	int  item;
+	OBJECT_ID item;
 
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
@@ -1368,7 +1368,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 void do_cmd_use_staff(creature_type *creature_ptr)
 {
-	int  item;
+	OBJECT_ID item;
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_STAFF, MES_OBJECT_NO_STAFF, (USE_INVEN | USE_FLOOR), NULL, TV_STAFF)) return;
 	do_cmd_use_staff_aux(creature_ptr, item);
@@ -1622,7 +1622,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 
 void do_cmd_aim_wand(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_WAND, MES_OBJECT_NO_WAND, (USE_INVEN | USE_FLOOR), NULL, TV_WAND)) return;
 	do_cmd_aim_wand_aux(creature_ptr, item);
@@ -1795,7 +1795,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 
 void do_cmd_zap_rod(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_ROD, MES_OBJECT_NO_ROD, (USE_INVEN | USE_FLOOR), NULL, TV_ROD)) return;
 	do_cmd_zap_rod_aux(creature_ptr, item);
@@ -2161,7 +2161,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 void do_cmd_activate(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_ACTIVATE, MES_OBJECT_NO_ACTIVATE, (USE_EQUIP), item_tester_hook_activate, 0)) return;
 	do_cmd_activate_aux(creature_ptr, item);
@@ -2217,7 +2217,7 @@ static bool item_tester_hook_use(creature_type *creature_ptr, object_type *objec
  */
 void do_cmd_use(creature_type *creature_ptr)
 {
-	int         item;
+	OBJECT_ID item;
 	object_type *object_ptr;
 
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);

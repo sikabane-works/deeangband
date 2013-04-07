@@ -2126,7 +2126,7 @@ static bool resize_item(creature_type *creature_ptr)
 	int resizelimit = (creature_ptr->lev / 8) + 2;
 	cptr q, s;
 	char tmp_str[MAX_NLEN];
-	int item;
+	OBJECT_ID item;
 
 	if(resizelimit > 5) resizelimit = 5;
 	clear_bldg(4, 18);
@@ -2213,7 +2213,8 @@ static bool resize_item(creature_type *creature_ptr)
 // Enchant item
 static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int to_damageam, int to_ac, int item_tester_tval)
 {
-	int         i, item;
+	int         i;
+	OBJECT_ID item;
 	bool        okay = FALSE;
 	object_type *object_ptr;
 	int         maxenchant = (creature_ptr->lev / 5);

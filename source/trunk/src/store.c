@@ -3541,7 +3541,8 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 {
 	int choice;
-	int item, item_pos;
+	OBJECT_ID item;
+	int item_pos;
 	int amt;
 
 	s32b price, value, dummy;
@@ -3783,7 +3784,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 static void store_examine(store_type *st_ptr)
 {
 	int         i;
-	int         item;
+	OBJECT_ID item;
 	object_type *object_ptr;
 	char        object_name[MAX_NLEN];
 	char        out_val[160];
@@ -3832,7 +3833,7 @@ static void store_examine(store_type *st_ptr)
 static void museum_remove_object(store_type *st_ptr, creature_type *creature_ptr)
 {
 	int         i;
-	int         item;
+	OBJECT_ID item;
 	object_type *object_ptr;
 	char        object_name[MAX_NLEN];
 	char        out_val[160];

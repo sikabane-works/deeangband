@@ -1677,7 +1677,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 	if(get_rep_dir(creature_ptr, &dir, FALSE))
 	{
 		COODINATES y, x;
-		int item;
+		OBJECT_ID item;
 		cave_type *c_ptr;
 		FEATURE_ID feat;
 
@@ -2667,7 +2667,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 void do_cmd_fire(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 	object_type *j_ptr;
 	creature_ptr->is_fired = FALSE;	/* not fired yet */
 
@@ -2747,7 +2747,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	DIRECTION dir;
-	int item = 0;
+	OBJECT_ID item = 0;
 	int i, j;
 	COODINATES ny[19], nx[19], y, x, ty, tx, prev_y, prev_x;
 	int chance, tdam, tdis;

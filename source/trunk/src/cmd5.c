@@ -359,7 +359,7 @@ static void confirm_use_force(creature_type *creature_ptr, bool browse_only)
 */
 void do_cmd_browse(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 	SVAL sval;
 	int use_realm = 0, j, line;
 	KEY spell = -1;

@@ -5479,7 +5479,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 static void erase_essence(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 	object_type *object_ptr;
 	char object_name[MAX_NLEN];
 	u32b flgs[MAX_TRAITS_FLAG];

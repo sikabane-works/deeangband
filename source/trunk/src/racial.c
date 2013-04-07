@@ -162,7 +162,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 	/**********Create bolts*********/
 	else if(ext == 3)
 	{
-		int item;
+		OBJECT_ID item;
 		INVENTORY_ID slot;
 
 		if(!get_item(creature_ptr, &item, MES_SMITH_WHICH_STUFF, MES_SMITH_NO_STUFF, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
@@ -192,7 +192,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 
 bool gain_magic(creature_type *creature_ptr)
 {
-	int item;
+	OBJECT_ID item;
 	int pval;
 	int ext = 0;
 	object_type *object_ptr;
