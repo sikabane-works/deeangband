@@ -87,7 +87,7 @@ bool creating_savefile;		/* New savefile is currently created */
 u32b seed_flavor;		/* Hack -- consistent object colors */
 u32b seed_town;			/* Hack -- consistent town layout */
 
-int command_cmd;		/* Current "Angband Command" */
+KEY command_cmd;		/* Current "Angband Command" */
 int command_arg;		/* Gives argument of current command */
 int command_rep;		/* Gives repetition of current command */
 DIRECTION command_dir;		/* Gives direction of current command */

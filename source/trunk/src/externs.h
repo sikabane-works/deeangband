@@ -144,7 +144,7 @@ extern bool character_saved;
 extern bool creating_savefile;
 extern u32b seed_flavor;
 extern u32b seed_town;
-extern int command_cmd;
+extern KEY command_cmd;
 extern int command_arg;
 extern int command_rep;
 extern DIRECTION command_dir;

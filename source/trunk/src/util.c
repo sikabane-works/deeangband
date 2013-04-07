@@ -3125,7 +3125,7 @@ void clear_from(int row)
  */
 bool askfor_aux(char *buf, int len, bool numpad_cursor)
 {
-	TEXT_COODI y, x, pos = 0;
+	int y, x, pos = 0;
 
 	/*
 	 * Text color
@@ -3532,7 +3532,7 @@ bool get_com(cptr prompt, char *command, bool z_escape)
 	msg_print(NULL);
 	prt(prompt, 0, 0);
 
-	if(get_com_no_macros) *command = inkey_special(FALSE);
+	if(get_com_no_macros) *command = (char)inkey_special(FALSE);
 	else *command = inkey();
 
 	/* Clear the prompt */
@@ -4495,7 +4495,7 @@ bool repeat_pull(KEY *what)
 
 void repeat_check(void)
 {
-	int		what;
+	KEY what;
 
 	/* Ignore some commands */
 	if(command_cmd == ESCAPE) return;
@@ -5329,6 +5329,8 @@ int get_multi_selection(selection_info *si_ptr, selection_table *se_ptr, int num
 	char eraser[80];
 	char line[80];
 	int selected_num = 0;
+
+	if(!si_ptr) return 0;
 
 	for(i = 0; i <= num / 32; i++) ret[i] = 0;
 

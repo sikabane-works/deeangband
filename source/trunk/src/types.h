@@ -322,7 +322,7 @@ typedef struct feature_state feature_state;
 
 struct feature_state
 {
-	byte action;
+	FEATURE_ID action;
 	FEATURE_ID result;
 };
 
