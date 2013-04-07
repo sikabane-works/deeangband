@@ -3197,13 +3197,14 @@ void deal_item(creature_type *creature_ptr)
 	return;
 }
 
-static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, int creature_ego_idx, FLAGS_32 mode)
+static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, CREATURE_EGO_ID creature_ego_idx, FLAGS_32 mode)
 {
 	cave_type		*c_ptr = &floor_ptr->cave[y][x];
 	creature_type	*creature_ptr;
 	species_type	*species_ptr = &species_info[species_idx];
 
 	if(has_trait_species(species_ptr, TRAIT_UNIQUE)) mode &= ~PC_KAGE;
+	if(creature_ego_idx > 0) creature_ego_idx = 0; //TODO
 
 	// DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!!
 	if(floor_ptr->global_map) return max_creature_idx;
