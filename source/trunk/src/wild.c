@@ -590,7 +590,7 @@ void generate_world(floor_type *floor_ptr)
 			if(wilderness[j][i].town && (wilderness[j][i].town != NO_TOWN))
 			{
 				floor_ptr->cave[j][i].feat = feat_town;
-				floor_ptr->cave[j][i].special = wilderness[j][i].town;
+				floor_ptr->cave[j][i].town_idx = wilderness[j][i].town;
 			}
 			else if(wilderness[j][i].road) floor_ptr->cave[j][i].feat = feat_floor;
 			else if(wilderness[j][i].entrance && (player_ptr->total_winner || !(dungeon_info[wilderness[j][i].entrance].flags1 & DF1_WINNER)))

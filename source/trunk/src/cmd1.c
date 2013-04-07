@@ -1157,7 +1157,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 
 		leave_quest_check(creature_ptr);
 
-		floor_ptr->quest = c_ptr->special;
+		floor_ptr->quest = c_ptr->quest_idx;
 		prev_floor_ptr->depth = 0;
 		creature_ptr->oldpx = 0;
 		creature_ptr->oldpy = 0;

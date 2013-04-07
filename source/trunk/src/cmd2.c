@@ -40,7 +40,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		else msg_print(MES_FEATURE_UP_STAIR);
 
 		leave_quest_check(creature_ptr);
-		floor_ptr->quest = c_ptr->special;
+		floor_ptr->quest = c_ptr->quest_idx;
 
 		if(!quest[floor_ptr->quest].status) quest[floor_ptr->quest].status = QUEST_STATUS_TAKEN;	// Activate the quest
 		if(!floor_ptr->quest) floor_ptr->depth = 0;	// Leaving a quest
@@ -89,7 +89,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	{
 		leave_quest_check(creature_ptr);
 
-		floor_ptr->quest = c_ptr->special;
+		floor_ptr->quest = c_ptr->quest_idx;
 		floor_ptr->depth = 0;
 		up_num = 0;
 	}
