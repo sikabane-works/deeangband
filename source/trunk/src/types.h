@@ -158,6 +158,14 @@ typedef s32b SKILL_ID;
 #define READ_SKILL_ID(VALUE) rd_s32b((SKILL_ID *)VALUE);
 #define WRITE_SKILL_ID(VALUE) wr_s32b((SKILL_ID)VALUE);
 
+typedef s32b ACTION_ID;
+#define READ_ACTION_ID(VALUE) rd_s32b((ACTION_ID *)VALUE);
+#define WRITE_ACTION_ID(VALUE) wr_s32b((ACTION_ID)VALUE);
+
+typedef s32b POSTURE_ID;
+#define READ_POSTURE_ID(VALUE) rd_s32b((POSTURE_ID *)VALUE);
+#define WRITE_POSTURE_ID(VALUE) wr_s32b((POSTURE_ID)VALUE);
+
 typedef byte TVAL;
 #define READ_TVAL(VALUE) rd_byte((TVAL *)VALUE);
 #define WRITE_TVAL(VALUE) wr_byte((TVAL)VALUE);
@@ -287,6 +295,8 @@ typedef s32b FORGED_ID;
 #define WRITE_FORGED_ID(VALUE) wr_s32b((FORGED_ID)VALUE);
 
 typedef s32b CAMPAIGN_ID;
+#define READ_CAMPAIGN_ID(VALUE) rd_s32b((CAMPAIGN_ID *)VALUE);
+#define WRITE_CAMPAIGN_ID(VALUE) wr_s32b((CAMPAIGN_ID)VALUE);
 
 
 /*
@@ -1490,8 +1500,8 @@ struct creature_type
 
 	STAT food;			// Current nutrition 
 
-	u32b posture;		// Special block capacity -LM- 
-	byte action;		// Currently action 
+	POSTURE_ID posture;		// Special block capacity -LM- 
+	ACTION_ID action;		// Currently action 
 
 	FLAGS_32 spell_learned1;	// bit mask of spells learned 
 	FLAGS_32 spell_learned2;	// bit mask of spells learned 

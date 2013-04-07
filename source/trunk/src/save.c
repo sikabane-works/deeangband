@@ -472,7 +472,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_u32b(creature_ptr->posture);
 	wr_byte(creature_ptr->knowledge);
 	wr_byte(creature_ptr->autopick_autoregister);
-	wr_byte(creature_ptr->action);
+	WRITE_ACTION_ID(creature_ptr->action);
 
 	/* Write feeling */
 	wr_byte(creature_ptr->floor_feeling);
@@ -524,7 +524,7 @@ static void wr_extra(void)
 
 	wr_creature(&player_prev);
 	if(noscore) quick_ok = FALSE;
-	wr_byte(campaign_mode);
+	WRITE_CAMPAIGN_ID(campaign_mode);
 
 	wr_byte((byte) quick_ok);
 
