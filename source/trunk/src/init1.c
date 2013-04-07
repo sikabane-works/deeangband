@@ -2262,7 +2262,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 					object_kind_ptr->chance[j] = 1;
 
 						/* Store the attack damage index */
-					object_kind_ptr->locale[j] = strtol(s+1, NULL, 10);
+					object_kind_ptr->locale[j] = (byte_hack)strtol(s+1, NULL, 10);
 
 						/* Find the slash */
 					t = my_strchr(s+1, '/');
@@ -2274,7 +2274,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 					if(t && (!s || t < s))
 					{
 						int chance = strtol(t+1, NULL, 10);
-						if(chance > 0) object_kind_ptr->chance[j] = chance;
+						if(chance > 0) object_kind_ptr->chance[j] = (PROB)chance;
 					}
 				}
 				break;
@@ -6650,7 +6650,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 			if(flags & INIT_ONLY_FEATURES) continue;
 
 			/* Cave info */
-			c_ptr->info = letter[idx].cave_info;
+			c_ptr->info = (u16b)letter[idx].cave_info;
 
 			/* Create a creature */
 			if(random & RANDOM_MONSTER)
@@ -6814,7 +6814,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 
 				if(num < 9) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
 
-				quest_ptr->type = strtol(zz[2], NULL, 10);
+				quest_ptr->type = (s16b)strtol(zz[2], NULL, 10);
 				quest_ptr->num_mon = (POPULATION)strtol(zz[3], NULL, 10);
 				quest_ptr->cur_num = (POPULATION)strtol(zz[4], NULL, 10);
 				quest_ptr->max_num = (POPULATION)strtol(zz[5], NULL, 10);
@@ -6823,7 +6823,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				quest_ptr->k_idx = (OBJECT_KIND_ID)strtol(zz[8], NULL, 10);
 				quest_ptr->dungeon = (DUNGEON_ID)strtol(zz[9], NULL, 10);
 
-				if(num > 10) quest_ptr->flags = strtol(zz[10], NULL, 10);
+				if(num > 10) quest_ptr->flags = (byte_hack)strtol(zz[10], NULL, 10);
 
 				species_ptr = &species_info[quest_ptr->species_idx];
 				//if(has_trait_species(species_ptr, TRAIT_UNIQUE))

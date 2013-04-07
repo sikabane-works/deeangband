@@ -410,8 +410,8 @@ struct object_kind
 
 	FLAGS_32 gen_flags;		/* flags for generate */
 
-	byte locale[4];		/* Allocation level(s) */
-	byte chance[4];		/* Allocation chance(s) */
+	FLOOR_LEV locale[4];		/* Allocation level(s) */
+	PROB chance[4];		/* Allocation chance(s) */
 
 	FLOOR_LEV level;
 	byte extra;	
