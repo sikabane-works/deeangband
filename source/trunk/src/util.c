@@ -4468,10 +4468,10 @@ static int repeat__cnt = 0;
 static int repeat__idx = 0;
 
 /* Saved "stuff" */
-static int repeat__key[REPEAT_MAX];
+static KEY repeat__key[REPEAT_MAX];
 
 
-void repeat_push(int what)
+void repeat_push(KEY what)
 {
 	/* Too many keys */
 	if(repeat__cnt == REPEAT_MAX) return;

@@ -620,7 +620,7 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 // Certain scrolls can be "aborted" without losing the scroll.  These
 // include scrolls with no effects but recharge or identify, which are
 // cancelled before use.  XXX Reading them still takes a turn, though.
-static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool known)
+static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 {
 	int i, k, used_up, ident, lev;
 	object_type *object_ptr;
@@ -1057,11 +1057,11 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	if(!get_item(creature_ptr, &item, MES_SCROLL_WHICH_READ, MES_SCROLL_NO_READ, (USE_INVEN | USE_FLOOR), item_tester_hook_readable, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	do_cmd_read_scroll_aux(creature_ptr, item, object_is_aware(object_ptr));	// Read the scroll
+	do_cmd_read_scroll_aux(creature_ptr, item);	// Read the scroll
 }
 
 
-static int staff_effect(creature_type *caster_ptr, SVAL sval, bool *use_charge, bool magic, bool known)
+static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int k;
@@ -1326,7 +1326,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 		if(has_trait_object(object_ptr, i))
 			do_active_trait(creature_ptr, i, FALSE);
 
-	ident = staff_effect(creature_ptr, object_ptr->sval, &use_charge, FALSE, object_is_aware(object_ptr));
+	ident = staff_effect(creature_ptr, object_ptr->sval, FALSE);
 
 	/* Combine / Reorder the pack (later) */
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
@@ -1695,7 +1695,6 @@ static int rod_effect(creature_type *caster_ptr, SVAL sval, bool *use_charge, bo
 static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 {
 	int ident, chance, lev, fail, i;
-	int dir = 0;
 	object_type *object_ptr;
 	bool success;
 
@@ -2272,7 +2271,7 @@ void do_cmd_use(creature_type *creature_ptr)
 				return;
 			}
 
-		  do_cmd_read_scroll_aux(creature_ptr, item, TRUE);
+		  do_cmd_read_scroll_aux(creature_ptr, item);
 		  break;
 		}
 
@@ -2304,7 +2303,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	int i = 0;
 	char out_val[160];
 	int menu_line = (use_menu ? 1 : 0);
-	SVAL sn;
+	KEY sn;
 
 	if(repeat_pull(&sn))
 	{
@@ -2804,7 +2803,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 		}
 		else
 		{
-			staff_effect(creature_ptr, sval, &use_charge, TRUE, TRUE);
+			staff_effect(creature_ptr, sval, TRUE);
 			if(!use_charge) return;
 		}
 	}
