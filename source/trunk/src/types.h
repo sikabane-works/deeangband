@@ -940,14 +940,12 @@ typedef struct alloc_entry alloc_entry;
 
 struct alloc_entry
 {
-	s16b index;		/* The actual index */
+	int index;		/* The actual index */
 
 	FLOOR_LEV level; /* Base dungeon level */
 	PROB prob1;		/* Probability, pass 1 */
 	PROB prob2;		/* Probability, pass 2 */
 	PROB prob3;		/* Probability, pass 3 */
-
-	u16b total;		/* Unused for now */
 };
 
 

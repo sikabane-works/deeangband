@@ -2176,7 +2176,7 @@ bool target_set(creature_type *aimer_ptr, COODINATES range, FLAGS_32 mode)
 				strcpy(info, MES_INTERFACE_TARGET_2);
 
 			/* Describe and Prompt */
-			while (!(query = target_set_aux(aimer_ptr, y, x, mode, info)));
+			while ((query = target_set_aux(aimer_ptr, y, x, mode, info)) <= 0);
 
 			/* Cancel tracking */
 			/* health_track(0); */
@@ -2353,7 +2353,7 @@ bool target_set(creature_type *aimer_ptr, COODINATES range, FLAGS_32 mode)
 			strcpy(info, MES_INTERFACE_TARGET_3);
 
 			/* Describe and Prompt (enable "TARGET_LOOK") */
-			while (!(query = target_set_aux(aimer_ptr, y, x, mode | TARGET_LOOK, info)));
+			while ((query = target_set_aux(aimer_ptr, y, x, mode | TARGET_LOOK, info)) < 0);
 
 			/* Cancel tracking */
 			/* health_track(0); */
@@ -3266,7 +3266,7 @@ static void tgt_pt_prepare(creature_type *creature_ptr)
 bool tgt_pt(creature_type *creature_ptr, COODINATES *x_ptr, COODINATES *y_ptr)
 {
 	char ch = 0;
-	int d, n;
+	int d, n = 0;
 	COODINATES x, y;
 	bool success = FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
