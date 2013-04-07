@@ -19,7 +19,7 @@ static void game_mode_detail(int code)
 	prt(campaign_detail[code], 15, 25);
 }
 
-static int select_mode(void)
+static CAMPAIGN_ID select_mode(void)
 {
 	int i;
 	selection_table se[10];
@@ -1747,7 +1747,7 @@ static void process_world_aux_light(creature_type *creature_ptr)
 static void process_world_aux_time_trying(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	char object_name[MAX_NLEN];
+	// char object_name[MAX_NLEN];
 
 	if(!is_valid_creature(creature_ptr)) return;
 	if(floor_ptr->gamble_arena_mode) return;

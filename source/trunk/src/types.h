@@ -286,6 +286,9 @@ typedef s32b FORGED_ID;
 #define READ_FORGED_ID(VALUE) rd_s32b((FORGED_ID *)VALUE);
 #define WRITE_FORGED_ID(VALUE) wr_s32b((FORGED_ID)VALUE);
 
+typedef s32b CAMPAIGN_ID;
+
+
 /*
  * Creature flags
  */
