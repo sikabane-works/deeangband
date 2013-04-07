@@ -369,7 +369,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 			return LOAD_ERROR_TOO_MANY_INVENTORY;
 		else // Carry inventory
 		{
-			n = slot++;							// Get a slot
+			n = (u16b)slot++;							// Get a slot
 			object_ptr->marked |= OM_TOUCHED;	// Player touches it
 			object_copy(&creature_ptr->inventory[n], object_ptr);	// Copy object
 			set_inventory_weight(creature_ptr);		// Add the weight
@@ -856,13 +856,13 @@ static void rd_creature(creature_type *creature_ptr)
 	// Calc the regeneration modifier for mutation
 	creature_ptr->regenerate_mod = calc_regenerate_mod(creature_ptr);
 
-	rd_u32b(&creature_ptr->posture);
+	READ_POSTURE_ID(&creature_ptr->posture);
 	rd_byte(&creature_ptr->knowledge);
 
 	rd_byte(&tmp8u);
 	creature_ptr->autopick_autoregister = tmp8u ? TRUE : FALSE;
 
-	rd_byte(&creature_ptr->action);
+	READ_ACTION_ID(&creature_ptr->action);
 
 	// Read "feeling"
 	rd_byte(&creature_ptr->floor_feeling);
@@ -917,7 +917,7 @@ static void rd_extra(void)
 
 	rd_creature(&player_prev);
 
-	rd_byte(&campaign_mode);
+	READ_CAMPAIGN_ID(&campaign_mode);
 	rd_byte(&tmp8u);
 	quick_ok = (bool)tmp8u;
 

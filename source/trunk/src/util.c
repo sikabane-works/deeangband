@@ -1330,7 +1330,7 @@ static bool trigger_ascii_to_text(char **bufptr, cptr *strptr)
 		switch(ch)
 		{
 		case '&':
-			while ((tmp = my_strchr(macro_modifier_chr, *str)))
+			while ((tmp = my_strchr(macro_modifier_chr, *str)) != 0)
 			{
 				j = (int)(tmp - macro_modifier_chr);
 				tmp = macro_modifiespecies_name[j];
@@ -2309,8 +2309,8 @@ int message_num(void)
  */
 cptr message_str(int age)
 {
-	s16b x;
-	s16b o;
+	int x;
+	int o;
 	cptr s;
 
 	/* Forgotten messages have no text */
@@ -3555,7 +3555,6 @@ QUANTITY get_quantity(cptr prompt, QUANTITY max)
 	char tmp[80];
 	char buf[80];
 
-
 	/* Use "command_arg" */
 	if(command_arg)
 	{
@@ -3625,7 +3624,7 @@ QUANTITY get_quantity(cptr prompt, QUANTITY max)
 	/* Enforce the minimum */
 	if(amt < 0) amt = 0;
 
-	if(amt) repeat_push(amt);
+	if(amt) repeat_push((KEY)amt);
 
 	/* Return the result */
 	return (amt);
@@ -4741,7 +4740,7 @@ void build_gamma_table(int gamma)
 		 * Store the value in the table so that the
 		 * floating point pow function isn't needed .
 		 */
-		gamma_table[i] = (byte)((long)(value / 256) * i) / 256;
+		gamma_table[i] = (byte)((long)(value / 256) * i / 256);
 	}
 }
 
