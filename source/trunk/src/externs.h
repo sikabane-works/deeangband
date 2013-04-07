@@ -355,7 +355,7 @@ extern cptr *macro__pat;
 extern cptr *macro__act;
 extern bool *macro__cmd;
 extern char *macro__buf;
-extern s16b quark__num;
+extern int quark__num;
 extern cptr *quark__str;
 extern int message__next;
 extern int message__last;

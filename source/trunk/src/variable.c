@@ -384,7 +384,7 @@ char *macro__buf;
 /*
  * The number of quarks
  */
-s16b quark__num;
+int quark__num;
 
 /*
  * The pointers to the quarks [QUARK_MAX]

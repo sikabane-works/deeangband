@@ -1469,11 +1469,11 @@ static void Term_fresh_row_text(int y, int x1, int x2)
  */
 errr Term_fresh(void)
 {
-	byte_hack x, y;
-	byte_hack w = Term->wid;
-	byte_hack h = Term->hgt;
-	byte_hack y1 = Term->y1;
-	byte_hack y2 = Term->y2;
+	int x, y;
+	int w = Term->wid;
+	int h = Term->hgt;
+	int y1 = Term->y1;
+	int y2 = Term->y2;
 	term_win *old = Term->old;
 	term_win *scr = Term->scr;
 
@@ -1757,7 +1757,7 @@ errr Term_set_cursor(int v)
 	if(Term->scr->cv == v) return FAILURE;
 
 	/* Change */
-	Term->scr->cv = v;
+	Term->scr->cv = (bool_hack)v;
 
 	return SUCCESS;
 }
@@ -2318,7 +2318,7 @@ errr Term_flush(void)
 /*
  * Add a keypress to the "queue"
  */
-errr Term_keypress(int k)
+errr Term_keypress(char k)
 {
 	/* Hack -- Refuse to enqueue non-keys */
 	if(!k) return (-1);
@@ -2547,9 +2547,8 @@ errr Term_resize(int w, int h)
 	int i;
 
 	int wid, hgt;
-
-	byte *hold_x1;
-	byte *hold_x2;
+	int *hold_x1;
+	int *hold_x2;
 
 	term_win *hold_old;
 	term_win *hold_scr;
@@ -2590,8 +2589,8 @@ errr Term_resize(int w, int h)
 	hold_tmp = Term->tmp;
 
 	/* Create new scanners */
-	C_MAKE(Term->x1, h, byte);
-	C_MAKE(Term->x2, h, byte);
+	C_MAKE(Term->x1, h, int);
+	C_MAKE(Term->x2, h, int);
 
 	/* Create new window */
 	MAKE(Term->old, term_win);
@@ -2638,8 +2637,8 @@ errr Term_resize(int w, int h)
 	}
 
 	/* Free some arrays */
-	C_KILL(hold_x1, Term->hgt, byte);
-	C_KILL(hold_x2, Term->hgt, byte);
+	C_KILL(hold_x1, Term->hgt, int);
+	C_KILL(hold_x2, Term->hgt, int);
 
 	/* Nuke */
 	term_win_nuke(hold_old, Term->wid, Term->hgt);
@@ -2816,8 +2815,8 @@ errr term_nuke(term *t)
 	}
 
 	/* Free some arrays */
-	C_KILL(t->x1, h, byte);
-	C_KILL(t->x2, h, byte);
+	C_KILL(t->x1, h, int);
+	C_KILL(t->x2, h, int);
 
 	/* Free the input queue */
 	C_KILL(t->key_queue, t->key_size, char);
@@ -2845,7 +2844,7 @@ errr term_init(term *t, int w, int h, int k)
 	t->key_head = t->key_tail = 0;
 
 	/* Determine the input queue size */
-	t->key_size = k;
+	t->key_size = (u16b)k;
 
 	/* Allocate the input queue */
 	C_MAKE(t->key_queue, t->key_size, char);
@@ -2856,8 +2855,8 @@ errr term_init(term *t, int w, int h, int k)
 	t->hgt = h;
 
 	/* Allocate change arrays */
-	C_MAKE(t->x1, h, byte);
-	C_MAKE(t->x2, h, byte);
+	C_MAKE(t->x1, h, int);
+	C_MAKE(t->x2, h, int);
 
 
 	/* Allocate "displayed" */

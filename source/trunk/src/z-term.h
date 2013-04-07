@@ -35,7 +35,7 @@ typedef struct term_win term_win;
 struct term_win
 {
 	bool cu, cv;
-	byte cx, cy;
+	int cx, cy;
 
 	byte **a;
 	char **c;
@@ -187,14 +187,14 @@ struct term
 	u16b key_xtra;
 	u16b key_size;
 
-	byte wid;
-	byte hgt;
+	int wid;
+	int hgt;
 
-	byte y1;
-	byte y2;
+	int y1;
+	int y2;
 
-	byte *x1;
-	byte *x2;
+	int *x1;
+	int *x2;
 
 	term_win *old;
 	term_win *scr;
@@ -303,7 +303,7 @@ extern errr Term_locate(int *x, int *y);
 extern errr Term_what(int x, int y, byte *a, char *c);
 
 extern errr Term_flush(void);
-extern errr Term_keypress(int k);
+extern errr Term_keypress(char k);
 extern errr Term_key_push(int k);
 extern errr Term_inkey(char *ch, bool wait, bool take);
 
