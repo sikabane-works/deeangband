@@ -1343,7 +1343,7 @@ extern sint macro_find_exact(cptr pat);
 extern char inkey(void);
 extern cptr quark_str(ARTIFACT_ID num);
 extern void quark_init(void);
-extern int quark_add(cptr str);
+extern STRING_OFFSET quark_add(cptr str);
 extern int message_num(void);
 extern cptr message_str(int age);
 extern void message_add(cptr msg);

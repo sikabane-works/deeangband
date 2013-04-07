@@ -6008,7 +6008,7 @@ void do_cmd_edit_autopick(creature_type *creature_ptr)
 		tb->old_wid = tb->wid;
 		tb->old_hgt = tb->hgt;
 
-		key = inkey_special(TRUE);
+		key = (char)inkey_special(TRUE);
 
 		/* Special keys */
 		if(key & SKEY_MASK)

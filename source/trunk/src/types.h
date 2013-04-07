@@ -912,8 +912,8 @@ struct object_type
 
 	byte marked;		/* Object is marked */
 
-	u16b inscription;	/* Inscription index */
-	ARTIFACT_ID art_name;      /* Artifact name (random artifacts) */
+	STRING_OFFSET inscription; /* Inscription index */
+	STRING_OFFSET art_name; /* Artifact name (random artifacts) */
 
 	byte feeling;          /* Game generated inscription number (eg, pseudo-id) */
 
@@ -1423,7 +1423,7 @@ struct creature_type
 	STAT sc;			// Social Class 
 	CREATURE_LEV dr; // Divine Rank 
 	BODY_SIZE size;			// Body Size 
-	s16b regenerate_mod;
+	PERCENT regenerate_mod;
 
 	s16b inven_cnt;			// Number of items in inventory 
 	s16b equip_cnt;			// Number of items in equipment 

@@ -4292,6 +4292,7 @@ static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
  */
 static void dump_aux_home_museum(FILE *fff)
 {
+	if(!fff) return;
 //	char object_name[MAX_NLEN];
 //	store_type  *st_ptr;
 
