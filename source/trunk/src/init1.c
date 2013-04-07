@@ -1701,7 +1701,7 @@ errr parse_feature_info(char *buf, header *head)
 			if(1 == sscanf(s, "SUBTYPE_%d", &i))
 			{
 				/* Extract a "subtype" */
-				f_ptr->subtype =  i;
+				f_ptr->subtype = (byte_hack)i;
 
 				/* Start at next entry */
 				s = t;
@@ -1713,7 +1713,7 @@ errr parse_feature_info(char *buf, header *head)
 			if(1 == sscanf(s, "POWER_%d", &i))
 			{
 				/* Extract a "power" */
-				f_ptr->power =  i;
+				f_ptr->power = (byte_hack)i;
 
 				/* Start at next entry */
 				s = t;
@@ -6269,6 +6269,8 @@ struct dungeon_grid
 	FEATURE_ID trap;
 	int cave_info; /* Flags for CAVE_MARK, CAVE_GLOW, CAVE_ICKY, CAVE_ROOM */
 	int special; /* Reserved for special terrain info */
+	QUEST_ID quest_idx;
+	TOWN_ID town_idx;
 	int random; /* Number of the random effect */
 };
 
@@ -6774,7 +6776,9 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 			}
 
 			/* Terrain special */
-			c_ptr->special = letter[idx].special;
+			//TODO c_ptr->special = letter[idx].special;
+			c_ptr->town_idx = letter[idx].town_idx;
+			c_ptr->quest_idx = letter[idx].quest_idx;
 		}
 
 		(*y)++;
