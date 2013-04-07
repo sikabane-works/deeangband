@@ -5344,7 +5344,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 				if(!get_string(tmp, tmp_val, 1)) return;
 				pval = (PVAL)strtol(tmp_val, NULL, 10);
-				if(pval > limit) pval = limit;
+				if(pval > limit) pval = (PVAL)limit;
 				else if(pval < 1) pval = 1;
 				object_ptr->pval += pval;
 				use_essence *= pval;
@@ -5512,7 +5512,7 @@ static void erase_essence(creature_type *creature_ptr)
 
 void do_cmd_smith(creature_type *creature_ptr, bool only_browse)
 {
-	DIRECTION mode = 0;
+	int mode = 0;
 	char choice;
 
 	int menu_line = (use_menu ? 1 : 0);

@@ -287,10 +287,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 	}
 }
 
-
-
-// Is this feature has special meaning (except floor_id) with c_ptr->special?
- 
+//TODO fix
 #define feat_uses_special(F) (have_flag(feature_info[(F)].flags, FF_SPECIAL))
 
 
