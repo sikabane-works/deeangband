@@ -2545,7 +2545,7 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 /*
  * Get the ID of a store item and return its value	-RAK-
  */
-static OBJECT_ID get_stock(store_type *st_ptr, OBJECT_ID *com_val, cptr pmt, int i, int j)
+static OBJECT_ID get_stock(store_type *st_ptr, KEY *com_val, cptr pmt, int i, int j)
 {
 	char command;
 	char out_val[160];
@@ -2561,9 +2561,7 @@ static OBJECT_ID get_stock(store_type *st_ptr, OBJECT_ID *com_val, cptr pmt, int
 		}
 	}
 
-
 	msg_print(NULL);
-
 
 	/* Assume failure */
 	*com_val = (-1);
@@ -2578,11 +2576,10 @@ static OBJECT_ID get_stock(store_type *st_ptr, OBJECT_ID *com_val, cptr pmt, int
 	(void)sprintf(out_val, "(Items %c-%c, ESC to exit) %s", lo, hi, pmt);
 #endif
 
-
 	/* Ask until done */
 	while (TRUE)
 	{
-		int k;
+		KEY k;
 
 		/* Escape */
 		if(!get_com(out_val, &command, FALSE)) break;
@@ -3233,7 +3230,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 	int i;
 	QUANTITY amt;
 	int choice;
-	OBJECT_ID item, item_new;
+	KEY item, item_new;
 
 	s32b price, best;
 
@@ -3272,7 +3269,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 	if(!get_stock(st_ptr, &item, out_val, 0, i - 1)) return;
 
 	/* Get the actual index */
-	item = item + store_top;
+	item = item + (KEY)store_top;
 
 	/* Get the actual item */
 	object_ptr = &st_ptr->stock[item];
@@ -3783,8 +3780,8 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
  */
 static void store_examine(store_type *st_ptr)
 {
-	int         i;
-	OBJECT_ID item;
+	int i;
+	KEY item;
 	object_type *object_ptr;
 	char        object_name[MAX_NLEN];
 	char        out_val[160];
@@ -3807,7 +3804,7 @@ static void store_examine(store_type *st_ptr)
 	if(!get_stock(st_ptr, &item, out_val, 0, i - 1)) return;
 
 	/* Get the actual index */
-	item = item + store_top;
+	item = item + (KEY)store_top;
 
 	/* Get the actual item */
 	object_ptr = &st_ptr->stock[item];
@@ -3832,11 +3829,11 @@ static void store_examine(store_type *st_ptr)
  */
 static void museum_remove_object(store_type *st_ptr, creature_type *creature_ptr)
 {
-	int         i;
-	OBJECT_ID item;
+	int i;
+	KEY item;
 	object_type *object_ptr;
-	char        object_name[MAX_NLEN];
-	char        out_val[160];
+	char object_name[MAX_NLEN];
+	char out_val[160];
 
 	/* Empty? */
 	if(st_ptr->stock_num <= 0)
@@ -3856,7 +3853,7 @@ static void museum_remove_object(store_type *st_ptr, creature_type *creature_ptr
 	if(!get_stock(st_ptr, &item, out_val, 0, i - 1)) return;
 
 	/* Get the actual index */
-	item = item + store_top;
+	item = item + (KEY)store_top;
 
 	/* Get the actual item */
 	object_ptr = &st_ptr->stock[item];
