@@ -2158,7 +2158,7 @@ bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 		COODINATES ix = object_ptr->fx;                 /* X-position on map, or zero */
 		OBJECT_ID next_object_idx = object_ptr->next_object_idx; /* Next object in stack (if any) */
 		byte marked = object_ptr->marked;         /* Object is marked */
-		u16b inscription = object_ptr->inscription;
+		STRING_OFFSET inscription = object_ptr->inscription;
 
 		/* Wipe it clean */
 		object_prep(object_ptr, object_ptr->k_idx);

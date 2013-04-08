@@ -2545,7 +2545,7 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 /*
  * Get the ID of a store item and return its value	-RAK-
  */
-static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
+static OBJECT_ID get_stock(store_type *st_ptr, OBJECT_ID *com_val, cptr pmt, int i, int j)
 {
 	char command;
 	char out_val[160];
@@ -3233,7 +3233,7 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 	int i;
 	QUANTITY amt;
 	int choice;
-	int item, item_new;
+	OBJECT_ID item, item_new;
 
 	s32b price, best;
 

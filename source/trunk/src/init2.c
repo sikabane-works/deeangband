@@ -1465,7 +1465,8 @@ static errr init_object_alloc(void)
 			/* Count the "legal" entries */
 			if(object_kind_ptr->chance[j])
 			{
-				byte_hack p, x;
+				byte_hack p;
+				FLOOR_LEV x;
 				int y, z;
 
 				/* Extract the base level */

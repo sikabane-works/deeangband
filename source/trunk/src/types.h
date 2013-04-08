@@ -214,9 +214,9 @@ typedef s32b TRYING;
 #define READ_TRYING(VALUE) rd_s32b((TRYING *)VALUE);
 #define WRITE_TRYING(VALUE) wr_s32b((TRYING)VALUE);
 
-typedef s32b TEXT_COODI;
-#define READ_TEXT_COODI(VALUE) rd_s32b((TEXT_COODI *)VALUE);
-#define WRITE_TEXT_COODI(VALUE) wr_s32b((TEXT_COODI)VALUE);
+typedef int TEXT_COODI;
+#define READ_TEXT_COODI(VALUE) rd_s32b((s32b *)VALUE);
+#define WRITE_TEXT_COODI(VALUE) wr_s32b((s32b)VALUE);
 
 typedef byte DIRECTION;
 #define READ_DIRECTION(VALUE) rd_s32b((DIRECTION *)VALUE);
