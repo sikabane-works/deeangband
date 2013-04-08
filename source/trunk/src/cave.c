@@ -1865,18 +1865,18 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 {
 	int i, j, x, y;
 
-	byte ta;
+	int ta;
 	char tc;
 
 	int tp;
 
-	byte **bigma;
+	int **bigma;
 	char **bigmc;
-	byte **bigmp;
+	int **bigmp;
 
-	byte **ma;
+	int **ma;
 	char **mc;
-	byte **mp;
+	int **mp;
 
 	floor_type *floor_ptr;
 
@@ -1905,9 +1905,9 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	view_granite_lite = FALSE;
 
 	/* Allocate the maps */
-	C_MAKE(ma, (hgt + 2), byte_ptr);
+	C_MAKE(ma, (hgt + 2), int *);
 	C_MAKE(mc, (hgt + 2), char_ptr);
-	C_MAKE(mp, (hgt + 2), byte_ptr);
+	C_MAKE(mp, (hgt + 2), int *);
 	C_MAKE(match_autopick_yx, (hgt + 2), sint_ptr);
 	C_MAKE(object_autopick_yx, (hgt + 2), object_type **);
 
@@ -1915,9 +1915,9 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	for (y = 0; y < (hgt + 2); y++)
 	{
 		/* Allocate one row each array */
-		C_MAKE(ma[y], (wid + 2), byte);
+		C_MAKE(ma[y], (wid + 2), int);
 		C_MAKE(mc[y], (wid + 2), char);
-		C_MAKE(mp[y], (wid + 2), byte);
+		C_MAKE(mp[y], (wid + 2), int);
 		C_MAKE(match_autopick_yx[y], (wid + 2), int);
 		C_MAKE(object_autopick_yx[y], (wid + 2), object_type *);
 
@@ -1936,17 +1936,17 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	}
 
 	/* Allocate the maps */
-	C_MAKE(bigma, (floor_ptr->height + 2), byte_ptr);
+	C_MAKE(bigma, (floor_ptr->height + 2), int *);
 	C_MAKE(bigmc, (floor_ptr->height + 2), char_ptr);
-	C_MAKE(bigmp, (floor_ptr->height + 2), byte_ptr);
+	C_MAKE(bigmp, (floor_ptr->height + 2), int *);
 
 	/* Allocate and wipe each line map */
 	for (y = 0; y < (floor_ptr->height + 2); y++)
 	{
 		/* Allocate one row each array */
-		C_MAKE(bigma[y], (floor_ptr->width + 2), byte);
+		C_MAKE(bigma[y], (floor_ptr->width + 2), int);
 		C_MAKE(bigmc[y], (floor_ptr->width + 2), char);
-		C_MAKE(bigmp[y], (floor_ptr->width + 2), byte);
+		C_MAKE(bigmp[y], (floor_ptr->width + 2), int);
 
 		for (x = 0; x < floor_ptr->width + 2; ++x)
 		{
@@ -2105,17 +2105,17 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	for (y = 0; y < (hgt + 2); y++)
 	{
 		/* Free one row each array */
-		C_FREE(ma[y], (wid + 2), byte);
+		C_FREE(ma[y], (wid + 2), int);
 		C_FREE(mc[y], (wid + 2), char);
-		C_FREE(mp[y], (wid + 2), byte);
+		C_FREE(mp[y], (wid + 2), int);
 		C_FREE(match_autopick_yx[y], (wid + 2), int);
 		C_FREE(object_autopick_yx[y], (wid + 2), object_type **);
 	}
 
 	/* Free each line map */
-	C_FREE(ma, (hgt + 2), byte_ptr);
+	C_FREE(ma, (hgt + 2), int *);
 	C_FREE(mc, (hgt + 2), char_ptr);
-	C_FREE(mp, (hgt + 2), byte_ptr);
+	C_FREE(mp, (hgt + 2), int *);
 	C_FREE(match_autopick_yx, (hgt + 2), sint_ptr);
 	C_FREE(object_autopick_yx, (hgt + 2), object_type **);
 
@@ -2123,15 +2123,15 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	for (y = 0; y < (floor_ptr->height + 2); y++)
 	{
 		/* Free one row each array */
-		C_FREE(bigma[y], (floor_ptr->width + 2), byte);
+		C_FREE(bigma[y], (floor_ptr->width + 2), int);
 		C_FREE(bigmc[y], (floor_ptr->width + 2), char);
-		C_FREE(bigmp[y], (floor_ptr->width + 2), byte);
+		C_FREE(bigmp[y], (floor_ptr->width + 2), int);
 	}
 
 	/* Free each line map */
-	C_FREE(bigma, (floor_ptr->height + 2), byte_ptr);
+	C_FREE(bigma, (floor_ptr->height + 2), int *);
 	C_FREE(bigmc, (floor_ptr->height + 2), char_ptr);
-	C_FREE(bigmp, (floor_ptr->height + 2), byte_ptr);
+	C_FREE(bigmp, (floor_ptr->height + 2), int *);
 }
 
 

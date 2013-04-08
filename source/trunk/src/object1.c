@@ -1549,9 +1549,13 @@ bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, in
 	static char prev_tag = '\0';
 	char cur_tag = '\0';
 
+	KEY key;
+
 	/* Get the item index */
-	if(repeat_pull(cp))
+	if(repeat_pull(&key))
 	{
+		*cp = (OBJECT_ID)key;
+
 		/* the_force */
 		if(select_the_force && (*cp == INVEN_FORCE))
 		{
@@ -2596,7 +2600,8 @@ bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, in
 
 	if(item)
 	{
-		repeat_push(*cp);
+		KEY key = (KEY)*cp;
+		repeat_push(key);
 		if(command_cmd) prev_tag = cur_tag;
 		command_cmd = 0; /* Hack -- command_cmd is no longer effective */
 	}
