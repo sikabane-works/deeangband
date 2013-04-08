@@ -4466,7 +4466,6 @@ static int repeat__idx = 0;
 /* Saved "stuff" */
 static KEY repeat__key[REPEAT_MAX];
 
-
 void repeat_push(KEY what)
 {
 	/* Too many keys */
@@ -4478,7 +4477,6 @@ void repeat_push(KEY what)
 	/* Prevents us from pulling keys */
 	++repeat__idx;
 }
-
 
 bool repeat_pull(KEY *what)
 {
@@ -4525,7 +4523,6 @@ void repeat_check(void)
 		repeat_push(what);
 	}
 }
-
 
 /*
  * Array size for which InsertionSort

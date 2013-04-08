@@ -3759,10 +3759,9 @@ INVENTORY_ID inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 *
 * Return the inventory slot into which the item is placed.
 */
-s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
+INVENTORY_ID inven_takeoff(creature_type *creature_ptr, int item, int amt)
 {
-	//TODO
-	int slot;
+	INVENTORY_ID slot;
 	object_type forge;
 	object_type *object1_ptr, *object2_ptr;
 	cptr act;
@@ -4909,11 +4908,11 @@ static void drain_essence(creature_type *creature_ptr)
 
 
 
-static int choose_essence(void)
+static KEY choose_essence(void)
 {
-	int mode = 0;
+	KEY mode = 0;
 	char choice;
-	int menu_line = (use_menu ? 1 : 0);
+	KEY menu_line = (use_menu ? 1 : 0);
 
 #ifdef JP
 	cptr menu_name[] = {
@@ -4937,9 +4936,8 @@ static int choose_essence(void)
 	};
 #endif
 
-	const int mode_max = 7;
-	if(repeat_pull(&mode) && 1 <= mode && mode <= mode_max)
-		return mode;
+	const KEY mode_max = 7;
+	if(repeat_pull(&mode) && 1 <= mode && mode <= mode_max) return mode;
 	mode = 0;
 
 	if(use_menu)
@@ -5020,8 +5018,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	int item_tester_tval;
 	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr);
 	OBJECT_ID item;
-	int max_num = 0;
-	int i;
 	bool flag,redraw;
 	char choice;
 	object_type *object_ptr;
@@ -5031,8 +5027,9 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	char object_name[MAX_NLEN];
 	int use_essence;
 	essence_type *es_ptr;
-
-	int menu_line = (use_menu ? 1 : 0);
+	KEY i;
+	KEY max_num = 0;
+	KEY menu_line = (use_menu ? 1 : 0);
 
 	for (i = 0; essence_info[i].add_name; i++)
 	{
@@ -5514,10 +5511,9 @@ static void erase_essence(creature_type *creature_ptr)
 
 void do_cmd_smith(creature_type *creature_ptr, bool only_browse)
 {
-	int mode = 0;
+	KEY mode = 0;
 	char choice;
-
-	int menu_line = (use_menu ? 1 : 0);
+	KEY menu_line = (use_menu ? 1 : 0);
 
 	if(!only_browse)
 	{
