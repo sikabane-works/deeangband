@@ -4721,7 +4721,8 @@ static void display_essence(creature_type *creature_ptr)
 static void drain_essence(creature_type *creature_ptr)
 {
 	int drain_value[sizeof(creature_ptr->essence_num1) / sizeof(s32b)];
-	int i, item;
+	int i;
+	OBJECT_ID item;
 	int dec = 4;
 	bool observe = FALSE;
 	int old_ds, old_dd, old_to_hit, old_to_damage, old_ac, old_to_ac, old_pval, old_name2, old_timeout;
@@ -5018,7 +5019,8 @@ static void add_essence(creature_type *creature_ptr, int mode)
 {
 	int item_tester_tval;
 	bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr);
-	int item, max_num = 0;
+	OBJECT_ID item;
+	int max_num = 0;
 	int i;
 	bool flag,redraw;
 	char choice;

@@ -370,7 +370,8 @@ msg_print("‰½‚à‹Z‚ğ’m‚ç‚È‚¢B");
 
 void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 {
-	int item, i, j;
+	OBJECT_ID item;
+	int i, j;
 
 	object_type *object_ptr;
 	cptr q, s;

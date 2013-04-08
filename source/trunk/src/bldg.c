@@ -2321,7 +2321,8 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
  */
 static void building_recharge(creature_type *creature_ptr)
 {
-	int         item, lev;
+	OBJECT_ID item;
+	int lev;
 	object_type *object_ptr;
 	object_kind *object_kind_ptr;
 	int         price;

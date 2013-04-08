@@ -518,7 +518,8 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 */
 void do_cmd_study(creature_type *creature_ptr)
 {
-	int	i, item;
+	int	i;
+	OBJECT_ID item;
 	SVAL sval;
 	KEY increment = 0;
 	bool learned = FALSE;
@@ -673,7 +674,7 @@ void do_cmd_study(creature_type *creature_ptr)
 // Cast a spell
 void do_cmd_cast(creature_type *creature_ptr)
 {
-	int	item;
+	OBJECT_ID item;
 	SVAL sval;
 	KEY spell;
 	REALM_ID realm;

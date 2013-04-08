@@ -429,9 +429,10 @@ void do_cmd_drop(creature_type *creature_ptr)
 // Destroy an item
 void do_cmd_destroy(creature_type *creature_ptr)
 {
-	int			item, amt = 1;
-	int			old_number;
-	bool		force = FALSE;
+	OBJECT_ID item;
+	int amt = 1;
+	int old_number;
+	bool force = FALSE;
 
 	object_type *object1_ptr;
 	object_type forge;
