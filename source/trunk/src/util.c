@@ -2213,7 +2213,7 @@ void quark_init(void)
 /*
  * Add a new "quark" to the set of quarks.
  */
-STRING_OFFSET quark_add(cptr str)
+int quark_add(cptr str)
 {
 	int i;
 
@@ -2241,7 +2241,7 @@ STRING_OFFSET quark_add(cptr str)
 /*
  * This function looks up a quark
  */
-cptr quark_str(ARTIFACT_ID i)
+cptr quark_str(int i)
 {
 	cptr q;
 
@@ -2254,9 +2254,6 @@ cptr quark_str(ARTIFACT_ID i)
 	/* Return the quark */
 	return (q);
 }
-
-
-
 
 /*
  * Second try for the "message" handling routines.

@@ -132,9 +132,6 @@ vptr ralloc(huge len)
 	return (mem);
 }
 
-
-
-
 /*
  * Allocate a constant string, containing the same thing as 'str'
  */
