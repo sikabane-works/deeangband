@@ -514,7 +514,7 @@ struct ego_item_type
 	STRING_OFFSET text;			/* Text (offset) */
 
 	s16b ap_rate;		// AP rate
-	byte slot;			/* Standard slot value */
+	INVENTORY_ID slot;			/* Standard slot value */
 	byte rating;		/* Rating boost */
 
 	FLOOR_LEV level;	/* Minimum level */

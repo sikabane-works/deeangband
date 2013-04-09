@@ -30,7 +30,7 @@
  */
 static int get_hissatsu_power(creature_type *creature_ptr, KEY *sn)
 {
-	char i;
+	KEY i;
 	KEY j = 0, num = 0;
 	int y = 1;
 	int x = 15;
@@ -38,7 +38,7 @@ static int get_hissatsu_power(creature_type *creature_ptr, KEY *sn)
 	int ask = TRUE;
 	char choice;
 	char out_val[160];
-	char sentaku[32];
+	KEY sentaku[32];
 #ifdef JP
 cptr            p = "•KEŒ•";
 #else

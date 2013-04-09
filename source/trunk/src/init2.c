@@ -867,7 +867,7 @@ static errr init_trait_csv(void)
 
 	// Save a pointer to the parsing function
 	trait_head.parse_info_txt = parse_trait_csv;
-	trait_head.parse_reprocess = reprocess_trait;
+	//trait_head.parse_reprocess = reprocess_trait;
 
 	err = init_info2("trait_info", &trait_head, (void*)&trait_info, &trait_name, &trait_text, &trait_tmp, NULL);
 	if(err) return err;

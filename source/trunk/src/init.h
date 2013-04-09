@@ -104,7 +104,6 @@ extern errr parse_class_info_csv(char *buf, header *head);
 extern errr parse_chara_info_csv(char *buf, header *head);
 
 extern errr parse_trait_csv(char *buf, header *head);
-extern errr reprocess_trait(header *head);
 
 extern errr parse_store_pre_info_csv(char *buf, header *head);
 
