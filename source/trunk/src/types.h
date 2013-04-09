@@ -302,6 +302,10 @@ typedef s32b RAND_SEED;
 #define READ_RAND_SEED(VALUE) rd_s32b((RAND_SEED *)VALUE);
 #define WRITE_RAND_SEED(VALUE) wr_s32b((RAND_SEED)VALUE);
 
+typedef s32b MOVE_COST;
+#define READ_MOVE_COST(VALUE) rd_s32b((MOVE_COST *)VALUE);
+#define WRITE_MOVE_COST(VALUE) wr_s32b((MOVE_COST)VALUE);
+
 /*
  * Creature flags
  */
@@ -811,7 +815,7 @@ struct cave_type
 	FEATURE_ID mimic;        // Feature to mimic
 	POWER cost;         // Hack -- cost of flowing
 	COODINATES dist;         // Hack -- distance from player
-	byte when;         // Hack -- when cost was computed
+	MOVE_COST when;         // Hack -- when cost was computed
 	CREATURE_ID owner_idx;    // Owner of trap, mirror and so on.
 	char message[CAVE_MESSAGE_LENGTH];
 };

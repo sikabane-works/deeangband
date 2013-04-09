@@ -1274,7 +1274,7 @@ extern int mod_spell_chance_1(creature_type *creature_ptr, int chance);
 extern int mod_spell_chance_2(creature_type *creature_ptr, int chance);
 extern PERCENT spell_chance(creature_type *creature_ptr, TRAIT_ID spell, REALM_ID realm);
 extern bool spell_okay(creature_type *creature_ptr, TRAIT_ID spell, bool learned, bool study_pray, REALM_ID realm);
-extern void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, int num, int y, int x, REALM_ID realm);
+extern void print_spells(creature_type *creature_ptr, int target_spell, KEY *spells, int num, int y, int x, REALM_ID realm);
 extern bool hates_acid(object_type *object_ptr);
 extern bool hates_elec(object_type *object_ptr);
 extern bool hates_fire(object_type *object_ptr);

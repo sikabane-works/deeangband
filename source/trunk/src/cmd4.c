@@ -4396,7 +4396,7 @@ void do_cmd_load_screen(void)
 			if(buf[x] == '\n' || buf[x] == '\0') break;
 
 			/* Get the attr/char */
-			(void)(Term_what(x, y, &a, &c));
+			(void)(Term_what(x, y, &a, (char *)&c)); //TODO
 
 			/* Look up the attr */
 			for (i = 0; i < 16; i++)
@@ -6311,7 +6311,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, SPEC
 
 			default:
 			{
-				browser_cursor(ch, &column, &grp_cur, grp_cnt, &mon_cur, mon_cnt);
+				browser_cursor(ch, &column, &grp_cur, grp_cnt, (int *)&mon_cur, mon_cnt); //TODO cast
 				break;
 			}
 		}

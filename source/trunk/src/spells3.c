@@ -3215,7 +3215,7 @@ bool spell_okay(creature_type *creature_ptr, TRAIT_ID spell, bool learned, bool 
 /*
  * Print a list of spells (for browsing or casting or viewing)
  */
-void print_spells(creature_type *creature_ptr, int target_spell, byte *spells, int num, int y, int x, REALM_ID use_realm)
+void print_spells(creature_type *creature_ptr, int target_spell, KEY *spells, int num, int y, int x, REALM_ID use_realm)
 {
 	int             i, spell, increment = 64;
 	magic_type      *s_ptr;
