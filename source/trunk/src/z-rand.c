@@ -69,7 +69,7 @@ u32b Rand_value;
 /*
  * Current "index" for the "complex" RNG
  */
-int Rand_place;
+RAND_SEED Rand_place;
 
 /*
  * Current "state" table for the "complex" RNG

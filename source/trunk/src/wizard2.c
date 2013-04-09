@@ -1499,7 +1499,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 	wx = dungeon_info[floor_ptr->dungeon_id].dx;
 	wy = dungeon_info[floor_ptr->dungeon_id].dy;
 
-	//prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE);
+	//prepare_change_floor_mode(creature_ptr, CFM_RAND_SEED);
 	if(!floor_ptr->depth) dungeon_id = 0;
 
 	leave_quest_check(creature_ptr);

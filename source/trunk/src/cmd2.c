@@ -243,7 +243,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 
 		if(fall_trap)
 		{
-			move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, CFM_RAND_PLACE | CFM_RAND_CONNECT);
+			move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, CFM_RAND_SEED | CFM_RAND_CONNECT);
 		}
 		else
 		{

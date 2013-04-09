@@ -229,11 +229,7 @@ static errr wr_randomizer(void)
 
 	/* Zero */
 	wr_u16b(0);
-
-	/* Place */
-	wr_u16b(Rand_place);
-
-	/* State */
+	WRITE_RAND_SEED(Rand_place);
 	for (i = 0; i < RAND_DEG; i++) wr_u32b(Rand_state[i]);
 
 	return SUCCESS;
@@ -453,7 +449,7 @@ static void wr_creature(creature_type *creature_ptr)
 	{
 		if(has_trait_from_timed(creature_ptr, i))
 		{
-			wr_s16b(i);
+			WRITE_TRAIT_ID(i);
 			WRITE_GAME_TIME(creature_ptr->timed_trait[i]);
 		}
 	}

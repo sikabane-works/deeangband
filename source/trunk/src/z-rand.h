@@ -12,9 +12,10 @@
 #ifndef INCLUDED_Z_RAND_H
 #define INCLUDED_Z_RAND_H
 
+#include "angband.h"
 #include "h-basic.h"
 
-
+typedef s32b RAND_SEED;
 
 /**** Available constants ****/
 
@@ -72,7 +73,7 @@
 
 extern bool Rand_quick;
 extern u32b Rand_value;
-extern int Rand_place;
+extern RAND_SEED Rand_place;
 extern u32b Rand_state[RAND_DEG];
 
 

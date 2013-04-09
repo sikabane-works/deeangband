@@ -298,6 +298,9 @@ typedef s32b CAMPAIGN_ID;
 #define READ_CAMPAIGN_ID(VALUE) rd_s32b((CAMPAIGN_ID *)VALUE);
 #define WRITE_CAMPAIGN_ID(VALUE) wr_s32b((CAMPAIGN_ID)VALUE);
 
+typedef s32b RAND_SEED;
+#define READ_RAND_SEED(VALUE) rd_s32b((RAND_SEED *)VALUE);
+#define WRITE_RAND_SEED(VALUE) wr_s32b((RAND_SEED)VALUE);
 
 /*
  * Creature flags

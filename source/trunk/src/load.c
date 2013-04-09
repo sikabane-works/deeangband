@@ -536,7 +536,7 @@ static void rd_randomizer(void)
 	rd_u16b(&tmp16u);
 
 	/* Place */
-	rd_u16b(&Rand_place);
+	READ_RAND_SEED(&Rand_place);
 
 	/* State */
 	for (i = 0; i < RAND_DEG; i++)
@@ -700,6 +700,7 @@ static void rd_creature(creature_type *creature_ptr)
 	byte tmp8u;
 	u16b tmp16u;
 	s16b tmp16s;
+	TRAIT_ID trait_id;
 
 	READ_CREATURE_ID(&creature_ptr->creature_idx);
 	rd_byte(&creature_ptr->player);
@@ -840,9 +841,9 @@ static void rd_creature(creature_type *creature_ptr)
 	// Load timed trait
 	while(TRUE)
 	{
-		rd_s16b(&tmp16s);
-		if(tmp16s < 0) break;
-		READ_GAME_TIME(&creature_ptr->timed_trait[tmp16s]);
+		READ_TRAIT_ID(&trait_id);
+		if(trait_id < 0) break;
+		READ_GAME_TIME(&creature_ptr->timed_trait[trait_id]);
 	}
 
 	READ_DUNGEON_ID(&creature_ptr->recall_dungeon);

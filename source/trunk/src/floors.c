@@ -442,7 +442,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 		new_floor_ptr = &floor_list[floor_id];
 
 		// Choose random stairs
-		if(!(flag & CFM_RAND_PLACE)) locate_connected_stairs(creature_ptr, stair_ptr, old_floor_ptr, new_floor_ptr, flag);
+		if(!(flag & CFM_RAND_SEED)) locate_connected_stairs(creature_ptr, stair_ptr, old_floor_ptr, new_floor_ptr, flag);
 
 		connect_cave_to(stair_ptr, floor_id, creature_ptr->fy, creature_ptr->fx);
 		//connect_cave_to(&new_floor_ptr->cave[player_ptr->fy][player_ptr->fx], old_floor_id, old_fy, old_fx);
@@ -465,7 +465,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 	}
 
 	// Arrive at random grid
-	if(flag & (CFM_RAND_PLACE)) (void)new_creature_spot(new_floor_ptr, creature_ptr);
+	if(flag & (CFM_RAND_SEED)) (void)new_creature_spot(new_floor_ptr, creature_ptr);
 
 	reset_cave_creature_reference();
 }
