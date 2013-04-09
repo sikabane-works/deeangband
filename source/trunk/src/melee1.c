@@ -975,7 +975,7 @@ bool is_melee_limitation_field(floor_type *floor_ptr)
 }
 
 
-bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, int mode)
+bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS_32 mode)
 {
 	bool dead = FALSE;
 
@@ -984,6 +984,8 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, int m
 	creature_type *target_ptr;
 	char attacker_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
+
+	if(mode) return FALSE; //TODO
 
 	target_ptr = &creature_list[c_ptr->creature_idx];
 

@@ -2609,7 +2609,7 @@ static void windows_map(void)
 	}
 
 	Term_curs_win(player_ptr->fx - min_x, player_ptr->fy - min_y); // Hilite the player
-	Term_inkey((byte_hack *)&c, TRUE, TRUE); // Wait for a keypress, flush key buffer
+	Term_inkey((char *)&c, TRUE, TRUE); // Wait for a keypress, flush key buffer
 	Term_flush();
 
 	

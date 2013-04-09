@@ -991,7 +991,7 @@ extern bool load_floor(floor_type *sf_ptr, FLAGS_32 mode);
 
 // melee1.c
 extern bool is_melee_limitation_field(floor_type *floor_ptr);
-extern bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, int mode);
+extern bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
 
 // melee2.c
 extern void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
