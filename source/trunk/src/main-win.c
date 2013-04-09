@@ -1357,7 +1357,7 @@ static int new_palette(void)
 	pLogPal->palVersion = 0x300;
 
 	/* Make room for bitmap and normal data */
-	pLogPal->palNumEntries = nEntries + 16;
+	pLogPal->palNumEntries = (WORD)(nEntries + 16);
 
 	/* Save the bitmap data */
 	for (i = 0; i < nEntries; i++)
@@ -1485,8 +1485,8 @@ static bool init_graphics(void)
 		}
 
 		/* Save the new sizes */
-		infGraph.CellWidth = wid;
-		infGraph.CellHeight = hgt;
+		infGraph.CellWidth = (BYTE)wid;
+		infGraph.CellHeight = (BYTE)hgt;
 
 		/* Activate a palette */
 		if(!new_palette())
@@ -3994,7 +3994,7 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 		case WM_CHAR:
 		{
 			if(Term_no_press) Term_no_press = FALSE;
-			else Term_keypress(wParam);
+			else Term_keypress((char)wParam);
 			return 0;
 		}
 
@@ -4454,7 +4454,7 @@ LRESULT FAR PASCAL AngbandListProc(HWND hWnd, UINT uMsg,
 		case WM_CHAR:
 		{
 			if(Term_no_press) Term_no_press = FALSE;
-			else Term_keypress(wParam);
+			else Term_keypress((char)wParam);
 			return 0;
 		}
 
