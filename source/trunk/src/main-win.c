@@ -1163,7 +1163,7 @@ static void load_prefs_aux(int i)
 	/* Window size */
 	if(i == 0)
 	{
-		win_maximized = GetPrivateProfileInt(sec_name, "Maximized", win_maximized, ini_file);
+		win_maximized = (GetPrivateProfileInt(sec_name, "Maximized", win_maximized, ini_file) > 0);
 	}
 
 	/* Window position */
@@ -1173,7 +1173,7 @@ static void load_prefs_aux(int i)
 	/* Window Z position */
 	if(i > 0)
 	{
-		td->posfix = GetPrivateProfileInt(sec_name, "PositionFix", td->posfix, ini_file);
+		td->posfix = (GetPrivateProfileInt(sec_name, "PositionFix", td->posfix, ini_file) > 0);
 	}
 }
 
@@ -1186,10 +1186,10 @@ static void load_prefs(void)
 	int i;
 
 	/* Extract the "arg_graphics" flag */
-	arg_graphics = GetPrivateProfileInt("Angband", "Graphics", GRAPHICS_NONE, ini_file);
+	arg_graphics = (GetPrivateProfileInt("Angband", "Graphics", GRAPHICS_NONE, ini_file) > 0);
 
 	/* Extract the "arg_bigtile" flag */
-	arg_bigtile = GetPrivateProfileInt("Angband", "Bigtile", FALSE, ini_file);
+	arg_bigtile = (GetPrivateProfileInt("Angband", "Bigtile", FALSE, ini_file) > 0);
 	use_bigtile = arg_bigtile;
 
 	/* Extract the "arg_sound" flag */

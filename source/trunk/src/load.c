@@ -699,7 +699,6 @@ static void rd_creature(creature_type *creature_ptr)
 
 	byte tmp8u;
 	u16b tmp16u;
-	s16b tmp16s;
 	TRAIT_ID trait_id;
 
 	READ_CREATURE_ID(&creature_ptr->creature_idx);
@@ -889,7 +888,7 @@ static void rd_creature(creature_type *creature_ptr)
 	READ_COODINATES(&creature_ptr->start_wx);
 	READ_COODINATES(&creature_ptr->start_wy);
 
-	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) rd_byte(&creature_ptr->spell_order[i]);
+	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) READ_KEY(&creature_ptr->spell_order[i]);
 
 	rd_u16b(&creature_ptr->total_winner);
 
@@ -963,7 +962,7 @@ static void rd_extra(void)
 	rd_string(gameover_from, sizeof(gameover_from));
 	rd_byte((byte *)&wait_report_score);
 	rd_byte((byte *)&gameover);
-	rd_byte(&arena_settled);
+	rd_byte((byte *)&arena_settled); // TODO 
 
 	rd_u32b(&game_load_count);
 

@@ -5984,6 +5984,7 @@ errr parse_authority_info_csv(char *buf, header *head)
 	int i, j, b;
 	char tmp[10000], nt[80];
 
+	if(!head) return 1; //TODO
 	if(get_split_offset(split, size, buf, AU_INFO_CSV_COLUMNS, ',', '"')){
 		return PARSE_ERROR_GENERIC;
 	}
