@@ -397,8 +397,10 @@ bool send_world_score(bool do_send)
 		}
 		else return FALSE;
 	}
-#endif
 	return TRUE;
+#else
+	return do_send;
+#endif
 }
 
 /*

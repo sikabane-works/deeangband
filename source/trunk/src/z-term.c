@@ -2059,8 +2059,8 @@ errr Term_erase(int x, int y, int n)
 			n++;
 #endif
 		/* Save the "literal" information */
-		scr_aa[x] = na;
-		scr_cc[x] = nc;
+		scr_aa[x] = (byte_hack)na;
+		scr_cc[x] = (char)nc;
 
 		scr_taa[x] = 0;
 		scr_tcc[x] = 0;
@@ -2350,7 +2350,7 @@ errr Term_key_push(int k)
 	if(Term->key_tail == 0) Term->key_tail = Term->key_size;
 
 	/* Back up, Store the char */
-	Term->key_queue[--Term->key_tail] = k;
+	Term->key_queue[--Term->key_tail] = (char)k;
 
 	/* Success (unless overflow) */
 	if(Term->key_head != Term->key_tail) return SUCCESS;

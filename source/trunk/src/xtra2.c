@@ -2135,10 +2135,10 @@ bool target_set(creature_type *aimer_ptr, COODINATES range, FLAGS_32 mode)
 	COODINATES y = aimer_ptr->fy;
 	COODINATES x = aimer_ptr->fx;
 
-	bool	done = FALSE;
-	bool	flag = TRUE;
-	char	query;
-	char	info[80];
+	bool done = FALSE;
+	bool flag = TRUE;
+	int query;
+	char info[80];
 
 	cave_type *c_ptr;
 
@@ -2254,7 +2254,7 @@ bool target_set(creature_type *aimer_ptr, COODINATES range, FLAGS_32 mode)
 
 			default:
 				/* Extract the action (if any) */
-				d = get_keymap_dir(query);
+				d = get_keymap_dir((char)query);
 
 				if(!d) bell();
 				break;
@@ -2425,7 +2425,7 @@ bool target_set(creature_type *aimer_ptr, COODINATES range, FLAGS_32 mode)
 			default:
 				{
 					/* Extract the action (if any) */
-					d = get_keymap_dir(query);
+					d = get_keymap_dir((char)query);
 
 					/* XTRA HACK MOVEFAST */
 					if(isupper(query)) move_fast = TRUE;
@@ -2513,7 +2513,7 @@ bool get_aim_dir(creature_type *creature_ptr, COODINATES range, DIRECTION *dp)
 	dir = command_dir;	// Global direction
 	if(use_old_target && target_okay(creature_ptr)) dir = 5;	// Hack -- auto-target if requested
 
-	if(repeat_pull(dp))	// Confusion?
+	if(repeat_pull((KEY *)dp))	// Confusion? // TODO
 	{
 		if(!(*dp == 5 && !target_okay(creature_ptr)))	// Verify
 		{
@@ -2606,7 +2606,7 @@ bool get_rep_dir(creature_type *creature_ptr, DIRECTION *dp, bool under)
 	/* Global direction */
 	dir = command_dir;
 
-	if(repeat_pull(dp))
+	if(repeat_pull((KEY *)dp)) // TODO
 	{
 		dir = *dp;
 		/*		return TRUE; */
@@ -2691,7 +2691,7 @@ bool get_rep_dir2(creature_type *creature_ptr, DIRECTION *dp)
 	/* Global direction */
 	dir = command_dir;
 
-	if(repeat_pull(dp))
+	if(repeat_pull((KEY *)dp)) //TODO
 	{
 		dir = *dp;
 		/*		return TRUE; */

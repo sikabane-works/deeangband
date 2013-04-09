@@ -495,10 +495,7 @@ static void wr_creature(creature_type *creature_ptr)
 	WRITE_COODINATES(creature_ptr->start_wy);
 
 	/* Dump the ordered spells */
-	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++)
-	{
-		wr_byte(creature_ptr->spell_order[i]);
-	}
+	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) WRITE_KEY(creature_ptr->spell_order[i]);
 
 	wr_u16b(creature_ptr->total_winner);
 
@@ -755,7 +752,7 @@ static void wr_floor(floor_type *floor_ptr)
 					break;
 
 			/* Extract an ID */
-			tmp16u = i;
+			tmp16u = (u16b)i;
 
 			/* If the run is broken, or too full, flush it */
 			if((tmp16u != prev_u16b) || (count == MAX_UCHAR))
@@ -917,7 +914,7 @@ static bool wr_savefile_new(void)
 	wr_options();		// Write the boolean "options"
 
 	// Dump the number of "messages"
-	tmp16u = message_num();
+	tmp16u = (u16b)message_num();
 	if(compress_savefile && (tmp16u > 40)) tmp16u = 40;
 	wr_u16b(tmp16u);
 
@@ -1182,7 +1179,7 @@ bool save_player(void)
 #endif
 #endif
 
-	return (result); // Return the result
+	return (result > 0); // Return the result
 }
 
 
