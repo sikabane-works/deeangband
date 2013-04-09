@@ -2308,7 +2308,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	if(repeat_pull(&sn))
 	{
 		/* Verify the spell */
-		if(sn >= EATER_EXT * 2 && !(creature_ptr->current_charge[sn] > object_kind_info[lookup_kind(TV_ROD, sn - EATER_EXT*2)].pval * (creature_ptr->max_charge[sn] - 1) * EATER_ROD_CHARGE))
+		if(sn >= EATER_EXT * 2 && !(creature_ptr->current_charge[sn] > object_kind_info[lookup_kind(TV_ROD, (SVAL)(sn - EATER_EXT*2))].pval * (creature_ptr->max_charge[sn] - 1) * EATER_ROD_CHARGE))
 			return sn;
 		else if(sn < EATER_EXT * 2 && !(creature_ptr->current_charge[sn] < EATER_CHARGE))
 			return sn;

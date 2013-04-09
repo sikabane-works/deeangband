@@ -366,8 +366,8 @@ void do_cmd_browse(creature_type *creature_ptr)
 	int num = 0;
 	int select_flag = 0;
 
-	byte	spells[64];
-	char	temp[62*4];
+	KEY spells[64];
+	char temp[62*4];
 
 	int item_tester_tval;
 	object_type	*object_ptr;

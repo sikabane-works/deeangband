@@ -222,9 +222,9 @@ typedef byte DIRECTION;
 #define READ_DIRECTION(VALUE) rd_s32b((DIRECTION *)VALUE);
 #define WRITE_DIRECTION(VALUE) wr_s32b((DIRECTION)VALUE);
 
-typedef char KEY;
-#define READ_KEY(VALUE) rd_char((KEY *)VALUE);
-#define WRITE_KEY(VALUE) wr_char((KEY)VALUE);
+typedef s32b KEY;
+#define READ_KEY(VALUE) rd_s32b((KEY *)VALUE);
+#define WRITE_KEY(VALUE) wr_s32b((KEY)VALUE);
 
 typedef s32b POWER;
 #define READ_POWER(VALUE) rd_s32b((POWER *)VALUE);
@@ -1516,7 +1516,7 @@ struct creature_type
 	FLAGS_32 spell_worked2;		// bit mask of spells tried and worked 
 	FLAGS_32 spell_forgotten1;	// bit mask of spells learned but forgotten 
 	FLAGS_32 spell_forgotten2;	// bit mask of spells learned but forgotten 
-	byte spell_order[64];	// order spells learned/remembered/forgotten 
+	KEY spell_order[64];	// order spells learned/remembered/forgotten 
 
 	SKILL_EXP skill_exp[MAX_SKILLS];       // Proficiency of misc. skill 
 	SKILL_EXP spell_exp[MAX_REALMS];

@@ -1262,6 +1262,7 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, c
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	species_type *species_ptr;
 	bool skip;
+	if(flags) return 1;
 
 	if(summoner_ptr != NULL && !is_valid_creature(summoner_ptr)) return FAILURE;
 

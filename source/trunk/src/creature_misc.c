@@ -1203,6 +1203,7 @@ int calc_weapon_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr)
 
 int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *weapon_ptr)
 {
+	if(!is_valid_object(weapon_ptr)) return 100;
 	if(!is_valid_creature(creature_ptr)) return 100;
 	return 100;
 }
@@ -1234,6 +1235,7 @@ int calc_action_power(creature_type *creature_ptr)
 bool saving_throw(creature_type *creature_ptr, int type, int difficulty, FLAGS_32 option)
 {
 	POWER power, challange, dice_total, dice;
+	if(option) return FALSE; //TODO
 	switch(type)
 	{
 	case SAVING_AC: power = creature_ptr->ac + creature_ptr->to_ac; break;

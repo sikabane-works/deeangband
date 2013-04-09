@@ -5270,6 +5270,7 @@ s32b turn_real(creature_type *creature_ptr, s32b hoge)
 
 void add_game_turn(creature_type *creature_ptr, GAME_TIME num)
 {
+	if(!is_valid_creature(creature_ptr)) return;
 	//TODO Limit OverFlow
 	game_turn += num;
 }
