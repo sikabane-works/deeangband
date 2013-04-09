@@ -1441,7 +1441,7 @@ static bool init_graphics(void)
 	{
 		char buf[1024];
 		int wid, hgt;
-		cptr name;
+		cptr name = NULL;
 
 		switch(arg_graphics)
 		{
@@ -2414,15 +2414,14 @@ static errr Term_pict_win(int x, int y, int n, const byte *ap, const char *cp, c
 
 	int i;
 	int x1, y1, w1, h1;
-	int x2, y2, w2, h2, tw2;
+	int x2, y2, w2, h2, tw2 = 0;
 	int x3, y3;
 
-	HDC hdcMask;
+	HDC hdcMask = 0;
 
 	HDC hdc;
 	HDC hdcSrc;
 	HBITMAP hbmSrcOld;
-
 
 	if(!use_graphics)
 	{
@@ -2605,12 +2604,12 @@ static void windows_map(void)
 			map_info(player_ptr, y, x, &a, (char*)&c, &ta, (char*)&tc);
 
 			// Ignore non-graphics
-			if((a & 0x80) && (c & 0x80)) Term_pict_win(x - min_x, y - min_y, 1, &a, &c, &ta, &tc);
+			if((a & 0x80) && (c & 0x80)) Term_pict_win(x - min_x, y - min_y, 1, &a, (const char*)&c, &ta, (const char*)&tc); //TODO
 		}
 	}
 
 	Term_curs_win(player_ptr->fx - min_x, player_ptr->fy - min_y); // Hilite the player
-	Term_inkey(&c, TRUE, TRUE); // Wait for a keypress, flush key buffer
+	Term_inkey((byte_hack *)&c, TRUE, TRUE); // Wait for a keypress, flush key buffer
 	Term_flush();
 
 	
