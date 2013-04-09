@@ -4071,7 +4071,7 @@ void display_koff(creature_type *creature_ptr, int k_idx)
 	{
 		int spell = -1;
 		int num = 0;
-		int spells[64];
+		KEY spells[64];
 
 		/* Extract spells */
 		for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
@@ -4119,6 +4119,7 @@ object_type *choose_warning_item(creature_type *caster_ptr)
 // Calculate blow damages
 static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, special_blow_type *blow_ptr)
 {
+	if(!blow_ptr) return 0;
 	if(!is_valid_creature(attacker_ptr) || !is_valid_creature(target_ptr)) return 0;
 	//TODO: apply New Feature
 	return 0;

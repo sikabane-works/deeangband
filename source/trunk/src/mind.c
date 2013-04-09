@@ -436,7 +436,7 @@ void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, POWER po
 */
 static int get_mind_power(creature_type *creature_ptr, KEY *sn, bool only_browse)
 {
-	DIRECTION i;
+	KEY i;
 	KEY num = 0;
 	COODINATES y = 1;
 	COODINATES x = 10;

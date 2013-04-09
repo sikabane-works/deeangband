@@ -332,6 +332,7 @@ bool screen_object(object_type *object_ptr, FLAGS_32 mode)
 	int k = 0;
 	if(!is_valid_object(object_ptr)) return FALSE;
 	//TODO: reimplement
+	if(mode) return FALSE;
 
 	prt(MES_SYS_ANY_KEY, k, 15);
 	inkey();
