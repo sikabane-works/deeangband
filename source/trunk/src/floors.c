@@ -300,12 +300,14 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
  * current floor.
  */
  
-static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stair_ptr, floor_type *old_floor_ptr, floor_type *new_floor_ptr, u32b flag)
+static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stair_ptr, floor_type *old_floor_ptr, floor_type *new_floor_ptr, FLAGS_32 flag)
 {
 	COODINATES sx = 0, sy = 0, x, y;
 	COODINATES x_table[20], y_table[20];
 	int num = 0;
 	int i;
+
+	if(flag) return; //TODO
 
 	// Search usable stairs
 	for (y = 0; y < new_floor_ptr->height; y++)
@@ -398,18 +400,17 @@ FLOOR_ID find_floor_id(DUNGEON_ID dungeon_id, FLOOR_LEV depth, COODINATES wx, CO
  */
 void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y, COODINATES world_x, COODINATES depth, floor_type *prev_ptr, u32b flag)
 {
-	int i, old_floor_id, floor_id, old_fx, old_fy;
+	int i, old_floor_id, floor_id = 0, old_fx, old_fy;
 	cave_type *stair_ptr = NULL;
 	feature_type *feature_ptr;
-	floor_type *old_floor_ptr, *new_floor_ptr;
+	floor_type *new_floor_ptr;
 	int quest_species_idx = 0;
 
-	old_floor_ptr = &floor_list[creature_ptr->floor_id];
 	old_floor_id = creature_ptr->floor_id;
 	old_fx = creature_ptr->fx;
 	old_fy = creature_ptr->fy;
 
-	stair_ptr = &old_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
+	stair_ptr = &prev_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_ptr = &feature_info[stair_ptr->feat];
 
 	// Search the quest creature index
@@ -417,8 +418,8 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 	{
 		if((quest[i].status == QUEST_STATUS_TAKEN) && 
 			 ((quest[i].type == QUEST_TYPE_KILL_LEVEL) || (quest[i].type == QUEST_TYPE_RANDOM)) &&
-		     (quest[i].level == old_floor_ptr->depth) &&
-		     (old_floor_ptr->dungeon_id == quest[i].dungeon) &&
+		     (quest[i].level == prev_ptr->depth) &&
+		     (prev_ptr->dungeon_id == quest[i].dungeon) &&
 		     !(quest[i].flags & QUEST_FLAG_PRESET))
 		{
 			quest_species_idx = quest[i].species_idx;
@@ -442,7 +443,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 		new_floor_ptr = &floor_list[floor_id];
 
 		// Choose random stairs
-		if(!(flag & CFM_RAND_SEED)) locate_connected_stairs(creature_ptr, stair_ptr, old_floor_ptr, new_floor_ptr, flag);
+		if(!(flag & CFM_RAND_SEED)) locate_connected_stairs(creature_ptr, stair_ptr, prev_ptr, new_floor_ptr, flag);
 
 		connect_cave_to(stair_ptr, floor_id, creature_ptr->fy, creature_ptr->fx);
 		//connect_cave_to(&new_floor_ptr->cave[player_ptr->fy][player_ptr->fx], old_floor_id, old_fy, old_fx);
@@ -455,13 +456,13 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 	if((flag & CFM_SAVE_FLOORS) && !(flag & CFM_NO_RETURN))
 	{
 		get_out_creature(new_floor_ptr, creature_ptr); // Get out of the my way!
-		old_floor_ptr->last_visit = game_turn; // Record the last visit turn of current floor
+		prev_ptr->last_visit = game_turn; // Record the last visit turn of current floor
 
 		// Forget the lite and view
 		//TODO
-		forget_lite(old_floor_ptr);
-		forget_view(old_floor_ptr);
-		clear_creature_lite(old_floor_ptr);
+		forget_lite(prev_ptr);
+		forget_view(prev_ptr);
+		clear_creature_lite(prev_ptr);
 	}
 
 	// Arrive at random grid

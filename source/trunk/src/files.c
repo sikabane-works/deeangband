@@ -660,7 +660,7 @@ errr process_pref_file_command(char *buf)
 				if(streq(gf_desc[i].name, buf + 2))
 				{
 					/* Remember this color set */
-					gf_color[gf_desc[i].num] = quark_add(t);
+					gf_color[gf_desc[i].num] = (s16b)quark_add(t);
 
 					return SUCCESS;
 				}
@@ -3001,7 +3001,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 				if(object_ptr->pval > 0)
 				{
 					a = TERM_L_GREEN;
-					if(object_ptr->pval < 10) c = '0' + object_ptr->pval;
+					if(object_ptr->pval < 10) c = '0' + (char)object_ptr->pval;
 				}
 
 				if(have_flag(flgs, stat + TRAIT_SUSTAIN_STR))
@@ -3016,7 +3016,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 					a = TERM_RED;
 
 					/* Label boost */
-					if(object_ptr->pval > -10) c = '0' - object_ptr->pval;
+					if(object_ptr->pval > -10) c = '0' - (char)object_ptr->pval;
 				}
 			}
 

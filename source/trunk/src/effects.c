@@ -750,7 +750,7 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 		prepare_update(creature_ptr, CRU_BONUS);
 	}
 
-	return (res);
+	return (res > 0);
 }
 
 
@@ -938,7 +938,7 @@ void do_poly_wounds(creature_type *creature_ptr)
 	// Changed to always provide at least _some_ healing
 	GAME_TIME wounds = creature_ptr->timed_trait[TRAIT_CUT];
 	s32b hit_p = (creature_ptr->mhp - creature_ptr->chp);
-	s16b change = diceroll(creature_ptr->lev, 5);
+	s16b change = (s16b)diceroll(creature_ptr->lev, 5);
 	bool nasty_effect = one_in_(5);
 
 	if(!(wounds || hit_p || nasty_effect)) return;

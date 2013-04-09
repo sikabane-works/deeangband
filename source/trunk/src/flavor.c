@@ -277,7 +277,7 @@ void flavor_init(void)
 		 * Initialize flavor index to itself
 		 *  -> Shuffle it later
 		 */
-		object_kind_ptr->flavor = i;
+		object_kind_ptr->flavor = (s16b)i;
 	}
 
 	/* Shuffle Rings */
@@ -371,7 +371,7 @@ static char *object_desc_num(char *t, uint n)
 	while (p >= 1)
 	{
 		/* Dump the digit */
-		*t++ = '0' + n / p;
+		*t++ = '0' + (char)(n / p);
 
 		/* Remove the digit */
 		n = n % p;
@@ -525,7 +525,7 @@ static char *object_desc_int(char *t, sint v)
 	while (p >= 1)
 	{
 		/* Dump the digit */
-		*t++ = '0' + n / p;
+		*t++ = '0' + (char)(n / p);
 
 		/* Remove the digit */
 		n = n % p;
