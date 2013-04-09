@@ -1638,7 +1638,7 @@ void do_cmd_alter(creature_type *creature_ptr)
 
 // Find the index of some "spikes", if possible.
 //  Let user choose a pile of spikes, perhaps?
-static bool get_spike(creature_type *creature_ptr, int *ip)
+static bool get_spike(creature_type *creature_ptr, OBJECT_ID *ip)
 {
 	int i;
 
