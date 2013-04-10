@@ -695,7 +695,7 @@ species_type *real_species_ptr(creature_type *m_ptr)
 void delete_species_idx(creature_type *creature_ptr)
 {
 	int x, y;
-	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
+	floor_type *floor_ptr = &floor_list[creature_ptr->floor_idx];
 
 	// Get location
 	y = creature_ptr->fy;
@@ -875,7 +875,7 @@ void birth_uniques(void)
 * This is an efficient method of simulating multiple calls to the
 * "delete_creature()" function, with no visual effects.
 */
-void wipe_creature_list(FLOOR_ID floor_id)
+void wipe_creature_list(FLOOR_ID floor_idx)
 {
 	int i;
 
@@ -902,9 +902,9 @@ void wipe_creature_list(FLOOR_ID floor_id)
 	for (i = creature_max - 1; i >= 1; i--)
 	{
 		creature_type *creature_ptr = &creature_list[i];
-		floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
+		floor_type *floor_ptr = &floor_list[creature_ptr->floor_idx];
 		if(!creature_ptr->species_idx) continue; // Skip dead creature
-		if(floor_id && creature_ptr->floor_id != floor_id) continue; // Skip other floor  creature
+		if(floor_idx && creature_ptr->floor_idx != floor_idx) continue; // Skip other floor  creature
 		floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].creature_idx = 0; // Creature is gone
 		(void)WIPE(creature_ptr, creature_type); // Wipe the Creature
 	}
@@ -3302,7 +3302,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	}
 
 	// Place the creature at the location
-	creature_ptr->floor_id = get_floor_id(floor_ptr);
+	creature_ptr->floor_idx = get_floor_idx(floor_ptr);
 	creature_ptr->depth = floor_ptr->depth;
 	creature_ptr->fy = y;
 	creature_ptr->fx = x;
@@ -3374,7 +3374,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	/*TODO
 	if(floor_ptr->generated &&
 	((has_trait_species(species_ptr, TRAIT_UNIQUE)) || has_trait_species(species_ptr, TRAIT_NAZGUL)))
-	real_species_ptr(creature_ptr)->floor_id = watcher_ptr->floor_id;
+	real_species_ptr(creature_ptr)->floor_idx = watcher_ptr->floor_idx;
 	*/
 
 	/* Hack -- Count the number of "reproducers" */
@@ -4042,7 +4042,7 @@ bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, C
 // Note that "reproduction" REQUIRES empty space.
 bool multiply_creature(creature_type *creature_ptr, bool clone, FLAGS_32 mode)
 {
-	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
+	floor_type *floor_ptr = &floor_list[creature_ptr->floor_idx];
 
 	COODINATES y, x;
 

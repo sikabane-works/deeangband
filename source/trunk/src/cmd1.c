@@ -1019,7 +1019,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		if(creature_ptr->posture & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
 		creature_ptr->feeling_turn = 0;
 		creature_ptr->floor_feeling = 0;
-		creature_ptr->floor_id = get_floor_id(floor_ptr);
+		creature_ptr->floor_idx = get_floor_idx(floor_ptr);
 	}
 
 	if(!(mpe_mode & MCE_STAYING))

@@ -1889,7 +1889,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	int **match_autopick_yx;
 	object_type ***object_autopick_yx;
 
-	if(watcher_ptr->floor_id) floor_ptr = GET_FLOOR_PTR(watcher_ptr);
+	if(watcher_ptr->floor_idx) floor_ptr = GET_FLOOR_PTR(watcher_ptr);
 	else floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	Term_get_size(&wid, &hgt);
@@ -2751,7 +2751,7 @@ static void creature_lite_hack(creature_type *creature_ptr, COODINATES y, COODIN
 {
 	cave_type *cave_ptr;
 	int       midpoint, dpf, d;
-	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
+	floor_type *floor_ptr = &floor_list[creature_ptr->floor_idx];
 
 	/* We trust this grid is in bounds */
 	/* if(!IN_BOUNDS2(floor_ptr, y, x)) return; */
@@ -3480,7 +3480,7 @@ void update_view(creature_type *creature_ptr)
 	COODINATES se, sw, ne, nw, es, en, ws, wn;
 	COODINATES full, over;
 
-	floor_type *floor_ptr = &floor_list[creature_ptr->floor_id];
+	floor_type *floor_ptr = &floor_list[creature_ptr->floor_idx];
 	COODINATES y_max = floor_ptr->height - 1;
 	COODINATES x_max = floor_ptr->width - 1;
 
@@ -4981,9 +4981,9 @@ void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 	prepare_redraw(PR_MAP);
 }
 
-void connect_cave_to(cave_type *stair_ptr, FLOOR_ID floor_id, COODINATES y, COODINATES x)
+void connect_cave_to(cave_type *stair_ptr, FLOOR_ID floor_idx, COODINATES y, COODINATES x)
 {
-	stair_ptr->to_floor = floor_id;
+	stair_ptr->to_floor = floor_idx;
 	stair_ptr->cx = x;
 	stair_ptr->cy = y;
 }

@@ -938,7 +938,7 @@ void init_wilderness_terrains(void)
 
 static bool enemy_is_still_here(creature_type *enemy_ptr)
 {
-	if(player_ptr->floor_id != enemy_ptr->floor_id) return FALSE;
+	if(player_ptr->floor_idx != enemy_ptr->floor_idx) return FALSE;
 	if(!enemy_ptr->species_idx) return FALSE;
 	if(enemy_ptr->timed_trait[TRAIT_PARALYZED]) return FALSE;
 	if(enemy_ptr->cdis > MAX_SIGHT) return FALSE;

@@ -7286,7 +7286,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			/* Current quest number */
 			else if(streq(b+1, "QUEST_NUMBER"))
 			{
-				sprintf(tmp, "%d", floor_list[player_ptr->floor_id].quest);
+				sprintf(tmp, "%d", floor_list[player_ptr->floor_idx].quest);
 				v = tmp;
 			}
 

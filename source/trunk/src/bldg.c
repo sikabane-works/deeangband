@@ -3266,8 +3266,8 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	}
 
 	// Forget the lite and view
-	forget_lite(&floor_list[creature_ptr->floor_id]);
-	forget_view(&floor_list[creature_ptr->floor_id]);
+	forget_lite(&floor_list[creature_ptr->floor_idx]);
+	forget_view(&floor_list[creature_ptr->floor_idx]);
 
 	command_arg = 0;
 	command_rep = 0;

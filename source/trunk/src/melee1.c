@@ -1097,7 +1097,7 @@ static int check_hit(creature_type *target_ptr, POWER power, int level, int stun
 bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt)
 {
 	species_type *species_ptr = &species_info[attacker_ptr->species_idx];
-	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_id];
+	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_idx];
 
 	int i, k, tmp, ac, ev, vo;
 	int do_cut, do_stun;

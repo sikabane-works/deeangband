@@ -146,9 +146,9 @@ FLOOR_ID floor_pop(void)
 		i = oldest; // Use it
 	}
 
-	// Increment number of floor_id
+	// Increment number of floor_idx
 	if(floor_max < MAX_SHORT) floor_max++;
-	else floor_max = 1; // 32767 floor_ids are all used up!  Re-use ancient IDs
+	else floor_max = 1; // 32767 floor_idxs are all used up!  Re-use ancient IDs
 
 	return i;
 }
@@ -190,11 +190,11 @@ static void build_dead_end(floor_type *floor_ptr, creature_type *creature_ptr)
 /*
  * Hack -- Update location of unique creatures and artifacts
  *
- * The species_ptr->floor_id and a_ptr->floor_id are not updated correctly
+ * The species_ptr->floor_idx and a_ptr->floor_idx are not updated correctly
  * while new floor creation since dungeons may be re-created by
  * auto-scum option.
  */
-static void update_unique_artifact(s16b cur_floor_id)
+static void update_unique_artifact(s16b cur_floor_idx)
 {
 	int i;
 
@@ -213,7 +213,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 		// Memorize location of the unique creature 
 		if(has_trait_species(species_ptr, TRAIT_UNIQUE) || has_trait_species(species_ptr, TRAIT_NAZGUL))
 		{
-			species_ptr->floor_id = cur_floor_id;
+			species_ptr->floor_idx = cur_floor_idx;
 		}
 	}
 
@@ -228,7 +228,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 		// Memorize location of the artifact 
 		if(object_is_fixed_artifact(object_ptr))
 		{
-			artifact_info[object_ptr->name1].floor_id = cur_floor_id;
+			artifact_info[object_ptr->name1].floor_idx = cur_floor_idx;
 		}
 	}
 }
@@ -374,7 +374,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 }
 
 
-FLOOR_ID find_floor_id(DUNGEON_ID dungeon_id, FLOOR_LEV depth, COODINATES wx, COODINATES wy)
+FLOOR_ID find_floor_idx(DUNGEON_ID dungeon_id, FLOOR_LEV depth, COODINATES wx, COODINATES wy)
 {
 	int i;
 	floor_type *floor_ptr;
@@ -395,18 +395,18 @@ FLOOR_ID find_floor_id(DUNGEON_ID dungeon_id, FLOOR_LEV depth, COODINATES wx, CO
 }
 
 /*
- * Maintain quest creatures, mark next floor_id at stairs, save current
+ * Maintain quest creatures, mark next floor_idx at stairs, save current
  * floor, and prepare to enter next floor.
  */
 void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y, COODINATES world_x, COODINATES depth, floor_type *prev_ptr, u32b flag)
 {
-	int i, old_floor_id, floor_id = 0, old_fx, old_fy;
+	int i, old_floor_idx, floor_idx = 0, old_fx, old_fy;
 	cave_type *stair_ptr = NULL;
 	feature_type *feature_ptr;
 	floor_type *new_floor_ptr;
 	int quest_species_idx = 0;
 
-	old_floor_id = creature_ptr->floor_id;
+	old_floor_idx = creature_ptr->floor_idx;
 	old_fx = creature_ptr->fx;
 	old_fy = creature_ptr->fy;
 
@@ -431,25 +431,25 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 	{
 		new_floor_ptr = &floor_list[stair_ptr->to_floor]; // Saved floor is exist.  Use it.
 		move_creature(creature_ptr, new_floor_ptr, stair_ptr->cy, stair_ptr->cx, 0);
-		floor_id = stair_ptr->to_floor;
+		floor_idx = stair_ptr->to_floor;
 	}
 
 	// Create New Floor
 	else
 	{
-		int floor_id = floor_pop();
-		floor_type *floor_ptr = &floor_list[floor_id];
+		int floor_idx = floor_pop();
+		floor_type *floor_ptr = &floor_list[floor_idx];
 		generate_floor(floor_ptr, dungeon_id, world_y, world_x, depth);
-		new_floor_ptr = &floor_list[floor_id];
+		new_floor_ptr = &floor_list[floor_idx];
 
 		// Choose random stairs
 		if(!(flag & CFM_RAND_SEED)) locate_connected_stairs(creature_ptr, stair_ptr, prev_ptr, new_floor_ptr, flag);
 
-		connect_cave_to(stair_ptr, floor_id, creature_ptr->fy, creature_ptr->fx);
-		//connect_cave_to(&new_floor_ptr->cave[player_ptr->fy][player_ptr->fx], old_floor_id, old_fy, old_fx);
+		connect_cave_to(stair_ptr, floor_idx, creature_ptr->fy, creature_ptr->fx);
+		//connect_cave_to(&new_floor_ptr->cave[player_ptr->fy][player_ptr->fx], old_floor_idx, old_fy, old_fx);
 	}
 
-	if(stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->to_floor = floor_id; // Connect from here
+	if(stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->to_floor = floor_idx; // Connect from here
 
 	// If you can return, you need to save previous floor
 
@@ -483,7 +483,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 
 	bool up = TRUE;
 	bool down = TRUE;
-	s16b dest_floor_id = 0;
+	s16b dest_floor_idx = 0;
 
 
 	// Forbid up staircases on Ironman mode 
@@ -512,8 +512,8 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	delete_object(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	// Extract current floor data 
-	sf_ptr = &floor_list[creature_ptr->floor_id];
-	if(!sf_ptr) sf_ptr = &floor_list[creature_ptr->floor_id]; // No floor id? -- Create now!
+	sf_ptr = &floor_list[creature_ptr->floor_idx];
+	if(!sf_ptr) sf_ptr = &floor_list[creature_ptr->floor_idx]; // No floor id? -- Create now!
 
 	// Choose randomly 
 	if(up && down)
@@ -524,7 +524,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 
 
 	// Search old stairs leading to the destination 
-	if(dest_floor_id)
+	if(dest_floor_idx)
 	{
 		COODINATES x, y;
 
@@ -536,7 +536,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 
 				if(!c_ptr->to_floor) continue;
 				if(feat_uses_special(c_ptr->feat)) continue;
-				if(c_ptr->to_floor != dest_floor_id) continue;
+				if(c_ptr->to_floor != dest_floor_idx) continue;
 
 				// Remove old stairs 
 				c_ptr->to_floor = 0;
@@ -546,7 +546,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	}
 
 	// Extract destination floor data 
-	dest_sf_ptr = &floor_list[dest_floor_id];
+	dest_sf_ptr = &floor_list[dest_floor_idx];
 
 
 	// Create a staircase
@@ -566,7 +566,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	}
 
 	// Connect this stairs to the destination
-	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special = dest_floor_id;
+	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special = dest_floor_idx;
 }
 
 void reset_cave_creature_reference(void)
@@ -582,12 +582,12 @@ void reset_cave_creature_reference(void)
 	}
 
 	for(i = 1; i < creature_max; i++)
-		if(creature_list[i].floor_id)
-			floor_list[creature_list[i].floor_id].cave[creature_list[i].fy][creature_list[i].fx].creature_idx = i;
+		if(creature_list[i].floor_idx)
+			floor_list[creature_list[i].floor_idx].cave[creature_list[i].fy][creature_list[i].fx].creature_idx = i;
 
 }
 
-FLOOR_ID get_floor_id(floor_type *floor_ptr)
+FLOOR_ID get_floor_idx(floor_type *floor_ptr)
 {
 	FLOOR_ID i;
 	for(i = 1; i < floor_max; i++) if(floor_ptr == &floor_list[i]) return i;

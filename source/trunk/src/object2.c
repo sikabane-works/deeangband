@@ -337,10 +337,10 @@ void compact_objects(int size)
 * clear those fields for grids/creatures containing objects,
 * and we clear it once for every such object.
 */
-void wipe_object_list(int floor_id)
+void wipe_object_list(int floor_idx)
 {
 	int i;
-	floor_type *floor_ptr = &floor_list[floor_id];
+	floor_type *floor_ptr = &floor_list[floor_idx];
 
 	object_wipe(&object_null);
 
@@ -351,7 +351,7 @@ void wipe_object_list(int floor_id)
 
 		// Skip dead objects
 		if(!is_valid_object(object_ptr)) continue;
-		if(floor_id && object_ptr->floor_id != floor_id) continue;
+		if(floor_idx && object_ptr->floor_idx != floor_idx) continue;
 
 		/* Hack -- Preserve unknown artifacts */
 		if(object_is_fixed_artifact(object_ptr) && !object_is_known(object_ptr))
@@ -2592,7 +2592,7 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 		a_ptr->cur_num = 1;
 
 		/* Hack -- Memorize location of artifact in saved floors */
-		a_ptr->floor_id = owner_ptr->floor_id;
+		a_ptr->floor_idx = owner_ptr->floor_idx;
 
 		// Extract the other fields
 		object_ptr->pval = a_ptr->pval;

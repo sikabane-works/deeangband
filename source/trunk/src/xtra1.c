@@ -712,7 +712,7 @@ static void prt_depth(creature_type *creature_ptr)
 	/* Right-Adjust the "depth", and clear old values */
 	if(wizard)
 	{
-		c_prt(attr, format("%7s F:%3d", depths, player_ptr->floor_id), row_depth, col_depth - 6);
+		c_prt(attr, format("%7s F:%3d", depths, player_ptr->floor_idx), row_depth, col_depth - 6);
 	}
 	else
 	{

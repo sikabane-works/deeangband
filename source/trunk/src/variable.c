@@ -556,7 +556,7 @@ char angband_sound_name[SOUND_MAX][16] =
 floor_type floor_list[MAX_FLOORS];
 
 /*
- * Number of floor_id used from birth
+ * Number of floor_idx used from birth
  */
 s16b floor_max;
 

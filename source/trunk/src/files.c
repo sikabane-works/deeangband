@@ -3091,7 +3091,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		else sprintf(tmp, "%s", creature_ptr->name);
 
 		if(wizard)
-			sprintf(tmp, "[id:%d/f:%d/x:%d/y:%d/turn:%d/wx:%d/wy:%d]%s", creature_ptr->creature_idx, creature_ptr->floor_id, creature_ptr->fx, creature_ptr->fy, creature_ptr->action_turn, creature_ptr->wx, creature_ptr->wy, creature_ptr->name);
+			sprintf(tmp, "[id:%d/f:%d/x:%d/y:%d/turn:%d/wx:%d/wy:%d]%s", creature_ptr->creature_idx, creature_ptr->floor_idx, creature_ptr->fx, creature_ptr->fy, creature_ptr->action_turn, creature_ptr->wx, creature_ptr->wy, creature_ptr->name);
 
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
 

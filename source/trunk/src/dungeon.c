@@ -5280,7 +5280,7 @@ void world_wipe()
 	int i;
 
 	play_time = 0;
-	floor_max = 1; 	// No floor_id used yet (No.0 is reserved to indicate non existance)
+	floor_max = 1; 	// No floor_idx used yet (No.0 is reserved to indicate non existance)
 
 	panic_save = FALSE;	// Assume no cheating
 

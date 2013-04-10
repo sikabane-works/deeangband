@@ -1222,7 +1222,7 @@ static void creature_list_func(int y, int x, int i, bool selected)
 	}
 
 	c_prt(col, format("[%4d] F:%3d D:%3d (%3d,%3d)HP:%6d/%6d -%24s", i, 
-		creature_list[i].floor_id, creature_list[i].depth,
+		creature_list[i].floor_idx, creature_list[i].depth,
 		creature_list[i].fx, creature_list[i].fy,
 		creature_list[i].chp, creature_list[i].mhp, creature_list[i].name),
 		y, x);
@@ -1306,7 +1306,7 @@ static void do_cmd_wiz_creature_list(void)
 static void floor_list_func(int y, int x, int i, bool selected)
 {
 	COLOR_ID col;
-	if(player_ptr->floor_id == i)
+	if(player_ptr->floor_idx == i)
 	{
 		if(selected) col = TERM_L_GREEN;
 		else col = TERM_GREEN;
@@ -1333,7 +1333,7 @@ static void do_cmd_wiz_floor_teleport(void)
 	se_info.mode = 0;
 	se_info.detail = NULL;
 	se_info.caption = floor_list_func;
-	se_info.default_se = player_ptr->floor_id;
+	se_info.default_se = player_ptr->floor_idx;
 	se_info.y = 1;
 	se_info.x = 1;
 	se_info.h = 22;
@@ -1366,8 +1366,8 @@ static void do_cmd_wiz_floor_teleport(void)
 		else
 		{
 			// move simulate floor and player.
-			move_creature(player_ptr, &floor_list[player_ptr->floor_id], player_ptr->fy, player_ptr->fx, 0);
-			player_ptr->floor_id = i;
+			move_creature(player_ptr, &floor_list[player_ptr->floor_idx], player_ptr->fy, player_ptr->fx, 0);
+			player_ptr->floor_idx = i;
 
 			// redraw
 			prepare_redraw(PR_MAP);
@@ -1398,7 +1398,7 @@ static void object_list_func(int y, int x, int i, bool selected)
 
 	object_desc(tmp, &object_list[i], 0);
 	c_prt(col, format("[%4d] F:%d X:%3d Y:%3d %-35s", i,
-		object_list[i].floor_id, object_list[i].fx, object_list[i].fy, tmp),
+		object_list[i].floor_idx, object_list[i].fx, object_list[i].fy, tmp),
 			y, x);
 }
 

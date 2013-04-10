@@ -92,7 +92,7 @@ static void wr_object(object_type *object_ptr)
 
 	/*** Write only un-obvious elements ***/
 	WRITE_OBJECT_KIND_ID(object_ptr->k_idx);
-	WRITE_FLOOR_ID(object_ptr->floor_id);
+	WRITE_FLOOR_ID(object_ptr->floor_idx);
 	WRITE_COODINATES(object_ptr->fy);
 	WRITE_COODINATES(object_ptr->fx);
 
@@ -478,7 +478,7 @@ static void wr_creature(creature_type *creature_ptr)
 	WRITE_CREATURE_ID(creature_ptr->riding);
 	WRITE_CREATURE_ID(creature_ptr->ridden);
 
-	WRITE_FLOOR_ID(creature_ptr->floor_id);
+	WRITE_FLOOR_ID(creature_ptr->floor_idx);
 	wr_s32b(creature_ptr->visit);
 
 	/* Write spell data */
@@ -837,7 +837,7 @@ static bool wr_floors(creature_type *player_ptr)
 
 	/*** Meta info ***/
 
-	wr_s16b(floor_max); 	// Number of floor_id used from birth
+	wr_s16b(floor_max); 	// Number of floor_idx used from birth
 	for(i = 1; i < floor_max; i++) wr_floor(&floor_list[i]); // Write the current floor data
 
 	return TRUE; 
@@ -994,7 +994,7 @@ static bool wr_savefile_new(void)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
 		WRITE_POPULATION(a_ptr->cur_num);
-		WRITE_FLOOR_ID(a_ptr->floor_id);
+		WRITE_FLOOR_ID(a_ptr->floor_idx);
 	}
 
 	/* Write the "extra" information */

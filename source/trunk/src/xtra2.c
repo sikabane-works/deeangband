@@ -720,7 +720,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 				a_ptr->cur_num = 1;
 
 				/* Hack -- Memorize location of artifact in saved floors */
-				if(floor_ptr->generated) a_ptr->floor_id = slayer_ptr->floor_id;
+				if(floor_ptr->generated) a_ptr->floor_idx = slayer_ptr->floor_idx;
 			}
 		}
 		break;
@@ -753,7 +753,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 					{
 						a_ptr->cur_num = 1;
 						// Hack -- Memorize location of artifact in saved floors
-						if(floor_ptr->generated) a_ptr->floor_id = dead_ptr->floor_id;
+						if(floor_ptr->generated) a_ptr->floor_idx = dead_ptr->floor_idx;
 					}
 
 					// Prevent rewarding both artifact and "default" object

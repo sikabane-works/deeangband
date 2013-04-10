@@ -661,7 +661,7 @@ extern void species_type_track(SPECIES_ID species_idx);
 extern void object_kind_track(OBJECT_KIND_ID k_idx);
 extern void disturb(creature_type *player_ptr, int stop_search, int flush_output);
 extern void glow_deep_lava_and_bldg(floor_type *floor_ptr);
-extern void connect_cave_to(cave_type *stair_ptr, FLOOR_ID floor_id, COODINATES y, COODINATES x);
+extern void connect_cave_to(cave_type *stair_ptr, FLOOR_ID floor_idx, COODINATES y, COODINATES x);
 
 // cmd1.c
 extern bool test_hit_fire(creature_type *attacker_ptr, int chance, int ev, int vis);
@@ -957,11 +957,11 @@ extern void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode);
 // floors.c
 extern void init_saved_floors(bool force);
 extern FLOOR_ID floor_pop(void);
-extern FLOOR_ID find_floor_id(DUNGEON_ID dungeon_id, FLOOR_LEV depth, COODINATES wx, COODINATES wy);
+extern FLOOR_ID find_floor_idx(DUNGEON_ID dungeon_id, FLOOR_LEV depth, COODINATES wx, COODINATES wy);
 extern void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y, COODINATES world_x, COODINATES depth, floor_type *prev_ptr, u32b flag);
 extern void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr);
 extern void reset_cave_creature_reference(void);
-extern FLOOR_ID get_floor_id(floor_type *floor_ptr);
+extern FLOOR_ID get_floor_idx(floor_type *floor_ptr);
 
 // generate.c
 extern bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr);
@@ -1038,7 +1038,7 @@ extern void delete_creature(floor_type *floor_ptr, int y, int x);
 extern void compact_creatures(int size);
 extern void birth_uniques(void);
 
-extern void wipe_creature_list(FLOOR_ID floor_id);
+extern void wipe_creature_list(FLOOR_ID floor_idx);
 extern CREATURE_ID creature_pop(void);
 extern errr get_species_num_new();
 extern errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3, int summon_specific_type);
@@ -1094,7 +1094,7 @@ extern void excise_object_idx(OBJECT_ID object_idx);
 extern void delete_object_idx(OBJECT_ID object_idx);
 extern void delete_object(floor_type *floor_ptr, int y, int x);
 extern void compact_objects(int size);
-extern void wipe_object_list(int floor_id);
+extern void wipe_object_list(int floor_idx);
 extern OBJECT_ID object_pop(void);
 extern OBJECT_ID get_obj_num(FLOOR_LEV floor, FLAGS_32 flags);
 extern void object_known(object_type *object_ptr);

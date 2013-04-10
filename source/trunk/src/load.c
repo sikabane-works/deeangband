@@ -248,7 +248,7 @@ static void rd_object(object_type *object_ptr)
 	object_kind *object_kind_ptr;
 
 	READ_OBJECT_KIND_ID(&object_ptr->k_idx);
-	READ_FLOOR_ID(&object_ptr->floor_id);
+	READ_FLOOR_ID(&object_ptr->floor_idx);
 	READ_COODINATES(&object_ptr->fy);
 	READ_COODINATES(&object_ptr->fx);
 
@@ -871,7 +871,7 @@ static void rd_creature(creature_type *creature_ptr)
 
 	READ_CREATURE_ID(&creature_ptr->riding);
 	READ_CREATURE_ID(&creature_ptr->ridden);
-	READ_FLOOR_ID(&creature_ptr->floor_id);
+	READ_FLOOR_ID(&creature_ptr->floor_idx);
 
 	rd_s32b(&creature_ptr->visit);
 
@@ -1178,7 +1178,7 @@ static errr rd_floors(void)
 	init_saved_floors(FALSE);
 
 	/*** Meta info ***/
-	rd_s16b(&floor_max); // Number of floor_id used from birth
+	rd_s16b(&floor_max); // Number of floor_idx used from birth
 
 	// Read the current floor data
 	for(i = 1; i < floor_max; i++) err = rd_floor(&floor_list[i]);
@@ -1456,7 +1456,7 @@ static errr rd_savefile_new_aux(void)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
 		READ_POPULATION(&a_ptr->cur_num);
-		READ_FLOOR_ID(&a_ptr->floor_id);
+		READ_FLOOR_ID(&a_ptr->floor_idx);
 	}
 
 	/* Read the extra stuff */

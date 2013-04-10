@@ -492,7 +492,7 @@ struct artifact_type
 	POPULATION cur_num;		/* Number created (0 or 1) */
 	POPULATION max_num;		/* Unused (should be "1") */
 
-	FLOOR_ID floor_id;          /* Leaved on this location last time */
+	FLOOR_ID floor_idx;          /* Leaved on this location last time */
 
 	s16b fuel;
 	s16b ap_rate;		// AP rate
@@ -694,7 +694,7 @@ struct species_type
 	POPULATION max_num;			/* Maximum population allowed per level */
 	POPULATION cur_num;			/* Creature population on current level */
 
-	s16b floor_id;          /* Location of unique creature */
+	s16b floor_idx;          /* Location of unique creature */
 
 	s16b r_sights;			/* Count sightings of this creature */
 	s16b r_deaths;			/* Count deaths from this creature */
@@ -866,7 +866,7 @@ struct object_type
 	OBJECT_KIND_ID k_idx; /* Kind index (zero if "dead") */
 	char name[128];
 
-	FLOOR_ID floor_id; /* floor */
+	FLOOR_ID floor_idx; /* floor */
 	COODINATES fy; /* Y-position on map, or zero */
 	COODINATES fx; /* X-position on map, or zero */
 
@@ -1542,7 +1542,7 @@ struct creature_type
 	COODINATES pet_follow_distance; // Length of the imaginary "leash" for pets 
 	s16b pet_extra_flags;     // Various flags for controling pets 
 
-	FLOOR_ID floor_id;            // Current floor location  
+	FLOOR_ID floor_idx;            // Current floor location  
 
 	bool autopick_autoregister; // auto register is in-use or not 
 
