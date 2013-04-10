@@ -2378,7 +2378,7 @@ static cptr desc_stat_neg[] =
 #define MES_STUDY_NO_BOOK "読める本がない。"
 #define MES_STUDY_NO_READING "本を読むことができない！"
 #define MES_STUDY_NO_SLOT(REALM) "新しい%sを覚えることはできない！", (REALM)
-#define MES_STUDY_SLOT(REALM, NUM) "あと %d 種の%sを学べる。", (NUM), (REALM)
+#define MES_STUDY_SLOT(NUM, REALM) "あと %d 種の%sを学べる。", (NUM), (REALM)
 #define MES_STUDY_NO_SPELL(REALM) "その本には学ぶべき%sがない。", (REALM)
 #define MES_STUDY_PERFECT_LEARNED(REALM) "その%sは完全に使いこなせるので学ぶ必要はない。", (REALM)
 #define MES_SPELL_CHANGE_REALM_ASK "本当に魔法の領域を変更しますか？"
