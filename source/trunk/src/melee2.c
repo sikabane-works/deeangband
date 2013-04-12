@@ -1441,43 +1441,42 @@ static void do_creature_speaking(creature_type *creature_ptr)
  *
  * A "direction" of "5" means "pick a random direction".
  */
-static void process_nonplayer(CREATURE_ID m_idx)
+static void process_nonplayer(CREATURE_ID creature_idx)
 {
-	creature_type *creature_ptr = &creature_list[m_idx];
+	creature_type *creature_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr); 
 	char creature_name[80];
 
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	species_type *ap_species_ptr = &species_info[creature_ptr->ap_species_idx];
 
-	int             i, d;
+	int i, d;
 	COODINATES oy, ox, ny, nx;
-	int             mm[8];
+	int mm[8];
 
-	cave_type       *c_ptr;
-	feature_type    *f_ptr;
+	cave_type *c_ptr;
+	feature_type *f_ptr;
+	creature_type *y_ptr;
 
-	creature_type    *y_ptr;
+	bool do_turn;
+	bool do_move;
+	bool do_view;
+	bool must_alter_to_move;
 
-	bool            do_turn;
-	bool            do_move;
-	bool            do_view;
-	bool            must_alter_to_move;
+	bool did_open_door;
+	bool did_bash_door;
+	bool did_take_item;
+	bool did_kill_item;
+	bool did_move_body;
+	bool did_pass_wall;
+	bool did_kill_wall;
+	bool gets_angry = FALSE;
+	bool can_cross;
+	bool aware = TRUE;
 
-	bool            did_open_door;
-	bool            did_bash_door;
-	bool            did_take_item;
-	bool            did_kill_item;
-	bool            did_move_body;
-	bool            did_pass_wall;
-	bool            did_kill_wall;
-	bool            gets_angry = FALSE;
-	bool            can_cross;
-	bool            aware = TRUE;
-
-	bool            is_riding_mon = (m_idx == player_ptr->riding);
-	bool            see_m = is_seen(player_ptr, creature_ptr);
-	bool			test = FALSE;
+	bool is_riding_mon = (creature_idx == player_ptr->riding);
+	bool see_m = is_seen(player_ptr, creature_ptr);
+	bool test = FALSE;
 
 	// Access the location
 	int	fx = creature_ptr->fx;
@@ -1487,9 +1486,13 @@ static void process_nonplayer(CREATURE_ID m_idx)
 
 	// Handle "sensing radius"
 	if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->alert_range > MAX_SIGHT ? MAX_SIGHT : species_ptr->alert_range) : species_ptr->alert_range))
+	{
 		test = TRUE;
-	else if((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(fy, fx) || has_trait(player_ptr, TRAIT_ANTIPATHY))) // Handle "sight" and "aggravation"
+	}
+	else if((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(fy, fx) || has_trait(player_ptr, TRAIT_ANTIPATHY)))
+	{
 		test = TRUE;
+	}
 	else if(creature_ptr->target_y) test = TRUE;
 
 	// Do nothing
@@ -1543,7 +1546,7 @@ static void process_nonplayer(CREATURE_ID m_idx)
 			do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, creature_name);
 		}
 
-		delete_species_idx(&creature_list[m_idx]);	// Delete the creature
+		delete_species_idx(&creature_list[creature_idx]);	// Delete the creature
 
 		return;
 	}
@@ -1586,7 +1589,7 @@ static void process_nonplayer(CREATURE_ID m_idx)
 
 				// Check for quest completion
 				check_quest_completion(player_ptr, creature_ptr);
-				delete_species_idx(&creature_list[m_idx]);
+				delete_species_idx(&creature_list[creature_idx]);
 
 				return;
 			}
@@ -1607,8 +1610,8 @@ static void process_nonplayer(CREATURE_ID m_idx)
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
 	if(is_pet(player_ptr, creature_ptr) &&
-	    (((has_trait(creature_ptr, TRAIT_UNIQUE) || has_trait(creature_ptr, TRAIT_NAZGUL)) &&
-	      creature_has_hostile_align(creature_ptr, player_ptr)) || (has_trait(creature_ptr, TRAIT_RES_ALL))))
+	(((has_trait(creature_ptr, TRAIT_UNIQUE) || has_trait(creature_ptr, TRAIT_NAZGUL)) &&
+	creature_has_hostile_align(creature_ptr, player_ptr)) || (has_trait(creature_ptr, TRAIT_RES_ALL))))
 	{
 		gets_angry = TRUE;
 	}
@@ -1637,11 +1640,11 @@ static void process_nonplayer(CREATURE_ID m_idx)
 		/* Give priority to counter attack? */
 		if(creature_ptr->target_y)
 		{
-			int t_m_idx = floor_ptr->cave[creature_ptr->target_y][creature_ptr->target_x].creature_idx;
+			int t_creature_idx = floor_ptr->cave[creature_ptr->target_y][creature_ptr->target_x].creature_idx;
 
 			/* The creature must be an enemy, and projectable */
-			if(t_m_idx &&
-			    are_mutual_enemies(creature_ptr, &creature_list[t_m_idx]) &&
+			if(t_creature_idx &&
+			    are_mutual_enemies(creature_ptr, &creature_list[t_creature_idx]) &&
 			    projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, creature_ptr->target_y, creature_ptr->target_x))
 			{
 				counterattack = TRUE;
@@ -1734,7 +1737,7 @@ static void process_nonplayer(CREATURE_ID m_idx)
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 
 		/* Look for an enemy */
-		if(!get_enemy_dir(player_ptr, m_idx, mm))
+		if(!get_enemy_dir(player_ptr, creature_idx, mm))
 		{
 			/* Find the player if necessary */
 			if(avoid || lonely || distant)
@@ -1746,7 +1749,7 @@ static void process_nonplayer(CREATURE_ID m_idx)
 				if(player_ptr->pet_follow_distance > PET_SEEK_DIST) player_ptr->pet_follow_distance = PET_SEEK_DIST;
 
 				/* Find the player */
-				(void)get_moves(m_idx, player_ptr, mm);
+				(void)get_moves(creature_idx, player_ptr, mm);
 
 				/* Restore the leash */
 				player_ptr->pet_follow_distance = dis;
@@ -1761,13 +1764,13 @@ static void process_nonplayer(CREATURE_ID m_idx)
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 
 		/* Look for an enemy */
-		get_enemy_dir(player_ptr, m_idx, mm);
+		get_enemy_dir(player_ptr, creature_idx, mm);
 	}
 	/* Normal movement */
 	else
 	{
 		/* Logical moves, may do nothing */
-		if(!get_moves(m_idx, player_ptr, mm)) return;
+		if(!get_moves(creature_idx, player_ptr, mm)) return;
 	}
 
 	/* Assume nothing */
@@ -2041,7 +2044,7 @@ static void process_nonplayer(CREATURE_ID m_idx)
 				/*
 				if(!player_ptr->riding || one_in_(2))
 				{
-					(void)make_attack_normal(m_idx);
+					(void)make_attack_normal(creature_idx);
 
 					do_move = FALSE;
 
@@ -2209,14 +2212,14 @@ static void process_nonplayer(CREATURE_ID m_idx)
 				}
 
 				/* Hack -- Update the new location */
-				c_ptr->creature_idx = m_idx;
+				c_ptr->creature_idx = creature_idx;
 
 				/* Move the creature */
 				creature_ptr->fy = ny;
 				creature_ptr->fx = nx;
 
 				/* Update the creature */
-				update_creature_view(player_ptr, m_idx, TRUE);
+				update_creature_view(player_ptr, creature_idx, TRUE);
 				lite_spot(floor_ptr, oy, ox);
 				lite_spot(floor_ptr, ny, nx);
 			}
@@ -2299,7 +2302,7 @@ static void process_nonplayer(CREATURE_ID m_idx)
 						object_ptr->fy = object_ptr->fx = 0;
 
 						/* Memorize creature */
-						object_ptr->held_m_idx = m_idx;
+						object_ptr->held_m_idx = creature_idx;
 					}
 
 					/* Destroy the item if not a pet */
@@ -2388,10 +2391,10 @@ static void process_creature(CREATURE_ID i)
 	hack_m_idx = i; /* Save global index */
 	gamble_arena_limitation();
 
-	//do_creature_mutation(creature_ptr);
-	//do_multiply_creature(creature_ptr);
-	//do_scatting_creature(creature_ptr);
-	//do_creature_riding_control(creature_ptr);
+	do_creature_mutation(creature_ptr);
+	do_multiply_creature(creature_ptr);
+	do_scatting_creature(creature_ptr);
+	do_creature_riding_control(creature_ptr);
 
 	creature_food_digest(creature_ptr); /* food digest */
 	creature_lack_food(creature_ptr); /* Getting Faint from lack food */
@@ -2405,12 +2408,15 @@ static void process_creature(CREATURE_ID i)
 	{
 		do_creature_speaking(creature_ptr);
 		if(has_trait(creature_ptr, TRAIT_QUANTUM)) do_quantum_creature_feature(creature_ptr); // Quantum creatures are odd
+
 		if(is_player(creature_ptr))
-			process_player(creature_ptr); // Process the player
+		{
+			process_player(creature_ptr);
+		}
 		else if(CURRENT_FLOOR_PTR == floor_ptr) 
 		{
-			cost_tactical_energy(creature_ptr, 200); // Take a turn
-			process_nonplayer(i);
+			cost_tactical_energy(creature_ptr, 200);
+			// process_nonplayer(i);
 		}
 	}
 
