@@ -529,7 +529,6 @@ static errr rd_store(store_type *st_ptr)
 static void rd_randomizer(void)
 {
 	int i;
-
 	u16b tmp16u;
 
 	/* Tmp */

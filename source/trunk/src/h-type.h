@@ -53,10 +53,8 @@ typedef void *vptr;
 /* A simple pointer (to unmodifiable strings) */
 typedef const char *cptr;
 
-
 /* Since float's are silly, hard code real numbers as doubles */
 typedef double real;
-
 
 /* Error codes for function return values */
 /* Success = 0, Failure = -N, Problem = +N */
@@ -91,7 +89,6 @@ typedef unsigned char byte;
 
 /* Simple True/False type */
 typedef char bool;
-
 
 /* A signed, standard integer (at least 2 bytes) */
 typedef int sint;

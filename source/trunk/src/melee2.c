@@ -2360,9 +2360,9 @@ static void process_nonplayer(CREATURE_ID m_idx)
 }
 
 
-static void process_creature(int i)
+static void process_creature(CREATURE_ID i)
 {
-	int speed;
+	SPEED speed;
 	creature_type *creature_ptr = &creature_list[i];
 	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -2371,7 +2371,7 @@ static void process_creature(int i)
 
 	if(creature_ptr->cdis >= AAF_LIMIT) return; // Hack -- Require proximity
 
-	// Smell and Noise
+	/* Smell and Noise */
 	if(!player_ptr->no_flowed) creature_ptr->sc_flag2 &= ~SC_FLAG2_NOFLOW;
 	if(is_player(creature_ptr) && creature_ptr->hear_noise && !ignore_unview)
 	{
@@ -2385,19 +2385,22 @@ static void process_creature(int i)
 	creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this creature some energy
 	if(creature_ptr->energy_need > 0) return; // Not enough energy to move
 
-	hack_m_idx = i; // Save global index
+	hack_m_idx = i; /* Save global index */
 	gamble_arena_limitation();
 
-	do_creature_mutation(creature_ptr);
-	do_multiply_creature(creature_ptr);
-	do_scatting_creature(creature_ptr);
-	do_creature_riding_control(creature_ptr);
+	//do_creature_mutation(creature_ptr);
+	//do_multiply_creature(creature_ptr);
+	//do_scatting_creature(creature_ptr);
+	//do_creature_riding_control(creature_ptr);
 
-	creature_food_digest(creature_ptr); // food digest
-	creature_lack_food(creature_ptr); // Getting Faint from lack food
+	creature_food_digest(creature_ptr); /* food digest */
+	creature_lack_food(creature_ptr); /* Getting Faint from lack food */
+
 	/* Paralyzed or Knocked Out */
 	if(has_trait(creature_ptr, TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT) || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
+	{
 		cost_tactical_energy(creature_ptr, 100); // Take a turn
+	}
 	else
 	{
 		do_creature_speaking(creature_ptr);
@@ -2489,13 +2492,12 @@ static void process_creature(int i)
  */
 void process_creatures(void)
 {
-	int i;
+	CREATURE_ID id;
 
 	// Process the creatures (backwards)
-	for (i = creature_max - 1; i >= 1; i--)
+	for (id = creature_max - 1; id >= 1; id--)
 	{
-		process_creature(i);
-
+		process_creature(id);
 		if(!playing || gameover) break; // Hack -- notice death or departure
 		if(subject_change_floor) break; // Notice leaving
 	}

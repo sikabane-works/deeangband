@@ -4469,10 +4469,10 @@ void process_player(creature_type *creature_ptr)
 */
 static void turn_loop(floor_type *floor_ptr)
 {
-	// Main loop
+	/* Main loop */
 	while (TRUE)
 	{
-		// Hack -- Compact and Compress the creature & object list occasionally
+		/* Hack -- Compact and Compress the creature & object list occasionally */
 		/*
 		if((creature_cnt + 32 > max_creature_idx) && !floor_ptr->gamble_arena_mode) compact_creatures(64);
 		if((creature_cnt + 32 < creature_max) && !floor_ptr->gamble_arena_mode) compact_creatures(0);
