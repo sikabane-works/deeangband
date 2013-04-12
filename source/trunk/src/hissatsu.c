@@ -436,7 +436,7 @@ msg_print("V‚µ‚¢•KŽE‹Z‚ðŠo‚¦‚é‚±‚Æ‚Í‚Å‚«‚È‚¢I");
 			/* Stop at the first empty space */
 			if(creature_ptr->spell_order[j] == 99) break;
 		}
-		creature_ptr->spell_order[j] = (byte_hack)i;
+		creature_ptr->spell_order[j] = (byte)i;
 		gain = TRUE;
 	}
 

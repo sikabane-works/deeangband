@@ -421,8 +421,8 @@ static bool find_space(floor_type *floor_ptr, COODINATES *y, COODINATES *x, COOD
 	/* Save the room location */
 	if(dungeon_ptr->cent_n < CENT_MAX)
 	{
-		dungeon_ptr->cent[dungeon_ptr->cent_n].y = (byte_hack)*y;
-		dungeon_ptr->cent[dungeon_ptr->cent_n].x = (byte_hack)*x;
+		dungeon_ptr->cent[dungeon_ptr->cent_n].y = (byte)*y;
+		dungeon_ptr->cent[dungeon_ptr->cent_n].x = (byte)*x;
 		dungeon_ptr->cent_n++;
 	}
 

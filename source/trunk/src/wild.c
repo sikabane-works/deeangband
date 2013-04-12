@@ -750,7 +750,7 @@ errr parse_line_wilderness(char *buf, COODINATES ymin, COODINATES xmin, COODINAT
 	for (i = 1; i < max_dungeon_idx; i++)
 	{
 		if(!dungeon_info[i].maxdepth) continue;
-		wilderness[dungeon_info[i].dy][dungeon_info[i].dx].entrance = (byte_hack)i;
+		wilderness[dungeon_info[i].dy][dungeon_info[i].dx].entrance = (byte)i;
 		if(!wilderness[dungeon_info[i].dy][dungeon_info[i].dx].town)
 			wilderness[dungeon_info[i].dy][dungeon_info[i].dx].level = dungeon_info[i].mindepth;
 	}

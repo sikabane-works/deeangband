@@ -494,7 +494,7 @@ struct artifact_type
 
 	FLOOR_ID floor_idx;          /* Leaved on this location last time */
 
-	s16b fuel;
+	GAME_TIME fuel;
 	s16b ap_rate;		// AP rate
 
 	s16b charge_const;

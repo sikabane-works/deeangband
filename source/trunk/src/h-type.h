@@ -76,12 +76,6 @@ typedef int errr;
 #define huge huge_hack
 
 /*
- * Hack -- prevent problems with AMIGA
- */
-#undef byte
-#define byte byte_hack
-
-/*
  * Hack -- prevent problems with C++
  */
 #undef bool

@@ -4729,7 +4729,7 @@ static void drain_essence(creature_type *creature_ptr)
 	u32b old_flgs[MAX_TRAITS_FLAG], new_flgs[MAX_TRAITS_FLAG];
 	object_type *object_ptr;
 	COODINATES iy, ix;
-	byte_hack marked;
+	byte marked;
 	QUANTITY number;
 	OBJECT_ID next_object_idx;
 	WEIGHT weight;

@@ -1465,7 +1465,7 @@ static errr init_object_alloc(void)
 			/* Count the "legal" entries */
 			if(object_kind_ptr->chance[j])
 			{
-				byte_hack p;
+				byte p;
 				FLOOR_LEV x;
 				int y, z;
 
@@ -1473,7 +1473,7 @@ static errr init_object_alloc(void)
 				x = object_kind_ptr->locale[j];
 
 				/* Extract the base probability */
-				p = (byte_hack)(100 / object_kind_ptr->chance[j]);
+				p = (byte)(100 / object_kind_ptr->chance[j]);
 
 				/* Skip entries preceding our locale */
 				y = (x > 0) ? num[x-1] : 0;

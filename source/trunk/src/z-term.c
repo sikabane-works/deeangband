@@ -2059,7 +2059,7 @@ errr Term_erase(int x, int y, int n)
 			n++;
 #endif
 		/* Save the "literal" information */
-		scr_aa[x] = (byte_hack)na;
+		scr_aa[x] = (byte)na;
 		scr_cc[x] = (char)nc;
 
 		scr_taa[x] = 0;

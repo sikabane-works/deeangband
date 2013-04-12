@@ -1529,8 +1529,8 @@ static void target_set_prepare(creature_type *creature_ptr, int mode)
 			if((mode & (TARGET_KILL)) && !target_pet && is_pet(creature_ptr, &creature_list[c_ptr->creature_idx])) continue;
 
 			// Save the location
-			temp_x[temp_n] = (byte_hack)x;
-			temp_y[temp_n] = (byte_hack)y;
+			temp_x[temp_n] = (byte)x;
+			temp_y[temp_n] = (byte)y;
 			temp_n++;
 		}
 	}
@@ -3250,8 +3250,8 @@ static void tgt_pt_prepare(creature_type *creature_ptr)
 			if(!tgt_pt_accept(creature_ptr, y, x)) continue;
 
 			// Save the location
-			temp_x[temp_n] = (byte_hack)x;
-			temp_y[temp_n] = (byte_hack)y;
+			temp_x[temp_n] = (byte)x;
+			temp_y[temp_n] = (byte)y;
 			temp_n++;
 		}
 	}

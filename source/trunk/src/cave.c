@@ -649,7 +649,7 @@ static void image_creature(byte *ap, char *cp)
 		       image_creature_hack[randint0(sizeof(image_creature_hack) - 1)]);
 
 		/* Random color */
-		*ap = (byte_hack)randint1(15);
+		*ap = (byte)randint1(15);
 	}
 }
 
@@ -673,7 +673,7 @@ static void image_object(byte *ap, char *cp)
 		*cp = image_object_hack[randint0(n)];
 
 		/* Random color */
-		*ap = (byte_hack)randint1(15);
+		*ap = (byte)randint1(15);
 	}
 }
 
@@ -1264,7 +1264,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 					else if(has_trait(creature_ptr, TRAIT_ATTR_MULTI) && !use_graphics)
 					{
 						/* Multi-hued attr */
-						if(has_trait(creature_ptr, TRAIT_ATTR_ANY)) *ap = (byte_hack)randint1(15);
+						if(has_trait(creature_ptr, TRAIT_ATTR_ANY)) *ap = (byte)randint1(15);
 						else switch (randint1(7))
 						{
 						case 1: *ap = TERM_RED;     break;
@@ -1972,7 +1972,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 			feat_priority = -1;
 
 			/* Extract the current attr/char at that map location */
-			map_info(watcher_ptr, j, i, (byte_hack *)&ta, &tc, (byte_hack *)&ta, &tc); //TODO Fix casting
+			map_info(watcher_ptr, j, i, (byte *)&ta, &tc, (byte *)&ta, &tc); //TODO Fix casting
 
 			/* Extract the priority */
 			tp = feat_priority;
@@ -2066,7 +2066,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 			}
 
 			/* Add the character */
-			Term_add_bigch((byte_hack)ta, tc); //TODO
+			Term_add_bigch((byte)ta, tc); //TODO
 		}
 	}
 

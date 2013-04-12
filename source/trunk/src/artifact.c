@@ -1778,7 +1778,7 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, ARTIF
 	object_prep(quest_ptr, i);
 
 	/* Save the name */
-	quest_ptr->name1 = (byte_hack)a_idx;
+	quest_ptr->name1 = (byte)a_idx;
 
 	/* Extract the fields */
 	quest_ptr->pval = a_ptr->pval;

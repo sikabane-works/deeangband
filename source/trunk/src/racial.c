@@ -241,7 +241,7 @@ bool gain_magic(creature_type *creature_ptr)
 				gain_num = (gain_num/3 + randint0(gain_num/3)) / 256;
 				if(gain_num < 1) gain_num = 1;
 			}
-			creature_ptr->max_charge[object_ptr->sval + ext] += (byte_hack)gain_num;
+			creature_ptr->max_charge[object_ptr->sval + ext] += (byte)gain_num;
 			if(creature_ptr->max_charge[object_ptr->sval + ext] > 99) creature_ptr->max_charge[object_ptr->sval + ext] = 99;
 			creature_ptr->current_charge[object_ptr->sval + ext] += pval * 0x10000;
 			if(creature_ptr->current_charge[object_ptr->sval + ext] > 99 * 0x10000) creature_ptr->current_charge[object_ptr->sval + ext] = 99 * 0x10000;

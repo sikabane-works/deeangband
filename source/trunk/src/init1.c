@@ -1701,7 +1701,7 @@ errr parse_feature_info(char *buf, header *head)
 			if(1 == sscanf(s, "SUBTYPE_%d", &i))
 			{
 				/* Extract a "subtype" */
-				f_ptr->subtype = (byte_hack)i;
+				f_ptr->subtype = (byte)i;
 
 				/* Start at next entry */
 				s = t;
@@ -1713,7 +1713,7 @@ errr parse_feature_info(char *buf, header *head)
 			if(1 == sscanf(s, "POWER_%d", &i))
 			{
 				/* Extract a "power" */
-				f_ptr->power = (byte_hack)i;
+				f_ptr->power = (byte)i;
 
 				/* Start at next entry */
 				s = t;
@@ -2262,7 +2262,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 					object_kind_ptr->chance[j] = 1;
 
 						/* Store the attack damage index */
-					object_kind_ptr->locale[j] = (byte_hack)strtol(s+1, NULL, 10);
+					object_kind_ptr->locale[j] = (byte)strtol(s+1, NULL, 10);
 
 						/* Find the slash */
 					t = my_strchr(s+1, '/');
@@ -6804,7 +6804,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				quest_ptr->k_idx = (OBJECT_KIND_ID)strtol(zz[8], NULL, 10);
 				quest_ptr->dungeon = (DUNGEON_ID)strtol(zz[9], NULL, 10);
 
-				if(num > 10) quest_ptr->flags = (byte_hack)strtol(zz[10], NULL, 10);
+				if(num > 10) quest_ptr->flags = (byte)strtol(zz[10], NULL, 10);
 
 				species_ptr = &species_info[quest_ptr->species_idx];
 				//if(has_trait_species(species_ptr, TRAIT_UNIQUE))

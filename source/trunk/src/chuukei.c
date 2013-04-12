@@ -949,7 +949,7 @@ static bool flush_ringbuf_client(void)
 			strncpy(&Term->scr->c[y][x], mesg, len);
 			for (i = x; i < x+len; i++)
 			{
-				Term->scr->a[y][i] = (byte_hack)col;
+				Term->scr->a[y][i] = (byte)col;
 			}
 			break;
 
@@ -964,7 +964,7 @@ static bool flush_ringbuf_client(void)
 			strncpy(&Term->scr->c[y][x], mesg, len);
 			for (i = x; i < x+len; i++)
 			{
-				Term->scr->a[y][i] = (byte_hack)col;
+				Term->scr->a[y][i] = (byte)col;
 			}
 			break;
 
@@ -972,7 +972,7 @@ static bool flush_ringbuf_client(void)
 			update_term_size(x, y, 1);
 			(void)((*angband_term[0]->text_hook)(x, y, 1, (byte)col, mesg));
 			strncpy(&Term->scr->c[y][x], mesg, 1);
-			Term->scr->a[y][x] = (byte_hack)col;
+			Term->scr->a[y][x] = (byte)col;
 			break;
 
 		case 'w':
