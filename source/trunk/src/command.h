@@ -88,7 +88,6 @@ extern void do_cmd_study(creature_type *creature_ptr);
 extern void do_cmd_cast(creature_type *creature_ptr);
 extern bool do_thrown_from_riding(creature_type *creature_ptr, POWER dam, bool force);
 extern bool do_riding(creature_type *rider_ptr, bool force);
-extern void check_pets_num_and_align(creature_type *master_ptr, creature_type *m_ptr, bool inc);
 extern void do_cmd_pet_dismiss(creature_type *creature_ptr);
 extern void do_cmd_pet(creature_type *master_ptr);
 

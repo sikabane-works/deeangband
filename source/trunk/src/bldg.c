@@ -14,6 +14,7 @@
 #include "autopick.h"
 #include "command.h"
 #include "diary.h"
+#include "dungeon.h"
 #include "files.h"
 #include "store.h"
 #include "quest.h"

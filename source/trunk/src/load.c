@@ -77,6 +77,70 @@ static u32b	x_check = 0L;
  */
 static byte kanji_code = 0;
 
+static void check_music(creature_type *creature_ptr)
+{
+	magic_type *s_ptr;
+	int spell;
+	s32b need_mana;
+	u32b need_mana_frac;
+
+	/* Music singed by player */
+	if(!creature_ptr->now_singing && !creature_ptr->pre_singing) return;
+
+	if(has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
+	{
+		stop_singing(creature_ptr);
+		return;
+	}
+
+	spell = creature_ptr->singing_turn;
+	s_ptr = &technic_info[REALM_MUSIC - MIN_TECHNIC][spell];
+
+	need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, REALM_MUSIC);
+	need_mana_frac = 0;
+
+	/* Divide by 2 */
+	s64b_RSHIFT(need_mana, need_mana_frac, 1);
+
+	if(s64b_cmp(creature_ptr->csp, creature_ptr->csp_frac, need_mana, need_mana_frac) < 0)
+	{
+		stop_singing(creature_ptr);
+		return;
+	}
+	else
+	{
+		s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), need_mana, need_mana_frac);
+
+		prepare_redraw(PR_MANA);
+		if(creature_ptr->pre_singing)
+		{
+			creature_ptr->now_singing = creature_ptr->pre_singing;
+			creature_ptr->pre_singing = 0;
+#ifdef JP
+			msg_print("‰Ì‚ðÄŠJ‚µ‚½B");
+#else
+			msg_print("You restart singing.");
+#endif
+			creature_ptr->action = ACTION_SING;
+
+			prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
+
+			prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
+
+			// Update creatures
+			prepare_update(creature_ptr, PU_CREATURES);
+
+			prepare_window(PW_OVERHEAD | PW_DUNGEON);
+		}
+	}
+
+	// TODO: gain_skill(creature_ptr, REALM_MUSIC, amount);
+
+	/* Do any effects of continual song */
+	do_spell(creature_ptr, REALM_MUSIC, spell, SPELL_CONT);
+}
+
+
 
 /*
  * Hack -- Show information on the screen, one line at a time.
@@ -648,10 +712,8 @@ static void rd_options(void)
 		}
 	}
 
-
 	/* Extract the options */
 	extract_option_vars();
-
 
 	/*** Window Options ***/
 

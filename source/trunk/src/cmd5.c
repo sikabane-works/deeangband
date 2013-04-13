@@ -971,26 +971,6 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 	return w1 <= w2;
 }
 
-void check_pets_num_and_align(creature_type *master_ptr, creature_type *m_ptr, bool inc)
-{
-	s32b old_friend_align = friend_align;
-	species_type *species_ptr = &species_info[m_ptr->species_idx];
-
-	if(inc)
-	{
-		master_ptr->total_friends++;
-		if(is_enemy_of_evil_creature(m_ptr)) friend_align += species_ptr->level;
-		if(is_enemy_of_good_creature(m_ptr)) friend_align -= species_ptr->level;
-	}
-	else
-	{
-		master_ptr->total_friends--;
-		if(is_enemy_of_evil_creature(m_ptr)) friend_align -= species_ptr->level;
-		if(is_enemy_of_good_creature(m_ptr)) friend_align += species_ptr->level;
-	}
-
-	if(old_friend_align != friend_align) prepare_update(player_ptr, CRU_BONUS);
-}
 void do_cmd_pet_dismiss(creature_type *creature_ptr)
 {
 	creature_type	*m_ptr;

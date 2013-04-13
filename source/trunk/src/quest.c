@@ -185,3 +185,22 @@ QUEST_ID random_quest_number(floor_type *floor_ptr)
 	return 0;
 }
 
+
+void become_winner(creature_type *creature_ptr)
+{
+		creature_ptr->total_winner = TRUE;
+		prepare_redraw(PR_TITLE);
+		// Congratulations
+		write_diary(DIARY_BUNSHOU, 0, MES_DIARY_WINNER);
+		if(creature_ptr->patron_idx != INDEX_NONE)
+		{
+			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
+			msg_print(MES_PATRON_PRAISE_WINNER);
+		}
+		msg_print(MES_WINNER_WON1);
+		msg_print(MES_WINNER_WON2);
+		msg_print(MES_WINNER_WON3);
+
+		// Angband
+		reveal_wilderness(70, 27);
+}

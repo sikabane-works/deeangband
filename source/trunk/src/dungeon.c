@@ -1190,72 +1190,8 @@ static void recharged_notice(object_type *object_ptr)
 	}
 }
 
-
-void check_music(creature_type *creature_ptr)
-{
-	magic_type *s_ptr;
-	int spell;
-	s32b need_mana;
-	u32b need_mana_frac;
-
-	/* Music singed by player */
-	if(!creature_ptr->now_singing && !creature_ptr->pre_singing) return;
-
-	if(has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
-	{
-		stop_singing(creature_ptr);
-		return;
-	}
-
-	spell = creature_ptr->singing_turn;
-	s_ptr = &technic_info[REALM_MUSIC - MIN_TECHNIC][spell];
-
-	need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, REALM_MUSIC);
-	need_mana_frac = 0;
-
-	/* Divide by 2 */
-	s64b_RSHIFT(need_mana, need_mana_frac, 1);
-
-	if(s64b_cmp(creature_ptr->csp, creature_ptr->csp_frac, need_mana, need_mana_frac) < 0)
-	{
-		stop_singing(creature_ptr);
-		return;
-	}
-	else
-	{
-		s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), need_mana, need_mana_frac);
-
-		prepare_redraw(PR_MANA);
-		if(creature_ptr->pre_singing)
-		{
-			creature_ptr->now_singing = creature_ptr->pre_singing;
-			creature_ptr->pre_singing = 0;
-#ifdef JP
-			msg_print("‰Ì‚ðÄŠJ‚µ‚½B");
-#else
-			msg_print("You restart singing.");
-#endif
-			creature_ptr->action = ACTION_SING;
-
-			prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
-
-			prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
-
-			// Update creatures
-			prepare_update(creature_ptr, PU_CREATURES);
-
-			prepare_window(PW_OVERHEAD | PW_DUNGEON);
-		}
-	}
-
-	// TODO: gain_skill(creature_ptr, REALM_MUSIC, amount);
-
-	/* Do any effects of continual song */
-	do_spell(creature_ptr, REALM_MUSIC, spell, SPELL_CONT);
-}
-
-
 /* Choose one of items that have cursed flag */
+
 static object_type *choose_cursed_obj_name(creature_type *creature_ptr, u32b flag)
 {
 	int i;
@@ -5194,21 +5130,3 @@ void world_wipe()
 	generate_world(&floor_list[floor_pop()]);
 }
 
-void become_winner(creature_type *creature_ptr)
-{
-		creature_ptr->total_winner = TRUE;
-		prepare_redraw(PR_TITLE);
-		// Congratulations
-		write_diary(DIARY_BUNSHOU, 0, MES_DIARY_WINNER);
-		if(creature_ptr->patron_idx != INDEX_NONE)
-		{
-			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));
-			msg_print(MES_PATRON_PRAISE_WINNER);
-		}
-		msg_print(MES_WINNER_WON1);
-		msg_print(MES_WINNER_WON2);
-		msg_print(MES_WINNER_WON3);
-
-		// Angband
-		reveal_wilderness(70, 27);
-}
