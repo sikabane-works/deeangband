@@ -1661,20 +1661,26 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 }
 
 
-/*
-* Handle timeout every 10 game turns
-*/
+/* Handle timeout every 10 game turns */
 static void process_world_aux_timeout(creature_type *creature_ptr)
 {
+	/*
 	int i;
 	const int dec_count = 1;
+	*/
 	if(!is_valid_creature(creature_ptr)) return;
 
 	//*** Timeout Various Things ***//
 
+	/* TODO too heavy!
 	for(i = 0; i < MAX_TRAITS; i++)
+	{
 		if(creature_ptr->timed_trait[i] > 0 && creature_ptr->timed_trait[i] < PERMANENT_TIMED)
+		{
 			(void)set_timed_trait(creature_ptr, i, creature_ptr->timed_trait[i] - dec_count, TRUE);
+		}
+	}
+	*/
 
 	// Handle "sleep"
 	if(has_trait(creature_ptr, TRAIT_SLEPT))
@@ -1745,15 +1751,12 @@ static void process_world_aux_light(creature_type *creature_ptr)
 static void process_world_aux_time_trying(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	// char object_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	if(!is_valid_creature(creature_ptr)) return;
 	if(floor_ptr->gamble_arena_mode) return;
 	if(floor_ptr->global_map) return;	// No effect on the global map
 
-	return;
-
-#if 0
 	if(has_trait(creature_ptr, TRAIT_BERS_RAGE) && one_in_(3000))
 	{
 		disturb(player_ptr, 0, 0);
@@ -2187,7 +2190,8 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->wt / 6), COD_TRIPPING, NULL, -1);
 		msg_print(NULL);
 
-		if(i = get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND))
+		i = get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND);
+		if(i > 0)
 		{
 			int j = randint0(i);
 			object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, j);
@@ -2422,11 +2426,9 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Rarely, take damage from the Jewel of Judgement */
 	if(one_in_(999) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
-		object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0);
+		//object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0);
 		//TODO if(object_ptr->name1 == ART_JUDGE)
 	}
-
-#endif
 }
 
 /*
