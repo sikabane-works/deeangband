@@ -11,10 +11,4 @@ extern void check_music(creature_type *creature_ptr);
 extern void pack_overflow(creature_type *creature_ptr);
 extern void become_winner(creature_type *creature_ptr);
 
-#ifdef JP
-extern errr get_rnd_line_jonly(cptr file_name, int entry, char *output, int count);
-#endif
-extern errr counts_write(int where, u32b count);
-extern u32b counts_read(int where);
-extern void dump_yourself(creature_type *creature_ptr, FILE *fff);
 

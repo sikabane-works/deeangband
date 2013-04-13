@@ -12,6 +12,7 @@
  */
 
 #include "angband.h"
+#include "files.h"
 #include "generate.h"
 #include "grid.h"
 #include "rooms.h"
