@@ -10,8 +10,8 @@
 
 /* Purpose: low level dungeon routines -BEN- */
 
-
 #include "angband.h"
+#include "autopick.h"
 
 
 /*

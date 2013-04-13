@@ -11,8 +11,7 @@
 /* Purpose: Interface commands */
 
 #include "angband.h"
-
-
+#include "autopick.h"
 
 /*
  * A set of functions to maintain automatic dumps of various kinds.

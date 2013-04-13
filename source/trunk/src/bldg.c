@@ -11,6 +11,7 @@
 // Changed for D'angband by Deskull
 
 #include "angband.h"
+#include "autopick.h"
 
 // hack as in leave_store in store.c
 static bool leave_bldg = FALSE;

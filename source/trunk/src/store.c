@@ -11,6 +11,7 @@
 // Purpose: Store commands
 
 #include "angband.h"
+#include "autopick.h"
 
 static int store_top = 0;
 static int store_bottom = 0;

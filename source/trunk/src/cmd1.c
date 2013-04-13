@@ -11,6 +11,7 @@
 /* Purpose: Movement commands (part 1) */
 
 #include "angband.h"
+#include "autopick.h"
 
 /*
  * Determine if the player "hits" a creature (normal combat).

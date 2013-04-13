@@ -11,6 +11,7 @@
 /* Purpose: Angband game engine */
 
 #include "angband.h"
+#include "autopick.h"
 
 static void game_mode_detail(int code)
 {

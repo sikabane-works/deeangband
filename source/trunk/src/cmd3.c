@@ -11,8 +11,7 @@
 */
 
 #include "angband.h"
-
-
+#include "autopick.h"
 
 /*
 * Display inventory

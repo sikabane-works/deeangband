@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "artifact.h"
+#include "autopick.h"
 
 
 static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode)

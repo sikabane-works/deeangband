@@ -1681,7 +1681,7 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 	/* Scan the pile of objects */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		int idx;
+		OBJECT_ID idx;
 	
 		/* Acquire object */
 		object_type *object_ptr = &object_list[this_object_idx];

@@ -11,6 +11,7 @@
 /* Purpose: Spell projection */
 
 #include "angband.h"
+#include "autopick.h"
 
 /* ToDo: Make this global */
 

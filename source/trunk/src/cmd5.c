@@ -11,6 +11,7 @@
 /* Purpose: Spell/Prayer commands */
 
 #include "angband.h"
+#include "autopick.h"
 
 cptr spell_category_name(TVAL tval)
 {

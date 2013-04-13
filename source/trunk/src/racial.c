@@ -11,6 +11,7 @@
 /* Purpose: Racial powers (and mutations) */
 
 #include "angband.h"
+#include "autopick.h"
 
 /*
  * Hook to determine if an object is contertible in an arrow/bolt
