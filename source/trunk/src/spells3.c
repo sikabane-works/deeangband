@@ -569,25 +569,25 @@ void teleport_away_followable(creature_type *creature_ptr)
  * Teleport the player one level up or down (random when legal)
  * Note: If m_idx <= 0, target is player.
  */
-void teleport_level(creature_type *creature_ptr, int m_idx)
+void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 {
 	bool go_up;
 	char m_name[160];
 	bool see_m = TRUE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	creature_type *m_ptr = &creature_list[m_idx];
+	creature_type *m_ptr = &creature_list[creature_idx];
 	creature_desc(m_name, m_ptr, 0);
 	see_m = is_seen(creature_ptr, m_ptr);
 
 	// No effect in some case
-	if(TELE_LEVEL_IS_INEFF(floor_ptr, creature_ptr, m_idx))
+	if(TELE_LEVEL_IS_INEFF(floor_ptr, creature_ptr, creature_idx))
 	{
 		if(see_m) msg_print(MES_NO_EFFECT);
 		return;
 	}
 
-	if((m_idx <= 0) && has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT)) /* To player */
+	if((creature_idx <= 0) && has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT)) /* To player */
 	{
 		msg_print(MES_TELEPORT_PREVENTED);
 		return;
@@ -597,17 +597,17 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	if(PERCENT(50)) go_up = TRUE;
 	else go_up = FALSE;
 
-	if((m_idx <= 0) && wizard)
+	if((creature_idx <= 0) && wizard)
 	{
 		if(get_check("Force to go up? ")) go_up = TRUE;
 		else if(get_check("Force to go down? ")) go_up = FALSE;
 	}
 
 	/* Down only */ 
-	if((ironman_downward && (m_idx <= 0)) || (floor_ptr->depth <= dungeon_info[floor_ptr->dungeon_id].mindepth))
+	if((ironman_downward && (creature_idx <= 0)) || (floor_ptr->depth <= dungeon_info[floor_ptr->dungeon_id].mindepth))
 	{
 		if(see_m) msg_format(MES_TELEPORT_LEVEL_DOWN(m_name));
-		if(m_idx <= 0) /* To player */
+		if(creature_idx <= 0) /* To player */
 		{
 			if(!floor_ptr->depth)
 			{
@@ -639,7 +639,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	else if(quest_number(floor_ptr) || (floor_ptr->depth >= dungeon_info[floor_ptr->dungeon_id].maxdepth))
 	{
 		if(see_m) msg_format(MES_TELEPORT_LEVEL_UP(m_name));
-		if(m_idx <= 0) /* To player */
+		if(creature_idx <= 0) /* To player */
 		{
 			if(record_stair) do_cmd_write_diary(DIARY_TELE_LEV, -1, NULL);
 
@@ -657,7 +657,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	else if(go_up)
 	{
 		if(see_m) msg_format(MES_TELEPORT_LEVEL_UP(m_name));
-		if(m_idx <= 0) /* To player */
+		if(creature_idx <= 0) /* To player */
 		{
 			if(record_stair) do_cmd_write_diary(DIARY_TELE_LEV, -1, NULL);
 
@@ -672,7 +672,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	else
 	{
 		if(see_m) msg_format(MES_TELEPORT_LEVEL_DOWN(m_name));
-		if(m_idx <= 0) /* To player */
+		if(creature_idx <= 0) /* To player */
 		{
 			/* Never reach this code on the surface */
 			/* if(!floor_ptr->depth) floor_ptr->dungeon_id = creature_ptr->recall_dungeon; */
@@ -689,9 +689,9 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	}
 
 	/* Creature level teleportation is simple deleting now */
-	if(m_idx > 0)
+	if(creature_idx > 0)
 	{
-		creature_type *m_ptr = &creature_list[m_idx];
+		creature_type *m_ptr = &creature_list[creature_idx];
 
 		/* Check for quest completion */
 		check_quest_completion(creature_ptr, m_ptr);
@@ -704,7 +704,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 			do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_TELE_LEVEL, m2_name);
 		}
 
-		delete_species_idx(&creature_list[m_idx]);
+		delete_species_idx(&creature_list[creature_idx]);
 	}
 
 	sound(SOUND_TPLEVEL);

@@ -4842,10 +4842,10 @@ void scatter(floor_type *floor_ptr, COODINATES *yp, COODINATES *xp, COODINATES y
 /*
  * Track a new creature
  */
-void health_track(int m_idx)
+void health_track(CREATURE_ID creature_idx)
 {
 	/* Track a new guy */
-	npc_status_id = m_idx;
+	npc_status_id = creature_idx;
 
 	prepare_redraw(PR_HEALTH);
 }

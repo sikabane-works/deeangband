@@ -749,10 +749,10 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_DISPEL:
 		{
-			int m_idx;
+			CREATURE_ID creature_idx;
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-			if(!m_idx) break;
+			creature_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+			if(!creature_idx) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
 			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
 			dispel_creature(caster_ptr);

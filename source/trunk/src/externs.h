@@ -655,7 +655,7 @@ extern bool is_explosive_rune_grid(cave_type *c_ptr);
 extern void mmove2(COODINATES *y, COODINATES *x, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
 extern bool projectable(floor_type *floor_ptr, COODINATES range, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
 extern void scatter(floor_type *floor_ptr, COODINATES *yp, COODINATES *xp, COODINATES y, COODINATES x, int d, int mode);
-extern void health_track(int m_idx);
+extern void health_track(CREATURE_ID creature_idx);
 extern void species_type_track(SPECIES_ID species_idx);
 extern void object_kind_track(OBJECT_KIND_ID k_idx);
 extern void disturb(creature_type *player_ptr, int stop_search, int flush_output);
@@ -1051,7 +1051,7 @@ extern void creature_desc_ego_post(char *desc, creature_type *creature_ptr, spec
 extern int lore_do_probe(SPECIES_ID species_idx);
 extern void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr);
 extern void sanity_blast_aux(creature_type *watcher_ptr, POWER power);
-extern void update_creature_view(creature_type *creature_ptr, int m_idx, bool full);
+extern void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx, bool full);
 extern void update_creatures(bool full);
 extern bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, FLAGS_32 mode);
 extern bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
@@ -1174,7 +1174,7 @@ extern bool binding_field(creature_type *caster_ptr, COODINATES range, POWER dam
 extern void seal_of_mirror(creature_type *caster_ptr, POWER dam);
 
 // spells2.c
-extern void message_pain(int m_idx, POWER dam);
+extern void message_pain(CREATURE_ID creature_idx, POWER dam);
 extern void creature_knowledge(creature_type *creature_ptr);
 extern bool detect_traps(creature_type *creature_ptr, COODINATES range, bool known);
 extern bool detect_doors(creature_type *creature_ptr, COODINATES range);
@@ -1193,7 +1193,7 @@ extern bool detect_creatures_mind(creature_type *creature_ptr, COODINATES range)
 extern bool detect_all(creature_type *creature_ptr, COODINATES range);
 extern bool wall_stone(creature_type *caster_ptr);
 extern void aggravate_creatures(creature_type *target_ptr);
-extern bool genocide_aux(creature_type *user_ptr, int m_idx, POWER power, bool player_cast, POWER dam_side, cptr spell_name);
+extern bool genocide_aux(creature_type *user_ptr, CREATURE_ID creature_idx, POWER power, bool player_cast, POWER dam_side, cptr spell_name);
 extern bool symbol_genocide(creature_type *caster_ptr, POWER power, bool player_cast);
 extern bool mass_genocide(creature_type *caster_ptr, POWER power, bool player_cast);
 extern bool mass_genocide_undead(creature_type *caster_ptr, POWER power, bool player_cast);
@@ -1237,7 +1237,7 @@ extern void teleport_creature(creature_type *creature_ptr, COODINATES dis, FLAGS
 extern void teleport_player_away(creature_type *creature_ptr, COODINATES dis);
 extern void teleport_creature_to(creature_type *caster_ptr, COODINATES ny, COODINATES nx, FLAGS_32 mode);
 extern void teleport_away_followable(creature_type *creature_ptr);
-extern void teleport_level(creature_type *creature_ptr, int m_idx);
+extern void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx);
 extern int choose_dungeon(cptr note, int y, int x);
 extern bool word_of_recall(creature_type *creature_ptr, int turns);
 extern bool reset_recall(creature_type *creature_ptr);

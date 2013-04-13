@@ -2711,9 +2711,9 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 
 
 // Count number of adjacent creatures
-static int get_creature_crowd_number(int m_idx)
+static int get_creature_crowd_number(CREATURE_ID creature_idx)
 {
-	creature_type *m_ptr = &creature_list[m_idx];
+	creature_type *m_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 	int my = m_ptr->fy;
 	int mx = m_ptr->fx;

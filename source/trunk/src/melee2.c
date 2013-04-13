@@ -192,9 +192,9 @@ static bool get_enemy_dir(creature_type *creature_ptr, CREATURE_ID m_idx, int *m
  * Note that this function is responsible for about one to five percent
  * of the processor use in normal conditions...
  */
-static bool mon_will_run(creature_type *creature_ptr, int m_idx)
+static bool mon_will_run(creature_type *creature_ptr, CREATURE_ID creature_idx)
 {
-	creature_type *m_ptr = &creature_list[m_idx];
+	creature_type *m_ptr = &creature_list[creature_idx];
 
 	species_type *species_ptr = &species_info[m_ptr->species_idx];
 
@@ -224,7 +224,7 @@ static bool mon_will_run(creature_type *creature_ptr, int m_idx)
 	p_lev = creature_ptr->lev;
 
 	/* Examine creature power (level plus morale) */
-	m_lev = species_ptr->level + (m_idx & 0x08) + 25;
+	m_lev = species_ptr->level + (creature_idx & 0x08) + 25;
 
 	/* Optimize extreme cases below */
 	if(m_lev > p_lev + 4) return FALSE;

@@ -1156,10 +1156,10 @@ void aggravate_creatures(creature_type *target_ptr)
 
 
 // Delete a non-unique/non-quest creature
-bool genocide_aux(creature_type *user_ptr, int m_idx, POWER power, bool player_cast, POWER dam_side, cptr spell_name)
+bool genocide_aux(creature_type *user_ptr, CREATURE_ID creature_idx, POWER power, bool player_cast, POWER dam_side, cptr spell_name)
 {
 	int          msec = delay_factor * delay_factor * delay_factor;
-	creature_type *target_ptr = &creature_list[m_idx];
+	creature_type *target_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	bool         resist = FALSE;
 	char target_name[MAX_NLEN];
@@ -1169,7 +1169,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, POWER power, bool player_c
 	// Hack -- Skip Unique Creatures or Quest Creatures
 	if((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE)) resist = TRUE;
 	else if(has_trait(target_ptr, TRAIT_UNIQUE2)) resist = TRUE;
-	else if(m_idx == user_ptr->riding) resist = TRUE;
+	else if(creature_idx == user_ptr->riding) resist = TRUE;
 	else if((floor_ptr->quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) resist = TRUE;
 	else if(player_cast && (target_ptr->lev * 2 > randint0(power))) resist = TRUE;
 	else if(player_cast && has_trait(target_ptr, TRAIT_NO_GENOCIDE)) resist = TRUE;
@@ -1183,7 +1183,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, POWER power, bool player_c
 			do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
 		}
 
-		delete_species_idx(&creature_list[m_idx]);
+		delete_species_idx(&creature_list[creature_idx]);
 	}
 
 	if(resist && player_cast)

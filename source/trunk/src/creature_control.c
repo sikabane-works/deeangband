@@ -2245,9 +2245,9 @@ void sanity_blast_aux(creature_type *watcher_ptr, POWER power)
 * way).  Note that "moves" includes "appears" and "disappears".
 */
 //TODO  Marge to set_creature_bonuses
-void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
+void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx, bool full)
 {
-	creature_type *target_ptr = &creature_list[m_idx];
+	creature_type *target_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 
 	bool do_disturb = disturb_move;
@@ -2339,7 +2339,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 				else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
 				{
 					/* One in ten individuals are detectable */
-					if((m_idx % 10) == 5)
+					if((creature_idx % 10) == 5)
 					{
 						/* Detectable */
 						flag = TRUE;
@@ -2535,8 +2535,8 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 			lite_spot(floor_ptr, fy, fx);
 
 			/* Update health bar as needed */
-			if(npc_status_id == m_idx) prepare_redraw(PR_HEALTH);
-			if(creature_ptr->riding == m_idx) prepare_redraw(PR_UHEALTH);
+			if(npc_status_id == creature_idx) prepare_redraw(PR_HEALTH);
+			if(creature_ptr->riding == creature_idx) prepare_redraw(PR_UHEALTH);
 
 			/* Hack -- Count "fresh" sightings */
 			if(!has_trait(creature_ptr, TRAIT_HALLUCINATION))
@@ -2572,8 +2572,8 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 			lite_spot(floor_ptr, fy, fx);
 
 			/* Update health bar as needed */
-			if(npc_status_id == m_idx) prepare_redraw(PR_HEALTH);
-			if(creature_ptr->riding == m_idx) prepare_redraw(PR_UHEALTH);
+			if(npc_status_id == creature_idx) prepare_redraw(PR_HEALTH);
+			if(creature_ptr->riding == creature_idx) prepare_redraw(PR_UHEALTH);
 
 			/* Disturb on disappearance */
 			if(do_disturb)
@@ -4064,11 +4064,11 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, FLAGS_32 mode)
 
 // Dump a message describing a creature's reaction to damage
 // Technically should attempt to treat "Beholder"'s as jelly's
-void message_pain(int m_idx, POWER dam)
+void message_pain(CREATURE_ID creature_idx, POWER dam)
 {
 	long oldhp, newhp, tmp;
 	int percentage;
-	creature_type *creature_ptr = &creature_list[m_idx];
+	creature_type *creature_ptr = &creature_list[creature_idx];
 	char creature_name[MAX_NLEN];
 
 	creature_desc(creature_name, creature_ptr, 0); // Get the creature name

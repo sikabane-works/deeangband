@@ -992,18 +992,18 @@ void check_pets_num_and_align(creature_type *master_ptr, creature_type *m_ptr, b
 int calculate_upkeep_servant(creature_type *master_ptr)
 {
 	s32b old_friend_align = friend_align;
-	int m_idx;
+	CREATURE_ID creature_idx;
 	bool have_a_unique = FALSE;
 	s32b total_friend_levels = 0;
 
 	master_ptr->total_friends = 0;
 	friend_align = 0;
 
-	for (m_idx = creature_max - 1; m_idx >=1; m_idx--)
+	for (creature_idx = creature_max - 1; creature_idx >=1; creature_idx--)
 	{
 		creature_type *pet_ptr;
 
-		pet_ptr = &creature_list[m_idx];
+		pet_ptr = &creature_list[creature_idx];
 		if(!pet_ptr->species_idx) continue;
 
 		if(is_pet(player_ptr, pet_ptr))
@@ -1013,7 +1013,7 @@ int calculate_upkeep_servant(creature_type *master_ptr)
 			{
 				if(master_ptr->class_idx == CLASS_CAVALRY)
 				{
-					if(master_ptr->riding == m_idx)
+					if(master_ptr->riding == creature_idx)
 						total_friend_levels += (pet_ptr->lev+5)*2;
 					else if(!have_a_unique && has_trait(pet_ptr, TRAIT_RIDING))
 						total_friend_levels += (pet_ptr->lev+5)*7/2;

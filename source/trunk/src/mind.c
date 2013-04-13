@@ -985,8 +985,8 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 				int i;
 				COODINATES ty = y, tx = x;
 				COODINATES oy = y, ox = x;
-				CREATURE_ID m_idx = floor_ptr->cave[y][x].creature_idx;
-				creature_type *m_ptr = &creature_list[m_idx];
+				CREATURE_ID creature_idx = floor_ptr->cave[y][x].creature_idx;
+				creature_type *m_ptr = &creature_list[creature_idx];
 				species_type *species_ptr = &species_info[m_ptr->species_idx];
 				char m_name[MAX_NLEN];
 
@@ -1017,11 +1017,11 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 					{
 						msg_format(MES_BLOE_AWAY, m_name);
 						floor_ptr->cave[oy][ox].creature_idx = 0;
-						floor_ptr->cave[ty][tx].creature_idx = m_idx;
+						floor_ptr->cave[ty][tx].creature_idx = creature_idx;
 						m_ptr->fy = ty;
 						m_ptr->fx = tx;
 
-						update_creature_view(player_ptr, m_idx, TRUE);
+						update_creature_view(player_ptr, creature_idx, TRUE);
 						lite_spot(floor_ptr, oy, ox);
 						lite_spot(floor_ptr, ty, tx);
 
@@ -1037,11 +1037,11 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 9:
 		{
-			int m_idx;
+			CREATURE_ID creature_idx;
 
 			if(!target_set(creature_ptr, 0, TARGET_KILL)) return FALSE;
-			m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-			if(!m_idx) break;
+			creature_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+			if(!creature_idx) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
 			if(!projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
 			dispel_creature(creature_ptr);
@@ -1465,7 +1465,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 	case 12:
 		{
 			creature_type *m_ptr;
-			int m_idx;
+			CREATURE_ID creature_idx;
 			char m_name[MAX_NLEN];
 			int i;
 			int path_n;
@@ -1473,12 +1473,12 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			COODINATES ty, tx;
 
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-			if(!m_idx) break;
-			if(m_idx == caster_ptr->riding) break;
+			creature_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+			if(!creature_idx) break;
+			if(creature_idx == caster_ptr->riding) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
 			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-			m_ptr = &creature_list[m_idx];
+			m_ptr = &creature_list[creature_idx];
 			creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 			msg_format("%s‚ğˆø‚«–ß‚µ‚½B", m_name);
@@ -1505,7 +1505,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			floor_ptr->cave[target_row][target_col].creature_idx = 0;
 
 			/* Update the new location */
-			floor_ptr->cave[ty][tx].creature_idx = m_idx;
+			floor_ptr->cave[ty][tx].creature_idx = creature_idx;
 
 			/* Move the creature */
 			m_ptr->fy = ty;
@@ -1515,7 +1515,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0, TRUE);
 
 			/* Update the creature (new location) */
-			update_creature_view(player_ptr, m_idx, TRUE);
+			update_creature_view(player_ptr, creature_idx, TRUE);
 			lite_spot(floor_ptr, target_row, target_col);
 			lite_spot(floor_ptr, ty, tx);
 
@@ -1528,7 +1528,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 				if(!has_trait(caster_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
 
 				/* Track a new creature */
-				health_track(m_idx);
+				health_track(creature_idx);
 			}
 
 			break;

@@ -2548,7 +2548,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					if(creature_ptr->snipe_type == SP_RUSH)
 					{
 						int n = randint1(5) + 3;
-						int m_idx = c_ptr->creature_idx;
+						CREATURE_ID creature_idx = c_ptr->creature_idx;
 
 						for ( ; cur_dis <= tdis; )
 						{
@@ -2569,7 +2569,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 							/* Stopped by creatures */
 							if(!cave_empty_bold(floor_ptr, ny, nx)) break;
 
-							floor_ptr->cave[ny][nx].creature_idx = m_idx;
+							floor_ptr->cave[ny][nx].creature_idx = creature_idx;
 							floor_ptr->cave[oy][ox].creature_idx = 0;
 
 							steed_ptr->fx = nx;
@@ -2611,7 +2611,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 	if(stick_to)
 	{
-		int m_idx = floor_ptr->cave[y][x].creature_idx;
+		CREATURE_ID creature_idx = floor_ptr->cave[y][x].creature_idx;
 		OBJECT_ID object_idx = object_pop();
 
 		if(!object_idx)
@@ -2638,7 +2638,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		object_ptr->fy = object_ptr->fx = 0;
 
 		/* Memorize creature */
-		object_ptr->held_m_idx = m_idx;
+		object_ptr->held_m_idx = creature_idx;
 
 		/* Build a stack */
 		//TODO
