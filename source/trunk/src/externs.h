@@ -1294,6 +1294,7 @@ extern void show_highclass(creature_type *creature_ptr);
 
 // mind.c
 extern mind_power mind_powers[5];
+extern bool psychometry(creature_type *creature_ptr);
 extern void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, POWER power);
 extern void do_cmd_mind(creature_type *creature_ptr);
 extern void do_cmd_mind_browse(creature_type *creature_ptr);

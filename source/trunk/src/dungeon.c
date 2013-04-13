@@ -113,7 +113,7 @@ static void object_kind_info_reset(void)
 * Return a "feeling" (or NULL) about an item.  Method 1 (Heavy).
 */
 //TODO
-static byte value_check_aux1(creature_type *creature_ptr, object_type *object_ptr)
+byte value_check_aux1(creature_type *creature_ptr, object_type *object_ptr)
 {
 	if(!is_valid_creature(creature_ptr)) return FALSE;
 	if(!is_valid_object(object_ptr)) return FALSE;
@@ -160,7 +160,7 @@ static byte value_check_aux1(creature_type *creature_ptr, object_type *object_pt
 /*
 * Return a "feeling" (or NULL) about an item.  Method 2 (Light).
 */
-static byte value_check_aux2(creature_type *creature_ptr, object_type *object_ptr)
+byte value_check_aux2(creature_type *creature_ptr, object_type *object_ptr)
 {
 	if(!is_valid_creature(creature_ptr)) return FALSE;
 	if(!is_valid_object(object_ptr)) return FALSE;
@@ -1026,129 +1026,9 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 }
 
 /*
-* Forcibly pseudo-identify an object in the inventory
-* (or on the floor)
-*
-* note: currently this function allows pseudo-id of any object,
-* including silly ones like potions & scrolls, which always
-* get '{average}'. This should be changed, either to stop such
-* items from being pseudo-id'd, or to allow psychometry to
-* detect whether the unidentified potion/scroll/etc is
-* good (Cure Light Wounds, Restore Strength, etc) or
-* bad (Poison, Weakness etc) or 'useless' (Slime Mold Juice, etc).
-*/
-bool psychometry(creature_type *creature_ptr)
-{
-	OBJECT_ID item;
-	object_type     *object_ptr;
-	char            object_name[MAX_NLEN];
-	byte            feel;
-	cptr            q, s;
-	bool okay = FALSE;
-
-#ifdef JP
-	q = "どのアイテムを調べますか？";
-	s = "調べるアイテムがありません。";
-#else
-	q = "Meditate on which item? ";
-	s = "You have nothing appropriate.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return FALSE;
-	object_ptr = GET_ITEM(creature_ptr, item);
-
-	/* It is fully known, no information needed */
-	if(object_is_known(object_ptr))
-	{
-#ifdef JP
-		msg_print("何も新しいことは判らなかった。");
-#else
-		msg_print("You cannot find out anything more about that.");
-#endif
-
-		return TRUE;
-	}
-
-	/* Check for a feeling */
-	feel = value_check_aux1(creature_ptr, object_ptr);
-
-	/* Get an object description */
-	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-
-	/* Skip non-feelings */
-	if(!feel)
-	{
-#ifdef JP
-		msg_format("%sからは特に変わった事は感じとれなかった。", object_name);
-#else
-		msg_format("You do not perceive anything unusual about the %s.", object_name);
-#endif
-
-		return TRUE;
-	}
-
-#ifdef JP
-	msg_format("%sは%sという感じがする...", object_name, game_inscriptions[feel]);
-#else
-	msg_format("You feel that the %s %s %s...", object_name, ((object_ptr->number == 1) ? "is" : "are"), game_inscriptions[feel]);
-#endif
-
-
-	/* We have "felt" it */
-	object_ptr->ident |= (IDENT_SENSE);
-
-	/* "Inscribe" it */
-	object_ptr->feeling = feel;
-
-	/* Player touches it */
-	object_ptr->marked |= OM_TOUCHED;
-
-	/* Combine / Reorder the pack (later) */
-	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-
-	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
-
-	/* Valid "tval" codes */
-	switch (object_ptr->tval)
-	{
-	case TV_SHOT:
-	case TV_ARROW:
-	case TV_BOLT:
-	case TV_BOW:
-	case TV_DIGGING:
-	case TV_HAFTED:
-	case TV_POLEARM:
-	case TV_SWORD:
-	case TV_BOOTS:
-	case TV_GLOVES:
-	case TV_HELM:
-	case TV_CROWN:
-	case TV_SHIELD:
-	case TV_CLOAK:
-	case TV_SOFT_ARMOR:
-	case TV_HARD_ARMOR:
-	case TV_DRAG_ARMOR:
-	case TV_CARD:
-	case TV_RING:
-	case TV_AMULET:
-	case TV_LITE:
-	case TV_FIGURINE:
-		okay = TRUE;
-		break;
-	}
-
-	/* Auto-inscription/destroy */
-	autopick_alter_item(creature_ptr, item, (bool)(okay && destroy_feeling));
-
-	/* Something happened */
-	return TRUE;
-}
-
-
-/*
-* If player has inscribed the object with "!!", let him know when it's
-* recharged. -LM-
-*/
+ * If player has inscribed the object with "!!", let him know when it's
+ * recharged. -LM-
+ */
 static void recharged_notice(object_type *object_ptr)
 {
 	char object_name[MAX_NLEN];
