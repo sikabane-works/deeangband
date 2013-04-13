@@ -524,8 +524,8 @@ static void sense_inventory1(creature_type *creature_ptr)
 
 static void sense_inventory2(creature_type *creature_ptr)
 {
-	int         i;
-	int         lev_bonus = creature_ptr->lev;
+	int i;
+	int lev_bonus = creature_ptr->lev;
 	object_type *object_ptr;
 
 
@@ -3146,12 +3146,14 @@ static void process_world(void)
 	for(i = 0; i < creature_max; i++)
 	{
 		creature_ptr = &creature_list[i];
-
-		process_world_aux_timeout(creature_ptr);		// Process timeout
-		process_world_aux_light(creature_ptr);			// Process light
-		process_world_aux_time_trying(creature_ptr);	// Process time trying
-		process_world_aux_recharge(creature_ptr);		// Process recharging
-		process_world_aux_hp_and_sp(creature_ptr);		// Process timed damage and regeneration
+		if(is_valid_creature(creature_ptr))
+		{
+			process_world_aux_timeout(creature_ptr);
+			process_world_aux_light(creature_ptr);
+			process_world_aux_time_trying(creature_ptr);
+			process_world_aux_recharge(creature_ptr);
+			process_world_aux_hp_and_sp(creature_ptr);
+		}
 	}
 
 	/* Feel the inventory */
