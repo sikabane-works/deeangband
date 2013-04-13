@@ -3844,7 +3844,7 @@ static void process_player_command(creature_type *creature_ptr)
 	case '%':
 		{
 			do_cmd_visuals();
-			do_cmd_redraw();
+			redraw();
 			break;
 		}
 
@@ -3852,7 +3852,7 @@ static void process_player_command(creature_type *creature_ptr)
 	case '&':
 		{
 			do_cmd_colors();
-			do_cmd_redraw();
+			redraw();
 			break;
 		}
 
@@ -3861,7 +3861,7 @@ static void process_player_command(creature_type *creature_ptr)
 		{
 			do_cmd_options();
 			//TODO (void)combine_and_reorder_home(st_ptr, STORE_HOME);
-			do_cmd_redraw();
+			redraw();
 			break;
 		}
 
@@ -3909,7 +3909,7 @@ static void process_player_command(creature_type *creature_ptr)
 	case KTRL('R'):
 		{
 			now_message = old_now_message;
-			do_cmd_redraw();
+			redraw();
 			break;
 		}
 

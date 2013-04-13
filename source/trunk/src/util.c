@@ -5407,5 +5407,60 @@ int get_multi_selection(selection_info *si_ptr, selection_table *se_ptr, int num
 
 }
 
+/*
+ * Hack -- redraw the screen
+ *
+ * This command performs various low level updates, clears all the "extra"
+ * windows, does a total redraw of the main window, and requests all of the
+ * interesting updates and redraws that I can think of.
+ *
+ * This command is also used to "instantiate" the results of the user
+ * selecting various things, such as graphics mode, so it must call
+ * the "TERM_XTRA_REACT" hook before redrawing the windows.
+ */
+void redraw(void)
+{
+	int j;
+
+	term *old = Term;
+
+	/* Hack -- react to changes */
+	Term_xtra(TERM_XTRA_REACT, 0);
+
+	/*
+	// Combine and Reorder the pack (later)
+	prepare_update(player_ptr, CRU_COMBINE | CRU_REORDER);
+	prepare_update(player_ptr, CRU_TORCH);
+	prepare_update(player_ptr, CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	*/
+
+	// lite/view
+	prepare_update(player_ptr, PU_UN_VIEW | PU_UN_LITE);
+	prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE);
+
+	// Update creatures
+	prepare_update(player_ptr, PU_CREATURES);
+	prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
+	prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
+	prepare_window(PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
+
+	update_play_time();
+	handle_stuff(player_ptr);
+
+	/*
+	if(has_trait(player_ptr, TRAIT_ANDROID)) calc_android_exp(player_ptr);
+	*/
+
+	for (j = 0; j < 8; j++)
+	{
+		/* Dead window */
+		if(!angband_term[j]) continue;
+
+		Term_activate(angband_term[j]);
+		Term_redraw();
+		Term_fresh();
+		Term_activate(old);
+	}
+}
 
 

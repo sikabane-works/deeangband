@@ -1217,6 +1217,7 @@ extern char *my_strstr(const char *haystack, const char *needle);
 extern char *my_strchr(const char *ptr, char ch);
 extern void str_tolower(char *str);
 extern int inkey_special(bool numpad_cursor);
+extern void redraw(void);
 
 
 // xtra1.c

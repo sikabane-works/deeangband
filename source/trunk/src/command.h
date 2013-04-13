@@ -56,7 +56,6 @@ extern void ang_sort_swap_hook(vptr u, vptr v, int a, int b);
 extern cptr get_ordinal_number_suffix(int num);
 #endif
 extern void do_cmd_diary(void);
-extern void do_cmd_redraw(void);
 extern void do_cmd_change_name(creature_type *creature_ptr);
 extern void do_cmd_message_one(void);
 extern void do_cmd_messages(int num_now);

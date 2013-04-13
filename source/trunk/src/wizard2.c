@@ -370,7 +370,7 @@ static void do_cmd_wiz_change(creature_type *creature_ptr)
 	/* Interact */
 	do_cmd_wiz_change_aux(creature_ptr);
 
-	do_cmd_redraw();
+	redraw();
 }
 
 
