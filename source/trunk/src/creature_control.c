@@ -16,6 +16,7 @@
 #include "command.h"
 #include "diary.h"
 #include "files.h"
+#include "quest.h"
 
 #define HORDE_NOGOOD 0x01
 #define HORDE_NOEVIL 0x02

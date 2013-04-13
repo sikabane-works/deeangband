@@ -104,6 +104,7 @@
 #include "rooms.h"
 #include "streams.h"
 #include "diary.h"
+#include "quest.h"
 
 int dun_tun_rnd;
 int dun_tun_chg;

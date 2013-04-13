@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "files.h"
 #include "grid.h"
+#include "quest.h"
 
 
 static u32b latest_visit_mark;  // Max number of visit_mark 

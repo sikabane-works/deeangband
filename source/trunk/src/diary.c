@@ -1,4 +1,5 @@
 #include "angband.h"
+#include "quest.h"
 
 /* Take note to the diary.*/
 errr write_diary(int type, int num, cptr note)

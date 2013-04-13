@@ -15,6 +15,7 @@
 #include "command.h"
 #include "diary.h"
 #include "files.h"
+#include "quest.h"
 
 /*
  * A set of functions to maintain automatic dumps of various kinds.

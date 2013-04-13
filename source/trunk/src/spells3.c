@@ -15,6 +15,7 @@
 #include "autopick.h"
 #include "diary.h"
 #include "files.h"
+#include "quest.h"
 
 
 static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode)

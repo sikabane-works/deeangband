@@ -16,6 +16,7 @@
 #include "diary.h"
 #include "files.h"
 #include "store.h"
+#include "quest.h"
 
 // hack as in leave_store in store.c
 static bool leave_bldg = FALSE;
@@ -3316,82 +3317,3 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 }
 
-// Discover quest
-void quest_discovery(int q_idx)
-{
-	floor_type		*floor_ptr = GET_FLOOR_PTR(player_ptr);
-	quest_type      *quest_ptr = &quest[q_idx];
-	species_type    *species_ptr = &species_info[quest_ptr->species_idx];
-	int             q_num = quest_ptr->max_num;
-	char            name[80];
-	char            buf[80];
-
-	/* No quest index */
-	if(!q_idx) return;
-
-	strcpy(name, (species_name + species_ptr->name));
-
-	if(q_num == 1)
-	{
-		/* Hack -- "unique" creatures must be "unique" */
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE) && (0 == species_ptr->max_num))
-		{
-			msg_print(MES_QUEST_TARGET_GONE);
-			quest[q_idx].status = QUEST_STATUS_FINISHED;
-		}
-		else
-		{
-			sprintf(buf, MES_QUEST_TARGET_INFO(name));
-			msg_print(buf);
-			strcpy(floor_ptr->cave[player_ptr->fy][player_ptr->fx].message, buf);
-		}
-	}
-	else
-	{
-		sprintf(buf, MES_QUEST_TARGETS_INFO(name, q_num));
-		msg_print(buf);
-		strcpy(floor_ptr->cave[player_ptr->fy][player_ptr->fx].message, buf);
-	}
-}
-
-
-// Hack -- Check if a level is a "quest" level
-QUEST_ID quest_number(floor_type *floor_ptr)
-{
-	int i;
-
-	// Check quests
-	if(floor_ptr->quest) floor_ptr->quest;
-	
-	for (i = 0; i < max_quests; i++)
-	{
-		if(quest[i].status != QUEST_STATUS_TAKEN) continue;
-
-		if((quest[i].type == QUEST_TYPE_KILL_LEVEL) &&
-			!(quest[i].flags & QUEST_FLAG_PRESET) &&
-			(quest[i].level == floor_ptr->depth) &&
-		    (quest[i].dungeon == floor_ptr->dungeon_id))
-			return (i);
-	}
-
-	// Check for random quest
-	return (random_quest_number(floor_ptr));
-}
-
-
-// Return the index of the random quest on this level
-// (or zero)
-QUEST_ID random_quest_number(floor_type *floor_ptr)
-{
-	int i;
-
-	if(floor_ptr->dungeon_id != DUNGEON_DOD) return 0;
-
-	for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
-	{
-		if((quest[i].type == QUEST_TYPE_RANDOM) && (quest[i].status == QUEST_STATUS_TAKEN) &&
-			(quest[i].level == floor_ptr->depth) && (quest[i].dungeon == DUNGEON_DOD))
-			return i;
-	}
-	return 0;
-}

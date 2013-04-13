@@ -18,6 +18,7 @@
 #include "dungeon.h"
 #include "files.h"
 #include "store.h"
+#include "quest.h"
 
 static void game_mode_detail(int code)
 {

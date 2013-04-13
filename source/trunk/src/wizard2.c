@@ -17,6 +17,7 @@
 #include "command.h"
 #include "diary.h"
 #include "files.h"
+#include "quest.h"
 
 /*
  * Strip an "object name" into a buffer
