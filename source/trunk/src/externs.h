@@ -748,6 +748,7 @@ extern int get_skill_level(creature_type *creature_ptr, int type);
 extern bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES ny, COODINATES nx, u32b mpe_mode);
 extern void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, bool break_trap);
 extern void check_pets_num_and_align(creature_type *master_ptr, creature_type *m_ptr, bool inc);
+extern bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x);
 
 
 // do-spell.c

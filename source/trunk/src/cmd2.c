@@ -13,7 +13,7 @@
 #include "angband.h"
 #include "command.h"
 #include "creature_melee.h"
-#include "creature_shooting.h"
+#include "creature_throwing.h"
 #include "diary.h"
 #include "files.h"
 #include "quest.h"

@@ -4,7 +4,7 @@
 
 #include "angband.h"
 #include "command.h"
-#include "creature_shooting.h"
+#include "creature_throwing.h"
 
 
 /*
