@@ -825,9 +825,9 @@ void kingly(creature_type *player_ptr)
 	/* If player did Seppuku, that is already written in playrecord */
 	if(!seppuku)
 	{
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_RETIRED);
-		do_cmd_write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
-		do_cmd_write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
+		write_diary(DIARY_BUNSHOU, 0, DIARY_RETIRED);
+		write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
+		write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 	}
 
 	/* Flush input */

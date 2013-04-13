@@ -503,7 +503,7 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 #else
 	sprintf(tmp, "change magic realm from %s to %s.", realm_names[creature_ptr->realm2], realm_names[next_realm]);
 #endif
-	do_cmd_write_diary(DIARY_BUNSHOU, 0, tmp);
+	write_diary(DIARY_BUNSHOU, 0, tmp);
 	creature_ptr->old_realm |= 1 << (creature_ptr->realm2-1);
 	creature_ptr->realm2 = next_realm;
 
@@ -1138,7 +1138,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 				char m_name[MAX_NLEN];
 
 				creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
-				do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_DISMISS, m_name);
+				write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_DISMISS, m_name);
 			}
 
 			if(pet_ctr == creature_ptr->riding)
@@ -1511,7 +1511,7 @@ static void do_name_pet(creature_type *master_ptr)
 					char m_name[MAX_NLEN];
 
 					creature_desc(m_name, pet_ptr, CD_INDEF_VISIBLE);
-					do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_NAME, m_name);
+					write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_NAME, m_name);
 				}
 			}
 			else
@@ -1521,7 +1521,7 @@ static void do_name_pet(creature_type *master_ptr)
 					char m_name[MAX_NLEN];
 
 					creature_desc(m_name, pet_ptr, CD_INDEF_VISIBLE);
-					do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_UNNAME, m_name);
+					write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_UNNAME, m_name);
 				}
 				pet_ptr->nickname = 0;
 			}

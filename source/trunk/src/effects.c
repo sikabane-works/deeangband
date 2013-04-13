@@ -1191,7 +1191,7 @@ static void you_died(cptr hit_from)
 		cptr target_name = species_name + species_info[arena_info[arena_number].species_idx].name;
 		msg_format(MES_ARENA_LOST(player_ptr));
 		msg_print(NULL);
-		if(record_arena) do_cmd_write_diary(DIARY_ARENA, -1 - arena_number, target_name);
+		if(record_arena) write_diary(DIARY_ARENA, -1 - arena_number, target_name);
 	}
 	else
 	{
@@ -1223,7 +1223,7 @@ static void you_died(cptr hit_from)
 			my_strcpy(gameover_from, dummy, sizeof gameover_from);
 		}
 
-		if(winning_seppuku) do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_WINNING_SEPPUKU);
+		if(winning_seppuku) write_diary(DIARY_BUNSHOU, 0, DIARY_WINNING_SEPPUKU);
 		else
 		{
 			char buf[24];	
@@ -1240,11 +1240,11 @@ static void you_died(cptr hit_from)
 			else sprintf(buf,"level %d", floor_ptr->depth);
 			sprintf(tmp, "killed by %s %s.", gameover_from, buf);
 #endif
-			do_cmd_write_diary(DIARY_BUNSHOU, 0, tmp);
+			write_diary(DIARY_BUNSHOU, 0, tmp);
 		}
 
-		do_cmd_write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
-		do_cmd_write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
+		write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
+		write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 		flush();
 
 #ifdef JP
@@ -1639,7 +1639,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			{
 				char note_buf[160];
 				sprintf(note_buf, "%s%s", species_name + species_ptr->name, has_trait(target_ptr, TRAIT_CLONED) ? format("(%s)", KW_CLONE) : "");
-				do_cmd_write_diary(DIARY_UNIQUE, 0, note_buf);
+				write_diary(DIARY_UNIQUE, 0, note_buf);
 			}
 
 			if(is_seen(player_ptr, target_ptr)) // Death by physical attack -- invisible creature
@@ -1782,7 +1782,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			if(has_trait(target_ptr, TRAIT_HALLUCINATION) && damage_type == DAMAGE_ATTACK)
 				hit_from = KW_SOMETHING;
 			sprintf(tmp, DIARY_PINCH, hit_from);
-			do_cmd_write_diary(DIARY_BUNSHOU, 0, tmp);
+			write_diary(DIARY_BUNSHOU, 0, tmp);
 		}
 
 		if(auto_more) target_ptr->now_damaged = TRUE; // stop auto_more even if DAMAGE_USELIFE

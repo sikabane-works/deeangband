@@ -618,7 +618,7 @@ void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 				creature_ptr->oldpx = creature_ptr->fx;
 			}
 
-			if(record_stair) do_cmd_write_diary(DIARY_TELE_LEV, 1, NULL);
+			if(record_stair) write_diary(DIARY_TELE_LEV, 1, NULL);
 
 			if(autosave_l) do_cmd_save_game(TRUE);
 
@@ -643,7 +643,7 @@ void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 		if(see_m) msg_format(MES_TELEPORT_LEVEL_UP(m_name));
 		if(creature_idx <= 0) /* To player */
 		{
-			if(record_stair) do_cmd_write_diary(DIARY_TELE_LEV, -1, NULL);
+			if(record_stair) write_diary(DIARY_TELE_LEV, -1, NULL);
 
 			if(autosave_l) do_cmd_save_game(TRUE);
 
@@ -661,7 +661,7 @@ void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 		if(see_m) msg_format(MES_TELEPORT_LEVEL_UP(m_name));
 		if(creature_idx <= 0) /* To player */
 		{
-			if(record_stair) do_cmd_write_diary(DIARY_TELE_LEV, -1, NULL);
+			if(record_stair) write_diary(DIARY_TELE_LEV, -1, NULL);
 
 			if(autosave_l) do_cmd_save_game(TRUE);
 
@@ -679,7 +679,7 @@ void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 			/* Never reach this code on the surface */
 			/* if(!floor_ptr->depth) floor_ptr->dungeon_id = creature_ptr->recall_dungeon; */
 
-			if(record_stair) do_cmd_write_diary(DIARY_TELE_LEV, 1, NULL);
+			if(record_stair) write_diary(DIARY_TELE_LEV, 1, NULL);
 
 			if(autosave_l) do_cmd_save_game(TRUE);
 
@@ -703,7 +703,7 @@ void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 			char m2_name[80];
 
 			creature_desc(m2_name, m_ptr, CD_INDEF_VISIBLE);
-			do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_TELE_LEVEL, m2_name);
+			write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_TELE_LEVEL, m2_name);
 		}
 
 		delete_species_idx(&creature_list[creature_idx]);
@@ -817,9 +817,9 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 			max_dlv[floor_ptr->dungeon_id] = floor_ptr->depth;
 			if(record_maxdepth)
 #ifdef JP
-				do_cmd_write_diary(DIARY_TRUMP, floor_ptr->dungeon_id, "帰還のときに");
+				write_diary(DIARY_TRUMP, floor_ptr->dungeon_id, "帰還のときに");
 #else
-				do_cmd_write_diary(DIARY_TRUMP, floor_ptr->dungeon_id, "when recall from dungeon");
+				write_diary(DIARY_TRUMP, floor_ptr->dungeon_id, "when recall from dungeon");
 #endif
 		}
 
@@ -889,10 +889,10 @@ bool reset_recall(creature_type *creature_ptr)
 		if(record_maxdepth)
 		{
 #ifdef JP
-			do_cmd_write_diary(DIARY_TRUMP, select_dungeon, "フロア・リセットで");
+			write_diary(DIARY_TRUMP, select_dungeon, "フロア・リセットで");
 			msg_format("%sの帰還レベルを %d 階にセット。", dungeon_name + dungeon_info[select_dungeon].name, dummy, dummy * 50);
 #else
-			do_cmd_write_diary(DIARY_TRUMP, select_dungeon, "using a scroll of reset recall");
+			write_diary(DIARY_TRUMP, select_dungeon, "using a scroll of reset recall");
 			msg_format("Recall depth set to level %d (%d').", dummy, dummy * 50);
 #endif
 		}
@@ -2065,9 +2065,9 @@ bool identify_item(creature_type *creature_ptr, object_type *object_ptr)
 	object_desc(object_name, object_ptr, OD_NAME_ONLY);
 
 	if(record_fix_art && !old_known && object_is_fixed_artifact(object_ptr))
-		do_cmd_write_diary(DIARY_ART, 0, object_name);
+		write_diary(DIARY_ART, 0, object_name);
 	if(record_rand_art && !old_known && object_ptr->art_name)
-		do_cmd_write_diary(DIARY_ART, 0, object_name);
+		write_diary(DIARY_ART, 0, object_name);
 
 	return old_known;
 }

@@ -723,7 +723,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 	floor_ptr->depth = depth;
 
 	leave_quest_check(creature_ptr);
-	if(record_stair) do_cmd_write_diary(DIARY_PAT_TELE,0,NULL);
+	if(record_stair) write_diary(DIARY_PAT_TELE,0,NULL);
 
 	cancel_tactical_action(creature_ptr);
 
@@ -1039,13 +1039,13 @@ void leave_quest_check(creature_type *creature_ptr)
 		{
 			//TODO species_info[quest[leaving_quest].species_idx].flags1 &= ~(RF1_QUESTOR);
 			if(record_rand_quest)
-				do_cmd_write_diary(DIARY_RAND_QUEST_F, leaving_quest, NULL);
+				write_diary(DIARY_RAND_QUEST_F, leaving_quest, NULL);
 
 			/* Floor of random quest will be blocked */
 			//prepare_change_floor_mode(creature_ptr, CFM_NO_RETURN);
 		}
 		else if(record_fix_quest)
-			do_cmd_write_diary(DIARY_FIX_QUEST_F, leaving_quest, NULL);
+			write_diary(DIARY_FIX_QUEST_F, leaving_quest, NULL);
 	}
 }
 
@@ -2578,7 +2578,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 
 				if(floor_ptr->dungeon_id) creature_ptr->recall_dungeon = floor_ptr->dungeon_id;
 				if(record_stair)
-					do_cmd_write_diary(DIARY_RECALL, floor_ptr->depth, NULL);
+					write_diary(DIARY_RECALL, floor_ptr->depth, NULL);
 
 				floor_ptr->depth = 0;
 				floor_ptr->dungeon_id = 0;
@@ -2600,7 +2600,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				floor_ptr->dungeon_id = creature_ptr->recall_dungeon;
 
 				if(record_stair)
-					do_cmd_write_diary(DIARY_RECALL, floor_ptr->depth, NULL);
+					write_diary(DIARY_RECALL, floor_ptr->depth, NULL);
 
 				/* New depth */
 				floor_ptr->depth = max_dlv[floor_ptr->dungeon_id];
@@ -3102,7 +3102,7 @@ static void process_world(void)
 	{
 		if(min != prev_min)
 		{
-			do_cmd_write_diary(DIARY_HIGAWARI, 0, NULL);
+			write_diary(DIARY_HIGAWARI, 0, NULL);
 			determine_today_mon(player_ptr, FALSE);
 		}
 	}
@@ -3209,7 +3209,7 @@ static bool enter_wizard_mode(void)
 		}
 
 		wizard = TRUE;
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_WIZARD);
+		write_diary(DIARY_BUNSHOU, 0, DIARY_WIZARD);
 		/* Mark savefile */
 		noscore |= 0x0002;
 	}
@@ -3235,7 +3235,7 @@ static bool enter_debug_mode(void)
 
 		if(!get_check(MES_DEBUG_ASK)) return FALSE;
 
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_WIZARD);
+		write_diary(DIARY_BUNSHOU, 0, DIARY_WIZARD);
 		noscore |= 0x0008; // Mark savefile
 	}
 	return TRUE;
@@ -4606,7 +4606,7 @@ static void cheat_death(void)
 	player_ptr->oldpx = 95;
 
 	subject_change_floor = TRUE;
-	do_cmd_write_diary(DIARY_BUNSHOU, 1, MES_DIARY_CHEAT_DEATH);
+	write_diary(DIARY_BUNSHOU, 1, MES_DIARY_CHEAT_DEATH);
 
 	// Prepare next floor
 	move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
@@ -4696,7 +4696,7 @@ static void new_game_setting(void)
 			noscore |= 0x0010;
 		}
 
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, format(DIARY_SELECTMODE, campaign_name[campaign_mode]));
+		write_diary(DIARY_BUNSHOU, 0, format(DIARY_SELECTMODE, campaign_name[campaign_mode]));
 
 		// Initial game mode
 		screen_save();
@@ -4833,7 +4833,7 @@ static void play_loop(void)
 		if((max_dlv[floor_ptr->dungeon_id] < floor_ptr->depth) && !floor_ptr->quest)
 		{
 			max_dlv[floor_ptr->dungeon_id] = floor_ptr->depth;
-			if(record_maxdepth) do_cmd_write_diary(DIARY_MAXDEAPTH, floor_ptr->depth, NULL);
+			if(record_maxdepth) write_diary(DIARY_MAXDEAPTH, floor_ptr->depth, NULL);
 		}
 
 		panel_bounds_center(); // Validate the panel
@@ -5058,7 +5058,7 @@ void play_game(bool new_game)
 	else
 	{
 		write_level = FALSE;
-		do_cmd_write_diary(DIARY_GAMESTART, 1, DIARY_GAMERESTART);
+		write_diary(DIARY_GAMESTART, 1, DIARY_GAMERESTART);
 	}
 
 	/* Reset map panel */
@@ -5099,7 +5099,7 @@ void play_game(bool new_game)
 	{
 		char buf[80];
 		sprintf(buf, MES_DIARY_STAND_IN(map_name(GET_FLOOR_PTR(player_ptr))));
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, buf);
+		write_diary(DIARY_BUNSHOU, 0, buf);
 	}
 
 	/* Start game */
@@ -5224,7 +5224,7 @@ void become_winner(creature_type *creature_ptr)
 		creature_ptr->total_winner = TRUE;
 		prepare_redraw(PR_TITLE);
 		// Congratulations
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, MES_DIARY_WINNER);
+		write_diary(DIARY_BUNSHOU, 0, MES_DIARY_WINNER);
 		if(creature_ptr->patron_idx != INDEX_NONE)
 		{
 			msg_format(MES_PATRON_BOOM_OUT(species_name + species_info[creature_ptr->patron_idx].name));

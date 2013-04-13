@@ -111,7 +111,7 @@ void check_experience(creature_type *creature_ptr)
 			}
 			level_inc_stat = TRUE;
 
-			do_cmd_write_diary(DIARY_LEVELUP, creature_ptr->lev, NULL);
+			write_diary(DIARY_LEVELUP, creature_ptr->lev, NULL);
 		}
 
 		sound(SOUND_LEVEL);
@@ -300,7 +300,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 				if(quest[i].cur_num >= quest[i].num_mon)
 				{
-					if(record_fix_quest) do_cmd_write_diary(DIARY_FIX_QUEST_C, i, NULL);
+					if(record_fix_quest) write_diary(DIARY_FIX_QUEST_C, i, NULL);
 					/* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
 					quest[i].complev = (byte)killer_ptr->lev;
@@ -330,7 +330,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 				if((number_mon - 1) == 0)
 				{
-					if(record_fix_quest) do_cmd_write_diary(DIARY_FIX_QUEST_C, i, NULL);
+					if(record_fix_quest) write_diary(DIARY_FIX_QUEST_C, i, NULL);
 					/* completed */
 					if(quest[i].flags & QUEST_FLAG_SILENT)
 					{
@@ -357,8 +357,8 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 				if(quest[i].cur_num >= quest[i].max_num)
 				{
-					if(record_fix_quest && (quest[i].type == QUEST_TYPE_KILL_LEVEL)) do_cmd_write_diary(DIARY_FIX_QUEST_C, i, NULL);
-					if(record_rand_quest && (quest[i].type == QUEST_TYPE_RANDOM)) do_cmd_write_diary(DIARY_RAND_QUEST_C, i, NULL);
+					if(record_fix_quest && (quest[i].type == QUEST_TYPE_KILL_LEVEL)) write_diary(DIARY_FIX_QUEST_C, i, NULL);
+					if(record_rand_quest && (quest[i].type == QUEST_TYPE_RANDOM)) write_diary(DIARY_RAND_QUEST_C, i, NULL);
 					/* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
 					quest[i].complev = (byte)player_ptr->lev;
@@ -393,7 +393,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 				quest[i].cur_num++;
 				if(quest[i].cur_num >= quest[i].max_num)
 				{
-					if(record_fix_quest) do_cmd_write_diary(DIARY_FIX_QUEST_C, i, NULL);
+					if(record_fix_quest) write_diary(DIARY_FIX_QUEST_C, i, NULL);
 					/* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
 					quest[i].complev = (byte)player_ptr->lev;
@@ -504,7 +504,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 				msg_format(MES_BOUNTY_DEAD, dead_name);
 
 	if(record_named_pet && is_pet(player_ptr, dead_ptr) && dead_ptr->nickname)
-		do_cmd_write_diary(DIARY_NAMED_PET, 3, dead_name);
+		write_diary(DIARY_NAMED_PET, 3, dead_name);
 
 	if(has_trait(dead_ptr, TRAIT_SUICIDE_BOMBER))
 	{
@@ -578,7 +578,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			/* Extract creature name */
 			creature_desc(m_name, dead_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
-			do_cmd_write_diary(DIARY_ARENA, arena_number, m_name);
+			write_diary(DIARY_ARENA, arena_number, m_name);
 		}
 	}
 
@@ -3198,7 +3198,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		}
 	}
 
-	if(reward) do_cmd_write_diary(DIARY_BUNSHOU, 0, format(DIARY_PATRON(reward)));
+	if(reward) write_diary(DIARY_BUNSHOU, 0, format(DIARY_PATRON(reward)));
 }
 
 

@@ -1906,11 +1906,11 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 			{
 				int prev_day, prev_hour, prev_min;
 				extract_day_hour_min(&prev_day, &prev_hour, &prev_min);
-				if((prev_hour >= 6) && (prev_hour <= 17)) do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_INN_OVER_DAY);
-				else do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_INN_STAY_NIGHT);
+				if((prev_hour >= 6) && (prev_hour <= 17)) write_diary(DIARY_BUNSHOU, 0, DIARY_INN_OVER_DAY);
+				else write_diary(DIARY_BUNSHOU, 0, DIARY_INN_STAY_NIGHT);
 				add_game_turn(creature_ptr, (game_turn / (TURNS_PER_TICK * TOWN_DAWN / 2) + 1) * (TURNS_PER_TICK * TOWN_DAWN / 2) - game_turn);
 
-				if((prev_hour >= 18) && (prev_hour <= 23)) do_cmd_write_diary(DIARY_HIGAWARI, 0, NULL);
+				if((prev_hour >= 18) && (prev_hour <= 23)) write_diary(DIARY_HIGAWARI, 0, NULL);
 				creature_ptr->chp = creature_ptr->mhp;
 
 				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
@@ -1928,7 +1928,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 #else
 					msg_print("You awake screaming.");
 #endif
-					do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_INN_NIGHTMARE);
+					write_diary(DIARY_BUNSHOU, 0, DIARY_INN_NIGHTMARE);
 				}
 				else
 				{
@@ -1945,20 +1945,20 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 					{
 #ifdef JP
 						msg_print("あなたはリフレッシュして目覚め、夕方を迎えた。");
-						do_cmd_write_diary(DIARY_BUNSHOU, 0, "夕方を迎えた。");
+						write_diary(DIARY_BUNSHOU, 0, "夕方を迎えた。");
 #else
 						msg_print("You awake refreshed for the evening.");
-						do_cmd_write_diary(DIARY_BUNSHOU, 0, "awake refreshed.");
+						write_diary(DIARY_BUNSHOU, 0, "awake refreshed.");
 #endif
 					}
 					else
 					{
 #ifdef JP
 						msg_print("あなたはリフレッシュして目覚め、新たな日を迎えた。");
-						do_cmd_write_diary(DIARY_BUNSHOU, 0, "すがすがしい朝を迎えた。");
+						write_diary(DIARY_BUNSHOU, 0, "すがすがしい朝を迎えた。");
 #else
 						msg_print("You awake refreshed for the new day.");
-						do_cmd_write_diary(DIARY_BUNSHOU, 0, "awake refreshed.");
+						write_diary(DIARY_BUNSHOU, 0, "awake refreshed.");
 #endif
 					}
 				}
@@ -3106,10 +3106,10 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 			max_dlv[creature_ptr->recall_dungeon] = ((amt > dungeon_info[select_dungeon].maxdepth) ? dungeon_info[select_dungeon].maxdepth : ((amt < dungeon_info[select_dungeon].mindepth) ? dungeon_info[select_dungeon].mindepth : amt));
 			if(record_maxdepth)
 #ifdef JP
-			do_cmd_write_diary(DIARY_TRUMP, select_dungeon, "トランプタワーで");
+			write_diary(DIARY_TRUMP, select_dungeon, "トランプタワーで");
 			msg_print("回りの大気が張りつめてきた...");
 #else
-			do_cmd_write_diary(DIARY_TRUMP, select_dungeon, "at Trump Tower");
+			write_diary(DIARY_TRUMP, select_dungeon, "at Trump Tower");
 			msg_print("The air about you becomes charged...");
 #endif
 			paid = TRUE;

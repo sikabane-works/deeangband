@@ -117,7 +117,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 			up_num = floor_ptr->depth;
 	}
 
-	if(record_stair) do_cmd_write_diary(DIARY_STAIR, 0-up_num, DIARY_UP_STAIR);
+	if(record_stair) write_diary(DIARY_STAIR, 0-up_num, DIARY_UP_STAIR);
 	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(MES_COMBAT_TALK_STAIR);
 
 #ifdef JP
@@ -214,8 +214,8 @@ void do_cmd_go_down(creature_type *creature_ptr)
 
 		if(record_stair)
 		{
-			if(fall_trap) do_cmd_write_diary(DIARY_STAIR, down_num, DIARY_TRAP_DOOR);
-			else do_cmd_write_diary(DIARY_STAIR, down_num, DIARY_DOWN_STAIR);
+			if(fall_trap) write_diary(DIARY_STAIR, down_num, DIARY_TRAP_DOOR);
+			else write_diary(DIARY_STAIR, down_num, DIARY_DOWN_STAIR);
 		}
 
 		if(fall_trap) msg_print(MES_FEATURE_TRAP_DOOR_SELF);

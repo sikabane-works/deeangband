@@ -5459,9 +5459,9 @@ void do_cmd_suicide(creature_type *creature_ptr)
 
 	if(!creature_ptr->total_winner)
 	{
-		do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_SUICIDE);
-		do_cmd_write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
-		do_cmd_write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
+		write_diary(DIARY_BUNSHOU, 0, DIARY_SUICIDE);
+		write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
+		write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 	}
 
 	/* Cause of death */
@@ -5513,7 +5513,7 @@ void do_cmd_save_and_exit(void)
 
 	/* Leaving */
 	subject_change_floor = TRUE;
-	do_cmd_write_diary(DIARY_GAMESTART, 0, DIARY_SAVEQUIT);
+	write_diary(DIARY_GAMESTART, 0, DIARY_SAVEQUIT);
 }
 
 
@@ -6596,7 +6596,7 @@ static void handle_signal_abort(int sig)
 	Term_putstr(0, hgt - 1, -1, TERM_RED, "A gruesome software bug LEAPS out at you!");
 	Term_putstr(45, hgt - 1, -1, TERM_RED, "Panic save...");
 #endif
-	do_cmd_write_diary(DIARY_GAMESTART, 0, DIARY_GAMEABORT);
+	write_diary(DIARY_GAMESTART, 0, DIARY_GAMEABORT);
 
 	/* Flush output */
 	Term_fresh();

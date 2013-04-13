@@ -720,7 +720,7 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 				/* Still alive and autosave enabled */
 				if(autosave_l && (creature_ptr->chp >= 0)) do_cmd_save_game(TRUE);
-				do_cmd_write_diary(DIARY_BUNSHOU, 0, DIARY_TRAP_DOOR);
+				write_diary(DIARY_BUNSHOU, 0, DIARY_TRAP_DOOR);
 				move_floor(creature_ptr, floor_ptr->dungeon_id, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, CFM_RAND_SEED | CFM_RAND_CONNECT);
 
 				/* Leaving */
@@ -1300,7 +1300,7 @@ void compact_creatures(int size)
 			{
 				char m_name[MAX_NLEN];
 				creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
-				do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_COMPACT, m_name);
+				write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_COMPACT, m_name);
 			}
 
 			/* Delete the creature */
@@ -5022,7 +5022,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 	{
 		if(quest[floor_ptr->quest].type == QUEST_TYPE_FIND_EXIT)
 		{
-			if(record_fix_quest) do_cmd_write_diary(DIARY_FIX_QUEST_C, floor_ptr->quest, NULL);
+			if(record_fix_quest) write_diary(DIARY_FIX_QUEST_C, floor_ptr->quest, NULL);
 			quest[floor_ptr->quest].status = QUEST_STATUS_COMPLETED;
 			quest[floor_ptr->quest].complev = (byte)creature_ptr->lev;
 			msg_print(MES_COMPLETE_QUEST);

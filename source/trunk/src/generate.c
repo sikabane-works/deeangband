@@ -1247,7 +1247,7 @@ void generate_floor_quest(floor_type *floor_ptr, QUEST_ID quest_id)
 	floor_ptr->enemy_level = floor_ptr->depth;
 	floor_ptr->quest = quest_id;
 
-	if(record_stair) do_cmd_write_diary(DIARY_TO_QUEST, quest_id, NULL);
+	if(record_stair) write_diary(DIARY_TO_QUEST, quest_id, NULL);
 
 	// Prepare allocation table
 	get_species_num_prep(NULL, get_creature_hook(), NULL, NULL, 0);

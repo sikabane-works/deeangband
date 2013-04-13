@@ -3408,10 +3408,10 @@ static void store_purchase(store_type *st_ptr, creature_type *guest_ptr)
 				strcpy(record_object_name, object_name);
 				record_turn = game_turn;
 
-				if(record_buy) do_cmd_write_diary(DIARY_BUY, 0, object_name);
+				if(record_buy) write_diary(DIARY_BUY, 0, object_name);
 				object_desc(object_name, object_ptr, OD_NAME_ONLY);
 				if(record_rand_art && object_ptr->art_name)
-					do_cmd_write_diary(DIARY_ART, 0, object_name);
+					write_diary(DIARY_ART, 0, object_name);
 
 				/* Erase the inscription */
 				j_ptr->inscription = 0;
@@ -3679,7 +3679,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 			/* Describe the result (in message buffer) */
 			msg_format(MES_STORE_SELL(object_name, (long)price));
 
-			if(record_sell) do_cmd_write_diary(DIARY_SELL, 0, object_name);
+			if(record_sell) write_diary(DIARY_SELL, 0, object_name);
 
 			if(!((object_ptr->tval == TV_FIGURINE) && (value > 0))) /* Analyze the prices (and comment verbally) unless a figurine*/
 				purchase_analyze(price, value, dummy);

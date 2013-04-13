@@ -1543,7 +1543,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 		if(record_named_pet && is_pet(player_ptr, creature_ptr) && creature_ptr->nickname)
 		{
 			creature_desc(creature_name, creature_ptr, CD_INDEF_VISIBLE);
-			do_cmd_write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, creature_name);
+			write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, creature_name);
 		}
 
 		delete_species_idx(&creature_list[creature_idx]);	// Delete the creature

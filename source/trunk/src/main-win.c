@@ -4154,7 +4154,7 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 
 				/* Mega-Hack -- Delay death */
 				if(player_ptr->chp < 0) gameover = FALSE;
-				do_cmd_write_diary(DIARY_GAMESTART, 0, DIARY_SAVEQUIT);
+				write_diary(DIARY_GAMESTART, 0, DIARY_SAVEQUIT);
 
 				/* Hardcode panic save */
 				panic_save = TRUE;

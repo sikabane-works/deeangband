@@ -4338,28 +4338,28 @@ creature_type* generate_creature(cave_type *c_ptr, SPECIES_ID species_idx, FLAGS
 		message_add(" ");
 		message_add(" ");
 
-		do_cmd_write_diary(DIARY_GAMESTART, 1, DIARY_CREATE_PLAYER);
-		do_cmd_write_diary(DIARY_HIGAWARI, 0, NULL);
+		write_diary(DIARY_GAMESTART, 1, DIARY_CREATE_PLAYER);
+		write_diary(DIARY_HIGAWARI, 0, NULL);
 		sprintf(buf, DIARY_SELECTSEX(sex_info[creature_ptr->sex].title));
-		do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
+		write_diary(DIARY_BUNSHOU, 1, buf);
 
 		if(IS_PURE(creature_ptr))
 			sprintf(buf, DIARY_SELECT_PURERACE(race_info[creature_ptr->race_idx1].title));
 		else
 			sprintf(buf, DIARY_SELECT_HALFRACE(race_info[creature_ptr->race_idx1].title, race_info[creature_ptr->race_idx2].title));
-		do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
+		write_diary(DIARY_BUNSHOU, 1, buf);
 
 		sprintf(buf, DIARY_SELECT_CLASS(class_info[creature_ptr->class_idx].title));
-		do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
+		write_diary(DIARY_BUNSHOU, 1, buf);
 
 		if(creature_ptr->realm1)
 		{
 			sprintf(buf, DIARY_SELECT_REALM(realm_names[creature_ptr->realm1]));
-			do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
+			write_diary(DIARY_BUNSHOU, 1, buf);
 		}
 
 		sprintf(buf, DIARY_SELECT_CHALA(chara_info[creature_ptr->chara_idx].title));
-		do_cmd_write_diary(DIARY_BUNSHOU, 1, buf);
+		write_diary(DIARY_BUNSHOU, 1, buf);
 
 	}
 
