@@ -1614,7 +1614,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	/* Searching or Resting */
 	if((creature_ptr->action == ACTION_SEARCH) || (creature_ptr->action == ACTION_REST)) regen_amount = regen_amount * 2;
 
-	upkeep_factor = calculate_upkeep_servant(creature_ptr);
+	upkeep_factor = calc_upkeep_servant(creature_ptr);
 
 	/* No regeneration while special action */
 	if((creature_ptr->action == ACTION_LEARN) || (creature_ptr->action == ACTION_HAYAGAKE) || (has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)))
@@ -1639,7 +1639,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			msg_print(NULL);
 			do_cmd_pet_dismiss(creature_ptr);
 
-			upkeep_factor = calculate_upkeep_servant(creature_ptr);
+			upkeep_factor = calc_upkeep_servant(creature_ptr);
 
 #ifdef JP
 			msg_format("ˆÛ‚l‚o‚Í %d%%", upkeep_factor);

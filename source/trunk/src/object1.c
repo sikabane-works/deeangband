@@ -11,6 +11,8 @@
 /* Purpose: Object code, part 1 */
 
 #include "angband.h"
+#include "autopick.h"
+#include "diary.h"
 
 #if defined(MACINTOSH) || defined(MACH_O_CARBON)
 #ifdef verify

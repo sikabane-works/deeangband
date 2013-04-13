@@ -738,6 +738,7 @@ extern int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *
 extern int calc_special_melee_cost(creature_type *creature_ptr, special_blow_type *special_ptr);
 extern int calc_special_melee_priority(creature_type *creature_ptr, special_blow_type *special_ptr);
 extern int calc_action_power(creature_type *creature_ptr);
+extern int calc_upkeep_servant(creature_type *master_ptr);
 extern bool saving_throw(creature_type *creature_ptr, int type, int difficulty, FLAGS_32 option);
 extern bool have_posture(creature_type *creature_ptr);
 extern bool cost_tactical_energy(creature_type *creature_ptr, int cost);

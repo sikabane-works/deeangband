@@ -3676,7 +3676,7 @@ void update_creature(creature_type *creature_ptr, bool message)
 
 	if(!creature_ptr->creature_update) return;
 
-	calculate_upkeep_servant(creature_ptr);
+	calc_upkeep_servant(creature_ptr);
 	set_creature_equip_slot_num(creature_ptr);
 
 	if(creature_ptr->creature_update & (CRU_BONUS))

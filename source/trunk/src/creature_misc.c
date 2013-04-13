@@ -1292,3 +1292,60 @@ int get_skill_level(creature_type *creature_ptr, int type)
 {
 	return creature_ptr->spell_exp[type] / 100;
 }
+
+int calc_upkeep_servant(creature_type *master_ptr)
+{
+	s32b old_friend_align = friend_align;
+	CREATURE_ID creature_idx;
+	bool have_a_unique = FALSE;
+	s32b total_friend_levels = 0;
+
+	master_ptr->total_friends = 0;
+	friend_align = 0;
+
+	for (creature_idx = creature_max - 1; creature_idx >=1; creature_idx--)
+	{
+		creature_type *pet_ptr;
+
+		pet_ptr = &creature_list[creature_idx];
+		if(!pet_ptr->species_idx) continue;
+
+		if(is_pet(player_ptr, pet_ptr))
+		{
+			master_ptr->total_friends++;
+			if(has_trait(master_ptr, TRAIT_UNIQUE))
+			{
+				if(master_ptr->class_idx == CLASS_CAVALRY)
+				{
+					if(master_ptr->riding == creature_idx)
+						total_friend_levels += (pet_ptr->lev+5)*2;
+					else if(!have_a_unique && has_trait(pet_ptr, TRAIT_RIDING))
+						total_friend_levels += (pet_ptr->lev+5)*7/2;
+					else
+						total_friend_levels += (pet_ptr->lev+5)*10;
+					have_a_unique = TRUE;
+				}
+				else
+					total_friend_levels += (pet_ptr->lev+5)*10;
+			}
+			else
+				total_friend_levels += pet_ptr->lev;
+
+			/* Determine pet alignment */
+			if(is_enemy_of_evil_creature(pet_ptr)) friend_align += pet_ptr->lev;
+			if(is_enemy_of_good_creature(pet_ptr)) friend_align -= pet_ptr->lev;
+		}
+	}
+	if(old_friend_align != friend_align) prepare_update(master_ptr, CRU_BONUS);
+	if(master_ptr->total_friends)
+	{
+		int upkeep_factor;
+		upkeep_factor = (total_friend_levels - (master_ptr->lev * 80 / (class_info[master_ptr->class_idx].pet_upkeep_div)));
+		if(upkeep_factor < 0) upkeep_factor = 0;
+		if(upkeep_factor > 1000) upkeep_factor = 1000;
+		return upkeep_factor;
+	}
+	else
+		return 0;
+}
+
