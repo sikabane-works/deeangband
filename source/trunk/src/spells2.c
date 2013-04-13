@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "grid.h"
+#include "diary.h"
 
 bool cast_bolt(creature_type *caster_ptr, int typ, COODINATES range, POWER dam, TRAIT_ID trait_id)
 {

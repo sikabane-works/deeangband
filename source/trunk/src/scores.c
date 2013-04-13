@@ -11,7 +11,7 @@
 /* Purpose: Highscores handling */
 
 #include "angband.h"
-
+#include "diary.h"
 
 /*
  * Seek score 'i' in the highscore file
