@@ -1191,6 +1191,7 @@ extern char *my_strchr(const char *ptr, char ch);
 extern void str_tolower(char *str);
 extern int inkey_special(bool numpad_cursor);
 extern void redraw(void);
+extern void extract_option_vars(void);
 
 
 // xtra1.c

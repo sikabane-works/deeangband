@@ -4134,29 +4134,6 @@ static void load_all_pref_files(creature_type *creature_ptr)
 	autopick_load_pref(FALSE);
 }
 
-
-/*
-* Extract option variables from bit sets
-*/
-void extract_option_vars(void)
-{
-	int i;
-
-	for (i = 0; option_info[i].o_desc; i++)
-	{
-		int os = option_info[i].o_set;
-		int ob = option_info[i].o_bit;
-
-		/* Set the "default" options */
-		if(option_info[i].o_var)
-		{
-			if(option_flag[os] & (1L << ob)) (*option_info[i].o_var) = TRUE;
-			else (*option_info[i].o_var) = FALSE;
-		}
-	}
-}
-
-
 /*
 * Determine bounty uniques
 */
