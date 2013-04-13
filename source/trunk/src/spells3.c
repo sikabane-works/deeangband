@@ -4211,3 +4211,10 @@ cptr spell_category_name(TVAL tval)
 	default: return KW_SPELL;
 	}
 }
+
+// Hack -- activate the ring of power
+void ring_of_power(creature_type *creature_ptr)
+{
+	if(!is_valid_creature(creature_ptr)) return;
+	//TODO Reimplementing
+}

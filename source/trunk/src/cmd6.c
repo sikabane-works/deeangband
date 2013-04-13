@@ -1825,13 +1825,6 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
 	return FALSE;	// Assume not
 }
 
-// Hack -- activate the ring of power
-void ring_of_power(creature_type *creature_ptr)
-{
-	if(!is_valid_creature(creature_ptr)) return;
-	//TODO Reimplementing
-}
-
 static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
 {
 	u16b *who = (u16b*)(u);

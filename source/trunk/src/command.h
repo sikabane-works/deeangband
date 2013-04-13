@@ -90,7 +90,6 @@ extern void do_cmd_use_staff(creature_type *creature_ptr);
 extern void do_cmd_zap_rod(creature_type *creature_ptr);
 extern void do_cmd_activate(creature_type *creature_ptr);
 extern void do_cmd_rerate(creature_type *creature_ptr, bool display);
-extern void ring_of_power(creature_type *creature_ptr);
 extern void do_cmd_use(creature_type *creature_ptr);
 extern void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse);
 extern void do_cmd_help(void);
