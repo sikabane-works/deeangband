@@ -897,7 +897,7 @@ extern void stop_singing(creature_type *creature_ptr);
 extern cptr do_spell(creature_type *creature_ptr, REALM_ID realm, int spell, int mode);
 extern void wild_magic(creature_type *creature_ptr, int spell);
 
-// dungeon.c
+/* dungeon.c */
 extern void leave_quest_check(creature_type *creature_ptr);
 extern void extract_option_vars(void);
 extern void determine_bounty_uniques(void);
@@ -906,6 +906,7 @@ extern void play_game(bool new_game);
 extern bool psychometry(creature_type *creature_ptr);
 extern s32b turn_real(creature_type *creature_ptr, s32b hoge);
 extern void add_game_turn(creature_type *creature_ptr, GAME_TIME num);
+extern void check_music(creature_type *creature_ptr);
 
 
 /* files.c */

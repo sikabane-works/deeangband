@@ -12,8 +12,6 @@
 
 #include "angband.h"
 
-static bool load = TRUE;
-
 static void game_mode_detail(int code)
 {
 	prt(campaign_detail[code], 15, 25);
@@ -1215,7 +1213,7 @@ static void recharged_notice(object_type *object_ptr)
 }
 
 
-static void check_music(creature_type *creature_ptr)
+void check_music(creature_type *creature_ptr)
 {
 	magic_type *s_ptr;
 	int spell;
@@ -4206,23 +4204,16 @@ void process_player(creature_type *creature_ptr)
 		/* Basic creature_ptr->resting */
 		if(creature_ptr->resting == -1)
 		{
-			/* Stop creature_ptr->resting */
 			if((creature_ptr->chp == creature_ptr->mhp) && (creature_ptr->csp >= creature_ptr->msp))
+			{
 				set_action(creature_ptr, ACTION_NONE);
+			}
 		}
 
-		/* Complete creature_ptr->resting */
+		/* Complete resting */
 		else if(creature_ptr->resting == -2)
 		{
-			/* Stop creature_ptr->resting */
-			if((creature_ptr->chp == creature_ptr->mhp) && (creature_ptr->csp >= creature_ptr->msp) &&
-				!has_trait(creature_ptr, TRAIT_BLIND) && !has_trait(creature_ptr, TRAIT_CONFUSED) &&
-				!has_trait(creature_ptr, TRAIT_POISONED) && !has_trait(creature_ptr, TRAIT_AFRAID) &&
-				!has_trait(creature_ptr, TRAIT_STUN) && !has_trait(creature_ptr, TRAIT_CUT) &&
-				!has_trait(creature_ptr, TRAIT_SLOW) && !has_trait(creature_ptr, TRAIT_PARALYZED) &&
-				!has_trait(creature_ptr, TRAIT_HALLUCINATION) && !has_trait(creature_ptr, TRAIT_WORD_RECALL) &&
-				!has_trait(creature_ptr, TRAIT_ALTER_REALITY))
-				set_action(creature_ptr, ACTION_NONE);
+			/* TODO: Stop resting */
 		}
 	}
 
@@ -4243,16 +4234,6 @@ void process_player(creature_type *creature_ptr)
 			}
 		}
 	}
-
-	/* Handle the player song */
-	if(!load) check_music(creature_ptr);
-
-	/* Hex - Handle the hex spells */
-	if(!load) check_hex(creature_ptr);
-	if(!load) revenge_spell(creature_ptr);
-
-	load = FALSE;
-
 
 	/*** Handle actual user input ***/
 
@@ -4866,8 +4847,6 @@ static void new_game_setting(void)
 
 	counts_write(2,0);
 	game_load_count = 0;
-
-	load = FALSE;
 
 	prt("Please Wait ... Bounties", 0, 0);
 	determine_bounty_uniques();

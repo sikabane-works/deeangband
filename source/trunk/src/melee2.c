@@ -2238,7 +2238,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 
 			/* Take or Kill objects on the floor */
 			if(c_ptr->object_idx && (has_trait(creature_ptr, TRAIT_TAKE_ITEM) || has_trait(creature_ptr, TRAIT_KILL_ITEM)) &&
-			    (!is_pet(player_ptr, creature_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && has_trait(creature_ptr, TRAIT_TAKE_ITEM))))
+			(!is_pet(player_ptr, creature_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && has_trait(creature_ptr, TRAIT_TAKE_ITEM))))
 			{
 				OBJECT_ID this_object_idx, next_object_idx;
 				bool do_take = has_trait(creature_ptr, TRAIT_TAKE_ITEM) ? TRUE : FALSE;
@@ -2246,7 +2246,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 				/* Scan all objects in the grid */
 				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 				{
-					char creature_name[80], object_name[MAX_NLEN];
+					char creature_name[MAX_NLEN], object_name[MAX_NLEN];
 
 					/* Acquire object */
 					object_type *object_ptr = &object_list[this_object_idx];
@@ -2416,7 +2416,7 @@ static void process_creature(CREATURE_ID i)
 		else if(CURRENT_FLOOR_PTR == floor_ptr) 
 		{
 			cost_tactical_energy(creature_ptr, 200);
-			// process_nonplayer(i);
+			process_nonplayer(i);
 		}
 	}
 

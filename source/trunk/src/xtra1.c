@@ -894,9 +894,6 @@ static void prt_speed(creature_type *creature_ptr)
 	col_speed = wid + COL_SPEED;
 	row_speed = hgt + ROW_SPEED;
 
-	/* Hack -- Visually "undo" the Search Mode Slowdown */
-	if(creature_ptr->action == ACTION_SEARCH && !creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]) i += 10;
-
 	/* Fast */
 	if(i > 0)
 	{

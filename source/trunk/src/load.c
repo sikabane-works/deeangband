@@ -901,6 +901,9 @@ static void rd_creature(creature_type *creature_ptr)
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) rd_u32b(&creature_ptr->mutative_trait[i]);
 	if(creature_ptr->energy_need < -999) creature_ptr->time_stopper = TRUE;
 
+	check_music(creature_ptr);
+	check_hex(creature_ptr);
+	revenge_spell(creature_ptr);
 }
 
 /*
