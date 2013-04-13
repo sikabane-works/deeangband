@@ -14,6 +14,7 @@
 #include "artifact.h"
 #include "birth.h"
 #include "command.h"
+#include "diary.h"
 
 #define HORDE_NOGOOD 0x01
 #define HORDE_NOEVIL 0x02

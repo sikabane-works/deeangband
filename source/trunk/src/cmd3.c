@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "autopick.h"
 #include "command.h"
+#include "diary.h"
 
 /*
 * Display inventory

@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "autopick.h"
 #include "command.h"
+#include "diary.h"
 
 /*
  * Determine if the player "hits" a creature (normal combat).

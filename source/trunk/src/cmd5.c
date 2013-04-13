@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "autopick.h"
 #include "command.h"
+#include "diary.h"
 
 cptr spell_category_name(TVAL tval)
 {

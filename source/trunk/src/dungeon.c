@@ -14,6 +14,7 @@
 #include "autopick.h"
 #include "birth.h"
 #include "command.h"
+#include "diary.h"
 
 static void game_mode_detail(int code)
 {

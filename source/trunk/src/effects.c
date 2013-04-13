@@ -15,6 +15,7 @@
 #include "autopick.h"
 #include "birth.h"
 #include "command.h"
+#include "diary.h"
 
 bool add_timed_trait(creature_type *creature_ptr, int type, int v, bool message)
 {

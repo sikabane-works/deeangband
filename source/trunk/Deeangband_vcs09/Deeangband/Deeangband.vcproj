@@ -245,6 +245,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\diary.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\do-spell.c"
 				>
 			</File>
@@ -484,6 +488,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\defines.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\diary.h"
 				>
 			</File>
 			<File
