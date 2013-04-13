@@ -5888,3 +5888,85 @@ bool is_valid_object(object_type *object_ptr)
 {
 	return (bool)(object_ptr && object_ptr->k_idx && object_ptr->number > 0);
 }
+
+/*
+ * Return a "feeling" (or NULL) about an item.  Method 1 (Heavy).
+ */
+//TODO
+byte value_check_aux1(creature_type *creature_ptr, object_type *object_ptr)
+{
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
+
+	/* Artifacts */
+	if(object_is_artifact(object_ptr))
+	{
+		/* Cursed/Broken */
+		if(object_is_cursed(object_ptr) || object_is_broken(object_ptr)) return FEEL_TERRIBLE;
+
+		/* Normal */
+		return FEEL_SPECIAL;
+	}
+
+	/* Ego-Items */
+	if(object_is_ego(object_ptr))
+	{
+		/* Cursed/Broken */
+		if(object_is_cursed(object_ptr) || object_is_broken(object_ptr)) return FEEL_WORTHLESS;
+
+		/* Normal */
+		return FEEL_EXCELLENT;
+	}
+
+	/* Cursed items */
+	if(object_is_cursed(object_ptr)) return FEEL_CURSED;
+
+	/* Broken items */
+	if(object_is_broken(object_ptr)) return FEEL_BROKEN;
+
+	if((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) return FEEL_AVERAGE;
+
+	/* Good "armor" bonus */
+	if(object_ptr->to_ac > 0) return FEEL_GOOD;
+
+	/* Good "weapon" bonus */
+	if(object_ptr->to_hit + object_ptr->to_damage > 0) return FEEL_GOOD;
+
+	/* Default to "average" */
+	return FEEL_AVERAGE;
+}
+
+
+/*
+ * Return a "feeling" (or NULL) about an item.  Method 2 (Light).
+ */
+byte value_check_aux2(creature_type *creature_ptr, object_type *object_ptr)
+{
+	if(!is_valid_creature(creature_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE;
+
+	/* Cursed items (all of them) */
+	if(object_is_cursed(object_ptr)) return FEEL_CURSED;
+
+	/* Broken items (all of them) */
+	if(object_is_broken(object_ptr)) return FEEL_BROKEN;
+
+	/* Artifacts -- except cursed/broken ones */
+	if(object_is_artifact(object_ptr)) return FEEL_UNCURSED;
+
+	/* Ego-Items -- except cursed/broken ones */
+	if(object_is_ego(object_ptr)) return FEEL_UNCURSED;
+
+	/* Good armor bonus */
+	if(object_ptr->to_ac > 0) return FEEL_UNCURSED;
+
+	/* Good weapon bonuses */
+	if(object_ptr->to_hit + object_ptr->to_damage > 0) return FEEL_UNCURSED;
+
+	/* No feeling */
+	return FEEL_NONE;
+}
+
+
+
+

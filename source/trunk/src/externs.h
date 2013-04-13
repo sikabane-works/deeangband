@@ -956,6 +956,8 @@ extern bool process_warning(creature_type *player_ptr, COODINATES xx, COODINATES
 extern void do_cmd_smith(creature_type *creature_ptr, bool only_browse);
 extern void set_inventory_weight(creature_type *creature_ptr);
 extern bool is_valid_object(object_type *object_ptr);
+extern byte value_check_aux1(creature_type *creature_ptr, object_type *object_ptr);
+extern byte value_check_aux2(creature_type *creature_ptr, object_type *object_ptr);
 
 // racial.c
 extern void stop_mouth(creature_type *creature_ptr);

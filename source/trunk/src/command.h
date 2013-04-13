@@ -1,8 +1,6 @@
 // cmd1.c
 extern bool test_hit_fire(creature_type *attacker_ptr, int chance, int ev, int vis);
 extern POWER critical_shot(creature_type *creature_ptr, WEIGHT weight, int plus, POWER dam);
-extern s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr, int mode, bool thrown);
-extern void search(creature_type *creature_ptr);
 extern void carry(creature_type *creature_ptr, bool pickup);
 extern bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x);
 extern bool trap_can_be_ignored(creature_type *creature_ptr, int feat);
