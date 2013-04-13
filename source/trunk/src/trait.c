@@ -10,6 +10,7 @@
 */
 
 #include "angband.h"
+#include "command.h"
 #include "diary.h"
 
 bool do_active_trait(creature_type *caster_ptr, int id, bool message)

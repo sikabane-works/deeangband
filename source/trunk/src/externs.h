@@ -1447,6 +1447,7 @@ extern int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int 
 extern bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, int mode, bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval);
 extern void py_pickup_floor(creature_type *creature_ptr, bool pickup);
 extern void increase_item(creature_type *user_ptr, int id, int num, bool desc);
+extern void py_pickup_aux(creature_type *creature_ptr, OBJECT_ID object_idx);
 
 // variable.c
 extern u32b creature_idx_latest;
