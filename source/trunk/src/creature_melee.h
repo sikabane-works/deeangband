@@ -8,4 +8,4 @@ extern void search(creature_type *creature_ptr);
 
 extern void pack_overflow(creature_type *creature_ptr);
 
-extern bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int shuriken);
+

@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "autopick.h"
+#include "creature_shooting.h"
 #include "mindtips.h"
 
 
