@@ -578,25 +578,6 @@ extern FEATURE_ID feat_floor_rand_table[100], fill_type[100];
 extern int now_message;
 extern bool use_menu;
 
-// birth.c
-extern void add_history_from_pref_line(cptr t);
-extern void creature_wipe(creature_type *creature_ptr);
-extern bool ask_quick_start(creature_type *creature_ptr);
-extern creature_type* generate_creature(cave_type *c_ptr, SPECIES_ID species_idx, FLAGS_32 flags);
-extern void get_max_stats(creature_type *creature_ptr);
-extern void determine_random_questor(quest_type *quest_ptr);
-extern void dump_yourself(creature_type *creature_ptr, FILE *fff);
-extern void add_item_to_creature(creature_type *creature_ptr, object_type *object_ptr, FLAGS_32 flags);
-extern void race_detail(int code);
-extern void class_detail(int code);
-extern void chara_detail(int code);
-extern void realm_detail(int code);
-extern void starting_point_detail(int code);
-extern void init_dungeon_quests(void);
-extern void save_prev_data(creature_type *creature_ptr, species_type *species_ptr);
-extern void load_prev_data(creature_type *creature_ptr, species_type *species_ptr, bool swap);
-extern void world_wipe(void);
-extern void become_winner(creature_type *creature_ptr);
 
 // cave.c
 extern COODINATES distance(COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2);
@@ -886,6 +867,7 @@ extern cptr do_spell(creature_type *creature_ptr, REALM_ID realm, int spell, int
 extern void wild_magic(creature_type *creature_ptr, int spell);
 
 /* dungeon.c */
+extern void world_wipe(void);
 extern void leave_quest_check(creature_type *creature_ptr);
 extern void extract_option_vars(void);
 extern void determine_bounty_uniques(void);
@@ -896,6 +878,7 @@ extern s32b turn_real(creature_type *creature_ptr, s32b hoge);
 extern void add_game_turn(creature_type *creature_ptr, GAME_TIME num);
 extern void check_music(creature_type *creature_ptr);
 extern void pack_overflow(creature_type *creature_ptr);
+extern void become_winner(creature_type *creature_ptr);
 
 /* files.c */
 extern void safe_setuid_drop(void);
@@ -933,6 +916,7 @@ extern errr get_rnd_line_jonly(cptr file_name, int entry, char *output, int coun
 #endif
 extern errr counts_write(int where, u32b count);
 extern u32b counts_read(int where);
+extern void dump_yourself(creature_type *creature_ptr, FILE *fff);
 
 // flavor.c
 extern void get_table_name_aux(char *out_string);
@@ -1713,6 +1697,7 @@ extern starting_type starting_point[STARTING_MAX];
 extern half_race_description half_race_desc[MAX_HALF_RACE_DESCRIPTION];
 extern int town_store_id[20][10];
 extern char authority_rank_disp[6][3];
+extern cptr realm_jouhou[MAX_REALMS];
 
 extern char gameover_from[80];
 extern bool wait_report_score;

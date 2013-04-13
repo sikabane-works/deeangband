@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "artifact.h"
+#include "birth.h"
 
 /*
  * This file includes code for eating food, drinking potions,

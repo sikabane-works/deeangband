@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "artifact.h"
+#include "birth.h"
 
 #define HORDE_NOGOOD 0x01
 #define HORDE_NOEVIL 0x02

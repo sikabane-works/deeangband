@@ -11,6 +11,8 @@
 /* Purpose: code dealing with files (and death) */
 
 #include "angband.h"
+#include "autopick.h"
+#include "birth.h"
 
 
 /*
@@ -6752,3 +6754,74 @@ void signals_init(void)
 {
 }
 #endif	/* HANDLE_SIGNALS */
+
+void dump_yourself(creature_type *creature_ptr, FILE *fff)
+{
+	char temp[80*10];
+	int i;
+	cptr t;
+
+	if(!fff) return;
+	roff_to_buf(race_text + race_info[creature_ptr->race_idx1].text, 78, temp, sizeof(temp));
+	fprintf(fff, "\n\n%s: %s\n", KW_RACE, race_info[creature_ptr->race_idx1].title);
+
+	t = temp;
+	for (i = 0; i < 10; i++)
+	{
+		if(t[0] == 0)
+			break; 
+		fprintf(fff, "%s\n",t);
+		t += strlen(t) + 1;
+	}
+	roff_to_buf(class_text + class_info[creature_ptr->class_idx].text, 78, temp, sizeof(temp));
+	fprintf(fff, "\n");
+	fprintf(fff, "%s: %s\n", KW_CLASS, class_info[creature_ptr->class_idx].title);
+	t = temp;
+	for (i = 0; i < 10; i++)
+	{
+		if(t[0] == 0)
+			break; 
+		fprintf(fff, "%s\n",t);
+		t += strlen(t) + 1;
+	}
+	roff_to_buf(chara_text + chara_info[creature_ptr->chara_idx].text, 78, temp, sizeof(temp));
+	fprintf(fff, "\n");
+	fprintf(fff, "%s: %s\n", KW_CHARA, chara_info[creature_ptr->chara_idx].title);
+	t = temp;
+	for (i = 0; i < STAT_MAX; i++)
+	{
+		if(t[0] == 0)
+			break; 
+		fprintf(fff, "%s\n",t);
+		t += strlen(t) + 1;
+	}
+	fprintf(fff, "\n");
+	if(creature_ptr->realm1)
+	{
+		roff_to_buf(realm_jouhou[technic2magic(creature_ptr->realm1)-1], 78, temp, sizeof(temp));
+		fprintf(fff, "%s: %s\n", KW_REALM, realm_names[creature_ptr->realm1]);
+		t = temp;
+		for (i = 0; i < STAT_MAX; i++)
+		{
+			if(t[0] == 0)
+				break; 
+			fprintf(fff, "%s\n",t);
+			t += strlen(t) + 1;
+		}
+	}
+	fprintf(fff, "\n");
+	if(creature_ptr->realm2)
+	{
+		roff_to_buf(realm_jouhou[technic2magic(creature_ptr->realm2)-1], 78, temp, sizeof(temp));
+		fprintf(fff, "%s: %s\n", KW_REALM, realm_names[creature_ptr->realm2]);
+		t = temp;
+		for (i = 0; i < STAT_MAX; i++)
+		{
+			if(t[0] == 0)
+				break; 
+			fprintf(fff, "%s\n",t);
+			t += strlen(t) + 1;
+		}
+	}
+}
+

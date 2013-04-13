@@ -475,6 +475,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\birth.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\defines.h"
 				>
 			</File>

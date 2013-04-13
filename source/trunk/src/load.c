@@ -11,6 +11,7 @@
 /* Purpose: support for loading savefiles -BEN- */
 
 #include "angband.h"
+#include "birth.h"
 
 
 /*
