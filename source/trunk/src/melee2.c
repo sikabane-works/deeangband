@@ -16,6 +16,7 @@
  */
 
 #include "angband.h"
+#include "diary.h"
 
 /*
  * Calculate the direction to the next enemy
@@ -1417,11 +1418,8 @@ static void do_creature_speaking(creature_type *creature_ptr)
 
 /*
  * Process a non-player
- *
  * The creature is known to be within 100 grids of the player
- *
  * In several cases, we directly update the creature lore
- *
  * Note that a creature is only allowed to "reproduce" if there
  * are a limited number of "reproducing" creatures on the current
  * level.  This should prevent the level from being "swamped" by

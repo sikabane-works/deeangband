@@ -14,6 +14,7 @@
 #include "angband.h"
 #include "kajitips.h"
 #include "artifact.h"
+#include "diary.h"
 
 
 /*

@@ -393,7 +393,6 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 	return (s16b)(tdam * mult / 10);
 }
 
-
 /*
  * Search for hidden things
  */
