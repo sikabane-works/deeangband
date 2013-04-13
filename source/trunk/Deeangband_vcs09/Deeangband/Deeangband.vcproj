@@ -233,6 +233,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\creature_equipments.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\creature_hook.c"
 				>
 			</File>
@@ -242,6 +246,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\creature_misc.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\creature_shooting.c"
 				>
 			</File>
 			<File
@@ -495,7 +503,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\creature_equipments.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\creature_melee.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\creature_shooting.h"
 				>
 			</File>
 			<File
