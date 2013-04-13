@@ -11,6 +11,7 @@
 /* Purpose: Mindcrafter code */
 
 #include "angband.h"
+#include "autopick.h"
 #include "mindtips.h"
 
 

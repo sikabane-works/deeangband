@@ -73,6 +73,7 @@
 #include "angband.h"
 #include "command.h"
 #include "diary.h"
+#include "dungeon.h"
 #include "files.h"
 
 #ifdef WINDOWS
