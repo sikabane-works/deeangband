@@ -15,7 +15,7 @@
 #include "birth.h"
 #include "command.h"
 #include "diary.h"
-
+#include "files.h"
 
 /*
  * You may or may not want to use the following "#undef".

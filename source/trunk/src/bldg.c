@@ -14,6 +14,7 @@
 #include "autopick.h"
 #include "command.h"
 #include "diary.h"
+#include "files.h"
 
 // hack as in leave_store in store.c
 static bool leave_bldg = FALSE;

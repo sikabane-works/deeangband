@@ -9,6 +9,7 @@
  */
 
 #include "angband.h"
+#include "files.h"
 
 
 /* Chance of using syllables to form the name instead of the "template" files */

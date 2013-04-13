@@ -11,6 +11,7 @@
 /* Purpose: Mutation effects (and racial powers) */
 
 #include "angband.h"
+#include "files.h"
 
 
 bool gain_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message)

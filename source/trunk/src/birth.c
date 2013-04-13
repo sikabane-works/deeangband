@@ -15,6 +15,7 @@
 #include "birth.h"
 #include "command.h"
 #include "diary.h"
+#include "files.h"
 
 /*
  * How often the autoroller will update the display and pause

@@ -17,6 +17,7 @@
 
 #include "angband.h"
 #include "diary.h"
+#include "files.h"
 
 /*
  * Calculate the direction to the next enemy

@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "diary.h"
+#include "files.h"
 
 /*
  * Seek score 'i' in the highscore file

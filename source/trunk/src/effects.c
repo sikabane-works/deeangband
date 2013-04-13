@@ -16,6 +16,7 @@
 #include "birth.h"
 #include "command.h"
 #include "diary.h"
+#include "files.h"
 
 bool add_timed_trait(creature_type *creature_ptr, int type, int v, bool message)
 {

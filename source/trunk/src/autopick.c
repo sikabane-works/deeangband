@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "command.h"
+#include "files.h"
 
 
 #define MAX_LINELEN 1024

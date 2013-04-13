@@ -9,6 +9,7 @@
  */
 
 #include "angband.h"
+#include "files.h"
 
 /*
  * Certain items, if aware, are known instantly

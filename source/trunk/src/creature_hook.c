@@ -12,6 +12,7 @@
 /* Purpose: describe creatures (using creature memory) */
 
 #include "angband.h"
+#include "files.h"
 
 
 /*

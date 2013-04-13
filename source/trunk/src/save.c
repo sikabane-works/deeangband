@@ -11,6 +11,7 @@
 /* Purpose: interact with savefiles */
 
 #include "angband.h"
+#include "files.h"
 
 
 /*

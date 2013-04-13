@@ -11,6 +11,7 @@
 /* Purpose: Initialization (part 1) -BEN- */
 
 #include "angband.h"
+#include "files.h"
 
 
 /*

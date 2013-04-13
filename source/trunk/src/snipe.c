@@ -1,4 +1,5 @@
 #include "angband.h"
+#include "files.h"
 
 #define MAX_SNIPE_POWERS 16
 

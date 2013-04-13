@@ -15,6 +15,7 @@
 #include "angband.h"
 #include "artifact.h"
 #include "diary.h"
+#include "files.h"
 
 /*
  * Strip an "object name" into a buffer

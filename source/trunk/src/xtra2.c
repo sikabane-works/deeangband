@@ -14,6 +14,7 @@
 #include "artifact.h"
 #include "autopick.h"
 #include "diary.h"
+#include "files.h"
 
 // Advance experience levels for initial creature
 void set_experience(creature_type *creature_ptr)

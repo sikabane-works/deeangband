@@ -507,6 +507,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\files.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\game-constants.h"
 				>
 			</File>

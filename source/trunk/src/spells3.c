@@ -14,6 +14,7 @@
 #include "artifact.h"
 #include "autopick.h"
 #include "diary.h"
+#include "files.h"
 
 
 static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode)

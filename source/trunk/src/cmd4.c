@@ -14,6 +14,7 @@
 #include "autopick.h"
 #include "command.h"
 #include "diary.h"
+#include "files.h"
 
 /*
  * A set of functions to maintain automatic dumps of various kinds.

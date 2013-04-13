@@ -72,6 +72,7 @@
 
 #include "angband.h"
 #include "diary.h"
+#include "files.h"
 
 #ifdef WINDOWS
 #include <windows.h>

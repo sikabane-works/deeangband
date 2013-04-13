@@ -14,6 +14,7 @@
 #include "artifact.h"
 #include "birth.h"
 #include "command.h"
+#include "files.h"
 
 /*
  * This file includes code for eating food, drinking potions,

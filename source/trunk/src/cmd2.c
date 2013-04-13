@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "command.h"
 #include "diary.h"
+#include "files.h"
 
 
 // Go up one level

@@ -15,6 +15,7 @@
 #include "birth.h"
 #include "command.h"
 #include "diary.h"
+#include "files.h"
 
 static void game_mode_detail(int code)
 {

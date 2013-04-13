@@ -12,6 +12,7 @@
 /* Purpose: Wilderness generation */
 
 #include "angband.h"
+#include "files.h"
 
 
 static void set_floor_and_wall_aux(FEATURE_ID feat_type[100], feat_prob prob[DUNGEON_FEAT_PROB_NUM])

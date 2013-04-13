@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "autopick.h"
 #include "diary.h"
+#include "files.h"
 
 #if defined(MACINTOSH) || defined(MACH_O_CARBON)
 #ifdef verify

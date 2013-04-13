@@ -15,6 +15,7 @@
 
 #include "angband.h"
 #include "autopick.h"
+#include "files.h"
 
 // Converts stat num into a six-char (right justified) string
 void cnv_stat(int val, char *out_val)
