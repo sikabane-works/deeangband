@@ -5163,19 +5163,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	return TRUE;
 }
 
-
-// Peruse the On-Line-Help
-void do_cmd_help(void)
-{
-	screen_save();
-#ifdef JP
-	(void)show_file(TRUE, "jhelp.hlp", NULL, 0, 0);
-#else
-	(void)show_file(TRUE, "help.hlp", NULL, 0, 0);
-#endif
-	screen_load();
-}
-
 /*
  * Process the player name.
  * Extract a clean "base name".

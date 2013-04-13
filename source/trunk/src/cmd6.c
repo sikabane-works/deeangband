@@ -2814,3 +2814,15 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	if(tval == TV_ROD) creature_ptr->current_charge[item] += object_kind_info[k_idx].pval * EATER_ROD_CHARGE;
 	else creature_ptr->current_charge[item] -= EATER_CHARGE;
 }
+
+// Peruse the On-Line-Help
+void do_cmd_help(void)
+{
+	screen_save();
+#ifdef JP
+	(void)show_file(TRUE, "jhelp.hlp", NULL, 0, 0);
+#else
+	(void)show_file(TRUE, "help.hlp", NULL, 0, 0);
+#endif
+	screen_load();
+}

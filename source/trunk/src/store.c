@@ -14,6 +14,7 @@
 #include "autopick.h"
 #include "command.h"
 #include "diary.h"
+#include "store.h"
 
 static int store_top = 0;
 static int store_bottom = 0;

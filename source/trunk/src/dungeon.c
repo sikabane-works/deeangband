@@ -16,6 +16,7 @@
 #include "command.h"
 #include "diary.h"
 #include "files.h"
+#include "store.h"
 
 static void game_mode_detail(int code)
 {

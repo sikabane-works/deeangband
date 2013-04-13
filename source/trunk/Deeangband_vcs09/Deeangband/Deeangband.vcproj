@@ -603,6 +603,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\store.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\streams.h"
 				>
 			</File>
