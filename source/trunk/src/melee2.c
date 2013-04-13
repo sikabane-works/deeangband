@@ -2400,6 +2400,12 @@ static void process_creature(CREATURE_ID i)
 	creature_lack_food(creature_ptr); /* Getting Faint from lack food */
 	pack_overflow(creature_ptr);
 
+	/* non-multi-hued creatures */
+	if(has_trait(creature_ptr, TRAIT_ATTR_MULTI) || has_trait(creature_ptr, TRAIT_SHAPECHANGER))
+	{
+		lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
+	}
+
 	/* Paralyzed or Knocked Out */
 	if(has_trait(creature_ptr, TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT) || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
 	{

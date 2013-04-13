@@ -165,7 +165,6 @@ extern bool inkey_xtra;
 extern bool inkey_scan;
 extern bool inkey_flag;
 extern bool get_com_no_macros;
-extern bool shimmer_creatures;
 extern bool shimmer_objects;
 extern bool repair_creatures;
 extern bool repair_objects;

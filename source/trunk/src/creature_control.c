@@ -3380,9 +3380,6 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	/* Hack -- Count the number of "reproducers" */
 	if(has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_repro++;
 
-	/* Hack -- Notice new multi-hued creatures */
-	if(has_trait(creature_ptr, TRAIT_ATTR_MULTI) || has_trait(creature_ptr, TRAIT_SHAPECHANGER)) shimmer_creatures = TRUE;
-
 	/* TODO
 	if(watcher_ptr->warning && floor_ptr->generated)
 	{

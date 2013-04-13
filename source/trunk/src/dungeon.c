@@ -4282,14 +4282,14 @@ void process_player(creature_type *creature_ptr)
 		else if(creature_ptr->action == ACTION_FISH) cost_tactical_energy(creature_ptr, 100);
 		else if(creature_ptr->running) run_step(creature_ptr, 0);
 		else if(travel.run) travel_step(creature_ptr);
-		else if(command_rep)	// Repeated command
+		else if(command_rep) /* Repeated command */
 		{
-			command_rep--;	// Count this execution
+			command_rep--;
 			prepare_redraw(PR_STATE);
 			redraw_stuff(player_ptr);
 			msg_flag = FALSE;
 			prt("", 0, 0);
-			process_player_command(creature_ptr);	// Process the command
+			process_player_command(creature_ptr);	/* Process the command */
 		}
 		else	// Normal command
 		{
@@ -4313,63 +4313,6 @@ void process_player(creature_type *creature_ptr)
 			
 			if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) prepare_redraw(PR_MAP); // Hack -- constant hallucination
 
-			if(shimmer_creatures) // Shimmer creatures if needed
-			{
-				/* Clear the flag */
-				shimmer_creatures = FALSE;
-
-				/* Shimmer multi-hued creatures */
-				for (i = 1; i < creature_max; i++)
-				{
-					creature_type *other_ptr;
-					species_type *species_ptr;
-					other_ptr = &creature_list[i];
-
-					if(!other_ptr->species_idx) continue; // Skip dead creatures
-					if(!other_ptr->see_others) continue; // Skip unseen creatures
-					species_ptr = &species_info[other_ptr->ap_species_idx]; // Access the creature race
-
-					// Skip non-multi-hued creatures
-					if(!has_trait(other_ptr, TRAIT_ATTR_MULTI) && !has_trait(other_ptr, TRAIT_SHAPECHANGER)) continue;
-
-					shimmer_creatures = TRUE;
-					lite_spot(floor_ptr, other_ptr->fy, other_ptr->fx);
-				}
-			}
-
-			if(repair_creatures) // Handle creature detection
-			{
-				repair_creatures = FALSE; // Reset the flag
-				for (i = 1; i < creature_max; i++) // Rotate detection flags
-				{
-					creature_type *other_ptr;
-
-					other_ptr = &creature_list[i]; // Access creature
-					if(!other_ptr->species_idx) continue; // Skip dead creatures
-
-					if(other_ptr->sc_flag & SC_FLAG_NICE) // Nice creatures get mean
-						other_ptr->sc_flag &= ~(SC_FLAG_NICE);
-
-					if(other_ptr->sc_flag2 & SC_FLAG2_MARK)
-					{
-						if(other_ptr->sc_flag2 & SC_FLAG2_SHOW) // Maintain detection
-						{
-							other_ptr->sc_flag2 &= ~(SC_FLAG2_SHOW);
-							repair_creatures = TRUE;
-						}
-						else // Remove detection
-						{
-							other_ptr->sc_flag2 &= ~(SC_FLAG2_MARK); // Forget flag
-							other_ptr->see_others = FALSE; // Assume invisible
-							update_creature_view(player_ptr, i, FALSE); // Update the creature
-
-							if(npc_status_id == i) prepare_redraw(PR_HEALTH);
-							if(creature_ptr->riding == i) prepare_redraw(PR_UHEALTH);
-							lite_spot(floor_ptr, other_ptr->fy, other_ptr->fx);
-						}
-					}
-				}
-			}
 			if(creature_ptr->class_idx == CLASS_IMITATOR)
 			{
 				if(creature_ptr->mane_num > (creature_ptr->lev > 44 ? 3 : creature_ptr->lev > 29 ? 2 : 1))
@@ -4899,7 +4842,6 @@ static void play_loop(void)
 		health_track(0);
 
 		// Check visual effects 
-		shimmer_creatures = TRUE;
 		shimmer_objects = TRUE;
 		repair_creatures = TRUE;
 		repair_objects = TRUE;
