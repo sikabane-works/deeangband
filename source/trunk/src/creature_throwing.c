@@ -1,5 +1,6 @@
 #include "angband.h"
 #include "creature_equipments.h"
+#include "creature_inventory.h"
 #include "creature_throwing.h"
 
 

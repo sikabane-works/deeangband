@@ -14,6 +14,7 @@
 #include "artifact.h"
 #include "birth.h"
 #include "command.h"
+#include "creature_inventory.h"
 #include "files.h"
 
 /*

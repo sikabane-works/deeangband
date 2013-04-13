@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "autopick.h"
+#include "creature_inventory.h"
 
 /*
  * Hook to determine if an object is contertible in an arrow/bolt
