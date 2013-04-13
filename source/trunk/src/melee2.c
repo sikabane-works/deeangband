@@ -19,6 +19,7 @@
 #include "creature_melee.h"
 #include "diary.h"
 #include "files.h"
+#include "riding.h"
 
 /*
  * Calculate the direction to the next enemy

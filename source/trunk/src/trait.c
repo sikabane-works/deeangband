@@ -13,6 +13,7 @@
 #include "command.h"
 #include "diary.h"
 #include "files.h"
+#include "riding.h"
 
 bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 {

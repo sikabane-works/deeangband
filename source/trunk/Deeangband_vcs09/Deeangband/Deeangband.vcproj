@@ -377,6 +377,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\riding.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\rooms.c"
 				>
 			</File>
@@ -608,6 +612,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\readdib.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\riding.h"
 				>
 			</File>
 			<File

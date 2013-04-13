@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "autopick.h"
 #include "files.h"
+#include "riding.h"
 
 /* ToDo: Make this global */
 

@@ -17,6 +17,7 @@
 #include "diary.h"
 #include "files.h"
 #include "quest.h"
+#include "riding.h"
 
 #define HORDE_NOGOOD 0x01
 #define HORDE_NOEVIL 0x02
