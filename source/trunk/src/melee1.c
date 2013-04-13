@@ -11,6 +11,7 @@
 */
 
 #include "angband.h"
+#include "creature_melee.h"
 
 #define MAX_VAMPIRIC_DRAIN 50
 

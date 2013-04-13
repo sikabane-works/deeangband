@@ -487,6 +487,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\creature_melee.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\defines.h"
 				>
 			</File>
