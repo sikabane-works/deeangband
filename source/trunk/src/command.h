@@ -1,6 +1,4 @@
 // cmd1.c
-extern bool test_hit_fire(creature_type *attacker_ptr, int chance, int ev, int vis);
-extern POWER critical_shot(creature_type *creature_ptr, WEIGHT weight, int plus, POWER dam);
 extern void carry(creature_type *creature_ptr, bool pickup);
 extern bool trap_can_be_ignored(creature_type *creature_ptr, int feat);
 extern void run_step(creature_type *creature_ptr, DIRECTION dir);
@@ -43,7 +41,6 @@ extern void do_cmd_target(creature_type *creature_ptr);
 extern void do_cmd_look(creature_type *creature_ptr);
 extern void do_cmd_locate(creature_type *creature_ptr);
 extern void do_cmd_query_symbol(creature_type *creature_ptr);
-extern void kamaenaoshi(creature_type *creature_ptr, int item);
 extern bool ang_sort_comp_hook(vptr u, vptr v, int a, int b);
 extern void ang_sort_swap_hook(vptr u, vptr v, int a, int b);
 
@@ -77,8 +74,7 @@ extern void plural_aux(char * Name);
 extern void do_cmd_checkquest(void);
 extern void do_cmd_time(creature_type *creature_ptr);
 
-// cmd5.c
-extern cptr spell_category_name(TVAL tval);
+/* cmd5.c */
 extern void do_cmd_browse(creature_type *creature_ptr);
 extern void do_cmd_study(creature_type *creature_ptr);
 extern void do_cmd_cast(creature_type *creature_ptr);

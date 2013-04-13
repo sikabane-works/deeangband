@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "autopick.h"
 #include "command.h"
+#include "creature_inventory.h"
 #include "diary.h"
 #include "files.h"
 #include "store.h"

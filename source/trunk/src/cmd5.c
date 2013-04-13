@@ -16,17 +16,6 @@
 #include "diary.h"
 #include "riding.h"
 
-cptr spell_category_name(TVAL tval)
-{
-	switch (tval)
-	{
-	case TV_HISSATSU_BOOK: return KW_HISSATSU;
-	case TV_LIFE_BOOK: return KW_MIRACLE;
-	case TV_MUSIC_BOOK: return KW_SONG;
-	default: return KW_SPELL;
-	}
-}
-
 /*
 * Allow user to choose a spell/prayer from the given book.
 *

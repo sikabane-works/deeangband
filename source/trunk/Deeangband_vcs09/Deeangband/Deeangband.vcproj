@@ -253,10 +253,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\creature_shooting.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\creature_throwing.c"
 				>
 			</File>
@@ -520,10 +516,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\creature_melee.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\creature_shooting.h"
 				>
 			</File>
 			<File

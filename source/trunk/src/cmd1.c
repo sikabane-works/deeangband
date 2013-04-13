@@ -16,67 +16,6 @@
 #include "diary.h"
 
 /*
- * Determine if the player "hits" a creature (normal combat).
- * Note -- Always miss 5%, always hit 5%, otherwise random.
- */
-bool test_hit_fire(creature_type *attacker_ptr, int chance, int ev, int vis)
-{
-	int k;
-
-	k = randint0(100); // Percentile dice
-
-	if(k < 10) return (k < 5);	// Instant miss or hit
-	if(has_trait(attacker_ptr, TRAIT_MISS_SHOOTING) && (one_in_(20))) return FALSE;
-
-	if(chance <= 0) return FALSE;
-	if(!vis) chance = (chance + 1) / 2;	// Invisible creatures are harder to hit
-
-	if(randint0(chance) < (ev * 3 / 4)) return FALSE;	// Power competes against armor
-	return TRUE;	// Assume hit
-}
-
-
-/*
- * Critical hits (from objects thrown by player)
- * Factor in item weight, total plusses, and player level.
- */
-POWER critical_shot(creature_type *creature_ptr, WEIGHT weight, int plus, POWER dam)
-{
-	int i, k;
-
-	// Extract "shot" power
-	i = ((creature_ptr->to_hit_b + plus) * 4) + (creature_ptr->lev * 2);
-
-	// Snipers can shot more critically with crossbows
-	if(creature_ptr->concent) i += ((i * creature_ptr->concent) / 5);
-	if((creature_ptr->class_idx == CLASS_SNIPER) && (creature_ptr->tval_ammo == TV_BOLT)) i *= 2;
-
-	// Critical hit
-	if(randint1(5000) <= i)
-	{
-		k = weight * randint1(500);
-
-		if(k < 900)
-		{
-			msg_print(MES_CRITICAL_LEVEL1);
-			dam += (dam / 2);
-		}
-		else if(k < 1350)
-		{
-			msg_print(MES_CRITICAL_LEVEL2);
-			dam *= 2;
-		}
-		else
-		{
-			msg_print(MES_CRITICAL_LEVEL3);
-			dam *= 3;
-		}
-	}
-
-	return (dam);
-}
-
-/*
  * Player "wants" to pick up an object or gold.
  * Note that we ONLY handle things that can be picked up.
  * See "walk_creature()" for handling of other things.
