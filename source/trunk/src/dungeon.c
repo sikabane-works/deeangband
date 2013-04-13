@@ -4084,7 +4084,7 @@ void gamble_arena_limitation(void)
 
 
 // Hack -- Pack Overflow
-static void pack_overflow(creature_type *creature_ptr)
+void pack_overflow(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -4209,7 +4209,6 @@ void process_player(creature_type *creature_ptr)
 				set_action(creature_ptr, ACTION_NONE);
 			}
 		}
-
 		/* Complete resting */
 		else if(creature_ptr->resting == -2)
 		{
@@ -4240,12 +4239,7 @@ void process_player(creature_type *creature_ptr)
 	/* Repeat until out of energy */
 	while (creature_ptr->energy_need <= 0)
 	{
-		creature_ptr->action_turn++;
-
 		prepare_window(PW_PLAYER);
-		creature_ptr->sutemi = FALSE;
-		creature_ptr->counter = FALSE;
-		creature_ptr->now_damaged = FALSE;
 
 		notice_stuff(creature_ptr); // Handle update
 		handle_stuff(creature_ptr); // Handle "update" and "play_redraw" and "play_window"
@@ -4256,24 +4250,16 @@ void process_player(creature_type *creature_ptr)
 		/* Refresh (optional) */
 		if(fresh_before) Term_fresh();
 
-
-		/* Hack -- Pack Overflow */
-		pack_overflow(creature_ptr);
-
-
 		/* Hack -- cancel "lurking browse mode" */
 		if(!command_new) command_see = FALSE;
 
-
 		/* Assume free turn */
 		cancel_tactical_action(creature_ptr);
-
 
 		if(floor_ptr->gamble_arena_mode)
 		{
 			/* Place the cursor on the player */
 			move_cursor_relative(creature_ptr->fy, creature_ptr->fx);
-
 			command_cmd = SPECIAL_KEY_BUILDING;
 
 			/* Process the command */
@@ -4313,9 +4299,6 @@ void process_player(creature_type *creature_ptr)
 			can_save = FALSE;			
 			process_player_command(creature_ptr);	// Process the command
 		}
-
-		pack_overflow(creature_ptr); // Hack -- Pack Overflow
-
 
 		/*** Clean up ***/
 
@@ -4438,7 +4421,7 @@ void process_player(creature_type *creature_ptr)
 		if(subject_change_floor) break;
 	}
 
-	update_smell(creature_ptr); // Update scent trail
+	//TODO update_smell(creature_ptr);
 }
 
 

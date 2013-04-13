@@ -2398,6 +2398,7 @@ static void process_creature(CREATURE_ID i)
 
 	creature_food_digest(creature_ptr); /* food digest */
 	creature_lack_food(creature_ptr); /* Getting Faint from lack food */
+	pack_overflow(creature_ptr);
 
 	/* Paralyzed or Knocked Out */
 	if(has_trait(creature_ptr, TRAIT_PARALYZED) || has_trait(creature_ptr, TRAIT_SLEPT) || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
@@ -2408,6 +2409,11 @@ static void process_creature(CREATURE_ID i)
 	{
 		do_creature_speaking(creature_ptr);
 		if(has_trait(creature_ptr, TRAIT_QUANTUM)) do_quantum_creature_feature(creature_ptr); // Quantum creatures are odd
+
+		creature_ptr->action_turn++;
+		creature_ptr->sutemi = FALSE;
+		creature_ptr->counter = FALSE;
+		creature_ptr->now_damaged = FALSE;
 
 		if(is_player(creature_ptr))
 		{
