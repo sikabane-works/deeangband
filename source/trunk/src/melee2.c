@@ -2445,6 +2445,42 @@ static void process_creature(CREATURE_ID i)
 		prepare_update(creature_ptr, CRU_BONUS);
 	}
 
+	if(creature_ptr->class_idx == CLASS_IMITATOR)
+	{
+		if(creature_ptr->mane_num > (creature_ptr->lev > 44 ? 3 : creature_ptr->lev > 29 ? 2 : 1))
+		{
+			creature_ptr->mane_num--;
+			for (i = 0; i < creature_ptr->mane_num; i++)
+			{
+				creature_ptr->mane_spell[i] = creature_ptr->mane_spell[i+1];
+				creature_ptr->mane_dam[i] = creature_ptr->mane_dam[i+1];
+			}
+		}
+		creature_ptr->new_mane = FALSE;
+		prepare_redraw(PR_IMITATION);
+	}
+	if(creature_ptr->action == ACTION_LEARN)
+	{
+		creature_ptr->new_mane = FALSE;
+		prepare_redraw(PR_STATE);
+	}
+
+	if(creature_ptr->time_stopper && (creature_ptr->energy_need > -1000))
+	{
+		prepare_redraw(PR_MAP);
+		prepare_update(creature_ptr, PU_CREATURES);
+		prepare_window(PW_OVERHEAD | PW_DUNGEON);
+#ifdef JP
+		msg_print("uŽž‚Í“®‚«‚¾‚·cv");
+#else
+		msg_print("You feel time flowing around you once more.");
+#endif
+		msg_print(NULL);
+		creature_ptr->time_stopper = FALSE;
+		cost_tactical_energy(creature_ptr, 100);
+		handle_stuff(creature_ptr); // Handle "update" and "play_redraw" and "play_window"
+	}
+
 	if(creature_ptr->action == ACTION_LEARN)
 	{
 		s32b cost = 0L;
