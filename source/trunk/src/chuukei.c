@@ -1,6 +1,7 @@
 /* chuukei.c */
 
 #include "angband.h"
+#include "command.h"
 
 #include <stdio.h>
 #include <stdarg.h>

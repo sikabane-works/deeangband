@@ -14,6 +14,7 @@
 #include "angband.h"
 #include "autopick.h"
 #include "birth.h"
+#include "command.h"
 
 bool add_timed_trait(creature_type *creature_ptr, int type, int v, bool message)
 {

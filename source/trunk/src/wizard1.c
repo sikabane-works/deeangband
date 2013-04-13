@@ -11,7 +11,7 @@
 /* Purpose: Spoiler generation -BEN- */
 
 #include "angband.h"
-
+#include "command.h"
 
 #ifdef ALLOW_SPOILERS
 

@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "autopick.h"
+#include "command.h"
 
 // hack as in leave_store in store.c
 static bool leave_bldg = FALSE;

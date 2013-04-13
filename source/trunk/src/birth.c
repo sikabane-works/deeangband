@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "autopick.h"
 #include "birth.h"
+#include "command.h"
 
 /*
  * How often the autoroller will update the display and pause

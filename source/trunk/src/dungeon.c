@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "autopick.h"
 #include "birth.h"
+#include "command.h"
 
 static void game_mode_detail(int code)
 {

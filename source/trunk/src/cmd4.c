@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "autopick.h"
+#include "command.h"
 
 /*
  * A set of functions to maintain automatic dumps of various kinds.

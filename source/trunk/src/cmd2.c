@@ -11,6 +11,7 @@
 /* Purpose: Movement commands (part 2) */
 
 #include "angband.h"
+#include "command.h"
 
 
 // Go up one level

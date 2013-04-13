@@ -479,6 +479,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\command.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\defines.h"
 				>
 			</File>

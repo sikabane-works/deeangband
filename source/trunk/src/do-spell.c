@@ -3,6 +3,7 @@
 /* Purpose: Do everything for each spell */
 
 #include "angband.h"
+#include "command.h"
 
 
 /*
