@@ -467,6 +467,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\artifact.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\defines.h"
 				>
 			</File>

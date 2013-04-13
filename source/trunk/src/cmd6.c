@@ -11,7 +11,7 @@
 /* Purpose: Object commands */
 
 #include "angband.h"
-
+#include "artifact.h"
 
 /*
  * This file includes code for eating food, drinking potions,

@@ -11,6 +11,7 @@
 /* Purpose: misc code for creatures */
 
 #include "angband.h"
+#include "artifact.h"
 
 #define HORDE_NOGOOD 0x01
 #define HORDE_NOEVIL 0x02

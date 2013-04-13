@@ -11,6 +11,7 @@
 
 // Purpose: effects of various "objects"
 #include "angband.h"
+#include "artifact.h"
 
 // Advance experience levels for initial creature
 void set_experience(creature_type *creature_ptr)

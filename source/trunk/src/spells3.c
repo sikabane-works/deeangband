@@ -11,6 +11,7 @@
 /* Purpose: Spell code (part 3) */
 
 #include "angband.h"
+#include "artifact.h"
 
 
 static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode)

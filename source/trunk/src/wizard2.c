@@ -13,6 +13,7 @@
 /* Purpose: Wizard commands */
 
 #include "angband.h"
+#include "artifact.h"
 
 /*
  * Strip an "object name" into a buffer

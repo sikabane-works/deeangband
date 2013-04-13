@@ -43,7 +43,7 @@
  */
 
 #include "init.h"
-
+#include "artifact.h"
 
 static errr grab_one_trait(traits_precondition *cf_ptr, cptr what, byte add, byte remove, byte prob);
 

@@ -1206,7 +1206,7 @@ static option_type cheat_info[CHEAT_MAX] =
 	{ &cheat_know,		FALSE,	255,	0x10, 0x00, "cheat_know",		"完全なクリーチャーの思い出を知る"},
 	{ &cheat_live,		FALSE,	255,	0x20, 0x00, "cheat_live",		"死を回避することを可能にする"},
 	{ &cheat_save,		FALSE,	255,	0x40, 0x00, "cheat_save",		"死んだ時セーブするか確認する"},
-	{ &wizard,			FALSE,	255,	0x40, 0x00, "wizard",			"ウィザードモード"},
+	{ &wizard,			TRUE,	255,	0x80, 0x00, "wizard",			"ウィザードモード"},
 #else
 	{ &cheat_peek,		FALSE,	255,	0x01, 0x00, "cheat_peek",		"Peek into object creation"},
 	{ &cheat_hear,		FALSE,	255,	0x02, 0x00, "cheat_hear",		"Peek into creature creation"},
@@ -1215,7 +1215,7 @@ static option_type cheat_info[CHEAT_MAX] =
 	{ &cheat_know,		FALSE,	255,	0x10, 0x00, "cheat_know",		"Know complete creature info"},
 	{ &cheat_live,		FALSE,	255,	0x20, 0x00, "cheat_live",		"Allow player to avoid death"},
 	{ &cheat_save,		FALSE,	255,	0x40, 0x00, "cheat_save",		"Ask for saving death"},
-	{ &wizard,			FALSE,	255,	0x40, 0x00, "wizard",			"Wizard"}
+	{ &wizard,			TRUE,	255,	0x80, 0x00, "wizard",			"Wizard"}
 #endif
 };
 

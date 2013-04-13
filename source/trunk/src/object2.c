@@ -13,6 +13,7 @@
 
 #include "angband.h"
 #include "kajitips.h"
+#include "artifact.h"
 
 
 /*
