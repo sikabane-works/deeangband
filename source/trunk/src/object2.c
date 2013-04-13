@@ -5970,3 +5970,56 @@ byte value_check_aux2(creature_type *creature_ptr, object_type *object_ptr)
 
 
 
+// Determines the odds of an object breaking when thrown at a creature
+// Note that artifacts never break, see the "drop_near(floor_ptr, )" function.
+int breakage_chance(creature_type *creature_ptr, object_type *object_ptr)
+{
+	int archer_bonus = (creature_ptr->class_idx == CLASS_ARCHER ? (creature_ptr->lev-1)/7 + 4: 0);
+
+	/* Examine the snipe type */
+	if(creature_ptr->snipe_type)
+	{
+		if(creature_ptr->snipe_type == SP_KILL_WALL) return (100);
+		if(creature_ptr->snipe_type == SP_EXPLODE) return (100);
+		if(creature_ptr->snipe_type == SP_PIERCE) return (100);
+		if(creature_ptr->snipe_type == SP_FINAL) return (100);
+		if(creature_ptr->snipe_type == SP_NEEDLE) return (100);
+		if(creature_ptr->snipe_type == SP_EVILNESS) return (40);
+		if(creature_ptr->snipe_type == SP_HOLYNESS) return (40);
+	}
+
+	/* Examine the item type */
+	switch (object_ptr->tval)
+	{
+		/* Always break */
+		case TV_FLASK:
+		case TV_POTION:
+		case TV_BOTTLE:
+		case TV_FOOD:
+		case TV_JUNK:
+			return (100);
+
+		/* Often break */
+		case TV_LITE:
+		case TV_SCROLL:
+		case TV_SKELETON:
+			return (50);
+
+		/* Sometimes break */
+		case TV_WAND:
+		case TV_SPIKE:
+			return (25);
+		case TV_ARROW:
+			return (20 - archer_bonus * 2);
+
+		/* Rarely break */
+		case TV_SHOT:
+		case TV_BOLT:
+			return (10 - archer_bonus);
+		default:
+			return (10);
+	}
+}
+
+
+

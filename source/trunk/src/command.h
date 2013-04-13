@@ -25,7 +25,6 @@ extern void do_cmd_rest(creature_type *creature_ptr);
 extern void do_cmd_fire(creature_type *creature_ptr);
 extern void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr);
 extern void do_cmd_throw(creature_type *creature_ptr);
-extern bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int shuriken);
 extern void do_cmd_travel(creature_type *creature_ptr);
 
 // cmd3.c

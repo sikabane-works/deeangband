@@ -14,6 +14,7 @@
 #include "artifact.h"
 #include "birth.h"
 #include "command.h"
+#include "creature_melee.h"
 #include "diary.h"
 #include "files.h"
 #include "quest.h"
