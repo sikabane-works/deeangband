@@ -2231,7 +2231,7 @@ void determine_random_questor(quest_type *quest_ptr)
 
 		// Accept creatures that are 2 - 6 levels out of depth depending on the quest level
 		if(species_ptr->level > (quest_ptr->level + (quest_ptr->level / 20))) break;
-	} while (i++ < MAX_TRIES);
+	} while (i++ < SAFE_MAX_ATTEMPTS);
 
 	quest_ptr->species_idx = species_idx;
 }

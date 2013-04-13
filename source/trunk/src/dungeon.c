@@ -1024,36 +1024,6 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	}
 }
 
-
-void leave_quest_check(creature_type *creature_ptr)
-{
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-
-	// Save quest number for dungeon pref file ($LEAVING_QUEST)
-	leaving_quest = floor_ptr->quest;
-
-	// Leaving an 'only once' quest marks it as failed
-	if(leaving_quest &&
-		((quest[leaving_quest].flags & QUEST_FLAG_ONCE)  || (quest[leaving_quest].type == QUEST_TYPE_RANDOM)) &&
-		(quest[leaving_quest].status == QUEST_STATUS_TAKEN))
-	{
-		quest[leaving_quest].status = QUEST_STATUS_FAILED;
-		quest[leaving_quest].complev = (byte)creature_ptr->lev;
-		if(quest[leaving_quest].type == QUEST_TYPE_RANDOM)
-		{
-			//TODO species_info[quest[leaving_quest].species_idx].flags1 &= ~(RF1_QUESTOR);
-			if(record_rand_quest)
-				write_diary(DIARY_RAND_QUEST_F, leaving_quest, NULL);
-
-			/* Floor of random quest will be blocked */
-			//prepare_change_floor_mode(creature_ptr, CFM_NO_RETURN);
-		}
-		else if(record_fix_quest)
-			write_diary(DIARY_FIX_QUEST_F, leaving_quest, NULL);
-	}
-}
-
-
 /*
 * Forcibly pseudo-identify an object in the inventory
 * (or on the floor)
@@ -4548,7 +4518,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 	floor_ptr->gamble_arena_mode = TRUE;
 	reset_species_preps();
 
-	while (n < MAX_TRIES)
+	while (n < SAFE_MAX_ATTEMPTS)
 	{
 		n++;
 
@@ -4564,7 +4534,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 		break;
 
 	}
-	if(n == MAX_TRIES) msg_print("Warning: undetermined today wanted creature.");
+	if(n == SAFE_MAX_ATTEMPTS) msg_print("Warning: undetermined today wanted creature.");
 
 	today_mon = 0;
 	floor_ptr->gamble_arena_mode = old_gamble_arena_mode;

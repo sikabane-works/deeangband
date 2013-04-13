@@ -17,7 +17,7 @@
 #define CHAINSWORD_NOISE 100
 
 // Maximum number of random tries
-#define MAX_TRIES 10000
+#define SAFE_MAX_ATTEMPTS 5000
 
 // A "stack" of items is limited to less than or equal to 99 items (hard-coded).
 #define MAX_STACK_SIZE 99

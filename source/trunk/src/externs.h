@@ -773,7 +773,6 @@ extern void reset_cave_creature_reference(void);
 extern FLOOR_ID get_floor_idx(floor_type *floor_ptr);
 
 // generate.c
-extern bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr);
 extern void wipe_generate_floor_flags(floor_type *floor_ptr);
 extern void clear_cave(floor_type *floor_ptr);
 extern bool generate_floor(floor_type *floor_ptr, DUNGEON_ID dungeon_id, COODINATES world_y, COODINATES world_x, FLOOR_LEV depth);

@@ -104,8 +104,8 @@ bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode)
 		/* Decrease the minimum distance */
 		min = min / 2;
 
-		/* Stop after MAX_TRIES tries */
-		if(tries > MAX_TRIES) return FALSE;
+		/* Stop after SAFE_MAX_ATTEMPTS tries */
+		if(tries > SAFE_MAX_ATTEMPTS) return FALSE;
 	}
 
 	sound(SOUND_TPOTHER);

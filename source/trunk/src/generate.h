@@ -1,5 +1,4 @@
 
-#define SAFE_MAX_ATTEMPTS 5000
 /*
  * Dungeon generation values
  */

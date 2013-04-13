@@ -22,7 +22,7 @@
 bool new_creature_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 {
 	COODINATES y = 0, x = 0;
-	int max_attempts = MAX_TRIES;
+	int max_attempts = SAFE_MAX_ATTEMPTS;
 
 	cave_type *c_ptr;
 	feature_type *f_ptr;

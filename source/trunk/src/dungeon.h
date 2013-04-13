@@ -1,6 +1,5 @@
 /* dungeon.c */
 extern void world_wipe(void);
-extern void leave_quest_check(creature_type *creature_ptr);
 extern void extract_option_vars(void);
 extern void determine_bounty_uniques(void);
 extern void determine_today_mon(creature_type *creature_ptr, bool conv_old);
