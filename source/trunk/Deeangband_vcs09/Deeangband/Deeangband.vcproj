@@ -499,6 +499,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\dungeon.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\enums.h"
 				>
 			</File>
