@@ -5,3 +5,6 @@ extern int melee_hit_chance(creature_type *creature_ptr, int to_hit, int ev);
 
 extern s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr, int mode, bool thrown);
 extern void search(creature_type *creature_ptr);
+
+extern void pack_overflow(creature_type *creature_ptr);
+

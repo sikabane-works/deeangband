@@ -16,6 +16,7 @@
  */
 
 #include "angband.h"
+#include "creature_melee.h"
 #include "diary.h"
 #include "files.h"
 

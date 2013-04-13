@@ -3800,38 +3800,6 @@ void gamble_arena_limitation(void)
 	}
 }
 
-
-// Hack -- Pack Overflow
-void pack_overflow(creature_type *creature_ptr)
-{
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-
-	if(creature_ptr->inventory[INVEN_TOTAL].k_idx)
-	{
-		char object_name[MAX_NLEN];
-		object_type *object_ptr;
-
-		/* Is auto-destroy done? */
-		notice_stuff(creature_ptr);
-		if(!creature_ptr->inventory[INVEN_TOTAL].k_idx) return;
-
-		/* Access the slot to be dropped */
-		object_ptr = &creature_ptr->inventory[INVEN_TOTAL];
-
-		disturb(player_ptr, 0, 0);
-		msg_print(MES_PACK_OVERFLOW);
-
-		object_desc(object_name, object_ptr, 0);
-		msg_format(MES_OBJECT_DROPPED(object_name, index_to_label(INVEN_TOTAL)));
-
-		(void)drop_near(floor_ptr, object_ptr, 0, creature_ptr->fy, creature_ptr->fx);
-		increase_item(creature_ptr, INVEN_TOTAL, -255, TRUE);
-
-		notice_stuff(creature_ptr);
-		handle_stuff(creature_ptr);
-	}
-}
-
 void do_creature_riding_control(creature_type *creature_ptr)
 {
 	if(creature_ptr->riding && !has_trait(creature_ptr, TRAIT_CONFUSED) && !has_trait(creature_ptr, TRAIT_BLIND))

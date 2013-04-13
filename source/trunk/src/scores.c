@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "diary.h"
+#include "dungeon.h"
 #include "files.h"
 
 /*
