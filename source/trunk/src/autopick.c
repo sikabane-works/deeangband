@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "command.h"
+#include "creature_inventory.h"
 #include "files.h"
 
 

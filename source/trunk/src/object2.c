@@ -3535,30 +3535,6 @@ void floor_item_optimize(int item)
 }
 
 
-/*
-* Check if we have space for an item in the pack without overflow
-*/
-bool inven_carry_okay(creature_type *creature_ptr, object_type *object_ptr)
-{
-	int j;
-
-	/* Empty slot? */
-	if(creature_ptr->inven_cnt < INVEN_TOTAL) return TRUE;
-
-	/* Similar slot? */
-	for (j = 0; j < INVEN_TOTAL; j++)
-	{
-		object_type *object2_ptr = &creature_ptr->inventory[j];
-
-		/* Skip non-objects */
-		if(!object2_ptr->k_idx) continue;
-
-		/* Check if the two items can be combined */
-		if(object_similar(object2_ptr, object_ptr)) return TRUE;
-	}
-
-	return FALSE;
-}
 
 
 bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b o_value, object_type *object2_ptr)

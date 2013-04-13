@@ -944,7 +944,6 @@ extern void floor_item_charges(int item);
 extern void floor_item_describe(creature_type *creature_type, int item);
 extern void floor_item_increase(int item, int num);
 extern void floor_item_optimize(int item);
-extern bool inven_carry_okay(creature_type *creature_ptr, object_type *object_ptr);
 extern bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b o_value, object_type *j_ptr);
 extern INVENTORY_ID inven_takeoff(creature_type *creature_ptr, int item, int amt);
 extern void inven_drop(creature_type *creature_ptr, int item, int amt);
