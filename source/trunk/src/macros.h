@@ -48,8 +48,9 @@
 
 #define GET_TIMED_TRAIT(C, TYPE) ((C)->timed_trait[TYPE])
 
-#define IS_FAST(C)			((C)->timed_trait[TRAIT_FAST] || MUSIC_SINGING(C, MUSIC_SPEED) || MUSIC_SINGING(C, MUSIC_SHERO))
-#define IS_INVULN(C)		((C)->timed_trait[TRAIT_INVULNERABLE] || MUSIC_SINGING(C, MUSIC_INVULN))
+//TODO reimplement.
+//#define IS_FAST(C)			((C)->timed_trait[TRAIT_FAST] || MUSIC_SINGING(C, MUSIC_SPEED) || MUSIC_SINGING(C, MUSIC_SHERO))
+//#define IS_INVULN(C)		((C)->timed_trait[TRAIT_INVULNERABLE] || MUSIC_SINGING(C, MUSIC_INVULN))
 #define IS_HERO(C)			((C)->timed_trait[TRAIT_HERO] || MUSIC_SINGING(C, MUSIC_HERO) || MUSIC_SINGING(C, MUSIC_SHERO))
 #define IS_BLESSED(C)		((C)->timed_trait[TRAIT_BLESSED] || MUSIC_SINGING(C, MUSIC_BLESS) || HEX_SPELLING(C, HEX_BLESS))
 #define IS_OPPOSE_ACID(C)	((C)->timed_trait[TRAIT_RES_ACID] || MUSIC_SINGING(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))

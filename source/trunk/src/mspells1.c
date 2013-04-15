@@ -408,7 +408,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Attack spell (most of the time) */
-	if(IS_INVULN(target_ptr))
+	if(has_trait(target_ptr, TRAIT_INVULNERABLE))
 	{
 		if(psy_spe_num && (PERCENT(50)))
 		{

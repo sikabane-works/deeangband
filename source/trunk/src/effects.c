@@ -1422,7 +1422,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	/* Mega-Hack -- Apply "invulnerability" */
 	if((damage_type != DAMAGE_USELIFE) && (damage_type != DAMAGE_LOSELIFE))
 	{
-		if(IS_INVULN(target_ptr) && (damage < 9000))
+		if(has_trait(target_ptr, TRAIT_INVULNERABLE) && (damage < 9000))
 		{
 			if(damage_type == DAMAGE_FORCE)
 			{

@@ -1768,13 +1768,13 @@ static void display_player_middle(creature_type *creature_ptr)
 
 		if(!creature_ptr->riding)
 		{
-			if(IS_FAST(creature_ptr)) tmp_speed += 10;
+			if(has_trait(creature_ptr, TRAIT_FAST)) tmp_speed += 10;
 			if(has_trait(creature_ptr, TRAIT_SLOW)) tmp_speed -= 10;
 			if(has_trait(creature_ptr, TRAIT_LIGHT_SPEED)) tmp_speed = 99;
 		}
 		else
 		{
-			if(IS_FAST(&creature_list[creature_ptr->riding])) tmp_speed += 10;
+			if(has_trait(&creature_list[creature_ptr->riding], TRAIT_FAST)) tmp_speed += 10;
 			if(has_trait(&creature_list[creature_ptr->riding], TRAIT_SLOW)) tmp_speed -= 10;
 			if(has_trait(&creature_list[creature_ptr->riding], TRAIT_LIGHT_SPEED)) tmp_speed = 99;
 		}

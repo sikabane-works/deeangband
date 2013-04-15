@@ -975,7 +975,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		* Only heal when Adrenalin Channeling is not active. We check
 		* that by checking if the player isn't fast and 'heroed' atm.
 		*/
-		if(!IS_FAST(creature_ptr) || !IS_HERO(creature_ptr)) heal_creature(creature_ptr, lev_bonus);
+		if(!has_trait(creature_ptr, TRAIT_FAST) || !IS_HERO(creature_ptr)) heal_creature(creature_ptr, lev_bonus);
 
 		b = 10 + randint1((lev_bonus * 3) / 2);
 		(void)set_timed_trait(creature_ptr, TRAIT_HERO, b, FALSE);

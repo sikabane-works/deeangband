@@ -429,7 +429,7 @@ static void prt_status(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_REGENERATE)) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
 	if(has_trait(creature_ptr, TRAIT_SEE_INFRA)) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
 	if(has_trait(creature_ptr, TRAIT_PROT_EVIL)) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
-	if(IS_INVULN(creature_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability
+	if(has_trait(creature_ptr, TRAIT_INVULNERABLE)) ADD_FLG(BAR_INVULN);			// Invulnerability
 	if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) ADD_FLG(BAR_WRAITH);		// Wraith form
 	if(has_trait(creature_ptr, TRAIT_PASS_WALL)) ADD_FLG(BAR_PASSWALL);		// Pass wall
 	if(has_trait(creature_ptr, TRAIT_REFLECTING)) ADD_FLG(BAR_REFLECTION);
@@ -884,7 +884,7 @@ static void prt_state(creature_type *creature_ptr)
 static void prt_speed(creature_type *creature_ptr)
 {
 	int i = creature_ptr->speed;
-	bool is_fast = IS_FAST(creature_ptr);
+	bool is_fast = has_trait(creature_ptr, TRAIT_FAST);
 
 	byte attr = TERM_WHITE;
 	char buf[32] = "";

@@ -673,7 +673,7 @@ static void wreck_the_pattern(floor_type *floor_ptr, creature_type *creature_ptr
 
 	msg_print(MES_PATTERN_WRECKED);
 
-	if(!IS_INVULN(creature_ptr)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), COD_PATTERN_DAMAGE_3, NULL, -1);
+	if(!has_trait(creature_ptr, TRAIT_INVULNERABLE)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), COD_PATTERN_DAMAGE_3, NULL, -1);
 	to_ruin = randint1(45) + 35;
 
 	while (to_ruin--)
@@ -722,14 +722,14 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 		break;
 
 	case PATTERN_TILE_WRECKED:
-		if(!IS_INVULN(creature_ptr))
+		if(!has_trait(creature_ptr, TRAIT_INVULNERABLE))
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 200, COD_PATTERN_DAMAGE_2, NULL, -1);
 		break;
 
 	default:
 		if(IS_RACE(creature_ptr, RACE_AMBERITE) && !one_in_(2))
 			return TRUE;
-		else if(!IS_INVULN(creature_ptr))
+		else if(!has_trait(creature_ptr, TRAIT_INVULNERABLE))
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 3), COD_PATTERN_DAMAGE_1, NULL, -1);
 		break;
 	}
@@ -1033,11 +1033,11 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	creature_desc(creature_name, creature_ptr, 0);
 
 	// Take damage from poison
-	if(has_trait(creature_ptr, TRAIT_POISONED) && !IS_INVULN(creature_ptr))
+	if(has_trait(creature_ptr, TRAIT_POISONED) && !has_trait(creature_ptr, TRAIT_INVULNERABLE))
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, COD_POISON, NULL, -1);
 
 	// Take damage from cuts
-	if(has_trait(creature_ptr, TRAIT_CUT) && !IS_INVULN(creature_ptr))
+	if(has_trait(creature_ptr, TRAIT_CUT) && !has_trait(creature_ptr, TRAIT_INVULNERABLE))
 	{
 		POWER dam;
 
@@ -1056,7 +1056,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	// (Vampires) Take damage from sunlight
 	if(has_trait(creature_ptr, TRAIT_HURT_LITE))
 	{
-		if(!floor_ptr->depth && !has_trait(creature_ptr, TRAIT_RES_LITE) && !IS_INVULN(creature_ptr) && is_daytime())
+		if(!floor_ptr->depth && !has_trait(creature_ptr, TRAIT_RES_LITE) && !has_trait(creature_ptr, TRAIT_INVULNERABLE) && is_daytime())
 		{
 			if((floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{
@@ -1102,7 +1102,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			sprintf(ouch, "wielding %s", object_name);
 #endif
 
-			if(!IS_INVULN(creature_ptr)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, ouch, NULL, -1);
+			if(!has_trait(creature_ptr, TRAIT_INVULNERABLE)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, ouch, NULL, -1);
 		}
 	}
 
@@ -1120,7 +1120,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, COD_CHAOS_TAINT, NULL, -1);
 	}
 
-	if(have_flag(f_ptr->flags, FF_LAVA) && !IS_INVULN(creature_ptr) && !has_trait(creature_ptr, TRAIT_IM_FIRE))
+	if(have_flag(f_ptr->flags, FF_LAVA) && !has_trait(creature_ptr, TRAIT_INVULNERABLE) && !has_trait(creature_ptr, TRAIT_IM_FIRE))
 	{
 		POWER damage = 0;
 
@@ -1167,7 +1167,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		}
 	}
 
-	if(have_flag(f_ptr->flags, FF_POISON_SWAMP) && !IS_INVULN(creature_ptr) && !has_trait(creature_ptr, TRAIT_CAN_FLY))
+	if(have_flag(f_ptr->flags, FF_POISON_SWAMP) && !has_trait(creature_ptr, TRAIT_INVULNERABLE) && !has_trait(creature_ptr, TRAIT_CAN_FLY))
 	{
 		POWER damage = 0;
 
@@ -1192,7 +1192,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		}
 	}
 
-	if(have_flag(f_ptr->flags, FF_ACID_SWAMP) && !IS_INVULN(creature_ptr) && !has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_IM_ACID))
+	if(have_flag(f_ptr->flags, FF_ACID_SWAMP) && !has_trait(creature_ptr, TRAIT_INVULNERABLE) && !has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_IM_ACID))
 	{
 		POWER damage = 0;
 
@@ -1279,7 +1279,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	*/
 	if(!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY))
 	{
-		if(!IS_INVULN(creature_ptr) && !has_trait(creature_ptr, TRAIT_WRAITH_FORM) && !has_trait(creature_ptr, TRAIT_PASS_WALL) &&
+		if(!has_trait(creature_ptr, TRAIT_INVULNERABLE) && !has_trait(creature_ptr, TRAIT_WRAITH_FORM) && !has_trait(creature_ptr, TRAIT_PASS_WALL) &&
 			((creature_ptr->chp > (creature_ptr->lev / 5)) || !has_trait(creature_ptr, TRAIT_PASS_WALL)))
 		{
 			cptr dam_desc;

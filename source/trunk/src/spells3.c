@@ -254,7 +254,7 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, COODINATES y, CO
 		if(have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP))
 			if(!has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_CAN_SWIM)) return FALSE;
 
-		if(have_flag(f_ptr->flags, FF_LAVA) && !has_trait(creature_ptr, TRAIT_IM_FIRE) && !IS_INVULN(creature_ptr))
+		if(have_flag(f_ptr->flags, FF_LAVA) && !has_trait(creature_ptr, TRAIT_IM_FIRE) && !has_trait(creature_ptr, TRAIT_INVULNERABLE))
 		{
 			/* Always forbid deep lava */
 			if(have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
