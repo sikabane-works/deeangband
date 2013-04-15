@@ -441,11 +441,11 @@ static void prt_status(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_SHIELD)) ADD_FLG(BAR_STONESKIN);
 	if(creature_ptr->posture & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
 
-	if(IS_OPPOSE_ACID(creature_ptr)) ADD_FLG(BAR_RESACID);
-	if(IS_OPPOSE_ELEC(creature_ptr)) ADD_FLG(BAR_RESELEC);
-	if(IS_OPPOSE_FIRE(creature_ptr)) ADD_FLG(BAR_RESFIRE);
-	if(IS_OPPOSE_COLD(creature_ptr)) ADD_FLG(BAR_RESCOLD);
-	if(IS_OPPOSE_POIS(creature_ptr)) ADD_FLG(BAR_RESPOIS);
+	if(has_trait(creature_ptr, TRAIT_RES_ACID)) ADD_FLG(BAR_RESACID);
+	if(has_trait(creature_ptr, TRAIT_RES_ELEC)) ADD_FLG(BAR_RESELEC);
+	if(has_trait(creature_ptr, TRAIT_RES_FIRE)) ADD_FLG(BAR_RESFIRE);
+	if(has_trait(creature_ptr, TRAIT_RES_COLD)) ADD_FLG(BAR_RESCOLD);
+	if(has_trait(creature_ptr, TRAIT_RES_POIS)) ADD_FLG(BAR_RESPOIS);
 	if(has_trait(creature_ptr, TRAIT_WORD_RECALL)) ADD_FLG(BAR_RECALL); // Word of Recall
 	if(has_trait(creature_ptr, TRAIT_ALTER_REALITY)) ADD_FLG(BAR_ALTER); // Alter realiry
 	if(has_trait(creature_ptr, TRAIT_AFRAID)) ADD_FLG(BAR_AFRAID); // Afraid
