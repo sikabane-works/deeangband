@@ -433,9 +433,9 @@ static void prt_status(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) ADD_FLG(BAR_WRAITH);		// Wraith form
 	if(has_trait(creature_ptr, TRAIT_PASS_WALL)) ADD_FLG(BAR_PASSWALL);		// Pass wall
 	if(has_trait(creature_ptr, TRAIT_REFLECTING)) ADD_FLG(BAR_REFLECTION);
-	if(IS_HERO(creature_ptr)) ADD_FLG(BAR_HEROISM);			// Heroism
+	if(has_trait(creature_ptr, TRAIT_HERO)) ADD_FLG(BAR_HEROISM);			// Heroism
 	if(has_trait(creature_ptr, TRAIT_S_HERO)) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
-	if(IS_BLESSED(creature_ptr)) ADD_FLG(BAR_BLESSED);		// Blessed
+	if(has_trait(creature_prr, TRAIT_BLESSED)) ADD_FLG(BAR_BLESSED);		// Blessed
 	if(has_trait(creature_ptr, TRAIT_MAGIC_DEF)) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
 	if(has_trait(creature_ptr, TRAIT_TSUBURERU)) ADD_FLG(BAR_EXPAND);
 	if(has_trait(creature_ptr, TRAIT_SHIELD)) ADD_FLG(BAR_STONESKIN);
@@ -1884,7 +1884,7 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 	if(mhp < creature_ptr->lev + 1) mhp = creature_ptr->lev + 1;
 
 	/* Factor in the hero / superhero settings */
-	if(IS_HERO(creature_ptr)) mhp += 10;
+	if(has_trait(creature_ptr, TRAIT_HERO)) mhp += 10;
 	if(creature_ptr->timed_trait[TRAIT_S_HERO] && (creature_ptr->class_idx != CLASS_BERSERKER)) mhp += 30;
 	if(creature_ptr->timed_trait[TRAIT_TSUYOSHI]) mhp += 50;
 
