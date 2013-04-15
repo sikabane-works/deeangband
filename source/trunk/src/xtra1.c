@@ -435,7 +435,7 @@ static void prt_status(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_REFLECTING)) ADD_FLG(BAR_REFLECTION);
 	if(has_trait(creature_ptr, TRAIT_HERO)) ADD_FLG(BAR_HEROISM);			// Heroism
 	if(has_trait(creature_ptr, TRAIT_S_HERO)) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
-	if(has_trait(creature_prr, TRAIT_BLESSED)) ADD_FLG(BAR_BLESSED);		// Blessed
+	if(has_trait(creature_ptr, TRAIT_BLESSED)) ADD_FLG(BAR_BLESSED);		// Blessed
 	if(has_trait(creature_ptr, TRAIT_MAGIC_DEF)) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
 	if(has_trait(creature_ptr, TRAIT_TSUBURERU)) ADD_FLG(BAR_EXPAND);
 	if(has_trait(creature_ptr, TRAIT_SHIELD)) ADD_FLG(BAR_STONESKIN);
