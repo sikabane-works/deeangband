@@ -81,17 +81,6 @@ void do_cmd_knowledge_traits(creature_type *creature_ptr)
 	fd_kill(file_name);
 }
 
-
-int count_bits(u32b x)
-{
-	int n = 0;
-
-	if(x) do n++;
-	while (0 != (x = x & (x - 1)));
-
-	return (n);
-}
-
 static int count_mutations(creature_type *creature_ptr)
 {
 	if(!is_valid_creature(creature_ptr)) return 0;

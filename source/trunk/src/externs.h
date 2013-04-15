@@ -1115,6 +1115,7 @@ extern void do_cmd_quest(creature_type *creature_ptr);
 extern bool tele_town(creature_type *creature_ptr);
 
 // util.c
+extern int count_bits(u32b x);
 extern errr path_parse(char *buf, int max, cptr file);
 extern errr path_build(char *buf, int max, cptr path, cptr file);
 extern FILE *my_fopen(cptr file, cptr mode);
@@ -1317,7 +1318,6 @@ extern void do_cmd_hissatsu(creature_type *creature_ptr);
 extern void do_cmd_gain_hissatsu(creature_type *creature_ptr);
 
 // mutation.c
-extern int count_bits(u32b x);
 extern bool gain_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message);
 extern bool lose_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message);
 extern void remove_all_mutative_traits(creature_type *creature_ptr);

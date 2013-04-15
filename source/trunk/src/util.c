@@ -5463,10 +5463,7 @@ void redraw(void)
 	}
 }
 
-
-/*
- * Extract option variables from bit sets
- */
+/* Extract option variables from bit sets */
 void extract_option_vars(void)
 {
 	int i;
@@ -5487,3 +5484,11 @@ void extract_option_vars(void)
 
 
 
+/* Counting bits */
+int count_bits(u32b x)
+{
+	int n = 0;
+	if(x) do n++;
+	while (0 != (x = x & (x - 1)));
+	return (n);
+}
