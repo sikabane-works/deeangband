@@ -425,7 +425,7 @@ static void prt_status(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) ADD_FLG(BAR_CONFUSE);			// Confusion
 	if(has_trait(creature_ptr, TRAIT_POISONED)) ADD_FLG(BAR_POISONED);		// Posioned
 	if(has_trait(creature_ptr, TRAIT_SEE_INVISIBLE)) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
-	if(IS_TIM_ESP(creature_ptr)) ADD_FLG(BAR_TELEPATHY);		// Timed esp
+	if(has_trait(creature_ptr, TRAIT_ESP));		// Timed esp
 	if(has_trait(creature_ptr, TRAIT_REGENERATE)) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
 	if(has_trait(creature_ptr, TRAIT_SEE_INFRA)) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
 	if(has_trait(creature_ptr, TRAIT_PROT_EVIL)) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
@@ -467,7 +467,7 @@ static void prt_status(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_AURA_FIRE)) ADD_FLG(BAR_SHFIRE);
 	
-	if(IS_TIM_STEALTH(creature_ptr)) ADD_FLG(BAR_STEALTH); // tim stealth
+	if(has_trait(creature_ptr, TRAIT_STEALTH_PLUS)) ADD_FLG(BAR_STEALTH); // tim stealth
 
 	if(has_trait(creature_ptr, TRAIT_AURA_MANA)) ADD_FLG(BAR_TOUKI);
 	if(has_trait(creature_ptr, TRAIT_HOLY_AURA)) ADD_FLG(BAR_SHHOLY);
@@ -2513,7 +2513,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//TODO creature_ptr->kill_wall = TRUE;
 	}
 
-	if(IS_TIM_STEALTH(creature_ptr)) creature_ptr->skill_stl += 99;
+	if(has_trait(creature_ptr, TRAIT_STEALTH_PLUS)) creature_ptr->skill_stl += 99;
 }
 
 
