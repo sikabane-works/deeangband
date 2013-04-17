@@ -146,9 +146,7 @@ struct term_win
  *	- Hook for placing the cursor
  *
  *	- Hook for drawing some blank spaces
- *
  *	- Hook for drawing a string of chars using an attr
- *
  *	- Hook for drawing a sequence of special attr/char pairs
  */
 
@@ -157,13 +155,9 @@ typedef struct term term;
 struct term
 {
 	vptr user;
-
 	vptr data;
-
 	bool user_flag;
-
 	bool data_flag;
-
 	bool active_flag;
 	bool mapped_flag;
 	bool total_erase;
@@ -179,7 +173,6 @@ struct term
 
 	byte attr_blank;
 	char char_blank;
-
 	char *key_queue;
 
 	u16b key_head;
@@ -189,36 +182,24 @@ struct term
 
 	int wid;
 	int hgt;
-
 	int y1;
 	int y2;
-
 	int *x1;
 	int *x2;
 
 	term_win *old;
 	term_win *scr;
-
 	term_win *tmp;
 	term_win *mem;
-
 	void (*init_hook)(term *t);
 	void (*nuke_hook)(term *t);
-
 	errr (*user_hook)(int n);
-
 	errr (*xtra_hook)(int n, int v);
-
 	errr (*curs_hook)(int x, int y);
-
 	errr (*bigcurs_hook)(int x, int y);
-
 	errr (*wipe_hook)(int x, int y, int n);
-
 	errr (*text_hook)(int x, int y, int n, byte a, cptr s);
-
 	void (*resize_hook)(void);
-
 	errr (*pict_hook)(int x, int y, int n, const byte *ap, const char *cp, const byte *tap, const char *tcp);
 };
 
