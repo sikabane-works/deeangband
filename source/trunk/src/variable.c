@@ -425,8 +425,8 @@ char *message__buf;
 /*
  * The array of normal/window options
  */
-FLAGS_32 option_flag[WINDOW_MAX];
-FLAGS_32 option_mask[WINDOW_MAX];
+FLAGS_32 option_flag[OPT_MAX];
+FLAGS_32 option_mask[OPT_MAX];
 FLAGS_32 window_flag[WINDOW_MAX];
 FLAGS_32 window_mask[WINDOW_MAX];
 

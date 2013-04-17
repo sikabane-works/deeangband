@@ -608,9 +608,7 @@ errr process_pref_file_command(char *buf)
 	case 'Y':
 		for (i = 0; option_info[i].o_desc; i++)
 		{
-			if(option_info[i].o_var &&
-				option_info[i].o_text &&
-				streq(option_info[i].o_text, buf + 2))
+			if(option_info[i].o_var && option_info[i].o_text && streq(option_info[i].o_text, buf + 2))
 			{
 				int os = option_info[i].o_set;
 				int ob = option_info[i].o_bit;
