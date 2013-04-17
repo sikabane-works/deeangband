@@ -2857,23 +2857,23 @@ option_type option_info[] =
 #endif
 
 #ifdef JP
-	{ &cheat_peek,		FALSE,	OPT_PAGE_DEBUG,	0x01, 0x00, "cheat_peek",		"アイテムの生成をのぞき見る"},
-	{ &cheat_hear,		FALSE,	OPT_PAGE_DEBUG,	0x02, 0x00, "cheat_hear",		"クリーチャーの生成をのぞき見る"},
-	{ &cheat_room,		FALSE,	OPT_PAGE_DEBUG,	0x04, 0x00, "cheat_room",		"ダンジョンの生成をのぞき見る"},
-	{ &cheat_xtra,		FALSE,	OPT_PAGE_DEBUG,	0x08, 0x00, "cheat_xtra",		"その他の事をのぞき見る"},
-	{ &cheat_know,		FALSE,	OPT_PAGE_DEBUG,	0x10, 0x00, "cheat_know",		"完全なクリーチャーの思い出を知る"},
-	{ &cheat_live,		FALSE,	OPT_PAGE_DEBUG,	0x20, 0x00, "cheat_live",		"死を回避することを可能にする"},
-	{ &cheat_save,		FALSE,	OPT_PAGE_DEBUG,	0x40, 0x00, "cheat_save",		"死んだ時セーブするか確認する"},
-	{ &wizard,			TRUE,	OPT_PAGE_DEBUG,	0x80, 0x00, "wizard",			"ウィザードモード"},
+	{ &cheat_peek,		FALSE,	OPT_PAGE_DEBUG,	10, 0x00, "cheat_peek",		"アイテムの生成をのぞき見る"},
+	{ &cheat_hear,		FALSE,	OPT_PAGE_DEBUG,	10, 0x01, "cheat_hear",		"クリーチャーの生成をのぞき見る"},
+	{ &cheat_room,		FALSE,	OPT_PAGE_DEBUG, 10, 0x02, "cheat_room",		"ダンジョンの生成をのぞき見る"},
+	{ &cheat_xtra,		FALSE,	OPT_PAGE_DEBUG,	10, 0x03, "cheat_xtra",		"その他の事をのぞき見る"},
+	{ &cheat_know,		FALSE,	OPT_PAGE_DEBUG,	10, 0x04, "cheat_know",		"完全なクリーチャーの思い出を知る"},
+	{ &cheat_live,		FALSE,	OPT_PAGE_DEBUG,	10, 0x05, "cheat_live",		"死を回避することを可能にする"},
+	{ &cheat_save,		FALSE,	OPT_PAGE_DEBUG,	10, 0x06, "cheat_save",		"死んだ時セーブするか確認する"},
+	{ &wizard,			TRUE,	OPT_PAGE_DEBUG,	10, 0x07, "wizard",			"ウィザードモード"},
 #else
-	{ &cheat_peek,		FALSE,	OPT_PAGE_DEBUG,	0x01, 0x00, "cheat_peek",		"Peek into object creation"},
-	{ &cheat_hear,		FALSE,	OPT_PAGE_DEBUG,	0x02, 0x00, "cheat_hear",		"Peek into creature creation"},
-	{ &cheat_room,		FALSE,	OPT_PAGE_DEBUG,	0x04, 0x00, "cheat_room",		"Peek into dungeon creation"},
-	{ &cheat_xtra,		FALSE,	OPT_PAGE_DEBUG,	0x08, 0x00, "cheat_xtra",		"Peek into something else"},
-	{ &cheat_know,		FALSE,	OPT_PAGE_DEBUG,	0x10, 0x00, "cheat_know",		"Know complete creature info"},
-	{ &cheat_live,		FALSE,	OPT_PAGE_DEBUG,	0x20, 0x00, "cheat_live",		"Allow player to avoid death"},
-	{ &cheat_save,		FALSE,	OPT_PAGE_DEBUG,	0x40, 0x00, "cheat_save",		"Ask for saving death"},
-	{ &wizard,			TRUE,	OPT_PAGE_DEBUG,	0x80, 0x00, "wizard",			"Wizard"}
+	{ &cheat_peek,		FALSE,	OPT_PAGE_DEBUG,	10, 0x00, "cheat_peek",		"Peek into object creation"},
+	{ &cheat_hear,		FALSE,	OPT_PAGE_DEBUG,	10, 0x01, "cheat_hear",		"Peek into creature creation"},
+	{ &cheat_room,		FALSE,	OPT_PAGE_DEBUG, 10, 0x02, "cheat_room",		"Peek into dungeon creation"},
+	{ &cheat_xtra,		FALSE,	OPT_PAGE_DEBUG,	10, 0x03, "cheat_xtra",		"Peek into something else"},
+	{ &cheat_know,		FALSE,	OPT_PAGE_DEBUG,	10, 0x04, "cheat_know",		"Know complete creature info"},
+	{ &cheat_live,		FALSE,	OPT_PAGE_DEBUG,	10, 0x05, "cheat_live",		"Allow player to avoid death"},
+	{ &cheat_save,		FALSE,	OPT_PAGE_DEBUG,	10, 0x06, "cheat_save",		"Ask for saving death"},
+	{ &wizard,			TRUE,	OPT_PAGE_DEBUG,	10, 0x07, "wizard",			"Wizard"}
 #endif
 
 
