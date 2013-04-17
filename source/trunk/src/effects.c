@@ -27,13 +27,34 @@ bool add_timed_trait(creature_type *creature_ptr, int type, int v, bool message)
 bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 {
 	bool notice = FALSE;
-	int old_aux, new_aux;
-	char creature_name[MAX_NLEN];
 
 	if(type == TRAIT_STUN && has_trait(creature_ptr, TRAIT_NO_STUN)) v = 0;
 	if(type == TRAIT_CUT && has_trait(creature_ptr, TRAIT_UNDEAD) && has_trait(creature_ptr, TRAIT_NONLIVING)) v = 0;
 
 	v = (v > PERMANENT_TIMED) ? PERMANENT_TIMED : (v < 0) ? 0 : v; // Hack -- Force good values
+
+	if(v)
+	{
+		if(creature_ptr->timed_trait[type] && !do_dec)
+		{
+			if(creature_ptr->timed_trait[type] > v) return FALSE;
+		}
+		if(!creature_ptr->timed_trait[type])
+		{
+			if(is_seen(player_ptr, creature_ptr))
+				msg_format("%sは%sの特性を得た。", creature_ptr->name, trait_info[type].title);
+			notice = TRUE;
+		}
+	}
+	else
+	{
+		if(creature_ptr->timed_trait[type])
+		{
+			if(is_seen(player_ptr, creature_ptr))
+				msg_format("%sは%sの特性を失った。", creature_ptr->name, trait_info[type].title);
+			notice = TRUE;
+		}
+	}
 
 	/*
 	if(type == TRAIT_STUN)
@@ -71,28 +92,6 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v, bool do_dec)
 	}
 	*/
 
-	if(v)
-	{
-		if(creature_ptr->timed_trait[type] && !do_dec)
-		{
-			if(creature_ptr->timed_trait[type] > v) return FALSE;
-		}
-		if(!creature_ptr->timed_trait[type])
-		{
-			if(is_seen(player_ptr, creature_ptr))
-				msg_format("%sは%sの特性を得た。", creature_ptr->name, trait_info[type].title);
-			notice = TRUE;
-		}
-	}
-	else
-	{
-		if(creature_ptr->timed_trait[type])
-		{
-			if(is_seen(player_ptr, creature_ptr))
-				msg_format("%sは%sの特性を失った。", creature_ptr->name, trait_info[type].title);
-			notice = TRUE;
-		}
-	}
 
 	/* Nightmare */
 /*
