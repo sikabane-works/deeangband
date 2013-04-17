@@ -927,8 +927,11 @@ void do_cmd_options_aux(int page, cptr info)
 	se_info.num = 0;
 
 	for (se_info.num = 0; se_info.num < 24; se_info.num++) opt[se_info.num] = 0;	// Lookup the options
+
 	for (se_info.num = 0; option_info[se_info.num].o_desc; se_info.num++) // Scan the options
+	{
 		if(option_info[se_info.num].o_page == page) opt[n++] = se_info.num;
+	}
 
 	prt(info, 0, 0);
 	while(TRUE)

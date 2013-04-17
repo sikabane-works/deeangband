@@ -128,3 +128,15 @@ Y:record_arena
 Y:record_ident
 X:record_named_pet
 X:autosave_l
+
+##### Debug #####
+X:cheat_peek
+X:cheat_hear
+X:cheat_room
+X:cheat_xtra
+X:cheat_know
+X:cheat_live
+X:cheat_save
+X:wizard
+
+

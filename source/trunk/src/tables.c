@@ -2854,6 +2854,8 @@ option_type option_info[] =
 	{ &record_named_pet, FALSE, OPT_PAGE_PLAYRECORD, 4, 23, "record_named_pet", "Record informations of named pets" },
 	{ &autosave_l, FALSE, OPT_PAGE_PLAYRECORD, 20, 0, "autosave_l",     "Autosave" },
 
+#endif
+
 #ifdef JP
 	{ &cheat_peek,		FALSE,	OPT_PAGE_DEBUG,	0x01, 0x00, "cheat_peek",		"アイテムの生成をのぞき見る"},
 	{ &cheat_hear,		FALSE,	OPT_PAGE_DEBUG,	0x02, 0x00, "cheat_hear",		"クリーチャーの生成をのぞき見る"},
@@ -2874,7 +2876,6 @@ option_type option_info[] =
 	{ &wizard,			TRUE,	OPT_PAGE_DEBUG,	0x80, 0x00, "wizard",			"Wizard"}
 #endif
 
-#endif
 
 
 	/*** End of Table ***/
