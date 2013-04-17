@@ -2777,7 +2777,7 @@ static void display_creature_trait(creature_type *creature_ptr)
 		if(n > 10) break;
 	}
 
-	if(n) c_put_str(TERM_YELLOW, MES_SYS_YOUR_TRAITS, 1, 1);
+	if(n) c_put_str(TERM_YELLOW, format(MES_SYS_TRAITS(creature_ptr)), 1, 1);
 	else c_put_str(TERM_YELLOW, MES_SYS_YOUR_NO_TRAIT, 1, 1);
 }
 

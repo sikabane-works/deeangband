@@ -59,7 +59,7 @@
 #define MES_SYS_SCORE_FAILED "スコア・ファイルが使用できません。"
 #define MES_SYS_PANIC_SAVE_SUCCEED "緊急セーブ成功！"
 #define MES_SYS_PANIC_SAVE_FAILED "緊急セーブ失敗！"
-#define MES_SYS_YOUR_TRAITS "あなたには以下の特性がある"
+#define MES_SYS_TRAITS(CREATURE) "%sには以下の特性がある", (CREATURE)->name
 #define MES_SYS_YOUR_NO_TRAIT "あなたには特別な特性がない"
 #define MES_SYS_SERVANTS "%sには%d種類、%d体の従僕がいる"
 #define MES_SYS_NO_SERVANT "%sには従僕がいない"
@@ -134,7 +134,8 @@
 #define MES_SYS_SCORE_FAILED "Score file unavailable."
 #define MES_SYS_PANIC_SAVE_SUCCEED "Panic save succeeded!"
 #define MES_SYS_PANIC_SAVE_FAILED "panic save failed!"
-#define MES_SYS_YOUR_TRAITS "You have these trait..."
+//TODO
+#define MES_SYS_TRAITS(CREATURE) "%s have these trait...", (CREATURE)->name
 #define MES_SYS_YOUR_NO_TRAIT "You have no trait"
 #define MES_SYS_YOUR_SERVANT "%s have no servant"
 #define MES_SYS_YOUR_NO_SERVANT "%s have %d species, %d servants"
