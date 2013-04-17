@@ -424,7 +424,7 @@ BITE:HURT:1d8",,,CAN_SWIM|WILD_ALL,,‚»‚ê‚ÍŒÅ‚¢”ç‚Æ‹­—Í‚ÈƒAƒS‚ðŽ‚Á‚½•‚¢ƒgƒJƒQ‚¾
 135,,ƒRƒ{ƒ‹ƒhEƒ[ƒhwƒ€ƒKƒbƒVƒ…x,Mughash the Kobold Lord,k,b,0,-1,KOBOLD,KOBOLD,0x02,WARRIOR,NONE,MIGHTY,NONE,NONE,7,3,50,145,0,0,0,0,NONE,NONE,-1,0,20,20,0,0,20,11,11,11,11,11,11,5,162,0,66,0,162,0,66,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d10
 HIT:HURT:1d10
 HIT:HURT:1d10
-HIT:HURT:1d10",,,UNIQUE|CAN_SPEAK|ESCORT|ESCORTS|OPEN_DOOR|BASH_DOOR|EAT_POISONOUS|IM_POIS,,ƒRƒ{ƒ‹ƒh‚Ì’†‚Å‚àA“Á‚É‹ü‹­‚Å‹­—Í‚¾B,"Strong and powerful, for a kobold.
+HIT:HURT:1d10",,,UNIQUE|CAN_SPEAK|OPEN_DOOR|BASH_DOOR|EAT_POISONOUS|IM_POIS,,ƒRƒ{ƒ‹ƒh‚Ì’†‚Å‚àA“Á‚É‹ü‹­‚Å‹­—Í‚¾B,"Strong and powerful, for a kobold.
 ",J0#,,,,
 136,,“¹‰»‚Ì”Æß‰¤wƒWƒ‡[ƒJ[x,"Joker, the Clown Prince of Crime ",p,D,0,-1,HUMAN,HUMAN,0x02,ROGUE,NONE,SHREWD,SORCERY,NONE,23,15,50,450,0,0,0,0,NONE,NONE,0,8,20,0,0,0,20,14,14,14,14,14,14,5,175,0,66,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d6
 HIT:HURT:1d6
@@ -471,7 +471,7 @@ teddy bear, with twisted eyes and rotting, ghoulish skin.
 140,,ƒXƒiƒK‚Ì‘°’·wƒ‰ƒOƒhƒDƒtx,"Lagduf, the Leader of Snaga ",o,u,0,-1,ORC,ORC,0x02,WARRIOR,NONE,FEARLESS,NONE,NONE,16,2,50,160,0,0,0,0,NONE,NONE,-1,0,20,0,0,0,30,15,11,10,12,14,8,5,163,0,64,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:2d6
 HIT:HURT:2d6
 HIT:HURT:1d9
-HIT:HURT:1d9",,,UNIQUE|ESCORT|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|RES_DARK,,"@ƒ‰ƒOƒhƒDƒt‚Í“z—êŠK‹‰‚ÌíŽm‚ðŽwŠö‚·‚é‘à’·‚ÅA‰ßè‚È–\—Í‚ðŽ¦‚·‚±‚Æ‚Å•”‘à‚Ì“§‚ð•Û‚Á‚Ä‚¢‚éB “z—ê“¯‘R‚Ì—§ê‚©‚çŽüˆÍ‚ðo‚µ”²‚«A”ßŽS‚È•é‚ç‚µ‚©‚ç”²‚¯o‚»‚¤‚Æ•KŽ€‚¾B
+HIT:HURT:1d9",,,UNIQUE|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|RES_DARK,,"@ƒ‰ƒOƒhƒDƒt‚Í“z—êŠK‹‰‚ÌíŽm‚ðŽwŠö‚·‚é‘à’·‚ÅA‰ßè‚È–\—Í‚ðŽ¦‚·‚±‚Æ‚Å•”‘à‚Ì“§‚ð•Û‚Á‚Ä‚¢‚éB “z—ê“¯‘R‚Ì—§ê‚©‚çŽüˆÍ‚ðo‚µ”²‚«A”ßŽS‚È•é‚ç‚µ‚©‚ç”²‚¯o‚»‚¤‚Æ•KŽ€‚¾B
 u‚¨‘O‚³‚ñ‚É‚Í“ñ“x‚à˜b‚µ‚Ä‚é‚ºAƒSƒ‹ƒoƒO‚Ì“Ø‚Ç‚à‚Ì‚Ù‚¤‚ªæ‚É–å‚ðo‚½‚Æ‚ËA ‚»‚µ‚Ä‚¨‚ê‚½‚¿‚Ù‚¤‚Í‚¾‚ê‚ào‚¿‚á‚¨‚ç‚ñ‚Æ‚ËBƒ‰ƒOƒhƒDƒt‚Æƒ€ƒYƒKƒbƒVƒ…‚Ì–ì˜Y‚ª‹ì‚¯”²‚¯‚½‚ªA “ñl‚Æ‚à–î‚ÅŽË‚½‚ê‚½BviJ.R.R.ƒg[ƒ‹ƒLƒ“A£“c’å“ñE“c’†–¾Žq–ó V”ÅŽw—Ö•¨Œêj ","
 
 
@@ -487,7 +487,7 @@ J0#",,,,
 142,,ƒXƒiƒK‚Ì‘°’·wƒ€ƒYƒKƒbƒVƒ…x,"Muzgash, the Leader of Snaga",o,u,0,-1,ORC,ORC,0x02,WARRIOR,NONE,FEARLESS,NONE,NONE,16,2,50,160,0,0,0,0,NONE,NONE,-1,0,20,0,0,0,30,14,13,12,10,12,11,5,154,0,52,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:2d6
 HIT:HURT:2d6
 HIT:HURT:1d9
-HIT:HURT:1d9",,,UNIQUE|ESCORT|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|RES_DARK|SHOOT|MISSILE,,"@ƒ€ƒYƒKƒbƒVƒ…‚ÍƒI[ƒN‚Ì“z—êŠK‹‰‚ð‘©‚Ë‚é’·‚Ìˆêl‚ÅA‰½‚Æ‚©•”‰º‚ðŽdØ‚èAã–ð‚ðø‚Ä‚È‚ª‚ç‚¤‚Ü‚­o¢‚ð‰Ê‚½‚µ‚Ä‚«‚½B
+HIT:HURT:1d9",,,UNIQUE|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|RES_DARK|SHOOT|MISSILE,,"@ƒ€ƒYƒKƒbƒVƒ…‚ÍƒI[ƒN‚Ì“z—êŠK‹‰‚ð‘©‚Ë‚é’·‚Ìˆêl‚ÅA‰½‚Æ‚©•”‰º‚ðŽdØ‚èAã–ð‚ðø‚Ä‚È‚ª‚ç‚¤‚Ü‚­o¢‚ð‰Ê‚½‚µ‚Ä‚«‚½B
 @‚±‚ê‚©‚ç‚à‚Ç‚¤‚â‚Á‚Ä—ª’D•i‚ð‰Ò‚¢‚Å‚â‚ë‚¤‚©‚ÆŽZ—p‚ðŒJ‚è•Ô‚µ‚Ä‚¢‚éB
 u‚¨‘O‚³‚ñ‚É‚Í“ñ“x‚à˜b‚µ‚Ä‚é‚ºAƒSƒ‹ƒoƒO‚Ì“Ø‚Ç‚à‚Ì‚Ù‚¤‚ªæ‚É–å‚ðo‚½‚Æ‚ËA‚»‚µ‚Ä‚¨‚ê‚½‚¿‚Ù‚¤‚Í‚¾‚ê‚ào‚¿‚á‚¨‚ç‚ñ‚Æ‚ËBƒ‰ƒOƒhƒDƒt‚Æƒ€ƒYƒKƒbƒVƒ…‚Ì–ì˜Y‚ª‹ì‚¯”²‚¯‚½‚ªA“ñl‚Æ‚à–î‚ÅŽË‚½‚ê‚½BviJ.R.R.ƒg[ƒ‹ƒLƒ“A£“c’å“ñE“c’†–¾Žq–ó V”ÅŽw—Ö•¨Œêj ","
 
@@ -512,7 +512,7 @@ BITE:HURT:7d1",,,CAN_FLY|WILD_WOOD|WILD_MOUNTAIN,,@‚»‚ê‚ÍŠï‚Á‰ö‚ÅA‚µ‚©‚à‹°‚ë‚µ
 147,,–»•{‰¤‚Ì“S’ÆwƒSƒXƒ‚ƒOx,"Gothmog, the Iron Hammer of Nether Marshal",o,w,0,-1,URUK,AVARI,0x01,PALADIN,856,FEARLESS,DEATH,NONE,66,5,50,2341119,0,0,4187,89,NONE,NONE,8,0,20,0,0,0,50,29,28,27,28,28,26,5,0,0,0,0,285,0,234,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:10d4
 HIT:HURT:10d4
 HIT:HURT:10d4
-HIT:HURT:10d4",,,UNIQUE|CAN_SPEAK|ESCORT|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK|SCARE|CAUSE_1,,"@”Þ—‚Í“Œ•û‚Ì_‘ã‚É–¼‚ðŽc‚·ƒEƒ‹ƒN‚ÆƒAƒ”ƒ@ƒŠ‚Ì¬ŒŒ‚Å‚ ‚èA–»•{‚Ì‰¤ƒSƒXƒ‚ƒO‚Ö‚ÌŒ£g‚©‚çA“¯‚¶–¼æ‚è‚Æ‚»‚Ì“S’È‚Å‚ ‚é‚±‚Æ‚Ì‰h—_‚ðŽö‚©‚Á‚½B
+HIT:HURT:10d4",,,UNIQUE|CAN_SPEAK|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK|SCARE|CAUSE_1,,"@”Þ—‚Í“Œ•û‚Ì_‘ã‚É–¼‚ðŽc‚·ƒEƒ‹ƒN‚ÆƒAƒ”ƒ@ƒŠ‚Ì¬ŒŒ‚Å‚ ‚èA–»•{‚Ì‰¤ƒSƒXƒ‚ƒO‚Ö‚ÌŒ£g‚©‚çA“¯‚¶–¼æ‚è‚Æ‚»‚Ì“S’È‚Å‚ ‚é‚±‚Æ‚Ì‰h—_‚ðŽö‚©‚Á‚½B
 @”Þ—‚Ì•ªŒú‚¢b™h‚Ì‚»‚±‚©‚µ‚±‚É‚ÍA”Þ—‚É”s‚ê‚½—EŽÒ‚ÌŽñ‚Æ“ªœ‚ª–³”‚É’Ý‚è‰º‚°‚ç‚êA‚»‚Ì“S’Æ‚Íí‚É•‰‚¯Œ¢‚Æ‰°•aŽÒ‚ÌV‘N‚ÈŒŒ“÷‚É“h‚ê‚Ä‚¢‚éB",,J0#,,,,
 148,,ƒŒƒ€ƒŒ[ƒX,Lemure,u,o,0,-1,IMP,IMP,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,8,3,50,100,150,280,0,0,NONE,NONE,-1,0,20,32,0,0,30,11,11,11,11,11,11,5,165,10,55,3,165,10,55,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:1d9,,,FRIENDS|OPEN_DOOR|BASH_DOOR|IM_FIRE|FEARLESS,,‚»‚ê‚Íã‹‰ƒf[ƒ‚ƒ“‚Ì—c¶Œ`‘Ô‚¾B,"It is the larval form of a major demon.
 ",J0#,,,,
@@ -687,7 +687,7 @@ HIT:HURT:1d6",,,FORCE_SLEEP|OPEN_DOOR|BASH_DOOR|EAT_MANA|EAT_LOSE_STR|EAT_LOSE_C
 179,,ƒJƒ~ƒJƒ[EƒC[ƒN,Kamikaze yeek,y,o,0,-1,YEEK,YEEK,VARIABLE,WARRIOR,NONE,ORDINARY,NONE,NONE,10,1,50,180,0,0,0,0,NONE,NONE,-1,3,18,18,0,0,10,17,11,10,9,15,9,5,0,0,0,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,EXPLODE:HURT:15d2,,,OPEN_DOOR|BASH_DOOR|HAS_LITE_1|IM_ACID|FEARLESS,,ˆ«‚Ì–‚pŽmwƒuƒ‹[ƒXx‚ª”Þ‚ç‚ð¶‚¯‚é•Ší‚É‹³ˆç‚µ‚½B,"The evil wizard Bruce has trained them to be living weapons.
 ",JZ#,,,,
 180,,ƒ{ƒ‹ƒh[ƒ‹‚Ì‘§ŽqwƒIƒ‹ƒtƒ@ƒbƒNƒXx,"Orfax, Son of Boldor",y,B,0,-1,YEEK,YEEK,0x02,MAGE,NONE,NIMBLE,TRUMP,CHAOS,10,3,50,567,0,0,22,67,NONE,NONE,-1,10,18,20,0,0,10,16,13,19,11,13,10,5,167,2,52,4,167,2,52,4,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d9
-HIT:HURT:1d8",,,UNIQUE|CAN_SPEAK|FORCE_SLEEP|ESCORT|ESCORTS|HAS_LITE_2|SMART|OPEN_DOOR|BASH_DOOR|IM_ACID|HEAL|BLINK|TELE_TO|SLOW|CONF|S_MONSTER,,”Þ‚Í•ƒe‚É‚»‚Á‚­‚è‚¾I”Þ‚Í‚¢‚­‚Â‚©‚Ì‹­—Í‚ÈŽô•¶‚ðŽg‚¢‚±‚È‚·B,"He's just like daddy!  He knows some mighty spells.
+HIT:HURT:1d8",,,UNIQUE|CAN_SPEAK|FORCE_SLEEP|HAS_LITE_2|SMART|OPEN_DOOR|BASH_DOOR|IM_ACID|HEAL|BLINK|TELE_TO|SLOW|CONF|S_MONSTER,,”Þ‚Í•ƒe‚É‚»‚Á‚­‚è‚¾I”Þ‚Í‚¢‚­‚Â‚©‚Ì‹­—Í‚ÈŽô•¶‚ðŽg‚¢‚±‚È‚·B,"He's just like daddy!  He knows some mighty spells.
 I",J0#,,,,
 181,,ƒOƒ‰[ƒL‚Ì“z—ê,Servant of Glaaki,z,G,0,-1,HUMAN,HUMAN,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,10,1,50,180,0,0,0,0,NONE,NONE,-1,0,20,20,0,0,20,12,12,12,12,12,12,5,170,10,60,2,170,10,60,2,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CRUSH:HURT:1d8
 CLAW:DISEASE:1d3",,,ZOMBIE|OPEN_DOOR|BASH_DOOR|FRIENDS|HURT_LITE|NO_CONF|NO_SLEEP|FEARLESS|IM_POIS|IM_COLD|RES_NETH|COLD_BLOOD|CAUSE_1|SCARE,,"uƒOƒ‰[ƒLv‚ÌƒgƒQ‚É‚æ‚Á‚Äì‚ç‚ê‚½ƒAƒ“ƒfƒbƒhƒ‚ƒ“ƒXƒ^[B
@@ -743,7 +743,7 @@ JZ#(ƒRƒƒ“ƒg)–ó‚Í Ž‡ŒŽŠÕŠÛ‚³‚ñ",,,,
 186,,ƒI[ƒN‚Ì—b•º‘à’·wƒOƒŠƒVƒ…ƒiƒbƒnx,"Grishnakh, the Orc's Mercenary Captain",o,u,0,-1,ORC,ORC,0x02,WARRIOR,NONE,SHREWD,NONE,NONE,24,3,50,7981,0,0,34,45,NONE,NONE,-1,0,20,0,0,0,20,20,13,13,18,13,11,5,193,0,88,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d12
 HIT:HURT:1d10
 HIT:HURT:1d12
-HIT:HURT:1d10",,,UNIQUE|CAN_SPEAK|ESCORT|WILD_ALL|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK|EAT_NEXUS,,@ƒI[ƒN‚Ì‘e–\‚È‘à’·‚Ìˆêl‚¾BŒÈ‚Ì‘cæ‚½‚éˆÌ‘å‚ÈƒEƒ‹ƒN‚É‘Î‚µ‚Ä[‚¢Ž¹“i‚Æ“²‚ê‚ð•¹‚¹Ž‚Á‚Ä‚¨‚èA¼•û‚Ì–¯‚ðŠFŽE‚µ‚É‚·‚é‚±‚Æ‚Å–¼‚ÆŒ÷Ñ‚ªƒ‚ƒ‹ƒh[ƒ‹‚É“Í‚­‚æ‚¤‚É‚Æ–ô‹N‚É‚È‚Á‚Ä‚¢‚éB uƒOƒŠƒVƒ…ƒiƒbƒn‚Æ‚¢‚¤‚Ì‚Í”w‚Ì’á‚¢‹r‚Ì‹È‚ª‚Á‚½ƒI[ƒN‚ÅAŒ¨•‚ªL‚­A ’n–Ê‚Ü‚Å“Í‚­‚Ù‚Ç‚Ì’·‚¢Žè‚ðŽ‚Á‚Ä‚¢‚Ü‚µ‚½Bv iJ.R.R.ƒg[ƒ‹ƒLƒ“A£“c’å“ñE“c’†–¾Žq–ó V”ÅŽw—Ö•¨Œêj ,"
+HIT:HURT:1d10",,,UNIQUE|CAN_SPEAK|WILD_ALL|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK|EAT_NEXUS,,@ƒI[ƒN‚Ì‘e–\‚È‘à’·‚Ìˆêl‚¾BŒÈ‚Ì‘cæ‚½‚éˆÌ‘å‚ÈƒEƒ‹ƒN‚É‘Î‚µ‚Ä[‚¢Ž¹“i‚Æ“²‚ê‚ð•¹‚¹Ž‚Á‚Ä‚¨‚èA¼•û‚Ì–¯‚ðŠFŽE‚µ‚É‚·‚é‚±‚Æ‚Å–¼‚ÆŒ÷Ñ‚ªƒ‚ƒ‹ƒh[ƒ‹‚É“Í‚­‚æ‚¤‚É‚Æ–ô‹N‚É‚È‚Á‚Ä‚¢‚éB uƒOƒŠƒVƒ…ƒiƒbƒn‚Æ‚¢‚¤‚Ì‚Í”w‚Ì’á‚¢‹r‚Ì‹È‚ª‚Á‚½ƒI[ƒN‚ÅAŒ¨•‚ªL‚­A ’n–Ê‚Ü‚Å“Í‚­‚Ù‚Ç‚Ì’·‚¢Žè‚ðŽ‚Á‚Ä‚¢‚Ü‚µ‚½Bv iJ.R.R.ƒg[ƒ‹ƒLƒ“A£“c’å“ñE“c’†–¾Žq–ó V”ÅŽw—Ö•¨Œêj ,"
 
 
 
@@ -917,7 +917,7 @@ J0#",,,,
 215,,ƒI[ƒN‚Ì—b•º‘à’·wƒSƒ‹ƒtƒBƒ“ƒu[ƒ‹x,"Golfimbul, the Orc's Mercenary Captain",o,u,0,-1,ORC,ORC,0x02,RANGER,NONE,MIGHTY,NONE,NONE,29,3,50,9520,0,0,0,0,NONE,NONE,-1,0,20,0,0,0,20,17,17,16,19,16,14,5,190,0,83,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d12
 HIT:HURT:1d12
 HIT:HURT:1d10
-HIT:HURT:1d10",,,UNIQUE|QUESTOR|WILD_ALL|ESCORT|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_DARK,,@”Þ‚Í“Œ•û‚Ì—R‚ ‚éƒEƒ‹ƒN‚ÌŽ‘°‚É‚àŒn•ˆ‚ð’H‚ê‚éŒŒ‹Ø‚Ìg‚ÅA’m«‚Æ•—E‚ðŒ“‚Ë”õ‚¦‚½íŽm‚Ì’·‚Å‚ ‚éBƒzƒrƒbƒg‚Ée‘°‚ÌŽñ‚ð‹Y‚ê‚ÉJ‚ß‚ç‚ê‚½¦‚Ý‚ª‚ ‚èA”Þ“™‚ðŽ·X‚É•t‚¯‘_‚Á‚Ä‚Í“¯‚¶Žc‹s‚ÈˆŒY‚ðŒJ‚è•Ô‚µ‚Ä‚¢‚éB,"
+HIT:HURT:1d10",,,UNIQUE|QUESTOR|WILD_ALL|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_DARK,,@”Þ‚Í“Œ•û‚Ì—R‚ ‚éƒEƒ‹ƒN‚ÌŽ‘°‚É‚àŒn•ˆ‚ð’H‚ê‚éŒŒ‹Ø‚Ìg‚ÅA’m«‚Æ•—E‚ðŒ“‚Ë”õ‚¦‚½íŽm‚Ì’·‚Å‚ ‚éBƒzƒrƒbƒg‚Ée‘°‚ÌŽñ‚ð‹Y‚ê‚ÉJ‚ß‚ç‚ê‚½¦‚Ý‚ª‚ ‚èA”Þ“™‚ðŽ·X‚É•t‚¯‘_‚Á‚Ä‚Í“¯‚¶Žc‹s‚ÈˆŒY‚ðŒJ‚è•Ô‚µ‚Ä‚¢‚éB,"
 
 
 ",J0#,,,,
@@ -1030,7 +1030,7 @@ BITE:POISON:1d8",,,FRIENDS|CAN_FLY|IM_COLD|IM_ELEC|IM_POIS|WEIRD_MIND|EAT_POISON
 ",J0#,,,,
 237,,ƒC[ƒN‚Ì‘å‰¤wƒ{ƒ‹ƒh[ƒ‹x,"Boldor, King of the Yeeks",y,v,0,-1,YEEK,YEEK,0x02,PALADIN,NONE,ORDINARY,NONE,NONE,18,255,50,200,0,0,0,0,NONE,NONE,0,10,18,24,0,0,10,14,18,19,13,15,13,5,173,0,65,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d9
 HIT:HURT:1d9
-HIT:HURT:1d8",,,UNIQUE|FORCE_SLEEP|ESCORT|ESCORTS|HAS_LITE_2|SMART|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|IM_ACID|HEAL|BLINK|ACTIVE_TELEPORT|BLIND|SLOW|S_KIN,,"”Þ‚Í–‚–@‚ÆŽ·­‚É’·‚¯‚½ƒC[ƒN‚Æ‚ÍŽv‚¦‚ÊƒC[ƒN‚Ì‰¤‚Å‚ ‚Á‚½‚ªA
+HIT:HURT:1d8",,,UNIQUE|FORCE_SLEEP|HAS_LITE_2|SMART|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|IM_ACID|HEAL|BLINK|ACTIVE_TELEPORT|BLIND|SLOW|S_KIN,,"”Þ‚Í–‚–@‚ÆŽ·­‚É’·‚¯‚½ƒC[ƒN‚Æ‚ÍŽv‚¦‚ÊƒC[ƒN‚Ì‰¤‚Å‚ ‚Á‚½‚ªA
 ŒÈ‚ÌŽí‚Æ‚µ‚Ä‚ÌŒÀŠE‚É‹ê‚µ‚ÝA‹¶‹C‚Éõ‚Ü‚Á‚½B","
 ",J0#,,,,
 238,,ƒI[ƒK,Ogre,O,U,0,-1,OGRE,OGRE,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,22,2,50,750,0,0,0,0,NONE,NONE,-1,0,20,0,0,0,30,15,15,15,15,15,15,5,289,10,402,3,280,10,395,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,HIT:HURT:2d8,,,FRIENDS|WILD_WOOD|WILD_MOUNTAIN|OPEN_DOOR|BASH_DOOR,,Šp‚ð¶‚â‚µ‚½X‰ö‚È¬Œ^‚ÌƒWƒƒƒCƒAƒ“ƒg‚ÅAƒI[ƒN‚Æ‚Í—FDŠÖŒW‚É‚ ‚éB,,J0#,,,,
@@ -1129,7 +1129,7 @@ TOUCH:EAT_FOOD",,,MULTIPLY|RAND_50|OPEN_DOOR|HAS_LITE_1|BLINK,,—z‹C‚È¬l‚¾B,"A
 260,,ƒLƒŠƒXEƒEƒ“ƒSƒ‹‚ÌwƒEƒtƒTƒNx,Ufthak of Cirith Ungol,o,g,0,-1,URUK,URUK,0x02,WARRIOR,NONE,SHREWD,NONE,NONE,52,3,50,11500,0,0,0,0,NONE,NONE,2,0,20,0,0,0,20,19,22,22,22,21,24,5,231,0,134,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:3d4
 HIT:HURT:3d4
 HIT:HURT:3d4
-HIT:HURT:3d4",,,UNIQUE|CAN_SPEAK|ESCORT|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|RES_DARK,,"”Þ‚Íƒ‚ƒ‹ƒh[ƒ‹‚Ì‚¢‚©‚ß‚µ‚­‚à•¨Ã‚©‚È«ŒR‚Ìˆêl‚ÅA
+HIT:HURT:3d4",,,UNIQUE|CAN_SPEAK|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|RES_DARK,,"”Þ‚Íƒ‚ƒ‹ƒh[ƒ‹‚Ì‚¢‚©‚ß‚µ‚­‚à•¨Ã‚©‚È«ŒR‚Ìˆêl‚ÅA
 ƒLƒŠƒXƒEƒ“ƒSƒ‹‚Ì‘å’wå‚Ì‘ƒ‚©‚ç¶‚«‚Ä‹A‚Á‚Ä‚«‚½‘å•Ï‚È•—E‚ÌŽ‚¿Žå‚¾B
 ‚¾‚ªA”Þ‚Í‰½ŒÌ‚©’wå‚ÌŠ[‚â‘Ì‰t‚É“h‚ê‚Ä¶ŠÒ‚µ‚Ä‚«‚½
 ‘sâ‚È•ŒM‚ð•\—§‚Á‚Ä•WžÔ‚µ‚½‚ª‚ç‚È‚¢B","
@@ -1278,7 +1278,7 @@ its forehead. It looks hungry.
 285,,ƒI[ƒN‚Ì—b•º‘à’·,Orc's Mercenary Captain,o,g,0,-1,ORC,ORC,VARIABLE,PALADIN,NONE,ORDINARY,NONE,NONE,22,3,50,700,0,0,0,0,NONE,NONE,-1,0,20,0,0,0,20,19,11,11,14,18,15,5,180,13,75,5,170,13,65,5,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"SHOOT:HURT:3d6
 HIT:HURT:3d4
 HIT:HURT:3d4
-HIT:HURT:3d4",,,WILD_ALL|OPEN_DOOR|BASH_DOOR|ESCORT|RES_DARK|CAN_SPEAK|SHOOT,,ŠZ‚ð’…‚½ƒI[ƒN‚ÅAˆÐŒµ‚Ì‚ ‚é•µˆÍ‹C‚ð•Y‚í‚¹‚È‚ª‚çA‹°‚é‚×‚«é¨‚Ìº‚Æ‹¤‚É•”‘à‚ðŽwŠö‚µ‚Ä‚¢‚éB,,J0#,,,,
+HIT:HURT:3d4",,,WILD_ALL|OPEN_DOOR|BASH_DOOR|RES_DARK|CAN_SPEAK|SHOOT,,ŠZ‚ð’…‚½ƒI[ƒN‚ÅAˆÐŒµ‚Ì‚ ‚é•µˆÍ‹C‚ð•Y‚í‚¹‚È‚ª‚çA‹°‚é‚×‚«é¨‚Ìº‚Æ‹¤‚É•”‘à‚ðŽwŠö‚µ‚Ä‚¢‚éB,,J0#,,,,
 286,,ƒ[ƒ‰ƒ`ƒiƒXEƒLƒ…[ƒu,Gelatinous cube,j,B,0,-1,JELLY,JELLY,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,16,4,50,80,800,541,0,0,NONE,NONE,-1,0,12,18,0,0,1,14,14,14,14,14,14,5,300,20,8100,10,300,20,8100,10,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"TOUCH:ACID:1d10
 TOUCH:ACID:1d10
 TOUCH:ACID:1d10",,,STUPID|EMPTY_MIND|COLD_BLOOD|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|CAN_SWIM|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|FEARLESS|VARIABLE_SIZE,,"‚»‚ê‚Í—§•ûŒ`‚ð‚µ‚½Šï–­‚Å‹‘å‚Èƒ[ƒŠ[ó‚Ì\‘¢•¨‚ÅA•”‰®‚Ì
@@ -1410,12 +1410,12 @@ HIT:HURT:3d5",,,FRIENDS|OPEN_DOOR|BASH_DOOR|EAT_POISONOUS|IM_POIS|RES_DARK|SHOOT
 314,,ƒLƒŠƒXEƒEƒ“ƒSƒ‹‚ÌwƒVƒƒƒOƒ‰ƒgx,Shagrat of Cirith Ungol,o,u,0,-1,URUK,URUK,0x02,ROGUE,NONE,COMBAT,SORCERY,NONE,52,2,50,11500,0,0,0,0,NONE,NONE,2,0,20,0,0,0,20,22,20,19,21,20,22,5,227,0,128,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:3d8
 HIT:HURT:3d8
 HIT:HURT:3d5
-HIT:HURT:3d5",,,UNIQUE|CAN_SPEAK|ESCORT|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK,,ƒ‚ƒ‹ƒh[ƒ‹‚Ì—vÕAƒLƒŠƒXEƒEƒ“ƒSƒ‹‚Å”õ‚¦‚Ìˆê‚Â‚ðŽç‚éƒEƒ‹ƒN‚Ì«‚Ìˆêl‚¾BƒEƒtƒTƒN‚Æ‚Íó‚©‚ç‚ÊŒð—F‚ª‚ ‚èA‹¤‚ÉŒD‚ð•À‚×‚Ä•ŒM‚ðã‚°‚½‰ñ”‚Í”‚¦Ø‚ê‚È‚¢B,"
+HIT:HURT:3d5",,,UNIQUE|CAN_SPEAK|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK,,ƒ‚ƒ‹ƒh[ƒ‹‚Ì—vÕAƒLƒŠƒXEƒEƒ“ƒSƒ‹‚Å”õ‚¦‚Ìˆê‚Â‚ðŽç‚éƒEƒ‹ƒN‚Ì«‚Ìˆêl‚¾BƒEƒtƒTƒN‚Æ‚Íó‚©‚ç‚ÊŒð—F‚ª‚ ‚èA‹¤‚ÉŒD‚ð•À‚×‚Ä•ŒM‚ðã‚°‚½‰ñ”‚Í”‚¦Ø‚ê‚È‚¢B,"
 ",J0#,,,,
 315,,ƒ~ƒiƒXEƒ‚ƒ‹ƒOƒ‹‚ÌwƒSƒ‹ƒoƒOx,Gorbag of Minas Morgul,o,u,0,-1,URUK,URUK,0x02,WARRIOR,NONE,MIGHTY,NONE,NONE,52,2,50,12000,0,0,0,0,NONE,NONE,2,0,20,0,0,0,20,23,20,18,21,20,22,5,241,0,129,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:3d8
 HIT:HURT:3d8
 HIT:HURT:3d5
-HIT:HURT:3d5",,,UNIQUE|CAN_SPEAK|ESCORT|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK,,"@¼‚Ì•Ó‹«Å‘Oü‚Å‚ ‚éAƒ~ƒiƒXEƒ‚ƒ‹ƒOƒ‹‚Å–ˆ“ú‚Ì‚æ‚¤‚ÉoŒ‚‚ðŒJ‚è•Ô‚µAŒ ‰v‚ð•—Í‚ÅŠm•Û‚·‚éƒEƒ‹ƒN‚Ì«ŒR‚Ìˆêl‚¾B
+HIT:HURT:3d5",,,UNIQUE|CAN_SPEAK|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK,,"@¼‚Ì•Ó‹«Å‘Oü‚Å‚ ‚éAƒ~ƒiƒXEƒ‚ƒ‹ƒOƒ‹‚Å–ˆ“ú‚Ì‚æ‚¤‚ÉoŒ‚‚ðŒJ‚è•Ô‚µAŒ ‰v‚ð•—Í‚ÅŠm•Û‚·‚éƒEƒ‹ƒN‚Ì«ŒR‚Ìˆêl‚¾B
 @’é“sƒ‹ƒOƒuƒ‹ƒY‚Å‹N‚±‚µ‚½æy‚¢‚©‚çƒVƒƒƒOƒ‰ƒg‚Æ‰½“x‚©Œˆ“¬‚ðŒJ‚è•Ô‚µ‚Ä‚¢‚é‚ªA–¢‚¾‚ÉŒˆ’…‚ª‚Â‚©‚È‚¢‚ç‚µ‚¢B","
 
 ",J0#,,,,
@@ -1492,7 +1492,7 @@ to humanoid forms of life.
 330,,ƒI[ƒN‚Ì“yŒòwƒ{ƒ‹ƒOx,"Bolg, Lord of the Ork",o,R,0,-1,ORC,ORC,0x02,PALADIN,NONE,NIMBLE,NONE,NONE,42,4,50,8500,0,0,0,0,NONE,NONE,0,5,20,0,0,0,20,24,15,22,20,20,14,5,221,0,121,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:3d6
 HIT:HURT:3d6
 HIT:HURT:3d6
-HIT:HURT:3d6",,,UNIQUE|CAN_SPEAK|ESCORT|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK,,"ƒI[ƒN‚Ì‰¤ƒAƒ]ƒO‚Ìˆêl‘§Žq‚Å‚ ‚éƒ{ƒ‹ƒO‚Í•ƒe‚ð‚à‚µ‚Ì‚®•—E‚ÌŽ‚¿Žå‚¾B
+HIT:HURT:3d6",,,UNIQUE|CAN_SPEAK|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK,,"ƒI[ƒN‚Ì‰¤ƒAƒ]ƒO‚Ìˆêl‘§Žq‚Å‚ ‚éƒ{ƒ‹ƒO‚Í•ƒe‚ð‚à‚µ‚Ì‚®•—E‚ÌŽ‚¿Žå‚¾B
 ŽwŠöŠ¯‚Æ‚µ‚Ä‚Íó—¶‰ß‚¬‚é‚Æ•ƒe‚É‚½‚µ‚È‚ß‚ç‚ê‚Ä‚¢‚é‚ªA
 —Ç‚©‚êˆ«‚µ‚©‚ê‚»‚Ì–â‘è‚ð—Í‚Ã‚­‚ÅŽ•ž‚µ‚Ä‚¢‚éB","
 
@@ -1622,7 +1622,7 @@ HIT:ELEC:3d8",,,TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_ELEC|EAT_GIVE_STR,,‚»‚ê‚Í”wä‚ª
 350,,ƒAƒCƒ[ƒ“ƒKƒ‹ƒh‚Ì«ŒRwƒEƒOƒ‹ƒNx,"Ugluk, General of Isengald",o,u,0,-1,URUK,URUK,0x02,PALADIN,NONE,MIGHTY,NONE,NONE,53,3,50,13000,0,0,0,0,NONE,NONE,3,0,20,0,0,0,20,24,24,22,23,24,27,5,234,0,142,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:3d5
 HIT:HURT:3d5
 HIT:HURT:3d5
-HIT:HURT:3d5",,,UNIQUE|CAN_SPEAK|ESCORT|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK,,"”Þ‚ÍƒNƒ‹ƒ‚‚ªŽè‚¸‚©‚çˆç‚Ä‚½ƒEƒ‹ƒN‚ÌŽ‘°‚Ì–¼Žm‚ÅA‹É‚ß‚Ä—L”\‚ÈŒRl‚¾B
+HIT:HURT:3d5",,,UNIQUE|CAN_SPEAK|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK,,"”Þ‚ÍƒNƒ‹ƒ‚‚ªŽè‚¸‚©‚çˆç‚Ä‚½ƒEƒ‹ƒN‚ÌŽ‘°‚Ì–¼Žm‚ÅA‹É‚ß‚Ä—L”\‚ÈŒRl‚¾B
 ƒAƒCƒ[ƒ“ƒKƒ‹ƒh‚Ì‘åŒR’c‚Ìˆê—ƒ‚ð’S‚¤‚É\‚µ–ó‚È‚¢«Ší‚ðŽ‚Á‚Ä‚¢‚éB","
 ",J0#,,,,
 351,,ƒuƒ‹[Eƒhƒ‰ƒSƒ“ƒoƒbƒg,Blue dragon bat,b,B,0,-1,BAT,BAT,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,21,1,50,2881,0,0,0,0,NONE,NONE,-1,20,12,26,0,0,50,14,14,14,14,14,14,5,35,2,6,1,35,2,6,1,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,BITE:ELEC:1d3,,,FORCE_SLEEP|RAND_50|SELF_LITE_1|BASH_DOOR|CAN_FLY|IM_ELEC|BR_ELEC,,‚»‚ê‚Í‰s‚¢K”ö‚ðŽ‚Á‚½Â‚­‹P‚­ƒRƒEƒ‚ƒŠ‚¾B,"It is a glowing blue bat with a sharp tail.
@@ -1650,7 +1650,7 @@ unsuspecting adventurers within reach of its venomous claws.
 356,,ƒAƒCƒ[ƒ“ƒKƒ‹ƒh‚ÌŽaž‘à’·wƒ‹ƒOƒhƒDƒVƒ…x,"Lugdush, Assult Leader of Isengald",o,b,0,-1,URUK,URUK,0x02,WARRIOR,NONE,FEARLESS,NONE,NONE,51,3,50,10500,0,0,0,0,NONE,NONE,1,0,20,0,0,0,20,27,15,16,24,23,22,5,254,0,176,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:3d8
 HIT:HURT:3d8
 HIT:HURT:3d5
-HIT:HURT:3d5",,,UNIQUE|CAN_SPEAK|ESCORT|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_FIRE|IM_COLD|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP,,"”Þ‚ÍƒAƒCƒ[ƒ“ƒKƒ‹ƒh‚ÌƒEƒ‹ƒNŒR’c‚Ì’†‚Å‚à‹É‚ß‚Â‚¯‚Ì•—E‚Æ‹¥–\‚³‚Å’m‚ç‚ê‚é‘à’·‚¾B
+HIT:HURT:3d5",,,UNIQUE|CAN_SPEAK|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_FIRE|IM_COLD|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP,,"”Þ‚ÍƒAƒCƒ[ƒ“ƒKƒ‹ƒh‚ÌƒEƒ‹ƒNŒR’c‚Ì’†‚Å‚à‹É‚ß‚Â‚¯‚Ì•—E‚Æ‹¥–\‚³‚Å’m‚ç‚ê‚é‘à’·‚¾B
 ‘½‚­‚ÌƒEƒ‹ƒN‚Ìã«‚Ìê‡A‘Î›³‚µ‚½ŽÒ‚¾‚¯‚ªŽ€‚ðŠoŒå‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢‚ªA
 ”Þ‚Ìê‡‚ÍŽüˆÍ‚Ì“G‚à–¡•û‚àŽ€‚ðŠoŒå‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B","
 
@@ -1731,7 +1731,7 @@ HIT:SUPERHURT:3d5",,,HAS_LITE_2|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,‚¾‚ç‚¯‚ÌíŽm‚Å
 ",J0#,,,,
 373,,ƒI[ƒN‚Ì‘å“yŒòwƒAƒ]ƒOx,"Azog, Lord of the Orc",o,r,0,-1,ORC,URUK,0x02,PALADIN,NONE,MIGHTY,NONE,NONE,44,5,50,9500,0,0,0,0,NONE,NONE,0,10,20,0,0,0,20,22,18,19,18,21,17,5,215,0,113,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:10d5
 HIT:HURT:10d5
-HIT:HURT:10d5",,,UNIQUE|CAN_SPEAK|ESCORT|ESCORTS|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK,,"”Þ‚Íd“î—‚ß‚½“Ž¡‚Æ•ŒM‚Ì—_‚ê‚‚«ƒI[ƒN‚Ì‰¤Œò‚¾B
+HIT:HURT:10d5",,,UNIQUE|CAN_SPEAK|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|IM_POIS|RES_DARK,,"”Þ‚Íd“î—‚ß‚½“Ž¡‚Æ•ŒM‚Ì—_‚ê‚‚«ƒI[ƒN‚Ì‰¤Œò‚¾B
 ¼‚Ì’n‚Åƒhƒ[ƒt‚Ì•”‘°‚ðŠô“x‚Æ‚È‚­æøçW‚µ‚Ä‚«‚½‚½‚ß
 ˆ«‹S‚Ì–¼‚Æ‚µ‚Ä‚à’m‚ç‚ê‚Ä‚¢‚éB","
 
@@ -1946,7 +1946,7 @@ JZ#‘¾ŒÃ‚Ì–k‹É‚É‰h‚¦‚½ƒƒ}[ƒ‹‰¤‘‚ð–Å‚Ú‚µ‚Ü‚µ‚½B by ‹v—¯‚³‚ñ",,,,
 409,,—Í‚Ì–SŽÒwƒJƒŠƒXx,Kharis the Powerslave,z,u,0,-1,HUMAN,HUMAN,0x02,WARRIOR_MAGE,NONE,ORDINARY,ARCANE,CRAFT,26,4,50,9810,0,0,0,0,NONE,NONE,0,0,20,40,0,0,40,13,17,14,13,17,15,5,201,0,83,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"GAZE:TERRIFY
 HIT:DISEASE:6d6
 CLAW:LOSE_CON:2d6
-CLAW:LOSE_CON:2d6",,,UNIQUE|ZOMBIE|CAN_SPEAK|ESCORTS|ESCORT|COLD_BLOOD|IM_POIS|IM_COLD|RES_NETH|FEARLESS|OPEN_DOOR|BASH_DOOR|RES_TELE|TRAPS|CAUSE_3|DARKNESS|S_UNDEAD|SCARE|SLOW|S_KIN|ANIM_DEAD,,”Þ‚ÍŽ©•ª‚Ì•æ‚ð‰˜‚µ‚½‚ ‚È‚½‚É•œQ‚·‚é‚½‚ßáS‚Á‚½B,"He is out to have a revenge on you who have desecrated his tomb.
+CLAW:LOSE_CON:2d6",,,UNIQUE|ZOMBIE|CAN_SPEAK|COLD_BLOOD|IM_POIS|IM_COLD|RES_NETH|FEARLESS|OPEN_DOOR|BASH_DOOR|RES_TELE|TRAPS|CAUSE_3|DARKNESS|S_UNDEAD|SCARE|SLOW|S_KIN|ANIM_DEAD,,”Þ‚ÍŽ©•ª‚Ì•æ‚ð‰˜‚µ‚½‚ ‚È‚½‚É•œQ‚·‚é‚½‚ßáS‚Á‚½B,"He is out to have a revenge on you who have desecrated his tomb.
 ",JZ#,,,,
 410,,•—‘•FwƒOƒƒCƒqƒAx,Gwaihir the Windlord,B,u,0,-1,BIRD,BIRD,0x02,NONE,NONE,ORDINARY,NONE,NONE,40,1,50,8000,0,0,0,0,NONE,NONE,3,32,20,65,0,0,20,19,19,19,19,19,19,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:15d5
 CLAW:HURT:15d5
@@ -2100,10 +2100,10 @@ hound.  Or is it just your imagination?
 430,,‹S‚Ì“ª—Ìw¯ŒF“¶Žqx,"Hoshikuma-douji, the Ogre Lord",O,o,0,-1,OGRE,OGRE,0x02,ROGUE,NONE,PIOUS,NONE,NONE,54,3,50,16000,0,0,0,0,NONE,NONE,2,0,20,0,0,0,20,25,21,20,23,23,22,5,456,0,1311,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:10d11
 HIT:HURT:10d11
 HIT:HURT:10d11
-HIT:HURT:10d11",,,UNIQUE|CAN_SPEAK|ESCORT|OPEN_DOOR|BASH_DOOR|CAN_SWIM|AURA_ELEC|IM_POIS|IM_FIRE|IM_ELEC|HEAL|HOLD|TRAPS|BA_COLD|S_MONSTER,,,,,,,,
+HIT:HURT:10d11",,,UNIQUE|CAN_SPEAK|OPEN_DOOR|BASH_DOOR|CAN_SWIM|AURA_ELEC|IM_POIS|IM_FIRE|IM_ELEC|HEAL|HOLD|TRAPS|BA_COLD|S_MONSTER,,,,,,,,
 431,,wƒOƒŒƒ“ƒfƒ‹x,Grendel,O,g,0,-1,OGRE,OGRE,0x02,SMITH,NONE,MIGHTY,NONE,NONE,58,2,50,17500,0,0,0,0,NONE,NONE,4,10,20,0,0,0,20,32,22,21,28,30,27,5,603,0,2721,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:SUPERHURT:5d6
 HIT:SUPERHURT:5d6
-HIT:SUPERHURT:5d6",,,UNIQUE|CAN_SPEAK|WILD_SWAMP|WILD_SHORE|ESCORT|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|CAN_SWIM|IM_POIS,,”²‚«‚ño‚½Žc“‚³‚Å–¼º‚ð”Ž‚µ‚½ƒI[ƒK‚¾B,"An ogre renowned for acts of surpassing cruelty.
+HIT:SUPERHURT:5d6",,,UNIQUE|CAN_SPEAK|WILD_SWAMP|WILD_SHORE|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|CAN_SWIM|IM_POIS,,”²‚«‚ño‚½Žc“‚³‚Å–¼º‚ð”Ž‚µ‚½ƒI[ƒK‚¾B,"An ogre renowned for acts of surpassing cruelty.
 ","JZ#
 JZ#ƒOƒŒƒ“ƒfƒ‹
 JZ#‰p‘‚Ì–Ž–ŽuƒxƒIƒEƒ‹ƒtv‚É“oê‚µ‚½‰ö•¨‚Å‚·B
@@ -2401,7 +2401,7 @@ BITE:HURT:11d2
 BITE:HURT:22d1",,,TAKE_ITEM|UNIQUE|MOVE_BODY|WILD_OCEAN|BASH_DOOR|IM_COLD|IM_ELEC|IM_POIS|RES_WATE|AQUATIC|NO_CONF|NO_SLEEP|,,ŽjãÅ‘å‚ÌƒzƒIƒWƒƒUƒ‚ÅA¡‚É‚à‚ ‚È‚½‚ðH‚×‚æ‚¤‚Æ‚µ‚Ä‚¢‚éI,"The biggest white shark who has ever lived, it is hunting for you now! ",JZ#,,,,
 468,,‘å˜h‰¤wƒ\ƒƒ“ƒh[ƒ‹x,Thorondor,B,u,0,-1,BIRD,MAIAR,0x02,WARRIOR,1090,ORDINARY,NONE,NONE,55,1,50,22222,0,0,0,0,NONE,NONE,13,32,20,65,0,0,20,23,23,23,23,23,23,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:16d5
 CLAW:HURT:16d5
-BITE:HURT:6d10",,,CAN_FLY|UNIQUE|ESCORT|ESCORTS|WILD_ONLY|WILD_MOUNTAIN|WILD_VOLCANO|RIDING|ACROBAT|S_EAGLE,,"ƒ}ƒ“ƒEƒF‚ÉŒ­‚í‚³‚ê‚½ˆÌ‘å‚È‘å˜h‚Íl‚ÌŒ¾—t‚ð˜b‚µA
+BITE:HURT:6d10",,,CAN_FLY|UNIQUE|WILD_ONLY|WILD_MOUNTAIN|WILD_VOLCANO|RIDING|ACROBAT|S_EAGLE,,"ƒ}ƒ“ƒEƒF‚ÉŒ­‚í‚³‚ê‚½ˆÌ‘å‚È‘å˜h‚Íl‚ÌŒ¾—t‚ð˜b‚µA
 ƒ}ƒCƒA[ƒ‹‚Æ“¯‚¶°‚ðŽ‚Á‚Ä‚¢‚é‚ÆŒ¾‚í‚ê‚éB
 ƒ\ƒƒ“ƒh[ƒ‹‚Í‘S‚Ä‚Ì‘å˜h‚Ì‚¤‚¿‚ÅÅ‰‚ÉŒ»‚í‚ê‚½ŽÒ‚Å‚ ‚èAÅ‹­‚©‚ÂÅ‘å‚Ì‰¤‚¾B
 ‚»‚Ì‹‘å‚È‘Ì‚ð‘O‚É‚·‚ê‚Îƒ‚ƒ‹ƒSƒX‚Ì”Ú¬‚È¢Žg‚¢’B‚Í“¦‚°˜f‚¤‚±‚Æ‚µ‚©o—ˆ–³‚¢B","An agent of supernatural being, Thorondor is the lord of eagles.
@@ -2491,7 +2491,7 @@ HIT:HURT:3d6",,,FORCE_SLEEP|OPEN_DOOR|BASH_DOOR|HAS_LITE_1|ACTIVE_TELEPORT|HOLD|
 481,,ˆÅ‚Ì’wåwƒVƒFƒƒux,"Shelob, Spider of Darkness",S,D,0,-1,SPIDER,SPIDER,0x01,WARRIOR,808,ORDINARY,NONE,NONE,32,3,50,1500,0,0,0,0,NONE,NONE,2,0,8,80,0,0,80,16,16,16,16,16,16,5,650,0,1101,0,650,0,1101,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"BITE:HURT:2d10
 STING:POISON:2d5
 STING:LOSE_STR:1d4
-STING:POISON:2d5",,,UNIQUE|FORCE_SLEEP|ESCORT|ESCORTS|EAT_BLIND|SMART|BASH_DOOR|HURT_LITE|NO_CONF|NO_SLEEP|RES_DARK|HEAL|BLIND|SLOW|CONF|SCARE|CAUSE_3|CAUSE_4|TRAPS|BR_DARK|S_SPIDER,,"ƒVƒFƒƒu‚Í‹‘å‚É”ì‚¦‘¾‚Á‚½’wå‚ÅAƒEƒ“ƒSƒŠƒAƒ“ƒg‚ÌˆÅ‚Ìˆê‘°‚Å‚ ‚Á‚½‚Æ
+STING:POISON:2d5",,,UNIQUE|FORCE_SLEEP|EAT_BLIND|SMART|BASH_DOOR|HURT_LITE|NO_CONF|NO_SLEEP|RES_DARK|HEAL|BLIND|SLOW|CONF|SCARE|CAUSE_3|CAUSE_4|TRAPS|BR_DARK|S_SPIDER,,"ƒVƒFƒƒu‚Í‹‘å‚É”ì‚¦‘¾‚Á‚½’wå‚ÅAƒEƒ“ƒSƒŠƒAƒ“ƒg‚ÌˆÅ‚Ìˆê‘°‚Å‚ ‚Á‚½‚Æ
 Œ¾‚í‚ê‚Ä‚¢‚éB‚»‚Ì“Å‚Ì‹°‚ë‚µ‚³‚Í“`à“I‚ÅA‚Ü‚½Ž©‰ä‚Ì‹­‚³‚à“`à“I‚ ‚Á‚½‚ªA
 ‚»‚ê‚ªƒVƒFƒƒu‚Ì–v—Ž‚ð“±‚¢‚½‚Éˆá‚¢‚È‚¢BƒVƒFƒƒu‚Í‚©‚Â‚ÄƒLƒŠƒXEƒEƒ“ƒSƒ‹
 ‚Ì’Ê‚è“¹‚Ì”Ôl‚Å‚ ‚Á‚½‚ªA’·‚¢ŠÔ‚»‚ÌŽp‚ðŒ©‚½ŽÒ‚Í‚¢‚È‚¢B","Shelob is an enormous bloated spider, rumoured to have been one of the 
@@ -2512,7 +2512,7 @@ this creature can also harm you with ranged attacks.
 483,,HŽr‹S‚Ì‰¤,Ghoulking,z,D,0,-1,HUMAN,HUMAN,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,32,2,50,56671,0,0,0,0,NONE,NONE,0,10,20,60,0,0,10,16,16,16,16,16,16,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:LOSE_STR:3d4
 CLAW:DISEASE:3d4
 CLAW:DISEASE:3d4
-BITE:PARALYZE:3d5",,,ZOMBIE|OPEN_DOOR|BASH_DOOR|CAN_SWIM|ESCORT|FORCE_SLEEP|IM_POIS|IM_COLD|NO_CONF|NO_SLEEP|COLD_BLOOD|HURT_LITE|RES_NETH|SCARE|HOLD|DARKNESS|S_UNDEAD|ANIM_DEAD,,"‚±‚Ì•…”s‚µ‚½‹¥X‚µ‚¢ŽÒ‚Ì‘Ì‚©‚ç‚Í•…“÷‚Ì‰ò‚ª‚µ‚½‚½‚è—Ž‚¿‚Ä‚¢‚éB
+BITE:PARALYZE:3d5",,,ZOMBIE|OPEN_DOOR|BASH_DOOR|CAN_SWIM|FORCE_SLEEP|IM_POIS|IM_COLD|NO_CONF|NO_SLEEP|COLD_BLOOD|HURT_LITE|RES_NETH|SCARE|HOLD|DARKNESS|S_UNDEAD|ANIM_DEAD,,"‚±‚Ì•…”s‚µ‚½‹¥X‚µ‚¢ŽÒ‚Ì‘Ì‚©‚ç‚Í•…“÷‚Ì‰ò‚ª‚µ‚½‚½‚è—Ž‚¿‚Ä‚¢‚éB
 Š®‘S‚ÈlŠÔ‚ÌŒ`‚ð‚µ‚Ä‚¢‚é‚í‚¯‚Å‚Í‚È‚¢‚ªAŒÀ‚è‚È‚­lŠÔ‚É—Ç‚­Ž—‚Ä‚¢‚éê‡‚à
 ‚ ‚éB
 ‘O‚©‚ª‚Ý‚ÌŽp¨‚Å‚Q–{‘«‚Å•à‚«A‰½ˆ‚Æ‚È‚­Œ¢‚ÉŽ—‚Ä‚¢‚éB
@@ -2554,7 +2554,7 @@ GAZE:DR_MANA:1d10",,,FORCE_SLEEP|STUPID|EMPTY_MIND|CAN_FLY|NO_CONF|NO_SLEEP|FEAR
 ",JZ#ƒfƒCƒuƒXƒyƒNƒ^[‚Å‚Í‚È‚¢‚æ,,,,
 489,,wƒ{ƒNƒ‰ƒOx,Bokrug,R,g,0,-1,REPTILIA,REPTILIA,0x00,NONE,NONE,ORDINARY,NONE,NONE,33,7,50,1600,0,0,0,0,NONE,NONE,2,0,20,70,0,0,50,16,16,16,16,16,16,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"BITE:HURT:5d5
 CRUSH:HURT:2d10
-CRUSH:HURT:2d10",,,UNIQUE|CAN_SPEAK|NONLIVING|ESCORT|ESCORTS|ELDRITCH_HORROR|OPEN_DOOR|BASH_DOOR|CAN_SWIM|IM_COLD|IM_POIS|S_UNDEAD|MIND_BLAST|CAUSE_3|SCARE|BO_WATE|S_KIN,,"ƒhƒŠ[ƒ€ƒ‰ƒ“ƒh‚ÌƒCƒu‚ÆŽo–…“sŽsƒ‹ƒCƒu‚ÅˆÙŒ`‚ÌŽí‘°‚É‚æ‚Á‚Ä’”q‚³‚ê‚½ÂF
+CRUSH:HURT:2d10",,,UNIQUE|CAN_SPEAK|NONLIVING|ELDRITCH_HORROR|OPEN_DOOR|BASH_DOOR|CAN_SWIM|IM_COLD|IM_POIS|S_UNDEAD|MIND_BLAST|CAUSE_3|SCARE|BO_WATE|S_KIN,,"ƒhƒŠ[ƒ€ƒ‰ƒ“ƒh‚ÌƒCƒu‚ÆŽo–…“sŽsƒ‹ƒCƒu‚ÅˆÙŒ`‚ÌŽí‘°‚É‚æ‚Á‚Ä’”q‚³‚ê‚½ÂF
 ‚Ì…å’åŽ_B
 ‹à‘®»‚Ì—Ø‚Æ’W‰©F‚É‹P‚­–Ú‚ðŽ‚¿A‰ºŠ{‚É‚Í“÷‚‚Ì‚©‚í‚è‚ÉGŠp‚ª‚Â‚¢‚Ä‚¢‚éB
 ”w•h‚É‰ˆ‚Á‚Äj‚Ì‚æ‚¤‚ÈŽhó‚Ì“Ë‹N‚ª‚ ‚èA‹r‚É‚Í…‘~‚«‚ª‚Â‚¢‚Ä‚¢‚ÄA”ö‚Í•½
@@ -2603,21 +2603,21 @@ HIT:SUPERHURT:8d1",,,OPEN_DOOR|BASH_DOOR|IM_FIRE|IM_POIS|FEARLESS|NO_CONF|NO_SLE
 ",,,,,
 493,,Šâƒgƒƒ‹wƒo[ƒgx,Bert the Stone Troll,T,W,0,-1,TROLL,TROLL,0x02,SOLDIER,NONE,ORDINARY,NONE,NONE,33,7,50,16720,0,0,0,0,NONE,NONE,-1,5,20,70,0,0,50,16,16,16,16,16,16,5,0,0,0,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:SUPERHURT:5d5
 BITE:HURT:2d10
-BITE:HURT:2d3",,,UNIQUE|ESCORT|WILD_WOOD|REGENERATE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|HURT_LITE|HURT_ROCK,,"‹‘å‚ÅA‹Øœ‚½‚­‚Ü‚µ‚­‚ÄA‹­—Í‚ÅAƒzƒrƒbƒg‚ð‘åD•¨‚É‚µ‚Ä‚¢‚éB
+BITE:HURT:2d3",,,UNIQUE|WILD_WOOD|REGENERATE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|HURT_LITE|HURT_ROCK,,"‹‘å‚ÅA‹Øœ‚½‚­‚Ü‚µ‚­‚ÄA‹­—Í‚ÅAƒzƒrƒbƒg‚ð‘åD•¨‚É‚µ‚Ä‚¢‚éB
 ”Þ‚É‚Íƒrƒ‹‚Æƒgƒ€‚Æ‚¢‚¤—F’B‚ª‚¢‚éB","Big, brawny, powerful and with a taste for hobbit.  He has friends called 
 Bill and Tom.
 
 ",J0#,,,,
 494,,Šâƒgƒƒ‹wƒrƒ‹x,Bill the Stone Troll,T,W,0,-1,TROLL,TROLL,0x02,SOLDIER,NONE,ORDINARY,NONE,NONE,33,7,50,16280,0,0,0,0,NONE,NONE,-1,5,20,70,0,0,50,16,16,16,16,16,16,5,0,0,0,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:SUPERHURT:5d5
 BITE:HURT:2d10
-BITE:HURT:2d3",,,UNIQUE|ESCORT|WILD_WOOD|REGENERATE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|HURT_LITE|HURT_ROCK,,"‹‘å‚ÅA‹Øœ‚½‚­‚Ü‚µ‚­‚ÄA‹­—Í‚ÅAƒzƒrƒbƒg‚ð‘åD•¨‚É‚µ‚Ä‚¢‚éB
+BITE:HURT:2d3",,,UNIQUE|WILD_WOOD|REGENERATE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|HURT_LITE|HURT_ROCK,,"‹‘å‚ÅA‹Øœ‚½‚­‚Ü‚µ‚­‚ÄA‹­—Í‚ÅAƒzƒrƒbƒg‚ð‘åD•¨‚É‚µ‚Ä‚¢‚éB
 ”Þ‚É‚Íƒo[ƒg‚Æƒgƒ€‚Æ‚¢‚¤—F’B‚ª‚¢‚éB","Big, brawny, powerful and with a taste for hobbit.  He has friends called 
 Bert and Tom.
 
 ",J0#,,,,
 495,,Šâƒgƒƒ‹wƒgƒ€x,Tom the Stone Troll,T,W,0,-1,TROLL,TROLL,0x02,SOLDIER,NONE,ORDINARY,NONE,NONE,33,7,50,16720,0,0,0,0,NONE,NONE,-1,5,20,70,0,0,50,16,16,16,16,16,16,5,0,0,0,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:SUPERHURT:5d5
 BITE:HURT:2d10
-BITE:HURT:2d3",,,UNIQUE|ESCORT|WILD_WOOD|REGENERATE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|HURT_LITE|HURT_ROCK,,"‹‘å‚ÅA‹Øœ‚½‚­‚Ü‚µ‚­‚ÄA‹­—Í‚ÅAƒzƒrƒbƒg‚ð‘åD•¨‚É‚µ‚Ä‚¢‚éB
+BITE:HURT:2d3",,,UNIQUE|WILD_WOOD|REGENERATE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|HURT_LITE|HURT_ROCK,,"‹‘å‚ÅA‹Øœ‚½‚­‚Ü‚µ‚­‚ÄA‹­—Í‚ÅAƒzƒrƒbƒg‚ð‘åD•¨‚É‚µ‚Ä‚¢‚éB
 ”Þ‚É‚Íƒo[ƒg‚Æƒrƒ‹‚Æ‚¢‚¤—F’B‚ª‚¢‚éB","Big, brawny, powerful and with a taste for hobbit.  He has friends called 
 Bert and Bill.
 
@@ -2689,7 +2689,7 @@ F:UNIQUE | MALE | WEIRD_MIND | CAN_SPEAK |
 F:TROLL | IM_COLD | IM_POIS",,,,
 506,,w‹lƒtƒ@ƒ]ƒ‹ƒgx,Fasolt the Giant,P,u,0,-1,GIANT,GIANT,0x02,WARRIOR,NONE,ORDINARY,NONE,NONE,33,7,50,2000,0,0,0,0,NONE,NONE,0,0,20,70,0,0,50,16,16,16,16,16,16,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:5d5
 BITE:HURT:2d10
-HIT:EAT_GOLD:2d2",,,UNIQUE|CAN_SPEAK|WILD_ALL|ESCORT|EAT_GIVE_STR|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS,,‘å‚«‚­‚ÄAç—‚µ‚­‚ÄA—Í‹­‚¢‹l‚Å‹à‚É‹­—~‚¾B,"Big, brawny, powerful and with a greed for gold.
+HIT:EAT_GOLD:2d2",,,UNIQUE|CAN_SPEAK|WILD_ALL|EAT_GIVE_STR|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS,,‘å‚«‚­‚ÄAç—‚µ‚­‚ÄA—Í‹­‚¢‹l‚Å‹à‚É‹­—~‚¾B,"Big, brawny, powerful and with a greed for gold.
 ","JZ#
 JZ#‹lƒtƒ@ƒ]ƒ‹ƒg
 JZ#ƒŠƒqƒƒƒ‹ƒgEƒ”ƒ@[ƒOƒi[‚ÌŠyŒ€uƒj[ƒxƒ‹ƒ“ƒO‚ÌŽwŠÂv‚É“oê‚µ‚½
@@ -3040,7 +3040,7 @@ has four huge arms protruding from its enormous torso.
 551,,ƒuƒ‰ƒbƒNEƒgƒƒ‹wƒƒOƒƒOx,Rogrog the Black Troll,T,D,0,-1,TROLL,TROLL,0x02,WARRIOR,NONE,ORDINARY,NONE,NONE,36,5,50,41090,0,0,0,0,NONE,NONE,-1,10,20,70,0,0,50,18,18,18,18,18,18,5,0,0,0,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:6d6
 BITE:HURT:2d10
 BITE:HURT:2d3
-SPIT:ACID:3d8",,,UNIQUE|ESCORT|REGENERATE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS,,"‹¶‹C‚ÌS‚ðŽ‚Á‚½ˆÙí‚É‹ü‹­‚Èƒgƒƒ‹‚ÅA‘Ì‚©‚ç‚Í•…H«‚Ì‘Ì‰t‚ð‚µ‚½‚½‚ç‚¹‚Ä
+SPIT:ACID:3d8",,,UNIQUE|REGENERATE|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS,,"‹¶‹C‚ÌS‚ðŽ‚Á‚½ˆÙí‚É‹ü‹­‚Èƒgƒƒ‹‚ÅA‘Ì‚©‚ç‚Í•…H«‚Ì‘Ì‰t‚ð‚µ‚½‚½‚ç‚¹‚Ä
 ‚¢‚éB‘Ì‚Ì‘å‚«‚³‚É‚àŠÖ‚í‚ç‚¸A‚ ‚Á‚¯‚É‚Æ‚ç‚ê‚é‚æ‚¤‚ÈƒXƒs[ƒh‚ÅUŒ‚‚ð‚µ‚Ä
 ‚­‚éB","A massive and cruel troll of great power, drool slides caustically down 
 his muscular frame.  Despite his bulk, he strikes with stunning speed.
@@ -3302,7 +3302,7 @@ JZ#Œã‚É•œŠˆ‚µ‚ÄˆÌ‘å‚È‚éŽí‘°‚ð–Å‚Ú‚µ‚Ü‚µ‚½B by ‹v—¯‚³‚ñ",,,,
 581,,w—‰¤ƒAƒŠx,The Queen Ant,a,v,0,-1,ANT,ANT,0x01,WARRIOR,NONE,ORDINARY,NONE,NONE,37,2,50,24219,0,0,0,89,NONE,NONE,0,10,30,100,0,0,10,18,18,18,18,18,18,5,0,0,0,0,793,0,4212,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"BITE:HURT:2d12
 BITE:HURT:2d12
 BITE:HURT:2d8
-BITE:HURT:2d8",,,UNIQUE|FORCE_SLEEP|ESCORT|ESCORTS|CAN_FLY|WEIRD_MIND|OPEN_DOOR|BASH_DOOR|NO_CONF|NO_SLEEP|S_ANT,,”Þ—‚ÍŒƒ“{‚µ‚Ä‚¢‚é‚ªA‚»‚ê‚Í‚ ‚È‚½‚ª”Þ—‚ÌŽq‹Ÿ‚ð‚Â‚¯‚½‚©‚ç‚¾B,"She's upset because you hurt her children.
+BITE:HURT:2d8",,,UNIQUE|FORCE_SLEEP|CAN_FLY|WEIRD_MIND|OPEN_DOOR|BASH_DOOR|NO_CONF|NO_SLEEP|S_ANT,,”Þ—‚ÍŒƒ“{‚µ‚Ä‚¢‚é‚ªA‚»‚ê‚Í‚ ‚È‚½‚ª”Þ—‚ÌŽq‹Ÿ‚ð‚Â‚¯‚½‚©‚ç‚¾B,"She's upset because you hurt her children.
 ",J0#,,,,
 582,,ƒEƒBƒ‹EƒI[EƒEƒBƒXƒv,Will o' the wisp,E,y,0,-1,ELEMENTAL,ELEMENTAL,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,37,4,50,500,0,0,0,0,NONE,NONE,-1,20,30,150,0,0,0,18,18,18,18,18,18,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d9
 HIT:HURT:1d9
@@ -3386,7 +3386,7 @@ CRUSH:HURT:20d2",,,FORCE_SLEEP|CAN_FLY|BASH_DOOR|SMART|NO_CONF|NO_SLEEP|RES_WATE
 ",JZ#,,,,
 595,,•ƒ‚È‚éwƒ_ƒSƒ“x,Father Dagon,u,g,0,-1,DEEP_ONE,DEEP_ONE,0x02,PALADIN,857,ORDINARY,DEATH,NONE,57,3,24,310900,0,0,123188,0,NONE,NONE,6,10,12,80,0,0,50,19,19,19,19,19,19,5,761,20,9871,10,761,20,9871,10,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:POISON:8d4
 CLAW:POISON:8d4
-BITE:HURT:8d8",,,ESCORT|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|CAN_SPEAK|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|UNIQUE|FORCE_SLEEP|NO_CONF|NO_SLEEP|S_KIN|S_DEMON|BO_WATE|BA_WATE|BO_ACID|BA_ACID,,"@ƒfƒB[ƒvƒƒ“‚ªƒTƒCƒYE”N—î‚Ì–Ê‚Å‘å‚«‚­¬’·‚µ‚½‚à‚ÌB•ÀŠO‚ê‚Ä‘å‚«‚È‘Ì‚ðŽ‚¿A‰º”¼g‚Í‹r‚ª‘Þ‰»‚µ‚Ä‹›‚Ì‚æ‚¤‚É‚È‚Á‚Ä‚¢‚éB”N—î‚Í‰½•S–œÎ‚É‚à‚È‚é‚Æl‚¦‚ç‚ê‚Ä‚¢‚éB
+BITE:HURT:8d8",,,CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|CAN_SPEAK|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|UNIQUE|FORCE_SLEEP|NO_CONF|NO_SLEEP|S_KIN|S_DEMON|BO_WATE|BA_WATE|BO_ACID|BA_ACID,,"@ƒfƒB[ƒvƒƒ“‚ªƒTƒCƒYE”N—î‚Ì–Ê‚Å‘å‚«‚­¬’·‚µ‚½‚à‚ÌB•ÀŠO‚ê‚Ä‘å‚«‚È‘Ì‚ðŽ‚¿A‰º”¼g‚Í‹r‚ª‘Þ‰»‚µ‚Ä‹›‚Ì‚æ‚¤‚É‚È‚Á‚Ä‚¢‚éB”N—î‚Í‰½•S–œÎ‚É‚à‚È‚é‚Æl‚¦‚ç‚ê‚Ä‚¢‚éB
 @[‚«‚à‚Ì‚Ç‚à‚Ì‰¤Fu’PŠá‹lƒ|ƒŠƒ…ƒtƒF[ƒ‚ƒX‚ðŽv‚í‚¹‚é‚»‚ÌŠõ‚Ü‚í‚µ‚¢‹‘Ì‚ÍAˆ«–²‚É‚ ‚ç‚í‚ê‚é“r•û‚à‚È‚¢‰ö•¨‚Ì‚æ‚¤‚É...v
 (‚gE‚oEƒ‰ƒ”ƒNƒ‰ƒtƒgA‘å‘ëŒ[—T–óuƒ_ƒSƒ“vwƒ‰ƒ”ƒNƒ‰ƒtƒg‘SW‚RxA‘nŒ³„—•¶ŒÉApp.16)","The king of the deep ones. ""Vast, Polyphemous-like, and loathsome, it 
 darted like a stupendous monster of nightmares...""
@@ -3405,7 +3405,7 @@ JZ#Žd‚¦‚é[‚«‚à‚Ì‚Ç‚à‚Ì‘ƒ“I‘¶Ý‚Å‚·B by ‹v—¯‚³‚ñ
 JZ#ˆø—p‚Í‹v—¯‚³‚ñA‰ðà‚Í NeSYS ‚³‚ñ‚É‚æ‚é",,,,
 596,,•ê‚È‚éwƒnƒCƒhƒ‰x,Mother Hydra,u,g,0,-1,DEEP_ONE,DEEP_ONE,0x01,PRIEST,857,ORDINARY,DEATH,CHAOS,57,3,24,309800,0,0,118741,0,NONE,NONE,6,10,12,80,0,0,50,19,19,19,19,19,19,5,659,20,8976,10,659,20,8976,10,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:POISON:8d4
 CLAW:POISON:8d4
-BITE:HURT:8d8",,,ESCORT|CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|CAN_SPEAK|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|UNIQUE|FORCE_SLEEP|NO_CONF|NO_SLEEP|S_HYDRA|S_DEMON|DARKNESS|BA_WATE|BO_ACID|BA_ACID,,"@ƒfƒB[ƒvƒƒ“‚ªƒTƒCƒYE”N—î‚Ì–Ê‚Å‘å‚«‚­¬’·‚µ‚½‚à‚ÌB•ÀŠO‚ê‚Ä‘å‚«‚È‘Ì‚ðŽ‚¿A‰º”¼g‚Í‹r‚ª‘Þ‰»‚µ‚Ä‹›‚Ì‚æ‚¤‚É‚È‚Á‚Ä‚¢‚éB”N—î‚Í‰½•S–œÎ‚É‚à‚È‚é‚Æl‚¦‚ç‚ê‚Ä‚¢‚éB
+BITE:HURT:8d8",,,CAN_SWIM|BASH_DOOR|ELDRITCH_HORROR|RES_TELE|CAN_SPEAK|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|UNIQUE|FORCE_SLEEP|NO_CONF|NO_SLEEP|S_HYDRA|S_DEMON|DARKNESS|BA_WATE|BO_ACID|BA_ACID,,"@ƒfƒB[ƒvƒƒ“‚ªƒTƒCƒYE”N—î‚Ì–Ê‚Å‘å‚«‚­¬’·‚µ‚½‚à‚ÌB•ÀŠO‚ê‚Ä‘å‚«‚È‘Ì‚ðŽ‚¿A‰º”¼g‚Í‹r‚ª‘Þ‰»‚µ‚Ä‹›‚Ì‚æ‚¤‚É‚È‚Á‚Ä‚¢‚éB”N—î‚Í‰½•S–œÎ‚É‚à‚È‚é‚Æl‚¦‚ç‚ê‚Ä‚¢‚éB
 @[‚«‚à‚Ì‚Ç‚à‚Ì‰¤Fu’PŠá‹lƒ|ƒŠƒ…ƒtƒF[ƒ‚ƒX‚ðŽv‚í‚¹‚é‚»‚ÌŠõ‚Ü‚í‚µ‚¢‹‘Ì‚ÍAˆ«–²‚É‚ ‚ç‚í‚ê‚é“r•û‚à‚È‚¢‰ö•¨‚Ì‚æ‚¤‚É...v
 (‚gE‚oEƒ‰ƒ”ƒNƒ‰ƒtƒgA‘å‘ëŒ[—T–óuƒ_ƒSƒ“vwƒ‰ƒ”ƒNƒ‰ƒtƒg‘SW‚RxA‘nŒ³„—•¶ŒÉApp.16)","The queen of the deep ones. ""Vast, Polyphemous-like, and loathsome, it 
 darted like a stupendous monster of nightmares...""
@@ -3533,7 +3533,7 @@ JZ#–{“–‚Í Lord:ŒöŽÝ  Baron:’jŽÝ ‚Å‚·‚ªAŒêŠ´‚©‚ç‚±‚Á‚¿‚ÉB",,,,
 610,,wƒXƒLƒ…ƒ‰x,Scylla,M,G,0,-1,HYDRA,HYDRA,0x01,NONE,NONE,ORDINARY,NONE,NONE,39,2,50,3500,0,0,0,0,NONE,NONE,2,15,20,90,0,0,20,19,19,19,19,19,19,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,6 ,-1 ,-1 ,-1 ,"BITE:POISON:10d3
 BITE:POISON:10d3
 BITE:POISON:10d3
-BITE:POISON:10d3",,,FORCE_SLEEP|UNIQUE|CAN_SWIM|ESCORT|BASH_DOOR|MOVE_BODY|WILD_SHORE|IM_POIS|RIDING|BR_POIS|BR_FIRE|SCARE|CONF,,"Šï‰ö‚Èà¦’Ž—Þ‚Ì¬‡¶•¨‚ÅA“Å‰t‚ð“H‚ç‚¹‚é
+BITE:POISON:10d3",,,FORCE_SLEEP|UNIQUE|CAN_SWIM|BASH_DOOR|MOVE_BODY|WILD_SHORE|IM_POIS|RIDING|BR_POIS|BR_FIRE|SCARE|CONF,,"Šï‰ö‚Èà¦’Ž—Þ‚Ì¬‡¶•¨‚ÅA“Å‰t‚ð“H‚ç‚¹‚é
 ‚U‚Â‚Ì“ª‚Æ12–{‚Ì‹r‚ðŽ‚ÂB","A strange reptilian hybrid with multiple heads dripping venom.
 
 ‚U12","JZ#
@@ -3923,7 +3923,7 @@ He looks like a skeleton enveloped in flames.
 655,,Ž©‘¶‚·‚éŒ¹wƒEƒ{=ƒTƒXƒ‰x,"Ubbo-Sathla, the Unbegotten Source",j,W,0,-1,GREAT_OLD_ONE,GREAT_OLD_ONE,0x00,NONE,NONE,ORDINARY,NONE,NONE,41,3,50,13500,0,0,0,0,NONE,NONE,8,10,90,80,0,0,10,19,19,19,19,19,19,5,769,30,1940,3,760,30,1940,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CRUSH:ACID:5d5
 HIT:POISON:5d5
 CRUSH:ACID:5d5
-HIT:POISON:5d5",,,UNIQUE|CAN_SPEAK|NO_STUN|NO_SLEEP|NO_CONF|FORCE_SLEEP|ELDRITCH_HORROR|ESCORT|REGENERATE|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|KILL_BODY|HURT_FIRE|IM_COLD|IM_POIS,,"—â‚½‚­‚¶‚ß‚¶‚ß‚µ‚½“´ŒA‚Ì’†‚ÉZ‚ÞuˆÙŒ`‚Ì_Xv‚Ìˆê’ŒB
+HIT:POISON:5d5",,,UNIQUE|CAN_SPEAK|NO_STUN|NO_SLEEP|NO_CONF|FORCE_SLEEP|ELDRITCH_HORROR|REGENERATE|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|KILL_BODY|HURT_FIRE|IM_COLD|IM_POIS,,"—â‚½‚­‚¶‚ß‚¶‚ß‚µ‚½“´ŒA‚Ì’†‚ÉZ‚ÞuˆÙŒ`‚Ì_Xv‚Ìˆê’ŒB
 ŠOŒ©‚Í–A—§‚Â•s’èŒ`‚ÌŒÅ‚Ü‚è‚ÅA‰½•S‚à‚Ì‹U‘«‚ª‚»‚±‚©‚çL‚Ñ‚Ä‚¢‚éB
 ƒEƒ{ƒTƒXƒ‰‚Ì‹U‘«‚Íâ‚¦ŠÔ‚È‚­Œ`¬‚³‚ê‚Ä‚ÍU‚è‰ñ‚³‚êA
 ƒGƒT‚ÉG‚ê‚é‚Æ‚»‚ê‚ð’Í‚ñ‚ÅŽ©•ª‚Ì’†‚ÉŽæ‚èž‚ñ‚Å‚¢‚éB
@@ -4365,7 +4365,7 @@ JZ#’n‰º‚âŠC’ê‚Éö‚ñ‚Å•œŠˆ‚Ì‹@‰ï‚ð‘_‚Á‚Ä‚¢‚Ü‚·B by ‹v—¯‚³‚ñ",,,,
 683,,wƒE[ƒgƒKƒ‹ƒUEƒƒLx,Utgard-Loke,P,w,0,-1,GIANT,GIANT,0x02,WARRIOR,NONE,ORDINARY,NONE,NONE,44,3,50,13500,0,0,0,0,NONE,NONE,2,10,30,125,0,0,15,19,19,19,19,19,19,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:COLD:12d12
 HIT:COLD:12d12
 HIT:COLD:12d12
-HIT:COLD:12d12",,,ESCORT|UNIQUE|IM_COLD|AURA_COLD|FORCE_SLEEP|MOVE_BODY|SMART|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|HEAL|TELE_TO|S_KIN|BR_COLD,,"–k‰¢_˜b‚ÌƒtƒƒXƒgEƒWƒƒƒCƒAƒ“ƒg‚ÌŽñ—Ì‚ÅA‹l‚É‚µ‚Ä‚Í‚Æ‚Ä‚à“ª‚ª‚¢‚¢B
+HIT:COLD:12d12",,,UNIQUE|IM_COLD|AURA_COLD|FORCE_SLEEP|MOVE_BODY|SMART|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|HEAL|TELE_TO|S_KIN|BR_COLD,,"–k‰¢_˜b‚ÌƒtƒƒXƒgEƒWƒƒƒCƒAƒ“ƒg‚ÌŽñ—Ì‚ÅA‹l‚É‚µ‚Ä‚Í‚Æ‚Ä‚à“ª‚ª‚¢‚¢B
 ‚»‚Ì–‚—Í‚Åƒg[ƒ‹‚âƒƒL‚ç‚Ìˆês‚ð–|˜M‚µ‚½‚±‚Æ‚à‚ ‚éB","A frost giant chieftain, unusually smart for a giant.
 
 ","JZ#
@@ -4374,7 +4374,7 @@ JZ#–k‰¢_˜b‚É“oê‚·‚é‹l‚Ì‰¤B
 JZ#–‚–@‚ð“¾ˆÓ‚Æ‚µA‚»‚Ì–‚—Í‚Åƒg[ƒ‹‚âƒƒL‚ç‚Ìˆês‚ð–|˜M‚µ‚Ü‚µ‚½B by ‹v—¯‚³‚ñ",,,,
 684,,o‚Ì’†‚ð•à‚­‚à‚ÌwƒNƒ@ƒ`ƒ‹EƒEƒ^ƒEƒXx,"Quachil Uttaus, Treader of the Dust",z,D,0,-1,GREAT_OLD_ONE,GREAT_OLD_ONE,0x00,NONE,NONE,ORDINARY,NONE,NONE,44,3,50,319990,0,0,0,0,NONE,NONE,7,10,30,80,0,0,15,19,19,19,19,19,19,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:50d1
 TOUCH:TIME:1d50
-TOUCH:TIME:1d50",,,ZOMBIE|ESCORT|UNIQUE|IM_COLD|RES_TIME|ELDRITCH_HORROR|RES_NETH|FORCE_SLEEP|KILL_BODY|SMART|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|REGENERATE|BR_TIME|SLOW|HASTE|HEAL,,"Žq‹Ÿ‚®‚ç‚¢‚Ì‘å‚«‚³‚ÌAlŠÔŒ^‚Ìƒ~ƒCƒ‰‚Ì‚æ‚¤‚ÈŽp‚ð‚µ‚Ä‚¢‚éB
+TOUCH:TIME:1d50",,,ZOMBIE|UNIQUE|IM_COLD|RES_TIME|ELDRITCH_HORROR|RES_NETH|FORCE_SLEEP|KILL_BODY|SMART|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|REGENERATE|BR_TIME|SLOW|HASTE|HEAL,,"Žq‹Ÿ‚®‚ç‚¢‚Ì‘å‚«‚³‚ÌAlŠÔŒ^‚Ìƒ~ƒCƒ‰‚Ì‚æ‚¤‚ÈŽp‚ð‚µ‚Ä‚¢‚éB
 ‘Ì’†á°‚¾‚ç‚¯‚ÅA‚P“x‚àŒÄ‹z‚µ‚½‚±‚Æ‚ª–³‚¢’†â‘ÙŽ™‚Ì‚æ‚¤‚Å‚ ‚éB
 Žè‚Ìæ‚É‚Íœ‚Ì‚æ‚¤‚Èçê’Ü‚ª‚Â‚¢‚Ä‚¨‚èA˜r‚Íí‚É^‚Á’¼‚®‘O‚É
 L‚Î‚³‚ê‚Ä‚¢‚éB
@@ -4963,7 +4963,7 @@ CHARGE:EAT_GOLD",,,UNIQUE|CAN_SPEAK|REFLECTING|FORCE_SLEEP|SMART|HAS_LITE_1|NO_S
 734,,–À˜H‚Ì_wƒAƒCƒz[ƒgx,"Eihort, the Thing in the Labyrinth",j,R,0,-1,GREAT_OLD_ONE,GREAT_OLD_ONE,0x00,NONE,NONE,ORDINARY,NONE,NONE,53,3,50,25000,0,0,0,0,NONE,NONE,8,10,50,90,0,0,10,23,23,23,23,23,23,5,1000,30,24000,3,1000,30,24000,3,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"BITE:PARALYZE:8d1
 CRUSH:HURT:10d10
 CRUSH:HURT:10d10
-CRUSH:HURT:10d10",,,UNIQUE|CAN_SPEAK|ESCORT|REGENERATE|FORCE_SLEEP|ELDRITCH_HORROR|SMART|OPEN_DOOR|BASH_DOOR|MOVE_BODY|IM_ACID|IM_FIRE|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE|S_UNDEAD|S_DEMON|S_MONSTER|BLINK|BA_ACID|FORGET,,"Â”’‚¢‚Ô‚æ‚Ô‚æ‚Æ‚µ‚½‘È‰~Œ`‚Ì“·‘Ì‚ÉAœ’£‚Á‚½–³”‚Ì‹r‚ª¶‚¦‚Ä‚¢‚éŠOŒ©‚ðŽ‚ÂB
+CRUSH:HURT:10d10",,,UNIQUE|CAN_SPEAK|REGENERATE|FORCE_SLEEP|ELDRITCH_HORROR|SMART|OPEN_DOOR|BASH_DOOR|MOVE_BODY|IM_ACID|IM_FIRE|IM_COLD|IM_POIS|HURT_LITE|NO_CONF|NO_SLEEP|RES_TELE|S_UNDEAD|S_DEMON|S_MONSTER|BLINK|BA_ACID|FORGET,,"Â”’‚¢‚Ô‚æ‚Ô‚æ‚Æ‚µ‚½‘È‰~Œ`‚Ì“·‘Ì‚ÉAœ’£‚Á‚½–³”‚Ì‹r‚ª¶‚¦‚Ä‚¢‚éŠOŒ©‚ðŽ‚ÂB
 ’n‰º‚Ìƒgƒ“ƒlƒ‹–Ô‚ÉZ‚ñ‚Å‚¨‚èA–À‚¢ž‚ñ‚Å‚«‚½‹]µŽÒ‚ð’Ç‚¢‚Â‚ß‚ÄŒ_–ñ‚ð”—‚éB
 Œ_–ñ‚ðŽó‚¯“ü‚ê‚é‚ÆA‹]µŽÒ‚Í‘Ì“à‚ÉƒAƒCƒz[ƒg‚Ì—‚ðA‚¦•t‚¯‚ç‚ê‚éB
 —‚ðA‚¦•t‚¯‚ç‚ê‚½‹]µŽÒ‚Í‹°‚ë‚µ‚¢ˆ«–²‚É‚³‚¢‚È‚Ü‚ê‚é‚æ‚¤‚É‚È‚èA
@@ -5463,7 +5463,7 @@ strides towards you menacingly.
 769,,’mŽÒwƒ‰ƒtƒ@ƒGƒ‹x,"Raphael, the Messenger",A,w,0,-1,ANGEL,ANGEL,0x02,PRIEST,NONE,PIOUS,NONE,NONE,89,3,50,19877316,0,0,32184,125,NONE,NONE,19,20,40,200,0,0,10,28,28,28,28,28,28,5,442,0,1080,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:UN_BONUS:10d8
 HIT:FIRE:4d6
 HIT:HURT:15d10
-HIT:HURT:15d10",,,UNIQUE|CAN_SPEAK|FEARLESS|FORCE_SLEEP|SMART|AURA_ELEC|REFLECTING|RES_TELE|ESCORT|CAN_FLY|POWERFUL|SELF_LITE_1|SELF_LITE_2|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|MOVE_BODY|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_LITE|NO_CONF|NO_SLEEP|TELE_TO|BLIND|BO_MANA|S_ANGEL|S_KIN|INVULNER|DISPEL|PSY_SPEAR|BR_MANA|BR_LITE|BR_ELEC|BA_MANA|HAND_DOOM|S_HI_DRAGON|BRAIN_SMASH|S_MONSTERS|HEAL|BR_DISE|BA_LITE,,"“VŽg’B‚É–½—ß‚ð”­‚µ‚¤‚é’nˆÊ‚ðŽ‚Âƒ‰ƒtƒ@ƒGƒ‹‚ÍA–`Œ¯ŽÒ‚ð‚»‚Ìß‚ä‚¦‚É
+HIT:HURT:15d10",,,UNIQUE|CAN_SPEAK|FEARLESS|FORCE_SLEEP|SMART|AURA_ELEC|REFLECTING|RES_TELE|CAN_FLY|POWERFUL|SELF_LITE_1|SELF_LITE_2|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|MOVE_BODY|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_LITE|NO_CONF|NO_SLEEP|TELE_TO|BLIND|BO_MANA|S_ANGEL|S_KIN|INVULNER|DISPEL|PSY_SPEAR|BR_MANA|BR_LITE|BR_ELEC|BA_MANA|HAND_DOOM|S_HI_DRAGON|BRAIN_SMASH|S_MONSTERS|HEAL|BR_DISE|BA_LITE,,"“VŽg’B‚É–½—ß‚ð”­‚µ‚¤‚é’nˆÊ‚ðŽ‚Âƒ‰ƒtƒ@ƒGƒ‹‚ÍA–`Œ¯ŽÒ‚ð‚»‚Ìß‚ä‚¦‚É
 –Å‚Ú‚»‚¤‚Æ‚·‚éB”Þ‚É‚Æ‚Á‚Ä–`Œ¯ŽÒ‚Í–³ˆÓ–¡‚Åˆ£‚ê‚È‘¶Ý‚É‚·‚¬‚¸A
 ‰½‚Ì‚½‚ß‚ç‚¢‚à‚È‚­–`Œ¯ŽÒ‚ð‘Å‚¿Ó‚­B”Þ‚É‚Í‚±‚Ì¢‚ÌŽ×ˆ«‚ðˆê‘|‚·‚éŽg–½
 ‚ª‚ ‚èA‚»‚ÌŽŠ‚‚ÌŒ ˆÐ‚É‚æ‚èA–`Œ¯ŽÒ‚Ì°‚ðR”»‚Ìê‚Ö‚Æ“±‚­B","Commanding a legion of angels, Raphael will destroy you for your sins.  He 
@@ -5570,7 +5570,7 @@ immaterial state.
 777,,”L‚Ì—_wƒoƒXƒgx,"Bast, Goddess of Cats",f,o,0,-1,FELINE,FELINE,0x01,NONE,NONE,ORDINARY,NONE,NONE,62,3,50,30500,0,0,0,0,NONE,NONE,9,20,100,200,0,0,0,28,28,28,28,28,28,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:CONFUSE:12d12
 TOUCH:LOSE_DEX:2d12
 HIT:BLIND:10d5
-HIT:PARALYZE:15d1",,,UNIQUE|CAN_SPEAK|FORCE_SLEEP|ESCORT|ESCORTS|INVISIBLE|OPEN_DOOR|BASH_DOOR|IM_FIRE|IM_COLD|IM_POIS|NO_CONF|NO_SLEEP|TELE_TO|HEAL|S_KIN,,"u”ü‚µ‚³|—âÃ‚³|’´‘R‚Æ‚µ‚½‘Ô“x|—Ž‚¿’…‚«|‘¸‘å‚³|Ž”‚¢Šµ‚ç‚µ“¾‚È‚¢
+HIT:PARALYZE:15d1",,,UNIQUE|CAN_SPEAK|FORCE_SLEEP|INVISIBLE|OPEN_DOOR|BASH_DOOR|IM_FIRE|IM_COLD|IM_POIS|NO_CONF|NO_SLEEP|TELE_TO|HEAL|S_KIN,,"u”ü‚µ‚³|—âÃ‚³|’´‘R‚Æ‚µ‚½‘Ô“x|—Ž‚¿’…‚«|‘¸‘å‚³|Ž”‚¢Šµ‚ç‚µ“¾‚È‚¢
 Žx”zŽÒ“I•—Ši|Ã‚©‚ÉŠŠ‚é‚æ‚¤‚É•à‚Þ”LB‚±‚Ì‚æ‚¤‚ÈŠ®‘S–³Œ‡‚³”¼•ª‚Å‚à
 ”õ‚¦‚½¶‚«•¨‚ª‚Ù‚©‚É‚¢‚é‚¾‚ë‚¤‚©Hv","""Beauty -- coolness -- aloofness -- philosophical repose -- 
 self-sufficiency -- untamed mastery -- what else can we find 
@@ -5831,7 +5831,7 @@ not silver or metallic-colored, but looking as if it had been enameled.""
 795,,’n–ŠEƒhƒ‰ƒSƒ“wƒeƒBƒAƒ}ƒbƒgx,"Tiamat, Celestial Dragon of Evil",D,v,0,-1,DRAGON,DRAGON,0x01,CHAOS_WARRIOR,795,ORDINARY,DAEMON,NONE,87,4,50,34500000,0,0,6518190,0,NONE,NONE,20,20,20,125,0,0,70,28,28,28,28,28,28,5,3000,200,2287000,500,3000,200,2287000,500,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:6d12
 CLAW:HURT:8d12
 CLAW:HURT:8d12
-BITE:HURT:10d14",,,ATTR_MULTI|UNIQUE|CAN_FLY|FORCE_SLEEP|ESCORT|RIDING|AURA_FIRE|AURA_COLD|AURA_ELEC|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|SELF_LITE_2|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|BLIND|CONF|SCARE|BR_ACID|BR_FIRE|BR_COLD|BR_ELEC|BR_POIS|S_HI_DRAGON,DARK_3|FIRE_2|WATER_2|EARTH_2|WIND_2,"‚¨‚à‚É’n–ŠE‚Ì‘æˆêŠK‘w‚ð–h‰q‚µ‚Ä‚¢‚éƒeƒBƒAƒ}ƒbƒg‚ÍŽè‚É•‰‚¦‚È‚¢‹­“G‚Å‚ ‚èA
+BITE:HURT:10d14",,,ATTR_MULTI|UNIQUE|CAN_FLY|FORCE_SLEEP|RIDING|AURA_FIRE|AURA_COLD|AURA_ELEC|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|SELF_LITE_2|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|BLIND|CONF|SCARE|BR_ACID|BR_FIRE|BR_COLD|BR_ELEC|BR_POIS|S_HI_DRAGON,DARK_3|FIRE_2|WATER_2|EARTH_2|WIND_2,"‚¨‚à‚É’n–ŠE‚Ì‘æˆêŠK‘w‚ð–h‰q‚µ‚Ä‚¢‚éƒeƒBƒAƒ}ƒbƒg‚ÍŽè‚É•‰‚¦‚È‚¢‹­“G‚Å‚ ‚èA
 —§‚¿‚Ó‚³‚ª‚é‚·‚×‚Ä‚ÌŽÒ‚ÉŒÜ‚Â‚ÌŽñ‚©‚çŽ€‚ÌƒuƒŒƒX‚ð—‚Ñ‚¹‚©‚¯‚æ‚¤‚Æ‚·‚éB
 iTRPG AD&Dj","Usually found guarding the first plane of Hell, Tiamat is a formidable 
 opponent, her five heads breathing death to all who stand against her.
@@ -5936,7 +5936,7 @@ TOUCH:DR_MANA:6d16",,,PASS_WALL|NO_CONF|NO_SLEEP|NONLIVING|IM_ACID|CAN_FLY|SMART
 804,,ƒGƒ“ƒyƒ‰[EƒŠƒbƒ`wƒxƒNƒix,"Vecna, the Emperor Lich",L,y,0,-1,HUMAN,HUMAN,0x02,MAGE,804,ORDINARY,DEATH,SORCERY,83,2,50,12121309,0,0,889,0,NONE,NONE,15,20,20,85,0,0,50,28,28,28,28,28,28,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"TOUCH:EXP_80
 TOUCH:UN_POWER
 TOUCH:LOSE_DEX:2d12
-TOUCH:LOSE_DEX:2d12",,,LICH|UNIQUE|CAN_SPEAK|RES_TELE|FORCE_SLEEP|ESCORT|POWERFUL|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|BRAIN_SMASH|TRAPS|BA_MANA|BO_MANA|BA_NETH|DISPEL|PSY_SPEAR|S_MONSTERS|S_UNDEAD|S_KIN|ANIM_DEAD,,"”Þ‚Í“`à‚Æ‚µ‚ÄŒê‚ç‚ê‚é‚Ù‚Ç‚ÌAG‚Å‚½‚¸‚éŒ«‚³‚Æ‹­—Í‚È–‚—Í‚ðŽ‚Á‚½
+TOUCH:LOSE_DEX:2d12",,,LICH|UNIQUE|CAN_SPEAK|RES_TELE|FORCE_SLEEP|POWERFUL|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|BRAIN_SMASH|TRAPS|BA_MANA|BO_MANA|BA_NETH|DISPEL|PSY_SPEAR|S_MONSTERS|S_UNDEAD|S_KIN|ANIM_DEAD,,"”Þ‚Í“`à‚Æ‚µ‚ÄŒê‚ç‚ê‚é‚Ù‚Ç‚ÌAG‚Å‚½‚¸‚éŒ«‚³‚Æ‹­—Í‚È–‚—Í‚ðŽ‚Á‚½
 ƒ‚ƒ“ƒXƒ^[‚¾B‚±‚ÌŒÃ‘ã‚ÌŽ€‚Ì‰e‚Í‹ß‚Ã‚­¶•¨‚Í‚È‚ñ‚Å‚à—n‚©‚µ‚Ä‚µ‚Ü‚¤B","He is a highly cunning, extremely magical being, spoken of in legends.  
 This ancient shadow of death wilts any living thing it passes.
 
@@ -6170,7 +6170,7 @@ D:”Þ‚Ì•\î‚Í“`³‚Ì’Ê‚è‹°‚ë‚µ‚­‚¢‚©‚ß‚µ‚¢‚ªAŠï–­‚È[‘«‚É–ž‚¿‚Ä‚¢‚éB"
 814,,ŽÖ‚½‚¿‚Ì•ƒwƒCƒOx,"Yig, Father of Serpents",R,g,0,-1,REPTILIA,REPTILIA,0x01,WARRIOR,NONE,ORDINARY,NONE,NONE,76,1,50,37500,0,0,0,0,NONE,NONE,11,20,100,123,0,0,15,28,28,28,28,28,28,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:POISON:8d10
 CLAW:POISON:8d10
 CRUSH:HURT:8d15
-BITE:HURT:100d1",,,UNIQUE|CAN_SPEAK|SMART|RES_TELE|ESCORT|ESCORTS|CAN_SWIM|ELDRITCH_HORROR|OPEN_DOOR|BASH_DOOR|FORCE_SLEEP|NO_CONF|NO_SLEEP|IM_POIS|IM_ACID|IM_ELEC|REGENERATE|BR_POIS|BR_NUKE|BR_ACID|S_HYDRA|S_KIN|S_DEMON,,"u”¼l”¼ŽÖ‚ÌŽÖ‚Ì_... ’†‰›•½Œ´‚Ì•”‘°‚Ì‚ ‚ª‚ß‚éŽÖ_ƒCƒO‚Í\‚à‚Á‚Æ
+BITE:HURT:100d1",,,UNIQUE|CAN_SPEAK|SMART|RES_TELE|CAN_SWIM|ELDRITCH_HORROR|OPEN_DOOR|BASH_DOOR|FORCE_SLEEP|NO_CONF|NO_SLEEP|IM_POIS|IM_ACID|IM_ELEC|REGENERATE|BR_POIS|BR_NUKE|BR_ACID|S_HYDRA|S_KIN|S_DEMON,,"u”¼l”¼ŽÖ‚ÌŽÖ‚Ì_... ’†‰›•½Œ´‚Ì•”‘°‚Ì‚ ‚ª‚ß‚éŽÖ_ƒCƒO‚Í\‚à‚Á‚Æ
 “ì•û‚ÌƒPƒcƒ@ƒ‹ƒRƒAƒgƒ‹‚âƒNƒNƒ‹ƒJƒ“‚Ì‘cŒ`‚É‚È‚Á‚½‚à‚Ì‚Ì‚æ‚¤‚¾‚ª\
 ... ‚È‚©‚Î‹[l‰»‚³‚ê‚½Šï–­‚È–‚•¨‚Å‚ ‚é‚ç‚µ‚¢v
 (ƒ[ƒŠƒAEƒrƒVƒ‡ƒbƒvA“Œ’J^’mŽq–óuƒCƒO‚ÌŽô‚¢v
@@ -6419,7 +6419,7 @@ as he decides your fate.
 828,,•—‚Éæ‚è‚Ä•à‚Þ‚à‚ÌwƒCƒ^ƒJx,Ithaqua the Windwalker,Y,B,0,-1,YETI,YETI,0x00,NONE,NONE,ORDINARY,NONE,NONE,72,2,50,32500,0,0,0,0,NONE,NONE,9,30,40,110,0,0,10,28,28,28,28,28,28,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:COLD:12d12
 CLAW:COLD:12d12
 CRUSH:HURT:12d12
-CRUSH:HURT:12d12",,,UNIQUE|CAN_SPEAK|ESCORT|ELDRITCH_HORROR|RES_TELE|FORCE_SLEEP|CAN_FLY|AURA_COLD|AURA_ELEC|INVISIBLE|OPEN_DOOR|BASH_DOOR|NONLIVING|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|POWERFUL|BO_MANA|SCARE|BR_COLD|S_DEMON|BO_ELEC|BA_ELEC|PSY_SPEAR|MIND_BLAST|CAUSE_4|BA_CHAO|BA_WATE|S_HI_UNDEAD|S_KIN,,"ƒEƒFƒ“ƒfƒBƒSA”ñí‚É‘‚­“®‚­‚Ì‚ÅA‘žˆ«‚É”R‚¦‚é“ñ‚Â‚Ì‹P‚­–ÚˆÈŠO‚Í
+CRUSH:HURT:12d12",,,UNIQUE|CAN_SPEAK|ELDRITCH_HORROR|RES_TELE|FORCE_SLEEP|CAN_FLY|AURA_COLD|AURA_ELEC|INVISIBLE|OPEN_DOOR|BASH_DOOR|NONLIVING|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|POWERFUL|BO_MANA|SCARE|BR_COLD|S_DEMON|BO_ELEC|BA_ELEC|PSY_SPEAR|MIND_BLAST|CAUSE_4|BA_CHAO|BA_WATE|S_HI_UNDEAD|S_KIN,,"ƒEƒFƒ“ƒfƒBƒSA”ñí‚É‘‚­“®‚­‚Ì‚ÅA‘žˆ«‚É”R‚¦‚é“ñ‚Â‚Ì‹P‚­–ÚˆÈŠO‚Í
 ‚Ù‚Æ‚ñ‚ÇŒ©‚¦‚È‚¢Fu¯‚ªÁ‚¦‚Ä‚¢‚é... ‹ó‚ð•¢‚Á‚Ä‚¢‚½g‰_h‚ªŠï–­
 ‚É‚à‹‘å‚ÈlŠÔ‚Ì—ÖŠs‚ÉŽ—‚Ä‚¢‚é... g‰_h‚Ìˆê”Ôã‚É‚¿‚ª‚¢‚È‚¢•”•ªA
 “ª‚É‘Š“–‚·‚é•”•ª‚É... ”R‚¦‚é‚æ‚¤‚É–¾‚é‚¢‚Ó‚½‚Â‚Ì‹P‚­¯‚ÍA‚Ü‚é‚Å
@@ -6501,7 +6501,7 @@ JZ#‚µ‚½•s’èŒ`‚Ì_‚Å‚·B by ‹v—¯‚³‚ñ",,,,
 834,,•X‚Ì‹lwƒCƒ~ƒ‹x,Ymir the Ice Giant,P,w,0,-1,TITAN,TITAN,0x03,RANGER,NONE,ORDINARY,NATURE,CHAOS,93,2,50,27760000,0,0,78119,0,NONE,NONE,22,20,50,160,0,0,20,28,28,28,28,28,28,5,1234,0,39881,0,1198,0,36791,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:COLD:5d10
 HIT:SUPERHURT:5d10
 HIT:COLD:5d10
-HIT:SUPERHURT:5d10",,,UNIQUE|CAN_SPEAK|FORCE_SLEEP|RES_TELE|RES_NETH|RES_WATE|ESCORT|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|TAKE_ITEM|RES_DISE|IM_COLD|NO_CONF|NO_SLEEP|IM_POIS|HURT_FIRE|COLD_BLOOD|AURA_COLD|BR_COLD|BO_ICEE|DARKNESS|HEAL|TELE_TO|S_KIN|S_HI_UNDEAD,,@–k‰¢_˜b‚É‚¨‚¢‚Ä¢ŠE‚ÅÅ‰‚É’a¶‚µ‚½‹l‚¾B¡“ú‚ÌŽå_ƒI[ƒfƒBƒ“’B‚Í”Þ‚ðŽE‚µ‚Ä¢ŠE‚ð‘n‘¢‚µ‚½B”Þ‚Í•X‚Åo—ˆ‚½‹l‚Å‚ ‚èA’j«‚¾‚¯‚Å‚È‚­—«‚Æ‚µ‚Ä‚Ì“Á«‚à”õ‚¦‚Ä‚¢‚½‚Æ‚àŒ¾‚í‚ê‚Ä‚¢‚éB”Þ‚ÍÄ‚ÑŽñ‚ðŽæ‚è–ß‚µ‚Ä‹­‘å‚È‘¶Ý‚É‘h‚Á‚½B‚»‚Ì–Ú“I‚ª•œQ‚È‚Ì‚©A‚ ‚é‚¢‚Í‚à‚Á‚Æ•Ê‚Ì‰½‚©‚Å‚ ‚é‚©‚Í’è‚©‚Å‚Í‚È‚¢B,"Ymir is one of the oldest beings there are. He looks like a giant 
+HIT:SUPERHURT:5d10",,,UNIQUE|CAN_SPEAK|FORCE_SLEEP|RES_TELE|RES_NETH|RES_WATE|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|TAKE_ITEM|RES_DISE|IM_COLD|NO_CONF|NO_SLEEP|IM_POIS|HURT_FIRE|COLD_BLOOD|AURA_COLD|BR_COLD|BO_ICEE|DARKNESS|HEAL|TELE_TO|S_KIN|S_HI_UNDEAD,,@–k‰¢_˜b‚É‚¨‚¢‚Ä¢ŠE‚ÅÅ‰‚É’a¶‚µ‚½‹l‚¾B¡“ú‚ÌŽå_ƒI[ƒfƒBƒ“’B‚Í”Þ‚ðŽE‚µ‚Ä¢ŠE‚ð‘n‘¢‚µ‚½B”Þ‚Í•X‚Åo—ˆ‚½‹l‚Å‚ ‚èA’j«‚¾‚¯‚Å‚È‚­—«‚Æ‚µ‚Ä‚Ì“Á«‚à”õ‚¦‚Ä‚¢‚½‚Æ‚àŒ¾‚í‚ê‚Ä‚¢‚éB”Þ‚ÍÄ‚ÑŽñ‚ðŽæ‚è–ß‚µ‚Ä‹­‘å‚È‘¶Ý‚É‘h‚Á‚½B‚»‚Ì–Ú“I‚ª•œQ‚È‚Ì‚©A‚ ‚é‚¢‚Í‚à‚Á‚Æ•Ê‚Ì‰½‚©‚Å‚ ‚é‚©‚Í’è‚©‚Å‚Í‚È‚¢B,"Ymir is one of the oldest beings there are. He looks like a giant 
 humanoid made of ice.
 
 
@@ -6589,12 +6589,12 @@ and immune to magic.  Fear its anger, for its devastation is unmatched!
 839,,”’‰Š‚Ìƒoƒ‹ƒƒOwƒ‹ƒ“ƒSƒ‹ƒVƒ“x,"Lungorthin, the Balrog of White Fire",U,w,0,-1,MAIAR,MAIAR,0x02,ROGUE,861,PIOUS,DEATH,NONE,85,2,50,14520000,0,0,20871,114,NONE,NONE,12,20,20,125,0,0,80,28,28,28,28,28,28,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:FIRE:8d12
 HIT:FIRE:8d12
 CRUSH:SUPERHURT:8d12
-TOUCH:UN_POWER",,ART:71:100%,UNIQUE|SELF_LITE_1|SELF_LITE_2|AURA_FIRE|FORCE_SLEEP|ESCORT|ESCORTS|CAN_FLY|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|NO_CONF|NO_SLEEP|BLIND|CONF|SCARE|BR_FIRE|S_DEMON|S_HI_UNDEAD,,"@q—Í‚Ìˆ«‹Sr‚ÌŽp‚ðŽ‚Á‚Ä‚È‚¨AÂ”’‚¢‘MŒõ‚Ì‚æ‚¤‚È‰Š‚ð‘Sg‚É‚Ü‚Æ‚¤Žp‚ð—D”ü‚É–£‚¹‚é‚±‚ÌƒEƒgƒDƒ€ƒm‚Ì_‘°‚ÍAƒƒ‹ƒR[ƒ‹‚©ƒAƒ“ƒiƒ^[ƒ‹‚ð•ƒ‚ÉŽ‚¿A‹S—ƒtƒ‹ƒCƒXƒCƒ“‚Ì‘Ù‚©‚ç¶‚Ü‚ê‚½BƒSƒXƒ‚ƒO‚É•À‚ÔŽq¢‘ã‚Ì•M“ª‚Ìˆêl‚Å‚ ‚éB
+TOUCH:UN_POWER",,ART:71:100%,UNIQUE|SELF_LITE_1|SELF_LITE_2|AURA_FIRE|FORCE_SLEEP|CAN_FLY|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|NO_CONF|NO_SLEEP|BLIND|CONF|SCARE|BR_FIRE|S_DEMON|S_HI_UNDEAD,,"@q—Í‚Ìˆ«‹Sr‚ÌŽp‚ðŽ‚Á‚Ä‚È‚¨AÂ”’‚¢‘MŒõ‚Ì‚æ‚¤‚È‰Š‚ð‘Sg‚É‚Ü‚Æ‚¤Žp‚ð—D”ü‚É–£‚¹‚é‚±‚ÌƒEƒgƒDƒ€ƒm‚Ì_‘°‚ÍAƒƒ‹ƒR[ƒ‹‚©ƒAƒ“ƒiƒ^[ƒ‹‚ð•ƒ‚ÉŽ‚¿A‹S—ƒtƒ‹ƒCƒXƒCƒ“‚Ì‘Ù‚©‚ç¶‚Ü‚ê‚½BƒSƒXƒ‚ƒO‚É•À‚ÔŽq¢‘ã‚Ì•M“ª‚Ìˆêl‚Å‚ ‚éB
 @ƒEƒ‹ƒN‚ÌŠÔ‚Å‚ÍA¤l‚Æ“‘¯‚Ì_‚Æ‚³‚êƒEƒgƒDƒ€ƒm‚Ì_‘°’B‚ð‘~‚«—‚·ˆ«‹YD‚«‚Ì’mŒbŽÒA‚»‚µ‚Ä”ü–e‚ÌˆÉ’B’j‚Æ‚µ‚Äl‹C‚ª‚‚¢B",,J0#,,,,
 840,,‹˜T‚Ì’é‰¤wƒhƒ‰ƒEƒOƒ‹ƒCƒ“x,"Draugluin, Sire of All Werewolves",C,u,0,-1,MAIAR,MAIAR,0x02,SNIPER,861,ORDINARY,NONE,NONE,87,2,50,17615544,0,0,30000,0,1090,NONE,11,20,80,90,0,0,90,28,28,28,28,28,28,5,3210,0,1121291,0,3210,0,1121291,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:3d3
 CLAW:HURT:3d3
 BITE:POISON:2d6
-BITE:POISON:2d6",,,UNIQUE|CAN_SPEAK|FORCE_SLEEP|ESCORT|ESCORTS|RAND_25|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|MOVE_BODY|IM_POIS|SCARE|S_MONSTERS|S_HOUND,,"@ƒhƒ‰ƒEƒOƒ‹ƒCƒ“‚Í‹‘å‚È˜T‚ÌŽp‚ðŽæ‚éŽ–‚ðŠy‚µ‚Þƒ}ƒCƒA‚Å‚ ‚èA‚»‚ÌŽp‚Ì‚Ü‚Ü”w“¿‚ÌŒÀ‚è‚ðs‚­‚µ‚Ä‚ ‚ç‚ä‚é‚à‚Ì‚ðæÃ‚éŽ–‚ðD‚ÞB•ú“ ‚ð‹É‚ß‚é”Þ‚Í’N‚ÌŒ¾‚¤Ž–‚à•½‹C‚ÅŒy‚ë‚ñ‚¶A‚È‚¢‚ª‚µ‚ë‚É‚·‚é‚ªA‚½‚¾ƒAƒ‹ƒ^ƒmEƒAƒ“ƒiƒ^[ƒ‹‚Ö‚¾‚¯‚É‚Í’‰ŽÀ‚ÉŽd‚¦‚ÄŒˆ‚µ‚Ä— Ø‚ç‚È‚¢B
+BITE:POISON:2d6",,,UNIQUE|CAN_SPEAK|FORCE_SLEEP|RAND_25|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|MOVE_BODY|IM_POIS|SCARE|S_MONSTERS|S_HOUND,,"@ƒhƒ‰ƒEƒOƒ‹ƒCƒ“‚Í‹‘å‚È˜T‚ÌŽp‚ðŽæ‚éŽ–‚ðŠy‚µ‚Þƒ}ƒCƒA‚Å‚ ‚èA‚»‚ÌŽp‚Ì‚Ü‚Ü”w“¿‚ÌŒÀ‚è‚ðs‚­‚µ‚Ä‚ ‚ç‚ä‚é‚à‚Ì‚ðæÃ‚éŽ–‚ðD‚ÞB•ú“ ‚ð‹É‚ß‚é”Þ‚Í’N‚ÌŒ¾‚¤Ž–‚à•½‹C‚ÅŒy‚ë‚ñ‚¶A‚È‚¢‚ª‚µ‚ë‚É‚·‚é‚ªA‚½‚¾ƒAƒ‹ƒ^ƒmEƒAƒ“ƒiƒ^[ƒ‹‚Ö‚¾‚¯‚É‚Í’‰ŽÀ‚ÉŽd‚¦‚ÄŒˆ‚µ‚Ä— Ø‚ç‚È‚¢B
 @¼•û‚Ì“`³‚Å‚ÍA“¯‚¶ƒ}ƒCƒA‚ÌŒŒ‚ðˆø‚­‚Æ‚³‚ê‚é—ÂŒ¢ƒtƒAƒ“‚É‚ ‚Á‚¯‚È‚­–Å‚Ú‚³‚ê‚½‚Æ“`‚¦‚ç‚ê‚é”Þ‚¾‚ªA–|‚Á‚Ä”Þ‚Ì‘¶Ý‚Í“Œ•û‚Å‚Í‚È‚¨ŽÀÝ‚Ì‚à‚Ì‚Æ‚³‚ê‚Ä‚¨‚èAƒAƒ‹ƒ^ƒmEƒAƒ“ƒiƒ^[ƒ‹‚ªŽp‚ðŒ©‚¹‚éÛ‚ÌæG‚ê‚Æ‚µ‚ÄŒ»‚ê‚é‚Æ‚³‚ê‚Ä‚¢‚éB","Draugluin provides Sauron with a fearsome personal guard.  He is an 
 enormous wolf inhabited with a human spirit.  He is chief of all his kind.
 
@@ -6640,7 +6640,7 @@ JZ# ƒƒƒ‚i...‚¾‚ß‚¶‚á‚ñ",,,,
 844,,•sŽ€‚È‚éwƒJƒVƒFƒCx,Kaschei the Immortal,L,v,0,-1,HUMAN,HUMAN,0x02,MAGE,NONE,ORDINARY,DEATH,TRUMP,74,3,50,7724665,0,0,2435,0,NONE,NONE,9,20,100,100,0,0,0,28,28,28,28,28,28,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:UN_BONUS:6d8
 HIT:UN_BONUS:6d8
 HIT:HURT:5d10
-HIT:DR_MANA:10d10",,,LICH|UNIQUE|CAN_SPEAK|RES_TELE|FORCE_SLEEP|ESCORT|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|ACTIVE_TELEPORT|BLIND|SCARE|CAUSE_4|BRAIN_SMASH|BA_MANA|BO_MANA|BA_FIRE|DISPEL|PSY_SPEAR|S_MONSTERS|S_DEMON|S_HI_UNDEAD|HAND_DOOM|ANIM_DEAD,,"•…”s‚Æ‰˜‘÷‚Ìˆ«L‚ð•Y‚í‚¹‚é‚±‚Ì–‚–@Žg‚¢‚ÍA‚»‚ÌŠõ‚Ü‚í‚µ‚¢Œv‰æ‚Æ‰A–d‚ð‘±s
+HIT:DR_MANA:10d10",,,LICH|UNIQUE|CAN_SPEAK|RES_TELE|FORCE_SLEEP|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|POWERFUL|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|ACTIVE_TELEPORT|BLIND|SCARE|CAUSE_4|BRAIN_SMASH|BA_MANA|BO_MANA|BA_FIRE|DISPEL|PSY_SPEAR|S_MONSTERS|S_DEMON|S_HI_UNDEAD|HAND_DOOM|ANIM_DEAD,,"•…”s‚Æ‰˜‘÷‚Ìˆ«L‚ð•Y‚í‚¹‚é‚±‚Ì–‚–@Žg‚¢‚ÍA‚»‚ÌŠõ‚Ü‚í‚µ‚¢Œv‰æ‚Æ‰A–d‚ð‘±s
 ‚µ‚æ‚¤‚Æ•æ‚©‚ç‘h‚Á‚Ä‚«‚½B","A stench of corruption and decay surrounds this sorcerer, who has clearly 
 risen from the grave to continue his foul plots and schemes.
 
@@ -6785,7 +6785,7 @@ JZ#‚ÈŽp‚ÅoŒ»‚µAl—Þ‚ð”j–Å‚Ö“±‚±‚¤‚Æ‚µ‚Ü‚·B by ‹v—¯‚³‚ñ",,,,
 852,,Šï‰ö‚ÈŒ´ŽqŠj‚Ì¬“×wƒAƒUƒg[ƒgx,"Azathoth, Seething Nuclear Chaos",E,B,0,-1,GREAT_OLD_ONE,GREAT_OLD_ONE,0x00,IMITATOR,852,ORDINARY,NONE,NONE,100,3,50,65240000,0,0,2872993108,1,NONE,NONE,25,20,100,150,0,0,100,28,28,28,28,28,28,5,99999,0,999999999,0,99999,0,999999999,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CRUSH:HURT:35d5
 CRAWL:ACID:35d5
 CRUSH:HURT:35d5
-CRAWL:ACID:35d5",,,UNIQUE|ELDRITCH_HORROR|RES_TELE|FORCE_SLEEP|AURA_FIRE|AURA_ELEC|ATTR_MULTI|ESCORTS|ESCORT|POWERFUL|ATTR_ANY|NONLIVING|KILL_ITEM|KILL_WALL|CAN_SWIM|AURA_COLD|RES_CHAO|RES_DISE|STUPID|OPEN_DOOR|BASH_DOOR|REGENERATE|EMPTY_MIND|IM_ACID|IM_POIS|IM_FIRE|NO_CONF|NO_SLEEP|TELE_AWAY|TELE_TO|TELE_LEVEL|ACTIVE_TELEPORT|BR_NEXU|BA_CHAO|BA_MANA|BA_FIRE|S_MONSTERS|BRAIN_SMASH|MIND_BLAST|CAUSE_4|HASTE|S_HI_UNDEAD|S_HI_DRAGON|ANIM_DEAD|PSY_SPEAR|S_ANGEL|S_DEMON|HEAL|S_SPIDER|S_HOUND|S_CYBER|HAND_DOOM,,"u‚È‚×‚Ä‚Ì–³ŒÀ‚Ì’†Šj‚Å–`“À‚ÌŒ¾Ž«‚ð“f‚«‚¿‚ç‚©‚µ‚Ä•¦‚«‚©‚¦‚éAÅ‰º‚Ì¬“×‚ÌÅŒã‚Ì–³’èŒ`‚ÌˆÃ‰e‚É‚Ù‚©‚È‚ç‚Ê\‚·‚È‚í‚¿Žž‚ð’´‰z‚µ‚½‘z‘œ‚à‚¨‚æ‚Î‚Ê–³–¾‚Ì–[Žº‚ÅA‰º—ò‚È‘¾ŒÛ‚Ì‚­‚®‚à‚Á‚½‹¶‚¨‚µ‚«˜A‘Å‚ÆAŽô‚í‚ê‚½ƒtƒ‹[ƒg‚Ì‚©‚Ú‚»‚«’P’²‚È‰¹F‚Ì‘ü’†A‰ì‚¦‚Äê–‚è‚Â‚Ã‚¯‚é‚ÍA‚ ‚¦‚Ä‚»‚Ì–¼‚ðŒû‚É‚µ‚½ŽÒ‚Æ‚Ä‚¨‚ç‚ÊA‰Ê‚Ä‚µ‚È‚«–‚‰¤ƒAƒUƒg[ƒgv
+CRAWL:ACID:35d5",,,UNIQUE|ELDRITCH_HORROR|RES_TELE|FORCE_SLEEP|AURA_FIRE|AURA_ELEC|ATTR_MULTI|POWERFUL|ATTR_ANY|NONLIVING|KILL_ITEM|KILL_WALL|CAN_SWIM|AURA_COLD|RES_CHAO|RES_DISE|STUPID|OPEN_DOOR|BASH_DOOR|REGENERATE|EMPTY_MIND|IM_ACID|IM_POIS|IM_FIRE|NO_CONF|NO_SLEEP|TELE_AWAY|TELE_TO|TELE_LEVEL|ACTIVE_TELEPORT|BR_NEXU|BA_CHAO|BA_MANA|BA_FIRE|S_MONSTERS|BRAIN_SMASH|MIND_BLAST|CAUSE_4|HASTE|S_HI_UNDEAD|S_HI_DRAGON|ANIM_DEAD|PSY_SPEAR|S_ANGEL|S_DEMON|HEAL|S_SPIDER|S_HOUND|S_CYBER|HAND_DOOM,,"u‚È‚×‚Ä‚Ì–³ŒÀ‚Ì’†Šj‚Å–`“À‚ÌŒ¾Ž«‚ð“f‚«‚¿‚ç‚©‚µ‚Ä•¦‚«‚©‚¦‚éAÅ‰º‚Ì¬“×‚ÌÅŒã‚Ì–³’èŒ`‚ÌˆÃ‰e‚É‚Ù‚©‚È‚ç‚Ê\‚·‚È‚í‚¿Žž‚ð’´‰z‚µ‚½‘z‘œ‚à‚¨‚æ‚Î‚Ê–³–¾‚Ì–[Žº‚ÅA‰º—ò‚È‘¾ŒÛ‚Ì‚­‚®‚à‚Á‚½‹¶‚¨‚µ‚«˜A‘Å‚ÆAŽô‚í‚ê‚½ƒtƒ‹[ƒg‚Ì‚©‚Ú‚»‚«’P’²‚È‰¹F‚Ì‘ü’†A‰ì‚¦‚Äê–‚è‚Â‚Ã‚¯‚é‚ÍA‚ ‚¦‚Ä‚»‚Ì–¼‚ðŒû‚É‚µ‚½ŽÒ‚Æ‚Ä‚¨‚ç‚ÊA‰Ê‚Ä‚µ‚È‚«–‚‰¤ƒAƒUƒg[ƒgv
 (‚gE‚oEƒ‰ƒ”ƒNƒ‰ƒtƒgA‘å‘ëŒ[—T–óu–¢’m‚È‚éƒJƒ_ƒX‚ð–²‚É‹‚ß‚Äv
 wƒ‰ƒ”ƒNƒ‰ƒtƒg‘SW‚UxA‘nŒ³„—•¶ŒÉAp.173)","""That last amorphous blight of nethermost confusion which 
 blasphemes and bubbles at the centre of all infinity -- 
@@ -6846,7 +6846,7 @@ JZ#ƒGƒ“ƒhƒZƒNƒ^[‚Ì“S¶ƒ‹ŽÒ‚©‚ç by ”Â‘q",,,,
 856,,–»•{‚Ì‘åŒ³ƒwƒSƒXƒ‚ƒOx,"Gothmog, the Arch Marshal of Infernal Region",U,R,0,-1,MAIAR,MAIAR,0x02,RANGER,861,FEARLESS,NATURE,DEATH,89,1,50,18123109,0,0,18992,122,NONE,NONE,18,27,100,231,0,0,0,28,28,28,28,28,28,5,1731,0,40031,0,1731,0,40031,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:FIRE:9d12
 HIT:FIRE:9d12
 CRUSH:SUPERHURT:8d12
-TOUCH:UN_POWER",,ART:212:100%,UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|ESCORT|ESCORTS|KILL_WALL|AURA_FIRE|NONLIVING|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP|BR_DISI|BO_MANA,,"@ƒAƒ‹ƒ_‚Ì_‘ãAƒƒ‹ƒR[ƒ‹‚Ì”¾‹t‚É‰Á‚í‚Á‚½_‘°’B‚Í‚Ù‚Ç‚È‚­‚µ‚ÄA’j‚Æ—‚ÅŒð‚í‚é‚±‚Æ‚ðŠo‚¦‚½B”Þ‚Í‚»‚Ì’†‚Å‰‚ß‚Ä•ƒe‚Æ•êe‚ðŽ‚Â‘¶Ý‚Æ‚µ‚Ä¶‚Ü‚ê‚½_‘°‘æ“ñ¢‘ã‚Ì’·Žq‚¾B•ƒe‚Í–»‰¤ƒƒ‹ƒR[ƒ‹‚»‚ÌlA•ê‚ÍƒEƒ‹ƒoƒ“ƒfƒB‚Å‚ ‚éB
+TOUCH:UN_POWER",,ART:212:100%,UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|KILL_WALL|AURA_FIRE|NONLIVING|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP|BR_DISI|BO_MANA,,"@ƒAƒ‹ƒ_‚Ì_‘ãAƒƒ‹ƒR[ƒ‹‚Ì”¾‹t‚É‰Á‚í‚Á‚½_‘°’B‚Í‚Ù‚Ç‚È‚­‚µ‚ÄA’j‚Æ—‚ÅŒð‚í‚é‚±‚Æ‚ðŠo‚¦‚½B”Þ‚Í‚»‚Ì’†‚Å‰‚ß‚Ä•ƒe‚Æ•êe‚ðŽ‚Â‘¶Ý‚Æ‚µ‚Ä¶‚Ü‚ê‚½_‘°‘æ“ñ¢‘ã‚Ì’·Žq‚¾B•ƒe‚Í–»‰¤ƒƒ‹ƒR[ƒ‹‚»‚ÌlA•ê‚ÍƒEƒ‹ƒoƒ“ƒfƒB‚Å‚ ‚éB
 @ãŒÃ‚Ìí‚Ì’†‚ÅA”‚¦Ø‚ê‚È‚¢•ŒM‚ð‚à‚½‚ç‚µ‚½”Þ‚ÍAƒƒ‹ƒR[ƒ‹‚ÌŽ¸çHŒãAV‚½‚È‚é–¿Žå‚Æ‚µ‚Ä–»‰¤‚ÌÀ‚ðŒp‚®‚à‚Ì‚ÆŽv‚í‚ê‚½B‚¾‚ªA‚»‚ÌŒã‹N‚«‚½“à•´‚Ì’†‚ÅŒÈ‚Ìß‹Æ‚ð‰÷‚â‚ñ‚¾”Þ‚ÍA‚»‚Ìž‚¢‚Ì‚½‚ß‚ÉŽ©‚ç“®—‚ÌŽ€ŽÒ‚Æ‹¤‚É“Þ—Ž‚É—Ž‚¿‚éŽ–‚ð‘I‚ñ‚¾‚Ì‚Å‚ ‚éB
 @¡‚Ì”Þ‚ÍŽå_ƒAƒ‹ƒ^ƒmEƒAƒ“ƒiƒ^[ƒ‹‚©‚çŽ€‚ÌŒ ŒÀ‚Æ–»•{‚Ì¢ŠE‚ð—^‚¦‚ç‚ê‚½••b‚Ì—§ê‚É‚ ‚éBŽ€‚µ‚½ˆÅ‚Ì–¯‚Ì°‚ðW‚ß‚ÄÙ‚«A_X‚Ì“®—‚ ‚ç‚ÎŽ€ŽÒ‚ÌŒR¨‚ð—¦‚¢‚é–»•{‚Ì‘åŒ³ƒ‚Æ‚µ‚ÄA”Þ‚Í¡‚à’n‚Ì’ê‚Å’b˜B‚ð‘Ó‚ç‚È‚¢B“Œ‚Ì‚ ‚ç‚ä‚éíŽm‚ÌŠÔ‚Å‚ÍAí‚¢‚Ì’†‚ÅŽ€‚µ‚½ŒãA”Þ‚É—EŽÒ‚Æ”F‚ß‚ç‚ê‚»‚ÌŒR¨‚É‰Á‚í‚éŽ–‚±‚»‚ªŽŠã‚Ì—_‚Å‚ ‚é‚ÆŒ©‚È‚³‚ê‚Ä‚¢‚éB","
 
@@ -6856,7 +6856,7 @@ TOUCH:UN_POWER",,ART:212:100%,UNIQUE|CAN_SPEAK|CAN_FLY|FORCE_SLEEP|ESCORT|ESCORT
 857,,wˆÌ‘å‚È‚éƒNƒgƒDƒ‹ƒtx,Great Cthulhu,U,g,0,-1,GREAT_OLD_ONE,GREAT_OLD_ONE,0x02,WARRIOR_MAGE,857,ORDINARY,ARCANE,CHAOS,85,3,50,12314510,0,0,327167562,140,NONE,NONE,13,20,100,140,0,0,100,28,28,28,28,28,28,5,7800,100,9209000,10,7800,100,9209000,10,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CRUSH:SUPERHURT:50d4
 CLAW:UN_POWER:15d2
 CLAW:UN_BONUS:15d2
-TOUCH:DISEASE:100d1",,,UNIQUE|CAN_SPEAK|ELDRITCH_HORROR|NONLIVING|FORCE_SLEEP|ESCORT|ESCORTS|SMART|RES_PLAS|RES_NEXU|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|REGENERATE|RES_NETH|RES_DISE|RES_CHAO|RES_DARK|RES_TELE|CAN_SWIM|IM_FIRE|IM_POIS|IM_ELEC|IM_ACID|NO_CONF|NO_SLEEP|BLIND|CONF|SCARE|BR_FIRE|S_KIN|S_DEMON|S_HI_UNDEAD|S_CYBER,,"‚±‚Ì¶‚«•¨‚ÍŽ€‚Ì‰»g‚Å‚ ‚éBŠC’ê‚Ìƒ‹ƒ‹ƒCƒG‚Ì“s‚É••ˆó‚³‚ê‚Ä
+TOUCH:DISEASE:100d1",,,UNIQUE|CAN_SPEAK|ELDRITCH_HORROR|NONLIVING|FORCE_SLEEP|SMART|RES_PLAS|RES_NEXU|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|REGENERATE|RES_NETH|RES_DISE|RES_CHAO|RES_DARK|RES_TELE|CAN_SWIM|IM_FIRE|IM_POIS|IM_ELEC|IM_ACID|NO_CONF|NO_SLEEP|BLIND|CONF|SCARE|BR_FIRE|S_KIN|S_DEMON|S_HI_UNDEAD|S_CYBER,,"‚±‚Ì¶‚«•¨‚ÍŽ€‚Ì‰»g‚Å‚ ‚éBŠC’ê‚Ìƒ‹ƒ‹ƒCƒG‚Ì“s‚É••ˆó‚³‚ê‚Ä
 •œŠˆ‚ÌŽž‚ð‘Ò‚Á‚Ä‚¢‚éBu‚¨‚¨‚æ‚»lŠÔ‚ÉŽ—‚½ŠOŒ`‚ð‚µ‚Ä‚¢‚é‚ªA
 “ª•”‚Í‘û‚ÉŽ—‚ÄAŠç‚É‚ÍG˜r‚ª‚¨‚Ñ‚½‚¾‚µ‚­‚ ‚èA“·‚ÍƒSƒ€ó‚Å—Ø‚É‚¨
 ‚¨‚í‚êA‘O‹r‚ÆŒã‹r‚É‚Í‹‘å‚Èçê’Ü‚ª”õ‚í‚èA”w’†‚É×’·‚¢—ƒ‚ð‚à‚Â‰ö
@@ -7102,7 +7102,7 @@ HIT:LOSE_CON:10d10",,ART:146:100%,UNIQUE|VAMPIRE|FORCE_SLEEP|SMART|CAN_SPEAK|CAN
 880,,Žž‚ð“‚×‚éŽÒwƒŠƒ`ƒƒ[ƒhEƒEƒHƒ“x,"Richard Wong, Master of Time",p,w,0,-1,HUMAN,HUMAN,0x02,MINDCRAFTER,NONE,SHREWD,NONE,NONE,52,3,50,2390000,0,0,0,0,NONE,NONE,6,25,100,0,0,0,20,28,28,28,28,28,28,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:TIME:5d8
 HIT:TIME:5d8
 HIT:TIME:5d8
-KICK:UN_BONUS:8d10",,,UNIQUE|CAN_SPEAK|FORCE_SLEEP|REFLECTING|SMART|REGENERATE|PASS_WALL|CAN_FLY|IM_ACID|IM_COLD|IM_POIS|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP|RES_NEXU|RES_WATE|RES_TIME|ESCORT|ACTIVE_TELEPORT|SCARE|S_KIN|BLINK|HEAL|TELE_TO|CONF|BO_MANA|BRAIN_SMASH|BA_WATE|TELE_AWAY|DISPEL|WORLD|PSY_SPEAR,,"ŽžŠÔ‚Æ‹óŠÔ‚ðŽ©Ý‚É‘€‚é’´”\—ÍŽÒB
+KICK:UN_BONUS:8d10",,,UNIQUE|CAN_SPEAK|FORCE_SLEEP|REFLECTING|SMART|REGENERATE|PASS_WALL|CAN_FLY|IM_ACID|IM_COLD|IM_POIS|IM_FIRE|IM_ELEC|NO_CONF|NO_SLEEP|RES_NEXU|RES_WATE|RES_TIME|ACTIVE_TELEPORT|SCARE|S_KIN|BLINK|HEAL|TELE_TO|CONF|BO_MANA|BRAIN_SMASH|BA_WATE|TELE_AWAY|DISPEL|WORLD|PSY_SPEAR,,"ŽžŠÔ‚Æ‹óŠÔ‚ðŽ©Ý‚É‘€‚é’´”\—ÍŽÒB
 —âÃ’¾’…‚ÅAí‚É—]—T‚ÌÎ‚Ý‚ð•‚‚©‚×‚Ä‚¢‚éB
 ‚¾‚ªA‚»‚Ì‰¼–Ê‚Ì‰º‚É‚Í—âŒŒ‚È°‚ªh‚èAŽ©•ªŽ©g‚Ì—~–]‚Ìˆ×‚È‚çŽè’i‚ð‘I‚Î‚È‚¢B
 ‚·‚×‚Ä‚É‚¨‚¢‚ÄŒvŽZ‚‚­A‚µ‚©‚à‚»‚Ì^ˆÓ‚ðŒå‚ç‚¹‚é‚±‚Æ‚ÍŒˆ‚µ‚Ä‚È‚¢B ","
@@ -7191,7 +7191,7 @@ HIT:FIRE:8d4",,,AURA_FIRE|OPEN_DOOR|BASH_DOOR|TAKE_ITEM|SELF_LITE_2|IM_FIRE|RES_
 894,,ƒgƒƒ‹‚Ì‰¤,Troll king,T,R,0,-1,OLOG,OLOG,VARIABLE,PALADIN,NONE,ORDINARY,SORCERY,NONE,42,1,50,25500,18000,875,0,0,NONE,NONE,0,10,30,90,0,0,20,19,19,19,19,19,19,5,0,0,0,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:3d12
 HIT:HURT:5d12
 BITE:HURT:3d12
-BITE:HURT:5d12",,,OPEN_DOOR|ESCORT|SMART|BASH_DOOR|TAKE_ITEM|IM_POIS|NO_CONF|NO_SLEEP|FEARLESS|REGENERATE|BLINK,,"‚±‚Ìƒgƒƒ‹‚Íƒgƒƒ‹‚Ì’†‚Ì‰¤‚¾B”Þ‚ÍˆË‘R‚Æ‚µ‚Äƒgƒƒ‹‚Å‚ ‚èA“ª‚Í—Ç‚­‚È‚¢‚ªA
+BITE:HURT:5d12",,,OPEN_DOOR|SMART|BASH_DOOR|TAKE_ITEM|IM_POIS|NO_CONF|NO_SLEEP|FEARLESS|REGENERATE|BLINK,,"‚±‚Ìƒgƒƒ‹‚Íƒgƒƒ‹‚Ì’†‚Ì‰¤‚¾B”Þ‚ÍˆË‘R‚Æ‚µ‚Äƒgƒƒ‹‚Å‚ ‚èA“ª‚Í—Ç‚­‚È‚¢‚ªA
 ‚»‚Ì—Í‚Í‚³‚ç‚É‹­—Í‚¾B”Þ‚Íˆêl‚Å‚¢‚éŽ–‚Í‚È‚­í‚ÉŽè‰º‚ð˜A‚ê‚Ä‚¢‚éB","This troll is a king, which means it's still stupid, but has even more power.
 It never comes alone, and can call out to other trolls.
 
@@ -7274,7 +7274,7 @@ produces.
 907,,‹S‚Ì“ª—Ìwˆï–Ø“¶Žqx,"Ibaragi-douji, the Ogre Lord",O,o,0,-1,OGRE,OGRE,0x01,PALADIN,NONE,PIOUS,DEATH,NONE,57,3,50,17000,0,0,0,0,NONE,NONE,3,0,20,0,0,0,20,22,22,24,25,22,24,5,432,0,1235,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:10d11
 HIT:HURT:10d11
 HIT:HURT:10d11
-HIT:HURT:10d11",,,UNIQUE|CAN_SPEAK|ESCORT|OPEN_DOOR|BASH_DOOR|CAN_SWIM|AURA_ELEC|IM_POIS|IM_FIRE|IM_ELEC,,,,,,,,
+HIT:HURT:10d11",,,UNIQUE|CAN_SPEAK|OPEN_DOOR|BASH_DOOR|CAN_SWIM|AURA_ELEC|IM_POIS|IM_FIRE|IM_ELEC,,,,,,,,
 908,,¶‚«‚½ƒ|[ƒ‹EƒAƒbƒNƒX,Pole axe of animated attack,/,w,0,-1,MIMIC,MIMIC,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,21,2,50,60,0,0,0,0,NONE,NONE,-1,10,30,40,0,0,0,14,14,14,14,14,14,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CRUSH:HURT:2d5
 CRUSH:HURT:2d5
 CRUSH:HURT:2d6
@@ -7287,7 +7287,7 @@ wicked blade.
 909,,w—‰¤ƒxƒgƒxƒgx,The Icky Queen,i,v,0,-1,ICKY,ICKY,0x01,NONE,NONE,ORDINARY,NONE,NONE,20,5,50,400,0,0,0,0,NONE,NONE,0,10,20,60,0,0,10,10,10,10,10,10,10,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CRAWL:POISON:3d4
 CRAWL:EAT_FOOD:3d4
 TOUCH:ACID:3d5
-HIT:HURT:3d5",,,UNIQUE|CAN_SPEAK|SMART|ESCORT|ESCORTS|WEIRD_MIND|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|DRAIN_MANA|BLIND|CONF|SCARE|S_KIN,,”Þ—‚ÌŽq‚Ç‚à‚½‚¿‚·‚×‚Ä‚ªƒxƒgƒxƒg‚¾‚ÆŽv‚Á‚Ä‚é‚¾‚ë‚¤I,"And you thought her offspring were icky!
+HIT:HURT:3d5",,,UNIQUE|CAN_SPEAK|SMART|WEIRD_MIND|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|DRAIN_MANA|BLIND|CONF|SCARE|S_KIN,,”Þ—‚ÌŽq‚Ç‚à‚½‚¿‚·‚×‚Ä‚ªƒxƒgƒxƒg‚¾‚ÆŽv‚Á‚Ä‚é‚¾‚ë‚¤I,"And you thought her offspring were icky!
 I",,,,,
 910,,…±ƒS[ƒŒƒ€,Aquatic golem,g,b,0,-1,HUMAN,HUMAN,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,19,1,50,100,0,0,0,0,NONE,NONE,-1,-10,35,50,0,0,10,14,14,14,14,14,14,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:3d10
 HIT:HURT:3d10",,,GOLEM|EMPTY_MIND|AQUATIC|NONLIVING|IM_FIRE|IM_COLD|IM_POIS|RES_WATE|NO_CONF|NO_SLEEP|FEARLESS,,ƒm[ƒ€‚Ì“VË‚ªì‚Á‚½”­–¾•i‚¾B[‚¢…’†‚Å“­‚­‚æ‚¤‚ÉÝŒv‚³‚ê‚½ƒS[ƒŒƒ€‚Å‚ ‚éB,"An ingenious gnomish invention -- a golem designed for underwater
@@ -7355,7 +7355,7 @@ of gills.
 920,,wƒfƒ‚ƒSƒ‹ƒSƒ“x,The Demogorgon,U,u,0,-1,DEMON,DEMON,0x02,WARRIOR_MAGE,NONE,ORDINARY,NONE,NONE,75,2,50,37000,0,0,0,0,NONE,NONE,13,15,30,140,0,0,20,28,28,28,28,28,28,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:LOSE_CON:5d10
 HIT:LOSE_CON:5d10
 CRUSH:HURT:12d12
-TOUCH:UN_POWER:3d5",,,UNIQUE|FORCE_SLEEP|ESCORT|CAN_FLY|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP|BLIND|CONF|SCARE|BA_DARK|BO_NETH|BR_NETH|BR_DARK|BR_NUKE|BR_POIS|HAND_DOOM|S_DEMON|S_KIN|DISPEL,,"‚»‚Ì–¼‚ðŒû‚É‚·‚é‚¾‚¯‚Å”j–Å‚ð‚à‚½‚ç‚·‚Ù‚Ç‚Ì‹°‚é‚×‚«ƒf[ƒ‚ƒ“‚Å‚ ‚èA
+TOUCH:UN_POWER:3d5",,,UNIQUE|FORCE_SLEEP|CAN_FLY|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|IM_FIRE|IM_POIS|RES_DARK|NO_CONF|NO_SLEEP|BLIND|CONF|SCARE|BA_DARK|BO_NETH|BR_NETH|BR_DARK|BR_NUKE|BR_POIS|HAND_DOOM|S_DEMON|S_KIN|DISPEL,,"‚»‚Ì–¼‚ðŒû‚É‚·‚é‚¾‚¯‚Å”j–Å‚ð‚à‚½‚ç‚·‚Ù‚Ç‚Ì‹°‚é‚×‚«ƒf[ƒ‚ƒ“‚Å‚ ‚èA
 ’n–‚ÌŒR¨‚ÌŽwŠöŠ¯‚Å‚ ‚é‚ÆŒ¾‚í‚ê‚Ä‚¢‚éB","
 ",,,,,
 921,,ÅŒÃ‚É‚µ‚Ä•ƒ‚È‚«‚à‚Ìwƒgƒ€Eƒ{ƒ“ƒoƒfƒBƒ‹x,"Tom Bombadil, the oldest and fatherless",p,B,0,-1,MAIAR,MAIAR,0x02,TOURIST,921,ORDINARY,NONE,NONE,56,8,50,1500,0,0,0,1,NONE,NONE,3,40,25,0,0,0,1,28,28,28,28,28,28,5,173,0,64,0,173,0,64,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,,,,RAND_25|REFLECTING|FORCE_SLEEP|CAN_SPEAK|REGENERATE|AURA_ELEC|BASH_DOOR|KILL_BODY|FRIENDLY|NONLIVING|IM_ACID|IM_ELEC|IM_FIRE|IM_COLD|IM_POIS|RES_LITE|RES_DARK|RES_NETH|RES_WATE|RES_PLAS|RES_SHAR|RES_SOUN|RES_CHAO|RES_DISE|RES_WALL|RES_INER|RES_TIME|RES_GRAV|RES_TELE|FEARLESS|NO_STUN|NO_CONF|NO_SLEEP|CAN_FLY|HOLD|BLIND|CONF|SCARE|SLOW,,,,,,,,
@@ -7519,7 +7519,7 @@ TOUCH:ACID:3d3",,,NEVER_MOVE|COLD_BLOOD|CAN_SWIM|IM_ELEC|IM_ACID|IM_POIS|FEARLES
 945,,“{‚è‚Ì–‚‰¤w‰Š‚ÌƒoƒCƒPƒ^ƒ‹x,Biketal of Fire,U,r,0,-1,DEMON,DEMON,0x02,PALADIN,945,ORDINARY,NONE,NONE,73,2,50,32000,0,0,0,0,NONE,NONE,11,15,50,160,0,0,0,28,28,28,28,28,28,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:FIRE:9d12
 HIT:FIRE:9d12
 TOUCH:DISEASE:20d4
-CRUSH:HURT:50d4",,,UNIQUE|FORCE_SLEEP|CAN_SPEAK|KILL_BODY|IM_FIRE|IM_ELEC|IM_POIS|POWERFUL|ESCORT|SELF_LITE_2|NO_SLEEP|NO_CONF|OPEN_DOOR|CAN_FLY|REGENERATE|BR_FIRE|DISPEL|BR_POIS|BO_PLAS|BR_PLAS|BA_FIRE|CONF|SCARE|HOLD|S_DEMON|HEAL,,,,,,,,
+CRUSH:HURT:50d4",,,UNIQUE|FORCE_SLEEP|CAN_SPEAK|KILL_BODY|IM_FIRE|IM_ELEC|IM_POIS|POWERFUL|SELF_LITE_2|NO_SLEEP|NO_CONF|OPEN_DOOR|CAN_FLY|REGENERATE|BR_FIRE|DISPEL|BR_POIS|BO_PLAS|BR_PLAS|BA_FIRE|CONF|SCARE|HOLD|S_DEMON|HEAL,,,,,,,,
 946,,Ã‚Ì–‚‰¤w•X‚ÌƒWƒVƒXƒ‹x,Jisisl of Ice,U,B,0,-1,DEMON,DEMON,0x02,PALADIN,946,ORDINARY,NONE,NONE,67,2,50,30000,0,0,0,0,NONE,NONE,10,15,80,120,0,0,50,28,28,28,28,28,28,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:COLD:9d12
 HIT:COLD:9d12
 TOUCH:DISEASE:20d4
@@ -7695,7 +7695,7 @@ themselves, and condemned Numenor to oblivion.
 979,,‹S‚Ì‰¤wŽé“_“¶Žqx,"Shuten-douji, the King Ogre",O,o,0,-1,OGRE,OGRE,0x02,ROGUE,NONE,NIMBLE,SORCERY,NONE,62,3,50,18000,0,0,0,0,NONE,NONE,6,0,20,0,0,0,20,28,24,26,22,28,29,5,510,0,1521,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:10d11
 HIT:HURT:10d11
 HIT:HURT:10d11
-HIT:HURT:10d11",,ART:194:100%,UNIQUE|CAN_SPEAK|ESCORT|OPEN_DOOR|BASH_DOOR|CAN_SWIM|AURA_ELEC|IM_POIS|IM_FIRE|IM_ELEC,,’O”g‚Ì‘‚Ì‘å]ŽR‚ð‚Ë‚®‚ç‚Æ‚µA‹ž‚Ì“s‚ðP‚Á‚Ä‚Íà•ó‚Æ–º‚ð’D‚¤‹¥ˆ«‚È‹S‚Ç‚à‚ÌŽñ—Ì‚¾B,,,,,,
+HIT:HURT:10d11",,ART:194:100%,UNIQUE|CAN_SPEAK|OPEN_DOOR|BASH_DOOR|CAN_SWIM|AURA_ELEC|IM_POIS|IM_FIRE|IM_ELEC,,’O”g‚Ì‘‚Ì‘å]ŽR‚ð‚Ë‚®‚ç‚Æ‚µA‹ž‚Ì“s‚ðP‚Á‚Ä‚Íà•ó‚Æ–º‚ð’D‚¤‹¥ˆ«‚È‹S‚Ç‚à‚ÌŽñ—Ì‚¾B,,,,,,
 980,,ƒRƒAƒgƒ‹,Coatl,J,B,0,-1,SNAKE,SNAKE,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,29,4,50,330,0,0,0,0,NONE,NONE,-1,5,30,80,0,0,50,16,16,16,16,16,16,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:3d7
 HIT:HURT:3d7
 HIT:HURT:3d7",,,FORCE_SLEEP|FEARLESS|FRIENDLY|CAN_FLY|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|IM_ACID|IM_POIS|NO_CONF|NO_SLEEP|BLIND|CONF|SCARE|HOLD,,,,,,,,
@@ -7770,7 +7770,7 @@ with currents as their muscles and pearls as their teeth.
 ",,,,,
 995,,˜T‚Ì‘°’·,Wolf Chieftain,C,D,0,-1,CANINE,CANINE,VARIABLE,WARRIOR,NONE,ORDINARY,NONE,NONE,22,3,50,120,0,0,0,0,NONE,NONE,-1,10,20,50,0,0,5,14,14,14,14,14,14,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:2d6
 BITE:HURT:2d6
-WAIL:TERRIFY",,,ESCORTS|IM_COLD|IM_ACID|SMART|ESCORT|OPEN_DOOR|BASH_DOOR|FEARLESS|DARKNESS,,"”Þ—‚Í‚»‚ÌŽd‚¦‚éŽå‚Ì‚½‚ß‚Éƒ[ƒO‚ÌŒQ‚ê‚ð‹ì‚éB
+WAIL:TERRIFY",,,IM_COLD|IM_ACID|SMART|OPEN_DOOR|BASH_DOOR|FEARLESS|DARKNESS,,"”Þ—‚Í‚»‚ÌŽd‚¦‚éŽå‚Ì‚½‚ß‚Éƒ[ƒO‚ÌŒQ‚ê‚ð‹ì‚éB
 ‚»‚Ì–Ú‚Í‹°‚é‚×‚«›@’q‚ð”é‚ßA‚Ù‚ÌÔ‚­Œõ‚éB","She commands a pack of wargs in the service of her dark master, and her 
 eyes gleam redly with dreadful knowledge.
 
@@ -7793,7 +7793,7 @@ CRUSH:SHATTER:12d12",,,BASH_DOOR|TAKE_ITEM|RAND_50|REGENERATE||RIDING,,,,,,,,
 1000,,‹ÉŠyŠEƒhƒ‰ƒSƒ“wƒoƒnƒ€[ƒgx,"Bahamut, Celestial Dragon of Good",D,w,0,-1,DRAGON,DRAGON,0x02,PALADIN,NONE,ORDINARY,CRUSADE,NONE,87,4,50,34720000,0,0,6651187,0,NONE,NONE,20,20,20,125,0,0,70,28,28,28,28,28,28,5,3000,200,2287000,500,3000,200,2287000,500,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:6d12
 CLAW:HURT:8d12
 CLAW:HURT:8d12
-BITE:HURT:10d14",,,ATTR_MULTI|CAN_SPEAK|SELF_LITE_2|UNIQUE|CAN_FLY|FORCE_SLEEP|ESCORT|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|RIDING|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|RES_LITE|RES_DARK|RES_SOUN|RES_SHAR|BLIND|CONF|SCARE|BR_LITE|BR_DARK|BR_SOUN|BR_CONF|BR_SHAR|S_HI_DRAGON,LIGHT_3,"‚¨‚à‚Éã‘wŠE‚Ì‘æˆêŠK‘w‚ð–h‰q‚µ‚Ä‚¢‚éƒoƒnƒ€[ƒg‚ÍŽè‚É•‰‚¦‚È‚¢‹­“G‚Å‚ ‚èA
+BITE:HURT:10d14",,,ATTR_MULTI|CAN_SPEAK|SELF_LITE_2|UNIQUE|CAN_FLY|FORCE_SLEEP|OPEN_DOOR|BASH_DOOR|POWERFUL|MOVE_BODY|RIDING|IM_ACID|IM_FIRE|IM_COLD|IM_ELEC|IM_POIS|NO_CONF|NO_SLEEP|RES_LITE|RES_DARK|RES_SOUN|RES_SHAR|BLIND|CONF|SCARE|BR_LITE|BR_DARK|BR_SOUN|BR_CONF|BR_SHAR|S_HI_DRAGON,LIGHT_3,"‚¨‚à‚Éã‘wŠE‚Ì‘æˆêŠK‘w‚ð–h‰q‚µ‚Ä‚¢‚éƒoƒnƒ€[ƒg‚ÍŽè‚É•‰‚¦‚È‚¢‹­“G‚Å‚ ‚èA
 —§‚¿‚Ó‚³‚ª‚é‚·‚×‚Ä‚ÌŽÒ‚Éƒvƒ‰ƒ`ƒi‚ÌŽñ‚©‚çŽ€‚ÌƒuƒŒƒX‚ð—‚Ñ‚¹‚©‚¯‚æ‚¤‚Æ‚·‚éB
 iTRPG AD&DjB","Bahamut the Platinum Dragon has been described both as the King of All Good Dragons, 
 and more accurately, as a glorious and resplendent deity in his own right. He is ever 
@@ -7872,7 +7872,7 @@ And you will win The Can of Toys!
 TOUCH:LOSE_WIS",,,NEVER_MOVE|INVISIBLE|COLD_BLOOD|PASS_WALL|CAN_FLY|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP,,‚±‚Ì¢‚É–¢—û‚ª‚ ‚é–`Œ¯ŽÒ‚Ì°‚Ì‚È‚ê‚Ì‰Ê‚Ä‚¾B,"A lost soul of an adventurer still lingering in this world.
 ",,,,,
 1013,,wƒƒŒƒ“ƒgx,Rolento,p,u,0,-1,HUMAN,HUMAN,0x02,WARRIOR,NONE,NIMBLE,NONE,NONE,38,7,50,4000,0,0,0,0,NONE,NONE,0,40,70,0,0,0,4,19,19,19,19,19,19,5,180,0,81,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:8d4
-KICK:HURT:8d4",,,CAN_SPEAK|NO_CONF|NO_SLEEP|NO_STUN|FEARLESS|HAS_LITE_2|RES_TELE|RAND_50|ESCORT|IM_FIRE|UNIQUE|OPEN_DOOR|BASH_DOOR|SMART|BA_FIRE|HASTE|GRENADE,,Take no prisoner!,Take no prisoner!,"
+KICK:HURT:8d4",,,CAN_SPEAK|NO_CONF|NO_SLEEP|NO_STUN|FEARLESS|HAS_LITE_2|RES_TELE|RAND_50|IM_FIRE|UNIQUE|OPEN_DOOR|BASH_DOOR|SMART|BA_FIRE|HASTE|GRENADE,,Take no prisoner!,Take no prisoner!,"
  ƒtƒ@ƒCƒiƒ‹ƒtƒ@ƒCƒg‚©‚çBŽc‘œ‚ª•t‚­‘¬‚¢“®‚«‚ÅŽèžÖ’e‚Î‚çŽT‚­ŒRl•—‚ÌlB
  ƒtƒ@ƒCƒAƒ{[ƒ‹(ƒƒPƒbƒg‚Ì•û‚ª‚¢‚¢H ;-)‚ÌƒƒbƒZ[ƒW‚ÍuŽèžÖ’e‚ð“Š‚°‚½v‚É‚·‚éB
  ‚Å‚«‚ê‚Îhack‚µ‚Äu‚Qƒ^[ƒ“Œã‚ÉŽ©“®“I‚É”š”­‚·‚éŠ®‘Sƒ‰ƒ“ƒ_ƒ€ˆÚ“®‚ÌŽèžÖ’ev‚ð¢Š«‚³‚·B
@@ -7961,7 +7961,7 @@ spells as they echo hollowly through the dungeon.
 1027,,“ñŽq“»‚Ì–‚‰¤wÔƒJƒuƒgx,"Red Helm, the King of Bear",q,r,0,-1,QUADRUPED,QUADRUPED,0x02,NONE,NONE,MIGHTY,NONE,NONE,36,4,50,26000,0,0,0,0,NONE,NONE,-1,10,20,100,0,0,10,16,16,16,16,16,16,5,1282,0,19713,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:3d6
 CLAW:HURT:3d6
 BITE:HURT:3d10
-BITE:HURT:3d10",,,ESCORT|BASH_DOOR|UNIQUE|WILD_WOOD|WILD_MOUNTAIN|NO_SLEEP|FEARLESS,,“ñŽq“»‚ÉŒÈ‚Ì‰åé‚ð’z‚«ã‚°ŒN—Õ‚·‚é‹¥ŒF‚Ç‚à‚Ì‰¤‚¾B,"A king of mad bear. He had built his stronghold at Hutago mountain, 
+BITE:HURT:3d10",,,BASH_DOOR|UNIQUE|WILD_WOOD|WILD_MOUNTAIN|NO_SLEEP|FEARLESS,,“ñŽq“»‚ÉŒÈ‚Ì‰åé‚ð’z‚«ã‚°ŒN—Õ‚·‚é‹¥ŒF‚Ç‚à‚Ì‰¤‚¾B,"A king of mad bear. He had built his stronghold at Hutago mountain, 
 and is reigning over there.
 ",,,,,
 1028,,‹¥ŒF,Mad bear,q,D,0,-1,QUADRUPED,QUADRUPED,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,23,1,50,5320,1000,547,0,0,NONE,NONE,-1,0,10,35,0,0,10,14,14,14,14,14,14,5,421,0,713,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"CLAW:HURT:2d5
@@ -7974,7 +7974,7 @@ CLAW:HURT:3d5",,,OPEN_DOOR|CAN_SPEAK|NONLIVING|RAND_25|IM_COLD|IM_FIRE|IM_POIS|C
 1030,,“ì”Ø‰¤w–ÐŠlx,"Meng Huo, the King of Southerings",p,o,0,-1,BARBARIAN,BARBARIAN,0x02,PALADIN,NONE,MIGHTY,NONE,NONE,22,2,50,6529,0,0,0,0,NONE,NONE,0,0,20,0,0,0,20,14,14,14,14,14,14,5,238,0,142,0,238,0,142,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d15
 HIT:HURT:1d15
 HIT:HURT:1d15
-HIT:HURT:1d15",,,UNIQUE|HAS_LITE_2|CAN_SPEAK|WILD_ALL|ESCORT|OPEN_DOOR|BASH_DOOR|S_KIN,,“ì”Ø‚Ì‰¤B”Š‹—º‚ÉŽµ“x ‚É‚³‚ê‚éB,"He is the king of Nanman. He was arrested by Zhuge Liang 7 times.
+HIT:HURT:1d15",,,UNIQUE|HAS_LITE_2|CAN_SPEAK|WILD_ALL|OPEN_DOOR|BASH_DOOR|S_KIN,,“ì”Ø‚Ì‰¤B”Š‹—º‚ÉŽµ“x ‚É‚³‚ê‚éB,"He is the king of Nanman. He was arrested by Zhuge Liang 7 times.
 ",,,,,
 1031,,‹àF‚Ì‰ölwƒƒbƒnƒ}ƒ“x,Wahha-Man the Golden,g,y,0,-1,HUMAN,HUMAN,0x02,WARRIOR,1090,FEARLESS,NONE,NONE,68,11,50,35000,0,0,0,0,NONE,NONE,11,20,100,200,0,0,0,28,28,28,28,28,28,5,189,0,431,0,189,0,431,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:25d9
 HIT:HURT:25d9
@@ -8033,7 +8033,7 @@ minor spellcasting skills, and animals come to do his bidding.
 
 ",,,,,
 1040,,ƒJƒƒŒƒIƒ“,Chameleon,R,v,0,-1,REPTILIA,REPTILIA,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,20,1,50,981,0,0,0,0,NONE,NONE,-1,0,20,0,0,0,0,14,14,14,14,14,14,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,,,,CHAMELEON|WILD_WOOD|CAN_FLY|IM_FIRE|IM_COLD|IM_ELEC|IM_ACID|IM_POIS|SPECIAL,,ŽüˆÍ‚ÌŠÂ‹«‚É‡‚í‚¹‚Ä‚»‚ÌŽp‚ð•Ï‚¦‚é‚ÆŒ¾‚í‚ê‚é¶•¨‚¾B,,,,,,
-1041,,ƒJƒƒŒƒIƒ“‚Ì‰¤,Chameleon Lord,R,v,0,-1,REPTILIA,REPTILIA,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,45,1,50,87716,0,0,0,0,NONE,NONE,0,0,20,0,0,0,0,21,21,21,21,21,21,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,,,,UNIQUE|ESCORT|CHAMELEON|CAN_FLY|IM_FIRE|IM_COLD|IM_ELEC|IM_ACID|IM_POIS|SPECIAL,,"ƒJƒƒŒƒIƒ“‚ÍŽüˆÍ‚ÌŠÂ‹«‚É‡‚í‚¹‚Ä‚»‚ÌŽp‚ð•Ï‚¦‚é‚ÆŒ¾‚í‚ê‚é‚ªA
+1041,,ƒJƒƒŒƒIƒ“‚Ì‰¤,Chameleon Lord,R,v,0,-1,REPTILIA,REPTILIA,VARIABLE,NONE,NONE,ORDINARY,NONE,NONE,45,1,50,87716,0,0,0,0,NONE,NONE,0,0,20,0,0,0,0,21,21,21,21,21,21,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,,,,UNIQUE|CHAMELEON|CAN_FLY|IM_FIRE|IM_COLD|IM_ELEC|IM_ACID|IM_POIS|SPECIAL,,"ƒJƒƒŒƒIƒ“‚ÍŽüˆÍ‚ÌŠÂ‹«‚É‡‚í‚¹‚Ä‚»‚ÌŽp‚ð•Ï‚¦‚é‚ÆŒ¾‚í‚ê‚é‚ªA
 ‚»‚ê‚Í‰¤‚Æ‚Ä—áŠO‚Å‚Í‚È‚¢B","
 ",,,,,
 1042,,Œ¶‚ÌŒ~wƒCƒbƒJƒNx,Narwhal,l,w,0,-1,AQUARIC_MONSTER,AQUARIC_MONSTER,0x02,WARRIOR,NONE,ORDINARY,NONE,NONE,40,20,50,299321,0,0,421,0,NONE,NONE,1,20,50,100,0,0,70,19,19,19,19,19,19,5,4521,0,353214,0,4521,0,353214,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"BUTT:HURT:8d5
@@ -8093,7 +8093,7 @@ on his shoulders; and the mountain range that now does so is named after him.
 1051,,ƒ^ƒCƒ^ƒ“‘°‚Ì‰¤wƒNƒƒmƒXx,"Kronos, Lord of the Titans",P,v,0,-1,TITAN,TITAN,0x02,RANGER,NONE,ORDINARY,NATURE,CHAOS,90,3,50,27560000,0,0,68175,0,NONE,NONE,20,15,30,150,0,0,15,28,28,28,28,28,28,5,170,0,60,0,160,0,50,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:CONFUSE:12d12
 HIT:CONFUSE:12d12
 HIT:CONFUSE:12d12
-HIT:CONFUSE:12d12",,,UNIQUE|FORCE_SLEEP|MOVE_BODY|SMART|TAKE_ITEM|BASH_DOOR|HAS_LITE_2|ESCORT|RES_SHAR|RES_SOUN|RES_TIME|IM_FIRE|IM_COLD|IM_ACID|IM_POIS|IM_ELEC|BR_FIRE|BR_COLD|BR_SHAR|BR_SOUN|S_MONSTERS|S_KIN|TELE_TO|HEAL,,@‚±‚Ìƒ^ƒCƒ^ƒ“‘°‚Ì‰¤‚Í––Žqƒ[ƒEƒX‚Æ‚Ìí‚¢‚É”j‚ê“Þ—Ž‚Å—H•Â‚Ìg‚Å‚ ‚Á‚½B‚¾‚ªƒ[ƒEƒX‚Ì”e‹Æ‚ÉŽ¸–]‚µ‚½’n•ê_ƒKƒCƒA‚Ì“±‚«‚É‚æ‚è•‚¯o‚³‚êA¢ŠE‚Ö‚Ì•œQ‚ð‹‚°‚é‚½‚ß‚Éƒ^ƒCƒ^ƒ“‘°‚Æ‹¤‚ÉÄ‚Ñ•‘‚¢–ß‚Á‚½‚Ì‚¾B,"The lord of the Titans, he has broken loose from his confinement in 
+HIT:CONFUSE:12d12",,,UNIQUE|FORCE_SLEEP|MOVE_BODY|SMART|TAKE_ITEM|BASH_DOOR|HAS_LITE_2|RES_SHAR|RES_SOUN|RES_TIME|IM_FIRE|IM_COLD|IM_ACID|IM_POIS|IM_ELEC|BR_FIRE|BR_COLD|BR_SHAR|BR_SOUN|S_MONSTERS|S_KIN|TELE_TO|HEAL,,@‚±‚Ìƒ^ƒCƒ^ƒ“‘°‚Ì‰¤‚Í––Žqƒ[ƒEƒX‚Æ‚Ìí‚¢‚É”j‚ê“Þ—Ž‚Å—H•Â‚Ìg‚Å‚ ‚Á‚½B‚¾‚ªƒ[ƒEƒX‚Ì”e‹Æ‚ÉŽ¸–]‚µ‚½’n•ê_ƒKƒCƒA‚Ì“±‚«‚É‚æ‚è•‚¯o‚³‚êA¢ŠE‚Ö‚Ì•œQ‚ð‹‚°‚é‚½‚ß‚Éƒ^ƒCƒ^ƒ“‘°‚Æ‹¤‚ÉÄ‚Ñ•‘‚¢–ß‚Á‚½‚Ì‚¾B,"The lord of the Titans, he has broken loose from his confinement in 
 the nether hells to seek revenge on the world. 
 
 ",JP#,,,,
@@ -8227,7 +8227,7 @@ it protects itself with a burst of blinding light.
 1072,,ƒI[ƒN‚Ì—b•º‘à’·wƒ}ƒEƒtƒ‹x,"Mauhur, the Orc's Mercenary Captain",o,u,0,-1,ORC,ORC,0x02,WARRIOR,NONE,PIOUS,NONE,NONE,25,3,50,6712,0,0,76,45,NONE,NONE,-1,0,20,0,0,0,20,22,12,16,19,22,12,5,204,0,113,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d12
 HIT:HURT:1d12
 HIT:HURT:1d10
-HIT:HURT:1d10",,,UNIQUE|WILD_ALL|ESCORT|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|IM_POIS|RES_DARK,,@”Þ‚ÍƒEƒ‹ƒN‚Ì«ƒEƒOƒ‹ƒN‚È’‰ŽÀ‚È”z‰º‚Ìˆêl‚ÅA¡‚ð¶‚«‚éˆÌ‘å‚È‘cæ‚Å‚ ‚éƒEƒ‹ƒN‚É‘Î‚µ‚Ä[‚¢ˆØŒh‚ð•ø‚¢‚Ä‚¢‚éB‘ž‚«¼‚Ì–¯‚ðŒŒÕ‚è‚Éã‚°‚é‚±‚Æ‚ð’Ê‚¶‚Ä‘½‚­‚Ì•ŒM‚ð_X‚É”F‚ß‚ç‚êA‚¢‚¸‚êŽ©•ªŽ©g‚àˆÌ‘å‚È‘cæ’B‚Ì—ñ‚É‰Á‚í‚é‚±‚Æ‚ð”OŠè‚Æ‚µ‚Ä‚¢‚é‚Ì‚¾B,,,,,,
+HIT:HURT:1d10",,,UNIQUE|WILD_ALL|EAT_POISONOUS|OPEN_DOOR|BASH_DOOR|CAN_SPEAK|IM_POIS|RES_DARK,,@”Þ‚ÍƒEƒ‹ƒN‚Ì«ƒEƒOƒ‹ƒN‚È’‰ŽÀ‚È”z‰º‚Ìˆêl‚ÅA¡‚ð¶‚«‚éˆÌ‘å‚È‘cæ‚Å‚ ‚éƒEƒ‹ƒN‚É‘Î‚µ‚Ä[‚¢ˆØŒh‚ð•ø‚¢‚Ä‚¢‚éB‘ž‚«¼‚Ì–¯‚ðŒŒÕ‚è‚Éã‚°‚é‚±‚Æ‚ð’Ê‚¶‚Ä‘½‚­‚Ì•ŒM‚ð_X‚É”F‚ß‚ç‚êA‚¢‚¸‚êŽ©•ªŽ©g‚àˆÌ‘å‚È‘cæ’B‚Ì—ñ‚É‰Á‚í‚é‚±‚Æ‚ð”OŠè‚Æ‚µ‚Ä‚¢‚é‚Ì‚¾B,,,,,,
 1073,,–ÐŠl‚Ì’íw–Ð—Dx,"Meng You, the Brother of Meng Huo",p,o,0,-1,BARBARIAN,BARBARIAN,0x02,WARRIOR,NONE,ORDINARY,NONE,NONE,12,2,50,1321,0,0,0,0,NONE,NONE,-1,0,20,0,0,0,20,13,13,13,13,13,13,5,179,0,75,0,179,0,75,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d15
 HIT:HURT:1d15
 HIT:HURT:1d15
@@ -8340,7 +8340,7 @@ HIT:HURT:7d8",,,OPEN_DOOR|BASH_DOOR|IM_FIRE|RES_WATE|RES_NETH|SHOOT,,"ƒR[ƒEƒBƒ“
 ”Þ‚Í‚»‚Ì˜A”­Ž®e‚ÌˆÐ—Í‚ÅƒGƒŠƒbƒN‚©‚çƒAƒ“ƒo[‚Ì‰¤Œ ‚ðŸ‚¿Žæ‚ë‚¤‚Æ‚µ‚½B","
 ",,,,,
 1089,,ƒWƒ…ƒ‰ƒ‹‚Ìw–‚‰¤x,the Maoh of Jural,h,v,0,-1,HUMAN,HUMAN,0x02,WARRIOR,NONE,COMBAT,NONE,NONE,6,3,50,45,0,0,0,75,NONE,NONE,-1,0,20,25,0,0,25,14,13,10,12,16,14,5,230,0,205,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:2d6
-HIT:HURT:2d6",,,UNIQUE|HAS_LITE_2|FORCE_SLEEP|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|ESCORT|RES_TELE|HEAL|SLOW|TRAPS|BO_COLD|BA_POIS,,’n“¹‚Èìí‚Ì”X‚Å’n‹…N—ª‚ðŠé‚ÞƒWƒ…ƒ‰ƒ‹¯l‚Ì’·‚¾Bu”ŒNI¡‚©‚ç–½—ß‚ð‚·‚è‚ãIv,II,,,,,
+HIT:HURT:2d6",,,UNIQUE|HAS_LITE_2|FORCE_SLEEP|TAKE_ITEM|OPEN_DOOR|BASH_DOOR|RES_TELE|HEAL|SLOW|TRAPS|BO_COLD|BA_POIS,,’n“¹‚Èìí‚Ì”X‚Å’n‹…N—ª‚ðŠé‚ÞƒWƒ…ƒ‰ƒ‹¯l‚Ì’·‚¾Bu”ŒNI¡‚©‚ç–½—ß‚ð‚·‚è‚ãIv,II,,,,,
 1090,,ƒAƒ‹ƒ_‚Ì‘n‘¢ŽåwƒCƒ‹[ƒ”ƒ@ƒ^[ƒ‹x,"Iluvatar, the Creator of Arda",P,W,0,-1,MAIAR,MAIAR,0x02,PALADIN,1090,MUNCHIKIN,CRUSADE,NONE,100,1,50,26210000,0,0,36721,150,NONE,NONE,25,20,100,0,0,0,0,28,28,28,28,28,28,5,4253,0,2733925,0,4253,0,2733925,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:30d9
 HIT:HURT:30d9
 HIT:HURT:30d9
@@ -8453,7 +8453,7 @@ SLASH:COLD:15d12",,ART:11:100%,UNIQUE|NOLDOR|SCARE|ACTIVE_TELEPORT|TELE_TO|DRAIN
 1112,,”¼ƒGƒ‹ƒt‚Ì‰p—YwƒGƒ‹ƒƒ“ƒhx,"Elrond, hero of half-elf.",h,y,0,-1,ELDAR,ELDAR,0x02,PALADIN,1112,PATIENT,CRUSADE,NONE,74,2,50,4678871,0,0,6428,95,NONE,NONE,12,30,100,150,0,0,15,28,28,28,28,28,28,5,210,0,113,0,210,0,113,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"SLASH:COLD:15d12
 SLASH:COLD:15d12
 SLASH:COLD:15d12
-SLASH:COLD:15d12",,ART:12:100%,UNIQUE|SMART|RES_TELE|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|FORCE_SLEEP|NO_CONF|NO_SLEEP|ESCORT|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE|SCARE|ACTIVE_TELEPORT|TELE_TO|DRAIN_MANA|BRAIN_SMASH|S_MONSTERS|TELE_AWAY|BO_COLD|BA_COLD|BO_ICEE|S_KIN|S_ANGEL|CAUSE_4|PSY_SPEAR|BA_LITE,,,,D'angband’Ç‰Áƒ†ƒj[ƒN,,,,
+SLASH:COLD:15d12",,ART:12:100%,UNIQUE|SMART|RES_TELE|HAS_LITE_2|OPEN_DOOR|BASH_DOOR|FORCE_SLEEP|NO_CONF|NO_SLEEP|IM_COLD|IM_POIS|IM_ACID|IM_ELEC|IM_FIRE|REGENERATE|SCARE|ACTIVE_TELEPORT|TELE_TO|DRAIN_MANA|BRAIN_SMASH|S_MONSTERS|TELE_AWAY|BO_COLD|BA_COLD|BO_ICEE|S_KIN|S_ANGEL|CAUSE_4|PSY_SPEAR|BA_LITE,,,,D'angband’Ç‰Áƒ†ƒj[ƒN,,,,
 1113,,‹â‚Ì¹ŽÒwƒgƒLx,"Toki, silvery savior",p,W,0,-1,HUMAN,HUMAN,0x02,MONK,NONE,NIMBLE,NONE,NONE,64,5,50,387661,0,0,0,0,NONE,NONE,4,13,50,0,0,0,10,28,28,28,28,28,28,5,203,0,109,0,203,0,109,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"PUNCH:HURT:15d15
 PUNCH:HURT:15d15
 PUNCH:TERRIFY:30d1
@@ -8640,7 +8640,7 @@ CLAW:HURT:3d3",,,FORCE_SLEEP|NONLIVING|SMART|INVISIBLE|PASS_WALL|CAN_FLY|IM_FIRE
 1160,,‰~ŠÂ‚Ì—_w‚Ü‚Ç‚©x,"Madoka, Goddess of Circulation",L,y,0,-1,HUMAN,HUMAN,0x01,RANGER,1160,ORDINARY,NATURE,LIFE,77,2,50,8731200,0,0,4324,1,NONE,NONE,15,20,20,0,0,0,50,28,28,28,28,28,28,5,0,0,0,0,164,0,48,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"TOUCH:EXP_80
 TOUCH:UN_POWER
 TOUCH:LOSE_DEX:2d12
-TOUCH:LOSE_DEX:2d12",,,LICH|UNIQUE|CAN_SPEAK|RES_TELE|FORCE_SLEEP|ESCORT|POWERFUL|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|PUELLA_MAGI|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|BRAIN_SMASH|TRAPS|BA_MANA|BO_MANA|BA_NETH|DISPEL|PSY_SPEAR|S_MONSTERS|S_UNDEAD|S_KIN|ANIM_DEAD,,”Þ—‚Í‚©‚Â‚ÄŽ©‚ç‚ªŠT”O‚Ìˆê•”‚Æ‚È‚é‚±‚Æ‚Å–‚–@­—‚ð“¦‚ê‚¦‚Ê”ßŒ€‚©‚ç‹~‚Á‚½B‚µ‚©‚µA‘½Œ³‰F’ˆ‚©‚ç‚Ì‰î“ü‚É‚æ‚è’˜‚Í•ö‚êAÄ‚Ñ–‚—‚ª¶‚Ü‚ê‚Â‚Â‚ ‚éB”Þ—‚ÍŽ©‚ç‚Æ–‚–@­—‚ð‚³‚ç‚É‰ß“‚Èíê‚É‹ì‚è—§‚Ä‚Ä‚Å‚àA‘S‚Ä‚ðC•œ‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢‹«‹ö‚É—§‚½‚³‚ê‚Ä‚¢‚éB,,#D'ang –‚–@­—‚Ü‚Ç‚©™ƒ}ƒMƒJ‚æ‚è’Ç‰Á,,,,
+TOUCH:LOSE_DEX:2d12",,,LICH|UNIQUE|CAN_SPEAK|RES_TELE|FORCE_SLEEP|POWERFUL|SMART|COLD_BLOOD|OPEN_DOOR|BASH_DOOR|IM_COLD|IM_POIS|RES_NETH|NO_CONF|NO_SLEEP|PUELLA_MAGI|BLINK|TELE_TO|BLIND|HOLD|CONF|SCARE|CAUSE_3|CAUSE_4|BRAIN_SMASH|TRAPS|BA_MANA|BO_MANA|BA_NETH|DISPEL|PSY_SPEAR|S_MONSTERS|S_UNDEAD|S_KIN|ANIM_DEAD,,”Þ—‚Í‚©‚Â‚ÄŽ©‚ç‚ªŠT”O‚Ìˆê•”‚Æ‚È‚é‚±‚Æ‚Å–‚–@­—‚ð“¦‚ê‚¦‚Ê”ßŒ€‚©‚ç‹~‚Á‚½B‚µ‚©‚µA‘½Œ³‰F’ˆ‚©‚ç‚Ì‰î“ü‚É‚æ‚è’˜‚Í•ö‚êAÄ‚Ñ–‚—‚ª¶‚Ü‚ê‚Â‚Â‚ ‚éB”Þ—‚ÍŽ©‚ç‚Æ–‚–@­—‚ð‚³‚ç‚É‰ß“‚Èíê‚É‹ì‚è—§‚Ä‚Ä‚Å‚àA‘S‚Ä‚ðC•œ‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢‹«‹ö‚É—§‚½‚³‚ê‚Ä‚¢‚éB,,#D'ang –‚–@­—‚Ü‚Ç‚©™ƒ}ƒMƒJ‚æ‚è’Ç‰Á,,,,
 1161,,‰¯•aŽÒwƒŠƒ“ƒXƒEƒBƒ“ƒhx,Rincewind the Chicken,p,D,0,-1,HUMAN,HUMAN,0x02,SORCERER,NONE,ORDINARY,NONE,NONE,22,1,50,8717,0,0,32,45,NONE,NONE,-1,0,10,0,0,0,255,12,17,14,11,12,11,5,167,0,56,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d6
 HIT:HURT:1d6",,,UNIQUE|CITIZEN|TAKE_ITEM|OPEN_DOOR|BASH_DOOR,,,,D'ang# •Ï‹ð‚Ü‚Å‚Ì“XŽå‚ðƒNƒŠ[ƒ`ƒƒ[ƒf[ƒ^‰»‚µ‚Ä“ÆŽ©Ý’è‚ð‰Á‚¦‚½‚à‚ÌB,,,,
 1162,,”w‚Ì’á‚¢wƒTƒ‹ƒ^ƒ“x,Sultan the Midget,p,D,0,-1,GNOME,GNOME,0x02,TOURIST,NONE,ORDINARY,ARCANE,NONE,7,1,50,233,0,0,89,54,NONE,NONE,-1,0,10,0,0,0,255,12,7,9,12,13,9,5,76,0,26,0,0,0,0,0,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,-1 ,"HIT:HURT:1d6
