@@ -1729,17 +1729,14 @@ errr Term_fresh(void)
 		}
 	}
 
-
 	/* Save the "cursor state" */
 	old->cu = scr->cu;
 	old->cv = scr->cv;
 	old->cx = scr->cx;
 	old->cy = scr->cy;
 
-
 	/* Actually flush the output */
 	Term_xtra(TERM_XTRA_FRESH, 0);
-
 
 	return SUCCESS;
 }

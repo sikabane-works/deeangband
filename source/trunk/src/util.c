@@ -5451,7 +5451,7 @@ void redraw(void)
 	if(has_trait(player_ptr, TRAIT_ANDROID)) calc_android_exp(player_ptr);
 	*/
 
-	for (j = 0; j < 8; j++)
+	for (j = 0; j < WINDOW_MAX; j++)
 	{
 		/* Dead window */
 		if(!angband_term[j]) continue;
