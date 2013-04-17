@@ -1224,11 +1224,6 @@ int calc_special_melee_priority(creature_type *creature_ptr, special_blow_type *
 
 int calc_action_power(creature_type *creature_ptr)
 {
-	if(!is_valid_creature(creature_ptr))
-	{
-		msg_warning("Invalid creature in calc_action_power()");
-		return 0;
-	}
 	return 100;
 }
 

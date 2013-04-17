@@ -608,7 +608,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 		}
 	}
 
-
 	/* Terminate buffer */
 	buf[n] = '\0';
 

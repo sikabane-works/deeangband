@@ -3601,6 +3601,7 @@ void format_weight(char *buf, int weight)
 
 void msg_warning(cptr message, ...)
 {
+	//TODO fix
 	va_list vp;
 	char buf[1024];
 
