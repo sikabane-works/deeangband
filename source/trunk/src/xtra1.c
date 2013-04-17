@@ -1732,9 +1732,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 static void calc_mana(creature_type *creature_ptr, bool message)
 {
 	int		msp, levels, cur_wgt, max_wgt;
-
 	object_type	*object_ptr;
-
 	levels = creature_ptr->lev;
 
 	switch(creature_ptr->class_idx)

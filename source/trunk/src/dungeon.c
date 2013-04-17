@@ -1378,15 +1378,13 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 /* Handle timeout every 10 game turns */
 static void process_world_aux_timeout(creature_type *creature_ptr)
 {
-	/*
 	int i;
 	const int dec_count = 1;
-	*/
 	if(!is_valid_creature(creature_ptr)) return;
 
 	//*** Timeout Various Things ***//
 
-	/* TODO too heavy!
+	///*TODO too heavy!
 	for(i = 0; i < MAX_TRAITS; i++)
 	{
 		if(creature_ptr->timed_trait[i] > 0 && creature_ptr->timed_trait[i] < PERMANENT_TIMED)
@@ -1394,7 +1392,6 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 			(void)set_timed_trait(creature_ptr, i, creature_ptr->timed_trait[i] - dec_count, TRUE);
 		}
 	}
-	*/
 
 	// Handle "sleep"
 	if(has_trait(creature_ptr, TRAIT_SLEPT))
