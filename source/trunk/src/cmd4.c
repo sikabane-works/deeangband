@@ -756,149 +756,6 @@ void do_cmd_messages(int num_now)
 	screen_load();
 }
 
-
-
-// Number of cheating options
-#define CHEAT_MAX 8
-
-// Cheating options
-static option_type cheat_info[CHEAT_MAX] =
-{
-#ifdef JP
-	{ &cheat_peek,		FALSE,	255,	0x01, 0x00, "cheat_peek",		"アイテムの生成をのぞき見る"},
-	{ &cheat_hear,		FALSE,	255,	0x02, 0x00, "cheat_hear",		"クリーチャーの生成をのぞき見る"},
-	{ &cheat_room,		FALSE,	255,	0x04, 0x00, "cheat_room",		"ダンジョンの生成をのぞき見る"},
-	{ &cheat_xtra,		FALSE,	255,	0x08, 0x00, "cheat_xtra",		"その他の事をのぞき見る"},
-	{ &cheat_know,		FALSE,	255,	0x10, 0x00, "cheat_know",		"完全なクリーチャーの思い出を知る"},
-	{ &cheat_live,		FALSE,	255,	0x20, 0x00, "cheat_live",		"死を回避することを可能にする"},
-	{ &cheat_save,		FALSE,	255,	0x40, 0x00, "cheat_save",		"死んだ時セーブするか確認する"},
-	{ &wizard,			TRUE,	255,	0x80, 0x00, "wizard",			"ウィザードモード"},
-#else
-	{ &cheat_peek,		FALSE,	255,	0x01, 0x00, "cheat_peek",		"Peek into object creation"},
-	{ &cheat_hear,		FALSE,	255,	0x02, 0x00, "cheat_hear",		"Peek into creature creation"},
-	{ &cheat_room,		FALSE,	255,	0x04, 0x00, "cheat_room",		"Peek into dungeon creation"},
-	{ &cheat_xtra,		FALSE,	255,	0x08, 0x00, "cheat_xtra",		"Peek into something else"},
-	{ &cheat_know,		FALSE,	255,	0x10, 0x00, "cheat_know",		"Know complete creature info"},
-	{ &cheat_live,		FALSE,	255,	0x20, 0x00, "cheat_live",		"Allow player to avoid death"},
-	{ &cheat_save,		FALSE,	255,	0x40, 0x00, "cheat_save",		"Ask for saving death"},
-	{ &wizard,			TRUE,	255,	0x80, 0x00, "wizard",			"Wizard"}
-#endif
-};
-
-// Interact with some options for cheating
-static void do_cmd_options_cheat(void)
-{
-	char ch, buf[80];
-	int i, k = 0, n = CHEAT_MAX;
-
-	Term_clear();
-
-	/* Interact with the player */
-	while (TRUE)
-	{
-		DIRECTION dir;
-
-		prt(buf, 0, 0);
-
-#ifdef JP
-		/* 詐欺オプションをうっかりいじってしまう人がいるようなので注意 */
-		prt(MES_OPTION_WARN_CHEAT2, 11, 8);
-#endif
-		/* Display the options */
-		for (i = 0; i < n; i++)
-		{
-			byte a = TERM_WHITE;
-
-			/* Color current option */
-			if(i == k) a = TERM_L_BLUE;
-
-			/* Display the option text */
-			sprintf(buf, "%-48s:%6s (%s)", cheat_info[i].o_desc, (*cheat_info[i].o_var ? KW_YES : KW_NO), cheat_info[i].o_text);
-			c_prt(a, buf, i + 2, 0);
-		}
-
-		/* Hilite current option */
-		move_cursor(k + 2, 50);
-
-		ch = inkey();
-
-		/*
-		 * HACK - Try to translate the key into a direction
-		 * to allow using the roguelike keys for navigation.
-		 */
-		dir = get_keymap_dir(ch);
-		if((dir == 2) || (dir == 4) || (dir == 6) || (dir == 8))
-			ch = I2D(dir);
-
-		/* Analyze */
-		switch (ch)
-		{
-			case ESCAPE:
-			{
-				return;
-			}
-
-			case '-':
-			case '8':
-			{
-				k = (n + k - 1) % n;
-				break;
-			}
-
-			case ' ':
-			case '\n':
-			case '\r':
-			case '2':
-			{
-				k = (k + 1) % n;
-				break;
-			}
-
-			case 'y':
-			case 'Y':
-			case '6':
-			{
-				if(!noscore)
-#ifdef JP
-					write_diary(DIARY_BUNSHOU, 0, "詐欺オプションをONにして、スコアを残せなくなった。");
-#else
-					write_diary(DIARY_BUNSHOU, 0, "give up sending score to use cheating options.");
-#endif
-				noscore |= (cheat_info[k].o_set * 256 + cheat_info[k].o_bit);
-				(*cheat_info[k].o_var) = TRUE;
-				k = (k + 1) % n;
-				break;
-			}
-
-			case 'n':
-			case 'N':
-			case '4':
-			{
-				(*cheat_info[k].o_var) = FALSE;
-				k = (k + 1) % n;
-				break;
-			}
-
-			case '?':
-			{
-				strnfmt(buf, sizeof(buf), "%s#%s", TEXT_FILES_OPTION, cheat_info[k].o_text);
-				/* Peruse the help file */
-				(void)show_file(TRUE, buf, NULL, 0, 0);
-
-				Term_clear(); 
-				break;
-			}
-
-			default:
-			{
-				bell();
-				break;
-			}
-		}
-	}
-}
-
-
 static option_type autosave_info[2] =
 {
 #ifdef JP
@@ -1056,6 +913,8 @@ void do_cmd_options_aux(int page, cptr info)
 	char option_caption[25][80];
 	int opt[24];
 	int n = 0;
+
+	if(page == OPT_PAGE_DEBUG) prt(MES_OPTION_WARN_CHEAT2, 11, 8);
 
 	se_info.mode = GET_SE_LEFT_RIGHT_SWITCHING;
 	se_info.detail = NULL;
@@ -1405,7 +1264,7 @@ void do_cmd_options(void)
 					bell();
 					break;
 				}
-				do_cmd_options_cheat();
+				do_cmd_options_aux(OPT_PAGE_DEBUG, "Input Options");
 				break;
 			}
 
