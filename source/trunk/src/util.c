@@ -5453,13 +5453,13 @@ void redraw(void)
 
 	for (j = 0; j < WINDOW_MAX; j++)
 	{
-		/* Dead window */
-		if(!angband_term[j]) continue;
-
-		Term_activate(angband_term[j]);
-		Term_redraw();
-		Term_fresh();
-		Term_activate(old);
+		if(angband_term[j])
+		{
+			Term_activate(angband_term[j]);
+			Term_redraw();
+			Term_fresh();
+			Term_activate(old);
+		}
 	}
 }
 
