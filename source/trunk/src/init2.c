@@ -1399,7 +1399,7 @@ static errr init_other(void)
 	/*** Pre-allocate space for the "format()" buffer ***/
 
 	/* Hack -- Just call the "format()" function */
-	(void)format("%s (%s).", "Mr.Hoge", MAINTAINER);
+	(void)format("%s (%s).", MAINTAINER_NAME, MAINTAINER_MAIL);
 
 
 	return SUCCESS;

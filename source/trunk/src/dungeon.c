@@ -4638,7 +4638,7 @@ void play_game(bool new_game)
 	/* Initialise the resize hooks */
 	angband_term[0]->resize_hook = resize_map;
 
-	for (i = 1; i < 8; i++)
+	for (i = 1; i < WINDOW_MAX; i++)
 	{
 		/* Does the term exist? */
 		if(angband_term[i])

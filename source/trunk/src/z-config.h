@@ -276,7 +276,8 @@
 // OPTION: Person to bother if something goes wrong.
 // #define MAINTAINER "rr9@angband.org"
 // #define MAINTAINER "echizen@users.sourceforge.jp"
-#define MAINTAINER "deskull@users.sourceforge.jp"
+#define MAINTAINER_NAME "Deskull"
+#define MAINTAINER_MAIL "deskull@users.sourceforge.jp"
 
 #ifdef JP
 #ifndef USE_FONTSET
