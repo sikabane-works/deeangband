@@ -2591,17 +2591,6 @@ option_type option_info[] =
 	{ &quick_messages, TRUE, OPT_PAGE_INPUT, 0, 1, "quick_messages", "クイック・メッセージを使用する" },
 	{ &auto_more,     FALSE, OPT_PAGE_INPUT, 2, 6, "auto_more",      "キー待ちしないで連続でメッセージを表示する" },
 	{ &command_menu,  TRUE, OPT_PAGE_INPUT, 2, 7, "command_menu",   "メニューによりコマンド選択を有効にする" },
-#else
-	{ &rogue_like_commands, FALSE, OPT_PAGE_INPUT, 0, 0, "rogue_like_commands", "Rogue-like commands" },
-	{ &always_pickup, FALSE, OPT_PAGE_INPUT, 0, 5, "always_pickup",  "Pick things up by default" },
-	{ &carry_query_flag, FALSE, OPT_PAGE_INPUT, 0, 3, "carry_query_flag", "Prompt before picking things up" },
-	{ &quick_messages, TRUE, OPT_PAGE_INPUT, 0, 1, "quick_messages", "Activate quick messages" },
-	{ &auto_more,     FALSE, OPT_PAGE_INPUT, 2, 6, "auto_more",      "Automatically clear '-more-' prompts" },
-	{ &command_menu,  TRUE, OPT_PAGE_INPUT, 2, 7, "command_menu",   "Enable command selection menu" },
-#endif
-
-
-#ifdef JP
 	{ &other_query_flag, FALSE, OPT_PAGE_INPUT, 0, 2, "other_query_flag", "床上のアイテムを使用するときに確認する" },
 	{ &use_old_target, FALSE, OPT_PAGE_INPUT, 0, 4, "use_old_target", "常に以前のターゲットを指定する" },
 	{ &always_repeat, TRUE, OPT_PAGE_INPUT, 0, 6, "always_repeat",  "コマンド自動繰り返し" },
@@ -2609,6 +2598,12 @@ option_type option_info[] =
 	{ &confirm_wear,  TRUE, OPT_PAGE_INPUT, 5, 4, "confirm_wear",   "呪われた物を装備する時確認する" },
 	{ &confirm_quest, TRUE, OPT_PAGE_INPUT, 1, 9, "confirm_quest",  "クエストを諦めて階段で逃げる前に確認する" },
 #else
+	{ &rogue_like_commands, FALSE, OPT_PAGE_INPUT, 0, 0, "rogue_like_commands", "Rogue-like commands" },
+	{ &always_pickup, FALSE, OPT_PAGE_INPUT, 0, 5, "always_pickup",  "Pick things up by default" },
+	{ &carry_query_flag, FALSE, OPT_PAGE_INPUT, 0, 3, "carry_query_flag", "Prompt before picking things up" },
+	{ &quick_messages, TRUE, OPT_PAGE_INPUT, 0, 1, "quick_messages", "Activate quick messages" },
+	{ &auto_more,     FALSE, OPT_PAGE_INPUT, 2, 6, "auto_more",      "Automatically clear '-more-' prompts" },
+	{ &command_menu,  TRUE, OPT_PAGE_INPUT, 2, 7, "command_menu",   "Enable command selection menu" },
 	{ &other_query_flag, FALSE, OPT_PAGE_INPUT, 0, 2, "other_query_flag", "Prompt for floor item selection" },
 	{ &use_old_target, FALSE, OPT_PAGE_INPUT, 0, 4, "use_old_target", "Use old target by default" },
 	{ &always_repeat, TRUE, OPT_PAGE_INPUT, 0, 6, "always_repeat",  "Repeat obvious commands" },
@@ -2617,28 +2612,27 @@ option_type option_info[] =
 	{ &confirm_quest, TRUE, OPT_PAGE_INPUT, 1, 9, "confirm_quest",  "Prompt before exiting a quest level" },
 #endif
 
-
 #ifdef JP
 	{ &target_pet,    FALSE, OPT_PAGE_INPUT, 2, 5, "target_pet",     "ペットをターゲットにする" },
 	{ &easy_disarm,   TRUE, OPT_PAGE_INPUT, 5, 8, "easy_disarm",    "自動的に罠を解除する" },
 	{ &use_command,   FALSE, OPT_PAGE_INPUT, 5, 10, "use_command",    "「使う(a)」コマンドでアイテムを何でも使える" },
 	{ &over_exert,    FALSE, OPT_PAGE_INPUT, 0, 29, "over_exert",     "MPが足りなくても魔法に挑戦する" },
+	{ &numpad_as_cursorkey, TRUE, OPT_PAGE_INPUT, 2, 31, "numpad_as_cursorkey", "エディタ内でテンキーをカーソルキーとして使う" },
 #else
 	{ &target_pet,    FALSE, OPT_PAGE_INPUT, 2, 5, "target_pet",     "Allow targetting pets" },
 	{ &easy_disarm,   TRUE, OPT_PAGE_INPUT, 5, 8, "easy_disarm",    "Automatically disarm traps" },
 	{ &use_command,   FALSE, OPT_PAGE_INPUT, 5, 10, "use_command",    "Allow unified use command" },
 	{ &over_exert,    FALSE, OPT_PAGE_INPUT, 0, 29, "over_exert",     "Allow casting spells when short of mana" },
+	{ &numpad_as_cursorkey, TRUE, OPT_PAGE_INPUT, 2, 31, "numpad_as_cursorkey", "Use numpad keys as cursor keys in editor mode" },
 #endif
 
 #ifdef JP
-	{ &numpad_as_cursorkey, TRUE, OPT_PAGE_INPUT, 2, 31, "numpad_as_cursorkey", "エディタ内でテンキーをカーソルキーとして使う" },
 	{ &center_player, FALSE, OPT_PAGE_MAPSCREEN, 5, 11, "center_player",  "常にプレイヤーを中心に置く(*遅い*)" },
 	{ &center_running, TRUE, OPT_PAGE_MAPSCREEN, 5, 12, "center_running", "走っている時でも中心に置く" },
 	{ &view_yellow_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 28, "view_yellow_lite", "明かりの範囲を特別な色で表示する" },
 	{ &view_bright_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 29, "view_bright_lite", "視界の範囲を特別な色で表示する" },
 	{ &view_granite_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 30, "view_granite_lite", "壁を特別な色で表示する(重い)" },
 #else
-	{ &numpad_as_cursorkey, TRUE, OPT_PAGE_INPUT, 2, 31, "numpad_as_cursorkey", "Use numpad keys as cursor keys in editor mode" },
 	{ &center_player, FALSE, OPT_PAGE_MAPSCREEN, 5, 11, "center_player",  "Center map while walking (*slow*)" },
 	{ &center_running, TRUE, OPT_PAGE_MAPSCREEN, 5, 12, "center_running", "Centering even while running" },
 	{ &view_yellow_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 28, "view_yellow_lite", "Use special colors for torch-lit grids" },
@@ -2653,6 +2647,9 @@ option_type option_info[] =
 	{ &view_unsafe_grids, FALSE, OPT_PAGE_MAPSCREEN, 1, 8, "view_unsafe_grids", "トラップ感知済みでない場所を表示する" },
 	{ &view_reduce_view, FALSE, OPT_PAGE_MAPSCREEN, 1, 17, "view_reduce_view", "街では視野を狭くする" },
 	{ &fresh_before,  TRUE, OPT_PAGE_MAPSCREEN, 1, 23, "fresh_before",   "連続コマンド中に画面を再描画し続ける" },
+	{ &fresh_after,   FALSE, OPT_PAGE_MAPSCREEN, 1, 24, "fresh_after",    "コマンド後に画面を常に再描画し続ける" },
+	{ &fresh_message, FALSE, OPT_PAGE_MAPSCREEN, 1, 25, "fresh_message",  "メッセージの後に画面を再描画する" },
+	{ &hilite_player, FALSE, OPT_PAGE_MAPSCREEN, 1, 27, "hilite_player",  "プレイヤーにカーソルを合わせる" },
 #else
 	{ &view_special_lite, TRUE, OPT_PAGE_MAPSCREEN, 1, 31, "view_special_lite", "Use special colors for floor grids (slow)" },
 	{ &view_perma_grids, TRUE, OPT_PAGE_MAPSCREEN, 1, 6, "view_perma_grids", "Map remembers all perma-lit grids" },
@@ -2660,13 +2657,6 @@ option_type option_info[] =
 	{ &view_unsafe_grids, FALSE, OPT_PAGE_MAPSCREEN, 1, 8, "view_unsafe_grids", "Map marked by detect traps" },
 	{ &view_reduce_view, FALSE, OPT_PAGE_MAPSCREEN, 1, 17, "view_reduce_view", "Reduce view-radius in town" },
 	{ &fresh_before,  TRUE, OPT_PAGE_MAPSCREEN, 1, 23, "fresh_before",   "Flush output while continuous command" },
-#endif
-
-#ifdef JP
-	{ &fresh_after,   FALSE, OPT_PAGE_MAPSCREEN, 1, 24, "fresh_after",    "コマンド後に画面を常に再描画し続ける" },
-	{ &fresh_message, FALSE, OPT_PAGE_MAPSCREEN, 1, 25, "fresh_message",  "メッセージの後に画面を再描画する" },
-	{ &hilite_player, FALSE, OPT_PAGE_MAPSCREEN, 1, 27, "hilite_player",  "プレイヤーにカーソルを合わせる" },
-#else
 	{ &fresh_after,   FALSE, OPT_PAGE_MAPSCREEN, 1, 24, "fresh_after",    "Flush output after creature's move" },
 	{ &fresh_message, FALSE, OPT_PAGE_MAPSCREEN, 1, 25, "fresh_message",  "Flush output after every message" },
 	{ &hilite_player, FALSE, OPT_PAGE_MAPSCREEN, 1, 27, "hilite_player",  "Hilite the player with the cursor" },
@@ -2677,12 +2667,6 @@ option_type option_info[] =
 #ifdef JP
 	{ &plain_descriptions, TRUE, OPT_PAGE_TEXT, 5, 1, "plain_descriptions", "アイテムの記述を簡略にする" },
 	{ &plain_pickup,  FALSE, OPT_PAGE_TEXT, 6, 6, "plain_pickup",   "「拾った」メッセージを簡略化する" },
-#else
-	{ &plain_descriptions, TRUE, OPT_PAGE_TEXT, 5, 1, "plain_descriptions", "Plain object descriptions" },
-	{ &plain_pickup,  FALSE, OPT_PAGE_JAPANESE_ONLY, 6, 6, "plain_pickup",   "Plain pickup messages(japanese only)" },
-#endif
-
-#ifdef JP
 	{ &show_item_graph, TRUE, OPT_PAGE_TEXT, 2, 0, "show_item_graph", "アイテムのシンボルを表示する" },
 	{ &equippy_chars, TRUE, OPT_PAGE_TEXT, 1, 12, "equippy_chars",  "ステータスに文字で装備を表示する" },
 	{ &compress_savefile, FALSE, OPT_PAGE_TEXT, 1, 26, "compress_savefile", "セーブ・ファイル中のメッセージを圧縮する" },
@@ -2690,6 +2674,8 @@ option_type option_info[] =
 	{ &abbrev_all,    FALSE, OPT_PAGE_TEXT, 2, 11, "abbrev_all",     "アイテムに全ての耐性/能力の略称を刻む" },
 	{ &ignore_unview, FALSE, OPT_PAGE_TEXT, 2, 13, "ignore_unview",  "視界外のクリーチャーの行動を表示しない" },
 #else
+	{ &plain_descriptions, TRUE, OPT_PAGE_TEXT, 5, 1, "plain_descriptions", "Plain object descriptions" },
+	{ &plain_pickup,  FALSE, OPT_PAGE_JAPANESE_ONLY, 6, 6, "plain_pickup",   "Plain pickup messages(japanese only)" },
 	{ &show_item_graph, TRUE, OPT_PAGE_TEXT, 2, 0, "show_item_graph", "Show items graphics" },
 	{ &equippy_chars, TRUE, OPT_PAGE_TEXT, 1, 12, "equippy_chars",  "Display 'equippy' chars" },
 	{ &compress_savefile, FALSE, OPT_PAGE_TEXT, 1, 26, "compress_savefile", "Compress messages in savefiles" },
@@ -2708,6 +2694,7 @@ option_type option_info[] =
 	{ &empty_levels,  TRUE, OPT_PAGE_GAMEPLAY, 0, 31, "empty_levels",   "空っぽの「アリーナ」レベルの生成を可能にする" },
 	{ &bound_walls_perm, FALSE, OPT_PAGE_GAMEPLAY, 2, 1, "bound_walls_perm", "ダンジョンの外壁を永久岩にする" },
 	{ &last_words,    TRUE, OPT_PAGE_GAMEPLAY, 0, 28, "last_words",     "キャラクターが死んだ時遺言をのこす" },
+	{ &allow_debug_opts, FALSE, OPT_PAGE_GAMEPLAY, 6, 11, "allow_debug_opts", "デバッグ/詐欺オプションを許可する" },
 #else
 	{ &stack_force_notes, TRUE, OPT_PAGE_GAMEPLAY, 0, 8, "stack_force_notes", "Merge inscriptions when stacking" },
 	{ &stack_force_costs, FALSE, OPT_PAGE_GAMEPLAY, 0, 9, "stack_force_costs", "Merge discounts when stacking" },
@@ -2716,6 +2703,7 @@ option_type option_info[] =
 	{ &empty_levels,  TRUE, OPT_PAGE_GAMEPLAY, 0, 31, "empty_levels",   "Allow empty 'arena' levels" },
 	{ &bound_walls_perm, FALSE, OPT_PAGE_GAMEPLAY, 2, 1, "bound_walls_perm", "Boundary walls become 'permanent wall'" },
 	{ &last_words,    TRUE, OPT_PAGE_GAMEPLAY, 0, 28, "last_words",     "Leave last words when your character dies" },
+	{ &allow_debug_opts, FALSE, OPT_PAGE_GAMEPLAY, 6, 11, "allow_debug_opts", "Allow use of debug/cheat options" },
 #endif
 
 #ifdef WORLD_SCORE
@@ -2724,12 +2712,6 @@ option_type option_info[] =
 #else
 	{ &send_score,    TRUE, OPT_PAGE_GAMEPLAY, 4, 6, "send_score",     "Send score dump to the world score server" },
 #endif
-#endif
-
-#ifdef JP
-	{ &allow_debug_opts, FALSE, OPT_PAGE_GAMEPLAY, 6, 11, "allow_debug_opts", "デバッグ/詐欺オプションを許可する" },
-#else
-	{ &allow_debug_opts, FALSE, OPT_PAGE_GAMEPLAY, 6, 11, "allow_debug_opts", "Allow use of debug/cheat options" },
 #endif
 
 	/*** Disturbance ***/
@@ -2742,17 +2724,6 @@ option_type option_info[] =
 	{ &flush_failure, TRUE, OPT_PAGE_DISTURBANCE, 1, 20, "flush_failure",  "様々なミス発生時に入力をクリアする" },
 	{ &flush_disturb, FALSE, OPT_PAGE_DISTURBANCE, 1, 21, "flush_disturb",  "障害発生時に入力をクリアする" },
 	{ &disturb_move,  FALSE, OPT_PAGE_DISTURBANCE, 0, 20, "disturb_move",   "どこのクリーチャーが動いても行動を中止する" },
-#else
-	{ &find_ignore_stairs, FALSE, OPT_PAGE_DISTURBANCE, 0, 16, "find_ignore_stairs", "Run past stairs" },
-	{ &find_ignore_doors, TRUE, OPT_PAGE_DISTURBANCE, 0, 17, "find_ignore_doors", "Run through open doors" },
-	{ &find_cut,      FALSE, OPT_PAGE_DISTURBANCE, 0, 18, "find_cut",       "Run past known corners" },
-	{ &check_abort,   TRUE, OPT_PAGE_DISTURBANCE, 1, 18, "check_abort",    "Check for user abort while continuous command" },
-	{ &flush_failure, TRUE, OPT_PAGE_DISTURBANCE, 1, 20, "flush_failure",  "Flush input on various failures" },
-	{ &flush_disturb, FALSE, OPT_PAGE_DISTURBANCE, 1, 21, "flush_disturb",  "Flush input whenever disturbed" },
-	{ &disturb_move,  FALSE, OPT_PAGE_DISTURBANCE, 0, 20, "disturb_move",   "Disturb whenever any creature moves" },
-#endif
-
-#ifdef JP
 	{ &disturb_high,  FALSE, OPT_PAGE_DISTURBANCE, 1, 3, "disturb_high",   "レベルの高いクリーチャーが動いたら行動を中止する" },
 	{ &disturb_near,  TRUE, OPT_PAGE_DISTURBANCE, 0, 21, "disturb_near",   "視界内のクリーチャーが動いたら行動を中止する" },
 	{ &disturb_pets,  FALSE, OPT_PAGE_DISTURBANCE, 5, 6, "disturb_pets",   "視界内のペットが動いたら行動を中止する" },
@@ -2763,6 +2734,13 @@ option_type option_info[] =
 	{ &disturb_trap_detect, TRUE, OPT_PAGE_DISTURBANCE, 0, 27, "disturb_trap_detect", "トラップ感知範囲外に出る直前に行動を中止する" },
 	{ &alert_trap_detect, FALSE, OPT_PAGE_DISTURBANCE, 0, 25, "alert_trap_detect", "トラップ感知範囲外に出る直前に警告する" },
 #else
+	{ &find_ignore_stairs, FALSE, OPT_PAGE_DISTURBANCE, 0, 16, "find_ignore_stairs", "Run past stairs" },
+	{ &find_ignore_doors, TRUE, OPT_PAGE_DISTURBANCE, 0, 17, "find_ignore_doors", "Run through open doors" },
+	{ &find_cut,      FALSE, OPT_PAGE_DISTURBANCE, 0, 18, "find_cut",       "Run past known corners" },
+	{ &check_abort,   TRUE, OPT_PAGE_DISTURBANCE, 1, 18, "check_abort",    "Check for user abort while continuous command" },
+	{ &flush_failure, TRUE, OPT_PAGE_DISTURBANCE, 1, 20, "flush_failure",  "Flush input on various failures" },
+	{ &flush_disturb, FALSE, OPT_PAGE_DISTURBANCE, 1, 21, "flush_disturb",  "Flush input whenever disturbed" },
+	{ &disturb_move,  FALSE, OPT_PAGE_DISTURBANCE, 0, 20, "disturb_move",   "Disturb whenever any creature moves" },
 	{ &disturb_high,  FALSE, OPT_PAGE_DISTURBANCE, 1, 3, "disturb_high",   "Disturb whenever high-level creature moves" },
 	{ &disturb_near,  TRUE, OPT_PAGE_DISTURBANCE, 0, 21, "disturb_near",   "Disturb whenever viewable creature moves" },
 	{ &disturb_pets,  FALSE, OPT_PAGE_DISTURBANCE, 5, 6, "disturb_pets",   "Disturb when visible pets move" },
@@ -2857,23 +2835,23 @@ option_type option_info[] =
 #endif
 
 #ifdef JP
-	{ &cheat_peek,		FALSE,	OPT_PAGE_DEBUG,	10, 0x00, "cheat_peek",		"アイテムの生成をのぞき見る"},
-	{ &cheat_hear,		FALSE,	OPT_PAGE_DEBUG,	10, 0x01, "cheat_hear",		"クリーチャーの生成をのぞき見る"},
-	{ &cheat_room,		FALSE,	OPT_PAGE_DEBUG, 10, 0x02, "cheat_room",		"ダンジョンの生成をのぞき見る"},
-	{ &cheat_xtra,		FALSE,	OPT_PAGE_DEBUG,	10, 0x03, "cheat_xtra",		"その他の事をのぞき見る"},
-	{ &cheat_know,		FALSE,	OPT_PAGE_DEBUG,	10, 0x04, "cheat_know",		"完全なクリーチャーの思い出を知る"},
-	{ &cheat_live,		FALSE,	OPT_PAGE_DEBUG,	10, 0x05, "cheat_live",		"死を回避することを可能にする"},
-	{ &cheat_save,		FALSE,	OPT_PAGE_DEBUG,	10, 0x06, "cheat_save",		"死んだ時セーブするか確認する"},
-	{ &wizard,			TRUE,	OPT_PAGE_DEBUG,	10, 0x07, "wizard",			"ウィザードモード"},
+	{ &cheat_peek,		FALSE,	OPT_PAGE_DEBUG,	10, 0, "cheat_peek",		"アイテムの生成をのぞき見る"},
+	{ &cheat_hear,		FALSE,	OPT_PAGE_DEBUG,	10, 1, "cheat_hear",		"クリーチャーの生成をのぞき見る"},
+	{ &cheat_room,		FALSE,	OPT_PAGE_DEBUG, 10, 2, "cheat_room",		"ダンジョンの生成をのぞき見る"},
+	{ &cheat_xtra,		FALSE,	OPT_PAGE_DEBUG,	10, 3, "cheat_xtra",		"その他の事をのぞき見る"},
+	{ &cheat_know,		FALSE,	OPT_PAGE_DEBUG,	10, 4, "cheat_know",		"完全なクリーチャーの思い出を知る"},
+	{ &cheat_live,		FALSE,	OPT_PAGE_DEBUG,	10, 5, "cheat_live",		"死を回避することを可能にする"},
+	{ &cheat_save,		FALSE,	OPT_PAGE_DEBUG,	10, 6, "cheat_save",		"死んだ時セーブするか確認する"},
+	{ &wizard,			TRUE,	OPT_PAGE_DEBUG,	10, 7, "wizard",			"ウィザードモード"},
 #else
-	{ &cheat_peek,		FALSE,	OPT_PAGE_DEBUG,	10, 0x00, "cheat_peek",		"Peek into object creation"},
-	{ &cheat_hear,		FALSE,	OPT_PAGE_DEBUG,	10, 0x01, "cheat_hear",		"Peek into creature creation"},
-	{ &cheat_room,		FALSE,	OPT_PAGE_DEBUG, 10, 0x02, "cheat_room",		"Peek into dungeon creation"},
-	{ &cheat_xtra,		FALSE,	OPT_PAGE_DEBUG,	10, 0x03, "cheat_xtra",		"Peek into something else"},
-	{ &cheat_know,		FALSE,	OPT_PAGE_DEBUG,	10, 0x04, "cheat_know",		"Know complete creature info"},
-	{ &cheat_live,		FALSE,	OPT_PAGE_DEBUG,	10, 0x05, "cheat_live",		"Allow player to avoid death"},
-	{ &cheat_save,		FALSE,	OPT_PAGE_DEBUG,	10, 0x06, "cheat_save",		"Ask for saving death"},
-	{ &wizard,			TRUE,	OPT_PAGE_DEBUG,	10, 0x07, "wizard",			"Wizard"}
+	{ &cheat_peek,		FALSE,	OPT_PAGE_DEBUG,	10, 0, "cheat_peek",		"Peek into object creation"},
+	{ &cheat_hear,		FALSE,	OPT_PAGE_DEBUG,	10, 1, "cheat_hear",		"Peek into creature creation"},
+	{ &cheat_room,		FALSE,	OPT_PAGE_DEBUG, 10, 2, "cheat_room",		"Peek into dungeon creation"},
+	{ &cheat_xtra,		FALSE,	OPT_PAGE_DEBUG,	10, 3, "cheat_xtra",		"Peek into something else"},
+	{ &cheat_know,		FALSE,	OPT_PAGE_DEBUG,	10, 4, "cheat_know",		"Know complete creature info"},
+	{ &cheat_live,		FALSE,	OPT_PAGE_DEBUG,	10, 5, "cheat_live",		"Allow player to avoid death"},
+	{ &cheat_save,		FALSE,	OPT_PAGE_DEBUG,	10, 6, "cheat_save",		"Ask for saving death"},
+	{ &wizard,			TRUE,	OPT_PAGE_DEBUG,	10, 7, "wizard",			"Wizard"}
 #endif
 
 
