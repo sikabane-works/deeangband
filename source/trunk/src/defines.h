@@ -1813,7 +1813,6 @@
 
 /*** Object flag values ***/
 
-
 // Chest trap flags (see "tables.c")
 #define CHEST_LOSE_STR          0x0001
 #define CHEST_LOSE_CON          0x0002

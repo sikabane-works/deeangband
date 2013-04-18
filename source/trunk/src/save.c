@@ -98,6 +98,7 @@ static void wr_object(object_type *object_ptr)
 	WRITE_COODINATES(object_ptr->fx);
 
 	WRITE_PVAL(object_ptr->pval);
+	WRITE_CHEST_MODE(object_ptr->chest_mode);
 	WRITE_PERCENT(object_ptr->discount);
 	WRITE_QUANTITY(object_ptr->number);
 	wr_s32b(object_ptr->volume);

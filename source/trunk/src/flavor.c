@@ -2115,20 +2115,12 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			{
 				case 0:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(é{è˘)");
-#else
-					t = object_desc_str(t, " (Locked)");
-#endif
+					t = object_desc_str(t, MES_CHEST_STAT_LOCKED);
 					break;
 				}
 				case CHEST_LOSE_STR:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(ì≈êj)");
-#else
-					t = object_desc_str(t, " (Poison Needle)");
-#endif
+					t = object_desc_str(t, MES_CHEST_STAT_LOST_STR);
 					break;
 				}
 				case CHEST_LOSE_CON:

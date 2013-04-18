@@ -178,6 +178,10 @@ typedef s16b PVAL;
 #define READ_PVAL(VALUE) rd_s16b((PVAL *)VALUE);
 #define WRITE_PVAL(VALUE) wr_s16b((PVAL)VALUE);
 
+typedef s16b CHEST_MODE;
+#define READ_CHEST_MODE(VALUE) rd_s16b((CHEST_MODE *)VALUE);
+#define WRITE_CHEST_MODE(VALUE) wr_s16b((CHEST_MODE)VALUE);
+
 typedef byte COLOR_ID;
 #define READ_COLOR_ID(VALUE) rd_s32b((COLOR_ID *)VALUE);
 #define WRITE_COLOR_ID(VALUE) wr_s32b((COLOR_ID)VALUE);
@@ -875,6 +879,7 @@ struct object_type
 
 	STAT stat_val[STAT_MAX]; /* Stat */
 	PVAL pval; /* Item extra-parameter */
+	CHEST_MODE chest_mode; /* Chest status */
 
 	PERCENT discount; /* Discount (if any) */
 

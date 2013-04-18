@@ -3944,9 +3944,13 @@ static cptr desc_stat_neg[] =
 #define MES_CHEST_STAT_EMPTY "(ãÛ)"
 #define MES_CHEST_STAT_DISARMED "(âèúçœ)"
 #define MES_CHEST_STAT_UNLOCKED "(îÒé{è˘)"
+#define MES_CHEST_STAT_LOCKED "(é{è˘)"
+#define MES_CHEST_STAT_LOST_STR "(ì≈êj)"
 #else
 #define MES_CHEST_STAT_EMPTY "(empty)"
 #define MES_CHEST_STAT_DISARMED "(disarmed)"
 #define MES_CHEST_STAT_UNLOCKED "(unlocked)"
+#define MES_CHEST_STAT_LOCKED "(locked)"
+#define MES_CHEST_STAT_LOST_STR "(poison needle)"
 #endif
 
