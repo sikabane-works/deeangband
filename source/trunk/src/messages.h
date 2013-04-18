@@ -3946,11 +3946,15 @@ static cptr desc_stat_neg[] =
 #define MES_CHEST_STAT_UNLOCKED "(非施錠)"
 #define MES_CHEST_STAT_LOCKED "(施錠)"
 #define MES_CHEST_STAT_POISON_NEEDLE "(毒針)"
+#define MES_CHEST_STAT_GAS_TRAP "(ガス・トラップ)"
+#define MES_CHEST_STAT_BOMB "(爆発装置)"
 #else
 #define MES_CHEST_STAT_EMPTY "(empty)"
 #define MES_CHEST_STAT_DISARMED "(disarmed)"
 #define MES_CHEST_STAT_UNLOCKED "(unlocked)"
 #define MES_CHEST_STAT_LOCKED "(locked)"
 #define MES_CHEST_STAT_POISON_NEEDLE "(poison needle)"
+#define MES_CHEST_STAT_GAS_TRAP "(Gas Trap)"
+#define MES_CHEST_STAT_BOMB "(Explosion Device)"
 #endif
 

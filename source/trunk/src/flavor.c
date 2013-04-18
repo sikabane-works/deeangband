@@ -2114,43 +2114,23 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			switch (chest_traps[object_ptr->chest_mode])
 			{
 				case 0:
-				{
 					t = object_desc_str(t, MES_CHEST_STAT_LOCKED);
 					break;
-				}
+
 				case CHEST_LOSE_STR:
 				case CHEST_LOSE_CON:
-				{
 					t = object_desc_str(t, MES_CHEST_STAT_POISON_NEEDLE);
 					break;
-				}
+
 				case CHEST_POISON:
-				{
-#ifdef JP
-					t = object_desc_str(t, "(ガス・トラップ)");
-#else
-					t = object_desc_str(t, " (Gas Trap)");
-#endif
-					break;
-				}
 				case CHEST_PARALYZE:
-				{
-#ifdef JP
-					t = object_desc_str(t, "(ガス・トラップ)");
-#else
-					t = object_desc_str(t, " (Gas Trap)");
-#endif
+					t = object_desc_str(t, MES_CHEST_STAT_GAS_TRAP);
 					break;
-				}
+
 				case CHEST_EXPLODE:
-				{
-#ifdef JP
-					t = object_desc_str(t, "(爆発装置)");
-#else
-					t = object_desc_str(t, " (Explosion Device)");
-#endif
+					t = object_desc_str(t, MES_CHEST_STAT_BOMB);
 					break;
-				}
+
 				case CHEST_SUMMON:
 				case CHEST_BIRD_STORM:
 				case CHEST_E_SUMMON:
