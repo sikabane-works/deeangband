@@ -307,20 +307,21 @@ errr write_diary(int type, int num, cptr note)
 				to = KW_SURFACE;
 			else
 				to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
-
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s %sへとパターンの力で移動した。\n", hour, min, note_level, to);
+			fprintf(fff, " %sへとパターンの力で移動した。\n", hour, min, note_level, to);
 #else
-			fprintf(fff, " %2d:%02d %20s used Pattern to teleport to %s.\n", hour, min, note_level, to);
+			fprintf(fff, " used Pattern to teleport to %s.\n", hour, min, note_level, to);
 #endif
 			break;
 		}
 		case DIARY_LEVELUP:
 		{
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s レベルが%dに上がった。\n", hour, min, note_level, num);
+			fprintf(fff, " レベルが%dに上がった。\n", hour, min, note_level, num);
 #else
-			fprintf(fff, " %2d:%02d %20s reached player level %d.\n", hour, min, note_level, num);
+			fprintf(fff, " reached player level %d.\n", hour, min, note_level, num);
 #endif
 			break;
 		}
