@@ -310,6 +310,7 @@
 #define KW_FRIEND "—FŒR"
 #define KW_CLONE "ƒNƒ[ƒ“"
 #define KW_WANTED "Ü‹àñ"
+#define KW_CHARGING "([“U’†)"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -420,6 +421,7 @@
 #define KW_FRIEND "Friend"
 #define KW_CLONE "Clone"
 #define KW_WANTED "Wanted"
+#define KW_CHARGING "(charging)""
 #endif
 
 #ifdef JP

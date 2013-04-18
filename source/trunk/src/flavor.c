@@ -2149,7 +2149,6 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 				default:
 					t = object_desc_str(t, MES_CHEST_STAT_MULTI);
 					break;
-				}
 			}
 		}
 	}
@@ -2436,11 +2435,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 				/* "one Rod of Perception (1 charging)" would look tacky. */
 				else
 				{
-#ifdef JP
-					t = object_desc_str(t, "(è[ìUíÜ)");
-#else
-					t = object_desc_str(t, " (charging)");
-#endif
+					t = object_desc_str(t, KW_CHARGING);
 				}
 			}
 		}
@@ -2544,12 +2539,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		/* Indicate charging objects, but not rods. */
 		if(object_ptr->timeout && (object_ptr->tval != TV_ROD))
 		{
-			/* Hack -- Dump " (charging)" if relevant */
-#ifdef JP
-			t = object_desc_str(t, "(è[ìUíÜ)");
-#else
-			t = object_desc_str(t, " (charging)");
-#endif
+			t = object_desc_str(t, KW_CHARGING);
 		}
 	}
 
