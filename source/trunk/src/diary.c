@@ -87,50 +87,55 @@ errr write_diary(int type, int num, cptr note)
 		}
 		case DIARY_ART:
 		{
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s %sを発見した。\n", hour, min, note_level, note);
+			fprintf(fff, " %sを発見した。\n", hour, min, note_level, note);
 #else
-			fprintf(fff, " %2d:%02d %20s discovered %s.\n", hour, min, note_level, note);
+			fprintf(fff, " discovered %s.\n", hour, min, note_level, note);
 #endif
 			break;
 		}
 		case DIARY_UNIQUE:
 		{
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s %sを倒した。\n", hour, min, note_level, note);
+			fprintf(fff, " %sを倒した。\n", hour, min, note_level, note);
 #else
-			fprintf(fff, " %2d:%02d %20s defeated %s.\n", hour, min, note_level, note);
+			fprintf(fff, " defeated %s.\n", hour, min, note_level, note);
 #endif
 			break;
 		}
 		case DIARY_FIX_QUEST_C:
 		{
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 			if(quest[num].flags & QUEST_FLAG_SILENT) break;
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s クエスト「%s」を達成した。\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, " クエスト「%s」を達成した。\n", hour, min, note_level, quest[num].name);
 #else
-			fprintf(fff, " %2d:%02d %20s completed quest '%s'.\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, " completed quest '%s'.\n", hour, min, note_level, quest[num].name);
 #endif
 			break;
 		}
 		case DIARY_FIX_QUEST_F:
 		{
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 			if(quest[num].flags & QUEST_FLAG_SILENT) break;
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s クエスト「%s」から逃げ帰った。\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, " クエスト「%s」から逃げ帰った。\n", hour, min, note_level, quest[num].name);
 #else
-			fprintf(fff, " %2d:%02d %20s run away from quest '%s'.\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, " run away from quest '%s'.\n", hour, min, note_level, quest[num].name);
 #endif
 			break;
 		}
 		case DIARY_RAND_QUEST_C:
 		{
 			char name[80];
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 			strcpy(name, species_name+species_info[quest[num].species_idx].name);
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s ランダムクエスト(%s)を達成した。\n", hour, min, note_level, name);
+			fprintf(fff, " ランダムクエスト(%s)を達成した。\n", hour, min, note_level, name);
 #else
-			fprintf(fff, " %2d:%02d %20s completed random quest '%s'\n", hour, min, note_level, name);
+			fprintf(fff, " completed random quest '%s'\n", hour, min, note_level, name);
 #endif
 			break;
 		}
@@ -138,10 +143,11 @@ errr write_diary(int type, int num, cptr note)
 		{
 			char name[80];
 			strcpy(name, species_name+species_info[quest[num].species_idx].name);
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s ランダムクエスト(%s)から逃げ出した。\n", hour, min, note_level, name);
+			fprintf(fff, " ランダムクエスト(%s)から逃げ出した。\n", hour, min, note_level, name);
 #else
-			fprintf(fff, " %2d:%02d %20s ran away from quest '%s'.\n", hour, min, note_level, name);
+			fprintf(fff, " ran away from quest '%s'.\n", hour, min, note_level, name);
 #endif
 			break;
 		}

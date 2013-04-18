@@ -50,15 +50,6 @@ struct hist_type
  * Background information (see below)
  *
  * Chart progression by race:
- *   Human         -->  1 -->  2 -->  3 --> 50 --> 51 --> 52 --> 53
- *   Half-Elf      -->  4 -->  1 -->  2 -->  3 --> 50 --> 51 --> 52 --> 53
- *   Elf/High-Elf  -->  7 -->  8 -->  9 --> 54 --> 55 --> 56
- *   Hobbit        --> 10 --> 11 -->  3 --> 50 --> 51 --> 52 --> 53
- *   Gnome         --> 13 --> 14 -->  3 --> 50 --> 51 --> 52 --> 53
- *   Dwarf         --> 16 --> 17 --> 18 --> 57 --> 58 --> 59 --> 60 --> 61
- *   Half-Orc      --> 19 --> 20 -->  2 -->  3 --> 50 --> 51 --> 52 --> 53
- *   Half-Troll    --> 22 --> 23 --> 62 --> 63 --> 64 --> 65 --> 66
- *
  *  This table *must* be correct or drastic errors may occur!
  */
 static hist_type bg[] =

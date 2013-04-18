@@ -122,9 +122,7 @@ static void check_music(creature_type *creature_ptr)
 			msg_print("You restart singing.");
 #endif
 			creature_ptr->action = ACTION_SING;
-
 			prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
-
 			prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
 
 			// Update creatures
