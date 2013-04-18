@@ -2090,14 +2090,14 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		}
 
 		/* May be "empty" */
-		else if(!object_ptr->pval)
+		else if(!object_ptr->chest_mode)
 		{
 			t = object_desc_str(t, MES_CHEST_STAT_EMPTY);
 		}
 		/* May be "disarmed" */
-		else if(object_ptr->pval < 0)
+		else if(object_ptr->chest_mode < 0)
 		{
-			if(chest_traps[0 - object_ptr->pval])
+			if(chest_traps[0 - object_ptr->chest_mode])
 			{
 				t = object_desc_str(t, MES_CHEST_STAT_DISARMED);
 			}
@@ -2119,17 +2119,9 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 					break;
 				}
 				case CHEST_LOSE_STR:
-				{
-					t = object_desc_str(t, MES_CHEST_STAT_LOST_STR);
-					break;
-				}
 				case CHEST_LOSE_CON:
 				{
-#ifdef JP
-					t = object_desc_str(t, "(ì≈êj)");
-#else
-					t = object_desc_str(t, " (Poison Needle)");
-#endif
+					t = object_desc_str(t, MES_CHEST_STAT_POISON_NEEDLE);
 					break;
 				}
 				case CHEST_POISON:

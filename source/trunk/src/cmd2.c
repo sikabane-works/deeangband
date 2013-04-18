@@ -714,8 +714,7 @@ static int count_chests(creature_type *creature_ptr, COODINATES *y, COODINATES *
 		if(object_ptr->pval == 0) continue;
 
 		/* No (known) traps here */
-		if(trapped && (!object_is_known(object_ptr) ||
-			!chest_traps[object_ptr->pval])) continue;
+		if(trapped && (!object_is_known(object_ptr) || !chest_traps[object_ptr->pval])) continue;
 
 		/* OK */
 		++count;
