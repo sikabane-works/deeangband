@@ -1401,7 +1401,6 @@ static errr init_other(void)
 	/* Hack -- Just call the "format()" function */
 	(void)format("%s (%s).", MAINTAINER_NAME, MAINTAINER_MAIL);
 
-
 	return SUCCESS;
 }
 

@@ -2837,7 +2837,7 @@ option_type option_info[] =
 	{ &record_arena,  TRUE, OPT_PAGE_PLAYRECORD, 4, 21, "record_arena",   "アリーナでの勝利を記録する" },
 	{ &record_ident,  TRUE, OPT_PAGE_PLAYRECORD, 4, 22, "record_ident",   "未判明のアイテムの識別を記録する" },
 	{ &record_named_pet, FALSE, OPT_PAGE_PLAYRECORD, 4, 23, "record_named_pet", "名前つきペットの情報を記録する" },
-	{ &autosave_l, FALSE, OPT_PAGE_AUTOSAVE, 20, 0, "autosave_l",     "階層毎にオートセーブする" },
+	{ &autosave_l, FALSE, OPT_PAGE_AUTOSAVE, 8, 0, "autosave_l",     "階層毎にオートセーブする" },
 #else
 	{ &record_fix_art, TRUE, OPT_PAGE_PLAYRECORD, 4, 11, "record_fix_art", "Record fixed artifacts" },
 	{ &record_rand_art, TRUE, OPT_PAGE_PLAYRECORD, 4, 12, "record_rand_art", "Record random artifacts" },
@@ -2852,7 +2852,7 @@ option_type option_info[] =
 	{ &record_arena,  TRUE, OPT_PAGE_PLAYRECORD, 4, 21, "record_arena",   "Record arena victories" },
 	{ &record_ident,  TRUE, OPT_PAGE_PLAYRECORD, 4, 22, "record_ident",   "Record first identified items" },
 	{ &record_named_pet, FALSE, OPT_PAGE_PLAYRECORD, 4, 23, "record_named_pet", "Record informations of named pets" },
-	{ &autosave_l, FALSE, OPT_PAGE_PLAYRECORD, 20, 0, "autosave_l",     "Autosave" },
+	{ &autosave_l, FALSE, OPT_PAGE_PLAYRECORD, 8, 0, "autosave_l",     "Autosave" },
 
 #endif
 
