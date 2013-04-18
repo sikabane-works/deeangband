@@ -2135,39 +2135,19 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 				case CHEST_BIRD_STORM:
 				case CHEST_E_SUMMON:
 				case CHEST_H_SUMMON:
-				{
-#ifdef JP
-					t = object_desc_str(t, "(召喚のルーン)");
-#else
-					t = object_desc_str(t, " (Summoning Runes)");
-#endif
+					t = object_desc_str(t, MES_CHEST_STAT_SUMMON);
 					break;
-				}
+
 				case CHEST_RUNES_OF_EVIL:
-				{
-#ifdef JP
-					t = object_desc_str(t, "(邪悪なルーン)");
-#else
-					t = object_desc_str(t, " (Gleaming Black Runes)");
-#endif
+					t = object_desc_str(t, MES_CHEST_STAT_EVIL);
 					break;
-				}
+
 				case CHEST_ALARM:
-				{
-#ifdef JP
-					t = object_desc_str(t, "(警報装置)");
-#else
-					t = object_desc_str(t, " (Alarm)");
-#endif
+					t = object_desc_str(t, MES_CHEST_STAT_ALARM);
 					break;
-				}
+
 				default:
-				{
-#ifdef JP
-					t = object_desc_str(t, "(マルチ・トラップ)");
-#else
-					t = object_desc_str(t, " (Multiple Traps)");
-#endif
+					t = object_desc_str(t, MES_CHEST_STAT_MULTI);
 					break;
 				}
 			}

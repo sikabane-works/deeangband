@@ -3948,6 +3948,10 @@ static cptr desc_stat_neg[] =
 #define MES_CHEST_STAT_POISON_NEEDLE "(毒針)"
 #define MES_CHEST_STAT_GAS_TRAP "(ガス・トラップ)"
 #define MES_CHEST_STAT_BOMB "(爆発装置)"
+#define MES_CHEST_STAT_SUMMON "(召喚のルーン)"
+#define MES_CHEST_STAT_EVIL "(邪悪なルーン)"
+#define MES_CHEST_STAT_ALARM "(警報装置)"
+#define MES_CHEST_STAT_MULTI "(マルチ・トラップ)"
 #else
 #define MES_CHEST_STAT_EMPTY "(empty)"
 #define MES_CHEST_STAT_DISARMED "(disarmed)"
@@ -3956,5 +3960,9 @@ static cptr desc_stat_neg[] =
 #define MES_CHEST_STAT_POISON_NEEDLE "(poison needle)"
 #define MES_CHEST_STAT_GAS_TRAP "(Gas Trap)"
 #define MES_CHEST_STAT_BOMB "(Explosion Device)"
+#define MES_CHEST_STAT_SUMMON "(Summoning Runes)"
+#define MES_CHEST_STAT_EVIL "(Gleaming Black Runes)"
+#define MES_CHEST_STAT_ALARM "(Alarm)"
+#define MES_CHEST_STAT_MULTI "(Multiple Traps)"
 #endif
 
