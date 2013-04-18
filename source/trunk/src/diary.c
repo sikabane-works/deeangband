@@ -153,19 +153,21 @@ errr write_diary(int type, int num, cptr note)
 		}
 		case DIARY_MAXDEAPTH:
 		{
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s %sの最深階%d階に到達した。\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, num);
+			fprintf(fff, " %sの最深階%d階に到達した。\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, num);
 #else
-			fprintf(fff, " %2d:%02d %20s reached level %d of %s for the first time.\n", hour, min, note_level, num, dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
+			fprintf(fff, " reached level %d of %s for the first time.\n", hour, min, note_level, num, dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
 #endif
 			break;
 		}
 		case DIARY_TRUMP:
 		{
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s %s%sの最深階を%d階にセットした。\n", hour, min, note_level, note, dungeon_name + dungeon_info[num].name, max_dlv[num]);
+			fprintf(fff, " %s%sの最深階を%d階にセットした。\n", hour, min, note_level, note, dungeon_name + dungeon_info[num].name, max_dlv[num]);
 #else
-			fprintf(fff, " %2d:%02d %20s reset recall level of %s to %d %s.\n", hour, min, note_level, dungeon_name + dungeon_info[num].name, max_dlv[num], note);
+			fprintf(fff, " reset recall level of %s to %d %s.\n", hour, min, note_level, dungeon_name + dungeon_info[num].name, max_dlv[num], note);
 #endif
 			break;
 		}
@@ -183,45 +185,49 @@ errr write_diary(int type, int num, cptr note)
 				else to = format(KW_FLOOR_NUM(floor_ptr->depth+num));
 			}
 
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 #ifdef JP 
-			fprintf(fff, " %2d:%02d %20s %sへ%s。\n", hour, min, note_level, to, note);
+			fprintf(fff, " %sへ%s。\n", hour, min, note_level, to, note);
 #else
-			fprintf(fff, " %2d:%02d %20s %s %s.\n", hour, min, note_level, note, to);
+			fprintf(fff, " %s %s.\n", hour, min, note_level, note, to);
 #endif
 			break;
 		}
 		case DIARY_RECALL:
 		{
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 			if(!num)
 #ifdef JP
-				fprintf(fff, " %2d:%02d %20s 帰還を使って%sの%d階へ下りた。\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, max_dlv[floor_ptr->dungeon_id]);
+				fprintf(fff, " 帰還を使って%sの%d階へ下りた。\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, max_dlv[floor_ptr->dungeon_id]);
 #else
-				fprintf(fff, " %2d:%02d %20s recalled to dungeon level %d of %s.\n", hour, min, note_level, max_dlv[floor_ptr->dungeon_id], dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
+				fprintf(fff, " recalled to dungeon level %d of %s.\n", hour, min, note_level, max_dlv[floor_ptr->dungeon_id], dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
 #endif
 			else
 #ifdef JP
-				fprintf(fff, " %2d:%02d %20s 帰還を使って地上へと戻った。\n", hour, min, note_level);
+				fprintf(fff, " 帰還を使って地上へと戻った。\n", hour, min, note_level);
 #else
-				fprintf(fff, " %2d:%02d %20s recalled from dungeon to surface.\n", hour, min, note_level);
+				fprintf(fff, " recalled from dungeon to surface.\n", hour, min, note_level);
 #endif
 			break;
 		}
 		case DIARY_TO_QUEST:
 		{
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 			if(quest[num].flags & QUEST_FLAG_SILENT) break;
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s クエスト「%s」へと突入した。\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, " クエスト「%s」へと突入した。\n", hour, min, note_level, quest[num].name);
 #else
-			fprintf(fff, " %2d:%02d %20s entered the quest '%s'.\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, " entered the quest '%s'.\n", hour, min, note_level, quest[num].name);
 #endif
 			break;
 		}
 		case DIARY_TELE_LEV:
 		{
+			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
 #ifdef JP
-			fprintf(fff, " %2d:%02d %20s レベル・テレポートで脱出した。\n", hour, min, note_level);
+			fprintf(fff, " レベル・テレポートで脱出した。\n", hour, min, note_level);
 #else
-			fprintf(fff, " %2d:%02d %20s Got out using teleport level.\n", hour, min, note_level);
+			fprintf(fff, " Got out using teleport level.\n", hour, min, note_level);
 #endif
 			break;
 		}
