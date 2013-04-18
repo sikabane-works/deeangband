@@ -389,8 +389,8 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 
 	FLOOR_LEV mon_level = (FLOOR_LEV)object_ptr->chest_value;
 
-	if(object_ptr->pval <= 0) return; // Ignore disarmed chests
-	trap = chest_traps[object_ptr->pval]; // Obtain the traps
+	if(object_ptr->chest_mode <= 0) return; // Ignore disarmed chests
+	trap = chest_traps[object_ptr->chest_mode]; // Obtain the traps
 
 	// Lose strength
 	if(trap & (CHEST_LOSE_STR))
@@ -452,9 +452,9 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 	{
 		msg_print(MES_TRAP_S_BIRD);
 		for (i = 0; i < randint1(3) + 3; i++)
-			(void)fire_meteor(-1, DO_EFFECT_FORCE, y, x, object_ptr->pval / 5, 7);
+			(void)fire_meteor(-1, DO_EFFECT_FORCE, y, x, object_ptr->chest_mode / 5, 7);
 
-		for (i = 0; i < randint1(5) + object_ptr->pval / 5; i++)
+		for (i = 0; i < randint1(5) + object_ptr->chest_mode / 5; i++)
 			(void)summon_specific(0, y, x, mon_level, TRAIT_S_BIRD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 
@@ -512,7 +512,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 		for (; nasty_tricks_count > 0; nasty_tricks_count--) // This is gonna hurt...
 		{
 			// ...but a high saving throw does help a little.
-			if(!saving_throw(creature_ptr, SAVING_AC, object_ptr->pval * 2, 0) && !saving_throw(creature_ptr, SAVING_EV, object_ptr->pval * 2, 0))
+			if(!saving_throw(creature_ptr, SAVING_AC, object_ptr->chest_mode * 2, 0) && !saving_throw(creature_ptr, SAVING_EV, object_ptr->chest_mode * 2, 0))
 			{
 				if(one_in_(6)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), COD_CHEST_DP_TRAP, NULL, -1);
 
@@ -548,7 +548,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 	if((trap & (CHEST_EXPLODE)) && is_valid_object(object_ptr)) // Explode
 	{
 		msg_print(MES_TRAP_EXPLOSIVE);
-		object_ptr->pval = 0;
+		object_ptr->chest_mode = 0;
 		sound(SOUND_EXPLODE);
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), COD_EXPLOADING_CHEST, NULL, -1);
 	}
@@ -557,7 +557,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 	{
 		msg_print(MES_TRAP_SCATTER);
 		chest_death(TRUE, floor_ptr, y, x, object_idx);
-		object_ptr->pval = 0;
+		object_ptr->chest_mode = 0;
 	}
 }
 
@@ -1289,7 +1289,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, COODINATES y, COODI
 	if(j < 2) j = 2;
 
 	if(!object_is_known(object_ptr)) msg_print(MES_DISARM_NO_TRAP);
-	else if(object_ptr->pval <= 0 || !chest_traps[object_ptr->pval]) msg_print(MES_DISARM_NO_TRAP_CHEST);
+	else if(object_ptr->chest_mode <= 0 || !chest_traps[object_ptr->chest_mode]) msg_print(MES_DISARM_NO_TRAP_CHEST);
 	else if(PERCENT(j)) // Success (get a lot of experience)
 	{
 		msg_print(MES_DISARM_CHEST);

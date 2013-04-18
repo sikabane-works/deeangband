@@ -2111,7 +2111,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		else
 		{
 			/* Describe the traps */
-			switch (chest_traps[object_ptr->pval])
+			switch (chest_traps[object_ptr->chest_mode])
 			{
 				case 0:
 				{

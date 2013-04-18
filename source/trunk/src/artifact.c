@@ -166,7 +166,6 @@ void one_ability(object_type *object_ptr)
 
 static void curse_artifact(creature_type *creature_ptr, object_type * object_ptr)
 {
-	//TODO if(object_ptr->pval > 0) object_ptr->pval = 0 - (object_ptr->pval + (s16b)randint1(4));
 	if(object_ptr->to_ac > 0) object_ptr->to_ac = 0 - (object_ptr->to_ac + (STAT)randint1(4));
 	if(object_ptr->to_ev > 0) object_ptr->to_ev = 0 - (object_ptr->to_ev + (STAT)randint1(4));
 	if(object_ptr->to_vo > 0) object_ptr->to_vo = 0 - (object_ptr->to_vo + (STAT)randint1(4));
