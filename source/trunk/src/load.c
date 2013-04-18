@@ -323,7 +323,7 @@ static void rd_object(object_type *object_ptr)
 	object_ptr->sval = object_kind_ptr->sval;
 
 	READ_PVAL(&object_ptr->pval);
-	WRITE_CHEST_MODE(&object_ptr->chest_mode);
+	READ_CHEST_MODE(&object_ptr->chest_mode);
 	READ_PERCENT(&object_ptr->discount);
 	READ_POPULATION(&object_ptr->number);
 	rd_s32b(&object_ptr->volume);
