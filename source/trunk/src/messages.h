@@ -3940,3 +3940,13 @@ static cptr desc_stat_neg[] =
 #define MES_TELEPORT_WHICH(NOTE) "Which dungeon do you %s?: ", (NOTE)
 #endif
 
+#ifdef JP
+#define MES_CHEST_STAT_EMPTY "(ãÛ)"
+#define MES_CHEST_STAT_DISARMED "(âèúçœ)"
+#define MES_CHEST_STAT_UNLOCKED "(îÒé{è˘)"
+#else
+#define MES_CHEST_STAT_EMPTY "(empty)"
+#define MES_CHEST_STAT_DISARMED "(disarmed)"
+#define MES_CHEST_STAT_UNLOCKED "(unlocked)"
+#endif
+

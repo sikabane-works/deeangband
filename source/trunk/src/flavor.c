@@ -2092,31 +2092,18 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		/* May be "empty" */
 		else if(!object_ptr->pval)
 		{
-#ifdef JP
-			t = object_desc_str(t, "(‹ó)");
-#else
-			t = object_desc_str(t, " (empty)");
-#endif
+			t = object_desc_str(t, MES_CHEST_STAT_EMPTY);
 		}
-
 		/* May be "disarmed" */
 		else if(object_ptr->pval < 0)
 		{
 			if(chest_traps[0 - object_ptr->pval])
 			{
-#ifdef JP
-				t = object_desc_str(t, "(‰ğœÏ)");
-#else
-				t = object_desc_str(t, " (disarmed)");
-#endif
+				t = object_desc_str(t, MES_CHEST_STAT_DISARMED);
 			}
 			else
 			{
-#ifdef JP
-				t = object_desc_str(t, "(”ñ{ù)");
-#else
-				t = object_desc_str(t, " (unlocked)");
-#endif
+				t = object_desc_str(t, MES_CHEST_STAT_UNLOCKED);
 			}
 		}
 
