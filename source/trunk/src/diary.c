@@ -65,7 +65,7 @@ errr write_diary(int type, int num, cptr note)
 		}
 	}
 
-	if(num <= 0) fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
+	if(num <= 0) fprintf(fff, " %2d:%02d %20s  ", hour, min, note_level);
 
 	switch(type)
 	{
@@ -85,18 +85,18 @@ errr write_diary(int type, int num, cptr note)
 		case DIARY_ART:
 		{
 #ifdef JP
-			fprintf(fff, " %sを発見した。\n", hour, min, note_level, note);
+			fprintf(fff, "%sを発見した。\n", hour, min, note_level, note);
 #else
-			fprintf(fff, " discovered %s.\n", hour, min, note_level, note);
+			fprintf(fff, "discovered %s.\n", hour, min, note_level, note);
 #endif
 			break;
 		}
 		case DIARY_UNIQUE:
 		{
 #ifdef JP
-			fprintf(fff, " %sを倒した。\n", hour, min, note_level, note);
+			fprintf(fff, "%sを倒した。\n", hour, min, note_level, note);
 #else
-			fprintf(fff, " defeated %s.\n", hour, min, note_level, note);
+			fprintf(fff, "defeated %s.\n", hour, min, note_level, note);
 #endif
 			break;
 		}
@@ -104,9 +104,9 @@ errr write_diary(int type, int num, cptr note)
 		{
 			if(quest[num].flags & QUEST_FLAG_SILENT) break;
 #ifdef JP
-			fprintf(fff, " クエスト「%s」を達成した。\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, "クエスト「%s」を達成した。\n", hour, min, note_level, quest[num].name);
 #else
-			fprintf(fff, " completed quest '%s'.\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, "completed quest '%s'.\n", hour, min, note_level, quest[num].name);
 #endif
 			break;
 		}
@@ -367,6 +367,5 @@ errr write_diary(int type, int num, cptr note)
 	if(do_level) write_level = FALSE;
 	return SUCCESS;
 }
-
 
 #define MAX_SUBTITLE (sizeof(subtitle) / sizeof(subtitle[0]))
