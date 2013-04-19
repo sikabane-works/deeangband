@@ -851,6 +851,7 @@
 #define TV_AMULET       40      /* Amulets (including Specials) */
 #define TV_TAIL         41
 #define TV_INSTRUMENT   42
+#define TV_ORGAN 43
 #define TV_RING         45      /* Rings (including Specials) */
 #define TV_CARD         50
 #define TV_WHEEL        51

@@ -1010,14 +1010,12 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 		health_track(c_ptr->creature_idx); // Track a new creature
 	}
 
-	/*
 	if(zantetsuken_cancel(attacker_ptr, target_ptr)) return FALSE; // Cease by Zantetsu-Ken
 	if(is_melee_limitation_field(floor_ptr)) return FALSE; // No melee flag
 	if(cease_for_friend(attacker_ptr, target_ptr)) return FALSE; // Stop if friendly
 	if(fear_cancel(attacker_ptr, target_ptr)) return FALSE; // Ceased by fear
 	if(cease_by_counter(attacker_ptr, target_ptr)) return FALSE; // Ceased by Iai Counter
 	if(kawarimi(target_ptr, TRUE)) return FALSE; // Ceased by Kawarimi
-	*/
 
 	//TODO gain_skill(attacker, SKILL_RIDING, amount);
 

@@ -282,6 +282,7 @@ static cptr equip_slot_flags[MAX_INVENTORY_IDS] =
 	"INSTRUMENT",
 	"LITE",
 	"TAIL",
+	"ORGAN",
 };
 
 // Object Kind tval Flags
@@ -335,7 +336,7 @@ static cptr tval_flags[255] =
 
 	"TAIL",
 	"INSTRUMENT",
-	"XXX",
+	"ORGAN",
 	"XXX",
 	"RING",
 	"XXX",
