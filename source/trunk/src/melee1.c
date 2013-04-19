@@ -606,15 +606,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		if((ma_ptr->min_level > old_ptr->min_level) && !has_trait(attacker_ptr, TRAIT_STUN) && !has_trait(attacker_ptr, TRAIT_CONFUSED))
 		{
 			old_ptr = ma_ptr;
-
-			if(wizard && cheat_xtra)
-			{
-#ifdef JP
-				msg_print("UŒ‚‚ğÄ‘I‘ğ‚µ‚Ü‚µ‚½B");
-#else
-				msg_print("Attack re-selected.");
-#endif
-			}
+			if(wizard) msg_print(MES_MELEE_RESELECT);
 		}
 		else ma_ptr = old_ptr;
 	}
