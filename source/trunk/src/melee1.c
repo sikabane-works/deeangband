@@ -314,6 +314,66 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			k *= 2;
 		}
 
+		/* Apply disenchantment */
+		if(has_trait_object(weapon_ptr, TRAIT_UN_BONUS) && !has_trait(target_ptr, TRAIT_RES_DISE) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
+		{
+			if(apply_disenchant(target_ptr, 0))
+			{
+				/* Hack -- Update AC */
+				update_creature(target_ptr, TRUE);
+			}
+		}
+
+		if(has_trait_object(weapon_ptr, TRAIT_UN_BONUS) && (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && !(game_turn & 1)))
+		{
+			int i, k;
+			object_type *object_ptr;
+
+			/* Find an item */
+			for (k = 0; k < 10; k++)
+			{
+				/* Pick an item */
+				i = randint0(INVEN_TOTAL);
+
+				/* Obtain the item */
+				object_ptr = &target_ptr->inventory[i];
+
+				/* Skip non-objects */
+				if(!is_valid_object(object_ptr)) continue;
+
+				/* Drain charged wands/staffs */
+				if(((object_ptr->tval == TV_STAFF) || (object_ptr->tval == TV_WAND)) && (object_ptr->pval))
+				{
+					/* Calculate healed hitpoints */
+					int heal=attacker_ptr->lev * object_ptr->pval;
+					if( object_ptr->tval == TV_STAFF)
+						heal *=  object_ptr->number;
+
+					/* Don't heal more than max hp */
+					heal = MIN(heal, attacker_ptr->mhp - attacker_ptr->chp);
+
+#ifdef JP
+					msg_print("ñÇìπãÔÇ©ÇÁÉGÉlÉãÉMÅ[ÇãzÇ¢éÊÇ¡ÇΩÅI");
+#else
+					msg_print("Energy drains from your magic device!");
+#endif
+
+					/* Heal the creature */
+					attacker_ptr->chp += heal;
+
+					//TODO if(&magic_info[npc_status_id] == attacker_ptr) prepare_redraw(PR_HEALTH);
+					//if(&magic_info[target_ptr->riding] == attacker_ptr) prepare_redraw(PR_UHEALTH);
+
+					/* Uncharge */
+					object_ptr->pval = 0;
+					prepare_update(target_ptr, CRU_COMBINE | CRU_REORDER);
+					prepare_window(PW_INVEN);
+
+					break;
+				}
+			}
+		}
+
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
 		if((mode == HISSATSU_SEKIRYUKA) && !GET_TIMED_TRAIT(attacker_ptr, TRAIT_CUT)) k /= 2;
@@ -1039,28 +1099,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		/* Assume no cut or stun */
 		do_cut = do_stun = 0;
 
-		if(act)
-		{
-			if(do_silly_attack)
-			{
-#ifdef JP
-				abbreviate = -1;
-#endif
-				act = silly_attacks[randint0(MAX_SILLY_ATTACK)];
-			}
-#ifdef JP
-			if(abbreviate == 0)	msg_format("%^sÇÕ%sÇ%s", attacker_name, target_name, act);
-			else if(abbreviate == 1) msg_format("%^sÇÕ%sÇ…%s", attacker_name, target_name, act);
-			else if(abbreviate == 2) msg_format("%^sÇÕ%sÇÃ%s", attacker_name, target_name, act);
-			else if(abbreviate == 3) msg_format("%^sÇÕ%sÇ…å¸ÇØ%s", attacker_name, target_name, act);
-			else if(abbreviate == 4) msg_format("%^s%s", attacker_name, act);
-			else msg_format("%s", act); // if(abbreviate == -1)
-			abbreviate = -1;/*ÇQâÒñ⁄à»ç~ÇÕè»ó™ */
-#else
-			msg_format("%^s %s %s", attacker_name, act, do_silly_attack ? target_name : "");
-#endif
-		}
-
 		/* Hack -- assume all attacks are obvious */
 		obvious = TRUE;
 
@@ -1075,97 +1113,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		/* Apply appropriate damage */
 		switch (effect)
 		{
-
-		case RBE_SUPERHURT:
-			{
-			}
-
-		case RBE_UN_BONUS:
-			{
-				if(explode) break;
-
-				/* Allow complete resist */
-				if(!has_trait(target_ptr, TRAIT_RES_DISE) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
-				{
-					/* Apply disenchantment */
-					if(apply_disenchant(target_ptr, 0))
-					{
-						/* Hack -- Update AC */
-						update_creature(target_ptr, TRUE);
-						obvious = TRUE;
-					}
-				}
-
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1); // Take some damage
-
-				/* Learn about the player */
-
-				break;
-			}
-
-		case RBE_UN_POWER:
-			{
-				/* Take some damage */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				/* Find an item */
-				for (k = 0; k < 10; k++)
-				{
-					/* Pick an item */
-					i = randint0(INVEN_TOTAL);
-
-					/* Obtain the item */
-					object_ptr = &target_ptr->inventory[i];
-
-					/* Skip non-objects */
-					if(!is_valid_object(object_ptr)) continue;
-
-					/* Drain charged wands/staffs */
-					if(((object_ptr->tval == TV_STAFF) ||
-						(object_ptr->tval == TV_WAND)) &&
-						(object_ptr->pval))
-					{
-						/* Calculate healed hitpoints */
-						int heal=attacker_ptr->lev * object_ptr->pval;
-						if( object_ptr->tval == TV_STAFF)
-							heal *=  object_ptr->number;
-
-						/* Don't heal more than max hp */
-						heal = MIN(heal, attacker_ptr->mhp - attacker_ptr->chp);
-
-#ifdef JP
-						msg_print("ñÇìπãÔÇ©ÇÁÉGÉlÉãÉMÅ[ÇãzÇ¢éÊÇ¡ÇΩÅI");
-#else
-						msg_print("Energy drains from your magic device!");
-#endif
-
-
-						/* Obvious */
-						obvious = TRUE;
-
-						/* Heal the creature */
-						attacker_ptr->chp += heal;
-
-						//TODO if(&magic_info[npc_status_id] == attacker_ptr) prepare_redraw(PR_HEALTH);
-						//if(&magic_info[target_ptr->riding] == attacker_ptr) prepare_redraw(PR_UHEALTH);
-
-						/* Uncharge */
-						object_ptr->pval = 0;
-
-						/* Combine / Reorder the pack */
-						prepare_update(target_ptr, CRU_COMBINE | CRU_REORDER);
-
-						prepare_window(PW_INVEN);
-
-						break;
-					}
-				}
-
-				break;
-			}
-
 		case RBE_EAT_GOLD:
 			{
 				/* Take some damage */
