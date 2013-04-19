@@ -1518,12 +1518,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		/* Apply appropriate damage */
 		switch (effect)
 		{
-		case RBE_NONE:
-			{
-				obvious = TRUE;
-				damage = 0;
-				break;
-			}
 
 		case RBE_SUPERHURT:
 			{
@@ -1539,30 +1533,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, tmp_damage, ddesc, NULL, -1);
 					break;
 				}
-			}
-
-		case RBE_HURT:
-			{
-				obvious = TRUE;	// Obvious
-				damage = calc_damage(attacker_ptr, target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-				break;
-			}
-
-		case RBE_POISON:
-			{
-				if(explode) break;
-
-				// Take "poison" effect
-				if(!has_trait(target_ptr, TRAIT_RES_POIS) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
-					if(add_timed_trait(target_ptr, TRAIT_POISONED, randint1(attacker_ptr->lev) + 5, FALSE)) obvious = TRUE;
-
-				/* Take some damage */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				/* Learn about the player */
-
-				break;
 			}
 
 		case RBE_UN_BONUS:
