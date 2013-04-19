@@ -304,6 +304,16 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		k += attacker_ptr->to_damage[hand];
 		drain_result += attacker_ptr->to_damage[hand];
 
+		if(has_trait_object(weapon_ptr, TRAIT_SUPERHURT) && ((randint1(attacker_ptr->lev*2+300) > (target_ptr->ac + target_ptr->to_ac + 200)) || one_in_(13)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
+		{
+#ifdef JP
+			msg_print("クリティカルヒット！");
+#else
+			msg_print("It was a critical hit!");
+#endif
+			k *= 2;
+		}
+
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
 		if((mode == HISSATSU_SEKIRYUKA) && !GET_TIMED_TRAIT(attacker_ptr, TRAIT_CUT)) k /= 2;
@@ -1521,18 +1531,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_SUPERHURT:
 			{
-				if(((randint1(attacker_ptr->lev*2+300) > (ac+200)) || one_in_(13)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
-				{
-					int tmp_damage = calc_damage(attacker_ptr, target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
-#ifdef JP
-					msg_print("クリティカルヒット！");
-#else
-					msg_print("It was a critical hit!");
-#endif
-					tmp_damage = MAX(damage, tmp_damage*2);
-					get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, tmp_damage, ddesc, NULL, -1);
-					break;
-				}
 			}
 
 		case RBE_UN_BONUS:
