@@ -510,11 +510,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			else if(target_ptr->lev > randint1(60))
 			{
 				if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-#ifdef JP
-				msg_format("%^s‚Í’ïR—Í‚ğ‚Á‚Ä‚¢‚éI", target_name);
-#else
-				msg_format("%^s resists!", target_name);
-#endif
+				msg_format(MES_DAMAGE_RES2); //TODO
 				resists_tele = TRUE;
 			}
 		}
