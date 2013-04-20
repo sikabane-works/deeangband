@@ -565,6 +565,12 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 		}
 
+		if(has_trait_object(weapon_ptr, TRAIT_DEC_STR)) do_dec_stat(target_ptr, STAT_STR);
+		if(has_trait_object(weapon_ptr, TRAIT_DEC_INT)) do_dec_stat(target_ptr, STAT_INT);
+		if(has_trait_object(weapon_ptr, TRAIT_DEC_WIS)) do_dec_stat(target_ptr, STAT_WIS);
+		if(has_trait_object(weapon_ptr, TRAIT_DEC_DEX)) do_dec_stat(target_ptr, STAT_DEX);
+		if(has_trait_object(weapon_ptr, TRAIT_DEC_CON)) do_dec_stat(target_ptr, STAT_CON);
+		if(has_trait_object(weapon_ptr, TRAIT_DEC_CHR)) do_dec_stat(target_ptr, STAT_CHA);
 
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
@@ -1301,88 +1307,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		switch (effect)
 		{
 
-		case RBE_ACID:
-			{
-				if(explode) break;
-				/* Obvious */
-				obvious = TRUE;
-
-#ifdef JP
-				msg_print("酸を浴びせられた！");
-#else
-				msg_print("You are covered in acid!");
-#endif
-
-				/* Special damage */
-				// TODO get_damage += acid_dam(target_ptr, damage, ddesc, -1);
-
-				/* Hack -- Update AC */
-				update_creature(target_ptr, TRUE);
-
-				/* Learn about the player */
-
-				break;
-			}
-
-		case RBE_ELEC:
-			{
-				if(explode) break;
-				obvious = TRUE;
-#ifdef JP
-				msg_print("電撃を浴びせられた！");
-#else
-				msg_print("You are struck by electricity!");
-#endif
-				/* Special damage */
-				//TODO damage
-				//project_creature(
-
-				/* Learn about the player */
-
-				break;
-			}
-
-		case RBE_FIRE:
-			{
-				if(explode) break;
-				/* Obvious */
-				obvious = TRUE;
-
-#ifdef JP
-				msg_print("全身が炎に包まれた！");
-#else
-				msg_print("You are enveloped in flames!");
-#endif
-
-
-				/* Special damage */
-				//TODO dam
-				//fire_dam(target_ptr, damage);
-
-				/* Learn about the player */
-
-				break;
-			}
-
-		case RBE_COLD:
-			{
-				if(explode) break;
-				/* Obvious */
-				obvious = TRUE;
-
-#ifdef JP
-				msg_print("全身が冷気で覆われた！");
-#else
-				msg_print("You are covered with frost!");
-#endif
-				/* Special damage */
-				//TODO get_damage += cold_dam(target_ptr, damage, ddesc, -1);
-
-				/* Learn about the player */
-
-				break;
-			}
-
 		case RBE_BLIND:
 			{
 				get_damage += take_damage_to_creature(NULL, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
@@ -1491,101 +1415,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				break;
 			}
 
-		case RBE_LOSE_STR:
-			{
-				/* Damage (physical) */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				/* Damage (stat) */
-				if(do_dec_stat(target_ptr, STAT_STR)) obvious = TRUE;
-
-				break;
-			}
-
-		case RBE_LOSE_INT:
-			{
-				/* Damage (physical) */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				/* Damage (stat) */
-				if(do_dec_stat(target_ptr, STAT_INT)) obvious = TRUE;
-
-				break;
-			}
-
-		case RBE_LOSE_WIS:
-			{
-				/* Damage (physical) */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				/* Damage (stat) */
-				if(do_dec_stat(target_ptr, STAT_WIS)) obvious = TRUE;
-
-				break;
-			}
-
-		case RBE_LOSE_DEX:
-			{
-				/* Damage (physical) */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				/* Damage (stat) */
-				if(do_dec_stat(target_ptr, STAT_DEX)) obvious = TRUE;
-
-				break;
-			}
-
-		case RBE_LOSE_CON:
-			{
-				/* Damage (physical) */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				/* Damage (stat) */
-				if(do_dec_stat(target_ptr, STAT_CON)) obvious = TRUE;
-
-				break;
-			}
-
-		case RBE_LOSE_CHR:
-			{
-				/* Damage (physical) */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				/* Damage (stat) */
-				if(do_dec_stat(target_ptr, STAT_CHA)) obvious = TRUE;
-
-				break;
-			}
-
-		case RBE_LOSE_ALL:
-			{
-				/* Damage (physical) */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				/* Damage (stats) */
-				if(do_dec_stat(target_ptr, STAT_STR)) obvious = TRUE;
-				if(do_dec_stat(target_ptr, STAT_DEX)) obvious = TRUE;
-				if(do_dec_stat(target_ptr, STAT_CON)) obvious = TRUE;
-				if(do_dec_stat(target_ptr, STAT_INT)) obvious = TRUE;
-				if(do_dec_stat(target_ptr, STAT_WIS)) obvious = TRUE;
-				if(do_dec_stat(target_ptr, STAT_CHA)) obvious = TRUE;
-
-				break;
-			}
 
 		case RBE_SHATTER:
 			{
