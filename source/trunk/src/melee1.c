@@ -576,6 +576,23 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(has_trait_object(weapon_ptr, TRAIT_TERRIFY_BRAND) && !has_trait(target_ptr, TRAIT_FEARLESS)) add_timed_trait(target_ptr, TRAIT_AFRAID, 3 + randint1(attacker_ptr->lev), TRUE);
 		if(has_trait_object(weapon_ptr, TRAIT_PARALYZE_BRAND) && !has_trait(target_ptr, TRAIT_FEARLESS)) add_timed_trait(target_ptr, TRAIT_PARALYZED, 3 + randint1(attacker_ptr->lev), TRUE);
 
+		if(has_trait_object(weapon_ptr, TRAIT_DISEASE_BRAND))
+		{
+			if(!has_trait(target_ptr, TRAIT_RES_POIS)) add_timed_trait(target_ptr, TRAIT_POISONED, randint1(attacker_ptr->lev) + 5, TRUE);
+
+			if(PERCENT(10) && !has_trait(target_ptr, TRAIT_ANDROID))
+			{
+				if(dec_stat(target_ptr, STAT_CON, PERCENT(10), PERCENT(10)))
+				{
+#ifdef JP
+					msg_print("病があなたを蝕んでいる気がする。");
+#else
+					msg_print("You feel strange sickness.");
+#endif
+				}
+			}
+		}
+
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
 		if((mode == HISSATSU_SEKIRYUKA) && !GET_TIMED_TRAIT(attacker_ptr, TRAIT_CUT)) k /= 2;
@@ -1311,18 +1328,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		switch (effect)
 		{
 
-
-
-
-		case RBE_SHATTER:
-			{
-				obvious = TRUE;
-				damage = calc_damage(attacker_ptr, target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-				//TODO if(damage > 23 || explode) earthquake_aux(attacker_ptr->fy, attacker_ptr->fx, 8, m_idx);
-				break;
-			}
-
 		case RBE_EXP_10:
 			{
 				s32b d = diceroll(10, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
@@ -1366,31 +1371,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				break;
 			}
 
-		case RBE_DISEASE:
-			{
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-				if(!has_trait(target_ptr, TRAIT_RES_POIS))
-					if(add_timed_trait(target_ptr, TRAIT_POISONED, randint1(attacker_ptr->lev) + 5, TRUE)) obvious = TRUE;
-
-				/* Damage CON (10% chance)*/
-				if((randint1(100) < 11) && !has_trait(target_ptr, TRAIT_ANDROID))
-				{
-					/* 1% chance for perm. damage */
-					bool perm = one_in_(10);
-					if(dec_stat(target_ptr, STAT_CON, randint1(10), perm))
-					{
-#ifdef JP
-						msg_print("病があなたを蝕んでいる気がする。");
-#else
-						msg_print("You feel strange sickness.");
-#endif
-						obvious = TRUE;
-					}
-				}
-
-				break;
-			}
 		case RBE_TIME:
 			{
 				if(explode) break;
