@@ -593,6 +593,11 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 		}
 
+		if(has_trait_object(weapon_ptr, TRAIT_MANA_DRAIN_BRAND))
+		{
+			//TODO
+		}
+
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
 		if((mode == HISSATSU_SEKIRYUKA) && !GET_TIMED_TRAIT(attacker_ptr, TRAIT_CUT)) k /= 2;
@@ -1494,26 +1499,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 				break;
 			}
-		case RBE_DR_MANA:
-			{
-				/* Obvious */
-				obvious = TRUE;
-
-				if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
-				{
-#ifdef JP
-					msg_print("çUåÇÇÕå∂âeÇ…ñΩíÜÇµÅAÇ†Ç»ÇΩÇ…ÇÕìÕÇ©Ç»Ç©Ç¡ÇΩÅB");
-#else
-					msg_print("The attack hits Shadow, you are unharmed!");
-#endif
-				}
-				else do_cut = 0;
-
-				/* Learn about the player */
-
-				break;
 			}
-		}
 
 		/* Hack -- only one of cut or stun */
 		if(do_cut && do_stun)
