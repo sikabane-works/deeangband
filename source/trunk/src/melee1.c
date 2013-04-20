@@ -572,10 +572,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(has_trait_object(weapon_ptr, TRAIT_DEC_CON)) do_dec_stat(target_ptr, STAT_CON);
 		if(has_trait_object(weapon_ptr, TRAIT_DEC_CHR)) do_dec_stat(target_ptr, STAT_CHA);
 
-		if(has_trait_object(weapon_ptr, TRAIT_BLIND_BRAND) && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
-		{
-			add_timed_trait(target_ptr, TRAIT_BLIND, 10 + randint1(attacker_ptr->lev), TRUE);
-		}
+		if(has_trait_object(weapon_ptr, TRAIT_BLIND_BRAND) && !has_trait(target_ptr, TRAIT_NO_BLIND)) add_timed_trait(target_ptr, TRAIT_BLIND, 10 + randint1(attacker_ptr->lev), TRUE);
+		if(has_trait_object(weapon_ptr, TRAIT_TERRIFY_BRAND) && !has_trait(target_ptr, TRAIT_FEARLESS)) add_timed_trait(target_ptr, TRAIT_AFRAID, 3 + randint1(attacker_ptr->lev), TRUE);
+
 
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
@@ -1312,58 +1311,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		switch (effect)
 		{
 
-
-		case RBE_CONFUSE:
-			{
-				if(explode) break;
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr)) break;
-
-				/* Increase "confused" */
-				if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
-				{
-					if(add_timed_trait(target_ptr, TRAIT_CONFUSED, 3 + randint1(attacker_ptr->lev), TRUE))
-						obvious = TRUE;
-				}
-
-				/* Learn about the player */
-
-				break;
-			}
-
-		case RBE_TERRIFY:
-			{
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr)) break;
-
-				/* Increase "afraid" */
-				if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
-				{
-					/* Do nothing */
-				}
-				else if(has_trait(target_ptr, TRAIT_FEARLESS))
-				{
-					msg_print(MES_RESISTED_FEAR);
-					obvious = TRUE;
-				}
-				/*TODO saving_throw else if(randint0(100 + species_ptr->level/2) < target_ptr->skill_rob)
-				{
-				msg_print(MES_RESISTED_FEAR);
-
-				obvious = TRUE;
-				}
-				*/
-				else
-				{
-					if(add_timed_trait(target_ptr, TRAIT_AFRAID, 3 + randint1(attacker_ptr->lev), TRUE)) obvious = TRUE;
-				}
-
-				/* Learn about the player */
-
-				break;
-			}
 
 		case RBE_PARALYZE:
 			{
