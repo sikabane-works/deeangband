@@ -89,9 +89,11 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, s16b hand, int mode)
 {
 	POWER k;
-	int bonus, chance;
+	int i, bonus, chance;
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
+	object_type *object_ptr;
+	bool blinked = FALSE;
 
 	// Access the weapon
 	object_type *weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVENTORY_ID_HAND, hand);
@@ -99,6 +101,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	char attacker_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
 	char weapon_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 
 	bool success_hit = FALSE;
 	bool ambush = FALSE;
@@ -274,21 +277,21 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 						switch (mult)
 						{
 #ifdef JP
-						case 2: msg_format("%sを斬った！", target_name); break;
-						case 3: msg_format("%sをぶった斬った！", target_name); break;
-						case 4: msg_format("%sをメッタ斬りにした！", target_name); break;
-						case 5: msg_format("%sをメッタメタに斬った！", target_name); break;
-						case 6: msg_format("%sを刺身にした！", target_name); break;
-						case 7: msg_format("%sを斬って斬って斬りまくった！", target_name); break;
-						default: msg_format("%sを細切れにした！", target_name); break;
+	case 2: msg_format("%sを斬った！", target_name); break;
+	case 3: msg_format("%sをぶった斬った！", target_name); break;
+	case 4: msg_format("%sをメッタ斬りにした！", target_name); break;
+	case 5: msg_format("%sをメッタメタに斬った！", target_name); break;
+	case 6: msg_format("%sを刺身にした！", target_name); break;
+	case 7: msg_format("%sを斬って斬って斬りまくった！", target_name); break;
+	default: msg_format("%sを細切れにした！", target_name); break;
 #else
-						case 2: msg_format("You gouge %s!", target_name); break;
-						case 3: msg_format("You maim %s!", target_name); break;
-						case 4: msg_format("You carve %s!", target_name); break;
-						case 5: msg_format("You cleave %s!", target_name); break;
-						case 6: msg_format("You smite %s!", target_name); break;
-						case 7: msg_format("You eviscerate %s!", target_name); break;
-						default: msg_format("You shred %s!", target_name); break;
+	case 2: msg_format("You gouge %s!", target_name); break;
+	case 3: msg_format("You maim %s!", target_name); break;
+	case 4: msg_format("You carve %s!", target_name); break;
+	case 5: msg_format("You cleave %s!", target_name); break;
+	case 6: msg_format("You smite %s!", target_name); break;
+	case 7: msg_format("You eviscerate %s!", target_name); break;
+	default: msg_format("You shred %s!", target_name); break;
 #endif
 						}
 					}
@@ -373,6 +376,195 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				}
 			}
 		}
+
+		if(has_trait_object(weapon_ptr, TRAIT_EAT_GOLD) && !has_trait(attacker_ptr, TRAIT_CONFUSED) && (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && !(game_turn & 1)))
+		{
+			/* Saving throw (unless paralyzed) based on dex and level */
+			if(!has_trait(target_ptr, TRAIT_PARALYZED) && (randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] + target_ptr->lev)))
+			{
+				/* Saving throw message */
+#ifdef JP
+				msg_print("しかし素早く財布を守った！");
+#else
+				msg_print("You quickly protect your money pouch!");
+#endif
+				/* Occasional blink anyway */
+				if(randint0(3)) blinked = TRUE;
+			}
+
+			/* Eat gold */
+			else
+			{
+				int gold = (target_ptr->au / 10) + randint1(25);
+				if(gold < 2) gold = 2;
+				if(gold > 5000) gold = (target_ptr->au / 20) + randint1(3000);
+				if(gold > target_ptr->au) gold = target_ptr->au;
+				target_ptr->au -= gold;
+				if(gold <= 0)
+				{
+#ifdef JP
+					msg_print("しかし何も盗まれなかった。");
+#else
+					msg_print("Nothing was stolen.");
+#endif
+
+				}
+				else if(target_ptr->au)
+				{
+#ifdef JP
+					msg_print("財布が軽くなった気がする。");
+					msg_format("$%ld のお金が盗まれた！", (long)gold);
+#else
+					msg_print("Your purse feels lighter.");
+					msg_format("%ld coins were stolen!", (long)gold);
+#endif
+				}
+				else
+				{
+#ifdef JP
+					msg_print("財布が軽くなった気がする。");
+					msg_print("お金が全部盗まれた！");
+#else
+					msg_print("Your purse feels lighter.");
+					msg_print("All of your coins were stolen!");
+#endif
+				}
+				prepare_redraw(PR_GOLD);
+				prepare_window(PW_PLAYER);
+
+				/* Blink away */
+				blinked = TRUE;
+			}
+		}
+
+		if(has_trait_object(weapon_ptr, TRAIT_EAT_ITEM) && !has_trait(attacker_ptr, TRAIT_CONFUSED))
+		{
+			/* Confused creatures cannot steal successfully. -LM-*/
+			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
+			{
+
+			/* Saving throw (unless paralyzed) based on dex and level */
+			if(!has_trait(target_ptr, TRAIT_PARALYZED) &&
+				(randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] +
+				target_ptr->lev)))
+			{
+				/* Saving throw message */
+#ifdef JP
+				msg_print("しかしあわててザックを取り返した！");
+#else
+				msg_print("You grab hold of your backpack!");
+#endif
+				/* Occasional "blink" anyway */
+				blinked = TRUE;
+			}
+
+			/* Find an item */
+			for (k = 0; k < 10; k++)
+			{
+				OBJECT_ID object_idx;
+
+				/* Pick an item */
+				i = randint0(INVEN_TOTAL);
+
+				/* Obtain the item */
+				object_ptr = &target_ptr->inventory[i];
+
+				if(!is_valid_object(object_ptr)) continue; // Skip non-objects
+				if(object_is_artifact(object_ptr)) continue; // Skip artifacts
+
+				object_desc(object_name, object_ptr, OD_OMIT_PREFIX); // Get a description
+
+#ifdef JP
+				msg_format("%s(%c)を%s盗まれた！", object_name, index_to_label(i), ((object_ptr->number > 1) ? "一つ" : ""));
+#else
+				msg_format("%sour %s (%c) was stolen!", ((object_ptr->number > 1) ? "One of y" : "Y"), object_name, index_to_label(i));
+#endif
+
+				/* Make an object */
+				object_idx = object_pop();
+
+				if(object_idx)
+				{
+					object_type *j_ptr;
+
+					/* Get new object */
+					j_ptr = &object_list[object_idx];
+
+					/* Copy object */
+					object_copy(j_ptr, object_ptr);
+
+					/* Modify number */
+					j_ptr->number = 1;
+
+					/* Hack -- If a rod or wand, allocate total
+					* maximum timeouts or charges between those
+					* stolen and those missed. -LM-
+					*/
+					if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND))
+					{
+						j_ptr->pval = object_ptr->pval / (PVAL)object_ptr->number;
+						object_ptr->pval -= j_ptr->pval;
+					}
+
+					/* Forget mark */
+					j_ptr->marked = OM_TOUCHED;
+
+					/* Memorize creature */
+					//TODO j_ptr->held_m_idx = m_idx;
+				}
+				increase_item(target_ptr, i, -1, FALSE);
+				blinked = TRUE;
+				break;
+			}
+			}
+		}
+
+		if(has_trait_object(weapon_ptr, TRAIT_EAT_FOOD))
+		{
+			/* Steal some food */
+			for (k = 0; k < 10; k++)
+			{
+				/* Pick an item from the pack */
+				i = randint0(INVEN_TOTAL);
+
+				object_ptr = &target_ptr->inventory[i]; // Get the item
+				if(!is_valid_object(object_ptr)) continue; // Skip non-objects
+				if((object_ptr->tval != TV_FOOD) && !((object_ptr->tval == TV_CORPSE) && (object_ptr->sval))) continue; // Skip non-food objects
+				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Get a description
+#ifdef JP
+				msg_format("%s(%c)を%s食べられてしまった！", object_name, index_to_label(i), ((object_ptr->number > 1) ? "一つ" : ""));
+#else
+				msg_format("%sour %s (%c) was eaten!", ((object_ptr->number > 1) ? "One of y" : "Y"), object_name, index_to_label(i));
+#endif
+				increase_item(target_ptr, i, -1, FALSE);
+				break;
+			}
+		}
+
+		if(has_trait_object(weapon_ptr, TRAIT_EAT_LITE))
+		{
+			/* Access the lite */
+			object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_LITE, 0);
+
+			/* Drain fuel */
+			if((object_ptr->fuel > 0) && (!object_is_fixed_artifact(object_ptr)))
+			{
+				/* Reduce fuel */
+				object_ptr->fuel -= (250 + (s16b)randint1(250));
+				if(object_ptr->fuel < 1) object_ptr->fuel = 1;
+
+				if(!has_trait(target_ptr, TRAIT_BLIND))
+				{
+#ifdef JP
+					msg_print("明かりが暗くなってしまった。");
+#else
+					msg_print("Your light dims.");
+#endif
+				}
+				prepare_window(PW_EQUIP);
+			}
+		}
+
 
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
@@ -1025,14 +1217,9 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	species_type *species_ptr = &species_info[attacker_ptr->species_idx];
 	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_idx];
 
-	int i, k, tmp, ac, ev, vo;
+	int k, tmp, ac, ev, vo;
 	int do_cut, do_stun;
 
-	s32b gold;
-
-	object_type *object_ptr;
-
-	char object_name[MAX_NLEN];
 	char attacker_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
 
@@ -1113,244 +1300,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		/* Apply appropriate damage */
 		switch (effect)
 		{
-		case RBE_EAT_GOLD:
-			{
-				/* Take some damage */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				/* Confused creatures cannot steal successfully. -LM-*/
-				if(has_trait(attacker_ptr, TRAIT_CONFUSED)) break;
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				/* Obvious */
-				obvious = TRUE;
-
-				/* Saving throw (unless paralyzed) based on dex and level */
-				if(!has_trait(target_ptr, TRAIT_PARALYZED) &&
-					(randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] +
-					target_ptr->lev)))
-				{
-					/* Saving throw message */
-#ifdef JP
-					msg_print("しかし素早く財布を守った！");
-#else
-					msg_print("You quickly protect your money pouch!");
-#endif
-
-
-					/* Occasional blink anyway */
-					if(randint0(3)) blinked = TRUE;
-				}
-
-				/* Eat gold */
-				else
-				{
-					gold = (target_ptr->au / 10) + randint1(25);
-					if(gold < 2) gold = 2;
-					if(gold > 5000) gold = (target_ptr->au / 20) + randint1(3000);
-					if(gold > target_ptr->au) gold = target_ptr->au;
-					target_ptr->au -= gold;
-					if(gold <= 0)
-					{
-#ifdef JP
-						msg_print("しかし何も盗まれなかった。");
-#else
-						msg_print("Nothing was stolen.");
-#endif
-
-					}
-					else if(target_ptr->au)
-					{
-#ifdef JP
-						msg_print("財布が軽くなった気がする。");
-						msg_format("$%ld のお金が盗まれた！", (long)gold);
-#else
-						msg_print("Your purse feels lighter.");
-						msg_format("%ld coins were stolen!", (long)gold);
-#endif
-					}
-					else
-					{
-#ifdef JP
-						msg_print("財布が軽くなった気がする。");
-						msg_print("お金が全部盗まれた！");
-#else
-						msg_print("Your purse feels lighter.");
-						msg_print("All of your coins were stolen!");
-#endif
-					}
-
-					prepare_redraw(PR_GOLD);
-
-					prepare_window(PW_PLAYER);
-
-					/* Blink away */
-					blinked = TRUE;
-				}
-
-				break;
-			}
-
-		case RBE_EAT_ITEM:
-			{
-				/* Take some damage */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				/* Confused creatures cannot steal successfully. -LM-*/
-				if(has_trait(attacker_ptr, TRAIT_CONFUSED)) break;
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				/* Saving throw (unless paralyzed) based on dex and level */
-				if(!has_trait(target_ptr, TRAIT_PARALYZED) &&
-					(randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] +
-					target_ptr->lev)))
-				{
-					/* Saving throw message */
-#ifdef JP
-					msg_print("しかしあわててザックを取り返した！");
-#else
-					msg_print("You grab hold of your backpack!");
-#endif
-
-
-					/* Occasional "blink" anyway */
-					blinked = TRUE;
-
-					/* Obvious */
-					obvious = TRUE;
-
-					break;
-				}
-
-				/* Find an item */
-				for (k = 0; k < 10; k++)
-				{
-					OBJECT_ID object_idx;
-
-					/* Pick an item */
-					i = randint0(INVEN_TOTAL);
-
-					/* Obtain the item */
-					object_ptr = &target_ptr->inventory[i];
-
-					if(!is_valid_object(object_ptr)) continue; // Skip non-objects
-					if(object_is_artifact(object_ptr)) continue; // Skip artifacts
-
-					object_desc(object_name, object_ptr, OD_OMIT_PREFIX); // Get a description
-
-#ifdef JP
-					msg_format("%s(%c)を%s盗まれた！", object_name, index_to_label(i), ((object_ptr->number > 1) ? "一つ" : ""));
-#else
-					msg_format("%sour %s (%c) was stolen!", ((object_ptr->number > 1) ? "One of y" : "Y"), object_name, index_to_label(i));
-#endif
-
-					/* Make an object */
-					object_idx = object_pop();
-
-					if(object_idx)
-					{
-						object_type *j_ptr;
-
-						/* Get new object */
-						j_ptr = &object_list[object_idx];
-
-						/* Copy object */
-						object_copy(j_ptr, object_ptr);
-
-						/* Modify number */
-						j_ptr->number = 1;
-
-						/* Hack -- If a rod or wand, allocate total
-						* maximum timeouts or charges between those
-						* stolen and those missed. -LM-
-						*/
-						if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND))
-						{
-							j_ptr->pval = object_ptr->pval / (PVAL)object_ptr->number;
-							object_ptr->pval -= j_ptr->pval;
-						}
-
-						/* Forget mark */
-						j_ptr->marked = OM_TOUCHED;
-
-						/* Memorize creature */
-						//TODO j_ptr->held_m_idx = m_idx;
-					}
-
-					increase_item(target_ptr, i, -1, FALSE);
-					obvious = TRUE;
-					blinked = TRUE;
-					break;
-				}
-
-				break;
-			}
-
-		case RBE_EAT_FOOD:
-			{
-				/* Take some damage */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				/* Steal some food */
-				for (k = 0; k < 10; k++)
-				{
-					/* Pick an item from the pack */
-					i = randint0(INVEN_TOTAL);
-
-					object_ptr = &target_ptr->inventory[i]; // Get the item
-					if(!is_valid_object(object_ptr)) continue; // Skip non-objects
-					if((object_ptr->tval != TV_FOOD) && !((object_ptr->tval == TV_CORPSE) && (object_ptr->sval))) continue; // Skip non-food objects
-					object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Get a description
-#ifdef JP
-					msg_format("%s(%c)を%s食べられてしまった！", object_name, index_to_label(i), ((object_ptr->number > 1) ? "一つ" : ""));
-#else
-					msg_format("%sour %s (%c) was eaten!", ((object_ptr->number > 1) ? "One of y" : "Y"), object_name, index_to_label(i));
-#endif
-					increase_item(target_ptr, i, -1, FALSE);
-					obvious = TRUE;
-
-					break;
-				}
-
-				break;
-			}
-
-		case RBE_EAT_LITE:
-			{
-				/* Access the lite */
-				object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_LITE, 0);
-
-				/* Take some damage */
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				/* Drain fuel */
-				if((object_ptr->fuel > 0) && (!object_is_fixed_artifact(object_ptr)))
-				{
-					/* Reduce fuel */
-					object_ptr->fuel -= (250 + (s16b)randint1(250));
-					if(object_ptr->fuel < 1) object_ptr->fuel = 1;
-
-					if(!has_trait(target_ptr, TRAIT_BLIND))
-					{
-#ifdef JP
-						msg_print("明かりが暗くなってしまった。");
-#else
-						msg_print("Your light dims.");
-#endif
-						obvious = TRUE;
-					}
-
-					prepare_window(PW_EQUIP);
-				}
-
-				break;
-			}
 
 		case RBE_ACID:
 			{
