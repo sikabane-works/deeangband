@@ -598,7 +598,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			//TODO
 		}
 
-		if(has_trait_object(weapon_ptr, TRAIT_TIME_BRAND) && !has_trait(target_ptr, TRAIT_RES_TIME))
+		if(has_trait_object(weapon_ptr, TRAIT_TIME_BRAND))
 		{
 			cptr act;
 			switch (randint1(10))
@@ -699,6 +699,11 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 		}
 
+		if(has_trait_object(weapon_ptr, TRAIT_LOSE_EXP_BRAND))
+		{
+			POWER d = diceroll(40, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
+			(void)drain_exp(target_ptr, d, d / 10, 75);
+		}
 
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
@@ -1430,53 +1435,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		*/
 		if(explode) damage = 0;
 		/* Apply appropriate damage */
-		switch (effect)
-		{
-
-		case RBE_EXP_10:
-			{
-				s32b d = diceroll(10, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
-
-				/* Obvious */
-				obvious = TRUE;
-
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-				(void)drain_exp(target_ptr, d, d / 10, 95);
-				break;
-			}
-
-		case RBE_EXP_20:
-			{
-				s32b d = diceroll(20, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
-				obvious = TRUE;
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-				(void)drain_exp(target_ptr, d, d / 10, 90);
-				break;
-			}
-
-		case RBE_EXP_40:
-			{
-				s32b d = diceroll(40, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
-				obvious = TRUE;
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-				(void)drain_exp(target_ptr, d, d / 10, 75);
-				break;
-			}
-
-		case RBE_EXP_80:
-			{
-				s32b d = diceroll(80, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
-				obvious = TRUE;
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-				(void)drain_exp(target_ptr, d, d / 10, 50);
-				break;
-			}
-
-		}
 
 		/* Hack -- only one of cut or stun */
 		if(do_cut && do_stun)
