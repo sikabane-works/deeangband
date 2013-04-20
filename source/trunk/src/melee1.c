@@ -574,7 +574,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		if(has_trait_object(weapon_ptr, TRAIT_BLIND_BRAND) && !has_trait(target_ptr, TRAIT_NO_BLIND)) add_timed_trait(target_ptr, TRAIT_BLIND, 10 + randint1(attacker_ptr->lev), TRUE);
 		if(has_trait_object(weapon_ptr, TRAIT_TERRIFY_BRAND) && !has_trait(target_ptr, TRAIT_FEARLESS)) add_timed_trait(target_ptr, TRAIT_AFRAID, 3 + randint1(attacker_ptr->lev), TRUE);
-
+		if(has_trait_object(weapon_ptr, TRAIT_PARALYZE_BRAND) && !has_trait(target_ptr, TRAIT_FEARLESS)) add_timed_trait(target_ptr, TRAIT_PARALYZED, 3 + randint1(attacker_ptr->lev), TRUE);
 
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
@@ -1312,36 +1312,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		{
 
 
-		case RBE_PARALYZE:
-			{
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr)) break;
-
-				/* Increase "paralyzed" */
-				if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
-				{
-					/* Do nothing */
-				}
-				else if(has_trait(target_ptr, TRAIT_FREE_ACTION))
-					msg_print(MES_IS_UNAFFECTED);
-				/*TODO saving_throw else if(randint0(100 + species_ptr->level/2) < target_ptr->skill_rob)
-				{
-				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-				obvious = TRUE;
-				}
-				*/
-				else
-				{
-					if(!has_trait(target_ptr, TRAIT_PARALYZED))
-						if(set_timed_trait(target_ptr, TRAIT_PARALYZED, 3 + randint1(attacker_ptr->lev), TRUE))
-							obvious = TRUE;
-				}
-
-				/* Learn about the player */
-
-				break;
-			}
 
 
 		case RBE_SHATTER:
