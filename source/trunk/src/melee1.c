@@ -668,6 +668,38 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 		}
 
+		if(has_trait_object(weapon_ptr, TRAIT_EXP_VAMP_BRAND))
+		{
+			s32b d = diceroll(60, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
+			bool resist_drain;
+
+			resist_drain = !drain_exp(target_ptr, d, d / 10, 50);
+			// Heal the attacker?
+			if(has_trait(target_ptr, TRAIT_NONLIVING) || has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_DEMON))
+			{
+				resist_drain = TRUE;
+			}
+
+			if((k > 5) && !resist_drain)
+			{
+				bool did_heal = FALSE;
+
+				if(attacker_ptr->chp < attacker_ptr->mhp) did_heal = TRUE;
+				attacker_ptr->chp += diceroll(4, k / 6);
+				if(attacker_ptr->chp > attacker_ptr->mhp) attacker_ptr->chp = attacker_ptr->mhp;
+
+				if(attacker_ptr->see_others && did_heal)
+				{
+#ifdef JP
+					msg_format("%s‚Í‘Ì—Í‚ğ‰ñ•œ‚µ‚½‚æ‚¤‚¾B", attacker_name);
+#else
+					msg_format("%^s appears healthier.", attacker_name);
+#endif
+				}
+			}
+		}
+
+
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
 		if((mode == HISSATSU_SEKIRYUKA) && !GET_TIMED_TRAIT(attacker_ptr, TRAIT_CUT)) k /= 2;
@@ -1444,55 +1476,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				break;
 			}
 
-		case RBE_EXP_VAMP:
-			{
-				s32b d = diceroll(60, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
-				bool resist_drain;
-
-				/* Obvious */
-				obvious = TRUE;
-
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) break;
-
-				resist_drain = !drain_exp(target_ptr, d, d / 10, 50);
-
-				// Heal the attacker?
-				if(has_trait(target_ptr, TRAIT_NONLIVING) || has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_DEMON))
-				{
-					resist_drain = TRUE;
-					break;
-				}
-
-				if((damage > 5) && !resist_drain)
-				{
-					bool did_heal = FALSE;
-
-					if(attacker_ptr->chp < attacker_ptr->mhp) did_heal = TRUE;
-
-					/* Heal */
-					attacker_ptr->chp += diceroll(4, damage / 6);
-					if(attacker_ptr->chp > attacker_ptr->mhp) attacker_ptr->chp = attacker_ptr->mhp;
-
-					//TODO if(npc_status_id == m_idx) prepare_redraw(PR_HEALTH);
-					//TODO if(target_ptr->riding == m_idx) prepare_redraw(PR_UHEALTH);
-
-					/* Special message */
-					if(attacker_ptr->see_others && did_heal)
-					{
-#ifdef JP
-						msg_format("%s‚Í‘Ì—Í‚ğ‰ñ•œ‚µ‚½‚æ‚¤‚¾B", attacker_name);
-#else
-						msg_format("%^s appears healthier.", attacker_name);
-#endif
-
-					}
-				}
-
-				break;
-			}
-			}
+		}
 
 		/* Hack -- only one of cut or stun */
 		if(do_cut && do_stun)
