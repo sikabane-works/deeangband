@@ -598,6 +598,76 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			//TODO
 		}
 
+		if(has_trait_object(weapon_ptr, TRAIT_TIME_BRAND) && !has_trait(target_ptr, TRAIT_RES_TIME))
+		{
+			cptr act;
+			switch (randint1(10))
+			{
+			case 1: case 2: case 3: case 4: case 5:
+				{
+					if(has_trait(target_ptr, TRAIT_ANDROID)) break;
+#ifdef JP
+					msg_print("人生が逆戻りした気がする。");
+#else
+					msg_print("You feel life has clocked back.");
+#endif
+					lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE);
+					break;
+				}
+
+			case 6: case 7: case 8: case 9:
+				{
+					int stat = randint0(6);
+
+					switch (stat)
+					{
+#ifdef JP
+			case STAT_STR: act = "強く"; break;
+			case STAT_INT: act = "聡明で"; break;
+			case STAT_WIS: act = "賢明で"; break;
+			case STAT_DEX: act = "器用で"; break;
+			case STAT_CON: act = "健康で"; break;
+			case STAT_CHA: act = "美しく"; break;
+#else
+			case STAT_STR: act = "strong"; break;
+			case STAT_INT: act = "bright"; break;
+			case STAT_WIS: act = "wise"; break;
+			case STAT_DEX: act = "agile"; break;
+			case STAT_CON: act = "hale"; break;
+			case STAT_CHA: act = "beautiful"; break;
+#endif
+
+					}
+
+#ifdef JP
+					msg_format("あなたは以前ほど%sなくなってしまった...。", act);
+#else
+					msg_format("You're not as %s as you used to be...", act);
+#endif
+					target_ptr->stat_cur[stat] = (target_ptr->stat_cur[stat] * 3) / 4;
+					if(target_ptr->stat_cur[stat] < 3) target_ptr->stat_cur[stat] = 3;
+					prepare_update(target_ptr, CRU_BONUS);
+					break;
+				}
+
+			case 10:
+				{
+#ifdef JP
+					msg_print("あなたは以前ほど力強くなくなってしまった...。");
+#else
+					msg_print("You're not as powerful as you used to be...");
+#endif
+					for (k = 0; k < STAT_MAX; k++)
+					{
+						target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
+						if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
+					}
+					prepare_update(target_ptr, CRU_BONUS);
+					break;
+				}
+			}
+		}
+
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
 		if((mode == HISSATSU_SEKIRYUKA) && !GET_TIMED_TRAIT(attacker_ptr, TRAIT_CUT)) k /= 2;
@@ -1249,7 +1319,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	species_type *species_ptr = &species_info[attacker_ptr->species_idx];
 	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_idx];
 
-	int k, tmp, ac, ev, vo;
+	int tmp, ac, ev, vo;
 	int do_cut, do_stun;
 
 	char attacker_name[MAX_NLEN];
@@ -1266,8 +1336,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	bool obvious = FALSE;
 	POWER power = 0;
 	POWER damage = 0;
-
-	cptr act = NULL;
 
 	/* Extract the attack infomation */
 	int effect = attacker_ptr->blow[ap_cnt].effect;
@@ -1376,81 +1444,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				break;
 			}
 
-		case RBE_TIME:
-			{
-				if(explode) break;
-				if(!has_trait(target_ptr, TRAIT_RES_TIME) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
-				{
-					switch (randint1(10))
-					{
-					case 1: case 2: case 3: case 4: case 5:
-						{
-							if(has_trait(target_ptr, TRAIT_ANDROID)) break;
-#ifdef JP
-							msg_print("人生が逆戻りした気がする。");
-#else
-							msg_print("You feel life has clocked back.");
-#endif
-							lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE);
-							break;
-						}
-
-					case 6: case 7: case 8: case 9:
-						{
-							int stat = randint0(6);
-
-							switch (stat)
-							{
-#ifdef JP
-					case STAT_STR: act = "強く"; break;
-					case STAT_INT: act = "聡明で"; break;
-					case STAT_WIS: act = "賢明で"; break;
-					case STAT_DEX: act = "器用で"; break;
-					case STAT_CON: act = "健康で"; break;
-					case STAT_CHA: act = "美しく"; break;
-#else
-					case STAT_STR: act = "strong"; break;
-					case STAT_INT: act = "bright"; break;
-					case STAT_WIS: act = "wise"; break;
-					case STAT_DEX: act = "agile"; break;
-					case STAT_CON: act = "hale"; break;
-					case STAT_CHA: act = "beautiful"; break;
-#endif
-
-							}
-
-#ifdef JP
-							msg_format("あなたは以前ほど%sなくなってしまった...。", act);
-#else
-							msg_format("You're not as %s as you used to be...", act);
-#endif
-							target_ptr->stat_cur[stat] = (target_ptr->stat_cur[stat] * 3) / 4;
-							if(target_ptr->stat_cur[stat] < 3) target_ptr->stat_cur[stat] = 3;
-							prepare_update(target_ptr, CRU_BONUS);
-							break;
-						}
-
-					case 10:
-						{
-#ifdef JP
-							msg_print("あなたは以前ほど力強くなくなってしまった...。");
-#else
-							msg_print("You're not as powerful as you used to be...");
-#endif
-							for (k = 0; k < STAT_MAX; k++)
-							{
-								target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
-								if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
-							}
-							prepare_update(target_ptr, CRU_BONUS);
-							break;
-						}
-					}
-				}
-				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				break;
-			}
 		case RBE_EXP_VAMP:
 			{
 				s32b d = diceroll(60, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
