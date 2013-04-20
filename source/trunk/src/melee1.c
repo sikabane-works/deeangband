@@ -572,6 +572,11 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(has_trait_object(weapon_ptr, TRAIT_DEC_CON)) do_dec_stat(target_ptr, STAT_CON);
 		if(has_trait_object(weapon_ptr, TRAIT_DEC_CHR)) do_dec_stat(target_ptr, STAT_CHA);
 
+		if(has_trait_object(weapon_ptr, TRAIT_BLIND_BRAND) && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
+		{
+			add_timed_trait(target_ptr, TRAIT_BLIND, 10 + randint1(attacker_ptr->lev), TRUE);
+		}
+
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
 		if((mode == HISSATSU_SEKIRYUKA) && !GET_TIMED_TRAIT(attacker_ptr, TRAIT_CUT)) k /= 2;
@@ -1307,30 +1312,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		switch (effect)
 		{
 
-		case RBE_BLIND:
-			{
-				get_damage += take_damage_to_creature(NULL, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				if(IS_DEAD(target_ptr)) break;
-
-				/* Increase "blind" */
-				if(!has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
-				{
-					if(add_timed_trait(target_ptr, TRAIT_BLIND, 10 + randint1(attacker_ptr->lev), TRUE))
-					{
-#ifdef JP
-						if(attacker_ptr->species_idx == SPECIES_DIO) msg_print("「どうだッ！この血の目潰しはッ！」");
-#else
-						/* nanka */
-#endif
-						obvious = TRUE;
-					}
-				}
-
-				/* Learn about the player */
-
-				break;
-			}
 
 		case RBE_CONFUSE:
 			{
