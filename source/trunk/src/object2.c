@@ -5834,9 +5834,6 @@ byte value_check_aux2(creature_type *creature_ptr, object_type *object_ptr)
 	return FEEL_NONE;
 }
 
-
-
-
 // Determines the odds of an object breaking when thrown at a creature
 // Note that artifacts never break, see the "drop_near(floor_ptr, )" function.
 int breakage_chance(creature_type *creature_ptr, object_type *object_ptr)
@@ -5888,5 +5885,15 @@ int breakage_chance(creature_type *creature_ptr, object_type *object_ptr)
 	}
 }
 
+DICE_NUM bodysize_boost_dn(creature_type *creature_ptr, object_type *object_ptr)
+{
+	if(!has_trait_object(object_ptr, TRAIT_BODYSIZE_BOOST)) return 0;
+	return (DICE_NUM)(creature_ptr->size / 2 + 1);
+}
 
+DICE_SIDE bodysize_boost_ds(creature_type *creature_ptr, object_type *object_ptr)
+{
+	if(!has_trait_object(object_ptr, TRAIT_BODYSIZE_BOOST)) return 0;
+	return (DICE_SIDE)(creature_ptr->size / 2 + 1);	
+}
 
