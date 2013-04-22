@@ -21,6 +21,7 @@
 
 static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_ptr)
 {
+	char attacker_name[MAX_NLEN];
 	int aura_damage = 0;
 
 	if(has_trait(target_ptr, TRAIT_AURA_FIRE))
@@ -77,6 +78,130 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_ELEC);
 			handle_stuff(attacker_ptr);
+		}
+	}
+
+	if(has_trait(target_ptr, TRAIT_DUST_ROBE) && !IS_DEAD(target_ptr))
+	{
+		floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
+		if(!has_trait(attacker_ptr, TRAIT_RES_SHAR))
+		{
+			POWER dam = diceroll(2, 6);
+			creature_desc(attacker_name, attacker_ptr, 0);
+#ifdef JP
+			msg_format("%^sは鏡の破片をくらった！", attacker_name);
+			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "はズタズタになった。", -1);
+#else
+			msg_format("%^s gets zapped!", attacker_name);
+			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " had torn to pieces.", -1);
+#endif
+		}
+		else
+		{
+			//if(is_original_ap_and_seen(target_ptr, attacker_ptr))
+			//TODO species_ptr->r_flags10 |= (species_ptr->flags10 & RF10_EFF_RES_SHAR_MASK);
+		}
+
+		if(is_mirror_grid(&floor_ptr->cave[target_ptr->fy][target_ptr->fx]))
+		{
+			teleport_creature(target_ptr, 10, 0L);
+		}
+	}
+
+	if(has_trait(target_ptr, TRAIT_HOLY_AURA) && !IS_DEAD(target_ptr))
+	{
+		if(is_enemy_of_good_creature(target_ptr))
+		{
+			if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
+			{
+				POWER dam = diceroll(2, 6);
+				creature_desc(attacker_name, attacker_ptr, 0);
+#ifdef JP
+				msg_format("%^sは聖なるオーラで傷ついた！", attacker_name);
+				take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
+#else
+				msg_format("%^s is injured by holy power!", attacker_name);
+				take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
+#endif
+				if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
+			}
+			else
+			{
+				if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+			}
+		}
+	}
+
+	if(has_trait(target_ptr, TRAIT_AURA_MANA) && !IS_DEAD(target_ptr))
+	{
+		if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
+		{
+			POWER dam = diceroll(2, 6);
+			creature_desc(attacker_name, attacker_ptr, 0);
+#ifdef JP
+			msg_format("%^sが鋭い闘気のオーラで傷ついた！", attacker_name);
+			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
+#else
+			msg_format("%^s is injured by the Force", attacker_name);
+			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
+#endif
+		}
+		else if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+	}
+
+	if(HEX_SPELLING(target_ptr, HEX_SHADOW_CLOAK) && !IS_DEAD(target_ptr))
+	{
+		POWER dam = 1;
+		object_type *object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_HAND, 0);
+
+		if(!has_trait(attacker_ptr, TRAIT_RES_DARK))
+		{
+			if(is_valid_object(object_ptr))
+			{
+				int basedam = ((object_ptr->dd + target_ptr->to_damaged[0]) * (object_ptr->ds + target_ptr->to_damages[0] + 1));
+				dam = basedam / 2 + object_ptr->to_damage + target_ptr->to_damage[0];
+			}
+
+			/* Cursed armor makes damages doubled */
+			object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_BODY, 0);
+			if((object_ptr->k_idx) && object_is_cursed(object_ptr)) dam *= 2;
+			creature_desc(attacker_name, attacker_ptr, 0);
+#ifdef JP
+			msg_format("影のオーラが%^sに反撃した！", attacker_name);
+			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
+#else
+			msg_format("Enveloped shadows attack %^s.", attacker_name);
+			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
+#endif
+			/* TODO
+			else // creature does not dead
+			{
+			int j;
+			int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
+			int typ[4][2] = {
+			{ INVENTORY_ID_HEAD, DO_EFFECT_CONF_OTHERS },
+			{ INVENTORY_ID_HAND, DO_EFFECT_OLD_SLEEP },
+			{ INVENTORY_ID_ARM, DO_EFFECT_TURN_ALL },
+			{ INVENTORY_ID_FEET, DO_EFFECT_SLOW_OTHERS }
+			};
+
+			// Some cursed armours gives an extra effect
+			for (j = 0; j < 4; j++)
+			{
+			object_ptr = &target_ptr->inventory[typ[j][0]];
+			if((object_ptr->k_idx) && object_is_cursed(object_ptr) && object_is_armour(object_ptr))
+			project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, (target_ptr->lev * 2), typ[j][1], flg, -1);
+			}
+			}
+			*/
+		}
+		else
+		{
+			if(is_original_ap_and_seen(player_ptr, target_ptr))
+			{
+				reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				reveal_creature_info(target_ptr, TRAIT_RES_DARK);
+			}
 		}
 	}
 }
@@ -1356,8 +1481,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	species_type *species_ptr = &species_info[attacker_ptr->species_idx];
 	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_idx];
 
-	int tmp, ac, ev, vo;
-	int do_cut, do_stun;
+	int ac, ev, vo;
 
 	char attacker_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
@@ -1365,7 +1489,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	char ddesc[80];
 
 	bool blinked;
-	bool touched = FALSE;
 	bool explode = FALSE;
 	bool do_silly_attack = (one_in_(2) && has_trait(target_ptr, TRAIT_HALLUCINATION));
 	int get_damage = 0;
@@ -1420,9 +1543,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	{
 		disturb(player_ptr, 1, 0);
 
-		/* Assume no cut or stun */
-		do_cut = do_stun = 0;
-
 		/* Hack -- assume all attacks are obvious */
 		obvious = TRUE;
 
@@ -1436,63 +1556,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		if(explode) damage = 0;
 		/* Apply appropriate damage */
 
-		/* Hack -- only one of cut or stun */
-		if(do_cut && do_stun)
-		{
-			// Cancel cut or stun
-			if(PERCENT(50)) do_cut = 0;
-			else do_stun = 0;
-		}
-
-		/* Handle cut */
-		if(do_cut)
-		{
-			int k = 0;
-
-			/* Critical hit (zero if non-critical) */
-			tmp = creature_critical(d_dice, d_side, damage);
-
-			/* Roll for damage */
-			switch (tmp)
-			{
-			case 0: k = 0; break;
-			case 1: k = randint1(5); break;
-			case 2: k = randint1(5) + 5; break;
-			case 3: k = randint1(20) + 20; break;
-			case 4: k = randint1(50) + 50; break;
-			case 5: k = randint1(100) + 100; break;
-			case 6: k = 300; break;
-			default: k = 500; break;
-			}
-
-			/* Apply the cut */
-			if(k) (void)add_timed_trait(target_ptr, TRAIT_CUT, k, TRUE);
-		}
-
-		/* Handle stun */
-		if(do_stun)
-		{
-			int k = 0;
-
-			/* Critical hit (zero if non-critical) */
-			tmp = creature_critical(d_dice, d_side, damage);
-
-			/* Roll for damage */
-			switch (tmp)
-			{
-			case 0: k = 0; break;
-			case 1: k = randint1(5); break;
-			case 2: k = randint1(5) + 10; break;
-			case 3: k = randint1(10) + 20; break;
-			case 4: k = randint1(15) + 30; break;
-			case 5: k = randint1(20) + 40; break;
-			case 6: k = 80; break;
-			default: k = 150; break;
-			}
-
-			/* Apply the stun */
-			if(k) (void)add_timed_trait(target_ptr, TRAIT_STUN, k, TRUE);
-		}
 
 		if(explode)
 		{
@@ -1500,202 +1563,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 			take_damage_to_creature(attacker_ptr, attacker_ptr, 0, attacker_ptr->chp + 1, NULL, NULL, -1);
 			if(attacker_ptr->species_idx == 0) blinked = FALSE;
-		}
-
-		if(touched)
-		{
-			if(has_trait(target_ptr, TRAIT_AURA_FIRE) && !IS_DEAD(target_ptr))
-			{
-				if(!has_trait(attacker_ptr, TRAIT_RES_SHAR))
-				{
-					POWER dam = diceroll(2, 6);
-
-#ifdef JP
-					msg_format("%^sは突然熱くなった！", attacker_name);
-					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は灰の山になった。", -1);
-#else
-					msg_format("%^s is suddenly very hot!", attacker_name);
-					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " turns into a pile of ash.", -1);
-#endif
-					if(attacker_ptr->species_idx == 0) blinked = FALSE;
-				}
-				else
-				{
-					//if(is_original_ap_and_seen(target_ptr, attacker_ptr))
-					//TODO 	species_ptr->r_flags10 |= (species_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
-				}
-			}
-
-			if(has_trait(target_ptr, TRAIT_AURA_ELEC) && !IS_DEAD(target_ptr))
-			{
-				if(!has_trait(attacker_ptr, TRAIT_RES_ELEC))
-				{
-					POWER dam = diceroll(2, 6);
-
-#ifdef JP
-					msg_format("%^sは電撃をくらった！", attacker_name);
-					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は燃え殻の山になった。", -1);
-#else
-					msg_format("%^s gets zapped!", attacker_name);
-					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " turns into a pile of cinder.", -1);
-#endif
-					if(attacker_ptr->species_idx == 0) blinked = FALSE;
-				}
-				else
-				{
-					//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr))
-					//TODO species_ptr->r_flags10 |= (species_ptr->flags10 & RF10_EFF_IM_ELEC_MASK);
-				}
-			}
-
-			if(has_trait(target_ptr, TRAIT_AURA_COLD) && !IS_DEAD(target_ptr))
-			{
-				if(!has_trait(attacker_ptr, TRAIT_RES_COLD))
-				{
-					POWER dam = diceroll(2, 6);
-
-#ifdef JP
-					msg_format("%^sは冷気をくらった！", attacker_name);
-					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は凍りついた。", -1);
-#else
-					msg_format("%^s is very cold!", attacker_name);
-					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " was frozen.", -1);
-#endif
-					if(attacker_ptr->species_idx == 0) blinked = FALSE;
-				}
-				else
-				{
-					//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr))
-					//TODO species_ptr->r_flags10 |= (species_ptr->flags10 & RF10_EFF_IM_COLD_MASK);
-				}
-			}
-
-			/* by henkma */
-			if(has_trait(target_ptr, TRAIT_DUST_ROBE) && !IS_DEAD(target_ptr))
-			{
-				if(!has_trait(attacker_ptr, TRAIT_RES_SHAR))
-				{
-					POWER dam = diceroll(2, 6);
-
-#ifdef JP
-					msg_format("%^sは鏡の破片をくらった！", attacker_name);
-					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "はズタズタになった。", -1);
-#else
-					msg_format("%^s gets zapped!", attacker_name);
-					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " had torn to pieces.", -1);
-#endif
-					if(attacker_ptr->species_idx == 0) blinked = FALSE;
-				}
-				else
-				{
-					//if(is_original_ap_and_seen(target_ptr, attacker_ptr))
-					//TODO species_ptr->r_flags10 |= (species_ptr->flags10 & RF10_EFF_RES_SHAR_MASK);
-				}
-
-				if(is_mirror_grid(&floor_ptr->cave[target_ptr->fy][target_ptr->fx]))
-				{
-					teleport_creature(target_ptr, 10, 0L);
-				}
-			}
-
-			if(has_trait(target_ptr, TRAIT_HOLY_AURA) && !IS_DEAD(target_ptr))
-			{
-				if(is_enemy_of_good_creature(target_ptr))
-				{
-					if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
-					{
-						POWER dam = diceroll(2, 6);
-
-#ifdef JP
-						msg_format("%^sは聖なるオーラで傷ついた！", attacker_name);
-						take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
-#else
-						msg_format("%^s is injured by holy power!", attacker_name);
-						take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
-#endif
-						if(attacker_ptr->species_idx == 0) blinked = FALSE;
-						if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
-					}
-					else
-					{
-						if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-					}
-				}
-			}
-
-			if(has_trait(target_ptr, TRAIT_AURA_MANA) && !IS_DEAD(target_ptr))
-			{
-				if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
-				{
-					POWER dam = diceroll(2, 6);
-#ifdef JP
-					msg_format("%^sが鋭い闘気のオーラで傷ついた！", attacker_name);
-					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
-#else
-					msg_format("%^s is injured by the Force", attacker_name);
-					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
-#endif
-					if(attacker_ptr->species_idx == 0) blinked = FALSE;
-				}
-				else if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			}
-
-			if(HEX_SPELLING(target_ptr, HEX_SHADOW_CLOAK) && !IS_DEAD(target_ptr))
-			{
-				POWER dam = 1;
-				object_type *object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_HAND, 0);
-
-				if(!has_trait(attacker_ptr, TRAIT_RES_DARK))
-				{
-					if(is_valid_object(object_ptr))
-					{
-						int basedam = ((object_ptr->dd + target_ptr->to_damaged[0]) * (object_ptr->ds + target_ptr->to_damages[0] + 1));
-						dam = basedam / 2 + object_ptr->to_damage + target_ptr->to_damage[0];
-					}
-
-					/* Cursed armor makes damages doubled */
-					object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_BODY, 0);
-					if((object_ptr->k_idx) && object_is_cursed(object_ptr)) dam *= 2;
-
-#ifdef JP
-					msg_format("影のオーラが%^sに反撃した！", attacker_name);
-					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
-#else
-					msg_format("Enveloped shadows attack %^s.", attacker_name);
-					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
-#endif
-					if(attacker_ptr->species_idx == 0) blinked = FALSE;
-					/* TODO
-					else // creature does not dead
-					{
-					int j;
-					int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
-					int typ[4][2] = {
-					{ INVENTORY_ID_HEAD, DO_EFFECT_CONF_OTHERS },
-					{ INVENTORY_ID_HAND, DO_EFFECT_OLD_SLEEP },
-					{ INVENTORY_ID_ARM, DO_EFFECT_TURN_ALL },
-					{ INVENTORY_ID_FEET, DO_EFFECT_SLOW_OTHERS }
-					};
-
-					// Some cursed armours gives an extra effect
-					for (j = 0; j < 4; j++)
-					{
-					object_ptr = &target_ptr->inventory[typ[j][0]];
-					if((object_ptr->k_idx) && object_is_cursed(object_ptr) && object_is_armour(object_ptr))
-					project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, (target_ptr->lev * 2), typ[j][1], flg, -1);
-					}
-					}
-					*/
-				}
-				else
-				{
-					if(is_original_ap_and_seen(player_ptr, target_ptr))
-					{
-						reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-						reveal_creature_info(target_ptr, TRAIT_RES_DARK);
-					}
-				}
-			}
 		}
 	}
 
