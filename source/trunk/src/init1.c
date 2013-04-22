@@ -753,61 +753,6 @@ static cptr store_pre_info_flags[] =
 	"XXX",
 };
 
-static int parse_special_melee(special_blow_type *blow_ptr, char *tmp)
-{
-	int offset = 0;
-	int num = strlen(tmp);
-	int k = 0, am, ae, n1, n2;
-	char *s;
-	char atk_method[30], atk_effect[30];
-
-	while(offset < num)
-	{
-		if(k == MAX_SPECIAL_BLOWS) return PARSE_ERROR_GENERIC;
-
-		for(s = &tmp[offset]; *s != '\n' && *s != '\0'; s++);
-		*s = '\0';
-
-		n1 = n2 = 0;
-		atk_method[0] = '\0';
-		atk_effect[0] = '\0';
-
-		if(sscanf(tmp + offset, "%[^:]:%[^:]:%dd%d", atk_method, atk_effect, &n1, &n2) != 4) {
-			if(sscanf(tmp + offset, "%[^:\n]:%[^:]", atk_method, atk_effect) != 2) {
-				if(sscanf(tmp + offset, "%[^:]", atk_method) != 1)
-					return PARSE_ERROR_GENERIC;
-			}
-		}
-
-		/* Analyze the method */
-		for (am = 0; species_info_blow_method[am]; am++) if(streq(atk_method, species_info_blow_method[am])) break;
-		if(!species_info_blow_method[am])
-			return PARSE_ERROR_GENERIC;
-
-		/* Analyze effect */
-		for (ae = 0; species_info_blow_effect[ae]; ae++) if(streq(atk_effect, species_info_blow_effect[ae])) break;
-		if(!species_info_blow_effect[ae])
-			return PARSE_ERROR_GENERIC;
-
-		/* Save the method */
-		blow_ptr[k].method = am;
-
-		/* Save the effect */
-		blow_ptr[k].effect = ae;
-
-		/* Extract the damage dice and sides */
-		blow_ptr[k].d_dice = (DICE_NUM)n1;
-		blow_ptr[k].d_side = (DICE_SIDE)n2;
-
-		k++;
-
-		while(tmp[offset]) offset++;
-		offset++;
-	}
-
-	return PARSE_ERROR_NONE;
-}
-
 /*
  * Add a text to the text-storage and store offset to it.
  * Returns FALSE when there isn't enough space available to store
@@ -3529,7 +3474,6 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_BATTLE:
-				parse_special_melee(species_ptr->blow, tmp);
 				break;
 
 			case SPECIES_INFO_UNDERLING:
@@ -4928,7 +4872,6 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_SP_MELEE:
-				parse_special_melee(race_ptr->blow, tmp);
 				break;
 
 			default:
