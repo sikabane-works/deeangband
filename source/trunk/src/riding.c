@@ -1,4 +1,5 @@
 #include "angband.h"
+#include "creature_melee.h"
 
 static bool player_can_ride_aux(creature_type *creature_ptr, cave_type *c_ptr, bool now_riding)
 {

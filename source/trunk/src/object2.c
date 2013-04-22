@@ -5897,3 +5897,84 @@ DICE_SIDE bodysize_boost_ds(creature_type *creature_ptr, object_type *object_ptr
 	return (DICE_SIDE)(creature_ptr->size / 2 + 1);	
 }
 
+u32b get_curse(POWER power, object_type *object_ptr)
+{
+	u32b new_curse;
+
+	while(TRUE)
+	{
+		new_curse = (1 << (randint0(MAX_TRAITS))); //TODO:  SEARCH CURSE
+		if(power == 2) if(!(new_curse & TRC_HEAVY_MASK)) continue;
+		else if(power == 1) if(new_curse & TRC_SPECIAL_MASK) continue;
+		else if(power == 0) if(new_curse & TRC_HEAVY_MASK) continue;
+		if(new_curse == TRAIT_LOW_MELEE && !object_is_weapon(object_ptr)) continue;
+		if(new_curse == TRAIT_LOW_AC && !object_is_armour(object_ptr)) continue;
+		break;
+	}
+	return new_curse;
+}
+
+
+void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
+{
+	bool        changed = FALSE;
+	int         curse_power = 0;
+	u32b        new_curse;
+	u32b oflgs[MAX_TRAITS_FLAG];
+	//TODO SELECT
+	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 0);
+	char object_name[MAX_NLEN];
+
+	if(randint1(100) > chance) return;
+	if(!is_valid_object(object_ptr)) return;
+
+	object_flags(object_ptr, oflgs);
+	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+
+	/* Extra, biased saving throw for blessed items */
+	if(have_flag(oflgs, TRAIT_BLESSED_BRAND) && (randint1(888) > chance))
+	{
+#ifdef JP
+		msg_format("%s‚Ì%s‚ÍŽô‚¢‚ð’µ‚Ë•Ô‚µ‚½I", creature_ptr->name, object_name);
+#else
+		msg_format("%s's %s resist%s cursing!", creature_ptr->name, object_name, ((object_ptr->number > 1) ? "" : "s"));
+#endif
+		return;	// Hmmm -- can we wear multiple items? If not, this is unnecessary
+	}
+
+	if((randint1(100) <= heavy_chance) && (object_is_artifact(object_ptr) || object_is_ego(object_ptr)))
+	{
+		if(!(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))) changed = TRUE;
+		add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+		add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+		curse_power++;
+	}
+	else
+	{
+		if(!object_is_cursed(object_ptr))
+			changed = TRUE;
+		add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+	}
+	if(heavy_chance >= 50) curse_power++;
+
+	new_curse = get_curse(curse_power, object_ptr);
+	if(!(object_ptr->curse_flags[0] & new_curse))
+	{
+		changed = TRUE;
+		object_ptr->curse_flags[0] |= new_curse;
+	}
+
+	if(changed)
+	{
+#ifdef JP
+		msg_format("ˆ«ˆÓ‚É–ž‚¿‚½•‚¢ƒI[ƒ‰‚ª%s‚Ì%s‚ð‚Æ‚è‚Ü‚¢‚½...", creature_ptr->name, object_name);
+#else
+		msg_format("There is a malignant black aura surrounding %s's %s...", creature_ptr->name, object_name);
+#endif
+		object_ptr->feeling = FEEL_NONE;
+	}
+	prepare_update(creature_ptr, CRU_BONUS);
+}
+
+
+

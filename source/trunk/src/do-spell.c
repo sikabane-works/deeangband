@@ -4,6 +4,7 @@
 
 #include "angband.h"
 #include "command.h"
+#include "creature_melee.h"
 #include "creature_throwing.h"
 
 
@@ -2562,7 +2563,9 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 					/* Hack -- attack creatures */
 					if(c_ptr->creature_idx && (m_ptr->see_others || CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)))
+					{
 						close_combat(caster_ptr, y, x, 0);
+					}
 				}
 			}
 		}

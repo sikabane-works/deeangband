@@ -8,4 +8,9 @@ extern void search(creature_type *creature_ptr);
 
 extern void pack_overflow(creature_type *creature_ptr);
 
+// melee1.c
+extern bool is_melee_limitation_field(floor_type *floor_ptr);
+extern bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
+
+// melee2.c
 

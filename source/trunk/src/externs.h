@@ -799,18 +799,6 @@ extern cptr get_check_sum(void);
 extern errr rd_savefile_new(void);
 extern bool load_floor(floor_type *sf_ptr, FLAGS_32 mode);
 
-// melee1.c
-extern bool is_melee_limitation_field(floor_type *floor_ptr);
-extern bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
-
-// melee2.c
-extern void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
-extern void breath_aux(int y, int x, creature_type *caster_ptr, int typ, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
-extern void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id);
-extern void process_creatures(void);
-extern u32b get_curse(POWER power, object_type *object_ptr);
-extern void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance);
-
 // creature1.c
 extern void roff_top(SPECIES_ID species_idx);
 extern void screen_roff(creature_type *creature_ptr);
@@ -923,6 +911,7 @@ extern void object_prep(object_type *object_ptr, OBJECT_KIND_ID k_idx);
 extern void object_copy(object_type *object1_ptr, object_type *object2_ptr);
 extern void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLAGS_32 mode, int specified_idx);
 extern void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr, int lev, int ego);
+extern u32b get_curse(POWER power, object_type *object_ptr);
 
 extern void weapon_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
 extern bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx));
@@ -959,6 +948,7 @@ extern byte value_check_aux2(creature_type *creature_ptr, object_type *object_pt
 extern int breakage_chance(creature_type *creature_ptr, object_type *object_ptr);
 extern DICE_NUM bodysize_boost_dn(creature_type *creature_ptr, object_type *object_ptr);
 extern DICE_SIDE bodysize_boost_ds(creature_type *creature_ptr, object_type *object_ptr);
+extern void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance);
 
 // racial.c
 extern void stop_mouth(creature_type *creature_ptr);
@@ -1107,6 +1097,9 @@ extern bool mirror_tunnel(creature_type *creature_ptr);
 extern bool summon_kin_player(creature_type *creature_ptr, FLOOR_LEV level, COODINATES y, COODINATES x, FLAGS_32 mode);
 extern cptr spell_category_name(TVAL tval);
 extern void ring_of_power(creature_type *creature_ptr);
+extern void breath(creature_type *caster_ptr, int typ, COODINATES range, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
+extern void breath_aux(int y, int x, creature_type *caster_ptr, int typ, POWER dam_hp, COODINATES rad, TRAIT_ID trait_id);
+extern void cast_ball_aux(COODINATES y, COODINATES x, creature_type *caster_ptr, int typ, POWER power, COODINATES rad, TRAIT_ID trait_id);
 
 // bldg.c
 extern void have_nightmare(creature_type *watcher_ptr, SPECIES_ID species_idx);
