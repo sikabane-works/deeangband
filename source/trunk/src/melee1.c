@@ -1402,6 +1402,21 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 
 	//TODO gain_skill(attacker, SKILL_RIDING, amount);
 
+	/* Blink away */
+	/* //TODO
+	if(blinked && !IS_DEAD(target_ptr))
+	{
+		if(teleport_barrier(target_ptr, attacker_ptr)) msg_print(MES_MELEE_THIEF_FAILED);
+		else
+		{
+			msg_print(MES_MELEE_THIEF);
+			teleport_away(attacker_ptr, MAX_SIGHT * 2 + 5, 0L);
+		}
+	}
+	*/
+
+	if(has_trait(target_ptr, TRAIT_POSTURE_IAI)) set_action(target_ptr, ACTION_NONE);
+
 	return dead;
 }
 
@@ -1486,7 +1501,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 	char attacker_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
-
 	char ddesc[80];
 
 	bool blinked;
@@ -1644,20 +1658,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
 		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}
-
-	/* Blink away */
-	if(blinked && !IS_DEAD(target_ptr))
-	{
-		if(teleport_barrier(target_ptr, attacker_ptr))
-			msg_print(MES_MELEE_THIEF_FAILED);
-		else
-		{
-			msg_print(MES_MELEE_THIEF);
-			//TODO teleport_away(m_idx, MAX_SIGHT * 2 + 5, 0L);
-		}
-	}
-
-	if(has_trait(attacker_ptr, TRAIT_POSTURE_IAI)) set_action(target_ptr, ACTION_NONE);
 
 	/* Assume we attacked */
 	return TRUE;
