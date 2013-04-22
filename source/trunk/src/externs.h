@@ -886,7 +886,7 @@ extern s16b label_to_item(creature_type *creature_ptr, int c);
 extern cptr mention_use_idx(creature_type *creature_ptr, INVENTORY_ID slot, int num);
 extern cptr mention_use_ptr(creature_type *creature_ptr, object_type *object_ptr);
 extern cptr describe_use(creature_type *creature_ptr, int i);
-extern bool check_book_realm(creature_type *creature_ptr, const byte book_tval, const byte book_sval);
+extern bool check_book_realm(creature_type *creature_ptr, const TVAL book_tval, const SVAL book_sval);
 extern bool item_tester_okay(creature_type *creature_ptr, object_type *object_ptr, bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval);
 extern void display_inven(creature_type *creature_ptr);
 extern void display_equip(creature_type *creature_ptr);

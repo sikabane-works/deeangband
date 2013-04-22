@@ -540,7 +540,7 @@ cptr describe_use(creature_type *creature_ptr, int i)
 
 /* Hack: Check if a spellbook is one of the realms we can use. -- TY */
 
-bool check_book_realm(creature_type *creature_ptr, const byte book_tval, const byte book_sval)
+bool check_book_realm(creature_type *creature_ptr, const TVAL book_tval, const SVAL book_sval)
 {
 	if(book_tval < TV_LIFE_BOOK) return FALSE;
 	if(creature_ptr->class_idx == CLASS_SORCERER)

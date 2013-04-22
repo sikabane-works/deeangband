@@ -3155,8 +3155,8 @@ static int species_info_csv_code[SPECIES_INFO_CSV_COLUMNS];
 errr parse_species_info_csv(char *buf, header *head)
 {
 	int id;
-	TVAL tval;
-	SVAL sval;
+	TVAL tval = 0;
+	SVAL sval = 0;
 	int prob, ego, num, side, offset;
 	int split[80], size[80];
 	int i, j, k;

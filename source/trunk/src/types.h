@@ -166,11 +166,11 @@ typedef s32b POSTURE_ID;
 #define READ_POSTURE_ID(VALUE) rd_s32b((POSTURE_ID *)VALUE);
 #define WRITE_POSTURE_ID(VALUE) wr_s32b((POSTURE_ID)VALUE);
 
-typedef byte TVAL;
+typedef s16b TVAL;
 #define READ_TVAL(VALUE) rd_byte((TVAL *)VALUE);
 #define WRITE_TVAL(VALUE) wr_byte((TVAL)VALUE);
 
-typedef byte SVAL;
+typedef s16b SVAL;
 #define READ_SVAL(VALUE) rd_byte((SVAL *)VALUE);
 #define WRITE_SVAL(VALUE) wr_byte((SVAL)VALUE);
 

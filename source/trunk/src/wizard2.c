@@ -131,7 +131,7 @@ static void prt_binary(FLAGS_32 flags, int row, int col)
 
 
 // Output a rarity graph for a type of object.
-static void prt_alloc(byte tval, byte sval, int row, int col)
+static void prt_alloc(TVAL tval, SVAL sval, int row, int col)
 {
 	int i, j;
 	int home = 0;
