@@ -17,6 +17,7 @@
 #include "diary.h"
 #include "dungeon.h"
 #include "files.h"
+#include "floors.h"
 #include "store.h"
 #include "quest.h"
 

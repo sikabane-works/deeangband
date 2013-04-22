@@ -17,6 +17,7 @@
 #include "creature_melee.h"
 #include "diary.h"
 #include "files.h"
+#include "floors.h"
 #include "quest.h"
 #include "riding.h"
 

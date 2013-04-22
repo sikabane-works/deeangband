@@ -15,6 +15,7 @@
 #include "creature_throwing.h"
 #include "diary.h"
 #include "files.h"
+#include "floors.h"
 #include "riding.h"
 
 bool do_active_trait(creature_type *caster_ptr, int id, bool message)
