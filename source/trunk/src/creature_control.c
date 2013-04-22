@@ -1828,6 +1828,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 {
 	int i;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
+	int total = 0;
 
 	// Set the new hooks
 	creature_hook_type  get_species_num_hook  = creature_hook;
@@ -1862,6 +1863,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 		}
 
 		entry->prob2 = entry->prob1; // Accept this creature
+		total+= entry->prob1;
 
 		//TODO if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
 		/*
@@ -1873,6 +1875,10 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 		*/
 	}
 
+	if(total <= 0)
+	{
+		msg_warning("No selected creature in get_species_num_prep()");
+	}
 	return SUCCESS;	// Success
 }
 
@@ -1996,7 +2002,11 @@ SPECIES_ID get_species_num(floor_type *floor_ptr, FLOOR_LEV level)
 		total += table[i].prob3; // Total
 	}
 
-	if(total <= 0) return SUCCESS; // No legal creatures
+	if(total <= 0)
+	{
+		msg_warning("No selection in get_species_num()");
+		return SUCCESS; // No legal creatures
+	}
 
 	value = randint0(total); // Pick a creature
 
