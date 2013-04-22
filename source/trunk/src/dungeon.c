@@ -1098,12 +1098,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);	// Get an object description
 
-#ifdef JP
-			sprintf(ouch, "%sを装備したダメージ", object_name);
-#else
-			sprintf(ouch, "wielding %s", object_name);
-#endif
-
+			sprintf(ouch, COD_EQUIPED_DAMAGE(object_name));
 			if(!has_trait(creature_ptr, TRAIT_INVULNERABLE)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, ouch, NULL, -1);
 		}
 	}
@@ -1343,21 +1338,12 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	{
 		while (upkeep_factor > 100)
 		{
-#ifdef JP
-			msg_print("こんなに多くのペットを制御できない！");
-#else
-			msg_print("Too many pets to control at once!");
-#endif
+			msg_print(MES_PET_OVER_UPKEEP);
 			msg_print(NULL);
 			do_cmd_pet_dismiss(creature_ptr);
 
 			upkeep_factor = calc_upkeep_servant(creature_ptr);
-
-#ifdef JP
-			msg_format("維持ＭＰは %d%%", upkeep_factor);
-#else
-			msg_format("Upkeep: %d%% mana.", upkeep_factor);
-#endif
+			msg_format(MES_PET_DISP_COST(upkeep_factor));
 			msg_print(NULL);
 		}
 	}
@@ -1373,7 +1359,9 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	/* Regenerate Hit Points if needed */
 	if((creature_ptr->chp < creature_ptr->mhp) && !cave_no_regen)
+	{
 		regenhp(creature_ptr, regen_amount);
+	}
 }
 
 

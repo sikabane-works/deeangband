@@ -1159,6 +1159,7 @@
 #define COD_EARTHQUAKE_CASTER(CASTER) "%sの起こした地震", (CASTER)
 #define COD_EARTHQUAKE "地震"
 #define COD_PURE_MANA "純粋な魔力の解放"
+#define COD_EQUIPED_DAMAGE(OBJECT_NAME) "%sを装備したダメージ", OBJECT_NAME
 #else
 
 #define COD_QUITTING "Quitting"
@@ -1223,6 +1224,7 @@
 #define COD_EARTHQUAKE_CASTER(CASTER) "an earthquake caused by %s", (CASTER)
 #define COD_EARTHQUAKE "an earthquake"
 #define COD_PURE_MANA "released pure mana"
+#define COD_EQUIPED_DAMAGE(OBJECT_NAME) "wielding %s", OBJECT_NAME
 #endif
 
 // Hack -- possible "insult" messages
@@ -3167,6 +3169,8 @@ static cptr desc_stat_neg[] =
 #define MES_STEED_BUMP_WALL(STEED) "%sから振り落とされそうになって、壁にぶつかった。", (STEED)
 #define MES_STEED_GOOD_RANDING(STEED) "%sから落ちたが、空中でうまく体勢を立て直して着地した。", (STEED)
 #define MES_STEED_WAKE_UP(STEED) "%sを起こした。", (STEED)
+#define MES_PET_OVER_UPKEEP "こんなに多くのペットを制御できない！"
+#define MES_PET_DISP_COST(UPKEEP_FACTOR) "維持ＭＰは %d%%", (UPKEEP_FACTOR)
 #else
 #define MES_STEED_GOT_OFF(STEED) "You have got off %s. ", (STEED)
 #define MES_STEED_TAMED(STEED) "You tame %s.", (STEED)->name;
@@ -3181,6 +3185,8 @@ static cptr desc_stat_neg[] =
 #define MES_STEED_BUMP_WALL(STEED) "You have nearly fallen from %s, but bumped into wall.", (STEED)
 #define MES_STEED_GOOD_RANDING(STEED) "You are thrown from %s, but make a good landing.", (STEED)
 #define MES_STEED_WAKE_UP(STEED) "You have waked %s up.", (STEED)
+#define MES_PET_OVER_UPKEEP "Too many pets to control at once!"
+#define MES_PET_DISP_COST(UPKEEP_FACTOR) "Upkeep: %d%% mana.", (UPKEEP_FACTOR)
 #endif
 
 #ifdef JP
