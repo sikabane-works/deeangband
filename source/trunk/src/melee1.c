@@ -955,6 +955,23 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		counter_aura(attacker_ptr, target_ptr);
 		counter_eye_eye(attacker_ptr, target_ptr, k);
 
+		/* Hex - revenge damage stored */
+		revenge_store(target_ptr, k);
+
+		if(target_ptr->riding && k > 0)
+		{
+			char attacker_name[MAX_NLEN];
+			creature_desc(attacker_name, &creature_list[target_ptr->riding], 0);
+			if(do_thrown_from_riding(target_ptr, (k > 200) ? 200 : k, FALSE))
+			{
+#ifdef JP
+				msg_format("%^s‚©‚ç—‚¿‚Ä‚µ‚Ü‚Á‚½I", attacker_name);
+#else
+				msg_format("You have fallen from %s.", attacker_name);
+#endif
+			}
+		}
+
 		// Are we draining it?  A little note: If the creature is dead, the drain does not work...
 		if(can_drain && (drain_result > 0))
 		{
@@ -1523,9 +1540,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	char target_name[MAX_NLEN];
 	char ddesc[80];
 	bool blinked;
-	int get_damage = 0;
 	POWER power = 0;
-	POWER damage = 0;
 
 	/* Extract the attack infomation */
 	int effect = attacker_ptr->blow[ap_cnt].effect;
@@ -1552,23 +1567,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	ac = target_ptr->ac + target_ptr->to_ac;
 	ev = target_ptr->ev + target_ptr->to_ev;
 	vo = target_ptr->vo + target_ptr->to_vo;
-
-	if(target_ptr->riding && damage)
-	{
-		char attacker_name[MAX_NLEN];
-		creature_desc(attacker_name, &creature_list[target_ptr->riding], 0);
-		if(do_thrown_from_riding(target_ptr, (damage > 200) ? 200 : damage, FALSE))
-		{
-#ifdef JP
-			msg_format("%^s‚©‚ç—‚¿‚Ä‚µ‚Ü‚Á‚½I", attacker_name);
-#else
-			msg_format("You have fallen from %s.", attacker_name);
-#endif
-		}
-	}
-
-	/* Hex - revenge damage stored */
-	revenge_store(target_ptr, get_damage);
 
 	/* Assume we attacked */
 	return TRUE;
