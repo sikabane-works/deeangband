@@ -1672,10 +1672,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		}
 	}
 
-	/* Always notice cause of death */
-	if(IS_DEAD(target_ptr) && (species_ptr->r_deaths < MAX_SHORT) && !floor_ptr->fight_arena_mode)
-		species_ptr->r_deaths++;
-
 	if(has_trait(attacker_ptr, TRAIT_POSTURE_IAI)) set_action(target_ptr, ACTION_NONE);
 
 	/* Assume we attacked */

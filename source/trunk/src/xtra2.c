@@ -619,6 +619,9 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	/* Drop objects being carried */
 	creature_drop_carried_objects(dead_ptr);
 
+	/* Always notice cause of death */
+	if(species_ptr->r_deaths < MAX_SHORT && !floor_ptr->fight_arena_mode) species_ptr->r_deaths++;
+
 	switch (dead_ptr->species_idx)
 	{
 	case SPECIES_PINK_HORROR:
