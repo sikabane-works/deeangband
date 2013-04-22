@@ -62,3 +62,40 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 	}
 }
 
+void equip(creature_type *creature_ptr, int item, int slot, int n)
+{
+	object_type *object_ptr = &creature_ptr->inventory[item];
+	int old_item = get_equipped_slot_idx(creature_ptr, object_kind_info[object_ptr->k_idx].slot, n);
+
+	object_ptr->marked |= OM_TOUCHED;	// Player touches it
+	creature_ptr->equip_cnt++;			// Increment the equip counter
+
+	object_ptr->equipped_slot_num = n;
+	object_ptr->equipped_slot_type = object_kind_info[object_ptr->k_idx].slot;
+
+	creature_ptr->inventory[old_item].equipped_slot_num = 0;
+	creature_ptr->inventory[old_item].equipped_slot_type = 0;
+
+	set_inventory_weight(creature_ptr); // Increase the weight
+
+	// Warn Cursed.
+	if(object_is_cursed(object_ptr))
+	{
+		msg_print(MES_EQUIP_CURSED);
+		object_ptr->ident |= (IDENT_SENSE); // Note the curse
+	}
+
+	// The Stone Mask make the player turn into a vampire!
+	if(has_trait_object(object_ptr, TRAIT_VAMPIRIZE) && !has_trait(creature_ptr, TRAIT_VAMPIRE) && !has_trait(creature_ptr, TRAIT_NONLIVING))
+	{
+		// TODO: ADD Vampire Flag 
+	}
+
+	prepare_update(creature_ptr, CRU_BONUS | CRU_TORCH | CRU_MANA); // Recalculate bonuses
+	update_creature(creature_ptr, TRUE);
+
+	prepare_redraw(PR_EQUIPPY);
+	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
+
+	calc_android_exp(creature_ptr);
+}

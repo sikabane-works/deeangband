@@ -4810,7 +4810,7 @@ void world_wipe()
 	cheat_save = FALSE;
 
 	// Reset creature arena
-	battle_creatures();
+	//TODO battle_creatures();
 
 	// Start with no artifacts made yet
 	for (i = 0; i < max_artifact_idx; i++)
