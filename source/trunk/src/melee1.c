@@ -245,6 +245,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	bool zantetsu_mukou = FALSE;
 	bool e_j_mukou = FALSE;
 
+	SAVING ac = target_ptr->ac + target_ptr->to_ac;
+	
 	switch (attacker_ptr->class_idx)
 	{
 	case CLASS_ROGUE:
@@ -295,7 +297,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		success_hit = one_in_(n);
 	}
 	else if((attacker_ptr->class_idx == CLASS_NINJA) && ((ambush || fatal_spot) && !has_trait(target_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
-	else success_hit = test_hit_melee(attacker_ptr, chance, target_ptr->ac + target_ptr->to_ac, target_ptr->see_others);
+	else success_hit = test_hit_melee(attacker_ptr, chance, ac, target_ptr->see_others);
 
 	if(mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
 
@@ -432,7 +434,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		k += attacker_ptr->to_damage[hand];
 		drain_result += attacker_ptr->to_damage[hand];
 
-		if(has_trait_object(weapon_ptr, TRAIT_SUPERHURT) && ((randint1(attacker_ptr->lev*2+300) > (target_ptr->ac + target_ptr->to_ac + 200)) || one_in_(13)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
+		if(has_trait_object(weapon_ptr, TRAIT_SUPERHURT) && ((randint1(attacker_ptr->lev*2+300) > (ac + 200)) || one_in_(13)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
 		{
 #ifdef JP
 			msg_print("クリティカルヒット！");
