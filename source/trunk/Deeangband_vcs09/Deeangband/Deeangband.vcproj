@@ -547,6 +547,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\floors.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\game-constants.h"
 				>
 			</File>

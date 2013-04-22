@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "files.h"
+#include "floors.h"
 #include "grid.h"
 #include "quest.h"
 
