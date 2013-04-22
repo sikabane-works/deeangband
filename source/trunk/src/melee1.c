@@ -246,7 +246,10 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	bool e_j_mukou = FALSE;
 
 	SAVING ac = target_ptr->ac + target_ptr->to_ac;
-	
+
+	//TODO if(distance(target_ptr->fy, target_ptr->fx, attacker_ptr->fy, attacker_ptr->fx) > 1) return FALSE;
+
+
 	switch (attacker_ptr->class_idx)
 	{
 	case CLASS_ROGUE:
@@ -1504,28 +1507,18 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	char ddesc[80];
 
 	bool blinked;
-	bool explode = FALSE;
 	int get_damage = 0;
 
-	bool obvious = FALSE;
 	POWER power = 0;
 	POWER damage = 0;
 
 	/* Extract the attack infomation */
 	int effect = attacker_ptr->blow[ap_cnt].effect;
 	int method = attacker_ptr->blow[ap_cnt].method;
-	int d_dice = attacker_ptr->blow[ap_cnt].d_dice;
-	int d_side = attacker_ptr->blow[ap_cnt].d_side;
-
-#ifdef JP
-	int abbreviate = 0;
-#endif
 
 	// Not allowed to attack
 	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) return FALSE;
 	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_MELEE) return FALSE;
-
-	if(!is_hostile(attacker_ptr)) return FALSE; // ...nor if friendly
 
 	// Get the creature name (or "it")
 	creature_desc(attacker_name, attacker_ptr, 0);
@@ -1537,8 +1530,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	blinked = FALSE; // Assume no blink
 	if(!method) return FALSE; // Hack -- no more attacks
 
-	if(!playing || IS_DEAD(target_ptr)) return FALSE; // Stop if player is dead or gone
-	if(distance(target_ptr->fy, target_ptr->fx, attacker_ptr->fy, attacker_ptr->fx) > 1) return FALSE;
 
 	if(subject_change_floor) return FALSE; // Handle "leaving"
 
@@ -1551,74 +1542,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	ac = target_ptr->ac + target_ptr->to_ac;
 	ev = target_ptr->ev + target_ptr->to_ev;
 	vo = target_ptr->vo + target_ptr->to_vo;
-
-	/* Creature hits player */
-	if(!effect || check_hit(target_ptr, power, attacker_ptr->lev, attacker_ptr->timed_trait[TRAIT_STUN]))
-	{
-		disturb(player_ptr, 1, 0);
-
-		/* Hack -- assume all attacks are obvious */
-		obvious = TRUE;
-
-		/* Roll out the damage */
-		damage = diceroll(d_dice, d_side);
-
-		/*
-		* Skip the effect when exploding, since the explosion
-		* already causes the effect.
-		*/
-		if(explode) damage = 0;
-		/* Apply appropriate damage */
-
-
-		if(explode)
-		{
-			sound(SOUND_EXPLODE);
-
-			take_damage_to_creature(attacker_ptr, attacker_ptr, 0, attacker_ptr->chp + 1, NULL, NULL, -1);
-			if(attacker_ptr->species_idx == 0) blinked = FALSE;
-		}
-	}
-
-	/* Creature missed player */
-	else
-	{
-		/* Analyze failed attacks */
-		switch (method)
-		{
-		case RBM_HIT:
-		case RBM_TOUCH:
-		case RBM_PUNCH:
-		case RBM_KICK:
-		case RBM_CLAW:
-		case RBM_BITE:
-		case RBM_STING:
-		case RBM_SLASH:
-		case RBM_BUTT:
-		case RBM_CRUSH:
-		case RBM_ENGULF:
-		case RBM_CHARGE:
-
-			/* Visible creatures */
-			if(attacker_ptr->see_others)
-			{
-				disturb(player_ptr, 1, 0);
-#ifdef JP
-				if(abbreviate)
-					msg_format("%s‚©‚í‚µ‚½B", (has_trait(target_ptr, TRAIT_DRUNKING_FIST)) ? "Šï–­‚È“®‚«‚Å" : "");
-				else
-					msg_format("%s%^s‚ÌUŒ‚‚ð‚©‚í‚µ‚½B", (has_trait(target_ptr, TRAIT_DRUNKING_FIST)) ? "Šï–­‚È“®‚«‚Å" : "", attacker_name);
-				abbreviate = 1;/*‚Q‰ñ–ÚˆÈ~‚ÍÈ—ª */
-#else
-				msg_format("%^s misses you.", attacker_name);
-#endif
-
-			}
-			damage = 0;
-
-			break;
-		}
-	}
 
 	if(target_ptr->riding && damage)
 	{
