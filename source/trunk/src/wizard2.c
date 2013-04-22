@@ -132,10 +132,6 @@ static void prt_binary(FLAGS_32 flags, int row, int col)
 /* Hack -- Teleport to the target */
 static void do_cmd_wiz_bamf(creature_type *caster_ptr)
 {
-	/* Must have a target */
-	if(!target_who) return;
-
-	/* Teleport to the target */
 	teleport_creature_to(caster_ptr, target_row, target_col, TELEPORT_NONMAGICAL);
 }
 

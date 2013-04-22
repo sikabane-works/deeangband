@@ -4457,7 +4457,6 @@ static void play_loop(void)
 		command_dir = 0;
 
 		// Cancel the target
-		target_who = 0;
 		pet_t_m_idx = 0;
 		riding_t_m_idx = 0;
 
@@ -4577,7 +4576,6 @@ static void play_loop(void)
 		notice_stuff(player_ptr);
 		handle_stuff(player_ptr);
 
-		target_who = 0; // Cancel the target
 		health_track(0); // Cancel the health bar
 
 		forget_lite(floor_ptr); // Forget the lite and view

@@ -3895,7 +3895,7 @@ bool polymorph_creature(creature_type *creature_ptr)
 	bool polymorphed = FALSE;
 	int new_species_idx;
 	int old_species_idx = creature_ptr->species_idx;
-	bool targeted = (target_who == c_ptr->creature_idx) ? TRUE : FALSE;
+	//TODO bool targeted = (target_who == c_ptr->creature_idx) ? TRUE : FALSE;
 	bool health_tracked = (npc_status_id == c_ptr->creature_idx) ? TRUE : FALSE;
 	creature_type back_m;
 
@@ -3920,7 +3920,7 @@ bool polymorph_creature(creature_type *creature_ptr)
 
 		//TODO inventory process
 
-		if(targeted) target_who = hack_m_idx_ii;
+		//TODO DELETEif(targeted) target_who = hack_m_idx_ii;
 		if(health_tracked) health_track(hack_m_idx_ii);
 	}
 

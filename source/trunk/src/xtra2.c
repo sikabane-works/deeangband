@@ -1235,10 +1235,9 @@ bool target_able(creature_type *creature_ptr, CREATURE_ID m_idx)
 
 
 /*
-* Update (if necessary) and verify (if possible) the target.
-*
-* We return TRUE if the target is "okay" and FALSE otherwise.
-*/
+ * Update (if necessary) and verify (if possible) the target.
+ * We return TRUE if the target is "okay" and FALSE otherwise.
+ */
 bool target_okay(creature_type *creature_ptr)
 {
 	/* Accept stationary targets */
@@ -2137,25 +2136,19 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 bool target_set(creature_type *aimer_ptr, COODINATES range, FLAGS_32 mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
-
 	int		i, d, m, t, bd;
 	COODINATES y = aimer_ptr->fy;
 	COODINATES x = aimer_ptr->fx;
-
 	bool done = FALSE;
 	bool flag = TRUE;
 	int query;
 	char info[80];
 
 	cave_type *c_ptr;
-
 	TEXT_COODI wid, hgt;
 
 	get_screen_size(&wid, &hgt);	// Get size
-	target_who = 0;	// Cancel target
-
 	//TODO health_track(0);	// Cancel tracking
-
 
 	/* Prepare the "temp" array */
 	target_set_prepare(aimer_ptr, mode);
@@ -2380,7 +2373,6 @@ bool target_set(creature_type *aimer_ptr, COODINATES range, FLAGS_32 mode)
 			case '.':
 			case '5':
 			case '0':
-				target_who = -1;
 				target_row = y;
 				target_col = x;
 				done = TRUE;
@@ -2491,7 +2483,6 @@ bool target_set(creature_type *aimer_ptr, COODINATES range, FLAGS_32 mode)
 	prepare_update(aimer_ptr, PU_CREATURES);
 	prepare_redraw(PR_MAP | PW_OVERHEAD);
 	handle_stuff(aimer_ptr);
-	if(!target_who) return FALSE;	// Failure to set target
 
 	return TRUE;	// Success
 }

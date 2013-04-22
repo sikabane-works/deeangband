@@ -1194,7 +1194,6 @@ void delete_species_idx(creature_type *creature_ptr)
 
 	reset_timed_trait(creature_ptr);
 
-	if(creature_ptr == &creature_list[target_who]) target_who = 0;	// Hack -- remove target creature
 	if(creature_ptr == &creature_list[npc_status_id]) health_track(0);	// Hack -- remove tracked creature
 
 	if(&creature_list[pet_t_m_idx] == creature_ptr) pet_t_m_idx = 0;
@@ -1411,7 +1410,6 @@ void wipe_creature_list(FLOOR_ID floor_idx)
 	creature_cnt = 0;
 
 	/* Hack -- no more target */
-	target_who = 0;
 	pet_t_m_idx = 0;
 	riding_t_m_idx = 0;
 
