@@ -18,8 +18,24 @@
 #define MAX_VAMPIRIC_DRAIN 50
 
 
+static void counter_eye_eye(creature_type *attacker_ptr, creature_type *target_ptr, POWER get_damage)
+{
+	if((has_trait(target_ptr, TRAIT_EYE_EYE) || HEX_SPELLING(target_ptr, HEX_EYE_FOR_EYE)) && get_damage > 0 && !IS_DEAD(target_ptr))
+	{
+#ifdef JP
+		msg_format("UŒ‚‚ª%sŽ©g‚ð‚Â‚¯‚½I", attacker_ptr->name);
+#else
+		char attacker_name_self[80];
+		creature_desc(attacker_name_self, attacker_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
+		msg_format("The attack of %s has wounded %s!", attacker_ptr->name, attacker_name_self);
+#endif
+		project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
+		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+	}
+}
 
-static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_ptr)
+
+static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 {
 	char attacker_name[MAX_NLEN];
 	int aura_damage = 0;
@@ -303,6 +319,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	else success_hit = test_hit_melee(attacker_ptr, chance, ac, target_ptr->see_others);
 
 	if(mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
+
+	//TODO if(target_ptr->posture & NINJA_KAWARIMI) if(kawarimi(target_ptr, FALSE)) return FALSE;
 
 	// Test for hit
 	if(success_hit)
@@ -934,7 +952,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		// Anger the creature
 		if(k > 0) anger_creature(attacker_ptr, target_ptr);
-		touch_zap_player(attacker_ptr, target_ptr);
+		counter_aura(attacker_ptr, target_ptr);
+		counter_eye_eye(attacker_ptr, target_ptr, k);
 
 		// Are we draining it?  A little note: If the creature is dead, the drain does not work...
 		if(can_drain && (drain_result > 0))
@@ -1499,16 +1518,12 @@ static int check_hit(creature_type *target_ptr, POWER power, int level, int stun
 bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt)
 {
 	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_idx];
-
 	int ac, ev, vo;
-
 	char attacker_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
 	char ddesc[80];
-
 	bool blinked;
 	int get_damage = 0;
-
 	POWER power = 0;
 	POWER damage = 0;
 
@@ -1529,11 +1544,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 	blinked = FALSE; // Assume no blink
 	if(!method) return FALSE; // Hack -- no more attacks
-
-
-	if(subject_change_floor) return FALSE; // Handle "leaving"
-
-	if(method == RBM_SHOOT) return FALSE;
 
 	/* Extract the attack "power" */
 	power = mbe_info[effect].power;
@@ -1557,30 +1567,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		}
 	}
 
-	if(target_ptr->posture & NINJA_KAWARIMI)
-	{
-		if(kawarimi(target_ptr, FALSE)) return TRUE;
-	}
-
 	/* Hex - revenge damage stored */
 	revenge_store(target_ptr, get_damage);
-
-	if((target_ptr->timed_trait[TRAIT_EYE_EYE] || HEX_SPELLING(target_ptr, HEX_EYE_FOR_EYE))
-		&& get_damage > 0 && !IS_DEAD(target_ptr))
-	{
-#ifdef JP
-		msg_format("UŒ‚‚ª%sŽ©g‚ð‚Â‚¯‚½I", attacker_name);
-#else
-		char attacker_name_self[80];
-
-		/* hisself */
-		creature_desc(attacker_name_self, attacker_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
-
-		msg_format("The attack of %s has wounded %s!", attacker_name, attacker_name_self);
-#endif
-		project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
-		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
-	}
 
 	/* Assume we attacked */
 	return TRUE;
