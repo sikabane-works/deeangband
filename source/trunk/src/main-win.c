@@ -75,6 +75,7 @@
 #include "diary.h"
 #include "dungeon.h"
 #include "files.h"
+#include "scores.h"
 
 #ifdef WINDOWS
 #include <windows.h>

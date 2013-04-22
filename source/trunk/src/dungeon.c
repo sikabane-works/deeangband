@@ -18,6 +18,7 @@
 #include "dungeon.h"
 #include "files.h"
 #include "floors.h"
+#include "scores.h"
 #include "store.h"
 #include "quest.h"
 

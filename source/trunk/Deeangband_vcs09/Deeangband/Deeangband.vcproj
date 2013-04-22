@@ -651,6 +651,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\scores.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\store.h"
 				>
 			</File>
