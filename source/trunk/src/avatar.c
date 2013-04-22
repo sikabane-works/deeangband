@@ -25,6 +25,7 @@
  */
 
 #include "angband.h"
+#include "karma.h"
 
 void set_karma(creature_type *creature_ptr, int karma, int amount)
 {
@@ -40,7 +41,6 @@ int karma_number(creature_type *creature_ptr, int karma)
 {
 	return creature_ptr->karmas[karma];
 }
-
 
 void dump_karmas(creature_type *creature_ptr, FILE *OutFile)
 {

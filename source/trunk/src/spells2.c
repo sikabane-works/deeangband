@@ -13,6 +13,7 @@
 #include "angband.h"
 #include "grid.h"
 #include "diary.h"
+#include "karma.h"
 #include "quest.h"
 #include "creature_melee.h"
 

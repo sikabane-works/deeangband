@@ -591,6 +591,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\karma.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\libpng.h"
 				>
 			</File>
