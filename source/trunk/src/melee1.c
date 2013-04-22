@@ -1531,47 +1531,6 @@ static int check_hit(creature_type *target_ptr, POWER power, int level, int stun
 	return FALSE;
 }
 
-// Attack the player via physical attacks.
-bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt)
-{
-	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_idx];
-	int ac, ev, vo;
-	char attacker_name[MAX_NLEN];
-	char target_name[MAX_NLEN];
-	char ddesc[80];
-	bool blinked;
-	POWER power = 0;
-
-	/* Extract the attack infomation */
-	int effect = attacker_ptr->blow[ap_cnt].effect;
-	int method = attacker_ptr->blow[ap_cnt].method;
-
-	// Not allowed to attack
-	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) return FALSE;
-	if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_NO_MELEE) return FALSE;
-
-	// Get the creature name (or "it")
-	creature_desc(attacker_name, attacker_ptr, 0);
-	creature_desc(target_name, target_ptr, 0);
-
-	// Get the "died from" information (i.e. "a kobold")
-	creature_desc(ddesc, attacker_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-
-	blinked = FALSE; // Assume no blink
-	if(!method) return FALSE; // Hack -- no more attacks
-
-	/* Extract the attack "power" */
-	power = mbe_info[effect].power;
-
-	// Total armor
-	ac = target_ptr->ac + target_ptr->to_ac;
-	ev = target_ptr->ev + target_ptr->to_ev;
-	vo = target_ptr->vo + target_ptr->to_vo;
-
-	/* Assume we attacked */
-	return TRUE;
-}
-
 
 static void tramping_attack(creature_type *attacker_ptr, creature_type *target_ptr)
 {
