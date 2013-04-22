@@ -636,8 +636,8 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 				FLAGS_32 mode = 0L;
 
 				if(pet) mode |= PC_FORCE_PET;
-				/*TODO
 
+				/*TODO
 				if(summon_specific((pet ? -1 : m_idx), wy, wx, 100, TRAIT_S_BLUE_HORROR, mode))
 				{
 				if(creature_can_see_bold(dead_ptr, wy, wx))

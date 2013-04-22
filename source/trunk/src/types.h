@@ -715,8 +715,6 @@ struct species_type
 
 	byte r_cast_spell;		/* Max number of other spells seen */
 
-	byte r_blows[MAX_SPECIAL_BLOWS];		/* Number of times each blow type was seen */
-
 	s16b slot_hand;
 	s16b slot_ring;
 	s16b slot_amulet;

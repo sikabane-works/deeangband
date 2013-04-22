@@ -1478,7 +1478,6 @@ static int check_hit(creature_type *target_ptr, POWER power, int level, int stun
 // Attack the player via physical attacks.
 bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt)
 {
-	species_type *species_ptr = &species_info[attacker_ptr->species_idx];
 	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_idx];
 
 	int ac, ev, vo;
@@ -1490,7 +1489,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 	bool blinked;
 	bool explode = FALSE;
-	bool do_silly_attack = (one_in_(2) && has_trait(target_ptr, TRAIT_HALLUCINATION));
 	int get_damage = 0;
 
 	bool obvious = FALSE;
@@ -1603,21 +1601,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			damage = 0;
 
 			break;
-		}
-	}
-
-
-	/* Analyze "visible" creatures only */
-	if(is_original_ap_and_seen(target_ptr, attacker_ptr) && !do_silly_attack)
-	{
-		/* Count "obvious" attacks (and ones that cause damage) */
-		if(obvious || damage || (species_ptr->r_blows[ap_cnt] > 10))
-		{
-			/* Count attacks of this type */
-			if(species_ptr->r_blows[ap_cnt] < MAX_UCHAR)
-			{
-				species_ptr->r_blows[ap_cnt]++;
-			}
 		}
 	}
 

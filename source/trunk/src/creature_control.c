@@ -2481,25 +2481,13 @@ void creature_desc_ego_post(char* desc, creature_type *creature_ptr, species_typ
 int lore_do_probe(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
-	int i, n = 0;
+	int n = 0;
 	byte tmp_byte;
 
 	/* Maximal info about awareness */
 	if(species_ptr->r_wake != MAX_UCHAR) n++;
 	if(species_ptr->r_ignore != MAX_UCHAR) n++;
 	species_ptr->r_wake = species_ptr->r_ignore = MAX_UCHAR;
-
-	/* Observe "maximal" attacks */
-	for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
-	{
-		/* Examine "actual" blows */
-		if(species_ptr->blow[i].effect || species_ptr->blow[i].method)
-		{
-			/* Maximal observations */
-			if(species_ptr->r_blows[i] != MAX_UCHAR) n++;
-			species_ptr->r_blows[i] = MAX_UCHAR;
-		}
-	}
 
 	/* Maximal drops */
 	tmp_byte = 0;
