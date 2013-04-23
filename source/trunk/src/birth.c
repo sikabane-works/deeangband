@@ -2701,7 +2701,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 
 	if(npc)
 	{
-		creature_ptr->race_idx1 = (s16b)uneven_rand(id, weight, se_info.num);
+		creature_ptr->race_idx1 = (RACE_ID)uneven_rand(id, weight, se_info.num);
 		return 0;
 	}
 
@@ -3210,7 +3210,7 @@ static int get_creature_class(creature_type *creature_ptr, species_type *species
 
 	if(npc)
 	{
-		creature_ptr->class_idx = (s16b)uneven_rand(id, weight, n);
+		creature_ptr->class_idx = (CLASS_ID)uneven_rand(id, weight, n);
 		return 0;
 	}
 
@@ -3415,7 +3415,7 @@ static int get_creature_chara(creature_type *creature_ptr, species_type *species
 
 	if(npc)
 	{
-		creature_ptr->chara_idx = (s16b)uneven_rand(id, weight, se_info.num);
+		creature_ptr->chara_idx = (CHARA_ID)uneven_rand(id, weight, se_info.num);
 		return 0;
 	}
 
@@ -3452,7 +3452,7 @@ static int get_creature_chara(creature_type *creature_ptr, species_type *species
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		creature_ptr->chara_idx = (s16b)uneven_rand(id, weight, se_info.num - 3);
+		creature_ptr->chara_idx = (CHARA_ID)uneven_rand(id, weight, se_info.num - 3);
 		return 0;
 	}
 	else return i;
