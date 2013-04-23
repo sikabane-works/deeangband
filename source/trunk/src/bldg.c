@@ -1311,33 +1311,25 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 	return TRUE;
 }
 
-static bool vault_aux_battle(SPECIES_ID species_idx)
+static void set_creature_list_bias_arena(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
-	int i;
-	POWER dam = 0;
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
 
-	species_type *species_ptr = &species_info[species_idx];
-	
-	if(has_trait_species(species_ptr, TRAIT_UNIQUE)) return FALSE; // Decline unique creatures
-	if(has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) return FALSE;
-	if(has_trait_species(species_ptr, TRAIT_MULTIPLY)) return FALSE;
-	if(has_trait_species(species_ptr, TRAIT_QUANTUM)) return FALSE;
-	if(has_trait_species(species_ptr, TRAIT_AQUATIC)) return FALSE;
-	if(has_trait_species(species_ptr, TRAIT_CHAMELEON)) return FALSE;
-	if(has_trait_species(species_ptr, TRAIT_SUICIDE_BOMBER)) return FALSE;
-
-	for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
+	for(n = 0; n < max_species_idx; n++)
 	{
-		if(species_ptr->blow[i].effect != RBE_DR_MANA) dam += species_ptr->blow[i].d_dice;
+		species_ptr = &species_info[species_list[n]];
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_MULTIPLY)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_QUANTUM)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_AQUATIC)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_CHAMELEON)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_SUICIDE_BOMBER)) weight_list[n] = 0;
 	}
-
-	if(!dam && 
-		!(has_bolt_flags(&species_ptr->flags) || has_beam_flags(&species_ptr->flags) ||
-		  has_ball_flags(&species_ptr->flags) || has_breath_flags(&species_ptr->flags)))
-			return FALSE;
-
-
-	return TRUE;
+	return;
 }
 
 void battle_creatures(void)
@@ -1378,6 +1370,7 @@ void battle_creatures(void)
 		tekitou = FALSE;
 
 		get_species_list(NULL, &id_list, &weight_list);
+		set_creature_list_bias_arena(&id_list, &weight_list);
 
 		for(i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
@@ -1387,7 +1380,7 @@ void battle_creatures(void)
 			while(TRUE)
 			{
 				floor_ptr->gamble_arena_mode = TRUE;
-				species_idx = pick_rand(id_list, weight_list, max_species_idx);
+				species_idx = (SPECIES_ID)pick_rand(id_list, weight_list, max_species_idx);
 				floor_ptr->gamble_arena_mode = old_gamble_arena_mode;
 				if(!species_idx) continue;
 
