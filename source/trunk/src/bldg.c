@@ -1322,6 +1322,7 @@ static void set_creature_list_bias(SPECIES_ID **species_list_ptr, int **weight_l
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[species_list[n]];
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) weight_list[n] = 0;
 	}
 	return;
 }

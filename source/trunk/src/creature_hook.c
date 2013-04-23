@@ -238,17 +238,23 @@ static bool creature_hook_waste(SPECIES_ID species_idx)
 		return FALSE;
 }
 
-
-static bool creature_hook_town(SPECIES_ID species_idx)
+static void set_creature_list_bias_town(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
-	species_type *species_ptr = &species_info[species_idx];
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
 
-	if(has_trait_species(species_ptr, TRAIT_WILD_ALL) || has_trait_species(species_ptr, TRAIT_WILD_TOWN) || has_trait_species(species_ptr, TRAIT_CITIZEN))
-		return TRUE;
-	else
-		return FALSE;
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+		if(has_trait_species(species_ptr, TRAIT_WILD_ALL)) weight_list[n] *= 2;
+		else if(has_trait_species(species_ptr, TRAIT_WILD_TOWN)) weight_list[n] *= 2;
+		else if(has_trait_species(species_ptr, TRAIT_CITIZEN)) weight_list[n] *= 4;
+		else weight_list[n] = 0;
+	}
+	return;
 }
-
 
 static bool creature_hook_wood(SPECIES_ID species_idx)
 {
@@ -316,7 +322,6 @@ static bool creature_hook_lava(SPECIES_ID species_idx)
 		return FALSE;
 }
 
-
 static bool creature_hook_floor(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
@@ -332,6 +337,8 @@ void set_creature_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_
 		switch (terrain_idx)
 		{
 		case TERRAIN_TOWN:
+			set_creature_list_bias_town(species_list_ptr, weight_list_ptr);
+			break;
 		case TERRAIN_DEEP_WATER:
 		case TERRAIN_SHALLOW_WATER:
 		case TERRAIN_SWAMP:
@@ -357,7 +364,7 @@ creature_hook_type get_creature_hook(void)
 		switch (wilderness[player_ptr->wy][player_ptr->wx].terrain)
 		{
 		case TERRAIN_TOWN:
-			return (creature_hook_type) creature_hook_town;
+
 		case TERRAIN_DEEP_WATER:
 			return (creature_hook_type) creature_hook_ocean;
 		case TERRAIN_SHALLOW_WATER:
