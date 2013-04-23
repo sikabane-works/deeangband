@@ -380,7 +380,7 @@ extern store_type *st_list;
 extern TOWN_ID max_towns;
 extern town_type *town;
 extern u16b start_point_size;
-extern s16b alloc_kind_size;
+extern OBJECT_KIND_ID alloc_kind_size;
 extern alloc_entry *alloc_kind_table;
 extern SPECIES_ID alloc_species_size;
 extern alloc_entry *alloc_species_table;
@@ -390,8 +390,8 @@ extern byte tval_to_acttr[128];
 extern char tval_to_char[128];
 extern cptr keymap_act[KEYMAP_MODES][256];
 extern creature_type *player_ptr;     // New Reference Pointer
-extern u32b play_redraw;		// Normal Redraws (bit flags)
-extern u32b play_window;		// Window Redraws (bit flags)
+extern FLAGS_32 play_redraw;		// Normal Redraws (bit flags)
+extern FLAGS_32 play_window;		// Window Redraws (bit flags)
 extern bool wizard;		        // (Player Only) wizard mode
 extern bool unique_play;        // Unique play mode
 extern cptr skill_name[MAX_SKILLS];

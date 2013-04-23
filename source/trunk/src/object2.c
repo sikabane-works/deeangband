@@ -487,11 +487,11 @@ static errr get_obj_num_prep(bool (*get_obj_num_hook)(int k_idx))
 */
 OBJECT_ID get_obj_num(FLOOR_LEV level, u32b flag)
 {
-	int             i, j, p;
-	int             k_idx;
-	long            value, total;
-	object_kind     *object_kind_ptr;
-	alloc_entry     *table = alloc_kind_table;
+	int i, j, p;
+	OBJECT_KIND_ID k_idx;
+	long value, total;
+	object_kind *object_kind_ptr;
+	alloc_entry *table = alloc_kind_table;
 
 	if(level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
 	if(one_in_(GREAT_OBJ) && level > 0) level = 1 + (level * MAX_DEPTH / randint1(MAX_DEPTH)); // Occasional "boost"

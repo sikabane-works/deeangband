@@ -595,7 +595,7 @@ town_type *town;
 
 // The size of "alloc_kind_table" (at most max_object_kind_idx * 4)
 // The entries in the "kind allocator table"
-s16b alloc_kind_size;
+OBJECT_KIND_ID alloc_kind_size;
 alloc_entry *alloc_kind_table;
 
 // The size of "alloc_species_table" (at most max_species_idx)
@@ -629,8 +629,8 @@ cptr keymap_act[KEYMAP_MODES][256];
  */
 creature_type *player_ptr = NULL;
 
-u32b play_redraw = 0;				// Normal Redraws (bit flags)
-u32b play_window = 0;				// Window Redraws (bit flags)
+FLAGS_32 play_redraw = 0;				// Normal Redraws (bit flags)
+FLAGS_32 play_window = 0;				// Window Redraws (bit flags)
 bool wizard = FALSE;				// wizard mode
 bool unique_play = FALSE;			// unique play mode
 s16b arena_number = 0;				// creature number in arena -KMW-
