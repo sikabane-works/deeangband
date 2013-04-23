@@ -1421,10 +1421,10 @@ static errr init_object_alloc(void)
 	(void)C_WIPE(&aux, MAX_DEPTH, s16b); // Clear the "aux" array
 	(void)C_WIPE(&num, MAX_DEPTH, s16b); // Clear the "num" array
 
-	// Free the old "alloc_kind_table" (if it exists)
-	if(alloc_kind_table) C_KILL(alloc_kind_table, alloc_kind_size, alloc_entry);
+	// Free the old "alloc_object_kind_table" (if it exists)
+	if(alloc_object_kind_table) C_KILL(alloc_object_kind_table, alloc_object_kind_size, alloc_entry);
 
-	alloc_kind_size = 0; // Size of "alloc_kind_table"
+	alloc_object_kind_size = 0; // Size of "alloc_object_kind_table"
 
 	for (i = 1; i < max_object_kind_idx; i++) // Scan the objects
 	{
@@ -1434,7 +1434,7 @@ static errr init_object_alloc(void)
 		{
 			if(object_kind_ptr->chance[j]) // Count the "legal" entries
 			{
-				alloc_kind_size++;	// Count the entries
+				alloc_object_kind_size++;	// Count the entries
 				num[object_kind_ptr->locale[j]]++; // Group by level
 			}
 		}
@@ -1447,11 +1447,11 @@ static errr init_object_alloc(void)
 
 	/*** Initialize object allocation info ***/
 
-	/* Allocate the alloc_kind_table */
-	C_MAKE(alloc_kind_table, alloc_kind_size, alloc_entry);
+	/* Allocate the alloc_object_kind_table */
+	C_MAKE(alloc_object_kind_table, alloc_object_kind_size, alloc_entry);
 
 	/* Access the table entry */
-	table = alloc_kind_table;
+	table = alloc_object_kind_table;
 
 	/* Scan the objects */
 	for (i = 1; i < max_object_kind_idx; i++)
@@ -1555,7 +1555,7 @@ static errr init_alloc(void)
 	/* Free the "species_info" array */
 	C_KILL(elements, max_species_idx, tag_type);
 
-	/* Init the "alloc_kind_table" */
+	/* Init the "alloc_object_kind_table" */
 	(void)init_object_alloc();
 
 	return SUCCESS;

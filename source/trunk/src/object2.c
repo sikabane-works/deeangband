@@ -453,8 +453,8 @@ static errr get_obj_num_prep(bool (*get_obj_num_hook)(int k_idx))
 {
 	int i;
 
-	alloc_entry *table = alloc_kind_table;
-	for (i = 0; i < alloc_kind_size; i++) // Scan the allocation table
+	alloc_entry *table = alloc_object_kind_table;
+	for (i = 0; i < alloc_object_kind_size; i++) // Scan the allocation table
 	{
 		if(!get_obj_num_hook || (*get_obj_num_hook)(table[i].index)) // Accept objects which pass the restriction, if any
 		{
@@ -491,7 +491,7 @@ OBJECT_ID get_obj_num(FLOOR_LEV level, u32b flag)
 	OBJECT_KIND_ID k_idx;
 	long value, total;
 	object_kind *object_kind_ptr;
-	alloc_entry *table = alloc_kind_table;
+	alloc_entry *table = alloc_object_kind_table;
 
 	if(level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
 	if(one_in_(GREAT_OBJ) && level > 0) level = 1 + (level * MAX_DEPTH / randint1(MAX_DEPTH)); // Occasional "boost"
@@ -500,7 +500,7 @@ OBJECT_ID get_obj_num(FLOOR_LEV level, u32b flag)
 	total = 0L;
 
 	/* Process probabilities */
-	for (i = 0; i < alloc_kind_size; i++)
+	for (i = 0; i < alloc_object_kind_size; i++)
 	{
 		/* Objects are sorted by depth */
 		if(table[i].level > level) break;
@@ -538,7 +538,7 @@ OBJECT_ID get_obj_num(FLOOR_LEV level, u32b flag)
 	value = randint0(total);
 
 	/* Find the object */
-	for (i = 0; i < alloc_kind_size; i++)
+	for (i = 0; i < alloc_object_kind_size; i++)
 	{
 		/* Found the entry */
 		if(value < table[i].prob3) break;
@@ -560,7 +560,7 @@ OBJECT_ID get_obj_num(FLOOR_LEV level, u32b flag)
 		value = randint0(total);
 
 		/* Find the object */
-		for (i = 0; i < alloc_kind_size; i++)
+		for (i = 0; i < alloc_object_kind_size; i++)
 		{
 			/* Found the entry */
 			if(value < table[i].prob3) break;
@@ -583,7 +583,7 @@ OBJECT_ID get_obj_num(FLOOR_LEV level, u32b flag)
 		value = randint0(total);
 
 		/* Find the object */
-		for (i = 0; i < alloc_kind_size; i++)
+		for (i = 0; i < alloc_object_kind_size; i++)
 		{
 			/* Found the entry */
 			if(value < table[i].prob3) break;

@@ -593,10 +593,10 @@ u16b start_point_size;
 TOWN_ID max_towns;
 town_type *town;
 
-// The size of "alloc_kind_table" (at most max_object_kind_idx * 4)
+// The size of "alloc_object_kind_table" (at most max_object_kind_idx * 4)
 // The entries in the "kind allocator table"
-OBJECT_KIND_ID alloc_kind_size;
-alloc_entry *alloc_kind_table;
+OBJECT_KIND_ID alloc_object_kind_size;
+alloc_entry *alloc_object_kind_table;
 
 // The size of "alloc_species_table" (at most max_species_idx)
 // The entries in the "race allocator table"
