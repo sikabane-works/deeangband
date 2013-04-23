@@ -1311,6 +1311,22 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 	return TRUE;
 }
 
+/* TODO templete
+static void set_creature_list_bias(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+{
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
+
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+	}
+	return;
+}
+*/
+
 static void set_creature_list_bias_arena(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
