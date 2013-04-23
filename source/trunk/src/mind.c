@@ -362,9 +362,6 @@ bool psychometry(creature_type *creature_ptr)
 	/* "Inscribe" it */
 	object_ptr->feeling = feel;
 
-	/* Player touches it */
-	object_ptr->marked |= OM_TOUCHED;
-
 	/* Combine / Reorder the pack (later) */
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 

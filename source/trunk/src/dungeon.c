@@ -2492,7 +2492,6 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 
 		if(!is_valid_object(object_ptr)) continue; // Skip dead objects
 		if(!IS_IN_THIS_FLOOR(object_ptr)) continue;
-		if(object_is_known(object_ptr) && object_ptr->marked & OM_TOUCHED) continue; // Skip known objects
 		if(object_ptr->ident & IDENT_SENSE) continue; // Skip pseudo-known objects
 
 		if(object_is_ego(object_ptr)) // Ego objects

@@ -4401,9 +4401,6 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 
 		/* Skip held objects */
 		if(object_ptr->held_m_idx) continue;
-
-		/* Forget the object */
-		object_ptr->marked &= OM_TOUCHED;
 	}
 
 	/* Mega-Hack -- Forget the view and lite */

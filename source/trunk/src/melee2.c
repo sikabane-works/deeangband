@@ -2296,9 +2296,6 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 						/* Excise the object */
 						excise_object_idx(this_object_idx);
 
-						/* Forget mark */
-						object_ptr->marked &= OM_TOUCHED;
-
 						/* Forget location */
 						object_ptr->fy = object_ptr->fx = 0;
 
