@@ -1857,8 +1857,8 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 
 		if(!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != TRAIT_S_GUARDIANS)
 		{
-			if(has_trait_species(species_ptr, TRAIT_QUESTOR))		continue;
-			if(has_trait_species(species_ptr, TRAIT_GUARDIAN))	continue;
+			if(has_trait_species(species_ptr, TRAIT_QUESTOR)) continue;
+			if(has_trait_species(species_ptr, TRAIT_GUARDIAN)) continue;
 			if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (species_ptr->level > floor_ptr->depth)) continue; // Depth Creatures never appear out of depth
 		}
 
@@ -1880,6 +1880,30 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 		msg_warning("No selected creature in get_species_num_prep()");
 	}
 	return SUCCESS;	// Success
+}
+
+void get_species_list(floor_type *floor_ptr, SPECIES_ID *id_list, int *weight_list)
+{
+	int id;
+	species_type *species_ptr;
+	C_MAKE(id_list, max_species_idx, SPECIES_ID);
+	C_MAKE(weight_list, max_species_idx, int);
+
+	for(id = 0; id < max_species_idx; id++)
+	{
+		species_ptr = &species_info[id];
+		id_list[id] = id;
+		weight_list[id] = (species_ptr->rarity == 0 ? 10000 / species_ptr->rarity : 0);
+		if(has_trait_species(species_ptr, TRAIT_QUESTOR)) weight_list[id] = 0;
+		if(has_trait_species(species_ptr, TRAIT_GUARDIAN)) weight_list[id] = 0;
+
+		if(floor_ptr && has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && (species_ptr->level > floor_ptr->depth))
+		{
+			weight_list[id] = 0;
+		}
+	}
+
+	return;
 }
 
 static int mysqrt(int n)
