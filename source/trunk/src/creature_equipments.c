@@ -62,10 +62,10 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 	}
 }
 
-void equip(creature_type *creature_ptr, int item, int slot, int n)
+void creature_equipping(creature_type *creature_ptr, int item, int slot, int n)
 {
 	object_type *object_ptr = &creature_ptr->inventory[item];
-	int old_item = get_equipped_slot_idx(creature_ptr, object_kind_info[object_ptr->k_idx].slot, n);
+	int old_item = get_equipped_slot_idx(creature_ptr, slot, n);
 
 	object_ptr->marked |= OM_TOUCHED;	// Player touches it
 	creature_ptr->equip_cnt++; /* Increment the equip counter */

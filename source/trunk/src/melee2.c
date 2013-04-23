@@ -2150,9 +2150,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 			}
 
 			f_ptr = &feature_info[c_ptr->feat];
-
 			do_view = TRUE;
-
 			do_turn = TRUE;
 		}
 
@@ -2291,7 +2289,9 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 
 						/* Describe observable situations */
 						if(creature_can_see_bold(player_ptr, ny, nx))
+						{
 							msg_format(MES_OBJECT_PICKED(creature_name, object_name));
+						}
 
 						/* Excise the object */
 						excise_object_idx(this_object_idx);
