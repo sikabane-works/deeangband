@@ -752,6 +752,9 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		object_ptr = &object_list[object_idx];
 		object_copy(object_ptr, quest_ptr);
 
+		/* Forget mark */
+		object_ptr->marked &= OM_TOUCHED;
+
 		/* Forget location */
 		object_ptr->fy = object_ptr->fx = 0;
 

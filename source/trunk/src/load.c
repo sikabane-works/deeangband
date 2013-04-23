@@ -425,6 +425,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 
 		if(IS_EQUIPPED(object_ptr)) // Wield equipment
 		{
+			object_ptr->marked |= OM_TOUCHED;						// Player touches it
 			object_copy(&creature_ptr->inventory[n], object_ptr);	// Copy object
 			set_inventory_weight(creature_ptr);						// Add the weight
 			creature_ptr->equip_cnt++;								// One more item

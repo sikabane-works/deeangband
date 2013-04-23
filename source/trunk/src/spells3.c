@@ -2053,6 +2053,9 @@ bool identify_item(creature_type *creature_ptr, object_type *object_ptr)
 	object_aware(object_ptr);
 	object_known(object_ptr);
 
+	/* Player touches it */
+	object_ptr->marked |= OM_TOUCHED;
+
 	prepare_update(creature_ptr, CRU_BONUS);
 
 	/* Combine / Reorder the pack (later) */

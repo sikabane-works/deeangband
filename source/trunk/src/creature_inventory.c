@@ -98,7 +98,9 @@ INVENTORY_ID inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 	object2_ptr->fy = object2_ptr->fx = 0;
 
 	/* Player touches it, and no longer marked */
+	object2_ptr->marked = OM_TOUCHED;
 	set_inventory_weight(creature_ptr);
+
 
 	/* Count the items */
 	creature_ptr->inven_cnt++;

@@ -654,6 +654,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 						object_ptr->pval -= j_ptr->pval;
 					}
 
+					/* Forget mark */
+					j_ptr->marked = OM_TOUCHED;
+
 					/* Memorize creature */
 					//TODO j_ptr->held_m_idx = m_idx;
 				}
