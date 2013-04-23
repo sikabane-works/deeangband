@@ -1390,8 +1390,11 @@ void battle_creatures(void)
 				}
 
 				for (j = 0; j < i; j++)
+				{
 					if(species_idx == battle_creature[j]) break;
-				if(j<i) continue;
+				}
+
+				if(j < i) continue;
 
 				break;
 			}
@@ -1935,7 +1938,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 						have_nightmare(creature_ptr, get_species_num(CURRENT_FLOOR_PTR, MAX_DEPTH));
 						if(!one_in_(3)) break;
 					}
-					alloc_species_list(&id_list, &weight_list);
+					free_species_list(&id_list, &weight_list);
 
 #ifdef JP
 					msg_print("‚ ‚È‚½‚Íâ‹©‚µ‚Ä–Ú‚ðŠo‚Ü‚µ‚½B");

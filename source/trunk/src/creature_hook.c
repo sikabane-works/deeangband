@@ -313,6 +313,25 @@ static bool creature_hook_floor(SPECIES_ID species_idx)
 		return FALSE;
 }
 
+void set_creature_list_bias_arena(SPECIES_ID **species_list_ptr, int **weight_list_ptr, TERRAIN_ID terrain_idx) //TODO
+{
+		switch (wilderness[player_ptr->wy][player_ptr->wx].terrain)
+		{
+		case TERRAIN_TOWN:
+		case TERRAIN_DEEP_WATER:
+		case TERRAIN_SHALLOW_WATER:
+		case TERRAIN_SWAMP:
+		case TERRAIN_DIRT:
+		case TERRAIN_DESERT:
+		case TERRAIN_GRASS:
+		case TERRAIN_TREES:
+		case TERRAIN_SHALLOW_LAVA:
+		case TERRAIN_DEEP_LAVA:
+		case TERRAIN_MOUNTAIN:
+		default:
+			return;
+		}
+}
 
 creature_hook_type get_creature_hook(void)
 {
