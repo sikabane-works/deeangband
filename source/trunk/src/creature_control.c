@@ -1882,7 +1882,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 	return SUCCESS;	// Success
 }
 
-void get_species_list(floor_type *floor_ptr, SPECIES_ID **id_list_ptr, int **weight_list_ptr)
+void alloc_species_list(SPECIES_ID **id_list_ptr, int **weight_list_ptr)
 {
 	int id;
 	species_type *species_ptr;
@@ -1901,15 +1901,16 @@ void get_species_list(floor_type *floor_ptr, SPECIES_ID **id_list_ptr, int **wei
 		weight_list[id] = (species_ptr->rarity != 0 ? 10000 / species_ptr->rarity : 0);
 		if(has_trait_species(species_ptr, TRAIT_QUESTOR)) weight_list[id] = 0;
 		if(has_trait_species(species_ptr, TRAIT_GUARDIAN)) weight_list[id] = 0;
-
-		if(floor_ptr && has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && (species_ptr->level > floor_ptr->depth))
-		{
-			weight_list[id] = 0;
-		}
 	}
-
 	return;
 }
+
+void free_species_list(SPECIES_ID **id_list_ptr, int **weight_list_ptr)
+{
+	C_KILL(*id_list_ptr, max_species_idx, SPECIES_ID);
+	C_KILL(*weight_list_ptr, max_species_idx, int);
+}
+
 
 static int mysqrt(int n)
 {

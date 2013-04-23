@@ -1369,7 +1369,7 @@ void battle_creatures(void)
 		total = 0;
 		tekitou = FALSE;
 
-		get_species_list(NULL, &id_list, &weight_list);
+		alloc_species_list(&id_list, &weight_list);
 		set_creature_list_bias_arena(&id_list, &weight_list);
 
 		for(i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
@@ -1398,6 +1398,8 @@ void battle_creatures(void)
 			battle_creature[i] = species_idx;
 			if(species_info[species_idx].level < 45) tekitou = TRUE;
 		}
+
+		free_species_list(&id_list, &weight_list);
 
 		for (i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
@@ -1884,6 +1886,8 @@ void have_nightmare(creature_type *watcher_ptr, SPECIES_ID eldritch_idx)
 static bool inn_comm(creature_type *creature_ptr, int cmd)
 {
 	int i;
+	SPECIES_ID *id_list;
+	int *weight_list;
 
 	switch (cmd)
 	{
@@ -1923,13 +1927,15 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 
 				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
 				{
+					alloc_species_list(&id_list, &weight_list);
+
 					get_species_num_prep_trait(NULL, t_need(1, TRAIT_ELDRITCH_HORROR), NULL, 0);
 					while(TRUE)
 					{
 						have_nightmare(creature_ptr, get_species_num(CURRENT_FLOOR_PTR, MAX_DEPTH));
 						if(!one_in_(3)) break;
 					}
-					reset_species_preps();
+					alloc_species_list(&id_list, &weight_list);
 
 #ifdef JP
 					msg_print("‚ ‚È‚½‚Íâ‹©‚µ‚Ä–Ú‚ğŠo‚Ü‚µ‚½B");
