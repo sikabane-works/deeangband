@@ -1897,7 +1897,7 @@ void get_species_list(floor_type *floor_ptr, SPECIES_ID **id_list_ptr, int **wei
 	for(id = 0; id < max_species_idx; id++)
 	{
 		species_ptr = &species_info[id];
-		id_list[id] = id+100;
+		id_list[id] = id;
 		weight_list[id] = (species_ptr->rarity != 0 ? 10000 / species_ptr->rarity : 0);
 		if(has_trait_species(species_ptr, TRAIT_QUESTOR)) weight_list[id] = 0;
 		if(has_trait_species(species_ptr, TRAIT_GUARDIAN)) weight_list[id] = 0;
