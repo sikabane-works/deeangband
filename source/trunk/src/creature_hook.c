@@ -228,12 +228,20 @@ static void set_creature_list_bias_ocean(SPECIES_ID **species_list_ptr, int **we
 	return;
 }
 
-static bool creature_hook_shore(SPECIES_ID species_idx)
+static void set_creature_list_bias_shore(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
-	species_type *species_ptr = &species_info[species_idx];
-	return has_trait_species(species_ptr, TRAIT_WILD_SHORE);
-}
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
 
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+		if(!has_trait_species(species_ptr, TRAIT_WILD_SHORE)) weight_list[n] = 0;
+	}
+	return;
+}
 
 static bool creature_hook_waste(SPECIES_ID species_idx)
 {
@@ -350,6 +358,8 @@ void set_creature_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_
 			set_creature_list_bias_ocean(species_list_ptr, weight_list_ptr);
 			break;
 		case TERRAIN_SHALLOW_WATER:
+			set_creature_list_bias_shore(species_list_ptr, weight_list_ptr);
+			break;
 		case TERRAIN_SWAMP:
 		case TERRAIN_DIRT:
 		case TERRAIN_DESERT:
@@ -374,10 +384,9 @@ creature_hook_type get_creature_hook(void)
 		{
 		case TERRAIN_TOWN:
 		case TERRAIN_DEEP_WATER:
-
 		case TERRAIN_SHALLOW_WATER:
 		case TERRAIN_SWAMP:
-			return (creature_hook_type) creature_hook_shore;
+
 		case TERRAIN_DIRT:
 		case TERRAIN_DESERT:
 			return (creature_hook_type) creature_hook_waste;
