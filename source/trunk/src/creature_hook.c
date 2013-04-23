@@ -213,13 +213,20 @@ bool species_hook_dungeon(SPECIES_ID species_idx)
 	}
 }
 
-
-static bool creature_hook_ocean(SPECIES_ID species_idx)
+static void set_creature_list_bias_ocean(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
-	species_type *species_ptr = &species_info[species_idx];
-	return has_trait_species(species_ptr, TRAIT_WILD_OCEAN);
-}
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
 
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+		if(!has_trait_species(species_ptr, TRAIT_WILD_OCEAN)) weight_list[n] = 0;
+	}
+	return;
+}
 
 static bool creature_hook_shore(SPECIES_ID species_idx)
 {
@@ -340,6 +347,8 @@ void set_creature_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_
 			set_creature_list_bias_town(species_list_ptr, weight_list_ptr);
 			break;
 		case TERRAIN_DEEP_WATER:
+			set_creature_list_bias_ocean(species_list_ptr, weight_list_ptr);
+			break;
 		case TERRAIN_SHALLOW_WATER:
 		case TERRAIN_SWAMP:
 		case TERRAIN_DIRT:
@@ -364,9 +373,8 @@ creature_hook_type get_creature_hook(void)
 		switch (wilderness[player_ptr->wy][player_ptr->wx].terrain)
 		{
 		case TERRAIN_TOWN:
-
 		case TERRAIN_DEEP_WATER:
-			return (creature_hook_type) creature_hook_ocean;
+
 		case TERRAIN_SHALLOW_WATER:
 		case TERRAIN_SWAMP:
 			return (creature_hook_type) creature_hook_shore;
@@ -382,14 +390,9 @@ creature_hook_type get_creature_hook(void)
 			return (creature_hook_type) creature_hook_volcano;
 		case TERRAIN_MOUNTAIN:
 			return (creature_hook_type) creature_hook_mountain;
-		default:
-			return (creature_hook_type) species_hook_dungeon;
 		}
 	}
-	else
-	{
-		return (creature_hook_type) species_hook_dungeon;
-	}
+	return (creature_hook_type) species_hook_dungeon;
 }
 
 
