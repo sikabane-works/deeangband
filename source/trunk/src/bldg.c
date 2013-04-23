@@ -1354,14 +1354,18 @@ void battle_creatures(void)
 	bool old_gamble_arena_mode = floor_ptr->gamble_arena_mode;
 
 	for (i = 0; i < max_dungeon_idx; i++)
+	{
 		if(max_dl < max_dlv[i]) max_dl = max_dlv[i];
+	}
 
 	ave_enemy_level = randint1(MIN(max_dl, 122)) + 5;
+
 	if(PERCENT(60))
 	{
 		i = randint1(MIN(max_dl, 122))+5;
 		ave_enemy_level = MAX(i, ave_enemy_level);
 	}
+
 	if(PERCENT(30))
 	{
 		i = randint1(MIN(max_dl, 122))+5;

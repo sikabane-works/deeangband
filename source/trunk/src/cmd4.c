@@ -7068,9 +7068,9 @@ static void do_cmd_knowledge_quests(void)
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff)
 	{
-	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
-	    msg_print(NULL);
-	    return;
+		msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
+		msg_print(NULL);
+		return;
 	}
 
 	/* Allocate Memory */

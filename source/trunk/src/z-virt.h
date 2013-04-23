@@ -117,7 +117,6 @@
 #define ZNEW(T) \
 	((T*)(WIPE(RNEW(T),T)))
 
-
 /* Allocate a wiped array of type T[N], assign to pointer P */
 #define C_MAKE(P,N,T) \
 	((P)=C_ZNEW(N,T))

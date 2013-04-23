@@ -1882,17 +1882,22 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 	return SUCCESS;	// Success
 }
 
-void get_species_list(floor_type *floor_ptr, SPECIES_ID **id_list, int **weight_list)
+void get_species_list(floor_type *floor_ptr, SPECIES_ID **id_list_ptr, int **weight_list_ptr)
 {
 	int id;
 	species_type *species_ptr;
-	C_MAKE(id_list, max_species_idx, SPECIES_ID);
-	C_MAKE(weight_list, max_species_idx, int);
+	SPECIES_ID *id_list;
+	int *weight_list;
+	C_MAKE(*id_list_ptr, max_species_idx, SPECIES_ID);
+	C_MAKE(*weight_list_ptr, max_species_idx, int);
+
+	id_list = *id_list_ptr;
+	weight_list = *weight_list_ptr;
 
 	for(id = 0; id < max_species_idx; id++)
 	{
 		species_ptr = &species_info[id];
-		id_list[id] = id;
+		id_list[id] = id+100;
 		weight_list[id] = (species_ptr->rarity != 0 ? 10000 / species_ptr->rarity : 0);
 		if(has_trait_species(species_ptr, TRAIT_QUESTOR)) weight_list[id] = 0;
 		if(has_trait_species(species_ptr, TRAIT_GUARDIAN)) weight_list[id] = 0;
