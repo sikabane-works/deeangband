@@ -1347,6 +1347,8 @@ void battle_creatures(void)
 	int total, i;
 	int max_dl = 0;
 	int ave_enemy_level;
+	SPECIES_ID *id_list;
+	int *weight_list;
 	POWER power[GAMBLE_ARENA_GLADIATOR_MAX];
 	bool tekitou;
 	bool old_gamble_arena_mode = floor_ptr->gamble_arena_mode;
@@ -1370,16 +1372,18 @@ void battle_creatures(void)
 	{
 		total = 0;
 		tekitou = FALSE;
+
+		get_species_list(NULL, &id_list, &weight_list);
+
 		for(i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
 			SPECIES_ID species_idx;
 			int j;
-			get_species_num_prep(NULL, vault_aux_battle, NULL, NULL, 0);
 
 			while(TRUE)
 			{
 				floor_ptr->gamble_arena_mode = TRUE;
-				species_idx = get_species_num(CURRENT_FLOOR_PTR, ave_enemy_level);
+				species_idx = pick_rand(id_list, weight_list, max_species_idx);
 				floor_ptr->gamble_arena_mode = old_gamble_arena_mode;
 				if(!species_idx) continue;
 

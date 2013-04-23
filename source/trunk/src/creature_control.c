@@ -1882,7 +1882,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 	return SUCCESS;	// Success
 }
 
-void get_species_list(floor_type *floor_ptr, SPECIES_ID *id_list, int *weight_list)
+void get_species_list(floor_type *floor_ptr, SPECIES_ID **id_list, int **weight_list)
 {
 	int id;
 	species_type *species_ptr;
@@ -1893,7 +1893,7 @@ void get_species_list(floor_type *floor_ptr, SPECIES_ID *id_list, int *weight_li
 	{
 		species_ptr = &species_info[id];
 		id_list[id] = id;
-		weight_list[id] = (species_ptr->rarity == 0 ? 10000 / species_ptr->rarity : 0);
+		weight_list[id] = (species_ptr->rarity != 0 ? 10000 / species_ptr->rarity : 0);
 		if(has_trait_species(species_ptr, TRAIT_QUESTOR)) weight_list[id] = 0;
 		if(has_trait_species(species_ptr, TRAIT_GUARDIAN)) weight_list[id] = 0;
 

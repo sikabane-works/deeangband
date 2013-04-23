@@ -403,7 +403,8 @@ int pick_rand(int *id_list, int *weight_list, int num)
 		return 0;
 	}
 
-	for (i = 0; i < num; i++) if(weight_list[i] > 0) total += weight_list[i];
+	for (i = 0; i < num; i++)
+		if(weight_list[i] > 0) total += weight_list[i];
 
 	if(total <= 0){
 		msg_warning("zero weights of uneven rand.");
