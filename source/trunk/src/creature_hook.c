@@ -310,10 +310,19 @@ static void set_creature_list_bias_volcano(SPECIES_ID **species_list_ptr, int **
 	return;
 }
 
-static bool creature_hook_mountain(SPECIES_ID species_idx)
+static void set_creature_list_bias_mountain(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
-	species_type *species_ptr = &species_info[species_idx];
-	return has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN);
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
+
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+		if(!has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN)) weight_list[n] = 0;
+	}
+	return;
 }
 
 static void set_creature_list_bias_grass(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
@@ -409,6 +418,7 @@ void set_creature_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_
 		case TERRAIN_DEEP_LAVA:
 			set_creature_list_bias_volcano(species_list_ptr, weight_list_ptr);
 		case TERRAIN_MOUNTAIN:
+			set_creature_list_bias_mountain(species_list_ptr, weight_list_ptr);
 		default:
 			set_creature_list_bias_dungeon(species_list_ptr, weight_list_ptr);
 			break;
@@ -419,25 +429,6 @@ void set_creature_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_
 creature_hook_type get_creature_hook(void)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	if(!floor_ptr->depth && !floor_ptr->quest)
-	{
-		switch (wilderness[player_ptr->wy][player_ptr->wx].terrain)
-		{
-		case TERRAIN_TOWN:
-		case TERRAIN_DEEP_WATER:
-		case TERRAIN_SHALLOW_WATER:
-		case TERRAIN_SWAMP:
-		case TERRAIN_DIRT:
-		case TERRAIN_DESERT:
-		case TERRAIN_GRASS:
-		case TERRAIN_TREES:
-		case TERRAIN_SHALLOW_LAVA:
-		case TERRAIN_DEEP_LAVA:
-
-		case TERRAIN_MOUNTAIN:
-			return (creature_hook_type) creature_hook_mountain;
-		}
-	}
 	return (creature_hook_type) species_hook_dungeon;
 }
 
