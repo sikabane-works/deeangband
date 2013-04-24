@@ -393,8 +393,8 @@ static bool creature_hook_floor(SPECIES_ID species_idx)
 
 void set_creature_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_list_ptr, TERRAIN_ID terrain_idx) //TODO
 {
-		switch (terrain_idx)
-		{
+	switch (terrain_idx)
+	{
 		case TERRAIN_TOWN:
 			set_creature_list_bias_town(species_list_ptr, weight_list_ptr);
 			break;
@@ -422,8 +422,19 @@ void set_creature_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_
 		default:
 			set_creature_list_bias_dungeon(species_list_ptr, weight_list_ptr);
 			break;
-		}
+	}
 	return;
+}
+
+void set_creature_list_bias_feature(SPECIES_ID **species_list_ptr, int **weight_list_ptr, feature_type *feature_ptr)
+{
+	if(have_flag(feature_ptr->flags, FF_WATER))
+	{
+		//if(have_flag(feature_ptr->flags, FF_DEEP)) return (creature_hook_type)creature_hook_deep_water;
+		//else return (creature_hook_type)creature_hook_shallow_water;
+	}
+	//else if(have_flag(feature_ptr->flags, FF_LAVA)) return (creature_hook_type)creature_hook_lava;
+	//else return (creature_hook_type)creature_hook_floor;
 }
 
 creature_hook_type get_creature_hook2(int y, int x)
