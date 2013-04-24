@@ -243,14 +243,19 @@ static void set_creature_list_bias_shore(SPECIES_ID **species_list_ptr, int **we
 	return;
 }
 
-static bool creature_hook_waste(SPECIES_ID species_idx)
+static void set_creature_list_bias_waste(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
-	species_type *species_ptr = &species_info[species_idx];
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
 
-	if(has_trait_species(species_ptr, TRAIT_WILD_WASTE) || has_trait_species(species_ptr, TRAIT_WILD_ALL))
-		return TRUE;
-	else
-		return FALSE;
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+		if(!has_trait_species(species_ptr, TRAIT_WILD_WASTE) && !has_trait_species(species_ptr, TRAIT_WILD_ALL)) weight_list[n] = 0;
+	}
+	return;
 }
 
 static void set_creature_list_bias_town(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
@@ -291,10 +296,21 @@ static bool creature_hook_mountain(SPECIES_ID species_idx)
 	return has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN);
 }
 
-static bool creature_hook_grass(SPECIES_ID species_idx)
+static void set_creature_list_bias_grass(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
-	species_type *species_ptr = &species_info[species_idx];
-	return (has_trait_species(species_ptr, TRAIT_WILD_GRASS) || has_trait_species(species_ptr, TRAIT_WILD_ALL));
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
+
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+		if(has_trait_species(species_ptr, TRAIT_WILD_GRASS)) weight_list[n] *= 2;
+		else if(has_trait_species(species_ptr, TRAIT_WILD_ALL)) weight_list[n] *= 2;
+		else weight_list[n] = 0;
+	}
+	return;
 }
 
 static bool creature_hook_deep_water(SPECIES_ID species_idx)
@@ -308,7 +324,6 @@ static bool creature_hook_deep_water(SPECIES_ID species_idx)
 	else
 		return FALSE;
 }
-
 
 static bool creature_hook_shallow_water(SPECIES_ID species_idx)
 {
@@ -358,12 +373,18 @@ void set_creature_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_
 			set_creature_list_bias_ocean(species_list_ptr, weight_list_ptr);
 			break;
 		case TERRAIN_SHALLOW_WATER:
+		case TERRAIN_SWAMP:
 			set_creature_list_bias_shore(species_list_ptr, weight_list_ptr);
 			break;
-		case TERRAIN_SWAMP:
 		case TERRAIN_DIRT:
 		case TERRAIN_DESERT:
+			set_creature_list_bias_waste(species_list_ptr, weight_list_ptr);
+			break;
+
 		case TERRAIN_GRASS:
+			set_creature_list_bias_grass(species_list_ptr, weight_list_ptr);
+			break;
+
 		case TERRAIN_TREES:
 		case TERRAIN_SHALLOW_LAVA:
 		case TERRAIN_DEEP_LAVA:
@@ -386,14 +407,14 @@ creature_hook_type get_creature_hook(void)
 		case TERRAIN_DEEP_WATER:
 		case TERRAIN_SHALLOW_WATER:
 		case TERRAIN_SWAMP:
-
 		case TERRAIN_DIRT:
 		case TERRAIN_DESERT:
-			return (creature_hook_type) creature_hook_waste;
+
 		case TERRAIN_GRASS:
-			return (creature_hook_type) creature_hook_grass;
+
 		case TERRAIN_TREES:
 			return (creature_hook_type) creature_hook_wood;
+
 		case TERRAIN_SHALLOW_LAVA:
 		case TERRAIN_DEEP_LAVA:
 			return (creature_hook_type) creature_hook_volcano;
