@@ -390,14 +390,19 @@ static void set_creature_list_bias_lava(SPECIES_ID **species_list_ptr, int **wei
 	return;
 }
 
-static bool creature_hook_floor(SPECIES_ID species_idx)
+static void set_creature_list_bias_floor(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
-	species_type *species_ptr = &species_info[species_idx];
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
 
-	if(!has_trait_species(species_ptr, TRAIT_AQUATIC) || has_trait_species(species_ptr, TRAIT_CAN_FLY))
-		return TRUE;
-	else
-		return FALSE;
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+		if(has_trait_species(species_ptr, TRAIT_AQUATIC) && !has_trait_species(species_ptr, TRAIT_CAN_FLY)) weight_list[n] = 0;
+	}
+	return;
 }
 
 void set_creature_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_list_ptr, TERRAIN_ID terrain_idx) //TODO
@@ -443,7 +448,7 @@ void set_creature_list_bias_feature(SPECIES_ID **species_list_ptr, int **weight_
 		else set_creature_list_bias_shallow_water(species_list_ptr, weight_list_ptr);
 	}
 	else if(have_flag(feature_ptr->flags, FF_LAVA)) set_creature_list_bias_lava(species_list_ptr, weight_list_ptr);
-	//else return (creature_hook_type)creature_hook_floor;
+	else set_creature_list_bias_floor(species_list_ptr, weight_list_ptr);
 }
 
 creature_hook_type get_creature_hook2(int y, int x)
@@ -453,7 +458,7 @@ creature_hook_type get_creature_hook2(int y, int x)
 
 	/* Set the creature list */
 
-	return (creature_hook_type)creature_hook_floor;
+	return NULL;
 }
 
 void set_pet(creature_type *master_ptr, creature_type *m_ptr)
