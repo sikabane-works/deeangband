@@ -4268,7 +4268,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			if(!cave_empty_bold2(floor_ptr, ny, nx)) continue;
 
 			/* Prepare allocation table */
-			get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(ny, nx), place_creature_okay, 0); // TODO
+			//TODO get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(ny, nx), place_creature_okay, 0); // TODO
 
 			/* Pick a random race */
 			z = get_species_num(floor_ptr, species_ptr->level);
@@ -4522,7 +4522,7 @@ bool summon_specific(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, 
 	//summon_specific_who = who;
 
 	/* Prepare allocation table */
-	get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(y, x), summon_specific_okay, type);
+	//TODO get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(y, x), summon_specific_okay, type);
 
 	/* Pick a creature, using the level calculation */
 	species_idx = get_species_num(floor_ptr, (floor_ptr->depth + lev) / 2 + 5);

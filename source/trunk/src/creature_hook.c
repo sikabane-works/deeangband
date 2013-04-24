@@ -451,16 +451,6 @@ void set_creature_list_bias_feature(SPECIES_ID **species_list_ptr, int **weight_
 	else set_creature_list_bias_floor(species_list_ptr, weight_list_ptr);
 }
 
-creature_hook_type get_creature_hook2(int y, int x)
-{
-	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	feature_type *f_ptr = &feature_info[floor_ptr->cave[y][x].feat];
-
-	/* Set the creature list */
-
-	return NULL;
-}
-
 void set_pet(creature_type *master_ptr, creature_type *m_ptr)
 {
 	if(!is_pet(master_ptr, m_ptr)) check_pets_num_and_align(master_ptr, m_ptr, TRUE);
