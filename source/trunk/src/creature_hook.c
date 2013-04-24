@@ -293,13 +293,22 @@ static void set_creature_list_bias_forest(SPECIES_ID **species_list_ptr, int **w
 	return;
 }
 
-
-static bool creature_hook_volcano(SPECIES_ID species_idx)
+static void set_creature_list_bias_volcano(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
-	species_type *species_ptr = &species_info[species_idx];
-	return has_trait_species(species_ptr, TRAIT_WILD_WOOD);
-}
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
 
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+		if(has_trait_species(species_ptr, TRAIT_WILD_ALL)) weight_list[n] *= 2;
+		else if(has_trait_species(species_ptr, TRAIT_WILD_WOOD)) weight_list[n] *= 2;
+		else weight_list[n] = 0;
+	}
+	return;
+}
 
 static bool creature_hook_mountain(SPECIES_ID species_idx)
 {
@@ -398,6 +407,7 @@ void set_creature_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_
 			set_creature_list_bias_forest(species_list_ptr, weight_list_ptr);
 		case TERRAIN_SHALLOW_LAVA:
 		case TERRAIN_DEEP_LAVA:
+			set_creature_list_bias_volcano(species_list_ptr, weight_list_ptr);
 		case TERRAIN_MOUNTAIN:
 		default:
 			set_creature_list_bias_dungeon(species_list_ptr, weight_list_ptr);
@@ -421,10 +431,9 @@ creature_hook_type get_creature_hook(void)
 		case TERRAIN_DESERT:
 		case TERRAIN_GRASS:
 		case TERRAIN_TREES:
-
 		case TERRAIN_SHALLOW_LAVA:
 		case TERRAIN_DEEP_LAVA:
-			return (creature_hook_type) creature_hook_volcano;
+
 		case TERRAIN_MOUNTAIN:
 			return (creature_hook_type) creature_hook_mountain;
 		}
