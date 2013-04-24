@@ -357,18 +357,20 @@ static void set_creature_list_bias_deep_water(SPECIES_ID **species_list_ptr, int
 	return;
 }
 
-static bool creature_hook_shallow_water(SPECIES_ID species_idx)
+static void set_creature_list_bias_shallow_water(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
-	species_type *species_ptr = &species_info[species_idx];
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
 
-	if(!species_hook_dungeon(species_idx)) return FALSE;
-
-	if(has_trait_raw(&species_ptr->flags, TRAIT_AURA_FIRE))
-		return FALSE;
-	else
-		return TRUE;
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+		if(has_trait_species(species_ptr, TRAIT_AURA_FIRE)) weight_list[n] = 0;
+	}
+	return;
 }
-
 
 static bool creature_hook_lava(SPECIES_ID species_idx)
 {
@@ -434,7 +436,7 @@ void set_creature_list_bias_feature(SPECIES_ID **species_list_ptr, int **weight_
 	if(have_flag(feature_ptr->flags, FF_WATER))
 	{
 		if(have_flag(feature_ptr->flags, FF_DEEP)) set_creature_list_bias_deep_water(species_list_ptr, weight_list_ptr);
-		//else return (creature_hook_type)creature_hook_shallow_water;
+		else set_creature_list_bias_shallow_water(species_list_ptr, weight_list_ptr);
 	}
 	//else if(have_flag(feature_ptr->flags, FF_LAVA)) return (creature_hook_type)creature_hook_lava;
 	//else return (creature_hook_type)creature_hook_floor;
@@ -450,11 +452,6 @@ creature_hook_type get_creature_hook2(int y, int x)
 	// Water
 	if(have_flag(f_ptr->flags, FF_WATER))
 	{
-		// Deep water
-		//if(have_flag(f_ptr->flags, FF_DEEP)) return (creature_hook_type)creature_hook_deep_water;
-
-		// Shallow water
-		return (creature_hook_type)creature_hook_shallow_water;
 	}
 
 	// Lava
