@@ -798,7 +798,6 @@ extern void output_creature_spoiler(SPECIES_ID species_idx, void (*roff_func)(by
 extern void create_name(int type, char *name);
 extern bool species_hook_dungeon(SPECIES_ID species_idx);
 
-extern creature_hook_type get_creature_hook(void);
 extern creature_hook_type get_creature_hook2(int y, int x);
 extern void set_pet(creature_type *master_ptr, creature_type *m_ptr);
 extern void set_hostile(creature_type *master_ptr, creature_type *m_ptr);

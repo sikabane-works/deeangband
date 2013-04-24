@@ -3198,7 +3198,7 @@ static bool creature_hook_chameleon(SPECIES_ID species_idx)
 		if(!(is_enemy_of_evil_species(old_r_ptr) && is_enemy_of_good_species(old_r_ptr)) && (is_enemy_of_evil_species(species_ptr) && is_enemy_of_good_species(species_ptr))) return FALSE;
 	}
 
-	return (*(get_creature_hook()))(species_idx);
+	return TRUE; //TODO
 }
 
 void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_idx, CREATURE_EGO_ID creature_ego_idx)
@@ -4298,7 +4298,7 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, COODINAT
 	SPECIES_ID species_idx;
 
 	// Pick a creature
-	get_species_num_prep(NULL, NULL, NULL, NULL, 0); //TODO get_creature_hook(), get_creature_hook2(y, x)
+	//TODO get_creature_list_terrain(), get_creature_list_feature(y, x)
 	species_idx = get_species_num(floor_ptr, floor_ptr->enemy_level);
 	if(!species_idx) return FALSE;
 
@@ -4314,7 +4314,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES 
 	int attempts = 1000;
 
 	// Prepare allocation table
-	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL, 0);
+	//TODO get_creature_list_terrain(), get_creature_list_feature(y, x)
 
 	while (--attempts)
 	{

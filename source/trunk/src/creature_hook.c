@@ -426,13 +426,6 @@ void set_creature_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_
 	return;
 }
 
-creature_hook_type get_creature_hook(void)
-{
-	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	return (creature_hook_type) species_hook_dungeon;
-}
-
-
 creature_hook_type get_creature_hook2(int y, int x)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
