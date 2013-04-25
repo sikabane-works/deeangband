@@ -1747,65 +1747,6 @@ void reset_species_preps(void)
 	}
 }
 
-// Apply a "creature restriction function" to the "creature allocation table"
-errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3, int summon_specific_type)
-{
-	int i;
-	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	int total = 0;
-
-	// Set the new hooks
-	creature_hook_type  get_species_num_hook  = creature_hook;
-	creature_hook_type  get_species_num2_hook = creature_hook2;
-	creature_hook_type2 get_species_num3_hook = creature_hook3;
-
-	// Scan the allocation table
-	for (i = 0; i < alloc_species_size; i++)
-	{
-		species_type *species_ptr;
-		alloc_entry *entry = &alloc_species_table[i]; // Get the entry
-		entry->prob2 = 0;
-		species_ptr = &species_info[entry->index];
-
-		// Skip creatures which don't pass the restriction
-		if((get_species_num_hook  && !((*get_species_num_hook)(entry->index))) ||
-			(get_species_num2_hook && !((*get_species_num2_hook)(entry->index))) ||
-			(get_species_num3_hook && !((*get_species_num3_hook)(summoner_ptr, entry->index))))
-			continue;
-
-		//if(!summon_unique_okay && ((has_trait_species(species_ptr, TRAIT_UNIQUE)) || has_trait_species(species_ptr, TRAIT_NAZGUL))) continue;
-		//if((summon_specific_who < 0) && ((has_trait_species(species_ptr, TRAIT_UNIQUE)) || has_trait_species(species_ptr, TRAIT_NAZGUL))) continue;
-		//if(!(has_trait_species(species_ptr, TRAIT_CHAMELEON) && (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_CHAMELEON))) continue;
-
-		//if(!summon_specific_aux(species_ptr, summon_specific_type)) continue;
-
-		if(!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != TRAIT_S_GUARDIANS)
-		{
-			if(has_trait_species(species_ptr, TRAIT_QUESTOR)) continue;
-			if(has_trait_species(species_ptr, TRAIT_GUARDIAN)) continue;
-			if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (species_ptr->level > floor_ptr->depth)) continue; // Depth Creatures never appear out of depth
-		}
-
-		entry->prob2 = entry->prob1; // Accept this creature
-		total+= entry->prob1;
-
-		//TODO if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
-		/*
-		{
-		int hoge = entry->prob2 * dungeon_info[floor_ptr->dungeon_id].special_div;
-		entry->prob2 = hoge / 64;
-		if(randint0(64) < (hoge & 0x3f)) entry->prob2++;
-		}
-		*/
-	}
-
-	if(total <= 0)
-	{
-		msg_warning("No selected creature in get_species_num_prep()");
-	}
-	return SUCCESS;	// Success
-}
-
 void alloc_species_list(SPECIES_ID **id_list_ptr, PROB **weight_list_ptr)
 {
 	int id;
@@ -3106,10 +3047,7 @@ static bool creature_hook_chameleon_lord(SPECIES_ID species_idx)
 	if(has_trait_species(species_ptr, TRAIT_FRIENDLY) || has_trait_species(species_ptr, TRAIT_CHAMELEON)) return FALSE;
 	if(ABS(species_ptr->level - species_info[SPECIES_CHAMELEON_K].level) > 5) return FALSE;
 	if(has_trait_species(species_ptr, TRAIT_SUICIDE_BOMBER)) return FALSE;
-
-
 	if(!species_can_cross_terrain(floor_ptr->cave[m_ptr->fy][m_ptr->fx].feat, species_ptr, 0)) return FALSE;
-
 	return TRUE;
 }
 
@@ -3160,8 +3098,8 @@ void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_
 	{
 		int level;
 
-		if(old_unique)	get_species_num_prep(NULL, creature_hook_chameleon_lord, NULL, NULL, 0);
-		else			get_species_num_prep(NULL, creature_hook_chameleon, NULL, NULL, 0);
+		//TODO if(old_unique)	get_species_num_prep(NULL, creature_hook_chameleon_lord, NULL, NULL, 0);
+		//TODO else			get_species_num_prep(NULL, creature_hook_chameleon, NULL, NULL, 0);
 
 		if(old_unique)
 			level = species_info[SPECIES_CHAMELEON_K].level;

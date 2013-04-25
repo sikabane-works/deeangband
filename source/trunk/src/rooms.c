@@ -2129,7 +2129,7 @@ static bool build_type5(floor_type *floor_ptr)
 	if(n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
-	get_species_num_prep(NULL, n_ptr->hook_func, NULL, NULL, 0);
+	//TODO get_species_num_prep(NULL, n_ptr->hook_func, NULL, NULL, 0);
 
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
@@ -2342,7 +2342,7 @@ static bool build_type6(floor_type *floor_ptr)
 	if(n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
-	get_species_num_prep(NULL, n_ptr->hook_func, NULL, NULL, 0);
+	//TODO get_species_num_prep(NULL, n_ptr->hook_func, NULL, NULL, 0);
 
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
@@ -5436,7 +5436,7 @@ static bool build_type13(floor_type *floor_ptr)
 	if(n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
-	get_species_num_prep(NULL, n_ptr->hook_func, vault_aux_trapped_pit, NULL, 0);
+	//TODO get_species_num_prep(NULL, n_ptr->hook_func, vault_aux_trapped_pit, NULL, 0);
 
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
