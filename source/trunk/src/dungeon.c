@@ -3722,6 +3722,9 @@ void do_creature_mutation(creature_type *creature_ptr)
 
 void do_creature_fishing(creature_type *creature_ptr)
 {
+	SPECIES_ID *species_list;
+	PROB *weight_list;
+
 	if(creature_ptr->action == ACTION_FISH)
 	{
 		floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -3731,8 +3734,10 @@ void do_creature_fishing(creature_type *creature_ptr)
 			SPECIES_ID species_idx;
 			bool success = FALSE;
 
-			get_species_num_prep_trait(NULL, t_need(1, TRAIT_AQUATIC), t_need(1, TRAIT_UNIQUE), 0);
-			species_idx = get_species_num(floor_ptr, floor_ptr->depth ? floor_ptr->depth : wilderness[creature_ptr->wy][creature_ptr->wx].level);
+			alloc_species_list(&species_list, &weight_list);
+			set_species_list_bias_fishing_target(species_list, weight_list);
+			species_idx = pick_rand(&species_list, &weight_list, max_species_idx);
+			free_species_list(&species_list, &weight_list);
 
 			msg_print(NULL);
 			if(species_idx && one_in_(2))

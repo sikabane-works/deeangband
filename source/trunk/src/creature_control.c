@@ -1815,7 +1815,6 @@ void reset_species_preps(void)
 		alloc_entry *entry = &alloc_species_table[i];	// Get the entry
 		entry->prob2 = entry->prob1; // Accept this creature
 	}
-
 }
 
 // Apply a "creature restriction function" to the "creature allocation table"
