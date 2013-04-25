@@ -1905,6 +1905,19 @@ void alloc_species_list(SPECIES_ID **id_list_ptr, int **weight_list_ptr)
 	return;
 }
 
+void forbid_species_list(SPECIES_ID **species_list_ptr, int **weight_list_ptr, bool (*hook_func)(SPECIES_ID species_idx))
+{
+	int n;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
+
+	for(n = 0; n < max_species_idx; n++)
+	{
+		if(!hook_func(species_list[n])) weight_list[n] = 0;
+	}
+	return;
+}
+
 void free_species_list(SPECIES_ID **id_list_ptr, int **weight_list_ptr)
 {
 	C_KILL(*id_list_ptr, max_species_idx, SPECIES_ID);

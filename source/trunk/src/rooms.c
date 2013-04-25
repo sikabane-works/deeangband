@@ -1446,7 +1446,6 @@ static bool vault_aux_animal(SPECIES_ID species_idx)
 	if(!vault_creature_okay(species_idx)) return FALSE;			// Validate the creature
 	if(!has_trait_species(species_ptr, TRAIT_ANIMAL)) return FALSE;	// Require "animal" flag
 
-
 	return TRUE;
 }
 
@@ -1463,7 +1462,6 @@ static bool vault_aux_undead(SPECIES_ID species_idx)
 
 	/* Require Undead */
 	if(!has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;
-
 
 	return TRUE;
 }
