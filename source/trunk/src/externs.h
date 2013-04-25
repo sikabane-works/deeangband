@@ -831,9 +831,9 @@ extern void birth_uniques(void);
 
 extern void wipe_creature_list(FLOOR_ID floor_idx);
 extern CREATURE_ID creature_pop(void);
-extern void alloc_species_list(SPECIES_ID **id_list, PROB **weight_list);
+extern void alloc_species_list(PROB **weight_list);
 extern void forbid_species_list(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, bool (*hook_func)(SPECIES_ID species_idx));
-extern void free_species_list(SPECIES_ID **id_list_ptr, PROB **weight_list_ptr);
+extern void free_species_list(PROB **weight_list_ptr);
 extern void reset_species_preps(void);
 extern SPECIES_ID get_species_num(floor_type *floor_ptr, FLOOR_LEV level);
 extern void creature_desc(char *desc, creature_type *creature_ptr, int mode);

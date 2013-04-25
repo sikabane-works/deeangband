@@ -1328,16 +1328,15 @@ static void set_species_list_bias(SPECIES_ID **species_list_ptr, PROB **weight_l
 }
 */
 
-static void set_species_list_bias_arena(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr)
+static void set_species_list_bias_arena(PROB **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	SPECIES_ID *species_list = *species_list_ptr;
 	PROB *weight_list = *weight_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
-		species_ptr = &species_info[species_list[n]];
+		species_ptr = &species_info[n];
 		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) weight_list[n] = 0;
 		if(has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) weight_list[n] = 0;
 		if(has_trait_species(species_ptr, TRAIT_MULTIPLY)) weight_list[n] = 0;
@@ -1356,7 +1355,6 @@ void battle_creatures(void)
 	int total, i;
 	int max_dl = 0;
 	int ave_enemy_level;
-	SPECIES_ID *id_list;
 	PROB *weight_list;
 	POWER power[GAMBLE_ARENA_GLADIATOR_MAX];
 	bool tekitou;
@@ -1386,8 +1384,8 @@ void battle_creatures(void)
 		total = 0;
 		tekitou = FALSE;
 
-		alloc_species_list(&id_list, &weight_list);
-		set_species_list_bias_arena(&id_list, &weight_list);
+		alloc_species_list(&weight_list);
+		set_species_list_bias_arena(&weight_list);
 
 		for(i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
@@ -1419,7 +1417,7 @@ void battle_creatures(void)
 			if(species_info[species_idx].level < 45) tekitou = TRUE;
 		}
 
-		free_species_list(&id_list, &weight_list);
+		free_species_list(&weight_list);
 
 		for (i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
@@ -1906,7 +1904,6 @@ void have_nightmare(creature_type *watcher_ptr, SPECIES_ID eldritch_idx)
 static bool inn_comm(creature_type *creature_ptr, int cmd)
 {
 	int i;
-	SPECIES_ID *id_list;
 	PROB *weight_list;
 
 	switch (cmd)
@@ -1947,14 +1944,14 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 
 				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
 				{
-					alloc_species_list(&id_list, &weight_list);
+					alloc_species_list(&weight_list);
 					set_species_list_bias_nightmare(&weight_list, creature_ptr);
 					while(TRUE)
 					{
 						have_nightmare(creature_ptr, species_rand(weight_list));
 						if(!one_in_(3)) break;
 					}
-					free_species_list(&id_list, &weight_list);
+					free_species_list(&weight_list);
 #ifdef JP
 					msg_print("‚ ‚È‚½‚Íâ‹©‚µ‚Ä–Ú‚ðŠo‚Ü‚µ‚½B");
 #else
@@ -2088,12 +2085,11 @@ static void castle_quest(creature_type *creature_ptr)
 		{
 			if(quest_ptr->species_idx == 0) /* Random creature at least 5 - 10 levels out of deep */
 			{
-				SPECIES_ID *species_list;
 				PROB *prob_list;
-				alloc_species_list(&species_list, &prob_list);
+				alloc_species_list(&prob_list);
 				set_species_list_bias_random_questor_any_killing(&prob_list, quest_ptr->level);
 				quest_ptr->species_idx = species_rand(prob_list);
-				free_species_list(&species_list, &prob_list);
+				free_species_list(&prob_list);
 			}
 			species_ptr = &species_info[quest_ptr->species_idx];
 			if(quest_ptr->max_num == 0)

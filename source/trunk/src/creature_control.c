@@ -1747,22 +1747,18 @@ void reset_species_preps(void)
 	}
 }
 
-void alloc_species_list(SPECIES_ID **id_list_ptr, PROB **weight_list_ptr)
+void alloc_species_list(PROB **weight_list_ptr)
 {
 	int id;
 	species_type *species_ptr;
-	SPECIES_ID *id_list;
 	PROB *weight_list;
-	C_MAKE(*id_list_ptr, max_species_idx, SPECIES_ID);
 	C_MAKE(*weight_list_ptr, max_species_idx, PROB);
 
-	id_list = *id_list_ptr;
 	weight_list = *weight_list_ptr;
 
 	for(id = 0; id < max_species_idx; id++)
 	{
 		species_ptr = &species_info[id];
-		id_list[id] = id;
 		weight_list[id] = (species_ptr->rarity != 0 ? 10000 / species_ptr->rarity : 0);
 		if(has_trait_species(species_ptr, TRAIT_QUESTOR)) weight_list[id] = 0;
 		if(has_trait_species(species_ptr, TRAIT_GUARDIAN)) weight_list[id] = 0;
@@ -1783,9 +1779,8 @@ void forbid_species_list(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, 
 	return;
 }
 
-void free_species_list(SPECIES_ID **id_list_ptr, PROB **weight_list_ptr)
+void free_species_list(PROB **weight_list_ptr)
 {
-	C_KILL(*id_list_ptr, max_species_idx, SPECIES_ID);
 	C_KILL(*weight_list_ptr, max_species_idx, PROB);
 }
 
