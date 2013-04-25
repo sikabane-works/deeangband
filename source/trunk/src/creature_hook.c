@@ -474,6 +474,21 @@ void set_species_list_bias_random_questor(SPECIES_ID **species_list_ptr, int **w
 	return;
 }
 
+void set_species_list_bias_nightmare(SPECIES_ID **species_list_ptr, int **weight_list_ptr, creature_type *watcher_ptr)
+{
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	int *weight_list = *weight_list_ptr;
+
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+		if(!has_trait_species(species_ptr, TRAIT_ELDRITCH_HORROR)) weight_list[n] = 0;
+	}
+	return;
+}
+
 void set_pet(creature_type *master_ptr, creature_type *m_ptr)
 {
 	if(!is_pet(master_ptr, m_ptr)) check_pets_num_and_align(master_ptr, m_ptr, TRUE);
