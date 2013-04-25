@@ -1397,7 +1397,7 @@ void battle_creatures(void)
 			while(TRUE)
 			{
 				floor_ptr->gamble_arena_mode = TRUE;
-				species_idx = species_rand(id_list, weight_list);
+				species_idx = species_rand(weight_list);
 				floor_ptr->gamble_arena_mode = old_gamble_arena_mode;
 				if(!species_idx) continue;
 
@@ -1951,7 +1951,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 					set_species_list_bias_nightmare(&id_list, &weight_list, creature_ptr);
 					while(TRUE)
 					{
-						have_nightmare(creature_ptr, species_rand(id_list, weight_list));
+						have_nightmare(creature_ptr, species_rand(weight_list));
 						if(!one_in_(3)) break;
 					}
 					free_species_list(&id_list, &weight_list);
@@ -2092,7 +2092,7 @@ static void castle_quest(creature_type *creature_ptr)
 				PROB *prob_list;
 				alloc_species_list(&species_list, &prob_list);
 				set_species_list_bias_random_questor_any_killing(&species_list, &prob_list, quest_ptr->level);
-				quest_ptr->species_idx = species_rand(species_list, prob_list);
+				quest_ptr->species_idx = species_rand(prob_list);
 				free_species_list(&species_list, &prob_list);
 			}
 			species_ptr = &species_info[quest_ptr->species_idx];

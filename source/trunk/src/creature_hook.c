@@ -799,7 +799,7 @@ bool no_questor_or_bounty_uniques(SPECIES_ID species_idx)
 	}
 }
 
-SPECIES_ID species_rand(SPECIES_ID *species_list, PROB *prob_list)
+SPECIES_ID species_rand(PROB *prob_list)
 {
 	int i;
 	PROB value, total = 0L;
@@ -821,7 +821,7 @@ SPECIES_ID species_rand(SPECIES_ID *species_list, PROB *prob_list)
 		if(prob_list[i])
 		{
 			value -= prob_list[i];
-			if(value < 0) return species_list[i];
+			if(value < 0) return i;
 		}
 	}
 
