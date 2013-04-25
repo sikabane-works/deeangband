@@ -393,7 +393,7 @@ u32b Rand_simple(u32b m)
 
 // D'angband added it.
 // Random select by rarity.
-int pick_rand(int *id_list, int *weight_list, int num)
+int pick_rand(int *id_list, PROB *weight_list, int num)
 {
 	int i;
 	long value, total = 0L;

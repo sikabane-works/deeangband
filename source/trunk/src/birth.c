@@ -2207,7 +2207,7 @@ void creature_wipe(creature_type *creature_ptr)
 void determine_random_questor(quest_type *quest_ptr)
 {
 	SPECIES_ID *species_list;
-	int *weight_list;
+	PROB *weight_list;
 
 	alloc_species_list(&species_list, &weight_list);
 	set_species_list_bias_random_questor(&species_list, &weight_list, quest_ptr->level);

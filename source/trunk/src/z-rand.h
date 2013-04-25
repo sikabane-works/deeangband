@@ -16,6 +16,7 @@
 #include "h-basic.h"
 
 typedef s32b RAND_SEED;
+typedef s32b PROB;
 
 /**** Available constants ****/
 
@@ -89,7 +90,7 @@ extern u32b Rand_simple(u32b m);
 
 // add on D'angband
 
-extern int pick_rand(int *id_list, int *weight_list, int num);
+extern int pick_rand(int *id_list, PROB *weight_list, int num);
 
 #endif
 

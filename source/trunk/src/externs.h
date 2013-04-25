@@ -829,8 +829,8 @@ extern CREATURE_ID creature_pop(void);
 extern errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3, int summon_specific_type);
 extern errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, const u32b *except, FLAGS_32 flags);
 extern void alloc_species_list(SPECIES_ID **id_list, int **weight_list);
-extern void forbid_species_list(SPECIES_ID **species_list_ptr, int **weight_list_ptr, bool (*hook_func)(SPECIES_ID species_idx));
-extern void free_species_list(SPECIES_ID **id_list_ptr, int **weight_list_ptr);
+extern void forbid_species_list(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, bool (*hook_func)(SPECIES_ID species_idx));
+extern void free_species_list(SPECIES_ID **id_list_ptr, PROB **weight_list_ptr);
 extern void reset_species_preps(void);
 extern SPECIES_ID get_species_num(floor_type *floor_ptr, FLOOR_LEV level);
 extern void creature_desc(char *desc, creature_type *creature_ptr, int mode);
@@ -1528,4 +1528,4 @@ const u32b *t_need(int num, ...);
 const u32b *t_except(int num, ...);
 
 // creature_hook.c
-extern void set_species_list_bias_random_questor(SPECIES_ID **species_list_ptr, int **weight_list_ptr, FLOOR_LEV depth);
+extern void set_species_list_bias_random_questor(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, FLOOR_LEV depth);
