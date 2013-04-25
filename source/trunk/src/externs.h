@@ -845,7 +845,7 @@ extern void sanity_blast_aux(creature_type *watcher_ptr, POWER power);
 extern void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx, bool full);
 extern void update_creatures(bool full);
 extern bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, FLAGS_32 mode);
-extern bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
+extern bool place_floor_spawn_creature(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
 extern void deal_item(creature_type *creature_ptr);
 extern bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x);
 extern bool alloc_guardian(floor_type *floor_ptr, bool def_val);
@@ -1530,3 +1530,5 @@ extern bool do_active_trait(creature_type *user_ptr, int id, bool message);
 // creature_hook.c
 extern void set_species_list_bias_random_questor_any_killing(PROB **weight_list_ptr, FLOOR_LEV depth);
 extern void set_species_list_bias_random_questor(PROB **weight_list_ptr, FLOOR_LEV depth);
+extern void set_species_list_bias_terrain(PROB **weight_list_ptr, TERRAIN_ID terrain_idx);
+extern void set_species_list_bias_feature(PROB **weight_list_ptr, feature_type *feature_ptr);

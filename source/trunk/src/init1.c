@@ -6582,7 +6582,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 			if(random & RANDOM_MONSTER)
 			{
 				floor_ptr->enemy_level = floor_ptr->depth + creature_index;
-				place_creature(NULL, floor_ptr, *y, *x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
+				place_floor_spawn_creature(NULL, floor_ptr, *y, *x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 				floor_ptr->enemy_level = floor_ptr->depth;
 			}
 			else if(creature_index)

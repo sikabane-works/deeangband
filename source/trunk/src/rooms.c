@@ -2755,7 +2755,7 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 				case '&':
 				{
 					floor_ptr->enemy_level = floor_ptr->depth + 5;
-					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
+					place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->enemy_level = floor_ptr->depth;
 					break;
 				}
@@ -2764,7 +2764,7 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 				case '@':
 				{
 					floor_ptr->enemy_level = floor_ptr->depth + 11;
-					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
+					place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->enemy_level = floor_ptr->depth;
 					break;
 				}
@@ -2773,7 +2773,7 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 				case '9':
 				{
 					floor_ptr->enemy_level = floor_ptr->depth + 9;
-					place_creature(NULL, floor_ptr, y, x, PC_ALLOW_SLEEP);
+					place_floor_spawn_creature(NULL, floor_ptr, y, x, PC_ALLOW_SLEEP);
 					floor_ptr->enemy_level = floor_ptr->depth;
 					floor_ptr->object_level = floor_ptr->depth + 7;
 					place_object(floor_ptr, y, x, AM_GOOD, NULL);
@@ -2785,7 +2785,7 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 				case '8':
 				{
 					floor_ptr->enemy_level = floor_ptr->depth + 40;
-					place_creature(NULL, floor_ptr, y, x, PC_ALLOW_SLEEP);
+					place_floor_spawn_creature(NULL, floor_ptr, y, x, PC_ALLOW_SLEEP);
 					floor_ptr->enemy_level = floor_ptr->depth;
 					floor_ptr->object_level = floor_ptr->depth + 20;
 					place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT, NULL);
@@ -2799,7 +2799,7 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 					if(PERCENT(50))
 					{
 						floor_ptr->enemy_level = floor_ptr->depth + 3;
-						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
+						place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 						floor_ptr->enemy_level = floor_ptr->depth;
 					}
 					if(PERCENT(50))
@@ -3899,7 +3899,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 				{
 					/* Meanest creature + treasure */
 					floor_ptr->enemy_level = floor_ptr->depth + 40;
-					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
+					place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->enemy_level = floor_ptr->depth;
 					floor_ptr->object_level = floor_ptr->depth + 20;
 					place_object(floor_ptr, y, x, AM_GOOD, NULL);
@@ -3909,7 +3909,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 				{
 					/* Mean creature +treasure */
 					floor_ptr->enemy_level = floor_ptr->depth + 20;
-					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
+					place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->enemy_level = floor_ptr->depth;
 					floor_ptr->object_level = floor_ptr->depth + 10;
 					place_object(floor_ptr, y, x, AM_GOOD, NULL);
@@ -3919,7 +3919,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 				{
 					/* Creature */
 					floor_ptr->enemy_level = floor_ptr->depth + 9;
-					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
+					place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->enemy_level = floor_ptr->depth;
 				}
 				else if(value < 17)
@@ -3949,7 +3949,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 				{
 					/* Creature and trap */
 					floor_ptr->enemy_level = floor_ptr->depth + 5;
-					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
+					place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->enemy_level = floor_ptr->depth;
 					place_trap(floor_ptr, y, x);
 				}
@@ -3959,7 +3959,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 					if(PERCENT(50))
 					{
 						floor_ptr->enemy_level = floor_ptr->depth + 3;
-						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
+						place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 						floor_ptr->enemy_level = floor_ptr->depth;
 					}
 					if(PERCENT(50))
@@ -3977,7 +3977,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 					/* 20% creature, 40% trap, 20% object, 20% blank space */
 					if(PERCENT(20))
 					{
-						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
+						place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					}
 					else if(PERCENT(50))
 					{

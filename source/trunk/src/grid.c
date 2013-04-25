@@ -449,7 +449,7 @@ void vault_creatures(floor_type *floor_ptr, COODINATES y1, COODINATES x1, int nu
 
 			/* Place the creature (allow groups) */
 			floor_ptr->enemy_level = floor_ptr->depth + 2;
-			(void)place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
+			(void)place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 			floor_ptr->enemy_level = floor_ptr->depth;
 		}
 	}

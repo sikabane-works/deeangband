@@ -4163,13 +4163,20 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 
 // Hack -- attempt to place a creature at the given location
 // Attempt to find a creature appropriate to the "enemy_level"
-bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode)
+bool place_floor_spawn_creature(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode)
 {
+	PROB *prob_list;
 	SPECIES_ID species_idx;
+	
+	alloc_species_list(&prob_list);
+	//set_species_list_bias_terrain(prob_list, floor_ptr->); //TODO
+
+	set_species_list_bias_feature(&prob_list, &feature_info[floor_ptr->cave[y][x].feat]);
 
 	// Pick a creature
 	//TODO get_creature_list_terrain(), get_creature_list_feature(y, x)
-	species_idx = get_species_num(floor_ptr, floor_ptr->enemy_level);
+	species_idx = species_rand(prob_list);
+	free_species_list(&prob_list);
 	if(!species_idx) return FALSE;
 
 	return place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode); // Attempt to place the creature
@@ -4331,7 +4338,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, F
 	else
 	{
 		/* Attempt to place the creature, allow groups */
-		if(place_creature(NULL, floor_ptr, y, x, (mode | PC_ALLOW_GROUP))) return TRUE;
+		if(place_floor_spawn_creature(NULL, floor_ptr, y, x, (mode | PC_ALLOW_GROUP))) return TRUE;
 
 	}
 
