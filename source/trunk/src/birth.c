@@ -2211,7 +2211,7 @@ void determine_random_questor(quest_type *quest_ptr)
 
 	alloc_species_list(&species_list, &weight_list);
 	set_species_list_bias_random_questor(&species_list, &weight_list, quest_ptr->level);
-	quest_ptr->species_idx = (SPECIES_ID)pick_rand(species_list, weight_list, max_species_idx);
+	quest_ptr->species_idx = species_rand(species_list, weight_list);
 	free_species_list(&species_list, &weight_list);
 }
 

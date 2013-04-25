@@ -1883,7 +1883,7 @@ void alloc_species_list(SPECIES_ID **id_list_ptr, PROB **weight_list_ptr)
 	SPECIES_ID *id_list;
 	PROB *weight_list;
 	C_MAKE(*id_list_ptr, max_species_idx, SPECIES_ID);
-	C_MAKE(*weight_list_ptr, max_species_idx, int);
+	C_MAKE(*weight_list_ptr, max_species_idx, PROB);
 
 	id_list = *id_list_ptr;
 	weight_list = *weight_list_ptr;
@@ -1915,7 +1915,7 @@ void forbid_species_list(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, 
 void free_species_list(SPECIES_ID **id_list_ptr, PROB **weight_list_ptr)
 {
 	C_KILL(*id_list_ptr, max_species_idx, SPECIES_ID);
-	C_KILL(*weight_list_ptr, max_species_idx, int);
+	C_KILL(*weight_list_ptr, max_species_idx, PROB);
 }
 
 
