@@ -813,6 +813,7 @@ extern bool no_questor_or_bounty_uniques(SPECIES_ID species_idx);
 
 extern SPECIES_ID species_rand(SPECIES_ID *species_list, PROB *prob_list);
 extern void set_species_list_bias_nightmare(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, creature_type *watcher_ptr);
+extern void set_species_list_bias_basic_vault(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr);
 extern void set_species_list_bias_fishing_target(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr);
 
 

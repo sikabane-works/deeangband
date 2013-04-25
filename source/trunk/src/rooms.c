@@ -1713,7 +1713,7 @@ static bool vault_aux_cthulhu(SPECIES_ID species_idx)
 static void vault_prep_clone(floor_type *floor_ptr)
 {
 	/* Apply the creature restriction */
-	get_species_num_prep_trait(NULL, NULL, t_need(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
+	// get_species_num_prep_trait(NULL, NULL, t_need(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
 
 	/* Pick a race to clone */
 	vault_aux_race = get_species_num(floor_ptr, floor_ptr->depth + 10);
@@ -1731,7 +1731,7 @@ static void vault_prep_symbol(floor_type *floor_ptr)
 	SPECIES_ID species_idx;
 
 	/* Apply the creature restriction */
-	get_species_num_prep_trait(NULL, NULL, t_need(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
+	// get_species_num_prep_trait(NULL, NULL, t_need(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
 
 	/* Pick a race to clone */
 	species_idx = get_species_num(floor_ptr, floor_ptr->depth + 10);

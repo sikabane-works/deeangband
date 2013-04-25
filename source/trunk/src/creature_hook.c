@@ -489,6 +489,23 @@ void set_species_list_bias_nightmare(SPECIES_ID **species_list_ptr, PROB **weigh
 	return;
 }
 
+void set_species_list_bias_basic_vault(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr)
+{
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	PROB *weight_list = *weight_list_ptr;
+
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE2)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_AQUATIC)) weight_list[n] = 0;
+	}
+	return;
+}
+
 void set_species_list_bias_fishing_target(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr)
 {
 	int n;
