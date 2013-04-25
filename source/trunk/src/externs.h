@@ -1525,10 +1525,7 @@ extern void do_creature_riding_control(creature_type *creature_ptr);
 extern void add_floor_turn(floor_type *floor_ptr, int num);
 
 // trait.c
-
 extern bool do_active_trait(creature_type *user_ptr, int id, bool message);
-const u32b *t_need(int num, ...);
-const u32b *t_except(int num, ...);
 
 // creature_hook.c
 extern void set_species_list_bias_random_questor_any_killing(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, FLOOR_LEV depth);
