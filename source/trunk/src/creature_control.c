@@ -1737,11 +1737,6 @@ static bool restrict_creature_to_dungeon(SPECIES_ID species_idx)
 	return TRUE;
 }
 
-errr get_species_num_new()
-{
-	return TRUE;
-}
-
 // Apply a "creature restriction function" to the "creature allocation table"
 errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, const u32b *except, FLAGS_32 flags)
 {

@@ -369,8 +369,6 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 	x = player_ptr->wx;
 	y = player_ptr->wy;
 
-	get_species_num_prep(NULL, NULL, NULL, NULL, 0); //TODO // Prepare allocation table
-
 	// North border
 	generate_area(floor_ptr, y - 1, x, TRUE, FALSE);
 	for (i = 1; i < MAX_WID - 1; i++) border.north[i] = floor_ptr->cave[MAX_HGT - 2][i].feat;

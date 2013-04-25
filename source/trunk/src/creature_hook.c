@@ -187,7 +187,7 @@ void output_creature_spoiler(SPECIES_ID species_idx, void (*roff_func)(byte attr
 	hook_c_roff = roff_func;
 }
 
-static void set_creature_list_bias_dungeon(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_dungeon(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -213,7 +213,7 @@ bool species_hook_dungeon(SPECIES_ID species_idx)
 	}
 }
 
-static void set_creature_list_bias_ocean(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_ocean(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -228,7 +228,7 @@ static void set_creature_list_bias_ocean(SPECIES_ID **species_list_ptr, int **we
 	return;
 }
 
-static void set_creature_list_bias_shore(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_shore(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -243,7 +243,7 @@ static void set_creature_list_bias_shore(SPECIES_ID **species_list_ptr, int **we
 	return;
 }
 
-static void set_creature_list_bias_waste(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_waste(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -258,7 +258,7 @@ static void set_creature_list_bias_waste(SPECIES_ID **species_list_ptr, int **we
 	return;
 }
 
-static void set_creature_list_bias_town(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_town(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -276,7 +276,7 @@ static void set_creature_list_bias_town(SPECIES_ID **species_list_ptr, int **wei
 	return;
 }
 
-static void set_creature_list_bias_forest(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_forest(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -293,7 +293,7 @@ static void set_creature_list_bias_forest(SPECIES_ID **species_list_ptr, int **w
 	return;
 }
 
-static void set_creature_list_bias_volcano(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_volcano(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -310,7 +310,7 @@ static void set_creature_list_bias_volcano(SPECIES_ID **species_list_ptr, int **
 	return;
 }
 
-static void set_creature_list_bias_mountain(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_mountain(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -325,7 +325,7 @@ static void set_creature_list_bias_mountain(SPECIES_ID **species_list_ptr, int *
 	return;
 }
 
-static void set_creature_list_bias_grass(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_grass(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -342,7 +342,7 @@ static void set_creature_list_bias_grass(SPECIES_ID **species_list_ptr, int **we
 	return;
 }
 
-static void set_creature_list_bias_deep_water(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_deep_water(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -357,7 +357,7 @@ static void set_creature_list_bias_deep_water(SPECIES_ID **species_list_ptr, int
 	return;
 }
 
-static void set_creature_list_bias_shallow_water(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_shallow_water(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -372,7 +372,7 @@ static void set_creature_list_bias_shallow_water(SPECIES_ID **species_list_ptr, 
 	return;
 }
 
-static void set_creature_list_bias_lava(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_lava(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -390,7 +390,7 @@ static void set_creature_list_bias_lava(SPECIES_ID **species_list_ptr, int **wei
 	return;
 }
 
-static void set_creature_list_bias_floor(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_floor(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -405,50 +405,50 @@ static void set_creature_list_bias_floor(SPECIES_ID **species_list_ptr, int **we
 	return;
 }
 
-void set_creature_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_list_ptr, TERRAIN_ID terrain_idx) //TODO
+void set_species_list_bias_terrain(SPECIES_ID **species_list_ptr, int **weight_list_ptr, TERRAIN_ID terrain_idx) //TODO
 {
 	switch (terrain_idx)
 	{
 		case TERRAIN_TOWN:
-			set_creature_list_bias_town(species_list_ptr, weight_list_ptr);
+			set_species_list_bias_town(species_list_ptr, weight_list_ptr);
 			break;
 		case TERRAIN_DEEP_WATER:
-			set_creature_list_bias_ocean(species_list_ptr, weight_list_ptr);
+			set_species_list_bias_ocean(species_list_ptr, weight_list_ptr);
 			break;
 		case TERRAIN_SHALLOW_WATER:
 		case TERRAIN_SWAMP:
-			set_creature_list_bias_shore(species_list_ptr, weight_list_ptr);
+			set_species_list_bias_shore(species_list_ptr, weight_list_ptr);
 			break;
 		case TERRAIN_DIRT:
 		case TERRAIN_DESERT:
-			set_creature_list_bias_waste(species_list_ptr, weight_list_ptr);
+			set_species_list_bias_waste(species_list_ptr, weight_list_ptr);
 			break;
 		case TERRAIN_GRASS:
-			set_creature_list_bias_grass(species_list_ptr, weight_list_ptr);
+			set_species_list_bias_grass(species_list_ptr, weight_list_ptr);
 			break;
 		case TERRAIN_TREES:
-			set_creature_list_bias_forest(species_list_ptr, weight_list_ptr);
+			set_species_list_bias_forest(species_list_ptr, weight_list_ptr);
 		case TERRAIN_SHALLOW_LAVA:
 		case TERRAIN_DEEP_LAVA:
-			set_creature_list_bias_volcano(species_list_ptr, weight_list_ptr);
+			set_species_list_bias_volcano(species_list_ptr, weight_list_ptr);
 		case TERRAIN_MOUNTAIN:
-			set_creature_list_bias_mountain(species_list_ptr, weight_list_ptr);
+			set_species_list_bias_mountain(species_list_ptr, weight_list_ptr);
 		default:
-			set_creature_list_bias_dungeon(species_list_ptr, weight_list_ptr);
+			set_species_list_bias_dungeon(species_list_ptr, weight_list_ptr);
 			break;
 	}
 	return;
 }
 
-void set_creature_list_bias_feature(SPECIES_ID **species_list_ptr, int **weight_list_ptr, feature_type *feature_ptr)
+void set_species_list_bias_feature(SPECIES_ID **species_list_ptr, int **weight_list_ptr, feature_type *feature_ptr)
 {
 	if(have_flag(feature_ptr->flags, FF_WATER))
 	{
-		if(have_flag(feature_ptr->flags, FF_DEEP)) set_creature_list_bias_deep_water(species_list_ptr, weight_list_ptr);
-		else set_creature_list_bias_shallow_water(species_list_ptr, weight_list_ptr);
+		if(have_flag(feature_ptr->flags, FF_DEEP)) set_species_list_bias_deep_water(species_list_ptr, weight_list_ptr);
+		else set_species_list_bias_shallow_water(species_list_ptr, weight_list_ptr);
 	}
-	else if(have_flag(feature_ptr->flags, FF_LAVA)) set_creature_list_bias_lava(species_list_ptr, weight_list_ptr);
-	else set_creature_list_bias_floor(species_list_ptr, weight_list_ptr);
+	else if(have_flag(feature_ptr->flags, FF_LAVA)) set_species_list_bias_lava(species_list_ptr, weight_list_ptr);
+	else set_species_list_bias_floor(species_list_ptr, weight_list_ptr);
 }
 
 void set_pet(creature_type *master_ptr, creature_type *m_ptr)

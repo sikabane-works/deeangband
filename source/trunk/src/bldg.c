@@ -1312,7 +1312,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 }
 
 /* TODO templete
-static void set_creature_list_bias(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -1328,7 +1328,7 @@ static void set_creature_list_bias(SPECIES_ID **species_list_ptr, int **weight_l
 }
 */
 
-static void set_creature_list_bias_arena(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
+static void set_species_list_bias_arena(SPECIES_ID **species_list_ptr, int **weight_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -1387,7 +1387,7 @@ void battle_creatures(void)
 		tekitou = FALSE;
 
 		alloc_species_list(&id_list, &weight_list);
-		set_creature_list_bias_arena(&id_list, &weight_list);
+		set_species_list_bias_arena(&id_list, &weight_list);
 
 		for(i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
