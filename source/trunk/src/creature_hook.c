@@ -451,6 +451,23 @@ void set_species_list_bias_feature(SPECIES_ID **species_list_ptr, PROB **weight_
 	else set_species_list_bias_floor(species_list_ptr, weight_list_ptr);
 }
 
+void set_species_list_bias_random_questor_any_killing(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, FLOOR_LEV depth)
+{
+	int n;
+	species_type *species_ptr;
+	SPECIES_ID *species_list = *species_list_ptr;
+	PROB *weight_list = *weight_list_ptr;
+
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[species_list[n]];
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) weight_list[n] = 0;
+		if(species_ptr->level < depth) weight_list[n] = 0;
+		if(species_ptr->level > (depth + (depth / 20))) weight_list[n] /= (species_ptr->level - depth + (depth / 20) + 1);
+	}
+	return;
+}
+
 void set_species_list_bias_random_questor(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, FLOOR_LEV depth)
 {
 	int n;

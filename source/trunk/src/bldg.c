@@ -2086,20 +2086,16 @@ static void castle_quest(creature_type *creature_ptr)
 		/* Assign a new quest */
 		if(quest_ptr->type == QUEST_TYPE_KILL_ANY_LEVEL)
 		{
-			if(quest_ptr->species_idx == 0)
+			if(quest_ptr->species_idx == 0) /* Random creature at least 5 - 10 levels out of deep */
 			{
-				/* Random creature at least 5 - 10 levels out of deep */
-				quest_ptr->species_idx = get_species_num(floor_ptr, quest_ptr->level + 4 + randint1(6));
+				SPECIES_ID *species_list;
+				PROB *prob_list;
+				alloc_species_list(&species_list, &prob_list);
+				set_species_list_bias_random_questor_any_killing(&species_list, &prob_list, quest_ptr->level);
+				quest_ptr->species_idx = species_rand(species_list, prob_list);
+				free_species_list(&species_list, &prob_list);
 			}
-
 			species_ptr = &species_info[quest_ptr->species_idx];
-
-			while (has_trait_species(species_ptr, TRAIT_UNIQUE) || (species_ptr->rarity != 1))
-			{
-				quest_ptr->species_idx = get_species_num(floor_ptr, quest_ptr->level) + 4 + (s16b)randint1(6);
-				species_ptr = &species_info[quest_ptr->species_idx];
-			}
-
 			if(quest_ptr->max_num == 0)
 			{
 				/* Random creature number */

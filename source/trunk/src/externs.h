@@ -1531,4 +1531,5 @@ const u32b *t_need(int num, ...);
 const u32b *t_except(int num, ...);
 
 // creature_hook.c
+extern void set_species_list_bias_random_questor_any_killing(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, FLOOR_LEV depth);
 extern void set_species_list_bias_random_questor(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, FLOOR_LEV depth);
