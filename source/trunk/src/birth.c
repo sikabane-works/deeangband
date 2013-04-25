@@ -2210,6 +2210,11 @@ void determine_random_questor(quest_type *quest_ptr)
 	species_type *species_ptr;
 	int i = 0;
 
+	SPECIES_ID *species_list;
+	int *weight_list;
+
+	alloc_species_list(&species_list, &weight_list);
+	set_species_list_bias_random_questor(&species_list, &weight_list, quest_ptr->level + 5 + (FLOOR_LEV)randint1(quest_ptr->level / 10));
 	get_species_num_prep_trait(NULL, t_need(1, TRAIT_UNIQUE), t_except(4, TRAIT_QUESTOR, TRAIT_FRIENDLY, TRAIT_AQUATIC, TRAIT_WILD_ONLY), 0);
 
 	do
@@ -2226,6 +2231,8 @@ void determine_random_questor(quest_type *quest_ptr)
 	} while (i++ < SAFE_MAX_ATTEMPTS);
 
 	quest_ptr->species_idx = species_idx;
+	free_species_list(&species_list, &weight_list);
+
 }
 
 

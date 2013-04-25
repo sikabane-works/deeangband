@@ -451,6 +451,11 @@ void set_species_list_bias_feature(SPECIES_ID **species_list_ptr, int **weight_l
 	else set_species_list_bias_floor(species_list_ptr, weight_list_ptr);
 }
 
+void set_species_list_bias_random_questor(SPECIES_ID **species_list_ptr, int **weight_list_ptr, FLOOR_LEV depth)
+{
+	return;
+}
+
 void set_pet(creature_type *master_ptr, creature_type *m_ptr)
 {
 	if(!is_pet(master_ptr, m_ptr)) check_pets_num_and_align(master_ptr, m_ptr, TRUE);
