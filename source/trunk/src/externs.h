@@ -832,7 +832,6 @@ extern void birth_uniques(void);
 extern void wipe_creature_list(FLOOR_ID floor_idx);
 extern CREATURE_ID creature_pop(void);
 extern errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3, int summon_specific_type);
-extern errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, const u32b *except, FLAGS_32 flags);
 extern void alloc_species_list(SPECIES_ID **id_list, PROB **weight_list);
 extern void forbid_species_list(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, bool (*hook_func)(SPECIES_ID species_idx));
 extern void free_species_list(SPECIES_ID **id_list_ptr, PROB **weight_list_ptr);

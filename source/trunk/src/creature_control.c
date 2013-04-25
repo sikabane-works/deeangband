@@ -1737,76 +1737,6 @@ static bool restrict_creature_to_dungeon(SPECIES_ID species_idx)
 	return TRUE;
 }
 
-// Apply a "creature restriction function" to the "creature allocation table"
-errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, const u32b *except, FLAGS_32 flags)
-{
-	int i, j, passed_num = 0;
-	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	species_type *species_ptr;
-	bool skip;
-	if(flags) return 1;
-
-	if(summoner_ptr != NULL && !is_valid_creature(summoner_ptr)) return FAILURE;
-
-	// Scan the allocation table
-	for (i = 0; i < alloc_species_size; i++)
-	{
-		alloc_entry *entry = &alloc_species_table[i];	// Get the entry
-
-		entry->prob2 = 0;
-		skip = FALSE;
-		species_ptr = &species_info[entry->index];
-
-		for(j = 0; j < MAX_TRAITS; j++)
-		{
-			if(need && have_flag(need, j))
-			{
-				if(!has_trait_species(species_ptr, j))
-				{
-					skip = TRUE;
-					break;
-				}
-			}
-
-			if(except && have_flag(except, j))
-			{
-				if(has_trait_species(species_ptr, j))
-				{
-					skip = TRUE;
-					break;
-				}
-			}
-		}
-
-		if(skip) continue;
-
-		if(!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx) //TODO && summon_specific_type != TRAIT_S_GUARDIANS)
-		{
-			if(has_trait_species(species_ptr, TRAIT_QUESTOR))	continue; // Hack -- don't create questors
-			if(has_trait_species(species_ptr, TRAIT_GUARDIAN))	continue;
-			if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (species_ptr->level > floor_ptr->depth)) continue; // Depth Creatures never appear out of depth
-		}
-
-		entry->prob2 = entry->prob1; // Accept this creature
-		passed_num++;
-
-		if((!floor_ptr->quest || is_fixed_quest_idx(floor_ptr->quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
-		{
-			int hoge = entry->prob2 * dungeon_info[floor_ptr->dungeon_id].special_div;
-			entry->prob2 = hoge / 64;
-			if(randint0(64) < (hoge & 0x3f)) entry->prob2++;
-		}
-	}
-
-	if(!passed_num)
-	{
-		msg_warning("None species random selection.");
-		return FAILURE;
-	}
-
-	return SUCCESS;
-}
-
 void reset_species_preps(void)
 {
 	int i;
@@ -3313,7 +3243,7 @@ static int initial_r_appearance(SPECIES_ID species_idx)
 	int min = MIN(floor_ptr->depth - 5, 50);
 
 	if(has_trait_species(&species_info[species_idx], TRAIT_TANUKI)) return species_idx;
-	get_species_num_prep_trait(NULL, NULL, t_need(6, TRAIT_UNIQUE, TRAIT_MULTIPLY, TRAIT_FRIENDLY, TRAIT_CHAMELEON, TRAIT_AQUATIC, TRAIT_SUICIDE_BOMBER), 0);
+	//get_species_num_prep_trait(NULL, NULL, t_need(6, TRAIT_UNIQUE, TRAIT_MULTIPLY, TRAIT_FRIENDLY, TRAIT_CHAMELEON, TRAIT_AQUATIC, TRAIT_SUICIDE_BOMBER), 0);
 
 	while (--attempts)
 	{
@@ -3415,7 +3345,7 @@ static void deal_food(creature_type *creature_ptr)
 
 	else if(has_trait(creature_ptr, TRAIT_CORPSE_EATER))
 	{
-		get_species_num_prep_trait(NULL, t_need(1, TRAIT_HUMANOID), NULL, 0);
+		//get_species_num_prep_trait(NULL, t_need(1, TRAIT_HUMANOID), NULL, 0);
 
 		for (i = rand_range(3, 4); i > 0; i--)
 		{
