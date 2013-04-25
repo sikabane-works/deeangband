@@ -438,6 +438,21 @@ void set_species_list_bias_feature(PROB **weight_list_ptr, feature_type *feature
 	else set_species_list_bias_floor(weight_list_ptr);
 }
 
+void set_species_list_bias_level_limitation(PROB **weight_list_ptr, FLOOR_LEV min, FLOOR_LEV max)
+{
+	int n;
+	species_type *species_ptr;
+	PROB *weight_list = *weight_list_ptr;
+
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[n];
+		if(species_ptr->level > max) weight_list[n] /= (10 + species_ptr->level - max); // TODO time boost
+		if(species_ptr->level < min) weight_list[n] /= (1 + min - species_ptr->level); // TODO time boost
+	}
+	return;
+}
+
 void set_species_list_bias_random_questor_any_killing(PROB **weight_list_ptr, FLOOR_LEV depth)
 {
 	int n;

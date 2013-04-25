@@ -1532,3 +1532,4 @@ extern void set_species_list_bias_random_questor_any_killing(PROB **weight_list_
 extern void set_species_list_bias_random_questor(PROB **weight_list_ptr, FLOOR_LEV depth);
 extern void set_species_list_bias_terrain(PROB **weight_list_ptr, TERRAIN_ID terrain_idx);
 extern void set_species_list_bias_feature(PROB **weight_list_ptr, feature_type *feature_ptr);
+extern void set_species_list_bias_level_limitation(PROB **weight_list_ptr, FLOOR_LEV min, FLOOR_LEV max);

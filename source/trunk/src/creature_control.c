@@ -4171,6 +4171,7 @@ bool place_floor_spawn_creature(creature_type *summoner_ptr, floor_type *floor_p
 	alloc_species_list(&prob_list);
 	//set_species_list_bias_terrain(prob_list, floor_ptr->); //TODO
 
+	set_species_list_bias_level_limitation(&prob_list, floor_ptr->depth / 2, floor_ptr->depth);
 	set_species_list_bias_feature(&prob_list, &feature_info[floor_ptr->cave[y][x].feat]);
 
 	// Pick a creature
