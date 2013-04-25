@@ -3735,7 +3735,7 @@ void do_creature_fishing(creature_type *creature_ptr)
 			bool success = FALSE;
 
 			alloc_species_list(&species_list, &weight_list);
-			set_species_list_bias_fishing_target(&species_list, &weight_list);
+			set_species_list_bias_fishing_target(&weight_list);
 			species_idx = species_rand(weight_list);
 			free_species_list(&species_list, &weight_list);
 

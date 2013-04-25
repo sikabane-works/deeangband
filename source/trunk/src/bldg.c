@@ -1948,7 +1948,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
 				{
 					alloc_species_list(&id_list, &weight_list);
-					set_species_list_bias_nightmare(&id_list, &weight_list, creature_ptr);
+					set_species_list_bias_nightmare(&weight_list, creature_ptr);
 					while(TRUE)
 					{
 						have_nightmare(creature_ptr, species_rand(weight_list));
@@ -2091,7 +2091,7 @@ static void castle_quest(creature_type *creature_ptr)
 				SPECIES_ID *species_list;
 				PROB *prob_list;
 				alloc_species_list(&species_list, &prob_list);
-				set_species_list_bias_random_questor_any_killing(&species_list, &prob_list, quest_ptr->level);
+				set_species_list_bias_random_questor_any_killing(&prob_list, quest_ptr->level);
 				quest_ptr->species_idx = species_rand(prob_list);
 				free_species_list(&species_list, &prob_list);
 			}

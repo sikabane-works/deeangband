@@ -812,9 +812,9 @@ extern bool creature_living(creature_type *creature_ptr);
 extern bool no_questor_or_bounty_uniques(SPECIES_ID species_idx);
 
 extern SPECIES_ID species_rand(PROB *prob_list);
-extern void set_species_list_bias_nightmare(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, creature_type *watcher_ptr);
-extern void set_species_list_bias_basic_vault(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr);
-extern void set_species_list_bias_fishing_target(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr);
+extern void set_species_list_bias_nightmare(PROB **weight_list_ptr, creature_type *watcher_ptr);
+extern void set_species_list_bias_basic_vault(PROB **weight_list_ptr);
+extern void set_species_list_bias_fishing_target(PROB **weight_list_ptr);
 
 
 /* creature2.c */
@@ -1528,5 +1528,5 @@ extern void add_floor_turn(floor_type *floor_ptr, int num);
 extern bool do_active_trait(creature_type *user_ptr, int id, bool message);
 
 // creature_hook.c
-extern void set_species_list_bias_random_questor_any_killing(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, FLOOR_LEV depth);
-extern void set_species_list_bias_random_questor(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, FLOOR_LEV depth);
+extern void set_species_list_bias_random_questor_any_killing(PROB **weight_list_ptr, FLOOR_LEV depth);
+extern void set_species_list_bias_random_questor(PROB **weight_list_ptr, FLOOR_LEV depth);
