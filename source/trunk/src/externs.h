@@ -810,6 +810,7 @@ extern bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type
 extern bool species_living(species_type *species_ptr);
 extern bool creature_living(creature_type *creature_ptr);
 extern bool no_questor_or_bounty_uniques(SPECIES_ID species_idx);
+extern SPECIES_ID species_rand(SPECIES_ID *species_list, PROB *prob_list);
 
 
 /* creature2.c */
@@ -828,7 +829,7 @@ extern void wipe_creature_list(FLOOR_ID floor_idx);
 extern CREATURE_ID creature_pop(void);
 extern errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3, int summon_specific_type);
 extern errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, const u32b *except, FLAGS_32 flags);
-extern void alloc_species_list(SPECIES_ID **id_list, int **weight_list);
+extern void alloc_species_list(SPECIES_ID **id_list, PROB **weight_list);
 extern void forbid_species_list(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, bool (*hook_func)(SPECIES_ID species_idx));
 extern void free_species_list(SPECIES_ID **id_list_ptr, PROB **weight_list_ptr);
 extern void reset_species_preps(void);
