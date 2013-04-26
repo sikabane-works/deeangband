@@ -3247,15 +3247,19 @@ static void deal_food(creature_type *creature_ptr)
 
 	else if(has_trait(creature_ptr, TRAIT_CORPSE_EATER))
 	{
-		//get_species_num_prep_trait(NULL, t_need(1, TRAIT_HUMANOID), NULL, 0);
+		PROB *prob_list;
+		alloc_species_list(&prob_list);
+		set_species_list_bias_level_limitation(&prob_list, 0, 0);
 
 		for (i = rand_range(3, 4); i > 0; i--)
 		{
 			object_prep(quest_ptr, lookup_kind(TV_CORPSE, SV_CORPSE));
-			quest_ptr->pval = (PVAL)get_species_num(CURRENT_FLOOR_PTR, 2);
+			quest_ptr->creator_idx = species_rand(prob_list);
 			quest_ptr->number = 1;
 			add_item_to_creature(creature_ptr, quest_ptr, 0);
 		}
+		free_species_list(&prob_list);
+
 	}
 	else if(has_trait(creature_ptr, TRAIT_WATER_DRINKER))
 	{
