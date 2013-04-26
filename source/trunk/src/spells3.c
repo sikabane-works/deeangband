@@ -3842,49 +3842,25 @@ bool brand_bolts(creature_type *creature_ptr)
 
 /*
  * Helper function -- return a "nearby" race for polymorphing
- *
  * Note that this function is one of the more "dangerous" ones...
  */
 static SPECIES_ID poly_species_idx(SPECIES_ID pre_species_idx)
 {
 	SPECIES_ID after_species_idx = pre_species_idx;
 	species_type *species_ptr = &species_info[pre_species_idx];
-	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
+	PROB *prob_list;
+	int lev1, lev2;
 
-	int i, r, lev1, lev2;
-
-	// Hack -- Uniques/Questors never polymorph
-	if(has_trait_species(species_ptr, TRAIT_UNIQUE) || has_trait_species(species_ptr, TRAIT_QUESTOR))
-		return (pre_species_idx);
+	/* Hack -- Uniques/Questors never polymorph */
+	if(has_trait_species(species_ptr, TRAIT_UNIQUE) || has_trait_species(species_ptr, TRAIT_QUESTOR)) return (pre_species_idx);
 
 	// Allowable range of "levels" for resulting creature
 	lev1 = species_ptr->level - ((randint1(20) / randint1(9)) + 1);
 	lev2 = species_ptr->level + ((randint1(20) / randint1(9)) + 1);
 
-	/* Pick a (possibly new) non-unique race */
-	for (i = 0; i < 1000; i++)
-	{
-		/* Pick a new race, using a level calculation */
-		r = get_species_num(floor_ptr, (floor_ptr->depth + species_ptr->level) / 2 + 5);
-
-		/* Handle failure */
-		if(!r) break;
-
-		/* Obtain race */
-		species_ptr = &species_info[r];
-
-		/* Ignore unique creatures */
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
-
-		/* Ignore creatures with incompatible levels */
-		if((species_ptr->level < lev1) || (species_ptr->level > lev2)) continue;
-
-		/* Use that index */
-		after_species_idx = r;
-
-		break;
-	}
-
+	alloc_species_list(&prob_list);
+	after_species_idx = species_rand(prob_list);
+	free_species_list(&prob_list);
 	return (after_species_idx);
 }
 
