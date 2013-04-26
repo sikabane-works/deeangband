@@ -3085,21 +3085,19 @@ void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_
 	if(!species_idx)
 	{
 		int level;
+		PROB *prob_list;
 
-		//forbid_species_list( creature_hook_chameleon(
-		//TODO if(old_unique)	get_species_num_prep(NULL, creature_hook_chameleon_lord, NULL, NULL, 0);
-		//TODO else			get_species_num_prep(NULL, creature_hook_chameleon, NULL, NULL, 0);
+		alloc_species_list(&prob_list);
+		if(old_unique) forbid_species_list(&prob_list, creature_hook_chameleon_lord);
+		else forbid_species_list(&prob_list, creature_hook_chameleon);
 
-		if(old_unique)
-			level = species_info[SPECIES_CHAMELEON_K].level;
-		else if(!floor_ptr->depth)
-			level = wilderness[player_ptr->wy][player_ptr->wx].level;
-		else
-			level = floor_ptr->depth;
+		if(old_unique) level = species_info[SPECIES_CHAMELEON_K].level;
+		else if(!floor_ptr->depth) level = wilderness[player_ptr->wy][player_ptr->wx].level;
+		else level = floor_ptr->depth;
 
 		if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_CHAMELEON) level+= 2+randint1(3);
-
-		species_idx = get_species_num(floor_ptr, level);
+		species_idx = species_rand(prob_list);
+		free_species_list(&prob_list);
 		species_ptr = &species_info[species_idx];
 
 		if(!species_idx) return;
