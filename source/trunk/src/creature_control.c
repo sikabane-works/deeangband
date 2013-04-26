@@ -1766,16 +1766,11 @@ void alloc_species_list(PROB **weight_list_ptr)
 	return;
 }
 
-void forbid_species_list(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr, bool (*hook_func)(SPECIES_ID species_idx))
+void forbid_species_list(PROB **weight_list_ptr, bool (*hook_func)(SPECIES_ID species_idx))
 {
 	int n;
-	SPECIES_ID *species_list = *species_list_ptr;
 	PROB *weight_list = *weight_list_ptr;
-
-	for(n = 0; n < max_species_idx; n++)
-	{
-		if(!hook_func(species_list[n])) weight_list[n] = 0;
-	}
+	for(n = 0; n < max_species_idx; n++) if(!hook_func(n)) weight_list[n] = 0;
 	return;
 }
 
@@ -3085,14 +3080,13 @@ void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_
 		old_unique = TRUE;
 	if(old_unique && (species_idx == SPECIES_CHAMELEON)) species_idx = SPECIES_CHAMELEON_K;
 	species_ptr = &species_info[species_idx];
-
 	creature_desc(old_m_name, creature_ptr, 0);
-
 
 	if(!species_idx)
 	{
 		int level;
 
+		//forbid_species_list( creature_hook_chameleon(
 		//TODO if(old_unique)	get_species_num_prep(NULL, creature_hook_chameleon_lord, NULL, NULL, 0);
 		//TODO else			get_species_num_prep(NULL, creature_hook_chameleon, NULL, NULL, 0);
 
