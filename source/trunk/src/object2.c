@@ -2224,8 +2224,8 @@ static bool item_creature_okay(SPECIES_ID species_idx)
 	if(has_trait_species(species_ptr, TRAIT_NAZGUL)) return FALSE;
 	if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH)) return FALSE;
 	if(has_trait_species(species_ptr, TRAIT_UNIQUE2)) return FALSE;
-
-
+	//if(has_trait_species(species_ptr, TRAIT_DROP_SKELETON)) return FALSE;
+	//if(has_trait_species(species_ptr, TRAIT_DROP_CORPSE)) return FALSE;
 	return TRUE;
 }
 
@@ -2387,38 +2387,11 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 	case TV_CORPSE:
 		{
-			PVAL i = 1;
-			int check;
-
-			species_type *species_ptr;
-
-			/* Hack -- Remove the creature restriction */
-			//TODO get_species_num_prep(NULL, item_creature_okay, NULL, NULL, 0);
-
-			/* Pick a random non-unique creature race */
-			while(TRUE)
-			{
-				SPECIES_ID i;
-				i = get_species_num(floor_ptr, floor_ptr->depth);
-
-				species_ptr = &species_info[i];
-
-				check = (floor_ptr->depth < species_ptr->level) ? (species_ptr->level - floor_ptr->depth) : 0;
-
-				/* Ignore dead creatures */
-				if(!species_ptr->rarity) continue;
-
-				/* Ignore corpseless creatures */
-				if(object_ptr->sval == SV_SKELETON && !has_trait_species(species_ptr, TRAIT_DROP_SKELETON)) continue;
-				if(object_ptr->sval =- SV_CORPSE && !has_trait_species(species_ptr, TRAIT_DROP_CORPSE)) continue;
-
-				/* Prefer less out-of-depth creatures */
-				if(randint0(check)) continue;
-
-				break;
-			}
-
-			object_ptr->pval = i;
+			PROB *prob_list;
+			alloc_species_list(&prob_list);
+			forbid_species_list(&prob_list, item_creature_okay);
+			object_ptr->creator_idx = species_rand(prob_list);
+			free_species_list(&prob_list);
 			object_aware(object_ptr);
 			object_known(object_ptr);
 			break;
