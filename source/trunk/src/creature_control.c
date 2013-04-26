@@ -3088,14 +3088,13 @@ void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_
 		PROB *prob_list;
 
 		alloc_species_list(&prob_list);
-		if(old_unique) forbid_species_list(&prob_list, creature_hook_chameleon_lord);
+		if(has_trait(creature_ptr, TRAIT_UNIQUE)) forbid_species_list(&prob_list, creature_hook_chameleon_lord);
 		else forbid_species_list(&prob_list, creature_hook_chameleon);
 
-		if(old_unique) level = species_info[SPECIES_CHAMELEON_K].level;
-		else if(!floor_ptr->depth) level = wilderness[player_ptr->wy][player_ptr->wx].level;
-		else level = floor_ptr->depth;
+		level = species_info[creature_ptr->species_idx].level;
+		if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_CHAMELEON) level += 2+randint1(3);
+		set_species_list_bias_level_limitation(&prob_list, level, level+10);
 
-		if(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_CHAMELEON) level+= 2+randint1(3);
 		species_idx = species_rand(prob_list);
 		free_species_list(&prob_list);
 		species_ptr = &species_info[species_idx];
@@ -3110,10 +3109,8 @@ void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_
 	update_creature_view(player_ptr, m_idx, FALSE);
 	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
-	if(creature_ego_idx == MONEGO_NONE)
-		creature_ptr->creature_ego_idx = 0;
-	else
-		creature_ptr->creature_ego_idx = creature_ego_idx;
+	if(creature_ego_idx == MONEGO_NONE) creature_ptr->creature_ego_idx = 0;
+	else creature_ptr->creature_ego_idx = creature_ego_idx;
 
 	if(is_lighting_species(&species_info[old_species_idx]) || is_darken_species(&species_info[old_species_idx]) ||
 		(is_lighting_species(species_ptr) || is_darken_species(species_ptr)))
