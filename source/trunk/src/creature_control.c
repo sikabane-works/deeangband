@@ -3112,9 +3112,10 @@ void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_
 	if(creature_ego_idx == MONEGO_NONE) creature_ptr->creature_ego_idx = 0;
 	else creature_ptr->creature_ego_idx = creature_ego_idx;
 
-	if(is_lighting_species(&species_info[old_species_idx]) || is_darken_species(&species_info[old_species_idx]) ||
-		(is_lighting_species(species_ptr) || is_darken_species(species_ptr)))
+	if(is_lighting_species(&species_info[old_species_idx]) || is_darken_species(&species_info[old_species_idx]) || (is_lighting_species(species_ptr) || is_darken_species(species_ptr)))
+	{
 		prepare_update(creature_ptr, PU_SPECIES_LITE);
+	}
 
 	if(is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(player_ptr, creature_ptr, TRUE);
 
@@ -3153,27 +3154,6 @@ void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_
 			creature_ptr->stat_use[i] += re_info[creature_ego_idx].stat[i];
 
 	//TODO Reset Status
-}
-
-
-//  Set initial racial appearance of a creature
-static int initial_r_appearance(SPECIES_ID species_idx)
-{
-	int attempts = 1000;
-	int ap_species_idx;
-	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	int min = MIN(floor_ptr->depth - 5, 50);
-
-	if(has_trait_species(&species_info[species_idx], TRAIT_TANUKI)) return species_idx;
-	//get_species_num_prep_trait(NULL, NULL, t_need(6, TRAIT_UNIQUE, TRAIT_MULTIPLY, TRAIT_FRIENDLY, TRAIT_CHAMELEON, TRAIT_AQUATIC, TRAIT_SUICIDE_BOMBER), 0);
-
-	while (--attempts)
-	{
-		ap_species_idx = get_species_num(floor_ptr, floor_ptr->depth + 10);
-		if(species_info[ap_species_idx].level >= min) return ap_species_idx;
-	}
-
-	return species_idx;
 }
 
 static void deal_magic_book_aux(creature_type *creature_ptr, REALM_ID realm)
