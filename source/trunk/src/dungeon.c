@@ -3722,7 +3722,7 @@ void do_creature_mutation(creature_type *creature_ptr)
 
 void do_creature_fishing(creature_type *creature_ptr)
 {
-	PROB *weight_list;
+	PROB *prob_list;
 
 	if(creature_ptr->action == ACTION_FISH)
 	{
@@ -3733,10 +3733,10 @@ void do_creature_fishing(creature_type *creature_ptr)
 			SPECIES_ID species_idx;
 			bool success = FALSE;
 
-			alloc_species_list(&weight_list);
-			set_species_list_bias_fishing_target(&weight_list);
-			species_idx = species_rand(weight_list);
-			free_species_list(&weight_list);
+			alloc_species_list(&prob_list);
+			set_species_list_bias_fishing_target(&prob_list);
+			species_idx = species_rand(prob_list);
+			free_species_list(&prob_list);
 
 			msg_print(NULL);
 			if(species_idx && one_in_(2))

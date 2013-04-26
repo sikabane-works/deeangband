@@ -1747,36 +1747,36 @@ void reset_species_preps(void)
 	}
 }
 
-void alloc_species_list(PROB **weight_list_ptr)
+void alloc_species_list(PROB **prob_list_ptr)
 {
 	int id;
 	species_type *species_ptr;
-	PROB *weight_list;
-	C_MAKE(*weight_list_ptr, max_species_idx, PROB);
+	PROB *prob_list;
+	C_MAKE(*prob_list_ptr, max_species_idx, PROB);
 
-	weight_list = *weight_list_ptr;
+	prob_list = *prob_list_ptr;
 
 	for(id = 0; id < max_species_idx; id++)
 	{
 		species_ptr = &species_info[id];
-		weight_list[id] = (species_ptr->rarity != 0 ? 10000 / species_ptr->rarity : 0);
-		if(has_trait_species(species_ptr, TRAIT_QUESTOR)) weight_list[id] = 0;
-		if(has_trait_species(species_ptr, TRAIT_GUARDIAN)) weight_list[id] = 0;
+		prob_list[id] = (species_ptr->rarity != 0 ? 10000 / species_ptr->rarity : 0);
+		if(has_trait_species(species_ptr, TRAIT_QUESTOR)) prob_list[id] = 0;
+		if(has_trait_species(species_ptr, TRAIT_GUARDIAN)) prob_list[id] = 0;
 	}
 	return;
 }
 
-void forbid_species_list(PROB **weight_list_ptr, bool (*hook_func)(SPECIES_ID species_idx))
+void forbid_species_list(PROB **prob_list_ptr, bool (*hook_func)(SPECIES_ID species_idx))
 {
 	int n;
-	PROB *weight_list = *weight_list_ptr;
-	for(n = 0; n < max_species_idx; n++) if(!hook_func(n)) weight_list[n] = 0;
+	PROB *prob_list = *prob_list_ptr;
+	for(n = 0; n < max_species_idx; n++) if(!hook_func(n)) prob_list[n] = 0;
 	return;
 }
 
-void free_species_list(PROB **weight_list_ptr)
+void free_species_list(PROB **prob_list_ptr)
 {
-	C_KILL(*weight_list_ptr, max_species_idx, PROB);
+	C_KILL(*prob_list_ptr, max_species_idx, PROB);
 }
 
 
@@ -3063,7 +3063,7 @@ static bool creature_hook_chameleon(SPECIES_ID species_idx)
 		if(!(is_enemy_of_evil_species(old_r_ptr) && is_enemy_of_good_species(old_r_ptr)) && (is_enemy_of_evil_species(species_ptr) && is_enemy_of_good_species(species_ptr))) return FALSE;
 	}
 
-	return TRUE; //TODO
+	return TRUE;
 }
 
 void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_idx, CREATURE_EGO_ID creature_ego_idx)

@@ -393,7 +393,7 @@ u32b Rand_simple(u32b m)
 
 // D'angband added it.
 // Random select by rarity.
-int pick_rand(int *id_list, int *weight_list, int num)
+int pick_rand(int *id_list, int *prob_list, int num)
 {
 	int i;
 	long value, total = 0L;
@@ -404,7 +404,7 @@ int pick_rand(int *id_list, int *weight_list, int num)
 	}
 
 	for (i = 0; i < num; i++)
-		if(weight_list[i] > 0) total += weight_list[i];
+		if(prob_list[i] > 0) total += prob_list[i];
 
 	if(total <= 0){
 		msg_warning("zero weights of uneven rand.");
@@ -415,9 +415,9 @@ int pick_rand(int *id_list, int *weight_list, int num)
 
 	for (i = 0; i < num; i++)
 	{
-		if(weight_list[i])
+		if(prob_list[i])
 		{
-			value -= weight_list[i];
+			value -= prob_list[i];
 			if(value < 0) return id_list[i];
 		}
 	}

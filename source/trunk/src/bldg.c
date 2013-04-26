@@ -1312,38 +1312,38 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 }
 
 /* TODO templete
-static void set_species_list_bias(SPECIES_ID **species_list_ptr, PROB **weight_list_ptr)
+static void set_species_list_bias(SPECIES_ID **species_list_ptr, PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
 	SPECIES_ID *species_list = *species_list_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[species_list[n]];
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) prob_list[n] = 0;
 	}
 	return;
 }
 */
 
-static void set_species_list_bias_arena(PROB **weight_list_ptr)
+static void set_species_list_bias_arena(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) weight_list[n] = 0;
-		if(has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) weight_list[n] = 0;
-		if(has_trait_species(species_ptr, TRAIT_MULTIPLY)) weight_list[n] = 0;
-		if(has_trait_species(species_ptr, TRAIT_QUANTUM)) weight_list[n] = 0;
-		if(has_trait_species(species_ptr, TRAIT_AQUATIC)) weight_list[n] = 0;
-		if(has_trait_species(species_ptr, TRAIT_CHAMELEON)) weight_list[n] = 0;
-		if(has_trait_species(species_ptr, TRAIT_SUICIDE_BOMBER)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_MULTIPLY)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_QUANTUM)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_AQUATIC)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_CHAMELEON)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_SUICIDE_BOMBER)) prob_list[n] = 0;
 	}
 	return;
 }
@@ -1355,7 +1355,7 @@ void battle_creatures(void)
 	int total, i;
 	int max_dl = 0;
 	int ave_enemy_level;
-	PROB *weight_list;
+	PROB *prob_list;
 	POWER power[GAMBLE_ARENA_GLADIATOR_MAX];
 	bool tekitou;
 	bool old_gamble_arena_mode = floor_ptr->gamble_arena_mode;
@@ -1384,8 +1384,8 @@ void battle_creatures(void)
 		total = 0;
 		tekitou = FALSE;
 
-		alloc_species_list(&weight_list);
-		set_species_list_bias_arena(&weight_list);
+		alloc_species_list(&prob_list);
+		set_species_list_bias_arena(&prob_list);
 
 		for(i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
@@ -1395,7 +1395,7 @@ void battle_creatures(void)
 			while(TRUE)
 			{
 				floor_ptr->gamble_arena_mode = TRUE;
-				species_idx = species_rand(weight_list);
+				species_idx = species_rand(prob_list);
 				floor_ptr->gamble_arena_mode = old_gamble_arena_mode;
 				if(!species_idx) continue;
 
@@ -1417,7 +1417,7 @@ void battle_creatures(void)
 			if(species_info[species_idx].level < 45) tekitou = TRUE;
 		}
 
-		free_species_list(&weight_list);
+		free_species_list(&prob_list);
 
 		for (i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
@@ -1904,7 +1904,7 @@ void have_nightmare(creature_type *watcher_ptr, SPECIES_ID eldritch_idx)
 static bool inn_comm(creature_type *creature_ptr, int cmd)
 {
 	int i;
-	PROB *weight_list;
+	PROB *prob_list;
 
 	switch (cmd)
 	{
@@ -1944,14 +1944,14 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 
 				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR))
 				{
-					alloc_species_list(&weight_list);
-					set_species_list_bias_nightmare(&weight_list, creature_ptr);
+					alloc_species_list(&prob_list);
+					set_species_list_bias_nightmare(&prob_list, creature_ptr);
 					while(TRUE)
 					{
-						have_nightmare(creature_ptr, species_rand(weight_list));
+						have_nightmare(creature_ptr, species_rand(prob_list));
 						if(!one_in_(3)) break;
 					}
-					free_species_list(&weight_list);
+					free_species_list(&prob_list);
 #ifdef JP
 					msg_print("‚ ‚È‚½‚Íâ‹©‚µ‚Ä–Ú‚ðŠo‚Ü‚µ‚½B");
 #else

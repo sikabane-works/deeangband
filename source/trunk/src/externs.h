@@ -812,9 +812,9 @@ extern bool creature_living(creature_type *creature_ptr);
 extern bool no_questor_or_bounty_uniques(SPECIES_ID species_idx);
 
 extern SPECIES_ID species_rand(PROB *prob_list);
-extern void set_species_list_bias_nightmare(PROB **weight_list_ptr, creature_type *watcher_ptr);
-extern void set_species_list_bias_basic_vault(PROB **weight_list_ptr);
-extern void set_species_list_bias_fishing_target(PROB **weight_list_ptr);
+extern void set_species_list_bias_nightmare(PROB **prob_list_ptr, creature_type *watcher_ptr);
+extern void set_species_list_bias_basic_vault(PROB **prob_list_ptr);
+extern void set_species_list_bias_fishing_target(PROB **prob_list_ptr);
 
 
 /* creature2.c */
@@ -831,9 +831,9 @@ extern void birth_uniques(void);
 
 extern void wipe_creature_list(FLOOR_ID floor_idx);
 extern CREATURE_ID creature_pop(void);
-extern void alloc_species_list(PROB **weight_list);
-extern void forbid_species_list(PROB **weight_list_ptr, bool (*hook_func)(SPECIES_ID species_idx));
-extern void free_species_list(PROB **weight_list_ptr);
+extern void alloc_species_list(PROB **prob_list);
+extern void forbid_species_list(PROB **prob_list_ptr, bool (*hook_func)(SPECIES_ID species_idx));
+extern void free_species_list(PROB **prob_list_ptr);
 extern void reset_species_preps(void);
 extern SPECIES_ID get_species_num(floor_type *floor_ptr, FLOOR_LEV level);
 extern void creature_desc(char *desc, creature_type *creature_ptr, int mode);
@@ -1528,8 +1528,8 @@ extern void add_floor_turn(floor_type *floor_ptr, int num);
 extern bool do_active_trait(creature_type *user_ptr, int id, bool message);
 
 // creature_hook.c
-extern void set_species_list_bias_random_questor_any_killing(PROB **weight_list_ptr, FLOOR_LEV depth);
-extern void set_species_list_bias_random_questor(PROB **weight_list_ptr, FLOOR_LEV depth);
-extern void set_species_list_bias_terrain(PROB **weight_list_ptr, TERRAIN_ID terrain_idx);
-extern void set_species_list_bias_feature(PROB **weight_list_ptr, feature_type *feature_ptr);
-extern void set_species_list_bias_level_limitation(PROB **weight_list_ptr, FLOOR_LEV min, FLOOR_LEV max);
+extern void set_species_list_bias_random_questor_any_killing(PROB **prob_list_ptr, FLOOR_LEV depth);
+extern void set_species_list_bias_random_questor(PROB **prob_list_ptr, FLOOR_LEV depth);
+extern void set_species_list_bias_terrain(PROB **prob_list_ptr, TERRAIN_ID terrain_idx);
+extern void set_species_list_bias_feature(PROB **prob_list_ptr, feature_type *feature_ptr);
+extern void set_species_list_bias_level_limitation(PROB **prob_list_ptr, FLOOR_LEV min, FLOOR_LEV max);

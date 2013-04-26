@@ -2206,12 +2206,12 @@ void creature_wipe(creature_type *creature_ptr)
  */
 void determine_random_questor(quest_type *quest_ptr)
 {
-	PROB *weight_list;
+	PROB *prob_list;
 
-	alloc_species_list(&weight_list);
-	set_species_list_bias_random_questor(&weight_list, quest_ptr->level);
-	quest_ptr->species_idx = species_rand(weight_list);
-	free_species_list(&weight_list);
+	alloc_species_list(&prob_list);
+	set_species_list_bias_random_questor(&prob_list, quest_ptr->level);
+	quest_ptr->species_idx = species_rand(prob_list);
+	free_species_list(&prob_list);
 }
 
 

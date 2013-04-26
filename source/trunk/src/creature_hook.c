@@ -187,16 +187,16 @@ void output_creature_spoiler(SPECIES_ID species_idx, void (*roff_func)(byte attr
 	hook_c_roff = roff_func;
 }
 
-static void set_species_list_bias_dungeon(PROB **weight_list_ptr)
+static void set_species_list_bias_dungeon(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(has_trait_species(species_ptr, TRAIT_WILD_ONLY) || !has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_WILD_ONLY) || !has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN)) prob_list[n] = 0;
 	}
 	return;
 }
@@ -212,326 +212,326 @@ bool species_hook_dungeon(SPECIES_ID species_idx)
 	}
 }
 
-static void set_species_list_bias_ocean(PROB **weight_list_ptr)
+static void set_species_list_bias_ocean(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(!has_trait_species(species_ptr, TRAIT_WILD_OCEAN)) weight_list[n] = 0;
+		if(!has_trait_species(species_ptr, TRAIT_WILD_OCEAN)) prob_list[n] = 0;
 	}
 	return;
 }
 
-static void set_species_list_bias_shore(PROB **weight_list_ptr)
+static void set_species_list_bias_shore(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(!has_trait_species(species_ptr, TRAIT_WILD_SHORE)) weight_list[n] = 0;
+		if(!has_trait_species(species_ptr, TRAIT_WILD_SHORE)) prob_list[n] = 0;
 	}
 	return;
 }
 
-static void set_species_list_bias_waste(PROB **weight_list_ptr)
+static void set_species_list_bias_waste(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(!has_trait_species(species_ptr, TRAIT_WILD_WASTE) && !has_trait_species(species_ptr, TRAIT_WILD_ALL)) weight_list[n] = 0;
+		if(!has_trait_species(species_ptr, TRAIT_WILD_WASTE) && !has_trait_species(species_ptr, TRAIT_WILD_ALL)) prob_list[n] = 0;
 	}
 	return;
 }
 
-static void set_species_list_bias_town(PROB **weight_list_ptr)
+static void set_species_list_bias_town(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(has_trait_species(species_ptr, TRAIT_WILD_ALL)) weight_list[n] *= 2;
-		else if(has_trait_species(species_ptr, TRAIT_WILD_TOWN)) weight_list[n] *= 2;
-		else if(has_trait_species(species_ptr, TRAIT_CITIZEN)) weight_list[n] *= 4;
-		else weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_WILD_ALL)) prob_list[n] *= 2;
+		else if(has_trait_species(species_ptr, TRAIT_WILD_TOWN)) prob_list[n] *= 2;
+		else if(has_trait_species(species_ptr, TRAIT_CITIZEN)) prob_list[n] *= 4;
+		else prob_list[n] = 0;
 	}
 	return;
 }
 
-static void set_species_list_bias_forest(PROB **weight_list_ptr)
+static void set_species_list_bias_forest(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(has_trait_species(species_ptr, TRAIT_WILD_ALL)) weight_list[n] *= 2;
-		else if(has_trait_species(species_ptr, TRAIT_WILD_WOOD)) weight_list[n] *= 2;
-		else weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_WILD_ALL)) prob_list[n] *= 2;
+		else if(has_trait_species(species_ptr, TRAIT_WILD_WOOD)) prob_list[n] *= 2;
+		else prob_list[n] = 0;
 	}
 	return;
 }
 
-static void set_species_list_bias_volcano(PROB **weight_list_ptr)
+static void set_species_list_bias_volcano(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(has_trait_species(species_ptr, TRAIT_WILD_ALL)) weight_list[n] *= 2;
-		else if(has_trait_species(species_ptr, TRAIT_WILD_WOOD)) weight_list[n] *= 2;
-		else weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_WILD_ALL)) prob_list[n] *= 2;
+		else if(has_trait_species(species_ptr, TRAIT_WILD_WOOD)) prob_list[n] *= 2;
+		else prob_list[n] = 0;
 	}
 	return;
 }
 
-static void set_species_list_bias_mountain(PROB **weight_list_ptr)
+static void set_species_list_bias_mountain(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(!has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN)) weight_list[n] = 0;
+		if(!has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN)) prob_list[n] = 0;
 	}
 	return;
 }
 
-static void set_species_list_bias_grass(PROB **weight_list_ptr)
+static void set_species_list_bias_grass(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(has_trait_species(species_ptr, TRAIT_WILD_GRASS)) weight_list[n] *= 2;
-		else if(has_trait_species(species_ptr, TRAIT_WILD_ALL)) weight_list[n] *= 2;
-		else weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_WILD_GRASS)) prob_list[n] *= 2;
+		else if(has_trait_species(species_ptr, TRAIT_WILD_ALL)) prob_list[n] *= 2;
+		else prob_list[n] = 0;
 	}
 	return;
 }
 
-static void set_species_list_bias_deep_water(PROB **weight_list_ptr)
+static void set_species_list_bias_deep_water(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(!has_trait_species(species_ptr, TRAIT_AQUATIC)) weight_list[n] = 0;
+		if(!has_trait_species(species_ptr, TRAIT_AQUATIC)) prob_list[n] = 0;
 	}
 	return;
 }
 
-static void set_species_list_bias_shallow_water(PROB **weight_list_ptr)
+static void set_species_list_bias_shallow_water(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(has_trait_species(species_ptr, TRAIT_AURA_FIRE)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_AURA_FIRE)) prob_list[n] = 0;
 	}
 	return;
 }
 
-static void set_species_list_bias_lava(PROB **weight_list_ptr)
+static void set_species_list_bias_lava(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
 		if(has_trait_species(species_ptr, TRAIT_RES_FIRE) || has_trait_species(species_ptr, TRAIT_CAN_FLY) &&
 			!has_trait_species(species_ptr, TRAIT_AURA_COLD))
-			weight_list[n] *= 2;
-		else weight_list[n] = 0;
+			prob_list[n] *= 2;
+		else prob_list[n] = 0;
 	}
 	return;
 }
 
-static void set_species_list_bias_floor(PROB **weight_list_ptr)
+static void set_species_list_bias_floor(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(has_trait_species(species_ptr, TRAIT_AQUATIC) && !has_trait_species(species_ptr, TRAIT_CAN_FLY)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_AQUATIC) && !has_trait_species(species_ptr, TRAIT_CAN_FLY)) prob_list[n] = 0;
 	}
 	return;
 }
 
-void set_species_list_bias_terrain(PROB **weight_list_ptr, TERRAIN_ID terrain_idx)
+void set_species_list_bias_terrain(PROB **prob_list_ptr, TERRAIN_ID terrain_idx)
 {
 	switch (terrain_idx)
 	{
 		case TERRAIN_TOWN:
-			set_species_list_bias_town(weight_list_ptr);
+			set_species_list_bias_town(prob_list_ptr);
 			break;
 		case TERRAIN_DEEP_WATER:
-			set_species_list_bias_ocean(weight_list_ptr);
+			set_species_list_bias_ocean(prob_list_ptr);
 			break;
 		case TERRAIN_SHALLOW_WATER:
 		case TERRAIN_SWAMP:
-			set_species_list_bias_shore(weight_list_ptr);
+			set_species_list_bias_shore(prob_list_ptr);
 			break;
 		case TERRAIN_DIRT:
 		case TERRAIN_DESERT:
-			set_species_list_bias_waste(weight_list_ptr);
+			set_species_list_bias_waste(prob_list_ptr);
 			break;
 		case TERRAIN_GRASS:
-			set_species_list_bias_grass(weight_list_ptr);
+			set_species_list_bias_grass(prob_list_ptr);
 			break;
 		case TERRAIN_TREES:
-			set_species_list_bias_forest(weight_list_ptr);
+			set_species_list_bias_forest(prob_list_ptr);
 		case TERRAIN_SHALLOW_LAVA:
 		case TERRAIN_DEEP_LAVA:
-			set_species_list_bias_volcano(weight_list_ptr);
+			set_species_list_bias_volcano(prob_list_ptr);
 		case TERRAIN_MOUNTAIN:
-			set_species_list_bias_mountain(weight_list_ptr);
+			set_species_list_bias_mountain(prob_list_ptr);
 		default:
-			set_species_list_bias_dungeon(weight_list_ptr);
+			set_species_list_bias_dungeon(prob_list_ptr);
 			break;
 	}
 	return;
 }
 
-void set_species_list_bias_feature(PROB **weight_list_ptr, feature_type *feature_ptr)
+void set_species_list_bias_feature(PROB **prob_list_ptr, feature_type *feature_ptr)
 {
 	if(have_flag(feature_ptr->flags, FF_WATER))
 	{
-		if(have_flag(feature_ptr->flags, FF_DEEP)) set_species_list_bias_deep_water(weight_list_ptr);
-		else set_species_list_bias_shallow_water(weight_list_ptr);
+		if(have_flag(feature_ptr->flags, FF_DEEP)) set_species_list_bias_deep_water(prob_list_ptr);
+		else set_species_list_bias_shallow_water(prob_list_ptr);
 	}
-	else if(have_flag(feature_ptr->flags, FF_LAVA)) set_species_list_bias_lava(weight_list_ptr);
-	else set_species_list_bias_floor(weight_list_ptr);
+	else if(have_flag(feature_ptr->flags, FF_LAVA)) set_species_list_bias_lava(prob_list_ptr);
+	else set_species_list_bias_floor(prob_list_ptr);
 }
 
-void set_species_list_bias_level_limitation(PROB **weight_list_ptr, FLOOR_LEV min, FLOOR_LEV max)
+void set_species_list_bias_level_limitation(PROB **prob_list_ptr, FLOOR_LEV min, FLOOR_LEV max)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(species_ptr->level > max) weight_list[n] /= (10 + species_ptr->level - max); // TODO time boost
-		if(species_ptr->level < min) weight_list[n] /= (1 + min - species_ptr->level); // TODO time boost
-	}
-	return;
-}
-
-void set_species_list_bias_random_questor_any_killing(PROB **weight_list_ptr, FLOOR_LEV depth)
-{
-	int n;
-	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
-
-	for(n = 0; n < max_species_idx; n++)
-	{
-		species_ptr = &species_info[n];
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) weight_list[n] = 0;
-		if(species_ptr->level < depth) weight_list[n] = 0;
-		if(species_ptr->level > (depth + (depth / 20))) weight_list[n] /= (species_ptr->level - depth + (depth / 20) + 1);
+		if(species_ptr->level > max) prob_list[n] /= (10 + species_ptr->level - max); // TODO time boost
+		if(species_ptr->level < min) prob_list[n] /= (1 + min - species_ptr->level); // TODO time boost
 	}
 	return;
 }
 
-void set_species_list_bias_random_questor(PROB **weight_list_ptr, FLOOR_LEV depth)
+void set_species_list_bias_random_questor_any_killing(PROB **prob_list_ptr, FLOOR_LEV depth)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) weight_list[n] = 0;
-		if(!has_trait_species(species_ptr, TRAIT_QUESTOR)) weight_list[n] = 0;
-		if(!has_trait_species(species_ptr, TRAIT_FRIENDLY)) weight_list[n] = 0;
-		if(!has_trait_species(species_ptr, TRAIT_AQUATIC)) weight_list[n] = 0;
-		if(!has_trait_species(species_ptr, TRAIT_WILD_ONLY)) weight_list[n] = 0;
-		if(species_ptr->rarity > 100) weight_list[n] = 0;
-		if(no_questor_or_bounty_uniques(n)) weight_list[n] = 0;
-		if(species_ptr->level < depth) weight_list[n] = 0;
-		if(species_ptr->level > (depth + (depth / 20))) weight_list[n] /= (species_ptr->level - depth + (depth / 20) + 1);
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) prob_list[n] = 0;
+		if(species_ptr->level < depth) prob_list[n] = 0;
+		if(species_ptr->level > (depth + (depth / 20))) prob_list[n] /= (species_ptr->level - depth + (depth / 20) + 1);
 	}
 	return;
 }
 
-void set_species_list_bias_nightmare(PROB **weight_list_ptr, creature_type *watcher_ptr)
+void set_species_list_bias_random_questor(PROB **prob_list_ptr, FLOOR_LEV depth)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(!has_trait_species(species_ptr, TRAIT_ELDRITCH_HORROR)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) prob_list[n] = 0;
+		if(!has_trait_species(species_ptr, TRAIT_QUESTOR)) prob_list[n] = 0;
+		if(!has_trait_species(species_ptr, TRAIT_FRIENDLY)) prob_list[n] = 0;
+		if(!has_trait_species(species_ptr, TRAIT_AQUATIC)) prob_list[n] = 0;
+		if(!has_trait_species(species_ptr, TRAIT_WILD_ONLY)) prob_list[n] = 0;
+		if(species_ptr->rarity > 100) prob_list[n] = 0;
+		if(no_questor_or_bounty_uniques(n)) prob_list[n] = 0;
+		if(species_ptr->level < depth) prob_list[n] = 0;
+		if(species_ptr->level > (depth + (depth / 20))) prob_list[n] /= (species_ptr->level - depth + (depth / 20) + 1);
 	}
 	return;
 }
 
-void set_species_list_bias_basic_vault(PROB **weight_list_ptr)
+void set_species_list_bias_nightmare(PROB **prob_list_ptr, creature_type *watcher_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) weight_list[n] = 0;
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE2)) weight_list[n] = 0;
-		if(has_trait_species(species_ptr, TRAIT_AQUATIC)) weight_list[n] = 0;
+		if(!has_trait_species(species_ptr, TRAIT_ELDRITCH_HORROR)) prob_list[n] = 0;
 	}
 	return;
 }
 
-void set_species_list_bias_fishing_target(PROB **weight_list_ptr)
+void set_species_list_bias_basic_vault(PROB **prob_list_ptr)
 {
 	int n;
 	species_type *species_ptr;
-	PROB *weight_list = *weight_list_ptr;
+	PROB *prob_list = *prob_list_ptr;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(!has_trait_species(species_ptr, TRAIT_AQUATIC)) weight_list[n] = 0;
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) weight_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE2)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_AQUATIC)) prob_list[n] = 0;
+	}
+	return;
+}
+
+void set_species_list_bias_fishing_target(PROB **prob_list_ptr)
+{
+	int n;
+	species_type *species_ptr;
+	PROB *prob_list = *prob_list_ptr;
+
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[n];
+		if(!has_trait_species(species_ptr, TRAIT_AQUATIC)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) prob_list[n] = 0;
 	}
 	return;
 }
