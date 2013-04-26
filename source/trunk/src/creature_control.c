@@ -4120,42 +4120,25 @@ bool place_floor_spawn_creature(creature_type *summoner_ptr, floor_type *floor_p
 	return place_creature_fixed_species(summoner_ptr, floor_ptr, y, x, species_idx, mode); // Attempt to place the creature
 }
 
-bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x)
+bool place_creature_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x)
 {
 	species_type *species_ptr = NULL;
 	SPECIES_ID species_idx = 0;
 	CREATURE_ID m_idx;
 	COODINATES cy = y, cx = x;
-	int attempts = 1000;
+	int attempts = SAFE_MAX_ATTEMPTS;
 
-	// Prepare allocation table
-	//TODO get_creature_list_terrain(), get_creature_list_feature(y, x)
+	PROB *prob_list;
 
-	while (--attempts)
-	{
-		/* Pick a creature */
-		species_idx = get_species_num(floor_ptr, floor_ptr->enemy_level);
+	alloc_species_list(&prob_list);
+	//TODO set_species_list_bias_terrain(&prob_list, floor_ptr->
+	set_species_list_bias_feature(&prob_list, &feature_info[floor_ptr->cave[y][x].feat]);
+	species_idx = species_rand(prob_list);
+	free_species_list(&prob_list);
 
-		/* Handle failure */
-		if(!species_idx) return FALSE;
-
-		species_ptr = &species_info[species_idx];
-
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
-
-		if(species_idx == SPECIES_HAGURE) continue;
-		break;
-	}
-	if(attempts < 1) return FALSE;
-
-	attempts = 1000;
-
-	while (--attempts)
-	{
-		/* Attempt to place the creature */
-		if(place_creature_fixed_species(summoner_ptr, floor_ptr, y, x, species_idx, 0L)) break;
-	}
-
+	/* Attempt to place the creature */
+	attempts = SAFE_MAX_ATTEMPTS;
+	while (--attempts) if(place_creature_fixed_species(summoner_ptr, floor_ptr, y, x, species_idx, 0L)) break;
 	if(attempts < 1) return FALSE;
 
 	m_idx = floor_ptr->cave[y][x].creature_idx;
@@ -4166,9 +4149,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES 
 	for (attempts = randint1(10) + 5; attempts; attempts--)
 	{
 		scatter(floor_ptr, &cy, &cx, y, x, 5, 0);
-
 		(void)summon_specific(&creature_list[m_idx], cy, cx, floor_ptr->depth + 5, TRAIT_S_KIN, PC_ALLOW_GROUP);
-
 		y = cy;
 		x = cx;
 	}
@@ -4263,7 +4244,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, F
 
 	if(randint1(5000) <= floor_ptr->depth)
 	{
-		if(alloc_horde(NULL, floor_ptr, y, x))
+		if(place_creature_horde(NULL, floor_ptr, y, x))
 		{
 #ifdef JP
 			if(cheat_hear) msg_format("クリーチャーの大群(%c)");

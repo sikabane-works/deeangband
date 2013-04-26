@@ -111,7 +111,7 @@ static void do_cmd_summon_horde(creature_type *summoner_ptr)
 		if(cave_empty_bold(floor_ptr, wy, wx)) break;
 	}
 
-	(void)alloc_horde(summoner_ptr, floor_ptr, wy, wx);
+	(void)place_creature_horde(summoner_ptr, floor_ptr, wy, wx);
 }
 
 

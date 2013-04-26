@@ -847,7 +847,7 @@ extern void update_creatures(bool full);
 extern bool place_creature_fixed_species(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, FLAGS_32 mode);
 extern bool place_floor_spawn_creature(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
 extern void deal_item(creature_type *creature_ptr);
-extern bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x);
+extern bool place_creature_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x);
 extern bool alloc_guardian(floor_type *floor_ptr, bool def_val);
 extern bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, FLAGS_32 mode);
 extern bool summon_specific(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, FLOOR_LEV lev, int type, FLAGS_32 mode);
