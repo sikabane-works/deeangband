@@ -844,7 +844,7 @@ extern void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr
 extern void sanity_blast_aux(creature_type *watcher_ptr, POWER power);
 extern void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx, bool full);
 extern void update_creatures(bool full);
-extern bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, FLAGS_32 mode);
+extern bool place_creature_fixed_species(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, FLAGS_32 mode);
 extern bool place_floor_spawn_creature(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
 extern void deal_item(creature_type *creature_ptr);
 extern bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x);

@@ -2088,7 +2088,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			if(species_can_enter(floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], &species_info[object_ptr->pval], 0))
 			{
 				//TODO CAPTURE
-				if(place_creature_species(creature_ptr, floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], object_ptr->pval, (PC_FORCE_PET | PC_NO_KAGE)))
+				if(place_creature_fixed_species(creature_ptr, floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], object_ptr->pval, (PC_FORCE_PET | PC_NO_KAGE)))
 				{
 					creature_list[hack_m_idx_ii].mhp = creature_list[hack_m_idx_ii].mmhp;
 					if(object_ptr->inscription)

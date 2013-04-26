@@ -3744,7 +3744,7 @@ void do_creature_fishing(creature_type *creature_ptr)
 				COODINATES y, x;
 				y = creature_ptr->fy+ddy[creature_ptr->tsuri_dir];
 				x = creature_ptr->fx+ddx[creature_ptr->tsuri_dir];
-				if(place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, PC_NO_KAGE))
+				if(place_creature_fixed_species(creature_ptr, floor_ptr, y, x, species_idx, PC_NO_KAGE))
 				{
 					char m_name[MAX_NLEN];
 					creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);

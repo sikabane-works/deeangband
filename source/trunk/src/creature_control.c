@@ -4054,7 +4054,7 @@ static bool place_creature_okay(creature_type *summoner_ptr, SPECIES_ID species_
 * Note the use of the new "creature allocation table" code to restrict
 * the "get_species_num()" function to "legal" escort types.
 */
-bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, FLAGS_32 mode)
+bool place_creature_fixed_species(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, FLAGS_32 mode)
 {
 	int             i, j;
 	species_type    *species_ptr = &species_info[species_idx];
@@ -4092,43 +4092,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 	// Friends for certain creatures
 	if(has_trait_species(species_ptr, TRAIT_FRIENDLY)) (void)place_creature_group(summoner_ptr, floor_ptr, y, x, species_idx, mode);
 
-
-	/* Escorts for certain creatures */
-	if(0) //TODO
-	{
-		/* Set the escort index */
-		place_species_idx = species_idx;
-
-		/* Try to place several "escorts" */
-		for (i = 0; i < 32; i++)
-		{
-			COODINATES nx, ny;
-			int z, d = 3;
-
-			scatter(floor_ptr, &ny, &nx, y, x, d, 0); // Pick a location
-
-			/* Require empty grids */
-			if(!cave_empty_bold2(floor_ptr, ny, nx)) continue;
-
-			/* Prepare allocation table */
-			//TODO get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(ny, nx), place_creature_okay, 0); // TODO
-
-			/* Pick a random race */
-			z = get_species_num(floor_ptr, species_ptr->level);
-
-
-			if(!z) break;	// Handle failure
-
-			// Place a single escort
-			(void)place_creature_one(summoner_ptr, floor_ptr, ny, nx, z, MONEGO_NORMAL, mode);
-
-			// Place a "group" of escorts if needed
-			if(has_trait_species(&species_info[z], TRAIT_FRIENDLY)) // TODO ESCORTS
-			{
-				(void)place_creature_group(&creature_list[place_creature_m_idx], floor_ptr, ny, nx, z, mode);
-			}
-		}
-	}
+	//TODO /* Escorts for certain creatures */
 
 	return TRUE;
 }
@@ -4153,7 +4117,7 @@ bool place_floor_spawn_creature(creature_type *summoner_ptr, floor_type *floor_p
 	free_species_list(&prob_list);
 	if(!species_idx) return FALSE;
 
-	return place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode); // Attempt to place the creature
+	return place_creature_fixed_species(summoner_ptr, floor_ptr, y, x, species_idx, mode); // Attempt to place the creature
 }
 
 bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x)
@@ -4189,7 +4153,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES 
 	while (--attempts)
 	{
 		/* Attempt to place the creature */
-		if(place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, 0L)) break;
+		if(place_creature_fixed_species(summoner_ptr, floor_ptr, y, x, species_idx, 0L)) break;
 	}
 
 	if(attempts < 1) return FALSE;
@@ -4235,7 +4199,7 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 			if(cave_empty_bold2(floor_ptr, oy, ox) && species_can_cross_terrain(floor_ptr->cave[oy][ox].feat, &species_info[guardian], 0))
 			{
 				/* Place the guardian */
-				if(place_creature_species(NULL, floor_ptr, oy, ox, guardian, (PC_ALLOW_GROUP | PC_NO_KAGE | PC_NO_PET))) return TRUE;
+				if(place_creature_fixed_species(NULL, floor_ptr, oy, ox, guardian, (PC_ALLOW_GROUP | PC_NO_KAGE | PC_NO_PET))) return TRUE;
 			}
 
 			/* One less try */
@@ -4382,7 +4346,7 @@ bool summon_specific(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, 
 	if((type == TRAIT_S_BLUE_HORROR) || (type == TRAIT_S_DAWN_LEGION)) mode |= PC_NO_KAGE;
 
 	/* Attempt to place the creature (awake, allow groups) */
-	if(!place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return FALSE;
+	if(!place_creature_fixed_species(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return FALSE;
 
 	return TRUE;
 }
@@ -4398,7 +4362,7 @@ bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, C
 	if(!creature_scatter(species_idx, &y, &x, floor_ptr, oy, ox, 2)) return FALSE;
 
 	// Place it (allow groups)
-	return place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, (mode | PC_NO_KAGE));
+	return place_creature_fixed_species(creature_ptr, floor_ptr, y, x, species_idx, (mode | PC_NO_KAGE));
 }
 
 
@@ -4417,7 +4381,7 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, FLAGS_32 mode)
 	if(has_trait(creature_ptr, TRAIT_NO_PET)) mode |= PC_NO_PET;
 
 	// Create a new creature (awake, no groups)
-	if(!place_creature_species(creature_ptr, floor_ptr, y, x, creature_ptr->species_idx, (mode | PC_NO_KAGE | PC_MULTIPLY))) return FALSE;
+	if(!place_creature_fixed_species(creature_ptr, floor_ptr, y, x, creature_ptr->species_idx, (mode | PC_NO_KAGE | PC_MULTIPLY))) return FALSE;
 
 	/* Hack -- Transfer "clone" flag */
 	if(clone || has_trait(creature_ptr, TRAIT_CLONED))

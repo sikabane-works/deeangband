@@ -94,7 +94,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 				if(!l) return FALSE;
 
 				// Try to place the creature
-				if(place_creature_species(player_ptr, floor_ptr, y, x, quest[i].species_idx, mode)) break;
+				if(place_creature_fixed_species(player_ptr, floor_ptr, y, x, quest[i].species_idx, mode)) break;
 				else continue; //Try again
 			}
 
