@@ -1520,15 +1520,16 @@ static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summo
 			break;
 
 		case TRAIT_S_QUYLTHULG:
+			if(!IS_RACE(species_ptr, RACE_QUYLTHLUG)) prob_list[n] = 0;
 			okay = IS_RACE(species_ptr, RACE_QUYLTHLUG);
 			break;
 
 		case TRAIT_S_CREEPING_COIN:
-			okay = IS_RACE(species_ptr, RACE_MIMIC) && (species_ptr->d_char == '$');
+			if(!IS_RACE(species_ptr, RACE_MIMIC) || !(species_ptr->d_char == '$')) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_MIMIC:
-			okay = IS_RACE(species_ptr, RACE_MIMIC);
+			if(!IS_RACE(species_ptr, RACE_MIMIC)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_GOLEM:
