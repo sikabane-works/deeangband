@@ -4307,21 +4307,19 @@ bool summon_specific(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, 
 	COODINATES x, y;
 	SPECIES_ID species_idx;
 	floor_type *floor_ptr;
+	PROB *prob_list;
 
 	if(summoner_ptr) floor_ptr = GET_FLOOR_PTR(summoner_ptr);
 	else floor_ptr = GET_FLOOR_PTR(player_ptr);
-
 	if(floor_ptr) return FALSE;
 	if(!creature_scatter(0, &y, &x, floor_ptr, y1, x1, 2)) return FALSE;
 
-	// Save the summoner
-	//summon_specific_who = who;
-
-	/* Prepare allocation table */
-	//TODO get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(y, x), summon_specific_okay, type);
-
-	/* Pick a creature, using the level calculation */
-	species_idx = get_species_num(floor_ptr, (floor_ptr->depth + lev) / 2 + 5);
+	alloc_species_list(&prob_list);
+	//TODO set_species_list_bias_terrain(&prob_list, );
+	set_species_list_bias_feature(&prob_list, &feature_info[floor_ptr->cave[y1][x1].feat]);
+	set_species_list_bias_level_limitation(&prob_list, 0, (floor_ptr->depth + lev) / 2 + 5);
+	species_idx = species_rand(prob_list);
+	free_species_list(&prob_list);
 
 	if(!species_idx) return FALSE; // Handle failure
 	if((type == TRAIT_S_BLUE_HORROR) || (type == TRAIT_S_DAWN_LEGION)) mode |= PC_NO_KAGE;
