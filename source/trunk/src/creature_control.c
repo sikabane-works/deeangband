@@ -1477,46 +1477,46 @@ static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summo
 			break;
 
 		case TRAIT_S_HOUND:
-			okay = ((species_ptr->d_char == 'C') || (species_ptr->d_char == 'Z'));
+			if(!IS_RACE(species_ptr, RACE_CANINE) && !IS_RACE(species_ptr, RACE_ZEPHYR_HOUND)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_HYDRA:
-			okay = IS_RACE(species_ptr, RACE_HYDRA);
+			if(!IS_RACE(species_ptr, RACE_HYDRA)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_ANGEL:
-			okay = IS_RACE(species_ptr, RACE_ANGEL);
+			if(!IS_RACE(species_ptr, RACE_ANGEL)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_DEMON:
 		case TRAIT_S_HI_DEMON:
-			okay = has_trait_species(species_ptr, TRAIT_DEMON);
+			if(!has_trait_species(species_ptr, TRAIT_DEMON)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_UNDEAD:
 		case TRAIT_S_HI_UNDEAD:
-			okay = has_trait_species(species_ptr, TRAIT_UNDEAD);
+			if(!has_trait_species(species_ptr, TRAIT_UNDEAD)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_DRAGON:
 		case TRAIT_S_HI_DRAGON:
-			okay = has_trait_species(species_ptr, TRAIT_DRAGON);
+			if(!has_trait_species(species_ptr, TRAIT_DRAGON)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_AMBERITES:
-			okay = (IS_RACE(species_ptr, RACE_AMBERITE)) ? TRUE : FALSE;
+			if(!IS_RACE(species_ptr, RACE_AMBERITE)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_UNIQUE:
-			okay = (has_trait_species(species_ptr, TRAIT_UNIQUE)) ? TRUE : FALSE;
+			if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_MOLD:
-			okay = IS_RACE(species_ptr, RACE_MOLD);
+			if(!IS_RACE(species_ptr, RACE_MOLD)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_BAT:
-			okay = IS_RACE(species_ptr, RACE_BAT);
+			if(!IS_RACE(species_ptr, RACE_BAT)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_QUYLTHULG:
