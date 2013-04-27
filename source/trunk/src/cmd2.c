@@ -434,7 +434,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 			if(randint1(100) < floor_ptr->depth)
 				activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 			else
-				(void)summon_specific(0, y, x, mon_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+				(void)summoning(0, y, x, mon_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 		}
 	}
 
@@ -444,7 +444,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 		msg_print(MES_TRAP_S_ELEMENTAL);
 		for (i = 0; i < randint1(3) + 5; i++)
 		{
-			(void)summon_specific(0, y, x, mon_level, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+			(void)summoning(0, y, x, mon_level, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 		}
 	}
 
@@ -456,7 +456,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 			(void)fire_meteor(-1, DO_EFFECT_FORCE, y, x, object_ptr->chest_mode / 5, 7);
 
 		for (i = 0; i < randint1(5) + object_ptr->chest_mode / 5; i++)
-			(void)summon_specific(0, y, x, mon_level, TRAIT_S_BIRD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+			(void)summoning(0, y, x, mon_level, TRAIT_S_BIRD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 
 	/* Various colorful summonings. */
@@ -469,7 +469,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
 				(void)fire_meteor(-1, DO_EFFECT_FIRE, y, x, 10, 5);
-				(void)summon_specific(0, y, x, mon_level, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+				(void)summoning(0, y, x, mon_level, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
 
@@ -479,7 +479,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 			msg_print(MES_TRAP_S_H_DRAGON);
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
-				(void)summon_specific(0, y, x, mon_level, TRAIT_S_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+				(void)summoning(0, y, x, mon_level, TRAIT_S_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
 
@@ -489,7 +489,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 			msg_print(MES_TRAP_S_HYBRID);
 			for (i = 0; i < randint1(5) + 3; i++)
 			{
-				(void)summon_specific(0, y, x, mon_level, TRAIT_S_HYBRID, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+				(void)summoning(0, y, x, mon_level, TRAIT_S_HYBRID, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
 
@@ -499,7 +499,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 			msg_print(MES_TRAP_S_VORTEX);
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
-				(void)summon_specific(0, y, x, mon_level, TRAIT_S_VORTEX, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+				(void)summoning(0, y, x, mon_level, TRAIT_S_VORTEX, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
 	}

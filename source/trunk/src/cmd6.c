@@ -703,7 +703,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if(summon_specific(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+				if(summoning(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -715,7 +715,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if(summon_specific(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+				if(summoning(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -725,7 +725,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 
 		case SV_SCROLL_TRAIT_S_PET:
 		{
-			if(summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+			if(summoning(NULL, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 			{
 				ident = TRUE;
 			}
@@ -1090,7 +1090,7 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 
 		case SV_STAFF_SUMMONING:
 			for (k = 0; k < randint1(4); k++)
-				if(summon_specific(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+				if(summoning(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 					ident = TRUE;
 			break;
 

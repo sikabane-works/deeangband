@@ -4174,7 +4174,7 @@ bool summon_kin_player(creature_type *creature_ptr, FLOOR_LEV level, COODINATES 
 {
 	bool pet = (bool)(mode & PC_FORCE_PET);
 	if(!pet) mode |= PC_NO_PET;
-	return summon_specific((pet ? creature_ptr : NULL), y, x, level, TRAIT_S_KIN, mode);
+	return summoning((pet ? creature_ptr : NULL), y, x, level, TRAIT_S_KIN, mode);
 }
 
 cptr spell_category_name(TVAL tval)

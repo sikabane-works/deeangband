@@ -797,7 +797,7 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 		{
 			num = 2 + randint1(3);
 			for (i = 0; i < num; i++)
-				(void)summon_specific(0, y, x, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+				(void)summoning(0, y, x, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 
 			if(floor_ptr->depth > randint1(100)) /* No nasty effect for low levels */
 			{
@@ -955,10 +955,10 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 					/* Require line of projection */
 					if(!projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, y1, x1)) continue;
 
-					if(summon_specific(0, y1, x1, lev, TRAIT_S_ARMAGE_EVIL, (PC_NO_PET)))
+					if(summoning(0, y1, x1, lev, TRAIT_S_ARMAGE_EVIL, (PC_NO_PET)))
 						evil_idx = hack_m_idx_ii;
 
-					if(summon_specific(0, y1, x1, lev, TRAIT_S_ARMAGE_GOOD, (PC_NO_PET)))
+					if(summoning(0, y1, x1, lev, TRAIT_S_ARMAGE_GOOD, (PC_NO_PET)))
 						good_idx = hack_m_idx_ii;
 
 					/* Let them fight each other */
@@ -982,7 +982,7 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 			cast_ball_hide(creature_ptr, DO_EFFECT_WATER_FLOW, MAX_RANGE_SUB, 1, 10);
 			/* Summon Piranhas */
 			num = 1 + floor_ptr->depth/20;
-			for (i = 0; i < num; i++) (void)summon_specific(0, y, x, floor_ptr->depth, TRAIT_S_PIRANHAS, (PC_ALLOW_GROUP | PC_NO_PET));
+			for (i = 0; i < num; i++) (void)summoning(0, y, x, floor_ptr->depth, TRAIT_S_PIRANHAS, (PC_ALLOW_GROUP | PC_NO_PET));
 			break;
 
 		case TRAP_ACID_FLOW:
@@ -1453,13 +1453,13 @@ CREATURE_ID creature_pop(void)
 }
 
 
-static bool summon_specific_aux(species_type *species_ptr, int summon_specific_type)
+static bool summoning_aux(species_type *species_ptr, int summoning_type)
 {
 	int okay = FALSE;
 	int i;
 
 	// Check our requirements
-	switch (summon_specific_type)
+	switch (summoning_type)
 	{
 	case TRAIT_S_ANT:
 		okay = IS_RACE(species_ptr, RACE_ANT);
@@ -1683,7 +1683,7 @@ static bool restrict_creature_to_dungeon(SPECIES_ID species_idx)
 
 	if(d_ptr->special_div >= 64) return TRUE;
 
-	//TODO if(summon_specific_type && !(d_ptr->flags1 & DF1_CHAMELEON)) return TRUE;
+	//TODO if(summoning_type && !(d_ptr->flags1 & DF1_CHAMELEON)) return TRUE;
 
 	/* TODO
 	switch (d_ptr->mode)
@@ -4149,7 +4149,7 @@ bool place_creature_horde(creature_type *summoner_ptr, floor_type *floor_ptr, CO
 	for (attempts = randint1(10) + 5; attempts; attempts--)
 	{
 		scatter(floor_ptr, &cy, &cx, y, x, 5, 0);
-		(void)summon_specific(&creature_list[m_idx], cy, cx, floor_ptr->depth + 5, TRAIT_S_KIN, PC_ALLOW_GROUP);
+		(void)summoning(&creature_list[m_idx], cy, cx, floor_ptr->depth + 5, TRAIT_S_KIN, PC_ALLOW_GROUP);
 		y = cy;
 		x = cx;
 	}
@@ -4265,7 +4265,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, F
 }
 
 // Hack -- help decide if a creature race is "okay" to summon
-static bool summon_specific_okay(creature_type *summoner_ptr, SPECIES_ID species_idx)
+static bool summoning_okay(creature_type *summoner_ptr, SPECIES_ID species_idx)
 {
 	if(!species_hook_dungeon(species_idx)) return FALSE; // Hack - Only summon dungeon creatures
 
@@ -4302,7 +4302,7 @@ static bool summon_specific_okay(creature_type *summoner_ptr, SPECIES_ID species
 *
 * Note that this function may not succeed, though this is very rare.
 */
-bool summon_specific(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, FLOOR_LEV lev, int type, FLAGS_32 mode)
+bool summoning(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, FLOOR_LEV lev, int type, FLAGS_32 mode)
 {
 	COODINATES x, y;
 	SPECIES_ID species_idx;
@@ -4322,6 +4322,7 @@ bool summon_specific(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, 
 	free_species_list(&prob_list);
 
 	if(!species_idx) return FALSE; // Handle failure
+
 	if((type == TRAIT_S_BLUE_HORROR) || (type == TRAIT_S_DAWN_LEGION)) mode |= PC_NO_KAGE;
 
 	/* Attempt to place the creature (awake, allow groups) */

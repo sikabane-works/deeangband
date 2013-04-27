@@ -2922,7 +2922,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						if(pet) mode |= PC_FORCE_PET;
 						else mode |= (PC_NO_PET | PC_FORCE_FRIENDLY);
 
-						count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->depth), 0, mode);
+						count += summoning((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->depth), 0, mode);
 						if(!one_in_(6)) break;
 					}
 				case 23: case 24: case 25:

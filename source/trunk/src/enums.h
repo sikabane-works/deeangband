@@ -2094,7 +2094,7 @@ enum ARTIFACT_BIAS_TYPE
 };
 
 
-// Legal restrictions for "summon_specific()"
+// Legal restrictions for "summoning()"
 //TODO marger to trait.
 enum TRAIT_S_TYPE_ID
 {

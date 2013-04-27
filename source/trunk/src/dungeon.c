@@ -1592,7 +1592,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(pet) mode |= PC_FORCE_PET;
 		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
-		if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, mode))
+		if(summoning((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, mode))
 		{
 #ifdef JP
 			msg_print("あなたはデーモンを引き寄せた！");
@@ -1691,7 +1691,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(pet) mode |= PC_FORCE_PET;
 		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
-		if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_ANIMAL, mode))
+		if(summoning((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_ANIMAL, mode))
 		{
 #ifdef JP
 			msg_print("動物を引き寄せた！");
@@ -1778,7 +1778,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(pet) mode |= PC_FORCE_PET;
 		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
-		if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DRAGON, mode))
+		if(summoning((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DRAGON, mode))
 		{
 #ifdef JP
 			msg_print("ドラゴンを引き寄せた！");
@@ -2049,7 +2049,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Call animal */
 	if((has_trait(creature_ptr, TRAIT_CALL_ANIMAL)) && one_in_(2500))
 	{
-		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_ANIMAL,
+		if(summoning(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_ANIMAL,
 			(PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 		{
 			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -2065,7 +2065,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Call demon */
 	if((has_trait(creature_ptr, TRAIT_CALL_DEMON)) && one_in_(1111))
 	{
-		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+		if(summoning(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 		{
 			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
@@ -2080,7 +2080,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Call dragon */
 	if((has_trait(creature_ptr, TRAIT_CALL_DRAGON)) && one_in_(800))
 	{
-		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DRAGON,
+		if(summoning(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DRAGON,
 			(PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 		{
 			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));

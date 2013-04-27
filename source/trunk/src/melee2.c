@@ -1333,7 +1333,7 @@ static void do_scatting_creature(creature_type *creature_ptr)
 
 					for (k = 0; k < STAT_MAX; k++)
 					{
-						if(summon_specific(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, TRAIT_S_MOLD, (PC_ALLOW_GROUP | p_mode)))
+						if(summoning(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, TRAIT_S_MOLD, (PC_ALLOW_GROUP | p_mode)))
 							if(creature_list[hack_m_idx_ii].see_others) count++;
 					}
 

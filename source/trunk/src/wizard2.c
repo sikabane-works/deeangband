@@ -1467,7 +1467,7 @@ static void do_cmd_wiz_summon(creature_type *creature_ptr, int num)
 	int i;
 
 	for (i = 0; i < num; i++)
-		(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		(void)summoning(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 }
 
 

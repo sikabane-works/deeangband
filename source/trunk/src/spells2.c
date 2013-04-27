@@ -2581,7 +2581,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			if(!one_in_(6)) break;
 
 		case 7: case 8: case 9: case 18:
-			(*count) += summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+			(*count) += summoning(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			if(!one_in_(6)) break;
 
 		case 10: case 11: case 12:
@@ -2680,51 +2680,51 @@ int activate_hi_summon(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 		switch (randint1(25) + (floor_ptr->depth / 20))
 		{
 		case 1: case 2:
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_ANT, mode);
+			count += summoning((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_ANT, mode);
 			break;
 		case 3: case 4:
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_SPIDER, mode);
+			count += summoning((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_SPIDER, mode);
 			break;
 		case 5: case 6:
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_HOUND, mode);
+			count += summoning((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_HOUND, mode);
 			break;
 		case 7: case 8:
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_HYDRA, mode);
+			count += summoning((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_HYDRA, mode);
 			break;
 		case 9: case 10:
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_ANGEL, mode);
+			count += summoning((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_ANGEL, mode);
 			break;
 		case 11: case 12:
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_UNDEAD, mode);
+			count += summoning((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_UNDEAD, mode);
 			break;
 		case 13: case 14:
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_DRAGON, mode);
+			count += summoning((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_DRAGON, mode);
 			break;
 		case 15: case 16:
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_DEMON, mode);
+			count += summoning((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_DEMON, mode);
 			break;
 		case 17:
 			if(can_pet) break;
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_AMBERITES, (mode | PC_ALLOW_UNIQUE));
+			count += summoning((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_AMBERITES, (mode | PC_ALLOW_UNIQUE));
 			break;
 		case 18: case 19:
 			if(can_pet) break;
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_UNIQUE, (mode | PC_ALLOW_UNIQUE));
+			count += summoning((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_UNIQUE, (mode | PC_ALLOW_UNIQUE));
 			break;
 		case 20: case 21:
 			if(!can_pet) mode |= PC_ALLOW_UNIQUE;
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_HI_UNDEAD, mode);
+			count += summoning((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_HI_UNDEAD, mode);
 			break;
 		case 22: case 23:
 			if(!can_pet) mode |= PC_ALLOW_UNIQUE;
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_HI_DRAGON, mode);
+			count += summoning((pet ? creature_ptr : NULL), y, x, summon_lev, TRAIT_S_HI_DRAGON, mode);
 			break;
 		case 24:
-			count += summon_specific((pet ? creature_ptr : NULL), y, x, 100, TRAIT_S_CYBER, mode);
+			count += summoning((pet ? creature_ptr : NULL), y, x, 100, TRAIT_S_CYBER, mode);
 			break;
 		default:
 			if(!can_pet) mode |= PC_ALLOW_UNIQUE;
-			count += summon_specific((pet ? creature_ptr : NULL), y, x,pet ? summon_lev : (((summon_lev * 3) / 2) + 5), 0, mode);
+			count += summoning((pet ? creature_ptr : NULL), y, x,pet ? summon_lev : (((summon_lev * 3) / 2) + 5), 0, mode);
 		}
 	}
 
@@ -2746,7 +2746,7 @@ int summon_cyber(creature_type *summoner_ptr, COODINATES y, COODINATES x)
 
 	for (i = 0; i < max_cyber; i++)
 	{
-		count += summon_specific(summoner_ptr, y, x, 100, TRAIT_S_CYBER, mode);
+		count += summoning(summoner_ptr, y, x, 100, TRAIT_S_CYBER, mode);
 	}
 
 	return count;

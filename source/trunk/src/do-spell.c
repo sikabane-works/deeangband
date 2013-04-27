@@ -178,7 +178,7 @@ static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, COOD
 	}
 
 	for (i = 0; i < num; i++)
-		if(summon_specific(creature_ptr, y, x, lev, type, mode)) success = TRUE;
+		if(summoning(creature_ptr, y, x, lev, type, mode)) success = TRUE;
 
 	if(!success)
 	{
@@ -264,7 +264,7 @@ static void cast_invoke_spirits(creature_type *caster_ptr)
 	if(die < 8)
 	{
 		msg_print(INVOKE_SPIRIT_LOW1);
-		(void)summon_specific(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+		(void)summoning(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 	else if(die < 14)
 	{
@@ -387,7 +387,7 @@ void wild_magic(creature_type *caster_ptr, int spell)
 	case 35:
 		while (counter++ < 8)
 		{
-			(void)summon_specific(0, caster_ptr->fy, caster_ptr->fx, (floor_ptr->depth * 3) / 2, type, (PC_ALLOW_GROUP | PC_NO_PET));
+			(void)summoning(0, caster_ptr->fy, caster_ptr->fx, (floor_ptr->depth * 3) / 2, type, (PC_ALLOW_GROUP | PC_NO_PET));
 		}
 		break;
 	case 36:
@@ -434,7 +434,7 @@ static void cast_shuffle(creature_type *caster_ptr)
 	else if(die < 14)
 	{
 		msg_print(SHUFFLE_DEVIL);
-		summon_specific(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+		summoning(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 	else if(die < 18)
 	{
@@ -717,7 +717,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 
 	summon_lev = lev_bonus * 2 / 3 + species_info[object_ptr->pval].level;
 
-	if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, summon_lev, TRAIT_S_HI_DEMON, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+	if(summoning(NULL, creature_ptr->fy, creature_ptr->fx, summon_lev, TRAIT_S_HI_DEMON, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 	{
 		msg_print(MES_TRAP_S_H_DEMON);
 		msg_print(MES_SUMMON_SERVANT);
@@ -2345,7 +2345,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!(summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, lev_bonus, TRAIT_S_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET))))
+				if(!(summoning(NULL, caster_ptr->fy, caster_ptr->fx, lev_bonus, TRAIT_S_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET))))
 				{
 #ifdef JP
 					msg_print("動物は現れなかった。");
@@ -3193,7 +3193,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 				else mode |= PC_NO_PET;
 				if(!(pet && (lev_bonus < 50))) mode |= PC_ALLOW_GROUP;
 
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_DEMON, mode))
+				if(summoning((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_DEMON, mode))
 				{
 					msg_print(MES_TRAP_S_H_DEMON);
 
@@ -3908,7 +3908,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 				if(pet) mode |= PC_FORCE_PET;
 				else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, type, mode))
+				if(summoning((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, type, mode))
 				{
 #ifdef JP
 					msg_print("冷たい風があなたの周りに吹き始めた。それは腐敗臭を運んでいる...");
@@ -5466,7 +5466,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, lev_bonus, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+				if(!summoning(NULL, caster_ptr->fy, caster_ptr->fx, lev_bonus, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("エレメンタルは現れなかった。");
@@ -6098,7 +6098,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, lev_bonus, TRAIT_S_GOLEM, PC_FORCE_PET))
+				if(summoning(NULL, creature_ptr->fy, creature_ptr->fx, lev_bonus, TRAIT_S_GOLEM, PC_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("ゴーレムを作った。");
@@ -6447,7 +6447,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_MANES, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+				if(!summoning(NULL, caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_MANES, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("古代の死霊は現れなかった。");
@@ -6624,7 +6624,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 				else mode |= PC_NO_PET;
 				if(!(pet && (lev_bonus < 50))) mode |= PC_ALLOW_GROUP;
 
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, lev_bonus*2/3+randint1(lev_bonus/2), TRAIT_S_DEMON, mode))
+				if(summoning((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, lev_bonus*2/3+randint1(lev_bonus/2), TRAIT_S_DEMON, mode))
 				{
 					msg_print(MES_TRAP_S_H_DEMON);
 					if(pet) msg_print(MES_SUMMON_SERVANT);
@@ -7454,7 +7454,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 				else mode |= PC_NO_PET;
 				if(!(pet && (lev_bonus < 50))) mode |= PC_ALLOW_GROUP;
 
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_ANGEL, mode))
+				if(summoning((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_ANGEL, mode))
 				{
 					if(pet) msg_print(MES_SUMMON_SERVANT);
 					else
@@ -7654,7 +7654,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 						if(cave_empty_bold2(floor_ptr, my, mx)) break; // Require empty grids
 					}
 					if(attempt < 0) continue;
-					summon_specific(NULL, my, mx, lev_bonus, TRAIT_S_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
+					summoning(NULL, my, mx, lev_bonus, TRAIT_S_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
 				}
 				set_timed_trait(caster_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
 				set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);

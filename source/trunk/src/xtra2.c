@@ -638,7 +638,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 				if(pet) mode |= PC_FORCE_PET;
 
 				/*TODO
-				if(summon_specific((pet ? -1 : m_idx), wy, wx, 100, TRAIT_S_BLUE_HORROR, mode))
+				if(summoning((pet ? -1 : m_idx), wy, wx, 100, TRAIT_S_BLUE_HORROR, mode))
 				{
 				if(creature_can_see_bold(dead_ptr, wy, wx))
 				notice = TRUE;
@@ -677,7 +677,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 					if(pet) mode |= PC_FORCE_PET;
 
 					/*TODO
-					if(summon_specific((pet ? -1 : m_idx), wy, wx, 100, TRAIT_S_DAWN, mode))
+					if(summoning((pet ? -1 : m_idx), wy, wx, 100, TRAIT_S_DAWN, mode))
 					{
 					if(creature_can_see_bold(dead_ptr, wy, wx))
 					#ifdef JP
@@ -2972,7 +2972,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_print(MES_PATRON_S_ENEMY);
 			reward = MES_DIARY_PATRON_S_ENEMY;
 			for (dummy = 0; dummy < randint1(5) + 1; dummy++)
-				(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+				(void)summoning(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			break;
 
 		case REW_H_SUMMON:
@@ -3165,7 +3165,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_SER_DEMO:
 			msg_format(MES_PATRON_DEMON_SERVANT(patron_name));
 
-			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, PC_FORCE_PET))
+			if(!summoning(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DEMON, PC_FORCE_PET))
 				msg_print(MES_SUMMON_NOTHING);
 			else
 				reward = MES_DIARY_PATRON_DEMONIC_SERVANT;
@@ -3173,7 +3173,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_SER_MONS:
 			msg_format(MES_PATRON_SERVANT(patron_name));
-			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, 0, PC_FORCE_PET))
+			if(!summoning(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, 0, PC_FORCE_PET))
 				msg_print(MES_SUMMON_NOTHING);
 			else
 				reward = MES_DIARY_PATRON_SERVANT;
@@ -3181,7 +3181,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_SER_UNDE:
 			msg_format(MES_PATRON_UNDEAD_SERVANT(patron_name));
-			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_UNDEAD, PC_FORCE_PET))
+			if(!summoning(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_UNDEAD, PC_FORCE_PET))
 				msg_print(MES_SUMMON_NOTHING);
 			else
 				reward = MES_DIARY_PATRON_UNDEAD_SERVANT;
