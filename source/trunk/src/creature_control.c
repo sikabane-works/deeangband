@@ -1533,25 +1533,23 @@ static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summo
 			break;
 
 		case TRAIT_S_GOLEM:
-			okay = has_trait_species(species_ptr, TRAIT_GOLEM);
+			if(!has_trait_species(species_ptr, TRAIT_GOLEM)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_CYBER:
-			okay = has_trait_species(species_ptr, TRAIT_DEMON) && has_trait_raw(&species_ptr->flags, TRAIT_ROCKET);
+			if(!has_trait_species(species_ptr, TRAIT_GOLEM) || has_trait_raw(&species_ptr->flags, TRAIT_ROCKET)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_KIN:
-			okay = IS_RACE(species_ptr, species_ptr->race_idx1) || IS_RACE(species_ptr, species_ptr->race_idx2);
+			//TODO okay = IS_RACE(species_ptr, species_ptr->race_idx1) || IS_RACE(species_ptr, species_ptr->race_idx2);
 			break;
 
-			/*TODO
-			case TRAIT_S_DAWN_LEGION:
-			okay = (species_idx == SPECIES_DAWN);
+		case TRAIT_S_DAWN_LEGION:
+			if(species_idx != SPECIES_DAWN) prob_list[n] = 0;
 			break;
-			*/
 
 		case TRAIT_S_ANIMAL:
-			okay = has_trait_species(species_ptr, TRAIT_ANIMAL);
+			if(!has_trait_species(species_ptr, TRAIT_ANIMAL)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_ANIMAL_RANGER:
