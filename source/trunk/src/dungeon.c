@@ -1488,13 +1488,12 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(!has_trait(creature_ptr, TRAIT_RES_NEXU) && !has_trait(creature_ptr, TRAIT_VTELEPORT) &&
 			!has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 		{
-			disturb(player_ptr, 0, 0);
-#ifdef JP
-			msg_print("あなたの位置は突然ひじょうに不確定になった...");
-#else
-			msg_print("Your position suddenly seems very uncertain...");
-#endif
-			msg_print(NULL);
+			if(is_player(creature_ptr))
+			{
+				disturb(player_ptr, 0, 0);
+				msg_print(MES_TRAIT_CURSED_TELEPORT);
+				msg_print(NULL);
+			}
 			teleport_creature(creature_ptr, 40, TELEPORT_PASSIVE);
 		}
 	}
