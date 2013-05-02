@@ -1460,14 +1460,12 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_BERS_RAGE) && one_in_(3000))
 	{
-		disturb(player_ptr, 0, 0);
-#ifdef JP
-		msg_print("ƒEƒKƒ@ƒ@ƒAI");
-		msg_print("Œƒ“{‚Ì”­ì‚ÉP‚í‚ê‚½I");
-#else
-		msg_print("RAAAAGHH!");
-		msg_print("You feel a fit of rage coming over you!");
-#endif
+		if(is_player(creature_ptr))
+		{
+			disturb(player_ptr, 0, 0);
+			msg_print(MES_TRAIT_BERS_RAGE1);
+			msg_print(MES_TRAIT_BERS_RAGE2);
+		}
 		(void)set_timed_trait(creature_ptr, TRAIT_S_HERO, 10 + randint1(creature_ptr->lev), FALSE);
 		(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 	}
@@ -2015,8 +2013,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Call animal */
 	if((has_trait(creature_ptr, TRAIT_CALL_ANIMAL)) && one_in_(2500))
 	{
-		if(summoning(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_ANIMAL,
-			(PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+		if(summoning(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_ANIMAL, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 		{
 			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
