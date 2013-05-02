@@ -1789,24 +1789,17 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		}
 	}
 
+	/* TODO Check Mutate trait */
 	if(has_trait(creature_ptr, TRAIT_WEIRD_MIND) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
 	{
 		if(has_trait(creature_ptr, TRAIT_ESP))
 		{
-#ifdef JP
-			msg_print("精神にもやがかかった！");
-#else
-			msg_print("Your mind feels cloudy!");
-#endif
+			if(is_player(creature_ptr)) msg_print(MES_TRAIT_CLOUDY_MIND);
 			set_timed_trait(creature_ptr, TRAIT_ESP, 0, FALSE);
 		}
 		else
 		{
-#ifdef JP
-			msg_print("精神が広がった！");
-#else
-			msg_print("Your mind expands!");
-#endif
+			if(is_player(creature_ptr)) msg_print(MES_TRAIT_EXPAND_MIND);
 			add_timed_trait(creature_ptr, TRAIT_ESP, creature_ptr->lev, FALSE);
 		}
 	}
