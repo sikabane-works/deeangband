@@ -3249,6 +3249,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_EXPAND_MIND "精神が広がった！"
 #define MES_TRAIT_WASTING "自分が衰弱していくのが分かる！"
 #define MES_TRAIT_ATT_DRAGON "ドラゴンを引き寄せた！"
+#define MES_TRAIT_ATT_ANIMAL "動物を引き寄せた！"
+#define MES_TRAIT_NAUSEA "胃が痙攣し、食事を失った！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3261,6 +3263,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_EXPAND_MIND "Your mind expands!"
 #define MES_TRAIT_WASTING "You can feel yourself wasting away!"
 #define MES_TRAIT_ATT_DRAGON "You have attracted a dragon!"
+#define MES_TRAIT_ATT_ANIMAL "You have attracted an animal!"
+#define MES_TRAIT_NAUSEA "Your stomach roils, and you lose your lunch!"
 #endif
 
 #ifdef JP

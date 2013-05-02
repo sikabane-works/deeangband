@@ -1693,12 +1693,11 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 		if(summoning((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_ANIMAL, mode))
 		{
-#ifdef JP
-			msg_print("動物を引き寄せた！");
-#else
-			msg_print("You have attracted an animal!");
-#endif
-			disturb(player_ptr, 0, 0);
+			if(is_player(creature_ptr))
+			{
+				msg_print(MES_TRAIT_ATT_ANIMAL);
+				disturb(player_ptr, 0, 0);
+			}
 		}
 	}
 
@@ -1796,13 +1795,12 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_NAUSEA) && !has_trait(creature_ptr, TRAIT_SLOW_DIGEST) && one_in_(9000))
 	{
-		disturb(player_ptr, 0, 0);
-#ifdef JP
-		msg_print("胃が痙攣し、食事を失った！");
-#else
-		msg_print("Your stomach roils, and you lose your lunch!");
-#endif
-		msg_print(NULL);
+		if(is_player(creature_ptr))
+		{
+			disturb(player_ptr, 0, 0);
+			msg_print(MES_TRAIT_NAUSEA);
+			msg_print(NULL);
+		}
 		set_food(creature_ptr, CREATURE_FOOD_WEAK);
 		if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
 		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
