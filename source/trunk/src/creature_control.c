@@ -1545,7 +1545,7 @@ static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summo
 			break;
 
 		case TRAIT_S_DAWN_LEGION:
-			if(species_idx != SPECIES_DAWN) prob_list[n] = 0;
+			if(species_ptr->species_idx != SPECIES_DAWN) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_ANIMAL:
@@ -1553,49 +1553,45 @@ static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summo
 			break;
 
 		case TRAIT_S_ANIMAL_RANGER:
-			{
-				okay = (has_trait_species(species_ptr, TRAIT_ANIMAL) &&
-					(my_strchr("abcflqrwBCHIJKMRS", species_ptr->d_char)) &&
-					!has_trait_species(species_ptr, TRAIT_DRAGON) &&
-					!(is_enemy_of_good_species(species_ptr)) &&
-					!has_trait_species(species_ptr, TRAIT_UNDEAD) &&
-					!has_trait_species(species_ptr, TRAIT_DEMON) &&
-					!has_trait_species(species_ptr, TRAIT_MULTIPLY));// &&
-				//TODO !(species_ptr->flags4 || species_ptr->flags5 || species_ptr->flags6));
-				break;
-			}
+			if(!has_trait_species(species_ptr, TRAIT_ANIMAL)) prob_list[n] = 0;
+			if(!my_strchr("abcflqrwBCHIJKMRS", species_ptr->d_char)) prob_list[n] = 0;
+			if(has_trait_species(species_ptr, TRAIT_DRAGON)) prob_list[n] = 0;
+			if(has_trait_species(species_ptr, TRAIT_UNDEAD)) prob_list[n] = 0;
+			if(has_trait_species(species_ptr, TRAIT_DEMON)) prob_list[n] = 0;
+			if(has_trait_species(species_ptr, TRAIT_MULTIPLY)) prob_list[n] = 0;
+			break;
 
 		case TRAIT_S_HI_DRAGON_LIVING:
-			okay = ((species_ptr->d_char == 'D') && species_living(species_ptr));
+			if(!has_trait_species(species_ptr, TRAIT_DRAGON)) prob_list[n] = 0;
+			if(!species_living(species_ptr)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_LIVING:
-			okay = species_living(species_ptr);
+			if(!has_trait_species(species_ptr, TRAIT_DRAGON)) prob_list[n] = 0; 
 			break;
 
-			/* TODO
-			case TRAIT_S_PHANTOM:
-			okay = (species_idx == SPECIES_PHANTOM_B || species_idx == SPECIES_PHANTOM_W);
+		case TRAIT_S_PHANTOM:
+			if(!species_ptr->species_idx != SPECIES_PHANTOM_B && !species_ptr->species_idx != SPECIES_PHANTOM_W);
 			break;
 
-			case TRAIT_S_BLUE_HORROR:
-			okay = (species_idx == SPECIES_BLUE_HORROR);
+		case TRAIT_S_BLUE_HORROR:
+			if(species_ptr->species_idx != SPECIES_BLUE_HORROR) prob_list[n] = 0;
 			break;
-			*/
+
 		case TRAIT_S_ELEMENTAL:
-			okay = (species_ptr->d_char == 'E');
+			if(!IS_RACE(species_ptr, RACE_ELEMENTAL)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_VORTEX:
-			okay = (species_ptr->d_char == 'v');
+			if(!IS_RACE(species_ptr, RACE_VORTEX)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_HYBRID:
-			okay = (species_ptr->d_char == 'H');
+			if(species_ptr->d_char == 'H');
 			break;
 
 		case TRAIT_S_BIRD:
-			okay = (species_ptr->d_char == 'B');
+			if(!IS_RACE(species_ptr, RACE_BIRD)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_KAMIKAZE:
@@ -1609,40 +1605,36 @@ static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summo
 			okay = (okay && species_living(species_ptr));
 			break;
 
-			/* TODO
-			case TRAIT_S_MANES:
-			okay = (species_idx == SPECIES_MANES);
+		case TRAIT_S_MANES:
+			if(species_ptr->species_idx != SPECIES_MANES) prob_list[n] = 0;
 			break;
 
-			case TRAIT_S_LOUSE:
-			okay = (species_idx == SPECIES_LOUSE);
+		case TRAIT_S_LOUSE:
+			if(species_ptr->species_idx != SPECIES_LOUSE) prob_list[n] = 0;
 			break;
-			*/
+
 		case TRAIT_S_GUARDIANS:
-			okay = (has_trait_species(species_ptr, TRAIT_GUARDIAN));
+			if(has_trait_species(species_ptr, TRAIT_GUARDIAN)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_KNIGHTS:
-			okay = species_ptr->class_idx == CLASS_PALADIN;
+			if(species_ptr->class_idx != CLASS_PALADIN) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_EAGLES:
-			okay = (species_ptr->d_char == 'B' &&
-				has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN) &&
-				has_trait_species(species_ptr, TRAIT_WILD_ONLY));
+			if(!IS_RACE(species_ptr, RACE_BIRD)) prob_list[n] = 0;
+			if(!has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN)) prob_list[n] = 0;
+			if(!has_trait_species(species_ptr, TRAIT_WILD_ONLY)) prob_list[n] = 0;
 			break;
-			/*
-			case TRAIT_S_PIRANHAS:
-			okay = (species_idx == SPECIES_PIRANHA);
-			break;
-			*/
+
 		case TRAIT_S_ARMAGE_GOOD:
-			okay = (species_ptr->d_char == 'A' && is_enemy_of_evil_species(species_ptr));
+			if(!IS_RACE(species_ptr, RACE_ANGEL)) prob_list[n] = 0;
+			if(!is_enemy_of_evil_species(species_ptr)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_ARMAGE_EVIL:
-			okay = ((has_trait_species(species_ptr, TRAIT_DEMON)) ||
-				(species_ptr->d_char == 'A' && is_enemy_of_good_species(species_ptr)));
+			if(!IS_RACE(species_ptr, RACE_DEMON)) prob_list[n] = 0;
+			if(!is_enemy_of_good_species(species_ptr)) prob_list[n] = 0;
 			break;
 		}
 
