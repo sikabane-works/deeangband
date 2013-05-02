@@ -1459,7 +1459,6 @@ static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summo
 	species_type *species_ptr;
 	PROB *prob_list = *prob_list_ptr;
 	bool okay;
-	int i;
 
 	for(n = 0; n < max_species_idx; n++)
 	{
@@ -1567,7 +1566,7 @@ static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summo
 			break;
 
 		case TRAIT_S_LIVING:
-			if(!has_trait_species(species_ptr, TRAIT_DRAGON)) prob_list[n] = 0; 
+			if(!species_living(species_ptr)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_PHANTOM:
@@ -1595,14 +1594,12 @@ static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summo
 			break;
 
 		case TRAIT_S_KAMIKAZE:
-			for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
-				if(species_ptr->blow[i].method == RBM_EXPLODE) okay = TRUE;
+			if(!has_trait_species(species_ptr, TRAIT_SUICIDE_BOMBER)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_KAMIKAZE_LIVING:
-			for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
-				if(species_ptr->blow[i].method == RBM_EXPLODE) okay = TRUE;
-			okay = (okay && species_living(species_ptr));
+			if(!has_trait_species(species_ptr, TRAIT_SUICIDE_BOMBER)) prob_list[n] = 0;
+			if(!species_living(species_ptr)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_MANES:
@@ -4299,7 +4296,7 @@ static bool summoning_okay(creature_type *summoner_ptr, SPECIES_ID species_idx)
 *
 * Note that this function may not succeed, though this is very rare.
 */
-bool summoning(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, FLOOR_LEV lev, int type, FLAGS_32 mode)
+bool summoning(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, FLOOR_LEV lev, TRAIT_ID type, FLAGS_32 mode)
 {
 	COODINATES x, y;
 	SPECIES_ID species_idx;
@@ -4312,6 +4309,7 @@ bool summoning(creature_type *summoner_ptr, COODINATES y1, COODINATES x1, FLOOR_
 	if(!creature_scatter(0, &y, &x, floor_ptr, y1, x1, 2)) return FALSE;
 
 	alloc_species_list(&prob_list);
+	set_species_list_bias_summoning(&prob_list, type, summoner_ptr);
 	//TODO set_species_list_bias_terrain(&prob_list, );
 	set_species_list_bias_feature(&prob_list, &feature_info[floor_ptr->cave[y1][x1].feat]);
 	set_species_list_bias_level_limitation(&prob_list, 0, (floor_ptr->depth + lev) / 2 + 5);
