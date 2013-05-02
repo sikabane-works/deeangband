@@ -1831,15 +1831,9 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(wounds > 0)
 		{
 			int healing = creature_ptr->csp;
-
-			if(healing > wounds)
-			{
-				healing = wounds;
-			}
-
+			if(healing > wounds) healing = wounds;
 			heal_creature(creature_ptr, healing);
 			creature_ptr->csp -= healing;
-
 			prepare_redraw(PR_MANA);
 		}
 	}
@@ -1993,12 +1987,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		{
 			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 			object_ptr->curse_flags[0] |= new_curse;
-#ifdef JP
-			msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", object_name);
-#else
-			msg_format("There is a malignant black aura surrounding your %s...", object_name);
-#endif
-
+			msg_format(MES_TRAIT_ADD_CURSED(object_ptr));
 			object_ptr->feeling = FEEL_NONE;
 			prepare_update(creature_ptr, CRU_BONUS);
 		}
@@ -2017,11 +2006,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		{
 			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 			object_ptr->curse_flags[0] |= new_curse;
-#ifdef JP
-			msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", object_name);
-#else
-			msg_format("There is a malignant black aura surrounding your %s...", object_name);
-#endif
+			msg_format(MES_TRAIT_ADD_CURSED(object_ptr));
 			object_ptr->feeling = FEEL_NONE;
 			prepare_update(creature_ptr, CRU_BONUS);
 		}
