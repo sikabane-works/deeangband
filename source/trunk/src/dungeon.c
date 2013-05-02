@@ -1474,12 +1474,11 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	{
 		if(!has_trait(creature_ptr, TRAIT_FEARLESS))
 		{
-			disturb(player_ptr, 0, 0);
-#ifdef JP
-			msg_print("Ç∆ÇƒÇ‡à√Ç¢... Ç∆ÇƒÇ‡ã∞Ç¢ÅI");
-#else
-			msg_print("It's so dark... so scary!");
-#endif
+			if(is_player(creature_ptr))
+			{
+				disturb(player_ptr, 0, 0);
+				msg_print(MES_TRAIT_COWARDICE);
+			}
 			add_timed_trait(creature_ptr, TRAIT_AFRAID, 13 + randint1(26), FALSE);
 		}
 	}
