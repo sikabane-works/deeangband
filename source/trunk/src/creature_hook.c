@@ -478,11 +478,11 @@ void set_species_list_bias_random_questor(PROB **prob_list_ptr, FLOOR_LEV depth)
 	for(n = 0; n < max_species_idx; n++)
 	{
 		species_ptr = &species_info[n];
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) prob_list[n] = 0;
-		if(!has_trait_species(species_ptr, TRAIT_QUESTOR)) prob_list[n] = 0;
-		if(!has_trait_species(species_ptr, TRAIT_FRIENDLY)) prob_list[n] = 0;
-		if(!has_trait_species(species_ptr, TRAIT_AQUATIC)) prob_list[n] = 0;
-		if(!has_trait_species(species_ptr, TRAIT_WILD_ONLY)) prob_list[n] = 0;
+		if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_QUESTOR)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_FRIENDLY)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_AQUATIC)) prob_list[n] = 0;
+		if(has_trait_species(species_ptr, TRAIT_WILD_ONLY)) prob_list[n] = 0;
 		if(species_ptr->rarity > 100) prob_list[n] = 0;
 		if(no_questor_or_bounty_uniques(n)) prob_list[n] = 0;
 		if(species_ptr->level < depth) prob_list[n] = 0;
