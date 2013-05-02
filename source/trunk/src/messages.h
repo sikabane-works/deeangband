@@ -3247,6 +3247,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_SELF_DETONATION "体の中で激しい爆発が起きた！"
 #define MES_TRAIT_CLOUDY_MIND "精神にもやがかかった！"
 #define MES_TRAIT_EXPAND_MIND "精神が広がった！"
+#define MES_TRAIT_WASTING "自分が衰弱していくのが分かる！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3257,6 +3258,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_SELF_DETONATION "Massive explosions rupture your body!"
 #define MES_TRAIT_CLOUDY_MIND "Your mind feels cloudy!"
 #define MES_TRAIT_EXPAND_MIND "Your mind expands!"
+#define MES_TRAIT_WASTING "You can feel yourself wasting away!"
 #endif
 
 #ifdef JP

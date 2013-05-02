@@ -1736,10 +1736,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		set_timed_trait(creature_ptr, TRAIT_WRAITH_FORM, randint1(creature_ptr->lev / 2) + (creature_ptr->lev / 2), FALSE);
 	}
 
-	if(has_trait(creature_ptr, TRAIT_POLY_WOUND) && one_in_(3000))
-	{
-		do_poly_wounds(creature_ptr);
-	}
+	if(has_trait(creature_ptr, TRAIT_POLY_WOUND) && one_in_(3000)) do_poly_wounds(creature_ptr);
 
 	if(has_trait(creature_ptr, TRAIT_WASTING) && one_in_(3000))
 	{
@@ -1759,13 +1756,12 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 		if(!sustained)
 		{
-			disturb(player_ptr, 0, 0);
-#ifdef JP
-			msg_print("©•ª‚ªŠã‚µ‚Ä‚¢‚­‚Ì‚ª•ª‚©‚éI");
-#else
-			msg_print("You can feel yourself wasting away!");
-#endif
-			msg_print(NULL);
+			if(is_player(creature_ptr))
+			{
+				disturb(player_ptr, 0, 0);
+				msg_print(MES_TRAIT_WASTING);
+				msg_print(NULL);
+			}
 			(void)dec_stat(creature_ptr, which_stat, randint1(6) + 6, one_in_(3));
 		}
 	}
