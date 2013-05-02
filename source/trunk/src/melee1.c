@@ -1340,18 +1340,21 @@ static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_
 		char attacker_name[100];
 		char target_name[100];
 		char weapon_name[100];
-		int i, n, stormbringer;
+		int i, n, stormbringer = FALSE;
 		creature_desc(attacker_name, attacker_ptr, 0);
 		creature_desc(target_name, target_ptr, 0);
 
 		n = get_equipped_slot_num(attacker_ptr, INVENTORY_ID_HAND);
 		for(i = 0; i < n; i++)
 		{
-			if(has_trait_object(&attacker_ptr->inventory[i], TRAIT_STORM_BRINGER))
+			if(is_valid_object(&attacker_ptr->inventory[i]))
 			{
-				object_desc(weapon_name, &attacker_ptr->inventory[i], (OD_NAME_ONLY));
-				stormbringer = TRUE;
-				break;
+				if(has_trait_object(&attacker_ptr->inventory[i], TRAIT_STORM_BRINGER))
+				{
+					object_desc(weapon_name, &attacker_ptr->inventory[i], (OD_NAME_ONLY));
+					stormbringer = TRUE;
+					break;
+				}
 			}
 		}
 
