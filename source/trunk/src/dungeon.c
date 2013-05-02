@@ -1727,11 +1727,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_WRAITH) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
 	{
 		disturb(player_ptr, 0, 0);
-#ifdef JP
-		msg_print("”ñ•¨¿‰»‚µ‚½I");
-#else
-		msg_print("You feel insubstantial!");
-#endif
 		msg_print(NULL);
 		set_timed_trait(creature_ptr, TRAIT_WRAITH_FORM, randint1(creature_ptr->lev / 2) + (creature_ptr->lev / 2), FALSE);
 	}
@@ -1776,12 +1771,11 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 		if(summoning((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, TRAIT_S_DRAGON, mode))
 		{
-#ifdef JP
-			msg_print("ƒhƒ‰ƒSƒ“‚ğˆø‚«Šñ‚¹‚½I");
-#else
-			msg_print("You have attracted a dragon!");
-#endif
-			disturb(player_ptr, 0, 0);
+			if(is_player(creature_ptr))
+			{
+				msg_print(MES_TRAIT_ATT_DRAGON);
+				disturb(player_ptr, 0, 0);
+			}
 		}
 	}
 
