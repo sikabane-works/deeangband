@@ -45,7 +45,6 @@ errr write_diary(int type, int num, cptr note)
 		return (-1);
 	}
 
-
 	if(floor_ptr) q_idx = quest_number(floor_ptr);
 	else q_idx = 0;
 
@@ -65,7 +64,7 @@ errr write_diary(int type, int num, cptr note)
 		}
 	}
 
-	if(num <= 0) fprintf(fff, " %2d:%02d %20s  ", hour, min, note_level);
+	if(num <= 0) fprintf(fff, " %2d:%02d %20s  ");
 
 	switch(type)
 	{
@@ -85,18 +84,18 @@ errr write_diary(int type, int num, cptr note)
 		case DIARY_ART:
 		{
 #ifdef JP
-			fprintf(fff, "%sを発見した。\n", hour, min, note_level, note);
+			fprintf(fff, "%sを発見した。\n", note);
 #else
-			fprintf(fff, "discovered %s.\n", hour, min, note_level, note);
+			fprintf(fff, "discovered %s.\n", note);
 #endif
 			break;
 		}
 		case DIARY_UNIQUE:
 		{
 #ifdef JP
-			fprintf(fff, "%sを倒した。\n", hour, min, note_level, note);
+			fprintf(fff, "%sを倒した。\n", note);
 #else
-			fprintf(fff, "defeated %s.\n", hour, min, note_level, note);
+			fprintf(fff, "defeated %s.\n", note);
 #endif
 			break;
 		}
@@ -104,9 +103,9 @@ errr write_diary(int type, int num, cptr note)
 		{
 			if(quest[num].flags & QUEST_FLAG_SILENT) break;
 #ifdef JP
-			fprintf(fff, "クエスト「%s」を達成した。\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, "クエスト「%s」を達成した。\n", quest[num].name);
 #else
-			fprintf(fff, "completed quest '%s'.\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, "completed quest '%s'.\n", quest[num].name);
 #endif
 			break;
 		}
@@ -114,9 +113,9 @@ errr write_diary(int type, int num, cptr note)
 		{
 			if(quest[num].flags & QUEST_FLAG_SILENT) break;
 #ifdef JP
-			fprintf(fff, " クエスト「%s」から逃げ帰った。\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, " クエスト「%s」から逃げ帰った。\n", quest[num].name);
 #else
-			fprintf(fff, " run away from quest '%s'.\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, " run away from quest '%s'.\n", quest[num].name);
 #endif
 			break;
 		}
@@ -125,9 +124,9 @@ errr write_diary(int type, int num, cptr note)
 			char name[80];
 			strcpy(name, species_name+species_info[quest[num].species_idx].name);
 #ifdef JP
-			fprintf(fff, " ランダムクエスト(%s)を達成した。\n", hour, min, note_level, name);
+			fprintf(fff, " ランダムクエスト(%s)を達成した。\n", name);
 #else
-			fprintf(fff, " completed random quest '%s'\n", hour, min, note_level, name);
+			fprintf(fff, " completed random quest '%s'\n", name);
 #endif
 			break;
 		}
@@ -135,29 +134,29 @@ errr write_diary(int type, int num, cptr note)
 		{
 			char name[80];
 			strcpy(name, species_name+species_info[quest[num].species_idx].name);
-			fprintf(fff, " %2d:%02d %20s ", hour, min, note_level);
+			fprintf(fff, " %2d:%02d %20s ");
 #ifdef JP
-			fprintf(fff, " ランダムクエスト(%s)から逃げ出した。\n", hour, min, note_level, name);
+			fprintf(fff, " ランダムクエスト(%s)から逃げ出した。\n", name);
 #else
-			fprintf(fff, " ran away from quest '%s'.\n", hour, min, note_level, name);
+			fprintf(fff, " ran away from quest '%s'.\n", name);
 #endif
 			break;
 		}
 		case DIARY_MAXDEAPTH:
 		{
 #ifdef JP
-			fprintf(fff, " %sの最深階%d階に到達した。\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, num);
+			fprintf(fff, " %sの最深階%d階に到達した。\n", dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, num);
 #else
-			fprintf(fff, " reached level %d of %s for the first time.\n", hour, min, note_level, num, dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
+			fprintf(fff, " reached level %d of %s for the first time.\n", dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
 #endif
 			break;
 		}
 		case DIARY_TRUMP:
 		{
 #ifdef JP
-			fprintf(fff, " %s%sの最深階を%d階にセットした。\n", hour, min, note_level, note, dungeon_name + dungeon_info[num].name, max_dlv[num]);
+			fprintf(fff, " %s%sの最深階を%d階にセットした。\n", note, dungeon_name + dungeon_info[num].name, max_dlv[num]);
 #else
-			fprintf(fff, " reset recall level of %s to %d %s.\n", hour, min, note_level, dungeon_name + dungeon_info[num].name, max_dlv[num], note);
+			fprintf(fff, " reset recall level of %s to %d %s.\n", dungeon_name + dungeon_info[num].name, max_dlv[num], note);
 #endif
 			break;
 		}
@@ -174,9 +173,9 @@ errr write_diary(int type, int num, cptr note)
 				else to = format(KW_FLOOR_NUM(floor_ptr->depth+num));
 			}
 #ifdef JP 
-			fprintf(fff, " %sへ%s。\n", hour, min, note_level, to, note);
+			fprintf(fff, " %sへ%s。\n", to, note);
 #else
-			fprintf(fff, " %s %s.\n", hour, min, note_level, note, to);
+			fprintf(fff, " %s %s.\n",note, to);
 #endif
 			break;
 		}
@@ -184,15 +183,15 @@ errr write_diary(int type, int num, cptr note)
 		{
 			if(!num)
 #ifdef JP
-				fprintf(fff, " 帰還を使って%sの%d階へ下りた。\n", hour, min, note_level, dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, max_dlv[floor_ptr->dungeon_id]);
+				fprintf(fff, " 帰還を使って%sの%d階へ下りた。\n", dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, max_dlv[floor_ptr->dungeon_id]);
 #else
-				fprintf(fff, " recalled to dungeon level %d of %s.\n", hour, min, note_level, max_dlv[floor_ptr->dungeon_id], dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
+				fprintf(fff, " recalled to dungeon level %d of %s.\n", max_dlv[floor_ptr->dungeon_id], dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
 #endif
 			else
 #ifdef JP
-				fprintf(fff, " 帰還を使って地上へと戻った。\n", hour, min, note_level);
+				fprintf(fff, " 帰還を使って地上へと戻った。\n");
 #else
-				fprintf(fff, " recalled from dungeon to surface.\n", hour, min, note_level);
+				fprintf(fff, " recalled from dungeon to surface.\n");
 #endif
 			break;
 		}
@@ -200,36 +199,36 @@ errr write_diary(int type, int num, cptr note)
 		{
 			if(quest[num].flags & QUEST_FLAG_SILENT) break;
 #ifdef JP
-			fprintf(fff, " クエスト「%s」へと突入した。\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, " クエスト「%s」へと突入した。\n", quest[num].name);
 #else
-			fprintf(fff, " entered the quest '%s'.\n", hour, min, note_level, quest[num].name);
+			fprintf(fff, " entered the quest '%s'.\n", quest[num].name);
 #endif
 			break;
 		}
 		case DIARY_TELE_LEV:
 		{
 #ifdef JP
-			fprintf(fff, " レベル・テレポートで脱出した。\n", hour, min, note_level);
+			fprintf(fff, " レベル・テレポートで脱出した。\n");
 #else
-			fprintf(fff, " Got out using teleport level.\n", hour, min, note_level);
+			fprintf(fff, " Got out using teleport level.\n");
 #endif
 			break;
 		}
 		case DIARY_BUY:
 		{
 #ifdef JP
-			fprintf(fff, " %sを購入した。\n", hour, min, note_level, note);
+			fprintf(fff, " %sを購入した。\n", note);
 #else
-			fprintf(fff, " bought %s.\n", hour, min, note_level, note);
+			fprintf(fff, " bought %s.\n", note);
 #endif
 			break;
 		}
 		case DIARY_SELL:
 		{
 #ifdef JP
-			fprintf(fff, " %sを売却した。\n", hour, min, note_level, note);
+			fprintf(fff, " %sを売却した。\n", note);
 #else
-			fprintf(fff, " sold %s.\n", hour, min, note_level, note);
+			fprintf(fff, " sold %s.\n", note);
 #endif
 			break;
 		}
@@ -238,17 +237,17 @@ errr write_diary(int type, int num, cptr note)
 			if(num < 0)
 			{
 #ifdef JP
-				fprintf(fff, " 闘技場の%d回戦で、%sの前に敗れ去った。\n", hour, min, note_level, -num, note);
+				fprintf(fff, " 闘技場の%d回戦で、%sの前に敗れ去った。\n", -num, note);
 #else
 				int n = -num;
-				fprintf(fff, " beaten by %s in the %d%s fight.\n", hour, min, note_level, note, n, get_ordinal_number_suffix(n));
+				fprintf(fff, " beaten by %s in the %d%s fight.\n", note, n, get_ordinal_number_suffix(n));
 #endif
 				break;
 			}
 #ifdef JP
-			fprintf(fff, " 闘技場の%d回戦(%s)に勝利した。\n", hour, min, note_level, num, note);
+			fprintf(fff, " 闘技場の%d回戦(%s)に勝利した。\n", num, note);
 #else
-			fprintf(fff, " won the %d%s fight (%s).\n", hour, min, note_level, num, get_ordinal_number_suffix(num), note);
+			fprintf(fff, " won the %d%s fight (%s).\n", num, get_ordinal_number_suffix(num), note);
 #endif
 			if(num == MAX_ARENA_MONS)
 			{
@@ -264,9 +263,9 @@ errr write_diary(int type, int num, cptr note)
 		case DIARY_HANMEI:
 		{
 #ifdef JP
-			fprintf(fff, " %sを識別した。\n", hour, min, note_level, note);
+			fprintf(fff, " %sを識別した。\n", note);
 #else
-			fprintf(fff, " identified %s.\n", hour, min, note_level, note);
+			fprintf(fff, " identified %s.\n", note);
 #endif
 			break;
 		}
@@ -278,9 +277,9 @@ errr write_diary(int type, int num, cptr note)
 			else
 				to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
 #ifdef JP
-			fprintf(fff, " %sへとウィザード・テレポートで移動した。\n", hour, min, note_level, to);
+			fprintf(fff, " %sへとウィザード・テレポートで移動した。\n", to);
 #else
-			fprintf(fff, " wizard-teleport to %s.\n", hour, min, note_level, to);
+			fprintf(fff, " wizard-teleport to %s.\n", to);
 #endif
 			break;
 		}
@@ -296,18 +295,18 @@ errr write_diary(int type, int num, cptr note)
 				to = format(KW_FLOOR_NUM2(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, floor_ptr->depth));
 			}
 #ifdef JP
-			fprintf(fff, " %sへとパターンの力で移動した。\n", hour, min, note_level, to);
+			fprintf(fff, " %sへとパターンの力で移動した。\n", to);
 #else
-			fprintf(fff, " used Pattern to teleport to %s.\n", hour, min, note_level, to);
+			fprintf(fff, " used Pattern to teleport to %s.\n", to);
 #endif
 			break;
 		}
 		case DIARY_LEVELUP:
 		{
 #ifdef JP
-			fprintf(fff, " レベルが%dに上がった。\n", hour, min, note_level, num);
+			fprintf(fff, " レベルが%dに上がった。\n", num);
 #else
-			fprintf(fff, " reached player level %d.\n", hour, min, note_level, num);
+			fprintf(fff, " reached player level %d.\n", num);
 #endif
 			break;
 		}
