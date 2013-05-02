@@ -1453,7 +1453,7 @@ CREATURE_ID creature_pop(void)
 }
 
 
-static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summoning_type)
+static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summoning_type, creature_type *summoner_ptr)
 {
 	int n;
 	species_type *species_ptr;
@@ -1541,7 +1541,7 @@ static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summo
 			break;
 
 		case TRAIT_S_KIN:
-			//TODO okay = IS_RACE(species_ptr, species_ptr->race_idx1) || IS_RACE(species_ptr, species_ptr->race_idx2);
+			if(!IS_RACE(species_ptr, summoner_ptr->race_idx1) && !IS_RACE(species_ptr, summoner_ptr->race_idx2)) prob_list[n] = 0;
 			break;
 
 		case TRAIT_S_DAWN_LEGION:
