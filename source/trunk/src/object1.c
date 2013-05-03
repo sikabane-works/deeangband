@@ -1549,8 +1549,8 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 	for(i = 0; i <= INVEN_TOTAL; i++) 
 	{
 		object_ptr = &creature_ptr->inventory[i];
-		if(equip && IS_EQUIPPED(&creature_ptr->inventory[i]) && hook(creature_ptr, object_ptr)) se_info.num++;
-		if(inven && !IS_EQUIPPED(&creature_ptr->inventory[i]) && hook(creature_ptr, object_ptr)) se_info.num++;
+		if(equip && IS_EQUIPPED(object_ptr) && hook(creature_ptr, object_ptr)) se_info.num++;
+		if(inven && !IS_EQUIPPED(object_ptr) && hook(creature_ptr, object_ptr)) se_info.num++;
 	}
 	if(floor)
 	{
@@ -1567,7 +1567,11 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 		}
 	}
 
-	if(se_info.num <= 0) return FALSE;
+	if(se_info.num <= 0)
+	{
+		msg_print(str);
+		return FALSE;
+	}
 
 	for(i = 0; i < se_info.num; i++)
 	{
@@ -1582,8 +1586,9 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 
 	for(i = 0; i <= INVEN_TOTAL; i++) 
 	{
-		if(equip && IS_EQUIPPED(&creature_ptr->inventory[i]) && hook(creature_ptr, object_ptr) || 
-			inven && !IS_EQUIPPED(&creature_ptr->inventory[i]) && hook(creature_ptr, object_ptr))
+		object_ptr = &creature_ptr->inventory[i];
+		if(equip && IS_EQUIPPED(object_ptr) && hook(creature_ptr, object_ptr) || 
+			inven && !IS_EQUIPPED(object_ptr) && hook(creature_ptr, object_ptr))
 		{
 			object_desc(cap[num], object_ptr, 0);
 			se_table[num].cap = cap[num];
@@ -1612,16 +1617,17 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 
 	strcpy(cap[num], KW_CANCEL);
 	se_table[num].cap = cap[num];
-	se_table[i].l_color = TERM_WHITE;
-	se_table[i].d_color = TERM_L_DARK;
-	se_table[i].key = '\0';
-	se_table[i].code = INVEN_TOTAL;
-	se_table[i].left_code = 0;
-	se_table[i].right_code = 0;
-	se_table[i].selected = FALSE;
+	se_table[num].l_color = TERM_WHITE;
+	se_table[num].d_color = TERM_L_DARK;
+	se_table[num].key = 'ESC';
+	se_table[num].code = INVEN_TOTAL;
+	se_table[num].left_code = 0;
+	se_table[num].right_code = 0;
+	se_table[num].selected = FALSE;
 	num++;
 
 	screen_save();
+	prt(pmt, 0, 0);
 	*cp = get_selection(&se_info, se_table);
 	screen_load();
 

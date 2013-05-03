@@ -5196,7 +5196,6 @@ int get_selection(selection_info *si_ptr, selection_table *se_ptr)
 	char buf[100], eraser[100], line[100];
 	char c;
 	
-
 	if(si_ptr->mode & GET_SE_AUTO_WIDTH)
 	{
 		for(i = 0; i < si_ptr->num; i++)
