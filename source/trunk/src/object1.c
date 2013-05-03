@@ -1536,12 +1536,11 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 	bool floor = (mode & USE_FLOOR) ? TRUE : FALSE;
 	bool select_the_force = (mode & USE_FORCE) ? TRUE : FALSE;
 
-	se_info.default_se = 0;
-	se_info.mode = 0;
+	se_info.mode = GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT | GET_SE_RIGHT;
 	se_info.caption = NULL;
 	se_info.detail = NULL;
 	se_info.default_se = 0;
-	se_info.y = 5;
+	se_info.y = 1;
 	se_info.x = 2;
 	se_info.h = 18;
 	se_info.w = 20;
@@ -1610,7 +1609,10 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 		}
 	}
 
+	screen_save();
 	*cp = get_selection(&se_info, se_table);
+	screen_load();
+
 	return TRUE;
 }
 
