@@ -1520,6 +1520,48 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 	return target_item_label;
 }
 
+bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
+{
+	int i;
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	// Extract args
+	bool equip = (mode & USE_EQUIP) ? TRUE : FALSE;
+	bool inven = (mode & USE_INVEN) ? TRUE : FALSE;
+	bool floor = (mode & USE_FLOOR) ? TRUE : FALSE;
+	bool select_the_force = (mode & USE_FORCE) ? TRUE : FALSE;
+	selection_info se_info;
+	selection_table *se_table;
+
+	se_info.default_se = 0;
+	se_info.num = 0;
+
+	if(equip)
+	{
+		
+	}
+
+	if(inven)
+	{
+		
+	}
+
+	if(floor)
+	{
+		for(i = 0; i < object_max; i++)
+		{
+			break;
+		}
+	}
+
+	for(i = 0; i < se_info.num; i++)
+	{
+		se_table->l_color = TERM_L_DARK;
+		se_table->d_color = TERM_WHITE;
+	}
+
+	get_selection(&se_info, se_table);
+}
+
 bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
