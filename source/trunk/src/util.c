@@ -5206,8 +5206,8 @@ int get_selection(selection_info *si_ptr, selection_table *se_ptr)
 	}
 
 	if(si_ptr->mode & GET_SE_AUTO_HEIGHT) si_ptr->h = MAX(si_ptr->h, si_ptr->num);
-	if(si_ptr->mode & GET_SE_RIGHT) si_ptr->x = Term->wid - si_ptr->w;
-	if(si_ptr->mode & GET_SE_BOTTOM) si_ptr->y = Term->hgt - si_ptr->h;
+	if(si_ptr->mode & GET_SE_RIGHT) si_ptr->x = Term->wid - si_ptr->w - 1;
+	if(si_ptr->mode & GET_SE_BOTTOM) si_ptr->y = Term->hgt - si_ptr->h - 1;
 
 	page_num = si_ptr->num <= si_ptr->h ? 1 : (si_ptr->num - 1) / si_ptr->h + 1;
 	if(si_ptr->num <= 0 || si_ptr->num <= si_ptr->default_se || si_ptr->w < 8) return -1;

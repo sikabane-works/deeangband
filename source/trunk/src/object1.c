@@ -1540,7 +1540,7 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 	se_info.caption = NULL;
 	se_info.detail = NULL;
 	se_info.default_se = 0;
-	se_info.y = 1;
+	se_info.y = 2;
 	se_info.x = 2;
 	se_info.h = 18;
 	se_info.w = 20;
