@@ -1559,6 +1559,8 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 		}
 	}
 
+	if(se_info.num <= 0) return FALSE;
+
 	C_MAKE(se_table, se_info.num, selection_table);
 
 	for(i = 0; i < se_info.num; i++)
@@ -1604,7 +1606,6 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 	*cp = get_selection(&se_info, se_table);
 
 	C_KILL(se_table, se_info.num, selection_table);
-
 	return TRUE;
 }
 

@@ -158,7 +158,8 @@ void do_cmd_wield(creature_type *creature_ptr)
 	int need_switch_wielding = 0;
 
 	free_posture(creature_ptr);
-	if(!get_item(creature_ptr, &item, MES_EQUIP_WHICH_WIELD, MES_EQUIP_NO_WIELD, (USE_INVEN | USE_FLOOR), item_tester_hook_wear, 0)) return;
+	//if(!get_item(creature_ptr, &item, MES_EQUIP_WHICH_WIELD, MES_EQUIP_NO_WIELD, (USE_INVEN | USE_FLOOR), item_tester_hook_wear, 0)) return;
+	if(!get_item_new(creature_ptr, &item, MES_EQUIP_WHICH_WIELD, MES_EQUIP_NO_WIELD, (USE_INVEN | USE_FLOOR), item_tester_hook_wear)) return;
 
 	object_ptr = GET_ITEM(creature_ptr, item);
 	quest_ptr = &forge;
