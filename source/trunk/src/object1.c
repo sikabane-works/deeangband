@@ -1523,6 +1523,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
 {
 	int i;
+	object_type *object_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	// Extract args
 	bool equip = (mode & USE_EQUIP) ? TRUE : FALSE;
@@ -1537,11 +1538,12 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 
 	if(equip)
 	{
-		
+		for(i = 0; i <= INVEN_TOTAL; i++) if(IS_EQUIPPED(&creature_ptr->inventory[i])) se_info.num++;
 	}
 
 	if(inven)
 	{
+		for(i = 0; i <= INVEN_TOTAL; i++) if(!IS_EQUIPPED(&creature_ptr->inventory[i])) se_info.num++;
 		
 	}
 
@@ -1549,9 +1551,18 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 	{
 		for(i = 0; i < object_max; i++)
 		{
-			break;
+			object_ptr = &object_list[i];
+			if(is_valid_object(object_ptr) && &floor_list[object_ptr->floor_idx] == floor_ptr)
+			{
+				if(creature_ptr->fy == object_ptr->fy && creature_ptr->fx == object_ptr->fx)
+				{
+					se_info.num++;
+				}
+			}
 		}
 	}
+
+	C_MAKE(se_table, se_info.num, selection_table);
 
 	for(i = 0; i < se_info.num; i++)
 	{
@@ -1560,6 +1571,9 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 	}
 
 	get_selection(&se_info, se_table);
+
+	C_KILL(se_table, se_info.num, selection_table);
+
 }
 
 bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
