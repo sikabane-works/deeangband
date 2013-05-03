@@ -1606,7 +1606,8 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 			{
 				if(creature_ptr->fy == object_ptr->fy && creature_ptr->fx == object_ptr->fx && hook(creature_ptr, object_ptr))
 				{
-					object_desc(cap[num], object_ptr, 0);
+					object_desc(object_ptr->name, object_ptr, 0);
+					sprintf(cap[num], "%s/%s", KW_FLOORITEM, object_ptr->name);
 					se_table[num].cap = cap[num];
 					se_table[num].code = -i;
 					num++;
@@ -1619,11 +1620,13 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 	se_table[num].cap = cap[num];
 	se_table[num].l_color = TERM_WHITE;
 	se_table[num].d_color = TERM_L_DARK;
-	se_table[num].key = 'ESC';
+	se_table[num].key = ESCAPE;
 	se_table[num].code = INVEN_TOTAL;
 	se_table[num].left_code = 0;
 	se_table[num].right_code = 0;
 	se_table[num].selected = FALSE;
+
+	se_info.num++;
 	num++;
 
 	screen_save();

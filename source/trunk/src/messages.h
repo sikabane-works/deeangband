@@ -311,6 +311,7 @@
 #define KW_CLONE "ÉNÉçÅ[Éì"
 #define KW_WANTED "è‹ã‡éÒ"
 #define KW_CHARGING "(è[ìUíÜ)"
+#define KW_FLOORITEM "è∞è„"
 #else
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
@@ -422,6 +423,7 @@
 #define KW_CLONE "Clone"
 #define KW_WANTED "Wanted"
 #define KW_CHARGING "(charging)""
+#define KW_FLOORITEM "On a floor"
 #endif
 
 #ifdef JP
