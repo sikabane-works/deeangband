@@ -1573,6 +1573,7 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 	{
 		se_table[i].l_color = TERM_WHITE;
 		se_table[i].d_color = TERM_L_DARK;
+		se_table[i].key = '\0';
 		se_table[i].code = 0;
 		se_table[i].left_code = 0;
 		se_table[i].right_code = 0;
@@ -1609,11 +1610,23 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 		}
 	}
 
+	strcpy(cap[num], KW_CANCEL);
+	se_table[num].cap = cap[num];
+	se_table[i].l_color = TERM_WHITE;
+	se_table[i].d_color = TERM_L_DARK;
+	se_table[i].key = '\0';
+	se_table[i].code = INVEN_TOTAL;
+	se_table[i].left_code = 0;
+	se_table[i].right_code = 0;
+	se_table[i].selected = FALSE;
+	num++;
+
 	screen_save();
 	*cp = get_selection(&se_info, se_table);
 	screen_load();
 
-	return TRUE;
+	if(*cp == INVEN_TOTAL) return FALSE;
+	else return TRUE;
 }
 
 bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
