@@ -1524,18 +1524,27 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 {
 	int i;
 	object_type *object_ptr;
-	char cap[80][MAX_NLEN];
 	int num = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	// Extract args
+	selection_info se_info;
+	selection_table se_table[80];
+	char cap[80][MAX_NLEN];
+
+	/* Extract args */
 	bool equip = (mode & USE_EQUIP) ? TRUE : FALSE;
 	bool inven = (mode & USE_INVEN) ? TRUE : FALSE;
 	bool floor = (mode & USE_FLOOR) ? TRUE : FALSE;
 	bool select_the_force = (mode & USE_FORCE) ? TRUE : FALSE;
-	selection_info se_info;
-	selection_table *se_table;
 
 	se_info.default_se = 0;
+	se_info.mode = 0;
+	se_info.caption = NULL;
+	se_info.detail = NULL;
+	se_info.default_se = 0;
+	se_info.y = 5;
+	se_info.x = 2;
+	se_info.h = 18;
+	se_info.w = 20;
 	se_info.num = 0;
 
 	for(i = 0; i <= INVEN_TOTAL; i++) 
@@ -1561,12 +1570,10 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 
 	if(se_info.num <= 0) return FALSE;
 
-	C_MAKE(se_table, se_info.num, selection_table);
-
 	for(i = 0; i < se_info.num; i++)
 	{
-		se_table[i].l_color = TERM_L_DARK;
-		se_table[i].d_color = TERM_WHITE;
+		se_table[i].l_color = TERM_WHITE;
+		se_table[i].d_color = TERM_L_DARK;
 		se_table[i].code = 0;
 		se_table[i].left_code = 0;
 		se_table[i].right_code = 0;
@@ -1579,8 +1586,8 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 			inven && !IS_EQUIPPED(&creature_ptr->inventory[i]) && hook(creature_ptr, object_ptr))
 		{
 			object_desc(cap[num], object_ptr, 0);
-			se_table[i].cap = cap[num];
-			se_table[i].code = i;
+			se_table[num].cap = cap[num];
+			se_table[num].code = i;
 			num++;
 		}
 	}
@@ -1595,8 +1602,8 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 				if(creature_ptr->fy == object_ptr->fy && creature_ptr->fx == object_ptr->fx && hook(creature_ptr, object_ptr))
 				{
 					object_desc(cap[num], object_ptr, 0);
-					se_table[i].cap = cap[num];
-					se_table[i].code = -i;
+					se_table[num].cap = cap[num];
+					se_table[num].code = -i;
 					num++;
 				}
 			}
@@ -1604,8 +1611,6 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 	}
 
 	*cp = get_selection(&se_info, se_table);
-
-	C_KILL(se_table, se_info.num, selection_table);
 	return TRUE;
 }
 
