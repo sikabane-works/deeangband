@@ -1520,7 +1520,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 	return target_item_label;
 }
 
-bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
+bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr))
 {
 	int i;
 	object_type *object_ptr;
@@ -1538,12 +1538,18 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 
 	if(equip)
 	{
-		for(i = 0; i <= INVEN_TOTAL; i++) if(IS_EQUIPPED(&creature_ptr->inventory[i])) se_info.num++;
+		for(i = 0; i <= INVEN_TOTAL; i++) 
+		{
+			if(IS_EQUIPPED(&creature_ptr->inventory[i]) && hook(creature_ptr, object_ptr)) se_info.num++;
+		}
 	}
 
 	if(inven)
 	{
-		for(i = 0; i <= INVEN_TOTAL; i++) if(!IS_EQUIPPED(&creature_ptr->inventory[i])) se_info.num++;
+		for(i = 0; i <= INVEN_TOTAL; i++)
+		{
+			if(!IS_EQUIPPED(&creature_ptr->inventory[i]) && hook(creature_ptr, object_ptr)) se_info.num++;
+		}
 		
 	}
 
@@ -1554,7 +1560,7 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 			object_ptr = &object_list[i];
 			if(is_valid_object(object_ptr) && &floor_list[object_ptr->floor_idx] == floor_ptr)
 			{
-				if(creature_ptr->fy == object_ptr->fy && creature_ptr->fx == object_ptr->fx)
+				if(creature_ptr->fy == object_ptr->fy && creature_ptr->fx == object_ptr->fx && hook(creature_ptr, object_ptr))
 				{
 					se_info.num++;
 				}
@@ -1566,14 +1572,18 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 
 	for(i = 0; i < se_info.num; i++)
 	{
-		se_table->l_color = TERM_L_DARK;
-		se_table->d_color = TERM_WHITE;
+		se_table[i].l_color = TERM_L_DARK;
+		se_table[i].d_color = TERM_WHITE;
+		se_table[i].code = i;
+		se_table[i].left_code = 0;
+		se_table[i].right_code = 0;
+		se_table[i].selected = FALSE;
 	}
 
 	get_selection(&se_info, se_table);
 
 	C_KILL(se_table, se_info.num, selection_table);
-
+	return TRUE;
 }
 
 bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
