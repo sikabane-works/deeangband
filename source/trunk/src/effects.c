@@ -1436,14 +1436,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 		if(has_trait(target_ptr, TRAIT_WRAITH_FORM))
 		{
-			if(damage_type == DAMAGE_FORCE)
-			{
-#ifdef JP
-				msg_print("”¼•¨¿‚Ì‘Ì‚ªØ‚è—ô‚©‚ê‚½I");
-#else
-				msg_print("The attack cuts through your ethereal body!");
-#endif
-			}
+			if(damage_type == DAMAGE_FORCE) msg_print(MES_DAMAGE_VOID_WRAITH_FORM);
 			else
 			{
 				damage /= 2;
