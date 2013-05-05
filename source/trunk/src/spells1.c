@@ -1705,7 +1705,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(one_in_(3))
 			{
 				msg_print(MES_EFFECT_CHAOS_DONE);
-				(void)gain_trait(target_ptr, 0, TRUE);
+				(void)get_mutative_trait(target_ptr, 0, TRUE);
 			}
 		}
 		if(!has_trait(target_ptr, TRAIT_RES_NETH) && !has_trait(target_ptr, TRAIT_RES_CHAO))

@@ -549,8 +549,8 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			{
 				do
 				{
-					if(one_in_(2)) if(gain_trait(caster_ptr, 0, TRUE)) effected = TRUE;
-					else if(lose_trait(caster_ptr, 0, TRUE)) effected = TRUE;
+					if(one_in_(2)) if(get_mutative_trait(caster_ptr, 0, TRUE)) effected = TRUE;
+					else if(lose_mutative_trait(caster_ptr, 0, TRUE)) effected = TRUE;
 				} while(!effected || one_in_(2));
 			}
 			break;

@@ -2517,9 +2517,8 @@ void sanity_blast_aux(creature_type *watcher_ptr, POWER power)
 			{
 				if(!has_trait(watcher_ptr, TRAIT_MORONIC))
 				{
-					if(has_trait(watcher_ptr, TRAIT_HYPER_INT)) lose_mutative_trait(watcher_ptr, TRAIT_HYPER_INT);
-
-					get_mutative_trait(watcher_ptr, TRAIT_MORONIC);
+					if(has_trait(watcher_ptr, TRAIT_HYPER_INT)) lose_mutative_trait(watcher_ptr, TRAIT_HYPER_INT, TRUE);
+					get_mutative_trait(watcher_ptr, TRAIT_MORONIC, TRUE);
 					happened = TRUE;
 				}
 				break;
@@ -2528,8 +2527,8 @@ void sanity_blast_aux(creature_type *watcher_ptr, POWER power)
 			{
 				if(!has_trait(watcher_ptr, TRAIT_COWARDICE) && !has_trait(watcher_ptr, TRAIT_FEARLESS))
 				{
-					if(has_trait(watcher_ptr, TRAIT_FEARLESS)) lose_mutative_trait(watcher_ptr, TRAIT_FEARLESS);
-					get_mutative_trait(watcher_ptr, TRAIT_COWARDICE);
+					if(has_trait(watcher_ptr, TRAIT_FEARLESS)) lose_mutative_trait(watcher_ptr, TRAIT_FEARLESS, TRUE);
+					get_mutative_trait(watcher_ptr, TRAIT_COWARDICE, TRUE);
 					happened = TRUE;
 				}
 				break;
@@ -2538,7 +2537,7 @@ void sanity_blast_aux(creature_type *watcher_ptr, POWER power)
 			{
 				if(!has_trait(watcher_ptr, TRAIT_HALLU) && !has_trait(watcher_ptr, TRAIT_RES_CHAO))
 				{
-					get_mutative_trait(watcher_ptr, TRAIT_HALLU);
+					get_mutative_trait(watcher_ptr, TRAIT_HALLU, TRUE);
 					happened = TRUE;
 				}
 				break;
@@ -2547,7 +2546,7 @@ void sanity_blast_aux(creature_type *watcher_ptr, POWER power)
 			{
 				if(!has_trait(watcher_ptr, TRAIT_BERS_RAGE))
 				{
-					get_mutative_trait(watcher_ptr, TRAIT_BERS_RAGE);
+					get_mutative_trait(watcher_ptr, TRAIT_BERS_RAGE, TRUE);
 					happened = TRUE;
 				}
 				break;

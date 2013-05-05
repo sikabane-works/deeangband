@@ -1864,7 +1864,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	// Mutation
 	case 'M':
-		(void)gain_trait(creature_ptr, command_arg, TRUE);
+		(void)get_mutative_trait(creature_ptr, command_arg, TRUE);
 		break;
 
 	// Summon Named Creature

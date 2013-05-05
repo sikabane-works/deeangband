@@ -15,7 +15,7 @@
 #include "mutation.h"
 
 
-bool gain_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message)
+bool get_individual_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message)
 {
 	add_flag(creature_ptr->mutative_trait, choose_mut);
 	if(message) msg_print(trait_name + trait_info[choose_mut].get_text);
@@ -23,7 +23,7 @@ bool gain_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message)
 }
 
 
-bool lose_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message)
+bool lose_individual_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message)
 {
 	remove_flag(creature_ptr->mutative_trait, choose_mut);
 	if(message) msg_print(trait_name + trait_info[choose_mut].lost_text);
@@ -113,12 +113,16 @@ int calc_regenerate_mod(creature_type *creature_ptr)
 	return (regen);
 }
 
-void get_mutative_trait(creature_type *creature_ptr, TRAIT_ID trait)
+bool get_mutative_trait(creature_type *creature_ptr, TRAIT_ID trait_id, bool message)
 {
-	add_flag(creature_ptr->mutative_trait, trait);
+	add_flag(creature_ptr->mutative_trait, trait_id);
+	if(message) msg_print(trait_name + trait_info[trait_id].get_text);
+	return TRUE;
 }
 
-void lose_mutative_trait(creature_type *creature_ptr, TRAIT_ID trait)
+bool lose_mutative_trait(creature_type *creature_ptr, TRAIT_ID trait_id, bool message)
 {
-	remove_flag(creature_ptr->mutative_trait, trait);
+	remove_flag(creature_ptr->mutative_trait, trait_id);
+	if(message) msg_print(trait_name + trait_info[trait_id].lost_text);
+	return TRUE;
 }

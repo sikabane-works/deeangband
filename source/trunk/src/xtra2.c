@@ -170,7 +170,7 @@ void check_experience(creature_type *creature_ptr)
 		if(level_mutation)
 		{
 			if(is_player(creature_ptr)) msg_print(MES_POLYSELF_FEELING);
-			(void)gain_trait(creature_ptr, 0, is_player(creature_ptr));
+			(void)get_mutative_trait(creature_ptr, 0, is_player(creature_ptr));
 			level_mutation = FALSE;
 		}
 
@@ -2788,7 +2788,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 	{
 		msg_format(MES_PATRON_MUTATION(patron_name));
 		reward = MES_DIARY_PATRON_MUTATION;
-		(void)gain_trait(creature_ptr, 0, TRUE);
+		(void)get_mutative_trait(creature_ptr, 0, TRUE);
 	}
 	else
 	{
