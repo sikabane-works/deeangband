@@ -4381,14 +4381,14 @@ errr file_character(cptr name)
 	/* Invalid file */
 	if(!fff)
 	{
-		prt(MES_FILE_SAVED_FAIL(buf), 0, 0);
+		prt(format(MES_FILE_SAVED_FAIL(buf)), 0, 0);
 		(void)inkey();
 		return (-1);
 	}
 	(void)make_character_dump(player_ptr, fff);
 	my_fclose(fff);
 
-	msg_print(MES_FILE_SAVED(buf));
+	msg_format(MES_FILE_SAVED(buf));
 	msg_print(NULL);
 	return SUCCESS;
 }
@@ -4661,13 +4661,8 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 
 	if(!fff)
 	{
-#ifdef JP
-		msg_format("'%s'をオープンできません。", name);
-#else
-		msg_format("Cannot open '%s'.", name);
-#endif
+		msg_format(MES_FILE_LOADED_FAIL(name));
 		msg_print(NULL);
-
 		return TRUE;
 	}
 
