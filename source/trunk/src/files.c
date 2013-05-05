@@ -3768,27 +3768,15 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 			{
 			case 0:
 				tval = TV_STAFF;
-#ifdef JP
-				fprintf(fff, "\n[ñ]\n");
-#else
-				fprintf(fff, "\n[Staffs]\n");
-#endif
+				fprintf(fff, "\n[%s]\n", KW_STAFF);
 				break;
 			case 1:
 				tval = TV_WAND;
-#ifdef JP
-				fprintf(fff, "\n[–‚–@–_]\n");
-#else
-				fprintf(fff, "\n[Wands]\n");
-#endif
+				fprintf(fff, "\n[%s]\n", KW_WAND);
 				break;
 			case 2:
 				tval = TV_ROD;
-#ifdef JP
-				fprintf(fff, "\n[ƒƒbƒh]\n");
-#else
-				fprintf(fff, "\n[Rods]\n");
-#endif
+				fprintf(fff, "\n[%s]\n", KW_ROD);
 				break;
 			}
 
@@ -3818,14 +3806,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 
 				if(i % 3 > 0) fputs("\n", fff);
 			}
-			else /* Not found */
-			{
-#ifdef JP
-				fputs("  (‚È‚µ)\n", fff);
-#else
-				fputs("  (none)\n", fff);
-#endif
-			}
+			else fprintf(fff, "  (%s)\n", KW_NONE);
 		}
 	}
 }
