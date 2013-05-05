@@ -3478,6 +3478,8 @@ void set_trait_flags(creature_type *creature_ptr)
 
 	for(i = 0; i < MAX_TRAITS; i++)
 	{
+		if(have_flag(creature_ptr->mutative_trait, i)) add_flag(creature_ptr->current_trait, i);
+		if(have_flag(creature_ptr->individual_trait, i)) add_flag(creature_ptr->current_trait, i);
 		if(has_trait_from_species(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);
 		if(has_trait_from_class(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);
 		if(has_trait_from_chara(creature_ptr, i)) add_flag(creature_ptr->current_trait, i);
@@ -3487,7 +3489,9 @@ void set_trait_flags(creature_type *creature_ptr)
 		if(have_flag(creature_ptr->current_trait, i))
 		{
 			for(j = 0; j < MAX_TRAITS; j++)
+			{
 				if(has_trait_raw(&trait_info[i].alias, j)) add_flag(creature_ptr->current_trait, j);
+			}
 		}
 	}
 
