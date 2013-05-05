@@ -16,6 +16,7 @@
 #include "command.h"
 #include "creature_inventory.h"
 #include "files.h"
+#include "mutation.h"
 
 /*
  * This file includes code for eating food, drinking potions,

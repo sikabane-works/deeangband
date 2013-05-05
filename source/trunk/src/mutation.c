@@ -12,6 +12,7 @@
 
 #include "angband.h"
 #include "files.h"
+#include "mutation.h"
 
 
 bool gain_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message)
@@ -112,12 +113,12 @@ int calc_regenerate_mod(creature_type *creature_ptr)
 	return (regen);
 }
 
-void get_mutative_trait(creature_type *creature_ptr, int trait)
+void get_mutative_trait(creature_type *creature_ptr, TRAIT_ID trait)
 {
 	add_flag(creature_ptr->mutative_trait, trait);
 }
 
-void lose_mutative_trait(creature_type *creature_ptr, int trait)
+void lose_mutative_trait(creature_type *creature_ptr, TRAIT_ID trait)
 {
 	remove_flag(creature_ptr->mutative_trait, trait);
 }

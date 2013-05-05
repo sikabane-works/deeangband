@@ -18,6 +18,7 @@
 #include "diary.h"
 #include "files.h"
 #include "floors.h"
+#include "mutation.h"
 #include "quest.h"
 #include "riding.h"
 
@@ -3645,7 +3646,9 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 	// Sub-alignment of a creature
 	if(summoner_ptr && !is_player(summoner_ptr) && !(is_enemy_of_evil_creature(summoner_ptr) && is_enemy_of_good_creature(summoner_ptr)))
+	{
 		creature_ptr->sub_align = summoner_ptr->sub_align;
+	}
 	else
 	{
 		creature_ptr->sub_align = SUB_ALIGN_NEUTRAL;
@@ -3718,16 +3721,6 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 	/* Count the creatures on the level */
 	real_species_ptr(creature_ptr)->cur_num++;
-
-	/*
-	* Memorize location of the unique creature in saved floors.
-	* A unique creature move from old saved floor.
-	*/
-	/*TODO
-	if(floor_ptr->generated &&
-	((has_trait_species(species_ptr, TRAIT_UNIQUE)) || has_trait_species(species_ptr, TRAIT_NAZGUL)))
-	real_species_ptr(creature_ptr)->floor_idx = watcher_ptr->floor_idx;
-	*/
 
 	/* Hack -- Count the number of "reproducers" */
 	if(has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_repro++;

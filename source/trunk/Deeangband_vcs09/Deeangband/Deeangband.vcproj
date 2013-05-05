@@ -611,6 +611,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\mutation.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\png.h"
 				>
 			</File>

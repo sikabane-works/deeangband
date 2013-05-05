@@ -7,6 +7,7 @@
 #include "creature_melee.h"
 #include "creature_throwing.h"
 #include "floors.h"
+#include "mutation.h"
 
 
 /*

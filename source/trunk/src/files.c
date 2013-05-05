@@ -17,6 +17,7 @@
 #include "diary.h"
 #include "files.h"
 #include "karma.h"
+#include "mutation.h"
 #include "scores.h"
 
 /*
