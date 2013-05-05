@@ -181,14 +181,9 @@ void check_hex(creature_type *creature_ptr)
 			msg_print("You restart spelling.");
 #endif
 			creature_ptr->action = ACTION_SPELL;
-
 			prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
-
 			prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
-
-			// Update creatures
 			prepare_update(creature_ptr, PU_CREATURES);
-
 			prepare_window(PW_OVERHEAD | PW_DUNGEON);
 		}
 	}

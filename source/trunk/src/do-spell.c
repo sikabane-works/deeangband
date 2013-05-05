@@ -8691,12 +8691,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 
 				prepare_redraw(PR_MAP);
-		
-				// Update creatures
 				prepare_update(caster_ptr, PU_CREATURES);
-		
 				prepare_window(PW_OVERHEAD | PW_DUNGEON);
-
 				start_singing(caster_ptr, spell, MUSIC_INVULN);
 		}
 
@@ -8710,10 +8706,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("The invulnerability wears off.");
 #endif
 				prepare_redraw(PR_MAP);
-
-				// Update creatures
 				prepare_update(caster_ptr, PU_CREATURES);
-
 				prepare_window(PW_OVERHEAD | PW_DUNGEON);
 			}
 		}

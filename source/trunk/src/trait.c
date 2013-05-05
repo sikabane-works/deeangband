@@ -1133,7 +1133,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 		cost_tactical_energy(caster_ptr, -1000 - (100 + randint1(200) + 200) * TURNS_PER_TICK / 10);
 		prepare_redraw(PR_MAP);
-		prepare_update(caster_ptr, PU_CREATURES); // Update creatures
+		prepare_update(caster_ptr, PU_CREATURES);
 		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 		handle_stuff(caster_ptr);

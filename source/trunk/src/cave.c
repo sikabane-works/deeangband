@@ -4343,11 +4343,8 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 		}
 	}
 
-	// Update creatures
 	prepare_update(creature_ptr, PU_CREATURES);
-
 	prepare_redraw(PR_MAP);
-
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 	if(creature_ptr->posture & NINJA_S_STEALTH)
@@ -4412,7 +4409,6 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 	/* Update the view and lite */
 	prepare_update(creature_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
-	// Update creatures
 	prepare_update(creature_ptr, PU_CREATURES);
 
 	prepare_redraw(PR_MAP);

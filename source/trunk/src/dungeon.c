@@ -2703,7 +2703,6 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 				}
 			}
 
-			// Update creatures
 			prepare_update(player_ptr, PU_CREATURES | PU_SPECIES_LITE);
 			prepare_redraw(PR_MAP);
 			prepare_window(PW_OVERHEAD | PW_DUNGEON);

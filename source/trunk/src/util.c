@@ -5436,8 +5436,6 @@ void redraw(void)
 	// lite/view
 	prepare_update(player_ptr, PU_UN_VIEW | PU_UN_LITE);
 	prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE);
-
-	// Update creatures
 	prepare_update(player_ptr, PU_CREATURES);
 	prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 	prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);

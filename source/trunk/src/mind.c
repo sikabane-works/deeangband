@@ -1024,14 +1024,11 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 			creature_ptr->energy_need -= 1000 + (100 + (s16b)creature_ptr->csp - 50)*TURNS_PER_TICK/10;
 
 			prepare_redraw(PR_MAP);
-
-			// Update creatures
 			prepare_update(creature_ptr, PU_CREATURES);
-
 			prepare_window(PW_OVERHEAD | PW_DUNGEON);
-
 			handle_stuff(creature_ptr);
 			break;
+
 	default:
 		msg_warning(MES_SYS_OUT_OF_SWITCH);
 

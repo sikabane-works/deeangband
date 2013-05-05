@@ -1666,15 +1666,12 @@
 //creature update
 #define CRU_BONUS        0x00000001L     // Calculate bonuses
 #define CRU_TORCH        0x00000002L     // Calculate torch radius
-// xxx (many)
 #define CRU_HP           0x00000010L     // Calculate chp and mhp
 #define CRU_MANA         0x00000020L     // Calculate csp and msp
 #define CRU_SPELLS       0x00000040L     // Calculate spells
-
 #define CRU_COMBINE      0x00001000L     // Combine the pack
 #define CRU_REORDER      0x00002000L     // Reorder the pack
 #define CRN_AUTODESTROY  0x00004000L     // Auto-destroy marked item
-
 
 //world update
 #define PU_UN_VIEW      0x00010000L     // Forget view
@@ -1682,9 +1679,9 @@
 /* xxx (many) */
 #define PU_VIEW         0x00100000L     // Update view
 #define PU_LITE         0x00200000L     // Update lite
-#define PU_SPECIES_LITE     0x00400000L     // Creature illumination
+#define PU_SPECIES_LITE 0x00400000L     // Creature illumination
 #define PU_DELAY_VIS    0x00800000L     // Mega-Hack -- Delayed visual update
-#define PU_CREATURES     0x01000000L     // Update creatures
+#define PU_CREATURES    0x01000000L     /* Update creatures */
 #define PU_DISTANCE     0x02000000L     // Update distances
 /* xxx */
 #define PU_FLOW         0x10000000L     // Update flow

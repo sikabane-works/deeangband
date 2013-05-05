@@ -941,10 +941,7 @@ void resize_map(void)
 
 	/* Update lite/view */
 	prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_SPECIES_LITE);
-
-	// Update creatures
 	prepare_update(player_ptr, PU_CREATURES);
-
 	prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 	handle_stuff(player_ptr);
 

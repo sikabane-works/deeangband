@@ -1340,8 +1340,6 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	/* Mega-Hack -- Forget the view and lite */
 	prepare_update(player_ptr, PU_UN_VIEW | PU_UN_LITE);
 	prepare_update(player_ptr, PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
-
-	// Update creatures
 	prepare_update(player_ptr, PU_CREATURES);
 	prepare_redraw(PR_MAP);
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);

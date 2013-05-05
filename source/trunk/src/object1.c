@@ -1534,7 +1534,6 @@ bool get_item_new(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str
 	bool equip = (mode & USE_EQUIP) ? TRUE : FALSE;
 	bool inven = (mode & USE_INVEN) ? TRUE : FALSE;
 	bool floor = (mode & USE_FLOOR) ? TRUE : FALSE;
-	bool select_the_force = (mode & USE_FORCE) ? TRUE : FALSE;
 
 	se_info.mode = GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT | GET_SE_RIGHT;
 	se_info.caption = NULL;

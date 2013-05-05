@@ -158,7 +158,6 @@ void do_cmd_wield(creature_type *creature_ptr)
 	int need_switch_wielding = 0;
 
 	free_posture(creature_ptr);
-	//if(!get_item(creature_ptr, &item, MES_EQUIP_WHICH_WIELD, MES_EQUIP_NO_WIELD, (USE_INVEN | USE_FLOOR), item_tester_hook_wear, 0)) return;
 	if(!get_item_new(creature_ptr, &item, MES_EQUIP_WHICH_WIELD, MES_EQUIP_NO_WIELD, (USE_INVEN | USE_FLOOR), item_tester_hook_wear)) return;
 
 	object_ptr = GET_ITEM(creature_ptr, item);
@@ -255,7 +254,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 	if(!get_item(creature_ptr, &item, MES_EQUIP_WHICH_TAKEOFF, MES_EQUIP_NO_TAKEOFF, (USE_EQUIP), NULL, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	if(object_is_cursed(object_ptr)) // Item is cursed
+	if(object_is_cursed(object_ptr))
 	{
 		if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE))
 			msg_print(MES_CURSE_PREVENT_TAKE_OFF2);

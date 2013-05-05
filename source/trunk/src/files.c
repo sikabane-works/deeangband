@@ -2178,13 +2178,10 @@ typedef struct {
  */
 static void display_flag_aux(int row, int col, cptr header, int flag1, all_player_flags *f, u16b mode, creature_type *creature_ptr)
 {
-	int     i;
-	bool    vuln = FALSE;
+	int i;
+	bool vuln = FALSE;
 
-	if(have_flag(f->player_vuln, flag1) &&
-	    !(have_flag(f->known_obj_imm, flag1) ||
-	      have_flag(f->player_imm, flag1) ||
-	      have_flag(f->tim_player_imm, flag1)))
+	if(have_flag(f->player_vuln, flag1) && !(have_flag(f->known_obj_imm, flag1) || have_flag(f->player_imm, flag1) || have_flag(f->tim_player_imm, flag1)))
 		vuln = TRUE;
 
 	/* Header */
@@ -2810,7 +2807,7 @@ static void display_creature_underings(creature_type *creature_ptr)
  * Positive mods with a sustain will be dark green.
  * Sustains (with no modification) will be a dark green 's'.
  * Negative mods (from a curse) will be red.
- * Huge mods (>9), like from MICoMorgoth, will be a '*'
+ * Huge mods (>9), like from MIC, will be a '*'
  * No mod, no sustain, will be a slate '.'
  */
 static void display_player_stat_info(creature_type *creature_ptr)
@@ -2823,10 +2820,10 @@ static void display_player_stat_info(creature_type *creature_ptr)
 	byte a;
 	char c;
 	char buf[80];
-	stat_col = 0; // Column
-	row = 2;      // Row
+	stat_col = 0;
+	row = 2;
 
-	// Print out the labels for the columns
+	/* Print out the labels for the columns */
 #ifdef JP
 	c_put_str(TERM_WHITE, "”\—Í", row, stat_col+1);
 	c_put_str(TERM_WHITE, "  Šî–{", row, stat_col+7);
