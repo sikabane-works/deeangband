@@ -607,17 +607,18 @@ typedef struct species_type species_type;
 
 struct species_type
 {
-	STRING_OFFSET name;				/* Name (offset) */
+	STRING_OFFSET name; /* Name (offset) */
+	STRING_OFFSET tag; /* tag (offset) */
 #ifdef JP
-	STRING_OFFSET E_name;                    /* English Name (offset) */
+	STRING_OFFSET E_name; /* English Name (offset) */
 #endif
-	STRING_OFFSET text;				/* Text (offset) */
+	STRING_OFFSET text; /* Text (offset) */
 #ifdef JP
-	STRING_OFFSET E_text;                    /* English Text (offset) */
+	STRING_OFFSET E_text; /* English Text (offset) */
 #endif
 
-	SPECIES_ID species_idx;			    /* Species index */
-	SPECIES_ID ap_species_idx;		    /* Species appearance index */
+	SPECIES_ID species_idx; /* Species index */
+	SPECIES_ID ap_species_idx; /* Species appearance index */
 
 	s16b camp;
 	RACE_ID race_idx1;                 /* Race index 1*/

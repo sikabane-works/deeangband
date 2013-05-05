@@ -421,6 +421,7 @@ extern char *object_ego_text;
 extern species_type *species_info;
 extern char *species_name;
 extern char *species_text;
+extern char *species_tag;
 
 extern trait_type *trait_info;
 extern char *trait_name;

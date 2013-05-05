@@ -691,6 +691,7 @@ char *object_ego_text;
 species_type *species_info;
 char *species_name;
 char *species_text;
+char *species_tag;
 
 /*
  * The creature flags arrays

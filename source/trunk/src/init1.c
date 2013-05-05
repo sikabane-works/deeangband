@@ -3233,16 +3233,14 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_E_NAME:
 #if JP
-				if(!add_name(&species_ptr->E_name, head, tmp))
-					return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!add_name(&species_ptr->E_name, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-				if(!add_name(&species_ptr->name, head, tmp))
-					return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!add_name(&species_ptr->name, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
 			case SPECIES_INFO_TAG:
-				//TODO
+				if(!add_tag(&species_ptr->tag, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case SPECIES_INFO_SYM:

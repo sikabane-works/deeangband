@@ -887,7 +887,7 @@ static errr init_species_info_csv(void)
 	/* Save a pointer to the parsing function */
 	species_head.parse_info_txt = parse_species_info_csv;
 
-	return init_info2("species_info", &species_head, (void*)&species_info, &species_name, &species_text, NULL, NULL);
+	return init_info2("species_info", &species_head, (void*)&species_info, &species_name, &species_text, NULL, &species_tag);
 
 }
 
