@@ -411,6 +411,7 @@ extern char *feature_tag;
 extern object_kind *object_kind_info;
 extern char *object_kind_name;
 extern char *object_kind_text;
+extern char *object_kind_tag;
 extern artifact_type *artifact_info;
 extern char *artifact_name;
 extern char *artifact_text;

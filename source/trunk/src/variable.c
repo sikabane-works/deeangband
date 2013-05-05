@@ -669,6 +669,7 @@ char *feature_tag;
 object_kind *object_kind_info;
 char *object_kind_name;
 char *object_kind_text;
+char *object_kind_tag;
 
 /*
  * The artifact arrays

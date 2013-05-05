@@ -804,8 +804,7 @@ static errr init_feature_info(void)
 	/* Save a pointer to the retouch fake tags */
 	f_head.retouch = retouch_feature_info;
 
-	return init_info("feature_info", &f_head,
-			 (void*)&feature_info, &feature_name, NULL, &feature_tag);
+	return init_info("feature_info", &f_head, (void*)&feature_info, &feature_name, NULL, &feature_tag);
 }
 
 
@@ -820,7 +819,7 @@ static errr init_object_kind_info(void)
 	/* Save a pointer to the parsing function */
 	object_kind_head.parse_info_txt = parse_object_kind_csv;
 
-	return init_info2("object_kind_info", &object_kind_head, (void*)&object_kind_info, &object_kind_name, &object_kind_text, NULL, NULL);
+	return init_info2("object_kind_info", &object_kind_head, (void*)&object_kind_info, &object_kind_name, &object_kind_text, NULL, &object_kind_tag);
 }
 
 

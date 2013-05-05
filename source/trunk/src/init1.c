@@ -1804,6 +1804,7 @@ void retouch_feature_info(header *head)
 
 enum OBJECT_KIND_INFO {
 	OK_INFO_ID,
+	OK_INFO_TAG,
 	OK_INFO_NAME,
 	OK_INFO_UI_NAME,
 	OK_INFO_E_NAME,
@@ -1860,6 +1861,7 @@ enum OBJECT_KIND_INFO {
 static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 {
 	"ID",
+	"TAG",
 	"NAME",
 	"UI_NAME",
 	"E_NAME",
@@ -1977,6 +1979,11 @@ errr parse_object_kind_csv(char *buf, header *head)
 			{
 			case OK_INFO_NAME:
 				if(!add_name(&object_kind_ptr->name, head, tmp))
+					return PARSE_ERROR_OUT_OF_MEMORY;
+				break;
+
+			case OK_INFO_TAG:
+				if(!add_tag(&object_kind_ptr->tag, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 

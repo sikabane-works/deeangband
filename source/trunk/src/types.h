@@ -385,6 +385,7 @@ typedef struct object_kind object_kind;
 struct object_kind
 {
 	STRING_OFFSET name;			/* Name (offset) */
+	STRING_OFFSET tag;			/* Name (offset) */
 	STRING_OFFSET text;			/* Text (offset) */
 	STRING_OFFSET flavor_bane;		/* Flavor name (offset) */
 
