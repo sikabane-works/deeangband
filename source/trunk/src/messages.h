@@ -1700,7 +1700,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 #ifdef JP
 	#define SKILL_NAME_MAGIC "魔法"
-	#define SKILL_NAME_PSIONIC "超能力"
+	#define SKILL_NAME_PSYONIC "超能力"
 	#define SKILL_NAME_IMITATION "ものまね"
 	#define SKILL_NAME_HISSATSU "必殺剣"
 	#define SKILL_NAME_MIRROR_M "鏡魔法"
@@ -1711,7 +1711,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define SKILL_NAME_SNIPING "射撃術"
 #else
 	#define SKILL_NAME_MAGIC "magic"
-	#define SKILL_NAME_PSIONIC "psionic powers"
+	#define SKILL_NAME_PSYONIC "psionic powers"
 	#define SKILL_NAME_IMITATION "imitation"
 	#define SKILL_NAME_HISSATSU "hissatsu"
 	#define SKILL_NAME_MIRROR_M "mirror magic"
@@ -2821,6 +2821,7 @@ static cptr desc_stat_neg[] =
 #define MES_DAMAGE_MULTI_SHADOW_SUCCESS "攻撃は幻影に命中し、届かなかった。"
 #define MES_DAMAGE_MULTI_SHADOW_FAILED "幻影もろとも体が切り裂かれた！"
 #define MES_DAMAGE_VOID_WRAITH_FORM "半物質の体が切り裂かれた！"
+#define MES_DAMAGE_PSYONIC "霊的エネルギーで精神が攻撃された。"
 #else
 #define MES_DAMAGE_RES1 " resists strongly."
 #define MES_DAMAGE_RES2 " resists."
@@ -2832,6 +2833,7 @@ static cptr desc_stat_neg[] =
 #define MES_DAMAGE_MULTI_SHADOW_SUCCESS "The attack hits Shadow, unharmed."
 #define MES_DAMAGE_MULTI_SHADOW_FAILED "The attack hits Shadow together with you!"
 #define MES_DAMAGE_VOID_WRAITH_FORM "The attack cuts through your ethereal body!"
+#define MES_DAMAGE_PSYONIC "Your mind is blasted by psyonic energy."
 #endif
 
 #ifdef JP

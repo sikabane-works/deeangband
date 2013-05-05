@@ -2555,24 +2555,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 	case DO_EFFECT_MIND_BLAST:
-#ifdef JP
-		msg_print("霊的エネルギーで精神が攻撃された。");
-#else
-		msg_print("Your mind is blasted by psyonic energy.");
-#endif
+		msg_print(MES_DAMAGE_PSYONIC);
 		if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
 		if(!has_trait(target_ptr, TRAIT_RES_CHAO) && one_in_(3)) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
 		dec_mana(target_ptr, 50);
 		break;
 
 	case DO_EFFECT_BRAIN_SMASH:
-#ifdef JP
-		msg_print("霊的エネルギーで精神が攻撃された。");
-#else
-		msg_print("Your mind is blasted by psionic energy.");
-#endif
+		msg_print(MES_DAMAGE_PSYONIC);
 		dec_mana(target_ptr, 100);
-
 		if(!has_trait(target_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(target_ptr, TRAIT_BLIND, 8 + randint0(8), TRUE);
 		if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
 		if(!has_trait(target_ptr, TRAIT_FREE_ACTION)) (void)add_timed_trait(target_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE);
