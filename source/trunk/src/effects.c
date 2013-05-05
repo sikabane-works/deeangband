@@ -1375,11 +1375,8 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	// Innocent until proven otherwise
 	bool innocent = TRUE;
 	int expdam;
-
 	int warning = (target_ptr->mhp * hitpoint_warn / 10); // for Warning
-
 	if(gameover) return 0;
-
 
 	if(attacker_ptr) creature_desc(attacker_name, attacker_ptr, CD_TRUE_NAME);
 	else attacker_name[0] = '\0';
@@ -1410,9 +1407,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	}
 
 	/* Genocided by chaos patron */
-	//TODO CHECK
-	//if(!m_idx) return TRUE;
-
 	if(damage_type != DAMAGE_USELIFE)
 	{
 		disturb(player_ptr, 1, 0);
@@ -1426,22 +1420,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	{
 		if(has_trait(target_ptr, TRAIT_INVULNERABLE) && (damage < 9000))
 		{
-			if(damage_type == DAMAGE_FORCE)
-			{
-#ifdef JP
-				msg_print("ƒoƒŠƒA‚ªØ‚è—ô‚©‚ê‚½I");
-#else
-				msg_print("The attack cuts your shield of invulnerability open!");
-#endif
-			}
-			else if(one_in_(PENETRATE_INVULNERABILITY))
-			{
-#ifdef JP
-				msg_print("–³“G‚ÌƒoƒŠƒA‚ð”j‚Á‚ÄUŒ‚‚³‚ê‚½I");
-#else
-				msg_print("The attack penetrates your shield of invulnerability!");
-#endif
-			}
+			if(damage_type == DAMAGE_FORCE || one_in_(PENETRATE_INVULNERABILITY)) msg_print(MES_DAMAGE_VOID_INVULN);
 			else return 0;
 		}
 

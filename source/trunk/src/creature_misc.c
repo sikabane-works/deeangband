@@ -715,13 +715,7 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, POWER da
 
 	if(has_trait(target_ptr, TRAIT_INVULNERABLE))
 	{
-		if(!average)
-		{
-			if(type == DO_EFFECT_PSY_SPEAR)
-				if(message && !has_trait(player_ptr, TRAIT_BLIND) && is_seen(player_ptr, target_ptr))
-					msg_print(MES_DAMAGE_VOID_INVULN);
-			else if(!one_in_(PENETRATE_INVULNERABILITY)) return 0; // No Damage
-		}
+		if(!average && !one_in_(PENETRATE_INVULNERABILITY)) t = 0;
 		else if(type != DO_EFFECT_PSY_SPEAR) t /= PENETRATE_INVULNERABILITY;
 	}
 
