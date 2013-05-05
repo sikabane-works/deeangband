@@ -1208,20 +1208,6 @@ int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *weapon_
 	return 100;
 }
 
-int calc_special_melee_cost(creature_type *creature_ptr, special_blow_type *special_ptr)
-{
-	if(!is_valid_creature(creature_ptr)) return FALSE;
-	if(!special_ptr) return FALSE;
-	return 10;
-}
-
-int calc_special_melee_priority(creature_type *creature_ptr, special_blow_type *special_ptr)
-{
-	if(!is_valid_creature(creature_ptr)) return FALSE;
-	if(!special_ptr) return FALSE;
-	return 10;
-}
-
 int calc_action_power(creature_type *creature_ptr)
 {
 	if(!is_valid_creature(creature_ptr))

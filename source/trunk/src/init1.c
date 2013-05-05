@@ -3650,7 +3650,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			default:
-				return PARSE_ERROR_GENERIC; // Error
+				return PARSE_ERROR_GENERIC;
 			}
 		}
 		

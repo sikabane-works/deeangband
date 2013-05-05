@@ -1238,11 +1238,6 @@ static void spoil_species_desc(cptr fname)
 		else
 			sprintf(wa, "%2d", stat[2]);
 
-		if((species_ptr->blow[0].method == RBM_NONE || species_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && has_trait_species(species_ptr, TRAIT_NEVER_MOVE))
-			sprintf(da, "--");
-		else
-			sprintf(da, "%2d", stat[3]);
-
 		sprintf(ca, "%2d", stat[4]);
 
 		if(has_trait_species(species_ptr, TRAIT_WEIRD_MIND) || has_trait_species(species_ptr, TRAIT_WEIRD_MIND))

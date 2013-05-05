@@ -1599,41 +1599,6 @@ static void display_player_one_line(int entry, cptr val, byte attr)
 	return;
 }
 
-cptr rbm_name[MAX_RBM] = 
-{
-	KW_NONE,
-	"‰£‘Å",
-	"ÚG",
-	"Œ",
-	"R‚è",
-
-	"’Ü",
-	"Šš‚Ý",
-	"Žh“Ë",
-	"ŽaŒ‚",
-	"Šp",
-
-	"“ËŒ‚",
-	"¿‹‘",
-	"”‡‚¤",
-	"‚æ‚¾‚ê",
-	"‘Ì‰t",
-
-	KW_NONE,
-	"‚½‚©‚è",
-	"•ŽJ",
-	"™ï‚«",
-	"ƒVƒ‡[TIME",
-
-	"ŽËŒ‚",
-	"•ßH",
-	"”š”­",
-	"‹ÃŽ‹",
-	"‹©‚Ñ",
-
-	"–EŽq",
-};
-
 
 // Prints the following information on the screen.
 static void display_player_middle(creature_type *creature_ptr)
@@ -1670,21 +1635,6 @@ static void display_player_middle(creature_type *creature_ptr)
 			c_put_str(TERM_L_BLUE, mention_use_ptr(creature_ptr, weapon_ptr), 15 + melee_num, 1);
 			c_put_str(TERM_YELLOW, format("%+4d", creature_ptr->to_hit[i]), 15 + melee_num, 9);
 			c_put_str(TERM_YELLOW, format("%dd%d%+d", weapon_ptr->dd, weapon_ptr->ds, creature_ptr->to_damage[i]), 15 + melee_num, 14);
-			c_put_str(TERM_YELLOW, format("%3d", j), 15 + melee_num, 22);
-			c_put_str(TERM_YELLOW, format("%4d", k), 15 + melee_num, 27);
-			melee_num++;
-		}
-	}
-
-	for(i = 0; i < MAX_SPECIAL_BLOWS; i++)
-	{
-		if(creature_ptr->blow[i].method)
-		{
-			j = calc_special_melee_cost(creature_ptr, &creature_ptr->blow[i]);
-			k = calc_special_melee_priority(creature_ptr, &creature_ptr->blow[i]);
-			c_put_str(TERM_L_GREEN, rbm_name[creature_ptr->blow[i].method], 15 + melee_num, 1);
-			c_put_str(TERM_YELLOW, format("+???"), 15 + melee_num, 9);
-			c_put_str(TERM_YELLOW, format("%dd%d", creature_ptr->blow[i].d_dice, creature_ptr->blow[i].d_side), 15 + melee_num, 14);
 			c_put_str(TERM_YELLOW, format("%3d", j), 15 + melee_num, 22);
 			c_put_str(TERM_YELLOW, format("%4d", k), 15 + melee_num, 27);
 			melee_num++;

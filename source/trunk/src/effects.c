@@ -1631,12 +1631,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 					msg_format("%^s %s", target_name, line_got);
 			}
 
-			for (i = 0; i < MAX_SPECIAL_BLOWS; i++) // TODO
-			{
-				if(target_ptr->blow[i].d_dice != 0) innocent = FALSE; // Murderer!
-				if((target_ptr->blow[i].effect == RBE_EAT_ITEM) || (target_ptr->blow[i].effect == RBE_EAT_GOLD))
-					thief = TRUE; // Thief!
-			}
+			//TODO thief process
 
 			/* The new law says it is illegal to live in the dungeon */
 			if(species_ptr->level != 0) innocent = FALSE;

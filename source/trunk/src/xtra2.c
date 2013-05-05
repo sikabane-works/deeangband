@@ -511,16 +511,9 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	if(has_trait(dead_ptr, TRAIT_SUICIDE_BOMBER))
 	{
-		for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
-		{
-			if(dead_ptr->blow[i].method == RBM_EXPLODE)
-			{
-				int typ = mbe_info[dead_ptr->blow[i].effect].explode_type;
-				POWER damage = diceroll(dead_ptr->blow[i].d_dice, dead_ptr->blow[i].d_side);
-				project(dead_ptr, 0, 3, y, x, damage, typ, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
-				break;
-			}
-		}
+		int typ = mbe_info[dead_ptr->blow[i].effect].explode_type;
+		POWER damage = diceroll(dead_ptr->blow[i].d_dice, dead_ptr->blow[i].d_side);
+		project(dead_ptr, 0, 3, y, x, damage, typ, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 	}
 
 	// Curse of Amberites
