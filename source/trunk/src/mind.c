@@ -585,7 +585,7 @@ static int get_mind_power(creature_type *creature_ptr, KEY *sn, bool only_browse
 	case CLASS_MINDCRAFTER:
 		{
 			use_mind = MIND_MINDCRAFTER;
-			p = SKILL_NAME_PSIONIC;
+			p = SKILL_NAME_PSYONIC;
 			break;
 		}
 	case CLASS_FORCETRAINER:
@@ -615,7 +615,7 @@ static int get_mind_power(creature_type *creature_ptr, KEY *sn, bool only_browse
 	default:
 		{
 			use_mind = 0;
-			p = SKILL_NAME_PSIONIC;
+			p = SKILL_NAME_PSYONIC;
 			break;
 		}
 	}
@@ -1747,7 +1747,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 	default:                  use_mind = 0;
 	}
 	spell = mind_powers[use_mind].info[n];
-	p = SKILL_NAME_PSIONIC;
+	p = SKILL_NAME_PSYONIC;
 
 	/* Spell failure chance */
 	chance = spell.fail;

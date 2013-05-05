@@ -1006,7 +1006,7 @@
 #endif
 
 #ifdef JP
-#define MES_OBJECT_DISENCHANTED(OBJECT) "%sは劣化してしまった。", (OBJECT)
+#define MES_OBJECT_DISENCHANTED(OBJECT) "%sは劣化してしまった。", (OBJECT)->name
 #define MES_OBJECT_RESISTED_CURSE(OBJECT) "%sは恐怖の暗黒オーラを跳ね返した。", (OBJECT)->name
 #define MES_OBJECT_KILLED "壊れてしまった。"
 #define MES_OBJECT_DUSTED "灰になった。"

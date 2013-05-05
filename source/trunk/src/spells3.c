@@ -957,13 +957,9 @@ bool object_disenchant(creature_type *owner_ptr, object_type *object_ptr, int mo
 	if((object_ptr->pval > 1) && one_in_(13) && !(mode & 0x01)) object_ptr->pval--;
 
 	if((to_hit != object_ptr->to_hit) || (to_damage != object_ptr->to_damage) ||
-	    (to_ac != object_ptr->to_ac) || (pval != object_ptr->pval))
+		(to_ac != object_ptr->to_ac) || (to_ev != object_ptr->to_ev) ||(to_vo != object_ptr->to_vo) || (pval != object_ptr->pval))
 	{
-#ifdef JP
-		msg_format("%s‚Í—ò‰»‚µ‚Ä‚µ‚Ü‚Á‚½I", object_name);
-#else
-		msg_format("Your %s %s disenchanted!", object_name, ((object_ptr->number != 1) ? "were" : "was"));
-#endif
+		msg_format(MES_OBJECT_DISENCHANTED(object_ptr));
 		prepare_update(owner_ptr, CRU_BONUS);
 		prepare_window(PW_EQUIP | PW_PLAYER);
 		calc_android_exp(owner_ptr);

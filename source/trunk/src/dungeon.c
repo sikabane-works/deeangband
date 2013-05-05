@@ -3176,7 +3176,7 @@ static void process_player_command(creature_type *creature_ptr)
 				{
 					cptr which_power = SKILL_NAME_MAGIC;
 					if(creature_ptr->class_idx == CLASS_MINDCRAFTER)
-						which_power = SKILL_NAME_PSIONIC;
+						which_power = SKILL_NAME_PSYONIC;
 					else if(creature_ptr->class_idx == CLASS_IMITATOR)
 						which_power = SKILL_NAME_IMITATION;
 					else if(creature_ptr->class_idx == CLASS_SAMURAI)
