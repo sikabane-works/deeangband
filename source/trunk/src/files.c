@@ -4381,29 +4381,15 @@ errr file_character(cptr name)
 	/* Invalid file */
 	if(!fff)
 	{
-#ifdef JP
-		prt("キャラクタ情報のファイルへの書き出しに失敗しました！", 0, 0);
-#else
-		prt("Character dump failed!", 0, 0);
-#endif
-
+		prt(MES_FILE_SAVED_FAIL(buf), 0, 0);
 		(void)inkey();
 		return (-1);
 	}
-
 	(void)make_character_dump(player_ptr, fff);
-
-	/* Close it */
 	my_fclose(fff);
 
-#ifdef JP
-	msg_print("キャラクタ情報のファイルへの書き出しに成功しました。");
-#else
-	msg_print("Character dump successful.");
-#endif
-
+	msg_print(MES_FILE_SAVED(buf));
 	msg_print(NULL);
-
 	return SUCCESS;
 }
 

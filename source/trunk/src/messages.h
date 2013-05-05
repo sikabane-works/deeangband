@@ -3373,9 +3373,13 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_FILE_SAVED(FILENAME) "%sに書き込みました。", (FILENAME)
+#define MES_FILE_SAVED_FAIL(FILENAME) "%sへの書き込みに失敗しました。", (FILENAME)
 #define MES_FILE_LOADED(FILENAME) "%sを読み込みました。", (FILENAME)
 #define MES_FILE_LOADED_FAIL(FILENAME) "%sの読み込みに失敗しました。", (FILENAME)
 #else
+#define MES_FILE_SAVED(FILENAME) "Saved '%s'.", (FILENAME)
+#define MES_FILE_SAVED_FAIL(FILENAME) "Failed to save '%s'.", (FILENAME)
 #define MES_FILE_LOADED(FILENAME) "Loaded '%s'.", (FILENAME)
 #define MES_FILE_LOADED_FAIL(FILENAME) "Failed to load '%s'.", (FILENAME)
 #endif
