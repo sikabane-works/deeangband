@@ -543,14 +543,8 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	if(floor_ptr->fight_arena_mode && !is_pet(player_ptr, dead_ptr))
 	{
 		arena_settled = TRUE;
-
-#ifdef JP
-		if(arena_number > MAX_ARENA_MONS) msg_print("素晴らしい！君こそ真の勝利者だ。");
-		else msg_print("勝利！チャンピオンへの道を進んでいる。");
-#else
-		if(arena_number > MAX_ARENA_MONS) msg_print("You are a Genuine Champion!");
-		else msg_print("Victorious! You're on your way to becoming Champion.");
-#endif
+		if(arena_number > MAX_ARENA_MONS) msg_print(MES_ARENA_WON);
+		else msg_print(MES_ARENA_BECAME_CHAMP);
 
 		if(arena_info[arena_number].tval)
 		{
@@ -558,7 +552,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 			/* Prepare to make a prize */
 			generate_object(quest_ptr, lookup_kind(arena_info[arena_number].tval, arena_info[arena_number].sval));
-
 			apply_magic(dead_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 			/* Drop it in the dungeon */

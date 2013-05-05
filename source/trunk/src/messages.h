@@ -710,6 +710,8 @@
 #define MES_ARENA_READY "試合開始！"
 #define MES_ARENA_LIMIT "アリーナが魔法を吸収した！"
 #define MES_ARENA_BERSERK "狂戦士化していて頭が回らない！"
+#define MES_ARENA_WON "勝利！チャンピオンへの道を進んでいる。"
+#define MES_ARENA_BECAME_CHAMP "素晴らしい！君こそ真の勝利者だ。"
 #define MES_ARENA_EXTRA "君のために最強の挑戦者を用意しておいた。"
 #define MES_ARENA_EXTRA_ASK "挑戦するかね？"
 #define MES_ARENA_EXTRA_CANCELED "残念だ。"
@@ -722,6 +724,8 @@
 #else
 #define MES_ARENA_READY "Ready..Fight!"
 #define MES_ARENA_LIMIT "The arena absorbs all attempted magic!"
+#define MES_ARENA_WON "Victorious! You're on your way to becoming Champion."
+#define MES_ARENA_BECAME_CHAMP "You are a Genuine Champion!"
 #define MES_ARENA_BERSERK "You cannot think directly!"
 #define MES_ARENA_EXTRA "The strongest challenger is waiting for you."
 #define MES_ARENA_EXTRA_ASK "Do you fight? "

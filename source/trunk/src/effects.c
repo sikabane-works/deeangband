@@ -1373,9 +1373,8 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	char tmp[100];
 
 	// Innocent until proven otherwise
-	bool        innocent = TRUE, thief = FALSE;
-	int         i;
-	int         expdam;
+	bool innocent = TRUE;
+	int expdam;
 
 	int warning = (target_ptr->mhp * hitpoint_warn / 10); // for Warning
 
