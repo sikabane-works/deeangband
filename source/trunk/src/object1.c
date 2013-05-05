@@ -2735,27 +2735,14 @@ bool get_item(creature_type *creature_ptr, OBJECT_ID *cp, cptr pmt, cptr str, in
 static bool py_pickup_floor_aux(creature_type *creature_ptr)
 {
 	OBJECT_ID this_object_idx;
-	cptr q, s;
 	OBJECT_ID item;
 
 	/* Get an object */
-#ifdef JP
-	q = "Ç«ÇÍÇèEÇ¢Ç‹Ç∑Ç©ÅH";
-#else
-	q = "Get which item? ";
-#endif
-	s = MES_PACK_NO_ROOM_FLOOR;
-
-	if(get_item(creature_ptr, &item, q, s, (USE_FLOOR), inven_carry_okay, 0))
+	if(get_item(creature_ptr, &item, MES_PACK_WHICH_PICK, MES_PACK_NO_ROOM_FLOOR, (USE_FLOOR), inven_carry_okay, 0))
 	{
 		this_object_idx = 0 - (s16b)item;
 	}
-	else
-	{
-		return FALSE;
-	}
-
-	// Pick up the object
+	else return FALSE;
 	py_pickup_aux(creature_ptr, this_object_idx);
 	return TRUE;
 }

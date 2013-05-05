@@ -596,6 +596,7 @@
 
 #define MES_SEE_OBJECT "%sがある。"
 #define MES_GET_MONEY " $%ld の価値がある%sを見つけた。"
+#define MES_PACK_WHICH_PICK "どれを拾いますか？"
 #define MES_PACK_NO_ROOM "ザックには%sを入れる隙間がない。"
 #define MES_PACK_NO_ROOM_FLOOR "ザックには床にあるどのアイテムも入らない。"
 #define MES_PACK_OVERFLOW "ザックからアイテムがあふれた！"
@@ -683,9 +684,9 @@
 #define MES_FIND_TRAP "You have found a trap."
 #define MES_FIND_DOOR "You have found a secret door."
 
-
 #define MES_SEE_OBJECT "You see %s."
 #define MES_GET_MONEY "You collect %ld gold pieces worth of %s."
+#define MES_PACK_WHICH_PICK "Get which item? "
 #define MES_PACK_NO_ROOM "You have no room for %s."
 #define MES_PACK_NO_ROOM_FLOOR "You have no room for any of the objects on the floor."
 #define MES_PACK_OVERFLOW "Your pack overflows!"
