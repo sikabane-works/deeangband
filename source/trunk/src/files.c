@@ -5307,13 +5307,7 @@ void do_cmd_suicide(creature_type *creature_ptr)
 
 	if(!noscore)
 	{
-		/* Special Verification for suicide */
-#ifdef JP
-		prt("確認のため '@' を押して下さい。", 0, 0);
-#else
-		prt("Please verify by typing the '@' sign: ", 0, 0);
-#endif
-
+		prt(MES_SYS_HIT_VERIFY_KEY, 0, 0);
 		flush();
 		i = inkey();
 		prt("", 0, 0);
@@ -5331,11 +5325,7 @@ void do_cmd_suicide(creature_type *creature_ptr)
 
 		do
 		{
-#ifdef JP
-			while (!get_string("*勝利*メッセージ", buf, sizeof buf)) ;
-#else
-			while (!get_string("*Winning* message", buf, sizeof buf)) ;
-#endif
+			while (!get_string(KW_WINNING_MESSAGE, buf, sizeof buf)) ;
 		}
 		while (!get_check_strict(MES_SYS_ASK_SURE, CHECK_NO_HISTORY));
 

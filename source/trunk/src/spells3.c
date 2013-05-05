@@ -1612,11 +1612,7 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		if(!IS_EQUIPPED(object_ptr)) continue;
-
-		/* Skip non-objects */
 		if(!is_valid_object(object_ptr)) continue;
-
-		/* Uncursed already */
 		if(!object_is_cursed(object_ptr)) continue;
 
 		/* Heavily Cursed Items need a special spell */
