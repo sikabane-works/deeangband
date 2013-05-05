@@ -200,6 +200,7 @@
 
 
 #if JP
+#define KW_MORE "-続く-"
 #define KW_CREATURE "クリーチャー"
 #define KW_NAME "名前"
 #define KW_RACE "種族"
@@ -228,6 +229,8 @@
 #define KW_FORGOTTEN "忘却"
 #define KW_ILLEGIBLE "判読不能"
 #define KW_UNTRIED "未経験"
+#define KW_INVENTORY "所持品"
+#define KW_EQUIPMENT "装備品"
 #define KW_CARRYING_WEIGHT "所持重量"
 #define KW_EQUIPMENT_WEIGHT "装備重量"
 #define KW_STAFF "杖"
@@ -313,6 +316,7 @@
 #define KW_CHARGING "(充填中)"
 #define KW_FLOORITEM "床上"
 #else
+#define KW_MORE "-more-"
 #define KW_CREATURE "Creatures"
 #define KW_NAME "Name"
 #define KW_RACE "Race"
@@ -340,6 +344,8 @@
 #define KW_FORGOTTEN "Forgotten"
 #define KW_ILLEGIBLE "Illegible"
 #define KW_UNTRIED "Untried"
+#define KW_INVENTORY "Inventory"
+#define KW_EQUIPMENT "Equipment"
 #define KW_CARRYING_WEIGHT "Carrying Weight"
 #define KW_EQUIPMENT_WEIGHT "Equipment Weight"
 #define KW_STAFF "staff"

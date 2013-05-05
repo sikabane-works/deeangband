@@ -5311,7 +5311,7 @@ void do_cmd_suicide(creature_type *creature_ptr)
 #ifdef JP
 		prt("確認のため '@' を押して下さい。", 0, 0);
 #else
-		prt("Please verify SUICIDE by typing the '@' sign: ", 0, 0);
+		prt("Please verify by typing the '@' sign: ", 0, 0);
 #endif
 
 		flush();
@@ -5362,11 +5362,8 @@ void do_cmd_suicide(creature_type *creature_ptr)
 		write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
 	}
 
-	/* Cause of death */
-	(void)strcpy(gameover_from, COD_QUITTING);
-
+	(void)strcpy(gameover_from, COD_QUITTING); /* Cause of death */
 }
-
 
 
 /*
@@ -5690,10 +5687,8 @@ static void print_tomb(creature_type *creature_ptr)
  */
 static void show_info(creature_type *creature_ptr)
 {
-//	int             i, j, k, l;
 	int i;
 	object_type		*object_ptr;
-//	store_type		*st_ptr;
 
 	/* Hack -- Know everything in the inven/equip */
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -5762,10 +5757,7 @@ static void show_info(creature_type *creature_ptr)
 		if(!out_val[0]) break;
 
 		screen_save();
-
-		/* Dump a character file */
-		(void)file_character(out_val);
-
+		(void)file_character(out_val); /* Dump a character file */
 		screen_load();
 	}
 
@@ -5781,10 +5773,8 @@ static void show_info(creature_type *creature_ptr)
 	prt("Hit any key to see more information (ESC to abort): ", 23, 0);
 #endif
 
-
 	/* Allow abort at this point */
 	if(inkey() == ESCAPE) return;
-
 
 	/* Show equipment and inventory */
 
@@ -5793,12 +5783,7 @@ static void show_info(creature_type *creature_ptr)
 	{
 		Term_clear();
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
-#ifdef JP
-		prt("装備していたアイテム: -続く-", 0, 0);
-#else
-		prt("You are using: -more-", 0, 0);
-#endif
-
+		prt(format("%s %s", KW_EQUIPMENT, KW_MORE), 0, 0);
 		if(inkey() == ESCAPE) return;
 	}
 
@@ -5807,12 +5792,7 @@ static void show_info(creature_type *creature_ptr)
 	{
 		Term_clear();
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
-#ifdef JP
-		prt("持っていたアイテム: -続く-", 0, 0);
-#else
-		prt("You are carrying: -more-", 0, 0);
-#endif
-
+		prt(format("%s %s", KW_INVENTORY, KW_MORE), 0, 0);
 		if(inkey() == ESCAPE) return;
 	}
 
