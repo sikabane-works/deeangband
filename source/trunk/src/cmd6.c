@@ -62,13 +62,13 @@
 static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 {
 	int ident, lev, i;
-	object_type *object_ptr;
+	object_type *object1_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
 	if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
-	object_ptr = GET_ITEM(creature_ptr, item);
+	object1_ptr = GET_ITEM(creature_ptr, item);
 
 	sound(SOUND_EAT);
 	cost_tactical_energy(creature_ptr, 100);
@@ -77,16 +77,16 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	ident = FALSE;
 
 	/* Object level */
-	lev = object_kind_info[object_ptr->k_idx].level;
+	lev = object_kind_info[object1_ptr->k_idx].level;
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(has_trait_object(object_ptr, i))
+		if(has_trait_object(object1_ptr, i))
 			do_active_trait(creature_ptr, i, TRUE);
 
-	if(object_ptr->tval == TV_FOOD)
+	if(object1_ptr->tval == TV_FOOD)
 	{
 		/* Analyze the food */
-		switch (object_ptr->sval)
+		switch (object1_ptr->sval)
 		{
 			case SV_FOOD_POISON:
 				if(!has_trait(creature_ptr, TRAIT_RES_POIS))
@@ -173,12 +173,12 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
 
 	/* We have tried it */
-	if(object_ptr->tval == TV_FOOD) object_tried(object_ptr);
+	if(object1_ptr->tval == TV_FOOD) object_tried(object1_ptr);
 
 	/* The player is now aware of the object */
-	if(ident && !object_is_aware(object_ptr))
+	if(ident && !object_is_aware(object1_ptr))
 	{
-		object_aware(object_ptr);
+		object_aware(object1_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, 0, FALSE);
 	}
 
@@ -189,16 +189,16 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	if(has_trait(creature_ptr, TRAIT_BLOOD_DRINKER))
 	{
 		// Reduced nutritional benefit
-		(void)set_food(creature_ptr, creature_ptr->food + (object_ptr->pval / 10));
+		(void)set_food(creature_ptr, creature_ptr->food + (object1_ptr->pval / 10));
 		msg_print(MES_EAT_LESS_EFFECT_BY_VAMPIRE);
 		// Hungry
 		if(creature_ptr->food < CREATURE_FOOD_ALERT) msg_print(MES_EAT_LESS_EFFECT_BY_VAMPIRE2);
 	}
-	else if(has_trait(creature_ptr, TRAIT_UNDEAD) && (object_ptr->tval == TV_STAFF || object_ptr->tval == TV_WAND))
+	else if(has_trait(creature_ptr, TRAIT_UNDEAD) && (object1_ptr->tval == TV_STAFF || object1_ptr->tval == TV_WAND))
 	{
 		cptr staff;
 
-		if(object_ptr->tval == TV_STAFF && (item < 0) && (object_ptr->number > 1))
+		if(object1_ptr->tval == TV_STAFF && (item < 0) && (object1_ptr->number > 1))
 		{
 #ifdef JP
 			msg_print("‚Ü‚¸‚Íñ‚ðE‚í‚È‚¯‚ê‚ÎB");
@@ -208,13 +208,13 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			return;
 		}
 
-		staff = (object_ptr->tval == TV_STAFF) ? KW_STAFF : KW_WAND;
+		staff = (object1_ptr->tval == TV_STAFF) ? KW_STAFF : KW_WAND;
 
 		/* "Eat" charges */
-		if(object_ptr->pval == 0)
+		if(object1_ptr->pval == 0)
 		{
 			msg_print(MES_OBJECT_NO_CHARGE_LEFT);
-			object_ptr->ident |= (IDENT_EMPTY);
+			object1_ptr->ident |= (IDENT_EMPTY);
 
 			/* Combine / Reorder the pack (later) */
 			prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
@@ -230,33 +230,33 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 #endif
 
 		/* Use a single charge */
-		object_ptr->pval--;
+		object1_ptr->pval--;
 
 		/* Eat a charge */
 		set_food(creature_ptr, creature_ptr->food + 5000);
 
 		/* XXX Hack -- unstack if necessary */
-		if(object_ptr->tval == TV_STAFF &&
-		    (item >= 0) && (object_ptr->number > 1))
+		if(object1_ptr->tval == TV_STAFF &&
+		    (item >= 0) && (object1_ptr->number > 1))
 		{
 			object_type forge;
-			object_type *quest_ptr;
+			object_type *object2_ptr;
 
-			quest_ptr = &forge;
+			object2_ptr = &forge;
 
 			/* Obtain a local object */
-			object_copy(quest_ptr, object_ptr);
+			object_copy(object2_ptr, object1_ptr);
 
 			/* Modify quantity */
-			quest_ptr->number = 1;
+			object2_ptr->number = 1;
 
 			/* Restore the charges */
-			object_ptr->pval++;
+			object1_ptr->pval++;
 
 			/* Unstack the used item */
-			object_ptr->number--;
+			object1_ptr->number--;
 			set_inventory_weight(creature_ptr);
-			item = inven_carry(creature_ptr, quest_ptr);
+			item = inven_carry(creature_ptr, object2_ptr);
 
 			msg_format(MES_STAFF_UNSTACK);
 		}
@@ -271,13 +271,13 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 	else if(has_trait(creature_ptr, TRAIT_DEMON) &&
-		 (object_ptr->tval == TV_CORPSE && object_ptr->sval == SV_CORPSE &&
-		  my_strchr("pht", species_info[object_ptr->pval].d_char)))
+		 (object1_ptr->tval == TV_CORPSE && object1_ptr->sval == SV_CORPSE &&
+		  my_strchr("pht", species_info[object1_ptr->pval].d_char)))
 	{
 		/* Drain vitality of humanoids */
 		char object_name[MAX_NLEN];
 
-		object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_desc(object_name, object1_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
 		msg_format("%s‚Í”R‚¦ã‚èŠD‚É‚È‚Á‚½B¸—Í‚ð‹zŽû‚µ‚½‹C‚ª‚·‚éB", object_name);
@@ -288,26 +288,26 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	}
 	else if(has_trait(creature_ptr, TRAIT_SKELETON))
 	{
-		if(!((object_ptr->sval == SV_FOOD_WAYBREAD) || (object_ptr->sval < SV_FOOD_BISCUIT)))
+		if(!((object1_ptr->sval == SV_FOOD_WAYBREAD) || (object1_ptr->sval < SV_FOOD_BISCUIT)))
 		{
 			object_type forge;
-			object_type *quest_ptr = &forge;
+			object_type *object2_ptr = &forge;
 			msg_print(MES_FOOD_SKELETON_FAILED1);
 
 			/* Create the item */
-			object_prep(quest_ptr, lookup_kind(object_ptr->tval, object_ptr->sval));
+			generate_object(object2_ptr, lookup_kind(object1_ptr->tval, object1_ptr->sval));
 
 			/* Drop the object from heaven */
-			(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);
+			(void)drop_near(floor_ptr, object2_ptr, -1, creature_ptr->fy, creature_ptr->fx);
 		}
 		else msg_print(MES_FOOD_SKELETON_FAILED2);
 	}
 	else if(has_trait(creature_ptr, TRAIT_NONLIVING) || has_trait(creature_ptr, TRAIT_UNDEAD) || has_trait(creature_ptr, TRAIT_DEMON))
 	{
 		msg_print(MES_EAT_LESS_EFFECT_MORTAL_FOOD);
-		set_food(creature_ptr, creature_ptr->food + ((object_ptr->pval) / 20));
+		set_food(creature_ptr, creature_ptr->food + ((object1_ptr->pval) / 20));
 	}
-	else if(object_ptr->tval == TV_FOOD && object_ptr->sval == SV_FOOD_WAYBREAD)
+	else if(object1_ptr->tval == TV_FOOD && object1_ptr->sval == SV_FOOD_WAYBREAD)
 	{
 		/* Waybread is always fully satisfying. */
 		set_food(creature_ptr, MAX(creature_ptr->food, CREATURE_FOOD_MAX - 1));
@@ -315,7 +315,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	else
 	{
 		/* Food can feed the player */
-		(void)set_food(creature_ptr, creature_ptr->food + object_ptr->pval);
+		(void)set_food(creature_ptr, creature_ptr->food + object1_ptr->pval);
 	}
 
 	increase_item(creature_ptr, item, -1, TRUE);

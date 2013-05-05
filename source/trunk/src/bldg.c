@@ -1809,7 +1809,7 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format(MES_BOUNTY_EARN_POINT(num));
 
 				// Prepare to make a prize
-				object_prep(&forge, lookup_kind(prize_list[num-1].tval, prize_list[num-1].sval));
+				generate_object(&forge, lookup_kind(prize_list[num-1].tval, prize_list[num-1].sval));
 				apply_magic(creature_ptr, &forge, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 				// Identify it fully
@@ -3254,10 +3254,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	}
 	else if((which == 2) && floor_ptr->fight_arena_mode)
 	{
-		if(!arena_settled)
-		{
-			prt(MES_BLDG_ARENA_FIGHT, 0, 0);
-		}
+		if(!arena_settled) prt(MES_BLDG_ARENA_FIGHT, 0, 0);
 		else
 		{
 			floor_ptr->fight_arena_mode = FALSE;
@@ -3324,16 +3321,13 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	/* Reinit wilderness to activate quests ... */
 	if(creature_ptr->reinit_wilderness) subject_change_floor = TRUE;
 
-
 	/* Clear the screen */
 	Term_clear();
 
 	/* Update the visuals */
 	prepare_update(creature_ptr, CRU_BONUS);
 	prepare_update(creature_ptr, PU_VIEW | PU_CREATURES | PU_LITE | PU_SPECIES_LITE);
-
 	prepare_redraw(PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);
-
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 }
 

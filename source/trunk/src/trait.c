@@ -2037,7 +2037,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			quest_ptr = &forge;
 
 			// Create the food ration 
-			object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION));
+			generate_object(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION));
 
 			// Drop the object from heaven 
 			(void)drop_near(floor_ptr, quest_ptr, -1, caster_ptr->fy, caster_ptr->fx);

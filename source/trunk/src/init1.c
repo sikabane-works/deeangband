@@ -6666,7 +6666,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				object_type *object_ptr = &object_type_body;
 
 				/* Create the item */
-				object_prep(object_ptr, object_index);
+				generate_object(object_ptr, object_index);
 
 				if(object_ptr->tval == TV_GOLD)
 				{
@@ -6688,7 +6688,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 					object_type forge;
 					object_type *quest_ptr = &forge;
 
-					object_prep(quest_ptr, k_idx);
+					generate_object(quest_ptr, k_idx);
 
 					/* Drop it in the dungeon */
 					drop_here(floor_ptr, quest_ptr, *y, *x);

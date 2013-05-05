@@ -2243,7 +2243,7 @@ static int store_replacement(store_type *st_ptr, int num)
 		}*/
 
 		size = 10;
-		object_prep(quest_ptr, i);
+		generate_object(quest_ptr, i);
 
 		/* Create a new object of the chosen kind */
 

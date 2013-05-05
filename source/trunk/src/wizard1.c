@@ -199,7 +199,7 @@ static void kind_info(char *buf, char *dam, char *wgt, int *lev, s32b *val, int 
 	quest_ptr = &forge;
 
 	/* Prepare a fake item */
-	object_prep(quest_ptr, k);
+	generate_object(quest_ptr, k);
 
 	/* It is known */
 	quest_ptr->ident |= (IDENT_KNOWN);
@@ -1002,7 +1002,7 @@ static bool make_fake_artifact(object_type *object_ptr, int name1)
 	if(!i) return FALSE;
 
 	/* Create the artifact */
-	object_prep(object_ptr, i);
+	generate_object(object_ptr, i);
 
 	/* Save the name */
 	object_ptr->name1 = name1;

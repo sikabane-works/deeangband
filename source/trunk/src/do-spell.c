@@ -2117,7 +2117,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 
 				/* Create the food ration */
-				object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION));
+				generate_object(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION));
 
 				/* Drop the object from heaven */
 				drop_near(floor_ptr, quest_ptr, -1, caster_ptr->fy, caster_ptr->fx);

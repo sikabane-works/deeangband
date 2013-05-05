@@ -3488,10 +3488,7 @@ void set_trait_flags(creature_type *creature_ptr)
 
 		if(have_flag(creature_ptr->current_trait, i))
 		{
-			for(j = 0; j < MAX_TRAITS; j++)
-			{
-				if(has_trait_raw(&trait_info[i].alias, j)) add_flag(creature_ptr->current_trait, j);
-			}
+			for(j = 0; j < MAX_TRAITS; j++) if(has_trait_raw(&trait_info[i].alias, j)) add_flag(creature_ptr->current_trait, j);
 		}
 	}
 
@@ -3741,7 +3738,6 @@ void update_creature(creature_type *creature_ptr, bool message)
 		update_lite(creature_ptr);
 	}
 
-
 	if(creature_ptr->creature_update & (PU_FLOW))
 	{
 		creature_ptr->creature_update &= ~(PU_FLOW);
@@ -3751,17 +3747,12 @@ void update_creature(creature_type *creature_ptr, bool message)
 	if(creature_ptr->creature_update & (PU_DISTANCE))
 	{
 		creature_ptr->creature_update &= ~(PU_DISTANCE);
-
-		/* Still need to call update_creatures(FALSE) after update_creature_lite() */ 
-		/* creature_ptr->creature_update &= ~(PU_CREATURES); */
-
 		update_creatures(TRUE);
 	}
 
 	if(creature_ptr->creature_update & (PU_SPECIES_LITE))
 	{
 		creature_ptr->creature_update &= ~(PU_SPECIES_LITE);
-		//update_creature_lite(floor_ptr);
 	}
 
 	/*
@@ -3808,7 +3799,6 @@ void redraw_stuff(creature_type *creature_ptr)
 		play_redraw &= ~(PR_MAP);
 		prt_map(creature_ptr);
 	}
-
 
 	if(play_redraw & (PR_BASIC))
 	{

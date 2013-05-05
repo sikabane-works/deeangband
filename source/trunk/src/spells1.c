@@ -3155,7 +3155,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		object_type forge;
 		quest_ptr = &forge; // Get local object
 
-		object_prep(quest_ptr, lookup_kind(TV_STATUE, SV_PHOTO)); // Prepare to make a Blade of Chaos
+		generate_object(quest_ptr, lookup_kind(TV_STATUE, SV_PHOTO)); // Prepare to make a Blade of Chaos
 		quest_ptr->pval = (PVAL)photo;
 
 		quest_ptr->ident |= (IDENT_MENTAL); // Mark the item as fully known

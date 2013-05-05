@@ -2823,7 +2823,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 
 	teleport_creature(user_ptr, 10 + (COODINATES)randint1(90), 0L);
 	object_wipe(object_ptr);
-	object_prep(object_ptr, lookup_kind(TV_STATUE, SV_WOODEN_STATUE));
+	generate_object(object_ptr, lookup_kind(TV_STATUE, SV_WOODEN_STATUE));
 	object_ptr->pval = SPECIES_NINJA;
 
 	/* Drop it in the dungeon */

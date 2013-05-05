@@ -631,42 +631,42 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 			/* Apply bad magic, but first clear object */
 			case 'w': case 'W':
 			{
-				object_prep(quest_ptr, object_ptr->k_idx);
+				generate_object(quest_ptr, object_ptr->k_idx);
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT | AM_CURSED, 0);
 				break;
 			}
 			/* Apply bad magic, but first clear object */
 			case 'c': case 'C':
 			{
-				object_prep(quest_ptr, object_ptr->k_idx);
+				generate_object(quest_ptr, object_ptr->k_idx);
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_CURSED, 0);
 				break;
 			}
 			/* Apply normal magic, but first clear object */
 			case 'n': case 'N':
 			{
-				object_prep(quest_ptr, object_ptr->k_idx);
+				generate_object(quest_ptr, object_ptr->k_idx);
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART, 0);
 				break;
 			}
 			/* Apply good magic, but first clear object */
 			case 'g': case 'G':
 			{
-				object_prep(quest_ptr, object_ptr->k_idx);
+				generate_object(quest_ptr, object_ptr->k_idx);
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD, 0);
 				break;
 			}
 			/* Apply great magic, but first clear object */
 			case 'e': case 'E':
 			{
-				object_prep(quest_ptr, object_ptr->k_idx);
+				generate_object(quest_ptr, object_ptr->k_idx);
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT, 0);
 				break;
 			}
 			/* Apply special magic, but first clear object */
 			case 's': case 'S':
 			{
-				object_prep(quest_ptr, object_ptr->k_idx);
+				generate_object(quest_ptr, object_ptr->k_idx);
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_GOOD | AM_GREAT | AM_SPECIAL, 0);
 
 				/* Failed to create artifact; make a random one */
@@ -1021,7 +1021,7 @@ static void wiz_create_item(creature_type *creature_ptr)
 	object_ptr = &forge;
 
 	/* Create the item */
-	object_prep(object_ptr, k_idx);
+	generate_object(object_ptr, k_idx);
 
 	/* Apply magic */
 	apply_magic(creature_ptr, object_ptr, floor_ptr->depth, AM_NO_FIXED_ART, 0);
@@ -1408,7 +1408,7 @@ static void do_cmd_wiz_learn(void)
 			quest_ptr = &forge;
 
 			/* Prepare object */
-			object_prep(quest_ptr, i);
+			generate_object(quest_ptr, i);
 
 			/* Awareness */
 			object_aware(quest_ptr);
@@ -1975,7 +1975,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 			tmp_int2 = strtol(tmp_val2, NULL, 10);
 
 			object_wipe(&ob);
-			object_prep(&ob, tmp_int2);
+			generate_object(&ob, tmp_int2);
 			apply_magic_specified_ego(creature_ptr, &ob, creature_ptr->lev * 2, tmp_int);
 			(void)drop_near(floor_ptr, &ob, -1, creature_ptr->fy, creature_ptr->fx);
 		}
