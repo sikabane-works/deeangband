@@ -294,10 +294,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			object_type *object2_ptr = &forge;
 			msg_print(MES_FOOD_SKELETON_FAILED1);
 
-			/* Create the item */
 			generate_object(object2_ptr, lookup_kind(object1_ptr->tval, object1_ptr->sval));
-
-			/* Drop the object from heaven */
 			(void)drop_near(floor_ptr, object2_ptr, -1, creature_ptr->fy, creature_ptr->fx);
 		}
 		else msg_print(MES_FOOD_SKELETON_FAILED2);

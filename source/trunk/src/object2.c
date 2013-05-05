@@ -1613,7 +1613,6 @@ void object_copy(object_type *object1_ptr, object_type *object2_ptr)
 void generate_object(object_type *object_ptr, OBJECT_KIND_ID k_idx)
 {
 	int i;
-
 	object_kind *object_kind_ptr = &object_kind_info[k_idx];
 
 	/* Clear the record */
@@ -1621,15 +1620,10 @@ void generate_object(object_type *object_ptr, OBJECT_KIND_ID k_idx)
 
 	/* Save the kind index */
 	object_ptr->k_idx = k_idx;
-	//TODO object_ptr->size_lower = object_kind_ptr->lower_size; 
-	//TODO object_ptr->size_upper = object_kind_ptr->upper_size; 
 
 	/* Efficiency -- tval/sval */
 	object_ptr->tval = object_kind_ptr->tval;
 	object_ptr->sval = object_kind_ptr->sval;
-
-	/* Default "pval" */
-	object_ptr->pval = object_kind_ptr->pval;
 
 	/* Default number */
 	object_ptr->number = 1;
@@ -1642,11 +1636,11 @@ void generate_object(object_type *object_ptr, OBJECT_KIND_ID k_idx)
 	object_ptr->to_vo = object_kind_ptr->to_vo;
 
 	/* Default power */
+	object_ptr->dd = object_kind_ptr->dd;
+	object_ptr->ds = object_kind_ptr->ds;
 	object_ptr->ac = object_kind_ptr->ac;
 	object_ptr->ev = object_kind_ptr->ev;
 	object_ptr->vo = object_kind_ptr->vo;
-	object_ptr->dd = object_kind_ptr->dd;
-	object_ptr->ds = object_kind_ptr->ds;
 
 	object_ptr->weight = object_kind_ptr->weight;
 	for(i = 0; i < STAT_MAX; i++) object_ptr->stat_val[i] = object_kind_ptr->stat_val[i];
@@ -1656,8 +1650,9 @@ void generate_object(object_type *object_ptr, OBJECT_KIND_ID k_idx)
 	object_ptr->charge_dice = object_kind_ptr->charge_dice;
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(object_kind_ptr->add_creature_traits.add_lev[i])
-			add_flag(object_ptr->trait_flags, i);
+	{
+		if(object_kind_ptr->add_creature_traits.add_lev[i]) add_flag(object_ptr->trait_flags, i);
+	}
 
 	/* Hack -- worthless items are always "broken" */
 	if(object_kind_info[object_ptr->k_idx].cost <= 0) object_ptr->ident |= (IDENT_BROKEN);
@@ -1669,11 +1664,6 @@ void generate_object(object_type *object_ptr, OBJECT_KIND_ID k_idx)
 	if(have_flag(object_kind_ptr->flags, TRAIT_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
 	if(have_flag(object_kind_ptr->flags, TRAIT_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
 	if(have_flag(object_kind_ptr->flags, TRAIT_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
-
-	if(((object_ptr->tval == TV_CLOAK)      && (object_ptr->sval == SV_ELVEN_CLOAK)) ||
-		((object_ptr->tval == TV_SOFT_ARMOR) && (object_ptr->sval == SV_KUROSHOUZOKU)))
-		object_ptr->pval = (s16b)randint1(4);
-
 }
 
 
