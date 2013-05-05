@@ -2811,6 +2811,8 @@ static cptr desc_stat_neg[] =
 #define MES_DAMAGE_HURT_LITE "光で肉体が焦がされた！"
 #define MES_DAMAGE_RES_TIME(CREATURE) "%sは時間が通り過ぎていく様子を感じた。", (CREATURE)
 #define MES_DAMAGE_VOID_INVULN "バリアを切り裂いた！"
+#define MES_DAMAGE_MULTI_SHADOW_SUCCESS "攻撃は幻影に命中し、届かなかった。"
+#define MES_DAMAGE_MULTI_SHADOW_FAILED "幻影もろとも体が切り裂かれた！"
 #else
 #define MES_DAMAGE_RES1 " resists strongly."
 #define MES_DAMAGE_RES2 " resists."
@@ -2819,6 +2821,8 @@ static cptr desc_stat_neg[] =
 #define MES_DAMAGE_HURT_LITE "The light scorches your flesh!"
 #define MES_DAMAGE_RES_TIME(CREATURE) "%s felt as if time is passing %s by.", (CREATURE), (CREATURE)
 #define MES_DAMAGE_VOID_INVULN "The barrier is penetrated!"
+#define MES_DAMAGE_MULTI_SHADOW_SUCCESS "The attack hits Shadow, unharmed."
+#define MES_DAMAGE_MULTI_SHADOW_FAILED "The attack hits Shadow together with you!"
 #endif
 
 #ifdef JP

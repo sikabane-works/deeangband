@@ -1426,21 +1426,10 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 		if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
 		{
-			if(damage_type == DAMAGE_FORCE)
-			{
-#ifdef JP
-				msg_print("Œ¶‰e‚à‚ë‚Æ‚à‘Ì‚ªØ‚è—ô‚©‚ê‚½I");
-#else
-				msg_print("The attack hits Shadow together with you!");
-#endif
-			}
+			if(damage_type == DAMAGE_FORCE) msg_print(MES_DAMAGE_MULTI_SHADOW_FAILED);
 			else if(damage_type == DAMAGE_ATTACK)
 			{
-#ifdef JP
-				msg_print("UŒ‚‚ÍŒ¶‰e‚É–½’†‚µA‚ ‚È‚½‚É‚Í“Í‚©‚È‚©‚Á‚½B");
-#else
-				msg_print("The attack hits Shadow, you are unharmed!");
-#endif
+				msg_print(MES_DAMAGE_MULTI_SHADOW_SUCCESS);
 				return 0;
 			}
 		}
