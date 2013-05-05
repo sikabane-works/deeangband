@@ -3123,8 +3123,10 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_MUTATION_DONE "‘Ì‚ª‚Ë‚¶‚ên‚ß‚½..."
 #define MES_MUTATION_SOMETHING "‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI"
 #else
+#define MES_MUTATION_DONE "Your body starts to scramble..."
 #define MES_MUTATION_SOMETHING "You feel different!"
 #endif
 

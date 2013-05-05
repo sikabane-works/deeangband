@@ -1031,35 +1031,13 @@ void apply_nexus(creature_type *m_ptr)
 			break;
 
 		case 6:
-			/* saving throw
-
-			if(randint0(100) < m_ptr->skill_rob)
-			{
-				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-				break;
-			}
-			*/
-
-			/* Teleport Level */
+			//TODO saving throw (game_messages[MESSAGE_RESIST_THE_EFFECT]);
 			teleport_level(m_ptr, 0);
 			break;
 
 		case 7:
-			/* saving throw
-
-			if(randint0(100) < m_ptr->skill_rob)
-			{
-				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-				break;
-			}
-			*/
-
-#ifdef JP
-			msg_print("‘Ì‚ª‚Ë‚¶‚êŽn‚ß‚½...");
-#else
-			msg_print("Your body starts to scramble...");
-#endif
-
+			//TODO saving throw (game_messages[MESSAGE_RESIST_THE_EFFECT])
+			msg_print(MES_MUTATION_DONE);
 			mutate_creature(m_ptr);
 			break;
 	}
