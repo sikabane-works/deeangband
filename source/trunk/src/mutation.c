@@ -14,19 +14,17 @@
 #include "files.h"
 #include "mutation.h"
 
-
-bool get_individual_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message)
+bool get_individual_trait(creature_type *creature_ptr, TRAIT_ID trait_id, bool message)
 {
-	add_flag(creature_ptr->mutative_trait, choose_mut);
-	if(message) msg_print(trait_name + trait_info[choose_mut].get_text);
+	add_flag(creature_ptr->individual_trait, trait_id);
+	if(message) msg_print(trait_name + trait_info[trait_id].get_text);
 	return TRUE;
 }
 
-
-bool lose_individual_trait(creature_type *creature_ptr, TRAIT_ID choose_mut, bool message)
+bool lose_individual_trait(creature_type *creature_ptr, TRAIT_ID trait_id, bool message)
 {
-	remove_flag(creature_ptr->mutative_trait, choose_mut);
-	if(message) msg_print(trait_name + trait_info[choose_mut].lost_text);
+	remove_flag(creature_ptr->individual_trait, trait_id);
+	if(message) msg_print(trait_name + trait_info[trait_id].lost_text);
 	return TRUE;
 }
 

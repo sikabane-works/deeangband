@@ -1481,8 +1481,10 @@ struct creature_type
 
 	GAME_TIME timed_trait[MAX_TRAITS];
 	FLAGS_32 mutative_trait[MAX_TRAITS_FLAG];
-	FLAGS_32 current_trait[MAX_TRAITS_FLAG];
+	FLAGS_32 individual_trait[MAX_TRAITS_FLAG];
 	FLAGS_32 blue_learned_trait[MAX_TRAITS_FLAG];
+
+	FLAGS_32 current_trait[MAX_TRAITS_FLAG];
 
 	STAT current_charge[MAGIC_EATER_SKILL_MAX];
 	QUANTITY max_charge[MAGIC_EATER_SKILL_MAX];
