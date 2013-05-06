@@ -92,36 +92,21 @@ errr write_diary(int type, int num, cptr note)
 			fprintf(fff, MES_DIARY_FIX_QUEST(quest[num].name));
 			break;
 		case DIARY_FIX_QUEST_F:
-		{
 			if(quest[num].flags & QUEST_FLAG_SILENT) break;
-#ifdef JP
-			fprintf(fff, " クエスト「%s」から逃げ帰った。\n", quest[num].name);
-#else
-			fprintf(fff, " run away from quest '%s'.\n", quest[num].name);
-#endif
+			fprintf(fff, MES_DIARY_AWAY_QUEST(quest[num].name));
 			break;
-		}
 		case DIARY_RAND_QUEST_C:
 		{
 			char name[80];
-			strcpy(name, species_name+species_info[quest[num].species_idx].name);
-#ifdef JP
-			fprintf(fff, " ランダムクエスト(%s)を達成した。\n", name);
-#else
-			fprintf(fff, " completed random quest '%s'\n", name);
-#endif
+			strcpy(name, species_name + species_info[quest[num].species_idx].name);
+			fprintf(fff, MES_DIARY_FIX_R_QUEST(name));
 			break;
 		}
 		case DIARY_RAND_QUEST_F:
 		{
 			char name[80];
 			strcpy(name, species_name+species_info[quest[num].species_idx].name);
-			fprintf(fff, " %2d:%02d %20s ");
-#ifdef JP
-			fprintf(fff, " ランダムクエスト(%s)から逃げ出した。\n", name);
-#else
-			fprintf(fff, " ran away from quest '%s'.\n", name);
-#endif
+			fprintf(fff, MES_DIARY_AWAY_R_QUEST(name));
 			break;
 		}
 		case DIARY_MAXDEAPTH:

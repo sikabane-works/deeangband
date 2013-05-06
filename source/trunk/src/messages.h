@@ -3036,6 +3036,9 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_DISCOVER_ART(ART_NAME) "%sを発見した。\n", (ART_NAME)
 #define MES_DIARY_DEFEAT_UNIQUE(UNIQUE_NAME) "%sを倒した。\n", (UNIQUE_NAME)
 #define MES_DIARY_FIX_QUEST(QUEST_NAME) "クエスト「%s」を達成した。\n", (QUEST_NAME)
+#define MES_DIARY_AWAY_QUEST(QUEST_NAME) " クエスト「%s」から逃げ帰った。\n", (QUEST_NAME)
+#define MES_DIARY_FIX_R_QUEST(QUEST_NAME) " ランダムクエスト(%s)を達成した。\n", (QUEST_NAME)
+#define MES_DIARY_AWAY_R_QUEST(QUEST_NAME) " ランダムクエスト(%s)から逃げ出した。\n", (QUEST_NAME)
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -3098,6 +3101,9 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_DISCOVER_ART(ART_NAME) "discovered %s.\n", (ART_NAME)
 #define MES_DIARY_DEFEAT_UNIQUE(UNIQUE_NAME) "defeated %s.\n", (UNIQUE_NAME)
 #define MES_DIARY_FIX_QUEST(QUEST_NAME) "completed quest '%s'.\n", (QUEST_NAME)
+#define MES_DIARY_AWAY_QUEST(QUEST_NAME) " run away from quest '%s'.\n", (QUEST_NAME)
+#define MES_DIARY_FIX_R_QUEST(QUEST_NAME) " completed random quest '%s'\n", (QUEST_NAME)
+#define MES_DIARY_AWAY_R_QUEST(QUEST_NAME) " ran away from quest '%s'.\n", (QUEST_NAME)
 #endif
 
 #ifdef JP
