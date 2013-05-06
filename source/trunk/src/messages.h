@@ -3283,6 +3283,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_BERS_RAGE2 "激怒の発作に襲われた！"
 #define MES_TRAIT_COWARDICE "とても暗い... とても恐い！"
 #define MES_TRAIT_CURSED_TELEPORT "あなたの位置は突然ひじょうに不確定になった..."
+#define MES_TRAIT_BANISH_NO_TARGET "邪悪な存在を感じとれません！"
+#define MES_TRAIT_BANISH_DONE "邪悪なクリーチャーは硫黄臭い煙とともに消え去った！"
+#define MES_TRAIT_BANISH_UNAFFECTED "祈りは効果がなかった！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3302,6 +3305,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_BERS_RAGE2 "You feel a fit of rage coming over you!"
 #define MES_TRAIT_COWARDICE "It's so dark... so scary!"
 #define MES_TRAIT_CURSED_TELEPORT "Your position suddenly seems very uncertain..."
+#define MES_TRAIT_BANISH_NO_TARGET "You sense no evil there!"
+#define MES_TRAIT_BANISH_DONE "The evil creature vanishes in a puff of sulfurous smoke!"
+#define MES_TRAIT_BANISH_UNAFFECTED "The invocation is ineffectual."
 #endif
 
 #ifdef JP

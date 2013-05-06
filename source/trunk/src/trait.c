@@ -2289,14 +2289,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BANISH:
-		{
 			if(!cave_ptr->creature_idx)
 			{
-#ifdef JP
-				msg_print("邪悪な存在を感じとれません！");
-#else
-				msg_print("You sense no evil there!");
-#endif
+				msg_print(MES_TRAIT_BANISH_NO_TARGET);
 				break;
 			}
 
@@ -2313,22 +2308,13 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 				/* Delete the creature, rather than killing it. */
 				delete_species_idx(&creature_list[cave_ptr->creature_idx]);
-#ifdef JP
-				msg_print("その邪悪なクリーチャーは硫黄臭い煙とともに消え去った！");
-#else
-				msg_print("The evil creature vanishes in a puff of sulfurous smoke!");
-#endif
+				msg_print(MES_TRAIT_BANISH_DONE);
 			}
 			else
 			{
-#ifdef JP
-				msg_print("祈りは効果がなかった！");
-#else
-				msg_print("Your invocation is ineffectual!");
-#endif
+				msg_print(MES_TRAIT_BANISH_UNAFFECTED);
 				if(one_in_(13)) set_timed_trait(target_ptr, TRAIT_NO_GENOCIDE, PERMANENT_TIMED, FALSE);
 			}
-		}
 		break;
 
 	case TRAIT_COLD_TOUCH:
