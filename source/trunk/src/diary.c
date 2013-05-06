@@ -129,18 +129,8 @@ errr write_diary(int type, int num, cptr note)
 		}
 		case DIARY_RECALL:
 		{
-			if(!num)
-#ifdef JP
-				fprintf(fff, " 帰還を使って%sの%d階へ下りた。\n", dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, max_dlv[floor_ptr->dungeon_id]);
-#else
-				fprintf(fff, " recalled to dungeon level %d of %s.\n", max_dlv[floor_ptr->dungeon_id], dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
-#endif
-			else
-#ifdef JP
-				fprintf(fff, " 帰還を使って地上へと戻った。\n");
-#else
-				fprintf(fff, " recalled from dungeon to surface.\n");
-#endif
+			if(!num) fprintf(fff, MES_DIARY_RECALL_DEPTH(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, max_dlv[floor_ptr->dungeon_id]));
+			else fprintf(fff, MES_DIARY_RECALL_SURFACE);
 			break;
 		}
 		case DIARY_TO_QUEST:

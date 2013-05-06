@@ -3042,6 +3042,8 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_MAXDEPTH(DUNGEON_NAME, DEPTH) " %sの最深階%d階に到達した。\n", (DUNGEON_NAME), (DEPTH)
 #define MES_DIARY_TRUMP_TOWER_SET(NOTE, DUNGEON_NAME, DEPTH) " %s%sの最深階を%d階にセットした。\n", (NOTE), (DUNGEON_NAME), (DEPTH)
 #define MES_DIARY_STAIR(TO, NOTE) " %sへ%s。\n", (TO), (NOTE)
+#define MES_DIARY_RECALL_DEPTH(DUNGEON_NAME, DEPTH) " 帰還を使って%sの%d階へ下りた。\n", (DUNGEON_NAME), (DEPTH)
+#define MES_DIARY_RECALL_SURFACE " 帰還を使って地上へと戻った。\n"
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -3110,6 +3112,8 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_MAXDEPTH(DUNGEON_NAME, DEPTH) " reached level %d of %s for the first time.\n", (DUNGEON_NAME), (DEPTH)
 #define MES_DIARY_TRUMP_TOWER_SET(NOTE, DUNGEON_NAME, DEPTH) " reset recall level of %s to %d %s.\n", (DUNGEON_NAME), (DEPTH), (NOTE)
 #define MES_DIARY_STAIR(TO, NOTE) " %s %s.\n", (NOTE), (TO)
+#define MES_DIARY_RECALL_DEPTH(DUNGEON_NAME, DEPTH) " recalled to dungeon level %d of %s.\n", (DEPTH), (DUNGEON_NAME)
+#define MES_DIARY_RECALL_SURFACE " recalled from dungeon to surface.\n"
 #endif
 
 #ifdef JP
