@@ -3724,73 +3724,71 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	/* Hack -- Count the number of "reproducers" */
 	if(has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_repro++;
 
-	/* TODO
-	if(watcher_ptr->warning && floor_ptr->generated)
+	if(has_trait(player_ptr, TRAIT_WARNING))
 	{
-	if(has_trait_species(species_ptr, TRAIT_UNIQUE))
-	{
-	cptr color;
-	object_type *object_ptr;
-	char object_name[MAX_NLEN];
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE))
+		{
+			cptr color;
+			object_type *object_ptr;
+			char object_name[MAX_NLEN];
 
-	if(species_ptr->level > watcher_ptr->lev + 30)
-	#ifdef JP
-	color = "黒く";
-	#else
-	color = "black";
-	#endif
-	else if(species_ptr->level > watcher_ptr->lev + 15)
-	#ifdef JP
-	color = "紫色に";
-	#else
-	color = "purple";
-	#endif
-	else if(species_ptr->level > watcher_ptr->lev + 5)
-	#ifdef JP
-	color = "ルビー色に";
-	#else
-	color = "deep red";
-	#endif
-	else if(species_ptr->level > watcher_ptr->lev - 5)
-	#ifdef JP
-	color = "赤く";
-	#else
-	color = "red";
-	#endif
-	else if(species_ptr->level > watcher_ptr->lev - 15)
-	#ifdef JP
-	color = "ピンク色に";
-	#else
-	color = "pink";
-	#endif
-	else
-	#ifdef JP
-	color = "白く";
-	#else
-	color = "white";
-	#endif
+			if(species_ptr->level > floor_ptr->depth)
+#ifdef JP
+				color = "黒く";
+#else
+				color = "black";
+#endif
+			else if(species_ptr->level > floor_ptr->depth + 15)
+#ifdef JP
+				color = "紫色に";
+#else
+				color = "purple";
+#endif
+			else if(species_ptr->level > floor_ptr->depth + 5)
+#ifdef JP
+				color = "ルビー色に";
+#else
+				color = "deep red";
+#endif
+			else if(species_ptr->level > floor_ptr->depth - 5)
+#ifdef JP
+				color = "赤く";
+#else
+				color = "red";
+#endif
+			else if(species_ptr->level > floor_ptr->depth - 15)
+#ifdef JP
+				color = "ピンク色に";
+#else
+				color = "pink";
+#endif
+			else
+#ifdef JP
+				color = "白く";
+#else
+				color = "white";
+#endif
 
-	object_ptr = choose_warning_item(watcher_ptr);
-	if(object_ptr)
-	{
-	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-	#ifdef JP
-	msg_format("%sは%s光った。", object_name, color);
-	#else
-	msg_format("%s glows %s.", object_name, color);
-	#endif
+			object_ptr = choose_warning_item(player_ptr);
+			if(object_ptr)
+			{
+				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+#ifdef JP
+				msg_format("%sは%s光った。", object_name, color);
+#else
+				msg_format("%s glows %s.", object_name, color);
+#endif
+			}
+			else
+			{
+#ifdef JP
+				msg_format("%s光る物が頭に浮かんだ。", color);
+#else
+				msg_format("An %s image forms in your mind.");
+#endif
+			}
+		}
 	}
-	else
-	{
-	#ifdef JP
-	msg_format("%s光る物が頭に浮かんだ。", color);
-	#else
-	msg_format("An %s image forms in your mind.");
-	#endif
-	}
-	}
-	}
-	*/
 
 	if(is_explosive_rune_grid(c_ptr))
 	{
