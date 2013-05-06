@@ -59,15 +59,6 @@ static hist_type bg[] =
 	{"妾腹の子ですが認知はされています。",			 20, 2, 3, 35},
 	{"幾人かの子供のうちの一人です。",			 95, 2, 3, 45},
 	{"長子です。",						100, 2, 3, 50},
-#else
-	{"You are the illegitimate and unacknowledged child ", 10, 1, 2, 25},
-	{"You are the illegitimate but acknowledged child ", 20, 1, 2, 35},
-	{"You are one of several children ",       95, 1, 2, 45},
-	{"You are the first child ",              100, 1, 2, 50},
-#endif
-
-
-#ifdef JP
 	{"あなたは農奴の",					 40, 1, 2, 65},
 	{"あなたは自作農の",					 65, 1, 2, 80},
 	{"あなたは町人の",					 80, 1, 2, 90},
@@ -75,7 +66,14 @@ static hist_type bg[] =
 	{"あなたは土着の騎士の",				 96, 1, 2,120},
 	{"あなたは混沌の宮廷の爵位ある貴族の",				 99, 1, 2,130},
 	{"あなたはアンバーの王家の血を引く者の",				100, 1, 2,140},
+	{"あなたは一家のお荷物です。",				 20, 3,50, 20},
+	{"あなたは一家の誇りです。",				 80, 3,50, 55},
+	{"あなたは家族に大切にされています。",			100, 3,50, 60},
 #else
+	{"You are the illegitimate and unacknowledged child ", 10, 1, 2, 25},
+	{"You are the illegitimate but acknowledged child ", 20, 1, 2, 35},
+	{"You are one of several children ",       95, 1, 2, 45},
+	{"You are the first child ",              100, 1, 2, 50},
 	{"of a Serf.  ",                           40, 2, 3, 65},
 	{"of a Yeoman.  ",                         65, 2, 3, 80},
 	{"of a Townsman.  ",                       80, 2, 3, 90},
@@ -83,19 +81,10 @@ static hist_type bg[] =
 	{"of a Landed Knight.  ",                  96, 2, 3, 120},
 	{"of a Noble Family in the Courts of Chaos.  ", 99, 2, 3, 130},
 	{"of the Royal Blood Line of Amber.  ",   100, 2, 3, 140},
-#endif
-
-
-#ifdef JP
-	{"あなたは一家のお荷物です。",				 20, 3,50, 20},
-	{"あなたは一家の誇りです。",				 80, 3,50, 55},
-	{"あなたは家族に大切にされています。",			100, 3,50, 60},
-#else
 	{"You are the black sheep of the family.  ", 20, 3, 50, 20},
 	{"You are a credit to the family.  ",      80, 3, 50, 55},
 	{"You are a well liked child.  ",         100, 3, 50, 60},
 #endif
-
 
 #ifdef JP
 	{"あなたの母はテレリ族のエルフでした。",		 40, 4, 1, 50},
@@ -1205,32 +1194,13 @@ static hist_type bg[] =
 
 
 #ifdef JP
-
 	{"と髪のない頭を持ち、",   10, 131, 133, 50},
 	{"をしていて、汚い",       33, 131, 132, 50},
 	{"をしていて、みすぼらしい", 66, 131, 132, 50},
 	{"をしていて、てかった",  100, 131, 132, 50},
-#else
-	{"no hair at all, ",   10, 131, 133, 50 },
-	{"dirty ",             33, 131, 132, 50},
-	{"mangy ",             66, 131, 132, 50},
-	{"oily ",             100, 131, 132, 50},
-#endif
-
-
-#ifdef JP
-
 	{"茶色の毛皮と",      33, 132, 133, 50},
 	{"灰色の毛皮と",      66, 132, 133, 50},
 	{"白い毛皮と",       100, 132, 133, 50},
-#else
-	{"brown fur, ",      33, 132, 133, 50},
-	{"gray fur, ",      66, 132, 133, 50},
-	{"albino fur, ",    100, 132, 133, 50},
-#endif
-
-
-#ifdef JP
 	{"山羊の蹄があります。", 50, 133, 0, 50 },
 	{"人間の足が生えています。", 75, 133, 0, 50 },
 	{"鳥の足が生えています。", 85, 133, 0, 50 },
@@ -1238,9 +1208,15 @@ static hist_type bg[] =
 	{"牛の足が生えています。", 95, 133, 0, 50 },
 	{"猫の足が生えています。", 97, 133, 0, 50 },
 	{"犬の足が生えています。", 100, 133, 0, 50 },
-
 	{"あなたは", 100, 134, 120, 50 },
 #else
+	{"no hair at all, ",   10, 131, 133, 50 },
+	{"dirty ",             33, 131, 132, 50},
+	{"mangy ",             66, 131, 132, 50},
+	{"oily ",             100, 131, 132, 50},
+	{"brown fur, ",      33, 132, 133, 50},
+	{"gray fur, ",      66, 132, 133, 50},
+	{"albino fur, ",    100, 132, 133, 50},
 	{"and the hooves of a goat.", 50, 133, 0, 50 },
 	{"and human feet.", 75, 133, 0, 50 },
 	{"and bird's feet.", 85, 133, 0, 50 },
@@ -1248,25 +1224,14 @@ static hist_type bg[] =
 	{"and bovine feet.", 95, 133, 0, 50 },
 	{"and feline feet.", 97, 133, 0, 50 },
 	{"and canine feet.", 100, 133, 0, 50 },
-
 	{"You have ", 100, 134, 120, 50 },
 #endif
-
 
 #ifdef JP
 	{"行方不明の子です。", 25, 138, 139, 40},
 	{"さまよう子です。", 50, 138, 139, 50},
 	{"唯一の子です。", 75, 138, 139, 60},
 	{"愛されている子です。", 100, 138, 139, 70},
-#else
-	{"You are the lost offspring of ", 25, 137, 138, 40},
-	{"You are the wandering offspring of ", 50, 137, 138, 50},
-	{"You are the only offspring of ", 75, 137, 138, 60},
-	{"You are the beloved offspring of ", 100, 137, 138, 70},
-#endif
-
-
-#ifdef JP
 	{"あなたは名も知れぬエントの", 10, 137, 138, 35},
 	{"あなたは孤独なエントの", 35, 137, 138, 50},
 	{"あなたはエントの一団の一員の", 55, 137, 138, 60},
@@ -1276,6 +1241,10 @@ static hist_type bg[] =
 	{"あなたは今では追憶の中にしかいないエント女の", 96, 137, 138, 100},
 	{"あなたはファンゴルンその人の", 100, 137, 138, 110},
 #else
+	{"You are the lost offspring of ", 25, 137, 138, 40},
+	{"You are the wandering offspring of ", 50, 137, 138, 50},
+	{"You are the only offspring of ", 75, 137, 138, 60},
+	{"You are the beloved offspring of ", 100, 137, 138, 70},
 	{"an Ent whose name you have no recollection of.  ", 10, 138, 139, 35},
 	{"a solitary Ent.  ", 35, 138, 139, 50},
 	{"a member of a farflung Entish band.  ", 55, 138, 139, 60},
@@ -1288,11 +1257,6 @@ static hist_type bg[] =
 
 #ifdef JP
 	{"あなたは", 100, 139, 140, 50},
-#else
-	{"You have ", 100, 139, 140, 50},
-#endif
-
-#ifdef JP
 	{"三本の指を持ち、", 5, 140, 141, 50},
 	{"四本の指を持ち、", 20, 140, 141, 50},
 	{"五本の指を持ち、", 40, 140, 141, 50},
@@ -1301,6 +1265,7 @@ static hist_type bg[] =
 	{"八本の指を持ち、", 95, 140, 141, 50},
 	{"九本の指を持ち、", 100, 140, 141, 50},
 #else
+	{"You have ", 100, 139, 140, 50},
 	{"three fingers and toes, and are covered in ", 5, 140, 141, 50},
 	{"four fingers and toes, and are covered in ", 20, 140, 141, 50},
 	{"five fingers and toes, and are covered in ", 40, 140, 141, 50},
@@ -1309,6 +1274,7 @@ static hist_type bg[] =
 	{"eight fingers and toes, and are covered in ", 95, 140, 141, 50},
 	{"nine fingers and toes, and are covered in ", 100, 140, 141, 50},
 #endif
+
 #ifdef JP
 	{"茶色い鱗状の肌に覆われています。", 10, 141, 0, 50},
 	{"茶色の荒い肌に覆われています。", 20, 141, 0, 50},
