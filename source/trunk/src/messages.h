@@ -3039,6 +3039,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_AWAY_QUEST(QUEST_NAME) " クエスト「%s」から逃げ帰った。\n", (QUEST_NAME)
 #define MES_DIARY_FIX_R_QUEST(QUEST_NAME) " ランダムクエスト(%s)を達成した。\n", (QUEST_NAME)
 #define MES_DIARY_AWAY_R_QUEST(QUEST_NAME) " ランダムクエスト(%s)から逃げ出した。\n", (QUEST_NAME)
+#define MES_DIARY_MAXDEPTH(DUNGEON_NAME, DEPTH) " %sの最深階%d階に到達した。\n", (DUNGEON_NAME), (DEPTH)
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -3104,6 +3105,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_AWAY_QUEST(QUEST_NAME) " run away from quest '%s'.\n", (QUEST_NAME)
 #define MES_DIARY_FIX_R_QUEST(QUEST_NAME) " completed random quest '%s'\n", (QUEST_NAME)
 #define MES_DIARY_AWAY_R_QUEST(QUEST_NAME) " ran away from quest '%s'.\n", (QUEST_NAME)
+#define MES_DIARY_MAXDEPTH(DUNGEON_NAME, DEPTH) " reached level %d of %s for the first time.\n", (DUNGEON_NAME), (DEPTH)
 #endif
 
 #ifdef JP

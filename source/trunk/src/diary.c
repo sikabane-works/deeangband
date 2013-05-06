@@ -110,14 +110,8 @@ errr write_diary(int type, int num, cptr note)
 			break;
 		}
 		case DIARY_MAXDEAPTH:
-		{
-#ifdef JP
-			fprintf(fff, " %s‚ÌÅ[ŠK%dŠK‚É“ž’B‚µ‚½B\n", dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, num);
-#else
-			fprintf(fff, " reached level %d of %s for the first time.\n", dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
-#endif
+			fprintf(fff, MES_DIARY_MAXDEPTH(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, num));
 			break;
-		}
 		case DIARY_TRUMP:
 		{
 #ifdef JP
