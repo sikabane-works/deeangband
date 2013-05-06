@@ -1024,12 +1024,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 			}
 			else if(wager > maxbet)
 			{
-#ifdef JP
-				msg_format("%ldゴールドだけ受けよう。残りは取っときな。", maxbet);
-#else
-				msg_format("I'll take %ld gold of that. Keep the rest.", maxbet);
-#endif
-
+				msg_format(MES_CASINO_BET_LIMIT(maxbet));
 				wager = maxbet;
 			}
 			else if(wager < 1)
@@ -1572,12 +1567,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 			}
 			else if(wager > maxbet)
 			{
-#ifdef JP
-				msg_format("%ldゴールドだけ受けよう。残りは取っときな。", maxbet);
-#else
-				msg_format("I'll take %ld gold of that. Keep the rest.", maxbet);
-#endif
-
+				msg_format(MES_CASINO_BET_LIMIT(maxbet));
 				wager = maxbet;
 			}
 			else if(wager < 1)

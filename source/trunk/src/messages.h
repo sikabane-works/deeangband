@@ -4062,3 +4062,9 @@ static cptr desc_stat_neg[] =
 #define MES_WARN_GLOW1(OBJECT, COLOR) "%s glows %s.", (OBJECT)->name, (COLOR)
 #define MES_WARN_GLOW2(COLOR) "An %s image forms in your mind.", (COLOR)
 #endif
+
+#ifdef JP
+#define MES_CASINO_BET_LIMIT(MONEY) "%ldゴールドだけ受けよう。残りは取っときな。", (MONEY)
+#else
+#define MES_CASINO_BET_LIMIT(MONEY) "I'll take %ld gold of that. Keep the rest.", (MONEY)
+#endif
