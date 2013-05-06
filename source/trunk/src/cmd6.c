@@ -2772,11 +2772,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	if(PERCENT(chance))
 	{
 		if(flush_failure) flush();
-#ifdef JP
-		msg_print("éÙï∂ÇÇ§Ç‹Ç≠è•Ç¶ÇÁÇÍÇ»Ç©Ç¡ÇΩÅI");
-#else
-		msg_format("You failed to get the magic off!");
-#endif
+		msg_print(MES_SPELL_FAILED);
 		sound(SOUND_FAIL);
 		cost_tactical_energy(creature_ptr, 100);
 		return;
