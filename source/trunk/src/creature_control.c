@@ -3724,13 +3724,10 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	/* Hack -- Count the number of "reproducers" */
 	if(has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_repro++;
 
-	if(has_trait(player_ptr, TRAIT_WARNING))
+	if(has_trait(player_ptr, TRAIT_WARNING) && has_trait_species(species_ptr, TRAIT_UNIQUE))
 	{
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE))
-		{
 			cptr color;
 			object_type *object_ptr;
-			char object_name[MAX_NLEN];
 
 			if(species_ptr->level > floor_ptr->depth) color = MES_WARN_COL_BLACK;
 			else if(species_ptr->level > floor_ptr->depth + 15) color = MES_WARN_COL_PURPLE;
@@ -3740,24 +3737,8 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 			else color = MES_WARN_COL_WHITE;
 
 			object_ptr = choose_warning_item(player_ptr);
-			if(object_ptr)
-			{
-				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-#ifdef JP
-				msg_format("%sÇÕ%såıÇ¡ÇΩÅB", object_name, color);
-#else
-				msg_format("%s glows %s.", object_name, color);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%såıÇÈï®Ç™ì™Ç…ïÇÇ©ÇÒÇæÅB", color);
-#else
-				msg_format("An %s image forms in your mind.");
-#endif
-			}
-		}
+			if(object_ptr) msg_format(MES_WARN_GLOW1(object_ptr, color));
+			else msg_format(MES_WARN_GLOW2(color));
 	}
 
 	if(is_explosive_rune_grid(c_ptr))

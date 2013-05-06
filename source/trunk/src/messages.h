@@ -4050,6 +4050,8 @@ static cptr desc_stat_neg[] =
 #define MES_WARN_COL_RED "赤色に"
 #define MES_WARN_COL_PINK "ピンク色に"
 #define MES_WARN_COL_WHITE "白く"
+#define MES_WARN_GLOW1(OBJECT, COLOR) "%sは%s光った。", (OBJECT)->name, (COLOR)
+#define MES_WARN_GLOW2(COLOR) "%s光る物が頭に浮かんだ。", (COLOR)
 #else
 #define MES_WARN_COL_BLACK "black"
 #define MES_WARN_COL_PURPLE "purple"
@@ -4057,4 +4059,6 @@ static cptr desc_stat_neg[] =
 #define MES_WARN_COL_RED "red"
 #define MES_WARN_COL_PINK "pink"
 #define MES_WARN_COL_WHITE "white"
+#define MES_WARN_GLOW1(OBJECT, COLOR) "%s glows %s.", (OBJECT)->name, (COLOR)
+#define MES_WARN_GLOW2(COLOR) "An %s image forms in your mind.", (COLOR)
 #endif
