@@ -3033,6 +3033,9 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_HEALING "体力が回復した。"
 #define MES_DIARY_CHEAT_DEATH "                            しかし、生き返った。"
 #define MES_DIARY_WINNER "見事にD\'angbandの勝利者となった！"
+#define MES_DIARY_DISCOVER_ART(ART_NAME) "%sを発見した。\n", (ART_NAME)
+#define MES_DIARY_DEFEAT_UNIQUE(UNIQUE_NAME) "%sを倒した。\n", (UNIQUE_NAME)
+#define MES_DIARY_FIX_QUEST(QUEST_NAME) "クエスト「%s」を達成した。\n", (QUEST_NAME)
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -3092,6 +3095,9 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_STAND_IN(PLACE) "You are standing in the %s.", (PLACE)
 #define MES_DIARY_CHEAT_DEATH "                            but revived."
 #define MES_DIARY_WINNER "become *WINNER* of D\'angband finely!"
+#define MES_DIARY_DISCOVER_ART(ART_NAME) "discovered %s.\n", (ART_NAME)
+#define MES_DIARY_DEFEAT_UNIQUE(UNIQUE_NAME) "defeated %s.\n", (UNIQUE_NAME)
+#define MES_DIARY_FIX_QUEST(QUEST_NAME) "completed quest '%s'.\n", (QUEST_NAME)
 #endif
 
 #ifdef JP

@@ -82,33 +82,15 @@ errr write_diary(int type, int num, cptr note)
 			break;
 		}
 		case DIARY_ART:
-		{
-#ifdef JP
-			fprintf(fff, "%sを発見した。\n", note);
-#else
-			fprintf(fff, "discovered %s.\n", note);
-#endif
+			fprintf(fff, MES_DIARY_DISCOVER_ART(note));
 			break;
-		}
 		case DIARY_UNIQUE:
-		{
-#ifdef JP
-			fprintf(fff, "%sを倒した。\n", note);
-#else
-			fprintf(fff, "defeated %s.\n", note);
-#endif
+			fprintf(fff, MES_DIARY_DEFEAT_UNIQUE(note));
 			break;
-		}
 		case DIARY_FIX_QUEST_C:
-		{
 			if(quest[num].flags & QUEST_FLAG_SILENT) break;
-#ifdef JP
-			fprintf(fff, "クエスト「%s」を達成した。\n", quest[num].name);
-#else
-			fprintf(fff, "completed quest '%s'.\n", quest[num].name);
-#endif
+			fprintf(fff, MES_DIARY_FIX_QUEST(quest[num].name));
 			break;
-		}
 		case DIARY_FIX_QUEST_F:
 		{
 			if(quest[num].flags & QUEST_FLAG_SILENT) break;

@@ -3080,7 +3080,6 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	{
 		int select_dungeon;
 		int max_depth;
-
 		clear_bldg(4, 20);
 
 #ifdef JP
@@ -3181,10 +3180,8 @@ void do_cmd_quest(creature_type *creature_ptr)
 		msg_print(MES_QUEST_ENTRANCE);
 		if(!get_check(MES_QUEST_ASK_ENTER)) return;
 #ifdef JP
-		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK))
-			msg_print("『とにかく入ってみようぜぇ。』");
-		if(has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK))
-			msg_print("『全滅してやるぞ！』");
+		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("『とにかく入ってみようぜぇ。』");
+		if(has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK)) msg_print("『全滅してやるぞ！』");
 #endif
 
 		// Player enters a new quest
