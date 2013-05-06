@@ -3732,42 +3732,12 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 			object_type *object_ptr;
 			char object_name[MAX_NLEN];
 
-			if(species_ptr->level > floor_ptr->depth)
-#ifdef JP
-				color = "黒く";
-#else
-				color = "black";
-#endif
-			else if(species_ptr->level > floor_ptr->depth + 15)
-#ifdef JP
-				color = "紫色に";
-#else
-				color = "purple";
-#endif
-			else if(species_ptr->level > floor_ptr->depth + 5)
-#ifdef JP
-				color = "ルビー色に";
-#else
-				color = "deep red";
-#endif
-			else if(species_ptr->level > floor_ptr->depth - 5)
-#ifdef JP
-				color = "赤く";
-#else
-				color = "red";
-#endif
-			else if(species_ptr->level > floor_ptr->depth - 15)
-#ifdef JP
-				color = "ピンク色に";
-#else
-				color = "pink";
-#endif
-			else
-#ifdef JP
-				color = "白く";
-#else
-				color = "white";
-#endif
+			if(species_ptr->level > floor_ptr->depth) color = MES_WARN_COL_BLACK;
+			else if(species_ptr->level > floor_ptr->depth + 15) color = MES_WARN_COL_PURPLE;
+			else if(species_ptr->level > floor_ptr->depth + 5) color = MES_WARN_COL_DEEPRED;
+			else if(species_ptr->level > floor_ptr->depth - 5) color = MES_WARN_COL_RED;
+			else if(species_ptr->level > floor_ptr->depth - 15) color = MES_WARN_COL_PINK;
+			else color = MES_WARN_COL_WHITE;
 
 			object_ptr = choose_warning_item(player_ptr);
 			if(object_ptr)

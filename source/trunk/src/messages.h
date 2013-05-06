@@ -4043,3 +4043,18 @@ static cptr desc_stat_neg[] =
 #define MES_CHEST_STAT_MULTI "(Multiple Traps)"
 #endif
 
+#ifdef JP
+#define MES_WARN_COL_BLACK "黒く"
+#define MES_WARN_COL_PURPLE "紫色に"
+#define MES_WARN_COL_DEEPRED "紫色に"
+#define MES_WARN_COL_RED "赤色に"
+#define MES_WARN_COL_PINK "ピンク色に"
+#define MES_WARN_COL_WHITE "白く"
+#else
+#define MES_WARN_COL_BLACK "black"
+#define MES_WARN_COL_PURPLE "purple"
+#define MES_WARN_COL_DEEPRED "deep red"
+#define MES_WARN_COL_RED "red"
+#define MES_WARN_COL_PINK "pink"
+#define MES_WARN_COL_WHITE "white"
+#endif
