@@ -2659,11 +2659,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			{
 				if(creature_ptr->current_charge[ext+i]  > object_kind_info[lookup_kind(tval, (SVAL)i)].pval * (creature_ptr->max_charge[ext+i] - 1) * EATER_ROD_CHARGE)
 				{
-#ifdef JP
-					msg_print("その魔法はまだ充填している最中だ。");
-#else
-					msg_print("The magic are still charging.");
-#endif
+					msg_print(MES_INMAGIC_CHARGING);
 					msg_print(NULL);
 					if(use_menu) ask = TRUE;
 					continue;
@@ -2673,11 +2669,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			{
 				if(creature_ptr->current_charge[ext+i] < EATER_CHARGE)
 				{
-#ifdef JP
-					msg_print("その魔法は使用回数が切れている。");
-#else
-					msg_print("The magic has no charges left.");
-#endif
+					msg_print(MES_INMAGIC_NO_LEFT);
 					msg_print(NULL);
 					if(use_menu) ask = TRUE;
 					continue;

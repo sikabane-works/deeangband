@@ -3906,9 +3906,13 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_INMAGIC_LIST "[A] 杖, [B] 魔法棒, [C] ロッド:"
 #define MES_INMAGIC_NO_TYPE "その種類の魔法は覚えていない。"
+#define MES_INMAGIC_CHARGING "その魔法はまだ充填している最中だ。"
+#define MES_INMAGIC_NO_LEFT "その魔法は使用回数が切れている。"
 #else
 #define MES_INMAGIC_LIST "[A] staff, [B] wand, [C] rod:"
 #define MES_INMAGIC_NO_TYPE "You don't have that type of magic."
+#define MES_INMAGIC_CHARGING "The magic are still charging."
+#define MES_INMAGIC_NO_LEFT "The magic has no charges left."
 #endif
 
 #ifdef JP
