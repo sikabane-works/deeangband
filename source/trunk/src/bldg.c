@@ -2244,11 +2244,7 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	if(creature_ptr->au < (cost * object_ptr->number))
 	{
 		object_desc(tmp_str, object_ptr, OD_NAME_ONLY);
-#ifdef JP
-		msg_format("%s‚ğ‰ü—Ç‚·‚é‚¾‚¯‚ÌƒS[ƒ‹ƒh‚ª‚ ‚è‚Ü‚¹‚ñI", tmp_str);
-#else
-		msg_format("You do not have the gold to improve %s!", tmp_str);
-#endif
+		msg_format(MES_ENCHANT_SHORTAGE_GOLD(tmp_str));
 		return FALSE;
 	}
 

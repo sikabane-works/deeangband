@@ -300,7 +300,7 @@ static struct {
 	{TERM_RED, "乱", "混乱打撃"},
 	{TERM_L_BLUE, "視", "透明視"},
 	{TERM_ORANGE, "テ", "テレパシ"},
-	{TERM_L_BLUE, "回", "回復"},
+	{TERM_L_BLUE, "回", KW_HEAL},
 	{TERM_L_RED, "赤", "赤外"},
 	{TERM_UMBER, "隠", "隠密"},
 	{TERM_YELLOW, "隠", "超隠密"},
@@ -319,7 +319,7 @@ static struct {
 	{TERM_SLATE, "宣", "宣告"},
 	{TERM_L_DARK, "剣", "魔剣化"},
 	{TERM_RED, "吸", "吸血打撃"},
-	{TERM_WHITE, "回", "回復"},
+	{TERM_WHITE, "回", KW_HEAL},
 	{TERM_L_DARK, "感", "邪悪感知"},
 	{0, NULL, NULL}
 };

@@ -19,15 +19,9 @@ static void mane_info(creature_type *creature_ptr, char *p, POWER power, POWER d
 {
 	int lev_bonus = creature_ptr->lev;
 	static const char s_dam[] = KW_DAM;
-#ifdef JP
-	cptr s_dur = "ŠúŠÔ:";
-	cptr s_range = "”ÍˆÍ:";
-	cptr s_heal = "‰ñ•œ:";
-#else
-	cptr s_dur = "dur ";
-	cptr s_range = "range ";
-	cptr s_heal = "heal ";
-#endif
+	cptr s_dur = KW_DURING;
+	cptr s_range = KW_RANGE;
+	cptr s_heal = KW_HEAL;
 
 	strcpy(p, "");
 

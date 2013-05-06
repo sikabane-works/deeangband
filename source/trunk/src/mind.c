@@ -413,13 +413,8 @@ void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, POWER po
 {
 	char buf[30];
 	static const char s_dam[] = KW_DAM;
-#ifdef JP
-	cptr s_dur = "ŠúŠÔ:";
-	cptr s_range = "”ÍˆÍ:";
-#else
-	cptr s_dur = "dur ";
-	cptr s_range = "range ";
-#endif
+	cptr s_dur = KW_DURING;
+	cptr s_range = KW_RANGE;
 	int lev_bonus = creature_ptr->lev;
 
 	strcpy(p, "");

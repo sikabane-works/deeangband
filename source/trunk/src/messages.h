@@ -226,6 +226,9 @@
 #define KW_KARMA "‹Æ"
 #define KW_ALIGNMENT "‘®«"
 #define KW_PROFICIENCY "‹Z”\’l"
+#define KW_DURING "ŠúŠÔ"
+#define KW_RANGE "”ÍˆÍ"
+#define KW_HEAL "‰ñ•œ"
 #define KW_FAIL "Ž¸—¦"
 #define KW_UNKNOWN "–¢’m"
 #define KW_FORGOTTEN "–Y‹p"
@@ -342,6 +345,9 @@
 #define KW_KARMA "Karma"
 #define KW_ALIGNMENT "Alignment"
 #define KW_PROFICIENCY "Proficiency"
+#define KW_DURING "Dur"
+#define KW_RANGE "Range"
+#define KW_HEAL "Heal"
 #define KW_FAIL "Fail"
 #define KW_UNKNOWN "Unknown"
 #define KW_FORGOTTEN "Forgotten"
@@ -3344,6 +3350,7 @@ static cptr desc_stat_neg[] =
 #define MES_ENCHANT_FAILED "‘®«•t‰Á‚ÉŽ¸”s‚µ‚½B"
 #define MES_ENCHANT_SUCCESS(ITEM, POS, NUM) "%s‚Í–¾‚é‚­‹P‚¢‚½I", (ITEM)
 #define MES_ENCHANT_BECOME_ARTIFACT(ITEM, POS, NUM) "%s‚Íá¿‚¢Œõ‚ð”­‚µ‚½I", (ITEM)
+#define MES_ENCHANT_SHORTAGE_GOLD(ITEM) "%s‚ð‰ü—Ç‚·‚é‚¾‚¯‚ÌƒS[ƒ‹ƒh‚ª‚ ‚è‚Ü‚¹‚ñI", (ITEM)
 #else
 #define MES_ENCHANT_WHICH_ITEM "Enchant which item? "
 #define MES_ENCHANT_NO_ITEM "You have nothing to enchant."
@@ -3352,6 +3359,7 @@ static cptr desc_stat_neg[] =
 #define MES_ENCHANT_FAILED "The Branding failed."
 #define MES_ENCHANT_SUCCESS(ITEM, POS, NUM) "%s %s glow%s brightly!", (((POS) >= 0) ? "Your" : "The"), (ITEM), (((NUM) > 1) ? "" : "s")
 #define MES_ENCHANT_BECOME_ARTIFACT(ITEM, POS, NUM)) "%s %s radiate%s a blinding light!", (((POS) >= 0) ? "Your" : "The"), (ITEM), (((NUM) > 1) ? "" : "s")
+#define MES_ENCHANT_SHORTAGE_GOLD(ITEM) "You do not have the gold to improve %s!", (ITEM)
 #endif
 
 #ifdef JP
