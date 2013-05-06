@@ -3100,20 +3100,14 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 #else
 		amt = (FLOOR_LEV)get_quantity(format("Teleport to which level of %s? ", dungeon_name + dungeon_info[select_dungeon].name), max_depth);
 #endif
-
 		if(amt > 0)
 		{
 			set_timed_trait(creature_ptr, TRAIT_WORD_RECALL, 1, FALSE);
 			creature_ptr->recall_dungeon = select_dungeon;
 			max_dlv[creature_ptr->recall_dungeon] = ((amt > dungeon_info[select_dungeon].maxdepth) ? dungeon_info[select_dungeon].maxdepth : ((amt < dungeon_info[select_dungeon].mindepth) ? dungeon_info[select_dungeon].mindepth : amt));
 			if(record_maxdepth)
-#ifdef JP
-			write_diary(DIARY_TRUMP, select_dungeon, "トランプタワーで");
-			msg_print("回りの大気が張りつめてきた...");
-#else
-			write_diary(DIARY_TRUMP, select_dungeon, "at Trump Tower");
-			msg_print("The air about you becomes charged...");
-#endif
+			write_diary(DIARY_TRUMP, select_dungeon, MES_RECALL_TRUMP_TOWER);
+			msg_print(MES_RECALL_STARTING);
 			paid = TRUE;
 			prepare_redraw(PR_STATUS);
 		}

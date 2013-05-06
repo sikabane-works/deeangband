@@ -1074,6 +1074,7 @@
 #define MES_RECALL_ASK "帰還の力を使いますか？"
 #define MES_RECALL_STARTING "回りの大気が張りつめてきた..."
 #define MES_RECALL_CANCEL "張りつめた大気が流れ去った..."
+#define MES_RECALL_TRUMP_TOWER "トランプタワーで"
 #else
 #define MES_TELEPORT_LEVEL_ASK "Leave this level? "
 #define MES_TELEPORT_NO_TOWN "You have not yet visited any town."
@@ -1083,6 +1084,7 @@
 #define MES_RECALL_ASK "Activate recall? "
 #define MES_RECALL_STARTING "The air about you becomes charged..."
 #define MES_RECALL_CANCEL "A tension leaves the air around you..."
+#define MES_RECALL_TRUMP_TOWER "at Trump Tower"
 #endif
 
 #if JP
