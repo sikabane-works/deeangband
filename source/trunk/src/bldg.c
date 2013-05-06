@@ -1024,16 +1024,12 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 			}
 			else if(wager > maxbet)
 			{
-				msg_format(MES_CASINO_BET_LIMIT(maxbet));
+				msg_format(MES_GAMBLE_BET_LIMIT(maxbet));
 				wager = maxbet;
 			}
 			else if(wager < 1)
 			{
-#ifdef JP
-				msg_print("‚n‚jA‚PƒS[ƒ‹ƒh‚©‚ç‚Í‚¶‚ß‚æ‚¤B");
-#else
-				msg_print("Ok, we'll start with 1 gold.");
-#endif
+				msg_print(MES_GAMBLE_BET_UNDERLINE);
 				wager = 1;
 			}
 			msg_print(NULL);
@@ -1567,16 +1563,12 @@ static bool kakutoujou(creature_type *creature_ptr)
 			}
 			else if(wager > maxbet)
 			{
-				msg_format(MES_CASINO_BET_LIMIT(maxbet));
+				msg_format(MES_GAMBLE_BET_LIMIT(maxbet));
 				wager = maxbet;
 			}
 			else if(wager < 1)
 			{
-#ifdef JP
-				msg_print("‚n‚jA‚PƒS[ƒ‹ƒh‚Å‚¢‚±‚¤B");
-#else
-				msg_print("Ok, we'll start with 1 gold.");
-#endif
+				msg_print(MES_GAMBLE_BET_UNDERLINE);
 				wager = 1;
 			}
 			msg_print(NULL);
