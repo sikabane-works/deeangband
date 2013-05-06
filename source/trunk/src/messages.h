@@ -1331,6 +1331,7 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_GAMBLING "jgambling.txt"
 #define TEXT_FILES_ARENA "jarena.txt"
 
+#define TEXT_FILES_HELP "jhelp.hlp"
 #define TEXT_FILES_BUILDING "jbldg.txt"
 #define TEXT_FILES_TIME_NORMAL "timenorm_j.txt"
 #define TEXT_FILES_TIME_FUN "timefun_j.txt"
@@ -1379,6 +1380,7 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_GAMBLING "gambling.txt"
 #define TEXT_FILES_ARENA "arena.txt"
 
+#define TEXT_FILES_HELP "help.hlp"
 #define TEXT_FILES_BUILDING "bldg.txt"
 #define TEXT_FILES_TIME_NORMAL "timenorm.txt"
 #define TEXT_FILES_TIME_FUN "timefun.txt"

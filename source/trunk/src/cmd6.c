@@ -2811,10 +2811,6 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 void do_cmd_help(void)
 {
 	screen_save();
-#ifdef JP
-	(void)show_file(TRUE, "jhelp.hlp", NULL, 0, 0);
-#else
-	(void)show_file(TRUE, "help.hlp", NULL, 0, 0);
-#endif
+	(void)show_file(TRUE, TEXT_FILES_HELP, NULL, 0, 0);
 	screen_load();
 }
