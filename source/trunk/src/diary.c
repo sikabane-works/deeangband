@@ -113,31 +113,18 @@ errr write_diary(int type, int num, cptr note)
 			fprintf(fff, MES_DIARY_MAXDEPTH(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, num));
 			break;
 		case DIARY_TRUMP:
-		{
-#ifdef JP
-			fprintf(fff, " %s%sÇÃç≈ê[äKÇ%däKÇ…ÉZÉbÉgÇµÇΩÅB\n", note, dungeon_name + dungeon_info[num].name, max_dlv[num]);
-#else
-			fprintf(fff, " reset recall level of %s to %d %s.\n", dungeon_name + dungeon_info[num].name, max_dlv[num], note);
-#endif
+			fprintf(fff, MES_DIARY_TRUMP_TOWER_SET(note, dungeon_name + dungeon_info[num].name, max_dlv[num]));
 			break;
-		}
 		case DIARY_STAIR:
 		{
 			cptr to;
-			if(q_idx && (is_fixed_quest_idx(q_idx) && !(q_idx == QUEST_SERPENT)))
-			{
-				to = KW_SURFACE;
-			}
+			if(q_idx && (is_fixed_quest_idx(q_idx) && !(q_idx == QUEST_SERPENT))) to = KW_SURFACE;
 			else
 			{
 				if(!(floor_ptr->depth+num)) to = KW_SURFACE;
 				else to = format(KW_FLOOR_NUM(floor_ptr->depth+num));
 			}
-#ifdef JP 
-			fprintf(fff, " %sÇ÷%sÅB\n", to, note);
-#else
-			fprintf(fff, " %s %s.\n",note, to);
-#endif
+			fprintf(fff, MES_DIARY_STAIR(to, note));
 			break;
 		}
 		case DIARY_RECALL:
