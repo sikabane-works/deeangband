@@ -1903,15 +1903,9 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 		case BUILDING_FUNCTION_REST:
 			if(has_trait(creature_ptr, TRAIT_POISONED) || has_trait(creature_ptr, TRAIT_CUT))
 			{
-#ifdef JP
-				msg_print("あなたに必要なのは部屋ではなく、治療者です。");
+				msg_print(MES_INN_CANCEL1);
 				msg_print(NULL);
-				msg_print("すみません、でもうちで誰かに死なれちゃ困りますんで。");
-#else
-				msg_print("You need a healer, not a room.");
-				msg_print(NULL);
-				msg_print("Sorry, but don't want anyone dying in here.");
-#endif
+				msg_print(MES_INN_CANCEL2);
 			}
 			else
 			{
@@ -1934,11 +1928,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 						if(!one_in_(3)) break;
 					}
 					free_species_list(&prob_list);
-#ifdef JP
-					msg_print("あなたは絶叫して目を覚ました。");
-#else
-					msg_print("You awake screaming.");
-#endif
+					msg_print(MES_INN_NIGHTMARE);
 					write_diary(DIARY_BUNSHOU, 0, DIARY_INN_NIGHTMARE);
 				}
 				else

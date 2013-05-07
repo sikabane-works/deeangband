@@ -3641,9 +3641,15 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_INN_FULL "今は満腹だ。"
 #define MES_INN_FOOD "バーテンはいくらかの食べ物とビールをくれた。"
+#define MES_INN_CANCEL1 "あなたに必要なのは部屋ではなく、治療者です。"
+#define MES_INN_CANCEL2 "すみません、でもうちで誰かに死なれちゃ困りますんで。"
+#define MES_INN_NIGHTMARE "あなたは絶叫して目を覚ました。"
 #else
 #define MES_INN_FULL "You are full now."
 #define MES_INN_FOOD "The barkeep gives you some gruel and a beer."
+#define MES_INN_CANCEL1 "You need a healer, not a room."
+#define MES_INN_CANCEL2 "Sorry, but don't want anyone dying in here."
+#define MES_INN_NIGHTMARE "You awake screaming."
 #endif
 
 #ifdef JP
