@@ -3052,6 +3052,8 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_ARENA_LOST(NUM, ENEMY_NAME) " 闘技場の%d回戦で、%sの前に敗れ去った。\n", (NUM), (ENEMY_NAME)
 #define MES_DIARY_ARENA_CHAMPION "                 闘技場のすべての敵に勝利し、チャンピオンとなった。\n"
 #define MES_DIARY_IDEN(OBJECT_NAME) " %sを識別した。\n", (OBJECT_NAME)
+#define MES_DIARY_WIZ_TELE(TO) " %sへとウィザード・テレポートで移動した。\n", (TO)
+#define MES_DIARY_PAT_TELE(TO) " %sへとパターンの力で移動した。\n", (TO)
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -3130,6 +3132,8 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_ARENA_LOST(NUM, ENEMY_NAME) " beaten by %s in the %d%s fight.\n", (ENEMY_NAME), (NUM),  get_ordinal_number_suffix(n)
 #define MES_DIARY_ARENA_CHAMPION "                 won all fight to become a Champion.\n"
 #define MES_DIARY_IDEN(OBJECT_NAME) " identified %s.\n", (OBJECT_NAME)
+#define MES_DIARY_WIZ_TELE(TO) " wizard-teleport to %s.\n", (TO)
+#define MES_DIARY_PAT_TELE(TO) " used Pattern to teleport to %s.\n", (TO)
 #endif
 
 #ifdef JP
