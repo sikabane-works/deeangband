@@ -3048,8 +3048,10 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_LEV_TELE " レベル・テレポートで脱出した。\n"
 #define MES_DIARY_BUY(OBJECT_NAME) " %sを購入した。\n", (OBJECT_NAME)
 #define MES_DIARY_SELL(OBJECT_NAME) " %sを売却した。\n", (OBJECT_NAME)
-#define MES_DIART_ARENA_WON(NUM, ENEMY_NAME) " 闘技場の%d回戦(%s)に勝利した。\n", (NUM), (ENEMY_NAME)
-#define MES_DIART_ARENA_LOST(NUM, ENEMY_NAME) " 闘技場の%d回戦で、%sの前に敗れ去った。\n", (NUM), (ENEMY_NAME)
+#define MES_DIARY_ARENA_WON(NUM, ENEMY_NAME) " 闘技場の%d回戦(%s)に勝利した。\n", (NUM), (ENEMY_NAME)
+#define MES_DIARY_ARENA_LOST(NUM, ENEMY_NAME) " 闘技場の%d回戦で、%sの前に敗れ去った。\n", (NUM), (ENEMY_NAME)
+#define MES_DIARY_ARENA_CHAMPION "                 闘技場のすべての敵に勝利し、チャンピオンとなった。\n"
+#define MES_DIARY_IDEN(OBJECT_NAME) " %sを識別した。\n", (OBJECT_NAME)
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -3124,8 +3126,10 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_LEV_TELE " Got out using teleport level.\n"
 #define MES_DIARY_BUY(OBJECT_NAME) " bought %s.\n", (OBJECT_NAME)
 #define MES_DIARY_SELL(OBJECT_NAME) " sold %s.\n", (OBJECT_NAME)
-#define MES_DIART_ARENA_WON(NUM, ENEMY_NAME) " " won the %d%s fight (%s).\n", (NUM),  get_ordinal_number_suffix(n), (ENEMY_NAME)
-#define MES_DIART_ARENA_LOST(NUM, ENEMY_NAME) " beaten by %s in the %d%s fight.\n", (ENEMY_NAME), (NUM),  get_ordinal_number_suffix(n)
+#define MES_DIARY_ARENA_WON(NUM, ENEMY_NAME) " " won the %d%s fight (%s).\n", (NUM),  get_ordinal_number_suffix(n), (ENEMY_NAME)
+#define MES_DIARY_ARENA_LOST(NUM, ENEMY_NAME) " beaten by %s in the %d%s fight.\n", (ENEMY_NAME), (NUM),  get_ordinal_number_suffix(n)
+#define MES_DIARY_ARENA_CHAMPION "                 won all fight to become a Champion.\n"
+#define MES_DIARY_IDEN(OBJECT_NAME) " identified %s.\n", (OBJECT_NAME)
 #endif
 
 #ifdef JP

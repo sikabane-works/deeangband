@@ -148,31 +148,21 @@ errr write_diary(int type, int num, cptr note)
 		{
 			if(num < 0)
 			{
-				fprintf(fff, MES_DIART_ARENA_LOST(-num, note));
+				fprintf(fff, MES_DIARY_ARENA_LOST(-num, note));
 				break;
 			}
-			fprintf(fff, MES_DIART_ARENA_WON(num, note));
+			fprintf(fff, MES_DIARY_ARENA_WON(num, note));
 
 			if(num == MAX_ARENA_MONS)
 			{
-#ifdef JP
-				fprintf(fff, "                 闘技場のすべての敵に勝利し、チャンピオンとなった。\n");
-#else
-				fprintf(fff, "                 won all fight to become a Champion.\n");
-#endif
+				fprintf(fff, MES_DIARY_ARENA_CHAMPION);
 				do_level = FALSE;
 			}
 			break;
 		}
 		case DIARY_HANMEI:
-		{
-#ifdef JP
-			fprintf(fff, " %sを識別した。\n", note);
-#else
-			fprintf(fff, " identified %s.\n", note);
-#endif
+			fprintf(fff, MES_DIARY_IDEN(note));
 			break;
-		}
 		case DIARY_WIZ_TELE:
 		{
 			cptr to;
