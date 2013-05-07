@@ -1823,8 +1823,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_OLD_POLY:
 		do_poly = TRUE;
-		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_QUESTOR)) ||
-			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_QUESTOR)) || saving_throw(target_ptr, SAVING_AC, dam, 0));
 		{
 			note = MES_IS_UNAFFECTED;
 			do_poly = FALSE;
@@ -1854,7 +1853,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_CONF_OTHERS:
 		do_conf = diceroll(3, (dam / 2)) + 1;
-		if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+		if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
 			if(has_trait(target_ptr, TRAIT_NO_CONF)) if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 			do_conf = 0;
@@ -1977,7 +1976,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			do_fear = diceroll(3, (dam / 2)) + 1;
 
-			if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10) // Attempt a saving throw
+			if(saving_throw(target_ptr, SAVING_VO, dam, 0)) // Attempt a saving throw
 			{
 				note = MES_IS_UNAFFECTED;
 				obvious = FALSE;
@@ -1994,7 +1993,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 			do_fear = diceroll(3, (dam / 2)) + 1;
-			if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
+			if(saving_throw(target_ptr, SAVING_VO, dam, 0))
 			{
 				note = MES_IS_UNAFFECTED;
 				obvious = FALSE;
@@ -2010,8 +2009,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_TURN_ALL:
 		do_fear = diceroll(3, (dam / 2)) + 1; // Apply some fear
-		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_FEARLESS)) ||
-			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_FEARLESS)) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
 			note = MES_IS_UNAFFECTED;
 			obvious = FALSE;
