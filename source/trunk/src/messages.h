@@ -3054,6 +3054,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_IDEN(OBJECT_NAME) " %sを識別した。\n", (OBJECT_NAME)
 #define MES_DIARY_WIZ_TELE(TO) " %sへとウィザード・テレポートで移動した。\n", (TO)
 #define MES_DIARY_PAT_TELE(TO) " %sへとパターンの力で移動した。\n", (TO)
+#define MES_DIARY_LEVELUP(LEVEL) " レベルが%dに上がった。\n", (LEVEL)
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -3134,6 +3135,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_IDEN(OBJECT_NAME) " identified %s.\n", (OBJECT_NAME)
 #define MES_DIARY_WIZ_TELE(TO) " wizard-teleport to %s.\n", (TO)
 #define MES_DIARY_PAT_TELE(TO) " used Pattern to teleport to %s.\n", (TO)
+#define MES_DIARY_LEVELUP(LEVEL) " reached player level %d.\n", (LEVEL)
 #endif
 
 #ifdef JP

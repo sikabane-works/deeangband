@@ -180,19 +180,13 @@ errr write_diary(int type, int num, cptr note)
 			break;
 		}
 		case DIARY_LEVELUP:
-		{
-#ifdef JP
-			fprintf(fff, " ƒŒƒxƒ‹‚ª%d‚Éã‚ª‚Á‚½B\n", num);
-#else
-			fprintf(fff, " reached player level %d.\n", num);
-#endif
+			fprintf(fff, MES_DIARY_LEVELUP(num));
 			break;
-		}
 		case DIARY_GAMESTART:
 		{
 			time_t ct = time((time_t*)0);
 			do_level = FALSE;
-			fprintf(fff, "%s %s",note, ctime(&ct));
+			fprintf(fff, "%s %s", note, ctime(&ct));
 		}
 		case DIARY_NAMED_PET:
 		{
