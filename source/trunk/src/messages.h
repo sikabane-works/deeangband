@@ -1948,6 +1948,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_CRUSHED "粉砕された"
 #define MES_EFFECT_A_TREE_(MES) "木は%s。", (MES)
 #define MES_EFFECT_CRUSHED2(MES) "%sが割れた！", (MES)
+#define MES_EFFECT_PSY_DEAD "の精神は崩壊し、肉体は抜け殻となった。"
+#define MES_EFFECT_ANTIPATHY "はあなたに敵意を抱いている。"
 #else
 #define MES_EFFECT_CHAOS_DONE "Your body is twisted by chaos!"
 #define MES_EFFECT_TIME_DONE(TARGET) "You saw %s' life has clocked back.", (TARGET)
@@ -1964,6 +1966,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_CRUSHED "was crushed."
 #define MES_EFFECT_A_TREE_(MES) "A tree %s", (MES)
 #define MES_EFFECT_CRUSHED2(MES) "The %s was crashed!", (MES)
+#define MES_EFFECT_PSY_DEAD " collapses, a mindless husk."
+#define MES_EFFECT_ANTIPATHY " hates you too much!"
 #endif
 
 #ifdef JP

@@ -2168,11 +2168,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
-#ifdef JP
-			note = "はあなたに敵意を抱いている！";
-#else
-			note = " hates you too much!";
-#endif
+			note = MES_EFFECT_ANTIPATHY;
 			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
@@ -2210,11 +2206,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
-#ifdef JP
-			note = "はあなたに敵意を抱いている！";
-#else
-			note = " hates you too much!";
-#endif
+			note = MES_EFFECT_ANTIPATHY;
 			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
@@ -2251,11 +2243,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
-#ifdef JP
-			note = "はあなたに敵意を抱いている！";
-#else
-			note = " hates you too much!";
-#endif
+			note = MES_EFFECT_ANTIPATHY;
 			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
@@ -2342,12 +2330,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 		}
-
-#ifdef JP
-		note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
-#else
-		note_dies = " collapses, a mindless husk.";
-#endif
+		note_dies = MES_EFFECT_PSY_DEAD;
 		break;
 
 
@@ -2398,11 +2381,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			prepare_redraw(PR_MANA);
 			prepare_window(PW_SPELL);
 		}
-#ifdef JP
-		note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
-#else
-		note_dies = " collapses, a mindless husk.";
-#endif
+		note_dies = MES_EFFECT_PSY_DEAD;
 		break;
 
 	case DO_EFFECT_TELEKINESIS:
@@ -2694,11 +2673,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
-#ifdef JP
-			note = "はあなたに敵意を抱いている！";
-#else
-			note = " hates you too much!";
-#endif
+			note = MES_EFFECT_ANTIPATHY;
 			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
@@ -2828,11 +2803,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 		{
-#ifdef JP
-			note = "はあなたに敵意を抱いている！";
-#else
-			note = " hates you too much!";
-#endif
+			note = MES_EFFECT_ANTIPATHY;
 			if(one_in_(4)) set_timed_trait(target_ptr, TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 		}
 		else
