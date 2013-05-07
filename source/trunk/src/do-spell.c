@@ -10083,51 +10083,25 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(caster_ptr->revenge_turn > 0)
 			{
-#ifdef JP
-				msg_print("すでに我慢をしている。");
-#else
-				msg_print("You are already patienting.");
-#endif
+				msg_print(MES_HEX_ALREADY_PATIENT);
 				return NULL;
 			}
 
 			caster_ptr->revenge_type = 1;
 			caster_ptr->revenge_turn = r;
 			caster_ptr->revenge_damage = 0;
-#ifdef JP
-			msg_print("じっと耐えることにした。");
-#else
-			msg_print("You decide to patient all damages.");
-#endif
+			msg_print(MES_HEX_ALREADY_PATIENT);
 			add = FALSE;
 		}
 		if(cont)
 		{
 			COODINATES rad = 2 + (COODINATES)(power / 50);
-
 			caster_ptr->revenge_turn--;
-
 			if((caster_ptr->revenge_turn <= 0) || (power >= 200))
 			{
-#ifdef JP
-				msg_print("我慢が解かれた！");
-#else
-				msg_print("Time for end of patioence!");
-#endif
-				if(power)
-				{
-					project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, power, DO_EFFECT_HELL_FIRE,
-						(PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
-				}
-				if(wizard)
-				{
-#ifdef JP
-					msg_format("%d点のダメージを返した。", power);
-#else
-					msg_format("You return %d damages.", power);
-#endif
-				}
-
+				msg_print(MES_HEX_REVENGE_DONE);
+				if(power) project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, power, DO_EFFECT_HELL_FIRE, (PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+				if(wizard) msg_format(MES_HEX_WIZ_REVENGE(power));
 				caster_ptr->revenge_type = 0;
 				caster_ptr->revenge_turn = 0;
 				caster_ptr->revenge_damage = 0;
