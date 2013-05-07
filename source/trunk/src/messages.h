@@ -3044,6 +3044,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_STAIR(TO, NOTE) " %sへ%s。\n", (TO), (NOTE)
 #define MES_DIARY_RECALL_DEPTH(DUNGEON_NAME, DEPTH) " 帰還を使って%sの%d階へ下りた。\n", (DUNGEON_NAME), (DEPTH)
 #define MES_DIARY_RECALL_SURFACE " 帰還を使って地上へと戻った。\n"
+#define MES_DIARY_TO_QUEST(QUEST_NAME) " クエスト「%s」へと突入した。\n", (QUEST_NAME)
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -3114,6 +3115,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_STAIR(TO, NOTE) " %s %s.\n", (NOTE), (TO)
 #define MES_DIARY_RECALL_DEPTH(DUNGEON_NAME, DEPTH) " recalled to dungeon level %d of %s.\n", (DEPTH), (DUNGEON_NAME)
 #define MES_DIARY_RECALL_SURFACE " recalled from dungeon to surface.\n"
+#define MES_DIARY_TO_QUEST(QUEST_NAME) " entered the quest '%s'.\n", (QUEST_NAME)
 #endif
 
 #ifdef JP

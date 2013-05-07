@@ -128,21 +128,13 @@ errr write_diary(int type, int num, cptr note)
 			break;
 		}
 		case DIARY_RECALL:
-		{
 			if(!num) fprintf(fff, MES_DIARY_RECALL_DEPTH(dungeon_name + dungeon_info[floor_ptr->dungeon_id].name, max_dlv[floor_ptr->dungeon_id]));
 			else fprintf(fff, MES_DIARY_RECALL_SURFACE);
 			break;
-		}
 		case DIARY_TO_QUEST:
-		{
 			if(quest[num].flags & QUEST_FLAG_SILENT) break;
-#ifdef JP
-			fprintf(fff, " クエスト「%s」へと突入した。\n", quest[num].name);
-#else
-			fprintf(fff, " entered the quest '%s'.\n", quest[num].name);
-#endif
+			fprintf(fff, MES_DIARY_TO_QUEST(quest[num].name));
 			break;
-		}
 		case DIARY_TELE_LEV:
 		{
 #ifdef JP
