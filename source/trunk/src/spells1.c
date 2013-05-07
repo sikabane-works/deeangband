@@ -2211,11 +2211,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else
 		{
-#ifdef JP
-			note = "ÇÕä˘Ç…Ç†Ç»ÇΩÇÃìzóÍÇæÅI";
-#else
-			note = " is in your thrall!";
-#endif
+			note = MES_EFFECT_ALREADY_THRALL;
 			set_pet(caster_ptr, target_ptr);
 		}
 		dam = 0;
@@ -2678,11 +2674,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else
 		{
-#ifdef JP
-			note = "ÇéxîzÇµÇΩÅB";
-#else
-			note = " is tamed!";
-#endif
+			note = MES_EFFECT_TAMED;
 			set_pet(caster_ptr, target_ptr);
 		}
 
@@ -2790,8 +2782,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 
 	case DO_EFFECT_CONTROL_DEMON:
-		if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
-			dam = dam * 2 / 3;
+		if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL)) dam = dam * 2 / 3;
 
 		/* Attempt a saving throw */
 		if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_DEMON)) ||
@@ -2808,11 +2799,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else
 		{
-#ifdef JP
-			note = "ÇÕä˘Ç…Ç†Ç»ÇΩÇÃìzóÍÇæÅI";
-#else
-			note = " is in your thrall!";
-#endif
+			note = MES_EFFECT_ALREADY_THRALL;
 			set_pet(caster_ptr, target_ptr);
 		}
 
@@ -2979,11 +2966,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 				else
 				{
-#ifdef JP
-					note = "ÇéxîzÇµÇΩÅB";
-#else
-					note = " is tamed!";
-#endif
+					note = MES_EFFECT_TAMED;
 					set_pet(caster_ptr, target_ptr);
 					(void)add_timed_trait(target_ptr, TRAIT_FAST, 100, FALSE);
 
