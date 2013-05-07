@@ -136,32 +136,14 @@ errr write_diary(int type, int num, cptr note)
 			fprintf(fff, MES_DIARY_TO_QUEST(quest[num].name));
 			break;
 		case DIARY_TELE_LEV:
-		{
-#ifdef JP
-			fprintf(fff, " レベル・テレポートで脱出した。\n");
-#else
-			fprintf(fff, " Got out using teleport level.\n");
-#endif
+			fprintf(fff, MES_DIARY_LEV_TELE);
 			break;
-		}
 		case DIARY_BUY:
-		{
-#ifdef JP
-			fprintf(fff, " %sを購入した。\n", note);
-#else
-			fprintf(fff, " bought %s.\n", note);
-#endif
+			fprintf(fff, MES_DIARY_BUY(note));
 			break;
-		}
 		case DIARY_SELL:
-		{
-#ifdef JP
-			fprintf(fff, " %sを売却した。\n", note);
-#else
-			fprintf(fff, " sold %s.\n", note);
-#endif
+			fprintf(fff, MES_DIARY_SELL(note));
 			break;
-		}
 		case DIARY_ARENA:
 		{
 			if(num < 0)

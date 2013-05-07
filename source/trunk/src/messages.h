@@ -3045,6 +3045,9 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_RECALL_DEPTH(DUNGEON_NAME, DEPTH) " 帰還を使って%sの%d階へ下りた。\n", (DUNGEON_NAME), (DEPTH)
 #define MES_DIARY_RECALL_SURFACE " 帰還を使って地上へと戻った。\n"
 #define MES_DIARY_TO_QUEST(QUEST_NAME) " クエスト「%s」へと突入した。\n", (QUEST_NAME)
+#define MES_DIARY_LEV_TELE " レベル・テレポートで脱出した。\n"
+#define MES_DIARY_BUY(OBJECT_NAME) " %sを購入した。\n", (OBJECT_NAME)
+#define MES_DIARY_SELL(OBJECT_NAME) " %sを売却した。\n", (OBJECT_NAME)
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -3116,6 +3119,9 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_RECALL_DEPTH(DUNGEON_NAME, DEPTH) " recalled to dungeon level %d of %s.\n", (DEPTH), (DUNGEON_NAME)
 #define MES_DIARY_RECALL_SURFACE " recalled from dungeon to surface.\n"
 #define MES_DIARY_TO_QUEST(QUEST_NAME) " entered the quest '%s'.\n", (QUEST_NAME)
+#define MES_DIARY_LEV_TELE " Got out using teleport level.\n"
+#define MES_DIARY_BUY(OBJECT_NAME) " bought %s.\n", (OBJECT_NAME)
+#define MES_DIARY_SELL(OBJECT_NAME) " sold %s.\n", (OBJECT_NAME)
 #endif
 
 #ifdef JP
