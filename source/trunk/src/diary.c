@@ -148,19 +148,11 @@ errr write_diary(int type, int num, cptr note)
 		{
 			if(num < 0)
 			{
-#ifdef JP
-				fprintf(fff, " “¬‹Zê‚Ì%d‰ñí‚ÅA%s‚Ì‘O‚É”s‚ê‹Ž‚Á‚½B\n", -num, note);
-#else
-				int n = -num;
-				fprintf(fff, " beaten by %s in the %d%s fight.\n", note, n, get_ordinal_number_suffix(n));
-#endif
+				fprintf(fff, MES_DIART_ARENA_LOST(-num, note));
 				break;
 			}
-#ifdef JP
-			fprintf(fff, " “¬‹Zê‚Ì%d‰ñí(%s)‚ÉŸ—˜‚µ‚½B\n", num, note);
-#else
-			fprintf(fff, " won the %d%s fight (%s).\n", num, get_ordinal_number_suffix(num), note);
-#endif
+			fprintf(fff, MES_DIART_ARENA_WON(num, note));
+
 			if(num == MAX_ARENA_MONS)
 			{
 #ifdef JP

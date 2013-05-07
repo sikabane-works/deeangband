@@ -3048,6 +3048,8 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_LEV_TELE " レベル・テレポートで脱出した。\n"
 #define MES_DIARY_BUY(OBJECT_NAME) " %sを購入した。\n", (OBJECT_NAME)
 #define MES_DIARY_SELL(OBJECT_NAME) " %sを売却した。\n", (OBJECT_NAME)
+#define MES_DIART_ARENA_WON(NUM, ENEMY_NAME) " 闘技場の%d回戦(%s)に勝利した。\n", (NUM), (ENEMY_NAME)
+#define MES_DIART_ARENA_LOST(NUM, ENEMY_NAME) " 闘技場の%d回戦で、%sの前に敗れ去った。\n", (NUM), (ENEMY_NAME)
 #else
 #define MES_PATRON_BOOM_OUT(PATRON) "The voice of %s booms out:", (PATRON)
 #define MES_PATRON_MUTATION(PATRON) "%^s rewards you with a mutation!"
@@ -3114,7 +3116,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_FIX_R_QUEST(QUEST_NAME) " completed random quest '%s'\n", (QUEST_NAME)
 #define MES_DIARY_AWAY_R_QUEST(QUEST_NAME) " ran away from quest '%s'.\n", (QUEST_NAME)
 #define MES_DIARY_MAXDEPTH(DUNGEON_NAME, DEPTH) " reached level %d of %s for the first time.\n", (DUNGEON_NAME), (DEPTH)
-#define MES_DIARY_TRUMP_TOWER_SET(NOTE, DUNGEON_NAME, DEPTH) " reset recall level of %s to %d %s.\n", (DUNGEON_NAME), (DEPTH), (NOTE)
+#define MES_DIARY_TRUMP_TOWER_SET(NOTE, DUNGEON_NAME, DEPTH) " reset recall level of %s to %d %s.\n", (DUNGEON_NAME), (DEPTH1), (NOTE)
 #define MES_DIARY_STAIR(TO, NOTE) " %s %s.\n", (NOTE), (TO)
 #define MES_DIARY_RECALL_DEPTH(DUNGEON_NAME, DEPTH) " recalled to dungeon level %d of %s.\n", (DEPTH), (DUNGEON_NAME)
 #define MES_DIARY_RECALL_SURFACE " recalled from dungeon to surface.\n"
@@ -3122,6 +3124,8 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_LEV_TELE " Got out using teleport level.\n"
 #define MES_DIARY_BUY(OBJECT_NAME) " bought %s.\n", (OBJECT_NAME)
 #define MES_DIARY_SELL(OBJECT_NAME) " sold %s.\n", (OBJECT_NAME)
+#define MES_DIART_ARENA_WON(NUM, ENEMY_NAME) " " won the %d%s fight (%s).\n", (NUM),  get_ordinal_number_suffix(n), (ENEMY_NAME)
+#define MES_DIART_ARENA_LOST(NUM, ENEMY_NAME) " beaten by %s in the %d%s fight.\n", (ENEMY_NAME), (NUM),  get_ordinal_number_suffix(n)
 #endif
 
 #ifdef JP
