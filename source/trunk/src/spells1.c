@@ -2097,7 +2097,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//57-58
 
 	case DO_EFFECT_STASIS:
-		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+		if((has_trait(target_ptr, TRAIT_UNIQUE)) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
 			note = MES_IS_IMMUNE;
 			obvious = FALSE;
@@ -2121,7 +2121,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_STUN:
 		do_stun = diceroll((caster_power / 20) + 3 , (dam)) + 1;
-		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+		if((has_trait(target_ptr, TRAIT_UNIQUE)) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
 			do_stun = 0;
 			note = MES_IS_UNAFFECTED;
@@ -2153,8 +2153,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 			dam = dam * 2 / 3;
 
-		if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_NO_CONF) ||
-			has_trait(target_ptr, TRAIT_NO_PET) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
+		if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_NO_CONF) || has_trait(target_ptr, TRAIT_NO_PET) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
 			if(has_trait(target_ptr, TRAIT_NO_CONF))
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
@@ -2194,9 +2193,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			dam = dam * 2 / 3;
 
 		/* Attempt a saving throw */
-		if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_UNDEAD)) ||
-			has_trait(target_ptr, TRAIT_NO_PET) ||
-			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+		if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_UNDEAD)) || has_trait(target_ptr, TRAIT_NO_PET) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
 			note = MES_IS_UNAFFECTED;
 			obvious = FALSE;
@@ -2226,9 +2223,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL)) dam = dam * 2 / 3;
 
-		if(has_trait(target_ptr, TRAIT_QUESTOR) || !has_trait(target_ptr, TRAIT_ANIMAL) ||
-			has_trait(target_ptr, TRAIT_NO_PET) || has_trait(target_ptr, TRAIT_NO_CONF) ||
-			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+		if(has_trait(target_ptr, TRAIT_QUESTOR) || !has_trait(target_ptr, TRAIT_ANIMAL) || has_trait(target_ptr, TRAIT_NO_PET) || has_trait(target_ptr, TRAIT_NO_CONF) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
 			if(has_trait(target_ptr, TRAIT_NO_CONF) && is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 			note = MES_IS_UNAFFECTED;
@@ -2404,8 +2399,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_DOMINATION:
 		if(!is_hostile(target_ptr)) break;
 		/* Attempt a saving throw */
-		if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) ||
-			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+		if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
 			/* Memorize a flag */
 			if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -2714,7 +2708,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(effect == 1)
 			{
-				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				if((has_trait(target_ptr, TRAIT_UNIQUE)) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 				{
 					note = MES_IS_UNAFFECTED;
 					obvious = FALSE;
@@ -2725,7 +2719,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else if(effect == 2)
 			{
 				do_stun = diceroll((caster_ptr->lev / 10) + 3 , (dam)) + 1;
-				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				if((has_trait(target_ptr, TRAIT_UNIQUE)) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 				{
 					do_stun = 0;
 					note = MES_IS_UNAFFECTED;
@@ -2736,8 +2730,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else if(effect == 3)
 			{
 				/* Attempt a saving throw */
-				if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_SLEEP) ||
-					(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_SLEEP) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 				{
 					if(has_trait(target_ptr, TRAIT_NO_SLEEP))
 						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_SLEEP);
@@ -2783,8 +2776,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL)) dam = dam * 2 / 3;
 
 		/* Attempt a saving throw */
-		if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_DEMON)) ||
-			has_trait(target_ptr, TRAIT_NO_PET) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+		if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_DEMON)) || has_trait(target_ptr, TRAIT_NO_PET) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
 			note = MES_IS_UNAFFECTED;
 			obvious = FALSE;
@@ -2986,8 +2978,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_STASIS_EVIL:
 
-		if((has_trait(target_ptr, TRAIT_UNIQUE)) || !(is_enemy_of_good_creature(target_ptr)) ||
-			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+		if((has_trait(target_ptr, TRAIT_UNIQUE)) || !(is_enemy_of_good_creature(target_ptr)) || saving_throw(target_ptr, SAVING_VO, dam, 0))
 		{
 			note = MES_IS_UNAFFECTED;
 			obvious = FALSE;
