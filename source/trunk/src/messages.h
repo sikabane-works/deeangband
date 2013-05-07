@@ -3594,21 +3594,30 @@ static cptr desc_stat_neg[] =
 #define MES_DOOR_BROKEN "The door appears to be broken."
 #endif
 
-
 #ifdef JP
+#define MES_GAINMAGIC_LIST "[A] 杖, [B] 魔法棒, [C] ロッド:"
+#define MES_GAINMAGIC_NO_TYPE "その種類の魔法は覚えていない。"
+#define MES_GAINMAGIC_CHARGING "その魔法はまだ充填している最中だ。"
+#define MES_GAINMAGIC_NO_LEFT "その魔法は使用回数が切れている。"
 #define MES_GAINMAGIC_WHICH_ITEM "どのアイテムの魔力を取り込みますか? "
 #define MES_GAINMAGIC_NO_ITEM "魔力を取り込めるアイテムがない。"
 #define MES_GAINMAGIC_NO_MAGIC "この杖には発動の為の能力は何も備わっていないようだ。"
 #define MES_GAINMAGIC_NEED_IDENTIFY "鑑定されていないと取り込めない。"
 #define MES_GAINMAGIC_STILL_CHARGING "充填中のアイテムは取り込めない。"
 #define MES_GAINMAGIC_ABSORBED(OBJECT) "%sの魔力を取り込んだ。", (OBJECT)
+#define MES_GAINMAGIC_NONE "魔法を覚えていない！"
 #else
+#define MES_GAINMAGIC_LIST "[A] staff, [B] wand, [C] rod:"
+#define MES_GAINMAGIC_NO_TYPE "You don't have that type of magic."
+#define MES_GAINMAGIC_CHARGING "The magic are still charging."
+#define MES_GAINMAGIC_NO_LEFT "The magic has no charges left."
 #define MES_GAINMAGIC_WHICH_ITEM "Gain power of which item? "
 #define MES_GAINMAGIC_NO_ITEM "You have nothing to gain power."
 #define MES_GAINMAGIC_NO_MAGIC "This staff doesn't have any magical ability."
 #define MES_GAINMAGIC_NEED_IDENTIFY "You need to identify before absorbing."
 #define MES_GAINMAGIC_STILL_CHARGING "This item is still charging."
 #define MES_GAINMAGIC_ABSORBED(OBJECT) "You absorb magic of %s.", (OBJECT)
+#define MES_GAINMAGIC_NONE "You don't have any magic!"
 #endif
 
 #ifdef JP
@@ -3967,18 +3976,6 @@ static cptr desc_stat_neg[] =
 #define MES_EATMAGIC_EMPTY "There's no energy there to absorb!"
 #define MES_EATMAGIC_BACKFIRE(OBJECT) "The recharging backfires - %s is completely drained!", (OBJECT)->name
 #define MES_EATMAGIC_LOST_MANA(OBJECT) "You save your %s from destruction, but all charges are lost.", (OBEJCT)->name
-#endif
-
-#ifdef JP
-#define MES_INMAGIC_LIST "[A] 杖, [B] 魔法棒, [C] ロッド:"
-#define MES_INMAGIC_NO_TYPE "その種類の魔法は覚えていない。"
-#define MES_INMAGIC_CHARGING "その魔法はまだ充填している最中だ。"
-#define MES_INMAGIC_NO_LEFT "その魔法は使用回数が切れている。"
-#else
-#define MES_INMAGIC_LIST "[A] staff, [B] wand, [C] rod:"
-#define MES_INMAGIC_NO_TYPE "You don't have that type of magic."
-#define MES_INMAGIC_CHARGING "The magic are still charging."
-#define MES_INMAGIC_NO_LEFT "The magic has no charges left."
 #endif
 
 #ifdef JP

@@ -2312,11 +2312,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	for (i = 0; i < 108; i++) if(creature_ptr->max_charge[i]) break;
 	if(i == 108)
 	{
-#ifdef JP
-		msg_print("–‚–@‚ðŠo‚¦‚Ä‚¢‚È‚¢I");
-#else
-		msg_print("You don't have any magic!");
-#endif
+		msg_print(MES_GAINMAGIC_NONE);
 		return -1;
 	}
 
@@ -2372,7 +2368,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	{
 	while (TRUE)
 	{
-		if(!get_com(MES_INMAGIC_LIST, &choice, TRUE))
+		if(!get_com(MES_GAINMAGIC_LIST, &choice, TRUE))
 			return -1;
 		if(choice == 'A' || choice == 'a')
 		{
@@ -2404,7 +2400,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	}
 	if(i == ext+EATER_EXT)
 	{
-		msg_print(MES_INMAGIC_NO_TYPE);
+		msg_print(MES_GAINMAGIC_NO_TYPE);
 		return -1;
 	}
 
@@ -2659,7 +2655,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			{
 				if(creature_ptr->current_charge[ext+i]  > object_kind_info[lookup_kind(tval, (SVAL)i)].pval * (creature_ptr->max_charge[ext+i] - 1) * EATER_ROD_CHARGE)
 				{
-					msg_print(MES_INMAGIC_CHARGING);
+					msg_print(MES_GAINMAGIC_CHARGING);
 					msg_print(NULL);
 					if(use_menu) ask = TRUE;
 					continue;
@@ -2669,7 +2665,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			{
 				if(creature_ptr->current_charge[ext+i] < EATER_CHARGE)
 				{
-					msg_print(MES_INMAGIC_NO_LEFT);
+					msg_print(MES_GAINMAGIC_NO_LEFT);
 					msg_print(NULL);
 					if(use_menu) ask = TRUE;
 					continue;
