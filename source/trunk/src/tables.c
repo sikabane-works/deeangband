@@ -2492,7 +2492,6 @@ cptr stat_names[STAT_MAX] =
 #else
 	"STR", "INT", "WIS", "DEX", "CON", "CHR"
 #endif
-
 };
 
 /*

@@ -1497,14 +1497,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
 
 	if(caster_ptr) creature_desc(caster_name, caster_ptr, 0);
-	else
-	{
-#ifdef JP
-		strcpy(caster_name, "罠");
-#else
-		strcpy(caster_name, "a trap");
-#endif
-	}
+	else strcpy(caster_name, COD_TRAP);
 
 	// Analyze the damage
 	dam = calc_damage(caster_ptr, target_ptr, dam, typ, TRUE, FALSE);
@@ -1673,42 +1666,17 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				msg_format(MES_EFFECT_TIME_DONE(target_name));
 				lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE);
 				break;
+
 			case 6: case 7: case 8: case 9:
-				switch (randint1(6))
-				{
-#ifdef JP
-			case 1: k = STAT_STR; act = "力強さ"; break;
-			case 2: k = STAT_INT; act = "聡明さ"; break;
-			case 3: k = STAT_WIS; act = "賢明さ"; break;
-			case 4: k = STAT_DEX; act = "器用さ"; break;
-			case 5: k = STAT_CON; act = "頑丈さ"; break;
-			case 6: k = STAT_CHA; act = "美しさ"; break;
-#else
-			case 1: k = STAT_STR; act = "strong"; break;
-			case 2: k = STAT_INT; act = "bright"; break;
-			case 3: k = STAT_WIS; act = "wise"; break;
-			case 4: k = STAT_DEX; act = "agile"; break;
-			case 5: k = STAT_CON; act = "hale"; break;
-			case 6: k = STAT_CHA; act = "beautiful"; break;
-#endif
-				}
-#ifdef JP
-				msg_format("%sの%sが大きく損なわれた。", target_name, act);
-#else
-				//TODO
-				msg_format("You're not as %s as you used to be.", act);
-#endif
+				k = randint0(6);
+				msg_format(MES_EFFECT_HEAVY_REDUCE_STAT(target_ptr, stat_names[k]));
 				target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 3) / 4;
 				if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
 				prepare_update(target_ptr, CRU_BONUS);
 				break;
 
 			case 10:
-#ifdef JP
-				msg_format("%sの能力が大きく衰えた。", target_name);
-#else
-				//TODO msg_format("You're not as powerful as you used to be...");
-#endif
+				msg_format(MES_EFFECT_HEAVY_REDUCE_STAT_ALL(target_ptr));
 				for (k = 0; k < STAT_MAX; k++)
 				{
 					target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
