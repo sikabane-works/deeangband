@@ -1768,6 +1768,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_PINCH "%sによってピンチに陥った。"
 #define DIARY_PATRON(REWARD) "パトロンの報酬で%s", (REWARD)
 #define DIARY_INN_OVER_DAY "宿屋で昼間を過ごした。"
+#define DIARY_INN_MORNING "あなたはリフレッシュして目覚め、新たな日を迎えた。"
+#define DIARY_INN_MORNING2 "すがすがしい朝を迎えた。"
 #define DIARY_INN_EVENING "あなたはリフレッシュして目覚め、夕方を迎えた。"
 #define DIARY_INN_EVENING2 "夕方を迎えた。"
 #define DIARY_INN_STAY_NIGHT "宿屋で一夜を明かした。"
@@ -1803,6 +1805,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define DIARY_TRAP_DOOR "You have fallen through a trap door."
 #define DIARY_PINCH "A critical situation because of %s".
 #define DIARY_PATRON(REWARD) "The patron rewards you with %s.", (REWARD)
+#define DIARY_INN_MORNING "You awake refreshed for the new day."
+#define DIARY_INN_MORNING2 "awake refreshed."
 #define DIARY_INN_EVENING "You awake refreshed for the evening."
 #define DIARY_INN_EVENING2 "awake refreshed."
 #define DIARY_INN_OVER_DAY "stay over daytime at the inn."

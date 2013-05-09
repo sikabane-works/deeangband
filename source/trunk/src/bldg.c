@@ -1949,13 +1949,8 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 					}
 					else
 					{
-#ifdef JP
-						msg_print("あなたはリフレッシュして目覚め、新たな日を迎えた。");
-						write_diary(DIARY_BUNSHOU, 0, "すがすがしい朝を迎えた。");
-#else
-						msg_print("You awake refreshed for the new day.");
-						write_diary(DIARY_BUNSHOU, 0, "awake refreshed.");
-#endif
+						msg_print(DIARY_INN_MORNING);
+						write_diary(DIARY_BUNSHOU, 0, DIARY_INN_MORNING2);
 					}
 				}
 			}
