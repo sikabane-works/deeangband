@@ -1796,13 +1796,7 @@ void do_cmd_macros(void)
 
 				/* Link the macro */
 				macro_add(buf, macro__buf);
-
-#ifdef JP
-				msg_print("マクロを追加しました。");
-#else
-				msg_print("Added a macro.");
-#endif
-
+				msg_print(MES_MACRO_ADDED);
 			}
 		}
 
@@ -1816,13 +1810,7 @@ void do_cmd_macros(void)
 
 			/* Link the macro */
 			macro_add(buf, buf);
-
-#ifdef JP
-			msg_print("マクロを削除しました。");
-#else
-			msg_print("Removed a macro.");
-#endif
-
+			msg_print(MES_MACRO_DELETE);
 		}
 
 		/* Save keymaps */

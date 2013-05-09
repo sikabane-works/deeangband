@@ -3530,10 +3530,12 @@ static cptr desc_stat_neg[] =
 #define MES_MACRO_ADDED "マクロを追加しました。"
 #define MES_MACRO_NOT_FOUND "そのキーにはマクロは定義されていません。"
 #define MES_MACRO_FOUND "マクロを確認しました。"
+#define MES_MACRO_DELETE "マクロを削除しました。"
 #else
 #define MES_MACRO_ADDED "Appended macros."
 #define MES_MACRO_NOT_FOUND "Found no macro."
 #define MES_MACRO_FOUND "Found a macro"
+#define MES_MACRO_DELETE "Removed a macro."
 #endif
 
 #ifdef JP
