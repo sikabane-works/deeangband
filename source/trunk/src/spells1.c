@@ -2728,11 +2728,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_PHOTO:
 		light_dying = TRUE;
-#ifdef JP
-		if(is_player(caster_ptr)) msg_format("%sを写真に撮った。", target_name);
-#else
-		if(is_player(caster_ptr)) msg_format("You take a photograph of %s.", target_name);
-#endif
+		if(is_player(caster_ptr)) msg_format(MES_EFFECT_PHOTO(target_ptr));
 		// Hurt by light
 		if(has_trait(target_ptr, TRAIT_HURT_LITE))
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
@@ -2785,12 +2781,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					if(!count)
 					{
 						POWER dam = diceroll(10, 10);
-#ifdef JP
-						msg_print("純粋な魔力の次元への扉が開いた！");
-#else
-						msg_print("A portal opens to a plane of raw mana!");
-#endif
-
+						msg_print(MES_TY_CURSE_PURE_MANA);
 						project(0, 0, 8, ty, tx, dam, DO_EFFECT_MANA, curse_flg, -1);
 						if(!one_in_(6)) break;
 					}
