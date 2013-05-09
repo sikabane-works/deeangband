@@ -1557,11 +1557,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_FLATULENT) && (randint1(3000) == 13))
 	{
 		disturb(player_ptr, 0, 0);
-#ifdef JP
-		msg_print("ブゥーーッ！おっと。");
-#else
-		msg_print("BRRAAAP! Oops.");
-#endif
+		msg_print(MES_TRAIT_FLATULENT);
 		msg_print(NULL);
 		SELF_FIELD(creature_ptr, DO_EFFECT_POIS, creature_ptr->lev, 3, -1);
 	}
@@ -1570,11 +1566,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	{
 		int dire = 0;
 		disturb(player_ptr, 0, 0);
-#ifdef JP
-		msg_print("魔法のエネルギーが突然あなたの中に流れ込んできた！エネルギーを解放しなければならない！");
-#else
-		msg_print("Magical energy flows through you! You must release it!");
-#endif
+		msg_print(MES_TRAIT_PROD_MANA);
 		flush();
 		msg_print(NULL);
 		(void)get_hack_dir(creature_ptr, &dire);

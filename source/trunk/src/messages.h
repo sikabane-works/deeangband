@@ -3388,6 +3388,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_BANISH_NO_TARGET "邪悪な存在を感じとれません！"
 #define MES_TRAIT_BANISH_DONE "邪悪なクリーチャーは硫黄臭い煙とともに消え去った！"
 #define MES_TRAIT_BANISH_UNAFFECTED "祈りは効果がなかった！"
+#define MES_TRAIT_FLATULENT "ブゥーーッ！おっと。"
+#define MES_TRAIT_PROD_MANA "魔法のエネルギーが突然あなたの中に流れ込んできた！エネルギーを解放しなければならない！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3410,6 +3412,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_BANISH_NO_TARGET "You sense no evil there!"
 #define MES_TRAIT_BANISH_DONE "The evil creature vanishes in a puff of sulfurous smoke!"
 #define MES_TRAIT_BANISH_UNAFFECTED "The invocation is ineffectual."
+#define MES_TRAIT_FLATULENT "BRRAAAP! Oops."
+#define MES_TRAIT_PROD_MANA "Magical energy flows through you! You must release it!"
 #endif
 
 #ifdef JP
