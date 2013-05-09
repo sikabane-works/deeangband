@@ -1453,7 +1453,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 static void project_creature_aux(creature_type *caster_ptr, creature_type *target_ptr, EFFECT_ID typ, POWER dam, int spell)
 {
 	int k;
-	cptr act, note, note_dies;
+	cptr note, note_dies;
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[target_ptr->fy][target_ptr->fx];
@@ -2617,13 +2617,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_GENOCIDE:
 		if(genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (target_ptr->lev * 2 + 1) / 2, COD_GENOCIDE_CREATURE))
 		{
-#ifdef JP
-			if(seen_msg) msg_format("%sÇÕè¡ñ≈ÇµÇΩÅI", target_name);
-#else
-			if(seen_msg) msg_format("%^s disappered!", target_name);
-#endif
+			if(seen_msg) msg_format(MES_EFFECT_GENOCIDE(target_ptr));
 		}
-
 		skipped = TRUE;
 		break;
 

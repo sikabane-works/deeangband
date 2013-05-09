@@ -1966,6 +1966,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_PHOTO(TARGET) "%sを写真に撮った。", (TARGET)->name
 #define MES_EFFECT_HEAVY_REDUCE_STAT(TARGET, STAT) "%sの%sが大きく損なわれた。", (TARGET)->name, (STAT)
 #define MES_EFFECT_HEAVY_REDUCE_STAT_ALL(TARGET) "%sの能力が大きく衰えた。", (TARGET)->name
+#define MES_EFFECT_GENOCIDE(TARGET) "%sは消滅した！", (TARGET)->name
 #else
 #define MES_EFFECT_KILL_ACID (plural ? " melt!" : " melts!")
 #define MES_EFFECT_KILL_FIRE (plural ? " burn up!" : " burns up!")
@@ -2000,6 +2001,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_PHOTO(TARGET) "You take a photograph of %s.", (TARGET)->name
 #define MES_EFFECT_HEAVY_REDUCE_STAT(TARGET, STAT) "%s is not as %s as you used to be.", (TARGET)->name, (STAT)
 #define MES_EFFECT_HEAVY_REDUCE_STAT_ALL(TARGET) "%s is not as powerful as you used to be...", (TARGET)->name, (STAT)
+#define MES_EFFECT_GENOCIDE(TARGET) "%^s disappered!", (TARGET)->name
 #endif
 
 #ifdef JP
