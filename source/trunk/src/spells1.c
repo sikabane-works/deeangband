@@ -2166,11 +2166,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else
 		{
-#ifdef JP
-			note = "は突然友好的になったようだ！";
-#else
-			note = " suddenly seems friendly!";
-#endif
+			note = MES_EFFECT_FRIENDLY;
 			set_pet(caster_ptr, target_ptr);
 		}
 		dam = 0;

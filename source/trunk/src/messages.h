@@ -1953,6 +1953,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_TAMED "を支配した。"
 #define MES_EFFECT_ALREADY_THRALL "は既にあなたの奴隷だ。"
 #define MES_EFFECT_STASIS "は動けなくなった！"
+#define MES_EFFECT_FRIENDLY "は突然友好的になったようだ！"
 #else
 #define MES_EFFECT_CHAOS_DONE "Your body is twisted by chaos!"
 #define MES_EFFECT_TIME_DONE(TARGET) "You saw %s' life has clocked back.", (TARGET)
@@ -1974,6 +1975,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_TAMED " is tamed!"
 #define MES_EFFECT_ALREADY_THRALL " is in your thrall!"
 #define MES_EFFECT_STASIS " is suspended!"
+#define MES_EFFECT_FRIENDLY " suddenly seems friendly!"
 #endif
 
 #ifdef JP
