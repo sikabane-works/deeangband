@@ -1675,11 +1675,10 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 	/* Hack -- hallucination */
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION))
 	{
+		cptr name = KW_SOMETHING_STRANGE;
 #ifdef JP
-		cptr name = "‰½‚©Šï–­‚È•¨";
 		sprintf(out_val, "%s%s%s%s [%s]", s1, name, s2, s3, info);
 #else
-		cptr name = "something strange";
 		sprintf(out_val, "%s%s%s%s [%s]", s1, s2, s3, name, info);
 #endif
 

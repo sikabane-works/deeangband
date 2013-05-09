@@ -1798,11 +1798,7 @@ static void display_shortened_item_name(creature_type *watcher_ptr, object_type 
 	if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
 	{
 		attr = TERM_WHITE;
-#ifdef JP
-		strcpy(buf, "‰½‚©Šï–­‚È•¨");
-#else
-		strcpy(buf, "something strange");
-#endif
+		strcpy(buf, KW_SOMETHING_STRANGE);
 	}
 
 	for (c = buf; *c; c++)
@@ -1814,10 +1810,8 @@ static void display_shortened_item_name(creature_type *watcher_ptr, object_type 
 
 			if(*org_w == '^')
 			{
-				if(c == buf)
-					org_w++;
-				else
-					continue;
+				if(c == buf) org_w++;
+				else continue;
 			}
 
 			if(!strncmp(c, org_w, strlen(org_w)))
