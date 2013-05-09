@@ -2450,68 +2450,28 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			/* Dump the "pval" itself */
 			t = object_desc_int(t, object_ptr->pval);
 
-			/* Do not display the "pval" flags */
-			if(have_flag(flgs, TRAIT_HIDE_TYPE))
-			{
-				/* Nothing */
-			}
-
 			/* Speed */
-			else if(have_flag(flgs, TRAIT_SPEED))
-			{
-				/* Dump " to speed" */
-#ifdef JP
-				t = object_desc_str(t, "â¡ë¨");
-#else
-				t = object_desc_str(t, " to speed");
-#endif
-			}
+			if(have_flag(flgs, TRAIT_SPEED)) t = object_desc_str(t, MES_OBJ_DESC_TO_SPEED);
 
 			/* Attack speed */
 			else if(has_trait_object(object_ptr, TRAIT_BLOWS))
 			{
 				/* Add " attack" */
-#ifdef JP
-				t = object_desc_str(t, "çUåÇ");
-#else
-				t = object_desc_str(t, " attack");
-
+				t = object_desc_str(t, MES_OBJ_DESC_ATTACK);
+#ifndef JP
 				/* Add "attacks" */
 				if(ABS(object_ptr->pval) != 1) t = object_desc_chr(t, 's');
 #endif
 			}
 
 			/* Stealth */
-			else if(has_trait_object(object_ptr, TRAIT_STEALTH))
-			{
-				/* Dump " to stealth" */
-#ifdef JP
-				t = object_desc_str(t, "âBñß");
-#else
-				t = object_desc_str(t, " to stealth");
-#endif
-			}
+			else if(has_trait_object(object_ptr, TRAIT_STEALTH)) t = object_desc_str(t, MES_OBJ_DESC_STEALTH);
 
-			else if(have_flag(flgs, TRAIT_SEARCH))
-			{
-				/* Dump " to searching" */
-#ifdef JP
-				t = object_desc_str(t, "íTçı");
-#else
-				t = object_desc_str(t, " to searching");
-#endif
-			}
+			/* Dump " to searching" */
+			else if(have_flag(flgs, TRAIT_SEARCH)) t = object_desc_str(t, MES_OBJ_DESC_SEARCH);
 
 			/* Infravision */
-			else if(have_flag(flgs, TRAIT_INFRA))
-			{
-				/* Dump " to infravision" */
-#ifdef JP
-				t = object_desc_str(t, "ê‘äOê¸éãóÕ");
-#else
-				t = object_desc_str(t, " to infravision");
-#endif
-			}
+			else if(have_flag(flgs, TRAIT_INFRA)) t = object_desc_str(t, MES_OBJ_DESC_INFRA);
 
 			/* Finish the display */
 			t = object_desc_chr(t, p2);

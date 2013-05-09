@@ -3705,6 +3705,20 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_OBJ_DESC_TO_SPEED "加速"
+#define MES_OBJ_DESC_ATTACK "攻撃"
+#define MES_OBJ_DESC_STEALTH "隠密"
+#define MES_OBJ_DESC_SEARCH "探索"
+#define MES_OBJ_DESC_INFRA "赤外線視力"
+#else
+#define MES_OBJ_DESC_TO_SPEED "to speed"
+#define MES_OBJ_DESC_ATTACK " attack"
+#define MES_OBJ_DESC_STEALTH " to stealth"
+#define MES_OBJ_DESC_SEARCH " to searching"
+#define MES_OBJ_DESC_INFRA " to infravision"
+#endif
+
+#ifdef JP
 #define MES_INN_FULL "今は満腹だ。"
 #define MES_INN_FOOD "バーテンはいくらかの食べ物とビールをくれた。"
 #define MES_INN_CANCEL1 "あなたに必要なのは部屋ではなく、治療者です。"
