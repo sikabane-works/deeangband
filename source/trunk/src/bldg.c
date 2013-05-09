@@ -1944,13 +1944,8 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 
 					if((prev_hour >= 6) && (prev_hour <= 17))
 					{
-#ifdef JP
-						msg_print("‚ ‚È‚½‚ÍƒŠƒtƒŒƒbƒVƒ…‚µ‚Ä–ÚŠo‚ßA—[•û‚ğŒ}‚¦‚½B");
-						write_diary(DIARY_BUNSHOU, 0, "—[•û‚ğŒ}‚¦‚½B");
-#else
-						msg_print("You awake refreshed for the evening.");
-						write_diary(DIARY_BUNSHOU, 0, "awake refreshed.");
-#endif
+						msg_print(DIARY_INN_EVENING);
+						write_diary(DIARY_BUNSHOU, 0, DIARY_INN_EVENING2);
 					}
 					else
 					{
