@@ -1185,6 +1185,7 @@
 #define COD_EARTHQUAKE "地震"
 #define COD_PURE_MANA "純粋な魔力の解放"
 #define COD_EQUIPED_DAMAGE(OBJECT_NAME) "%sを装備したダメージ", OBJECT_NAME
+#define COD_HELLFIRE_RISK "地獄の劫火の呪文を唱えた疲労"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -1250,6 +1251,7 @@
 #define COD_EARTHQUAKE "an earthquake"
 #define COD_PURE_MANA "released pure mana"
 #define COD_EQUIPED_DAMAGE(OBJECT_NAME) "wielding %s", OBJECT_NAME
+#define COD_HELLFIRE_RISK "the strain of casting Hellfire"
 #endif
 
 // Hack -- possible "insult" messages

@@ -4041,11 +4041,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, dam, rad);
-#ifdef JP
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "’n–‚Ì…‰Î‚Ìô•¶‚ğ¥‚¦‚½”æ˜J", NULL, -1);
-#else
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "the strain of casting Hellfire", NULL, -1);
-#endif
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), COD_HELLFIRE_RISK, NULL, -1);
 			}
 		}
 		break;
