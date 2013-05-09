@@ -2104,11 +2104,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else
 		{
-#ifdef JP
-			note = "ÇÕìÆÇØÇ»Ç≠Ç»Ç¡ÇΩÅI";
-#else
-			note = " is suspended!";
-#endif
+			note = MES_EFFECT_STASIS;
 			do_sleep = 500;
 		}
 		dam = 0;
@@ -2985,11 +2981,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else
 		{
-#ifdef JP
-			note = "ÇÕìÆÇØÇ»Ç≠Ç»Ç¡ÇΩÅI";
-#else
-			note = " is suspended!";
-#endif
+			note = MES_EFFECT_STASIS;
 			do_sleep = 500;
 		}
 
