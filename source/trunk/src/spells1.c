@@ -2485,14 +2485,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(&creature_list[target_ptr->riding] == caster_ptr) prepare_redraw(PR_UHEALTH);
 
 				/* Special message */
-				if(caster_ptr->see_others)
-				{
-#ifdef JP
-					msg_format("%^s‚Í‹C•ª‚ª—Ç‚³‚»‚¤‚¾B", caster_name);
-#else
-					msg_format("%^s appears healthier.", caster_name);
-#endif
-				}
+				if(caster_ptr->see_others) msg_format(MES_EFFECT_OTHER_HEALTHIER(caster_ptr));
 			}
 		}
 
