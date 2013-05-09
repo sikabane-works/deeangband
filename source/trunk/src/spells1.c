@@ -1422,15 +1422,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 			if(is_art || ignore)
 			{
 				/* Observe the resist */
-				if(known && (object_ptr->marked & OM_FOUND))
-				{
-#ifdef JP
-					msg_format("%s‚Í‰e‹¿‚ðŽó‚¯‚È‚¢I", object_name);
-#else
-					msg_format("The %s %s unaffected!", object_name, (plural ? "are" : "is"));
-#endif
-
-				}
+				if(known && (object_ptr->marked & OM_FOUND)) msg_format(MES_EFFECT_UNEFFECTED_OBJECT);
 			}
 
 			/* Kill it */

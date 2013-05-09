@@ -1938,6 +1938,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_KILL_COLD "砕け散ってしまった！"
 #define MES_EFFECT_KILL_DISINTEGRATE "蒸発してしまった！"
 #define MES_EFFECT_REVIVED "生き返った。"
+#define MES_EFFECT_UNEFFECTED_OBJECT "%sは影響を受けなかった。", object_name
 #define MES_EFFECT_CHAOS_DONE "あなたの身体はカオスの力で捻じ曲げられた！"
 #define MES_EFFECT_TIME_DONE(TARGET) "%sの時の流れが逆戻りした。", (TARGET)
 #define MES_EFFECT_GRAVITY_DONE "周辺の重力がゆがんだ。"
@@ -1968,6 +1969,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_KILL_COLD (plural ? " shatter!" : " shatters!")
 #define MES_EFFECT_KILL_DISINTEGRATE (plural ? " evaporate!" : " evaporates!")
 #define MES_EFFECT_REVIVED " revived."
+#define MES_EFFECT_UNEFFECTED_OBJECT "The %s %s unaffected.", object_name, (plural ? "are" : "is")
 #define MES_EFFECT_CHAOS_DONE "Your body is twisted by chaos!"
 #define MES_EFFECT_TIME_DONE(TARGET) "You saw %s' life has clocked back.", (TARGET)
 #define MES_EFFECT_GRAVITY_DONE "Gravity warps around you."
