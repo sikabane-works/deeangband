@@ -2229,11 +2229,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else
 		{
-#ifdef JP
-			note = "‚Í‚È‚Â‚¢‚½B";
-#else
-			note = " is tamed!";
-#endif
+			note = MES_EFFECT_TAMED;
 			set_pet(caster_ptr, target_ptr);
 		}
 		dam = 0;
@@ -2302,11 +2298,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			case 2: do_stun = 3 + randint1(dam); break;
 			case 3: do_fear = 3 + randint1(dam); break;
 			default:
-#ifdef JP
-				note = "‚Í–°‚è‚ñ‚Å‚µ‚Ü‚Á‚½I";
-#else
-				note = " falls asleep!";
-#endif
+				note = MES_EFFECT_STASIS;
 				do_sleep = 3 + randint1(dam);
 				break;
 			}
@@ -2437,12 +2429,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			if((dam > 29) && (randint1(100) < dam))
 			{
-#ifdef JP
-				note = "‚ª‚ ‚È‚½‚É—ê‘®‚µ‚½B";
-#else
-				note = " is in your thrall!";
-#endif
-
+				note = MES_EFFECT_TAMED;
 				set_pet(caster_ptr, target_ptr);
 			}
 			else
