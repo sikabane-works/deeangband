@@ -1308,35 +1308,25 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 				break;
 			}
 
-			/* Mana and Chaos -- destroy everything */
+		/* Mana and Chaos -- destroy everything */
 		case DO_EFFECT_MANA:
 		case DO_EFFECT_SEEKER:
 		case DO_EFFECT_SUPER_RAY:
-			{
-				do_kill = TRUE;
-				note_kill = MES_OBJECT_KILLED;
-				break;
-			}
+			do_kill = TRUE;
+			note_kill = MES_OBJECT_KILLED;
+			break;
 
 		case DO_EFFECT_DISINTEGRATE:
-			{
-				do_kill = TRUE;
-#ifdef JP
-				note_kill = "ö”­‚µ‚Ä‚µ‚Ü‚Á‚½I";
-#else
-				note_kill = (plural ? " evaporate!" : " evaporates!");
-#endif
-				break;
-			}
+			do_kill = TRUE;
+			note_kill = MES_EFFECT_KILL_DISINTEGRATE;
+			break;
 
 		case DO_EFFECT_CHAOS:
-			{
-				do_kill = TRUE;
-				note_kill = MES_OBJECT_KILLED;
-				if(have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO)) ignore = TRUE;
-				else if((object_ptr->tval == TV_SCROLL) && (object_ptr->sval == SV_SCROLL_CHAOS)) ignore = TRUE;
-				break;
-			}
+			do_kill = TRUE;
+			note_kill = MES_OBJECT_KILLED;
+			if(have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO)) ignore = TRUE;
+			else if((object_ptr->tval == TV_SCROLL) && (object_ptr->sval == SV_SCROLL_CHAOS)) ignore = TRUE;
+			break;
 
 			/* Holy Fire and Hell Fire -- destroys cursed non-artifacts */
 		case DO_EFFECT_HOLY_FIRE:
@@ -1403,14 +1393,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 							if(!note_kill) note_kill = MES_OBJECT_DUSTED;
 						}
 						/*TODO
-						else if(summon_named_creature(caster_ptr, y, x, object_ptr->pval, mode))
-						{
-						#ifdef JP
-						note_kill = "¶‚«•Ô‚Á‚½B";
-						#else
-						note_kill = " revived.";
-						#endif
-						}
+						else if(summon_named_creature(caster_ptr, y, x, object_ptr->pval, mode)) note_kill = MES_EFFECT_REVIVED;
 						*/
 						else if(!note_kill)
 						{
