@@ -1214,12 +1214,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 				if(hates_acid(object_ptr))
 				{
 					do_kill = TRUE;
-#ifdef JP
-					note_kill = "óZÇØÇƒÇµÇ‹Ç¡ÇΩÅI";
-#else
-					note_kill = (plural ? " melt!" : " melts!");
-#endif
-
+					note_kill = MES_EFFECT_KILL_ACID;
 					if(have_flag(flgs, TRAIT_IGNORE_ACID)) ignore = TRUE;
 				}
 				break;
@@ -1243,12 +1238,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 				if(hates_fire(object_ptr))
 				{
 					do_kill = TRUE;
-#ifdef JP
-					note_kill = "îRÇ¶ÇƒÇµÇ‹Ç¡ÇΩÅI";
-#else
-					note_kill = (plural ? " burn up!" : " burns up!");
-#endif
-
+					note_kill = MES_EFFECT_KILL_FIRE;
 					if(have_flag(flgs, TRAIT_IGNORE_FIRE)) ignore = TRUE;
 				}
 				break;
@@ -1259,12 +1249,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 			{
 				if(hates_cold(object_ptr))
 				{
-#ifdef JP
-					note_kill = "ç”ÇØéUÇ¡ÇƒÇµÇ‹Ç¡ÇΩÅI";
-#else
-					note_kill = (plural ? " shatter!" : " shatters!");
-#endif
-
+					note_kill = MES_EFFECT_KILL_COLD;
 					do_kill = TRUE;
 					if(have_flag(flgs, TRAIT_IGNORE_COLD)) ignore = TRUE;
 				}
@@ -1277,12 +1262,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 				if(hates_fire(object_ptr))
 				{
 					do_kill = TRUE;
-#ifdef JP
-					note_kill = "îRÇ¶ÇƒÇµÇ‹Ç¡ÇΩÅI";
-#else
-					note_kill = (plural ? " burn up!" : " burns up!");
-#endif
-
+					note_kill = MES_EFFECT_KILL_FIRE;
 					if(have_flag(flgs, TRAIT_IGNORE_FIRE)) ignore = TRUE;
 				}
 				if(hates_elec(object_ptr))
@@ -1301,24 +1281,14 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 				if(hates_fire(object_ptr))
 				{
 					do_kill = TRUE;
-#ifdef JP
-					note_kill = "îRÇ¶ÇƒÇµÇ‹Ç¡ÇΩÅI";
-#else
-					note_kill = (plural ? " burn up!" : " burns up!");
-#endif
-
+					note_kill = MES_EFFECT_KILL_FIRE;
 					if(have_flag(flgs, TRAIT_IGNORE_FIRE)) ignore = TRUE;
 				}
 				if(hates_cold(object_ptr))
 				{
 					ignore = FALSE;
 					do_kill = TRUE;
-#ifdef JP
-					note_kill = "ç”ÇØéUÇ¡ÇƒÇµÇ‹Ç¡ÇΩÅI";
-#else
-					note_kill = (plural ? " shatter!" : " shatters!");
-#endif
-
+					note_kill = MES_EFFECT_KILL_COLD;
 					if(have_flag(flgs, TRAIT_IGNORE_COLD)) ignore = TRUE;
 				}
 				break;
@@ -1332,11 +1302,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 			{
 				if(hates_cold(object_ptr))
 				{
-#ifdef JP
-					note_kill = "ç”ÇØéUÇ¡ÇƒÇµÇ‹Ç¡ÇΩÅI";
-#else
-					note_kill = (plural ? " shatter!" : " shatters!");
-#endif
+					note_kill = MES_EFFECT_KILL_COLD;
 					do_kill = TRUE;
 				}
 				break;
@@ -1360,7 +1326,6 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 #else
 				note_kill = (plural ? " evaporate!" : " evaporates!");
 #endif
-
 				break;
 			}
 
