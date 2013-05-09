@@ -1972,33 +1972,16 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 				if(!cave_ptr->creature_idx)
 				{
-#ifdef JP
-					msg_print("何もない場所に噛みついた！");
-#else
-					msg_print("You bite into thin air!");
-#endif
-
+					msg_print(MES_TRAIT_VAMPIRISM_NO_TARGET);
 					break;
 				}
-
-#ifdef JP
-				msg_print("あなたはニヤリとして牙をむいた...");
-#else
-				msg_print("You grin and bare your fangs...");
-#endif
+				msg_print(MES_TRAIT_VAMPIRISM_DONE);
 
 				dummy = user_level + randint1(user_level) * MAX(1, user_level / 10);   // Dmg
 				if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dummy, -1))
 				{
-					if(caster_ptr->food < CREATURE_FOOD_FULL)
-						// No heal if we are "full"
-						(void)heal_creature(caster_ptr, dummy);
-					else
-#ifdef JP
-						msg_print("あなたは空腹ではありません。");
-#else
-						msg_print("You were not hungry.");
-#endif
+					if(caster_ptr->food < CREATURE_FOOD_FULL) (void)heal_creature(caster_ptr, dummy); /* No heal if we are "full" */
+					else msg_print(MES_TRAIT_VAMPIRISM_NO_HUNGER);
 
 					// Gain nutritional sustenance: 150/hp drained
 					// A Food ration gives 5000 food points (by contrast)
@@ -2008,13 +1991,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					if(caster_ptr->food < CREATURE_FOOD_MAX) // Not gorged already
 						(void)set_food(caster_ptr, dummy >= CREATURE_FOOD_MAX ? CREATURE_FOOD_MAX - 1 : dummy);
 				}
-				else
-#ifdef JP
-					msg_print("げぇ。ひどい味だ。");
-#else
-					msg_print("Yechh. That tastes foul.");
-#endif
-
+				else msg_print(MES_TRAIT_VAMPIRISM_FAILED);
 			}
 			break;
 		}

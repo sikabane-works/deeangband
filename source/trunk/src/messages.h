@@ -3390,6 +3390,10 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_BANISH_UNAFFECTED "祈りは効果がなかった！"
 #define MES_TRAIT_FLATULENT "ブゥーーッ！おっと。"
 #define MES_TRAIT_PROD_MANA "魔法のエネルギーが突然あなたの中に流れ込んできた！エネルギーを解放しなければならない！"
+#define MES_TRAIT_VAMPIRISM_NO_TARGET "何もない場所に噛みついた！"
+#define MES_TRAIT_VAMPIRISM_DONE "あなたはニヤリとして牙をむいた..."
+#define MES_TRAIT_VAMPIRISM_FAILED "げぇ。ひどい味だ。"
+#define MES_TRAIT_VAMPIRISM_NO_HUNGER "あなたは空腹ではありません。"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3414,6 +3418,10 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_BANISH_UNAFFECTED "The invocation is ineffectual."
 #define MES_TRAIT_FLATULENT "BRRAAAP! Oops."
 #define MES_TRAIT_PROD_MANA "Magical energy flows through you! You must release it!"
+#define MES_TRAIT_VAMPIRISM_NO_TARGET "You bite into thin air!"
+#define MES_TRAIT_VAMPIRISM_DONE "You grin and bare your fangs..."
+#define MES_TRAIT_VAMPIRISM_FAILED "Yechh. That tastes foul."
+#define MES_TRAIT_VAMPIRISM_NO_HUNGER "You were not hungry."
 #endif
 
 #ifdef JP
