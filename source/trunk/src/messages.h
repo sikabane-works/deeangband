@@ -1955,6 +1955,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_STASIS "は動けなくなった！"
 #define MES_EFFECT_FRIENDLY "は突然友好的になったようだ！"
 #define MES_EFFECT_OTHER_HEALTHIER(CREATURE) "%^sは気分が良さそうだ。", (CREATURE)->name
+#define MES_EFFECT_HAND_OF_DOOM "あなたは命が薄まっていくように感じた！"
 #else
 #define MES_EFFECT_CHAOS_DONE "Your body is twisted by chaos!"
 #define MES_EFFECT_TIME_DONE(TARGET) "You saw %s' life has clocked back.", (TARGET)
@@ -1978,6 +1979,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_STASIS " is suspended!"
 #define MES_EFFECT_FRIENDLY " suddenly seems friendly!"
 #define MES_EFFECT_OTHER_HEALTHIER(CREATURE) "%^s appears healthier.", (CREATURE)->name
+#define MES_EFFECT_HAND_OF_DOOM "You feel your life fade away!"
 #endif
 
 #ifdef JP

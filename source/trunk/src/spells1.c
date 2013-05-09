@@ -2533,11 +2533,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_HAND_DOOM:
-#ifdef JP
-		msg_print("‚ ‚È‚½‚Í–½‚ª”–‚Ü‚Á‚Ä‚¢‚­‚æ‚¤‚ÉŠ´‚¶‚½I");
-#else
-		msg_print("You feel your life fade away!");
-#endif
+		msg_print(MES_EFFECT_HAND_OF_DOOM);
 		curse_equipment(target_ptr, 40, 20);
 		dam = take_damage_to_creature(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		if(target_ptr->chp < 1) target_ptr->chp = 1; 
