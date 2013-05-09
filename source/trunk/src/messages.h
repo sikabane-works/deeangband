@@ -3394,6 +3394,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_VAMPIRISM_DONE "あなたはニヤリとして牙をむいた..."
 #define MES_TRAIT_VAMPIRISM_FAILED "げぇ。ひどい味だ。"
 #define MES_TRAIT_VAMPIRISM_NO_HUNGER "あなたは空腹ではありません。"
+#define MES_TRAIT_EAT_ROCK_CANNOT "この地形は食べられない。"
+#define MES_TRAIT_EAT_ROCK_PERMANENT(FEATURE_NAME) "いてっ！この%sはあなたの歯より硬い！", (FEATURE_NAME)
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3422,6 +3424,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_VAMPIRISM_DONE "You grin and bare your fangs..."
 #define MES_TRAIT_VAMPIRISM_FAILED "Yechh. That tastes foul."
 #define MES_TRAIT_VAMPIRISM_NO_HUNGER "You were not hungry."
+#define MES_TRAIT_EAT_ROCK_CANNOT "You cannot eat this feature."
+#define MES_TRAIT_EAT_ROCK_PERMANENT(FEATURE_NAME) "Ouch!  This %s is harder than your teeth!", (FEATURE_NAME)
 #endif
 
 #ifdef JP

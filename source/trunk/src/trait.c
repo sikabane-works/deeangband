@@ -1965,11 +1965,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			else
 			{
 				int dummy = 0;
-
 				cave_ptr = &floor_ptr->cave[y][x];
-
 				stop_mouth(caster_ptr);
-
 				if(!cave_ptr->creature_idx)
 				{
 					msg_print(MES_TRAIT_VAMPIRISM_NO_TARGET);
@@ -2111,20 +2108,12 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 			if(!have_flag(mimic_feature_ptr->flags, FF_HURT_ROCK))
 			{
-#ifdef JP
-				msg_print("この地形は食べられない。");
-#else
-				msg_print("You cannot eat this feature.");
-#endif
+				msg_print(MES_TRAIT_EAT_ROCK_CANNOT);
 				break;
 			}
 			else if(have_flag(feature_ptr->flags, FF_PERMANENT))
 			{
-#ifdef JP
-				msg_format("いてっ！この%sはあなたの歯より硬い！", feature_name + mimic_feature_ptr->name);
-#else
-				msg_format("Ouch!  This %s is harder than your teeth!", feature_name + mimic_feature_ptr->name);
-#endif
+				msg_format(MES_TRAIT_EAT_ROCK_PERMANENT(feature_name + mimic_feature_ptr->name));
 				break;
 			}
 			else if(cave_ptr->creature_idx)
@@ -2135,7 +2124,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #else
 				msg_print("There's something in the way!");
 #endif
-
 				if(!m_ptr->see_others || !is_pet(player_ptr, m_ptr)) close_combat(caster_ptr, y, x, 0);
 				break;
 			}
