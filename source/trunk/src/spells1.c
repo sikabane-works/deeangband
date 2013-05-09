@@ -2684,23 +2684,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				case 7: case 8:
 					if(!count)
 					{
-#ifdef JP
-						msg_print("空間が歪んだ！");
-#else
-						msg_print("Space warps about you!");
-#endif
-
+						msg_print(MES_TY_CURSE_TELEPORT);
 						if(target_ptr->species_idx) teleport_away(target_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
 						if(one_in_(13)) count += activate_hi_summon(player_ptr, ty, tx, TRUE);
 						if(!one_in_(6)) break;
 					}
 				case 9: case 10: case 11:
-#ifdef JP
-					msg_print("エネルギーのうねりを感じた！");
-#else
-					msg_print("You feel a surge of energy!");
-#endif
-
+					msg_print(MES_TY_CURSE_SURGE_ENERGY);
 					project(0, 0, 7, ty, tx, 50, DO_EFFECT_DISINTEGRATE, curse_flg, -1);
 					if(!one_in_(6)) break;
 				case 12: case 13: case 14: case 15: case 16:
