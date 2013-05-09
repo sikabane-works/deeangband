@@ -1429,14 +1429,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, POWER
 			else
 			{
 				/* Describe if needed */
-				if(known && (object_ptr->marked & OM_FOUND) && note_kill)
-				{
-#ifdef JP
-					msg_format("%s‚Í%s", object_name, note_kill);
-#else
-					msg_format("The %s%s", object_name, note_kill);
-#endif
-				}
+				if(known && (object_ptr->marked & OM_FOUND) && note_kill) msg_format(MES_EFFECT_KILL_OBJECT(object_name, note_kill));
 
 				k_idx = object_ptr->k_idx;
 				is_potion = object_is_potion(caster_ptr, object_ptr);
