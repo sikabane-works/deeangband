@@ -1061,16 +1061,16 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 	(void)set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
 }
 
-static void creature_list_func(int y, int x, int i, bool selected)
+static void creature_list_func(int y, int x, int id, bool selected)
 {
 	COLOR_ID col;
 
-	if(is_player(&creature_list[i]))
+	if(is_player(&creature_list[id]))
 	{
 		if(selected) col = TERM_YELLOW;
 		else col = TERM_UMBER;
 	}
-	else if(has_trait(&creature_list[i], TRAIT_UNIQUE))
+	else if(has_trait(&creature_list[id], TRAIT_UNIQUE))
 	{
 		if(selected) col = TERM_L_GREEN;
 		else col = TERM_GREEN;
@@ -1081,10 +1081,9 @@ static void creature_list_func(int y, int x, int i, bool selected)
 		else col = TERM_L_DARK;
 	}
 
-	c_put_str(col, format("[%4d] F:%3d D:%3d (%3d,%3d)HP:%6d/%6d %-18s", i, 
-		creature_list[i].floor_idx, creature_list[i].depth,
-		creature_list[i].fx, creature_list[i].fy,
-		creature_list[i].chp, creature_list[i].mhp, creature_list[i].name), y, x);
+	c_put_str(col, format("[%4d] F:%3d(%3d,%3d) HP:%6d/%6d %-18s", id, creature_list[id].floor_idx, creature_list[id].depth,
+		creature_list[id].fx, creature_list[id].fy,
+		creature_list[id].chp, creature_list[id].mhp, creature_list[id].name), y, x);
 }
 
 // Creature list 
@@ -1092,6 +1091,7 @@ static void do_cmd_wiz_creature_list(void)
 {
 	selection_table *ce;
 	int i, mode;
+	CREATURE_ID id;
 	char k, tmp[80];
 	selection_info se_info;
 	int siz = sizeof(selection_table) * (creature_max + 1);
@@ -1114,11 +1114,12 @@ static void do_cmd_wiz_creature_list(void)
 	{
 		se_info.num = 0;
 
-		for(se_info.num = 1; se_info.num < creature_max; se_info.num++)
+		for(id = 1; id < creature_max; id++)
 		{
 			ce[se_info.num].cap = NULL; 
 			ce[se_info.num].key = '\0';
-			ce[se_info.num].code = se_info.num;
+			ce[se_info.num].code = id;
+			se_info.num++;
 		}
 
 		ce[se_info.num].cap = KW_CANCEL;

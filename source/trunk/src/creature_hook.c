@@ -800,11 +800,7 @@ SPECIES_ID species_rand(PROB *prob_list)
 {
 	int i;
 	PROB value, total = 0L;
-	
-	for (i = 0; i < max_species_idx; i++)
-	{
-		total += prob_list[i];
-	}
+		for (i = 0; i < max_species_idx; i++) total += prob_list[i];
 
 	if(total <= 0){
 		msg_warning("Zero probabilities in species_rand()");
