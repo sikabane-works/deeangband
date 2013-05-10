@@ -7132,7 +7132,7 @@ static void do_cmd_knowledge_home(void)
 			for (i = 0; i < st_ptr->stock_num; i++)
 			{
 #ifdef JP
-				if((i % 12) == 0) fprintf(fff, "\n ( %d ƒy[ƒW )\n", x++);
+				if((i % 12) == 0) fprintf(fff, MES_STORE_PAGE(x++));
 				object_desc(object_name, &st_ptr->stock[i], 0);
 				if(strlen(object_name) <= 80-3)
 				{

@@ -329,6 +329,7 @@
 #define KW_WITH_THOHANDED "(武器を両手持ち)"
 #define KW_CHARA_INVENTORY "キャラクタの持ち物"
 #define KW_CHARA_EQUIPMENT "キャラクタの装備"
+#define KW_MUSIUM_LIST "博物館のアイテム"
 #else
 #define KW_MORE "-more-"
 #define KW_CREATURE "Creatures"
@@ -452,6 +453,7 @@
 #define KW_WITH_THOHANDED "(wielding with two-hands)"
 #define KW_CHARA_INVENTORY "Character inventory"
 #define KW_CHARA_EQUIPMENT "Character Equipment"
+#define KW_MUSIUM_LIST "Museum"
 #endif
 
 #ifdef JP

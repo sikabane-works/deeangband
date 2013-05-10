@@ -4218,12 +4218,11 @@ static void dump_aux_home_museum(FILE *fff)
 		// Dump all available items
 		for (i = 0; i < st_ptr->stock_num; i++)
 		{
-			if((i % 12) == 0)
-#ifdef JP
-				fprintf(fff, "\n ( %d ページ )\n", x++);
-#else
-				fprintf(fff, "\n ( page %d )\n", x++);
-#endif
+			if((i % 12) == 0){
+				fprintf(fff, "\n(");
+				fprintf(fff, MES_STORE_PAGE(NUM));
+				fprintf(fff, ")\n");
+			}
 			object_desc(object_name, &st_ptr->stock[i], 0);
 			fprintf(fff, "%c) %s\n", I2A(i%12), object_name);
 		}
@@ -4241,12 +4240,7 @@ static void dump_aux_home_museum(FILE *fff)
 	{
 		int i;
 		int x = 1;
-
-#ifdef JP
-		fprintf(fff, "  [博物館のアイテム]\n");
-#else
-		fprintf(fff, "  [Museum]\n");
-#endif
+		fprintf(fff, "  [%s]\n", KW_MUSIUM_LIST);
 
 		// Dump all available items
 		for (i = 0; i < st_ptr->stock_num; i++)
