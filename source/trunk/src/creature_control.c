@@ -2346,9 +2346,9 @@ void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type
 		char tmp[80];
 		tmp[0] = '\0';
 #ifdef JP
-		sprintf(tmp, "サイズ%dの");
+		sprintf(tmp, "サイズ%dの", creature_ptr->size);
 #else
-		sprintf(tmp, "Size:%d ");
+		sprintf(tmp, "Size:%d ", creature_ptr->size);
 #endif
 		(void)strcat(desc, tmp);
 	}
