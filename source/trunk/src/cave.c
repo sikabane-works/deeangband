@@ -2139,14 +2139,8 @@ void do_cmd_view_map(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int cy, cx;
 
-
 	screen_save();
-
-#ifdef JP
-	prt("お待ち下さい...", 0, 0);
-#else
-	prt("Please wait...", 0, 0);
-#endif
+	prt(MES_SYS_PLEASE_WAIT, 0, 0);
 
 	Term_fresh();
 
@@ -2172,12 +2166,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
 
 			Term_get_size(&wid, &hgt);
 			row_message = hgt - 1;
-
-#ifdef JP
-			put_str("何かキーを押してください('M':拾う 'N':放置 'D':M+N 'K':壊すアイテムを表示)", row_message, 1);
-#else
-			put_str(" Hit M, N(for ~), K(for !), or D(same as M+N) to display auto-picker items.", row_message, 1);
-#endif
+			put_str(MES_INTERFACE_VIEW_MAP, row_message, 1);
 
 			/* Hilite the player */
 			move_cursor(cy, cx);

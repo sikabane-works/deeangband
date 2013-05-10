@@ -38,6 +38,7 @@
 #define MES_SYS_WIZARD_MODE_ON "ウィザードモード突入。"
 #define MES_SYS_WIZARD_MODE_OFF "ウィザードモード解除。"
 #define MES_SYS_STARTING_GAME "ゲームを開始します。お待ち下さい..."
+#define MES_SYS_PLEASE_WAIT "お待ち下さい..."
 #define MES_SYS_FAILED_TEMPFILE "一時ファイル %s を作成できませんでした。"
 #define MES_SYS_FAILED_FILEOPEN "ファイルを開けません。"
 #define MES_SYS_FAILED_FILEOPEN2 "%s を開くことができませんでした。"
@@ -113,6 +114,7 @@
 #define MES_SYS_WIZARD_MODE_ON "Wizard mode on."
 #define MES_SYS_WIZARD_MODE_OFF "Wizard mode off."
 #define MES_SYS_STARTING_GAME "Starting Game, Please wait..."
+#define MES_SYS_PLEASE_WAIT "Please wait..."
 #define MES_SYS_FAILED_TEMPFILE "Failed to create temporary file %s."
 #define MES_SYS_FAILED_FILEOPEN "Can not open file."
 #define MES_SYS_FAILED_FILEOPEN2 "Failed to open %s."
@@ -2352,6 +2354,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_CREATURE_DUMP1 ", 'h' その他の情報"
 #define MES_INTERFACE_CREATURE_DUMP2 ", Enter この数値に決定"
 #define MES_INTERFACE_CREATURE_DUMP3 "[ 'Q' 中断, 'S' 初めから, Enter ゲーム開始 ]"
+#define MES_INTERFACE_VIEW_MAP "何かキーを押してください('M':拾う 'N':放置 'D':M+N 'K':壊すアイテムを表示)"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2385,6 +2388,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_CREATURE_DUMP1 ", 'h' Misc."
 #define MES_INTERFACE_CREATURE_DUMP2 ", or Enter to accept"
 #define MES_INTERFACE_CREATURE_DUMP3 "['Q'uit, 'S'tart over, or Enter to continue]"
+#define MES_INTERFACE_VIEW_MAP " Hit M, N(for ~), K(for !), or D(same as M+N) to display auto-picker items."
 #endif
 
 #ifdef JP
