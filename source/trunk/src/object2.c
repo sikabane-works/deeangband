@@ -4019,12 +4019,11 @@ bool process_warning(creature_type *target_ptr, COODINATES xx, COODINATES yy)
 			object_type *object_ptr = choose_warning_item(target_ptr);
 
 			if(object_ptr) object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			else strcpy(object_name, KW_BODY); /* Warning ability without item */
 #ifdef JP
-			else strcpy(object_name, "ëÃ"); /* Warning ability without item */
 			msg_format("%sÇ™âsÇ≠êkÇ¶ÇΩÅI", object_name);
 			disturb(target_ptr, 0, 0);
 #else
-			else strcpy(object_name, "body"); /* Warning ability without item */
 			msg_format("Your %s pulsates sharply!", object_name);
 			disturb(target_ptr, 0, 0);
 #endif
@@ -4039,11 +4038,10 @@ bool process_warning(creature_type *target_ptr, COODINATES xx, COODINATES yy)
 		object_type *object_ptr = choose_warning_item(target_ptr);
 
 		if(object_ptr) object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		else strcpy(object_name, KW_BODY); /* Warning ability without item */
 #ifdef JP
-		else strcpy(object_name, "ëÃ"); /* Warning ability without item */
 		msg_format("%sÇ™êkÇ¶ÇΩÅI", object_name);
 #else
-		else strcpy(object_name, "body"); /* Warning ability without item */
 		msg_format("Your %s pulsates!", object_name);
 #endif
 		disturb(target_ptr, 0, 0);

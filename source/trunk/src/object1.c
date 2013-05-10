@@ -121,8 +121,7 @@ void object_flags(object_type *object_ptr, FLAGS_32 flgs[MAX_TRAITS_FLAG])
 	{
 		artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 
-		for (i = 0; i < MAX_TRAITS_FLAG; i++)
-			flgs[i] = a_ptr->flags[i];
+		for (i = 0; i < MAX_TRAITS_FLAG; i++) flgs[i] = a_ptr->flags[i];
 	}
 
 	/* Ego-item */

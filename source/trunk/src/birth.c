@@ -3162,7 +3162,8 @@ static int get_creature_class(creature_type *creature_ptr, species_type *species
 
 	if(npc)
 	{
-		creature_ptr->class_idx = (CLASS_ID)pick_rand(id, weight, n);
+		if(n > 0) creature_ptr->class_idx = (CLASS_ID)pick_rand(id, weight, n);
+		else creature_ptr->class_idx = CLASS_SOLDIER;
 		return 0;
 	}
 

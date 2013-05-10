@@ -4391,7 +4391,6 @@ static void play_loop(void)
 
 		panel_bounds_center(); // Validate the panel
 		verify_panel(player_ptr); // Verify the panel
-		msg_print(NULL); // Flush messages
 
 		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MONSTER | PW_OVERHEAD | PW_DUNGEON);
 		prepare_redraw(PR_WIPE | PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);

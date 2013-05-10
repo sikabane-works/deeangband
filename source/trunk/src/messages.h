@@ -333,6 +333,7 @@
 #define KW_JUST_LIFTING "‰^”À’†"
 #define KW_SHOOTING "ŽËŒ‚—p"
 #define KW_UNKNOWN "•s–¾"
+#define KW_BODY "‘Ì"
 #else
 #define KW_MORE "-more-"
 #define KW_CREATURE "Creatures"
@@ -460,6 +461,7 @@
 #define KW_JUST_LIFTING "Just lifting"
 #define KW_SHOOTING "Shooting"
 #define KW_UNKNOWN "UNKNOWN"
+#define KW_BODY "body"
 #endif
 
 #ifdef JP
