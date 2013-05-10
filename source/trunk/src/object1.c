@@ -401,10 +401,11 @@ cptr mention_use_idx(creature_type *creature_ptr, INVENTORY_ID slot, int num)
 #endif
 
 #ifdef JP
-		case INVENTORY_ID_HAND:  
+		case INVENTORY_ID_HAND:
 			if(creature_ptr->heavy_wield[num])
 			{
-				p = "‰^”À’†"; break;
+				p = KW_JUST_LIFTING;
+				break;
 			}
 			else
 			{
@@ -438,20 +439,17 @@ cptr mention_use_idx(creature_type *creature_ptr, INVENTORY_ID slot, int num)
 			break;
 #else
 		case INVENTORY_ID_HAND:
-			p = creature_ptr->heavy_wield[0] ? "Just lifting" : (creature_ptr->can_melee[0] ? "Wielding" : "On arm"); break;
+			p = creature_ptr->heavy_wield[0] ? KW_JUST_LIFTING : (creature_ptr->can_melee[0] ? "Wielding" : "On arm"); break;
 #endif
 
+		case INVENTORY_ID_BOW:
+			p = KW_SHOOTING;
 #ifdef JP
-		case INVENTORY_ID_BOW:
-			p = "ŽËŒ‚—p";
 //			p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "‰^”À’†" : "ŽËŒ‚—p"; break;
-			break;
 #else
-		case INVENTORY_ID_BOW:
-			p = "Shooting";
 //			p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "Just holding" : "Shooting"; break;
-			break;
 #endif
+			break;
 
 #ifdef JP
 		case INVENTORY_ID_HEAD:

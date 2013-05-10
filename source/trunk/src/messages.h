@@ -330,6 +330,8 @@
 #define KW_CHARA_INVENTORY "キャラクタの持ち物"
 #define KW_CHARA_EQUIPMENT "キャラクタの装備"
 #define KW_MUSIUM_LIST "博物館のアイテム"
+#define KW_JUST_LIFTING "運搬中"
+#define KW_SHOOTING "射撃用"
 #else
 #define KW_MORE "-more-"
 #define KW_CREATURE "Creatures"
@@ -454,6 +456,8 @@
 #define KW_CHARA_INVENTORY "Character inventory"
 #define KW_CHARA_EQUIPMENT "Character Equipment"
 #define KW_MUSIUM_LIST "Museum"
+#define KW_JUST_LIFTING "Just lifting"
+#define KW_SHOOTING "Shooting"
 #endif
 
 #ifdef JP
