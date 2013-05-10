@@ -384,26 +384,13 @@ void vault_trap_aux(floor_type *floor_ptr, int y, int x, int yd, int xd)
 			break;
 		}
 
-		if(dummy >= SAFE_MAX_ATTEMPTS)
-		{
-			if(cheat_room)
-			{
-#ifdef JP
-msg_print("警告！地下室のトラップを配置できません！");
-#else
-				msg_print("Warning! Could not place vault trap!");
-#endif
-
-			}
-		}
+		if(dummy >= SAFE_MAX_ATTEMPTS && cheat_room) msg_warning(MES_SYS_NO_VALUT_TRAP);
 
 		/* Require "naked" floor grids */
 		c_ptr = &floor_ptr->cave[y1][x1];
 		if(!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue;
 
-		/* Place the trap */
 		place_trap(floor_ptr, y1, x1);
-
 		break;
 	}
 }
