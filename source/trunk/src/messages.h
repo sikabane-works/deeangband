@@ -615,7 +615,7 @@
 #define MES_FAILED_RUNAWAY "うまく逃げられなかった。"
 
 #define MES_DAMAGE_DENSITY "体の分子が分解した気がする！"
-#define MES_ROCK_CRUSHING "崩れた岩に押し潰された！"
+#define MES_ROCK_CRUSHING(CREATURE) "%sは崩れた岩に押し潰された！", (CREATURE)->name
 
 #define MES_HAYAGAKE_PREVENT "ここでは素早く動けない。"
 #define MES_ATTEMPT_ANYWAY "それでも挑戦しますか? "
@@ -705,7 +705,7 @@
 #define MES_FAILED_RUNAWAY "You are failed to run away."
 
 #define MES_DAMAGE_DENSITY "Your molecules feel disrupted!"
-#define MES_RCOK_CRUSHING "You are being crushed!"
+#define MES_ROCK_CRUSHING "%s %s being crushed!", (CREATURE)->name, is_player(CREATURE) ? "are" : "is"
 
 #define MES_HAYAGAKE_PREVENT "You cannot run in here."
 #define MES_ATTEMPT_ANYWAY "Attempt it anyway? "

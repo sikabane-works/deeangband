@@ -1024,20 +1024,20 @@ static object_type *choose_cursed_obj_name(creature_type *creature_ptr, u32b fla
 static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	feature_type *f_ptr = &feature_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat];
-	char creature_name[80];
+	feature_type *feature_ptr = &feature_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat];
 	bool cave_no_regen = FALSE;
 	int upkeep_factor = 0;
 	int upkeep_regen;
 	int regen_amount = CREATURE_REGEN_NORMAL;	// Default regeneration
 
 	if(!is_valid_creature(creature_ptr)) return;
-
-	creature_desc(creature_name, creature_ptr, 0);
+	creature_desc(creature_ptr->name, creature_ptr, 0);
 
 	// Take damage from poison
 	if(has_trait(creature_ptr, TRAIT_POISONED) && !has_trait(creature_ptr, TRAIT_INVULNERABLE))
+	{
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, COD_POISON, NULL, -1);
+	}
 
 	// Take damage from cuts
 	if(has_trait(creature_ptr, TRAIT_CUT) && !has_trait(creature_ptr, TRAIT_INVULNERABLE))
@@ -1066,7 +1066,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 				if(is_seen(player_ptr, creature_ptr))
 				{
 #ifdef JP
-					msg_format("日光が%sの肉体を焼き焦がした！", creature_name);
+					msg_format("日光が%sの肉体を焼き焦がした！", creature_ptr->name);
 #else
 					msg_print("The sun's rays scorch your undead flesh!");
 #endif
@@ -1090,9 +1090,9 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
-				msg_format("%sが%sの肉体を焼き焦がした！", object_name, creature_name);
+				msg_format("%sが%sの肉体を焼き焦がした！", object_name, creature_ptr->name);
 #else
-				msg_format("The %s scorches %s undead flesh!", object_name, creature_name);
+				msg_format("The %s scorches %s undead flesh!", object_name, creature_ptr->name);
 #endif
 			}
 			cave_no_regen = TRUE;
@@ -1104,42 +1104,32 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		}
 	}
 
-	if(have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
+	if(have_flag(feature_ptr->flags, FF_CHAOS_TAINTED))
 	{
 		POWER damage = calc_damage(NULL, creature_ptr, randint0(50) + 20, DO_EFFECT_CHAOS, FALSE, FALSE);	
 		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP
-			msg_format("%sは混沌に身を蝕まれている。", creature_name);
+			msg_format("%sは混沌に身を蝕まれている。", creature_ptr->name);
 #else
-			msg_format("The chaos tainted %s", creature_name);
+			msg_format("The chaos tainted %s", creature_ptr->name);
 #endif
 		}
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, COD_CHAOS_TAINT, NULL, -1);
 	}
 
-	if(have_flag(f_ptr->flags, FF_LAVA) && !has_trait(creature_ptr, TRAIT_INVULNERABLE) && !has_trait(creature_ptr, TRAIT_IM_FIRE))
+	if(have_flag(feature_ptr->flags, FF_LAVA) && !has_trait(creature_ptr, TRAIT_INVULNERABLE) && !has_trait(creature_ptr, TRAIT_IM_FIRE))
 	{
 		POWER damage = 0;
 
-		if(have_flag(f_ptr->flags, FF_DEEP))
-		{
-			damage = 6000 + randint0(4000);
-		}
-		else if(!has_trait(creature_ptr, TRAIT_CAN_FLY))
-		{
-			damage = 3000 + randint0(2000);
-		}
+		if(have_flag(feature_ptr->flags, FF_DEEP)) damage = 6000 + randint0(4000);
+		else if(!has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = 3000 + randint0(2000);
 
 		if(damage)
 		{
-
 			damage = calc_damage(NULL, creature_ptr, damage, DO_EFFECT_FIRE, FALSE, FALSE);
-
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = damage / 5;
-
 			damage = damage / 100 + (PERCENT((damage % 100)));
-
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY))
 			{
 #ifdef JP
@@ -1165,11 +1155,11 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		}
 	}
 
-	if(have_flag(f_ptr->flags, FF_POISON_SWAMP) && !has_trait(creature_ptr, TRAIT_INVULNERABLE) && !has_trait(creature_ptr, TRAIT_CAN_FLY))
+	if(have_flag(feature_ptr->flags, FF_POISON_SWAMP) && !has_trait(creature_ptr, TRAIT_INVULNERABLE) && !has_trait(creature_ptr, TRAIT_CAN_FLY))
 	{
 		POWER damage = 0;
 
-		if(have_flag(f_ptr->flags, FF_DEEP)) damage = 6000 + randint0(4000);
+		if(have_flag(feature_ptr->flags, FF_DEEP)) damage = 6000 + randint0(4000);
 		else if(!has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = 3000 + randint0(2000);
 
 		if(damage)
@@ -1185,16 +1175,15 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			msg_format("you are poisoned by The %s", name);
 #endif
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
-
 			cave_no_regen = TRUE;
 		}
 	}
 
-	if(have_flag(f_ptr->flags, FF_ACID_SWAMP) && !has_trait(creature_ptr, TRAIT_INVULNERABLE) && !has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_IM_ACID))
+	if(have_flag(feature_ptr->flags, FF_ACID_SWAMP) && !has_trait(creature_ptr, TRAIT_INVULNERABLE) && !has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_IM_ACID))
 	{
 		POWER damage = 0;
 
-		if(have_flag(f_ptr->flags, FF_DEEP)) damage = 6000 + randint0(4000);
+		if(have_flag(feature_ptr->flags, FF_DEEP)) damage = 6000 + randint0(4000);
 		else if(!has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = 3000 + randint0(2000);
 
 		if(damage)
@@ -1214,7 +1203,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	}
 
 
-	if(have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
+	if(have_flag(feature_ptr->flags, FF_WATER) && have_flag(feature_ptr->flags, FF_DEEP) &&
 		!has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_CAN_SWIM))
 	{
 		if(creature_ptr->carrying_weight > calc_carrying_weight_limit(creature_ptr))
@@ -1275,7 +1264,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	* reduced below 0 hp by being inside a stone wall; others
 	* WILL BE!
 	*/
-	if(!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY))
+	if(!have_flag(feature_ptr->flags, FF_MOVE) && !have_flag(feature_ptr->flags, FF_CAN_FLY))
 	{
 		if(!has_trait(creature_ptr, TRAIT_INVULNERABLE) && !has_trait(creature_ptr, TRAIT_WRAITH_FORM) && !has_trait(creature_ptr, TRAIT_PASS_WALL) &&
 			((creature_ptr->chp > (creature_ptr->lev / 5)) || !has_trait(creature_ptr, TRAIT_PASS_WALL)))
@@ -1290,7 +1279,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			}
 			else
 			{
-				msg_print(MES_ROCK_CRUSHING);
+				msg_format(MES_ROCK_CRUSHING(creature_ptr));
 				dam_desc = COD_SOLID_ROCK;
 			}
 

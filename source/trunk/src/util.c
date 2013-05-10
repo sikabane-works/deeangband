@@ -2609,20 +2609,12 @@ static void msg_flush(int x)
 	byte a = TERM_L_BLUE;
 	bool nagasu = FALSE;
 
-	if((auto_more && player_ptr && !player_ptr->now_damaged) || num_more < 0){
+	if((auto_more && player_ptr && !player_ptr->now_damaged) || num_more < 0)
+	{
 		int i;
-		for (i = 0; i < 8; i++)
-		{
-			if(angband_term[i] && (window_flag[i] & PW_MESSAGE)) break;
-		}
-		if(i < 8)
-		{
-			if(num_more < angband_term[i]->hgt) nagasu = TRUE;
-		}
-		else
-		{
-			nagasu = TRUE;
-		}
+		for (i = 0; i < 8; i++) if(angband_term[i] && (window_flag[i] & PW_MESSAGE)) break;
+		if(i < 8) if(num_more < angband_term[i]->hgt) nagasu = TRUE;
+		else nagasu = TRUE;
 	}
 	if(player_ptr) player_ptr->now_damaged = FALSE;
 

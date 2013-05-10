@@ -1694,7 +1694,7 @@ void prt_map(creature_type *watcher_ptr)
 
 
 // print project path
-void prt_path(creature_type *creature_ptr, COODINATES range, int y, int x)
+void prt_path(creature_type *creature_ptr, COODINATES range, COODINATES y, COODINATES x)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
@@ -1730,12 +1730,9 @@ void prt_path(creature_type *creature_ptr, COODINATES range, int y, int x)
 				/* Determine what is there */
 				map_info(creature_ptr, ny, nx, &a, &c, &ta, &tc);
 
-				if(!is_ascii_graphics(a))
-					a = default_color;
-				else if(c == '.' && (a == TERM_WHITE || a == TERM_L_WHITE))
-					a = default_color;
-				else if(a == default_color)
-					a = TERM_WHITE;
+				if(!is_ascii_graphics(a)) a = default_color;
+				else if(c == '.' && (a == TERM_WHITE || a == TERM_L_WHITE)) a = default_color;
+				else if(a == default_color) a = TERM_WHITE;
 			}
 
 			if(!use_graphics)

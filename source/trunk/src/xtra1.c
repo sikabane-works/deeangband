@@ -3790,7 +3790,6 @@ void redraw_stuff(creature_type *creature_ptr)
 	if(play_redraw & (PR_WIPE))
 	{
 		play_redraw &= ~(PR_WIPE);
-		msg_print(NULL);
 		Term_clear();
 	}
 
