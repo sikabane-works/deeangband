@@ -3395,7 +3395,7 @@ static void dump_aux_display_creature_status(creature_type *creature_ptr, FILE *
 	int x, y;
 	byte a;
 	char c;
-	char		buf[1024];
+	char buf[1024];
 
 	/* Display player */
 	display_creature_status(0, creature_ptr);
@@ -3410,14 +3410,11 @@ static void dump_aux_display_creature_status(creature_type *creature_ptr, FILE *
 			(void)(Term_what(x, y, &a, &c));
 			buf[x] = c;
 		}
-
-		/* End the string */
 		buf[x] = '\0';
 
 		/* Kill trailing spaces */
 		while ((x > 0) && (buf[x-1] == ' ')) buf[--x] = '\0';
 
-		/* End the row */
 		fprintf(fff, "%s\n", buf);
 
 	}

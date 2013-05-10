@@ -1081,11 +1081,10 @@ static void creature_list_func(int y, int x, int i, bool selected)
 		else col = TERM_L_DARK;
 	}
 
-	c_prt(col, format("[%4d] F:%3d D:%3d (%3d,%3d)HP:%6d/%6d -%24s", i, 
+	c_put_str(col, format("[%4d] F:%3d D:%3d (%3d,%3d)HP:%6d/%6d %-18s", i, 
 		creature_list[i].floor_idx, creature_list[i].depth,
 		creature_list[i].fx, creature_list[i].fy,
-		creature_list[i].chp, creature_list[i].mhp, creature_list[i].name),
-		y, x);
+		creature_list[i].chp, creature_list[i].mhp, creature_list[i].name), y, x);
 }
 
 // Creature list 
@@ -1148,8 +1147,7 @@ static void do_cmd_wiz_creature_list(void)
 			else if(k == 'f')
 			{
 				sprintf(tmp, "%s.txt", player_base);
-				if(get_string(PROMPT_FILE, tmp, 80))
-					if(tmp[0] && (tmp[0] != ' ')) file_character(tmp);
+				if(get_string(PROMPT_FILE, tmp, 80) && tmp[0] && (tmp[0] != ' ')) file_character(tmp);
 			}
 
 			// Toggle mode
