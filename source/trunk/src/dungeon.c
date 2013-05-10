@@ -2830,34 +2830,17 @@ static bool enter_wizard_mode(void)
 	{
 		if(!allow_debug_opts || arg_wizard)
 		{
-#ifdef JP
-			msg_print("ウィザードモードは許可されていません。 ");
-#else
-			msg_print("Wizard mode is not permitted.");
-#endif
+			msg_print(MES_WIZARD_FORBID);
 			return FALSE;
 		}
 
 		/* Mention effects */
-#ifdef JP
-		msg_print("ウィザードモードはデバッグと実験のためのモードです。 ");
-		msg_print("一度ウィザードモードに入るとスコアは記録されません。");
-#else
-		msg_print("Wizard mode is for debugging and experimenting.");
-		msg_print("The game will not be scored if you enter wizard mode.");
-#endif
-
+		msg_print(MES_WIZARD_CHECK1);
+		msg_print(MES_WIZARD_CHECK2);
 		msg_print(NULL);
 
 		/* Verify request */
-#ifdef JP
-		if(!get_check("本当にウィザードモードに入りたいのですか? "))
-#else
-		if(!get_check("Are you sure you want to enter wizard mode? "))
-#endif
-		{
-			return FALSE;
-		}
+		if(!get_check(MES_WIZARD_ASK)) return FALSE;
 
 		wizard = TRUE;
 		write_diary(DIARY_BUNSHOU, 0, DIARY_WIZARD);
@@ -2881,7 +2864,8 @@ static bool enter_debug_mode(void)
 			msg_print(MES_DEBUG_FORBID);
 			return FALSE;
 		}
-		msg_print(MES_DEBUG_CHECK);
+		msg_print(MES_DEBUG_CHECK1);
+		msg_print(MES_DEBUG_CHECK2);
 		msg_print(NULL);
 
 		if(!get_check(MES_DEBUG_ASK)) return FALSE;

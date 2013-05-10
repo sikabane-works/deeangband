@@ -402,11 +402,7 @@ void vault_trap_aux(floor_type *floor_ptr, int y, int x, int yd, int xd)
 void vault_traps(floor_type *floor_ptr, int y, int x, int yd, int xd, int num)
 {
 	int i;
-
-	for (i = 0; i < num; i++)
-	{
-		vault_trap_aux(floor_ptr, y, x, yd, xd);
-	}
+	for (i = 0; i < num; i++) vault_trap_aux(floor_ptr, y, x, yd, xd);
 }
 
 
@@ -455,10 +451,8 @@ void correct_dir(COODINATES *rdir, COODINATES *cdir, COODINATES y1, COODINATES x
 	/* Never move diagonally */
 	if(*rdir && *cdir)
 	{
-		if(PERCENT(50))
-			*rdir = 0;
-		else
-			*cdir = 0;
+		if(PERCENT(50)) *rdir = 0;
+		else *cdir = 0;
 	}
 }
 
@@ -489,17 +483,8 @@ bool get_floor(floor_type *floor_ptr, int x, int y)
 /* Set a square to be floor.  (Includes range checking.) */
 void set_floor(floor_type *floor_ptr, int x, int y)
 {
-	if(!IN_BOUNDS(floor_ptr, y, x))
-	{
-		/* Out of bounds */
-		return;
-	}
-
-	if(floor_ptr->cave[y][x].info & CAVE_ROOM)
-	{
-		/* A room border don't touch. */
-		return;
-	}
+	if(!IN_BOUNDS(floor_ptr, y, x)) return;
+	if(floor_ptr->cave[y][x].info & CAVE_ROOM) return;
 
 	/* Set to be floor if is a wall (don't touch lakes). */
 	if(is_extra_bold(floor_ptr, y, x))

@@ -3299,12 +3299,22 @@ static cptr desc_stat_neg[] =
 
 #ifdef JP 
 #define MES_DEBUG_FORBID "デバッグコマンドは許可されていません。 "
-#define MES_DEBUG_CHECK "デバッグ・コマンドはデバッグと実験のためのコマンドです。デバッグ・コマンドを使うとスコアは記録されません。"
+#define MES_DEBUG_CHECK1 "デバッグ・コマンドはデバッグと実験のためのコマンドです。"
+#define MES_DEBUG_CHECK2 "デバッグ・コマンドを使うとスコアは記録されません。"
 #define MES_DEBUG_ASK "本当にデバッグ・コマンドを使いますか? "
+#define MES_WIZARD_FORBID "デバッグコマンドは許可されていません。 "
+#define MES_WIZARD_CHECK1 "ウィザードモードはデバッグと実験のためのモードです。 "
+#define MES_WIZARD_CHECK2 "一度ウィザードモードに入るとスコアは記録されません。"
+#define MES_WIZARD_ASK "本当にウィザードモードに入りたいのですか? "
 #else
 #define MES_DEBUG_FORBID "Use of debug command is not permitted."
-#define MES_DEBUG_CHECK "The debug commands are for debugging and experimenting. The game will not be scored if you use debug commands."
+#define MES_DEBUG_CHECK1 "The debug commands are for debugging and experimenting."
+#define MES_DEBUG_CHECK2 "The game will not be scored if you use debug commands."
 #define MES_DEBUG_ASK "Are you sure you want to use debug commands? "
+#define MES_WIZARD_FORBID "Wizard mode is not permitted."
+#define MES_WIZARD_CHECK1 "Wizard mode is for debugging and experimenting."
+#define MES_WIZARD_CHECK2 "The game will not be scored if you enter wizard mode."
+#define MES_WIZARD_ASK "Are you sure you want to enter wizard mode? "
 #endif
 
 #ifdef JP 
