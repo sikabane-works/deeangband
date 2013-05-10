@@ -2486,12 +2486,7 @@ static void display_inventory(creature_type *creature_ptr, store_type *st_ptr)
 	for (i = k; i < store_bottom + 1; i++) prt("", i + 6, 0);
 
 	/* Assume "no current page" */
-#ifdef JP
 	put_str("          ", 5, 20);
-#else
-	put_str("        ", 5, 20);
-#endif
-
 
 	/* Visual reminder of "more items" */
 	if(st_ptr->stock_num > store_bottom)

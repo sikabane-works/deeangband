@@ -2173,29 +2173,20 @@ void do_cmd_view_map(creature_type *creature_ptr)
 
 			i = inkey();
 
-			if('M' == i)
-				flag = (DO_AUTOPICK | DO_QUERY_AUTOPICK);
-			else if('N' == i)
-				flag = DONT_AUTOPICK;
-			else if('K' == i)
-				flag = DO_AUTODESTROY;
-			else if('D' == i)
-				flag = (DO_AUTOPICK | DO_QUERY_AUTOPICK | DONT_AUTOPICK);
-			else
-				break;
+			if('M' == i) flag = (DO_AUTOPICK | DO_QUERY_AUTOPICK);
+			else if('N' == i) flag = DONT_AUTOPICK;
+			else if('K' == i) flag = DO_AUTODESTROY;
+			else if('D' == i) flag = (DO_AUTOPICK | DO_QUERY_AUTOPICK | DONT_AUTOPICK);
+			else break;
 
 			Term_fresh();
 			
-			if(~display_autopick & flag)
-				display_autopick |= flag;
-			else
-				display_autopick &= ~flag;
+			if(~display_autopick & flag) display_autopick |= flag;
+			else display_autopick &= ~flag;
 			/* Display the map */
 			display_map(creature_ptr, &cy, &cx);
 		}
-		
 		display_autopick = 0;
-
 	}
 	else
 	{

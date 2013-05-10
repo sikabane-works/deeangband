@@ -2581,38 +2581,21 @@ bool pulish_shield(creature_type *creature_ptr)
 	object_type     *object_ptr;
 	u32b flgs[MAX_TRAITS_FLAG];
 	char            object_name[MAX_NLEN];
-	cptr            q, s;
 
-#ifdef JP
-	q = "‚Ç‚Ì‚‚ð–‚«‚Ü‚·‚©H";
-	s = "–‚­‚‚ª‚ ‚è‚Ü‚¹‚ñB";
-#else
-	q = "Pulish which weapon? ";
-	s = "You have weapon to pulish.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, TV_SHIELD))
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_PULISH, MES_OBJECT_NO_PULISH, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, TV_SHIELD))
 		return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
-
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extract the flags */
 	object_flags(object_ptr, flgs);
 
-	if(object_ptr->k_idx && !object_is_artifact(object_ptr) && !object_is_ego(object_ptr) &&
-	    !object_is_cursed(object_ptr) && (object_ptr->sval != SV_MIRROR_SHIELD))
+	if(object_ptr->k_idx && !object_is_artifact(object_ptr) && !object_is_ego(object_ptr) && !object_is_cursed(object_ptr) && (object_ptr->sval != SV_MIRROR_SHIELD))
 	{
-#ifdef JP
-		msg_format("%s‚Í‹P‚¢‚½I", object_name);
-#else
-		msg_format("The %s shine%s!", object_name, ((object_ptr->number > 1) ? "" : "s"));
-#endif
+		msg_format(MES_OBJECT_PULISHED(object_ptr));
 		object_ptr->name2 = EGO_REFLECTION;
 		enchant(creature_ptr, object_ptr, randint0(3) + 4, ENCH_TOAC);
-
 		object_ptr->discount = 99;
-
 		return TRUE;
 	}
 	else

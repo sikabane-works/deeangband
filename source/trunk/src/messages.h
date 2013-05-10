@@ -2707,6 +2707,9 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_PICKED(CREATURE, OBJECT) "%^s‚ª%s‚ðE‚Á‚½B", (CREATURE), (OBJECT)
 #define MES_OBJECT_PICK_FAILED(CREATURE, OBJECT) "%^s‚Í%s‚ðE‚¨‚¤‚Æ‚µ‚½‚ªA‚¾‚ß‚¾‚Á‚½B", (CREATURE), (OBJECT)
 #define MES_OBJECT_DESTORY(CREATURE, OBJECT) "%^s‚ª%s‚ð”j‰ó‚µ‚½B", (CREATURE), (OBJECT)
+#define MES_OBJECT_WHICH_PULISH "‚Ç‚Ì‚‚ð–‚«‚Ü‚·‚©H"
+#define MES_OBJECT_NO_PULISH "–‚­‚‚ª‚ ‚è‚Ü‚¹‚ñB"
+#define MES_OBJECT_PULISHED(OBJECT) "%s‚Í‹P‚¢‚½I", (OBJECT)->name
 #else
 #define MES_OBJECT_WHICH_IMPROVE "Improve which item? "
 #define MES_OBJECT_NO_IMPROVE "You have nothing to improve."
@@ -2740,6 +2743,9 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_PICK_FAILED(CREATURE, OBJECT) "%^s tries to pick up %s, but fails.", (CREATURE), (OBJECT)
 #define MES_OBJECT_PICKED(CREATURE, OBJECT) "%^s picks up %s.", (CREATURE), (OBJECT)
 #define MES_OBJECT_DESTORY(CREATURE, OBJECT) "%^s destroys %s.", (CREATURE), (OBJECT)
+#define MES_OBJECT_WHICH_PULISH "Pulish which weapon? "
+#define MES_OBJECT_NO_PULISH "You have weapon to pulish."
+#define MES_OBJECT_PULISHED(OBJECT) "The %s shine%s!", (OBJECT)->name, ((OBJECT)->number > 1) ? "" : "s")
 #endif
 
 #ifdef JP
