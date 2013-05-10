@@ -4043,24 +4043,10 @@ static void dump_aux_creatures(FILE *fff)
 
 
 	/* No creatures is defeated */
-	if(norm_total < 1)
-	{
-#ifdef JP
-		fprintf(fff,"‚Ü‚¾“G‚ð“|‚µ‚Ä‚¢‚Ü‚¹‚ñB\n");
-#else
-		fprintf(fff,"You have defeated no enemies yet.\n");
-#endif
-	}
+	if(norm_total < 1) fprintf(fff, MES_KNOW_NO_KILLED);
 
 	/* Defeated more than one normal creatures */
-	else if(uniq_total == 0)
-	{
-#ifdef JP
-		fprintf(fff,"%ld‘Ì‚Ì“G‚ð“|‚µ‚Ä‚¢‚Ü‚·B\n", norm_total);
-#else
-		fprintf(fff,"You have defeated %ld %s.\n", norm_total, norm_total == 1 ? "enemy" : "enemies");
-#endif
-	}
+	else if(uniq_total == 0) fprintf(fff, MES_KNOW_KILLED(norm_total));
 
 	/* Defeated more than one unique creatures */
 	else /* if(uniq_total > 0) */
