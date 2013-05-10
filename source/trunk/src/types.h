@@ -1392,6 +1392,7 @@ struct creature_type
 	CREATURE_ID creature_idx;
 
 	char name[128];
+	char desc_name[128];
 
 	byte player;	// Player Flag 
 

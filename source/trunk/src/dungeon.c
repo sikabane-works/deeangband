@@ -1031,7 +1031,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	int regen_amount = CREATURE_REGEN_NORMAL;	// Default regeneration
 
 	if(!is_valid_creature(creature_ptr)) return;
-	creature_desc(creature_ptr->name, creature_ptr, 0);
+	creature_desc(creature_ptr->desc_name, creature_ptr, 0);
 
 	// Take damage from poison
 	if(has_trait(creature_ptr, TRAIT_POISONED) && !has_trait(creature_ptr, TRAIT_INVULNERABLE))
@@ -1066,7 +1066,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 				if(is_seen(player_ptr, creature_ptr))
 				{
 #ifdef JP
-					msg_format("日光が%sの肉体を焼き焦がした！", creature_ptr->name);
+					msg_format("日光が%sの肉体を焼き焦がした！", creature_ptr->desc_name);
 #else
 					msg_print("The sun's rays scorch your undead flesh!");
 #endif
@@ -1090,9 +1090,9 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			if(is_seen(player_ptr, creature_ptr))
 			{
 #ifdef JP
-				msg_format("%sが%sの肉体を焼き焦がした！", object_name, creature_ptr->name);
+				msg_format("%sが%sの肉体を焼き焦がした！", object_name, creature_ptr->desc_name);
 #else
-				msg_format("The %s scorches %s undead flesh!", object_name, creature_ptr->name);
+				msg_format("The %s scorches %s undead flesh!", object_name, creature_ptr->desc_name);
 #endif
 			}
 			cave_no_regen = TRUE;
@@ -1110,9 +1110,9 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP
-			msg_format("%sは混沌に身を蝕まれている。", creature_ptr->name);
+			msg_format("%sは混沌に身を蝕まれている。", creature_ptr->desc_name);
 #else
-			msg_format("The chaos tainted %s", creature_ptr->name);
+			msg_format("The chaos tainted %s", creature_ptr->desc_name);
 #endif
 		}
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, COD_CHAOS_TAINT, NULL, -1);
