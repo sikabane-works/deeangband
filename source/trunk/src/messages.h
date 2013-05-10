@@ -284,6 +284,7 @@
 #define KW_FAST "加速"
 #define KW_SLOW "減速"
 #define KW_RIDING "乗馬"
+#define KW_OFFER "提示金額"
 #define KW_ASKING_PRICE "提示価格"
 #define KW_FINAL_OFFER_PRICE "最終提示価格"
 #define KW_FLOOR_NUM(NUM) "%d階", (NUM)
@@ -403,6 +404,7 @@
 #define KW_FAST "Fast"
 #define KW_SLOW "Slow"
 #define KW_RIDING "Riding"
+#define KW_OFFER "Offer"
 #define KW_ASKING_PRICE "Asking Price"
 #define KW_FINAL_OFFER_PRICE "Final Offer"
 #define KW_FLOOR_NUM(NUM) "Floor %d", (NUM)
@@ -2173,6 +2175,9 @@ static cptr desc_stat_neg[] =
 
 #ifdef JP
 #define MES_STORE_RUMOR "店主は耳うちした:"
+#define MES_STORE_DECIDE_INSTANTLY "即座にこの金額にまとまった。"
+#define MES_STORE_DECIDE_FINALY "結局この金額にまとまった。"
+#define MES_STORE_DECIDE_QUICKLY "すんなりとこの金額にまとまった。"
 #define MES_STORE_ASK_PRICE "提示する価格? "
 #define MES_STORE_ENTIRE "これで全部です。"
 #define MES_STORE_ITEM_LIMIT "そんなにアイテムを持てない。"
@@ -2235,6 +2240,9 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_ITEM_DESCRIPTION "アイテムの一覧"
 #else
 #define MES_STORE_RUMOR "The shopkeeper whispers something into your ear:"
+#define MES_STORE_DECIDE_INSTANTLY "You instantly agree upon the price."
+#define MES_STORE_DECIDE_FINALY "You eventually agree upon the price."
+#define MES_STORE_DECIDE_QUICKLY "You quickly agree upon the price."
 #define MES_STORE_ASK_PRICE "What price do you ask? "
 #define MES_STORE_ENTIRE "That's all."
 #define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."

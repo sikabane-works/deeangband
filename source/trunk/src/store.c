@@ -3032,17 +3032,9 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 	int     flag, loop_flag, noneed;
 	int     annoyed = 0, final = FALSE;
 	bool    cancel = FALSE;
-#ifdef JP
-	cptr pmt = "íÒé¶ã‡äz";
-#else
-	cptr    pmt = "Offer";
-#endif
-
+	cptr pmt = KW_OFFER;
 	char    out_val[160];
-
-
 	*price = 0;
-
 
 	/* Obtain the starting offer and the final offer */
 	cur_ask = price_item(creature_ptr, object_ptr, 120, TRUE);
@@ -3066,11 +3058,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 		/* No reason to haggle */
 		if(final_ask >= purse)
 		{
-#ifdef JP
-			msg_print("ë¶ç¿Ç…Ç±ÇÃã‡äzÇ…Ç‹Ç∆Ç‹Ç¡ÇΩÅB");
-#else
-			msg_print("You instantly agree upon the price.");
-#endif
+			msg_print(MES_STORE_DECIDE_INSTANTLY);
 			msg_print(NULL);
 
 			/* Offer full purse */
@@ -3080,23 +3068,14 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 		/* No need to haggle */
 		else if(noneed)
 		{
-#ifdef JP
-			msg_print("åãã«Ç±ÇÃã‡äzÇ…Ç‹Ç∆Ç‹Ç¡ÇΩÅB");
-#else
-			msg_print("You eventually agree upon the price.");
-#endif
+			msg_print(MES_STORE_DECIDE_FINALY);
 			msg_print(NULL);
 		}
 
 		/* No haggle option */
 		else
 		{
-#ifdef JP
-			msg_print("Ç∑ÇÒÇ»ÇËÇ∆Ç±ÇÃã‡äzÇ…Ç‹Ç∆Ç‹Ç¡ÇΩÅB");
-#else
-			msg_print("You quickly agree upon the price.");
-#endif
-
+			msg_print(MES_STORE_DECIDE_QUICKLY);
 			msg_print(NULL);
 		}
 
@@ -3148,10 +3127,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 				flag = TRUE;
 				*price = offer;
 			}
-			else
-			{
-				loop_flag = FALSE;
-			}
+			else loop_flag = FALSE;
 
 			/* Stop */
 			if(flag || !loop_flag) break;
