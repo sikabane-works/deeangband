@@ -2820,38 +2820,6 @@ static void process_world(void)
 	process_world_aux_movement(player_ptr);
 }
 
-
-
-// Verify use of "wizard" mode
-static bool enter_wizard_mode(void)
-{
-	// Ask first time
-	if(!noscore)
-	{
-		if(!allow_debug_opts || arg_wizard)
-		{
-			msg_print(MES_WIZARD_FORBID);
-			return FALSE;
-		}
-
-		/* Mention effects */
-		msg_print(MES_WIZARD_CHECK1);
-		msg_print(MES_WIZARD_CHECK2);
-		msg_print(NULL);
-
-		/* Verify request */
-		if(!get_check(MES_WIZARD_ASK)) return FALSE;
-
-		wizard = TRUE;
-		write_diary(DIARY_BUNSHOU, 0, DIARY_WIZARD);
-		/* Mark savefile */
-		noscore |= 0x0002;
-	}
-
-	return TRUE;
-}
-
-
 // Verify use of "debug" commands
 static bool enter_debug_mode(void)
 {
@@ -4660,21 +4628,6 @@ void play_game(bool new_game)
 
 	/* Flush the message */
 	Term_fresh();
-
-	/* Hack -- Enter wizard mode */
-	if(arg_wizard)
-	{
-		if(enter_wizard_mode())
-		{
-			wizard = TRUE;
-			if(gameover || !player_ptr->fy || !player_ptr->fx)
-			{
-				init_saved_floors(TRUE); // Initialize the saved floors data
-				player_ptr->fy = player_ptr->fx = 10; // Avoid crash in update_view()
-			}
-		}
-		else if(gameover) quit("Already dead.");
-	}
 
 	// Character is now "complete"
 	character_generated = TRUE;
