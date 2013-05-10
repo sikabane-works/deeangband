@@ -4149,10 +4149,6 @@ static void dump_aux_mutations(creature_type *creature_ptr, FILE *fff)
 	dump_traits(creature_ptr, fff);
 }
 
-
-/*
- *
- */
 static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 {
 	int i;
@@ -4161,23 +4157,14 @@ static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 	/* Dump the equipment */
 	if(creature_ptr->equip_cnt)
 	{
-#ifdef JP
-		fprintf(fff, "  [キャラクタの装備]\n\n");
-#else
-		fprintf(fff, "  [Character Equipment]\n\n");
-#endif
-
+		fprintf(fff, "  [%s]\n\n", KW_CHARA_EQUIPMENT);
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			if(!IS_EQUIPPED(&creature_ptr->inventory[i])) continue;
 
 			object_desc(object_name, &creature_ptr->inventory[i], 0);
 			if((((i == get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 0)) && creature_ptr->can_melee[0]) || ((i == get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 2)) && creature_ptr->can_melee[0])) && creature_ptr->two_handed)
-#ifdef JP
-				strcpy(object_name, "(武器を両手持ち)");
-#else
-				strcpy(object_name, "(wielding with two-hands)");
-#endif
+				strcpy(object_name, KW_WITH_THOHANDED);
 
 			fprintf(fff, "%c) %s\n", index_to_label(i), object_name);
 		}
@@ -4185,11 +4172,7 @@ static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 	}
 
 	/* Dump the inventory */
-#ifdef JP
-	fprintf(fff, "  [キャラクタの持ち物]\n\n");
-#else
-	fprintf(fff, "  [Character inventory]\n\n");
-#endif
+	fprintf(fff, "  [%s]\n\n", KW_CHARA_INVENTORY);
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{

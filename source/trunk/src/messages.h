@@ -326,6 +326,9 @@
 #define KW_WANTED "賞金首"
 #define KW_CHARGING "(充填中)"
 #define KW_FLOORITEM "床上"
+#define KW_WITH_THOHANDED "(武器を両手持ち)"
+#define KW_CHARA_INVENTORY "キャラクタの持ち物"
+#define KW_CHARA_EQUIPMENT "キャラクタの装備"
 #else
 #define KW_MORE "-more-"
 #define KW_CREATURE "Creatures"
@@ -446,6 +449,9 @@
 #define KW_WANTED "Wanted"
 #define KW_CHARGING "(charging)""
 #define KW_FLOORITEM "On a floor"
+#define KW_WITH_THOHANDED "(wielding with two-hands)"
+#define KW_CHARA_INVENTORY "Character inventory"
+#define KW_CHARA_EQUIPMENT "Character Equipment"
 #endif
 
 #ifdef JP
