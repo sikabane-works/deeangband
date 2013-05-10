@@ -6534,10 +6534,10 @@ static void do_cmd_knowledge_bounty(void)
 		bool listed = FALSE;
 
 #ifdef JP
-		fprintf(fff, "今日のターゲット : %s\n", (today_mon ? species_name + species_info[today_mon].name : "不明"));
+		fprintf(fff, "今日のターゲット : %s\n", (today_mon ? species_name + species_info[today_mon].name : KW_UNKNOWN));
 		fprintf(fff, "\n");
 #else
-		fprintf(fff, "Today target : %s\n", (today_mon ? species_name + species_info[today_mon].name : "unknown"));
+		fprintf(fff, "Today target : %s\n", (today_mon ? species_name + species_info[today_mon].name : KW_UNKNOWN));
 		fprintf(fff, "\n");
 #endif
 		fprintf(fff, MES_INFO_BOUNTY);

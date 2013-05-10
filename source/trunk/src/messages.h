@@ -234,7 +234,7 @@
 #define KW_RANGE "範囲"
 #define KW_HEAL "回復"
 #define KW_FAIL "失率"
-#define KW_UNKNOWN "未知"
+#define KW_STRANGE "未知"
 #define KW_FORGOTTEN "忘却"
 #define KW_ILLEGIBLE "判読不能"
 #define KW_UNTRIED "未経験"
@@ -332,6 +332,7 @@
 #define KW_MUSIUM_LIST "博物館のアイテム"
 #define KW_JUST_LIFTING "運搬中"
 #define KW_SHOOTING "射撃用"
+#define KW_UNKNOWN "不明"
 #else
 #define KW_MORE "-more-"
 #define KW_CREATURE "Creatures"
@@ -360,7 +361,7 @@
 #define KW_RANGE "Range"
 #define KW_HEAL "Heal"
 #define KW_FAIL "Fail"
-#define KW_UNKNOWN "Unknown"
+#define KW_STRANGE "Strange"
 #define KW_FORGOTTEN "Forgotten"
 #define KW_ILLEGIBLE "Illegible"
 #define KW_UNTRIED "Untried"
@@ -458,6 +459,7 @@
 #define KW_MUSIUM_LIST "Museum"
 #define KW_JUST_LIFTING "Just lifting"
 #define KW_SHOOTING "Shooting"
+#define KW_UNKNOWN "UNKNOWN"
 #endif
 
 #ifdef JP
