@@ -4896,14 +4896,12 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 	/* Cancel Resting */
 	if((player_ptr->action == ACTION_REST) || (player_ptr->action == ACTION_FISH) || (stop_search && (player_ptr->action == ACTION_SEARCH)))
 	{
-		/* Cancel */
 		set_action(player_ptr, ACTION_NONE);
 	}
 
 	/* Cancel running */
 	if(player_ptr->running)
 	{
-		/* Cancel */
 		player_ptr->running = 0;
 
 		/* Check for new panel if appropriate */
@@ -4918,7 +4916,6 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 
 	if(travel.run)
 	{
-		/* Cancel */
 		travel.run = 0;
 
 		/* Check for new panel if appropriate */

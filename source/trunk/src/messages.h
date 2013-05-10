@@ -2178,6 +2178,7 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_DECIDE_INSTANTLY "即座にこの金額にまとまった。"
 #define MES_STORE_DECIDE_FINALY "結局この金額にまとまった。"
 #define MES_STORE_DECIDE_QUICKLY "すんなりとこの金額にまとまった。"
+#define MES_STORE_LAST_BID(PRICE) "前回の提示価格 $%ld", (PRICE)
 #define MES_STORE_ASK_PRICE "提示する価格? "
 #define MES_STORE_ENTIRE "これで全部です。"
 #define MES_STORE_ITEM_LIMIT "そんなにアイテムを持てない。"
@@ -2243,6 +2244,7 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_DECIDE_INSTANTLY "You instantly agree upon the price."
 #define MES_STORE_DECIDE_FINALY "You eventually agree upon the price."
 #define MES_STORE_DECIDE_QUICKLY "You quickly agree upon the price."
+#define MES_STORE_LAST_BID(PRICE) "Your last bid %ld", (PRICE)
 #define MES_STORE_ASK_PRICE "What price do you ask? "
 #define MES_STORE_ENTIRE "That's all."
 #define MES_STORE_ITEM_LIMIT "You cannot carry that many different items."

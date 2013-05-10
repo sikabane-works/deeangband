@@ -380,15 +380,8 @@ void do_cmd_destroy(creature_type *creature_ptr)
 			i = inkey();
 			prt("", 0, 0);
 
-			if(i == 'y' || i == 'Y')
-			{
-				break;
-			}
-			if(i == ESCAPE || i == 'n' || i == 'N')
-			{
-				/* Cancel */
-				return;
-			}
+			if(i == 'y' || i == 'Y') break;
+			if(i == ESCAPE || i == 'n' || i == 'N') return;
 			if(i == 'A')
 			{
 				/* Add an auto-destroy preference line */

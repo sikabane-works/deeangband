@@ -2611,12 +2611,8 @@ static OBJECT_ID get_stock(store_type *st_ptr, KEY *com_val, cptr pmt, int i, in
 
 	/* Clear the prompt */
 	prt("", 0, 0);
-
-	/* Cancel */
 	if(command == ESCAPE) return FALSE;
-
 	repeat_push(*com_val);
-
 	return TRUE;
 }
 
@@ -3001,7 +2997,6 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 		}
 	}
 
-	/* Cancel */
 	if(cancel) return TRUE;
 
 	/* Update bargaining info */
@@ -3183,18 +3178,13 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 				last_offer = offer;
 				allow_inc = TRUE;
 				prt("", 1, 0);			
-#ifdef JP
-				(void)sprintf(out_val, "‘O‰ñ‚Ì’ñŽ¦‰¿Ši $%ld", (long)last_offer);
-#else
-				(void)sprintf(out_val, "Your last bid %ld", (long)last_offer);
-#endif
+				(void)sprintf(out_val, MES_STORE_LAST_BID(last_offer));
 				put_str(out_val, 1, 39);
 				say_comment_3(st_ptr, cur_ask, annoyed);
 			}
 		}
 	}
 
-	/* Cancel */
 	if(cancel) return TRUE;
 
 	/* Update bargaining info */
