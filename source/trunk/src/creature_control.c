@@ -1165,10 +1165,8 @@ species_type *real_species_ptr(creature_type *m_ptr)
 	/* Extract real race */
 	if(m_ptr->sc_flag2 & SC_FLAG2_CHAMELEON)
 	{
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE))
-			return &species_info[SPECIES_CHAMELEON_K];
-		else
-			return &species_info[SPECIES_CHAMELEON];
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) return &species_info[SPECIES_CHAMELEON_K];
+		else return &species_info[SPECIES_CHAMELEON];
 	}
 	else
 	{

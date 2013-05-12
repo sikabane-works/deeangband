@@ -305,7 +305,7 @@ static void strip_bytes(int n)
 }
 
 // Read an object
-static bool rd_object(object_type *object_ptr)
+static errr rd_object(object_type *object_ptr)
 {
 	int i;
 	object_kind *object_kind_ptr;
@@ -395,6 +395,7 @@ static bool rd_object(object_type *object_ptr)
 static errr rd_inventory(creature_type *creature_ptr)
 {
 	int slot = 0;
+	errr err = LOAD_ERROR_NONE;
 
 	object_type forge;
 	object_type *object_ptr;
@@ -417,7 +418,8 @@ static errr rd_inventory(creature_type *creature_ptr)
 
 		object_ptr = &forge;
 		object_wipe(object_ptr);
-		rd_object(object_ptr);
+		err = rd_object(object_ptr);
+		if(err != LOAD_ERROR_NONE) return err;
 
 		// Hack -- verify item
 		if(!is_valid_object(object_ptr)) return LOAD_ERROR_INVALID_OBJECT;
@@ -751,7 +753,7 @@ static void rd_options(void)
 	}
 }
 
-static void rd_creature(creature_type *creature_ptr)
+static errr rd_creature(creature_type *creature_ptr)
 {
 	int i;
 	char buf[1024];
@@ -1255,6 +1257,7 @@ static errr rd_floors(void)
  */
 static errr rd_savefile_new_aux(void)
 {
+	errr err;
 	int i, j;
 	s16b limit;
 	COODINATES wild_x_size;
@@ -1343,8 +1346,8 @@ static errr rd_savefile_new_aux(void)
 	{
 		creature_idx = creature_pop(); // Get a new record
 		creature_ptr = &creature_list[creature_idx]; // Acquire creature
-		rd_creature(creature_ptr); // Read the creature
-
+		err = rd_creature(creature_ptr); // Read the creature
+		if(err != LOAD_ERROR_NONE) return err;
 		real_species_ptr(creature_ptr)->cur_num++; // Count
 	}
 
