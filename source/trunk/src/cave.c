@@ -4340,15 +4340,9 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 	/* Forget all objects */
 	for (i = 1; i < object_max; i++)
 	{
-		object_type *object_ptr = &object_list[i];
-
-		/* Skip dead objects */
-		if(!is_valid_object(object_ptr)) continue;
-
-		/* Skip held objects */
-		if(object_ptr->held_m_idx) continue;
-
-		/* Forget the object */
+		object_type *object_ptr = &object_list[i]; /* Skip dead objects */
+		if(!is_valid_object(object_ptr)) continue; /* Skip held objects */
+		if(object_ptr->held_m_idx) continue; /* Forget the object */
 		object_ptr->marked &= OM_TOUCHED;
 	}
 

@@ -5709,7 +5709,6 @@ void set_inventory_weight(creature_type *creature_ptr)
 		creature_ptr->carrying_weight += (object_ptr->weight * object_ptr->number);
 		if(IS_EQUIPPED(object_ptr)) creature_ptr->equipping_weight += (object_ptr->weight * object_ptr->number);
 	}
-
 }
 
 bool is_valid_object(object_type *object_ptr)

@@ -89,13 +89,8 @@ void prt_wiz_pos(creature_type *player_ptr)
 
 cptr get_floor_name(floor_type *floor_ptr)
 {
-	if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest) && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET))
-		return KW_QUEST;
-#ifdef JP
-	else if(floor_ptr->global_map) return "¬“×‚Ì’n•½";
-#else
-	else if(floor_ptr->global_map) return ;
-#endif
+	if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest) && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET)) return KW_QUEST;
+	else if(floor_ptr->global_map) return KW_WORLD_MAP;
 	else if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) return KW_ARENA;
 	else if(!floor_ptr->depth && floor_ptr->town_num) return town[floor_ptr->town_num].name;
 	else if(floor_ptr->depth <= 0) return KW_SURFACE;

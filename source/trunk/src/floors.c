@@ -114,6 +114,11 @@ static void kill_floor(floor_type *sf_ptr)
 	// TODO
 }
 
+bool is_valid_floor(floor_type *floor_ptr)
+{
+	return (bool)(floor_ptr->width > 0 && floor_ptr->height > 0);
+}
+
 
 //
 // Initialize new saved floor and get its floor id.  If number of
