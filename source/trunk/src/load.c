@@ -824,7 +824,7 @@ static errr rd_creature(creature_type *creature_ptr)
 #else
 		note(format("[ERR:%d] Unable to read inventory of [%d]: \"%s\"", r, creature_ptr->creature_idx, creature_ptr->name);
 #endif
-		return;
+		return LOAD_ERROR_INVALID_OBJECT;
 	}
 
 	// Read the stat info
@@ -966,6 +966,8 @@ static errr rd_creature(creature_type *creature_ptr)
 	check_music(creature_ptr);
 	check_hex(creature_ptr);
 	revenge_spell(creature_ptr);
+
+	return LOAD_ERROR_NONE;
 }
 
 /*
