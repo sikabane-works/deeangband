@@ -204,6 +204,15 @@
 #define MES_SYS_WIN_MAIN_MUST_ENABLE "You are not allowed to do that!"
 #endif
 
+#ifdef JP
+#define MES_LOAD_RANDOM_SEED "乱数情報をロードしました"
+#define MES_LOAD_OPTION "オプションをロードしました"
+#define MES_LOAD_MESSAGE "メッセージをロードしました"
+#else
+#define MES_LOAD_RANDOM_SEED "Loaded Randomizer Info"
+#define MES_LOAD_OPTION "Loaded Option Flags"
+#define MES_LOAD_MESSAGE "Loaded Messages"
+#endif
 
 #if JP
 #define KW_MORE "-続く-"

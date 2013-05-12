@@ -1310,27 +1310,15 @@ static errr rd_savefile_new_aux(void)
 
 	/* Read RNG state */
 	rd_randomizer();
-#ifdef JP
-	note("乱数情報をロードしました");
-#else
-	if(arg_fiddle) note("Loaded Randomizer Info");
-#endif
+	note(MES_LOAD_RANDOM_SEED);
 
 	// Then the options
 	rd_options();
-#ifdef JP
-	note("オプションをロードしました");
-#else
-	if(arg_fiddle) note("Loaded Option Flags");
-#endif
+	note(MES_LOAD_OPTION);
 
 	// Then the "messages"
 	rd_messages();
-#ifdef JP
-	note("メッセージをロードしました");
-#else
-	if(arg_fiddle) note("Loaded Messages");
-#endif
+	note(MES_LOAD_MESSAGE);
 
 	for (i = 0; i < max_species_idx; i++)
 	{
