@@ -522,7 +522,7 @@ struct ego_item_type
 	STRING_OFFSET name;			/* Name (offset) */
 	STRING_OFFSET text;			/* Text (offset) */
 
-	s16b ap_rate;		// AP rate
+	PERCENT ap_rate;		// AP rate
 	INVENTORY_ID slot;			/* Standard slot value */
 	byte rating;		/* Rating boost */
 
@@ -540,14 +540,12 @@ struct ego_item_type
 
 	PVAL max_pval;		// Maximum pval
 	STAT max_stat[STAT_MAX];		// Maximum stat
-	s32b cost;			/* Ego-item "cost" */
+	PRICE cost;			/* Ego-item "cost" */
 
 	s16b charge_const;
 	s16b charge_dice;
-
 	FLAGS_32 flags[MAX_TRAITS_FLAG];	/* Ego-Item Flags */
 	traits_precondition add_creature_traits;
-
 	FLAGS_32 gen_flags;		/* flags for generate */
 };
 

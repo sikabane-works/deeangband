@@ -2909,8 +2909,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 					}
 
 					/* Parse this entry */
-					if(0 != traits_precondition_splits(&object_ego_ptr->add_creature_traits, s))
-						return PARSE_ERROR_INVALID_FLAG;
+					if(0 != traits_precondition_splits(&object_ego_ptr->add_creature_traits, s)) return PARSE_ERROR_INVALID_FLAG;
 
 						/* Start the next entry */
 					s = t;
@@ -2921,10 +2920,8 @@ errr parse_object_ego_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_EGO_INFO_AP_RATE:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->ap_rate = (s16b)b;
-				else
-					object_ego_ptr->ap_rate = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->ap_rate = (PERCENT)b;
+				else object_ego_ptr->ap_rate = 0;
 				break;
 
 			case OBJECT_EGO_INFO_CHARGE:
