@@ -2229,7 +2229,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 			if(creature_ptr->see_others &&
 			    (disturb_move ||
 			     (disturb_near && (creature_ptr->sc_flag & SC_FLAG_VIEW) && projectable(floor_ptr, MAX_RANGE, player_ptr->fy, player_ptr->fx, creature_ptr->fy, creature_ptr->fx)) ||
-			     (disturb_high && ap_species_ptr->r_tkills && ap_species_ptr->level >= player_ptr->lev)))
+			     (disturb_high && ap_species_ptr->killed_total && ap_species_ptr->level >= player_ptr->lev)))
 			{
 				if(is_hostile(creature_ptr))
 					disturb(player_ptr, 0, 0);

@@ -598,24 +598,16 @@ void generate_world(floor_type *floor_ptr)
 				floor_ptr->cave[j][i].special = (byte)wilderness[j][i].entrance;
 			}
 			else floor_ptr->cave[j][i].feat = conv_terrain2feat[wilderness[j][i].terrain];
-
 			floor_ptr->cave[j][i].info |= (CAVE_GLOW | CAVE_MARK);
 		}
 	}
 
-	floor_ptr->height = (s16b) max_wild_y;
-	floor_ptr->width = (s16b) max_wild_x;
-
+	floor_ptr->height = max_wild_y;
+	floor_ptr->width = max_wild_x;
 	if(floor_ptr->height > MAX_HGT) floor_ptr->height = MAX_HGT;
 	if(floor_ptr->width > MAX_WID) floor_ptr->width = MAX_WID;
-
-	// Assume illegal panel
 	panel_row_min = floor_ptr->height;
 	panel_col_min = floor_ptr->width;
-
-	// Place the player
-	player_ptr->fx = (byte)player_ptr->wx;
-	player_ptr->fy = (byte)player_ptr->wy;
 }
 
 

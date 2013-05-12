@@ -4949,7 +4949,7 @@ static void do_cmd_knowledge_kill_count(void)
 			}
 			else
 			{
-				s16b This = species_ptr->r_pkills;
+				POPULATION This = species_ptr->killed_by_player;
 				if(This > 0) Total += This;
 			}
 		}
@@ -4989,8 +4989,7 @@ static void do_cmd_knowledge_kill_count(void)
 		}
 		else
 		{
-			s16b This = species_ptr->r_pkills;
-
+			POPULATION This = species_ptr->killed_by_player;
 			if(This > 0)
 			{
 #ifdef JP
@@ -5030,14 +5029,11 @@ static void do_cmd_knowledge_kill_count(void)
 #ifdef JP
 	fprintf(fff,"    ‡Œv: %lu ‘Ì‚ðŽE‚µ‚½B\n", Total);
 #else
-	fprintf(fff,"   Total: %lu creature%s killed.\n",
-		Total, (Total == 1 ? "" : "s"));
+	fprintf(fff,"   Total: %lu creature%s killed.\n", Total, (Total == 1 ? "" : "s"));
 #endif
-
 
 	/* Free the "who" array */
 	C_KILL(who, max_species_idx, SPECIES_ID);
-
 	my_fclose(fff);
 
 	/* Display the file contents */
@@ -5424,7 +5420,7 @@ static void display_creature_list(int col, int row, int per_page, SPECIES_ID mon
 		if(!visual_only)
 		{
 			/* Display kills */
-			if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) put_str(format("%5d", species_ptr->r_pkills), row + i, 73);
+			if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) put_str(format("%5d", species_ptr->killed_by_player), row + i, 73);
 			else c_put_str((species_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (species_ptr->max_num == 0 ? KW_DEAD : KW_ALIVE), row + i, 74);
 		}
 	}

@@ -4680,9 +4680,7 @@ void world_wipe()
 
 	play_time = 0;
 	floor_max = 1; 	// No floor_idx used yet (No.0 is reserved to indicate non existance)
-
 	panic_save = FALSE;	// Assume no cheating
-
 	noscore = 0;
 	wizard = FALSE;
 	cheat_peek = FALSE;
@@ -4707,12 +4705,10 @@ void world_wipe()
 	for (i = 1; i < max_species_idx; i++)
 	{
 		species_type *species_ptr = &species_info[i];
-
 		species_ptr->cur_num = 0; // Hack -- Reset the counter
 		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) species_ptr->max_num = 1; // Hack -- Reset the max counter
-
-		species_ptr->r_pkills = 0; // Clear visible kills in this life
-		species_ptr->r_akills = 0; // Clear all kills in this life
+		species_ptr->killed_by_player = 0;
+		species_ptr->killed_by_all = 0;
 	}
 
 	// Wipe the quests

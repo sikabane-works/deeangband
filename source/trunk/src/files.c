@@ -4031,9 +4031,9 @@ static void dump_aux_creatures(FILE *fff)
 		/* Normal creatures */
 		else
 		{
-			if(species_ptr->r_pkills > 0)
+			if(species_ptr->killed_by_player > 0)
 			{
-				norm_total += species_ptr->r_pkills;
+				norm_total += species_ptr->killed_by_player;
 			}
 		}
 	}

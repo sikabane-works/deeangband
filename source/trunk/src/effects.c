@@ -1540,20 +1540,20 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 					if((target_ptr->species_idx == SPECIES_BANOR) || (target_ptr->species_idx == SPECIES_LUPART))
 					{
 						species_info[SPECIES_BANORLUPART].max_num = 0;
-						species_info[SPECIES_BANORLUPART].r_pkills++;
-						species_info[SPECIES_BANORLUPART].r_akills++;
-						if(species_info[SPECIES_BANORLUPART].r_tkills < MAX_SHORT) species_info[SPECIES_BANORLUPART].r_tkills++;
+						species_info[SPECIES_BANORLUPART].killed_by_player++;
+						species_info[SPECIES_BANORLUPART].killed_by_all++;
+						if(species_info[SPECIES_BANORLUPART].killed_total < MAX_SHORT) species_info[SPECIES_BANORLUPART].killed_total++;
 					}
 					else if(target_ptr->species_idx == SPECIES_BANORLUPART)
 					{
 						species_info[SPECIES_BANOR].max_num = 0;
-						species_info[SPECIES_BANOR].r_pkills++;
-						species_info[SPECIES_BANOR].r_akills++;
-						if(species_info[SPECIES_BANOR].r_tkills < MAX_SHORT) species_info[SPECIES_BANOR].r_tkills++;
+						species_info[SPECIES_BANOR].killed_by_player++;
+						species_info[SPECIES_BANOR].killed_by_all++;
+						if(species_info[SPECIES_BANOR].killed_total < MAX_SHORT) species_info[SPECIES_BANOR].killed_total++;
 						species_info[SPECIES_LUPART].max_num = 0;
-						species_info[SPECIES_LUPART].r_pkills++;
-						species_info[SPECIES_LUPART].r_akills++;
-						if(species_info[SPECIES_LUPART].r_tkills < MAX_SHORT) species_info[SPECIES_LUPART].r_tkills++;
+						species_info[SPECIES_LUPART].killed_by_player++;
+						species_info[SPECIES_LUPART].killed_by_all++;
+						if(species_info[SPECIES_LUPART].killed_total < MAX_SHORT) species_info[SPECIES_LUPART].killed_total++;
 					}
 				}
 
@@ -1562,18 +1562,18 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			if(species_ptr->max_num > 0) species_ptr->max_num--;
 
 			/* Count all creatures killed */
-			if(species_ptr->r_akills < MAX_SHORT) species_ptr->r_akills++;
+			if(species_ptr->killed_by_all < MAX_SHORT) species_ptr->killed_by_all++;
 
 			/* Recall even invisible uniques or winners */
 			if(target_ptr->see_others || has_trait(target_ptr, TRAIT_UNIQUE)) // && !has_trait(attacker_ptr, TRAIT_HALLUCINATION))
 			{
 				/* Count kills this life */
-				if(has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].r_pkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_pkills++;
-				else if(species_ptr->r_pkills < MAX_SHORT) species_ptr->r_pkills++;
+				if(has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].killed_by_player < MAX_SHORT)) species_info[SPECIES_KAGE].killed_by_player++;
+				else if(species_ptr->killed_by_player < MAX_SHORT) species_ptr->killed_by_player++;
 
 				/* Count kills in all lives */
-				if(has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].r_tkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_tkills++;
-				else if(species_ptr->r_tkills < MAX_SHORT) species_ptr->r_tkills++;
+				if(has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].killed_total < MAX_SHORT)) species_info[SPECIES_KAGE].killed_total++;
+				else if(species_ptr->killed_total < MAX_SHORT) species_ptr->killed_total++;
 
 				/* Hack -- Auto-recall */
 				species_type_track(target_ptr->ap_species_idx);

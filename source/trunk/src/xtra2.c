@@ -1110,7 +1110,7 @@ cptr look_creature_desc(creature_type *m_ptr, FLAGS_32 mode)
 		clone = "";
 
 	/* Display creature's level --- idea borrowed from ToME */
-	if(ap_r_ptr->r_tkills && !has_trait(m_ptr, TRAIT_KAGE))
+	if(ap_r_ptr->killed_total && !has_trait(m_ptr, TRAIT_KAGE))
 		return format("Lv%d, %s%s%s", ap_r_ptr->level, desc, attitude, clone);
 	else 
 		return format("Lv???, %s%s%s", desc, attitude, clone);
@@ -1325,11 +1325,11 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 		if(!has_trait(ma_ptr, TRAIT_KAGE) &&  has_trait(mb_ptr, TRAIT_KAGE)) return FALSE;
 
 		/* Unknown creatures first */
-		if(!ap_ra_ptr->r_tkills && ap_rb_ptr->r_tkills) return TRUE;
-		if(ap_ra_ptr->r_tkills && !ap_rb_ptr->r_tkills) return FALSE;
+		if(!ap_ra_ptr->killed_total && ap_rb_ptr->killed_total) return TRUE;
+		if(ap_ra_ptr->killed_total && !ap_rb_ptr->killed_total) return FALSE;
 
 		/* Higher level creatures first (if known) */
-		if(ap_ra_ptr->r_tkills && ap_rb_ptr->r_tkills)
+		if(ap_ra_ptr->killed_total && ap_rb_ptr->killed_total)
 		{
 			if(ap_ra_ptr->level > ap_rb_ptr->level) return TRUE;
 			if(ap_ra_ptr->level < ap_rb_ptr->level) return FALSE;
@@ -1564,7 +1564,7 @@ static void evaluate_creature_exp(creature_type *player_ptr, char *buf, creature
 		sprintf(buf,"**");
 		return;
 	}
-	else if(!ap_r_ptr->r_tkills || has_trait(target_ptr, TRAIT_KAGE))
+	else if(!ap_r_ptr->killed_total || has_trait(target_ptr, TRAIT_KAGE))
 	{
 		if(!wizard)
 		{

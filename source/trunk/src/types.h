@@ -709,9 +709,9 @@ struct species_type
 	s16b r_sights;			/* Count sightings of this creature */
 	s16b r_deaths;			/* Count deaths from this creature */
 
-	s16b r_pkills;			/* Count visible creatures killed in this life */
-	s16b r_akills;			/* Count all creatures killed in this life */
-	s16b r_tkills;			/* Count creatures killed in all lives */
+	POPULATION killed_by_player; /* Count visible creatures killed in this life */
+	POPULATION killed_by_all; /* Count all creatures killed in this life */
+	POPULATION killed_total;			/* Count creatures killed in all lives */
 
 	byte r_wake;			/* Number of times woken up (?) */
 	byte r_ignore;			/* Number of times ignored (?) */

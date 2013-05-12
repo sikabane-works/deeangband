@@ -817,8 +817,8 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 	if(*why >= 4)
 	{
 		/* Extract player kills */
-		z1 = species_info[w1].r_pkills;
-		z2 = species_info[w2].r_pkills;
+		z1 = species_info[w1].killed_by_player;
+		z2 = species_info[w2].killed_by_player;
 
 		/* Compare player kills */
 		if(z1 < z2) return TRUE;
@@ -830,8 +830,8 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 	if(*why >= 3)
 	{
 		/* Extract total kills */
-		z1 = species_info[w1].r_tkills;
-		z2 = species_info[w2].r_tkills;
+		z1 = species_info[w1].killed_total;
+		z2 = species_info[w2].killed_total;
 
 		/* Compare total kills */
 		if(z1 < z2) return TRUE;

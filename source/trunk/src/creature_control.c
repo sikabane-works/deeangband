@@ -1374,16 +1374,16 @@ void wipe_creature_list(FLOOR_ID floor_idx)
 		if(species_info[SPECIES_BANOR].max_num)
 		{
 			species_info[SPECIES_BANOR].max_num = 0;
-			species_info[SPECIES_BANOR].r_pkills++;
-			species_info[SPECIES_BANOR].r_akills++;
-			if(species_info[SPECIES_BANOR].r_tkills < MAX_SHORT) species_info[SPECIES_BANOR].r_tkills++;
+			species_info[SPECIES_BANOR].killed_by_player++;
+			species_info[SPECIES_BANOR].killed_by_all++;
+			if(species_info[SPECIES_BANOR].killed_total < MAX_SHORT) species_info[SPECIES_BANOR].killed_total++;
 		}
 		if(species_info[SPECIES_LUPART].max_num)
 		{
 			species_info[SPECIES_LUPART].max_num = 0;
-			species_info[SPECIES_LUPART].r_pkills++;
-			species_info[SPECIES_LUPART].r_akills++;
-			if(species_info[SPECIES_LUPART].r_tkills < MAX_SHORT) species_info[SPECIES_LUPART].r_tkills++;
+			species_info[SPECIES_LUPART].killed_by_player++;
+			species_info[SPECIES_LUPART].killed_by_all++;
+			if(species_info[SPECIES_LUPART].killed_total < MAX_SHORT) species_info[SPECIES_LUPART].killed_total++;
 		}
 	}
 
@@ -2649,7 +2649,7 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 	{
 		species_type *ap_r_ptr = &species_info[target_ptr->ap_species_idx];
 
-		if(ap_r_ptr->r_tkills && ap_r_ptr->level >= creature_ptr->lev)
+		if(ap_r_ptr->killed_total && ap_r_ptr->level >= creature_ptr->lev)
 			do_disturb = TRUE;
 	}
 
