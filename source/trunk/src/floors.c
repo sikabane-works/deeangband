@@ -145,7 +145,6 @@ FLOOR_ID floor_pop(void)
 
 		// Kill oldest saved floor
 		kill_floor(&floor_list[oldest]);
-
 		i = oldest; // Use it
 	}
 

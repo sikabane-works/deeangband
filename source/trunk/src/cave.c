@@ -3245,23 +3245,15 @@ void forget_view(floor_type *floor_ptr)
     view_n++;}\
 }
 
-
-
 /*
  * Helper function for "update_view()" below
- *
  * We are checking the "viewability" of grid (y,x) by the creature.
- *
  * This function assumes that (y,x) is legal (i.e. on the map).
- *
  * Grid (y1,x1) is on the "diagonal" between (fy,fx) and (y,x)
  * Grid (y2,x2) is "adjacent", also between (fy,fx) and (y,x).
- *
  * Note that we are using the "CAVE_XTRA" field for marking grids as
  * "easily viewable".  This bit is cleared at the end of "update_view()".
- *
  * This function adds (y,x) to the "viewable set" if necessary.
- *
  * This function now returns "TRUE" if vision is "blocked" by grid (y,x).
  */
 static bool update_view_aux(creature_type *creature_ptr, COODINATES y, COODINATES x, COODINATES y1, COODINATES x1, COODINATES y2, COODINATES x2)
@@ -3276,14 +3268,12 @@ static bool update_view_aux(creature_type *creature_ptr, COODINATES y, COODINATE
 	g1_cave_ptr = &floor_ptr->cave[y1][x1];
 	g2_cave_ptr = &floor_ptr->cave[y2][x2];
 
-
 	/* Check for walls */
 	f1 = (CAVE_LOS_GRID(g1_cave_ptr));
 	f2 = (CAVE_LOS_GRID(g2_cave_ptr));
 
 	/* Totally blocked by physical walls */
 	if(!f1 && !f2) return TRUE;
-
 
 	/* Check for visibility */
 	v1 = (f1 && (g1_cave_ptr->info & (CAVE_VIEW)));
@@ -3292,14 +3282,11 @@ static bool update_view_aux(creature_type *creature_ptr, COODINATES y, COODINATE
 	/* Totally blocked by "unviewable neighbors" */
 	if(!v1 && !v2) return TRUE;
 
-
 	/* Access the grid */
 	cave_ptr = &floor_ptr->cave[y][x];
 
-
 	/* Check for walls */
 	wall = (!CAVE_LOS_GRID(cave_ptr));
-
 
 	/* Check the "ease" of visibility */
 	z1 = (v1 && (g1_cave_ptr->info & (CAVE_XTRA)));
@@ -3324,9 +3311,7 @@ static bool update_view_aux(creature_type *creature_ptr, COODINATES y, COODINATE
 	if(v1 && v2)
 	{
 		/* cave_ptr->info |= (CAVE_XTRA); */
-
 		cave_view_hack(cave_ptr, y, x);
-
 		return (wall);
 	}
 
@@ -3335,10 +3320,8 @@ static bool update_view_aux(creature_type *creature_ptr, COODINATES y, COODINATE
 	if(wall)
 	{
 		cave_view_hack(cave_ptr, y, x);
-
 		return (wall);
 	}
-
 
 	/* Hack -- check line of sight */
 	if(los(floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x))
@@ -3346,13 +3329,8 @@ static bool update_view_aux(creature_type *creature_ptr, COODINATES y, COODINATE
 		cave_view_hack(cave_ptr, y, x);
 		return (wall);
 	}
-
-
-	/* Assume no line of sight. */
-	return TRUE;
+	return TRUE; /* Assume no line of sight. */
 }
-
-
 
 /*
  * Calculate the viewable space

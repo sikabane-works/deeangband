@@ -1187,7 +1187,7 @@ extern void cnv_stat(int val, char *out_val);
 extern bool is_daytime(void);
 extern void extract_day_hour_min(int *day, int *hour, int *min);
 extern void prt_time(void);
-extern cptr map_name(floor_type *floor_ptr);
+extern cptr get_floor_name(floor_type *floor_ptr);
 extern void set_creature_bonuses(creature_type *crrature_ptr, bool message);
 extern void notice_stuff(creature_type *creature_ptr);
 extern void prepare_update(creature_type *creature_ptr, FLAGS_32 flags);

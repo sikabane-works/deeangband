@@ -87,7 +87,7 @@ void prt_wiz_pos(creature_type *player_ptr)
 }
 
 
-cptr map_name(floor_type *floor_ptr)
+cptr get_floor_name(floor_type *floor_ptr)
 {
 #ifdef JP
 	if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest) && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET))
@@ -133,7 +133,7 @@ static void prt_dungeon(void)
 	// Dump 13 spaces to clear
 	c_put_str(TERM_WHITE, "             ", ROW_DUNGEON, COL_DUNGEON);
 
-	dungeon_name = map_name(floor_ptr);
+	dungeon_name = get_floor_name(floor_ptr);
 
 	col = COL_DUNGEON + 6 - strlen(dungeon_name) / 2;
 	if(col < 0) col = 0;

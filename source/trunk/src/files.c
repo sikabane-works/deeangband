@@ -3262,9 +3262,9 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			else if(!floor_ptr->depth)
 			{
 #ifdef JP
-				sprintf(statmsg, "…あなたは%sで%sに殺された。", map_name(floor_ptr), gameover_from);
+				sprintf(statmsg, "…あなたは%sで%sに殺された。", get_floor_name(floor_ptr), gameover_from);
 #else
-				sprintf(statmsg, "...You were killed by %s in %s.", gameover_from, map_name(floor_ptr));
+				sprintf(statmsg, "...You were killed by %s in %s.", gameover_from, get_floor_name(floor_ptr));
 #endif
 			}
 			else if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest))
@@ -3282,9 +3282,9 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			else
 			{
 #ifdef JP
-				sprintf(statmsg, "…あなたは、%sの%d階で%sに殺された。", map_name(floor_ptr), floor_ptr->depth, gameover_from);
+				sprintf(statmsg, "…あなたは、%sの%d階で%sに殺された。", get_floor_name(floor_ptr), floor_ptr->depth, gameover_from);
 #else
-				sprintf(statmsg, "...You were killed by %s on level %d of %s.", gameover_from, floor_ptr->depth, map_name(floor_ptr));
+				sprintf(statmsg, "...You were killed by %s on level %d of %s.", gameover_from, floor_ptr->depth, get_floor_name(floor_ptr));
 #endif
 			}
 		}
@@ -3293,9 +3293,9 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			if(!floor_ptr->depth)
 			{
 #ifdef JP
-				sprintf(statmsg, "…あなたは現在、 %s にいる。", map_name(floor_ptr));
+				sprintf(statmsg, "…あなたは現在、 %s にいる。", get_floor_name(floor_ptr));
 #else
-				sprintf(statmsg, "...Now, you are in %s.", map_name(floor_ptr));
+				sprintf(statmsg, "...Now, you are in %s.", get_floor_name(floor_ptr));
 #endif
 			}
 			else if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest))
@@ -3320,9 +3320,9 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			else
 			{
 #ifdef JP
-				sprintf(statmsg, "…あなたは現在、 %s の %d 階で探索している。", map_name(floor_ptr), floor_ptr->depth);
+				sprintf(statmsg, "…あなたは現在、 %s の %d 階で探索している。", get_floor_name(floor_ptr), floor_ptr->depth);
 #else
-				sprintf(statmsg, "...Now, you are exploring level %d of %s.", floor_ptr->depth, map_name(floor_ptr));
+				sprintf(statmsg, "...Now, you are exploring level %d of %s.", floor_ptr->depth, get_floor_name(floor_ptr));
 #endif
 			}
 		}

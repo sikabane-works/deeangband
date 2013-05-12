@@ -1137,21 +1137,13 @@ static void do_cmd_wiz_creature_list(void)
 		{
 			display_creature_status(mode, &creature_list[i]);
 			k = inkey();
-
-			// Exit
 			if(k == ESCAPE) break;
-
-			// Change name
 			if(k == 'c') set_creature_name(FALSE, &creature_list[i]);
-
-			// File dump
 			else if(k == 'f')
 			{
 				sprintf(tmp, "%s.txt", player_base);
 				if(get_string(PROMPT_FILE, tmp, 80) && tmp[0] && (tmp[0] != ' ')) file_character(tmp);
 			}
-
-			// Toggle mode
 			else if(k == 'h') mode = (mode++ % 9);
 			else bell();
 			msg_print(NULL);
@@ -1178,7 +1170,7 @@ static void floor_list_func(int y, int x, int i, bool selected)
 
 	c_prt(col, format("[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
 		floor_list[i].world_x, floor_list[i].world_y, floor_list[i].width, floor_list[i].height,
-		map_name(&floor_list[i]), floor_list[i].depth), y, x);
+		get_floor_name(&floor_list[i]), floor_list[i].depth), y, x);
 }
 
 /* Floor Teleport */
@@ -1228,7 +1220,6 @@ static void do_cmd_wiz_floor_teleport(void)
 			move_creature(player_ptr, &floor_list[player_ptr->floor_idx], player_ptr->fy, player_ptr->fx, 0);
 			player_ptr->floor_idx = i;
 
-			// redraw
 			prepare_redraw(PR_MAP);
 			redraw_stuff(player_ptr);
 
@@ -1239,8 +1230,6 @@ static void do_cmd_wiz_floor_teleport(void)
 	}
 
 	screen_load();
-
-	// redraw
 	prepare_redraw(PR_MAP);
 	redraw_stuff(player_ptr);
 
@@ -1256,9 +1245,7 @@ static void object_list_func(int y, int x, int i, bool selected)
 	else col = TERM_L_DARK;
 
 	object_desc(tmp, &object_list[i], 0);
-	c_prt(col, format("[%4d] F:%d X:%3d Y:%3d %-35s", i,
-		object_list[i].floor_idx, object_list[i].fx, object_list[i].fy, tmp),
-			y, x);
+	c_prt(col, format("[%4d] F:%d X:%3d Y:%3d %-35s", i, object_list[i].floor_idx, object_list[i].fx, object_list[i].fy, tmp), y, x);
 }
 
 
@@ -1320,7 +1307,6 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 	if(command_arg <= 0)
 	{
 		char	ppp[80];
-
 		char	tmp_val[160];
 		int		tmp_dungeon_level;
 
@@ -1376,8 +1362,6 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 
 	// move simulate floor and player.
 	move_floor(creature_ptr, dungeon_id, wy, wx, depth, floor_ptr, 0);
-
-	// redraw
 	prepare_redraw(PR_MAP);
 	redraw_stuff(player_ptr);
 

@@ -4623,7 +4623,7 @@ void play_game(bool new_game)
 	if(new_game)
 	{
 		char buf[80];
-		sprintf(buf, MES_DIARY_STAND_IN(map_name(GET_FLOOR_PTR(player_ptr))));
+		sprintf(buf, MES_DIARY_STAND_IN(get_floor_name(GET_FLOOR_PTR(player_ptr))));
 		write_diary(DIARY_BUNSHOU, 0, buf);
 	}
 
