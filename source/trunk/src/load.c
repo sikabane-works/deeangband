@@ -781,7 +781,6 @@ static void rd_creature(creature_type *creature_ptr)
 	// Class/Race/Chara/Gender/Spells
 	READ_SPECIES_ID(&creature_ptr->species_idx);
 	READ_SPECIES_ID(&creature_ptr->ap_species_idx);
-	rd_s16b(&creature_ptr->camp_idx);
 	READ_RACE_ID(&creature_ptr->race_idx1);
 	READ_RACE_ID(&creature_ptr->race_idx2);
 	READ_RACE_ID(&creature_ptr->mimic_race_idx);
