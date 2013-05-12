@@ -5248,13 +5248,13 @@ int get_selection(selection_info *si_ptr, selection_table *se_ptr)
 				c_put_str(TERM_WHITE, ">>", si_ptr->y+i, si_ptr->x);
 				c_put_str(TERM_WHITE, buf, si_ptr->y+i, si_ptr->x+2);
 				if(se_ptr[offset].cap) c_put_str(se_ptr[offset].l_color, se_ptr[offset].cap, si_ptr->y+i, si_ptr->x+6);
-				else if(si_ptr->caption) si_ptr->caption(si_ptr->y+i, si_ptr->x+6, offset, TRUE);
+				else if(si_ptr->caption) si_ptr->caption(si_ptr->y+i, si_ptr->x+6, se_ptr[offset].code, TRUE);
 			}
 			else
 			{
 				c_put_str(TERM_L_DARK, buf, si_ptr->y+i, si_ptr->x+2);
 				if(se_ptr[offset].cap) c_put_str(se_ptr[offset].d_color, se_ptr[offset].cap, si_ptr->y+i, si_ptr->x+6);
-				else if(si_ptr->caption) si_ptr->caption(si_ptr->y+i, si_ptr->x+6, offset, FALSE);
+				else if(si_ptr->caption) si_ptr->caption(si_ptr->y+i, si_ptr->x+6, se_ptr[offset].code, FALSE);
 			}
 		}
 

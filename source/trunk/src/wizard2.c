@@ -1081,7 +1081,7 @@ static void creature_list_func(int y, int x, int id, bool selected)
 		else col = TERM_L_DARK;
 	}
 
-	c_put_str(col, format("[%4d] F:%3d(%3d,%3d) HP:%6d/%6d %-18s", id, creature_list[id].floor_idx, creature_list[id].depth,
+	c_put_str(col, format("[%4d] F:%3d(%3d,%3d) HP:%6d/%6d %-18s", id, creature_list[id].floor_idx,
 		creature_list[id].fx, creature_list[id].fy,
 		creature_list[id].chp, creature_list[id].mhp, creature_list[id].name), y, x);
 }
