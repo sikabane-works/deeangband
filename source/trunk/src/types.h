@@ -514,7 +514,6 @@ struct artifact_type
 /*
  * Information about "ego-items".
  */
-
 typedef struct ego_item_type ego_item_type;
 
 struct ego_item_type

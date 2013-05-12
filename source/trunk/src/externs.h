@@ -130,7 +130,6 @@ extern byte ver_patch;
 extern u32b sf_when;
 extern u16b sf_lives;
 extern u16b sf_saves;
-extern bool arg_fiddle;
 extern bool arg_wizard;
 extern bool arg_sound;
 extern byte arg_graphics;

@@ -66,7 +66,6 @@ u16b sf_saves;			/* Number of "saves" during this life */
 /*
  * Run-time arguments
  */
-bool arg_fiddle;			/* Command arg -- Request fiddle mode */
 bool arg_wizard;			/* Command arg -- Request wizard mode */
 bool arg_sound;				/* Command arg -- Request special sounds */
 byte arg_graphics;			/* Command arg -- Request graphics mode */
