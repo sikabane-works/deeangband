@@ -529,6 +529,8 @@ struct ego_item_type
 	FLOOR_LEV level;	/* Minimum level */
 	byte rarity;		/* Object rarity */
 
+	WEIGHT weight_plus;
+
 	SAVING max_to_hit;		// Maximum to-hit bonus
 	SAVING max_to_damage;		// Maximum to-dam bonus
 	SAVING max_to_ac;			// Maximum to-ac bonus

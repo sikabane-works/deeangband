@@ -2781,22 +2781,16 @@ errr parse_object_ego_csv(char *buf, header *head)
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
 		sprintf(nt, "[Initialize Object Ego:%d]", n);
-
 		object_ego_ptr = &object_ego_info[n];
-
 		note(nt);
 
 		for(i = 1; i < OBJECT_EGO_INFO_CSV_COLUMNS; i++)
 		{
-			
 			strncpy(tmp, buf + split[i], size[i]);
-
 			tmp[size[i]] = '\0';
-			
 
 			switch(object_ego_info_csv_code[i])
 			{
-
 			case OBJECT_EGO_INFO_NAME:
 				if(!add_name(&object_ego_ptr->name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
@@ -2814,15 +2808,12 @@ errr parse_object_ego_csv(char *buf, header *head)
 						break;
 					}
 				}
-				if(j == MAX_INVENTORY_IDS)
-					return PARSE_ERROR_GENERIC;
+				if(j == MAX_INVENTORY_IDS) return PARSE_ERROR_GENERIC;
 				break;
 
 			case OBJECT_EGO_INFO_RATING:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->rating = (byte)b;
-				else
-					object_ego_ptr->rating = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->rating = (byte)b;
+				else object_ego_ptr->rating = 0;
 				break;
 
 			case OBJECT_EGO_INFO_MAX_HIT:
@@ -2833,97 +2824,73 @@ errr parse_object_ego_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_EGO_INFO_MAX_DAM:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->max_to_damage = (byte)b;
-				else
-					object_ego_ptr->max_to_damage = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->max_to_damage = (byte)b;
+				else object_ego_ptr->max_to_damage = 0;
 				break;
 
 			case OBJECT_EGO_INFO_MAX_AC:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->max_to_ac = (byte)b;
-				else
-					object_ego_ptr->max_to_ac = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->max_to_ac = (byte)b;
+				else object_ego_ptr->max_to_ac = 0;
 				break;
 
 			case OBJECT_EGO_INFO_MAX_EV:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->max_to_ev = (byte)b;
-				else
-					object_ego_ptr->max_to_ev = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->max_to_ev = (byte)b;
+				else object_ego_ptr->max_to_ev = 0;
 				break;
 
 			case OBJECT_EGO_INFO_PVAL:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->max_pval = (byte)b;
-				else
-					object_ego_ptr->max_pval = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->max_pval = (byte)b;
+				else object_ego_ptr->max_pval = 0;
 				break;
 
 			case OBJECT_EGO_INFO_STR:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->max_stat[STAT_STR] = (byte)b;
-				else
-					object_ego_ptr->max_stat[STAT_STR] = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->max_stat[STAT_STR] = (byte)b;
+				else object_ego_ptr->max_stat[STAT_STR] = 0;
 				break;
 
 			case OBJECT_EGO_INFO_INT:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->max_stat[STAT_INT] = (byte)b;
-				else
-					object_ego_ptr->max_stat[STAT_INT] = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->max_stat[STAT_INT] = (byte)b;
+				else object_ego_ptr->max_stat[STAT_INT] = 0;
 				break;
 
 			case OBJECT_EGO_INFO_WIS:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->max_stat[STAT_WIS] = (byte)b;
-				else
-					object_ego_ptr->max_stat[STAT_WIS] = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->max_stat[STAT_WIS] = (byte)b;
+				else object_ego_ptr->max_stat[STAT_WIS] = 0;
 				break;
 
 			case OBJECT_EGO_INFO_DEX:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->max_stat[STAT_DEX] = (byte)b;
-				else
-					object_ego_ptr->max_stat[STAT_DEX] = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->max_stat[STAT_DEX] = (byte)b;
+				else object_ego_ptr->max_stat[STAT_DEX] = 0;
 				break;
 
 			case OBJECT_EGO_INFO_CON:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->max_stat[STAT_CON] = (byte)b;
-				else
-					object_ego_ptr->max_stat[STAT_CON] = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->max_stat[STAT_CON] = (byte)b;
+				else object_ego_ptr->max_stat[STAT_CON] = 0;
 				break;
 
 			case OBJECT_EGO_INFO_CHA:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->max_stat[STAT_CHA] = (byte)b;
-				else
-					object_ego_ptr->max_stat[STAT_CHA] = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->max_stat[STAT_CHA] = (byte)b;
+				else object_ego_ptr->max_stat[STAT_CHA] = 0;
 				break;
 
 			case OBJECT_EGO_INFO_DEPTH:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->level = (byte)b;
-				else
-					object_ego_ptr->level = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->level = (byte)b;
+				else object_ego_ptr->level = 0;
 				break;
 
 			case OBJECT_EGO_INFO_RARITY:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->rarity = (byte)b;
-				else
-					object_ego_ptr->rarity = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->rarity = (byte)b;
+				else object_ego_ptr->rarity = 0;
 				break;
 
 			case OBJECT_EGO_INFO_WEIGHT:
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->weight_plus = (WEIGHT)b;
+				else object_ego_ptr->weight_plus = 0;
 				break;
 
 			case OBJECT_EGO_INFO_COST:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_ego_ptr->cost = (s32b)b;
-				else
-					object_ego_ptr->cost = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_ego_ptr->cost = (s32b)b;
+				else object_ego_ptr->cost = 0;
 				break;
 
 			case OBJECT_EGO_INFO_FLAG:
@@ -3653,7 +3620,6 @@ errr parse_species_info_csv(char *buf, header *head)
 				return PARSE_ERROR_GENERIC;
 			}
 		}
-		
 	}
 	return PARSE_ERROR_NONE;
 }
