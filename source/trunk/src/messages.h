@@ -334,6 +334,8 @@
 #define KW_SHOOTING "éÀåÇóp"
 #define KW_UNKNOWN "ïsñæ"
 #define KW_BODY "ëÃ"
+#define KW_WORLD_MAP "ç¨ì◊ÇÃínïΩ"
+#define KW_ARENA "ì¨ãZèÍ"
 #else
 #define KW_MORE "-more-"
 #define KW_CREATURE "Creatures"
@@ -462,6 +464,8 @@
 #define KW_SHOOTING "Shooting"
 #define KW_UNKNOWN "UNKNOWN"
 #define KW_BODY "body"
+#define KW_WORLD_MAP "The Surface of Chaos"
+#define KW_ARENA "Arena"
 #endif
 
 #ifdef JP
