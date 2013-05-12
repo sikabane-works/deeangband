@@ -305,16 +305,17 @@ static void strip_bytes(int n)
 }
 
 // Read an object
-static void rd_object(object_type *object_ptr)
+static bool rd_object(object_type *object_ptr)
 {
 	int i;
 	object_kind *object_kind_ptr;
 
 	READ_OBJECT_KIND_ID(&object_ptr->k_idx);
+	if(object_ptr->k_idx < 0 || object_ptr->k_idx >= max_object_kind_idx) return LOAD_ERROR_INVALID_OBJECT;
+
 	READ_FLOOR_ID(&object_ptr->floor_idx);
 	READ_COODINATES(&object_ptr->fy);
 	READ_COODINATES(&object_ptr->fx);
-
 	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	object_ptr->tval = object_kind_ptr->tval;
 	object_ptr->sval = object_kind_ptr->sval;
@@ -377,7 +378,7 @@ static void rd_object(object_type *object_ptr)
 	for(i = 0; i < MAX_TRAITS_FLAG; i++) READ_FLAGS_32(&object_ptr->trait_flags[i]);
 	for(i = 0; i < MAX_TRAITS_FLAG; i++) READ_FLAGS_32(&object_ptr->curse_flags[i]);
 
-	return;
+	return LOAD_ERROR_NONE;
 }
 
 /*
@@ -429,9 +430,8 @@ static errr rd_inventory(creature_type *creature_ptr)
 			creature_ptr->equip_cnt++;								// One more item
 		}
 
-		else if(creature_ptr->inven_cnt == INVEN_TOTAL)			// Warning -- backpack is full
-			return LOAD_ERROR_TOO_MANY_INVENTORY;
-		else // Carry inventory
+		else if(creature_ptr->inven_cnt == INVEN_TOTAL) return LOAD_ERROR_TOO_MANY_INVENTORY; /* Warning -- backpack is full */
+		else /* Carry inventory */
 		{
 			n = (u16b)slot++; /* Get a slot */
 			object_copy(&creature_ptr->inventory[n], object_ptr);	// Copy object
