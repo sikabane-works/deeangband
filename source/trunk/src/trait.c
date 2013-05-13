@@ -1045,11 +1045,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
 		else
 		{
-#ifdef JP
-			msg_format("%^sが瞬時に消えた。", target_name);
-#else
-			msg_format("%^s blinks away.", target_name);
-#endif
+			msg_format(MES_TRAIT_BLINK_DONE(caster_ptr));
 			teleport_away(caster_ptr, 10, 0L);
 			prepare_update(caster_ptr, PU_CREATURES);
 		}
@@ -1059,11 +1055,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
 			else
 			{
-#ifdef JP
-				msg_format("%^sがテレポートした。", caster_name);
-#else
-				msg_format("%^s teleports away.", caster_name);
-#endif
+				msg_format(MES_TRAIT_TELEPORT_DONE(caster_ptr));
 				teleport_away_followable(caster_ptr);
 			}
 			break;
