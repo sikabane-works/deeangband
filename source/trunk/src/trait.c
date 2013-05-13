@@ -1221,69 +1221,13 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		project(caster_ptr, 0, 1, target_row, target_col, 0, DO_EFFECT_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
 
-	case TRAIT_TELE_LEVEL:
-		{
-			if(has_trait(target_ptr, TRAIT_RES_NEXU)) msg_print(MES_IS_UNAFFECTED);
-			{
-#ifdef JP
-				msg_print("記憶が薄れてしまった。");
-#else
-				msg_print("Your memories fade away.");
-#endif
-			}
-			learn_trait(target_ptr, TRAIT_FORGET);
-			break;
-		}
-
-		/*
-		else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-		{
-		msg_print(MES_RESIST_THE_EFFECT]);
-		}
-		else
-		{
-		teleport_level(target_ptr, 0);
-		}
-		learn_trait(target_ptr, TRAIT_TELE_LEVEL);
+	case TRAIT_FORGET:
+		/* TODO */
 		break;
-		}
-		{
-		int target_m_idx;
-		creature_type *target_ptr;
-		species_type *species_ptr;
-
-		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-		if(!target_m_idx) break;
-		if(!player_has_los_bold(target_row, target_col)) break;
-		if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-		target_ptr = &creature_list[target_m_idx];
-		species_ptr = &species_info[target_ptr->species_idx];
-		creature_desc(target_name, target_ptr, 0);
-
-		if(has_trait(target_ptr, TRAIT_RES_NEXU) || has_trait(target_ptr, TRAIT_RES_TELE) ||
-		has_trait(target_ptr, TRAIT_QUESTOR) || (target_ptr->lev + randint1(50) > user_level + randint1(60)))
-		{
-		msg_print(MES_IS_UNAFFECTED);
-		}
-		else teleport_level(caster_ptr, target_m_idx);
-		break;
-		}
-
-		case TRAIT_FORGET:
-		{
-		/* TODO saving_throw
-		if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-		{
-		msg_print(MES_RESIST_THE_EFFECT]);
-		}
-		else if(lose_all_info(target_ptr))
-		*/
-
+		
 	case TRAIT_ANIM_DEAD:
 		project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1);
 		break;
-
 
 	case TRAIT_SELF_DETONATIONS:
 		msg_print(MES_TRAIT_SELF_DETONATION);
