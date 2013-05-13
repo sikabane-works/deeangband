@@ -3480,6 +3480,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_BLINK_DONE(CASTER) "%^sが瞬時に消えた。", (CASTER)->name
 #define MES_TRAIT_TELEPORT_DONE(CASTER) "%^sがテレポートした。", (CASTER)->name
 #define MES_TRAIT_TELEPORT_BLOCK(CASTER) "魔法のバリアが%^sのテレポートを邪魔した。", (CASTER)->name
+#define MES_TRAIT_SPLIT_TWO_MEN(CASTER) "%^sが分裂した！", (CASTER)->name
+#define MES_TRAIT_COMBINE "『バーノール』と『ルパート』が合体した！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3520,9 +3522,11 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_BR_SHAR_BOTEI "'Boty-Build cutter!!!'"
 #define MES_TRAIT_BO_FIRE_RORENTO_BLIND(CASTER) "%^s throws something.", (CASTER)->name
 #define MES_TRAIT_BO_FIRE_RORENTO(CASTER) "%^s throws a hand grenade.", (CASTER)->name
-#define MES_TRAIT_BLINK_DONE(CASTER) "%^sが瞬時に消えた。", (CASTER)->name
+#define MES_TRAIT_BLINK_DONE(CASTER) "%^s blinks", (CASTER)->name
 #define MES_TRAIT_TELEPORT_DONE(CASTER) "%^s teleports away.", (CASTER)->name
 #define MES_TRAIT_TELEPORT_BLOCK(CASTER) "Magic barrier obstructs teleporting of %^s.", (CASTER)->name
+#define MES_TRAIT_SPLIT_TWO_MEN(CASTER) "%^s splits in two person!", (CASTER)->name
+#define MES_TRAIT_COMBINE "Banor and Rupart combine into one!"
 #endif
 
 #ifdef JP

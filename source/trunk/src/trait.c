@@ -1137,12 +1137,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
 
-#ifdef JP
-					msg_print("『バーノール・ルパート』が分裂した！");
-#else
-					msg_print("Banor=Rupart splits in two person!");
-#endif
-
+					msg_format(MES_TRAIT_SPLIT_TWO_MEN(caster_ptr));
 					break;
 				}
 
@@ -1172,13 +1167,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANORLUPART, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
-
-#ifdef JP
-					msg_print("『バーノール』と『ルパート』が合体した！");
-#else
-					msg_print("Banor and Rupart combine into one!");
-#endif
-
+					msg_print(MES_TRAIT_COMBINE);
 					break;
 				}
 
