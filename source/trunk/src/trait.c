@@ -1331,11 +1331,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				break;
 
 	case TRAIT_S_LOCKE_CLONE:
-				{
-					int num = randint1(3);
-					for (k = 0; k < num; k++) count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
-				}
-				break;
+		{
+			int num = randint1(3);
+			for (k = 0; k < num; k++) count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
+		}
+		break;
 
 	case TRAIT_S_CYBER:
 		{
@@ -1343,11 +1343,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			if(max_cyber > 4) max_cyber = 4;
 			for (k = 0; k < max_cyber; k++) summoning(caster_ptr, target_row, target_col, user_level, TRAIT_S_CYBER, mode);
-#ifdef JP
-			if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
-#else
-			if(blind && count) msg_print("You hear heavy steps nearby.");
-#endif
+			if(blind && count) msg_print(MES_TRAIT_S_CYBER_BLIND);
 			break;
 		}
 
@@ -1432,14 +1428,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_S_HI_DRAGON:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = 0; k < s_num_4; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-		if(blind && count)
-		{
-#ifdef JP
-			msg_print("多くの力強いものが間近に現れた音が聞こえる。");
-#else
-			msg_print("You hear many powerful things appear nearby.");
-#endif
-		}
 		break;
 
 	case TRAIT_S_AMBERITES:
