@@ -3482,6 +3482,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_TELEPORT_BLOCK(CASTER) "魔法のバリアが%^sのテレポートを邪魔した。", (CASTER)->name
 #define MES_TRAIT_SPLIT_TWO_MEN(CASTER) "%^sが分裂した！", (CASTER)->name
 #define MES_TRAIT_COMBINE "『バーノール』と『ルパート』が合体した！"
+#define MES_TRAIT_TELEPORT_BACK_DONE(TARGET) "%sが引き戻された。", (TARGET)->name
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3527,6 +3528,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_TELEPORT_BLOCK(CASTER) "Magic barrier obstructs teleporting of %^s.", (CASTER)->name
 #define MES_TRAIT_SPLIT_TWO_MEN(CASTER) "%^s splits in two person!", (CASTER)->name
 #define MES_TRAIT_COMBINE "Banor and Rupart combine into one!"
+#define MES_TRAIT_TELEPORT_BACK_DONE(TARGET) "You command %s to return.", (TARGET)->name
 #endif
 
 #ifdef JP

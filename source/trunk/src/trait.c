@@ -1203,12 +1203,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					break;
 				}
 			}
-#ifdef JP
-			msg_format("%sを引き戻した。", target_name);
-#else
-			msg_format("You command %s to return.", target_name);
-#endif
-
+			msg_format(MES_TRAIT_TELEPORT_BACK_DONE(target_ptr));
 			teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
 			break;
 		}
