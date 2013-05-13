@@ -374,21 +374,10 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_JEWEL_OF_JUDGEMENT:
-		{
-#ifdef JP
-			msg_print("宝石は赤く明るく光った！");
-#else
-			msg_print("The Jewel flashes bright red!");
-#endif
-
+			msg_print(MES_MELEE_JOJ_DONE);
 			wiz_lite(floor_ptr, caster_ptr, FALSE);
-#ifdef JP
-			msg_print("宝石はあなたの体力を奪った...");
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), "審判の宝石", NULL, -1);
-#else
-			msg_print("The Jewel drains your vitality...");
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), "the Jewel of Judgement", NULL, -1);
-#endif
+			msg_print(MES_MELEE_JOJ_STRAIN);
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), COD_JOJ_RISK, NULL, -1);
 
 			(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
 			(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
@@ -396,7 +385,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 			if(get_check(MES_RECALL_ASK)) (void)word_of_recall(caster_ptr, randint0(21) + 15);
 			break;
-		}
 
 	case TRAIT_STRANGLING:
 		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1);

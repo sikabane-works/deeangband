@@ -1221,6 +1221,7 @@
 #define COD_PURE_MANA "ƒˆ‚È–‚—Í‚Ì‰ð•ú"
 #define COD_EQUIPED_DAMAGE(OBJECT_NAME) "%s‚ð‘•”õ‚µ‚½ƒ_ƒ[ƒW", OBJECT_NAME
 #define COD_HELLFIRE_RISK "’n–‚Ì…‰Î‚ÌŽô•¶‚ð¥‚¦‚½”æ˜J"
+#define COD_JOJ_RISK "R”»‚Ì•óÎ"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -1287,6 +1288,7 @@
 #define COD_PURE_MANA "released pure mana"
 #define COD_EQUIPED_DAMAGE(OBJECT_NAME) "wielding %s", OBJECT_NAME
 #define COD_HELLFIRE_RISK "the strain of casting Hellfire"
+#define COD_JOJ_RISK "the Jewel of Judgement"
 #endif
 
 // Hack -- possible "insult" messages
@@ -2452,6 +2454,8 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_ELEC_AURA "“dŒ‚‚ð‚­‚ç‚Á‚½I"
 #define MES_MELEE_RESELECT "UŒ‚‚ðÄ‘I‘ð‚µ‚Ü‚µ‚½B"
 #define MES_MELEE_EYE_EYE(ATTACKER) "UŒ‚‚ª%sŽ©g‚ð‚Â‚¯‚½I", (ATTACKER)->name
+#define MES_MELEE_JOJ_DONE "R”»‚Ì•óÎ‚ÍÔ‚­–¾‚é‚­Œõ‚Á‚½I"
+#define MES_MELEE_JOJ_STRAIN "•óÎ‚Í‚ ‚È‚½‚Ì‘Ì—Í‚ð’D‚Á‚½..."
 #else
 #define MES_MELEE_ATTACK_MISS %^s misses %s.
 #define MES_MELEE_AMBUSH(ATTACKER, TARGET) "%s (cruelly stab the helpless, sleeping %s!", (ATTACKER), (TARGET))
@@ -2480,6 +2484,8 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_ELEC_AURA "You get zapped!"
 #define MES_MELEE_RESELECT "Attack re-selected."
 #define MES_MELEE_EYE_EYE(ATTACKER) "The attack of %s has wounded %s!", (ATTACKER)->name, (ATTACKER)->name /*TODO*/
+#define MES_MELEE_JOJ_DONE "The Jewel flashes bright red!"
+#define MES_MELEE_JOJ_STRAIN "The Jewel drains your vitality..."
 #endif
 
 #ifdef JP
