@@ -3471,6 +3471,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_ACROBAT_EFFECT(CREATURE) "%^sがあなたを掴んで空中から投げ落とした。", (CREATURE)->name
 #define MES_TRAIT_ACROBAT_FLOAT_GENTLY(CREATURE) "%^sは静かに着地した。", (CREATURE)->name
 #define MES_TRAIT_ACROBAT_CRUSH(CREATURE) "%^sは地面に叩きつけられた。", (CREATURE)->name
+#define MES_TRAIT_INROU_SUKE "『助さん』が現れた。"
+#define MES_TRAIT_INROU_KAKU "『格さん』が現れた。"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3505,6 +3507,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_ACROBAT_EFFECT(CREATURE) "%^s holds you, and drops from the sky.", (CREATURE)->name
 #define MES_TRAIT_ACROBAT_FLOAT_GENTLY(CREATURE) "You floated gently down to the ground.", (CREATURE)->name
 #define MES_TRAIT_ACROBAT_CRUSH(CREATURE) "You crashed into the ground.", (CREATURE)->name
+#define MES_TRAIT_INROU_SUKE "Suke-san apperars."
+#define MES_TRAIT_INROU_KAKU "Kaku-san appears."
 #endif
 
 #ifdef JP

@@ -614,27 +614,14 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_INROU:
 		{
 			int count = 0, i;
-#ifndef JP
-			cptr kakusan = "";
-#endif
 			if(summon_named_creature(0, floor_ptr, caster_ptr->fy, caster_ptr->fx, SPECIES_SUKE, PC_FORCE_PET))
 			{
-#ifdef JP
-				msg_print("『助さん』が現れた。");
-#else
-				msg_print("Suke-san apperars.");
-				kakusan = "Suke-san";
-#endif
+				msg_print(MES_TRAIT_INROU_SUKE);
 				count++;
 			}
 			if(summon_named_creature(0, floor_ptr, caster_ptr->fy, caster_ptr->fx, SPECIES_KAKU, PC_FORCE_PET))
 			{
-#ifdef JP
-				msg_print("『格さん』が現れた。");
-#else
-				msg_print("Kaku-san appears.");
-				kakusan = "Kaku-san";
-#endif
+				msg_print(MES_TRAIT_INROU_KAKU);
 				count++;
 			}
 			if(!count)
