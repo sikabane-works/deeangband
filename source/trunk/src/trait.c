@@ -884,17 +884,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_BA_FIRE:
 		if(caster_ptr->species_idx == SPECIES_ROLENTO)
 		{
-#ifdef JP
-			if(blind)
-				msg_format("%sが何かを投げた。", caster_name);
-			else 
-				msg_format("%sは手榴弾を投げた。", caster_name);
-#else
-			if(blind)
-				msg_format("%^s throws something.", caster_name);
-			else
-				msg_format("%^s throws a hand grenade.", caster_name);
-#endif
+			if(blind) msg_format(MES_TRAIT_BO_FIRE_RORENTO_BLIND(caster_ptr));
+			else  msg_format(MES_TRAIT_BO_FIRE_RORENTO(caster_ptr));
 		}
 		damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 		cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, damage, 2);
@@ -937,7 +928,6 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_BRAIN_SMASH:
 		cast_ball_hide(caster_ptr, DO_EFFECT_BRAIN_SMASH, MAX_RANGE_SUB, damage, 0);
 		break;
-
 
 	case TRAIT_CAUSE_1:
 		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_1, MAX_RANGE_SUB, damage, 0);
