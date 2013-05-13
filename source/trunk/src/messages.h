@@ -3477,6 +3477,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_BR_SHAR_BOTEI "「ボ帝ビルカッター！！！」"
 #define MES_TRAIT_BO_FIRE_RORENTO_BLIND(CASTER) "%sが何かを投げた。", (CASTER)->name
 #define MES_TRAIT_BO_FIRE_RORENTO(CASTER) "%sは手榴弾を投げた。", (CASTER)->name
+#define MES_TRAIT_TELEPORT_BLOCK(CASTER) "魔法のバリアが%^sのテレポートを邪魔した。", (CASTER)->name
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3517,6 +3518,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_BR_SHAR_BOTEI "'Boty-Build cutter!!!'"
 #define MES_TRAIT_BO_FIRE_RORENTO_BLIND(CASTER) "%^s throws something.", (CASTER)->name
 #define MES_TRAIT_BO_FIRE_RORENTO(CASTER) "%^s throws a hand grenade.", (CASTER)->name
+#define MES_TRAIT_TELEPORT_BLOCK(CASTER) "Magic barrier obstructs teleporting of %^s.", (CASTER)->name
 #endif
 
 #ifdef JP

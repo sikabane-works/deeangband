@@ -1042,14 +1042,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BLINK:
-		if(teleport_barrier(target_ptr, caster_ptr))
-		{
-#ifdef JP
-			msg_format("魔法のバリアが%^sのテレポートを邪魔した。", target_name);
-#else
-			msg_format("Magic barrier obstructs teleporting of %^s.", target_name);
-#endif
-		}
+		if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
 		else
 		{
 #ifdef JP
@@ -1063,14 +1056,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_ACTIVE_TELEPORT:
-			if(teleport_barrier(target_ptr, caster_ptr))
-			{
-#ifdef JP
-				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", caster_name);
-#else
-				msg_format("Magic barrier obstructs teleporting of %^s.", caster_name);
-#endif
-			}
+			if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
 			else
 			{
 #ifdef JP
