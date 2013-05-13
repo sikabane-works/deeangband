@@ -1143,23 +1143,14 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			if(one_in_(3)) // direct
 			{
-#ifdef JP
-				msg_format("%^sは突然視界から消えた!", caster_name);
-#else
-				msg_format("%^s suddenly go out of your sight!", caster_name);
-#endif
+				msg_format(MES_TRAIT_ACROBAT(caster_ptr));
 				teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
 				prepare_update(caster_ptr, PU_CREATURES);
 			}
 			else
 			{
 				int get_damage = 0;
-
-#ifdef JP
-				msg_format("%^sがあなたを掴んで空中から投げ落とした。", caster_name);
-#else
-				msg_format("%^s holds you, and drops from the sky.", caster_name);
-#endif
+				msg_format(MES_TRAIT_ACROBAT_EFFECT(caster_ptr));
 				damage = diceroll(4, 8);
 				teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 
