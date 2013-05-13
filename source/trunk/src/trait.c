@@ -1419,9 +1419,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_S_HI_UNDEAD:
 		{
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-
-			for (k = 0; k < 6; k++)
-				summoning(caster_ptr, target_row, target_col, user_level, TRAIT_S_HI_UNDEAD, (mode | u_mode));
+			for (k = 0; k < 6; k++) summoning(caster_ptr, target_row, target_col, user_level, TRAIT_S_HI_UNDEAD, (mode | u_mode));
 			break;
 		}
 
@@ -1558,16 +1556,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			{
 				if(floor_ptr->cave[y][x].creature_idx)
 				{
-#ifdef JP
-					if(one_in_(3)) msg_print("あーたたたたたたたたたたたたたたたたたたたたたた！！！");
-					else if(one_in_(2)) msg_print("オラオラオラオラオラオラオラオラオラオラオラオラ！！！");
-					else msg_print("無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄！！！");
-#else
-					if(one_in_(3)) msg_print("Ahhhtatatatatatatatatatatatatatataatatatatattaaaaa!!!!");
-					else if(one_in_(2)) msg_print("Oraoraoraoraoraoraoraoraoraoraoraoraoraoraoraoraora!!!!");
-					else msg_print("Mudamudamudamudamudamudamudamudamudamudamudamudamudamudamudarrrr!!!!");
-#endif
-
+					if(one_in_(3)) msg_print(MES_TRAIT_RUSH1);
+					else if(one_in_(2)) msg_print(MES_TRAIT_RUSH2);
+					else msg_print(MES_TRAIT_RUSH3);
 					close_combat(caster_ptr, y, x, 0);
 					if(floor_ptr->cave[y][x].creature_idx)
 					{

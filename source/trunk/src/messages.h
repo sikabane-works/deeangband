@@ -3485,6 +3485,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_TELEPORT_BACK_DONE(TARGET) "%sが引き戻された。", (TARGET)->name
 #define MES_TRAIT_WATER_FLOW "地面から水が吹き出した！"
 #define MES_TRAIT_S_CYBER_BLIND "重厚な足音が近くで聞こえる。"
+#define MES_TRAIT_RUSH1 "あーたたたたたたたたたたたたたたたたたたたたたた！！！"
+#define MES_TRAIT_RUSH2 "オラオラオラオラオラオラオラオラオラオラオラオラ！！！"
+#define MES_TRAIT_RUSH3 "無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄！！！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3533,6 +3536,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_TELEPORT_BACK_DONE(TARGET) "You command %s to return.", (TARGET)->name
 #define MES_TRAIT_WATER_FLOW "Water blew off from the ground!"
 #define MES_TRAIT_S_CYBER_BLIND "You hear heavy steps nearby."
+#define MES_TRAIT_RUSH1 "Ahhhtatatatatatatatatatatatatatataatatatatattaaaaa!!!!"
+#define MES_TRAIT_RUSH2 "Oraoraoraoraoraoraoraoraoraoraoraoraoraoraoraoraora!!!!"
+#define MES_TRAIT_RUSH3 "Mudamudamudamudamudamudamudamudamudamudamudamudamudamudamudarrrr!!!!"
 #endif
 
 #ifdef JP
