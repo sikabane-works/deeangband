@@ -22,13 +22,7 @@ static void counter_eye_eye(creature_type *attacker_ptr, creature_type *target_p
 {
 	if((has_trait(target_ptr, TRAIT_EYE_EYE) || HEX_SPELLING(target_ptr, HEX_EYE_FOR_EYE)) && get_damage > 0 && !IS_DEAD(target_ptr))
 	{
-#ifdef JP
-		msg_format("UŒ‚‚ª%sŽ©g‚ð‚Â‚¯‚½I", attacker_ptr->name);
-#else
-		char attacker_name_self[80];
-		creature_desc(attacker_name_self, attacker_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
-		msg_format("The attack of %s has wounded %s!", attacker_ptr->name, attacker_name_self);
-#endif
+		msg_format(MES_MELEE_EYE_EYE(attacker_ptr));
 		project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
 		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}

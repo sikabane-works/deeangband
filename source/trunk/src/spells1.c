@@ -3036,13 +3036,7 @@ static bool project_creature(creature_type *caster_ptr, int r, int y, int x, POW
 
 	if((has_trait(target_ptr, TRAIT_EYE_EYE) || HEX_SPELLING(target_ptr, HEX_EYE_FOR_EYE)) && (get_damage > 0) && !gameover && (caster_ptr != NULL))
 	{
-#ifdef JP
-		msg_format("UŒ‚‚ª%sŽ©g‚ð‚Â‚¯‚½I", caster_ptr->name);
-#else
-		char caster_name_self[80];
-		creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE); // hisself
-		msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
-#endif
+		msg_format(MES_MELEE_EYE_EYE(caster_ptr));
 		project(0, 0, 0, caster_ptr->fy, caster_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
 		if(has_trait(caster_ptr, TRAIT_EYE_EYE)) add_timed_trait(player_ptr, TRAIT_EYE_EYE, -5, TRUE);
 	}

@@ -2451,6 +2451,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_COLD_AURA "突然とても寒くなった！"
 #define MES_MELEE_ELEC_AURA "電撃をくらった！"
 #define MES_MELEE_RESELECT "攻撃を再選択しました。"
+#define MES_MELEE_EYE_EYE(ATTACKER) "攻撃が%s自身を傷つけた！", (ATTACKER)->name
 #else
 #define MES_MELEE_ATTACK_MISS %^s misses %s.
 #define MES_MELEE_AMBUSH(ATTACKER, TARGET) "%s (cruelly stab the helpless, sleeping %s!", (ATTACKER), (TARGET))
@@ -2478,6 +2479,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_COLD_AURA "You are suddenly very cold!"
 #define MES_MELEE_ELEC_AURA "You get zapped!"
 #define MES_MELEE_RESELECT "Attack re-selected."
+#define MES_MELEE_EYE_EYE(ATTACKER) "The attack of %s has wounded %s!", (ATTACKER)->name, (ATTACKER)->name /*TODO*/
 #endif
 
 #ifdef JP

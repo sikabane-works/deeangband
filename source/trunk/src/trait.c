@@ -1166,16 +1166,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				get_damage = take_damage_to_creature(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
 				if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
 				{
-#ifdef JP
-					msg_format("攻撃が%s自身を傷つけた！", caster_name);
-#else
-					char caster_name_self[80];
-
-					// hisself 
-					creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
-
-					msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
-#endif
+					msg_format(MES_MELEE_EYE_EYE(caster_ptr));
 					project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
 					set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 				}
