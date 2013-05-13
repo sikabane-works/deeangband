@@ -1313,10 +1313,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_S_EAGLE:
 		{
 			int num = 4 + randint1(3);
-			for (k = 0; k < num; k++)
-			{
-				count += summoning(caster_ptr, y, x, user_level, TRAIT_S_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
+			for (k = 0; k < num; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			break;
 		}
 
@@ -1326,31 +1323,19 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 					if(species_info[SPECIES_JORMUNGAND].cur_num < species_info[SPECIES_JORMUNGAND].max_num && one_in_(6))
 					{
-#ifdef JP
-						msg_print("地面から水が吹き出した！");
-#else
-						msg_print("Water blew off from the ground!");
-#endif
+						msg_print(MES_TRAIT_WATER_FLOW);
 						cast_ball_hide(caster_ptr, DO_EFFECT_WATER_FLOW, MAX_RANGE_SUB, 3, 8);
 					}
-
-					for (k = 0; k < num; k++)
-					{
-						count += summoning(caster_ptr, y, x, user_level, TRAIT_S_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-					}
+					for (k = 0; k < num; k++) count += summoning(caster_ptr, y, x, user_level, TRAIT_S_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 				}
 				break;
 
 	case TRAIT_S_LOCKE_CLONE:
 				{
 					int num = randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
-					}
+					for (k = 0; k < num; k++) count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
 				}
 				break;
-
 
 	case TRAIT_S_CYBER:
 		{
