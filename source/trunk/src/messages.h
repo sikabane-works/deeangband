@@ -3473,6 +3473,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_ACROBAT_CRUSH(CREATURE) "%^sは地面に叩きつけられた。", (CREATURE)->name
 #define MES_TRAIT_INROU_SUKE "『助さん』が現れた。"
 #define MES_TRAIT_INROU_KAKU "『格さん』が現れた。"
+#define MES_TRAIT_BR_SOUN_JAIAN "「ボォエ～～～～～～」"
+#define MES_TRAIT_BR_SHAR_BOTEI "「ボ帝ビルカッター！！！」"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3509,6 +3511,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_ACROBAT_CRUSH(CREATURE) "You crashed into the ground.", (CREATURE)->name
 #define MES_TRAIT_INROU_SUKE "Suke-san apperars."
 #define MES_TRAIT_INROU_KAKU "Kaku-san appears."
+#define MES_TRAIT_BR_SOUN_JAIAN "'Booooeeeeee'"
+#define MES_TRAIT_BR_SHAR_BOTEI "'Boty-Build cutter!!!'"
 #endif
 
 #ifdef JP

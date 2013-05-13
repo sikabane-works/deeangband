@@ -795,12 +795,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BR_SOUN:
-		if(caster_ptr->species_idx == SPECIES_JAIAN)
-#ifdef JP
-			msg_format("「ボォエ～～～～～～」");
-#else
-			msg_format("'Booooeeeeee'");
-#endif
+		if(caster_ptr->species_idx == SPECIES_JAIAN) msg_format(MES_TRAIT_BR_SOUN_JAIAN);
 		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
 		breath(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, damage, 3, id);
 		break;
@@ -836,12 +831,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BR_SHAR:
-		if(caster_ptr->species_idx == SPECIES_BOTEI)
-#ifdef JP
-			msg_format("「ボ帝ビルカッター！！！」");
-#else
-			msg_format("'Boty-Build cutter!!!'");
-#endif
+		if(caster_ptr->species_idx == SPECIES_BOTEI) msg_format(MES_TRAIT_BR_SHAR_BOTEI);
 		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
 		breath(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, damage, 3, id);
 		break;
