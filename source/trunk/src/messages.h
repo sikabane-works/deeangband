@@ -3461,6 +3461,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_EAT_ROCK_PERMANENT(FEATURE_NAME) "いてっ！この%sはあなたの歯より硬い！", (FEATURE_NAME)
 #define MES_TRAIT_ACROBAT(CREATURE) "%^sは突然視界から消えた!", (CREATURE)->name
 #define MES_TRAIT_ACROBAT_EFFECT(CREATURE) "%^sがあなたを掴んで空中から投げ落とした。", (CREATURE)->name
+#define MES_TRAIT_ACROBAT_FLOAT_GENTLY(CREATURE) "%^sは静かに着地した。", (CREATURE)->name
+#define MES_TRAIT_ACROBAT_CRUSH(CREATURE) "%^sは地面に叩きつけられた。", (CREATURE)->name
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3493,6 +3495,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_EAT_ROCK_PERMANENT(FEATURE_NAME) "Ouch!  This %s is harder than your teeth!", (FEATURE_NAME)
 #define MES_TRAIT_ACROBAT(CREATURE) "%^s suddenly go out of your sight!", (CREATURE)->name
 #define MES_TRAIT_ACROBAT_EFFECT(CREATURE) "%^s holds you, and drops from the sky.", (CREATURE)->name
+#define MES_TRAIT_ACROBAT_FLOAT_GENTLY(CREATURE) "You floated gently down to the ground.", (CREATURE)->name
+#define MES_TRAIT_ACROBAT_CRUSH(CREATURE) "You crashed into the ground.", (CREATURE)->name
 #endif
 
 #ifdef JP

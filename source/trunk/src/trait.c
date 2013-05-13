@@ -1141,7 +1141,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_ACROBAT:
 		{
-			if(one_in_(3)) // direct
+			if(one_in_(3))
 			{
 				msg_format(MES_TRAIT_ACROBAT(caster_ptr));
 				teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
@@ -1153,24 +1153,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				msg_format(MES_TRAIT_ACROBAT_EFFECT(caster_ptr));
 				damage = diceroll(4, 8);
 				teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
-
 				sound(SOUND_FALL);
-
-				if(has_trait(target_ptr, TRAIT_CAN_FLY))
-				{
-#ifdef JP
-					msg_print("あなたは静かに着地した。");
-#else
-					msg_print("You floated gently down to the ground.");
-#endif
-				}
+				if(has_trait(target_ptr, TRAIT_CAN_FLY)) msg_format(MES_TRAIT_ACROBAT_FLOAT_GENTLY(target_ptr));
 				else
 				{
-#ifdef JP
-					msg_print("あなたは地面に叩きつけられた。");
-#else
-					msg_print("You crashed into the ground.");
-#endif
+					msg_format(MES_TRAIT_ACROBAT_CRUSH(target_ptr));
 					damage += diceroll(6, 8);
 				}
 
