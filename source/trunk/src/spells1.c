@@ -3042,9 +3042,7 @@ static bool project_creature(creature_type *caster_ptr, int r, int y, int x, POW
 	}
 
 	if(target_ptr->riding && dam > 0) do_thrown_from_ridingdam_p = (dam > 200) ? 200 : dam;
-
-	disturb(player_ptr, 1, 0); // Disturb
-
+	disturb(player_ptr, 1, 0);
 	if((target_ptr->posture & NINJA_KAWARIMI) && dam && caster_ptr && (target_ptr != &creature_list[target_ptr->riding]))
 		(void)kawarimi(player_ptr, FALSE);
 

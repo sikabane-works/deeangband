@@ -284,9 +284,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	// Weapon skill mastering
 	//TODO skill gain
 
-	// Disturb the creature
-	if(has_trait_from_timed(target_ptr, TRAIT_SLEPT)) 
-		(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, FALSE);
+	if(has_trait_from_timed(target_ptr, TRAIT_SLEPT))  (void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, FALSE);
 
 	// Extract attacker and target name (or "it")
 	creature_desc(attacker_name, attacker_ptr, 0);
@@ -1320,7 +1318,7 @@ static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 #endif
 		}
 
-		(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE); // Disturb the creature
+		(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
 		return TRUE; // Done
 	}
 	return FALSE;
@@ -1411,7 +1409,7 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 
 	target_ptr = &creature_list[c_ptr->creature_idx];
 
-	disturb(player_ptr, 0, 0); // Disturb the player
+	disturb(player_ptr, 0, 0);
 
 	// Extract attacker and target name (or "it")
 	creature_desc(target_name, target_ptr, 0);

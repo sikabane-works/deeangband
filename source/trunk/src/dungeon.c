@@ -2503,7 +2503,7 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 	do_cmd_feeling(creature_ptr);				// Announce feeling
 
 	prepare_redraw(PR_DEPTH); // Update the level indicator
-	if(disturb_minor) disturb(player_ptr, 0, 0); // Disturb
+	if(disturb_minor) disturb(player_ptr, 0, 0);
 }
 
 static void creature_arena_result(floor_type *floor_ptr)
@@ -2754,8 +2754,7 @@ static void process_world(void)
 		// Every 15 minutes after 11:00 pm
 		if((hour == 23) && !(min % 15))
 		{
-			disturb(player_ptr, 0, 0);	// Disturbing
-
+			disturb(player_ptr, 0, 0);
 			switch (min / 15)
 			{			
 #ifdef JP
@@ -4358,7 +4357,6 @@ static void play_loop(void)
 		repair_creatures = TRUE;
 		repair_objects = TRUE;
 
-		// Disturb
 		disturb(player_ptr, 1, 0);
 
 		// Get index of current quest (if any)
