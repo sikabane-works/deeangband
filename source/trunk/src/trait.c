@@ -1451,14 +1451,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 				// Hack -- attack creatures 
 				if(cave_ptr->creature_idx) close_combat(caster_ptr, y, x, 0);
-				else
-				{
-#ifdef JP
-					msg_format("$^sの攻撃が空をきった。", caster_name);
-#else
-					msg_format("$^s attack the empty air.", caster_name);
-#endif
-				}
+				else msg_format(MES_TRAIT_SWORD_DANCING_MISS(caster_ptr));
 			}
 			break;
 		}
@@ -1681,7 +1674,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			else
 			{
-				msg_format(MES_STEED_TAME_FAILED(steed_ptr);
+				msg_format(MES_STEED_TAME_FAILED(steed_ptr));
 				do_thrown_from_riding(caster_ptr, 1, TRUE);
 				caster_ptr->riding = 0;
 			}
@@ -1884,11 +1877,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			else if(cave_ptr->creature_idx)
 			{
 				creature_type *m_ptr = &creature_list[cave_ptr->creature_idx];
-#ifdef JP
-				msg_print("何かが邪魔しています！");
-#else
-				msg_print("There's something in the way!");
-#endif
+				msg_format(MES_PREVENT_BY_CREATURE(m_ptr->name));
 				if(!m_ptr->see_others || !is_pet(player_ptr, m_ptr)) close_combat(caster_ptr, y, x, 0);
 				break;
 			}

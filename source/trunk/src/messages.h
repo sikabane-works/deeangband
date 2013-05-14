@@ -3491,6 +3491,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_RUSH2 "オラオラオラオラオラオラオラオラオラオラオラオラ！！！"
 #define MES_TRAIT_RUSH3 "無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄！！！"
 #define MES_TRAIT_CONCENTRATION "精神を集中して気合いを溜めた。"
+#define MES_TRAIT_SWORD_DANCING_MISS(CASTER) "$^sの攻撃が空をきった。", (CASTER)->name
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3543,6 +3544,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_RUSH2 "Oraoraoraoraoraoraoraoraoraoraoraoraoraoraoraoraora!!!!"
 #define MES_TRAIT_RUSH3 "Mudamudamudamudamudamudamudamudamudamudamudamudamudamudamudarrrr!!!!"
 #define MES_TRAIT_CONCENTRATION "You concentrate to charge your power."
+#define MES_TRAIT_SWORD_DANCING_MISS(CASTER) "$^s attack the empty air.", (CASTER)->name
 #endif
 
 #ifdef JP
