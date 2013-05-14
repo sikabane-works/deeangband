@@ -1883,20 +1883,12 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			else if(have_flag(feature_ptr->flags, FF_TREE))
 			{
-#ifdef JP
-				msg_print("木の味は好きじゃない！");
-#else
-				msg_print("You don't like the woody taste!");
-#endif
+				msg_print(MES_TRAIT_EAT_ROCK_HATE_TREE);
 				break;
 			}
 			else if(have_flag(feature_ptr->flags, FF_GLASS))
 			{
-#ifdef JP
-				msg_print("ガラスの味は好きじゃない！");
-#else
-				msg_print("You don't like the glassy taste!");
-#endif
+				msg_print(MES_TRAIT_EAT_ROCK_HATE_GLASS);
 				break;
 			}
 			else if(have_flag(feature_ptr->flags, FF_DOOR) || have_flag(feature_ptr->flags, FF_CAN_DIG))
@@ -1909,11 +1901,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			else
 			{
-#ifdef JP
-				msg_format("この%sはとてもおいしい！", feature_name + mimic_feature_ptr->name);
-#else
-				msg_format("This %s is very filling!", feature_name + mimic_feature_ptr->name);
-#endif
+				msg_format(MES_TRAIT_EAT_ROCK_DONE(feature_name + mimic_feature_ptr->name));
 				(void)set_food(caster_ptr, caster_ptr->food + 10000);
 			}
 
