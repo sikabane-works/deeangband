@@ -1937,16 +1937,9 @@ bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life
 
 	if(has_trait(creature_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < hold_life_prob))
 	{
-		/* Hold experience */
-#ifdef JP
-		msg_print("‚µ‚©‚µ©ŒÈ‚Ì¶–½—Í‚ğç‚è‚«‚Á‚½I");
-#else
-		msg_print("You keep hold of your life force!");
-#endif
+		msg_print(MES_GUARD_LIFE);
 		return FALSE;
 	}
-
-	/* Hold experience failed */
 	if(has_trait(creature_ptr, TRAIT_HOLD_LIFE))
 	{
 		msg_print(MES_LOST_LIFE1);
