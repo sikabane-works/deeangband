@@ -3357,6 +3357,7 @@ static cptr desc_stat_neg[] =
 #ifdef JP 
 #define MES_STEED_RIDE_ON(STEED) "%sに乗った。", (STEED)->name
 #define MES_STEED_TAMED(STEED) "%sを手なずけた。", (STEED)->name
+#define MES_STEED_TAME_FAILED(STEED) "%sに振り落とされた！", (STEED)->name
 #define MES_STEED_GOT_OFF(STEED) "%sから降りた。", (STEED)
 #define MES_PET_DISMISS_ASK(PET, REMAIN) "%sを放しますか？ [Yes/No/Unnamed (%d体)]", (PET), (REMAIN)
 #define MES_PET_RELEASE(PET) "%s を放した。", (PET)
@@ -3374,6 +3375,7 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_STEED_GOT_OFF(STEED) "You have got off %s. ", (STEED)
 #define MES_STEED_TAMED(STEED) "You tame %s.", (STEED)->name;
+#define MES_STEED_TAME_FAILED(STEED) "You have thrown off by %s.", (STEED)->name
 #define MES_PET_DISMISS_ASK(PET, REMAIN) "Dismiss %s? [Yes/No/Unnamed (%d remain)]", (PET), (REMAIN)
 #define MES_PET_RELEASE(PET) "Dismissed %s.", (PET)
 #define MES_PET_DISMISS(NUM) "You have dismissed %d pet%s.", (NUM), ((NUM) == 1 ? "" : "s")
@@ -3488,6 +3490,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_RUSH1 "あーたたたたたたたたたたたたたたたたたたたたたた！！！"
 #define MES_TRAIT_RUSH2 "オラオラオラオラオラオラオラオラオラオラオラオラ！！！"
 #define MES_TRAIT_RUSH3 "無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄！！！"
+#define MES_TRAIT_CONCENTRATION "精神を集中して気合いを溜めた。"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3539,6 +3542,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_RUSH1 "Ahhhtatatatatatatatatatatatatatataatatatatattaaaaa!!!!"
 #define MES_TRAIT_RUSH2 "Oraoraoraoraoraoraoraoraoraoraoraoraoraoraoraoraora!!!!"
 #define MES_TRAIT_RUSH3 "Mudamudamudamudamudamudamudamudamudamudamudamudamudamudamudarrrr!!!!"
+#define MES_TRAIT_CONCENTRATION "You concentrate to charge your power."
 #endif
 
 #ifdef JP

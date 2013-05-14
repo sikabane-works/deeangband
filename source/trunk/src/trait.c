@@ -1577,16 +1577,14 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_CLEAR_MIND:
+		if(caster_ptr->total_friends)
 		{
-			if(caster_ptr->total_friends)
-			{
-				msg_print(MES_PREVENT_BY_PET);
-				return FALSE;
-			}
-			msg_print(MES_RESTORE_SOME_MP);
-			inc_mana(caster_ptr, 3 + caster_ptr->lev / 20);
-			break;
+			msg_print(MES_PREVENT_BY_PET);
+			return FALSE;
 		}
+		msg_print(MES_RESTORE_SOME_MP);
+		inc_mana(caster_ptr, 3 + caster_ptr->lev / 20);
+		break;
 
 	case TRAIT_TAKE_PHOTO:
 		cast_beam(caster_ptr, DO_EFFECT_PHOTO, 1, 1, 0);
@@ -1620,35 +1618,27 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_DOUBLE_MAGIC:
-		{
-			if(!can_do_cmd_cast(caster_ptr)) return FALSE;
-			handle_stuff(caster_ptr);
+		if(!can_do_cmd_cast(caster_ptr)) return FALSE;
+		handle_stuff(caster_ptr);
+		do_cmd_cast(caster_ptr);
+		handle_stuff(caster_ptr);
+		if(!has_trait(caster_ptr, TRAIT_PARALYZED) && can_do_cmd_cast(caster_ptr))
 			do_cmd_cast(caster_ptr);
-			handle_stuff(caster_ptr);
-			if(!has_trait(caster_ptr, TRAIT_PARALYZED) && can_do_cmd_cast(caster_ptr))
-				do_cmd_cast(caster_ptr);
-			break;
-		}
+		break;
 
 	case TRAIT_POSTURE2:
+		if(caster_ptr->total_friends)
 		{
-			if(caster_ptr->total_friends)
-			{
-				msg_print(MES_PREVENT_BY_PET);
-				return FALSE;
-			}
-			if(caster_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
-			{
-				msg_print(MES_PREVENT_BY_POSTURE);
-				return FALSE;
-			}
-#ifdef JP
-			msg_print("精神を集中して気合いを溜めた。");
-#else
-			msg_print("You concentrate to charge your power.");
-#endif
-			inc_mana(caster_ptr, caster_ptr->msp / 2);
+			msg_print(MES_PREVENT_BY_PET);
+			return FALSE;
 		}
+		if(caster_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
+		{
+			msg_print(MES_PREVENT_BY_POSTURE);
+			return FALSE;
+		}
+		msg_print(MES_TRAIT_CONCENTRATION);
+		inc_mana(caster_ptr, caster_ptr->msp / 2);
 
 	case TRAIT_LEARNING:
 		if(caster_ptr->action == ACTION_LEARN) set_action(caster_ptr, ACTION_NONE);
@@ -1691,15 +1681,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			}
 			else
 			{
-#ifdef JP
-				msg_format("%sに振り落とされた！", steed_name);
-#else
-				msg_format("You have thrown off by %s.", steed_name);
-#endif
+				msg_format(MES_STEED_TAME_FAILED(steed_ptr);
 				do_thrown_from_riding(caster_ptr, 1, TRUE);
-
-				// Paranoia
-				// 落馬処理に失敗してもとにかく乗馬解除
 				caster_ptr->riding = 0;
 			}
 			break;
