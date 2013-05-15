@@ -2316,11 +2316,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 			/* Determine the level */
 			if(!quest_number(floor_ptr) && floor_ptr->depth)
 			{
-#ifdef JP
-				msg_print("¢ŠE‚ª•Ï‚í‚Á‚½I");
-#else
-				msg_print("The world changes!");
-#endif
+				msg_print(MES_TRAIT_ALTER_REAL_DONE);
 				/*
 				* Clear all saved floors
 				* and create a first saved floor
@@ -2330,15 +2326,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				/* Leaving */
 				subject_change_floor = TRUE;
 			}
-			else
-			{
-#ifdef JP
-				msg_print("¢ŠE‚ª­‚µ‚ÌŠÔ•Ï‰»‚µ‚½‚æ‚¤‚¾B");
-#else
-				msg_print("The world seems to change for a moment!");
-#endif
-			}
-
+			else msg_print(MES_TRAIT_ALTER_REAL_FAILED);
 			sound(SOUND_TPLEVEL);
 		}
 	}

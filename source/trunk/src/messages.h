@@ -3499,6 +3499,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_EAT_ROCK_DONE(FEATURE) "この%sはとてもおいしい！", (FEATURE)
 #define MES_TRAIT_RECALL_UP "上に引っ張りあげられる感じがする！"
 #define MES_TRAIT_RECALL_DOWN "下に引きずり降ろされる感じがする！"
+#define MES_TRAIT_ALTER_REAL_DONE "世界が変わった！"
+#define MES_TRAIT_ALTER_REAL_FAILED "世界が少しの間変化したようだ。"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3557,6 +3559,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_EAT_ROCK_DONE(FEATURE) "This %s is very filling!", (FEATURE)
 #define MES_TRAIT_RECALL_UP "You feel yourself yanked upwards!"
 #define MES_TRAIT_RECALL_DOWN "You feel yourself yanked downwards!"
+#define MES_TRAIT_ALTER_REAL_DONE "The world changes!"
+#define MES_TRAIT_ALTER_REAL_FAILED "The world seems to change for a moment!"
 #endif
 
 #ifdef JP
