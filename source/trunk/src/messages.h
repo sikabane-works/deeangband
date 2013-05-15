@@ -3497,6 +3497,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_EAT_ROCK_HATE_TREE "木の味は好きじゃない！"
 #define MES_TRAIT_EAT_ROCK_HATE_GLASS "ガラスの味は好きじゃない！"
 #define MES_TRAIT_EAT_ROCK_DONE(FEATURE) "この%sはとてもおいしい！", (FEATURE)
+#define MES_TRAIT_RECALL_UP "上に引っ張りあげられる感じがする！"
+#define MES_TRAIT_RECALL_DOWN "下に引きずり降ろされる感じがする！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3553,6 +3555,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_EAT_ROCK_HATE_TREE "You don't like the woody taste!"
 #define MES_TRAIT_EAT_ROCK_HATE_GLASS "You don't like the glassy taste!"
 #define MES_TRAIT_EAT_ROCK_DONE(FEATURE) "This %s is very filling!", (FEATURE)
+#define MES_TRAIT_RECALL_UP "You feel yourself yanked upwards!"
+#define MES_TRAIT_RECALL_DOWN "You feel yourself yanked downwards!"
 #endif
 
 #ifdef JP

@@ -188,8 +188,7 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	if(IS_EQUIPPED(object_ptr))
 	{
 #ifdef JP
-		msg_format("%s%s(%c)‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
-			describe_use(creature_ptr, slot),object_name, index_to_label(slot),game_inscriptions[feel]);
+		msg_format("%s%s(%c)‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...", describe_use(creature_ptr, slot),object_name, index_to_label(slot),game_inscriptions[feel]);
 #else
 		msg_format("You feel the %s (%c) you are %s %s %s...",
 			object_name, index_to_label(slot), describe_use(slot),
@@ -2211,12 +2210,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 			// Determine the level
 			if(floor_ptr->depth || floor_ptr->quest)
 			{
-#ifdef JP
-				msg_print("ã‚Éˆø‚Á’£‚è‚ ‚°‚ç‚ê‚éŠ´‚¶‚ª‚·‚éI");
-#else
-				msg_print("You feel yourself yanked upwards!");
-#endif
-
+				msg_print(MES_TRAIT_RECALL_UP);
 				if(floor_ptr->dungeon_id) creature_ptr->recall_dungeon = floor_ptr->dungeon_id;
 				if(record_stair)
 					write_diary(DIARY_RECALL, floor_ptr->depth, NULL);
@@ -2232,12 +2226,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 			}
 			else
 			{
-#ifdef JP
-				msg_print("‰º‚Éˆø‚«‚¸‚è~‚ë‚³‚ê‚éŠ´‚¶‚ª‚·‚éI");
-#else
-				msg_print("You feel yourself yanked downwards!");
-#endif
-
+				msg_print(MES_TRAIT_RECALL_DOWN);
 				floor_ptr->dungeon_id = creature_ptr->recall_dungeon;
 
 				if(record_stair)
