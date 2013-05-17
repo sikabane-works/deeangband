@@ -2130,13 +2130,8 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	char        tmp_str[MAX_NLEN];
 
 	clear_bldg(4, 18);
-#ifdef JP
-	prt(format("現在のあなたの技量だと、+%d まで改良できます。", maxenchant), 5, 0);
-	prt(format(" 改良の料金は一個につき＄%d です。", cost), 7, 0);
-#else
-	prt(format("  Based on your skill, we can improve up to +%d.", maxenchant), 5, 0);
-	prt(format("  The price for the service is %d gold per item.", cost), 7, 0);
-#endif
+	prt(format(MES_ENCHANT_RANGE(maxenchant)), 5, 0);
+	prt(format(MES_ENCHANT_COST(cost)), 7, 0);
 
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_IMPROVE, MES_OBJECT_NO_IMPROVE, (USE_INVEN | USE_EQUIP), NULL, item_tester_tval)) return FALSE;
 	object_ptr = &creature_ptr->inventory[item];	// Get the item (in the pack)
@@ -2197,11 +2192,7 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	else
 	{
 		object_desc(tmp_str, object_ptr, OD_NAME_AND_ENCHANT);
-#ifdef JP
-		msg_format("＄%dで%sに改良しました。", cost * object_ptr->number, tmp_str);
-#else
-		msg_format("Improved into %s for %d gold.", tmp_str, cost * object_ptr->number);
-#endif
+		msg_format(MES_ENCHANT_DONE(cost * object_ptr->number, object_ptr));
 
 		/* Charge the money */
 		creature_ptr->au -= (cost * object_ptr->number);
