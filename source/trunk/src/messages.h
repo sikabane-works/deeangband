@@ -4019,6 +4019,7 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_BET_UNDERLINE "ＯＫ、1ゴールドでいこう。"
 #define MES_GAMBLE_BET_OUT_NUM1 "0番にしとくぜ。"
 #define MES_GAMBLE_BET_OUT_NUM2 "ＯＫ、9番にしとくぜ。"
+#define MES_GAMBLE_ROULETTE_RESULT(NUM) "ルーレットは回り、止まった。勝者は %d番だ。", (NUM)
 #else
 #define MES_GAMBLE_WON "YOU WON"
 #define MES_GAMBLE_LOST "You Lost"
@@ -4035,6 +4036,7 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_BET_UNDERLINE "Ok, we'll start with 1 gold."
 #define MES_GAMBLE_BET_OUT_NUM1 "I'll put you down for 0."
 #define MES_GAMBLE_BET_OUT_NUM2 "Ok, I'll put you down for 9."
+#define MES_GAMBLE_ROULETTE_RESULT(NUM) "The wheel spins to a stop and the winner is %d", (NUM)
 #endif
 
 #ifdef JP

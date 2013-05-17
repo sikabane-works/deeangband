@@ -1145,13 +1145,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					}
 					msg_print(NULL);
 					roll1 = randint0(10);
-#ifdef JP
-					sprintf(tmp_str, "ルーレットは回り、止まった。勝者は %d番だ。",
-#else
-					sprintf(tmp_str, "The wheel spins to a stop and the winner is %d",
-#endif
-
-						roll1);
+					sprintf(tmp_str, MES_GAMBLE_ROULETTE_RESULT(roll1));
 					prt(tmp_str, 13, 3);
 					prt("", 9, 0);
 					prt("*", 9, (3 * roll1 + 5));
