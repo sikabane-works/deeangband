@@ -1078,13 +1078,8 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					roll2 = randint1(6);
 					roll3 = roll1 +  roll2;
 					choice = roll3;
-#ifdef JP
-					sprintf(tmp_str, "ÇPêUÇËÇﬂ: %d %d      Total: %d", roll1, 
-#else
-					sprintf(tmp_str, "First roll: %d %d    Total: %d", roll1,
-#endif
 
-						 roll2, roll3);
+					sprintf(tmp_str, MES_GAMBLE_CRAPS_FIRST(roll1, roll2, roll3));
 					prt(tmp_str, 7, 5);
 					if((roll3 == 7) || (roll3 == 11))
 						win = TRUE;
