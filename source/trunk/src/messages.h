@@ -4014,9 +4014,11 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_CURRENT_MONEY(MONEY) "現在の所持金:     %9ld", (MONEY)
 #define MES_GAMBLE_CURRENT_WAGER(MONEY) "現在の掛け金:     %9ld", (MONEY)
 #define MES_GAMBLE_ROLE_AGAIN "なにかキーを押すともう一回振ります。"
-#define MES_GAMBLE_BET(MAX) "賭け金 (1-%ld)？", (BET)
+#define MES_GAMBLE_BET(BET) "賭け金 (1-%ld)？", (BET)
 #define MES_GAMBLE_BET_LIMIT(MONEY) "%ldゴールドだけ受けよう。残りは取っときな。", (MONEY)
 #define MES_GAMBLE_BET_UNDERLINE "ＯＫ、1ゴールドでいこう。"
+#define MES_GAMBLE_BET_OUT_NUM1 "0番にしとくぜ。"
+#define MES_GAMBLE_BET_OUT_NUM2 "ＯＫ、9番にしとくぜ。"
 #else
 #define MES_GAMBLE_WON "YOU WON"
 #define MES_GAMBLE_LOST "You Lost"
@@ -4028,9 +4030,11 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_CURRENT_MONEY(MONEY) "Current Gold:     %9ld", (MONEY)
 #define MES_GAMBLE_CURRENT_WAGER(MONEY) "Current Wager:    %9ld", (MONEY)
 #define MES_GAMBLE_ROLE_AGAIN "Hit any key to roll again"
-#define MES_GAMBLE_BET(MAX) "Your wager (1-%ld) ? ", (BET)
+#define MES_GAMBLE_BET(BET) "Your wager (1-%ld) ? ", (BET)
 #define MES_GAMBLE_BET_LIMIT(MONEY) "I'll take %ld gold of that. Keep the rest.", (MONEY)
 #define MES_GAMBLE_BET_UNDERLINE "Ok, we'll start with 1 gold."
+#define MES_GAMBLE_BET_OUT_NUM1 "I'll put you down for 0."
+#define MES_GAMBLE_BET_OUT_NUM2 "Ok, I'll put you down for 9."
 #endif
 
 #ifdef JP

@@ -1135,22 +1135,12 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					choice = atol(p);
 					if(choice < 0)
 					{
-#ifdef JP
-						msg_print("0î‘Ç…ÇµÇ∆Ç≠Ç∫ÅB");
-#else
-						msg_print("I'll put you down for 0.");
-#endif
-
+						msg_print(MES_GAMBLE_BET_OUT_NUM1);
 						choice = 0;
 					}
 					else if(choice > 9)
 					{
-#ifdef JP
-						msg_print("ÇnÇjÅA9î‘Ç…ÇµÇ∆Ç≠Ç∫ÅB");
-#else
-						msg_print("Ok, I'll put you down for 9.");
-#endif
-
+						msg_print(MES_GAMBLE_BET_OUT_NUM2);
 						choice = 9;
 					}
 					msg_print(NULL);
