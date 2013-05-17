@@ -1459,14 +1459,8 @@ static bool kakutoujou(creature_type *creature_ptr)
 	else
 	{
 		int i;
-
 		clear_bldg(4, 10);
-
-#ifdef JP
-		prt("クリーチャー                                                    倍率", 4, 4);
-#else
-		prt("Creatures                                                       Odds", 4, 4);
-#endif
+		prt(MES_GAMBLE_ARENA_ODDS_LIST, 4, 4);
 		for (i = 0; i < 4; i++)
 		{
 			char buf[80];
@@ -1480,11 +1474,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 			prt(buf, 5+i, 1);
 		}
 
-#ifdef JP
-		prt("どれに賭けますか:", 0, 0);
-#else
-		prt("Which creature: ", 0, 0);
-#endif
+		prt(MES_GAMBLE_ARENA_WHICH, 0, 0);
 		while(TRUE)
 		{
 			i = inkey();

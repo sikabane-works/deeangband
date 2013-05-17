@@ -4004,6 +4004,8 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_GAMBLE_ARENA_WHICH "どれに賭けますか:"
+#define MES_GAMBLE_ARENA_ODDS_LIST "クリーチャー                                                    倍率"
 #define MES_GAMBLE_WON "あなたの勝ち"
 #define MES_GAMBLE_LOST "あなたの負け"
 #define MES_GAMBLE_TOTAL_WON "「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」"
@@ -4021,6 +4023,8 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_BET_OUT_NUM2 "ＯＫ、9番にしとくぜ。"
 #define MES_GAMBLE_ROULETTE_RESULT(NUM) "ルーレットは回り、止まった。勝者は %d番だ。", (NUM)
 #else
+#define MES_GAMBLE_ARENA_WHICH "Which creature: "
+#define MES_GAMBLE_ARENA_ODDS_LIST "Creatures                                                       Odds"
 #define MES_GAMBLE_WON "YOU WON"
 #define MES_GAMBLE_LOST "You Lost"
 #define MES_GAMBLE_TOTAL_WON "You came out a winner! We'll win next time, I'm sure."
