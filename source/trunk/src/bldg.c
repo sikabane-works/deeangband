@@ -2104,22 +2104,12 @@ static bool resize_item(creature_type *creature_ptr)
 		}
 
 		object_desc(tmp_str, object_ptr, OD_NAME_ONLY);
-#ifdef JP
-		if(get_check(format("%s‚Ì‰ü—Ç‚É‚Í $%d ‚©‚©‚è‚Ü‚·A‚æ‚ë‚µ‚¢‚Å‚·‚©H", tmp_str, value)))
-#else
-		if(get_check(format("To improve %s cost $%d, all right?", tmp_str, value)))
-#endif
+		if(get_check(format(MES_RESIZE_COST_ASK(object_ptr, value)))
 		{
 			if(creature_ptr->size > object_ptr->fitting_size + object_ptr->to_size) object_ptr->to_size++;
 			if(creature_ptr->size < object_ptr->fitting_size + object_ptr->to_size) object_ptr->to_size--;
-
 			creature_ptr->au -= value;
-#ifdef JP
-			msg_format("%s‚Ì‘å‚«‚³‚ğ’²®‚µ‚½B", tmp_str);
-#else
-			msg_format("%s was made over.", tmp_str);
-#endif
-
+			msg_format(MES_RESIZE_DONE(object_ptr));
 		}
 		else return FALSE;
 

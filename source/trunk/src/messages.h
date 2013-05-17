@@ -3597,7 +3597,9 @@ static cptr desc_stat_neg[] =
 #define MES_RESIZE_RANGE(LIMIT) "現在のあなたの技量だと、-%dから+%d まで修正できます。", (LIMIT), (LIMIT)
 #define MES_RESIZE_DEPEND "修正の料金はアイテムの価値に依存します。"
 #define MES_RESIZE_COST(OBJECT, COST) "%sの改良には $%d かかります！", (OBJECT)->name, (COST)
+#define MES_RESIZE_COST_ASK(OBJECT, COST) "%sの改良には $%d かかります、よろしいですか？", (OBJECT)->name, (COST)
 #define MES_RESIZE_NO_NEED "改良の必要はありません。"
+#define MES_RESIZE_DONE(OBJECT) "%sの大きさを調整した。", (OBJECT)->name
 #else
 #define MES_ENCHANT_WHICH_ITEM "Enchant which item? "
 #define MES_ENCHANT_NO_ITEM "You have nothing to enchant."
@@ -3610,7 +3612,9 @@ static cptr desc_stat_neg[] =
 #define MES_RESIZE_RANGE(LIMIT) "  Based on your skill, we can resize from -%d to +%d.", (LIMIT), (LIMIT)
 #define MES_RESIZE_DEPEND "  The price for the service depend on value of the item."
 #define MES_RESIZE_COST(OBJECT, COST) "To improve %s cost $%d!", (OBJECT)->name, (COST)
+#define MES_RESIZE_COST_ASK(OBJECT, COST) "To improve %s cost $%d, all right?", (OBJECT)->name, (COST)
 #define MES_RESIZE_NO_NEED "No improvement is required."
+#define MES_RESIZE_DONE(OBJECT) "%s was made over.", (OBJECT)->name
 #endif
 
 #ifdef JP
