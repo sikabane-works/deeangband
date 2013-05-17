@@ -1918,11 +1918,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 		case BUILDING_FUNCTION_RUMORS: /* Listen for rumors */
 			{
 				char Rumor[1024];
-#ifdef JP
-				if(!get_rnd_line_jonly(TEXT_FILES_RUMOR, 0, Rumor, 10))
-#else
 				if(!get_rnd_line(TEXT_FILES_RUMOR, 0, Rumor))
-#endif
 				msg_format("%s", Rumor);
 				break;
 			}
@@ -2071,28 +2067,16 @@ static bool resize_item(creature_type *creature_ptr)
 	object_type *object_ptr;
 	int value;
 	int resizelimit = (creature_ptr->lev / 8) + 2;
-	cptr q, s;
 	char tmp_str[MAX_NLEN];
 	OBJECT_ID item;
 
 	if(resizelimit > 5) resizelimit = 5;
 	clear_bldg(4, 18);
 
-#ifdef JP
-	prt(format("現在のあなたの技量だと、-%dから+%d まで修正できます。", resizelimit, resizelimit), 5, 0);
-	prt(format("修正の料金はアイテムの価値に依存します。"), 7, 0);
-#else
-	prt(format("  Based on your skill, we can resize from -%d to +%d.", resizelimit, resizelimit), 5, 0);
-	prt(format("  The price for the service depend on value of the item."), 7, 0);
-#endif
-
-#ifdef JP
-	q = "どのアイテムを修正しますか？";
-	s = "修正できるものがありません。";
-#else
-	q = "Resize which item? ";
-	s = "You have nothing to resize.";
-#endif
+	prt(format(MES_RESIZE_DEPEND_RANGR(resizelimit)), 5, 0);
+	prt(format(MES_RESIZE_DEPEND), 7, 0);
+	q = MES_OBJECT_WHICH_IMPROVE;
+	s = MES_OBJECT_NO_IMPROVE;
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL)) return FALSE;
 	object_ptr = &creature_ptr->inventory[item];

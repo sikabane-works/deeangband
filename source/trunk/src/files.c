@@ -6108,9 +6108,7 @@ errr process_autopick_file(cptr name)
 
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, name);
-
 	err = process_pref_file_aux(buf, PREF_TYPE_AUTOPICK);
-
 	return (err);
 }
 

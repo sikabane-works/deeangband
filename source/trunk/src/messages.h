@@ -3594,6 +3594,8 @@ static cptr desc_stat_neg[] =
 #define MES_ENCHANT_SUCCESS(ITEM, POS, NUM) "%sは明るく輝いた！", (ITEM)
 #define MES_ENCHANT_BECOME_ARTIFACT(ITEM, POS, NUM) "%sは眩い光を発した！", (ITEM)
 #define MES_ENCHANT_SHORTAGE_GOLD(ITEM) "%sを改良するだけのゴールドがありません！", (ITEM)
+#define MES_RESIZE_RANGE(LIMIT) "現在のあなたの技量だと、-%dから+%d まで修正できます。", (LIMIT), (LIMIT)
+#define MES_RESIZE_DEPEND "修正の料金はアイテムの価値に依存します。"
 #else
 #define MES_ENCHANT_WHICH_ITEM "Enchant which item? "
 #define MES_ENCHANT_NO_ITEM "You have nothing to enchant."
@@ -3603,6 +3605,8 @@ static cptr desc_stat_neg[] =
 #define MES_ENCHANT_SUCCESS(ITEM, POS, NUM) "%s %s glow%s brightly!", (((POS) >= 0) ? "Your" : "The"), (ITEM), (((NUM) > 1) ? "" : "s")
 #define MES_ENCHANT_BECOME_ARTIFACT(ITEM, POS, NUM)) "%s %s radiate%s a blinding light!", (((POS) >= 0) ? "Your" : "The"), (ITEM), (((NUM) > 1) ? "" : "s")
 #define MES_ENCHANT_SHORTAGE_GOLD(ITEM) "You do not have the gold to improve %s!", (ITEM)
+#define MES_RESIZE_RANGE(LIMIT) "  Based on your skill, we can resize from -%d to +%d.", (LIMIT), (LIMIT)
+#define MES_RESIZE_DEPEND "  The price for the service depend on value of the item."
 #endif
 
 #ifdef JP
