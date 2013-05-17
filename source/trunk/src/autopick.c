@@ -181,10 +181,8 @@ static char KEY_BOOTS[] = "boots";
 
 #endif /* JP */
 
-#define MATCH_KEY(KEY) (!strncmp(ptr, KEY, sizeof(KEY)-1)\
-     ? (ptr += sizeof(KEY)-1, (' '==*ptr) ? ptr++ : 0, TRUE) : FALSE)
-#define MATCH_KEY2(KEY) (!strncmp(ptr, KEY, sizeof(KEY)-1)\
-     ? (prev_ptr = ptr, ptr += sizeof(KEY)-1, (' '==*ptr) ? ptr++ : 0, TRUE) : FALSE)
+#define MATCH_KEY(KEY) (!strncmp(ptr, KEY, sizeof(KEY)-1) ? (ptr += sizeof(KEY)-1, (' '==*ptr) ? ptr++ : 0, TRUE) : FALSE)
+#define MATCH_KEY2(KEY) (!strncmp(ptr, KEY, sizeof(KEY)-1) ? (prev_ptr = ptr, ptr += sizeof(KEY)-1, (' '==*ptr) ? ptr++ : 0, TRUE) : FALSE)
 
 #ifdef JP
 #define ADD_KEY(KEY) strcat(ptr, KEY)
@@ -5662,12 +5660,8 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 
 		/* Erase line */
 		Term_erase(0, tb->cy - tb->upper + 1, tb->wid);
-
-#ifdef JP
-		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, format("C:%d:<コマンドキー>: ", (rogue_like_commands ? KEYMAP_MODE_ROGUE : KEYMAP_MODE_ORIG)));
-#else
-		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, format("C:%d:<Keypress>: ", (rogue_like_commands ? KEYMAP_MODE_ROGUE : KEYMAP_MODE_ORIG)));
-#endif
+		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, format("C:%d:%s: ",
+			(rogue_like_commands ? KEYMAP_MODE_ROGUE : KEYMAP_MODE_ORIG), MES_AUTOPICK_COMMANDKEY));
 
 		if(insert_keymap_line(tb))
 		{

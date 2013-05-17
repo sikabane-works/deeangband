@@ -2553,6 +2553,7 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_AUTOPICK_COMMANDKEY "C:%d:<コマンドキー>: "
 #define MES_AUTOPICK_WHICH_ENTRY "どのアイテムを登録しますか"
 #define MES_AUTOPICK_NO_ENTRY "アイテムを持っていない。"
 #define MES_AUTOPICK_WHICH_SEARCH "どのアイテムを検索しますか? "
@@ -2575,6 +2576,7 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_DISCARD_QUIT "全ての変更を破棄してから終了します。よろしいですか？ "
 #define MES_AUTOPICK_DISCARD_REVERT "全ての変更を破棄して元の状態に戻します。よろしいですか？ "
 #else
+#define MES_AUTOPICK_COMMANDKEY "<Keypress>"
 #define MES_AUTOPICK_WHICH_ENTRY "Enter which item? "
 #define MES_AUTOPICK_NO_ENTRY "You have nothing to enter."
 #define MES_AUTOPICK_WHICH_SEARCH "Search which item? "
