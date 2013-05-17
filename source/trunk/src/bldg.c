@@ -1070,6 +1070,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					if(((choice > roll1) && (choice < roll2)) || ((choice < roll1) && (choice > roll2)))
 						win = TRUE;
 					break;
+
 				case BUILDING_FUNCTION_CRAPS:  /* Game of Craps */
 					c_put_str(TERM_GREEN, MES_GAMBLE_CRAPS, 5, 2);
 					win = 3;
@@ -1093,11 +1094,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 							roll1 = randint1(6);
 							roll2 = randint1(6);
 							roll3 = roll1 +  roll2;
-#ifdef JP
-							sprintf(tmp_str, "出目: %d %d          合計:      %d", roll1, roll2, roll3);
-#else
-							sprintf(tmp_str, "Roll result: %d %d   Total:     %d", roll1, roll2, roll3);
-#endif
+							sprintf(tmp_str, MES_GAMBLE_CRAPS_RESULT(roll1, roll2, roll3));
 							prt(tmp_str, 8, 5);
 							if(roll3 == choice)
 								win = TRUE;
@@ -1112,13 +1109,8 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					prt("0  1  2  3  4  5  6  7  8  9", 7, 5);
 					prt("--------------------------------", 8, 3);
 					strcpy(out_val, "");
-#ifdef JP
-					c_put_str(TERM_GREEN, "ルーレット", 5, 2);
-					get_string("何番？ (0-9)", out_val, 32);
-#else
-					c_put_str(TERM_GREEN, "Wheel", 5, 2);
-					get_string("Pick a number (0-9)", out_val, 32);
-#endif
+					c_put_str(TERM_GREEN, MES_GAMBLE_WHEEL, 5, 2);
+					get_string(MES_GAMBLE_WHEEL_WHICH_NUM, out_val, 32);
 
 					for (p = out_val; isspace(*p); p++);
 					choice = atol(p);

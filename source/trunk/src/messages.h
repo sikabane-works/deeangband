@@ -4024,7 +4024,9 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_GAMBLE_BETWEEN "イン・ビトイーン"
 #define MES_GAMBLE_CRAPS "クラップス"
+#define MES_GAMBLE_WHEEL "ルーレット"
 #define MES_GAMBLE_CRAPS_FIRST(ROLL1, ROLL2, ROLL3) "１振りめ: %d %d      Total: %d", (ROLL1), (ROLL2), (ROLL3)
+#define MES_GAMBLE_CRAPS_RESULT(ROLL1, ROLL2, ROLL3) "出目: %d %d          合計:      %d", (ROLL1), (ROLL2), (ROLL3)
 #define MES_GAMBLE_ARENA_WHICH "どれに賭けますか:"
 #define MES_GAMBLE_ARENA_ODDS_LIST "クリーチャー                                                    倍率"
 #define MES_GAMBLE_ARENA_ODDS_LIST2(NUM, SPECIES, ODDS) "%d) %-58s  %4ld.%02ld倍", (NUM)+1, format("%s%s",(SPECIES)->name + species_name, has_trait_species((SPECIES), TRAIT_UNIQUE) ? "もどき" : "      "), (ODDS)/100, (ODDS)%100
@@ -4043,11 +4045,14 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_BET_UNDERLINE "ＯＫ、1ゴールドでいこう。"
 #define MES_GAMBLE_BET_OUT_NUM1 "0番にしとくぜ。"
 #define MES_GAMBLE_BET_OUT_NUM2 "ＯＫ、9番にしとくぜ。"
+#define MES_GAMBLE_WHEEL_WHICH_NUM "何番？ (0-9)"
 #define MES_GAMBLE_ROULETTE_RESULT(NUM) "ルーレットは回り、止まった。勝者は %d番だ。", (NUM)
 #else
 #define MES_GAMBLE_BETWEEN "In Between"
 #define MES_GAMBLE_CRAPS "Craps"
+#define MES_GAMBLE_WHEEL "Wheel"
 #define MES_GAMBLE_CRAPS_FIRST(ROLL1, ROLL2, ROLL3) "First roll: %d %d    Total: %d", (ROLL1), (ROLL2), (ROLL3)
+#define MES_GAMBLE_CRAPS_RESULT(ROLL1, ROLL2, ROLL3) "Roll result: %d %d   Total:     %d", (ROLL1), (ROLL2), (ROLL3)
 #define MES_GAMBLE_ARENA_WHICH "Which creature: "
 #define MES_GAMBLE_ARENA_ODDS_LIST "Creatures                                                       Odds"
 #define MES_GAMBLE_ARENA_ODDS_LIST2(NUM, SPECIES, ODDS) "%d) "%d) %-58s  %4ld.%02ld", (NUM)+1, format("%s%s",(SPECIES)->name + species_name, has_trait_species(species_ptr, TRAIT_UNIQUE) ? "Fake " : ""), (ODDS)/100, (ODDS)%100
@@ -4066,6 +4071,7 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_BET_UNDERLINE "Ok, we'll start with 1 gold."
 #define MES_GAMBLE_BET_OUT_NUM1 "I'll put you down for 0."
 #define MES_GAMBLE_BET_OUT_NUM2 "Ok, I'll put you down for 9."
+#define MES_GAMBLE_WHEEL_WHICH_NUM "Pick a number (0-9)"
 #define MES_GAMBLE_ROULETTE_RESULT(NUM) "The wheel spins to a stop and the winner is %d", (NUM)
 #endif
 
