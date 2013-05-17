@@ -1465,12 +1465,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 		{
 			char buf[80];
 			species_type *species_ptr = &species_info[battle_creature[i]];
-
-#ifdef JP
-			sprintf(buf,"%d) %-58s  %4ld.%02ld”{", i+1, format("%s%s",species_name + species_ptr->name, has_trait_species(species_ptr, TRAIT_UNIQUE) ? "‚à‚Ç‚«" : "      "), creature_odds[i]/100, creature_odds[i]%100);
-#else
-			sprintf(buf,"%d) %-58s  %4ld.%02ld", i+1, format("%s%s", has_trait_species(species_ptr, TRAIT_UNIQUE) ? "Fake " : "", species_name + species_ptr->name), creature_odds[i]/100, creature_odds[i]%100);
-#endif
+			sprintf(buf,MES_GAMBLE_ARENA_ODDS_LIST2(i, species_ptr, creature_odds[i]));
 			prt(buf, 5+i, 1);
 		}
 

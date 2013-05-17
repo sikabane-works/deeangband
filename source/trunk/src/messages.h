@@ -4006,6 +4006,7 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_GAMBLE_ARENA_WHICH "どれに賭けますか:"
 #define MES_GAMBLE_ARENA_ODDS_LIST "クリーチャー                                                    倍率"
+#define MES_GAMBLE_ARENA_ODDS_LIST2(NUM, SPECIES, ODDS) "%d) %-58s  %4ld.%02ld倍", (NUM)+1, format("%s%s",(SPECIES)->name + species_name, has_trait_species((SPECIES), TRAIT_UNIQUE) ? "もどき" : "      "), (ODDS)/100, (ODDS)%100
 #define MES_GAMBLE_WON "あなたの勝ち"
 #define MES_GAMBLE_LOST "あなたの負け"
 #define MES_GAMBLE_TOTAL_WON "「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」"
@@ -4025,6 +4026,7 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_GAMBLE_ARENA_WHICH "Which creature: "
 #define MES_GAMBLE_ARENA_ODDS_LIST "Creatures                                                       Odds"
+#define MES_GAMBLE_ARENA_ODDS_LIST2(NUM, SPECIES, ODDS) "%d) "%d) %-58s  %4ld.%02ld", (NUM)+1, format("%s%s",(SPECIES)->name + species_name, has_trait_species(species_ptr, TRAIT_UNIQUE) ? "Fake " : ""), (ODDS)/100, (ODDS)%100
 #define MES_GAMBLE_WON "YOU WON"
 #define MES_GAMBLE_LOST "You Lost"
 #define MES_GAMBLE_TOTAL_WON "You came out a winner! We'll win next time, I'm sure."
