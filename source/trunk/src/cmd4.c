@@ -1423,16 +1423,8 @@ void do_cmd_pref(void)
 {
 	char buf[80];
 	strcpy(buf, "");
+	if(!get_string(MES_OPTION_CHANGE_CONFIG, buf, 80)) return;
 
-	/* Ask for a "user pref command" */
-#ifdef JP
-	if(!get_string("設定変更コマンド", buf, 80)) return;
-#else
-	if(!get_string("Pref", buf, 80)) return;
-#endif
-
-
-	/* Process that pref command */
 	(void)process_pref_file_command(buf);
 }
 

@@ -3248,6 +3248,7 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_OPTION_CHANGE_CONFIG "設定変更コマンド"
 #define MES_OPTION_WARN_CHEAT "詐欺師は決して勝利できない。"
 #define MES_OPTION_WARN_CHEAT2 "<<  注意  >>\n詐欺オプションを一度でも設定すると、スコア記録が残らなくなります！\n後に解除してもダメですので、勝利者を目指す方はここのオプションはい\nじらないようにして下さい。"
 #define MES_OPTION_UNUSED "(未使用)"
@@ -3257,6 +3258,7 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_CMD_HP_CURRENT(PERCENT) "現在の低ヒットポイント警告: %d0%%", (PERCENT)
 #define MES_OPTION_CMD_HP_PROMPT "低ヒットポイント警告 (0-9) ESCで決定: "
 #else
+#define MES_OPTION_CHANGE_CONFIG "Pref"
 #define MES_OPTION_WARN_CHEAT "Cheaters never win."
 #define MES_OPTION_WARN_CHEAT2 ""
 #define MES_OPTION_UNUSED "(Unused option)"
