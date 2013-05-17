@@ -996,12 +996,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 		/* Get the wager */
 		strcpy(out_val, "");
-#ifdef JP
-		sprintf(tmp_str,"ìqÇØã‡ (1-%ld)ÅH", maxbet);
-#else
-		sprintf(tmp_str,"Your wager (1-%ld) ? ", maxbet);
-#endif
-
+		sprintf(tmp_str, MES_GAMBLE_BET(maxbet));
 
 		/*
 		 * Use get_string() because we may need more than
@@ -1535,12 +1530,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 
 		/* Get the wager */
 		strcpy(out_val, "");
-#ifdef JP
-		sprintf(tmp_str,"ìqÇØã‡ (1-%ld)ÅH", maxbet);
-#else
-		sprintf(tmp_str,"Your wager (1-%ld) ? ", maxbet);
-#endif
-
+		sprintf(tmp_str, MES_GAMBLE_BET(maxbet));
 
 		/*
 		 * Use get_string() because we may need more than
