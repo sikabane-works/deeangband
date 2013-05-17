@@ -4025,6 +4025,7 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_BETWEEN "イン・ビトイーン"
 #define MES_GAMBLE_CRAPS "クラップス"
 #define MES_GAMBLE_WHEEL "ルーレット"
+#define MES_GAMBLE_DICESLOTS "ダイス・スロット"
 #define MES_GAMBLE_CRAPS_FIRST(ROLL1, ROLL2, ROLL3) "１振りめ: %d %d      Total: %d", (ROLL1), (ROLL2), (ROLL3)
 #define MES_GAMBLE_CRAPS_RESULT(ROLL1, ROLL2, ROLL3) "出目: %d %d          合計:      %d", (ROLL1), (ROLL2), (ROLL3)
 #define MES_GAMBLE_ARENA_WHICH "どれに賭けますか:"
@@ -4051,6 +4052,7 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_BETWEEN "In Between"
 #define MES_GAMBLE_CRAPS "Craps"
 #define MES_GAMBLE_WHEEL "Wheel"
+#define MES_GAMBLE_DICESLOTS "Dice Slot"
 #define MES_GAMBLE_CRAPS_FIRST(ROLL1, ROLL2, ROLL3) "First roll: %d %d    Total: %d", (ROLL1), (ROLL2), (ROLL3)
 #define MES_GAMBLE_CRAPS_RESULT(ROLL1, ROLL2, ROLL3) "Roll result: %d %d   Total:     %d", (ROLL1), (ROLL2), (ROLL3)
 #define MES_GAMBLE_ARENA_WHICH "Which creature: "

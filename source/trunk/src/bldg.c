@@ -1135,8 +1135,8 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					break;
 
 				case BUILDING_FUNCTION_DICE_SLOTS: /* The Dice Slots */
+					c_put_str(TERM_GREEN, MES_GAMBLE_DICESLOTS, 5, 2);
 #ifdef JP
-					c_put_str(TERM_GREEN, "ダイス・スロット", 5, 2);
 					c_put_str(TERM_YELLOW, "レモン   レモン            2", 6, 37);
 					c_put_str(TERM_YELLOW, "レモン   レモン   レモン   5", 7, 37);
 					c_put_str(TERM_ORANGE, "オレンジ オレンジ オレンジ 10", 8, 37);
@@ -1144,10 +1144,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					c_put_str(TERM_SLATE, "盾       盾       盾       50", 10, 37);
 					c_put_str(TERM_VIOLET, "プラム   プラム   プラム   200", 11, 37);
 					c_put_str(TERM_RED, "チェリー チェリー チェリー 1000", 12, 37);
-#else
-					c_put_str(TERM_GREEN, "Dice Slots", 5, 2);
 #endif
-
 					win = FALSE;
 					roll1 = randint1(21);
 					for (i=6;i>0;i--)
