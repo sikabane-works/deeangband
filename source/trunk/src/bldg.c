@@ -2086,12 +2086,7 @@ static bool resize_item(creature_type *creature_ptr)
 	if(creature_ptr->au < value)
 	{
 		object_desc(tmp_str, object_ptr, OD_NAME_ONLY);
-#ifdef JP
-		msg_format("%sの改良には $%d かかります！", tmp_str, value);
-#else
-		msg_format("To improve %s cost $%d!", tmp_str, value);
-#endif
-
+		msg_format(MES_RESIZE_COST(object_ptr, value));
 		return FALSE;
 	}
 	else
@@ -2104,12 +2099,8 @@ static bool resize_item(creature_type *creature_ptr)
 
 		if(creature_ptr->size == object_ptr->to_size + object_ptr->fitting_size || object_ptr->fitting_size == ARMOR_SIZE_FREE)
 		{
-#ifdef JP
-			msg_print("改良の必要はありません。");
-#else
-			msg_print("No improvement is required.");
-#endif
-		return FALSE;
+			msg_print(MES_RESIZE_NO_NEED);
+			return FALSE;
 		}
 
 		object_desc(tmp_str, object_ptr, OD_NAME_ONLY);
@@ -2119,11 +2110,8 @@ static bool resize_item(creature_type *creature_ptr)
 		if(get_check(format("To improve %s cost $%d, all right?", tmp_str, value)))
 #endif
 		{
-			if(creature_ptr->size > object_ptr->fitting_size + object_ptr->to_size)
-				object_ptr->to_size++;
-
-			if(creature_ptr->size < object_ptr->fitting_size + object_ptr->to_size)
-				object_ptr->to_size--;
+			if(creature_ptr->size > object_ptr->fitting_size + object_ptr->to_size) object_ptr->to_size++;
+			if(creature_ptr->size < object_ptr->fitting_size + object_ptr->to_size) object_ptr->to_size--;
 
 			creature_ptr->au -= value;
 #ifdef JP
