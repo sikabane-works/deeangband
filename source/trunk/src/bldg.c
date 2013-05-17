@@ -1056,13 +1056,12 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					roll1 = randint1(10);
 					roll2 = randint1(10);
 					choice = randint1(10);
+					c_put_str(TERM_GREEN, MES_GAMBLE_BETWEEN,5, 2);
 #ifdef JP
-					c_put_str(TERM_GREEN, "イン・ビトイーン",5,2);
 					sprintf(tmp_str, "黒ダイス: %d        黒ダイス: %d", roll1, roll2);
 					prt(tmp_str, 8, 3);
 					sprintf(tmp_str, "赤ダイス: %d", choice);
 #else
-					c_put_str(TERM_GREEN, "In Between", 5, 2);
 					sprintf(tmp_str, "Black die: %d       Black Die: %d", roll1, roll2);
 					prt(tmp_str, 8, 3);
 					sprintf(tmp_str, "Red die: %d", choice);
@@ -1072,12 +1071,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 						win = TRUE;
 					break;
 				case BUILDING_FUNCTION_CRAPS:  /* Game of Craps */
-#ifdef JP
-					c_put_str(TERM_GREEN, "クラップス", 5, 2);
-#else
-					c_put_str(TERM_GREEN, "Craps", 5, 2);
-#endif
-
+					c_put_str(TERM_GREEN, MES_GAMBLE_CRAPS, 5, 2);
 					win = 3;
 					odds = 2;
 					roll1 = randint1(6);
@@ -2193,10 +2187,7 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	{
 		object_desc(tmp_str, object_ptr, OD_NAME_AND_ENCHANT);
 		msg_format(MES_ENCHANT_DONE(cost * object_ptr->number, object_ptr));
-
-		/* Charge the money */
 		creature_ptr->au -= (cost * object_ptr->number);
-
 		calc_android_exp(creature_ptr);
 
 		/* Something happened */

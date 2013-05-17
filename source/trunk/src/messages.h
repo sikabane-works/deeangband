@@ -4022,6 +4022,8 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_GAMBLE_BETWEEN "イン・ビトイーン"
+#define MES_GAMBLE_CRAPS "クラップス"
 #define MES_GAMBLE_ARENA_WHICH "どれに賭けますか:"
 #define MES_GAMBLE_ARENA_ODDS_LIST "クリーチャー                                                    倍率"
 #define MES_GAMBLE_ARENA_ODDS_LIST2(NUM, SPECIES, ODDS) "%d) %-58s  %4ld.%02ld倍", (NUM)+1, format("%s%s",(SPECIES)->name + species_name, has_trait_species((SPECIES), TRAIT_UNIQUE) ? "もどき" : "      "), (ODDS)/100, (ODDS)%100
@@ -4042,6 +4044,8 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_BET_OUT_NUM2 "ＯＫ、9番にしとくぜ。"
 #define MES_GAMBLE_ROULETTE_RESULT(NUM) "ルーレットは回り、止まった。勝者は %d番だ。", (NUM)
 #else
+#define MES_GAMBLE_BETWEEN "In Between"
+#define MES_GAMBLE_CRAPS "Craps"
 #define MES_GAMBLE_ARENA_WHICH "Which creature: "
 #define MES_GAMBLE_ARENA_ODDS_LIST "Creatures                                                       Odds"
 #define MES_GAMBLE_ARENA_ODDS_LIST2(NUM, SPECIES, ODDS) "%d) "%d) %-58s  %4ld.%02ld", (NUM)+1, format("%s%s",(SPECIES)->name + species_name, has_trait_species(species_ptr, TRAIT_UNIQUE) ? "Fake " : ""), (ODDS)/100, (ODDS)%100
