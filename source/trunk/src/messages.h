@@ -3254,6 +3254,8 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_MAIN_TITLE "[ オプションの設定 ]"
 #define MES_OPTION_CMD_HP_WARNING "コマンド: 低ヒットポイント警告"
 #define MES_OPTION_CMD_MP_CHECK "コマンド: 低魔力色閾値"
+#define MES_OPTION_CMD_HP_CURRENT(PERCENT) "現在の低ヒットポイント警告: %d0%%", (PERCENT)
+#define MES_OPTION_CMD_HP_PROMPT "低ヒットポイント警告 (0-9) ESCで決定: "
 #else
 #define MES_OPTION_WARN_CHEAT "Cheaters never win."
 #define MES_OPTION_WARN_CHEAT2 ""
@@ -3261,6 +3263,8 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_MAIN_TITLE [ Game Options ]"
 #define MES_OPTION_CMD_HP_WARNING "Command: Hitpoint Warning"
 #define MES_OPTION_CMD_MP_CHECK "Command: Mana Color Threshold"
+#define MES_OPTION_CMD_HP_CURRENT(PERCENT) "Current hitpoint warning: %d0%%", (PERCENT)
+#define MES_OPTION_CMD_HP_PROMPT "Hitpoint Warning (0-9 or ESC to accept): "
 #endif
 
 #ifdef JP

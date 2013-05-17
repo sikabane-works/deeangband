@@ -1347,13 +1347,8 @@ void do_cmd_options(void)
 				prt(MES_OPTION_CMD_HP_WARNING, 19, 0);
 				while(TRUE)
 				{
-#ifdef JP
-					prt(format("現在の低ヒットポイント警告: %d0%%", hitpoint_warn), 22, 0);
-					prt("低ヒットポイント警告 (0-9) ESCで決定: ", 20, 0);
-#else
-					prt(format("Current hitpoint warning: %d0%%", hitpoint_warn), 22, 0);
-					prt("Hitpoint Warning (0-9 or ESC to accept): ", 20, 0);
-#endif
+					prt(format(MES_OPTION_CMD_HP_CURRENT(hitpoint_warn)), 22, 0);
+					prt(MES_OPTION_CMD_HP_PROMPT, 20, 0);
 
 					k = inkey();
 					if(k == ESCAPE) break;
