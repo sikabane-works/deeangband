@@ -322,15 +322,14 @@ static void wr_creature(creature_type *creature_ptr)
 	int i;
 	u16b tmp16u;
 
-	wr_u32b(creature_ptr->creature_idx);
-
+	WRITE_CREATURE_ID(creature_ptr->creature_idx);
 	wr_byte(creature_ptr->player);
 
 	wr_byte(creature_ptr->d_attr);
 	wr_byte(creature_ptr->d_char);
 	wr_byte(creature_ptr->x_attr);
 	wr_byte(creature_ptr->x_char);
-	wr_u32b(creature_ptr->action_turn);
+	WRITE_GAME_TURN(creature_ptr->action_turn);
 
 	wr_string(creature_ptr->name);
 	wr_string(creature_ptr->last_message ? creature_ptr->last_message : "");

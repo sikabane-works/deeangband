@@ -734,19 +734,8 @@ static void rd_options(void)
 				/* Process valid flags */
 				if(window_mask[n] & (1L << i))
 				{
-					/* Set */
-					if(flag[n] & (1L << i))
-					{
-						/* Set */
-						window_flag[n] |= (1L << i);
-					}
-
-					/* Clear */
-					else
-					{
-						/* Clear */
-						window_flag[n] &= ~(1L << i);
-					}
+					if(flag[n] & (1L << i)) window_flag[n] |= (1L << i);
+					else window_flag[n] &= ~(1L << i);
 				}
 			}
 		}
@@ -1326,8 +1315,8 @@ static errr rd_savefile_new_aux(void)
 
 	for (i = 0; i < max_species_idx; i++)
 	{
-		species_type *species_ptr = &species_info[i]; // Access that creature
-		species_ptr->max_num = 100; // Hack -- Reset the death counter
+		species_type *species_ptr = &species_info[i];
+		species_ptr->max_num = 100;
 		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) species_ptr->max_num = 1;
 	}
 
