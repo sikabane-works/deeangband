@@ -500,7 +500,7 @@ static void wr_extra(void)
 	int i;
 	byte tmp8u;
 
-	wr_creature(&player_prev);
+	//TODO wr_creature(&player_prev);
 	if(noscore) quick_ok = FALSE;
 	WRITE_CAMPAIGN_ID(campaign_mode);
 

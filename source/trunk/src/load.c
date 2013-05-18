@@ -316,10 +316,6 @@ static errr rd_object(object_type *object_ptr)
 	READ_FLOOR_ID(&object_ptr->floor_idx);
 	READ_COODINATES(&object_ptr->fy);
 	READ_COODINATES(&object_ptr->fx);
-	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
-	object_ptr->tval = object_kind_ptr->tval;
-	object_ptr->sval = object_kind_ptr->sval;
-
 	READ_PVAL(&object_ptr->pval);
 	READ_CHEST_MODE(&object_ptr->chest_mode);
 	READ_PERCENT(&object_ptr->discount);
@@ -352,8 +348,6 @@ static errr rd_object(object_type *object_ptr)
 	rd_byte(&object_ptr->ident);
 	rd_byte(&object_ptr->marked);
 
-	// Object flags
-
 	// Creature holding object
 	READ_CREATURE_ID(&object_ptr->held_m_idx);
 	READ_GAME_TIME(&object_ptr->fuel);
@@ -377,6 +371,10 @@ static errr rd_object(object_type *object_ptr)
 
 	for(i = 0; i < MAX_TRAITS_FLAG; i++) READ_FLAGS_32(&object_ptr->trait_flags[i]);
 	for(i = 0; i < MAX_TRAITS_FLAG; i++) READ_FLAGS_32(&object_ptr->curse_flags[i]);
+
+	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
+	object_ptr->tval = object_kind_ptr->tval;
+	object_ptr->sval = object_kind_ptr->sval;
 
 	return LOAD_ERROR_NONE;
 }
@@ -422,7 +420,8 @@ static errr rd_inventory(creature_type *creature_ptr)
 		if(err != LOAD_ERROR_NONE) return err;
 
 		// Hack -- verify item
-		if(!is_valid_object(object_ptr)) return LOAD_ERROR_INVALID_OBJECT;
+		if(!is_valid_object(object_ptr))
+			return LOAD_ERROR_INVALID_OBJECT;
 
 		if(IS_EQUIPPED(object_ptr)) // Wield equipment
 		{
@@ -908,12 +907,9 @@ static errr rd_creature(creature_type *creature_ptr)
 static void rd_extra(void)
 {
 	int i;
-
 	byte tmp8u;
-
 	byte max;
-
-	rd_creature(&player_prev);
+	//TODO rd_creature(&player_prev);
 
 	READ_CAMPAIGN_ID(&campaign_mode);
 	rd_byte(&tmp8u);
