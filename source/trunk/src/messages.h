@@ -3272,6 +3272,10 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_CMD_AUTOSAVE_PROMPT(INFO) "%s ( リターンで次へ, y/n でセット, F で頻度を入力, ESC で決定 ) ", (INFO)
 #define MES_OPTION_CMD_AUTOSAVE_FREQ(TURN) "自動セーブの頻度： %d ターン毎", (TURN)
 #define MES_OPTION_CMD_WAIT "コマンド: 基本ウェイト量"
+#define MES_OPTION_CMD_VALUE(VALUE) "現在のウェイト: %d (%dミリ秒)", (VALUE), (VALUE)*(VALUE)*(VALUE)
+#define MES_OPTION_CMD_WAIT_PROMPT "ウェイト (0-9) ESCで決定: "
+#define MES_OPTION_MACRO_PROMPT "マクロ行動: "
+#define MES_OPTION_MACRO_DESC "カーソルキーの左右でカーソル位置を移動。BackspaceかDeleteで一文字削除。"
 #else
 #define MES_OPTION_CHANGE_CONFIG "Pref"
 #define MES_OPTION_WARN_CHEAT "Cheaters never win."
@@ -3285,6 +3289,10 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_CMD_AUTOSAVE_PROMPT(INFO) "%s (RET to advance, y/n to set, 'F' for frequency, ESC to accept) ", (INFO)
 #define MES_OPTION_CMD_AUTOSAVE_FREQ(TURN) "Timed autosave frequency: every %d turns", (TURN)
 #define MES_OPTION_CMD_WAIT "Command: Base Delay Factor"
+#define MES_OPTION_CMD_VALUE(VALUE) "現在のウェイト: %d (%dミリ秒)", (VALUE), (VALUE)*(VALUE)*(VALUE)
+#define MES_OPTION_CMD_WAIT_PROMPT "Delay Factor (0-9 or ESC to accept): "
+#define MES_OPTION_MACRO_PROMPT "Action: "
+#define MES_OPTION_MACRO_DESC "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char."
 #endif
 
 #ifdef JP

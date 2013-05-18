@@ -1263,14 +1263,8 @@ void do_cmd_options(void)
 
 				while(TRUE)
 				{
-					int msec = delay_factor * delay_factor * delay_factor;
-#ifdef JP
-					prt(format("現在のウェイト: %d (%dミリ秒)", delay_factor, msec), 22, 0);
-					prt("ウェイト (0-9) ESCで決定: ", 20, 0);
-#else
-					prt(format("Current base delay factor: %d (%d msec)", delay_factor, msec), 22, 0);
-					prt("Delay Factor (0-9 or ESC to accept): ", 20, 0);
-#endif
+					prt(format(MES_OPTION_CMD_VALUE(delay_factor)), 22, 0);
+					prt(MES_OPTION_CMD_WAIT_PROMPT, 20, 0);
 
 					k = inkey();
 					if(k == ESCAPE) break;
@@ -1711,11 +1705,10 @@ void do_cmd_macros(void)
 			/* Help message */
 #ifdef JP
 			c_prt(TERM_L_RED, "カーソルキーの左右でカーソル位置を移動。BackspaceかDeleteで一文字削除。", 22, 0);
-			prt("マクロ行動: ", 20, 0);
 #else
 			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
-			prt("Action: ", 20, 0);
 #endif
+			prt(MES_OPTION_MACRO_PROMPT, 20, 0);
 
 			/* Convert to text */
 			ascii_to_text(tmp, macro__buf);
@@ -1878,23 +1871,11 @@ void do_cmd_macros(void)
 		/* Enter a new action */
 		else if(i == 9)
 		{
-#ifdef JP
 			clear_from(20);
-			c_prt(TERM_L_RED, "カーソルキーの左右でカーソル位置を移動。BackspaceかDeleteで一文字削除。", 22, 0);
-			prt("マクロ行動: ", 20, 0);
-#else
-			clear_from(20);
-			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
-			prt("Action: ", 20, 0);
-#endif
-
-			/* Hack -- limit the value */
+			c_prt(TERM_L_RED, MES_OPTION_MACRO_DESC, 22, 0);
+			prt(MES_OPTION_MACRO_PROMPT, 20, 0);
 			tmp[80] = '\0';
-
-			/* Get an encoded action */
 			if(!askfor(buf, 80)) continue;
-
-			/* Extract an action */
 			text_to_acscii(macro__buf, buf);
 		}
 		else bell();
