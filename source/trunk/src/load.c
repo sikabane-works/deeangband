@@ -886,7 +886,6 @@ static errr rd_creature(creature_type *creature_ptr)
 
 	rd_u16b(&creature_ptr->total_winner);
 
-	// Update
 	set_experience(creature_ptr);
 	set_creature_bonuses(creature_ptr, FALSE);
 
