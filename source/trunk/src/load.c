@@ -1216,22 +1216,15 @@ static errr rd_savefile_new_aux(void)
 	v_check = 0L;
 	x_check = 0L;
 
-	strip_bytes(1);
-	rd_system_info();
-
 	note(format(MES_LOAD_START(ver_major, ver_minor, ver_patch))); /* Mention the savefile version */
-
-
-	/* Read RNG state */
-	rd_randomizer();
+	
+	strip_bytes(1); /* Skip - Initial value of xor_byte */
+	rd_system_info();
+	rd_randomizer(); /* Read RNG state */
 	note(MES_LOAD_RANDOM_SEED);
-
-	// Then the options
-	rd_options();
+	rd_options(); /* Then the options */
 	note(MES_LOAD_OPTION);
-
-	// Then the "messages"
-	//TODO rd_messages();
+	rd_messages(); /* Then the "messages" */
 	note(MES_LOAD_MESSAGE);
 
 	for (i = 0; i < max_species_idx; i++)

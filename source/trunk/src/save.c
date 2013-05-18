@@ -844,6 +844,7 @@ static bool wr_system_info(void)
 #else
 	wr_byte(1); /* ASCII */
 #endif
+	return SUCCESS;
 }
 
 // Actually write a save-file
@@ -861,22 +862,20 @@ static bool wr_savefile_new(void)
 	sf_when = now;
 	sf_saves++;
 
+	/* Reset the checksum */
+	v_stamp = 0L;
+	x_stamp = 0L;
+
 	/*** Actually write the file ***/
 
 	/* Initial value of xor_byte */
 	tmp8u = (byte)randint0(256);
 	wr_byte(tmp8u);
 
-	/* Reset the checksum */
-	v_stamp = 0L;
-	x_stamp = 0L;
-
 	wr_system_info();
-
-	wr_randomizer();	// Write the RNG state
-	wr_options();		// Write the boolean "options"
-
-	//TODO wr_messages();
+	wr_randomizer();	/* Write the RNG state */
+	wr_options();		/* Write the boolean "options" */
+	wr_messages();
 
 	/*** Dump the creatures ***/
 	wr_u16b(unique_max); // Unique creatures
