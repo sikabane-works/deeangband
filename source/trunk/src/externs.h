@@ -491,7 +491,7 @@ extern STORE_ID max_store_idx;
 extern COODINATES max_wild_x, max_wild_y;
 
 /* Unique Data for D'angband*/
-extern u16b unique_max;
+extern CREATURE_ID unique_max;
 
 extern quest_type *quest;
 extern char questp_text[10][80];

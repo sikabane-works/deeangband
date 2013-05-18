@@ -877,7 +877,7 @@ TRAIT_ID max_trait_idx;			// Maximum number of traits_precondition
 CREATURE_ID max_creature_idx;	// Maximum number of creatures in simulate
 STORE_ID max_store_idx;				// Maximum number of store pre info in the world
 AUTHORITY_ID max_authorities_idx;		// Maximum number of authorities
-u16b unique_max;				// Maximum number of uniques in the world
+CREATURE_ID unique_max;				// Maximum number of uniques in the world
 
 
 /*

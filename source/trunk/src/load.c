@@ -1197,7 +1197,7 @@ static errr rd_savefile_new_aux(void)
 {
 	errr err;
 	int i, j;
-	s16b limit;
+	CREATURE_ID limit;
 	COODINATES wild_x_size;
 	COODINATES wild_y_size;
 	u16b tmp16u;
@@ -1234,19 +1234,12 @@ static errr rd_savefile_new_aux(void)
 		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) species_ptr->max_num = 1;
 	}
 
-	// Unique creatures
-	rd_u16b(&unique_max);
-
 	/*** Creatures ***/
-
-	// Read the creature count
-	rd_s16b(&limit);
+	READ_CREATURE_ID(&unique_max); /* Unique creatures */
+	READ_CREATURE_ID(&limit); /* Total creatures */
 	if(limit > max_creature_idx) return LOAD_ERROR_TOO_MANY_CREATURE;
 
-	//TODO
 	player_ptr = &creature_list[1];
-
-	strip_bytes(2);
 
 	// Read creatures
 	for (i = 1; i < limit; i++)

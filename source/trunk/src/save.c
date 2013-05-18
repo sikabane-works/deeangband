@@ -854,10 +854,10 @@ static bool wr_savefile_new(void)
 	u32b now;
 	byte tmp8u;
 
-	compact_objects(0);		// Compact the objects
-	compact_creatures(0);	// Compact the creatures
+	compact_objects(0); /* Compact the objects */
+	compact_creatures(0); /* Compact the creatures */
 
-	now = (u32b)time((time_t *)0); // Guess at the current time
+	now = (u32b)time((time_t *)0); /* Guess at the current time */
 	sf_system = 0L;
 	sf_when = now;
 	sf_saves++;
@@ -878,8 +878,8 @@ static bool wr_savefile_new(void)
 	wr_messages();
 
 	/*** Dump the creatures ***/
-	wr_u16b(unique_max); // Unique creatures
-	WRITE_CREATURE_ID(creature_max); // Total creatures
+	WRITE_CREATURE_ID(unique_max); /* Unique creatures */
+	WRITE_CREATURE_ID(creature_max); /* Total creatures */
 	for (i = 1; i < creature_max; i++) wr_creature(&creature_list[i]); // Dump the creatures
 
 	// Dump the object memory
@@ -990,8 +990,10 @@ static bool wr_savefile_new(void)
 	return TRUE;
 }
 
-// Medium level player saver
-// Angband 2.8.0 will use "fd" instead of "fff" if possible
+/*
+ * Medium level player saver
+ * Angband 2.8.0 will use "fd" instead of "fff" if possible
+ */
 static bool save_player_aux(char *name)
 {
 	bool ok = FALSE;
@@ -999,70 +1001,42 @@ static bool save_player_aux(char *name)
 	int mode = 0644;
 	fff = NULL;
 
-	/* File type is "SAVE" */
-	FILE_TYPE(FILE_TYPE_SAVE);
+	FILE_TYPE(FILE_TYPE_SAVE); /* File type is "SAVE" */
+	safe_setuid_grab(); /* Grab permissions */
+	fd = fd_make(name, mode); /* Create the savefile */
 
-	/* Grab permissions */
-	safe_setuid_grab();
+	safe_setuid_drop(); /* Drop permissions */
 
-	/* Create the savefile */
-	fd = fd_make(name, mode);
-
-	/* Drop permissions */
-	safe_setuid_drop();
-
-	/* File is okay */
-	if(fd >= 0)
+	
+	if(fd >= 0) /* File is okay */
 	{
-		/* Close the "fd" */
-		(void)fd_close(fd);
-
-		/* Grab permissions */
-		safe_setuid_grab();
-
+		(void)fd_close(fd); /* Close the "fd" */
+		safe_setuid_grab(); /* Grab permissions */
 		fff = my_fopen(name, "wb");
+		safe_setuid_drop(); /* Drop permissions */
 
-		/* Drop permissions */
-		safe_setuid_drop();
-
-		/* Successful open */
-		if(fff)
+		if(fff) /* Successful open */
 		{
-			/* Write the savefile */
-			if(wr_savefile_new()) ok = TRUE;
-
-			/* Attempt to close it */
-			if(my_fclose(fff)) ok = FALSE;
+			if(wr_savefile_new()) ok = TRUE; /* Write the savefile */
+			if(my_fclose(fff)) ok = FALSE; /* Attempt to close it */
 		}
 
-		/* Grab permissions */
-		safe_setuid_grab();
-
-		/* Remove "broken" files */
-		if(!ok) (void)fd_kill(name);
-
-		/* Drop permissions */
-		safe_setuid_drop();
+		safe_setuid_grab(); /* Grab permissions */
+		if(!ok) (void)fd_kill(name); /* Remove "broken" files */
+		safe_setuid_drop(); /* Drop permissions */
 	}
 
-
 	if(!ok) return FALSE;
-
 	counts_write(0, play_time);
-
-	/* Successful save */
-	character_saved = TRUE;
-
+	character_saved = TRUE; /* Successful save */
 	return TRUE;
 }
 
-
-// Attempt to save the player in a savefile
+/* Attempt to save the player in a savefile */
 bool save_player(void)
 {
 	int result = FALSE;
 	char safe[1024];
-
 
 #ifdef SET_UID
 #ifdef SECURE
@@ -1381,12 +1355,10 @@ int load_player(void)
 		/* Remove lock */
 		fd_kill(temp);
 	}
-
 #endif
 
 	msg_format(MES_SYS_SAVEFILE_ERROR(what, ver_major, ver_minor, ver_patch));
 	msg_print(NULL);
-
 	return err;
 }
 
