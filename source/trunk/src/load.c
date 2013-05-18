@@ -1175,13 +1175,17 @@ static errr rd_floors(void)
 	return err;
 }
 
-static errr rd_version_number(void)
+static errr rd_system_info(void)
 {
 	rd_byte(&ver_extra);
 	rd_byte(&ver_patch);
 	rd_byte(&ver_minor);
 	rd_byte(&ver_major);
-
+	rd_u32b(&sf_system); /* Operating system info */
+	rd_u32b(&sf_when); /* Time of savefile creation */
+	rd_u16b(&sf_lives); /* Number of resurrections */
+	rd_u16b(&sf_saves); /* Number of times played */
+	rd_byte(&kanji_code); /* Kanji code */
 	return SUCCESS;
 }
 
@@ -1212,24 +1216,11 @@ static errr rd_savefile_new_aux(void)
 	v_check = 0L;
 	x_check = 0L;
 
-	rd_version_number();
+	strip_bytes(1);
+	rd_system_info();
 
 	note(format(MES_LOAD_START(ver_major, ver_minor, ver_patch))); /* Mention the savefile version */
 
-	/* Operating system info */
-	rd_u32b(&sf_system);
-
-	/* Time of savefile creation */
-	rd_u32b(&sf_when);
-
-	/* Number of resurrections */
-	rd_u16b(&sf_lives);
-
-	/* Number of times played */
-	rd_u16b(&sf_saves);
-
-	/* Kanji code */
-	rd_byte(&kanji_code);
 
 	/* Read RNG state */
 	rd_randomizer();

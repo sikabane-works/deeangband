@@ -988,7 +988,7 @@ typedef png_struct FAR * FAR * png_structpp;
  */
 
 /* Returns the version number of the library */
-PNG_EXPORT(1, png_uint_32, png_access_version_number, (void));
+PNG_EXPORT(1, png_uint_32, png_access_system_info, (void));
 
 /* Tell lib we have already handled the first <num_bytes> magic bytes.
  * Handling more than 8 bytes from the beginning of the file is an error.

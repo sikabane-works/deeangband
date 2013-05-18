@@ -824,12 +824,26 @@ static bool wr_floors(creature_type *player_ptr)
 	return TRUE; 
 }
 
-static bool wr_version_number(void)
+static bool wr_system_info(void)
 {
 	wr_byte(VER_EXTRA);
 	wr_byte(VER_PATCH);
 	wr_byte(VER_MINOR);
 	wr_byte(VER_MAJOR);
+	wr_u32b(sf_system);	/* Operating system */
+	wr_u32b(sf_when);	/* Time file last saved */
+	wr_u16b(sf_lives);	/* Number of past lives */
+	wr_u16b(sf_saves);	/* Number of times saved */
+#ifdef JP
+#ifdef EUC
+	wr_byte(2); /* EUC kanji code */
+#endif
+#ifdef SJIS
+	wr_byte(3); /* SJIS kanji code */
+#endif
+#else
+	wr_byte(1); /* ASCII */
+#endif
 }
 
 // Actually write a save-file
@@ -857,23 +871,7 @@ static bool wr_savefile_new(void)
 	v_stamp = 0L;
 	x_stamp = 0L;
 
-	wr_version_number();
-
-	wr_u32b(sf_system);	/* Operating system */
-	wr_u32b(sf_when);	/* Time file last saved */
-	wr_u16b(sf_lives);	/* Number of past lives */
-	wr_u16b(sf_saves);	/* Number of times saved */
-
-#ifdef JP
-#ifdef EUC
-	wr_byte(2); // EUC kanji code
-#endif
-#ifdef SJIS
-	wr_byte(3); // SJIS kanji code
-#endif
-#else
-	wr_byte(1); // ASCII
-#endif
+	wr_system_info();
 
 	wr_randomizer();	// Write the RNG state
 	wr_options();		// Write the boolean "options"
