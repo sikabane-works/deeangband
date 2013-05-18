@@ -44,6 +44,7 @@
 #define MES_SYS_FAILED_FILEOPEN2 "%s を開くことができませんでした。"
 #define MES_SYS_REPLACE_FILE "現存するファイルに上書きしますか? (%s)"
 #define MES_SYS_HIT_ANY_KEY "何かキーを押して下さい。"
+#define MES_SYS_HIT_SPACE_KEY "スペースキーで続行"
 #define MES_SYS_HIT_VERIFY_KEY "確認のため '@' を押して下さい。"
 #define MES_SYS_PLACE_SPACE "場所を選んでスペースキーを押して下さい。"
 #define MES_SYS_OPTION_AUX "初期オプション((*)はスコアに影響)"
@@ -130,6 +131,7 @@
 #define MES_SYS_GAME_SAVING "Saving game..."
 #define MES_SYS_QUITING_KEY "Press Return (or Escape)."
 #define MES_SYS_ANY_KEY "[Press any key to continue]"
+#define MES_SYS_HIT_SPACE_KEY "Press the space bar to continue"
 #define MES_SYS_SAVEFILE_ERROR(NUM, MAJ, MIN, EXT) "Error (%s) reading %d.%d.%d savefile.", (NUM), (MAJ), (MIN), (EXT)
 #define MES_SYS_SAVEFILE_ERROR2 "Cannot parse savefile."
 #define MES_SYS_SAVEFILE_ERROR3 "Broken savefile"
@@ -773,6 +775,7 @@
 #define MES_ARENA_NO_PET "ペットに乗ったままではアリーナへ入れさせてもらえなかった。"
 #define MES_ARENA_YOU_ARE_WINNER "あなたは勝利者だ。 アリーナでのセレモニーに参加しなさい。"
 #define MES_ARENA_CLEARED "あなたはすべての敵に勝利した。"
+#define MES_ARENA_WINNER "アリーナの優勝者！\nおめでとう！あなたは全ての敵を倒しました。\n賞金として $1,000,000 が与えられます。"
 #else
 #define MES_ARENA_READY "Ready..Fight!"
 #define MES_ARENA_LIMIT "The arena absorbs all attempted magic!"
@@ -788,6 +791,7 @@
 #define MES_ARENA_NO_PET "You don't have permission to enter with pet."
 #define MES_ARENA_YOU_ARE_WINNER "You are victorious. Enter the arena for the ceremony."
 #define MES_ARENA_CLEARED "You have won against all foes."
+#define MES_ARENA_WINNER "Arena Victor!\nCongratulations!  You have defeated all before you.\nFor that, receive the prize: 1,000,000 gold pieces"
 #endif
 
 #ifdef JP

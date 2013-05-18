@@ -206,21 +206,8 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 			if(arena_number == MAX_ARENA_MONS)
 			{
 				clear_bldg(5, 19);
-#ifdef JP
-				prt("アリーナの優勝者！", 5, 0);
-				prt("おめでとう！あなたは全ての敵を倒しました。", 7, 0); 
-				prt("賞金として $1,000,000 が与えられます。", 8, 0);
-				prt("", 10, 0);
-				prt("", 11, 0);
-				msg_print("スペースキーで続行");
-#else
-				prt("               Arena Victor!", 5, 0);
-				prt("Congratulations!  You have defeated all before you.", 7, 0);
-				prt("For that, receive the prize: 1,000,000 gold pieces", 8, 0);
-				prt("", 10, 0);
-				prt("", 11, 0);
-				msg_print("Press the space bar to continue");
-#endif
+				prt(MES_ARENA_WINNER, 5, 0);
+				msg_print(MES_SYS_HIT_SPACE_KEY);
 				creature_ptr->au += 1000000L;
 
 				msg_print(NULL);
