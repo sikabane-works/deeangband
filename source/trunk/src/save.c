@@ -368,7 +368,6 @@ static void wr_creature(creature_type *creature_ptr)
 	/* Add a sentinel */
 	wr_u16b(0xFFFF);
 
-
 	/* Dump the stats (maximum and current) */
 	for (i = 0; i < STAT_MAX; ++i) WRITE_STAT(creature_ptr->stat_max[i]);
 	for (i = 0; i < STAT_MAX; ++i) WRITE_STAT(creature_ptr->stat_max_max[i]);
@@ -384,7 +383,6 @@ static void wr_creature(creature_type *creature_ptr)
 
 	WRITE_COODINATES(creature_ptr->fy);
 	WRITE_COODINATES(creature_ptr->fx);
-
 	WRITE_COODINATES(creature_ptr->wx);
 	WRITE_COODINATES(creature_ptr->wy);
 
@@ -441,8 +439,7 @@ static void wr_creature(creature_type *creature_ptr)
 			WRITE_GAME_TIME(creature_ptr->timed_trait[i]);
 		}
 	}
-	wr_s16b(-1);
-
+	WRITE_TRAIT_ID(-1);
 	WRITE_DUNGEON_ID(creature_ptr->recall_dungeon);
 
 	wr_s16b(creature_ptr->see_infra);
@@ -897,7 +894,7 @@ static bool wr_savefile_new(void)
 	wr_randomizer();	// Write the RNG state
 	wr_options();		// Write the boolean "options"
 
-	wr_messages();
+	//TODO wr_messages();
 
 	/*** Dump the creatures ***/
 	wr_u16b(unique_max); // Unique creatures

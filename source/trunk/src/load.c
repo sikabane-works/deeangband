@@ -770,7 +770,6 @@ static errr rd_creature(creature_type *creature_ptr)
 	for (i = 0; i < STAT_MAX; i++) READ_STAT(&creature_ptr->stat_cur[i]);
 
 	rd_s32b(&creature_ptr->au);
-
 	rd_s32b(&creature_ptr->max_exp);
 	rd_s32b(&creature_ptr->max_max_exp);
 	rd_s32b(&creature_ptr->exp);
@@ -779,14 +778,12 @@ static errr rd_creature(creature_type *creature_ptr)
 
 	READ_COODINATES(&creature_ptr->fy);
 	READ_COODINATES(&creature_ptr->fx);
-
-	rd_s32b(&creature_ptr->wx);
-	rd_s32b(&creature_ptr->wy);
+	READ_COODINATES(&creature_ptr->wx);
+	READ_COODINATES(&creature_ptr->wy);
 
 	READ_FLOOR_LEV(&creature_ptr->depth);
 
-	// Read creature's HP array
-
+	/* Read creature's HP array */
 	rd_u16b(&tmp16u);
 	if(tmp16u > CREATURE_MAX_LEVEL) note(format("Too many (%u) hitpoint entries!", tmp16u));
 	for (i = 0; i < tmp16u; i++) READ_STAT(&creature_ptr->base_hp[i]);
@@ -795,9 +792,8 @@ static errr rd_creature(creature_type *creature_ptr)
 	for (i = 0; i < MAX_REALM; i++) READ_SKILL_EXP(&creature_ptr->spell_exp[i]);
 	for (i = 0; i < MAX_SKILLS; i++) READ_SKILL_EXP(&creature_ptr->skill_exp[i]);
 
-	// Class skill
+	/* Class skill */
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) READ_FLAGS_32(&creature_ptr->blue_learned_trait[i]);
-
 	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) READ_QUANTITY(&creature_ptr->current_charge[i]);
 	for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++) READ_QUANTITY(&creature_ptr->max_charge[i]);		
 
@@ -826,7 +822,7 @@ static errr rd_creature(creature_type *creature_ptr)
 
 	READ_CREATURE_LEV(&creature_ptr->max_plv);
 
-	// Repair maximum player level
+	/* Repair maximum player level */
 	if(creature_ptr->max_plv < creature_ptr->lev) creature_ptr->max_plv = creature_ptr->lev;
 
 	READ_STAT(&creature_ptr->sc);
@@ -835,7 +831,7 @@ static errr rd_creature(creature_type *creature_ptr)
 	READ_STAT(&creature_ptr->food);
 	READ_ENERGY(&creature_ptr->energy_need);
 
-	// Load timed trait
+	/* Load timed trait */
 	while(TRUE)
 	{
 		READ_TRAIT_ID(&trait_id);
@@ -1206,7 +1202,7 @@ static errr rd_savefile_new_aux(void)
 	u32b n_x_check, n_v_check;
 	u32b o_x_check, o_v_check;
 
-	note(format(MES_LOAD_START(ver_major, ver_minor, ver_patch)); /* Mention the savefile version */
+	note(format(MES_LOAD_START(ver_major, ver_minor, ver_patch))); /* Mention the savefile version */
 		     
 	/* Strip the version bytes */
 	strip_bytes(4);
@@ -1249,7 +1245,7 @@ static errr rd_savefile_new_aux(void)
 	note(MES_LOAD_OPTION);
 
 	// Then the "messages"
-	rd_messages();
+	//TODO rd_messages();
 	note(MES_LOAD_MESSAGE);
 
 	for (i = 0; i < max_species_idx; i++)
@@ -1270,6 +1266,8 @@ static errr rd_savefile_new_aux(void)
 
 	//TODO
 	player_ptr = &creature_list[1];
+
+	strip_bytes(2);
 
 	// Read creatures
 	for (i = 1; i < limit; i++)
