@@ -102,11 +102,11 @@ static void wr_object(object_type *object_ptr)
 	WRITE_PERCENT(object_ptr->discount);
 	WRITE_QUANTITY(object_ptr->number);
 	wr_s32b(object_ptr->volume);
-	wr_s32b(object_ptr->weight);
+	WRITE_WEIGHT(object_ptr->weight);
 	WRITE_ARTIFACT_ID(object_ptr->name1);
 	WRITE_OBJECT_EGO_ID(object_ptr->name2);
 
-	wr_s32b(object_ptr->timeout);
+	WRITE_GAME_TIME(object_ptr->timeout);
 	wr_s16b(object_ptr->charge_const);
 	wr_s16b(object_ptr->charge_dice);
 

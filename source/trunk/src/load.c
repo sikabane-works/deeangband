@@ -323,13 +323,13 @@ static errr rd_object(object_type *object_ptr)
 	READ_PVAL(&object_ptr->pval);
 	READ_CHEST_MODE(&object_ptr->chest_mode);
 	READ_PERCENT(&object_ptr->discount);
-	READ_POPULATION(&object_ptr->number);
+	READ_QUANTITY(&object_ptr->number);
 	rd_s32b(&object_ptr->volume);
-	rd_s32b(&object_ptr->weight);
+	READ_WEIGHT(&object_ptr->weight);
 	READ_ARTIFACT_ID(&object_ptr->name1);
 	READ_OBJECT_EGO_ID(&object_ptr->name2);
 
-	rd_s32b(&object_ptr->timeout);
+	READ_GAME_TIME(&object_ptr->timeout);
 	rd_s16b(&object_ptr->charge_const);
 	rd_s16b(&object_ptr->charge_dice);
 
@@ -426,10 +426,10 @@ static errr rd_inventory(creature_type *creature_ptr)
 
 		if(IS_EQUIPPED(object_ptr)) // Wield equipment
 		{
-			object_ptr->marked |= OM_TOUCHED;						// Player touches it
-			object_copy(&creature_ptr->inventory[n], object_ptr);	// Copy object
-			set_inventory_weight(creature_ptr);						// Add the weight
-			creature_ptr->equip_cnt++;								// One more item
+			object_ptr->marked |= OM_TOUCHED; // Player touches it
+			object_copy(&creature_ptr->inventory[n], object_ptr); // Copy object
+			set_inventory_weight(creature_ptr); // Add the weight
+			creature_ptr->equip_cnt++; // One more item
 		}
 
 		else if(creature_ptr->inven_cnt == INVEN_TOTAL) return LOAD_ERROR_TOO_MANY_INVENTORY; /* Warning -- backpack is full */
@@ -886,8 +886,8 @@ static errr rd_creature(creature_type *creature_ptr)
 
 	rd_u16b(&creature_ptr->total_winner);
 
-	set_experience(creature_ptr);
-	set_creature_bonuses(creature_ptr, FALSE);
+	//TODO set_experience(creature_ptr);
+	//TODO set_creature_bonuses(creature_ptr, FALSE);
 
 	READ_COODINATES(&creature_ptr->pet_follow_distance);
 	rd_s16b(&creature_ptr->pet_extra_flags);
