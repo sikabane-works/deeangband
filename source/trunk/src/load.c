@@ -595,20 +595,9 @@ static void rd_randomizer(void)
 {
 	int i;
 	u16b tmp16u;
-
-	/* Tmp */
 	rd_u16b(&tmp16u);
-
-	/* Place */
 	READ_RAND_SEED(&Rand_place);
-
-	/* State */
-	for (i = 0; i < RAND_DEG; i++)
-	{
-		rd_u32b(&Rand_state[i]);
-	}
-
-	/* Accept */
+	for (i = 0; i < RAND_DEG; i++)rd_u32b(&Rand_state[i]);
 	Rand_quick = FALSE;
 }
 
@@ -629,18 +618,10 @@ static void rd_randomizer(void)
 static void rd_options(void)
 {
 	int i, n;
-
 	byte b;
-
 	u16b c;
-
 	u32b flag[8];
 	u32b mask[8];
-
-
-	/* Ignore old options */
-	strip_bytes(16);
-
 
 	/*** Special info */
 
@@ -759,7 +740,7 @@ static errr rd_creature(creature_type *creature_ptr)
 	rd_byte(&creature_ptr->d_char);
 	rd_byte(&creature_ptr->x_attr);
 	rd_byte(&creature_ptr->x_char);
-	READ_GAME_TURN(&creature_ptr->action_turn);
+	rd_s32b(&creature_ptr->action_turn);
 
 	rd_string(creature_ptr->name, sizeof(creature_ptr->name));
 

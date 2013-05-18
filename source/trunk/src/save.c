@@ -228,12 +228,9 @@ static void wr_store(store_type *st_ptr)
 static errr wr_randomizer(void)
 {
 	int i;
-
-	/* Zero */
 	wr_u16b(0);
 	WRITE_RAND_SEED(Rand_place);
 	for (i = 0; i < RAND_DEG; i++) wr_u32b(Rand_state[i]);
-
 	return SUCCESS;
 }
 
@@ -245,8 +242,6 @@ static void wr_options(void)
 {
 	int i;
 	u16b c;
-
-	for (i = 0; i < 4; i++) wr_u32b(0L);
 
 	/*** Special Options ***/
 
@@ -329,7 +324,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_byte(creature_ptr->d_char);
 	wr_byte(creature_ptr->x_attr);
 	wr_byte(creature_ptr->x_char);
-	WRITE_GAME_TURN(creature_ptr->action_turn);
+	wr_s32b(creature_ptr->action_turn);
 
 	wr_string(creature_ptr->name);
 	wr_string(creature_ptr->last_message ? creature_ptr->last_message : "");
