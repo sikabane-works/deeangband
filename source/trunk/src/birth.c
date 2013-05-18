@@ -3180,7 +3180,7 @@ static int get_creature_class(creature_type *creature_ptr, species_type *species
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		creature_ptr->class_idx = (s16b)ce[randint0(n - 3)].code;
+		creature_ptr->class_idx = (s16b)ce[randint0(se_info.num - 3)].code;
 		return 0;
 	}
 	else return i;
@@ -3273,16 +3273,17 @@ static int get_creature_patron(creature_type *creature_ptr, species_type *specie
 
 	put_str(MES_BIRTH_PATRON, 0, 0);
 	if(!npc) put_initial_status(creature_ptr);
+	if(se_info.num <= 0) return 0;
 	i = get_selection(&se_info, pt);
 
 	if(i >= 0)
 	{
-		creature_ptr->patron_idx = (s16b)i;
+		creature_ptr->patron_idx = (SPECIES_ID)i;
 		return 0;
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		creature_ptr->patron_idx = (s16b)pt[randint0(n - 3)].code;
+		creature_ptr->patron_idx = (s16b)pt[randint0(se_info.num - 3)].code;
 		return 0;
 	}
 	else return i;
@@ -3462,7 +3463,7 @@ static int get_starting_point(creature_type *creature_ptr, bool npc)
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		j = se[randint0(n - 3)].code;
+		j = se[randint0(se_info.num - 3)].code;
 		creature_ptr->start_wy = starting_point[j].wy;
 		creature_ptr->start_wx = starting_point[j].wx;
 		return 0;
