@@ -660,19 +660,8 @@ static void rd_options(void)
 				/* Process valid flags */
 				if(option_mask[n] & (1L << i))
 				{
-					/* Set */
-					if(flag[n] & (1L << i))
-					{
-						/* Set */
-						option_flag[n] |= (1L << i);
-					}
-
-					/* Clear */
-					else
-					{
-						/* Clear */
-						option_flag[n] &= ~(1L << i);
-					}
+					if(flag[n] & (1L << i)) option_flag[n] |= (1L << i);
+					else option_flag[n] &= ~(1L << i);
 				}
 			}
 		}
@@ -685,17 +674,13 @@ static void rd_options(void)
 	for (n = 0; n < 8; n++) READ_FLAGS_32(&flag[n]); /* Read the window flags */
 	for (n = 0; n < 8; n++) READ_FLAGS_32(&mask[n]); /* Read the window masks */
 
-	/* Analyze the options */
-	for (n = 0; n < 8; n++)
+	for (n = 0; n < 8; n++) /* Analyze the options */
 	{
-		/* Analyze the options */
-		for (i = 0; i < 32; i++)
+		for (i = 0; i < 32; i++) /* Analyze the options */
 		{
-			/* Process valid flags */
-			if(mask[n] & (1L << i))
+			if(mask[n] & (1L << i)) /* Process valid flags */
 			{
-				/* Process valid flags */
-				if(window_mask[n] & (1L << i))
+				if(window_mask[n] & (1L << i)) /* Process valid flags */
 				{
 					if(flag[n] & (1L << i)) window_flag[n] |= (1L << i);
 					else window_flag[n] &= ~(1L << i);
@@ -1221,12 +1206,7 @@ static errr rd_savefile_new_aux(void)
 	u32b n_x_check, n_v_check;
 	u32b o_x_check, o_v_check;
 
-	// Mention the savefile version
-#ifdef JP
-	note(format("バージョン %d.%d.%d のセーブ・ファイルをロード中...", (ver_major > 9) ? ver_major - 10 : ver_major, ver_minor, ver_patch));
-#else
-	note(format("Loading a %d.%d.%d savefile...", (ver_major > 9) ? ver_major - 10 : ver_major, ver_minor, ver_patch));
-#endif
+	note(format(MES_LOAD_START(ver_major, ver_minor, ver_patch)); /* Mention the savefile version */
 		     
 	/* Strip the version bytes */
 	strip_bytes(4);

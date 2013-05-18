@@ -843,9 +843,7 @@ static bool wr_savefile_new(void)
 	now = (u32b)time((time_t *)0); // Guess at the current time
 
 	sf_system = 0L;
-
 	sf_when = now;
-
 	sf_saves++;
 
 	/*** Actually write the file ***/
@@ -862,7 +860,6 @@ static bool wr_savefile_new(void)
 	/* Initial value of xor_byte */
 	tmp8u = (byte)randint0(256);
 	wr_byte(tmp8u);
-
 
 	/* Reset the checksum */
 	v_stamp = 0L;

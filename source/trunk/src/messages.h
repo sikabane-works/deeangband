@@ -207,10 +207,12 @@
 #endif
 
 #ifdef JP
+#define MES_LOAD_START(VER1, VER2, VER3) "バージョン %d.%d.%d のセーブ・ファイルをロード中...", (VER1), (VER2), (VER3)
 #define MES_LOAD_RANDOM_SEED "乱数情報をロードしました"
 #define MES_LOAD_OPTION "オプションをロードしました"
 #define MES_LOAD_MESSAGE "メッセージをロードしました"
 #else
+#define MES_LOAD_START(VER1, VER2, VER3) "Loading a %d.%d.%d savefile...", (VER1), (VER2), (VER3)
 #define MES_LOAD_RANDOM_SEED "Loaded Randomizer Info"
 #define MES_LOAD_OPTION "Loaded Option Flags"
 #define MES_LOAD_MESSAGE "Loaded Messages"
