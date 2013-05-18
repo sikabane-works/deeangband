@@ -1809,13 +1809,7 @@ void do_cmd_macros(void)
 
 				/* Make new keymap */
 				keymap_act[mode][(byte)(buf[0])] = string_make(macro__buf);
-
-#ifdef JP
-				msg_print("キー配置を追加しました。");
-#else
-				msg_print("Added a keymap.");
-#endif
-
+				msg_print(MES_OPTION_APPEND_KEYMAP);
 			}
 		}
 
@@ -1833,12 +1827,7 @@ void do_cmd_macros(void)
 			/* Make new keymap */
 			keymap_act[mode][(byte)(buf[0])] = NULL;
 
-#ifdef JP
-			msg_print("キー配置を削除しました。");
-#else
-			msg_print("Removed a keymap.");
-#endif
-
+			msg_print(MES_OPTION_REMOVE_KEYMAP);
 		}
 
 		/* Enter a new action */
