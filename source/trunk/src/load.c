@@ -198,7 +198,6 @@ static byte sf_get(void)
 	v_check += v;
 	x_check += xor_byte;
 
-	// Return the value
 	return (v);
 }
 
@@ -1196,11 +1195,6 @@ static errr rd_savefile_new_aux(void)
 	u32b n_x_check, n_v_check;
 	u32b o_x_check, o_v_check;
 
-	note(format(MES_LOAD_START(ver_major, ver_minor, ver_patch))); /* Mention the savefile version */
-		     
-	/* Strip the version bytes */
-	strip_bytes(4);
-
 	/* Hack -- decrypt */
 	xor_byte = sf_extra;
 
@@ -1214,6 +1208,7 @@ static errr rd_savefile_new_aux(void)
 	rd_byte(&ver_patch);
 	rd_byte(&ver_minor);
 	rd_byte(&ver_major);
+	note(format(MES_LOAD_START(ver_major, ver_minor, ver_patch))); /* Mention the savefile version */
 
 	/* Operating system info */
 	rd_u32b(&sf_system);

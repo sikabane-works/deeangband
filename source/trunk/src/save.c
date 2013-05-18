@@ -833,22 +833,13 @@ static bool wr_savefile_new(void)
 
 	compact_objects(0);		// Compact the objects
 	compact_creatures(0);	// Compact the creatures
-	now = (u32b)time((time_t *)0); // Guess at the current time
 
+	now = (u32b)time((time_t *)0); // Guess at the current time
 	sf_system = 0L;
 	sf_when = now;
 	sf_saves++;
 
 	/*** Actually write the file ***/
-
-	/* Dump the file header */
-	xor_byte = 0;
-	wr_byte(VER_MAJOR);
-	xor_byte = 0;
-	wr_byte(VER_MINOR);
-	xor_byte = 0;
-	wr_byte(VER_PATCH);
-	xor_byte = 0;
 
 	/* Initial value of xor_byte */
 	tmp8u = (byte)randint0(256);
@@ -858,23 +849,16 @@ static bool wr_savefile_new(void)
 	v_stamp = 0L;
 	x_stamp = 0L;
 
-	/* Write the savefile version for Hengband 1.1.1 and later */
+	/* Write the savefile version */
 	wr_byte(VER_EXTRA);
 	wr_byte(VER_PATCH);
 	wr_byte(VER_MINOR);
 	wr_byte(VER_MAJOR);
 
-	/* Operating system */
-	wr_u32b(sf_system);
-
-	/* Time file last saved */
-	wr_u32b(sf_when);
-
-	/* Number of past lives */
-	wr_u16b(sf_lives);
-
-	/* Number of times saved */
-	wr_u16b(sf_saves);
+	wr_u32b(sf_system);	/* Operating system */
+	wr_u32b(sf_when);	/* Time file last saved */
+	wr_u16b(sf_lives);	/* Number of past lives */
+	wr_u16b(sf_saves);	/* Number of times saved */
 
 #ifdef JP
 #ifdef EUC
