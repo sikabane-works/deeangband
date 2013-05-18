@@ -423,43 +423,35 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, COODINATES world_y,
 	// Search the quest creature index
 	for (i = 0; i < max_quests; i++)
 	{
-		if((quest[i].status == QUEST_STATUS_TAKEN) && 
-			 ((quest[i].type == QUEST_TYPE_KILL_LEVEL) || (quest[i].type == QUEST_TYPE_RANDOM)) &&
-		     (quest[i].level == prev_ptr->depth) &&
-		     (prev_ptr->dungeon_id == quest[i].dungeon) &&
-		     !(quest[i].flags & QUEST_FLAG_PRESET))
+		if((quest[i].status == QUEST_STATUS_TAKEN) && ((quest[i].type == QUEST_TYPE_KILL_LEVEL) || (quest[i].type == QUEST_TYPE_RANDOM)) &&
+			(quest[i].level == prev_ptr->depth) && (prev_ptr->dungeon_id == quest[i].dungeon) && !(quest[i].flags & QUEST_FLAG_PRESET))
 		{
 			quest_species_idx = quest[i].species_idx;
 		}
 	}
 
-	// Get back to old saved floor.
+	/* Get back to old saved floor.*/
 	if(stair_ptr->to_floor && stair_ptr->cy && stair_ptr->cx)
 	{
 		new_floor_ptr = &floor_list[stair_ptr->to_floor]; // Saved floor is exist.  Use it.
 		move_creature(creature_ptr, new_floor_ptr, stair_ptr->cy, stair_ptr->cx, 0);
 		floor_idx = stair_ptr->to_floor;
 	}
-
-	// Create New Floor
-	else
+	else /* Create New Floor */
 	{
 		int floor_idx = floor_pop();
 		floor_type *floor_ptr = &floor_list[floor_idx];
 		generate_floor(floor_ptr, dungeon_id, world_y, world_x, depth);
 		new_floor_ptr = &floor_list[floor_idx];
 
-		// Choose random stairs
+		/* Choose random stairs */
 		if(!(flag & CFM_RAND_SEED)) locate_connected_stairs(creature_ptr, stair_ptr, prev_ptr, new_floor_ptr, flag);
-
 		connect_cave_to(stair_ptr, floor_idx, creature_ptr->fy, creature_ptr->fx);
-		//connect_cave_to(&new_floor_ptr->cave[player_ptr->fy][player_ptr->fx], old_floor_idx, old_fy, old_fx);
 	}
 
 	if(stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->to_floor = floor_idx; // Connect from here
 
 	// If you can return, you need to save previous floor
-
 	if((flag & CFM_SAVE_FLOORS) && !(flag & CFM_NO_RETURN))
 	{
 		get_out_creature(new_floor_ptr, creature_ptr); // Get out of the my way!

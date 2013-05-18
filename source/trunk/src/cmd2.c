@@ -77,7 +77,6 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	/* Cancel the command */
 	if(!go_up) return;
 
-	/* Hack -- take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	if(autosave_l) do_cmd_save_game(TRUE);
@@ -143,7 +142,6 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
-
 	bool fall_trap = FALSE;
 	int down_num = 0;
 
@@ -190,21 +188,11 @@ void do_cmd_go_down(creature_type *creature_ptr)
 				if(!get_check(MES_FEATURE_ASK_ENTER_DUNGEON)) return;
 			}
 
-			/* Save old player position */
 			creature_ptr->oldpx = creature_ptr->fx;
 			creature_ptr->oldpy = creature_ptr->fy;
-
-			/*
-			 * Clear all saved floors
-			 * and create a first saved floor
-			 */
-			//move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, dungeon_info[target_dungeon].mindepth, floor_ptr, CFM_SAVE_FLOORS);
-
 		}
 
-		/* Hack -- take a turn */
 		cost_tactical_energy(creature_ptr, 100);
-
 		if(autosave_l) do_cmd_save_game(TRUE);
 
 		/* Go down */
@@ -235,7 +223,6 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			}
 			else
 			{
-
 				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(MES_COMBAT_TALK_STAIR);
 				else
 #ifdef JP
@@ -248,20 +235,11 @@ void do_cmd_go_down(creature_type *creature_ptr)
 
 		subject_change_floor = TRUE; // Leaving
 
-		if(fall_trap)
-		{
-			move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, CFM_RAND_SEED | CFM_RAND_CONNECT);
-		}
+		if(fall_trap) move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, CFM_RAND_SEED | CFM_RAND_CONNECT);
 		else
 		{
-			if(have_flag(f_ptr->flags, FF_SHAFT))
-			{
-				move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 2, floor_ptr, 0);
-			}
-			else
-			{
-				move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, 0);
-			}
+			if(have_flag(f_ptr->flags, FF_SHAFT)) move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 2, floor_ptr, 0);
+			else move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, 0);
 		}
 	}
 }
@@ -278,11 +256,8 @@ void do_cmd_search(creature_type *creature_ptr)
 	{
 		/* Set repeat count */
 		command_rep = command_arg - 1;
-
 		prepare_redraw(PR_STATE);
-
-		/* Cancel the arg */
-		command_arg = 0;
+		command_arg = 0; /* Cancel the arg */
 	}
 
 	cost_tactical_energy(creature_ptr, 100);
@@ -1598,12 +1573,11 @@ void do_cmd_alter(creature_type *creature_ptr)
 	COODINATES y, x;
 	DIRECTION dir;
 	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	cave_type	*c_ptr;
-	bool		more = FALSE;
+	cave_type *c_ptr;
+	bool more = FALSE;
 
 	free_posture(creature_ptr);
 
-	
 	if(command_arg) // Allow repeated command
 	{
 		command_rep = command_arg - 1;
