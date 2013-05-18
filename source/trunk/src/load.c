@@ -637,9 +637,7 @@ static void rd_options(void)
 	rd_byte(&b);
 	mana_warn = b;
 
-
 	/*** Cheating options ***/
-
 	rd_u16b(&c);
 
 	if(c & 0x0002) wizard = TRUE;
@@ -696,12 +694,8 @@ static void rd_options(void)
 	extract_option_vars();
 
 	/*** Window Options ***/
-
-	/* Read the window flags */
-	for (n = 0; n < 8; n++) rd_u32b(&flag[n]);
-
-	/* Read the window masks */
-	for (n = 0; n < 8; n++) rd_u32b(&mask[n]);
+	for (n = 0; n < 8; n++) READ_FLAGS_32(&flag[n]); /* Read the window flags */
+	for (n = 0; n < 8; n++) READ_FLAGS_32(&mask[n]); /* Read the window masks */
 
 	/* Analyze the options */
 	for (n = 0; n < 8; n++)

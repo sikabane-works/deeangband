@@ -244,23 +244,15 @@ static void wr_options(void)
 	u16b c;
 
 	/*** Special Options ***/
-
-	/* Write "delay_factor" */
-	wr_byte(delay_factor);
-
-	/* Write "hitpoint_warn" */
-	wr_byte(hitpoint_warn);
-
-	/* Write "mana_warn" */
-	wr_byte(mana_warn);
+	wr_byte(delay_factor); /* Write "delay_factor" */
+	wr_byte(hitpoint_warn); /* Write "hitpoint_warn" */
+	wr_byte(mana_warn); /* Write "mana_warn" */
 
 	/*** Cheating options ***/
 
 	c = 0;
-
 	if(wizard) c |= 0x0002;
 	if(unique_play) c |= 0x0004;
-
 	if(cheat_peek) c |= 0x0100;
 	if(cheat_hear) c |= 0x0200;
 	if(cheat_room) c |= 0x0400;
@@ -292,23 +284,12 @@ static void wr_options(void)
 		}
 	}
 
-
 	/*** Normal options ***/
-
-	/* Dump the flags */
-	for (i = 0; i < 8; i++) WRITE_FLAGS_32(option_flag[i]);
-
-	/* Dump the masks */
-	for (i = 0; i < 8; i++) WRITE_FLAGS_32(option_mask[i]);
-
-
+	for (i = 0; i < 8; i++) WRITE_FLAGS_32(option_flag[i]); /* Dump the flags */
+	for (i = 0; i < 8; i++) WRITE_FLAGS_32(option_mask[i]); /* Dump the masks */
 	/*** Window options ***/
-
-	/* Dump the flags */
-	for (i = 0; i < 8; i++) WRITE_FLAGS_32(window_flag[i]);
-
-	/* Dump the masks */
-	for (i = 0; i < 8; i++) wr_u32b(window_mask[i]);
+	for (i = 0; i < 8; i++) WRITE_FLAGS_32(window_flag[i]); /* Dump the flags */
+	for (i = 0; i < 8; i++) WRITE_FLAGS_32(window_mask[i]); /* Dump the masks */
 }
 
 
