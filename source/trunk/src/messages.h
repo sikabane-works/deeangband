@@ -2575,6 +2575,8 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_CUR_BYPASS "この行は現在は無効な状態です。"
 #define MES_AUTOPICK_DISCARD_QUIT "全ての変更を破棄してから終了します。よろしいですか？ "
 #define MES_AUTOPICK_DISCARD_REVERT "全ての変更を破棄して元の状態に戻します。よろしいですか？ "
+#define MES_AUTOPICK_EDITOR "(^Q:終了 ^W:セーブして終了, ESC:メニュー, その他:入力)"
+#define MES_AUTOPICK_TRIGGER_KEY "P:<トリガーキー>: "
 #else
 #define MES_AUTOPICK_COMMANDKEY "<Keypress>"
 #define MES_AUTOPICK_WHICH_ENTRY "Enter which item? "
@@ -2598,6 +2600,8 @@ static cptr desc_stat_neg[] =
 #define MES_AUTOPICK_CUR_BYPASS "This line is bypassed currently."
 #define MES_AUTOPICK_DISCARD_QUIT "Discard all changes and quit. Are you sure? "
 #define MES_AUTOPICK_DISCARD_REVERT "Discard all changes and revert to original file. Are you sure? "
+#define MES_AUTOPICK_EDITOR "(^Q:Quit, ^W:Save&Quit, ESC:Menu, Other:Input text)"
+#define MES_AUTOPICK_TRIGGER_KEY "P:<Trigger key>: "
 #endif
 
 #ifdef JP

@@ -5634,12 +5634,8 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 
 		/* Erase line */
 		Term_erase(0, tb->cy - tb->upper + 1, tb->wid);
+		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, MES_AUTOPICK_TRIGGER_KEY);
 
-#ifdef JP
-		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, "P:<トリガーキー>: ");
-#else
-		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, "P:<Trigger key>: ");
-#endif
 		if(insert_macro_line(tb))
 		{
 			/* Prepare to input action */
@@ -5660,8 +5656,7 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 
 		/* Erase line */
 		Term_erase(0, tb->cy - tb->upper + 1, tb->wid);
-		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, format("C:%d:%s: ",
-			(rogue_like_commands ? KEYMAP_MODE_ROGUE : KEYMAP_MODE_ORIG), MES_AUTOPICK_COMMANDKEY));
+		Term_putstr(0, tb->cy - tb->upper + 1, tb->wid - 1, TERM_YELLOW, format("C:%d:%s: ", (rogue_like_commands ? KEYMAP_MODE_ROGUE : KEYMAP_MODE_ORIG), MES_AUTOPICK_COMMANDKEY));
 
 		if(insert_keymap_line(tb))
 		{
@@ -5975,11 +5970,7 @@ void do_cmd_edit_autopick(creature_type *creature_ptr)
 		draw_text_editor(tb);
 
 		/* Display header line */
-#ifdef JP
-		prt("(^Q:終了 ^W:セーブして終了, ESC:メニュー, その他:入力)", 0, 0);
-#else	
-		prt("(^Q:Quit, ^W:Save&Quit, ESC:Menu, Other:Input text)", 0, 0);
-#endif
+		prt(MES_AUTOPICK_EDITOR, 0, 0);
 		if(!tb->mark)
 		{
 			/* Display current position */
