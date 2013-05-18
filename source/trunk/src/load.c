@@ -618,31 +618,19 @@ static void rd_randomizer(void)
 static void rd_options(void)
 {
 	int i, n;
-	byte b;
 	u16b c;
 	u32b flag[8];
 	u32b mask[8];
 
-	/*** Special info */
-
-	/* Read "delay_factor" */
-	rd_byte(&b);
-	delay_factor = b;
-
-	/* Read "hitpoint_warn" */
-	rd_byte(&b);
-	hitpoint_warn = b;
-
-	/* Read "mana_warn" */
-	rd_byte(&b);
-	mana_warn = b;
+	/*** Special info ***/
+	rd_byte(&delay_factor); /* Read "delay_factor" */
+	rd_byte(&hitpoint_warn); /* Read "hitpoint_warn" */
+	rd_byte(&mana_warn); /* Read "mana_warn" */
 
 	/*** Cheating options ***/
 	rd_u16b(&c);
-
 	if(c & 0x0002) wizard = TRUE;
 	if(c & 0x0004) unique_play = TRUE;
-
 	cheat_peek = (c & 0x0100) ? TRUE : FALSE;
 	cheat_hear = (c & 0x0200) ? TRUE : FALSE;
 	cheat_room = (c & 0x0400) ? TRUE : FALSE;
@@ -651,10 +639,10 @@ static void rd_options(void)
 	cheat_live = (c & 0x2000) ? TRUE : FALSE;
 	cheat_save = (c & 0x4000) ? TRUE : FALSE;
 
+	/* Autosave info */
 	rd_byte((byte *)&autosave_l);
 	rd_byte((byte *)&autosave_t);
 	rd_s16b(&autosave_freq);
-
 
 	/*** Normal Options ***/
 	for (n = 0; n < 8; n++) rd_u32b(&flag[n]); // Read the option flags
@@ -1014,7 +1002,6 @@ static void rd_messages(void)
 {
 	int i;
 	char buf[128];
-
 	s16b num;
 
 	/* Total */
@@ -1023,11 +1010,8 @@ static void rd_messages(void)
 	/* Read the messages */
 	for (i = 0; i < num; i++)
 	{
-		/* Read the message */
-		rd_string(buf, sizeof(buf));
-
-		/* Save the message */
-		message_add(buf);
+		rd_string(buf, sizeof(buf)); /* Read the message */
+		message_add(buf); /* Save the message */
 	}
 }
 

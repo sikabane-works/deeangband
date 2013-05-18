@@ -234,6 +234,18 @@ static errr wr_randomizer(void)
 	return SUCCESS;
 }
 
+static errr wr_messages(void)
+{
+	int i;
+	s16b tmp16u;
+	/* Dump the number of "messages" */
+	tmp16u = (u16b)message_num();
+	if(compress_savefile && (tmp16u > 40)) tmp16u = 40;
+	wr_u16b(tmp16u);
+	for(i = tmp16u - 1; i >= 0; i--) wr_string(message_str((s16b)i)); /* Dump the messages (oldest first!) */
+	return SUCCESS;
+}
+
 
 /*
  * Write the "options"
@@ -249,7 +261,6 @@ static void wr_options(void)
 	wr_byte(mana_warn); /* Write "mana_warn" */
 
 	/*** Cheating options ***/
-
 	c = 0;
 	if(wizard) c |= 0x0002;
 	if(unique_play) c |= 0x0004;
@@ -260,7 +271,6 @@ static void wr_options(void)
 	if(cheat_know) c |= 0x1000;
 	if(cheat_live) c |= 0x2000;
 	if(cheat_save) c |= 0x4000;
-
 	wr_u16b(c);
 
 	/* Autosave info */
@@ -290,6 +300,8 @@ static void wr_options(void)
 	/*** Window options ***/
 	for (i = 0; i < 8; i++) WRITE_FLAGS_32(window_flag[i]); /* Dump the flags */
 	for (i = 0; i < 8; i++) WRITE_FLAGS_32(window_mask[i]); /* Dump the masks */
+
+
 }
 
 
@@ -822,10 +834,9 @@ static bool wr_floors(creature_type *player_ptr)
 // Actually write a save-file
 static bool wr_savefile_new(void)
 {
-	int        i, j;
-	u32b              now;
-	byte            tmp8u;
-	u16b            tmp16u;
+	int i, j;
+	u32b now;
+	byte tmp8u;
 
 	compact_objects(0);		// Compact the objects
 	compact_creatures(0);	// Compact the creatures
@@ -889,13 +900,7 @@ static bool wr_savefile_new(void)
 	wr_randomizer();	// Write the RNG state
 	wr_options();		// Write the boolean "options"
 
-	// Dump the number of "messages"
-	tmp16u = (u16b)message_num();
-	if(compress_savefile && (tmp16u > 40)) tmp16u = 40;
-	wr_u16b(tmp16u);
-
-	
-	for(i = tmp16u - 1; i >= 0; i--) wr_string(message_str((s16b)i)); // Dump the messages (oldest first!)
+	wr_messages();
 
 	/*** Dump the creatures ***/
 	wr_u16b(unique_max); // Unique creatures
