@@ -820,76 +820,53 @@ static void do_cmd_options_autosave(cptr info)
 
 		/* Hilite current option */
 		move_cursor(k + 2, 50);
-
 		ch = inkey();
 
 		/* Analyze */
 		switch (ch)
 		{
-			case ESCAPE:
-			{
-				return;
-			}
+			case ESCAPE: return;
 
 			case '-':
 			case '8':
-			{
 				k = (n + k - 1) % n;
 				break;
-			}
 
 			case ' ':
 			case '\n':
 			case '\r':
 			case '2':
-			{
 				k = (k + 1) % n;
 				break;
-			}
 
 			case 'y':
 			case 'Y':
 			case '6':
-			{
-
 				(*autosave_info[k].o_var) = TRUE;
 				k = (k + 1) % n;
 				break;
-			}
 
 			case 'n':
 			case 'N':
 			case '4':
-			{
 				(*autosave_info[k].o_var) = FALSE;
 				k = (k + 1) % n;
 				break;
-			}
 
 			case 'f':
 			case 'F':
-			{
 				autosave_freq = toggle_frequency(autosave_freq);
-#ifdef JP
-				prt(format("自動セーブの頻度： %d ターン毎", autosave_freq), 5, 0);
-#else
-				prt(format("Timed autosave frequency: every %d turns", autosave_freq), 5, 0);
-#endif
+				prt(format(MES_OPTION_CMD_AUTOSAVE_FREQ(autosave_freq)), 5, 0);
 				break;
-			}
 
 			case '?':
-			{
 				(void)show_file(TRUE, TEXT_FILES_OPTION_AUTOSAVE, NULL, 0, 0);
 				Term_clear(); 
 				break;
-			}
 
 			default:
-			{
 				bell();
 				break;
-			}
 		}
 	}
 }
@@ -1180,8 +1157,7 @@ void do_cmd_options(void)
 			{
 				byte a = TERM_WHITE;
 				if(i == y) a = TERM_L_BLUE;
-				Term_putstr(5, option_fields[i].row, -1, a, 
-					format("(%c) %s", toupper(option_fields[i].key), option_fields[i].name));
+				Term_putstr(5, option_fields[i].row, -1, a, format("(%c) %s", toupper(option_fields[i].key), option_fields[i].name));
 			}
 
 			prt(MES_INTERFACE_OPTION, 21, 0);
@@ -1262,44 +1238,28 @@ void do_cmd_options(void)
 
 			case 'a':
 			case 'A':
-			{
-#ifdef JP
-				do_cmd_options_autosave("自動セーブ");
-#else
-				do_cmd_options_autosave("Autosave");
-#endif
+				do_cmd_options_autosave(KW_AUTOSAVE);
 				break;
-			}
 
 			/* Window flags */
 			case 'W':
 			case 'w':
-			{
 				do_cmd_options_win();
-				prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL |
-						  PW_PLAYER | PW_MESSAGE | PW_OVERHEAD |
-						  PW_MONSTER | PW_OBJECT | PW_SNAPSHOT | PW_DUNGEON);
+				prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER | PW_MESSAGE | PW_OVERHEAD | PW_MONSTER | PW_OBJECT | PW_SNAPSHOT | PW_DUNGEON);
 				break;
-			}
 
 			/* Auto-picker/destroyer editor */
 			case 'P':
 			case 'p':
-			{
 				do_cmd_edit_autopick(player_ptr);
 				break;
-			}
 
 			/* Hack -- Delay Speed */
 			case 'D':
 			case 'd':
 			{
 				clear_from(18);
-#ifdef JP
-				prt("コマンド: 基本ウェイト量", 19, 0);
-#else
-				prt("Command: Base Delay Factor", 19, 0);
-#endif
+				prt(MES_OPTION_CMD_WAIT, 19, 0);
 
 				while(TRUE)
 				{
@@ -1387,10 +1347,8 @@ void do_cmd_options(void)
 
 			/* Unknown option */
 			default:
-			{
 				bell();
 				break;
-			}
 		}
 		msg_print(NULL);
 	}

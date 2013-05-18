@@ -347,6 +347,7 @@
 #define KW_BODY "体"
 #define KW_WORLD_MAP "混沌の地平"
 #define KW_ARENA "闘技場"
+#define KW_AUTOSAVE "自動セーブ"
 #else
 #define KW_MORE "-more-"
 #define KW_CREATURE "Creatures"
@@ -477,6 +478,7 @@
 #define KW_BODY "body"
 #define KW_WORLD_MAP "The Surface of Chaos"
 #define KW_ARENA "Arena"
+#define KW_AUTOSAVE "Autosave"
 #endif
 
 #ifdef JP
@@ -3269,6 +3271,7 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_CMD_HP_PROMPT "低ヒットポイント警告 (0-9) ESCで決定: "
 #define MES_OPTION_CMD_AUTOSAVE_PROMPT(INFO) "%s ( リターンで次へ, y/n でセット, F で頻度を入力, ESC で決定 ) ", (INFO)
 #define MES_OPTION_CMD_AUTOSAVE_FREQ(TURN) "自動セーブの頻度： %d ターン毎", (TURN)
+#define MES_OPTION_CMD_WAIT "コマンド: 基本ウェイト量"
 #else
 #define MES_OPTION_CHANGE_CONFIG "Pref"
 #define MES_OPTION_WARN_CHEAT "Cheaters never win."
@@ -3281,6 +3284,7 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_CMD_HP_PROMPT "Hitpoint Warning (0-9 or ESC to accept): "
 #define MES_OPTION_CMD_AUTOSAVE_PROMPT(INFO) "%s (RET to advance, y/n to set, 'F' for frequency, ESC to accept) ", (INFO)
 #define MES_OPTION_CMD_AUTOSAVE_FREQ(TURN) "Timed autosave frequency: every %d turns", (TURN)
+#define MES_OPTION_CMD_WAIT "Command: Base Delay Factor"
 #endif
 
 #ifdef JP
