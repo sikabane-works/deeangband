@@ -1702,12 +1702,7 @@ void do_cmd_macros(void)
 
 			clear_from(20);
 
-			/* Help message */
-#ifdef JP
-			c_prt(TERM_L_RED, "カーソルキーの左右でカーソル位置を移動。BackspaceかDeleteで一文字削除。", 22, 0);
-#else
-			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
-#endif
+			c_prt(TERM_L_RED, MES_OPTION_MACRO_DESC, 22, 0);
 			prt(MES_OPTION_MACRO_PROMPT, 20, 0);
 
 			/* Convert to text */
@@ -1752,11 +1747,7 @@ void do_cmd_macros(void)
 			/* Dump the macros */
 			(void)keymap_dump(tmp);
 
-#ifdef JP
-			msg_print("キー配置を追加しました。");
-#else
-			msg_print("Appended keymaps.");
-#endif
+			msg_print(MES_OPTION_APPEND_KEYMAP);
 
 		}
 
@@ -1773,14 +1764,7 @@ void do_cmd_macros(void)
 			act = keymap_act[mode][(byte)(buf[0])];
 
 			/* Nothing found */
-			if(!act)
-			{
-#ifdef JP
-				msg_print("キー配置は定義されていません。");
-#else
-				msg_print("Found no keymap.");
-#endif
-			}
+			if(!act) msg_print(MES_OPTION_FOUND_NO_KEYMAP);
 
 			/* Found one */
 			else
@@ -1793,13 +1777,7 @@ void do_cmd_macros(void)
 
 				/* Display the current action */
 				prt(buf, 22, 0);
-
-#ifdef JP
-				msg_print("キー配置を確認しました。");
-#else
-				msg_print("Found a keymap.");
-#endif
-
+				msg_print(MES_OPTION_FOUND_KEYMAP);
 			}
 		}
 
@@ -1814,13 +1792,8 @@ void do_cmd_macros(void)
 			clear_from(20);
 
 			/* Help message */
-#ifdef JP
-			c_prt(TERM_L_RED, "カーソルキーの左右でカーソル位置を移動。BackspaceかDeleteで一文字削除。", 22, 0);
-			prt("行動: ", 20, 0);
-#else
-			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
-			prt("Action: ", 20, 0);
-#endif
+			c_prt(TERM_L_RED, MES_OPTION_MACRO_DESC, 22, 0);
+			prt(MES_OPTION_MACRO_PROMPT, 20, 0);
 
 			/* Convert to text */
 			ascii_to_text(tmp, macro__buf);

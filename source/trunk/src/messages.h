@@ -3276,6 +3276,9 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_CMD_WAIT_PROMPT "ウェイト (0-9) ESCで決定: "
 #define MES_OPTION_MACRO_PROMPT "マクロ行動: "
 #define MES_OPTION_MACRO_DESC "カーソルキーの左右でカーソル位置を移動。BackspaceかDeleteで一文字削除。"
+#define MES_OPTION_APPEND_KEYMAP "キー配置を追加しました。"
+#define MES_OPTION_FOUND_KEYMAP "キー配置を確認しました。"
+#define MES_OPTION_FOUND_NO_KEYMAP "キー配置は定義されていません。"
 #else
 #define MES_OPTION_CHANGE_CONFIG "Pref"
 #define MES_OPTION_WARN_CHEAT "Cheaters never win."
@@ -3293,6 +3296,9 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_CMD_WAIT_PROMPT "Delay Factor (0-9 or ESC to accept): "
 #define MES_OPTION_MACRO_PROMPT "Action: "
 #define MES_OPTION_MACRO_DESC "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char."
+#define MES_OPTION_APPEND_KEYMAP "Appended keymaps."
+#define MES_OPTION_FOUND_KEYMAP "Found a keymap."
+#define MES_OPTION_FOUND_NO_KEYMAP "Found no keymap."
 #endif
 
 #ifdef JP
