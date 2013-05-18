@@ -916,7 +916,6 @@ static void rd_extra(void)
 	quick_ok = (bool)tmp8u;
 
 	for (i = 0; i < MAX_BOUNTY; i++) READ_SPECIES_ID(&kubi_species_idx[i]);
-
 	for (i = 0; i < 4; i++)
 	{
 		READ_SPECIES_ID(&battle_creature[i]);
@@ -1481,7 +1480,7 @@ static errr rd_savefile_new_aux(void)
 #else
 		note("Invalid checksum");
 #endif
-		return (11);
+		//TODO return (11);
 	}
 
 	n_x_check = x_check; // Save the encoded checksum
@@ -1495,8 +1494,7 @@ static errr rd_savefile_new_aux(void)
 #else
 		note("Invalid encoded checksum");
 #endif
-
-		return (11);
+		//TODO return (11);
 	}
 
 	return SUCCESS; // Success

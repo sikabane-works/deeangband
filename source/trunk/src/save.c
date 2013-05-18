@@ -489,7 +489,6 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->pet_extra_flags);
 
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) wr_u32b(creature_ptr->mutative_trait[i]);
-
 }
 
 /*
@@ -505,10 +504,7 @@ static void wr_extra(void)
 	WRITE_CAMPAIGN_ID(campaign_mode);
 
 	wr_byte((byte) quick_ok);
-
-
 	for (i = 0; i < MAX_BOUNTY; i++) WRITE_SPECIES_ID(kubi_species_idx[i]);
-
 	for (i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 	{
 		WRITE_SPECIES_ID(battle_creature[i]);
@@ -1320,8 +1316,8 @@ int load_player(void)
 
 	if(!err)
 	{
-		if(!game_turn) err = -1;
-		if(err) what = MES_SYS_SAVEFILE_ERROR3;
+		//TODO if(!game_turn) err = -1;
+		//TODO if(err) what = MES_SYS_SAVEFILE_ERROR3;
 	}
 
 #ifdef VERIFY_TIMESTAMP
