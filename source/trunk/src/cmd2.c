@@ -1886,9 +1886,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 	/* Save the rest code */
 	creature_ptr->resting = command_arg;
 	creature_ptr->action = ACTION_REST;
-
 	prepare_update(creature_ptr, CRU_BONUS);
-
 	prepare_redraw(PR_STATE);
 
 	handle_stuff(creature_ptr);
@@ -1907,22 +1905,14 @@ void do_cmd_fire(creature_type *creature_ptr)
 	/* Require a launcher */
 	if(!j_ptr->tval)
 	{
-#ifdef JP
-		msg_print("射撃用の武器を持っていない。");
-#else
-		msg_print("You have nothing to fire with.");
-#endif
+		msg_print(MES_PREVENT_BY_NO_SHOOT);
 		flush();
 		return;
 	}
 
 	if(j_ptr->sval == SV_CRIMSON)
 	{
-#ifdef JP
-		msg_print("この武器は発動して使うもののようだ。");
-#else
-		msg_print("Do activate.");
-#endif
+		msg_print(MES_PREVENT_ACTIVATE_ONLY);
 		flush();
 		return;
 	}
@@ -1941,10 +1931,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 	if(!creature_ptr->is_fired || creature_ptr->class_idx != CLASS_SNIPER) return;
 
 	/* Sniper actions after some shootings */
-	if(creature_ptr->snipe_type == SP_AWAY)
-	{
-		teleport_creature(creature_ptr, 10 + (creature_ptr->concent * 2), 0L);
-	}
+	if(creature_ptr->snipe_type == SP_AWAY) teleport_creature(creature_ptr, 10 + (creature_ptr->concent * 2), 0L);
 	if(creature_ptr->snipe_type == SP_FINAL)
 	{
 #ifdef JP
