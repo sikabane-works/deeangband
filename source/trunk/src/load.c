@@ -1175,6 +1175,16 @@ static errr rd_floors(void)
 	return err;
 }
 
+static errr rd_version_number(void)
+{
+	rd_byte(&ver_extra);
+	rd_byte(&ver_patch);
+	rd_byte(&ver_minor);
+	rd_byte(&ver_major);
+
+	return SUCCESS;
+}
+
 
 /*
  * Actually read the savefile
@@ -1202,12 +1212,8 @@ static errr rd_savefile_new_aux(void)
 	v_check = 0L;
 	x_check = 0L;
 
-	/* Read the version number of the savefile */
-	/* Old savefile will be version 0.0.0.3 */
-	rd_byte(&ver_extra);
-	rd_byte(&ver_patch);
-	rd_byte(&ver_minor);
-	rd_byte(&ver_major);
+	rd_version_number();
+
 	note(format(MES_LOAD_START(ver_major, ver_minor, ver_patch))); /* Mention the savefile version */
 
 	/* Operating system info */

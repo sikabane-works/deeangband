@@ -824,6 +824,14 @@ static bool wr_floors(creature_type *player_ptr)
 	return TRUE; 
 }
 
+static bool wr_version_number(void)
+{
+	wr_byte(VER_EXTRA);
+	wr_byte(VER_PATCH);
+	wr_byte(VER_MINOR);
+	wr_byte(VER_MAJOR);
+}
+
 // Actually write a save-file
 static bool wr_savefile_new(void)
 {
@@ -849,11 +857,7 @@ static bool wr_savefile_new(void)
 	v_stamp = 0L;
 	x_stamp = 0L;
 
-	/* Write the savefile version */
-	wr_byte(VER_EXTRA);
-	wr_byte(VER_PATCH);
-	wr_byte(VER_MINOR);
-	wr_byte(VER_MAJOR);
+	wr_version_number();
 
 	wr_u32b(sf_system);	/* Operating system */
 	wr_u32b(sf_when);	/* Time file last saved */
