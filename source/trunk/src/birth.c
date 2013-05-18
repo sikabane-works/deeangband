@@ -340,66 +340,43 @@ static hist_type bg[] =
 	{"and a very fair complexion.",				100, 53, 0, 50},
 #endif
 
-
 #ifdef JP
 	{"あなたは明るいグレーの瞳と",					 85,54,55, 50},
 	{"あなたは明るいブルーの瞳と",					 95,54,55, 50},
 	{"あなたは明るいグリーンの瞳と",					100,54,55, 50},
-#else
-	{"You have light grey eyes, ",				 85, 54, 55, 50},
-	{"You have light blue eyes, ",				 95, 54, 55, 50},
-	{"You have light green eyes, ",				100, 54, 55, 50},
-#endif
-
-
-#ifdef JP
 	{"なめらかな",							 75,55,56, 50},
 	{"波打った",							100,55,56, 50},
-#else
-	{"straight ",						 75, 55, 56, 50},
-	{"wavy ",							100, 55, 56, 50},
-#endif
-
-
-#ifdef JP
 	{"黒髪を持ち、白い肌をしています。",				 75,56, 0, 50},
 	{"茶髪を持ち、白い肌をしています。",				 85,56, 0, 50},
 	{"ブロンドの髪を持ち、白い肌をしています。",				 95,56, 0, 50},
 	{"銀髪を持ち、白い肌をしています。",				100,56, 0, 50},
 #else
+	{"You have light grey eyes, ",				 85, 54, 55, 50},
+	{"You have light blue eyes, ",				 95, 54, 55, 50},
+	{"You have light green eyes, ",				100, 54, 55, 50},
+	{"straight ",						 75, 55, 56, 50},
+	{"wavy ",							100, 55, 56, 50},
 	{"black hair, and a fair complexion.",			 75, 56, 0, 50},
 	{"brown hair, and a fair complexion.",			 85, 56, 0, 50},
 	{"blond hair, and a fair complexion.",			 95, 56, 0, 50},
 	{"silver hair, and a fair complexion.",			100, 56, 0, 50},
 #endif
 
-
 #ifdef JP
 	{"あなたは深いブラウンの瞳と",					 99,57,58, 50},
 	{"あなたは輝く赤い瞳と",					100,57,58, 60},
-#else
-	{"You have dark brown eyes, ",				 99, 57, 58, 50},
-	{"You have glowing red eyes, ",				100, 57, 58, 60},
-#endif
-
-
-#ifdef JP
 	{"なめらかな",							 90,58,59, 50},
 	{"波打った",							100,58,59, 50},
-#else
-	{"straight ",						 90, 58, 59, 50},
-	{"wavy ",							100, 58, 59, 50},
-#endif
-
-
-#ifdef JP
 	{"黒髪、そして",						 75,59,60, 50},
 	{"茶髪、そして",						100,59,60, 50},
 #else
+	{"You have dark brown eyes, ",				 99, 57, 58, 50},
+	{"You have glowing red eyes, ",				100, 57, 58, 60},
+	{"straight ",						 90, 58, 59, 50},
+	{"wavy ",							100, 58, 59, 50},
 	{"black hair, ",						 75, 59, 60, 50},
 	{"brown hair, ",						100, 59, 60, 50},
 #endif
-
 
 #ifdef JP
 	{" 30cm ほどのヒゲを持ち、",						 25,60,61, 50},
@@ -412,7 +389,6 @@ static hist_type bg[] =
 	{"a three foot beard, ",					 90, 60, 61, 53},
 	{"a four foot beard, ",					100, 60, 61, 55},
 #endif
-
 
 #ifdef JP
 	{"黒い肌をしています。",					100,61, 0, 50},

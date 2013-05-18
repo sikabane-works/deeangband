@@ -801,13 +801,7 @@ static void do_cmd_options_autosave(cptr info)
 	/* Interact with the player */
 	while (TRUE)
 	{
-		/* Prompt  */
-#ifdef JP
-		sprintf(buf, "%s ( リターンで次へ, y/n でセット, F で頻度を入力, ESC で決定 ) ", info);
-#else
-		sprintf(buf, "%s (RET to advance, y/n to set, 'F' for frequency, ESC to accept) ", info);
-#endif
-
+		sprintf(buf, MES_OPTION_CMD_AUTOSAVE_PROMPT(info));
 		prt(buf, 0, 0);
 
 		/* Display the options */
@@ -822,14 +816,7 @@ static void do_cmd_options_autosave(cptr info)
 			sprintf(buf, "%-48s:%6s (%s)", autosave_info[i].o_desc, (*autosave_info[i].o_var ? KW_YES : KW_NO), autosave_info[i].o_text);
 			c_prt(a, buf, i + 2, 0);
 		}
-
-#ifdef JP
-		prt(format("自動セーブの頻度： %d ターン毎", autosave_freq), 5, 0);
-#else
-		prt(format("Timed autosave frequency: every %d turns", autosave_freq), 5, 0);
-#endif
-
-
+		prt(format(MES_OPTION_CMD_AUTOSAVE_FREQ(autosave_freq)), 5, 0);
 
 		/* Hilite current option */
 		move_cursor(k + 2, 50);

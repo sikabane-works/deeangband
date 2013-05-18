@@ -3267,6 +3267,8 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_CMD_MP_CHECK "コマンド: 低魔力色閾値"
 #define MES_OPTION_CMD_HP_CURRENT(PERCENT) "現在の低ヒットポイント警告: %d0%%", (PERCENT)
 #define MES_OPTION_CMD_HP_PROMPT "低ヒットポイント警告 (0-9) ESCで決定: "
+#define MES_OPTION_CMD_AUTOSAVE_PROMPT(INFO) "%s ( リターンで次へ, y/n でセット, F で頻度を入力, ESC で決定 ) ", (INFO)
+#define MES_OPTION_CMD_AUTOSAVE_FREQ(TURN) "自動セーブの頻度： %d ターン毎", (TURN)
 #else
 #define MES_OPTION_CHANGE_CONFIG "Pref"
 #define MES_OPTION_WARN_CHEAT "Cheaters never win."
@@ -3277,6 +3279,8 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_CMD_MP_CHECK "Command: Mana Color Threshold"
 #define MES_OPTION_CMD_HP_CURRENT(PERCENT) "Current hitpoint warning: %d0%%", (PERCENT)
 #define MES_OPTION_CMD_HP_PROMPT "Hitpoint Warning (0-9 or ESC to accept): "
+#define MES_OPTION_CMD_AUTOSAVE_PROMPT(INFO) "%s (RET to advance, y/n to set, 'F' for frequency, ESC to accept) ", (INFO)
+#define MES_OPTION_CMD_AUTOSAVE_FREQ(TURN) "Timed autosave frequency: every %d turns", (TURN)
 #endif
 
 #ifdef JP
@@ -3596,9 +3600,11 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_SNIPE_CONCENTRATE(LEVEL) "集中した。(集中度 %d)", (LEVEL)
 #define MES_SNIPE_RESET_CONS "集中力が途切れた。"
+#define MES_SNIPE_STRAIN "射撃の反動が体を襲った。"
 #else
 #define MES_SNIPE_CONCENTRATE(LEVEL) "You concentrate deeply. (level %d)", (LEVEL)
 #define MES_SNIPE_RESET_CONS "Stop concentrating."
+#define MES_SNIPE_STRAIN "A reactionary of shooting attacked you. "
 #endif
 
 #ifdef JP

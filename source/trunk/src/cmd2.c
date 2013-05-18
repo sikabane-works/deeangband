@@ -1934,11 +1934,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 	if(creature_ptr->snipe_type == SP_AWAY) teleport_creature(creature_ptr, 10 + (creature_ptr->concent * 2), 0L);
 	if(creature_ptr->snipe_type == SP_FINAL)
 	{
-#ifdef JP
-		msg_print("ŽËŒ‚‚Ì”½“®‚ª‘Ì‚ðP‚Á‚½B");
-#else
-		msg_print("A reactionary of shooting attacked you. ");
-#endif
+		msg_print(MES_SNIPE_STRAIN);
 		(void)add_timed_trait(creature_ptr, TRAIT_SLOW, randint0(7) + 7, FALSE);
 		(void)add_timed_trait(creature_ptr, TRAIT_STUN, randint1(25), FALSE);
 	}
@@ -2074,10 +2070,8 @@ void do_cmd_travel(creature_type *creature_ptr)
 
 	f_ptr = &feature_info[floor_ptr->cave[y][x].feat];
 
-	if((floor_ptr->cave[y][x].info & CAVE_MARK) &&
-		(have_flag(f_ptr->flags, FF_WALL) ||
-			have_flag(f_ptr->flags, FF_CAN_DIG) ||
-			(have_flag(f_ptr->flags, FF_DOOR) && floor_ptr->cave[y][x].mimic)))
+	if((floor_ptr->cave[y][x].info & CAVE_MARK) && (have_flag(f_ptr->flags, FF_WALL) ||
+		have_flag(f_ptr->flags, FF_CAN_DIG) || (have_flag(f_ptr->flags, FF_DOOR) && floor_ptr->cave[y][x].mimic)))
 	{
 		msg_print(MES_TRAVEL_CANNOT);
 		return;
@@ -2091,8 +2085,6 @@ void do_cmd_travel(creature_type *creature_ptr)
 
 	/* Travel till 255 steps */
 	travel.run = 255;
-
-
 	travel.dir = 0;
 
 	/* Decides first direction */
