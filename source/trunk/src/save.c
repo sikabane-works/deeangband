@@ -1238,36 +1238,24 @@ int load_player(void)
 	/* Process file */
 	if(!err)
 	{
-
 #ifdef VERIFY_TIMESTAMP
 		/* Get the timestamp */
 		(void)fstat(fd, &statbuf);
 #endif
-
 		/* Read the first four bytes */
 		if(fd_read(fd, (char*)(vvv), 4)) err = -1;
-
-		/* What */
-#ifdef JP
-		if(err) what = "セーブファイルを読めません。";
-#else
-		if(err) what = "Cannot read savefile";
-#endif
-
-
+		if(err) what = MES_SYS_FAILED_FILEREAD;
 		(void)fd_close(fd);
 	}
 
 	/* Process file */
 	if(!err)
 	{
-
 		/* Extract version */
 		ver_major = vvv[0];
 		ver_minor = vvv[1];
 		ver_patch = vvv[2];
 		sf_extra = vvv[3];
-
 
 		Term_clear();
 

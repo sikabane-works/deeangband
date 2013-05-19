@@ -1201,7 +1201,6 @@ static errr rd_creatures(void)
 
 	player_ptr = &creature_list[1];
 
-	// Read creatures
 	for (i = 1; i < limit; i++)
 	{
 		creature_idx = creature_pop(); // Get a new record
