@@ -1211,6 +1211,27 @@ static errr rd_creatures(void)
 		real_species_ptr(creature_ptr)->cur_num++; // Count
 	}
 
+	note(format("Number of Creatures:%u", i));
+	return SUCCESS;
+}
+
+static errr rd_object_kind(OBJECT_KIND_ID object_kind_id)
+{
+	byte tmp8u;
+	object_kind *object_kind_ptr = &object_kind_info[object_kind_id];
+	rd_byte(&tmp8u);
+	object_kind_ptr->aware = (tmp8u & 0x01) ? TRUE: FALSE;
+	object_kind_ptr->tried = (tmp8u & 0x02) ? TRUE: FALSE;
+	return SUCCESS;
+}
+
+static errr rd_object_kinds(void)
+{
+	OBJECT_KIND_ID i;
+	u16b tmp16u;
+	rd_u16b(&tmp16u);
+	if(tmp16u > max_object_kind_idx) return LOAD_ERROR_TOO_MANY_ITEM_KIND;
+	for (i = 0; i < tmp16u; i++) rd_object_kind(i);
 	return SUCCESS;
 }
 
@@ -1253,24 +1274,7 @@ static errr rd_savefile_new_aux(void)
 	}
 
 	rd_creatures();
-
-	// Object Memory
-	rd_u16b(&tmp16u);
-
-	// Incompatible save files
-	if(tmp16u > max_object_kind_idx) return LOAD_ERROR_TOO_MANY_ITEM_KIND;
-
-	/* Read the object memory */
-	for (i = 0; i < tmp16u; i++)
-	{
-		byte tmp8u;
-		object_kind *object_kind_ptr = &object_kind_info[i];
-
-		rd_byte(&tmp8u);
-
-		object_kind_ptr->aware = (tmp8u & 0x01) ? TRUE: FALSE;
-		object_kind_ptr->tried = (tmp8u & 0x02) ? TRUE: FALSE;
-	}
+	rd_object_kinds();
 
 	/*** Objects ***/
 	rd_s16b(&limit); // Read the item count
@@ -1283,7 +1287,7 @@ static errr rd_savefile_new_aux(void)
 		object_ptr = &object_list[object_idx];
 		rd_object(object_ptr);
 	}
-	note(format("Number of floor objects:%u", tmp16u));
+	note(format("Number of floor objects:%u", i));
 
 	/* Init the wilderness seeds */
 	for (i = 0; i < max_wild_x; i++)

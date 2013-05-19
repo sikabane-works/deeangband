@@ -153,19 +153,13 @@ static void wr_object(object_type *object_ptr)
 
 }
 
-
-/*
- * Write an "xtra" record
- */
-static void wr_xtra(int k_idx)
+/* Write an "xtra" record */
+static void wr_object_kind(OBJECT_KIND_ID k_idx)
 {
 	byte tmp8u = 0;
-
 	object_kind *object_kind_ptr = &object_kind_info[k_idx];
-
 	if(object_kind_ptr->aware) tmp8u |= 0x01;
 	if(object_kind_ptr->tried) tmp8u |= 0x02;
-
 	wr_byte(tmp8u);
 }
 
@@ -886,14 +880,12 @@ static bool wr_savefile_new(void)
 
 	wr_creatures();
 
-	// Dump the object memory
+	/* Dump the object memory */
 	WRITE_OBJECT_KIND_ID(max_object_kind_idx);
-	for (i = 0; i < max_object_kind_idx; i++) wr_xtra(i);
+	for (i = 0; i < max_object_kind_idx; i++) wr_object_kind(i);
 
 	/*** Dump objects ***/
 	WRITE_OBJECT_ID(object_max); // Total objects
-
-	// Dump the objects
 	for (i = 1; i < object_max; i++) wr_object(&object_list[i]); // Dump it
 
 	WRITE_TOWN_ID(max_towns); /* Dump the towns */
@@ -1214,7 +1206,6 @@ int load_player(void)
 	}
 
 #endif
-
 
 	if(!err)
 	{
