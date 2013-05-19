@@ -870,6 +870,10 @@ static errr wr_objects(void)
 	return LOAD_ERROR_NONE;
 }
 
+static errr wr_wilderness(void)
+{
+	return LOAD_ERROR_NONE;
+}
 
 /* Actually write a save-file */
 static bool wr_savefile_new(void)
@@ -900,6 +904,7 @@ static bool wr_savefile_new(void)
 	wr_creatures();
 	wr_object_kinds();
 	wr_objects();
+	wr_wilderness();
 
 	WRITE_TOWN_ID(max_towns); /* Dump the towns */
 	WRITE_QUEST_ID(max_quests); /* Dump the quests */

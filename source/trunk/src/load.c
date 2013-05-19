@@ -1256,6 +1256,20 @@ static errr rd_objects(void)
 	return LOAD_ERROR_NONE;
 }
 
+static errr rd_wilderness(void)
+{
+	int i, j;
+	/* Init the wilderness seeds */
+	for (i = 0; i < max_wild_x; i++)
+	{
+		for (j = 0; j < max_wild_y; j++)
+		{
+			wilderness[j][i].seed = randint0(0x10000000);
+		}
+	}
+	return LOAD_ERROR_NONE;
+}
+
 /*
  * Actually read the savefile
  */
@@ -1286,14 +1300,7 @@ static errr rd_savefile_new_aux(void)
 	rd_object_kinds();
 	rd_objects();
 
-	/* Init the wilderness seeds */
-	for (i = 0; i < max_wild_x; i++)
-	{
-		for (j = 0; j < max_wild_y; j++)
-		{
-			wilderness[j][i].seed = randint0(0x10000000);
-		}
-	}
+	rd_wilderness();
 
 	{
 		u16b max_towns_load;
@@ -1352,12 +1359,8 @@ static errr rd_savefile_new_aux(void)
 			/* Ignore the empty quests from old versions */
 			else
 			{
-				/* Ignore quest status */
-				strip_bytes(2);
-
-				/* Ignore quest level */
-				strip_bytes(2);
-
+				strip_bytes(2); /* Ignore quest status */
+				strip_bytes(2); /* Ignore quest level */
 				/*
 				 * We don't have to care about the other info,
 				 * since status should be 0 for these quests anyway
@@ -1368,14 +1371,13 @@ static errr rd_savefile_new_aux(void)
 		/* Size of the wilderness */
 		rd_s32b(&wild_x_size);
 		rd_s32b(&wild_y_size);
-
 		/* Incompatible save files */
 		if((wild_x_size > max_wild_x) || (wild_y_size > max_wild_y))
 		{
 #ifdef JP
-			note(format("r–ì‚ª‘å‚«‚·‚¬‚é(X:%u/%u) (Y:%u/%u)I", wild_x_size, max_wild_x, wild_y_size, max_wild_y));
+			note(format("r–ì‚ª‘å‚«‚·‚¬‚é(X:%u/%u) (Y:%u/%u)", wild_x_size, max_wild_x, wild_y_size, max_wild_y));
 #else
-			note(format("Wilderness is too big (%u/%u)!", wild_x_size, wild_y_size));
+			note(format("Wilderness is too big (%u/%u)", wild_x_size, wild_y_size));
 #endif
 			return (23);
 		}
