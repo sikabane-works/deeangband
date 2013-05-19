@@ -1298,6 +1298,19 @@ static errr rd_wilderness(void)
 	return LOAD_ERROR_NONE;
 }
 
+static errr rd_towns(void)
+{
+	u16b max_towns_load;
+
+	/* Number of towns */
+	rd_u16b(&max_towns_load);
+
+	/* Incompatible save files */
+	if(max_towns_load > max_towns) return (LOAD_ERROR_TOO_MANY_TOWN);
+	else note(format("Number of Towns:%u", max_towns_load));
+	return LOAD_ERROR_NONE;
+}
+
 /*
  * Actually read the savefile
  */
@@ -1327,19 +1340,12 @@ static errr rd_savefile_new_aux(void)
 	rd_objects();
 
 	rd_wilderness();
+	rd_towns();
 
 	{
-		u16b max_towns_load;
 		u16b max_quests_load;
 		byte max_rquests_load;
 		//TODO s16b old_inside_quest = inside_quest;
-
-		/* Number of towns */
-		rd_u16b(&max_towns_load);
-
-		/* Incompatible save files */
-		if(max_towns_load > max_towns) return (LOAD_ERROR_TOO_MANY_TOWN);
-		else note(format("Number of Towns:%u", max_towns_load));
 
 		/* Number of quests */
 		rd_u16b(&max_quests_load);
