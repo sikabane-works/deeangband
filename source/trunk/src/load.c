@@ -907,7 +907,7 @@ static errr rd_creature(creature_type *creature_ptr)
 /*
  * Read the "extra" information
  */
-static void rd_extra(void)
+static void rd_world(void)
 {
 	int i;
 	byte tmp8u;
@@ -961,10 +961,10 @@ static void rd_extra(void)
 	rd_byte((byte *)&arena_settled); // TODO 
 
 	rd_u32b(&game_load_count);
-
 	rd_byte(&start_hour);
 	rd_byte(&start_min);
 
+	note(MES_LOAD_WORLD);
 }
 
 /*
@@ -1412,13 +1412,8 @@ static errr rd_savefile_new_aux(void)
 	}
 
 	/* Read the extra stuff */
-	rd_extra();
+	rd_world();
 
-#ifdef JP
-	note("“Á•Êî•ñ‚ğƒ[ƒh‚µ‚Ü‚µ‚½");
-#else
-	if(arg_fiddle) note("Loaded extra information");
-#endif
 
 	if(player_ptr->class_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
 

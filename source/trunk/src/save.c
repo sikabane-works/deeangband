@@ -488,7 +488,7 @@ static void wr_creature(creature_type *creature_ptr)
 /*
  * Write some "extra" info
  */
-static void wr_extra(void)
+static void wr_world(void)
 {
 	int i;
 	byte tmp8u;
@@ -949,7 +949,7 @@ static bool wr_savefile_new(void)
 	}
 
 	/* Write the "extra" information */
-	wr_extra();
+	wr_world();
 
 	WRITE_TOWN_ID(max_towns);
 	WRITE_STORE_ID(max_store_idx);
