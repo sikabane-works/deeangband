@@ -872,6 +872,29 @@ static errr wr_objects(void)
 
 static errr wr_wilderness(void)
 {
+	int i, j;
+
+	WRITE_COODINATES(max_wild_x);
+	WRITE_COODINATES(max_wild_y);
+
+	/* Dump the wilderness seeds */
+	for (i = 0; i < max_wild_x; i++)
+	{
+		for (j = 0; j < max_wild_y; j++)
+		{
+			wr_u32b(wilderness[j][i].seed);
+		}
+	}
+
+	/* Dump the wilderness known */
+	for (i = 0; i < max_wild_x; i++)
+	{
+		for (j = 0; j < max_wild_y; j++)
+		{
+			wr_byte(wilderness[j][i].known);
+		}
+	}
+
 	return LOAD_ERROR_NONE;
 }
 
@@ -879,7 +902,7 @@ static errr wr_wilderness(void)
 static bool wr_savefile_new(void)
 {
 	byte tmp8u;
-	int i, j;
+	int i;
 	u32b now;
 
 	compact_objects(0); /* Compact the objects */
@@ -933,27 +956,6 @@ static bool wr_savefile_new(void)
 			WRITE_OBJECT_KIND_ID(quest[i].k_idx);
 			wr_byte(quest[i].flags);
 			WRITE_DUNGEON_ID(quest[i].dungeon);
-		}
-	}
-
-	WRITE_COODINATES(max_wild_x);
-	WRITE_COODINATES(max_wild_y);
-
-	/* Dump the wilderness seeds */
-	for (i = 0; i < max_wild_x; i++)
-	{
-		for (j = 0; j < max_wild_y; j++)
-		{
-			wr_u32b(wilderness[j][i].seed);
-		}
-	}
-
-	/* Dump the wilderness known */
-	for (i = 0; i < max_wild_x; i++)
-	{
-		for (j = 0; j < max_wild_y; j++)
-		{
-			wr_byte(wilderness[j][i].known);
 		}
 	}
 

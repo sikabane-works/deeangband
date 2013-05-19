@@ -1259,14 +1259,42 @@ static errr rd_objects(void)
 static errr rd_wilderness(void)
 {
 	int i, j;
-	/* Init the wilderness seeds */
-	for (i = 0; i < max_wild_x; i++)
+	COODINATES wild_x_size;
+	COODINATES wild_y_size;
+
+	/* Size of the wilderness */
+	READ_COODINATES(&wild_x_size);
+	READ_COODINATES(&wild_y_size);
+
+	/* Incompatible save files */
+	if((wild_x_size > max_wild_x) || (wild_y_size > max_wild_y))
 	{
-		for (j = 0; j < max_wild_y; j++)
+#ifdef JP
+		note(format("r–ì‚ª‘å‚«‚·‚¬‚é(X:%u/%u) (Y:%u/%u)", wild_x_size, max_wild_x, wild_y_size, max_wild_y));
+#else
+		note(format("Wilderness is too big (%u/%u)", wild_x_size, wild_y_size));
+#endif
+		return (23);
+	}
+
+	/* Load the wilderness seeds */
+	for (i = 0; i < wild_x_size; i++)
+	{
+		for (j = 0; j < wild_y_size; j++)
 		{
-			wilderness[j][i].seed = randint0(0x10000000);
+			rd_u32b(&wilderness[j][i].seed);
 		}
 	}
+
+	/* Load the wilderness known */
+	for (i = 0; i < wild_x_size; i++)
+	{
+		for (j = 0; j < wild_y_size; j++)
+		{
+			rd_byte(&wilderness[j][i].known);
+		}
+	}
+
 	return LOAD_ERROR_NONE;
 }
 
@@ -1275,9 +1303,7 @@ static errr rd_wilderness(void)
  */
 static errr rd_savefile_new_aux(void)
 {
-	int i, j;
-	COODINATES wild_x_size;
-	COODINATES wild_y_size;
+	int i;
 	u16b tmp16u;
 	char buf[SCREEN_BUF_SIZE];
 
@@ -1367,40 +1393,6 @@ static errr rd_savefile_new_aux(void)
 				 */
 			}
 		}
-
-		/* Size of the wilderness */
-		rd_s32b(&wild_x_size);
-		rd_s32b(&wild_y_size);
-		/* Incompatible save files */
-		if((wild_x_size > max_wild_x) || (wild_y_size > max_wild_y))
-		{
-#ifdef JP
-			note(format("r–ì‚ª‘å‚«‚·‚¬‚é(X:%u/%u) (Y:%u/%u)", wild_x_size, max_wild_x, wild_y_size, max_wild_y));
-#else
-			note(format("Wilderness is too big (%u/%u)", wild_x_size, wild_y_size));
-#endif
-			return (23);
-		}
-
-		/* Load the wilderness seeds */
-		for (i = 0; i < wild_x_size; i++)
-		{
-			for (j = 0; j < wild_y_size; j++)
-			{
-				rd_u32b(&wilderness[j][i].seed);
-			}
-		}
-
-		/* Load the wilderness known */
-		for (i = 0; i < wild_x_size; i++)
-		{
-			for (j = 0; j < wild_y_size; j++)
-			{
-				rd_byte(&wilderness[j][i].known);
-			}
-		}
-
-
 	}
 
 	/* Load the Artifacts */
