@@ -912,11 +912,12 @@ static void rd_world(void)
 	int i;
 	byte tmp8u;
 	byte max;
-	//TODO rd_creature(&player_prev);
 
 	READ_CAMPAIGN_ID(&campaign_mode);
 	rd_byte(&tmp8u);
 	quick_ok = (bool)tmp8u;
+
+	rd_creature(&player_prev);
 
 	for (i = 0; i < MAX_BOUNTY; i++) READ_SPECIES_ID(&kubi_species_idx[i]);
 	for (i = 0; i < 4; i++)
@@ -1257,6 +1258,7 @@ static errr rd_savefile_new_aux(void)
 	rd_randomizer(); /* Read RNG state */
 	rd_options(); /* Then the options */
 	rd_messages(); /* Then the "messages" */
+	rd_world();  /* Read the extra stuff */
 
 	for (i = 0; i < max_species_idx; i++)
 	{
@@ -1279,7 +1281,7 @@ static errr rd_savefile_new_aux(void)
 		object_ptr = &object_list[object_idx];
 		rd_object(object_ptr);
 	}
-	note(format("Number of floor objects:%u", i));
+	note(format("Number of Floor Objects:%u", i));
 
 	/* Init the wilderness seeds */
 	for (i = 0; i < max_wild_x; i++)
@@ -1410,10 +1412,6 @@ static errr rd_savefile_new_aux(void)
 		READ_POPULATION(&a_ptr->cur_num);
 		READ_FLOOR_ID(&a_ptr->floor_idx);
 	}
-
-	/* Read the extra stuff */
-	rd_world();
-
 
 	if(player_ptr->class_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
 

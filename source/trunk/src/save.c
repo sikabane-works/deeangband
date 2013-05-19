@@ -493,11 +493,12 @@ static void wr_world(void)
 	int i;
 	byte tmp8u;
 
-	//TODO wr_creature(&player_prev);
 	if(noscore) quick_ok = FALSE;
 	WRITE_CAMPAIGN_ID(campaign_mode);
-
 	wr_byte((byte) quick_ok);
+
+	wr_creature(&player_prev);
+
 	for (i = 0; i < MAX_BOUNTY; i++) WRITE_SPECIES_ID(kubi_species_idx[i]);
 	for (i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 	{
@@ -874,9 +875,10 @@ static bool wr_savefile_new(void)
 	/*** Actually write the file ***/
 
 	wr_system_info();
-	wr_randomizer();	/* Write the RNG state */
-	wr_options();		/* Write the boolean "options" */
+	wr_randomizer(); /* Write the RNG state */
+	wr_options(); /* Write the boolean "options" */
 	wr_messages();
+	wr_world(); /* Write the "extra" information */
 
 	wr_creatures();
 
@@ -948,8 +950,6 @@ static bool wr_savefile_new(void)
 		WRITE_FLOOR_ID(a_ptr->floor_idx);
 	}
 
-	/* Write the "extra" information */
-	wr_world();
 
 	WRITE_TOWN_ID(max_towns);
 	WRITE_STORE_ID(max_store_idx);
