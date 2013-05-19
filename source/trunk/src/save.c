@@ -856,7 +856,7 @@ static errr wr_creatures(void)
 
 static errr wr_object_kinds(void)
 {
-	int i;
+	OBJECT_KIND_ID i;
 	WRITE_OBJECT_KIND_ID(max_object_kind_idx);
 	for (i = 0; i < max_object_kind_idx; i++) wr_object_kind(i);
 	return LOAD_ERROR_NONE;
@@ -864,7 +864,7 @@ static errr wr_object_kinds(void)
 
 static errr wr_objects(void)
 {
-	int i;
+	OBJECT_ID i;
 	WRITE_OBJECT_ID(object_max); // Total objects
 	for (i = 1; i < object_max; i++) wr_object(&object_list[i]); // Dump it
 	return LOAD_ERROR_NONE;

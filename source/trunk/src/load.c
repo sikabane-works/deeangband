@@ -1231,21 +1231,20 @@ static errr rd_object_kind(OBJECT_KIND_ID object_kind_id)
 
 static errr rd_object_kinds(void)
 {
-	OBJECT_KIND_ID i, tmp16u;
-	READ_OBJECT_KIND_ID(&tmp16u);
-	if(tmp16u > max_object_kind_idx) return LOAD_ERROR_TOO_MANY_ITEM_KIND;
-	for (i = 0; i < tmp16u; i++) rd_object_kind(i);
+	OBJECT_KIND_ID i, num;
+	READ_OBJECT_KIND_ID(&num);
+	if(num > max_object_kind_idx) return LOAD_ERROR_TOO_MANY_ITEM_KIND;
+	for (i = 0; i < num; i++) rd_object_kind(i);
 	return LOAD_ERROR_NONE;
 }
 
 static errr rd_objects(void)
 {
-	s16b limit;
-	int i;
+	OBJECT_ID num, i;
 
-	rd_s16b(&limit); // Read the item count
-	if(limit > max_object_idx) return LOAD_ERROR_TOO_MANY_ITEM; // Verify maximum
-	for (i = 1; i < limit; i++)	// Read dropped items
+	READ_OBJECT_ID(&num); /* Read the item count */
+	if(num > max_object_idx) return LOAD_ERROR_TOO_MANY_ITEM; /* Verify maximum */
+	for (i = 1; i < num; i++) /* Read dropped items */
 	{
 		OBJECT_ID object_idx;
 		object_type *object_ptr;
@@ -1254,7 +1253,6 @@ static errr rd_objects(void)
 		rd_object(object_ptr);
 	}
 	note(format("Number of Floor Objects:%u", i));
-
 	return LOAD_ERROR_NONE;
 }
 
