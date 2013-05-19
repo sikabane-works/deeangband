@@ -853,6 +853,24 @@ static errr wr_creatures(void)
 	for (i = 1; i < creature_max; i++) wr_creature(&creature_list[i]); // Dump the creatures
 	return SUCCESS;
 }
+
+static errr wr_object_kinds(void)
+{
+	int i;
+	WRITE_OBJECT_KIND_ID(max_object_kind_idx);
+	for (i = 0; i < max_object_kind_idx; i++) wr_object_kind(i);
+	return LOAD_ERROR_NONE;
+}
+
+static errr wr_objects(void)
+{
+	int i;
+	WRITE_OBJECT_ID(object_max); // Total objects
+	for (i = 1; i < object_max; i++) wr_object(&object_list[i]); // Dump it
+	return LOAD_ERROR_NONE;
+}
+
+
 /* Actually write a save-file */
 static bool wr_savefile_new(void)
 {
@@ -879,16 +897,9 @@ static bool wr_savefile_new(void)
 	wr_options(); /* Write the boolean "options" */
 	wr_messages();
 	wr_world(); /* Write the "extra" information */
-
 	wr_creatures();
-
-	/* Dump the object memory */
-	WRITE_OBJECT_KIND_ID(max_object_kind_idx);
-	for (i = 0; i < max_object_kind_idx; i++) wr_object_kind(i);
-
-	/*** Dump objects ***/
-	WRITE_OBJECT_ID(object_max); // Total objects
-	for (i = 1; i < object_max; i++) wr_object(&object_list[i]); // Dump it
+	wr_object_kinds();
+	wr_objects();
 
 	WRITE_TOWN_ID(max_towns); /* Dump the towns */
 	WRITE_QUEST_ID(max_quests); /* Dump the quests */

@@ -1193,6 +1193,13 @@ static errr rd_creatures(void)
 	errr err;
 	creature_type *creature_ptr;
 
+	for (i = 0; i < max_species_idx; i++)
+	{
+		species_type *species_ptr = &species_info[i];
+		species_ptr->max_num = 100;
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) species_ptr->max_num = 1;
+	}
+
 	READ_CREATURE_ID(&unique_max); /* Unique creatures */
 	READ_CREATURE_ID(&limit); /* Total creatures */
 	if(limit > max_creature_idx) return LOAD_ERROR_TOO_MANY_CREATURE;
@@ -1224,12 +1231,31 @@ static errr rd_object_kind(OBJECT_KIND_ID object_kind_id)
 
 static errr rd_object_kinds(void)
 {
-	OBJECT_KIND_ID i;
-	u16b tmp16u;
-	rd_u16b(&tmp16u);
+	OBJECT_KIND_ID i, tmp16u;
+	READ_OBJECT_KIND_ID(&tmp16u);
 	if(tmp16u > max_object_kind_idx) return LOAD_ERROR_TOO_MANY_ITEM_KIND;
 	for (i = 0; i < tmp16u; i++) rd_object_kind(i);
-	return SUCCESS;
+	return LOAD_ERROR_NONE;
+}
+
+static errr rd_objects(void)
+{
+	s16b limit;
+	int i;
+
+	rd_s16b(&limit); // Read the item count
+	if(limit > max_object_idx) return LOAD_ERROR_TOO_MANY_ITEM; // Verify maximum
+	for (i = 1; i < limit; i++)	// Read dropped items
+	{
+		OBJECT_ID object_idx;
+		object_type *object_ptr;
+		object_idx = object_pop();
+		object_ptr = &object_list[object_idx];
+		rd_object(object_ptr);
+	}
+	note(format("Number of Floor Objects:%u", i));
+
+	return LOAD_ERROR_NONE;
 }
 
 /*
@@ -1238,7 +1264,6 @@ static errr rd_object_kinds(void)
 static errr rd_savefile_new_aux(void)
 {
 	int i, j;
-	s16b limit;
 	COODINATES wild_x_size;
 	COODINATES wild_y_size;
 	u16b tmp16u;
@@ -1259,29 +1284,9 @@ static errr rd_savefile_new_aux(void)
 	rd_options(); /* Then the options */
 	rd_messages(); /* Then the "messages" */
 	rd_world();  /* Read the extra stuff */
-
-	for (i = 0; i < max_species_idx; i++)
-	{
-		species_type *species_ptr = &species_info[i];
-		species_ptr->max_num = 100;
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) species_ptr->max_num = 1;
-	}
-
 	rd_creatures();
 	rd_object_kinds();
-
-	/*** Objects ***/
-	rd_s16b(&limit); // Read the item count
-	if(limit > max_object_idx) return LOAD_ERROR_TOO_MANY_ITEM; // Verify maximum
-	for (i = 1; i < limit; i++)	// Read dropped items
-	{
-		OBJECT_ID object_idx;
-		object_type *object_ptr;
-		object_idx = object_pop();
-		object_ptr = &object_list[object_idx];
-		rd_object(object_ptr);
-	}
-	note(format("Number of Floor Objects:%u", i));
+	rd_objects();
 
 	/* Init the wilderness seeds */
 	for (i = 0; i < max_wild_x; i++)
