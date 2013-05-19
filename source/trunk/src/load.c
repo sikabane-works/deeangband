@@ -597,6 +597,8 @@ static void rd_randomizer(void)
 	READ_RAND_SEED(&Rand_place);
 	for (i = 0; i < RAND_DEG; i++)rd_u32b(&Rand_state[i]);
 	Rand_quick = FALSE;
+
+	note(MES_LOAD_RANDOM_SEED);
 }
 
 
@@ -686,6 +688,8 @@ static void rd_options(void)
 			}
 		}
 	}
+
+	note(MES_LOAD_OPTION);
 }
 
 static errr rd_creature(creature_type *creature_ptr)
@@ -963,12 +967,6 @@ static void rd_extra(void)
 
 }
 
-
-
-
-
-
-
 /*
  * Read the saved messages
  */
@@ -978,18 +976,15 @@ static void rd_messages(void)
 	char buf[128];
 	s16b num;
 
-	/* Total */
-	rd_s16b(&num);
-
-	/* Read the messages */
-	for (i = 0; i < num; i++)
+	rd_s16b(&num); /* Total */
+	for (i = 0; i < num; i++) /* Read the messages */
 	{
 		rd_string(buf, sizeof(buf)); /* Read the message */
 		message_add(buf); /* Save the message */
 	}
+
+	note(MES_LOAD_MESSAGE);
 }
-
-
 
 /* Old hidden trap flag */
 #define CAVE_TRAP       0x8000
@@ -1009,7 +1004,6 @@ static void rd_messages(void)
 /* Quest constants */
 #define QUEST_OLD_CASTLE  27
 #define QUEST_ROYAL_CRYPT 28
-
 
 
 /*
@@ -1187,6 +1181,8 @@ static errr rd_system_info(void)
 	rd_u16b(&sf_lives); /* Number of resurrections */
 	rd_u16b(&sf_saves); /* Number of times played */
 	rd_byte(&kanji_code); /* Kanji code */
+
+	note(format(MES_LOAD_START(ver_major, ver_minor, ver_patch))); /* Mention the savefile version */	
 	return SUCCESS;
 }
 
@@ -1258,13 +1254,9 @@ static errr rd_savefile_new_aux(void)
 	x_check = 0L;
 
 	rd_system_info();
-	note(format(MES_LOAD_START(ver_major, ver_minor, ver_patch))); /* Mention the savefile version */	
 	rd_randomizer(); /* Read RNG state */
-	note(MES_LOAD_RANDOM_SEED);
 	rd_options(); /* Then the options */
-	note(MES_LOAD_OPTION);
 	rd_messages(); /* Then the "messages" */
-	note(MES_LOAD_MESSAGE);
 
 	for (i = 0; i < max_species_idx; i++)
 	{
