@@ -826,6 +826,9 @@ static bool wr_floors(creature_type *player_ptr)
 
 static bool wr_system_info(void)
 {
+	byte tmp8u;
+	tmp8u = (byte)randint0(256);
+	wr_byte(tmp8u);
 	wr_byte(VER_EXTRA);
 	wr_byte(VER_PATCH);
 	wr_byte(VER_MINOR);
@@ -858,9 +861,9 @@ static errr wr_creatures(void)
 /* Actually write a save-file */
 static bool wr_savefile_new(void)
 {
+	byte tmp8u;
 	int i, j;
 	u32b now;
-	byte tmp8u;
 
 	compact_objects(0); /* Compact the objects */
 	compact_creatures(0); /* Compact the creatures */
@@ -875,10 +878,6 @@ static bool wr_savefile_new(void)
 	x_stamp = 0L;
 
 	/*** Actually write the file ***/
-
-	/* Initial value of xor_byte */
-	tmp8u = (byte)randint0(256);
-	wr_byte(tmp8u);
 
 	wr_system_info();
 	wr_randomizer();	/* Write the RNG state */
@@ -966,14 +965,8 @@ static bool wr_savefile_new(void)
 	for(i = 0; i < max_store_idx; i++) wr_store(&st_list[i]);
 
 	/* Write screen dump for sending score */
-	if(screen_dump && (wait_report_score || !gameover))
-	{
-		wr_string(screen_dump);
-	}
-	else
-	{
-		wr_string("");
-	}
+	if(screen_dump && (wait_report_score || !gameover)) wr_string(screen_dump);
+	else wr_string("");
 
 	if(!gameover)	if(!wr_floors(player_ptr)) return FALSE;	// Dump the dungeon
 

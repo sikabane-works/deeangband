@@ -1177,6 +1177,7 @@ static errr rd_floors(void)
 
 static errr rd_system_info(void)
 {
+	strip_bytes(1); /* Skip - Initial value of xor_byte */
 	rd_byte(&ver_extra);
 	rd_byte(&ver_patch);
 	rd_byte(&ver_minor);
@@ -1235,10 +1236,8 @@ static errr rd_savefile_new_aux(void)
 	v_check = 0L;
 	x_check = 0L;
 
-	note(format(MES_LOAD_START(ver_major, ver_minor, ver_patch))); /* Mention the savefile version */
-	
-	strip_bytes(1); /* Skip - Initial value of xor_byte */
 	rd_system_info();
+	note(format(MES_LOAD_START(ver_major, ver_minor, ver_patch))); /* Mention the savefile version */	
 	rd_randomizer(); /* Read RNG state */
 	note(MES_LOAD_RANDOM_SEED);
 	rd_options(); /* Then the options */
