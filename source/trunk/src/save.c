@@ -847,7 +847,15 @@ static bool wr_system_info(void)
 	return SUCCESS;
 }
 
-// Actually write a save-file
+static errr wr_creatures(void)
+{
+	int i;
+	WRITE_CREATURE_ID(unique_max); /* Unique creatures */
+	WRITE_CREATURE_ID(creature_max); /* Total creatures */
+	for (i = 1; i < creature_max; i++) wr_creature(&creature_list[i]); // Dump the creatures
+	return SUCCESS;
+}
+/* Actually write a save-file */
 static bool wr_savefile_new(void)
 {
 	int i, j;
@@ -877,17 +885,13 @@ static bool wr_savefile_new(void)
 	wr_options();		/* Write the boolean "options" */
 	wr_messages();
 
-	/*** Dump the creatures ***/
-	WRITE_CREATURE_ID(unique_max); /* Unique creatures */
-	WRITE_CREATURE_ID(creature_max); /* Total creatures */
-	for (i = 1; i < creature_max; i++) wr_creature(&creature_list[i]); // Dump the creatures
+	wr_creatures();
 
 	// Dump the object memory
 	WRITE_OBJECT_KIND_ID(max_object_kind_idx);
 	for (i = 0; i < max_object_kind_idx; i++) wr_xtra(i);
 
 	/*** Dump objects ***/
-
 	WRITE_OBJECT_ID(object_max); // Total objects
 
 	// Dump the objects

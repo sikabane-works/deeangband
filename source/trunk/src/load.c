@@ -1189,22 +1189,42 @@ static errr rd_system_info(void)
 	return SUCCESS;
 }
 
+static errr rd_creatures(void)
+{
+	CREATURE_ID limit, i, creature_idx;
+	errr err;
+	creature_type *creature_ptr;
+
+	READ_CREATURE_ID(&unique_max); /* Unique creatures */
+	READ_CREATURE_ID(&limit); /* Total creatures */
+	if(limit > max_creature_idx) return LOAD_ERROR_TOO_MANY_CREATURE;
+
+	player_ptr = &creature_list[1];
+
+	// Read creatures
+	for (i = 1; i < limit; i++)
+	{
+		creature_idx = creature_pop(); // Get a new record
+		creature_ptr = &creature_list[creature_idx]; // Acquire creature
+		err = rd_creature(creature_ptr); // Read the creature
+		if(err != LOAD_ERROR_NONE) return err;
+		real_species_ptr(creature_ptr)->cur_num++; // Count
+	}
+
+	return SUCCESS;
+}
 
 /*
  * Actually read the savefile
  */
 static errr rd_savefile_new_aux(void)
 {
-	errr err;
 	int i, j;
-	CREATURE_ID limit;
+	s16b limit;
 	COODINATES wild_x_size;
 	COODINATES wild_y_size;
 	u16b tmp16u;
 	char buf[SCREEN_BUF_SIZE];
-
-	CREATURE_ID creature_idx;
-	creature_type *creature_ptr;
 
 	u32b n_x_check, n_v_check;
 	u32b o_x_check, o_v_check;
@@ -1234,22 +1254,7 @@ static errr rd_savefile_new_aux(void)
 		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) species_ptr->max_num = 1;
 	}
 
-	/*** Creatures ***/
-	READ_CREATURE_ID(&unique_max); /* Unique creatures */
-	READ_CREATURE_ID(&limit); /* Total creatures */
-	if(limit > max_creature_idx) return LOAD_ERROR_TOO_MANY_CREATURE;
-
-	player_ptr = &creature_list[1];
-
-	// Read creatures
-	for (i = 1; i < limit; i++)
-	{
-		creature_idx = creature_pop(); // Get a new record
-		creature_ptr = &creature_list[creature_idx]; // Acquire creature
-		err = rd_creature(creature_ptr); // Read the creature
-		if(err != LOAD_ERROR_NONE) return err;
-		real_species_ptr(creature_ptr)->cur_num++; // Count
-	}
+	rd_creatures();
 
 	// Object Memory
 	rd_u16b(&tmp16u);
