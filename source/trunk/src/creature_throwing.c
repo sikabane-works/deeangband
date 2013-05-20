@@ -1053,28 +1053,17 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				/* Apply special damage  */
 				tdam = tot_dam_aux_shot(creature_ptr, object2_ptr, tdam, m_ptr);
 				tdam = critical_shot(creature_ptr, object2_ptr->weight, object2_ptr->to_hit, tdam);
-				if(object2_ptr->to_damage > 0)
-					tdam += object2_ptr->to_damage;
-				else
-					tdam += -object2_ptr->to_damage;
+				if(object2_ptr->to_damage > 0) tdam += object2_ptr->to_damage;
+				else tdam += -object2_ptr->to_damage;
 
-				if(boomerang)
-				{
-					tdam += creature_ptr->to_damage_m;
-				}
+				if(boomerang) tdam += creature_ptr->to_damage_m;
 				else if(have_flag(flgs, TRAIT_THROW_MIGHTY))
 				{
 					tdam *= (3+mult);
 					tdam += creature_ptr->to_damage_m;
 				}
-				else
-				{
-					tdam *= mult;
-				}
-				if(shuriken)
-				{
-					tdam += ((creature_ptr->lev + 30)*(creature_ptr->lev + 30) - 900) / 55;
-				}
+				else tdam *= mult;
+				if(shuriken) tdam += ((creature_ptr->lev + 30)*(creature_ptr->lev + 30) - 900) / 55;
 
 				/* Hit the creature, check for death */
 				take_damage_to_creature(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, NULL, -1);
@@ -1176,12 +1165,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			}
 			if((back_chance > 37) && !has_trait(creature_ptr, TRAIT_BLIND) && (item >= 0))
 			{
-				//msg_format(MES_THROW_SHATTER(object2_ptr));
-#ifdef JP
-				msg_format("%s‚ªŽèŒ³‚É•Ô‚Á‚Ä‚«‚½B", o2_name);
-#else
-				msg_format("%s comes back to you.", o2_name);
-#endif
+				msg_format(MES_THROW_BACK(object2_ptr));
 				come_back = TRUE;
 			}
 			else
@@ -1194,14 +1178,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 					msg_format("%s backs, but you can't catch!", o2_name);
 #endif
 				}
-				else
-				{
-#ifdef JP
-					msg_format("%s‚ª•Ô‚Á‚Ä‚«‚½B", o2_name);
-#else
-					msg_format("%s comes back.", o2_name);
-#endif
-				}
+				else msg_format(MES_THROW_BACK(object2_ptr));
 				y = creature_ptr->fy;
 				x = creature_ptr->fx;
 			}
