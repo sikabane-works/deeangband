@@ -2513,9 +2513,11 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_THROW_FIGURE_FAILED "lŒ`‚Í”P‚¶‹È‚ª‚èÓ‚¯ŽU‚Á‚Ä‚µ‚Ü‚Á‚½I"
 #define MES_THROW_FIGURE_CURSED "‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB"
+#define MES_THROW_SHATTER(OBJECT) "%s‚ÍÓ‚¯ŽU‚Á‚½I", (OBJECT)->name
 #else
 #define MES_THROW_FIGURE_FAILED "The Figurine writhes and then shatters."
 #define MES_THROW_FIGURE_CURSED "You have a bad feeling about this."
+#define MES_THROW_SHATTER(OBJECT) "The %s shatters!", (OBJECT)->name
 #endif
 
 #ifdef JP
