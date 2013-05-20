@@ -1288,6 +1288,67 @@ static errr rd_towns(void)
 	return LOAD_ERROR_NONE;
 }
 
+static errr rd_quests(void)
+{
+	int i;
+
+	u16b max_quests_load;
+	byte max_rquests_load;
+	//TODO s16b old_inside_quest = inside_quest;
+
+	/* Number of quests */
+	rd_u16b(&max_quests_load);
+	rd_byte(&max_rquests_load);
+
+	/* Incompatible save files */
+	if(max_quests_load > max_quests) return LOAD_ERROR_TOO_MANY_QUEST;
+	else note(format("Number of Quests:%u", max_quests_load));
+
+	for (i = 0; i < max_quests_load; i++)
+	{
+		if(i < max_quests)
+		{
+			rd_s16b(&quest[i].status);
+			READ_FLOOR_LEV(&quest[i].level);
+			READ_CREATURE_LEV(&quest[i].complev);
+
+			/* Load quest status if quest is running */
+			if((quest[i].status == QUEST_STATUS_TAKEN) || (quest[i].status == QUEST_STATUS_COMPLETED) ||
+				(i >= MIN_RANDOM_QUEST) && (i <= (MIN_RANDOM_QUEST + max_rquests_load)))
+			{
+				READ_POPULATION(&quest[i].cur_num);
+				READ_POPULATION(&quest[i].max_num);
+				rd_s16b(&quest[i].type);
+
+				/* Load quest creature index */
+				READ_SPECIES_ID(&quest[i].species_idx);
+
+				if((quest[i].type == QUEST_TYPE_RANDOM) && (!quest[i].species_idx))
+				{
+					determine_random_questor(&quest[i]);
+				}
+
+				/* Load quest item index */
+				READ_OBJECT_KIND_ID(&quest[i].k_idx);
+
+				if(quest[i].k_idx) add_flag(artifact_info[quest[i].k_idx].flags, TRAIT_QUESTITEM);
+				rd_byte(&quest[i].flags);
+				READ_DUNGEON_ID(&quest[i].dungeon);
+			}
+		}
+		/* Ignore the empty quests from old versions */
+		else
+		{
+			strip_bytes(2); /* Ignore quest status */
+			strip_bytes(2); /* Ignore quest level */
+			/*
+			* We don't have to care about the other info,
+			* since status should be 0 for these quests anyway
+			*/
+		}
+	}
+}
+
 /*
  * Actually read the savefile
  */
@@ -1319,64 +1380,6 @@ static errr rd_savefile_new_aux(void)
 	rd_wilderness();
 	rd_towns();
 
-	{
-		u16b max_quests_load;
-		byte max_rquests_load;
-		//TODO s16b old_inside_quest = inside_quest;
-
-		/* Number of quests */
-		rd_u16b(&max_quests_load);
-		rd_byte(&max_rquests_load);
-
-		/* Incompatible save files */
-		if(max_quests_load > max_quests) return LOAD_ERROR_TOO_MANY_QUEST;
-		else note(format("Number of Quests:%u", max_quests_load));
-
-		for (i = 0; i < max_quests_load; i++)
-		{
-			if(i < max_quests)
-			{
-				rd_s16b(&quest[i].status);
-				READ_FLOOR_LEV(&quest[i].level);
-				READ_CREATURE_LEV(&quest[i].complev);
-
-				/* Load quest status if quest is running */
-				if((quest[i].status == QUEST_STATUS_TAKEN) ||
-				    (quest[i].status == QUEST_STATUS_COMPLETED) ||
-				    (i >= MIN_RANDOM_QUEST) && (i <= (MIN_RANDOM_QUEST + max_rquests_load)))
-				{
-					READ_POPULATION(&quest[i].cur_num);
-					READ_POPULATION(&quest[i].max_num);
-					rd_s16b(&quest[i].type);
-
-					/* Load quest creature index */
-					READ_SPECIES_ID(&quest[i].species_idx);
-
-					if((quest[i].type == QUEST_TYPE_RANDOM) && (!quest[i].species_idx))
-					{
-						determine_random_questor(&quest[i]);
-					}
-
-					/* Load quest item index */
-					READ_OBJECT_KIND_ID(&quest[i].k_idx);
-
-					if(quest[i].k_idx) add_flag(artifact_info[quest[i].k_idx].flags, TRAIT_QUESTITEM);
-					rd_byte(&quest[i].flags);
-					READ_DUNGEON_ID(&quest[i].dungeon);
-				}
-			}
-			/* Ignore the empty quests from old versions */
-			else
-			{
-				strip_bytes(2); /* Ignore quest status */
-				strip_bytes(2); /* Ignore quest level */
-				/*
-				 * We don't have to care about the other info,
-				 * since status should be 0 for these quests anyway
-				 */
-			}
-		}
-	}
 
 	/* Load the Artifacts */
 	rd_u16b(&tmp16u);

@@ -904,37 +904,10 @@ static errr wr_towns(void)
 	return LOAD_ERROR_NONE;
 }
 
-/* Actually write a save-file */
-static bool wr_savefile_new(void)
+static errr wr_quests(void)
 {
 	byte tmp8u;
 	int i;
-	u32b now;
-
-	compact_objects(0); /* Compact the objects */
-	compact_creatures(0); /* Compact the creatures */
-
-	now = (u32b)time((time_t *)0); /* Guess at the current time */
-	sf_system = 0L;
-	sf_when = now;
-	sf_saves++;
-
-	/* Reset the checksum */
-	v_stamp = 0L;
-	x_stamp = 0L;
-
-	/*** Actually write the file ***/
-
-	wr_system_info();
-	wr_randomizer(); /* Write the RNG state */
-	wr_options(); /* Write the boolean "options" */
-	wr_messages();
-	wr_world(); /* Write the "extra" information */
-	wr_creatures();
-	wr_object_kinds();
-	wr_objects();
-	wr_wilderness();
-	wr_towns();
 
 	WRITE_QUEST_ID(max_quests); /* Dump the quests */
 
@@ -964,6 +937,41 @@ static bool wr_savefile_new(void)
 			WRITE_DUNGEON_ID(quest[i].dungeon);
 		}
 	}
+
+	return SUCCESS;
+}
+
+/* Actually write a save-file */
+static bool wr_savefile_new(void)
+{
+	int i;
+	u32b now;
+
+	compact_objects(0); /* Compact the objects */
+	compact_creatures(0); /* Compact the creatures */
+
+	now = (u32b)time((time_t *)0); /* Guess at the current time */
+	sf_system = 0L;
+	sf_when = now;
+	sf_saves++;
+
+	/* Reset the checksum */
+	v_stamp = 0L;
+	x_stamp = 0L;
+
+	/*** Actually write the file ***/
+
+	wr_system_info();
+	wr_randomizer(); /* Write the RNG state */
+	wr_options(); /* Write the boolean "options" */
+	wr_messages();
+	wr_world(); /* Write the "extra" information */
+	wr_creatures();
+	wr_object_kinds();
+	wr_objects();
+	wr_wilderness();
+	wr_towns();
+	wr_quests();
 
 	/* Hack -- Dump the artifacts */
 	WRITE_ARTIFACT_ID(max_artifact_idx);
