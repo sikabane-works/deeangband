@@ -900,7 +900,7 @@ static errr wr_wilderness(void)
 
 static errr wr_towns(void)
 {
-	WRITE_TOWN_ID(max_towns); /* Dump the towns */
+	WRITE_TOWN_ID(max_towns);
 	return LOAD_ERROR_NONE;
 }
 
@@ -974,8 +974,6 @@ static bool wr_savefile_new(void)
 		WRITE_FLOOR_ID(a_ptr->floor_idx);
 	}
 
-
-	WRITE_TOWN_ID(max_towns);
 	WRITE_STORE_ID(max_store_idx);
 
 	for(i = 0; i < max_store_idx; i++) wr_store(&st_list[i]);

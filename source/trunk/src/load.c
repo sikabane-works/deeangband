@@ -1301,13 +1301,10 @@ static errr rd_wilderness(void)
 static errr rd_towns(void)
 {
 	u16b max_towns_load;
-
-	/* Number of towns */
 	rd_u16b(&max_towns_load);
-
-	/* Incompatible save files */
 	if(max_towns_load > max_towns) return (LOAD_ERROR_TOO_MANY_TOWN);
 	else note(format("Number of Towns:%u", max_towns_load));
+	C_MAKE(town, max_towns, town_type);
 	return LOAD_ERROR_NONE;
 }
 
@@ -1417,10 +1414,6 @@ static errr rd_savefile_new_aux(void)
 	}
 
 	if(player_ptr->class_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
-
-	/* Read number of towns */
-	READ_TOWN_ID(&max_towns);
-	C_MAKE(town, max_towns, town_type);
 
 	READ_STORE_ID(&max_store_idx);
 
