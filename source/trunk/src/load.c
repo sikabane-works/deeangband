@@ -519,7 +519,6 @@ static errr rd_store(store_type *st_ptr)
 	bool sort = FALSE;
 
 	/* Read the basic info */
-
 	READ_STRING_OFFSET(&st_ptr->name);
 	rd_s32b(&st_ptr->wealth);
 
@@ -547,42 +546,27 @@ static errr rd_store(store_type *st_ptr)
 	{
 		object_type forge;
 		object_type *quest_ptr;
-
 		quest_ptr = &forge;
 
-		/* Wipe the object */
-		object_wipe(quest_ptr);
-
-		/* Read the item */
-		rd_object(quest_ptr);
+		object_wipe(quest_ptr); /* Wipe the object */
+		rd_object(quest_ptr); /* Read the item */
 
 		/* Acquire valid items */
 		if(st_ptr->stock_num < st_ptr->stock_size)
 		{
 			int k;
-			if(sort)
-			{
-				store_item_load(st_ptr, quest_ptr);
-			}
+			if(sort) store_item_load(st_ptr, quest_ptr);
 			else
 			{
 				k = st_ptr->stock_num++;
-
-				/* Acquire the item */
-				object_copy(&st_ptr->stock[k], quest_ptr);
+				object_copy(&st_ptr->stock[k], quest_ptr); /* Acquire the item */
 			}
 		}
 	}
 
 	C_MAKE(st_ptr->table, st_ptr->table_size, s16b);
-	for (j = 0; j < num2; j++)
-	{
-		rd_s16b(&st_ptr->table[j]);
-	}
-
-
+	for (j = 0; j < num2; j++) rd_s16b(&st_ptr->table[j]);
 	return SUCCESS;
-
 }
 
 
@@ -1269,11 +1253,7 @@ static errr rd_wilderness(void)
 	/* Incompatible save files */
 	if((wild_x_size > max_wild_x) || (wild_y_size > max_wild_y))
 	{
-#ifdef JP
-		note(format("çrñÏÇ™ëÂÇ´Ç∑Ç¨ÇÈ(X:%u/%u) (Y:%u/%u)", wild_x_size, max_wild_x, wild_y_size, max_wild_y));
-#else
-		note(format("Wilderness is too big (%u/%u)", wild_x_size, wild_y_size));
-#endif
+		note(format(MES_LOAD_ERROR_WILDERNESS(wild_x_size, max_wild_x, wild_y_size, max_wild_y)));
 		return (23);
 	}
 

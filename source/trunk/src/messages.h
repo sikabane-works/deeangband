@@ -214,12 +214,14 @@
 #define MES_LOAD_OPTION "オプションをロードしました"
 #define MES_LOAD_MESSAGE "メッセージをロードしました"
 #define MES_LOAD_WORLD "世界情報をロードしました"
+#define MES_LOAD_ERROR_WILDERNESS(SAVE_X, MAX_X, SAVE_Y, MAX_Y) "荒野が大きすぎる(X:%u/%u) (Y:%u/%u)", (SAVE_X), (MAX_X), (SAVE_Y), (MAX_Y)
 #else
 #define MES_LOAD_START(VER1, VER2, VER3) "Loading a %d.%d.%d savefile...", (VER1), (VER2), (VER3)
 #define MES_LOAD_RANDOM_SEED "Loaded Randomizer Info"
 #define MES_LOAD_OPTION "Loaded Option Flags"
 #define MES_LOAD_MESSAGE "Loaded Messages"
 #define MES_LOAD_WORLD "Loaded world information"
+#define MES_LOAD_ERROR_WILDERNESS(SAVE_X, MAX_X, SAVE_Y, MAX_Y) "Wilderness is too big (X:%u/%u) (Y:%u/%u)", (SAVE_X), (MAX_X), (SAVE_Y), (MAX_Y)
 #endif
 
 #if JP
