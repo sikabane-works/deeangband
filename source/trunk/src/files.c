@@ -3849,10 +3849,6 @@ static void dump_aux_race_history(FILE *fff)
 	fputc('\n', fff);
 }
 
-
-/*
- *
- */
 static void dump_aux_realm_history(creature_type *creature_ptr, FILE *fff)
 {
 	if(creature_ptr->old_realm)
@@ -3888,17 +3884,9 @@ static void dump_aux_karmas(creature_type *creature_ptr, FILE *fff)
 	dump_karmas(creature_ptr, fff);
 }
 
-
-/*
- *
- */
 static void dump_aux_mutations(creature_type *creature_ptr, FILE *fff)
 {
-#ifdef JP
-	fprintf(fff, "\n\n  [ì¡ê´]\n\n");
-#else
-	fprintf(fff, "\n\n  [Trait]\n\n");
-#endif
+	fprintf(fff, MES_INTERFACE_MUTATION);
 	dump_traits(creature_ptr, fff);
 }
 
