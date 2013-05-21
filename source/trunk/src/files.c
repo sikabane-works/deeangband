@@ -3777,7 +3777,6 @@ static void dump_aux_arena(FILE *fff)
 static void dump_aux_creatures(FILE *fff)
 {
 	/* Creatures slain */
-
 	SPECIES_ID k;
 	long uniq_total = 0;
 	long norm_total = 0;
@@ -3823,17 +3822,10 @@ static void dump_aux_creatures(FILE *fff)
 	else if(uniq_total == 0) fprintf(fff, MES_KNOW_KILLED(norm_total));
 
 	/* Defeated more than one unique creatures */
-	else /* if(uniq_total > 0) */
+	else
 	{
-#ifdef JP
-		fprintf(fff, "%ld体のユニーク・クリーチャーを含む、合計%ld体の敵を倒しています。\n", uniq_total, norm_total); 
-#else
-		fprintf(fff, "You have defeated %ld %s including %ld unique creature%s in total.\n", norm_total, norm_total == 1 ? "enemy" : "enemies", uniq_total, (uniq_total == 1 ? "" : "s"));
-#endif
-
-		/* Sort the array by dungeon depth of creatures */
-		ang_sort(who, &why, uniq_total, ang_sort_comp_hook, ang_sort_swap_hook);
-
+		fprintf(fff, MES_INTERFACE_DEFEATED_SCORE(uniq_total, norm_total)); 
+		ang_sort(who, &why, uniq_total, ang_sort_comp_hook, ang_sort_swap_hook); /* Sort the array by dungeon depth of creatures */
 		fprintf(fff, MES_INTERFACE_DEFEATED_UNIQUE_TOP(MIN(uniq_total, 10)));
 
 		/* Print top 10 */
@@ -3848,9 +3840,7 @@ static void dump_aux_creatures(FILE *fff)
 		}
 
 	}
-
-	/* Free the "who" array */
-	C_KILL(who, max_species_idx, SPECIES_ID);
+	C_KILL(who, max_species_idx, SPECIES_ID); /* Free the "who" array */
 }
 
 static void dump_aux_race_history(FILE *fff)
