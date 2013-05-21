@@ -1166,14 +1166,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			}
 			else
 			{
-				if(item >= 0)
-				{
-#ifdef JP
-					msg_format("%s‚ðŽó‚¯‘¹‚Ë‚½I", o2_name);
-#else
-					msg_format("%s backs, but you can't catch!", o2_name);
-#endif
-				}
+				if(item >= 0) msg_format(MES_THROW_BACK_FAILED(object2_ptr));
 				else msg_format(MES_THROW_BACK(object2_ptr));
 				y = creature_ptr->fy;
 				x = creature_ptr->fx;

@@ -2516,12 +2516,14 @@ static cptr desc_stat_neg[] =
 #define MES_THROW_SHATTER(OBJECT) "%sは砕け散った！", (OBJECT)->name
 #define MES_THROW_BACK(OBJECT) "%sが手元に返ってきた。", (OBJECT)->name
 #define MES_THROW_NO_BACK(OBJECT) "%sが返ってこなかった！", (OBJECT)->name
+#define MES_THROW_BACK_FAILED(OBJECT) "%sを受け損ねた！", (OBJECT)->name
 #else
 #define MES_THROW_FIGURE_FAILED "The Figurine writhes and then shatters."
 #define MES_THROW_FIGURE_CURSED "You have a bad feeling about this."
 #define MES_THROW_SHATTER(OBJECT) "The %s shatters!", (OBJECT)->name
 #define MES_THROW_BACK(OBJECT) "%s comes back to you.", (OBJECT)->name
 #define MES_THROW_NO_BACK(OBJECT) , (OBJECT)->name
+#define MES_THROW_BACK_FAILED(OBJECT) "%s backs, but you can't catch!", (OBJECT)->name
 #endif
 
 #ifdef JP
