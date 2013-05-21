@@ -1141,16 +1141,11 @@ static errr rd_floors(void)
 	errr err = 0;
 	int i;
 
-	/* Initialize saved_floors array and temporal files */
-	init_saved_floors(FALSE);
-
-	/*** Meta info ***/
+	init_saved_floors(FALSE); /* Initialize saved_floors array and temporal files */
 	rd_s16b(&floor_max); // Number of floor_idx used from birth
+	note(format(MES_LOAD_FLOOR(floor_max)));
 
-	// Read the current floor data
 	for(i = 1; i < floor_max; i++) err = rd_floor(&floor_list[i]);
-
-	/* Success or Error */
 	return err;
 }
 
@@ -1410,23 +1405,12 @@ static errr rd_savefile_new_aux(void)
 	rd_quests();
 	rd_artifacts();
 
-	if(player_ptr->class_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
-
-
 	rd_string(buf, sizeof(buf));
 	if(buf[0]) screen_dump = string_make(buf);
 
 	if(!gameover)	// I'm not dead yet...
 	{
-		// Dead players have no dungeon
-#ifdef JP
-		note("ƒ_ƒ“ƒWƒ‡ƒ“•œŒ³’†...");
-#else
-		note("Restoring Dungeon...");
-#endif
-
 		if(rd_floors()) return LOAD_ERROR_INVALID_FLOOR;
-
 		reset_cave_creature_reference();
 	}
 
@@ -1466,8 +1450,6 @@ static errr rd_savefile_new_aux(void)
 errr rd_savefile_new(void)
 {
 	errr err;
-
-
 	safe_setuid_grab(); // Grab permissions
 	fff = my_fopen(savefile, "rb"); // The savefile is a binary file
 	safe_setuid_drop(); // Drop permissions
@@ -1476,7 +1458,6 @@ errr rd_savefile_new(void)
 	err = rd_savefile_new_aux();
 	if(ferror(fff)) err = -1;
 	my_fclose(fff);
-
 
 	return (err);
 }
