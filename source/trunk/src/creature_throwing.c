@@ -463,19 +463,10 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 			if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_HURT_ROCK) && !c_ptr->creature_idx)
 			{
-#ifdef JP
-				if(c_ptr->info & (CAVE_MARK)) msg_print("Šâ‚ªÓ‚¯ŽU‚Á‚½B");
-#else
-				if(c_ptr->info & (CAVE_MARK)) msg_print("Wall rocks were shattered.");
-#endif
-				/* Forget the wall */
-				c_ptr->info &= ~(CAVE_MARK);
-
+				if(c_ptr->info & (CAVE_MARK)) msg_print(MES_SHOOT_ROCK_SHATTER);
+				c_ptr->info &= ~(CAVE_MARK); /* Forget the wall */
 				prepare_update(creature_ptr, PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
-
-				/* Destroy the wall */
-				cave_alter_feat(floor_ptr, ny, nx, FF_HURT_ROCK);
-
+				cave_alter_feat(floor_ptr, ny, nx, FF_HURT_ROCK); /* Destroy the wall */
 				hit_body = TRUE;
 				break;
 			}
@@ -524,9 +515,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		if(creature_ptr->snipe_type == SP_EVILNESS)
 		{
 			floor_ptr->cave[ny][nx].info &= ~(CAVE_GLOW | CAVE_MARK);
-
 			note_spot(floor_ptr, ny, nx);
-
 			lite_spot(floor_ptr, ny, nx);
 		}
 
@@ -646,19 +635,13 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				/* No death */
 				if(creature_list[c_ptr->creature_idx].species_idx != 0)
 				{
-					/* STICK TO */
-					if(object_is_fixed_artifact(quest_ptr))
+					if(object_is_fixed_artifact(quest_ptr)) /* STICK TO */
 					{
 						char m_name[MAX_NLEN];
 						creature_desc(m_name, steed_ptr, 0);
 						stick_to = TRUE;
-#ifdef JP
-						msg_format("%s‚Í%s‚É“Ë‚«Žh‚³‚Á‚½I",object_name, m_name);
-#else
-						msg_format("%^s have stuck into %s!",object_name, m_name);
-#endif
+						msg_format(MES_SHOOT_ARTIFACT_ARROW(object_ptr, steed_ptr));
 					}
-
 					message_pain(c_ptr->creature_idx, tdam);
 
 					/* Anger the creature */
@@ -714,16 +697,13 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				}
 			}
 
-			/* Sniper */
-			if(creature_ptr->snipe_type == SP_PIERCE)
+			if(creature_ptr->snipe_type == SP_PIERCE) /* Sniper */
 			{
 				if(creature_ptr->concent < 1) break;
 				creature_ptr->concent--;
 				continue;
 			}
-
-			/* Stop looking */
-			break;
+			break; /* Stop looking */
 		}
 	}
 
@@ -737,29 +717,16 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 		if(!object_idx)
 		{
-#ifdef JP
-			msg_format("%s‚Í‚Ç‚±‚©‚Ös‚Á‚½B", object_name);
-#else
-			msg_format("The %s have gone to somewhere.", object_name);
-#endif
-			if(object_is_fixed_artifact(quest_ptr))
-			{
-				artifact_info[j_ptr->name1].cur_num = 0;
-			}
+			msg_format(MES_THROW_BACK_GONE(object_ptr));
+			if(object_is_fixed_artifact(quest_ptr)) artifact_info[j_ptr->name1].cur_num = 0;
 			return;
 		}
 
 		object_ptr = &object_list[object_idx];
 		object_copy(object_ptr, quest_ptr);
-
-		/* Forget mark */
-		object_ptr->marked &= OM_TOUCHED;
-
-		/* Forget location */
-		object_ptr->fy = object_ptr->fx = 0;
-
-		/* Memorize creature */
-		object_ptr->held_m_idx = creature_idx;
+		object_ptr->marked &= OM_TOUCHED; /* Forget mark */
+		object_ptr->fy = object_ptr->fx = 0; /* Forget location */
+		object_ptr->held_m_idx = creature_idx; /* Memorize creature */
 
 		/* Build a stack */
 		//TODO
@@ -767,16 +734,8 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		/* Carry object */
 		//TODO
 	}
-	else if(CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT))
-	{
-		/* Drop (or break) near that location */
-		(void)drop_near(floor_ptr, quest_ptr, j, y, x);
-	}
-	else
-	{
-		/* Drop (or break) near that location */
-		(void)drop_near(floor_ptr, quest_ptr, j, prev_y, prev_x);
-	}
+	else if(CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) (void)drop_near(floor_ptr, quest_ptr, j, y, x);
+	else (void)drop_near(floor_ptr, quest_ptr, j, prev_y, prev_x);
 
 	/* Sniper - Repeat shooting when double shots */
 	}

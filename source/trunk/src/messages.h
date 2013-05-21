@@ -2507,9 +2507,13 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_SHOOT_ARTIFACT_ARROW(ARROW, TARGET) "%sは%sに突き刺さった！", (ARROW)->name, (TARGET)->name
 #define MES_SHOOT_MARK(ARROW) "%sが敵を捕捉した。", (ARROW)
+#define MES_SHOOT_ROCK_SHATTER "岩が砕け散った。"
 #else
+#define MES_SHOOT_ARTIFACT_ARROW(ARROW, TARGET) "%^s have stuck into %s!", (ARROW)->name, (TARGET)->name
 #define MES_SHOOT_MARK(ARROW) "The %s finds a mark.", (ARROW)
+#define MES_SHOOT_ROCK_SHATTER "Wall rocks were shattered."
 #endif
 
 #ifdef JP
@@ -2519,6 +2523,7 @@ static cptr desc_stat_neg[] =
 #define MES_THROW_BACK(OBJECT) "%sが手元に返ってきた。", (OBJECT)->name
 #define MES_THROW_NO_BACK(OBJECT) "%sが返ってこなかった！", (OBJECT)->name
 #define MES_THROW_BACK_FAILED(OBJECT) "%sを受け損ねた！", (OBJECT)->name
+#define MES_THROW_BACK_GONE(OBJECT) "%sはどこかへ行った。", (OBJECT)->name
 #else
 #define MES_THROW_FIGURE_FAILED "The Figurine writhes and then shatters."
 #define MES_THROW_FIGURE_CURSED "You have a bad feeling about this."
@@ -2526,6 +2531,7 @@ static cptr desc_stat_neg[] =
 #define MES_THROW_BACK(OBJECT) "%s comes back to you.", (OBJECT)->name
 #define MES_THROW_NO_BACK(OBJECT) , (OBJECT)->name
 #define MES_THROW_BACK_FAILED(OBJECT) "%s backs, but you can't catch!", (OBJECT)->name
+#define MES_THROW_BACK_GONE(OBJECT) "The %s have gone to somewhere.", (OBJECT)->name
 #endif
 
 #ifdef JP
