@@ -638,9 +638,7 @@ static void wr_floor(floor_type *floor_ptr)
 
 	// Fake max number
 	max_num_temp = 255;
-
-	// Allocate the "template" array
-	C_MAKE(template, max_num_temp, cave_template_type);
+	C_MAKE(template, max_num_temp, cave_template_type); // Allocate the "template" array
 
 	// Extract template array
 	for (y = 0; y < floor_ptr->height; y++)
@@ -745,12 +743,7 @@ static void wr_floor(floor_type *floor_ptr)
 				prev_u16b = tmp16u;
 				count = 1;
 			}
-
-			/* Continue the run */
-			else
-			{
-				count++;
-			}
+			else count++; /* Continue the run */
 		}
 	}
 
@@ -758,20 +751,15 @@ static void wr_floor(floor_type *floor_ptr)
 	if(count)
 	{
 		wr_byte((byte)count);
-
-		while (prev_u16b >= MAX_UCHAR)
+		while (prev_u16b >= MAX_UCHAR) /* Mark as actual data is larger than 254 */
 		{
-			/* Mark as actual data is larger than 254 */
 			wr_byte(MAX_UCHAR);
 			prev_u16b -= MAX_UCHAR;
 		}
 		wr_byte((byte)prev_u16b);
 	}
 
-
-	// Free the "template" array
-	C_FREE(template, max_num_temp, cave_template_type);
-
+	C_FREE(template, max_num_temp, cave_template_type); /* Free the "template" array */
 
 	// Dump cave messages
 	for (y = 0; y < floor_ptr->height; y++)
@@ -888,10 +876,7 @@ static errr wr_wilderness(void)
 	/* Dump the wilderness known */
 	for (i = 0; i < max_wild_x; i++)
 	{
-		for (j = 0; j < max_wild_y; j++)
-		{
-			wr_byte(wilderness[j][i].known);
-		}
+		for (j = 0; j < max_wild_y; j++) wr_byte(wilderness[j][i].known);
 	}
 
 	return LOAD_ERROR_NONE;

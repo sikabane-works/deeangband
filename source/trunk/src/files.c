@@ -3625,186 +3625,25 @@ static void dump_aux_pet(creature_type *creature_ptr, FILE *fff)
  */
 static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 {
+	char p[60][80];
+	int col;
+
 	if(creature_ptr->class_idx == CLASS_BLUE_MAGE)
 	{
-		int i = 0;
-		int j = 0;
-		int l1 = 0;
-		int l2 = 0;
-		int num = 0;
-		int spellnum[MAX_TRAITS];
-		s32b f4 = 0, f5 = 0, f6 = 0;
-		char p[60][80];
-		int col = 0;
-		bool pcol = FALSE;
-
-		for (i=0;i<60;i++) { p[i][0] = '\0'; }
-
 #ifdef JP
 		strcat(p[col], "\n\n  [学習済みの青魔法]\n");
 #else
 		strcat(p[col], "\n\n  [Learned Blue Magic]\n");
 #endif
-
-
-		for (j=1;j<6;j++)
-		{
-			col++;
-			//TODO set_rf_masks(&f4, &f5, &f6, j);
-			switch(j)
-			{
-				case trait_id_TYPE_BOLT:
-#ifdef JP
-					strcat(p[col], "\n     [ボルト型]\n");
-#else
-					strcat(p[col], "\n     [Bolt  Type]\n");
-#endif
-					break;
-
-				case trait_id_TYPE_BALL:
-#ifdef JP
-					strcat(p[col], "\n     [ボール型]\n");
-#else
-					strcat(p[col], "\n     [Ball  Type]\n");
-#endif
-					break;
-
-				case trait_id_TYPE_BREATH:
-#ifdef JP
-					strcat(p[col], "\n     [ブレス型]\n");
-#else
-					strcat(p[col], "\n     [  Breath  ]\n");
-#endif
-					break;
-
-				case trait_id_TYPE_SUMMON:
-#ifdef JP
-					strcat(p[col], "\n     [召喚魔法]\n");
-#else
-					strcat(p[col], "\n     [Summonning]\n");
-#endif
-					break;
-
-				case trait_id_TYPE_OTHER:
-#ifdef JP
-					strcat(p[col], "\n     [ その他 ]\n");
-#else
-					strcat(p[col], "\n     [Other Type]\n");
-#endif
-					break;
-			}
-
-			for (i = 0, num = 0; i < REALM_MAGIC_NUMBER; i++)
-			{
-				if((0x00000001 << i) & f4) spellnum[num++] = i;
-			}
-			for (; i < (REALM_MAGIC_NUMBER * 2); i++)
-			{
-				if((0x00000001 << (i - 32)) & f5) spellnum[num++] = i;
-			}
-			for (; i < 96; i++)
-			{
-				if((0x00000001 << (i - 64)) & f6) spellnum[num++] = i;
-			}
-
-			col++;
-			pcol = FALSE;
-			strcat(p[col], "       ");
-
-			for (i = 0; i < num; i++)
-			{
-				if(have_flag(creature_ptr->blue_learned_trait, i))
-				{
-					pcol = TRUE;
-					/* Dump blue magic */
-					l1 = strlen(p[col]);
-					l2 = strlen(trait_name + trait_info[spellnum[i]].text);
-					if((l1 + l2) >= 75)
-					{
-						strcat(p[col], "\n");
-						col++;
-						strcat(p[col], "       ");
-					}
-					strcat(p[col], trait_name + trait_info[spellnum[i]].text);
-					strcat(p[col], ", ");
-				}
-			}
-			
-			if(!pcol) strcat(p[col], KW_NONE);
-			else
-			{
-				if(p[col][strlen(p[col])-2] == ',') p[col][strlen(p[col])-2] = '\0';
-				else p[col][strlen(p[col])-10] = '\0';
-			}
-			
-			strcat(p[col], "\n");
-		}
-
-		for (i = 0; i <= col; i++) fprintf(fff, p[i]);
 	}
-	else if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
-	{
-		char s[EATER_EXT][MAX_NLEN];
-		TVAL tval, ext;
-		OBJECT_KIND_ID k_idx;
-		int i, magic_num;
-		SVAL sval;
 
+	if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
+	{
 #ifdef JP
 		fprintf(fff, "\n\n  [取り込んだ魔法道具]\n");
 #else
 		fprintf(fff, "\n\n  [Magic devices eaten]\n");
 #endif
-
-		for (ext = 0; ext < 3; ext++)
-		{
-			int eat_num = 0;
-
-			/* Dump an extent name */
-			switch (ext)
-			{
-			case 0:
-				tval = TV_STAFF;
-				fprintf(fff, "\n[%s]\n", KW_STAFF);
-				break;
-			case 1:
-				tval = TV_WAND;
-				fprintf(fff, "\n[%s]\n", KW_WAND);
-				break;
-			case 2:
-				tval = TV_ROD;
-				fprintf(fff, "\n[%s]\n", KW_ROD);
-				break;
-			}
-
-			/* Get magic device names that were eaten */
-			for (sval = 0; sval < EATER_EXT; sval++)
-			{
-				int idx = EATER_EXT * ext + sval;
-
-				magic_num = creature_ptr->max_charge[idx];
-				if(!magic_num) continue;
-
-				k_idx = lookup_kind(tval, sval);
-				if(!k_idx) continue;
-				sprintf(s[eat_num], "%23s (%2d)", (object_kind_name + object_kind_info[k_idx].name), magic_num);
-				eat_num++;
-			}
-
-			/* Dump magic devices in this extent */
-			if(eat_num > 0)
-			{
-				for (i = 0; i < eat_num; i++)
-				{
-					fputs(s[i], fff);
-					if(i % 3 < 2) fputs("    ", fff);
-					else fputs("\n", fff);
-				}
-
-				if(i % 3 > 0) fputs("\n", fff);
-			}
-			else fprintf(fff, "  (%s)\n", KW_NONE);
-		}
 	}
 }
 
