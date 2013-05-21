@@ -2411,6 +2411,8 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_LEARNED_BLUEMAGIC "\n\n  [学習済みの青魔法]\n"
 #define MES_INTERFACE_EATEN_MAGIC "\n\n  [取り込んだ魔法道具]\n"
 #define MES_INTERFACE_QUEST_INFO "\n\n  [クエスト情報]\n"
+#define MES_INTERFACE_LAST_MESSAGE "\n  [死ぬ直前のメッセージ]\n\n"
+#define MES_INTERFACE_WINNING_MESSAGE "\n  [*勝利*メッセージ]\n\n"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2448,6 +2450,8 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_LEARNED_BLUEMAGIC "\n\n  [Learned Blue Magic]\n"
 #define MES_INTERFACE_EATEN_MAGIC "\n\n  [Magic devices eaten]\n"
 #define MES_INTERFACE_QUEST_INFO "\n\n  [Quest Information]\n"
+#define MES_INTERFACE_LAST_MESSAGE "\n  [Last Messages]\n\n"
+#define MES_INTERFACE_WINNING_MESSAGE "\n  [*Winning* Message]\n\n"
 #endif
 
 #ifdef JP

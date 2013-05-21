@@ -3674,27 +3674,15 @@ static void dump_aux_last_message(creature_type *creature_ptr, FILE *fff)
 		if(!creature_ptr->total_winner)
 		{
 			int i;
-
-#ifdef JP
-			fprintf(fff, "\n  [死ぬ直前のメッセージ]\n\n");
-#else
-			fprintf(fff, "\n  [Last Messages]\n\n");
-#endif
-			for (i = MIN(message_num(), 30); i >= 0; i--)
-			{
-				fprintf(fff,"> %s\n",message_str((s16b)i));
-			}
+			fprintf(fff, MES_INTERFACE_LAST_MESSAGE);
+			for (i = MIN(message_num(), 30); i >= 0; i--) fprintf(fff,"> %s\n",message_str((s16b)i));
 			fputc('\n', fff);
 		}
 
 		/* Hack -- *Winning* message */
 		else if(creature_ptr->last_message)
 		{
-#ifdef JP
-			fprintf(fff, "\n  [*勝利*メッセージ]\n\n");
-#else
-			fprintf(fff, "\n  [*Winning* Message]\n\n");
-#endif
+			fprintf(fff, MES_INTERFACE_WINNING_MESSAGE);
 			fprintf(fff,"  %s\n", creature_ptr->last_message);
 			fputc('\n', fff);
 		}
