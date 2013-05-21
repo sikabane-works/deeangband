@@ -949,9 +949,11 @@ static bool wr_artifacts(void)
 	for (i = 0; i < max_artifact_idx; i++)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
-		WRITE_POPULATION(a_ptr->cur_num);
+		WRITE_QUANTITY(a_ptr->cur_num);
 		WRITE_FLOOR_ID(a_ptr->floor_idx);
 	}
+
+	return SUCCESS;
 }
 
 /* Actually write a save-file */

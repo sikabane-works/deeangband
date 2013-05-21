@@ -498,8 +498,8 @@ struct artifact_type
 	FLOOR_LEV level;			/* Artifact level */
 	byte rarity;		/* Artifact rarity */
 
-	POPULATION cur_num;		/* Number created (0 or 1) */
-	POPULATION max_num;		/* Unused (should be "1") */
+	QUANTITY cur_num;		/* Number created (0 or 1) */
+	QUANTITY max_num;		/* Unused (should be "1") */
 
 	FLOOR_ID floor_idx;          /* Leaved on this location last time */
 

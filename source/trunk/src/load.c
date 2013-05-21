@@ -1364,7 +1364,7 @@ static errr rd_artifacts(void)
 	for (i = 0; i < tmp16u; i++)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
-		READ_POPULATION(&a_ptr->cur_num);
+		READ_QUANTITY(&a_ptr->cur_num);
 		READ_FLOOR_ID(&a_ptr->floor_idx);
 	}
 
