@@ -3703,10 +3703,6 @@ static void dump_aux_recall(FILE *fff)
 	}
 }
 
-
-/*
- *
- */
 static void dump_aux_options(FILE *fff)
 {
 
@@ -3789,12 +3785,7 @@ static void dump_aux_creatures(FILE *fff)
 
 	/* Sort by creature level */
 	u16b why = 2;
-
-#ifdef JP
-	fprintf(fff, "\n  [倒したクリーチャー]\n\n");
-#else
-	fprintf(fff, "\n  [Defeated Creatures]\n\n");
-#endif
+	fprintf(fff, MES_INTERFACE_DEFEATED_CREATURE);
 
 	/* Allocate the "who" array */
 	C_MAKE(who, max_species_idx, SPECIES_ID);
@@ -3821,13 +3812,7 @@ static void dump_aux_creatures(FILE *fff)
 		}
 
 		/* Normal creatures */
-		else
-		{
-			if(species_ptr->killed_by_player > 0)
-			{
-				norm_total += species_ptr->killed_by_player;
-			}
-		}
+		else if(species_ptr->killed_by_player > 0) norm_total += species_ptr->killed_by_player;
 	}
 
 
@@ -3849,17 +3834,12 @@ static void dump_aux_creatures(FILE *fff)
 		/* Sort the array by dungeon depth of creatures */
 		ang_sort(who, &why, uniq_total, ang_sort_comp_hook, ang_sort_swap_hook);
 
-#ifdef JP
-		fprintf(fff, "\n《上位%ld体のユニーク・クリーチャー》\n", MIN(uniq_total, 10));
-#else
-		fprintf(fff, "\n< Unique creatures top %ld >\n", MIN(uniq_total, 10));
-#endif
+		fprintf(fff, MES_INTERFACE_DEFEATED_UNIQUE_TOP(MIN(uniq_total, 10)));
 
 		/* Print top 10 */
 		for (k = uniq_total - 1; k >= 0 && k >= uniq_total - 10; k--)
 		{
 			species_type *species_ptr = &species_info[who[k]];
-
 #ifdef JP
 			fprintf(fff, "  %-40s (レベル%3d)\n", (species_name + species_ptr->name), species_ptr->level); 
 #else

@@ -2415,6 +2415,8 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_WINNING_MESSAGE "\n  [*勝利*メッセージ]\n\n"
 #define MES_INTERFACE_RECALL_DEPTH "\n  [帰還場所]\n\n"
 #define MES_INTERFACE_RECALL_DEPTH_LIST(CONQUESTED, NAME, DEPTH) "   %c%-12s: %3d 階\n", (CONQUESTED) ? '!' : ' ', (NAME), (DEPTH)
+#define MES_INTERFACE_DEFEATED_CREATURE "\n  [倒したクリーチャー]\n\n"
+#define MES_INTERFACE_DEFEATED_UNIQUE_TOP(NUM) "\n《上位%ld体のユニーク・クリーチャー》\n", (NUM)
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2456,6 +2458,8 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_WINNING_MESSAGE "\n  [*Winning* Message]\n\n"
 #define MES_INTERFACE_RECALL_DEPTH "\n  [Recall Depth]\n\n"
 #define MES_INTERFACE_RECALL_DEPTH_LIST(CONQUESTED, NAME, DEPTH) "   %c%-16s: level %3d\n", (CONQUESTED) ? '!' : ' ', (NAME), (DEPTH)
+#define MES_INTERFACE_DEFEATED_CREATURE "\n  [Defeated Creatures]\n\n"
+#define MES_INTERFACE_DEFEATED_UNIQUE_TOP(NUM) "\n< Unique creatures top %ld >\n", (NUM)
 #endif
 
 #ifdef JP
