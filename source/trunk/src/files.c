@@ -3663,10 +3663,6 @@ static void dump_aux_quest(FILE *fff)
 	C_KILL(quest_num, max_quests, int);
 }
 
-
-/*
- *
- */
 static void dump_aux_last_message(creature_type *creature_ptr, FILE *fff)
 {
 	if(gameover)
@@ -3693,11 +3689,7 @@ static void dump_aux_recall(FILE *fff)
 {
 	int y;
 
-#ifdef JP
-	fprintf(fff, "\n  [ãAä“èÍèä]\n\n");
-#else
-	fprintf(fff, "\n  [Recall Depth]\n\n");
-#endif
+	fprintf(fff, MES_INTERFACE_RECALL_DEPTH);
 
 	for (y = 1; y < max_dungeon_idx; y++)
 	{
@@ -3705,17 +3697,9 @@ static void dump_aux_recall(FILE *fff)
 
 		if(!dungeon_info[y].maxdepth) continue;
 		if(!max_dlv[y]) continue;
-		if(dungeon_info[y].final_guardian)
-		{
-			if(!species_info[dungeon_info[y].final_guardian].max_num) seiha = TRUE;
-		}
+		if(dungeon_info[y].final_guardian) if(!species_info[dungeon_info[y].final_guardian].max_num) seiha = TRUE;
 		else if(max_dlv[y] == dungeon_info[y].maxdepth) seiha = TRUE;
-
-#ifdef JP
-		fprintf(fff, "   %c%-12s: %3d äK\n", seiha ? '!' : ' ', dungeon_name + dungeon_info[y].name, max_dlv[y]);
-#else
-		fprintf(fff, "   %c%-16s: level %3d\n", seiha ? '!' : ' ', dungeon_name + dungeon_info[y].name, max_dlv[y]);
-#endif
+		fprintf(fff, MES_INTERFACE_RECALL_DEPTH_LIST(seiha, dungeon_name + dungeon_info[y].name, max_dlv[y]));
 	}
 }
 

@@ -2413,6 +2413,8 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_QUEST_INFO "\n\n  [クエスト情報]\n"
 #define MES_INTERFACE_LAST_MESSAGE "\n  [死ぬ直前のメッセージ]\n\n"
 #define MES_INTERFACE_WINNING_MESSAGE "\n  [*勝利*メッセージ]\n\n"
+#define MES_INTERFACE_RECALL_DEPTH "\n  [帰還場所]\n\n"
+#define MES_INTERFACE_RECALL_DEPTH_LIST(CONQUESTED, NAME, DEPTH) "   %c%-12s: %3d 階\n", (CONQUESTED) ? '!' : ' ', (NAME), (DEPTH)
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2452,6 +2454,8 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_QUEST_INFO "\n\n  [Quest Information]\n"
 #define MES_INTERFACE_LAST_MESSAGE "\n  [Last Messages]\n\n"
 #define MES_INTERFACE_WINNING_MESSAGE "\n  [*Winning* Message]\n\n"
+#define MES_INTERFACE_RECALL_DEPTH "\n  [Recall Depth]\n\n"
+#define MES_INTERFACE_RECALL_DEPTH_LIST(CONQUESTED, NAME, DEPTH) "   %c%-16s: level %3d\n", (CONQUESTED) ? '!' : ' ', (NAME), (DEPTH)
 #endif
 
 #ifdef JP
