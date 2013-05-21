@@ -609,7 +609,7 @@ static void wr_floor(floor_type *floor_ptr)
 	WRITE_DUNGEON_ID(floor_ptr->dungeon_id);
 	WRITE_COODINATES(floor_ptr->world_x);
 	WRITE_COODINATES(floor_ptr->world_y);
-	wr_s32b(floor_ptr->last_visit);
+	WRITE_GAME_TIME(floor_ptr->last_visit);
 	wr_u32b(floor_ptr->visit_mark);
 	wr_byte(floor_ptr->fight_arena_mode);
 	wr_byte(floor_ptr->gamble_arena_mode);

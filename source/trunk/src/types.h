@@ -2064,7 +2064,7 @@ typedef struct
 	DUNGEON_ID dungeon_id;
 	COODINATES world_x;
 	COODINATES world_y;
-	s32b last_visit;      // Time count of last visit. 0 for new floor.
+	GAME_TIME last_visit;      // Time count of last visit. 0 for new floor.
 	u32b visit_mark;      // Older has always smaller mark.
 	COODINATES width;
 	COODINATES height;

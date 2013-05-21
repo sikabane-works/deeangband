@@ -1011,7 +1011,7 @@ static errr rd_floor(floor_type *floor_ptr)
 	READ_DUNGEON_ID(&floor_ptr->dungeon_id);
 	READ_COODINATES(&floor_ptr->world_x);
 	READ_COODINATES(&floor_ptr->world_y);
-	rd_s32b(&floor_ptr->last_visit);
+	READ_GAME_TIME(&floor_ptr->last_visit);
 	rd_u32b(&floor_ptr->visit_mark);
 
 	rd_byte(&floor_ptr->fight_arena_mode);
