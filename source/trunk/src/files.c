@@ -3618,32 +3618,19 @@ static void dump_aux_pet(creature_type *creature_ptr, FILE *fff)
 		fputc('\n', fff);
 	}
 }
-
-
-/*
- *
- */
 static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 {
 	char p[60][80];
-	int col;
+	int col = 0;
 
 	if(creature_ptr->class_idx == CLASS_BLUE_MAGE)
 	{
-#ifdef JP
-		strcat(p[col], "\n\n  [äwèKçœÇ›ÇÃê¬ñÇñ@]\n");
-#else
-		strcat(p[col], "\n\n  [Learned Blue Magic]\n");
-#endif
+		strcat(p[col], MES_INTERFACE_LEARNED_BLUEMAGIC);
 	}
 
 	if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
 	{
-#ifdef JP
-		fprintf(fff, "\n\n  [éÊÇËçûÇÒÇæñÇñ@ìπãÔ]\n");
-#else
-		fprintf(fff, "\n\n  [Magic devices eaten]\n");
-#endif
+		fprintf(fff, MES_INTERFACE_EATEN_MAGIC);
 	}
 }
 
