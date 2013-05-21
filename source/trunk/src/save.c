@@ -941,6 +941,19 @@ static errr wr_quests(void)
 	return SUCCESS;
 }
 
+static bool wr_artifacts(void)
+{
+	int i;
+	/* Hack -- Dump the artifacts */
+	WRITE_ARTIFACT_ID(max_artifact_idx);
+	for (i = 0; i < max_artifact_idx; i++)
+	{
+		artifact_type *a_ptr = &artifact_info[i];
+		WRITE_POPULATION(a_ptr->cur_num);
+		WRITE_FLOOR_ID(a_ptr->floor_idx);
+	}
+}
+
 /* Actually write a save-file */
 static bool wr_savefile_new(void)
 {
@@ -972,15 +985,7 @@ static bool wr_savefile_new(void)
 	wr_wilderness();
 	wr_towns();
 	wr_quests();
-
-	/* Hack -- Dump the artifacts */
-	WRITE_ARTIFACT_ID(max_artifact_idx);
-	for (i = 0; i < max_artifact_idx; i++)
-	{
-		artifact_type *a_ptr = &artifact_info[i];
-		WRITE_POPULATION(a_ptr->cur_num);
-		WRITE_FLOOR_ID(a_ptr->floor_idx);
-	}
+	wr_artifacts();
 
 	WRITE_STORE_ID(max_store_idx);
 

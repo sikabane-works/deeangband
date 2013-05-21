@@ -1347,6 +1347,28 @@ static errr rd_quests(void)
 			*/
 		}
 	}
+	return LOAD_ERROR_NONE;
+}
+
+static errr rd_artifacts(void)
+{
+	int i;
+	u16b tmp16u;
+	/* Load the Artifacts */
+	rd_u16b(&tmp16u);
+	/* Incompatible save files */
+	if(tmp16u > max_artifact_idx) return LOAD_ERROR_TOO_MANY_ARTIFACT;
+	else note(format("Number of Artifacts:%u", max_artifact_idx));
+
+	// Read the artifact flags
+	for (i = 0; i < tmp16u; i++)
+	{
+		artifact_type *a_ptr = &artifact_info[i];
+		READ_POPULATION(&a_ptr->cur_num);
+		READ_FLOOR_ID(&a_ptr->floor_idx);
+	}
+
+	return LOAD_ERROR_NONE;
 }
 
 /*
@@ -1355,7 +1377,6 @@ static errr rd_quests(void)
 static errr rd_savefile_new_aux(void)
 {
 	int i;
-	u16b tmp16u;
 	char buf[SCREEN_BUF_SIZE];
 
 	u32b n_x_check, n_v_check;
@@ -1376,30 +1397,14 @@ static errr rd_savefile_new_aux(void)
 	rd_creatures();
 	rd_object_kinds();
 	rd_objects();
-
 	rd_wilderness();
 	rd_towns();
-
-
-	/* Load the Artifacts */
-	rd_u16b(&tmp16u);
-
-	/* Incompatible save files */
-	if(tmp16u > max_artifact_idx) return LOAD_ERROR_TOO_MANY_ARTIFACT;
-	else note(format("Number of Artifacts:%u", max_artifact_idx));
-
-	// Read the artifact flags
-	for (i = 0; i < tmp16u; i++)
-	{
-		artifact_type *a_ptr = &artifact_info[i];
-		READ_POPULATION(&a_ptr->cur_num);
-		READ_FLOOR_ID(&a_ptr->floor_idx);
-	}
+	rd_quests();
+	rd_artifacts();
 
 	if(player_ptr->class_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
 
 	READ_STORE_ID(&max_store_idx);
-
 	C_MAKE(st_list, max_store_idx, store_type);
 	for(i = 0; i < max_store_idx; i++) rd_store(&st_list[i]);
 

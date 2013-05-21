@@ -1961,7 +1961,6 @@ bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life
 bool choose_ele_attack(creature_type *creature_ptr)
 {
 	int num;
-
 	char choice;
 
 	if(!get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND))
