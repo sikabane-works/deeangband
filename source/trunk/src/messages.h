@@ -2410,6 +2410,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_VIEW_MAP "何かキーを押してください('M':拾う 'N':放置 'D':M+N 'K':壊すアイテムを表示)"
 #define MES_INTERFACE_LEARNED_BLUEMAGIC "\n\n  [学習済みの青魔法]\n"
 #define MES_INTERFACE_EATEN_MAGIC "\n\n  [取り込んだ魔法道具]\n"
+#define MES_INTERFACE_QUEST_INFO "\n\n  [クエスト情報]\n"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2446,6 +2447,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_VIEW_MAP " Hit M, N(for ~), K(for !), or D(same as M+N) to display auto-picker items."
 #define MES_INTERFACE_LEARNED_BLUEMAGIC "\n\n  [Learned Blue Magic]\n"
 #define MES_INTERFACE_EATEN_MAGIC "\n\n  [Magic devices eaten]\n"
+#define MES_INTERFACE_QUEST_INFO "\n\n  [Quest Information]\n"
 #endif
 
 #ifdef JP

@@ -3644,15 +3644,9 @@ static void dump_aux_quest(FILE *fff)
 	int *quest_num;
 	int dummy;
 
+	fprintf(fff, MES_INTERFACE_QUEST_INFO);
 
-#ifdef JP
-	fprintf(fff, "\n\n  [クエスト情報]\n");
-#else
-	fprintf(fff, "\n\n  [Quest Information]\n");
-#endif
-
-	/* Allocate Memory */
-	C_MAKE(quest_num, max_quests, int);
+	C_MAKE(quest_num, max_quests, int); /* Allocate Memory */
 
 	/* Sort by compete level */
 	for (i = 1; i < max_quests; i++) quest_num[i] = i;
