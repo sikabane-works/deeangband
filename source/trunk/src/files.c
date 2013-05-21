@@ -3845,13 +3845,7 @@ static void dump_aux_creatures(FILE *fff)
 
 static void dump_aux_race_history(FILE *fff)
 {
-
-#ifdef JP
-	fprintf(fff, "\n\n Ç†Ç»ÇΩÇÕ%sÇ∆ÇµÇƒê∂Ç‹ÇÍÇΩÅB", desc_race_name(&player_prev, CD_SEX));
-#else
-	fprintf(fff, "\n\n You were born as %s.", desc_race_name(&player_prev, CD_SEX));
-#endif
-
+	fprintf(fff, MES_INTERFACE_FIRST_RACE(&player_prev));
 	fputc('\n', fff);
 }
 

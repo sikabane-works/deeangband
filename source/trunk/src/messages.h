@@ -2418,6 +2418,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_DEFEATED_CREATURE "\n  [倒したクリーチャー]\n\n"
 #define MES_INTERFACE_DEFEATED_SCORE(UNIQUE, TOTAL) "%ld体のユニーク・クリーチャーを含む、合計%ld体の敵を倒しています。\n", (UNIQUE), (TOTAL)
 #define MES_INTERFACE_DEFEATED_UNIQUE_TOP(NUM) "\n《上位%ld体のユニーク・クリーチャー》\n", (NUM)
+#define MES_INTERFACE_FIRST_RACE(CREATURE) "\n\n あなたは%sとして生まれた。", desc_race_name((CREATURE), CD_SEX)
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2462,6 +2463,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_DEFEATED_CREATURE "\n  [Defeated Creatures]\n\n"
 #define MES_INTERFACE_DEFEATED_SCORE(UNIQUE, TOTAL) "You have defeated %ld %s including %ld unique creature%s in total.\n", (TOTAL), (TOTAL) == 1 ? "enemy" : "enemies",(UNIQUE), ((UNIQUE) == 1 ? "" : "s"))
 #define MES_INTERFACE_DEFEATED_UNIQUE_TOP(NUM) "\n< Unique creatures top %ld >\n", (NUM)
+#define MES_INTERFACE_FIRST_RACE(CREATURE) "\n\n You were born as %s.", desc_race_name((CREATURE), CD_SEX)
 #endif
 
 #ifdef JP
