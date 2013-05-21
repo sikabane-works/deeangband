@@ -618,11 +618,10 @@ static void wr_floor(floor_type *floor_ptr)
 
 	for (i = 0; i < MAX_RACES; i++) WRITE_PROB(floor_ptr->race_population[i]);
 
-	wr_u16b(floor_ptr->num_repro);
+	WRITE_POPULATION(floor_ptr->num_of_reproduction);
 	WRITE_COODINATES(floor_ptr->height);
 	WRITE_COODINATES(floor_ptr->width);
-
-	wr_s32b(floor_ptr->floor_turn);
+	WRITE_GAME_TIME(floor_ptr->floor_turn);
 
 	/*********** Make template for cave_type **********/
 

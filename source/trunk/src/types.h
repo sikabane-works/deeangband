@@ -2068,9 +2068,9 @@ typedef struct
 	u32b visit_mark;      // Older has always smaller mark.
 	COODINATES width;
 	COODINATES height;
-	s16b num_repro;       // Current reproducer count
+	POPULATION num_of_reproduction; // Current reproducer count
 	cave_type cave[MAX_HGT][MAX_WID];
-	s32b floor_turn;		// Game turn in dungeon
+	GAME_TIME floor_turn;		// Game turn in dungeon
 	QUEST_ID quest;
 	byte global_map;
 	PROB race_population[MAX_RACES];

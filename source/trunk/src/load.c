@@ -1021,10 +1021,10 @@ static errr rd_floor(floor_type *floor_ptr)
 
 	for (i = 0; i < MAX_RACES; i++) READ_PROB(&floor_ptr->race_population[i]);
 
-	rd_s16b(&floor_ptr->num_repro);
+	READ_POPULATION(&floor_ptr->num_of_reproduction);
 	READ_COODINATES(&floor_ptr->height);
 	READ_COODINATES(&floor_ptr->width);
-	rd_s32b(&floor_ptr->floor_turn);
+	READ_GAME_TIME(&floor_ptr->floor_turn);
 
 	/*** Read template for cave_type ***/
 

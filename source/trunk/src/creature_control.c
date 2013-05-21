@@ -1190,7 +1190,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	x = creature_ptr->fx;
 
 	real_species_ptr(creature_ptr)->cur_num--;	// Hack -- Reduce the racial counter
-	if(has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_repro--;	// Hack -- count the number of "reproducers"
+	if(has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_of_reproduction--;	// Hack -- count the number of "reproducers"
 
 	reset_timed_trait(creature_ptr);
 
@@ -3720,7 +3720,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	real_species_ptr(creature_ptr)->cur_num++;
 
 	/* Hack -- Count the number of "reproducers" */
-	if(has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_repro++;
+	if(has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_of_reproduction++;
 
 	if(has_trait(player_ptr, TRAIT_WARNING) && has_trait_species(species_ptr, TRAIT_UNIQUE))
 	{

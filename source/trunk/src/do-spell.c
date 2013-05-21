@@ -1238,7 +1238,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				floor_ptr->num_repro += MAX_REPRO;
+				floor_ptr->num_of_reproduction += MAX_REPRO;
 			}
 		}
 		break;

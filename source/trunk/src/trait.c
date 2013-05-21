@@ -1982,7 +1982,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_STERILITY:
 		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, COD_ABSTINENCE, NULL, -1);
-		floor_ptr->num_repro += MAX_REPRO;
+		floor_ptr->num_of_reproduction += MAX_REPRO;
 		break;
 
 	case TRAIT_DAZZLE:

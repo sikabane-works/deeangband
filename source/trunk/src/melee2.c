@@ -1277,7 +1277,7 @@ static void do_multiply_creature(creature_type *creature_ptr)
 		int oy = creature_ptr->fy;
 		int ox = creature_ptr->fx;
 
-		if(floor_ptr->num_repro < MAX_REPRO) return;
+		if(floor_ptr->num_of_reproduction < MAX_REPRO) return;
 
 		/* Count the adjacent creatures */
 		for (k = 0, y = oy - 1; y <= oy + 1; y++)
