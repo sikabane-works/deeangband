@@ -1157,11 +1157,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 					lite_spot(floor_ptr, ny[i], nx[i]);
 					Term_fresh();
 				}
-				else
-				{
-					/* Pause anyway, for consistancy */
-					Term_xtra(TERM_XTRA_DELAY, msec);
-				}
+				else Term_xtra(TERM_XTRA_DELAY, msec); /* Pause anyway, for consistancy */
 			}
 			if((back_chance > 37) && !has_trait(creature_ptr, TRAIT_BLIND) && (item >= 0))
 			{
@@ -1183,14 +1179,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				x = creature_ptr->fx;
 			}
 		}
-		else
-		{
-#ifdef JP
-			msg_format("%s‚ª•Ô‚Á‚Ä‚±‚È‚©‚Á‚½I", o2_name);
-#else
-			msg_format("%s doesn't back!", o2_name);
-#endif
-		}
+		else msg_format(MES_THROW_NO_BACK(object2_ptr));
 	}
 
 	if(come_back)
