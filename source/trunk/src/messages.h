@@ -773,6 +773,7 @@
 #ifdef JP
 #define MES_ARENA_READY "試合開始！"
 #define MES_ARENA_LIMIT "アリーナが魔法を吸収した！"
+#define MES_ARENA_ITEM_LIMIT "アリーナではアイテムを使えない！"
 #define MES_ARENA_BERSERK "狂戦士化していて頭が回らない！"
 #define MES_ARENA_WON "勝利！チャンピオンへの道を進んでいる。"
 #define MES_ARENA_BECAME_CHAMP "素晴らしい！君こそ真の勝利者だ。"
@@ -789,6 +790,7 @@
 #else
 #define MES_ARENA_READY "Ready..Fight!"
 #define MES_ARENA_LIMIT "The arena absorbs all attempted magic!"
+#define MES_ARENA_ITEM_LIMIT "You're in the arena now. This is hand-to-hand!"
 #define MES_ARENA_WON "Victorious! You're on your way to becoming Champion."
 #define MES_ARENA_BECAME_CHAMP "You are a Genuine Champion!"
 #define MES_ARENA_BERSERK "You cannot think directly!"

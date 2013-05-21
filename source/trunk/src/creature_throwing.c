@@ -861,11 +861,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	{
 		if(object1_ptr->tval != TV_SPIKE)
 		{
-#ifdef JP
-			msg_print("アリーナではアイテムを使えない！");
-#else
-			msg_print("You're in the arena now. This is hand-to-hand!");
-#endif
+			msg_print(MES_ARENA_ITEM_LIMIT);
 			msg_print(NULL);
 			return FALSE;
 		}
@@ -994,11 +990,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		}
 
 		/* The player cannot see the missile */
-		else
-		{
-			/* Pause anyway, for consistancy */
-			Term_xtra(TERM_XTRA_DELAY, msec);
-		}
+		else Term_xtra(TERM_XTRA_DELAY, msec); /* Pause anyway, for consistancy */
 
 		/* Save the old location */
 		prev_y = y;
@@ -1040,10 +1032,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 					if(m_ptr->see_others)
 					{
-						/* Hack -- Track this creature race */
 						if(!has_trait(creature_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
-
-						/* Hack -- Track this creature */
 						health_track(c_ptr->creature_idx);
 					}
 				}
@@ -1110,9 +1099,8 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
 
 				/* ToDo (Robert): fix the invulnerability */
-				if(floor_ptr->cave[y][x].creature_idx &&
-				    is_friendly(creature_ptr, &creature_list[floor_ptr->cave[y][x].creature_idx]) &&
-				    !has_trait(m_ptr, TRAIT_INVULNERABLE))
+				if(floor_ptr->cave[y][x].creature_idx && is_friendly(creature_ptr, &creature_list[floor_ptr->cave[y][x].creature_idx]) &&
+					!has_trait(m_ptr, TRAIT_INVULNERABLE))
 				{
 					char m_name[MAX_NLEN];
 					creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
@@ -1123,10 +1111,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			}
 			do_drop = FALSE;
 		}
-		else
-		{
-			j = 0;
-		}
+		else j = 0;
 	}
 
 	if(return_when_thrown)
@@ -1192,10 +1177,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			prepare_update(creature_ptr, CRU_BONUS | CRU_TORCH | CRU_MANA);
 			prepare_window(PW_EQUIP);
 		}
-		else
-		{
-			inven_carry(creature_ptr, object2_ptr);
-		}
+		else inven_carry(creature_ptr, object2_ptr);
 		do_drop = FALSE;
 	}
 	else if(equiped_item)
@@ -1207,16 +1189,8 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	/* Drop (or break) near that location */
 	if(do_drop)
 	{
-		if(CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT))
-		{
-			/* Drop (or break) near that location */
-			(void)drop_near(floor_ptr, object2_ptr, j, y, x);
-		}
-		else
-		{
-			/* Drop (or break) near that location */
-			(void)drop_near(floor_ptr, object2_ptr, j, prev_y, prev_x);
-		}
+		if(CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) (void)drop_near(floor_ptr, object2_ptr, j, y, x);
+		else (void)drop_near(floor_ptr, object2_ptr, j, prev_y, prev_x);
 	}
 
 	return TRUE;
