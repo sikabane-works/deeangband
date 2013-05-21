@@ -195,7 +195,7 @@ static void wr_store(store_type *st_ptr)
 	wr_s16b(st_ptr->good_buy);
 	wr_s16b(st_ptr->bad_buy);
 
-	wr_s32b(st_ptr->last_visit);
+	WRITE_GAME_TIME(st_ptr->last_visit);
 	WRITE_FLAGS_32(st_ptr->flags);
 	WRITE_FLOOR_LEV(st_ptr->level);
 

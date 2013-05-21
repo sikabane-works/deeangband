@@ -298,9 +298,7 @@ static void rd_string(char *str, int max)
 static void strip_bytes(int n)
 {
 	byte tmp8u;
-
-	/* Strip the bytes */
-	while (n--) rd_byte(&tmp8u);
+	while (n--) rd_byte(&tmp8u); /* Strip the bytes */
 }
 
 // Read an object
@@ -419,8 +417,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 		if(err != LOAD_ERROR_NONE) return err;
 
 		// Hack -- verify item
-		if(!is_valid_object(object_ptr))
-			return LOAD_ERROR_INVALID_OBJECT;
+		if(!is_valid_object(object_ptr)) return LOAD_ERROR_INVALID_OBJECT;
 
 		if(IS_EQUIPPED(object_ptr)) // Wield equipment
 		{
@@ -461,7 +458,6 @@ static void store_item_load(store_type *st_ptr, object_type *object_ptr)
 	int 	i;
 	object_type *j_ptr;
 
-
 	/* Check each existing item (try to combine) */
 	for (slot = 0; slot < st_ptr->stock_num; slot++)
 	{
@@ -473,16 +469,11 @@ static void store_item_load(store_type *st_ptr, object_type *object_ptr)
 		{
 			/* Save the new number of items */
 			object_absorb(j_ptr, object_ptr);
-
-			/* All done */
-			return;
+			return; /* All done */
 		}
 	}
 
-	/* No space? */
-	if(st_ptr->stock_num >= STORE_INVEN_MAX * 10) {
-		return;
-	}
+	if(st_ptr->stock_num >= STORE_INVEN_MAX * 10) return; /* No space? */
 
 	/* Determine the "value" of the item */
 	value = object_value(object_ptr);
@@ -533,7 +524,7 @@ static errr rd_store(store_type *st_ptr)
 	rd_s16b(&st_ptr->bad_buy);
 
 	/* Read last visit */
-	rd_s32b(&st_ptr->last_visit);
+	READ_GAME_TIME(&st_ptr->last_visit);
 	READ_FLAGS_32(&st_ptr->flags);
 	READ_FLOOR_LEV(&st_ptr->level);
 
