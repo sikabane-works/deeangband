@@ -956,6 +956,14 @@ static bool wr_artifacts(void)
 	return SUCCESS;
 }
 
+static bool wr_stores(void)
+{
+	int i;
+	WRITE_STORE_ID(max_store_idx);
+	for(i = 0; i < max_store_idx; i++) wr_store(&st_list[i]);
+	return SUCCESS;
+}
+
 /* Actually write a save-file */
 static bool wr_savefile_new(void)
 {
@@ -988,10 +996,7 @@ static bool wr_savefile_new(void)
 	wr_towns();
 	wr_quests();
 	wr_artifacts();
-
-	WRITE_STORE_ID(max_store_idx);
-
-	for(i = 0; i < max_store_idx; i++) wr_store(&st_list[i]);
+	wr_stores();
 
 	/* Write screen dump for sending score */
 	if(screen_dump && (wait_report_score || !gameover)) wr_string(screen_dump);

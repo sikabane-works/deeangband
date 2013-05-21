@@ -1371,12 +1371,20 @@ static errr rd_artifacts(void)
 	return LOAD_ERROR_NONE;
 }
 
+static errr rd_stores(void)
+{
+	int i;
+	READ_STORE_ID(&max_store_idx);
+	C_MAKE(st_list, max_store_idx, store_type);
+	for(i = 0; i < max_store_idx; i++) rd_store(&st_list[i]);
+	return LOAD_ERROR_NONE;
+}
+
 /*
  * Actually read the savefile
  */
 static errr rd_savefile_new_aux(void)
 {
-	int i;
 	char buf[SCREEN_BUF_SIZE];
 
 	u32b n_x_check, n_v_check;
@@ -1404,9 +1412,6 @@ static errr rd_savefile_new_aux(void)
 
 	if(player_ptr->class_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
 
-	READ_STORE_ID(&max_store_idx);
-	C_MAKE(st_list, max_store_idx, store_type);
-	for(i = 0; i < max_store_idx; i++) rd_store(&st_list[i]);
 
 	rd_string(buf, sizeof(buf));
 	if(buf[0]) screen_dump = string_make(buf);
