@@ -4002,8 +4002,6 @@ static void dump_aux_home_museum(FILE *fff)
 		fprintf(fff, "\n\n");
 	}
 	*/
-
-
 }
 
 
@@ -4012,11 +4010,7 @@ static void dump_aux_home_museum(FILE *fff)
  */
 errr make_character_dump(creature_type *creature_ptr, FILE *fff)
 {
-#ifdef JP
-	fprintf(fff, "  [%s %d.%d.%d キャラクタ情報]\n\n", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
-#else
-	fprintf(fff, "  [%s %d.%d.%d Character Dump]\n\n", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH);
-#endif
+	fprintf(fff, MES_INTERFACE_DUMP_VERSION(VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH));
 
 	update_play_time();
 
@@ -4036,12 +4030,7 @@ errr make_character_dump(creature_type *creature_ptr, FILE *fff)
 	fputs("\n\n", fff);
 	dump_aux_equipment_inventory(creature_ptr, fff);
 	dump_aux_home_museum(fff);
-
-#ifdef JP
-	fprintf(fff, "  [チェックサム: \"%s\"]\n\n", get_check_sum());
-#else
-	fprintf(fff, "  [Check Sum: \"%s\"]\n\n", get_check_sum());
-#endif
+	fprintf(fff, MES_INTERFACE_CHECKSUM(get_check_sum()));
 
 	return SUCCESS;
 }

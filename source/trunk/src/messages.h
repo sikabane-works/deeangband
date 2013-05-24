@@ -2408,6 +2408,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_CREATURE_DUMP2 ", Enter この数値に決定"
 #define MES_INTERFACE_CREATURE_DUMP3 "[ 'Q' 中断, 'S' 初めから, Enter ゲーム開始 ]"
 #define MES_INTERFACE_VIEW_MAP "何かキーを押してください('M':拾う 'N':放置 'D':M+N 'K':壊すアイテムを表示)"
+#define MES_INTERFACE_DUMP_VERSION(VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH) "[%s %d.%d.%d キャラクタ情報]\n\n", (VERSION_NAME), (VER_MAJOR), (VER_MINOR), (VER_PATCH)
 #define MES_INTERFACE_LEARNED_BLUEMAGIC "\n\n  [学習済みの青魔法]\n"
 #define MES_INTERFACE_EATEN_MAGIC "\n\n  [取り込んだ魔法道具]\n"
 #define MES_INTERFACE_QUEST_INFO "\n\n  [クエスト情報]\n"
@@ -2420,6 +2421,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_DEFEATED_UNIQUE_TOP(NUM) "\n《上位%ld体のユニーク・クリーチャー》\n", (NUM)
 #define MES_INTERFACE_FIRST_RACE(CREATURE) "\n\n あなたは%sとして生まれた。", desc_race_name((CREATURE), CD_SEX)
 #define MES_INTERFACE_MUTATION "\n\n  [突然変異]\n\n"
+#define MES_INTERFACE_CHECKSUM(SUM) "  [チェックサム: \"%s\"]\n\n", (SUM)
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2454,6 +2456,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_CREATURE_DUMP2 ", or Enter to accept"
 #define MES_INTERFACE_CREATURE_DUMP3 "['Q'uit, 'S'tart over, or Enter to continue]"
 #define MES_INTERFACE_VIEW_MAP " Hit M, N(for ~), K(for !), or D(same as M+N) to display auto-picker items."
+#define MES_INTERFACE_DUMP_VERSION(VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH) "  [%s %d.%d.%d Character Dump]\n\n", (VERSION_NAME), (VER_MAJOR), (VER_MINOR), (VER_PATCH)
 #define MES_INTERFACE_LEARNED_BLUEMAGIC "\n\n  [Learned Blue Magic]\n"
 #define MES_INTERFACE_EATEN_MAGIC "\n\n  [Magic devices eaten]\n"
 #define MES_INTERFACE_QUEST_INFO "\n\n  [Quest Information]\n"
@@ -2466,6 +2469,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_DEFEATED_UNIQUE_TOP(NUM) "\n< Unique creatures top %ld >\n", (NUM)
 #define MES_INTERFACE_FIRST_RACE(CREATURE) "\n\n You were born as %s.", desc_race_name((CREATURE), CD_SEX)
 #define MES_INTERFACE_MUTATION "\n\n  [Mutation]\n\n"
+#define MES_INTERFACE_CHECKSUM(SUM) "  [Check Sum: \"%s\"]\n\n", (SUM)
 #endif
 
 #ifdef JP
