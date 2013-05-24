@@ -1313,13 +1313,8 @@ void do_cmd_options(void)
 				prt(MES_OPTION_CMD_MP_CHECK, 19, 0);
 				while(TRUE)
 				{
-#ifdef JP
-					prt(format("Œ»İ‚Ì’á–‚—ÍFè‡’l: %d0%%", mana_warn), 22, 0);
-					prt("’á–‚—Íè‡’l (0-9) ESC‚ÅŒˆ’è: ", 20, 0);
-#else
-					prt(format("Current mana color threshold: %d0%%", mana_warn), 22, 0);
-					prt("Mana color Threshold (0-9 or ESC to accept): ", 20, 0);
-#endif
+					prt(format(MES_OPTION_CMD_MP_CURRENT(mana_warn)), 22, 0);
+					prt(MES_OPTION_CMD_MP_PROMPT, 20, 0);
 					k = inkey();
 					if(k == ESCAPE) break;
 					else if(k == '?')

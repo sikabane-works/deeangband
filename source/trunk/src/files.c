@@ -4162,14 +4162,9 @@ static void show_file_aux_line(cptr str, int cy, cptr shower)
 		{
 			if(in_tag)
 			{
-				/* Found the end of colored segment */
-				i++;
-
-				/* Now looking for an another tag_str */
-				in_tag = '\0';
-
-				/* Set back to the default color */
-				color = TERM_WHITE;
+				i++; /* Found the end of colored segment */
+				in_tag = '\0'; /* Now looking for an another tag_str */
+				color = TERM_WHITE; /* Set back to the default color */
 			}
 			else
 			{
@@ -4191,22 +4186,15 @@ static void show_file_aux_line(cptr str, int cy, cptr shower)
 				}
 				else
 				{
-					/* Skip the color tag */
-					i++;
-
-					/* Now looking for a close tag */
-					in_tag = str[i];
-
-					/* Skip the close-tag-indicator */
-					i++;
+					i++; /* Skip the color tag */
+					in_tag = str[i]; /* Now looking for a close tag */
+					i++; /* Skip the close-tag-indicator */
 				}
 			}
 		}
 
 	} /* for (i = 0; str[i];) */
-
-	/* Clear rest of line */
-	Term_erase(cx, cy, 255);
+	Term_erase(cx, cy, 255); /* Clear rest of line */
 }
 
 
@@ -4529,10 +4517,8 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		else
 		{
 #ifdef JP
-			if(reverse)
-				prt("[キー:(RET/スペース)↑ (-)↓ (?)ヘルプ (ESC)終了]", hgt - 1, 0);
-			else
-				prt("[キー:(RET/スペース)↓ (-)↑ (?)ヘルプ (ESC)終了]", hgt - 1, 0);
+			if(reverse) prt("[キー:(RET/スペース)↑ (-)↓ (?)ヘルプ (ESC)終了]", hgt - 1, 0);
+			else prt("[キー:(RET/スペース)↓ (-)↑ (?)ヘルプ (ESC)終了]", hgt - 1, 0);
 #else
 			prt("[Press Return, Space, -, =, /, |, or ESC to exit.]", hgt - 1, 0);
 #endif
