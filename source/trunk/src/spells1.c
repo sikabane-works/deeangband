@@ -592,17 +592,22 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 		case DO_EFFECT_NUKE:
 		case DO_EFFECT_DEATH_RAY:
 			message = MES_EFFECT_BLASTED; break;
+
 		case DO_EFFECT_TIME:
 			message = MES_EFFECT_SHRANK; break;
+
 		case DO_EFFECT_ACID:
 			message = MES_EFFECT_MELTED; break;
+
 		case DO_EFFECT_COLD:
 		case DO_EFFECT_ICE:
 			message = MES_EFFECT_FROZEN; break;
+
 		case DO_EFFECT_FIRE:
 		case DO_EFFECT_ELEC:
 		case DO_EFFECT_PLASMA:
 			message = MES_EFFECT_BURN_UP; break;
+
 		case DO_EFFECT_METEOR:
 		case DO_EFFECT_CHAOS:
 		case DO_EFFECT_MANA:
@@ -615,9 +620,11 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 		case DO_EFFECT_FORCE:
 		case DO_EFFECT_GRAVITY:
 			message = MES_EFFECT_CRUSHED; break;
+
 		default:
 			message = NULL;break;
 		}
+
 		if(message)
 		{
 			msg_format(MES_EFFECT_A_TREE_(message));
@@ -660,28 +667,16 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 	case DO_EFFECT_MANA:
 	case DO_EFFECT_SEEKER:
 	case DO_EFFECT_SUPER_RAY:
-		{
 			break;
-		}
 
-		/* Destroy Traps (and Locks) */
 	case DO_EFFECT_KILL_TRAP:
-		{
-			/* Reveal secret doors */
-			if(is_hidden_door(c_ptr))
+			
+			if(is_hidden_door(c_ptr)) /* Reveal secret doors */
 			{
-				/* Pick a door */
-				disclose_grid(floor_ptr, y, x);
-
-				/* Check line of sight */
-				if(known)
-				{
-					obvious = TRUE;
-				}
+				disclose_grid(floor_ptr, y, x); /* Pick a door */
+				if(known) obvious = TRUE; /* Check line of sight */
 			}
-
-			/* Destroy traps */
-			if(is_trap(c_ptr->feat))
+			if(is_trap(c_ptr->feat)) /* Destroy traps */
 			{
 				/* Check line of sight */
 				if(known)
@@ -689,21 +684,15 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 					msg_print(MES_FEATURE_KILLED);
 					obvious = TRUE;
 				}
-
-				/* Destroy the trap */
-				cave_alter_feat(floor_ptr, y, x, FF_DISARM);
+				cave_alter_feat(floor_ptr, y, x, FF_DISARM); /* Destroy the trap */
 			}
 
 			/* Locked doors are unlocked */
 			if(is_closed_door(c_ptr->feat) && f_ptr->power && have_flag(f_ptr->flags, FF_OPEN))
 			{
 				FEATURE_ID old_feat = c_ptr->feat;
-
-				/* Unlock the door */
-				cave_alter_feat(floor_ptr, y, x, FF_DISARM);
-
-				/* Check line of sound */
-				if(known && (old_feat != c_ptr->feat))
+				cave_alter_feat(floor_ptr, y, x, FF_DISARM); /* Unlock the door */
+				if(known && (old_feat != c_ptr->feat)) /* Check line of sound */
 				{
 					msg_print(MES_EFFECT_DISARM_TRAP);
 					obvious = TRUE;
@@ -714,14 +703,11 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 			if(!has_trait(aimer_ptr, TRAIT_BLIND) && player_has_los_bold(y, x))
 			{
 				c_ptr->info &= ~(CAVE_UNSAFE);
-
 				lite_spot(floor_ptr, y, x);
-
 				obvious = TRUE;
 			}
 
 			break;
-		}
 
 		/* Destroy Doors (and traps) */
 	case DO_EFFECT_KILL_DOOR:
@@ -744,12 +730,9 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 			if(!has_trait(aimer_ptr, TRAIT_BLIND) && player_has_los_bold(y, x))
 			{
 				c_ptr->info &= ~(CAVE_UNSAFE);
-
 				lite_spot(floor_ptr, y, x);
-
 				obvious = TRUE;
 			}
-
 			break;
 		}
 
@@ -759,24 +742,15 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 			{
 				FLOOR_ID old_mimic = c_ptr->mimic;
 				feature_type *mimic_f_ptr = &feature_info[get_feat_mimic(c_ptr)];
-
 				cave_alter_feat(floor_ptr, y, x, FF_SPIKE);
-
 				c_ptr->mimic = old_mimic;
-
 				note_spot(floor_ptr, y, x);
-
 				lite_spot(floor_ptr, y, x);
 
 				/* Check line of sight */
 				if(known && have_flag(mimic_f_ptr->flags, FF_OPEN))
 				{
-#ifdef JP
-					msg_format("%s‚É‰½‚©‚ª‚Â‚Á‚©‚¦‚ÄŠJ‚©‚È‚­‚È‚Á‚½B", feature_name + mimic_f_ptr->name);
-#else
-					msg_format("The %s seems stuck.", feature_name + mimic_f_ptr->name);
-#endif
-
+					msg_format(MES_FEATURE_STUCKING(mimic_f_ptr));
 					obvious = TRUE;
 				}
 			}
@@ -785,183 +759,95 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 
 		/* Destroy walls (and doors) */
 	case DO_EFFECT_KILL_WALL:
+		if(have_flag(f_ptr->flags, FF_HURT_ROCK))
 		{
-			if(have_flag(f_ptr->flags, FF_HURT_ROCK))
+			if(known && (c_ptr->info & (CAVE_MARK)))
 			{
-				if(known && (c_ptr->info & (CAVE_MARK)))
-				{
-#ifdef JP
-					msg_format("%s‚ª—n‚¯‚Ä“D‚É‚È‚Á‚½I", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#else
-					msg_format("The %s turns into mud!", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
-#endif
-
-					obvious = TRUE;
-				}
-
-				/* Destroy the wall */
-				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
-
-				/* Update some things */
-				prepare_update(aimer_ptr, PU_FLOW);
+				msg_format(MES_FEATURE_MELTING(&feature_info[get_feat_mimic(c_ptr)]));
+				obvious = TRUE;
 			}
-
-			break;
+			cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK); /* Destroy the wall */
+			prepare_update(aimer_ptr, PU_FLOW); /* Update some things */
 		}
+		break;
 
-		/* Make doors */
 	case DO_EFFECT_MAKE_DOOR:
 		{
 			/* Require a "naked" floor grid */
 			if(!cave_naked_bold(floor_ptr, y, x)) break;
-
 			/* Not on the player */
 			if(CREATURE_BOLD(aimer_ptr, y, x)) break;
-
 			/* Create a closed door */
 			cave_set_feat(floor_ptr, y, x, feat_door[DOOR_DOOR].closed);
-
 			/* Observe */
 			if(c_ptr->info & (CAVE_MARK)) obvious = TRUE;
-
 			break;
 		}
 
-		/* Make traps */
 	case DO_EFFECT_MAKE_TRAP:
-		{
-			/* Place a trap */
-			place_trap(floor_ptr, y, x);
+		place_trap(floor_ptr, y, x); /* Place a trap */
+		break;
 
-			break;
-		}
-
-		/* Make doors */
 	case DO_EFFECT_MAKE_TREE:
-		{
-			/* Require a "naked" floor grid */
-			if(!cave_naked_bold(floor_ptr, y, x)) break;
-
-			/* Not on the player */
-			if(CREATURE_BOLD(aimer_ptr, y, x)) break;
-
-			/* Create a closed door */
-			cave_set_feat(floor_ptr, y, x, feat_tree);
-
-			/* Observe */
-			if(c_ptr->info & (CAVE_MARK)) obvious = TRUE;
-
-
-			break;
-		}
+		if(!cave_naked_bold(floor_ptr, y, x)) break; /* Require a "naked" floor grid */
+		if(CREATURE_BOLD(aimer_ptr, y, x)) break; /* Not on the player */
+		cave_set_feat(floor_ptr, y, x, feat_tree); /* Create a closed door */
+		if(c_ptr->info & (CAVE_MARK)) obvious = TRUE; /* Observe */
+		break;
 
 	case DO_EFFECT_MAKE_GLYPH:
-		{
-			/* Require a "naked" floor grid */
-			if(!cave_naked_bold(floor_ptr, y, x)) break;
-
-			/* Create a glyph */
-			c_ptr->info |= CAVE_OBJECT;
-			c_ptr->mimic = feat_glyph;
-
-			note_spot(floor_ptr, y, x);
-
-			lite_spot(floor_ptr, y, x);
-
-			break;
-		}
+		if(!cave_naked_bold(floor_ptr, y, x)) break; /* Require a "naked" floor grid */
+		c_ptr->info |= CAVE_OBJECT; /* Create a glyph */
+		c_ptr->mimic = feat_glyph;
+		note_spot(floor_ptr, y, x);
+		lite_spot(floor_ptr, y, x);
+		break;
 
 	case DO_EFFECT_STONE_WALL:
-		{
-			/* Require a "naked" floor grid */
-			if(!cave_naked_bold(floor_ptr, y, x)) break;
-
-			/* Not on the player */
-			if(CREATURE_BOLD(aimer_ptr, y, x)) break;
-
-			/* Place a wall */
-			cave_set_feat(floor_ptr, y, x, feat_granite);
-
-			break;
-		}
-
+		if(!cave_naked_bold(floor_ptr, y, x)) break; /* Require a "naked" floor grid */
+		if(CREATURE_BOLD(aimer_ptr, y, x)) break; /* Not on the player */
+		cave_set_feat(floor_ptr, y, x, feat_granite); /* Place a wall */
+		break;
 
 	case DO_EFFECT_LAVA_FLOW:
+		if(have_flag(f_ptr->flags, FF_PERMANENT)) break; /* Ignore permanent grid */
+		if(dam == 1) 
 		{
-			/* Ignore permanent grid */
-			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
-
-			/* Shallow Lava */
-			if(dam == 1)
-			{
-				/* Ignore grid without enough space */
-				if(!have_flag(f_ptr->flags, FF_FLOOR)) break;
-
-				/* Place a shallow lava */
-				cave_set_feat(floor_ptr, y, x, feat_shallow_lava);
-			}
-			/* Deep Lava */
-			else if(dam)
-			{
-				/* Place a deep lava */
-				cave_set_feat(floor_ptr, y, x, feat_deep_lava);
-			}
-			break;
+			if(!have_flag(f_ptr->flags, FF_FLOOR)) break; /* Ignore grid without enough space */
+			cave_set_feat(floor_ptr, y, x, feat_shallow_lava); /* Place a shallow lava */
 		}
+		else if(dam) cave_set_feat(floor_ptr, y, x, feat_deep_lava); /* Place a deep lava */
+		break;
 
 	case DO_EFFECT_WATER_FLOW:
+		if(have_flag(f_ptr->flags, FF_PERMANENT)) break; /* Ignore permanent grid */
+		if(dam == 1) /* Shallow Water */
 		{
-			/* Ignore permanent grid */
-			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
-
-			/* Shallow Water */
-			if(dam == 1)
-			{
-				/* Ignore grid without enough space */
-				if(!have_flag(f_ptr->flags, FF_FLOOR)) break;
-
-				/* Place a shallow water */
-				cave_set_feat(floor_ptr, y, x, feat_shallow_water);
-			}
-			/* Deep Water */
-			else if(dam)
-			{
-				/* Place a deep water */
-				cave_set_feat(floor_ptr, y, x, feat_deep_water);
-			}
-			break;
+			if(!have_flag(f_ptr->flags, FF_FLOOR)) break; /* Ignore grid without enough space */
+			cave_set_feat(floor_ptr, y, x, feat_shallow_water); /* Place a shallow water */
 		}
+		else if(dam) cave_set_feat(floor_ptr, y, x, feat_deep_water); /* Place a deep water */
+		break;
 
 		/* Lite up the grid */
 	case DO_EFFECT_LITE_WEAK:
 	case DO_EFFECT_LITE:
+		/* Turn on the light */
+		if(!(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS))
 		{
-			/* Turn on the light */
-			if(!(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_DARKNESS))
-			{
-				c_ptr->info |= (CAVE_GLOW);
+			c_ptr->info |= (CAVE_GLOW);
+			note_spot(floor_ptr, y, x);
+			lite_spot(floor_ptr, y, x);
+			update_local_illumination(floor_ptr, y, x);
+			if(creature_can_see_bold(aimer_ptr, y, x)) obvious = TRUE; /* Observe */
 
-				note_spot(floor_ptr, y, x);
+			/* Mega-Hack -- Update the creature in the affected grid */
+			/* This allows "spear of light" (etc) to work "correctly" */
+			if(c_ptr->creature_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
 
-				lite_spot(floor_ptr, y, x);
-
-				update_local_illumination(floor_ptr, y, x);
-
-				/* Observe */
-				if(creature_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
-
-				/* Mega-Hack -- Update the creature in the affected grid */
-				/* This allows "spear of light" (etc) to work "correctly" */
-				if(c_ptr->creature_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
-
-				if(aimer_ptr->posture & NINJA_S_STEALTH)
-				{
-					if(CREATURE_BOLD(aimer_ptr, y, x)) set_superstealth(aimer_ptr, FALSE);
-				}
-			}
-
-			break;
+			if(aimer_ptr->posture & NINJA_S_STEALTH) if(CREATURE_BOLD(aimer_ptr, y, x)) set_superstealth(aimer_ptr, FALSE);
 		}
+		break;
 
 		/* Darken the grid */
 	case DO_EFFECT_DARK_WEAK:

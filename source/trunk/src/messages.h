@@ -493,8 +493,11 @@
 
 #ifdef JP
 #define MES_FEATURE_KILLED "‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I"
+#define MES_FEATURE_MELTING(FEATURE) "%s‚ª—n‚¯‚Ä“D‚É‚È‚Á‚½I", feature_name + (FEATURE)->name
+#define MES_FEATURE_STUCKING(FEATURE) "%s‚É‰½‚©‚ª‚Â‚Á‚©‚¦‚ÄŠJ‚©‚È‚­‚È‚Á‚½B", feature_name + (FEATURE)->name
 #else
-#define MES_FEATURE_KILLED "There is a bright flash of light!"
+#define MES_FEATURE_KILLED "There is a bright flash of light!", feature_name + (FEATURE)->name
+#define MES_FEATURE_STUCKING(FEATURE) "The %s seems stuck.", feature_name + (FEATURE)->name
 #endif
 
 #ifdef JP
