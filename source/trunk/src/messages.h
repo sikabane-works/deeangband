@@ -3461,6 +3461,7 @@ static cptr desc_stat_neg[] =
 #define MES_STEED_RIDE_ON(STEED) "%sに乗った。", (STEED)->name
 #define MES_STEED_TAMED(STEED) "%sを手なずけた。", (STEED)->name
 #define MES_STEED_TAME_FAILED(STEED) "%sに振り落とされた！", (STEED)->name
+#define MES_PET_CAPTURE_FAILED(PET) "%sをうまく捕まえられなかった。", (PET)->name
 #define MES_STEED_GOT_OFF(STEED) "%sから降りた。", (STEED)
 #define MES_PET_DISMISS_ASK(PET, REMAIN) "%sを放しますか？ [Yes/No/Unnamed (%d体)]", (PET), (REMAIN)
 #define MES_PET_RELEASE(PET) "%s を放した。", (PET)
@@ -3479,6 +3480,7 @@ static cptr desc_stat_neg[] =
 #define MES_STEED_GOT_OFF(STEED) "You have got off %s. ", (STEED)
 #define MES_STEED_TAMED(STEED) "You tame %s.", (STEED)->name;
 #define MES_STEED_TAME_FAILED(STEED) "You have thrown off by %s.", (STEED)->name
+#define MES_PET_CAPTURE_FAILED(PET) "You failed to capture %s.", (PET)->name
 #define MES_PET_DISMISS_ASK(PET, REMAIN) "Dismiss %s? [Yes/No/Unnamed (%d remain)]", (PET), (REMAIN)
 #define MES_PET_RELEASE(PET) "Dismissed %s.", (PET)
 #define MES_PET_DISMISS(NUM) "You have dismissed %d pet%s.", (NUM), ((NUM) == 1 ? "" : "s")

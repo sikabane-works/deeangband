@@ -709,55 +709,42 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 
 			break;
 
-		/* Destroy Doors (and traps) */
 	case DO_EFFECT_KILL_DOOR:
+		if(is_trap(c_ptr->feat) || have_flag(f_ptr->flags, FF_DOOR)) /* Destroy all doors and traps */
 		{
-			/* Destroy all doors and traps */
-			if(is_trap(c_ptr->feat) || have_flag(f_ptr->flags, FF_DOOR))
+			if(known) /* Check line of sight */
 			{
-				/* Check line of sight */
-				if(known)
-				{
-					msg_print(MES_FEATURE_KILLED);
-					obvious = TRUE;
-				}
-
-				/* Destroy the feature */
-				cave_alter_feat(floor_ptr, y, x, FF_TUNNEL);
-			}
-
-			/* Remove "unsafe" flag if player is not blind */
-			if(!has_trait(aimer_ptr, TRAIT_BLIND) && player_has_los_bold(y, x))
-			{
-				c_ptr->info &= ~(CAVE_UNSAFE);
-				lite_spot(floor_ptr, y, x);
+				msg_print(MES_FEATURE_KILLED);
 				obvious = TRUE;
 			}
-			break;
+			cave_alter_feat(floor_ptr, y, x, FF_TUNNEL); /* Destroy the feature */
 		}
+
+		if(!has_trait(aimer_ptr, TRAIT_BLIND) && player_has_los_bold(y, x)) /* Remove "unsafe" flag if player is not blind */
+		{
+			c_ptr->info &= ~(CAVE_UNSAFE);
+			lite_spot(floor_ptr, y, x);
+			obvious = TRUE;
+		}
+		break;
 
 	case DO_EFFECT_JAM_DOOR: /* Jams a door (as if with a spike) */
+		if(have_flag(f_ptr->flags, FF_SPIKE))
 		{
-			if(have_flag(f_ptr->flags, FF_SPIKE))
+			FLOOR_ID old_mimic = c_ptr->mimic;
+			feature_type *mimic_f_ptr = &feature_info[get_feat_mimic(c_ptr)];
+			cave_alter_feat(floor_ptr, y, x, FF_SPIKE);
+			c_ptr->mimic = old_mimic;
+			note_spot(floor_ptr, y, x);
+			lite_spot(floor_ptr, y, x);
+			if(known && have_flag(mimic_f_ptr->flags, FF_OPEN)) /* Check line of sight */
 			{
-				FLOOR_ID old_mimic = c_ptr->mimic;
-				feature_type *mimic_f_ptr = &feature_info[get_feat_mimic(c_ptr)];
-				cave_alter_feat(floor_ptr, y, x, FF_SPIKE);
-				c_ptr->mimic = old_mimic;
-				note_spot(floor_ptr, y, x);
-				lite_spot(floor_ptr, y, x);
-
-				/* Check line of sight */
-				if(known && have_flag(mimic_f_ptr->flags, FF_OPEN))
-				{
-					msg_format(MES_FEATURE_STUCKING(mimic_f_ptr));
-					obvious = TRUE;
-				}
+				msg_format(MES_FEATURE_STUCKING(mimic_f_ptr));
+				obvious = TRUE;
 			}
-			break;
 		}
+		break;
 
-		/* Destroy walls (and doors) */
 	case DO_EFFECT_KILL_WALL:
 		if(have_flag(f_ptr->flags, FF_HURT_ROCK))
 		{
@@ -772,17 +759,11 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 		break;
 
 	case DO_EFFECT_MAKE_DOOR:
-		{
-			/* Require a "naked" floor grid */
-			if(!cave_naked_bold(floor_ptr, y, x)) break;
-			/* Not on the player */
-			if(CREATURE_BOLD(aimer_ptr, y, x)) break;
-			/* Create a closed door */
-			cave_set_feat(floor_ptr, y, x, feat_door[DOOR_DOOR].closed);
-			/* Observe */
-			if(c_ptr->info & (CAVE_MARK)) obvious = TRUE;
-			break;
-		}
+		if(!cave_naked_bold(floor_ptr, y, x)) break; /* Require a "naked" floor grid */
+		if(CREATURE_BOLD(aimer_ptr, y, x)) break; /* Not on the player */
+		cave_set_feat(floor_ptr, y, x, feat_door[DOOR_DOOR].closed); /* Create a closed door */
+		if(c_ptr->info & (CAVE_MARK)) obvious = TRUE; /* Observe */
+		break;
 
 	case DO_EFFECT_MAKE_TRAP:
 		place_trap(floor_ptr, y, x); /* Place a trap */
@@ -829,7 +810,6 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 		else if(dam) cave_set_feat(floor_ptr, y, x, feat_deep_water); /* Place a deep water */
 		break;
 
-		/* Lite up the grid */
 	case DO_EFFECT_LITE_WEAK:
 	case DO_EFFECT_LITE:
 		/* Turn on the light */
@@ -886,30 +866,22 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 				/* Hack -- Forget "boring" grids */
 				if(!have_flag(f_ptr->flags, FF_REMEMBER))
 				{
-					/* Forget */
-					c_ptr->info &= ~(CAVE_MARK);
-
+					c_ptr->info &= ~(CAVE_MARK); /* Forget */
 					note_spot(floor_ptr, y, x);
 				}
-
 				lite_spot(floor_ptr, y, x);
-
 				update_local_illumination(floor_ptr, y, x);
-
 				if(creature_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
 
 				/* Mega-Hack -- Update the creature in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
 				if(c_ptr->creature_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
 			}
-
-			/* All done */
-			break;
+			break; /* All done */
 		}
 
 	case DO_EFFECT_SHARDS:
 	case DO_EFFECT_ROCKET:
-		{
 			if(is_mirror_grid(c_ptr))
 			{
 				msg_print(MES_EFFECT_MIRROR_CRUSH);
@@ -925,18 +897,12 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 					msg_format(MES_EFFECT_CRUSHED2(feature_name + feature_info[get_feat_mimic(c_ptr)].name));
 					sound(SOUND_GLASS);
 				}
-
-				/* Destroy the wall */
-				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
-
-				/* Update some things */
-				prepare_update(aimer_ptr, PU_FLOW);
+				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK); /* Destroy the wall */
+				prepare_update(aimer_ptr, PU_FLOW); /* Update some things */
 			}
 			break;
-		}
 
 	case DO_EFFECT_SOUND:
-		{
 			if(is_mirror_grid(c_ptr) && aimer_ptr->lev < 40)
 			{
 				msg_print(MES_EFFECT_MIRROR_CRUSH);
@@ -952,84 +918,48 @@ static bool project_feature(creature_type *aimer_ptr, int r, COODINATES y, COODI
 					msg_format(MES_EFFECT_CRUSHED2(feature_name + feature_info[get_feat_mimic(c_ptr)].name));
 					sound(SOUND_GLASS);
 				}
-
-				/* Destroy the wall */
-				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
-
-				/* Update some things */
-				prepare_update(aimer_ptr, PU_FLOW);
+				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK); /* Destroy the wall */
+				prepare_update(aimer_ptr, PU_FLOW); /* Update some things */
 			}
 			break;
-		}
 
 	case DO_EFFECT_DISINTEGRATE:
-		{
 			/* Destroy mirror/glyph */
-			if(is_mirror_grid(c_ptr) || is_glyph_grid(c_ptr) || is_explosive_rune_grid(c_ptr))
-				remove_mirror(player_ptr, y, x);
+			if(is_mirror_grid(c_ptr) || is_glyph_grid(c_ptr) || is_explosive_rune_grid(c_ptr)) remove_mirror(player_ptr, y, x);
 
 			/* Permanent features don't get effect */
 			/* But not protect creatures and other objects */
 			if(have_flag(f_ptr->flags, FF_HURT_DISI) && !have_flag(f_ptr->flags, FF_PERMANENT))
 			{
 				cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
-
-				/* Update some things -- similar to DO_EFFECT_KILL_WALL */
-				prepare_update(aimer_ptr, PU_FLOW);
+				prepare_update(aimer_ptr, PU_FLOW); /* Update some things -- similar to DO_EFFECT_KILL_WALL */
 			}
 			break;
-		}
 
 	case DO_EFFECT_ACID_FLOW:
-		{
-			/* Ignore permanent grid */
-			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
-
-			/* Shallow Water */
+			if(have_flag(f_ptr->flags, FF_PERMANENT)) break; /* Ignore permanent grid */
 			if(dam == 1)
 			{
-				/* Ignore grid without enough space */
-				if(!have_flag(f_ptr->flags, FF_FLOOR)) break;
-
-				/* Place a shallow water */
-				cave_set_feat(floor_ptr, y, x, feat_shallow_acid);
+				if(!have_flag(f_ptr->flags, FF_FLOOR)) break; /* Ignore grid without enough space */
+				cave_set_feat(floor_ptr, y, x, feat_shallow_acid); /* Place a shallow water */
 			}
-			/* Deep Water */
-			else if(dam)
-			{
-				/* Place a deep water */
-				cave_set_feat(floor_ptr, y, x, feat_deep_acid);
-			}
+			else if(dam) cave_set_feat(floor_ptr, y, x, feat_deep_acid); /* Place a deep water */
 			break;
-		}
 
 	case DO_EFFECT_POISON_FLOW:
-		{
-			/* Ignore permanent grid */
-			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
-
-			/* Shallow Water */
+			if(have_flag(f_ptr->flags, FF_PERMANENT)) break; /* Ignore permanent grid */
 			if(dam == 1)
 			{
-				/* Ignore grid without enough space */
-				if(!have_flag(f_ptr->flags, FF_FLOOR)) break;
-
-				/* Place a shallow water */
-				cave_set_feat(floor_ptr, y, x, feat_shallow_poison);
+				if(!have_flag(f_ptr->flags, FF_FLOOR)) break; /* Ignore grid without enough space */
+				cave_set_feat(floor_ptr, y, x, feat_shallow_poison); /* Place a shallow water */
 			}
-			/* Deep Water */
-			else if(dam)
-			{
-				/* Place a deep water */
-				cave_set_feat(floor_ptr, y, x, feat_deep_poison);
-			}
+			else if(dam) cave_set_feat(floor_ptr, y, x, feat_deep_poison);
 			break;
-		}
 
 	}
 
 	lite_spot(floor_ptr, y, x);
-	return (obvious);	// Return "Anything seen?"
+	return (obvious);
 }
 
 /*
@@ -2372,11 +2302,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-#ifdef JP
-				msg_format("Ç§Ç‹Ç≠ïﬂÇ‹Ç¶ÇÁÇÍÇ»Ç©Ç¡ÇΩÅB");
-#else
-				msg_format("You failed to capture %s.", target_name);
-#endif
+				msg_format(MES_PET_CAPTURE_FAILED(target_ptr));
 				skipped = TRUE;
 			}
 			break;
