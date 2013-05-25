@@ -217,10 +217,9 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 }
 
 /*
- * Player attacks a (poor, defenseless) creature        -RAK-
- * If no "weapon" is available, then "punch" the creature one time.
+ * Do attack, creature to creature.
  */
-static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr, s16b hand, int mode)
+static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr, object_type *weapon_ptr, int mode)
 {
 	POWER k;
 	int i, bonus, chance;
@@ -228,9 +227,6 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	cave_type *c_ptr = &floor_ptr->cave[target_ptr->fy][target_ptr->fx];
 	object_type *object_ptr;
 	bool blinked = FALSE;
-
-	// Access the weapon
-	object_type *weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVENTORY_ID_HAND, hand);
 
 	char attacker_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
@@ -290,7 +286,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	creature_desc(target_name, target_ptr, 0);
 
 	// Calculate the "attack quality"
-	bonus = attacker_ptr->to_hit[hand] + weapon_ptr->to_hit;
+	bonus = weapon_ptr->to_hit; //TODO attacker_ptr->to_hit[hand];
 	chance = (attacker_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 	if(mode == HISSATSU_IAI) chance += 60;
 	if(attacker_ptr->posture & KATA_KOUKIJIN) chance += 150;
@@ -357,7 +353,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		// Handle normal weapon
 		if(weapon_ptr->k_idx)
 		{
-			k = diceroll(weapon_ptr->dd + attacker_ptr->to_damaged[hand], weapon_ptr->ds + attacker_ptr->to_damages[hand]);
+			k = diceroll(weapon_ptr->dd , weapon_ptr->ds); //TODO + attacker_ptr->to_damaged[hand]  + attacker_ptr->to_damages[hand]
 			k = tot_dam_aux(attacker_ptr, weapon_ptr, k, target_ptr, mode, FALSE);
 
 			if(ambush)			k *= (3 + (attacker_ptr->lev / 20));
@@ -368,7 +364,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				do_quake = TRUE;
 
 			if(!has_trait_object(weapon_ptr, TRAIT_CRITICAL_SLAYING) && !(mode == HISSATSU_KYUSHO))
-				k = test_critial_melee(attacker_ptr, weapon_ptr->weight, weapon_ptr->to_hit, k, attacker_ptr->to_hit[hand], mode);
+				k = test_critial_melee(attacker_ptr, weapon_ptr->weight, weapon_ptr->to_hit, k, 0, mode); // TODO attacker_ptr->to_hit[hand]
 
 			drain_result = k;
 
@@ -443,8 +439,8 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		}
 
 		// Apply the player damage bonuses
-		k += attacker_ptr->to_damage[hand];
-		drain_result += attacker_ptr->to_damage[hand];
+		//TODO k += attacker_ptr->to_damage[hand];
+		//TODO drain_result += attacker_ptr->to_damage[hand];
 
 		if(has_trait_object(weapon_ptr, TRAIT_SUPERHURT) && ((randint1(attacker_ptr->lev*2+300) > (ac + 200)) || one_in_(13)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
 		{
@@ -1403,6 +1399,7 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	creature_type *target_ptr;
 	char attacker_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
+	object_type weapon;
 
 	if(mode) return FALSE; //TODO
 
@@ -1434,6 +1431,9 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	if(kawarimi(target_ptr, TRUE)) return FALSE; // Ceased by Kawarimi
 
 	//TODO gain_skill(attacker, SKILL_RIDING, amount);
+
+	generate_object(&weapon, 697);
+	do_one_attack(attacker_ptr, target_ptr,&weapon, mode);
 
 	/* Blink away */
 	/* //TODO
