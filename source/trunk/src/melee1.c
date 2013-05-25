@@ -302,7 +302,8 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		success_hit = one_in_(n);
 	}
 	else if((attacker_ptr->class_idx == CLASS_NINJA) && ((ambush || fatal_spot) && !has_trait(target_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
-	else success_hit = test_hit_melee(attacker_ptr, target_ptr, chance, target_ptr->see_others);
+
+	else success_hit = test_hit_melee(attacker_ptr, target_ptr, chance);
 
 	if(mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
 

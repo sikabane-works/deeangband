@@ -4,19 +4,21 @@
  * Determine if the player "hits" a creature (normal combat).
  * Note -- Always miss 5%, always hit 5%, otherwise random.
  */
-bool test_hit_melee(creature_type *attacker_ptr, creature_type *target_ptr, int chance, int vis)
+bool test_hit_melee(creature_type *attacker_ptr, creature_type *target_ptr, int chance)
 {
 	int k;
 
 	POWER ev = target_ptr->ev + target_ptr->to_ev;
-	k = randint0(100);	// Percentile dice
+	k = randint0(100);	/* Percentile dice */
+
 	if(k < 10) return (k < 5); // Hack -- Instant miss or hit
 	if(has_trait(attacker_ptr, TRAIT_MISS_MELEE) && (one_in_(20))) return FALSE;
 	if(chance <= 0) return FALSE;	// Wimpy attack never hits
 
-	if(!vis) chance = (chance + 1) / 2;	// Penalize invisible targets
-	if(randint0(chance) < (ev * 3 / 4)) return FALSE;	// Power must defeat armor
-	return TRUE;	// Assume hit
+	if(!target_ptr->see_others) chance = (chance + 1) / 2;	/* Penalize invisible targets */
+
+	if(randint0(chance) < (ev * 3 / 4)) return FALSE;	/* evade */
+	return TRUE; /* Assume hit */
 }
 
 extern POWER test_buffer_melee(creature_type *attacker_ptr, POWER power, int ac, int vis)
