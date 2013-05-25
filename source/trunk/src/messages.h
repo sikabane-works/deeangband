@@ -2484,6 +2484,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_ZANTETSU_JELLY "こんな軟らかいものは切れん！"
 #define MES_MELEE_ZANTETSU_SERIF "またつまらぬものを斬ってしまった．．．"
 #define MES_MELEE_EX_JR_SPIDER "蜘蛛は苦手だ！"
+#define MES_MELEE_CRITICAL "クリティカルヒット！"
 #define MES_MELEE_VORPAL_BLADE_SERIF "目にも止まらぬヴォーパルブレード、手錬の早業！"
 #define MES_MELEE_ATTACK_DRAIN(WEAPON, TARGET) ("%sが%sから生命力を吸い取った！", (WEAPON), (TARGET))
 #define MES_MELEE_SUCK_BLOOD(WEAPON) ("%sは血を吸って強くなった！", WEAPON)
@@ -2507,6 +2508,8 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_EYE_EYE(ATTACKER) "攻撃が%s自身を傷つけた！", (ATTACKER)->name
 #define MES_MELEE_JOJ_DONE "審判の宝石は赤く明るく光った！"
 #define MES_MELEE_JOJ_STRAIN "宝石はあなたの体力を奪った..."
+#define MES_MELEE_TIME_BACK "人生が逆戻りした気がする。"
+#define MES_MELEE_PLAGUE "病があなたを蝕んでいる気がする。"
 #else
 #define MES_MELEE_ATTACK_MISS %^s misses %s.
 #define MES_MELEE_AMBUSH(ATTACKER, TARGET) "%s (cruelly stab the helpless, sleeping %s!", (ATTACKER), (TARGET))
@@ -2515,6 +2518,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_ZANTETSU_JELLY "You cannot cut such a elastic thing!"
 #define MES_MELEE_ZANTETSU_SERIF "Sigh... Another trifling thing I've cut...."
 #define MES_MELEE_EX_JR_SPIDER "Spiders are difficult for you to deal with!"
+#define MES_MELEE_CRITICAL "It was a critical hit!"
 #define MES_MELEE_VORPAL_BLADE_SERIF "Your Vorpal Blade goes snicker-snack!"
 #define MES_MELEE_SUCK_BLOOD(WEAPON) ("%s sucked blood, and became more powerful!", (WEAPON))
 #define MES_MELEE_RETURN(WEAPON, ATTACKER) ("%s returns to %s.", ATTACKER, WEAPON)
@@ -2537,6 +2541,8 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_EYE_EYE(ATTACKER) "The attack of %s has wounded %s!", (ATTACKER)->name, (ATTACKER)->name /*TODO*/
 #define MES_MELEE_JOJ_DONE "The Jewel flashes bright red!"
 #define MES_MELEE_JOJ_STRAIN "The Jewel drains your vitality..."
+#define MES_MELEE_TIME_BACK "You feel life has clocked back."
+#define MES_MELEE_PLAGUE "You feel strange sickness."
 #endif
 
 #ifdef JP

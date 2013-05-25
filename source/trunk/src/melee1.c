@@ -429,14 +429,9 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		//TODO k += attacker_ptr->to_damage[hand];
 		//TODO drain_result += attacker_ptr->to_damage[hand];
 
-		if(has_trait_object(weapon_ptr, TRAIT_SUPERHURT) && saving_throw(target_ptr, SAVING_AC, k, 0) || one_in_(13) &&
-			!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
+		if(has_trait_object(weapon_ptr, TRAIT_SUPERHURT) && saving_throw(target_ptr, SAVING_AC, k, 0) || one_in_(13) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
 		{
-#ifdef JP
-			msg_print("クリティカルヒット！");
-#else
-			msg_print("It was a critical hit!");
-#endif
+			msg_print(MES_MELEE_CRITICAL);
 			k *= 2;
 		}
 
@@ -698,17 +693,9 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(has_trait_object(weapon_ptr, TRAIT_DISEASE_BRAND))
 		{
 			if(!has_trait(target_ptr, TRAIT_RES_POIS)) add_timed_trait(target_ptr, TRAIT_POISONED, randint1(attacker_ptr->lev) + 5, TRUE);
-
 			if(PERCENT(10) && !has_trait(target_ptr, TRAIT_ANDROID))
 			{
-				if(dec_stat(target_ptr, STAT_CON, PERCENT(10), PERCENT(10)))
-				{
-#ifdef JP
-					msg_print("病があなたを蝕んでいる気がする。");
-#else
-					msg_print("You feel strange sickness.");
-#endif
-				}
+				if(dec_stat(target_ptr, STAT_CON, PERCENT(10), PERCENT(10))) msg_print(MES_MELEE_PLAGUE);
 			}
 		}
 
@@ -723,16 +710,10 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			switch (randint1(10))
 			{
 			case 1: case 2: case 3: case 4: case 5:
-				{
-					if(has_trait(target_ptr, TRAIT_ANDROID)) break;
-#ifdef JP
-					msg_print("人生が逆戻りした気がする。");
-#else
-					msg_print("You feel life has clocked back.");
-#endif
-					lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE);
-					break;
-				}
+				if(has_trait(target_ptr, TRAIT_ANDROID)) break;
+				msg_print(MES_MELEE_TIME_BACK);
+				lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE);
+				break;
 
 			case 6: case 7: case 8: case 9:
 				{
