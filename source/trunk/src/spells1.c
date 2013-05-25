@@ -2321,8 +2321,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(has_trait(target_ptr, TRAIT_UNIQUE)) dam = dam * 2 / 3;
 
 		/* Attempt a saving throw */
-		if((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_NO_PET) ||
-			!creature_living(target_ptr) || ((target_ptr->lev * 2+10) > randint1(dam)))
+		if((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_NO_PET) || !creature_living(target_ptr) || ((target_ptr->lev * 2+10) > randint1(dam)))
 		{
 			note = MES_IS_UNAFFECTED;
 			obvious = FALSE;
@@ -2382,7 +2381,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 				else add_timed_trait(target_ptr, TRAIT_SLOW, 50, TRUE); // Normal creatures slow down
 			}
-
 			else if(effect == 2)
 			{
 				do_stun = diceroll((caster_ptr->lev / 10) + 3 , (dam)) + 1;

@@ -994,29 +994,21 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		/* This is always a radius-0 ball now */
 		if(cast_ball(creature_ptr, DO_EFFECT_PSI_DRAIN, dir, b, 0)) cost_tactical_energy(creature_ptr, randint1(150));
 		break;
+
 	case 12:
 		cast_beam(creature_ptr, DO_EFFECT_PSY_SPEAR, MAX_RANGE_SUB, randint1(lev_bonus * 3) + lev_bonus * 3, 0);
 		break;
+
 	case 13:
 			if(creature_ptr->time_stopper)
 			{
-#ifdef JP
-				msg_print("既に時は止まっている。");
-#else
-				msg_print("Time is already stopped.");
-#endif
+				msg_print(MES_TRAIT_WORLD_ALREADY_STOP);
 				return FALSE;
 			}
 			creature_ptr->time_stopper = TRUE;
-#ifdef JP
-			msg_print("「時よ！」");
-#else
-			msg_print("You yell 'Time!'");
-#endif
+			msg_print(MES_TRAIT_WORLD_DONE);
 			msg_print(NULL);
-
-			/* Hack */
-			creature_ptr->energy_need -= 1000 + (100 + (s16b)creature_ptr->csp - 50)*TURNS_PER_TICK/10;
+			creature_ptr->energy_need -= 1000 + (100 + (s16b)creature_ptr->csp - 50) * TURNS_PER_TICK / 10; /* TODO Hack */
 
 			prepare_redraw(PR_MAP);
 			prepare_update(creature_ptr, PU_CREATURES);
