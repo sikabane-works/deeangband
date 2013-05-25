@@ -877,14 +877,9 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 
 	switch (spell)
 	{
-	case 0:   /* Precog */
-		if(lev_bonus > 44)
-		{
-			wiz_lite(floor_ptr, creature_ptr, FALSE);
-		}
-		else if(lev_bonus > 19)
-			map_area(creature_ptr, DETECT_RAD_MAP);
-
+	case 0: /* Precog */
+		if(lev_bonus > 44) wiz_lite(floor_ptr, creature_ptr, FALSE);
+		else if(lev_bonus > 19) map_area(creature_ptr, DETECT_RAD_MAP);
 		if(lev_bonus < 30)
 		{
 			b = detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
@@ -894,42 +889,27 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 				b |= detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
 			}
 		}
-		else
-			b = detect_all(creature_ptr, DETECT_RAD_DEFAULT);
-
-		if((lev_bonus > 24) && (lev_bonus < 40))
-			set_timed_trait(creature_ptr, TRAIT_ESP, lev_bonus, FALSE);
-
-#ifdef JP
-		if(!b) msg_print("安全な気がする。");
-#else
-		if(!b) msg_print("You feel safe.");
-#endif
-
+		else b = detect_all(creature_ptr, DETECT_RAD_DEFAULT);
+		if((lev_bonus > 24) && (lev_bonus < 40)) set_timed_trait(creature_ptr, TRAIT_ESP, lev_bonus, FALSE);
+		if(!b) msg_print(MES_TRAIT_PRECOG_NO_DANGER);
 		break;
 	case 1:
-		if(randint1(100) < lev_bonus * 2)
-			cast_beam(creature_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 4), (3 + lev_bonus / 15)), 0);
-		else
-			cast_ball(creature_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 4), (3 + lev_bonus / 15)), 0);
+		if(randint1(100) < lev_bonus * 2) cast_beam(creature_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 4), (3 + lev_bonus / 15)), 0);
+		else cast_ball(creature_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 4), (3 + lev_bonus / 15)), 0);
 		break;
-	case 2:
-		/* Minor displace */
+	case 2: /* Minor displace */
 		teleport_creature(creature_ptr, 10, 0L);
 		break;
-	case 3:
-		/* Major displace */
+	case 3: /* Major displace */
 		teleport_creature(creature_ptr, (COODINATES)lev_bonus * 5, 0L);
 		break;
-	case 4:
-		/* Domination */
+	case 4: /* Domination */
 		if(lev_bonus < 30)
 		{
 			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 			cast_ball(creature_ptr, DO_EFFECT_DOMINATION, dir, lev_bonus, 0);
 		}
-		else
-			project_all_vision(creature_ptr, DO_EFFECT_CHARM, lev_bonus * 2);
+		else project_all_vision(creature_ptr, DO_EFFECT_CHARM, lev_bonus * 2);
 		break;
 	case 5:
 		cast_ball(creature_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((lev_bonus - 5) / 4), 8), (lev_bonus > 20 ? (lev_bonus - 20) / 8 + 1 : 0));
@@ -943,27 +923,17 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		if(lev_bonus > 29) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ELEC, lev_bonus, FALSE);
 		if(lev_bonus > 34) set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_POIS, lev_bonus, FALSE);
 		break;
-	case 7:
-		/* Psychometry */
-		if(lev_bonus < 25)
-			return psychometry(creature_ptr);
-		else
-			return ident_spell(creature_ptr, FALSE);
-	case 8:
-		/* Mindwave */
-#ifdef JP
-		msg_print("精神を捻じ曲げる波動を発生させた！");
-#else
-		msg_print("Mind-warping forces emanate from your brain!");
-#endif
-
+	case 7: /* Psychometry */
+		if(lev_bonus < 25) return psychometry(creature_ptr);
+		else return ident_spell(creature_ptr, FALSE);
+	case 8: /* Mindwave */
+		msg_print(MES_TRAIT_MIND_WAVE);
 		if(lev_bonus < 25)
 			project(creature_ptr, 0, 2 + lev_bonus / 10, creature_ptr->fy, creature_ptr->fx, (lev_bonus * 3), DO_EFFECT_PSI, PROJECT_KILL, -1);
 		else
 			(void)project_all_vision(creature_ptr, DO_EFFECT_PSI, randint1(lev_bonus * ((lev_bonus - 5) / 10 + 1)));
 		break;
-	case 9:
-		/* Adrenaline */
+	case 9: /* Adrenaline */
 		set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 		set_timed_trait(creature_ptr, TRAIT_STUN, 0, TRUE);
 

@@ -3608,6 +3608,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_RECALL_DOWN "下に引きずり降ろされる感じがする！"
 #define MES_TRAIT_ALTER_REAL_DONE "世界が変わった！"
 #define MES_TRAIT_ALTER_REAL_FAILED "世界が少しの間変化したようだ。"
+#define MES_TRAIT_PRECOG_NO_DANGER "安全な気がする。"
+#define MES_TRAIT_MIND_WAVE "精神を捻じ曲げる波動を発生させた！"
 #define MES_TRAIT_WORLD_DONE "「時よ！」"
 #define MES_TRAIT_WORLD_ALREADY_STOP "既に時は止まっている。"
 #else
@@ -3670,6 +3672,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_RECALL_DOWN "You feel yourself yanked downwards!"
 #define MES_TRAIT_ALTER_REAL_DONE "The world changes!"
 #define MES_TRAIT_ALTER_REAL_FAILED "The world seems to change for a moment!"
+#define MES_TRAIT_PRECOG_NO_DANGER "You feel safe."
+#define MES_TRAIT_MIND_WAVE "Mind-warping forces emanate from your brain!"
 #define MES_TRAIT_WORLD_DONE "You yell 'Time!'"
 #define MES_TRAIT_WORLD_ALREADY_STOP "Time is already stopped."
 #endif
