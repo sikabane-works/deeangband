@@ -3725,6 +3725,14 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_PSIONIC_FAILED_TELEPORT "鏡の世界の干渉を受けた！"
+#define MES_PSIONIC_FAILED_HALLUCINATION "まわりのものがキラキラ輝いている！"
+#else
+#define MES_PSIONIC_FAILED_TELEPORT "Weird visions seem to dance before your eyes..."
+#define MES_PSIONIC_FAILED_HALLUCINATION "Your brain is addled!"
+#endif
+
+#ifdef JP
 #define MES_SNIPE_CONCENTRATE(LEVEL) "集中した。(集中度 %d)", (LEVEL)
 #define MES_SNIPE_RESET_CONS "集中力が途切れた。"
 #define MES_SNIPE_STRAIN "射撃の反動が体を襲った。"

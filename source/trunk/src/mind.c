@@ -1681,28 +1681,19 @@ void do_cmd_mind(creature_type *creature_ptr)
 						creature_ptr->csp = MAX(0, creature_ptr->csp - lev_bonus * MAX(1, lev_bonus / 10));
 					}
 				}
-				if( use_mind == MIND_MIRROR_MASTER ){
+				if(use_mind == MIND_MIRROR_MASTER){
 					if(b < 51)
 					{
 						/* Nothing has happen */
 					}
 					else if(b < 81)
 					{
-#ifdef JP
-						msg_print("‹¾‚Ì¢ŠE‚ÌŠ±Â‚ðŽó‚¯‚½I");
-#else
-						msg_print("Weird visions seem to dance before your eyes...");
-#endif
+						msg_print(MES_PSIONIC_FAILED_TELEPORT);
 						teleport_creature(creature_ptr, 10, TELEPORT_PASSIVE);
 					}
 					else if(b < 96)
 					{
-#ifdef JP
-						msg_print("‚Ü‚í‚è‚Ì‚à‚Ì‚ªƒLƒ‰ƒLƒ‰‹P‚¢‚Ä‚¢‚éI");
-#else
-						msg_print("Your brain is addled!");
-#endif
-
+						msg_print(MES_PSIONIC_FAILED_HALLUCINATION);
 						add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 5 + randint1(10), TRUE);
 					}
 					else
