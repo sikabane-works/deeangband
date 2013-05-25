@@ -2269,33 +2269,22 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(is_pet(player_ptr, target_ptr)) nokori_hp = target_ptr->mhp * 4L;
 			else if((has_trait(caster_ptr, TRAIT_DOMINATE_LIVE) || has_trait(caster_ptr, TRAIT_DOMINATE_LIVES)) && creature_living(target_ptr))
+			{
 				nokori_hp = (target_ptr->mhp * 3 / 10) > (caster_ptr->lev * 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 2);
-			else
-				nokori_hp = (target_ptr->mhp * 3 / 20) > (caster_ptr->lev * 3 / 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 3 / 2);
+			}
+			else nokori_hp = (target_ptr->mhp * 3 / 20) > (caster_ptr->lev * 3 / 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 3 / 2);
 
 			if(target_ptr->chp >= nokori_hp)
 			{
-#ifdef JP
-				msg_format("‚à‚Á‚ÆŽã‚ç‚¹‚È‚¢‚ÆB");
-#else
-				msg_format("You need to weaken %s more.", target_name);
-#endif
+				msg_format(MES_PET_NEED_WEAKEN(target_ptr));
 				skipped = TRUE;
 			}
 			else if(target_ptr->chp < randint0(nokori_hp))
 			{
 				if(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON) set_new_species(&creature_list[c_ptr->creature_idx], FALSE, SPECIES_CHAMELEON, MONEGO_NONE);
-#ifdef JP
-				msg_format("%s‚ð•ß‚¦‚½I",target_name);
-#else
-				msg_format("You capture %^s!", target_name);
-#endif
+				msg_format(MES_PET_CAPTURED(target_ptr));
 				//TODO: capture creature status
-				if(c_ptr->creature_idx == player_ptr->riding)
-				{
-					if(do_thrown_from_riding(player_ptr, -1, FALSE)) msg_print(MES_FALL_RIDING);
-				}
-
+				if(c_ptr->creature_idx == player_ptr->riding && do_thrown_from_riding(player_ptr, -1, FALSE)) msg_print(MES_FALL_RIDING);
 				delete_species_idx(target_ptr);
 
 				//TODO return TRUE;
