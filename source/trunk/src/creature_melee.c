@@ -4,14 +4,15 @@
  * Determine if the player "hits" a creature (normal combat).
  * Note -- Always miss 5%, always hit 5%, otherwise random.
  */
-bool test_hit_melee(creature_type *attacker_ptr, creature_type *target_ptr, int chance)
+bool test_hit_melee(creature_type *attacker_ptr, creature_type *target_ptr, object_type *weapon_ptr, int chance, int mode)
 {
-	int k;
+	int dice;
 
 	POWER ev = target_ptr->ev + target_ptr->to_ev;
-	k = randint0(100);	/* Percentile dice */
 
-	if(k < 10) return (k < 5); // Hack -- Instant miss or hit
+	dice = randint0(100);	/* Percentile dice */
+	if(dice < 10) return (dice < 5); /* Instant Hit/Miss */
+
 	if(has_trait(attacker_ptr, TRAIT_MISS_MELEE) && (one_in_(20))) return FALSE;
 	if(chance <= 0) return FALSE;	// Wimpy attack never hits
 
