@@ -221,7 +221,7 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr, object_type *weapon_ptr, int mode)
 {
 	POWER k;
-	int i, chance;
+	int i;
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[target_ptr->fy][target_ptr->fx];
 	object_type *object_ptr;
@@ -284,13 +284,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	creature_desc(attacker_name, attacker_ptr, 0);
 	creature_desc(target_name, target_ptr, 0);
 
-	chance = (attacker_ptr->skill_thn + (weapon_ptr->to_hit * BTH_PLUS_ADJ));
-
-	if(mode == HISSATSU_IAI) chance += 60;
-	if(attacker_ptr->posture & KATA_KOUKIJIN) chance += 150;
-	if(attacker_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
 	zantetsu_mukou = (has_trait_object(weapon_ptr, TRAIT_ZANTETSU_EFFECT) && (target_ptr->d_char == 'j'));
-
 	e_j_mukou = (has_trait_object(weapon_ptr, TRAIT_HATE_SPIDER) && (target_ptr->d_char == 'S'));
 
 	// Attack once for each legal blow
@@ -301,8 +295,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		success_hit = one_in_(n);
 	}
 	else if((attacker_ptr->class_idx == CLASS_NINJA) && ((ambush || fatal_spot) && !has_trait(target_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
-
-	else success_hit = test_hit_melee(attacker_ptr, target_ptr, weapon_ptr, chance, mode);
+	else success_hit = test_hit_melee(attacker_ptr, target_ptr, weapon_ptr, mode);
 
 	if(mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
 

@@ -4,11 +4,16 @@
  * Determine if the player "hits" a creature (normal combat).
  * Note -- Always miss 5%, always hit 5%, otherwise random.
  */
-bool test_hit_melee(creature_type *attacker_ptr, creature_type *target_ptr, object_type *weapon_ptr, int chance, int mode)
+bool test_hit_melee(creature_type *attacker_ptr, creature_type *target_ptr, object_type *weapon_ptr, int mode)
 {
 	int dice;
 
 	POWER ev = target_ptr->ev + target_ptr->to_ev;
+
+	int chance = (attacker_ptr->skill_thn + (weapon_ptr->to_hit * BTH_PLUS_ADJ));
+	if(mode == HISSATSU_IAI) chance += 60;
+	if(attacker_ptr->posture & KATA_KOUKIJIN) chance += 150;
+	if(attacker_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
 
 	dice = randint0(100);	/* Percentile dice */
 	if(dice < 10) return (dice < 5); /* Instant Hit/Miss */
