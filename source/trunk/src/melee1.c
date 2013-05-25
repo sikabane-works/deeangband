@@ -871,16 +871,8 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		if(target_ptr->riding && k > 0)
 		{
-			char attacker_name[MAX_NLEN];
-			creature_desc(attacker_name, &creature_list[target_ptr->riding], 0);
-			if(do_thrown_from_riding(target_ptr, (k > 200) ? 200 : k, FALSE))
-			{
-#ifdef JP
-				msg_format("%^s‚©‚ç—Ž‚¿‚Ä‚µ‚Ü‚Á‚½I", attacker_name);
-#else
-				msg_format("You have fallen from %s.", attacker_name);
-#endif
-			}
+			creature_type *steed_ptr = &creature_list[target_ptr->riding];
+			if(do_thrown_from_riding(target_ptr, (k > 200) ? 200 : k, FALSE)) msg_format(MES_STEED_FALL_DOWN(steed_ptr));
 		}
 
 		// Are we draining it?  A little note: If the creature is dead, the drain does not work...

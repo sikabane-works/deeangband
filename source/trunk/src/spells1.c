@@ -4311,31 +4311,14 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 
 	if(player_ptr->riding)
 	{
-		char m_name[MAX_NLEN];
-
-		creature_desc(m_name, &creature_list[player_ptr->riding], 0);
-
+		creature_type *steed_ptr = &creature_list[player_ptr->riding];
 		if(do_thrown_from_ridingdam_m > 0)
 		{
-			if(do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_m, FALSE))
-			{
-#ifdef JP
-				msg_format("%^sÇ…êUÇËóéÇ∆Ç≥ÇÍÇΩÅI", m_name);
-#else
-				msg_format("%^s has thrown you off!", m_name);
-#endif
-			}
+			if(do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_m, FALSE)) msg_format(MES_STEED_FALL_DOWN(steed_ptr));
 		}
 		if(player_ptr->riding && do_thrown_from_ridingdam_p > 0)
 		{
-			if(do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_p, FALSE))
-			{
-#ifdef JP
-				msg_format("%^sÇ©ÇÁóéÇøÇƒÇµÇ‹Ç¡ÇΩÅI", m_name);
-#else
-				msg_format("You have fallen from %s.", m_name);
-#endif
-			}
+			if(do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_p, FALSE)) msg_format(MES_STEED_FALL_DOWN(steed_ptr));
 		}
 	}
 
