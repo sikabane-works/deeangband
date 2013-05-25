@@ -2510,6 +2510,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_JOJ_STRAIN "•óÎ‚Í‚ ‚È‚½‚Ì‘Ì—Í‚ð’D‚Á‚½..."
 #define MES_MELEE_TIME_BACK "l¶‚ª‹t–ß‚è‚µ‚½‹C‚ª‚·‚éB"
 #define MES_MELEE_PLAGUE "•a‚ª‚ ‚È‚½‚ðI‚ñ‚Å‚¢‚é‹C‚ª‚·‚éB"
+#define MES_MELEE_ASSASSIN_CRITICAL(TARGET) "n‚ª%s‚É[X‚Æ“Ë‚«Žh‚³‚Á‚½I", (TARGET)->name
 #else
 #define MES_MELEE_ATTACK_MISS %^s misses %s.
 #define MES_MELEE_AMBUSH(ATTACKER, TARGET) "%s (cruelly stab the helpless, sleeping %s!", (ATTACKER), (TARGET))
@@ -2543,6 +2544,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_JOJ_STRAIN "The Jewel drains your vitality..."
 #define MES_MELEE_TIME_BACK "You feel life has clocked back."
 #define MES_MELEE_PLAGUE "You feel strange sickness."
+#define MES_MELEE_ASSASSIN_CRITICAL(TARGET) "You critically injured %s!", (TARGET)->name
 #endif
 
 #ifdef JP

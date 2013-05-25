@@ -783,15 +783,13 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		if(zantetsu_mukou)
 		{
-			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-				msg_print(MES_MELEE_ZANTETSU_JELLY);
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_print(MES_MELEE_ZANTETSU_JELLY);
 			k = 0;
 		}
 
 		if(e_j_mukou)
 		{
-			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-				msg_print(MES_MELEE_EX_JR_SPIDER);
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_print(MES_MELEE_EX_JR_SPIDER);
 			k /= 2;
 		}
 
@@ -802,11 +800,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			anger_creature(attacker_ptr, target_ptr);
 
 			if(!has_trait(target_ptr, TRAIT_NO_STUN)) (void)add_timed_trait(target_ptr, TRAIT_STUN, tmp, FALSE); // Apply stun
-			else
-			{
-				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-					msg_format(MES_IS_UNAFFECTED);
-			}
+			else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(MES_IS_UNAFFECTED);
 		}
 
 		if(has_trait_object(weapon_ptr, TRAIT_CRITICAL_SLAYING) || (mode == HISSATSU_KYUSHO))
@@ -825,12 +819,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			{
 				k *= 5;
 				drain_result *= 2;
-				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-#ifdef JP
-					msg_format("n‚ª%s‚É[X‚Æ“Ë‚«Žh‚³‚Á‚½I", target_name);
-#else
-					msg_format("You critically injured %s!", target_name);
-#endif
+				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(MES_MELEE_ASSASSIN_CRITICAL(target_ptr));
 			}
 
 			else if(((target_ptr->chp < target_ptr->mhp/2) && one_in_(10)) || ((one_in_(666) || ((ambush || fatal_spot) && one_in_(11))) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2)))
