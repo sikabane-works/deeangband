@@ -217,16 +217,15 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 }
 
 /*
-* Player attacks a (poor, defenseless) creature        -RAK-
-*
-* If no "weapon" is available, then "punch" the creature one time.
-*/
-static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, s16b hand, int mode)
+ * Player attacks a (poor, defenseless) creature        -RAK-
+ * If no "weapon" is available, then "punch" the creature one time.
+ */
+static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr, s16b hand, int mode)
 {
 	POWER k;
 	int i, bonus, chance;
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
-	cave_type *c_ptr = &floor_ptr->cave[y][x];
+	cave_type *c_ptr = &floor_ptr->cave[target_ptr->fy][target_ptr->fx];
 	object_type *object_ptr;
 	bool blinked = FALSE;
 
@@ -269,12 +268,12 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			if(attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
 			if(has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
 			if(target_ptr->lev > (attacker_ptr->lev * attacker_ptr->lev / 10 + 5)) tmp /= 3;
-			if(has_trait(target_ptr, TRAIT_PARALYZED) && target_ptr->see_others)
-				ambush = TRUE;
+			if(has_trait(target_ptr, TRAIT_PARALYZED) && target_ptr->see_others) ambush = TRUE;
 			else if((attacker_ptr->posture & NINJA_S_STEALTH) && (randint0(tmp) > (target_ptr->lev * 2 + 20)) && target_ptr->see_others && !has_trait(target_ptr, TRAIT_RES_ALL))
+			{
 				fatal_spot = TRUE;
-			else if(has_trait(target_ptr, TRAIT_AFRAID) && target_ptr->see_others)
-				stab_fleeing = TRUE;
+			}
+			else if(has_trait(target_ptr, TRAIT_AFRAID) && target_ptr->see_others) stab_fleeing = TRUE;
 		}
 		break;
 	}
