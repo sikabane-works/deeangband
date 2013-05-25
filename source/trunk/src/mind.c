@@ -1666,7 +1666,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 				/* Backfire */
 				b = randint1(100);
 
-				if( use_mind == MIND_MINDCRAFTER ){
+				if(use_mind == MIND_MINDCRAFTER){
 					if(b < 5) lose_all_info(creature_ptr);
 					else if(b < 15) add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 5 + randint1(10), TRUE);
 					else if(b < 45) add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint1(8), TRUE);
@@ -1674,11 +1674,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 					else
 					{
 						/* Mana storm */
-#ifdef JP
-						msg_format("%s‚Ì—Í‚ª§Œä‚Å‚«‚È‚¢”Ã—¬‚Æ‚È‚Á‚Ä‰ð•ú‚³‚ê‚½I", p);
-#else
-						msg_print("Your mind unleashes its power in an uncontrollable storm!");
-#endif
+						msg_format(MES_PSIONIC_FAILED_MANASTORM(p));
 						/*TODO*/
 						project(creature_ptr, 0, 2 + (COODINATES)lev_bonus / 10, creature_ptr->fy, creature_ptr->fx, (COODINATES)lev_bonus * 2,
 							DO_EFFECT_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1);
@@ -1711,13 +1707,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 					}
 					else
 					{
-						/* Mana storm */
-#ifdef JP
-						msg_format("%s‚Ì—Í‚ª§Œä‚Å‚«‚È‚¢”Ã—¬‚Æ‚È‚Á‚Ä‰ð•ú‚³‚ê‚½I", p);
-#else
-						msg_print("Your mind unleashes its power in an uncontrollable storm!");
-#endif
-
+						msg_format(MES_PSIONIC_FAILED_MANASTORM(p));
 						/*TODO*/
 						project(creature_ptr, 0, 2 + (COODINATES)lev_bonus / 10, creature_ptr->fy, creature_ptr->fx, (COODINATES)lev_bonus * 2,
 							DO_EFFECT_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1);

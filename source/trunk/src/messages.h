@@ -3719,6 +3719,12 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_PSIONIC_FAILED_MANASTORM(SKILL_NAME) "%sの力が制御できない氾流となって解放された！", (SKILL_NAME)
+#else
+#define MES_PSIONIC_FAILED_MANASTORM(SKILL_NAME) "Your mind unleashes its power of %s in an uncontrollable storm!", (SKILL_NAME)
+#endif
+
+#ifdef JP
 #define MES_SNIPE_CONCENTRATE(LEVEL) "集中した。(集中度 %d)", (LEVEL)
 #define MES_SNIPE_RESET_CONS "集中力が途切れた。"
 #define MES_SNIPE_STRAIN "射撃の反動が体を襲った。"
