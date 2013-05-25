@@ -961,20 +961,12 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		set_timed_trait(creature_ptr, TRAIT_RESIST_MAGIC, randint1(20) + 20 + boost / 5, FALSE);
 		break;
 	case 5:
-#ifdef JP
-		msg_print("気を練った。");
-#else
-		msg_print("You improved the Force.");
-#endif
+		msg_print(MES_TRAIT_FORCE_IMPROVE);
 		creature_ptr->charged_force += (70 + lev_bonus);
 		prepare_update(creature_ptr, CRU_BONUS);
 		if(randint1(creature_ptr->charged_force) > (lev_bonus * 4 + 120))
 		{
-#ifdef JP
-			msg_print("気が暴走した！");
-#else
-			msg_print("The Force exploded!");
-#endif
+			msg_print(MES_TRAIT_FORCE_EXPRODE);
 			cast_ball(creature_ptr, DO_EFFECT_MANA, 0, creature_ptr->charged_force / 2, 10);
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->charged_force / 2, COD_UNC_FORCE, NULL, -1);
 		}

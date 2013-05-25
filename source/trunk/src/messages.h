@@ -3617,6 +3617,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_PSYCHOMETRY_FELT(OBJECT, STATUS) "%sは%sという感じがする...", (OBJECT)->name, (STATUS)
 #define MES_TRAIT_PSYCHOMETRY_NO_FIND "何も新しいことは判らなかった。"
 #define MES_TRAIT_PSYCHOMETRY_NO_UNUSUAL(OBJECT) "%sからは特に変わった事は感じとれなかった。", (OBJECT)->name
+#define MES_TRAIT_FORCE_IMPROVE "気を練った。"
+#define MES_TRAIT_FORCE_EXPRODE "気が暴走した！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3684,6 +3686,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_PSYCHOMETRY_FELT(OBJECT, STATUS) "You feel that the %s %s %s...", (OBJECT)->name, (((OBJECT)->number == 1) ? "is" : "are"), (STATUS)
 #define MES_TRAIT_PSYCHOMETRY_NO_FIND "You cannot find out anything more about that."
 #define MES_TRAIT_PSYCHOMETRY_NO_UNUSUAL(OBJECT) "You do not perceive anything unusual about the %s.", (OBJECT)->name
+#define MES_TRAIT_FORCE_IMPROVE "You improved the Force."
+#define MES_TRAIT_FORCE_EXPRODE "The Force exploded!"
 #endif
 
 #ifdef JP
