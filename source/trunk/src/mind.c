@@ -708,11 +708,7 @@ static int get_mind_power(creature_type *creature_ptr, KEY *sn, bool only_browse
 				/* Display a list of spells */
 				prt("", y, x);
 				put_str(KW_NAME, y, x + 5);
-#ifdef JP
-				put_str(format("Lv   %s   é∏ó¶ å¯â ", ((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU)) ? KW_HP : KW_MP), y, x + 35);
-#else
-				put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU)) ? KW_HP : KW_MP), y, x + 35);
-#endif
+				put_str(format(MES_INTERFACE_SKILL_LIST4(((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU)) ? KW_HP : KW_MP)), y, x + 35);
 				has_weapon[0] = get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0;
 				has_weapon[1] = get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 1;
 
@@ -720,24 +716,14 @@ static int get_mind_power(creature_type *creature_ptr, KEY *sn, bool only_browse
 				for (i = 0; i < MAX_MIND_POWERS; i++)
 				{
 					int mana_cost;
-
-					/* Access the spell */
-					spell = mind_ptr->info[i];
-
+					spell = mind_ptr->info[i]; /* Access the spell */
 					if(spell.min_lev > lev_bonus)   break;
-
 					chance = spell.fail;
-
 					mana_cost = spell.mana_cost;
 					if(chance)
 					{
-
-						/* Reduce failure rate by "effective" level adjustment */
-						chance -= 3 * (lev_bonus - spell.min_lev);
-
-						/* Reduce failure rate by INT/WIS adjustment */
-						chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] - 1);
-
+						chance -= 3 * (lev_bonus - spell.min_lev); /* Reduce failure rate by "effective" level adjustment */
+						chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] - 1); /* Reduce failure rate by INT/WIS adjustment */
 						if(use_mind == MIND_KI)
 						{
 							if(heavy_armor(creature_ptr)) chance += 20;
@@ -769,10 +755,7 @@ static int get_mind_power(creature_type *creature_ptr, KEY *sn, bool only_browse
 						if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 						else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
-						if(use_mind == MIND_KI)
-						{
-							if(heavy_armor(creature_ptr)) chance += 5;
-						}
+						if(use_mind == MIND_KI) if(heavy_armor(creature_ptr)) chance += 5;
 						/* Always a 5 percent chance of working */
 						if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 					}
@@ -785,12 +768,10 @@ static int get_mind_power(creature_type *creature_ptr, KEY *sn, bool only_browse
 						if(i == (menu_line-1)) strcpy(psi_desc, KET_D_ANGLE);
 						else strcpy(psi_desc, "  ");
 					}
-					else
-						sprintf(psi_desc, "  %c) ",I2A(i));
+					else sprintf(psi_desc, "  %c) ",I2A(i));
 					/* Dump the spell --(-- */
 					strcat(psi_desc,
-						format("%-30s%2d %4d%s %3d%%%s",
-						spell.name, spell.min_lev, mana_cost,
+						format("%-30s%2d %4d%s %3d%%%s", spell.name, spell.min_lev, mana_cost,
 #ifdef JP
 						(((use_mind == MIND_MINDCRAFTER) && (i == 13)) ? "Å`" : "  "), 
 #else
@@ -838,29 +819,22 @@ static int get_mind_power(creature_type *creature_ptr, KEY *sn, bool only_browse
 		if(ask)
 		{
 			char tmp_val[160];
-			(void) strnfmt(tmp_val, 78, MES_SYS_ASK_USE, spell.name);
-			/* Belay that order */
+			(void) strnfmt(tmp_val, 78, MES_SYS_ASK_USE, spell.name); /* Belay that order */
 			if(!get_check(tmp_val)) continue;
 		}
-
 		flag = TRUE;
 	}
 
 	if(redraw && !only_browse) screen_load();
 
-	/* Show choices */
-	prepare_window(PW_SPELL);
+	prepare_window(PW_SPELL); /* Show choices */
 
 	window_stuff(player_ptr);
 
 	/* Abort if needed */
 	if(!flag) return FALSE;
-
-	/* Save the choice */
-	(*sn) = i;
-
+	(*sn) = i; /* Save the choice */
 	repeat_push(*sn);
-
 	return TRUE;
 }
 
