@@ -305,18 +305,9 @@ bool psychometry(creature_type *creature_ptr)
 	object_type     *object_ptr;
 	char            object_name[MAX_NLEN];
 	byte            feel;
-	cptr            q, s;
 	bool okay = FALSE;
 
-#ifdef JP
-	q = "どのアイテムを調べますか？";
-	s = "調べるアイテムがありません。";
-#else
-	q = "Meditate on which item? ";
-	s = "You have nothing appropriate.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return FALSE;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_OBSERVE, MES_OBJECT_NO_OBSERVE, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* It is fully known, no information needed */
