@@ -4239,7 +4239,7 @@ bool ask_quick_start(creature_type *creature_ptr)
 creature_type* generate_creature(cave_type *c_ptr, SPECIES_ID species_idx, FLAGS_32 flags)
 {
 	char buf[80];
-	int id;
+	CREATURE_ID id;
 	creature_type *creature_ptr;
 
 	// Make a new creature
@@ -4249,18 +4249,14 @@ creature_type* generate_creature(cave_type *c_ptr, SPECIES_ID species_idx, FLAGS
 	// Get a new creature record
 	creature_ptr = &creature_list[id];
 
-	if(c_ptr) c_ptr->creature_idx = (s16b)id;
+	if(c_ptr) c_ptr->creature_idx = id;
 
 	// Create a new character
 	while (!generate_creature_aux(creature_ptr, species_idx, flags));
 
 	if(flags & GC_PLAYER)
 	{
-		message_add(" ");
-		message_add(" ");
 		message_add("====================");
-		message_add(" ");
-		message_add(" ");
 
 		write_diary(DIARY_GAMESTART, 1, DIARY_CREATE_PLAYER);
 		write_diary(DIARY_HIGAWARI, 0, NULL);

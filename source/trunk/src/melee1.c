@@ -15,7 +15,6 @@
 #include "files.h"
 #include "riding.h"
 
-#define MAX_VAMPIRIC_DRAIN 50
 
 
 static void counter_eye_eye(creature_type *attacker_ptr, creature_type *target_ptr, POWER get_damage)
