@@ -1775,11 +1775,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 		if((creature_ptr->csp - mana_cost) < 0) creature_ptr->csp_frac = 0;
 		creature_ptr->csp = MAX(0, creature_ptr->csp - mana_cost);
 
-#ifdef JP
-		msg_format("%sを集中しすぎて気を失ってしまった！",p);
-#else
-		msg_print("You faint from the effort!");
-#endif
+		msg_print(MES_CAST_FAINT);
 
 		/* Hack -- Bypass free action */
 		(void)add_timed_trait(creature_ptr, TRAIT_SLEPT, randint1(5 * oops + 1), TRUE);
@@ -1788,14 +1784,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 		if(PERCENT(50))
 		{
 			bool perm = (PERCENT(25));
-
-#ifdef JP
-			msg_print("自分の精神を攻撃してしまった！");
-#else
-			msg_print("You have damaged your mind!");
-#endif
-
-			/* Reduce constitution */
+			msg_print(MES_PSIONIC_SELF_DAMAGED);
 			(void)dec_stat(creature_ptr, STAT_WIS, 15 + randint1(10), perm);
 		}
 	}

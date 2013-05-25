@@ -3720,8 +3720,10 @@ static cptr desc_stat_neg[] =
 
 #ifdef JP
 #define MES_PSIONIC_FAILED_MANASTORM(SKILL_NAME) "%s‚Ì—Í‚ª§Œä‚Å‚«‚È‚¢”Ã—¬‚Æ‚È‚Á‚Ä‰ğ•ú‚³‚ê‚½I", (SKILL_NAME)
+#define MES_PSIONIC_SELF_DAMAGED "©•ª‚Ì¸_‚ğUŒ‚‚µ‚Ä‚µ‚Ü‚Á‚½I"
 #else
 #define MES_PSIONIC_FAILED_MANASTORM(SKILL_NAME) "Your mind unleashes its power of %s in an uncontrollable storm!", (SKILL_NAME)
+#define MES_PSIONIC_SELF_DAMAGED "You have damaged your mind!"
 #endif
 
 #ifdef JP
