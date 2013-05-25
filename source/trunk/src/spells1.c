@@ -2306,7 +2306,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(has_trait(target_ptr, TRAIT_NO_CONF)) dam -= 30;
 		if(dam < 1) dam = 1;
 #ifdef JP
-		msg_format("%s‚ðŒ©‚Â‚ß‚½B",target_name);
+		msg_format("%s‚ðŒ©‚Â‚ß‚½B", target_name);
 #else
 		msg_format("You stare into %s.", target_name);
 #endif
@@ -2318,8 +2318,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
-			dam = dam * 2 / 3;
+		if(has_trait(target_ptr, TRAIT_UNIQUE)) dam = dam * 2 / 3;
 
 		/* Attempt a saving throw */
 		if((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_NO_PET) ||
@@ -2339,9 +2338,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			note = MES_EFFECT_TAMED;
 			set_pet(caster_ptr, target_ptr);
 		}
-
-		/* No "real" damage */
-		dam = 0;
+		dam = 0; /* No "real" damage */
 		break;
 
 		//86

@@ -1106,7 +1106,7 @@ void do_poly_self(creature_type *creature_ptr)
 		while ((power > randint0(20)) && one_in_(10))
 		{		
 			power -= 10; // Polymorph into a less mutated form
-			if(!lose_mutative_trait(creature_ptr, 0, TRUE) && is_player(creature_ptr)) msg_print(MES_POLYSELF_ORDINARY);
+			if(!lose_mutative_trait(creature_ptr, 0, TRUE) && is_player(creature_ptr)) msg_print(MES_MUTATION_NO_LOST);
 		}
 
 		if(race_info[creature_ptr->race_idx1].dr == -1)

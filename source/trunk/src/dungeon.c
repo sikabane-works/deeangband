@@ -1692,12 +1692,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_NORMALITY) && one_in_(5000))
 	{
-		if(!lose_mutative_trait(creature_ptr, 0, TRUE))
-#ifdef JP
-			msg_print("Šï–­‚È‚­‚ç‚¢•’Ê‚É‚È‚Á‚½‹C‚ª‚·‚éB");
-#else
-			msg_print("You feel oddly normal.");
-#endif
+		if(!lose_mutative_trait(creature_ptr, 0, TRUE)) msg_print(MES_MUTATION_NO_LOST);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_WRAITH) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
