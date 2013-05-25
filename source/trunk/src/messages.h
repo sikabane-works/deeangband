@@ -3626,7 +3626,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_MIRROR_TUNNEL_DONE "‹¾‚Ì¢ŠE‚ð’Ê‚è”²‚¯c  "
 #define MES_TRAIT_MIRROR_BINDING_FAILED "“K“–‚È‹¾‚ð‘I‚×‚È‚©‚Á‚½I"
 #define MES_TRAIT_NINJA_EVADE "“G‚ÌUŒ‚‚É‘Î‚µ‚Ä•qŠ´‚É‚È‚Á‚½B"
-
+#define MES_TRAIT_TELEPORT_BACK(TARGET) "%s‚ðˆø‚«–ß‚µ‚½B", (TARGET)
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3701,6 +3701,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_MIRROR_TUNNEL_DONE "Go through the world of mirror..."
 #define MES_TRAIT_MIRROR_BINDING_FAILED "You were not able to choose suitable mirrors!"
 #define MES_TRAIT_NINJA_EVADE "You are now prepare to evade any attacks."
+#define MES_TRAIT_TELEPORT_BACK(TARGET) "You pull back %s.", (TARGET)->name
 #endif
 
 #ifdef JP

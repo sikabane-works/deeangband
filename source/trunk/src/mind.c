@@ -1433,11 +1433,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
 			m_ptr = &creature_list[creature_idx];
 			creature_desc(m_name, m_ptr, 0);
-#ifdef JP
-			msg_format("%s‚ðˆø‚«–ß‚µ‚½B", m_name);
-#else
-			msg_format("You pull back %s.", m_name);
-#endif
+			msg_format(MES_TRAIT_TELEPORT_BACK(m_ptr));
 
 			path_n = project_path(path_g, MAX_RANGE, floor_ptr, target_row, target_col, caster_ptr->fy, caster_ptr->fx, 0);
 			ty = target_row, tx = target_col;
