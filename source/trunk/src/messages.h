@@ -3614,6 +3614,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_MIND_WAVE "精神を捻じ曲げる波動を発生させた！"
 #define MES_TRAIT_WORLD_DONE "「時よ！」"
 #define MES_TRAIT_WORLD_ALREADY_STOP "既に時は止まっている。"
+#define MES_TRAIT_PSYCHOMETRY_FELT(OBJECT, STATUS) "%sは%sという感じがする...", (OBJECT)->name, (STATUS)
+#define MES_TRAIT_PSYCHOMETRY_NO_FIND "何も新しいことは判らなかった。"
+#define MES_TRAIT_PSYCHOMETRY_NO_UNUSUAL(OBJECT) "%sからは特に変わった事は感じとれなかった。", (OBJECT)->name
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3678,6 +3681,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_MIND_WAVE "Mind-warping forces emanate from your brain!"
 #define MES_TRAIT_WORLD_DONE "You yell 'Time!'"
 #define MES_TRAIT_WORLD_ALREADY_STOP "Time is already stopped."
+#define MES_TRAIT_PSYCHOMETRY_FELT(OBJECT, STATUS) "You feel that the %s %s %s...", (OBJECT)->name, (((OBJECT)->number == 1) ? "is" : "are"), (STATUS)
+#define MES_TRAIT_PSYCHOMETRY_NO_FIND "You cannot find out anything more about that."
+#define MES_TRAIT_PSYCHOMETRY_NO_UNUSUAL(OBJECT) "You do not perceive anything unusual about the %s.", (OBJECT)->name
 #endif
 
 #ifdef JP

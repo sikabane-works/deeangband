@@ -310,54 +310,26 @@ bool psychometry(creature_type *creature_ptr)
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_OBSERVE, MES_OBJECT_NO_OBSERVE, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	/* It is fully known, no information needed */
-	if(object_is_known(object_ptr))
+	if(object_is_known(object_ptr)) /* It is fully known, no information needed */
 	{
-#ifdef JP
-		msg_print("‰½‚àV‚µ‚¢‚±‚Æ‚Í”»‚ç‚È‚©‚Á‚½B");
-#else
-		msg_print("You cannot find out anything more about that.");
-#endif
-
+		msg_print(MES_TRAIT_PSYCHOMETRY_NO_FIND);
 		return TRUE;
 	}
 
-	/* Check for a feeling */
-	feel = value_check_aux1(creature_ptr, object_ptr);
+	feel = value_check_aux1(creature_ptr, object_ptr); /* Check for a feeling */
+	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); /* Get an object description */
 
-	/* Get an object description */
-	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-
-	/* Skip non-feelings */
-	if(!feel)
+	if(!feel) /* Skip non-feelings */
 	{
-#ifdef JP
-		msg_format("%s‚©‚ç‚Í“Á‚É•Ï‚í‚Á‚½Ž–‚ÍŠ´‚¶‚Æ‚ê‚È‚©‚Á‚½B", object_name);
-#else
-		msg_format("You do not perceive anything unusual about the %s.", object_name);
-#endif
-
+		msg_format(MES_TRAIT_PSYCHOMETRY_NO_UNUSUAL(object_ptr));
 		return TRUE;
 	}
 
-#ifdef JP
-	msg_format("%s‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...", object_name, game_inscriptions[feel]);
-#else
-	msg_format("You feel that the %s %s %s...", object_name, ((object_ptr->number == 1) ? "is" : "are"), game_inscriptions[feel]);
-#endif
-
-
-	/* We have "felt" it */
-	object_ptr->ident |= (IDENT_SENSE);
-
-	/* "Inscribe" it */
-	object_ptr->feeling = feel;
-
-	/* Player touches it */
-	object_ptr->marked |= OM_TOUCHED;
-
-	/* Combine / Reorder the pack (later) */
-	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
+	msg_format(MES_TRAIT_PSYCHOMETRY_FELT(object_ptr, game_inscriptions[feel]));
+	object_ptr->ident |= (IDENT_SENSE); /* We have "felt" it */
+	object_ptr->feeling = feel; /* "Inscribe" it */
+	object_ptr->marked |= OM_TOUCHED; /* Player touches it */
+	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER); /* Combine / Reorder the pack (later) */
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
@@ -390,11 +362,8 @@ bool psychometry(creature_type *creature_ptr)
 		break;
 	}
 
-	/* Auto-inscription/destroy */
-	autopick_alter_item(creature_ptr, item, (bool)(okay && destroy_feeling));
-
-	/* Something happened */
-	return TRUE;
+	autopick_alter_item(creature_ptr, item, (bool)(okay && destroy_feeling)); /* Auto-inscription/destroy */
+	return TRUE; /* Something happened */
 }
 
 
