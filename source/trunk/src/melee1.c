@@ -706,7 +706,6 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		if(has_trait_object(weapon_ptr, TRAIT_TIME_BRAND))
 		{
-			cptr act;
 			switch (randint1(10))
 			{
 			case 1: case 2: case 3: case 4: case 5:
@@ -717,33 +716,8 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 			case 6: case 7: case 8: case 9:
 				{
-					int stat = randint0(6);
-
-					switch (stat)
-					{
-#ifdef JP
-			case STAT_STR: act = "強く"; break;
-			case STAT_INT: act = "聡明で"; break;
-			case STAT_WIS: act = "賢明で"; break;
-			case STAT_DEX: act = "器用で"; break;
-			case STAT_CON: act = "健康で"; break;
-			case STAT_CHA: act = "美しく"; break;
-#else
-			case STAT_STR: act = "strong"; break;
-			case STAT_INT: act = "bright"; break;
-			case STAT_WIS: act = "wise"; break;
-			case STAT_DEX: act = "agile"; break;
-			case STAT_CON: act = "hale"; break;
-			case STAT_CHA: act = "beautiful"; break;
-#endif
-
-					}
-
-#ifdef JP
-					msg_format("あなたは以前ほど%sなくなってしまった...。", act);
-#else
-					msg_format("You're not as %s as you used to be...", act);
-#endif
+					int stat = randint0(STAT_MAX);
+					msg_format(MES_EFFECT_HEAVY_REDUCE_STAT(target_ptr, stat));
 					target_ptr->stat_cur[stat] = (target_ptr->stat_cur[stat] * 3) / 4;
 					if(target_ptr->stat_cur[stat] < 3) target_ptr->stat_cur[stat] = 3;
 					prepare_update(target_ptr, CRU_BONUS);
@@ -752,11 +726,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 			case 10:
 				{
-#ifdef JP
-					msg_print("あなたは以前ほど力強くなくなってしまった...。");
-#else
-					msg_print("You're not as powerful as you used to be...");
-#endif
+					MES_EFFECT_HEAVY_REDUCE_STAT_ALL(target_ptr);
 					for (k = 0; k < STAT_MAX; k++)
 					{
 						target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
