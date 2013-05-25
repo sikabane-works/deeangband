@@ -3074,10 +3074,12 @@ static cptr desc_stat_neg[] =
 #define MES_SPIKE_NO_TARGET "そこにはくさびを打てるものが見当たらない。"
 #define MES_SPIKE_NO_SPIKE "くさびを持っていない。"
 #define MES_SPIKE_JAM(TARGET) "%sにくさびを打ち込んだ。", (TARGET)
+#define MES_SPIKE_NO_MORE_SPIKE "くさびがなくなった。"
 #else
 #define MES_SPIKE_NO_TARGET "You see nothing there to spike."
 #define MES_SPIKE_NO_SPIKE "You have no spikes!"
 #define MES_SPIKE_JAM(TARGET) "You jam the %s with a spike.", (TARGET)
+#define MES_SPIKE_NO_MORE_SPIKE "You have no more Iron Spikes."
 #endif
 
 #ifdef JP
@@ -3623,6 +3625,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_MIRROR_WORLD_FAILED "鏡の国の場所がわからない！"
 #define MES_TRAIT_MIRROR_TUNNEL_DONE "鏡の世界を通り抜け…  "
 #define MES_TRAIT_MIRROR_BINDING_FAILED "適当な鏡を選べなかった！"
+#define MES_TRAIT_NINJA_EVADE "敵の攻撃に対して敏感になった。"
+
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3696,6 +3700,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_MIRROR_WORLD_FAILED "You cannot find out where is the world of mirror!"
 #define MES_TRAIT_MIRROR_TUNNEL_DONE "Go through the world of mirror..."
 #define MES_TRAIT_MIRROR_BINDING_FAILED "You were not able to choose suitable mirrors!"
+#define MES_TRAIT_NINJA_EVADE "You are now prepare to evade any attacks."
 #endif
 
 #ifdef JP

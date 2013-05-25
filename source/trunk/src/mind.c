@@ -1344,30 +1344,19 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		}
 		break;
 	case 2:
-		{
 			teleport_creature(caster_ptr, 10, 0L);
 			break;
-		}
 	case 3:
-		{
 			if(!(caster_ptr->posture & NINJA_KAWARIMI))
 			{
-#ifdef JP
-				msg_print("ìGÇÃçUåÇÇ…ëŒÇµÇƒïqä¥Ç…Ç»Ç¡ÇΩÅB");
-#else
-				msg_print("You are now prepare to evade any attacks.");
-#endif
-
+				msg_print(MES_TRAIT_NINJA_EVADE);
 				caster_ptr->posture |= NINJA_KAWARIMI;
 				prepare_redraw(PR_STATUS);
 			}
 			break;
-		}
 	case 4:
-		{
 			teleport_creature(caster_ptr, caster_ptr->lev * 5, 0L);
 			break;
-		}
 	case 5:
 		{
 			if(!get_rep_dir(caster_ptr, &dir, FALSE)) return FALSE;
@@ -1411,19 +1400,11 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			{
 				int slot;
 
-				for (slot = 0; slot < INVEN_TOTAL; slot++)
-				{
-					if(caster_ptr->inventory[slot].tval == TV_SPIKE) break;
-				}
+				for (slot = 0; slot < INVEN_TOTAL; slot++) if(caster_ptr->inventory[slot].tval == TV_SPIKE) break;
 				if(slot == INVEN_TOTAL)
 				{
-#ifdef JP
-					if(!i) msg_print("Ç≠Ç≥Ç—ÇéùÇ¡ÇƒÇ¢Ç»Ç¢ÅB");
-					else msg_print("Ç≠Ç≥Ç—Ç™Ç»Ç≠Ç»Ç¡ÇΩÅB");
-#else
-					if(!i) msg_print("You have no Iron Spikes.");
-					else msg_print("You have no more Iron Spikes.");
-#endif
+					if(!i) msg_print(MES_SPIKE_NO_SPIKE);
+					else msg_print(MES_SPIKE_NO_MORE_SPIKE);
 					return FALSE;
 				}
 
