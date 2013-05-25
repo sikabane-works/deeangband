@@ -249,11 +249,6 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	bool zantetsu_mukou = FALSE;
 	bool e_j_mukou = FALSE;
 
-	SAVING ac = target_ptr->ac + target_ptr->to_ac;
-
-	//TODO if(distance(target_ptr->fy, target_ptr->fx, attacker_ptr->fy, attacker_ptr->fx) > 1) return FALSE;
-
-
 	switch (attacker_ptr->class_idx)
 	{
 	case CLASS_ROGUE:
@@ -434,7 +429,8 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		//TODO k += attacker_ptr->to_damage[hand];
 		//TODO drain_result += attacker_ptr->to_damage[hand];
 
-		if(has_trait_object(weapon_ptr, TRAIT_SUPERHURT) && ((randint1(attacker_ptr->lev*2+300) > (ac + 200)) || one_in_(13)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
+		if(has_trait_object(weapon_ptr, TRAIT_SUPERHURT) && saving_throw(target_ptr, SAVING_AC, k, 0) || one_in_(13) &&
+			!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
 		{
 #ifdef JP
 			msg_print("クリティカルヒット！");
@@ -447,11 +443,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		/* Apply disenchantment */
 		if(has_trait_object(weapon_ptr, TRAIT_UN_BONUS) && !has_trait(target_ptr, TRAIT_RES_DISE) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
 		{
-			if(apply_disenchant(target_ptr, 0))
-			{
-				/* Hack -- Update AC */
-				update_creature(target_ptr, TRUE);
-			}
+			if(apply_disenchant(target_ptr, 0)) update_creature(target_ptr, TRUE); /* Hack -- Update AC */
 		}
 
 		if(has_trait_object(weapon_ptr, TRAIT_UN_BONUS) && (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && !(game_turn & 1)))
