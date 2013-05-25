@@ -250,6 +250,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	bool e_j_mukou = FALSE;
 
 	SAVING ac = target_ptr->ac + target_ptr->to_ac;
+	SAVING ev = target_ptr->ev + target_ptr->to_ev;
 
 	//TODO if(distance(target_ptr->fy, target_ptr->fx, attacker_ptr->fy, attacker_ptr->fx) > 1) return FALSE;
 
@@ -355,9 +356,9 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			k = diceroll(weapon_ptr->dd , weapon_ptr->ds); //TODO + attacker_ptr->to_damaged[hand]  + attacker_ptr->to_damages[hand]
 			k = tot_dam_aux(attacker_ptr, weapon_ptr, k, target_ptr, mode, FALSE);
 
-			if(ambush)			k *= (3 + (attacker_ptr->lev / 20));
-			else if(fatal_spot)		k = k * (5 + (attacker_ptr->lev * 2 / 25)) / 2;
-			else if(stab_fleeing)	k = (3 * k) / 2;
+			if(ambush) k *= (3 + (attacker_ptr->lev / 20));
+			else if(fatal_spot) k = k * (5 + (attacker_ptr->lev * 2 / 25)) / 2;
+			else if(stab_fleeing) k = (3 * k) / 2;
 
 			if((has_trait_object(weapon_ptr, TRAIT_SHATTER) && ((k > 50) || one_in_(7))) || (chaos_effect == 2) || (mode == HISSATSU_QUAKE))
 				do_quake = TRUE;

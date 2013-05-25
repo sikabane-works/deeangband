@@ -1,21 +1,5 @@
 #include "angband.h"
 
-int melee_hit_chance(creature_type *creature_ptr, int to_hit, int ev)
-{
-	int chance = 0;
-	int hit_power = creature_ptr->skill_thn + (creature_ptr->to_hit[0] + to_hit) * BTH_PLUS_ADJ;
-
-	if(hit_power <= 0) return 5;
-
-	chance = 100 - ((ev * 75) / hit_power);
-
-	if(chance > 95) chance = 95;
-	if(chance < 5) chance = 5;
-	if(creature_ptr->chara_idx == CHARA_NAMAKE)
-		chance = (chance * 19 + 9) / 20;
-	return chance;
-}
-
 /*
  * Determine if the player "hits" a creature (normal combat).
  * Note -- Always miss 5%, always hit 5%, otherwise random.
