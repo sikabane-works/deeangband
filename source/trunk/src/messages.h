@@ -3619,6 +3619,10 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_PSYCHOMETRY_NO_UNUSUAL(OBJECT) "%sからは特に変わった事は感じとれなかった。", (OBJECT)->name
 #define MES_TRAIT_FORCE_IMPROVE "気を練った。"
 #define MES_TRAIT_FORCE_EXPRODE "気が暴走した！"
+#define MES_TRAIT_MIRROR_SET_LIMIT "これ以上鏡は制御できない！"
+#define MES_TRAIT_MIRROR_WORLD_FAILED "鏡の国の場所がわからない！"
+#define MES_TRAIT_MIRROR_TUNNEL_DONE "鏡の世界を通り抜け…  "
+#define MES_TRAIT_MIRROR_BINDING_FAILED "適当な鏡を選べなかった！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3688,6 +3692,10 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_PSYCHOMETRY_NO_UNUSUAL(OBJECT) "You do not perceive anything unusual about the %s.", (OBJECT)->name
 #define MES_TRAIT_FORCE_IMPROVE "You improved the Force."
 #define MES_TRAIT_FORCE_EXPRODE "The Force exploded!"
+#define MES_TRAIT_MIRROR_SET_LIMIT "There are too many mirrors to control!"
+#define MES_TRAIT_MIRROR_WORLD_FAILED "You cannot find out where is the world of mirror!"
+#define MES_TRAIT_MIRROR_TUNNEL_DONE "Go through the world of mirror..."
+#define MES_TRAIT_MIRROR_BINDING_FAILED "You were not able to choose suitable mirrors!"
 #endif
 
 #ifdef JP
@@ -3905,6 +3913,7 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_LITE_BY_DUNGEON "ダンジョンが光を吸収した。"
 #define MES_PREVENT_TELEPORT_BY_CREATURE "テレポートを邪魔された！"
 #define MES_PREVENT_QUAFF_BY_TIMESTOP "瓶から液体が流れ出てこない！"
+#define MES_PREVENT_NO_MIRROR "鏡がなくて集中できなかった！"
 #else
 #define MES_PREVENT_BY_RIDING "You cannot do it when riding."
 #define MES_PREVENT_BY_CONFUSION "You are too confused."
@@ -3932,6 +3941,7 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_LITE_BY_DUNGEON "The darkness of this dungeon absorb your light."
 #define MES_PREVENT_TELEPORT_BY_CREATURE "Your teleportation is blocked!"
 #define MES_PREVENT_QUAFF_BY_TIMESTOP "The potion doesn't flow out from a bottle."
+#define MES_PREVENT_NO_MIRROR "You need a mirror to concentrate!"
 #endif
 
 #ifdef JP

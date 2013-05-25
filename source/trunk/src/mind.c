@@ -1108,61 +1108,38 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 
 	switch (spell)
 	{
-		/* mirror of seeing */
-	case 0:
+	case 0: /* mirror of seeing */
 		tmp = is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ? 4 : 0;
 		if( lev_bonus + tmp > 4) detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
 		if( lev_bonus + tmp > 18) detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT);
 		if( lev_bonus + tmp > 28) set_timed_trait(creature_ptr, TRAIT_ESP, lev_bonus,FALSE);
 		if( lev_bonus + tmp > 38) map_area(creature_ptr, DETECT_RAD_MAP);
-		if( tmp == 0 && lev_bonus < 5 ){
-#ifdef JP
-			msg_print("鏡がなくて集中できなかった！");
-#else
-			msg_print("You need a mirror to concentrate!");
-#endif
-		}
+		if( tmp == 0 && lev_bonus < 5 ) msg_print(MES_PREVENT_NO_MIRROR);
 		break;
-		// drip of light
-	case 1:
-		if(number_of_mirrors(creature_ptr) < 4 + lev_bonus/10 ){
-			place_mirror(creature_ptr);
-		}
-		else {
-#ifdef JP
-			msg_format("これ以上鏡は制御できない！");
-#else
-			msg_format("There are too many mirrors to control!");
-#endif
-		}
+	case 1: /* drip of light */
+		if(number_of_mirrors(creature_ptr) < 4 + lev_bonus/10 ) place_mirror(creature_ptr);
+		else msg_format(MES_TRAIT_MIRROR_SET_LIMIT);
 		break;
 	case 2:
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 		if( lev_bonus > 9 && is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ) {
 			cast_beam(creature_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((lev_bonus-1)/5),4), 0);
 		}
-		else {
-			cast_bolt(creature_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((lev_bonus-1)/5),4), 0);
-		}
+		else cast_bolt(creature_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, diceroll(3+((lev_bonus-1)/5),4), 0);
 		break;
-		/* warped mirror */
-	case 3:
+	case 3: /* warped mirror */
 		teleport_creature(creature_ptr, 10, 0L);
 		break;
-		/* mirror of light */
-	case 4:
+	case 4: /* mirror of light */
 		(void)lite_area(creature_ptr, diceroll(2, (COODINATES)(lev_bonus / 2)), (COODINATES)(lev_bonus / 10) + 1);
 		break;
-		/* mirror of wandering */
-	case 5:
+	case 5: /* mirror of wandering */
 		teleport_creature(creature_ptr, (COODINATES)lev_bonus * 5, 0L);
 		break;
-		/* robe of dust */
-	case 6:
+	case 6: /* robe of dust */
 		set_timed_trait(creature_ptr, TRAIT_DUST_ROBE, 20 + randint1(20), FALSE);
 		break;
-		/* banishing mirror */
-	case 7:
+	case 7: /* banishing mirror */
 		(void)cast_beam(creature_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, lev_bonus, 0);
 		break;
 		/* mirror clashing */
@@ -1209,23 +1186,16 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 		/* mirror shift */
 	case 15:
-		if( !is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ){
-#ifdef JP
-			msg_print("鏡の国の場所がわからない！");
-#else
-			msg_print("You cannot find out where is the world of mirror!");
-#endif
+		if(!is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]))
+		{
+			msg_print(MES_TRAIT_MIRROR_WORLD_FAILED);
 			break;
 		}
 		alter_reality(creature_ptr);
 		break;
-		/* mirror tunnel */
-	case 16:
-#ifdef JP
-		msg_print("鏡の世界を通り抜け…  ");
-#else
-		msg_print("Go through the world of mirror...");
-#endif
+
+	case 16: /* mirror tunnel */
+		msg_print(MES_TRAIT_MIRROR_TUNNEL_DONE);
 		return mirror_tunnel(creature_ptr);
 
 	case 17:
@@ -1236,16 +1206,13 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 		break;
 
 	case 19:
-#ifdef JP
-		if(!binding_field(creature_ptr, MAX_RANGE, lev_bonus*11+5)) msg_print("適当な鏡を選べなかった！");
-#else
-		if(!binding_field(creature_ptr, MAX_RANGE, lev_bonus*11+5)) msg_print("You were not able to choose suitable mirrors!");
-#endif
+		if(!binding_field(creature_ptr, MAX_RANGE, lev_bonus * 11 + 5)) msg_print(MES_TRAIT_MIRROR_BINDING_FAILED);
 		break;
-		/* mirror of Ruffnor */
-	case 20:
+		
+	case 20: /* mirror of Ruffnor */
 		(void)set_timed_trait(creature_ptr, TRAIT_INVULNERABLE, randint1(4)+4,FALSE);
 		break;
+
 	default:
 		msg_warning(MES_SYS_OUT_OF_SWITCH);
 	}
