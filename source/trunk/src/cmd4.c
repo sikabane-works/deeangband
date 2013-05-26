@@ -6545,7 +6545,7 @@ static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 	dump_yourself(creature_ptr, fff);
 
 	my_fclose(fff);
-		show_file(TRUE, file_name, MES_INFO_SELF, 0, 0);
+	show_file(TRUE, file_name, MES_INFO_SELF, 0, 0);
 	fd_kill(file_name);
 }
 
@@ -6637,13 +6637,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 					}
 				}
 
-				/* Print the quest info */
-#ifdef JP
-				sprintf(tmp_str, "  %s (ŠëŒ¯“x:%dŠK‘Š“–)\n", quest[i].name, quest[i].level, note);
-#else
-				sprintf(tmp_str, "  %s (Danger level: %d)\n", quest[i].name, quest[i].level, note);
-#endif
-
+				sprintf(tmp_str, MES_QUEST_INFO2(quest[i].name, quest[i].level)); /* Print the quest info */
 				fprintf(fff, tmp_str);
 
 				if(quest[i].status == QUEST_STATUS_COMPLETED)
@@ -6695,11 +6689,9 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 					else
 					{
 #ifdef JP
-						sprintf(rand_tmp_str,"  %s (%d ŠK) - %s‚ğ“|‚·B\n",
-							quest[i].name, quest[i].level, name);
+						sprintf(rand_tmp_str,"  %s (%d ŠK) - %s‚ğ“|‚·B\n", quest[i].name, quest[i].level, name);
 #else
-						sprintf(rand_tmp_str,"  %s (Dungeon level: %d)\n  Kill %s.\n",
-							quest[i].name, quest[i].level, name);
+						sprintf(rand_tmp_str,"  %s (Dungeon level: %d)\n  Kill %s.\n", quest[i].name, quest[i].level, name);
 #endif
 					}
 				}
@@ -6835,11 +6827,9 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 			{
 				/* Print the quest info */
 #ifdef JP
-				sprintf(tmp_str, "  %-40s (ŠëŒ¯“x:%3dŠK‘Š“–) - ƒŒƒxƒ‹%2d\n",
-					quest[q_idx].name, quest[q_idx].level, quest[q_idx].complev);
+				sprintf(tmp_str, "  %-40s (ŠëŒ¯“x:%3dŠK‘Š“–) - ƒŒƒxƒ‹%2d\n", quest[q_idx].name, quest[q_idx].level, quest[q_idx].complev);
 #else
-				sprintf(tmp_str, "  %-40s (Danger  level: %3d) - level %2d\n",
-					quest[q_idx].name, quest[q_idx].level, quest[q_idx].complev);
+				sprintf(tmp_str, "  %-40s (Danger  level: %3d) - level %2d\n", quest[q_idx].name, quest[q_idx].level, quest[q_idx].complev);
 #endif
 			}
 			fprintf(fff, tmp_str);
