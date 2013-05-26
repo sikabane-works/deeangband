@@ -9995,11 +9995,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 						add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 						add_flag(object_ptr->trait_flags, TRAIT_VORPAL);
 						add_flag(object_ptr->trait_flags, TRAIT_VAMPIRIC_BRAND);
-#ifdef JP
-						msg_print("血だ！血だ！血だ！");
-#else
-						msg_print("Blood, Blood, Blood!");
-#endif
+						msg_print(MES_HEX_DIVINE_CURSE_DONE);
 						power = 2;
 					}
 				}
@@ -10390,11 +10386,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 						add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
 						add_flag(object_ptr->trait_flags, TRAIT_RES_DARK);
 						add_flag(object_ptr->trait_flags, TRAIT_RES_NETH);
-#ifdef JP
-						msg_print("血だ！血だ！血だ！");
-#else
-						msg_print("Blood, Blood, Blood!");
-#endif
+						msg_print(MES_HEX_DIVINE_CURSE_DONE);
 						power = 2;
 					}
 				}

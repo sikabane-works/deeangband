@@ -4088,6 +4088,7 @@ static cptr desc_stat_neg[] =
 #define MES_HEX_ALREADY_PATIENT "すでに我慢をしている。"
 #define MES_HEX_REVENGE_DONE "我慢が解かれた！"
 #define MES_HEX_WIZ_REVENGE(POWER) "%d点のダメージを返した。", (POWER)
+#define MES_HEX_DIVINE_CURSE_DONE "血だ！血だ！血だ！"
 #else
 #define MES_HEX_WHICH_CURSE "Which weapon do you curse?"
 #define MES_HEX_WHICH_NO_WEAPON "You wield no weapons."
@@ -4096,6 +4097,7 @@ static cptr desc_stat_neg[] =
 #define MES_HEX_START_PATIENT "You decide to patient all damages."
 #define MES_HEX_REVENGE_DONE "Time for end of patioence!"
 #define MES_HEX_WIZ_REVENGE(POWER) "You return %d damages.", (POWER)
+#define MES_HEX_DIVINE_CURSE_DONE "Blood, Blood, Blood!"
 #endif
 
 #ifdef JP
