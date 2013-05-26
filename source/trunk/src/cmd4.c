@@ -1949,11 +1949,7 @@ void do_cmd_visuals(void)
 		{
 		/* Load a 'pref' file */
 		case 0:
-#ifdef JP
-			prt("コマンド: ユーザー設定ファイルのロード", 15, 0);
-#else
-			prt("Command: Load a user pref file", 15, 0);
-#endif
+			prt(MES_VISUAL_LORD_PREFFILE, 15, 0);
 			prt(PROMPT_FILE, 17, 0);
 
 			/* Default filename */
@@ -1971,12 +1967,7 @@ void do_cmd_visuals(void)
 		case 1:
 		{
 			static cptr mark = "Creature attr/chars";
-
-#ifdef JP
-			prt("コマンド: クリーチャーの[色/文字]をファイルに書き出します", 15, 0);
-#else
-			prt("Command: Dump creature attr/chars", 15, 0);
-#endif
+			prt(MES_VISUAL_DUMP_CREATURE, 15, 0);
 			prt(PROMPT_FILE, 17, 0);
 
 			/* Default filename */
@@ -2166,11 +2157,7 @@ void do_cmd_visuals(void)
 		/* Modify creature attr/chars (numeric operation) */
 		case 4:
 		{
-#ifdef JP
-			static cptr choice_msg = "クリーチャーの[色/文字]を変更します";
-#else
-			static cptr choice_msg = "Change creature attr/chars";
-#endif
+			static cptr choice_msg = MES_VISUAL_CREATURE_CHANGE;
 			static int r = 0;
 			prt(format("%s%s", PROMPT_COMMAND, choice_msg), 15, 0);
 
@@ -2267,11 +2254,7 @@ void do_cmd_visuals(void)
 		/* Modify object attr/chars (numeric operation) */
 		case 5:
 		{
-#ifdef JP
-			static cptr choice_msg = "アイテムの[色/文字]を変更します";
-#else
-			static cptr choice_msg = "Change object attr/chars";
-#endif
+			static cptr choice_msg = MES_VISUAL_OBJECT_CHANGE;
 			static int k = 0;
 
 			prt(format("%s%s", PROMPT_COMMAND, choice_msg), 15, 0);
@@ -6809,15 +6792,7 @@ static void do_cmd_knowledge_quests_wiz_random(FILE *fff)
 		if((quest[i].type == QUEST_TYPE_RANDOM) && (quest[i].status == QUEST_STATUS_TAKEN))
 		{
 			total++;
-
-			/* Print the quest info */
-#ifdef JP
-			sprintf(tmp_str, "  %s (%d階, %s)\n",
-				quest[i].name, quest[i].level, species_name+species_info[quest[i].species_idx].name);
-#else
-			sprintf(tmp_str, "  %s (%d, %s)\n",
-				quest[i].name, quest[i].level, species_name+species_info[quest[i].species_idx].name);
-#endif
+			sprintf(tmp_str, MES_QUEST_FLOOR_MASTER(quest[i].name, quest[i].level, species_name+species_info[quest[i].species_idx].name));
 			fprintf(fff, tmp_str);
 		}
 	}
