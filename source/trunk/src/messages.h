@@ -4530,10 +4530,12 @@ static cptr desc_stat_neg[] =
 #define MES_TELEPORT_PREVENTED "不思議な力がテレポートを防いだ！"
 #define MES_TELEPORT_NO_DUNGEON "選べるダンジョンがない。"
 #define MES_TELEPORT_WHICH(NOTE) "どのダンジョン%sしますか:", (NOTE)
+#define MES_TELEPORT_CANNOT "そこにはテレポートできない。"
 #else
 #define MES_TELEPORT_PREVENTED "A mysterious force prevents you from teleporting!"
 #define MES_TELEPORT_NO_DUNGEON "No dungeon is available."
 #define MES_TELEPORT_WHICH(NOTE) "Which dungeon do you %s?: ", (NOTE)
+#define MES_TELEPORT_CANNOT "Can not teleport to there."
 #endif
 
 #ifdef JP

@@ -10703,14 +10703,9 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 					if(floor_ptr->cave[dy][dx].creature_idx) flag = TRUE;
 				}
 
-				if(!cave_empty_bold(floor_ptr, y, x) || (floor_ptr->cave[y][x].info & CAVE_ICKY) ||
-					(distance(y, x, caster_ptr->fy, caster_ptr->fx) > lev_bonus + 2))
+				if(!cave_empty_bold(floor_ptr, y, x) || (floor_ptr->cave[y][x].info & CAVE_ICKY) || (distance(y, x, caster_ptr->fy, caster_ptr->fx) > lev_bonus + 2))
 				{
-#ifdef JP
-					msg_print("‚»‚±‚É‚ÍˆÚ“®‚Å‚«‚È‚¢B");
-#else
-					msg_print("Can not teleport to there.");
-#endif
+					msg_print(MES_TELEPORT_CANNOT);
 					continue;
 				}
 				break;
