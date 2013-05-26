@@ -219,14 +219,8 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			return;
 		}
 
-#ifdef JP
-		msg_format("‚ ‚È‚½‚Í%s‚Ì–‚—Í‚ðƒGƒlƒ‹ƒM[Œ¹‚Æ‚µ‚Ä‹zŽû‚µ‚½B", staff);
-#else
-		msg_format("You absorb mana of the %s as your energy.", staff);
-#endif
-
-		/* Use a single charge */
-		object1_ptr->pval--;
+		msg_format(MES_FOOD_ABSORB_MAGIC(object1_ptr));
+		object1_ptr->pval--; /* Use a single charge */
 
 		/* Eat a charge */
 		set_food(creature_ptr, creature_ptr->food + 5000);
@@ -266,9 +260,8 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		/* Don't eat a staff/wand itself */
 		return;
 	}
-	else if(has_trait(creature_ptr, TRAIT_DEMON) &&
-		 (object1_ptr->tval == TV_CORPSE && object1_ptr->sval == SV_CORPSE &&
-		  my_strchr("pht", species_info[object1_ptr->pval].d_char)))
+	else if(has_trait(creature_ptr, TRAIT_DEMON) && (object1_ptr->tval == TV_CORPSE && object1_ptr->sval == SV_CORPSE &&
+		my_strchr("pht", species_info[object1_ptr->pval].d_char)))
 	{
 		char object_name[MAX_NLEN]; /* Drain vitality of humanoids */
 		object_desc(object_name, object1_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -295,14 +288,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	}
 	else if(object1_ptr->tval == TV_FOOD && object1_ptr->sval == SV_FOOD_WAYBREAD)
 	{
-		/* Waybread is always fully satisfying. */
-		set_food(creature_ptr, MAX(creature_ptr->food, CREATURE_FOOD_MAX - 1));
+		set_food(creature_ptr, MAX(creature_ptr->food, CREATURE_FOOD_MAX - 1)); /* Waybread is always fully satisfying. */
 	}
-	else
-	{
-		/* Food can feed the player */
-		(void)set_food(creature_ptr, creature_ptr->food + object1_ptr->pval);
-	}
+	else (void)set_food(creature_ptr, creature_ptr->food + object1_ptr->pval); /* Food can feed the player */
 
 	increase_item(creature_ptr, item, -1, TRUE);
 }
