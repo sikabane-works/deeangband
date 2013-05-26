@@ -10357,8 +10357,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			if(!get_check(format("Do you curse %s, really？", object_name))) return FALSE;
 #endif
 
-			if(!one_in_(3) &&
-				(object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRAND)))
+			if(!one_in_(3) && (object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRAND)))
 			{
 #ifdef JP
 				msg_format("%s は呪いを跳ね返した。", object_name);
@@ -10602,7 +10601,6 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			q = "Which cursed equipment do you drain mana from?";
 			s = "You have no cursed equipment.";
 #endif
-
 			if(!get_item(caster_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_cursed, 0)) return FALSE;
 
 			object_ptr = &caster_ptr->inventory[item];
@@ -10619,24 +10617,15 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(one_in_(7))
 				{
-#ifdef JP
-					msg_print("呪いを全て吸い取った。");
-#else
-					msg_print("Heavy curse vanished away.");
-#endif
+					msg_print(MES_HEX_DRAIN_CURSE);
 					object_ptr->curse_flags[0] = 0L;
 				}
 			}
 			else if(have_flag(object_ptr->curse_flags, TRAIT_CURSED) && one_in_(3))
 			{
-#ifdef JP
-				msg_print("呪いを全て吸い取った。");
-#else
-				msg_print("Curse vanished away.");
-#endif
+				msg_print(MES_HEX_DRAIN_CURSE);
 				object_ptr->curse_flags[0] = 0L;
 			}
-
 			add = FALSE;
 		}
 		break;

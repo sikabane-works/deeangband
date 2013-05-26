@@ -4089,6 +4089,7 @@ static cptr desc_stat_neg[] =
 #define MES_HEX_REVENGE_DONE "我慢が解かれた！"
 #define MES_HEX_WIZ_REVENGE(POWER) "%d点のダメージを返した。", (POWER)
 #define MES_HEX_DIVINE_CURSE_DONE "血だ！血だ！血だ！"
+#define MES_HEX_DRAIN_CURSE "呪いを全て吸い取った。"
 #else
 #define MES_HEX_WHICH_CURSE "Which weapon do you curse?"
 #define MES_HEX_WHICH_NO_WEAPON "You wield no weapons."
@@ -4098,6 +4099,7 @@ static cptr desc_stat_neg[] =
 #define MES_HEX_REVENGE_DONE "Time for end of patioence!"
 #define MES_HEX_WIZ_REVENGE(POWER) "You return %d damages.", (POWER)
 #define MES_HEX_DIVINE_CURSE_DONE "Blood, Blood, Blood!"
+#define MES_HEX_DRAIN_CURSE "Curse vanished away."
 #endif
 
 #ifdef JP
