@@ -2126,6 +2126,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_TYPE_SEARCH "探索する。"
 #define MES_QUEST_TYPE_KILL_ALL "全てのクリーチャーを倒す。"
 #define MES_QUEST_TYPE_KILL_NUMBER(MAX, CUR) "%d 体のクリーチャーを倒す。(%d 体殺害)", (MAX), (CUR)
+#define MES_QUEST_RESULT_LIST(NAME, FLEVEL, CLEVEL) "  %-40s (%3d階)            - レベル%2d\n", (NAME), (FLEVEL), (CLEVEL)
+#define MES_QUEST_RESULT_LIST_CANCEL(NAME, FLEVEL) "  %-40s (%3d階)            -   不戦勝\n", (NAME), (FLEVEL)
 #else
 #define MES_QUEST_INFO2(NAME, LEVEL) "the entrance to the quest '%s'(level %d)", (NAME), (LEVEL)
 #define MES_QUEST_INFO(LEVEL) ("Quest Information (Danger level: %d)", (LEVEL))
@@ -2148,6 +2150,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_TYPE_SEARCH "Search."
 #define MES_QUEST_TYPE_KILL_ALL "Kill all creatures."
 #define MES_QUEST_TYPE_KILL_NUMBER(MAX, CUR) "Kill %d creatures, have killed %d.", (MAX), (CUR)
+#define MES_QUEST_RESULT_LIST(NAME, FLEVEL, CLEVEL) "  %-40s (Dungeon level: %3d) - level %2d\n", (NAME), (FLEVEL), (CLEVEL)
+#define MES_QUEST_RESULT_LIST_CANCEL(NAME, FLEVEL) "  %-40s (Dungeon level: %3d) - (Cancelled)\n", (NAME), (FLEVEL)
 #endif
 
 static cptr desc_stat_pos[] =
