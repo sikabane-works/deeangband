@@ -4035,13 +4035,22 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_VISUAL_LORD_PREFFILE "コマンド: ユーザー設定ファイルのロード"
 #define MES_VISUAL_DUMP_CREATURE "コマンド: クリーチャーの[色/文字]をファイルに書き出します"
+#define MES_VISUAL_DUMP_CREATURE_START "\n# クリーチャーの[色/文字]の設定\n\n"
+#define MES_VISUAL_DUMP_CREATURE_DONE "クリーチャーの[色/文字]をファイルに書き出しました。"
+#define MES_VISUAL_DUMP_OBJECT "コマンド: アイテムの[色/文字]をファイルに書き出します"
+#define MES_VISUAL_DUMP_OBJECT_START "\n# アイテムの[色/文字]の設定\n\n"
 #define MES_VISUAL_CREATURE_CHANGE "クリーチャーの[色/文字]を変更します"
 #define MES_VISUAL_OBJECT_CHANGE "アイテムの[色/文字]を変更します"
 #define MES_VISUAL_COL_SYM(COL, SYM) "現在値  色 / 文字 = %3d / %3d", (COL), (SYM)
 #define MES_VISUAL_RESET "画面上の[色/文字]を初期値にリセットしました。"
+
 #else
 #define MES_VISUAL_LORD_PREFFILE "Command: Load a user pref file"
 #define MES_VISUAL_DUMP_CREATURE "Command: Dump creature attr/chars"
+#define MES_VISUAL_DUMP_CREATURE_START "\n# Creature attr/char definitions\n\n"
+#define MES_VISUAL_DUMP_CREATURE_DONE "Dumped creature attr/chars."
+#define MES_VISUAL_DUMP_OBJECT "Command: Dump object attr/chars"
+#define MES_VISUAL_DUMP_OBJECT_START "\n# Object attr/char definitions\n\n"
 #define MES_VISUAL_CREATURE_CHANGE "Change creature attr/chars"
 #define MES_VISUAL_OBJECT_CHANGE "Change object attr/chars"
 #define MES_VISUAL_COL_SYM(COL, SYM) "Current attr/char = %3d / %3d", (COL), (SYM)

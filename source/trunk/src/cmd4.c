@@ -1969,50 +1969,24 @@ void do_cmd_visuals(void)
 			static cptr mark = "Creature attr/chars";
 			prt(MES_VISUAL_DUMP_CREATURE, 15, 0);
 			prt(PROMPT_FILE, 17, 0);
+			sprintf(tmp, "%s.prf", player_base); /* Default filename */
 
-			/* Default filename */
-			sprintf(tmp, "%s.prf", player_base);
+			if(!askfor(tmp, 70)) continue; /* Get a filename */
 
-			/* Get a filename */
-			if(!askfor(tmp, 70)) continue;
-
-			/* Build the filename */
-			path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp);
-
-			/* Append to the file */
-			if(!open_auto_dump(buf, mark)) continue;
-
-			/* Start dumping */
-#ifdef JP
-			auto_dump_printf("\n# クリーチャーの[色/文字]の設定\n\n");
-#else
-			auto_dump_printf("\n# Creature attr/char definitions\n\n");
-#endif
+			path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp); /* Build the filename */
+			if(!open_auto_dump(buf, mark)) continue; /* Append to the file */
+			auto_dump_printf(MES_VISUAL_DUMP_CREATURE_START); /* Start dumping */
 
 			/* Dump creatures */
 			for (i = 0; i < max_species_idx; i++)
 			{
 				species_type *species_ptr = &species_info[i];
-
-				/* Skip non-entries */
-				if(!species_ptr->name) continue;
-
-				/* Dump a comment */
-				auto_dump_printf("# %s\n", (species_name + species_ptr->name));
-
-				/* Dump the creature attr/char info */
-				auto_dump_printf("R:%d:0x%02X/0x%02X\n\n", i,
-					(byte)(species_ptr->x_attr), (byte)(species_ptr->x_char));
+				if(!species_ptr->name) continue; /* Skip non-entries */
+				auto_dump_printf("# %s\n", (species_name + species_ptr->name)); /* Dump a comment */
+				auto_dump_printf("R:%d:0x%02X/0x%02X\n\n", i, (byte)(species_ptr->x_attr), (byte)(species_ptr->x_char)); /* Dump the creature attr/char info */
 			}
-
 			close_auto_dump();
-
-#ifdef JP
-			msg_print("クリーチャーの[色/文字]をファイルに書き出しました。");
-#else
-			msg_print("Dumped creature attr/chars.");
-#endif
-
+			msg_print(MES_VISUAL_DUMP_CREATURE_DONE);
 			break;
 		}
 
@@ -2021,11 +1995,7 @@ void do_cmd_visuals(void)
 		{
 			static cptr mark = "Object attr/chars";
 
-#ifdef JP
-			prt("コマンド: アイテムの[色/文字]をファイルに書き出します", 15, 0);
-#else
-			prt("Command: Dump object attr/chars", 15, 0);
-#endif
+			prt(MES_VISUAL_DUMP_OBJECT, 15, 0);
 			prt(PROMPT_FILE, 17, 0);
 
 			/* Default filename */
@@ -2041,11 +2011,7 @@ void do_cmd_visuals(void)
 			if(!open_auto_dump(buf, mark)) continue;
 
 			/* Start dumping */
-#ifdef JP
-			auto_dump_printf("\n# アイテムの[色/文字]の設定\n\n");
-#else
-			auto_dump_printf("\n# Object attr/char definitions\n\n");
-#endif
+			auto_dump_printf(MES_VISUAL_DUMP_OBJECT_START);
 
 			/* Dump objects */
 			for (i = 0; i < max_object_kind_idx; i++)
