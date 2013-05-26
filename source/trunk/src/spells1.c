@@ -2648,11 +2648,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_MANA:
 	case DO_EFFECT_SEEKER:
 	case DO_EFFECT_SUPER_RAY:
-#ifdef JP
-		if(blind) msg_print("魔法のオーラで攻撃された！");
-#else
-		if(blind) msg_print("You are hit by an aura of magic!");
-#endif
 		break;
 
 	default:
@@ -4123,17 +4118,9 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 				}
 			}
 
-
 			/* Find the closest point in the blast */
-			if(breath)
-			{
-				effective_dist = dist_to_line(y, x, y1, x1, by, bx);
-			}
-			else
-			{
-				effective_dist = dist;
-			}
-
+			if(breath) effective_dist = dist_to_line(y, x, y1, x1, by, bx);
+			else effective_dist = dist;
 
 			/* There is the riding player on this creature */
 			if(caster_ptr && player_ptr->riding && CREATURE_BOLD(caster_ptr, y, x))
@@ -4195,15 +4182,8 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 					}
 				}
 
-				/*
-				* The spell is not well aimed, so
-				* partly affect both player and
-				* mount.
-				*/
-				else
-				{
-					effective_dist++;
-				}
+				/* The spell is not well aimed, so partly affect both player and mount. */
+				else effective_dist++;
 			}
 
 			/* Affect the creature in the grid */
@@ -4223,11 +4203,8 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 
 				if(m_ptr->see_others)
 				{
-					/* Hack -- auto-recall */
-					if(!has_trait(caster_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
-
-					/* Hack - auto-track */
-					if(m_ptr->see_others) health_track(floor_ptr->cave[y][x].creature_idx);
+					if(!has_trait(player_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx); /* Hack -- auto-recall */
+					if(m_ptr->see_others) health_track(floor_ptr->cave[y][x].creature_idx); /* Hack - auto-track */
 				}
 			}
 		}
@@ -4256,14 +4233,8 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 			if(!CREATURE_BOLD(player_ptr, y, x)) continue;
 
 			/* Find the closest point in the blast */
-			if(breath)
-			{
-				effective_dist = dist_to_line(y, x, y1, x1, by, bx);
-			}
-			else
-			{
-				effective_dist = dist;
-			}
+			if(breath) effective_dist = dist_to_line(y, x, y1, x1, by, bx);
+			else effective_dist = dist;
 
 			/* Target may be your horse */
 			if(player_ptr->riding)
@@ -4285,40 +4256,20 @@ bool project(creature_type *caster_ptr, COODINATES range, COODINATES rad, COODIN
 				*
 				* Or aimed on your horse.
 				*/
-				else if(flg & (PROJECT_BEAM | PROJECT_REFLECTABLE | PROJECT_AIMED))
-				{
-					/*
-					* A beam or bolt is well aimed
-					* at the mount!
-					* So don't affects the player.
-					*/
-					continue;
-				}
-				else
-				{
-					/*
-					* The spell is not well aimed, 
-					* So partly affect the player too.
-					*/
-					effective_dist++;
-				}
+				/* A beam or bolt is well aimed at the mount! So don't affects the player. */
+				else if(flg & (PROJECT_BEAM | PROJECT_REFLECTABLE | PROJECT_AIMED)) continue;
+				else effective_dist++; /* The spell is not well aimed, So partly affect the player too. */
 			}
-
-			/* Affect the player */
-			if(project_creature(caster_ptr, effective_dist, y, x, dam, typ, flg, trait_id)) notice = TRUE;
+			if(project_creature(caster_ptr, effective_dist, y, x, dam, typ, flg, trait_id)) notice = TRUE; /* Affect the player */
 		}
 	}
 
 	if(player_ptr->riding)
 	{
 		creature_type *steed_ptr = &creature_list[player_ptr->riding];
-		if(do_thrown_from_ridingdam_m > 0)
+		if(do_thrown_from_ridingdam_m > 0 || player_ptr->riding && do_thrown_from_ridingdam_p > 0)
 		{
 			if(do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_m, FALSE)) msg_format(MES_STEED_FALL_DOWN(steed_ptr));
-		}
-		if(player_ptr->riding && do_thrown_from_ridingdam_p > 0)
-		{
-			if(do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_p, FALSE)) msg_format(MES_STEED_FALL_DOWN(steed_ptr));
 		}
 	}
 

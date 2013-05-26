@@ -1491,7 +1491,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"運動エネルギーで攻撃された。",
 	"何か遅いもので攻撃された。",
 //20
-	"",
+	"魔法のオーラで攻撃された！",
 	"何かが空からあなたの頭上に落ちてきた。",
 	"何か鋭く冷たいもので攻撃された。",
 	"無秩序の波動で攻撃された。",
@@ -1579,9 +1579,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"",
 	"",
 	"",
-	"",
+	"魔法のオーラで攻撃された！",
 
-	"",
+	"魔法のオーラで攻撃された！",
 	"",
 	"",
 	"",
@@ -1616,7 +1616,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"You are hit by kinetic force.",
 	"You are hit by something slow.",
 //20
-	"",
+	"You are hit by an aura of magic.",
 	"Something falls from the sky on you.",
 	"You are hit by something sharp and cold.",
 	"You are hit by a wave of anarchy."
@@ -1704,9 +1704,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"",
 	"",
 	"",
-	"",
+	"You are hit by an aura of magic.",
 
-	"",
+	"You are hit by an aura of magic.",
 	"",
 	"",
 	"",
