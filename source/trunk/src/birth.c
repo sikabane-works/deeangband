@@ -4248,7 +4248,6 @@ creature_type* generate_creature(cave_type *c_ptr, SPECIES_ID species_idx, FLAGS
 
 	// Get a new creature record
 	creature_ptr = &creature_list[id];
-
 	if(c_ptr) c_ptr->creature_idx = id;
 
 	// Create a new character

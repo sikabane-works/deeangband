@@ -4670,21 +4670,15 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		/* Move the player */
 		if(ny) creature_ptr->fy = ny;
 		if(nx) creature_ptr->fx = nx;
+		c_ptr->creature_idx = creature_ptr->creature_idx;
 
 		/* Hack -- For moving creature or riding player's moving */
 		if(!(mpe_mode & MCE_DONT_SWAP_MON))
 		{
 			/* Swap two creatures */
-			c_ptr->creature_idx = om_idx;
 			oc_ptr->creature_idx = nm_idx;
 
-			if(om_idx > 0) /* Creature on old spot (or creature_ptr->riding) */
-			{
-				creature_type *om_ptr = &creature_list[om_idx];
-				om_ptr->fy = ny;
-				om_ptr->fx = nx;
-				update_creature_view(player_ptr, om_idx, TRUE);
-			}
+			//TODO riding process
 
 			if(nm_idx > 0) /* Creature on new spot */
 			{
@@ -4729,9 +4723,8 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		}
 
 		if((creature_ptr->action == ACTION_HAYAGAKE) && (!have_flag(f_ptr->flags, FF_PROJECT) ||
-		     (!has_trait(creature_ptr, TRAIT_CAN_FLY) && have_flag(f_ptr->flags, FF_DEEP))))
+			(!has_trait(creature_ptr, TRAIT_CAN_FLY) && have_flag(f_ptr->flags, FF_DEEP))))
 		{
-
 			if(is_player(creature_ptr)) msg_print(MES_HAYAGAKE_PREVENT);
 			cost_tactical_energy(creature_ptr, 100);
 			set_action(creature_ptr, ACTION_NONE);
@@ -4818,13 +4811,11 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 
 		/* Hit the trap */
 		hit_trap(creature_ptr, (mpe_mode & MCE_BREAK_TRAP) ? TRUE : FALSE);
-
 		if(!CREATURE_BOLD(creature_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
 	}
 
 	/* Warn when leaving trap detected region */
-	if(!(mpe_mode & MCE_STAYING) && (disturb_trap_detect || alert_trap_detect)
-	    && detect_trap && !(c_ptr->info & CAVE_IN_DETECT))
+	if(!(mpe_mode & MCE_STAYING) && (disturb_trap_detect || alert_trap_detect) && detect_trap && !(c_ptr->info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
 		detect_trap = FALSE;
