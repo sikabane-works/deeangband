@@ -200,14 +200,12 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 		if(object1_ptr->tval == TV_STAFF && (item < 0) && (object1_ptr->number > 1))
 		{
-			msg_print(MES_FOOD_MUST_GET_STUFF);
+			msg_print(MES_OBJECT_MUST_GET_STUFF);
 			return;
 		}
 
 		staff = (object1_ptr->tval == TV_STAFF) ? KW_STAFF : KW_WAND;
-
-		/* "Eat" charges */
-		if(object1_ptr->pval == 0)
+		if(object1_ptr->pval == 0) /* "Eat" charges */
 		{
 			msg_print(MES_OBJECT_NO_CHARGE_LEFT);
 			object1_ptr->ident |= (IDENT_EMPTY);
@@ -221,9 +219,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 		msg_format(MES_FOOD_ABSORB_MAGIC(object1_ptr));
 		object1_ptr->pval--; /* Use a single charge */
-
-		/* Eat a charge */
-		set_food(creature_ptr, creature_ptr->food + 5000);
+		set_food(creature_ptr, creature_ptr->food + 5000); /* Eat a charge */
 
 		/* XXX Hack -- unstack if necessary */
 		if(object1_ptr->tval == TV_STAFF &&
@@ -231,20 +227,12 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		{
 			object_type forge;
 			object_type *object2_ptr;
-
 			object2_ptr = &forge;
 
-			/* Obtain a local object */
-			object_copy(object2_ptr, object1_ptr);
-
-			/* Modify quantity */
-			object2_ptr->number = 1;
-
-			/* Restore the charges */
-			object1_ptr->pval++;
-
-			/* Unstack the used item */
-			object1_ptr->number--;
+			object_copy(object2_ptr, object1_ptr); /* Obtain a local object */
+			object2_ptr->number = 1; /* Modify quantity */
+			object1_ptr->pval++; /* Restore the charges */
+			object1_ptr->number--; /* Unstack the used item */
 			set_inventory_weight(creature_ptr);
 			item = inven_carry(creature_ptr, object2_ptr);
 
@@ -1242,11 +1230,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	/* Mega-Hack -- refuse to use a pile from the ground */
 	if((item < 0) && (object_ptr->number > 1))
 	{
-#ifdef JP
-		msg_print("‚Ü‚¸‚Íñ‚ğE‚í‚È‚¯‚ê‚ÎB");
-#else
-		msg_print("You must first pick up the staffs.");
-#endif
+		msg_print(MES_OBJECT_MUST_GET_STUFF);
 		return;
 	}
 
