@@ -6779,26 +6779,12 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 
 			total++;
 
-			if(!is_fixed_quest_idx(q_idx) && quest[q_idx].species_idx)
+			if(!is_fixed_quest_idx(q_idx) && quest[q_idx].species_idx) /* Print the quest info */
 			{
-				/* Print the quest info */
-#ifdef JP
-				sprintf(tmp_str, "  %-40s (%3dŠK)            - ƒŒƒxƒ‹%2d\n",
-					species_name+species_info[quest[q_idx].species_idx].name, quest[q_idx].level, quest[q_idx].complev);
-#else
-				sprintf(tmp_str, "  %-40s (Dungeon level: %3d) - level %2d\n",
-					species_name+species_info[quest[q_idx].species_idx].name, quest[q_idx].level, quest[q_idx].complev);
-#endif
+			
+				sprintf(tmp_str, MES_QUEST_RESULT_LIST(species_name+species_info[quest[q_idx].species_idx].name, quest[q_idx].level, quest[q_idx].complev));
 			}
-			else
-			{
-				/* Print the quest info */
-#ifdef JP
-				sprintf(tmp_str, "  %-40s (ŠëŒ¯“x:%3dŠK‘Š“–) - ƒŒƒxƒ‹%2d\n", quest[q_idx].name, quest[q_idx].level, quest[q_idx].complev);
-#else
-				sprintf(tmp_str, "  %-40s (Danger  level: %3d) - level %2d\n", quest[q_idx].name, quest[q_idx].level, quest[q_idx].complev);
-#endif
-			}
+			else sprintf(tmp_str, MES_QUEST_RESULT_LIST2(quest[q_idx].name, quest[q_idx].level, quest[q_idx].complev));
 			fprintf(fff, tmp_str);
 		}
 	}
