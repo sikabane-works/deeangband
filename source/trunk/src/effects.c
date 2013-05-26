@@ -1376,7 +1376,9 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	bool innocent = TRUE;
 	int expdam;
 	int warning = (target_ptr->mhp * hitpoint_warn / 10); // for Warning
+
 	if(gameover) return 0;
+	if(!is_valid_creature(target_ptr)) return 0;
 
 	if(attacker_ptr) creature_desc(attacker_name, attacker_ptr, CD_TRUE_NAME);
 	else attacker_name[0] = '\0';

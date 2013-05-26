@@ -317,11 +317,11 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		{
 			if(one_in_(10))
 			{
-				if(randint1(5) < 3)		chaos_effect = 1; // Vampiric (20%)
-				else if(one_in_(250))	chaos_effect = 2; // Quake (0.12%)
-				else if(!one_in_(10))	chaos_effect = 3; // Confusion (26.892%)
-				else if(one_in_(2))		chaos_effect = 4; // Teleport away (1.494%)
-				else					chaos_effect = 5; // Polymorph (1.494%)
+				if(randint1(5) < 3) chaos_effect = 1; // Vampiric (20%)
+				else if(one_in_(250)) chaos_effect = 2; // Quake (0.12%)
+				else if(!one_in_(10)) chaos_effect = 3; // Confusion (26.892%)
+				else if(one_in_(2)) chaos_effect = 4; // Teleport away (1.494%)
+				else chaos_effect = 5; // Polymorph (1.494%)
 			}
 		}
 
@@ -463,20 +463,11 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				{
 					/* Calculate healed hitpoints */
 					int heal=attacker_ptr->lev * object_ptr->pval;
-					if( object_ptr->tval == TV_STAFF)
-						heal *=  object_ptr->number;
+					if(object_ptr->tval == TV_STAFF) heal *=  object_ptr->number;
 
-					/* Don't heal more than max hp */
-					heal = MIN(heal, attacker_ptr->mhp - attacker_ptr->chp);
-
-#ifdef JP
-					msg_print("–‚“¹‹ï‚©‚çƒGƒlƒ‹ƒM[‚ð‹z‚¢Žæ‚Á‚½I");
-#else
-					msg_print("Energy drains from your magic device!");
-#endif
-
-					/* Heal the creature */
-					attacker_ptr->chp += heal;
+					heal = MIN(heal, attacker_ptr->mhp - attacker_ptr->chp); /* Don't heal more than max hp */
+					msg_print(MES_MELEE_MAGIC_DRAIN);
+					heal_creature(attacker_ptr, heal); /* Heal the creature */
 
 					//TODO if(&magic_info[npc_status_id] == attacker_ptr) prepare_redraw(PR_HEALTH);
 					//if(&magic_info[target_ptr->riding] == attacker_ptr) prepare_redraw(PR_UHEALTH);
@@ -521,7 +512,6 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 #else
 					msg_print("Nothing was stolen.");
 #endif
-
 				}
 				else if(target_ptr->au)
 				{
@@ -576,16 +566,11 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			for (k = 0; k < 10; k++)
 			{
 				OBJECT_ID object_idx;
+				i = randint0(INVEN_TOTAL); /* Pick an item */
+				object_ptr = &target_ptr->inventory[i]; /* Obtain the item */
 
-				/* Pick an item */
-				i = randint0(INVEN_TOTAL);
-
-				/* Obtain the item */
-				object_ptr = &target_ptr->inventory[i];
-
-				if(!is_valid_object(object_ptr)) continue; // Skip non-objects
-				if(object_is_artifact(object_ptr)) continue; // Skip artifacts
-
+				if(!is_valid_object(object_ptr)) continue; /* Skip non-objects */
+				if(object_is_artifact(object_ptr)) continue; /* Skip artifacts */
 				object_desc(object_name, object_ptr, OD_OMIT_PREFIX); // Get a description
 
 #ifdef JP
@@ -843,13 +828,12 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				}
 			}
 		}
-		else
-			msg_format(MES_MELEE_ATTACK, attacker_name, target_name, weapon_name);
+		else msg_format(MES_MELEE_ATTACK, attacker_name, target_name, weapon_name);
 
 		if(k <= 0) can_drain = FALSE;
 		if(drain_result > target_ptr->chp) drain_result = target_ptr->chp;
 
-		take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL, NULL, -1); // Damage, check for fear and death
+		take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL, NULL, -1);
 
 		if(IS_DEAD(target_ptr));
 		{

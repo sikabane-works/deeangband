@@ -4664,7 +4664,6 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		COODINATES oy = creature_ptr->fy;
 		COODINATES ox = creature_ptr->fx;
 		cave_type *oc_ptr = &prev_floor_ptr->cave[oy][ox];
-		CREATURE_ID om_idx = oc_ptr->creature_idx;
 		CREATURE_ID nm_idx = c_ptr->creature_idx;
 
 		/* Move the player */
