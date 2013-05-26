@@ -1677,12 +1677,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(!resists_tele)
 		{
 			do_dist = dam; // Prepare to teleport
-			if(is_player(target_ptr))
-#ifdef JP
-				msg_format("%^sにテレポートさせられた。", caster_name);
-#else
-				msg_format("%^s teleports you away.", caster_name);
-#endif
+			if(is_player(target_ptr)) msg_format(MES_EFFECT_TELE_AWAY(caster_ptr));
 		}
 		dam = 0; // No "real" damage
 		break;
@@ -1790,17 +1785,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			add_timed_trait(target_ptr, TRAIT_POISONED, randint0(dam) + 10, TRUE);
 			if(one_in_(5)) // 6
 			{
-#ifdef JP
-				msg_print("奇形的な変身を遂げた！");
-#else
-				msg_print("You undergo a freakish metamorphosis!");
-#endif
-				if(one_in_(4)) /* 4 */
-					do_poly_self(target_ptr);
-				else
-					mutate_creature(target_ptr);
+				msg_print(MES_EFFECT_NUKE_DONE);
+				if(one_in_(4)) do_poly_self(target_ptr);
+				else mutate_creature(target_ptr);
 			}
-
 			if(one_in_(6)) inven_damage(target_ptr, set_acid_destroy, 2);
 		}
 		break;

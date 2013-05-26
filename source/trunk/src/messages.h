@@ -2011,6 +2011,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_KILL_OBJECT(OBJECT_NAME, KILL) "%sは%s", (OBJECT_NAME), (KILL)
 #define MES_EFFECT_UNEFFECTED_OBJECT "%sは影響を受けなかった。", object_name
 #define MES_EFFECT_CHAOS_DONE "あなたの身体はカオスの力で捻じ曲げられた！"
+#define MES_EFFECT_NUKE_DONE "奇形的な変身を遂げた！"
 #define MES_EFFECT_TIME_DONE(TARGET) "%sの時の流れが逆戻りした。", (TARGET)
 #define MES_EFFECT_GRAVITY_DONE "周辺の重力がゆがんだ。"
 #define MES_EFFECT_MIRROR_CRUSH "鏡が割れた！"
@@ -2037,6 +2038,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_HEAVY_REDUCE_STAT(TARGET, STAT) "%sの%sが大きく損なわれた。", (TARGET)->name, (STAT)
 #define MES_EFFECT_HEAVY_REDUCE_STAT_ALL(TARGET) "%sの能力が大きく衰えた。", (TARGET)->name
 #define MES_EFFECT_GENOCIDE(TARGET) "%sは消滅した！", (TARGET)->name
+#define MES_EFFECT_TELE_AWAY(CASTER) "%sにテレポートさせられた。", (CASTER)->name
 #else
 #define MES_EFFECT_KILL_ACID (plural ? " melt!" : " melts!")
 #define MES_EFFECT_KILL_FIRE (plural ? " burn up!" : " burns up!")
@@ -2046,6 +2048,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_UNEFFECTED_OBJECT "The %s %s unaffected.", object_name, (plural ? "are" : "is")
 #define MES_EFFECT_KILL_OBJECT(OBJECT_NAME, KILL) "The %s%s", (OBJECT_NAME), (KILL)
 #define MES_EFFECT_CHAOS_DONE "Your body is twisted by chaos!"
+#define MES_EFFECT_NUKE_DONE "You undergo a freakish metamorphosis!"
 #define MES_EFFECT_TIME_DONE(TARGET) "You saw %s' life has clocked back.", (TARGET)
 #define MES_EFFECT_GRAVITY_DONE "Gravity warps around you."
 #define MES_EFFECT_MIRROR_CRUSH "The mirror was crashed!"
@@ -2072,6 +2075,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_HEAVY_REDUCE_STAT(TARGET, STAT) "%s is not as %s as you used to be.", (TARGET)->name, (STAT)
 #define MES_EFFECT_HEAVY_REDUCE_STAT_ALL(TARGET) "%s is not as powerful as you used to be...", (TARGET)->name, (STAT)
 #define MES_EFFECT_GENOCIDE(TARGET) "%^s disappered!", (TARGET)->name
+#define MES_EFFECT_TELE_AWAY(CASTER) "%^s teleports you away.", (CASTER)->name
 #endif
 
 #ifdef JP
