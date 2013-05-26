@@ -3645,6 +3645,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_TELEPORT_BACK(TARGET) "%s‚ðˆø‚«–ß‚µ‚½B", (TARGET)
 #define MES_TRAIT_FAILED_MOVING_ATTACK "‹ì‚¯”²‚¯‚ÉŽ¸”s‚µ‚½B"
 #define MES_TRAIT_KOFUKU_DONE "•Ší‚ð‘å‚«‚­U‚è‰º‚ë‚µ‚½B"
+#define MES_TRAIT_SEPPUKU_DONE "•Žm“¹‚Æ‚ÍAŽ€‚Ê‚±‚Æ‚ÆŒ©‚Â‚¯‚½‚èB"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3722,6 +3723,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_TELEPORT_BACK(TARGET) "You pull back %s.", (TARGET)->name
 #define MES_TRAIT_FAILED_MOVING_ATTACK "You cannot move to that place."
 #define MES_TRAIT_KOFUKU_DONE "You swing your weapon downward."
+#define MES_TRAIT_SEPPUKU_DONE "Meaning of Bushi-do is found in the death."
 #endif
 
 #ifdef JP

@@ -9779,11 +9779,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int i;
 			if(!get_check(MES_GET_CHECK_SUICIDE)) return NULL;
-#ifdef JP
-			prt("確認のため '@' を押して下さい。", 0, 0);
-#else
-			prt("Please verify SUICIDE by typing the '@' sign: ", 0, 0);
-#endif
+			prt(MES_SYS_HIT_VERIFY_KEY, 0, 0);
 	
 			flush();
 			i = inkey();
@@ -9796,11 +9792,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			}
 			else
 			{
-#ifdef JP
-				msg_print("武士道とは、死ぬことと見つけたり。");
-#else
-				msg_print("Meaning of Bushi-do is found in the death.");
-#endif
+				msg_print(MES_TRAIT_SEPPUKU_DONE);
 				take_damage_to_creature(NULL, caster_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
 			}
 		}
@@ -9809,7 +9801,6 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	return "";
 }
-
 
 /* Hex */
 static bool item_tester_hook_weapon_except_bow(creature_type *creature_ptr, object_type *object_ptr)
@@ -9826,7 +9817,6 @@ static bool item_tester_hook_weapon_except_bow(creature_type *creature_ptr, obje
 			return TRUE;
 		}
 	}
-
 	return FALSE;
 }
 
