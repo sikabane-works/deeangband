@@ -4674,8 +4674,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		/* Hack -- For moving creature or riding player's moving */
 		if(!(mpe_mode & MCE_DONT_SWAP_MON))
 		{
-			/* Swap two creatures */
-			oc_ptr->creature_idx = nm_idx;
+			oc_ptr->creature_idx = nm_idx; /* Swap two creatures */
 
 			//TODO riding process
 

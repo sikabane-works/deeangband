@@ -9510,26 +9510,16 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				floor_ptr->cave[ny][nx].creature_idx = m_idx;
 				m_ptr->fy = ny;
 				m_ptr->fx = nx;
-	
 				update_creature_view(player_ptr, m_idx, TRUE);
-	
 				lite_spot(floor_ptr, y, x);
-	
 				lite_spot(floor_ptr, ny, nx);
-	
-				/* Player can move forward? */
-				if(creature_can_cross_terrain(caster_ptr, c_ptr->feat, 0))
-				{
-					/* Move the player */
-					if(!move_creature(caster_ptr, NULL, y, x, MCE_FORGET_FLOW | MCE_HANDLE_STUFF | MCE_DONT_PICKUP)) break;
-				}
-				else
-				{
-					break;
-				}
 
-				/* -more- */
-				if(i < 2) msg_print(NULL);
+				if(creature_can_cross_terrain(caster_ptr, c_ptr->feat, 0)) /* Player can move forward? */
+				{
+					if(!move_creature(caster_ptr, NULL, y, x, MCE_FORGET_FLOW | MCE_HANDLE_STUFF | MCE_DONT_PICKUP)) break;  /* Move the player */
+				}
+				else break;
+				if(i < 2) msg_print(NULL); /* -more- */
 			}
 		}
 		break;
@@ -9593,7 +9583,6 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Hundred Slaughter";
 		if(desc) return "Performs a series of rush attacks. The series continues while killing each creature in a time and SP remains.";
 #endif
-    
 		if(cast)
 		{
 			const int mana_cost_per_creature = 8;
@@ -9603,14 +9592,12 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			do
 			{
 				if(!rush_attack(caster_ptr, &mdeath)) break;
-				if(new)
+				if(new) /* Reserve needed mana point */
 				{
-					/* Reserve needed mana point */
-					caster_ptr->csp -= technic_info[REALM_HISSATSU - MIN_TECHNIC][26].smana;
+					dec_mana(caster_ptr, technic_info[REALM_HISSATSU - MIN_TECHNIC][26].smana); 
 					new = FALSE;
 				}
-				else
-					caster_ptr->csp -= mana_cost_per_creature;
+				else caster_ptr->csp -= mana_cost_per_creature;
 
 				if(!mdeath) break;
 				command_dir = 0;
@@ -9644,11 +9631,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			    (distance(y, x, caster_ptr->fy, caster_ptr->fx) > MAX_SIGHT / 2) ||
 			    !projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, y, x))
 			{
-#ifdef JP
-				msg_print("é∏îsÅI");
-#else
-				msg_print("You cannot move to that place!");
-#endif
+				msg_print(MES_TRAIT_FAILED_MOVING_ATTACK);
 				break;
 			}
 			if(has_trait(caster_ptr, TRAIT_PREVENT_TELEPORT))
@@ -9720,11 +9703,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(is_melee_limitation_field(floor_ptr)) return "";
 
-#ifdef JP
-			msg_print("ïêäÌÇëÂÇ´Ç≠êUÇËâ∫ÇÎÇµÇΩÅB");
-#else
-			msg_print("You swing your weapon downward.");
-#endif
+			msg_print(MES_TRAIT_KOFUKU_DONE);
 			for (i = 0; i < 2; i++)
 			{
 				POWER damage;
