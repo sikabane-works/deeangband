@@ -10163,10 +10163,8 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 #ifdef JP
 			msg_print("‚ ‚È‚½‚Ì•Ší‚ª•‚­‹P‚¢‚½B");
 #else
-			if(!empty_hands(caster_ptr, FALSE))
-				msg_print("Your weapons glow bright black.");
-			else
-				msg_print("Your weapon glows bright black.");
+			if(!empty_hands(caster_ptr, FALSE)) msg_print("Your weapons glow bright black.");
+			else msg_print("Your weapon glows bright black.");
 #endif
 		}
 		if(stop)

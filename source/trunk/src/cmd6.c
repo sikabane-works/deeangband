@@ -200,11 +200,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 		if(object1_ptr->tval == TV_STAFF && (item < 0) && (object1_ptr->number > 1))
 		{
-#ifdef JP
-			msg_print("‚Ü‚¸‚Íñ‚ğE‚í‚È‚¯‚ê‚ÎB");
-#else
-			msg_print("You must first pick up the staffs.");
-#endif
+			msg_print(MES_FOOD_MUST_GET_STUFF);
 			return;
 		}
 
@@ -274,16 +270,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		 (object1_ptr->tval == TV_CORPSE && object1_ptr->sval == SV_CORPSE &&
 		  my_strchr("pht", species_info[object1_ptr->pval].d_char)))
 	{
-		/* Drain vitality of humanoids */
-		char object_name[MAX_NLEN];
-
+		char object_name[MAX_NLEN]; /* Drain vitality of humanoids */
 		object_desc(object_name, object1_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-
-#ifdef JP
-		msg_format("%s‚Í”R‚¦ã‚èŠD‚É‚È‚Á‚½B¸—Í‚ğ‹zû‚µ‚½‹C‚ª‚·‚éB", object_name);
-#else
-		msg_format("%^s is burnt to ashes.  You absorb its vitality!", object_name);
-#endif
+		msg_format(MES_FOOD_CORPSE(object1_ptr));
 		(void)set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
 	}
 	else if(has_trait(creature_ptr, TRAIT_SKELETON))

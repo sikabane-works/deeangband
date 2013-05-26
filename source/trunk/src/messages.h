@@ -4157,6 +4157,8 @@ static cptr desc_stat_neg[] =
 #define MES_FOOD_DRINK "‚Ì‚Ç‚²‚µ‘u‚â‚©‚¾B"
 #define MES_FOOD_SKELETON_FAILED1 "H‚×•¨‚ªƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿‚½I"
 #define MES_FOOD_SKELETON_FAILED2 "H‚×•¨‚ªƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿AÁ‚¦‚½I"
+#define MES_FOOD_CORPSE(OBJECT) "%s‚Í”R‚¦ã‚èŠD‚É‚È‚Á‚½B¸—Í‚ð‹zŽû‚µ‚½‹C‚ª‚·‚éB", (OBJECT)->name
+#define MES_FOOD_MUST_GET_STUFF "‚Ü‚¸‚Íñ‚ðE‚í‚È‚¯‚ê‚ÎB"
 #else
 #define MES_FOOD_WHICH_EAT "Eat which item? "
 #define MES_FOOD_NO_EAT "You have nothing to eat."
@@ -4168,6 +4170,8 @@ static cptr desc_stat_neg[] =
 #define MES_FOOD_DRINK "That tastes good."
 #define MES_FOOD_SKELETON_FAILED1 "The food falls through your jaws!"
 #define MES_FOOD_SKELETON_FAILED2 "The food falls through your jaws and vanishes!"
+#define MES_FOOD_CORPSE(OBJECT) "%^s is burnt to ashes.  You absorb its vitality!", (OBJECT)->name
+#define MES_FOOD_MUST_GET_STUFF "You must first pick up the staffs."
 #endif
 
 #ifdef JP
