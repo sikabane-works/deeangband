@@ -16,16 +16,13 @@
 static cptr info_string_dice(cptr str, int dice, int sides, int base)
 {
 	/* Fix value */
-	if(!dice)
-		return format("%s%d", str, base);
+	if(!dice) return format("%s%d", str, base);
 
 	/* Dice only */
-	else if(!base)
-		return format("%s%dd%d", str, dice, sides);
+	else if(!base) return format("%s%dd%d", str, dice, sides);
 
 	/* Dice plus base value */
-	else
-		return format("%s%dd%d%+d", str, dice, sides, base);
+	else return format("%s%dd%d%+d", str, dice, sides, base);
 }
 
 
@@ -69,11 +66,7 @@ static cptr info_range(COODINATES range)
  */
 static cptr info_heal(int dice, int sides, int base)
 {
-#ifdef JP
-	return info_string_dice("‰ñ•œ:", dice, sides, base);
-#else
-	return info_string_dice("heal ", dice, sides, base);
-#endif
+	return info_string_dice(KW_HEAL, dice, sides, base);
 }
 
 
@@ -82,11 +75,7 @@ static cptr info_heal(int dice, int sides, int base)
  */
 static cptr info_delay(int base, int sides)
 {
-#ifdef JP
-	return format("’x‰„:%d+1d%d", base, sides);
-#else
-	return format("delay %d+1d%d", base, sides);
-#endif
+	return format("%s:%d+1d%d", KW_DELAY, base, sides);
 }
 
 
