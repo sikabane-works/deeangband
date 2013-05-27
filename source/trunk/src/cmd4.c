@@ -2066,7 +2066,7 @@ void do_cmd_visuals(void)
 
 			path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp); /* Build the filename */
 			if(!open_auto_dump(buf, mark)) continue; /* Append to the file */
-			auto_dump_printf(MES_VISUAL_DUMP_START); /* Start dumping */
+			auto_dump_printf(MES_VISUAL_DUMP_FEATURE_START); /* Start dumping */
 
 			/* Dump features */
 			for (i = 0; i < max_feature_idx; i++)
@@ -2088,15 +2088,8 @@ void do_cmd_visuals(void)
 					(byte)(f_ptr->x_attr[F_LIT_LITE]), (byte)(f_ptr->x_char[F_LIT_LITE]),
 					(byte)(f_ptr->x_attr[F_LIT_DARK]), (byte)(f_ptr->x_char[F_LIT_DARK]));
 			}
-
 			close_auto_dump();
-
-#ifdef JP
-			msg_print("地形の[色/文字]をファイルに書き出しました。");
-#else
-			msg_print("Dumped feature attr/chars.");
-#endif
-
+			msg_print(MES_VISUAL_DUMP_FEATURE_DONE);
 			break;
 		}
 
@@ -2120,20 +2113,10 @@ void do_cmd_visuals(void)
 				byte cc = species_ptr->x_char;
 
 				/* Label the object */
-#ifdef JP
-				Term_putstr(5, 17, -1, TERM_WHITE, format("クリーチャー = %d, 名前 = %-40.40s", r, (species_name + species_ptr->name)));
-#else
-				Term_putstr(5, 17, -1, TERM_WHITE, format("Creature = %d, Name = %-40.40s", r, (species_name + species_ptr->name)));
-#endif
+				Term_putstr(5, 17, -1, TERM_WHITE, format(MES_VISUAL_CREATURE_LABEL(r, (species_name + species_ptr->name))));
 
 				/* Label the Default values */
-#ifdef JP
-				Term_putstr(10, 19, -1, TERM_WHITE,
-					    format("初期値  色 / 文字 = %3u / %3u", da, dc));
-#else
-				Term_putstr(10, 19, -1, TERM_WHITE,
-					    format("Default attr/char = %3u / %3u", da, dc));
-#endif
+				Term_putstr(10, 19, -1, TERM_WHITE, format(MES_VISUAL_RESET_SYM_DEFAULT(da, dc)));
 
 				Term_putstr(40, 19, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 19, da, dc, 0, 0);
@@ -2221,13 +2204,12 @@ void do_cmd_visuals(void)
 #ifdef JP
 				Term_putstr(5, 17, -1, TERM_WHITE, format("アイテム = %d, 名前 = %-40.40s",
 						   k, object_kind_name + (!object_kind_ptr->flavor ? object_kind_ptr->name : object_kind_ptr->flavor_bane)));
-				Term_putstr(10, 19, -1, TERM_WHITE, format("初期値  色 / 文字 = %3d / %3d", da, dc));
 #else
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("Object = %d, Name = %-40.40s",
 						   k, object_kind_name + (!object_kind_ptr->flavor ? object_kind_ptr->name : object_kind_ptr->flavor_bane)));
-				Term_putstr(10, 19, -1, TERM_WHITE, format("Default attr/char = %3d / %3d", da, dc));
 #endif
+				Term_putstr(10, 19, -1, TERM_WHITE, format(MES_VISUAL_RESET_SYM_DEFAULT(da, dc)));
 
 				Term_putstr(40, 19, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 19, da, dc, 0, 0);
@@ -2315,12 +2297,11 @@ void do_cmd_visuals(void)
 #ifdef JP
 				Term_putstr(5, 17, -1, TERM_WHITE, format("地形 = %d, 名前 = %s, 明度 = %s",
 						   f, (feature_name + f_ptr->name), lighting_level_str[lighting_level]));
-				Term_putstr(10, 19, -1, TERM_WHITE, format("初期値  色 / 文字 = %3d / %3d", da, dc));
 #else
 				Term_putstr(5, 17, -1, TERM_WHITE, format("Terrain = %d, Name = %s, Lighting = %s",
 						   f, (feature_name + f_ptr->name), lighting_level_str[lighting_level]));
-				Term_putstr(10, 19, -1, TERM_WHITE, format("Default attr/char = %3d / %3d", da, dc));
 #endif
+				Term_putstr(10, 19, -1, TERM_WHITE, format(MES_VISUAL_RESET_SYM_DEFAULT(da, dc)));
 
 				Term_putstr(40, 19, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 19, da, dc, 0, 0);

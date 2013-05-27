@@ -4045,12 +4045,14 @@ static cptr desc_stat_neg[] =
 #define MES_VISUAL_DUMP_OBJECT_START "\n# アイテムの[色/文字]の設定\n\n"
 #define MES_VISUAL_DUMP_OBJECT_DONE "アイテムの[色/文字]をファイルに書き出しました。"
 #define MES_VISUAL_DUMP_FEATURE "コマンド: 地形の[色/文字]をファイルに書き出します"
-#define MES_VISUAL_DUMP_START "\n# 地形の[色/文字]の設定\n\n"
+#define MES_VISUAL_DUMP_FEATURE_START "\n# 地形の[色/文字]の設定\n\n"
+#define MES_VISUAL_DUMP_FEATURE_DONE "地形の[色/文字]をファイルに書き出しました。"
+#define MES_VISUAL_CREATURE_LABEL(NUM, NAME) "クリーチャー = %d, 名前 = %-40.40s", (NUM), (NAME)
 #define MES_VISUAL_CREATURE_CHANGE "クリーチャーの[色/文字]を変更します"
 #define MES_VISUAL_OBJECT_CHANGE "アイテムの[色/文字]を変更します"
 #define MES_VISUAL_COL_SYM(COL, SYM) "現在値  色 / 文字 = %3d / %3d", (COL), (SYM)
-#define MES_VISUAL_RESET "画面上の[色/文字]を初期値にリセットしました。"
-
+#define MES_VISUAL_RESET "画面上の[色/文字]を初期値にリセットしました"
+#define MES_VISUAL_RESET_SYM_DEFAULT(COL, SYM) "初期値  色 / 文字 = %3u / %3u", (COL), (SYM)
 #else
 #define MES_VISUAL_LORD_PREFFILE "Command: Load a user pref file"
 #define MES_VISUAL_DUMP_CREATURE "Command: Dump creature attr/chars"
@@ -4060,11 +4062,14 @@ static cptr desc_stat_neg[] =
 #define MES_VISUAL_DUMP_OBJECT_START "\n# Object attr/char definitions\n\n"
 #define MES_VISUAL_DUMP_OBJECT_DONE "Dumped object attr/chars."
 #define MES_VISUAL_DUMP_FEATURE "Command: Dump feature attr/chars"
-#define MES_VISUAL_DUMP_START "\n# Feature attr/char definitions\n\n"
+#define MES_VISUAL_DUMP_FEATURE_START "\n# Feature attr/char definitions\n\n"
+#define MES_VISUAL_DUMP_FEATURE_DONE "Dumped feature attr/chars."
+#define MES_VISUAL_CREATURE_LABEL(NUM, NAME) "Creature = %d, Name = %-40.40s", (NUM), (NAME)
 #define MES_VISUAL_CREATURE_CHANGE "Change creature attr/chars"
 #define MES_VISUAL_OBJECT_CHANGE "Change object attr/chars"
 #define MES_VISUAL_COL_SYM(COL, SYM) "Current attr/char = %3d / %3d", (COL), (SYM)
 #define MES_VISUAL_RESET "Visual attr/char tables reset."
+#define MES_VISUAL_RESET_SYM_DEFAULT(COL, SYM) "Default attr/char = %3u / %3u", (COL), (SYM)
 #endif
 
 #ifdef JP
