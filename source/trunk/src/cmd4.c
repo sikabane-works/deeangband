@@ -3792,6 +3792,7 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 		"<pre>",
 		0,
 	};
+
 	cptr html_foot[] = {
 		"</pre>\n",
 		"</body>\n</html>\n",
@@ -3808,29 +3809,30 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 	/* Append to the file */
 	fff = my_fopen(filename, "w");
 
-	if(!fff) {
-		if(message) {
-		    msg_format(MES_SYS_FAILED_FILEOPEN2, filename);
-		    msg_print(NULL);
+	if(!fff)
+	{
+		if(message)
+		{
+			msg_format(MES_SYS_FAILED_FILEOPEN2, filename);
+			msg_print(NULL);
 		}
-		
 		return;
 	}
 
-	if(message)
-		screen_save();
+	if(message) screen_save();
 
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, "htmldump.prf");
 	tmpfff = my_fopen(buf, "r");
 	if(!tmpfff) {
-		for (i = 0; html_head[i]; i++)
-			fprintf(fff, html_head[i]);
+		for (i = 0; html_head[i]; i++) fprintf(fff, html_head[i]);
 	}
 	else {
 		yomikomu = 0;
-		while (!my_fgets(tmpfff, buf, sizeof(buf))) {
-			if(!yomikomu) {
+		while (!my_fgets(tmpfff, buf, sizeof(buf)))
+		{
+			if(!yomikomu)
+			{
 				if(strncmp(buf, tags[0], strlen(tags[0])) == 0)
 					yomikomu = 1;
 			}
@@ -3876,29 +3878,27 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 					((y == 0 && x == 0) ? "" : "</font>"), rv, gv, bv);
 				old_a = a;
 			}
-			if(cc)
-				fprintf(fff, "%s", cc);
-			else
-				fprintf(fff, "%c", c);
+			if(cc) fprintf(fff, "%s", cc);
+			else fprintf(fff, "%c", c);
 		}
 	}
 	fprintf(fff, "</font>");
 
 	if(!tmpfff) {
-		for (i = 0; html_foot[i]; i++)
-			fprintf(fff, html_foot[i]);
+		for (i = 0; html_foot[i]; i++) fprintf(fff, html_foot[i]);
 	}
 	else {
 		rewind(tmpfff);
 		yomikomu = 0;
-		while (!my_fgets(tmpfff, buf, sizeof(buf))) {
-			if(!yomikomu) {
-				if(strncmp(buf, tags[2], strlen(tags[2])) == 0)
-					yomikomu = 1;
+		while (!my_fgets(tmpfff, buf, sizeof(buf)))
+		{
+			if(!yomikomu)
+			{
+				if(strncmp(buf, tags[2], strlen(tags[2])) == 0) yomikomu = 1;
 			}
-			else {
-				if(strncmp(buf, tags[3], strlen(tags[3])) == 0)
-					break;
+			else
+			{
+				if(strncmp(buf, tags[3], strlen(tags[3])) == 0) break;
 				fprintf(fff, "%s\n", buf);
 			}
 		}
@@ -3908,17 +3908,13 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 	fprintf(fff, "\n");
 	my_fclose(fff);
 
-	if(message) {
-#ifdef JP
-		msg_print("‰æ–Ê(‹L”OŽB‰e)‚ðƒtƒ@ƒCƒ‹‚É‘‚«o‚µ‚Ü‚µ‚½B");
-#else
-		msg_print("Screen dump saved.");
-#endif
+	if(message)
+	{
+		msg_print(MES_SYS_SCREEN_DUMPED);
 		msg_print(NULL);
 	}
 
-	if(message)
-		screen_load();
+	if(message) screen_load();
 }
 
 /*
@@ -4191,15 +4187,9 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		artifact_type *a_ptr = &artifact_info[k];
 
 		okay[k] = FALSE;
-
-		/* Skip "empty" artifacts */
-		if(!a_ptr->name) continue;
-
-		/* Skip "uncreated" artifacts */
-		if(!a_ptr->cur_num) continue;
-
-		/* Assume okay */
-		okay[k] = TRUE;
+		if(!a_ptr->name) continue; /* Skip "empty" artifacts */
+		if(!a_ptr->cur_num) continue; /* Skip "uncreated" artifacts */
+		okay[k] = TRUE; /* Assume okay */
 	}
 
 	/* Check the dungeon */
@@ -4214,18 +4204,10 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 			for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 			{
 				object_type *object_ptr;
-
-				/* Acquire object */
-				object_ptr = &object_list[this_object_idx];
-
-				/* Acquire next object */
-				next_object_idx = object_ptr->next_object_idx;
-
-				/* Ignore non-artifacts */
-				if(!object_is_fixed_artifact(object_ptr)) continue;
-
-				/* Ignore known items */
-				if(object_is_known(object_ptr)) continue;
+				object_ptr = &object_list[this_object_idx]; /* Acquire object */
+				next_object_idx = object_ptr->next_object_idx; /* Acquire next object */
+				if(!object_is_fixed_artifact(object_ptr)) continue; /* Ignore non-artifacts */
+				if(object_is_known(object_ptr)) continue; /* Ignore known items */
 
 				okay[object_ptr->name1] = FALSE;
 			}
