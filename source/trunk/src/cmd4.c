@@ -2047,13 +2047,7 @@ void do_cmd_visuals(void)
 			}
 
 			close_auto_dump();
-
-#ifdef JP
-			msg_print("アイテムの[色/文字]をファイルに書き出しました。");
-#else
-			msg_print("Dumped object attr/chars.");
-#endif
-
+			msg_print(MES_VISUAL_DUMP_OBJECT_DONE);
 			break;
 		}
 
@@ -2061,12 +2055,7 @@ void do_cmd_visuals(void)
 		case 3:
 		{
 			static cptr mark = "Feature attr/chars";
-
-#ifdef JP
-			prt("コマンド: 地形の[色/文字]をファイルに書き出します", 15, 0);
-#else
-			prt("Command: Dump feature attr/chars", 15, 0);
-#endif
+			prt(MES_VISUAL_DUMP_FEATURE, 15, 0);
 			prt(PROMPT_FILE, 17, 0);
 
 			/* Default filename */
@@ -2083,7 +2072,7 @@ void do_cmd_visuals(void)
 
 			/* Start dumping */
 #ifdef JP
-			auto_dump_printf("\n# 地形の[色/文字]の設定\n\n");
+			auto_dump_printf();
 #else
 			auto_dump_printf("\n# Feature attr/char definitions\n\n");
 #endif
