@@ -2256,11 +2256,7 @@ void do_cmd_visuals(void)
 		/* Modify feature attr/chars (numeric operation) */
 		case 6:
 		{
-#ifdef JP
-			static cptr choice_msg = "地形の[色/文字]を変更します";
-#else
-			static cptr choice_msg = "Change feature attr/chars";
-#endif
+			static cptr choice_msg = MES_VISUAL_FEATURE_CHANGE;
 			static int f = 0;
 			static int lighting_level = F_LIT_STANDARD;
 
@@ -2280,13 +2276,7 @@ void do_cmd_visuals(void)
 
 				/* Label the object */
 				prt("", 17, 5);
-#ifdef JP
-				Term_putstr(5, 17, -1, TERM_WHITE, format("地形 = %d, 名前 = %s, 明度 = %s",
-						   f, (feature_name + f_ptr->name), lighting_level_str[lighting_level]));
-#else
-				Term_putstr(5, 17, -1, TERM_WHITE, format("Terrain = %d, Name = %s, Lighting = %s",
-						   f, (feature_name + f_ptr->name), lighting_level_str[lighting_level]));
-#endif
+				Term_putstr(5, 17, -1, TERM_WHITE, format(MES_VISUAL_RESET_SYM_FEATURE(f, (feature_name + f_ptr->name), lighting_level_str[lighting_level])));
 				Term_putstr(10, 19, -1, TERM_WHITE, format(MES_VISUAL_RESET_SYM_DEFAULT(da, dc)));
 
 				Term_putstr(40, 19, -1, TERM_WHITE, empty_symbol);

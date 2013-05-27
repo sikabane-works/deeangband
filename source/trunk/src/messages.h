@@ -4051,9 +4051,11 @@ static cptr desc_stat_neg[] =
 #define MES_VISUAL_OBJECT_LABEL(NUM, NAME) "アイテム = %d, 名前 = %-40.40s", (NUM), (NAME)
 #define MES_VISUAL_CREATURE_CHANGE "クリーチャーの[色/文字]を変更します"
 #define MES_VISUAL_OBJECT_CHANGE "アイテムの[色/文字]を変更します"
+#define MES_VISUAL_FEATURE_CHANGE "地形の[色/文字]を変更します"
 #define MES_VISUAL_COL_SYM(COL, SYM) "現在値  色 / 文字 = %3d / %3d", (COL), (SYM)
 #define MES_VISUAL_RESET "画面上の[色/文字]を初期値にリセットしました"
 #define MES_VISUAL_RESET_SYM_DEFAULT(COL, SYM) "初期値  色 / 文字 = %3u / %3u", (COL), (SYM)
+#define MES_VISUAL_RESET_SYM_FEATURE(FEATURE, NAME, LITE) "地形 = %d, 名前 = %s, 明度 = %s", (FEATURE), (NAME), (LITE)
 #else
 #define MES_VISUAL_LORD_PREFFILE "Command: Load a user pref file"
 #define MES_VISUAL_DUMP_CREATURE "Command: Dump creature attr/chars"
@@ -4069,9 +4071,11 @@ static cptr desc_stat_neg[] =
 #define MES_VISUAL_OBJECT_LABEL(NUM, NAME) "Object = %d, Name = %-40.40s", (NUM), (NAME)
 #define MES_VISUAL_CREATURE_CHANGE "Change creature attr/chars"
 #define MES_VISUAL_OBJECT_CHANGE "Change object attr/chars"
+#define MES_VISUAL_FEATURE_CHANGE "Change feature attr/chars"
 #define MES_VISUAL_COL_SYM(COL, SYM) "Current attr/char = %3d / %3d", (COL), (SYM)
 #define MES_VISUAL_RESET "Visual attr/char tables reset."
 #define MES_VISUAL_RESET_SYM_DEFAULT(COL, SYM) "Default attr/char = %3u / %3u", (COL), (SYM)
+#define MES_VISUAL_RESET_SYM_FEATURE(FEATURE, NAME, LITE) "Terrain = %d, Name = %s, Lighting = %s", (FEATURE), (NAME), (LITE)
 #endif
 
 #ifdef JP
