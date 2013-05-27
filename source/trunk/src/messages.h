@@ -2440,6 +2440,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_FIRST_RACE(CREATURE) "\n\n あなたは%sとして生まれた。", desc_race_name((CREATURE), CD_SEX)
 #define MES_INTERFACE_MUTATION "\n\n  [突然変異]\n\n"
 #define MES_INTERFACE_CHECKSUM(SUM) "  [チェックサム: \"%s\"]\n\n", (SUM)
+#define MES_INTERFACE_EQUIPMENTLIST "*鑑定*済み武器/防具の耐性リスト"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2489,6 +2490,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_FIRST_RACE(CREATURE) "\n\n You were born as %s.", desc_race_name((CREATURE), CD_SEX)
 #define MES_INTERFACE_MUTATION "\n\n  [Mutation]\n\n"
 #define MES_INTERFACE_CHECKSUM(SUM) "  [Check Sum: \"%s\"]\n\n", (SUM)
+#define MES_INTERFACE_EQUIPMENTLIST "Resistances of *identified* equipment"
 #endif
 
 #ifdef JP

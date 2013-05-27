@@ -2708,11 +2708,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	// No useful feeling in town
 	else if(floor_ptr->town_num && !floor_ptr->depth)
 	{
-#ifdef JP
-		if(!strcmp(town[floor_ptr->town_num].name, "¬“×‚Ì’n•½"))
-#else
-		if(!strcmp(town[floor_ptr->town_num].name, "wilderness"))
-#endif
+		if(!strcmp(town[floor_ptr->town_num].name, KW_WORLD_MAP))
 		{
 			msg_print(MES_FEELING_WILD_POINT);
 			return;
@@ -3765,11 +3761,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 	my_fclose(fff);
 
 	/* Display the file contents */
-#ifdef JP
-	show_file(TRUE, file_name, "*ŠÓ’è*Ï‚İ•Ší/–h‹ï‚Ì‘Ï«ƒŠƒXƒg", 0, 0);
-#else
-	show_file(TRUE, file_name, "Resistances of *identified* equipment", 0, 0);
-#endif
+	show_file(TRUE, file_name, MES_INTERFACE_EQUIPMENTLIST, 0, 0);
 
 	/* Remove the file */
 	fd_kill(file_name);
