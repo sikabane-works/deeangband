@@ -2420,11 +2420,7 @@ void do_cmd_colors(void)
 		/* Load a 'pref' file */
 		if(i == '1')
 		{
-#ifdef JP
-			prt("コマンド: ユーザー設定ファイルをロードします", 8, 0);
-#else
-			prt("Command: Load a user pref file", 8, 0);
-#endif
+			prt(MES_COLOR_LORD_PREFFILE, 8, 0);
 			prt(PROMPT_FILE, 10, 0);
 
 			/* Default file */
@@ -2446,12 +2442,7 @@ void do_cmd_colors(void)
 		else if(i == '2')
 		{
 			static cptr mark = "Colors";
-
-#ifdef JP
-			prt("コマンド: カラーの設定をファイルに書き出します", 8, 0);
-#else
-			prt("Command: Dump colors", 8, 0);
-#endif
+			prt(MES_COLOR_DUMP_PREFFILE, 8, 0);
 			prt(PROMPT_FILE, 10, 0);
 
 			/* Default filename */
@@ -2467,11 +2458,7 @@ void do_cmd_colors(void)
 			if(!open_auto_dump(buf, mark)) continue;
 
 			/* Start dumping */
-#ifdef JP
-			auto_dump_printf("\n# カラーの設定\n\n");
-#else
-			auto_dump_printf("\n# Color redefinitions\n\n");
-#endif
+			auto_dump_printf(MES_COLOR_DUMP_START);
 
 			/* Dump colors */
 			for (i = 0; i < 256; i++)
@@ -2490,24 +2477,13 @@ void do_cmd_colors(void)
 				if(i < 16) name = colospecies_names[i];
 
 				/* Dump a comment */
-#ifdef JP
-				auto_dump_printf("# カラー '%s'\n", name);
-#else
-				auto_dump_printf("# Color '%s'\n", name);
-#endif
+				auto_dump_printf(MES_COLOR_LIST(name));
 
 				/* Dump the creature attr/char info */
 				auto_dump_printf("V:%d:0x%02X:0x%02X:0x%02X:0x%02X\n\n", i, kv, rv, gv, bv);
 			}
-
 			close_auto_dump();
-
-#ifdef JP
-			msg_print("カラーの設定をファイルに書き出しました。");
-#else
-			msg_print("Dumped color redefinitions.");
-#endif
-
+			msg_print(MES_COLOR_DUMP_DONE);
 		}
 
 		/* Edit colors */

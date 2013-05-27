@@ -4079,6 +4079,20 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_COLOR_LORD_PREFFILE "コマンド: ユーザー設定ファイルをロードします"
+#define MES_COLOR_DUMP_PREFFILE "コマンド: カラーの設定をファイルに書き出します"
+#define MES_COLOR_DUMP_START "\n# カラーの設定\n\n"
+#define MES_COLOR_LIST(NAME) "# カラー '%s'\n", (NAME)
+#define MES_COLOR_DUMP_DONE "カラーの設定をファイルに書き出しました。"
+#else
+#define MES_COLOR_LORD_PREFFILE "Command: Load a user pref file"
+#define MES_COLOR_DUMP_PREFFILE "Command: Dump colors"
+#define MES_COLOR_DUMP_START "\n# Color redefinitions\n\n"
+#define MES_COLOR_LIST(NAME) "# Color '%s'\n", (NAME)
+#define MES_COLOR_DUMP_DONE "Dumped color redefinitions."
+#endif
+
+#ifdef JP
 #define MES_CR_DESC_RIDING "(乗馬中)"
 #define MES_CR_DESC_CHAMELEON "(カメレオン)"
 #define MES_CR_DESC_CHAMELEON_LORD "(カメレオンの王)"
