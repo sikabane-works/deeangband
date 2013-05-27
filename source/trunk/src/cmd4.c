@@ -4388,13 +4388,7 @@ static void do_cmd_knowledge_uniques(void)
 	for (k = 0; k < n; k++)
 	{
 		species_type *species_ptr = &species_info[who[k]];
-
-		/* Print a message */
-#ifdef JP
-		fprintf(fff, "     %s (ƒŒƒxƒ‹%d)\n", species_name + species_ptr->name, species_ptr->level);
-#else
-		fprintf(fff, "     %s (level %d)\n", species_name + species_ptr->name, species_ptr->level);
-#endif
+		fprintf(fff, MES_KNOW_KILLED_UNIQUE(species_name + species_ptr->name, species_ptr->level));
 	}
 
 	/* Free the "who" array */

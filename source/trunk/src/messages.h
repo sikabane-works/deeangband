@@ -3127,6 +3127,7 @@ static cptr desc_stat_neg[] =
 #define MES_KNOW_ALIVE_UNIQUE_LIST1(NUM) "     ínè„  ê∂ë∂: %3dëÃ\n", (NUM)
 #define MES_KNOW_ALIVE_UNIQUE_LIST2(FROM, TO, NUM) "%3d-%3däK  ê∂ë∂: %3dëÃ\n", (FROM), (TO), (NUM)
 #define MES_KNOW_ALIVE_UNIQUE_LIST3(TO, NUM) "%s-   äK  ê∂ë∂: %3dëÃ\n", (TO), (NUM)
+#define MES_KNOW_KILLED_UNIQUE(NAME, LEVEL) "     %s (ÉåÉxÉã%d)\n", (NAME), (LEVEL)
 #else
 #define MES_KNOW_PET "Current Pets"
 #define MES_KNOW_ALIVE_UNIQUES "Alive Uniques"
@@ -3136,6 +3137,7 @@ static cptr desc_stat_neg[] =
 #define MES_KNOW_ALIVE_UNIQUE_LIST1(NUM) "      Surface  alive: %3d\n", (NUM)
 #define MES_KNOW_ALIVE_UNIQUE_LIST2(FROM, TO, NUM) "Level %3d-%3d  alive: %3d\n", (FROM), (TO), (NUM)
 #define MES_KNOW_ALIVE_UNIQUE_LIST3(TO, NUM) "Level %3d-     alive: %3d\n", (TO), (NUM)
+#define MES_KNOW_KILLED_UNIQUE(NAME, LEVEL) "     %s (level %d)\n", (NAME), (LEVEL)
 #endif
 
 
