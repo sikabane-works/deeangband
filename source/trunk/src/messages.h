@@ -495,9 +495,13 @@
 #define MES_FEATURE_KILLED "まばゆい閃光が走った！"
 #define MES_FEATURE_MELTING(FEATURE) "%sが溶けて泥になった！", feature_name + (FEATURE)->name
 #define MES_FEATURE_STUCKING(FEATURE) "%sに何かがつっかえて開かなくなった。", feature_name + (FEATURE)->name
+#define MES_FEATURE_STAIR_UP "階段を上って新たなる迷宮へと足を踏み入れた。"
+#define MES_FEATURE_STAIR_TO_SURFACE "階段を上り地上に戻った。"
 #else
 #define MES_FEATURE_KILLED "There is a bright flash of light!", feature_name + (FEATURE)->name
 #define MES_FEATURE_STUCKING(FEATURE) "The %s seems stuck.", feature_name + (FEATURE)->name
+#define MES_FEATURE_STAIR_UP "You enter a maze of up staircases."
+#define MES_FEATURE_STAIR_TO_SURFACE "You go back to the surface."
 #endif
 
 #ifdef JP
@@ -4041,7 +4045,7 @@ static cptr desc_stat_neg[] =
 #define MES_VISUAL_DUMP_OBJECT_START "\n# アイテムの[色/文字]の設定\n\n"
 #define MES_VISUAL_DUMP_OBJECT_DONE "アイテムの[色/文字]をファイルに書き出しました。"
 #define MES_VISUAL_DUMP_FEATURE "コマンド: 地形の[色/文字]をファイルに書き出します"
-#define MES_VISUAL_DUMP__START "\n# 地形の[色/文字]の設定\n\n"
+#define MES_VISUAL_DUMP_START "\n# 地形の[色/文字]の設定\n\n"
 #define MES_VISUAL_CREATURE_CHANGE "クリーチャーの[色/文字]を変更します"
 #define MES_VISUAL_OBJECT_CHANGE "アイテムの[色/文字]を変更します"
 #define MES_VISUAL_COL_SYM(COL, SYM) "現在値  色 / 文字 = %3d / %3d", (COL), (SYM)
@@ -4056,6 +4060,7 @@ static cptr desc_stat_neg[] =
 #define MES_VISUAL_DUMP_OBJECT_START "\n# Object attr/char definitions\n\n"
 #define MES_VISUAL_DUMP_OBJECT_DONE "Dumped object attr/chars."
 #define MES_VISUAL_DUMP_FEATURE "Command: Dump feature attr/chars"
+#define MES_VISUAL_DUMP_START "\n# Feature attr/char definitions\n\n"
 #define MES_VISUAL_CREATURE_CHANGE "Change creature attr/chars"
 #define MES_VISUAL_OBJECT_CHANGE "Change object attr/chars"
 #define MES_VISUAL_COL_SYM(COL, SYM) "Current attr/char = %3d / %3d", (COL), (SYM)

@@ -2064,18 +2064,9 @@ void do_cmd_visuals(void)
 			/* Get a filename */
 			if(!askfor(tmp, 70)) continue;
 
-			/* Build the filename */
-			path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp);
-
-			/* Append to the file */
-			if(!open_auto_dump(buf, mark)) continue;
-
-			/* Start dumping */
-#ifdef JP
-			auto_dump_printf();
-#else
-			auto_dump_printf("\n# Feature attr/char definitions\n\n");
-#endif
+			path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp); /* Build the filename */
+			if(!open_auto_dump(buf, mark)) continue; /* Append to the file */
+			auto_dump_printf(MES_VISUAL_DUMP_START); /* Start dumping */
 
 			/* Dump features */
 			for (i = 0; i < max_feature_idx; i++)

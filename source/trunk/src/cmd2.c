@@ -125,14 +125,8 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	if(record_stair) write_diary(DIARY_STAIR, 0-up_num, DIARY_UP_STAIR);
 	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(MES_COMBAT_TALK_STAIR);
 
-#ifdef JP
-	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
-	else if(up_num == floor_ptr->depth) msg_print("地上に戻った。");
-	else msg_print("階段を上って新たなる迷宮へと足を踏み入れた。");
-#else
-	if(up_num == floor_ptr->depth) msg_print("You go back to the surface.");
-	else msg_print("You enter a maze of up staircases.");
-#endif
+	if(up_num == floor_ptr->depth) msg_print(MES_FEATURE_STAIR_UP);
+	else msg_print(MES_FEATURE_STAIR_TO_SURFACE);
 	subject_change_floor = TRUE;
 }
 
