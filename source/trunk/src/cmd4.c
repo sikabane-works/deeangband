@@ -4436,22 +4436,10 @@ void plural_aux(char *Name)
 {
 	int NameLen = strlen(Name);
 
-	if(my_strstr(Name, "Disembodied hand"))
-	{
-		strcpy(Name, "Disembodied hands that strangled people");
-	}
-	else if(my_strstr(Name, "Colour out of space"))
-	{
-		strcpy(Name, "Colours out of space");
-	}
-	else if(my_strstr(Name, "stairway to hell"))
-	{
-		strcpy(Name, "stairways to hell");
-	}
-	else if(my_strstr(Name, "Dweller on the threshold"))
-	{
-		strcpy(Name, "Dwellers on the threshold");
-	}
+	if(my_strstr(Name, "Disembodied hand")) strcpy(Name, "Disembodied hands that strangled people");
+	else if(my_strstr(Name, "Colour out of space")) strcpy(Name, "Colours out of space");
+	else if(my_strstr(Name, "stairway to hell")) strcpy(Name, "stairways to hell");
+	else if(my_strstr(Name, "Dweller on the threshold")) strcpy(Name, "Dwellers on the threshold");
 	else if(my_strstr(Name, " of "))
 	{
 		cptr aider = my_strstr(Name, " of ");
@@ -4486,70 +4474,21 @@ void plural_aux(char *Name)
 		strcpy(Name, dummy);
 		return;
 	}
-	else if(my_strstr(Name, "Manes"))
-	{
-		return;
-	}
-	else if(streq(&(Name[NameLen - 2]), "ey"))
-	{
-		strcpy(&(Name[NameLen - 2]), "eys");
-	}
-	else if(Name[NameLen - 1] == 'y')
-	{
-		strcpy(&(Name[NameLen - 1]), "ies");
-	}
-	else if(streq(&(Name[NameLen - 4]), "ouse"))
-	{
-		strcpy(&(Name[NameLen - 4]), "ice");
-	}
-	else if(streq(&(Name[NameLen - 2]), "us"))
-	{
-		strcpy(&(Name[NameLen - 2]), "i");
-	}
-	else if(streq(&(Name[NameLen - 6]), "kelman"))
-	{
-		strcpy(&(Name[NameLen - 6]), "kelmen");
-	}
-	else if(streq(&(Name[NameLen - 8]), "wordsman"))
-	{
-		strcpy(&(Name[NameLen - 8]), "wordsmen");
-	}
-	else if(streq(&(Name[NameLen - 7]), "oodsman"))
-	{
-		strcpy(&(Name[NameLen - 7]), "oodsmen");
-	}
-	else if(streq(&(Name[NameLen - 7]), "eastman"))
-	{
-		strcpy(&(Name[NameLen - 7]), "eastmen");
-	}
-	else if(streq(&(Name[NameLen - 8]), "izardman"))
-	{
-		strcpy(&(Name[NameLen - 8]), "izardmen");
-	}
-	else if(streq(&(Name[NameLen - 5]), "geist"))
-	{
-		strcpy(&(Name[NameLen - 5]), "geister");
-	}
-	else if(streq(&(Name[NameLen - 2]), "ex"))
-	{
-		strcpy(&(Name[NameLen - 2]), "ices");
-	}
-	else if(streq(&(Name[NameLen - 2]), "lf"))
-	{
-		strcpy(&(Name[NameLen - 2]), "lves");
-	}
-	else if(suffix(Name, "ch") ||
-		 suffix(Name, "sh") ||
-			 suffix(Name, "nx") ||
-			 suffix(Name, "s") ||
-			 suffix(Name, "o"))
-	{
-		strcpy(&(Name[NameLen]), "es");
-	}
-	else
-	{
-		strcpy(&(Name[NameLen]), "s");
-	}
+	else if(my_strstr(Name, "Manes")) return;
+	else if(streq(&(Name[NameLen - 2]), "ey")) strcpy(&(Name[NameLen - 2]), "eys");
+	else if(Name[NameLen - 1] == 'y') strcpy(&(Name[NameLen - 1]), "ies");
+	else if(streq(&(Name[NameLen - 4]), "ouse")) strcpy(&(Name[NameLen - 4]), "ice");
+	else if(streq(&(Name[NameLen - 2]), "us")) strcpy(&(Name[NameLen - 2]), "i");
+	else if(streq(&(Name[NameLen - 6]), "kelman")) strcpy(&(Name[NameLen - 6]), "kelmen");
+	else if(streq(&(Name[NameLen - 8]), "wordsman")) strcpy(&(Name[NameLen - 8]), "wordsmen");
+	else if(streq(&(Name[NameLen - 7]), "oodsman")) strcpy(&(Name[NameLen - 7]), "oodsmen");
+	else if(streq(&(Name[NameLen - 7]), "eastman")) strcpy(&(Name[NameLen - 7]), "eastmen");
+	else if(streq(&(Name[NameLen - 8]), "izardman")) strcpy(&(Name[NameLen - 8]), "izardmen");
+	else if(streq(&(Name[NameLen - 5]), "geist")) strcpy(&(Name[NameLen - 5]), "geister");
+	else if(streq(&(Name[NameLen - 2]), "ex")) strcpy(&(Name[NameLen - 2]), "ices");
+	else if(streq(&(Name[NameLen - 2]), "lf")) strcpy(&(Name[NameLen - 2]), "lves");
+	else if(suffix(Name, "ch") || suffix(Name, "sh") || suffix(Name, "nx") || suffix(Name, "s") || suffix(Name, "o")) strcpy(&(Name[NameLen]), "es");
+	else strcpy(&(Name[NameLen]), "s");
 }
 
 // Display current pets
@@ -4592,14 +4531,8 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 	show_upkeep = calc_upkeep_servant(master_ptr);
 
 	fprintf(fff, "----------------------------------------------\n");
-#ifdef JP
-	fprintf(fff, "    合計: %d 体のペット\n", t_friends);
-	fprintf(fff, " 維持コスト: %d%% MP\n", show_upkeep);
-#else
-	fprintf(fff, "   Total: %d pet%s.\n",
-		t_friends, (t_friends == 1 ? "" : "s"));
-	fprintf(fff, "   Upkeep: %d%% mana.\n", show_upkeep);
-#endif
+	fprintf(fff, MES_KNOW_PET_TOTAL(t_friends));
+	fprintf(fff, MES_KNOW_PET_UPKEEP(show_upkeep));
 	my_fclose(fff);
 
 	/* Display the file contents */

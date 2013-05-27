@@ -3128,6 +3128,8 @@ static cptr desc_stat_neg[] =
 #define MES_KNOW_ALIVE_UNIQUE_LIST2(FROM, TO, NUM) "%3d-%3d階  生存: %3d体\n", (FROM), (TO), (NUM)
 #define MES_KNOW_ALIVE_UNIQUE_LIST3(TO, NUM) "%s-   階  生存: %3d体\n", (TO), (NUM)
 #define MES_KNOW_KILLED_UNIQUE(NAME, LEVEL) "     %s (レベル%d)\n", (NAME), (LEVEL)
+#define MES_KNOW_PET_TOTAL(NUM) "    合計: %d 体のペット\n", (NUM)
+#define MES_KNOW_PET_UPKEEP(NUM) " 維持コスト: %d%% MP\n", (NUM)
 #else
 #define MES_KNOW_PET "Current Pets"
 #define MES_KNOW_ALIVE_UNIQUES "Alive Uniques"
@@ -3138,6 +3140,8 @@ static cptr desc_stat_neg[] =
 #define MES_KNOW_ALIVE_UNIQUE_LIST2(FROM, TO, NUM) "Level %3d-%3d  alive: %3d\n", (FROM), (TO), (NUM)
 #define MES_KNOW_ALIVE_UNIQUE_LIST3(TO, NUM) "Level %3d-     alive: %3d\n", (TO), (NUM)
 #define MES_KNOW_KILLED_UNIQUE(NAME, LEVEL) "     %s (level %d)\n", (NAME), (LEVEL)
+#define MES_KNOW_PET_TOTAL(NUM) "   Total: %d pet%s.\n", (NUM), ((NUM) == 1 ? "" : "s"))
+#define MES_KNOW_PET_UPKEEP(NUM) "  Upkeep: %d%% mana.\n", (NUM)
 #endif
 
 
