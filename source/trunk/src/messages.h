@@ -4048,6 +4048,7 @@ static cptr desc_stat_neg[] =
 #define MES_VISUAL_DUMP_FEATURE_START "\n# 地形の[色/文字]の設定\n\n"
 #define MES_VISUAL_DUMP_FEATURE_DONE "地形の[色/文字]をファイルに書き出しました。"
 #define MES_VISUAL_CREATURE_LABEL(NUM, NAME) "クリーチャー = %d, 名前 = %-40.40s", (NUM), (NAME)
+#define MES_VISUAL_OBJECT_LABEL(NUM, NAME) "アイテム = %d, 名前 = %-40.40s", (NUM), (NAME)
 #define MES_VISUAL_CREATURE_CHANGE "クリーチャーの[色/文字]を変更します"
 #define MES_VISUAL_OBJECT_CHANGE "アイテムの[色/文字]を変更します"
 #define MES_VISUAL_COL_SYM(COL, SYM) "現在値  色 / 文字 = %3d / %3d", (COL), (SYM)
@@ -4065,6 +4066,7 @@ static cptr desc_stat_neg[] =
 #define MES_VISUAL_DUMP_FEATURE_START "\n# Feature attr/char definitions\n\n"
 #define MES_VISUAL_DUMP_FEATURE_DONE "Dumped feature attr/chars."
 #define MES_VISUAL_CREATURE_LABEL(NUM, NAME) "Creature = %d, Name = %-40.40s", (NUM), (NAME)
+#define MES_VISUAL_OBJECT_LABEL(NUM, NAME) "Object = %d, Name = %-40.40s", (NUM), (NAME)
 #define MES_VISUAL_CREATURE_CHANGE "Change creature attr/chars"
 #define MES_VISUAL_OBJECT_CHANGE "Change object attr/chars"
 #define MES_VISUAL_COL_SYM(COL, SYM) "Current attr/char = %3d / %3d", (COL), (SYM)
