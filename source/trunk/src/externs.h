@@ -995,7 +995,8 @@ extern bool mass_genocide_undead(creature_type *caster_ptr, POWER power, bool pl
 extern bool probing(floor_type *floor_ptr);
 extern bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODINATES r, bool in_generate);
 extern bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r, CREATURE_ID m_idx);
-extern bool earthquake(creature_type *target_ptr, COODINATES cy, COODINATES cx, COODINATES r);
+extern bool earthquake(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r);
+extern bool massacre(creature_type *caster_ptr);
 extern void lite_room(creature_type *creature_ptr, COODINATES y1, COODINATES x1);
 extern void unlite_room(creature_type *caster_ptr, COODINATES y1, COODINATES x1);
 extern bool lite_area(creature_type *creature_ptr, POWER dam, COODINATES rad);

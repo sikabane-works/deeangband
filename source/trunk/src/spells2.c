@@ -1909,10 +1909,33 @@ bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COO
 	return TRUE; // Success
 }
 
-bool earthquake(creature_type *target_ptr, COODINATES cy, COODINATES cx, COODINATES r)
+bool earthquake(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r)
 {
 	msg_print(MES_EARTHQUAKE);
-	return earthquake_aux(target_ptr, cy, cx, r, 0);
+	return earthquake_aux(caster_ptr, cy, cx, r, 0);
+}
+
+bool massacre(creature_type *caster_ptr)
+{
+	cave_type *c_ptr;
+	creature_type *m_ptr;
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	COODINATES x, y;
+	DIRECTION dir;
+
+	for (dir = 0; dir < 8; dir++)
+	{
+		y = caster_ptr->fy + ddy_ddd[dir];
+		x = caster_ptr->fx + ddx_ddd[dir];
+		c_ptr = &floor_ptr->cave[y][x];
+
+		/* Get the creature */
+		m_ptr = &creature_list[c_ptr->creature_idx];
+
+		/* Hack -- attack creatures */
+		if(c_ptr->creature_idx && (m_ptr->see_others || CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT))) close_combat(caster_ptr, y, x, 0);
+	}
+	return TRUE;
 }
 
 void discharge_minion(creature_type *caster_ptr)

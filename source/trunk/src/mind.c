@@ -1286,25 +1286,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 8 + (COODINATES)randint0(5));
 		break;
 	case 4:
-		{
-			cave_type       *c_ptr;
-			creature_type    *m_ptr;
-
-			for (dir = 0; dir < 8; dir++)
-			{
-				y = creature_ptr->fy + ddy_ddd[dir];
-				x = creature_ptr->fx + ddx_ddd[dir];
-				c_ptr = &floor_ptr->cave[y][x];
-
-				/* Get the creature */
-				m_ptr = &creature_list[c_ptr->creature_idx];
-
-				/* Hack -- attack creatures */
-				if(c_ptr->creature_idx && (m_ptr->see_others || CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)))
-					close_combat(creature_ptr, y, x, 0);
-			}
-			break;
-		}
+		massacre(creature_ptr);
 	default:
 		msg_warning(MES_SYS_OUT_OF_SWITCH);
 	}
