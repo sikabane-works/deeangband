@@ -3673,6 +3673,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_KOFUKU_DONE "武器を大きく振り下ろした。"
 #define MES_TRAIT_SEPPUKU_DONE "武士道とは、死ぬことと見つけたり。"
 #define MES_TRAIT_NO_TRUMP_SUMMON "誰もあなたのカードの呼び声に答えない。"
+#define MES_TRAIT_CAST_WONDER_MIGHTY "あなたは力がみなぎるのを感じた！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3752,6 +3753,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_KOFUKU_DONE "You swing your weapon downward."
 #define MES_TRAIT_SEPPUKU_DONE "Meaning of Bushi-do is found in the death."
 #define MES_TRAIT_NO_TRUMP_SUMMON "Nobody answers to your Trump call."
+#define MES_TRAIT_CAST_WONDER_MIGHTY "You feel a surge of power!"
 #endif
 
 #ifdef JP

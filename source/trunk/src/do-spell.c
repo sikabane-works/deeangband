@@ -171,14 +171,7 @@ static void cast_wonder(creature_type *caster_ptr)
 	int die = randint1(100) + lev_bonus / 5;
 	// TODO: add Karma of Fortune feature.
 
-	if(die > 100)
-	{
-#ifdef JP
-		msg_print("‚ ‚È‚½‚Í—Í‚ª‚Ý‚È‚¬‚é‚Ì‚ðŠ´‚¶‚½I");
-#else
-		msg_print("You feel a surge of power!");
-#endif
-	}
+	if(die > 100) msg_print(MES_TRAIT_CAST_WONDER_MIGHTY);
 
 	if(die < 8) cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1);
 	else if(die < 14) cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1);
