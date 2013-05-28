@@ -2854,6 +2854,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_WHICH_PULISH "どの盾を磨きますか？"
 #define MES_OBJECT_NO_PULISH "磨く盾がありません。"
 #define MES_OBJECT_PULISHED(OBJECT) "%sは輝いた！", (OBJECT)->name
+#define MES_OBJECT_WHICH_CORPSE "どの死体を捧げますか? "
+#define MES_OBJECT_NO_CORPSE "捧げられる死体を持っていない。"
 #else
 #define MES_OBJECT_WHICH_IMPROVE "Improve which item? "
 #define MES_OBJECT_NO_IMPROVE "You have nothing to improve."
@@ -2890,6 +2892,8 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_WHICH_PULISH "Pulish which weapon? "
 #define MES_OBJECT_NO_PULISH "You have weapon to pulish."
 #define MES_OBJECT_PULISHED(OBJECT) "The %s shine%s!", (OBJECT)->name, ((OBJECT)->number > 1) ? "" : "s")
+#define MES_OBJECT_WHICH_CORPSE "Sacrifice which corpse? "
+#define MES_OBJECT_NO_CORPSE "You have nothing to scrifice."
 #endif
 
 #ifdef JP

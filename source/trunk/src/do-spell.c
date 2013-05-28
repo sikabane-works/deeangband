@@ -341,10 +341,7 @@ void wild_magic(creature_type *caster_ptr, int spell)
 		break;
 	case 34:
 	case 35:
-		while (counter++ < 8)
-		{
-			(void)summoning(0, caster_ptr->fy, caster_ptr->fx, (floor_ptr->depth * 3) / 2, type, (PC_ALLOW_GROUP | PC_NO_PET));
-		}
+		while (counter++ < 8) (void)summoning(0, caster_ptr->fy, caster_ptr->fx, (floor_ptr->depth * 3) / 2, type, (PC_ALLOW_GROUP | PC_NO_PET));
 		break;
 	case 36:
 	case 37:
@@ -644,10 +641,8 @@ static bool item_tester_offer(creature_type *creature_ptr, object_type *object_p
 	if(object_ptr->sval != SV_CORPSE) return FALSE;
 	if(my_strchr("pht", species_info[object_ptr->pval].d_char)) return TRUE;
 
-	/* Assume not okay */
-	return FALSE;
+	return FALSE; /* Assume not okay */
 }
-
 
 /*
  * Daemon spell Summon Greater Demon
@@ -656,19 +651,10 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 {
 	int lev_bonus = creature_ptr->lev;
 	OBJECT_ID item;
-	cptr q, s;
 	FLOOR_LEV summon_lev;
 	object_type *object_ptr;
 
-#ifdef JP
-	q = "‚Ç‚ÌŽ€‘Ì‚ð•ù‚°‚Ü‚·‚©? ";
-	s = "•ù‚°‚ç‚ê‚éŽ€‘Ì‚ðŽ‚Á‚Ä‚¢‚È‚¢B";
-#else
-	q = "Sacrifice which corpse? ";
-	s = "You have nothing to scrifice.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_offer, 0)) return FALSE;
+	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_CORPSE, MES_OBJECT_NO_CORPSE, (USE_INVEN | USE_FLOOR), item_tester_offer, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	summon_lev = lev_bonus * 2 / 3 + species_info[object_ptr->pval].level;
@@ -679,15 +665,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 		msg_print(MES_SUMMON_SERVANT);
 		increase_item(creature_ptr, item, -1, TRUE);
 	}
-	else
-	{
-#ifdef JP
-		msg_print("ˆ«–‚‚ÍŒ»‚ê‚È‚©‚Á‚½B");
-#else
-		msg_print("No Greater Demon arrive.");
-#endif
-	}
-
+	else msg_print(MES_SUMMON_NOTHING);
 	return TRUE;
 }
 
@@ -711,9 +689,8 @@ void stop_singing(creature_type *creature_ptr)
 	if(creature_ptr->class_idx != CLASS_BARD) return;
 
  	/* Are there interupted song? */
-	if(creature_ptr->pre_singing)
+	if(creature_ptr->pre_singing) /* Forget interupted song */
 	{
-		/* Forget interupted song */
 		creature_ptr->pre_singing = 0;
 		return;
 	}
@@ -10664,10 +10641,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 				break;
 			}
 
-			if(flag && randint0(lev_bonus * lev_bonus / 2))
-			{
-				teleport_creature_to(caster_ptr, y, x, 0L);
-			}
+			if(flag && randint0(lev_bonus * lev_bonus / 2)) teleport_creature_to(caster_ptr, y, x, 0L);
 			else
 			{
 #ifdef JP
