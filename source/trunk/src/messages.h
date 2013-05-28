@@ -86,6 +86,7 @@
 #define MES_SYS_MONEY "所持金"
 #define MES_SYS_PRICE "価格"
 #define MES_SYS_WEIGHT "重量"
+#define MES_SYS_MAX_WEIGHT "最大重量"
 
 #define MES_SYS_MODIFICATION "能力修正"
 
@@ -168,6 +169,7 @@
 #define MES_SYS_MONEY "AU"
 #define MES_SYS_PRICE "Price"
 #define MES_SYS_WEIGHT "Weight"
+#define MES_SYS_MAX_WEIGHT "MaxWeight"
 
 #define MES_SYS_MODIFICATION "Modification"
 
@@ -359,6 +361,7 @@
 #define KW_WORLD_MAP "混沌の地平"
 #define KW_ARENA "闘技場"
 #define KW_AUTOSAVE "自動セーブ"
+#define KW_VARIABLE_SIZE "サイズ可変"
 #else
 #define KW_MORE "-more-"
 #define KW_CREATURE "Creatures"
@@ -491,6 +494,7 @@
 #define KW_WORLD_MAP "The Surface of Chaos"
 #define KW_ARENA "Arena"
 #define KW_AUTOSAVE "Autosave"
+#define KW_VARIABLE_SIZE "VariableSize"
 #endif
 
 #ifdef JP
@@ -3668,6 +3672,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_FAILED_MOVING_ATTACK "駆け抜けに失敗した。"
 #define MES_TRAIT_KOFUKU_DONE "武器を大きく振り下ろした。"
 #define MES_TRAIT_SEPPUKU_DONE "武士道とは、死ぬことと見つけたり。"
+#define MES_TRAIT_NO_TRUMP_SUMMON "誰もあなたのカードの呼び声に答えない。"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3746,6 +3751,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_FAILED_MOVING_ATTACK "You cannot move to that place."
 #define MES_TRAIT_KOFUKU_DONE "You swing your weapon downward."
 #define MES_TRAIT_SEPPUKU_DONE "Meaning of Bushi-do is found in the death."
+#define MES_TRAIT_NO_TRUMP_SUMMON "Nobody answers to your Trump call."
 #endif
 
 #ifdef JP

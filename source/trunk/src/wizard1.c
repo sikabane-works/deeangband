@@ -1339,33 +1339,7 @@ static void spoil_species_desc(cptr fname)
 #else
 			strcat(trait, "VariableCharacter");
 #endif
-
 		}
-/*TODO
-		if(is_force_lesser_species(species_ptr)) 
-		{
-			strcat(trait, "/");
-#ifdef JP
-			strcat(trait, "劣等エゴ");
-#else
-			strcat(trait, "Lesser");
-#endif
-		}
-*/
-/*
-		if(is_variable_size_species(species_ptr)) 
-		{
-			strcat(trait, "/");
-#ifdef JP
-			strcat(trait, "サイズ可変");
-#else
-			strcat(trait, "VariableSize");
-#endif
-		}
-*/
-
-		if(strlen(trait) == 0)
-			trait[1] = '\0';
 
 /* Dump the info */
 		fprintf(fff, "%6s%-42.42s%8s%4s%4s%4s%3s%3s%3s%3s%3s%3s%6s%-15s%6s%7s%7s%6s %11.11s %s\n",

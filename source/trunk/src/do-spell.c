@@ -15,14 +15,9 @@
  */
 static cptr info_string_dice(cptr str, int dice, int sides, int base)
 {
-	/* Fix value */
-	if(!dice) return format("%s%d", str, base);
-
-	/* Dice only */
-	else if(!base) return format("%s%dd%d", str, dice, sides);
-
-	/* Dice plus base value */
-	else return format("%s%dd%d%+d", str, dice, sides, base);
+	if(!dice) return format("%s%d", str, base); /* Fix value */
+	else if(!base) return format("%s%dd%d", str, dice, sides); /* Dice only */
+	else return format("%s%dd%d%+d", str, dice, sides, base); /* Dice plus base value */
 }
 
 
@@ -40,11 +35,7 @@ static cptr info_damage(int dice, int sides, int base)
  */
 static cptr info_duration(int base, int sides)
 {
-#ifdef JP
-	return format("期間:%d+1d%d", base, sides);
-#else
-	return format("dur %d+1d%d", base, sides);
-#endif
+	return format("%s:%d+1d%d", KW_DURING, base, sides);
 }
 
 
@@ -53,11 +44,7 @@ static cptr info_duration(int base, int sides)
  */
 static cptr info_range(COODINATES range)
 {
-#ifdef JP
-	return format("範囲:%d", range);
-#else
-	return format("range %d", range);
-#endif
+	return format("%s:%d", KW_RANGE, range);
 }
 
 
@@ -131,11 +118,7 @@ static cptr info_weight(int weight)
 {
 	char buf[30];
 	format_weight(buf, weight);
-#ifdef JP
-	return format("最大重量:%s", buf);
-#else
-	return format("max wgt %s", buf);
-#endif
+	return format("%s:%s", MES_SYS_MAX_WEIGHT, buf);
 }
 
 // Prepare standard probability to become beam for cast_bolt_or_beam()
@@ -166,18 +149,8 @@ static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, COOD
 		mode |= PC_NO_PET;
 		who = 0;
 	}
-
-	for (i = 0; i < num; i++)
-		if(summoning(creature_ptr, y, x, lev, type, mode)) success = TRUE;
-
-	if(!success)
-	{
-#ifdef JP
-		msg_print("誰もあなたのカードの呼び声に答えない。");
-#else
-		msg_print("Nobody answers to your Trump call.");
-#endif
-	}
+	for (i = 0; i < num; i++) if(summoning(creature_ptr, y, x, lev, type, mode)) success = TRUE;
+	if(!success) msg_print(MES_TRAIT_NO_TRUMP_SUMMON);
 
 	return success;
 }
