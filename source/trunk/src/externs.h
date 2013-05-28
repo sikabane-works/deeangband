@@ -994,6 +994,7 @@ extern bool mass_genocide(creature_type *caster_ptr, POWER power, bool player_ca
 extern bool mass_genocide_undead(creature_type *caster_ptr, POWER power, bool player_cast);
 extern bool probing(floor_type *floor_ptr);
 extern bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODINATES r, bool in_generate);
+extern bool charge_combat(creature_type *caster_ptr);
 extern bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r, CREATURE_ID m_idx);
 extern bool earthquake(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r);
 extern bool massacre(creature_type *caster_ptr);

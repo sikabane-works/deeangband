@@ -1909,6 +1909,45 @@ bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COO
 	return TRUE; // Success
 }
 
+bool charge_combat(creature_type *caster_ptr)
+{
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	COODINATES y, x;
+	DIRECTION dir;
+
+	if(caster_ptr->riding)
+	{
+		msg_print(MES_PREVENT_BY_RIDING);
+		return FALSE;
+	}
+
+	if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
+
+	if(dir == 5) return FALSE;
+	y = caster_ptr->fy + ddy[dir];
+	x = caster_ptr->fx + ddx[dir];
+
+	if(!floor_ptr->cave[y][x].creature_idx)
+	{
+		msg_print(MES_NO_DICRECTION_CREATURE);
+		return FALSE;
+	}
+
+	close_combat(caster_ptr, y, x, 0);
+
+	if(!creature_can_cross_terrain(caster_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat)) return FALSE;
+
+	y += ddy[dir];
+	x += ddx[dir];
+
+	if(creature_can_cross_terrain(caster_ptr, floor_ptr->cave[y][x].feat, 0) && !is_trap(floor_ptr->cave[y][x].feat) && !floor_ptr->cave[y][x].creature_idx)
+	{
+		msg_print(NULL);
+		(void)move_creature(caster_ptr, NULL, y, x, MCE_FORGET_FLOW | MCE_HANDLE_STUFF | MCE_DONT_PICKUP); /* Move the player */
+	}
+	return TRUE;
+}
+
 bool earthquake(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r)
 {
 	msg_print(MES_EARTHQUAKE);

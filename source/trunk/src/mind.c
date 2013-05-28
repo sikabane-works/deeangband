@@ -1169,7 +1169,6 @@ static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 	COODINATES y, x;
 	DIRECTION dir;
 
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	// spell code
 	switch (spell)
@@ -1178,42 +1177,6 @@ static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 		detect_creatures_mind(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 	case 1:
-		{
-			if(caster_ptr->riding)
-			{
-				msg_print(MES_PREVENT_BY_RIDING);
-				return FALSE;
-			}
-
-			if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
-
-			if(dir == 5) return FALSE;
-			y = caster_ptr->fy + ddy[dir];
-			x = caster_ptr->fx + ddx[dir];
-
-			if(!floor_ptr->cave[y][x].creature_idx)
-			{
-				msg_print(MES_NO_DICRECTION_CREATURE);
-				return FALSE;
-			}
-
-			close_combat(caster_ptr, y, x, 0);
-
-			if(!creature_can_cross_terrain(caster_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat))
-				break;
-
-			y += ddy[dir];
-			x += ddx[dir];
-
-			if(creature_can_cross_terrain(caster_ptr, floor_ptr->cave[y][x].feat, 0) && !is_trap(floor_ptr->cave[y][x].feat) && !floor_ptr->cave[y][x].creature_idx)
-			{
-				msg_print(NULL);
-
-				/* Move the player */
-				(void)move_creature(caster_ptr, NULL, y, x, MCE_FORGET_FLOW | MCE_HANDLE_STUFF | MCE_DONT_PICKUP);
-			}
-			break;
-		}
 	case 2:
 		{
 			if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
@@ -1227,6 +1190,7 @@ static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 		break;
 	case 4:
 		massacre(caster_ptr);
+		break;
 	default:
 		msg_warning(MES_SYS_OUT_OF_SWITCH);
 	}
