@@ -976,67 +976,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		set_timed_trait(creature_ptr, TRAIT_AURA_MANA, randint1(lev_bonus / 2) + 15 + boost / 7, FALSE);
 		break;
 	case 7:
-		{
-			COODINATES y, x;
-			POWER dam;
-
-			if(!get_aim_dir(creature_ptr, 1, &dir)) return FALSE;
-			y = creature_ptr->fy + ddy[dir];
-			x = creature_ptr->fx + ddx[dir];
-			dam = diceroll(8 + ((lev_bonus - 5) / 4) + boost / 12, 8);
-			cast_beam(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, dam, 0);
-			if(floor_ptr->cave[y][x].creature_idx)
-			{
-				int i;
-				COODINATES ty = y, tx = x;
-				COODINATES oy = y, ox = x;
-				CREATURE_ID creature_idx = floor_ptr->cave[y][x].creature_idx;
-				creature_type *m_ptr = &creature_list[creature_idx];
-				species_type *species_ptr = &species_info[m_ptr->species_idx];
-				char m_name[MAX_NLEN];
-
-				creature_desc(m_name, m_ptr, 0);
-
-				if(randint1(species_ptr->level * 3 / 2) > randint0(dam / 2) + dam/2)
-				{
-#ifdef JP
-					msg_format("%sÇÕîÚÇŒÇ≥ÇÍÇ»Ç©Ç¡ÇΩÅB", m_name);
-#else
-					msg_format("%^s was not blown away.", m_name);
-#endif
-				}
-				else
-				{
-					for (i = 0; i < 5; i++)
-					{
-						y += ddy[dir];
-						x += ddx[dir];
-						if(cave_empty_bold(floor_ptr, y, x))
-						{
-							ty = y;
-							tx = x;
-						}
-						else break;
-					}
-					if((ty != oy) || (tx != ox))
-					{
-						msg_format(MES_BLOE_AWAY, m_name);
-						floor_ptr->cave[oy][ox].creature_idx = 0;
-						floor_ptr->cave[ty][tx].creature_idx = creature_idx;
-						m_ptr->fy = ty;
-						m_ptr->fx = tx;
-
-						update_creature_view(player_ptr, creature_idx, TRUE);
-						lite_spot(floor_ptr, oy, ox);
-						lite_spot(floor_ptr, ty, tx);
-
-						if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-							prepare_update(creature_ptr, PU_SPECIES_LITE);
-					}
-				}
-			}
-			break;
-		}
+		shock_wave(creature_ptr);
 	case 8:
 		cast_ball(creature_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(10, 6) + lev_bonus * 3 / 2 + boost * 3 / 5, (lev_bonus < 30) ? 2 : 3);
 		break;

@@ -1034,6 +1034,7 @@ extern void teleport_player_away(creature_type *creature_ptr, COODINATES dis);
 extern void teleport_creature_to(creature_type *caster_ptr, COODINATES ny, COODINATES nx, FLAGS_32 mode);
 extern void teleport_away_followable(creature_type *creature_ptr);
 extern void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx);
+extern bool shock_wave(creature_type *creature_ptr);
 extern int choose_dungeon(cptr note, int y, int x);
 extern bool word_of_recall(creature_type *creature_ptr, int turns);
 extern bool reset_recall(creature_type *creature_ptr);
