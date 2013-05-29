@@ -39,11 +39,6 @@ static int get_hissatsu_power(creature_type *creature_ptr, KEY *sn)
 	char choice;
 	char out_val[160];
 	KEY sentaku[32];
-#ifdef JP
-cptr            p = "•KŽEŒ•";
-#else
-	cptr            p = "special attack";
-#endif
 
 	magic_type spell;
 	bool flag, redraw;
@@ -84,7 +79,7 @@ cptr            p = "•KŽEŒ•";
 #else
 		       "(%^ss %c-%c, *=List, ESC=exit) Use which %s? ",
 #endif
-		       p, I2A(0), "abcdefghijklmnopqrstuvwxyz012345"[num-1], p);
+		       KW_HISSATSU, I2A(0), "abcdefghijklmnopqrstuvwxyz012345"[num-1], KW_HISSATSU);
 
 	if(use_menu) screen_save();
 
