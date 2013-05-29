@@ -324,8 +324,7 @@ FILE *my_fopen(cptr file, cptr mode)
 	return tmp;
 }
 
-
-// Replacement for "fclose()"
+/* Replacement for "fclose()" */
 errr my_fclose(FILE *fff)
 {
 	if(!fff) return (-1); // Require a file

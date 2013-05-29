@@ -1184,6 +1184,12 @@ void delete_creature(creature_type *creature_ptr)
 	int x, y;
 	floor_type *floor_ptr = &floor_list[creature_ptr->floor_idx];
 
+	if(is_player(creature_ptr))
+	{
+		msg_warning("Player creature must not delete.");
+		return;
+	}
+
 	// Get location
 	y = creature_ptr->fy;
 	x = creature_ptr->fx;
@@ -1222,12 +1228,6 @@ void delete_creature_there(floor_type *floor_ptr, int y, int x)
 
 	/* Check the grid */
 	c_ptr = &floor_ptr->cave[y][x];
-
-	if(is_player(&creature_list[c_ptr->creature_idx]))
-	{
-		msg_warning("Player creature must not delete.");
-		return;
-	}
 
 	/* Delete the creature (if any) */
 	if(c_ptr->creature_idx) delete_creature(&creature_list[c_ptr->creature_idx]);

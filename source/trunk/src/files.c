@@ -5603,8 +5603,7 @@ void close_game(void)
 		if(player_ptr->total_winner) kingly(player_ptr);
 
 		/* Save memories */
-		if(!cheat_save || get_check(MES_SCORE_SAVE_DEATH))
-			if(!save_player()) msg_print(MES_SYS_SAVE_FAILED);
+		if(!cheat_save || get_check(MES_SCORE_SAVE_DEATH)) if(!save_player()) msg_print(MES_SYS_SAVE_FAILED);
 		else do_send = FALSE;
 
 		/* You are dead */
@@ -5613,7 +5612,6 @@ void close_game(void)
 
 		/* Show more info */
 		show_info(player_ptr);
-
 		Term_clear();
 
 		if(check_score(player_ptr))
