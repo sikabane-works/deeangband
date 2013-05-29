@@ -1220,7 +1220,6 @@ static errr process_pref_file_aux(cptr name, int preftype)
 errr process_pref_file(cptr name)
 {
 	char buf[1024];
-
 	errr err1, err2;
 
 	/* Build the filename */
@@ -1241,8 +1240,7 @@ errr process_pref_file(cptr name)
 
 
 	/* User file does not exist, but read system pref file */
-	if(err2 < 0 && !err1)
-		return -2;
+	if(err2 < 0 && !err1) return -2;
 
 	/* Result of user file processing */
 	return err2;

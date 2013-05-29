@@ -1037,6 +1037,7 @@ extern void teleport_away_followable(creature_type *creature_ptr);
 extern void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx);
 extern bool shock_wave(creature_type *creature_ptr);
 extern bool hit_and_away(creature_type *caster_ptr);
+extern bool spreading_throw(creature_type *caster_ptr);
 extern int choose_dungeon(cptr note, int y, int x);
 extern bool word_of_recall(creature_type *creature_ptr, int turns);
 extern bool reset_recall(creature_type *creature_ptr);

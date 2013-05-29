@@ -18,6 +18,7 @@
 #include "quest.h"
 #include "creature_inventory.h"
 #include "creature_melee.h"
+#include "creature_throwing.h"
 
 
 static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode)
@@ -514,6 +515,28 @@ bool hit_and_away(creature_type *caster_ptr)
 		msg_print(NULL);
 	}
 
+	return TRUE;
+}
+
+bool spreading_throw(creature_type *caster_ptr)
+{
+	int i;
+	for (i = 0; i < 8; i++)
+	{
+		int slot;
+
+		for (slot = 0; slot < INVEN_TOTAL; slot++) if(caster_ptr->inventory[slot].tval == TV_SPIKE) break;
+		if(slot == INVEN_TOTAL)
+		{
+			if(!i) msg_print(MES_SPIKE_NO_SPIKE);
+			else msg_print(MES_SPIKE_NO_MORE_SPIKE);
+			return FALSE;
+		}
+
+		/* Gives a multiplier of 2 at first, up to 3 at 40th */
+		do_cmd_throw_aux(caster_ptr, 1, FALSE, slot);
+		cost_tactical_energy(caster_ptr, 100);
+	}
 	return TRUE;
 }
 

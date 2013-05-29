@@ -1223,20 +1223,21 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		if(caster_ptr->lev > 14) detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 	case 2:
-			teleport_creature(caster_ptr, 10, 0L);
-			break;
+		teleport_creature(caster_ptr, 10, 0L);
+		break;
 	case 3:
-			if(!(caster_ptr->posture & NINJA_KAWARIMI))
-			{
-				msg_print(MES_TRAIT_NINJA_EVADE);
-				caster_ptr->posture |= NINJA_KAWARIMI;
-				prepare_redraw(PR_STATUS);
-			}
-			break;
+		if(!(caster_ptr->posture & NINJA_KAWARIMI))
+		{
+			msg_print(MES_TRAIT_NINJA_EVADE);
+			caster_ptr->posture |= NINJA_KAWARIMI;
+			prepare_redraw(PR_STATUS);
+		}
+		break;
 	case 4:
 			teleport_creature(caster_ptr, caster_ptr->lev * 5, 0L);
 			break;
 	case 5:
+		hit_and_away(caster_ptr);
 	case 6:
 		(void)cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, caster_ptr->lev*2, 0);
 		break;
@@ -1253,27 +1254,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 	case 10:
 		return rush_attack(caster_ptr, NULL);
 	case 11:
-		{
-			int i;
-			for (i = 0; i < 8; i++)
-			{
-				int slot;
-
-				for (slot = 0; slot < INVEN_TOTAL; slot++) if(caster_ptr->inventory[slot].tval == TV_SPIKE) break;
-				if(slot == INVEN_TOTAL)
-				{
-					if(!i) msg_print(MES_SPIKE_NO_SPIKE);
-					else msg_print(MES_SPIKE_NO_MORE_SPIKE);
-					return FALSE;
-				}
-
-				/* Gives a multiplier of 2 at first, up to 3 at 40th */
-				do_cmd_throw_aux(caster_ptr, 1, FALSE, slot);
-
-				cost_tactical_energy(caster_ptr, 100);
-			}
-			break;
-		}
+		spreading_throw(caster_ptr);
 	case 12:
 		{
 			creature_type *m_ptr;
