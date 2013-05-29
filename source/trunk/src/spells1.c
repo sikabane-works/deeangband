@@ -2273,7 +2273,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				msg_format(MES_PET_CAPTURED(target_ptr));
 				//TODO: capture creature status
 				if(c_ptr->creature_idx == player_ptr->riding && do_thrown_from_riding(player_ptr, -1, FALSE)) msg_print(MES_FALL_RIDING);
-				delete_species_idx(target_ptr);
+				delete_creature(target_ptr);
 
 				//TODO return TRUE;
 			}

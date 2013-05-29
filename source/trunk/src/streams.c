@@ -254,7 +254,7 @@ void build_streamer(floor_type *floor_ptr, FEATURE_ID feat, int chance)
 			if(c_ptr->creature_idx && !(have_flag(streamer_ptr->flags, FF_PLACE) && creature_can_cross_terrain(&creature_list[c_ptr->creature_idx], feat, 0)))
 			{
 				/* Delete the creature (if any) */
-				delete_creature(floor_ptr, ty, tx);
+				delete_creature_there(floor_ptr, ty, tx);
 			}
 
 			if(c_ptr->object_idx && !have_flag(streamer_ptr->flags, FF_DROP))

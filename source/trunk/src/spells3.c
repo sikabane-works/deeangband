@@ -912,7 +912,7 @@ void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 			write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_TELE_LEVEL, m2_name);
 		}
 
-		delete_species_idx(&creature_list[creature_idx]);
+		delete_creature(&creature_list[creature_idx]);
 	}
 
 	sound(SOUND_TPLEVEL);

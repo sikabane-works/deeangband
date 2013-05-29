@@ -1176,11 +1176,10 @@ species_type *real_species_ptr(creature_type *m_ptr)
 
 
 /*
-* Delete a creature by index.
-*
-* When a creature is deleted, all of its objects are deleted.
-*/
-void delete_species_idx(creature_type *creature_ptr)
+ * Delete a creature by index.
+ * When a creature is deleted, all of its objects are deleted.
+ */
+void delete_creature(creature_type *creature_ptr)
 {
 	int x, y;
 	floor_type *floor_ptr = &floor_list[creature_ptr->floor_idx];
@@ -1215,18 +1214,23 @@ void delete_species_idx(creature_type *creature_ptr)
 /*
 * Delete the creature, if any, at a given location
 */
-void delete_creature(floor_type *floor_ptr, int y, int x)
+void delete_creature_there(floor_type *floor_ptr, int y, int x)
 {
 	cave_type *c_ptr;
-
 
 	if(!IN_BOUNDS(floor_ptr, y, x)) return;
 
 	/* Check the grid */
 	c_ptr = &floor_ptr->cave[y][x];
 
+	if(is_player(&creature_list[c_ptr->creature_idx]))
+	{
+		msg_warning("Player creature must not delete.");
+		return;
+	}
+
 	/* Delete the creature (if any) */
-	if(c_ptr->creature_idx) delete_species_idx(&creature_list[c_ptr->creature_idx]);
+	if(c_ptr->creature_idx) delete_creature(&creature_list[c_ptr->creature_idx]);
 }
 
 
@@ -1308,7 +1312,7 @@ void compact_creatures(int size)
 			}
 
 			/* Delete the creature */
-			delete_species_idx(m_ptr);
+			delete_creature(m_ptr);
 
 			/* Count the creature */
 			num++;
@@ -1360,7 +1364,7 @@ void birth_uniques(void)
 * Delete/Remove all the creatures when the player leaves the level
 *
 * This is an efficient method of simulating multiple calls to the
-* "delete_creature()" function, with no visual effects.
+* "delete_creature_there()" function, with no visual effects.
 */
 void wipe_creature_list(FLOOR_ID floor_idx)
 {

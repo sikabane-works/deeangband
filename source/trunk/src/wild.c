@@ -497,7 +497,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 				{
 					if((f_ptr->subtype == 4) || ((floor_ptr->town_num == 1) && (f_ptr->subtype == 0)))
 					{
-						if(c_ptr->creature_idx) delete_species_idx(&creature_list[c_ptr->creature_idx]);
+						if(c_ptr->creature_idx) delete_creature(&creature_list[c_ptr->creature_idx]);
 						player_ptr->oldpy = y;
 						player_ptr->oldpx = x;
 					}
@@ -518,7 +518,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 
 				if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_ENTRANCE))
 				{
-					if(c_ptr->creature_idx) delete_species_idx(&creature_list[c_ptr->creature_idx]);
+					if(c_ptr->creature_idx) delete_creature(&creature_list[c_ptr->creature_idx]);
 					player_ptr->oldpy = y;
 					player_ptr->oldpx = x;
 				}

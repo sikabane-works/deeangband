@@ -1129,7 +1129,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					COODINATES dummy_x = caster_ptr->fx;
 
 					if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
-					delete_species_idx(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
+					delete_creature(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
 					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANOR, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
@@ -1161,7 +1161,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 								dummy_y = creature_list[k].fy;
 								dummy_x = creature_list[k].fx;
 							}
-							delete_species_idx(&creature_list[k]);
+							delete_creature(&creature_list[k]);
 						}
 					}
 					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANORLUPART, mode);
@@ -2014,7 +2014,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				}
 
 				/* Delete the creature, rather than killing it. */
-				delete_species_idx(&creature_list[cave_ptr->creature_idx]);
+				delete_creature(&creature_list[cave_ptr->creature_idx]);
 				msg_print(MES_TRAIT_BANISH_DONE);
 			}
 			else

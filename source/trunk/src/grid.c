@@ -199,7 +199,7 @@ void place_random_door(floor_type *floor_ptr, int y, int x, bool room)
 		}
 	}
 
-	delete_creature(floor_ptr, y, x);
+	delete_creature_there(floor_ptr, y, x);
 }
 
 

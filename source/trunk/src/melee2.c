@@ -1372,7 +1372,7 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 		creature_dead_effect(player_ptr, creature_ptr, FALSE);
 
 		// Delete the creature
-		delete_species_idx(creature_ptr);
+		delete_creature(creature_ptr);
 
 		if(sad)
 		{
@@ -1547,7 +1547,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 			write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, creature_name);
 		}
 
-		delete_species_idx(&creature_list[creature_idx]);	// Delete the creature
+		delete_creature(&creature_list[creature_idx]);	// Delete the creature
 
 		return;
 	}
@@ -1590,7 +1590,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 
 				// Check for quest completion
 				check_quest_completion(player_ptr, creature_ptr);
-				delete_species_idx(&creature_list[creature_idx]);
+				delete_creature(&creature_list[creature_idx]);
 
 				return;
 			}

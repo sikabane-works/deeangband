@@ -1510,7 +1510,7 @@ static void do_cmd_wiz_zap(creature_type *creature_ptr)
 				write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
 			}
 
-			delete_species_idx(&creature_list[i]);
+			delete_creature(&creature_list[i]);
 		}
 	}
 }
@@ -1543,7 +1543,7 @@ static void do_cmd_wiz_zap_all(creature_type *creature_ptr)
 		}
 
 		/* Delete this creature */
-		delete_species_idx(&creature_list[i]);
+		delete_creature(&creature_list[i]);
 	}
 }
 

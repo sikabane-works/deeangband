@@ -1483,7 +1483,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	creature_dead_effect(player_ptr, target_ptr, FALSE); // Generate treasure, etc
 
 	// Delete the creature
-	delete_species_idx(target_ptr);
+	delete_creature(target_ptr);
 
 	if(sad)
 	{
@@ -1666,7 +1666,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 				if(is_pet(player_ptr, target_ptr)) mode |= PC_FORCE_PET;
 
-				delete_species_idx(target_ptr);
+				delete_creature(target_ptr);
 
 				if(summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BIKETAL, mode))
 				{
@@ -1677,7 +1677,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 #endif
 				}
 			}
-			else delete_species_idx(target_ptr); // Delete the creature
+			else delete_creature(target_ptr); // Delete the creature
 
 			/* Prevent bug of chaos patron's reward */
 			if(has_trait(target_ptr, TRAIT_KILL_EXP))

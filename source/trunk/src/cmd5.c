@@ -1074,7 +1074,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 			prepare_window(PW_MESSAGE);
 			window_stuff(player_ptr);
 
-			delete_species_idx(&creature_list[pet_ctr]);
+			delete_creature(&creature_list[pet_ctr]);
 			Dismissed++;
 		}
 	}

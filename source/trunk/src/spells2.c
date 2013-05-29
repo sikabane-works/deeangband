@@ -1187,7 +1187,7 @@ bool genocide_aux(creature_type *user_ptr, CREATURE_ID creature_idx, POWER power
 			write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
 		}
 
-		delete_species_idx(&creature_list[creature_idx]);
+		delete_creature(&creature_list[creature_idx]);
 	}
 
 	if(resist && player_cast)
@@ -1528,7 +1528,7 @@ bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODI
 				if(in_generate) /* In generation */
 				{
 					/* Delete the creature (if any) */
-					delete_creature(floor_ptr, y, x);
+					delete_creature_there(floor_ptr, y, x);
 				}
 				else if(has_trait(m_ptr, TRAIT_QUESTOR))
 				{
@@ -1549,7 +1549,7 @@ bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODI
 					}
 
 					/* Delete the creature (if any) */
-					delete_creature(floor_ptr, y, x);
+					delete_creature_there(floor_ptr, y, x);
 				}
 			}
 
@@ -2004,7 +2004,7 @@ void discharge_minion(creature_type *caster_ptr)
 			char target_name[MAX_NLEN];
 			creature_desc(target_name, target_ptr, 0x00);
 			msg_format(MES_DIS_MINION_CANCEL(target_name));
-			delete_species_idx(&creature_list[i]);
+			delete_creature(&creature_list[i]);
 			continue;
 		}
 		dam = target_ptr->mhp / 2;
@@ -2022,7 +2022,7 @@ void discharge_minion(creature_type *caster_ptr)
 			write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_BLAST, target_name);
 		}
 
-		delete_species_idx(&creature_list[i]);
+		delete_creature(&creature_list[i]);
 	}
 }
 

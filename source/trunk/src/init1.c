@@ -6783,7 +6783,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 					COODINATES y, x;
 
 					/* Delete the creature (if any) */
-					delete_creature(floor_ptr, player_ptr->fy, player_ptr->fx);
+					delete_creature_there(floor_ptr, player_ptr->fy, player_ptr->fx);
 
 					y = strtol(zz[0], NULL, 10);
 					x = strtol(zz[1], NULL, 10);
