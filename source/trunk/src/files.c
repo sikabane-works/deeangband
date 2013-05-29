@@ -5709,19 +5709,9 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 			if((buf[0] == 'N') && (buf[1] == ':'))
 			{
 				/* Allow default lines */
-				if(buf[2] == '*')
-				{
-					/* Default lines */
-					break;
-				}
-				else if(buf[2] == 'M')
-				{
-					if(IS_MALE(&species_info[entry])) break;
-				}
-				else if(buf[2] == 'F')
-				{
-					if(IS_FEMALE(&species_info[entry])) break;
-				}
+				if(buf[2] == '*') break;
+				else if(buf[2] == 'M') if(IS_MALE(&species_info[entry])) break;
+				else if(buf[2] == 'F') if(IS_FEMALE(&species_info[entry])) break;
 				/* Get the creature number */
 				else if(sscanf(&(buf[2]), "%d", &test) != EOF)
 				{
@@ -5759,7 +5749,6 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 			{
 				/* Ignore lines starting with 'N:' */
 				if((buf[0] == 'N') && (buf[1] == ':')) continue;
-
 				if(buf[0] != '#') break;
 			}
 			else break;

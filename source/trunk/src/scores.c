@@ -566,11 +566,8 @@ errr predict_score(creature_type *player_ptr)
 	strcpy(the_score.how, "nobody (yet!)");
 #endif
 
-
-
 	/* See where the entry would be placed */
 	j = highscore_where(&the_score);
-
 
 	/* Hack -- Display the top fifteen scores */
 	if(j < 10) display_scores_aux(0, 15, j, &the_score);
@@ -581,8 +578,6 @@ errr predict_score(creature_type *player_ptr)
 		display_scores_aux(0, 5, -1, NULL);
 		display_scores_aux(j - 2, j + 7, j, &the_score);
 	}
-
-
 	return SUCCESS;
 }
 
@@ -641,11 +636,9 @@ void show_highclass(creature_type *creature_ptr)
 	}
 
 #ifdef JP
-	sprintf(out_val, "あなた) %sの%s (レベル %2d)",
-	    race_info[creature_ptr->race_idx1].title,creature_ptr->name, creature_ptr->lev);
+	sprintf(out_val, "あなた) %sの%s (レベル %2d)", race_info[creature_ptr->race_idx1].title,creature_ptr->name, creature_ptr->lev);
 #else
-	sprintf(out_val, "You) %s the %s (Level %2d)",
-	    creature_ptr->name, race_info[creature_ptr->race_idx1].title, creature_ptr->lev);
+	sprintf(out_val, "You) %s the %s (Level %2d)", creature_ptr->name, race_info[creature_ptr->race_idx1].title, creature_ptr->lev);
 #endif
 
 	prt(out_val, (m + 8), 0);
@@ -727,11 +720,9 @@ void race_score(creature_type *player_ptr, int race_num)
 	if((player_ptr->race_idx1 == race_num) && (player_ptr->lev >= lastlev))
 	{
 #ifdef JP
-		sprintf(out_val, "あなた) %sの%s (レベル %2d)",
-		     race_info[player_ptr->race_idx1].title, player_ptr->name, player_ptr->lev);
+		sprintf(out_val, "あなた) %sの%s (レベル %2d)", race_info[player_ptr->race_idx1].title, player_ptr->name, player_ptr->lev);
 #else
-		sprintf(out_val, "You) %s the %s (Level %3d)",
-		    player_ptr->name, race_info[player_ptr->race_idx1].title, player_ptr->lev);
+		sprintf(out_val, "You) %s the %s (Level %3d)", player_ptr->name, race_info[player_ptr->race_idx1].title, player_ptr->lev);
 #endif
 
 		prt(out_val, (m + 8), 0);
@@ -812,17 +803,9 @@ void kingly(creature_type *player_ptr)
 	put_str("\"$$       $$$       $$\"", cy - 2, cx - 12);
 	put_str("*#########*#########*", cy - 1, cx - 11);
 	put_str("*#########*#########*", cy, cx - 11);
-
-	/* Display a message */
-#ifdef JP
-	put_str("Veni, Vidi, Vici!", cy + 3, cx - 9);
-	put_str("来た、見た、勝った！", cy + 4, cx - 10);
-	put_str(format("偉大なる%s万歳！", sex_info[player_ptr->sex].winner), cy + 5, cx - 11);
-#else
-	put_str("Veni, Vidi, Vici!", cy + 3, cx - 9);
-	put_str("I came, I saw, I conquered!", cy + 4, cx - 14);
-	put_str(format("All Hail the Mighty %s!", sex_info[player_ptr->sex].winner), cy + 5, cx - 13);
-#endif
+	put_str(MES_DIARY_WINNER_HONOR1, cy + 3, cx - 9);
+	put_str(MES_DIARY_WINNER_HONOR2, cy + 4, cx - 10);
+	put_str(format(MES_DIARY_WINNER_HONOR3(sex_info[player_ptr->sex].winner)), cy + 5, cx - 11);
 
 	/* If player did Seppuku, that is already written in playrecord */
 	if(!seppuku)

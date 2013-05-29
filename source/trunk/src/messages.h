@@ -3264,6 +3264,9 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_PATRON_HEALING "体力が回復した。"
 #define MES_DIARY_CHEAT_DEATH "                            しかし、生き返った。"
 #define MES_DIARY_WINNER "見事にD\'angbandの勝利者となった！"
+#define MES_DIARY_WINNER_HONOR1 "Veni, Vidi, Vici!"
+#define MES_DIARY_WINNER_HONOR2 "来た、見た、勝った！"
+#define MES_DIARY_WINNER_HONOR3(NAME) "偉大なる%s万歳！", (NAME)
 #define MES_DIARY_DISCOVER_ART(ART_NAME) "%sを発見した。\n", (ART_NAME)
 #define MES_DIARY_DEFEAT_UNIQUE(UNIQUE_NAME) "%sを倒した。\n", (UNIQUE_NAME)
 #define MES_DIARY_FIX_QUEST(QUEST_NAME) "クエスト「%s」を達成した。\n", (QUEST_NAME)
@@ -3345,6 +3348,9 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_STAND_IN(PLACE) "You are standing in the %s.", (PLACE)
 #define MES_DIARY_CHEAT_DEATH "                            but revived."
 #define MES_DIARY_WINNER "become *WINNER* of D\'angband finely!"
+#define MES_DIARY_WINNER_HONOR1 "Veni, Vidi, Vici!"
+#define MES_DIARY_WINNER_HONOR2 "I came, I saw, I conquered!"
+#define MES_DIARY_WINNER_HONOR3(NAME) "All Hail the Mighty %s!", (NAME)
 #define MES_DIARY_DISCOVER_ART(ART_NAME) "discovered %s.\n", (ART_NAME)
 #define MES_DIARY_DEFEAT_UNIQUE(UNIQUE_NAME) "defeated %s.\n", (UNIQUE_NAME)
 #define MES_DIARY_FIX_QUEST(QUEST_NAME) "completed quest '%s'.\n", (QUEST_NAME)
