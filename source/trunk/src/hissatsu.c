@@ -372,10 +372,7 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 {
 	OBJECT_ID item;
 	int i, j;
-
 	object_type *object_ptr;
-	cptr q, s;
-
 	bool gain = FALSE;
 
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN))
@@ -397,26 +394,12 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 
 	if(!(creature_ptr->new_spells))
 	{
-#ifdef JP
-msg_print("新しい必殺技を覚えることはできない！");
-#else
-		msg_print("You cannot learn any new special attacks!");
-#endif
-
+		msg_format(MES_STUDY_NO_SLOT(KW_HISSATSU));
 		return;
 	}
+	msg_format(MES_STUDY_SLOT(creature_ptr->new_spells, KW_HISSATSU));
 
-#ifdef JP
-	msg_format("あと %d 種の必殺技を学べる。", creature_ptr->new_spells);
-	q = "どの書から学びますか? ";
-	s = "読める書がない。";
-#else
-	msg_format("You can learn %d new special attack%s.", creature_ptr->new_spells, (creature_ptr->new_spells == 1?"":"s"));
-	q = "Study which book? ";
-	s = "You have no books that you can read.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_HISSATSU_BOOK)) return;
+	if(!get_item(creature_ptr, &item, MES_STUDY_WHICH_BOOK, MES_STUDY_NO_BOOK, (USE_INVEN | USE_FLOOR), NULL, TV_HISSATSU_BOOK)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	for (i = object_ptr->sval * 8; i < object_ptr->sval * 8 + 8; i++)

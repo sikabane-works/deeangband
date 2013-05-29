@@ -288,16 +288,16 @@ mind_power mind_powers[5] =
 };
 
 /*
- * Forcibly pseudo-identify an object in the inventory
- * (or on the floor)
- *
- * note: currently this function allows pseudo-id of any object,
- * including silly ones like potions & scrolls, which always
- * get '{average}'. This should be changed, either to stop such
- * items from being pseudo-id'd, or to allow psychometry to
- * detect whether the unidentified potion/scroll/etc is
- * good (Cure Light Wounds, Restore Strength, etc) or
- * bad (Poison, Weakness etc) or 'useless' (Slime Mold Juice, etc).
+* Forcibly pseudo-identify an object in the inventory
+* (or on the floor)
+*
+* note: currently this function allows pseudo-id of any object,
+* including silly ones like potions & scrolls, which always
+* get '{average}'. This should be changed, either to stop such
+* items from being pseudo-id'd, or to allow psychometry to
+* detect whether the unidentified potion/scroll/etc is
+* good (Cure Light Wounds, Restore Strength, etc) or
+* bad (Poison, Weakness etc) or 'useless' (Slime Mold Juice, etc).
 */
 bool psychometry(creature_type *caster_ptr)
 {
@@ -597,10 +597,7 @@ static int get_mind_power(creature_type *caster_ptr, KEY *sn, bool only_browse)
 
 	for (i = 0; i < MAX_MIND_POWERS; i++)
 	{
-		if(mind_ptr->info[i].min_lev <= lev_bonus)
-		{
-			num++;
-		}
+		if(mind_ptr->info[i].min_lev <= lev_bonus) num++;
 	}
 
 	/* Build a prompt (accept all spells) */
@@ -740,20 +737,15 @@ static int get_mind_power(creature_type *caster_ptr, KEY *sn, bool only_browse)
 						chance, comment));
 					prt(psi_desc, y + i + 1, x);
 				}
-
-				/* Clear the bottom line */
-				prt("", y + i + 1, x);
+				prt("", y + i + 1, x); /* Clear the bottom line */
 			}
 
 			else if(!only_browse)
 			{
 				redraw = FALSE;
-
 				screen_load();
 			}
-
-			/* Redo asking */
-			continue;
+			continue; /* Redo asking */
 		}
 
 		if(!use_menu)
@@ -788,7 +780,6 @@ static int get_mind_power(creature_type *caster_ptr, KEY *sn, bool only_browse)
 	if(redraw && !only_browse) screen_load();
 
 	prepare_window(PW_SPELL); /* Show choices */
-
 	window_stuff(player_ptr);
 
 	/* Abort if needed */
@@ -904,21 +895,21 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 13:
-			if(caster_ptr->time_stopper)
-			{
-				msg_print(MES_TRAIT_WORLD_ALREADY_STOP);
-				return FALSE;
-			}
-			caster_ptr->time_stopper = TRUE;
-			msg_print(MES_TRAIT_WORLD_DONE);
-			msg_print(NULL);
-			caster_ptr->energy_need -= 1000 + (100 + (s16b)caster_ptr->csp - 50) * TURNS_PER_TICK / 10; /* TODO Hack */
+		if(caster_ptr->time_stopper)
+		{
+			msg_print(MES_TRAIT_WORLD_ALREADY_STOP);
+			return FALSE;
+		}
+		caster_ptr->time_stopper = TRUE;
+		msg_print(MES_TRAIT_WORLD_DONE);
+		msg_print(NULL);
+		caster_ptr->energy_need -= 1000 + (100 + (s16b)caster_ptr->csp - 50) * TURNS_PER_TICK / 10; /* TODO Hack */
 
-			prepare_redraw(PR_MAP);
-			prepare_update(caster_ptr, PU_CREATURES);
-			prepare_window(PW_OVERHEAD | PW_DUNGEON);
-			handle_stuff(caster_ptr);
-			break;
+		prepare_redraw(PR_MAP);
+		prepare_update(caster_ptr, PU_CREATURES);
+		prepare_window(PW_OVERHEAD | PW_DUNGEON);
+		handle_stuff(caster_ptr);
+		break;
 
 	default:
 		msg_warning(MES_SYS_OUT_OF_SWITCH);
@@ -1106,7 +1097,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		break;
 		/* shield of water */
 	case 12:
-		tmp = 20+randint1(20);
+		tmp = 20 + randint1(20);
 		set_timed_trait(caster_ptr, TRAIT_SHIELD, tmp, FALSE);
 		if(lev_bonus > 31) set_timed_trait(caster_ptr, TRAIT_REFLECTING, tmp, FALSE);
 		if(lev_bonus > 39) set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
@@ -1148,7 +1139,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 	case 19:
 		if(!binding_field(caster_ptr, MAX_RANGE, lev_bonus * 11 + 5)) msg_print(MES_TRAIT_MIRROR_BINDING_FAILED);
 		break;
-		
+
 	case 20: /* mirror of Ruffnor */
 		(void)set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(4)+4,FALSE);
 		break;
@@ -1203,7 +1194,6 @@ static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	COODINATES x, y;
 	DIRECTION dir;
 
 	switch (spell)
@@ -1212,7 +1202,6 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		(void)unlite_area(caster_ptr, 0, 3);
 		break;
 	case 1:
-		if(caster_ptr->lev > 44) wiz_lite(floor_ptr, caster_ptr, TRUE);
 		detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
 		if(caster_ptr->lev > 4)
 		{
@@ -1221,6 +1210,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
 		}
 		if(caster_ptr->lev > 14) detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
+		if(caster_ptr->lev > 44) wiz_lite(floor_ptr, caster_ptr, TRUE);
 		break;
 	case 2:
 		teleport_creature(caster_ptr, 10, 0L);
@@ -1234,10 +1224,11 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		}
 		break;
 	case 4:
-			teleport_creature(caster_ptr, caster_ptr->lev * 5, 0L);
-			break;
+		teleport_creature(caster_ptr, caster_ptr->lev * 5, 0L);
+		break;
 	case 5:
 		hit_and_away(caster_ptr);
+		break;
 	case 6:
 		(void)cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, caster_ptr->lev*2, 0);
 		break;
@@ -1287,7 +1278,6 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		break;
 	default:
 		msg_warning(MES_SYS_OUT_OF_SWITCH);
-
 	}
 	return TRUE;
 }
@@ -1404,9 +1394,9 @@ void do_cmd_mind(creature_type *caster_ptr)
 	{
 		if(flush_failure) flush();
 #ifdef JP
-		msg_format("%sの集中に失敗した！",p);
+		msg_print("集中に失敗した！");
 #else
-		msg_format("You failed to concentrate hard enough!");
+		msg_print("You failed to concentrate hard enough!");
 #endif
 		sound(SOUND_FAIL);
 
