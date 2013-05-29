@@ -1303,7 +1303,9 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 
 	if(mode) return FALSE; //TODO
 
+	if(c_ptr->creature_idx <= 0) return FALSE;
 	target_ptr = &creature_list[c_ptr->creature_idx];
+	if(!is_valid_creature(target_ptr)) return FALSE;
 
 	disturb(player_ptr, 0, 0);
 
@@ -1333,7 +1335,8 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	//TODO gain_skill(attacker, SKILL_RIDING, amount);
 
 	generate_object(&weapon, 697);
-	do_one_attack(attacker_ptr, target_ptr,&weapon, mode);
+	do_one_attack(attacker_ptr, target_ptr, &weapon, mode);
+	if(IS_DEAD(target_ptr)) return TRUE;
 
 	/* Blink away */
 	/* //TODO

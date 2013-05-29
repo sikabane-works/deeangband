@@ -1185,7 +1185,7 @@ static void you_died(cptr hit_from)
 
 	#ifdef JP // Ž€‚ñ‚¾Žž‚É‹­§I—¹‚µ‚ÄŽ€‚ð‰ñ”ð‚Å‚«‚È‚­‚µ‚Ä‚Ý‚½ by Habu
 	if(!cheat_save)
-	if(!save_player()) msg_print("Save error.");
+	//TODO if(!save_player()) msg_print("Save error.");
 	#endif
 
 	sound(SOUND_DEATH); // Sound
@@ -1324,8 +1324,7 @@ static void you_died(cptr hit_from)
 
 					if(len != 0)
 					{
-						Term_putstr_v(w * 3 / 4 - 2 - msg_pos_x[i] * 2, msg_pos_y[i], len,
-							TERM_WHITE, str);
+						Term_putstr_v(w * 3 / 4 - 2 - msg_pos_x[i] * 2, msg_pos_y[i], len, TERM_WHITE, str);
 						if(str2 == NULL) break;
 						i++;
 					}
@@ -1712,8 +1711,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 	}
 
-	if(has_trait(target_ptr, TRAIT_AFRAID) && (damage > 0)) // Mega-Hack -- Pain cancels fear
-		add_timed_trait(target_ptr, TRAIT_AFRAID, -randint1(damage), FALSE);
+	if(has_trait(target_ptr, TRAIT_AFRAID) && (damage > 0)) add_timed_trait(target_ptr, TRAIT_AFRAID, -randint1(damage), FALSE); // Mega-Hack -- Pain cancels fear
 
 	// Sometimes a creature gets scared by damage
 	if(!has_trait(target_ptr, TRAIT_AFRAID) && !has_trait(target_ptr, TRAIT_FEARLESS))
