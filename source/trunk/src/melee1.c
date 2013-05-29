@@ -833,6 +833,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(k <= 0) can_drain = FALSE;
 		if(drain_result > target_ptr->chp) drain_result = target_ptr->chp;
 
+		k = calc_damage(attacker_ptr, target_ptr, k, DO_EFFECT_MELEE, FALSE, FALSE);
 		take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL, NULL, -1);
 
 		if(IS_DEAD(target_ptr));

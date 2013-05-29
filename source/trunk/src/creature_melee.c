@@ -27,12 +27,6 @@ bool test_hit_melee(creature_type *attacker_ptr, creature_type *target_ptr, obje
 	return TRUE; /* Assume hit */
 }
 
-extern POWER test_buffer_melee(creature_type *attacker_ptr, POWER power, int ac, int vis)
-{
-	return power;
-}
-
-
 
 // Critical hits (by player)
 // Factor in weapon weight, total plusses, player level.
