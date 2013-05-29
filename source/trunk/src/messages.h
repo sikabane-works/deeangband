@@ -2617,6 +2617,7 @@ static cptr desc_stat_neg[] =
 #define MES_STUDY_PERFECT_LEARNED(REALM) "その%sは完全に使いこなせるので学ぶ必要はない。", (REALM)
 #define MES_STUDY_LEARNED(NAME) "%sを学んだ。", (NAME)
 #define MES_STUDY_NO_LEARNED "何も覚えられなかった。"
+#define MES_SPELL_NONE "何も技を知らない。"
 #define MES_SPELL_CHANGE_REALM_ASK "本当に魔法の領域を変更しますか？"
 #define MES_SPELL_FAILED "呪文をうまく唱えられなかった！"
 #define MES_SPELL_CANNOT "呪文を唱えられない！"
@@ -2632,6 +2633,7 @@ static cptr desc_stat_neg[] =
 #define MES_STUDY_PERFECT_LEARNED(REALM) "You don't need to study this %s anymore.", (REALM)
 #define MES_STUDY_LEARNED(NAME) "You have learned %s.", (NAME)
 #define MES_STUDY_NO_LEARNED "You were not able to learn any special attacks."
+#define MES_SPELL_NONE "You don't know any special attacks."
 #define MES_SPELL_CHANGE_REALM_ASK "Really, change magic realm? "
 #define MES_SPELL_FAILED "You failed to get the magic off!"
 #define MES_SPELL_CANNOT "You cannot cast spells!"
@@ -3996,6 +3998,7 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_TELEPORT_BY_CREATURE "テレポートを邪魔された！"
 #define MES_PREVENT_QUAFF_BY_TIMESTOP "瓶から液体が流れ出てこない！"
 #define MES_PREVENT_NO_MIRROR "鏡がなくて集中できなかった！"
+#define MES_PREVENT_SPECIAL_ATTACK_BY_NO_WEAPON "武器を持たないと必殺技は使えない！"
 #else
 #define MES_PREVENT_BY_RIDING "You cannot do it when riding."
 #define MES_PREVENT_BY_CONFUSION "You are too confused."
@@ -4024,6 +4027,7 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_TELEPORT_BY_CREATURE "Your teleportation is blocked!"
 #define MES_PREVENT_QUAFF_BY_TIMESTOP "The potion doesn't flow out from a bottle."
 #define MES_PREVENT_NO_MIRROR "You need a mirror to concentrate!"
+#define MES_PREVENT_SPECIAL_ATTACK_BY_NO_WEAPON "You need to wield a weapon!"
 #endif
 
 #ifdef JP

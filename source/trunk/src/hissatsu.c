@@ -232,7 +232,6 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 			else
 			{
 				redraw = FALSE;
-
 				screen_load();
 			}
 
@@ -245,16 +244,13 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 			if(isalpha(choice))
 			{
 				ask = (isupper(choice));
-
 				if(ask) choice = (char)tolower(choice);
-
 				/* Extract request */
 				i = (islower(choice) ? A2I(choice) : -1);
 			}
 			else
 			{
 				ask = FALSE; /* Can't uppercase digits */
-
 				i = choice - '0' + 26;
 			}
 		}
@@ -284,9 +280,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 
 	/* Show choices */
 	prepare_window(PW_SPELL);
-
 	window_stuff(player_ptr);
-
 
 	/* Abort if needed */
 	if(!flag) return FALSE;
@@ -318,22 +312,12 @@ void do_cmd_hissatsu(creature_type *creature_ptr)
 	if(!get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND))
 	{
 		if(flush_failure) flush();
-#ifdef JP
-msg_print("武器を持たないと必殺技は使えない！");
-#else
-		msg_print("You need to wield a weapon!");
-#endif
-
+		msg_print(MES_PREVENT_SPECIAL_ATTACK_BY_NO_WEAPON);
 		return;
 	}
 	if(!creature_ptr->spell_learned1)
 	{
-#ifdef JP
-msg_print("何も技を知らない。");
-#else
-		msg_print("You don't know any special attacks.");
-#endif
-
+		msg_print(MES_SPELL_NONE);
 		return;
 	}
 
