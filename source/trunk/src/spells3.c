@@ -17,6 +17,7 @@
 #include "files.h"
 #include "quest.h"
 #include "creature_inventory.h"
+#include "creature_melee.h"
 
 
 static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, int x, FLAGS_32 mode)
@@ -489,6 +490,30 @@ bool shock_wave(creature_type *creature_ptr)
 			}
 		}
 	}
+	return TRUE;
+}
+
+bool hit_and_away(creature_type *caster_ptr)
+{
+	COODINATES y, x;
+	DIRECTION dir;
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+
+	if(!get_rep_dir(caster_ptr, &dir, FALSE)) return FALSE;
+	y = caster_ptr->fy + ddy[dir];
+	x = caster_ptr->fx + ddx[dir];
+	if(floor_ptr->cave[y][x].creature_idx)
+	{
+		close_combat(caster_ptr, y, x, 0);
+		if(randint0(caster_ptr->skill_dis) < 7) msg_print(MES_FAILED_RUNAWAY);
+		else teleport_creature(caster_ptr, 30, 0L);
+	}
+	else
+	{
+		msg_print(MES_NO_DICRECTION_CREATURE);
+		msg_print(NULL);
+	}
+
 	return TRUE;
 }
 

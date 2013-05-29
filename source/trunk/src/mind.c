@@ -1169,7 +1169,6 @@ static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 	COODINATES y, x;
 	DIRECTION dir;
 
-
 	// spell code
 	switch (spell)
 	{
@@ -1213,10 +1212,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		(void)unlite_area(caster_ptr, 0, 3);
 		break;
 	case 1:
-		if(caster_ptr->lev > 44)
-		{
-			wiz_lite(floor_ptr, caster_ptr, TRUE);
-		}
+		if(caster_ptr->lev > 44) wiz_lite(floor_ptr, caster_ptr, TRUE);
 		detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
 		if(caster_ptr->lev > 4)
 		{
@@ -1224,10 +1220,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
 			detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
 		}
-		if(caster_ptr->lev > 14)
-		{
-			detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
-		}
+		if(caster_ptr->lev > 14) detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 	case 2:
 			teleport_creature(caster_ptr, 10, 0L);
@@ -1244,26 +1237,6 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 			teleport_creature(caster_ptr, caster_ptr->lev * 5, 0L);
 			break;
 	case 5:
-		{
-			if(!get_rep_dir(caster_ptr, &dir, FALSE)) return FALSE;
-			y = caster_ptr->fy + ddy[dir];
-			x = caster_ptr->fx + ddx[dir];
-			if(floor_ptr->cave[y][x].creature_idx)
-			{
-				close_combat(caster_ptr, y, x, 0);
-				if(randint0(caster_ptr->skill_dis) < 7) msg_print(MES_FAILED_RUNAWAY);
-				else
-				{
-					teleport_creature(caster_ptr, 30, 0L);
-				}
-			}
-			else
-			{
-				msg_print(MES_NO_DICRECTION_CREATURE);
-				msg_print(NULL);
-			}
-			break;
-		}
 	case 6:
 		(void)cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, caster_ptr->lev*2, 0);
 		break;
