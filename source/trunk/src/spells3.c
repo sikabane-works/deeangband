@@ -540,6 +540,75 @@ bool spreading_throw(creature_type *caster_ptr)
 	return TRUE;
 }
 
+bool chain_hook(creature_type *caster_ptr)
+{
+	creature_type *m_ptr;
+	CREATURE_ID creature_idx;
+	char m_name[MAX_NLEN];
+	int i;
+	int path_n;
+	COODINATES path_g[512];
+	COODINATES ty, tx;
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+
+	if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
+	creature_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+	if(!creature_idx) return FALSE;
+	if(creature_idx == caster_ptr->riding) return FALSE;
+	if(!player_has_los_bold(target_row, target_col)) return FALSE;
+	if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) return FALSE;
+	m_ptr = &creature_list[creature_idx];
+	creature_desc(m_name, m_ptr, 0);
+	msg_format(MES_TRAIT_TELEPORT_BACK(m_ptr));
+
+	path_n = project_path(path_g, MAX_RANGE, floor_ptr, target_row, target_col, caster_ptr->fy, caster_ptr->fx, 0);
+	ty = target_row, tx = target_col;
+	for (i = 1; i < path_n; i++)
+	{
+		COODINATES ny = GRID_Y(path_g[i]);
+		COODINATES nx = GRID_X(path_g[i]);
+		cave_type *c_ptr = &floor_ptr->cave[ny][nx];
+
+		if(IN_BOUNDS(floor_ptr, ny, nx) && cave_empty_bold(floor_ptr, ny, nx) &&
+			!(c_ptr->info & CAVE_OBJECT) && !pattern_tile(floor_ptr, ny, nx))
+		{
+			ty = ny;
+			tx = nx;
+		}
+	}
+	/* Update the old location */
+	floor_ptr->cave[target_row][target_col].creature_idx = 0;
+
+	/* Update the new location */
+	floor_ptr->cave[ty][tx].creature_idx = creature_idx;
+
+	/* Move the creature */
+	m_ptr->fy = ty;
+	m_ptr->fx = tx;
+
+	/* Wake the creature up */
+	(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0, TRUE);
+
+	/* Update the creature (new location) */
+	update_creature_view(player_ptr, creature_idx, TRUE);
+	lite_spot(floor_ptr, target_row, target_col);
+	lite_spot(floor_ptr, ty, tx);
+
+	if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
+		prepare_update(caster_ptr, PU_SPECIES_LITE);
+
+	if(m_ptr->see_others)
+	{
+		/* Auto-Recall if possible and visible */
+		if(!has_trait(caster_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
+
+		/* Track a new creature */
+		health_track(creature_idx);
+	}
+
+	return TRUE;
+}
+
 
 void teleport_player_away(creature_type *creature_ptr, COODINATES dis)
 {
