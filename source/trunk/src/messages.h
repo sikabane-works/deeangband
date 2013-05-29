@@ -2615,6 +2615,8 @@ static cptr desc_stat_neg[] =
 #define MES_STUDY_SLOT(NUM, REALM) "あと %d 種の%sを学べる。", (NUM), (REALM)
 #define MES_STUDY_NO_SPELL(REALM) "その本には学ぶべき%sがない。", (REALM)
 #define MES_STUDY_PERFECT_LEARNED(REALM) "その%sは完全に使いこなせるので学ぶ必要はない。", (REALM)
+#define MES_STUDY_LEARNED(NAME) "%sを学んだ。", (NAME)
+#define MES_STUDY_NO_LEARNED "何も覚えられなかった。"
 #define MES_SPELL_CHANGE_REALM_ASK "本当に魔法の領域を変更しますか？"
 #define MES_SPELL_FAILED "呪文をうまく唱えられなかった！"
 #define MES_SPELL_CANNOT "呪文を唱えられない！"
@@ -2628,6 +2630,8 @@ static cptr desc_stat_neg[] =
 #define MES_STUDY_SLOT(REALM, NUM) "You can learn %d new %s%s.", (REALM), (NUM), ((NUM) == 1 ? "":"s")
 #define MES_STUDY_NO_SPELL(REALM) "You cannot learn any %ss in that book.", (REALM)
 #define MES_STUDY_PERFECT_LEARNED(REALM) "You don't need to study this %s anymore.", (REALM)
+#define MES_STUDY_LEARNED(NAME) "You have learned %s.", (NAME)
+#define MES_STUDY_NO_LEARNED "You were not able to learn any special attacks."
 #define MES_SPELL_CHANGE_REALM_ASK "Really, change magic realm? "
 #define MES_SPELL_FAILED "You failed to get the magic off!"
 #define MES_SPELL_CANNOT "You cannot cast spells!"

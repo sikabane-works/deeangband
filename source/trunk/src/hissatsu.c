@@ -409,11 +409,8 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 
 		creature_ptr->spell_learned1 |= (1L << i);
 		creature_ptr->spell_worked1 |= (1L << i);
-#ifdef JP
-		msg_format("%sの技を覚えた。", do_spell(creature_ptr, REALM_HISSATSU, i, SPELL_NAME));
-#else
-		msg_format("You have learned the special attack of %s.", do_spell(creature_ptr, REALM_HISSATSU, i, SPELL_NAME));
-#endif
+		msg_format(MES_STUDY_LEARNED(do_spell(creature_ptr, REALM_HISSATSU, i, SPELL_NAME)));
+
 		for (j = 0; j < (REALM_MAGIC_NUMBER * 2); j++)
 		{
 			/* Stop at the first empty space */
@@ -422,17 +419,7 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 		creature_ptr->spell_order[j] = (byte)i;
 		gain = TRUE;
 	}
-
-	/* No gain ... */
-	if(!gain)
-#ifdef JP
-		msg_print("何も覚えられなかった。");
-#else
-		msg_print("You were not able to learn any special attacks.");
-#endif
-
-	else
-		cost_tactical_energy(creature_ptr, 100);
-
+	if(!gain) msg_print(MES_STUDY_NO_LEARNED);
+	else cost_tactical_energy(creature_ptr, 100);
 	prepare_update(creature_ptr, CRU_SPELLS);
 }
