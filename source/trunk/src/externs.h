@@ -1039,6 +1039,7 @@ extern bool shock_wave(creature_type *creature_ptr);
 extern bool hit_and_away(creature_type *caster_ptr);
 extern bool spreading_throw(creature_type *caster_ptr);
 extern bool chain_hook(creature_type *caster_ptr);
+extern bool rengoku_kaen(creature_type *caster_ptr);
 extern int choose_dungeon(cptr note, int y, int x);
 extern bool word_of_recall(creature_type *creature_ptr, int turns);
 extern bool reset_recall(creature_type *creature_ptr);

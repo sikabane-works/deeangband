@@ -599,16 +599,34 @@ bool chain_hook(creature_type *caster_ptr)
 
 	if(m_ptr->see_others)
 	{
-		/* Auto-Recall if possible and visible */
-		if(!has_trait(caster_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
-
-		/* Track a new creature */
-		health_track(creature_idx);
+		if(!has_trait(caster_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx); /* Auto-Recall if possible and visible */
+		health_track(creature_idx); /* Track a new creature */
 	}
 
 	return TRUE;
 }
 
+bool rengoku_kaen(creature_type *caster_ptr)
+{
+	int k;
+	int num = diceroll(3, 9);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	COODINATES y = caster_ptr->fy, x = caster_ptr->fx;
+
+	for (k = 0; k < num; k++)
+	{
+		int typ = one_in_(2) ? DO_EFFECT_FIRE : one_in_(3) ? DO_EFFECT_NETHER : DO_EFFECT_PLASMA;
+		int attempts = 1000;
+
+		while (attempts--)
+		{
+			scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
+			if(!CREATURE_BOLD(caster_ptr, y, x)) break;
+		}
+		project(caster_ptr, 0, 0, y, x, diceroll(6 + caster_ptr->lev / 8, 10), typ, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
+	}
+	return TRUE;
+}
 
 void teleport_player_away(creature_type *creature_ptr, COODINATES dis)
 {

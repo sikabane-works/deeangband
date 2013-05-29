@@ -1258,6 +1258,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		break;
 	case 12:
 		chain_hook(caster_ptr);
+		break;
 	case 13:
 		cast_ball(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, caster_ptr->lev*3, 3);
 		break;
@@ -1279,23 +1280,8 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		teleport_creature(caster_ptr, 30, 0L);
 		break;
 	case 18:
-		{
-			int k;
-			int num = diceroll(3, 9);
-			for (k = 0; k < num; k++)
-			{
-				int typ = one_in_(2) ? DO_EFFECT_FIRE : one_in_(3) ? DO_EFFECT_NETHER : DO_EFFECT_PLASMA;
-				int attempts = 1000;
-
-				while (attempts--)
-				{
-					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
-					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
-				}
-				project(caster_ptr, 0, 0, y, x, diceroll(6 + caster_ptr->lev / 8, 10), typ, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
-			}
-			break;
-		}
+		rengoku_kaen(caster_ptr);
+		break;
 	case 19:
 		set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
 		break;
