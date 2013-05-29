@@ -2056,12 +2056,6 @@ void creature_wipe(creature_type *creature_ptr)
 {
 	int i;
 
-	if(is_player(creature_ptr))
-	{
-		msg_warning("Player creature must not delete.");
-		return;
-	}
-
 	/* Hack -- free the "last message" string */
 	if(creature_ptr->last_message) string_free(creature_ptr->last_message);
 

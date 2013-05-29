@@ -5192,14 +5192,7 @@ static void print_tomb(creature_type *creature_ptr)
 		if(fp)
 		{
 			int i = 0;
-
-			/* Dump the file to the screen */
-			while (0 == my_fgets(fp, buf, sizeof(buf)))
-			{
-				/* Display and advance */
-				put_str(buf, i++, 0);
-			}
-
+			while (0 == my_fgets(fp, buf, sizeof(buf))) put_str(buf, i++, 0); /* Dump the file to the screen */
 			my_fclose(fp);
 		}
 
@@ -5427,15 +5420,8 @@ static void show_info(creature_type *creature_ptr)
 
 	update_play_time();
 
-	/* Display player */
-	display_creature_status(0, creature_ptr);
-
-	/* Prompt for inventory */
-#ifdef JP
-	prt("‰½‚©ƒL[‚ğ‰Ÿ‚·‚Æ‚³‚ç‚Éî•ñ‚ª‘±‚«‚Ü‚· (ESC‚Å’†’f): ", 23, 0);
-#else
-	prt("Hit any key to see more information (ESC to abort): ", 23, 0);
-#endif
+	display_creature_status(0, creature_ptr); /* Display player */
+	prt(MES_SYS_HIT_ANY_KEY_CAN_ESC, 23, 0); /* Prompt for inventory */
 
 	/* Allow abort at this point */
 	if(inkey() == ESCAPE) return;

@@ -376,9 +376,7 @@ FILE *my_fopen_temp(char *buf, int max)
 errr my_fgets(FILE *fff, char *buf, huge n)
 {
 	huge i = 0;
-
 	char *s;
-
 	char tmp[1024];
 
 	/* Read a line */
@@ -402,21 +400,14 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 			if(*s == '\n')
 			{
 				buf[i] = '\0';
-
 				return SUCCESS;
 			}
-
 			/* Handle tabs */
 			else if(*s == '\t')
 			{
-				/* Hack -- require room */
-				if(i + 8 >= n) break;
-
-				/* Append a space */
-				buf[i++] = ' ';
-
-				/* Append some more spaces */
-				while (0 != (i % 8)) buf[i++] = ' ';
+				if(i + 8 >= n) break; /* Hack -- require room */
+				buf[i++] = ' '; /* Append a space */
+				while (0 != (i % 8)) buf[i++] = ' '; /* Append some more spaces */
 			}
 
 #ifdef JP

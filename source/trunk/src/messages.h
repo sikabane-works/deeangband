@@ -47,6 +47,7 @@
 #define MES_SYS_HIT_ANY_KEY "何かキーを押して下さい。"
 #define MES_SYS_HIT_SPACE_KEY "スペースキーで続行"
 #define MES_SYS_HIT_VERIFY_KEY "確認のため '@' を押して下さい。"
+#define MES_SYS_HIT_ANY_KEY_CAN_ESC "何かキーを押すとさらに情報が続きます (ESCで中断): "
 #define MES_SYS_PLACE_SPACE "場所を選んでスペースキーを押して下さい。"
 #define MES_SYS_OPTION_AUX "初期オプション((*)はスコアに影響)"
 #define MES_SYS_OPTION_AUX2 "初期オプション(参照のみ)"
@@ -126,8 +127,8 @@
 #define MES_SYS_REPLACE_FILE "Replace existing file %s? "
 #define MES_SYS_HIT_ANY_KEY "Hit Any Key。"
 #define MES_SYS_HIT_VERIFY_KEY "Please verify by typing the '@' sign: "
+#define MES_SYS_HIT_ANY_KEY_CAN_ESC "Hit any key to see more information (ESC to abort): "
 #define MES_SYS_PLACE_SPACE "Select a point and press space."
-
 #define MES_SYS_OPTION_AUX "Birth Option((*)s effect score)"
 #define MES_SYS_OPTION_AUX2 "Birth Options(browse only)"
 #define MES_SYS_AUTO_SAVING "Autosaving the game..."
