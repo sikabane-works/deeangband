@@ -9899,14 +9899,9 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			if(!get_check(format("Do you curse %s, reallyÅH", object_name))) return FALSE;
 #endif
 
-			if(!one_in_(3) &&
-				(object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRAND)))
+			if(!one_in_(3) && (object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRAND)))
 			{
-#ifdef JP
-				msg_format("%s ÇÕéÙÇ¢ÇíµÇÀï‘ÇµÇΩÅB", object_name);
-#else
-				msg_format("%s resists the effect.", object_name);
-#endif
+				msg_format(MES_OBJECT_RESISTED_CURSE1(object_ptr));
 				if(one_in_(3)) object_disenchant(caster_ptr, object_ptr, 0);
 			}
 			else
@@ -10289,11 +10284,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(!one_in_(3) && (object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRAND)))
 			{
-#ifdef JP
-				msg_format("%s ÇÕéÙÇ¢ÇíµÇÀï‘ÇµÇΩÅB", object_name);
-#else
-				msg_format("%s resists the effect.", object_name);
-#endif
+				msg_format(MES_OBJECT_RESISTED_CURSE1(object_ptr));
 				if(one_in_(3)) object_disenchant(caster_ptr, object_ptr, 0);
 			}
 			else

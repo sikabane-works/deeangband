@@ -1086,12 +1086,14 @@
 
 #ifdef JP
 #define MES_OBJECT_DISENCHANTED(OBJECT) "%sは劣化してしまった。", (OBJECT)->name
+#define MES_OBJECT_RESISTED_CURSE1(OBJECT) "%sは呪いを跳ね返した。", (OBJECT)->name
 #define MES_OBJECT_RESISTED_CURSE(OBJECT) "%sは恐怖の暗黒オーラを跳ね返した。", (OBJECT)->name
 #define MES_OBJECT_KILLED "壊れてしまった。"
 #define MES_OBJECT_DUSTED "灰になった。"
 #define MES_OBJECT_DISAPPERED(OBJECT) "%sは消えた。", (OBJECT)->name
 #else
 #define MES_OBJECT_DISENCHANTED(OBJECT) "Your %s was disenchanted.", (OBJECT)
+#define MES_OBJECT_RESISTED_CURSE1(OBJECT) "%s resists the effect.", (OBJECT)->name
 #define MES_OBJECT_RESISTED_CURSE(OBJECT) "Your %s resists the terrible black aura.", (OBJECT)->name
 #define MES_OBJECT_KILLED (plural ? " are destroyed!" : " is destroyed!")
 #define MES_OBJECT_DUSTED (plural ? " become dust." : " becomes dust.")
