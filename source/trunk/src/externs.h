@@ -430,6 +430,7 @@ extern char *trait_tmp;	// for self reference
 extern race_type *race_info;
 extern char *race_name;
 extern char *race_text;
+extern char *race_tag;
 
 extern class_type *class_info;
 extern char *class_name;

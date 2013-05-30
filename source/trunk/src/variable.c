@@ -704,6 +704,7 @@ char *trait_tmp;
 race_type *race_info;
 char *race_name;
 char *race_text;
+char *race_tag;
 
 // The class arrays
 class_type *class_info;

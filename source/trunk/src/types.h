@@ -616,6 +616,8 @@ struct species_type
 	STRING_OFFSET E_text; /* English Text (offset) */
 #endif
 
+	STRING_OFFSET sp_melee;
+
 	SPECIES_ID species_idx; /* Species index */
 	SPECIES_ID ap_species_idx; /* Species appearance index */
 

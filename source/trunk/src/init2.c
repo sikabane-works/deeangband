@@ -933,7 +933,7 @@ static errr init_race_info(void)
 	/* Save a pointer to the parsing function */
 	race_head.parse_info_txt = parse_race_info_csv;
 
-	r = init_info2("race_info", &race_head, (void*)&race_info, &race_name, &race_text, NULL, NULL);
+	r = init_info2("race_info", &race_head, (void*)&race_info, &race_name, &race_text, &race_tag, NULL);
 
 	for(i = 0; i < MAX_RACES; i++)
 		race_info[i].title = race_name + race_info[i].name;

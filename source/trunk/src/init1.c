@@ -3027,6 +3027,7 @@ enum SPECIES_TYPE {
 	SPECIES_INFO_F_HM,
 	SPECIES_INFO_F_WB,
 	SPECIES_INFO_F_WM,
+	SPECIES_INFO_SP_MELEE,
 	SPECIES_INFO_BATTLE,
 	SPECIES_INFO_UNDERLING,
 	SPECIES_INFO_ARTIFACT,
@@ -3098,6 +3099,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"F_HM",
 	"F_WB",
 	"F_WM",
+	"SP_MELEE",
 	"BATTLE",
 	"UNDERLING",
 	"ARTIFACT",
@@ -3440,6 +3442,10 @@ errr parse_species_info_csv(char *buf, header *head)
 			case SPECIES_INFO_F_WM:
 				if(sscanf(tmp, "%u", &ub) != 1) return PARSE_ERROR_GENERIC;
 				species_ptr->f_m_wt = (u32b)ub;
+				break;
+
+			case SPECIES_INFO_SP_MELEE:
+				if(add_tag(&species_ptr->sp_melee, head, tmp)) return PARSE_ERROR_GENERIC;
 				break;
 
 			case SPECIES_INFO_BATTLE:
@@ -4838,7 +4844,7 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_SP_MELEE:
-				add_tag(&race_ptr->special_melee_tag, head, tmp);
+				if(add_tag(&race_ptr->special_melee_tag, head, tmp)) return PARSE_ERROR_GENERIC;
 				break;
 
 			default:
