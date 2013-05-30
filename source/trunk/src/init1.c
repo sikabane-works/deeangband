@@ -4434,7 +4434,8 @@ errr parse_race_info_csv(char *buf, header *head)
 	int i, j, b;
 	char tmp[10000], nt[80];
 
-	if(get_split_offset(split, size, buf, RC_INFO_CSV_COLUMNS, ',', '"')){
+	if(get_split_offset(split, size, buf, RC_INFO_CSV_COLUMNS, ',', '"'))
+	{
 		return PARSE_ERROR_GENERIC;
 	}
 
@@ -4774,18 +4775,15 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_DESCRIPTION:
-				if(!add_text(&race_ptr->text, head, tmp, TRUE))
-					return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!add_text(&race_ptr->text, head, tmp, TRUE)) return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 
 			case RC_INFO_E_DESCRIPTION:
 #if JP
-				if(!add_text(&race_ptr->E_text, head, tmp, TRUE))
-					return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!add_text(&race_ptr->E_text, head, tmp, TRUE)) return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-				if(!add_text(&race_ptr->text, head, tmp, TRUE))
-					return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!add_text(&race_ptr->text, head, tmp, TRUE)) return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
@@ -4840,6 +4838,7 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_SP_MELEE:
+				add_tag(&race_ptr->special_melee_tag, head, tmp);
 				break;
 
 			default:

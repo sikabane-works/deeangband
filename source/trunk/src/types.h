@@ -1152,6 +1152,7 @@ struct race_type
 	STRING_OFFSET E_text;        /* English (offset) */
 #endif
 
+	STRING_OFFSET special_melee_tag;			/* text (offset) */
 
 	byte race_category; /* Race Category */
 	byte rarity;      /* Race Rarelity */
