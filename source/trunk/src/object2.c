@@ -3076,11 +3076,10 @@ OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, 
 	{
 		if(projectable(floor_ptr, MAX_RANGE_SUB, player_ptr->fy, player_ptr->fx, y, x))
 		{
+			msg_format(MES_OBJECT_DISAPPERED(object_ptr));
 #ifdef JP
-			msg_format("%sは消えた。", object_name);
 			if(wizard) msg_print("(床スペースがない)");
 #else
-			msg_format("The %s disappear%s.", object_name, ((object_ptr->number != 1) ? "" : "s"));
 			if(wizard) msg_print("(no floor space)");
 #endif
 		}
@@ -3122,11 +3121,10 @@ OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, 
 		{
 			if(projectable(floor_ptr, MAX_RANGE_SUB, player_ptr->fy, player_ptr->fx, y, x))
 			{
+				msg_format(MES_OBJECT_DISAPPERED(object_ptr));
 #ifdef JP
-				msg_format("%sは消えた。", object_name);
 				if(wizard) msg_print("(床スペースがない)");
 #else
-				msg_format("The %s disappear%s.", object_name, ((object_ptr->number != 1) ? "" : "s"));
 				if(wizard) msg_print("(no floor space)");
 #endif
 			}
@@ -3180,11 +3178,10 @@ OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, 
 
 	if(!done && !object_idx)
 	{
+		msg_format(MES_OBJECT_DISAPPERED(object_ptr));
 #ifdef JP
-		msg_format("%sは消えた。", object_name);
 		if(wizard) msg_warning("アイテムが多過ぎる");
 #else
-		msg_format("The %s disappear%s.", object_name, ((object_ptr->number != 1) ? "" : "s"));
 		if(wizard) msg_warning("too many objects");
 #endif
 		if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->name1].cur_num = 0; // Hack -- Preserve artifacts

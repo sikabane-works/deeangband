@@ -1089,11 +1089,13 @@
 #define MES_OBJECT_RESISTED_CURSE(OBJECT) "%sは恐怖の暗黒オーラを跳ね返した。", (OBJECT)->name
 #define MES_OBJECT_KILLED "壊れてしまった。"
 #define MES_OBJECT_DUSTED "灰になった。"
+#define MES_OBJECT_DISAPPERED(OBJECT) "%sは消えた。", (OBJECT)->name
 #else
 #define MES_OBJECT_DISENCHANTED(OBJECT) "Your %s was disenchanted.", (OBJECT)
 #define MES_OBJECT_RESISTED_CURSE(OBJECT) "Your %s resists the terrible black aura.", (OBJECT)->name
 #define MES_OBJECT_KILLED (plural ? " are destroyed!" : " is destroyed!")
 #define MES_OBJECT_DUSTED (plural ? " become dust." : " becomes dust.")
+#define MES_OBJECT_DISAPPERED(OBJECT) "The %s disappear%s.", (OBJECT)->name, (((OBJECT)->number != 1) ? "" : "s")
 #endif
 
 #ifdef JP
@@ -4630,11 +4632,13 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_TELEPORT_DISAPPERED(CREATURE) "%sは消えた。", (CREATURE)->name
 #define MES_TELEPORT_PREVENTED "不思議な力がテレポートを防いだ！"
 #define MES_TELEPORT_NO_DUNGEON "選べるダンジョンがない。"
 #define MES_TELEPORT_WHICH(NOTE) "どのダンジョン%sしますか:", (NOTE)
 #define MES_TELEPORT_CANNOT "そこにはテレポートできない。"
 #else
+#define MES_TELEPORT_DISAPPERED(CREATURE) "%^s disappears!", (CREATURE)->name
 #define MES_TELEPORT_PREVENTED "A mysterious force prevents you from teleporting!"
 #define MES_TELEPORT_NO_DUNGEON "No dungeon is available."
 #define MES_TELEPORT_WHICH(NOTE) "Which dungeon do you %s?: ", (NOTE)

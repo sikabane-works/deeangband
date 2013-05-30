@@ -972,11 +972,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		if(!resists_tele)
 		{
-#ifdef JP
-			msg_format("%^s‚ÍÁ‚¦‚½I", target_name);
-#else
-			msg_format("%^s disappears!", target_name);
-#endif
+			msg_format(MES_TELEPORT_DISAPPERED(target_ptr));
 			teleport_away(&creature_list[c_ptr->creature_idx], 50, TELEPORT_PASSIVE);
 		}
 	}
