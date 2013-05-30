@@ -3628,6 +3628,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_ATT_ANIMAL "動物を引き寄せた！"
 #define MES_TRAIT_NAUSEA "胃が痙攣し、食事を失った！"
 #define MES_TRAIT_ADD_CURSED(OBJECT) "悪意に満ちた黒いオーラが%sをとりまいた...", (OBJECT)->name
+#define MES_TRAIT_ADD_CURSED2(CREATURE, OBJECT) "悪意に満ちた黒いオーラが%sの%sをとりまいた...", (CREATURE)->name, (OBJECT)->name
 #define MES_TRAIT_BERS_RAGE1 "ウガァァア！"
 #define MES_TRAIT_BERS_RAGE2 "激怒の発作に襲われた！"
 #define MES_TRAIT_COWARDICE "とても暗い... とても恐い！"
@@ -3708,6 +3709,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_ATT_ANIMAL "You have attracted an animal!"
 #define MES_TRAIT_NAUSEA "Your stomach roils, and you lose your lunch!"
 #define MES_TRAIT_ADD_CURSED(OBJECT) "There is a malignant black aura surrounding your %s...", (OBJECT)->name
+#define MES_TRAIT_ADD_CURSED2(CREATURE, OBJECT)　"There is a malignant black aura surrounding %s's %s...", (CREATURE)->name, (OBJECT)->name
 #define MES_TRAIT_BERS_RAGE1 "RAAAAGHH!"
 #define MES_TRAIT_BERS_RAGE2 "You feel a fit of rage coming over you!"
 #define MES_TRAIT_COWARDICE "It's so dark... so scary!"

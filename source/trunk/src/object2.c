@@ -3179,11 +3179,7 @@ OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, 
 	if(!done && !object_idx)
 	{
 		msg_format(MES_OBJECT_DISAPPERED(object_ptr));
-#ifdef JP
-		if(wizard) msg_warning("アイテムが多過ぎる");
-#else
-		if(wizard) msg_warning("too many objects");
-#endif
+		if(wizard) msg_warning(MES_DEBUG_TOO_ITEM);
 		if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->name1].cur_num = 0; // Hack -- Preserve artifacts
 		return SUCCESS; // Failure
 	}
@@ -5923,11 +5919,7 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 
 	if(changed)
 	{
-#ifdef JP
-		msg_format("悪意に満ちた黒いオーラが%sの%sをとりまいた...", creature_ptr->name, object_name);
-#else
-		msg_format("There is a malignant black aura surrounding %s's %s...", creature_ptr->name, object_name);
-#endif
+		msg_format(MES_TRAIT_ADD_CURSED2(creature_ptr, object_ptr));
 		object_ptr->feeling = FEEL_NONE;
 	}
 	prepare_update(creature_ptr, CRU_BONUS);
