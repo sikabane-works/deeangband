@@ -1505,13 +1505,8 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 				else wiz_dark(floor_ptr, creature_ptr);
 				(void)teleport_player_aux(creature_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 				wiz_dark(floor_ptr, creature_ptr);
-#ifdef JP
-				msg_print("あなたは見知らぬ場所で目が醒めた...頭が痛い。");
-				msg_print("何も覚えていない。どうやってここに来たかも分からない！");
-#else
-				msg_print("You wake up somewhere with a sore head...");
-				msg_print("You can't remember a thing, or how you got here!");
-#endif
+				msg_print(MES_TRAIT_ALCOHOL_TELEPORT1);
+				msg_print(MES_TRAIT_ALCOHOL_TELEPORT2);
 			}
 			else if(one_in_(3))
 			{
@@ -1670,11 +1665,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_RAW_CHAOS) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(8000))
 	{
 		disturb(player_ptr, 0, 0);
-#ifdef JP
-		msg_print("周りの空間が歪んでいる気がする！");
-#else
-		msg_print("You feel the world warping around you!");
-#endif
+		msg_print(MES_TRAIT_RAW_CHAOS_DONE);
 		msg_print(NULL);
 		SELF_FIELD(creature_ptr, DO_EFFECT_CHAOS, creature_ptr->lev, 8, -1);
 	}

@@ -3698,6 +3698,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_CAST_WONDER_MIGHTY "あなたは力がみなぎるのを感じた！"
 #define MES_TRAIT_ALCOHOL_DONE "いひきがもーろーとひてきたきがふる...ヒック！"
 #define MES_TRAIT_ALCOHOL_HALLUCINATION_DONE "き～れいなちょおちょらとんれいる～"
+#define MES_TRAIT_ALCOHOL_TELEPORT1 "あなたは見知らぬ場所で目が醒めた...頭が痛い。"
+#define MES_TRAIT_ALCOHOL_TELEPORT2 "何も覚えていない。どうやってここに来たかも分からない！"
+#define MES_TRAIT_RAW_CHAOS_DONE "周りの空間が歪んでいる気がする！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3781,6 +3784,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_CAST_WONDER_MIGHTY "You feel a surge of power!"
 #define MES_TRAIT_ALCOHOL_DONE "You feel a SSSCHtupor cOmINg over yOu... *HIC*!"
 #define MES_TRAIT_ALCOHOL_HALLUCINATION_DONE "Thishcischs GooDSChtuff!"
+#define MES_TRAIT_ALCOHOL_TELEPORT1 "You wake up somewhere with a sore head..."
+#define MES_TRAIT_ALCOHOL_TELEPORT2 "You can't remember a thing, or how you got here!"
+#define MES_TRAIT_RAW_CHAOS_DONE "You feel the world warping around you!"
 #endif
 
 #ifdef JP
