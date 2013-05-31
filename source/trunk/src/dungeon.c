@@ -2580,13 +2580,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 			else
 			{
 				COODINATES y, x;
-
-#ifdef JP
-				msg_print("日が沈んだ。");
-#else
-				msg_print("The sun has fallen.");
-#endif
-
+				msg_print(MES_TIME_SUNSET);
 				if(!floor_ptr->global_map)
 				{
 					/* Hack -- Scan the town */
@@ -2694,18 +2688,11 @@ static void process_world(void)
 		{
 			disturb(player_ptr, 0, 0);
 			switch (min / 15)
-			{			
-#ifdef JP
-			case 0: msg_print("遠くで不気味な鐘の音が鳴った。"); break;
-			case 1: msg_print("遠くで鐘が二回鳴った。"); break;
-			case 2: msg_print("遠くで鐘が三回鳴った。"); break;
-			case 3: msg_print("遠くで鐘が四回鳴った。"); break;
-#else
-			case 0: msg_print("You hear a distant bell toll ominously."); break;
-			case 1: msg_print("A distant bell sounds twice."); break;
-			case 2: msg_print("A distant bell sounds three times."); break;
-			case 3: msg_print("A distant bell tolls four times."); break;
-#endif
+			{
+			case 0: msg_print(MES_TIME_NIGHTMARE_MIDNIGHT_1); break;
+			case 1: msg_print(MES_TIME_NIGHTMARE_MIDNIGHT_2); break;
+			case 2: msg_print(MES_TIME_NIGHTMARE_MIDNIGHT_3); break;
+			case 3: msg_print(MES_TIME_NIGHTMARE_MIDNIGHT_4); break;
 			}
 		}
 
@@ -2713,13 +2700,8 @@ static void process_world(void)
 		if(!hour && !min)
 		{
 			int count = 0;
-
 			disturb(player_ptr, 1, 0);
-#ifdef JP
-			msg_print("遠くで鐘が何回も鳴り、死んだような静けさの中へ消えていった。");
-#else
-			msg_print("A distant bell tolls many times, fading into an deathly silence.");
-#endif
+			msg_print(MES_TIME_NIGHTMARE_MIDNIGHT_DONE);
 			activate_ty_curse(player_ptr, FALSE, &count);
 		}
 	}
