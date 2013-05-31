@@ -1047,6 +1047,9 @@
 #define MES_PATTERN_LIMIT4 "パターンを踏み外してはいけません。"
 #define MES_PATTERN_GOAL "「パターン」のこの部分は他の部分より強力でないようだ。"
 #define MES_PATTERN_WRECKED "パターンを血で汚してしまった！何か恐ろしい事が起こりそうだ！"
+#define MES_PATTERN_TELEPORT "他の階にテレポートしますか？"
+#define MES_PATTERN_TELEPORT2 "通常テレポート？"
+#define MES_PATTERN_TELEPORT_DONE(DEPTH) "%d 階にテレポートしました。", (DEPTH)
 
 #else
 #define MES_FEATURE_NO_UP_STAIR "I see no up staircase here."
@@ -1068,6 +1071,10 @@
 #define MES_PATTERN_LIMIT4 "You may not step off from the Pattern."
 #define MES_PATTERN_GOAL "This section of the Pattern looks less powerful."
 #define MES_PATTERN_WRECKED "You bleed on the Pattern! Something terrible happens!"
+#define MES_PATTERN_TELEPORT "Teleport level? "
+#define MES_PATTERN_TELEPORT2 "Normal teleport? "
+#define MES_PATTERN_TELEPORT_DONE(DEPTH) "You teleport to dungeon level %d.", (DEPTH)
+
 #endif
 
 #ifdef JP

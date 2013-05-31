@@ -547,11 +547,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Ask for level
-#ifdef JP
-	if(get_check("他の階にテレポートしますか？"))
-#else
-	if(get_check("Teleport level? "))
-#endif
+	if(get_check(MES_PATTERN_TELEPORT))
 	{
 		char	ppp[80];
 		char	tmp_val[160];
@@ -563,10 +559,8 @@ static void pattern_teleport(creature_type *creature_ptr)
 		/* Maximum level */
 		if(floor_ptr->dungeon_id == DUNGEON_ANGBAND)
 		{
-			if(floor_ptr->depth > 100)
-				max_level = MAX_DEPTH - 1;
-			else if(floor_ptr->depth == 100)
-				max_level = 100;
+			if(floor_ptr->depth > 100) max_level = MAX_DEPTH - 1;
+			else if(floor_ptr->depth == 100) max_level = 100;
 		}
 		else
 		{
@@ -589,29 +583,16 @@ static void pattern_teleport(creature_type *creature_ptr)
 		/* Extract request */
 		depth = (FLOOR_LEV)strtol(tmp_val, NULL, 10);
 	}
-#ifdef JP
-	else if(get_check("通常テレポート？"))
-#else
-	else if(get_check("Normal teleport? "))
-#endif
+	else if(get_check(MES_PATTERN_TELEPORT2))
 	{
 		teleport_creature(creature_ptr, 200, 0L);
 		return;
 	}
-	else
-	{
-		return;
-	}
+	else return;
 
 	if(depth < min_level) depth = min_level;
 	if(depth > max_level) depth = max_level;
-
-	/* Accept request */
-#ifdef JP
-	msg_format("%d 階にテレポートしました。", depth);
-#else
-	msg_format("You teleport to dungeon level %d.", depth);
-#endif
+	msg_format(MES_PATTERN_TELEPORT_DONE(depth)); /* Accept request */
 
 	if(autosave_l) do_cmd_save_game(TRUE);
 
