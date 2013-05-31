@@ -185,46 +185,15 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	/* Get an object description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-	if(IS_EQUIPPED(object_ptr))
-	{
-#ifdef JP
-		msg_format("%s%s(%c)‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...", describe_use(creature_ptr, slot),object_name, index_to_label(slot),game_inscriptions[feel]);
-#else
-		msg_format("You feel the %s (%c) you are %s %s %s...",
-			object_name, index_to_label(slot), describe_use(slot),
-			((object_ptr->number == 1) ? "is" : "are"),
-			game_inscriptions[feel]);
-#endif
+	if(IS_EQUIPPED(object_ptr)) msg_format(MES_OBJECT_FEEL_EQUIPMENT(describe_use(creature_ptr, slot), object_ptr, index_to_label(slot),game_inscriptions[feel]));
+	else msg_format(MES_OBJECT_FEEL_INVENTORY(object_ptr, index_to_label(slot), game_inscriptions[feel])); /* Message (inventory) */
 
-	}
-
-	/* Message (inventory) */
-	else
-	{
-#ifdef JP
-		msg_format("ƒUƒbƒN‚Ì’†‚Ì%s(%c)‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
-			object_name, index_to_label(slot), game_inscriptions[feel]);
-#else
-		msg_format("You feel the %s (%c) in your pack %s %s...",
-			object_name, index_to_label(slot),
-			((object_ptr->number == 1) ? "is" : "are"),
-			game_inscriptions[feel]);
-#endif
-
-	}
-
-	/* We have "felt" it */
-	object_ptr->ident |= (IDENT_SENSE);
-
-	/* Set the "inscription" */
-	object_ptr->feeling = feel;
-
-	/* Auto-inscription/destroy */
-	autopick_alter_item(creature_ptr, slot, destroy_feeling);
+	object_ptr->ident |= (IDENT_SENSE); /* We have "felt" it */
+	object_ptr->feeling = feel; /* Set the "inscription" */
+	autopick_alter_item(creature_ptr, slot, destroy_feeling); /* Auto-inscription/destroy */
 
 	/* Combine / Reorder the pack (later) */
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
-
 	prepare_window(PW_INVEN | PW_EQUIP);
 }
 
@@ -2778,16 +2747,9 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Ignore */
 	case ESCAPE:
 	case ' ':
-		{
-			break;
-		}
-
-		/* Ignore return */
 	case '\r':
 	case '\n':
-		{
-			break;
-		}
+		break;
 
 		/*** Wizard Commands ***/
 
@@ -2801,47 +2763,29 @@ static void process_player_command(creature_type *creature_ptr)
 
 		/*** inventory Commands ***/
 
-		/* Wear/wield equipment */
-	case 'w':
-		{
-			if(!floor_ptr->global_map) do_cmd_wield(creature_ptr);
-			break;
-		}
+	case 'w': /* Wear/wield equipment */
+		if(!floor_ptr->global_map) do_cmd_wield(creature_ptr);
+		break;
 
-		/* Take off equipment */
-	case 't':
-		{
-			if(!floor_ptr->global_map) do_cmd_takeoff(creature_ptr);
-			break;
-		}
+	case 't': /* Take off equipment */
+		if(!floor_ptr->global_map) do_cmd_takeoff(creature_ptr);
+		break;
 
-		/* Drop an item */
-	case 'd':
-		{
-			if(!floor_ptr->global_map) do_cmd_drop(creature_ptr);
-			break;
-		}
+	case 'd': /* Drop an item */
+		if(!floor_ptr->global_map) do_cmd_drop(creature_ptr);
+		break;
 
-		/* Destroy an item */
-	case 'k':
-		{
-			do_cmd_destroy(creature_ptr);
-			break;
-		}
+	case 'k': /* Destroy an item */
+		do_cmd_destroy(creature_ptr);
+		break;
 
-		/* Equipment list */
-	case 'e':
-		{
-			do_cmd_equip(creature_ptr);
-			break;
-		}
+	case 'e': /* Equipment list */
+		do_cmd_equip(creature_ptr);
+		break;
 
-		/* inventory list */
-	case 'i':
-		{
-			do_cmd_inven(creature_ptr);
-			break;
-		}
+	case 'i': /* inventory list */
+		do_cmd_inven(creature_ptr);
+		break;
 
 
 		/*** Various commands ***/
@@ -2954,26 +2898,24 @@ static void process_player_command(creature_type *creature_ptr)
 			break;
 		}
 	case '>':
-			if(floor_ptr->global_map)
-				change_wild_mode(creature_ptr);
-			else
-				do_cmd_go_down(creature_ptr);
-			break;
+		if(floor_ptr->global_map) change_wild_mode(creature_ptr);
+		else do_cmd_go_down(creature_ptr);
+		break;
 	case 'o': // Open a door or chest
-			if(!floor_ptr->global_map) do_cmd_open(creature_ptr);
-			break;
+		if(!floor_ptr->global_map) do_cmd_open(creature_ptr);
+		break;
 	case 'c': // Close
-			if(!floor_ptr->global_map) do_cmd_close(creature_ptr);
-			break;
+		if(!floor_ptr->global_map) do_cmd_close(creature_ptr);
+		break;
 	case 'j': // Jam a door with spikes
-			if(!floor_ptr->global_map) do_cmd_spike(creature_ptr);
-			break;
+		if(!floor_ptr->global_map) do_cmd_spike(creature_ptr);
+		break;
 	case 'B': // Bash
-			if(!floor_ptr->global_map) do_cmd_bash(creature_ptr);
-			break;
+		if(!floor_ptr->global_map) do_cmd_bash(creature_ptr);
+		break;
 	case 'D': // Disarm a trap or chest
-			if(!floor_ptr->global_map) do_cmd_disarm(creature_ptr);
-			break;
+		if(!floor_ptr->global_map) do_cmd_disarm(creature_ptr);
+		break;
 
 		/*** Magic and Prayers ***/
 
@@ -3186,14 +3128,8 @@ static void process_player_command(creature_type *creature_ptr)
 					msg_print(MES_ARENA_LIMIT);
 					msg_print(NULL);
 				}
-				else if(use_command && rogue_like_commands)
-				{
-					do_cmd_use(creature_ptr);
-				}
-				else
-				{
-					do_cmd_zap_rod(creature_ptr);
-				}
+				else if(use_command && rogue_like_commands) do_cmd_use(creature_ptr);
+				else do_cmd_zap_rod(creature_ptr);
 			}
 			break;
 		}

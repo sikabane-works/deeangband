@@ -1091,6 +1091,8 @@
 #define MES_OBJECT_KILLED "壊れてしまった。"
 #define MES_OBJECT_DUSTED "灰になった。"
 #define MES_OBJECT_DISAPPERED(OBJECT) "%sは消えた。", (OBJECT)->name
+#define MES_OBJECT_FEEL_EQUIPMENT(USING, OBJECT, SLOT, FEEL) "%s%s(%c)は%sという感じがする...", (USING), (OBJECT)->name, (SLOT), (FEEL)
+#define MES_OBJECT_FEEL_INVENTORY(OBJECT, SLOT, FEEL) "ザックの中の%s(%c)は%sという感じがする...", (OBJECT)->name, (SLOT), (FEEL)
 #else
 #define MES_OBJECT_DISENCHANTED(OBJECT) "Your %s was disenchanted.", (OBJECT)
 #define MES_OBJECT_RESISTED_CURSE1(OBJECT) "%s resists the effect.", (OBJECT)->name
@@ -1098,6 +1100,8 @@
 #define MES_OBJECT_KILLED (plural ? " are destroyed!" : " is destroyed!")
 #define MES_OBJECT_DUSTED (plural ? " become dust." : " becomes dust.")
 #define MES_OBJECT_DISAPPERED(OBJECT) "The %s disappear%s.", (OBJECT)->name, (((OBJECT)->number != 1) ? "" : "s")
+#define MES_OBJECT_FEEL_EQUIPMENT(USING, OBJECT, SLOT, FEEL) "You feel the %s (%c) you are %s %s %s...", (OBJECT)->name, (SLOT), (USING), (((OBJECT)->number == 1) ? "is" : "are"), (FEEL))
+#define MES_OBJECT_FEEL_INVENTORY(OBJECT, SLOT, FEEL) "You feel the %s (%c) in your pack %s %s...", (OBJECT)->name, (SLOT), (((OBJECT)->number == 1) ? "is" : "are"), (FEEL)
 #endif
 
 #ifdef JP
