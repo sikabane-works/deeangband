@@ -2758,6 +2758,7 @@ static cptr desc_stat_neg[] =
 #define MES_RECHARGE_NEED_IDENTIFY "[“U‚·‚é‘O‚ÉŠÓ’è‚³‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·B"
 #define MES_RECHARGE_ASK_IDENTIFY(MONEY) "%d‚ÅŠÓ’è‚µ‚Ü‚·‚©H ", (MONEY)
 #define MES_RECHARGE_INDENTIFIED(OBJECT) "%s ‚Å‚·B", (OBJECT)->name
+#define MES_RECHARGE_DONE(OBJECT) "%s‚ÍÄ[“U‚³‚ê‚½B", (OBJECT)->name
 #else
 #define MES_RECHARGE_WHICH_ITEM "Recharge which item? "
 #define MES_RECHARGE_NO_ITEM "You have nothing to recharge."
@@ -2779,6 +2780,7 @@ static cptr desc_stat_neg[] =
 #define MES_RECHARGE_NEED_IDENTIFY "The item must be identified firstB"
 #define MES_RECHARGE_ASK_IDENTIFY(MONEY) "Identify for %d gold? ", (MONEY)
 #define MES_RECHARGE_INDENTIFIED(OBJECT) "You have: %s.", (OBJECT)->name
+#define MES_RECHARGE_DONE(OBJECT) "Your %s %s recharged.", (OBJECT)->name, ((OBJECT)->number > 1) ? "are" : "is"
 #endif
 
 #ifdef JP

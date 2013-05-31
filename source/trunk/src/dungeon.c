@@ -605,12 +605,10 @@ static void pattern_teleport(creature_type *creature_ptr)
 	cancel_tactical_action(creature_ptr);
 
 	/*
-	* Clear all saved floors
-	* and create a first saved floor
-	*/
+	 * Clear all saved floors
+	 * and create a first saved floor
+	 */
 	move_floor(creature_ptr, floor_ptr->dungeon_id, creature_ptr->wy, creature_ptr->wx, depth, floor_ptr, 0);
-
-	/* Leaving */
 	subject_change_floor = TRUE;
 }
 
@@ -918,22 +916,9 @@ static void recharged_notice(object_type *object_ptr)
 		/* Find another '!' */
 		if(s[1] == '!')
 		{
-			/* Describe (briefly) */
 			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-
-			/* Notify the player */
-#ifdef JP
-			msg_format("%s‚ÍÄ[“U‚³‚ê‚½B", object_name);
-#else
-			if(object_ptr->number > 1)
-				msg_format("Your %s are recharged.", object_name);
-			else
-				msg_format("Your %s is recharged.", object_name);
-#endif
-
+			msg_format(MES_RECHARGE_DONE(object_ptr));
 			disturb(player_ptr, 0, 0);
-
-			/* Done. */
 			return;
 		}
 
