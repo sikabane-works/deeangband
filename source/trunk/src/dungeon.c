@@ -1493,11 +1493,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		{
 			disturb(player_ptr, 0, 0);
 			prepare_redraw(PR_EXTRA);
-#ifdef JP
-			msg_print("いひきがもーろーとひてきたきがふる...ヒック！");
-#else
-			msg_print("You feel a SSSCHtupor cOmINg over yOu... *HIC*!");
-#endif
+			msg_print(MES_TRAIT_ALCOHOL_DONE);
 		}
 		if(!has_trait(creature_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint0(20) + 15, TRUE);
 		if(!has_trait(creature_ptr, TRAIT_RES_CHAO))
@@ -1517,17 +1513,10 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 				msg_print("You can't remember a thing, or how you got here!");
 #endif
 			}
-			else
+			else if(one_in_(3))
 			{
-				if(one_in_(3))
-				{
-#ifdef JP
-					msg_print("き～れいなちょおちょらとんれいる～");
-#else
-					msg_print("Thishcischs GooDSChtuff!");
-#endif
-					(void)add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, randint0(150) + 150, TRUE);
-				}
+				msg_print(MES_TRAIT_ALCOHOL_HALLUCINATION_DONE);
+				(void)add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, randint0(150) + 150, FALSE);
 			}
 		}
 	}

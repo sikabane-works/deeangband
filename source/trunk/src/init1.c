@@ -3516,13 +3516,11 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_DESCRIPTION:
-				if(!add_text(&species_ptr->text, head, tmp, TRUE))
-					return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!add_text(&species_ptr->text, head, tmp, TRUE)) return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case SPECIES_INFO_E_DESCRIPTION:
-				if(!add_text(&species_ptr->E_text, head, tmp, TRUE))
-					return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!add_text(&species_ptr->E_text, head, tmp, TRUE)) return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case SPECIES_INFO_AUTHORITY:
@@ -3555,10 +3553,8 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_FATHER:
-				if(sscanf(tmp, "%d", &b) == 1)
-					species_ptr->father_idx = (s16b)b;
-				else 
-					if(grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
+				if(sscanf(tmp, "%d", &b) == 1) species_ptr->father_idx = (s16b)b;
+				else if(grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
 				species_ptr->father_idx = (s16b)b;
 				break;
 

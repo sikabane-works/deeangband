@@ -3696,6 +3696,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_SEPPUKU_DONE "武士道とは、死ぬことと見つけたり。"
 #define MES_TRAIT_NO_TRUMP_SUMMON "誰もあなたのカードの呼び声に答えない。"
 #define MES_TRAIT_CAST_WONDER_MIGHTY "あなたは力がみなぎるのを感じた！"
+#define MES_TRAIT_ALCOHOL_DONE "いひきがもーろーとひてきたきがふる...ヒック！"
+#define MES_TRAIT_ALCOHOL_HALLUCINATION_DONE "き～れいなちょおちょらとんれいる～"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3777,6 +3779,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_SEPPUKU_DONE "Meaning of Bushi-do is found in the death."
 #define MES_TRAIT_NO_TRUMP_SUMMON "Nobody answers to your Trump call."
 #define MES_TRAIT_CAST_WONDER_MIGHTY "You feel a surge of power!"
+#define MES_TRAIT_ALCOHOL_DONE "You feel a SSSCHtupor cOmINg over yOu... *HIC*!"
+#define MES_TRAIT_ALCOHOL_HALLUCINATION_DONE "Thishcischs GooDSChtuff!"
 #endif
 
 #ifdef JP
