@@ -3701,6 +3701,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_ALCOHOL_TELEPORT1 "あなたは見知らぬ場所で目が醒めた...頭が痛い。"
 #define MES_TRAIT_ALCOHOL_TELEPORT2 "何も覚えていない。どうやってここに来たかも分からない！"
 #define MES_TRAIT_RAW_CHAOS_DONE "周りの空間が歪んでいる気がする！"
+#define MES_TRAIT_INVULN_DONE "無敵な気がする！"
+#define MES_TRAIT_TRIP_DONE "足がもつれて転んだ！"
+#define MES_TRAIT_TRIP_DISARM "武器を落としてしまった！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3787,6 +3790,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_ALCOHOL_TELEPORT1 "You wake up somewhere with a sore head..."
 #define MES_TRAIT_ALCOHOL_TELEPORT2 "You can't remember a thing, or how you got here!"
 #define MES_TRAIT_RAW_CHAOS_DONE "You feel the world warping around you!"
+#define MES_TRAIT_INVULN_DONE "You feel invincible!"
+#define MES_TRAIT_TRIP_DONE "You trip over your own feet!"
+#define MES_TRAIT_TRIP_DISARM "You drop your weapon!"
 #endif
 
 #ifdef JP

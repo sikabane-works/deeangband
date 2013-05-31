@@ -1766,12 +1766,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_INVULN) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(5000))
 	{
 		disturb(player_ptr, 0, 0);
-#ifdef JP
-		msg_print("無敵な気がする！");
-#else
-		msg_print("You feel invincible!");
-#endif
-
+		msg_print(MES_TRAIT_INVULN_DONE);
 		msg_print(NULL);
 		(void)set_timed_trait(creature_ptr, TRAIT_INVULNERABLE, randint1(8) + 8, FALSE);
 	}
@@ -1810,11 +1805,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		object_type *object_ptr = NULL;
 
 		disturb(player_ptr, 0, 0);
-#ifdef JP
-		msg_print("足がもつれて転んだ！");
-#else
-		msg_print("You trip over your own feet!");
-#endif
+		msg_print(MES_TRAIT_TRIP_DONE);
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->wt / 6), COD_TRIPPING, NULL, -1);
 		msg_print(NULL);
 
@@ -1828,11 +1819,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 		if(slot && !object_is_cursed(object_ptr))
 		{
-#ifdef JP
-			msg_print("武器を落としてしまった！");
-#else
-			msg_print("You drop your weapon!");
-#endif
+			msg_print(MES_TRAIT_TRIP_DISARM);
 			inven_drop(creature_ptr, slot, 1);
 		}
 	}
