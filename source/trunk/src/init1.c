@@ -874,8 +874,7 @@ static bool add_tag(STRING_OFFSET *offset, header *head, cptr buf)
 	if(i >= head->tag_size)
 	{
 		/* Hack -- Verify space */
-		if(head->tag_size + strlen(buf) + 8 > FAKE_TAG_SIZE)
-			return FALSE;
+		if(head->tag_size + strlen(buf) + 8 > FAKE_TAG_SIZE) return FALSE;
 
 		/* Append chars to the tags */
 		strcpy(head->tag_ptr + head->tag_size, buf);
@@ -1023,8 +1022,7 @@ errr init_info_csv(FILE *fp, char *buf, header *head, parse_info_txt_func parse_
 		i++;
 
 		// Parse the line
-		if((err = (*parse_info_txt_line)(buf, head)) != 0)
-			return (err);
+		if((err = (*parse_info_txt_line)(buf, head)) != 0) return (err);
 	}
 
 	sprintf(nt, "CSV Line:%d", i);
@@ -4844,7 +4842,7 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_SP_MELEE:
-				if(add_tag(&race_ptr->special_melee_tag, head, tmp)) return PARSE_ERROR_GENERIC;
+				if(!add_tag(&race_ptr->special_melee_tag, head, tmp)) return PARSE_ERROR_GENERIC;
 				break;
 
 			default:

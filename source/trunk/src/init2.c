@@ -795,14 +795,9 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
  */
 static errr init_feature_info(void)
 {
-	/* Init the header */
-	init_header(&f_head, max_feature_idx, sizeof(feature_type));
-
-	/* Save a pointer to the parsing function */
-	f_head.parse_info_txt = parse_feature_info;
-
-	/* Save a pointer to the retouch fake tags */
-	f_head.retouch = retouch_feature_info;
+	init_header(&f_head, max_feature_idx, sizeof(feature_type)); /* Init the header */
+	f_head.parse_info_txt = parse_feature_info; /* Save a pointer to the parsing function */
+	f_head.retouch = retouch_feature_info; /* Save a pointer to the retouch fake tags */
 
 	return init_info("feature_info", &f_head, (void*)&feature_info, &feature_name, NULL, &feature_tag);
 }
@@ -933,10 +928,9 @@ static errr init_race_info(void)
 	/* Save a pointer to the parsing function */
 	race_head.parse_info_txt = parse_race_info_csv;
 
-	r = init_info2("race_info", &race_head, (void*)&race_info, &race_name, &race_text, &race_tag, NULL);
+	r = init_info2("race_info", &race_head, (void*)&race_info, &race_name, &race_text, NULL, &race_tag);
 
-	for(i = 0; i < MAX_RACES; i++)
-		race_info[i].title = race_name + race_info[i].name;
+	for(i = 0; i < MAX_RACES; i++) race_info[i].title = race_name + race_info[i].name;
 
 	return r;
 }
