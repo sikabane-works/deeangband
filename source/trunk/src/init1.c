@@ -3478,30 +3478,19 @@ errr parse_species_info_csv(char *buf, header *head)
 			case SPECIES_INFO_ARTIFACT:
 				offset = 0;
 				k = 0;
-				while(tmp[offset]) {
+				while(tmp[offset])
+				{
 					id = prob = ego = 0;
 					tval = 0;
 					sval = 0;
 					flags = 0;
-					if(4 == sscanf(tmp + offset, "%d:%d:%d:%d", &id, &tval, &sval, &prob)) {}
+					if(4 == sscanf(tmp + offset, "%d:%d:%d:%d%%", &id, &tval, &sval, &prob)) {}
 					else if(2 == sscanf(tmp + offset, "ART:%d:%d%%", &id, &prob)) {}
-					else if(3 == sscanf(tmp + offset, "NORMAL:%d:%d:%d%%", &tval, &sval, &prob))
-					{
-						flags = AM_UNCURSED;
-					}
-					else if(3 == sscanf(tmp + offset, "GOOD:%d:%d:%d%%", &tval, &sval, &prob))
-					{
-						flags = AM_GOOD;
-					}
-					else if(3 == sscanf(tmp + offset, "GREAT:%d:%d:%d%%", &tval, &sval, &prob))
-					{
-						flags = AM_GREAT;
-					}
-					else if(4 == sscanf(tmp + offset, "EGO:%d:%d:%d:%d%%", &ego, &tval, &sval, &prob))
-					{
-						flags = AM_GREAT;
-					}
-					else return PARSE_ERROR_GENERIC;		
+					else if(3 == sscanf(tmp + offset, "NORMAL:%d:%d:%d%%", &tval, &sval, &prob)) flags = AM_UNCURSED;
+					else if(3 == sscanf(tmp + offset, "GOOD:%d:%d:%d%%", &tval, &sval, &prob)) flags = AM_GOOD;
+					else if(3 == sscanf(tmp + offset, "GREAT:%d:%d:%d%%", &tval, &sval, &prob)) flags = AM_GREAT;
+					else if(4 == sscanf(tmp + offset, "EGO:%d:%d:%d:%d%%", &ego, &tval, &sval, &prob)) flags = AM_GREAT;
+					else return PARSE_ERROR_GENERIC;
 
 					if(k == INVEN_TOTAL) return PARSE_ERROR_GENERIC;
 
