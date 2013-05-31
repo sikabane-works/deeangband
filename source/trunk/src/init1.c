@@ -2990,6 +2990,7 @@ enum SPECIES_TYPE {
 	SPECIES_INFO_NUM,
 	SPECIES_INFO_RACE1,
 	SPECIES_INFO_RACE2,
+
 	SPECIES_INFO_CLASS,
 	SPECIES_INFO_PATRON,
 	SPECIES_INFO_CHARA,
@@ -3000,6 +3001,7 @@ enum SPECIES_TYPE {
 	SPECIES_INFO_SPELL,
 	SPECIES_INFO_EXP,
 	SPECIES_INFO_N_EXP,
+
 	SPECIES_INFO_N_MIN,
 	SPECIES_INFO_AGE,
 	SPECIES_INFO_SC,
@@ -3010,6 +3012,7 @@ enum SPECIES_TYPE {
 	SPECIES_INFO_EV,
 	SPECIES_INFO_VO,
 	SPECIES_INFO_ALERT,
+
 	SPECIES_INFO_STR,
 	SPECIES_INFO_INT,
 	SPECIES_INFO_WIS,
@@ -3020,6 +3023,7 @@ enum SPECIES_TYPE {
 	SPECIES_INFO_M_HB,
 	SPECIES_INFO_M_HM,
 	SPECIES_INFO_M_WB,
+
 	SPECIES_INFO_M_WM,
 	SPECIES_INFO_F_HB,
 	SPECIES_INFO_F_HM,
@@ -3030,6 +3034,7 @@ enum SPECIES_TYPE {
 	SPECIES_INFO_UNDERLING,
 	SPECIES_INFO_ARTIFACT,
 	SPECIES_INFO_COMMENT,
+
 	SPECIES_INFO_FLAG,
 	SPECIES_INFO_DESCRIPTION,
 	SPECIES_INFO_AUTHORITY,
@@ -3037,16 +3042,17 @@ enum SPECIES_TYPE {
 	SPECIES_INFO_E_DESCRIPTION,
 	SPECIES_INFO_FATHER,
 	SPECIES_INFO_MOTHER,
-
 	SPECIES_INFO_HAND,
 	SPECIES_INFO_RING,
 	SPECIES_INFO_AMULET,
+
 	SPECIES_INFO_BODY,
 	SPECIES_INFO_OUTER,
 	SPECIES_INFO_HEAD,
 	SPECIES_INFO_ARMS,
 	SPECIES_INFO_FEET,
 	SPECIES_INFO_TAIL,
+
 	SPECIES_INFO_CSV_COLUMNS
 };
 
@@ -3062,6 +3068,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"NUM",
 	"RACE1",
 	"RACE2",
+
 	"CLASS",
 	"PATRON",
 	"CHARA",
@@ -3072,6 +3079,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"SPELL",
 	"EXP",
 	"N_EXP",
+
 	"N_MIN",
 	"AGE",
 	"SC",
@@ -3082,6 +3090,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"EV",
 	"VO",
 	"ALERT",
+
 	"STR",
 	"INT",
 	"WIS",
@@ -3092,6 +3101,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"M_HB",
 	"M_HM",
 	"M_WB",
+
 	"M_WM",
 	"F_HB",
 	"F_HM",
@@ -3102,6 +3112,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"UNDERLING",
 	"ARTIFACT",
 	"COMMENT",
+
 	"FLAG",
 	"DESCRIPTION",
 	"AUTHORITY",
@@ -3109,10 +3120,10 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"E_DESCRIPTION",
 	"FATHER",
 	"MOTHER",
-
 	"HAND",
 	"RING",
 	"AMULET",
+
 	"BODY",
 	"OUTER",
 	"HEAD",
@@ -3136,9 +3147,7 @@ errr parse_species_info_csv(char *buf, header *head)
 	int b, ub;
 	FLAGS_32 flags;
 
-	if(get_split_offset(split, size, buf, SPECIES_INFO_CSV_COLUMNS, ',', '"')){
-		return PARSE_ERROR_GENERIC;
-	}
+	if(get_split_offset(split, size, buf, SPECIES_INFO_CSV_COLUMNS, ',', '"')) return PARSE_ERROR_GENERIC;
 
 	strncpy(tmp, buf + split[0], size[0]);
 	tmp[size[0]] = '\0';
@@ -3443,7 +3452,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_SP_MELEE:
-				if(add_tag(&species_ptr->sp_melee, head, tmp)) return PARSE_ERROR_GENERIC;
+				if(!add_tag(&species_ptr->sp_melee, head, tmp)) return PARSE_ERROR_GENERIC;
 				break;
 
 			case SPECIES_INFO_BATTLE:

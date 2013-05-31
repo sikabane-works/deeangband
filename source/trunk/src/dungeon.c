@@ -2384,18 +2384,17 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 			if(species_ptr->level + 10 > floor_ptr->depth) // Nearly out-of-depth unique creatures
 				delta += (species_ptr->level + 10 - floor_ptr->depth) * 2 * base; // Boost rating by twice delta-depth
 		}
-		else
+		else if(species_ptr->level > floor_ptr->depth) // Out-of-depth creatures
 		{
-			if(species_ptr->level > floor_ptr->depth) // Out-of-depth creatures
-				delta += (species_ptr->level - floor_ptr->depth) * base; // Boost rating by delta-depth
+			delta += (species_ptr->level - floor_ptr->depth) * base; // Boost rating by delta-depth
 		}
 
 		// Unusually crowded creatures get a little bit of rating boost
 		if(has_trait(creature_ptr, TRAIT_FRIENDS))
+		{
 			if(5 <= get_creature_crowd_number(i)) delta += 1;
-			else
-				if(2 <= get_creature_crowd_number(i)) delta += 1;
-
+			else if(2 <= get_creature_crowd_number(i)) delta += 1;
+		}
 		rating += RATING_BOOST(delta);
 	}
 
