@@ -1045,13 +1045,9 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			damage = damage / 100 + (PERCENT((damage % 100)));
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY))
 			{
-#ifdef JP
-				msg_print("”M‚Å‰Î‚µ‚½I");
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format("%s‚Ìã‚ð•‚—V‚µ‚½ƒ_ƒ[ƒW", feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name), NULL, -1);
-#else
-				msg_print("The heat burns you!");
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name), NULL, -1);
-#endif
+				feature_type *feature_ptr = &feature_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat];
+				msg_print(MES_DAMAGE_HEAT);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format(COD_FLYING_OVER(feature_ptr)), NULL, -1);
 			}
 			else
 			{

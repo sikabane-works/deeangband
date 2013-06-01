@@ -659,6 +659,7 @@
 #define MES_DAMAGE_LIGHT_SOURCE(OBJECT, CREATURE) "%sが%sの肉体を焼き焦がした！", (OBJECT)->name, (CREATURE)->name
 #define MES_DAMAGE_DENSITY "体の分子が分解した気がする！"
 #define MES_DAMAGE_CHAOS_TAINT(CREATURE) "%sは混沌に身を蝕まれている。", (CREATURE)->name
+#define MES_DAMAGE_HEAT "熱で火傷した！"
 #define MES_DAMAGE_BURN_UP(FEATURE) "%sで火傷した！", feature_name +(FEATURE)->name
 #define MES_ROCK_CRUSHING(CREATURE) "%sは崩れた岩に押し潰された！", (CREATURE)->name
 
@@ -752,6 +753,7 @@
 #define MES_DAMAGE_LIGHT_SOURCE(OBJECT, CREATURE) "The %s scorches undead flesh of %s!", (OBJECT)->name, (CREATURE)->name
 #define MES_DAMAGE_DENSITY "Your molecules feel disrupted!"
 #define MES_DAMAGE_CHAOS_TAINT(CREATURE) "The chaos tainted %s", (CREATURE)->name
+#define MES_DAMAGE_HEAT "The heat burns you!"
 #define MES_DAMAGE_BURN_UP(FEATURE) "The %s burns you!", feature_name +(FEATURE)->name
 #define MES_ROCK_CRUSHING "%s %s being crushed!", (CREATURE)->name, is_player(CREATURE) ? "are" : "is"
 
@@ -1275,6 +1277,7 @@
 #define COD_EARTHQUAKE_CASTER(CASTER) "%sの起こした地震", (CASTER)
 #define COD_EARTHQUAKE "地震"
 #define COD_PURE_MANA "純粋な魔力の解放"
+#define COD_FLYING_OVER(FEATURE) "%sの上を浮遊したダメージ", (FEATURE)->name + feature_name
 #define COD_EQUIPED_DAMAGE(OBJECT_NAME) "%sを装備したダメージ", OBJECT_NAME
 #define COD_HELLFIRE_RISK "地獄の劫火の呪文を唱えた疲労"
 #define COD_JOJ_RISK "審判の宝石"
@@ -1342,6 +1345,7 @@
 #define COD_EARTHQUAKE_CASTER(CASTER) "an earthquake caused by %s", (CASTER)
 #define COD_EARTHQUAKE "an earthquake"
 #define COD_PURE_MANA "released pure mana"
+#define COD_FLYING_OVER(FEATURE) "flying over %s", (FEATURE)->name + feature_name
 #define COD_EQUIPED_DAMAGE(OBJECT_NAME) "wielding %s", OBJECT_NAME
 #define COD_HELLFIRE_RISK "the strain of casting Hellfire"
 #define COD_JOJ_RISK "the Jewel of Judgement"
