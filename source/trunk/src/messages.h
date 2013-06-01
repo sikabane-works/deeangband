@@ -655,6 +655,8 @@
 
 #define MES_FAILED_RUNAWAY "うまく逃げられなかった。"
 
+#define MES_DAMAGE_SUNLIGHT(CREATURE) "日光が%sの肉体を焼き焦がした！", (CREATURE)->name
+#define MES_DAMAGE_LIGHT_SOURCE(OBJECT, CREATURE) "%sが%sの肉体を焼き焦がした！", (OBJECT)->name, (CREATURE)->name
 #define MES_DAMAGE_DENSITY "体の分子が分解した気がする！"
 #define MES_ROCK_CRUSHING(CREATURE) "%sは崩れた岩に押し潰された！", (CREATURE)->name
 
@@ -671,7 +673,6 @@
 
 #define MES_FIND_TRAP "トラップを発見した。"
 #define MES_FIND_DOOR "隠しドアを発見した。"
-
 
 #define MES_SEE_OBJECT "%sがある。"
 #define MES_GET_MONEY " $%ld の価値がある%sを見つけた。"
@@ -745,6 +746,8 @@
 
 #define MES_FAILED_RUNAWAY "You are failed to run away."
 
+#define MES_DAMAGE_SUNLIGHT(CREATURE) "The sun's rays scorch undead flesh of %s!", (CREATURE)->name
+#define MES_DAMAGE_LIGHT_SOURCE(OBJECT, CREATURE) "The %s scorches undead flesh of %s!", (OBJECT)->name, (CREATURE)->name
 #define MES_DAMAGE_DENSITY "Your molecules feel disrupted!"
 #define MES_ROCK_CRUSHING "%s %s being crushed!", (CREATURE)->name, is_player(CREATURE) ? "are" : "is"
 

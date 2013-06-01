@@ -997,14 +997,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		{
 			if((floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{
-				if(is_seen(player_ptr, creature_ptr))
-				{
-#ifdef JP
-					msg_format("“úŒõ‚ª%s‚Ì“÷‘Ì‚ðÄ‚«Å‚ª‚µ‚½I", creature_ptr->desc_name);
-#else
-					msg_print("The sun's rays scorch your undead flesh!");
-#endif
-				}
+				if(is_seen(player_ptr, creature_ptr)) msg_format(MES_DAMAGE_SUNLIGHT(creature_ptr));
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, COD_SUNLIGHT, NULL, -1);
 				cave_no_regen = TRUE;
 			}
@@ -1021,14 +1014,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			// Get an object description
 			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_format("%s‚ª%s‚Ì“÷‘Ì‚ðÄ‚«Å‚ª‚µ‚½I", object_name, creature_ptr->desc_name);
-#else
-				msg_format("The %s scorches %s undead flesh!", object_name, creature_ptr->desc_name);
-#endif
-			}
+			if(is_seen(player_ptr, creature_ptr)) msg_format(MES_DAMAGE_LIGHT_SOURCE(object_ptr, creature_ptr));
 			cave_no_regen = TRUE;
 
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);	// Get an object description
