@@ -364,11 +364,7 @@ static void do_cmd_last_get(void)
 
 	if(record_object_name[0] == '\0') return;
 
-#ifdef JP
-	sprintf(buf,"%s‚Ì“üè‚ğ‹L˜^‚µ‚Ü‚·B",record_object_name);
-#else
-	sprintf(buf,"Do you really want to record getting %s? ",record_object_name);
-#endif
+	//TODO sprintf(buf, MES_DIARY_RECORD_OBJECT(record_object_name));
 	if(!get_check(buf)) return;
 
 	turn_tmp = game_turn;

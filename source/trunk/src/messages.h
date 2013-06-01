@@ -3487,6 +3487,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_ASK_ERASE "–{“–‚É‹L˜^‚ðÁ‹Ž‚µ‚Ü‚·‚©H"
 #define MES_DIARY_DELETED "‹L˜^‚ðÁ‹Ž‚µ‚Ü‚µ‚½B"
 #define MES_DIARY_DELETE_FAIL(FILE) "%s ‚ÌÁ‹Ž‚ÉŽ¸”s‚µ‚Ü‚µ‚½B", (FILE)
+#define MES_DIARY_RECORD_OBJECT(OBJECT) "%s‚Ì“üŽè‚ð‹L˜^‚µ‚Ü‚·B", (OBJECT)->name
 #else
 #define MES_DIARY_MENU "Play Record"
 #define MES_DIARY_MENU1 "Display your record"
@@ -3497,6 +3498,7 @@ static cptr desc_stat_neg[] =
 #define MES_DIARY_ASK_ERASE "Do you really want to delete all your record? "
 #define MES_DIARY_DELETED "deleted record."
 #define MES_DIARY_DELETE_FAIL(FILE) "failed to delete %s.", (FILE)
+#define MES_DIARY_RECORD_OBJECT(OBJECT) "Do you really want to record getting %s? ", (OBJECT)->name
 #endif
 
 #ifdef JP

@@ -747,34 +747,16 @@ void do_cmd_locate(creature_type *creature_ptr)
 	{
 		/* Describe the location */
 		if((y2 == y1) && (x2 == x1)) strcpy(tmp_val, MES_SYS_HERE);
-		else
-		{
-#ifdef JP
-			sprintf(tmp_val, "%s%s",
-#else
-			sprintf(tmp_val, "%s%s of",
-#endif
-				((y2 < y1) ? MES_SYS_NORTH : (y2 > y1) ? MES_SYS_SOUTH : ""), ((x2 < x1) ? MES_SYS_WEST : (x2 > x1) ? MES_SYS_EAST : ""));
-
-		}
-
-		/* Prepare to ask which way to look */
-		sprintf(out_val, MES_INTERFACE_LOCATE(y2, x2, tmp_val));
-
-		/* Assume no direction */
-		dir = 0;
+		else sprintf(tmp_val, "%s%s", ((y2 < y1) ? MES_SYS_NORTH : (y2 > y1) ? MES_SYS_SOUTH : ""), ((x2 < x1) ? MES_SYS_WEST : (x2 > x1) ? MES_SYS_EAST : ""));
+		sprintf(out_val, MES_INTERFACE_LOCATE(y2, x2, tmp_val)); /* Prepare to ask which way to look */
+		dir = 0; /* Assume no direction */
 
 		/* Get a direction */
 		while (!dir)
 		{
 			char command;
-
-			/* Get a command (or Cancel) */
-			if(!get_com(out_val, &command, TRUE)) break;
-
-			/* Extract the action (if any) */
-			dir = get_keymap_dir(command);
-
+			if(!get_com(out_val, &command, TRUE)) break; /* Get a command (or Cancel) */
+			dir = get_keymap_dir(command); /* Extract the action (if any) */
 			if(!dir) bell();
 		}
 
