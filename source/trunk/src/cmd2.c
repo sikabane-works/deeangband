@@ -218,12 +218,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			else
 			{
 				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(MES_COMBAT_TALK_STAIR);
-				else
-#ifdef JP
-				msg_print("ŠK’i‚ğ‰º‚è‚ÄV‚½‚È‚é–À‹{‚Ö‚Æ‘«‚ğ“¥‚İ“ü‚ê‚½B");
-#else
-				msg_print("You enter a maze of down staircases.");
-#endif
+				else msg_print(MES_FEATURE_STAIR_DOWN);
 			}
 		}
 
