@@ -567,21 +567,11 @@ static void pattern_teleport(creature_type *creature_ptr)
 			max_level = dungeon_info[floor_ptr->dungeon_id].maxdepth;
 			min_level = dungeon_info[floor_ptr->dungeon_id].mindepth;
 		}
-
-#ifdef JP
-		sprintf(ppp, "テレポート先:(%d-%d)", min_level, max_level);
-#else
-		sprintf(ppp, "Teleport to level (%d-%d): ", min_level, max_level);
-#endif
-
-
+		sprintf(ppp, MES_PATTERN_TELEPORT_DIST(min_level, max_level));
 		sprintf(tmp_val, "%d", floor_ptr->depth);
 
-		/* Ask for a level */
-		if(!get_string(ppp, tmp_val, 10)) return;
-
-		/* Extract request */
-		depth = (FLOOR_LEV)strtol(tmp_val, NULL, 10);
+		if(!get_string(ppp, tmp_val, 10)) return; /* Ask for a level */
+		depth = (FLOOR_LEV)strtol(tmp_val, NULL, 10); /* Extract request */
 	}
 	else if(get_check(MES_PATTERN_TELEPORT2))
 	{

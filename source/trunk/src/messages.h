@@ -1063,6 +1063,7 @@
 #define MES_PATTERN_TELEPORT "他の階にテレポートしますか？"
 #define MES_PATTERN_TELEPORT2 "通常テレポート？"
 #define MES_PATTERN_TELEPORT_DONE(DEPTH) "%d 階にテレポートしました。", (DEPTH)
+#define MES_PATTERN_TELEPORT_DIST(MIN, MAX) "テレポート先:(%d-%d)", (MIN), (MAX)
 
 #else
 #define MES_FEATURE_NO_UP_STAIR "I see no up staircase here."
@@ -1087,6 +1088,7 @@
 #define MES_PATTERN_TELEPORT "Teleport level? "
 #define MES_PATTERN_TELEPORT2 "Normal teleport? "
 #define MES_PATTERN_TELEPORT_DONE(DEPTH) "You teleport to dungeon level %d.", (DEPTH)
+#define MES_PATTERN_TELEPORT_DIST(MIN, MAX) "Teleport to level (%d-%d): ", (MIN), (MAX)
 
 #endif
 
