@@ -232,6 +232,7 @@
 #if JP
 #define KW_MORE "-続く-"
 #define KW_CREATURE "クリーチャー"
+#define KW_WEIRD_CREATURE "変なクリーチャー"
 #define KW_NAME "名前"
 #define KW_RACE "種族"
 #define KW_PURE_BLOOD "純血種"
@@ -363,9 +364,11 @@
 #define KW_ARENA "闘技場"
 #define KW_AUTOSAVE "自動セーブ"
 #define KW_VARIABLE_SIZE "サイズ可変"
+#define KW_ENEMY "敵"
 #else
 #define KW_MORE "-more-"
-#define KW_CREATURE "Creatures"
+#define KW_CREATURE "creatures"
+#define KW_WEIRD_CREATURE "weird creatures"
 #define KW_NAME "Name"
 #define KW_RACE "Race"
 #define KW_PURE_BLOOD "Pure Blood"
@@ -496,6 +499,7 @@
 #define KW_ARENA "Arena"
 #define KW_AUTOSAVE "Autosave"
 #define KW_VARIABLE_SIZE "VariableSize"
+#define KW_ENEMY "the enemy"
 #endif
 
 #ifdef JP
@@ -4073,7 +4077,8 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_TELEPORT_BY_CREATURE "テレポートを邪魔された！"
 #define MES_PREVENT_QUAFF_BY_TIMESTOP "瓶から液体が流れ出てこない！"
 #define MES_PREVENT_NO_MIRROR "鏡がなくて集中できなかった！"
-#define MES_PREVENT_SPECIAL_ATTACK_BY_NO_WEAPON "武器を持たないと必殺技は使えない！"
+#define MES_PREVENT_SPECIAL_ATTACK_BY_NO_WEAPON "武器を持たないと必殺技は使えない。"
+#define MES_PREVENT_BLAND_ATTACK_BY_NO_WEAPON "武器を持たないと魔法剣は使えない。"
 #else
 #define MES_PREVENT_BY_RIDING "You cannot do it when riding."
 #define MES_PREVENT_BY_CONFUSION "You are too confused."
@@ -4103,6 +4108,7 @@ static cptr desc_stat_neg[] =
 #define MES_PREVENT_QUAFF_BY_TIMESTOP "The potion doesn't flow out from a bottle."
 #define MES_PREVENT_NO_MIRROR "You need a mirror to concentrate!"
 #define MES_PREVENT_SPECIAL_ATTACK_BY_NO_WEAPON "You need to wield a weapon!"
+#define MES_PREVENT_BLAND_ATTACK_BY_NO_WEAPON "You cannot use temporary branding with no weapon."
 #endif
 
 #ifdef JP

@@ -961,11 +961,7 @@ bool detect_creatures_xxx(creature_type *creature_ptr, COODINATES range, u32b ma
 	int  i;
 	COODINATES y, x;
 	bool flag = FALSE;
-#ifdef JP
-	cptr desc_creatures = "変なクリーチャー";
-#else
-	cptr desc_creatures = "weird creatures";
-#endif
+	cptr desc_creatures = KW_WEIRD_CREATURE;
 
 	if(dungeon_info[GET_FLOOR_PTR(creature_ptr)->dungeon_id].flags1 & DF1_DARKNESS) range /= 3;
 
@@ -993,10 +989,7 @@ bool detect_creatures_xxx(creature_type *creature_ptr, COODINATES range, u32b ma
 				//TODO species_ptr->r_flags3 |= (match_flag);
 
 				/* Update creature recall window */
-				if(species_window_idx == m_ptr->species_idx)
-				{
-					prepare_window(PW_MONSTER);
-				}
+				if(species_window_idx == m_ptr->species_idx) prepare_window(PW_MONSTER);
 			}
 
 			/* Repair visibility later */
@@ -1018,11 +1011,7 @@ bool detect_creatures_xxx(creature_type *creature_ptr, COODINATES range, u32b ma
 		switch (match_flag)
 		{
 		default:
-#ifdef JP
-			desc_creatures = "敵";
-#else
-			desc_creatures = "the enemy";
-#endif
+			desc_creatures = KW_ENEMY;
 			break;
 		}
 

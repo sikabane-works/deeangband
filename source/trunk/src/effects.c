@@ -1965,11 +1965,7 @@ bool choose_ele_attack(creature_type *creature_ptr)
 
 	if(!get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND))
 	{
-#ifdef JP
-		msg_format("•Ší‚ğ‚½‚È‚¢‚Æ–‚–@Œ•‚Íg‚¦‚È‚¢B");
-#else
-		msg_format("You cannot use temporary branding with no weapon.");
-#endif
+		msg_format(MES_PREVENT_BLAND_ATTACK_BY_NO_WEAPON);
 		return FALSE;
 	}
 
