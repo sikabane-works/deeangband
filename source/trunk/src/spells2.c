@@ -1135,13 +1135,8 @@ void aggravate_creatures(creature_type *target_ptr)
 		}
 	}
 
-#ifdef JP
-	if(speed) msg_print("•t‹ß‚Å‰½‚©‚ª“Ë”@‹»•±‚µ‚½‚æ‚¤‚ÈŠ´‚¶‚ðŽó‚¯‚½I");
-	else if(sleep) msg_print("‰½‚©‚ª“Ë”@‹»•±‚µ‚½‚æ‚¤‚È‘›X‚µ‚¢‰¹‚ª‰“‚­‚É•·‚±‚¦‚½I");
-#else
-	if(speed) msg_print("You feel a sudden stirring nearby!");
-	else if(sleep) msg_print("You hear a sudden stirring in the distance!");
-#endif
+	if(speed) msg_print(MES_TRAIT_AGGRAVATE1);
+	else if(sleep) msg_print(MES_TRAIT_AGGRAVATE2);
 
 	if(target_ptr->riding) prepare_update(target_ptr, CRU_BONUS);
 }

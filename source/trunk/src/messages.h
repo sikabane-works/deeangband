@@ -3754,6 +3754,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_INVULN_DONE "無敵な気がする！"
 #define MES_TRAIT_TRIP_DONE "足がもつれて転んだ！"
 #define MES_TRAIT_TRIP_DISARM "武器を落としてしまった！"
+#define MES_TRAIT_AGGRAVATE1 "付近で何かが突如興奮したような感じを受けた！"
+#define MES_TRAIT_AGGRAVATE2 "何かが突如興奮したような騒々しい音が遠くに聞こえた！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3843,6 +3845,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_INVULN_DONE "You feel invincible!"
 #define MES_TRAIT_TRIP_DONE "You trip over your own feet!"
 #define MES_TRAIT_TRIP_DISARM "You drop your weapon!"
+#define MES_TRAIT_AGGRAVATE1 "You feel a sudden stirring nearby!"
+#define MES_TRAIT_AGGRAVATE2 "You hear a sudden stirring in the distance!"
 #endif
 
 #ifdef JP
