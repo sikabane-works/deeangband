@@ -1027,14 +1027,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	if(have_flag(feature_ptr->flags, FF_CHAOS_TAINTED))
 	{
 		POWER damage = calc_damage(NULL, creature_ptr, randint0(50) + 20, DO_EFFECT_CHAOS, FALSE, FALSE);	
-		if(is_seen(player_ptr, creature_ptr))
-		{
-#ifdef JP
-			msg_format("%s‚Í¬“×‚Ég‚ðI‚Ü‚ê‚Ä‚¢‚éB", creature_ptr->desc_name);
-#else
-			msg_format("The chaos tainted %s", creature_ptr->desc_name);
-#endif
-		}
+		if(is_seen(player_ptr, creature_ptr)) msg_format(MES_DAMAGE_CHAOS_TAINT(creature_ptr));
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, COD_CHAOS_TAINT, NULL, -1);
 	}
 
@@ -1062,13 +1055,9 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			}
 			else
 			{
-				cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
-#ifdef JP
-				msg_format("%s‚Å‰Î‚µ‚½I", name);
-#else
-				msg_format("The %s burns you!", name);
-#endif
-				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
+				feature_type *feature_ptr = &feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])];
+				msg_format(MES_DAMAGE_BURN_UP(feature_ptr));
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, feature_ptr->name + feature_name, NULL, -1);
 			}
 
 			cave_no_regen = TRUE;

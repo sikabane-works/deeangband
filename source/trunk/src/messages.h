@@ -658,6 +658,8 @@
 #define MES_DAMAGE_SUNLIGHT(CREATURE) "日光が%sの肉体を焼き焦がした！", (CREATURE)->name
 #define MES_DAMAGE_LIGHT_SOURCE(OBJECT, CREATURE) "%sが%sの肉体を焼き焦がした！", (OBJECT)->name, (CREATURE)->name
 #define MES_DAMAGE_DENSITY "体の分子が分解した気がする！"
+#define MES_DAMAGE_CHAOS_TAINT(CREATURE) "%sは混沌に身を蝕まれている。", (CREATURE)->name
+#define MES_DAMAGE_BURN_UP(FEATURE) "%sで火傷した！", feature_name +(FEATURE)->name
 #define MES_ROCK_CRUSHING(CREATURE) "%sは崩れた岩に押し潰された！", (CREATURE)->name
 
 #define MES_HAYAGAKE_PREVENT "ここでは素早く動けない。"
@@ -749,6 +751,8 @@
 #define MES_DAMAGE_SUNLIGHT(CREATURE) "The sun's rays scorch undead flesh of %s!", (CREATURE)->name
 #define MES_DAMAGE_LIGHT_SOURCE(OBJECT, CREATURE) "The %s scorches undead flesh of %s!", (OBJECT)->name, (CREATURE)->name
 #define MES_DAMAGE_DENSITY "Your molecules feel disrupted!"
+#define MES_DAMAGE_CHAOS_TAINT(CREATURE) "The chaos tainted %s", (CREATURE)->name
+#define MES_DAMAGE_BURN_UP(FEATURE) "The %s burns you!", feature_name +(FEATURE)->name
 #define MES_ROCK_CRUSHING "%s %s being crushed!", (CREATURE)->name, is_player(CREATURE) ? "are" : "is"
 
 #define MES_HAYAGAKE_PREVENT "You cannot run in here."
