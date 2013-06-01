@@ -1087,16 +1087,11 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 		if(damage)
 		{
-			cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
+			feature_type *feature_ptr = &feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])];
 			damage = calc_damage(NULL, creature_ptr, damage, DO_EFFECT_ACID, FALSE, FALSE);
 			damage = damage / 100 + (PERCENT((damage % 100)));
-#ifdef JP
-			msg_format("%s‚ÉÄ‚©‚ê‚½I", name);
-#else
-			msg_format("you are disolved by The %s", name);
-#endif
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
-
+			msg_format(MES_DAMAGE_DISOLVED(feature_ptr));
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, feature_ptr->name + feature_name, NULL, -1);
 			cave_no_regen = TRUE;
 		}
 	}

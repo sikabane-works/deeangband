@@ -662,6 +662,7 @@
 #define MES_DAMAGE_HEAT "”M‚Å‰Î‚µ‚½I"
 #define MES_DAMAGE_BURN_UP(FEATURE) "%s‚Å‰Î‚µ‚½I", feature_name +(FEATURE)->name
 #define MES_DAMAGE_POISONED(FEATURE) "%s‚É“Å‚³‚ê‚½I", feature_name +(FEATURE)->name
+#define MES_DAMAGE_DISOLVED(FEATURE) "%s‚É—n‚©‚³‚ê‚½I", feature_name +(FEATURE)->name
 #define MES_ROCK_CRUSHING(CREATURE) "%s‚Í•ö‚ê‚½Šâ‚É‰Ÿ‚µ’×‚³‚ê‚½I", (CREATURE)->name
 
 #define MES_HAYAGAKE_PREVENT "‚±‚±‚Å‚Í‘f‘‚­“®‚¯‚È‚¢B"
@@ -757,6 +758,7 @@
 #define MES_DAMAGE_HEAT "The heat burns you!"
 #define MES_DAMAGE_BURN_UP(FEATURE) "The %s burns you!", feature_name +(FEATURE)->name
 #define MES_DAMAGE_POISONED(FEATURE) "you are poisoned by The %s", feature_name +(FEATURE)->name
+#define MES_DAMAGE_DISOLVED(FEATURE) "you are disolved by The %s", feature_name +(FEATURE)->name
 #define MES_ROCK_CRUSHING "%s %s being crushed!", (CREATURE)->name, is_player(CREATURE) ? "are" : "is"
 
 #define MES_HAYAGAKE_PREVENT "You cannot run in here."
