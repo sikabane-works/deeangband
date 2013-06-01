@@ -661,6 +661,7 @@
 #define MES_DAMAGE_CHAOS_TAINT(CREATURE) "%sは混沌に身を蝕まれている。", (CREATURE)->name
 #define MES_DAMAGE_HEAT "熱で火傷した！"
 #define MES_DAMAGE_BURN_UP(FEATURE) "%sで火傷した！", feature_name +(FEATURE)->name
+#define MES_DAMAGE_POISONED(FEATURE) "%sに毒された！", feature_name +(FEATURE)->name
 #define MES_ROCK_CRUSHING(CREATURE) "%sは崩れた岩に押し潰された！", (CREATURE)->name
 
 #define MES_HAYAGAKE_PREVENT "ここでは素早く動けない。"
@@ -755,6 +756,7 @@
 #define MES_DAMAGE_CHAOS_TAINT(CREATURE) "The chaos tainted %s", (CREATURE)->name
 #define MES_DAMAGE_HEAT "The heat burns you!"
 #define MES_DAMAGE_BURN_UP(FEATURE) "The %s burns you!", feature_name +(FEATURE)->name
+#define MES_DAMAGE_POISONED(FEATURE) "you are poisoned by The %s", feature_name +(FEATURE)->name
 #define MES_ROCK_CRUSHING "%s %s being crushed!", (CREATURE)->name, is_player(CREATURE) ? "are" : "is"
 
 #define MES_HAYAGAKE_PREVENT "You cannot run in here."
