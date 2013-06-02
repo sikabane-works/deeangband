@@ -1154,18 +1154,14 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 
 		case SV_STAFF_EARTHQUAKES:
 		{
-			if(earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10))
-				ident = TRUE;
-			else
-				msg_print(MES_EARTHQUAKE_CANCELED);
+			if(earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10)) ident = TRUE;
+			else msg_print(MES_EARTHQUAKE_CANCELED);
 			break;
 		}
 
 		case SV_STAFF_ANIMATE_DEAD:
 		{
-			if(project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1))
-				ident = TRUE;
-
+			if(project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1)) ident = TRUE;
 			break;
 		}
 
@@ -1187,23 +1183,14 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 #endif
 			}
 			ident = TRUE;
-
 			break;
 		}
 
 		case SV_STAFF_NOTHING:
-		{
 			msg_print(MES_NO_HAPPEN);
-			if(has_trait(caster_ptr, TRAIT_MAGIC_EATER))
-			{
-#ifdef JP
-			msg_print("もったいない事をしたような気がする。食べ物は大切にしなくては。");
-#else
-			msg_print("What a waste.  It's your food!");
-#endif
-			}
+			if(has_trait(caster_ptr, TRAIT_MAGIC_EATER)) msg_print(MES_OBJECT_WASTE_FOOD);
 			break;
-		}
+
 		default:
 			ident = TRUE;
 			break;

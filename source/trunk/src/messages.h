@@ -2967,6 +2967,7 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_FIRE "発射されるアイテムがありません。"
 #define MES_OBJECT_NO_EQIUPMENT "[何も装備できない]"
 #define MES_OBJECT_NO_INVENTORY "[何も持っていない]"
+#define MES_OBJECT_WASTE_FOOD "もったいない事をしたような気がする。食べ物は大切にしなくては。"
 #else
 #define MES_OBJECT_WHICH_STAFF "Use which staff? "
 #define MES_OBJECT_NO_STAFF "You have no staff to use."
@@ -2991,6 +2992,7 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_FIRE "You have nothing to fire."
 #define MES_OBJECT_NO_EQIUPMENT "[No Equipment]"
 #define MES_OBJECT_NO_INVENTORY "[No Inventory]"
+#define MES_OBJECT_WASTE_FOOD "What a waste.  It's your food!"
 #endif
 
 #ifdef JP
