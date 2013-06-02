@@ -286,7 +286,6 @@ static errr check_modification_date(int fd, cptr template_file)
 
 	struct stat txt_stat, raw_stat;
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, template_file);
 
 	/* Access stats on text file */
@@ -507,7 +506,6 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		/* File type is "DATA" */
 		FILE_TYPE(FILE_TYPE_DATA);
 
-		/* Build the filename */
 		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format(BINARY_FILES_RAW(filename)));
 
 		/* Grab permissions */
@@ -548,7 +546,6 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 
 		/*** Load the binary image file ***/
 
-		/* Build the filename */
 		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format(BINARY_FILES_RAW(filename)));
 
 		/* Attempt to open the "raw" file */
@@ -654,7 +651,6 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 
 		/*** Load the ascii template file ***/
 
-		/* Build the filename */
 
 		path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, format("%s.txt", filename));
 
@@ -708,7 +704,6 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		/* File type is "DATA" */
 		FILE_TYPE(FILE_TYPE_DATA);
 
-		/* Build the filename */
 		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format(BINARY_FILES_RAW(filename)));
 
 		/* Grab permissions */
@@ -750,7 +745,6 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 
 		/*** Load the binary image file ***/
 
-		/* Build the filename */
 		path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format(BINARY_FILES_RAW(filename)));
 
 		/* Attempt to open the "raw" file */
@@ -1674,7 +1668,6 @@ void init_angband(void)
 
 	/*** Verify (or create) the "high score" file ***/
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
 
 	/* Attempt to open the high score file */

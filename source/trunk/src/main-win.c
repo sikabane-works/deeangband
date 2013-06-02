@@ -3247,7 +3247,6 @@ static void process_menus(WORD wCmd)
 		{
 			char buf[1024];
 
-			/* Build the filename */
 			path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
 
 			/* Open the binary high score file, for reading */
@@ -4777,7 +4776,6 @@ static void init_stuff(void)
 	/* Validate the "font" directory */
 	validate_dir(ANGBAND_DIR_XTRA_FONT, TRUE);
 
-	/* Build the filename */
 	path_build(path, sizeof(path), ANGBAND_DIR_XTRA_FONT, "8X13.FON");
 
 	/* Hack -- Validate the basic font */

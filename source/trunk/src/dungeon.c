@@ -3935,7 +3935,6 @@ void waited_report_score(void)
 	/* No suspending now */	
 	signals_ignore_tstp();
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
 
 	/* Open the high score file, for reading/writing */

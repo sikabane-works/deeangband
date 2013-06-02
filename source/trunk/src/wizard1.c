@@ -294,7 +294,6 @@ static void spoil_obj_desc(cptr fname)
 	char dam[80];
 
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, fname);
 
 	/* File type is "TEXT" */
@@ -951,7 +950,6 @@ static void spoil_artifact(cptr fname)
 	char buf[1024];
 
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, fname);
 
 	/* File type is "TEXT" */
@@ -1039,7 +1037,6 @@ static void spoil_species_desc(cptr fname)
 
 	char sa[10], ia[10], wa[10], da[10], ca[10], cha[10];
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, fname);
 
 	/* File type is "TEXT" */
@@ -1470,7 +1467,6 @@ static void spoil_species_info(cptr fname)
 	u16b why = 2;
 	SPECIES_ID *who;
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, fname);
 
 	/* File type is "TEXT" */
@@ -1731,7 +1727,6 @@ static void spoil_species_evol(cptr fname)
 	int **evol_tree, i, j, n, species_idx;
 	int *evol_tree_zero; /* For C_KILL() */
 
-	/* Build the filename */
 	path_build(buf, sizeof buf, ANGBAND_DIR_USER, fname);
 
 	/* File type is "TEXT" */
@@ -1968,7 +1963,6 @@ void spoil_random_artifact(creature_type *creature_ptr, cptr fname)
 	char buf[1024];
 
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, fname);
 
 	/* File type is "TEXT" */

@@ -2870,7 +2870,6 @@ static bool write_text_lines(cptr filename, cptr *lines_list)
 	int lines = 0;
 	char buf[1024];
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, filename);
 	
 	fff = my_fopen(buf, "w");

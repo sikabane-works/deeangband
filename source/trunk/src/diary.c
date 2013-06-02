@@ -29,7 +29,6 @@ errr write_diary(int type, int num, cptr note)
 
 	sprintf(file_name,"playrecord-%s.txt",savefile_base);
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, file_name);
 
 	/* File type is "TEXT" */

@@ -961,7 +961,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 		/* Display object description */
 		object_desc(object_name, object_ptr, OD_NAME_ONLY);
 
-		/* Build the filename */
 		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, q);
 
 		/* Peruse the help file */

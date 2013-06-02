@@ -357,7 +357,6 @@ void display_scores(int from, int to)
 {
 	char buf[1024];
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
 
 	/* Open the binary high score file, for reading */
@@ -596,7 +595,6 @@ void show_highclass(creature_type *creature_ptr)
 
 	screen_save();
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
 
 	highscore_fd = fd_open(buf, O_RDONLY);
@@ -676,7 +674,6 @@ void race_score(creature_type *player_ptr, int race_num)
 
 	prt(tmp_str, 5, 15);
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
 
 	highscore_fd = fd_open(buf, O_RDONLY);

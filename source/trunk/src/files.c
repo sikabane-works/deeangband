@@ -1221,7 +1221,6 @@ errr process_pref_file(cptr name)
 	char buf[1024];
 	errr err1, err2;
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_PREF, name);
 
 	/* Process the system pref file */
@@ -1231,7 +1230,6 @@ errr process_pref_file(cptr name)
 	if(err1 > 0) return err1;
 
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, name);
 	
 	/* Process the user pref file */
@@ -1327,7 +1325,6 @@ errr check_load_init(void)
 	char	thishost[MAXHOSTNAMELEN+1];
 
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "load.txt");
 
 	/* Open the "load" file */
@@ -4044,7 +4041,6 @@ errr file_character(cptr name)
 	FILE		*fff = NULL;
 	char		buf[1024];
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, name);
 
 	/* File type is "TEXT" */
@@ -4296,7 +4292,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 #else
 		sprintf(caption, "Help file '%s'", name);
 #endif
-		/* Build the filename */
 		path_build(path, sizeof(path), ANGBAND_DIR_HELP, name);
 
 		fff = my_fopen(path, "r");
@@ -4307,7 +4302,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	{
 		sprintf(caption, MES_SYS_SPOILER_FILE(name));
 
-		/* Build the filename */
 		path_build(path, sizeof(path), ANGBAND_DIR_INFO, name);
 
 		fff = my_fopen(path, "r");
@@ -4316,7 +4310,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	/* Look in "info" */
 	if(!fff)
 	{
-		/* Build the filename */
 		path_build(path, sizeof(path), ANGBAND_DIR, name);
 		for (i = 0; path[i]; i++) if('\\' == path[i]) path[i] = PATH_SEP[0];
 		sprintf(caption, MES_SYS_SPOILER_FILE(name));
@@ -4687,7 +4680,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 			/* Close it */
 			my_fclose(fff);
 
-			/* Build the filename */
 			path_build(buff, sizeof(buff), ANGBAND_DIR_USER, xtmp);
 
 			/* Hack -- Re-Open the file */
@@ -4889,7 +4881,6 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 		(void)sprintf(temp, "%s", player_base);
 #endif
 
-		/* Build the filename */
 		path_build(savefile, sizeof(savefile), ANGBAND_DIR_SAVE, temp);
 	}
 
@@ -5168,7 +5159,6 @@ static void print_tomb(creature_type *creature_ptr)
 
 		Term_clear();
 
-		/* Build the filename */
 		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, TEXT_FILES_DEAD);
 
 		/* Open the News file */
@@ -5555,7 +5545,6 @@ void close_game(void)
 	/* No suspending now */
 	signals_ignore_tstp();
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_APEX, "scores.raw");
 
 	/* Grab permissions */
@@ -5673,7 +5662,6 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 	int     line_num = 0;
 
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, file_name);
 
 	fp = my_fopen(buf, "r");
@@ -5737,12 +5725,8 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 			}
 			else break;
 		}
-
-		/* Abort */
 		if(!buf[0]) break;
-
-		/* Copy the line */
-		if(one_in_(counter + 1)) strcpy(output, buf);
+		if(one_in_(counter + 1)) strcpy(output, buf); /* Copy the line */
 	}
 
 	my_fclose(fp);
@@ -5768,6 +5752,7 @@ errr get_rnd_line_jonly(cptr file_name, int entry, char *output, int count)
 	return result;
 }
 #endif
+
 /*
  * Process file for auto picker/destroyer.
  */
@@ -5777,7 +5762,6 @@ errr process_autopick_file(cptr name)
 
 	errr err = 0;
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, name);
 	err = process_pref_file_aux(buf, PREF_TYPE_AUTOPICK);
 	return (err);
@@ -5791,12 +5775,8 @@ errr process_histpref_file(cptr name)
 {
 	char buf[1024];
 	errr err = 0;
-
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, name);
-
 	err = process_pref_file_aux(buf, PREF_TYPE_HISTPREF);
-
 	return (err);
 }
 

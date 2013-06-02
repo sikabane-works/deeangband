@@ -387,7 +387,6 @@ static void do_cmd_erase_nikki(void)
 	if(!get_check(MES_DIARY_ASK_ERASE)) return;
 	sprintf(file_name,"playrecord-%s.txt",savefile_base);
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, file_name);
 
 	/* Remove the file */
@@ -1375,7 +1374,6 @@ static errr macro_dump(cptr fname)
 
 	char buf[1024];
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, fname);
 
 	/* File type is "TEXT" */
@@ -1491,7 +1489,6 @@ static errr keymap_dump(cptr fname)
 	else mode = KEYMAP_MODE_ORIG;
 
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, fname);
 
 	/* File type is "TEXT" */
@@ -1969,7 +1966,7 @@ void do_cmd_visuals(void)
 
 			if(!askfor(tmp, 70)) continue; /* Get a filename */
 
-			path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp); /* Build the filename */
+			path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp);
 			if(!open_auto_dump(buf, mark)) continue; /* Append to the file */
 			auto_dump_printf(MES_VISUAL_DUMP_CREATURE_START); /* Start dumping */
 
@@ -2000,7 +1997,6 @@ void do_cmd_visuals(void)
 			/* Get a filename */
 			if(!askfor(tmp, 70)) continue;
 
-			/* Build the filename */
 			path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp);
 
 			/* Append to the file */
@@ -2038,8 +2034,7 @@ void do_cmd_visuals(void)
 				auto_dump_printf("# %s\n", object_name);
 
 				/* Dump the object attr/char info */
-				auto_dump_printf("K:%d:0x%02X/0x%02X\n\n", i,
-					(byte)(object_kind_ptr->x_attr), (byte)(object_kind_ptr->x_char));
+				auto_dump_printf("K:%d:0x%02X/0x%02X\n\n", i, (byte)(object_kind_ptr->x_attr), (byte)(object_kind_ptr->x_char));
 			}
 
 			close_auto_dump();
@@ -2060,7 +2055,7 @@ void do_cmd_visuals(void)
 			/* Get a filename */
 			if(!askfor(tmp, 70)) continue;
 
-			path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp); /* Build the filename */
+			path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp);
 			if(!open_auto_dump(buf, mark)) continue; /* Append to the file */
 			auto_dump_printf(MES_VISUAL_DUMP_FEATURE_START); /* Start dumping */
 
@@ -2447,7 +2442,6 @@ void do_cmd_colors(void)
 			/* Get a filename */
 			if(!askfor(tmp, 70)) continue;
 
-			/* Build the filename */
 			path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp);
 
 			/* Append to the file */
@@ -3484,7 +3478,6 @@ void do_cmd_load_screen(void)
 
 	Term_get_size(&wid, &hgt);
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, "dump.txt");
 
 	/* Append to the file */
@@ -3817,7 +3810,6 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 
 	if(message) screen_save();
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, "htmldump.prf");
 	tmpfff = my_fopen(buf, "r");
 	if(!tmpfff) {
@@ -3922,7 +3914,6 @@ static void do_cmd_save_screen_html(void)
 
 	if(!get_string(PROMPT_FILE, tmp, 80)) return;
 
-	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, tmp);
 	msg_print(NULL);
 	do_cmd_save_screen_html_aux(buf, 1);
@@ -3996,7 +3987,6 @@ void do_cmd_save_screen(creature_type *player_ptr)
 
 		char buf[1024];
 
-		/* Build the filename */
 		path_build(buf, sizeof(buf), ANGBAND_DIR_USER, "dump.txt");
 
 		/* File type is "TEXT" */
