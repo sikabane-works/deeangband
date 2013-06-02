@@ -710,17 +710,12 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 	switch (trap_feat_type)
 	{
 		case TRAP_TRAPDOOR:
-			if(has_trait(creature_ptr, TRAIT_CAN_FLY))
-				msg_print(MES_TRAP_DOOR_AVOID);
+			if(has_trait(creature_ptr, TRAIT_CAN_FLY)) msg_print(MES_TRAP_DOOR_AVOID);
 			else
 			{
 				msg_print(MES_TRAP_DOOR);
-#ifdef JP
-				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK))
-					msg_print("くっそ～！");
-				if(has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK))
-					msg_print("ジュラル星人の仕業に違いない！");
-#endif
+				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(MES_COMBAT_TALK_BULLSHIT);
+				if(has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK)) msg_print(MES_CHARGEMAN_TALK_JURAL);
 				sound(SOUND_FALL);
 				dam = diceroll(2, 8);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, COD_TRAP_DOOR, NULL, -1);
