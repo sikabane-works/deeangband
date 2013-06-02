@@ -1006,22 +1006,21 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 					// Save the object index, color, and description
 					out_index[k] = m;
 					out_color[k] = tval_to_acttr[object_ptr->tval % 128];
-
 					if(object_ptr->timeout) out_color[k] = TERM_L_DARK; // Grey out charging items
-
 					(void)strcpy(out_desc[k], object_name);
-
-					l = strlen(out_desc[k]); // Find the predicted "line length"
-					l += 15; // Be sure to account for the weight
-
-					if(show_item_graph) // Account for icon if displayed
-					{
-						l += 2;
-						if(use_bigtile) l++;
-					}
-
-					if(l > len) len = l; // Maintain the maximum length
 				}
+
+				l = strlen(out_desc[k]); // Find the predicted "line length"
+				l += 15; // Be sure to account for the weight
+
+				if(show_item_graph) // Account for icon if displayed
+				{
+					l += 2;
+					if(use_bigtile) l++;
+				}
+
+				if(l > len) len = l; // Maintain the maximum length
+
 				k++; // Advance to next "line"
 			}
 		}
@@ -1087,7 +1086,6 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 		return 0;
 	}
 
-
 	// Output each entry
 	for (j = 0; j < k; j++)
 	{
@@ -1128,7 +1126,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 		}
 
 		// Display the entry itself
-		c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use_ptr(creature_ptr, object_ptr) , j + 1, cur_col);
+		//c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use_ptr(creature_ptr, object_ptr) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		wgt = object_ptr->weight * object_ptr->number;
