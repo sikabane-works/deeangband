@@ -658,7 +658,6 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 
 		path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, format("%s.txt", filename));
 
-		/* Open the file */
 		fp = my_fopen(buf, "r");
 
 		/* Parse it */

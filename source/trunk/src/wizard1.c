@@ -300,7 +300,6 @@ static void spoil_obj_desc(cptr fname)
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	/* Open the file */
 	fff = my_fopen(buf, "w");
 
 	if(!fff)
@@ -958,7 +957,6 @@ static void spoil_artifact(cptr fname)
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	/* Open the file */
 	fff = my_fopen(buf, "w");
 
 	if(!fff)
@@ -1047,7 +1045,6 @@ static void spoil_species_desc(cptr fname)
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	/* Open the file */
 	fff = my_fopen(buf, "w");
 
 	if(!fff)
@@ -1479,7 +1476,6 @@ static void spoil_species_info(cptr fname)
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	/* Open the file */
 	fff = my_fopen(buf, "w");
 
 	if(!fff)
@@ -1741,7 +1737,6 @@ static void spoil_species_evol(cptr fname)
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	/* Open the file */
 	fff = my_fopen(buf, "w");
 
 	if(!fff)
@@ -1979,7 +1974,6 @@ void spoil_random_artifact(creature_type *creature_ptr, cptr fname)
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
 
-	/* Open the file */
 	fff = my_fopen(buf, "w");
 
 	if(!fff)

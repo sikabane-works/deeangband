@@ -2730,7 +2730,6 @@ static cptr *read_text_lines(cptr filename)
 
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, filename);
 	
-	/* Open the file */
 	fff = my_fopen(buf, "r");
 
 	if(fff)
@@ -2874,7 +2873,6 @@ static bool write_text_lines(cptr filename, cptr *lines_list)
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, filename);
 	
-	/* Open the file */
 	fff = my_fopen(buf, "w");
 	if(fff)
 	{

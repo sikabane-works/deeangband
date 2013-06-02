@@ -1092,7 +1092,6 @@ static errr process_pref_file_aux(cptr name, int preftype)
 	bool bypass = FALSE;
 
 
-	/* Open the file */
 	fp = my_fopen(name, "r");
 
 	/* No such file */
@@ -4300,7 +4299,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		/* Build the filename */
 		path_build(path, sizeof(path), ANGBAND_DIR_HELP, name);
 
-		/* Open the file */
 		fff = my_fopen(path, "r");
 	}
 
@@ -4312,7 +4310,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		/* Build the filename */
 		path_build(path, sizeof(path), ANGBAND_DIR_INFO, name);
 
-		/* Open the file */
 		fff = my_fopen(path, "r");
 	}
 
@@ -4324,7 +4321,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		for (i = 0; path[i]; i++) if('\\' == path[i]) path[i] = PATH_SEP[0];
 		sprintf(caption, MES_SYS_SPOILER_FILE(name));
 
-		/* Open the file */
 		fff = my_fopen(path, "r");
 	}
 
@@ -5680,7 +5676,6 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 	/* Build the filename */
 	path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, file_name);
 
-	/* Open the file */
 	fp = my_fopen(buf, "r");
 
 	if(!fp) return -1;
