@@ -1063,22 +1063,8 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 
 	if(!k)
 	{
-		if(flags & SHOW_ITEM_EQUIPMENT)
-		{
-#if JP
-			put_str("[‰½‚à‘•”õ‚Å‚«‚È‚¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
-#else
-			put_str("[No Equipment]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 15 : 1);
-#endif
-		}
-		else if(flags & SHOW_ITEM_INVENTORY)
-		{
-#if JP
-			put_str("[‰½‚àŽ‚Á‚Ä‚¢‚È‚¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 21 : 1);
-#else
-			put_str("[No Inventory]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 15 : 1);
-#endif
-		}
+		if(flags & SHOW_ITEM_EQUIPMENT) put_str(MES_OBJECT_NO_EQIUPMENT, 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
+		else if(flags & SHOW_ITEM_INVENTORY) put_str(MES_OBJECT_NO_INVENTORY, 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
 		return 0;
 	}
 
@@ -1097,14 +1083,11 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 			}
 			else strcpy(tmp_val, "  ");
 		}
-		else sprintf(tmp_val, "%c)", index_to_label(j)); // Prepare an index --(--
-
-		/* Clear the line with the (possibly indented) index */
-		put_str(tmp_val, j + 1, col);
+		else sprintf(tmp_val, "%c)", index_to_label(j)); /* Prepare an index --(-- */
+		put_str(tmp_val, j + 1, col); /* Clear the line with the (possibly indented) index */
 		cur_col = col + 3;
 
-		/* Display graphics for object, if desired */
-		if(show_item_graph)
+		if(show_item_graph) /* Display graphics for object, if desired */
 		{
 			byte a = object_attr(object_ptr);
 			char c = object_char(object_ptr);
@@ -1116,14 +1099,13 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 			cur_col += 2;
 		}
 
-		// Display the entry itself
+		/* Display the entry itself */
 		c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use_idx(creature_ptr, slot[j], num[j]) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		wgt = object_ptr->weight * object_ptr->number;
 
-		// Display the weight
-		format_weight(buf, wgt);
+		format_weight(buf, wgt); /* Display the weight */
 		(void)sprintf(tmp_val, "%10s", buf);
 		prt(tmp_val, j + 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 10 : len + 3);
 	}
