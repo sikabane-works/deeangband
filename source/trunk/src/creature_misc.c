@@ -1151,7 +1151,9 @@ void set_creature_equip_slot_num(creature_type *creature_ptr)
 
 	creature_ptr->item_slot_num[INVENTORY_ID_INVENTORY] = INVEN_TOTAL;
 	for(i = INVENTORY_ID_INVENTORY + 1; i < MAX_INVENTORY_IDS; i++)
+	{
 		creature_ptr->item_slot_num[INVENTORY_ID_INVENTORY] -= creature_ptr->item_slot_num[i];
+	}
 }
 
 int get_equipped_slot_num(creature_type *creature_ptr, int slot)

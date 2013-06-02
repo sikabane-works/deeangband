@@ -712,20 +712,15 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
 
-		/* Skip non-objects */
-		if(!is_valid_object(object_ptr)) continue;
+		if(!is_valid_object(object_ptr)) continue; /* Skip non-objects */
 
 		if(IS_EQUIPPED(object_ptr) && mode != USE_INVEN) continue;
 		if(!IS_EQUIPPED(object_ptr) && mode != USE_EQUIP) continue;
 
-		/* Skip empty inscriptions */
-		if(!object_ptr->inscription) continue;
+		if(!object_ptr->inscription) continue; /* Skip empty inscriptions */
 
-		/* Skip non-choice */
-		if(!item_tester_okay(creature_ptr, object_ptr, NULL, 0)) continue;
-
-		/* Find a '@' */
-		s = my_strchr(quark_str(object_ptr->inscription), '@');
+		if(!item_tester_okay(creature_ptr, object_ptr, NULL, 0)) continue; /* Skip non-choice */
+		s = my_strchr(quark_str(object_ptr->inscription), '@'); /* Find a '@' */
 
 		/* Process all tags */
 		while (s)
@@ -733,14 +728,10 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 			/* Check the special tags */
 			if((s[1] == command_cmd) && (s[2] == tag))
 			{
-				/* Save the actual creature_ptr->inventory ID */
-				*cp = i;
-
+				*cp = i; /* Save the actual creature_ptr->inventory ID */
 				return TRUE;
 			}
-
-			/* Find another '@' */
-			s = my_strchr(s + 1, '@');
+			s = my_strchr(s + 1, '@'); /* Find another '@' */
 		}
 	}
 
@@ -748,11 +739,7 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 	/**** Find a tag in the form of {@#} (allows only numerals)  ***/
 
 	/* Don't allow {@#} with '#' being alphabet */
-	if(tag < '0' || '9' < tag)
-	{
-		/* No such tag */
-		return FALSE;
-	}
+	if(tag < '0' || '9' < tag) return FALSE; /* No such tag */
 
 	/* Check every object */
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -761,38 +748,23 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 
 		if(IS_EQUIPPED(object_ptr) && mode != USE_INVEN) continue;
 		if(!IS_EQUIPPED(object_ptr) && mode != USE_EQUIP) continue;
+		if(!is_valid_object(object_ptr)) continue; /* Skip non-objects */
+		if(!object_ptr->inscription) continue; /* Skip empty inscriptions */
+		if(!item_tester_okay(creature_ptr, object_ptr, NULL, 0)) continue; /* Skip non-choice */
 
-		/* Skip non-objects */
-		if(!is_valid_object(object_ptr)) continue;
-
-		/* Skip empty inscriptions */
-		if(!object_ptr->inscription) continue;
-
-		/* Skip non-choice */
-		if(!item_tester_okay(creature_ptr, object_ptr, NULL, 0)) continue;
-
-		/* Find a '@' */
-		s = my_strchr(quark_str(object_ptr->inscription), '@');
-
-		/* Process all tags */
-		while (s)
+		s = my_strchr(quark_str(object_ptr->inscription), '@'); /* Find a '@' */
+		while (s) /* Process all tags */
 		{
-			/* Check the normal tags */
-			if(s[1] == tag)
+			if(s[1] == tag) /* Check the normal tags */
 			{
-				/* Save the actual creature_ptr->inventory ID */
-				*cp = i;
-
+				*cp = i; /* Save the actual creature_ptr->inventory ID */
 				return TRUE;
 			}
-
-			/* Find another '@' */
-			s = my_strchr(s + 1, '@');
+			s = my_strchr(s + 1, '@'); /* Find another '@' */
 		}
 	}
 
-	/* No such tag */
-	return FALSE;
+	return FALSE; /* No such tag */
 }
 
 
@@ -817,12 +789,8 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 	for (i = 0; i < floor_num && i < INVEN_TOTAL; i++)
 	{
 		object_type *object_ptr = &object_list[floor_list[i]];
-
-		/* Skip empty inscriptions */
-		if(!object_ptr->inscription) continue;
-
-		/* Find a '@' */
-		s = my_strchr(quark_str(object_ptr->inscription), '@');
+		if(!object_ptr->inscription) continue; /* Skip empty inscriptions */
+		s = my_strchr(quark_str(object_ptr->inscription), '@'); /* Find a '@' */
 
 		/* Process all tags */
 		while (s)
@@ -832,7 +800,6 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 			{
 				/* Save the actual floor object ID */
 				*cp = i;
-
 				return TRUE;
 			}
 
@@ -845,37 +812,23 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 	/**** Find a tag in the form of {@#} (allows only numerals)  ***/
 
 	/* Don't allow {@#} with '#' being alphabet */
-	if(tag < '0' || '9' < tag)
-	{
-		/* No such tag */
-		return FALSE;
-	}
+	if(tag < '0' || '9' < tag) return FALSE; /* No such tag */
 
 	/* Check every object in the grid */
 	for (i = 0; i < floor_num && i < INVEN_TOTAL; i++)
 	{
 		object_type *object_ptr = &object_list[floor_list[i]];
+		if(!object_ptr->inscription) continue; /* Skip empty inscriptions */
+		s = my_strchr(quark_str(object_ptr->inscription), '@'); /* Find a '@' */
 
-		/* Skip empty inscriptions */
-		if(!object_ptr->inscription) continue;
-
-		/* Find a '@' */
-		s = my_strchr(quark_str(object_ptr->inscription), '@');
-
-		/* Process all tags */
-		while (s)
+		while (s) /* Process all tags */
 		{
-			/* Check the normal tags */
-			if(s[1] == tag)
+			if(s[1] == tag) /* Check the normal tags */
 			{
-				/* Save the floor object ID */
-				*cp = i;
-
+				*cp = i; /* Save the floor object ID */
 				return TRUE;
 			}
-
-			/* Find another '@' */
-			s = my_strchr(s + 1, '@');
+			s = my_strchr(s + 1, '@'); /* Find another '@' */
 		}
 	}
 
@@ -937,14 +890,10 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
 		int index;
 		char c = alphabet_chars[i];
 
-		/* Find a tag with this label */
-		if(get_tag_floor(&index, c, floor_list, floor_num))
+		if(get_tag_floor(&index, c, floor_list, floor_num)) /* Find a tag with this label */
 		{
-			/* Delete the overwritten label */
-			if(label[i] == c) label[i] = ' ';
-
-			/* Move the label to the place of corresponding tag */
-			label[index] = c;
+			if(label[i] == c) label[i] = ' '; /* Delete the overwritten label */
+			label[index] = c; /* Move the label to the place of corresponding tag */
 		}
 	}
 }
@@ -965,81 +914,45 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 	byte out_color[INVEN_TOTAL];
 	char out_desc[INVEN_TOTAL][MAX_NLEN];
 	int target_item_label = 0;
-	int wid, hgt;
+	int wid, hgt, wgt;
 	char inven_label[52 + 1];
-	int wgt;
 	char buf[80];
 
 	int slot[INVEN_TOTAL];
 	int num[INVEN_TOTAL];
 
-	col = 999;	// Starting column
-	Term_get_size(&wid, &hgt);	// Get size
-	len = wid - col - 1;	// Default "max-length"
-
+	col = 999;	/* Starting column */
+	Term_get_size(&wid, &hgt); /* Get size */
+	len = wid - col - 1; /* Default "max-length" */
 	prepare_label_string(creature_ptr, inven_label, USE_INVEN);
 
-	if(flags & SHOW_ITEM_EQUIPMENT)
+	for(k = 0, i = 0; i < MAX_INVENTORY_IDS; i++)
 	{
-		for(k = 0, i = 0; i < MAX_INVENTORY_IDS; i++)
+		if(i == INVENTORY_ID_INVENTORY && !(flags & SHOW_ITEM_INVENTORY)) continue;
+		if(i != INVENTORY_ID_INVENTORY && !(flags & SHOW_ITEM_EQUIPMENT)) continue;
+
+		n = creature_ptr->item_slot_num[i]; 
+		for(j = 0; j < n; j++)
 		{
-			if(i == INVENTORY_ID_INVENTORY) continue;
-			n = creature_ptr->item_slot_num[i]; 
-			for(j = 0; j < n; j++)
+			m = get_equipped_slot_idx(creature_ptr, i, j);
+			slot[k] = i;
+			num[k] = j;
+
+			if(m < 0)
 			{
-				m = get_equipped_slot_idx(creature_ptr, i, j);
-				slot[k] = i;
-				num[k] = j;
-
-				if(m < 0)
-				{
-					out_index[k] = m;
-					out_color[k] = TERM_L_DARK;
-					(void)strcpy(out_desc[k], KW_NONE);
-				}
-				else
-				{
-					object_ptr = &creature_ptr->inventory[m];
-					object_desc(object_name, object_ptr, 0); /* Describe the object */
-					out_index[k] = m; /* Save the object index, color, and description */
-					out_color[k] = tval_to_acttr[object_ptr->tval % 128];
-					if(object_ptr->timeout) out_color[k] = TERM_L_DARK; /* Grey out charging items */
-					(void)strcpy(out_desc[k], object_name);
-				}
-
-				l = strlen(out_desc[k]); // Find the predicted "line length"
-				l += 15; // Be sure to account for the weight
-
-				if(show_item_graph) // Account for icon if displayed
-				{
-					l += 2;
-					if(use_bigtile) l++;
-				}
-
-				if(l > len) len = l; // Maintain the maximum length
-
-				k++; // Advance to next "line"
+				out_index[k] = m;
+				out_color[k] = TERM_L_DARK;
+				(void)strcpy(out_desc[k], KW_NONE);
 			}
-		}
-	}
-
-	/* Display item */
-	if(flags & SHOW_ITEM_INVENTORY)
-	{
-		for (k = 0, i = 0; i < INVEN_TOTAL; i++)
-		{
-			object_ptr = &creature_ptr->inventory[i];
-			if(!is_valid_object(object_ptr)) continue; /* Is this item acceptable? */
-
-			if(!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(creature_ptr, object_ptr, hook, 0)) continue;
-			if(!((IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_EQUIPMENT)) || (!IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_INVENTORY)))) continue;
-
-			object_desc(object_name, object_ptr, 0);
-			out_index[k] = i; /* Save the object index, color, and description */
-			out_color[k] = tval_to_acttr[object_ptr->tval % 128];
-
-			if(object_ptr->timeout) out_color[k] = TERM_L_DARK; /* Grey out charging items */
-			(void)strcpy(out_desc[k], object_name);
+			else
+			{
+				object_ptr = &creature_ptr->inventory[m];
+				object_desc(object_name, object_ptr, 0); /* Describe the object */
+				out_index[k] = m; /* Save the object index, color, and description */
+				out_color[k] = tval_to_acttr[object_ptr->tval % 128];
+				if(object_ptr->timeout) out_color[k] = TERM_L_DARK; /* Grey out charging items */
+				(void)strcpy(out_desc[k], object_name);
+			}
 
 			l = strlen(out_desc[k]); /* Find the predicted "line length" */
 			l += 15; /* Be sure to account for the weight */
@@ -1051,9 +964,6 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 			}
 
 			if(l > len) len = l; /* Maintain the maximum length */
-			slot[k] = GET_INVENTORY_ID_TYPE(creature_ptr, i);
-			num[k] = IS_EQUIPPED(object_ptr);
-
 			k++; /* Advance to next "line" */
 		}
 	}
@@ -1070,9 +980,9 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 
 	for (j = 0; j < k - 1; j++) /* Output each entry */
 	{
-		i = out_index[j]; // Get the index
-		object_ptr = &creature_ptr->inventory[i]; // Get the item
-		prt("", j + 1, col ? col - 2 : col); // Clear the line
+		i = out_index[j]; /* Get the index */
+		object_ptr = &creature_ptr->inventory[i]; /* Get the item */
+		prt("", j + 1, col ? col - 2 : col); /* Clear the line */
 
 		if(use_menu && target_item)
 		{
@@ -1091,18 +1001,14 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 		{
 			byte a = object_attr(object_ptr);
 			char c = object_char(object_ptr);
-
 			if(j + 1 >= hgt) break;
 			Term_queue_bigchar(cur_col, j + 1, a, c, 0, 0);
 			if(use_bigtile) cur_col++;
-
 			cur_col += 2;
 		}
 
-		/* Display the entry itself */
-		c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use_idx(creature_ptr, slot[j], num[j]) , j + 1, cur_col);
+		c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use_idx(creature_ptr, slot[j], num[j]) , j + 1, cur_col); /* Display the entry itself */
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
-
 		wgt = object_ptr->weight * object_ptr->number;
 
 		format_weight(buf, wgt); /* Display the weight */
@@ -1110,11 +1016,8 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 		prt(tmp_val, j + 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 10 : len + 3);
 	}
 
-	/* Make a "shadow" below the list (only if needed) */
-	if(j && (j < INVEN_TOTAL)) prt("", j + 1, col ? col - 2 : col);
-
-	/* Save the new column */
-	//command_gap = col;
+	if(j && (j < INVEN_TOTAL)) prt("", j + 1, col ? col - 2 : col); /* Make a "shadow" below the list (only if needed) */
+	//command_gap = col; /* Save the new column */
 
 	return target_item_label;
 }
@@ -1126,9 +1029,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 void toggle_inven_equip(void)
 {
 	int j;
-
-	/* Scan windows */
-	for (j = 0; j < 8; j++)
+	for (j = 0; j < 8; j++) /* Scan windows */
 	{
 		if(!angband_term[j]) continue; /* Unused */
 
