@@ -127,7 +127,6 @@ void creature_knowledge(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[k];
 		if(!IS_EQUIPPED(object_ptr)) continue;
 
-		/* Skip non-objects */
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Extract the flags */

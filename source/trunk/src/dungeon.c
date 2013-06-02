@@ -894,10 +894,7 @@ static void recharged_notice(object_type *object_ptr)
 	char object_name[MAX_NLEN];
 	cptr s;
 
-	/* No inscription */
 	if(!object_ptr->inscription) return;
-
-	/* Find a '!' */
 	s = my_strchr(quark_str(object_ptr->inscription), '!');
 
 	/* Process notification request. */
@@ -1727,7 +1724,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			// Skip no equip
 			if(!IS_EQUIPPED(object_ptr)) continue;
 
-			/* Skip non-objects */
 			if(!is_valid_object(object_ptr)) continue;
 
 			/* Extract the item flags */
@@ -1938,7 +1934,6 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 		// Skip no equip
 		if(!IS_EQUIPPED(object_ptr)) continue;
 
-		/* Skip non-objects */
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Recharge activatable objects */
@@ -1972,7 +1967,6 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 		object_type *object_ptr = &creature_ptr->inventory[i];
 		object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
-		/* Skip non-objects */
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Examine all charging rods or stacks of charging rods. */

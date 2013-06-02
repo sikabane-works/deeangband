@@ -1774,7 +1774,6 @@ void identify_pack(creature_type *creature_ptr)
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
 
-		/* Skip non-objects */
 		if(!is_valid_object(object_ptr)) continue;
 		identify_item(creature_ptr, object_ptr);
 
@@ -3755,7 +3754,6 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 	{
 		object_ptr = &creature_ptr->inventory[i];
 
-		/* Skip non-objects */
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Hack -- for now, skip artifacts */

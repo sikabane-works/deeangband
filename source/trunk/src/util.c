@@ -4328,10 +4328,8 @@ void request_command(creature_type *guest_ptr, int shopping)
 		/* Skip no equip */
 		if(!IS_EQUIPPED(object_ptr)) continue;
 
-		/* Skip non-objects */
 		if(!is_valid_object(object_ptr)) continue;
 
-		/* No inscription */
 		if(!object_ptr->inscription) continue;
 
 		/* Obtain the inscription */

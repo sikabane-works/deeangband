@@ -1616,7 +1616,6 @@ static bool get_spike(creature_type *creature_ptr, OBJECT_ID *ip)
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
 
-		/* Skip non-objects */
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Check the "tval" code */

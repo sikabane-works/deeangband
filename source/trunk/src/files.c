@@ -5352,7 +5352,6 @@ static void show_info(creature_type *creature_ptr)
 	{
 		object_ptr = &creature_ptr->inventory[i];
 
-		/* Skip non-objects */
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Aware and Known */

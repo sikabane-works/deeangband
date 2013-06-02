@@ -29,7 +29,6 @@ INVENTORY_ID inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 	{
 		object2_ptr = &creature_ptr->inventory[j];
 
-		/* Skip non-objects */
 		if(!object2_ptr->k_idx) continue;
 
 		/* Hack -- track last item */
@@ -128,7 +127,6 @@ bool inven_carry_okay(creature_type *creature_ptr, object_type *object_ptr)
 	{
 		object_type *object2_ptr = &creature_ptr->inventory[j];
 
-		/* Skip non-objects */
 		if(!object2_ptr->k_idx) continue;
 
 		/* Check if the two items can be combined */

@@ -712,8 +712,7 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
 
-		if(!is_valid_object(object_ptr)) continue; /* Skip non-objects */
-
+		if(!is_valid_object(object_ptr)) continue; 
 		if(IS_EQUIPPED(object_ptr) && mode != USE_INVEN) continue;
 		if(!IS_EQUIPPED(object_ptr) && mode != USE_EQUIP) continue;
 
@@ -748,8 +747,7 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 
 		if(IS_EQUIPPED(object_ptr) && mode != USE_INVEN) continue;
 		if(!IS_EQUIPPED(object_ptr) && mode != USE_EQUIP) continue;
-		if(!is_valid_object(object_ptr)) continue; /* Skip non-objects */
-		if(!object_ptr->inscription) continue; /* Skip empty inscriptions */
+		if(!is_valid_object(object_ptr)) continue; 		if(!object_ptr->inscription) continue; /* Skip empty inscriptions */
 		if(!item_tester_okay(creature_ptr, object_ptr, NULL, 0)) continue; /* Skip non-choice */
 
 		s = my_strchr(quark_str(object_ptr->inscription), '@'); /* Find a '@' */
@@ -1098,8 +1096,6 @@ static bool get_item_allow(creature_type *creature_ptr, int item)
 	if(!command_cmd) return TRUE; /* command_cmd is no longer effective */
 
 	object_ptr = GET_ITEM(creature_ptr, item);
-
-	/* No inscription */
 	if(!object_ptr->inscription) return TRUE;
 
 	/* Find a '!' */
@@ -1109,8 +1105,7 @@ static bool get_item_allow(creature_type *creature_ptr, int item)
 	while (s)
 	{
 		/* Check the "restriction" */
-		if((s[1] == command_cmd) || (s[1] == '*'))
-			if(!verify(creature_ptr, KW_TRY, item)) return FALSE;
+		if((s[1] == command_cmd) || (s[1] == '*')) if(!verify(creature_ptr, KW_TRY, item)) return FALSE;
 
 		/* Find another '!' */
 		s = my_strchr(s + 1, '!');

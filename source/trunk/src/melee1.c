@@ -455,7 +455,6 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				/* Obtain the item */
 				object_ptr = &target_ptr->inventory[i];
 
-				/* Skip non-objects */
 				if(!is_valid_object(object_ptr)) continue;
 
 				/* Drain charged wands/staffs */
@@ -569,8 +568,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				i = randint0(INVEN_TOTAL); /* Pick an item */
 				object_ptr = &target_ptr->inventory[i]; /* Obtain the item */
 
-				if(!is_valid_object(object_ptr)) continue; /* Skip non-objects */
-				if(object_is_artifact(object_ptr)) continue; /* Skip artifacts */
+				if(!is_valid_object(object_ptr)) continue; 				if(object_is_artifact(object_ptr)) continue; /* Skip artifacts */
 				object_desc(object_name, object_ptr, OD_OMIT_PREFIX); // Get a description
 
 #ifdef JP
