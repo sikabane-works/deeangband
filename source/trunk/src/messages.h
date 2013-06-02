@@ -112,6 +112,7 @@
 #define MES_SYS_HP_WARNING "*** 警告:低ヒット・ポイント！ ***"
 #define MES_SYS_FIND "検索: "
 #define MES_SYS_SPOILER_FILE(NAME) "スポイラー・ファイル'%s'", (NAME)
+#define MES_SYS_COMPRESS_CREATURE "クリーチャー情報を圧縮しています..."
 #else
 
 #define MES_SYS_YOU_DIED(CREATURE) (has_trait((CREATURE), TRAIT_ANDROID) ? "You were broken." : "You died.")
@@ -195,7 +196,7 @@
 #define MES_SYS_HP_WARNING "*** LOW HITPOINT WARNING! ***"
 #define MES_SYS_FIND "Find: "
 #define MES_SYS_SPOILER_FILE(NAME) "Info file '%s'", (NAME)
-
+#define MES_SYS_COMPRESS_CREATURE "Compacting creatures..."
 #endif
 
 #if JP

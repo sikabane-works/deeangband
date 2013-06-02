@@ -866,10 +866,7 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
 			}
-			else
-			{
-				msg_print(MES_TRAP_DARTS_MISSED);
-			}
+			else msg_print(MES_TRAP_DARTS_MISSED);
 			break;
 		}
 
@@ -882,10 +879,7 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
 				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
 			}
-			else
-			{
-				msg_print(MES_TRAP_DARTS_MISSED);
-			}
+			else msg_print(MES_TRAP_DARTS_MISSED);
 			break;
 		}
 
@@ -1163,10 +1157,7 @@ species_type *real_species_ptr(creature_type *m_ptr)
 		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) return &species_info[SPECIES_CHAMELEON_K];
 		else return &species_info[SPECIES_CHAMELEON];
 	}
-	else
-	{
-		return species_ptr;
-	}
+	else return species_ptr;
 }
 
 
@@ -1256,24 +1247,14 @@ void compact_creatures(int size)
 	int		i, num, cnt;
 	int		cur_lev, cur_dis, chance;
 
-	/* Message (only if compacting) */
-#ifdef JP
-	if(size) msg_print("クリーチャー情報を圧縮しています...");
-#else
-	if(size) msg_print("Compacting creatures...");
-#endif
+	if(size) msg_print(MES_SYS_COMPRESS_CREATURE); /* Message (only if compacting) */
 
 	/* Compact at least 'size' objects */
 	for (num = 0, cnt = 1; num < size; cnt++)
 	{
-		/* Get more vicious each iteration */
-		cur_lev = 5 * cnt;
-
-		/* Get closer each iteration */
-		cur_dis = 5 * (20 - cnt);
-
-		/* Check all the creatures */
-		for (i = 1; i < creature_max; i++)
+		cur_lev = 5 * cnt; /* Get more vicious each iteration */
+		cur_dis = 5 * (20 - cnt); /* Get closer each iteration */
+		for (i = 1; i < creature_max; i++) /* Check all the creatures */
 		{
 			creature_type *m_ptr = &creature_list[i];
 			species_type *species_ptr = &species_info[m_ptr->species_idx];
