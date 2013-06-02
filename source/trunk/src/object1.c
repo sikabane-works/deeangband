@@ -989,32 +989,39 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 			for(j = 0; j < n; j++)
 			{
 				m = get_equipped_slot_idx(creature_ptr, i, j);
-				if(m < 0) continue;
-				object_ptr = &creature_ptr->inventory[m];
-				object_desc(object_name, object_ptr, 0); // Describe the object
-
-				// Save the object index, color, and description
-				out_index[k] = m;
-				out_color[k] = tval_to_acttr[object_ptr->tval % 128];
-
-				if(object_ptr->timeout) out_color[k] = TERM_L_DARK; // Grey out charging items
-
-				(void)strcpy(out_desc[k], object_name);
-
-				l = strlen(out_desc[k]); // Find the predicted "line length"
-				l += 15; // Be sure to account for the weight
-
-				if(show_item_graph) // Account for icon if displayed
-				{
-					l += 2;
-					if(use_bigtile) l++;
-				}
-
-				if(l > len) len = l; // Maintain the maximum length
-
 				slot[k] = i;
 				num[k] = j;
 
+				if(m < 0)
+				{
+					out_index[k] = m;
+					out_color[k] = TERM_L_DARK;
+					(void)strcpy(out_desc[k], KW_NONE);
+				}
+				else
+				{
+					object_ptr = &creature_ptr->inventory[m];
+					object_desc(object_name, object_ptr, 0); // Describe the object
+
+					// Save the object index, color, and description
+					out_index[k] = m;
+					out_color[k] = tval_to_acttr[object_ptr->tval % 128];
+
+					if(object_ptr->timeout) out_color[k] = TERM_L_DARK; // Grey out charging items
+
+					(void)strcpy(out_desc[k], object_name);
+
+					l = strlen(out_desc[k]); // Find the predicted "line length"
+					l += 15; // Be sure to account for the weight
+
+					if(show_item_graph) // Account for icon if displayed
+					{
+						l += 2;
+						if(use_bigtile) l++;
+					}
+
+					if(l > len) len = l; // Maintain the maximum length
+				}
 				k++; // Advance to next "line"
 			}
 		}
@@ -1026,45 +1033,33 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 		for (k = 0, i = 0; i < INVEN_TOTAL; i++)
 		{
 			object_ptr = &creature_ptr->inventory[i];
-
-			/* Is this item acceptable? */
-			if(!is_valid_object(object_ptr)) continue;
+			if(!is_valid_object(object_ptr)) continue; /* Is this item acceptable? */
 
 			if(!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(creature_ptr, object_ptr, hook, 0)) continue;
 			if(!((IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_EQUIPMENT)) || (!IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_INVENTORY)))) continue;
 
 			object_desc(object_name, object_ptr, 0);
 
-			/* Save the object index, color, and description */
-			out_index[k] = i;
+			out_index[k] = i; /* Save the object index, color, and description */
 			out_color[k] = tval_to_acttr[object_ptr->tval % 128];
 
-			/* Grey out charging items */
-			if(object_ptr->timeout) out_color[k] = TERM_L_DARK;
-
+			if(object_ptr->timeout) out_color[k] = TERM_L_DARK; /* Grey out charging items */
 			(void)strcpy(out_desc[k], object_name);
 
-			/* Find the predicted "line length" */
-			l = strlen(out_desc[k]);
+			l = strlen(out_desc[k]); /* Find the predicted "line length" */
+			l += 15; /* Be sure to account for the weight */
 
-			/* Be sure to account for the weight */
-			l += 15;
-
-			/* Account for icon if displayed */
-			if(show_item_graph)
+			if(show_item_graph) /* Account for icon if displayed */
 			{
 				l += 2;
 				if(use_bigtile) l++;
 			}
 
-			/* Maintain the maximum length */
-			if(l > len) len = l;
-
+			if(l > len) len = l; /* Maintain the maximum length */
 			slot[k] = GET_INVENTORY_ID_TYPE(creature_ptr, i);
 			num[k] = IS_EQUIPPED(object_ptr);
 
-			/* Advance to next "line" */
-			k++;
+			k++; /* Advance to next "line" */
 		}
 	}
 
@@ -1076,7 +1071,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 		if(flags & SHOW_ITEM_EQUIPMENT)
 		{
 #if JP
-			put_str("[‰½‚à‘•”õ‚µ‚Ä‚¢‚È‚¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
+			put_str("[‰½‚à‘•”õ‚Å‚«‚È‚¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
 #else
 			put_str("[No Equipment]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 15 : 1);
 #endif

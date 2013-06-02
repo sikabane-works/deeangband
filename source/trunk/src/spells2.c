@@ -1238,12 +1238,8 @@ bool symbol_genocide(creature_type *caster_ptr, POWER power, bool player_cast)
 		creature_type *m_ptr = &creature_list[i];
 		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
-
 		if(!is_valid_creature(m_ptr)) continue;
-
-		/* Skip "wrong" creatures */
-		if(species_ptr->d_char != typ) continue;
-
+		if(species_ptr->d_char != typ) continue; /* Skip "wrong" creatures */
 		result |= genocide_aux(caster_ptr, i, power, player_cast, 4, COD_GENOCIDE_SYMBOL);
 	}
 

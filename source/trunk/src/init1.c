@@ -4473,10 +4473,8 @@ errr parse_race_info_csv(char *buf, header *head)
 
 		for(i = 1; i < RC_INFO_CSV_COLUMNS; i++)
 		{
-			
 			strncpy(tmp, buf + split[i], size[i]);
 			tmp[size[i]] = '\0';
-			
 
 			switch(rc_info_csv_code[i])
 			{
@@ -4487,18 +4485,14 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_NAME:
-
-				if(!add_name(&race_ptr->name, head, tmp))
-					return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!add_name(&race_ptr->name, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case RC_INFO_E_NAME:
 #if JP
-				if(!add_name(&race_ptr->E_name, head, tmp))
-					return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!add_name(&race_ptr->E_name, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-				if(!add_name(&race_ptr->name, head, tmp))
-					return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!add_name(&race_ptr->name, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 

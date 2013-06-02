@@ -329,7 +329,6 @@ errr my_fclose(FILE *fff)
 {
 	if(!fff) return (-1); // Require a file
 	if(fclose(fff) == EOF) return FAILURE; // Close, check for error
-
 	return SUCCESS;
 }
 
