@@ -952,7 +952,6 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
 
 /*
  * Display the inventory.
- *
  * Hack -- do not display "trailing" empty slots
  */
 int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr))
@@ -1001,12 +1000,10 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 				else
 				{
 					object_ptr = &creature_ptr->inventory[m];
-					object_desc(object_name, object_ptr, 0); // Describe the object
-
-					// Save the object index, color, and description
-					out_index[k] = m;
+					object_desc(object_name, object_ptr, 0); /* Describe the object */
+					out_index[k] = m; /* Save the object index, color, and description */
 					out_color[k] = tval_to_acttr[object_ptr->tval % 128];
-					if(object_ptr->timeout) out_color[k] = TERM_L_DARK; // Grey out charging items
+					if(object_ptr->timeout) out_color[k] = TERM_L_DARK; /* Grey out charging items */
 					(void)strcpy(out_desc[k], object_name);
 				}
 
@@ -1026,7 +1023,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 		}
 	}
 
-	// Display item
+	/* Display item */
 	if(flags & SHOW_ITEM_INVENTORY)
 	{
 		for (k = 0, i = 0; i < INVEN_TOTAL; i++)
@@ -1038,7 +1035,6 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 			if(!((IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_EQUIPMENT)) || (!IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_INVENTORY)))) continue;
 
 			object_desc(object_name, object_ptr, 0);
-
 			out_index[k] = i; /* Save the object index, color, and description */
 			out_color[k] = tval_to_acttr[object_ptr->tval % 128];
 
@@ -1086,8 +1082,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 		return 0;
 	}
 
-	// Output each entry
-	for (j = 0; j < k; j++)
+	for (j = 0; j < k - 1; j++) /* Output each entry */
 	{
 		i = out_index[j]; // Get the index
 		object_ptr = &creature_ptr->inventory[i]; // Get the item
@@ -1102,14 +1097,10 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 			}
 			else strcpy(tmp_val, "  ");
 		}
-		else
-		{
-			sprintf(tmp_val, "%c)", index_to_label(i)); // Prepare an index --(--
-		}
+		else sprintf(tmp_val, "%c)", index_to_label(j)); // Prepare an index --(--
 
 		/* Clear the line with the (possibly indented) index */
 		put_str(tmp_val, j + 1, col);
-
 		cur_col = col + 3;
 
 		/* Display graphics for object, if desired */
@@ -1126,7 +1117,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 		}
 
 		// Display the entry itself
-		//c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use_ptr(creature_ptr, object_ptr) , j + 1, cur_col);
+		c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use_idx(creature_ptr, slot[j], num[j]) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		wgt = object_ptr->weight * object_ptr->number;
@@ -1157,8 +1148,7 @@ void toggle_inven_equip(void)
 	/* Scan windows */
 	for (j = 0; j < 8; j++)
 	{
-		/* Unused */
-		if(!angband_term[j]) continue;
+		if(!angband_term[j]) continue; /* Unused */
 
 		/* Flip inven to equip */
 		if(window_flag[j] & (PW_INVEN))
