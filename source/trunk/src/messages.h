@@ -1809,10 +1809,12 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #ifdef JP
 #define MES_GET_CHECK_AHEAD "本当にこのまま進むか？"
 #define MES_GET_CHECK_SUICIDE "本当に自殺しますか？"
+#define MES_GET_CHECK_RETIRE "引退しますか? "
 #define MES_GET_CHECK_LEVEL_TELEPORT "本当に他の階にテレポートしますか？"
 #else
 #define MES_GET_CHECK_AHEAD "Really want to go ahead? "
 #define MES_GET_CHECK_SUICIDE "Do you really want to commit suicide? "
+#define MES_GET_CHECK_RETIRE "Do you want to retire? "
 #define MES_GET_CHECK_LEVEL_TELEPORT "Are you sure? (Teleport Level)"
 #endif
 

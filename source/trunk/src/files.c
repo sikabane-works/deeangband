@@ -4587,11 +4587,10 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 				char tmp[81];
 #ifdef JP
 				prt("ファイル・ネーム: ", hgt - 1, 0);
-				strcpy(tmp, "jhelp.hlp");
 #else
 				prt("Goto File: ", hgt - 1, 0);
-				strcpy(tmp, "help.hlp");
 #endif
+				strcpy(tmp, TEXT_FILES_HELP);
 
 				if(askfor(tmp, 80))
 				{
@@ -4940,15 +4939,7 @@ void do_cmd_suicide(creature_type *creature_ptr)
 	int i;
 
 	flush();
-	if(creature_ptr->total_winner) // Verify Retirement
-	{
-#ifdef JP
-		if(!get_check_strict("引退しますか? ", CHECK_NO_HISTORY)) return;
-#else
-		if(!get_check_strict("Do you want to retire? ", CHECK_NO_HISTORY)) return;
-#endif
-
-	}
+	if(creature_ptr->total_winner) if(!get_check_strict(MES_GET_CHECK_RETIRE, CHECK_NO_HISTORY)) return;
 	else if(!get_check(MES_GET_CHECK_SUICIDE)) return;
 
 	if(!noscore)
@@ -5819,19 +5810,10 @@ u32b counts_read(int where)
 	u32b count = 0;
 	char buf[1024];
 
-#ifdef JP
-	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, "z_info_j.raw");
-#else
-	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, "z_info.raw");
-#endif
+	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format(BINARY_FILES_RAW("z_info")));
 	fd = fd_open(buf, O_RDONLY);
-
-	if(counts_seek(fd, where, FALSE) ||
-	    fd_read(fd, (char*)(&count), sizeof(u32b)))
-		count = 0;
-
+	if(counts_seek(fd, where, FALSE) || fd_read(fd, (char*)(&count), sizeof(u32b))) count = 0;
 	(void)fd_close(fd);
-
 	return count;
 }
 
@@ -5840,12 +5822,7 @@ errr counts_write(int where, u32b count)
 	int fd;
 	char buf[1024];
 	errr err;
-
-#ifdef JP
-	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, "z_info_j.raw");
-#else
-	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, "z_info.raw");
-#endif
+	path_build(buf, sizeof(buf), ANGBAND_DIR_DATA, format(BINARY_FILES_RAW("z_info")));
 
 	/* Grab permissions */
 	safe_setuid_grab();
