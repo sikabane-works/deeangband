@@ -4307,11 +4307,8 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	/* Look in "info" */
 	if(!fff)
 	{
-#ifdef JP
-		sprintf(caption, "スポイラー・ファイル'%s'", name);
-#else
-		sprintf(caption, "Info file '%s'", name);
-#endif
+		sprintf(caption, MES_SYS_SPOILER_FILE(name));
+
 		/* Build the filename */
 		path_build(path, sizeof(path), ANGBAND_DIR_INFO, name);
 
@@ -4324,15 +4321,8 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	{
 		/* Build the filename */
 		path_build(path, sizeof(path), ANGBAND_DIR, name);
-
-		for (i = 0; path[i]; i++)
-			if('\\' == path[i]) path[i] = PATH_SEP[0];
-
-#ifdef JP
-		sprintf(caption, "スポイラー・ファイル'%s'", name);
-#else
-		sprintf(caption, "Info file '%s'", name);
-#endif
+		for (i = 0; path[i]; i++) if('\\' == path[i]) path[i] = PATH_SEP[0];
+		sprintf(caption, MES_SYS_SPOILER_FILE(name));
 
 		/* Open the file */
 		fff = my_fopen(path, "r");

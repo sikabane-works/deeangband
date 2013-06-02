@@ -111,7 +111,7 @@
 #define MES_SYS_SCREEN_LOADED "ファイルに書き出された画面(記念撮影)をロードしました。"
 #define MES_SYS_HP_WARNING "*** 警告:低ヒット・ポイント！ ***"
 #define MES_SYS_FIND "検索: "
-
+#define MES_SYS_SPOILER_FILE(NAME) "スポイラー・ファイル'%s'", (NAME)
 #else
 
 #define MES_SYS_YOU_DIED(CREATURE) (has_trait((CREATURE), TRAIT_ANDROID) ? "You were broken." : "You died.")
@@ -194,6 +194,7 @@
 #define MES_SYS_SCREEN_LOADED "Screen dump loaded."
 #define MES_SYS_HP_WARNING "*** LOW HITPOINT WARNING! ***"
 #define MES_SYS_FIND "Find: "
+#define MES_SYS_SPOILER_FILE(NAME) "Info file '%s'", (NAME)
 
 #endif
 
