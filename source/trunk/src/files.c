@@ -4514,22 +4514,14 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		/* Hack -- try showing */
 		case '=':
 			/* Get "shower" */
-#ifdef JP
-			prt("‹­’²: ", hgt - 1, 0);
-#else
-			prt("Show: ", hgt - 1, 0);
-#endif
-
+			prt(PROMPT_SHOW, hgt - 1, 0);
 			strcpy(back_str, shower_str);
 			if(askfor(shower_str, 80))
 			{
 				if(shower_str[0])
 				{
-					/* Make it lowercase */
-					str_tolower(shower_str);
-
-					/* Show it */
-					shower = shower_str;
+					str_tolower(shower_str); /* Make it lowercase */
+					shower = shower_str; /* Show it */
 				}
 				else shower = NULL; /* Stop showing */
 			}

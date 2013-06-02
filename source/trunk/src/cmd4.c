@@ -630,12 +630,7 @@ void do_cmd_messages(int num_now)
 		{
 		/* Hack -- handle show */
 		case '=':
-#ifdef JP
-			prt("‹­’²: ", hgt - 1, 0);
-#else
-			prt("Show: ", hgt - 1, 0);
-#endif
-
+			prt(PROMPT_SHOW, hgt - 1, 0);
 			/* Get a "shower" string, or continue */
 			strcpy(back_str, shower_str);
 			if(askfor(shower_str, 80))

@@ -1287,28 +1287,18 @@ void compact_creatures(int size)
 				write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_COMPACT, m_name);
 			}
 
-			/* Delete the creature */
 			delete_creature(m_ptr);
-
-			/* Count the creature */
-			num++;
+			num++; /* Count the creature */
 		}
 	}
 
 	/* Excise dead creatures (backwards!) */
 	for (i = creature_max - 1; i >= 1; i--)
 	{
-		/* Get the i'th creature */
-		creature_type *m_ptr = &creature_list[i];
-
-		/* Skip real creatures */
+		creature_type *m_ptr = &creature_list[i]; /* Get the i'th creature */
 		if(is_valid_creature(m_ptr)) continue;
-
-		/* Move last creature into open hole */
-		move_creature_object(creature_max - 1, i);
-
-		/* Compress "creature_max" */
-		creature_max--;
+		move_creature_object(creature_max - 1, i); /* Move last creature into open hole */
+		creature_max--; /* Compress "creature_max" */
 	}
 }
 
@@ -1317,9 +1307,7 @@ void birth_uniques(void)
 	int i;
 	char buf[80];
 
-	// Init Unique Count
-	unique_max = 0;
-
+	unique_max = 0; /* Init Unique Count */
 	for(i = 0; i < max_species_idx; i++)
 	{
 		sprintf(buf, "Please Wait ... Unique Making[%d]", i);
@@ -1332,7 +1320,6 @@ void birth_uniques(void)
 			generate_creature(NULL, i, GC_AUTO);
 		}
 	}
-
 }
 
 
@@ -1422,12 +1409,9 @@ CREATURE_ID creature_pop(void)
 		creature_max++;
 		creature_cnt++;
 		return i;
-
-		// Return the index
 	}
 
-	msg_warning("クリーチャーが多すぎる！");
-
+	msg_warning(MES_DEBUG_TOO_CREATURE);
 	return 0; // Try not to crash
 }
 

@@ -1788,6 +1788,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_DIRECTION "ï˚å¸ÇÕ(ESCÇ≈íÜíf)? "
 	#define PROMPT_LABEL(N1, N2) " %c-%c,'(',')',", (N1), (N2)
 	#define PROMPT_FIND "åüçı(^I:éùÇøï® ^L:îjâÛÇ≥ÇÍÇΩï®): "
+	#define PROMPT_SHOW "ã≠í≤: "
 #else
 	#define PROMPT_COMMAND "Command: "
 	#define PROMPT_KEYPRESS "Keypress: "
@@ -1802,6 +1803,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_DIRECTION "Direction (Escape to cancel)? "
 	#define PROMPT_LABEL(N1, N2) " %c-%c,'(',')',", (N1), (N2)
 	#define PROMPT_FIND "Search key(^I:inven ^L:destroyed): "
+	#define PROMPT_SHOW "Show: "
 #endif
 
 #ifdef JP
