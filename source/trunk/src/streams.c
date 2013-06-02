@@ -285,24 +285,16 @@ void build_streamer(floor_type *floor_ptr, FEATURE_ID feat, int chance)
 					}
 					else if(cheat_peek && object_ptr->art_name) msg_print(MES_DEBUG_RANDOM_ARTIFACT_CANCEL2);
 				}
-
-				/* Delete objects */
 				delete_object(floor_ptr, ty, tx);
 			}
 
-			/* Clear previous contents, add proper vein type */
-			c_ptr->feat = feat;
-
-			/* Paranoia: Clear mimic field */
-			c_ptr->mimic = 0;
+			c_ptr->feat = feat; /* Clear previous contents, add proper vein type */
+			c_ptr->mimic = 0; /* Paranoia: Clear mimic field */
 
 			if(streamer_may_have_gold)
 			{
 				/* Hack -- Add some known treasure */
-				if(one_in_(chance))
-				{
-					cave_alter_feat(floor_ptr, ty, tx, FF_MAY_HAVE_GOLD);
-				}
+				if(one_in_(chance)) cave_alter_feat(floor_ptr, ty, tx, FF_MAY_HAVE_GOLD);
 
 				/* Hack -- Add some hidden treasure */
 				else if(one_in_(chance / 4))
@@ -329,8 +321,7 @@ void build_streamer(floor_type *floor_ptr, FEATURE_ID feat, int chance)
 			else dir = (dir > 0) ? dir - 1 : 7; 
 		}
 
-		/* Quit before leaving the dungeon */
-		if(!IN_BOUNDS(floor_ptr, y, x)) break;
+		if(!IN_BOUNDS(floor_ptr, y, x)) break; /* Quit before leaving the dungeon */
 	}
 }
 
@@ -364,13 +355,9 @@ void place_trees(floor_type *floor_ptr, COODINATES x, COODINATES y)
 				 */
 				if((distance(j, i, y, x) > 1) || (randint1(100) < 25))
 				{
-					if(randint1(100) < 75)
-						floor_ptr->cave[j][i].feat = feat_tree;
+					if(randint1(100) < 75) floor_ptr->cave[j][i].feat = feat_tree;
 				}
-				else
-				{
-					floor_ptr->cave[j][i].feat = feat_rubble;
-				}
+				else floor_ptr->cave[j][i].feat = feat_rubble;
 
 				/* Clear garbage of hidden trap or door */
 				c_ptr->mimic = 0;
@@ -382,11 +369,7 @@ void place_trees(floor_type *floor_ptr, COODINATES x, COODINATES y)
 	}
 
 	/* No up stairs in ironman mode */
-	if(!ironman_downward && one_in_(3))
-	{
-		/* up stair */
-		floor_ptr->cave[y][x].feat = feat_up_stair;
-	}
+	if(!ironman_downward && one_in_(3)) floor_ptr->cave[y][x].feat = feat_up_stair;
 }
 
 

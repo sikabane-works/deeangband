@@ -947,11 +947,15 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 			else
 			{
 				object_ptr = &creature_ptr->inventory[m];
-				object_desc(object_name, object_ptr, 0); /* Describe the object */
-				out_index[k] = m; /* Save the object index, color, and description */
-				out_color[k] = tval_to_acttr[object_ptr->tval % 128];
-				if(object_ptr->timeout) out_color[k] = TERM_L_DARK; /* Grey out charging items */
-				(void)strcpy(out_desc[k], object_name);
+				if(hook(creature_ptr, object_ptr))
+				{
+					object_desc(object_name, object_ptr, 0); /* Describe the object */
+					out_index[k] = m; /* Save the object index, color, and description */
+					out_color[k] = tval_to_acttr[object_ptr->tval % 128];
+					if(object_ptr->timeout) out_color[k] = TERM_L_DARK; /* Grey out charging items */
+					(void)strcpy(out_desc[k], object_name);
+				}
+				else continue;
 			}
 
 			l = strlen(out_desc[k]); /* Find the predicted "line length" */

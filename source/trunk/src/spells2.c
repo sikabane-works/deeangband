@@ -1225,15 +1225,9 @@ bool symbol_genocide(creature_type *caster_ptr, POWER power, bool player_cast)
 		return FALSE;
 	}
 
-	/* Mega-Hack -- Get a creature symbol */
-#ifdef JP
-	while (!get_com("どの種類(文字)のクリーチャーを抹殺しますか: ", &typ, FALSE)) ;
-#else
-	while (!get_com("Choose a creature race (by symbol) to genocide: ", &typ, FALSE)) ;
-#endif
+	while (!get_com(MES_TRAIT_GENOCIDE_WHICH_SYMBOL, &typ, FALSE)); /* Mega-Hack -- Get a creature symbol */
 
-	/* Delete the creatures of that "type" */
-	for (i = 1; i < creature_max; i++)
+	for (i = 1; i < creature_max; i++) /* Delete the creatures of that "type" */
 	{
 		creature_type *m_ptr = &creature_list[i];
 		species_type *species_ptr = &species_info[m_ptr->species_idx];
@@ -1479,11 +1473,8 @@ bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODI
 			// Erase Message
 			c_ptr->message[0] = '\0';
 
-			/* Lose room and vault */
-			c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY);
-
-			/* Lose light and knowledge */
-			c_ptr->info &= ~(CAVE_MARK | CAVE_GLOW);
+			c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY); /* Lose room and vault */
+			c_ptr->info &= ~(CAVE_MARK | CAVE_GLOW); /* Lose light and knowledge */
 
 			if(!in_generate) /* Normal */
 			{
@@ -1512,24 +1503,18 @@ bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODI
 				}
 				else if(has_trait(m_ptr, TRAIT_QUESTOR))
 				{
-					/* Heal the creature */
-					m_ptr->chp = m_ptr->mhp;
-
-					/* Try to teleport away quest creatures */
-					if(!teleport_away(&creature_list[c_ptr->creature_idx], (r * 2) + 1, TELEPORT_DEC_VALOUR)) continue;
+					heal_creature(m_ptr, m_ptr->mhp); /* Heal the creature */
+					if(!teleport_away(&creature_list[c_ptr->creature_idx], (r * 2) + 1, TELEPORT_DEC_VALOUR)) continue; /* Try to teleport away quest creatures */
 				}
 				else
 				{
 					if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 					{
 						char m_name[MAX_NLEN];
-
 						creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 						write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_DESTROY, m_name);
 					}
-
-					/* Delete the creature (if any) */
-					delete_creature_there(floor_ptr, y, x);
+					delete_creature_there(floor_ptr, y, x); /* Delete the creature (if any) */
 				}
 			}
 
@@ -1542,12 +1527,8 @@ bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODI
 				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 				{
 					object_type *object_ptr;
-
-					/* Acquire object */
-					object_ptr = &object_list[this_object_idx];
-
-					/* Acquire next object */
-					next_object_idx = object_ptr->next_object_idx;
+					object_ptr = &object_list[this_object_idx]; /* Acquire object */
+					next_object_idx = object_ptr->next_object_idx; /* Acquire next object */
 
 					/* Hack -- Preserve unknown artifacts */
 					if(object_is_fixed_artifact(object_ptr) && (!object_is_known(object_ptr) || in_generate))
@@ -1567,7 +1548,6 @@ bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODI
 				}
 			}
 
-			/* Delete objects */
 			delete_object(floor_ptr, y, x);
 
 			/* Destroy "non-permanent" grids */

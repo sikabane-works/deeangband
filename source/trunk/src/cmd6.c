@@ -1034,8 +1034,7 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 	int k;
 	int ident = FALSE;
 
-	/* Analyze the staff */
-	switch (sval)
+	switch (sval) /* Analyze the staff */
 	{
 		case SV_STAFF_DARKNESS:
 			if(!(has_trait(caster_ptr, TRAIT_NO_BLIND)) && !has_trait(caster_ptr, TRAIT_RES_DARK))
@@ -1081,89 +1080,63 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 		}
 
 		case SV_STAFF_DETECT_GOLD:
-		{
 			if(detect_treasure(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			if(detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_DETECT_ITEM:
-		{
 			if(detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_DETECT_DOOR:
-		{
 			if(detect_doors(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			if(detect_stairs(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_DETECT_INVIS:
-		{
 			if(detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_DETECT_EVIL:
-		{
 			if(detect_creatures_evil(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_SLEEP_MONSTERS:
-		{
 			if(project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, caster_ptr->lev)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_SLOW_MONSTERS:
-		{
 			if(project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_DISPEL_EVIL:
-		{
 			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, 80)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_POWER:
-		{
 			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 150)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_HOLINESS:
-		{
 			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, 150)) ident = TRUE;
 			k = 3 * caster_ptr->lev;
 			if(add_timed_trait(caster_ptr, TRAIT_PROT_EVIL, (magic ? 0 : randint1(25) + k, 0), TRUE)) ident = TRUE;
 			if(heal_creature(caster_ptr, 50)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_GENOCIDE:
-		{
 			(void)symbol_genocide(caster_ptr, (magic ? caster_ptr->lev + 50 : 200), TRUE);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_EARTHQUAKES:
-		{
 			if(earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10)) ident = TRUE;
 			else msg_print(MES_EARTHQUAKE_CANCELED);
 			break;
-		}
 
 		case SV_STAFF_ANIMATE_DEAD:
-		{
 			if(project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_MSTORM:
 		{
