@@ -359,10 +359,7 @@ static void wr_creature(creature_type *creature_ptr)
 		wr_object(object_ptr);	// Dump object
 	}
 
-	for (i = 0; i < MAX_INVENTORY_IDS; i++)
-	{
-		WRITE_OBJECT_KIND_ID(creature_ptr->organ_id[i]);
-	}
+	for (i = 0; i < MAX_INVENTORY_IDS; i++) WRITE_OBJECT_KIND_ID(creature_ptr->organ_id[i]);
 
 	/* Add a sentinel */
 	wr_u16b(0xFFFF);
@@ -372,7 +369,7 @@ static void wr_creature(creature_type *creature_ptr)
 	for (i = 0; i < STAT_MAX; ++i) WRITE_STAT(creature_ptr->stat_max_max[i]);
 	for (i = 0; i < STAT_MAX; ++i) WRITE_STAT(creature_ptr->stat_cur[i]);
 
-	wr_u32b(creature_ptr->au);
+	WRITE_PRICE(creature_ptr->au);
 
 	wr_u32b(creature_ptr->max_exp);
 	wr_u32b(creature_ptr->max_max_exp);
@@ -412,13 +409,13 @@ static void wr_creature(creature_type *creature_ptr)
 	WRITE_COODINATES(creature_ptr->oldpx);
 	WRITE_COODINATES(creature_ptr->oldpy);
 
-	wr_s32b(creature_ptr->mhp);
-	wr_s32b(creature_ptr->mmhp);
-	wr_s32b(creature_ptr->chp);
+	WRITE_STAT(creature_ptr->mhp);
+	WRITE_STAT(creature_ptr->mmhp);
+	WRITE_STAT(creature_ptr->chp);
 	wr_u32b(creature_ptr->chp_frac);
 
-	wr_s32b(creature_ptr->msp);
-	wr_s32b(creature_ptr->csp);
+	WRITE_STAT(creature_ptr->msp);
+	WRITE_STAT(creature_ptr->csp);
 	wr_u32b(creature_ptr->csp_frac);
 
 	WRITE_CREATURE_LEV(creature_ptr->max_plv);

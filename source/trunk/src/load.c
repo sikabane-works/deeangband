@@ -741,17 +741,14 @@ static errr rd_creature(creature_type *creature_ptr)
 		return LOAD_ERROR_INVALID_OBJECT;
 	}
 
-	for (i = 0; i < MAX_INVENTORY_IDS; i++)
-	{
-		READ_OBJECT_KIND_ID(&creature_ptr->organ_id[i]);
-	}
+	for (i = 0; i < MAX_INVENTORY_IDS; i++) READ_OBJECT_KIND_ID(&creature_ptr->organ_id[i]);
 
 	// Read the stat info
 	for (i = 0; i < STAT_MAX; i++) READ_STAT(&creature_ptr->stat_max[i]);
 	for (i = 0; i < STAT_MAX; i++) READ_STAT(&creature_ptr->stat_max_max[i]);
 	for (i = 0; i < STAT_MAX; i++) READ_STAT(&creature_ptr->stat_cur[i]);
 
-	rd_s32b(&creature_ptr->au);
+	READ_PRICE(&creature_ptr->au);
 	rd_s32b(&creature_ptr->max_exp);
 	rd_s32b(&creature_ptr->max_max_exp);
 	rd_s32b(&creature_ptr->exp);
@@ -793,13 +790,13 @@ static errr rd_creature(creature_type *creature_ptr)
 	READ_COODINATES(&creature_ptr->oldpx);
 	READ_COODINATES(&creature_ptr->oldpy);
 
-	rd_s32b(&creature_ptr->mhp);
-	rd_s32b(&creature_ptr->mmhp);
-	rd_s32b(&creature_ptr->chp);
+	READ_STAT(&creature_ptr->mhp);
+	READ_STAT(&creature_ptr->mmhp);
+	READ_STAT(&creature_ptr->chp);
 	rd_u32b(&creature_ptr->chp_frac);
 
-	rd_s32b(&creature_ptr->msp);
-	rd_s32b(&creature_ptr->csp);
+	READ_STAT(&creature_ptr->msp);
+	READ_STAT(&creature_ptr->csp);
 	rd_u32b(&creature_ptr->csp_frac);
 
 	READ_CREATURE_LEV(&creature_ptr->max_plv);
