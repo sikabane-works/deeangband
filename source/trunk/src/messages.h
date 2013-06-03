@@ -673,6 +673,11 @@
 #define MES_DAMAGE_BURN_UP(FEATURE) "%sで火傷した！", feature_name +(FEATURE)->name
 #define MES_DAMAGE_POISONED(FEATURE) "%sに毒された！", feature_name +(FEATURE)->name
 #define MES_DAMAGE_DISOLVED(FEATURE) "%sに溶かされた！", feature_name +(FEATURE)->name
+#define MES_DAMAGE_DROWN "溺れている！"
+#define MES_DAMAGE_FIRE "熱い！"
+#define MES_DAMAGE_ELEC "痛い！"
+#define MES_DAMAGE_COLD "冷たい！"
+
 #define MES_ROCK_CRUSHING(CREATURE) "%sは崩れた岩に押し潰された！", (CREATURE)->name
 
 #define MES_HAYAGAKE_PREVENT "ここでは素早く動けない。"
@@ -771,6 +776,10 @@
 #define MES_DAMAGE_BURN_UP(FEATURE) "The %s burns you!", feature_name +(FEATURE)->name
 #define MES_DAMAGE_POISONED(FEATURE) "you are poisoned by The %s", feature_name +(FEATURE)->name
 #define MES_DAMAGE_DISOLVED(FEATURE) "you are disolved by The %s", feature_name +(FEATURE)->name
+#define MES_DAMAGE_DROWN "You are drowning!"
+#define MES_DAMAGE_FIRE "It's hot!"
+#define MES_DAMAGE_ELEC "It hurts!"
+#define MES_DAMAGE_COLD "It's cold!"
 #define MES_ROCK_CRUSHING "%s %s being crushed!", (CREATURE)->name, is_player(CREATURE) ? "are" : "is"
 
 #define MES_HAYAGAKE_PREVENT "You cannot run in here."

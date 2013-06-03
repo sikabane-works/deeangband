@@ -1089,11 +1089,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	{
 		if(creature_ptr->carrying_weight > calc_carrying_weight_limit(creature_ptr))
 		{
-#ifdef JP
-			msg_print("ìMÇÍÇƒÇ¢ÇÈÅI");
-#else
-			msg_print("You are drowning!");
-#endif
+			msg_print(MES_DAMAGE_DROWN);
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->lev), COD_DROWNING, NULL, -1);
 			cave_no_regen = TRUE;
 		}
@@ -1107,33 +1103,21 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(steed_ptr, creature_ptr, damage, DO_EFFECT_FIRE, FALSE, FALSE);
-#ifdef JP
-			msg_print("îMÇ¢ÅI");
-#else
-			msg_print("It's hot!");
-#endif
+			msg_print(MES_DAMAGE_FIRE);
 			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, COD_FIRE_AURA, NULL, -1);
 		}
 		if(has_trait(steed_ptr, TRAIT_AURA_ELEC) && !has_trait(creature_ptr, TRAIT_IM_ELEC))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(steed_ptr, creature_ptr, damage, DO_EFFECT_ELEC, FALSE, FALSE);
-#ifdef JP
-			msg_print("í…Ç¢ÅI");
-#else
-			msg_print("It hurts!");
-#endif
+			msg_print(MES_DAMAGE_ELEC);
 			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, COD_ELEC_AURA, NULL, -1);
 		}
 		if(has_trait(steed_ptr, TRAIT_AURA_COLD) && !has_trait(creature_ptr, TRAIT_IM_COLD))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
 			damage = calc_damage(steed_ptr, creature_ptr, damage, DO_EFFECT_COLD, FALSE, FALSE);
-#ifdef JP
-			msg_print("ó‚ÇΩÇ¢ÅI");
-#else
-			msg_print("It's cold!");
-#endif
+			msg_print(MES_DAMAGE_COLD);
 			take_damage_to_creature(steed_ptr, creature_ptr, DAMAGE_NOESCAPE, damage, COD_COLD_AURA, NULL, -1);
 		}
 	}
