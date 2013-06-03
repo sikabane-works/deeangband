@@ -3546,6 +3546,20 @@ static void set_flow_flag(creature_type *creature_ptr)
 
 }
 
+static void set_organ_melee(creature_type *creature_ptr)
+{
+	race_type *race_ptr = &race_info[creature_ptr->race_idx1];
+	species_type *species_ptr = &species_info[creature_ptr->species_idx];
+	int i;
+	for(i = 0; i < MAX_INVENTORY_IDS; i++) creature_ptr->organ_id[i] = 0;
+
+	/* from race definition */
+	race_ptr->special_melee_tag;
+
+	/* from species definition */
+	species_ptr->sp_melee;
+}
+
 
 /*
  * Calculate the players current "state", taking into account
@@ -3597,6 +3611,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 
 	set_karma_bonuses(creature_ptr);
 	set_flow_flag(creature_ptr);
+	set_organ_melee(creature_ptr);
 	fix_creature_status(creature_ptr);
 
 	if(message) creature_bonuses_message(creature_ptr);
