@@ -1465,99 +1465,40 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			break;
 
 		case TV_TRUMP_BOOK:
-		{
-#ifdef JP
-			basenm = "トランプの魔法書%";
-#else
-			basenm = "& Trump Spellbook~ %";
-#endif
-
+			basenm = OBJECT_DESC_TRUMP_BOOK;
 			break;
-		}
 
 		case TV_ARCANE_BOOK:
-		{
-#ifdef JP
-			basenm = "秘術の魔法書%";
-#else
-			basenm = "& Arcane Spellbook~ %";
-#endif
-
+			basenm = OBJECT_DESC_ARCANE_BOOK;
 			break;
-		}
 
 		case TV_CRAFT_BOOK:
-		{
-#ifdef JP
-			basenm = "匠の魔法書%";
-#else
-			basenm = "& Craft Spellbook~ %";
-#endif
-
+			basenm = OBJECT_DESC_CRAFT_BOOK;
 			break;
-		}
 
 		case TV_DAEMON_BOOK:
-		{
-#ifdef JP
-			basenm = "悪魔の魔法書%";
-#else
-			basenm = "& Daemon Spellbook~ %";
-#endif
-
+			basenm = OBJECT_DESC_DAEMON_BOOK;
 			break;
-		}
 
 		case TV_CRUSADE_BOOK:
-		{
-#ifdef JP
-			basenm = "破邪の魔法書%";
-#else
-			basenm = "& Crusade Spellbook~ %";
-#endif
-
+			basenm = OBJECT_DESC_CRUSADE_BOOK;
 			break;
-		}
 
 		case TV_MUSIC_BOOK:
-		{
-#ifdef JP
-			basenm = "歌集%";
-#else
-			basenm = "& Song Book~ %";
-#endif
-
+			basenm = OBJECT_DESC_MUSIC_BOOK;
 			break;
-		}
 
 		case TV_HISSATSU_BOOK:
-		{
-#ifdef JP
-			basenm = "& 武芸の書%";
-#else
-			basenm = "Book~ of Kendo %";
-#endif
-
+			basenm = OBJECT_DESC_HISSATSU_BOOK;
 			break;
-		}
 
 		case TV_HEX_BOOK:
-		{
-#ifdef JP
-			basenm = "呪術の魔法書%";
-#else
-			basenm = "& Crusade Spellbook~ %";
-#endif
-
+			basenm = OBJECT_DESC_HEX_BOOK;
 			break;
-		}
 
-		/* Hack -- Gold/Gems */
 		case TV_GOLD:
-		{
 			strcpy(buf, basenm);
 			return;
-		}
 
 		/* Used in the "inventory" routine */
 		default:
