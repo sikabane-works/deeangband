@@ -945,6 +945,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 			else
 			{
 				object_ptr = &creature_ptr->inventory[m];
+				if(!is_valid_object(object_ptr)) continue;
 				if(hook(creature_ptr, object_ptr))
 				{
 					object_desc(object_name, object_ptr, 0); /* Describe the object */

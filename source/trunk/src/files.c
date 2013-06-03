@@ -3341,7 +3341,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 
 	else if(mode == DISPLAY_CR_STATUS_INVENTORY)
 	{
-		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY, NULL);		
+		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY, NULL);
 		format_weight(buf1, creature_ptr->carrying_weight);
 		format_weight(buf2, calc_carrying_weight_limit(creature_ptr));
 
