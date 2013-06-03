@@ -4811,6 +4811,12 @@ static cptr desc_stat_neg[] =
 #define OBJECT_DESC_ROD_A "%のロッド"
 #define OBJECT_DESC_ROD_B "%の#ロッド"
 #define OBJECT_DESC_ROD_C "#ロッド"
+#define OBJECT_DESC_SCROLL_A "%の巻物"
+#define OBJECT_DESC_SCROLL_B "「#」と書かれた%の巻物"
+#define OBJECT_DESC_SCROLL_C "「#」と書かれた巻物"
+#define OBJECT_DESC_POTION_A "%の薬"
+#define OBJECT_DESC_POTION_B "%の#薬"
+#define OBJECT_DESC_POTION_C "#薬"
 #else
 #define OBJECT_DESC_EMPTY " (empty)"
 #define OBJECT_DESC_AMULET_A "& Amulet~ of %"
@@ -4828,4 +4834,10 @@ static cptr desc_stat_neg[] =
 #define OBJECT_DESC_ROD_A "& Rod~ of %"
 #define OBJECT_DESC_ROD_B "& # Rod~ of %"
 #define OBJECT_DESC_ROD_C "& # Rod~"
+#define OBJECT_DESC_SCROLL_A "& Scroll~ of %"
+#define OBJECT_DESC_SCROLL_B "& Scroll~ titled \"#\" of %"
+#define OBJECT_DESC_SCROLL_C "& Scroll~ titled \"#\""
+#define OBJECT_DESC_POTION_A "& Potion~ of %"
+#define OBJECT_DESC_POTION_B "& # Potion~ of %"
+#define OBJECT_DESC_POTION_C "& # Potion~"
 #endif

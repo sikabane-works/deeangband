@@ -1419,40 +1419,18 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			break;
 
 		case TV_SCROLL:
-		{
-			/* Color the object */
 			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
-
-#ifdef JP
-			if(!flavor)    basenm = "%の巻物";
-			else if(aware) basenm = "「#」と書かれた%の巻物";
-			else            basenm = "「#」と書かれた巻物";
-#else
-			if(!flavor)    basenm = "& Scroll~ of %";
-			else if(aware) basenm = "& Scroll~ titled \"#\" of %";
-			else            basenm = "& Scroll~ titled \"#\"";
-#endif
-
+			if(!flavor)    basenm = OBJECT_DESC_SCROLL_A;
+			else if(aware) basenm = OBJECT_DESC_SCROLL_B;
+			else            basenm = OBJECT_DESC_SCROLL_C;
 			break;
-		}
 
 		case TV_POTION:
-		{
-			/* Color the object */
 			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
-
-#ifdef JP
-			if(!flavor)    basenm = "%の薬";
-			else if(aware) basenm = "%の#薬";
-			else            basenm = "#薬";
-#else
-			if(!flavor)    basenm = "& Potion~ of %";
-			else if(aware) basenm = "& # Potion~ of %";
-			else            basenm = "& # Potion~";
-#endif
-
+			if(!flavor)    basenm = OBJECT_DESC_POTION_A;
+			else if(aware) basenm = OBJECT_DESC_POTION_B;
+			else            basenm = OBJECT_DESC_POTION_C;
 			break;
-		}
 
 		case TV_FOOD:
 		{
