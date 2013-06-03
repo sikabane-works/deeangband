@@ -4796,6 +4796,18 @@ static cptr desc_stat_neg[] =
 
 #ifdef JP
 #define OBJECT_DESC_EMPTY " (空)"
+#define OBJECT_DESC_AMULET_A "%のアミュレット"
+#define OBJECT_DESC_AMULET_B "%の#アミュレット"
+#define OBJECT_DESC_AMULET_C "#アミュレット"
+#define OBJECT_DESC_RING_A "%の指輪"
+#define OBJECT_DESC_RING_B "%の#指輪"
+#define OBJECT_DESC_RING_C "#指輪"
 #else
 #define OBJECT_DESC_EMPTY " (empty)"
+#define OBJECT_DESC_AMULET_A "& Amulet~ of %"
+#define OBJECT_DESC_AMULET_B "& # Amulet~ of %"
+#define OBJECT_DESC_AMULET_C "& # Amulet~"
+#define OBJECT_DESC_RING_A "& Ring~ of %"
+#define OBJECT_DESC_RING_B "& # Ring~ of %"
+#define OBJECT_DESC_RING_C "& # Ring~"
 #endif

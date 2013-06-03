@@ -1273,13 +1273,11 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 					if(!has_trait_species(species_ptr, TRAIT_UNIQUE))
 					{
 						sprintf(tmp_val2, " (%s%s)", (is_a_vowel(*t) ? "an " : "a "), t);
-
 						modstr = tmp_val2;
 					}
 					else
 					{
 						sprintf(tmp_val2, "(%s)", t);
-
 						modstr = t;
 					}
 #endif
@@ -1305,31 +1303,21 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 
 				modstr = tmp_val2;
 			}
-			else
-			{
-				modstr = t;
-			}
+			else modstr = t;
 #endif
-
 			break;
 		}
 
-		/* Corpses */
-		case TV_CORPSE:
+		case TV_CORPSE: /* Corpses */
 		{
 			species_type *species_ptr = &species_info[object_ptr->source_idx];
-
 			modstr = species_name + species_ptr->name;
-
 #ifdef JP
 			basenm = "#%";
 #else
-			if(has_trait_species(species_ptr, TRAIT_UNIQUE))
-				basenm = "& % of #";
-			else
-				basenm = "& # %";
+			if(has_trait_species(species_ptr, TRAIT_UNIQUE)) basenm = "& % of #";
+			else basenm = "& # %";
 #endif
-
 			break;
 		}
 
@@ -1379,18 +1367,10 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 				if(has_trait_object(object_ptr, TRAIT_INSTA_ART)) break;
 			}
 
-			/* Color the object */
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
-
-#ifdef JP
-			if(!flavor)    basenm = "%のアミュレット";
-			else if(aware) basenm = "%の#アミュレット";
-			else            basenm = "#アミュレット";
-#else
-			if(!flavor)    basenm = "& Amulet~ of %";
-			else if(aware) basenm = "& # Amulet~ of %";
-			else            basenm = "& # Amulet~";
-#endif
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane; /* Color the object */
+			if(!flavor)    basenm = OBJECT_DESC_AMULET_A;
+			else if(aware) basenm = OBJECT_DESC_AMULET_B;
+			else            basenm = OBJECT_DESC_AMULET_C;
 
 			break;
 		}
@@ -1407,24 +1387,15 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 
 			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane; /* Color the object */
 
-#ifdef JP
-			if(!flavor)    basenm = "%の指輪";
-			else if(aware) basenm = "%の#指輪";
-			else            basenm = "#指輪";
-#else
-			if(!flavor)    basenm = "& Ring~ of %";
-			else if(aware) basenm = "& # Ring~ of %";
-			else            basenm = "& # Ring~";
-#endif
-
+			if(!flavor)    basenm = OBJECT_DESC_RING_A;
+			else if(aware) basenm = OBJECT_DESC_RING_B;
+			else            basenm = OBJECT_DESC_RING_C;
 			if(!object_kind_ptr->to_hit && !object_kind_ptr->to_damage && (object_ptr->to_hit || object_ptr->to_damage)) show_weapon = TRUE;
 			break;
 		}
 
 		case TV_CARD:
-		{
 			break;
-		}
 
 		case TV_STAFF:
 		{
