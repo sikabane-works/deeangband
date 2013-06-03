@@ -4821,6 +4821,11 @@ static cptr desc_stat_neg[] =
 #define OBJECT_DESC_FOOD_B "%の#キノコ"
 #define OBJECT_DESC_FOOD_C "#キノコ"
 #define OBJECT_DESC_PARCHMENT "羊皮紙 - %"
+#define OBJECT_DESC_LIFE_BOOK "生命の魔法書%"
+#define OBJECT_DESC_SORCERY_BOOK "仙術の魔法書%"
+#define OBJECT_DESC_NATURE_BOOK "自然の魔法書%"
+#define OBJECT_DESC_CHAOS_BOOK "カオスの魔法書%"
+#define OBJECT_DESC_DEATH_BOOK "暗黒の魔法書%"
 #else
 #define OBJECT_DESC_EMPTY " (empty)"
 #define OBJECT_DESC_AMULET_A "& Amulet~ of %"
@@ -4848,4 +4853,9 @@ static cptr desc_stat_neg[] =
 #define OBJECT_DESC_FOOD_B "& # Mushroom~ of %"
 #define OBJECT_DESC_FOOD_C "& # Mushroom~"
 #define OBJECT_DESC_PARCHMENT "& Parchment~ - %"
+#define OBJECT_DESC_LIFE_BOOK "& Life Spellbook~ %"
+#define OBJECT_DESC_SORCERY_BOOK "& Sorcery Spellbook~ %"
+#define OBJECT_DESC_NATURE_BOOK "& Nature Spellbook~ %"
+#define OBJECT_DESC_CHAOS_BOOK "& Chaos Spellbook~ %"
+#define OBJECT_DESC_DEATH_BOOK "& Death Spellbook~ %"
 #endif

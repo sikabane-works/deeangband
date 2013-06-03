@@ -1445,59 +1445,24 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			break;
 
 		case TV_LIFE_BOOK:
-		{
-#ifdef JP
-			basenm = "生命の魔法書%";
-#else
-			basenm = "& Life Spellbook~ %";
-#endif
-
+			basenm = OBJECT_DESC_LIFE_BOOK;
 			break;
-		}
 
 		case TV_SORCERY_BOOK:
-		{
-#ifdef JP
-			basenm = "仙術の魔法書%";
-#else
-			basenm = "& Sorcery Spellbook~ %";
-#endif
-
+			basenm = OBJECT_DESC_SORCERY_BOOK;
 			break;
-		}
 
 		case TV_NATURE_BOOK:
-		{
-#ifdef JP
-			basenm = "自然の魔法書%";
-#else
-			basenm = "& Nature Spellbook~ %";
-#endif
-
+			basenm = OBJECT_DESC_NATURE_BOOK;
 			break;
-		}
 
 		case TV_CHAOS_BOOK:
-		{
-#ifdef JP
-			basenm = "カオスの魔法書%";
-#else
-			basenm = "& Chaos Spellbook~ %";
-#endif
-
+			basenm = OBJECT_DESC_CHAOS_BOOK;
 			break;
-		}
 
 		case TV_DEATH_BOOK:
-		{
-#ifdef JP
-			basenm = "暗黒の魔法書%";
-#else
-			basenm = "& Death Spellbook~ %";
-#endif
-
+			basenm = OBJECT_DESC_DEATH_BOOK;
 			break;
-		}
 
 		case TV_TRUMP_BOOK:
 		{
