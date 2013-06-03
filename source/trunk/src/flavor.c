@@ -1433,37 +1433,17 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			break;
 
 		case TV_FOOD:
-		{
-			/* Ordinary food is "boring" */
 			if(!object_kind_ptr->flavor_bane) break;
-
-			/* Color the object */
 			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
-
-#ifdef JP
-			if(!flavor)    basenm = "%‚ÌƒLƒmƒR";
-			else if(aware) basenm = "%‚Ì#ƒLƒmƒR";
-			else            basenm = "#ƒLƒmƒR";
-#else
-			if(!flavor)    basenm = "& Mushroom~ of %";
-			else if(aware) basenm = "& # Mushroom~ of %";
-			else            basenm = "& # Mushroom~";
-#endif
-
+			if(!flavor)    basenm = OBJECT_DESC_FOOD_A;
+			else if(aware) basenm = OBJECT_DESC_FOOD_B;
+			else            basenm = OBJECT_DESC_FOOD_C;
 			break;
-		}
 
 		case TV_PARCHMENT:
-		{
-#ifdef JP
-			basenm = "—r”çŽ† - %";
-#else
-			basenm = "& Parchment~ - %";
-#endif
+			basenm = OBJECT_DESC_PARCHMENT;
 			break;
-		}
 
-		/* Magic Books */
 		case TV_LIFE_BOOK:
 		{
 #ifdef JP

@@ -4817,6 +4817,10 @@ static cptr desc_stat_neg[] =
 #define OBJECT_DESC_POTION_A "%‚Ì–ò"
 #define OBJECT_DESC_POTION_B "%‚Ì#–ò"
 #define OBJECT_DESC_POTION_C "#–ò"
+#define OBJECT_DESC_FOOD_A "%‚ÌƒLƒmƒR"
+#define OBJECT_DESC_FOOD_B "%‚Ì#ƒLƒmƒR"
+#define OBJECT_DESC_FOOD_C "#ƒLƒmƒR"
+#define OBJECT_DESC_PARCHMENT "—r”çŽ† - %"
 #else
 #define OBJECT_DESC_EMPTY " (empty)"
 #define OBJECT_DESC_AMULET_A "& Amulet~ of %"
@@ -4840,4 +4844,8 @@ static cptr desc_stat_neg[] =
 #define OBJECT_DESC_POTION_A "& Potion~ of %"
 #define OBJECT_DESC_POTION_B "& # Potion~ of %"
 #define OBJECT_DESC_POTION_C "& # Potion~"
+#define OBJECT_DESC_FOOD_A "& Mushroom~ of %"
+#define OBJECT_DESC_FOOD_B "& # Mushroom~ of %"
+#define OBJECT_DESC_FOOD_C "& # Mushroom~"
+#define OBJECT_DESC_PARCHMENT "& Parchment~ - %"
 #endif
