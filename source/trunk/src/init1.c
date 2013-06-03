@@ -265,26 +265,6 @@ static cptr realm_flags[MAX_REALM]=
 	"HEX",
 };
 
-// Equip Slot Flags
-static cptr equip_slot_flags[MAX_INVENTORY_IDS] =
-{
-	"INVENTORY",
-	"HAND",
-	"BOW",
-	"AMMO",
-	"RING",
-	"AMULET",
-	"BODY",
-	"OUTER",
-	"HEAD",
-	"ARMS",
-	"FEET",
-	"INSTRUMENT",
-	"LITE",
-	"TAIL",
-	"ORGAN",
-};
-
 // Object Kind tval Flags
 static cptr tval_flags[255] =
 {

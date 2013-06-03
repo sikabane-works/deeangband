@@ -3553,7 +3553,7 @@ static int grub_one_melee(cptr tags)
 	while(*(tags + offset) != '\n' && *(tags + offset) != '\0') offset++;
 	if(offset == 0) return 0;
 	scanf(tags, "%s:%s", slot, tag);
-
+	return offset;
 }
 
 static void set_organ_melee(creature_type *creature_ptr)

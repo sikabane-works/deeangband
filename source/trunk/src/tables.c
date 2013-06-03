@@ -4119,3 +4119,23 @@ cptr realm_jouhou[MAX_REALMS] =
 "Hex is a very terrible realm. Spells gives continual effects when they are spelled continually like songs. Spells may obstract creatures' actions, may deal damages in sight, may revenge against enemies."
 #endif
 };
+
+// Equip Slot Flags
+cptr equip_slot_flags[MAX_INVENTORY_IDS] =
+{
+	"INVENTORY",
+	"HAND",
+	"BOW",
+	"AMMO",
+	"RING",
+	"AMULET",
+	"BODY",
+	"OUTER",
+	"HEAD",
+	"ARMS",
+	"FEET",
+	"INSTRUMENT",
+	"LITE",
+	"TAIL",
+	"ORGAN",
+};
