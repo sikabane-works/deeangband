@@ -1398,58 +1398,25 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			break;
 
 		case TV_STAFF:
-		{
-			/* Color the object */
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
-
-#ifdef JP
-			if(!flavor)    basenm = "%の杖";
-			else if(aware) basenm = "%の#杖";
-			else            basenm = "#杖";
-#else
-			if(!flavor)    basenm = "& Staff~ of %";
-			else if(aware) basenm = "& # Staff~ of %";
-			else            basenm = "& # Staff~";
-#endif
-
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane; /* Color the object */
+			if(!flavor)    basenm = OBJECT_DESC_STAFF_A;
+			else if(aware) basenm = OBJECT_DESC_STAFF_B;
+			else            basenm = OBJECT_DESC_STAFF_C;
 			break;
-		}
 
 		case TV_WAND:
-		{
-			/* Color the object */
 			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
-
-#ifdef JP
-			if(!flavor)    basenm = "%の魔法棒";
-			else if(aware) basenm = "%の#魔法棒";
-			else            basenm = "#魔法棒";
-#else
-			if(!flavor)    basenm = "& Wand~ of %";
-			else if(aware) basenm = "& # Wand~ of %";
-			else            basenm = "& # Wand~";
-#endif
-
+			if(!flavor)    basenm = OBJECT_DESC_WAND_A;
+			else if(aware) basenm = OBJECT_DESC_WAND_B;
+			else            basenm = OBJECT_DESC_WAND_C;
 			break;
-		}
 
 		case TV_ROD:
-		{
-			/* Color the object */
 			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
-
-#ifdef JP
-			if(!flavor)    basenm = "%のロッド";
-			else if(aware) basenm = "%の#ロッド";
-			else            basenm = "#ロッド";
-#else
-			if(!flavor)    basenm = "& Rod~ of %";
-			else if(aware) basenm = "& # Rod~ of %";
-			else            basenm = "& # Rod~";
-#endif
-
+			if(!flavor)    basenm = OBJECT_DESC_ROD_A;
+			else if(aware) basenm = OBJECT_DESC_ROD_B;
+			else            basenm = OBJECT_DESC_ROD_C;
 			break;
-		}
 
 		case TV_SCROLL:
 		{
