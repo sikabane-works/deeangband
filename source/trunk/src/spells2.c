@@ -137,11 +137,7 @@ void creature_knowledge(creature_type *creature_ptr)
 			flgs[j] |= tflgs[j];
 	}
 
-#ifdef JP
-	info[i++] = "”\—Í‚ÌÅ‘å’l";
-#else
-	info[i++] = "Limits of maximum stats";
-#endif
+	info[i++] = MES_INFO_STATUS_LIMIT;
 
 	for (v_nr = 0; v_nr < STAT_MAX; v_nr++)
 	{

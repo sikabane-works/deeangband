@@ -1330,10 +1330,8 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		case TV_POLEARM:
 		case TV_SWORD:
 		case TV_DIGGING:
-		{
 			show_weapon = TRUE;
 			break;
-		}
 
 		/* Armour */
 		case TV_BOOTS:
@@ -1346,16 +1344,12 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		case TV_HARD_ARMOR:
 		case TV_DRAG_ARMOR:
 		case TV_TAIL:
-		{
 			show_armour = TRUE;
 			break;
-		}
 
 		/* Lites (including a few "Specials") */
 		case TV_LITE:
-		{
 			break;
-		}
 
 		/* Amulets (including a few "Specials") */
 		case TV_AMULET:
@@ -1701,8 +1695,6 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		{
 			s0 = s;
 			s = modstr;
-
-
 			modstr = "";
 		}
 
@@ -1711,8 +1703,6 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		{
 			s0 = s;
 			s = kindname;
-
-
 			kindname = "";
 		}
 
@@ -2252,10 +2242,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		}
 
 		/* Indicate charging objects, but not rods. */
-		if(object_ptr->timeout && (object_ptr->tval != TV_ROD))
-		{
-			t = object_desc_str(t, KW_CHARGING);
-		}
+		if(object_ptr->timeout && (object_ptr->tval != TV_ROD)) t = object_desc_str(t, KW_CHARGING);
 	}
 
 
@@ -2279,7 +2266,6 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			kanji = FALSE;
 #endif
 			all = abbrev_all;
-
 			get_ability_abbreviation(tmp_val2, object_ptr, kanji, all);
 		}
 	}
@@ -2303,10 +2289,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 	fake_insc_buf[0] = '\0';
 
 	/* Use the game-generated "feeling" otherwise, if available */
-	if(object_ptr->feeling)
-	{
-		strcpy(fake_insc_buf, game_inscriptions[object_ptr->feeling]);
-	}
+	if(object_ptr->feeling) strcpy(fake_insc_buf, game_inscriptions[object_ptr->feeling]);
 
 	else if(object_is_cursed(object_ptr) && (known || (object_ptr->ident & IDENT_SENSE)))
 		strcpy(fake_insc_buf, KEYWORD_CURSED);
@@ -2317,11 +2300,8 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		strcpy(fake_insc_buf, KW_UNIDENTIFIED);
 
 	/* Mega-Hack -- note empty wands/staffs */
-	else if(!known && (object_ptr->ident & IDENT_EMPTY))
-		strcpy(fake_insc_buf, KW_EMPTY);
-
-	else if(!aware && object_is_tried(object_ptr))
-		strcpy(fake_insc_buf, KW_TRIED);
+	else if(!known && (object_ptr->ident & IDENT_EMPTY)) strcpy(fake_insc_buf, KW_EMPTY);
+	else if(!aware && object_is_tried(object_ptr)) strcpy(fake_insc_buf, KW_TRIED);
 
 	if(object_ptr->discount)
 	{
@@ -2347,10 +2327,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		t = object_desc_chr(t, c1);
 
 		/* Append fake inscriptions */
-		if(fake_insc_buf[0])
-		{
-			t = object_desc_str(t, fake_insc_buf);
-		}
+		if(fake_insc_buf[0]) t = object_desc_str(t, fake_insc_buf);
 
 		/* Append a separater */
 		if(fake_insc_buf[0] && tmp_val2[0])
@@ -2360,10 +2337,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		}
 
 		/* Append real inscriptions */
-		if(tmp_val2[0])
-		{
-			t = object_desc_str(t, tmp_val2);
-		}
+		if(tmp_val2[0]) t = object_desc_str(t, tmp_val2);
 
 		t = object_desc_chr(t, c2);
 	}

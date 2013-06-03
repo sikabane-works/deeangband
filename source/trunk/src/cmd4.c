@@ -6269,12 +6269,13 @@ static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 #ifdef JP
 		if(creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "現在の体力ランク : %d/100\n\n", percent);
 		else fprintf(fff, "現在の体力ランク : ???\n\n");
-		fprintf(fff, "能力の最大値\n\n");
 #else
 		if(creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "Your current Life Rating is %d/100.\n\n", percent);
 		else fprintf(fff, "Your current Life Rating is ???.\n\n");
-		fprintf(fff, "Limits of maximum stats\n\n");
 #endif
+		fprintf(fff, MES_INFO_STATUS_LIMIT);
+		fprintf(fff, "\n\n");
+
 		for (v_nr = 0; v_nr < STAT_MAX; v_nr++)
 		{
 			if((creature_ptr->knowledge & KNOW_STAT) || creature_ptr->stat_max[v_nr] == creature_ptr->stat_max_max[v_nr])
