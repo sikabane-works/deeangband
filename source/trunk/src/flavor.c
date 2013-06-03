@@ -1500,17 +1500,9 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			strcpy(buf, basenm);
 			return;
 
-		/* Used in the "inventory" routine */
 		default:
-		{
-#ifdef JP
-			strcpy(buf, "(Ç»Çµ)");
-#else
-			strcpy(buf, "(nothing)");
-#endif
-
+			strcpy(buf, OBJECT_DESC_NOTHING);
 			return;
-		}
 	}
 
 	/* Use full name from object_kind_info or artifact_info */
@@ -1524,13 +1516,10 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 	t = tmp_val;
 
 #ifdef JP
-	if(basenm[0] == '&')
-		s = basenm + 2;
-	else
-		s = basenm;
+	if(basenm[0] == '&') s = basenm + 2;
+	else s = basenm;
 
-	/* No prefix */
-	if(mode & OD_OMIT_PREFIX)
+	if(mode & OD_OMIT_PREFIX) /* No prefix */
 	{
 		/* Nothing */
 	}
@@ -1882,26 +1871,14 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			/* Nothing */
 		}
 
-		/* May be "empty" */
-		else if(!object_ptr->chest_mode)
+		else if(!object_ptr->chest_mode) t = object_desc_str(t, MES_CHEST_STAT_EMPTY); /* May be "empty" */
+		else if(object_ptr->chest_mode < 0) /* May be "disarmed" */
 		{
-			t = object_desc_str(t, MES_CHEST_STAT_EMPTY);
-		}
-		/* May be "disarmed" */
-		else if(object_ptr->chest_mode < 0)
-		{
-			if(chest_traps[0 - object_ptr->chest_mode])
-			{
-				t = object_desc_str(t, MES_CHEST_STAT_DISARMED);
-			}
-			else
-			{
-				t = object_desc_str(t, MES_CHEST_STAT_UNLOCKED);
-			}
+			if(chest_traps[0 - object_ptr->chest_mode]) t = object_desc_str(t, MES_CHEST_STAT_DISARMED);
+			else t = object_desc_str(t, MES_CHEST_STAT_UNLOCKED);
 		}
 
-		/* Describe the traps, if any */
-		else
+		else /* Describe the traps, if any */
 		{
 			/* Describe the traps */
 			switch (chest_traps[object_ptr->chest_mode])
@@ -1951,8 +1928,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 	if(have_flag(flgs, TRAIT_SHOW_MODS)) show_weapon = TRUE;
 
 	/* Display the item like a weapon */
-	if(object_is_smith(object_ptr) && (object_ptr->forged_type == 1 + ESSENCE_SLAY_GLOVE))
-		show_weapon = TRUE;
+	if(object_is_smith(object_ptr) && (object_ptr->forged_type == 1 + ESSENCE_SLAY_GLOVE)) show_weapon = TRUE;
 
 	/* Display the item like a weapon */
 	if(object_ptr->to_hit && object_ptr->to_damage) show_weapon = TRUE;
@@ -1990,11 +1966,8 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		t = object_desc_chr(t, 'd');
 		t = object_desc_num(t, object_ptr->ds);
 		t = object_desc_chr(t, p2);
-
-		/* All done */
-		break;
-
-
+		
+		break; /* All done */
 		/* Bows get a special "damage string" */
 		case TV_BOW:
 
@@ -2011,8 +1984,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		t = object_desc_num(t, power);
 		t = object_desc_chr(t, p2);
 
-		/* All done */
-		break;
+		break; /* All done */
 	}
 
 
@@ -2273,20 +2245,10 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		/* Hack -- Process Lanterns/Torches */
 		if(object_ptr->tval == TV_LITE && !have_flag(object_kind_ptr->flags, TRAIT_NO_LIMIT_LITE))
 		{
-			/* Hack -- Turns of light for normal lites */
-#ifdef JP
-			t = object_desc_chr(t, '(');
-#else
-			t = object_desc_str(t, " (with ");
-#endif
-
+			t = object_desc_str(t, OBJECT_DESC_TURN_LIGHT1);
 			if(object_ptr->name2 == EGO_LITE_LONG) t = object_desc_num(t, object_ptr->fuel * 2);
 			else t = object_desc_num(t, object_ptr->fuel);
-#ifdef JP
-			t = object_desc_str(t, "É^Å[ÉìÇÃéıñΩ)");
-#else
-			t = object_desc_str(t, " turns of light)");
-#endif
+			t = object_desc_str(t, OBJECT_DESC_TURN_LIGHT2);
 		}
 
 		/* Indicate charging objects, but not rods. */

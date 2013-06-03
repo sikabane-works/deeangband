@@ -4795,6 +4795,7 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define OBJECT_DESC_NOTHING "(なし)"
 #define OBJECT_DESC_EMPTY " (空)"
 #define OBJECT_DESC_AMULET_A "%のアミュレット"
 #define OBJECT_DESC_AMULET_B "%の#アミュレット"
@@ -4834,7 +4835,10 @@ static cptr desc_stat_neg[] =
 #define OBJECT_DESC_MUSIC_BOOK "歌集%"
 #define OBJECT_DESC_HISSATSU_BOOK "& 武芸の書%"
 #define OBJECT_DESC_HEX_BOOK "呪術の魔法書%"
+#define OBJECT_DESC_TURN_LIGHT1 "("
+#define OBJECT_DESC_TURN_LIGHT2 "ターンの寿命)"
 #else
+#define OBJECT_DESC_NOTHING "(nothing)"
 #define OBJECT_DESC_EMPTY " (empty)"
 #define OBJECT_DESC_AMULET_A "& Amulet~ of %"
 #define OBJECT_DESC_AMULET_B "& # Amulet~ of %"
@@ -4874,4 +4878,6 @@ static cptr desc_stat_neg[] =
 #define OBJECT_DESC_MUSIC_BOOK "& Song Book~ %"
 #define OBJECT_DESC_HISSATSU_BOOK "Book~ of Kendo %"
 #define OBJECT_DESC_HEX_BOOK "& Hex Spellbook~ %"
+#define OBJECT_DESC_TURN_LIGHT1 "(with "
+#define OBJECT_DESC_TURN_LIGHT2 " turns of light)"
 #endif
