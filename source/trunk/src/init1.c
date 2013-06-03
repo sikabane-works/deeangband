@@ -1414,12 +1414,6 @@ static errr grab_one_feat_flag(feature_type *f_ptr, cptr what)
 		}
 	}
 
-#ifdef JP
-	msg_format("未知の地形フラグ '%s'。", what);
-#else
-	msg_format("Unknown feature flag '%s'.", what);
-#endif
-
 	return PARSE_ERROR_GENERIC;
 }
 
@@ -1441,12 +1435,6 @@ static errr grab_one_feat_action(feature_type *f_ptr, cptr what, int count)
 			return PARSE_ERROR_NONE;
 		}
 	}
-
-#ifdef JP
-	msg_format("未知の地形アクション '%s'。", what);
-#else
-	msg_format("Unknown feature action '%s'.", what);
-#endif
 
 	return PARSE_ERROR_GENERIC;
 }
@@ -2956,11 +2944,6 @@ errr parse_object_ego_csv(char *buf, header *head)
 static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 {
 	if(grab_one_flag(&stp_ptr->flags, store_pre_info_flags, what) == 0) return PARSE_ERROR_NONE;
-#ifdef JP
-	msg_format("未知の店フラグ '%s'。", what);
-#else
-	msg_format("Unknown store flag '%s'.", what);
-#endif
 	return PARSE_ERROR_GENERIC;
 }
 
@@ -5452,14 +5435,9 @@ errr parse_chara_info_csv(char *buf, header *head)
 static errr grab_one_dungeon_flag(dungeon_type *d_ptr, cptr what)
 {
 	if(grab_one_flag(&d_ptr->flags1, dungeon_info_flags1, what) == 0)
+	{
 		return PARSE_ERROR_NONE;
-
-#ifdef JP
-	msg_format("未知のダンジョン・フラグ '%s'。", what);
-#else
-	msg_format("Unknown dungeon type flag '%s'.", what);
-#endif
-
+	}
 	return PARSE_ERROR_GENERIC;
 }
 

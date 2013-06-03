@@ -1261,14 +1261,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 
 			if(known)
 			{
-				if(!object_ptr->pval)
-				{
-#ifdef JP
-					modstr = " (‹ó)";
-#else
-					modstr = " (empty)";
-#endif
-				}
+				if(!object_ptr->pval) modstr = OBJECT_DESC_EMPTY;
 				else
 				{
 #ifdef JP
@@ -1412,8 +1405,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 				if(has_trait_object(object_ptr, TRAIT_INSTA_ART)) break;
 			}
 
-			/* Color the object */
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane; /* Color the object */
 
 #ifdef JP
 			if(!flavor)    basenm = "%‚ÌŽw—Ö";
@@ -1426,7 +1418,6 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 #endif
 
 			if(!object_kind_ptr->to_hit && !object_kind_ptr->to_damage && (object_ptr->to_hit || object_ptr->to_damage)) show_weapon = TRUE;
-
 			break;
 		}
 

@@ -1179,7 +1179,7 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
  */
 static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 {
-	int         ident, chance, lev, i;
+	int ident, chance, lev, i;
 	object_type *object_ptr;
 
 	/* Hack -- let staffs of identify get aborted */
@@ -1199,17 +1199,11 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	lev = object_kind_info[object_ptr->k_idx].level;
 	if(lev > 50) lev = 50 + (lev - 50) / 2;
 
-	// Base chance of success
-	chance = creature_ptr->skill_dev;
+	chance = creature_ptr->skill_dev; // Base chance of success
+	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; /* Confusion hurts skill */
+	chance = chance - lev; /* Hight level objects are harder */
 
-	/* Confusion hurts skill */
-	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2;
-
-	/* Hight level objects are harder */
-	chance = chance - lev;
-
-	/* Give everyone a (slight) chance */
-	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1)) chance = USE_DEVICE;
+	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1)) chance = USE_DEVICE; /* Give everyone a (slight) chance */
 
 	if(creature_ptr->time_stopper)
 	{
@@ -1244,9 +1238,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 	sound(SOUND_ZAP);	// Sound
 
-	for(i = 0; i < MAX_TRAITS; i++)
-		if(has_trait_object(object_ptr, i))
-			do_active_trait(creature_ptr, i, FALSE);
+	for(i = 0; i < MAX_TRAITS; i++) if(has_trait_object(object_ptr, i)) do_active_trait(creature_ptr, i, FALSE);
 
 	ident = staff_effect(creature_ptr, object_ptr->sval, FALSE);
 

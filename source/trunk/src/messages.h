@@ -4794,3 +4794,8 @@ static cptr desc_stat_neg[] =
 #define MES_WARN_GLOW2(COLOR) "An %s image forms in your mind.", (COLOR)
 #endif
 
+#ifdef JP
+#define OBJECT_DESC_EMPTY " (‹ó)"
+#else
+#define OBJECT_DESC_EMPTY " (empty)"
+#endif
