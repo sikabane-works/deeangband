@@ -3546,6 +3546,16 @@ static void set_flow_flag(creature_type *creature_ptr)
 
 }
 
+static int grub_one_melee(cptr tags)
+{
+	int offset = 0;
+	char slot[80], tag[80];
+	while(*(tags + offset) != '\n' && *(tags + offset) != '\0') offset++;
+	if(offset == 0) return 0;
+	scanf(tags, "%s:%s", slot, tag);
+
+}
+
 static void set_organ_melee(creature_type *creature_ptr)
 {
 	race_type *race_ptr = &race_info[creature_ptr->race_idx1];
@@ -3554,10 +3564,10 @@ static void set_organ_melee(creature_type *creature_ptr)
 	for(i = 0; i < MAX_INVENTORY_IDS; i++) creature_ptr->organ_id[i] = 0;
 
 	/* from race definition */
-	race_ptr->special_melee_tag;
+	grub_one_melee(race_tag + race_ptr->special_melee_tag);
 
 	/* from species definition */
-	species_ptr->sp_melee;
+	grub_one_melee(species_tag + species_ptr->sp_melee);
 }
 
 
