@@ -1400,7 +1400,7 @@ int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 			(!(object2_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object2_ptr))) return FALSE;
 
 		// Require identical charges, since staffs are bulky.
-		if(object1_ptr->pval != object2_ptr->pval) return FALSE;
+		if(object1_ptr->charge_num != object2_ptr->charge_num) return FALSE;
 
 		break;
 
