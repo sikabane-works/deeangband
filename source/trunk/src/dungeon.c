@@ -2316,12 +2316,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 			if(dawn)
 			{
 				COODINATES y, x;
-
-#ifdef JP
-				msg_print("–é‚ª–¾‚¯‚½B");
-#else
-				msg_print("The sun has risen.");
-#endif
+				msg_print(MES_TIME_SUNRISE);
 
 				if(!floor_ptr->global_map)
 				{
@@ -2330,17 +2325,10 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 					{
 						for (x = 0; x < floor_ptr->width; x++)
 						{
-							/* Get the cave grid */
-							cave_type *c_ptr = &floor_ptr->cave[y][x];
-
-							/* Assume lit */
+							cave_type *c_ptr = &floor_ptr->cave[y][x]; /* Get the cave grid */
 							c_ptr->info |= (CAVE_GLOW);
-
-							/* Hack -- Memorize lit grids if allowed */
-							if(view_perma_grids) c_ptr->info |= (CAVE_MARK);
-
-							/* Hack -- Notice spot */
-							note_spot(floor_ptr, y, x);
+							if(view_perma_grids) c_ptr->info |= (CAVE_MARK); /* Hack -- Memorize lit grids if allowed */
+							note_spot(floor_ptr, y, x); /* Hack -- Notice spot */
 						}
 					}
 				}

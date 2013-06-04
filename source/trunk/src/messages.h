@@ -3201,6 +3201,7 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_TIME_STRANGE "変な時刻だ。"
 #define MES_TIME_DETAIL(DAY, HH, MM) "%s日目, 時刻は%d:%02d %sです。", DAY, (HH % 12 == 0) ? 12 : (HH % 12), MM, (HH < 12) ? "AM" : "PM"
+#define MES_TIME_SUNRISE "夜が明けた。"
 #define MES_TIME_SUNSET "日が沈んだ。"
 #define MES_TIME_NIGHTMARE_MIDNIGHT_1 "遠くで不気味な鐘の音が鳴った。"
 #define MES_TIME_NIGHTMARE_MIDNIGHT_2 "遠くで鐘が二回鳴った。"
@@ -3210,6 +3211,7 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_TIME_STRANGE "It is a strange time."
 #define MES_TIME_DETAIL(DAY, HH, MM) "This is day %s. The time is %d:%02d %s.", DAY, (HH % 12 == 0) ? 12 : (HH % 12), MM, (HH < 12) ? "AM" : "PM"
+#define MES_TIME_SUNRISE "The sun has risen."
 #define MES_TIME_SUNSET "The sun has fallen."
 #define MES_TIME_NIGHTMARE_MIDNIGHT_DONE "A distant bell tolls many times, fading into an deathly silence."
 #define MES_TIME_NIGHTMARE_MIDNIGHT_1 "You hear a distant bell toll ominously."
