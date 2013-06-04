@@ -1846,24 +1846,18 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Handle HP draining */
 	if((has_trait(creature_ptr, TRAIT_DRAIN_HP)) && one_in_(666))
 	{
+		object_type *object_ptr = choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_HP);
 		object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
-#ifdef JP
-		msg_format("%s‚Í‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I", object_name);
-#else
-		msg_format("Your %s drains HP from you!", object_name);
-#endif
+		msg_format(MES_TRAIT_DRAIN_HP_DONE(object_ptr));
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev*2, 100), object_name, NULL, -1);
 	}
 
 	/* Handle mana draining */
 	if((has_trait(creature_ptr, TRAIT_DRAIN_MANA)) && creature_ptr->csp && one_in_(666))
 	{
+		object_type *object_ptr = choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_MANA);
 		object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
-#ifdef JP
-		msg_format("%s‚Í‚ ‚È‚½‚Ì–‚—Í‚ð‹zŽû‚µ‚½I", object_name);
-#else
-		msg_format("Your %s drains mana from you!", object_name);
-#endif
+		msg_format(MES_TRAIT_DRAIN_MP_DONE(object_ptr));
 		dec_mana(creature_ptr, creature_ptr->lev);
 	}
 

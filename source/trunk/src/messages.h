@@ -3796,6 +3796,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_PASSIVE_TELEPORT_PREV(OBJECT) "%sがテレポートの能力を発動させようとしている。", (OBJECT)->name
 #define MES_TRAIT_PASSIVE_TELEPORT_CHECK "テレポートしますか？"
 #define MES_TRAIT_PASSIVE_TELEPORT_ADVICE(OBJECT) "%sに{.}(ピリオド)と銘を刻むと発動を抑制できます。", (OBJECT)->name
+#define MES_TRAIT_DRAIN_HP_DONE(OBJECT) "%sはあなたの体力を吸収した！", (OBJECT)->name
+#define MES_TRAIT_DRAIN_MP_DONE(OBJECT) "%sはあなたの魔力を吸収した！", (OBJECT)->name
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3896,6 +3898,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_PASSIVE_TELEPORT_PREV(OBJECT) "Your %s is activating teleportation.", (OBJECT)->name
 #define MES_TRAIT_PASSIVE_TELEPORT_CHECK "Teleport? "
 #define MES_TRAIT_PASSIVE_TELEPORT_ADVICE(OBJECT) "You can inscribe {.} on your %s to disable random teleportation. ", (OBJECT)->name
+#define MES_TRAIT_DRAIN_HP_DONE(OBJECT) "Your %s drains HP from you!", (OBJECT)->name
+#define MES_TRAIT_DRAIN_MP_DONE(OBJECT) "Your %s drains mana from you!", (OBJECT)->name
 #endif
 
 #ifdef JP
