@@ -742,7 +742,7 @@ static errr rd_creature(creature_type *creature_ptr)
 		return LOAD_ERROR_INVALID_OBJECT;
 	}
 
-	for (i = 0; i < MAX_INVENTORY_IDS; i++) READ_OBJECT_KIND_ID(&creature_ptr->organ_id[i]);
+	//TODO for (i = 0; i < MAX_INVENTORY_IDS; i++) READ_OBJECT_KIND_ID(&creature_ptr->organ_id[i]);
 
 	// Read the stat info
 	for (i = 0; i < STAT_MAX; i++) READ_STAT(&creature_ptr->stat_max[i]);

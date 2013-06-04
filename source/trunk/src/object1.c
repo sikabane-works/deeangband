@@ -906,6 +906,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 	int i, j, k, l, m, n;
 	int col, cur_col, len;
 	object_type *object_ptr;
+	object_type object;
 	char object_name[MAX_NLEN];
 	char tmp_val[MAX_NLEN];
 	int  out_index[INVEN_TOTAL];

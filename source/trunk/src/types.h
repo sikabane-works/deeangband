@@ -1449,7 +1449,7 @@ struct creature_type
 	s16b iven_fitting_rate[INVEN_TOTAL]; // Inventory Fitting Rate 
 	byte equip_now[INVEN_TOTAL];         // equipment flag
 	QUANTITY item_slot_num[MAX_INVENTORY_IDS];
-	OBJECT_KIND_ID organ_id[MAX_INVENTORY_IDS];
+	object_type organ_object[MAX_INVENTORY_IDS];
 
 	PRICE au;			// Current Gold 
 

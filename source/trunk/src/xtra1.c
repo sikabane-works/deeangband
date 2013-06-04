@@ -3580,7 +3580,7 @@ static int grub_one_melee(creature_type *creature_ptr, cptr tags)
 	kind_id = grab_object_kind_tag(tag);
 	if(slot_id != -1 && kind_id != -1)
 	{
-		creature_ptr->organ_id[slot_id] = kind_id;
+		generate_object(&creature_ptr->organ_object[slot_id], kind_id);
 	}
 	return offset;
 }
@@ -3591,7 +3591,7 @@ static void set_organ_melee(creature_type *creature_ptr)
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	int i;
 	char *offset;
-	for(i = 0; i < MAX_INVENTORY_IDS; i++) creature_ptr->organ_id[i] = 0;
+	for(i = 0; i < MAX_INVENTORY_IDS; i++) object_wipe(&creature_ptr->organ_object[i]);
 
 	/* from race definition */
 	offset = race_tag + race_ptr->special_melee_tag;
