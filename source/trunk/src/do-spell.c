@@ -1766,12 +1766,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-#ifdef JP
-				msg_print("次元の扉が開いた。目的地を選んで下さい。");
-#else
-				msg_print("You open a dimensional gate. Choose a destination.");
-#endif
-
+				msg_print(MES_TRAIT_DIMENSION_DOOR_DONE);
 				if(!dimension_door(caster_ptr)) return NULL;
 			}
 		}
@@ -4363,12 +4358,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-#ifdef JP
-				msg_print("次元の扉が開いた。目的地を選んで下さい。");
-#else
-				msg_print("You open a dimensional gate. Choose a destination.");
-#endif
-
+				msg_print(MES_TRAIT_DIMENSION_DOOR_DONE);
 				if(!dimension_door(caster_ptr)) return NULL;
 			}
 		}

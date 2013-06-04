@@ -3783,6 +3783,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_AGGRAVATE2 "何かが突如興奮したような騒々しい音が遠くに聞こえた！"
 #define MES_TRAIT_GENOCIDE_WHICH_SYMBOL "どの種類(文字)のクリーチャーを抹殺しますか: "
 #define MES_TRAIT_PROB_DONE(CREATURE) "%sについてさらに詳しくなった気がする。", (CREATURE)->name
+#define MES_TRAIT_DIMENSION_DOOR_DONE "次元の扉が開いた。目的地を選んで下さい。"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3876,6 +3877,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_AGGRAVATE2 "You hear a sudden stirring in the distance!"
 #define MES_TRAIT_GENOCIDE_WHICH_SYMBOL "Choose a creature race (by symbol) to genocide: "
 #define MES_TRAIT_PROB_DONE(CREATURE) "You now know more about %s.", (CREATURE)->name //TODO plural_aux(buf)
+#define MES_TRAIT_DIMENSION_DOOR_DONE "You open a dimensional gate. Choose a destination."
 #endif
 
 #ifdef JP
