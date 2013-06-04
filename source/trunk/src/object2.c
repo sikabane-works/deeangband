@@ -1129,23 +1129,12 @@ s32b object_value_real(object_type *object_ptr)
 	{
 		/* Wands/Staffs */
 	case TV_WAND:
-		{
-			/* Pay extra for charges, depending on standard number of
-			* charges.  Handle new-style wands correctly. -LM-
-			*/
-			value += (value * object_ptr->pval / object_ptr->number / (object_kind_ptr->pval * 2));
-
+			value += (value * object_ptr->charge_num / object_ptr->number / (object_kind_ptr->pval * 2));
 			break;
-		}
+
 	case TV_STAFF:
-		{
-			/* Pay extra for charges, depending on standard number of
-			* charges.  -LM-
-			*/
-			value += (value * object_ptr->pval / (object_kind_ptr->pval * 2));
-
+			value += (value * object_ptr->charge_num / (object_kind_ptr->pval * 2));
 			break;
-		}
 
 		/* Rings/Amulets */
 	case TV_RING:

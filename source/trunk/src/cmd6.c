@@ -1223,7 +1223,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Notice empty staffs */
-	if(object_ptr->pval <= 0)
+	if(object_ptr->charge_num <= 0)
 	{
 		if(flush_failure) flush();
 		msg_print(MES_OBJECT_NO_CHARGE_LEFT);
@@ -1258,7 +1258,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	if(!use_charge) return;	// Hack -- some uses are "free"
-	object_ptr->pval--;	// Use a single charge
+	object_ptr->charge_num--;	// Use a single charge
 
 	/* XXX Hack -- unstack if necessary */
 	if((item >= 0) && (object_ptr->number > 1))
@@ -1494,7 +1494,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 
-	if(object_ptr->pval <= 0) // The wand is already empty!
+	if(object_ptr->charge_num <= 0) // The wand is already empty!
 	{
 		if(flush_failure) flush();
 		msg_print(MES_OBJECT_NO_CHARGE_LEFT);
@@ -1526,7 +1526,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 
-	object_ptr->pval--; // Use a single charge
+	object_ptr->charge_num--; // Use a single charge
 
 	// Describe the charges in the pack
 	if(item >= 0) inven_item_charges(creature_ptr, item);

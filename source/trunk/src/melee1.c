@@ -457,7 +457,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 					//TODO if(&magic_info[npc_status_id] == attacker_ptr) prepare_redraw(PR_HEALTH);
 					//if(&magic_info[target_ptr->riding] == attacker_ptr) prepare_redraw(PR_UHEALTH);
 
-					object_ptr->pval = 0; /* Uncharge */
+					object_ptr->charge_num = 0; /* Uncharge */
 					prepare_update(target_ptr, CRU_COMBINE | CRU_REORDER);
 					prepare_window(PW_INVEN);
 
@@ -584,8 +584,8 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 					*/
 					if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND))
 					{
-						j_ptr->pval = object_ptr->pval / (PVAL)object_ptr->number;
-						object_ptr->pval -= j_ptr->pval;
+						j_ptr->charge_num = object_ptr->charge_num / (PVAL)object_ptr->number;
+						object_ptr->charge_num -= j_ptr->charge_num;
 					}
 
 					/* Forget mark */
