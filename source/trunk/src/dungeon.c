@@ -2641,12 +2641,9 @@ static void process_player_command(creature_type *creature_ptr)
 
 		/* Toggle search mode */
 	case 'S':
-		{
-			if(creature_ptr->action == ACTION_SEARCH) set_action(creature_ptr, ACTION_NONE);
-			else set_action(creature_ptr, ACTION_SEARCH);
-			break;
-		}
-
+		if(creature_ptr->action == ACTION_SEARCH) set_action(creature_ptr, ACTION_NONE);
+		else set_action(creature_ptr, ACTION_SEARCH);
+		break;
 
 		/*** Stairs and Doors and Chests and Traps ***/
 
@@ -2661,64 +2658,55 @@ static void process_player_command(creature_type *creature_ptr)
 			break;
 		}
 
-		/* Enter building -KMW- */
-	case SPECIAL_KEY_BUILDING:
-		{
-			if(!floor_ptr->global_map) do_cmd_bldg(creature_ptr);
-			break;
-		}
+	case SPECIAL_KEY_BUILDING: /* Enter building -KMW- */
+		if(!floor_ptr->global_map) do_cmd_bldg(creature_ptr);
+		break;
 
-		/* Enter quest level -KMW- */
-	case SPECIAL_KEY_QUEST:
-		{
-			if(!floor_ptr->global_map) do_cmd_quest(creature_ptr);
-			break;
-		}
+	case SPECIAL_KEY_QUEST: /* Enter quest level -KMW- */
+		if(!floor_ptr->global_map) do_cmd_quest(creature_ptr);
+		break;
 
-		/* Go up staircase */
-	case '<':
+	case '<': /* Go up staircase */
+		if(!floor_ptr->global_map && !floor_ptr->depth && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
 		{
-			if(!floor_ptr->global_map && !floor_ptr->depth && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
-			{
-				change_wild_mode(creature_ptr);
-			}
-			else
-				do_cmd_go_up(creature_ptr);
-			break;
+			change_wild_mode(creature_ptr);
 		}
+		else do_cmd_go_up(creature_ptr);
+		break;
+
 	case '>':
 		if(floor_ptr->global_map) change_wild_mode(creature_ptr);
 		else do_cmd_go_down(creature_ptr);
 		break;
+
 	case 'o': // Open a door or chest
 		if(!floor_ptr->global_map) do_cmd_open(creature_ptr);
 		break;
+
 	case 'c': // Close
 		if(!floor_ptr->global_map) do_cmd_close(creature_ptr);
 		break;
+
 	case 'j': // Jam a door with spikes
 		if(!floor_ptr->global_map) do_cmd_spike(creature_ptr);
 		break;
+
 	case 'B': // Bash
 		if(!floor_ptr->global_map) do_cmd_bash(creature_ptr);
 		break;
+
 	case 'D': // Disarm a trap or chest
 		if(!floor_ptr->global_map) do_cmd_disarm(creature_ptr);
 		break;
 
 		/*** Magic and Prayers ***/
 
-		/* Gain new spells/prayers */
-	case 'G':
+	case 'G': /* Gain new spells/prayers */
 		{
-			if((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))
-				msg_print(MES_CAST_NO_NEED_LEARN);
-			else if(creature_ptr->class_idx == CLASS_SAMURAI)
-				do_cmd_gain_hissatsu(creature_ptr);
-			else if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
-				gain_magic(creature_ptr);
-			else
-				do_cmd_study(creature_ptr);
+			if((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE)) msg_print(MES_CAST_NO_NEED_LEARN);
+			else if(creature_ptr->class_idx == CLASS_SAMURAI) do_cmd_gain_hissatsu(creature_ptr);
+			else if(creature_ptr->class_idx == CLASS_MAGIC_EATER) gain_magic(creature_ptr);
+			else do_cmd_study(creature_ptr);
 			break;
 		}
 

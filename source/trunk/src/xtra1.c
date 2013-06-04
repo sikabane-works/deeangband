@@ -3546,13 +3546,42 @@ static void set_flow_flag(creature_type *creature_ptr)
 
 }
 
+static OBJECT_KIND_ID grab_object_kind_tag(cptr what)
+{
+	int i;
+	for(i = 0; i < max_object_kind_idx; i++)
+	{
+		if(streq(what, object_kind_tag + object_kind_info[i].tag)) return i;
+	}
+	return -1;
+}
+
+static int grab_slot(cptr what)
+{
+	int i;
+	for(i = 0; i < MAX_INVENTORY_IDS; i++)
+	{
+		if(streq(what, equip_slot_flags[i])) return i;
+	}
+	return -1;
+}
+
 static int grub_one_melee(creature_type *creature_ptr, cptr tags)
 {
 	int offset = 0;
+	int slot_id;
+	OBJECT_KIND_ID kind_id;
 	char slot[80], tag[80];
+
 	while(*(tags + offset) != '\n' && *(tags + offset) != '\0') offset++;
 	if(offset == 0) return 0;
 	scanf(tags, "%s:%s", slot, tag);
+	slot_id = grab_slot(slot);
+	kind_id = grab_object_kind_tag(tag);
+	if(slot_id != -1 && kind_id != -1)
+	{
+		creature_ptr->organ_id[slot_id] = kind_id;
+	}
 	return offset;
 }
 
