@@ -1460,11 +1460,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_BANISH_ALL) && one_in_(9000))
 	{
 		disturb(player_ptr, 0, 0);
-#ifdef JP
-		msg_print("突然ほとんど孤独になった気がする。");
-#else
-		msg_print("You suddenly feel almost lonely.");
-#endif
+		msg_print(MES_TRAIT_BANISH_ALL_DONE);
 		project_all_vision(creature_ptr, DO_EFFECT_AWAY_ALL, 100);
 		msg_print(NULL);
 	}
@@ -1472,12 +1468,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_EAT_LIGHT) && one_in_(3000))
 	{
 		object_type *object_ptr;
-
-#ifdef JP
-		msg_print("影につつまれた。");
-#else
-		msg_print("A shadow passes over you.");
-#endif
+		msg_print(MES_TRAIT_EAT_LIGHT_DONE1);
 		msg_print(NULL);
 
 		/* Absorb light from the current possition */
@@ -1496,11 +1487,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 				heal_creature(creature_ptr, object_ptr->fuel / 20);	// Heal the player a bit			
 				object_ptr->fuel /= 2;	// Decrease life-span of lite
-#ifdef JP
-				msg_print("光源からエネルギーを吸収した！");
-#else
-				msg_print("You absorb energy from your light!");
-#endif
+				msg_print(MES_TRAIT_EAT_LIGHT_DONE2);
 				notice_lite_change(creature_ptr, object_ptr);	// Notice interesting fuel steps
 			}
 		}

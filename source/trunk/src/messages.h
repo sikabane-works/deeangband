@@ -3790,6 +3790,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_GENOCIDE_WHICH_SYMBOL "どの種類(文字)のクリーチャーを抹殺しますか: "
 #define MES_TRAIT_PROB_DONE(CREATURE) "%sについてさらに詳しくなった気がする。", (CREATURE)->name
 #define MES_TRAIT_DIMENSION_DOOR_DONE "次元の扉が開いた。目的地を選んで下さい。"
+#define MES_TRAIT_BANISH_ALL_DONE "突然ほとんど孤独になった気がする。"
+#define MES_TRAIT_EAT_LIGHT_DONE1 "影につつまれた。"
+#define MES_TRAIT_EAT_LIGHT_DONE2 "光源からエネルギーを吸収した！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3884,6 +3887,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_GENOCIDE_WHICH_SYMBOL "Choose a creature race (by symbol) to genocide: "
 #define MES_TRAIT_PROB_DONE(CREATURE) "You now know more about %s.", (CREATURE)->name //TODO plural_aux(buf)
 #define MES_TRAIT_DIMENSION_DOOR_DONE "You open a dimensional gate. Choose a destination."
+#define MES_TRAIT_BANISH_ALL_DONE "You suddenly feel almost lonely."
+#define MES_TRAIT_EAT_LIGHT_DONE1 "A shadow passes over you."
+#define MES_TRAIT_EAT_LIGHT_DONE2 "You absorb energy from your light!"
 #endif
 
 #ifdef JP
