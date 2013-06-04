@@ -1713,29 +1713,16 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 		object_ptr = &creature_ptr->inventory[i_keep];
 		object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		msg_format(MES_TRAIT_PASSIVE_TELEPORT_PREV(object_ptr));
 
-#ifdef JP
-		msg_format("%sがテレポートの能力を発動させようとしている。", object_name);
-#else
-		msg_format("Your %s is activating teleportation.", object_name);
-#endif
-
-#ifdef JP
-		if(get_check_strict("テレポートしますか？", CHECK_OKAY_CANCEL))
-#else
-		if(get_check_strict("Teleport? ", CHECK_OKAY_CANCEL))
-#endif
+		if(get_check_strict(MES_TRAIT_PASSIVE_TELEPORT_CHECK, CHECK_OKAY_CANCEL))
 		{
 			disturb(player_ptr, 0, 0);
 			teleport_creature(creature_ptr, 50, 0L);
 		}
 		else
 		{
-#ifdef JP
-			msg_format("%sに{.}(ピリオド)と銘を刻むと発動を抑制できます。", object_name);
-#else
-			msg_format("You can inscribe {.} on your %s to disable random teleportation. ", object_name);
-#endif
+			msg_format(MES_TRAIT_PASSIVE_TELEPORT_ADVICE(object_ptr));
 			disturb(player_ptr, 1, 0);
 		}
 	}

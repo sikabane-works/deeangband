@@ -3793,6 +3793,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_BANISH_ALL_DONE "突然ほとんど孤独になった気がする。"
 #define MES_TRAIT_EAT_LIGHT_DONE1 "影につつまれた。"
 #define MES_TRAIT_EAT_LIGHT_DONE2 "光源からエネルギーを吸収した！"
+#define MES_TRAIT_PASSIVE_TELEPORT_PREV(OBJECT) "%sがテレポートの能力を発動させようとしている。", (OBJECT)->name
+#define MES_TRAIT_PASSIVE_TELEPORT_CHECK "テレポートしますか？"
+#define MES_TRAIT_PASSIVE_TELEPORT_ADVICE(OBJECT) "%sに{.}(ピリオド)と銘を刻むと発動を抑制できます。", (OBJECT)->name
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3890,6 +3893,9 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_BANISH_ALL_DONE "You suddenly feel almost lonely."
 #define MES_TRAIT_EAT_LIGHT_DONE1 "A shadow passes over you."
 #define MES_TRAIT_EAT_LIGHT_DONE2 "You absorb energy from your light!"
+#define MES_TRAIT_PASSIVE_TELEPORT_PREV(OBJECT) "Your %s is activating teleportation.", (OBJECT)->name
+#define MES_TRAIT_PASSIVE_TELEPORT_CHECK "Teleport? "
+#define MES_TRAIT_PASSIVE_TELEPORT_ADVICE(OBJECT) "You can inscribe {.} on your %s to disable random teleportation. ", (OBJECT)->name
 #endif
 
 #ifdef JP
