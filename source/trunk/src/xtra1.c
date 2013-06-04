@@ -3575,7 +3575,7 @@ static int grub_one_melee(creature_type *creature_ptr, cptr tags)
 
 	while(*(tags + offset) != '\n' && *(tags + offset) != '\0') offset++;
 	if(offset == 0) return 0;
-	scanf(tags, "%s:%s", slot, tag);
+	sscanf(tags, "%[^:]:%[^\n:]\n", slot, tag);
 	slot_id = grab_slot(slot);
 	kind_id = grab_object_kind_tag(tag);
 	if(slot_id != -1 && kind_id != -1)
