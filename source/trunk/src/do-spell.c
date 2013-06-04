@@ -4052,17 +4052,9 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 				msg_print("You concentrate on the trump of an spider...");
 #endif
-
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_SPIDER, PC_ALLOW_GROUP))
 				{
-					if(fail)
-					{
-#ifdef JP
-						msg_print("召喚された蜘蛛は怒っている！");
-#else
-						msg_print("The summoned spiders get angry!");
-#endif
-					}
+					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
 				}
 			}
 		}
@@ -4185,14 +4177,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, type, 0L))
 				{
-					if(fail)
-					{
-#ifdef JP
-						msg_print("召喚された動物は怒っている！");
-#else
-						msg_print("The summoned animal gets angry!");
-#endif
-					}
+					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
 				}
 			}
 		}
@@ -4262,14 +4247,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(trump_summoning(caster_ptr, 2 + randint0(lev_bonus / 7), !fail, y, x, 0, type, 0L))
 				{
-					if(fail)
-					{
-#ifdef JP
-						msg_print("召喚されたクリーチャーは怒っている！");
-#else
-						msg_print("The summoned creatures get angry!");
-#endif
-					}
+					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
 				}
 			}
 		}
@@ -4445,14 +4423,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_UNDEAD, 0L))
 				{
-					if(fail)
-					{
-#ifdef JP
-						msg_print("召喚されたアンデッドは怒っている！");
-#else
-						msg_print("The summoned undead creature gets angry!");
-#endif
-					}
+					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
 				}
 			}
 		}
@@ -4478,14 +4449,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_HYDRA, 0L))
 				{
-					if(fail)
-					{
-#ifdef JP
-						msg_print("召喚された爬虫類は怒っている！");
-#else
-						msg_print("The summoned reptile gets angry!");
-#endif
-					}
+					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
 				}
 			}
 		}
@@ -4518,14 +4482,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(trump_summoning(caster_ptr, (1 + (lev_bonus - 15)/ 10), !fail, caster_ptr->fy, caster_ptr->fx, 0, type, 0L))
 				{
-					if(fail)
-					{
-#ifdef JP
-						msg_print("召喚されたクリーチャーは怒っている！");
-#else
-						msg_print("The summoned creatures get angry!");
-#endif
-					}
+					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
 				}
 
 			}
@@ -4552,14 +4509,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_HOUND, PC_ALLOW_GROUP))
 				{
-					if(fail)
-					{
-#ifdef JP
-						msg_print("召喚されたハウンドは怒っている！");
-#else
-						msg_print("The summoned hounds get angry!");
-#endif
-					}
+					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
 				}
 			}
 		}
@@ -4636,14 +4586,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_CYBER, 0L))
 				{
-					if(fail)
-					{
-#ifdef JP
-						msg_print("召喚されたサイバーデーモンは怒っている！");
-#else
-						msg_print("The summoned Cyberdemon gets angry!");
-#endif
-					}
+					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
 				}
 			}
 		}
@@ -4740,14 +4683,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_DRAGON, 0L))
 				{
-					if(fail)
-					{
-#ifdef JP
-						msg_print("召喚されたドラゴンは怒っている！");
-#else
-						msg_print("The summoned dragon gets angry!");
-#endif
-					}
+					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
 				}
 			}
 		}
@@ -4795,14 +4731,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_DEMON, 0L))
 				{
-					if(fail)
-					{
-#ifdef JP
-						msg_print("召喚されたデーモンは怒っている！");
-#else
-						msg_print("The summoned demon gets angry!");
-#endif
-					}
+					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
 				}
 			}
 		}
@@ -4828,14 +4757,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				/* May allow unique depend on level and dice roll */
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_HI_UNDEAD, PC_ALLOW_UNIQUE))
 				{
-					if(fail)
-					{
-#ifdef JP
-						msg_print("召喚された上級アンデッドは怒っている！");
-#else
-						msg_print("The summoned greater undead creature gets angry!");
-#endif
-					}
+					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
 				}
 			}
 		}
@@ -4869,14 +4791,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				/* May allow unique depend on level and dice roll */
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, type, PC_ALLOW_UNIQUE))
 				{
-					if(fail)
-					{
-#ifdef JP
-						msg_print("召喚された古代ドラゴンは怒っている！");
-#else
-						msg_print("The summoned ancient dragon gets angry!");
-#endif
-					}
+					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
 				}
 			}
 		}
