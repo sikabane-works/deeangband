@@ -361,23 +361,16 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				if((weapon_ptr->name1 == ART_CHAINSWORD) && !one_in_(2))
 				{
 					char chainsword_noise[1024];
-					if(!get_rnd_line(TEXT_FILES_CHAINSWORD, 0, chainsword_noise))
-						msg_print(chainsword_noise);
+					if(!get_rnd_line(TEXT_FILES_CHAINSWORD, 0, chainsword_noise)) msg_print(chainsword_noise);
 				}
 
 				if(weapon_ptr->name1 == ART_VORPAL_BLADE)
 				{
-					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-						msg_print(MES_MELEE_VORPAL_BLADE_SERIF);
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_print(MES_MELEE_VORPAL_BLADE_SERIF);
 				}
-				else
+				else if(is_seen(player_ptr, attacker_ptr) && is_seen(player_ptr, target_ptr))
 				{
-					if(is_seen(player_ptr, attacker_ptr) && is_seen(player_ptr, target_ptr))
-#ifdef JP
-						msg_format("%sをグッサリ切り裂いた！", target_name);
-#else
-						msg_format("Your weapon cuts deep into %s!", target_name);
-#endif
+					msg_format(MES_MELEE_VORPAL_DONE(attacker_ptr, target_ptr));
 				}
 				while (one_in_(vorpal_chance)) mult++; // Try to increase the damage
 				k *= mult;
@@ -386,11 +379,9 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				if((has_trait(target_ptr, TRAIT_RES_ALL) ? k / 100 : k) > target_ptr->chp)
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-#ifdef JP
-						msg_format("%sを真っ二つにした！", target_name);
-#else
-						msg_format("You cut %s in half!", target_name);
-#endif
+					{
+						msg_format(MES_MELEE_VORPAL_DONE(attacker_ptr, target_ptr));
+					}
 				}
 				else
 				{

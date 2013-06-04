@@ -2559,18 +2559,11 @@ void do_cmd_colors(void)
 void do_cmd_note(void)
 {
 	char buf[80];
-
 	strcpy(buf, "");
 
-	/* Input */
-	if(!get_string(PROMPT_MEMO, buf, 60)) return;
-
-	/* Ignore empty notes */
-	if(!buf[0] || (buf[0] == ' ')) return;
-
-	/* Add the note to the message recall */
-	msg_format(PROMPT_MEMO, buf);
-
+	if(!get_string(PROMPT_MEMO, buf, 60)) return; /* Input */
+	if(!buf[0] || (buf[0] == ' ')) return; /* Ignore empty notes */
+	msg_format(PROMPT_MEMO, buf); /* Add the note to the message recall */
 }
 
 
@@ -3099,33 +3092,19 @@ static int collect_creatures(int grp_cur, CREATURE_ID creature_idx[], byte mode)
 	/* Check every race */
 	for (i = 0; i < max_species_idx; i++)
 	{
-		/* Access the race */
-		species_type *species_ptr = &species_info[i];
+		species_type *species_ptr = &species_info[i]; /* Access the race */
+		if(!species_ptr->name) continue ; /* Skip empty race */
+		if(!(mode & 0x02) && !cheat_know && !species_ptr->r_sights) continue; /* Require known creatures */
 
-		/* Skip empty race */
-		if(!species_ptr->name) continue ;
-
-		/* Require known creatures */
-		if(!(mode & 0x02) && !cheat_know && !species_ptr->r_sights) continue;
-
-		if(grp_unique)
-		{
-			if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
-		}
-
-		else if(grp_riding)
-		{
-			if(!has_trait_species(species_ptr, TRAIT_RIDING)) continue;
-		}
-
+		if(grp_unique) if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
+		else if(grp_riding) if(!has_trait_species(species_ptr, TRAIT_RIDING)) continue;
 		else if(grp_wanted)
 		{
 			bool wanted = FALSE;
 			int j;
 			for (j = 0; j < MAX_BOUNTY; j++)
 			{
-				if(kubi_species_idx[j] == i || kubi_species_idx[j] - 10000 == i ||
-					(today_mon && today_mon == i))
+				if(kubi_species_idx[j] == i || kubi_species_idx[j] - 10000 == i || (today_mon && today_mon == i))
 				{
 					wanted = TRUE;
 					break;
@@ -3134,38 +3113,14 @@ static int collect_creatures(int grp_cur, CREATURE_ID creature_idx[], byte mode)
 			if(!wanted) continue;
 		}
 
-		else if(grp_amberite)
-		{
-			if(!IS_RACE(species_ptr, RACE_AMBERITE)) continue;
-		}
+		else if(grp_amberite) if(!IS_RACE(species_ptr, RACE_AMBERITE)) continue;
+		else if(cls != 255) if(species_ptr->class_idx != cls) continue;
+		else if(ego == 1) if(!is_variable_race_species(species_ptr)) continue;
+		else if(ego == 2) if(!is_variable_class_species(species_ptr)) continue;
+		else if(!my_strchr(group_char, species_ptr->d_char)) continue;
 
-		else if(cls != 255)
-		{
-			if(species_ptr->class_idx != cls) continue;
-		}
-
-		else if(ego == 1)
-		{
-			if(!is_variable_race_species(species_ptr))
-				continue;
-		}
-
-		else if(ego == 2)
-		{
-			if(!is_variable_class_species(species_ptr)) continue;
-		}
-
-		else
-		{
-			/* Check for race in the group */
-			if(!my_strchr(group_char, species_ptr->d_char)) continue;
-		}
-
-		/* Add the race */
-		creature_idx[mon_cnt++] = i;
-
-		/* XXX Hack -- Just checking for non-empty group */
-		if(mode & 0x01) break;
+		creature_idx[mon_cnt++] = i; /* Add the race */
+		if(mode & 0x01) break; /* XXX Hack -- Just checking for non-empty group */
 	}
 
 	/* Terminate the list */

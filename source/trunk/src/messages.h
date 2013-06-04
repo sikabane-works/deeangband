@@ -2569,6 +2569,8 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_ZANTETSU_SERIF "またつまらぬものを斬ってしまった．．．"
 #define MES_MELEE_EX_JR_SPIDER "蜘蛛は苦手だ！"
 #define MES_MELEE_CRITICAL "クリティカルヒット！"
+#define MES_MELEE_VORPAL_DONE(ATTACKER, TARGET) "%sをグッサリ切り裂いた！", (ATTACKER)->name, (TARGET)->name
+#define MES_MELEE_VORPAL_DONE_KILLED(ATTACKER, TARGET) "%sは%sを真っ二つにした！", (ATTACKER)->name, (TARGET)->name
 #define MES_MELEE_VORPAL_BLADE_SERIF "目にも止まらぬヴォーパルブレード、手錬の早業！"
 #define MES_MELEE_ATTACK_DRAIN(WEAPON, TARGET) ("%sが%sから生命力を吸い取った！", (WEAPON), (TARGET))
 #define MES_MELEE_SUCK_BLOOD(WEAPON) ("%sは血を吸って強くなった！", WEAPON)
@@ -2605,6 +2607,8 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_ZANTETSU_SERIF "Sigh... Another trifling thing I've cut...."
 #define MES_MELEE_EX_JR_SPIDER "Spiders are difficult for you to deal with!"
 #define MES_MELEE_CRITICAL "It was a critical hit!"
+#define MES_MELEE_VORPAL_DONE(ATTACKER, TARGET) "Your weapon cuts deep into %s!", (ATTACKER)->name, (TARGET)->name
+#define MES_MELEE_VORPAL_DONE_KILLED(ATTACKER, TARGET) "%s cut %s in half!", (ATTACKER)->name, (TARGET)->name
 #define MES_MELEE_VORPAL_BLADE_SERIF "Your Vorpal Blade goes snicker-snack!"
 #define MES_MELEE_SUCK_BLOOD(WEAPON) ("%s sucked blood, and became more powerful!", (WEAPON))
 #define MES_MELEE_RETURN(WEAPON, ATTACKER) ("%s returns to %s.", ATTACKER, WEAPON)
