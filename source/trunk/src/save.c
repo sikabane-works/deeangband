@@ -109,6 +109,7 @@ static void wr_object(object_type *object_ptr)
 	WRITE_GAME_TIME(object_ptr->timeout);
 	wr_s16b(object_ptr->charge_const);
 	wr_s16b(object_ptr->charge_dice);
+	WRITE_QUANTITY(object_ptr->charge_num);
 
 	WRITE_STAT(object_ptr->to_hit);
 	WRITE_STAT(object_ptr->to_damage);

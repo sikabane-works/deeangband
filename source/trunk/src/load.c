@@ -325,6 +325,7 @@ static errr rd_object(object_type *object_ptr)
 	READ_GAME_TIME(&object_ptr->timeout);
 	rd_s16b(&object_ptr->charge_const);
 	rd_s16b(&object_ptr->charge_dice);
+	READ_QUANTITY(&object_ptr->charge_num);
 
 	READ_STAT(&object_ptr->to_hit);
 	READ_STAT(&object_ptr->to_damage);

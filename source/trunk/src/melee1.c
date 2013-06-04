@@ -437,15 +437,10 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			int i, k;
 			object_type *object_ptr;
 
-			/* Find an item */
-			for (k = 0; k < 10; k++)
+			for (k = 0; k < 10; k++) /* Find an item */
 			{
-				/* Pick an item */
-				i = randint0(INVEN_TOTAL);
-
-				/* Obtain the item */
-				object_ptr = &target_ptr->inventory[i];
-
+				i = randint0(INVEN_TOTAL); /* Pick an item */
+				object_ptr = &target_ptr->inventory[i]; /* Obtain the item */
 				if(!is_valid_object(object_ptr)) continue;
 
 				/* Drain charged wands/staffs */
@@ -462,8 +457,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 					//TODO if(&magic_info[npc_status_id] == attacker_ptr) prepare_redraw(PR_HEALTH);
 					//if(&magic_info[target_ptr->riding] == attacker_ptr) prepare_redraw(PR_UHEALTH);
 
-					/* Uncharge */
-					object_ptr->pval = 0;
+					object_ptr->pval = 0; /* Uncharge */
 					prepare_update(target_ptr, CRU_COMBINE | CRU_REORDER);
 					prepare_window(PW_INVEN);
 

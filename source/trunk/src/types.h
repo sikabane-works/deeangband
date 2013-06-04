@@ -924,9 +924,9 @@ struct object_type
 	GAME_TIME timeout;		/* Timeout Counter */
 	s16b charge_const;
 	s16b charge_dice;
+	QUANTITY charge_num;
 
 	byte ident;			/* Special flags  */
-
 	byte marked;		/* Object is marked */
 
 	STRING_OFFSET inscription; /* Inscription index */
