@@ -895,7 +895,7 @@ extern void object_tried(object_type *object_ptr);
 extern s32b object_value(object_type *object_ptr);
 extern s32b object_value_real(object_type *object_ptr);
 extern bool can_player_destroy_object(creature_type *creature_ptr, object_type *object_ptr);
-extern void distribute_charges(object_type *object_ptr, object_type *quest_ptr, int amt);
+extern void distribute_charges(object_type *object1_ptr, object_type *object2_ptr, int amt);
 extern void reduce_charges(object_type *object_ptr, PVAL amt);
 extern int object_similar_part(object_type *object1_ptr, object_type *object2_ptr);
 extern bool object_similar(object_type *object1_ptr, object_type *object2_ptr);

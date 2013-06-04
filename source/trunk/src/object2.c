@@ -1159,15 +1159,13 @@ s32b object_value_real(object_type *object_ptr)
 	case TV_SOFT_ARMOR:
 	case TV_HARD_ARMOR:
 	case TV_DRAG_ARMOR:
-		{
-			/* Hack -- negative armor bonus */
-			if(object_ptr->to_ac < 0) return (0L);
-
-			/* Give credit for bonuses */
-			value += (((object_ptr->to_hit - object_kind_ptr->to_hit) + (object_ptr->to_damage - object_kind_ptr->to_damage)) * 200L + (object_ptr->to_ac) * 100L);
-
-			break;
-		}
+		if(object_ptr->to_ac < 0) return (0L); /* Hack -- negative armor bonus */
+		value += (object_ptr->to_hit - object_kind_ptr->to_hit);
+		value += (object_ptr->to_damage - object_kind_ptr->to_damage) * 200L;
+		value += (object_ptr->to_ac) * 100L;
+		value += (object_ptr->to_ev) * 150L;
+		value += (object_ptr->to_vo) * 200L;
+		break;
 
 		/* Bows/Weapons */
 	case TV_BOW:
@@ -1175,19 +1173,11 @@ s32b object_value_real(object_type *object_ptr)
 	case TV_HAFTED:
 	case TV_SWORD:
 	case TV_POLEARM:
-		{
-			/* Hack -- negative hit/damage bonuses */
-			if(object_ptr->to_hit + object_ptr->to_damage < 0) return (0L);
-
-			/* Factor in the bonuses */
-			value += ((object_ptr->to_hit + object_ptr->to_damage + object_ptr->to_ac) * 100L);
-
-			/* Hack -- Factor in extra damage dice and sides */
-			value += (object_ptr->dd - object_kind_ptr->dd) * object_ptr->ds * 250L;
-			value += (object_ptr->ds - object_kind_ptr->ds) * object_ptr->dd * 250L;
-
-			break;
-		}
+		if(object_ptr->to_hit + object_ptr->to_damage < 0) return (0L);
+		value += ((object_ptr->to_hit + object_ptr->to_damage + object_ptr->to_ac) * 100L);
+		value += (object_ptr->dd - object_kind_ptr->dd) * object_ptr->ds * 250L;
+		value += (object_ptr->ds - object_kind_ptr->ds) * object_ptr->dd * 250L;
+		break;
 
 		/* Ammo */
 	case TV_SHOT:
@@ -1227,10 +1217,8 @@ s32b object_value_real(object_type *object_ptr)
 		}
 
 	case TV_CHEST:
-		{
-			if(!object_ptr->pval) value = 0L;
-			break;
-		}
+		if(!object_ptr->pval) value = 0L;
+		break;
 	}
 
 	/* Worthless object */
@@ -1256,40 +1244,21 @@ s32b object_value(object_type *object_ptr)
 {
 	s32b value;
 
-
-	/* Unknown items -- acquire a base value */
-	if(object_is_known(object_ptr))
+	if(object_is_known(object_ptr)) /* Unknown items -- acquire a base value */
 	{
-		/* Broken items -- worthless */
-		if(object_is_broken(object_ptr)) return (0L);
-
-		/* Cursed items -- worthless */
-		if(object_is_cursed(object_ptr)) return (0L);
-
-		/* Real value (see above) */
-		value = object_value_real(object_ptr);
+		if(object_is_broken(object_ptr)) return (0L); /* Broken items -- worthless */
+		if(object_is_cursed(object_ptr)) return (0L); /* Cursed items -- worthless */
+		value = object_value_real(object_ptr); /* Real value (see above) */
+	}
+	else /* Known items -- acquire the actual value */
+	{
+		if((object_ptr->ident & (IDENT_SENSE)) && object_is_broken(object_ptr)) return (0L); /* Hack -- Felt broken items */
+		if((object_ptr->ident & (IDENT_SENSE)) && object_is_cursed(object_ptr)) return (0L); /* Hack -- Felt cursed items */
+		value = object_value_base(object_ptr); /* Base value (see above) */
 	}
 
-	/* Known items -- acquire the actual value */
-	else
-	{
-		/* Hack -- Felt broken items */
-		if((object_ptr->ident & (IDENT_SENSE)) && object_is_broken(object_ptr)) return (0L);
-
-		/* Hack -- Felt cursed items */
-		if((object_ptr->ident & (IDENT_SENSE)) && object_is_cursed(object_ptr)) return (0L);
-
-		/* Base value (see above) */
-		value = object_value_base(object_ptr);
-	}
-
-
-	/* Apply discount (if any) */
-	if(object_ptr->discount) value -= (value * object_ptr->discount / 100L);
-
-
-	/* Return the final value */
-	return (value);
+	if(object_ptr->discount) value -= (value * object_ptr->discount / 100L); /* Apply discount (if any) */
+	return (value); /* Apply discount (if any) */
 }
 
 
@@ -1298,31 +1267,20 @@ s32b object_value(object_type *object_ptr)
 */
 bool can_player_destroy_object(creature_type *creature_ptr, object_type *object_ptr)
 {
-	/* Artifacts cannot be destroyed */
-	if(!object_is_artifact(object_ptr)) return TRUE;
-
-	/* If object is unidentified, makes fake inscription */
-	if(!object_is_known(object_ptr))
+	if(!object_is_artifact(object_ptr)) return TRUE; /* Artifacts cannot be destroyed */
+	if(!object_is_known(object_ptr)) /* If object is unidentified, makes fake inscription */
 	{
 		byte feel = FEEL_SPECIAL;
-
-		/* Hack -- Handle icky artifacts */
-		if(object_is_cursed(object_ptr) || object_is_broken(object_ptr)) feel = FEEL_TERRIBLE;
-
-		/* Hack -- inscribe the artifact */
-		object_ptr->feeling = feel;
-
-		/* We have "felt" it (again) */
-		object_ptr->ident |= (IDENT_SENSE);
+		if(object_is_cursed(object_ptr) || object_is_broken(object_ptr)) feel = FEEL_TERRIBLE; /* Hack -- Handle icky artifacts */
+		object_ptr->feeling = feel; /* Hack -- inscribe the artifact */
+		object_ptr->ident |= (IDENT_SENSE); /* We have "felt" it (again) */
 
 		prepare_update(creature_ptr, CRU_COMBINE);
 		prepare_window(PW_INVEN | PW_EQUIP);
 
 		return FALSE;
 	}
-
-	/* Identified artifact -- Nothing to do */
-	return FALSE;
+	return FALSE; /* Identified artifact -- Nothing to do */
 }
 
 
@@ -1333,7 +1291,7 @@ bool can_player_destroy_object(creature_type *creature_ptr, object_type *object_
 * quest_ptr = target item, must be of the same type as object_ptr
 * amt   = number of items that are transfered
 */
-void distribute_charges(object_type *object_ptr, object_type *quest_ptr, int amt)
+void distribute_charges(object_type *object1_ptr, object_type *object2_ptr, int amt)
 {
 	/*
 	* Hack -- If rods or wands are dropped, the total maximum timeout or
@@ -1341,23 +1299,21 @@ void distribute_charges(object_type *object_ptr, object_type *quest_ptr, int amt
 	* are being dropped, it makes for a neater message to leave the original
 	* stack's pval alone. -LM-
 	*/
-	if((object_ptr->tval == TV_WAND) || IS_ROD(object_ptr))
+	if((object1_ptr->tval == TV_WAND) || IS_ROD(object1_ptr))
 	{
-		quest_ptr->pval = object_ptr->pval * (PVAL)amt / (PVAL)object_ptr->number;
-		if(amt < object_ptr->number) object_ptr->pval -= quest_ptr->pval;
+		object2_ptr->charge_num = object1_ptr->pval * (PVAL)amt / (PVAL)object1_ptr->number;
+		if(amt < object1_ptr->number) object1_ptr->pval -= object2_ptr->pval;
 
 		/* Hack -- Rods also need to have their timeouts distributed.  The
 		* dropped stack will accept all time remaining to charge up to its
 		* maximum.
 		*/
-		if(IS_ROD(object_ptr) && (object_ptr->timeout))
+		if(IS_ROD(object1_ptr) && (object1_ptr->timeout))
 		{
-			if(quest_ptr->pval > object_ptr->timeout)
-				quest_ptr->timeout = object_ptr->timeout;
-			else
-				quest_ptr->timeout = quest_ptr->pval;
+			if(object2_ptr->pval > object1_ptr->timeout) object2_ptr->timeout = object1_ptr->timeout;
+			else object2_ptr->timeout = object2_ptr->pval;
 
-			if(amt < object_ptr->number) object_ptr->timeout -= quest_ptr->timeout;
+			if(amt < object1_ptr->number) object1_ptr->timeout -= object2_ptr->timeout;
 		}
 	}
 }
