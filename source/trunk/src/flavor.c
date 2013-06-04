@@ -1251,9 +1251,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		case TV_WHISTLE:
 		case TV_WHEEL:
 		case TV_INSTRUMENT:
-		{
 			break;
-		}
 
 		case TV_CAPTURE:
 		{
@@ -1345,6 +1343,10 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		case TV_DRAG_ARMOR:
 		case TV_TAIL:
 			show_armour = TRUE;
+			break;
+
+		case TV_ORGAN:
+			show_weapon = TRUE;
 			break;
 
 		/* Lites (including a few "Specials") */
@@ -1948,6 +1950,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		case TV_POLEARM:
 		case TV_SWORD:
 		case TV_DIGGING:
+		case TV_ORGAN:
 
 		/* Append a "damage" string */
 		t = object_desc_chr(t, ' ');
