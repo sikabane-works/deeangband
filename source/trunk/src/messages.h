@@ -4473,6 +4473,11 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_BET_OUT_NUM2 "ＯＫ、9番にしとくぜ。"
 #define MES_GAMBLE_WHEEL_WHICH_NUM "何番？ (0-9)"
 #define MES_GAMBLE_ROULETTE_RESULT(NUM) "ルーレットは回り、止まった。勝者は %d番だ。", (NUM)
+#define MES_GAMBLE_ARENA_EVEN "相打ちに終わりました。"
+#define MES_GAMBLE_ARENA_WINNER(WINNER) "%sが勝利した！", (WINNER)->name
+#define MES_GAMBLE_ARENA_CONGURATULATION "おめでとうございます。"
+#define MES_GAMBLE_ARENA_GET_GOLD(MONEY) "%d＄を受け取った。", (MONEY)
+#define MES_GAMBLE_ARENA_LOST_GOLD "残念でした。"
 #else
 #define MES_GAMBLE_BETWEEN "In Between"
 #define MES_GAMBLE_CRAPS "Craps"
@@ -4500,6 +4505,11 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_BET_OUT_NUM2 "Ok, I'll put you down for 9."
 #define MES_GAMBLE_WHEEL_WHICH_NUM "Pick a number (0-9)"
 #define MES_GAMBLE_ROULETTE_RESULT(NUM) "The wheel spins to a stop and the winner is %d", (NUM)
+#define MES_GAMBLE_ARENA_EVEN "They have kill each other at the same time."
+#define MES_GAMBLE_ARENA_WINNER(WINNER) "%s is winner!", (WINNER)->name
+#define MES_GAMBLE_ARENA_CONGURATULATION "Congratulations."
+#define MES_GAMBLE_ARENA_GET_GOLD(MONEY) "You received %d gold.", (MONEY)
+#define MES_GAMBLE_ARENA_LOST_GOLD "You lost gold."
 #endif
 
 #ifdef JP

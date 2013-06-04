@@ -1877,25 +1877,16 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	int i;
 	bool changed;
 
-	/* Process equipment */
-	for (changed = FALSE, i = 0; i < INVEN_TOTAL; i++)
+	for (changed = FALSE, i = 0; i < INVEN_TOTAL; i++) /* Process equipment */
 	{
-		/* Get the object */
-		object_type *object_ptr = &creature_ptr->inventory[i];
-
-		// Skip no equip
+		object_type *object_ptr = &creature_ptr->inventory[i]; /* Get the object */
 		if(!IS_EQUIPPED(object_ptr)) continue;
-
 		if(!is_valid_object(object_ptr)) continue;
 
-		/* Recharge activatable objects */
-		if(object_ptr->timeout > 0)
+		if(object_ptr->timeout > 0) /* Recharge activatable objects */
 		{
-			/* Recharge */
 			object_ptr->timeout--;
-
-			/* Notice changes */
-			if(!object_ptr->timeout)
+			if(!object_ptr->timeout) /* Notice changes */
 			{
 				recharged_notice(object_ptr);
 				changed = TRUE;
@@ -1903,11 +1894,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 		}
 	}
 
-	/* Notice changes */
-	if(changed)
-	{
-		prepare_window(PW_EQUIP);
-	}
+	if(changed) prepare_window(PW_EQUIP); /* Notice changes */
 
 	/*
 	* Recharge rods.  Rods now use timeout to control charging status,
@@ -1961,11 +1948,8 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 		/* Recharge rods on the ground.  No messages. */
 		if(IS_ROD(object_ptr) && (object_ptr->timeout))
 		{
-			/* Charge it */
-			object_ptr->timeout -= object_ptr->number;
-
-			/* Boundary control. */
-			if(object_ptr->timeout < 0) object_ptr->timeout = 0;
+			object_ptr->timeout -= object_ptr->number; /* Charge it */
+			if(object_ptr->timeout < 0) object_ptr->timeout = 0; /* Boundary control */
 		}
 	}
 }
@@ -1986,12 +1970,8 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 		* The player is yanked up/down as soon as
 		* he loads the autosaved game.
 		*/
-		if(autosave_l && (creature_ptr->timed_trait[TRAIT_WORD_RECALL] == 1) && !floor_ptr->gamble_arena_mode)
-			do_cmd_save_game(TRUE);
-
-		/* Count down towards recall */
-		creature_ptr->timed_trait[TRAIT_WORD_RECALL]--;
-
+		if(autosave_l && (creature_ptr->timed_trait[TRAIT_WORD_RECALL] == 1) && !floor_ptr->gamble_arena_mode) do_cmd_save_game(TRUE);
+		creature_ptr->timed_trait[TRAIT_WORD_RECALL]--; /* Count down towards recall */
 		prepare_redraw(PR_STATUS);
 
 		/* Activate the recall */
@@ -2032,18 +2012,9 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				/* Nightmare mode makes recall more dangerous */
 				if(has_trait(creature_ptr, TRAIT_CURSE_OF_ILUVATAR) && !randint0(666) && (floor_ptr->dungeon_id == DUNGEON_ANGBAND))
 				{
-					if(floor_ptr->depth < 50)
-					{
-						floor_ptr->depth *= 2;
-					}
-					else if(floor_ptr->depth < 99)
-					{
-						floor_ptr->depth = (floor_ptr->depth + 99) / 2;
-					}
-					else if(floor_ptr->depth > 100)
-					{
-						floor_ptr->depth = dungeon_info[floor_ptr->dungeon_id].maxdepth - 1;
-					}
+					if(floor_ptr->depth < 50) floor_ptr->depth *= 2;
+					else if(floor_ptr->depth < 99) floor_ptr->depth = (floor_ptr->depth + 99) / 2;
+					else if(floor_ptr->depth > 100) floor_ptr->depth = dungeon_info[floor_ptr->dungeon_id].maxdepth - 1;
 				}
 
 				if(floor_ptr->global_map)
@@ -2070,12 +2041,9 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				if(floor_ptr->dungeon_id == DUNGEON_DOD)
 				{
 					int i;
-
 					for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 					{
-						if((quest[i].type == QUEST_TYPE_RANDOM) &&
-							(quest[i].status == QUEST_STATUS_TAKEN) &&
-							(quest[i].level < floor_ptr->depth))
+						if((quest[i].type == QUEST_TYPE_RANDOM) && (quest[i].status == QUEST_STATUS_TAKEN) && (quest[i].level < floor_ptr->depth))
 						{
 							quest[i].status = QUEST_STATUS_FAILED;
 							quest[i].complev = (byte)creature_ptr->lev;
@@ -2084,7 +2052,6 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 					}
 				}
 			}
-
 			sound(SOUND_TPLEVEL);
 		}
 	}
@@ -2097,17 +2064,13 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 
 		/* Count down towards alter */
 		creature_ptr->timed_trait[TRAIT_ALTER_REALITY]--;
-
 		prepare_redraw(PR_STATUS);
 
 		/* Activate the alter reality */
 		if(!creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 		{
-			/* Disturbing! */
 			disturb(player_ptr, 0, 0);
-
-			/* Determine the level */
-			if(!quest_number(floor_ptr) && floor_ptr->depth)
+			if(!quest_number(floor_ptr) && floor_ptr->depth) /* Determine the level */
 			{
 				msg_print(MES_TRAIT_ALTER_REAL_DONE);
 				/*
@@ -2116,7 +2079,6 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 				*/
 				//prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
-				/* Leaving */
 				subject_change_floor = TRUE;
 			}
 			else msg_print(MES_TRAIT_ALTER_REAL_FAILED);
@@ -2296,11 +2258,7 @@ static void creature_arena_result(floor_type *floor_ptr)
 
 		if(number_mon == 0)
 		{
-#ifdef JP
-			msg_print("相打ちに終わりました。");
-#else
-			msg_print("They have kill each other at the same time.");
-#endif
+			msg_print(MES_GAMBLE_ARENA_EVEN);
 			msg_print(NULL);
 			battle_creatures();
 		}
@@ -2312,35 +2270,16 @@ static void creature_arena_result(floor_type *floor_ptr)
 			wm_ptr = &creature_list[win_m_idx];
 
 			creature_desc(m_name, wm_ptr, 0);
-#ifdef JP
-			msg_format("%sが勝利した！", m_name);
-#else
-			msg_format("%s is winner!", m_name);
-#endif
+			msg_format(MES_GAMBLE_ARENA_WINNER(wm_ptr));
 			msg_print(NULL);
 
 			if(win_m_idx == (sel_creature+1))
 			{
-#ifdef JP
-				msg_print("おめでとうございます。");
-#else
-				msg_print("Congratulations.");
-#endif
-#ifdef JP
-				msg_format("%d＄を受け取った。", battle_odds);
-#else
-				msg_format("You received %d gold.", battle_odds);
-#endif
+				msg_print(MES_GAMBLE_ARENA_CONGURATULATION);
+				msg_format(MES_GAMBLE_ARENA_GET_GOLD(battle_odds));
 				player_ptr->au += battle_odds;
 			}
-			else
-			{
-#ifdef JP
-				msg_print("残念でした。");
-#else
-				msg_print("You lost gold.");
-#endif
-			}
+			else msg_print(MES_GAMBLE_ARENA_LOST_GOLD);
 			msg_print(NULL);
 			battle_creatures();
 		}
