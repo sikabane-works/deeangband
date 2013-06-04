@@ -1394,23 +1394,7 @@ bool probing(floor_type *floor_ptr)
 			Term_erase(0, 0, 255);
 
 			/* Learn everything about this creature */
-			if(lore_do_probe(m_ptr->species_idx))
-			{
-				char buf[80];
-
-				/* Get base name of creature */
-				strcpy(buf, (species_name + species_ptr->name));
-
-#ifdef JP
-				msg_format("%s‚É‚Â‚¢‚Ä‚³‚ç‚ÉÚ‚µ‚­‚È‚Á‚½‹C‚ª‚·‚éB", buf);
-#else
-				/* Pluralize it */
-				plural_aux(buf);
-				msg_format("You now know more about %s.", buf);
-#endif
-				/* Clear -more- prompt */
-				msg_print(NULL);
-			}
+			if(lore_do_probe(m_ptr->species_idx)) msg_format(MES_TRAIT_PROB_DONE(m_ptr));
 
 			/* Probe worked */
 			probe = TRUE;
