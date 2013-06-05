@@ -1313,9 +1313,10 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	if(kawarimi(target_ptr, TRUE)) return FALSE; // Ceased by Kawarimi
 
 	//TODO gain_skill(attacker, SKILL_RIDING, amount);
-
-	generate_object(&weapon, 697);
-	do_one_attack(attacker_ptr, target_ptr, &weapon, mode);
+	if(is_valid_object(&attacker_ptr->organ_object[INVENTORY_ID_HAND]))
+	{
+		do_one_attack(attacker_ptr, target_ptr, &attacker_ptr->organ_object[INVENTORY_ID_HAND], mode);
+	}
 	if(IS_DEAD(target_ptr)) return TRUE;
 
 	/* Blink away */

@@ -59,24 +59,16 @@ void prt_time(void)
 	int day, hour, min;
 
 	/* Dump 13 spaces to clear */
-	c_put_str(TERM_WHITE, "             ", ROW_DAY, COL_DAY);
+	c_put_str(TERM_WHITE, "                ", ROW_DAY, COL_DAY);
 
-	if(wizard)
-	{
-		c_put_str(TERM_WHITE, format("Turn: %9d", game_turn), ROW_DAY, COL_DAY);
-	}
+	if(wizard) c_put_str(TERM_WHITE, format("Turn: %9d", game_turn), ROW_DAY, COL_DAY);
 	else
 	{
 		extract_day_hour_min(&day, &hour, &min);
 
 		/* Dump the info itself */
-#ifdef JP
-		if(day < 1000) c_put_str(TERM_WHITE, format("%2d“ú–Ú", day), ROW_DAY, COL_DAY);
-		else c_put_str(TERM_WHITE, "***“ú–Ú", ROW_DAY, COL_DAY);
-#else
-		if(day < 1000) c_put_str(TERM_WHITE, format("Day%3d", day), ROW_DAY, COL_DAY);
-		else c_put_str(TERM_WHITE, "Day***", ROW_DAY, COL_DAY);
-#endif
+		if(day < 10000) c_put_str(TERM_WHITE, format(DIATY_DATE(day)), ROW_DAY, COL_DAY);
+		else c_put_str(TERM_WHITE, DIATY_COUNTSTOP_DATE, ROW_DAY, COL_DAY);
 		c_put_str(TERM_WHITE, format("%2d:%02d", hour, min), ROW_DAY, COL_DAY+7);
 	}
 }
@@ -497,10 +489,7 @@ static void prt_status(creature_type *creature_ptr)
 
 		for (i = 0; bar[i].sstr; i++)
 		{
-			if(IS_FLG(i))
-			{
-				col += strlen(bar[i].sstr);
-			}
+			if(IS_FLG(i)) col += strlen(bar[i].sstr);
 		}
 
 		/* If there are excess spaces for short string, use more */
