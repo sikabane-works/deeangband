@@ -5101,7 +5101,6 @@ static void center_string(char *buf, cptr str)
 	i = strlen(str); /* Total length */
 	j = GRAVE_LINE_WIDTH / 2 - i / 2; /* Necessary border */
 
-	/* Mega-Hack */
 	(void)sprintf(buf, "%*s%s%*s", j, "", str, GRAVE_LINE_WIDTH - i - j, "");
 }
 

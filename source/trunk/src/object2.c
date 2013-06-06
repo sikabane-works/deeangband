@@ -2380,7 +2380,7 @@ void apply_bodysize_boost(creature_type *user_ptr, object_type *object_ptr)
 		if(user_ptr->size >= 10)
 		{
 			object_ptr->dd += (user_ptr->size - 8) / 5;
-			object_ptr->ds += (user_ptr->size - 10);
+			object_ptr->ds += (user_ptr->size - 9) / 3;
 		}
 		else
 		{
