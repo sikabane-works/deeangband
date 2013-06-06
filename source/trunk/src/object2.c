@@ -2460,27 +2460,18 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 	/* Roll for "good" */
 	if((mode & AM_GOOD) || PERCENT(f1))
 	{
-		/* Assume "good" */
-		power = ITEM_RANK_GOOD;
-
-		/* Roll for "great" */
-		if((mode & AM_GREAT) || PERCENT(f2))
+		power = ITEM_RANK_GOOD; /* Assume "good" */
+		if((mode & AM_GREAT) || PERCENT(f2)) /* Roll for "great" */
 		{
 			power = ITEM_RANK_GREAT;
-
-			/* Roll for "special" */
-			if(mode & AM_SPECIAL) power = ITEM_RANK_SPECIAL;
+			if(mode & AM_SPECIAL) power = ITEM_RANK_SPECIAL; /* Roll for "special" */
 		}
 	}
 
-	/* Roll for "cursed" */
-	else if(PERCENT(f1) && !(mode & AM_UNCURSED))
+	else if(PERCENT(f1) && !(mode & AM_UNCURSED)) /* Roll for "cursed" */
 	{
-		/* Assume "cursed" */
-		power = ITEM_RANK_CURSED;
-
-		/* Roll for "broken" */
-		if(PERCENT(f2)) power = ITEM_RANK_BROKEN;
+		power = ITEM_RANK_CURSED; /* Assume "cursed" */
+		if(PERCENT(f2)) power = ITEM_RANK_BROKEN; /* Roll for "broken" */
 	}
 
 	/* Apply curse */

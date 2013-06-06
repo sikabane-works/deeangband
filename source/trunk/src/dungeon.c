@@ -62,7 +62,7 @@ static int select_unique_species(void)
 {
 	int i;
 	char dr[4];
-	selection_table se[10];
+	selection_table *se;
 	selection_info se_info;
 
 	se_info.mode = 0;
@@ -76,6 +76,8 @@ static int select_unique_species(void)
 	se_info.num = 0;
 
 	prt("ユニークを選択して下さい", 0, 0);
+
+	C_MAKE(se, max_species_idx, selection_table);
 
 	/* Init Unique Count */
 	se_info.num = 0;
@@ -98,7 +100,10 @@ static int select_unique_species(void)
 		}
 	}
 
-	return get_selection(&se_info, se);
+	i = get_selection(&se_info, se);
+	C_FREE(se, max_species_idx, selection_table);
+	return i;
+
 }
 
 static void object_kind_info_reset(void)
