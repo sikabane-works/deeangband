@@ -3563,6 +3563,7 @@ static int grub_one_melee(creature_type *creature_ptr, cptr tags)
 	if(slot_id != -1 && kind_id != -1)
 	{
 		generate_object(&creature_ptr->organ_object[slot_id], kind_id);
+		apply_bodysize_boost(creature_ptr, &creature_ptr->organ_object[slot_id]);
 		object_aware(&creature_ptr->organ_object[slot_id]);
 		object_known(&creature_ptr->organ_object[slot_id]);
 	}

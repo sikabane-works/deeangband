@@ -2372,6 +2372,26 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 	}
 }
 
+/* for organic weapon */
+void apply_bodysize_boost(creature_type *user_ptr, object_type *object_ptr)
+{
+	if(has_trait_object(object_ptr, TRAIT_BODYSIZE_BOOST))
+	{
+		if(user_ptr->size >= 10)
+		{
+			object_ptr->dd += (user_ptr->size - 8) / 5;
+			object_ptr->ds += (user_ptr->size - 10);
+		}
+		else
+		{
+			object_ptr->dd -= (10 - user_ptr->size) / 3;
+			object_ptr->ds -= (10 - user_ptr->size) / 2;
+			if(object_ptr->dd < 1) object_ptr->dd = 1;
+			if(object_ptr->ds < 1) object_ptr->ds = 1;
+		}
+	}
+}
+
 
 /*
 * Complete the "creation" of an object by applying "magic" to the item
