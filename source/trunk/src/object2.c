@@ -4897,12 +4897,8 @@ static void add_essence(creature_type *creature_ptr, int mode)
 						prt("", y, x);
 
 					/* Print header(s) */
-#ifdef JP
-					prt(format("   %-43s %6s/%s", "能力(必要エッセンス)", "必要数", "所持数"), 1, x);
+					prt(format("   %-43s %6s/%s", KW_SMITH_ABILITY, KW_SMITH_NEEDS, KW_SMITH_POSSESS), 1, x);
 
-#else
-					prt(format("   %-43s %6s/%s", "Ability (needed essence)", "Needs", "Possess"), 1, x);
-#endif
 					/* Print list */
 					for (ctr = 0; ctr < max_num; ctr++)
 					{
@@ -4913,13 +4909,9 @@ static void add_essence(creature_type *creature_ptr, int mode)
 							if(ctr == (menu_line-1))
 								strcpy(dummy, KET_D_ANGLE);
 							else strcpy(dummy, "  ");
-
 						}
 						/* letter/number for power selection */
-						else
-						{
-							sprintf(dummy, "%c) ",I2A(ctr));
-						}
+						else sprintf(dummy, "%c) ",I2A(ctr));
 
 						strcat(dummy, es_ptr->add_name);
 

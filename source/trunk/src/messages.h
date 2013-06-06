@@ -918,6 +918,15 @@
 #define MES_SMITH_ADDED_ESSENCE(OBJECT, TYPE) "You have added ability of %s to %s.", (OBJECT)->name, (TYPE)
 #endif
 
+#ifdef JP
+#define KW_SMITH_NEEDS "必要数"
+#define KW_SMITH_POSSESS "所持数"
+#define KW_SMITH_ABILITY "能力(必要エッセンス)"
+#else
+#define KW_SMITH_NEEDS "Needs"
+#define KW_SMITH_POSSESS "Possess"
+#define KW_SMITH_ABILITY "Ability (needed essence)"
+#endif
 
 #ifdef JP
 #define MES_PROBING_START "調査中..."

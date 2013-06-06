@@ -676,14 +676,8 @@ static void prt_depth(creature_type *creature_ptr)
 	}
 
 	/* Right-Adjust the "depth", and clear old values */
-	if(wizard)
-	{
-		c_prt(attr, format("%7s F:%3d", depths, player_ptr->floor_idx), row_depth, col_depth - 6);
-	}
-	else
-	{
-		c_prt(attr, format("%7s", depths), row_depth, col_depth);
-	}
+	if(wizard) c_prt(attr, format("%7s F:%3d", depths, player_ptr->floor_idx), row_depth, col_depth - 6);
+	else c_prt(attr, format("%7s", depths), row_depth, col_depth);
 }
 
 
@@ -748,7 +742,6 @@ static void prt_hunger(creature_type *creature_ptr)
 static void prt_state(creature_type *creature_ptr)
 {
 	byte attr = TERM_WHITE;
-
 	char text[7];
 
 	/* Repeating */
