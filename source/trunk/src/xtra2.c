@@ -549,12 +549,8 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		if(arena_info[arena_number].tval)
 		{
 			quest_ptr = &forge;
-
-			/* Prepare to make a prize */
 			generate_object(quest_ptr, lookup_kind(arena_info[arena_number].tval, arena_info[arena_number].sval));
 			apply_magic(dead_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
-
-			/* Drop it in the dungeon */
 			(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
 		}
 
@@ -563,10 +559,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		if(record_arena)
 		{
 			char m_name[MAX_NLEN];
-
-			/* Extract creature name */
 			creature_desc(m_name, dead_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-
 			write_diary(DIARY_ARENA, arena_number, m_name);
 		}
 	}

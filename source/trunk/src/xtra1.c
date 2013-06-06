@@ -3577,22 +3577,22 @@ static void set_organ_melee(creature_type *creature_ptr)
 	char *offset;
 	for(i = 0; i < MAX_INVENTORY_IDS; i++) object_wipe(&creature_ptr->organ_object[i]);
 
-	/* from race definition */
 	offset = race_tag + race_ptr->special_melee_tag;
-	while(TRUE)
+	while(TRUE) /* from race definition */
 	{
 		i = grub_one_melee(creature_ptr, offset);
-		if(!i) break;
-		else offset += i;
+		offset += i;
+		if(*offset == '\0') break;
+		offset++;
 	}
 	
-	/* from species definition */
 	offset = species_tag + species_ptr->sp_melee;
-	while(TRUE)
+	while(TRUE) /* from species definition */
 	{
 		i = grub_one_melee(creature_ptr, offset);
-		if(!i) break;
-		else offset += i;
+		offset += i;
+		if(*offset == '\0') break;
+		offset++;
 	}
 }
 

@@ -1279,7 +1279,6 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	creature_type *target_ptr;
 	char attacker_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
-	object_type weapon;
 
 	if(mode) return FALSE; //TODO
 
