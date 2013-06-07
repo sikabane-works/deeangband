@@ -1790,7 +1790,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 	// TODO calc lev by activation
 	lev = 10;
-	if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) && object_ptr->name2) lev = object_ego_info[object_ptr->name2].level;
+	if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) && object_ptr->ego_id) lev = object_ego_info[object_ptr->ego_id].level;
 
 	chance = creature_ptr->skill_dev; // Base chance of success
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
@@ -1861,7 +1861,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 		{
 			bool success = TRUE;
 
-			switch (object_ptr->name2)
+			switch (object_ptr->ego_id)
 			{
 
 			case EGO_RING_DRAGON_F:

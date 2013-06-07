@@ -104,7 +104,7 @@ static void wr_object(object_type *object_ptr)
 	wr_s32b(object_ptr->volume);
 	WRITE_WEIGHT(object_ptr->weight);
 	WRITE_ARTIFACT_ID(object_ptr->name1);
-	WRITE_OBJECT_EGO_ID(object_ptr->name2);
+	WRITE_OBJECT_EGO_ID(object_ptr->ego_id);
 
 	WRITE_GAME_TIME(object_ptr->timeout);
 	wr_s16b(object_ptr->charge_const);

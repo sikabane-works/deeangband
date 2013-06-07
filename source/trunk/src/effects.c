@@ -1842,7 +1842,7 @@ void calc_android_exp(creature_type *creature_ptr)
 		}
 		else if(object_is_ego(object_ptr))
 		{
-			level += MAX(3, (object_ego_info[object_ptr->name2].rating - 5)/2);
+			level += MAX(3, (object_ego_info[object_ptr->ego_id].rating - 5)/2);
 		}
 		else if(object_is_random_artifact(object_ptr))
 		{

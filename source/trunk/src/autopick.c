@@ -532,7 +532,7 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 				 * are almost meaningless.
 				 * Register the ego type only.
 				 */
-				ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
+				ego_item_type *e_ptr = &object_ego_info[object_ptr->ego_id];
 #ifdef JP
 				/* エゴ銘には「^」マークが使える */
 				sprintf(name_str, "^%s", object_egobject_name + e_ptr->name);
@@ -1513,7 +1513,7 @@ static bool is_opt_confirm_destroy(creature_type *creature_ptr, object_type *obj
 		else if(creature_ptr->class_idx == CLASS_NINJA)
 		{
 			if(object_ptr->tval == TV_LITE &&
-			    object_ptr->name2 == EGO_LITE_DARKNESS && object_is_known(object_ptr))
+			    object_ptr->ego_id == EGO_LITE_DARKNESS && object_is_known(object_ptr))
 				return FALSE;
 		}
 		else if(creature_ptr->class_idx == CLASS_BEASTMASTER ||

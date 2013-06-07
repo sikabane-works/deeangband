@@ -951,7 +951,7 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 
 		if(object_is_ego(object_ptr))
 		{
-			ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
+			ego_item_type *e_ptr = &object_ego_info[object_ptr->ego_id];
 					
 			for (j = 0; j < MAX_TRAITS_FLAG; j++)
 				flgs[j] &= ~e_ptr->flags[j];
@@ -1676,7 +1676,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		/* –¼‚Ì‚ ‚éƒAƒCƒeƒ€ */
 		else if(object_is_ego(object_ptr))
 		{
-			ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
+			ego_item_type *e_ptr = &object_ego_info[object_ptr->ego_id];
 			t = object_desc_str(t, object_egobject_name + e_ptr->name);
 		}
 	}
@@ -1831,7 +1831,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		{
 			if(object_is_ego(object_ptr))
 			{
-				ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
+				ego_item_type *e_ptr = &object_ego_info[object_ptr->ego_id];
 
 				t = object_desc_chr(t, ' ');
 				t = object_desc_str(t, object_egobject_name + e_ptr->name);
@@ -2239,7 +2239,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		if(object_ptr->tval == TV_LITE && !have_flag(object_kind_ptr->flags, TRAIT_NO_LIMIT_LITE))
 		{
 			t = object_desc_str(t, OBJECT_DESC_TURN_LIGHT1);
-			if(object_ptr->name2 == EGO_LITE_LONG) t = object_desc_num(t, object_ptr->fuel * 2);
+			if(object_ptr->ego_id == EGO_LITE_LONG) t = object_desc_num(t, object_ptr->fuel * 2);
 			else t = object_desc_num(t, object_ptr->fuel);
 			t = object_desc_str(t, OBJECT_DESC_TURN_LIGHT2);
 		}

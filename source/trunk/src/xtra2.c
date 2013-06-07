@@ -2918,7 +2918,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			quest_ptr->to_hit = 3 + randint1(floor_ptr->depth) % 10;
 			quest_ptr->to_damage = 3 + randint1(floor_ptr->depth) % 10;
 			one_resistance(quest_ptr);
-			quest_ptr->name2 = EGO_CHAOTIC;
+			quest_ptr->ego_id = EGO_CHAOTIC;
 			(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);	// Drop it in the dungeon
 			break;
 

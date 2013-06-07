@@ -1466,7 +1466,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 
 	/* Nuke enchantments */
 	object_ptr->name1 = 0;
-	object_ptr->name2 = 0;
+	object_ptr->ego_id = 0;
 
 	for (i = 0; i < MAX_TRAITS_FLAG; i++)
 		object_ptr->trait_flags[i] |= object_kind_info[object_ptr->k_idx].flags[i];

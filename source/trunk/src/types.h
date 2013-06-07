@@ -894,7 +894,7 @@ struct object_type
 	WEIGHT weight; /* Item weight */
 
 	ARTIFACT_ID name1; /* Artifact type, if any */
-	OBJECT_EGO_ID name2; /* Ego-Item type, if any */
+	OBJECT_EGO_ID ego_id; /* Ego-Item type, if any */
 	GAME_TIME fuel;
 
 	FORGED_ID forged_type;	// forged by smith craft

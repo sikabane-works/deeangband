@@ -1893,7 +1893,7 @@ static void calc_lite(creature_type *creature_ptr)
 		// Examine actual lites
 		if(GET_INVENTORY_ID_TYPE(creature_ptr, i) == INVENTORY_ID_LITE && (object_ptr->k_idx) && (object_ptr->tval == TV_LITE))
 		{
-			if(object_ptr->name2 == EGO_LITE_DARKNESS)
+			if(object_ptr->ego_id == EGO_LITE_DARKNESS)
 			{
 				if(object_ptr->sval == SV_LITE_TORCH) creature_ptr->cur_lite -= 2;
 				else if(object_ptr->sval == SV_LITE_LANTERN) creature_ptr->cur_lite -= 2;
@@ -1914,7 +1914,7 @@ static void calc_lite(creature_type *creature_ptr)
 			else if(object_is_fixed_artifact(object_ptr))
 				creature_ptr->cur_lite += 4;
 
-			if(object_ptr->name2 == EGO_LITE_SHINE) creature_ptr->cur_lite++;
+			if(object_ptr->ego_id == EGO_LITE_SHINE) creature_ptr->cur_lite++;
 		}
 		else
 		{
@@ -1924,7 +1924,7 @@ static void calc_lite(creature_type *creature_ptr)
 			// does this item glow?
 			if(have_flag(flgs, TRAIT_LITE))
 			{
-				//TODO if((object_ptr->name2 == EGO_DARK) || (object_ptr->name1 == ART_NIGHT)) creature_ptr->cur_lite--;
+				//TODO if((object_ptr->ego_id == EGO_DARK) || (object_ptr->name1 == ART_NIGHT)) creature_ptr->cur_lite--;
 				creature_ptr->cur_lite++;
 			}
 		}

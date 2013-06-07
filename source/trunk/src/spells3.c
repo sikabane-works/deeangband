@@ -1314,7 +1314,7 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 			if(object_ptr->tval == TV_SWORD)
 			{
 				act = MES_BECOME_BRAND_SHARPNESS;
-				object_ptr->name2 = EGO_SHARPNESS;
+				object_ptr->ego_id = EGO_SHARPNESS;
 				object_ptr->pval = (PVAL)m_bonus(5, floor_ptr->depth) + 1;
 
 				if((object_ptr->sval == SV_HAYABUSA) && (object_ptr->pval > 2))
@@ -1323,78 +1323,78 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 			else
 			{
 				act = MES_BECOME_BRAND_EARTHQUAKE;
-				object_ptr->name2 = EGO_EARTHQUAKES;
+				object_ptr->ego_id = EGO_EARTHQUAKES;
 				object_ptr->pval = (PVAL)m_bonus(3, floor_ptr->depth);
 			}
 			break;
 		case 16:
 			act = MES_BECOME_BRAND_SLAYHUMAN;
-			object_ptr->name2 = EGO_SLAY_HUMAN;
+			object_ptr->ego_id = EGO_SLAY_HUMAN;
 			break;
 		case 15:
 			act = MES_BECOME_BRAND_ELEC;
-			object_ptr->name2 = EGO_BRAND_ELEC;
+			object_ptr->ego_id = EGO_BRAND_ELEC;
 			break;
 		case 14:
 			act = MES_BECOME_BRAND_ACID;
-			object_ptr->name2 = EGO_BRAND_ACID;
+			object_ptr->ego_id = EGO_BRAND_ACID;
 			break;
 		case 13:
 			act = MES_BECOME_BRAND_SLAYEVIL;
-			object_ptr->name2 = EGO_SLAY_EVIL;
+			object_ptr->ego_id = EGO_SLAY_EVIL;
 			break;
 		case 12:
 			act = MES_BECOME_BRAND_SLAYDEMON;
-			object_ptr->name2 = EGO_SLAY_DEMON;
+			object_ptr->ego_id = EGO_SLAY_DEMON;
 			break;
 		case 11:
 			act = MES_BECOME_BRAND_SLAYUNDEAD;
-			object_ptr->name2 = EGO_SLAY_UNDEAD;
+			object_ptr->ego_id = EGO_SLAY_UNDEAD;
 			break;
 		case 10:
 			act = MES_BECOME_BRAND_SLAYANIMAL;
-			object_ptr->name2 = EGO_SLAY_ANIMAL;
+			object_ptr->ego_id = EGO_SLAY_ANIMAL;
 			break;
 		case 9:
 			act = MES_BECOME_BRAND_SLAYDRAGON;
-			object_ptr->name2 = EGO_SLAY_DRAGON;
+			object_ptr->ego_id = EGO_SLAY_DRAGON;
 			break;
 		case 8:
 			act = MES_BECOME_BRAND_SLAYTROLL;
-			object_ptr->name2 = EGO_SLAY_TROLL;
+			object_ptr->ego_id = EGO_SLAY_TROLL;
 			break;
 		case 7:
 			act = MES_BECOME_BRAND_SLAYORC;
-			object_ptr->name2 = EGO_SLAY_ORC;
+			object_ptr->ego_id = EGO_SLAY_ORC;
 			break;
 		case 6:
 			act = MES_BECOME_BRAND_SLAYGIANT;
-			object_ptr->name2 = EGO_SLAY_GIANT;
+			object_ptr->ego_id = EGO_SLAY_GIANT;
 			break;
 		case 5:
 			act = MES_BECOME_BRAND_TRUMP;
-			object_ptr->name2 = EGO_TRUMP;
+			object_ptr->ego_id = EGO_TRUMP;
 			object_ptr->pval = (PVAL)randint1(2);
 			break;
 		case 4:
 			act = MES_BECOME_BRAND_VAMPIRIC;
-			object_ptr->name2 = EGO_VAMPIRIC;
+			object_ptr->ego_id = EGO_VAMPIRIC;
 			break;
 		case 3:
 			act = MES_BECOME_BRAND_POIS;
-			object_ptr->name2 = EGO_BRAND_POIS;
+			object_ptr->ego_id = EGO_BRAND_POIS;
 			break;
 		case 2:
 			act = MES_BECOME_BRAND_CHAOS;
-			object_ptr->name2 = EGO_CHAOTIC;
+			object_ptr->ego_id = EGO_CHAOTIC;
 			break;
 		case 1:
 			act = MES_BECOME_BRAND_FIRE;
-			object_ptr->name2 = EGO_BRAND_FIRE;
+			object_ptr->ego_id = EGO_BRAND_FIRE;
 			break;
 		default:
 			act = MES_BECOME_BRAND_COLD;
-			object_ptr->name2 = EGO_BRAND_COLD;
+			object_ptr->ego_id = EGO_BRAND_COLD;
 			break;
 		}
 		msg_format(MES_BECOME_BRAND_FORMAT(object_name, act));
@@ -2794,7 +2794,7 @@ bool pulish_shield(creature_type *creature_ptr)
 	if(object_ptr->k_idx && !object_is_artifact(object_ptr) && !object_is_ego(object_ptr) && !object_is_cursed(object_ptr) && (object_ptr->sval != SV_MIRROR_SHIELD))
 	{
 		msg_format(MES_OBJECT_PULISHED(object_ptr));
-		object_ptr->name2 = EGO_REFLECTION;
+		object_ptr->ego_id = EGO_REFLECTION;
 		enchant(creature_ptr, object_ptr, randint0(3) + 4, ENCH_TOAC);
 		object_ptr->discount = 99;
 		return TRUE;
@@ -3887,7 +3887,7 @@ static void shatter_object(object_type *object_ptr)
 {
 	int i;
 	object_ptr->name1 = 0;
-	object_ptr->name2 = EGO_BLASTED;
+	object_ptr->ego_id = EGO_BLASTED;
 	object_ptr->to_ac = 0 - (s16b)randint1(5) - (s16b)randint1(5);
 	object_ptr->to_vo = 0;
 	object_ptr->to_hit = 0;
@@ -3979,7 +3979,7 @@ bool brand_bolts(creature_type *creature_ptr)
 		if(PERCENT(75)) continue;	// Randomize
 
 		msg_format("%s %s", object_ptr->name, MES_BECOME_BRAND_FIRE);
-		object_ptr->name2 = EGO_FLAME;	// Ego-item
+		object_ptr->ego_id = EGO_FLAME;	// Ego-item
 		enchant(creature_ptr, object_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);	// Enchant
 		return TRUE;	// Notice
 	}

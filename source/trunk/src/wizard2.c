@@ -322,8 +322,8 @@ static void wiz_display_item(object_type *object_ptr)
 	prt(format("pval = %-5d  toac = %-5d  tohit = %-4d  todam = %-4d",
 		   object_ptr->pval, object_ptr->to_ac, object_ptr->to_hit, object_ptr->to_damage), 6, j);
 
-	prt(format("name1 = %-4d  name2 = %-4d  cost = %ld",
-		   object_ptr->name1, object_ptr->name2, (long)object_value_real(object_ptr)), 7, j);
+	prt(format("name1 = %-4d  ego_id = %-4d  cost = %ld",
+		   object_ptr->name1, object_ptr->ego_id, (long)object_value_real(object_ptr)), 7, j);
 
 	prt(format("ident = %04x  timeout = %-d",
 		   object_ptr->ident, object_ptr->timeout), 8, j);

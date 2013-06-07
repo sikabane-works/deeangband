@@ -876,7 +876,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	}
 
 	/* The light is getting dim */
-	else if(object_ptr->name2 == EGO_LITE_LONG)
+	else if(object_ptr->ego_id == EGO_LITE_LONG)
 	{
 		if((object_ptr->fuel < 50) && (!(object_ptr->fuel % 5)) && (game_turn % (TURNS_PER_TICK * 2)))
 		{
@@ -999,7 +999,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		}
 
 		if(get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0)->tval &&
-			(get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0)->name2 != EGO_LITE_DARKNESS) &&
+			(get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0)->ego_id != EGO_LITE_DARKNESS) &&
 			!has_trait(creature_ptr, TRAIT_RES_LITE))
 		{
 			object_type * object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0);
@@ -1299,7 +1299,7 @@ static void process_world_aux_light(creature_type *creature_ptr)
 		if(!(object_is_fixed_artifact(object_ptr) || object_ptr->sval == SV_LITE_FEANOR) && (object_ptr->fuel > 0))
 		{
 			/* Decrease life-span */
-			if(object_ptr->name2 == EGO_LITE_LONG)
+			if(object_ptr->ego_id == EGO_LITE_LONG)
 			{
 				if(game_turn % (TURNS_PER_TICK * 2)) object_ptr->fuel--;
 			}
@@ -2179,7 +2179,7 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 
 		if(object_is_ego(object_ptr)) // Ego objects
 		{
-			ego_item_type *egobject_ptr = &object_ego_info[object_ptr->name2];
+			ego_item_type *egobject_ptr = &object_ego_info[object_ptr->ego_id];
 			delta += egobject_ptr->rating * base;
 		}
 

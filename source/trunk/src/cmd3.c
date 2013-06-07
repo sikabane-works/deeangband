@@ -629,12 +629,12 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 
 	msg_print(MES_LITE_FUEL_LAMP);
 
-	if((object1_ptr->name2 == EGO_LITE_DARKNESS) && (object2_ptr->fuel > 0))
+	if((object1_ptr->ego_id == EGO_LITE_DARKNESS) && (object2_ptr->fuel > 0))
 	{
 		object2_ptr->fuel = 0;
 		msg_print(MES_LITE_FUEL_GONE);
 	}
-	else if((object1_ptr->name2 == EGO_LITE_DARKNESS) || (object2_ptr->name2 == EGO_LITE_DARKNESS))
+	else if((object1_ptr->ego_id == EGO_LITE_DARKNESS) || (object2_ptr->ego_id == EGO_LITE_DARKNESS))
 	{
 		object2_ptr->fuel = 0;
 		msg_print(MES_LITE_FUEL_DARKEN);
@@ -677,12 +677,12 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 
 	msg_print(MES_LITE_TORCH_COMBINE);
 
-	if((object1_ptr->name2 == EGO_LITE_DARKNESS) && (object2_ptr->fuel > 0))
+	if((object1_ptr->ego_id == EGO_LITE_DARKNESS) && (object2_ptr->fuel > 0))
 	{
 		object2_ptr->fuel = 0;
 		msg_print(MES_LITE_TORCH_GONE);
 	}
-	else if((object1_ptr->name2 == EGO_LITE_DARKNESS) || (object2_ptr->name2 == EGO_LITE_DARKNESS))
+	else if((object1_ptr->ego_id == EGO_LITE_DARKNESS) || (object2_ptr->ego_id == EGO_LITE_DARKNESS))
 	{
 		object2_ptr->fuel = 0;
 		msg_print(MES_LITE_TORCH_DARKEN);

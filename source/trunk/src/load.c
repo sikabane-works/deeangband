@@ -320,7 +320,7 @@ static errr rd_object(object_type *object_ptr)
 	rd_s32b(&object_ptr->volume);
 	READ_WEIGHT(&object_ptr->weight);
 	READ_ARTIFACT_ID(&object_ptr->name1);
-	READ_OBJECT_EGO_ID(&object_ptr->name2);
+	READ_OBJECT_EGO_ID(&object_ptr->ego_id);
 
 	READ_GAME_TIME(&object_ptr->timeout);
 	rd_s16b(&object_ptr->charge_const);

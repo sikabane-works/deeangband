@@ -3480,7 +3480,7 @@ void deal_item(creature_type *creature_ptr)
 
 			/* Assassins begin the game with a poisoned dagger */
 			if((tv == TV_SWORD || tv == TV_HAFTED) && (creature_ptr->class_idx == CLASS_ROGUE && creature_ptr->realm1 == REALM_DEATH)) // Only assassins get a poisoned weapon
-				quest_ptr->name2 = EGO_BRAND_POIS;
+				quest_ptr->ego_id = EGO_BRAND_POIS;
 
 			add_item_to_creature(creature_ptr, quest_ptr, ADD_OUTFIT_EQUIP);
 		}
@@ -3503,7 +3503,7 @@ void deal_item(creature_type *creature_ptr)
 	{
 		if(creature_ptr->inventory[i].k_idx && IS_EQUIPPED(&creature_ptr->inventory[i]))
 		{
-			if(!creature_ptr->inventory[i].name1 && !creature_ptr->inventory[i].name2)
+			if(!creature_ptr->inventory[i].name1 && !creature_ptr->inventory[i].ego_id)
 				apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2,
 				calc_deal_item_rank(creature_ptr, &creature_ptr->inventory[i]), 0);
 		}

@@ -1388,7 +1388,7 @@ static bool store_object_similar(object_type *object1_ptr, object_type *object2_
 	if(object1_ptr->to_ac != object2_ptr->to_ac) return FALSE;
 
 	/* Require identical "ego-item" names */
-	if(object1_ptr->name2 != object2_ptr->name2) return FALSE;
+	if(object1_ptr->ego_id != object2_ptr->ego_id) return FALSE;
 
 	/* Artifacts don't stack! */
 	if(object_is_artifact_aux(object1_ptr) || object_is_artifact_aux(object2_ptr)) return FALSE;

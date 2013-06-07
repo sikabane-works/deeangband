@@ -403,7 +403,7 @@ static named_num gf_desc[] =
 *   Z:<type>:<str>
 *
 * Specify a macro trigger template and macro trigger names.
-*   T:<template>:<modifier chr>:<modifier name1>:<modifier name2>:...
+*   T:<template>:<modifier chr>:<modifier name1>:<modifier ego_id>:...
 *   T:<trigger>:<keycode>:<shift-keycode>
 *
 */

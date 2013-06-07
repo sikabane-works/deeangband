@@ -1985,7 +1985,7 @@
 
 #define object_is_random_artifact(T) ((T)->art_name ? TRUE : FALSE)
 #define object_is_fixed_artifact(T) ((T)->name1 ? TRUE : FALSE) // Artifacts use the "name1" field
-#define object_is_ego(T) ((T)->name2 ? TRUE : FALSE) // Ego-Items use the "name2" field
+#define object_is_ego(T) ((T)->ego_id ? TRUE : FALSE) // Ego-Items use the "ego_id" field
 #define object_is_broken(T) ((T)->ident & (IDENT_BROKEN)) // Broken items.
 #define object_is_cursed(T) ((T)->curse_flags[0]) // Cursed items.
 

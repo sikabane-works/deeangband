@@ -759,7 +759,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	/* Exclude fixed flags of the ego-item. */
 	else if(object_is_ego(object_ptr))
 	{
-		ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
+		ego_item_type *e_ptr = &object_ego_info[object_ptr->ego_id];
 
 		for (i = 0; i < MAX_TRAITS_FLAG; i++)
 			flgs[i] &= ~(e_ptr->flags[i]);
@@ -1048,7 +1048,7 @@ s32b object_value_real(object_type *object_ptr)
 	/* Ego-Item */
 	else if(object_is_ego(object_ptr))
 	{
-		ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
+		ego_item_type *e_ptr = &object_ego_info[object_ptr->ego_id];
 
 		/* Hack -- "worthless" ego-items */
 		if(!e_ptr->cost) return (0L);
@@ -1917,136 +1917,136 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 			}
 			else if((power == ITEM_RANK_GREAT) && one_in_(2))
 			{
-				while(!object_ptr->name2)
+				while(!object_ptr->ego_id)
 				{
 					int tmp = m_bonus(10, level);
 					object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 					switch(randint1(28))
 					{
 					case 1: case 2:
-						object_ptr->name2 = EGO_RING_THROW;
+						object_ptr->ego_id = EGO_RING_THROW;
 						break;
 					case 3: case 4:
 						if(have_flag(object_kind_ptr->flags, TRAIT_REGENERATE)) break;
-						object_ptr->name2 = EGO_RING_REGEN;
+						object_ptr->ego_id = EGO_RING_REGEN;
 						break;
 					case 5: case 6:
 						if(have_flag(object_kind_ptr->flags, TRAIT_LITE)) break;
-						object_ptr->name2 = EGO_RING_LITE;
+						object_ptr->ego_id = EGO_RING_LITE;
 						break;
 					case 7: case 8:
 						if(have_flag(object_kind_ptr->flags, TRAIT_PASSIVE_TELEPORT)) break;
-						object_ptr->name2 = EGO_RING_TELEPORT;
+						object_ptr->ego_id = EGO_RING_TELEPORT;
 						break;
 					case 9: case 10:
 						if(object_ptr->to_hit) break;
-						object_ptr->name2 = EGO_RING_TO_H;
+						object_ptr->ego_id = EGO_RING_TO_H;
 						break;
 					case 11: case 12:
 						if(object_ptr->to_damage) break;
-						object_ptr->name2 = EGO_RING_TO_D;
+						object_ptr->ego_id = EGO_RING_TO_D;
 						break;
 					case 13:
 						if((object_ptr->to_hit) || (object_ptr->to_damage)) break;
-						object_ptr->name2 = EGO_RING_SLAY;
+						object_ptr->ego_id = EGO_RING_SLAY;
 						break;
 					case 14:
 						if((have_flag(object_kind_ptr->flags, STAT_STR)) || object_ptr->to_hit || object_ptr->to_damage) break;
-						object_ptr->name2 = EGO_RING_WIZARD;
+						object_ptr->ego_id = EGO_RING_WIZARD;
 						break;
 					case 15:
-						object_ptr->name2 = EGO_RING_HERO;
+						object_ptr->ego_id = EGO_RING_HERO;
 						break;
 					case 16:
-						if(tmp > 8) object_ptr->name2 = EGO_RING_MANA_BALL;
-						else if(tmp > 4) object_ptr->name2 = EGO_RING_MANA_BOLT;
-						else object_ptr->name2 = EGO_RING_MAGIC_MIS;
+						if(tmp > 8) object_ptr->ego_id = EGO_RING_MANA_BALL;
+						else if(tmp > 4) object_ptr->ego_id = EGO_RING_MANA_BOLT;
+						else object_ptr->ego_id = EGO_RING_MAGIC_MIS;
 						break;
 					case 17:
 						if(!(have_flag(object_kind_ptr->flags, TRAIT_RES_FIRE)) && (have_flag(object_kind_ptr->flags, TRAIT_RES_COLD) || have_flag(object_kind_ptr->flags, TRAIT_RES_ELEC) || have_flag(object_kind_ptr->flags, TRAIT_RES_ACID))) break;
-						if(tmp > 7) object_ptr->name2 = EGO_RING_DRAGON_F;
-						else if(tmp > 3) object_ptr->name2 = EGO_RING_FIRE_BALL;
-						else object_ptr->name2 = EGO_RING_FIRE_BOLT;
+						if(tmp > 7) object_ptr->ego_id = EGO_RING_DRAGON_F;
+						else if(tmp > 3) object_ptr->ego_id = EGO_RING_FIRE_BALL;
+						else object_ptr->ego_id = EGO_RING_FIRE_BOLT;
 						break;
 					case 18:
 						if(!(have_flag(object_kind_ptr->flags, TRAIT_RES_COLD)) && (have_flag(object_kind_ptr->flags, TRAIT_RES_FIRE) || have_flag(object_kind_ptr->flags, TRAIT_RES_ELEC) || have_flag(object_kind_ptr->flags, TRAIT_RES_ACID))) break;
-						if(tmp > 7) object_ptr->name2 = EGO_RING_DRAGON_C;
-						else if(tmp > 3) object_ptr->name2 = EGO_RING_COLD_BALL;
-						else object_ptr->name2 = EGO_RING_COLD_BOLT;
+						if(tmp > 7) object_ptr->ego_id = EGO_RING_DRAGON_C;
+						else if(tmp > 3) object_ptr->ego_id = EGO_RING_COLD_BALL;
+						else object_ptr->ego_id = EGO_RING_COLD_BOLT;
 						break;
 					case 19:
 						if(!(have_flag(object_kind_ptr->flags, TRAIT_RES_ELEC)) && (have_flag(object_kind_ptr->flags, TRAIT_RES_COLD) || have_flag(object_kind_ptr->flags, TRAIT_RES_FIRE) || have_flag(object_kind_ptr->flags, TRAIT_RES_ACID))) break;
-						if(tmp > 4) object_ptr->name2 = EGO_RING_ELEC_BALL;
-						else object_ptr->name2 = EGO_RING_ELEC_BOLT;
+						if(tmp > 4) object_ptr->ego_id = EGO_RING_ELEC_BALL;
+						else object_ptr->ego_id = EGO_RING_ELEC_BOLT;
 						break;
 					case 20:
 						if(!(have_flag(object_kind_ptr->flags, TRAIT_RES_ACID)) && (have_flag(object_kind_ptr->flags, TRAIT_RES_COLD) || have_flag(object_kind_ptr->flags, TRAIT_RES_ELEC) || have_flag(object_kind_ptr->flags, TRAIT_RES_FIRE))) break;
-						if(tmp > 4) object_ptr->name2 = EGO_RING_ACID_BALL;
-						else object_ptr->name2 = EGO_RING_ACID_BOLT;
+						if(tmp > 4) object_ptr->ego_id = EGO_RING_ACID_BALL;
+						else object_ptr->ego_id = EGO_RING_ACID_BOLT;
 						break;
 					case 21: case 22: case 23: case 24: case 25: case 26:
 						switch (object_ptr->sval)
 						{
 						case SV_RING_SPEED:
 							if(!one_in_(3)) break;
-							object_ptr->name2 = EGO_RING_D_SPEED;
+							object_ptr->ego_id = EGO_RING_D_SPEED;
 							break;
 						case SV_RING_DAMAGE:
 						case SV_RING_ACCURACY:
 						case SV_RING_SLAYING:
 							if(one_in_(2)) break;
-							if(one_in_(2)) object_ptr->name2 = EGO_RING_HERO;
+							if(one_in_(2)) object_ptr->ego_id = EGO_RING_HERO;
 							else
 							{
-								object_ptr->name2 = EGO_RING_BERSERKER;
+								object_ptr->ego_id = EGO_RING_BERSERKER;
 								object_ptr->to_hit -= 2+(s16b)randint1(4);
 								object_ptr->to_damage += 2+(s16b)randint1(4);
 							}
 							break;
 						case SV_RING_PROTECTION:
-							object_ptr->name2 = EGO_RING_SUPER_AC;
+							object_ptr->ego_id = EGO_RING_SUPER_AC;
 							object_ptr->to_ac += 7 + m_bonus(5, level);
 							break;
 						case SV_RING_RES_FEAR:
-							object_ptr->name2 = EGO_RING_HERO;
+							object_ptr->ego_id = EGO_RING_HERO;
 							break;
 						case SV_RING_SHOTS:
 							if(one_in_(2)) break;
-							object_ptr->name2 = EGO_RING_HUNTER;
+							object_ptr->ego_id = EGO_RING_HUNTER;
 							break;
 						case SV_RING_SEARCHING:
-							object_ptr->name2 = EGO_RING_STEALTH;
+							object_ptr->ego_id = EGO_RING_STEALTH;
 							break;
 						case SV_RING_TELEPORTATION:
-							object_ptr->name2 = EGO_RING_TELE_AWAY;
+							object_ptr->ego_id = EGO_RING_TELE_AWAY;
 							break;
 						case SV_RING_RES_BLINDNESS:
 							if(one_in_(2))
-								object_ptr->name2 = EGO_RING_RES_LITE;
+								object_ptr->ego_id = EGO_RING_RES_LITE;
 							else
-								object_ptr->name2 = EGO_RING_RES_DARK;
+								object_ptr->ego_id = EGO_RING_RES_DARK;
 							break;
 						case SV_RING_LORDLY:
 							if(!one_in_(20)) break;
 							one_lordly_high_resistance(object_ptr);
 							one_lordly_high_resistance(object_ptr);
-							object_ptr->name2 = EGO_RING_TRUE;
+							object_ptr->ego_id = EGO_RING_TRUE;
 							break;
 						case SV_RING_SUSTAIN:
 							if(!one_in_(4)) break;
-							object_ptr->name2 = EGO_RING_RES_TIME;
+							object_ptr->ego_id = EGO_RING_RES_TIME;
 							break;
 						case SV_RING_FLAMES:
 							if(!one_in_(2)) break;
-							object_ptr->name2 = EGO_RING_DRAGON_F;
+							object_ptr->ego_id = EGO_RING_DRAGON_F;
 							break;
 						case SV_RING_ICE:
 							if(!one_in_(2)) break;
-							object_ptr->name2 = EGO_RING_DRAGON_C;
+							object_ptr->ego_id = EGO_RING_DRAGON_C;
 							break;
 						case SV_RING_WARNING:
 							if(!one_in_(2)) break;
-							object_ptr->name2 = EGO_RING_M_DETECT;
+							object_ptr->ego_id = EGO_RING_M_DETECT;
 							break;
 						default:
 							break;
@@ -2087,7 +2087,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 			else if((power == 2) && one_in_(2))
 			{
 				//TODO add EGO
-				while(!object_ptr->name2)
+				while(!object_ptr->ego_id)
 				{
 					switch(randint1(21))
 					{
@@ -2095,32 +2095,32 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						switch (object_ptr->sval)
 						{
 						case SV_AMULET_TELEPORT:
-							if(m_bonus(10, level) > 9) object_ptr->name2 = EGO_AMU_D_DOOR;
-							else if(one_in_(2)) object_ptr->name2 = EGO_AMU_JUMP;
-							else object_ptr->name2 = EGO_AMU_TELEPORT;
+							if(m_bonus(10, level) > 9) object_ptr->ego_id = EGO_AMU_D_DOOR;
+							else if(one_in_(2)) object_ptr->ego_id = EGO_AMU_JUMP;
+							else object_ptr->ego_id = EGO_AMU_TELEPORT;
 							break;
 						case SV_AMULET_SEARCHING:
-							object_ptr->name2 = EGO_AMU_STEALTH;
+							object_ptr->ego_id = EGO_AMU_STEALTH;
 							break;
 						case SV_AMULET_BRILLIANCE:
 							if(!one_in_(3)) break;
-							object_ptr->name2 = EGO_AMU_IDENT;
+							object_ptr->ego_id = EGO_AMU_IDENT;
 							break;
 						case SV_AMULET_CHARISMA:
 							if(!one_in_(3)) break;
-							object_ptr->name2 = EGO_AMU_CHARM;
+							object_ptr->ego_id = EGO_AMU_CHARM;
 							break;
 						case SV_AMULET_THE_MAGI:
 							if(one_in_(2)) break;
-							object_ptr->name2 = EGO_AMU_GREAT;
+							object_ptr->ego_id = EGO_AMU_GREAT;
 							break;
 						case SV_AMULET_RESISTANCE:
 							if(!one_in_(5)) break;
-							object_ptr->name2 = EGO_AMU_DEFENDER;
+							object_ptr->ego_id = EGO_AMU_DEFENDER;
 							break;
 						case SV_AMULET_TELEPATHY:
 							if(!one_in_(3)) break;
-							object_ptr->name2 = EGO_AMU_DETECTION;
+							object_ptr->ego_id = EGO_AMU_DETECTION;
 							break;
 						}
 					}
@@ -2224,15 +2224,15 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			}
 			else if((power == 2) || ((power == 1) && one_in_(3)))
 			{
-				while (!object_ptr->name2)
+				while (!object_ptr->ego_id)
 				{
 					while(TRUE)
 					{
 						bool okay_flag = TRUE;
 
-						object_ptr->name2 = get_random_ego(INVENTORY_ID_LITE, TRUE);
+						object_ptr->ego_id = get_random_ego(INVENTORY_ID_LITE, TRUE);
 
-						switch (object_ptr->name2)
+						switch (object_ptr->ego_id)
 						{
 						case EGO_LITE_LONG:
 							if(object_ptr->sval == SV_LITE_FEANOR)
@@ -2245,9 +2245,9 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			}
 			else if(power == -2)
 			{
-				object_ptr->name2 = get_random_ego(INVENTORY_ID_LITE, FALSE);
+				object_ptr->ego_id = get_random_ego(INVENTORY_ID_LITE, FALSE);
 
-				switch (object_ptr->name2)
+				switch (object_ptr->ego_id)
 				{
 				case EGO_LITE_DARKNESS:
 					object_ptr->fuel = 0;
@@ -2482,23 +2482,14 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 		else power--;
 	}
 
-	/* Assume no rolls */
-	rolls = 0;
+	rolls = 0; /* Assume no rolls */
+	if(power >= ITEM_RANK_GREAT) rolls = 1; /* Get one roll if excellent */
+	if(mode & (AM_GREAT | AM_SPECIAL)) rolls = 4; /* Hack -- Get four rolls if forced great or special */
+	if((mode & AM_NO_FIXED_ART) || object_ptr->name1) rolls = 0; /* Hack -- Get no rolls if not allowed */
 
-	/* Get one roll if excellent */
-	if(power >= ITEM_RANK_GREAT) rolls = 1;
-
-	/* Hack -- Get four rolls if forced great or special */
-	if(mode & (AM_GREAT | AM_SPECIAL)) rolls = 4;
-
-	/* Hack -- Get no rolls if not allowed */
-	if((mode & AM_NO_FIXED_ART) || object_ptr->name1) rolls = 0;
-
-	/* Roll for artifacts if allowed */
-	for (i = 0; i < rolls; i++)
+	for (i = 0; i < rolls; i++) /* Roll for artifacts if allowed */
 	{
-		/* Roll for an artifact */
-		if(judge_fixed_artifact(owner_ptr, object_ptr)) break;
+		if(judge_fixed_artifact(owner_ptr, object_ptr)) break; /* Roll for an artifact */
 		if(has_trait(owner_ptr, TRAIT_GOOD_LUCK) && one_in_(77))
 		{
 			if(judge_fixed_artifact(owner_ptr, object_ptr)) break;
@@ -2511,11 +2502,8 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 		artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 		int ave;
 
-		/* Hack -- Mark the artifact as "created" */
-		a_ptr->cur_num = 1;
-
-		/* Hack -- Memorize location of artifact in saved floors */
-		a_ptr->floor_idx = owner_ptr->floor_idx;
+		a_ptr->cur_num = 1; /* Hack -- Mark the artifact as "created" */
+		a_ptr->floor_idx = owner_ptr->floor_idx; /* Hack -- Memorize location of artifact in saved floors */
 
 		// Extract the other fields
 		object_ptr->pval = a_ptr->pval;
@@ -2560,13 +2548,10 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 
 	if(power >= ITEM_RANK_SPECIAL) create_artifact(owner_ptr, object_ptr, FALSE);
 
-	// Hack -- analyze ego-items
-	if(object_is_ego(object_ptr))
+	if(object_is_ego(object_ptr)) /* Hack -- analyze ego-items */
 	{
-		ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
-
-		/* Hack -- acquire "broken" flag */
-		if(!e_ptr->cost) object_ptr->ident |= (IDENT_BROKEN);
+		ego_item_type *e_ptr = &object_ego_info[object_ptr->ego_id];
+		if(!e_ptr->cost) object_ptr->ident |= (IDENT_BROKEN); /* Hack -- acquire "broken" flag */
 
 		/* Hack -- acquire "cursed" flag */
 		if(have_flag(e_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
@@ -2591,10 +2576,9 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 			if(e_ptr->max_to_hit) object_ptr->to_hit -= (s16b)randint1(e_ptr->max_to_hit);
 			if(e_ptr->max_to_damage) object_ptr->to_damage -= (s16b)randint1(e_ptr->max_to_damage);
 			if(e_ptr->max_to_ac) object_ptr->to_ac -= (s16b)randint1(e_ptr->max_to_ac);
-			if(e_ptr->max_to_ac) object_ptr->to_ev -= (s16b)randint1(e_ptr->max_to_ev);
-
-			/* Hack -- obtain pval */
-			if(e_ptr->max_pval) object_ptr->pval -= (s16b)randint1(e_ptr->max_pval);
+			if(e_ptr->max_to_ev) object_ptr->to_ev -= (s16b)randint1(e_ptr->max_to_ev);
+			if(e_ptr->max_to_vo) object_ptr->to_vo -= (s16b)randint1(e_ptr->max_to_vo);
+			if(e_ptr->max_pval) object_ptr->pval -= (s16b)randint1(e_ptr->max_pval); /* Hack -- obtain pval */
 		}
 
 		if(cheat_peek) object_mention(object_ptr);
@@ -2605,9 +2589,7 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 	if(is_valid_object(object_ptr))
 	{
 		object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
-
-		// Hack -- acquire "broken" flag
-		if(!object_kind_info[object_ptr->k_idx].cost) object_ptr->ident |= (IDENT_BROKEN);
+		if(!object_kind_info[object_ptr->k_idx].cost) object_ptr->ident |= (IDENT_BROKEN); // Hack -- acquire "broken" flag
 
 		// Hack -- acquire "cursed" flag
 		if(have_flag(object_kind_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
@@ -2627,7 +2609,7 @@ void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr
 	if(!is_valid_creature(owner_ptr)) return;
 	if(object_is_weapon(object_ptr)) weapon_boost(object_ptr, lev, ITEM_RANK_GREAT);
 	if(object_is_armour(object_ptr)) armour_boost(object_ptr, lev, ITEM_RANK_GREAT);
-	object_ptr->name2 = ego;
+	object_ptr->ego_id = ego;
 }
 
 // Hack -- determine if a template is "good"
@@ -4505,7 +4487,7 @@ static void drain_essence(creature_type *creature_ptr)
 	OBJECT_ID item;
 	int dec = 4;
 	bool observe = FALSE;
-	int old_ds, old_dd, old_to_hit, old_to_damage, old_ac, old_to_ac, old_pval, old_name2, old_timeout;
+	int old_ds, old_dd, old_to_hit, old_to_damage, old_ac, old_to_ac, old_pval, old_ego_id, old_timeout;
 	u32b old_flgs[MAX_TRAITS_FLAG], new_flgs[MAX_TRAITS_FLAG];
 	object_type *object_ptr;
 	COODINATES iy, ix;
@@ -4547,7 +4529,7 @@ static void drain_essence(creature_type *creature_ptr)
 	old_ds = object_ptr->ds;
 	old_dd = object_ptr->dd;
 	old_pval = object_ptr->pval;
-	old_name2 = object_ptr->name2;
+	old_ego_id = object_ptr->ego_id;
 	old_timeout = object_ptr->timeout;
 	if(have_flag(object_ptr->curse_flags, TRAIT_CURSED) || have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE) || have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) dec--;
 
@@ -5512,7 +5494,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 {
 	ego_item_type *e_ptr = &object_ego_info[ego_id];
 
-	object_ptr->name2 = ego_id;
+	object_ptr->ego_id = ego_id;
 	if(has_trait_object(object_ptr, TRAIT_NO_EGO)) return;
 
 	object_ptr->charge_const = e_ptr->charge_const;
@@ -5555,7 +5537,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			object_ptr->pval++;
 			if((level > 60) && one_in_(3) && ((object_ptr->dd*(object_ptr->ds+1)) < 15)) object_ptr->pval++;
 		}
-		else if(object_ptr->name2 == EGO_ATTACKS)
+		else if(object_ptr->ego_id == EGO_ATTACKS)
 		{
 			object_ptr->pval = (PVAL)randint1(e_ptr->max_pval*level/100+1);
 			if(object_ptr->pval > 3) object_ptr->pval = 3;
@@ -5564,7 +5546,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 		}
 		else object_ptr->pval += (PVAL)randint1(e_ptr->max_pval);
 
-		if((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_HAYABUSA) && (object_ptr->pval > 2) && (object_ptr->name2 != EGO_ATTACKS))
+		if((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_HAYABUSA) && (object_ptr->pval > 2) && (object_ptr->ego_id != EGO_ATTACKS))
 			object_ptr->pval = 2;
 	}
 
@@ -5573,7 +5555,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 	case EGO_REFLECTION:
 		if(object_ptr->sval == SV_MIRROR_SHIELD)
-			object_ptr->name2 = 0;
+			object_ptr->ego_id = 0;
 		break;
 
 	case EGO_SEEING:
@@ -5593,7 +5575,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 	if(has_trait_object(object_ptr, TRAIT_DUSK_ENCHANT))
 	{
-		object_ptr->name2 = EGO_YOIYAMI;
+		object_ptr->ego_id = EGO_YOIYAMI;
 		object_ptr->k_idx = lookup_kind(TV_SOFT_ARMOR, SV_YOIYAMI_ROBE);
 		object_ptr->sval = SV_YOIYAMI_ROBE;
 		object_ptr->ac = 0;
