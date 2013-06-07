@@ -119,7 +119,7 @@ void object_flags(object_type *object_ptr, FLAGS_32 flgs[MAX_TRAITS_FLAG])
 	/* Artifact */
 	if(object_is_fixed_artifact(object_ptr))
 	{
-		artifact_type *a_ptr = &artifact_info[object_ptr->name1];
+		artifact_type *a_ptr = &artifact_info[object_ptr->art_id];
 
 		for (i = 0; i < MAX_TRAITS_FLAG; i++) flgs[i] = a_ptr->flags[i];
 	}
@@ -269,7 +269,7 @@ void object_flags_known(object_type *object_ptr, FLAGS_32 flgs[MAX_TRAITS_FLAG])
 		/* Artifact */
 		if(object_is_fixed_artifact(object_ptr))
 		{
-			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
+			artifact_type *a_ptr = &artifact_info[object_ptr->art_id];
 
 			for (i = 0; i < MAX_TRAITS_FLAG; i++)
 				flgs[i] = a_ptr->flags[i];
@@ -2679,7 +2679,7 @@ void py_pickup_aux(creature_type *creature_ptr, OBJECT_ID object_idx)
 	// Check if completed a quest
 	for (i = 0; i < max_quests; i++)
 	{
-		if((quest[i].type == QUEST_TYPE_FIND_ARTIFACT) && (quest[i].status == QUEST_STATUS_TAKEN) && (quest[i].k_idx == object_ptr->name1))
+		if((quest[i].type == QUEST_TYPE_FIND_ARTIFACT) && (quest[i].status == QUEST_STATUS_TAKEN) && (quest[i].k_idx == object_ptr->art_id))
 		{
 			if(record_fix_quest) write_diary(DIARY_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;

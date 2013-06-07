@@ -916,7 +916,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 		}
 	}
 	}
-	else if(object_ptr->name1 == ART_GHB)
+	else if(object_ptr->art_id == ART_GHB)
 	{
 #ifdef JP
 		msg_print("私は苦労して『グレーター・ヘル=ビースト』を倒した。");
@@ -927,7 +927,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 #endif
 		used_up = FALSE;
 	}
-	else if(object_ptr->name1 == ART_POWER)
+	else if(object_ptr->art_id == ART_POWER)
 	{
 #ifdef JP
 		msg_print("「一つの指輪は全てを統べ、");
@@ -1786,7 +1786,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	cost_tactical_energy(creature_ptr, 100); // Take a turn
 
 	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
-	if(object_is_fixed_artifact(object_ptr)) lev = artifact_info[object_ptr->name1].level; // Hack -- use artifact level instead
+	if(object_is_fixed_artifact(object_ptr)) lev = artifact_info[object_ptr->art_id].level; // Hack -- use artifact level instead
 
 	// TODO calc lev by activation
 	lev = 10;

@@ -274,7 +274,7 @@ void build_streamer(floor_type *floor_ptr, FEATURE_ID feat, int chance)
 					if(object_is_fixed_artifact(object_ptr))
 					{
 						/* Mega-Hack -- Preserve the artifact */
-						artifact_info[object_ptr->name1].cur_num = 0;
+						artifact_info[object_ptr->art_id].cur_num = 0;
 
 						if(cheat_peek)
 						{

@@ -4145,7 +4145,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 				if(!object_is_fixed_artifact(object_ptr)) continue; /* Ignore non-artifacts */
 				if(object_is_known(object_ptr)) continue; /* Ignore known items */
 
-				okay[object_ptr->name1] = FALSE;
+				okay[object_ptr->art_id] = FALSE;
 			}
 		}
 	}
@@ -4157,7 +4157,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		if(!is_valid_object(object_ptr)) continue;
 		if(!object_is_fixed_artifact(object_ptr)) continue;
 		if(object_is_known(object_ptr)) continue;
-		okay[object_ptr->name1] = FALSE;
+		okay[object_ptr->art_id] = FALSE;
 	}
 
 	for (k = 0; k < max_artifact_idx; k++)
@@ -4189,7 +4189,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 			generate_object(quest_ptr, z);
 
 			/* Make it an artifact */
-			quest_ptr->name1 = (byte)who[k];
+			quest_ptr->art_id = (byte)who[k];
 
 			/* Display as if known */
 			quest_ptr->ident |= IDENT_STORE;

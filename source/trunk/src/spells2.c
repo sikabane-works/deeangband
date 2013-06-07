@@ -1513,7 +1513,7 @@ bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODI
 					if(object_is_fixed_artifact(object_ptr) && (!object_is_known(object_ptr) || in_generate))
 					{
 						/* Mega-Hack -- Preserve the artifact */
-						artifact_info[object_ptr->name1].cur_num = 0;
+						artifact_info[object_ptr->art_id].cur_num = 0;
 
 						if(in_generate && cheat_peek)
 						{

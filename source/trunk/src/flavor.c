@@ -943,7 +943,7 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 
 		if(object_is_fixed_artifact(object_ptr))
 		{
-			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
+			artifact_type *a_ptr = &artifact_info[object_ptr->art_id];
 					
 			for (j = 0; j < MAX_TRAITS_FLAG; j++)
 				flgs[j] &= ~a_ptr->flags[j];
@@ -1504,7 +1504,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 	/* Use full name from object_kind_info or artifact_info */
 	if(aware && have_flag(flgs, TRAIT_FULL_NAME))
 	{
-		if(known && object_ptr->name1) basenm = artifact_name + artifact_info[object_ptr->name1].name;
+		if(known && object_ptr->art_id) basenm = artifact_name + artifact_info[object_ptr->art_id].name;
 		else basenm = kindname;
 	}
 
@@ -1664,9 +1664,9 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 				t = object_desc_str(t, temp);
 		}
 		/* 伝説のアイテム */
-		else if(object_ptr->name1 && !have_flag(flgs, TRAIT_FULL_NAME))
+		else if(object_ptr->art_id && !have_flag(flgs, TRAIT_FULL_NAME))
 		{
-			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
+			artifact_type *a_ptr = &artifact_info[object_ptr->art_id];
 			/* '『' から始まらない伝説のアイテムの名前は最初に付加する */
 			if(strncmp(artifact_name + a_ptr->name, "『", 2) != 0)
 			{
@@ -1766,7 +1766,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		}
 		else if(object_is_fixed_artifact(object_ptr))
 		{
-			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
+			artifact_type *a_ptr = &artifact_info[object_ptr->art_id];
 			if(strncmp(artifact_name + a_ptr->name, "『", 2) == 0)
 			{
 				t = object_desc_str(t, artifact_name + a_ptr->name);
@@ -1820,7 +1820,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		/* Grab any artifact name */
 		else if(object_is_fixed_artifact(object_ptr))
 		{
-			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
+			artifact_type *a_ptr = &artifact_info[object_ptr->art_id];
 
 			t = object_desc_chr(t, ' ');
 			t = object_desc_str(t, artifact_name + a_ptr->name);

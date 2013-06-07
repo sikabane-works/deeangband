@@ -358,13 +358,13 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			if(vorpal_cut)
 			{
 				int mult = 2;
-				if((weapon_ptr->name1 == ART_CHAINSWORD) && !one_in_(2))
+				if((weapon_ptr->art_id == ART_CHAINSWORD) && !one_in_(2))
 				{
 					char chainsword_noise[1024];
 					if(!get_rnd_line(TEXT_FILES_CHAINSWORD, 0, chainsword_noise)) msg_print(chainsword_noise);
 				}
 
-				if(weapon_ptr->name1 == ART_VORPAL_BLADE)
+				if(weapon_ptr->art_id == ART_VORPAL_BLADE)
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_print(MES_MELEE_VORPAL_BLADE_SERIF);
 				}

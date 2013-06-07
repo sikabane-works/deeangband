@@ -361,7 +361,7 @@ void wipe_object_list(int floor_idx)
 		if(object_is_fixed_artifact(object_ptr) && !object_is_known(object_ptr))
 		{
 			/* Mega-Hack -- Preserve the artifact */
-			artifact_info[object_ptr->name1].cur_num = 0;
+			artifact_info[object_ptr->art_id].cur_num = 0;
 		}
 
 
@@ -750,7 +750,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	/* Exclude fixed flags of the fixed artifact. */
 	if(object_is_fixed_artifact(object_ptr))
 	{
-		artifact_type *a_ptr = &artifact_info[object_ptr->name1];
+		artifact_type *a_ptr = &artifact_info[object_ptr->art_id];
 
 		for (i = 0; i < MAX_TRAITS_FLAG; i++)
 			flgs[i] &= ~(a_ptr->flags[i]);
@@ -1032,7 +1032,7 @@ s32b object_value_real(object_type *object_ptr)
 	/* Artifact */
 	if(object_is_fixed_artifact(object_ptr))
 	{
-		artifact_type *a_ptr = &artifact_info[object_ptr->name1];
+		artifact_type *a_ptr = &artifact_info[object_ptr->art_id];
 
 		/* Hack -- "worthless" artifacts */
 		if(!a_ptr->cost) return (0L);
@@ -1725,7 +1725,7 @@ static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object
 		}
 
 		generate_object(object_ptr, k_idx); // Assign the template
-		object_ptr->name1 = i; // Mega-Hack -- mark the item as an artifact	
+		object_ptr->art_id = i; // Mega-Hack -- mark the item as an artifact	
 
 		random_artifact_resistance(owner_ptr, object_ptr, a_ptr); // Hack: Some artifacts get random extra powers
 		return TRUE;
@@ -1769,7 +1769,7 @@ static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_p
 		}
 		if(!one_in_(a_ptr->rarity)) continue; // We must make the "rarity roll"
 
-		object_ptr->name1 = i; // Hack -- mark the item as an artifact
+		object_ptr->art_id = i; // Hack -- mark the item as an artifact
 		random_artifact_resistance(owner_ptr, object_ptr, a_ptr); // Hack: Some artifacts get random extra powers
 		return TRUE;
 	}
@@ -2485,7 +2485,7 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 	rolls = 0; /* Assume no rolls */
 	if(power >= ITEM_RANK_GREAT) rolls = 1; /* Get one roll if excellent */
 	if(mode & (AM_GREAT | AM_SPECIAL)) rolls = 4; /* Hack -- Get four rolls if forced great or special */
-	if((mode & AM_NO_FIXED_ART) || object_ptr->name1) rolls = 0; /* Hack -- Get no rolls if not allowed */
+	if((mode & AM_NO_FIXED_ART) || object_ptr->art_id) rolls = 0; /* Hack -- Get no rolls if not allowed */
 
 	for (i = 0; i < rolls; i++) /* Roll for artifacts if allowed */
 	{
@@ -2499,7 +2499,7 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 	/* Hack -- analyze artifacts */
 	if(object_is_fixed_artifact(object_ptr))
 	{
-		artifact_type *a_ptr = &artifact_info[object_ptr->name1];
+		artifact_type *a_ptr = &artifact_info[object_ptr->art_id];
 		int ave;
 
 		a_ptr->cur_num = 1; /* Hack -- Mark the artifact as "created" */
@@ -2727,12 +2727,12 @@ bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, i
 	case TV_SHOT:
 	case TV_ARROW:
 	case TV_BOLT:
-		if(!object_ptr->name1) object_ptr->number = (byte)diceroll(6, 7);
+		if(!object_ptr->art_id) object_ptr->number = (byte)diceroll(6, 7);
 		break;
 	}
 
 	obj_level = object_kind_info[object_ptr->k_idx].level;
-	if(object_is_fixed_artifact(object_ptr)) obj_level = artifact_info[object_ptr->name1].level;
+	if(object_is_fixed_artifact(object_ptr)) obj_level = artifact_info[object_ptr->art_id].level;
 
 	// Notice "okay" out-of-depth objects & Cheat -- peek at items
 	if(!object_is_cursed(object_ptr) && !object_is_broken(object_ptr) && (obj_level > level))
@@ -2789,7 +2789,7 @@ void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mo
 		lite_spot(floor_ptr, y, x);
 	} // Hack -- Preserve artifacts
 	else if(object_is_fixed_artifact(quest_ptr))
-		artifact_info[quest_ptr->name1].cur_num = 0;
+		artifact_info[quest_ptr->art_id].cur_num = 0;
 }
 
 // Make a treasure object
@@ -3068,7 +3068,7 @@ OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, 
 			}
 
 			// Mega-Hack -- preserve artifacts
-			if(object_is_fixed_artifact(object_ptr) && !object_is_known(object_ptr)) artifact_info[object_ptr->name1].cur_num = 0;
+			if(object_is_fixed_artifact(object_ptr) && !object_is_known(object_ptr)) artifact_info[object_ptr->art_id].cur_num = 0;
 
 			return 0; // Failure
 		}
@@ -3118,7 +3118,7 @@ OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, 
 	{
 		msg_format(MES_OBJECT_DISAPPERED(object_ptr));
 		if(wizard) msg_warning(MES_DEBUG_TOO_ITEM);
-		if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->name1].cur_num = 0; // Hack -- Preserve artifacts
+		if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->art_id].cur_num = 0; // Hack -- Preserve artifacts
 		return SUCCESS; // Failure
 	}
 

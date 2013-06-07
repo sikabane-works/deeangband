@@ -718,7 +718,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		if(!object_idx)
 		{
 			msg_format(MES_THROW_BACK_GONE(object_ptr));
-			if(object_is_fixed_artifact(quest_ptr)) artifact_info[j_ptr->name1].cur_num = 0;
+			if(object_is_fixed_artifact(quest_ptr)) artifact_info[j_ptr->art_id].cur_num = 0;
 			return;
 		}
 

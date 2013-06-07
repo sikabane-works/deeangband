@@ -1873,7 +1873,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(one_in_(999) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
 		//object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0);
-		//TODO if(object_ptr->name1 == ART_JUDGE)
+		//TODO if(object_ptr->art_id == ART_JUDGE)
 	}
 }
 

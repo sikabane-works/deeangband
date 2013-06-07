@@ -235,7 +235,7 @@ static void update_unique_artifact(s16b cur_floor_idx)
 		// Memorize location of the artifact 
 		if(object_is_fixed_artifact(object_ptr))
 		{
-			artifact_info[object_ptr->name1].floor_idx = cur_floor_idx;
+			artifact_info[object_ptr->art_id].floor_idx = cur_floor_idx;
 		}
 	}
 }

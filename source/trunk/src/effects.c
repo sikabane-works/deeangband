@@ -1837,8 +1837,8 @@ void calc_android_exp(creature_type *creature_ptr)
 
 		if(object_is_fixed_artifact(object_ptr))
 		{
-			level = (level + MAX(artifact_info[object_ptr->name1].level - 8, 5)) / 2;
-			level += MIN(20, artifact_info[object_ptr->name1].rarity/(has_trait_object(object_ptr, TRAIT_INSTA_ART) ? 10 : 3));
+			level = (level + MAX(artifact_info[object_ptr->art_id].level - 8, 5)) / 2;
+			level += MIN(20, artifact_info[object_ptr->art_id].rarity/(has_trait_object(object_ptr, TRAIT_INSTA_ART) ? 10 : 3));
 		}
 		else if(object_is_ego(object_ptr))
 		{

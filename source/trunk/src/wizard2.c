@@ -322,8 +322,8 @@ static void wiz_display_item(object_type *object_ptr)
 	prt(format("pval = %-5d  toac = %-5d  tohit = %-4d  todam = %-4d",
 		   object_ptr->pval, object_ptr->to_ac, object_ptr->to_hit, object_ptr->to_damage), 6, j);
 
-	prt(format("name1 = %-4d  ego_id = %-4d  cost = %ld",
-		   object_ptr->name1, object_ptr->ego_id, (long)object_value_real(object_ptr)), 7, j);
+	prt(format("art_id = %-4d  ego_id = %-4d  cost = %ld",
+		   object_ptr->art_id, object_ptr->ego_id, (long)object_value_real(object_ptr)), 7, j);
 
 	prt(format("ident = %04x  timeout = %-d",
 		   object_ptr->ident, object_ptr->timeout), 8, j);
@@ -604,8 +604,8 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 			/* Preserve wizard-generated artifacts */
 			if(object_is_fixed_artifact(quest_ptr))
 			{
-				artifact_info[quest_ptr->name1].cur_num = 0;
-				quest_ptr->name1 = 0;
+				artifact_info[quest_ptr->art_id].cur_num = 0;
+				quest_ptr->art_id = 0;
 			}
 
 			changed = FALSE;
@@ -622,8 +622,8 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 		/* Preserve wizard-generated artifacts */
 		if(object_is_fixed_artifact(quest_ptr))
 		{
-			artifact_info[quest_ptr->name1].cur_num = 0;
-			quest_ptr->name1 = 0;
+			artifact_info[quest_ptr->art_id].cur_num = 0;
+			quest_ptr->art_id = 0;
 		}
 
 		switch(ch)
@@ -726,7 +726,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 
 
 	/*  Mega-Hack -- allow multiple artifacts */
-	if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->name1].cur_num = 0;
+	if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->art_id].cur_num = 0;
 
 
 	/* Interact */
@@ -804,7 +804,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 			make_random_object(quest_ptr, mode, 0, floor_ptr->object_level, NULL);
 
 			/*  Mega-Hack -- allow multiple artifacts */
-			if(object_is_fixed_artifact(quest_ptr)) artifact_info[quest_ptr->name1].cur_num = 0;
+			if(object_is_fixed_artifact(quest_ptr)) artifact_info[quest_ptr->art_id].cur_num = 0;
 
 
 			/* Test for the same tval and sval. */
@@ -819,7 +819,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 				 (quest_ptr->to_ac == object_ptr->to_ac) &&
 				 (quest_ptr->to_hit == object_ptr->to_hit) &&
 				 (quest_ptr->to_damage == object_ptr->to_damage) &&
-				 (quest_ptr->name1 == object_ptr->name1))
+				 (quest_ptr->art_id == object_ptr->art_id))
 			{
 				matches++;
 			}
@@ -856,7 +856,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 
 
 	/* Hack -- Normally only make a single artifact */
-	if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->name1].cur_num = 1;
+	if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->art_id].cur_num = 1;
 }
 
 

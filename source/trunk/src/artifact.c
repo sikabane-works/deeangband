@@ -1465,7 +1465,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	int artifact_bias = 0;
 
 	/* Nuke enchantments */
-	object_ptr->name1 = 0;
+	object_ptr->art_id = 0;
 	object_ptr->ego_id = 0;
 
 	for (i = 0; i < MAX_TRAITS_FLAG; i++)
@@ -1740,7 +1740,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 			add_flag(object_ptr->trait_flags, TRAIT_BLOWS);
 	}
 
-	/*TODO if(object_ptr->name1 == ART_BLOOD)
+	/*TODO if(object_ptr->art_id == ART_BLOOD)
 	{
 		get_bloody_moon_flags(object_ptr);
 	}
@@ -1778,7 +1778,7 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, ARTIF
 	generate_object(quest_ptr, i);
 
 	/* Save the name */
-	quest_ptr->name1 = (byte)a_idx;
+	quest_ptr->art_id = (byte)a_idx;
 
 	/* Extract the fields */
 	quest_ptr->pval = a_ptr->pval;

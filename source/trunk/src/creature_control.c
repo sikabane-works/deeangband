@@ -3503,7 +3503,7 @@ void deal_item(creature_type *creature_ptr)
 	{
 		if(creature_ptr->inventory[i].k_idx && IS_EQUIPPED(&creature_ptr->inventory[i]))
 		{
-			if(!creature_ptr->inventory[i].name1 && !creature_ptr->inventory[i].ego_id)
+			if(!creature_ptr->inventory[i].art_id && !creature_ptr->inventory[i].ego_id)
 				apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2,
 				calc_deal_item_rank(creature_ptr, &creature_ptr->inventory[i]), 0);
 		}

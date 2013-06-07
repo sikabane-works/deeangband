@@ -403,7 +403,7 @@ static named_num gf_desc[] =
 *   Z:<type>:<str>
 *
 * Specify a macro trigger template and macro trigger names.
-*   T:<template>:<modifier chr>:<modifier name1>:<modifier ego_id>:...
+*   T:<template>:<modifier chr>:<modifier art_id>:<modifier ego_id>:...
 *   T:<trigger>:<keycode>:<shift-keycode>
 *
 */
@@ -1927,7 +1927,7 @@ static void display_player_various(creature_type * creature_ptr)
 		shots = shots / energy_fire;
 
 		/* TODO
-		if(object_ptr->name1 == ART_CRIMSON)
+		if(object_ptr->art_id == ART_CRIMSON)
 		{
 			shots = 1;
 			shot_frac = 0;

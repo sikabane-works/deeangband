@@ -896,11 +896,11 @@ static void spoiler_print_art(void)
 /*
  * Hack -- Create a "forged" artifact
  */
-static bool make_fake_artifact(object_type *object_ptr, int name1)
+static bool make_fake_artifact(object_type *object_ptr, int art_id)
 {
 	int i;
 
-	artifact_type *a_ptr = &artifact_info[name1];
+	artifact_type *a_ptr = &artifact_info[art_id];
 
 
 	/* Ignore "empty" artifacts */
@@ -915,7 +915,7 @@ static bool make_fake_artifact(object_type *object_ptr, int name1)
 	generate_object(object_ptr, i);
 
 	/* Save the name */
-	object_ptr->name1 = name1;
+	object_ptr->art_id = art_id;
 
 	/* Extract the fields */
 	object_ptr->pval = a_ptr->pval;

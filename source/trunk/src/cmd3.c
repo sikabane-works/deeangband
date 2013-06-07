@@ -219,7 +219,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	// Check if completed a quest
 	for (i = 0; i < max_quests; i++)
 	{
-		if((quest[i].type == QUEST_TYPE_FIND_ARTIFACT) && (quest[i].status == QUEST_STATUS_TAKEN) && (quest[i].k_idx == object_ptr->name1))
+		if((quest[i].type == QUEST_TYPE_FIND_ARTIFACT) && (quest[i].status == QUEST_STATUS_TAKEN) && (quest[i].k_idx == object_ptr->art_id))
 		{
 			if(record_fix_quest) write_diary(DIARY_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;

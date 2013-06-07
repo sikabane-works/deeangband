@@ -1924,7 +1924,7 @@ static void calc_lite(creature_type *creature_ptr)
 			// does this item glow?
 			if(have_flag(flgs, TRAIT_LITE))
 			{
-				//TODO if((object_ptr->ego_id == EGO_DARK) || (object_ptr->name1 == ART_NIGHT)) creature_ptr->cur_lite--;
+				//TODO if((object_ptr->ego_id == EGO_DARK) || (object_ptr->art_id == ART_NIGHT)) creature_ptr->cur_lite--;
 				creature_ptr->cur_lite++;
 			}
 		}
@@ -2784,7 +2784,7 @@ static void set_karma_bonuses(creature_type *creature_ptr)
 		creature_ptr->chaos_exp += creature_ptr->karmas[i] * karma[i].chaos_adj;
 	}
 
-	if(get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, i)->name1 == ART_IRON_BALL) creature_ptr->good_rank -= 300;
+	if(get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, i)->art_id == ART_IRON_BALL) creature_ptr->good_rank -= 300;
 
 	creature_ptr->good_rank = calc_rank(creature_ptr->good_exp);
 	creature_ptr->evil_rank = calc_rank(creature_ptr->evil_exp);
@@ -3084,7 +3084,7 @@ static void set_melee_status(creature_type *creature_ptr)
 		int penalty1, penalty2;
 		penalty1 = ((100 - creature_ptr->skill_exp[SKILL_MULTI_WEAPON] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
 		penalty2 = ((100 - creature_ptr->skill_exp[SKILL_MULTI_WEAPON] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
-		if((creature_ptr->inventory[].name1 == ART_QUICKTHORN) && (creature_ptr->inventory[].name1 == ART_TINYTHORN))
+		if((creature_ptr->inventory[].art_id == ART_QUICKTHORN) && (creature_ptr->inventory[].art_id == ART_TINYTHORN))
 		{
 			penalty1 = penalty1 / 2 - 5;
 			penalty2 = penalty2 / 2 - 5;
@@ -3102,7 +3102,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			penalty1 = MAX(0, penalty1 - 10);
 			penalty2 = MAX(0, penalty2 - 10);
 		}
-		if((creature_ptr->inventory[].name1 == ART_MUSASI_KATANA) && (creature_ptr->inventory[].name1 == ART_MUSASI_WAKIZASI))
+		if((creature_ptr->inventory[].art_id == ART_MUSASI_KATANA) && (creature_ptr->inventory[].art_id == ART_MUSASI_WAKIZASI))
 		{
 			penalty1 = MIN(0, penalty1);
 			penalty2 = MIN(0, penalty2);
@@ -3111,9 +3111,9 @@ static void set_melee_status(creature_type *creature_ptr)
 		}
 		else
 		{
-			if((creature_ptr->inventory[].name1 == ART_MUSASI_KATANA) && (penalty1 > 0))
+			if((creature_ptr->inventory[].art_id == ART_MUSASI_KATANA) && (penalty1 > 0))
 				penalty1 /= 2;
-			if((creature_ptr->inventory[].name1 == ART_MUSASI_WAKIZASI) && (penalty2 > 0))
+			if((creature_ptr->inventory[].art_id == ART_MUSASI_WAKIZASI) && (penalty2 > 0))
 				penalty2 /= 2;
 		}
 		if(creature_ptr->inventory[].tval == TV_POLEARM) penalty1 += 10;

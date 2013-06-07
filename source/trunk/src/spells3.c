@@ -3886,7 +3886,7 @@ bool rustproof(creature_type *creature_ptr)
 static void shatter_object(object_type *object_ptr)
 {
 	int i;
-	object_ptr->name1 = 0;
+	object_ptr->art_id = 0;
 	object_ptr->ego_id = EGO_BLASTED;
 	object_ptr->to_ac = 0 - (s16b)randint1(5) - (s16b)randint1(5);
 	object_ptr->to_vo = 0;
