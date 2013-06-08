@@ -830,7 +830,7 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_SLOW:
 		{
-			if(saving_throw(creature_ptr, SAVING_EV, 125, 0) && !(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
+			if(saving_throw(creature_ptr, SAVING_EV, 125, 0) && !M_SHADOW(creature_ptr))
 			{
 				msg_print(MES_TRAP_DARTS);
 				dam = diceroll(1, 4);
@@ -848,12 +848,9 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print(MES_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
-				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
+				if(!M_SHADOW(creature_ptr)) (void)do_dec_stat(creature_ptr, STAT_STR);
 			}
-			else
-			{
-				msg_print(MES_TRAP_DARTS_MISSED);
-			}
+			else msg_print(MES_TRAP_DARTS_MISSED);
 			break;
 		}
 
@@ -864,7 +861,7 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print(MES_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
-				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
+				if(!M_SHADOW(creature_ptr)) (void)do_dec_stat(creature_ptr, STAT_DEX);
 			}
 			else msg_print(MES_TRAP_DARTS_MISSED);
 			break;
@@ -877,7 +874,7 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print(MES_TRAP_DARTS);
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, COD_DART_TRAP, NULL, -1);
-				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
+				if(!M_SHADOW(creature_ptr)) (void)do_dec_stat(creature_ptr, STAT_CON);
 			}
 			else msg_print(MES_TRAP_DARTS_MISSED);
 			break;

@@ -3738,7 +3738,7 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 	char        object_name[MAX_NLEN];
 	floor_type	*floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if((has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1))) return 0;
+	if(M_SHADOW(creature_ptr)) return 0;
 	if(floor_ptr->fight_arena_mode) return 0;
 
 	/* Count the casualties */
