@@ -1181,7 +1181,6 @@ static void you_died(cptr hit_from)
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	char tmp[100];
 	char death_message[1024];
-	bool android = has_trait(player_ptr, TRAIT_ANDROID);
 
 	#ifdef JP // 死んだ時に強制終了して死を回避できなくしてみた by Habu
 	if(!cheat_save)
@@ -1251,14 +1250,9 @@ static void you_died(cptr hit_from)
 
 		write_diary(DIARY_GAMESTART, 1, DIARY_GAMEOVER);
 		write_diary(DIARY_BUNSHOU, 1, "\n\n\n\n");
+
 		flush();
-
-#ifdef JP
-		if(get_check_strict("画面を保存しますか？", CHECK_NO_HISTORY)) do_cmd_save_screen(player_ptr);
-#else
-		if(get_check_strict("Dump the screen? ", CHECK_NO_HISTORY)) do_cmd_save_screen(player_ptr);
-#endif
-
+		if(get_check_strict(MES_SYS_DUMP_SCREEN, CHECK_NO_HISTORY)) do_cmd_save_screen(player_ptr);
 		flush();
 
 		/* Initialize "last message" buffer */
@@ -1277,15 +1271,9 @@ static void you_died(cptr hit_from)
 			else get_rnd_line(TEXT_FILES_DEATH, 0, death_message);
 
 			do while (!get_string(winning_seppuku ? KW_LAST_POET : KW_LAST_WORD, death_message, 1024));
-#ifdef JP
-			while (winning_seppuku && !get_check_strict("よろしいですか？", CHECK_NO_HISTORY));
-			if(death_message[0] == '\0') strcpy(death_message, format("あなたは%sました。", android ? "壊れ" : "死に"));
-#else
-			while (winning_seppuku && !get_check_strict("Are you sure? ", CHECK_NO_HISTORY));
-			if(death_message[0] == '\0') strcpy(death_message, android ? "You are broken." : "You die.");
-#endif
+			while (winning_seppuku && !get_check_strict(MES_SYS_ASK_SURE, CHECK_NO_HISTORY));
+			if(death_message[0] == '\0') strcpy(death_message, format(MES_SYS_YOU_DIED(player_ptr)));
 			else player_ptr->last_message = string_make(death_message);
-
 #ifdef JP
 			if(winning_seppuku)
 			{

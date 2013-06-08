@@ -94,6 +94,7 @@
 #define MES_SYS_VISUAL_COMMAND "コマンド (n/N/^N/a/A/^A/c/C/^C/v/V/^V): "
 #define MES_SYS_ASK_USE "%sを使いますか？"
 #define MES_SYS_ASK_SURE "よろしいですか？"
+#define MES_SYS_DUMP_SCREEN "画面を保存しますか？"
 
 #define MES_SYS_CHARGE_NUM(NUM) "回分"
 
@@ -178,6 +179,7 @@
 #define MES_SYS_VISUAL_COMMAND "Command (n/N/^N/a/A/^A/c/C/^C/v/V/^V):"
 #define MES_SYS_ASK_USE "use %s?"
 #define MES_SYS_ASK_SURE "Are you sure?"
+#define MES_SYS_DUMP_SCREEN "Dump the screen? "
 
 #define MES_SYS_CHARGE_NUM(NUM) ((NUM) > 1 ? " charges" : "charge")
 
