@@ -235,6 +235,30 @@ static bool back_stab_check(creature_type *attacker_ptr, creature_type *target_p
 {
 	return has_trait(target_ptr, TRAIT_AFRAID) && is_seen(attacker_ptr, target_ptr);
 }
+
+static void weapon_blood_sucking(creature_type *attacker_ptr, object_type *weapon_ptr)
+{
+	STAT to_hit = weapon_ptr->to_hit;
+	STAT to_damage = weapon_ptr->to_damage;
+	int i, flag;
+	char weapon_name[MAX_NLEN];
+
+	flag = 1;
+	for (i = 0; i < to_hit + 3; i++) if(one_in_(4)) flag = 0;
+	if(flag) to_hit++;
+
+	flag = 1;
+	for (i = 0; i < to_damage + 3; i++) if(one_in_(4)) flag = 0;
+	if(flag) to_damage++;
+
+	if(weapon_ptr->to_hit != to_hit || weapon_ptr->to_damage != to_damage)
+	{
+		if(is_seen(player_ptr, attacker_ptr)) msg_print(MES_MELEE_SUCK_BLOOD(weapon_name));
+		weapon_ptr->to_hit = to_hit;
+		weapon_ptr->to_damage = to_damage;
+	}
+}
+
 /*
  * Do attack, creature to creature.
  */
@@ -843,30 +867,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		// Are we draining it?  A little note: If the creature is dead, the drain does not work...
 		if(can_drain && (drain_result > 0))
 		{
-			if(has_trait_object(weapon_ptr, TRAIT_MURAMASA))
-			{
-				if(has_trait(target_ptr, TRAIT_HUMANOID))
-				{
-					STAT to_hit = weapon_ptr->to_hit;
-					STAT to_damage = weapon_ptr->to_damage;
-					int i, flag;
-
-					flag = 1;
-					for (i = 0; i < to_hit + 3; i++) if(one_in_(4)) flag = 0;
-					if(flag) to_hit++;
-
-					flag = 1;
-					for (i = 0; i < to_damage + 3; i++) if(one_in_(4)) flag = 0;
-					if(flag) to_damage++;
-
-					if(weapon_ptr->to_hit != to_hit || weapon_ptr->to_damage != to_damage)
-					{
-						if(is_seen(player_ptr, attacker_ptr)) msg_print(MES_MELEE_SUCK_BLOOD(weapon_name));
-						weapon_ptr->to_hit = to_hit;
-						weapon_ptr->to_damage = to_damage;
-					}
-				}
-			}
+			if(has_trait_object(weapon_ptr, TRAIT_MURAMASA) && has_trait(target_ptr, TRAIT_HUMANOID)) weapon_blood_sucking(attacker_ptr, weapon_ptr);
 			else
 			{
 				if(drain_result > 5) // Did we really hurt it?
