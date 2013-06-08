@@ -3705,24 +3705,17 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 	if(is_explosive_rune_grid(c_ptr))
 	{
-		/* Break the ward */
-		if(randint1(BREAK_MINOR_GLYPH) > species_ptr->level)
+		if(randint1(BREAK_MINOR_GLYPH) > species_ptr->level) /* Break the ward */
 		{
-			/* Describe observable breakage */
-			if(c_ptr->info & CAVE_MARK)
+			if(c_ptr->info & CAVE_MARK) /* Describe observable breakage */
 			{
 				msg_print(MES_BREAK_E_RUNE);
 				project(NULL, 0, 2, y, x, diceroll(10, 7), DO_EFFECT_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 		}
-		else
-			msg_print(MES_DISARM_E_RUNE);
-
-		/* Forget the rune */
-		c_ptr->info &= ~(CAVE_MARK);
-
-		/* Break the rune */
-		c_ptr->info &= ~(CAVE_OBJECT);
+		else msg_print(MES_DISARM_E_RUNE);
+		c_ptr->info &= ~(CAVE_MARK); /* Forget the rune */
+		c_ptr->info &= ~(CAVE_OBJECT); /* Break the rune */
 		c_ptr->mimic = 0;
 
 		note_spot(floor_ptr, y, x);
@@ -3765,11 +3758,8 @@ static bool creature_scatter(SPECIES_ID species_idx, COODINATES *yp, COODINATES 
 
 			if(species_idx > 0)
 			{
-				species_type *species_ptr = &species_info[species_idx];
-
-				// Require empty space (if not ghostly)
-				if(!species_can_enter(floor_ptr, ny, nx, species_ptr, 0))
-					continue;
+				species_type *species_ptr = &species_info[species_idx]; /* Require empty space (if not ghostly) */
+				if(!species_can_enter(floor_ptr, ny, nx, species_ptr, 0)) continue;
 			}
 			else
 			{
@@ -3797,10 +3787,8 @@ static bool creature_scatter(SPECIES_ID species_idx, COODINATES *yp, COODINATES 
 	}
 
 	i = 0;
-	while (i < CREATURE_SCAT_MAXD && 0 == num[i])
-		i++;
-	if(i >= CREATURE_SCAT_MAXD)
-		return FALSE;
+	while (i < CREATURE_SCAT_MAXD && 0 == num[i]) i++;
+	if(i >= CREATURE_SCAT_MAXD) return FALSE;
 
 	*xp = place_x[i];
 	*yp = place_y[i];
@@ -3890,49 +3878,6 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 	return TRUE;
 }
 
-
-/*
-* Hack -- help pick an escort type
-*/
-static int place_species_idx = 0;
-static int place_creature_m_idx = 0;
-
-/*
-* Hack -- help pick an escort type
-*/
-static bool place_creature_okay(creature_type *summoner_ptr, SPECIES_ID species_idx)
-{
-	species_type *species_ptr = &species_info[place_species_idx];
-	creature_type *m_ptr = &creature_list[place_creature_m_idx];
-
-	species_type *z_ptr = &species_info[species_idx];
-
-	/* Hack - Escorts have to have the same dungeon flag */
-	if(species_hook_dungeon(place_species_idx) != species_hook_dungeon(species_idx)) return FALSE;
-
-	/* Require similar "race" */
-	if(z_ptr->d_char != species_ptr->d_char) return FALSE;
-
-	/* Skip more advanced creatures */
-	if(z_ptr->level > species_ptr->level) return FALSE;
-
-	/* Skip unique creatures */
-	if(has_trait_species(z_ptr, TRAIT_UNIQUE)) return FALSE;
-
-
-	if(place_species_idx == species_idx) return FALSE;
-
-	/* Skip different alignment */
-	if(creature_has_hostile_align(m_ptr, summoner_ptr)) return FALSE;
-
-	if(has_trait_species(species_ptr, TRAIT_CHAMELEON) && !has_trait_species(z_ptr, TRAIT_CHAMELEON))
-		return FALSE;
-
-
-	return TRUE;
-}
-
-
 /*
 * Attempt to place a creature of the given race at the given location
 *
@@ -3983,8 +3928,6 @@ bool place_creature_fixed_species(creature_type *summoner_ptr, floor_type *floor
 
 	// Require the "group" flag
 	if(!(mode & PC_ALLOW_GROUP)) return TRUE;
-
-	place_creature_m_idx = hack_m_idx_ii;
 
 	// Friends for certain creatures
 	if(has_trait_species(species_ptr, TRAIT_FRIENDLY)) (void)place_creature_group(summoner_ptr, floor_ptr, y, x, species_idx, mode);
