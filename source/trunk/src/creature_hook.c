@@ -438,6 +438,20 @@ void set_species_list_bias_feature(PROB **prob_list_ptr, feature_type *feature_p
 	else set_species_list_bias_floor(prob_list_ptr);
 }
 
+void set_species_list_bias_surface(PROB **prob_list_ptr)
+{
+	int n;
+	species_type *species_ptr;
+	PROB *prob_list = *prob_list_ptr;
+
+	for(n = 0; n < max_species_idx; n++)
+	{
+		species_ptr = &species_info[n];
+		if(species_ptr->level > 0) prob_list[n] = 0;
+	}
+	return;
+}
+
 void set_species_list_bias_level_limitation(PROB **prob_list_ptr, FLOOR_LEV min, FLOOR_LEV max)
 {
 	int n;

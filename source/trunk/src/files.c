@@ -5341,34 +5341,19 @@ static void show_info(creature_type *creature_ptr)
 	prepare_update(creature_ptr, CRU_BONUS);
 
 	handle_stuff(creature_ptr);
-
-	/* Flush all input keys */
-	flush();
+	flush(); /* Flush all input keys */
 
 	msg_print(NULL);
+	prt(MES_SYS_DUMP_INFO1, 21, 0);
+	prt(MES_SYS_DUMP_INFO2, 22, 0);
 
-#ifdef JP
-	prt("キャラクターの記録をファイルに書き出すことができます。", 21, 0);
-	prt("リターンキーでキャラクターを見ます。ESCで中断します。", 22, 0);
-#else
-	prt("You may now dump a character record to one or more files.", 21, 0);
-	prt("Then, hit RETURN to see the character, or ESC to abort.", 22, 0);
-#endif
-
-
-	/* Dump character records as requested */
-	while (TRUE)
+	while (TRUE) /* Dump character records as requested */
 	{
 		char out_val[160];
 		put_str(PROMPT_FILE, 23, 0);
-
 		strcpy(out_val, "");
-
-		/* Ask for filename (or abort) */
-		if(!askfor(out_val, 60)) return;
-
-		/* Return means "show on screen" */
-		if(!out_val[0]) break;
+		if(!askfor(out_val, 60)) return; /* Ask for filename (or abort) */
+		if(!out_val[0]) break; /* Return means "show on screen" */
 
 		screen_save();
 		(void)file_character(out_val); /* Dump a character file */
@@ -5394,8 +5379,7 @@ static void show_info(creature_type *creature_ptr)
 		if(inkey() == ESCAPE) return;
 	}
 
-	/* inventory -- if any */
-	if(creature_ptr->inven_cnt)
+	if(creature_ptr->inven_cnt) /* inventory -- if any */
 	{
 		Term_clear();
 		(void)show_item_list(0, creature_ptr, SHOW_ITEM_INVENTORY | SHOW_ITEM_FULL, NULL);
@@ -5443,8 +5427,6 @@ static void show_info(creature_type *creature_ptr)
 #else
 				prt(format("Your home contains (page %d): -more-", k+1), 0, 0);
 #endif
-
-
 				// Wait for it
 				if(inkey() == ESCAPE) return;
 			}
@@ -5652,8 +5634,7 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 		/* Get a line from the file */
 		if(my_fgets(fp, buf, sizeof(buf)) == 0)
 		{
-			/* Count the lines */
-			line_num++;
+			line_num++; /* Count the lines */
 
 			/* Look for lines starting with 'N:' */
 			if((buf[0] == 'N') && (buf[1] == ':'))
@@ -5663,11 +5644,7 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 				else if(buf[2] == 'M') if(IS_MALE(&species_info[entry])) break;
 				else if(buf[2] == 'F') if(IS_FEMALE(&species_info[entry])) break;
 				/* Get the creature number */
-				else if(sscanf(&(buf[2]), "%d", &test) != EOF)
-				{
-					/* Is it the right number? */
-					if(test == entry) break;
-				}
+				else if(sscanf(&(buf[2]), "%d", &test) != EOF) if(test == entry) break; /* Is it the right number? */
 				else
 				{
 					/* Error while converting the number */

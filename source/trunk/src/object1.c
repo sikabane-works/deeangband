@@ -558,23 +558,18 @@ bool check_book_realm(creature_type *creature_ptr, const TVAL book_tval, const S
  */
 bool item_tester_okay(creature_type *creature_ptr, object_type *object_ptr, bool (*item_tester_hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
 {
-
-	/* Require an item */
-	if(!is_valid_object(object_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE; /* Require an item */
 
 	/* Hack -- ignore "gold" */
 	/* TODO remove
 	if(object_ptr->tval == TV_GOLD)
 	{
-		// See xtra2.c
-		extern bool show_gold_on_floor;
-
+		extern bool show_gold_on_floor; // See xtra2.c
 		if(!show_gold_on_floor) return FALSE;
 	}
 	*/
 
-	/* Check the tval */
-	if(item_tester_tval)
+	if(item_tester_tval) /* Check the tval */
 	{
 		/* Is it a spellbook? If so, we need a hack -- TY */
 		if((item_tester_tval <= TV_DEATH_BOOK) &&

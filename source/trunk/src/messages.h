@@ -114,6 +114,9 @@
 #define MES_SYS_FIND "検索: "
 #define MES_SYS_SPOILER_FILE(NAME) "スポイラー・ファイル'%s'", (NAME)
 #define MES_SYS_COMPRESS_CREATURE "クリーチャー情報を圧縮しています..."
+#define MES_SYS_DUMP_INFO1 "キャラクターの記録をファイルに書き出すことができます。"
+#define MES_SYS_DUMP_INFO2 "リターンキーでキャラクターを見ます。ESCで中断します。"
+
 #else
 
 #define MES_SYS_YOU_DIED(CREATURE) (has_trait((CREATURE), TRAIT_ANDROID) ? "You were broken." : "You died.")
@@ -199,6 +202,9 @@
 #define MES_SYS_FIND "Find: "
 #define MES_SYS_SPOILER_FILE(NAME) "Info file '%s'", (NAME)
 #define MES_SYS_COMPRESS_CREATURE "Compacting creatures..."
+
+#define MES_SYS_DUMP_INFO1 "You may now dump a character record to one or more files."
+#define MES_SYS_DUMP_INFO2 "Then, hit RETURN to see the character, or ESC to abort."
 #endif
 
 #if JP

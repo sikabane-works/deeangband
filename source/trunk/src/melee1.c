@@ -15,8 +15,6 @@
 #include "files.h"
 #include "riding.h"
 
-
-
 static void counter_eye_eye(creature_type *attacker_ptr, creature_type *target_ptr, POWER get_damage)
 {
 	if((has_trait(target_ptr, TRAIT_EYE_EYE) || HEX_SPELLING(target_ptr, HEX_EYE_FOR_EYE)) && get_damage > 0 && !IS_DEAD(target_ptr))
@@ -26,7 +24,6 @@ static void counter_eye_eye(creature_type *attacker_ptr, creature_type *target_p
 		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}
 }
-
 
 static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 {
@@ -57,7 +54,6 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 		if(!has_trait(attacker_ptr, TRAIT_IM_COLD))
 		{
 			char aura_dam[80];
-
 			aura_damage = diceroll(1 + (target_ptr->lev / 13), 1 + (target_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
