@@ -2621,6 +2621,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_PLAGUE "•a‚ª‚ ‚È‚½‚ðI‚ñ‚Å‚¢‚é‹C‚ª‚·‚éB"
 #define MES_MELEE_ASSASSIN_CRITICAL(TARGET) "n‚ª%s‚É[X‚Æ“Ë‚«Žh‚³‚Á‚½I", (TARGET)->name
 #define MES_MELEE_MAGIC_DRAIN "–‚“¹‹ï‚©‚çƒGƒlƒ‹ƒM[‚ð‹z‚¢Žæ‚Á‚½I"
+#define MES_MELEE_WEAKNESS(CREATURE) "%s‚ÍŽã‚­‚È‚Á‚½‚æ‚¤‚¾B", (CREATURE)->name
 #else
 #define MES_MELEE_ATTACK_MISS %^s misses %s.
 #define MES_MELEE_AMBUSH(ATTACKER, TARGET) "%s (cruelly stab the helpless, sleeping %s!", (ATTACKER), (TARGET))
@@ -2658,6 +2659,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_PLAGUE "You feel strange sickness."
 #define MES_MELEE_ASSASSIN_CRITICAL(TARGET) "You critically injured %s!", (TARGET)->name
 #define MES_MELEE_MAGIC_DRAIN "Energy drains from your magic device!"
+#define MES_MELEE_WEAKNESS(CREATURE) "%^s seems weakened.", (CREATURE)->name
 #endif
 
 #ifdef JP

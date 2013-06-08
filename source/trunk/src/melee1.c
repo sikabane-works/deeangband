@@ -981,21 +981,8 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		//TODO reimplement get item process.
 	}
 
-	ambush = FALSE;
-	fatal_spot = FALSE;
-
-	if(weak && !IS_DEAD(target_ptr))
-	{
-#ifdef JP
-		msg_format("%s‚Íã‚­‚È‚Á‚½‚æ‚¤‚¾B", target_name);
-#else
-		msg_format("%^s seems weakened.", target_name);
-#endif
-	}
-
-	// Mega-Hack -- apply earthquake brand
+	if(weak && !IS_DEAD(target_ptr)) msg_format(MES_MELEE_WEAKNESS(target_ptr));
 	if(do_quake) earthquake(target_ptr, attacker_ptr->fy, attacker_ptr->fx, 10);
-
 }
 
 static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr)
