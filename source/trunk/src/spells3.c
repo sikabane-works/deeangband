@@ -2734,12 +2734,7 @@ bool bless_weapon(creature_type *caster_ptr)
 	 */
 	if(have_flag(flgs, TRAIT_BLESSED_BRAND))
 	{
-#ifdef JP
-		msg_format("%s ‚ÍŠù‚Éj•Ÿ‚³‚ê‚Ä‚¢‚éB", object_name);
-#else
-		msg_format("%s %s %s blessed already.", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "were" : "was"));
-#endif
-
+		msg_format(MES_WEP_BLESS_ALREADY(object_ptr));
 		return TRUE;
 	}
 

@@ -2857,6 +2857,7 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_WEP_BLESS_WHICH_OBJECT "どのアイテムを祝福しますか？"
 #define MES_WEP_BLESS_NO_OBJECT "祝福できる武器がありません。"
+#define MES_WEP_BLESS_ALREADY(OBJECT) "%sは既に祝福されている。", (OBJECT)->name
 #define MES_WEP_BLESS_CURSED_CANCEL(NAME, ID) "%sを覆う黒いオーラは祝福を跳ね返した！", (NAME)
 #define MES_WEP_BLESS_VANISH_CURSE(NAME, ID) "%s から邪悪なオーラが消えた。", (NAME)
 #define MES_WEP_BLESS_RESIST "その武器は祝福を嫌っている！"
@@ -2864,6 +2865,7 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_WEP_BLESS_WHICH_OBJECT "Bless which weapon? "
 #define MES_WEP_BLESS_NO_OBJECT "You have weapon to bless."
+#define MES_WEP_BLESS_ALREADY(OBJECT) "%s %s blessed already.", (OBJECT)->name, (((OBJECT)->number > 1) ? "were" : "was")
 #define MES_WEP_BLESS_CURSED_CANCEL(NAME, ID) "The black aura on %s %s disrupts the blessing!", (((ID) >= 0) ? "your" : "the"), (NAME)
 #define MES_WEP_BLESS_VANISH_CURSE(NAME, ID) "A malignant aura leaves %s %s.", (((ID) >= 0) ? "your" : "the"), (NAME)
 #define MES_WEP_BLESS_RESIST "The weapon resists your blessing!"
