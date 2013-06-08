@@ -5541,15 +5541,11 @@ void close_game(void)
 	/* Handle death */
 	if(gameover)
 	{
-		/* Handle retirement */
-		if(player_ptr->total_winner) kingly(player_ptr);
-
-		/* Save memories */
-		if(!cheat_save || get_check(MES_SCORE_SAVE_DEATH)) if(!save_player()) msg_print(MES_SYS_SAVE_FAILED);
+		if(player_ptr->total_winner) kingly(player_ptr); /* Handle retirement */
+		if(!cheat_save || get_check(MES_SCORE_SAVE_DEATH)) if(!save_player()) msg_print(MES_SYS_SAVE_FAILED); /* Save memories */
 		else do_send = FALSE;
 
-		/* You are dead */
-		print_tomb(player_ptr);
+		print_tomb(player_ptr); /* You are dead */
 		flush();
 
 		/* Show more info */

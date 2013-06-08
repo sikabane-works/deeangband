@@ -957,8 +957,8 @@ static bool wr_savefile_new(void)
 	int i;
 	u32b now;
 
-	compact_objects(0); /* Compact the objects */
-	compact_creatures(0); /* Compact the creatures */
+	//compact_objects(0); /* Compact the objects */
+	//compact_creatures(0); /* Compact the creatures */
 
 	now = (u32b)time((time_t *)0); /* Guess at the current time */
 	sf_system = 0L;
