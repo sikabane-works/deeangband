@@ -211,6 +211,30 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 	}
 }
 
+static bool ambush_check(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	return has_trait(target_ptr, TRAIT_SLEPT) && is_seen(attacker_ptr, target_ptr);
+}
+
+static bool fatal_spot_check(creature_type *attacker_ptr, creature_type *target_ptr, FLAGS_32 mode)
+{
+	int tmp;
+	tmp = attacker_ptr->lev * 6 + (attacker_ptr->skill_stl + 10) * 4;
+	if(attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
+	if(has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
+	if(target_ptr->lev > (attacker_ptr->lev * attacker_ptr->lev / 10 + 5)) tmp /= 3;
+
+	if((attacker_ptr->posture & NINJA_S_STEALTH) && (randint0(tmp) > (target_ptr->lev * 2 + 20)) && is_seen(attacker_ptr, target_ptr) && !has_trait(target_ptr, TRAIT_RES_ALL))
+	{
+		return TRUE;
+	}
+	return FALSE;
+}
+
+static bool back_stab_check(creature_type *attacker_ptr, creature_type *target_ptr)
+{
+	return has_trait(target_ptr, TRAIT_AFRAID) && is_seen(attacker_ptr, target_ptr);
+}
 /*
  * Do attack, creature to creature.
  */
@@ -232,7 +256,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	bool ambush = FALSE;
 	bool vorpal_cut = FALSE;
 	int  chaos_effect = 0;
-	bool stab_fleeing = FALSE;
+	bool back_stab = FALSE;
 	bool fatal_spot = FALSE;
 	bool do_quake = FALSE;
 	bool weak = FALSE;
@@ -247,24 +271,9 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 	*initiative -= diceroll(2, 5); /* cost initiative */
 
-	switch (attacker_ptr->class_idx)
-	{
-	case CLASS_ROGUE:
-	case CLASS_NINJA:
-		{
-			int tmp = attacker_ptr->lev * 6 + (attacker_ptr->skill_stl + 10) * 4;
-			if(attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
-			if(has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
-			if(target_ptr->lev > (attacker_ptr->lev * attacker_ptr->lev / 10 + 5)) tmp /= 3;
-			if(has_trait(target_ptr, TRAIT_PARALYZED) && target_ptr->see_others) ambush = TRUE;
-			else if((attacker_ptr->posture & NINJA_S_STEALTH) && (randint0(tmp) > (target_ptr->lev * 2 + 20)) && target_ptr->see_others && !has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				fatal_spot = TRUE;
-			}
-			else if(has_trait(target_ptr, TRAIT_AFRAID) && target_ptr->see_others) stab_fleeing = TRUE;
-		}
-		break;
-	}
+	ambush = ambush_check(attacker_ptr, target_ptr);
+	fatal_spot = fatal_spot_check(attacker_ptr, target_ptr, mode);
+	back_stab = back_stab_check(attacker_ptr, target_ptr);
 
 	object_desc(weapon_name, weapon_ptr, OD_NAME_ONLY);
 	creature_desc(attacker_name, attacker_ptr, 0);
@@ -303,7 +312,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		{
 			if(ambush) msg_format(MES_MELEE_AMBUSH(attacker_name, target_name));
 			else if(fatal_spot) msg_format(MES_MELEE_FATAL_SPOT(attacker_name, target_name));
-			else if(stab_fleeing) msg_format(MES_MELEE_BACKSTUB(attacker_name, target_name));
+			else if(back_stab) msg_format(MES_MELEE_BACKSTUB(attacker_name, target_name));
 		}
 
 		// Hack -- bare hands do one damage
@@ -343,7 +352,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 			if(ambush) k *= (3 + (attacker_ptr->lev / 20));
 			else if(fatal_spot) k = k * (5 + (attacker_ptr->lev * 2 / 25)) / 2;
-			else if(stab_fleeing) k = (3 * k) / 2;
+			else if(back_stab) k = (3 * k) / 2;
 
 			if((has_trait_object(weapon_ptr, TRAIT_SHATTER) && ((k > 50) || one_in_(7))) || (chaos_effect == 2) || (mode == HISSATSU_QUAKE))
 				do_quake = TRUE;
@@ -781,7 +790,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		}
 		else if((attacker_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(attacker_ptr, INVENTORY_ID_HAND) && ((attacker_ptr->cur_lite <= 0) || one_in_(7)))
 		{
-			if(one_in_(ambush ? 13 : (stab_fleeing || fatal_spot) ? 15 : 27))
+			if(one_in_(ambush ? 13 : (back_stab || fatal_spot) ? 15 : 27))
 			{
 				k *= 5;
 				drain_result *= 2;
