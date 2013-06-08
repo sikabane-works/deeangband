@@ -1361,33 +1361,6 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	return dead;
 }
 
-/*
- * Determine if a creature attack against the player succeeds.
- * Always miss 5% of the time, Always hit 5% of the time.
- * Otherwise, match creature power against player armor.
- */
-static int check_hit(creature_type *target_ptr, POWER power, int level, int stun)
-{
-	int i, k, ac;
-	k = randint0(100); /* Percentile dice */
-	if(stun && one_in_(2)) return FALSE;
-	if(k < 10) return (k < 5); /* Hack -- Always miss or hit */
-
-	/* Calculate the "attack quality" */
-	i = (power + (level * 3));
-
-	/* Total armor */
-	ac = target_ptr->ac + target_ptr->to_ac;
-	if(has_trait(target_ptr, TRAIT_DRUNKING_FIST)) ac += (target_ptr->lev * 2);
-
-	/* Power and Level compete against Armor */
-	if((i > 0) && (randint1(i) > ((ac * 3) / 4))) return TRUE;
-
-	/* Assume miss */
-	return FALSE;
-}
-
-
 static void tramping_attack(creature_type *attacker_ptr, creature_type *target_ptr)
 {
 	char attacker_name[100], target_name[100];
