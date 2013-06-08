@@ -214,7 +214,7 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 /*
  * Do attack, creature to creature.
  */
-static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr, object_type *weapon_ptr, POWER *initiative, int mode)
+static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr, object_type *weapon_ptr, POWER *initiative, FLAGS_32 mode)
 {
 	POWER k;
 	int i;
@@ -245,9 +245,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	bool zantetsu_mukou = FALSE;
 	bool e_j_mukou = FALSE;
 
-
-	/* cost initiative */
-	initiative -= diceroll(2,5);
+	*initiative -= diceroll(2, 5); /* cost initiative */
 
 	switch (attacker_ptr->class_idx)
 	{
@@ -269,15 +267,15 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	}
 
 	object_desc(weapon_name, weapon_ptr, OD_NAME_ONLY);
+	creature_desc(attacker_name, attacker_ptr, 0);
+	creature_desc(target_name, target_ptr, 0);
 
 	// Weapon skill mastering
 	//TODO skill gain
 
-	if(has_trait_from_timed(target_ptr, TRAIT_SLEPT))  (void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, FALSE);
+	if(has_trait_from_timed(target_ptr, TRAIT_SLEPT)) (void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, FALSE);
 
 	// Extract attacker and target name (or "it")
-	creature_desc(attacker_name, attacker_ptr, 0);
-	creature_desc(target_name, target_ptr, 0);
 
 	zantetsu_mukou = (has_trait_object(weapon_ptr, TRAIT_ZANTETSU_EFFECT) && (target_ptr->d_char == 'j'));
 	e_j_mukou = (has_trait_object(weapon_ptr, TRAIT_HATE_SPIDER) && (target_ptr->d_char == 'S'));
@@ -1338,9 +1336,8 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 		if(weapon_ptr) do_one_attack(attacker_ptr, target_ptr, weapon_ptr, &initiative, mode);
 		else successing_attack = FALSE;
 		if(initiative < 0) successing_attack = FALSE;
+		if(IS_DEAD(target_ptr)) return TRUE;
 	}
-
-	if(IS_DEAD(target_ptr)) return TRUE;
 
 	/* Blink away */
 	/* //TODO

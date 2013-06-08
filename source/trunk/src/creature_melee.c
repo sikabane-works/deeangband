@@ -4,7 +4,7 @@
  * Determine if the player "hits" a creature (normal combat).
  * Note -- Always miss 5%, always hit 5%, otherwise random.
  */
-bool test_hit_melee(creature_type *attacker_ptr, creature_type *target_ptr, object_type *weapon_ptr, int mode)
+bool test_hit_melee(creature_type *attacker_ptr, creature_type *target_ptr, object_type *weapon_ptr, FLAGS_32 mode)
 {
 	int dice;
 
@@ -30,7 +30,7 @@ bool test_hit_melee(creature_type *attacker_ptr, creature_type *target_ptr, obje
 
 // Critical hits (by player)
 // Factor in weapon weight, total plusses, player level.
-POWER test_critial_melee(creature_type *creature_ptr, WEIGHT weight, int plus, POWER dam, STAT meichuu, int mode)
+POWER test_critial_melee(creature_type *creature_ptr, WEIGHT weight, int plus, POWER dam, STAT meichuu, FLAGS_32 mode)
 {
 	int i, k;
 
@@ -82,7 +82,7 @@ POWER test_critial_melee(creature_type *creature_ptr, WEIGHT weight, int plus, P
  * Note that most brands and slays are x3, except Slay Animal (x2),
  * Slay Evil (x2), and Kill dragon (x5).
  */
-s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr, int mode, bool thrown)
+s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr, FLAGS_32 mode, bool thrown)
 {
 	int mult = 10;
 
