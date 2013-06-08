@@ -380,21 +380,13 @@ static void spoil_obj_desc(cptr fname)
 		for (k = 1; k < max_object_kind_idx; k++)
 		{
 			object_kind *object_kind_ptr = &object_kind_info[k];
-
-			/* Skip wrong tval's */
-			if(object_kind_ptr->tval != group_item[i].tval) continue;
-
-			/* Hack -- Skip instant-artifacts */
-			if(have_flag(object_kind_ptr->flags, TRAIT_INSTA_ART)) continue;
-
-			/* Save the index */
-			who[n++] = k;
+			if(object_kind_ptr->tval != group_item[i].tval) continue; /* Skip wrong tval's */
+			if(have_flag(object_kind_ptr->flags, TRAIT_INSTA_ART)) continue; /* Hack -- Skip instant-artifacts */
+			who[n++] = k; /* Save the index */
 		}
 	}
 
-
-	/* Check for errors */
-	if(ferror(fff) || my_fclose(fff))
+	if(ferror(fff) || my_fclose(fff)) /* Check for errors */
 	{
 		msg_print("Cannot close spoiler file.");
 		return;
@@ -511,34 +503,6 @@ struct flag_desc
 	const char *const desc;
 };
 
-
-
-/*
- * These are used for "+3 to STR, DEX", etc. These are separate from
- * the other pval affected traits_precondition to simplify the case where an object
- * affects all stats.  In this case, "All stats" is used instead of
- * listing each stat individually.
- */
-
-static flag_desc stat_flags_desc[] =
-{
-#ifdef JP
-	{ STAT_STR, "˜r—Í" },
-	{ STAT_INT, "’m”\" },
-	{ STAT_WIS, "Œ«‚³" },
-	{ STAT_DEX, "Ší—p‚³" },
-	{ STAT_CON, "‘Ï‹v—Í" },
-	{ STAT_CHA, "–£—Í" }
-#else
-	{ STAT_STR, "STR" },
-	{ STAT_INT, "INT" },
-	{ STAT_WIS, "WIS" },
-	{ STAT_DEX, "DEX" },
-	{ STAT_CON, "CON" },
-	{ STAT_CHA, "CHR" }
-#endif
-};
-
 /*
  * Besides stats, these are the other player traits_precondition
  * which may be affected by an object's pval
@@ -564,122 +528,6 @@ static flag_desc pval_flags1_desc[] =
 #endif
 };
 
-
-/*
- * The 15 resistables
- */
-static const flag_desc resist_flags_desc[] =
-{
-#ifdef JP
-	{ TRAIT_RES_ACID, "Ž_" },
-	{ TRAIT_RES_ELEC, "“dŒ‚" },
-	{ TRAIT_RES_FIRE, "‰Î‰Š" },
-	{ TRAIT_RES_COLD, "—â‹C" },
-	{ TRAIT_RES_POIS, "“Å" },
-	{ TRAIT_FEARLESS, "‹°•|"},
-	{ TRAIT_RES_LITE, "‘MŒõ" },
-	{ TRAIT_RES_DARK, "ˆÃ•" },
-	{ TRAIT_NO_BLIND, "–Ó–Ú" },
-	{ TRAIT_NO_CONF, "¬—" },
-	{ TRAIT_RES_SOUN, "Œ‰¹" },
-	{ TRAIT_RES_SHAR, "”j•Ð" },
-	{ TRAIT_RES_NETH, "’n–" },
-	{ TRAIT_RES_NEXU, "ˆö‰Ê¬—" },
-	{ TRAIT_RES_CHAO, "ƒJƒIƒX" },
-	{ TRAIT_RES_DISE, "—ò‰»" },
-#else
-	{ TRAIT_RES_ACID, "Acid" },
-	{ TRAIT_RES_ELEC, "Lightning" },
-	{ TRAIT_RES_FIRE, "Fire" },
-	{ TRAIT_RES_COLD, "Cold" },
-	{ TRAIT_RES_POIS, "Poison" },
-	{ TRAIT_FEARLESS, "Fear"},
-	{ TRAIT_RES_LITE, "Light" },
-	{ TRAIT_RES_DARK, "Dark" },
-	{ TRAIT_NO_BLIND, "Blindness" },
-	{ TRAIT_NO_CONF, "Confusion" },
-	{ TRAIT_RES_SOUN, "Sound" },
-	{ TRAIT_RES_SHAR, "Shards" },
-	{ TRAIT_RES_NETH, "Nether" },
-	{ TRAIT_RES_NEXU, "Nexus" },
-	{ TRAIT_RES_CHAO, "Chaos" },
-	{ TRAIT_RES_DISE, "Disenchantment" },
-#endif
-};
-
-/*
- * Elemental immunities (along with poison)
- */
-
-static const flag_desc immune_flags_desc[] =
-{
-#ifdef JP
-	{ TRAIT_IM_ACID, "Ž_" },
-	{ TRAIT_IM_ELEC, "“dŒ‚" },
-	{ TRAIT_IM_FIRE, "‰Î‰Š" },
-	{ TRAIT_IM_COLD, "—â‹C" },
-#else
-	{ TRAIT_IM_ACID, "Acid" },
-	{ TRAIT_IM_ELEC, "Lightning" },
-	{ TRAIT_IM_FIRE, "Fire" },
-	{ TRAIT_IM_COLD, "Cold" },
-#endif
-};
-
-/*
- * Sustain stats -  these are given their "own" line in the
- * spoiler file, mainly for simplicity
- */
-static const flag_desc sustain_flags_desc[] =
-{
-#ifdef JP
-	{ TRAIT_SUSTAIN_STR, "˜r—Í" },
-	{ TRAIT_SUSTAIN_INT, "’m”\" },
-	{ TRAIT_SUSTAIN_WIS, "Œ«‚³" },
-	{ TRAIT_SUSTAIN_DEX, "Ší—p‚³" },
-	{ TRAIT_SUSTAIN_CON, "‘Ï‹v—Í" },
-	{ TRAIT_SUSTAIN_CHR, "–£—Í" },
-#else
-	{ TRAIT_SUSTAIN_STR, "STR" },
-	{ TRAIT_SUSTAIN_INT, "INT" },
-	{ TRAIT_SUSTAIN_WIS, "WIS" },
-	{ TRAIT_SUSTAIN_DEX, "DEX" },
-	{ TRAIT_SUSTAIN_CON, "CON" },
-	{ TRAIT_SUSTAIN_CHR, "CHR" },
-#endif
-};
-
-
-
-/*
- * A special type used just for deailing with pvals
- */
-typedef struct
-{
-	/*
-	 * This will contain a string such as "+2", "-10", etc.
-	 */
-	char pval_desc[12];
-
-	/*
-	 * A list of various player traits_precondition affected by an object's pval such
-	 * as stats, speed, stealth, etc.  "Extra attacks" is NOT included in
-	 * this list since it will probably be desirable to format its
-	 * description differently.
-	 *
-	 * Note that room need only be reserved for the number of stats - 1
-	 * since the description "All stats" is used if an object affects all
-	 * all stats. Also, room must be reserved for a sentinel NULL pointer.
-	 *
-	 * This will be a list such as ["STR", "DEX", "Stealth", NULL] etc.
-	 *
-	 * This list includes extra attacks, for simplicity.
-	 */
-	cptr pval_affects[N_ELEMENTS(stat_flags_desc) - 1 +
-			  N_ELEMENTS(pval_flags1_desc) + 1];
-
-} pval_info_type;
-
 /*
  * Write out `n' of the character `c' to the spoiler file
  */
@@ -688,7 +536,6 @@ static void spoiler_out_n_chars(int n, char c)
 	while (--n >= 0) fputc(c, fff);
 }
 
-
 /*
  * Write out `n' blank lines to the spoiler file
  */
@@ -696,7 +543,6 @@ static void spoiler_blanklines(int n)
 {
 	spoiler_out_n_chars(n, '\n');
 }
-
 
 /*
  * Write a line to the spoiler file and then "underline" it with hypens
