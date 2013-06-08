@@ -825,8 +825,7 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 		}
 	}
 
-	/* No such tag */
-	return FALSE;
+	return FALSE; /* No such tag */
 }
 
 
@@ -855,11 +854,8 @@ static void prepare_label_string(creature_type *creature_ptr, char *label, int m
 		/* Find a tag with this label */
 		if(get_tag(creature_ptr, &index, c, mode))
 		{
-			/* Delete the overwritten label */
-			if(label[j] == c) label[j] = ' ';
-
-			/* Move the label to the place of corresponding tag */
-			label[index] = c;
+			if(label[j] == c) label[j] = ' '; /* Delete the overwritten label */
+			label[index] = c; /* Move the label to the place of corresponding tag */
 		}
 		j++;
 	}
