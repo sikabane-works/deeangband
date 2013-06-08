@@ -284,26 +284,11 @@ void object_flags_known(object_type *object_ptr, FLAGS_32 flgs[MAX_TRAITS_FLAG])
 	{
 		int add = object_ptr->forged_type - 1;
 
-		if(add < MAX_TRAITS_FLAG)
-		{
-			add_flag(flgs, add);
-		}
-		else if(add == ESSENCE_TMP_RES_ACID)
-		{
-			add_flag(flgs, TRAIT_RES_ACID);
-		}
-		else if(add == ESSENCE_TMP_RES_ELEC)
-		{
-			add_flag(flgs, TRAIT_RES_ELEC);
-		}
-		else if(add == ESSENCE_TMP_RES_FIRE)
-		{
-			add_flag(flgs, TRAIT_RES_FIRE);
-		}
-		else if(add == ESSENCE_TMP_RES_COLD)
-		{
-			add_flag(flgs, TRAIT_RES_COLD);
-		}
+		if(add < MAX_TRAITS_FLAG) add_flag(flgs, add);
+		else if(add == ESSENCE_TMP_RES_ACID) add_flag(flgs, TRAIT_RES_ACID);
+		else if(add == ESSENCE_TMP_RES_ELEC) add_flag(flgs, TRAIT_RES_ELEC);
+		else if(add == ESSENCE_TMP_RES_FIRE) add_flag(flgs, TRAIT_RES_FIRE);
+		else if(add == ESSENCE_TMP_RES_COLD) add_flag(flgs, TRAIT_RES_COLD);
 		else if(add == ESSENCE_SH_FIRE)
 		{
 			add_flag(flgs, TRAIT_RES_FIRE);
@@ -546,8 +531,7 @@ bool check_book_realm(creature_type *creature_ptr, const TVAL book_tval, const S
 	}
 	else if(creature_ptr->class_idx == CLASS_RED_MAGE)
 	{
-		if(is_magic(tval2realm(book_tval)))
-			return ((book_tval == TV_ARCANE_BOOK) || (book_sval < 2));
+		if(is_magic(tval2realm(book_tval))) return ((book_tval == TV_ARCANE_BOOK) || (book_sval < 2));
 	}
 	return (REALM1_BOOK(creature_ptr) == book_tval || REALM2_BOOK(creature_ptr) == book_tval);
 }
@@ -572,21 +556,17 @@ bool item_tester_okay(creature_type *creature_ptr, object_type *object_ptr, bool
 	if(item_tester_tval) /* Check the tval */
 	{
 		/* Is it a spellbook? If so, we need a hack -- TY */
-		if((item_tester_tval <= TV_DEATH_BOOK) &&
-			(item_tester_tval >= TV_LIFE_BOOK))
+		if((item_tester_tval <= TV_DEATH_BOOK) && (item_tester_tval >= TV_LIFE_BOOK))
+		{
 			return check_book_realm(creature_ptr, object_ptr->tval, object_ptr->sval);
-		else
-			if(item_tester_tval != object_ptr->tval) return FALSE;
+		}
+		else if(item_tester_tval != object_ptr->tval) return FALSE;
 	}
 
 	/* Check the hook */
-	if(item_tester_hook)
-	{
-		if(!(*item_tester_hook)(creature_ptr, object_ptr)) return FALSE;
-	}
+	if(item_tester_hook) if(!(*item_tester_hook)(creature_ptr, object_ptr)) return FALSE;
 
-	/* Assume okay */
-	return TRUE;
+	return TRUE; /* Assume okay */
 }
 
 
@@ -938,7 +918,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 			{
 				object_ptr = &creature_ptr->inventory[m];
 				if(!is_valid_object(object_ptr)) continue;
-				if(hook(creature_ptr, object_ptr))
+				if(!hook || hook(creature_ptr, object_ptr))
 				{
 					object_desc(object_name, object_ptr, 0); /* Describe the object */
 					out_index[k] = m; /* Save the object index, color, and description */
