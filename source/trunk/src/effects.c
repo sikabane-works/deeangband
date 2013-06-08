@@ -1466,14 +1466,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	// Delete the creature
 	delete_creature(target_ptr);
 
-	if(sad)
-	{
-	#ifdef JP
-	msg_print("­‚µ”ß‚µ‚¢‹C•ª‚ª‚µ‚½B");
-	#else
-	msg_print("You feel sad for a moment.");
-	#endif
-	}
 	}
 	*/
 

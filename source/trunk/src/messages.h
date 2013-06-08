@@ -3642,6 +3642,7 @@ static cptr desc_stat_neg[] =
 #define MES_STEED_WAKE_UP(STEED) "%sを起こした。", (STEED)
 #define MES_PET_OVER_UPKEEP "こんなに多くのペットを制御できない！"
 #define MES_PET_DISP_COST(UPKEEP_FACTOR) "維持ＭＰは %d%%", (UPKEEP_FACTOR)
+#define MES_PET_DEAD_SAD "少し悲しい気分がした。"
 #else
 #define MES_STEED_GOT_OFF(STEED) "You have got off %s. ", (STEED)
 #define MES_STEED_TAMED(STEED) "You tame %s.", (STEED)->name;
@@ -3663,6 +3664,7 @@ static cptr desc_stat_neg[] =
 #define MES_STEED_WAKE_UP(STEED) "You have waked %s up.", (STEED)
 #define MES_PET_OVER_UPKEEP "Too many pets to control at once!"
 #define MES_PET_DISP_COST(UPKEEP_FACTOR) "Upkeep: %d%% mana.", (UPKEEP_FACTOR)
+#define MES_PET_DEAD_SAD "You feel sad for a moment."
 #endif
 
 #ifdef JP

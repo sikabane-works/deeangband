@@ -239,6 +239,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 	bool create_stairs = FALSE;
 	bool reward = FALSE;
+	bool sad = FALSE;
 
 	object_type forge;
 	object_type *quest_ptr;
@@ -763,48 +764,29 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		}
 	}
 
-	if(cloned && !(has_trait(dead_ptr, TRAIT_UNIQUE)))
-		number = 0; /* Clones drop no stuff unless Cloning Pits */
-
-	if(is_pet(player_ptr, dead_ptr) || floor_ptr->gamble_arena_mode || floor_ptr->fight_arena_mode)
-		number = 0; /* Pets drop no stuff */
+	if(cloned && !(has_trait(dead_ptr, TRAIT_UNIQUE))) number = 0; /* Clones drop no stuff unless Cloning Pits */
+	if(is_pet(player_ptr, dead_ptr) || floor_ptr->gamble_arena_mode || floor_ptr->fight_arena_mode) number = 0; /* Pets drop no stuff */
 	if(!drop_item && (species_ptr->d_char != '$')) number = 0;
 
-	/* Average dungeon and creature levels */
-	floor_ptr->object_level = (floor_ptr->depth + species_ptr->level) / 2;
-
-	/* Drop some objects */
-	for (j = 0; j < number; j++)
+	for (j = 0; j < number; j++) /* Drop some objects */
 	{
 		quest_ptr = &forge;
-
-		/* Wipe the object */
 		object_wipe(quest_ptr);
 
-		/* Make Gold */
-		if(do_gold && (!do_item || (PERCENT(50))))
+		if(do_gold && (!do_item || (PERCENT(50))))/* Make Gold */
 		{
-			/* Make some gold */
-			if(!make_gold(floor_ptr, quest_ptr, 0, get_coin_type(dead_ptr->species_idx))) continue;
-
+			if(!make_gold(floor_ptr, quest_ptr, 0, get_coin_type(dead_ptr->species_idx))) continue; /* Make some gold */
 			dump_gold++;
 		}
-
-		/* Make Object */
-		else
+		else /* Make Object */
 		{
-			/* Make an object */
-			if(!make_random_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, NULL)) continue;
-
+			if(!make_random_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, NULL)) continue; /* Make an object */
 			dump_item++;
 		}
-
-		/* Drop it in the dungeon */
-		(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
+		(void)drop_near(floor_ptr, quest_ptr, -1, y, x); /* Drop it in the dungeon */
 	}
 
-	/* Reset the object level */
-	floor_ptr->object_level = floor_ptr->depth;
+	if(sad) msg_print(MES_PET_DEAD_SAD);
 
 	/* Only process "Quest Creatures" */
 	if(!has_trait(dead_ptr, TRAIT_QUESTOR)) return;
