@@ -1276,14 +1276,7 @@ static void you_died(cptr hit_from)
 			if(winning_seppuku) get_rnd_line(TEXT_FILES_SEPPUKU, 0, death_message);
 			else get_rnd_line(TEXT_FILES_DEATH, 0, death_message);
 
-			do
-			{
-#ifdef JP
-				while (!get_string(winning_seppuku ? "«¢‚Ì‹å" : "’f–––‚‚Ì‹©‚Ñ", death_message, 1024));
-#else
-				while (!get_string("Last word", death_message, 1024)) ;
-#endif
-			}
+			do while (!get_string(winning_seppuku ? KW_LAST_POET : KW_LAST_WORD, death_message, 1024));
 #ifdef JP
 			while (winning_seppuku && !get_check_strict("‚æ‚ë‚µ‚¢‚Å‚·‚©H", CHECK_NO_HISTORY));
 			if(death_message[0] == '\0') strcpy(death_message, format("‚ ‚È‚½‚Í%s‚Ü‚µ‚½B", android ? "‰ó‚ê" : "€‚É"));

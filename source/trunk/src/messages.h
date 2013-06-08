@@ -367,6 +367,8 @@
 #define KW_AUTOSAVE "自動セーブ"
 #define KW_VARIABLE_SIZE "サイズ可変"
 #define KW_ENEMY "敵"
+#define KW_LAST_WORD "断末魔の叫び"
+#define KW_LAST_POET "辞世の句"
 #else
 #define KW_MORE "-more-"
 #define KW_CREATURE "creatures"
@@ -502,6 +504,8 @@
 #define KW_AUTOSAVE "Autosave"
 #define KW_VARIABLE_SIZE "VariableSize"
 #define KW_ENEMY "the enemy"
+#define KW_LAST_WORD "Last word"
+#define KW_LAST_POET "Last word"
 #endif
 
 #ifdef JP

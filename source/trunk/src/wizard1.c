@@ -917,8 +917,6 @@ static void spoil_species_desc(cptr fname)
 	for (i = 1; i < max_species_idx; i++)
 	{
 		species_type *species_ptr = &species_info[i];
-
-		/* Use that creature */
 		if(species_ptr->name) who[n++] = i;
 	}
 
@@ -929,9 +927,7 @@ static void spoil_species_desc(cptr fname)
 	for (i = 0; i < n; i++)
 	{
 		species_type *species_ptr = &species_info[who[i]];
-
 		cptr name = (species_name + species_ptr->name);
-
 		sprintf(id, "%5d ", who[i]);
 
 		//TODOif(is_shadow_species(species_ptr)) continue;
