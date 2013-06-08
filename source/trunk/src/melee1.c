@@ -214,7 +214,7 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 /*
  * Do attack, creature to creature.
  */
-static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr, object_type *weapon_ptr, int mode)
+static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr, object_type *weapon_ptr, POWER *initiative, int mode)
 {
 	POWER k;
 	int i;
@@ -244,6 +244,10 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	bool is_lowlevel = (target_ptr->lev < (attacker_ptr->lev - 7));
 	bool zantetsu_mukou = FALSE;
 	bool e_j_mukou = FALSE;
+
+
+	/* cost initiative */
+	initiative -= diceroll(2,5);
 
 	switch (attacker_ptr->class_idx)
 	{
@@ -1256,7 +1260,10 @@ static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_
 
 static POWER set_initiative(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	return 10;
+	POWER num = adj_dex_initiative[attacker_ptr->stat_ind[STAT_DEX]];
+	if(!has_trait(target_ptr, TRAIT_SLEPT)) num -= adj_dex_initiative[target_ptr->stat_ind[STAT_DEX]];
+	if(num < 0) num = 1;
+	return num;
 }
 
 static object_type* select_weapon(creature_type *attacker_ptr, creature_type *target_ptr)
@@ -1324,12 +1331,13 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	if(kawarimi(target_ptr, TRUE)) return FALSE; // Ceased by Kawarimi
 
 	initiative = set_initiative(attacker_ptr, target_ptr);
+
 	while(successing_attack)
 	{
-	weapon_ptr = select_weapon(attacker_ptr, target_ptr);
-	if(weapon_ptr) do_one_attack(attacker_ptr, target_ptr, weapon_ptr, mode);
-	initiative -= diceroll(2,5);
-	if(initiative < 0) successing_attack = FALSE;
+		weapon_ptr = select_weapon(attacker_ptr, target_ptr);
+		if(weapon_ptr) do_one_attack(attacker_ptr, target_ptr, weapon_ptr, &initiative, mode);
+		else successing_attack = FALSE;
+		if(initiative < 0) successing_attack = FALSE;
 	}
 
 	if(IS_DEAD(target_ptr)) return TRUE;

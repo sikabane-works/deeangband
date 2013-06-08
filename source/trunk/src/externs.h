@@ -57,6 +57,7 @@ extern byte adj_mag_study[STAT_TABLE_SIZE];
 extern byte adj_mag_mana[STAT_TABLE_SIZE];
 extern byte adj_mag_fail[STAT_TABLE_SIZE];
 extern byte adj_mag_stat[STAT_TABLE_SIZE];
+extern POWER adj_dex_initiative[STAT_TABLE_SIZE];
 extern byte adj_chr_gold[STAT_TABLE_SIZE];
 extern byte adj_int_dev[STAT_TABLE_SIZE];
 extern int adj_sav[STAT_TABLE_SIZE];
