@@ -619,43 +619,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		}
 		break;
 
-	case SPECIES_DAWN:
-		/*
-		* Mega^3-hack: killing a 'Warrior of the Dawn' is likely to
-		* spawn another in the fallen one's place!
-		*/
-		if(!floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode)
-		{
-			if(!one_in_(7))
-			{
-				COODINATES wy = y, wx = x;
-				int attempts = 100;
-				bool pet = is_pet(player_ptr, dead_ptr);
-
-				do scatter(floor_ptr, &wy, &wx, y, x, 20, 0);
-				while (!(IN_BOUNDS(floor_ptr, wy, wx) && cave_empty_bold2(floor_ptr, wy, wx)) && --attempts);
-
-				if(attempts > 0)
-				{
-					FLAGS_32 mode = 0L;
-					if(pet) mode |= PC_FORCE_PET;
-
-					/*TODO
-					if(summoning((pet ? -1 : m_idx), wy, wx, 100, TRAIT_S_DAWN, mode))
-					{
-					if(creature_can_see_bold(dead_ptr, wy, wx))
-					#ifdef JP
-					msg_print("新たな戦士が現れた！");
-					#else
-					msg_print("A new warrior steps forth!");
-					#endif
-
-					}
-					*/
-				}
-			}
-		}
-		break;
 
 	case SPECIES_UNMAKER:
 		/* One more ultra-hack: An Unmaker goes out with a big bang! */
@@ -702,6 +665,38 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			*/
 		break;
 
+	}
+
+	if(has_trait(dead_ptr, TRAIT_INSTANT_RESPAWN) && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode)
+	{
+		if(!one_in_(7))
+		{
+			COODINATES wy = y, wx = x;
+			int attempts = 100;
+			bool pet = is_pet(player_ptr, dead_ptr);
+
+			do scatter(floor_ptr, &wy, &wx, y, x, 20, 0);
+			while (!(IN_BOUNDS(floor_ptr, wy, wx) && cave_empty_bold2(floor_ptr, wy, wx)) && --attempts);
+
+			if(attempts > 0)
+			{
+				FLAGS_32 mode = 0L;
+				if(pet) mode |= PC_FORCE_PET;
+
+				/*TODO
+				if(summoning((pet ? -1 : m_idx), wy, wx, 100, TRAIT_S_DAWN, mode))
+				{
+				if(creature_can_see_bold(dead_ptr, wy, wx))
+				#ifdef JP
+				msg_print("新たな戦士が現れた！");
+				#else
+				msg_print("A new warrior steps forth!");
+				#endif
+
+				}
+				*/
+			}
+		}
 	}
 
 	// Mega-Hack -- drop fixed items
