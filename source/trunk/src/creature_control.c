@@ -4094,29 +4094,9 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, F
 			return TRUE;
 		}
 	}
-	else
-	{
-		/* Attempt to place the creature, allow groups */
-		if(place_floor_spawn_creature(NULL, floor_ptr, y, x, (mode | PC_ALLOW_GROUP))) return TRUE;
-
-	}
-
+	else if(place_floor_spawn_creature(NULL, floor_ptr, y, x, (mode | PC_ALLOW_GROUP))) return TRUE;
 	return FALSE;
 }
-
-// Hack -- help decide if a creature race is "okay" to summon
-static bool summoning_okay(creature_type *summoner_ptr, SPECIES_ID species_idx)
-{
-	if(!species_hook_dungeon(species_idx)) return FALSE; // Hack - Only summon dungeon creatures
-
-	if(summoner_ptr > 0)
-	{
-	//	if(creature_has_hostile_align(m_ptr, summoner_ptr)) return FALSE; // Friendly vs. opposite aligned normal or pet
-	}
-
-	return TRUE;
-}
-
 
 /*
 * Place a creature (of the specified "type") near the given
@@ -4193,12 +4173,9 @@ bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, C
 bool multiply_creature(creature_type *creature_ptr, bool clone, FLAGS_32 mode)
 {
 	floor_type *floor_ptr = &floor_list[creature_ptr->floor_idx];
-
 	COODINATES y, x;
 
-	if(!creature_scatter(creature_ptr->species_idx, &y, &x, floor_ptr, creature_ptr->fy, creature_ptr->fx, 1))
-		return FALSE;
-
+	if(!creature_scatter(creature_ptr->species_idx, &y, &x, floor_ptr, creature_ptr->fy, creature_ptr->fx, 1)) return FALSE;
 	if(has_trait(creature_ptr, TRAIT_NO_PET)) mode |= PC_NO_PET;
 
 	// Create a new creature (awake, no groups)
@@ -4705,13 +4682,10 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 	{
 		disturb(player_ptr, 0, 0);
 
-		/* Hidden trap */
-		if(c_ptr->mimic || have_flag(f_ptr->flags, FF_SECRET))
+		if(c_ptr->mimic || have_flag(f_ptr->flags, FF_SECRET)) /* Hidden trap */
 		{
 			msg_print(MES_TRAP_FOUND);
-
-			/* Pick a trap */
-			disclose_grid(prev_floor_ptr, creature_ptr->fy, creature_ptr->fx);
+			disclose_grid(prev_floor_ptr, creature_ptr->fy, creature_ptr->fx); /* Pick a trap */
 		}
 
 		/* Hit the trap */
