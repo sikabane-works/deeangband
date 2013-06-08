@@ -447,19 +447,19 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		//TODO k += attacker_ptr->to_damage[hand];
 		//TODO drain_result += attacker_ptr->to_damage[hand];
 
-		if(has_trait_object(weapon_ptr, TRAIT_SUPERHURT) && saving_throw(target_ptr, SAVING_AC, k, 0) || one_in_(13) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
+		if(has_trait_object(weapon_ptr, TRAIT_SUPERHURT) && saving_throw(target_ptr, SAVING_AC, k, 0) || one_in_(13) && !M_SHADOW(target_ptr))
 		{
 			msg_print(MES_MELEE_CRITICAL);
 			k *= 2;
 		}
 
 		/* Apply disenchantment */
-		if(has_trait_object(weapon_ptr, TRAIT_UN_BONUS) && !has_trait(target_ptr, TRAIT_RES_DISE) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
+		if(has_trait_object(weapon_ptr, TRAIT_UN_BONUS) && !has_trait(target_ptr, TRAIT_RES_DISE) && !M_SHADOW(target_ptr))
 		{
 			if(apply_disenchant(target_ptr, 0)) update_creature(target_ptr, TRUE); /* Hack -- Update AC */
 		}
 
-		if(has_trait_object(weapon_ptr, TRAIT_UN_BONUS) && (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && !(game_turn & 1)))
+		if(has_trait_object(weapon_ptr, TRAIT_UN_BONUS) && !M_SHADOW(target_ptr))
 		{
 			int i, k;
 			object_type *object_ptr;
@@ -493,7 +493,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 		}
 
-		if(has_trait_object(weapon_ptr, TRAIT_EAT_GOLD) && !has_trait(attacker_ptr, TRAIT_CONFUSED) && (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && !(game_turn & 1)))
+		if(has_trait_object(weapon_ptr, TRAIT_EAT_GOLD) && !has_trait(attacker_ptr, TRAIT_CONFUSED) && !M_SHADOW(target_ptr))
 		{
 			/* Saving throw (unless paralyzed) based on dex and level */
 			if(!has_trait(target_ptr, TRAIT_PARALYZED) && (randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] + target_ptr->lev)))
@@ -555,13 +555,11 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(has_trait_object(weapon_ptr, TRAIT_EAT_ITEM) && !has_trait(attacker_ptr, TRAIT_CONFUSED))
 		{
 			/* Confused creatures cannot steal successfully. -LM-*/
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
+			if(!M_SHADOW(target_ptr))
 			{
 
 			/* Saving throw (unless paralyzed) based on dex and level */
-			if(!has_trait(target_ptr, TRAIT_PARALYZED) &&
-				(randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] +
-				target_ptr->lev)))
+			if(!has_trait(target_ptr, TRAIT_PARALYZED) && (randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] + target_ptr->lev)))
 			{
 				/* Saving throw message */
 #ifdef JP

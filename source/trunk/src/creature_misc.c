@@ -888,8 +888,8 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, POWER da
 	
 	if(has_trait(target_ptr, TRAIT_MULTI_SHADOW))
 	{
-		if(!!average && (game_turn & 1)) t = 0;
-		else t /= 2;
+		if(average) t /= 2;
+		else if(M_SHADOW(target_ptr)) t = 0;
 	}
 
 	if(message)

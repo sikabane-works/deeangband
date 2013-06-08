@@ -1406,7 +1406,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			else return 0;
 		}
 
-		if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (game_turn & 1)))
+		if(M_SHADOW(target_ptr))
 		{
 			if(damage_type == DAMAGE_FORCE) msg_print(MES_DAMAGE_MULTI_SHADOW_FAILED);
 			else if(damage_type == DAMAGE_ATTACK)
