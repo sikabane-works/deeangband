@@ -239,7 +239,6 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 	bool create_stairs = FALSE;
 	bool reward = FALSE;
-	bool sad = FALSE;
 
 	object_type forge;
 	object_type *quest_ptr;
@@ -477,6 +476,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	int dump_item = 0;
 	int dump_gold = 0;
 	int number = 0;
+	bool sad = FALSE;
 
 	FLAGS_32 mo_mode = 0L;
 
@@ -487,14 +487,8 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	object_type forge;
 	object_type *quest_ptr;
 
-	bool drop_chosen_item = drop_item && !cloned && !floor_ptr->fight_arena_mode
-		&& !floor_ptr->gamble_arena_mode && !is_pet(player_ptr, dead_ptr);
-
-	/* The caster is dead? */
-	if(the_world && &creature_list[the_world] == dead_ptr) the_world = 0;
-
-	/* Notice changes in view */
-	if(is_lighting_creature(dead_ptr) || is_darken_creature(dead_ptr)) prepare_update(dead_ptr, PU_SPECIES_LITE);
+	bool drop_chosen_item = drop_item && !cloned && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode && !is_pet(player_ptr, dead_ptr);
+	if(is_lighting_creature(dead_ptr) || is_darken_creature(dead_ptr)) prepare_update(dead_ptr, PU_SPECIES_LITE); /* Notice changes in view */
 
 	y = dead_ptr->fy;
 	x = dead_ptr->fx;
@@ -507,8 +501,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			if((kubi_species_idx[i] == dead_ptr->species_idx) && !(dead_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
 				msg_format(MES_BOUNTY_DEAD, dead_name);
 
-	if(record_named_pet && is_pet(player_ptr, dead_ptr) && dead_ptr->nickname)
-		write_diary(DIARY_NAMED_PET, 3, dead_name);
+	if(record_named_pet && is_pet(player_ptr, dead_ptr) && dead_ptr->nickname) write_diary(DIARY_NAMED_PET, 3, dead_name);
 
 	if(has_trait(dead_ptr, TRAIT_SUICIDE_BOMBER))
 	{
@@ -569,8 +562,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	//	if(do_thrown_from_riding(slayer_ptr, -1, FALSE)) msg_print(MES_FALL_RIDING);
 
 	/* Drop a dead corpse? */
-	if(one_in_(has_trait(dead_ptr, TRAIT_UNIQUE) ? 1 : 4) &&
-		(has_trait(dead_ptr, TRAIT_DROP_CORPSE) || has_trait(dead_ptr, TRAIT_DROP_SKELETON)) &&
+	if(one_in_(has_trait(dead_ptr, TRAIT_UNIQUE) ? 1 : 4) && (has_trait(dead_ptr, TRAIT_DROP_CORPSE) || has_trait(dead_ptr, TRAIT_DROP_SKELETON)) &&
 		!(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || cloned || ((dead_ptr->species_idx == today_mon) && is_pet(player_ptr, dead_ptr))))
 	{
 		/* Assume skeleton */
@@ -580,10 +572,8 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		* We cannot drop a skeleton? Note, if we are in this check,
 		* we *know* we can drop at least a corpse or a skeleton
 		*/
-		if(!has_trait(dead_ptr, TRAIT_DROP_SKELETON))
-			corpse = TRUE;
-		else if(has_trait(dead_ptr, TRAIT_DROP_CORPSE) && has_trait(dead_ptr, TRAIT_UNIQUE))
-			corpse = TRUE;
+		if(!has_trait(dead_ptr, TRAIT_DROP_SKELETON)) corpse = TRUE;
+		else if(has_trait(dead_ptr, TRAIT_DROP_CORPSE) && has_trait(dead_ptr, TRAIT_UNIQUE)) corpse = TRUE;
 
 		/* Else, a corpse is more likely unless we did a "lot" of damage */
 		else if(has_trait(dead_ptr, TRAIT_DROP_CORPSE))
@@ -615,7 +605,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			{
 				bool pet = is_pet(player_ptr, dead_ptr);
 				FLAGS_32 mode = 0L;
-
 				if(pet) mode |= PC_FORCE_PET;
 
 				/*TODO
@@ -626,13 +615,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 				}
 				*/
 			}
-
-			if(notice)
-#ifdef JP
-				msg_print("ピンク・ホラーは分裂した！");
-#else
-				msg_print("The Pink horror divides!");
-#endif
+			if(notice) msg_format(MES_TRAIT_DIVIDE(dead_ptr));
 		}
 		break;
 
@@ -756,11 +739,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 				apply_magic(dead_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);	// Drop it in the dungeon
 			}
-#ifdef JP
-			msg_format("あなたは%sを制覇した！", dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
-#else
-			msg_format("You have conquered %s!", dungeon_name + dungeon_info[floor_ptr->dungeon_id].name);
-#endif
+			msg_format(MES_DUNGEON_QUESTED(&dungeon_info[floor_ptr->dungeon_id]));
 		}
 	}
 

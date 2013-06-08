@@ -2185,8 +2185,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 #ifdef JP
 #define MES_DUNGEON_INFO(NAME, LEVEL) "%s(%dŠK‘Š“–)", (NAME), (LEVEL)
+#define MES_DUNGEON_QUESTED(DUNGEON) "‚ ‚È‚½‚Í%s‚ð§”e‚µ‚½I", dungeon_name + (DUNGEON)->name
 #else
 #define MES_DUNGEON_INFO(NAME, LEVEL) "%s(level %d)", (NAME), (LEVEL)
+#define MES_DUNGEON_QUESTED(DUNGEON) "You have conquered %s!", dungeon_name + (DUNGEON)->name
 #endif
 
 #ifdef JP
@@ -3817,6 +3819,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_PASSIVE_TELEPORT_ADVICE(OBJECT) "%s‚É{.}(ƒsƒŠƒIƒh)‚Æ–Á‚ð‚Þ‚Æ”­“®‚ð—}§‚Å‚«‚Ü‚·B", (OBJECT)->name
 #define MES_TRAIT_DRAIN_HP_DONE(OBJECT) "%s‚Í‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I", (OBJECT)->name
 #define MES_TRAIT_DRAIN_MP_DONE(OBJECT) "%s‚Í‚ ‚È‚½‚Ì–‚—Í‚ð‹zŽû‚µ‚½I", (OBJECT)->name
+#define MES_TRAIT_DIVIDE(CREATURE) "%s‚Í•ª—ô‚µ‚½I", (CREATURE)->name
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3919,6 +3922,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_PASSIVE_TELEPORT_ADVICE(OBJECT) "You can inscribe {.} on your %s to disable random teleportation. ", (OBJECT)->name
 #define MES_TRAIT_DRAIN_HP_DONE(OBJECT) "Your %s drains HP from you!", (OBJECT)->name
 #define MES_TRAIT_DRAIN_MP_DONE(OBJECT) "Your %s drains mana from you!", (OBJECT)->name
+#define MES_TRAIT_DIVIDE(CREATURE) "%s divides!", (CREATURE)->name
 #endif
 
 #ifdef JP
