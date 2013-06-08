@@ -1254,6 +1254,14 @@ static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_
 	return FALSE;
 }
 
+object_type* select_weapon(creature_type *attacker_ptr)
+{
+	if(is_valid_object(&attacker_ptr->organ_object[INVENTORY_ID_HAND]))
+	{
+		return &attacker_ptr->organ_object[INVENTORY_ID_HAND];
+	}
+	else return NULL;
+}
 
 bool is_melee_limitation_field(floor_type *floor_ptr)
 {
@@ -1273,6 +1281,7 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	creature_type *target_ptr;
+	object_type *weapon_ptr;
 	char attacker_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
 
@@ -1307,11 +1316,9 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	if(cease_by_counter(attacker_ptr, target_ptr)) return FALSE; // Ceased by Iai Counter
 	if(kawarimi(target_ptr, TRUE)) return FALSE; // Ceased by Kawarimi
 
-	//TODO gain_skill(attacker, SKILL_RIDING, amount);
-	if(is_valid_object(&attacker_ptr->organ_object[INVENTORY_ID_HAND]))
-	{
-		do_one_attack(attacker_ptr, target_ptr, &attacker_ptr->organ_object[INVENTORY_ID_HAND], mode);
-	}
+	weapon_ptr = select_weapon(attacker_ptr);
+	if(weapon_ptr) do_one_attack(attacker_ptr, target_ptr, weapon_ptr, mode);
+
 	if(IS_DEAD(target_ptr)) return TRUE;
 
 	/* Blink away */

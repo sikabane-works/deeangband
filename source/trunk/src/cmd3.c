@@ -237,7 +237,6 @@ void do_cmd_wield(creature_type *creature_ptr)
 
 	cost_tactical_energy(creature_ptr, 100);          // Take a turn
 	creature_equipping(creature_ptr, item, slot, n);
-
 	object_desc(object_name, object_ptr, 0); /* Describe the result */
 	msg_format(MES_EQUIP_DONE(object_name, index_to_label(slot))); // Message
 
