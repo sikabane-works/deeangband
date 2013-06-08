@@ -1360,31 +1360,3 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	if(has_trait(target_ptr, TRAIT_POSTURE_IAI)) set_action(target_ptr, ACTION_NONE);
 	return dead;
 }
-
-static void tramping_attack(creature_type *attacker_ptr, creature_type *target_ptr)
-{
-	char attacker_name[100], target_name[100];
-
-	int prob = 0; //TODO 100 * attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] / WEAPON_EXP_MASTER;
-	if(has_trait(target_ptr, TRAIT_CAN_FLY)) prob /= 4;
-	if(attacker_ptr->size - target_ptr->size < 10) prob /= 2;
-	if(attacker_ptr->size - target_ptr->size < 5) prob /= 2;
-	if(attacker_ptr->size - target_ptr->size < 3) prob /= 2;
-	if(attacker_ptr->size - target_ptr->size < 1) prob /= 2;
-	if(100 * target_ptr->chp / target_ptr->mhp < 50) prob = prob * 3 / 2; 
-	if(100 * target_ptr->chp / target_ptr->mhp < 30) prob = prob * 3 / 2; 
-	if(100 * target_ptr->chp / target_ptr->mhp < 10) prob = prob * 3 / 2; 
-	if(prob > MAX_CHANCE) prob = MAX_CHANCE;
-
-	if(attacker_ptr->size > target_ptr->size && PERCENT(prob))
-	{
-		int k;
-#ifdef JP
-		msg_format("%s‚ÍŽc“‚É‚à%s‚ð“¥‚Ý‚Â‚¯‚½I", attacker_name, target_name);
-#else
-		msg_format("%s tranmpled %s cruelly!", attacker_name, target_name);
-#endif
-		k = diceroll(attacker_ptr->size - target_ptr->size, attacker_ptr->size - target_ptr->size);
-		take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
-	}
-}
