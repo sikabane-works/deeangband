@@ -1358,67 +1358,20 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	*/
 
 	if(has_trait(target_ptr, TRAIT_POSTURE_IAI)) set_action(target_ptr, ACTION_NONE);
-
 	return dead;
 }
 
-
-
-
 /*
-* Critical blow.  All hits that do 95% of total possible damage,
-* and which also do at least 20 damage, or, sometimes, N damage.
-* This is used only to determine "cuts" and "stuns".
-*/
-static int creature_critical(int dice, int sides, POWER dam)
-{
-	int max = 0;
-	int total = dice * sides;
-
-	/* Must do at least 95% of perfect */
-	if(dam < total * 19 / 20) return SUCCESS;
-
-	/* Weak blows rarely work */
-	if((dam < 20) && (randint0(100) >= dam)) return SUCCESS;
-
-	/* Perfect damage */
-	if((dam >= total) && (dam >= 40)) max++;
-
-	/* Super-charge */
-	if(dam >= 20)
-	{
-		while (PERCENT(2)) max++;
-	}
-
-	/* Critical damage */
-	if(dam > 45) return (6 + max);
-	if(dam > 33) return (5 + max);
-	if(dam > 25) return (4 + max);
-	if(dam > 18) return (3 + max);
-	if(dam > 11) return (2 + max);
-	return (1 + max);
-}
-
-
-
-
-
-/*
-* Determine if a creature attack against the player succeeds.
-* Always miss 5% of the time, Always hit 5% of the time.
-* Otherwise, match creature power against player armor.
-*/
+ * Determine if a creature attack against the player succeeds.
+ * Always miss 5% of the time, Always hit 5% of the time.
+ * Otherwise, match creature power against player armor.
+ */
 static int check_hit(creature_type *target_ptr, POWER power, int level, int stun)
 {
 	int i, k, ac;
-
-	/* Percentile dice */
-	k = randint0(100);
-
+	k = randint0(100); /* Percentile dice */
 	if(stun && one_in_(2)) return FALSE;
-
-	/* Hack -- Always miss or hit */
-	if(k < 10) return (k < 5);
+	if(k < 10) return (k < 5); /* Hack -- Always miss or hit */
 
 	/* Calculate the "attack quality" */
 	i = (power + (level * 3));
