@@ -266,7 +266,6 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	int  drain_left = MAX_VAMPIRIC_DRAIN;
 	u32b flgs[MAX_TRAITS_FLAG]; // A massive hack -- life-draining weapons
 	bool is_lowlevel = (target_ptr->lev < (attacker_ptr->lev - 7));
-	bool zantetsu_mukou = FALSE;
 	bool e_j_mukou = FALSE;
 
 	*initiative -= diceroll(2, 5); /* cost initiative */
@@ -285,8 +284,6 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	if(has_trait_from_timed(target_ptr, TRAIT_SLEPT)) (void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, FALSE);
 
 	// Extract attacker and target name (or "it")
-
-	zantetsu_mukou = (has_trait_object(weapon_ptr, TRAIT_ZANTETSU_EFFECT) && (target_ptr->d_char == 'j'));
 	e_j_mukou = (has_trait_object(weapon_ptr, TRAIT_HATE_SPIDER) && (target_ptr->d_char == 'S'));
 
 	// Attack once for each legal blow
@@ -340,8 +337,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			else can_drain = FALSE;
 		}
 
-		if((have_flag(weapon_ptr->trait_flags, TRAIT_VORPAL) || HEX_SPELLING(attacker_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
-			vorpal_cut = TRUE;
+		if((have_flag(weapon_ptr->trait_flags, TRAIT_VORPAL) || HEX_SPELLING(attacker_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance * 3 / 2) == 1)) vorpal_cut = TRUE;
 		else vorpal_cut = FALSE;
 
 		// Handle normal weapon
@@ -756,12 +752,6 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(k < 0) k = 0; // No negative damage
 		if((mode == HISSATSU_ZANMA) && !(!creature_living(target_ptr) && is_enemy_of_good_creature(target_ptr))) k = 0;
 
-		if(zantetsu_mukou)
-		{
-			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_print(MES_MELEE_ZANTETSU_JELLY);
-			k = 0;
-		}
-
 		if(e_j_mukou)
 		{
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_print(MES_MELEE_EX_JR_SPIDER);
@@ -1157,8 +1147,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 	char attacker_name[100];
 	creature_desc(attacker_name, attacker_ptr, 0);
 
-	if(IS_FEMALE(target_ptr) && has_trait(target_ptr, TRAIT_HUMANOID) &&
-		!(has_trait(attacker_ptr, TRAIT_STUN) || has_trait(attacker_ptr, TRAIT_CONFUSED) || has_trait(attacker_ptr, TRAIT_HALLUCINATION) || !target_ptr->see_others))
+	if(IS_FEMALE(target_ptr) && has_trait(target_ptr, TRAIT_HUMANOID) && !(has_trait(attacker_ptr, TRAIT_STUN) || !has_trait(attacker_ptr, TRAIT_CONFUSED) || !has_trait(attacker_ptr, TRAIT_HALLUCINATION) || !is_seen(attacker_ptr, target_ptr)))
 	{
 		n = get_equipped_slot_num(attacker_ptr, INVENTORY_ID_HAND);
 		for(i = 0; i < n; i++)
@@ -1170,6 +1159,13 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 			}
 		}
 	}
+
+	if(target_ptr->d_char == 'j')
+	{
+		if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_print(MES_MELEE_ZANTETSU_JELLY);
+		return TRUE;
+	}
+
 	return FALSE;
 }
 
@@ -1324,7 +1320,7 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 		return FALSE;
 	}
 
-	if(target_ptr->see_others)
+	if(is_seen(attacker_ptr, target_ptr))
 	{
 		if(!has_trait(attacker_ptr, TRAIT_HALLUCINATION)) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
 		health_track(c_ptr->creature_idx); // Track a new creature
