@@ -1272,6 +1272,7 @@ extern void change_race(creature_type *creature_ptr, int new_race, cptr effect_m
 extern void show_alignment(char *buf, creature_type *creature_ptr);
 extern void display_creature_dump(creature_type *creature_ptr);
 extern void get_exp_from_mon(creature_type *attacker_ptr, POWER dam, creature_type *m_ptr);
+extern void format_height(char *buf, WEIGHT height);
 extern void format_weight(char * buf, WEIGHT weight);
 extern void msg_warning(cptr message, ...);
 

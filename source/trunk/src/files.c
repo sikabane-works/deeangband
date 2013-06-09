@@ -3152,26 +3152,11 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		display_player_one_line(ENTRY_CHAOS, format("%3d" ,creature_ptr->chaos_rank), TERM_VIOLET);
 		display_player_one_line(ENTRY_BALANCE,format("%3d" ,creature_ptr->balance_rank), TERM_L_GREEN);
 
-		if     (creature_ptr->ht > 100000000)
-			sprintf(tmp, "%dkm", creature_ptr->ht / 100000);
-		else if(creature_ptr->ht > 10000000)
-			sprintf(tmp, "%d.%1dkm", creature_ptr->ht / 100000, (creature_ptr->ht % 100000) / 10000);
-		else if(creature_ptr->ht > 1000000)
-			sprintf(tmp, "%d.%2dkm", creature_ptr->ht / 100000, (creature_ptr->ht % 100000) / 1000);
-		else if(creature_ptr->ht > 100000)
-			sprintf(tmp, "%dm", creature_ptr->ht / 100);
-		else if(creature_ptr->ht > 10000)
-			sprintf(tmp, "%d.%1dm", creature_ptr->ht / 100, (creature_ptr->ht % 100) / 10);
-		else if(creature_ptr->ht > 1000)
-			sprintf(tmp, "%d.%2dm", creature_ptr->ht / 100, (creature_ptr->ht % 100));
-		else
-			sprintf(tmp, "%dcm", creature_ptr->ht);
-
+		format_height(tmp, creature_ptr->ht);
 		format_weight(tmp2, creature_ptr->wt);
 		display_player_one_line(ENTRY_SIZE, format("%d(%s/%s)", creature_ptr->size, tmp, tmp2), TERM_L_BLUE);
 
-		/* Display the stats */
-		for (i = 0; i < STAT_MAX; i++)
+		for (i = 0; i < STAT_MAX; i++) /* Display the stats */
 		{
 			if(!has_status(creature_ptr, i))
 			{

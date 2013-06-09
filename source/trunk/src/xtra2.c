@@ -3468,17 +3468,29 @@ void display_creature_dump(creature_type *creature_ptr)
 	screen_load();
 }
 
+void format_height(char *buf, WEIGHT height)
+{
+	if (height > 100000000) sprintf(buf, "%dkm", height / 100000);
+	else if(height > 10000000) sprintf(buf, "%d.%01dkm", height / 100000, (height % 100000) / 10000);
+	else if(height > 1000000) sprintf(buf, "%d.%02dkm", height / 100000, (height % 100000) / 1000);
+	else if(height > 100000) sprintf(buf, "%dm", height / 100);
+	else if(height > 10000) sprintf(buf, "%d.%01dm", height / 100, (height % 100) / 10);
+	else if(height > 1000) sprintf(buf, "%d.%02dm", height / 100, (height % 100));
+	else sprintf(buf, "%dcm", height);
+	return;
+}
+
 void format_weight(char *buf, WEIGHT weight)
 {
 	if (weight > 10000000000000) sprintf(buf, "%dMt", weight / 1000000000000);
-	else if(weight > 1000000000000) sprintf(buf, "%d.%1dMt", weight / 1000000000, (weight % 1000000000) / 100000000);
-	else if(weight > 100000000000) sprintf(buf, "%d.%2dMt", weight / 1000000000, (weight % 1000000000) / 10000000);
+	else if(weight > 1000000000000) sprintf(buf, "%d.%01dMt", weight / 1000000000, (weight % 1000000000) / 100000000);
+	else if(weight > 100000000000) sprintf(buf, "%d.%02dMt", weight / 1000000000, (weight % 1000000000) / 10000000);
 	else if(weight > 10000000000) sprintf(buf, "%dMt", weight / 1000000000);
-	else if(weight > 100000000) sprintf(buf, "%d.%1dkt", weight / 1000000, (weight % 1000000) / 100000);
-	else if(weight > 10000000) sprintf(buf, "%d.%2dkt", weight / 1000000, (weight % 1000000) / 10000);
+	else if(weight > 100000000) sprintf(buf, "%d.%01dkt", weight / 1000000, (weight % 1000000) / 100000);
+	else if(weight > 10000000) sprintf(buf, "%d.%02dkt", weight / 1000000, (weight % 1000000) / 10000);
 	else if(weight > 1000000) sprintf(buf, "%dt", weight / 1000);
-	else if(weight > 10000) sprintf(buf, "%d.%1dt", weight / 1000, (weight % 1000) / 100);
-	else if(weight > 1000) sprintf(buf, "%d.%2dt", weight / 1000, (weight % 1000) / 10);
+	else if(weight > 10000) sprintf(buf, "%d.%01dt", weight / 1000, (weight % 1000) / 100);
+	else if(weight > 1000) sprintf(buf, "%d.%02dt", weight / 1000, (weight % 1000) / 10);
 	else sprintf(buf, "%dkg", weight);
 	return;
 }
