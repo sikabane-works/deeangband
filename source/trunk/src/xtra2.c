@@ -3415,26 +3415,14 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 		if(!dir) bell(); // Error
 	}
 
-	/* No direction */
-	if(!dir) return FALSE;
+	if(!dir) return FALSE; /* No direction */
+	command_dir = (s16b)dir; /* Save the direction */
 
-	/* Save the direction */
-	command_dir = (s16b)dir;
-
-	/* Check for confusion */
-	if(has_trait(creature_ptr, TRAIT_CONFUSED))
-	{
-		/* Random direction */
-		dir = ddd[randint0(8)];
-	}
+	if(has_trait(creature_ptr, TRAIT_CONFUSED)) dir = ddd[randint0(8)]; /* Random direction */
 
 	if(command_dir != dir) msg_format(MES_IS_CONFUSED, creature_name); // Notice confusion and warn user.
-
-	/* Save direction */
-	(*dp) = dir;
-
-	/* A "valid" direction was entered */
-	return TRUE;
+	(*dp) = dir; /* Save direction */
+	return TRUE; /* A "valid" direction was entered */
 }
 
 // Return alignment title
@@ -3454,9 +3442,7 @@ void display_creature_dump(creature_type *creature_ptr)
 {
 	char c;
 	int m = 0;
-
 	screen_save();	// Save the screen
-
 
 	while(TRUE)	// Forever
 	{
@@ -3482,9 +3468,18 @@ void display_creature_dump(creature_type *creature_ptr)
 	screen_load();
 }
 
-void format_weight(char *buf, int weight)
+void format_weight(char *buf, WEIGHT weight)
 {
-	sprintf(buf, "%d.%dkg", weight / 10, weight % 10);
+	if (weight > 10000000000000) sprintf(buf, "%dMt", weight / 1000000000000);
+	else if(weight > 1000000000000) sprintf(buf, "%d.%1dMt", weight / 1000000000, (weight % 1000000000) / 100000000);
+	else if(weight > 100000000000) sprintf(buf, "%d.%2dMt", weight / 1000000000, (weight % 1000000000) / 10000000);
+	else if(weight > 10000000000) sprintf(buf, "%dMt", weight / 1000000000);
+	else if(weight > 100000000) sprintf(buf, "%d.%1dkt", weight / 1000000, (weight % 1000000) / 100000);
+	else if(weight > 10000000) sprintf(buf, "%d.%2dkt", weight / 1000000, (weight % 1000000) / 10000);
+	else if(weight > 1000000) sprintf(buf, "%dt", weight / 1000);
+	else if(weight > 10000) sprintf(buf, "%d.%1dt", weight / 1000, (weight % 1000) / 100);
+	else if(weight > 1000) sprintf(buf, "%d.%2dt", weight / 1000, (weight % 1000) / 10);
+	else sprintf(buf, "%dkg", weight);
 	return;
 }
 

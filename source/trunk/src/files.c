@@ -3167,27 +3167,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		else
 			sprintf(tmp, "%dcm", creature_ptr->ht);
 
-		if     (creature_ptr->wt > 10000000000000)
-			sprintf(tmp2, "%dMt", creature_ptr->wt / 1000000000000);
-		else if(creature_ptr->wt > 1000000000000)
-			sprintf(tmp2, "%d.%1dMt", creature_ptr->wt / 1000000000, (creature_ptr->wt % 1000000000) / 100000000);
-		else if(creature_ptr->wt > 100000000000)
-			sprintf(tmp2, "%d.%2dMt", creature_ptr->wt / 1000000000, (creature_ptr->wt % 1000000000) / 10000000);
-		else if(creature_ptr->wt > 10000000000)
-			sprintf(tmp2, "%dMt", creature_ptr->wt / 1000000000);
-		else if(creature_ptr->wt > 100000000)
-			sprintf(tmp2, "%d.%1dkt", creature_ptr->wt / 1000000, (creature_ptr->wt % 1000000) / 100000);
-		else if(creature_ptr->wt > 10000000)
-			sprintf(tmp2, "%d.%2dkt", creature_ptr->wt / 1000000, (creature_ptr->wt % 1000000) / 10000);
-		else if(creature_ptr->wt > 1000000)
-			sprintf(tmp2, "%dt", creature_ptr->wt / 1000);
-		else if(creature_ptr->wt > 10000)
-			sprintf(tmp2, "%d.%1dt", creature_ptr->wt / 1000, (creature_ptr->wt % 1000) / 100);
-		else if(creature_ptr->wt > 1000)
-			sprintf(tmp2, "%d.%2dt", creature_ptr->wt / 1000, (creature_ptr->wt % 1000) / 10);
-		else
-			sprintf(tmp2, "%dkg", creature_ptr->wt);
-
+		format_weight(tmp2, creature_ptr->wt);
 		display_player_one_line(ENTRY_SIZE, format("%d(%s/%s)", creature_ptr->size, tmp, tmp2), TERM_L_BLUE);
 
 		/* Display the stats */
