@@ -1016,14 +1016,10 @@ static void spoil_species_desc(cptr fname)
 		}
 
 		//TODOif(is_variable_race_species(species_ptr) | is_variable_size_species(species_ptr)) sprintf(ht, "----");
-		if(tmpht < 1000) sprintf(ht, "%dcm", tmpht);
-		else if(tmpht < 1000000) sprintf(ht, "%dm ", tmpht / 100);
-		else sprintf(ht, "%dkm", tmpht / 100000);
+		format_height(ht, tmpht);
 
 		//TODOif(is_variable_race_species(species_ptr) | is_variable_size_species(species_ptr)) sprintf(wt, "----");
-		if(tmpwt < 10000) sprintf(wt, "%dkg", tmpwt);
-		else if(tmpwt < 10000000) sprintf(wt, "%dt ", tmpwt / 1000);
-		else sprintf(wt, "%dKt", tmpwt / 1000000);
+		format_weight(wt, tmpwt);
 
 		tmpsize = calc_bodysize(tmpht, tmpwt);
 
