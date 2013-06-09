@@ -928,20 +928,16 @@ bool change_panel(COODINATES dy, COODINATES dx)
 
 		return TRUE;
 	}
-
-	/* No change */
-	return FALSE;
+	return FALSE; /* No change */
 }
 
 
 /*
-* Given an row (y) and col (x), this routine detects when a move
-* off the screen has occurred and figures new borders. -RAK-
-*
-* "Update" forces a "full update" to take place.
-*
-* The map is reprinted if necessary, and "TRUE" is returned.
-*/
+ * Given an row (y) and col (x), this routine detects when a move
+ * off the screen has occurred and figures new borders. -RAK-
+ * "Update" forces a "full update" to take place.
+ * The map is reprinted if necessary, and "TRUE" is returned.
+ */
 void verify_panel(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -1044,16 +1040,12 @@ cptr look_creature_desc(creature_type *m_ptr, FLAGS_32 mode)
 	else if(is_friendly(player_ptr, m_ptr)) attitude = KW_FRIEND;
 	else attitude = "";
 
-	if(has_trait(m_ptr, TRAIT_CLONED))
-		clone = KW_CLONE;
-	else
-		clone = "";
+	if(has_trait(m_ptr, TRAIT_CLONED)) clone = KW_CLONE;
+	else clone = "";
 
 	/* Display creature's level --- idea borrowed from ToME */
-	if(ap_r_ptr->killed_total && !has_trait(m_ptr, TRAIT_KAGE))
-		return format("Lv%d, %s%s%s", ap_r_ptr->level, desc, attitude, clone);
-	else 
-		return format("Lv???, %s%s%s", desc, attitude, clone);
+	if(ap_r_ptr->killed_total && !has_trait(m_ptr, TRAIT_KAGE)) return format("Lv%d, %s%s%s", ap_r_ptr->level, desc, attitude, clone);
+	else return format("Lv???, %s%s%s", desc, attitude, clone);
 }
 
 
@@ -1072,14 +1064,9 @@ void ang_sort_aux(vptr u, vptr v, int p, int q,
 {
 	int z, a, b;
 
-	/* Done sort */
-	if(p >= q) return;
-
-	/* Pivot */
-	z = p;
-
-	/* Begin */
-	a = p;
+	if(p >= q) return; /* Done sort */
+	z = p; /* Pivot */
+	a = p; /* Begin */
 	b = q;
 
 	/* Partition */
@@ -3387,23 +3374,8 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 	while (!dir)
 	{
 		/* Choose a prompt */
-		if(!target_okay(creature_ptr))
-		{
-#ifdef JP
-			p = "方向 ('*'でターゲット選択, ESCで中断)? ";
-#else
-			p = "Direction ('*' to choose a target, Escape to cancel)? ";
-#endif
-		}
-		else
-		{
-#ifdef JP
-			p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
-#else
-			p = "Direction ('5' for target, '*' to re-target, Escape to cancel)? ";
-#endif
-
-		}
+		if(!target_okay(creature_ptr)) p = MES_INTERFACE_GETDIR_1;
+		else p = MES_INTERFACE_GETDIR_2;
 
 		/* Get a command (or Cancel) */
 		if(!get_com(p, &command, TRUE)) break;
