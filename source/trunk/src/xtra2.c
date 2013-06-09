@@ -682,19 +682,10 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			{
 				FLAGS_32 mode = 0L;
 				if(pet) mode |= PC_FORCE_PET;
-
-				/*TODO
-				if(summoning((pet ? -1 : m_idx), wy, wx, 100, TRAIT_S_DAWN, mode))
-				{
-				if(creature_can_see_bold(dead_ptr, wy, wx))
-				#ifdef JP
-				msg_print("êVÇΩÇ»êÌémÇ™åªÇÍÇΩÅI");
-				#else
-				msg_print("A new warrior steps forth!");
-				#endif
-
-				}
-				*/
+				//TODO if(summoning(NULL, wy, wx, 100, TRAIT_S_DAWN, mode))
+				//{
+				//	if(creature_can_see_bold(dead_ptr, wy, wx)) msg_print(MES_TRAIT_INSTANT_RESPAWN_DONE);
+				//}
 			}
 		}
 	}
