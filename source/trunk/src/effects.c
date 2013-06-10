@@ -1934,12 +1934,7 @@ bool choose_ele_attack(creature_type *creature_ptr)
 	prt("", 8, 14);
 	prt("", 9, 14);
 	prt("", 1, 0);
-#ifdef JP
-	prt("        どの元素攻撃をしますか？", 1, 14);
-#else
-	prt("        Choose a temporary elemental brand ", 1, 14);
-#endif
-
+	prt(MES_TRAIT_ELEM_BRAND_WHICH, 1, 14);
 	choice = inkey();
 
 	if((choice == 'a') || (choice == 'A')) 
@@ -1954,11 +1949,7 @@ bool choose_ele_attack(creature_type *creature_ptr)
 		set_timed_trait(creature_ptr, TRAIT_POIS_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
 	else
 	{
-#ifdef JP
-		msg_print("魔法剣を使うのをやめた。");
-#else
-		msg_print("You cancel the temporary branding.");
-#endif
+		msg_print(MES_TRAIT_ELEM_BRAND_CANCEL);
 		screen_load();
 		return FALSE;
 	}

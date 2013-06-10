@@ -2055,6 +2055,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DEBUG_DESTROYED_FLOOR "破壊された階"
 #define MES_DEBUG_FUNNY_PATTERN(FEATURE) "おかしなパターン歩行、%d。", (FEATURE)
 #define MES_DEBUG_FAILED_FLOOR "ダンジョン生成に失敗"
+#define MES_DEBUG_DISABLE_ITEM "アイテムを配置できません"
 #define MES_DEBUG_TOO_ITEM "アイテムが多過ぎる"
 #define MES_DEBUG_TOO_CREATURE "クリーチャーが多過ぎる"
 #define MES_DEBUG_FLOOR_RETAKE(WHY) "生成やり直し(%s)"
@@ -2088,6 +2089,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DEBUG_DESTROYED_FLOOR "Destroyed Floor"
 #define MES_DEBUG_FUNNY_PATTERN(FEATURE) "Funny Pattern walking, %d.", (FEATURE)
 #define MES_DEBUG_FAILED_FLOOR "could not place player"
+#define MES_DEBUG_DISABLE_ITEM "Could not place object."
 #define MES_DEBUG_TOO_ITEM "too many objects"
 #define MES_DEBUG_TOO_CREATURE "too many creatures"
 #define MES_DEBUG_FLOOR_RETAKE(WHY) "Generation restarted (%s)"
@@ -3837,6 +3839,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_INSTANT_RESPAWN_DONE "新たな戦士が現れた！"
 #define MES_TRAIT_IMMUNE_WHICH "どの元素の免疫をつけますか？"
 #define MES_TRAIT_IMMUNE_CANCEL "免疫を付けるのをやめた。"
+#define MES_TRAIT_ELEM_BRAND_WHICH "どの元素攻撃をしますか？"
+#define MES_TRAIT_ELEM_BRAND_CANCEL "魔法剣を使うのをやめた。"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3943,6 +3947,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_INSTANT_RESPAWN_DONE "A new warrior steps forth!"
 #define MES_TRAIT_IMMUNE_WHICH "Choose a temporary elemental immune "
 #define MES_TRAIT_IMMUNE_CANCEL "You cancel the temporary immune."
+#define MES_TRAIT_ELEM_BRAND_WHICH "Choose a temporary elemental brand "
+#define MES_TRAIT_ELEM_BRAND_CANCEL "You cancel the temporary branding."
 #endif
 
 #ifdef JP

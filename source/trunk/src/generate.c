@@ -239,27 +239,16 @@ static bool alloc_stairs(floor_type *floor_ptr, FEATURE_ID feat, int num, int wa
 					if(alloc_stairs_aux(floor_ptr, y, x, walls))
 					{
 						pick--;
-
-						/* Is this a picked one? */
-						if(!pick) break;
+						if(!pick) break; /* Is this a picked one? */
 					}
 				}
-
 				if(!pick) break;
 			}
 
-			/* Access the grid */
-			c_ptr = &floor_ptr->cave[y][x];
-
-			/* Clear possible garbage of hidden trap */
-			c_ptr->mimic = 0;
-
-			/* Clear previous contents, add stairs */
-			c_ptr->feat = (i < shaft_num) ? feat_state(floor_ptr, feat, FF_SHAFT) : feat;
-
-			/* No longer "FLOOR" */
-			c_ptr->info &= ~(CAVE_FLOOR);
-
+			c_ptr = &floor_ptr->cave[y][x]; /* Access the grid */
+			c_ptr->mimic = 0; /* Clear possible garbage of hidden trap */
+			c_ptr->feat = (i < shaft_num) ? feat_state(floor_ptr, feat, FF_SHAFT) : feat; /* Clear previous contents, add stairs */
+			c_ptr->info &= ~(CAVE_FLOOR); /* No longer "FLOOR" */
 			break;
 		}
 	}
@@ -286,7 +275,6 @@ static void alloc_object(floor_type *floor_ptr, creature_type *player_ptr, int s
 		while (dummy < SAFE_MAX_ATTEMPTS)
 		{
 			bool room;
-
 			dummy++;
 
 			y = (COODINATES)randint0(floor_ptr->height);
@@ -294,36 +282,17 @@ static void alloc_object(floor_type *floor_ptr, creature_type *player_ptr, int s
 
 			c_ptr = &floor_ptr->cave[y][x];
 
-			/* Require "naked" floor grid */
-			if(!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue;
-
-			/* Avoid player location */
-			if(CREATURE_BOLD(player_ptr, y, x)) continue;
-
-			/* Check for "room" */
-			room = (floor_ptr->cave[y][x].info & CAVE_ROOM) ? TRUE : FALSE;
-
-			/* Require corridor? */
-			if((set == ALLOC_SET_CORR) && room) continue;
-
-			/* Require room? */
-			if((set == ALLOC_SET_ROOM) && !room) continue;
-
-			/* Accept it */
-			break;
+			if(!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue; /* Require "naked" floor grid */
+			if(CREATURE_BOLD(player_ptr, y, x)) continue; /* Avoid player location */
+			room = (floor_ptr->cave[y][x].info & CAVE_ROOM) ? TRUE : FALSE; /* Check for "room" */
+			if((set == ALLOC_SET_CORR) && room) continue; /* Require corridor? */
+			if((set == ALLOC_SET_ROOM) && !room) continue; /* Require room? */
+			break; /* Accept it */
 		}
 
 		if(dummy >= SAFE_MAX_ATTEMPTS)
 		{
-			if(cheat_room)
-			{
-#ifdef JP
-				msg_warning("アイテムを配置できません");
-#else
-				msg_warning("Could not place object.);
-#endif
-
-			}
+			if(cheat_room) msg_warning(MES_DEBUG_DISABLE_ITEM);
 			return;
 		}
 
