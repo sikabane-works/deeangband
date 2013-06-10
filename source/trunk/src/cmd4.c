@@ -6181,16 +6181,9 @@ static void do_cmd_knowledge_dungeon()
 
 			if(!dungeon_info[i].maxdepth) continue;
 			if(!max_dlv[i]) continue;
-			if(dungeon_info[i].final_guardian)
-			{
-				if(!species_info[dungeon_info[i].final_guardian].max_num) seiha = TRUE;
-			}
+			if(dungeon_info[i].final_guardian) if(!species_info[dungeon_info[i].final_guardian].max_num) seiha = TRUE;
 			else if(max_dlv[i] == dungeon_info[i].maxdepth) seiha = TRUE;
-#ifdef JP
-			fprintf(fff,"%c%-12s :  %3d ŠK\n", seiha ? '!' : ' ', dungeon_name + dungeon_info[i].name, max_dlv[i]);
-#else
-			fprintf(fff,"%c%-16s :  level %3d\n", seiha ? '!' : ' ', dungeon_name + dungeon_info[i].name, max_dlv[i]);
-#endif
+			fprintf(fff, MES_DUNGEON_LIST(seiha ? '!' : ' ', dungeon_name + dungeon_info[i].name, max_dlv[i]));
 		}
 	}
 	

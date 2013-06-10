@@ -164,36 +164,25 @@ static bool alloc_stairs(floor_type *floor_ptr, FEATURE_ID feat, int num, int wa
 
 	if(have_flag(f_ptr->flags, FF_LESS))
 	{
-		/* No up stairs in town or in ironman mode */
-		if(ironman_downward || !floor_ptr->depth) return TRUE;
-
-		if(floor_ptr->depth > dungeon_info[floor_ptr->dungeon_id].mindepth)
-			shaft_num = (randint1(num+1))/2;
+		if(ironman_downward || !floor_ptr->depth) return TRUE; /* No up stairs in town or in ironman mode */
+		if(floor_ptr->depth > dungeon_info[floor_ptr->dungeon_id].mindepth) shaft_num = (randint1(num+1))/2;
 	}
 	else if(have_flag(f_ptr->flags, FF_MORE))
 	{
 		int q_idx = quest_number(floor_ptr);
-
-		/* No downstairs on quest levels */
-		if(floor_ptr->depth > 1 && q_idx)
+		if(floor_ptr->depth > 1 && q_idx) /* No downstairs on quest levels */
 		{
 			species_type *species_ptr = &species_info[quest[q_idx].species_idx];
 
 			/* The quest creature(s) is still alive? */
-			if(!(has_trait_species(species_ptr, TRAIT_UNIQUE)) || 0 < species_ptr->max_num)
-				return TRUE;
+			if(!(has_trait_species(species_ptr, TRAIT_UNIQUE)) || 0 < species_ptr->max_num) return TRUE;
 		}
 
-		/* No downstairs at the bottom */
-		if(floor_ptr->depth >= dungeon_info[floor_ptr->dungeon_id].maxdepth) return TRUE;
-
+		if(floor_ptr->depth >= dungeon_info[floor_ptr->dungeon_id].maxdepth) return TRUE; /* No downstairs at the bottom */
 		if((floor_ptr->depth < dungeon_info[floor_ptr->dungeon_id].maxdepth-1)) //TODO !quest_number(floor_ptr->depth+1))
 			shaft_num = (randint1(num)+1)/2;
 	}
-
-
 	else return FALSE;
-
 
 	/* Place "num" stairs */
 	for (i = 0; i < num; i++)
