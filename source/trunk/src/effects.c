@@ -628,15 +628,11 @@ bool set_food(creature_type *creature_ptr, int v)
 
 		if(floor_ptr->global_map && (new_aux < 2)) change_wild_mode(creature_ptr);
 
-		/* Change */
-		notice = TRUE;
+		notice = TRUE; /* Change */
 	}
 
-	/* Use the value */
-	creature_ptr->food = v;
-
-	/* Nothing to notice */
-	if(!notice) return FALSE;
+	creature_ptr->food = v; /* Use the value */
+	if(!notice) return FALSE; /* Nothing to notice */
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
 	prepare_update(creature_ptr, CRU_BONUS);
@@ -685,17 +681,17 @@ bool inc_stat(creature_type *creature_ptr, int stat)
 
 
 /*
-* Decreases a stat by an amount indended to vary from 0 to 100 percent.
-*
-* Amount could be a little higher in extreme cases to mangle very high
-* stats from massive assaults.  -CWS
-*
-* Note that "permanent" means that the *given* amount is permanent,
-* not that the new value becomes permanent.  This may not work exactly
-* as expected, due to "weirdness" in the algorithm, but in general,
-* if your stat is already drained, the "max" value will not drop all
-* the way down to the "cur" value.
-*/
+ * Decreases a stat by an amount indended to vary from 0 to 100 percent.
+ *
+ * Amount could be a little higher in extreme cases to mangle very high
+ * stats from massive assaults.  -CWS
+ *
+ * Note that "permanent" means that the *given* amount is permanent,
+ * not that the new value becomes permanent.  This may not work exactly
+ * as expected, due to "weirdness" in the algorithm, but in general,
+ * if your stat is already drained, the "max" value will not drop all
+ * the way down to the "cur" value.
+ */
 bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 {
 	int cur, max, loss, same, res = FALSE;
@@ -706,45 +702,23 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 
 	if(cur > 30)
 	{
-		if(cur <= 180)
-		{
-			if(amount > 90) cur -= 10;
-			if(amount > 50) cur -= 10;
-			if(amount > 20) cur -= 10;
-			cur -= 10;
-		}
-		else
-		{
-			loss = (((cur - 180) / 2 + 1) / 2 + 1);
-			if(loss < 1) loss = 1;
-			loss = ((randint1(loss) + loss) * amount) / 100;
-			if(loss < amount / 2) loss = amount / 2;
-			cur = cur - loss;
-			if(cur < 180) cur = (amount <= 20) ? 180 : 170;
-		}
-
+		loss = (((cur - 180) / 2 + 1) / 2 + 1);
+		if(loss < 1) loss = 1;
+		loss = ((randint1(loss) + loss) * amount) / 100;
+		if(loss < amount / 2) loss = amount / 2;
+		cur = cur - loss;
+		if(cur < 180) cur = (amount <= 20) ? 180 : 170;
 		if(cur < 30) cur = 30;
 		if(cur != creature_ptr->stat_cur[stat]) res = TRUE;
 	}
 
 	if(permanent && (max > 3))
 	{
-		if(max <= 180)
-		{
-			if(amount > 90) max -= 10;
-			if(amount > 50) max -= 10;
-			if(amount > 20) max -= 10;
-			max -= 10;
-		}
-
-		else
-		{
-			loss = (((max - 180) / 2 + 1) / 2 + 1);
-			loss = ((randint1(loss) + loss) * amount) / 100;
-			if(loss < amount / 2) loss = amount / 2;
-			max = max - loss;
-			if(max < 180) max = (amount <= 200) ? 180 : 170;
-		}
+		loss = (((max - 180) / 2 + 1) / 2 + 1);
+		loss = ((randint1(loss) + loss) * amount) / 100;
+		if(loss < amount / 2) loss = amount / 2;
+		max = max - loss;
+		if(max < 180) max = (amount <= 200) ? 180 : 170;
 
 		if(same || (max < cur)) max = cur;
 		if(max != creature_ptr->stat_max[stat]) res = TRUE;
@@ -754,7 +728,6 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 	{
 		creature_ptr->stat_cur[stat] = cur;
 		creature_ptr->stat_max[stat] = max;
-
 		if(is_player(creature_ptr)) prepare_redraw(PR_STATS);
 		prepare_update(creature_ptr, CRU_BONUS);
 	}
