@@ -1847,38 +1847,29 @@ void calc_android_exp(creature_type *creature_ptr)
 	}
 
 	creature_ptr->exp = creature_ptr->max_exp = total_exp;
-
-	/* Check Experience */
-	check_experience(creature_ptr);
+	check_experience(creature_ptr); /* Check Experience */
 }
 
 
 /*
-* Lose experience
-*/
+ * Lose experience
+ */
 void lose_exp(creature_type *creature_ptr, s32b amount)
 {
 	if(has_trait(creature_ptr, TRAIT_ANDROID)) return;
-
-	/* Never drop below zero experience */
-	if(amount > creature_ptr->exp) amount = creature_ptr->exp;
-
-	/* Lose some experience */
-	creature_ptr->exp -= amount;
-
-	/* Check Experience */
-	check_experience(creature_ptr);
+	if(amount > creature_ptr->exp) amount = creature_ptr->exp; /* Never drop below zero experience */
+	creature_ptr->exp -= amount; /* Lose some experience */
+	check_experience(creature_ptr); /* Check Experience */
 }
 
 
 /*
-* Drain experience
-* If resisted to draining, return FALSE
-*/
+ * Drain experience
+ * If resisted to draining, return FALSE
+ */
 bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life_prob)
 {
-	/* Androids and their mimics are never drained */
-	if(has_trait(creature_ptr, TRAIT_ANDROID)) return FALSE;
+	if(has_trait(creature_ptr, TRAIT_ANDROID)) return FALSE; /* Androids and their mimics are never drained */
 
 	if(has_trait(creature_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < hold_life_prob))
 	{
@@ -2001,11 +1992,7 @@ bool choose_ele_immune(creature_type *creature_ptr, int turn)
 	prt("", 8, 14);
 	prt("", 9, 14);
 	prt("", 1, 0);
-#ifdef JP
-	prt("        ‚Ç‚ÌŒ³‘f‚Ì–Æ‰u‚ð‚Â‚¯‚Ü‚·‚©H", 1, 14);
-#else
-	prt("        Choose a temporary elemental immune ", 1, 14);
-#endif
+	prt(MES_TRAIT_IMMUNE_WHICH, 1, 14);
 
 	choice = inkey();
 
@@ -2019,11 +2006,7 @@ bool choose_ele_immune(creature_type *creature_ptr, int turn)
 		set_timed_trait(creature_ptr, TRAIT_IM_ELEC, turn, FALSE);
 	else
 	{
-#ifdef JP
-		msg_print("–Æ‰u‚ð•t‚¯‚é‚Ì‚ð‚â‚ß‚½B");
-#else
-		msg_print("You cancel the temporary immune.");
-#endif
+		msg_print(MES_TRAIT_IMMUNE_CANCEL);
 		screen_load();
 		return FALSE;
 	}

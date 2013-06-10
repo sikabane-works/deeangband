@@ -3835,6 +3835,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_DRAIN_MP_DONE(OBJECT) "%s‚Í‚ ‚È‚½‚Ì–‚—Í‚ð‹zŽû‚µ‚½I", (OBJECT)->name
 #define MES_TRAIT_DIVIDE(CREATURE) "%s‚Í•ª—ô‚µ‚½I", (CREATURE)->name
 #define MES_TRAIT_INSTANT_RESPAWN_DONE "V‚½‚ÈíŽm‚ªŒ»‚ê‚½I"
+#define MES_TRAIT_IMMUNE_WHICH "‚Ç‚ÌŒ³‘f‚Ì–Æ‰u‚ð‚Â‚¯‚Ü‚·‚©H"
+#define MES_TRAIT_IMMUNE_CANCEL "–Æ‰u‚ð•t‚¯‚é‚Ì‚ð‚â‚ß‚½B"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -3939,6 +3941,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_DRAIN_MP_DONE(OBJECT) "Your %s drains mana from you!", (OBJECT)->name
 #define MES_TRAIT_DIVIDE(CREATURE) "%s divides!", (CREATURE)->name
 #define MES_TRAIT_INSTANT_RESPAWN_DONE "A new warrior steps forth!"
+#define MES_TRAIT_IMMUNE_WHICH "Choose a temporary elemental immune "
+#define MES_TRAIT_IMMUNE_CANCEL "You cancel the temporary immune."
 #endif
 
 #ifdef JP
