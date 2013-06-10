@@ -15,13 +15,10 @@
 
 #ifdef ALLOW_SPOILERS
 
-
 /*
  * The spoiler file being created
  */
 static FILE *fff = NULL;
-
-
 
 /*
  * Extract a textual representation of an attribute
@@ -501,31 +498,6 @@ struct flag_desc
 {
 	const int flag;
 	const char *const desc;
-};
-
-/*
- * Besides stats, these are the other player traits_precondition
- * which may be affected by an object's pval
- */
-
-static flag_desc pval_flags1_desc[] =
-{
-#ifdef JP
-	{ TRAIT_MAGIC_MASTERY, "–‚–@“¹‹ïg—p”\—Í" },
-	{ TRAIT_STEALTH, "‰B–§" },
-	{ TRAIT_SEARCH, "’Tõ" },
-	{ TRAIT_INFRA, "ÔŠOü‹—Í" },
-	{ TRAIT_TUNNEL, "ÌŒ@" },
-	{ TRAIT_BLOWS, "UŒ‚‰ñ”" },
-	{ TRAIT_SPEED, "ƒXƒs[ƒh" }
-#else
-	{ TRAIT_STEALTH, "Stealth" },
-	{ TRAIT_SEARCH, "Searching" },
-	{ TRAIT_INFRA, "Infravision" },
-	{ TRAIT_TUNNEL, "Tunneling" },
-	{ TRAIT_BLOWS, "Attacks" },
-	{ TRAIT_SPEED, "Speed" }
-#endif
 };
 
 /*
@@ -1031,14 +1003,8 @@ static void spoil_species_desc(cptr fname)
 		sprintf(exp, "%ld", (long)(species_ptr->exp));
 
 		/* Hack -- use visual instead */
-		if(is_variable_race_species(species_ptr))
-		{
-			sprintf(exp, "%s ---", attr_to_text(species_ptr));
-		}
-		else
-		{
-			sprintf(exp, "%s [%c]", attr_to_text(species_ptr), species_ptr->d_char);
-		}
+		if(is_variable_race_species(species_ptr)) sprintf(exp, "%s ---", attr_to_text(species_ptr));
+		else sprintf(exp, "%s [%c]", attr_to_text(species_ptr), species_ptr->d_char);
 
 		/* Trait */
 		trait[0] = '\0';
