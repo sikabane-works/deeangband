@@ -1373,15 +1373,9 @@ void do_cmd_pet(creature_type *master_ptr)
 					for (ctr = 0; ctr < num; ctr++)
 					{
 						/* Letter/number for power selection */
-#ifdef JP
-						if(use_menu) sprintf(buf, "%c%s ", (ctr == mode) ? '*' : ' ', (ctr == (menu_line - 1)) ? "t" : "  ");
-#else
-						if(use_menu) sprintf(buf, "%c%s ", (ctr == mode) ? '*' : ' ', (ctr == (menu_line - 1)) ? "> " : "  ");
-#endif
+						if(use_menu) sprintf(buf, "%c%s ", (ctr == mode) ? '*' : ' ', (ctr == (menu_line - 1)) ? KET_D_ANGLE : "  ");
 						else sprintf(buf, "%c%c) ", (ctr == mode) ? '*' : ' ', I2A(ctr));
-
 						strcat(buf, power_desc[ctr]);
-
 						prt(buf, y + ctr, x);
 					}
 
@@ -1391,7 +1385,6 @@ void do_cmd_pet(creature_type *master_ptr)
 				else
 				{
 					redraw = FALSE;
-
 					screen_load();
 				}
 

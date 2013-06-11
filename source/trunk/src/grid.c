@@ -502,9 +502,7 @@ bool build_tunnel(floor_type *floor_ptr, COODINATES row1, COODINATES col1, COODI
 {
 	COODINATES y, x, tmp_row, tmp_col, row_dir, col_dir, start_row, start_col;
 	int main_loop_count = 0;
-
 	bool door_flag = FALSE;
-
 	cave_type *c_ptr;
 
 	/* Save the starting location */
@@ -527,10 +525,7 @@ bool build_tunnel(floor_type *floor_ptr, COODINATES row1, COODINATES col1, COODI
 			correct_dir(&row_dir, &col_dir, row1, col1, row2, col2);
 
 			/* Random direction */
-			if(randint0(100) < dun_tun_rnd)
-			{
-				rand_dir(&row_dir, &col_dir);
-			}
+			if(randint0(100) < dun_tun_rnd) rand_dir(&row_dir, &col_dir);
 		}
 
 		/* Get the next location */
@@ -689,12 +684,7 @@ static bool set_tunnel(floor_type *floor_ptr, COODINATES *x, COODINATES *y, bool
 	cave_type *c_ptr = &floor_ptr->cave[*y][*x];
 
 	if(!IN_BOUNDS(floor_ptr, *y, *x)) return TRUE;
-
-	if(is_inner_grid(c_ptr))
-	{
-		return TRUE;
-	}
-
+	if(is_inner_grid(c_ptr)) return TRUE;
 	if(is_extra_bold(floor_ptr, *y,*x))
 	{
 		/* Save the tunnel location */
@@ -703,17 +693,12 @@ static bool set_tunnel(floor_type *floor_ptr, COODINATES *x, COODINATES *y, bool
 			dungeon_ptr->tunn[dungeon_ptr->tunn_n].y = *y;
 			dungeon_ptr->tunn[dungeon_ptr->tunn_n].x = *x;
 			dungeon_ptr->tunn_n++;
-
 			return TRUE;
 		}
 		else return FALSE;
 	}
 
-	if(is_floor_bold(floor_ptr, *y, *x))
-	{
-		/* Don't do anything */
-		return TRUE;
-	}
+	if(is_floor_bold(floor_ptr, *y, *x)) return TRUE; /* Don't do anything */
 
 	if(is_outer_grid(c_ptr) && affectwall)
 	{
