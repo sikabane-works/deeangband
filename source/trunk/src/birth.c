@@ -1899,7 +1899,7 @@ void get_max_stats(creature_type *creature_ptr)
 /*
  * Roll for some info that the auto-roller ignores
  */
-static void get_extra(creature_type *creature_ptr, bool roll_hitdice)
+static void set_extra(creature_type *creature_ptr, bool roll_hitdice)
 {
 	set_expfact(creature_ptr);
 
@@ -1919,7 +1919,7 @@ static void get_extra(creature_type *creature_ptr, bool roll_hitdice)
 /*
  * Get the racial history, and social class, using the "history charts".
  */
-static void get_history(creature_type *creature_ptr)
+static void set_history(creature_type *creature_ptr)
 {
 	int i, j, n;
 	char *s, *t;
@@ -2028,7 +2028,7 @@ static void set_age(creature_type *creature_ptr)
 
 
 // Get the player's starting money
-static void get_money(creature_type *creature_ptr)
+static void set_money(creature_type *creature_ptr)
 {
 	int gold;
 
@@ -4022,10 +4022,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, SPECIES_ID specie
 		if(i == BIRTH_SELECT_RETURN) return FALSE;
 		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
-	else
-	{
-		creature_ptr->sex = species_ptr->sex;
-	}
+	else creature_ptr->sex = species_ptr->sex;
 
 	// Class Select
 	i = get_creature_class(creature_ptr, species_ptr, auto_generate);
@@ -4063,15 +4060,10 @@ static bool generate_creature_aux(creature_type *creature_ptr, SPECIES_ID specie
 	if(player_generate)
 	{
 		clear_from(0);
-
-		/* Reset turn; before auto-roll and after choosing race */
-		init_turn(creature_ptr);
+		init_turn(creature_ptr); /* Reset turn; before auto-roll and after choosing race */
 	}
 
 	/*** Generate ***/
-
-
-	// Roll
 	while (TRUE)
 	{
 		for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_max[i] = creature_ptr->stat_cur[i] = species_ptr->stat_max[i];
@@ -4079,24 +4071,17 @@ static bool generate_creature_aux(creature_type *creature_ptr, SPECIES_ID specie
 		set_exp(creature_ptr, species_ptr);                  // Roll for exp
 		set_height_weight(creature_ptr);        // Roll for height and weight
 		set_underlings(creature_ptr, species_ptr);
-		get_history(creature_ptr);              // Roll for social class
+		set_history(creature_ptr);              // Roll for social class
 
 		flush();
 
-		/*** Display ***/
-		mode = 0;
+		mode = 0; /*** Display ***/
 
-		/* Roll for base hitpoints */
-		get_extra(creature_ptr, TRUE);
-
-		// Deal Item
+		set_extra(creature_ptr, TRUE);
 		set_creature_bonuses(creature_ptr, FALSE);
 		set_experience(creature_ptr);
-
 		//deal_item(creature_ptr);
-
-		/* Roll for gold */
-		get_money(creature_ptr);
+		set_money(creature_ptr);
 
 		c = '\0';
 		while (TRUE)
@@ -4109,17 +4094,14 @@ static bool generate_creature_aux(creature_type *creature_ptr, SPECIES_ID specie
 			update_creature(creature_ptr, FALSE);
 
 			/* And start out fully healthy */
-			if(creature_ptr->species_idx == SPECIES_WOUNDED_BEAR)
-				set_creature_hp_percent(creature_ptr, 50);
-			else
-				set_creature_hp_percent(creature_ptr, 100);
+			if(creature_ptr->species_idx == SPECIES_WOUNDED_BEAR) set_creature_hp_percent(creature_ptr, 50);
+			else set_creature_hp_percent(creature_ptr, 100);
 			set_creature_sp_percent(creature_ptr, 100);
 
 			// Sexy gal gets bonus to maximum weapon skill of whip
 			// TODO if(creature_ptr->chara_idx == CHARA_SEXY) skill_info[player_generate_ptr->class_idx].w_max[TV_HAFTED - TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
 
 			if(auto_generate) break;
-
 			display_creature_status(mode, creature_ptr);	// Display the player_generate
 
 			// Prepare a prompt (must squeeze everything in)
@@ -4215,7 +4197,7 @@ bool ask_quick_start(creature_type *creature_ptr)
 	creature_ptr->wx = creature_ptr->start_wx;
 
 	/* Calc hitdice, but don't roll */
-	get_extra(creature_ptr, FALSE);
+	set_extra(creature_ptr, FALSE);
 
 	// Update the bonuses and hitpoints
 	prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
