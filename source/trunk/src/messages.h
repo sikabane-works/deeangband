@@ -2,9 +2,11 @@
 #ifdef JP
 #define BRACKET_ARTIFACT "『%s』"
 #define BRACKET_DAMMY_ARTIFACT "《%s》"
+#define BRACKET_NICKNAME "「%s」"
 #else
 #define BRACKET_ARTIFACT "'%s'"
 #define BRACKET_DAMMY_ARTIFACT "'%s'"
+#define BRACKET_NICKNAME " called %s"
 #endif
 
 #ifdef JP

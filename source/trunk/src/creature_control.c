@@ -2232,27 +2232,18 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 				if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
 			}
 
-
-
 			if(creature_ptr->nickname)
 			{
-#ifdef JP
-				sprintf(buf,"u%sv",quark_str(creature_ptr->nickname));
-#else
-				sprintf(buf," called %s",quark_str(creature_ptr->nickname));
-#endif
+				sprintf(buf, BRACKET_NICKNAME,quark_str(creature_ptr->nickname));
 				strcat(desc,buf);
 			}
 
-			if(player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr))
-				strcat(desc, MES_CR_DESC_RIDING);
+			if(player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr)) strcat(desc, MES_CR_DESC_RIDING);
 
 			if((mode & CD_IGNORE_HALLU) && (creature_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
 			{
-				if(has_trait_species(species_ptr, TRAIT_UNIQUE))
-					strcat(desc, MES_CR_DESC_CHAMELEON_LORD);
-				else
-					strcat(desc, MES_CR_DESC_CHAMELEON);
+				if(has_trait_species(species_ptr, TRAIT_UNIQUE)) strcat(desc, MES_CR_DESC_CHAMELEON_LORD);
+				else strcat(desc, MES_CR_DESC_CHAMELEON);
 			}
 
 			if((mode & CD_IGNORE_HALLU) && !is_original_ap(creature_ptr))
@@ -2515,9 +2506,6 @@ void sanity_blast_aux(creature_type *watcher_ptr, POWER power)
 
 	prepare_update(watcher_ptr, CRU_BONUS);
 	handle_stuff(watcher_ptr);
-
-	prepare_update(watcher_ptr, CRU_BONUS);
-	handle_stuff(watcher_ptr);
 }
 
 
@@ -2585,14 +2573,12 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 {
 	creature_type *target_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
-
 	bool do_disturb = disturb_move;
-
 	int d;
 
 	/* Current location */
-	int fy = target_ptr->fy;
-	int fx = target_ptr->fx;
+	COODINATES fy = target_ptr->fy;
+	COODINATES fx = target_ptr->fx;
 
 	/* Seen at all */
 	bool flag = FALSE;
@@ -2607,9 +2593,7 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 	if(disturb_high)
 	{
 		species_type *ap_r_ptr = &species_info[target_ptr->ap_species_idx];
-
-		if(ap_r_ptr->killed_total && ap_r_ptr->level >= creature_ptr->lev)
-			do_disturb = TRUE;
+		if(ap_r_ptr->killed_total && ap_r_ptr->level >= creature_ptr->lev) do_disturb = TRUE;
 	}
 
 	/* Compute distance */
@@ -2632,27 +2616,17 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 	}
 
 	/* Extract distance */
-	else
-	{
-		/* Extract the distance */
-		d = target_ptr->cdis;
-	}
+	else d = target_ptr->cdis;
 
+	if(target_ptr->sc_flag2 & (SC_FLAG2_MARK)) flag = TRUE; /* Detected */
 
-	/* Detected */
-	if(target_ptr->sc_flag2 & (SC_FLAG2_MARK)) flag = TRUE;
-
-
-	/* Nearby */
-	if(d <= (in_darkness ? MAX_SIGHT / 2 : MAX_SIGHT))
+	if(d <= (in_darkness ? MAX_SIGHT / 2 : MAX_SIGHT)) /* Nearby */
 	{
 		if(!in_darkness || (d <= MAX_SIGHT / 4))
 		{
 			if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
 			{
-				/* Detectable */
-				flag = TRUE;
-
+				flag = TRUE; /* Detectable */
 				if(is_original_ap(target_ptr) && !has_trait(creature_ptr, TRAIT_HALLUCINATION))
 				{
 					if(has_trait(target_ptr, TRAIT_SMART)) reveal_creature_info(target_ptr, TRAIT_SMART);
@@ -2664,10 +2638,9 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 			/* Snipers get telepathy when they concentrate deeper */
 			else if(has_trait(creature_ptr, TRAIT_ESP))
 			{
-				/* Empty mind, no telepathy */
+				/* Empty mind, no telepathy / Memorize flags */
 				if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 				{
-					/* Memorize flags */
 					if(is_original_ap_and_seen(creature_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
 				}
 
@@ -2797,27 +2770,16 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 			bool do_cold_blood = FALSE;
 
 			/* Snipers can see targets in darkness when they concentrate deeper */
-			if(creature_ptr->concent >= CONCENT_RADAR_THRESHOLD)
-			{
-				/* Easy to see */
-				easy = flag = TRUE;
-			}
+			if(creature_ptr->concent >= CONCENT_RADAR_THRESHOLD) easy = flag = TRUE;
 
 			/* Use "infravision" */
 			if(d <= creature_ptr->see_infra)
 			{
 				/* Handle "cold blooded" creatures */
-				if(has_trait(target_ptr, TRAIT_COLD_BLOOD) || !has_trait(target_ptr, TRAIT_AURA_FIRE))
-				{
-					do_cold_blood = TRUE;
-				}
+				if(has_trait(target_ptr, TRAIT_COLD_BLOOD) || !has_trait(target_ptr, TRAIT_AURA_FIRE)) do_cold_blood = TRUE;
 
 				/* Handle "warm blooded" creatures */
-				else
-				{
-					/* Easy to see */
-					easy = flag = TRUE;
-				}
+				else easy = flag = TRUE;
 			}
 
 			/* Use "illumination" */
@@ -2827,21 +2789,11 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 				if(has_trait(target_ptr, TRAIT_INVISIBLE))
 				{
 					do_invisible = TRUE;
-
-					/* See invisible */
-					if(!has_trait(creature_ptr, TRAIT_INVISIBLE))
-					{
-						/* Easy to see */
-						easy = flag = TRUE;
-					}
+					if(!has_trait(creature_ptr, TRAIT_INVISIBLE)) easy = flag = TRUE;
 				}
 
 				/* Handle "normal" creatures */
-				else
-				{
-					/* Easy to see */
-					easy = flag = TRUE;
-				}
+				else easy = flag = TRUE;
 			}
 
 			/* Visible */
@@ -2901,22 +2853,15 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 		/* It was previously seen */
 		if(target_ptr->see_others)
 		{
-			/* Mark as not visible */
-			target_ptr->see_others = FALSE;
-
-			/* Erase the creature */
-			lite_spot(floor_ptr, fy, fx);
+			target_ptr->see_others = FALSE; /* Mark as not visible */
+			lite_spot(floor_ptr, fy, fx); /* Erase the creature */
 
 			/* Update health bar as needed */
 			if(npc_status_id == creature_idx) prepare_redraw(PR_HEALTH);
 			if(creature_ptr->riding == creature_idx) prepare_redraw(PR_UHEALTH);
 
 			/* Disturb on disappearance */
-			if(do_disturb)
-			{
-				if(disturb_pets || is_hostile(target_ptr))
-					disturb(creature_ptr, 1, 0);
-			}
+			if(do_disturb && (disturb_pets || is_hostile(target_ptr))) disturb(creature_ptr, 1, 0);
 		}
 	}
 
