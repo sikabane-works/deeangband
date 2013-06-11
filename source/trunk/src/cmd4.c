@@ -3558,14 +3558,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 
 		fprintf(fff, "%s %s", where, object_name);
 
-		if(!(object_ptr->ident & (IDENT_MENTAL)))
-		{
-#ifdef JP
-			fputs("-------ïsñæ--------------- -------ïsñæ---------\n", fff);
-#else
-			fputs("-------unknown------------ -------unknown------\n", fff);
-#endif
-		}
+		if(!(object_ptr->ident & (IDENT_MENTAL))) fputs(MES_INTERFACE_RES_LIST_UNKNOWN, fff);
 		else
 		{
 			object_flags_known(object_ptr, flgs);
@@ -3643,11 +3636,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 			fprintf(fff, "%s\n", MES_INTERFACE_RES_LIST);
 		}
 
-#ifdef JP
-		strcpy(where, "ëï");
-#else
-		strcpy(where, "E ");
-#endif
+		strcpy(where, KW_EQUIPMENT);
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			// Skip no equip
@@ -3655,11 +3644,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 			do_cmd_knowledge_inven_aux(fff, &owner_ptr->inventory[i], &j, tval, where);
 		}
 
-#ifdef JP
-		strcpy(where, "éù");
-#else
-		strcpy(where, "I ");
-#endif
+		strcpy(where, KW_INVENTORY);
 		for (i = 0; i < INVEN_TOTAL; i++)
 		{
 			do_cmd_knowledge_inven_aux(fff, &owner_ptr->inventory[i], &j, tval, where);
@@ -3668,12 +3653,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 //TODO
 /*
 		st_ptr = &town[1].store[STORE_HOME];
-#ifdef JP
-		strcpy(where, "â∆");
-#else
-		strcpy(where, "H ");
-#endif
-
+		strcpy(where, KW_HOME);
 		for (i = 0; i < st_ptr->stock_num; i++)
 		{
 			do_cmd_knowledge_inven_aux(fff, &st_ptr->stock[i], &j, tval, where);
@@ -3682,12 +3662,8 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 	}
 
 	my_fclose(fff);
-
-	/* Display the file contents */
-	show_file(TRUE, file_name, MES_INTERFACE_EQUIPMENTLIST, 0, 0);
-
-	/* Remove the file */
-	fd_kill(file_name);
+	show_file(TRUE, file_name, MES_INTERFACE_EQUIPMENTLIST, 0, 0); /* Display the file contents */
+	fd_kill(file_name); /* Remove the file */
 }
 
 
