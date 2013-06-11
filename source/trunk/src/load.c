@@ -841,7 +841,7 @@ static errr rd_creature(creature_type *creature_ptr)
 	// Read "feeling"
 	rd_byte(&creature_ptr->floor_feeling);
 	rd_s32b(&creature_ptr->feeling_turn);
-	rd_s16b(&creature_ptr->alert_range);
+	READ_COODINATES(&creature_ptr->alert_range);
 
 	READ_CREATURE_ID(&creature_ptr->riding);
 	READ_CREATURE_ID(&creature_ptr->ridden);

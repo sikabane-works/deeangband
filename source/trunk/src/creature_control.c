@@ -3239,7 +3239,6 @@ void deal_item(creature_type *creature_ptr)
 	number = 0;
 	// TODO Inventory Count
 
-
 	object_ptr = &forge;
 
 	for(i = 0; i < creature_ptr->sc / 10; i++)
@@ -3279,8 +3278,8 @@ void deal_item(creature_type *creature_ptr)
 		}
 	}
 
-	deal_magic_book(creature_ptr);							// Dealing MagicBook
-	if(is_player(creature_ptr)) deal_potion(creature_ptr);	// Dealing Potion
+	deal_magic_book(creature_ptr); 
+	if(is_player(creature_ptr)) deal_potion(creature_ptr);
 
 	//TODO
 	// Food depend on traits_precondition
@@ -3441,8 +3440,7 @@ void deal_item(creature_type *creature_ptr)
 		if(creature_ptr->inventory[i].k_idx && IS_EQUIPPED(&creature_ptr->inventory[i]))
 		{
 			if(!creature_ptr->inventory[i].art_id && !creature_ptr->inventory[i].ego_id)
-				apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2,
-				calc_deal_item_rank(creature_ptr, &creature_ptr->inventory[i]), 0);
+				apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2, calc_deal_item_rank(creature_ptr, &creature_ptr->inventory[i]), 0);
 		}
 	}
 
@@ -3561,10 +3559,8 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	creature_ptr->fx = x;
 
 	// Your pet summons its pet.
-	if(summoner_ptr && !is_player(summoner_ptr) && is_pet(player_ptr, summoner_ptr))
-	{
-		mode |= PC_FORCE_PET;	//TODO Parent Set
-	}
+	//TODO Parent Set
+	if(summoner_ptr && !is_player(summoner_ptr) && is_pet(player_ptr, summoner_ptr)) mode |= PC_FORCE_PET;
 
 	if(has_trait_species(species_ptr, TRAIT_CHAMELEON))
 	{

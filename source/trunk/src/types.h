@@ -668,7 +668,7 @@ struct species_type
 	SAVING vo;				// Vol
 
 	s16b sleep;				/* Inactive counter (base) */
-	byte alert_range;				/* Area affect radius (1-100) */
+	COODINATES alert_range; /* Area affect radius (1-100) */
 	SPEED speed;				/* Speed (normally 0) */
 
 	SPECIES_ID underling_id[MAX_UNDERLINGS];	    /* Underling ID */
@@ -1563,7 +1563,7 @@ struct creature_type
 	byte floor_feeling;		// Most recent dungeon feeling
 	GAME_TURN feeling_turn;		// The turn of the last dungeon feeling 
 
-	s16b alert_range;
+	COODINATES alert_range;
 
 	//** Temporary fields **
 	bool teleport_town;

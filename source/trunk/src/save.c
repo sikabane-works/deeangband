@@ -455,7 +455,7 @@ static void wr_creature(creature_type *creature_ptr)
 	/* Write feeling */
 	wr_byte(creature_ptr->floor_feeling);
 	wr_s32b(creature_ptr->feeling_turn);
-	wr_s16b(creature_ptr->alert_range);
+	WRITE_COODINATES(creature_ptr->alert_range);
 
 	WRITE_CREATURE_ID(creature_ptr->riding);
 	WRITE_CREATURE_ID(creature_ptr->ridden);
