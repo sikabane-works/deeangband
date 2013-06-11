@@ -4080,7 +4080,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, SPECIES_ID specie
 		set_extra(creature_ptr, TRUE);
 		set_creature_bonuses(creature_ptr, FALSE);
 		set_experience(creature_ptr);
-		//deal_item(creature_ptr);
+		deal_item(creature_ptr);
 		set_money(creature_ptr);
 
 		c = '\0';
