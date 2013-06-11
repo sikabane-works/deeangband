@@ -3512,10 +3512,10 @@ void do_cmd_load_screen(void)
 
 
 /* XTRA HACK RESLIST */
-static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *j, byte tval, char *where)
+static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *j, TVAL tval, char *where)
 {
 	char object_name[MAX_NLEN];
-	u32b flgs[MAX_TRAITS_FLAG];
+	FLAGS_32 flgs[MAX_TRAITS_FLAG];
 
 	if(!is_valid_object(object_ptr)) return;
 	if(object_ptr->tval != tval) return;
@@ -3619,19 +3619,18 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 
 //	store_type  *st_ptr;
 
-	byte tval;
+	TVAL tval;
 	int i = 0;
 	int j = 0;
 
-	char  where[32];
+	char where[32];
 
-	/* Open a new file */
-	fff = my_fopen_temp(file_name, 1024);
+	fff = my_fopen_temp(file_name, 1024); /* Open a new file */
 	if(!fff)
 	{
-	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
-	    msg_print(NULL);
-	    return;
+		msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
+		msg_print(NULL);
+		return;
 	}
 	fprintf(fff, "%s\n", MES_INTERFACE_RES_LIST);
 
