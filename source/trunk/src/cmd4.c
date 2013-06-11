@@ -3483,12 +3483,8 @@ void do_cmd_load_screen(void)
 			/* Get the attr/char */
 			(void)(Term_what(x, y, &a, (char *)&c)); //TODO
 
-			/* Look up the attr */
-			for (i = 0; i < 16; i++)
-			{
-				/* Use attr matches */
-				if(hack[i] == buf[x]) a = i;
-			}
+			/* Look up the attr, Use attr matches */
+			for (i = 0; i < 16; i++) if(hack[i] == buf[x]) a = i;
 
 			/* Put the attr/char */
 			Term_draw(x, y, a, c);
@@ -3502,17 +3498,6 @@ void do_cmd_load_screen(void)
 	screen_load();
 }
 
-#ifdef JP
-cptr inven_res_label = "                               é_ìdâŒó‚ì≈åıà≈îjçåçñàˆì◊óÚ ñ”ï|óê·ÉìßñΩä¥è¡ïúïÇ";
-#define IM_FLAG_STR  "Åñ"
-#define HAS_FLAG_STR "Å{"
-#define NO_FLAG_STR  "ÅE"
-#else
-cptr inven_res_label = "                               AcElFiCoPoLiDkShSoNtNxCaDi BlFeCfFaSeHlEpSdRgLv";
-#define IM_FLAG_STR  "* "
-#define HAS_FLAG_STR "+ "
-#define NO_FLAG_STR  ". "
-#endif
 
 #define print_im_or_res_flag(IM, RES) \
 { \
@@ -3618,7 +3603,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 		if(*j == 9)
 		{
 			*j = 0;
-			fprintf(fff, "%s\n", inven_res_label);
+			fprintf(fff, "%s\n", MES_INTERFACE_RES_LIST);
 		}
 	}
 }
@@ -3648,7 +3633,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 	    msg_print(NULL);
 	    return;
 	}
-	fprintf(fff, "%s\n", inven_res_label);
+	fprintf(fff, "%s\n", MES_INTERFACE_RES_LIST);
 
 	for (tval = TV_WEARABLE_BEGIN; tval <= TV_WEARABLE_END; tval++)
 	{
@@ -3656,7 +3641,7 @@ static void do_cmd_knowledge_inven(creature_type *owner_ptr)
 		{
 			for (; j < 9; j++) fputc('\n', fff);
 			j = 0;
-			fprintf(fff, "%s\n", inven_res_label);
+			fprintf(fff, "%s\n", MES_INTERFACE_RES_LIST);
 		}
 
 #ifdef JP
@@ -6210,9 +6195,7 @@ static void do_cmd_knowledge_stat(creature_type *creature_ptr)
 	
 	if(fff)
 	{
-		percent = (int)(((long)creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] * 200L) /
-			(2 * creature_ptr->hitdice +
-			((CREATURE_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
+		percent = (int)(((long)creature_ptr->base_hp[CREATURE_MAX_LEVEL - 1] * 200L) / (2 * creature_ptr->hitdice + ((CREATURE_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
 
 #ifdef JP
 		if(creature_ptr->knowledge & KNOW_HPRATE) fprintf(fff, "åªç›ÇÃëÃóÕÉâÉìÉN : %d/100\n\n", percent);
@@ -6266,16 +6249,12 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 		if((quest[i].status == QUEST_STATUS_TAKEN) || (quest[i].status == QUEST_STATUS_COMPLETED))
 		{
 			int j;
-
-			// Clear the text
-			for (j = 0; j < 10; j++) questp_text[j][0] = '\0';
+			for (j = 0; j < 10; j++) questp_text[j][0] = '\0'; /* Clear the text */
 			questp_text_line = 0;
 
 			// Get the quest text
 			process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT, i);
-
-			/* No info from "silent" quests */
-			if(quest[i].flags & QUEST_FLAG_SILENT) continue;
+			if(quest[i].flags & QUEST_FLAG_SILENT) continue; /* No info from "silent" quests */
 
 			total++;
 
@@ -6297,16 +6276,13 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 						if(quest[i].max_num > 1)
 						{
 #ifdef JP
-							sprintf(note,"Åu%sÅvÇ…Ç¢ÇÈ %d ëÃÇÃ%sÇì|Ç∑ÅB(Ç†Ç∆ %d ëÃ)",
-								dungeon_name, quest[i].max_num, name, quest[i].max_num - quest[i].cur_num);
+							sprintf(note,"Åu%sÅvÇ…Ç¢ÇÈ %d ëÃÇÃ%sÇì|Ç∑ÅB(Ç†Ç∆ %d ëÃ)", dungeon_name, quest[i].max_num, name, quest[i].max_num - quest[i].cur_num);
 #else
 							plural_aux(name);
-							sprintf(note,"kill %d %s in %s, have killed %d.",
-								quest[i].max_num, name, dungeon_name, quest[i].cur_num);
+							sprintf(note,"kill %d %s in %s, have killed %d.", quest[i].max_num, name, dungeon_name, quest[i].cur_num);
 #endif
 						}
-						else
-							sprintf(note, MES_QUEST_TYPE_KILL_ONE(dungeon_name, name));
+						else sprintf(note, MES_QUEST_TYPE_KILL_ONE(dungeon_name, name));
 						break;
 
 					case QUEST_TYPE_FIND_ARTIFACT:
@@ -6370,13 +6346,10 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 					if(quest[i].max_num > 1)
 					{
 #ifdef JP
-						sprintf(rand_tmp_str,"  %s (%d äK) - %d ëÃÇÃ%sÇì|Ç∑ÅB(Ç†Ç∆ %d ëÃ)\n",
-							quest[i].name, quest[i].level, quest[i].max_num, name, quest[i].max_num - quest[i].cur_num);
+						sprintf(rand_tmp_str,"  %s (%d äK) - %d ëÃÇÃ%sÇì|Ç∑ÅB(Ç†Ç∆ %d ëÃ)\n", quest[i].name, quest[i].level, quest[i].max_num, name, quest[i].max_num - quest[i].cur_num);
 #else
 						plural_aux(name);
-
-						sprintf(rand_tmp_str,"  %s (Dungeon level: %d)\n  Kill %d %s, have killed %d.\n",
-							quest[i].name, quest[i].level, quest[i].max_num, name, quest[i].cur_num);
+						sprintf(rand_tmp_str,"  %s (Dungeon level: %d)\n  Kill %d %s, have killed %d.\n", quest[i].name, quest[i].level, quest[i].max_num, name, quest[i].cur_num);
 #endif
 					}
 					else
@@ -6392,9 +6365,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 		}
 	}
 
-	/* Print the current random quest  */
-	if(rand_tmp_str[0]) fprintf(fff, rand_tmp_str);
-
+	if(rand_tmp_str[0]) fprintf(fff, rand_tmp_str); /* Print the current random quest  */
 	if(!total) fprintf(fff, "  %s\n", KW_NOTHING);
 }
 
@@ -6474,7 +6445,6 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 
 			if(!is_fixed_quest_idx(q_idx) && quest[q_idx].species_idx) /* Print the quest info */
 			{
-			
 				sprintf(tmp_str, MES_QUEST_RESULT_LIST(species_name+species_info[quest[q_idx].species_idx].name, quest[q_idx].level, quest[q_idx].complev));
 			}
 			else sprintf(tmp_str, MES_QUEST_RESULT_LIST2(quest[q_idx].name, quest[q_idx].level, quest[q_idx].complev));
@@ -6866,52 +6836,31 @@ void do_cmd_time(creature_type *creature_ptr)
 	/* Find this time */
 	while (!my_fgets(fff, buf, sizeof(buf)))
 	{
-		/* Ignore comments */
-		if(!buf[0] || (buf[0] == '#')) continue;
+		if(!buf[0] || (buf[0] == '#')) continue; /* Ignore comments */
+		if(buf[1] != ':') continue; /* Ignore invalid lines */
 
-		/* Ignore invalid lines */
-		if(buf[1] != ':') continue;
-
-		/* Process 'Start' */
-		if(buf[0] == 'S')
+		if(buf[0] == 'S') /* Process 'Start' */
 		{
-			/* Extract the starting time */
-			start = strtol(buf + 2, NULL, 10);
-
-			/* Assume valid for an hour */
+			start = strtol(buf + 2, NULL, 10); /* Extract the starting time */
 			end = start + 59;
-
-			/* Next... */
-			continue;
+			continue; /* Next... */
 		}
 
-		/* Process 'End' */
-		if(buf[0] == 'E')
+		if(buf[0] == 'E') /* Process 'End' */
 		{
-			/* Extract the ending time */
-			end = strtol(buf + 2, NULL, 10);
-
-			/* Next... */
-			continue;
+			end = strtol(buf + 2, NULL, 10); /* Extract the ending time */
+			continue; /* Next... */
 		}
 
-		/* Ignore incorrect range */
-		if((start > full) || (full > end)) continue;
+		if((start > full) || (full > end)) continue; /* Ignore incorrect range */
 
-		/* Process 'Description' */
-		if(buf[0] == 'D')
+		if(buf[0] == 'D') /* Process 'Description' */
 		{
 			num++;
-
-			/* Apply the randomizer */
-			if(!randint0(num)) strcpy(desc, buf + 2);
-
-			/* Next... */
-			continue;
+			if(!randint0(num)) strcpy(desc, buf + 2); /* Apply the randomizer */
+			continue; /* Next... */
 		}
 	}
-
 	msg_print(desc);
-
 	my_fclose(fff);
 }
