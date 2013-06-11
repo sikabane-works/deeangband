@@ -3189,56 +3189,43 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_CAMP:
-				if(sscanf(tmp, "%d", &b) == 1)
-					species_ptr->camp = (s16b)b;
-				else 
-					if(grab_one_index(&b, camp_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
+				if(sscanf(tmp, "%d", &b) == 1) species_ptr->camp = (s16b)b;
+				else if(grab_one_index(&b, camp_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
 				species_ptr->camp = (s16b)b;
 				break;
 
 			case SPECIES_INFO_NUM:
-				if(sscanf(tmp, "%d", &b) == 1)
-					species_ptr->max_num = (byte)b;
+				if(sscanf(tmp, "%d", &b) == 1) species_ptr->max_num = (POPULATION)b;
 				break;
 
 			case SPECIES_INFO_RACE1:
-				if(sscanf(tmp, "%d", &b) == 1)
-					species_ptr->race_idx1 = (s16b)b;
-				else 
-					if(grab_one_index(&b, race_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-				species_ptr->race_idx1 = (s16b)b;
+				if(sscanf(tmp, "%d", &b) == 1) species_ptr->race_idx1 = (RACE_ID)b;
+				else if(grab_one_index(&b, race_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
+				species_ptr->race_idx1 = (RACE_ID)b;
 				break;
 
 			case SPECIES_INFO_RACE2:
-				if(sscanf(tmp, "%d", &b) == 1)
-					species_ptr->race_idx2 = (s16b)b;
-				else 
-					if(grab_one_index(&b, race_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-				species_ptr->race_idx2 = (s16b)b;
+				if(sscanf(tmp, "%d", &b) == 1) species_ptr->race_idx2 = (RACE_ID)b;
+				else if(grab_one_index(&b, race_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
+				species_ptr->race_idx2 = (RACE_ID)b;
 				break;
 
 			case SPECIES_INFO_CLASS:
-				if(sscanf(tmp, "%d", &b) == 1)
-					species_ptr->class_idx = (s16b)b;
-				else 
-					if(grab_one_index(&b, class_flags, tmp, FALSE)) return PARSE_ERROR_GENERIC;
-					species_ptr->class_idx = (s16b)b;
+				if(sscanf(tmp, "%d", &b) == 1) species_ptr->class_idx = (CLASS_ID)b;
+				else if(grab_one_index(&b, class_flags, tmp, FALSE)) return PARSE_ERROR_GENERIC;
+				species_ptr->class_idx = (CLASS_ID)b;
 				break;
 
 			case SPECIES_INFO_PATRON:
-				if(sscanf(tmp, "%d", &b) == 1)
-					species_ptr->patron_idx = (s16b)b;
-				else 
-					if(grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-					species_ptr->patron_idx = (s16b)b;
+				if(sscanf(tmp, "%d", &b) == 1) species_ptr->patron_idx = (SPECIES_ID)b;
+				else if(grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
+				species_ptr->patron_idx = (SPECIES_ID)b;
 				break;
 
 			case SPECIES_INFO_CHARA:
-				if(sscanf(tmp, "%d", &b) == 1)
-					species_ptr->chara_idx = (s16b)b;
-				else 
-					if(grab_one_index(&b, chara_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-				species_ptr->chara_idx = (s16b)b;
+				if(sscanf(tmp, "%d", &b) == 1) species_ptr->chara_idx = (CHARA_ID)b;
+				else if(grab_one_index(&b, chara_flags, tmp, TRUE)) return PARSE_ERROR_GENERIC;
+				species_ptr->chara_idx = (CHARA_ID)b;
 				break;
 
 			case SPECIES_INFO_RELM1:
@@ -3259,7 +3246,7 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_LEV:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_ptr->level = (byte)b;
+				species_ptr->level = (FLOOR_LEV)b;
 				break;
 
 			case SPECIES_INFO_RARE:
@@ -3428,7 +3415,8 @@ errr parse_species_info_csv(char *buf, header *head)
 			case SPECIES_INFO_UNDERLING:
 				offset = 0;
 				k = 0;
-				while(tmp[offset]) {
+				while(tmp[offset])
+				{
 					if(3 != sscanf(tmp + offset, "%d:%dd%d", &id, &num, &side)) return PARSE_ERROR_GENERIC;		
 
 					if(k == MAX_UNDERLINGS) return PARSE_ERROR_GENERIC;
