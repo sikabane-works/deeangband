@@ -74,11 +74,7 @@ void init_saved_floors(bool force)
 				force = TRUE;
 			}
 		}
-		else
-		{
-			// Close the "fd" 
-			(void)fd_close(fd);
-		}
+		else (void)fd_close(fd);
 
 		// Grab permissions 
 		safe_setuid_grab();

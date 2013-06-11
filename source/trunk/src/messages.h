@@ -2058,6 +2058,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DEBUG_FUNNY_PATTERN(FEATURE) "おかしなパターン歩行、%d。", (FEATURE)
 #define MES_DEBUG_FAILED_FLOOR "ダンジョン生成に失敗"
 #define MES_DEBUG_DISABLE_ITEM "アイテムを配置できません"
+#define MES_DEBUG_DISABLE_ITEM_VAULT "Vaultのアイテムを配置できません"
 #define MES_DEBUG_TOO_ITEM "アイテムが多過ぎる"
 #define MES_DEBUG_TOO_CREATURE "クリーチャーが多過ぎる"
 #define MES_DEBUG_FLOOR_RETAKE(WHY) "生成やり直し(%s)"
@@ -2092,6 +2093,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DEBUG_FUNNY_PATTERN(FEATURE) "Funny Pattern walking, %d.", (FEATURE)
 #define MES_DEBUG_FAILED_FLOOR "could not place player"
 #define MES_DEBUG_DISABLE_ITEM "Could not place object."
+#define MES_DEBUG_DISABLE_ITEM_VAULT "Could not place vault object."
 #define MES_DEBUG_TOO_ITEM "too many objects"
 #define MES_DEBUG_TOO_CREATURE "too many creatures"
 #define MES_DEBUG_FLOOR_RETAKE(WHY) "Generation restarted (%s)"

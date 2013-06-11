@@ -1496,13 +1496,11 @@ static bool init_graphics(void)
 		if(!new_palette())
 		{
 			/* Free bitmap  */
-
 #ifdef JP
 			plog("パレットを実現できません！");
 #else
 			plog("Cannot activate palette!");
 #endif
-
 			return FALSE;
 		}
 

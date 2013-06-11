@@ -323,38 +323,15 @@ void vault_objects(floor_type *floor_ptr, COODINATES y, COODINATES x, int num)
 				break;
 			}
 
-
-			if(dummy >= SAFE_MAX_ATTEMPTS)
-			{
-				if(cheat_room)
-				{
-#ifdef JP
-					msg_print("警告！地下室のアイテムを配置できません！");
-#else
-					msg_print("Warning! Could not place vault object!");
-#endif
-
-				}
-			}
-
+			if(dummy >= SAFE_MAX_ATTEMPTS && cheat_room) msg_print(MES_DEBUG_DISABLE_ITEM_VAULT);
 
 			/* Require "clean" floor space */
 			c_ptr = &floor_ptr->cave[j][k];
 			if(!is_floor_grid(c_ptr) || c_ptr->object_idx) continue;
 
-			/* Place an item */
-			if(PERCENT(75))
-			{
-				place_object(floor_ptr, j, k, 0L, NULL);
-			}
-
-			/* Place gold */
-			else
-			{
-				place_gold(floor_ptr, j, k);
-			}
-
-			/* Placement accomplished */
+			/* Place an item / gold */
+			if(PERCENT(75)) place_object(floor_ptr, j, k, 0L, NULL);
+			else place_gold(floor_ptr, j, k);
 			break;
 		}
 	}
@@ -371,8 +348,7 @@ void vault_trap_aux(floor_type *floor_ptr, int y, int x, int yd, int xd)
 
 	cave_type *c_ptr;
 
-	/* Place traps */
-	for (count = 0; count <= 5; count++)
+	for (count = 0; count <= 5; count++) /* Place traps */
 	{
 		/* Get a location */
 		while (dummy < SAFE_MAX_ATTEMPTS)
@@ -487,8 +463,7 @@ void set_floor(floor_type *floor_ptr, int x, int y)
 	if(floor_ptr->cave[y][x].info & CAVE_ROOM) return;
 
 	/* Set to be floor if is a wall (don't touch lakes). */
-	if(is_extra_bold(floor_ptr, y, x))
-		place_floor_bold(floor_ptr, y, x);
+	if(is_extra_bold(floor_ptr, y, x)) place_floor_bold(floor_ptr, y, x);
 }
 
 
