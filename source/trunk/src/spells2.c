@@ -464,7 +464,7 @@ bool detect_objects_gold(creature_type *creature_ptr, COODINATES range)
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Skip held objects */
-		if(object_ptr->held_m_idx) continue;
+		if(object_ptr->held_creature_idx) continue;
 
 		y = object_ptr->fy;
 		x = object_ptr->fx;
@@ -516,7 +516,7 @@ bool detect_objects_normal(creature_type *creature_ptr, COODINATES range)
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Skip held objects */
-		if(object_ptr->held_m_idx) continue;
+		if(object_ptr->held_creature_idx) continue;
 
 		y = object_ptr->fy;
 		x = object_ptr->fx;
@@ -572,7 +572,7 @@ bool detect_objects_magic(creature_type *creature_ptr, COODINATES range)
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Skip held objects */
-		if(object_ptr->held_m_idx) continue;
+		if(object_ptr->held_creature_idx) continue;
 
 		y = object_ptr->fy;
 		x = object_ptr->fx;
@@ -1644,7 +1644,7 @@ bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODI
 * for a single turn, unless that creature can pass_walls or kill_walls.
 * This has allowed massive simplification of the "creature" code.
 */
-bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r, CREATURE_ID m_idx)
+bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r, CREATURE_ID creature_idx)
 {
 	COODINATES i, t, y, x, yy, xx, dy, dx;
 	COODINATES sy = 0, sx = 0;
@@ -1763,10 +1763,10 @@ bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COO
 					{
 						char *killer;
 
-						if(m_idx)
+						if(creature_idx)
 						{
 							char target_name[MAX_NLEN];
-							creature_type *target_ptr = &creature_list[m_idx];
+							creature_type *target_ptr = &creature_list[creature_idx];
 							creature_desc(target_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE); // Get the creature's real name
 							killer = format(COD_EARTHQUAKE_CASTER(caster_name));
 						}
@@ -2851,7 +2851,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	DIRECTION dir;
 	COODINATES tx, ty;
-	int tm_idx = 0;
+	int tcreature_idx = 0;
 	COODINATES path_g[32];
 	int path_n, i;
 	bool tmp_mdeath = FALSE;
@@ -2874,7 +2874,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		ty = target_row;
 	}
 
-	if(IN_BOUNDS(floor_ptr, ty, tx)) tm_idx = floor_ptr->cave[ty][tx].creature_idx;
+	if(IN_BOUNDS(floor_ptr, ty, tx)) tcreature_idx = floor_ptr->cave[ty][tx].creature_idx;
 	path_n = project_path(path_g, range, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
 
 	/* No need to move */
@@ -2901,7 +2901,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 
 		if(!floor_ptr->cave[ny][nx].creature_idx)
 		{
-			if(tm_idx) msg_print(MES_FAILED);
+			if(tcreature_idx) msg_print(MES_FAILED);
 			else msg_print(MES_RUSH_NO_ENTER);
 			break;
 		}
@@ -2915,7 +2915,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		/* Found a creature */
 		m_ptr = &creature_list[floor_ptr->cave[ny][nx].creature_idx];
 
-		if(tm_idx != floor_ptr->cave[ny][nx].creature_idx)
+		if(tcreature_idx != floor_ptr->cave[ny][nx].creature_idx)
 		{
 			msg_print(MES_CREATURE_IN_THE_WAY);
 		}

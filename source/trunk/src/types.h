@@ -39,7 +39,7 @@
  *
  * Certain data is saved in multiple places for efficient access, currently,
  * this includes the tval/sval/weight fields in "object_type", various fields
- * in "header_type", and the "m_idx" and "object_idx" fields in "cave_type".  All
+ * in "header_type", and the "creature_idx" and "object_idx" fields in "cave_type".  All
  * of these could be removed, but this would, in general, slow down the game
  * and increase the complexity of the code.
  */
@@ -787,7 +787,7 @@ typedef struct skill_table
  * to a max size of 256 by 256.  In partcular, locations are often
  * saved as bytes, limiting each coordinate to the 0-255 range.
  *
- * The "object_idx" and "m_idx" fields are very interesting.  There are
+ * The "object_idx" and "creature_idx" fields are very interesting.  There are
  * many places in the code where we need quick access to the actual
  * creature or object(s) in a given cave grid.  The easiest way to
  * do this is to simply keep the index of the creature and object
@@ -863,7 +863,7 @@ struct coord
  * in game terms, represents a "stack" of objects in the same grid.
  *
  *
- * The "held_m_idx" field is used to indicate which creature, if any,
+ * The "held_creature_idx" field is used to indicate which creature, if any,
  * is holding the object.  Objects being held have "ix=0" and "iy=0".
  */
 
@@ -937,7 +937,7 @@ struct object_type
 	FLAGS_32 curse_flags[MAX_TRAITS_FLAG]; // Flags for curse
 
 	OBJECT_ID next_object_idx; // Next object in stack (if any)
-	CREATURE_ID held_m_idx; /* Creature holding us (if any) */
+	CREATURE_ID held_creature_idx; /* Creature holding us (if any) */
 	SPECIES_ID creator_idx;		// Creater
 	SPECIES_ID source_idx; /* Item Source */
 
@@ -1689,7 +1689,7 @@ struct creature_type
 
 	STRING_OFFSET nickname;		// Creature's Nickname 
 
-	CREATURE_ID parent_m_idx;
+	CREATURE_ID parent_creature_idx;
 
 	SPECIES_ID underling_id[MAX_UNDERLINGS];	    // Underling ID 
 	POPULATION underling_num[MAX_UNDERLINGS];	    // Dice Number of Underlings 

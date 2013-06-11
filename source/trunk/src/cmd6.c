@@ -2000,7 +2000,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				//TODO CAPTURE
 				if(place_creature_fixed_species(creature_ptr, floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], object_ptr->pval, (PC_FORCE_PET | PC_NO_KAGE)))
 				{
-					creature_list[hack_m_idx_ii].mhp = creature_list[hack_m_idx_ii].mmhp;
+					creature_list[hack_creature_idx_ii].mhp = creature_list[hack_creature_idx_ii].mmhp;
 					if(object_ptr->inscription)
 					{
 						char buf[80];
@@ -2042,7 +2042,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 								s--;
 #endif
 							*s = '\0';
-							creature_list[hack_m_idx_ii].nickname = quark_add(buf);
+							creature_list[hack_creature_idx_ii].nickname = quark_add(buf);
 							t = quark_str(object_ptr->inscription);
 							s = buf;
 							while(*t && (*t != '#'))

@@ -347,7 +347,7 @@ static errr rd_object(object_type *object_ptr)
 	rd_byte(&object_ptr->marked);
 
 	// Creature holding object
-	READ_CREATURE_ID(&object_ptr->held_m_idx);
+	READ_CREATURE_ID(&object_ptr->held_creature_idx);
 	READ_GAME_TIME(&object_ptr->fuel);
 	READ_FORGED_ID(&object_ptr->forged_type);
 	rd_byte(&object_ptr->feeling);

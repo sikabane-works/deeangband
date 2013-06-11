@@ -2248,7 +2248,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			int nokori_hp;
 			if((floor_ptr->quest && (quest[floor_ptr->quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
-				(has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
+				(has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_creature_idx)
 			{
 				msg_format(MES_IS_UNAFFECTED, target_name);
 				skipped = TRUE;

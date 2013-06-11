@@ -608,7 +608,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 				if(pet) mode |= PC_FORCE_PET;
 
 				/*TODO
-				if(summoning((pet ? -1 : m_idx), wy, wx, 100, TRAIT_S_BLUE_HORROR, mode))
+				if(summoning((pet ? -1 : creature_idx), wy, wx, 100, TRAIT_S_BLUE_HORROR, mode))
 				{
 				if(creature_can_see_bold(dead_ptr, wy, wx))
 				notice = TRUE;
@@ -622,7 +622,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	case SPECIES_UNMAKER:
 		/* One more ultra-hack: An Unmaker goes out with a big bang! */
-		//TODO (void)project(m_idx, 6, y, x, 100, DO_EFFECT_CHAOS, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+		//TODO (void)project(creature_idx, 6, y, x, 100, DO_EFFECT_CHAOS, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 		break;
 
 	case SPECIES_UNICORN_ORD:
@@ -661,7 +661,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	case SPECIES_ROLENTO:
 			/*TODO
-			(void)project(m_idx, 3, y, x, diceroll(20, 10), DO_EFFECT_FIRE, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+			(void)project(creature_idx, 3, y, x, diceroll(20, 10), DO_EFFECT_FIRE, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 			*/
 		break;
 
@@ -1130,15 +1130,15 @@ void ang_sort(vptr u, vptr v, int n,
 * Future versions may restrict the ability to target "trappers"
 * and "mimics", but the semantics is a little bit weird.
 */
-bool target_able(creature_type *creature_ptr, CREATURE_ID m_idx)
+bool target_able(creature_type *creature_ptr, CREATURE_ID creature_idx)
 {
-	creature_type *target_ptr = &creature_list[m_idx];
+	creature_type *target_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if(!target_ptr->species_idx) return FALSE;	// Creature must be alive
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return FALSE;	// Hack -- no targeting hallucinations
 	if(!target_ptr->see_others) return FALSE;	// Creature must be visible
-	if(creature_ptr->riding && (creature_ptr->riding == m_idx)) return TRUE;
+	if(creature_ptr->riding && (creature_ptr->riding == creature_idx)) return TRUE;
 	if(!projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, target_ptr->fy, target_ptr->fx)) return FALSE;	// Creature must be projectable
 
 	return TRUE;

@@ -123,8 +123,8 @@ OBJECT_ID object_cnt = 0;			/* Number of live objects */
 
 CREATURE_ID creature_max = 1;			/* Number of allocated creatures */
 CREATURE_ID creature_cnt = 0;			/* Number of live creatures */
-CREATURE_ID hack_m_idx = 0;	/* Hack -- see "process_creatures()" */
-CREATURE_ID hack_m_idx_ii = 0;
+CREATURE_ID hack_creature_idx = 0;	/* Hack -- see "process_creatures()" */
+CREATURE_ID hack_creature_idx_ii = 0;
 
 bool multi_rew = FALSE;
 
@@ -921,8 +921,8 @@ int battle_odds;
 int kakekin;
 u32b creature_odds[GAMBLE_ARENA_GLADIATOR_MAX];
 
-int pet_t_m_idx;
-int riding_t_m_idx;
+int pet_t_creature_idx;
+int riding_t_creature_idx;
 
 SPECIES_ID kubi_species_idx[MAX_BOUNTY];
 SPECIES_ID today_mon;

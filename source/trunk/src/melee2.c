@@ -24,7 +24,7 @@
 /*
  * Calculate the direction to the next enemy
  */
-static bool get_enemy_dir(creature_type *creature_ptr, CREATURE_ID m_idx, int *mm)
+static bool get_enemy_dir(creature_type *creature_ptr, CREATURE_ID creature_idx, int *mm)
 {
 	int i;
 	int x = 0, y = 0;
@@ -32,21 +32,21 @@ static bool get_enemy_dir(creature_type *creature_ptr, CREATURE_ID m_idx, int *m
 	int start;
 	int plus = 1;
 
-	creature_type *m_ptr = &creature_list[m_idx];
+	creature_type *m_ptr = &creature_list[creature_idx];
 	species_type *species_ptr = &species_info[m_ptr->species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	creature_type *t_ptr;
 
-	if(riding_t_m_idx && CREATURE_BOLD(creature_ptr, m_ptr->fy, m_ptr->fx))
+	if(riding_t_creature_idx && CREATURE_BOLD(creature_ptr, m_ptr->fy, m_ptr->fx))
 	{
-		y = creature_list[riding_t_m_idx].fy;
-		x = creature_list[riding_t_m_idx].fx;
+		y = creature_list[riding_t_creature_idx].fy;
+		x = creature_list[riding_t_creature_idx].fx;
 	}
-	else if(is_pet(player_ptr, m_ptr) && pet_t_m_idx)
+	else if(is_pet(player_ptr, m_ptr) && pet_t_creature_idx)
 	{
-		y = creature_list[pet_t_m_idx].fy;
-		x = creature_list[pet_t_m_idx].fx;
+		y = creature_list[pet_t_creature_idx].fy;
+		x = creature_list[pet_t_creature_idx].fx;
 	}
 	else
 	{
@@ -98,8 +98,8 @@ static bool get_enemy_dir(creature_type *creature_ptr, CREATURE_ID m_idx, int *m
 			if(!are_mutual_enemies(m_ptr, t_ptr)) continue;
 
 			/* Creature must be projectable if we can't pass through walls */
-			if((has_trait(m_ptr, TRAIT_PASS_WALL) && ((m_idx != creature_ptr->riding) || has_trait(creature_ptr, TRAIT_PASS_WALL))) ||
-			    (has_trait(m_ptr, TRAIT_KILL_WALL) && (m_idx != creature_ptr->riding)))
+			if((has_trait(m_ptr, TRAIT_PASS_WALL) && ((creature_idx != creature_ptr->riding) || has_trait(creature_ptr, TRAIT_PASS_WALL))) ||
+			    (has_trait(m_ptr, TRAIT_KILL_WALL) && (creature_idx != creature_ptr->riding)))
 			{
 				if(!in_disintegration_range(floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 			}
@@ -255,7 +255,7 @@ static bool mon_will_run(creature_type *creature_ptr, CREATURE_ID creature_idx)
 
 
 // Search spell castable grid
-static bool get_moves_aux2(CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp)
+static bool get_moves_aux2(CREATURE_ID creature_idx, COODINATES *yp, COODINATES *xp)
 {
 	int i;
 	COODINATES y, x, y1, x1;
@@ -265,7 +265,7 @@ static bool get_moves_aux2(CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp)
 	bool can_open_door = FALSE;
 	int now_cost;
 
-	creature_type *creature_ptr = &creature_list[m_idx];
+	creature_type *creature_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Creature location */
@@ -305,8 +305,8 @@ static bool get_moves_aux2(CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp)
 		cost = c_ptr->cost;
 
 		/* Creature cannot kill or pass walls */
-		if(!((has_trait(creature_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || has_trait(player_ptr, TRAIT_PASS_WALL))) ||
-			  (has_trait(creature_ptr, TRAIT_KILL_WALL) && (m_idx != player_ptr->riding))))
+		if(!((has_trait(creature_ptr, TRAIT_BASH_DOOR) && ((creature_idx != player_ptr->riding) || has_trait(player_ptr, TRAIT_PASS_WALL))) ||
+			  (has_trait(creature_ptr, TRAIT_KILL_WALL) && (creature_idx != player_ptr->riding))))
 		{
 			if(cost == 0) continue;
 			if(!can_open_door && is_closed_door(c_ptr->feat)) continue;
@@ -356,7 +356,7 @@ static bool get_moves_aux2(CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp)
  * being close enough to chase directly.  I have no idea what will
  * happen if you combine "smell" with low "alert_range" values.
  */
-static bool get_moves_aux(creature_type *mover_ptr, CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp, bool no_flow)
+static bool get_moves_aux(creature_type *mover_ptr, CREATURE_ID creature_idx, COODINATES *yp, COODINATES *xp, bool no_flow)
 {
 	COODINATES i, y, x, y1, x1;
 	int best;
@@ -365,22 +365,22 @@ static bool get_moves_aux(creature_type *mover_ptr, CREATURE_ID m_idx, COODINATE
 	cave_type *c_ptr;
 	bool use_scent = FALSE;
 
-	creature_type *nonplayer_ptr = &creature_list[m_idx];
+	creature_type *nonplayer_ptr = &creature_list[creature_idx];
 	species_type *species_ptr = &species_info[nonplayer_ptr->species_idx];
 
 	/* Can creature cast attack spell? */
 	if(has_attack_skill_flags(&species_ptr->flags))
 	{
 		/* Can move spell castable grid? */
-		if(get_moves_aux2(m_idx, yp, xp)) return TRUE;
+		if(get_moves_aux2(creature_idx, yp, xp)) return TRUE;
 	}
 
 	/* Creature can't flow */
 	if(no_flow) return FALSE;
 
 	/* Creature can go through rocks */
-	if(has_trait(nonplayer_ptr, TRAIT_PASS_WALL) && ((m_idx != mover_ptr->riding) || has_trait(mover_ptr, TRAIT_PASS_WALL))) return FALSE;
-	if(has_trait(nonplayer_ptr, TRAIT_KILL_WALL) && (m_idx != mover_ptr->riding)) return FALSE;
+	if(has_trait(nonplayer_ptr, TRAIT_PASS_WALL) && ((creature_idx != mover_ptr->riding) || has_trait(mover_ptr, TRAIT_PASS_WALL))) return FALSE;
+	if(has_trait(nonplayer_ptr, TRAIT_KILL_WALL) && (creature_idx != mover_ptr->riding)) return FALSE;
 
 	/* Creature location */
 	y1 = nonplayer_ptr->fy;
@@ -463,13 +463,13 @@ static bool get_moves_aux(creature_type *mover_ptr, CREATURE_ID m_idx, COODINATE
 * but instead of heading directly for it, the creature should "swerve"
 * around the player so that he has a smaller chance of getting hit.
 */
-static bool get_fear_moves_aux(CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp)
+static bool get_fear_moves_aux(CREATURE_ID creature_idx, COODINATES *yp, COODINATES *xp)
 {
 	COODINATES y, x, y1, x1, fy, fx, gy = 0, gx = 0;
 	int score = -1;
 	int i;
 
-	creature_type *m_ptr = &creature_list[m_idx];
+	creature_type *m_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	/* Creature location */
@@ -664,11 +664,11 @@ static COODINATES *dist_offsets_x[10] =
 *
 * Return TRUE if a safe location is available.
 */
-static bool find_safety(creature_type *avoid_target_ptr, CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp)
+static bool find_safety(creature_type *avoid_target_ptr, CREATURE_ID creature_idx, COODINATES *yp, COODINATES *xp)
 {
 	int i;
 
-	creature_type *m_ptr = &creature_list[m_idx];
+	creature_type *m_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(avoid_target_ptr);
 
 	COODINATES fy = m_ptr->fy, fx = m_ptr->fx;
@@ -702,7 +702,7 @@ static bool find_safety(creature_type *avoid_target_ptr, CREATURE_ID m_idx, COOD
 			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Skip locations in a wall */
-			if(!creature_can_cross_terrain(m_ptr, c_ptr->feat, (m_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
+			if(!creature_can_cross_terrain(m_ptr, c_ptr->feat, (creature_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
 
 			/* Check for "availability" (if creatures can flow) */
 			if(!(m_ptr->sc_flag2 & SC_FLAG2_NOFLOW))
@@ -755,9 +755,9 @@ static bool find_safety(creature_type *avoid_target_ptr, CREATURE_ID m_idx, COOD
  *
  * Return TRUE if a good location is available.
  */
-static bool find_hiding(creature_type *player_ptr, CREATURE_ID m_idx, COODINATES *yp, COODINATES *xp)
+static bool find_hiding(creature_type *player_ptr, CREATURE_ID creature_idx, COODINATES *yp, COODINATES *xp)
 {
-	creature_type *m_ptr = &creature_list[m_idx];
+	creature_type *m_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 	COODINATES fy = m_ptr->fy;
 	COODINATES fx = m_ptr->fx;
@@ -821,19 +821,19 @@ static bool find_hiding(creature_type *player_ptr, CREATURE_ID m_idx, COODINATES
 
 
 // Choose "logical" directions for creature movement
-static bool get_moves(CREATURE_ID m_idx, creature_type *player_ptr, int *mm)
+static bool get_moves(CREATURE_ID creature_idx, creature_type *player_ptr, int *mm)
 {
-	creature_type *nonplayer_ptr = &creature_list[m_idx];
+	creature_type *nonplayer_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	COODINATES y, ay, x, ax;
 	int          move_val = 0;
 	COODINATES y2 = player_ptr->fy;
 	COODINATES x2 = player_ptr->fx;
 	bool         done = FALSE;
-	bool         will_run = mon_will_run(player_ptr, m_idx);
+	bool         will_run = mon_will_run(player_ptr, creature_idx);
 	cave_type    *c_ptr;
 	bool         no_flow = ((nonplayer_ptr->sc_flag2 & SC_FLAG2_NOFLOW) && (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
-	bool         can_pass_wall = (has_trait(nonplayer_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || has_trait(player_ptr, TRAIT_PASS_WALL)));
+	bool         can_pass_wall = (has_trait(nonplayer_ptr, TRAIT_BASH_DOOR) && ((creature_idx != player_ptr->riding) || has_trait(player_ptr, TRAIT_PASS_WALL)));
 
 	y = nonplayer_ptr->fy;
 	x = nonplayer_ptr->fx;
@@ -841,11 +841,11 @@ static bool get_moves(CREATURE_ID m_idx, creature_type *player_ptr, int *mm)
 	/* Counter attack to an enemy creature */
 	if(!will_run && nonplayer_ptr->target_y)
 	{
-		int t_m_idx = floor_ptr->cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].creature_idx;
+		int t_creature_idx = floor_ptr->cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].creature_idx;
 
 		/* The creature must be an enemy, and in LOS */
-		if(t_m_idx &&
-		    are_mutual_enemies(nonplayer_ptr, &creature_list[t_m_idx]) &&
+		if(t_creature_idx &&
+		    are_mutual_enemies(nonplayer_ptr, &creature_list[t_creature_idx]) &&
 		    los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x) &&
 		    projectable(floor_ptr, MAX_RANGE, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x))
 		{
@@ -897,7 +897,7 @@ static bool get_moves(CREATURE_ID m_idx, creature_type *player_ptr, int *mm)
 			    (player_ptr->mhp + player_ptr->msp))
 			{
 				/* Find hiding place */
-				if(find_hiding(player_ptr, m_idx, &y, &x)) done = TRUE;
+				if(find_hiding(player_ptr, creature_idx, &y, &x)) done = TRUE;
 			}
 		}
 
@@ -910,8 +910,8 @@ static bool get_moves(CREATURE_ID m_idx, creature_type *player_ptr, int *mm)
 			for (i = 0; i < 8; i++)
 			{
 				/* Pick squares near player (semi-randomly) */
-				y2 = player_ptr->fy + ddy_ddd[(m_idx + i) & 7];
-				x2 = player_ptr->fx + ddx_ddd[(m_idx + i) & 7];
+				y2 = player_ptr->fy + ddy_ddd[(creature_idx + i) & 7];
+				x2 = player_ptr->fx + ddx_ddd[(creature_idx + i) & 7];
 
 				/* Already there? */
 				if((nonplayer_ptr->fy == y2) && (nonplayer_ptr->fx == x2))
@@ -943,7 +943,7 @@ static bool get_moves(CREATURE_ID m_idx, creature_type *player_ptr, int *mm)
 	if(!done)
 	{
 		/* Flow towards the player */
-		(void)get_moves_aux(player_ptr, m_idx, &y2, &x2, no_flow);
+		(void)get_moves_aux(player_ptr, creature_idx, &y2, &x2, no_flow);
 
 		/* Extract the "pseudo-direction" */
 		y = nonplayer_ptr->fy - y2;
@@ -965,13 +965,13 @@ static bool get_moves(CREATURE_ID m_idx, creature_type *player_ptr, int *mm)
 			COODINATES tmp_x = (-x), tmp_y = (-y);
 
 			/* Try to find safe place */
-			if(find_safety(player_ptr, m_idx, &y, &x))
+			if(find_safety(player_ptr, creature_idx, &y, &x))
 			{
 				/* Attempt to avoid the player */
 				if(!no_flow)
 				{
 					/* Adjust movement */
-					if(get_fear_moves_aux(m_idx, &y, &x)) done = TRUE;
+					if(get_fear_moves_aux(creature_idx, &y, &x)) done = TRUE;
 				}
 			}
 
@@ -1301,7 +1301,7 @@ static void do_multiply_creature(creature_type *creature_ptr)
 			if(multiply_creature(creature_ptr, FALSE, (is_pet(player_ptr, creature_ptr) ? PC_FORCE_PET : 0)))
 			{
 				/* Take note if visible */
-				if(creature_list[hack_m_idx_ii].see_others && is_original_ap_and_seen(player_ptr, creature_ptr))
+				if(creature_list[hack_creature_idx_ii].see_others && is_original_ap_and_seen(player_ptr, creature_ptr))
 				{
 					//TODO species_ptr->r_flags2 |= (RF2_MULTIPLY);
 				}
@@ -1334,7 +1334,7 @@ static void do_scatting_creature(creature_type *creature_ptr)
 					for (k = 0; k < STAT_MAX; k++)
 					{
 						if(summoning(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, TRAIT_S_MOLD, (PC_ALLOW_GROUP | p_mode)))
-							if(creature_list[hack_m_idx_ii].see_others) count++;
+							if(creature_list[hack_creature_idx_ii].see_others) count++;
 					}
 
 					if(count && is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_SPECIAL);
@@ -1527,7 +1527,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 	}
 
 	// Are there its parent?
-	if(creature_ptr->parent_m_idx && !creature_list[creature_ptr->parent_m_idx].species_idx)
+	if(creature_ptr->parent_creature_idx && !creature_list[creature_ptr->parent_creature_idx].species_idx)
 	{
 		// Its parent have gone, it also goes away.
 		if(see_m)
@@ -2303,7 +2303,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 						object_ptr->fy = object_ptr->fx = 0;
 
 						/* Memorize creature */
-						object_ptr->held_m_idx = creature_idx;
+						object_ptr->held_creature_idx = creature_idx;
 					}
 
 					/* Destroy the item if not a pet */
@@ -2389,7 +2389,7 @@ static void process_creature(CREATURE_ID i)
 	creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this creature some energy
 	if(creature_ptr->energy_need > 0) return; // Not enough energy to move
 
-	hack_m_idx = i; /* Save global index */
+	hack_creature_idx = i; /* Save global index */
 	gamble_arena_limitation();
 
 	do_creature_mutation(creature_ptr);

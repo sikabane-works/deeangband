@@ -34,12 +34,12 @@ void excise_object_idx(OBJECT_ID object_idx)
 	object2_ptr = &object_list[object_idx];
 
 	/* Creature */
-	if(object2_ptr->held_m_idx)
+	if(object2_ptr->held_creature_idx)
 	{
 		creature_type *m_ptr;
 
 		/* Creature */
-		m_ptr = &creature_list[object2_ptr->held_m_idx];
+		m_ptr = &creature_list[object2_ptr->held_creature_idx];
 	}
 
 	/* Dungeon */
@@ -116,7 +116,7 @@ void delete_object_idx(OBJECT_ID object_idx)
 	floor_ptr = GET_FLOOR_PTR(object2_ptr);
 
 	// Dungeon floor
-	if(!(object2_ptr->held_m_idx))
+	if(!(object2_ptr->held_creature_idx))
 	{
 		COODINATES y, x;
 		y = object2_ptr->fy;
@@ -270,12 +270,12 @@ void compact_objects(int size)
 			if(object_kind_info[object_ptr->k_idx].level > cur_lev) continue;
 
 			/* Creature */
-			if(object_ptr->held_m_idx)
+			if(object_ptr->held_creature_idx)
 			{
 				creature_type *m_ptr;
 
 				/* Acquire creature */
-				m_ptr = &creature_list[object_ptr->held_m_idx];
+				m_ptr = &creature_list[object_ptr->held_creature_idx];
 
 				/* Get the location */
 				y = m_ptr->fy;
@@ -3133,7 +3133,7 @@ OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, 
 		object_ptr->fy = by;
 		object_ptr->fx = bx;
 
-		object_ptr->held_m_idx = 0;
+		object_ptr->held_creature_idx = 0;
 		object_ptr->next_object_idx = c_ptr->object_idx;
 		c_ptr->object_idx = object_idx;
 		done = TRUE;

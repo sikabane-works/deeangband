@@ -943,10 +943,10 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 					if(!projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, y1, x1)) continue;
 
 					if(summoning(0, y1, x1, lev, TRAIT_S_ARMAGE_EVIL, (PC_NO_PET)))
-						evil_idx = hack_m_idx_ii;
+						evil_idx = hack_creature_idx_ii;
 
 					if(summoning(0, y1, x1, lev, TRAIT_S_ARMAGE_GOOD, (PC_NO_PET)))
-						good_idx = hack_m_idx_ii;
+						good_idx = hack_creature_idx_ii;
 
 					/* Let them fight each other */
 					if(evil_idx && good_idx)
@@ -1184,8 +1184,8 @@ void delete_creature(creature_type *creature_ptr)
 
 	if(creature_ptr == &creature_list[npc_status_id]) health_track(0);	// Hack -- remove tracked creature
 
-	if(&creature_list[pet_t_m_idx] == creature_ptr) pet_t_m_idx = 0;
-	if(&creature_list[riding_t_m_idx] == creature_ptr) riding_t_m_idx = 0;
+	if(&creature_list[pet_t_creature_idx] == creature_ptr) pet_t_creature_idx = 0;
+	if(&creature_list[riding_t_creature_idx] == creature_ptr) riding_t_creature_idx = 0;
 	if(&creature_list[creature_ptr->riding] == creature_ptr) creature_ptr->riding = 0;
 
 	floor_ptr->cave[y][x].creature_idx = 0;	// Creature is gone
@@ -1374,8 +1374,8 @@ void wipe_creature_list(FLOOR_ID floor_idx)
 	creature_cnt = 0;
 
 	/* Hack -- no more target */
-	pet_t_m_idx = 0;
-	riding_t_m_idx = 0;
+	pet_t_creature_idx = 0;
+	riding_t_creature_idx = 0;
 
 	/* Hack -- no more tracking */
 	health_track(0);
@@ -1599,7 +1599,7 @@ static void set_species_list_bias_summoning(PROB **prob_list_ptr, TRAIT_ID summo
 }
 
 
-static int chameleon_change_m_idx = 0;
+static int chameleon_change_creature_idx = 0;
 
 // Some dungeon types restrict the possible creatures.
 // Return TRUE is the creature is OK and FALSE otherwise
@@ -1610,7 +1610,7 @@ static bool restrict_creature_to_dungeon(SPECIES_ID species_idx)
 	species_type *species_ptr = &species_info[species_idx];
 	//byte a;
 
-	if(d_ptr->flags1 & DF1_CHAMELEON) if(chameleon_change_m_idx) return TRUE;
+	if(d_ptr->flags1 & DF1_CHAMELEON) if(chameleon_change_creature_idx) return TRUE;
 
 	if(d_ptr->flags1 & DF1_NO_MAGIC)
 	{
@@ -1839,7 +1839,7 @@ SPECIES_ID get_species_num(floor_type *floor_ptr, FLOOR_LEV level)
 		species_ptr = &species_info[species_idx];			// Access the actual race
 		if(has_trait_species(species_ptr, TRAIT_CITIZEN)) continue;	// Citizens doesn't wander.
 
-		if(!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx)
+		if(!floor_ptr->gamble_arena_mode && !chameleon_change_creature_idx)
 		{
 			// Hack -- "unique" creatures must be "unique"
 			if((has_trait_species(species_ptr, TRAIT_UNIQUE)) && (species_ptr->cur_num >= species_ptr->max_num)) continue;
@@ -2926,7 +2926,7 @@ void update_creatures(bool full)
 static bool creature_hook_chameleon_lord(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
-	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
+	creature_type *m_ptr = &creature_list[chameleon_change_creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	if(!(has_trait_species(species_ptr, TRAIT_UNIQUE))) return FALSE;
@@ -2940,7 +2940,7 @@ static bool creature_hook_chameleon_lord(SPECIES_ID species_idx)
 static bool creature_hook_chameleon(SPECIES_ID species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
-	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
+	creature_type *m_ptr = &creature_list[chameleon_change_creature_idx];
 	species_type *old_r_ptr = &species_info[m_ptr->species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
@@ -2964,7 +2964,7 @@ static bool creature_hook_chameleon(SPECIES_ID species_idx)
 
 void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_idx, CREATURE_EGO_ID creature_ego_idx)
 {
-	int i, m_idx = 0;
+	int i, creature_idx = 0;
 	int oldmhp;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	species_type *species_ptr;
@@ -3001,7 +3001,7 @@ void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_
 
 	creature_ptr->species_idx = species_idx;
 	creature_ptr->ap_species_idx = species_idx;
-	update_creature_view(player_ptr, m_idx, FALSE);
+	update_creature_view(player_ptr, creature_idx, FALSE);
 	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	if(creature_ego_idx == MONEGO_NONE) creature_ptr->creature_ego_idx = 0;
@@ -3531,7 +3531,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	}
 
 	creature_ptr = generate_creature(c_ptr, species_idx, GC_AUTO); 
-	hack_m_idx_ii = c_ptr->creature_idx;
+	hack_creature_idx_ii = c_ptr->creature_idx;
 
 	// Hack -- Appearance transfer
 	if(summoner_ptr && (mode & PC_MULTIPLY) && !is_player(summoner_ptr) && !is_original_ap(summoner_ptr))
@@ -3889,7 +3889,7 @@ bool place_floor_spawn_creature(creature_type *summoner_ptr, floor_type *floor_p
 	//TODO get_creature_list_terrain(), get_creature_list_feature(y, x)
 	species_idx = species_rand(prob_list);
 	free_species_list(&prob_list);
-	if(!species_idx) return FALSE;
+	if(species_idx <= 0) return FALSE;
 
 	return place_creature_fixed_species(summoner_ptr, floor_ptr, y, x, species_idx, mode); // Attempt to place the creature
 }
@@ -3898,7 +3898,7 @@ bool place_creature_horde(creature_type *summoner_ptr, floor_type *floor_ptr, CO
 {
 	species_type *species_ptr = NULL;
 	SPECIES_ID species_idx = 0;
-	CREATURE_ID m_idx;
+	CREATURE_ID creature_idx;
 	COODINATES cy = y, cx = x;
 	int attempts = SAFE_MAX_ATTEMPTS;
 
@@ -3915,15 +3915,15 @@ bool place_creature_horde(creature_type *summoner_ptr, floor_type *floor_ptr, CO
 	while (--attempts) if(place_creature_fixed_species(summoner_ptr, floor_ptr, y, x, species_idx, 0L)) break;
 	if(attempts < 1) return FALSE;
 
-	m_idx = floor_ptr->cave[y][x].creature_idx;
+	creature_idx = floor_ptr->cave[y][x].creature_idx;
 
-	if(creature_list[m_idx].sc_flag2 & SC_FLAG2_CHAMELEON) species_ptr = &species_info[creature_list[m_idx].species_idx];
+	if(creature_list[creature_idx].sc_flag2 & SC_FLAG2_CHAMELEON) species_ptr = &species_info[creature_list[creature_idx].species_idx];
 	//summon_kin_type = species_ptr->d_char;
 
 	for (attempts = randint1(10) + 5; attempts; attempts--)
 	{
 		scatter(floor_ptr, &cy, &cx, y, x, 5, 0);
-		(void)summoning(&creature_list[m_idx], cy, cx, floor_ptr->depth + 5, TRAIT_S_KIN, PC_ALLOW_GROUP);
+		(void)summoning(&creature_list[creature_idx], cy, cx, floor_ptr->depth + 5, TRAIT_S_KIN, PC_ALLOW_GROUP);
 		y = cy;
 		x = cx;
 	}
@@ -4118,8 +4118,8 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, FLAGS_32 mode)
 	/* Hack -- Transfer "clone" flag */
 	if(clone || has_trait(creature_ptr, TRAIT_CLONED))
 	{
-		set_timed_trait(&creature_list[hack_m_idx_ii], TRAIT_CLONED, PERMANENT_TIMED, FALSE);
-		set_timed_trait(&creature_list[hack_m_idx_ii], TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
+		set_timed_trait(&creature_list[hack_creature_idx_ii], TRAIT_CLONED, PERMANENT_TIMED, FALSE);
+		set_timed_trait(&creature_list[hack_creature_idx_ii], TRAIT_NO_PET, PERMANENT_TIMED, FALSE);
 	}
 
 	return TRUE;
@@ -4482,7 +4482,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		COODINATES oy = creature_ptr->fy;
 		COODINATES ox = creature_ptr->fx;
 		cave_type *oc_ptr = &prev_floor_ptr->cave[oy][ox];
-		CREATURE_ID nm_idx = c_ptr->creature_idx;
+		CREATURE_ID ncreature_idx = c_ptr->creature_idx;
 
 		/* Move the player */
 		if(ny) creature_ptr->fy = ny;
@@ -4492,16 +4492,16 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		/* Hack -- For moving creature or riding player's moving */
 		if(!(mpe_mode & MCE_DONT_SWAP_MON))
 		{
-			oc_ptr->creature_idx = nm_idx; /* Swap two creatures */
+			oc_ptr->creature_idx = ncreature_idx; /* Swap two creatures */
 
 			//TODO riding process
 
-			if(nm_idx > 0) /* Creature on new spot */
+			if(ncreature_idx > 0) /* Creature on new spot */
 			{
-				creature_type *nm_ptr = &creature_list[nm_idx];
+				creature_type *nm_ptr = &creature_list[ncreature_idx];
 				nm_ptr->fy = oy;
 				nm_ptr->fx = ox;
-				update_creature_view(player_ptr, nm_idx, TRUE);
+				update_creature_view(player_ptr, ncreature_idx, TRUE);
 			}
 		}
 

@@ -6411,7 +6411,7 @@ static void drop_here(floor_type *floor_ptr, object_type *drop_ptr, COODINATES y
 	object_copy(object_ptr, drop_ptr);
 	object_ptr->fy = y;
 	object_ptr->fx = x;
-	object_ptr->held_m_idx = 0;
+	object_ptr->held_creature_idx = 0;
 	object_ptr->next_object_idx = c_ptr->object_idx;
 	c_ptr->object_idx = object_idx;
 }
@@ -6528,7 +6528,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				place_creature_fixed_species(NULL, floor_ptr, *y, *x, creature_index, (PC_ALLOW_SLEEP | PC_NO_KAGE));
 				if(clone)
 				{
-					set_timed_trait(&creature_list[hack_m_idx_ii], TRAIT_CLONED, PERMANENT_TIMED, FALSE);
+					set_timed_trait(&creature_list[hack_creature_idx_ii], TRAIT_CLONED, PERMANENT_TIMED, FALSE);
 
 					/* Make alive again for real unique creature */
 					species_info[creature_index].cur_num = old_cur_num;
@@ -6831,13 +6831,13 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				max_object_idx = strtol(zz[1], NULL, 10);
 			}
 
-			/* Maximum m_idx */
+			/* Maximum creature_idx */
 			else if(zz[0][0] == 'M')
 			{
 				max_creature_idx = strtol(zz[1], NULL, 10);
 			}
 
-			/* Maximum m_idx */
+			/* Maximum creature_idx */
 			else if(zz[0][0] == 'C')
 			{
 				max_trait_idx = strtol(zz[1], NULL, 10);

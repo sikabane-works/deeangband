@@ -1346,7 +1346,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 		/* Genocided by chaos patron */
 		//TODO check
-		//if(!target_ptr->species_idx) m_idx = 0;
+		//if(!target_ptr->species_idx) creature_idx = 0;
 	}
 
 	if(has_trait_from_timed(target_ptr, TRAIT_SLEPT)) (void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
@@ -1637,7 +1637,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	}
 
 #if 0
-	if(attacker_ptr->riding && (attacker_ptr->riding == m_idx) && (damage > 0))
+	if(attacker_ptr->riding && (attacker_ptr->riding == creature_idx) && (damage > 0))
 	{
 		char target_name[80];
 

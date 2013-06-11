@@ -946,8 +946,8 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 	if(creature_ptr1->nickname && !creature_ptr2->nickname) return TRUE;
 	if(creature_ptr2->nickname && !creature_ptr1->nickname) return FALSE;
 
-	if(!creature_ptr1->parent_m_idx && creature_ptr2->parent_m_idx) return TRUE;
-	if(!creature_ptr2->parent_m_idx && creature_ptr1->parent_m_idx) return FALSE;
+	if(!creature_ptr1->parent_creature_idx && creature_ptr2->parent_creature_idx) return TRUE;
+	if(!creature_ptr2->parent_creature_idx && creature_ptr1->parent_creature_idx) return FALSE;
 
 	if(has_trait_species(species_ptr1, TRAIT_UNIQUE) && !has_trait_species(species_ptr2, TRAIT_UNIQUE)) return TRUE;
 	if(has_trait_species(species_ptr2, TRAIT_UNIQUE) && !has_trait_species(species_ptr1, TRAIT_UNIQUE)) return FALSE;
@@ -1194,7 +1194,7 @@ void do_cmd_pet(creature_type *master_ptr)
 	power_desc[num] = MES_PETCOM_DISMISS_PET;
 	powers[num++] = PET_DISMISS;
 
-	sprintf(target_buf, MES_PETCOM_TARGETING((pet_t_m_idx ? (has_trait(master_ptr, TRAIT_HALLUCINATION) ? KW_SOMETHING_STRANGE : (species_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : KW_NOTHING_TARGET)));
+	sprintf(target_buf, MES_PETCOM_TARGETING((pet_t_creature_idx ? (has_trait(master_ptr, TRAIT_HALLUCINATION) ? KW_SOMETHING_STRANGE : (species_name + species_info[creature_list[pet_t_creature_idx].ap_species_idx].name)) : KW_NOTHING_TARGET)));
 	power_desc[num] = target_buf;
 
 	powers[num++] = PET_TARGET;
@@ -1453,16 +1453,16 @@ void do_cmd_pet(creature_type *master_ptr)
 		}
 	case PET_TARGET:
 		{
-			if(!target_set(master_ptr, NO_RANGE_LIMIT, TARGET_KILL)) pet_t_m_idx = 0;
+			if(!target_set(master_ptr, NO_RANGE_LIMIT, TARGET_KILL)) pet_t_creature_idx = 0;
 			else
 			{
 				cave_type *c_ptr = &floor_ptr->cave[target_row][target_col];
 				if(c_ptr->creature_idx && (creature_list[c_ptr->creature_idx].see_others))
 				{
-					pet_t_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+					pet_t_creature_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 					master_ptr->pet_follow_distance = PET_DESTROY_DIST;
 				}
-				else pet_t_m_idx = 0;
+				else pet_t_creature_idx = 0;
 			}
 			break;
 		}
@@ -1470,14 +1470,14 @@ void do_cmd_pet(creature_type *master_ptr)
 	case PET_STAY_CLOSE:
 		{
 			master_ptr->pet_follow_distance = PET_CLOSE_DIST;
-			pet_t_m_idx = 0;
+			pet_t_creature_idx = 0;
 			break;
 		}
 		/* "Follow Me" */
 	case PET_FOLLOW_ME:
 		{
 			master_ptr->pet_follow_distance = PET_FOLLOW_DIST;
-			pet_t_m_idx = 0;
+			pet_t_creature_idx = 0;
 			break;
 		}
 		/* "Seek and destoy" */

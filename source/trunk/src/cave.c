@@ -4231,7 +4231,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 		if(!is_valid_object(object_ptr)) continue;
 
 		/* Skip held objects */
-		if(object_ptr->held_m_idx) continue;
+		if(object_ptr->held_creature_idx) continue;
 
 		/* Memorize */
 		object_ptr->marked |= OM_FOUND;
@@ -4342,7 +4342,7 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 	{
 		object_type *object_ptr = &object_list[i]; /* Skip dead objects */
 		if(!is_valid_object(object_ptr)) continue; /* Skip held objects */
-		if(object_ptr->held_m_idx) continue; /* Forget the object */
+		if(object_ptr->held_creature_idx) continue; /* Forget the object */
 		object_ptr->marked &= OM_TOUCHED;
 	}
 

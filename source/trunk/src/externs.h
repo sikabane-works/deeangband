@@ -173,8 +173,8 @@ extern OBJECT_ID object_max;
 extern OBJECT_ID object_cnt;
 extern CREATURE_ID creature_max;
 extern CREATURE_ID creature_cnt;
-extern CREATURE_ID hack_m_idx;
-extern CREATURE_ID hack_m_idx_ii;
+extern CREATURE_ID hack_creature_idx;
+extern CREATURE_ID hack_creature_idx_ii;
 extern s32b friend_align;
 extern s32b friend_ethics;
 extern int leaving_quest;
@@ -508,8 +508,8 @@ extern int sel_creature;
 extern int battle_odds;
 extern int kakekin;
 extern u32b creature_odds[4];
-extern int pet_t_m_idx;
-extern int riding_t_m_idx;
+extern int pet_t_creature_idx;
+extern int riding_t_creature_idx;
 extern SPECIES_ID kubi_species_idx[MAX_BOUNTY];
 extern SPECIES_ID today_mon;
 extern bool write_level;
@@ -999,7 +999,7 @@ extern bool mass_genocide_undead(creature_type *caster_ptr, POWER power, bool pl
 extern bool probing(floor_type *floor_ptr);
 extern bool destroy_area(creature_type *caster_ptr, COODINATES y1, COODINATES x1, COODINATES r, bool in_generate);
 extern bool charge_combat(creature_type *caster_ptr);
-extern bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r, CREATURE_ID m_idx);
+extern bool earthquake_aux(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r, CREATURE_ID creature_idx);
 extern bool earthquake(creature_type *caster_ptr, COODINATES cy, COODINATES cx, COODINATES r);
 extern bool massacre(creature_type *caster_ptr);
 extern void lite_room(creature_type *creature_ptr, COODINATES y1, COODINATES x1);
@@ -1031,7 +1031,7 @@ extern void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, b
 
 // spells3.c
 extern bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
-extern void teleport_creature_to2(CREATURE_ID m_idx, COODINATES ty, COODINATES tx, POWER power, FLAGS_32 mode);
+extern void teleport_creature_to2(CREATURE_ID creature_idx, COODINATES ty, COODINATES tx, POWER power, FLAGS_32 mode);
 extern bool cave_player_teleportable_bold(creature_type *creature_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
 extern bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
 extern void teleport_creature(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode);
@@ -1258,7 +1258,7 @@ extern void verify_panel(creature_type *creature_ptr);
 extern cptr look_creature_desc(creature_type *m_ptr, FLAGS_32 mode);
 extern void ang_sort_aux(vptr u, vptr v, int p, int q, bool (*ang_sort_comp)(vptr u, vptr v, int a, int b), void (*ang_sort_swap)(vptr u, vptr v, int a, int b));
 extern void ang_sort(vptr u, vptr v, int n, bool (*ang_sort_comp)(vptr u, vptr v, int a, int b), void (*ang_sort_swap)(vptr u, vptr v, int a, int b));
-extern bool target_able(creature_type *creature_ptr, CREATURE_ID m_idx);
+extern bool target_able(creature_type *creature_ptr, CREATURE_ID creature_idx);
 extern bool target_okay(creature_type *creature_ptr);
 extern bool target_set(creature_type *aimer, COODINATES range, FLAGS_32 mode);
 extern bool get_aim_dir(creature_type *creature_ptr, COODINATES range, DIRECTION *dp);

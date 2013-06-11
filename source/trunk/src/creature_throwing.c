@@ -726,7 +726,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		object_copy(object_ptr, quest_ptr);
 		object_ptr->marked &= OM_TOUCHED; /* Forget mark */
 		object_ptr->fy = object_ptr->fx = 0; /* Forget location */
-		object_ptr->held_m_idx = creature_idx; /* Memorize creature */
+		object_ptr->held_creature_idx = creature_idx; /* Memorize creature */
 
 		/* Build a stack */
 		//TODO

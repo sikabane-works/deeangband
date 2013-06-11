@@ -1131,11 +1131,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
 					delete_creature(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
 					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANOR, mode);
-					creature_list[hack_m_idx_ii].chp = dummy_hp;
-					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
+					creature_list[hack_creature_idx_ii].chp = dummy_hp;
+					creature_list[hack_creature_idx_ii].mhp = dummy_mhp;
 					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_LUPART, mode);
-					creature_list[hack_m_idx_ii].chp = dummy_hp;
-					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
+					creature_list[hack_creature_idx_ii].chp = dummy_hp;
+					creature_list[hack_creature_idx_ii].mhp = dummy_mhp;
 
 					msg_format(MES_TRAIT_SPLIT_TWO_MEN(caster_ptr));
 					break;
@@ -1165,8 +1165,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 						}
 					}
 					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANORLUPART, mode);
-					creature_list[hack_m_idx_ii].chp = dummy_hp;
-					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
+					creature_list[hack_creature_idx_ii].chp = dummy_hp;
+					creature_list[hack_creature_idx_ii].mhp = dummy_mhp;
 					msg_print(MES_TRAIT_COMBINE);
 					break;
 				}

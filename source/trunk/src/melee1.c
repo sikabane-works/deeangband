@@ -617,7 +617,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 					j_ptr->marked = OM_TOUCHED;
 
 					/* Memorize creature */
-					//TODO j_ptr->held_m_idx = m_idx;
+					//TODO j_ptr->held_creature_idx = creature_idx;
 				}
 				increase_item(target_ptr, i, -1, FALSE);
 				blinked = TRUE;

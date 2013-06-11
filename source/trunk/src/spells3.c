@@ -52,7 +52,7 @@ bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	COODINATES oy, ox, d, min, i;
-	s16b m_idx = 0, point;
+	s16b creature_idx = 0, point;
 	int tries = 0;
 	COODINATES ny = 0, nx = 0;
 	bool look = TRUE;
@@ -121,12 +121,12 @@ bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode)
 	for(point = 0; point < 10000; point++)
 		if(&creature_list[point] == creature_ptr)
 		{
-			m_idx = point;
+			creature_idx = point;
 			break;
 		}
 
 	/* Update the new location */
-	floor_ptr->cave[ny][nx].creature_idx = m_idx;
+	floor_ptr->cave[ny][nx].creature_idx = creature_idx;
 
 	/* Move the creature */
 	creature_ptr->fy = ny;
@@ -136,7 +136,7 @@ bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode)
 	reset_target(creature_ptr);
 
 	/* Update the creature (new location) */
-	update_creature_view(player_ptr, m_idx, TRUE);
+	update_creature_view(player_ptr, creature_idx, TRUE);
 
 	lite_spot(floor_ptr, oy, ox);
 	lite_spot(floor_ptr, ny, nx);
@@ -148,14 +148,14 @@ bool teleport_away(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mode)
 }
 
 // Teleport creature next to a grid near the given location
-void teleport_creature_to2(CREATURE_ID m_idx, COODINATES ty, COODINATES tx, POWER power, FLAGS_32 mode)
+void teleport_creature_to2(CREATURE_ID creature_idx, COODINATES ty, COODINATES tx, POWER power, FLAGS_32 mode)
 {
 	COODINATES ny, nx, oy, ox;
 	int d, i, min;
 	int attempts = 500;
 	int dis = 2;
 	bool look = TRUE;
-	creature_type *m_ptr = &creature_list[m_idx];
+	creature_type *m_ptr = &creature_list[creature_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	if(randint1(100) > power) return; // "Skill" test
@@ -218,13 +218,13 @@ void teleport_creature_to2(CREATURE_ID m_idx, COODINATES ty, COODINATES tx, POWE
 	floor_ptr->cave[oy][ox].creature_idx = 0;
 
 	/* Update the new location */
-	floor_ptr->cave[ny][nx].creature_idx = m_idx;
+	floor_ptr->cave[ny][nx].creature_idx = creature_idx;
 
 	/* Move the creature */
 	move_creature(m_ptr, floor_ptr, ny, nx, 0);
 
 	/* Update the creature (new location) */
-	update_creature_view(player_ptr, m_idx, TRUE);
+	update_creature_view(player_ptr, creature_idx, TRUE);
 
 	lite_spot(floor_ptr, oy, ox);
 	lite_spot(floor_ptr, ny, nx);
@@ -409,19 +409,19 @@ void teleport_creature(creature_type *creature_ptr, COODINATES dis, FLAGS_32 mod
 	{
 		for (yy = -1; yy < 2; yy++)
 		{
-			int tmp_m_idx = floor_ptr->cave[oy+yy][ox+xx].creature_idx;
+			int tmp_creature_idx = floor_ptr->cave[oy+yy][ox+xx].creature_idx;
 
 			/* A creature except your mount may follow */
-			if(tmp_m_idx && (creature_ptr->riding != tmp_m_idx))
+			if(tmp_creature_idx && (creature_ptr->riding != tmp_creature_idx))
 			{
-				creature_type *m_ptr = &creature_list[tmp_m_idx];
+				creature_type *m_ptr = &creature_list[tmp_creature_idx];
 
 				/*
 				 * The latter limitation is to avoid
 				 * totally unkillable suckers...
 				 */
 				if(has_trait(m_ptr, TRAIT_ACTIVE_TELEPORT) && !has_trait(m_ptr, TRAIT_RES_TELE))
-					if(!has_trait(m_ptr, TRAIT_PARALYZED)) teleport_creature_to2(tmp_m_idx, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
+					if(!has_trait(m_ptr, TRAIT_PARALYZED)) teleport_creature_to2(tmp_creature_idx, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
 			}
 		}
 	}
@@ -644,12 +644,12 @@ void teleport_player_away(creature_type *creature_ptr, COODINATES dis)
 	{
 		for (yy = -1; yy < 2; yy++)
 		{
-			int tmp_m_idx = floor_ptr->cave[oy+yy][ox+xx].creature_idx;
+			int tmp_creature_idx = floor_ptr->cave[oy+yy][ox+xx].creature_idx;
 
 			/* A creature except your mount or caster may follow */
-			if(tmp_m_idx && (creature_ptr->riding != tmp_m_idx) && (creature_ptr != &creature_list[tmp_m_idx]))
+			if(tmp_creature_idx && (creature_ptr->riding != tmp_creature_idx) && (creature_ptr != &creature_list[tmp_creature_idx]))
 			{
-				creature_type *creature_ptr = &creature_list[tmp_m_idx];
+				creature_type *creature_ptr = &creature_list[tmp_creature_idx];
 				species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
 				/*
@@ -657,7 +657,7 @@ void teleport_player_away(creature_type *creature_ptr, COODINATES dis)
 				 * totally unkillable suckers...
 				 */
 				if(has_trait(creature_ptr, TRAIT_ACTIVE_TELEPORT) && !has_trait(creature_ptr, TRAIT_RES_TELE))
-					if(!has_trait(creature_ptr, TRAIT_PARALYZED))teleport_creature_to2(tmp_m_idx, creature_ptr->fy, creature_ptr->fx, species_ptr->level, 0L);
+					if(!has_trait(creature_ptr, TRAIT_PARALYZED))teleport_creature_to2(tmp_creature_idx, creature_ptr->fy, creature_ptr->fx, species_ptr->level, 0L);
 			}
 		}
 	}
@@ -775,7 +775,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 
 /*
  * Teleport the player one level up or down (random when legal)
- * Note: If m_idx <= 0, target is player.
+ * Note: If creature_idx <= 0, target is player.
  */
 void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 {
@@ -4041,8 +4041,8 @@ bool polymorph_creature(creature_type *creature_ptr)
 
 		//TODO inventory process
 
-		//TODO DELETEif(targeted) target_who = hack_m_idx_ii;
-		if(health_tracked) health_track(hack_m_idx_ii);
+		//TODO DELETEif(targeted) target_who = hack_creature_idx_ii;
+		if(health_tracked) health_track(hack_creature_idx_ii);
 	}
 
 	return polymorphed;

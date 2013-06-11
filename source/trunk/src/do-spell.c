@@ -8892,8 +8892,8 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				int i;
 				COODINATES ty = y, tx = x;
 				COODINATES oy = y, ox = x;
-				CREATURE_ID m_idx = floor_ptr->cave[y][x].creature_idx;
-				creature_type *m_ptr = &creature_list[m_idx];
+				CREATURE_ID creature_idx = floor_ptr->cave[y][x].creature_idx;
+				creature_type *m_ptr = &creature_list[creature_idx];
 				char m_name[MAX_NLEN];
 	
 				creature_desc(m_name, m_ptr, 0);
@@ -8913,11 +8913,11 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				{
 					msg_format(MES_BLOE_AWAY, m_name);
 					floor_ptr->cave[oy][ox].creature_idx = 0;
-					floor_ptr->cave[ty][tx].creature_idx = m_idx;
+					floor_ptr->cave[ty][tx].creature_idx = creature_idx;
 					m_ptr->fy = ty;
 					m_ptr->fx = tx;
 	
-					update_creature_view(player_ptr, m_idx, TRUE);
+					update_creature_view(player_ptr, creature_idx, TRUE);
 					lite_spot(floor_ptr, oy, ox);
 					lite_spot(floor_ptr, ty, tx);
 	
@@ -9306,7 +9306,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			for (i = 0; i < 3; i++)
 			{
 				COODINATES y, x, ny, nx;
-				CREATURE_ID m_idx;
+				CREATURE_ID creature_idx;
 				cave_type *c_ptr;
 				creature_type *m_ptr;
 	
@@ -9332,8 +9332,8 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 	
 				ny = y + ddy[dir];
 				nx = x + ddx[dir];
-				m_idx = c_ptr->creature_idx;
-				m_ptr = &creature_list[m_idx];
+				creature_idx = c_ptr->creature_idx;
+				m_ptr = &creature_list[creature_idx];
 	
 				/* Creature cannot move back? */
 				if(!creature_can_enter(ny, nx, m_ptr, 0))
@@ -9344,10 +9344,10 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				}
 	
 				c_ptr->creature_idx = 0;
-				floor_ptr->cave[ny][nx].creature_idx = m_idx;
+				floor_ptr->cave[ny][nx].creature_idx = creature_idx;
 				m_ptr->fy = ny;
 				m_ptr->fx = nx;
-				update_creature_view(player_ptr, m_idx, TRUE);
+				update_creature_view(player_ptr, creature_idx, TRUE);
 				lite_spot(floor_ptr, y, x);
 				lite_spot(floor_ptr, ny, nx);
 

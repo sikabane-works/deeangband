@@ -93,7 +93,7 @@ INVENTORY_ID inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 
 	/* Forget info */
 	object2_ptr->next_object_idx = 0;
-	object2_ptr->held_m_idx = 0;
+	object2_ptr->held_creature_idx = 0;
 	object2_ptr->fy = object2_ptr->fx = 0;
 
 	/* Player touches it, and no longer marked */

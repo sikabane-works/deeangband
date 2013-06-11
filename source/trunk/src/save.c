@@ -130,7 +130,7 @@ static void wr_object(object_type *object_ptr)
 	wr_byte(object_ptr->ident);
 	wr_byte(object_ptr->marked);
 
-	WRITE_CREATURE_ID(object_ptr->held_m_idx);
+	WRITE_CREATURE_ID(object_ptr->held_creature_idx);
 	WRITE_GAME_TIME(object_ptr->fuel);
 	WRITE_FORGED_ID(object_ptr->forged_type);
 	wr_byte(object_ptr->feeling);

@@ -2248,7 +2248,7 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 static void creature_arena_result(floor_type *floor_ptr)
 {
 	int i2, j2;
-	int win_m_idx = 0;
+	int win_creature_idx = 0;
 	int number_mon = 0;
 
 	// Count all hostile creatures
@@ -2260,7 +2260,7 @@ static void creature_arena_result(floor_type *floor_ptr)
 			if((c_ptr->creature_idx > 0) && (creature_list[c_ptr->creature_idx].ridden))
 			{
 				number_mon++;
-				win_m_idx = c_ptr->creature_idx;
+				win_creature_idx = c_ptr->creature_idx;
 			}
 		}
 
@@ -2275,13 +2275,13 @@ static void creature_arena_result(floor_type *floor_ptr)
 			char m_name[MAX_NLEN];
 			creature_type *wm_ptr;
 
-			wm_ptr = &creature_list[win_m_idx];
+			wm_ptr = &creature_list[win_creature_idx];
 
 			creature_desc(m_name, wm_ptr, 0);
 			msg_format(MES_GAMBLE_ARENA_WINNER(wm_ptr));
 			msg_print(NULL);
 
-			if(win_m_idx == (sel_creature+1))
+			if(win_creature_idx == (sel_creature+1))
 			{
 				msg_print(MES_GAMBLE_ARENA_CONGURATULATION);
 				msg_format(MES_GAMBLE_ARENA_GET_GOLD(battle_odds));
@@ -3986,8 +3986,8 @@ static void play_loop(void)
 		command_dir = 0;
 
 		// Cancel the target
-		pet_t_m_idx = 0;
-		riding_t_m_idx = 0;
+		pet_t_creature_idx = 0;
+		riding_t_creature_idx = 0;
 
 		// Cancel the health bar
 		health_track(0);
