@@ -639,8 +639,7 @@ struct species_type
 
 	s32b age;
 	RANK sc;
-
-	PRICE au;
+	PRICE wealth;
 
 	STAT stat_max[STAT_MAX];			/* Current modified stats */
 	STAT stat_max_max[STAT_MAX];		/* Maximal "maximal" stat values */

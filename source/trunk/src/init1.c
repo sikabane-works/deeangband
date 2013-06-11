@@ -2968,6 +2968,7 @@ enum SPECIES_TYPE {
 	SPECIES_INFO_N_MIN,
 	SPECIES_INFO_AGE,
 	SPECIES_INFO_SC,
+	SPECIES_INFO_WEALTH,
 	SPECIES_INFO_DV,
 	SPECIES_INFO_SP,
 	SPECIES_INFO_IS,
@@ -3046,6 +3047,7 @@ static cptr species_info_csv_list[SPECIES_INFO_CSV_COLUMNS] =
 	"N_MIN",
 	"AGE",
 	"SC",
+	"WEALTH",
 	"DV",
 	"SP",
 	"VIS",
@@ -3146,8 +3148,6 @@ errr parse_species_info_csv(char *buf, header *head)
 		species_ptr = &species_info[n];
 		species_ptr->species_idx = n;
 		species_ptr->ap_species_idx = n;
-
-
 		note(nt);
 
 		for(i = 1; i < SPECIES_INFO_CSV_COLUMNS; i++)
@@ -3162,8 +3162,7 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_NAME:
 #if JP
-				if(!add_name(&species_ptr->name, head, tmp))
-					return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!add_name(&species_ptr->name, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
@@ -3296,6 +3295,11 @@ errr parse_species_info_csv(char *buf, header *head)
 			case SPECIES_INFO_SC:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				species_ptr->sc = (s16b)b;
+				break;
+
+			case SPECIES_INFO_WEALTH:
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+				species_ptr->wealth = (PRICE)b;
 				break;
 
 			case SPECIES_INFO_DV:
