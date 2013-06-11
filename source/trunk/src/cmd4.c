@@ -3883,28 +3883,19 @@ void do_cmd_save_screen(creature_type *player_ptr)
 	/* Do we use a special screendump function ? */
 	else if(screendump_aux)
 	{
-		/* Dump the screen to a graphics file */
-		(*screendump_aux)();
+		(*screendump_aux)(); /* Dump the screen to a graphics file */
 	}
 	else /* Dump the screen as text */
 	{
 		COODINATES y, x;
-
 		byte a = 0;
 		char c = ' ';
-
 		FILE *fff;
-
 		char buf[1024];
-
 		path_build(buf, sizeof(buf), ANGBAND_DIR_USER, "dump.txt");
 
-		/* File type is "TEXT" */
-		FILE_TYPE(FILE_TYPE_TEXT);
-
-		/* Append to the file */
-		fff = my_fopen(buf, "w");
-
+		FILE_TYPE(FILE_TYPE_TEXT); /* File type is "TEXT" */
+		fff = my_fopen(buf, "w"); /* Append to the file */
 		if(!fff)
 		{
 			msg_format(MES_SYS_FAILED_FILEOPEN2, buf);
@@ -3912,9 +3903,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 			return;
 		}
 
-
 		screen_save();
-
 
 		for (y = 0; y < hgt; y++)
 		{
@@ -3978,12 +3967,9 @@ void do_cmd_save_screen(creature_type *player_ptr)
 static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 {
 	u16b *who = (u16b*)(u);
-
 	u16b *why = (u16b*)(v);
-
 	int w1 = who[a];
 	int w2 = who[b];
-
 	int z1, z2;
 
 	/* Sort by total kills */
@@ -4041,9 +4027,7 @@ static void ang_sort_art_swap(vptr u, vptr v, int a, int b)
 	u16b *who = (u16b*)(u);
 	u16b holder;
 
-	/* Unused */
-	(void)v;
-
+	(void)v; /* Unused */
 	holder = who[a];
 	who[a] = who[b];
 	who[b] = holder;
@@ -4062,20 +4046,17 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	char base_name[MAX_NLEN];
 	bool *okay;
 
-	/* Open a new file */
-	fff = my_fopen_temp(file_name, 1024);
+	fff = my_fopen_temp(file_name, 1024); /* Open a new file */
 
-	if(!fff) {
-	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
-	    msg_print(NULL);
-	    return;
+	if(!fff)
+	{
+		msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
+		msg_print(NULL);
+		return;
 	}
 
-	/* Allocate the "who" array */
-	C_MAKE(who, max_artifact_idx, ARTIFACT_ID);
-
-	/* Allocate the "okay" array */
-	C_MAKE(okay, max_artifact_idx, bool);
+	C_MAKE(who, max_artifact_idx, ARTIFACT_ID); /* Allocate the "who" array */
+	C_MAKE(okay, max_artifact_idx, bool); /* Allocate the "okay" array */
 
 	/* Scan the artifacts */
 	for (k = 0; k < max_artifact_idx; k++)
@@ -4088,23 +4069,20 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		okay[k] = TRUE; /* Assume okay */
 	}
 
-	/* Check the dungeon */
-	for (y = 0; y < floor_ptr->height; y++)
+	for (y = 0; y < floor_ptr->height; y++) /* Check the dungeon */
 	{
 		for (x = 0; x < floor_ptr->width; x++)
 		{
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
 			OBJECT_ID this_object_idx, next_object_idx = 0;
 
-			/* Scan all objects in the grid */
-			for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
+			for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx) /* Scan all objects in the grid */
 			{
 				object_type *object_ptr;
 				object_ptr = &object_list[this_object_idx]; /* Acquire object */
 				next_object_idx = object_ptr->next_object_idx; /* Acquire next object */
 				if(!object_is_fixed_artifact(object_ptr)) continue; /* Ignore non-artifacts */
 				if(object_is_known(object_ptr)) continue; /* Ignore known items */
-
 				okay[object_ptr->art_id] = FALSE;
 			}
 		}
@@ -4120,10 +4098,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		okay[object_ptr->art_id] = FALSE;
 	}
 
-	for (k = 0; k < max_artifact_idx; k++)
-	{
-		if(okay[k]) who[n++] = k;
-	}
+	for (k = 0; k < max_artifact_idx; k++) if(okay[k]) who[n++] = k;
 
 	/* Sort the array by dungeon depth of creatures */
 	ang_sort(who, &why, n, ang_sort_art_comp, ang_sort_art_swap);
@@ -4141,22 +4116,20 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		if(z)
 		{
 			object_type forge;
-			object_type *quest_ptr;
-
-			quest_ptr = &forge;
+			object_type *object_ptr;
+			object_ptr = &forge;
 
 			/* Create fake object */
-			generate_object(quest_ptr, z);
+			generate_object(object_ptr, z);
 
 			/* Make it an artifact */
-			quest_ptr->art_id = (byte)who[k];
+			object_ptr->art_id = (byte)who[k];
 
 			/* Display as if known */
-			quest_ptr->ident |= IDENT_STORE;
+			object_ptr->ident |= IDENT_STORE;
 
 			/* Describe the artifact */
-			object_desc(
-				base_name, quest_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(base_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 		}
 
 		/* Hack -- Build the artifact name */
@@ -4204,19 +4177,17 @@ static void do_cmd_knowledge_uniques(void)
 
 	if(!fff)
 	{
-	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
-	    msg_print(NULL);
-	    return;
+		msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
+		msg_print(NULL);
+		return;
 	}
 
-	/* Allocate the "who" array */
-	C_MAKE(who, max_species_idx, SPECIES_ID);
+	C_MAKE(who, max_species_idx, SPECIES_ID); /* Allocate the "who" array */
 
-	/* Scan the creatures */
-	for (i = 1; i < max_species_idx; i++)
+	for (i = 1; i < max_species_idx; i++) /* Scan the creatures */
 	{
 		species_type *species_ptr = &species_info[i];
-		int          lev;
+		CREATURE_LEV lev;
 
 		if(!species_ptr->name) continue;
 
@@ -4390,24 +4361,23 @@ void plural_aux(char *Name)
 // Display current pets
 static void do_cmd_knowledge_pets(creature_type *master_ptr)
 {
-	int             i;
-	FILE            *fff;
-	creature_type    *pet_ptr;
-	char            pet_name[80];
-	int             t_friends = 0;
-	int             show_upkeep = 0;
-	char            file_name[1024];
+	int i;
+	FILE *fff;
+	creature_type *pet_ptr;
+	char pet_name[MAX_NLEN];
+	int t_friends = 0;
+	int show_upkeep = 0;
+	char file_name[1024];
 
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
 	if(!fff) {
-	    msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
-	    msg_print(NULL);
-	    return;
+		msg_format(MES_SYS_FAILED_TEMPFILE, file_name);
+		msg_print(NULL);
+		return;
 	}
 
-	/* Process the creatures (backwards) */
-	for (i = creature_max - 1; i >= 1; i--)
+	for (i = creature_max - 1; i >= 1; i--) /* Process the creatures (backwards) */
 	{
 		pet_ptr = &creature_list[i]; // Access the creature
 		if(!IS_IN_THIS_FLOOR(pet_ptr)) continue;
