@@ -119,6 +119,8 @@
 #define MES_SYS_DUMP_INFO1 "キャラクターの記録をファイルに書き出すことができます。"
 #define MES_SYS_DUMP_INFO2 "リターンキーでキャラクターを見ます。ESCで中断します。"
 
+#define MES_SYS_PARSING(FILE) "'%s'を解析中。", (FILE)
+
 #else
 
 #define MES_SYS_YOU_DIED(CREATURE) (has_trait((CREATURE), TRAIT_ANDROID) ? "You were broken." : "You died.")
@@ -207,6 +209,9 @@
 
 #define MES_SYS_DUMP_INFO1 "You may now dump a character record to one or more files."
 #define MES_SYS_DUMP_INFO2 "Then, hit RETURN to see the character, or ESC to abort."
+
+#define MES_SYS_PARSING(FILE) "Parsing '%s'.", (FILE)
+
 #endif
 
 #if JP

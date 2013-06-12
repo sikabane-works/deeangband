@@ -7227,16 +7227,9 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, COODINATES ymin, COO
 			char f;
 			cptr v;
 			char *s;
-
-			/* Start */
-			s = buf + 2;
-
-			/* Parse the expr */
-			v = process_dungeon_file_expr(floor_ptr, &s, &f);
-
-			/* Set flag */
-			bypass = (streq(v, "0") ? TRUE : FALSE);
-
+			s = buf + 2; /* Start */
+			v = process_dungeon_file_expr(floor_ptr, &s, &f); /* Parse the expr */
+			bypass = (streq(v, "0") ? TRUE : FALSE); /* Set flag */
 			continue;
 		}
 
@@ -7245,20 +7238,14 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, COODINATES ymin, COO
 
 		// Process the line
 		err = process_dungeon_file_aux(floor_ptr, buf, ymin, xmin, ymax, xmax, &y, &x, flags, quest_id);
-
 		if(err) break;
 	}
 
-	// Errors
 	if(err)
 	{
 		cptr oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "unknown");
 		msg_format("Error %d (%s) at line %d of '%s'.", err, oops, num, name);
-#ifdef JP
-		msg_format("'%s'‚ğ‰ğÍ’†B", buf);
-#else
-		msg_format("Parsing '%s'.", buf);
-#endif
+		msg_format(MES_SYS_PARSING(buf));
 		msg_print(NULL);
 	}
 

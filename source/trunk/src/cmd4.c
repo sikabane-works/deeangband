@@ -2508,10 +2508,8 @@ void do_cmd_colors(void)
 
 				/* Label the Current values */
 				Term_putstr(5, 12, -1, TERM_WHITE, format("K = 0x%02x / R,G,B = 0x%02x,0x%02x,0x%02x",
-						   angband_color_table[a][0],
-						   angband_color_table[a][1],
-						   angband_color_table[a][2],
-						   angband_color_table[a][3]));
+						angband_color_table[a][0], angband_color_table[a][1],
+						angband_color_table[a][2], angband_color_table[a][3]));
 
 				i = inkey();
 
@@ -2530,10 +2528,7 @@ void do_cmd_colors(void)
 				if(i == 'b') angband_color_table[a][3] = (byte)(angband_color_table[a][3] + 1);
 				if(i == 'B') angband_color_table[a][3] = (byte)(angband_color_table[a][3] - 1);
 
-				/* Hack -- react to changes */
 				Term_xtra(TERM_XTRA_REACT, 0);
-
-				/* Hack -- redraw */
 				Term_redraw();
 			}
 		}
