@@ -1036,7 +1036,7 @@ struct store_type
 
 	byte type;				/* Store type */
 
-	s16b owner_id;			/* New Owner index */
+	SPECIES_ID owner_id;			/* New Owner index */
 	byte extra;				/* Unused for now */
 
 	s16b insult_cur;		/* Insult counter */
@@ -1056,7 +1056,7 @@ struct store_type
 	object_type *stock;		/* Stock -- Actual stock items */
 
 	FLAGS_32 flags;
-	s32b wealth;
+	PRICE wealth;
 	FLOOR_LEV level;
 };
 
@@ -1068,7 +1068,7 @@ struct store_pre_type
 	STRING_OFFSET name;
 	STRING_OFFSET E_name;
 
-	s16b owner_id;
+	SPECIES_ID owner_id;
 	u16b size;
 	s32b wealth;
 	FLAGS_32 flags;

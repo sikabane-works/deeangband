@@ -505,18 +505,17 @@ static void store_item_load(store_type *st_ptr, object_type *object_ptr)
 static errr rd_store(store_type *st_ptr)
 {
 	int j;
-	s16b own;
 	s16b num, num2;
 
 	bool sort = FALSE;
 
 	/* Read the basic info */
 	READ_STRING_OFFSET(&st_ptr->name);
-	rd_s32b(&st_ptr->wealth);
+	READ_PRICE(&st_ptr->wealth);
 
 	rd_s32b(&st_ptr->store_open);
 	rd_s16b(&st_ptr->insult_cur);
-	rd_s16b(&own);
+	READ_SPECIES_ID(&st_ptr->owner_id);
 	rd_s16b(&num);
 	rd_s16b(&st_ptr->stock_size);
 	rd_s16b(&num2);
@@ -528,9 +527,6 @@ static errr rd_store(store_type *st_ptr)
 	READ_GAME_TIME(&st_ptr->last_visit);
 	READ_FLAGS_32(&st_ptr->flags);
 	READ_FLOOR_LEV(&st_ptr->level);
-
-	/* Extract the owner (see above) */
-	st_ptr->owner_id = own;
 
 	C_MAKE(st_ptr->stock, st_ptr->stock_size, object_type);
 	/* Read the items */

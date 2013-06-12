@@ -173,7 +173,7 @@ static void wr_store(store_type *st_ptr)
 	int j;
 
 	wr_u32b(st_ptr->name);
-	wr_s32b(st_ptr->wealth);
+	WRITE_PRICE(st_ptr->wealth);
 
 	/* Save the "open" counter */
 	wr_u32b(st_ptr->store_open);
@@ -182,7 +182,7 @@ static void wr_store(store_type *st_ptr)
 	wr_s16b(st_ptr->insult_cur);
 
 	/* Save the current owner */
-	wr_s16b(st_ptr->owner_id);
+	WRITE_SPECIES_ID(st_ptr->owner_id);
 
 	/* Save the stock size */
 	wr_s16b(st_ptr->stock_num);
