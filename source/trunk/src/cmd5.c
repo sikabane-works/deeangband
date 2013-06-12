@@ -383,10 +383,7 @@ void do_cmd_browse(creature_type *creature_ptr)
 			return;
 		}
 	}
-	else
-	{
-		select_flag = USE_INVEN | USE_FLOOR;
-	}
+	else select_flag = USE_INVEN | USE_FLOOR;
 
 	// Restrict choices to "useful" books
 	if(creature_ptr->realm2 == REALM_NONE) item_tester_tval = magic_info[creature_ptr->class_idx].spell_book;

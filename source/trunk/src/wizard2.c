@@ -1168,9 +1168,14 @@ static void floor_list_func(int y, int x, int i, bool selected)
 		else col = TERM_L_DARK;
 	}
 
-	c_prt(col, format("[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
-		floor_list[i].world_x, floor_list[i].world_y, floor_list[i].width, floor_list[i].height,
-		get_floor_name(&floor_list[i]), floor_list[i].depth), y, x);
+	if(floor_list[i].global_map) c_prt(col, "World Map", y, x);
+	else
+	{
+		c_prt(col, format("[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
+			floor_list[i].world_x, floor_list[i].world_y, floor_list[i].width, floor_list[i].height,
+			get_floor_name(&floor_list[i]), floor_list[i].depth), y, x);
+	}
+
 }
 
 /* Floor Teleport */
