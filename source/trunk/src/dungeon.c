@@ -4280,15 +4280,12 @@ void play_game(bool new_game)
 
 	/* Generate floor for game start. */
 	floor_ptr = GET_FLOOR_PTR(player_ptr); 
-	if(!floor_ptr->generated) generate_floor(floor_ptr, 0, player_ptr->wy, player_ptr->wx, player_ptr->depth);
+	if(!floor_ptr->generated) generate_floor(floor_ptr, 1, player_ptr->wy, player_ptr->wx, player_ptr->depth);
 
 	/* Hack -- Enforce "delayed death" */
 	if(!is_valid_creature(player_ptr))
 	{
-#ifdef JP
-		msg_print("Ç†Ç»ÇΩÇÕê∂Ç‹ÇÍÇΩèuä‘Ç…ë¶éÄÇµÇΩÅB");
-#else
-#endif
+		msg_print(MES_SYS_YOU_DIED_SUDDENLY);
 		gameover = TRUE;
 	}
 

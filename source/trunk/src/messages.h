@@ -36,6 +36,7 @@
 #ifdef JP
 
 #define MES_SYS_YOU_DIED(CREATURE) (has_trait((CREATURE), TRAIT_ANDROID) ? "あなたは壊れました" : "あなたは死にました")
+#define MES_SYS_YOU_DIED_SUDDENLY "あなたは生まれた瞬間に即死した。"
 #define MES_SYS_MORE "-- 続く --"
 #define MES_SYS_WIZARD_MODE_ON "ウィザードモード突入。"
 #define MES_SYS_WIZARD_MODE_OFF "ウィザードモード解除。"
@@ -124,6 +125,7 @@
 #else
 
 #define MES_SYS_YOU_DIED(CREATURE) (has_trait((CREATURE), TRAIT_ANDROID) ? "You were broken." : "You died.")
+#define MES_SYS_YOU_DIED_SUDDENLY "You died suddenly."
 #define MES_SYS_MORE "-- MORE --"
 #define MES_SYS_WIZARD_MODE_ON "Wizard mode on."
 #define MES_SYS_WIZARD_MODE_OFF "Wizard mode off."
