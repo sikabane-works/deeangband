@@ -4261,6 +4261,11 @@ void play_game(bool new_game)
 	if(new_game)
 	{
 		char buf[80];
+
+		/* Generate floor for game start. */
+		floor_ptr = &floor_list[1];
+		player_ptr->floor_idx = 1;
+		generate_floor(floor_ptr, 0, player_ptr->wy, player_ptr->wx, player_ptr->depth);
 		sprintf(buf, MES_DIARY_STAND_IN(get_floor_name(GET_FLOOR_PTR(player_ptr))));
 		write_diary(DIARY_BUNSHOU, 0, buf);
 	}
@@ -4277,10 +4282,6 @@ void play_game(bool new_game)
 	/* Set or clear "rogue_like_commands" if requested */
 	if(arg_force_original) rogue_like_commands = FALSE;
 	if(arg_force_roguelike) rogue_like_commands = TRUE;
-
-	/* Generate floor for game start. */
-	floor_ptr = GET_FLOOR_PTR(player_ptr); 
-	if(!floor_ptr->generated) generate_floor(floor_ptr, 1, player_ptr->wy, player_ptr->wx, player_ptr->depth);
 
 	/* Hack -- Enforce "delayed death" */
 	if(!is_valid_creature(player_ptr))
