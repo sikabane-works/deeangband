@@ -380,6 +380,7 @@
 #define KW_ENEMY "敵"
 #define KW_LAST_WORD "断末魔の叫び"
 #define KW_LAST_POET "辞世の句"
+#define KW_UNDEFINED "未定義"
 #else
 #define KW_MORE "-more-"
 #define KW_CREATURE "creatures"
@@ -517,7 +518,8 @@
 #define KW_VARIABLE_SIZE "VariableSize"
 #define KW_ENEMY "the enemy"
 #define KW_LAST_WORD "Last word"
-#define KW_LAST_POET "Last word"
+#define KW_LAST_POET "Last poet"
+#define KW_UNDEFINED "undefined"
 #endif
 
 #ifdef JP
@@ -2509,6 +2511,8 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_RESERACH " ['r'思い出, ' 'で続行, ESC]"
 #define MES_INTERFACE_RESERACH2 "クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):"
 #define MES_INTERFACE_VISUAL "コマンド (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): "
+#define MES_INTERFACE_COLOR "コマンド (n/N/k/K/r/R/g/G/b/B): "
+#define MES_INTERFACE_COLOR_LIST(COLOR, NAME) "カラー = %d, 名前 = %s", (COLOR), (NAME)
 #define MES_INTERFACE_SKILL_LIST "Lv   MP 失率 効果"
 #define MES_INTERFACE_SKILL_LIST2 "  Lv   MP"
 #define MES_INTERFACE_SKILL_LIST3 "熟練度 Lv   MP 失率 効果"
@@ -2568,6 +2572,8 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_RESERACH " [(r)ecall, ESC, space to continue]"
 #define MES_INTERFACE_RESERACH2 "Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): "
 #define MES_INTERFACE_VISUAL "Command (n/N/^N/a/A/^A/c/C/^C/l/L/^L/d/D/^D/v/V/^V): "
+#define MES_INTERFACE_COLOR "Command (n/N/k/K/r/R/g/G/b/B): "
+#define MES_INTERFACE_COLOR_LIST(COLOR, NAME) "Color = %d, Name = %s", (COLOR), (NAME)
 #define MES_INTERFACE_SKILL_LIST "Lv Mana Fail Info"
 #define MES_INTERFACE_SKILL_LIST2 "  Lv Mana"
 #define MES_INTERFACE_SKILL_LIST3 "Profic Lv   SP Fail Effect"

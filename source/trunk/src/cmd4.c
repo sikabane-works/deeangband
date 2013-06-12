@@ -2502,19 +2502,12 @@ void do_cmd_colors(void)
 				}
 
 				/* Describe the color */
-#ifdef JP
-				name = ((a < 16) ? colospecies_names[a] : "未定義");
-				Term_putstr(5, 10, -1, TERM_WHITE, format("カラー = %d, 名前 = %s", a, name));
-				Term_putstr(0, 14, -1, TERM_WHITE, "コマンド (n/N/k/K/r/R/g/G/b/B): ");
-#else
-				name = ((a < 16) ? colospecies_names[a] : "undefined");
-				Term_putstr(5, 10, -1, TERM_WHITE, format("Color = %d, Name = %s", a, name));
-				Term_putstr(0, 14, -1, TERM_WHITE, "Command (n/N/k/K/r/R/g/G/b/B): ");
-#endif
+				name = ((a < 16) ? colospecies_names[a] : KW_UNDEFINED);
+				Term_putstr(5, 10, -1, TERM_WHITE, format(MES_INTERFACE_COLOR_LIST(a, name)));
+				Term_putstr(0, 14, -1, TERM_WHITE, MES_INTERFACE_COLOR);
 
 				/* Label the Current values */
-				Term_putstr(5, 12, -1, TERM_WHITE,
-					    format("K = 0x%02x / R,G,B = 0x%02x,0x%02x,0x%02x",
+				Term_putstr(5, 12, -1, TERM_WHITE, format("K = 0x%02x / R,G,B = 0x%02x,0x%02x,0x%02x",
 						   angband_color_table[a][0],
 						   angband_color_table[a][1],
 						   angband_color_table[a][2],
