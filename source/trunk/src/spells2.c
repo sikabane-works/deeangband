@@ -2915,10 +2915,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		/* Found a creature */
 		m_ptr = &creature_list[floor_ptr->cave[ny][nx].creature_idx];
 
-		if(tcreature_idx != floor_ptr->cave[ny][nx].creature_idx)
-		{
-			msg_print(MES_CREATURE_IN_THE_WAY);
-		}
+		if(tcreature_idx != floor_ptr->cave[ny][nx].creature_idx) msg_print(MES_CREATURE_IN_THE_WAY);
 		else if(!CREATURE_BOLD(creature_ptr, ty, tx))
 		{
 			creature_desc(m_name, m_ptr, 0);
