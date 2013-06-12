@@ -123,10 +123,10 @@ bool is_valid_floor(floor_type *floor_ptr)
 FLOOR_ID floor_pop(void)
 {
 	floor_type *floor_ptr;
-	int i;
+	FLOOR_ID i;
 
 	// Find empty space
-	for (i = 1; i < MAX_FLOORS; i++) if(!floor_list[i].width || !floor_list[i].height) break;
+	for (i = 1; i < MAX_FLOORS; i++) if(!is_valid_floor(&floor_list[i])) break;
 
 	// Not found
 	if(i == MAX_FLOORS)
@@ -381,7 +381,7 @@ FLOOR_ID find_floor_idx(DUNGEON_ID dungeon_id, FLOOR_LEV depth, COODINATES wx, C
 {
 	int i;
 	floor_type *floor_ptr;
-	for(i = 1; i < floor_max; i++)
+	for(i = 1; i <= floor_max; i++)
 	{
 		floor_ptr = &floor_list[i];
 		if(dungeon_id < 0 || floor_ptr->dungeon_id == dungeon_id)
@@ -568,7 +568,7 @@ void reset_cave_creature_reference(void)
 {
 	int i, j, k;
 
-	for(k = 1; k < floor_max; k++)
+	for(k = 1; k <= floor_max; k++)
 	{
 		floor_type *floor_ptr = &floor_list[k];
 		for(i = 0; i < floor_ptr->height; i++)
@@ -585,6 +585,6 @@ void reset_cave_creature_reference(void)
 FLOOR_ID get_floor_idx(floor_type *floor_ptr)
 {
 	FLOOR_ID i;
-	for(i = 1; i < floor_max; i++) if(floor_ptr == &floor_list[i]) return i;
+	for(i = 1; i <= floor_max; i++) if(floor_ptr == &floor_list[i]) return i;
 	return 0;
 }

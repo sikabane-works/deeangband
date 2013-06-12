@@ -4261,10 +4261,11 @@ void play_game(bool new_game)
 	if(new_game)
 	{
 		char buf[80];
+		FLOOR_ID id;
 
-		/* Generate floor for game start. */
-		floor_ptr = &floor_list[1];
-		player_ptr->floor_idx = 1;
+		id = floor_pop();
+		floor_ptr = &floor_list[id];
+		player_ptr->floor_idx = id;
 		generate_floor(floor_ptr, 0, player_ptr->wy, player_ptr->wx, player_ptr->depth);
 		sprintf(buf, MES_DIARY_STAND_IN(get_floor_name(GET_FLOOR_PTR(player_ptr))));
 		write_diary(DIARY_BUNSHOU, 0, buf);
@@ -4373,6 +4374,6 @@ void world_wipe()
 	start_time = (u32b)time(NULL) - 1;
 	record_object_name[0] = '\0';
 
-	generate_world(&floor_list[floor_pop()]);
+	generate_world(&floor_list[0]);
 }
 

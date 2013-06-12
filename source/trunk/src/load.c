@@ -1130,7 +1130,7 @@ static errr rd_floors(void)
 	rd_s16b(&floor_max); // Number of floor_idx used from birth
 	note(format(MES_LOAD_FLOOR(floor_max)));
 
-	for(i = 1; i < floor_max; i++) err = rd_floor(&floor_list[i]);
+	for(i = 0; i <= floor_max; i++) err = rd_floor(&floor_list[i]);
 	return err;
 }
 
