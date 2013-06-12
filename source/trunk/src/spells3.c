@@ -3733,9 +3733,9 @@ int set_cold_destroy(object_type *object_ptr)
 // Returns number of items destroyed.
 int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 {
-	int         i, j, k, amt;
+	int i, j, k, amt;
 	object_type *object_ptr;
-	char        object_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	floor_type	*floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if(M_SHADOW(creature_ptr)) return 0;
@@ -3906,8 +3906,7 @@ bool curse_armor(creature_type *creature_ptr)
 	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw for artifacts */
-	if(object_is_artifact(object_ptr) && (PERCENT(50)))
-		msg_format(MES_OBJECT_RESISTED_CURSE(object_ptr));
+	if(object_is_artifact(object_ptr) && (PERCENT(50))) msg_format(MES_OBJECT_RESISTED_CURSE(object_ptr));
 	else
 	{
 		msg_format(MES_BLACK_AURA_TO_OBJECT, object_name);
@@ -3915,7 +3914,6 @@ bool curse_armor(creature_type *creature_ptr)
 
 		// Recalculate bonuses and mana
 		prepare_update(creature_ptr, CRU_BONUS | CRU_MANA);
-
 		prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
 	}
 
@@ -4101,7 +4099,7 @@ bool mirror_tunnel(creature_type *creature_ptr)
 
 bool eat_magic(creature_type *creature_ptr, POWER power)
 {
-	object_type * object_ptr;
+	object_type *object_ptr;
 	object_kind *object_kind_ptr;
 	OBJECT_ID item;
 	int lev; 
@@ -4121,16 +4119,11 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 	{
 		recharge_strength = ((power > lev/2) ? (power - lev/2) : 0) / 5;
 
-		/* Back-fire */
-		if(one_in_(recharge_strength))
-		{
-			/* Activate the failure code. */
-			fail = TRUE;
-		}
+		/* Back-fire, Activate the failure code */
+		if(one_in_(recharge_strength)) fail = TRUE;
 		else
 		{
-			if(object_ptr->timeout > (object_ptr->number - 1) * object_kind_ptr->pval)
-				msg_print(MES_EATMAGIC_DISCHARGED_ROD);
+			if(object_ptr->timeout > (object_ptr->number - 1) * object_kind_ptr->pval) msg_print(MES_EATMAGIC_DISCHARGED_ROD);
 			else
 			{
 				inc_mana(creature_ptr, lev);
@@ -4144,12 +4137,8 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 		recharge_strength = (100 + power - lev) / 15;
 		if(recharge_strength < 0) recharge_strength = 0;
 
-		/* Back-fire */
-		if(one_in_(recharge_strength))
-		{
-			/* Activate the failure code. */
-			fail = TRUE;
-		}
+		/* Back-fire, Activate the failure code */
+		if(one_in_(recharge_strength)) fail = TRUE;
 		else
 		{
 			if(object_ptr->pval > 0)
@@ -4164,18 +4153,10 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 					object_type *quest_ptr;
 
 					quest_ptr = &forge;
-
-					/* Obtain a local object */
-					object_copy(quest_ptr, object_ptr);
-
-					/* Modify quantity */
-					quest_ptr->number = 1;
-
-					/* Restore the charges */
-					object_ptr->pval++;
-
-					/* Unstack the used item */
-					object_ptr->number--;
+					object_copy(quest_ptr, object_ptr); /* Obtain a local object */
+					quest_ptr->number = 1; /* Modify quantity */
+					object_ptr->pval++; /* Restore the charges */
+					object_ptr->number--; /* Unstack the used item */
 					set_inventory_weight(creature_ptr);
 					item = inven_carry(creature_ptr, quest_ptr);
 
@@ -4196,13 +4177,8 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);
 			msg_format(MES_EATMAGIC_BACKFIRE(object_ptr));
 
-			/* Artifact rods. */
-			if(IS_ROD(object_ptr))
-				object_ptr->timeout = object_kind_ptr->pval * object_ptr->number;
-
-			/* Artifact wands and staffs. */
-			else if((object_ptr->tval == TV_WAND) || (object_ptr->tval == TV_STAFF))
-				object_ptr->pval = 0;
+			if(IS_ROD(object_ptr)) object_ptr->timeout = object_kind_ptr->pval * object_ptr->number; /* Artifact rods. */
+			else if((object_ptr->tval == TV_WAND) || (object_ptr->tval == TV_STAFF)) object_ptr->pval = 0; /* Artifact wands and staffs. */
 		}
 		else
 		{
@@ -4250,10 +4226,7 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 					else fail_type = 2;
 				}
 				/* Blow up one staff. */
-				else if(object_ptr->tval == TV_STAFF)
-				{
-					fail_type = 2;
-				}
+				else if(object_ptr->tval == TV_STAFF) fail_type = 2;
 			}
 
 			/*** Apply draining and destruction. ***/
@@ -4262,10 +4235,8 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 			if(fail_type == 1)
 			{
 				msg_format(MES_EATMAGIC_LOST_MANA(object_ptr));
-				if(IS_ROD(object_ptr))
-					object_ptr->timeout = object_kind_ptr->pval * object_ptr->number;
-				else if(object_ptr->tval == TV_WAND)
-					object_ptr->pval = 0;
+				if(IS_ROD(object_ptr)) object_ptr->timeout = object_kind_ptr->pval * object_ptr->number;
+				else if(object_ptr->tval == TV_WAND) object_ptr->pval = 0;
 				/* Staffs aren't drained. */
 			}
 
@@ -4286,13 +4257,9 @@ bool eat_magic(creature_type *creature_ptr, POWER power)
 			/* Destroy all members of a stack of objects. */
 			if(fail_type == 3)
 			{
-				if(object_ptr->number > 1)
-					msg_format(MES_RECHARGE_BROKEN3(object_name));
-				else
-					msg_format(MES_RECHARGE_BROKEN1(object_name));
-
+				if(object_ptr->number > 1) msg_format(MES_RECHARGE_BROKEN3(object_name));
+				else msg_format(MES_RECHARGE_BROKEN1(object_name));
 				increase_item(creature_ptr, item, -999, TRUE);
-
 			}
 		}
 	}
