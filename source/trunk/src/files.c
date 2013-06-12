@@ -623,15 +623,13 @@ errr process_pref_file_command(char *buf)
 					return SUCCESS;
 				}
 
-				if(buf[0] == 'X')
+				if(buf[0] == 'X') /* Clear */
 				{
-					/* Clear */
 					option_flag[os] &= ~(1L << ob);
 					(*option_info[i].o_var) = FALSE;
 				}
-				else
+				else /* Set */
 				{
-					/* Set */
 					option_flag[os] |= (1L << ob);
 					(*option_info[i].o_var) = TRUE;
 				}
@@ -944,58 +942,30 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 		if(*b == '$')
 		{
 			/* System */
-			if(streq(b+1, "SYS"))
-			{
-				v = ANGBAND_SYS;
-			}
-
-			else if(streq(b+1, "KEYBOARD"))
-			{
-				v = ANGBAND_KEYBOARD;
-			}
-
+			if(streq(b+1, "SYS")) v = ANGBAND_SYS;
+			else if(streq(b+1, "KEYBOARD")) v = ANGBAND_KEYBOARD;
 			/* Graphics */
-			else if(streq(b+1, "GRAF"))
-			{
-				v = ANGBAND_GRAF;
-			}
-
+			else if(streq(b+1, "GRAF")) v = ANGBAND_GRAF;
 			/* Monochrome mode */
 			else if(streq(b+1, "MONOCHROME"))
 			{
-				if(arg_monochrome)
-					v = "ON";
-				else
-					v = "OFF";
+				if(arg_monochrome) v = "ON";
+				else v = "OFF";
 			}
 
-			else if(streq(b+1, "RACE1"))
-			{
 #ifdef JP
-				v = race_info[creature_ptr->race_idx1].E_title;
+			else if(streq(b+1, "RACE1")) v = race_info[creature_ptr->race_idx1].E_title;
+			else if(streq(b+1, "RACE2")) v = race_info[creature_ptr->race_idx2].E_title;
+			else if(streq(b+1, "CLASS")) v = class_info[creature_ptr->class_idx].E_title;
+			else if(streq(b+1, "REALM1")) v = E_realm_names[creature_ptr->realm1];
+			else if(streq(b+1, "REALM2")) v = E_realm_names[creature_ptr->realm2];
 #else
-				v = race_info[creature_ptr->race_idx1].title;
+			else if(streq(b+1, "RACE1")) v = race_info[creature_ptr->race_idx1].title;
+			else if(streq(b+1, "RACE2")) v = race_info[creature_ptr->race_idx2].title;
+			else if(streq(b+1, "CLASS")) v = class_info[creature_ptr->class_idx].title;
+			else if(streq(b+1, "REALM1")) v = realm_names[creature_ptr->realm1];
+			else if(streq(b+1, "REALM2")) v = realm_names[creature_ptr->realm2];
 #endif
-			}
-
-			else if(streq(b+1, "RACE2"))
-			{
-#ifdef JP
-				v = race_info[creature_ptr->race_idx2].E_title;
-#else
-				v = race_info[creature_ptr->race_idx2].title;
-#endif
-			}
-
-			else if(streq(b+1, "CLASS"))
-			{
-#ifdef JP
-				v = class_info[creature_ptr->class_idx].E_title;
-#else
-				v = class_info[creature_ptr->class_idx].title;
-#endif
-			}
-
 			else if(streq(b+1, "PLAYER"))
 			{
 				static char tmp_playespecies_name[128];
@@ -1016,23 +986,6 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 				v = tmp_playespecies_name;
 			}
 
-			else if(streq(b+1, "REALM1"))
-			{
-#ifdef JP
-				v = E_realm_names[creature_ptr->realm1];
-#else
-				v = realm_names[creature_ptr->realm1];
-#endif
-			}
-
-			else if(streq(b+1, "REALM2"))
-			{
-#ifdef JP
-				v = E_realm_names[creature_ptr->realm2];
-#else
-				v = realm_names[creature_ptr->realm2];
-#endif
-			}
 
 			else if(streq(b+1, "LEVEL"))
 			{
