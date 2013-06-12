@@ -4488,6 +4488,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		if(ny) creature_ptr->fy = ny;
 		if(nx) creature_ptr->fx = nx;
 		c_ptr->creature_idx = creature_ptr->creature_idx;
+		oc_ptr->creature_idx = 0;
 
 		/* Hack -- For moving creature or riding player's moving */
 		if(!(mpe_mode & MCE_DONT_SWAP_MON))
