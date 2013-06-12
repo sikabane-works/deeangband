@@ -902,7 +902,7 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 			break;
 
 		case TRAP_TRAPS:
-			msg_print(MES_FEATURE_KILLED);
+			msg_format(MES_FEATURE_KILLED);
 			project(NULL, 0, 1, y, x, 0, DO_EFFECT_MAKE_TRAP, PROJECT_HIDE | PROJECT_JUMP | PROJECT_GRID, -1);
 			break;
 
@@ -1109,7 +1109,7 @@ static void plus_move_cost(creature_type *creature_ptr, int x, int y)
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
-	species_type *riding_r_ptr = &species_info[creature_ptr->riding ? steed_ptr->species_idx : 0]; 
+	species_type *riding_r_ptr = &species_info[creature_ptr->riding ? steed_ptr->species_idx : 0];
 
 	bool can_kill_walls = has_trait(creature_ptr, TRAIT_KILL_WALL) && have_flag(f_ptr->flags, FF_HURT_DISI) &&
 		(!have_flag(f_ptr->flags, FF_LOS)) && !have_flag(f_ptr->flags, FF_PERMANENT);
@@ -1620,12 +1620,12 @@ static bool restrict_creature_to_dungeon(SPECIES_ID species_idx)
 	if(d_ptr->flags1 & DF1_NO_MELEE)
 	{
 		if(species_idx == SPECIES_CHAMELEON) return TRUE;
-		if(!(has_bolt_flags(&species_ptr->flags) || has_beam_flags(&species_ptr->flags) || has_ball_flags(&species_ptr->flags) || 
-			has_trait_raw(&species_ptr->flags, TRAIT_CAUSE_1) || 
-			has_trait_raw(&species_ptr->flags, TRAIT_CAUSE_2) || 
-			has_trait_raw(&species_ptr->flags, TRAIT_CAUSE_3) || 
-			has_trait_raw(&species_ptr->flags, TRAIT_CAUSE_4) || 
-			has_trait_raw(&species_ptr->flags, TRAIT_MIND_BLAST) || 
+		if(!(has_bolt_flags(&species_ptr->flags) || has_beam_flags(&species_ptr->flags) || has_ball_flags(&species_ptr->flags) ||
+			has_trait_raw(&species_ptr->flags, TRAIT_CAUSE_1) ||
+			has_trait_raw(&species_ptr->flags, TRAIT_CAUSE_2) ||
+			has_trait_raw(&species_ptr->flags, TRAIT_CAUSE_3) ||
+			has_trait_raw(&species_ptr->flags, TRAIT_CAUSE_4) ||
+			has_trait_raw(&species_ptr->flags, TRAIT_MIND_BLAST) ||
 			has_trait_raw(&species_ptr->flags, TRAIT_BRAIN_SMASH)))
 			return FALSE;
 	}
@@ -1646,7 +1646,7 @@ static bool restrict_creature_to_dungeon(SPECIES_ID species_idx)
 	for (a = 0; a < MAX_TRAITS; a++)
 	{
 	if(has_trait_raw(&d_ptr->c_flags, a)
-	&& !has_trait_raw(&species_ptr->flags, a)) return FALSE; 
+	&& !has_trait_raw(&species_ptr->flags, a)) return FALSE;
 	}
 	for (a = 0; a < 5; a++)
 	if(d_ptr->r_char[a] && (d_ptr->r_char[a] != species_ptr->d_char)) return FALSE;
@@ -1657,7 +1657,7 @@ static bool restrict_creature_to_dungeon(SPECIES_ID species_idx)
 	for (a = 0; a < MAX_TRAITS; a++)
 	{
 	if(has_trait_raw(&d_ptr->c_flags, a)
-	&& !has_trait_raw(&species_ptr->flags, a)) return TRUE; 
+	&& !has_trait_raw(&species_ptr->flags, a)) return TRUE;
 	}
 	for (a = 0; a < 5; a++)
 	if(d_ptr->r_char[a] && (d_ptr->r_char[a] != species_ptr->d_char)) return TRUE;
@@ -1668,7 +1668,7 @@ static bool restrict_creature_to_dungeon(SPECIES_ID species_idx)
 	for (a = 0; a < MAX_TRAITS; a++)
 	{
 	if(has_trait_raw(&d_ptr->c_flags, a)
-	&& has_trait_raw(&species_ptr->flags, a)) return TRUE; 
+	&& has_trait_raw(&species_ptr->flags, a)) return TRUE;
 	}
 	for (a = 0; a < 5; a++)
 	if(d_ptr->r_char[a] == species_ptr->d_char) return TRUE;
@@ -1679,7 +1679,7 @@ static bool restrict_creature_to_dungeon(SPECIES_ID species_idx)
 	for (a = 0; a < MAX_TRAITS; a++)
 	{
 	if(has_trait_raw(&d_ptr->c_flags, a)
-	&& has_trait_raw(&species_ptr->flags, a)) return FALSE; 
+	&& has_trait_raw(&species_ptr->flags, a)) return FALSE;
 	}
 	for (a = 0; a < 5; a++)
 	if(d_ptr->r_char[a] == species_ptr->d_char) return FALSE;
@@ -2390,7 +2390,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr)
 		if(one_in_(3))
 		{
 			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
-			add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, (s16b)randint1(difficulty), TRUE); 
+			add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, (s16b)randint1(difficulty), TRUE);
 		}
 		return;
 	}
@@ -2561,7 +2561,7 @@ void sanity_blast_aux(creature_type *watcher_ptr, POWER power)
 * Creatures which are not on the current panel may be "visible" to
 * the player, and their descriptions will include an "offscreen"
 * reference.  Currently, offscreen creatures cannot be targetted
-* or viewed directly, but old targets will remain set.  
+* or viewed directly, but old targets will remain set.
 *
 * The player can choose to be disturbed by several things, including
 * "disturb_move" (creature which is viewable moves in some way), and
@@ -2749,7 +2749,7 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 			}
 
 			/* Magical sensing */
-			if(has_trait(creature_ptr, TRAIT_SENSE_NONLIVING) && has_trait(target_ptr, TRAIT_NONLIVING) && !has_trait(target_ptr, TRAIT_UNDEAD)) 
+			if(has_trait(creature_ptr, TRAIT_SENSE_NONLIVING) && has_trait(target_ptr, TRAIT_NONLIVING) && !has_trait(target_ptr, TRAIT_UNDEAD))
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, TRAIT_NONLIVING);
@@ -3278,7 +3278,7 @@ void deal_item(creature_type *creature_ptr)
 		}
 	}
 
-	deal_magic_book(creature_ptr); 
+	deal_magic_book(creature_ptr);
 	if(is_player(creature_ptr)) deal_potion(creature_ptr);
 
 	//TODO
@@ -3484,7 +3484,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 			if(cheat_hear) msg_format("[Creature Max Limit ID:%d=%d/%d]", species_info[species_idx].cur_num, species_info[species_idx].max_num);
 			return max_creature_idx;
 		}
-			
+
 		// Depth creatures may NOT be created out of depth, unless in Nightmare mode
 		if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && (floor_ptr->depth < species_ptr->level) &&
 			(!has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR) || (has_trait_species(species_ptr, TRAIT_QUESTOR))))
@@ -3530,7 +3530,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		else return max_creature_idx;
 	}
 
-	creature_ptr = generate_creature(c_ptr, species_idx, GC_AUTO); 
+	creature_ptr = generate_creature(c_ptr, species_idx, GC_AUTO);
 	hack_creature_idx_ii = c_ptr->creature_idx;
 
 	// Hack -- Appearance transfer
@@ -3846,7 +3846,7 @@ bool place_creature_fixed_species(creature_type *summoner_ptr, floor_type *floor
 	i = 0;
 	while(i < MAX_UNDERLINGS && servant_ptr->underling_id[i])
 	{
-		int n = 0; 
+		int n = 0;
 		for(j = 0; j < servant_ptr->underling_num[i]; j++)
 		{
 			COODINATES nx, ny, d = 8;
@@ -3877,7 +3877,7 @@ bool place_floor_spawn_creature(creature_type *summoner_ptr, floor_type *floor_p
 {
 	PROB *prob_list;
 	SPECIES_ID species_idx;
-	
+
 	alloc_species_list(&prob_list);
 	//set_species_list_bias_terrain(prob_list, floor_ptr->); //TODO
 
@@ -4191,11 +4191,11 @@ void message_pain(CREATURE_ID creature_idx, POWER dam)
 		else if(percentage > 20) msg_format("%^s writhes about.", creature_name);
 		else if(percentage > 10) msg_format("%^s writhes in agony.", creature_name);
 		else msg_format("%^s jerks limply.", creature_name);
-#endif		
+#endif
 	}
 
 	else if(my_strchr("g#+<>", creature_ptr->d_char)) // Golems, Walls, Doors, Stairs
-	{	
+	{
 #ifdef JP
 		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", creature_name);
 		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", creature_name);
@@ -4279,7 +4279,7 @@ void message_pain(CREATURE_ID creature_idx, POWER dam)
 	}
 
 	else if(my_strchr("B", creature_ptr->d_char)) // Birds
-	{		
+	{
 #ifdef JP
 		if(percentage > 95) msg_format("%^sはさえずった。", creature_name);
 		else if(percentage > 75) msg_format("%^sはピーピー鳴いた。", creature_name);
@@ -4300,7 +4300,7 @@ void message_pain(CREATURE_ID creature_idx, POWER dam)
 	}
 
 	else if(my_strchr("duDLUW", creature_ptr->d_char)) // Dragons, Demons, High Undead
-	{	
+	{
 #ifdef JP
 		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", creature_name);
 		else if(percentage > 75) msg_format("%^sはしり込みした。", creature_name);
@@ -4342,7 +4342,7 @@ void message_pain(CREATURE_ID creature_idx, POWER dam)
 	}
 
 	else if(my_strchr("z", creature_ptr->d_char)) // Zombies
-	{		
+	{
 #ifdef JP
 		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", creature_name);
 		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", creature_name);
@@ -4695,7 +4695,7 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 		    has_trait(creature_ptr, TRAIT_BERS_RAGE) && has_trait(creature_ptr, TRAIT_S_HERO)) &&
 		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (can_enter || can_kill_walls))
 		{
-			
+
 			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0, TRUE);
 			creature_desc(m_name, target_ptr, 0); // Extract creature name (or "it")
 

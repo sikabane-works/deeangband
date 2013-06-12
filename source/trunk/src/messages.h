@@ -469,7 +469,7 @@
 #define KW_ASKING_PRICE "Asking Price"
 #define KW_FINAL_OFFER_PRICE "Final Offer"
 #define KW_FLOOR_NUM(NUM) "Floor %d", (NUM)
-#define KW_FLOOR_NUM2(DUNGEON, NUM) "%s L%d:", (DUNGEON), (NUM) 
+#define KW_FLOOR_NUM2(DUNGEON, NUM) "%s L%d:", (DUNGEON), (NUM)
 #define KW_DEAD "dead"
 #define KW_ALIVE "alive"
 #define KW_UNIDENTIFIED "unidentified"
@@ -528,7 +528,7 @@
 #define MES_FEATURE_STAIR_DOWN "階段を下りて新たなる迷宮へと足を踏み入れた。"
 #define MES_FEATURE_STAIR_TO_SURFACE "階段を上り地上に戻った。"
 #else
-#define MES_FEATURE_KILLED "There is a bright flash of light!", feature_name + (FEATURE)->name
+#define MES_FEATURE_KILLED(FEATURE) "There is a bright flash of light!", feature_name + (FEATURE)->name
 #define MES_FEATURE_STUCKING(FEATURE) "The %s seems stuck.", feature_name + (FEATURE)->name
 #define MES_FEATURE_STAIR_UP "You enter a maze of up staircases."
 #define MES_FEATURE_STAIR_DOWN "You enter a maze of down staircases."
@@ -1034,7 +1034,7 @@
 #define MES_FEELING_TOWN "典型的な町のようだ。"
 #define MES_FEELING_WILD "典型的な荒野のようだ。"
 #else
-#define MES_FEELING_QUESTDUN "Looks like a typical quest level.";
+#define MES_FEELING_QUESTDUN "Looks like a typical quest level."
 #define MES_FEELING_WILD_POINT "Looks like a strange wilderness."
 #define MES_FEELING_TOWN "Looks like a typical town."
 #define MES_FEELING_WILD "Looks like a typical wilderness."
@@ -1080,7 +1080,7 @@
 #define MES_BLDG_TSUCHINOKO1 "Big chance to quick money!!!\ntarget: the rarest animal 'Tsuchinoko'"
 #define MES_BLDG_TSUCHINOKO2 "catch alive ---- $1,000,000\ncorpse      ----   $200,000\nbones       ----   $100,000"
 #define MES_BOUNTY_HAND_OVER(CORPSE) "Hand %s over? ", (CORPSE)
-#define MES_BOUNTY_EARN_POINT(NUM) "You earned %d point%s total.", (NUM), ((NUM) > 1 ? "s" : "") 
+#define MES_BOUNTY_EARN_POINT(NUM) "You earned %d point%s total.", (NUM), ((NUM) > 1 ? "s" : "")
 #define MES_BOUNTY_GET_REWARD(OBJECT, SYM) "You get %s (%c). ", (OBJECT), (SYM)
 #define MES_BOUNTY_NOTHING "You have nothing."
 
@@ -1325,7 +1325,7 @@
 #define COD_LETHAL_MUTATION "致命的な突然変異"
 #define COD_POLYMORPHED_WOUND "変化した傷"
 #define COD_TY_CURSE_ENERGY "エネルギーのうねり"
-#define COD_UNC_FORCE "気の暴走" 
+#define COD_UNC_FORCE "気の暴走"
 #define COD_CHAOS_TAINT "混沌に蝕まれたダメージ"
 #define COD_PATRON_WRATH(PATRON) "%sの怒り", (PATRON)
 #define COD_EARTHQUAKE_CASTER(CASTER) "%sの起こした地震", (CASTER)
@@ -1820,7 +1820,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_EQUIPMENT "装備品: "
 	#define PROMPT_COUNT "回数: "
 	#define PROMPT_REST "休憩 (0-9999, '*' で HP/MP全快, '&' で必要なだけ): "
-	#define PROMPT_PICK "%sを拾いますか? " 
+	#define PROMPT_PICK "%sを拾いますか? "
 	#define PROMPT_DIRECTION "方向は(ESCで中断)? "
 	#define PROMPT_LABEL(N1, N2) " %c-%c,'(',')',", (N1), (N2)
 	#define PROMPT_FIND "検索(^I:持ち物 ^L:破壊された物): "
@@ -1835,7 +1835,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	#define PROMPT_EQUIPMENT "Equip: "
 	#define PROMPT_COUNT "Count: "
 	#define PROMPT_REST "Rest (0-9999, '*' for HP/SP, '&' as needed): "
-	#define PROMPT_PICK "Pick up %s? " 
+	#define PROMPT_PICK "Pick up %s? "
 	#define PROMPT_DIRECTION "Direction (Escape to cancel)? "
 	#define PROMPT_LABEL(N1, N2) " %c-%c,'(',')',", (N1), (N2)
 	#define PROMPT_FIND "Search key(^I:inven ^L:destroyed): "
@@ -2740,6 +2740,8 @@ static cptr desc_stat_neg[] =
 #define MES_SPELL_FORGET(REALM, SPELL) "%sの%sを忘れてしまった。", (REALM), (SPELL)
 #define MES_SPELL_REMEMBER(REALM, SPELL) "%sの%sを思い出した。", (REALM), (SPELL)
 #else
+#define MES_STUDY_WHICH_BOOK "Which book you learn?"
+#define MES_STUDY_NO_BOOK "You don't have any books."
 #define MES_STUDY_NO_READING "You cannot read books!"
 #define MES_STUDY_NO_SLOT(REALM) "You cannot learn any new %ss!", (REALM)
 #define MES_STUDY_SLOT(REALM, NUM) "You can learn %d new %s%s.", (REALM), (NUM), ((NUM) == 1 ? "":"s")
@@ -2864,7 +2866,7 @@ static cptr desc_stat_neg[] =
 #define MES_RECHARGE_NO_MONEY(NAME, MONEY) "You need %d gold to recharge %s!", (MONEY), (NAME)
 #define MES_RECHARGE_NO_MONEY_ALL(MONEY) "You need %d gold to recharge all items!", (MONEY)
 #define MES_RECHARGE_ALL_ASK(MONEY) "Recharge all items for %d gold? ", (MONEY)
-#define MES_RECHARGED(NAME, MONEY, NUM) "%^s %s recharged for %d gold.", (NAME), ((NUM)> 1) ? "were" : "was"), (MONEY) 
+#define MES_RECHARGED(NAME, MONEY, NUM) "%^s %s recharged for %d gold.", (NAME), ((NUM)> 1) ? "were" : "was"), (MONEY)
 #define MES_RECHARGED_ALL(MONEY) "You pay %d gold.", (MONEY)
 #define MES_RECHARGE_FAILED(NAME) "The recharging backfires - %s is completely drained!", (NAME)
 #define MES_RECHARGE_FAILED2 "The recharge backfires, draining the rod further!"
@@ -2874,7 +2876,7 @@ static cptr desc_stat_neg[] =
 #define MES_RECHARGE_BROKEN3(NAME) "Wild magic consumes all your %s!", (NAME)
 #define MES_RECHARGE_COMMENT "The prices of recharge depend on the type."
 #define MES_RECHARGE_COUNT(MONEY) "Add how many charges for %d gold? ", (MONEY)
-#define MES_RECHARGE_ROD_PRICE(NUM, MONEY) "Recharge the %s for %d gold? ", (((NUM) > 1) ? "rods" : "rod"), (MONEY)), 
+#define MES_RECHARGE_ROD_PRICE(NUM, MONEY) "Recharge the %s for %d gold? ", (((NUM) > 1) ? "rods" : "rod"), (MONEY)),
 #define MES_RECHARGE_NEED_IDENTIFY "The item must be identified first。"
 #define MES_RECHARGE_ASK_IDENTIFY(MONEY) "Identify for %d gold? ", (MONEY)
 #define MES_RECHARGE_INDENTIFIED(OBJECT) "You have: %s.", (OBJECT)->name
@@ -2985,7 +2987,7 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_NO_IMPROVE "You have nothing to improve."
 #define MES_OBJECT_FOUND(NUM) "You see %d items.", (NUM)
 #define MES_OBJECT_WHICH_USE "Use which item? "
-#define MES_OBJECT_NO_USE "You have nothing to use." 
+#define MES_OBJECT_NO_USE "You have nothing to use."
 #define MES_OBJECT_WHICH_DROP "Drop which item? "
 #define MES_OBJECT_NO_DROP "You have nothing to drop."
 #define MES_OBJECT_WHICH_OBSERVE "Examine which item? "
@@ -3024,7 +3026,7 @@ static cptr desc_stat_neg[] =
 #define MES_OBJECT_WHICH_STAFF "どの杖を使いますか? "
 #define MES_OBJECT_NO_STAFF "使える杖がない。"
 #define MES_OBJECT_WHICH_WAND "どの魔法棒で狙いますか? "
-#define MES_OBJECT_NO_WAND "使える魔法棒がない。" 
+#define MES_OBJECT_NO_WAND "使える魔法棒がない。"
 #define MES_OBJECT_WHICH_ROD "どのロッドを振りますか? "
 #define MES_OBJECT_NO_ROD "使えるロッドがない。"
 #define MES_OBJECT_WHICH_ACTIVATE "どのアイテムを始動させますか? "
@@ -3319,7 +3321,7 @@ static cptr desc_stat_neg[] =
 #define MES_EARTHQUAKE_CANCELED "ダンジョンが揺れた。"
 #define MES_CALL_OF_VOID_EXPRO1 "あなたは壁に近すぎる場所で発動してしまった！"
 #define MES_CALL_OF_VOID_EXPRO2 "大きな爆発音があった！"
-#define MES_VANISH_DUNGEON_CANCELED "ダンジョンは一瞬静まり返った。" 
+#define MES_VANISH_DUNGEON_CANCELED "ダンジョンは一瞬静まり返った。"
 #else
 #define MES_EARTHQUAKE_DONE1 "The cave ceiling collapses!"
 #define MES_EARTHQUAKE_DONE2 "The cave floor twists in an unnatural way!"
@@ -3637,7 +3639,7 @@ static cptr desc_stat_neg[] =
 #define MES_CAST_ASK(SPELL) "Use %s? ", (SPELL)
 #endif
 
-#ifdef JP 
+#ifdef JP
 #define MES_DEBUG_FORBID "デバッグコマンドは許可されていません。 "
 #define MES_DEBUG_CHECK1 "デバッグ・コマンドはデバッグと実験のためのコマンドです。"
 #define MES_DEBUG_CHECK2 "デバッグ・コマンドを使うとスコアは記録されません。"
@@ -3657,7 +3659,7 @@ static cptr desc_stat_neg[] =
 #define MES_WIZARD_ASK "Are you sure you want to enter wizard mode? "
 #endif
 
-#ifdef JP 
+#ifdef JP
 #define MES_STEED_RIDE_ON(STEED) "%sに乗った。", (STEED)->name
 #define MES_STEED_TAMED(STEED) "%sを手なずけた。", (STEED)->name
 #define MES_STEED_TAME_FAILED(STEED) "%sに振り落とされた！", (STEED)->name
@@ -4837,7 +4839,7 @@ static cptr desc_stat_neg[] =
 #define MES_QUICKSTART_ASK "クイック・スタートを使いますか？[y/N]"
 #else
 #define MES_QUICKSTART_DESC "Do you want to use the quick start function(same character as your last one)."
-#define MES_QUICKSTART_ASK "Use quick start? [y/N]" 
+#define MES_QUICKSTART_ASK "Use quick start? [y/N]"
 #endif
 
 #ifdef JP

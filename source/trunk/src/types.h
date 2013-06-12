@@ -430,7 +430,7 @@ struct object_kind
 	PROB chance[4];		/* Allocation chance(s) */
 
 	FLOOR_LEV level;
-	byte extra;	
+	byte extra;
 
 	COLOR_ID d_attr;		/* Default object attribute */
 	SYMBOL d_char;		/* Default object character */
@@ -1122,8 +1122,8 @@ struct sex_type
 	cptr title;			/* Type of sex */
 	cptr winner;		/* Name of winner */
 #ifdef JP
-	cptr E_title;		/* âpåÍê´ï  */
-	cptr E_winner;		/* âpåÍê´ï  */
+	cptr E_title;		/* ÔøΩpÔøΩÍê´ÔøΩÔøΩ */
+	cptr E_winner;		/* ÔøΩpÔøΩÍê´ÔøΩÔøΩ */
 #endif
 };
 
@@ -1243,7 +1243,7 @@ struct race_type
 	s16b slot_tail;
 	s16b slot_intake;
 
-	special_blow_type blow[MAX_SPECIAL_BLOWS];	// Up to four blows per round 
+	special_blow_type blow[MAX_SPECIAL_BLOWS];	// Up to four blows per round
 	/*    byte choice_xtra;   */
 };
 
@@ -1258,7 +1258,7 @@ struct class_type
 {
 	cptr title;			/* Type of class */
 #ifdef JP
-	cptr E_title;		/* âpåÍêEã∆ */
+	cptr E_title;		/* ÔøΩpÔøΩÔøΩEÔøΩÔøΩ */
 
 #endif
 	STRING_OFFSET name;			/* Name (offset) */
@@ -1394,14 +1394,14 @@ struct creature_type
 	char name[128];
 	char desc_name[128];
 
-	byte player;	// Player Flag 
+	byte player;	// Player Flag
 
 	COLOR_ID d_attr;			// Default creature attribute
 	SYMBOL d_char;			// Default creature character
 	COLOR_ID x_attr;			// Desired creature attribute
 	SYMBOL x_char;			// Desired creature character
 
-	COODINATES oldpy; /* Previous player location -KMW- */ 
+	COODINATES oldpy; /* Previous player location -KMW- */
 	COODINATES oldpx; /* Previous player location -KMW- */
 
 	RACE_ID race_idx1;			    // Race index
@@ -1410,20 +1410,20 @@ struct creature_type
 	SPECIES_ID species_idx;			// Species index
 	SPECIES_ID ap_species_idx;		// Species appearance index
 	CREATURE_EGO_ID creature_ego_idx; // Ego index
-	s16b starting_idx;			// Starting indx	
-	byte sub_align;		    // Sub-alignment for a neutral creature 
-	FLAGS_32 sub_race[8];       // Sub-Race flags 
+	s16b starting_idx;			// Starting indx
+	byte sub_align;		    // Sub-alignment for a neutral creature
+	FLAGS_32 sub_race[8];       // Sub-Race flags
 	FLAGS_32 authority[8];      // Autority flags
-	SEX_ID sex;				// Sex index 
-	bool sexual_penalty;	// Sexual penalty flag 
-	CLASS_ID class_idx;		    // Class index 
+	SEX_ID sex;				// Sex index
+	bool sexual_penalty;	// Sexual penalty flag
+	CLASS_ID class_idx;		    // Class index
 	bool cls_bonus;	        // Class bonus flag
-	CHARA_ID chara_idx;		    // Chara index 
-	SPECIES_ID patron_idx;		// Patron index 
+	CHARA_ID chara_idx;		    // Chara index
+	SPECIES_ID patron_idx;		// Patron index
 	SPECIES_ID father_idx;
 	SPECIES_ID mother_idx;
-	REALM_ID realm1;            // First magic realm 
-	REALM_ID realm2;            // Second magic realm 
+	REALM_ID realm1;            // First magic realm
+	REALM_ID realm2;            // Second magic realm
 
 	GAME_TURN action_turn;		// Action turn
 
@@ -1434,42 +1434,42 @@ struct creature_type
 	STAT hitdice_base;  // Hit dice base
 	STAT expfact;       // Experience factor
 
-	STAT age;			// Characters age 
-	HEIGHT ht;			// Height 
-	WEIGHT wt;			// Weight 
-	STAT sc;			// Social Class 
-	CREATURE_LEV dr; // Divine Rank 
-	BODY_SIZE size;			// Body Size 
+	STAT age;			// Characters age
+	HEIGHT ht;			// Height
+	WEIGHT wt;			// Weight
+	STAT sc;			// Social Class
+	CREATURE_LEV dr; // Divine Rank
+	BODY_SIZE size;			// Body Size
 	PERCENT regenerate_mod;
 
-	s16b inven_cnt;			// Number of items in inventory 
-	s16b equip_cnt;			// Number of items in equipment 
-	object_type inventory[INVEN_TOTAL];  // Inventory 
-	s16b iven_fitting_rate[INVEN_TOTAL]; // Inventory Fitting Rate 
+	s16b inven_cnt;			// Number of items in inventory
+	s16b equip_cnt;			// Number of items in equipment
+	object_type inventory[INVEN_TOTAL];  // Inventory
+	s16b iven_fitting_rate[INVEN_TOTAL]; // Inventory Fitting Rate
 	byte equip_now[INVEN_TOTAL];         // equipment flag
 	QUANTITY item_slot_num[MAX_INVENTORY_IDS];
 	object_type organ_object[MAX_INVENTORY_IDS];
 
-	PRICE au;			// Current Gold 
+	PRICE au;			// Current Gold
 
-	s32b max_max_exp;	// Max max experience (only to calculate score) 
-	s32b max_exp;		// Max experience 
-	s32b exp;			// Cur experience 
-	u32b exp_frac;		// Cur exp frac (times 2^16) 
+	s32b max_max_exp;	// Max max experience (only to calculate score)
+	s32b max_exp;		// Max experience
+	s32b exp;			// Cur experience
+	u32b exp_frac;		// Cur exp frac (times 2^16)
 
-	CREATURE_LEV lev;			// Level 
-	CREATURE_LEV max_lev;		// Max Level 
+	CREATURE_LEV lev;			// Level
+	CREATURE_LEV max_lev;		// Max Level
 
-	STAT chp;			// Cur hit pts 
-	u32b chp_frac;		// Cur hit frac (times 2^16) 
-	STAT mhp;			// Max hit pts 
-	STAT mmhp;			// Max Max Hit points 
+	STAT chp;			// Cur hit pts
+	u32b chp_frac;		// Cur hit frac (times 2^16)
+	STAT mhp;			// Max hit pts
+	STAT mmhp;			// Max Max Hit points
 
-	STAT msp;			// Max mana pts 
-	STAT csp;			// Cur mana pts 
-	u32b csp_frac;		// Cur mana frac (times 2^16) 
+	STAT msp;			// Max mana pts
+	STAT csp;			// Cur mana pts
+	u32b csp_frac;		// Cur mana frac (times 2^16)
 
-	CREATURE_LEV max_plv; // Max Player Level 
+	CREATURE_LEV max_plv; // Max Player Level
 
 	STAT stat_cur[STAT_MAX];			// Current "natural" stat values
 	STAT stat_max[STAT_MAX];			// Current "maximal" stat values
@@ -1514,64 +1514,64 @@ struct creature_type
 	s32b karmas[MAX_KARMA];
 	s16b karmas_rank[MAX_KARMA];
 
-	DUNGEON_ID recall_dungeon;	// Dungeon set to be recalled 
+	DUNGEON_ID recall_dungeon;	// Dungeon set to be recalled
 
-	ENERGY energy_need;	// Energy needed for next move 
+	ENERGY energy_need;	// Energy needed for next move
 
-	STAT food;			// Current nutrition 
+	STAT food;			// Current nutrition
 
-	POSTURE_ID posture;		// Special block capacity -LM- 
-	ACTION_ID action;		// Currently action 
+	POSTURE_ID posture;		// Special block capacity -LM-
+	ACTION_ID action;		// Currently action
 
-	FLAGS_32 spell_learned1;	// bit mask of spells learned 
-	FLAGS_32 spell_learned2;	// bit mask of spells learned 
-	FLAGS_32 spell_worked1;		// bit mask of spells tried and worked 
-	FLAGS_32 spell_worked2;		// bit mask of spells tried and worked 
-	FLAGS_32 spell_forgotten1;	// bit mask of spells learned but forgotten 
-	FLAGS_32 spell_forgotten2;	// bit mask of spells learned but forgotten 
-	KEY spell_order[64];	// order spells learned/remembered/forgotten 
+	FLAGS_32 spell_learned1;	// bit mask of spells learned
+	FLAGS_32 spell_learned2;	// bit mask of spells learned
+	FLAGS_32 spell_worked1;		// bit mask of spells tried and worked
+	FLAGS_32 spell_worked2;		// bit mask of spells tried and worked
+	FLAGS_32 spell_forgotten1;	// bit mask of spells learned but forgotten
+	FLAGS_32 spell_forgotten2;	// bit mask of spells learned but forgotten
+	KEY spell_order[64];	// order spells learned/remembered/forgotten
 
-	SKILL_EXP skill_exp[MAX_SKILLS];       // Proficiency of misc. skill 
+	SKILL_EXP skill_exp[MAX_SKILLS];       // Proficiency of misc. skill
 	SKILL_EXP spell_exp[MAX_REALMS];
 
 	TRAIT_ID mane_spell[MAX_MANE];
 	POWER mane_dam[MAX_MANE];
 	QUANTITY mane_num;
 
-	s16b concent;      // Sniper's concentration level 
+	s16b concent;      // Sniper's concentration level
 	u16b total_friends; // number of servent.
 
 	STAT base_hp[CREATURE_MAX_LEVEL];
-	cptr last_message;        // Last message on death or retirement 
-	char history[HISTORY_ROW][HISTORY_COL];  	  // Textual "history" for the Player 
+	cptr last_message;        // Last message on death or retirement
+	char history[HISTORY_ROW][HISTORY_COL];  	  // Textual "history" for the Player
 
-	CREATURE_ID riding; /* Riding on a creature of this index */ 
+	CREATURE_ID riding; /* Riding on a creature of this index */
 	CREATURE_ID ridden; /* Ridden on a creature of this index */
-	byte knowledge;           // Knowledge about yourself 
-	s32b visit;               // Visited towns 
+	byte knowledge;           // Knowledge about yourself
+	s32b visit;               // Visited towns
 
-	s16b old_realm;           // Record of realm changes 
+	s16b old_realm;           // Record of realm changes
 
-	COODINATES pet_follow_distance; // Length of the imaginary "leash" for pets 
-	s16b pet_extra_flags;     // Various flags for controling pets 
+	COODINATES pet_follow_distance; // Length of the imaginary "leash" for pets
+	s16b pet_extra_flags;     // Various flags for controling pets
 
-	FLOOR_ID floor_idx;            // Current floor location  
+	FLOOR_ID floor_idx;            // Current floor location
 
-	bool autopick_autoregister; // auto register is in-use or not 
+	bool autopick_autoregister; // auto register is in-use or not
 
 	byte floor_feeling;		// Most recent dungeon feeling
-	GAME_TURN feeling_turn;		// The turn of the last dungeon feeling 
+	GAME_TURN feeling_turn;		// The turn of the last dungeon feeling
 
 	COODINATES alert_range;
 
 	//** Temporary fields **
 	bool teleport_town;
-	bool enter_dungeon;     // Just enter the dungeon 
+	bool enter_dungeon;     // Just enter the dungeon
 
-	STAT new_spells;	// Number of spells available 
+	STAT new_spells;	// Number of spells available
 	STAT old_spells;
 
-	s16b old_food_aux;	// Old value of food 
+	s16b old_food_aux;	// Old value of food
 
 	bool old_cumber_armor;
 	bool old_cumber_glove;
@@ -1581,17 +1581,17 @@ struct creature_type
 	bool old_riding_two_handed;
 	bool old_monlite;
 
-	s16b old_lite;		// Old radius of lite (if any) 
+	s16b old_lite;		// Old radius of lite (if any)
 
-	bool cumber_armor;	// Mana draining armor 
-	bool cumber_glove;	// Mana draining gloves 
-	bool heavy_wield[MAX_WEAPONS];	// Heavy weapon 
-	bool heavy_shoot;	// Heavy shooter 
-	bool riding_wield[MAX_WEAPONS];	// Riding weapon 
-	bool riding_two_handed;	// Riding weapon 
+	bool cumber_armor;	// Mana draining armor
+	bool cumber_glove;	// Mana draining gloves
+	bool heavy_wield[MAX_WEAPONS];	// Heavy weapon
+	bool heavy_shoot;	// Heavy shooter
+	bool riding_wield[MAX_WEAPONS];	// Riding weapon
+	bool riding_two_handed;	// Riding weapon
 	bool monlite;
 
-	s16b cur_lite;		// Radius of lite (if any) 
+	s16b cur_lite;		// Radius of lite (if any)
 
 	bool sutemi;
 	bool counter;
@@ -1612,10 +1612,10 @@ struct creature_type
 
 	//** Extracted fields **
 
-	WEIGHT equipping_weight;	// Total weight being carried 
-	WEIGHT carrying_weight;	// Total weight being carried 
+	WEIGHT equipping_weight;	// Total weight being carried
+	WEIGHT carrying_weight;	// Total weight being carried
 
-	u32b cursed;         // Player is cursed 
+	u32b cursed;         // Player is cursed
 
 	STAT to_damaged[MAX_WEAPONS];		// Extra dice/sides
 	STAT to_damages[MAX_WEAPONS];
@@ -1625,9 +1625,9 @@ struct creature_type
 	STAT to_damage[MAX_WEAPONS];	// Bonus to dam (wield)
 	STAT to_damage_m;				// Bonus to dam (misc)
 
-	STAT dis_to_hit[MAX_WEAPONS];	// Known bonus to hit (wield) 
-	STAT dis_to_hit_b;	// Known bonus to hit (bow) 
-	STAT dis_to_damage[MAX_WEAPONS];	// Known bonus to dam (wield) 
+	STAT dis_to_hit[MAX_WEAPONS];	// Known bonus to hit (wield)
+	STAT dis_to_hit_b;	// Known bonus to hit (bow)
+	STAT dis_to_damage[MAX_WEAPONS];	// Known bonus to dam (wield)
 
 	SAVING ac;			// Base AC
 	SAVING ev;			// Base EV
@@ -1642,9 +1642,9 @@ struct creature_type
 	SAVING dis_to_ev;		// Known bonus to EV
 	SAVING dis_to_vo;		// Known bonus to VO
 
-	s16b to_m_chance;	// Minusses to cast chance 
+	s16b to_m_chance;	// Minusses to cast chance
 
-	byte two_handed[INVEN_TOTAL];      // each Two-handed slot 
+	byte two_handed[INVEN_TOTAL];      // each Two-handed slot
 
 	bool can_melee[MAX_MELEE_TYPE];
 	STAT action_cost[MAX_MELEE_TYPE];		// Action point
@@ -1652,49 +1652,49 @@ struct creature_type
 
 	bool no_flowed;
 
-	s16b see_infra;		// Infravision range 
+	s16b see_infra;		// Infravision range
 
-	TRYING skill_dis;		// Skill: Disarming 
-	TRYING skill_dev;		// Skill: Magic Devices 
-	TRYING skill_stl;		// Skill: Stealth factor 
-	TRYING skill_srh;		// Skill: Searching ability 
-	TRYING skill_fos;		// Skill: Searching frequency 
-	TRYING skill_thn;		// Skill: To hit (normal) 
-	TRYING skill_thb;		// Skill: To hit (shooting) 
-	TRYING skill_tht;		// Skill: To hit (throwing) 
-	TRYING skill_dig;		// Skill: Digging 
+	TRYING skill_dis;		// Skill: Disarming
+	TRYING skill_dev;		// Skill: Magic Devices
+	TRYING skill_stl;		// Skill: Stealth factor
+	TRYING skill_srh;		// Skill: Searching ability
+	TRYING skill_fos;		// Skill: Searching frequency
+	TRYING skill_thn;		// Skill: To hit (normal)
+	TRYING skill_thb;		// Skill: To hit (shooting)
+	TRYING skill_tht;		// Skill: To hit (throwing)
+	TRYING skill_dig;		// Skill: Digging
 
-	STAT num_fire;		// Number of shots 
+	STAT num_fire;		// Number of shots
 
-	TVAL tval_xtra;		// Correct xtra tval 
-	TVAL tval_ammo;		// Correct ammo tval 
+	TVAL tval_xtra;		// Correct xtra tval
+	TVAL tval_ammo;		// Correct ammo tval
 
-	SPEED speed; // speed 
+	SPEED speed; // speed
 
-	COODINATES fy; // Y location on map 
-	COODINATES fx; // X location on map 
-	COODINATES wx; // Coordinates in the wilderness 
+	COODINATES fy; // Y location on map
+	COODINATES fx; // X location on map
+	COODINATES wx; // Coordinates in the wilderness
 	COODINATES wy;
 
 	FLOOR_LEV depth;
 	COODINATES cdis; /* Current dis from player */
 
-	byte sc_flag;	// Extra creature flags 
-	byte sc_flag2;	// Extra creature flags 
+	byte sc_flag;	// Extra creature flags
+	byte sc_flag2;	// Extra creature flags
 
-	bool see_others;	// Creature is "visible" 
+	bool see_others;	// Creature is "visible"
 
-	COODINATES target_y; // Can attack !los player 
-	COODINATES target_x; // Can attack !los player 
+	COODINATES target_y; // Can attack !los player
+	COODINATES target_x; // Can attack !los player
 
-	STRING_OFFSET nickname;		// Creature's Nickname 
+	STRING_OFFSET nickname;		// Creature's Nickname
 
 	CREATURE_ID parent_creature_idx;
 
-	SPECIES_ID underling_id[MAX_UNDERLINGS];	    // Underling ID 
-	POPULATION underling_num[MAX_UNDERLINGS];	    // Dice Number of Underlings 
+	SPECIES_ID underling_id[MAX_UNDERLINGS];	    // Underling ID
+	POPULATION underling_num[MAX_UNDERLINGS];	    // Dice Number of Underlings
 
-	special_blow_type blow[MAX_SPECIAL_BLOWS];	// Up to four blows per round 
+	special_blow_type blow[MAX_SPECIAL_BLOWS];	// Up to four blows per round
 
 	COODINATES start_wx; // Starting Wilderness_X
 	COODINATES start_wy; // Statring Wilderness_Y
@@ -2055,7 +2055,7 @@ enum FLOOR_GENERATED_TYPE_ID {
 	F_GENE_FORTLESS,
 };
 
-typedef struct 
+typedef struct
 {
 	enum FLOOR_GENERATED_TYPE_ID generate_type;
 	byte fight_arena_mode;
@@ -2234,5 +2234,5 @@ typedef struct half_race_description {
 
 typedef struct object_id {
 	TVAL tval;
-	SVAL sval; 
+	SVAL sval;
 } object_id;

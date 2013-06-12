@@ -15,10 +15,7 @@
 #include "angband.h"
 #include "h-basic.h"
 
-typedef s32b RAND_SEED;
-
 /**** Available constants ****/
-
 
 /*
  * Random Number Generator -- Degree of "complex" RNG -- see "misc.c"
@@ -73,7 +70,7 @@ typedef s32b RAND_SEED;
 
 extern bool Rand_quick;
 extern u32b Rand_value;
-extern RAND_SEED Rand_place;
+extern s32b Rand_place;
 extern u32b Rand_state[RAND_DEG];
 
 
