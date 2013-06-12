@@ -616,14 +616,9 @@ errr process_pref_file_command(char *buf)
 				int os = option_info[i].o_set;
 				int ob = option_info[i].o_bit;
 
-				if((playing) &&
-					(OPT_PAGE_BIRTH == option_info[i].o_page) && !wizard)
+				if((playing) && (OPT_PAGE_BIRTH == option_info[i].o_page) && !wizard)
 				{
-#ifdef JP
-					msg_format("初期オプションは変更できません! '%s'", buf);
-#else
-					msg_format("Birth options can not changed! '%s'", buf);
-#endif
+					msg_format(MES_PLEFFILE_INIT_OPTION(buf));
 					msg_print(NULL);
 					return SUCCESS;
 				}

@@ -4752,9 +4752,11 @@ static cptr desc_stat_neg[] =
 
 #ifdef JP
 #define MES_PLEFFILE_TOO_MACRO "マクロトリガーの設定が多すぎます!"
+#define MES_PLEFFILE_INIT_OPTION(NAME) "初期オプションは変更できません。 '%s'", (NAME)
 #define MES_PLEFFILE_INVALID_OPTION(NAME) "オプションの名前が正しくありません： %s", (NAME)
 #else
 #define MES_PLEFFILE_TOO_MACRO "Too many macro triggers!"
+#define MES_PLEFFILE_INIT_OPTION(NAME) "Birth options can not changed. '%s'", (NAME)
 #define MES_PLEFFILE_INVALID_OPTION(NAME) "Ignored invalid option: %s", (NAME)
 #endif
 

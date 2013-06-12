@@ -491,14 +491,9 @@ static void store_item_load(store_type *st_ptr, object_type *object_ptr)
 		st_ptr->stock[i] = st_ptr->stock[i-1];
 	}
 
-	/* More stuff now */
-	st_ptr->stock_num++;
-
-	/* Insert the new item */
-	st_ptr->stock[slot] = *object_ptr;
-
-	/* Return the location */
-	return;
+	st_ptr->stock_num++; /* More stuff now */
+	st_ptr->stock[slot] = *object_ptr; /* Insert the new item */
+	return; /* Return the location */
 }
 
 
@@ -533,21 +528,21 @@ static errr rd_store(store_type *st_ptr)
 	for (j = 0; j < num; j++)
 	{
 		object_type forge;
-		object_type *quest_ptr;
-		quest_ptr = &forge;
+		object_type *object_ptr;
+		object_ptr = &forge;
 
-		object_wipe(quest_ptr); /* Wipe the object */
-		rd_object(quest_ptr); /* Read the item */
+		object_wipe(object_ptr); /* Wipe the object */
+		rd_object(object_ptr); /* Read the item */
 
 		/* Acquire valid items */
 		if(st_ptr->stock_num < st_ptr->stock_size)
 		{
 			int k;
-			if(sort) store_item_load(st_ptr, quest_ptr);
+			if(sort) store_item_load(st_ptr, object_ptr);
 			else
 			{
 				k = st_ptr->stock_num++;
-				object_copy(&st_ptr->stock[k], quest_ptr); /* Acquire the item */
+				object_copy(&st_ptr->stock[k], object_ptr); /* Acquire the item */
 			}
 		}
 	}
