@@ -3770,22 +3770,14 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 				object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
 
 #ifdef JP
-				msg_format("%s(%c)が%s壊れてしまった！",
-#else
-				msg_format("%sour %s (%c) %s destroyed!",
-#endif
-
-#ifdef JP
-				object_name, index_to_label(i),
-					((object_ptr->number > 1) ?
-					((amt == object_ptr->number) ? "全部" :
+				msg_format("%s(%c)が%s壊れてしまった！", object_name, index_to_label(i),
+					((object_ptr->number > 1) ? ((amt == object_ptr->number) ? "全部" :
 					(amt > 1 ? "何個か" : "一個")) : "")    );
 #else
-				    ((object_ptr->number > 1) ?
-				    ((amt == object_ptr->number) ? "All of y" :
+				msg_format("%sour %s (%c) %s destroyed!",
+				    ((object_ptr->number > 1) ? ((amt == object_ptr->number) ? "All of y" :
 				    (amt > 1 ? "Some of y" : "One of y")) : "Y"),
-				    object_name, index_to_label(i),
-				    ((amt > 1) ? "were" : "was"));
+				    object_name, index_to_label(i), ((amt > 1) ? "were" : "was"));
 #endif
 
 #ifdef JP

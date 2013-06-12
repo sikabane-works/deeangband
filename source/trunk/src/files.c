@@ -995,10 +995,8 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 
 			else if(streq(b+1, "AUTOREGISTER"))
 			{
-				if(creature_ptr->autopick_autoregister)
-					v = "1";
-				else
-					v = "0";
+				if(creature_ptr->autopick_autoregister) v = "1";
+				else v = "0";
 			}
 
 			else if(streq(b+1, "MONEY"))
@@ -1028,17 +1026,11 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 static errr process_pref_file_aux(cptr name, int preftype)
 {
 	FILE *fp;
-
 	char buf[1024];
-
 	char old[1024];
-
 	int line = -1;
-
 	errr err = 0;
-
 	bool bypass = FALSE;
-
 
 	fp = my_fopen(name, "r");
 
@@ -1102,7 +1094,7 @@ static errr process_pref_file_aux(cptr name, int preftype)
 			/* Count depth level */
 			depth_count++;
 
-  			/* Process that file if allowed */
+			/* Process that file if allowed */
 			switch (preftype)
 			{
 			case PREF_TYPE_AUTOPICK:
@@ -1130,7 +1122,7 @@ static errr process_pref_file_aux(cptr name, int preftype)
 		if(err)
 		{
 			if(preftype != PREF_TYPE_AUTOPICK)
-  				break;
+				break;
 			err = process_autopick_file_command(buf);
 		}
 	}
@@ -1514,29 +1506,21 @@ static struct
 static void display_player_one_line(int entry, cptr val, byte attr)
 {
 	char buf[60];
-
 	int row = disp_creature_line[entry].row;
 	int col = disp_creature_line[entry].col;
 	int len = disp_creature_line[entry].len;
 	cptr head = disp_creature_line[entry].header;
-
 	int head_len = strlen(head);
 
 	Term_putstr(col, row, -1, TERM_WHITE, head);
-
-	if(!val)
-		return;
-
+	if(!val) return;
 	if(len > 0)
 	{
 		int val_len = len - head_len;
 		sprintf(buf, "%*.*s", val_len, val_len, val);
 		Term_putstr(col + head_len, row, -1, attr, buf);
 	}
-	else
-	{
-		Term_putstr(col + head_len, row, -1, attr, val);
-	}
+	else Term_putstr(col + head_len, row, -1, attr, val);
 
 	return;
 }
@@ -1560,12 +1544,7 @@ static void display_player_middle(creature_type *creature_ptr)
 
 	int tmul = 0;
 	int i, j, k, e;
-
-#ifdef JP
-	c_put_str(TERM_WHITE, "í•Ê    –½’† ˆĞ—Í     AP  —Dæ", 14, 1);
-#else
-	c_put_str(TERM_WHITE, "Type    Hit  Damage   AP  —Dæ", 14, 1);
-#endif
+	c_put_str(TERM_WHITE, MES_INTERFACE_MELEE_LIST, 14, 1);
 
 	for(i = 0; i < MAX_WEAPONS; i++)
 	{
