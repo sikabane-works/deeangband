@@ -1184,7 +1184,7 @@ static void do_cmd_wiz_floor_teleport(void)
 	selection_table *ce;
 	int i;
 	selection_info se_info;
-	ce = malloc(sizeof(selection_table) * (floor_max + 1));
+	C_MAKE(ce, floor_max + 2, selection_table);
 
 	se_info.mode = 0;
 	se_info.detail = NULL;
@@ -1201,7 +1201,7 @@ static void do_cmd_wiz_floor_teleport(void)
 	{
 		se_info.num = 0;
 
-		for(i = 1; i < floor_max; i++)
+		for(i = 0; i < floor_max; i++)
 		{
 			ce[se_info.num].cap = NULL; 
 			ce[se_info.num].key = '\0';
@@ -1238,7 +1238,7 @@ static void do_cmd_wiz_floor_teleport(void)
 	prepare_redraw(PR_MAP);
 	redraw_stuff(player_ptr);
 
-	free(ce);
+	C_KILL(ce, floor_max + 2, selection_table);
 }
 
 static void object_list_func(int y, int x, int i, bool selected)
