@@ -936,9 +936,9 @@ struct object_type
 	FLAGS_32 trait_flags[MAX_TRAITS_FLAG];
 	FLAGS_32 curse_flags[MAX_TRAITS_FLAG]; // Flags for curse
 
-	OBJECT_ID next_object_idx; // Next object in stack (if any)
+	OBJECT_ID next_object_idx;
 	CREATURE_ID held_creature_idx; /* Creature holding us (if any) */
-	SPECIES_ID creator_idx;		// Creater
+	SPECIES_ID creator_idx; // Creater
 	SPECIES_ID source_idx; /* Item Source */
 
 	INVENTORY_ID equipped_slot_type;
@@ -1122,8 +1122,8 @@ struct sex_type
 	cptr title;			/* Type of sex */
 	cptr winner;		/* Name of winner */
 #ifdef JP
-	cptr E_title;		/* ï¿½pï¿½ê«ï¿½ï¿½ */
-	cptr E_winner;		/* ï¿½pï¿½ê«ï¿½ï¿½ */
+	cptr E_title;		/* E½pE½ê«E½E½ */
+	cptr E_winner;		/* E½pE½ê«E½E½ */
 #endif
 };
 
@@ -1258,7 +1258,7 @@ struct class_type
 {
 	cptr title;			/* Type of class */
 #ifdef JP
-	cptr E_title;		/* ï¿½pï¿½ï¿½Eï¿½ï¿½ */
+	cptr E_title;		/* E½pE½E½EE½E½ */
 
 #endif
 	STRING_OFFSET name;			/* Name (offset) */
