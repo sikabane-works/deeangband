@@ -389,9 +389,7 @@ bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, FLAGS_32 m
 		msg_format("w‚±‚Á‚¿‚¾‚ŸA%sx", creature_ptr->name);
 #endif
 
-	/* Move the player */
-	(void)move_creature(creature_ptr, NULL, y, x, MCE_FORGET_FLOW | MCE_HANDLE_STUFF | MCE_DONT_PICKUP);
-
+	(void)move_creature(creature_ptr, floor_ptr, y, x, MCE_FORGET_FLOW | MCE_HANDLE_STUFF | MCE_DONT_PICKUP); /* Move the player */
 	return TRUE;
 }
 

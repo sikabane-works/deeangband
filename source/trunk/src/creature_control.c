@@ -4460,14 +4460,20 @@ void creature_drop_carried_objects(creature_type *creature_ptr)
 // Move the creature
 bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES ny, COODINATES nx, u32b mpe_mode)
 {
-	COODINATES oy = creature_ptr->fy;
-	COODINATES ox = creature_ptr->fx;
-	floor_type *prev_floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	cave_type *new_cave_ptr = &floor_ptr->cave[ny][nx];
-	cave_type *old_cave_ptr = &prev_floor_ptr->cave[oy][ox];
-	feature_type *f_ptr = &feature_info[new_cave_ptr->feat];
+	COODINATES oy, ox;
+	floor_type *prev_floor_ptr;
+	cave_type *new_cave_ptr, *old_cave_ptr;
+	feature_type *feature_ptr;
 
+	prev_floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	if(!floor_ptr) floor_ptr = GET_FLOOR_PTR(creature_ptr);
+
+	oy = creature_ptr->fy;
+	ox = creature_ptr->fx;
+	new_cave_ptr = &floor_ptr->cave[ny][nx];
+	old_cave_ptr = &prev_floor_ptr->cave[oy][ox];
+	feature_ptr = &feature_info[new_cave_ptr->feat];
+
 	if(floor_ptr->global_map) reveal_wilderness(ny, nx);
 
 	// Creature status adjustment (Remove all mirrors without explosion / Cut supersthealth)
@@ -4537,8 +4543,8 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 			else if(creature_ptr->cur_lite <= 0) set_superstealth(creature_ptr, TRUE);
 		}
 
-		if((creature_ptr->action == ACTION_HAYAGAKE) && (!have_flag(f_ptr->flags, FF_PROJECT) ||
-			(!has_trait(creature_ptr, TRAIT_CAN_FLY) && have_flag(f_ptr->flags, FF_DEEP))))
+		if((creature_ptr->action == ACTION_HAYAGAKE) && (!have_flag(feature_ptr->flags, FF_PROJECT) ||
+			(!has_trait(creature_ptr, TRAIT_CAN_FLY) && have_flag(feature_ptr->flags, FF_DEEP))))
 		{
 			if(is_player(creature_ptr)) msg_print(MES_HAYAGAKE_PREVENT);
 			cost_tactical_energy(creature_ptr, 100);
@@ -4565,7 +4571,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 	if(!(mpe_mode & MCE_DONT_PICKUP)) carry(creature_ptr, (mpe_mode & MCE_DO_PICKUP) ? TRUE : FALSE);
 
 	// Handle "store doors"
-	if(have_flag(f_ptr->flags, FF_STORE) && !(mpe_mode & MCE_NO_ENTER))
+	if(have_flag(feature_ptr->flags, FF_STORE) && !(mpe_mode & MCE_NO_ENTER))
 	{
 		disturb(creature_ptr, 0, 0);
 		cancel_tactical_action(creature_ptr);
@@ -4573,7 +4579,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 	}
 
 	// Handle "building doors" -KMW-
-	else if(have_flag(f_ptr->flags, FF_BLDG) && !(mpe_mode & MCE_NO_ENTER))
+	else if(have_flag(feature_ptr->flags, FF_BLDG) && !(mpe_mode & MCE_NO_ENTER))
 	{
 		disturb(player_ptr, 0, 0);
 		cancel_tactical_action(creature_ptr);
@@ -4581,7 +4587,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 	}
 
 	// Handle quest areas -KMW-
-	else if(have_flag(f_ptr->flags, FF_QUEST_ENTER) && !(mpe_mode & MCE_NO_ENTER))
+	else if(have_flag(feature_ptr->flags, FF_QUEST_ENTER) && !(mpe_mode & MCE_NO_ENTER))
 	{
 		disturb(player_ptr, 0, 0);
 
@@ -4589,7 +4595,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		command_new = SPECIAL_KEY_QUEST;
 	}
 
-	else if(have_flag(f_ptr->flags, FF_QUEST_EXIT) && !(mpe_mode & MCE_NO_ENTER))
+	else if(have_flag(feature_ptr->flags, FF_QUEST_EXIT) && !(mpe_mode & MCE_NO_ENTER))
 	{
 		if(quest[floor_ptr->quest].type == QUEST_TYPE_FIND_EXIT)
 		{
@@ -4611,11 +4617,11 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 	}
 
 	/* Set off a trap */
-	else if(have_flag(f_ptr->flags, FF_HIT_TRAP) && !(mpe_mode & MCE_STAYING))
+	else if(have_flag(feature_ptr->flags, FF_HIT_TRAP) && !(mpe_mode & MCE_STAYING))
 	{
 		disturb(player_ptr, 0, 0);
 
-		if(new_cave_ptr->mimic || have_flag(f_ptr->flags, FF_SECRET)) /* Hidden trap */
+		if(new_cave_ptr->mimic || have_flag(feature_ptr->flags, FF_SECRET)) /* Hidden trap */
 		{
 			msg_print(MES_TRAP_FOUND);
 			disclose_grid(prev_floor_ptr, creature_ptr->fy, creature_ptr->fx); /* Pick a trap */
