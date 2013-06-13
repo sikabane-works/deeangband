@@ -3489,7 +3489,7 @@ static CREATURE_ID place_creature_one(creature_type *summoner_ptr, floor_type *f
 		if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && (floor_ptr->depth < species_ptr->level) &&
 			(!has_trait(player_ptr, TRAIT_CURSE_OF_ILUVATAR) || (has_trait_species(species_ptr, TRAIT_QUESTOR))))
 		{
-			if(cheat_hear) msg_format("[max_creature_idx: No Nightmare mode.]");
+			if(cheat_hear) msg_format("[No Nightmare mode.]");
 			return (max_creature_idx);	// Cannot create
 		}
 	}
@@ -3506,12 +3506,16 @@ static CREATURE_ID place_creature_one(creature_type *summoner_ptr, floor_type *f
 
 				/* Count all quest creatures */
 				for (i2 = 0; i2 < floor_ptr->width; ++i2)
+				{
 					for (j2 = 0; j2 < floor_ptr->height; j2++)
-						if(floor_ptr->cave[j2][i2].creature_idx > 0)
-							if(creature_list[floor_ptr->cave[j2][i2].creature_idx].species_idx == quest[hoge].species_idx)
+					{
+						if(floor_ptr->cave[j2][i2].creature_idx > 0 && creature_list[floor_ptr->cave[j2][i2].creature_idx].species_idx == quest[hoge].species_idx)
+						{
 								number_mon++;
-				if(number_mon + quest[hoge].cur_num >= quest[hoge].max_num)
-					return max_creature_idx;
+						}
+					}
+				}
+				if(number_mon + quest[hoge].cur_num >= quest[hoge].max_num) return max_creature_idx;
 			}
 		}
 	}
@@ -3521,10 +3525,9 @@ static CREATURE_ID place_creature_one(creature_type *summoner_ptr, floor_type *f
 		if(randint1(BREAK_GLYPH) < (species_ptr->level + 20))
 		{
 			if(c_ptr->info & CAVE_MARK) msg_print(MES_BREAK_P_RUNE);
-			c_ptr->info &= ~(CAVE_MARK);	// Forget the rune
+			c_ptr->info &= ~(CAVE_MARK); // Forget the rune
 			c_ptr->info &= ~(CAVE_OBJECT);	// Break the rune
 			c_ptr->mimic = 0;
-
 			//TODO note_spot(y, x);	// Notice
 		}
 		else return max_creature_idx;
@@ -3569,8 +3572,7 @@ static CREATURE_ID place_creature_one(creature_type *summoner_ptr, floor_type *f
 		creature_ptr->sc_flag2 |= SC_FLAG2_CHAMELEON;
 
 		/* Hack - Set sub_align to neutral when the Chameleon Lord is generated as "GUARDIAN" */
-		if(summoner_ptr && (has_trait_species(species_ptr, TRAIT_UNIQUE)) && is_player(summoner_ptr))
-			creature_ptr->sub_align = SUB_ALIGN_NEUTRAL;
+		if(summoner_ptr && (has_trait_species(species_ptr, TRAIT_UNIQUE)) && is_player(summoner_ptr)) creature_ptr->sub_align = SUB_ALIGN_NEUTRAL;
 	}
 	else if((mode & PC_KAGE) && !(mode & PC_FORCE_PET))
 	{
@@ -3696,22 +3698,15 @@ static bool creature_scatter(SPECIES_ID species_idx, COODINATES *yp, COODINATES 
 			}
 			else
 			{
-				/* Walls and Creatures block flow */
-				if(!cave_empty_bold2(floor_ptr, ny, nx)) continue;
-
-				/* ... nor on the Pattern */
-				if(pattern_tile(floor_ptr, ny, nx)) continue;
+				if(!cave_empty_bold2(floor_ptr, ny, nx)) continue; /* Walls and Creatures block flow */
+				if(pattern_tile(floor_ptr, ny, nx)) continue; /* ... nor on the Pattern */
 			}
 
 			i = distance(y, x, ny, nx);
-
-			if(i > max_dist)
-				continue;
-
+			if(i > max_dist) continue;
 			num[i]++;
 
-			/* random swap */
-			if(one_in_(num[i]))
+			if(one_in_(num[i])) /* random swap */
 			{
 				place_x[i] = nx;
 				place_y[i] = ny;
@@ -3739,41 +3734,28 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 
 	int n, i;
 	int total = 0, extra = 0;
-
 	int hack_n = 0;
 
 	COODINATES hack_y[GROUP_MAX];
 	COODINATES hack_x[GROUP_MAX];
 
-
-	/* Pick a group size */
-	total = randint1(10);
-
-	/* Hard creatures, small groups */
-	if(species_ptr->level > floor_ptr->depth)
+	total = randint1(10); /* Pick a group size */
+	if(species_ptr->level > floor_ptr->depth) /* Hard creatures, small groups */
 	{
 		extra = species_ptr->level - floor_ptr->depth;
 		extra = 0 - randint1(extra);
 	}
 
-	/* Easy creatures, large groups */
-	else if(species_ptr->level < floor_ptr->depth)
+	else if(species_ptr->level < floor_ptr->depth) /* Easy creatures, large groups */
 	{
 		extra = floor_ptr->depth - species_ptr->level;
 		extra = randint1(extra);
 	}
 
-	/* Hack -- limit group reduction */
-	if(extra > 9) extra = 9;
-
-	/* Modify the group size */
-	total += extra;
-
-	/* Minimum size */
-	if(total < 1) total = 1;
-
-	/* Maximum size */
-	if(total > GROUP_MAX) total = GROUP_MAX;
+	if(extra > 9) extra = 9; /* Hack -- limit group reduction */
+	total += extra; /* Modify the group size */
+	if(total < 1) total = 1; /* Minimum size */
+	if(total > GROUP_MAX) total = GROUP_MAX; /* Maximum size */
 
 	/* Start on the creature */
 	hack_n = 1;
@@ -3791,7 +3773,6 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 		for (i = 0; (i < 8) && (hack_n < total); i++)
 		{
 			COODINATES mx, my;
-
 			scatter(floor_ptr, &my, &mx, hy, hx, 4, 0);
 
 			/* Walls and Creatures block flow */
@@ -3851,8 +3832,8 @@ bool place_creature_fixed_species(creature_type *summoner_ptr, floor_type *floor
 		for(j = 0; j < servant_ptr->underling_num[i]; j++)
 		{
 			COODINATES nx, ny, d = 8;
-			scatter(floor_ptr, &ny, &nx, y, x, d, 0);			// Pick a location
-			if(!cave_empty_bold2(floor_ptr, ny, nx)) continue;	// Require empty grids
+			scatter(floor_ptr, &ny, &nx, y, x, d, 0); /* Pick a location */
+			if(!cave_empty_bold2(floor_ptr, ny, nx)) continue;	/* Require empty grids */
 
 			if(place_creature_one(summoner_ptr, floor_ptr, ny, nx, servant_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx) n++;
 		}

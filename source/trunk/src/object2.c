@@ -1518,9 +1518,8 @@ void object_absorb(object_type *object1_ptr, object_type *object2_ptr)
 */
 OBJECT_KIND_ID lookup_kind(TVAL tval, SVAL sval)
 {
-	int k;
+	OBJECT_KIND_ID k, bk = 0;
 	int num = 0;
-	int bk = 0;
 
 	// Look for it
 	for (k = 1; k < max_object_kind_idx; k++)
@@ -1536,7 +1535,6 @@ OBJECT_KIND_ID lookup_kind(TVAL tval, SVAL sval)
 	}
 
 	if(sval == SV_ANY) return bk;	// Return this choice
-
 	msg_warning(" No object (TV=%d,SV=%d)", tval, sval);
 	return SUCCESS;
 }
