@@ -2772,33 +2772,22 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		}
 
 		else msg_print(MES_PACK_NO_ROOM_FLOOR);
-
 		return;
 	}
 
-	/* One object */
-	if(floor_num == 1)
+	if(floor_num == 1) /* One object */
 	{
-		/* Hack -- query every object */
-		if(carry_query_flag)
+		if(carry_query_flag) /* Hack -- query every object */
 		{
 			char out_val[MAX_NLEN+20];
-
-			/* Access the object */
-			object_ptr = &object_list[floor_object_idx];
+			object_ptr = &object_list[floor_object_idx]; /* Access the object */
 
 			object_desc(object_name, object_ptr, 0);
 			(void) sprintf(out_val, PROMPT_PICK, object_name);
-
-			/* Ask the user to confirm */
-			if(!get_check(out_val)) return;
+			if(!get_check(out_val)) return; /* Ask the user to confirm */
 		}
-
-		/* Access the object */
-		object_ptr = &object_list[floor_object_idx];
-
-		/* Pick up the object */
-		py_pickup_aux(creature_ptr, floor_object_idx);
+		object_ptr = &object_list[floor_object_idx]; /* Access the object */
+		py_pickup_aux(creature_ptr, floor_object_idx); /* Pick up the object */
 	}
 
 	/* Allow the user to choose an object */

@@ -4482,7 +4482,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 
 	if(!(mpe_mode & MCE_STAYING))
 	{
-		CREATURE_ID dist_creature_idx = new_cave_ptr->creature_idx;
+		//CREATURE_ID dist_creature_idx = new_cave_ptr->creature_idx;
 
 		/* Move Creature */
 		if(ny) creature_ptr->fy = ny;
@@ -4490,15 +4490,14 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		new_cave_ptr->creature_idx = creature_ptr->creature_idx;
 		old_cave_ptr->creature_idx = 0;
 
-		/* Swap Move *//*
-		if(!(mpe_mode & MCE_DONT_SWAP_MON))
+		//TODO riding process
+
+		/* Swap Move 
+		//if(!(mpe_mode & MCE_DONT_SWAP_MON));
 		{
-			old_cave_ptr->creature_idx = dist_creature_idx; /* Swap two creatures */
+			old_cave_ptr->creature_idx = dist_creature_idx;
 
-			//TODO riding process
-		/*
-
-		if(dist_creature_idx > 0) /* Creature on new spot *//*
+			if(dist_creature_idx > 0) 
 			{
 				creature_type *nm_ptr = &creature_list[dist_creature_idx];
 				nm_ptr->fy = oy;
@@ -4512,7 +4511,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		if(!(mpe_mode & MCE_NO_SEE))
 		{
 			lite_spot(prev_floor_ptr, oy, ox);
-			lite_spot(prev_floor_ptr, ny, nx);
+			lite_spot(floor_ptr, ny, nx);
 		}
 		*/
 

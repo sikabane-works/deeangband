@@ -1144,60 +1144,40 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 	(*ap) = a;
 	(*cp) = c;
 
-	/* Hack -- rare random hallucination, except on outer dungeon walls */
-	if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
-	{
-		if(one_in_(256))
-		{
-			/* Hallucinate */
-			image_random(ap, cp);
-		}
-	}
+	/* Hallucinate */
+	if(has_trait(watcher_ptr, TRAIT_HALLUCINATION) && one_in_(256)) image_random(ap, cp); 
 
 	/* Objects */
 	for (this_object_idx = cave_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *object_ptr;
+		object_ptr = &object_list[this_object_idx]; /* Acquire object */
+		next_object_idx = object_ptr->next_object_idx; /* Acquire next object */
 
-		/* Acquire object */
-		object_ptr = &object_list[this_object_idx];
-
-		/* Acquire next object */
-		next_object_idx = object_ptr->next_object_idx;
-
-		/* Memorized objects */
-		if(object_ptr->marked & OM_FOUND)
+		if(object_ptr->marked & OM_FOUND) /* Memorized objects */
 		{
 			if(display_autopick)
 			{
 				byte act;
 
 				match_autopick = is_autopick(watcher_ptr, object_ptr);
-				if(match_autopick == -1)
-					continue;
+				if(match_autopick == -1) continue;
 
 				act = autopick_list[match_autopick].action;
 
-				if((act & DO_DISPLAY) && (act & display_autopick))
-				{
-					autopick_obj = object_ptr;
-				}
+				if((act & DO_DISPLAY) && (act & display_autopick)) autopick_obj = object_ptr;
 				else
 				{
 					match_autopick = -1;
 					continue;
 				}
 			}
-			/* Normal char */
-			(*cp) = object_char(object_ptr);
 
-			/* Normal attr */
-			(*ap) = object_attr(object_ptr);
+			(*cp) = object_char(object_ptr); /* Normal char */
+			(*ap) = object_attr(object_ptr); /* Normal attr */
 
 			feat_priority = 20;
-
-			/* Hack -- hallucination */
-			if(has_trait(watcher_ptr, TRAIT_HALLUCINATION)) image_object(ap, cp);
+			if(has_trait(watcher_ptr, TRAIT_HALLUCINATION)) image_object(ap, cp); /* hallucination */
 
 			break;
 		}
