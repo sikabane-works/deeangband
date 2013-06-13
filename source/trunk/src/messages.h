@@ -249,6 +249,18 @@
 #endif
 
 #if JP
+#define MES_SYS_ERROR_SETUID "setuid(): 正しく許可が取れません！"
+#define MES_SYS_ERROR_SETGID "setgid(): 正しく許可が取れません！"
+#define MES_SYS_ERROR_SETEUID "seteuid(): 正しく許可が取れません！"
+#define MES_SYS_ERROR_SETEGID "setegid(): 正しく許可が取れません！"
+#else
+#define MES_SYS_ERROR_SETUID "setuid(): cannot set permissions correctly!"
+#define MES_SYS_ERROR_SETGID "setgid(): cannot set permissions correctly!"
+#define MES_SYS_ERROR_SETEUID "seteuid(): cannot set permissions correctly!"
+#define MES_SYS_ERROR_SETEGID "setegid(): cannot set permissions correctly!"
+#endif
+
+#if JP
 #define KW_MORE "-続く-"
 #define KW_CREATURE "クリーチャー"
 #define KW_WEIRD_CREATURE "変なクリーチャー"

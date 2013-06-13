@@ -38,45 +38,13 @@ void safe_setuid_drop(void)
 
 #  ifdef SAFE_SETUID_POSIX
 
-	if(setuid(getuid()) != 0)
-	{
-#ifdef JP
-quit("setuid(): 正しく許可が取れません！");
-#else
-		quit("setuid(): cannot set permissions correctly!");
-#endif
-
-	}
-	if(setgid(getgid()) != 0)
-	{
-#ifdef JP
-quit("setgid(): 正しく許可が取れません！");
-#else
-		quit("setgid(): cannot set permissions correctly!");
-#endif
-
-	}
+	if(setuid(getuid()) != 0) quit(MES_SYS_ERROR_SETUID);
+	if(setgid(getgid()) != 0) quit(MES_SYS_ERROR_SETGID);
 
 #  else
 
-	if(setreuid(geteuid(), getuid()) != 0)
-	{
-#ifdef JP
-quit("setreuid(): 正しく許可が取れません！");
-#else
-		quit("setreuid(): cannot set permissions correctly!");
-#endif
-
-	}
-	if(setregid(getegid(), getgid()) != 0)
-	{
-#ifdef JP
-quit("setregid(): 正しく許可が取れません！");
-#else
-		quit("setregid(): cannot set permissions correctly!");
-#endif
-
-	}
+	if(setreuid(geteuid(), getuid()) != 0) quit(MES_SYS_ERROR_SETEUID);
+	if(setregid(getegid(), getgid()) != 0) quit(MES_SYS_ERROR_SETEGID);
 
 #  endif
 
@@ -99,45 +67,13 @@ void safe_setuid_grab(void)
 
 #  ifdef SAFE_SETUID_POSIX
 
-	if(setuid(player_euid) != 0)
-	{
-#ifdef JP
-quit("setuid(): 正しく許可が取れません！");
-#else
-		quit("setuid(): cannot set permissions correctly!");
-#endif
-
-	}
-	if(setgid(player_egid) != 0)
-	{
-#ifdef JP
-quit("setgid(): 正しく許可が取れません！");
-#else
-		quit("setgid(): cannot set permissions correctly!");
-#endif
-
-	}
+	if(setuid(player_euid) != 0) quit(MES_SYS_ERROR_SETUID);
+	if(setgid(player_egid) != 0) quit(MES_SYS_ERROR_SETGID);
 
 #  else
 
-	if(setreuid(geteuid(), getuid()) != 0)
-	{
-#ifdef JP
-quit("setreuid(): 正しく許可が取れません！");
-#else
-		quit("setreuid(): cannot set permissions correctly!");
-#endif
-
-	}
-	if(setregid(getegid(), getgid()) != 0)
-	{
-#ifdef JP
-quit("setregid(): 正しく許可が取れません！");
-#else
-		quit("setregid(): cannot set permissions correctly!");
-#endif
-
-	}
+	if(setreuid(geteuid(), getuid()) != 0) quit(MES_SYS_ERROR_SETEUID);
+	if(setregid(getegid(), getgid()) != 0) quit(MES_SYS_ERROR_SETGUID);
 
 #  endif /* SAFE_SETUID_POSIX */
 
