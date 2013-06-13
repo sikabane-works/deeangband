@@ -887,7 +887,7 @@ extern void excise_object_idx(OBJECT_ID object_idx);
 extern void delete_object_idx(OBJECT_ID object_idx);
 extern void delete_object(floor_type *floor_ptr, int y, int x);
 extern void compact_objects(int size);
-extern void wipe_object_list(int floor_idx);
+extern void wipe_object_list(FLOOR_ID floor_idx);
 extern OBJECT_ID object_pop(void);
 extern OBJECT_ID get_obj_num(FLOOR_LEV floor, FLAGS_32 flags);
 extern void object_known(object_type *object_ptr);

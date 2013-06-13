@@ -341,7 +341,7 @@ void compact_objects(int size)
 * clear those fields for grids/creatures containing objects,
 * and we clear it once for every such object.
 */
-void wipe_object_list(int floor_idx)
+void wipe_object_list(FLOOR_ID floor_idx)
 {
 	int i;
 	floor_type *floor_ptr = &floor_list[floor_idx];
@@ -352,8 +352,6 @@ void wipe_object_list(int floor_idx)
 	for (i = 1; i < object_max; i++)
 	{
 		object_type *object_ptr = &object_list[i];
-
-		// Skip dead objects
 		if(!is_valid_object(object_ptr)) continue;
 		if(floor_idx && object_ptr->floor_idx != floor_idx) continue;
 
@@ -364,32 +362,19 @@ void wipe_object_list(int floor_idx)
 			artifact_info[object_ptr->art_id].cur_num = 0;
 		}
 
-
-		/* Dungeon */
-		if(floor_ptr)
+		if(floor_ptr) /* Dungeon */
 		{
 			cave_type *c_ptr;
-
-			/* Access location */
-			int y = object_ptr->fy;
-			int x = object_ptr->fx;
-
-			/* Access grid */
-			c_ptr = &floor_ptr->cave[y][x];
-
-			/* Hack -- see above */
-			c_ptr->object_idx = 0;
+			COODINATES y = object_ptr->fy;
+			COODINATES x = object_ptr->fx;
+			c_ptr = &floor_ptr->cave[y][x]; /* Access grid */
+			c_ptr->object_idx = 0; /* Hack -- see above */
 		}
 
-		/* Wipe the object */
 		object_wipe(object_ptr);
+		object_cnt--; /* Reset "object_cnt" */
+
 	}
-
-	/* Reset "object_max" */
-	object_max = 1;
-
-	/* Reset "object_cnt" */
-	object_cnt = 0;
 }
 
 
