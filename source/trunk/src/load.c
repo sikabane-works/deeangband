@@ -317,7 +317,7 @@ static errr rd_object(object_type *object_ptr)
 	READ_CHEST_MODE(&object_ptr->chest_mode);
 	READ_PERCENT(&object_ptr->discount);
 	READ_QUANTITY(&object_ptr->number);
-	rd_s32b(&object_ptr->volume);
+	READ_QUANTITY(&object_ptr->volume);
 	READ_WEIGHT(&object_ptr->weight);
 	READ_ARTIFACT_ID(&object_ptr->art_id);
 	READ_OBJECT_EGO_ID(&object_ptr->ego_id);

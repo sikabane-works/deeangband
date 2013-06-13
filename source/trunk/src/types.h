@@ -888,7 +888,7 @@ struct object_type
 	PERCENT discount; /* Discount (if any) */
 
 	QUANTITY number; /* Number of items */
-	s32b volume; /* Volume of items */
+	QUANTITY volume; /* Volume of items */
 
 	WEIGHT weight; /* Item weight */
 

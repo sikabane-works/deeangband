@@ -101,7 +101,7 @@ static void wr_object(object_type *object_ptr)
 	WRITE_CHEST_MODE(object_ptr->chest_mode);
 	WRITE_PERCENT(object_ptr->discount);
 	WRITE_QUANTITY(object_ptr->number);
-	wr_s32b(object_ptr->volume);
+	WRITE_QUANTITY(object_ptr->volume);
 	WRITE_WEIGHT(object_ptr->weight);
 	WRITE_ARTIFACT_ID(object_ptr->art_id);
 	WRITE_OBJECT_EGO_ID(object_ptr->ego_id);
