@@ -116,44 +116,25 @@ int tokenize(char *buf, s16b num, char **tokens, int mode)
 			/* Handle single quotes */
 			if((mode & TOKENIZE_CHECKQUOTE) && (*t == '\''))
 			{
-				/* Advance */
-				t++;
-
-				/* Handle backslash */
-				if(*t == '\\') t++;
-
-				/* Require a character */
-				if(!*t) break;
-
-				/* Advance */
-				t++;
-
-				/* Hack -- Require a close quote */
-				if(*t != '\'') *t = '\'';
+				t++; /* Advance */
+				if(*t == '\\') t++; /* Handle backslash */
+				if(!*t) break; /* Require a character */
+				t++; /* Advance */
+				if(*t != '\'') *t = '\''; /* Hack -- Require a close quote */
 			}
 
 			/* Handle back-slash */
 			if(*t == '\\') t++;
 		}
 
-		/* Nothing left */
-		if(!*t) break;
-
-		/* Nuke and advance */
-		*t++ = '\0';
-
-		/* Save the token */
-		tokens[i++] = s;
-
-		/* Advance */
-		s = t;
+		if(!*t) break; /* Nothing left */
+		*t++ = '\0'; /* Nuke and advance */
+		tokens[i++] = s; /* Save the token */
+		s = t; /* Advance */
 	}
 
-	/* Save the token */
-	tokens[i++] = s;
-
-	/* Number found */
-	return (i);
+	tokens[i++] = s; /* Save the token */
+	return (i); /* Number found */
 }
 
 

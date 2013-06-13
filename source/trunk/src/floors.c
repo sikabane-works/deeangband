@@ -362,8 +362,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 		}
 	}
 
-	if(sx)
-		move_creature(creature_ptr, new_floor_ptr, sy, sx, MCE_NO_ENTER); // Already fixed
+	if(sx) move_creature(creature_ptr, new_floor_ptr, sy, sx, MCE_NO_ENTER); // Already fixed
 	else if(!num)
 	{
 		if(!feat_uses_special(stair_ptr->feat)) stair_ptr->to_floor = 0; // Mega Hack -- It's not the stairs you enter.  Disable it.

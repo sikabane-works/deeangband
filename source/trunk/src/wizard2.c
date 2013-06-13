@@ -1222,7 +1222,7 @@ static void do_cmd_wiz_floor_teleport(void)
 		else
 		{
 			// move simulate floor and player.
-			move_creature(player_ptr, &floor_list[player_ptr->floor_idx], player_ptr->fy, player_ptr->fx, 0);
+			move_creature(player_ptr, &floor_list[i], player_ptr->fy, player_ptr->fx, 0);
 			player_ptr->floor_idx = i;
 
 			prepare_redraw(PR_MAP);

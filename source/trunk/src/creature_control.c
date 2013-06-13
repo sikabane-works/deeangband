@@ -4460,8 +4460,11 @@ void creature_drop_carried_objects(creature_type *creature_ptr)
 // Move the creature
 bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATES ny, COODINATES nx, u32b mpe_mode)
 {
+	COODINATES oy = creature_ptr->fy;
+	COODINATES ox = creature_ptr->fx;
 	floor_type *prev_floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	cave_type *c_ptr = &prev_floor_ptr->cave[ny][nx];
+	cave_type *c_ptr = &floor_ptr->cave[ny][nx];
+	cave_type *oc_ptr = &prev_floor_ptr->cave[oy][ox];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	if(!floor_ptr) floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -4479,25 +4482,24 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 
 	if(!(mpe_mode & MCE_STAYING))
 	{
-		COODINATES oy = creature_ptr->fy;
-		COODINATES ox = creature_ptr->fx;
-		cave_type *oc_ptr = &prev_floor_ptr->cave[oy][ox];
 		CREATURE_ID ncreature_idx = c_ptr->creature_idx;
 
-		/* Move the player */
+		/* Move Creature */
 		if(ny) creature_ptr->fy = ny;
 		if(nx) creature_ptr->fx = nx;
 		c_ptr->creature_idx = creature_ptr->creature_idx;
 		oc_ptr->creature_idx = 0;
 
 		/* Hack -- For moving creature or riding player's moving */
+		/*
 		if(!(mpe_mode & MCE_DONT_SWAP_MON))
 		{
 			oc_ptr->creature_idx = ncreature_idx; /* Swap two creatures */
 
 			//TODO riding process
+		/*
 
-			if(ncreature_idx > 0) /* Creature on new spot */
+		if(ncreature_idx > 0) /* Creature on new spot *//*
 			{
 				creature_type *nm_ptr = &creature_list[ncreature_idx];
 				nm_ptr->fy = oy;
@@ -4505,12 +4507,15 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 				update_creature_view(player_ptr, ncreature_idx, TRUE);
 			}
 		}
+		*/
 
+		/*
 		if(!(mpe_mode & MCE_NO_SEE))
 		{
 			lite_spot(prev_floor_ptr, oy, ox);
 			lite_spot(prev_floor_ptr, ny, nx);
 		}
+		*/
 
 		// Check for new panel (redraw map)
 		verify_panel(creature_ptr);
