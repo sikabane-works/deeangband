@@ -3031,8 +3031,7 @@ void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_
 		char m_name[MAX_NLEN];
 		creature_desc(m_name, creature_ptr, 0);
 		msg_format(MES_POLYMORPH_DONE(creature_ptr));
-		if(!has_trait(creature_ptr, TRAIT_RIDING))
-			if(do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_print(MES_FALL_RIDING);
+		if(!has_trait(creature_ptr, TRAIT_RIDING) && do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_print(MES_FALL_RIDING);
 	}
 
 	oldmhp = creature_ptr->mmhp;
@@ -3041,12 +3040,12 @@ void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_
 	if(creature_ptr->mhp < 1) creature_ptr->mhp = 1;
 	creature_ptr->chp = (long)(creature_ptr->chp * creature_ptr->mmhp) / oldmhp;
 
-	for(i = 0; i < STAT_MAX; i++)
-		creature_ptr->stat_use[i] = species_ptr->stat_max[i];
+	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_use[i] = species_ptr->stat_max[i];
 
 	if(creature_ptr->creature_ego_idx != MONEGO_NONE)
-		for(i = 0; i < STAT_MAX; i++)
-			creature_ptr->stat_use[i] += re_info[creature_ego_idx].stat[i];
+	{
+		for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_use[i] += re_info[creature_ego_idx].stat[i];
+	}
 
 	//TODO Reset Status
 }
@@ -3061,14 +3060,14 @@ static void deal_magic_book_aux(creature_type *creature_ptr, REALM_ID realm)
 	quest_ptr = &forge;
 	tv = (TVAL)(TV_LIFE_BOOK + realm - 1);
 
-	// First Book
+	/* First Book */
 	min = (creature_ptr->lev > 15 ? 2 : 1);
 	max = (min + creature_ptr->lev / 10);
 	generate_object(quest_ptr, lookup_kind(tv, 0));
 	quest_ptr->number = (byte)rand_range(min, max);
 	add_item_to_creature(creature_ptr, quest_ptr, 0);
 
-	// Second Book
+	/* Second Book */
 	if(creature_ptr->lev > 10 || one_in_(50))
 	{
 		min = (creature_ptr->lev > 22 ? 2 : 1);
@@ -3078,7 +3077,7 @@ static void deal_magic_book_aux(creature_type *creature_ptr, REALM_ID realm)
 		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 
-	// Third Book
+	/* Third Book */
 	if(creature_ptr->lev > 32 || one_in_(300))
 	{
 		min = (creature_ptr->lev > 41 ? 2 : 1);
@@ -3088,7 +3087,7 @@ static void deal_magic_book_aux(creature_type *creature_ptr, REALM_ID realm)
 		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
 
-	// Fourth Book
+	/* Fourth Book */
 	if(creature_ptr->lev > 44 || one_in_(1000))
 	{
 		min = (creature_ptr->lev > 48 ? 2 : 1);

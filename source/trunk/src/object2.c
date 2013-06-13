@@ -5811,9 +5811,10 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	prepare_update(creature_ptr, CRU_BONUS);
 }
 
-void alloc_object_kind_list(PROB **prob_list_ptr)
+void alloc_object_kind_list(PROB **prob_list_ptr, FLOOR_LEV level)
 {
-	int id;
+	OBJECT_KIND_ID id;
+	int j;
 	object_kind *object_kind_ptr;
 	PROB *prob_list;
 	C_MAKE(*prob_list_ptr, max_object_kind_idx, PROB);
@@ -5823,7 +5824,10 @@ void alloc_object_kind_list(PROB **prob_list_ptr)
 	for(id = 0; id < max_object_kind_idx; id++)
 	{
 		object_kind_ptr = &object_kind_info[id];
-		prob_list[id] = (object_kind_ptr->chance[0] != 0 ? 10000 / object_kind_ptr->chance[0] : 0);
+		for(j = 0; j < 4; j++)
+		{
+			if(object_kind_ptr->locale[j] <= level) prob_list[id] += (object_kind_ptr->chance[j] != 0 ? 10000 / object_kind_ptr->chance[j] : 0);
+		}
 	}
 	return;
 }
