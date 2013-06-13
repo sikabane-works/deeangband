@@ -386,7 +386,7 @@ void wipe_object_list(FLOOR_ID floor_idx)
 */
 OBJECT_ID object_pop(void)
 {
-	int i;
+	OBJECT_ID i;
 
 	if(object_max < max_object_idx) /* Initial allocation */
 	{
@@ -5811,5 +5811,34 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	prepare_update(creature_ptr, CRU_BONUS);
 }
 
+void alloc_object_kind_list(PROB **prob_list_ptr)
+{
+	int id;
+	object_kind *object_kind_ptr;
+	PROB *prob_list;
+	C_MAKE(*prob_list_ptr, max_object_kind_idx, PROB);
+
+	prob_list = *prob_list_ptr;
+
+	for(id = 0; id < max_object_kind_idx; id++)
+	{
+		object_kind_ptr = &object_kind_info[id];
+		prob_list[id] = (object_kind_ptr->chance[0] != 0 ? 10000 / object_kind_ptr->chance[0] : 0);
+	}
+	return;
+}
+
+void forbid_object_kind_list(PROB **prob_list_ptr, bool (*hook_func)(SPECIES_ID species_idx))
+{
+	int n;
+	PROB *prob_list = *prob_list_ptr;
+	for(n = 0; n < max_object_kind_idx; n++) if(!hook_func(n)) prob_list[n] = 0;
+	return;
+}
+
+void free_object_kind_list(PROB **prob_list_ptr)
+{
+	C_KILL(*prob_list_ptr, max_object_kind_idx, PROB);
+}
 
 
