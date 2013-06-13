@@ -3447,7 +3447,7 @@ void deal_item(creature_type *creature_ptr)
 	return;
 }
 
-static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, CREATURE_EGO_ID creature_ego_idx, FLAGS_32 mode)
+static CREATURE_ID place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, CREATURE_EGO_ID creature_ego_idx, FLAGS_32 mode)
 {
 	cave_type		*c_ptr = &floor_ptr->cave[y][x];
 	creature_type	*creature_ptr;
@@ -3479,7 +3479,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 	if(!floor_ptr->gamble_arena_mode) // TO DO DEBUG.
 	{
-		if(species_info[species_idx].cur_num >= species_info[species_idx].max_num)
+		if(species_info[species_idx].max_num > 0 && species_info[species_idx].cur_num >= species_info[species_idx].max_num)
 		{
 			if(cheat_hear) msg_format("[Creature Max Limit ID:%d=%d/%d]", species_info[species_idx].cur_num, species_info[species_idx].max_num);
 			return max_creature_idx;
@@ -3831,17 +3831,18 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 */
 bool place_creature_fixed_species(creature_type *summoner_ptr, floor_type *floor_ptr, COODINATES y, COODINATES x, SPECIES_ID species_idx, FLAGS_32 mode)
 {
-	int             i, j;
-	species_type    *species_ptr = &species_info[species_idx];
-	creature_type   *servant_ptr;
+	CREATURE_ID creature_id;
+	int i, j;
+	species_type *species_ptr = &species_info[species_idx];
+	creature_type *servant_ptr;
 
 	if(!(mode & PC_NO_KAGE) && one_in_(SHADOW_GENERATE_RATE)) mode |= PC_KAGE;
 
 	// Place one creature, or fail
-	i = place_creature_one(summoner_ptr, floor_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
-	if(i == max_creature_idx) return FALSE;
+	creature_id = place_creature_one(summoner_ptr, floor_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
+	if(creature_id >= max_creature_idx) return FALSE;
 
-	servant_ptr = &creature_list[i];
+	servant_ptr = &creature_list[creature_id];
 
 	i = 0;
 	while(i < MAX_UNDERLINGS && servant_ptr->underling_id[i])
