@@ -317,7 +317,7 @@ void set_creature_sp_percent(creature_type *creature_ptr, int percentage)
 }
 
 s16b calc_bodysize(s32b ht, s32b wt){
-	double t = (double)ht * wt;
+	double t = (double)ht * wt / 10;
 	double size = 1.0f;
 	while((t > size * size * size * size) && (size < 2000.0f)) size += 1.0f;
 	return (s16b)size;	
@@ -353,8 +353,7 @@ STAT calc_punishment_slay(creature_type *creature_ptr, int alignment)
 
 /* Calculate body size */
 s16b calc_race_standard_size(race_type * ir_ptr){
-	return calc_bodysize((ir_ptr->m_b_ht + ir_ptr->f_b_ht) / 2 ,
-						 (ir_ptr->m_b_wt + ir_ptr->f_b_wt) / 2);	
+	return calc_bodysize((ir_ptr->m_b_ht + ir_ptr->f_b_ht) / 2 , (ir_ptr->m_b_wt + ir_ptr->f_b_wt) / 2);	
 }
 
 static s16b calc_creature_standard_size(species_type * mr_ptr){
