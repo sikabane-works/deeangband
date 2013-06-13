@@ -403,47 +403,24 @@ OBJECT_ID object_pop(void)
 {
 	int i;
 
-	/* Initial allocation */
-	if(object_max < max_object_idx)
+	if(object_max < max_object_idx) /* Initial allocation */
 	{
-		/* Get next space */
-		i = object_max;
-
-		/* Expand object array */
-		object_max++;
-
-		/* Count objects */
-		object_cnt++;
-
-		/* Use this object */
-		return (i);
+		i = object_max; /* Get next space */
+		object_max++; /* Expand object array */
+		object_cnt++; /* Count objects */
+		return (i); /* Use this object */
 	}
 
-
-	/* Recycle dead objects */
-	for (i = 1; i < object_max; i++)
+	for (i = 1; i < object_max; i++) /* Recycle dead objects */
 	{
 		object_type *object_ptr;
-
-		/* Acquire object */
-		object_ptr = &object_list[i];
-
-		/* Skip live objects */
-		if(is_valid_object(object_ptr)) continue;
-
-		/* Count objects */
-		object_cnt++;
-
-		/* Use this object */
-		return (i);
+		object_ptr = &object_list[i]; /* Acquire object */
+		if(is_valid_object(object_ptr)) continue; /* Skip live objects */
+		object_cnt++; /* Count objects */
+		return (i); /* Use this object */
 	}
 
-#ifdef JP
-	msg_warning("アイテムが多すぎる。");
-#else
-	msg_warning("Too many objects.");
-#endif
-
+	msg_warning(MES_SYS_TOO_MANY_OBJECT);
 	return SUCCESS;
 }
 
@@ -1487,14 +1464,9 @@ void object_absorb(object_type *object1_ptr, object_type *object2_ptr)
 		if(object1_ptr->ident & IDENT_STORE) object1_ptr->ident &= 0xEF;
 	}
 
-	/* Hack -- blend "mental" status */
-	if(object2_ptr->ident & (IDENT_MENTAL)) object1_ptr->ident |= (IDENT_MENTAL);
-
-	/* Hack -- blend "inscriptions" */
-	if(object2_ptr->inscription) object1_ptr->inscription = object2_ptr->inscription;
-
-	/* Hack -- blend "feelings" */
-	if(object2_ptr->feeling) object1_ptr->feeling = object2_ptr->feeling;
+	if(object2_ptr->ident & (IDENT_MENTAL)) object1_ptr->ident |= (IDENT_MENTAL); /* Hack -- blend "mental" status */
+	if(object2_ptr->inscription) object1_ptr->inscription = object2_ptr->inscription; /* Hack -- blend "inscriptions" */
+	if(object2_ptr->feeling) object1_ptr->feeling = object2_ptr->feeling; /* Hack -- blend "feelings" */
 
 	/* Hack -- could average discounts  */
 	/* Hack -- save largest discount  */
@@ -1508,8 +1480,7 @@ void object_absorb(object_type *object1_ptr, object_type *object2_ptr)
 	}
 
 	/* Hack -- if wands are stacking, combine the charges. -LM- */
-	if(object1_ptr->tval == TV_WAND)
-		object1_ptr->pval += object2_ptr->pval * (PVAL)(object2_ptr->number - diff) / (PVAL)object2_ptr->number;
+	if(object1_ptr->tval == TV_WAND) object1_ptr->pval += object2_ptr->pval * (PVAL)(object2_ptr->number - diff) / (PVAL)object2_ptr->number;
 }
 
 
@@ -2734,7 +2705,9 @@ bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, i
 
 	// Notice "okay" out-of-depth objects & Cheat -- peek at items
 	if(!object_is_cursed(object_ptr) && !object_is_broken(object_ptr) && (obj_level > level))
+	{
 		if(cheat_peek) object_mention(object_ptr);
+	}
 
 	return TRUE; // Success
 }

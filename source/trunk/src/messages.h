@@ -109,6 +109,7 @@
 
 #define MES_SYS_NO_TOWN_ITEM "町のアイテムがない！"
 #define MES_SYS_NO_VALUT_TRAP "地下室のトラップを配置できません"
+#define MES_SYS_TOO_MANY_OBJECT "アイテムが多すぎる。"
 
 #define MES_SYS_ASK_SCREEN_DUMP "記念撮影しますか？ [(y)es/(h)tml/(n)o] "
 #define MES_SYS_SCREEN_DUMPED "画面(記念撮影)をファイルに書き出しました。"
@@ -200,6 +201,7 @@
 
 #define MES_SYS_NO_TOWN_ITEM "No town objects!"
 #define MES_SYS_NO_VALUT_TRAP "Could not place vault trap."
+#define MES_SYS_TOO_MANY_OBJECT "Too many objects."
 
 #define MES_SYS_ASK_SCREEN_DUMP "Save screen dump? [(y)es/(h)tml/(n)o] "
 #define MES_SYS_SCREEN_DUMPED "Screen dump saved."
