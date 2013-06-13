@@ -4463,9 +4463,9 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 	COODINATES oy = creature_ptr->fy;
 	COODINATES ox = creature_ptr->fx;
 	floor_type *prev_floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	cave_type *c_ptr = &floor_ptr->cave[ny][nx];
-	cave_type *oc_ptr = &prev_floor_ptr->cave[oy][ox];
-	feature_type *f_ptr = &feature_info[c_ptr->feat];
+	cave_type *new_cave_ptr = &floor_ptr->cave[ny][nx];
+	cave_type *old_cave_ptr = &prev_floor_ptr->cave[oy][ox];
+	feature_type *f_ptr = &feature_info[new_cave_ptr->feat];
 
 	if(!floor_ptr) floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	if(floor_ptr->global_map) reveal_wilderness(ny, nx);
@@ -4482,29 +4482,28 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 
 	if(!(mpe_mode & MCE_STAYING))
 	{
-		CREATURE_ID ncreature_idx = c_ptr->creature_idx;
+		CREATURE_ID dist_creature_idx = new_cave_ptr->creature_idx;
 
 		/* Move Creature */
 		if(ny) creature_ptr->fy = ny;
 		if(nx) creature_ptr->fx = nx;
-		c_ptr->creature_idx = creature_ptr->creature_idx;
-		oc_ptr->creature_idx = 0;
+		new_cave_ptr->creature_idx = creature_ptr->creature_idx;
+		old_cave_ptr->creature_idx = 0;
 
-		/* Hack -- For moving creature or riding player's moving */
-		/*
+		/* Swap Move *//*
 		if(!(mpe_mode & MCE_DONT_SWAP_MON))
 		{
-			oc_ptr->creature_idx = ncreature_idx; /* Swap two creatures */
+			old_cave_ptr->creature_idx = dist_creature_idx; /* Swap two creatures */
 
 			//TODO riding process
 		/*
 
-		if(ncreature_idx > 0) /* Creature on new spot *//*
+		if(dist_creature_idx > 0) /* Creature on new spot *//*
 			{
-				creature_type *nm_ptr = &creature_list[ncreature_idx];
+				creature_type *nm_ptr = &creature_list[dist_creature_idx];
 				nm_ptr->fy = oy;
 				nm_ptr->fx = ox;
-				update_creature_view(player_ptr, ncreature_idx, TRUE);
+				update_creature_view(player_ptr, dist_creature_idx, TRUE);
 			}
 		}
 		*/
@@ -4531,7 +4530,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		prepare_window(PW_OVERHEAD | PW_DUNGEON);
 
 		/* Remove "unsafe" flag */
-		if((!has_trait(creature_ptr, TRAIT_BLIND) && !no_lite(creature_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
+		if((!has_trait(creature_ptr, TRAIT_BLIND) && !no_lite(creature_ptr)) || !is_trap(new_cave_ptr->feat)) new_cave_ptr->info &= ~(CAVE_UNSAFE);
 
 		/* For get everything when requested hehe I'm *NASTY* */
 		if(prev_floor_ptr->depth && (dungeon_info[prev_floor_ptr->dungeon_id].flags1 & DF1_FORGET)) wiz_dark(prev_floor_ptr, creature_ptr);
@@ -4540,7 +4539,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 
 		if(creature_ptr->class_idx == CLASS_NINJA)
 		{
-			if(c_ptr->info & (CAVE_GLOW)) set_superstealth(creature_ptr, FALSE);
+			if(new_cave_ptr->info & (CAVE_GLOW)) set_superstealth(creature_ptr, FALSE);
 			else if(creature_ptr->cur_lite <= 0) set_superstealth(creature_ptr, TRUE);
 		}
 
@@ -4609,7 +4608,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 
 		leave_quest_check(creature_ptr);
 
-		floor_ptr->quest = c_ptr->quest_idx;
+		floor_ptr->quest = new_cave_ptr->quest_idx;
 		prev_floor_ptr->depth = 0;
 		creature_ptr->oldpx = 0;
 		creature_ptr->oldpy = 0;
@@ -4622,7 +4621,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 	{
 		disturb(player_ptr, 0, 0);
 
-		if(c_ptr->mimic || have_flag(f_ptr->flags, FF_SECRET)) /* Hidden trap */
+		if(new_cave_ptr->mimic || have_flag(f_ptr->flags, FF_SECRET)) /* Hidden trap */
 		{
 			msg_print(MES_TRAP_FOUND);
 			disclose_grid(prev_floor_ptr, creature_ptr->fy, creature_ptr->fx); /* Pick a trap */
@@ -4634,13 +4633,13 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 	}
 
 	/* Warn when leaving trap detected region */
-	if(!(mpe_mode & MCE_STAYING) && (disturb_trap_detect || alert_trap_detect) && detect_trap && !(c_ptr->info & CAVE_IN_DETECT))
+	if(!(mpe_mode & MCE_STAYING) && (disturb_trap_detect || alert_trap_detect) && detect_trap && !(new_cave_ptr->info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
 		detect_trap = FALSE;
 
 		/* You are just on the edge */
-		if(!(c_ptr->info & CAVE_UNSAFE))
+		if(!(new_cave_ptr->info & CAVE_UNSAFE))
 		{
 			if(alert_trap_detect) msg_print(MES_TRAP_WARNING);
 			if(disturb_trap_detect) disturb(player_ptr, 0, 0);
@@ -4666,15 +4665,15 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 
 	// Examine the destination
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	feature_type *f_ptr = &feature_info[c_ptr->feat];
+	cave_type *new_cave_ptr = &floor_ptr->cave[y][x];
+	feature_type *f_ptr = &feature_info[new_cave_ptr->feat];
 
 	creature_type *target_ptr;
 	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 
 	char m_name[MAX_NLEN];
 
-	bool can_enter = creature_can_cross_terrain(creature_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
+	bool can_enter = creature_can_cross_terrain(creature_ptr, new_cave_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
 	bool can_kill_walls = FALSE;
 	bool stormbringer = FALSE;
 
@@ -4685,7 +4684,7 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 	exit_area(creature_ptr, x, y);
 
 	/* Get the creature */
-	target_ptr = &creature_list[c_ptr->creature_idx];
+	target_ptr = &creature_list[new_cave_ptr->creature_idx];
 
 	/* Player can not walk through "walls"... */
 	/* unless in Shadow Form */
@@ -4693,7 +4692,7 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 		(!can_enter || !have_flag(f_ptr->flags, FF_LOS)) && !have_flag(f_ptr->flags, FF_PERMANENT);
 
 	/* Hack -- attack creatures */
-	if(c_ptr->creature_idx && (target_ptr->see_others || can_enter || can_kill_walls))
+	if(new_cave_ptr->creature_idx && (target_ptr->see_others || can_enter || can_kill_walls))
 	{
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if(!is_hostile(target_ptr) &&
@@ -4711,7 +4710,7 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 				if(!has_trait(creature_ptr, TRAIT_HALLUCINATION)) species_type_track(target_ptr->ap_species_idx);
 
 				/* Track a new creature */
-				health_track(c_ptr->creature_idx);
+				health_track(new_cave_ptr->creature_idx);
 			}
 
 			/* displace? */
@@ -4790,7 +4789,7 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 		}
 		else if(have_flag(f_ptr->flags, FF_LAVA) && !has_trait(steed_ptr, TRAIT_RES_FIRE))
 		{
-			msg_format(MES_WALK_TOO_HOT(feature_name + feature_info[get_feat_mimic(c_ptr)].name));
+			msg_format(MES_WALK_TOO_HOT(feature_name + feature_info[get_feat_mimic(new_cave_ptr)].name));
 			cancel_tactical_action(creature_ptr);
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
@@ -4808,16 +4807,16 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 
 	else if(!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !has_trait(creature_ptr, TRAIT_CAN_FLY))
 	{
-		msg_format(MES_WALK_MUST_FLY(feature_name + feature_info[get_feat_mimic(c_ptr)].name));
+		msg_format(MES_WALK_MUST_FLY(feature_name + feature_info[get_feat_mimic(new_cave_ptr)].name));
 		cancel_tactical_action(creature_ptr);
 		creature_ptr->running = 0;
 		oktomove = FALSE;
 	}
 
 	// Disarm a visible trap
-	else if((do_pickup != easy_disarm) && have_flag(f_ptr->flags, FF_DISARM) && !c_ptr->mimic)
+	else if((do_pickup != easy_disarm) && have_flag(f_ptr->flags, FF_DISARM) && !new_cave_ptr->mimic)
 	{
-		if(!trap_can_be_ignored(creature_ptr, c_ptr->feat))
+		if(!trap_can_be_ignored(creature_ptr, new_cave_ptr->feat))
 		{
 			(void)do_cmd_disarm_aux(creature_ptr, y, x, dir);
 			return;
@@ -4828,7 +4827,7 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 	else if(!can_enter && !can_kill_walls)
 	{
 		/* Feature code (applying "mimic" field) */
-		FEATURE_ID feat = get_feat_mimic(c_ptr);
+		FEATURE_ID feat = get_feat_mimic(new_cave_ptr);
 		feature_type *mimic_f_ptr = &feature_info[feat];
 		cptr name = feature_name + mimic_f_ptr->name;
 
@@ -4837,17 +4836,17 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 		disturb(player_ptr, 0, 0);
 
 		/* Notice things in the dark */
-		if(!(c_ptr->info & CAVE_MARK) && !creature_can_see_bold(creature_ptr, y, x))
+		if(!(new_cave_ptr->info & CAVE_MARK) && !creature_can_see_bold(creature_ptr, y, x))
 		{
 			/* Boundary floor mimic */
-			if(boundary_floor(c_ptr, f_ptr, mimic_f_ptr))
+			if(boundary_floor(new_cave_ptr, f_ptr, mimic_f_ptr))
 				msg_print(MES_CANNOT_GO_MORE);
 
 			/* Wall (or secret door) */
 			else
 			{
 				msg_format(MES_WALK_BLOCK(name));
-				c_ptr->info |= (CAVE_MARK);
+				new_cave_ptr->info |= (CAVE_MARK);
 				lite_spot(floor_ptr, y, x);
 			}
 		}
@@ -4856,7 +4855,7 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 		else
 		{
 			// Boundary floor mimic
-			if(boundary_floor(c_ptr, f_ptr, mimic_f_ptr))
+			if(boundary_floor(new_cave_ptr, f_ptr, mimic_f_ptr))
 			{
 				msg_print(MES_CANNOT_GO_MORE);
 				if(!(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_STUN) || has_trait(creature_ptr, TRAIT_HALLUCINATION)))
@@ -4880,7 +4879,7 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 			}
 		}
 
-		if(!boundary_floor(c_ptr, f_ptr, mimic_f_ptr)) sound(SOUND_HITWALL);
+		if(!boundary_floor(new_cave_ptr, f_ptr, mimic_f_ptr)) sound(SOUND_HITWALL);
 	}
 
 
@@ -4950,10 +4949,10 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 
 	plus_move_cost(creature_ptr, x, y);
 
-	if(!has_trait(creature_ptr, TRAIT_BLIND) && ((c_ptr->info & CAVE_GLOW) || creature_ptr->cur_lite > 0) && strlen(c_ptr->message))
+	if(!has_trait(creature_ptr, TRAIT_BLIND) && ((new_cave_ptr->info & CAVE_GLOW) || creature_ptr->cur_lite > 0) && strlen(new_cave_ptr->message))
 	{
-		msg_format(MES_INSCRIPTION_VIEW(feature_name + feature_info[c_ptr->feat].name));
-		msg_format("%s", c_ptr->message);
+		msg_format(MES_INSCRIPTION_VIEW(feature_name + feature_info[new_cave_ptr->feat].name));
+		msg_format("%s", new_cave_ptr->message);
 	}
 }
 
