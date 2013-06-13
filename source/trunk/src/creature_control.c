@@ -4482,7 +4482,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 
 	if(!(mpe_mode & MCE_STAYING))
 	{
-		//CREATURE_ID dist_creature_idx = new_cave_ptr->creature_idx;
+		CREATURE_ID dist_creature_idx = new_cave_ptr->creature_idx;
 
 		/* Move Creature */
 		if(ny) creature_ptr->fy = ny;
@@ -4492,8 +4492,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 
 		//TODO riding process
 
-		/* Swap Move 
-		//if(!(mpe_mode & MCE_DONT_SWAP_MON));
+		if(!(mpe_mode & MCE_DONT_SWAP_MON))
 		{
 			old_cave_ptr->creature_idx = dist_creature_idx;
 
@@ -4505,18 +4504,14 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 				update_creature_view(player_ptr, dist_creature_idx, TRUE);
 			}
 		}
-		*/
 
-		/*
 		if(!(mpe_mode & MCE_NO_SEE))
 		{
 			lite_spot(prev_floor_ptr, oy, ox);
 			lite_spot(floor_ptr, ny, nx);
 		}
-		*/
 
-		// Check for new panel (redraw map)
-		verify_panel(creature_ptr);
+		verify_panel(creature_ptr); /* Check for new panel (redraw map) */
 
 		if(mpe_mode & MCE_FORGET_FLOW)
 		{
