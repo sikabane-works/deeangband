@@ -4943,7 +4943,7 @@ void walk_creature(creature_type *creature_ptr, DIRECTION dir, bool do_pickup, b
 		if(break_trap) mpe_mode |= MCE_BREAK_TRAP;
 
 		// Move the player
-		(void)move_creature(creature_ptr, NULL, y, x, mpe_mode);
+		(void)move_creature(creature_ptr, floor_ptr, y, x, mpe_mode);
 	}
 
 	plus_move_cost(creature_ptr, x, y);
