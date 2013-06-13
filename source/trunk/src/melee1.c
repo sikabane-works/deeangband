@@ -605,15 +605,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			{
 				object_ptr->fuel -= (250 + (s16b)randint1(250)); /* Reduce fuel */
 				if(object_ptr->fuel < 1) object_ptr->fuel = 1;
-
-				if(!has_trait(target_ptr, TRAIT_BLIND))
-				{
-#ifdef JP
-					msg_print("ñæÇ©ÇËÇ™à√Ç≠Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇΩÅB");
-#else
-					msg_print("Your light dims.");
-#endif
-				}
+				if(!has_trait(target_ptr, TRAIT_BLIND)) msg_print(MES_MELEE_EATEN_LITE);
 				prepare_window(PW_EQUIP);
 			}
 		}

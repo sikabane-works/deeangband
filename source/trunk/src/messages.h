@@ -2684,6 +2684,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_NO_STOLEN "しかし何も盗まれなかった。"
 #define MES_MELEE_GUARD_STOLEN_MONEY "しかし素早く財布を守った！"
 #define MES_MELEE_GUARD_STOLEN_OBJECT "しかしあわててザックを取り返した！"
+#define MES_MELEE_EATEN_LITE "明かりが暗くなってしまった。"
 #else
 #define MES_MELEE_ATTACK_MISS %^s misses %s.
 #define MES_MELEE_AMBUSH(ATTACKER, TARGET) "%s (cruelly stab the helpless, sleeping %s!", (ATTACKER), (TARGET))
@@ -2730,6 +2731,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_NO_STOLEN "Nothing was stolen."
 #define MES_MELEE_GUARD_STOLEN_MONEY "You quickly protect your money pouch!"
 #define MES_MELEE_GUARD_STOLEN_OBJECT "You grab hold of your backpack!"
+#define MES_MELEE_EATEN_LITE "Your light dims."
 #endif
 
 #ifdef JP
