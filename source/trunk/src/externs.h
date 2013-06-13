@@ -949,6 +949,7 @@ extern void curse_equipment(creature_type *creature_ptr, int chance, int heavy_c
 extern void alloc_object_kind_list(PROB **prob_list_ptr, FLOOR_LEV level);
 extern void forbid_object_kind_list(PROB **prob_list_ptr, bool (*hook_func)(SPECIES_ID species_idx));
 extern void free_object_kind_list(PROB **prob_list_ptr);
+extern OBJECT_KIND_ID object_kind_rand(PROB *prob_list);
 
 
 // racial.c

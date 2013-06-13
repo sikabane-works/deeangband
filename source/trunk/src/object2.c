@@ -5845,4 +5845,29 @@ void free_object_kind_list(PROB **prob_list_ptr)
 	C_KILL(*prob_list_ptr, max_object_kind_idx, PROB);
 }
 
+OBJECT_KIND_ID object_kind_rand(PROB *prob_list)
+{
+	int i;
+	PROB value, total = 0L;
+
+	for (i = 0; i < max_object_kind_idx; i++) total += prob_list[i];
+	if(total <= 0){
+		msg_warning("Zero probabilities in object_kind_rand()");
+		return -1;
+	}
+
+	value = randint0(total - 1);
+
+	for (i = 0; i < max_object_kind_idx; i++)
+	{
+		if(prob_list[i])
+		{
+			value -= prob_list[i];
+			if(value < 0) return i;
+		}
+	}
+
+	msg_warning("Error in object_kind_rand()");
+	return -1;
+}
 
