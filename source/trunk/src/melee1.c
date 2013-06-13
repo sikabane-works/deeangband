@@ -498,51 +498,26 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			/* Saving throw (unless paralyzed) based on dex and level */
 			if(!has_trait(target_ptr, TRAIT_PARALYZED) && (randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] + target_ptr->lev)))
 			{
-				/* Saving throw message */
-#ifdef JP
-				msg_print("しかし素早く財布を守った！");
-#else
-				msg_print("You quickly protect your money pouch!");
-#endif
-				/* Occasional blink anyway */
+				msg_print(MES_MELEE_GUARD_STOLEN_MONEY);
 				if(randint0(3)) blinked = TRUE;
 			}
-
-			/* Eat gold */
-			else
+			else /* Eat gold */
 			{
 				int gold = (target_ptr->au / 10) + randint1(25);
 				if(gold < 2) gold = 2;
 				if(gold > 5000) gold = (target_ptr->au / 20) + randint1(3000);
 				if(gold > target_ptr->au) gold = target_ptr->au;
 				target_ptr->au -= gold;
-				if(gold <= 0)
-				{
-#ifdef JP
-					msg_print("しかし何も盗まれなかった。");
-#else
-					msg_print("Nothing was stolen.");
-#endif
-				}
+				if(gold <= 0) msg_print(MES_MELEE_NO_STOLEN);
 				else if(target_ptr->au)
 				{
-#ifdef JP
-					msg_print("財布が軽くなった気がする。");
-					msg_format("$%ld のお金が盗まれた！", (long)gold);
-#else
-					msg_print("Your purse feels lighter.");
-					msg_format("%ld coins were stolen!", (long)gold);
-#endif
+					msg_print(MES_MELEE_STOLEN1);
+					msg_format(MES_MELEE_STOLEN2((long)gold));
 				}
 				else
 				{
-#ifdef JP
-					msg_print("財布が軽くなった気がする。");
-					msg_print("お金が全部盗まれた！");
-#else
-					msg_print("Your purse feels lighter.");
-					msg_print("All of your coins were stolen!");
-#endif
+					msg_print(MES_MELEE_STOLEN1);
+					msg_print(MES_MELEE_STOLEN3);
 				}
 				prepare_redraw(PR_GOLD);
 				prepare_window(PW_PLAYER);

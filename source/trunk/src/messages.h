@@ -2676,6 +2676,11 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_ASSASSIN_CRITICAL(TARGET) "刃が%sに深々と突き刺さった！", (TARGET)->name
 #define MES_MELEE_MAGIC_DRAIN "魔道具からエネルギーを吸い取った！"
 #define MES_MELEE_WEAKNESS(CREATURE) "%sは弱くなったようだ。", (CREATURE)->name
+#define MES_MELEE_STOLEN1 "財布が軽くなった気がする。"
+#define MES_MELEE_STOLEN2(MONEY) "$%ld の金が盗まれた！", (MONEY)
+#define MES_MELEE_STOLEN3 "お金が全部盗まれた！"
+#define MES_MELEE_NO_STOLEN "しかし何も盗まれなかった。"
+#define MES_MELEE_GUARD_STOLEN_MONEY "しかし素早く財布を守った！"
 #else
 #define MES_MELEE_ATTACK_MISS %^s misses %s.
 #define MES_MELEE_AMBUSH(ATTACKER, TARGET) "%s (cruelly stab the helpless, sleeping %s!", (ATTACKER), (TARGET))
@@ -2714,6 +2719,11 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_ASSASSIN_CRITICAL(TARGET) "You critically injured %s!", (TARGET)->name
 #define MES_MELEE_MAGIC_DRAIN "Energy drains from your magic device!"
 #define MES_MELEE_WEAKNESS(CREATURE) "%^s seems weakened.", (CREATURE)->name
+#define MES_MELEE_STOLEN1 "Your purse feels lighter."
+#define MES_MELEE_STOLEN2(MONEY) "%ld coins were stolen!", (MONEY)
+#define MES_MELEE_STOLEN3 "All of your coins were stolen!"
+#define MES_MELEE_NO_STOLEN "Nothing was stolen."
+#define MES_MELEE_GUARD_STOLEN_MONEY "You quickly protect your money pouch!"
 #endif
 
 #ifdef JP
