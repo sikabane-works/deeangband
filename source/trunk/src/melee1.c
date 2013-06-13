@@ -521,8 +521,6 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				}
 				prepare_redraw(PR_GOLD);
 				prepare_window(PW_PLAYER);
-
-				/* Blink away */
 				blinked = TRUE;
 			}
 		}
@@ -536,13 +534,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			/* Saving throw (unless paralyzed) based on dex and level */
 			if(!has_trait(target_ptr, TRAIT_PARALYZED) && (randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] + target_ptr->lev)))
 			{
-				/* Saving throw message */
-#ifdef JP
-				msg_print("しかしあわててザックを取り返した！");
-#else
-				msg_print("You grab hold of your backpack!");
-#endif
-				/* Occasional "blink" anyway */
+				msg_print(MES_MELEE_GUARD_STOLEN_OBJECT);
 				blinked = TRUE;
 			}
 
@@ -553,14 +545,10 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				i = randint0(INVEN_TOTAL); /* Pick an item */
 				object_ptr = &target_ptr->inventory[i]; /* Obtain the item */
 
-				if(!is_valid_object(object_ptr)) continue; 				if(object_is_artifact(object_ptr)) continue; /* Skip artifacts */
+				if(!is_valid_object(object_ptr)) continue;
+				if(object_is_artifact(object_ptr)) continue; /* Skip artifacts */
 				object_desc(object_name, object_ptr, OD_OMIT_PREFIX); // Get a description
-
-#ifdef JP
-				msg_format("%s(%c)を%s盗まれた！", object_name, index_to_label(i), ((object_ptr->number > 1) ? "一つ" : ""));
-#else
-				msg_format("%sour %s (%c) was stolen!", ((object_ptr->number > 1) ? "One of y" : "Y"), object_name, index_to_label(i));
-#endif
+				msg_format(MES_MELEE_STOLEN4(object_ptr, index_to_label(i), object_ptr->number));
 
 				/* Make an object */
 				object_idx = object_pop();
@@ -568,15 +556,9 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				if(object_idx)
 				{
 					object_type *j_ptr;
-
-					/* Get new object */
-					j_ptr = &object_list[object_idx];
-
-					/* Copy object */
-					object_copy(j_ptr, object_ptr);
-
-					/* Modify number */
-					j_ptr->number = 1;
+					j_ptr = &object_list[object_idx]; /* Get new object */
+					object_copy(j_ptr, object_ptr); /* Copy object */
+					j_ptr->number = 1; /* Modify number */
 
 					/* Hack -- If a rod or wand, allocate total
 					* maximum timeouts or charges between those
@@ -588,8 +570,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 						object_ptr->charge_num -= j_ptr->charge_num;
 					}
 
-					/* Forget mark */
-					j_ptr->marked = OM_TOUCHED;
+					j_ptr->marked = OM_TOUCHED; /* Forget mark */
 
 					/* Memorize creature */
 					//TODO j_ptr->held_creature_idx = creature_idx;

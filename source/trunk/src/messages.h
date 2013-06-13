@@ -2679,8 +2679,10 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_STOLEN1 "財布が軽くなった気がする。"
 #define MES_MELEE_STOLEN2(MONEY) "$%ld の金が盗まれた！", (MONEY)
 #define MES_MELEE_STOLEN3 "お金が全部盗まれた！"
+#define MES_MELEE_STOLEN4(OBJECT, ID, NUM) "%s(%c)を%s盗まれた！", (OBJECT)->name, index_to_label(ID), ((NUM) > 1) ? "一つ" : ""
 #define MES_MELEE_NO_STOLEN "しかし何も盗まれなかった。"
 #define MES_MELEE_GUARD_STOLEN_MONEY "しかし素早く財布を守った！"
+#define MES_MELEE_GUARD_STOLEN_OBJECT "しかしあわててザックを取り返した！"
 #else
 #define MES_MELEE_ATTACK_MISS %^s misses %s.
 #define MES_MELEE_AMBUSH(ATTACKER, TARGET) "%s (cruelly stab the helpless, sleeping %s!", (ATTACKER), (TARGET))
@@ -2722,8 +2724,10 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_STOLEN1 "Your purse feels lighter."
 #define MES_MELEE_STOLEN2(MONEY) "%ld coins were stolen!", (MONEY)
 #define MES_MELEE_STOLEN3 "All of your coins were stolen!"
+#define MES_MELEE_STOLEN4(OBJECT, ID, NUM) ("%sour %s (%c) was stolen!", (((NUM) > 1) ? "One of y" : "Y"), (OBJECT), index_to_label(ID))
 #define MES_MELEE_NO_STOLEN "Nothing was stolen."
 #define MES_MELEE_GUARD_STOLEN_MONEY "You quickly protect your money pouch!"
+#define MES_MELEE_GUARD_STOLEN_OBJECT "You grab hold of your backpack!"
 #endif
 
 #ifdef JP
