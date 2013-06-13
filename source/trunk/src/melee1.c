@@ -753,18 +753,12 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				{
 					k = MAX(k*5, target_ptr->chp/2);
 					drain_result *= 2;
-					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-#ifdef JP
-						msg_format("%s‚É’v–½‚ð•‰‚í‚¹‚½I", target_name);
-#else
-						msg_format("You fatally injured %s!", target_name);
-#endif
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(MES_MELEE_FATALSPOT(target_ptr));
 				}
 				else
 				{
 					k = target_ptr->chp + 1;
-					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-						msg_format(MES_FATAL_SPOT, target_name);
+					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(MES_FATAL_SPOT, target_name);
 				}
 			}
 		}
