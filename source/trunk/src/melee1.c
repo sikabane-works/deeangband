@@ -584,21 +584,14 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		if(has_trait_object(weapon_ptr, TRAIT_EAT_FOOD))
 		{
-			/* Steal some food */
-			for (k = 0; k < 10; k++)
+			for (k = 0; k < 10; k++) /* Steal some food */
 			{
-				/* Pick an item from the pack */
-				i = randint0(INVEN_TOTAL);
-
+				i = randint0(INVEN_TOTAL); /* Pick an item from the pack */
 				object_ptr = &target_ptr->inventory[i]; // Get the item
 				if(!is_valid_object(object_ptr)) continue; // Skip non-objects
 				if((object_ptr->tval != TV_FOOD) && !((object_ptr->tval == TV_CORPSE) && (object_ptr->sval))) continue; // Skip non-food objects
 				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Get a description
-#ifdef JP
-				msg_format("%s(%c)‚ð%sH‚×‚ç‚ê‚Ä‚µ‚Ü‚Á‚½I", object_name, index_to_label(i), ((object_ptr->number > 1) ? "ˆê‚Â" : ""));
-#else
-				msg_format("%sour %s (%c) was eaten!", ((object_ptr->number > 1) ? "One of y" : "Y"), object_name, index_to_label(i));
-#endif
+				msg_format(MES_MELEE_EATEN(object_ptr, index_to_label(i), object_ptr->number));
 				increase_item(target_ptr, i, -1, FALSE);
 				break;
 			}
@@ -606,14 +599,11 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		if(has_trait_object(weapon_ptr, TRAIT_EAT_LITE))
 		{
-			/* Access the lite */
-			object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_LITE, 0);
+			object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_LITE, 0); /* Access the lite */
 
-			/* Drain fuel */
-			if((object_ptr->fuel > 0) && (!object_is_fixed_artifact(object_ptr)))
+			if((object_ptr->fuel > 0) && (!object_is_fixed_artifact(object_ptr))) /* Drain fuel */
 			{
-				/* Reduce fuel */
-				object_ptr->fuel -= (250 + (s16b)randint1(250));
+				object_ptr->fuel -= (250 + (s16b)randint1(250)); /* Reduce fuel */
 				if(object_ptr->fuel < 1) object_ptr->fuel = 1;
 
 				if(!has_trait(target_ptr, TRAIT_BLIND))
