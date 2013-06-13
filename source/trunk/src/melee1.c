@@ -894,11 +894,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		{
 			if(polymorph_creature(target_ptr))
 			{
-#ifdef JP
-				msg_format("%^s‚Í•Ï‰»‚µ‚½I", target_name);
-#else
-				msg_format("%^s changes!", target_name);
-#endif
+				msg_format(MES_POLYMORPH_DONE(target_ptr));
 				weak = FALSE;
 			}
 			else msg_format(MES_IS_UNAFFECTED);

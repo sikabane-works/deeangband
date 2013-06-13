@@ -3030,7 +3030,7 @@ void set_new_species(creature_type *creature_ptr, bool born, SPECIES_ID species_
 	{
 		char m_name[MAX_NLEN];
 		creature_desc(m_name, creature_ptr, 0);
-		msg_format(MES_POLYMORPH_DONE(old_m_name));
+		msg_format(MES_POLYMORPH_DONE(creature_ptr));
 		if(!has_trait(creature_ptr, TRAIT_RIDING))
 			if(do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_print(MES_FALL_RIDING);
 	}
