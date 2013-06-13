@@ -947,7 +947,7 @@ extern DICE_NUM bodysize_boost_dn(creature_type *creature_ptr, object_type *obje
 extern DICE_SIDE bodysize_boost_ds(creature_type *creature_ptr, object_type *object_ptr);
 extern void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance);
 extern void alloc_object_kind_list(PROB **prob_list_ptr, FLOOR_LEV level);
-extern void forbid_object_kind_list(PROB **prob_list_ptr, bool (*hook_func)(SPECIES_ID species_idx));
+extern void forbid_object_kind_list(PROB **prob_list_ptr, bool (*hook_func)(OBJECT_KIND_ID object_kind_id));
 extern void free_object_kind_list(PROB **prob_list_ptr);
 extern OBJECT_KIND_ID object_kind_rand(PROB *prob_list);
 

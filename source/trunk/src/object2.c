@@ -409,29 +409,6 @@ OBJECT_ID object_pop(void)
 	return SUCCESS;
 }
 
-
-// Apply a "object restriction function" to the "object allocation table"
-static errr get_obj_num_prep(bool (*get_obj_num_hook)(int k_idx))
-{
-	int i;
-
-	alloc_entry *table = alloc_object_kind_table;
-	for (i = 0; i < alloc_object_kind_size; i++) // Scan the allocation table
-	{
-		if(!get_obj_num_hook || (*get_obj_num_hook)(table[i].index)) // Accept objects which pass the restriction, if any
-		{
-			table[i].prob2 = table[i].prob1;
-		}
-		else // Do not use this object
-		{
-			table[i].prob2 = 0;
-		}
-	}
-
-	return SUCCESS;
-}
-
-
 /*
 * Choose an object kind that seems "appropriate" to the given level
 *
@@ -2664,12 +2641,14 @@ bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, i
 	// Generate a special object, or a normal object (for player)
 	if(!one_in_(prob) || !judge_instant_artifact(player_ptr, object_ptr, level))
 	{
+		PROB *prob_list;
+		alloc_object_kind_list(&prob_list, level);
 		// Good objects & Activate restriction (if already specified, use that)
-		if((mode & AM_GOOD) && !get_obj_num_hook) get_obj_num_hook = kind_is_good;
-		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects - prepare allocation table
-		k_idx = get_obj_num(level, gon_mode); // Pick a random object
+		//if((mode & AM_GOOD) && !get_obj_num_hook) get_obj_num_hook = kind_is_good;
+		//if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects - prepare allocation table
+		k_idx = object_kind_rand(prob_list);
+		free_object_kind_list(&prob_list);
 		if(!k_idx) return FALSE; // Handle failure
-
 		generate_object(object_ptr, k_idx); // Prepare the object
 	}
 
@@ -2727,25 +2706,18 @@ void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mo
 	if(object_idx)
 	{
 		object_type *object_ptr;
-
-		/* Acquire object */
-		object_ptr = &object_list[object_idx];
-
-		/* Structure Copy */
-		object_copy(object_ptr, quest_ptr);
+		object_ptr = &object_list[object_idx]; /* Acquire object */
+		object_copy(object_ptr, quest_ptr); /* Structure Copy */
 
 		object_ptr->fy = y;
 		object_ptr->fx = x;
-
-		/* Build a stack */
-		object_ptr->next_object_idx = c_ptr->object_idx;
+		object_ptr->next_object_idx = c_ptr->object_idx; /* Build a stack */
 
 		c_ptr->object_idx = object_idx;
 		note_spot(floor_ptr, y, x);
 		lite_spot(floor_ptr, y, x);
 	} // Hack -- Preserve artifacts
-	else if(object_is_fixed_artifact(quest_ptr))
-		artifact_info[quest_ptr->art_id].cur_num = 0;
+	else if(object_is_fixed_artifact(quest_ptr)) artifact_info[quest_ptr->art_id].cur_num = 0;
 }
 
 // Make a treasure object
@@ -2759,23 +2731,14 @@ bool make_gold(floor_type *floor_ptr, object_type *object2_ptr, int value, int c
 	i = ((randint1(floor_ptr->object_level + 2) + 2) / 2) - 1;
 	if(one_in_(GREAT_OBJ)) i += randint1(floor_ptr->object_level + 1);
 
-	/* Hack -- Creeping Coins only generate "themselves" */
-	if(coin_type) i = coin_type;
+	if(coin_type) i = coin_type; /* Hack -- Creeping Coins only generate "themselves" */
+	if(i >= MAX_GOLD) i = MAX_GOLD - 1; /* Do not create "illegal" Treasure Types */
 
-	/* Do not create "illegal" Treasure Types */
-	if(i >= MAX_GOLD) i = MAX_GOLD - 1;
+	generate_object(object2_ptr, OBJ_GOLD_LIST + i); /* Prepare a gold object */
+	base = object_kind_info[OBJ_GOLD_LIST+i].cost; /* Hack -- Base coin cost */
 
-	/* Prepare a gold object */
-	generate_object(object2_ptr, OBJ_GOLD_LIST + i);
-
-	/* Hack -- Base coin cost */
-	base = object_kind_info[OBJ_GOLD_LIST+i].cost;
-
-	/* Determine how much the treasure is "worth" */
-	if(value <= 0)
-		object2_ptr->pval = (PVAL)(base + (8 * randint1(base)) + randint1(8));
-	else
-		object2_ptr->pval = (PVAL)value;
+	if(value <= 0) object2_ptr->pval = (PVAL)(base + (8 * randint1(base)) + randint1(8));
+	else object2_ptr->pval = (PVAL)value;
 
 	return TRUE;
 }
@@ -5832,7 +5795,7 @@ void alloc_object_kind_list(PROB **prob_list_ptr, FLOOR_LEV level)
 	return;
 }
 
-void forbid_object_kind_list(PROB **prob_list_ptr, bool (*hook_func)(SPECIES_ID species_idx))
+void forbid_object_kind_list(PROB **prob_list_ptr, bool (*hook_func)(OBJECT_KIND_ID object_kind_id))
 {
 	int n;
 	PROB *prob_list = *prob_list_ptr;
