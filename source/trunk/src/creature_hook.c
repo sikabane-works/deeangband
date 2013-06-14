@@ -587,14 +587,8 @@ void anger_creature(creature_type *hostile_ptr, creature_type *m_ptr)
 	if(is_friendly(player_ptr, m_ptr))
 	{
 		char m_name[MAX_NLEN];
-
 		creature_desc(m_name, m_ptr, 0);
-#ifdef JP
-		msg_format("%^sÇÕì{Ç¡ÇΩÅI", m_name);
-#else
-		msg_format("%^s gets angry!", m_name);
-#endif
-
+		msg_format(MES_CREATURE_ANGER(m_ptr));
 		set_hostile(hostile_ptr, m_ptr);
 	}
 }

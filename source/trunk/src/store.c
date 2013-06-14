@@ -1375,9 +1375,9 @@ static bool store_object_similar(object_type *object1_ptr, object_type *object2_
 	if(object1_ptr->k_idx != object2_ptr->k_idx) return FALSE;
 
 	/* Different Size cannot be stacked */
-	if(object1_ptr->size_lower != object2_ptr->size_lower || 
-		object1_ptr->size_upper != object2_ptr->size_upper || 
-		object1_ptr->to_size != object2_ptr->to_size) return FALSE;
+	if(object1_ptr->size_lower != object2_ptr->size_lower) return FALSE;
+	if(object1_ptr->size_upper != object2_ptr->size_upper) return FALSE; 
+	if(object1_ptr->to_size != object2_ptr->to_size) return FALSE;
 
 	/* Different charges (etc) cannot be stacked, unless wands or rods. */
 	if((object1_ptr->pval != object2_ptr->pval) && (object1_ptr->tval != TV_WAND) && (object1_ptr->tval != TV_ROD)) return FALSE;
@@ -1773,18 +1773,9 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 				{
 					if(object_ptr->number + j_ptr->number <= max_num)
 					{
-						/* Add together the item counts */
-						object_absorb(j_ptr, object_ptr);
-
-						/* One object is gone */
-						st_ptr->stock_num--;
-
-						/* Slide everything down */
-						for (k = i; k < st_ptr->stock_num; k++)
-						{
-							/* Structure copy */
-							st_ptr->stock[k] = st_ptr->stock[k + 1];
-						}
+						object_absorb(j_ptr, object_ptr); /* Add together the item counts */
+						st_ptr->stock_num--; /* One object is gone */
+						for (k = i; k < st_ptr->stock_num; k++) st_ptr->stock[k] = st_ptr->stock[k + 1]; /* Structure copy */
 
 						/* Erase the "final" slot */
 						object_wipe(&st_ptr->stock[k]);
@@ -2034,19 +2025,11 @@ static int store_carry(store_type *st_ptr, object_type *object_ptr)
 	}
 
 	/* Slide the others up */
-	for (i = st_ptr->stock_num; i > slot; i--)
-	{
-		st_ptr->stock[i] = st_ptr->stock[i-1];
-	}
+	for (i = st_ptr->stock_num; i > slot; i--) st_ptr->stock[i] = st_ptr->stock[i-1];
 
-	/* More stuff now */
-	st_ptr->stock_num++;
-
-	/* Insert the new item */
-	st_ptr->stock[slot] = *object_ptr;
-
-	/* Return the location */
-	return (slot);
+	st_ptr->stock_num++; /* More stuff now */
+	st_ptr->stock[slot] = *object_ptr; /* Insert the new item */
+	return (slot); /* Return the location */
 }
 
 
@@ -2056,19 +2039,16 @@ static int store_carry(store_type *st_ptr, object_type *object_ptr)
  */
 static void store_item_increase(store_type *st_ptr, int item, int num)
 {
-	int 		cnt;
+	int cnt;
 	object_type *object_ptr;
-
 	object_ptr = &st_ptr->stock[item];
 
-	/* Verify the number */
-	cnt = object_ptr->number + num;
+	cnt = object_ptr->number + num; /* Verify the number */
 	if(cnt > 255) cnt = 255;
 	else if(cnt < 0) cnt = 0;
 	num = cnt - object_ptr->number;
 
-	/* Save the new number */
-	object_ptr->number += num;
+	object_ptr->number += num; /* Save the new number */
 }
 
 
@@ -2077,7 +2057,7 @@ static void store_item_increase(store_type *st_ptr, int item, int num)
  */
 static void store_item_optimize(store_type *st_ptr, int item)
 {
-	int 		j;
+	int j;
 	object_type *object_ptr;
 	object_ptr = &st_ptr->stock[item];
 
