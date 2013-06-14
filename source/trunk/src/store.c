@@ -2081,21 +2081,10 @@ static void store_item_optimize(store_type *st_ptr, int item)
 	object_type *object_ptr;
 	object_ptr = &st_ptr->stock[item];
 
-	/* Must exist */
 	if(!is_valid_object(object_ptr)) return;
-
-	/* Must have no items */
-	if(object_ptr->number) return;
-
-	/* One less item */
-	st_ptr->stock_num--;
-
-	/* Slide everyone */
-	for (j = item; j < st_ptr->stock_num; j++)
-		st_ptr->stock[j] = st_ptr->stock[j + 1];
-
-	/* Nuke the final slot */
-	object_wipe(&st_ptr->stock[j]);
+	st_ptr->stock_num--; /* One less item */
+	for (j = item; j < st_ptr->stock_num; j++) st_ptr->stock[j] = st_ptr->stock[j + 1]; /* Slide everyone */
+	object_wipe(&st_ptr->stock[j]); /* Nuke the final slot */
 }
 
 
@@ -2155,11 +2144,8 @@ static void store_delete(store_type *st_ptr)
 	/* Determine how many items are here */
 	num = st_ptr->stock[what].number;
 
-	/* Hack -- sometimes, only destroy half the items */
-	if(PERCENT(50)) num = (num + 1) / 2;
-
-	/* Hack -- sometimes, only destroy a single item */
-	if(PERCENT(50)) num = 1;
+	if(PERCENT(50)) num = (num + 1) / 2; /* Hack -- sometimes, only destroy half the items */
+	if(PERCENT(50)) num = 1; /* Hack -- sometimes, only destroy a single item */
 
 	/* Hack -- decrement the maximum timeouts and total charges of rods and wands. -LM- */
 	if((st_ptr->stock[what].tval == TV_ROD) || (st_ptr->stock[what].tval == TV_WAND))
@@ -2272,19 +2258,12 @@ static int store_replacement(store_type *st_ptr, int num)
 		/* Prune the black market */
 		if(is_black_market(st_ptr))
 		{
-			// Hack -- No "crappy" items
 			if(black_market_crap(st_ptr, quest_ptr)) continue;
-
-			// Hack -- No "cheap" items
 			if(object_value(quest_ptr) < 10) continue;
-
 		}
 
-		/* Mass produce and/or Apply discount */
-		mass_produce(st_ptr, quest_ptr);
-
-		/* Attempt to carry the (known) item */
-		(void)store_carry(st_ptr, quest_ptr);
+		mass_produce(st_ptr, quest_ptr); /* Mass produce and/or Apply discount */
+		(void)store_carry(st_ptr, quest_ptr); /* Attempt to carry the (known) item */
 		suc++;
 
 		/* Definitely done */
@@ -2322,26 +2301,19 @@ static bool noneedtobargain(store_type *st_ptr, s32b minprice)
  */
 static void updatebargain(store_type *st_ptr, s32b price, s32b minprice, int num)
 {
-	/* Hack -- auto-haggle */
-	if(!manual_haggle) return;
-
-	/* Cheap items are "boring" */
-	if((minprice/num) < 10L) return;
-
-	/* Count the successful haggles */
-	if(price == minprice)
+	if(!manual_haggle) return; /* Hack -- auto-haggle */
+	if((minprice/num) < 10L) return; /* Cheap items are "boring" */
+	if(price == minprice) /* Count the successful haggles */
 	{
 		/* Just count the good haggles */
-		if(st_ptr->good_buy < MAX_SHORT)
-			st_ptr->good_buy++;
+		if(st_ptr->good_buy < MAX_SHORT) st_ptr->good_buy++;
 	}
 
 	/* Count the failed haggles */
 	else
 	{
 		/* Just count the bad haggles */
-		if(st_ptr->bad_buy < MAX_SHORT)
-			st_ptr->bad_buy++;
+		if(st_ptr->bad_buy < MAX_SHORT) st_ptr->bad_buy++;
 	}
 }
 
@@ -2352,11 +2324,11 @@ static void updatebargain(store_type *st_ptr, s32b price, s32b minprice, int num
  */
 static void display_entry(store_type *st_ptr, creature_type *creature_ptr, int pos)
 {
-	int 		i, cur_col;
+	int i, cur_col;
 	object_type *object_ptr;
-	s32b		x;
-	char		object_name[MAX_NLEN];
-	char		out_val[160], weight[80];
+	s32b x;
+	char object_name[MAX_NLEN];
+	char out_val[160], weight[80];
 
 	int maxwid = 75;
 
@@ -2553,27 +2525,17 @@ static OBJECT_ID get_stock(store_type *st_ptr, KEY *com_val, cptr pmt, int i, in
 	char out_val[160];
 	char lo, hi;
 
-	/* Get the item index */
-	if(repeat_pull(com_val))
-	{
-		/* Verify the item */
-		if((*com_val >= i) && (*com_val <= j))
-		{
-			return TRUE;
-		}
-	}
+	/* Get the item index / Verify the item */
+	if(repeat_pull(com_val) && (*com_val >= i) && (*com_val <= j)) return TRUE;
 
 	msg_print(NULL);
-
-	/* Assume failure */
-	*com_val = (-1);
+	*com_val = (-1); /* Assume failure */
 
 	/* Build the prompt */
 	lo = (char)I2A(i);
 	hi = (char)((j > 25) ? toupper(I2A(j - 26)) : I2A(j));
 #ifdef JP
-	(void)sprintf(out_val, "(%s:%c-%c, ESCで中断) %s",
-		((is_home(st_ptr) || is_museum(st_ptr)) ? "アイテム" : "商品"), lo, hi, pmt);
+	(void)sprintf(out_val, "(%s:%c-%c, ESCで中断) %s", ((is_home(st_ptr) || is_museum(st_ptr)) ? "アイテム" : "商品"), lo, hi, pmt);
 #else
 	(void)sprintf(out_val, "(Items %c-%c, ESC to exit) %s", lo, hi, pmt);
 #endif
@@ -2582,17 +2544,12 @@ static OBJECT_ID get_stock(store_type *st_ptr, KEY *com_val, cptr pmt, int i, in
 	while (TRUE)
 	{
 		KEY k;
-
-		/* Escape */
 		if(!get_com(out_val, &command, FALSE)) break;
 
 		/* Convert */
-		if(islower(command))
-			k = A2I(command);
-		else if(isupper(command))
-			k = A2I((char)tolower(command)) + 26;
-		else
-			k = -1;
+		if(islower(command)) k = A2I(command);
+		else if(isupper(command)) k = A2I((char)tolower(command)) + 26;
+		else k = -1;
 
 		/* Legal responses */
 		if((k >= i) && (k <= j))
@@ -2617,29 +2574,21 @@ static OBJECT_ID get_stock(store_type *st_ptr, KEY *com_val, cptr pmt, int i, in
  */
 static int increase_insults(store_type *st_ptr)
 {
-	/* Increase insults */
-	st_ptr->insult_cur++;
-
-	/* Become insulted */
-	if(st_ptr->insult_cur > 12) //ot_ptr->insult_max)
+	st_ptr->insult_cur++; /* Increase insults */
+	if(st_ptr->insult_cur > 12) //ot_ptr->insult_max) /* Become insulted */
 	{
-		/* Complain */
-		say_comment_4(st_ptr);
+		say_comment_4(st_ptr); /* Complain */
 
 		/* Reset insults */
 		st_ptr->insult_cur = 0;
 		st_ptr->good_buy = 0;
 		st_ptr->bad_buy = 0;
+		st_ptr->store_open = game_turn + TURNS_PER_TICK * TOWN_DAWN / 8 + randint1(TURNS_PER_TICK * TOWN_DAWN / 8); /* Open tomorrow */
 
-		/* Open tomorrow */
-		st_ptr->store_open = game_turn + TURNS_PER_TICK * TOWN_DAWN / 8 + randint1(TURNS_PER_TICK * TOWN_DAWN / 8);
-
-		/* Closed */
-		return TRUE;
+		return TRUE; /* Closed */
 	}
 
-	/* Not closed */
-	return FALSE;
+	return FALSE; /* Not closed */
 }
 
 
@@ -2789,24 +2738,15 @@ static int get_haggle(cptr pmt, s32b *poffer, s32b price, int final)
  *
  * Return TRUE if offer is NOT okay
  */
-static bool receive_offer(store_type *st_ptr, cptr pmt, s32b *poffer, s32b last_offer, int factor, s32b price, int final)
+static bool receive_offer(store_type *st_ptr, cptr pmt, s32b *poffer, s32b last_offer, int factor, PRICE price, int final)
 {
-	/* Haggle till done */
-	while (TRUE)
+	while (TRUE) /* Haggle till done */
 	{
-		/* Get a haggle (or cancel) */
-		if(!get_haggle(pmt, poffer, price, final)) return TRUE;
-
-		/* Acceptable offer */
-		if(((*poffer) * factor) >= (last_offer * factor)) break;
-
-		/* Insult, and check for kicked out */
-		if(haggle_insults(st_ptr)) return TRUE;
-
-		/* Reject offer (correctly) */
-		(*poffer) = last_offer;
+		if(!get_haggle(pmt, poffer, price, final)) return TRUE; /* Get a haggle (or cancel) */
+		if(((*poffer) * factor) >= (last_offer * factor)) break; /* Acceptable offer */
+		if(haggle_insults(st_ptr)) return TRUE; /* Insult, and check for kicked out */
+		(*poffer) = last_offer; /* Reject offer (correctly) */
 	}
-
 	return FALSE;
 }
 
@@ -2816,19 +2756,18 @@ static bool receive_offer(store_type *st_ptr, cptr pmt, s32b *poffer, s32b last_
  *
  * Return TRUE if purchase is NOT successful
  */
-static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, object_type *object_ptr, s32b *price)
+static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, object_type *object_ptr, PRICE *price)
 {
-	s32b			   cur_ask, final_ask;
-	s32b			   last_offer, offer;
-	s32b			   x1, x2, x3;
-	s32b			   min_per, max_per;
-	int 			   flag, loop_flag, noneed;
-	int 			   annoyed = 0, final = FALSE;
-
-	bool		cancel = FALSE;
+	PRICE cur_ask, final_ask;
+	s32b last_offer, offer;
+	s32b x1, x2, x3;
+	s32b min_per, max_per;
+	int flag, loop_flag, noneed;
+	int annoyed = 0, final = FALSE;
+	bool cancel = FALSE;
 
 	cptr pmt = KW_ASKING_PRICE;
-	char		out_val[160];
+	char out_val[MAX_NLEN];
 
 	*price = 0;
 
