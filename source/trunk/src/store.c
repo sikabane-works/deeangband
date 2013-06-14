@@ -2840,40 +2840,22 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 	/* Determine if haggling is necessary */
 	noneed = noneedtobargain(st_ptr, final_ask);
 
-	/* No need to haggle */
 	if(noneed || !manual_haggle)
 	{
-		/* No need to haggle */
 		if(noneed)
 		{
-#ifdef JP
-			msg_print("Œ‹‹Ç‚±‚Ì‹àŠz‚É‚Ü‚Æ‚Ü‚Á‚½B");
-#else
-			msg_print("You eventually agree upon the price.");
-#endif
+			msg_print(MES_STORE_PRICE_EVENTUALLY);
 			msg_print(NULL);
 		}
-
-		/* No haggle option */
 		else
 		{
-#ifdef JP
-			msg_print("‚·‚ñ‚È‚è‚Æ‚±‚Ì‹àŠz‚É‚Ü‚Æ‚Ü‚Á‚½B");
-#else
-			msg_print("You quickly agree upon the price.");
-#endif
-
+			msg_print(MES_STORE_PRICE_QUICKLY);
 			msg_print(NULL);
-
-			/* Apply Sales Tax */
 			final_ask += final_ask / 10;
 		}
 
-		/* Final price */
-		cur_ask = final_ask;
-
-		/* Go to final offer */
-		pmt = KW_FINAL_OFFER_PRICE;
+		cur_ask = final_ask; /* Final price */
+		pmt = KW_FINAL_OFFER_PRICE; /* Go to final offer */
 		final = TRUE;
 	}
 
@@ -2881,7 +2863,6 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 	/* Haggle for the whole pile */
 	cur_ask *= object_ptr->number;
 	final_ask *= object_ptr->number;
-
 
 	/* Haggle parameters */
 	min_per = 100; //ot_ptr->haggle_per;
@@ -2892,10 +2873,7 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 	last_offer = last_offer / 2;
 	if(last_offer <= 0) last_offer = 1;
 
-	/* No offer yet */
 	offer = 0;
-
-	/* No incremental haggling yet */
 	allow_inc = FALSE;
 
 	/* Haggle until done */

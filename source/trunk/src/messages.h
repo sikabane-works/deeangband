@@ -2402,6 +2402,8 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_FIXED_PRICE(PRICE) "一つにつき $%ldです。", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "%s(%c)を購入する。", (NAME), (SYM)
 #define MES_STORE_SELLING(NAME, SYM) "%s(%c)を売却する。", (NAME), (SYM)
+#define MES_STORE_PRICE_QUICKLY "すんなりとこの金額にまとまった。"
+#define MES_STORE_PRICE_EVENTUALLY "結局この金額にまとまった。"
 #define MES_STORE_BOUGHT(NAME, PRICE) "%sを $%ldで購入しました。", (NAME), (PRICE)
 #define MES_STORE_SELL(NAME, PRICE) "%sを $%ldで売却しました。", (NAME), (PRICE)
 #define MES_STORE_OFFER "提示する金額は? "
@@ -2469,6 +2471,8 @@ static cptr desc_stat_neg[] =
 #define MES_STORE_FIXED_PRICE(PRICE) "That costs %ld gold per item.", (PRICE)
 #define MES_STORE_BUYING(NAME, SYM) "Buying %s(%c).", (NAME), (SYM)
 #define MES_STORE_SELLING(NAME, SYM) "Selling %s (%c).", (NAME), (SYM)
+#define MES_STORE_PRICE_EVENTUALLY "You eventually agree upon the price."
+#define MES_STORE_PRICE_QUICKLY "You quickly agree upon the price."
 #define MES_STORE_BOUGHT(NAME, PRICE) "You bought %s for %ld gold.", (NAME), (PRICE)
 #define MES_STORE_SELL(NAME, PRICE) "You sold %s for %ld gold.", (NAME), (PRICE)
 #define MES_STORE_OFFER "What do you offer? "
