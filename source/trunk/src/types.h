@@ -1309,11 +1309,9 @@ typedef struct player_patron player_patron;
 struct player_patron
 {
 	cptr title;			/* patron mame */
-
 #ifdef JP
 	cptr E_title;		/* English patron name */
 #endif
-
 
 	STAT p_adj[STAT_MAX];		/* patron stat bonuses */
 

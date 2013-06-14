@@ -2907,16 +2907,9 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 		{
 			(void)sprintf(out_val, "%s :  %ld", pmt, (long)cur_ask);
 			put_str(out_val, 1, 0);
-#ifdef JP
-			cancel = receive_offer(st_ptr, "’ñŽ¦‚·‚é‹àŠz? ", &offer, last_offer, 1, cur_ask, final);
-#else
-			cancel = receive_offer(st_ptr, "What do you offer? ", &offer, last_offer, 1, cur_ask, final);
-#endif
+			cancel = receive_offer(st_ptr, MES_STORE_OFFER, &offer, last_offer, 1, cur_ask, final);
 
-			if(cancel)
-			{
-				flag = TRUE;
-			}
+			if(cancel) flag = TRUE;
 			else if(offer > cur_ask)
 			{
 				say_comment_6();
@@ -2927,10 +2920,7 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 				flag = TRUE;
 				*price = offer;
 			}
-			else
-			{
-				loop_flag = FALSE;
-			}
+			else loop_flag = FALSE;
 		}
 
 		if(!flag)
@@ -3156,8 +3146,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 				{
 					flag = TRUE;
 #ifdef JP
-				/* ’Ç‰Á $0 ‚Å”ƒ‚¢Žæ‚ç‚ê‚Ä‚µ‚Ü‚¤‚Ì‚ð–hŽ~ By FIRST*/
-					cancel = TRUE;
+					cancel = TRUE; /* ’Ç‰Á $0 ‚Å”ƒ‚¢Žæ‚ç‚ê‚Ä‚µ‚Ü‚¤‚Ì‚ð–hŽ~ By FIRST*/
 #endif
 					(void)(increase_insults(st_ptr));
 				}

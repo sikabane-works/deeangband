@@ -5911,8 +5911,12 @@ static bool build_type15(floor_type *floor_ptr)
 			}
 
 			for (y = yval - 2; y <= yval + 2; y++)
+			{
 				for (x = xval - 2; x <= xval + 2; x++)
+				{
 					floor_ptr->cave[y][x].info |= (CAVE_ICKY);
+				}
+			}
 
 		}
 		break;
@@ -5959,7 +5963,6 @@ static bool room_build(floor_type *floor_ptr, int typ)
 
 /*
  * [from SAngband (originally from OAngband)]
- * 
  * Generate rooms in dungeon.  Build bigger rooms at first.
  */
 bool generate_rooms(floor_type *floor_ptr)
@@ -5976,11 +5979,8 @@ bool generate_rooms(floor_type *floor_ptr)
 	/* Number of each type of room on this level */
 	s16b room_num[ROOM_T_MAX];
 
-	/* Limit number of rooms */
-	int dun_rooms = DUN_ROOTRAIT_MAX * area_size / 100;
-
-	/* Assume normal cave */
-	room_info_type *room_object_ptr = room_info_normal;
+	int dun_rooms = DUN_ROOTRAIT_MAX * area_size / 100; /* Limit number of rooms */
+	room_info_type *room_object_ptr = room_info_normal; /* Assume normal cave */
 
 	/*
 	 * Initialize probability list.
@@ -5988,10 +5988,8 @@ bool generate_rooms(floor_type *floor_ptr)
 	for (i = 0; i < ROOM_T_MAX; i++)
 	{
 		/* No rooms allowed above their minimum depth. */
-		if(floor_ptr->depth < room_object_ptr[i].min_level)
-			prob_list[i] = 0;
-		else
-			prob_list[i] = room_object_ptr[i].prob[level_index];
+		if(floor_ptr->depth < room_object_ptr[i].min_level) prob_list[i] = 0;
+		else prob_list[i] = room_object_ptr[i].prob[level_index];
 	}
 
 	/*
@@ -6107,32 +6105,20 @@ bool generate_rooms(floor_type *floor_ptr)
 
 		for (i = 0; i < ROOM_T_MAX; i++)
 		{
-			/* What type of room are we building now? */
-			int room_type = room_build_order[i];
-
-			/* Go next if none available */
-			if(!room_num[room_type]) continue;
-
-			/* Use up one unit */
-			room_num[room_type]--;
-
-			/* Build the room. */
-			if(room_build(floor_ptr, room_type))
+			int room_type = room_build_order[i]; /* What type of room are we building now? */
+			if(!room_num[room_type]) continue; /* Go next if none available */
+			room_num[room_type]--; /* Use up one unit */
+			if(room_build(floor_ptr, room_type)) /* Build the room. */
 			{
-				/* Increase the room built count. */
-				rooms_built++;
-
-				/* Mark as there was some remaining rooms */
-				remain = TRUE;
+				rooms_built++; /* Increase the room built count. */
+				remain = TRUE; /* Mark as there was some remaining rooms */
 
 				switch (room_type)
 				{
 				case ROOM_T_PIT:
 				case ROOM_T_NEST:
 				case ROOM_T_TRAP_PIT:
-
-					/* Avoid too many creatures */
-					if(++crowded >= 2)
+					if(++crowded >= 2) /* Avoid too many creatures */
 					{
 						room_num[ROOM_T_PIT] = 0;
 						room_num[ROOM_T_NEST] = 0;

@@ -4080,8 +4080,7 @@ void update_smell(creature_type *creature_ptr)
 			}
 		}
 
-		/* Restart */
-		scent_when = 126;
+		scent_when = 126; /* Restart */
 	}
 
 
@@ -4143,18 +4142,12 @@ void map_area(creature_type *creature_ptr, COODINATES range)
 			feat = get_feat_mimic(cave_ptr);
 			f_ptr = &feature_info[feat];
 
-			/* All non-walls are "checked" */
-			if(!have_flag(f_ptr->flags, FF_WALL))
+			if(!have_flag(f_ptr->flags, FF_WALL)) /* All non-walls are "checked" */
 			{
-				/* Memorize normal features */
-				if(have_flag(f_ptr->flags, FF_REMEMBER))
-				{
-					/* Memorize the object */
-					cave_ptr->info |= (CAVE_MARK);
-				}
+				/* Memorize normal features / Memorize the object */
+				if(have_flag(f_ptr->flags, FF_REMEMBER)) cave_ptr->info |= (CAVE_MARK);
 
-				/* Memorize known walls */
-				for (i = 0; i < 8; i++)
+				for (i = 0; i < 8; i++) /* Memorize known walls */
 				{
 					cave_ptr = &floor_ptr->cave[y + ddy_ddd[i]][x + ddx_ddd[i]];
 
@@ -4163,18 +4156,13 @@ void map_area(creature_type *creature_ptr, COODINATES range)
 					f_ptr = &feature_info[feat];
 
 					/* Memorize walls (etc) */
-					if(have_flag(f_ptr->flags, FF_REMEMBER))
-					{
-						/* Memorize the walls */
-						cave_ptr->info |= (CAVE_MARK);
-					}
+					if(have_flag(f_ptr->flags, FF_REMEMBER)) cave_ptr->info |= (CAVE_MARK); /* Memorize the walls */
 				}
 			}
 		}
 	}
 
 	prepare_redraw(PR_MAP);
-
 	prepare_window(PW_OVERHEAD | PW_DUNGEON);
 }
 
@@ -4206,15 +4194,9 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 	for (i = 1; i < object_max; i++)
 	{
 		object_type *object_ptr = &object_list[i];
-
-		/* Skip dead objects */
-		if(!is_valid_object(object_ptr)) continue;
-
-		/* Skip held objects */
-		if(object_ptr->held_creature_idx) continue;
-
-		/* Memorize */
-		object_ptr->marked |= OM_FOUND;
+		if(!is_valid_object(object_ptr)) continue; /* Skip dead objects */
+		if(object_ptr->held_creature_idx) continue; /* Skip held objects */
+		object_ptr->marked |= OM_FOUND; /* Memorize */
 	}
 
 	/* Scan all normal grids */
@@ -4469,22 +4451,14 @@ FEATURE_ID conv_dungeon_feat(floor_type *floor_ptr, FEATURE_ID newfeat)
 	{
 		switch (f_ptr->subtype)
 		{
-		case CONVERT_TYPE_FLOOR:
-			return feat_floor_rand_table[randint0(100)];
-		case CONVERT_TYPE_WALL:
-			return fill_type[randint0(100)];
-		case CONVERT_TYPE_INNER:
-			return feat_wall_inner;
-		case CONVERT_TYPE_OUTER:
-			return feat_wall_outer;
-		case CONVERT_TYPE_SOLID:
-			return feat_wall_solid;
-		case CONVERT_TYPE_STREAM1:
-			return dungeon_info[floor_ptr->dungeon_id].stream1;
-		case CONVERT_TYPE_STREAM2:
-			return dungeon_info[floor_ptr->dungeon_id].stream2;
-		default:
-			return newfeat;
+		case CONVERT_TYPE_FLOOR: return feat_floor_rand_table[randint0(100)];
+		case CONVERT_TYPE_WALL: return fill_type[randint0(100)];
+		case CONVERT_TYPE_INNER: return feat_wall_inner;
+		case CONVERT_TYPE_OUTER: return feat_wall_outer;
+		case CONVERT_TYPE_SOLID: return feat_wall_solid;
+		case CONVERT_TYPE_STREAM1: return dungeon_info[floor_ptr->dungeon_id].stream1;
+		case CONVERT_TYPE_STREAM2: return dungeon_info[floor_ptr->dungeon_id].stream2;
+		default: return newfeat;
 		}
 	}
 	else return newfeat;
@@ -4507,7 +4481,6 @@ FEATURE_ID feat_state(floor_type *floor_ptr, FEATURE_ID feat, int action)
 	}
 
 	if(have_flag(f_ptr->flags, FF_PERMANENT)) return feat;
-
 	return (feature_action_flags[action] & FAF_DESTROY) ? conv_dungeon_feat(floor_ptr, f_ptr->destroyed) : feat;
 }
 
@@ -4517,16 +4490,11 @@ FEATURE_ID feat_state(floor_type *floor_ptr, FEATURE_ID feat, int action)
  */
 void cave_alter_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, int action)
 {
-	/* Set old feature */
 	FEATURE_ID oldfeat = floor_ptr->cave[y][x].feat;
-
-	/* Get the new feat */
 	FEATURE_ID newfeat = feat_state(floor_ptr, oldfeat, action);
 
-	/* No change */
 	if(newfeat == oldfeat) return;
 
-	/* Set the new feature */
 	cave_set_feat(floor_ptr, y, x, newfeat);
 
 	if(!(feature_action_flags[action] & FAF_NO_DROP))
@@ -4535,18 +4503,14 @@ void cave_alter_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, int acti
 		feature_type *f_ptr = &feature_info[newfeat];
 		bool found = FALSE;
 
-		/* Handle gold */
 		if(have_flag(old_f_ptr->flags, FF_HAS_GOLD) && !have_flag(f_ptr->flags, FF_HAS_GOLD))
 		{
-			/* Place some gold */
 			place_gold(floor_ptr, y, x);
 			found = TRUE;
 		}
 
-		/* Handle item */
 		if(have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (PERCENT(15 - floor_ptr->depth / 2)))
 		{
-			/* Place object */
 			place_object(floor_ptr, y, x, 0L);
 			found = TRUE;
 		}
@@ -4557,7 +4521,6 @@ void cave_alter_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, int acti
 	if(feature_action_flags[action] & FAF_CRASH_GLASS)
 	{
 		feature_type *old_f_ptr = &feature_info[oldfeat];
-
 		if(have_flag(old_f_ptr->flags, FF_GLASS) && floor_ptr->generated)
 		{
 			project(NULL, 0, 1, y, x, MIN(floor_ptr->depth, 100) / 4, DO_EFFECT_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
