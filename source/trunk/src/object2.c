@@ -2544,7 +2544,7 @@ void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr
 }
 
 // Hack -- determine if a template is "good"
-static bool kind_is_good(int k_idx)
+static bool kind_is_good(OBJECT_KIND_ID k_idx)
 {
 	object_kind *object_kind_ptr = &object_kind_info[k_idx];
 
@@ -2561,10 +2561,9 @@ static bool kind_is_good(int k_idx)
 	case TV_GLOVES:
 	case TV_HELM:
 	case TV_CROWN:
-		{
-			if(object_kind_ptr->to_ac < 0) return FALSE;
-			return TRUE;
-		}
+		if(object_kind_ptr->to_ac < 0) return FALSE;
+		if(object_kind_ptr->to_ev < 0) return FALSE;
+		return TRUE;
 
 		/* Weapons -- Good unless damaged */
 	case TV_BOW:
@@ -2572,18 +2571,14 @@ static bool kind_is_good(int k_idx)
 	case TV_HAFTED:
 	case TV_POLEARM:
 	case TV_DIGGING:
-		{
-			if(object_kind_ptr->to_hit < 0) return FALSE;
-			if(object_kind_ptr->to_damage < 0) return FALSE;
-			return TRUE;
-		}
+		if(object_kind_ptr->to_hit < 0) return FALSE;
+		if(object_kind_ptr->to_damage < 0) return FALSE;
+		return TRUE;
 
 		/* Ammo -- Arrows/Bolts are good */
 	case TV_BOLT:
 	case TV_ARROW:
-		{
-			return TRUE;
-		}
+		return TRUE;
 
 		/* Books -- High level books are good (except Arcane books) */
 	case TV_LIFE_BOOK:
@@ -2598,10 +2593,8 @@ static bool kind_is_good(int k_idx)
 	case TV_MUSIC_BOOK:
 	case TV_HISSATSU_BOOK:
 	case TV_HEX_BOOK:
-		{
-			if(object_kind_ptr->sval >= SV_BOOK_MIN_GOOD) return TRUE;
-			return FALSE;
-		}
+		if(object_kind_ptr->sval >= SV_BOOK_MIN_GOOD) return TRUE;
+		return FALSE;
 
 		/* Rings -- Rings of Speed are good */
 	case TV_RING:
@@ -2632,7 +2625,7 @@ static bool kind_is_good(int k_idx)
 bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx))
 {
 	int prob, base;
-	OBJECT_KIND_ID k_idx;
+	OBJECT_KIND_ID object_kind_idx;
 	FLOOR_LEV obj_level;
 
 	prob = ((mode & AM_GOOD) ? 10 : 1000); // Chance of "special object"
@@ -2643,13 +2636,12 @@ bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, i
 	{
 		PROB *prob_list;
 		alloc_object_kind_list(&prob_list, level);
-		// Good objects & Activate restriction (if already specified, use that)
-		//if((mode & AM_GOOD) && !get_obj_num_hook) get_obj_num_hook = kind_is_good;
-		//if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects - prepare allocation table
-		k_idx = object_kind_rand(prob_list);
+		forbid_object_kind_list(&prob_list, kind_is_good);
+		object_kind_idx = object_kind_rand(prob_list);
 		free_object_kind_list(&prob_list);
-		if(!k_idx) return FALSE; // Handle failure
-		generate_object(object_ptr, k_idx); // Prepare the object
+
+		if(object_kind_idx <= 0) return FALSE;
+		generate_object(object_ptr, object_kind_idx);
 	}
 
 	apply_magic(player_ptr, object_ptr, level, mode, 0); // Apply magic (allow artifacts)
