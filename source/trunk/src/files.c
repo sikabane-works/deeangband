@@ -5744,20 +5744,14 @@ static void handle_signal_simple(int sig)
 	/* Allow suicide (after 5) */
 	else if(signal_count >= 5)
 	{
-		/* Cause of "death" */
-		(void)strcpy(gameover_from, MES_SYS_INTERUPTING);
+		(void)strcpy(gameover_from, MES_SYS_INTERUPTING); /* Cause of "death" */
 
 		forget_lite(CURRENT_FLOOR_PTR);
 		forget_view(CURRENT_FLOOR_PTR);
 		clear_creature_lite(CURRENT_FLOOR_PTR);
-
-		/* Stop playing */
-		playing = FALSE;
+		playing = FALSE; /* Stop playing */
 		gameover = TRUE;
-
-		/* Leaving */
-		subject_change_floor = TRUE;
-
+		subject_change_floor = TRUE; /* Leaving */
 		close_game();
 		quit(COD_INTERRUPTING);
 	}
@@ -5765,19 +5759,9 @@ static void handle_signal_simple(int sig)
 	/* Give warning (after 4) */
 	else if(signal_count >= 4)
 	{
-		/* Make a noise */
-		Term_xtra(TERM_XTRA_NOISE, 0);
-
-		/* Clear the top line */
-		Term_erase(0, 0, 255);
-
-		/* Display the cause */
-#ifdef JP
-		Term_putstr(0, 0, -1, TERM_WHITE, "ènó∂ÇÃè„ÇÃé©éEÅI");
-#else
-		Term_putstr(0, 0, -1, TERM_WHITE, "Contemplating suicide!");
-#endif
-
+		Term_xtra(TERM_XTRA_NOISE, 0); /* Make a noise */
+		Term_erase(0, 0, 255); /* Clear the top line */
+		Term_putstr(0, 0, -1, TERM_WHITE, MES_SYS_ERROR_GAMEOVER); /* Display the cause */
 		Term_fresh();
 	}
 

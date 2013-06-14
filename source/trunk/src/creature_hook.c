@@ -19,25 +19,18 @@
 /*
  * Pronoun arrays, by gender.
  */
-static cptr wd_he[3] =
 #ifdef JP
-{ "‚»‚ê", "”Þ", "”Þ—" };
+static cptr wd_he[3] = { "‚»‚ê", "”Þ", "”Þ—" };
+static cptr wd_his[3] = { "‚»‚ê‚Ì", "”Þ‚Ì", "”Þ—‚Ì" };
 #else
-{ "it", "he", "she" };
-#endif
-
-static cptr wd_his[3] =
-#ifdef JP
-{ "‚»‚ê‚Ì", "”Þ‚Ì", "”Þ—‚Ì" };
-#else
-{ "its", "his", "her" };
+static cptr wd_he[3] = { "it", "he", "she" };
+static cptr wd_his[3] = { "its", "his", "her" };
 #endif
 
 /*
  * Pluralizer.  Args(count, singular, plural)
  */
-#define plural(c,s,p) \
-    (((c) == 1) ? (s) : (p))
+#define plural(c,s,p) (((c) == 1) ? (s) : (p))
 
 /*
  * Prepare hook for c_roff(). It will be changed for spoiler generation in wizard1.c.
@@ -55,11 +48,9 @@ static void hooked_roff(cptr str)
  */
 void roff_top(SPECIES_ID species_idx)
 {
-	species_type	*species_ptr = &species_info[species_idx];
-
-	byte		a1, a2;
-	char		c1, c2;
-
+	species_type *species_ptr = &species_info[species_idx];
+	byte a1, a2;
+	char c1, c2;
 
 	/* Access the chars */
 	c1 = species_ptr->d_char;
@@ -69,19 +60,12 @@ void roff_top(SPECIES_ID species_idx)
 	a1 = species_ptr->d_attr;
 	a2 = species_ptr->x_attr;
 
-
-	/* Clear the top line */
-	Term_erase(0, 0, 255);
-
-	/* Reset the cursor */
-	Term_gotoxy(0, 0);
+	Term_erase(0, 0, 255); /* Clear the top line */
+	Term_gotoxy(0, 0); /* Reset the cursor */
 
 #ifndef JP
 	/* A title (use "The" for non-uniques) */
-	if(!(has_trait_species(species_ptr, TRAIT_UNIQUE)))
-	{
-		Term_addstr(-1, TERM_WHITE, "The ");
-	}
+	if(!(has_trait_species(species_ptr, TRAIT_UNIQUE))) Term_addstr(-1, TERM_WHITE, "The ");
 #endif
 
 	/* Dump the name */
@@ -119,19 +103,13 @@ void screen_roff(creature_type *creature_ptr)
 {
 	char c;
 	int m = 0;
-
 	msg_print(NULL);
+	Term_erase(0, 1, 255); /* Begin recall */
 
-	/* Begin recall */
-	Term_erase(0, 1, 255);
-
-	/* Forever */
 	while(TRUE)
 	{
 		update_play_time();
-
-		/* Display the player */
-		display_creature_status(m, creature_ptr);
+		display_creature_status(m, creature_ptr); /* Display the player */
 
 		if(m == DISPLAY_CR_STATUS_MAX)
 		{
@@ -160,16 +138,11 @@ void display_roff(SPECIES_ID species_idx)
 {
 	int y;
 
-	/* Erase the window */
-	for (y = 0; y < Term->hgt; y++)
-	{
-		/* Erase the line */
-		Term_erase(0, y, 255);
-	}
+	/* Erase the window / Erase the line */
+	for (y = 0; y < Term->hgt; y++) Term_erase(0, y, 255);
 
 	/* Begin recall */
 	Term_gotoxy(0, 1);
-
 	hook_c_roff = c_roff;
 
 	/* Describe creature */
@@ -604,14 +577,8 @@ bool species_can_cross_terrain(FEATURE_ID feat, species_type *species_ptr, u16b 
 	/* Pattern */
 	if(have_flag(f_ptr->flags, FF_PATTERN))
 	{
-		if(!(mode & CEM_RIDING))
-		{
-			if(!has_trait_species(species_ptr, TRAIT_CAN_FLY)) return FALSE;
-		}
-		else
-		{
-			if(!(mode & CEM_P_CAN_ENTER_PATTERN)) return FALSE;
-		}
+		if(!(mode & CEM_RIDING) && !has_trait_species(species_ptr, TRAIT_CAN_FLY)) return FALSE;
+		else if(!(mode & CEM_P_CAN_ENTER_PATTERN)) return FALSE;
 	}
 
 	// "CAN" flags

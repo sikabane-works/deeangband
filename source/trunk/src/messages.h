@@ -120,6 +120,7 @@
 #define MES_SYS_COMPRESS_CREATURE "クリーチャー情報を圧縮しています..."
 #define MES_SYS_DUMP_INFO1 "キャラクターの記録をファイルに書き出すことができます。"
 #define MES_SYS_DUMP_INFO2 "リターンキーでキャラクターを見ます。ESCで中断します。"
+#define MES_SYS_ERROR_GAMEOVER "熟慮の上の自殺！"
 
 #define MES_SYS_PARSING(FILE) "'%s'を解析中。", (FILE)
 
@@ -213,6 +214,7 @@
 
 #define MES_SYS_DUMP_INFO1 "You may now dump a character record to one or more files."
 #define MES_SYS_DUMP_INFO2 "Then, hit RETURN to see the character, or ESC to abort."
+#define MES_SYS_ERROR_GAMEOVER "Contemplating suicide!"
 
 #define MES_SYS_PARSING(FILE) "Parsing '%s'.", (FILE)
 
