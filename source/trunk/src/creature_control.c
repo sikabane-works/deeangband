@@ -3242,7 +3242,7 @@ void deal_item(creature_type *creature_ptr)
 
 	for(i = 0; i < creature_ptr->sc / 10; i++)
 	{
-		make_random_object(object_ptr, AM_GOOD, object_level, 0);
+		make_random_object(object_ptr, AM_GOOD, object_level);
 		add_item_to_creature(creature_ptr, object_ptr, ADD_OUTFIT_EQUIP);
 	}
 
