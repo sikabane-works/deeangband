@@ -1051,9 +1051,9 @@ struct store_type
 	s16b table_size;		/* Table -- Total Size of Array */
 	s16b *table;			/* Table -- Legal item kinds */
 
-	s16b stock_num;			/* Stock -- Number of entries */
-	s16b stock_size;		/* Stock -- Total Size of Array */
-	object_type *stock;		/* Stock -- Actual stock items */
+	OBJECT_ID stock_num; /* Stock -- Number of entries */
+	OBJECT_ID stock_size; /* Stock -- Total Size of Array */
+	object_type *stock; /* Stock -- Actual stock items */
 
 	FLAGS_32 flags;
 	PRICE wealth;
@@ -1069,8 +1069,8 @@ struct store_pre_type
 	STRING_OFFSET E_name;
 
 	SPECIES_ID owner_id;
-	u16b size;
-	s32b wealth;
+	OBJECT_ID size;
+	PRICE wealth;
 	FLAGS_32 flags;
 	FLOOR_LEV level;
 };

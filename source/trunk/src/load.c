@@ -512,7 +512,7 @@ static errr rd_store(store_type *st_ptr)
 	rd_s16b(&st_ptr->insult_cur);
 	READ_SPECIES_ID(&st_ptr->owner_id);
 	rd_s16b(&num);
-	rd_s16b(&st_ptr->stock_size);
+	READ_OBJECT_ID(&st_ptr->stock_size);
 	rd_s16b(&num2);
 	rd_s16b(&st_ptr->table_size);
 	rd_s16b(&st_ptr->good_buy);

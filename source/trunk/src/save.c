@@ -185,8 +185,8 @@ static void wr_store(store_type *st_ptr)
 	WRITE_SPECIES_ID(st_ptr->owner_id);
 
 	/* Save the stock size */
-	wr_s16b(st_ptr->stock_num);
-	wr_s16b(st_ptr->stock_size);
+	WRITE_OBJECT_ID(st_ptr->stock_num);
+	WRITE_OBJECT_ID(st_ptr->stock_size);
 
 	/* Save the table size */
 	wr_s16b(st_ptr->table_num);
