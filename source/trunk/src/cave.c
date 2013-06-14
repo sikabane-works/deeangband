@@ -4547,7 +4547,7 @@ void cave_alter_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, int acti
 		if(have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (PERCENT(15 - floor_ptr->depth / 2)))
 		{
 			/* Place object */
-			place_object(floor_ptr, y, x, 0L, NULL);
+			place_object(floor_ptr, y, x, 0L);
 			found = TRUE;
 		}
 

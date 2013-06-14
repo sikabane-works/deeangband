@@ -316,7 +316,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, COODINATES y, COODI
 
 		// Small chests often drop gold
 		if(small && (PERCENT(25))) if(!make_gold(floor_ptr, quest_ptr, 0, 0)) continue; // Make some gold
-		else if(!make_random_object(quest_ptr, mode, level, NULL)) continue; // Make object
+		else if(!make_random_object(quest_ptr, mode, level)) continue; // Make object
 
 		if(scatter) // If chest scatters its contents, pick any floor square.
 		{

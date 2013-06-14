@@ -963,7 +963,7 @@ static bool build_type3(floor_type *floor_ptr)
 			}
 
 			/* Place a treasure in the vault */
-			place_object(floor_ptr, yval, xval, 0L, NULL);
+			place_object(floor_ptr, yval, xval, 0L);
 
 			/* Let's guard the treasure well */
 			vault_creatures(floor_ptr, yval, xval, randint0(2) + 3);
@@ -1187,17 +1187,9 @@ static bool build_type4(floor_type *floor_ptr)
 			/* Creatures to guard the "treasure" */
 			vault_creatures(floor_ptr, yval, xval, randint1(3) + 2);
 
-			/* Object (80%) */
-			if(PERCENT(80))
-			{
-				place_object(floor_ptr, yval, xval, 0L, NULL);
-			}
-
-			/* Stairs (20%) */
-			else
-			{
-				place_random_stairs(floor_ptr, yval, xval);
-			}
+			/* Object (80%) / Stairs (20%) */
+			if(PERCENT(80)) place_object(floor_ptr, yval, xval, 0L);
+			else place_random_stairs(floor_ptr, yval, xval);
 
 			/* Traps to protect the treasure */
 			vault_traps(floor_ptr, yval, xval, 4, 10, 2 + randint1(3));
@@ -1277,8 +1269,8 @@ static bool build_type4(floor_type *floor_ptr)
 				vault_creatures(floor_ptr, yval, xval + 2, randint1(2));
 
 				/* Objects */
-				if(one_in_(3)) place_object(floor_ptr, yval, xval - 2, 0L, NULL);
-				if(one_in_(3)) place_object(floor_ptr, yval, xval + 2, 0L, NULL);
+				if(one_in_(3)) place_object(floor_ptr, yval, xval - 2, 0L);
+				if(one_in_(3)) place_object(floor_ptr, yval, xval + 2, 0L);
 			}
 
 			break;
@@ -2643,14 +2635,8 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 
 				/* Treasure/trap */
 			case '*':
-				if(PERCENT(75))
-				{
-					place_object(floor_ptr, y, x, 0L, NULL);
-				}
-				else
-				{
-					place_trap(floor_ptr, y, x);
-				}
+				if(PERCENT(75)) place_object(floor_ptr, y, x, 0L);
+				else place_trap(floor_ptr, y, x);
 				break;
 
 				/* Secret doors */
@@ -2711,7 +2697,7 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 			case 'A':
 				/* Reward for Pattern walk */
 				floor_ptr->object_level = floor_ptr->depth + 12;
-				place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT, NULL);
+				place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT);
 				floor_ptr->object_level = floor_ptr->depth;
 				break;
 			}
@@ -2776,7 +2762,7 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 					place_floor_spawn_creature(NULL, floor_ptr, y, x, PC_ALLOW_SLEEP);
 					floor_ptr->enemy_level = floor_ptr->depth;
 					floor_ptr->object_level = floor_ptr->depth + 7;
-					place_object(floor_ptr, y, x, AM_GOOD, NULL);
+					place_object(floor_ptr, y, x, AM_GOOD);
 					floor_ptr->object_level = floor_ptr->depth;
 					break;
 				}
@@ -2788,7 +2774,7 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 					place_floor_spawn_creature(NULL, floor_ptr, y, x, PC_ALLOW_SLEEP);
 					floor_ptr->enemy_level = floor_ptr->depth;
 					floor_ptr->object_level = floor_ptr->depth + 20;
-					place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT, NULL);
+					place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT);
 					floor_ptr->object_level = floor_ptr->depth;
 					break;
 				}
@@ -2805,7 +2791,7 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 					if(PERCENT(50))
 					{
 						floor_ptr->object_level = floor_ptr->depth + 7;
-						place_object(floor_ptr, y, x, 0L, NULL);
+						place_object(floor_ptr, y, x, 0L);
 						floor_ptr->object_level = floor_ptr->depth;
 					}
 					break;
@@ -3902,7 +3888,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 					place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->enemy_level = floor_ptr->depth;
 					floor_ptr->object_level = floor_ptr->depth + 20;
-					place_object(floor_ptr, y, x, AM_GOOD, NULL);
+					place_object(floor_ptr, y, x, AM_GOOD);
 					floor_ptr->object_level = floor_ptr->depth;
 				}
 				else if(value < 5)
@@ -3912,7 +3898,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 					place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->enemy_level = floor_ptr->depth;
 					floor_ptr->object_level = floor_ptr->depth + 10;
-					place_object(floor_ptr, y, x, AM_GOOD, NULL);
+					place_object(floor_ptr, y, x, AM_GOOD);
 					floor_ptr->object_level = floor_ptr->depth;
 				}
 				else if(value < 10)
@@ -3938,7 +3924,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 					/* Object or trap */
 					if(PERCENT(25))
 					{
-						place_object(floor_ptr, y, x, 0L, NULL);
+						place_object(floor_ptr, y, x, 0L);
 					}
 					else
 					{
@@ -3965,7 +3951,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 					if(PERCENT(50))
 					{
 						floor_ptr->object_level = floor_ptr->depth + 7;
-						place_object(floor_ptr, y, x, 0L, NULL);
+						place_object(floor_ptr, y, x, 0L);
 						floor_ptr->object_level = floor_ptr->depth;
 					}
 				}
@@ -3985,7 +3971,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 					}
 					else if(PERCENT(50))
 					{
-						place_object(floor_ptr, y, x, 0L, NULL);
+						place_object(floor_ptr, y, x, 0L);
 					}
 				}
 
@@ -5306,7 +5292,7 @@ static bool build_type12(floor_type *floor_ptr)
 		build_small_room(floor_ptr, x0, y0);
 
 		/* Place a treasure in the vault */
-		place_object(floor_ptr, y0, x0, 0L, NULL);
+		place_object(floor_ptr, y0, x0, 0L);
 
 		/* Let's guard the treasure well */
 		vault_creatures(floor_ptr, y0, x0, randint0(2) + 3);
@@ -5811,7 +5797,7 @@ static bool build_type15(floor_type *floor_ptr)
 			if(is_closed_door(c_ptr->feat)) c_ptr->mimic = feat_glass_wall;
 
 			/* Place a potion */
-			place_object(floor_ptr, yval, xval, AM_NO_FIXED_ART, kind_is_potion);
+			place_object(floor_ptr, yval, xval, AM_NO_FIXED_ART); // TODO: kind_is_potion
 			floor_ptr->cave[yval][xval].info |= (CAVE_ICKY);
 		}
 		break;
@@ -5864,7 +5850,7 @@ static bool build_type15(floor_type *floor_ptr)
 			}
 
 			/* Place an object */
-			place_object(floor_ptr, yval, xval, AM_NO_FIXED_ART, NULL);
+			place_object(floor_ptr, yval, xval, AM_NO_FIXED_ART);
 			floor_ptr->cave[yval][xval].info |= (CAVE_ICKY);
 		}
 		break;
@@ -5915,13 +5901,13 @@ static bool build_type15(floor_type *floor_ptr)
 			/* Place two potions */
 			if(one_in_(2))
 			{
-				place_object(floor_ptr, yval, xval - 1, AM_NO_FIXED_ART, kind_is_potion);
-				place_object(floor_ptr, yval, xval + 1, AM_NO_FIXED_ART, kind_is_potion);
+				place_object(floor_ptr, yval, xval - 1, AM_NO_FIXED_ART); // TODO kind_is_potion
+				place_object(floor_ptr, yval, xval + 1, AM_NO_FIXED_ART); // TODO kind_is_potion
 			}
 			else
 			{
-				place_object(floor_ptr, yval - 1, xval, AM_NO_FIXED_ART, kind_is_potion);
-				place_object(floor_ptr, yval + 1, xval, AM_NO_FIXED_ART, kind_is_potion);
+				place_object(floor_ptr, yval - 1, xval, AM_NO_FIXED_ART); // TODO kind_is_potion
+				place_object(floor_ptr, yval + 1, xval, AM_NO_FIXED_ART); // TODO kind_is_potion
 			}
 
 			for (y = yval - 2; y <= yval + 2; y++)

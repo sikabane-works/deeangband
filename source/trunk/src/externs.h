@@ -912,7 +912,7 @@ extern u32b get_curse(POWER power, object_type *object_ptr);
 
 extern void weapon_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
 extern bool make_random_object(object_type *object_ptr, FLAGS_32 mode, FLOOR_LEV level);
-extern void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode, bool (*get_obj_num_hook)(int k_idx));
+extern void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
 extern bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value, int type);
 extern void place_gold(floor_type *floor_ptr, COODINATES y, COODINATES x);
 extern OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, COODINATES y, COODINATES x);

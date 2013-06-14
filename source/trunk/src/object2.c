@@ -2675,7 +2675,7 @@ bool make_random_object(object_type *object_ptr, FLAGS_32 mode, FLOOR_LEV level)
  * This routine uses "object_level" for the "generation level".
  * This routine requires a clean floor grid destination.
  */
-void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode, bool (*get_obj_num_hook)(int k_idx))
+void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode)
 {
 	OBJECT_ID object_idx;
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -2685,15 +2685,12 @@ void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mo
 	if(!IN_BOUNDS(floor_ptr, y, x)) return;
 	if(!cave_drop_bold(floor_ptr, y, x)) return; // Require floor space
 	if(c_ptr->object_idx) return; // Avoid stacking on other objects
-
 	quest_ptr = &forge;
 	object_wipe(quest_ptr);
 
-	/* Make an object (if possible) */
 	if(!make_random_object(quest_ptr, mode, floor_ptr->object_level)) return; //TODO get_obj_num_hook
 
-	/* Make an object */
-	object_idx = object_pop();
+	object_idx = object_pop(); /* Make an object */
 
 	if(object_idx)
 	{
@@ -2708,7 +2705,7 @@ void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mo
 		c_ptr->object_idx = object_idx;
 		note_spot(floor_ptr, y, x);
 		lite_spot(floor_ptr, y, x);
-	} // Hack -- Preserve artifacts
+	}
 	else if(object_is_fixed_artifact(quest_ptr)) artifact_info[quest_ptr->art_id].cur_num = 0;
 }
 

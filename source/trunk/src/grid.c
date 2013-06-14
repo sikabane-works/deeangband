@@ -330,7 +330,7 @@ void vault_objects(floor_type *floor_ptr, COODINATES y, COODINATES x, int num)
 			if(!is_floor_grid(c_ptr) || c_ptr->object_idx) continue;
 
 			/* Place an item / gold */
-			if(PERCENT(75)) place_object(floor_ptr, j, k, 0L, NULL);
+			if(PERCENT(75)) place_object(floor_ptr, j, k, 0L);
 			else place_gold(floor_ptr, j, k);
 			break;
 		}

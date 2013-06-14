@@ -6543,7 +6543,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 
 				// Random trap and random treasure defined
 				// 25% chance for trap and 75% chance for object
-				if(PERCENT(75)) place_object(floor_ptr, *y, *x, 0L, NULL);
+				if(PERCENT(75)) place_object(floor_ptr, *y, *x, 0L);
 				else place_trap(floor_ptr, *y, *x);
 
 				floor_ptr->object_level = floor_ptr->depth;
@@ -6553,9 +6553,9 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				floor_ptr->object_level = floor_ptr->depth + object_index;
 
 				// Create an out of deep object
-				if(PERCENT(75)) place_object(floor_ptr, *y, *x, 0L, NULL);
-				else if(PERCENT(80)) place_object(floor_ptr, *y, *x, AM_GOOD, NULL);
-				else place_object(floor_ptr, *y, *x, AM_GOOD | AM_GREAT, NULL);
+				if(PERCENT(75)) place_object(floor_ptr, *y, *x, 0L);
+				else if(PERCENT(80)) place_object(floor_ptr, *y, *x, AM_GOOD);
+				else place_object(floor_ptr, *y, *x, AM_GOOD | AM_GREAT);
 
 				floor_ptr->object_level = floor_ptr->depth;
 			}

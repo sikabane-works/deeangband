@@ -311,7 +311,7 @@ static void alloc_object(floor_type *floor_ptr, creature_type *player_ptr, int s
 
 			case ALLOC_TYP_OBJECT:
 			{
-				place_object(floor_ptr, y, x, 0L, NULL);
+				place_object(floor_ptr, y, x, 0L);
 				break;
 			}
 		}
