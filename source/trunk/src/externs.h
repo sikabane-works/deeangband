@@ -911,7 +911,7 @@ extern void apply_magic_specified_ego(creature_type *owner_ptr, object_type *obj
 extern u32b get_curse(POWER power, object_type *object_ptr);
 
 extern void weapon_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
-extern bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx));
+extern bool make_random_object(object_type *object_ptr, FLAGS_32 mode, FLOOR_LEV level, bool (*get_obj_num_hook)(int k_idx));
 extern void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode, bool (*get_obj_num_hook)(int k_idx));
 extern bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value, int type);
 extern void place_gold(floor_type *floor_ptr, COODINATES y, COODINATES x);

@@ -2622,7 +2622,7 @@ static bool kind_is_good(OBJECT_KIND_ID k_idx)
 // This routine plays nasty games to generate the "special artifacts".
 // This routine uses "object_level" for the "generation level".
 // We assume that the given object has been "wiped".
-bool make_random_object(object_type *object_ptr, FLAGS_32 mode, u32b gon_mode, int level, bool (*get_obj_num_hook)(int k_idx))
+bool make_random_object(object_type *object_ptr, FLAGS_32 mode, FLOOR_LEV level, bool (*get_obj_num_hook)(int k_idx))
 {
 	int prob, base;
 	OBJECT_KIND_ID object_kind_idx;
@@ -2690,7 +2690,7 @@ void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mo
 	object_wipe(quest_ptr);
 
 	/* Make an object (if possible) */
-	if(!make_random_object(quest_ptr, mode, 0, floor_ptr->object_level, get_obj_num_hook)) return;
+	if(!make_random_object(quest_ptr, mode, floor_ptr->object_level, get_obj_num_hook)) return;
 
 	/* Make an object */
 	object_idx = object_pop();
@@ -3077,7 +3077,7 @@ void acquirement(floor_type *floor_ptr, COODINATES y1, COODINATES x1, QUANTITY n
 		object_wipe(i_ptr);
 
 		/* Make a good (or great) object (if possible) */
-		if(!make_random_object(i_ptr, mode, 0, floor_ptr->object_level, NULL)) continue;
+		if(!make_random_object(i_ptr, mode, floor_ptr->object_level, NULL)) continue;
 
 		if(known)
 		{

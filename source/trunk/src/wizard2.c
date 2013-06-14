@@ -801,7 +801,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 			object_wipe(quest_ptr);
 
 			/* Create an object */
-			make_random_object(quest_ptr, mode, 0, floor_ptr->object_level, NULL);
+			make_random_object(quest_ptr, mode, floor_ptr->object_level, NULL);
 
 			/*  Mega-Hack -- allow multiple artifacts */
 			if(object_is_fixed_artifact(quest_ptr)) artifact_info[quest_ptr->art_id].cur_num = 0;
