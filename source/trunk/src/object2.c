@@ -2355,11 +2355,10 @@ void apply_bodysize_boost(creature_type *user_ptr, object_type *object_ptr)
 * "good" and "great" arguments are false.  As a total hack, if "great" is
 * true, then the item gets 3 extra "attempts" to become an artifact.
 */
-void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLAGS_32 mode, int specified_idx)
+void apply_magic(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV lev, FLAGS_32 mode, int specified_idx)
 {
 	int i, rolls, f1, f2, power;
 	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
-
 	if(owner_ptr && owner_ptr->chara_idx == CHARA_MUNCHKIN) lev += randint0(owner_ptr->lev / 2 + 10);
 
 	if(lev > MAX_DEPTH - 1) lev = MAX_DEPTH - 1; // Maximum "level" for various things
@@ -2472,7 +2471,8 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 		return;
 	}
 
-	if(power >= ITEM_RANK_GREAT){
+	if(power >= ITEM_RANK_GREAT)
+	{
 		if(specified_idx) create_ego(object_ptr, lev, specified_idx);
 		else create_ego(object_ptr, lev, get_random_ego(object_kind_info[object_ptr->k_idx].slot, TRUE));
 	}
@@ -2535,7 +2535,7 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, FLA
 }
 
 // Apply magic at specified ego.
-void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr, int lev, int ego)
+void set_object_ego(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV lev, OBJECT_EGO_ID ego)
 {
 	if(!is_valid_creature(owner_ptr)) return;
 	if(object_is_weapon(object_ptr)) weapon_boost(object_ptr, lev, ITEM_RANK_GREAT);

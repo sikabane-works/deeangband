@@ -4710,17 +4710,8 @@ void get_name(creature_type *creature_ptr)
 	strcpy(tmp, creature_ptr->name);
 
 	/* Prompt for a new name */
-	if(get_string(KW_NAME, tmp, 70))
-	{
-		/* Use the name */
-		strcpy(creature_ptr->name, tmp);
-	}
-
-	if(0 == strlen(creature_ptr->name))
-	{
-		/* Use default name */
-		strcpy(creature_ptr->name, species_name + species_info[creature_ptr->species_idx].name);
-	}
+	if(get_string(KW_NAME, tmp, 70)) strcpy(creature_ptr->name, tmp);
+	if(0 == strlen(creature_ptr->name)) strcpy(creature_ptr->name, species_name + species_info[creature_ptr->species_idx].name);
 
 	strcpy(tmp,chara_info[creature_ptr->chara_idx].title);
 #ifdef JP
@@ -4771,7 +4762,7 @@ void do_cmd_suicide(creature_type *creature_ptr)
 
 		do
 		{
-			while (!get_string(KW_WINNING_MESSAGE, buf, sizeof buf)) ;
+			while (!get_string(KW_WINNING_MESSAGE, buf, sizeof buf));
 		}
 		while (!get_check_strict(MES_SYS_ASK_SURE, CHECK_NO_HISTORY));
 
@@ -5112,7 +5103,7 @@ static void print_tomb(creature_type *creature_ptr)
 static void show_info(creature_type *creature_ptr)
 {
 	int i;
-	object_type		*object_ptr;
+	object_type *object_ptr;
 
 	/* Hack -- Know everything in the inven/equip */
 	for (i = 0; i < INVEN_TOTAL; i++)

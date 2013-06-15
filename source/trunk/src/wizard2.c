@@ -1964,7 +1964,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 			object_wipe(&ob);
 			generate_object(&ob, tmp_int2);
-			apply_magic_specified_ego(creature_ptr, &ob, creature_ptr->lev * 2, tmp_int);
+			set_object_ego(creature_ptr, &ob, creature_ptr->lev * 2, tmp_int);
 			(void)drop_near(floor_ptr, &ob, -1, creature_ptr->fy, creature_ptr->fx);
 		}
 		break;
