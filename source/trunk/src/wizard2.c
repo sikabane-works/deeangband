@@ -464,14 +464,8 @@ static int wiz_create_itemtype(void)
 	/* Me need to know the maximal possible tval_index */
 	max_num = num;
 
-	/* Choose! */
-	if(!get_com("Get what type of object? ", &ch, FALSE)) return SUCCESS;
-
-	/* Analyze choice */
-	for (num = 0; num < max_num; num++)
-	{
-		if(listsym[num] == ch) break;
-	}
+	if(!get_com("Get what type of object? ", &ch, FALSE)) return SUCCESS; /* Choose! */
+	for (num = 0; num < max_num; num++) if(listsym[num] == ch) break; /* Analyze choice */
 
 	/* Bail out if choice is illegal */
 	if((num < 0) || (num >= max_num)) return SUCCESS;
@@ -479,7 +473,6 @@ static int wiz_create_itemtype(void)
 	/* Base object type chosen, fill in tval */
 	tval = tvals[num].tval;
 	tval_desc = tvals[num].desc;
-
 
 	/*** And now we go for k_idx ***/
 
@@ -493,20 +486,14 @@ static int wiz_create_itemtype(void)
 		/* Analyze matching items */
 		if(object_kind_ptr->tval == tval)
 		{
-			/* Prepare it */
-			row = 2 + (num % 20);
+			row = 2 + (num % 20); /* Prepare it */
 			col = 20 * (num / 20);
 			ch = listsym[num];
 			strcpy(buf,"                    ");
 
-			/* Acquire the "name" of object "i" */
-			strip_name(buf, i);
-
-			/* Print it */
-			prt(format("[%c] %s", ch, buf), row, col);
-
-			/* Remember the object index */
-			choice[num++] = i;
+			strip_name(buf, i); /* Acquire the "name" of object "i" */
+			prt(format("[%c] %s", ch, buf), row, col); /* Print it */
+			choice[num++] = i; /* Remember the object index */
 		}
 	}
 

@@ -2106,7 +2106,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		}
 
 		/* No base armor, but does increase armor */
-		else if(object_ptr->to_ac)
+		else if(object_ptr->to_ac || object_ptr->to_ev || object_ptr->to_vo)
 		{
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, b1);
@@ -2114,7 +2114,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			t = object_desc_chr(t, ',');
 			t = object_desc_int(t, object_ptr->to_ev);
 			t = object_desc_chr(t, ',');
-			t = object_desc_num(t, object_ptr->to_vo);
+			t = object_desc_int(t, object_ptr->to_vo);
 			t = object_desc_chr(t, b2);
 		}
 	}

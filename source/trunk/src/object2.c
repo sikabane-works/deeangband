@@ -1490,12 +1490,8 @@ void generate_object(object_type *object_ptr, OBJECT_KIND_ID k_idx)
 {
 	int i;
 	object_kind *object_kind_ptr = &object_kind_info[k_idx];
-
-	/* Clear the record */
-	object_wipe(object_ptr);
-
-	/* Save the kind index */
-	object_ptr->k_idx = k_idx;
+	object_wipe(object_ptr); /* Clear the record */
+	object_ptr->k_idx = k_idx; /* Save the kind index */
 
 	/* Efficiency -- tval/sval */
 	object_ptr->tval = object_kind_ptr->tval;
