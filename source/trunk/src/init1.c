@@ -4232,6 +4232,15 @@ enum RC_INFO
 	RC_INFO_H_DEX,
 	RC_INFO_H_CON,
 	RC_INFO_H_CHA,
+
+	RC_INFO_P_AC,
+	RC_INFO_P_EV,
+	RC_INFO_P_VO,
+
+	RC_INFO_H_AC,
+	RC_INFO_H_EV,
+	RC_INFO_H_VO,
+
 	RC_INFO_P_DIS,
 
 	RC_INFO_P_DEV,
@@ -4317,8 +4326,16 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"H_DEX",
 	"H_CON",
 	"H_CHA",
-	"P_DIS",
 
+	"P_AC",
+	"P_EV",
+	"P_VO",
+
+	"H_AC",
+	"H_EV",
+	"H_VO",
+
+	"P_DIS",
 	"P_DEV",
 	"P_ROB",
 	"P_EVA",
@@ -4524,6 +4541,36 @@ errr parse_race_info_csv(char *buf, header *head)
 			case RC_INFO_H_CHA:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_ptr->r_s_adj[STAT_CHA] = (s16b)b;
+				break;
+
+			case RC_INFO_P_AC:
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+				race_ptr->r_ac = (SAVING)b;
+				break;
+
+			case RC_INFO_P_EV:
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+				race_ptr->r_ev = (SAVING)b;
+				break;
+
+			case RC_INFO_P_VO:
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+				race_ptr->r_vo = (SAVING)b;
+				break;
+
+			case RC_INFO_H_AC:
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+				race_ptr->r_s_ac = (SAVING)b;
+				break;
+
+			case RC_INFO_H_EV:
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+				race_ptr->r_s_ev = (SAVING)b;
+				break;
+
+			case RC_INFO_H_VO:
+				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+				race_ptr->r_s_vo = (SAVING)b;
 				break;
 
 			case RC_INFO_P_DIS:

@@ -1170,6 +1170,9 @@ struct race_type
 	s16b r_fos;			/* search frequency */
 	s16b r_thn;			/* combat (normal) */
 	s16b r_thb;			/* combat (shooting) */
+	SAVING r_ac;
+	SAVING r_ev;
+	SAVING r_vo;
 
 	STAT r_s_adj[STAT_MAX];		/* Racial stat bonuses(on sub-race) */
 	s16b r_s_dis;			/* disarming */
@@ -1182,6 +1185,9 @@ struct race_type
 	s16b r_s_fos;			/* search frequency */
 	s16b r_s_thn;			/* combat (normal) */
 	s16b r_s_thb;			/* combat (shooting) */
+	SAVING r_s_ac;
+	SAVING r_s_ev;
+	SAVING r_s_vo;
 
 	s16b r_mhp;			/* Race hit-dice modifier */
 	s16b r_exp;			/* Race experience factor */
