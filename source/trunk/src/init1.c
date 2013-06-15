@@ -4575,52 +4575,52 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_P_DIS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_dis = (s16b)b;
+				race_ptr->r_dis = (STAT)b;
 				break;
 
 			case RC_INFO_P_DEV:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_dev = (s16b)b;
+				race_ptr->r_dev = (STAT)b;
 				break;
 
 			case RC_INFO_P_ROB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_rob = (s16b)b;
+				race_ptr->r_rob = (STAT)b;
 				break;
 
 			case RC_INFO_P_EVA:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_eva = (s16b)b;
+				race_ptr->r_eva = (STAT)b;
 				break;
 
 			case RC_INFO_P_VOL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_vol = (s16b)b;
+				race_ptr->r_vol = (STAT)b;
 				break;
 
 			case RC_INFO_P_STL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_stl = (s16b)b;
+				race_ptr->r_stl = (STAT)b;
 				break;
 
 			case RC_INFO_P_SRH:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_srh = (s16b)b;
+				race_ptr->r_srh = (STAT)b;
 				break;
 
 			case RC_INFO_P_FOS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_fos = (s16b)b;
+				race_ptr->r_fos = (STAT)b;
 				break;
 
 			case RC_INFO_P_THN:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_thn = (s16b)b;
+				race_ptr->r_thn = (STAT)b;
 				break;
 
 			case RC_INFO_P_THB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_thb = (s16b)b;
+				race_ptr->r_thb = (STAT)b;
 				break;
 
 			case RC_INFO_P_INFRA:
@@ -4630,52 +4630,52 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_H_DIS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_dis = (s16b)b;
+				race_ptr->r_s_dis = (STAT)b;
 				break;
 
 			case RC_INFO_H_DEV:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_dev = (s16b)b;
+				race_ptr->r_s_dev = (STAT)b;
 				break;
 
 			case RC_INFO_H_ROB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_rob = (s16b)b;
+				race_ptr->r_s_rob = (STAT)b;
 				break;
 
 			case RC_INFO_H_EVA:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_eva = (s16b)b;
+				race_ptr->r_s_eva = (STAT)b;
 				break;
 
 			case RC_INFO_H_VOL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_vol = (s16b)b;
+				race_ptr->r_s_vol = (STAT)b;
 				break;
 
 			case RC_INFO_H_STL:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_stl = (s16b)b;
+				race_ptr->r_s_stl = (STAT)b;
 				break;
 
 			case RC_INFO_H_SRH:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_srh = (s16b)b;
+				race_ptr->r_s_srh = (STAT)b;
 				break;
 
 			case RC_INFO_H_FOS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_fos = (s16b)b;
+				race_ptr->r_s_fos = (STAT)b;
 				break;
 
 			case RC_INFO_H_THN:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_thn = (s16b)b;
+				race_ptr->r_s_thn = (STAT)b;
 				break;
 
 			case RC_INFO_H_THB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_thb = (s16b)b;
+				race_ptr->r_s_thb = (STAT)b;
 				break;
 
 			case RC_INFO_H_INFRA:

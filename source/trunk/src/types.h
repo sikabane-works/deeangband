@@ -1122,8 +1122,8 @@ struct sex_type
 	cptr title;			/* Type of sex */
 	cptr winner;		/* Name of winner */
 #ifdef JP
-	cptr E_title;		/* ・ｽp・ｽ齔ｫ・ｽ・ｽ */
-	cptr E_winner;		/* ・ｽp・ｽ齔ｫ・ｽ・ｽ */
+	cptr E_title;
+	cptr E_winner;
 #endif
 };
 
@@ -1135,7 +1135,6 @@ struct sex_type
  */
 
 typedef struct race_type race_type;
-
 struct race_type
 {
 	cptr title;			/* Type of race */
@@ -1160,31 +1159,31 @@ struct race_type
 	byte sex_flag;		/* Legal Sex */
 
 	STAT r_adj[STAT_MAX];		/* Racial stat bonuses(on main-race) */
-	s16b r_dis;			/* disarming */
-	s16b r_dev;			/* magic devices */
-	s16b r_rob;			/* saving throw */
-	s16b r_eva;			/* saving throw */
-	s16b r_vol;			/* saving throw */
-	s16b r_stl;			/* stealth */
-	s16b r_srh;			/* search ability */
-	s16b r_fos;			/* search frequency */
-	s16b r_thn;			/* combat (normal) */
-	s16b r_thb;			/* combat (shooting) */
+	STAT r_dis;			/* disarming */
+	STAT r_dev;			/* magic devices */
+	STAT r_rob;			/* saving throw */
+	STAT r_eva;			/* saving throw */
+	STAT r_vol;			/* saving throw */
+	STAT r_stl;			/* stealth */
+	STAT r_srh;			/* search ability */
+	STAT r_fos;			/* search frequency */
+	STAT r_thn;			/* combat (normal) */
+	STAT r_thb;			/* combat (shooting) */
 	SAVING r_ac;
 	SAVING r_ev;
 	SAVING r_vo;
 
 	STAT r_s_adj[STAT_MAX];		/* Racial stat bonuses(on sub-race) */
-	s16b r_s_dis;			/* disarming */
-	s16b r_s_dev;			/* magic devices */
-	s16b r_s_rob;			/* saving throw */
-	s16b r_s_eva;			/* saving throw */
-	s16b r_s_vol;			/* saving throw */
-	s16b r_s_stl;			/* stealth */
-	s16b r_s_srh;			/* search ability */
-	s16b r_s_fos;			/* search frequency */
-	s16b r_s_thn;			/* combat (normal) */
-	s16b r_s_thb;			/* combat (shooting) */
+	STAT r_s_dis;			/* disarming */
+	STAT r_s_dev;			/* magic devices */
+	STAT r_s_rob;			/* saving throw */
+	STAT r_s_eva;			/* saving throw */
+	STAT r_s_vol;			/* saving throw */
+	STAT r_s_stl;			/* stealth */
+	STAT r_s_srh;			/* search ability */
+	STAT r_s_fos;			/* search frequency */
+	STAT r_s_thn;			/* combat (normal) */
+	STAT r_s_thb;			/* combat (shooting) */
 	SAVING r_s_ac;
 	SAVING r_s_ev;
 	SAVING r_s_vo;
