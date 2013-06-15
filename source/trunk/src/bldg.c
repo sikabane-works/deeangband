@@ -1716,7 +1716,7 @@ static bool kankin(creature_type *creature_ptr)
 
 				// Prepare to make a prize
 				generate_object(&forge, lookup_kind(prize_list[num-1].tval, prize_list[num-1].sval));
-				apply_magic(creature_ptr, &forge, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
+				apply_magic(creature_ptr, &forge, floor_ptr->object_level, AM_NO_FIXED_ART);
 
 				// Identify it fully
 				object_aware(&forge);

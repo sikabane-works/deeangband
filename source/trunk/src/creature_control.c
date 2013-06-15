@@ -3166,7 +3166,7 @@ static void deal_food(creature_type *creature_ptr)
 		generate_object(quest_ptr, lookup_kind(TV_FLASK, SV_ANY));
 
 		/* Fuel with oil */
-		apply_magic(creature_ptr, quest_ptr, 1, AM_NO_FIXED_ART, 0);
+		apply_magic(creature_ptr, quest_ptr, 1, AM_NO_FIXED_ART);
 		quest_ptr->number = (byte)rand_range(7, 12);
 		add_item_to_creature(creature_ptr, quest_ptr, 0);
 	}
@@ -3436,10 +3436,9 @@ void deal_item(creature_type *creature_ptr)
 	// Apply Magic
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
-		if(creature_ptr->inventory[i].k_idx && IS_EQUIPPED(&creature_ptr->inventory[i]))
+		if(creature_ptr->inventory[i].k_idx && IS_EQUIPPED(&creature_ptr->inventory[i]) && !creature_ptr->inventory[i].art_id && !creature_ptr->inventory[i].ego_id)
 		{
-			if(!creature_ptr->inventory[i].art_id && !creature_ptr->inventory[i].ego_id)
-				apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2, calc_deal_item_rank(creature_ptr, &creature_ptr->inventory[i]), 0);
+			apply_magic(creature_ptr, &creature_ptr->inventory[i], creature_ptr->lev * 2, calc_deal_item_rank(creature_ptr, &creature_ptr->inventory[i]));
 		}
 	}
 

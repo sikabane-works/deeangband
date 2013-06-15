@@ -117,7 +117,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 			object_ptr->number = (byte)rand_range(15,30);
 			object_aware(object_ptr);
 			object_known(object_ptr);
-			apply_magic(creature_ptr, object_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
+			apply_magic(creature_ptr, object_ptr, creature_ptr->lev, AM_NO_FIXED_ART);
 			object_ptr->discount = 99;
 
 			slot = inven_carry(creature_ptr, object_ptr);
@@ -149,7 +149,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		object_ptr->number = (byte)rand_range(5, 10);
 		object_aware(object_ptr);
 		object_known(object_ptr);
-		apply_magic(creature_ptr, object_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
+		apply_magic(creature_ptr, object_ptr, creature_ptr->lev, AM_NO_FIXED_ART);
 
 		object_ptr->discount = 99;
 
@@ -177,7 +177,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		object_ptr->number = (QUANTITY)rand_range(4, 8);
 		object_aware(object_ptr);
 		object_known(object_ptr);
-		apply_magic(creature_ptr, object_ptr, creature_ptr->lev, AM_NO_FIXED_ART, 0);
+		apply_magic(creature_ptr, object_ptr, creature_ptr->lev, AM_NO_FIXED_ART);
 
 		object_ptr->discount = 99;
 

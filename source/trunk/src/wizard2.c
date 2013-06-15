@@ -632,42 +632,42 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 			case 'w': case 'W':
 			{
 				generate_object(quest_ptr, object_ptr->k_idx);
-				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT | AM_CURSED, 0);
+				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT | AM_CURSED);
 				break;
 			}
 			/* Apply bad magic, but first clear object */
 			case 'c': case 'C':
 			{
 				generate_object(quest_ptr, object_ptr->k_idx);
-				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_CURSED, 0);
+				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_CURSED);
 				break;
 			}
 			/* Apply normal magic, but first clear object */
 			case 'n': case 'N':
 			{
 				generate_object(quest_ptr, object_ptr->k_idx);
-				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART, 0);
+				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART);
 				break;
 			}
 			/* Apply good magic, but first clear object */
 			case 'g': case 'G':
 			{
 				generate_object(quest_ptr, object_ptr->k_idx);
-				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD, 0);
+				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD);
 				break;
 			}
 			/* Apply great magic, but first clear object */
 			case 'e': case 'E':
 			{
 				generate_object(quest_ptr, object_ptr->k_idx);
-				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT, 0);
+				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD | AM_GREAT);
 				break;
 			}
 			/* Apply special magic, but first clear object */
 			case 's': case 'S':
 			{
 				generate_object(quest_ptr, object_ptr->k_idx);
-				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_GOOD | AM_GREAT | AM_SPECIAL, 0);
+				apply_magic(caster_ptr, quest_ptr, floor_ptr->depth, AM_GOOD | AM_GREAT | AM_SPECIAL);
 
 				/* Failed to create artifact; make a random one */
 				if(!object_is_artifact(quest_ptr)) create_artifact(caster_ptr, quest_ptr, FALSE);
@@ -1019,17 +1019,11 @@ static void wiz_create_item(creature_type *creature_ptr)
 
 	object_ptr = &forge;
 
-	/* Create the item */
-	generate_object(object_ptr, k_idx);
+	generate_object(object_ptr, k_idx); /* Create the item */
+	apply_magic(creature_ptr, object_ptr, floor_ptr->depth, AM_NO_FIXED_ART); /* Apply magic */
+	(void)drop_near(floor_ptr, object_ptr, -1, creature_ptr->fy, creature_ptr->fx); /* Drop the object from heaven */
 
-	/* Apply magic */
-	apply_magic(creature_ptr, object_ptr, floor_ptr->depth, AM_NO_FIXED_ART, 0);
-
-	/* Drop the object from heaven */
-	(void)drop_near(floor_ptr, object_ptr, -1, creature_ptr->fy, creature_ptr->fx);
-
-	/* All done */
-	msg_print("Allocated.");
+	msg_print("Allocated."); /* All done */
 }
 
 // Cure everything instantly

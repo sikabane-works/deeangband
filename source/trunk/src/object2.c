@@ -2355,7 +2355,7 @@ void apply_bodysize_boost(creature_type *user_ptr, object_type *object_ptr)
 * "good" and "great" arguments are false.  As a total hack, if "great" is
 * true, then the item gets 3 extra "attempts" to become an artifact.
 */
-void apply_magic(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV lev, FLAGS_32 mode, int specified_idx)
+void apply_magic(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV lev, FLAGS_32 mode)
 {
 	int i, rolls, f1, f2, power;
 	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
@@ -2471,12 +2471,7 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV le
 		return;
 	}
 
-	if(power >= ITEM_RANK_GREAT)
-	{
-		if(specified_idx) create_ego(object_ptr, lev, specified_idx);
-		else create_ego(object_ptr, lev, get_random_ego(object_kind_info[object_ptr->k_idx].slot, TRUE));
-	}
-
+	if(power >= ITEM_RANK_GREAT) create_ego(object_ptr, lev, get_random_ego(object_kind_info[object_ptr->k_idx].slot, TRUE));
 	if(power >= ITEM_RANK_SPECIAL) create_artifact(owner_ptr, object_ptr, FALSE);
 
 	if(object_is_ego(object_ptr)) /* Hack -- analyze ego-items */
@@ -2635,7 +2630,7 @@ bool make_random_object(object_type *object_ptr, FLAGS_32 mode, FLOOR_LEV level)
 		generate_object(object_ptr, object_kind_idx);
 	}
 
-	apply_magic(player_ptr, object_ptr, level, mode, 0); // Apply magic (allow artifacts)
+	apply_magic(player_ptr, object_ptr, level, mode); // Apply magic (allow artifacts)
 
 	switch (object_ptr->tval) // Hack -- generate multiple spikes/missiles
 	{

@@ -906,7 +906,7 @@ extern void object_wipe(object_type *object_ptr);
 extern void generate_object(object_type *object_ptr, OBJECT_KIND_ID k_idx);
 extern void object_copy(object_type *object1_ptr, object_type *object2_ptr);
 extern void apply_bodysize_boost(creature_type *user_ptr, object_type *object_ptr);
-extern void apply_magic(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV lev, FLAGS_32 mode, int specified_idx);
+extern void apply_magic(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV lev, FLAGS_32 mode);
 extern u32b get_curse(POWER power, object_type *object_ptr);
 
 extern void weapon_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);

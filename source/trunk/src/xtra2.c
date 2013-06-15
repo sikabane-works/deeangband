@@ -447,7 +447,7 @@ int specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, TVAL tv, 
 {
 	object_type forge;
 	generate_object(&forge, lookup_kind(tv, sv));
-	apply_magic(creature_ptr, &forge, creature_ptr->lev, AM_NO_FIXED_ART, 0);
+	apply_magic(creature_ptr, &forge, creature_ptr->lev, AM_NO_FIXED_ART);
 	return drop_near(floor_ptr, &forge, -1, creature_ptr->fy, creature_ptr->fx);
 }
 
@@ -544,7 +544,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		{
 			quest_ptr = &forge;
 			generate_object(quest_ptr, lookup_kind(arena_info[arena_number].tval, arena_info[arena_number].sval));
-			apply_magic(dead_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
+			apply_magic(dead_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART);
 			(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
 		}
 
@@ -722,7 +722,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			{
 				quest_ptr = &forge;	// Get local object
 				generate_object(quest_ptr, k_idx);	// Prepare to make a reward
-				apply_magic(dead_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART | AM_GOOD, 0);
+				apply_magic(dead_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART | AM_GOOD);
 				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);	// Drop it in the dungeon
 			}
 			msg_format(MES_DUNGEON_QUESTED(&dungeon_info[floor_ptr->dungeon_id]));

@@ -2214,7 +2214,7 @@ static int store_replacement(store_type *st_ptr, int num)
 		/* Create a new object of the chosen kind */
 
 		/* Apply some "low-level" magic (no artifacts) */
-		apply_magic(find_unique_instance(st_ptr->owner_id), quest_ptr, level, AM_NO_FIXED_ART, 0);
+		apply_magic(find_unique_instance(st_ptr->owner_id), quest_ptr, level, AM_NO_FIXED_ART);
 
 		/* Require valid object */
 		//if(!store_will_buy(st_ptr, NULL, quest_ptr)) continue;

@@ -6576,14 +6576,10 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 
 				/* Create the item */
 				generate_object(object_ptr, object_index);
-
-				if(object_ptr->tval == TV_GOLD)
-				{
-					make_gold(floor_ptr, object_ptr, letter[idx].special, object_index - OBJ_GOLD_LIST);
-				}
+				if(object_ptr->tval == TV_GOLD) make_gold(floor_ptr, object_ptr, letter[idx].special, object_index - OBJ_GOLD_LIST);
 
 				/* Apply magic (no messages, no artifacts) */
-				apply_magic(player_ptr, object_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD, 0);
+				apply_magic(player_ptr, object_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD);
 
 				drop_here(floor_ptr, object_ptr, *y, *x);
 			}
