@@ -92,30 +92,16 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 #endif
 
 	trait_type spell_;
-	bool            flag, redraw;
+	bool flag, redraw;
 
-	/* Assume cancelled */
-	*sn = (-1);
-
-	/* Nothing chosen yet */
-	flag = FALSE;
-
-	/* No redraw yet */
-	redraw = FALSE;
+	*sn = (-1); /* Assume cancelled */
+	flag = FALSE; /* Nothing chosen yet */
+	redraw = FALSE; /* No redraw yet */
 
 	num = creature_ptr->mane_num;
+	(void)strnfmt(out_val, 78, MES_MIMIC_WHICH_TRAIT(I2A(0), I2A(num - 1), p)); /* Build a prompt (accept all spells) */
 
-	/* Build a prompt (accept all spells) */
-	 
-#ifdef JP
-	(void)strnfmt(out_val, 78, "(%c-%c, '*'‚Åˆê——, ESC) ‚Ç‚Ì%s‚ð‚Ü‚Ë‚Ü‚·‚©H", I2A(0), I2A(num - 1), p);
-#else
-	(void)strnfmt(out_val, 78, "(%c-%c, *=List, ESC=exit) Use which %s? ", I2A(0), I2A(num - 1), p);
-#endif
-
-	/* Get a spell from the user */
-
-	choice= ESCAPE;
+	choice= ESCAPE; /* Get a spell from the user */
 	while (!flag)
 	{
 		if(choice==ESCAPE) choice = ' '; 
@@ -238,9 +224,7 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 
 	/* Save the choice */
 	(*sn) = i;
-
 	damage = (baigaesi ? creature_ptr->mane_dam[i]*2 : creature_ptr->mane_dam[i]);
-
 	return TRUE;
 }
 
@@ -256,9 +240,7 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 	trait_type spell_;
 	bool            cast;
 
-
-	/* not if confused */
-	if(has_trait(creature_ptr, TRAIT_CONFUSED))
+	if(has_trait(creature_ptr, TRAIT_CONFUSED)) /* not if confused */
 	{
 		msg_print(MES_PREVENT_BY_CONFUSION);
 		return TRUE;
@@ -270,8 +252,7 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 		return FALSE;
 	}
 
-	/* get power */
-	if(!get_mane_power(creature_ptr, &n, baigaesi)) return FALSE;
+	if(!get_mane_power(creature_ptr, &n, baigaesi)) return FALSE; /* get power */
 
 	spell_ = trait_info[creature_ptr->mane_spell[n]];
 

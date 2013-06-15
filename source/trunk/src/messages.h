@@ -5059,9 +5059,11 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_MIMIC_WHICH_TRAIT(FROM, TO, NAME) "(%c-%c, '*'Ç≈àÍóó, ESC) Ç«ÇÃ%sÇÇ‹ÇÀÇ‹Ç∑Ç©ÅH", (FROM), (TO), (NAME)
 #define MES_MIMIC_NONE "Ç‹ÇÀÇÁÇÍÇÈÇ‡ÇÃÇ™âΩÇ‡Ç»Ç¢ÅI"
 #define MES_MIMIC_FAILED "Ç‡ÇÃÇ‹ÇÀÇ…é∏îsÇµÇΩÅI"
 #else
+#define MES_MIMIC_WHICH_TRAIT(FROM, TO, NAME)  "(%c-%c, *=List, ESC=exit) Use which %s? "
 #define MES_MIMIC_NONE "You don't remember any action!"
-#define MES_MIMIC_FAILED "You failed to concentrate hard enough!"
+#define MES_MIMIC_FAILED "You failed to concentrate hard enough!", (FROM), (TO), (NAME)
 #endif
