@@ -5374,35 +5374,31 @@ void ac_boost(object_type *object_ptr, FLOOR_LEV level, POWER power)
 
 void ev_boost(object_type *object_ptr, FLOOR_LEV level, POWER power)
 {
-	POWER toac1 = randint1(5) + m_bonus(5, level);
-	POWER toac2 = m_bonus(10, level);
+	POWER toev1 = randint1(5) + m_bonus(5, level);
+	POWER toev2 = m_bonus(10, level);
 	if(power >= ITEM_RANK_GOOD) // Good
 	{
-		object_ptr->to_ac += toac1;
-		if(power >= ITEM_RANK_GREAT) object_ptr->to_ac += toac2;
+		object_ptr->to_ev += toev1;
+		if(power >= ITEM_RANK_GREAT) object_ptr->to_ac += toev2;
 	}
 	else if(power <= ITEM_RANK_CURSED) // Cursed
 	{
-		object_ptr->to_ac -= toac1; // Penalize
-		if(power <= ITEM_RANK_BROKEN) object_ptr->to_ac -= toac2; // Very cursed -- Penalize again
-		if(object_ptr->to_ac < 0) add_flag(object_ptr->curse_flags, TRAIT_CURSED); // Cursed (if "bad")
+		object_ptr->to_ev -= toev1; // Penalize
+		if(power <= ITEM_RANK_BROKEN) object_ptr->to_ev -= toev2; // Very cursed -- Penalize again
+		if(object_ptr->to_ev < 0) add_flag(object_ptr->curse_flags, TRAIT_CURSED); // Cursed (if "bad")
 	}
 }
 
 void vo_boost(object_type *object_ptr, FLOOR_LEV level, POWER power)
 {
-	POWER toac1 = randint1(5) + m_bonus(5, level);
-	POWER toac2 = m_bonus(10, level);
-	if(power >= ITEM_RANK_GOOD) // Good
+	POWER tovo = randint1(5) + m_bonus(5, level);
+
+	if(object_ptr->vo == 0 && object_ptr->to_vo == 0) return; 
+	if(power >= ITEM_RANK_GREAT) object_ptr->to_ac += tovo;
+	else if(power <= ITEM_RANK_BROKEN) // Cursed
 	{
-		object_ptr->to_ac += toac1;
-		if(power >= ITEM_RANK_GREAT) object_ptr->to_ac += toac2;
-	}
-	else if(power <= ITEM_RANK_CURSED) // Cursed
-	{
-		object_ptr->to_ac -= toac1; // Penalize
-		if(power <= ITEM_RANK_BROKEN) object_ptr->to_ac -= toac2; // Very cursed -- Penalize again
-		if(object_ptr->to_ac < 0) add_flag(object_ptr->curse_flags, TRAIT_CURSED); // Cursed (if "bad")
+		object_ptr->to_vo -= tovo; // Penalize
+		if(object_ptr->to_vo < 0) add_flag(object_ptr->curse_flags, TRAIT_CURSED); // Cursed (if "bad")
 	}
 }
 
@@ -5486,17 +5482,19 @@ void create_ego(object_type *object_ptr, FLOOR_LEV level, OBJECT_EGO_ID ego_id)
 		break;
 
 	}
-
-
 	//TODO:: XTRA_H_RES for levitation
 
-	if(has_trait_object(object_ptr, TRAIT_DUSK_ENCHANT))
+	if(has_trait_object(object_ptr, TRAIT_DUSK_ENCHANT)) // TODO refine rule
 	{
 		object_ptr->ego_id = EGO_YOIYAMI;
 		object_ptr->k_idx = lookup_kind(TV_SOFT_ARMOR, SV_YOIYAMI_ROBE);
 		object_ptr->sval = SV_YOIYAMI_ROBE;
 		object_ptr->ac = 0;
 		object_ptr->to_ac = 0;
+		object_ptr->ev = 0;
+		object_ptr->to_ev = 0;
+		object_ptr->vo = 0;
+		object_ptr->to_vo = 0;
 	}
 
 	if(has_trait_object(object_ptr, TRAIT_HIGH_ESP))
@@ -5524,15 +5522,20 @@ void create_ego(object_type *object_ptr, FLOOR_LEV level, OBJECT_EGO_ID ego_id)
 		}
 	}
 
-	// Weapon Boost
+	/* Weapon Boost */
 	if(object_is_weapon_ammo(object_ptr) && object_ptr->ds && object_ptr->dd)
 	{
 		weapon_boost(object_ptr, level, ITEM_RANK_GREAT);
 		while (one_in_(10L * object_ptr->dd * object_ptr->ds)) object_ptr->dd++;
 	}
 
-	// Armour_Boost
-	ac_boost(object_ptr, level, ITEM_RANK_GREAT);
+	/* Armour_Boost */
+	if(object_is_armour(object_ptr))
+	{
+		ac_boost(object_ptr, level, ITEM_RANK_GREAT);
+		ev_boost(object_ptr, level, ITEM_RANK_GREAT);
+		vo_boost(object_ptr, level, ITEM_RANK_GREAT);
+	}
 }
 
 void set_inventory_weight(creature_type *creature_ptr)

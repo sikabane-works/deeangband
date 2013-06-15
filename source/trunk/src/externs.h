@@ -63,7 +63,7 @@ extern byte adj_int_dev[STAT_TABLE_SIZE];
 extern int adj_sav[STAT_TABLE_SIZE];
 extern byte adj_dex_dis[STAT_TABLE_SIZE];
 extern byte adj_int_dis[STAT_TABLE_SIZE];
-extern s16b adj_dex_to_ac[STAT_TABLE_SIZE];
+extern s16b adj_stat_to_saving[STAT_TABLE_SIZE];
 extern s16b adj_str_to_damage[STAT_TABLE_SIZE];
 extern s16b adj_dex_to_hit[STAT_TABLE_SIZE];
 extern s16b adj_str_to_hit[STAT_TABLE_SIZE];
@@ -76,9 +76,8 @@ extern byte adj_dex_safe[STAT_TABLE_SIZE];
 extern byte adj_con_fix[STAT_TABLE_SIZE];
 extern STAT adj_con_mhp[STAT_TABLE_SIZE];
 extern int adj_dr_mhp[DR_TABLE_SIZE];
-extern int adj_dr_saving[DR_TABLE_SIZE];
 extern s16b adj_dr_speed[DR_TABLE_SIZE];
-extern int adj_dr_ac[DR_TABLE_SIZE];
+extern int adj_dr_saving[DR_TABLE_SIZE];
 extern byte adj_chr_chm[STAT_TABLE_SIZE];
 extern s16b adj_weight_action_point[PERCENTAGE / 5 + 1];
 extern arena_type arena_info[MAX_ARENA_MONS + 2];
@@ -911,7 +910,6 @@ extern void apply_bodysize_boost(creature_type *user_ptr, object_type *object_pt
 extern void apply_magic(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV lev, FLAGS_32 mode);
 extern u32b get_curse(POWER power, object_type *object_ptr);
 
-extern void weapon_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
 extern bool make_random_object(object_type *object_ptr, FLAGS_32 mode, FLOOR_LEV level);
 extern void place_object(floor_type *floor_ptr, COODINATES y, COODINATES x, FLAGS_32 mode);
 extern bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value, int type);

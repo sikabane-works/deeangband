@@ -776,9 +776,9 @@ byte adj_int_dis[STAT_TABLE_SIZE] =
 
 
 /*
- * Stat Table (DEX) -- bonus to ac (plus 128)
+ * Stat bonus to AC(STR&CON)/EV(DEX&INT)/VO(WIS&CHA)
  */
-s16b adj_dex_to_ac[STAT_TABLE_SIZE] =
+s16b adj_stat_to_saving[STAT_TABLE_SIZE] =
 {
 	-4    /* 3 */,
 	-3    /* 4 */,
@@ -1676,52 +1676,6 @@ int adj_dr_mhp[DR_TABLE_SIZE] =
 
 };
 
-
-/*
- * Stat Table (DR) -- plus saving)
- */
-int adj_dr_saving[DR_TABLE_SIZE] =
-{
-	5, /* 0 */
-
-	10,
-	11,
-	12,
-	13,
-	15, /* 5 */
-
-	20,
-	21,
-	22,
-	23,
-	25, /* 10 */
-
-	30,
-	31,
-	32,
-	33,
-	35, /* 15 */
-
-	40,
-	41,
-	42,
-	43,
-	45, /* 20 */
-
-	50,
-	52,
-	54,
-	56,
-	60, /* 25 */
-
-	80,
-	82,
-	84,
-	86,
-	100, /* 30 */
-
-};
-
 /*
  * Stat Table (DR) -- plus speed)
  */
@@ -1771,7 +1725,7 @@ s16b adj_dr_speed[DR_TABLE_SIZE] =
 /*
  * Stat Table (DR) -- plus AC)
  */
-int adj_dr_ac[DR_TABLE_SIZE] =
+int adj_dr_saving[DR_TABLE_SIZE] =
 {
 	10, /* 0 */
 

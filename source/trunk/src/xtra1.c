@@ -3252,7 +3252,13 @@ static void set_melee_status(creature_type *creature_ptr)
 		creature_ptr->dis_to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]));
 	}
 
-	creature_ptr->to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]));
+	creature_ptr->ac += ((int)(adj_stat_to_saving[creature_ptr->stat_ind[STAT_STR]]));
+	creature_ptr->ac += ((int)(adj_stat_to_saving[creature_ptr->stat_ind[STAT_CON]]));
+	creature_ptr->ev += ((int)(adj_stat_to_saving[creature_ptr->stat_ind[STAT_INT]]));
+	creature_ptr->ev += ((int)(adj_stat_to_saving[creature_ptr->stat_ind[STAT_DEX]]));
+	creature_ptr->vo += ((int)(adj_stat_to_saving[creature_ptr->stat_ind[STAT_WIS]]));
+	creature_ptr->vo += ((int)(adj_stat_to_saving[creature_ptr->stat_ind[STAT_CHA]]));
+
 	creature_ptr->to_damage_m  += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]));
 	creature_ptr->to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]));
 	creature_ptr->to_hit_m  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]));
@@ -3260,7 +3266,13 @@ static void set_melee_status(creature_type *creature_ptr)
 	creature_ptr->to_hit_m  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]));
 
 	// Displayed Modifier Bonuses (Un-inflate stat bonuses)
-	creature_ptr->dis_to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]));
+	creature_ptr->dis_ac += ((int)(adj_stat_to_saving[creature_ptr->stat_ind[STAT_STR]]));
+	creature_ptr->dis_ac += ((int)(adj_stat_to_saving[creature_ptr->stat_ind[STAT_CON]]));
+	creature_ptr->dis_ev += ((int)(adj_stat_to_saving[creature_ptr->stat_ind[STAT_INT]]));
+	creature_ptr->dis_ev += ((int)(adj_stat_to_saving[creature_ptr->stat_ind[STAT_DEX]]));
+	creature_ptr->dis_vo += ((int)(adj_stat_to_saving[creature_ptr->stat_ind[STAT_WIS]]));
+	creature_ptr->dis_vo += ((int)(adj_stat_to_saving[creature_ptr->stat_ind[STAT_CHA]]));
+
 	creature_ptr->dis_to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]));
 	creature_ptr->dis_to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]));
 
@@ -3323,8 +3335,8 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 
 	// Plus AC on Divine Rank
 	if(creature_ptr->dr >= 0){
-		creature_ptr->dis_to_ac += adj_dr_ac[creature_ptr->dr];
-		creature_ptr->to_ac += adj_dr_ac[creature_ptr->dr];
+		creature_ptr->dis_to_ac += adj_dr_saving[creature_ptr->dr];
+		creature_ptr->to_ac += adj_dr_saving[creature_ptr->dr];
 	}
 
 	for(i = 0; i < max_authorities_idx; i++)
