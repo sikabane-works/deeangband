@@ -8,14 +8,10 @@
  * are included in all such copies.  Other copyrights may also apply.
  */
 
-
 /* Purpose: a simple random number generator -BEN- */
 
 #include "angband.h"
 #include "z-rand.h"
-
-
-
 
 /*
  * Angband 2.7.9 introduced a new (optimized) random number generator,
@@ -52,19 +48,15 @@
  */
 #define LCRNG(X)        ((X) * 1103515245 + 12345)
 
-
-
 /*
  * Use the "simple" LCRNG
  */
 bool Rand_quick = TRUE;
 
-
 /*
  * Current "value" of the "simple" RNG
  */
 u32b Rand_value;
-
 
 /*
  * Current "index" for the "complex" RNG
@@ -121,24 +113,15 @@ s32b Rand_div(u32b m)
 {
 	u32b r, n;
 
-	/* Hack -- simple case */
-	if(m <= 1) return SUCCESS;
+	if(m <= 1) return SUCCESS; /* Hack -- simple case */
+	n = (0x10000000 / m); /* Partition size */
 
-	/* Partition size */
-	n = (0x10000000 / m);
-
-	/* Use a simple RNG */
-	if(Rand_quick)
-	{
-		/* Wait for it */
-		while(TRUE)
+	if(Rand_quick) /* Use a simple RNG */
+	{		
+		while(TRUE) /* Wait for it */
 		{
-			/* Cycle the generator */
-			r = (Rand_value = LCRNG(Rand_value));
-
-			/* Mutate a 28-bit "random" number */
-			r = (r >> 4) / n;
-
+			r = (Rand_value = LCRNG(Rand_value)); /* Cycle the generator */
+			r = (r >> 4) / n; /* Mutate a 28-bit "random" number */
 			if(r < m) break;
 		}
 	}
@@ -150,26 +133,16 @@ s32b Rand_div(u32b m)
 		while(TRUE)
 		{
 			int j;
-
-			/* Acquire the next index */
-			j = Rand_place + 1;
+			j = Rand_place + 1; /* Acquire the next index */
 			if(j == RAND_DEG) j = 0;
+			r = (Rand_state[j] += Rand_state[Rand_place]); /* Update the table, extract an entry */
 
-			/* Update the table, extract an entry */
-			r = (Rand_state[j] += Rand_state[Rand_place]);
-
-			/* Hack -- extract a 28-bit "random" number */
-			r = (r >> 4) / n;
-
-			/* Advance the index */
-			Rand_place = j;
-
+			r = (r >> 4) / n; /* Hack -- extract a 28-bit "random" number */
+			Rand_place = j; /* Advance the index */
 			if(r < m) break;
 		}
 	}
-
-	/* Use the value */
-	return (r);
+	return (r); /* Use the value */
 }
 
 

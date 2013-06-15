@@ -4400,11 +4400,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 				prt("Goto File: ", hgt - 1, 0);
 #endif
 				strcpy(tmp, TEXT_FILES_HELP);
-
-				if(askfor(tmp, 80))
-				{
-					if(!show_file(TRUE, tmp, NULL, 0, mode)) skey = 'q';
-				}
+				if(askfor(tmp, 80) && !show_file(TRUE, tmp, NULL, 0, mode)) skey = 'q';
 			}
 			break;
 
@@ -4456,14 +4452,12 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		{
 			int key = -1;
 
-			if(!(skey & SKEY_MASK) && isalpha(skey))
-				key = skey - 'A';
+			if(!(skey & SKEY_MASK) && isalpha(skey)) key = skey - 'A';
 
 			if((key > -1) && hook[key][0])
 			{
 				/* Recurse on that file */
-				if(!show_file(TRUE, hook[key], NULL, 0, mode))
-					skey = 'q';
+				if(!show_file(TRUE, hook[key], NULL, 0, mode)) skey = 'q';
 			}
 		}
 
@@ -4509,23 +4503,14 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 			fff = my_fopen(path, "r");
 		}
 
-		/* Return to last screen */
-		if((skey == ESCAPE) || (skey == '<')) break;
-
-		/* Exit on the ^q */
-		if(skey == KTRL('q')) skey = 'q';
-
-		/* Exit on the q key */
-		if(skey == 'q') break;
+		if((skey == ESCAPE) || (skey == '<')) break; /* Return to last screen */
+		if(skey == KTRL('q')) skey = 'q'; /* Exit on the ^q */
+		if(skey == 'q') break; /* Exit on the q key */
 	}
 
 	my_fclose(fff);
-
-	/* Escape */
-	if(skey == 'q') return FALSE;
-
-	/* Normal return */
-	return TRUE;
+	if(skey == 'q') return FALSE; /* Escape */
+	return TRUE; /* Normal return */
 }
 
 /*
@@ -4537,7 +4522,6 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 {
 	int i, k = 0;
 	char old_player_base[32] = "";
-
 	if(character_generated) strcpy(old_player_base, player_base);
 
 	/* Cannot be too long */
@@ -4565,15 +4549,9 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 #else
 		if(iscntrl(creature_ptr->name[i]))
 #endif
-
 		{
 			/* Illegal characters */
-#ifdef JP
-			quit_fmt("'%s' という名前は不正なコントロールコードを含んでいます。", creature_ptr->name);
-#else
-			quit_fmt("The name '%s' contains control chars!", creature_ptr->name);
-#endif
-
+			quit_fmt(MES_SYS_CONTROL_CODE(creature_ptr->name));
 		}
 	}
 

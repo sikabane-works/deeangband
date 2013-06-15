@@ -123,6 +123,7 @@
 #define MES_SYS_ERROR_GAMEOVER "熟慮の上の自殺！"
 
 #define MES_SYS_PARSING(FILE) "'%s'を解析中。", (FILE)
+#define MES_SYS_CONTROL_CODE(MESSAGE) "'%s' は不正なコントロールコードを含んでいます。", (MESSAGE)
 
 #else
 
@@ -217,6 +218,7 @@
 #define MES_SYS_ERROR_GAMEOVER "Contemplating suicide!"
 
 #define MES_SYS_PARSING(FILE) "Parsing '%s'.", (FILE)
+#define MES_SYS_CONTROL_CODE(MESSAGE) '%s' contains control chars!", (MESSAGE)
 
 #endif
 
