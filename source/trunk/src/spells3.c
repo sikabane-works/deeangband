@@ -3849,24 +3849,37 @@ bool rustproof(creature_type *creature_ptr)
 {
 	OBJECT_ID item;
 	object_type *object_ptr;
-	char        object_name[MAX_NLEN];
+	bool refined = FALSE;
+	char object_name[MAX_NLEN];
 
 	if(!get_item(creature_ptr, &item, MES_RUSTPROOF_WHICH_OBJECT, MES_RUSTPROOF_NO_OBJECT, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour2, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 	add_flag(object_ptr->trait_flags, TRAIT_IGNORE_ACID);
+
 	if((object_ptr->to_ac < 0) && !object_is_cursed(object_ptr))
 	{
-		msg_format(MES_RUSTPROOF_AS_NEW(object_ptr));
 		object_ptr->to_ac = 0;
+		refined = TRUE;
 	}
+	if((object_ptr->to_ev < 0) && !object_is_cursed(object_ptr))
+	{
+		object_ptr->to_ev = 0;
+		refined = TRUE;
+	}
+	if((object_ptr->to_vo < 0) && !object_is_cursed(object_ptr))
+	{
+		object_ptr->to_vo = 0;
+		refined = TRUE;
+	}
+
+	if(refined) msg_format(MES_RUSTPROOF_AS_NEW(object_ptr));
 
 	msg_format(MES_RUSTPROOF_PROTECTED(object_ptr));
 	calc_android_exp(creature_ptr);
 	return TRUE;
 }
-
 
 static void shatter_object(object_type *object_ptr)
 {
