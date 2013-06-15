@@ -1362,6 +1362,7 @@
 #define COD_EQUIPED_DAMAGE(OBJECT_NAME) "%sを装備したダメージ", OBJECT_NAME
 #define COD_HELLFIRE_RISK "地獄の劫火の呪文を唱えた疲労"
 #define COD_JOJ_RISK "審判の宝石"
+#define COD_UNCONTROLED_MANA_FIELD "コントロールし難い強力な魔力の解放"
 #else
 
 #define COD_QUITTING "Quitting"
@@ -1430,6 +1431,7 @@
 #define COD_EQUIPED_DAMAGE(OBJECT_NAME) "wielding %s", OBJECT_NAME
 #define COD_HELLFIRE_RISK "the strain of casting Hellfire"
 #define COD_JOJ_RISK "the Jewel of Judgement"
+#define COD_UNCONTROLED_MANA_FIELD "unleashing magics too mighty to control"
 #endif
 
 // Hack -- possible "insult" messages
@@ -3923,6 +3925,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_IMMUNE_CANCEL "免疫を付けるのをやめた。"
 #define MES_TRAIT_ELEM_BRAND_WHICH "どの元素攻撃をしますか？"
 #define MES_TRAIT_ELEM_BRAND_CANCEL "魔法剣を使うのをやめた。"
+#define MES_TRAIT_MANA_FIELD_DONE "強力な魔力が敵を引き裂いた！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -4031,6 +4034,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_IMMUNE_CANCEL "You cancel the temporary immune."
 #define MES_TRAIT_ELEM_BRAND_WHICH "Choose a temporary elemental brand "
 #define MES_TRAIT_ELEM_BRAND_CANCEL "You cancel the temporary branding."
+#define MES_TRAIT_MANA_FIELD_DONE "Mighty magics rend your enemies!"
 #endif
 
 #ifdef JP

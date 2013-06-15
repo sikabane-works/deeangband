@@ -1139,20 +1139,11 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 
 		case SV_STAFF_MSTORM:
 		{
-#ifdef JP
-			msg_print("強力な魔力が敵を引き裂いた！");
-#else
-			msg_print("Mighty magics rend your enemies!");
-#endif
-			project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx,
-				(randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
-			if((caster_ptr->class_idx != CLASS_MAGE) && (caster_ptr->class_idx != CLASS_HIGH_MAGE) && (caster_ptr->class_idx != CLASS_SORCERER) && (caster_ptr->class_idx != CLASS_MAGIC_EATER) && (caster_ptr->class_idx != CLASS_BLUE_MAGE))
+			msg_print(MES_TRAIT_MANA_FIELD_DONE);
+			project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, (randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
+			if(!saving_throw(caster_ptr, SAVING_VO, 120, 0))
 			{
-#ifdef JP
-				(void)take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", NULL, -1);
-#else
-				(void)take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, "unleashing magics too mighty to control", NULL, -1);
-#endif
+				(void)take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_UNCONTROLED_MANA_FIELD, NULL, -1);
 			}
 			ident = TRUE;
 			break;

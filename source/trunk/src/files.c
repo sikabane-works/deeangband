@@ -4550,14 +4550,11 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 		if(iscntrl(creature_ptr->name[i]))
 #endif
 		{
-			/* Illegal characters */
-			quit_fmt(MES_SYS_CONTROL_CODE(creature_ptr->name));
+			quit_fmt(MES_SYS_CONTROL_CODE(creature_ptr->name)); /* Illegal characters */
 		}
 	}
 
-
 #ifdef MACINTOSH
-
 	/* Extract "useful" letters */
 	for (i = 0; creature_ptr->name[i]; i++)
 	{
