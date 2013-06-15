@@ -3870,15 +3870,19 @@ bool rustproof(creature_type *creature_ptr)
 
 static void shatter_object(object_type *object_ptr)
 {
+	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	int i;
+
 	object_ptr->art_id = 0;
 	object_ptr->ego_id = EGO_BLASTED;
-	object_ptr->to_ac = 0 - (s16b)randint1(5) - (s16b)randint1(5);
-	object_ptr->to_vo = 0;
-	object_ptr->to_hit = 0;
-	object_ptr->to_damage = 0;
-	object_ptr->ac = 0;
-	object_ptr->vo = 0;
+	object_ptr->to_ac = object_kind_ptr->ac - diceroll(2, 5);
+	object_ptr->to_ev = object_kind_ptr->ev - diceroll(2, 5);
+	object_ptr->to_vo = object_kind_ptr->vo - diceroll(2, 5);
+	object_ptr->to_hit = 1;
+	object_ptr->to_damage = 1;
+	object_ptr->ac = object_kind_ptr->ac - diceroll(1, 5);
+	object_ptr->ev = object_kind_ptr->ev - diceroll(1, 5);
+	object_ptr->vo = object_kind_ptr->vo - diceroll(1, 5);
 	object_ptr->dd = 0;
 	object_ptr->ds = 0;
 	for (i = 0; i < MAX_TRAITS_FLAG; i++) object_ptr->trait_flags[i] = 0;

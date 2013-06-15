@@ -1981,7 +1981,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						break;
 					}
 				}
-				/* Uncurse it */
 				object_ptr->curse_flags[0] = 0L;
 			}
 			else if((power == -2) && one_in_(2))
@@ -1989,12 +1988,9 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				if(object_ptr->to_hit > 0) object_ptr->to_hit = 0 - object_ptr->to_hit;
 				if(object_ptr->to_damage > 0) object_ptr->to_damage = 0 - object_ptr->to_damage;
 				if(object_ptr->to_ac > 0) object_ptr->to_ac = 0 - object_ptr->to_ac;
-				if(object_ptr->pval > 0) object_ptr->pval = 0 - object_ptr->pval;
-
-				/* Broken */
-				object_ptr->ident |= (IDENT_BROKEN);
-
-				/* Cursed */
+				if(object_ptr->to_ev > 0) object_ptr->to_ev = 0 - object_ptr->to_ev;
+				if(object_ptr->to_vo > 0) object_ptr->to_vo = 0 - object_ptr->to_vo;
+				object_ptr->ident |= (IDENT_BROKEN); /* Broken */
 				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 				add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
 			}
@@ -2003,11 +1999,9 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 
 	case TV_AMULET:
 		{
-
 			if((one_in_(150) && (power > 0) && !object_is_cursed(object_ptr) && (level > 79)) || (power > 2)) /* power > 2 is debug only */
 			{
 				object_ptr->pval = MIN(object_ptr->pval, 4);
-				/* Randart amulet */
 				create_artifact(creature_ptr, object_ptr, FALSE);
 			}
 
@@ -2052,15 +2046,15 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						}
 					}
 				}
-				/* Uncurse it */
 				object_ptr->curse_flags[0] = 0L;
 			}
 			else if((power == -2) && one_in_(2))
 			{
 				if(object_ptr->to_hit > 0) object_ptr->to_hit = 0-object_ptr->to_hit;
 				if(object_ptr->to_damage > 0) object_ptr->to_damage = 0-object_ptr->to_damage;
-				if(object_ptr->to_ac > 0) object_ptr->to_ac = 0-object_ptr->to_ac;
-				if(object_ptr->pval > 0) object_ptr->pval = 0-object_ptr->pval;
+				if(object_ptr->to_ac > 0) object_ptr->to_ac = 0- object_ptr->to_ac;
+				if(object_ptr->to_ev > 0) object_ptr->to_ev = 0- object_ptr->to_ev;
+				if(object_ptr->to_vo > 0) object_ptr->to_vo = 0- object_ptr->to_vo;
 
 				/* Broken */
 				object_ptr->ident |= (IDENT_BROKEN);
