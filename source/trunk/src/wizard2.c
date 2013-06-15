@@ -445,14 +445,10 @@ static int wiz_create_itemtype(void)
 	int i, num, max_num;
 	int col, row;
 	TVAL tval;
-
 	cptr tval_desc;
 	char ch;
-
 	int choice[80];
-
 	char buf[160];
-
 
 	Term_clear();
 
@@ -555,6 +551,18 @@ static void wiz_tweak_item(object_type *object_ptr)
 	object_ptr->to_ac = (SAVING)strtol(tmp_val, NULL, 10);
 	wiz_display_item(object_ptr);
 
+	p = "Enter new 'to_ev' setting: ";
+	sprintf(tmp_val, "%d", object_ptr->to_ev);
+	if(!get_string(p, tmp_val, 5)) return;
+	object_ptr->to_ev = (SAVING)strtol(tmp_val, NULL, 10);
+	wiz_display_item(object_ptr);
+
+	p = "Enter new 'to_ev' setting: ";
+	sprintf(tmp_val, "%d", object_ptr->to_vo);
+	if(!get_string(p, tmp_val, 5)) return;
+	object_ptr->to_vo = (SAVING)strtol(tmp_val, NULL, 10);
+	wiz_display_item(object_ptr);
+
 	p = "Enter new 'to_hit' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_hit);
 	if(!get_string(p, tmp_val, 5)) return;
@@ -576,16 +584,12 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	object_type forge;
 	object_type *quest_ptr;
-
 	char ch;
-
 	bool changed = FALSE;
 
 
 	/* Hack -- leave artifacts alone */
 	if(object_is_artifact(object_ptr)) return;
-
-
 	quest_ptr = &forge;
 
 	/* Copy the object */
@@ -684,14 +688,9 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 	/* Notice change */
 	if(changed)
 	{
-		/* Apply changes */
-		object_copy(object_ptr, quest_ptr);
-
+		object_copy(object_ptr, quest_ptr); /* Apply changes */
 		prepare_update(caster_ptr, CRU_BONUS);
-
-		/* Combine / Reorder the pack (later) */
-		prepare_update(caster_ptr, CRU_COMBINE | CRU_REORDER);
-
+		prepare_update(caster_ptr, CRU_COMBINE | CRU_REORDER); /* Combine / Reorder the pack (later) */
 		prepare_window(PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 	}
 }
@@ -720,7 +719,6 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 	object_type	*quest_ptr;
 
 	cptr q = "Rolls: %ld  Correct: %ld  Matches: %ld  Better: %ld  Worse: %ld  Other: %ld";
-
 	cptr p = "Enter number of items to roll: ";
 	char tmp_val[80];
 
@@ -815,38 +813,29 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 			correct++;
 
 			/* Check for match */
-			if((quest_ptr->pval == object_ptr->pval) &&
-				 (quest_ptr->to_ac == object_ptr->to_ac) &&
-				 (quest_ptr->to_hit == object_ptr->to_hit) &&
-				 (quest_ptr->to_damage == object_ptr->to_damage) &&
-				 (quest_ptr->art_id == object_ptr->art_id))
+			if((quest_ptr->pval == object_ptr->pval) && (quest_ptr->to_ac == object_ptr->to_ac) &&
+				(quest_ptr->to_hit == object_ptr->to_hit) && (quest_ptr->to_damage == object_ptr->to_damage) &&
+				(quest_ptr->art_id == object_ptr->art_id))
 			{
 				matches++;
 			}
 
 			/* Check for better */
-			else if((quest_ptr->pval >= object_ptr->pval) &&
-						(quest_ptr->to_ac >= object_ptr->to_ac) &&
-						(quest_ptr->to_hit >= object_ptr->to_hit) &&
-						(quest_ptr->to_damage >= object_ptr->to_damage))
+			else if((quest_ptr->pval >= object_ptr->pval) && (quest_ptr->to_ac >= object_ptr->to_ac) &&
+				(quest_ptr->to_hit >= object_ptr->to_hit) && (quest_ptr->to_damage >= object_ptr->to_damage))
 			{
 				better++;
 			}
 
 			/* Check for worse */
-			else if((quest_ptr->pval <= object_ptr->pval) &&
-						(quest_ptr->to_ac <= object_ptr->to_ac) &&
-						(quest_ptr->to_hit <= object_ptr->to_hit) &&
-						(quest_ptr->to_damage <= object_ptr->to_damage))
+			else if((quest_ptr->pval <= object_ptr->pval) && (quest_ptr->to_ac <= object_ptr->to_ac) &&
+				(quest_ptr->to_hit <= object_ptr->to_hit) && (quest_ptr->to_damage <= object_ptr->to_damage))
 			{
 				worse++;
 			}
 
 			/* Assume different */
-			else
-			{
-				other++;
-			}
+			else other++;
 		}
 
 		/* Final dump */
@@ -865,15 +854,13 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
  */
 static void wiz_quantity_item(object_type *object_ptr)
 {
-	int         tmp_int, tmp_qnt;
-	char        tmp_val[100];
+	int tmp_int, tmp_qnt;
+	char tmp_val[100];
 
 	/* Never duplicate artifacts */
 	if(object_is_artifact(object_ptr)) return;
 
-	/* Store old quantity. -LM- */
-	tmp_qnt = object_ptr->number;
-
+	tmp_qnt = object_ptr->number; /* Store old quantity. -LM- */
 	sprintf(tmp_val, "%d", object_ptr->number);
 
 	if(get_string(KW_QUANTITY, tmp_val, 2))
@@ -985,40 +972,27 @@ static void wiz_create_item(creature_type *creature_ptr)
 	OBJECT_KIND_ID k_idx;
 
 	screen_save();
-
-	/* Get object base type */
-	k_idx = wiz_create_itemtype();
+	k_idx = wiz_create_itemtype(); /* Get object base type */
 	screen_load();
 
-
-	/* Return if failed */
-	if(!k_idx) return;
+	if(!k_idx) return; /* Return if failed */
 
 	if(have_flag(object_kind_info[k_idx].flags, TRAIT_INSTA_ART))
 	{
-		int i;
+		ARTIFACT_ID i;
 
 		/* Artifactify */
 		for (i = 1; i < max_artifact_idx; i++)
 		{
-			/* Ignore incorrect tval */
-			if(artifact_info[i].tval != object_kind_info[k_idx].tval) continue;
-
-			/* Ignore incorrect sval */
-			if(artifact_info[i].sval != object_kind_info[k_idx].sval) continue;
-
-			/* Create this artifact */
-			(void)drop_named_art(creature_ptr, i, creature_ptr->fy, creature_ptr->fx);
-
-			/* All done */
-			msg_print("Allocated(INSTA_ART).");
-
+			if(artifact_info[i].tval != object_kind_info[k_idx].tval) continue; /* Ignore incorrect tval */
+			if(artifact_info[i].sval != object_kind_info[k_idx].sval) continue; /* Ignore incorrect sval */
+			(void)drop_named_art(creature_ptr, i, creature_ptr->fy, creature_ptr->fx); /* Create this artifact */
+			msg_print("Allocated(INSTA_ART)."); /* All done */
 			return;
 		}
 	}
 
 	object_ptr = &forge;
-
 	generate_object(object_ptr, k_idx); /* Create the item */
 	apply_magic(creature_ptr, object_ptr, floor_ptr->depth, AM_NO_FIXED_ART); /* Apply magic */
 	(void)drop_near(floor_ptr, object_ptr, -1, creature_ptr->fy, creature_ptr->fx); /* Drop the object from heaven */
@@ -1029,28 +1003,8 @@ static void wiz_create_item(creature_type *creature_ptr)
 // Cure everything instantly
 static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 {
-	/* Heal the player */
-	if(creature_ptr->chp < creature_ptr->mhp)
-	{
-		creature_ptr->chp = creature_ptr->mhp;
-		creature_ptr->chp_frac = 0;
-		prepare_redraw(PR_HP | PW_PLAYER);
-	}
-
-	/* Restore mana */
-	if(creature_ptr->csp < creature_ptr->msp)
-	{
-		creature_ptr->csp = creature_ptr->msp;
-		creature_ptr->csp_frac = 0;
-		prepare_redraw(PR_MANA);
-		prepare_window(PW_PLAYER | PW_SPELL);
-	}
-
-	// Cure stuff
 	do_active_trait(creature_ptr, TRAIT_HEAL, TRUE);
 	do_active_trait(creature_ptr, TRAIT_RESTORE_ALL, TRUE);
-
-	// No longer hungry
 	(void)set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
 }
 
