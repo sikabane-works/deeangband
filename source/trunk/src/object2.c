@@ -5355,11 +5355,44 @@ void weapon_boost(object_type *object_ptr, FLOOR_LEV level, POWER power)
 	}
 }
 
-
-void armour_boost(object_type *object_ptr, FLOOR_LEV level, POWER power)
+void ac_boost(object_type *object_ptr, FLOOR_LEV level, POWER power)
 {
-	int toac1 = randint1(5) + m_bonus(5, level);
-	int toac2 = m_bonus(10, level);
+	POWER toac1 = randint1(5) + m_bonus(5, level);
+	POWER toac2 = m_bonus(10, level);
+	if(power >= ITEM_RANK_GOOD) // Good
+	{
+		object_ptr->to_ac += toac1;
+		if(power >= ITEM_RANK_GREAT) object_ptr->to_ac += toac2;
+	}
+	else if(power <= ITEM_RANK_CURSED) // Cursed
+	{
+		object_ptr->to_ac -= toac1; // Penalize
+		if(power <= ITEM_RANK_BROKEN) object_ptr->to_ac -= toac2; // Very cursed -- Penalize again
+		if(object_ptr->to_ac < 0) add_flag(object_ptr->curse_flags, TRAIT_CURSED); // Cursed (if "bad")
+	}
+}
+
+void ev_boost(object_type *object_ptr, FLOOR_LEV level, POWER power)
+{
+	POWER toac1 = randint1(5) + m_bonus(5, level);
+	POWER toac2 = m_bonus(10, level);
+	if(power >= ITEM_RANK_GOOD) // Good
+	{
+		object_ptr->to_ac += toac1;
+		if(power >= ITEM_RANK_GREAT) object_ptr->to_ac += toac2;
+	}
+	else if(power <= ITEM_RANK_CURSED) // Cursed
+	{
+		object_ptr->to_ac -= toac1; // Penalize
+		if(power <= ITEM_RANK_BROKEN) object_ptr->to_ac -= toac2; // Very cursed -- Penalize again
+		if(object_ptr->to_ac < 0) add_flag(object_ptr->curse_flags, TRAIT_CURSED); // Cursed (if "bad")
+	}
+}
+
+void vo_boost(object_type *object_ptr, FLOOR_LEV level, POWER power)
+{
+	POWER toac1 = randint1(5) + m_bonus(5, level);
+	POWER toac2 = m_bonus(10, level);
 	if(power >= ITEM_RANK_GOOD) // Good
 	{
 		object_ptr->to_ac += toac1;
@@ -5499,7 +5532,7 @@ void create_ego(object_type *object_ptr, FLOOR_LEV level, OBJECT_EGO_ID ego_id)
 	}
 
 	// Armour_Boost
-	armour_boost(object_ptr, level, ITEM_RANK_GREAT);
+	ac_boost(object_ptr, level, ITEM_RANK_GREAT);
 }
 
 void set_inventory_weight(creature_type *creature_ptr)

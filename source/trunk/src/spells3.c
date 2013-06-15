@@ -3823,9 +3823,7 @@ int dissolve_armour(creature_type *creature_ptr)
 
 	// No damage left to be done
 	if(object_ptr->ac + object_ptr->to_ac <= 0) return FALSE;
-
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe
-
 	object_flags(object_ptr, flgs); // Extract the flags
 
 	// Object resists

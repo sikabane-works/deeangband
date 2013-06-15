@@ -881,7 +881,9 @@ extern int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 
 // object2.c
 extern void weapon_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
-extern void armour_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
+extern void ac_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
+extern void ev_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
+extern void vo_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
 extern void create_ego(object_type *object_ptr, FLOOR_LEV level, OBJECT_EGO_ID ego_id);
 extern void excise_object_idx(OBJECT_ID object_idx);
 extern void delete_object_idx(OBJECT_ID object_idx);
