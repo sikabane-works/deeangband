@@ -266,12 +266,7 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 
 	if(!creature_ptr->mane_num)
 	{
-#ifdef JP
-msg_print("Ç‹ÇÀÇÁÇÍÇÈÇ‡ÇÃÇ™âΩÇ‡Ç»Ç¢ÅI");
-#else
-		msg_print("You don't remember any action!");
-#endif
-
+		msg_print(MES_MIMIC_NONE);
 		return FALSE;
 	}
 
@@ -308,12 +303,7 @@ msg_print("Ç‹ÇÀÇÁÇÍÇÈÇ‡ÇÃÇ™âΩÇ‡Ç»Ç¢ÅI");
 	if(PROB_PERCENT(chance))
 	{
 		if(flush_failure) flush();
-#ifdef JP
-msg_print("Ç‡ÇÃÇ‹ÇÀÇ…é∏îsÇµÇΩÅI");
-#else
-		msg_print("You failed to concentrate hard enough!");
-#endif
-
+		msg_print(MES_MIMIC_FAILED);
 		sound(SOUND_FAIL);
 	}
 	else

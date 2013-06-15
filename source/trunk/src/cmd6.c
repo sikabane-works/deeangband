@@ -1138,7 +1138,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			break;
 
 		case SV_STAFF_MSTORM:
-		{
 			msg_print(MES_TRAIT_MANA_FIELD_DONE);
 			project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, (randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
 			if(!saving_throw(caster_ptr, SAVING_VO, 120, 0))
@@ -1147,7 +1146,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			}
 			ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_NOTHING:
 			msg_print(MES_NO_HAPPEN);
@@ -1162,10 +1160,8 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 }
 
 /*
- * Use a staff.			-RAK-
- *
+ * Use a staff.-RAK-
  * One charge of one staff disappears.
- *
  * Hack -- staffs of identify can be "cancelled".
  */
 static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)

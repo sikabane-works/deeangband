@@ -811,6 +811,7 @@
 
 #define MES_FAILED_RUNAWAY "You are failed to run away."
 
+
 #define MES_DAMAGE_SUNLIGHT(CREATURE) "The sun's rays scorch undead flesh of %s!", (CREATURE)->name
 #define MES_DAMAGE_LIGHT_SOURCE(OBJECT, CREATURE) "The %s scorches undead flesh of %s!", (OBJECT)->name, (CREATURE)->name
 #define MES_DAMAGE_DENSITY "Your molecules feel disrupted!"
@@ -5055,4 +5056,12 @@ static cptr desc_stat_neg[] =
 #define OBJECT_DESC_HEX_BOOK "& Hex Spellbook~ %"
 #define OBJECT_DESC_TURN_LIGHT1 "(with "
 #define OBJECT_DESC_TURN_LIGHT2 " turns of light)"
+#endif
+
+#ifdef JP
+#define MES_MIMIC_NONE "Ç‹ÇÀÇÁÇÍÇÈÇ‡ÇÃÇ™âΩÇ‡Ç»Ç¢ÅI"
+#define MES_MIMIC_FAILED "Ç‡ÇÃÇ‹ÇÀÇ…é∏îsÇµÇΩÅI"
+#else
+#define MES_MIMIC_NONE "You don't remember any action!"
+#define MES_MIMIC_FAILED "You failed to concentrate hard enough!"
 #endif
