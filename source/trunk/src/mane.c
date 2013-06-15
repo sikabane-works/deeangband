@@ -172,41 +172,27 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 			else
 			{
 				redraw = FALSE;
-
 				screen_load();
 			}
-
-			/* Redo asking */
-			continue;
+			continue; /* Redo asking */
 		}
 
 		ask = isupper(choice);
-
 		if(ask) choice = (char)tolower(choice);
+		i = (islower(choice) ? A2I(choice) : -1); /* Extract request */
 
-		/* Extract request */
-		i = (islower(choice) ? A2I(choice) : -1);
-
-		/* Totally Illegal */
-		if((i < 0) || (i >= num))
+		if((i < 0) || (i >= num)) /* Totally Illegal */
 		{
 			bell();
 			continue;
 		}
 
-		/* Save the spell index */
-		spell_ = trait_info[creature_ptr->mane_spell[i]];
-
+		spell_ = trait_info[creature_ptr->mane_spell[i]]; /* Save the spell index */
 		if(ask)
 		{
 			char tmp_val[160];
-#ifdef JP
-			(void)strnfmt(tmp_val, 78, "%s‚ð‚Ü‚Ë‚Ü‚·‚©H", trait_info[creature_ptr->mane_spell[i]].title);
-#else
-			(void)strnfmt(tmp_val, 78, "Use %s? ", trait_info[creature_ptr->mane_spell[i]].title);
-#endif
-			/* Belay that order */
-			if(!get_check(tmp_val)) continue;
+			(void)strnfmt(tmp_val, 78, MES_MIMIC_CHECK(trait_info[creature_ptr->mane_spell[i]].title));
+			if(!get_check(tmp_val)) continue; /* Belay that order */
 		}
 
 		flag = TRUE;

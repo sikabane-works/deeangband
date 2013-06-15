@@ -5062,8 +5062,10 @@ static cptr desc_stat_neg[] =
 #define MES_MIMIC_WHICH_TRAIT(FROM, TO, NAME) "(%c-%c, '*'で一覧, ESC) どの%sをまねますか？", (FROM), (TO), (NAME)
 #define MES_MIMIC_NONE "まねられるものが何もない！"
 #define MES_MIMIC_FAILED "ものまねに失敗した！"
+#define MES_MIMIC_CHECK(NAME) "%sをまねますか？", (NAME)
 #else
 #define MES_MIMIC_WHICH_TRAIT(FROM, TO, NAME)  "(%c-%c, *=List, ESC=exit) Use which %s? "
 #define MES_MIMIC_NONE "You don't remember any action!"
 #define MES_MIMIC_FAILED "You failed to concentrate hard enough!", (FROM), (TO), (NAME)
+#define MES_MIMIC_CHECK(NAME) "Use %s? ", (NAME)
 #endif
