@@ -2534,15 +2534,6 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV le
 
 }
 
-// Apply magic at specified ego.
-void set_object_ego(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV lev, OBJECT_EGO_ID ego)
-{
-	if(!is_valid_creature(owner_ptr)) return;
-	if(object_is_weapon(object_ptr)) weapon_boost(object_ptr, lev, ITEM_RANK_GREAT);
-	if(object_is_armour(object_ptr)) armour_boost(object_ptr, lev, ITEM_RANK_GREAT);
-	object_ptr->ego_id = ego;
-}
-
 // Hack -- determine if a template is "good"
 static bool kind_is_good(OBJECT_KIND_ID k_idx)
 {
@@ -5398,7 +5389,7 @@ void armour_boost(object_type *object_ptr, FLOOR_LEV level, POWER power)
 }
 
 
-void create_ego(object_type *object_ptr, int level, int ego_id)
+void create_ego(object_type *object_ptr, FLOOR_LEV level, OBJECT_EGO_ID ego_id)
 {
 	ego_item_type *e_ptr = &object_ego_info[ego_id];
 

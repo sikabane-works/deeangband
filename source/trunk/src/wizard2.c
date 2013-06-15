@@ -988,7 +988,6 @@ static void wiz_create_item(creature_type *creature_ptr)
 
 	/* Get object base type */
 	k_idx = wiz_create_itemtype();
-
 	screen_load();
 
 
@@ -1385,20 +1384,13 @@ static void do_cmd_wiz_learn(void)
 	object_type forge;
 	object_type *quest_ptr;
 
-	/* Scan every object */
-	for (i = 1; i < max_object_kind_idx; i++)
+	for (i = 1; i < max_object_kind_idx; i++) /* Scan every object */
 	{
 		object_kind *object_kind_ptr = &object_kind_info[i];
-
-		/* Induce awareness */
-		if(object_kind_ptr->level <= command_arg)
+		if(object_kind_ptr->level <= command_arg) /* Induce awareness */
 		{
 			quest_ptr = &forge;
-
-			/* Prepare object */
 			generate_object(quest_ptr, i);
-
-			/* Awareness */
 			object_aware(quest_ptr);
 		}
 	}
@@ -1454,16 +1446,13 @@ static void do_cmd_wiz_summon(creature_type *creature_ptr, int num)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
-
-	for (i = 0; i < num; i++)
-		(void)summoning(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+	for (i = 0; i < num; i++) (void)summoning(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 }
 
 
 /*
  * Summon a creature of the specified type
- *
- *  This function is rather dangerous
+ * This function is rather dangerous
  */
 static void do_cmd_wiz_named(creature_type *creature_ptr, SPECIES_ID species_idx)
 {
@@ -1492,17 +1481,12 @@ static void do_cmd_wiz_zap(creature_type *creature_ptr)
 {
 	int i;
 
-
 	/* Genocide everyone nearby */
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-
-
 		if(!is_valid_creature(m_ptr)) continue;
-
-		/* Skip the mount */
-		if(i == creature_ptr->riding) continue;
+		if(i == creature_ptr->riding) continue; /* Skip the mount */
 
 		/* Delete nearby creatures */
 		if(m_ptr->cdis <= MAX_SIGHT)
@@ -1510,7 +1494,6 @@ static void do_cmd_wiz_zap(creature_type *creature_ptr)
 			if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 			{
 				char m_name[MAX_NLEN];
-
 				creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 				write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
 			}
@@ -1532,22 +1515,16 @@ static void do_cmd_wiz_zap_all(creature_type *creature_ptr)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-
-
 		if(!is_valid_creature(m_ptr)) continue;
-
-		/* Skip the mount */
+		if(is_player(m_ptr)) continue;
 		if(i == creature_ptr->riding) continue;
-
 		if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 		{
 			char m_name[MAX_NLEN];
-
 			creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 			write_diary(DIARY_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
 		}
 
-		/* Delete this creature */
 		delete_creature(&creature_list[i]);
 	}
 }
@@ -1964,7 +1941,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 			object_wipe(&ob);
 			generate_object(&ob, tmp_int2);
-			set_object_ego(creature_ptr, &ob, creature_ptr->lev * 2, tmp_int);
+			create_ego(&ob, creature_ptr->lev * 2, tmp_int);
 			(void)drop_near(floor_ptr, &ob, -1, creature_ptr->fy, creature_ptr->fx);
 		}
 		break;

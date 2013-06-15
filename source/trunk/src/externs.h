@@ -882,7 +882,7 @@ extern int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 // object2.c
 extern void weapon_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
 extern void armour_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
-extern void create_ego(object_type *object_ptr, int level, int ego_id);
+extern void create_ego(object_type *object_ptr, FLOOR_LEV level, OBJECT_EGO_ID ego_id);
 extern void excise_object_idx(OBJECT_ID object_idx);
 extern void delete_object_idx(OBJECT_ID object_idx);
 extern void delete_object(floor_type *floor_ptr, int y, int x);
@@ -907,7 +907,6 @@ extern void generate_object(object_type *object_ptr, OBJECT_KIND_ID k_idx);
 extern void object_copy(object_type *object1_ptr, object_type *object2_ptr);
 extern void apply_bodysize_boost(creature_type *user_ptr, object_type *object_ptr);
 extern void apply_magic(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV lev, FLAGS_32 mode, int specified_idx);
-extern void set_object_ego(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV lev, OBJECT_EGO_ID ego);
 extern u32b get_curse(POWER power, object_type *object_ptr);
 
 extern void weapon_boost(object_type *object_ptr, FLOOR_LEV level, POWER power);
