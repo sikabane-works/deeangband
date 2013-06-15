@@ -829,7 +829,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	if(need_mana <= creature_ptr->csp) creature_ptr->csp -= need_mana;
 	else over_exerted = TRUE;
 
-	if(PERCENT(chance))
+	if(PROB_PERCENT(chance))
 	{
 		if(flush_failure) flush();
 		msg_format(MES_CAST_FAILED(prayer));
@@ -838,12 +838,12 @@ void do_cmd_cast(creature_type *creature_ptr)
 		/* Failure casting may activate some side effect */
 		do_spell(creature_ptr, realm, spell, SPELL_FAIL);
 
-		if((object_ptr->tval == TV_CHAOS_BOOK) && PERCENT(spell))
+		if((object_ptr->tval == TV_CHAOS_BOOK) && PROB_PERCENT(spell))
 		{
 			msg_print(MES_CAST_CHAOS_PENALTY);
 			wild_magic(creature_ptr, spell);
 		}
-		else if((object_ptr->tval == TV_DEATH_BOOK) && PERCENT(spell))
+		else if((object_ptr->tval == TV_DEATH_BOOK) && PROB_PERCENT(spell))
 		{
 			if((sval == 3) && one_in_(2))
 			{
@@ -859,7 +859,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 					lose_exp(creature_ptr, spell * 250);
 			}
 		}
-		else if((object_ptr->tval == TV_MUSIC_BOOK) && PERCENT(spell / 2))
+		else if((object_ptr->tval == TV_MUSIC_BOOK) && PROB_PERCENT(spell / 2))
 		{
 			msg_print(MES_CAST_MUSIC_PENALTY);
 			aggravate_creatures(creature_ptr);
@@ -908,9 +908,9 @@ void do_cmd_cast(creature_type *creature_ptr)
 		(void)add_timed_trait(creature_ptr, TRAIT_SLEPT, randint1(5 * oops + 1), FALSE);
 
 		/* Damage CON (possibly permanently) */
-		if(PERCENT(50))
+		if(PROB_PERCENT(50))
 		{
-			bool perm = (PERCENT(25));
+			bool perm = (PROB_PERCENT(25));
 			msg_print(MES_CAST_DAMAGE_HEALTH);
 			(void)dec_stat(creature_ptr, STAT_CON, 15 + randint1(10), perm);
 		}

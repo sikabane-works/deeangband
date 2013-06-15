@@ -687,7 +687,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	chance = mod_spell_chance_2(creature_ptr, chance);
 
 	/* Failed spell */
-	if(PERCENT(chance))
+	if(PROB_PERCENT(chance))
 	{
 		if(flush_failure) flush();
 		msg_format(MES_CAST_FAILED("Dammy"));
@@ -717,9 +717,9 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 		(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, randint1(5 * oops + 1), TRUE);
 
 		/* Damage CON (possibly permanently) */
-		if(PERCENT(50))
+		if(PROB_PERCENT(50))
 		{
-			bool perm = (PERCENT(25));
+			bool perm = (PROB_PERCENT(25));
 			msg_print(MES_CAST_DAMAGE_HEALTH);
 			(void)dec_stat(creature_ptr, STAT_CON, 15 + randint1(10), perm);
 		}

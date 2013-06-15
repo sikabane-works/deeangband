@@ -624,9 +624,9 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(has_trait_object(weapon_ptr, TRAIT_DISEASE_BRAND))
 		{
 			if(!has_trait(target_ptr, TRAIT_RES_POIS)) add_timed_trait(target_ptr, TRAIT_POISONED, randint1(attacker_ptr->lev) + 5, TRUE);
-			if(PERCENT(10) && !has_trait(target_ptr, TRAIT_ANDROID))
+			if(PROB_PERCENT(10) && !has_trait(target_ptr, TRAIT_ANDROID))
 			{
-				if(dec_stat(target_ptr, STAT_CON, PERCENT(10), PERCENT(10))) msg_print(MES_MELEE_PLAGUE);
+				if(dec_stat(target_ptr, STAT_CON, PROB_PERCENT(10), PROB_PERCENT(10))) msg_print(MES_MELEE_PLAGUE);
 			}
 		}
 

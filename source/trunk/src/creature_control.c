@@ -749,7 +749,7 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 				name = COD_PIT_TRAP;
 				dam = diceroll(2, 6); // Base damage
 
-				if(PERCENT(50)) // Extra spike damage
+				if(PROB_PERCENT(50)) // Extra spike damage
 				{
 					msg_print(MES_TRAP_INPILED);
 					name = COD_SPIKED_PIT_TRAP;
@@ -771,7 +771,7 @@ void hit_trap(creature_type *creature_ptr, bool break_trap)
 				dam = diceroll(2, 6); // Base damage
 
 				// Extra spike damage
-				if(PERCENT(50))
+				if(PROB_PERCENT(50))
 				{
 					msg_print(MES_TRAP_POISON_INPILED);
 					name = COD_SPIKED_PIT_TRAP;
@@ -1275,7 +1275,7 @@ void compact_creatures(int size)
 			if(has_trait_species(species_ptr, TRAIT_UNIQUE)) chance = 100;
 
 			/* All creatures get a saving throw */
-			if(PERCENT(chance)) continue;
+			if(PROB_PERCENT(chance)) continue;
 
 			if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 			{

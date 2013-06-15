@@ -1302,13 +1302,13 @@ void battle_creatures(void)
 
 	ave_enemy_level = randint1(MIN(max_dl, 122)) + 5;
 
-	if(PERCENT(60))
+	if(PROB_PERCENT(60))
 	{
 		i = randint1(MIN(max_dl, 122))+5;
 		ave_enemy_level = MAX(i, ave_enemy_level);
 	}
 
-	if(PERCENT(30))
+	if(PROB_PERCENT(30))
 	{
 		i = randint1(MIN(max_dl, 122))+5;
 		ave_enemy_level = MAX(i, ave_enemy_level);

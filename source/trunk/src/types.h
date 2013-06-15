@@ -1188,10 +1188,10 @@ struct race_type
 	SAVING r_s_ev;
 	SAVING r_s_vo;
 
-	s16b r_mhp;			/* Race hit-dice modifier */
-	s16b r_exp;			/* Race experience factor */
-	s16b r_s_mhp;		/* Sub-race hit-dice modifier */
-	s16b r_s_exp;		/* Sub-race experience factor */
+	PERCENT r_mhp;			/* Race hit-dice modifier */
+	PERCENT r_exp;			/* Race experience factor */
+	PERCENT r_s_mhp;		/* Sub-race hit-dice modifier */
+	PERCENT r_s_exp;		/* Sub-race experience factor */
 
 	u32b b_age;			/* base age */
 	u32b m_age;			/* mod age */

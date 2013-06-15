@@ -4733,12 +4733,12 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_P_EXP:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_exp = (s16b)b;
+				race_ptr->r_exp = (PERCENT)b;
 				break;
 
 			case RC_INFO_H_EXP:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_exp = (s16b)b;
+				race_ptr->r_s_exp = (PERCENT)b;
 				break;
 
 			case RC_INFO_SYM:
@@ -4941,7 +4941,8 @@ errr parse_class_info_csv(char *buf, header *head)
 	int i, j, b;
 	char tmp[10000], nt[80];
 
-	if(get_split_offset(split, size, buf, CL_INFO_CSV_COLUMNS, ',', '"')){
+	if(get_split_offset(split, size, buf, CL_INFO_CSV_COLUMNS, ',', '"'))
+	{
 		return PARSE_ERROR_GENERIC;
 	}
 
@@ -5007,17 +5008,14 @@ errr parse_class_info_csv(char *buf, header *head)
 					break;
 
 				case CL_INFO_NAME:
-					if(!add_name(&class_ptr->name, head, tmp))
-						return PARSE_ERROR_OUT_OF_MEMORY;
+					if(!add_name(&class_ptr->name, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CL_INFO_E_NAME:
 #if JP
-					if(!add_name(&class_ptr->E_name, head, tmp))
-						return PARSE_ERROR_OUT_OF_MEMORY;
+					if(!add_name(&class_ptr->E_name, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-					if(!add_name(&class_ptr->name, head, tmp))
-						return PARSE_ERROR_OUT_OF_MEMORY;
+					if(!add_name(&class_ptr->name, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 					break;
 
@@ -5177,18 +5175,15 @@ errr parse_class_info_csv(char *buf, header *head)
 					break;
 
 				case CL_INFO_FLAGS:
-					if(0 != traits_precondition_splits(&class_ptr->flags, tmp))
-						return PARSE_ERROR_GENERIC;
+					if(0 != traits_precondition_splits(&class_ptr->flags, tmp)) return PARSE_ERROR_GENERIC;
 					break;
 
 				case CL_INFO_DESCRIPTION:
-					if(!add_text(&class_ptr->text, head, tmp, TRUE))
-						return PARSE_ERROR_OUT_OF_MEMORY;
+					if(!add_text(&class_ptr->text, head, tmp, TRUE)) return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CL_INFO_E_DESCRIPTION:
-					if(!add_text(&class_ptr->E_text, head, tmp, TRUE))
-						return PARSE_ERROR_OUT_OF_MEMORY;
+					if(!add_text(&class_ptr->E_text, head, tmp, TRUE)) return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 			}
@@ -5300,9 +5295,7 @@ errr parse_chara_info_csv(char *buf, header *head)
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
 		sprintf(nt, "[Initialize CH:%d]", n);
-
 		chara_ptr = &chara_info[n];
-
 
 		note(nt);
 
@@ -5439,7 +5432,6 @@ errr parse_chara_info_csv(char *buf, header *head)
 					if(!add_text(&chara_ptr->E_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
-
 			}
 		}
 	}
@@ -6590,7 +6582,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 
 				// Random trap and random treasure defined
 				// 25% chance for trap and 75% chance for object
-				if(PERCENT(75)) place_object(floor_ptr, *y, *x, 0L);
+				if(PROB_PERCENT(75)) place_object(floor_ptr, *y, *x, 0L);
 				else place_trap(floor_ptr, *y, *x);
 
 				floor_ptr->object_level = floor_ptr->depth;
@@ -6600,8 +6592,8 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 				floor_ptr->object_level = floor_ptr->depth + object_index;
 
 				// Create an out of deep object
-				if(PERCENT(75)) place_object(floor_ptr, *y, *x, 0L);
-				else if(PERCENT(80)) place_object(floor_ptr, *y, *x, AM_GOOD);
+				if(PROB_PERCENT(75)) place_object(floor_ptr, *y, *x, 0L);
+				else if(PROB_PERCENT(80)) place_object(floor_ptr, *y, *x, AM_GOOD);
 				else place_object(floor_ptr, *y, *x, AM_GOOD | AM_GREAT);
 
 				floor_ptr->object_level = floor_ptr->depth;

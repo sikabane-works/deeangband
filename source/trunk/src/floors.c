@@ -510,7 +510,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	// Choose randomly 
 	if(up && down)
 	{
-		if(PERCENT(50)) up = FALSE;
+		if(PROB_PERCENT(50)) up = FALSE;
 		else down = FALSE;
 	}
 

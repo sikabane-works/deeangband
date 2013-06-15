@@ -1188,7 +1188,7 @@ static bool build_type4(floor_type *floor_ptr)
 			vault_creatures(floor_ptr, yval, xval, randint1(3) + 2);
 
 			/* Object (80%) / Stairs (20%) */
-			if(PERCENT(80)) place_object(floor_ptr, yval, xval, 0L);
+			if(PROB_PERCENT(80)) place_object(floor_ptr, yval, xval, 0L);
 			else place_random_stairs(floor_ptr, yval, xval);
 
 			/* Traps to protect the treasure */
@@ -1335,7 +1335,7 @@ static bool build_type4(floor_type *floor_ptr)
 			}
 
 			/* Doors into the rooms */
-			if(PERCENT(50))
+			if(PROB_PERCENT(50))
 			{
 				int i = randint1(10);
 				place_secret_door(floor_ptr, y1 - 1, xval - i, door_type);
@@ -2635,7 +2635,7 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 
 				/* Treasure/trap */
 			case '*':
-				if(PERCENT(75)) place_object(floor_ptr, y, x, 0L);
+				if(PROB_PERCENT(75)) place_object(floor_ptr, y, x, 0L);
 				else place_trap(floor_ptr, y, x);
 				break;
 
@@ -2782,13 +2782,13 @@ static void build_vault(floor_type *floor_ptr, COODINATES yval, COODINATES xval,
 				/* Creature and/or object */
 				case ',':
 				{
-					if(PERCENT(50))
+					if(PROB_PERCENT(50))
 					{
 						floor_ptr->enemy_level = floor_ptr->depth + 3;
 						place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 						floor_ptr->enemy_level = floor_ptr->depth;
 					}
-					if(PERCENT(50))
+					if(PROB_PERCENT(50))
 					{
 						floor_ptr->object_level = floor_ptr->depth + 7;
 						place_object(floor_ptr, y, x, 0L);
@@ -3922,7 +3922,7 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 				else if(value < 23)
 				{
 					/* Object or trap */
-					if(PERCENT(25))
+					if(PROB_PERCENT(25))
 					{
 						place_object(floor_ptr, y, x, 0L);
 					}
@@ -3942,13 +3942,13 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 				else if(value < 40)
 				{
 					/* Creature or object */
-					if(PERCENT(50))
+					if(PROB_PERCENT(50))
 					{
 						floor_ptr->enemy_level = floor_ptr->depth + 3;
 						place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 						floor_ptr->enemy_level = floor_ptr->depth;
 					}
-					if(PERCENT(50))
+					if(PROB_PERCENT(50))
 					{
 						floor_ptr->object_level = floor_ptr->depth + 7;
 						place_object(floor_ptr, y, x, 0L);
@@ -3961,15 +3961,15 @@ static void fill_treasure(floor_type *floor_ptr, COODINATES x1, COODINATES x2, C
 					/* Various Stuff */
 
 					/* 20% creature, 40% trap, 20% object, 20% blank space */
-					if(PERCENT(20))
+					if(PROB_PERCENT(20))
 					{
 						place_floor_spawn_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					}
-					else if(PERCENT(50))
+					else if(PROB_PERCENT(50))
 					{
 						place_trap(floor_ptr, y, x);
 					}
-					else if(PERCENT(50))
+					else if(PROB_PERCENT(50))
 					{
 						place_object(floor_ptr, y, x, 0L);
 					}

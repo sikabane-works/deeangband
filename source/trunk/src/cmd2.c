@@ -315,7 +315,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, COODINATES y, COODI
 		object_wipe(quest_ptr); // Wipe the object
 
 		// Small chests often drop gold
-		if(small && (PERCENT(25))) if(!make_gold(floor_ptr, quest_ptr, 0, 0)) continue; // Make some gold
+		if(small && (PROB_PERCENT(25))) if(!make_gold(floor_ptr, quest_ptr, 0, 0)) continue; // Make some gold
 		else if(!make_random_object(quest_ptr, mode, level)) continue; // Make object
 
 		if(scatter) // If chest scatters its contents, pick any floor square.
@@ -561,7 +561,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, COODINATES y, COODINA
 		if(j < 2) j = 2;
 
 		/* Success -- May still have traps */
-		if(PERCENT(j))
+		if(PROB_PERCENT(j))
 		{
 			msg_print(MES_SUCCESS_PICKING);
 			gain_exp(creature_ptr, 1, 0, FALSE);
@@ -748,7 +748,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, COODINATES y, COODINATE
 		/* Always have a small chance of success */
 		if(j < 2) j = 2;
 
-		if(PERCENT(j))
+		if(PROB_PERCENT(j))
 		{
 			msg_print(MES_SUCCESS_PICKING);
 			cave_alter_feat(floor_ptr, y, x, FF_OPEN); // Open the door
@@ -1084,14 +1084,14 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, COODINATES y, COODINA
 			if(tree)
 			{
 				msg_format(MES_DIGGING_CUT(name));
-				if(PERCENT(25)) search(creature_ptr);
+				if(PROB_PERCENT(25)) search(creature_ptr);
 			}
 			else msg_format(MES_DIGGING_TUNNEL(name));
 			more = TRUE;
 		}
 	}
 
-	if(is_hidden_door(c_ptr)) if(PERCENT(25)) search(creature_ptr);
+	if(is_hidden_door(c_ptr)) if(PROB_PERCENT(25)) search(creature_ptr);
 	return more;
 }
 
@@ -1200,7 +1200,7 @@ bool easy_open_door(creature_type *creature_ptr, COODINATES y, COODINATES x)
 		/* Always have a small chance of success */
 		if(j < 2) j = 2;
 
-		if(PERCENT(j))
+		if(PROB_PERCENT(j))
 		{
 			msg_print(MES_SUCCESS_PICKING);
 			cave_alter_feat(floor_ptr, y, x, FF_OPEN);
@@ -1254,7 +1254,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, COODINATES y, COODI
 
 	if(!object_is_known(object_ptr)) msg_print(MES_DISARM_NO_TRAP);
 	else if(object_ptr->chest_mode <= 0 || !chest_traps[object_ptr->chest_mode]) msg_print(MES_DISARM_NO_TRAP_CHEST);
-	else if(PERCENT(j)) // Success (get a lot of experience)
+	else if(PROB_PERCENT(j)) // Success (get a lot of experience)
 	{
 		msg_print(MES_DISARM_CHEST);
 		gain_exp(creature_ptr, object_ptr->pval, 0, FALSE);
@@ -1321,7 +1321,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 	/* Always have a small chance of success */
 	if(j < 2) j = 2;
 
-	if(PERCENT(j))
+	if(PROB_PERCENT(j))
 	{
 		msg_format(MES_DISARM_DONE(name));
 		gain_exp(creature_ptr, power, 0, FALSE);
@@ -1452,13 +1452,13 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, COODINATES y, COODINATE
 	if(temp < 1) temp = 1;
 
 	/* Hack -- attempt to bash down the door */
-	if(PERCENT(temp))
+	if(PROB_PERCENT(temp))
 	{
 		msg_format(MES_BASH_CRUSHED(name));
 		sound(have_flag(f_ptr->flags, FF_GLASS) ? SOUND_GLASS : SOUND_OPENDOOR);
 
 		/* Break down the door */
-		if((PERCENT(50)) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
+		if((PROB_PERCENT(50)) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
 			cave_alter_feat(floor_ptr, y, x, FF_BASH);
 
 		else cave_alter_feat(floor_ptr, y, x, FF_OPEN);

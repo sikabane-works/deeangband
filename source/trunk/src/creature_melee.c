@@ -411,7 +411,7 @@ void search(creature_type *creature_ptr)
 	{
 		for (x = (creature_ptr->fx - 1); x <= (creature_ptr->fx + 1); x++)
 		{
-			if(PERCENT(chance)) // Sometimes, notice things
+			if(PROB_PERCENT(chance)) // Sometimes, notice things
 			{
 				c_ptr = &floor_ptr->cave[y][x]; // Access the grid
 				if(c_ptr->mimic && is_trap(c_ptr->feat)) // Invisible trap

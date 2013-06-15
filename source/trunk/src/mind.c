@@ -1390,7 +1390,7 @@ void do_cmd_mind(creature_type *caster_ptr)
 	if(chance > MAX_CHANCE) chance = MAX_CHANCE;
 
 	/* Failed spell */
-	if(PERCENT(chance))
+	if(PROB_PERCENT(chance))
 	{
 		if(flush_failure) flush();
 #ifdef JP
@@ -1532,9 +1532,9 @@ void do_cmd_mind(creature_type *caster_ptr)
 		(void)add_timed_trait(caster_ptr, TRAIT_SLEPT, randint1(5 * oops + 1), TRUE);
 
 		/* Damage WIS (possibly permanently) */
-		if(PERCENT(50))
+		if(PROB_PERCENT(50))
 		{
-			bool perm = (PERCENT(25));
+			bool perm = (PROB_PERCENT(25));
 			msg_print(MES_PSIONIC_SELF_DAMAGED);
 			(void)dec_stat(caster_ptr, STAT_WIS, 15 + randint1(10), perm);
 		}

@@ -800,7 +800,7 @@ void teleport_level(creature_type *creature_ptr, CREATURE_ID creature_idx)
 	}
 
 	/* Choose up or down */
-	if(PERCENT(50)) go_up = TRUE;
+	if(PROB_PERCENT(50)) go_up = TRUE;
 	else go_up = FALSE;
 
 	if((creature_idx <= 0) && wizard)
@@ -1141,16 +1141,16 @@ bool object_disenchant(creature_type *owner_ptr, object_type *object_ptr, int mo
 	pval = object_ptr->pval;
 
 	if(object_ptr->to_hit > 0) object_ptr->to_hit--;
-	if((object_ptr->to_hit > 5) && (PERCENT(20))) object_ptr->to_hit--;
+	if((object_ptr->to_hit > 5) && (PROB_PERCENT(20))) object_ptr->to_hit--;
 	if(object_ptr->to_damage > 0) object_ptr->to_damage--;
-	if((object_ptr->to_damage > 5) && (PERCENT(20))) object_ptr->to_damage--;
+	if((object_ptr->to_damage > 5) && (PROB_PERCENT(20))) object_ptr->to_damage--;
 
 	if(object_ptr->to_ac > 0) object_ptr->to_ac--;
-	if((object_ptr->to_ac > 5) && (PERCENT(20))) object_ptr->to_ac--;
+	if((object_ptr->to_ac > 5) && (PROB_PERCENT(20))) object_ptr->to_ac--;
 	if(object_ptr->to_ev > 0) object_ptr->to_ev--;
-	if((object_ptr->to_ev > 5) && (PERCENT(20))) object_ptr->to_ev--;
+	if((object_ptr->to_ev > 5) && (PROB_PERCENT(20))) object_ptr->to_ev--;
 	if(object_ptr->to_vo > 0) object_ptr->to_vo--;
-	if((object_ptr->to_vo > 5) && (PERCENT(20))) object_ptr->to_vo--;
+	if((object_ptr->to_vo > 5) && (PROB_PERCENT(20))) object_ptr->to_vo--;
 
 	/* Disenchant pval (occasionally) */
 	/* Unless called from wild_magic() */
@@ -1932,7 +1932,7 @@ bool alchemy(creature_type *creature_ptr)
 // Break the curse of an item
 static void break_curse(object_type *object_ptr)
 {
-	if(object_is_cursed(object_ptr) && !(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) && !(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) && (PERCENT(25)))
+	if(object_is_cursed(object_ptr) && !(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) && !(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) && (PROB_PERCENT(25)))
 	{
 		msg_print(MES_ENCHANT_CURSE_BROKEN);
 		object_ptr->curse_flags[0] = 0L;
@@ -1985,7 +1985,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 			else if(object_ptr->to_hit > 15) chance = 1000;
 			else chance = enchant_table[object_ptr->to_hit];
 
-			if(force || ((randint1(1000) > chance) && (!a || (PERCENT(50)))))
+			if(force || ((randint1(1000) > chance) && (!a || (PROB_PERCENT(50)))))
 			{
 				object_ptr->to_hit++;
 				res = TRUE;
@@ -2003,7 +2003,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 			else if(object_ptr->to_damage > 15) chance = 1000;
 			else chance = enchant_table[object_ptr->to_damage];
 
-			if(force || ((randint1(1000) > chance) && (!a || (PERCENT(50)))))
+			if(force || ((randint1(1000) > chance) && (!a || (PROB_PERCENT(50)))))
 			{
 				object_ptr->to_damage++;
 				res = TRUE;
@@ -2020,7 +2020,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 			else if(object_ptr->to_ac > 15) chance = 1000;
 			else chance = enchant_table[object_ptr->to_ac];
 
-			if(force || ((randint1(1000) > chance) && (!a || (PERCENT(50)))))
+			if(force || ((randint1(1000) > chance) && (!a || (PROB_PERCENT(50)))))
 			{
 				object_ptr->to_ac++;
 				res = TRUE;
@@ -2037,7 +2037,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 			else if(object_ptr->to_ev > 15) chance = 1000;
 			else chance = enchant_table[object_ptr->to_ev];
 
-			if(force || ((randint1(1000) > chance) && (!a || (PERCENT(50)))))
+			if(force || ((randint1(1000) > chance) && (!a || (PROB_PERCENT(50)))))
 			{
 				object_ptr->to_ev++;
 				res = TRUE;
@@ -2054,7 +2054,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 			else if(object_ptr->to_vo > 15) chance = 1000;
 			else chance = enchant_table[object_ptr->to_vo];
 
-			if(force || ((randint1(1000) > chance) && (!a || (PERCENT(50)))))
+			if(force || ((randint1(1000) > chance) && (!a || (PROB_PERCENT(50)))))
 			{
 				object_ptr->to_vo++;
 				res = TRUE;
@@ -3758,7 +3758,7 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 			/* Count the casualties */
 			for (amt = j = 0; j < object_ptr->number; ++j)
 			{
-				if(PERCENT(perc)) amt++;
+				if(PROB_PERCENT(perc)) amt++;
 			}
 
 			/* Some casualities */
@@ -3919,7 +3919,7 @@ bool curse_armor(creature_type *creature_ptr)
 	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw for artifacts */
-	if(object_is_artifact(object_ptr) && (PERCENT(50))) msg_format(MES_OBJECT_RESISTED_CURSE(object_ptr));
+	if(object_is_artifact(object_ptr) && (PROB_PERCENT(50))) msg_format(MES_OBJECT_RESISTED_CURSE(object_ptr));
 	else
 	{
 		msg_format(MES_BLACK_AURA_TO_OBJECT, object_name);
@@ -3946,7 +3946,7 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 	if(!is_valid_object(object_ptr)) return FALSE;	// Nothing to curse
 	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);	// Describe
 
-	if(object_is_artifact(object_ptr) && (PERCENT(50)) && !force)	// Attempt a saving throw
+	if(object_is_artifact(object_ptr) && (PROB_PERCENT(50)) && !force)	// Attempt a saving throw
 		msg_format(MES_OBJECT_RESISTED_CURSE(object_ptr));
 	else
 	{
@@ -3974,7 +3974,7 @@ bool brand_bolts(creature_type *creature_ptr)
 		// Only normal items
 		if(object_is_artifact(object_ptr) || object_is_ego(object_ptr)) continue;
 		if(object_is_cursed(object_ptr) || object_is_broken(object_ptr)) continue;
-		if(PERCENT(75)) continue;	// Randomize
+		if(PROB_PERCENT(75)) continue;	// Randomize
 
 		msg_format("%s %s", object_ptr->name, MES_BECOME_BRAND_FIRE);
 		object_ptr->ego_id = EGO_FLAME;	// Ego-item

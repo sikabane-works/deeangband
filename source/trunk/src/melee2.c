@@ -1214,7 +1214,7 @@ static void creature_lack_food(creature_type *creature_ptr)
 	if((creature_ptr->food < CREATURE_FOOD_FAINT))
 	{
 		// Faint occasionally
-		if(!has_trait(creature_ptr, TRAIT_PARALYZED) && (PERCENT(10)))
+		if(!has_trait(creature_ptr, TRAIT_PARALYZED) && (PROB_PERCENT(10)))
 		{
 #ifdef JP
 			msg_print("‚ ‚Ü‚è‚É‚à‹ó• ‚Å‹Câ‚µ‚Ä‚µ‚Ü‚Á‚½B");
@@ -1685,7 +1685,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 	}
 
 	/* 75% random movement */
-	else if(has_trait(creature_ptr, TRAIT_RAND_25) && has_trait(creature_ptr, TRAIT_RAND_50) && (PERCENT(75)))
+	else if(has_trait(creature_ptr, TRAIT_RAND_25) && has_trait(creature_ptr, TRAIT_RAND_50) && (PROB_PERCENT(75)))
 	{
 		/* Memorize flags */
 		if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_25);
@@ -1696,7 +1696,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 	}
 
 	/* 50% random movement */
-	else if(has_trait(creature_ptr, TRAIT_RAND_50) && (PERCENT(50)))
+	else if(has_trait(creature_ptr, TRAIT_RAND_50) && (PROB_PERCENT(50)))
 	{
 		/* Memorize flags */
 		if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_50);
@@ -1706,7 +1706,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 	}
 
 	/* 25% random movement */
-	else if(has_trait(creature_ptr, TRAIT_RAND_25) && (PERCENT(25)))
+	else if(has_trait(creature_ptr, TRAIT_RAND_25) && (PROB_PERCENT(25)))
 	{
 		/* Memorize flags */
 		if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_25);
@@ -1932,7 +1932,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 			if(did_open_door || did_bash_door)
 			{
 				/* Break down the door */
-				if(did_bash_door && ((PERCENT(50)) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS)))
+				if(did_bash_door && ((PROB_PERCENT(50)) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS)))
 				{
 					cave_alter_feat(floor_ptr, ny, nx, FF_BASH);
 

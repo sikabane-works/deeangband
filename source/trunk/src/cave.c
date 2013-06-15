@@ -684,7 +684,7 @@ static void image_object(byte *ap, char *cp)
  */
 static void image_random(byte *ap, char *cp)
 {
-	if(PERCENT(75)) image_creature(ap, cp);
+	if(PROB_PERCENT(75)) image_creature(ap, cp);
 	else image_object(ap, cp);
 }
 
@@ -4509,7 +4509,7 @@ void cave_alter_feat(floor_type *floor_ptr, COODINATES y, COODINATES x, int acti
 			found = TRUE;
 		}
 
-		if(have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (PERCENT(15 - floor_ptr->depth / 2)))
+		if(have_flag(old_f_ptr->flags, FF_HAS_ITEM) && !have_flag(f_ptr->flags, FF_HAS_ITEM) && (PROB_PERCENT(15 - floor_ptr->depth / 2)))
 		{
 			place_object(floor_ptr, y, x, 0L);
 			found = TRUE;

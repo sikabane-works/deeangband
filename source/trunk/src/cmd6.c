@@ -2669,7 +2669,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 
 	chance = mod_spell_chance_2(creature_ptr, chance);
 
-	if(PERCENT(chance))
+	if(PROB_PERCENT(chance))
 	{
 		if(flush_failure) flush();
 		msg_print(MES_SPELL_FAILED);

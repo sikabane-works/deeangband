@@ -1037,7 +1037,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		{
 			damage = calc_damage(NULL, creature_ptr, damage, DO_EFFECT_FIRE, FALSE, FALSE);
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = damage / 5;
-			damage = damage / 100 + (PERCENT((damage % 100)));
+			damage = damage / 100 + (PROB_PERCENT((damage % 100)));
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY))
 			{
 				feature_type *feature_ptr = &feature_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat];
@@ -1066,7 +1066,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		{
 			feature_type *feature_ptr = &feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])];
 			damage = calc_damage(NULL, creature_ptr, damage, DO_EFFECT_POIS, FALSE, FALSE);
-			damage = damage / 100 + (PERCENT((damage % 100)));
+			damage = damage / 100 + (PROB_PERCENT((damage % 100)));
 			msg_format(MES_DAMAGE_POISONED(feature_ptr));
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, feature_ptr->name + feature_name, NULL, -1);
 			cave_no_regen = TRUE;
@@ -1084,7 +1084,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		{
 			feature_type *feature_ptr = &feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])];
 			damage = calc_damage(NULL, creature_ptr, damage, DO_EFFECT_ACID, FALSE, FALSE);
-			damage = damage / 100 + (PERCENT((damage % 100)));
+			damage = damage / 100 + (PROB_PERCENT((damage % 100)));
 			msg_format(MES_DAMAGE_DISOLVED(feature_ptr));
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, feature_ptr->name + feature_name, NULL, -1);
 			cave_no_regen = TRUE;

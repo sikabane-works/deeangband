@@ -110,7 +110,7 @@ void place_random_stairs(floor_type *floor_ptr, int y, int x)
 	if(down_stairs && up_stairs)
 	{
 		/* Choose a staircase randomly */
-		if(PERCENT(50))
+		if(PROB_PERCENT(50))
 			up_stairs = FALSE;
 		else
 			down_stairs = FALSE;
@@ -330,7 +330,7 @@ void vault_objects(floor_type *floor_ptr, COODINATES y, COODINATES x, int num)
 			if(!is_floor_grid(c_ptr) || c_ptr->object_idx) continue;
 
 			/* Place an item / gold */
-			if(PERCENT(75)) place_object(floor_ptr, j, k, 0L);
+			if(PROB_PERCENT(75)) place_object(floor_ptr, j, k, 0L);
 			else place_gold(floor_ptr, j, k);
 			break;
 		}
@@ -427,7 +427,7 @@ void correct_dir(COODINATES *rdir, COODINATES *cdir, COODINATES y1, COODINATES x
 	/* Never move diagonally */
 	if(*rdir && *cdir)
 	{
-		if(PERCENT(50)) *rdir = 0;
+		if(PROB_PERCENT(50)) *rdir = 0;
 		else *cdir = 0;
 	}
 }

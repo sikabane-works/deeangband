@@ -2495,7 +2495,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						if(!one_in_(6)) break;
 					}
 				case 23: case 24: case 25:
-					if(has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (PERCENT(75))) break;
+					if(has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (PROB_PERCENT(75))) break;
 					msg_print(MES_LOST_LIFE2);
 					if(has_trait(caster_ptr, TRAIT_HOLD_LIFE)) lose_exp(caster_ptr, caster_ptr->exp / 160);
 					else lose_exp(caster_ptr, caster_ptr->exp / 16);
