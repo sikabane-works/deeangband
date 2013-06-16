@@ -875,7 +875,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 
 	// Put some creatures in the dungeon
 	i += randint1(8);
-	for (i = i + k; i > 0; i--) (void)alloc_creature(floor_ptr, player_ptr, 0, PC_ALLOW_SLEEP);
+	for (i = i + k; i > 0; i--) (void)alloc_creature(floor_ptr, player_ptr->fy, player_ptr->fx, 0, PC_ALLOW_SLEEP);
 
 	// Place some traps in the dungeon
 	alloc_object(floor_ptr, player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_TRAP, randint1(k));

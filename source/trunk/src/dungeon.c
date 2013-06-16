@@ -2433,7 +2433,7 @@ static void process_world(void)
 	/* Check for creature generation. */
 	if(one_in_(dungeon_info[floor_ptr->dungeon_id].max_m_alloc_chance) &&
 		!floor_ptr->fight_arena_mode && !floor_ptr->quest && !floor_ptr->gamble_arena_mode) // Make a new creature
-		(void)alloc_creature(floor_ptr, player_ptr, MAX_SIGHT + 5, 0);
+		(void)alloc_creature(floor_ptr, player_ptr->fy, player_ptr->fx, MAX_SIGHT + 5, 0);
 
 	/* Date changes */
 	if(!hour && !min)

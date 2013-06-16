@@ -541,7 +541,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 			mode |= PC_ALLOW_SLEEP;
 
 		// Make a resident
-		(void)alloc_creature(floor_ptr, player_ptr, floor_ptr->generate_encounter ? 0 : 3, mode);
+		(void)alloc_creature(floor_ptr, player_ptr->fy, player_ptr->fx, floor_ptr->generate_encounter ? 0 : 3, mode);
 	}
 
 	floor_ptr->generate_encounter = FALSE;

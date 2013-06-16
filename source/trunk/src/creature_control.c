@@ -3954,27 +3954,23 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 * Use "slp" to choose the initial "sleep" status
 * Use "enemy_level" for the creature level
 */
-bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, FLAGS_32 mode)
+bool alloc_creature(floor_type *floor_ptr, COODINATES fy, COODINATES fx, COODINATES dis, FLAGS_32 mode)
 {
 	COODINATES y = 0, x = 0;
-	int attempts_left = 10000;
+	int attempts_left = SAFE_MAX_ATTEMPTS;
 
-	// Put the Guardian
-	if(alloc_guardian(floor_ptr, FALSE)) return TRUE;
-
-	// Find a legal, distant, unoccupied, space
-	while (attempts_left--)
+	if(alloc_guardian(floor_ptr, FALSE)) return TRUE; /* Put the Guardian */
+	while (attempts_left--) /* Find a legal, distant, unoccupied, space */
 	{
-		// Pick a location
+		/* Pick a location */
 		y = (COODINATES)randint0(floor_ptr->height);
 		x = (COODINATES)randint0(floor_ptr->width);
 
-		// Require empty floor grid (was "naked")
+		/* Require empty floor grid (was "naked") */
 		if(floor_ptr->depth) if(!cave_empty_bold2(floor_ptr, y, x)) continue;
 		else if(!cave_empty_bold(floor_ptr, y, x)) continue;
 
-		// Accept far away grids
-		if(distance(y, x, player_ptr->fy, player_ptr->fx) > dis) break;
+		if(distance(y, x, fy, fx) > dis) break; /* Accept far away grids */
 	}
 
 	if(!attempts_left)
