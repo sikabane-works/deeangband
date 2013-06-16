@@ -3970,14 +3970,8 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, F
 		x = (COODINATES)randint0(floor_ptr->width);
 
 		// Require empty floor grid (was "naked")
-		if(floor_ptr->depth)
-		{
-			if(!cave_empty_bold2(floor_ptr, y, x)) continue;
-		}
-		else
-		{
-			if(!cave_empty_bold(floor_ptr, y, x)) continue;
-		}
+		if(floor_ptr->depth) if(!cave_empty_bold2(floor_ptr, y, x)) continue;
+		else if(!cave_empty_bold(floor_ptr, y, x)) continue;
 
 		// Accept far away grids
 		if(distance(y, x, player_ptr->fy, player_ptr->fx) > dis) break;
@@ -3985,14 +3979,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, F
 
 	if(!attempts_left)
 	{
-		if(cheat_xtra || cheat_hear)
-		{
-#ifdef JP
-			msg_warning("新たなクリーチャーを配置できません。小さい階ですか？");
-#else
-			msg_warning("Could not allocate a new creature. Small level?");
-#endif
-		}
+		if(cheat_xtra || cheat_hear) msg_warning(MES_DEBUG_CANT_SPAWN_CREATURE);
 		return FALSE;
 	}
 
@@ -4000,11 +3987,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, F
 	{
 		if(place_creature_horde(NULL, floor_ptr, y, x))
 		{
-#ifdef JP
-			if(cheat_hear) msg_format("クリーチャーの大群(%c)");
-#else
-			if(cheat_hear) msg_format("Creature horde (%c).");
-#endif
+			if(cheat_hear) msg_format(MES_DEBUG_CREATURE_HORDE);
 			return TRUE;
 		}
 	}

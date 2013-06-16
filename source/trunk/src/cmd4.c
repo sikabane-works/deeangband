@@ -934,11 +934,7 @@ static void do_cmd_options_win(void)
 	/* Interact */
 	while (go)
 	{
-#ifdef JP
-		prt("ウィンドウ・フラグ (<方向>で移動, tでチェンジ, y/n でセット, ESC)", 0, 0);
-#else
-		prt("Window Flags (<dir>, t, y, n, ESC) ", 0, 0);
-#endif
+		prt(MES_OPTION_WINDOW_FLAGS, 0, 0);
 
 		/* Display the windows */
 		for (j = 0; j < WINDOW_MAX; j++)
@@ -1208,7 +1204,7 @@ void do_cmd_options(void)
 				break;
 #endif
 
-				/* Birth Options */
+			/* Birth Options */
 			case 'B':
 			case 'b':
 				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? MES_SYS_OPTION_AUX2 : MES_SYS_OPTION_AUX);
@@ -1364,39 +1360,22 @@ void do_cmd_reload_autopick(void)
 static errr macro_dump(cptr fname)
 {
 	static cptr mark = "Macro Dump";
-
 	int i;
-
 	char buf[1024];
 
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, fname);
+	FILE_TYPE(FILE_TYPE_TEXT); /* File type is "TEXT" */
+	if(!open_auto_dump(buf, mark)) return (-1); /* Append to the file */
 
-	/* File type is "TEXT" */
-	FILE_TYPE(FILE_TYPE_TEXT);
+	auto_dump_printf(MES_AUTOPICK_AUTODUMP); /* Start dumping */
 
-	/* Append to the file */
-	if(!open_auto_dump(buf, mark)) return (-1);
-
-	/* Start dumping */
-	auto_dump_printf(MES_AUTOPICK_AUTODUMP);
-
-	/* Dump them */
-	for (i = 0; i < macro__num; i++)
+	for (i = 0; i < macro__num; i++) /* Dump them */
 	{
-		/* Extract the action */
-		ascii_to_text(buf, macro__act[i]);
-
-		/* Dump the macro */
-		auto_dump_printf("A:%s\n", buf);
-
-		/* Extract the action */
-		ascii_to_text(buf, macro__pat[i]);
-
-		/* Dump normal macros */
-		auto_dump_printf("P:%s\n", buf);
-
-		/* End the macro */
-		auto_dump_printf("\n");
+		ascii_to_text(buf, macro__act[i]); /* Extract the action */
+		auto_dump_printf("A:%s\n", buf); /* Dump the macro */
+		ascii_to_text(buf, macro__pat[i]); /* Extract the action */
+		auto_dump_printf("P:%s\n", buf); /* Dump normal macros */
+		auto_dump_printf("\n"); /* End the macro */
 	}
 
 	close_auto_dump();
@@ -3465,17 +3444,10 @@ void do_cmd_load_screen(void)
 		/* Dump each row */
 		for (x = 0; x < wid - 1; x++)
 		{
-			/* End of line */
-			if(buf[x] == '\n' || buf[x] == '\0') break;
-
-			/* Get the attr/char */
-			(void)(Term_what(x, y, &a, (char *)&c)); //TODO
-
-			/* Look up the attr, Use attr matches */
-			for (i = 0; i < 16; i++) if(hack[i] == buf[x]) a = i;
-
-			/* Put the attr/char */
-			Term_draw(x, y, a, c);
+			if(buf[x] == '\n' || buf[x] == '\0') break; /* End of line */
+			(void)(Term_what(x, y, &a, (char *)&c)); //TODO /* Get the attr/char */
+			for (i = 0; i < 16; i++) if(hack[i] == buf[x]) a = i; /* Look up the attr, Use attr matches */
+			Term_draw(x, y, a, c); /* Put the attr/char */
 		}
 	}
 
@@ -3535,13 +3507,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 			i++;
 		}
 
-		if(i < 28)
-		{
-			while (i < 28)
-			{
-				object_name[i] = ' '; i++;
-			}
-		}
+		if(i < 28) while (i < 28) object_name[i] = ' '; i++;
 		object_name[i] = '\0';
 
 		fprintf(fff, "%s %s", where, object_name);
@@ -3778,10 +3744,7 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 		yomikomu = 0;
 		while (!my_fgets(tmpfff, buf, sizeof(buf)))
 		{
-			if(!yomikomu)
-			{
-				if(strncmp(buf, tags[2], strlen(tags[2])) == 0) yomikomu = 1;
-			}
+			if(!yomikomu) if(strncmp(buf, tags[2], strlen(tags[2])) == 0) yomikomu = 1;
 			else
 			{
 				if(strncmp(buf, tags[3], strlen(tags[3])) == 0) break;
@@ -3869,10 +3832,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 	}
 
 	/* Do we use a special screendump function ? */
-	else if(screendump_aux)
-	{
-		(*screendump_aux)(); /* Dump the screen to a graphics file */
-	}
+	else if(screendump_aux) (*screendump_aux)(); /* Dump the screen to a graphics file */
 	else /* Dump the screen as text */
 	{
 		COODINATES y, x;
@@ -3904,9 +3864,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 			}
 
 			buf[x] = '\0';
-
-			/* End the row */
-			fprintf(fff, "%s\n", buf);
+			fprintf(fff, "%s\n", buf); /* End the row */
 		}
 
 		fprintf(fff, "\n");
@@ -3921,9 +3879,7 @@ void do_cmd_save_screen(creature_type *player_ptr)
 			}
 
 			buf[x] = '\0';
-
-			/* End the row */
-			fprintf(fff, "%s\n", buf);
+			fprintf(fff, "%s\n", buf); /* End the row */
 		}
 
 		fprintf(fff, "\n");
@@ -3931,8 +3887,6 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		my_fclose(fff);
 		msg_print(MES_SYS_SCREEN_DUMPED);
 		msg_print(NULL);
-
-
 		screen_load();
 	}
 
@@ -4106,18 +4060,10 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 			object_type forge;
 			object_type *object_ptr;
 			object_ptr = &forge;
-
-			/* Create fake object */
-			generate_object(object_ptr, z);
-
-			/* Make it an artifact */
-			object_ptr->art_id = (byte)who[k];
-
-			/* Display as if known */
-			object_ptr->ident |= IDENT_STORE;
-
-			/* Describe the artifact */
-			object_desc(base_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			generate_object(object_ptr, z); /* Create fake object */
+			object_ptr->art_id = (byte)who[k]; /* Make it an artifact */
+			object_ptr->ident |= IDENT_STORE; /* Display as if known */
+			object_desc(base_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); /* Describe the artifact */
 		}
 
 		/* Hack -- Build the artifact name */
@@ -4126,7 +4072,6 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 #else
 		fprintf(fff, "     The %s\n", base_name);
 #endif
-
 	}
 
 	C_KILL(who, max_artifact_idx, ARTIFACT_ID);

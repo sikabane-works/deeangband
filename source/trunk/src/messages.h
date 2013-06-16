@@ -2094,6 +2094,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DEBUG_TOO_ITEM "アイテムが多過ぎる"
 #define MES_DEBUG_TOO_CREATURE "クリーチャーが多過ぎる"
 #define MES_DEBUG_FLOOR_RETAKE(WHY) "生成やり直し(%s)"
+#define MES_DEBUG_CANT_SPAWN_CREATURE "新たなクリーチャーを配置できません。小さい階ですか？"
+#define MES_DEBUG_CREATURE_HORDE "クリーチャーの大群"
 #else
 #define MES_DEBUG_ROOM_NUM "Number of Rooms: %d"
 #define MES_DEBUG_GLASS_ROOM "[Glass Room]"
@@ -2129,6 +2131,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DEBUG_TOO_ITEM "too many objects"
 #define MES_DEBUG_TOO_CREATURE "too many creatures"
 #define MES_DEBUG_FLOOR_RETAKE(WHY) "Generation restarted (%s)"
+#define MES_DEBUG_CANT_SPAWN_CREATURE "Could not allocate a new creature. Small level?"
+#define MES_DEBUG_CREATURE_HORDE "Creature horde"
 #endif
 
 #ifdef JP
@@ -3601,6 +3605,7 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_FOUND_KEYMAP "キー配置を確認しました。"
 #define MES_OPTION_FOUND_NO_KEYMAP "キー配置は定義されていません。"
 #define MES_OPTION_REMOVE_KEYMAP "キー配置を削除しました。"
+#define MES_OPTION_WINDOW_FLAGS "ウィンドウ・フラグ (<方向>で移動, tでチェンジ, y/n でセット, ESC)"
 #else
 #define MES_OPTION_CHANGE_CONFIG "Pref"
 #define MES_OPTION_WARN_CHEAT "Cheaters never win."
@@ -3624,6 +3629,7 @@ static cptr desc_stat_neg[] =
 #define MES_OPTION_FOUND_KEYMAP "Found a keymap."
 #define MES_OPTION_FOUND_NO_KEYMAP "Found no keymap."
 #define MES_OPTION_REMOVE_KEYMAP "Removed a keymap."
+#define MES_OPTION_WINDOW_FLAGS "Window Flags (<dir>, t, y, n, ESC) "
 #endif
 
 #ifdef JP
