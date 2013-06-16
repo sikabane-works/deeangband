@@ -624,10 +624,8 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	{
 		build_maze_vault(floor_ptr, floor_ptr->width / 2 - 1, floor_ptr->height / 2 - 1, floor_ptr->width - 4, floor_ptr->height - 4, FALSE);
 
-		/* Place 3 or 4 down stairs near some walls */
-		if(!alloc_stairs(floor_ptr, feat_down_stair, rand_range(2, 3), 3)) return FALSE;
-
-		/* Place 1 or 2 up stairs near some walls */
+		/* Place stairs */
+		if(!alloc_stairs(floor_ptr, feat_down_stair, rand_range(2, 3), 3)) return FALSE; 
 		if(!alloc_stairs(floor_ptr, feat_up_stair, 1, 3)) return FALSE;
 	}
 
@@ -1170,10 +1168,8 @@ static bool generate_floor_dungeon(floor_type *floor_ptr, cptr *why)
 	while(i < MAX_DUNEGON_FORTLESS)
 	{
 		int p = !one_in_(dungeon_info[floor_ptr->dungeon_id].vault_quest_probability[i]);
-		if(dungeon_info[floor_ptr->dungeon_id].vault_quest_level[i] <= floor_ptr->depth &&
-		   dungeon_info[floor_ptr->dungeon_id].vault_quest_level_max[i] >= floor_ptr->depth && !p)
-		   break;
-		   i++;
+		if(dungeon_info[floor_ptr->dungeon_id].vault_quest_level[i] <= floor_ptr->depth && dungeon_info[floor_ptr->dungeon_id].vault_quest_level_max[i] >= floor_ptr->depth && !p) break;
+		i++;
 	}
 
 	if(i != MAX_DUNEGON_FORTLESS)
@@ -1183,10 +1179,8 @@ static bool generate_floor_dungeon(floor_type *floor_ptr, cptr *why)
 		return TRUE;
 	}
 
-	if((always_small_levels || ironman_small_levels || one_in_(SMALL_LEVEL) ||
-	    (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_BEGINNER) ||
-	    (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_SMALLEST)) &&
-	    !(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_BIG))
+	if((always_small_levels || ironman_small_levels || one_in_(SMALL_LEVEL) || (dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_BEGINNER) ||
+		(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_SMALLEST)) && !(dungeon_info[floor_ptr->dungeon_id].flags1 & DF1_BIG))
 	{
 		if(cheat_room) msg_print(MES_DEBUG_SMALL_LEVEL);
 
@@ -1220,8 +1214,7 @@ static bool generate_floor_dungeon(floor_type *floor_ptr, cptr *why)
 		do{
 			level_height = rand_range(MAX_HGT / SCREEN_HGT / 3, MAX_HGT/SCREEN_HGT);
 			level_width  = rand_range(MAX_WID / SCREEN_WID / 3, MAX_WID/SCREEN_WID);
-		} while (level_height + level_width <  (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) / 2
-			 || (level_height + level_width >= (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) * 3 / 4));
+		} while (level_height + level_width <  (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) / 2 || (level_height + level_width >= (MAX_HGT / SCREEN_HGT + MAX_WID / SCREEN_WID) * 3 / 4));
 		floor_ptr->height = level_height * SCREEN_HGT;
 		floor_ptr->width = level_width  * SCREEN_WID;
 

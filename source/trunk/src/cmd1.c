@@ -501,18 +501,10 @@ static bool run_test(creature_type *creature_ptr)
 			if(notice && have_flag(f_ptr->flags, FF_MOVE))
 			{
 				/* Open doors */
-				if(find_ignore_doors && have_flag(f_ptr->flags, FF_DOOR) && have_flag(f_ptr->flags, FF_CLOSE))
-				{
-					/* Option -- ignore */
-					notice = FALSE;
-				}
+				if(find_ignore_doors && have_flag(f_ptr->flags, FF_DOOR) && have_flag(f_ptr->flags, FF_CLOSE)) notice = FALSE;
 
 				/* Stairs */
-				else if(find_ignore_stairs && have_flag(f_ptr->flags, FF_STAIRS))
-				{
-					/* Option -- ignore */
-					notice = FALSE;
-				}
+				else if(find_ignore_stairs && have_flag(f_ptr->flags, FF_STAIRS)) notice = FALSE;
 
 				/* Lava */
 				else if(have_flag(f_ptr->flags, FF_LAVA) && (has_trait(creature_ptr, TRAIT_IM_FIRE) || has_trait(creature_ptr, TRAIT_INVULNERABLE)))
