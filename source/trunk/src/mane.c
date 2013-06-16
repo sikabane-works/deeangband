@@ -200,13 +200,10 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 
 	if(redraw) screen_load();
 
-	/* Show choices */
-	prepare_window(PW_SPELL);
-
+	prepare_window(PW_SPELL); /* Show choices */
 	window_stuff(player_ptr);
 
-	/* Abort if needed */
-	if(!flag) return FALSE;
+	if(!flag) return FALSE; /* Abort if needed */
 
 	/* Save the choice */
 	(*sn) = i;
@@ -220,11 +217,11 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
  */
 bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 {
-	int             n = 0, j;
-	int             chance;
-	int             minfail = 0;
+	int n = 0, j;
+	int chance;
+	int minfail = 0;
 	trait_type spell_;
-	bool            cast;
+	bool cast;
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) /* not if confused */
 	{
@@ -281,7 +278,7 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 	}
 
 	creature_ptr->mane_num--;
-	for (j = n; j < creature_ptr->mane_num;j++)
+	for (j = n; j < creature_ptr->mane_num; j++)
 	{
 		creature_ptr->mane_spell[j] = creature_ptr->mane_spell[j+1];
 		creature_ptr->mane_dam[j] = creature_ptr->mane_dam[j+1];
