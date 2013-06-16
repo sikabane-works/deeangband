@@ -1618,10 +1618,10 @@ static void object_mention(object_type *object_ptr)
 // "apply_magic()" is called immediately after we return.
 //
 // Note -- see "judge_fixed_artifact()" and "apply_magic()"
-static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object_ptr, int level)
+static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object_ptr, FLOOR_LEV level)
 {
-	int i;
-	int k_idx = 0;
+	ARTIFACT_ID i;
+	OBJECT_KIND_ID k_idx = 0;
 
 	if(!level) return FALSE; // No artifacts in the town
 
@@ -5790,6 +5790,11 @@ void alloc_object_kind_list(PROB **prob_list_ptr, FLOOR_LEV level)
 	for(id = 0; id < max_object_kind_idx; id++)
 	{
 		object_kind_ptr = &object_kind_info[id];
+		if(have_flag(object_kind_ptr->flags, TRAIT_QUESTITEM) || have_flag(object_kind_ptr->flags, TRAIT_INSTA_ART))
+		{
+			prob_list[id] = 0;
+			continue;
+		}
 		for(j = 0; j < 4; j++)
 		{
 			if(object_kind_ptr->locale[j] <= level) prob_list[id] += (object_kind_ptr->chance[j] != 0 ? 10000 / object_kind_ptr->chance[j] : 0);
