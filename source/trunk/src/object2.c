@@ -2574,19 +2574,15 @@ static bool kind_is_good(OBJECT_KIND_ID k_idx)
 
 		/* Rings -- Rings of Speed are good */
 	case TV_RING:
-		{
-			if(object_kind_ptr->sval == SV_RING_SPEED) return TRUE;
-			if(object_kind_ptr->sval == SV_RING_LORDLY) return TRUE;
-			return FALSE;
-		}
+		if(object_kind_ptr->sval == SV_RING_SPEED) return TRUE;
+		if(object_kind_ptr->sval == SV_RING_LORDLY) return TRUE;
+		return FALSE;
 
 		/* Amulets -- Amulets of the Magi and Resistance are good */
 	case TV_AMULET:
-		{
-			if(object_kind_ptr->sval == SV_AMULET_THE_MAGI) return TRUE;
-			if(object_kind_ptr->sval == SV_AMULET_RESISTANCE) return TRUE;
-			return FALSE;
-		}
+		if(object_kind_ptr->sval == SV_AMULET_THE_MAGI) return TRUE;
+		if(object_kind_ptr->sval == SV_AMULET_RESISTANCE) return TRUE;
+		return FALSE;
 	}
 
 	/* Assume not good */
@@ -2612,7 +2608,7 @@ bool make_random_object(object_type *object_ptr, FLAGS_32 mode, FLOOR_LEV level)
 	{
 		PROB *prob_list;
 		alloc_object_kind_list(&prob_list, level);
-		//forbid_object_kind_list(&prob_list, kind_is_good);
+		only_object_kind_list(&prob_list, kind_is_good);
 		set_object_list_bias_level_limitation(&prob_list, level);
 		object_kind_idx = object_kind_rand(prob_list);
 		free_object_kind_list(&prob_list);
@@ -5804,6 +5800,14 @@ void alloc_object_kind_list(PROB **prob_list_ptr, FLOOR_LEV level)
 }
 
 void forbid_object_kind_list(PROB **prob_list_ptr, bool (*hook_func)(OBJECT_KIND_ID object_kind_id))
+{
+	int n;
+	PROB *prob_list = *prob_list_ptr;
+	for(n = 0; n < max_object_kind_idx; n++) if(hook_func(n)) prob_list[n] = 0;
+	return;
+}
+
+void only_object_kind_list(PROB **prob_list_ptr, bool (*hook_func)(OBJECT_KIND_ID object_kind_id))
 {
 	int n;
 	PROB *prob_list = *prob_list_ptr;
