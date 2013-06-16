@@ -2612,11 +2612,13 @@ bool make_random_object(object_type *object_ptr, FLAGS_32 mode, FLOOR_LEV level)
 	{
 		PROB *prob_list;
 		alloc_object_kind_list(&prob_list, level);
-		forbid_object_kind_list(&prob_list, kind_is_good);
+		//forbid_object_kind_list(&prob_list, kind_is_good);
+		set_object_list_bias_level_limitation(&prob_list, level);
 		object_kind_idx = object_kind_rand(prob_list);
 		free_object_kind_list(&prob_list);
 
 		if(object_kind_idx <= 0) return FALSE;
+
 		generate_object(object_ptr, object_kind_idx);
 	}
 
@@ -5835,3 +5837,16 @@ OBJECT_KIND_ID object_kind_rand(PROB *prob_list)
 	return -1;
 }
 
+void set_object_list_bias_level_limitation(PROB **prob_list_ptr, FLOOR_LEV max)
+{
+	int n;
+	object_kind *object_kind_ptr;
+	PROB *prob_list = *prob_list_ptr;
+
+	for(n = 0; n < max_object_kind_idx; n++)
+	{
+		object_kind_ptr = &object_kind_info[n];
+		if(object_kind_ptr->level > max) prob_list[n] /= ((20 + object_kind_ptr->level - max) * 2); // TODO time boost
+	}
+	return;
+}

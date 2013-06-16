@@ -949,7 +949,7 @@ extern void alloc_object_kind_list(PROB **prob_list_ptr, FLOOR_LEV level);
 extern void forbid_object_kind_list(PROB **prob_list_ptr, bool (*hook_func)(OBJECT_KIND_ID object_kind_id));
 extern void free_object_kind_list(PROB **prob_list_ptr);
 extern OBJECT_KIND_ID object_kind_rand(PROB *prob_list);
-
+extern void set_object_list_bias_level_limitation(PROB **prob_list_ptr, FLOOR_LEV max);
 
 // racial.c
 extern void stop_mouth(creature_type *creature_ptr);
