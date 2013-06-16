@@ -1724,6 +1724,14 @@ void forbid_species_list(PROB **prob_list_ptr, bool (*hook_func)(SPECIES_ID spec
 {
 	int n;
 	PROB *prob_list = *prob_list_ptr;
+	for(n = 0; n < max_species_idx; n++) if(hook_func(n)) prob_list[n] = 0;
+	return;
+}
+
+void only_species_list(PROB **prob_list_ptr, bool (*hook_func)(SPECIES_ID species_idx))
+{
+	int n;
+	PROB *prob_list = *prob_list_ptr;
 	for(n = 0; n < max_species_idx; n++) if(!hook_func(n)) prob_list[n] = 0;
 	return;
 }

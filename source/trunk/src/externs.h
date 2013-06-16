@@ -834,6 +834,7 @@ extern void wipe_creature_list(FLOOR_ID floor_idx);
 extern CREATURE_ID creature_pop(void);
 extern void alloc_species_list(PROB **prob_list);
 extern void forbid_species_list(PROB **prob_list_ptr, bool (*hook_func)(SPECIES_ID species_idx));
+extern void only_species_list(PROB **prob_list_ptr, bool (*hook_func)(SPECIES_ID species_idx));
 extern void free_species_list(PROB **prob_list_ptr);
 extern void reset_species_preps(void);
 extern SPECIES_ID get_species_num(floor_type *floor_ptr, FLOOR_LEV level);
