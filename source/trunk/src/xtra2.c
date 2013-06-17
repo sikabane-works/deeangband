@@ -1743,7 +1743,6 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 #else
 				sprintf(out_val, "%s%s%sa pile of %d items [x,%s]", s1, s2, s3, floor_num, info);
 #endif
-
 				prt(out_val, 0, 0);
 				move_cursor_relative(y, x);
 				query = inkey();
@@ -1758,7 +1757,8 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 			/* Continue scrolling list if requested */
 			while(TRUE)
 			{
-				int i, object_idx;
+				int i;
+				OBJECT_ID object_idx;
 
 				screen_save();
 
@@ -1768,39 +1768,24 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 				(void)show_floor(floor_ptr, 0, y, x, &min_width);
 				show_gold_on_floor = FALSE;
 				*/
-
 #ifdef JP
 				sprintf(out_val, "%s %dŒÂ‚ÌƒAƒCƒeƒ€%s%s [Enter‚ÅŽŸ‚Ö, %s]", s1, floor_num, s2, s3, info);
 #else
 				sprintf(out_val, "%s%s%sa pile of %d items [Enter,%s]", s1, s2, s3, floor_num, info);
 #endif
 				prt(out_val, 0, 0);
-
-
-				/* Wait */
-				query = inkey();
-
+				query = inkey(); /* Wait */
 				screen_load();
 
-				/* Exit unless 'Enter' */
-				if(query != '\n' && query != '\r') return query;
-
-				/* Get the object being moved. */
-				object_idx = c_ptr->object_idx;
-
-				/* Only rotate a pile of two or more objects. */
-				if(!(object_idx && object_list[object_idx].next_object_idx)) continue;
-
-				/* Remove the first object from the list. */
-				excise_object_idx(object_idx);
-
-				/* Find end of the list. */
-				i = c_ptr->object_idx;
-				while (object_list[i].next_object_idx)
-					i = object_list[i].next_object_idx;
+				if(query != '\n' && query != '\r') return query; /* Exit unless 'Enter' */
+				object_idx = c_ptr->object_idx; /* Get the object being moved. */
+				if(!(object_idx && object_list[object_idx].next_object_idx)) continue; /* Only rotate a pile of two or more objects. */
+				excise_object_idx(object_idx); /* Remove the first object from the list. */
+				i = c_ptr->object_idx; /* Find end of the list. */
+				while (object_list[i].next_object_idx) i = object_list[i].next_object_idx;
 
 				/* Add after the last object. */
-				object_list[i].next_object_idx = (s16b)object_idx;
+				object_list[i].next_object_idx = object_idx;
 
 				/* Loop and re-display the list */
 			}
