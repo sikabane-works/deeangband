@@ -173,9 +173,7 @@ static bool alloc_stairs(floor_type *floor_ptr, FEATURE_ID feat, int num, int wa
 		if(floor_ptr->depth > 1 && q_idx) /* No downstairs on quest levels */
 		{
 			species_type *species_ptr = &species_info[quest[q_idx].species_idx];
-
-			/* The quest creature(s) is still alive? */
-			if(!(has_trait_species(species_ptr, TRAIT_UNIQUE)) || 0 < species_ptr->max_num) return TRUE;
+			if(!(has_trait_species(species_ptr, TRAIT_UNIQUE)) || 0 < species_ptr->max_num) return TRUE; /* The quest creature(s) is still alive? */
 		}
 
 		if(floor_ptr->depth >= dungeon_info[floor_ptr->dungeon_id].maxdepth) return TRUE; /* No downstairs at the bottom */
@@ -199,27 +197,18 @@ static bool alloc_stairs(floor_type *floor_ptr, FEATURE_ID feat, int num, int wa
 			{
 				for (x = 1; x < floor_ptr->width - 1; x++)
 				{
-					if(alloc_stairs_aux(floor_ptr, y, x, walls))
-					{
-						/* A valid space found */
-						candidates++;
-					}
+					if(alloc_stairs_aux(floor_ptr, y, x, walls)) candidates++; /* A valid space found */
 				}
 			}
 
-			/* No valid place! */
-			if(!candidates)
+			if(!candidates) /* No valid place! */
 			{
-				/* There are exactly no place! */
-				if(walls <= 0) return FALSE;
-
-				/* Decrease walls limit, and try again */
-				walls--;
+				if(walls <= 0) return FALSE; /* There are exactly no place! */
+				walls--; /* Decrease walls limit, and try again */
 				continue;
 			}
 
-			/* Choose a random one */
-			pick = randint1(candidates);
+			pick = randint1(candidates); /* Choose a random one */
 
 			for (y = 1; y < floor_ptr->height - 1; y++)
 			{
@@ -290,30 +279,22 @@ static void alloc_object(floor_type *floor_ptr, creature_type *player_ptr, int s
 		switch (typ)
 		{
 			case ALLOC_TYP_RUBBLE:
-			{
 				place_rubble(floor_ptr, y, x);
 				floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
 				break;
-			}
 
 			case ALLOC_TYP_TRAP:
-			{
 				place_trap(floor_ptr, y, x);
 				floor_ptr->cave[y][x].info &= ~(CAVE_FLOOR);
 				break;
-			}
 
 			case ALLOC_TYP_GOLD:
-			{
 				place_gold(floor_ptr, y, x);
 				break;
-			}
 
 			case ALLOC_TYP_OBJECT:
-			{
 				place_object(floor_ptr, y, x, 0L);
 				break;
-			}
 		}
 	}
 }
@@ -348,8 +329,7 @@ static int next_to_corr(floor_type *floor_ptr, int y1, int x1)
 		if(CAVE_HAVE_FLAG_GRID(c_ptr, FF_WALL)) continue;
 
 		/* Skip non "empty floor" grids */
-		if(!is_floor_grid(c_ptr))
-			continue;
+		if(!is_floor_grid(c_ptr)) continue;
 
 		/* Skip grids inside rooms */
 		if(c_ptr->info & (CAVE_ROOM)) continue;
@@ -805,12 +785,10 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		}
 
 		// Place some down stairs near some walls
-		if(!alloc_stairs(floor_ptr, feat_down_stair, rand_range(1, 4) + (floor_ptr->width / SCREEN_WID * floor_ptr->height / SCREEN_HGT) / 8 , 3))
-			return FALSE;
+		if(!alloc_stairs(floor_ptr, feat_down_stair, rand_range(1, 4) + (floor_ptr->width / SCREEN_WID * floor_ptr->height / SCREEN_HGT) / 8, 3)) return FALSE;
 
 		// Place some up stairs near some walls
-		if(!alloc_stairs(floor_ptr, feat_up_stair, rand_range(1, 4) + (floor_ptr->width / SCREEN_WID * floor_ptr->height / SCREEN_HGT) / 8 , 3))
-			return FALSE;
+		if(!alloc_stairs(floor_ptr, feat_up_stair, rand_range(1, 4) + (floor_ptr->width / SCREEN_WID * floor_ptr->height / SCREEN_HGT) / 8, 3)) return FALSE;
 	}
 
 	if(!dungeon_ptr->laketype)

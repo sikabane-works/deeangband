@@ -741,13 +741,8 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_SHOOT:
-		cast_bolt(caster_ptr, DO_EFFECT_ARROW, MAX_RANGE_SUB, damage, 0);
-		{
-			//TODO Fix damage calc.
-			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
-			cast_bolt(caster_ptr, DO_EFFECT_ARROW, MAX_RANGE_SUB, damage, TRAIT_SHOOT);
-			break;
-		}
+		//TODO
+		break;
 
 	case TRAIT_BR_ACID:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));

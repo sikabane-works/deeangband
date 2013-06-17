@@ -2933,19 +2933,11 @@ static void set_melee_status(creature_type *creature_ptr)
 	bool omoi;
 	int default_hand = 1;
 	int empty_hands_status = empty_hands(creature_ptr, TRUE);
-	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
 	hold = calc_equipping_weight_limit(creature_ptr); // Obtain the equipment value
 
 	// Examine the "current bow"
 	bow_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BOW, 0);
-
-	// Set Species Blow.
-	for(i = 0; i < MAX_SPECIAL_BLOWS; i++)
-	{
-		if(species_ptr->blow[i].method) creature_ptr->blow[i] = species_ptr->blow[i];
-		else creature_ptr->blow[i] = race_info[creature_ptr->race_idx1].blow[i];
-	}
 
 	if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0) creature_ptr->can_melee[0] = TRUE;
 	if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 1)

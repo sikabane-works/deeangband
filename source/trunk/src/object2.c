@@ -3762,15 +3762,6 @@ object_type *choose_warning_item(creature_type *caster_ptr)
 	return number ? &caster_ptr->inventory[choices[randint0(number)]] : NULL;
 }
 
-// Calculate blow damages
-static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, special_blow_type *blow_ptr)
-{
-	if(!blow_ptr) return 0;
-	if(!is_valid_creature(attacker_ptr) || !is_valid_creature(target_ptr)) return 0;
-	//TODO: apply New Feature
-	return 0;
-}
-
 // Examine the grid (xx,yy) and warn the player if there are any danger
 bool process_warning(creature_type *target_ptr, COODINATES xx, COODINATES yy)
 {

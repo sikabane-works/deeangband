@@ -505,8 +505,8 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	if(has_trait(dead_ptr, TRAIT_SUICIDE_BOMBER))
 	{
-		int typ = mbe_info[dead_ptr->blow[i].effect].explode_type;
-		POWER damage = diceroll(dead_ptr->blow[i].d_dice, dead_ptr->blow[i].d_side);
+		POWER damage = diceroll(dead_ptr->lev, dead_ptr->size);
+		int typ = 0; //TODO
 		project(dead_ptr, 0, 3, y, x, damage, typ, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 	}
 

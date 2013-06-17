@@ -551,26 +551,6 @@ struct ego_item_type
 
 
 
-/*
- * Creature blow structure
- *
- *	- Method (RBM_*)
- *	- Effect (RBE_*)
- *	- Damage Dice
- *	- Damage Sides
- */
-
-typedef struct special_blow_type special_blow_type;
-
-struct special_blow_type
-{
-	METHOD_ID method;
-	EFFECT_ID effect;
-	DICE_NUM d_dice;
-	DICE_SIDE d_side;
-};
-
-
 typedef struct mbe_info_type mbe_info_type;
 
 struct mbe_info_type
@@ -687,7 +667,6 @@ struct species_type
 
 	traits_precondition flags;
 
-	special_blow_type blow[MAX_SPECIAL_BLOWS];	/* Up to four blows per round */
 
 	SPECIES_ID next_species_idx;
 	u32b next_exp;
@@ -1248,7 +1227,6 @@ struct race_type
 	s16b slot_tail;
 	s16b slot_intake;
 
-	special_blow_type blow[MAX_SPECIAL_BLOWS];	// Up to four blows per round
 	/*    byte choice_xtra;   */
 };
 
@@ -1696,8 +1674,6 @@ struct creature_type
 
 	SPECIES_ID underling_id[MAX_UNDERLINGS];	    // Underling ID
 	POPULATION underling_num[MAX_UNDERLINGS];	    // Dice Number of Underlings
-
-	special_blow_type blow[MAX_SPECIAL_BLOWS];	// Up to four blows per round
 
 	COODINATES start_wx; // Starting Wilderness_X
 	COODINATES start_wy; // Statring Wilderness_Y
