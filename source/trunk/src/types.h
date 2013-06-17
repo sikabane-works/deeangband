@@ -82,6 +82,10 @@ typedef byte FLAGS_8;
 #define READ_FLAGS_8(VALUE) rd_u32b((FLAGS_8 *)VALUE);
 #define WRITE_FLAGS_8(VALUE) wr_u32b((FLAGS_8)VALUE);
 
+typedef u16b FLAGS_16;
+#define READ_FLAGS_16(VALUE) rd_u32b((FLAGS_16 *)VALUE);
+#define WRITE_FLAGS_16(VALUE) wr_u32b((FLAGS_16)VALUE);
+
 typedef u32b FLAGS_32;
 #define READ_FLAGS_32(VALUE) rd_u32b((FLAGS_32 *)VALUE);
 #define WRITE_FLAGS_32(VALUE) wr_u32b((FLAGS_32)VALUE);
@@ -789,7 +793,7 @@ typedef struct cave_type cave_type;
 
 struct cave_type
 {
-	u16b info; /* Hack -- cave flags */
+	FLAGS_16 info; /* Hack -- cave flags */
 	COODINATES cx; /* Connected x */
 	COODINATES cy; /* Connected y */
 	FEATURE_ID feat; /* Hack -- feature type */
