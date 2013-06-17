@@ -1125,7 +1125,7 @@
 
 #define MES_FEATURE_STUCK "%sはがっちりと閉じられているようだ。"
 #define MES_FEATURE_CLOSED_DUNGEON "ダンジョンの入口は塞がれている！"
-#define MES_FEATURE_CHECK_DUNGEON "ここには%sの入り口(%d階相当)があります"
+#define MES_FEATURE_CHECK_DUNGEON(NAME, MIN_DEPTH, MAX_DEPTH) "ここには%sの入り口(危険度: %d～%d階層)があります", (NAME), (MIN_DEPTH), (MAX_DEPTH)
 #define MES_FEATURE_ASK_ENTER_DUNGEON "本当にこのダンジョンに入りますか？"
 
 #define MES_PATTERN_LIMIT1 "パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"
@@ -1150,7 +1150,7 @@
 
 #define MES_FEATURE_STUCK "The %s appears to be stuck."
 #define MES_FEATURE_CLOSED_DUNGEON "The entrance of this dungeon is closed!"
-#define MES_FEATURE_CHECK_DUNGEON "There is the entrance of %s (Danger level: %d)"
+#define MES_FEATURE_CHECK_DUNGEON(NAME, MIN_DEPTH, MAX_DEPTH) "There is the entrance of %s (Danger level: %d to %d)", (NAME), (MIN_DEPTH), (MAX_DEPTH)
 #define MES_FEATURE_ASK_ENTER_DUNGEON "Do you really get in this dungeon? "
 
 #define MES_PATTERN_LIMIT1 "If you start walking the Pattern, you must walk the whole way. Ok? "

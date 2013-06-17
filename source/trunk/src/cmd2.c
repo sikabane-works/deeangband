@@ -166,7 +166,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	else
 	{
 		DUNGEON_ID target_dungeon = 0;
-		if(!floor_ptr->depth)
+		if(floor_ptr->depth <= 0)
 		{
 			target_dungeon = have_flag(f_ptr->flags, FF_ENTRANCE) ? c_ptr->dungeon_id : DUNGEON_ANGBAND;
 
@@ -177,7 +177,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			}
 			if(!max_dlv[target_dungeon])
 			{
-				msg_format(MES_FEATURE_CHECK_DUNGEON, dungeon_name + dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
+				msg_format(MES_FEATURE_CHECK_DUNGEON(dungeon_name + dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth, dungeon_info[target_dungeon].maxdepth));
 				if(!get_check(MES_FEATURE_ASK_ENTER_DUNGEON)) return;
 			}
 
