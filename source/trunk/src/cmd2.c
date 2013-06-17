@@ -168,7 +168,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		DUNGEON_ID target_dungeon = 0;
 		if(!floor_ptr->depth)
 		{
-			target_dungeon = have_flag(f_ptr->flags, FF_ENTRANCE) ? c_ptr->special : DUNGEON_ANGBAND;
+			target_dungeon = have_flag(f_ptr->flags, FF_ENTRANCE) ? c_ptr->dungeon_id : DUNGEON_ANGBAND;
 
 			if(ironman_downward && (target_dungeon != DUNGEON_ANGBAND))
 			{

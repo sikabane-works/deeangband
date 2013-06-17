@@ -6513,16 +6513,13 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 			int random = letter[idx].random;
 			int artifact_index = letter[idx].artifact;
 
-			c_ptr->special = 11;
-
 			/* Lay down a floor */
 			c_ptr->feat = conv_dungeon_feat(floor_ptr, letter[idx].feature);
 
 			/* Only the features */
 			if(flags & INIT_ONLY_FEATURES) continue;
 
-			/* Cave info */
-			c_ptr->info = (u16b)letter[idx].cave_info;
+			c_ptr->info = (u16b)letter[idx].cave_info; /* Cave info */
 
 			/* Create a creature */
 			if(random & RANDOM_MONSTER)
@@ -6644,7 +6641,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 			}
 
 			/* Terrain special */
-			//TODO c_ptr->special = letter[idx].special;
+			if(have_flag(feature_info[c_ptr->feat].flags, FF_ENTRANCE)) c_ptr->dungeon_id = letter[idx].special;
 			c_ptr->town_idx = letter[idx].town_idx;
 			c_ptr->quest_idx = letter[idx].quest_idx;
 		}
