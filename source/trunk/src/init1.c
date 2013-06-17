@@ -6507,15 +6507,13 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 		{
 			/* Access the grid */
 			cave_type *c_ptr = &floor_ptr->cave[*y][*x];
-
 			int idx = s[0];
-
-//			c_ptr->special = 11;
-
 			OBJECT_ID object_index = letter[idx].object;
 			CREATURE_ID creature_index = letter[idx].creature;
 			int random = letter[idx].random;
 			int artifact_index = letter[idx].artifact;
+
+			c_ptr->special = 11;
 
 			/* Lay down a floor */
 			c_ptr->feat = conv_dungeon_feat(floor_ptr, letter[idx].feature);

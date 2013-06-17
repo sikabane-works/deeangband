@@ -789,13 +789,14 @@ typedef struct cave_type cave_type;
 
 struct cave_type
 {
-	u16b info;		   // Hack -- cave flags
-	COODINATES cx;           // Connected x
-	COODINATES cy;           // Connected y
-	FEATURE_ID feat;		   // Hack -- feature type
-	OBJECT_ID object_idx;   // Object in this grid
-	CREATURE_ID creature_idx; // Creature in this grid
-	s16b special;
+	u16b info; /* Hack -- cave flags */
+	COODINATES cx; /* Connected x */
+	COODINATES cy; /* Connected y */
+	FEATURE_ID feat; /* Hack -- feature type */
+	OBJECT_ID object_idx; /* Object in this grid */
+	CREATURE_ID creature_idx; /* Creature in this grid */
+	DUNGEON_ID dungeon_id; /* for stairs and warp point etc... */
+	s16b special;  // TODO delete.
 	QUEST_ID quest_idx;
 	TOWN_ID town_idx;
 	FLOOR_ID to_floor;      // Special cave info
