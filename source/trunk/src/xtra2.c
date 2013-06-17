@@ -1917,14 +1917,10 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 			}
 
 			/* Hack -- special handling for building doors */
-			else if(have_flag(f_ptr->flags, FF_BLDG) && !floor_ptr->fight_arena_mode)
-				name = building[f_ptr->subtype].name;
-			else if(have_flag(f_ptr->flags, FF_ENTRANCE))
-				name = format(MES_DUNGEON_INFO((dungeon_name + dungeon_info[c_ptr->dungeon_id].name), dungeon_info[c_ptr->dungeon_id].mindepth));
-			else if(have_flag(f_ptr->flags, FF_TOWN))
-				name = town[c_ptr->town_idx].name;
-			else if(floor_ptr->global_map && (feat == feat_floor))
-				name = KW_ROAD;
+			else if(have_flag(f_ptr->flags, FF_BLDG) && !floor_ptr->fight_arena_mode) name = building[f_ptr->subtype].name;
+			else if(have_flag(f_ptr->flags, FF_ENTRANCE)) name = format(MES_DUNGEON_INFO((dungeon_name + dungeon_info[c_ptr->dungeon_id].name), dungeon_info[c_ptr->dungeon_id].mindepth));
+			else if(have_flag(f_ptr->flags, FF_TOWN)) name = town[c_ptr->town_idx].name;
+			else if(floor_ptr->global_map && (feat == feat_floor)) name = KW_ROAD;
 			else name = feature_name + f_ptr->name;
 
 			// Pick a prefix

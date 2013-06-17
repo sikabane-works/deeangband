@@ -6593,13 +6593,8 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 
 				floor_ptr->object_level = floor_ptr->depth;
 			}
-			/* Random trap */
-			else if(random & RANDOM_TRAP)
-			{
-				place_trap(floor_ptr, *y, *x);
-			}
-			/* Hidden trap (or door) */
-			else if(letter[idx].trap)
+			else if(random & RANDOM_TRAP) place_trap(floor_ptr, *y, *x); /* Random trap */
+			else if(letter[idx].trap) /* Hidden trap (or door) */
 			{
 				c_ptr->mimic = c_ptr->feat;
 				c_ptr->feat = conv_dungeon_feat(floor_ptr, letter[idx].trap);
@@ -6607,14 +6602,9 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 			else if(object_index)
 			{
 				object_type *object_ptr = &object_type_body;
-
-				/* Create the item */
 				generate_object(object_ptr, object_index);
 				if(object_ptr->tval == TV_GOLD) make_gold(floor_ptr, object_ptr, letter[idx].special, object_index - OBJ_GOLD_LIST);
-
-				/* Apply magic (no messages, no artifacts) */
 				apply_magic(player_ptr, object_ptr, floor_ptr->depth, AM_NO_FIXED_ART | AM_GOOD);
-
 				drop_here(floor_ptr, object_ptr, *y, *x);
 			}
 
@@ -6626,18 +6616,10 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 					int k_idx = lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
 					object_type forge;
 					object_type *quest_ptr = &forge;
-
 					generate_object(quest_ptr, k_idx);
-
-					/* Drop it in the dungeon */
 					drop_here(floor_ptr, quest_ptr, *y, *x);
 				}
-				else
-				{
-					/* Create the artifact */
-					if(drop_named_art(player_ptr, artifact_index, *y, *x))
-						artifact_info[artifact_index].cur_num = 1;
-				}
+				else if(drop_named_art(player_ptr, artifact_index, *y, *x)) artifact_info[artifact_index].cur_num = 1;
 			}
 
 			/* Terrain special */
@@ -6658,15 +6640,13 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 		quest_type *quest_ptr;
 #ifdef JP
 		if(buf[2] == '$') return PARSE_ERROR_NONE;
-		num = tokenize(buf + 2, 33, zz, 0);
 #else
 		if(buf[2] != '$') return PARSE_ERROR_NONE;
-		num = tokenize(buf + 3, 33, zz, 0);
 #endif
+		num = tokenize(buf + 3, 33, zz, 0);
 
 		/* Have we enough parameters? */
 		if(num < 3) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
-
 		quest_ptr = &(quest[strtol(zz[0], NULL, 10)]); // Get the quest
 
 		/* Process "Q:<q_index>:Q:<type>:<num_mon>:<cur_num>:<max_num>:<level>:<species_idx>:<k_idx>:<flags>" -- quest info */
