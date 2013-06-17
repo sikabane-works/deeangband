@@ -1070,7 +1070,7 @@ static errr rd_floor(floor_type *floor_ptr)
 			c_ptr->info = cave_templete_ptr[id].info;
 			c_ptr->feat = cave_templete_ptr[id].feat;
 			c_ptr->mimic = cave_templete_ptr[id].mimic;
-			c_ptr->special = cave_templete_ptr[id].special;
+			// TODO Delete c_ptr->special = cave_templete_ptr[id].special;
 
 			/* Advance/Wrap */
 			if(++x >= xmax)

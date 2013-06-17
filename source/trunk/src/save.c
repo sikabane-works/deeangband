@@ -654,8 +654,8 @@ static void wr_floor(floor_type *floor_ptr)
 			{
 				if(template[i].info == c_ptr->info &&
 				    template[i].feat == c_ptr->feat &&
-				    template[i].mimic == c_ptr->mimic &&
-				    template[i].special == c_ptr->special)
+				    template[i].mimic == c_ptr->mimic)
+					//TODO && template[i].special == c_ptr->special)
 				{
 					/* Same terrain is exist */
 					template[i].occurrence++;
@@ -682,7 +682,7 @@ static void wr_floor(floor_type *floor_ptr)
 			template[num_temp].info = c_ptr->info;
 			template[num_temp].feat = c_ptr->feat;
 			template[num_temp].mimic = c_ptr->mimic;
-			template[num_temp].special = c_ptr->special;
+			//TODO template[num_temp].special = c_ptr->special;
 			template[num_temp].occurrence = 1;
 
 			/* Increase number of template */
@@ -724,7 +724,7 @@ static void wr_floor(floor_type *floor_ptr)
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			for (i = 0; i < num_temp; i++)
-				if(template[i].info == c_ptr->info && template[i].feat == c_ptr->feat && template[i].mimic == c_ptr->mimic && template[i].special == c_ptr->special)
+				if(template[i].info == c_ptr->info && template[i].feat == c_ptr->feat && template[i].mimic == c_ptr->mimic) //TODO && template[i].special == c_ptr->special
 					break;
 
 			/* Extract an ID */

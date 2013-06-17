@@ -557,8 +557,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 			feat_state(floor_ptr, feat_down_stair, FF_SHAFT) : feat_down_stair);
 	}
 
-	// Connect this stairs to the destination
-	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special = dest_floor_idx;
+	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].to_floor = dest_floor_idx; /* Connect this stairs to the destination */
 }
 
 void reset_cave_creature_reference(void)

@@ -1926,9 +1926,7 @@ static void castle_quest(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	clear_bldg(4, 18);
-
-	/* Current quest of the building */
-	q_index = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special;
+	q_index = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].quest_idx; /* Current quest of the building */
 
 	/* Is there a quest available at the building? */
 	if(!q_index)

@@ -331,7 +331,7 @@ static void generate_area(floor_type *floor_ptr, int y, int x, bool border, bool
 		dx = rand_range(6, floor_ptr->width - 6);
 
 		floor_ptr->cave[dy][dx].feat = feat_entrance;
-		floor_ptr->cave[dy][dx].special = wilderness[y][x].entrance;
+		floor_ptr->cave[dy][dx].town_idx = wilderness[y][x].entrance;
 
 		/* Use the complex RNG */
 		Rand_quick = FALSE;
@@ -595,7 +595,7 @@ void generate_world(floor_type *floor_ptr)
 			else if(wilderness[j][i].entrance && (player_ptr->total_winner || !(dungeon_info[wilderness[j][i].entrance].flags1 & DF1_WINNER)))
 			{
 				floor_ptr->cave[j][i].feat = feat_entrance;
-				floor_ptr->cave[j][i].special = (byte)wilderness[j][i].entrance;
+				floor_ptr->cave[j][i].town_idx = (byte)wilderness[j][i].entrance;
 			}
 			else floor_ptr->cave[j][i].feat = conv_terrain2feat[wilderness[j][i].terrain];
 			floor_ptr->cave[j][i].info |= (CAVE_GLOW | CAVE_MARK);
