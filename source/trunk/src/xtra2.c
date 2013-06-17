@@ -1612,27 +1612,19 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 		prt(out_val, 0, 0);
 		move_cursor_relative(y, x);
 		query = inkey();
-
-		/* Stop on everything but "return" */
-		if((query != '\r') && (query != '\n')) return query;
-
-		/* Repeat forever */
-		return 0;
+		if((query != '\r') && (query != '\n')) return query; /* Stop on everything but "return" */
+		return 0; /* Repeat forever */
 	}
 
 
 	/* Actual creatures */
-	if(c_ptr->creature_idx && creature_list[c_ptr->creature_idx].see_others)
+	if(c_ptr->creature_idx && !is_player(&creature_list[c_ptr->creature_idx]) && creature_list[c_ptr->creature_idx].see_others)
 	{
 		creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 		char m_name[120];
 		bool recall = FALSE;
-
-		/* Not boring */
-		boring = FALSE;
-
-		/* Get the creature name ("a kobold") */
-		creature_desc(m_name, m_ptr, CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
+		boring = FALSE; /* Not boring */
+		creature_desc(m_name, m_ptr, CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE); /* Get the creature name ("a kobold") */
 
 		species_type_track(m_ptr->ap_species_idx);
 		health_track(c_ptr->creature_idx);
@@ -1655,15 +1647,9 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 #endif
 				query = inkey();
 				screen_load();
-
-				/* Normal commands */
-				if(query != 'r') break;
-
-				/* Toggle recall */
-				recall = FALSE;
-
-				/* Cleare recall text and repeat */
-				continue;
+				if(query != 'r') break; /* Normal commands */
+				recall = FALSE; /* Toggle recall */
+				continue; /* Cleare recall text and repeat */
 			}
 
 			/*** Normal ***/
