@@ -6130,7 +6130,6 @@ errr parse_authority_info_csv(char *buf, header *head)
 #define RANDOM_ARTIFACT     0x00000010
 #define RANDOM_TRAP         0x00000020
 
-
 typedef struct dungeon_grid dungeon_grid;
 
 struct dungeon_grid
@@ -6464,42 +6463,17 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 	int i;
 	char *zz[100];
 
-	/* Skip "empty" lines */
-	if(!buf[0]) return PARSE_ERROR_NONE;
-
-	/* Skip "blank" lines */
-	if(isspace(buf[0])) return PARSE_ERROR_NONE;
-
-	/* Skip comments */
-	if(buf[0] == '#') return PARSE_ERROR_NONE;
-
-	/* Require "?:*" format */
-	if(buf[1] != ':') return PARSE_ERROR_GENERIC;
-
-
-	/* Process "%:<fname>" */
-	if(buf[0] == '%')
-	{
-		// Attempt to Process the given file
-		return (process_dungeon_file(floor_ptr, buf + 2, ymin, xmin, ymax, xmax, flags, quest_id));
-	}
-
-	/* Process "F:<letter>:<terrain>:<cave_info>:<creature>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid */
-	if(buf[0] == 'F')
-	{
-		return parse_line_feature(buf, flags);
-	}
-
-	/* Process "D:<dungeon>" -- info for the cave grids */
-	else if(buf[0] == 'D')
+	if(!buf[0]) return PARSE_ERROR_NONE; /* Skip "empty" lines */
+	if(isspace(buf[0])) return PARSE_ERROR_NONE; /* Skip "blank" lines */
+	if(buf[0] == '#') return PARSE_ERROR_NONE; /* Skip comments */
+	if(buf[1] != ':') return PARSE_ERROR_GENERIC; /* Require "?:*" format */
+	if(buf[0] == '%') return (process_dungeon_file(floor_ptr, buf + 2, ymin, xmin, ymax, xmax, flags, quest_id)); /* Process "%:<fname>" / Attempt to Process the given file */
+	if(buf[0] == 'F') return parse_line_feature(buf, flags); /* Process "F:<letter>:<terrain>:<cave_info>:<creature>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid */
+	else if(buf[0] == 'D') /* Process "D:<dungeon>" -- info for the cave grids */
 	{
 		object_type object_type_body;
-
-		/* Acquire the text */
-		char *s = buf + 2;
-
-		/* Length of the text */
-		int len = strlen(s);
+		char *s = buf + 2; /* Acquire the text */
+		int len = strlen(s); /* Length of the text */
 
 		if(flags & INIT_ONLY_BUILDINGS) return PARSE_ERROR_NONE;
 
@@ -6513,21 +6487,12 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, COODINATE
 			int random = letter[idx].random;
 			int artifact_index = letter[idx].artifact;
 
-			/* Lay down a floor */
-			c_ptr->feat = conv_dungeon_feat(floor_ptr, letter[idx].feature);
-
-			/* Only the features */
-			if(flags & INIT_ONLY_FEATURES) continue;
-
+			c_ptr->feat = conv_dungeon_feat(floor_ptr, letter[idx].feature); /* Lay down a floor */
+			if(flags & INIT_ONLY_FEATURES) continue; /* Only the features */
 			c_ptr->info = (u16b)letter[idx].cave_info; /* Cave info */
 
 			/* Create a creature */
-			if(random & RANDOM_MONSTER)
-			{
-				floor_ptr->enemy_level = floor_ptr->depth + creature_index;
-				place_floor_spawn_creature(NULL, floor_ptr, *y, *x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
-				floor_ptr->enemy_level = floor_ptr->depth;
-			}
+			if(random & RANDOM_MONSTER) place_floor_spawn_creature(NULL, floor_ptr, *y, *x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 			else if(creature_index)
 			{
 				int old_cur_num, old_max_num;

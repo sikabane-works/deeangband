@@ -1912,8 +1912,8 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 				int j;
 				for (j = 0; j < 10; j++) questp_text[j][0] = '\0';
 				questp_text_line = 0;
-				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT, c_ptr->special);
-				name = format(MES_QUEST_INFO2(quest[c_ptr->special].name, quest[c_ptr->special].level));
+				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT, c_ptr->quest_idx);
+				name = format(MES_QUEST_INFO2(quest[c_ptr->quest_idx].name, quest[c_ptr->quest_idx].level));
 			}
 
 			/* Hack -- special handling for building doors */
