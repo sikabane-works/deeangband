@@ -411,20 +411,19 @@ struct object_kind
 	SAVING to_vo;				/* Bonus to evasion */
 	s16b bow_mul;			/* Bonus to bow_mul */
 
-	s16b ap_rate;		// AP rate
-	SAVING ac;			// Base AC
-	SAVING ev;			// Base EV
-	SAVING vo;			// Base VO
+	s16b ap_rate; // AP rate
+	SAVING ac; // Base AC
+	SAVING ev; // Base EV
+	SAVING vo; // Base VO
 
 	DICE_NUM dd; /* Damage dice */
 	DICE_SIDE ds; /* Damage sides */
 
-	WEIGHT weight;		/* Weight */
+	WEIGHT weight; /* Weight */
 
-	s32b cost;			/* Object "base cost" */
-
-	s16b charge_const;
-	s16b charge_dice;
+	PRICE cost; /* Object "base cost" */
+	GAME_TIME charge_const;
+	GAME_TIME charge_dice;
 
 	FLAGS_32 flags[MAX_TRAITS_FLAG];	// Flags
 	traits_precondition add_creature_traits;
@@ -904,8 +903,8 @@ struct object_type
 	DICE_SIDE ds; /* Damage dice/sides */
 
 	GAME_TIME timeout;		/* Timeout Counter */
-	s16b charge_const;
-	s16b charge_dice;
+	GAME_TIME charge_const;
+	GAME_TIME charge_dice;
 	QUANTITY charge_num;
 
 	byte ident;			/* Special flags  */

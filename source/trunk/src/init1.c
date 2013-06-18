@@ -1929,7 +1929,6 @@ errr parse_object_kind_csv(char *buf, header *head)
 		sprintf(nt, "[Initialize Object Kind:%d]", n);
 
 		object_kind_ptr = &object_kind_info[n];
-
 		note(nt);
 
 		for(i = 1; i < OBJECT_KIND_INFO_CSV_COLUMNS; i++)
