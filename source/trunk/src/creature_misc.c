@@ -1182,6 +1182,7 @@ int get_equipped_slot_idx(creature_type *creature_ptr, int slot, int num)
 		if(slot == INVENTORY_ID_INVENTORY)
 		{
 			if(count >= num) return i;
+			if(!is_valid_object(&creature_ptr->inventory[i])) continue;
 			if(creature_ptr->inventory[i].equipped_slot_type == INVENTORY_ID_INVENTORY) count++;
 		}
 		else if(creature_ptr->inventory[i].equipped_slot_num == num && creature_ptr->inventory[i].equipped_slot_type == slot) return i;
