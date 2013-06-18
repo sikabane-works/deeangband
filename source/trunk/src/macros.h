@@ -80,3 +80,6 @@
 #define GET_ITEM(CR, ID) (ID >= 0) ? &CR->inventory[item] : &object_list[0 - ID];
 
 #define M_SHADOW(CREATURE) (has_trait((CREATURE), TRAIT_MULTI_SHADOW) && (game_turn & 1))
+
+#define OBJECT_HAVE_FLAVOR(OBJ_KIND) *(object_kind_name + (OBJ_KIND)->flavor_name) != '\0'
+

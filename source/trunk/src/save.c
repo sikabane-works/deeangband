@@ -175,14 +175,9 @@ static void wr_store(store_type *st_ptr)
 	wr_u32b(st_ptr->name);
 	WRITE_PRICE(st_ptr->wealth);
 
-	/* Save the "open" counter */
-	wr_u32b(st_ptr->store_open);
-
-	/* Save the "insults" */
-	wr_s16b(st_ptr->insult_cur);
-
-	/* Save the current owner */
-	WRITE_SPECIES_ID(st_ptr->owner_id);
+	wr_u32b(st_ptr->store_open); /* Save the "open" counter */
+	wr_s16b(st_ptr->insult_cur); /* Save the "insults" */
+	WRITE_SPECIES_ID(st_ptr->owner_id); /* Save the current owner */
 
 	/* Save the stock size */
 	WRITE_OBJECT_ID(st_ptr->stock_num);
@@ -201,18 +196,8 @@ static void wr_store(store_type *st_ptr)
 	WRITE_FLOOR_LEV(st_ptr->level);
 
 	/* Save the stock */
-	for (j = 0; j < st_ptr->stock_num; j++)
-	{
-		/* Save each item in stock */
-		wr_object(&st_ptr->stock[j]);
-	}
-
-	/* Save the stock */
-	for (j = 0; j < st_ptr->table_num; j++)
-	{
-		/* Save each item in stock */
-		wr_s16b(st_ptr->table[j]);
-	}
+	for (j = 0; j < st_ptr->stock_num; j++) wr_object(&st_ptr->stock[j]);
+	for (j = 0; j < st_ptr->table_num; j++) wr_s16b(st_ptr->table[j]);
 
 }
 

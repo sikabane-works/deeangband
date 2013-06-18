@@ -1349,46 +1349,33 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			show_weapon = TRUE;
 			break;
 
-		/* Lites (including a few "Specials") */
-		case TV_LITE:
+		case TV_LITE: /* Lites (including a few "Specials") */
 			break;
 
-		/* Amulets (including a few "Specials") */
-		case TV_AMULET:
-		{
-			/* Known artifacts */
-			if(aware)
+		case TV_AMULET: /* Amulets (including a few "Specials") */
+			if(aware) /* Known artifacts */
 			{
 				if(object_is_fixed_artifact(object_ptr)) break;
 				if(has_trait_object(object_ptr, TRAIT_INSTA_ART)) break;
 			}
-
 			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name; /* Color the object */
 			if(!flavor)    basenm = OBJECT_DESC_AMULET_A;
 			else if(aware) basenm = OBJECT_DESC_AMULET_B;
 			else            basenm = OBJECT_DESC_AMULET_C;
-
 			break;
-		}
 
-		/* Rings (including a few "Specials") */
-		case TV_RING:
-		{
-			/* Known artifacts */
-			if(aware)
+		case TV_RING: /* Rings (including a few "Specials") */
+			if(aware) /* Known artifacts */
 			{
 				if(object_is_fixed_artifact(object_ptr)) break;
 				if(has_trait_object(object_ptr, TRAIT_INSTA_ART)) break;
 			}
-
 			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name; /* Color the object */
-
 			if(!flavor)    basenm = OBJECT_DESC_RING_A;
 			else if(aware) basenm = OBJECT_DESC_RING_B;
 			else            basenm = OBJECT_DESC_RING_C;
 			if(!object_kind_ptr->to_hit && !object_kind_ptr->to_damage && (object_ptr->to_hit || object_ptr->to_damage)) show_weapon = TRUE;
 			break;
-		}
 
 		case TV_CARD:
 			break;
@@ -1415,21 +1402,21 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			break;
 
 		case TV_SCROLL:
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name;
+			if(*(object_kind_name + object_kind_ptr->flavor_name) == '\0') break;
 			if(!flavor)    basenm = OBJECT_DESC_SCROLL_A;
 			else if(aware) basenm = OBJECT_DESC_SCROLL_B;
 			else            basenm = OBJECT_DESC_SCROLL_C;
 			break;
 
 		case TV_POTION:
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name;
+			if(*(object_kind_name + object_kind_ptr->flavor_name) == '\0') break;
 			if(!flavor)    basenm = OBJECT_DESC_POTION_A;
 			else if(aware) basenm = OBJECT_DESC_POTION_B;
 			else            basenm = OBJECT_DESC_POTION_C;
 			break;
 
 		case TV_FOOD:
-			if(!object_kind_ptr->flavor_name) break;
+			if(!OBJECT_HAVE_FLAVOR(object_kind_ptr)) break;
 			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name;
 			if(!flavor) basenm = OBJECT_DESC_FOOD_A;
 			else if(aware) basenm = OBJECT_DESC_FOOD_B;
