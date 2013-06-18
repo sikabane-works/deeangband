@@ -1221,14 +1221,14 @@ POWER open_roll()
 		point += (plus) ? randint1(100) : -randint1(100);
 		if(point <= 5) plus = FALSE;
 		else if(point > 95) plus = TRUE;
-		else break;
+		else return point;
 	}
 }
 
 
 bool saving_throw(creature_type *creature_ptr, int type, int difficulty, FLAGS_32 option)
 {
-	POWER power, challange;
+	POWER power;
 	if(option) return FALSE; //TODO
 	switch(type)
 	{
@@ -1300,19 +1300,14 @@ int calc_upkeep_servant(creature_type *master_ptr)
 			{
 				if(master_ptr->class_idx == CLASS_CAVALRY)
 				{
-					if(master_ptr->riding == creature_idx)
-						total_friend_levels += (pet_ptr->lev+5)*2;
-					else if(!have_a_unique && has_trait(pet_ptr, TRAIT_RIDING))
-						total_friend_levels += (pet_ptr->lev+5)*7/2;
-					else
-						total_friend_levels += (pet_ptr->lev+5)*10;
+					if(master_ptr->riding == creature_idx) total_friend_levels += (pet_ptr->lev + 5) * 2;
+					else if(!have_a_unique && has_trait(pet_ptr, TRAIT_RIDING)) total_friend_levels += (pet_ptr->lev+5) * 7 / 2;
+					else total_friend_levels += (pet_ptr->lev+5) * 10;
 					have_a_unique = TRUE;
 				}
-				else
-					total_friend_levels += (pet_ptr->lev+5)*10;
+				else total_friend_levels += (pet_ptr->lev+5) * 10;
 			}
-			else
-				total_friend_levels += pet_ptr->lev;
+			else total_friend_levels += pet_ptr->lev;
 
 			/* Determine pet alignment */
 			if(is_enemy_of_evil_creature(pet_ptr)) friend_align += pet_ptr->lev;

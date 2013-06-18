@@ -909,10 +909,14 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 
 			if(m < 0)
 			{
-				out_index[k] = m;
-				out_color[k] = TERM_L_DARK;
-				(void)object_desc(object_name, &creature_ptr->organ_object[i], 0);
-				(void)strcpy(out_desc[k], object_name);
+				if(i == INVENTORY_ID_INVENTORY && !(flags & SHOW_ITEM_EQUIPMENT) && !is_valid_object(object_ptr)) continue;
+				else
+				{
+					out_index[k] = m;
+					out_color[k] = TERM_L_DARK;
+					(void)object_desc(object_name, &creature_ptr->organ_object[i], 0);
+					(void)strcpy(out_desc[k], object_name);
+				}
 			}
 			else
 			{
@@ -953,7 +957,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 		return 0;
 	}
 
-	for (j = 0; j < k - 1; j++) /* Output each entry */
+	for (j = 0; j < k; j++) /* Output each entry */
 	{
 		i = out_index[j]; /* Get the index */
 		object_ptr = &creature_ptr->inventory[i]; /* Get the item */
