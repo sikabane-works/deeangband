@@ -65,7 +65,6 @@
 #define PROB_PERCENT(P) (randint0(100) < (P))
 #define one_in_(X) (randint0(X) == 0)
 
-
 /**** Available Variables ****/
 
 extern bool Rand_quick;

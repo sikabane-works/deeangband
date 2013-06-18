@@ -1212,9 +1212,23 @@ int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *weapon_
 	return 100;
 }
 
+POWER open_roll()
+{
+	bool plus = TRUE;
+	POWER point = 0;
+	while(TRUE)
+	{
+		point += (plus) ? randint1(100) : -randint1(100);
+		if(point <= 5) plus = FALSE;
+		else if(point > 95) plus = TRUE;
+		else break;
+	}
+}
+
+
 bool saving_throw(creature_type *creature_ptr, int type, int difficulty, FLAGS_32 option)
 {
-	POWER power, challange, dice_total, dice;
+	POWER power, challange;
 	if(option) return FALSE; //TODO
 	switch(type)
 	{
@@ -1223,18 +1237,7 @@ bool saving_throw(creature_type *creature_ptr, int type, int difficulty, FLAGS_3
 	case SAVING_VO: power = creature_ptr->vo + creature_ptr->to_vo; break;
 	default: power = 0;
 	};
-
-	challange = difficulty - power;
-	dice_total = 0;
-
-	do
-	{
-		dice = rand_range(-50, 49);
-		if(dice == -50) dice_total -= 100;
-		if(dice == +49) dice_total += 100;
-	} while(dice == -50 || dice == +49);
-
-	return challange <= dice + dice_total;
+	return difficulty - power <= open_roll();
 }
 
 bool have_posture(creature_type *creature_ptr)
