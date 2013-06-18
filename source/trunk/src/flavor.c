@@ -272,7 +272,7 @@ void flavor_init(void)
 		object_kind *object_kind_ptr = &object_kind_info[i];
 
 		/* Skip objects without flavor name */
-		if(!object_kind_ptr->flavor_bane) continue;
+		if(!object_kind_ptr->flavor_name) continue;
 
 		/*
 		 * Initialize flavor index to itself
@@ -1363,7 +1363,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 				if(has_trait_object(object_ptr, TRAIT_INSTA_ART)) break;
 			}
 
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane; /* Color the object */
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name; /* Color the object */
 			if(!flavor)    basenm = OBJECT_DESC_AMULET_A;
 			else if(aware) basenm = OBJECT_DESC_AMULET_B;
 			else            basenm = OBJECT_DESC_AMULET_C;
@@ -1381,7 +1381,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 				if(has_trait_object(object_ptr, TRAIT_INSTA_ART)) break;
 			}
 
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane; /* Color the object */
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name; /* Color the object */
 
 			if(!flavor)    basenm = OBJECT_DESC_RING_A;
 			else if(aware) basenm = OBJECT_DESC_RING_B;
@@ -1394,46 +1394,46 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			break;
 
 		case TV_STAFF:
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane; /* Color the object */
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name; /* Color the object */
 			if(!flavor)    basenm = OBJECT_DESC_STAFF_A;
 			else if(aware) basenm = OBJECT_DESC_STAFF_B;
 			else            basenm = OBJECT_DESC_STAFF_C;
 			break;
 
 		case TV_WAND:
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name;
 			if(!flavor)    basenm = OBJECT_DESC_WAND_A;
 			else if(aware) basenm = OBJECT_DESC_WAND_B;
 			else            basenm = OBJECT_DESC_WAND_C;
 			break;
 
 		case TV_ROD:
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name;
 			if(!flavor)    basenm = OBJECT_DESC_ROD_A;
 			else if(aware) basenm = OBJECT_DESC_ROD_B;
 			else            basenm = OBJECT_DESC_ROD_C;
 			break;
 
 		case TV_SCROLL:
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name;
 			if(!flavor)    basenm = OBJECT_DESC_SCROLL_A;
 			else if(aware) basenm = OBJECT_DESC_SCROLL_B;
 			else            basenm = OBJECT_DESC_SCROLL_C;
 			break;
 
 		case TV_POTION:
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name;
 			if(!flavor)    basenm = OBJECT_DESC_POTION_A;
 			else if(aware) basenm = OBJECT_DESC_POTION_B;
 			else            basenm = OBJECT_DESC_POTION_C;
 			break;
 
 		case TV_FOOD:
-			if(!object_kind_ptr->flavor_bane) break;
-			modstr = object_kind_name + flavor_object_kind_ptr->flavor_bane;
-			if(!flavor)    basenm = OBJECT_DESC_FOOD_A;
+			if(!object_kind_ptr->flavor_name) break;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name;
+			if(!flavor) basenm = OBJECT_DESC_FOOD_A;
 			else if(aware) basenm = OBJECT_DESC_FOOD_B;
-			else            basenm = OBJECT_DESC_FOOD_C;
+			else basenm = OBJECT_DESC_FOOD_C;
 			break;
 
 		case TV_PARCHMENT:

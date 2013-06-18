@@ -1954,7 +1954,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_UI_NAME:
-				if(!add_name(&object_kind_ptr->flavor_bane, head, tmp))
+				if(!add_name(&object_kind_ptr->flavor_name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 

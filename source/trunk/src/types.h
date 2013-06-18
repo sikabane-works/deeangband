@@ -391,7 +391,7 @@ struct object_kind
 	STRING_OFFSET name;			/* Name (offset) */
 	STRING_OFFSET tag;			/* Name (offset) */
 	STRING_OFFSET text;			/* Text (offset) */
-	STRING_OFFSET flavor_bane;		/* Flavor name (offset) */
+	STRING_OFFSET flavor_name;		/* Flavor name (offset) */
 
 	TVAL tval;			/* Object type */
 	SVAL sval;			/* Object sub type */
@@ -416,7 +416,8 @@ struct object_kind
 	SAVING ev;			// Base EV
 	SAVING vo;			// Base VO
 
-	byte dd, ds;		/* Damage dice/sides */
+	DICE_NUM dd; /* Damage dice */
+	DICE_SIDE ds; /* Damage sides */
 
 	WEIGHT weight;		/* Weight */
 
@@ -430,8 +431,8 @@ struct object_kind
 
 	FLAGS_32 gen_flags;		/* flags for generate */
 
-	FLOOR_LEV locale[4];		/* Allocation level(s) */
-	PROB chance[4];		/* Allocation chance(s) */
+	FLOOR_LEV locale[4]; /* Allocation level(s) */
+	PROB chance[4]; /* Allocation chance(s) */
 
 	FLOOR_LEV level;
 	byte extra;

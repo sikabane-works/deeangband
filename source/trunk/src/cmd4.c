@@ -2159,7 +2159,7 @@ void do_cmd_visuals(void)
 				COLOR_ID ca = object_kind_ptr->x_attr;
 				SYMBOL cc = object_kind_ptr->x_char;
 
-				Term_putstr(5, 17, -1, TERM_WHITE, format(MES_VISUAL_OBJECT_LABEL(k, object_kind_name + (!object_kind_ptr->flavor ? object_kind_ptr->name : object_kind_ptr->flavor_bane))));
+				Term_putstr(5, 17, -1, TERM_WHITE, format(MES_VISUAL_OBJECT_LABEL(k, object_kind_name + (!object_kind_ptr->flavor ? object_kind_ptr->name : object_kind_ptr->flavor_name))));
 				Term_putstr(10, 19, -1, TERM_WHITE, format(MES_VISUAL_RESET_SYM_DEFAULT(da, dc)));
 
 				Term_putstr(40, 19, -1, TERM_WHITE, empty_symbol);
@@ -5216,7 +5216,7 @@ static void display_object_list(int col, int row, int per_page, OBJECT_ID object
 		else
 		{
 			/* Flavor name */
-			strcpy(object_name, object_kind_name + flavor_object_kind_ptr->flavor_bane);
+			strcpy(object_name, object_kind_name + flavor_object_kind_ptr->flavor_name);
 		}
 
 		/* Display the name */
