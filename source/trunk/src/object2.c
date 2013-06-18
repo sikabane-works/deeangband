@@ -3630,8 +3630,7 @@ void reorder_pack(creature_type *creature_ptr)
 		o_value = object_value(object1_ptr);
 
 		/* Scan every occupied slot */
-		for (j = 0; j < INVEN_TOTAL; j++)
-			if(object_sort_comp(creature_ptr, object1_ptr, o_value, &creature_ptr->inventory[j])) break;
+		for (j = 0; j < INVEN_TOTAL; j++) if(object_sort_comp(creature_ptr, object1_ptr, o_value, &creature_ptr->inventory[j])) break;
 
 		/* Never move down */
 		if(j >= i) continue;
@@ -3643,15 +3642,9 @@ void reorder_pack(creature_type *creature_ptr)
 		/* Save a copy of the moving item */
 		object_copy(object2_ptr, &creature_ptr->inventory[i]);
 
-		/* Slide the objects */
-		for (k = i; k > j; k--)
-		{
-			/* Slide the item */
-			object_copy(&creature_ptr->inventory[k], &creature_ptr->inventory[k-1]);
-		}
-
-		/* Insert the moving item */
-		object_copy(&creature_ptr->inventory[j], object2_ptr);
+		/* Slide the objects / Slide the item */
+		for (k = i; k > j; k--) object_copy(&creature_ptr->inventory[k], &creature_ptr->inventory[k-1]);
+		object_copy(&creature_ptr->inventory[j], object2_ptr); /* Insert the moving item */
 
 		prepare_window(PW_INVEN);
 	}

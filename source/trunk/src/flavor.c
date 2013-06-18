@@ -1402,14 +1402,16 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 			break;
 
 		case TV_SCROLL:
-			if(*(object_kind_name + object_kind_ptr->flavor_name) == '\0') break;
+			if(!OBJECT_HAVE_FLAVOR(object_kind_ptr)) break;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name;
 			if(!flavor)    basenm = OBJECT_DESC_SCROLL_A;
 			else if(aware) basenm = OBJECT_DESC_SCROLL_B;
 			else            basenm = OBJECT_DESC_SCROLL_C;
 			break;
 
 		case TV_POTION:
-			if(*(object_kind_name + object_kind_ptr->flavor_name) == '\0') break;
+			if(!OBJECT_HAVE_FLAVOR(object_kind_ptr)) break;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavor_name;
 			if(!flavor)    basenm = OBJECT_DESC_POTION_A;
 			else if(aware) basenm = OBJECT_DESC_POTION_B;
 			else            basenm = OBJECT_DESC_POTION_C;

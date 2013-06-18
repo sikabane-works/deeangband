@@ -2161,7 +2161,6 @@ void do_cmd_visuals(void)
 
 				Term_putstr(5, 17, -1, TERM_WHITE, format(MES_VISUAL_OBJECT_LABEL(k, object_kind_name + (!object_kind_ptr->flavor ? object_kind_ptr->name : object_kind_ptr->flavor_name))));
 				Term_putstr(10, 19, -1, TERM_WHITE, format(MES_VISUAL_RESET_SYM_DEFAULT(da, dc)));
-
 				Term_putstr(40, 19, -1, TERM_WHITE, empty_symbol);
 				Term_queue_bigchar(43, 19, da, dc, 0, 0);
 
