@@ -1794,7 +1794,6 @@ enum OBJECT_KIND_INFO {
 	OK_INFO_MAGIC_MASTERY,
 	OK_INFO_SPEED,
 	OK_INFO_DEPTH,
-	OK_INFO_RARITY,
 	OK_INFO_WEIGHT,
 	OK_INFO_COST,
 
@@ -1852,7 +1851,6 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"SPD",
 
 	"DEPTH",
-	"RARITY",
 	"WEIGHT",
 	"COST",
 	"CHARGE",
@@ -2079,13 +2077,6 @@ errr parse_object_kind_csv(char *buf, header *head)
 					object_kind_ptr->level = (byte)b;
 				else
 					object_kind_ptr->level = 0;
-				break;
-
-			case OK_INFO_RARITY:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->extra = (byte)b;
-				else
-					object_kind_ptr->extra = 0;
 				break;
 
 			case OK_INFO_WEIGHT:

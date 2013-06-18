@@ -435,7 +435,6 @@ struct object_kind
 	PROB chance[4]; /* Allocation chance(s) */
 
 	FLOOR_LEV level;
-	byte extra;
 
 	COLOR_ID d_attr;		/* Default object attribute */
 	SYMBOL d_char;		/* Default object character */
