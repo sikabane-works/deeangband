@@ -1212,15 +1212,6 @@ int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *weapon_
 	return 100;
 }
 
-int calc_action_power(creature_type *creature_ptr)
-{
-	if(!is_valid_creature(creature_ptr))
-	{
-		return 0;
-	}
-	return 100;
-}
-
 bool saving_throw(creature_type *creature_ptr, int type, int difficulty, FLAGS_32 option)
 {
 	POWER power, challange, dice_total, dice;

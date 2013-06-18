@@ -738,7 +738,6 @@ extern int get_equipped_slot_idx(creature_type *creature_ptr, int slot, int num)
 extern int count_melee_slot(creature_type *creature_ptr);
 extern int calc_weapon_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr);
 extern int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *weapon_ptr);
-extern int calc_action_power(creature_type *creature_ptr);
 extern int calc_upkeep_servant(creature_type *master_ptr);
 extern bool saving_throw(creature_type *creature_ptr, int type, int difficulty, FLAGS_32 option);
 extern bool have_posture(creature_type *creature_ptr);

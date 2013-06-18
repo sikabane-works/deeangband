@@ -1599,8 +1599,6 @@ static void display_player_middle(creature_type *creature_ptr)
 		display_player_one_line(ENTRY_SPEED, buf, attr);
 	}
 
-	sprintf(buf, "%d ", calc_action_power(creature_ptr));
-
 	/* Dump experience */
 	if(has_trait(creature_ptr, TRAIT_ANDROID)) e = ENTRY_EXP_ANDR;
 	else e = ENTRY_CUR_EXP;
