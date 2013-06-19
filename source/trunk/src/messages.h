@@ -1264,6 +1264,7 @@
 #define MES_RECALL_STARTING "回りの大気が張りつめてきた..."
 #define MES_RECALL_CANCEL "張りつめた大気が流れ去った..."
 #define MES_RECALL_TRUMP_TOWER "トランプタワーで"
+#define MES_RECALL_TO(DUNGEON) "%sの何階にテレポートしますか？", ((DUNGEON)->name + dungeon_name)
 #else
 #define MES_TELEPORT_LEVEL_ASK "Leave this level? "
 #define MES_TELEPORT_NO_TOWN "You have not yet visited any town."
@@ -1274,6 +1275,7 @@
 #define MES_RECALL_STARTING "The air about you becomes charged..."
 #define MES_RECALL_CANCEL "A tension leaves the air around you..."
 #define MES_RECALL_TRUMP_TOWER "at Trump Tower"
+#define MES_RECALL_TO(DUNGEON) "Teleport to which level of %s? ", ((DUNGEON)->name + dungeon_name)
 #endif
 
 #if JP

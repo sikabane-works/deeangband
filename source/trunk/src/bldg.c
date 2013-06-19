@@ -2902,11 +2902,8 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		// Limit depth in Angband
 		if(select_dungeon == DUNGEON_ANGBAND) if(quest[QUEST_SERPENT].status != QUEST_STATUS_FINISHED) max_depth = 99;
 
-#ifdef JP
-		amt = (FLOOR_LEV)get_quantity(format("%sの何階にテレポートしますか？", dungeon_name + dungeon_info[select_dungeon].name), max_depth);
-#else
-		amt = (FLOOR_LEV)get_quantity(format("Teleport to which level of %s? ", dungeon_name + dungeon_info[select_dungeon].name), max_depth);
-#endif
+		amt = (FLOOR_LEV)get_quantity(format(MES_RECALL_TO(&dungeon_info[select_dungeon])), max_depth);
+
 		if(amt > 0)
 		{
 			set_timed_trait(creature_ptr, TRAIT_WORD_RECALL, 1, FALSE);
