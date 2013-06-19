@@ -3228,11 +3228,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-#ifdef JP
-				if(!get_check("ïœêgÇµÇ‹Ç∑ÅBÇÊÇÎÇµÇ¢Ç≈Ç∑Ç©ÅH")) return NULL;
-#else
-				if(!get_check("You will polymorph yourself. Are you sure? ")) return NULL;
-#endif
+				if(!get_check(MES_POLYSELF_ASK)) return NULL;
 				do_poly_self(caster_ptr);
 			}
 		}

@@ -1050,11 +1050,10 @@ static errr process_pref_file_aux(cptr name, int preftype)
 		/* ToDo: Add better error messages */
 #ifdef JP
 		msg_format("ファイル'%s'の%d行でエラー番号%dのエラー。", name, line, err);
-		msg_format("('%s'を解析中)", old);
 #else
 		msg_format("Error %d in line %d of file '%s'.", err, line, name);
-		msg_format("Parsing '%s'", old);
 #endif
+		msg_format(MES_SYS_PARSING(old));
 		msg_print(NULL);
 	}
 
