@@ -125,6 +125,13 @@
 #define MES_SYS_PARSING(FILE) "'%s'を解析中。", (FILE)
 #define MES_SYS_CONTROL_CODE(MESSAGE) "'%s' は不正なコントロールコードを含んでいます。", (MESSAGE)
 
+#define MES_SYS_TMP_FILE_ERROR1 "エラー：古いテンポラリ・ファイルが残っています。"
+#define MES_SYS_TMP_FILE_ERROR2 "D\'angbandを二重に起動していないか確認してください。"
+#define MES_SYS_TMP_FILE_ERROR3 "過去にD\'angbandがクラッシュした場合は一時ファイルを"
+#define MES_SYS_TMP_FILE_ERROR4 "強制的に削除して実行を続けられます。"
+#define MES_SYS_TMP_FILE_ERROR5 "強制的に削除してもよろしいですか？"
+#define MES_SYS_ABORTED "実行中止"
+
 #else
 
 #define MES_SYS_YOU_DIED(CREATURE) (has_trait((CREATURE), TRAIT_ANDROID) ? "You were broken." : "You died.")
@@ -219,6 +226,13 @@
 
 #define MES_SYS_PARSING(FILE) "Parsing '%s'.", (FILE)
 #define MES_SYS_CONTROL_CODE(MESSAGE) '%s' contains control chars!", (MESSAGE)
+
+#define MES_SYS_TMP_FILE_ERROR1 "Error: There are old temporal files."
+#define MES_SYS_TMP_FILE_ERROR2 "Make sure you are not running two game processes simultaneously."
+#define MES_SYS_TMP_FILE_ERROR3 "If the temporal files are garbages of old crashed process, "
+#define MES_SYS_TMP_FILE_ERROR4 "you can delete it safely."
+#define MES_SYS_TMP_FILE_ERROR5 "Do you delete old temporal files? "
+#define MES_SYS_ABORTED "Aborted."
 
 #endif
 

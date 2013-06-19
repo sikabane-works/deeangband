@@ -58,19 +58,11 @@ void init_saved_floors(bool force)
 		{
 			if(!force)
 			{
-#ifdef JP
-				msg_print("エラー：古いテンポラリ・ファイルが残っています。");
-				msg_print("D\'angbandを二重に起動していないか確認してください。");
-				msg_print("過去にD\'angbandがクラッシュした場合は一時ファイルを");
-				msg_print("強制的に削除して実行を続けられます。");
-				if(!get_check("強制的に削除してもよろしいですか？")) quit("実行中止");
-#else
-				msg_print("Error: There are old temporal files.");
-				msg_print("Make sure you are not running two game processes simultaneously.");
-				msg_print("If the temporal files are garbages of old crashed process, ");
-				msg_print("you can delete it safely.");
-				if(!get_check("Do you delete old temporal files? ")) quit("Aborted.");
-#endif
+				msg_print(MES_SYS_TMP_FILE_ERROR1);
+				msg_print(MES_SYS_TMP_FILE_ERROR2);
+				msg_print(MES_SYS_TMP_FILE_ERROR3);
+				msg_print(MES_SYS_TMP_FILE_ERROR4);
+				if(!get_check(MES_SYS_TMP_FILE_ERROR5)) quit(MES_SYS_ABORTED);
 				force = TRUE;
 			}
 		}
