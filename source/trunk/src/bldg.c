@@ -1044,15 +1044,9 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					roll2 = randint1(10);
 					choice = randint1(10);
 					c_put_str(TERM_GREEN, MES_GAMBLE_BETWEEN,5, 2);
-#ifdef JP
-					sprintf(tmp_str, "黒ダイス: %d        黒ダイス: %d", roll1, roll2);
+					sprintf(tmp_str, MES_GAMBLE_IN_BETWEEN_BLACK(roll1, roll2));
 					prt(tmp_str, 8, 3);
-					sprintf(tmp_str, "赤ダイス: %d", choice);
-#else
-					sprintf(tmp_str, "Black die: %d       Black Die: %d", roll1, roll2);
-					prt(tmp_str, 8, 3);
-					sprintf(tmp_str, "Red die: %d", choice);
-#endif
+					sprintf(tmp_str, MES_GAMBLE_IN_BETWEEN_RED(choice));
 					prt(tmp_str, 11, 14);
 					if(((choice > roll1) && (choice < roll2)) || ((choice < roll1) && (choice > roll2)))
 						win = TRUE;

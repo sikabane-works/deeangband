@@ -4638,7 +4638,10 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_ARENA_CONGURATULATION "おめでとうございます。"
 #define MES_GAMBLE_ARENA_GET_GOLD(MONEY) "%d＄を受け取った。", (MONEY)
 #define MES_GAMBLE_ARENA_LOST_GOLD "残念でした。"
+#define MES_GAMBLE_IN_BETWEEN_BLACK(DICE1, DICE2) "黒ダイス: %d        黒ダイス: %d", (DICE1), (DICE2)
+#define MES_GAMBLE_IN_BETWEEN_RED(DICE) "赤ダイス: %d", (DICE)
 #else
+
 #define MES_GAMBLE_BETWEEN "In Between"
 #define MES_GAMBLE_CRAPS "Craps"
 #define MES_GAMBLE_WHEEL "Wheel"
@@ -4670,6 +4673,8 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_ARENA_CONGURATULATION "Congratulations."
 #define MES_GAMBLE_ARENA_GET_GOLD(MONEY) "You received %d gold.", (MONEY)
 #define MES_GAMBLE_ARENA_LOST_GOLD "You lost gold."
+#define MES_GAMBLE_IN_BETWEEN_BLACK(DICE1, DICE2) "Black die: %d       Black Die: %d", (DICE1), (DICE2)
+#define MES_GAMBLE_IN_BETWEEN_RED(DICE) "Red die: %d", (DICE)
 #endif
 
 #ifdef JP
