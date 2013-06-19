@@ -2184,13 +2184,8 @@ bool artifact_scroll(creature_type *caster_ptr)
 	{
 		if(object_ptr->number > 1)
 		{
-#ifdef JP
-			msg_print("複数のアイテムに魔法をかけるだけのエネルギーはありません！");
-			msg_format("%d 個の%sが壊れた！",(object_ptr->number)-1, object_name);
-#else
-			msg_print("Not enough enough energy to enchant more than one object!");
-			msg_format("%d of your %s %s destroyed!",(object_ptr->number)-1, object_name, (object_ptr->number>2?"were":"was"));
-#endif
+			msg_print(MES_TRAIT_GENE_ARTIFACT_BRAKE1);
+			msg_format(MES_TRAIT_GENE_ARTIFACT_BRAKE2(object_ptr));
 			if(item >= 0) inven_item_increase(caster_ptr, item, 1-(object_ptr->number));
 			else floor_item_increase(0-item, 1-(object_ptr->number));
 		}
