@@ -2168,15 +2168,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 					 */
 					power = (object_ptr->timeout + (object_kind_ptr->pval - 1)) / object_kind_ptr->pval;
 					if(power > object_ptr->number) power = object_ptr->number;
-
-					/* Display prettily. */
-					t = object_desc_str(t, " (");
-					t = object_desc_num(t, power);
-#ifdef JP
-					t = object_desc_str(t, "ñ{ è[ìUíÜ)");
-#else
-					t = object_desc_str(t, " charging)");
-#endif
+					t = object_desc_str(t, format(MES_OBJ_DESC_CHARGING(power))); /* Display prettily. */
 				}
 
 				/* "one Rod of Perception (1 charging)" would look tacky. */

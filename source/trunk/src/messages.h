@@ -4444,12 +4444,14 @@ static cptr desc_stat_neg[] =
 #define MES_OBJ_DESC_STEALTH "âBñß"
 #define MES_OBJ_DESC_SEARCH "íTçı"
 #define MES_OBJ_DESC_INFRA "ê‘äOê¸éãóÕ"
+#define MES_OBJ_DESC_CHARGING(NUM) " (%dñ{ è[ìUíÜ)", (NUM)
 #else
 #define MES_OBJ_DESC_TO_SPEED "to speed"
 #define MES_OBJ_DESC_ATTACK " attack"
 #define MES_OBJ_DESC_STEALTH " to stealth"
 #define MES_OBJ_DESC_SEARCH " to searching"
 #define MES_OBJ_DESC_INFRA " to infravision"
+#define MES_OBJ_DESC_CHARGING(NUM) " (%d charging)", (NUM)
 #endif
 
 #ifdef JP
