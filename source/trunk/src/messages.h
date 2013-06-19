@@ -63,6 +63,7 @@
 #define MES_SYS_SAVEFILE_ERROR3 "セーブファイルが壊れています"
 #define MES_SYS_SAVEFILE_ERROR4(ERROR_NUM) "セーブファイルが壊れています: ERR:%d", (ERROR_NUM)
 #define MES_SYS_SAVEFILE_CONVERTED(MAJ, MIN, EXT) "バージョン %d.%d.%d 用のセーブ・ファイルを変換しました。", (MAJ), (MIN), (EXT)
+#define MES_SYS_PARSE_ERROR(FILE, LINE, ERROR) "ファイル'%s'の%d行でエラー番号%dのエラー。", (FILE), (LINE), (ERROR)
 #define MES_SYS_SAVE_FAILED "セーブ失敗！"
 #define MES_SYS_SCORE_FAILED "スコア・ファイルが使用できません。"
 #define MES_SYS_PANIC_SAVE_SUCCEED "緊急セーブ成功！"
@@ -162,6 +163,7 @@
 #define MES_SYS_SAVEFILE_ERROR3 "Broken savefile"
 #define MES_SYS_SAVEFILE_ERROR4(ERROR_NUM) "broken savefile: ERR:%d", (ERROR_NUM)
 #define MES_SYS_SAVEFILE_CONVERTED(MAJ, MIN, EXT) "Converted a %d.%d.%d savefile.", (MAJ), (MIN), (EXT)
+#define MES_SYS_PARSE_ERROR(FILE, LINE, ERROR) "Error %d in line %d of file '%s'.", (ERROR), (FILE), (LINE)
 #define MES_SYS_SAVE_FAILED "death save failed!"
 #define MES_SYS_SCORE_FAILED "Score file unavailable."
 #define MES_SYS_PANIC_SAVE_SUCCEED "Panic save succeeded!"
