@@ -2941,6 +2941,8 @@ static cptr desc_stat_neg[] =
 #define MES_RECHARGE_ASK_IDENTIFY(MONEY) "＄%dで鑑定しますか？ ", (MONEY)
 #define MES_RECHARGE_INDENTIFIED(OBJECT) "%s です。", (OBJECT)->name
 #define MES_RECHARGE_DONE(OBJECT) "%sは再充填された。", (OBJECT)->name
+#define MES_RECHARGE_ENOUGH(OBJECT) "この魔法棒はもう充分に充填されています。"
+#define MES_RECHARGE_ENOUGH2(OBJECT) "この杖はもう充分に充填されています。"
 #else
 #define MES_RECHARGE_WHICH_ITEM "Recharge which item? "
 #define MES_RECHARGE_NO_ITEM "You have nothing to recharge."
@@ -2963,6 +2965,8 @@ static cptr desc_stat_neg[] =
 #define MES_RECHARGE_ASK_IDENTIFY(MONEY) "Identify for %d gold? ", (MONEY)
 #define MES_RECHARGE_INDENTIFIED(OBJECT) "You have: %s.", (OBJECT)->name
 #define MES_RECHARGE_DONE(OBJECT) "Your %s %s recharged.", (OBJECT)->name, ((OBJECT)->number > 1) ? "are" : "is"
+#define MES_RECHARGE_ENOUGH(OBJECT) ((OBJECT)->number > 1 ? "These wands are already fully charged." : "This wand is already fully charged.")
+#define MES_RECHARGE_ENOUGH2(OBJECT) ((OBJECT)->number > 1 ? "These staffs are already fully charged." : "This staff is already fully charged.")
 #endif
 
 #ifdef JP
@@ -4462,10 +4466,14 @@ static cptr desc_stat_neg[] =
 #define MES_RESEARCH_FULL_LIST "全クリーチャーのリスト"
 #define MES_RESEARCH_UNIQUE_LIST "ユニーク・クリーチャーのリスト"
 #define MES_RESEARCH_NON_UNIQUE_LIST "非ユニーク・クリーチャーのリスト"
+#define MES_RESEARCH_PROMPT "名前(英語の場合小文字で可)"
+#define MES_RESEARCH_PROMPT2(NAME) "名前:%sにマッチ", (NAME)
 #else
 #define MES_RESEARCH_FULL_LIST "Full creature list."
 #define MES_RESEARCH_UNIQUE_LIST "Unique creature list."
 #define MES_RESEARCH_NON_UNIQUE_LIST "Non-unique creature list."
+#define MES_RESEARCH_PROMPT "Enter name"
+#define MES_RESEARCH_PROMPT2(NAME) "Creatures with a name \"%s\"", (NAME)
 #endif
 
 #ifdef JP

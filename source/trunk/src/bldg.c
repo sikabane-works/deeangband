@@ -2231,42 +2231,24 @@ static void building_recharge(creature_type *creature_ptr)
 	}
 	else if(object_ptr->tval == TV_STAFF)
 	{
-		/* Price per charge ( = double the price paid by shopkeepers for the charge) */
-		price = (object_kind_info[object_ptr->k_idx].cost / 10) * object_ptr->number;
-
-		/* Pay at least 10 gold per charge */
-		price = MAX(10, price);
+		price = (object_kind_info[object_ptr->k_idx].cost / 10) * object_ptr->number; /* Price per charge ( = double the price paid by shopkeepers for the charge) */
+		price = MAX(10, price); /* Pay at least 10 gold per charge */
 	}
 	else
 	{
-		/* Price per charge ( = double the price paid by shopkeepers for the charge) */
-		price = (object_kind_info[object_ptr->k_idx].cost / 10);
-
-		/* Pay at least 10 gold per charge */
-		price = MAX(10, price);
+		price = (object_kind_info[object_ptr->k_idx].cost / 10); /* Price per charge ( = double the price paid by shopkeepers for the charge) */
+		price = MAX(10, price); /* Pay at least 10 gold per charge */
 	}
 
 	/* Limit the number of charges for wands and staffs */
 	if(object_ptr->tval == TV_WAND && (object_ptr->pval / object_ptr->number >= object_kind_ptr->pval))
-	{		
-#ifdef JP
-		msg_print("Ç±ÇÃñÇñ@ñ_ÇÕÇ‡Ç§è[ï™Ç…è[ìUÇ≥ÇÍÇƒÇ¢Ç‹Ç∑ÅB");
-#else
-		if(object_ptr->number > 1) msg_print("These wands are already fully charged.");
-		else msg_print("This wand is already fully charged.");
-#endif
+	{
+		msg_print(MES_RECHARGE_ENOUGH(object_ptr));
 		return;
 	}
 	else if(object_ptr->tval == TV_STAFF && object_ptr->pval >= object_kind_ptr->pval)
 	{
-		
-#ifdef JP
-		msg_print("Ç±ÇÃèÒÇÕÇ‡Ç§è[ï™Ç…è[ìUÇ≥ÇÍÇƒÇ¢Ç‹Ç∑ÅB");
-#else
-		if(object_ptr->number > 1) msg_print("These staffs are already fully charged.");
-		else msg_print("This staff is already fully charged.");
-#endif
-
+		msg_print(MES_RECHARGE_ENOUGH2(object_ptr));
 		return;
 	}
 
@@ -2574,32 +2556,16 @@ static bool research_creature(creature_type *creature_ptr)
 	else if(sym == KTRL('M'))
 	{
 		all = TRUE;
-#ifdef JP
-		if(!get_string("ñºëO(âpåÍÇÃèÍçáè¨ï∂éöÇ≈â¬)",temp, 70))
-#else
-		if(!get_string("Enter name",temp, 70))
-#endif
+		if(!get_string(MES_RESEARCH_PROMPT, temp, 70))
 		{
 			temp[0]=0;
-
 			screen_load();
-
 			return FALSE;
 		}
-#ifdef JP
-		sprintf(buf, "ñºëO:%sÇ…É}ÉbÉ`",temp);
-#else
-		sprintf(buf, "Creatures with a name \"%s\"",temp);
-#endif
+		sprintf(buf, MES_RESEARCH_PROMPT2(temp));
 	}
-	else if(ident_info[i])
-	{
-		sprintf(buf, "%c - %s.", sym, ident_info[i] + 2);
-	}
-	else
-	{
-		sprintf(buf, "%c - %s", sym, MES_SYS_UNKNOWN_SYMBOL);
-	}
+	else if(ident_info[i]) sprintf(buf, "%c - %s.", sym, ident_info[i] + 2);
+	else sprintf(buf, "%c - %s", sym, MES_SYS_UNKNOWN_SYMBOL);
 
 	/* Display the result */
 	prt(buf, 16, 10);
