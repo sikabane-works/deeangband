@@ -47,27 +47,19 @@ bool stop_hex_spell(creature_type *creature_ptr)
 
 	if(!HEX_SPELLING_ANY(creature_ptr))
 	{
-#ifdef JP
-		msg_print("Žô•¶‚ð‰r¥‚µ‚Ä‚¢‚Ü‚¹‚ñB");
-#else
-		msg_print("You are casting no spell.");
-#endif
+		msg_print(MES_HEX_NO_CASTING_SPELL);
 		return FALSE;
 	}
 
 	/* Stop all spells */
-	else if((creature_ptr->spelling_hex_num == 1) || (creature_ptr->lev < 35))
-		return stop_hex_spell_all(creature_ptr);
+	else if((creature_ptr->spelling_hex_num == 1) || (creature_ptr->lev < 35)) return stop_hex_spell_all(creature_ptr);
 	else
 	{
 #ifdef JP
-		strnfmt(out_val, 78, "‚Ç‚ÌŽô•¶‚Ì‰r¥‚ð’†’f‚µ‚Ü‚·‚©H(Žô•¶ %c-%c, 'l'‘S‚Ä, ESC)",
-			I2A(0), I2A(creature_ptr->spelling_hex_num - 1));
+		strnfmt(out_val, 78, "‚Ç‚ÌŽô•¶‚Ì‰r¥‚ð’†’f‚µ‚Ü‚·‚©H(Žô•¶ %c-%c, 'l'‘S‚Ä, ESC)", I2A(0), I2A(creature_ptr->spelling_hex_num - 1));
 #else
-		strnfmt(out_val, 78, "Which spell do you stop casting? (Spell %c-%c, 'l' to all, ESC)",
-			I2A(0), I2A(creature_ptr->spelling_hex_num - 1));
+		strnfmt(out_val, 78, "Which spell do you stop casting? (Spell %c-%c, 'l' to all, ESC)", I2A(0), I2A(creature_ptr->spelling_hex_num - 1));
 #endif
-
 		screen_save();
 
 		while (!flag)

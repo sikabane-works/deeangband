@@ -4483,6 +4483,7 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_HEX_NO_CASTING_SPELL "呪文を詠唱していません。"
 #define MES_HEX_WHICH_CURSE "どれを呪いますか？"
 #define MES_HEX_WHICH_NO_WEAPON "武器を装備していない。"
 #define MES_HEX_WHICH_NO_ARMOUR "防具を装備していない。"
@@ -4493,6 +4494,7 @@ static cptr desc_stat_neg[] =
 #define MES_HEX_DIVINE_CURSE_DONE "血だ！血だ！血だ！"
 #define MES_HEX_DRAIN_CURSE "呪いを全て吸い取った。"
 #else
+#define MES_HEX_NO_CASTING_SPELL "You are casting no spell."
 #define MES_HEX_WHICH_CURSE "Which weapon do you curse?"
 #define MES_HEX_WHICH_NO_WEAPON "You wield no weapons."
 #define MES_HEX_WHICH_NO_ARMOUR "You wield no piece of armours."

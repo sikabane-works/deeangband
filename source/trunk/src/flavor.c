@@ -2170,50 +2170,29 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 					if(power > object_ptr->number) power = object_ptr->number;
 					t = object_desc_str(t, format(MES_OBJ_DESC_CHARGING(power))); /* Display prettily. */
 				}
-
-				/* "one Rod of Perception (1 charging)" would look tacky. */
-				else
-				{
-					t = object_desc_str(t, KW_CHARGING);
-				}
+				else t = object_desc_str(t, KW_CHARGING); /* "one Rod of Perception (1 charging)" would look tacky. */
 			}
 		}
 
-		/* Dump "pval" flags for wearable items */
-		if(have_pval_flags(flgs))
+		if(have_pval_flags(flgs)) /* Dump "pval" flags for wearable items */
 		{
 			/* Start the display */
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, p1);
-
-			/* Dump the "pval" itself */
-			t = object_desc_int(t, object_ptr->pval);
-
-			/* Speed */
-			if(have_flag(flgs, TRAIT_SPEED)) t = object_desc_str(t, MES_OBJ_DESC_TO_SPEED);
-
-			/* Attack speed */
-			else if(has_trait_object(object_ptr, TRAIT_BLOWS))
+			t = object_desc_int(t, object_ptr->pval); /* Dump the "pval" itself */
+			if(have_flag(flgs, TRAIT_SPEED)) t = object_desc_str(t, MES_OBJ_DESC_TO_SPEED); /* Speed */
+			else if(has_trait_object(object_ptr, TRAIT_BLOWS)) /* Attack speed */
 			{
-				/* Add " attack" */
-				t = object_desc_str(t, MES_OBJ_DESC_ATTACK);
+				
+				t = object_desc_str(t, MES_OBJ_DESC_ATTACK); /* Add " attack" */
 #ifndef JP
-				/* Add "attacks" */
-				if(ABS(object_ptr->pval) != 1) t = object_desc_chr(t, 's');
+				if(ABS(object_ptr->pval) != 1) t = object_desc_chr(t, 's'); /* Add "attacks" */
 #endif
 			}
-
-			/* Stealth */
-			else if(has_trait_object(object_ptr, TRAIT_STEALTH)) t = object_desc_str(t, MES_OBJ_DESC_STEALTH);
-
-			/* Dump " to searching" */
-			else if(have_flag(flgs, TRAIT_SEARCH)) t = object_desc_str(t, MES_OBJ_DESC_SEARCH);
-
-			/* Infravision */
-			else if(have_flag(flgs, TRAIT_INFRA)) t = object_desc_str(t, MES_OBJ_DESC_INFRA);
-
-			/* Finish the display */
-			t = object_desc_chr(t, p2);
+			else if(has_trait_object(object_ptr, TRAIT_STEALTH)) t = object_desc_str(t, MES_OBJ_DESC_STEALTH); /* Stealth */
+			else if(have_flag(flgs, TRAIT_SEARCH)) t = object_desc_str(t, MES_OBJ_DESC_SEARCH); /* Dump " to searching" */
+			else if(have_flag(flgs, TRAIT_INFRA)) t = object_desc_str(t, MES_OBJ_DESC_INFRA); /* Infravision */
+			t = object_desc_chr(t, p2); /* Finish the display */
 		}
 
 		/* Hack -- Process Lanterns/Torches */
@@ -2243,7 +2222,6 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		if(!object_ptr->inscription || !my_strchr(quark_str(object_ptr->inscription), '%'))
 		{
 			bool kanji, all;
-
 #ifdef JP
 			kanji = TRUE;
 #else
@@ -2274,10 +2252,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 
 	/* Use the game-generated "feeling" otherwise, if available */
 	if(object_ptr->feeling) strcpy(fake_insc_buf, game_inscriptions[object_ptr->feeling]);
-
-	else if(object_is_cursed(object_ptr) && (known || (object_ptr->ident & IDENT_SENSE)))
-		strcpy(fake_insc_buf, KEYWORD_CURSED);
-
+	else if(object_is_cursed(object_ptr) && (known || (object_ptr->ident & IDENT_SENSE))) strcpy(fake_insc_buf, KEYWORD_CURSED);
 	else if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)
 		   || (object_ptr->tval == TV_LITE) || (object_ptr->tval == TV_FIGURINE))
 		 && aware && !known && !(object_ptr->ident & IDENT_SENSE))
