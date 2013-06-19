@@ -1614,29 +1614,15 @@ static void spoil_species_evol(cptr fname)
 
 		/* Trace the evolution tree */
 		species_ptr = &species_info[species_idx];
-#ifdef JP
-		fprintf(fff, "[%d]: %s (ƒŒƒxƒ‹%d, '%c')\n", species_idx,
-			species_name + species_ptr->name, species_ptr->level, species_ptr->d_char);
-#else
-		fprintf(fff, "[%d]: %s (Level %d, '%c')\n", species_idx,
-			species_name + species_ptr->name, species_ptr->level, species_ptr->d_char);
-#endif
+		fprintf(fff, MES_SPOILER_EVOL1(species_idx, species_name + species_ptr->name, species_ptr->level, species_ptr->d_char));
 		for (n = 1; species_ptr->next_exp; n++)
 		{
 			fprintf(fff, "%*s-(%ld)-> ", n * 2, "", species_ptr->next_exp);
 			fprintf(fff, "[%d]: ", species_ptr->next_species_idx);
 			species_ptr = &species_info[species_ptr->next_species_idx];
-#ifdef JP
-			fprintf(fff, "%s (ƒŒƒxƒ‹%d, '%c')\n",
-				species_name + species_ptr->name, species_ptr->level, species_ptr->d_char);
-#else
-			fprintf(fff, "%s (Level %d, '%c')\n",
-				species_name + species_ptr->name, species_ptr->level, species_ptr->d_char);
-#endif
+			fprintf(fff, MES_SPOILER_EVOL2(species_name + species_ptr->name, species_ptr->level, species_ptr->d_char));
 		}
-
-		/* End of evolution tree */
-		fputc('\n', fff);
+		fputc('\n', fff); /* End of evolution tree */
 	}
 
 	/* Free the "evol_tree" array (2-dimension) */

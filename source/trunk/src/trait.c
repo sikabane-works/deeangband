@@ -1260,18 +1260,12 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				if(blind)
 					msg_format("%^sが何かをつぶやいた。", caster_name);
 				else
-					msg_format("%^sは魔法で%sを召喚した。",
-					caster_name,
-					(has_trait(caster_ptr, TRAIT_UNIQUE) ?
-					"手下" : "仲間"));
+					msg_format("%^sは魔法で%sを召喚した。", caster_name, (has_trait(caster_ptr, TRAIT_UNIQUE) ? "手下" : "仲間"));
 #else
 				if(blind)
 					msg_format("%^s mumbles.", caster_name);
 				else
-					msg_format("%^s magically summons %s %s.",
-					caster_name, m_poss,
-					has_trait(caster_ptr, TRAIT_UNIQUE) ?
-					"minions" : "kin"));
+					msg_format("%^s magically summons %s %s.", caster_name, m_poss, has_trait(caster_ptr, TRAIT_UNIQUE) ? "minions" : "kin"));
 #endif
 			}
 

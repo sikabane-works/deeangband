@@ -5108,3 +5108,11 @@ static cptr desc_stat_neg[] =
 #define MES_MIMIC_FAILED "You failed to concentrate hard enough!", (FROM), (TO), (NAME)
 #define MES_MIMIC_CHECK(NAME) "Use %s? ", (NAME)
 #endif
+
+#ifdef JP
+#define MES_SPOILER_EVOL1(SPECIES_ID, NAME, LEV, SYM) "[%d]: %s (ƒŒƒxƒ‹%d, '%c')\n", (SPECIES_ID), (NAME), (LEV), (SYM)
+#define MES_SPOILER_EVOL2(NAME, LEV, SYM) "%s (ƒŒƒxƒ‹%d, '%c')\n", (NAME), (LEV), (SYM)
+#else
+#define MES_SPOILER_EVOL1(SPECIES_ID, NAME, LEV, SYM) "%s (ƒŒƒxƒ‹%d, '%c')\n", (SPECIES_ID), (NAME), (LEV), (SYM)
+#define MES_SPOILER_EVOL2(NAME, LEV, SYM) "%s (Level %d, '%c')\n", (NAME), (LEV), (SYM)
+#endif
