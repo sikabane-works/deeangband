@@ -4493,6 +4493,7 @@ static cptr desc_stat_neg[] =
 #define MES_HEX_WIZ_REVENGE(POWER) "%d点のダメージを返した。", (POWER)
 #define MES_HEX_DIVINE_CURSE_DONE "血だ！血だ！血だ！"
 #define MES_HEX_DRAIN_CURSE "呪いを全て吸い取った。"
+#define MES_HEX_WHICH_STOP(SYM1, SYM2) "どの呪文の詠唱を中断しますか？(呪文 %c-%c, 'l'全て, ESC)", (SYM1), (SYM2)
 #else
 #define MES_HEX_NO_CASTING_SPELL "You are casting no spell."
 #define MES_HEX_WHICH_CURSE "Which weapon do you curse?"
@@ -4504,6 +4505,7 @@ static cptr desc_stat_neg[] =
 #define MES_HEX_WIZ_REVENGE(POWER) "You return %d damages.", (POWER)
 #define MES_HEX_DIVINE_CURSE_DONE "Blood, Blood, Blood!"
 #define MES_HEX_DRAIN_CURSE "Curse vanished away."
+#define MES_HEX_WHICH_STOP(SYM1, SYM2) "Which spell do you stop casting? (Spell %c-%c, 'l' to all, ESC)", (SYM1), (SYM2)
 #endif
 
 #ifdef JP
