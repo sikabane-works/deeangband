@@ -4172,16 +4172,10 @@ static void do_cmd_knowledge_uniques(void)
 
 	if(n_alive_total)
 	{
-#ifdef JP
-		fputs("---------  -----------\n", fff);
-		fprintf(fff, "     çáåv  ê∂ë∂: %3dëÃ\n\n", n_alive_total);
-#else
 		fputs("-------------  ----------\n", fff);
-		fprintf(fff, "        Total  alive: %3d\n\n", n_alive_total);
-#endif
+		fprintf(fff, MES_KNOW_ALIVE_UNIQUES_TOTAL(n_alive_total));
 	}
-	else
-		fputs(MES_KNOW_NO_ALIVE_UNIQUES, fff);
+	else fputs(MES_KNOW_NO_ALIVE_UNIQUES, fff);
 
 	/* Scan the creature races */
 	for (k = 0; k < n; k++)
