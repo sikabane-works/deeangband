@@ -4473,15 +4473,9 @@ static void display_group_list(int col, int row, int wid, int per_page,
 	{
 		/* Get the group index */
 		int grp = grp_idx[grp_top + i];
-
-		/* Choose a color */
-		byte attr = (grp_top + i == grp_cur) ? TERM_L_BLUE : TERM_WHITE;
-
-		/* Erase the entire line */
-		Term_erase(col, row + i, wid);
-
-		/* Display the group label */
-		c_put_str(attr, group_text[grp], row + i, col);
+		byte attr = (grp_top + i == grp_cur) ? TERM_L_BLUE : TERM_WHITE; /* Choose a color */
+		Term_erase(col, row + i, wid); /* Erase the entire line */
+		c_put_str(attr, group_text[grp], row + i, col); /* Display the group label */
 	}
 }
 
@@ -6205,23 +6199,8 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 					species_ptr = &species_info[quest[i].species_idx];
 					strcpy(name, species_name + species_ptr->name);
 
-					if(quest[i].max_num > 1)
-					{
-#ifdef JP
-						sprintf(rand_tmp_str,"  %s (%d ŠK) - %d ‘Ì‚Ì%s‚ð“|‚·B(‚ ‚Æ %d ‘Ì)\n", quest[i].name, quest[i].level, quest[i].max_num, name, quest[i].max_num - quest[i].cur_num);
-#else
-						plural_aux(name);
-						sprintf(rand_tmp_str,"  %s (Dungeon level: %d)\n  Kill %d %s, have killed %d.\n", quest[i].name, quest[i].level, quest[i].max_num, name, quest[i].cur_num);
-#endif
-					}
-					else
-					{
-#ifdef JP
-						sprintf(rand_tmp_str,"  %s (%d ŠK) - %s‚ð“|‚·B\n", quest[i].name, quest[i].level, name);
-#else
-						sprintf(rand_tmp_str,"  %s (Dungeon level: %d)\n  Kill %s.\n", quest[i].name, quest[i].level, name);
-#endif
-					}
+					if(quest[i].max_num > 1) sprintf(rand_tmp_str, MES_QUEST_TYPE_KILL_NUMBER2(quest[i].name, quest[i].level, quest[i].max_num, quest[i].max_num, quest[i].cur_num));
+					else sprintf(rand_tmp_str, MES_QUEST_TYPE_KILL_ONE2(quest[i].name, quest[i].level, name));
 				}
 			}
 		}

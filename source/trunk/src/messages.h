@@ -2277,10 +2277,12 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_EXIT_WARNING "この階を一度去ると二度と戻って来られません。"
 #define MES_QUEST_ASK_EXIT "本当にこの階を去りますか？"
 #define MES_QUEST_TYPE_KILL_ONE(FLOOR, TARGET) "「%s」にいる「%s」を倒す。", (FLOOR), (TARGET)
+#define MES_QUEST_TYPE_KILL_ONE2(DUNGEON, LEVEL, TARGET) "  %s (%d 階) - %sを倒す。\n", (DUNGEON), (LEVEL), (TARGET)
 #define MES_QUEST_TYPE_FIND_OBJECT(FLOOR, TARGET) "「%s」にある「%s」を見つけ出す。", (FLOOR), (TARGET)
 #define MES_QUEST_TYPE_SEARCH "探索する。"
 #define MES_QUEST_TYPE_KILL_ALL "全てのクリーチャーを倒す。"
 #define MES_QUEST_TYPE_KILL_NUMBER(MAX, CUR) "%d 体のクリーチャーを倒す。(%d 体殺害)", (MAX), (CUR)
+#define MES_QUEST_TYPE_KILL_NUMBER2(DUNGEON, LEVEL, TARGET, MAX, CUR) "  %s (%d 階) - %d 体の%sを倒す。(あと %d 体)\n", (DUNGEON), (LEVEL), (TARGET), (MAX) - (CUR)
 #define MES_QUEST_FLOOR_MASTER(QUEST_NAME, DEPTH, TARGET_NAME) "  %s (%d階, %s)\n", (QUEST_NAME), (DEPTH), (TARGET_NAME)
 #define MES_QUEST_RESULT_LIST(NAME, FLEVEL, CLEVEL) "  %-40s (%3d階)            - レベル%2d\n", (NAME), (FLEVEL), (CLEVEL)
 #define MES_QUEST_RESULT_LIST2(NAME, FLEVEL, CLEVEL) "  %-40s (危険度:%3d階相当) - レベル%2d\n", (NAME), (FLEVEL), (CLEVEL)
@@ -2303,10 +2305,12 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_EXIT_WARNING "You can't come back here once you leave this floor."
 #define MES_QUEST_ASK_EXIT "Really leave this floor? "
 #define MES_QUEST_TYPE_KILL_ONE(FLOOR, TARGET) "kill %s in %s.", (TARGET), (FLOOR)
+#define MES_QUEST_TYPE_KILL_ONE2(DUNGEON, LEVEL, TARGET) "  %s (Dungeon level: %d)\n  Kill %s.\n", (DUNGEON), (LEVEL), (TARGET)
 #define MES_QUEST_TYPE_FIND_OBJECT(FLOOR, TARGET) "Find out %s in %s.", (FLOOR), (TARGET)
 #define MES_QUEST_TYPE_SEARCH "Search."
 #define MES_QUEST_TYPE_KILL_ALL "Kill all creatures."
 #define MES_QUEST_TYPE_KILL_NUMBER(MAX, CUR) "Kill %d creatures, have killed %d.", (MAX), (CUR)
+#define MES_QUEST_TYPE_KILL_NUMBER2(DUNGEON, LEVEL, TARGET, MAX, CUR) "  %s (Dungeon level: %d)\n  Kill %d %s, have killed %d.\n", (DUNGEON), (LEVEL), (TARGET), (MAX) - (CUR) // plural_aux(name);
 #define MES_QUEST_FLOOR_MASTER(QUEST_NAME, DEPTH, TARGET_NAME) "  %s (%d, %s)\n", (QUEST_NAME), (DEPTH), (TARGET_NAME)
 #define MES_QUEST_RESULT_LIST(NAME, FLEVEL, CLEVEL) "  %-40s (Dungeon level: %3d) - level %2d\n", (NAME), (FLEVEL), (CLEVEL)
 #define MES_QUEST_RESULT_LIST2(NAME, FLEVEL, CLEVEL) "  %-40s (Danger  level: %3d) - level %2d\n", (NAME), (FLEVEL), (CLEVEL)
