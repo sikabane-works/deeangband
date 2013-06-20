@@ -967,9 +967,7 @@ int choose_dungeon(cptr note, int y, int x)
 		i = inkey();
 		if((i == ESCAPE) || !num)
 		{
-			/* Free the "dun" array */
-			C_KILL(dun, max_dungeon_idx, s16b);
-
+			C_KILL(dun, max_dungeon_idx, s16b); /* Free the "dun" array */
 			screen_load();
 			return 0;
 		}
@@ -981,9 +979,7 @@ int choose_dungeon(cptr note, int y, int x)
 		else bell();
 	}
 	screen_load();
-
-	/* Free the "dun" array */
-	C_KILL(dun, max_dungeon_idx, s16b);
+	C_KILL(dun, max_dungeon_idx, s16b); /* Free the "dun" array */
 
 	return select_dungeon;
 }
@@ -1008,19 +1004,10 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 
 	if(floor_ptr->depth && (max_dlv[floor_ptr->dungeon_id] > floor_ptr->depth) && !floor_ptr->quest && !creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
-#ifdef JP
-		if(get_check("‚±‚±‚ÍÅ[“ž’BŠK‚æ‚èó‚¢ŠK‚Å‚·B‚±‚ÌŠK‚É–ß‚Á‚Ä—ˆ‚Ü‚·‚©H "))
-#else
-		if(get_check("Reset recall depth? "))
-#endif
+		if(get_check(MES_RECALL_CHOICE))
 		{
 			max_dlv[floor_ptr->dungeon_id] = floor_ptr->depth;
-			if(record_maxdepth)
-#ifdef JP
-				write_diary(DIARY_TRUMP, floor_ptr->dungeon_id, "‹AŠÒ‚Ì‚Æ‚«‚É");
-#else
-				write_diary(DIARY_TRUMP, floor_ptr->dungeon_id, "when recall from dungeon");
-#endif
+			if(record_maxdepth) write_diary(DIARY_TRUMP, floor_ptr->dungeon_id, MES_DIARY_WHEN_RECALL);
 		}
 
 	}
