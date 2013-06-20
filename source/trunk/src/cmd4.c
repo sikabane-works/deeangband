@@ -369,11 +369,7 @@ static void do_cmd_last_get(void)
 
 	turn_tmp = game_turn;
 	game_turn = record_turn;
-#ifdef JP
-	sprintf(buf,"%s‚ğè‚É“ü‚ê‚½B", record_object_name);
-#else
-	sprintf(buf,"descover %s.", record_object_name);
-#endif
+	sprintf(buf, MES_DIARY_DISCOVER(record_object_name));
 	write_diary(DIARY_BUNSHOU, 0, buf);
 	game_turn = turn_tmp;
 }
