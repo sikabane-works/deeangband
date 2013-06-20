@@ -427,8 +427,7 @@ void dispel_creature(creature_type *creature_ptr)
 	reset_timed_trait(creature_ptr);
 
 	// Cancel glowing hands
-	if(creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
-		set_timed_trait(creature_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
+	if(has_trait_from_timed(creature_ptr, TRAIT_CONFUSING_MELEE)) set_timed_trait(creature_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
 
 	if(MUSIC_SINGING_ANY(creature_ptr))
 	{
@@ -471,26 +470,12 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 		{
 			if(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_MNLT)
 			{
-				if(is_seen(player_ptr, creature_ptr))
-				{
-#ifdef JP
-					msg_print("“G‚Ì–Ú‚©‚ç”–‚¢‰e‚Ì’†‚É•¢‚¢‰B‚³‚ê‚½B");
-#else
-					msg_print("You are mantled in weak shadow from ordinary eyes.");
-#endif
-				}
+				if(is_seen(player_ptr, creature_ptr)) msg_print(MES_STEALTH_SHADOW_ON);
 				creature_ptr->monlite = creature_ptr->old_monlite = TRUE;
 			}
 			else
 			{
-				if(is_seen(player_ptr, creature_ptr))
-				{
-#ifdef JP
-					msg_print("“G‚Ì–Ú‚©‚ç‰e‚Ì’†‚É•¢‚¢‰B‚³‚ê‚½I");
-#else
-					msg_print("You are mantled in shadow from ordinary eyes!");
-#endif
-				}
+				if(is_seen(player_ptr, creature_ptr)) msg_print(MES_STEALTH_SHADOW_OFF);
 				creature_ptr->monlite = creature_ptr->old_monlite = FALSE;
 			}
 

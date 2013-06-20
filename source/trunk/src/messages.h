@@ -5148,3 +5148,12 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_SINGING_INTERRUPT "Your singing is interrupted."
 #endif
+
+#ifdef JP
+#define MES_STEALTH_SHADOW_ON "“G‚Ì–Ú‚©‚ç”–‚¢‰e‚Ì’†‚É•¢‚¢‰B‚³‚ê‚½B"
+#define MES_STEALTH_SHADOW_OFF "“G‚Ì–Ú‚©‚ç‰e‚Ì’†‚É•¢‚¢‰B‚³‚ê‚½I"
+#else
+#define MES_STEALTH_SHADOW_ON "You are mantled in weak shadow from ordinary eyes."
+#define MES_STEALTH_SHADOW_OFF "You are mantled in shadow from ordinary eyes!"
+#endif
+
