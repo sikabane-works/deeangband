@@ -159,15 +159,10 @@ void check_hex(creature_type *creature_ptr)
 	else
 	{
 		s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), need_mana, need_mana_frac);
-
 		prepare_redraw(PR_MANA);
 		if(res)
 		{
-#ifdef JP
-			msg_print("‰r¥‚ðÄŠJ‚µ‚½B");
-#else
-			msg_print("You restart spelling.");
-#endif
+			msg_print(MES_HEX_RESTART);
 			creature_ptr->action = ACTION_SPELL;
 			prepare_update(creature_ptr, CRU_BONUS | CRU_HP);
 			prepare_redraw(PR_MAP | PR_STATUS | PR_STATE);
