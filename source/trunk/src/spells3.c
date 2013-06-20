@@ -954,11 +954,7 @@ int choose_dungeon(cptr note, int y, int x)
 		if(dungeon_info[i].final_guardian) if(!species_info[dungeon_info[i].final_guardian].max_num) seiha = TRUE;
 		else if(max_dlv[i] == dungeon_info[i].maxdepth) seiha = TRUE;
 
-#ifdef JP
-		sprintf(buf,"      %c) %c%-12s : Н≈Се %d КK", 'a'+num, seiha ? '!' : ' ', dungeon_name + dungeon_info[i].name, max_dlv[i]);
-#else
-		sprintf(buf,"      %c) %c%-16s : Max level %d", 'a'+num, seiha ? '!' : ' ', dungeon_name + dungeon_info[i].name, max_dlv[i]);
-#endif
+		sprintf(buf, MES_DUNGEON_LIST2('a'+num, seiha ? '!' : ' ', dungeon_name + dungeon_info[i].name, max_dlv[i]));
 		prt(buf, y + num, x);
 		dun[num++] = i;
 	}
