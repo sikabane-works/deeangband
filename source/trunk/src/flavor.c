@@ -166,12 +166,7 @@ void get_table_sindarin(char *out_string)
 {
 	char buff[80];
 	get_table_sindarin_aux(buff);
-
-#ifdef JP
-	sprintf(out_string, "Åw%sÅx", buff);
-#else
-	sprintf(out_string, "'%s'", buff);
-#endif
+	sprintf(out_string, BRACKET_ARTIFACT, buff);
 }
 
 
