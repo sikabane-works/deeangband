@@ -977,11 +977,10 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 #else
 			strcpy(temp2, species_name + species_ptr->name);
 #endif
-			for (xx=0; temp2[xx] && xx<80; xx++)
-				if(isupper(temp2[xx])) temp2[xx]=(char)tolower(temp2[xx]);
+			for (xx=0; temp2[xx] && xx<80; xx++) if(isupper(temp2[xx])) temp2[xx]=(char)tolower(temp2[xx]);
 
 #ifdef JP
-			if(my_strstr(temp2, temp) || my_strstr(species_name + species_ptr->name, temp) )
+			if(my_strstr(temp2, temp) || my_strstr(species_name + species_ptr->name, temp))
 #else
 			if(my_strstr(temp2, temp))
 #endif

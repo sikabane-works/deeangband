@@ -432,11 +432,7 @@ void dispel_creature(creature_type *creature_ptr)
 
 	if(MUSIC_SINGING_ANY(creature_ptr))
 	{
-#ifdef JP
-		msg_format("‰Ì‚ª“rØ‚ê‚½B");
-#else
-		msg_format("Your singing is interrupted.");
-#endif
+		msg_format(MES_SINGING_INTERRUPT);
 		creature_ptr->pre_singing = creature_ptr->now_singing;
 		creature_ptr->now_singing = 0;
 		creature_ptr->action = ACTION_NONE;
@@ -449,11 +445,7 @@ void dispel_creature(creature_type *creature_ptr)
 
 	if(HEX_SPELLING_ANY(creature_ptr))
 	{
-#ifdef JP
-		msg_format("Žô•¶‚ª“rØ‚ê‚½B");
-#else
-		msg_format("Your spelling is interrupted.");
-#endif
+		msg_format(MES_HEX_INTERRUPT);
 		creature_ptr->despelling_hex = creature_ptr->spelling_hex;
 		creature_ptr->spelling_hex = 0;
 		creature_ptr->action = ACTION_NONE;

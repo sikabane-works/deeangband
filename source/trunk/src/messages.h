@@ -2282,7 +2282,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_TYPE_SEARCH "探索する。"
 #define MES_QUEST_TYPE_KILL_ALL "全てのクリーチャーを倒す。"
 #define MES_QUEST_TYPE_KILL_NUMBER(MAX, CUR) "%d 体のクリーチャーを倒す。(%d 体殺害)", (MAX), (CUR)
+#define MES_QUEST_TYPE_KILL_NUMBER_SPECIES(DUNGEON, MAX, NAME, CUR) "%s にいる %d 体の %s を倒す。(%d 体殺害)", (DUNGEON), (MAX), (NAME), (CUR)
 #define MES_QUEST_TYPE_KILL_NUMBER2(DUNGEON, LEVEL, TARGET, MAX, CUR) "  %s (%d 階) - %d 体の%sを倒す。(あと %d 体)\n", (DUNGEON), (LEVEL), (TARGET), (MAX) - (CUR)
+#define MES_QUEST_COMPLETED_AOY "    ！クエスト達成 - 因果の祭壇（大迷宮地表）へ向かえ\n"
+#define MES_QUEST_COMPLETED "    ！クエスト達成 - 依頼者に未報告\n"
 #define MES_QUEST_FLOOR_MASTER(QUEST_NAME, DEPTH, TARGET_NAME) "  %s (%d階, %s)\n", (QUEST_NAME), (DEPTH), (TARGET_NAME)
 #define MES_QUEST_RESULT_LIST(NAME, FLEVEL, CLEVEL) "  %-40s (%3d階)            - レベル%2d\n", (NAME), (FLEVEL), (CLEVEL)
 #define MES_QUEST_RESULT_LIST2(NAME, FLEVEL, CLEVEL) "  %-40s (危険度:%3d階相当) - レベル%2d\n", (NAME), (FLEVEL), (CLEVEL)
@@ -2310,7 +2313,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_QUEST_TYPE_SEARCH "Search."
 #define MES_QUEST_TYPE_KILL_ALL "Kill all creatures."
 #define MES_QUEST_TYPE_KILL_NUMBER(MAX, CUR) "Kill %d creatures, have killed %d.", (MAX), (CUR)
+#define MES_QUEST_TYPE_KILL_NUMBER_SPECIES(DUNGEON, MAX, NAME, CUR) "kill %d %s in %s, have killed %d.", (MAX), (NAME), (DUNGEON), (CUR)
 #define MES_QUEST_TYPE_KILL_NUMBER2(DUNGEON, LEVEL, TARGET, MAX, CUR) "  %s (Dungeon level: %d)\n  Kill %d %s, have killed %d.\n", (DUNGEON), (LEVEL), (TARGET), (MAX) - (CUR) // plural_aux(name);
+#define MES_QUEST_COMPLETED_AOY "    ！Quest Completed - Go to the alter of nexus.\n"
+#define MES_QUEST_COMPLETED "    ! Quest Completed - Unrewarded\n"
 #define MES_QUEST_FLOOR_MASTER(QUEST_NAME, DEPTH, TARGET_NAME) "  %s (%d, %s)\n", (QUEST_NAME), (DEPTH), (TARGET_NAME)
 #define MES_QUEST_RESULT_LIST(NAME, FLEVEL, CLEVEL) "  %-40s (Dungeon level: %3d) - level %2d\n", (NAME), (FLEVEL), (CLEVEL)
 #define MES_QUEST_RESULT_LIST2(NAME, FLEVEL, CLEVEL) "  %-40s (Danger  level: %3d) - level %2d\n", (NAME), (FLEVEL), (CLEVEL)
@@ -4503,6 +4509,7 @@ static cptr desc_stat_neg[] =
 #define MES_HEX_DRAIN_CURSE "呪いを全て吸い取った。"
 #define MES_HEX_WHICH_STOP(SYM1, SYM2) "どの呪文の詠唱を中断しますか？(呪文 %c-%c, 'l'全て, ESC)", (SYM1), (SYM2)
 #define MES_HEX_RESTART "詠唱を再開した。"
+#define MES_HEX_INTERRUPT "呪文が途切れた。"
 #else
 #define MES_HEX_NO_CASTING_SPELL "You are casting no spell."
 #define MES_HEX_WHICH_CURSE "Which weapon do you curse?"
@@ -4516,6 +4523,7 @@ static cptr desc_stat_neg[] =
 #define MES_HEX_DRAIN_CURSE "Curse vanished away."
 #define MES_HEX_WHICH_STOP(SYM1, SYM2) "Which spell do you stop casting? (Spell %c-%c, 'l' to all, ESC)", (SYM1), (SYM2)
 #define MES_HEX_RESTART "You restart spelling."
+#define MES_HEX_INTERRUPT "Your spelling is interrupted."
 #endif
 
 #ifdef JP
@@ -5133,4 +5141,10 @@ static cptr desc_stat_neg[] =
 #else
 #define MES_SPOILER_EVOL1(SPECIES_ID, NAME, LEV, SYM) "%s (レベル%d, '%c')\n", (SPECIES_ID), (NAME), (LEV), (SYM)
 #define MES_SPOILER_EVOL2(NAME, LEV, SYM) "%s (Level %d, '%c')\n", (NAME), (LEV), (SYM)
+#endif
+
+#ifdef JP
+#define MES_SINGING_INTERRUPT "歌が途切れた。"
+#else
+#define MES_SINGING_INTERRUPT "Your singing is interrupted."
 #endif

@@ -389,7 +389,8 @@ static void do_cmd_erase_nikki(void)
 	fd_kill(buf);
 
 	fff = my_fopen(buf, "w");
-	if(fff){
+	if(fff)
+	{
 		my_fclose(fff);
 		msg_format(MES_DIARY_DELETED);
 	}
@@ -6125,15 +6126,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 						strcpy(name, species_name + species_ptr->name);
 						strcpy(dungeon_name, dungeon_name + d_ptr->name);
 
-						if(quest[i].max_num > 1)
-						{
-#ifdef JP
-							sprintf(note,"「%s」にいる %d 体の%sを倒す。(あと %d 体)", dungeon_name, quest[i].max_num, name, quest[i].max_num - quest[i].cur_num);
-#else
-							plural_aux(name);
-							sprintf(note,"kill %d %s in %s, have killed %d.", quest[i].max_num, name, dungeon_name, quest[i].cur_num);
-#endif
-						}
+						if(quest[i].max_num > 1) sprintf(note, MES_QUEST_TYPE_KILL_NUMBER2(dungeon_name, quest[i].max_num, name, quest[i].max_num, quest[i].cur_num));
 						else sprintf(note, MES_QUEST_TYPE_KILL_ONE(dungeon_name, name));
 						break;
 
@@ -6163,14 +6156,8 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 
 				if(quest[i].status == QUEST_STATUS_COMPLETED)
 				{
-#ifdef JP
-					if(i == QUEST_AOY)
-						sprintf(tmp_str, "    ！クエスト達成 - 因果の祭壇（大迷宮地表）へ向かえ\n");
-					else
-						sprintf(tmp_str, "    ！クエスト達成 - 依頼者に未報告\n");
-#else
-					sprintf(tmp_str, "    ! Quest Completed - Unrewarded\n");
-#endif
+					if(i == QUEST_AOY) sprintf(tmp_str, MES_QUEST_COMPLETED_AOY);
+					else sprintf(tmp_str, MES_QUEST_COMPLETED);
 					fprintf(fff, tmp_str);
 				}
 				fprintf(fff, "\n");
