@@ -4451,21 +4451,12 @@ static void do_cmd_knowledge_kill_count(void)
 	}
 
 	fprintf(fff,"----------------------------------------------\n");
-#ifdef JP
-	fprintf(fff,"    çáåv: %lu ëÃÇéEÇµÇΩÅB\n", Total);
-#else
-	fprintf(fff,"   Total: %lu creature%s killed.\n", Total, (Total == 1 ? "" : "s"));
-#endif
+	fprintf(fff,MES_KNOW_KILLED(Total));
 
-	/* Free the "who" array */
-	C_KILL(who, max_species_idx, SPECIES_ID);
+	C_KILL(who, max_species_idx, SPECIES_ID); /* Free the "who" array */
 	my_fclose(fff);
-
-	/* Display the file contents */
-	show_file(TRUE, file_name, MES_INFO_KILL_COUNT, 0, 0);
-
-	/* Remove the file */
-	fd_kill(file_name);
+	show_file(TRUE, file_name, MES_INFO_KILL_COUNT, 0, 0); /* Display the file contents */
+	fd_kill(file_name); /* Remove the file */
 }
 
 
