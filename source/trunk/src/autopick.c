@@ -1598,27 +1598,16 @@ static void autopick_delayed_alter_aux(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr;
 	object_ptr = GET_ITEM(creature_ptr, item);
-
 	if(object_ptr->k_idx && (object_ptr->marked & OM_AUTODESTROY))
 	{
-		char object_name[MAX_NLEN];
-
-		/* Describe the object (with {terrible/special}) */
-		object_desc(object_name, object_ptr, 0);
-
-		// Eliminate the item (from the pack or the floor)
+		object_desc_new(object_ptr, 0);
 		if(item >= 0)
 		{
 			inven_item_increase(creature_ptr, item, -(object_ptr->number));
 			inven_item_optimize(creature_ptr, item);
 		}
 		else delete_object_idx(0 - item);
-
-#ifdef JP
-		msg_format("%s‚ğ©“®”j‰ó‚µ‚Ü‚·B", object_name);
-#else
-		msg_format("Auto-destroying %s.", object_name);
-#endif
+		msg_format(MES_OBJECT_AUTODESTROY(object_ptr));
 	}
 }
 
