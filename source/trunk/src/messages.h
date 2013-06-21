@@ -1214,6 +1214,7 @@
 #define MES_OBJECT_FLOOR_NO_MORE(OBJECT) "床上には、もう%sはない。", (OBJECT)->name
 #define MES_OBJECT_FLOOR_YET(OBJECT) "床上には、まだ%sがある。", (OBJECT)->name
 #define MES_OBJECT_AUTODESTROY(OBJECT) "%sを自動破壊します。", (OBJECT)->name
+#define MES_OBJECT_CANT_DESTROY(OBJECT) "%sは破壊不能だ。", (OBJECT)->name
 #else
 #define MES_OBJECT_DISENCHANTED(OBJECT) "Your %s was disenchanted.", (OBJECT)
 #define MES_OBJECT_RESISTED_CURSE1(OBJECT) "%s resists the effect.", (OBJECT)->name
@@ -1228,6 +1229,7 @@
 #define MES_OBJECT_FLOOR_NO_MORE(OBJECT) "You see no more %s.", (OBJECT)->name
 #define MES_OBJECT_FLOOR_YET(OBJECT) "You see %s.", (OBJECT)->name
 #define MES_OBJECT_AUTODESTROY(OBJECT) "Auto-destroying %s.", (OBJECT)->name
+#define MES_OBJECT_CANT_DESTROY(OBJECT) "You cannot auto-destroy %s.", (OBJECT)->name
 #endif
 
 #ifdef JP

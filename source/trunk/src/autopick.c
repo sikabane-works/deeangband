@@ -1429,25 +1429,16 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *object_ptr
 int is_autopick(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int i;
-	char object_name[MAX_NLEN];
 
 	if(object_ptr->tval == TV_GOLD) return -1;
-
-	/* Prepare object name string first */
-	object_desc(object_name, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
-
-	/* Convert the string to lower case */
-	str_tolower(object_name);
-
-	/* Look for a matching entry in the list */	
-	for (i=0; i < max_autopick; i++)
+	object_desc_new(object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL));
+	str_tolower(object_ptr->name);
+	for (i = 0; i < max_autopick; i++)
 	{
 		autopick_type *entry = &autopick_list[i];
-		if(is_autopick_aux(creature_ptr, object_ptr, entry, object_name)) return i;
+		if(is_autopick_aux(creature_ptr, object_ptr, entry, object_ptr->name)) return i;
 	}
-
-	/* No matching entry */
-	return -1;
+	return -1; /* No matching entry */
 }
 
 
@@ -1569,17 +1560,8 @@ static void auto_destroy_item(creature_type *creature_ptr, object_type *object_p
 	/* Artifact? */
 	if(!can_player_destroy_object(creature_ptr, object_ptr))
 	{
-		char object_name[MAX_NLEN];
-
-		/* Describe the object (with {terrible/special}) */
-		object_desc(object_name, object_ptr, 0);
-
-#ifdef JP
-		msg_format("%sÇÕîjâÛïsî\ÇæÅB", object_name);
-#else
-		msg_format("You cannot auto-destroy %s.", object_name);
-#endif
-
+		object_desc_new(object_ptr, 0);
+		msg_format(MES_OBJECT_CANT_DESTROY(object_ptr));
 		return;
 	}
 
