@@ -1507,13 +1507,10 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		/* Extract creature name */
 		creature_desc(target_name, target_ptr, CD_TRUE_NAME);
 
-		if(has_trait(target_ptr, TRAIT_CAN_SPEAK))
+		if(!is_player(target_ptr) && has_trait(target_ptr, TRAIT_CAN_SPEAK))
 		{
 			char line_got[1024];
-
-			// Dump a message
-			if(!get_rnd_line(TEXT_FILES_DEATH, target_ptr->species_idx, line_got))	
-				msg_format("%^s %s", target_name, line_got);
+			if(!get_rnd_line(TEXT_FILES_DEATH, target_ptr->species_idx, line_got)) msg_format("%^s %s", target_name, line_got);
 		}
 
 		//TODO thief process

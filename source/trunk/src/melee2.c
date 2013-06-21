@@ -1391,7 +1391,7 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 static void do_creature_speaking(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-
+	if(!is_player(creature_ptr)) return;
 	if(!floor_ptr->gamble_arena_mode)
 	{
 		floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
