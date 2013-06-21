@@ -1874,30 +1874,15 @@ bool autopick_autoregister(creature_type *creature_ptr, object_type *object_ptr)
 	}
 
 	/* Known to be an artifact? */
-	if((object_is_known(object_ptr) && object_is_artifact(object_ptr)) ||
-	    ((object_ptr->ident & IDENT_SENSE) &&
-	     (object_ptr->feeling == FEEL_TERRIBLE || object_ptr->feeling == FEEL_SPECIAL)))
+	if((object_is_known(object_ptr) && object_is_artifact(object_ptr)) || ((object_ptr->ident & IDENT_SENSE) &&
+		(object_ptr->feeling == FEEL_TERRIBLE || object_ptr->feeling == FEEL_SPECIAL)))
 	{
-		char object_name[MAX_NLEN];
-
-		/* Describe the object (with {terrible/special}) */
-		object_desc(object_name, object_ptr, 0);
-
-#ifdef JP
-		msg_format("%s‚Í”j‰ó•s”\‚¾B", object_name);
-#else
-		msg_format("You cannot auto-destroy %s.", object_name);
-#endif
-
+		object_desc_new(object_ptr, 0);
+		msg_format(MES_OBJECT_CANT_DESTROY(object_ptr));
 		return FALSE;
 	}
 
-
-	if(!creature_ptr->autopick_autoregister)
-	{
-		/* Clear old auto registered lines */
-		if(!clear_auto_register()) return FALSE;
-	}
+	if(!creature_ptr->autopick_autoregister && !clear_auto_register()) return FALSE; /* Clear old auto registered lines */
 
 	/* Try a filename with player name */
 	path_build(pref_file, sizeof(pref_file), ANGBAND_DIR_USER, pickpref_filename(PT_WITH_PNAME));
