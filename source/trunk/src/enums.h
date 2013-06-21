@@ -896,6 +896,7 @@ enum DISPLAY_CR_STATUS
  * Game generated inscription indices. These are stored in the object,
  * and are used to index the string array from tables.c.
  */
+typedef enum OBJECT_FEELING OBJECT_FEELING;
 enum OBJECT_FEELING
 {
 	FEEL_NONE,

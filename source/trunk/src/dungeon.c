@@ -122,7 +122,7 @@ static void object_kind_info_reset(void)
 
 static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heavy)
 {
-	byte feel;
+	OBJECT_FEELING feel;
 	object_type *object_ptr = &creature_ptr->inventory[slot];
 
 	/* We know about it already, do not tell us again */
@@ -143,46 +143,28 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 		switch (feel)
 		{
 		case FEEL_TERRIBLE:
-			{
 				feel = FEEL_SPECIAL;
 				break;
-			}
 		case FEEL_WORTHLESS:
-			{
 				feel = FEEL_EXCELLENT;
 				break;
-			}
 		case FEEL_CURSED:
-			{
-				if(heavy)
-					feel = randint0(3) ? FEEL_GOOD : FEEL_AVERAGE;
-				else
-					feel = FEEL_UNCURSED;
+				if(heavy) feel = randint0(3) ? FEEL_GOOD : FEEL_AVERAGE;
+				else feel = FEEL_UNCURSED;
 				break;
-			}
 		case FEEL_AVERAGE:
-			{
 				feel = randint0(2) ? FEEL_CURSED : FEEL_GOOD;
 				break;
-			}
 		case FEEL_GOOD:
-			{
-				if(heavy)
-					feel = randint0(3) ? FEEL_CURSED : FEEL_AVERAGE;
-				else
-					feel = FEEL_CURSED;
+				if(heavy) feel = randint0(3) ? FEEL_CURSED : FEEL_AVERAGE;
+				else feel = FEEL_CURSED;
 				break;
-			}
 		case FEEL_EXCELLENT:
-			{
 				feel = FEEL_WORTHLESS;
 				break;
-			}
 		case FEEL_SPECIAL:
-			{
 				feel = FEEL_TERRIBLE;
 				break;
-			}
 		}
 	}
 
