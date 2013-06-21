@@ -1209,6 +1209,8 @@
 #define MES_OBJECT_DISAPPERED(OBJECT) "%sは消えた。", (OBJECT)->name
 #define MES_OBJECT_FEEL_EQUIPMENT(USING, OBJECT, SLOT, FEEL) "%s%s(%c)は%sという感じがする...", (USING), (OBJECT)->name, (SLOT), (FEEL)
 #define MES_OBJECT_FEEL_INVENTORY(OBJECT, SLOT, FEEL) "ザックの中の%s(%c)は%sという感じがする...", (OBJECT)->name, (SLOT), (FEEL)
+#define MES_OBJECT_HAVE_NO_MORE(OBJECT) "もう%sを持っていない。", (OBJECT)->name
+#define MES_OBJECT_HAVE_YET(OBJECT) "まだ%sを持っている。", (OBJECT)->name
 #else
 #define MES_OBJECT_DISENCHANTED(OBJECT) "Your %s was disenchanted.", (OBJECT)
 #define MES_OBJECT_RESISTED_CURSE1(OBJECT) "%s resists the effect.", (OBJECT)->name
@@ -1218,6 +1220,8 @@
 #define MES_OBJECT_DISAPPERED(OBJECT) "The %s disappear%s.", (OBJECT)->name, (((OBJECT)->number != 1) ? "" : "s")
 #define MES_OBJECT_FEEL_EQUIPMENT(USING, OBJECT, SLOT, FEEL) "You feel the %s (%c) you are %s %s %s...", (OBJECT)->name, (SLOT), (USING), (((OBJECT)->number == 1) ? "is" : "are"), (FEEL))
 #define MES_OBJECT_FEEL_INVENTORY(OBJECT, SLOT, FEEL) "You feel the %s (%c) in your pack %s %s...", (OBJECT)->name, (SLOT), (((OBJECT)->number == 1) ? "is" : "are"), (FEEL)
+#define MES_OBJECT_HAVE_NO_MORE(OBJECT) "You have no more %s.", (OBJECT)->name
+#define MES_OBJECT_HAVE_YET(OBJECT) "You have %s.", (OBJECT)->name
 #endif
 
 #ifdef JP

@@ -3098,18 +3098,10 @@ FEATURE_ID choose_random_trap(floor_type *floor_ptr)
 	/* Pick a trap */
 	while(TRUE)
 	{
-		/* Hack -- pick a trap */
-		feat = normal_traps[randint0(MAX_NORMAL_TRAPS)];
-
-		/* Accept non-trapdoors */
-		if(!have_flag(feature_info[feat].flags, FF_MORE)) break;
-
-		/* Hack -- no trap doors on special levels */
-		if(floor_ptr->fight_arena_mode || quest_number(floor_ptr)) continue;
-
-		/* Hack -- no trap doors on the deepest level */
-		if(floor_ptr->depth >= dungeon_info[floor_ptr->dungeon_id].maxdepth) continue;
-
+		feat = normal_traps[randint0(MAX_NORMAL_TRAPS)]; /* Hack -- pick a trap */
+		if(!have_flag(feature_info[feat].flags, FF_MORE)) break; /* Accept non-trapdoors */
+		if(floor_ptr->fight_arena_mode || quest_number(floor_ptr)) continue; /* Hack -- no trap doors on special levels */
+		if(floor_ptr->depth >= dungeon_info[floor_ptr->dungeon_id].maxdepth) continue; /* Hack -- no trap doors on the deepest level */
 		break;
 	}
 
@@ -3172,25 +3164,11 @@ void inven_item_charges(creature_type *creature_ptr, int item)
 void inven_item_describe(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr = &creature_ptr->inventory[item];
-	char        object_name[MAX_NLEN];
+	char object_name[MAX_NLEN];
 	object_desc(object_name, object_ptr, 0);
 
-#ifdef JP
-	/* "no more" の場合はこちらで表示する */
-	if(object_ptr->number <= 0)
-	{
-		/*FIRST*//*ここはもう通らないかも */
-		msg_format("もう%sを持っていない。", object_name);
-	}
-	else
-	{
-		/* アイテム名を英日切り替え機能対応 */
-		msg_format("まだ%sを持っている。", object_name);
-	}
-#else
-	msg_format("You have %s.", object_name);
-#endif
-
+	if(object_ptr->number <= 0) msg_format(MES_OBJECT_HAVE_NO_MORE(object_ptr));
+	else msg_format(MES_OBJECT_HAVE_YET(object_ptr));
 }
 
 
