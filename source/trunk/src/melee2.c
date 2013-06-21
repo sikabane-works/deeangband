@@ -2422,8 +2422,7 @@ static void process_creature(CREATURE_ID i)
 
 	if((creature_ptr->class_idx == CLASS_FORCETRAINER) && (creature_ptr->charged_force))
 	{
-		if(creature_ptr->charged_force < 40)
-			creature_ptr->charged_force = 0;
+		if(creature_ptr->charged_force < 40) creature_ptr->charged_force = 0;
 		else creature_ptr->charged_force -= 40;
 		prepare_update(creature_ptr, CRU_BONUS);
 	}
@@ -2453,11 +2452,7 @@ static void process_creature(CREATURE_ID i)
 		prepare_redraw(PR_MAP);
 		prepare_update(creature_ptr, PU_CREATURES);
 		prepare_window(PW_OVERHEAD | PW_DUNGEON);
-#ifdef JP
-		msg_print("uŽž‚Í“®‚«‚¾‚·cv");
-#else
-		msg_print("You feel time flowing around you once more.");
-#endif
+		msg_print(MES_TIME_RESTART);
 		msg_print(NULL);
 		creature_ptr->time_stopper = FALSE;
 		cost_tactical_energy(creature_ptr, 100);

@@ -5184,3 +5184,10 @@ static cptr desc_stat_neg[] =
 #define MES_HEAR_GRINDING "There is a grinding sound."
 #define MES_HEAR_CRASHING "There is a crashing sound."
 #endif
+
+#ifdef JP
+#define MES_TIME_RESTART "u‚Í“®‚«‚¾‚·cv"
+#else
+#define MES_TIME_RESTART "You feel time flowing around you once more."
+#endif
+
