@@ -3240,18 +3240,11 @@ void floor_item_describe(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr = &object_list[item];
 	char object_name[MAX_NLEN];
-
 	if(!is_valid_creature(creature_ptr)) return;
-
 	object_desc(object_name, object_ptr, 0);
 
-#ifdef JP
-	if(object_ptr->number <= 0) msg_format("床上には、もう%sはない。", object_name);
-	else msg_format("床上には、まだ%sがある。", object_name);
-#else
-	msg_format("You see %s.", object_name);
-#endif
-
+	if(object_ptr->number <= 0) msg_format(MES_OBJECT_FLOOR_NO_MORE(object_ptr));
+	else msg_format(MES_OBJECT_FLOOR_YET(object_ptr));
 }
 
 
