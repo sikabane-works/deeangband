@@ -2897,13 +2897,9 @@ OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, 
 		if(projectable(floor_ptr, MAX_RANGE_SUB, player_ptr->fy, player_ptr->fx, y, x))
 		{
 			msg_format(MES_OBJECT_DISAPPERED(object_ptr));
-#ifdef JP
-			if(wizard) msg_print("(床スペースがない)");
-#else
-			if(wizard) msg_print("(no floor space)");
-#endif
+			if(wizard) msg_print(MES_SYS_NO_OBJECT_SPACE);
 		}
-		return SUCCESS; // Failure
+		return FALSE; /* Failure */
 	}
 
 
@@ -2942,17 +2938,11 @@ OBJECT_ID drop_near(floor_type *floor_ptr, object_type *object_ptr, int chance, 
 			if(projectable(floor_ptr, MAX_RANGE_SUB, player_ptr->fy, player_ptr->fx, y, x))
 			{
 				msg_format(MES_OBJECT_DISAPPERED(object_ptr));
-#ifdef JP
-				if(wizard) msg_print("(床スペースがない)");
-#else
-				if(wizard) msg_print("(no floor space)");
-#endif
+				if(wizard) msg_print(MES_SYS_NO_OBJECT_SPACE);
 			}
-
 			// Mega-Hack -- preserve artifacts
 			if(object_is_fixed_artifact(object_ptr) && !object_is_known(object_ptr)) artifact_info[object_ptr->art_id].cur_num = 0;
-
-			return 0; // Failure
+			return FALSE;
 		}
 
 		/* Choose a random one */
