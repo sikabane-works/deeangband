@@ -3161,7 +3161,7 @@ void inven_item_charges(creature_type *creature_ptr, int item)
 }
 
 // Describe an item in the inventory.
-void inven_item_describe(creature_type *creature_ptr, int item)
+void inven_item_describe(creature_type *creature_ptr, OBJECT_ID item)
 {
 	object_type *object_ptr = &creature_ptr->inventory[item];
 	char object_name[MAX_NLEN];
@@ -3173,7 +3173,7 @@ void inven_item_describe(creature_type *creature_ptr, int item)
 
 
 // Increase the "number" of an item in the inventory
-void inven_item_increase(creature_type *creature_ptr, int item, int num)
+void inven_item_increase(creature_type *creature_ptr, OBJECT_ID item, QUANTITY num)
 {
 	object_type *object_ptr = &creature_ptr->inventory[item];
 	num += object_ptr->number; // Apply
