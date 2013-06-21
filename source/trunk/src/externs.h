@@ -764,6 +764,7 @@ extern void get_table_sindarin_aux(char *out_string);
 extern void get_table_sindarin(char *out_string);
 extern void flavor_init(void);
 extern char *object_desc_kosuu(char *t, object_type *object_ptr);
+extern void object_desc_new(object_type *object_ptr, FLAGS_32 mode);
 extern void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode);
 
 // generate.c

@@ -122,9 +122,8 @@ static void object_kind_info_reset(void)
 
 static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heavy)
 {
-	byte        feel;
+	byte feel;
 	object_type *object_ptr = &creature_ptr->inventory[slot];
-	char        object_name[MAX_NLEN];
 
 	/* We know about it already, do not tell us again */
 	if(object_ptr->ident & (IDENT_SENSE))return;
@@ -190,9 +189,7 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	/* Stop everything */
 	if(disturb_minor) disturb(player_ptr, 0, 0);
 
-	/* Get an object description */
-	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-
+	object_desc_new(object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 	if(IS_EQUIPPED(object_ptr)) msg_format(MES_OBJECT_FEEL_EQUIPMENT(describe_use(creature_ptr, slot), object_ptr, index_to_label(slot),game_inscriptions[feel]));
 	else msg_format(MES_OBJECT_FEEL_INVENTORY(object_ptr, index_to_label(slot), game_inscriptions[feel])); /* Message (inventory) */
 
