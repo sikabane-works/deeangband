@@ -142,14 +142,14 @@ void get_table_sindarin_aux(char *out_string)
 	char tmp[80];
 #endif
 
-	get_rnd_line("sname.txt", 1, Syllable);
+	get_rnd_line(TEXT_FILES_SINDARIN, 1, Syllable);
 #ifdef JP
 	strcpy(tmp, Syllable);
 #else
 	strcpy(out_string, Syllable);
 #endif
 
-	get_rnd_line("sname.txt", 2, Syllable);
+	get_rnd_line(TEXT_FILES_SINDARIN, 2, Syllable);
 #ifdef JP
 	strcat(tmp, Syllable);
 	sindarin_to_kana(out_string, tmp);

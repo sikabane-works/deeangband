@@ -1553,6 +1553,7 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_HISTEDIT_N "histedit-%s.prf"
 #define TEXT_FILES_HISTEDIT "histedit.prf"
 
+#define TEXT_FILES_SINDARIN "sname.txt"
 #else
 
 #define TEXT_FILES_GAME_NEWS "news.txt"
@@ -1602,6 +1603,7 @@ static const cptr desc_moan[] =
 #define TEXT_FILES_HISTEDIT_N "histpref-%s.prf"
 #define TEXT_FILES_HISTEDIT "histpref.prf"
 
+#define TEXT_FILES_SINDARIN "sname.txt"
 #endif
 
 
