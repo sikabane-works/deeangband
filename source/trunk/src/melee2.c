@@ -1382,7 +1382,6 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 			msg_print("You feel sad for a moment.");
 #endif
 		}
-
 		return;
 	}
 
@@ -1403,11 +1402,7 @@ static void do_creature_speaking(creature_type *creature_ptr)
 		if(creature_ptr->ap_species_idx == SPECIES_CYBER && one_in_(CYBERNOISE) && !creature_ptr->see_others && (creature_ptr->cdis <= MAX_SIGHT))
 		{
 			if(disturb_minor) disturb(player_ptr, FALSE, FALSE);
-#ifdef JP
-			msg_print("重厚な足音が聞こえた。");
-#else
-			msg_print("You hear heavy steps.");
-#endif
+			msg_print(MES_HEAR_HEAVY_STEP);
 		}
 
 		// Some creatures can speak
@@ -2114,27 +2109,14 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 			}
 		}
 
-		if(is_riding_mon)
-		{
-			if(!player_ptr->riding_two_handed && !creature_list[player_ptr->riding].timed_trait[TRAIT_AFRAID]) do_move = FALSE;
-		}
+		if(is_riding_mon && !player_ptr->riding_two_handed && !creature_list[player_ptr->riding].timed_trait[TRAIT_AFRAID]) do_move = FALSE;
 
 		if(did_kill_wall && do_move)
 		{
 			if(one_in_(GRINDNOISE))
 			{
-				if(have_flag(f_ptr->flags, FF_GLASS))
-#ifdef JP
-					msg_print("何かの砕ける音が聞こえる。");
-#else
-					msg_print("There is a crashing sound.");
-#endif
-				else
-#ifdef JP
-					msg_print("ギシギシいう音が聞こえる。");
-#else
-					msg_print("There is a grinding sound.");
-#endif
+				if(have_flag(f_ptr->flags, FF_GLASS)) msg_print(MES_HEAR_CRASHING);
+				else msg_print(MES_HEAR_GRINDING);
 			}
 
 			cave_alter_feat(floor_ptr, ny, nx, FF_HURT_DISI);

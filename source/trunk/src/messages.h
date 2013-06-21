@@ -5175,3 +5175,12 @@ static cptr desc_stat_neg[] =
 #define MES_STEALTH_SHADOW_OFF "You are mantled in shadow from ordinary eyes!"
 #endif
 
+#ifdef JP
+#define MES_HEAR_HEAVY_STEP "重厚な足音が聞こえた。"
+#define MES_HEAR_GRINDING "ギシギシいう音が聞こえる。"
+#define MES_HEAR_CRASHING "何かの砕ける音が聞こえる。"
+#else
+#define MES_HEAR_HEAVY_STEP "You hear heavy steps."
+#define MES_HEAR_GRINDING "There is a grinding sound."
+#define MES_HEAR_CRASHING "There is a crashing sound."
+#endif
