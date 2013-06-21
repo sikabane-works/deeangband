@@ -3615,45 +3615,38 @@ void reorder_pack(creature_type *creature_ptr)
 
 
 /*
-* Hack -- display an object kind in the current window
-*
-* Include list of usable spells for readible books
-*/
-void display_koff(creature_type *creature_ptr, int k_idx)
+ * Hack -- display an object kind in the current window
+ * Include list of usable spells for readible books
+ */
+void display_koff(creature_type *creature_ptr, OBJECT_KIND_ID k_idx)
 {
 	int y;
 
 	object_type forge;
-	object_type *quest_ptr;
-	int         sval;
-	int         use_realm;
+	object_type *object_ptr;
+	SVAL sval;
+	int use_realm;
 
 	char object_name[MAX_NLEN];
 
 
 	/* Erase the window */
-	for (y = 0; y < Term->hgt; y++)
-	{
-		/* Erase the line */
-		Term_erase(0, y, 255);
-	}
+	for (y = 0; y < Term->hgt; y++) Term_erase(0, y, 255);
+	if(!k_idx) return; /* No info */
 
-	/* No info */
-	if(!k_idx) return;
-
-	quest_ptr = &forge;
+	object_ptr = &forge;
 
 	/* Prepare the object */
-	generate_object(quest_ptr, k_idx);
+	generate_object(object_ptr, k_idx);
 
-	object_desc(object_name, quest_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
+	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
 
 	/* Mention the object name */
 	Term_putstr(0, 0, -1, TERM_WHITE, object_name);
 
 	/* Access the item's sval */
-	sval = quest_ptr->sval;
-	use_realm = tval2realm(quest_ptr->tval);
+	sval = object_ptr->sval;
+	use_realm = tval2realm(object_ptr->tval);
 
 	/* Warriors are illiterate */
 	if(creature_ptr->realm1 || creature_ptr->realm2)

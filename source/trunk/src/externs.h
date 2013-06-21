@@ -934,7 +934,7 @@ extern INVENTORY_ID inven_takeoff(creature_type *creature_ptr, int item, int amt
 extern void inven_drop(creature_type *creature_ptr, int item, int amt);
 extern void combine_pack(creature_type *creature_ptr);
 extern void reorder_pack(creature_type *creature_ptr);
-extern void display_koff(creature_type *creature_ptr, int k_idx);
+extern void display_koff(creature_type *creature_ptr, OBJECT_KIND_ID k_idx);
 extern object_type *choose_warning_item(creature_type *caster_ptr);
 extern bool process_warning(creature_type *player_ptr, COODINATES xx, COODINATES yy);
 extern void do_cmd_smith(creature_type *creature_ptr, bool only_browse);
