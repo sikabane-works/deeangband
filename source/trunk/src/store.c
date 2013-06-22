@@ -2351,17 +2351,10 @@ static void display_entry(store_type *st_ptr, creature_type *creature_ptr, int p
 		sprintf(out_val, "%10s", weight);
 		put_str(out_val, i+6, 67);
 	}
-
-	/* Describe an item (fully) in a store */
-	else
+	else /* Describe an item (fully) in a store */
 	{
-		/* Must leave room for the "price" */
-		maxwid = 65;
-
-		/* Leave room for weights, if necessary -DRS- */
-		maxwid -= 7;
-
-		/* Describe the object (fully) */
+		maxwid = 65; /* Must leave room for the "price" */
+		maxwid -= 7; /* Leave room for weights, if necessary -DRS- */
 		object_desc(object_name, object_ptr, 0);
 		object_name[maxwid] = '\0';
 		c_put_str(tval_to_acttr[object_ptr->tval], object_name, i+6, cur_col);
@@ -2481,17 +2474,12 @@ static void display_store(creature_type *creature_ptr, store_type *st_ptr)
 	sprintf(buf, "%s (%s)", ownespecies_name, race_name);
 	put_str(buf, 3, 5);
 
-	if(!(is_home(st_ptr) || is_museum(st_ptr))) // The "Home" is special
-		put_str(MES_SYS_PRICE, 5, 73);
-
+	if(!(is_home(st_ptr) || is_museum(st_ptr))) put_str(MES_SYS_PRICE, 5, 73); /* The "Home" is special */
 	put_str(MES_STORE_ITEM_DESCRIPTION, 5, 3);
 	put_str(MES_SYS_WEIGHT, 5, 72);
 
-	/* Display the current gold */
-	store_prt_gold(creature_ptr);
-
-	/* Draw in the inventory */
-	display_inventory(creature_ptr, st_ptr);
+	store_prt_gold(creature_ptr); /* Display the current gold */
+	display_inventory(creature_ptr, st_ptr); /* Draw in the inventory */
 }
 
 
@@ -2514,11 +2502,7 @@ static OBJECT_ID get_stock(store_type *st_ptr, KEY *com_val, cptr pmt, int i, in
 	/* Build the prompt */
 	lo = (char)I2A(i);
 	hi = (char)((j > 25) ? toupper(I2A(j - 26)) : I2A(j));
-#ifdef JP
-	(void)sprintf(out_val, "(%s:%c-%c, ESCで中断) %s", ((is_home(st_ptr) || is_museum(st_ptr)) ? "アイテム" : "商品"), lo, hi, pmt);
-#else
-	(void)sprintf(out_val, "(Items %c-%c, ESC to exit) %s", lo, hi, pmt);
-#endif
+	(void)sprintf(out_val, MES_INTERFACE_STORE(st_ptr, lo, hi, pmt));
 
 	/* Ask until done */
 	while (TRUE)

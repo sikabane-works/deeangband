@@ -665,7 +665,6 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 	if(name)
 	{
 		char object_name[MAX_NLEN];
-
 		object_desc(object_name, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NO_PLURAL | OD_NAME_ONLY));
 
 		/*

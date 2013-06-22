@@ -2646,7 +2646,7 @@ static cptr desc_stat_neg[] =
 #define IM_FLAG_STR  "＊"
 #define HAS_FLAG_STR "＋"
 #define NO_FLAG_STR  "・"
-
+#define MES_INTERFACE_STORE(STORE, LO, HI, PMT) "(%s:%c-%c, ESCで中断) %s", ((is_home(STORE) || is_museum(STORE)) ? "アイテム" : "商品"), LO, HI, PMT
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2707,6 +2707,7 @@ static cptr desc_stat_neg[] =
 #define IM_FLAG_STR  "* "
 #define HAS_FLAG_STR "+ "
 #define NO_FLAG_STR  ". "
+#define MES_INTERFACE_STORE(STORE, LO, HI, PMT) "(%s %c-%c, ESC to exit) %s", ((is_home(STORE) || is_museum(STORE)) ? "item" : "ware"), LO, HI, PMT
 #endif
 
 #ifdef JP
