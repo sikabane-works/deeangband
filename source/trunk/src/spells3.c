@@ -1252,7 +1252,7 @@ void phlogiston(creature_type *creature_ptr)
 
 
 // Brand the current weapon
-void brand_weapon(creature_type *creature_ptr, int brand_type)
+void brand_weapon(creature_type *creature_ptr, OBJECT_EGO_ID brand_type)
 {
 	OBJECT_ID item;
 	object_type *object_ptr;

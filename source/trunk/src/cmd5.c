@@ -485,12 +485,8 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 	creature_ptr->spell_learned2 = 0L;
 	creature_ptr->spell_worked2 = 0L;
 	creature_ptr->spell_forgotten2 = 0L;
+	sprintf(tmp, MES_SPELL_CHANGE_REALM(realm_names[creature_ptr->realm2], realm_names[next_realm]));
 
-#ifdef JP
-	sprintf(tmp, "–‚–@‚Ì—Ìˆæ‚ð%s‚©‚ç%s‚É•ÏX‚µ‚½B", realm_names[creature_ptr->realm2], realm_names[next_realm]);
-#else
-	sprintf(tmp, "change magic realm from %s to %s.", realm_names[creature_ptr->realm2], realm_names[next_realm]);
-#endif
 	write_diary(DIARY_BUNSHOU, 0, tmp);
 	creature_ptr->old_realm |= 1 << (creature_ptr->realm2-1);
 	creature_ptr->realm2 = next_realm;
