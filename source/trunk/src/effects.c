@@ -1280,7 +1280,61 @@ static void you_died(cptr hit_from)
 	}
 }
 
+static void killed_message(creature_type *attacker_ptr, creature_type *target_ptr, cptr note, cptr hit_from)
+{
+	char attacker_name[MAX_NLEN], target_name[MAX_NLEN];
+	if(attacker_ptr) creature_desc(attacker_name, attacker_ptr, CD_TRUE_NAME);
+	else attacker_name[0] = '\0';
+	if(target_ptr) creature_desc(target_name, target_ptr, CD_TRUE_NAME);
+	else target_name[0] = '\0';
 
+	sound(SOUND_KILL); // Make a sound
+	if(note) msg_format("%^s%s", target_name, note); // Death by Missile/Spell attack
+	else if(!attacker_ptr) msg_format("%^sは%sによって死んだ。", target_name, hit_from);
+	else if(creature_living(attacker_ptr))
+	{
+#ifdef JP
+		if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK))
+			msg_format("%sはせっかくだから%sを殺した。", attacker_name, target_name);
+		else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
+			msg_format("%sは%sを殺した。「ごめんね～」", attacker_name, target_name);
+		else
+			msg_format("%sは%sを殺した。", attacker_name, target_name);
+#else
+		msg_format("%s have killed %s.", attacker_name, target_name);
+#endif
+	}
+	else if(!creature_living(attacker_ptr)) // Death by Physical attack -- non-living creature
+	{
+#ifdef JP
+		if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("せっかくだから%sを倒した。", target_name);
+		else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK)) msg_format("%s！お許し下さい！", target_name);
+		else msg_format("%sを倒した。", target_name);
+#else
+		msg_format("You have destroyed %s.", target_name);
+#endif
+	}
+	else // Death by Physical attack -- living creature
+	{
+		if(attacker_ptr)
+		{
+			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
+			{
+#ifdef JP
+				if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("%sはせっかくだから%sを葬り去った。", attacker_name, target_name);
+				else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
+				{
+					msg_format("%sは%sを葬り去った。", attacker_name, target_name);
+					msg_format("%s！お許し下さい！", target_name);
+				}
+				else msg_format("%sは%sを葬り去った。", attacker_name, target_name);
+#else
+				msg_format("%s have slain %s.", attacker_name, target_name);
+#endif
+			}
+		}
+	}
+}
 
 /*
 * Decreases players hit points and sets death flag if necessary
@@ -1471,57 +1525,8 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			write_diary(DIARY_UNIQUE, 0, note_buf);
 		}
 
-		if(is_seen(player_ptr, target_ptr)) // Death by physical attack -- invisible creature
-		{
-			sound(SOUND_KILL); // Make a sound	
-			if(note) msg_format("%^s%s", target_name, note); // Death by Missile/Spell attack
-			else if(!attacker_ptr) msg_format("%^sは%sによって死んだ。", target_name, hit_from);
-			else if(creature_living(attacker_ptr))
-			{
-#ifdef JP
-				if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK))
-					msg_format("%sはせっかくだから%sを殺した。", attacker_name, target_name);
-				else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
-					msg_format("%sは%sを殺した。「ごめんね～」", attacker_name, target_name);
-				else
-					msg_format("%sは%sを殺した。", attacker_name, target_name);
-#else
-				msg_format("%s have killed %s.", attacker_name, target_name);
-#endif
-			}
-			else if(!creature_living(attacker_ptr)) // Death by Physical attack -- non-living creature
-			{
-#ifdef JP
-				if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("せっかくだから%sを倒した。", target_name);
-				else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK)) msg_format("%s！お許し下さい！", target_name);
-				else msg_format("%sを倒した。", target_name);
-#else
-				msg_format("You have destroyed %s.", target_name);
-#endif
-			}
-			else // Death by Physical attack -- living creature
-			{
-				if(attacker_ptr)
-				{
-					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-					{
-#ifdef JP
-						if(has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK)) msg_format("%sはせっかくだから%sを葬り去った。", attacker_name, target_name);
-						else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
-						{
-							msg_format("%sは%sを葬り去った。", attacker_name, target_name);
-							msg_format("%s！お許し下さい！", target_name);
-						}
-						else msg_format("%sは%sを葬り去った。", attacker_name, target_name);
-#else
-						msg_format("%s have slain %s.", attacker_name, target_name);
-#endif
-					}
-				}
-			}
-
-			creature_dead_effect(attacker_ptr, target_ptr, TRUE);
-		}
+		if(is_seen(player_ptr, target_ptr)) killed_message(attacker_ptr, target_ptr, note, hit_from);
+		creature_dead_effect(attacker_ptr, target_ptr, TRUE);
 
 		/* Mega hack : replace IKETA to BIKETAL */
 		if((target_ptr->species_idx == SPECIES_IKETA) && !(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode))

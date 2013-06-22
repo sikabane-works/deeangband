@@ -1331,12 +1331,13 @@ static void do_scatting_creature(creature_type *creature_ptr)
 					int  rlev = ((creature_ptr->lev >= 1) ? creature_ptr->lev : 1);
 					u32b p_mode = is_pet(player_ptr, creature_ptr) ? PC_FORCE_PET : 0L;
 
-					for (k = 0; k < STAT_MAX; k++)
+					for (k = 0; k < STAT_MAX; k++) 
 					{
 						if(summoning(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, TRAIT_S_MOLD, (PC_ALLOW_GROUP | p_mode)))
-							if(creature_list[hack_creature_idx_ii].see_others) count++;
+						{
+							if(creature_list[hack_creature_idx_ii].see_others) count++; //TODO Remove Global
+						}
 					}
-
 					if(count && is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_SPECIAL);
 				}
 			}
