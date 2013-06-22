@@ -3821,30 +3821,9 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(summoning((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, type, mode))
 				{
-#ifdef JP
-					msg_print("—â‚½‚¢•—‚ª‚ ‚È‚½‚Ìü‚è‚É‚«n‚ß‚½B‚»‚ê‚Í•…”sL‚ğ‰^‚ñ‚Å‚¢‚é...");
-#else
-					msg_print("Cold winds begin to blow around you, carrying with them the stench of decay...");
-#endif
-
-
-					if(pet)
-					{
-#ifdef JP
-						msg_print("ŒÃ‚¦‚Ì€‚¹‚éÒ‹¤‚ª‚ ‚È‚½‚Éd‚¦‚é‚½‚ß“y‚©‚çáS‚Á‚½I");
-#else
-						msg_print("Ancient, long-dead forms arise from the ground to serve you!");
-#endif
-					}
-					else
-					{
-#ifdef JP
-						msg_print("€Ò‚ªáS‚Á‚½B–°‚è‚ğ–W‚°‚é‚ ‚È‚½‚ğ”±‚·‚é‚½‚ß‚ÉI");
-#else
-						msg_print("'The dead arise... to punish you for disturbing them!'");
-#endif
-					}
-
+					msg_print(MES_SUMMON_UNDEAD_DONE);
+					if(pet) msg_print(MES_SUMMON_UNDEAD_SUCCESS);
+					else msg_print(MES_SUMMON_UNDEAD_FUMBLE);
 				}
 			}
 		}

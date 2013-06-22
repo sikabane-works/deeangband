@@ -1197,6 +1197,9 @@
 #define MES_SUMMON_FUMBLE(HOSTILE) "召喚された%sは召喚者に敵意を向けている。", (HOSTILE)
 #define MES_SUMMON_FUMBLE_CREATURE "召喚されたクリーチャーは召喚者に敵意を向けている。"
 #define MES_SUMMON_INROU "「者ども、ひかえおろう！！！このお方をどなたとこころえる。」"
+#define MES_SUMMON_UNDEAD_DONE "冷たい風があなたの周りに吹き始めた。それは腐敗臭を運んでいる..."
+#define MES_SUMMON_UNDEAD_SUCCESS "古えの死せる者共があなたに仕えるため土から甦った！"
+#define MES_SUMMON_UNDEAD_FUMBLE "死者が甦った。眠りを妨げるあなたを罰するために！"
 #else
 #define MES_SUMMON_NOTHING "Nobody ever turns up..."
 #define MES_SUMMON_SERVANT "'What is thy bidding... Master?'"
@@ -1204,6 +1207,9 @@
 #define MES_SUMMON_FUMBLE(HOSTILE) "The summoned %s are angry.", (HOSTILE)
 #define MES_SUMMON_FUMBLE_CREATURE "The summoned creatures are angry."
 #define MES_SUMMON_INROU "'WHO do you think this person is! Bow your head, down your knees!'"
+#define MES_SUMMON_UNDEAD_DONE "Cold winds begin to blow around you, carrying with them the stench of decay..."
+#define MES_SUMMON_UNDEAD_SUCCESS "Ancient, long-dead forms arise from the ground to serve you!"
+#define MES_SUMMON_UNDEAD_FUMBLE "'The dead arise... to punish you for disturbing them!'"
 #endif
 
 #ifdef JP
