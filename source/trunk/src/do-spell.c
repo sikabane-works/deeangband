@@ -5207,11 +5207,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!summoning(NULL, caster_ptr->fy, caster_ptr->fx, lev_bonus, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 				{
-#ifdef JP
-					msg_print("エレメンタルは現れなかった。");
-#else
-					msg_print("No Elementals arrive.");
-#endif
+					msg_print(MES_SUMMON_ELEMENTAL_FAILED);
 				}
 			}
 		}
@@ -5837,22 +5833,8 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(summoning(NULL, creature_ptr->fy, creature_ptr->fx, lev_bonus, TRAIT_S_GOLEM, PC_FORCE_PET))
-				{
-#ifdef JP
-					msg_print("ゴーレムを作った。");
-#else
-					msg_print("You make a golem.");
-#endif
-				}
-				else
-				{
-#ifdef JP
-					msg_print("うまくゴーレムを作れなかった。");
-#else
-					msg_print("No Golems arrive.");
-#endif
-				}
+				if(summoning(NULL, creature_ptr->fy, creature_ptr->fx, lev_bonus, TRAIT_S_GOLEM, PC_FORCE_PET)) msg_print(MES_SUMMON_GOLEM_SUCCESS);
+				else msg_print(MES_SUMMON_GOLEM_FAILURE);
 			}
 		}
 		break;
