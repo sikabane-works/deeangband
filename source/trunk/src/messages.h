@@ -1201,6 +1201,7 @@
 #endif
 
 #ifdef JP
+#define MES_OBJECT_RESISTED_DISENCHANT(OBJECT) "%sは劣化を跳ね返した！", (OBJECT)->name
 #define MES_OBJECT_DISENCHANTED(OBJECT) "%sは劣化してしまった。", (OBJECT)->name
 #define MES_OBJECT_RESISTED_CURSE1(OBJECT) "%sは呪いを跳ね返した。", (OBJECT)->name
 #define MES_OBJECT_RESISTED_CURSE(OBJECT) "%sは恐怖の暗黒オーラを跳ね返した。", (OBJECT)->name
@@ -1216,6 +1217,7 @@
 #define MES_OBJECT_AUTODESTROY(OBJECT) "%sを自動破壊します。", (OBJECT)->name
 #define MES_OBJECT_CANT_DESTROY(OBJECT) "%sは破壊不能だ。", (OBJECT)->name
 #else
+#define MES_OBJECT_RESISTED_DISENCHANT(OBJECT) "Your %s resist%s disenchantment!", (OBJECT)->name, (((OBJECT)->number != 1) ? "" : "s")
 #define MES_OBJECT_DISENCHANTED(OBJECT) "Your %s was disenchanted.", (OBJECT)
 #define MES_OBJECT_RESISTED_CURSE1(OBJECT) "%s resists the effect.", (OBJECT)->name
 #define MES_OBJECT_RESISTED_CURSE(OBJECT) "Your %s resists the terrible black aura.", (OBJECT)->name

@@ -1089,21 +1089,18 @@ bool object_disenchant(creature_type *owner_ptr, object_type *object_ptr, int mo
 	if(!object_is_weapon_armour_ammo(object_ptr)) return FALSE;
 
 	// Nothing to disenchant
-	if((object_ptr->to_hit <= 0) && (object_ptr->to_damage <= 0) && 
-		(object_ptr->to_ac <= 0) && (object_ptr->to_ev <= 0) && (object_ptr->to_vo <= 0) && (object_ptr->pval <= 1))
-		return FALSE;
-
-	// Describe the object
-	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-
-	// Artifacts have 71% chance to resist
-	if(object_is_artifact(object_ptr) && (randint0(100) < 71))
+	if((object_ptr->to_hit <= 0) && (object_ptr->to_damage <= 0) && (object_ptr->to_ac <= 0) && (object_ptr->to_ev <= 0) && (object_ptr->to_vo <= 0))
 	{
-#ifdef JP
-		msg_format("%s‚Í—ò‰»‚ð’µ‚Ë•Ô‚µ‚½I", object_name);
-#else
-		msg_format("Your %s resist%s disenchantment!", object_name, ((object_ptr->number != 1) ? "" : "s"));
-#endif
+		return FALSE;
+	}
+	//TODO other status
+
+	
+	object_desc_new(object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); /* Describe the object */
+
+	if(object_is_artifact(object_ptr) && (randint0(100) < 71)) /* Artifacts have 71% chance to resist */
+	{
+		msg_format(MES_OBJECT_RESISTED_DISENCHANT(object_ptr));
 		return TRUE;
 	}
 
