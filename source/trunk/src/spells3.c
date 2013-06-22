@@ -936,8 +936,7 @@ int choose_dungeon(cptr note, int y, int x)
 		}
 	}
 
-	/* Allocate the "dun" array */
-	C_MAKE(dun, max_dungeon_idx, s16b);
+	C_MAKE(dun, max_dungeon_idx, s16b); /* Allocate the "dun" array */
 
 	screen_save();
 	for(i = 1; i < max_dungeon_idx; i++)
@@ -1020,7 +1019,7 @@ bool word_of_recall(creature_type *creature_ptr, int turns)
 			if(!select_dungeon) return FALSE;
 			creature_ptr->recall_dungeon = select_dungeon;
 		}
-		creature_ptr->timed_trait[TRAIT_WORD_RECALL] = turns;
+		set_timed_trait(creature_ptr, TRAIT_WORD_RECALL, turns, TRUE);
 		msg_print(MES_RECALL_STARTING);
 		prepare_redraw(PR_STATUS);
 	}
@@ -1053,11 +1052,7 @@ bool reset_recall(creature_type *creature_ptr)
 	}
 
 	if(!select_dungeon) return FALSE;
-#ifdef JP
-	sprintf(ppp, "‰½ŠK‚ÉƒZƒbƒg‚µ‚Ü‚·‚© (%d-%d)", dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
-#else
-	sprintf(ppp, "Reset to which level (%d-%d)", dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
-#endif
+	sprintf(ppp, MES_DUNGEON_RESET_LEVEL(dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]));
 
 	sprintf(tmp_val, "%d", MAX(creature_ptr->depth, 1));
 	if(get_string(ppp, tmp_val, 10)) // Ask for a level
