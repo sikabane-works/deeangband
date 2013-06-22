@@ -4961,6 +4961,12 @@ static cptr desc_stat_neg[] =
 #endif
 
 #ifdef JP
+#define MES_CREATURE_DESC_FAKE(STR) "%sもどき", (STR)
+#else
+#define MES_CREATURE_DESC_FAKE(STR) "fake %s", (STR)
+#endif
+
+#ifdef JP
 #define MES_SCORE_PUSHKEY "[ ESCで中断, その他のキーで続けます ]"
 #define MES_SCORE_ASK_SEND_SCORE "スコアをスコア・サーバに登録しますか? "
 #define MES_SCORE_SENDING "送信中．．"

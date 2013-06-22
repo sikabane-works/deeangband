@@ -2184,11 +2184,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 				else if(floor_ptr->gamble_arena_mode && !(player_ptr->riding && (&creature_list[player_ptr->riding] == creature_ptr)))
 				{
 					/* It is a fake unique creature */
-#ifdef JP
-					(void)sprintf(desc, "%s‚à‚Ç‚«", name);
-#else
-					(void)sprintf(desc, "fake %s", name);
-#endif
+					(void)sprintf(desc, MES_CREATURE_DESC_FAKE(name));
 				}
 
 				else
@@ -2227,12 +2223,11 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 #else
 					(void)strcpy(desc, "your ");
 #endif
-
 				else
 #ifdef JP
 					(void)strcpy(desc, "");
 #else
-					(void)strcpy(desc, "the ");
+					(void)sprintf(desc, "the");
 #endif
 
 				if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr, mode);
@@ -2361,10 +2356,7 @@ int lore_do_probe(SPECIES_ID species_idx)
 	species_ptr->r_xtra1 |= MR1_SINKA;
 
 	/* Update creature recall window */
-	if(species_window_idx == species_idx)
-	{
-		prepare_window(PW_MONSTER);
-	}
+	if(species_window_idx == species_idx) prepare_window(PW_MONSTER);
 
 	/* Return the number of new flags learnt */
 	return n;
