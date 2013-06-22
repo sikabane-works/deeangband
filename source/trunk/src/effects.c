@@ -1435,10 +1435,33 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	}
 
 	target_ptr->chp -= damage;
+
 	if(is_player(target_ptr))
 	{
 		prepare_redraw(PR_HP | PW_PLAYER);
 		handle_stuff(target_ptr);
+		if(floor_ptr->global_map && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp / 5)))
+		{
+			change_wild_mode(player_ptr);
+		}
+
+		/* Hitpoint warning */
+		if(target_ptr->chp < warning && !IS_DEAD(player_ptr))
+		{
+			if(old_chp > warning) bell();
+
+			sound(SOUND_WARN);
+			if(record_danger && (old_chp > warning))
+			{
+				if(has_trait(target_ptr, TRAIT_HALLUCINATION) && damage_type == DAMAGE_ATTACK) hit_from = KW_SOMETHING;
+				sprintf(tmp, DIARY_PINCH, hit_from);
+				write_diary(DIARY_BUNSHOU, 0, tmp);
+			}
+			if(auto_more) target_ptr->now_damaged = TRUE; // stop auto_more even if DAMAGE_USELIFE
+			msg_print(MES_SYS_HP_WARNING);
+			msg_print(NULL);
+			flush();
+		}
 	}
 
 	if(is_pet(player_ptr, target_ptr) && !is_seen(player_ptr, target_ptr))
@@ -1460,11 +1483,8 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		*/
 	}
 
-	if(floor_ptr->global_map && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp / 5))) change_wild_mode(player_ptr);
-
-	if(target_ptr->chp < 0) // It is dead now
+	if(target_ptr->chp < 0) /* It is dead now */
 	{
-
 		if(has_trait(target_ptr, TRAIT_TANUKI)) // You might have unmasked Tanuki first time
 		{
 			species_ptr = &species_info[target_ptr->species_idx];
@@ -1564,26 +1584,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		return TRUE; // Creature is dead
 	}
 
-#if 0
-	if(attacker_ptr->riding && (attacker_ptr->riding == creature_idx) && (damage > 0))
-	{
-		char target_name[80];
-
-		/* Extract creature name */
-		creature_desc(target_name, target_ptr, 0);
-
-		if(target_ptr->chp > target_ptr->mhp/3) damage = (damage + 1) / 2;
-		if(do_thrown_from_riding(target_ptr, (damage > 200) ? 200 : damage, FALSE))
-		{
-#ifdef JP
-			msg_format("%^s‚ÉU‚è—Ž‚Æ‚³‚ê‚½I", target_name);
-#else
-			msg_format("%^s has thrown you off!", target_name);
-#endif
-		}
-	}
-#endif
-
 	if(has_trait(target_ptr, TRAIT_AFRAID) && (damage > 0)) add_timed_trait(target_ptr, TRAIT_AFRAID, -randint1(damage), FALSE); // Mega-Hack -- Pain cancels fear
 
 	// Sometimes a creature gets scared by damage
@@ -1601,29 +1601,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		/*  Hack -- Add some timed fear */
 		int percentage = (100L * target_ptr->chp) / target_ptr->mhp;
 		(void)set_timed_trait(target_ptr, TRAIT_AFRAID, (randint1(10) + (((damage >= target_ptr->chp) && (percentage > 7)) ? 20 : ((11 - percentage) * 5))), TRUE);
-	}
-
-	/* Hitpoint warning */
-	if(is_player(target_ptr) && target_ptr->chp < warning && !gameover)
-	{
-		/* Hack -- bell on first notice */
-		if(old_chp > warning) bell();
-
-		sound(SOUND_WARN);
-
-		if(record_danger && (old_chp > warning))
-		{
-			if(has_trait(target_ptr, TRAIT_HALLUCINATION) && damage_type == DAMAGE_ATTACK)
-				hit_from = KW_SOMETHING;
-			sprintf(tmp, DIARY_PINCH, hit_from);
-			write_diary(DIARY_BUNSHOU, 0, tmp);
-		}
-
-		if(auto_more) target_ptr->now_damaged = TRUE; // stop auto_more even if DAMAGE_USELIFE
-
-		msg_print(MES_SYS_HP_WARNING);
-		msg_print(NULL);
-		flush();
 	}
 
 	return damage;
