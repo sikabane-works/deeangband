@@ -1355,7 +1355,7 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 		if(is_seen(player_ptr, creature_ptr))
 		{
 			creature_desc(creature_name, creature_ptr, 0);
-			msg_format(MES_DEAD_QUANTUM_DISAPPEAR(creature_ptr));
+			msg_format(MES_CREATURE_DISAPPEAR(creature_ptr));
 		}
 		creature_dead_effect(player_ptr, creature_ptr, FALSE);
 		delete_creature(creature_ptr);
@@ -1504,13 +1504,8 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 		// Its parent have gone, it also goes away.
 		if(see_m)
 		{
-			// Acquire the creature name
 			creature_desc(creature_name, creature_ptr, 0);
-#ifdef JP
-			msg_format("%s‚ÍÁ‚¦‹Ž‚Á‚½I", creature_name);
-#else
-			msg_format("%^s disappears!", creature_name);
-#endif
+			msg_format(MES_CREATURE_DISAPPEAR(creature_ptr));
 		}
 
 		if(record_named_pet && is_pet(player_ptr, creature_ptr) && creature_ptr->nickname)

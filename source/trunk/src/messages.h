@@ -4946,6 +4946,7 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_LIFERATE_NOW(NUM) "現在の体力ランクは %d/100 です。", (NUM)
 #define MES_CREATURE_LIFERATE_CHANGED "体力ランクが変わった。"
 #define MES_CREATURE_NO_DAMAGE(CREATURE) "%^sはダメージを受けていない。", (CREATURE)->name
+#define MES_CREATURE_DISAPPEAR(CREATURE) "%sは消え去った！", (CREATURE)->name
 #else
 #define MES_CREATURE_LIFE_COND1 "unhurt"
 #define MES_CREATURE_LIFE_COND2 "somewhat wounded"
@@ -4960,6 +4961,7 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_LIFERATE_NOW(NUM) "Your life rate is %d/100 now.", (NUM)
 #define MES_CREATURE_LIFERATE_CHANGED "Life rate is changed."
 #define MES_CREATURE_NO_DAMAGE(CREATURE) "%^s is unharmed.", (CREATURE)->name
+#define MES_CREATURE_DISAPPEAR(CREATURE)  "%^s disappears!", (CREATURE)->name
 #endif
 
 #ifdef JP
@@ -5226,8 +5228,3 @@ static cptr desc_stat_neg[] =
 #define MES_TIME_RESTART "You feel time flowing around you once more."
 #endif
 
-#ifdef JP
-#define MES_DEAD_QUANTUM_DISAPPEAR(CREATURE) "%sは消え去った！", (CREATURE)->name
-#else
-#define MES_DEAD_QUANTUM_DISAPPEAR(CREATURE)  "%^s disappears!", (CREATURE)->name
-#endif
