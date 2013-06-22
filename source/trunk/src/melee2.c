@@ -1874,18 +1874,8 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 				/* Attempt to Bash  */
 				if(check_hp_for_feat_destruction(f_ptr, creature_ptr) && (randint0(creature_ptr->chp / 10) > f_ptr->power))
 				{
-					if(have_flag(f_ptr->flags, FF_GLASS))
-#ifdef JP
-						msg_print("ガラスが砕ける音がした！");
-#else
-						msg_print("You hear a glass was crashed!");
-#endif
-					else
-#ifdef JP
-						msg_print("ドアを叩き開ける音がした！");
-#else
-						msg_print("You hear a door burst open!");
-#endif
+					if(have_flag(f_ptr->flags, FF_GLASS)) msg_print(MES_HEAR_GLASS_CRASHING);
+					else msg_print(MES_HEAR_DOOR_BURST);
 
 					/* Disturb (sometimes) */
 					if(disturb_minor) disturb(player_ptr, 0, 0);

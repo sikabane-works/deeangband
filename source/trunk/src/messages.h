@@ -5210,10 +5210,14 @@ static cptr desc_stat_neg[] =
 #define MES_HEAR_HEAVY_STEP "重厚な足音が聞こえた。"
 #define MES_HEAR_GRINDING "ギシギシいう音が聞こえる。"
 #define MES_HEAR_CRASHING "何かの砕ける音が聞こえる。"
+#define MES_HEAR_GLASS_CRASHING "ガラスが砕ける音がした！"
+#define MES_HEAR_DOOR_BURST "ドアを叩き開ける音がした！"
 #else
 #define MES_HEAR_HEAVY_STEP "You hear heavy steps."
 #define MES_HEAR_GRINDING "There is a grinding sound."
 #define MES_HEAR_CRASHING "There is a crashing sound."
+#define MES_HEAR_GLASS_CRASHING "You hear a glass was crashed!"
+#define MES_HEAR_DOOR_BURST "You hear a door burst open!"
 #endif
 
 #ifdef JP
