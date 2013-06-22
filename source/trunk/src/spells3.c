@@ -1080,10 +1080,9 @@ bool reset_recall(creature_type *creature_ptr)
 	return TRUE;
 }
 
-bool object_disenchant(creature_type *owner_ptr, object_type *object_ptr, int mode)
+bool object_disenchant(creature_type *owner_ptr, object_type *object_ptr, bool heavy)
 {
-	char object_name[MAX_NLEN];
-	int to_hit, to_damage, to_ac, to_ev, to_vo, pval;
+	STAT to_hit, to_damage, to_ac, to_ev, to_vo;
 
 	// Disenchant equipments only -- No disenchant on creature ball
 	if(!object_is_weapon_armour_ammo(object_ptr)) return FALSE;
@@ -1109,7 +1108,6 @@ bool object_disenchant(creature_type *owner_ptr, object_type *object_ptr, int mo
 	to_ac = object_ptr->to_ac;
 	to_ev = object_ptr->to_ev;
 	to_vo = object_ptr->to_vo;
-	pval = object_ptr->pval;
 
 	if(object_ptr->to_hit > 0) object_ptr->to_hit--;
 	if((object_ptr->to_hit > 5) && (PROB_PERCENT(20))) object_ptr->to_hit--;
@@ -1125,10 +1123,9 @@ bool object_disenchant(creature_type *owner_ptr, object_type *object_ptr, int mo
 
 	/* Disenchant pval (occasionally) */
 	/* Unless called from wild_magic() */
-	if((object_ptr->pval > 1) && one_in_(13) && !(mode & 0x01)) object_ptr->pval--;
+	// if(heavy) TODO decrement old pv status
 
-	if((to_hit != object_ptr->to_hit) || (to_damage != object_ptr->to_damage) ||
-		(to_ac != object_ptr->to_ac) || (to_ev != object_ptr->to_ev) ||(to_vo != object_ptr->to_vo) || (pval != object_ptr->pval))
+	if((to_hit != object_ptr->to_hit) || (to_damage != object_ptr->to_damage) || (to_ac != object_ptr->to_ac) || (to_ev != object_ptr->to_ev) ||(to_vo != object_ptr->to_vo))
 	{
 		msg_format(MES_OBJECT_DISENCHANTED(object_ptr));
 		prepare_update(owner_ptr, CRU_BONUS);
@@ -1142,7 +1139,7 @@ bool object_disenchant(creature_type *owner_ptr, object_type *object_ptr, int mo
 // Apply disenchantment to the player's stuff
 //  This function is also called from the "melee" code
 // Return "TRUE" if the player notices anything
-bool apply_disenchant(creature_type *creature_ptr, int mode)
+bool apply_disenchant(creature_type *creature_ptr, bool heavy)
 {
 	OBJECT_ID item;
 	object_type *object_ptr;
@@ -1154,7 +1151,7 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 	if(!IS_EQUIPPED(object_ptr)) return FALSE;
 	if(!is_valid_object(object_ptr)) return FALSE; // No item, nothing happens
 
-	return object_disenchant(creature_ptr, object_ptr, mode);
+	return object_disenchant(creature_ptr, object_ptr, heavy);
 }
 
 

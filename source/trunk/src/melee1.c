@@ -456,7 +456,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		/* Apply disenchantment */
 		if(has_trait_object(weapon_ptr, TRAIT_UN_BONUS) && !has_trait(target_ptr, TRAIT_RES_DISE) && !M_SHADOW(target_ptr))
 		{
-			if(apply_disenchant(target_ptr, 0)) update_creature(target_ptr, TRUE); /* Hack -- Update AC */
+			if(apply_disenchant(target_ptr, FALSE)) update_creature(target_ptr, TRUE); /* Hack -- Update AC */
 		}
 
 		if(has_trait_object(weapon_ptr, TRAIT_UN_BONUS) && !M_SHADOW(target_ptr))

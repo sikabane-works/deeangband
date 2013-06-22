@@ -488,7 +488,7 @@ static void chest_trap(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 					else 
 						(void)add_timed_trait(creature_ptr, TRAIT_STUN, 10 + randint0(100), TRUE);
 				}
-				else if(one_in_(3)) apply_disenchant(creature_ptr, 0);
+				else if(one_in_(3)) apply_disenchant(creature_ptr, FALSE);
 				else if(one_in_(2))
 				{
 					(void)do_dec_stat(creature_ptr, STAT_STR);
