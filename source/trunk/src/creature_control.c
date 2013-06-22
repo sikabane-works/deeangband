@@ -4096,13 +4096,9 @@ void message_pain(CREATURE_ID creature_idx, POWER dam)
 
 	creature_desc(creature_name, creature_ptr, 0); // Get the creature name
 
-	if(dam == 0) // Notice non-damage
+	if(dam == 0)
 	{
-#ifdef JP
-		msg_format("%^sはダメージを受けていない。", creature_name);
-#else
-		msg_format("%^s is unharmed.", creature_name);
-#endif
+		msg_format(MES_CREATURE_NO_DAMAGE(creature_ptr));
 		return;
 	}
 

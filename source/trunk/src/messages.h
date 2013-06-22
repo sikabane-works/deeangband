@@ -4945,6 +4945,7 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_NO_LIFE_COND5 "倒れかけ"
 #define MES_CREATURE_LIFERATE_NOW(NUM) "現在の体力ランクは %d/100 です。", (NUM)
 #define MES_CREATURE_LIFERATE_CHANGED "体力ランクが変わった。"
+#define MES_CREATURE_NO_DAMAGE(CREATURE) "%^sはダメージを受けていない。", (CREATURE)->name
 #else
 #define MES_CREATURE_LIFE_COND1 "unhurt"
 #define MES_CREATURE_LIFE_COND2 "somewhat wounded"
@@ -4958,6 +4959,7 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_NO_LIFE_COND5 "almost destroyed"
 #define MES_CREATURE_LIFERATE_NOW(NUM) "Your life rate is %d/100 now.", (NUM)
 #define MES_CREATURE_LIFERATE_CHANGED "Life rate is changed."
+#define MES_CREATURE_NO_DAMAGE(CREATURE) "%^s is unharmed.", (CREATURE)->name
 #endif
 
 #ifdef JP
