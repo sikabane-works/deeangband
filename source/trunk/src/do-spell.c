@@ -4009,11 +4009,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast || fail)
 			{
-#ifdef JP
-				msg_print("あなたは蜘蛛のカードに集中する...");
-#else
-				msg_print("You concentrate on the trump of an spider...");
-#endif
+				msg_print(MES_SUMMON_TRUMP_SPIDER);
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_SPIDER, PC_ALLOW_GROUP))
 				{
 					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
@@ -4130,13 +4126,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast || fail)
 			{
 				int type = (!fail ? TRAIT_S_ANIMAL_RANGER : TRAIT_S_ANIMAL);
-
-#ifdef JP
-				msg_print("あなたは動物のカードに集中する...");
-#else
-				msg_print("You concentrate on the trump of an animal...");
-#endif
-
+				msg_print(MES_SUMMON_TRUMP_ANIMAL);
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, type, 0L))
 				{
 					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
@@ -4196,16 +4186,10 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 					y = caster_ptr->fy;
 				}
 
-				if(caster_ptr->class_idx == CLASS_BEASTMASTER)
-					type = TRAIT_S_KAMIKAZE_LIVING;
-				else
-					type = TRAIT_S_KAMIKAZE;
+				if(caster_ptr->class_idx == CLASS_BEASTMASTER) type = TRAIT_S_KAMIKAZE_LIVING;
+				else type = TRAIT_S_KAMIKAZE;
 
-#ifdef JP
-				msg_print("あなたはカミカゼのカードに集中する...");
-#else
-				msg_print("You concentrate on several trumps at once...");
-#endif
+				msg_print(MES_SUMMON_TRUMP_KAMIKAZE);
 
 				if(trump_summoning(caster_ptr, 2 + randint0(lev_bonus / 7), !fail, y, x, 0, type, 0L))
 				{
@@ -4377,11 +4361,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast || fail)
 			{
-#ifdef JP
-				msg_print("あなたはアンデッドのカードに集中する...");
-#else
-				msg_print("You concentrate on the trump of an undead creature...");
-#endif
+				msg_print(MES_SUMMON_TRUMP_UNDEAD);
 
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_UNDEAD, 0L))
 				{
@@ -4403,11 +4383,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast || fail)
 			{
-#ifdef JP
-				msg_print("あなたは爬虫類のカードに集中する...");
-#else
-				msg_print("You concentrate on the trump of a reptile...");
-#endif
+				msg_print(MES_SUMMON_TRUMP_REPTILE);
 
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_HYDRA, 0L))
 				{
@@ -4430,12 +4406,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast || fail)
 			{
 				int type;
-
-#ifdef JP
-				msg_print("あなたはクリーチャーのカードに集中する...");
-#else
-				msg_print("You concentrate on several trumps at once...");
-#endif
+				msg_print(MES_SUMMON_TRUMP_CREATURE);
 
 				if(caster_ptr->class_idx == CLASS_BEASTMASTER)
 					type = TRAIT_S_LIVING;
@@ -4463,12 +4434,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast || fail)
 			{
-#ifdef JP
-				msg_print("あなたはハウンドのカードに集中する...");
-#else
-				msg_print("You concentrate on the trump of a hound...");
-#endif
-
+				msg_print(MES_SUMMON_TRUMP_HOUND);
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_HOUND, PC_ALLOW_GROUP))
 				{
 					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
@@ -4508,6 +4474,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				int mutation;
 
+				//TODO
 				if(one_in_(7))
 					/* Teleport control */
 					mutation = 12;
@@ -4540,11 +4507,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast || fail)
 			{
-#ifdef JP
-				msg_print("あなたはサイバーデーモンのカードに集中する...");
-#else
-				msg_print("You concentrate on the trump of a Cyberdemon...");
-#endif
+				msg_print(MES_SUMMON_TRUMP_CYBER_DEMON);
 
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_CYBER, 0L))
 				{
@@ -4637,12 +4600,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast || fail)
 			{
-#ifdef JP
-				msg_print("あなたはドラゴンのカードに集中する...");
-#else
-				msg_print("You concentrate on the trump of a dragon...");
-#endif
-
+				msg_print(MES_SUMMON_TRUMP_DRAGON);
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_DRAGON, 0L))
 				{
 					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
@@ -4685,12 +4643,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast || fail)
 			{
-#ifdef JP
-				msg_print("あなたはデーモンのカードに集中する...");
-#else
-				msg_print("You concentrate on the trump of a demon...");
-#endif
-
+				msg_print(MES_SUMMON_TRUMP_DEMON);
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_DEMON, 0L))
 				{
 					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
@@ -4711,11 +4664,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast || fail)
 			{
-#ifdef JP
-				msg_print("あなたは強力なアンデッドのカードに集中する...");
-#else
-				msg_print("You concentrate on the trump of a greater undead being...");
-#endif
+				msg_print(MES_SUMMON_TRUMP_GREATER_UNDEAD);
 				/* May allow unique depend on level and dice roll */
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_HI_UNDEAD, PC_ALLOW_UNIQUE))
 				{
@@ -4739,16 +4688,10 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				int type;
 
-				if(caster_ptr->class_idx == CLASS_BEASTMASTER)
-					type = TRAIT_S_HI_DRAGON_LIVING;
-				else
-					type = TRAIT_S_HI_DRAGON;
+				if(caster_ptr->class_idx == CLASS_BEASTMASTER) type = TRAIT_S_HI_DRAGON_LIVING;
+				else type = TRAIT_S_HI_DRAGON;
 
-#ifdef JP
-				msg_print("あなたは古代ドラゴンのカードに集中する...");
-#else
-				msg_print("You concentrate on the trump of an ancient dragon...");
-#endif
+				msg_print(MES_SUMMON_TRUMP_ANCIENT_DRAGON);
 
 				/* May allow unique depend on level and dice roll */
 				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, type, PC_ALLOW_UNIQUE))
