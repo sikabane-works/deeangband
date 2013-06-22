@@ -2074,11 +2074,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(has_trait(caster_ptr, TRAIT_HURT_LITE) && !has_trait(caster_ptr, TRAIT_RES_LITE))
 				{
-#ifdef JP
-					msg_print("“ú‚ÌŒõ‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ğÅ‚ª‚µ‚½I");
-#else
-					msg_print("The daylight scorches your flesh!");
-#endif
+					msg_format(MES_DAMAGE_SUNLIGHT(caster_ptr));
 					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(2, 2), COD_SUNLIGHT, NULL, -1);
 				}
 			}
@@ -2581,11 +2577,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(has_trait(caster_ptr, TRAIT_HURT_LITE) && !has_trait(caster_ptr, TRAIT_RES_LITE))
 				{
-#ifdef JP
-					msg_print("“úŒõ‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ğÅ‚ª‚µ‚½I");
-#else
-					msg_print("The sunlight scorches your flesh!");
-#endif
+					msg_format(MES_DAMAGE_SUNLIGHT(caster_ptr));
 					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_SUNLIGHT, NULL, -1);
 				}
 			}
