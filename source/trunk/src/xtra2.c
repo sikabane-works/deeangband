@@ -781,7 +781,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 * Get the coefficient first, and multiply (potentially huge) base
 * experience point of a creature later.
 */
-void get_exp_from_mon(creature_type *attacker_ptr, POWER dam, creature_type *target_ptr)
+void get_exp_from_creature(creature_type *attacker_ptr, POWER dam, creature_type *target_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	s32b new_exp;

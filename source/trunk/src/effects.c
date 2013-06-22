@@ -1289,6 +1289,13 @@ static void killed_message(creature_type *attacker_ptr, creature_type *target_pt
 	else target_name[0] = '\0';
 
 	sound(SOUND_KILL); // Make a sound
+
+	if(!is_player(target_ptr) && has_trait(target_ptr, TRAIT_CAN_SPEAK))
+	{
+		char line_got[1024];
+		if(!get_rnd_line(TEXT_FILES_DEATH, target_ptr->species_idx, line_got)) msg_format("%^s %s", target_name, line_got);
+	}
+
 	if(note) msg_format("%^s%s", target_name, note); // Death by Missile/Spell attack
 	else if(!attacker_ptr) msg_format("%^s‚Í%s‚É‚æ‚Á‚ÄŽ€‚ñ‚¾B", target_name, hit_from);
 	else if(creature_living(attacker_ptr))
@@ -1349,7 +1356,7 @@ static void killed_message(creature_type *attacker_ptr, creature_type *target_pt
 int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, POWER damage_type, POWER damage, cptr hit_from, cptr note, TRAIT_ID trait_id)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
-	int old_chp = target_ptr->chp;
+	STAT old_chp = target_ptr->chp;
 	species_type    *species_ptr = &species_info[target_ptr->species_idx];
 	bool fear = FALSE;
 	char attacker_name[100];
@@ -1373,7 +1380,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	{
 		expdam = (target_ptr->chp > damage) ? damage : target_ptr->chp;
 		if(has_trait(target_ptr, TRAIT_HEAL)) expdam = (expdam + 1) / 10;
-		if(attacker_ptr) get_exp_from_mon(attacker_ptr, expdam, target_ptr);
+		if(attacker_ptr) get_exp_from_creature(attacker_ptr, expdam, target_ptr);
 
 		/* Genocided by chaos patron */
 		//TODO check
@@ -1511,15 +1518,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			}
 		}
 
-		/* Extract creature name */
-		creature_desc(target_name, target_ptr, CD_TRUE_NAME);
-
-		if(!is_player(target_ptr) && has_trait(target_ptr, TRAIT_CAN_SPEAK))
-		{
-			char line_got[1024];
-			if(!get_rnd_line(TEXT_FILES_DEATH, target_ptr->species_idx, line_got)) msg_format("%^s %s", target_name, line_got);
-		}
-
 		//TODO thief process
 
 		/* The new law says it is illegal to live in the dungeon */
@@ -1564,8 +1562,8 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		else delete_creature(target_ptr); // Delete the creature
 
 		/* Prevent bug of chaos patron's reward */
-		if(has_trait(target_ptr, TRAIT_KILL_EXP)) get_exp_from_mon(attacker_ptr, (long)target_ptr->mhp * 2, target_ptr);
-		else get_exp_from_mon(attacker_ptr, ((long)target_ptr->mhp + 1L) * 9L / 10L, target_ptr);
+		if(has_trait(target_ptr, TRAIT_KILL_EXP)) get_exp_from_creature(attacker_ptr, (long)target_ptr->mhp * 2, target_ptr);
+		else get_exp_from_creature(attacker_ptr, ((long)target_ptr->mhp + 1L) * 9L / 10L, target_ptr);
 
 		fear = FALSE; // Not afraid	
 		return TRUE; // Creature is dead
