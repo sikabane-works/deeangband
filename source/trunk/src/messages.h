@@ -3969,6 +3969,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_PSYCHOMETRY_NO_UNUSUAL(OBJECT) "%sからは特に変わった事は感じとれなかった。", (OBJECT)->name
 #define MES_TRAIT_FORCE_IMPROVE "気を練った。"
 #define MES_TRAIT_FORCE_EXPRODE "気が暴走した！"
+#define MES_TRAIT_FORCE_GONEAWAY "気が散ってしまった．．．"
 #define MES_TRAIT_MIRROR_SET_LIMIT "これ以上鏡は制御できない！"
 #define MES_TRAIT_MIRROR_WORLD_FAILED "鏡の国の場所がわからない！"
 #define MES_TRAIT_MIRROR_TUNNEL_DONE "鏡の世界を通り抜け…  "
@@ -4080,6 +4081,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_PSYCHOMETRY_NO_UNUSUAL(OBJECT) "You do not perceive anything unusual about the %s.", (OBJECT)->name
 #define MES_TRAIT_FORCE_IMPROVE "You improved the Force."
 #define MES_TRAIT_FORCE_EXPRODE "The Force exploded!"
+#define MES_TRAIT_FORCE_GONEAWAY "Your improved Force has gone away..."
 #define MES_TRAIT_MIRROR_SET_LIMIT "There are too many mirrors to control!"
 #define MES_TRAIT_MIRROR_WORLD_FAILED "You cannot find out where is the world of mirror!"
 #define MES_TRAIT_MIRROR_TUNNEL_DONE "Go through the world of mirror..."

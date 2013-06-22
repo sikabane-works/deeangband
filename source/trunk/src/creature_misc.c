@@ -897,12 +897,7 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, POWER da
 		else if(M_SHADOW(target_ptr)) t = 0;
 	}
 
-	if(has_trait(target_ptr, TRAIT_WRAITH_FORM))
-	{
-		damage /= 2;
-		if((damage == 0) && one_in_(2)) damage = 1;
-	}
-
+	if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) t /= 2;
 
 	if(message)
 	{

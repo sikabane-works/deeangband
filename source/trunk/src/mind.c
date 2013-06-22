@@ -1404,11 +1404,7 @@ void do_cmd_mind(creature_type *caster_ptr)
 		{
 			if((use_mind == MIND_KI) && (n != 5) && caster_ptr->charged_force)
 			{
-#ifdef JP
-				msg_print("気が散ってしまった．．．");
-#else
-				msg_print("Your improved Force has gone away...");
-#endif
+				msg_print(MES_TRAIT_FORCE_GONEAWAY);
 				caster_ptr->charged_force = 0;
 			}
 
