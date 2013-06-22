@@ -1329,9 +1329,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	if(has_trait_from_timed(target_ptr, TRAIT_SLEPT)) (void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
 	if(attacker_ptr && (attacker_ptr->posture & NINJA_S_STEALTH)) set_superstealth(attacker_ptr, FALSE);
 
-	if(&creature_list[npc_status_id] == target_ptr) prepare_redraw(PR_HEALTH);
-	if(&creature_list[attacker_ptr->riding] == target_ptr) prepare_redraw(PR_UHEALTH);
-
 	/* Genocided by chaos patron */
 	if(damage_type != DAMAGE_USELIFE)
 	{
@@ -1377,9 +1374,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		}
 	} /* not if LOSELIFE USELIFE */
 
-	if(attacker_ptr != target_ptr) gain_exp(attacker_ptr, damage, 0, FALSE); // TODO check
-	creature_dead_effect(player_ptr, target_ptr, FALSE); /* Generate treasure, etc */
-
 	if(damage_type == DAMAGE_GENO && IS_DEAD(target_ptr))
 	{
 		damage += target_ptr->chp;
@@ -1387,8 +1381,13 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	}
 
 	target_ptr->chp -= damage;
+	if(is_player(target_ptr))
+	{
+		prepare_redraw(PR_HP | PW_PLAYER);
+		handle_stuff(target_ptr);
+	}
 
-	if(is_pet(player_ptr, target_ptr) && !(target_ptr->see_others))
+	if(is_pet(player_ptr, target_ptr) && !is_seen(player_ptr, target_ptr))
 	{
 		/*	TODO  sad by killed pet
 
@@ -1405,18 +1404,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		}
 		}
 		*/
-	}
-
-	if(is_player(target_ptr))
-	{
-		if(target_ptr->chp < 0)
-		{
-			gameover = TRUE;
-			you_died(hit_from);
-			return TRUE;
-		}
-		prepare_redraw(PR_HP | PW_PLAYER);
-		handle_stuff(target_ptr);
 	}
 
 	if(floor_ptr->global_map && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp / 5))) change_wild_mode(player_ptr);
@@ -1461,7 +1448,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 					if(species_info[SPECIES_LUPART].killed_total < MAX_SHORT) species_info[SPECIES_LUPART].killed_total++;
 				}
 			}
-
 		}
 
 		if(species_ptr->max_num > 0) species_ptr->max_num--;
@@ -1553,9 +1539,15 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 					}
 				}
 			}
-		}
 
-		creature_dead_effect(attacker_ptr, target_ptr, TRUE);
+			if(is_player(target_ptr))
+			{
+				gameover = TRUE;
+				you_died(hit_from);
+				return TRUE;
+			}
+			creature_dead_effect(attacker_ptr, target_ptr, TRUE);
+		}
 
 		/* Mega hack : replace IKETA to BIKETAL */
 		if((target_ptr->species_idx == SPECIES_IKETA) &&
