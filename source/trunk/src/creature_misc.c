@@ -713,6 +713,12 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, POWER da
 	if(target_ptr->sutemi) damage *= 2;
 	if(target_ptr->posture & KATA_IAI) damage += (damage + 4) / 5;
 
+	if(target_ptr->posture & KATA_MUSOU)
+	{
+		damage /= 2;
+		if((damage == 0) && one_in_(2)) damage = 1;
+	}
+
 	if(has_trait(target_ptr, TRAIT_INVULNERABLE))
 	{
 		if(!average && !one_in_(PENETRATE_INVULNERABILITY)) t = 0;
@@ -890,6 +896,13 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, POWER da
 		if(average) t /= 2;
 		else if(M_SHADOW(target_ptr)) t = 0;
 	}
+
+	if(has_trait(target_ptr, TRAIT_WRAITH_FORM))
+	{
+		damage /= 2;
+		if((damage == 0) && one_in_(2)) damage = 1;
+	}
+
 
 	if(message)
 	{

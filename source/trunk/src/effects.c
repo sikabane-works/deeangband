@@ -1411,21 +1411,8 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			}
 		}
 
-		if(has_trait(target_ptr, TRAIT_WRAITH_FORM))
-		{
-			if(damage_type == DAMAGE_FORCE) msg_print(MES_DAMAGE_VOID_WRAITH_FORM);
-			else
-			{
-				damage /= 2;
-				if((damage == 0) && one_in_(2)) damage = 1;
-			}
-		}
+		if(damage_type == DAMAGE_FORCE && has_trait(target_ptr, TRAIT_WRAITH_FORM)) msg_print(MES_DAMAGE_VOID_WRAITH_FORM);
 
-		if(target_ptr->posture & KATA_MUSOU)
-		{
-			damage /= 2;
-			if((damage == 0) && one_in_(2)) damage = 1;
-		}
 	} /* not if LOSELIFE USELIFE */
 
 	if(damage_type == DAMAGE_GENO && IS_DEAD(target_ptr))
