@@ -1450,26 +1450,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			}
 		}
 
-		if(species_ptr->max_num > 0) species_ptr->max_num--;
-
-		/* Count all creatures killed */
-		if(species_ptr->killed_by_all < MAX_SHORT) species_ptr->killed_by_all++;
-
-		/* Recall even invisible uniques or winners */
-		if(target_ptr->see_others || has_trait(target_ptr, TRAIT_UNIQUE)) // && !has_trait(attacker_ptr, TRAIT_HALLUCINATION))
-		{
-			/* Count kills this life */
-			if(has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].killed_by_player < MAX_SHORT)) species_info[SPECIES_KAGE].killed_by_player++;
-			else if(species_ptr->killed_by_player < MAX_SHORT) species_ptr->killed_by_player++;
-
-			/* Count kills in all lives */
-			if(has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].killed_total < MAX_SHORT)) species_info[SPECIES_KAGE].killed_total++;
-			else if(species_ptr->killed_total < MAX_SHORT) species_ptr->killed_total++;
-
-			/* Hack -- Auto-recall */
-			species_type_track(target_ptr->ap_species_idx);
-		}
-
 		/* Extract creature name */
 		creature_desc(target_name, target_ptr, CD_TRUE_NAME);
 
@@ -1540,18 +1520,11 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				}
 			}
 
-			if(is_player(target_ptr))
-			{
-				gameover = TRUE;
-				you_died(hit_from);
-				return TRUE;
-			}
 			creature_dead_effect(attacker_ptr, target_ptr, TRUE);
 		}
 
 		/* Mega hack : replace IKETA to BIKETAL */
-		if((target_ptr->species_idx == SPECIES_IKETA) &&
-			!(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode))
+		if((target_ptr->species_idx == SPECIES_IKETA) && !(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode))
 		{
 			int dummy_y = target_ptr->fy;
 			int dummy_x = target_ptr->fx;
@@ -1570,13 +1543,17 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 #endif
 			}
 		}
+		else if(is_player(target_ptr))
+		{
+			gameover = TRUE;
+			you_died(hit_from);
+			return TRUE;
+		}
 		else delete_creature(target_ptr); // Delete the creature
 
 		/* Prevent bug of chaos patron's reward */
-		if(has_trait(target_ptr, TRAIT_KILL_EXP))
-			get_exp_from_mon(attacker_ptr, (long)target_ptr->mhp * 2, target_ptr);
-		else
-			get_exp_from_mon(attacker_ptr, ((long)target_ptr->mhp + 1L) * 9L / 10L, target_ptr);
+		if(has_trait(target_ptr, TRAIT_KILL_EXP)) get_exp_from_mon(attacker_ptr, (long)target_ptr->mhp * 2, target_ptr);
+		else get_exp_from_mon(attacker_ptr, ((long)target_ptr->mhp + 1L) * 9L / 10L, target_ptr);
 
 		fear = FALSE; // Not afraid	
 		return TRUE; // Creature is dead

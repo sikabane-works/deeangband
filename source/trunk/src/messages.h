@@ -5212,3 +5212,8 @@ static cptr desc_stat_neg[] =
 #define MES_TIME_RESTART "You feel time flowing around you once more."
 #endif
 
+#ifdef JP
+#define MES_DEAD_QUANTUM_DISAPPEAR(CREATURE) "%s‚ÍÁ‚¦‹Ž‚Á‚½I", (CREATURE)->name
+#else
+#define MES_DEAD_QUANTUM_DISAPPEAR(CREATURE)  "%^s disappears!", (CREATURE)->name
+#endif

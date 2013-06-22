@@ -175,8 +175,8 @@ void check_experience(creature_type *creature_ptr)
 		}
 
 		/*
-		 * 報酬でレベルが上ると再帰的に check_experience() が呼ばれるので順番を最後にする。
-		 */
+		* 報酬でレベルが上ると再帰的に check_experience() が呼ばれるので順番を最後にする。
+		*/
 		//TODO: reward argument
 		if(level_reward)
 		{
@@ -452,19 +452,19 @@ int specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, TVAL tv, 
 }
 
 /*
- * Handle the "death" of a creature.
- *
- * Disperse treasures centered at the creature location based on the
- * various flags contained in the creature flags fields.
- *
- * Check for "Quest" completion when a quest creature is killed.
- *
- * Note that only the player can induce "creature_dead_effect()" on Uniques.
- * Thus (for now) all Quest creatures should be Uniques.
- *
- * Note that creatures can now carry objects, and when a creature dies,
- * it drops all of its objects, which may disappear in crowded rooms.
- */
+* Handle the "death" of a creature.
+*
+* Disperse treasures centered at the creature location based on the
+* various flags contained in the creature flags fields.
+*
+* Check for "Quest" completion when a quest creature is killed.
+*
+* Note that only the player can induce "creature_dead_effect()" on Uniques.
+* Thus (for now) all Quest creatures should be Uniques.
+*
+* Note that creatures can now carry objects, and when a creature dies,
+* it drops all of its objects, which may disappear in crowded rooms.
+*/
 void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bool drop_item)
 {
 	int i, j;
@@ -496,6 +496,23 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	if(slayer_ptr) creature_desc(slayer_name, slayer_ptr, 0);
 	creature_desc(dead_name, dead_ptr, 0);
 
+	/* Reduce man number of specied and Count all creatures killed */
+	if(species_ptr->max_num > 0) species_ptr->max_num--;
+	if(species_ptr->killed_by_all < MAX_SHORT) species_ptr->killed_by_all++;
+
+	/* Recall even invisible uniques or winners */
+	if(dead_ptr->see_others || has_trait(dead_ptr, TRAIT_UNIQUE)) // && !has_trait(attacker_ptr, TRAIT_HALLUCINATION))
+	{
+		/* Count kills this life */
+		if(has_trait(dead_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].killed_by_player < MAX_SHORT)) species_info[SPECIES_KAGE].killed_by_player++;
+		else if(species_ptr->killed_by_player < MAX_SHORT) species_ptr->killed_by_player++;
+
+		/* Count kills in all lives */
+		if(has_trait(dead_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].killed_total < MAX_SHORT)) species_info[SPECIES_KAGE].killed_total++;
+		else if(species_ptr->killed_total < MAX_SHORT) species_ptr->killed_total++;
+		species_type_track(dead_ptr->ap_species_idx); /* Hack -- Auto-recall */
+	}
+
 	if(has_trait(dead_ptr, TRAIT_UNIQUE) && !has_trait(dead_ptr, TRAIT_CLONED))
 		for (i = 0; i < MAX_BOUNTY; i++)
 			if((kubi_species_idx[i] == dead_ptr->species_idx) && !(dead_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
@@ -522,7 +539,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		do stop_ty = activate_ty_curse(slayer_ptr, stop_ty, &count);
 		while (--curses);
 	}
-
 
 	if(dead_ptr->sc_flag2 & SC_FLAG2_CHAMELEON)
 	{
@@ -660,9 +676,9 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		break;
 
 	case SPECIES_ROLENTO:
-			/*TODO
-			(void)project(creature_idx, 3, y, x, diceroll(20, 10), DO_EFFECT_FIRE, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
-			*/
+		/*TODO
+		(void)project(creature_idx, 3, y, x, diceroll(20, 10), DO_EFFECT_FIRE, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+		*/
 		break;
 
 	}
@@ -753,9 +769,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	if(sad) msg_print(MES_PET_DEAD_SAD);
 
-	/* Only process "Quest Creatures" */
-	if(!has_trait(dead_ptr, TRAIT_QUESTOR)) return;
-	if(floor_ptr->gamble_arena_mode) return;
 }
 
 
@@ -933,11 +946,11 @@ bool change_panel(COODINATES dy, COODINATES dx)
 
 
 /*
- * Given an row (y) and col (x), this routine detects when a move
- * off the screen has occurred and figures new borders. -RAK-
- * "Update" forces a "full update" to take place.
- * The map is reprinted if necessary, and "TRUE" is returned.
- */
+* Given an row (y) and col (x), this routine detects when a move
+* off the screen has occurred and figures new borders. -RAK-
+* "Update" forces a "full update" to take place.
+* The map is reprinted if necessary, and "TRUE" is returned.
+*/
 void verify_panel(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -1146,9 +1159,9 @@ bool target_able(creature_type *creature_ptr, CREATURE_ID creature_idx)
 
 
 /*
- * Update (if necessary) and verify (if possible) the target.
- * We return TRUE if the target is "okay" and FALSE otherwise.
- */
+* Update (if necessary) and verify (if possible) the target.
+* We return TRUE if the target is "okay" and FALSE otherwise.
+*/
 bool target_okay(creature_type *creature_ptr)
 {
 	/* Accept stationary targets */
@@ -2406,7 +2419,7 @@ bool get_aim_dir(creature_type *creature_ptr, COODINATES range, DIRECTION *dp)
 
 		switch (command) // Convert various keys to "standard" keys
 		{
-		// Use current target
+			// Use current target
 		case 'T':
 		case 't':
 		case '.':
@@ -2415,7 +2428,7 @@ bool get_aim_dir(creature_type *creature_ptr, COODINATES range, DIRECTION *dp)
 			dir = 5;
 			break;
 
-		// Set new target
+			// Set new target
 		case '*':
 		case ' ':
 		case '\r':
@@ -2978,7 +2991,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			default:
 				for (dummy = 0; dummy < STAT_MAX; dummy++)
 					(void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
-					msg_print(MES_PATRON_RUIN_ABL);
+				msg_print(MES_PATRON_RUIN_ABL);
 				break;
 			}
 			break;
@@ -3136,8 +3149,8 @@ static void tgt_pt_prepare(creature_type *creature_ptr)
 }
 
 /*
- * old -- from PsiAngband.
- */
+* old -- from PsiAngband.
+*/
 bool tgt_pt(creature_type *creature_ptr, COODINATES *x_ptr, COODINATES *y_ptr)
 {
 	char ch = 0;

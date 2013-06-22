@@ -1346,42 +1346,18 @@ static void do_scatting_creature(creature_type *creature_ptr)
 
 static void do_quantum_creature_feature(creature_type *creature_ptr)
 {
-	char creature_name[100];
-	bool see_m = is_seen(player_ptr, creature_ptr);
+	char creature_name[MAX_NLEN];
 
 	// Sometimes die
 	if(!randint0(QUANTUM_CREATURE_VANISH_CHANCE) && !has_trait(creature_ptr, TRAIT_UNIQUE))
 	{
-		bool sad = FALSE;
-
-		if(is_pet(player_ptr, creature_ptr) && !(creature_ptr->see_others))
-			sad = TRUE;
-
-		if(see_m)
+		if(is_seen(player_ptr, creature_ptr))
 		{
-			// Acquire the creature name
 			creature_desc(creature_name, creature_ptr, 0);
-#ifdef JP
-			msg_format("%s‚ÍÁ‚¦‹‚Á‚½I", creature_name);
-#else
-			msg_format("%^s disappears!", creature_name);
-#endif
+			msg_format(MES_DEAD_QUANTUM_DISAPPEAR(creature_ptr));
 		}
-
-		// Generate treasure, etc
 		creature_dead_effect(player_ptr, creature_ptr, FALSE);
-
-		// Delete the creature
 		delete_creature(creature_ptr);
-
-		if(sad)
-		{
-#ifdef JP
-			msg_print("­‚µ‚ÌŠÔ”ß‚µ‚¢‹C•ª‚É‚È‚Á‚½B");
-#else
-			msg_print("You feel sad for a moment.");
-#endif
-		}
 		return;
 	}
 
