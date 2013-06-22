@@ -2272,11 +2272,13 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_DUNGEON_QUESTED(DUNGEON) "‚ ‚È‚½‚Í%s‚ð§”e‚µ‚½I", dungeon_name + (DUNGEON)->name
 #define MES_DUNGEON_LIST(CLEARED, NAME, LEVEL) "%c%-12s :  %3d ŠK\n", (CLEARED), (NAME), (LEVEL)
 #define MES_DUNGEON_LIST2(SYM, CLEARED, NAME, LEVEL) "      %c) %c%-12s : Å‘å %d ŠK", (SYM), (CLEARED), (NAME), (LEVEL)
+#define MES_DUNGEON_NO_ENTERED(DUNGEON) "‚Ü‚¾%s‚É“ü‚Á‚½‚±‚Æ‚Í‚È‚¢B", dungeon_name + (DUNGEON)->name
 #else
 #define MES_DUNGEON_INFO(NAME, LEVEL) "%s(level %d)", (NAME), (LEVEL)
 #define MES_DUNGEON_QUESTED(DUNGEON) "You have conquered %s!", dungeon_name + (DUNGEON)->name
 #define MES_DUNGEON_LIST(CLEARED, NAME, LEVEL) "%c%-16s :  level %3d\n", (CLEARED), (NAME), (LEVEL)
 #define MES_DUNGEON_LIST2(SYM, CLEARED, NAME, LEVEL) "      %c) %c%-16s : Max level %d", (SYM), (CLEARED), (NAME), (LEVEL)
+#define MES_DUNGEON_NO_ENTERED(DUNGEON) "You haven't entered %s yet.", dungeon_name + (DUNGEON)->name
 #endif
 
 #ifdef JP

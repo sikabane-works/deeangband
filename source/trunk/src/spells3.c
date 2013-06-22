@@ -930,11 +930,7 @@ int choose_dungeon(cptr note, int y, int x)
 		if(max_dlv[DUNGEON_ANGBAND]) return DUNGEON_ANGBAND;
 		else
 		{
-#ifdef JP
-			msg_format("Ç‹Çæ%sÇ…ì¸Ç¡ÇΩÇ±Ç∆ÇÕÇ»Ç¢ÅB", dungeon_name + dungeon_info[DUNGEON_ANGBAND].name);
-#else
-			msg_format("You haven't entered %s yet.", dungeon_name + dungeon_info[DUNGEON_ANGBAND].name);
-#endif
+			msg_format(MES_DUNGEON_NO_ENTERED(&dungeon_info[DUNGEON_ANGBAND]));
 			msg_print(NULL);
 			return 0;
 		}

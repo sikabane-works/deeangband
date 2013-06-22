@@ -405,11 +405,9 @@ static bool autopick_new_entry(autopick_type *entry, cptr str, bool allow_defaul
 	else if(MATCH_KEY2(KEY_BOOTS)) ADD_FLG_NOUN(FLG_BOOTS);
 
 	/* Last 'keyword' must be at the correct location */
-	if(*ptr == ':')
-		ptr++;
+	if(*ptr == ':') ptr++;
 #ifdef JP
-	else if(ptr[0] == kanji_colon[0] && ptr[1] == kanji_colon[1])
-		ptr += 2;
+	else if(ptr[0] == kanji_colon[0] && ptr[1] == kanji_colon[1]) ptr += 2;
 #endif
 	else if(*ptr == '\0')
 	{
@@ -2052,24 +2050,19 @@ static void describe_autopick(char *buff, autopick_type *entry)
 
 	/*** Collecting items ***/
 	/*** Which can be absorbed into a slot as a bundle ***/
-	if(IS_FLG(FLG_COLLECTING))
-		before_str[before_n++] = "収集中で既に持っているスロットにまとめられる";
+	if(IS_FLG(FLG_COLLECTING)) before_str[before_n++] = "収集中で既に持っているスロットにまとめられる";
 	
 	/*** Unaware items ***/
-	if(IS_FLG(FLG_UNAWARE))
-		before_str[before_n++] = "未鑑定でその効果も判明していない";
+	if(IS_FLG(FLG_UNAWARE)) before_str[before_n++] = "未鑑定でその効果も判明していない";
 
 	/*** Unidentified ***/
-	if(IS_FLG(FLG_UNIDENTIFIED))
-		before_str[before_n++] = "未鑑定の";
+	if(IS_FLG(FLG_UNIDENTIFIED)) before_str[before_n++] = "未鑑定の";
 
 	/*** Identified ***/
-	if(IS_FLG(FLG_IDENTIFIED))
-		before_str[before_n++] = "鑑定済みの";
+	if(IS_FLG(FLG_IDENTIFIED)) before_str[before_n++] = "鑑定済みの";
 
 	/*** *Identified* ***/
-	if(IS_FLG(FLG_STAR_IDENTIFIED))
-		before_str[before_n++] = "完全に鑑定済みの";
+	if(IS_FLG(FLG_STAR_IDENTIFIED)) before_str[before_n++] = "完全に鑑定済みの";
 
 	/*** Dice boosted (weapon of slaying) ***/
 	if(IS_FLG(FLG_BOOSTED))
@@ -2102,8 +2095,7 @@ static void describe_autopick(char *buff, autopick_type *entry)
 	}
 
 	/*** Worthless items ***/
-	if(IS_FLG(FLG_WORTHLESS))
-		before_str[before_n++] = "店で無価値と判定される";
+	if(IS_FLG(FLG_WORTHLESS)) before_str[before_n++] = "店で無価値と判定される";
 
 	/*** Artifact ***/
 	if(IS_FLG(FLG_ARTIFACT))
@@ -2225,52 +2217,30 @@ static void describe_autopick(char *buff, autopick_type *entry)
 	}
 
 	/*** Items ***/
-	if(IS_FLG(FLG_ITEMS))
-		; /* Nothing to do */
-	else if(IS_FLG(FLG_WEAPONS))
-		body_str = "武器";
-	else if(IS_FLG(FLG_FAVORITE_WEAPONS))
-		body_str = "得意武器";
-	else if(IS_FLG(FLG_ARMORS))
-		body_str = "防具";
-	else if(IS_FLG(FLG_MISSILES))
-		body_str = "弾や矢やクロスボウの矢";
-	else if(IS_FLG(FLG_DEVICES))
-		body_str = "巻物や魔法棒や杖やロッド";
-	else if(IS_FLG(FLG_LIGHTS))
-		body_str = "光源用のアイテム";
-	else if(IS_FLG(FLG_JUNKS))
-		body_str = "折れた棒等のガラクタ";
-	else if(IS_FLG(FLG_CORPSES))
-		body_str = "死体や骨";
-	else if(IS_FLG(FLG_SPELLBOOKS))
-		body_str = "魔法書";
-	else if(IS_FLG(FLG_HAFTED))
-		body_str = "鈍器";
-	else if(IS_FLG(FLG_SHIELDS))
-		body_str = "盾";
-	else if(IS_FLG(FLG_BOWS))
-		body_str = "スリングや弓やクロスボウ";
-	else if(IS_FLG(FLG_RINGS))
-		body_str = "指輪";
-	else if(IS_FLG(FLG_AMULETS))
-		body_str = "アミュレット";
-	else if(IS_FLG(FLG_SUITS))
-		body_str = "鎧";
-	else if(IS_FLG(FLG_CLOAKS))
-		body_str = "クローク";
-	else if(IS_FLG(FLG_HELMS))
-		body_str = "ヘルメットや冠";
-	else if(IS_FLG(FLG_GLOVES))
-		body_str = "籠手";
-	else if(IS_FLG(FLG_BOOTS))
-		body_str = "ブーツ";
+	if(IS_FLG(FLG_ITEMS)); /* Nothing to do */
+	else if(IS_FLG(FLG_WEAPONS)) body_str = "武器";
+	else if(IS_FLG(FLG_FAVORITE_WEAPONS)) body_str = "得意武器";
+	else if(IS_FLG(FLG_ARMORS)) body_str = "防具";
+	else if(IS_FLG(FLG_MISSILES)) body_str = "弾や矢やクロスボウの矢";
+	else if(IS_FLG(FLG_DEVICES)) body_str = "巻物や魔法棒や杖やロッド";
+	else if(IS_FLG(FLG_LIGHTS)) body_str = "光源用のアイテム";
+	else if(IS_FLG(FLG_JUNKS)) body_str = "折れた棒等のガラクタ";
+	else if(IS_FLG(FLG_CORPSES)) body_str = "死体や骨";
+	else if(IS_FLG(FLG_SPELLBOOKS)) body_str = "魔法書";
+	else if(IS_FLG(FLG_HAFTED)) body_str = "鈍器";
+	else if(IS_FLG(FLG_SHIELDS)) body_str = "盾";
+	else if(IS_FLG(FLG_BOWS)) body_str = "スリングや弓やクロスボウ";
+	else if(IS_FLG(FLG_RINGS)) body_str = "指輪";
+	else if(IS_FLG(FLG_AMULETS)) body_str = "アミュレット";
+	else if(IS_FLG(FLG_SUITS)) body_str = "鎧";
+	else if(IS_FLG(FLG_CLOAKS)) body_str = "クローク";
+	else if(IS_FLG(FLG_HELMS)) body_str = "ヘルメットや冠";
+	else if(IS_FLG(FLG_GLOVES)) body_str = "籠手";
+	else if(IS_FLG(FLG_BOOTS)) body_str = "ブーツ";
 
 	*buff = '\0';
-	if(!before_n) 
-		strcat(buff, "全ての");
-	else for (i = 0; i < before_n && before_str[i]; i++)
-		strcat(buff, before_str[i]);
+	if(!before_n) strcat(buff, "全ての");
+	else for (i = 0; i < before_n && before_str[i]; i++) strcat(buff, before_str[i]);
 
 	strcat(buff, body_str);
 
@@ -2284,10 +2254,8 @@ static void describe_autopick(char *buff, autopick_type *entry)
 
 		strcat(buff, "で、名前が「");
 		strncat(buff, str, 80);
-		if(top)
-			strcat(buff, "」で始まるもの");
-		else
-			strcat(buff, "」を含むもの");
+		if(top) strcat(buff, "」で始まるもの");
+		else strcat(buff, "」を含むもの");
 	}
 
 	if(insc)
@@ -2831,9 +2799,7 @@ static bool write_text_lines(cptr filename, cptr *lines_list)
 	fff = my_fopen(buf, "w");
 	if(fff)
 	{
-		for (lines = 0; lines_list[lines]; lines++)
-			my_fputs(fff, lines_list[lines], 1024);
-
+		for (lines = 0; lines_list[lines]; lines++) my_fputs(fff, lines_list[lines], 1024);
 		my_fclose(fff);
 	}
 
