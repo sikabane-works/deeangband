@@ -4011,6 +4011,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_MANA_FIELD_DONE "強力な魔力が敵を引き裂いた！"
 #define MES_TRAIT_GENE_ARTIFACT_BRAKE1 "複数のアイテムに魔法をかけるだけのエネルギーはありません！"
 #define MES_TRAIT_GENE_ARTIFACT_BRAKE2(OBJECT) "%d 個の%sが壊れた！",((OBJECT)->number - 1), (OBJECT)->name
+#define MES_TRAIT_SONIC_BOOM "ドーン！部屋が揺れた！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -4123,6 +4124,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_MANA_FIELD_DONE "Mighty magics rend your enemies!"
 #define MES_TRAIT_GENE_ARTIFACT_BRAKE1 "Not enough enough energy to enchant more than one object!"
 #define MES_TRAIT_GENE_ARTIFACT_BRAKE2(OBJECT) "%d of your %s %s destroyed!",((OBJECT)->number) - 1, (OBJECT)->name, ((OBJECT)->number > 2?"were":"was")
+#define MES_TRAIT_SONIC_BOOM "BOOM! Shake the room!"
 #endif
 
 #ifdef JP

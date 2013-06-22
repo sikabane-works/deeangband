@@ -2864,12 +2864,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-#ifdef JP
-				msg_print("ドーン！部屋が揺れた！");
-#else
-				msg_print("BOOM! Shake the room!");
-#endif
-
+				msg_print(MES_TRAIT_SONIC_BOOM);
 				project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, DO_EFFECT_SOUND, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
 		}
