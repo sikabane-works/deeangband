@@ -2869,6 +2869,7 @@ static cptr desc_stat_neg[] =
 #define MES_SPELL_FORGET(REALM, SPELL) "%sの%sを忘れてしまった。", (REALM), (SPELL)
 #define MES_SPELL_REMEMBER(REALM, SPELL) "%sの%sを思い出した。", (REALM), (SPELL)
 #define MES_SPELL_CHANGE_REALM(FROM, TO) "魔法の領域を%sから%sに変更した。", (FROM), (TO)
+#define MES_SPELL_LEARNED(REALM, SPELL) "%sの%sを学んだ。", (REALM), (SPELL)
 #else
 #define MES_STUDY_WHICH_BOOK "Which book you learn?"
 #define MES_STUDY_NO_BOOK "You don't have any books."
@@ -2888,6 +2889,7 @@ static cptr desc_stat_neg[] =
 #define MES_SPELL_FORGET(REALM, SPELL) "You have forgotten the %s of %s.", (SPELL), (REALM)
 #define MES_SPELL_REMEMBER(REALM, SPELL) "You have remembered the %s of %s.", (SPELL), (REALM)
 #define MES_SPELL_CHANGE_REALM(FROM, TO) "change magic realm from %s to %s.", (FROM), (TO)
+#define MES_SPELL_LEARNED(REALM, SPELL) "You have learned the %s of %s.", (REALM), (SPELL)
 #endif
 
 #ifdef JP

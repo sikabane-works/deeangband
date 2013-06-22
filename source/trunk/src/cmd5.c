@@ -480,7 +480,9 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 		if(creature_ptr->spell_order[i] < REALM_MAGIC_NUMBER) j++;
 	}
 	for (; j < (REALM_MAGIC_NUMBER * 2); j++)
+	{
 		creature_ptr->spell_order[j] = 99;
+	}
 
 	creature_ptr->spell_learned2 = 0L;
 	creature_ptr->spell_worked2 = 0L;
@@ -631,16 +633,7 @@ void do_cmd_study(creature_type *creature_ptr)
 		for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) if(creature_ptr->spell_order[i] == 99) break;
 		creature_ptr->spell_order[i++] = spell; // Add the spell to the known list
 
-		/* Mention the result */
-#ifdef JP
-		/* 英日切り替え機能に対応 */
-		if(magic_info[creature_ptr->class_idx].spell_book == TV_MUSIC_BOOK)
-			msg_format("%sを学んだ。", do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME));
-		else
-			msg_format("%sの%sを学んだ。", do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME) ,p);
-#else
-		msg_format("You have learned the %s of %s.", p, do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME));
-#endif
+		msg_format(MES_SPELL_LEARNED(do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME) ,p));
 	}
 
 	cost_tactical_energy(creature_ptr, 100);
