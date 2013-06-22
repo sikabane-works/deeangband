@@ -658,17 +658,17 @@ bool inc_stat(creature_type *creature_ptr, int stat)
 
 
 /*
- * Decreases a stat by an amount indended to vary from 0 to 100 percent.
- *
- * Amount could be a little higher in extreme cases to mangle very high
- * stats from massive assaults.  -CWS
- *
- * Note that "permanent" means that the *given* amount is permanent,
- * not that the new value becomes permanent.  This may not work exactly
- * as expected, due to "weirdness" in the algorithm, but in general,
- * if your stat is already drained, the "max" value will not drop all
- * the way down to the "cur" value.
- */
+* Decreases a stat by an amount indended to vary from 0 to 100 percent.
+*
+* Amount could be a little higher in extreme cases to mangle very high
+* stats from massive assaults.  -CWS
+*
+* Note that "permanent" means that the *given* amount is permanent,
+* not that the new value becomes permanent.  This may not work exactly
+* as expected, due to "weirdness" in the algorithm, but in general,
+* if your stat is already drained, the "max" value will not drop all
+* the way down to the "cur" value.
+*/
 bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 {
 	int cur, max, loss, same, res = FALSE;
@@ -1327,16 +1327,10 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	}
 
 	if(has_trait_from_timed(target_ptr, TRAIT_SLEPT)) (void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0, TRUE);
+	if(attacker_ptr && (attacker_ptr->posture & NINJA_S_STEALTH)) set_superstealth(attacker_ptr, FALSE);
 
-	if(attacker_ptr)
-	{
-		// Hack - Cancel any special player stealth magics. -LM-
-		if(attacker_ptr->posture & NINJA_S_STEALTH) set_superstealth(attacker_ptr, FALSE);
-
-		// Redraw (later) if needed
-		if(&creature_list[npc_status_id] == target_ptr) prepare_redraw(PR_HEALTH);
-		if(&creature_list[attacker_ptr->riding] == target_ptr) prepare_redraw(PR_UHEALTH);
-	}
+	if(&creature_list[npc_status_id] == target_ptr) prepare_redraw(PR_HEALTH);
+	if(&creature_list[attacker_ptr->riding] == target_ptr) prepare_redraw(PR_UHEALTH);
 
 	/* Genocided by chaos patron */
 	if(damage_type != DAMAGE_USELIFE)
@@ -1383,49 +1377,35 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		}
 	} /* not if LOSELIFE USELIFE */
 
+	if(attacker_ptr != target_ptr) gain_exp(attacker_ptr, damage, 0, FALSE); // TODO check
+	creature_dead_effect(player_ptr, target_ptr, FALSE); /* Generate treasure, etc */
 
-	/*	TODO  sad by killed pet
-
-	if(target_ptr->chp < 0) // Dead creature
-	{
-	bool sad = FALSE;
-
-	if(is_pet(player_ptr, target_ptr) && !(target_ptr->see_others))
-	sad = TRUE;
-
-
-	if(known && note) // Give detailed messages if destroyed
-	{
-	creature_desc(target_name, target_ptr, CD_TRUE_NAME);
-	if(see_s_msg)
-	{
-	msg_format("%^s%s", target_name, note);
-	}
-	else
-	{
-	player_ptr->hear_noise = TRUE;	//TODO check all creature
-	}
-	}
-
-	//TODO
-	//if(caster_ptr != caster_ptr) creature_gain_exp(caster_ptr, who, target_ptr->species_idx);
-
-
-	creature_dead_effect(player_ptr, target_ptr, FALSE); // Generate treasure, etc
-
-	// Delete the creature
-	delete_creature(target_ptr);
-
-	}
-	*/
-
-	if(damage_type == DAMAGE_GENO && target_ptr->chp < 0)
+	if(damage_type == DAMAGE_GENO && IS_DEAD(target_ptr))
 	{
 		damage += target_ptr->chp;
 		target_ptr->chp = 0;
 	}
 
 	target_ptr->chp -= damage;
+
+	if(is_pet(player_ptr, target_ptr) && !(target_ptr->see_others))
+	{
+		/*	TODO  sad by killed pet
+
+		if(known && note) // Give detailed messages if destroyed
+		{
+		creature_desc(target_name, target_ptr, CD_TRUE_NAME);
+		if(see_s_msg)
+		{
+		msg_format("%^s%s", target_name, note);
+		}
+		else
+		{
+		player_ptr->hear_noise = TRUE;	//TODO check all creature
+		}
+		}
+		*/
+	}
 
 	if(is_player(target_ptr))
 	{
@@ -1826,8 +1806,8 @@ void calc_android_exp(creature_type *creature_ptr)
 
 
 /*
- * Lose experience
- */
+* Lose experience
+*/
 void lose_exp(creature_type *creature_ptr, s32b amount)
 {
 	if(has_trait(creature_ptr, TRAIT_ANDROID)) return;
@@ -1838,9 +1818,9 @@ void lose_exp(creature_type *creature_ptr, s32b amount)
 
 
 /*
- * Drain experience
- * If resisted to draining, return FALSE
- */
+* Drain experience
+* If resisted to draining, return FALSE
+*/
 bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life_prob)
 {
 	if(has_trait(creature_ptr, TRAIT_ANDROID)) return FALSE; /* Androids and their mimics are never drained */
