@@ -4061,6 +4061,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_SONIC_BOOM "ドーン！部屋が揺れた！"
 #define MES_TRAIT_CRACK_DONE "武器を大きく振り下ろした。"
 #define MES_TRAIT_WARCRY_DONE "雄叫びをあげた！"
+#define MES_TRAIT_MOON_DAZZING_DONE "武器を不規則に揺らした．．．"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -4176,6 +4177,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_SONIC_BOOM "BOOM! Shake the room!"
 #define MES_TRAIT_CRACK_DONE "You swing your weapon downward."
 #define MES_TRAIT_WARCRY_DONE "You roar out!"
+#define MES_TRAIT_MOON_DAZZING_DONE "You irregularly wave your weapon..."
 #endif
 
 #ifdef JP

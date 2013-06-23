@@ -9232,11 +9232,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-#ifdef JP
-			msg_print("武器を不規則に揺らした．．．");
-#else
-			msg_print("You irregularly wave your weapon...");
-#endif
+			msg_print(MES_TRAIT_MOON_DAZZING_DONE);
 			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, lev_bonus * 4);
 			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, lev_bonus * 4);
 			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, lev_bonus * 4);
