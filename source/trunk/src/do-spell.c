@@ -8475,34 +8475,13 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 			y = caster_ptr->fy + ddy_cdd[cdir];
 			x = caster_ptr->fx + ddx_cdd[cdir];
-			if(floor_ptr->cave[y][x].creature_idx)
-				close_combat(caster_ptr, y, x, 0);
-			else
-#ifdef JP
-				msg_print("UŒ‚‚Í‹ó‚ğØ‚Á‚½B");
-#else
-				msg_print("You attack the empty air.");
-#endif
+			close_combat(caster_ptr, y, x, 0);
 			y = caster_ptr->fy + ddy_cdd[(cdir + 7) % 8];
 			x = caster_ptr->fx + ddx_cdd[(cdir + 7) % 8];
-			if(floor_ptr->cave[y][x].creature_idx)
-				close_combat(caster_ptr, y, x, 0);
-			else
-#ifdef JP
-				msg_print("UŒ‚‚Í‹ó‚ğØ‚Á‚½B");
-#else
-				msg_print("You attack the empty air.");
-#endif
+			close_combat(caster_ptr, y, x, 0);
 			y = caster_ptr->fy + ddy_cdd[(cdir + 1) % 8];
 			x = caster_ptr->fx + ddx_cdd[(cdir + 1) % 8];
-			if(floor_ptr->cave[y][x].creature_idx)
-				close_combat(caster_ptr, y, x, 0);
-			else
-#ifdef JP
-				msg_print("UŒ‚‚Í‹ó‚ğØ‚Á‚½B");
-#else
-				msg_print("You attack the empty air.");
-#endif
+			close_combat(caster_ptr, y, x, 0);
 		}
 		break;
 

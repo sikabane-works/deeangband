@@ -2761,6 +2761,7 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_MELEE_ATTACK "%s‚Í%s‚ð%s‚ÅUŒ‚‚µ‚½B"
 #define MES_MELEE_ATTACK_MISS "%s‚Í%s‚ÌUŒ‚‚ð‚©‚í‚µ‚½B"
+#define MES_MELEE_EMPTY "UŒ‚‚Í‹ó‚ðØ‚Á‚½B"
 #define MES_MELEE_AMBUSH(ATTACKER, TARGET) ("%s‚Í—â“‚É‚à–°‚Á‚Ä‚¢‚é–³—Í‚È%s‚ð“Ë‚«Žh‚µ‚½I", (ATTACKER), (TARGET))
 #define MES_MELEE_FATAL_SPOT(ATTACKER, TARGET) ("%s‚Í•sˆÓ‚ð“Ë‚¢‚Ä%s‚É‹­—ó‚ÈˆêŒ‚‚ð‹ò‚ç‚í‚¹‚½I", (ATTACKER), (TARGET))
 #define MES_MELEE_BACKSTUB(ATTACKER, TARGET) ("%s‚Í“¦‚°‚é%s‚ð”w’†‚©‚ç“Ë‚«Žh‚µ‚½I", (ATTACKER), (TARGET))
@@ -2809,8 +2810,10 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_EATEN_LITE "–¾‚©‚è‚ªˆÃ‚­‚È‚Á‚Ä‚µ‚Ü‚Á‚½B"
 #define MES_MELEE_FATALSPOT(TARGET) "%s‚Í’v–½‚ð•‰‚Á‚½I", (TARGET)->name
 #else
+#define MES_MELEE_ATTACK "%s attacks %s by."
 #define MES_MELEE_ATTACK_MISS %^s misses %s.
 #define MES_MELEE_AMBUSH(ATTACKER, TARGET) "%s (cruelly stab the helpless, sleeping %s!", (ATTACKER), (TARGET))
+#define MES_MELEE_EMPTY "You attack the empty air."
 #define MES_MELEE_FATAL_SPOT(ATTACKER, TARGET) ("%s make surprise attack, and hit %s with a powerful blow!", (ATTACKER), (TARGET))
 #define MES_MELEE_BACKSTUB(ATTACKER, TARGET) ("%s ambush the fleeing %s.", (ATTACKER), (TARGET))
 #define MES_MELEE_ZANTETSU_JELLY "You cannot cut such a elastic thing!"
