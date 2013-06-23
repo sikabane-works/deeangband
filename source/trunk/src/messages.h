@@ -4595,6 +4595,7 @@ static cptr desc_stat_neg[] =
 #ifdef JP
 #define MES_HEX_NO_CASTING_SPELL "呪文を詠唱していません。"
 #define MES_HEX_WHICH_CURSE "どれを呪いますか？"
+#define MES_HEX_CURSE_CHECK(OBJECT) "本当に %s を呪いますか？", (OBJECT)->name
 #define MES_HEX_WHICH_NO_WEAPON "武器を装備していない。"
 #define MES_HEX_WHICH_NO_ARMOUR "防具を装備していない。"
 #define MES_HEX_START_PATIENT "じっと耐えることにした。"

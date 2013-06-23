@@ -9624,12 +9624,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			object_ptr = &caster_ptr->inventory[item];
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);
 			object_flags(object_ptr, f);
-
-#ifdef JP
-			if(!get_check(format("本当に %s を呪いますか？", object_name))) return FALSE;
-#else
-			if(!get_check(format("Do you curse %s, really？", object_name))) return FALSE;
-#endif
+			if(!get_check(format(MES_HEX_CURSE_CHECK(object_ptr)))) return FALSE;
 
 			if(!one_in_(3) && (object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRAND)))
 			{
@@ -10007,12 +10002,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 			object_ptr = &caster_ptr->inventory[item];
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);
 			object_flags(object_ptr, f);
-
-#ifdef JP
-			if(!get_check(format("本当に %s を呪いますか？", object_name))) return FALSE;
-#else
-			if(!get_check(format("Do you curse %s, really？", object_name))) return FALSE;
-#endif
+			if(!get_check(format(MES_HEX_CURSE_CHECK(object_ptr)))) return FALSE;
 
 			if(!one_in_(3) && (object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRAND)))
 			{
