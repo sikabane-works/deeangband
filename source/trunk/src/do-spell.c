@@ -6170,11 +6170,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!summoning(NULL, caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_MANES, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 				{
-#ifdef JP
-					msg_print("古代の死霊は現れなかった。");
-#else
-					msg_print("No Manes arrive.");
-#endif
+					msg_print(MES_SUMMON_MANES_FAILURE);
 				}
 			}
 		}
@@ -6349,23 +6345,9 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 				{
 					msg_print(MES_TRAP_S_H_DEMON);
 					if(pet) msg_print(MES_SUMMON_SERVANT);
-					else
-					{
-#ifdef JP
-						msg_print("「卑しき者よ、我は汝の下僕にあらず！ お前の魂を頂くぞ！」");
-#else
-						msg_print("'NON SERVIAM! Wretch! I shall feast on thy mortal soul!'");
-#endif
-					}
+					else msg_print(MES_SUMMON_DEMON_FUMBLE);
 				}
-				else
-				{
-#ifdef JP
-					msg_print("悪魔は現れなかった。");
-#else
-					msg_print("No demons arrive.");
-#endif
-				}
+				else msg_print(MES_SUMMON_DEMON_FAILURE);
 				break;
 			}
 		}
