@@ -2809,6 +2809,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_GUARD_STOLEN_OBJECT "しかしあわててザックを取り返した！"
 #define MES_MELEE_EATEN_LITE "明かりが暗くなってしまった。"
 #define MES_MELEE_FATALSPOT(TARGET) "%sは致命傷を負った！", (TARGET)->name
+#define MES_MELEE_COUNTER_PREPARE "相手の攻撃に対して身構えた。"
 #else
 #define MES_MELEE_ATTACK "%s attacks %s by."
 #define MES_MELEE_ATTACK_MISS %^s misses %s.
@@ -2859,6 +2860,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_GUARD_STOLEN_OBJECT "You grab hold of your backpack!"
 #define MES_MELEE_EATEN_LITE "Your light dims."
 #define MES_MELEE_FATALSPOT(TARGET) "%s had been injured fatally.", (TARGET)->name
+#define MES_MELEE_COUNTER_PREPARE "You prepare to counter blow."
 #endif
 
 #ifdef JP
@@ -4057,6 +4059,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_GENE_ARTIFACT_BRAKE1 "複数のアイテムに魔法をかけるだけのエネルギーはありません！"
 #define MES_TRAIT_GENE_ARTIFACT_BRAKE2(OBJECT) "%d 個の%sが壊れた！",((OBJECT)->number - 1), (OBJECT)->name
 #define MES_TRAIT_SONIC_BOOM "ドーン！部屋が揺れた！"
+#define MES_TRAIT_CRACK_DONE "武器を大きく振り下ろした。"
+#define MES_TRAIT_WARCRY_DONE "雄叫びをあげた！"
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -4170,6 +4174,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_GENE_ARTIFACT_BRAKE1 "Not enough enough energy to enchant more than one object!"
 #define MES_TRAIT_GENE_ARTIFACT_BRAKE2(OBJECT) "%d of your %s %s destroyed!",((OBJECT)->number) - 1, (OBJECT)->name, ((OBJECT)->number > 2?"were":"was")
 #define MES_TRAIT_SONIC_BOOM "BOOM! Shake the room!"
+#define MES_TRAIT_CRACK_DONE "You swing your weapon downward."
+#define MES_TRAIT_WARCRY_DONE "You roar out!"
 #endif
 
 #ifdef JP

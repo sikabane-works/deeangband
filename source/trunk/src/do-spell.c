@@ -8589,11 +8589,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print(MES_PREVENT_BY_RIDING);
 				return NULL;
 			}
-#ifdef JP
-			msg_print("相手の攻撃に対して身構えた。");
-#else
-			msg_print("You prepare to counter blow.");
-#endif
+			msg_print(MES_MELEE_COUNTER_PREPARE);
 			caster_ptr->counter = TRUE;
 		}
 		break;
@@ -9029,11 +9025,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 						char m_name[MAX_NLEN];
 	
 						creature_desc(m_name, m_ptr, 0);
-#ifdef JP
-						msg_format("%sには効果がない！", m_name);
-#else
-						msg_format("%s is unharmed!", m_name);
-#endif
+						msg_format(MES_IS_UNAFFECTED); // TODO
 					}
 					else close_combat(caster_ptr, y, x, HISSATSU_SEKIRYUKA);
 				}
@@ -9082,11 +9074,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			u32b flgs[MAX_TRAITS_FLAG];
 			object_type *object_ptr;
 			if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-#ifdef JP
-			msg_print("武器を大きく振り下ろした。");
-#else
-			msg_print("You swing your weapon downward.");
-#endif
+			msg_print(MES_TRAIT_CRACK_DONE);
 			for (i = 0; i < 2; i++) // TODO
 			{
 				POWER damage;
@@ -9122,14 +9110,9 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "War Cry";
 		if(desc) return "Damages all creatures in sight with sound. Aggravate nearby creatures.";
 #endif
-    
 		if(cast)
 		{
-#ifdef JP
-			msg_print("雄叫びをあげた！");
-#else
-			msg_print("You roar out!");
-#endif
+			msg_print(MES_TRAIT_WARCRY_DONE);
 			project_all_vision(caster_ptr, DO_EFFECT_SOUND, randint1(lev_bonus * 3));
 			aggravate_creatures(caster_ptr);
 		}
