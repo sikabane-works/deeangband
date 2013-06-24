@@ -162,11 +162,7 @@ static int get_hissatsu_power(creature_type *creature_ptr, KEY *sn)
 
 				/* Display a list of spells */
 				prt("", y, x);
-#ifdef JP
-put_str("–¼‘O              Lv  MP      –¼‘O              Lv  MP ", y, x + 5);
-#else
-put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
-#endif
+				put_str(format("%-18s%-4s&-8s%-18s%-4s&-8s", KW_NAME, KW_LEVEL, KW_MP, KW_NAME, KW_LEVEL, KW_MP), y, x + 5);
 				prt("", y+1, x);
 				/* Dump the spells */
 				for (i = 0, line = 0; i < REALM_MAGIC_NUMBER; i++)
