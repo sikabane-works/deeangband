@@ -4570,11 +4570,7 @@ void set_creature_name(bool sf, creature_type *creature_ptr)
 	/* Extract "useful" letters */
 	for (i = 0; creature_ptr->name[i]; i++)
 	{
-#ifdef JP
-		unsigned char c = creature_ptr->name[i];
-#else
 		char c = creature_ptr->name[i];
-#endif
 
 		/* Accept some letters */
 #ifdef JP

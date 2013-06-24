@@ -48,20 +48,10 @@ static int get_hissatsu_power(creature_type *creature_ptr, KEY *sn)
 	*sn = (-1);
 
 	/* Get the spell, if available */
-	if(repeat_pull(sn))
-	{
-		/* Verify the spell */
-		if(technic_info[TECHNIC_HISSATSU][*sn].slevel <= lev_bonus)
-		{
-			return TRUE;
-		}
-	}
+	if(repeat_pull(sn) && technic_info[TECHNIC_HISSATSU][*sn].slevel <= lev_bonus) return TRUE;
 
-	/* Nothing chosen yet */
-	flag = FALSE;
-
-	/* No redraw yet */
-	redraw = FALSE;
+	flag = FALSE; /* Nothing chosen yet */
+	redraw = FALSE; /* No redraw yet */
 
 	for (i = 0; i < REALM_MAGIC_NUMBER; i++)
 	{
@@ -73,19 +63,11 @@ static int get_hissatsu_power(creature_type *creature_ptr, KEY *sn)
 	}
 
 	/* Build a prompt (accept all spells) */
-	(void) strnfmt(out_val, 78, 
-#ifdef JP
-		       "(%^s %c-%c, '*'‚Åˆê——, ESC) ‚Ç‚Ì%s‚ðŽg‚¢‚Ü‚·‚©H",
-#else
-		       "(%^ss %c-%c, *=List, ESC=exit) Use which %s? ",
-#endif
-		       KW_HISSATSU, I2A(0), "abcdefghijklmnopqrstuvwxyz012345"[num-1], KW_HISSATSU);
+	(void)strnfmt(out_val, 78, MES_CAST_WHICH_USE(KW_HISSATSU, I2A(0), "abcdefghijklmnopqrstuvwxyz012345"[num-1]));
 
 	if(use_menu) screen_save();
 
-	/* Get a spell from the user */
-
-	choice= ESCAPE;
+	choice= ESCAPE; /* Get a spell from the user */
 	while (!flag)
 	{
 		if(choice==ESCAPE) choice = ' '; 
