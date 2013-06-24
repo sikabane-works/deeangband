@@ -2792,6 +2792,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_ELEC_AURA "電撃をくらった！"
 #define MES_MELEE_SHARD_AURA(CREATURE) "%^sは鏡の破片をくらった！", (CREATURE)->name
 #define MES_MELEE_SHARD_AURA_DIED "はズタズタになった。"
+#define MES_MELEE_HOLY_AURA(CREATURE) "%^sは聖なるオーラで傷ついた！", (CREATURE)->name
 #define MES_MELEE_RESELECT "攻撃を再選択しました。"
 #define MES_MELEE_EYE_EYE(ATTACKER) "攻撃が%s自身を傷つけた！", (ATTACKER)->name
 #define MES_MELEE_JOJ_DONE "審判の宝石は赤く明るく光った！"
@@ -2845,6 +2846,7 @@ static cptr desc_stat_neg[] =
 #define MES_MELEE_ELEC_AURA "You get zapped!"
 #define MES_MELEE_SHARD_AURA(CREATURE) "%^s gets zapped!", (CREATURE)->name
 #define MES_MELEE_SHARD_AURA_DIED " had torn to pieces."
+#define MES_MELEE_HOLY_AURA(CREATURE) "%^s is injured by holy power!", (CREATURE)->name
 #define MES_MELEE_RESELECT "Attack re-selected."
 #define MES_MELEE_EYE_EYE(ATTACKER) "The attack of %s has wounded %s!", (ATTACKER)->name, (ATTACKER)->name /*TODO*/
 #define MES_MELEE_JOJ_DONE "The Jewel flashes bright red!"

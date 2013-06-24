@@ -116,19 +116,11 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 			{
 				POWER dam = diceroll(2, 6);
 				creature_desc(attacker_name, attacker_ptr, 0);
-#ifdef JP
-				msg_format("%^sは聖なるオーラで傷ついた！", attacker_name);
-				take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
-#else
-				msg_format("%^s is injured by holy power!", attacker_name);
-				take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
-#endif
+				msg_format(MES_MELEE_HOLY_AURA(attacker_ptr));
+				take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, NULL, -1);
 				if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 			}
-			else
-			{
-				if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			}
+			else if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 		}
 	}
 
