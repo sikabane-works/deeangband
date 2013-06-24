@@ -130,13 +130,8 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 		{
 			POWER dam = diceroll(2, 6);
 			creature_desc(attacker_name, attacker_ptr, 0);
-#ifdef JP
-			msg_format("%^sが鋭い闘気のオーラで傷ついた！", attacker_name);
-			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
-#else
-			msg_format("%^s is injured by the Force", attacker_name);
-			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
-#endif
+			msg_format(MES_MELEE_FORCE_AURA(attacker_ptr));
+			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, NULL, -1);
 		}
 		else if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 	}
