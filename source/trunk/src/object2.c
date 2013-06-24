@@ -3371,7 +3371,6 @@ INVENTORY_ID inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	INVENTORY_ID slot;
 	object_type forge;
 	object_type *object1_ptr, *object2_ptr;
-	cptr act;
 	char object_name[MAX_NLEN];
 
 	// Get the item to take off
@@ -3385,63 +3384,47 @@ INVENTORY_ID inven_takeoff(creature_type *creature_ptr, int item, int amt)
 
 	object2_ptr = &forge;
 	object_copy(object2_ptr, object1_ptr);
-
-	// Modify quantity
-	object2_ptr->number = amt;
-
-	// Describe the object
-	object_desc(object_name, object2_ptr, 0);
-
-	// Took off weapon
-	if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_HAND && object_is_melee_weapon(creature_ptr, object1_ptr))
-	{
-#ifdef JP
-		act = "‚ğ‘•”õ‚©‚ç‚Í‚¸‚µ‚½";
-#else
-		act = "You were wielding";
-#endif
-	}
-
-	// Took off bow
-	else if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_BOW)
-	{
-#ifdef JP
-		act = "‚ğ‘•”õ‚©‚ç‚Í‚¸‚µ‚½";
-#else
-		act = "You were holding";
-#endif
-	}
-
-	// Took off light
-	else if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_LITE)
-	{
-#ifdef JP
-		act = "‚ğŒõŒ¹‚©‚ç‚Í‚¸‚µ‚½";
-#else
-		act = "You were holding";
-#endif
-	}
-
-	// Took off something
-	else
-	{
-#ifdef JP
-		act = "‚ğ‘•”õ‚©‚ç‚Í‚¸‚µ‚½";
-#else
-		act = "You were wearing";
-#endif
-	}
+	object2_ptr->number = amt; /* Modify quantity */
+	object_desc(object_name, object2_ptr, 0); /* Describe the object */
 
 	increase_item(creature_ptr, item, -amt, FALSE);
 
 	// Carry the object
 	slot = inven_carry(creature_ptr, object2_ptr);
 
+	if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_HAND && object_is_melee_weapon(creature_ptr, object1_ptr))
+	{
 #ifdef JP
-	msg_format("%s(%c)%sB", object_name, index_to_label(slot), act);
+	msg_format("%s(%c)‚ğ‘•”õ‚©‚ç‚Í‚¸‚µ‚½", object_name, index_to_label(slot));
 #else
-	msg_format("%s %s (%c).", act, object_name, index_to_label(slot));
+	msg_format("You were wielding %s (%c).", object_name, index_to_label(slot));
 #endif
+	}
+	else if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_BOW)
+	{
+#ifdef JP
+	msg_format("%s(%c)‚ğ‘•”õ‚©‚ç‚Í‚¸‚µ‚½", object_name, index_to_label(slot));
+#else
+	msg_format("You were holding %s (%c).", object_name, index_to_label(slot));
+#endif
+	}
+	else if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_LITE)
+	{
+#ifdef JP
+	msg_format("%s(%c)‚ğŒõŒ¹‚©‚ç‚Í‚¸‚µ‚½", object_name, index_to_label(slot));
+#else
+	msg_format("You were holding %s (%c).", object_name, index_to_label(slot));
+#endif
+	}
+	else
+	{
+#ifdef JP
+	msg_format("%s(%c)‚ğ‘•”õ‚©‚ç‚Í‚¸‚µ‚½B", object_name, index_to_label(slot));
+#else
+	msg_format("You were wearing %s (%c).", object_name, index_to_label(slot));
+#endif
+	}
+
 	return (slot); // Return slot
 }
 
