@@ -93,13 +93,8 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 		{
 			POWER dam = diceroll(2, 6);
 			creature_desc(attacker_name, attacker_ptr, 0);
-#ifdef JP
-			msg_format("%^sは鏡の破片をくらった！", attacker_name);
-			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "はズタズタになった。", -1);
-#else
-			msg_format("%^s gets zapped!", attacker_name);
-			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " had torn to pieces.", -1);
-#endif
+			msg_format(MES_MELEE_SHARD_AURA(attacker_ptr));
+			take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, MES_MELEE_SHARD_AURA_DIED, -1);
 		}
 		else
 		{
