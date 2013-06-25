@@ -4080,6 +4080,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_CRACK_DONE "•Ší‚ð‘å‚«‚­U‚è‰º‚ë‚µ‚½B"
 #define MES_TRAIT_WARCRY_DONE "—Y‹©‚Ñ‚ð‚ ‚°‚½I"
 #define MES_TRAIT_MOON_DAZZING_DONE "•Ší‚ð•s‹K‘¥‚É—h‚ç‚µ‚½DDD"
+#define MES_TRAIT_WARNING_DONE(OBJECT) "%s‚ª‰s‚­k‚¦‚½I", (OBJECT)->name
+#define MES_TRAIT_WARNING_DONE2(OBJECT) "%s‚ªk‚¦‚½I", (OBJECT)->name
 #else
 #define MES_TRAIT_DEFAULT_ACTIVATE(CASTER, TITLE) "%s invoked '%s'", (CASTER), (TITLE)
 #define MES_TRAIT_CRITICAL_STUN "A vicious blow hits your head."
@@ -4196,6 +4198,8 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_CRACK_DONE "You swing your weapon downward."
 #define MES_TRAIT_WARCRY_DONE "You roar out!"
 #define MES_TRAIT_MOON_DAZZING_DONE "You irregularly wave your weapon..."
+#define MES_TRAIT_WARNING_DONE(OBJECT) "Your %s pulsates sharply!", (OBJECT)->name
+#define MES_TRAIT_WARNING_DONE2(OBJECT) "Your %s pulsates!", (OBJECT)->name
 #endif
 
 #ifdef JP

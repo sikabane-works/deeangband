@@ -3461,10 +3461,10 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 // Note special handling of the "overflow" slot
 void combine_pack(creature_type *creature_ptr)
 {
-	int             i, j, k;
-	object_type     *object_ptr;
-	object_type     *object2_ptr;
-	bool            flag = FALSE, combined;
+	int i, j, k;
+	object_type *object_ptr;
+	object_type *object2_ptr;
+	bool flag = FALSE, combined;
 
 	do
 	{
@@ -3549,11 +3549,8 @@ void reorder_pack(creature_type *creature_ptr)
 		/* Scan every occupied slot */
 		for (j = 0; j < INVEN_TOTAL; j++) if(object_sort_comp(creature_ptr, object1_ptr, o_value, &creature_ptr->inventory[j])) break;
 
-		/* Never move down */
-		if(j >= i) continue;
-
+		if(j >= i) continue; /* Never move down */
 		flag = TRUE;
-
 		object2_ptr = &forge;
 
 		/* Save a copy of the moving item */
@@ -3591,10 +3588,7 @@ void display_koff(creature_type *creature_ptr, OBJECT_KIND_ID k_idx)
 	if(!k_idx) return; /* No info */
 
 	object_ptr = &forge;
-
-	/* Prepare the object */
-	generate_object(object_ptr, k_idx);
-
+	generate_object(object_ptr, k_idx); /* Prepare the object */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY | OD_STORE));
 
 	/* Mention the object name */
@@ -3622,15 +3616,9 @@ void display_koff(creature_type *creature_ptr, OBJECT_KIND_ID k_idx)
 		int num = 0;
 		KEY spells[64];
 
-		/* Extract spells */
-		for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++)
+		for (spell = 0; spell < REALM_MAGIC_NUMBER; spell++) /* Extract spells */
 		{
-			/* Check for this spell */
-			if(fake_spell_flags[sval] & (1L << spell))
-			{
-				/* Collect this spell */
-				spells[num++] = spell;
-			}
+			if(fake_spell_flags[sval] & (1L << spell)) spells[num++] = spell; /* Check for this spell and collect */
 		}
 		print_spells(creature_ptr, 0, spells, num, 2, 0, use_realm);
 	}
@@ -3642,7 +3630,6 @@ object_type *choose_warning_item(creature_type *caster_ptr)
 	int i;
 	int choices[INVEN_TOTAL];
 	int number = 0;
-
 
 	if(!has_trait(caster_ptr, TRAIT_WARNING)) return NULL;
 
@@ -3724,16 +3711,10 @@ bool process_warning(creature_type *target_ptr, COODINATES xx, COODINATES yy)
 		if(dam_max > target_ptr->chp / 2)
 		{
 			object_type *object_ptr = choose_warning_item(target_ptr);
-
 			if(object_ptr) object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 			else strcpy(object_name, KW_BODY); /* Warning ability without item */
-#ifdef JP
-			msg_format("%sÇ™âsÇ≠êkÇ¶ÇΩÅI", object_name);
+			msg_format(MES_TRAIT_WARNING_DONE(object_ptr));
 			disturb(target_ptr, 0, 0);
-#else
-			msg_format("Your %s pulsates sharply!", object_name);
-			disturb(target_ptr, 0, 0);
-#endif
 			return get_check(MES_GET_CHECK_AHEAD);
 		}
 	}
@@ -3743,14 +3724,9 @@ bool process_warning(creature_type *target_ptr, COODINATES xx, COODINATES yy)
 	if(((!easy_disarm && is_trap(c_ptr->feat)) || (c_ptr->mimic && is_trap(c_ptr->feat))) && !one_in_(13))
 	{
 		object_type *object_ptr = choose_warning_item(target_ptr);
-
 		if(object_ptr) object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 		else strcpy(object_name, KW_BODY); /* Warning ability without item */
-#ifdef JP
-		msg_format("%sÇ™êkÇ¶ÇΩÅI", object_name);
-#else
-		msg_format("Your %s pulsates!", object_name);
-#endif
+		msg_format(MES_TRAIT_WARNING_DONE2(object_ptr));
 		disturb(target_ptr, 0, 0);
 		return get_check(MES_GET_CHECK_AHEAD);
 	}
