@@ -3394,37 +3394,20 @@ INVENTORY_ID inven_takeoff(creature_type *creature_ptr, int item, int amt)
 
 	if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_HAND && object_is_melee_weapon(creature_ptr, object1_ptr))
 	{
-#ifdef JP
-	msg_format("%s(%c)ÇëïîıÇ©ÇÁÇÕÇ∏ÇµÇΩ", object_name, index_to_label(slot));
-#else
-	msg_format("You were wielding %s (%c).", object_name, index_to_label(slot));
-#endif
+		MES_EQUIP_TAKEOFF1(object2_ptr, index_to_label(slot));
 	}
 	else if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_BOW)
 	{
-#ifdef JP
-	msg_format("%s(%c)ÇëïîıÇ©ÇÁÇÕÇ∏ÇµÇΩ", object_name, index_to_label(slot));
-#else
-	msg_format("You were holding %s (%c).", object_name, index_to_label(slot));
-#endif
+		MES_EQUIP_TAKEOFF2(object2_ptr, index_to_label(slot));
 	}
 	else if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_LITE)
 	{
-#ifdef JP
-	msg_format("%s(%c)ÇåıåπÇ©ÇÁÇÕÇ∏ÇµÇΩ", object_name, index_to_label(slot));
-#else
-	msg_format("You were holding %s (%c).", object_name, index_to_label(slot));
-#endif
+		MES_EQUIP_TAKEOFF3(object2_ptr, index_to_label(slot));
 	}
 	else
 	{
-#ifdef JP
-	msg_format("%s(%c)ÇëïîıÇ©ÇÁÇÕÇ∏ÇµÇΩÅB", object_name, index_to_label(slot));
-#else
-	msg_format("You were wearing %s (%c).", object_name, index_to_label(slot));
-#endif
+		MES_EQUIP_TAKEOFF4(object2_ptr, index_to_label(slot));
 	}
-
 	return (slot); // Return slot
 }
 

@@ -3340,6 +3340,10 @@ static cptr desc_stat_neg[] =
 #define MES_EQUIP_UNCONTROL_STEED "馬を操れない。"
 #define MES_EQUIP_CONTROL_STEED "馬を操れるようになった。"
 #define MES_EQUIP_BOTH_HAND(OBJECT) "%sを両手で構えた。", (OBJECT)->name
+#define MES_EQUIP_TAKEOFF1(OBJECT, SYM) "%s(%c)を装備からはずした。", (OBJECT)->name, (SYM)
+#define MES_EQUIP_TAKEOFF2(OBJECT, SYM) "%s(%c)を装備からはずした。", (OBJECT)->name, (SYM)
+#define MES_EQUIP_TAKEOFF3(OBJECT, SYM) "%s(%c)を光源からはずした。", (OBJECT)->name, (SYM)
+#define MES_EQUIP_TAKEOFF4(OBJECT, SYM) "%s(%c)を装備からはずした。", (OBJECT)->name, (SYM)
 #else
 #define MES_EQUIP_WHICH_WIELD "Wear/Wield which item? "
 #define MES_EQUIP_NO_WIELD "You have nothing you can wear or wield."
@@ -3366,6 +3370,10 @@ static cptr desc_stat_neg[] =
 #define MES_EQUIP_UNCONTROL_STEED "You are using both hand for fighting, and you can't control a riding pet."
 #define MES_EQUIP_CONTROL_STEED "You began to control riding pet with one hand."
 #define MES_EQUIP_BOTH_HAND(OBJECT) "You are wielding %s with both hands.", (OBJECT)->name
+#define MES_EQUIP_TAKEOFF1(OBJECT, SYM) "You were wielding %s (%c).", (OBJECT)->name, (SYM)
+#define MES_EQUIP_TAKEOFF2(OBJECT, SYM) "You were holding %s (%c).", (OBJECT)->name, (SYM)
+#define MES_EQUIP_TAKEOFF3(OBJECT, SYM) "You were holding %s (%c).", (OBJECT)->name, (SYM)
+#define MES_EQUIP_TAKEOFF4(OBJECT, SYM) "You were wearing %s (%c).", (OBJECT)->name, (SYM)
 #endif
 
 #ifdef JP
