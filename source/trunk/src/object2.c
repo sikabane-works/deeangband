@@ -3404,65 +3404,55 @@ INVENTORY_ID inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	{
 		MES_EQUIP_TAKEOFF3(object2_ptr, index_to_label(slot));
 	}
-	else
-	{
-		MES_EQUIP_TAKEOFF4(object2_ptr, index_to_label(slot));
-	}
+	else MES_EQUIP_TAKEOFF4(object2_ptr, index_to_label(slot));
 	return (slot); // Return slot
 }
 
 
 /*
-* Drop (some of) a non-cursed inventory/equipment item
-*
-* The object will be dropped "near" the current location
-*/
+ * Drop (some of) a non-cursed inventory/equipment item
+ * The object will be dropped "near" the current location
+ */
 void inven_drop(creature_type *creature_ptr, int item, int amt)
 {
 	object_type forge;
-	object_type *quest_ptr;
-	object_type *object_ptr;
+	object_type *object_drop_ptr;
+	object_type *object_left_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	char object_name[MAX_NLEN];
 
-
 	/* Access original object */
-	object_ptr = &creature_ptr->inventory[item];
+	object_left_ptr = &creature_ptr->inventory[item];
 
 	if(amt <= 0) return;
 
 	/* Not too many */
-	if(amt > object_ptr->number) amt = object_ptr->number;
+	if(amt > object_left_ptr->number) amt = object_left_ptr->number;
 
 	// Take off equipment
 	/*
-	if(IS_EQUIPPED(object_ptr))
+	if(IS_EQUIPPED(object_left_ptr))
 	{
 	// Take off first
 	item = inven_takeoff(creature_ptr, item, amt);
 
 	// Access original object
-	object_ptr = &creature_ptr->inventory[item];
+	object_left_ptr = &creature_ptr->inventory[item];
 	}
-
 	*/
 
+	object_drop_ptr = &forge;
+	object_copy(object_drop_ptr, object_left_ptr); /* Obtain local object */
+	distribute_charges(object_left_ptr, object_drop_ptr, amt); /* Distribute charges of wands or rods */
 
-	quest_ptr = &forge;
+	object_drop_ptr->number = amt;
+	object_drop_ptr->equipped_slot_num = 0;
+	object_drop_ptr->equipped_slot_type = INVENTORY_ID_INVENTORY;
 
-	/* Obtain local object */
-	object_copy(quest_ptr, object_ptr);
-
-	/* Distribute charges of wands or rods */
-	distribute_charges(object_ptr, quest_ptr, amt);
-
-	/* Modify quantity */
-	quest_ptr->number = amt;
-
-	object_desc(object_name, quest_ptr, 0);
+	object_desc(object_name, object_drop_ptr, 0);
 	msg_format(MES_OBJECT_DROPPED(object_name, index_to_label(item)));
 
-	(void)drop_near(floor_ptr, quest_ptr, 0, creature_ptr->fy, creature_ptr->fx);
+	(void)drop_near(floor_ptr, object_drop_ptr, 0, creature_ptr->fy, creature_ptr->fx);
 	increase_item(creature_ptr, item, -amt, TRUE);
 }
 
