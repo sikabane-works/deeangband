@@ -1453,7 +1453,6 @@ static void get_random_name(char *return_name, bool armour, POWER power, int art
 bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_scroll)
 {
 	char    new_name[1024];
-	int     has_pval = 0;
 	int     powers = randint1(5) + 1;
 	int     max_type = (object_is_weapon_ammo(object_ptr) ? 7 : 5);
 	int     power_level;
@@ -1468,10 +1467,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	object_ptr->art_id = 0;
 	object_ptr->ego_id = 0;
 
-	for (i = 0; i < MAX_TRAITS_FLAG; i++)
-		object_ptr->trait_flags[i] |= object_kind_info[object_ptr->k_idx].flags[i];
-
-	if(object_ptr->pval) has_pval = TRUE;
+	for (i = 0; i < MAX_TRAITS_FLAG; i++) object_ptr->trait_flags[i] |= object_kind_info[object_ptr->k_idx].flags[i];
 
 	if(a_scroll && one_in_(4) && owner_ptr)
 	{
@@ -1508,7 +1504,6 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 		{
 			case 1: case 2:
 				random_plus(owner_ptr, object_ptr, artifact_bias);
-				has_pval = TRUE;
 				break;
 			case 3: case 4:
 				if(one_in_(2) && object_is_weapon_ammo(object_ptr) && (object_ptr->tval != TV_BOW))
@@ -1517,8 +1512,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 					if(one_in_(13)) if(one_in_(object_ptr->ds + 4)) object_ptr->ds++;
 					else if(one_in_(object_ptr->dd + 1)) object_ptr->dd++;
 				}
-				else
-					random_resistance(object_ptr, artifact_bias);
+				else random_resistance(object_ptr, artifact_bias);
 				break;
 			case 5:
 				random_misc(owner_ptr, object_ptr, artifact_bias);
@@ -1546,7 +1540,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	{
 		object_ptr->to_hit += (s16b)randint1(object_ptr->to_hit > 19 ? 1 : 20 - object_ptr->to_hit);
 		object_ptr->to_damage += (s16b)randint1(object_ptr->to_damage > 19 ? 1 : 20 - object_ptr->to_damage);
-		if((have_flag(object_ptr->trait_flags, STAT_WIS)) && (object_ptr->pval > 0)) add_flag(object_ptr->trait_flags, TRAIT_BLESSED_BRAND);
+		if(object_ptr->stat_val[STAT_WIS]) add_flag(object_ptr->trait_flags, TRAIT_BLESSED_BRAND);
 	}
 
 	/* Just to be sure */
@@ -1776,7 +1770,6 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, ARTIF
 	quest_ptr->art_id = (byte)a_idx;
 
 	/* Extract the fields */
-	quest_ptr->pval = a_ptr->pval;
 	quest_ptr->ac = a_ptr->ac;
 	quest_ptr->ev = a_ptr->ev;
 	quest_ptr->vo = a_ptr->vo;
@@ -1785,6 +1778,8 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, ARTIF
 	quest_ptr->dd = a_ptr->dd;
 	quest_ptr->ds = a_ptr->ds;
 	quest_ptr->to_ac = a_ptr->to_ac;
+	quest_ptr->to_ev = a_ptr->to_ev;
+	quest_ptr->to_vo = a_ptr->to_vo;
 	quest_ptr->to_hit = a_ptr->to_hit;
 	quest_ptr->to_damage = a_ptr->to_damage;
 	quest_ptr->weight = a_ptr->weight;
