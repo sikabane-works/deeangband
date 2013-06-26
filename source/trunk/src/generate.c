@@ -1051,7 +1051,7 @@ void generate_floor_creature_arena(floor_type *floor_ptr)
 	COODINATES y, x;
 	COODINATES qy = 0, qx = 0;
 	int i;
-	floor_ptr->generate_type = F_GENE_GUMBLE_ARENA;
+	floor_ptr->generate_type = F_GENE_GAMBLE_ARENA;
 
 	// Start with solid walls
 	for (y = 0; y < MAX_HGT; y++)

@@ -602,17 +602,8 @@ static void display_kaeruka(int hoge, int kaeruka[])
 		if(i == hoge) col = TERM_YELLOW;
 		else if(kaeruka[i]) col = TERM_WHITE;
 		else col = TERM_L_BLUE;
-#ifdef JP
-		if(kaeruka[i])
-			c_put_str(col, "‚©‚¦‚é", 14, 5+i*16);
-		else
-			c_put_str(col, "‚Ì‚±‚·", 14, 5+i*16);
-#else
-		if(kaeruka[i])
-			c_put_str(col, "Change", 14, 5+i*16);
-		else
-			c_put_str(col, " Stay ", 14, 5+i*16);
-#endif
+		if(kaeruka[i]) c_put_str(col, MES_GAMBLE_CHANGE, 14, 5+i*16);
+		else c_put_str(col, MES_GAMBLE_STAY, 14, 5+i*16);
 	}
 	if(hoge > 4) col = TERM_YELLOW;
 	else col = TERM_WHITE;

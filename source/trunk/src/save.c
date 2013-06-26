@@ -1292,17 +1292,12 @@ int load_player(void)
 			/* Cheat death */
 			if(arg_wizard)
 			{
-				/* A character was loaded */
-				character_loaded = TRUE;
-
+				character_loaded = TRUE; /* A character was loaded */
 				return 0;
 			}
 
-			/* Player is no longer "dead" */
-			gameover = FALSE;
-
-			/* Count lives */
-			sf_lives++;
+			gameover = FALSE; /* Player is no longer "dead" */
+			sf_lives++; /* Count lives */
 
 			return SUCCESS;
 		}
@@ -1311,10 +1306,8 @@ int load_player(void)
 		character_loaded = TRUE;
 		{
 			u32b tmp = counts_read(2);
-			if(tmp > game_load_count)
-				game_load_count = tmp;
-			if(counts_read(0) > play_time || counts_read(1) == play_time)
-				counts_write(2, ++game_load_count);
+			if(tmp > game_load_count) game_load_count = tmp;
+			if(counts_read(0) > play_time || counts_read(1) == play_time) counts_write(2, ++game_load_count);
 			counts_write(1, play_time);
 		}
 
