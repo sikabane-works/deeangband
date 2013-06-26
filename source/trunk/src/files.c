@@ -5170,11 +5170,8 @@ static void show_info(creature_type *creature_ptr)
 				}
 
 				// Caption
-#ifdef JP
-				prt(format("我が家に置いてあったアイテム ( %d ページ): -続く-", k+1), 0, 0);
-#else
-				prt(format("Your home contains (page %d): -more-", k+1), 0, 0);
-#endif
+				prt(format(MES_INTERFACE_HOME_ITEM(k+1)), 0, 0);
+
 				// Wait for it
 				if(inkey() == ESCAPE) return;
 			}

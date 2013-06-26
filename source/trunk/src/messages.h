@@ -2698,6 +2698,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_SHOWFILE "[キー:(?)ヘルプ (ESC)終了]"
 #define MES_INTERFACE_SHOWFILE_LONG1 "[キー:(RET/スペース)↓ (-)↑ (?)ヘルプ (ESC)終了]"
 #define MES_INTERFACE_SHOWFILE_LONG2 "[キー:(RET/スペース)↑ (-)↓ (?)ヘルプ (ESC)終了]"
+#define MES_INTERFACE_HOME_ITEM(PAGE) "我が家に置いてあったアイテム ( %d ページ): -続く-", (PAGE)
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2762,6 +2763,7 @@ static cptr desc_stat_neg[] =
 #define MES_INTERFACE_SHOWFILE "[Press ESC to exit.]"
 #define MES_INTERFACE_SHOWFILE_LONG1 "[Press Return, Space, -, =, /, |, or ESC to exit.]"
 #define MES_INTERFACE_SHOWFILE_LONG2 "[Press Return, Space, -, =, /, |, or ESC to exit.]"
+#define MES_INTERFACE_HOME_ITEM(PAGE) "Your home contains (page %d): -more-", (PAGE)
 #endif
 
 #ifdef JP
