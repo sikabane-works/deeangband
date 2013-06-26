@@ -658,14 +658,12 @@ static s32b object_value_base(object_type *object_ptr)
 		}
 
 	case TV_CAPTURE:
-		if(!object_ptr->pval) return 1000L;
-		else return ((species_info[object_ptr->pval].level) * 50L + 1000);
+		if(!object_ptr->captured_idx) return 1000L;
+		else return ((creature_list[object_ptr->captured_idx].lev) * 50L + 1000);
 	}
-
 
 	return (0L);
 }
-
 
 /* Return the value of the flags the object has... */
 s32b flag_cost(object_type *object_ptr, int plusses)
@@ -683,46 +681,40 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	* Exclude fixed flags of the base item.
 	* pval bonuses of base item will be treated later.
 	*/
-	for (i = 0; i < MAX_TRAITS_FLAG; i++)
-		flgs[i] &= ~(object_kind_ptr->flags[i]);
+	for (i = 0; i < MAX_TRAITS_FLAG; i++) flgs[i] &= ~(object_kind_ptr->flags[i]);
 
 	/* Exclude fixed flags of the fixed artifact. */
 	if(object_is_fixed_artifact(object_ptr))
 	{
 		artifact_type *a_ptr = &artifact_info[object_ptr->art_id];
-
-		for (i = 0; i < MAX_TRAITS_FLAG; i++)
-			flgs[i] &= ~(a_ptr->flags[i]);
+		for (i = 0; i < MAX_TRAITS_FLAG; i++) flgs[i] &= ~(a_ptr->flags[i]);
 	}
 
 	/* Exclude fixed flags of the ego-item. */
 	else if(object_is_ego(object_ptr))
 	{
 		ego_item_type *e_ptr = &object_ego_info[object_ptr->ego_id];
-
-		for (i = 0; i < MAX_TRAITS_FLAG; i++)
-			flgs[i] &= ~(e_ptr->flags[i]);
+		for (i = 0; i < MAX_TRAITS_FLAG; i++) flgs[i] &= ~(e_ptr->flags[i]);
 	}
 
 
 	/*
 	* Calucurate values of remaining flags
 	*/
-	if(have_flag(flgs, STAT_STR)) total += (1500 * plusses);
-	if(have_flag(flgs, STAT_INT)) total += (1500 * plusses);
-	if(have_flag(flgs, STAT_WIS)) total += (1500 * plusses);
-	if(have_flag(flgs, STAT_DEX)) total += (1500 * plusses);
-	if(have_flag(flgs, STAT_CON)) total += (1500 * plusses);
-	if(have_flag(flgs, STAT_CHA)) total += (750 * plusses);
+	total += 1500 * object_ptr->stat_val[STAT_STR];
+	total += 1500 * object_ptr->stat_val[STAT_INT];
+	total += 1500 * object_ptr->stat_val[STAT_WIS];
+	total += 1500 * object_ptr->stat_val[STAT_DEX];
+	total += 1500 * object_ptr->stat_val[STAT_CON];
+	total += 1500 * object_ptr->stat_val[STAT_CHA];
+
 	if(have_flag(flgs, TRAIT_MAGIC_MASTERY)) total += (600 * plusses);
 	if(has_trait_object(object_ptr, TRAIT_STEALTH)) total += (250 * plusses);
 	if(have_flag(flgs, TRAIT_SEARCH)) total += (100 * plusses);
 	if(have_flag(flgs, TRAIT_INFRA)) total += (150 * plusses);
 	if(have_flag(flgs, TRAIT_TUNNEL)) total += (175 * plusses);
-	if((have_flag(flgs, TRAIT_SPEED)) && (plusses > 0))
-		total += (10000 + (2500 * plusses));
-	if((has_trait_object(object_ptr, TRAIT_BLOWS)) && (plusses > 0))
-		total += (10000 + (2500 * plusses));
+	if((have_flag(flgs, TRAIT_SPEED)) && (plusses > 0)) total += (10000 + (2500 * plusses));
+	if((has_trait_object(object_ptr, TRAIT_BLOWS)) && (plusses > 0)) total += (10000 + (2500 * plusses));
 
 	tmp_cost = 0;
 	count = 0;
