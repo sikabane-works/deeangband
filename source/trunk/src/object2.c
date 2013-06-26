@@ -1031,19 +1031,14 @@ s32b object_value_real(object_type *object_ptr)
 	case TV_LITE:
 	case TV_AMULET:
 	case TV_RING:
-		/* No pval */
-		if(!object_ptr->pval) break;
-
-		/* Hack -- Negative "pval" is always bad */
-		if(object_ptr->pval < 0) return (0L);
 
 		/* Give credit for stat bonuses */
-		if(have_flag(flgs, STAT_STR)) value += (object_ptr->pval * 200L);
-		if(have_flag(flgs, STAT_INT)) value += (object_ptr->pval * 200L);
-		if(have_flag(flgs, STAT_WIS)) value += (object_ptr->pval * 200L);
-		if(have_flag(flgs, STAT_DEX)) value += (object_ptr->pval * 200L);
-		if(have_flag(flgs, STAT_CON)) value += (object_ptr->pval * 200L);
-		if(have_flag(flgs, STAT_CHA)) value += (object_ptr->pval * 200L);
+		value += (object_ptr->stat_val[STAT_STR] * 200L);
+		value += (object_ptr->stat_val[STAT_INT] * 200L);
+		value += (object_ptr->stat_val[STAT_WIS] * 200L);
+		value += (object_ptr->stat_val[STAT_DEX] * 200L);
+		value += (object_ptr->stat_val[STAT_CON] * 200L);
+		value += (object_ptr->stat_val[STAT_CHA] * 200L);
 
 		/* Give credit for stealth and searching */
 		if(have_flag(flgs, TRAIT_MAGIC_MASTERY)) value += (object_ptr->pval * 100);
@@ -1319,15 +1314,8 @@ int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 		return FALSE; // Never okay
 
 	case TV_STATUE:
-		if((object1_ptr->sval != SV_PHOTO) || (object2_ptr->sval != SV_PHOTO)) return FALSE;
-		if(object1_ptr->pval != object2_ptr->pval) return FALSE;
-		break;
-
 	case TV_FIGURINE:
 	case TV_CORPSE:
-		if(object1_ptr->pval != object2_ptr->pval) return FALSE;
-		break;
-
 	case TV_FOOD:
 	case TV_POTION:
 	case TV_SCROLL:
