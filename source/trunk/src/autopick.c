@@ -581,19 +581,17 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 		ADD_FLG(FLG_WANTED);
 	}
 
-	if((object_ptr->tval == TV_CORPSE || object_ptr->tval == TV_STATUE)
-	    && has_trait_species(&species_info[object_ptr->pval], TRAIT_UNIQUE))
+	if((object_ptr->tval == TV_CORPSE || object_ptr->tval == TV_STATUE) && has_trait_species(&species_info[object_ptr->source_idx], TRAIT_UNIQUE))
 	{
 		ADD_FLG(FLG_UNIQUE);
 	}
 
-	if(object_ptr->tval == TV_CORPSE && my_strchr("pht", species_info[object_ptr->pval].d_char))
+	if(object_ptr->tval == TV_CORPSE && has_trait_species(&species_info[object_ptr->source_idx], TRAIT_HUMANOID))
 	{
 		ADD_FLG(FLG_HUMAN);
 	}
 
-	if(object_ptr->tval >= TV_LIFE_BOOK &&
-	    !check_book_realm(creature_ptr, object_ptr->tval, object_ptr->sval))
+	if(object_ptr->tval >= TV_LIFE_BOOK && !check_book_realm(creature_ptr, object_ptr->tval, object_ptr->sval))
 	{
 		ADD_FLG(FLG_UNREADABLE);
 		if(object_ptr->tval != TV_ARCANE_BOOK) name = FALSE;
@@ -615,17 +613,12 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 		name = FALSE;
 	}
 
-	if(object_ptr->tval >= TV_LIFE_BOOK && 0 == object_ptr->sval)
-		ADD_FLG(FLG_FIRST);
-	if(object_ptr->tval >= TV_LIFE_BOOK && 1 == object_ptr->sval)
-		ADD_FLG(FLG_SECOND);
-	if(object_ptr->tval >= TV_LIFE_BOOK && 2 == object_ptr->sval)
-		ADD_FLG(FLG_THIRD);
-	if(object_ptr->tval >= TV_LIFE_BOOK && 3 == object_ptr->sval)
-		ADD_FLG(FLG_FOURTH);
+	if(object_ptr->tval >= TV_LIFE_BOOK && 0 == object_ptr->sval) ADD_FLG(FLG_FIRST);
+	if(object_ptr->tval >= TV_LIFE_BOOK && 1 == object_ptr->sval) ADD_FLG(FLG_SECOND);
+	if(object_ptr->tval >= TV_LIFE_BOOK && 2 == object_ptr->sval) ADD_FLG(FLG_THIRD);
+	if(object_ptr->tval >= TV_LIFE_BOOK && 3 == object_ptr->sval) ADD_FLG(FLG_FOURTH);
 
-	if(object_is_ammo(object_ptr))
-		ADD_FLG(FLG_MISSILES);
+	if(object_is_ammo(object_ptr)) ADD_FLG(FLG_MISSILES);
 	else if(object_ptr->tval == TV_SCROLL || object_ptr->tval == TV_STAFF
 		 || object_ptr->tval == TV_WAND || IS_ROD(object_ptr))
 		ADD_FLG(FLG_DEVICES);
@@ -641,25 +634,16 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 	else if(object_ptr->tval == TV_POLEARM || object_ptr->tval == TV_SWORD
 		 || object_ptr->tval == TV_DIGGING || object_ptr->tval == TV_HAFTED)
 		ADD_FLG(FLG_WEAPONS);
-	else if(object_ptr->tval == TV_SHIELD)
-		ADD_FLG(FLG_SHIELDS);
-	else if(object_ptr->tval == TV_BOW)
-		ADD_FLG(FLG_BOWS);
-	else if(object_ptr->tval == TV_RING)
-		ADD_FLG(FLG_RINGS);
-	else if(object_ptr->tval == TV_AMULET)
-		ADD_FLG(FLG_AMULETS);
-	else if(object_ptr->tval == TV_DRAG_ARMOR || object_ptr->tval == TV_HARD_ARMOR ||
-		 object_ptr->tval == TV_SOFT_ARMOR)
+	else if(object_ptr->tval == TV_SHIELD) ADD_FLG(FLG_SHIELDS);
+	else if(object_ptr->tval == TV_BOW) ADD_FLG(FLG_BOWS);
+	else if(object_ptr->tval == TV_RING) ADD_FLG(FLG_RINGS);
+	else if(object_ptr->tval == TV_AMULET) ADD_FLG(FLG_AMULETS);
+	else if(object_ptr->tval == TV_DRAG_ARMOR || object_ptr->tval == TV_HARD_ARMOR || object_ptr->tval == TV_SOFT_ARMOR)
 		ADD_FLG(FLG_SUITS);
-	else if(object_ptr->tval == TV_CLOAK)
-		ADD_FLG(FLG_CLOAKS);
-	else if(object_ptr->tval == TV_HELM)
-		ADD_FLG(FLG_HELMS);
-	else if(object_ptr->tval == TV_GLOVES)
-		ADD_FLG(FLG_GLOVES);
-	else if(object_ptr->tval == TV_BOOTS)
-		ADD_FLG(FLG_BOOTS);
+	else if(object_ptr->tval == TV_CLOAK) ADD_FLG(FLG_CLOAKS);
+	else if(object_ptr->tval == TV_HELM) ADD_FLG(FLG_HELMS);
+	else if(object_ptr->tval == TV_GLOVES) ADD_FLG(FLG_GLOVES);
+	else if(object_ptr->tval == TV_BOOTS) ADD_FLG(FLG_BOOTS);
 
 	/* Prepare the object description */
 	if(name)
