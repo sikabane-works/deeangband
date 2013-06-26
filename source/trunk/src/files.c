@@ -4275,32 +4275,16 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		}
 
 		/* Show a general "title" */
-		if(show_version)
-			prt(format("[%s %d.%d.%d, %s, %d/%d]", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH, caption, line, size), 0, 0);
-		else
-			prt(format("[%s, %d/%d]", caption, line, size), 0, 0);
+		if(show_version) prt(format("[%s %d.%d.%d, %s, %d/%d]", VERSION_NAME, VER_MAJOR, VER_MINOR, VER_PATCH, caption, line, size), 0, 0);
+		else prt(format("[%s, %d/%d]", caption, line, size), 0, 0);
 
-		/* Prompt -- small files */
-		if(size <= rows)
-		{
-			/* Wait for it */
-#ifdef JP
-			prt("[キー:(?)ヘルプ (ESC)終了]", hgt - 1, 0);
-#else
-			prt("[Press ESC to exit.]", hgt - 1, 0);
-#endif
-
-		}
+		if(size <= rows) prt(MES_INTERFACE_SHOWFILE, hgt - 1, 0); /* Prompt -- small files */
 
 		/* Prompt -- large files */
 		else
 		{
-#ifdef JP
-			if(reverse) prt("[キー:(RET/スペース)↑ (-)↓ (?)ヘルプ (ESC)終了]", hgt - 1, 0);
-			else prt("[キー:(RET/スペース)↓ (-)↑ (?)ヘルプ (ESC)終了]", hgt - 1, 0);
-#else
-			prt("[Press Return, Space, -, =, /, |, or ESC to exit.]", hgt - 1, 0);
-#endif
+			if(reverse) prt(MES_INTERFACE_SHOWFILE_LONG2, hgt - 1, 0);
+			else prt(MES_INTERFACE_SHOWFILE_LONG1, hgt - 1, 0);
 		}
 
 		/* Get a special key code */

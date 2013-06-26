@@ -2695,6 +2695,9 @@ static cptr desc_stat_neg[] =
 #define HAS_FLAG_STR "＋"
 #define NO_FLAG_STR  "・"
 #define MES_INTERFACE_STORE(STORE, LO, HI, PMT) "(%s:%c-%c, ESCで中断) %s", ((is_home(STORE) || is_museum(STORE)) ? "アイテム" : "商品"), LO, HI, PMT
+#define MES_INTERFACE_SHOWFILE "[キー:(?)ヘルプ (ESC)終了]"
+#define MES_INTERFACE_SHOWFILE_LONG1 "[キー:(RET/スペース)↓ (-)↑ (?)ヘルプ (ESC)終了]"
+#define MES_INTERFACE_SHOWFILE_LONG2 "[キー:(RET/スペース)↑ (-)↓ (?)ヘルプ (ESC)終了]"
 #else
 #define MES_INTERFACE_QUANTITY(NUM) "Quantity (1-%d): ", (NUM)
 #define MES_INTERFACE_DUMP "['h' to change mode, or ESC]"
@@ -2756,6 +2759,9 @@ static cptr desc_stat_neg[] =
 #define HAS_FLAG_STR "+ "
 #define NO_FLAG_STR  ". "
 #define MES_INTERFACE_STORE(STORE, LO, HI, PMT) "(%s %c-%c, ESC to exit) %s", ((is_home(STORE) || is_museum(STORE)) ? "item" : "ware"), LO, HI, PMT
+#define MES_INTERFACE_SHOWFILE "[Press ESC to exit.]"
+#define MES_INTERFACE_SHOWFILE_LONG1 "[Press Return, Space, -, =, /, |, or ESC to exit.]"
+#define MES_INTERFACE_SHOWFILE_LONG2 "[Press Return, Space, -, =, /, |, or ESC to exit.]"
 #endif
 
 #ifdef JP
