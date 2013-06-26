@@ -720,7 +720,6 @@ static bool make_fake_artifact(object_type *object_ptr, int art_id)
 
 	artifact_type *a_ptr = &artifact_info[art_id];
 
-
 	/* Ignore "empty" artifacts */
 	if(!a_ptr->name) return FALSE;
 

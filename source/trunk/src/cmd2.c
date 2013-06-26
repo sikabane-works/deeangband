@@ -541,7 +541,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, COODINATES y, COODINA
 	cost_tactical_energy(creature_ptr, 100);	// Take a turn
 
 	/* Attempt to unlock it */
-	if(object_ptr->pval > 0)
+	if(object_ptr->chest_mode > 0)
 	{
 		/* Assume locked, and thus not open */
 		flag = FALSE;
@@ -554,7 +554,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, COODINATES y, COODINA
 		if(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
 
 		/* Extract the difficulty */
-		j = i - object_ptr->pval;
+		j = i - object_ptr->chest_mode;
 
 		/* Always have a small chance of success */
 		if(j < 2) j = 2;
@@ -580,11 +580,8 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, COODINATES y, COODINA
 	/* Allowed to open */
 	if(flag)
 	{
-		/* Apply chest traps, if any */
-		chest_trap(creature_ptr, y, x, object_idx);
-
-		/* Let the Chest drop items */
-		chest_death(FALSE, floor_ptr, y, x, object_idx);
+		chest_trap(creature_ptr, y, x, object_idx); /* Apply chest traps, if any */
+		chest_death(FALSE, floor_ptr, y, x, object_idx); /* Let the Chest drop items */
 	}
 
 	return (more);
