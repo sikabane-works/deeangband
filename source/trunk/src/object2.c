@@ -613,7 +613,7 @@ void object_tried(object_type *object_ptr)
 * Return the "value" of an "unknown" item
 * Make a guess at the value of non-aware items
 */
-static s32b object_value_base(object_type *object_ptr)
+static PRICE object_value_base(object_type *object_ptr)
 {
 	/* Aware item -- use template cost */
 	if(object_is_aware(object_ptr)) return (object_kind_info[object_ptr->k_idx].cost);
@@ -621,35 +621,17 @@ static s32b object_value_base(object_type *object_ptr)
 	/* Analyze the type */
 	switch (object_ptr->tval)
 	{
-
-		/* Un-aware Food */
-	case TV_FOOD: return (5L);
-
-		/* Un-aware Potions */
-	case TV_POTION: return (20L);
-
-		/* Un-aware Scrolls */
-	case TV_SCROLL: return (20L);
-
-		/* Un-aware Staffs */
-	case TV_STAFF: return (70L);
-
-		/* Un-aware Wands */
-	case TV_WAND: return (50L);
-
-		/* Un-aware Rods */
-	case TV_ROD: return (90L);
-
-		/* Un-aware Rings */
-	case TV_RING: return (45L);
-
-		/* Un-aware Amulets */
-	case TV_AMULET: return (45L);
-
-		/* Figurines, relative to creature level */
-	case TV_FIGURINE:
+	case TV_FOOD: return (5L); /* Un-aware Food */
+	case TV_POTION: return (20L); /* Un-aware Potions */
+	case TV_SCROLL: return (20L); /* Un-aware Scrolls */
+	case TV_STAFF: return (70L); /* Un-aware Staffs */
+	case TV_WAND: return (50L); /* Un-aware Wands */
+	case TV_ROD: return (90L); /* Un-aware Rods */
+	case TV_RING: return (45L); /* Un-aware Rings */
+	case TV_AMULET: return (45L); /* Un-aware Amulets */
+	case TV_FIGURINE: /* Figurines, relative to creature level */
 		{
-			int level = species_info[object_ptr->pval].level;
+			int level = species_info[object_ptr->source_idx].level;
 			if(level < 20) return level*50L;
 			else if(level < 30) return 1000+(level-20)*150L;
 			else if(level < 40) return 2500+(level-30)*350L;
