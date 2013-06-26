@@ -744,36 +744,20 @@ void autopick_load_pref(bool disp_mes)
 	char buf[80];
 	errr err;
 
-	/* Free old entries */
-	init_autopick();
-
-	/* Try a filename with player name */
-	my_strcpy(buf, pickpref_filename(PT_WITH_PNAME), sizeof(buf));
-
-	/* Load the file */
-	err = process_autopick_file(buf);
+	init_autopick(); /* Free old entries */
+	my_strcpy(buf, pickpref_filename(PT_WITH_PNAME), sizeof(buf)); /* Try a filename with player name */
+	err = process_autopick_file(buf); /* Load the file */
 
 	if(err == 0 && disp_mes) msg_format(MES_FILE_LOADED(buf));
 
-	/* No file found */
-	if(0 > err)
+	if(0 > err) /* No file found */
 	{
-		/* Use default name */
-		my_strcpy(buf, pickpref_filename(PT_DEFAULT), sizeof(buf));
-
-		/* Load the file */
-		err = process_autopick_file(buf);
+		my_strcpy(buf, pickpref_filename(PT_DEFAULT), sizeof(buf)); /* Use default name */
+		err = process_autopick_file(buf); /* Load the file */
 		if(err == 0 && disp_mes) msg_format(MES_FILE_LOADED(buf));
 	}
 
-	if(err && disp_mes)
-	{
-#ifdef JP
-		msg_print("自動拾い設定ファイルの読み込みに失敗しました。");
-#else
-		msg_print("Failed to reload autopick preference.");
-#endif
-	}
+	if(err && disp_mes) msg_format(MES_FILE_LOADED_FAIL(buf));
 }
 
 
