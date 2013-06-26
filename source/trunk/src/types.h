@@ -920,7 +920,8 @@ struct object_type
 
 	OBJECT_ID next_object_idx;
 	CREATURE_ID held_creature_idx; /* Creature holding us (if any) */
-	SPECIES_ID creator_idx; // Creater
+	CREATURE_ID captured_idx;
+	SPECIES_ID creator_idx; /* Creator */
 	SPECIES_ID source_idx; /* Item Source */
 
 	INVENTORY_ID equipped_slot_type;

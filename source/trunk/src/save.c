@@ -138,6 +138,7 @@ static void wr_object(object_type *object_ptr)
 	//wr_string(quark_str(object_ptr->inscription));
 	//wr_string(quark_str(object_ptr->art_name));
 
+	WRITE_CREATURE_ID(object_ptr->captured_idx);
 	WRITE_SPECIES_ID(object_ptr->creator_idx);
 	WRITE_SPECIES_ID(object_ptr->source_idx);
 

@@ -357,6 +357,7 @@ static errr rd_object(object_type *object_ptr)
 	//rd_string(buf, sizeof(buf));
 	//object_ptr->art_name = quark_add(buf);
 
+	READ_CREATURE_ID(&object_ptr->captured_idx);
 	READ_SPECIES_ID(&object_ptr->creator_idx);
 	READ_SPECIES_ID(&object_ptr->source_idx);
 
