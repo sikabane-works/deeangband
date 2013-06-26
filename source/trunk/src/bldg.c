@@ -883,11 +883,7 @@ static int do_poker(void)
 	}
 
 	/* suteruno wo kimeru */
-#ifdef JP
-	prt("残すカードを決めて下さい(方向で移動, スペースで選択)。", 0, 0);
-#else
-	prt("Stay witch? ", 0, 0);
-#endif
+	prt(MES_GAMBLE_WHICH_CARD, 0, 0);
 
 	display_cards();
 	yaku_check();

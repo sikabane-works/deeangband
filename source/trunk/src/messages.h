@@ -4813,6 +4813,7 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_IN_BETWEEN_RED(DICE) "赤ダイス: %d", (DICE)
 #define MES_GAMBLE_CHANGE "かえる"
 #define MES_GAMBLE_STAY "のこす"
+#define MES_GAMBLE_WHICH_CARD "残すカードを決めて下さい(方向で移動, スペースで選択)。"
 #else
 
 #define MES_GAMBLE_BETWEEN "In Between"
@@ -4850,6 +4851,7 @@ static cptr desc_stat_neg[] =
 #define MES_GAMBLE_IN_BETWEEN_RED(DICE) "Red die: %d", (DICE)
 #define MES_GAMBLE_CHANGE "CHANGE"
 #define MES_GAMBLE_STAY " STAY "
+#define MES_GAMBLE_WHICH_CARD "Stay witch? "
 #endif
 
 #ifdef JP
