@@ -1198,15 +1198,8 @@ int load_player(void)
 		if(fkk)
 		{
 			my_fclose(fkk);
-
-#ifdef JP
-			msg_print("セーブファイルは現在使用中です。");
-#else
-			msg_print("Savefile is currently in use.");
-#endif
-
+			msg_print(MES_LOAD_USING);
 			msg_print(NULL);
-
 			return 1;
 		}
 
@@ -1278,11 +1271,7 @@ int load_player(void)
 		if(sf_when > (statbuf.st_ctime + 100) ||
 		    sf_when < (statbuf.st_ctime - 100))
 		{
-#ifdef JP
-			what = "無効なタイム・スタンプです";
-#else
-			what = "Invalid timestamp";
-#endif
+			what = MES_LOAD_INVALID_TIMESTAMP;
 			err = -1;
 		}
 	}

@@ -66,6 +66,8 @@
 #define MES_SYS_PARSE_ERROR(FILE, LINE, ERROR) "ファイル'%s'の%d行でエラー番号%dのエラー。", (FILE), (LINE), (ERROR)
 #define MES_SYS_SAVE_FAILED "セーブ失敗！"
 #define MES_SYS_SCORE_FAILED "スコア・ファイルが使用できません。"
+#define MES_SYS_TERRIBLE_BUGS "恐ろしいソフトのバグが飛びかかってきた！"
+#define MES_SYS_PANIC_SAVE "緊急セーブ..."
 #define MES_SYS_PANIC_SAVE_SUCCEED "緊急セーブ成功！"
 #define MES_SYS_PANIC_SAVE_FAILED "緊急セーブ失敗！"
 #define MES_SYS_TRAITS(CREATURE) "%sには以下の特性がある", (CREATURE)->name
@@ -167,6 +169,8 @@
 #define MES_SYS_PARSE_ERROR(FILE, LINE, ERROR) "Error %d in line %d of file '%s'.", (ERROR), (FILE), (LINE)
 #define MES_SYS_SAVE_FAILED "death save failed!"
 #define MES_SYS_SCORE_FAILED "Score file unavailable."
+#define MES_SYS_TERRIBLE_BUGS "A gruesome software bug LEAPS out at you!"
+#define MES_SYS_PANIC_SAVE "Panic save..."
 #define MES_SYS_PANIC_SAVE_SUCCEED "Panic save succeeded!"
 #define MES_SYS_PANIC_SAVE_FAILED "panic save failed!"
 //TODO
@@ -256,20 +260,24 @@
 
 #ifdef JP
 #define MES_LOAD_START(VER1, VER2, VER3) "バージョン %d.%d.%d のセーブ・ファイルをロード中...", (VER1), (VER2), (VER3)
+#define MES_LOAD_USING "セーブファイルは現在使用中です。"
 #define MES_LOAD_RANDOM_SEED "乱数情報をロードしました"
 #define MES_LOAD_OPTION "オプションをロードしました"
 #define MES_LOAD_MESSAGE "メッセージをロードしました"
 #define MES_LOAD_WORLD "世界情報をロードしました"
 #define MES_LOAD_ERROR_WILDERNESS(SAVE_X, MAX_X, SAVE_Y, MAX_Y) "荒野が大きすぎる(X:%u/%u) (Y:%u/%u)", (SAVE_X), (MAX_X), (SAVE_Y), (MAX_Y)
 #define MES_LOAD_FLOOR(NUM) "ダンジョン復元中...フロア数:%d", (NUM)
+#define MES_LOAD_INVALID_TIMESTAMP "無効なタイム・スタンプです"
 #else
 #define MES_LOAD_START(VER1, VER2, VER3) "Loading a %d.%d.%d savefile...", (VER1), (VER2), (VER3)
+#define MES_LOAD_USING "Savefile is currently in use."
 #define MES_LOAD_RANDOM_SEED "Loaded Randomizer Info"
 #define MES_LOAD_OPTION "Loaded Option Flags"
 #define MES_LOAD_MESSAGE "Loaded Messages"
 #define MES_LOAD_WORLD "Loaded world information"
 #define MES_LOAD_ERROR_WILDERNESS(SAVE_X, MAX_X, SAVE_Y, MAX_Y) "Wilderness is too big (X:%u/%u) (Y:%u/%u)", (SAVE_X), (MAX_X), (SAVE_Y), (MAX_Y)
 #define MES_LOAD_FLOOR(NUM) "Restoring Dungeon... NUM:%d", (NUM)
+#define MES_LOAD_INVALID_TIMESTAMP "Invalid timestamp"
 #endif
 
 #if JP

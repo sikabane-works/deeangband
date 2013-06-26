@@ -5736,13 +5736,8 @@ static void handle_signal_abort(int sig)
 	/* Clear the bottom line */
 	Term_erase(0, hgt - 1, 255);
 
-#ifdef JP
-	Term_putstr(0, hgt - 1, -1, TERM_RED, "恐ろしいソフトのバグが飛びかかってきた！");
-	Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ...");
-#else
-	Term_putstr(0, hgt - 1, -1, TERM_RED, "A gruesome software bug LEAPS out at you!");
-	Term_putstr(45, hgt - 1, -1, TERM_RED, "Panic save...");
-#endif
+	Term_putstr(0, hgt - 1, -1, TERM_RED, MES_SYS_TERRIBLE_BUGS);
+	Term_putstr(45, hgt - 1, -1, TERM_RED, MES_SYS_PANIC_SAVE);
 	write_diary(DIARY_GAMESTART, 0, DIARY_GAMEABORT);
 
 	/* Flush output */
