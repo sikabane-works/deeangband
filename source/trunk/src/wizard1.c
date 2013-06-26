@@ -736,7 +736,12 @@ static bool make_fake_artifact(object_type *object_ptr, int art_id)
 	object_ptr->art_id = art_id;
 
 	/* Extract the fields */
-	object_ptr->pval = a_ptr->pval;
+	object_ptr->stat_val[STAT_STR] = a_ptr->stat[STAT_STR];
+	object_ptr->stat_val[STAT_INT] = a_ptr->stat[STAT_INT];
+	object_ptr->stat_val[STAT_WIS] = a_ptr->stat[STAT_WIS];
+	object_ptr->stat_val[STAT_DEX] = a_ptr->stat[STAT_DEX];
+	object_ptr->stat_val[STAT_CON] = a_ptr->stat[STAT_CON];
+	object_ptr->stat_val[STAT_CHA] = a_ptr->stat[STAT_CHA];
 	object_ptr->ac = a_ptr->ac;
 	object_ptr->ev = a_ptr->ev;
 	object_ptr->vo = a_ptr->vo;

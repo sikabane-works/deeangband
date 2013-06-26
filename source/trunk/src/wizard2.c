@@ -319,8 +319,8 @@ static void wiz_display_item(object_type *object_ptr)
 		   object_ptr->number, object_ptr->weight,
 		   object_ptr->ac, object_ptr->dd, object_ptr->ds), 5, j);
 
-	prt(format("pval = %-5d  toac = %-5d  tohit = %-4d  todam = %-4d",
-		   object_ptr->pval, object_ptr->to_ac, object_ptr->to_hit, object_ptr->to_damage), 6, j);
+	prt(format("toac = %-5d  tohit = %-4d  todam = %-4d",
+		   object_ptr->to_ac, object_ptr->to_hit, object_ptr->to_damage), 6, j);
 
 	prt(format("art_id = %-4d  ego_id = %-4d  cost = %ld",
 		   object_ptr->art_id, object_ptr->ego_id, (long)object_value_real(object_ptr)), 7, j);
@@ -526,11 +526,7 @@ static void wiz_tweak_item(object_type *object_ptr)
 	char tmp_val[80];
 	if(object_is_artifact(object_ptr)) return;
 
-	p = "Enter new 'pval' setting: ";
-	sprintf(tmp_val, "%d", object_ptr->pval);
-	if(!get_string(p, tmp_val, 5)) return;
-	object_ptr->pval = (TVAL)strtol(tmp_val, NULL, 10);
-	wiz_display_item(object_ptr);
+	//TODO other Param
 
 	p = "Enter new 'to_ac' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_ac);
@@ -544,7 +540,7 @@ static void wiz_tweak_item(object_type *object_ptr)
 	object_ptr->to_ev = (SAVING)strtol(tmp_val, NULL, 10);
 	wiz_display_item(object_ptr);
 
-	p = "Enter new 'to_ev' setting: ";
+	p = "Enter new 'to_vo' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_vo);
 	if(!get_string(p, tmp_val, 5)) return;
 	object_ptr->to_vo = (SAVING)strtol(tmp_val, NULL, 10);
