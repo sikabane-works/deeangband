@@ -1532,21 +1532,16 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 		}
 	};
 
-	//TODO pval process
-	if(has_pval)
-	{
-		do
-		{
-			object_ptr->pval++;
-		}
-		while (object_ptr->pval < randint1(5) || one_in_(object_ptr->pval));
-
-		if((object_ptr->pval > 4) && !one_in_(WEIRD_LUCK)) object_ptr->pval = 4;
-	}
+	//TODO pval process deleted so implement new status plus.
 
 	/* give it some plusses... */
 	if(object_is_armour(object_ptr))
+	{
 		object_ptr->to_ac += (s16b)randint1(object_ptr->to_ac > 19 ? 1 : 20 - object_ptr->to_ac);
+		object_ptr->to_ev += (s16b)randint1(object_ptr->to_ev > 19 ? 1 : 20 - object_ptr->to_ev);
+		object_ptr->to_vo += (s16b)randint1(object_ptr->to_vo > 19 ? 1 : 20 - object_ptr->to_vo);
+	}
+
 	else if(object_is_weapon_ammo(object_ptr))
 	{
 		object_ptr->to_hit += (s16b)randint1(object_ptr->to_hit > 19 ? 1 : 20 - object_ptr->to_hit);

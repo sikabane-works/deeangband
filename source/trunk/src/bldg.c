@@ -1583,7 +1583,7 @@ static bool kankin(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 
 		/* Living Tsuchinoko worthes $1000000 */
-		if((object_ptr->tval == TV_CAPTURE) && (object_ptr->pval == SPECIES_TSUCHINOKO))
+		if((object_ptr->tval == TV_CAPTURE) && (object_ptr->source_idx == SPECIES_TSUCHINOKO))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
@@ -1604,7 +1604,7 @@ static bool kankin(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 
 		/* Corpse of Tsuchinoko worthes $200000 */
-		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_CORPSE) && (object_ptr->pval == SPECIES_TSUCHINOKO))
+		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_CORPSE) && (object_ptr->source_idx == SPECIES_TSUCHINOKO))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
@@ -1625,7 +1625,7 @@ static bool kankin(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 
 		/* Bones of Tsuchinoko worthes $100000 */
-		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON) && (object_ptr->pval == SPECIES_TSUCHINOKO))
+		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON) && (object_ptr->source_idx == SPECIES_TSUCHINOKO))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
@@ -1644,7 +1644,7 @@ static bool kankin(creature_type *creature_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_ptr = &creature_ptr->inventory[i];
-		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_CORPSE) && (streq(species_name + species_info[object_ptr->pval].name, species_name + species_info[today_mon].name)))
+		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_CORPSE) && (object_ptr->source_idx == today_mon))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
@@ -1664,7 +1664,7 @@ static bool kankin(creature_type *creature_ptr)
 	{
 		object_ptr = &creature_ptr->inventory[i];
 
-		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON) && (streq(species_name + species_info[object_ptr->pval].name, species_name + species_info[today_mon].name)))
+		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON) && (object_ptr->source_idx == today_mon))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
