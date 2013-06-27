@@ -1457,6 +1457,8 @@ extern errr report_score(creature_type *player_ptr);
 extern cptr make_screen_dump(void);
 #endif
 
+extern char *add_indefinite_article(char *str);
+
 /* inet.c */
 extern int soc_write(int sd, char *buf, size_t sz);
 extern void set_proxy(char *default_url, int default_port);

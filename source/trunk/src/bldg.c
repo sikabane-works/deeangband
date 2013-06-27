@@ -1520,9 +1520,9 @@ static void shoukinkubi(void)
 	int i;
 	int y = 0;
 
-	clear_bldg(4,18);
+	clear_bldg(4, 18);
 
-	prt(MES_BOUNTY_DETAIL ,4 ,10);
+	prt(MES_BOUNTY_DETAIL, 4, 10);
 	c_put_str(TERM_YELLOW, MES_BOUNTY_CURRENT, 6, 10);
 
 	for (i = 0; i < MAX_BOUNTY; i++)
@@ -1732,15 +1732,8 @@ void have_nightmare(creature_type *watcher_ptr, SPECIES_ID eldritch_idx)
 	char m_name[MAX_NLEN];
 	cptr desc = species_name + eldritch_ptr->name;
 
-	msg_print(MES_INSANITY_NIGHTMARE_PRE);
-
-	// Describe it
-#ifndef JP
-	if(!has_trait_species(eldritch_ptr, TRAIT_UNIQUE))
-		sprintf(m_name, "%s %s", (is_a_vowel(desc[0]) ? "an" : "a"), desc);
-	else
-#endif
-		sprintf(m_name, "%s", desc);
+	strcpy(m_name, desc);
+	add_indefinite_article(m_name);
 
 	if(!has_trait_species(eldritch_ptr, TRAIT_UNIQUE))
 	{
