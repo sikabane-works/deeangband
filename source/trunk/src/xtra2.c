@@ -1941,7 +1941,7 @@ static int target_set_aux(creature_type *creature_ptr, COODINATES y, COODINATES 
 			else
 			{
 				/* Pick proper indefinite article */
-				s3 = (is_a_vowel(name[0])) ? "an " : "a ";
+				s3 = add_indefinite_article(name);
 			}
 #endif
 		}
