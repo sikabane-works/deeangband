@@ -5047,6 +5047,10 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_LIFERATE_CHANGED "体力ランクが変わった。"
 #define MES_CREATURE_NO_DAMAGE(CREATURE) "%^sはダメージを受けていない。", (CREATURE)->name
 #define MES_CREATURE_DISAPPEAR(CREATURE) "%sは消え去った！", (CREATURE)->name
+#define MES_CREATURE_HEALED1 "少し気分が良くなった。"
+#define MES_CREATURE_HEALED2 "気分が良くなった。"
+#define MES_CREATURE_HEALED3 "とても気分が良くなった。"
+#define MES_CREATURE_HEALED4 "ひじょうに気分が良くなった。"
 #else
 #define MES_CREATURE_LIFE_COND1 "unhurt"
 #define MES_CREATURE_LIFE_COND2 "somewhat wounded"
@@ -5062,6 +5066,10 @@ static cptr desc_stat_neg[] =
 #define MES_CREATURE_LIFERATE_CHANGED "Life rate is changed."
 #define MES_CREATURE_NO_DAMAGE(CREATURE) "%^s is unharmed.", (CREATURE)->name
 #define MES_CREATURE_DISAPPEAR(CREATURE)  "%^s disappears!", (CREATURE)->name
+#define MES_CREATURE_HEALED1 "You feel a little better."
+#define MES_CREATURE_HEALED2 "You feel better."
+#define MES_CREATURE_HEALED3 "You feel much better."
+#define MES_CREATURE_HEALED4 "You feel very good."
 #endif
 
 #ifdef JP

@@ -727,7 +727,7 @@ bool res_stat(creature_type *creature_ptr, int stat)
 }
 
 // Increase players hit points, notice effects
-bool heal_creature(creature_type *creature_ptr, int healing_power)
+bool heal_creature(creature_type *creature_ptr, POWER healing_power)
 {
 	int rec_hp = 0, rec_rate = 0;
 	bool effected = FALSE;
@@ -750,17 +750,10 @@ bool heal_creature(creature_type *creature_ptr, int healing_power)
 
 	if(is_seen(player_ptr, creature_ptr) && rec_hp)
 	{
-#ifdef JP
-		if(rec_rate < 5) msg_print("少し気分が良くなった。");
-		else if(rec_rate < 15) msg_print("気分が良くなった。");
-		else if(rec_rate < 35) msg_print("とても気分が良くなった。");
-		else msg_print("ひじょうに気分が良くなった。");
-#else
-		if(rec_rate < 5) msg_print("You feel a little better.");
-		else if(rec_rate < 15) msg_print("You feel better.");
-		else if(rec_rate < 35) msg_print("You feel much better.");
-		else msg_print("You feel very good.");
-#endif
+		if(rec_rate < 5) msg_print(MES_CREATURE_HEALED1);
+		else if(rec_rate < 15) msg_print(MES_CREATURE_HEALED2);
+		else if(rec_rate < 35) msg_print(MES_CREATURE_HEALED3);
+		else msg_print(MES_CREATURE_HEALED4);
 	}
 
 	effected |= add_timed_trait(creature_ptr, TRAIT_AFRAID, -healing_power, TRUE);
