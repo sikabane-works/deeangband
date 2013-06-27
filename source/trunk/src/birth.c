@@ -929,13 +929,8 @@ void class_detail(int code)
 
 	if(code < 0) return;
 
-#ifdef JP
 	c_put_str(TERM_L_BLUE, class_info[code].title, base, 24);
-	put_str("‚Ìåí‘°C³", base, 24+strlen(class_info[code].title));
-#else
-	c_put_str(TERM_L_BLUE, class_info[code].title, base, 24);
-	put_str("'s Main-Race modification", base, 24+strlen(class_info[code].title));
-#endif
+	put_str(MES_BIRTH_MAIN_RACE_MODIFY, base, 24+strlen(class_info[code].title));
 	put_str(format("%8s%8s%8s%8s%8s%8s%8s",
 		stat_names[STAT_STR], stat_names[STAT_INT], stat_names[STAT_WIS],
 		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], KW_EXP), base+1, 24);
@@ -977,13 +972,8 @@ void chara_detail(int code)
 	for (i = 0; i < 22; i++) prt("                                                                       ", base + i, 24);
 	if(code < 0) return;
 
-#ifdef JP
 	c_put_str(TERM_L_BLUE, chara_info[code].title, base, 24);
-	put_str("‚Ìåí‘°C³", base, 24+strlen(chara_info[code].title));
-#else
-	c_put_str(TERM_L_BLUE, chara_info[code].title, base, 24);
-	put_str("'s Main-Race modification", base, 24+strlen(chara_info[code].title));
-#endif
+	put_str(MES_BIRTH_MAIN_RACE_MODIFY, base, 24+strlen(chara_info[code].title));
 	put_str(format("%8s%8s%8s%8s%8s%8s%8s",
 		stat_names[STAT_STR], stat_names[STAT_INT], stat_names[STAT_WIS],
 		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], KW_EXP), base+1, 24);
@@ -1144,11 +1134,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 	se[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-#if JP
-	put_str("í‘°‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢:", 0, 0);
-#else
-	put_str("Select a race:", 0, 0);
-#endif
+	put_str(MES_BIRTH_RACE, 0, 0);
 
 	i = get_selection(&se_info, se);
 
@@ -1162,10 +1148,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 		creature_ptr->race_idx1 = (s16b)se[randint0(se_info.num - 3)].code;
 		return 0;
 	}
-	else
-	{
-		return i;
-	}
+	else return i;
 }
 
 // Creature sub-race

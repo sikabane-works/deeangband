@@ -2310,19 +2310,23 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_BIRTH_PROFILE_LOAD_ASK "プロフィールファイルをロードしますか? "
 #define MES_BIRTH_PROFILE_LOAD_FAILED "プロフィールファイルの読み込みに失敗しました。"
 #define MES_BIRTH_PROFILE_LOAD_NO_DATA "有効なプロフィールはこのファイルにありません。"
+#define MES_BIRTH_RACE "種族を選択して下さい:"
 #define MES_BIRTH_REALM "領域を選択して下さい:"
 #define MES_BIRTH_PATRON "主神を選択して下さい:"
 #define MES_BIRTH_PERSONALITY "性格を選択して下さい:"
 #define MES_BIRTH_START_POINT "開始地点を選択して下さい:"
+#define MES_BIRTH_MAIN_RACE_MODIFY "の主種族修正"
 #else
 #define MES_BIRTH_SELECT_CAMPAIGN "Select Campaign"
 #define MES_BIRTH_PROFILE_LOAD_ASK "Load profile preference file? "
 #define MES_BIRTH_PROFILE_LOAD_FAILED "Failed to load profile preference."
 #define MES_BIRTH_PROFILE_LOAD_NO_DATA "There does not exist valid profile preference."
+#define MES_BIRTH_RACE "Select a race:"
 #define MES_BIRTH_REALM "Select a realm:"
 #define MES_BIRTH_PATRON "Select a patron:"
 #define MES_BIRTH_PERSONALITY "Select a personality:"
 #define MES_BIRTH_START_POINT "Select a starting point:"
+#define MES_BIRTH_MAIN_RACE_MODIFY "'s Main-Race modification"
 #endif
 
 #ifdef JP
