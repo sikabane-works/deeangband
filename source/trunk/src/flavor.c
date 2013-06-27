@@ -1266,10 +1266,10 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 					modstr = tmp_val2;
 #else
 					cptr t = species_name + species_ptr->name;
-
 					if(!has_trait_species(species_ptr, TRAIT_UNIQUE))
 					{
-						sprintf(tmp_val2, " (%s%s)", (is_a_vowel(*t) ? "an " : "a "), t);
+						strcpy(tmp_val2, t);
+						add_indefinite_article(tmp_val2));
 						modstr = tmp_val2;
 					}
 					else

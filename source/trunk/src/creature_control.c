@@ -2202,12 +2202,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 				/* XXX Check plurality for "some" */
 
 				/* Indefinite creatures need an indefinite article */
-#ifdef JP
-				(void)strcpy(desc, "");
-#else
-				(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
-#endif
-
+				(void)add_indefinite_article(desc);
 				if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr, mode);
 				(void)strcat(desc, species_name + species_ptr->name);
 				if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);

@@ -424,7 +424,7 @@ char *add_indefinite_article(char *str)
 	/* NONE */
 #else
 	C_MAKE(tmp, strlen(str) + 5, char);
-	sprintf(tmp, "%s %s", (str) ? "an" : "a");	
+	sprintf(tmp, "%s %s", is_a_vowel(str) ? "an" : "a");	
 	strcpy(str, tmp);
 	C_KILL(tmp, strlen(str) + 5, char);
 #endif

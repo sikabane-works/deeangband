@@ -1735,10 +1735,7 @@ void have_nightmare(creature_type *watcher_ptr, SPECIES_ID eldritch_idx)
 	strcpy(m_name, desc);
 	add_indefinite_article(m_name);
 
-	if(!has_trait_species(eldritch_ptr, TRAIT_UNIQUE))
-	{
-		if(has_trait_species(eldritch_ptr, TRAIT_FRIENDLY)) power /= 2;
-	}
+	if(!has_trait_species(eldritch_ptr, TRAIT_UNIQUE) && has_trait_species(eldritch_ptr, TRAIT_FRIENDLY)) power /= 2;
 	else power *= 2;
 
 	if(saving_throw(watcher_ptr, SAVING_VO, power, 0))

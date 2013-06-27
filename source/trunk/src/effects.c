@@ -927,7 +927,7 @@ void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 #ifdef JP
 		msg_format("‚ ‚È‚½‚Í%s%s‚É•Ï‰»‚µ‚½I", effect_msg, title);
 #else
-		msg_format("You turn into %s %s%s!", (!effect_msg[0] && is_a_vowel(title[0]) ? "an" : "a"), effect_msg, title);
+		msg_format("You turn into %s %s!", add_indefinite_article(effect_msg), title);
 #endif
 	}
 
