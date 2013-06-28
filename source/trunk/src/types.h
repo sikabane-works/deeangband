@@ -1419,8 +1419,8 @@ struct creature_type
 	BODY_SIZE size;			// Body Size
 	PERCENT regenerate_mod;
 
-	s16b inven_cnt;			// Number of items in inventory
-	s16b equip_cnt;			// Number of items in equipment
+	OBJECT_ID inven_cnt; // Number of items in inventory
+	OBJECT_ID equip_cnt; // Number of items in equipment
 	object_type inventory[INVEN_TOTAL];  // Inventory
 	s16b iven_fitting_rate[INVEN_TOTAL]; // Inventory Fitting Rate
 	byte equip_now[INVEN_TOTAL];         // equipment flag
