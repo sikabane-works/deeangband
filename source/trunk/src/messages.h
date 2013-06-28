@@ -2317,6 +2317,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_BIRTH_PERSONALITY "性格を選択して下さい:"
 #define MES_BIRTH_START_POINT "開始地点を選択して下さい:"
 #define MES_BIRTH_MAIN_RACE_MODIFY "の主種族修正"
+#define MES_BIRTH_ELDAR "エルダールの副種族を選択して下さい:"
+#define MES_BIRTH_DRAGONBONE "竜族の副種族を選択して下さい:"
 #else
 #define MES_BIRTH_SELECT_CAMPAIGN "Select Campaign"
 #define MES_BIRTH_PROFILE_LOAD_ASK "Load profile preference file? "
@@ -2329,6 +2331,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_BIRTH_PERSONALITY "Select a personality:"
 #define MES_BIRTH_START_POINT "Select a starting point:"
 #define MES_BIRTH_MAIN_RACE_MODIFY "'s Main-Race modification"
+#define MES_BIRTH_ELDAR "Select a sub-race of Eldar:"
+#define MES_BIRTH_DRAGONBONE "Select a sub-race of Dragonbone:"
 #endif
 
 #ifdef JP

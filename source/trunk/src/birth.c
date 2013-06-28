@@ -1301,11 +1301,7 @@ static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 
 	if(!npc)
 	{
-#if JP
-		put_str("エルダールの副種族を選択して下さい:", 0, 0);
-#else
-		put_str("Select a sub-race of Eldar:", 0, 0);
-#endif
+		put_str(MES_BIRTH_ELDAR, 0, 0);
 		i = get_selection(NULL, se, n, 5, 2, 18, 20, subrace_detail, 0);
 	}
 	else
@@ -1412,11 +1408,7 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
 
 	if(!npc)
 	{
-#if JP
-		put_str("竜族の副種族を選択して下さい:", 0, 0);
-#else
-		put_str("Select a sub-race of Dragonbone:", 0, 0);
-#endif
+		put_str(MES_BIRTH_DRAGONBONE, 0, 0);
 		i = get_selection(NULL, se, n, 5, 2, 18, 20, subrace_detail, 0);
 	}
 	else
