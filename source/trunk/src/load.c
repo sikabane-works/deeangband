@@ -710,9 +710,9 @@ static errr rd_creature(creature_type *creature_ptr)
 	READ_STAT(&creature_ptr->expfact);
 
 	// Age/Height/Weight
-	rd_s32b(&creature_ptr->age);
-	rd_s32b(&creature_ptr->ht);
-	rd_s32b(&creature_ptr->wt);
+	READ_AGE(&creature_ptr->age);
+	READ_HEIGHT(&creature_ptr->ht);
+	READ_WEIGHT(&creature_ptr->wt);
 	READ_CREATURE_LEV(&creature_ptr->dr);
 
 	for(i = 0; i < INVEN_TOTAL; i++)

@@ -326,9 +326,9 @@ static void wr_creature(creature_type *creature_ptr)
 	WRITE_STAT(creature_ptr->hitdice);
 	WRITE_STAT(creature_ptr->expfact);
 
-	wr_s32b(creature_ptr->age);
-	wr_s32b(creature_ptr->ht);
-	wr_s32b(creature_ptr->wt);
+	WRITE_AGE(creature_ptr->age);
+	WRITE_HEIGHT(creature_ptr->ht);
+	WRITE_WEIGHT(creature_ptr->wt);
 	WRITE_CREATURE_LEV(creature_ptr->dr);
 
 	for(i = 0; i < INVEN_TOTAL; i++)

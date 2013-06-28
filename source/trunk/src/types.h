@@ -266,6 +266,10 @@ typedef s32b GAME_TURN;
 #define READ_GAME_TURN(VALUE) rd_s32b((GAME_TURN *)VALUE);
 #define WRITE_GAME_TURN(VALUE) wr_s32b((GAME_TURN)VALUE);
 
+typedef s32b AGE;
+#define READ_AGE(VALUE) rd_s32b((AGE *)VALUE);
+#define WRITE_AGE(VALUE) wr_s32b((AGE)VALUE);
+
 typedef s32b HEIGHT;
 #define READ_HEIGHT(VALUE) rd_s32b((HEIGHT *)VALUE);
 #define WRITE_HEIGHT(VALUE) wr_s32b((HEIGHT)VALUE);
@@ -1407,7 +1411,7 @@ struct creature_type
 	STAT hitdice_base;  // Hit dice base
 	STAT expfact;       // Experience factor
 
-	STAT age;			// Characters age
+	AGE age;			// Characters age
 	HEIGHT ht;			// Height
 	WEIGHT wt;			// Weight
 	STAT sc;			// Social Class
