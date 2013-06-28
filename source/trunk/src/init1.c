@@ -4240,7 +4240,6 @@ enum RC_INFO
 	RC_INFO_P_FOS,
 	RC_INFO_P_THN,
 	RC_INFO_P_THB,
-	RC_INFO_P_INFRA,
 	RC_INFO_H_DIS,
 	RC_INFO_H_DEV,
 
@@ -4252,7 +4251,6 @@ enum RC_INFO
 	RC_INFO_H_FOS,
 	RC_INFO_H_THN,
 	RC_INFO_H_THB,
-	RC_INFO_H_INFRA,
 	RC_INFO_M_HB,
 	RC_INFO_M_HM,
 	RC_INFO_M_WB,
@@ -4333,7 +4331,6 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"P_FOS",
 	"P_THN",
 	"P_THB",
-	"P_INFRA",
 	"H_DIS",
 	"H_DEV",
 
@@ -4345,7 +4342,6 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"H_FOS",
 	"H_THN",
 	"H_THB",
-	"H_INFRA",
 	"M_HB",
 	"M_HM",
 	"M_WB",
@@ -4611,11 +4607,6 @@ errr parse_race_info_csv(char *buf, header *head)
 				race_ptr->r_thb = (STAT)b;
 				break;
 
-			case RC_INFO_P_INFRA:
-				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->infra = (byte)b;
-				break;
-
 			case RC_INFO_H_DIS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_ptr->r_s_dis = (STAT)b;
@@ -4664,11 +4655,6 @@ errr parse_race_info_csv(char *buf, header *head)
 			case RC_INFO_H_THB:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_ptr->r_s_thb = (STAT)b;
-				break;
-
-			case RC_INFO_H_INFRA:
-				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->infra = (byte)b;
 				break;
 
 			case RC_INFO_M_HB:
