@@ -10,7 +10,7 @@ bool test_hit_melee(creature_type *attacker_ptr, creature_type *target_ptr, obje
 
 	POWER ev = target_ptr->ev + target_ptr->to_ev;
 
-	int chance = (attacker_ptr->skill_thn + (weapon_ptr->to_hit * BTH_PLUS_ADJ));
+	int chance = (attacker_ptr->skill_melee + (weapon_ptr->to_hit * BTH_PLUS_ADJ));
 	if(mode == HISSATSU_IAI) chance += 60;
 	if(attacker_ptr->posture & KATA_KOUKIJIN) chance += 150;
 	if(attacker_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);

@@ -1490,7 +1490,7 @@ static void process_nonplayer(CREATURE_ID creature_idx)
 	// Players hidden in shadow are almost imperceptable. -LM-
 	if(player_ptr->posture & NINJA_S_STEALTH)
 	{
-		int tmp = player_ptr->lev * 6 + (player_ptr->skill_stl + 10) * 4;
+		int tmp = player_ptr->lev * 6 + (player_ptr->skill_stealth + 10) * 4;
 		if(player_ptr->monlite) tmp /= 3;
 		if(has_trait(player_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
 		if(creature_ptr->lev > (player_ptr->lev + 10)) tmp /= 3;

@@ -195,7 +195,7 @@ static bool ambush_check(creature_type *attacker_ptr, creature_type *target_ptr)
 static bool fatal_spot_check(creature_type *attacker_ptr, creature_type *target_ptr, FLAGS_32 mode)
 {
 	int tmp;
-	tmp = attacker_ptr->lev * 6 + (attacker_ptr->skill_stl + 10) * 4;
+	tmp = attacker_ptr->lev * 6 + (attacker_ptr->skill_stealth + 10) * 4;
 	if(attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
 	if(has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
 	if(target_ptr->lev > (attacker_ptr->lev * attacker_ptr->lev / 10 + 5)) tmp /= 3;

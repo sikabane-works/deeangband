@@ -547,7 +547,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, COODINATES y, COODINA
 		flag = FALSE;
 
 		/* Get the "disarm" factor */
-		i = creature_ptr->skill_dis;
+		i = creature_ptr->skill_disarm;
 
 		/* Penalize some conditions */
 		if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
@@ -729,7 +729,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, COODINATES y, COODINATE
 	else if(f_ptr->power)
 	{
 		/* Disarm factor */
-		i = creature_ptr->skill_dis;
+		i = creature_ptr->skill_disarm;
 
 		/* Penalize some conditions */
 		if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
@@ -1036,7 +1036,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, COODINATES y, COODINA
 	else if(have_flag(f_ptr->flags, FF_CAN_DIG))
 	{
 		/* Dig */
-		if(creature_ptr->skill_dig > randint0(20 * power))
+		if(creature_ptr->skill_digging > randint0(20 * power))
 		{
 			msg_format(MES_DIGGING_DONE1(name));
 
@@ -1059,7 +1059,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, COODINATES y, COODINA
 		bool tree = have_flag(mimic_f_ptr->flags, FF_TREE);
 
 		/* Tunnel */
-		if(creature_ptr->skill_dig > power + randint0(40 * power))
+		if(creature_ptr->skill_digging > power + randint0(40 * power))
 		{
 			if(tree) msg_format(MES_DIGGING_CUT_DONE(name));
 			else
@@ -1181,7 +1181,7 @@ bool easy_open_door(creature_type *creature_ptr, COODINATES y, COODINATES x)
 	else if(f_ptr->power)
 	{
 		/* Disarm factor */
-		i = creature_ptr->skill_dis;
+		i = creature_ptr->skill_disarm;
 
 		/* Penalize some conditions */
 		if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
@@ -1236,7 +1236,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, COODINATES y, COODI
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Get the "disarm" factor */
-	i = creature_ptr->skill_dis;
+	i = creature_ptr->skill_disarm;
 
 	/* Penalize some conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
@@ -1302,7 +1302,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, COODINATES y, COODINATES x, 
 	bool more = FALSE;
 
 	/* Get the "disarm" factor */
-	int i = creature_ptr->skill_dis;
+	int i = creature_ptr->skill_disarm;
 	int j;
 
 	cost_tactical_energy(creature_ptr, 100);
@@ -1716,7 +1716,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	{
 		int tmp = 120 + creature_ptr->lev*10 - wilderness[creature_ptr->fy][creature_ptr->fx].level + 5;
 		if(tmp < 1) tmp = 1;
-		if(((wilderness[creature_ptr->fy][creature_ptr->fx].level + 5) > (creature_ptr->lev / 2)) && randint0(tmp) < (21-creature_ptr->skill_stl))
+		if(((wilderness[creature_ptr->fy][creature_ptr->fx].level + 5) > (creature_ptr->lev / 2)) && randint0(tmp) < (21-creature_ptr->skill_stealth))
 		{
 			/* Inform the player of his horrible fate :=) */
 			msg_print(MES_FIELD_UMBUSHED);

@@ -350,9 +350,9 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 	/* TODO
 	if((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
-		chance = (creature_ptr->skill_thb + (creature_ptr->weapon_exp[0][j_ptr->sval] / 400 + bonus) * BTH_PLUS_ADJ);
+		chance = (creature_ptr->skill_shooting + (creature_ptr->weapon_exp[0][j_ptr->sval] / 400 + bonus) * BTH_PLUS_ADJ);
 	else
-		chance = (creature_ptr->skill_thb + ((creature_ptr->weapon_exp[0][j_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200 + bonus) * BTH_PLUS_ADJ);
+		chance = (creature_ptr->skill_shooting + ((creature_ptr->weapon_exp[0][j_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200 + bonus) * BTH_PLUS_ADJ);
 	*/
 
 	cost_tactical_energy(creature_ptr, j_ptr->bow_energy);
@@ -905,9 +905,9 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	else shuriken = FALSE;
 
 	/* Chance of hitting */
-	if(have_flag(flgs, TRAIT_THROW_MIGHTY)) chance = ((creature_ptr->skill_tht) +
+	if(have_flag(flgs, TRAIT_THROW_MIGHTY)) chance = ((creature_ptr->skill_throwing) +
 		((creature_ptr->to_hit_b + object2_ptr->to_hit) * BTH_PLUS_ADJ));
-	else chance = (creature_ptr->skill_tht + (creature_ptr->to_hit_b * BTH_PLUS_ADJ));
+	else chance = (creature_ptr->skill_throwing + (creature_ptr->to_hit_b * BTH_PLUS_ADJ));
 
 	if(shuriken) chance *= 2;
 

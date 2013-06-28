@@ -1626,15 +1626,15 @@ struct creature_type
 
 	s16b see_infra;		// Infravision range
 
-	TRYING skill_dis;		// Skill: Disarming
-	TRYING skill_dev;		// Skill: Magic Devices
-	TRYING skill_stl;		// Skill: Stealth factor
+	TRYING skill_disarm;		// Skill: Disarming
+	TRYING skill_device;		// Skill: Magic Devices
+	TRYING skill_stealth;		// Skill: Stealth factor
 	TRYING skill_perception;
 	TRYING skill_penetration;
-	TRYING skill_thn;		// Skill: To hit (normal)
-	TRYING skill_thb;		// Skill: To hit (shooting)
-	TRYING skill_tht;		// Skill: To hit (throwing)
-	TRYING skill_dig;		// Skill: Digging
+	TRYING skill_melee;		// Skill: To hit (normal)
+	TRYING skill_shooting;		// Skill: To hit (shooting)
+	TRYING skill_throwing;		// Skill: To hit (throwing)
+	TRYING skill_digging;		// Skill: Digging
 
 	STAT num_fire;		// Number of shots
 

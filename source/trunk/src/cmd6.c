@@ -1186,7 +1186,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	lev = object_kind_info[object_ptr->k_idx].level;
 	if(lev > 50) lev = 50 + (lev - 50) / 2;
 
-	chance = creature_ptr->skill_dev; // Base chance of success
+	chance = creature_ptr->skill_device; // Base chance of success
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; /* Confusion hurts skill */
 	chance = chance - lev; /* Hight level objects are harder */
 
@@ -1457,7 +1457,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	lev = object_kind_info[object_ptr->k_idx].level; // Get the level
 	if(lev > 50) lev = 50 + (lev - 50) / 2;
 
-	chance = creature_ptr->skill_dev; // Base chance of success
+	chance = creature_ptr->skill_device; // Base chance of success
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
 	chance = chance - lev; // Hight level objects are harder
 
@@ -1614,7 +1614,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 
 	cost_tactical_energy(creature_ptr, 100); // Take a turn
 	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
-	chance = creature_ptr->skill_dev; // Base chance of success
+	chance = creature_ptr->skill_device; // Base chance of success
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
 
 	fail = lev + 5;
@@ -1779,7 +1779,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	lev = 10;
 	if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) && object_ptr->ego_id) lev = object_ego_info[object_ptr->ego_id].level;
 
-	chance = creature_ptr->skill_dev; // Base chance of success
+	chance = creature_ptr->skill_device; // Base chance of success
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
 
 	fail = lev + 5;

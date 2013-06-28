@@ -1971,10 +1971,8 @@ static void set_race_bonuses(creature_type *creature_ptr)
 
 	for (i = 0; i < STAT_MAX; i++)
 	{
-		if(IS_MIMICED(creature_ptr))
-			creature_ptr->stat_add[i] += mimic_ptr->r_adj[i] * STAT_FRACTION;
-		else if(IS_PURE(creature_ptr))
-			creature_ptr->stat_add[i] += race1_ptr->r_adj[i] * STAT_FRACTION;
+		if(IS_MIMICED(creature_ptr)) creature_ptr->stat_add[i] += mimic_ptr->r_adj[i] * STAT_FRACTION;
+		else if(IS_PURE(creature_ptr)) creature_ptr->stat_add[i] += race1_ptr->r_adj[i] * STAT_FRACTION;
 		else
 		{
 			creature_ptr->stat_add[i] += race1_ptr->r_s_adj[i] * STAT_FRACTION;
@@ -1984,14 +1982,14 @@ static void set_race_bonuses(creature_type *creature_ptr)
 
 	if(IS_MIMICED(creature_ptr))
 	{
-		creature_ptr->skill_dis += mimic_ptr->r_dis;
-		creature_ptr->skill_dev += mimic_ptr->r_dev;
-		creature_ptr->skill_stl += mimic_ptr->r_stl;
+		creature_ptr->skill_disarm += mimic_ptr->r_dis;
+		creature_ptr->skill_device += mimic_ptr->r_dev;
+		creature_ptr->skill_stealth += mimic_ptr->r_stl;
 		creature_ptr->skill_perception += mimic_ptr->r_perception;
 		creature_ptr->skill_penetration += mimic_ptr->r_penetration;
-		creature_ptr->skill_thn += mimic_ptr->r_thn;
-		creature_ptr->skill_thb += mimic_ptr->r_thb;
-		creature_ptr->skill_tht += mimic_ptr->r_thb;
+		creature_ptr->skill_melee += mimic_ptr->r_thn;
+		creature_ptr->skill_shooting += mimic_ptr->r_thb;
+		creature_ptr->skill_throwing += mimic_ptr->r_thb;
 
 		creature_ptr->ac += mimic_ptr->r_ac;
 		creature_ptr->dis_ac += mimic_ptr->r_ac;
@@ -2002,14 +2000,14 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	}
 	else if(IS_PURE(creature_ptr))
 	{
-		creature_ptr->skill_dis += race1_ptr->r_dis;
-		creature_ptr->skill_dev += race1_ptr->r_dev;
-		creature_ptr->skill_stl += race1_ptr->r_stl;
+		creature_ptr->skill_disarm += race1_ptr->r_dis;
+		creature_ptr->skill_device += race1_ptr->r_dev;
+		creature_ptr->skill_stealth += race1_ptr->r_stl;
 		creature_ptr->skill_perception += race1_ptr->r_perception;
 		creature_ptr->skill_penetration += race1_ptr->r_penetration;
-		creature_ptr->skill_thn += race1_ptr->r_thn;
-		creature_ptr->skill_thb += race1_ptr->r_thb;
-		creature_ptr->skill_tht += race1_ptr->r_thb;
+		creature_ptr->skill_melee += race1_ptr->r_thn;
+		creature_ptr->skill_shooting += race1_ptr->r_thb;
+		creature_ptr->skill_throwing += race1_ptr->r_thb;
 
 		creature_ptr->ac += race1_ptr->r_ac;
 		creature_ptr->dis_ac += race1_ptr->r_ac;
@@ -2020,14 +2018,14 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	}
 	else
 	{
-		creature_ptr->skill_dis += race1_ptr->r_s_dis + race2_ptr->r_s_dis;
-		creature_ptr->skill_dev += race1_ptr->r_s_dev + race2_ptr->r_s_dev;
-		creature_ptr->skill_stl += race1_ptr->r_s_stl + race2_ptr->r_s_stl;
+		creature_ptr->skill_disarm += race1_ptr->r_s_dis + race2_ptr->r_s_dis;
+		creature_ptr->skill_device += race1_ptr->r_s_dev + race2_ptr->r_s_dev;
+		creature_ptr->skill_stealth += race1_ptr->r_s_stl + race2_ptr->r_s_stl;
 		creature_ptr->skill_perception += race1_ptr->r_s_perception + race2_ptr->r_s_perception;
 		creature_ptr->skill_penetration += race1_ptr->r_s_penetration + race2_ptr->r_s_penetration;
-		creature_ptr->skill_thn += race1_ptr->r_s_thn + race2_ptr->r_s_thn;
-		creature_ptr->skill_thb += race1_ptr->r_s_thb + race2_ptr->r_s_thb;
-		creature_ptr->skill_tht += race1_ptr->r_s_thb + race2_ptr->r_s_thb;
+		creature_ptr->skill_melee += race1_ptr->r_s_thn + race2_ptr->r_s_thn;
+		creature_ptr->skill_shooting += race1_ptr->r_s_thb + race2_ptr->r_s_thb;
+		creature_ptr->skill_throwing += race1_ptr->r_s_thb + race2_ptr->r_s_thb;
 
 		creature_ptr->ac += race1_ptr->r_s_ac;
 		creature_ptr->dis_ac += race1_ptr->r_s_ac;
@@ -2058,14 +2056,14 @@ static void set_class_bonuses(creature_type *creature_ptr)
 		if(creature_ptr->cls_bonus) creature_ptr->stat_add[i] += class_ptr->c_adj_b[i] * STAT_FRACTION;
 	}
 
-	creature_ptr->skill_dis += class_ptr->c_dis;
-	creature_ptr->skill_dev += class_ptr->c_dev;
-	creature_ptr->skill_stl += class_ptr->c_stl;
+	creature_ptr->skill_disarm += class_ptr->c_dis;
+	creature_ptr->skill_device += class_ptr->c_dev;
+	creature_ptr->skill_stealth += class_ptr->c_stl;
 	creature_ptr->skill_perception += class_ptr->c_perception;
 	creature_ptr->skill_penetration += class_ptr->c_penetration;
-	creature_ptr->skill_thn += class_ptr->c_thn;
-	creature_ptr->skill_thb += class_ptr->c_thb;
-	creature_ptr->skill_tht += class_ptr->c_thb;
+	creature_ptr->skill_melee += class_ptr->c_thn;
+	creature_ptr->skill_shooting += class_ptr->c_thb;
+	creature_ptr->skill_throwing += class_ptr->c_thb;
 
 	if(has_trait(creature_ptr, TRAIT_ORDINARILY_BERSERK))
 	{
@@ -2080,7 +2078,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 
 		creature_ptr->to_ac += 10 + creature_ptr->lev / 2;
 		creature_ptr->dis_to_ac += 10 + creature_ptr->lev / 2;
-		creature_ptr->skill_dig += (100 + creature_ptr->lev * 8);
+		creature_ptr->skill_digging += (100 + creature_ptr->lev * 8);
 
 		prepare_redraw(PR_STATUS);
 	}
@@ -2102,14 +2100,14 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			if(heavy_armor(creature_ptr))
 			{
 				creature_ptr->speed -= (creature_ptr->lev) / 10;
-				creature_ptr->skill_stl -= (creature_ptr->lev)/10;
+				creature_ptr->skill_stealth -= (creature_ptr->lev)/10;
 			}
 			else if((!get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 0)->k_idx || creature_ptr->can_melee[0]) &&
 			         (!get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 1)->k_idx || creature_ptr->can_melee[1]))
 			{
 				creature_ptr->speed += 3;
 				if(!has_trait(creature_ptr, TRAIT_AGILE_RACE)) creature_ptr->speed += (creature_ptr->lev) / 10;
-				creature_ptr->skill_stl += (creature_ptr->lev)/10;
+				creature_ptr->skill_stealth += (creature_ptr->lev)/10;
 			}
 			if((!get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 0)->k_idx || creature_ptr->can_melee[0]) &&
 			    (!get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 1)->k_idx || creature_ptr->can_melee[1]))
@@ -2122,14 +2120,14 @@ static void set_class_bonuses(creature_type *creature_ptr)
 	}
 
 	// Affect Skill (Level, by Class)
-	creature_ptr->skill_dis += (class_ptr->x_dis * creature_ptr->lev / 10);
-	creature_ptr->skill_dev += (class_ptr->x_dev * creature_ptr->lev / 10);
-	creature_ptr->skill_stl += (class_ptr->x_stl * creature_ptr->lev / 10);
+	creature_ptr->skill_disarm += (class_ptr->x_dis * creature_ptr->lev / 10);
+	creature_ptr->skill_device += (class_ptr->x_dev * creature_ptr->lev / 10);
+	creature_ptr->skill_stealth += (class_ptr->x_stl * creature_ptr->lev / 10);
 	creature_ptr->skill_perception += (class_ptr->x_perception * creature_ptr->lev / 10);
 	creature_ptr->skill_penetration += (class_ptr->x_penetration * creature_ptr->lev / 10);
-	creature_ptr->skill_thn += (class_ptr->x_thn * creature_ptr->lev / 10);
-	creature_ptr->skill_thb += (class_ptr->x_thb * creature_ptr->lev / 10);
-	creature_ptr->skill_tht += (class_ptr->x_thb * creature_ptr->lev / 10);
+	creature_ptr->skill_melee += (class_ptr->x_thn * creature_ptr->lev / 10);
+	creature_ptr->skill_shooting += (class_ptr->x_thb * creature_ptr->lev / 10);
+	creature_ptr->skill_throwing += (class_ptr->x_thb * creature_ptr->lev / 10);
 }
 
 static void set_character_bonuses(creature_type *creature_ptr)
@@ -2139,14 +2137,14 @@ static void set_character_bonuses(creature_type *creature_ptr)
 
 	for (i = 0; i < STAT_MAX; i++) creature_ptr->stat_add[i] += chara_ptr->a_adj[i] * STAT_FRACTION;
 
-	creature_ptr->skill_dis += chara_ptr->a_dis;
-	creature_ptr->skill_dev += chara_ptr->a_dev;
-	creature_ptr->skill_stl += chara_ptr->a_stl;
+	creature_ptr->skill_disarm += chara_ptr->a_dis;
+	creature_ptr->skill_device += chara_ptr->a_dev;
+	creature_ptr->skill_stealth += chara_ptr->a_stl;
 	creature_ptr->skill_perception += chara_ptr->a_perception;
 	creature_ptr->skill_penetration += chara_ptr->a_penetration;
-	creature_ptr->skill_thn += chara_ptr->a_thn;
-	creature_ptr->skill_thb += chara_ptr->a_thb;
-	creature_ptr->skill_tht += chara_ptr->a_thb;
+	creature_ptr->skill_melee += chara_ptr->a_thn;
+	creature_ptr->skill_shooting += chara_ptr->a_thb;
+	creature_ptr->skill_throwing += chara_ptr->a_thb;
 	creature_ptr->to_m_chance += chara_ptr->m_pena;
 
 	if(creature_ptr->chara_idx == CHARA_MUNCHKIN)
@@ -2155,11 +2153,11 @@ static void set_character_bonuses(creature_type *creature_ptr)
 		creature_ptr->speed += (creature_ptr->lev) / 8 + 5; // Munchkin become faster
 	}
 
-	creature_ptr->skill_dis += (chara_ptr->a_dis * creature_ptr->lev / 50);
-	creature_ptr->skill_dev += (chara_ptr->a_dev * creature_ptr->lev / 50);
-	creature_ptr->skill_thn += (chara_ptr->a_thn * creature_ptr->lev / 50);
-	creature_ptr->skill_thb += (chara_ptr->a_thb * creature_ptr->lev / 50);
-	creature_ptr->skill_tht += (chara_ptr->a_thb * creature_ptr->lev / 50);
+	creature_ptr->skill_disarm += (chara_ptr->a_dis * creature_ptr->lev / 50);
+	creature_ptr->skill_device += (chara_ptr->a_dev * creature_ptr->lev / 50);
+	creature_ptr->skill_melee += (chara_ptr->a_thn * creature_ptr->lev / 50);
+	creature_ptr->skill_shooting += (chara_ptr->a_thb * creature_ptr->lev / 50);
+	creature_ptr->skill_throwing += (chara_ptr->a_thb * creature_ptr->lev / 50);
 }
 
 static void set_posture_bonuses(creature_type *creature_ptr)
@@ -2277,11 +2275,11 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 	}
 
 	/* Affect Skill -- disarming (DEX and INT) */
-	creature_ptr->skill_dis += adj_dex_dis[creature_ptr->stat_ind[STAT_DEX]];
-	creature_ptr->skill_dis += adj_int_dis[creature_ptr->stat_ind[STAT_INT]];
+	creature_ptr->skill_disarm += adj_dex_dis[creature_ptr->stat_ind[STAT_DEX]];
+	creature_ptr->skill_disarm += adj_int_dis[creature_ptr->stat_ind[STAT_INT]];
 
 	/* Affect Skill -- magic devices (INT) */
-	creature_ptr->skill_dev += adj_int_dev[creature_ptr->stat_ind[STAT_INT]];
+	creature_ptr->skill_device += adj_int_dev[creature_ptr->stat_ind[STAT_INT]];
 
 	/* Affect Skill -- saving throw (WIS) */
 	//TODO creature_ptr->skill_rob += (adj_sav[creature_ptr->stat_ind[STAT_STR]] + adj_sav[creature_ptr->stat_ind[STAT_CON]]);
@@ -2289,7 +2287,7 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 	//TODO creature_ptr->skill_vol += (adj_sav[creature_ptr->stat_ind[STAT_WIS]] + adj_sav[creature_ptr->stat_ind[STAT_CHA]]);
 
 	/* Affect Skill -- digging (STR) */
-	creature_ptr->skill_dig += adj_str_dig[creature_ptr->stat_ind[STAT_STR]];
+	creature_ptr->skill_digging += adj_str_dig[creature_ptr->stat_ind[STAT_STR]];
 }
 
 static void set_state_bonuses(creature_type *creature_ptr)
@@ -2302,7 +2300,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	// Hex bonuses
 	if(creature_ptr->realm1 == REALM_HEX)
 	{
-		if(HEX_SPELLING_ANY(creature_ptr)) creature_ptr->skill_stl -= (1 + creature_ptr->spelling_hex_num);
+		if(HEX_SPELLING_ANY(creature_ptr)) creature_ptr->skill_stealth -= (1 + creature_ptr->spelling_hex_num);
 		if(HEX_SPELLING(creature_ptr, HEX_DETECT_EVIL));//TODO creature_ptr->esp_evil = TRUE;
 		if(HEX_SPELLING(creature_ptr, HEX_XTRA_MIGHT)) creature_ptr->stat_add[STAT_STR] += 40;
 		if(HEX_SPELLING(creature_ptr, HEX_BUILDING))
@@ -2406,7 +2404,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->dis_to_hit_b  -= 12;
 		creature_ptr->dis_to_damage[0] += 3+(creature_ptr->lev/5);
 		creature_ptr->dis_to_damage[1] += 3+(creature_ptr->lev/5);
-		creature_ptr->skill_dig += 30;
+		creature_ptr->skill_digging += 30;
 	}
 
 	/* Hack -- Hero/Shero -> Res fear */
@@ -2457,7 +2455,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//TODO creature_ptr->kill_wall = TRUE;
 	}
 
-	if(has_trait(creature_ptr, TRAIT_STEALTH_PLUS)) creature_ptr->skill_stl += 99;
+	if(has_trait(creature_ptr, TRAIT_STEALTH_PLUS)) creature_ptr->skill_stealth += 99;
 }
 
 
@@ -2500,9 +2498,9 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 			creature_ptr->stat_add[STAT_CHA] += 3 * STAT_FRACTION;
 		}
 
-		if(have_flag(flgs, TRAIT_MAGIC_MASTERY))    creature_ptr->skill_dev += 8 * object_ptr->pval;
+		if(have_flag(flgs, TRAIT_MAGIC_MASTERY))    creature_ptr->skill_device += 8 * object_ptr->pval;
 
-		creature_ptr->skill_stl += object_ptr->pval;
+		creature_ptr->skill_stealth += object_ptr->pval;
 
 		/* Affect searching ability (factor of five) */
 		if(have_flag(flgs, TRAIT_SEARCH)) creature_ptr->skill_perception += (object_ptr->pval * 5);
@@ -2514,7 +2512,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if(have_flag(flgs, TRAIT_INFRA)) creature_ptr->see_infra += object_ptr->pval;
 
 		/* Affect digging (factor of 20) */
-		if(have_flag(flgs, TRAIT_TUNNEL)) creature_ptr->skill_dig += (object_ptr->pval * 20);
+		if(have_flag(flgs, TRAIT_TUNNEL)) creature_ptr->skill_digging += (object_ptr->pval * 20);
 
 		if(have_flag(flgs, TRAIT_SPEED)) creature_ptr->speed += object_ptr->pval;
 
@@ -2712,15 +2710,15 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->tval_xtra = 0;	// Reset the "xtra" tval
 	creature_ptr->tval_ammo = 0;	// Reset the "ammo" tval
 
-	creature_ptr->skill_dis = 0;
-	creature_ptr->skill_dev = 0;
-	creature_ptr->skill_stl = 0;
+	creature_ptr->skill_disarm = 0;
+	creature_ptr->skill_device = 0;
+	creature_ptr->skill_stealth = 0;
 	creature_ptr->skill_perception = 0;
 	creature_ptr->skill_penetration = 0;
-	creature_ptr->skill_thn = 0;
-	creature_ptr->skill_thb = 0;
-	creature_ptr->skill_tht = 0;
-	creature_ptr->skill_dig = 0;
+	creature_ptr->skill_melee = 0;
+	creature_ptr->skill_shooting = 0;
+	creature_ptr->skill_throwing = 0;
+	creature_ptr->skill_digging = 0;
 	creature_ptr->see_infra = 0;
 
 	// Clear all the flags
@@ -2868,14 +2866,14 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 			creature_ptr->stat_add[STAT_CON] += trait_info[i].adj[STAT_CON] * 10;
 			creature_ptr->stat_add[STAT_CHA] += trait_info[i].adj[STAT_CHA] * 10;
 
-			creature_ptr->skill_dis += trait_info[i].dis;
-			creature_ptr->skill_dev += trait_info[i].dev;
-			creature_ptr->skill_stl += trait_info[i].stl;
+			creature_ptr->skill_disarm += trait_info[i].dis;
+			creature_ptr->skill_device += trait_info[i].dev;
+			creature_ptr->skill_stealth += trait_info[i].stl;
 			creature_ptr->skill_perception += trait_info[i].srh;
-			creature_ptr->skill_dig += trait_info[i].dig;
-			creature_ptr->skill_thb += trait_info[i].thb;
-			creature_ptr->skill_thn += trait_info[i].thn;
-			creature_ptr->skill_tht += trait_info[i].tht;
+			creature_ptr->skill_digging += trait_info[i].dig;
+			creature_ptr->skill_shooting += trait_info[i].thb;
+			creature_ptr->skill_melee += trait_info[i].thn;
+			creature_ptr->skill_throwing += trait_info[i].tht;
 
 			creature_ptr->see_infra += trait_info[i].infra;
 
@@ -3132,7 +3130,7 @@ static void set_melee_status(creature_type *creature_ptr)
 		}
 
 		if(weapon_ptr->k_idx && !creature_ptr->heavy_wield[i])
-			creature_ptr->skill_dig += (s16b)(weapon_ptr->weight / 10); // Boost digging skill by weapon weight
+			creature_ptr->skill_digging += (s16b)(weapon_ptr->weight / 10); // Boost digging skill by weapon weight
 
 		// Assume okay
 		// Priest weapon penalty for non-blessed edged weapons
@@ -3322,14 +3320,14 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 	{
 		if(HAS_AUTHORITY(creature_ptr, i))
 		{
-			creature_ptr->skill_dis += authority_info[i].a_dis;
-			creature_ptr->skill_dev += authority_info[i].a_dev;
-			creature_ptr->skill_stl += authority_info[i].a_stl;
+			creature_ptr->skill_disarm += authority_info[i].a_dis;
+			creature_ptr->skill_device += authority_info[i].a_dev;
+			creature_ptr->skill_stealth += authority_info[i].a_stl;
 			creature_ptr->skill_perception += authority_info[i].a_perception;
 			creature_ptr->skill_penetration += authority_info[i].a_penetration;
-			creature_ptr->skill_thn += authority_info[i].a_thn;
-			creature_ptr->skill_thb += authority_info[i].a_thb;
-			creature_ptr->skill_tht += authority_info[i].a_thb;
+			creature_ptr->skill_melee += authority_info[i].a_thn;
+			creature_ptr->skill_shooting += authority_info[i].a_thb;
+			creature_ptr->skill_throwing += authority_info[i].a_thb;
 		}
 	}
 
@@ -3342,14 +3340,14 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 			{
 				if(HAS_AUTHORITY(patron_ptr, i))
 				{
-					creature_ptr->skill_dis += authority_info[i].w_dis;
-					creature_ptr->skill_dev += authority_info[i].w_dev;
-					creature_ptr->skill_stl += authority_info[i].w_stl;
+					creature_ptr->skill_disarm += authority_info[i].w_dis;
+					creature_ptr->skill_device += authority_info[i].w_dev;
+					creature_ptr->skill_stealth += authority_info[i].w_stl;
 					creature_ptr->skill_perception += authority_info[i].w_perception;
 					creature_ptr->skill_penetration += authority_info[i].w_penetration;
-					creature_ptr->skill_thn += authority_info[i].w_thn;
-					creature_ptr->skill_thb += authority_info[i].w_thb;
-					creature_ptr->skill_tht += authority_info[i].w_thb;
+					creature_ptr->skill_melee += authority_info[i].w_thn;
+					creature_ptr->skill_shooting += authority_info[i].w_thb;
+					creature_ptr->skill_throwing += authority_info[i].w_thb;
 				}
 			}
 		}
@@ -3454,10 +3452,10 @@ static void fix_creature_status(creature_type *creature_ptr)
 	if(creature_ptr->speed > MAX_SPEED) creature_ptr->speed = MAX_SPEED;
 	if(creature_ptr->speed < MIN_SPEED) creature_ptr->speed = MIN_SPEED;
 
-	if(creature_ptr->skill_stl > MAX_STEALTH) creature_ptr->skill_stl = MAX_STEALTH;
-	if(creature_ptr->skill_stl < MIN_STEALTH) creature_ptr->skill_stl = MIN_STEALTH;
+	if(creature_ptr->skill_stealth > MAX_STEALTH) creature_ptr->skill_stealth = MAX_STEALTH;
+	if(creature_ptr->skill_stealth < MIN_STEALTH) creature_ptr->skill_stealth = MIN_STEALTH;
 
-	if(creature_ptr->skill_dig < 1) creature_ptr->skill_dig = 1;
+	if(creature_ptr->skill_digging < 1) creature_ptr->skill_digging = 1;
 
 	// Hack -- aura of fire also provides light
 	//TODO if(creature_ptr->sh_fire) creature_ptr->lite = TRUE;
@@ -3467,7 +3465,7 @@ static void fix_creature_status(creature_type *creature_ptr)
 	if((IS_RACE(creature_ptr, RACE_S_FAIRY)) && has_trait(creature_ptr, TRAIT_ANTIPATHY))
 	{
 		//TODO creature_ptr->cursed &= ~(TRC_AGGRAVATE);
-		creature_ptr->skill_stl = MIN(creature_ptr->skill_stl - 3, (creature_ptr->skill_stl + 2) / 2);
+		creature_ptr->skill_stealth = MIN(creature_ptr->skill_stealth - 3, (creature_ptr->skill_stealth + 2) / 2);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_DUSK_ENCHANT))

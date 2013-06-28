@@ -1784,14 +1784,14 @@ static void display_player_various(creature_type * creature_ptr)
 	}
 
 	// Basic abilities
-	xthn = creature_ptr->skill_thn;
-	xthb = creature_ptr->skill_thb;
-	xdis = creature_ptr->skill_dis;
-	xdev = creature_ptr->skill_dev;
-	xstl = creature_ptr->skill_stl;
+	xthn = creature_ptr->skill_melee;
+	xthb = creature_ptr->skill_shooting;
+	xdis = creature_ptr->skill_disarm;
+	xdev = creature_ptr->skill_device;
+	xstl = creature_ptr->skill_stealth;
 	xsrh = creature_ptr->skill_perception;
 	xfos = creature_ptr->skill_penetration;
-	xdig = creature_ptr->skill_dig;
+	xdig = creature_ptr->skill_digging;
 
 	col = likert(desc, xthn, 10);
 	display_player_one_line(ENTRY_SKILL_FIGHT, desc, col);
