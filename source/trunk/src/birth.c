@@ -1229,12 +1229,8 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 		}
 	}
 
-#if JP
-		put_str("‘æ“ñí‘°‚ğ‘I‘ğ‚µ‚Ä‰º‚³‚¢:", 0, 0);
-#else
-		put_str("Select second race:", 0, 0);
-#endif
-		i = get_selection(&se_info, se);
+	put_str(MES_BIRTH_SECOND_RACE, 0, 0);
+	i = get_selection(&se_info, se);
 
 	if(i >= 0)
 	{
@@ -1332,7 +1328,6 @@ static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 	{
 		return i;
 	}
-
 
 */
 	return 0;
