@@ -1167,7 +1167,9 @@ int get_equipped_slot_num(creature_type *creature_ptr, int slot)
 {
 	int i, n = 0;
 	for(i = 0; i < INVEN_TOTAL; i++)
+	{
 		if(IS_EQUIPPED(&creature_ptr->inventory[i]) && object_kind_info[creature_ptr->inventory[i].k_idx].slot == slot) n++;
+	}
 	return n;
 }
 
