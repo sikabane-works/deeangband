@@ -1640,10 +1640,10 @@ struct creature_type
 
 	SPEED speed; // speed
 
-	COODINATES fy; // Y location on map
-	COODINATES fx; // X location on map
-	COODINATES wx; // Coordinates in the wilderness
-	COODINATES wy;
+	COODINATES fy; // Y location on floor
+	COODINATES fx; // X location on floor
+	COODINATES wy; // Y Coordinates in the wilderness
+	COODINATES wx; // X Coordinates in the wilderness
 
 	FLOOR_LEV depth;
 	COODINATES cdis; /* Current dis from player */
@@ -1652,7 +1652,6 @@ struct creature_type
 	byte sc_flag2;	// Extra creature flags
 
 	bool see_others;	// Creature is "visible"
-
 	COODINATES target_y; // Can attack !los player
 	COODINATES target_x; // Can attack !los player
 
@@ -1685,8 +1684,6 @@ struct creature_type
 	GAME_TURN running;	// Current counter for running, if any
 	GAME_TURN resting;	// Current counter for resting, if any
 	bool reinit_wilderness;
-
-
 };
 
 // traits_precondition_type

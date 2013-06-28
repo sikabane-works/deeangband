@@ -2784,9 +2784,7 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 					do_invisible = TRUE;
 					if(!has_trait(creature_ptr, TRAIT_INVISIBLE)) easy = flag = TRUE;
 				}
-
-				/* Handle "normal" creatures */
-				else easy = flag = TRUE;
+				else easy = flag = TRUE; /* Handle "normal" creatures */
 			}
 
 			/* Visible */
@@ -2809,18 +2807,12 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 		/* It was previously unseen */
 		if(!target_ptr->see_others)
 		{
-			/* Mark as visible */
-			target_ptr->see_others = TRUE;
-
-			/* Draw the creature */
-			lite_spot(floor_ptr, fy, fx);
-
-			/* Update health bar as needed */
-			if(npc_status_id == creature_idx) prepare_redraw(PR_HEALTH);
+			target_ptr->see_others = TRUE; /* Mark as visible */
+			lite_spot(floor_ptr, fy, fx); /* Draw the creature */
+			if(npc_status_id == creature_idx) prepare_redraw(PR_HEALTH); /* Update health bar as needed */
 			if(creature_ptr->riding == creature_idx) prepare_redraw(PR_UHEALTH);
 
-			/* Hack -- Count "fresh" sightings */
-			if(!has_trait(creature_ptr, TRAIT_HALLUCINATION))
+			if(!has_trait(creature_ptr, TRAIT_HALLUCINATION)) /* Hack -- Count "fresh" sightings */
 			{
 				//if((target_ptr->ap_species_idx == SPECIES_KAGE) && (species_info[SPECIES_KAGE].r_sights < MAX_SHORT))
 				//	species_info[SPECIES_KAGE].r_sights++;
@@ -2862,36 +2854,16 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 	/* The creature is now easily visible */
 	if(easy)
 	{
-		/* Change */
-		if(!(target_ptr->sc_flag & (SC_FLAG_VIEW)))
+		if(!(target_ptr->sc_flag & (SC_FLAG_VIEW))) /* Change */
 		{
-			/* Mark as easily visible */
-			target_ptr->sc_flag |= (SC_FLAG_VIEW);
-
-			/* Disturb on appearance */
-			if(do_disturb)
-			{
-				if(disturb_pets || is_hostile(target_ptr)) disturb(creature_ptr, 1, 0);
-			}
+			target_ptr->sc_flag |= (SC_FLAG_VIEW); /* Mark as easily visible */
+			if(do_disturb) if(disturb_pets || is_hostile(target_ptr)) disturb(creature_ptr, 1, 0); /* Disturb on appearance */
 		}
 	}
-
-	/* The creature is not easily visible */
-	else
+	else if(target_ptr->sc_flag & (SC_FLAG_VIEW)) /* The creature is not easily visible */
 	{
-		/* Change */
-		if(target_ptr->sc_flag & (SC_FLAG_VIEW))
-
-		{
-			/* Mark as not easily visible */
-			target_ptr->sc_flag &= ~(SC_FLAG_VIEW);
-
-			/* Disturb on disappearance */
-			if(do_disturb)
-			{
-				if(disturb_pets || is_hostile(target_ptr)) disturb(creature_ptr, 1, 0);
-			}
-		}
+		target_ptr->sc_flag &= ~(SC_FLAG_VIEW); /* Mark as not easily visible */
+		if(do_disturb && (disturb_pets || is_hostile(target_ptr))) disturb(creature_ptr, 1, 0); /* Disturb on disappearance */
 	}
 }
 
@@ -2944,8 +2916,7 @@ static bool creature_hook_chameleon(SPECIES_ID species_idx)
 
 	if(!species_can_cross_terrain(floor_ptr->cave[m_ptr->fy][m_ptr->fx].feat, species_ptr, 0)) return FALSE;
 
-	/* Not born */
-	if(!has_trait_species(old_r_ptr, TRAIT_CHAMELEON))
+	if(!has_trait_species(old_r_ptr, TRAIT_CHAMELEON)) /* Not born */
 	{
 		if(is_enemy_of_evil_species(old_r_ptr) && !is_enemy_of_evil_species(species_ptr)) return FALSE;
 		if(is_enemy_of_good_species(old_r_ptr) && !is_enemy_of_good_species(species_ptr)) return FALSE;
