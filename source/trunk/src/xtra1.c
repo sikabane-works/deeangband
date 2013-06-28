@@ -1987,8 +1987,8 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_dis += mimic_ptr->r_dis;
 		creature_ptr->skill_dev += mimic_ptr->r_dev;
 		creature_ptr->skill_stl += mimic_ptr->r_stl;
-		creature_ptr->skill_srh += mimic_ptr->r_srh;
-		creature_ptr->skill_fos += mimic_ptr->r_fos;
+		creature_ptr->skill_perception += mimic_ptr->r_perception;
+		creature_ptr->skill_penetration += mimic_ptr->r_penetration;
 		creature_ptr->skill_thn += mimic_ptr->r_thn;
 		creature_ptr->skill_thb += mimic_ptr->r_thb;
 		creature_ptr->skill_tht += mimic_ptr->r_thb;
@@ -2005,8 +2005,8 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_dis += race1_ptr->r_dis;
 		creature_ptr->skill_dev += race1_ptr->r_dev;
 		creature_ptr->skill_stl += race1_ptr->r_stl;
-		creature_ptr->skill_srh += race1_ptr->r_srh;
-		creature_ptr->skill_fos += race1_ptr->r_fos;
+		creature_ptr->skill_perception += race1_ptr->r_perception;
+		creature_ptr->skill_penetration += race1_ptr->r_penetration;
 		creature_ptr->skill_thn += race1_ptr->r_thn;
 		creature_ptr->skill_thb += race1_ptr->r_thb;
 		creature_ptr->skill_tht += race1_ptr->r_thb;
@@ -2023,8 +2023,8 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_dis += race1_ptr->r_s_dis + race2_ptr->r_s_dis;
 		creature_ptr->skill_dev += race1_ptr->r_s_dev + race2_ptr->r_s_dev;
 		creature_ptr->skill_stl += race1_ptr->r_s_stl + race2_ptr->r_s_stl;
-		creature_ptr->skill_srh += race1_ptr->r_s_srh + race2_ptr->r_s_srh;
-		creature_ptr->skill_fos += race1_ptr->r_s_fos + race2_ptr->r_s_fos;
+		creature_ptr->skill_perception += race1_ptr->r_s_perception + race2_ptr->r_s_perception;
+		creature_ptr->skill_penetration += race1_ptr->r_s_penetration + race2_ptr->r_s_penetration;
 		creature_ptr->skill_thn += race1_ptr->r_s_thn + race2_ptr->r_s_thn;
 		creature_ptr->skill_thb += race1_ptr->r_s_thb + race2_ptr->r_s_thb;
 		creature_ptr->skill_tht += race1_ptr->r_s_thb + race2_ptr->r_s_thb;
@@ -2042,15 +2042,6 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->vo += race2_ptr->r_s_vo;
 		creature_ptr->dis_vo += race2_ptr->r_s_vo;
 	}
-
-	// Species
-	creature_ptr->ac += species_ptr->ac;
-	creature_ptr->dis_ac += species_ptr->ac;
-	creature_ptr->ev += species_ptr->ev;
-	creature_ptr->dis_ev += species_ptr->ev;
-	creature_ptr->vo += species_ptr->vo;
-	creature_ptr->dis_vo += species_ptr->vo;
-	creature_ptr->speed += species_ptr->speed;
 
 	creature_ptr->see_infra += MAX(race1_ptr->infra, race2_ptr->infra); // Base infravision (purely racial)
 }
@@ -2070,8 +2061,8 @@ static void set_class_bonuses(creature_type *creature_ptr)
 	creature_ptr->skill_dis += class_ptr->c_dis;
 	creature_ptr->skill_dev += class_ptr->c_dev;
 	creature_ptr->skill_stl += class_ptr->c_stl;
-	creature_ptr->skill_srh += class_ptr->c_srh;
-	creature_ptr->skill_fos += class_ptr->c_fos;
+	creature_ptr->skill_perception += class_ptr->c_perception;
+	creature_ptr->skill_penetration += class_ptr->c_penetration;
 	creature_ptr->skill_thn += class_ptr->c_thn;
 	creature_ptr->skill_thb += class_ptr->c_thb;
 	creature_ptr->skill_tht += class_ptr->c_thb;
@@ -2134,8 +2125,8 @@ static void set_class_bonuses(creature_type *creature_ptr)
 	creature_ptr->skill_dis += (class_ptr->x_dis * creature_ptr->lev / 10);
 	creature_ptr->skill_dev += (class_ptr->x_dev * creature_ptr->lev / 10);
 	creature_ptr->skill_stl += (class_ptr->x_stl * creature_ptr->lev / 10);
-	creature_ptr->skill_srh += (class_ptr->x_srh * creature_ptr->lev / 10);
-	creature_ptr->skill_fos += (class_ptr->x_fos * creature_ptr->lev / 10);
+	creature_ptr->skill_perception += (class_ptr->x_perception * creature_ptr->lev / 10);
+	creature_ptr->skill_penetration += (class_ptr->x_penetration * creature_ptr->lev / 10);
 	creature_ptr->skill_thn += (class_ptr->x_thn * creature_ptr->lev / 10);
 	creature_ptr->skill_thb += (class_ptr->x_thb * creature_ptr->lev / 10);
 	creature_ptr->skill_tht += (class_ptr->x_thb * creature_ptr->lev / 10);
@@ -2151,8 +2142,8 @@ static void set_character_bonuses(creature_type *creature_ptr)
 	creature_ptr->skill_dis += chara_ptr->a_dis;
 	creature_ptr->skill_dev += chara_ptr->a_dev;
 	creature_ptr->skill_stl += chara_ptr->a_stl;
-	creature_ptr->skill_srh += chara_ptr->a_srh;
-	creature_ptr->skill_fos += chara_ptr->a_fos;
+	creature_ptr->skill_perception += chara_ptr->a_perception;
+	creature_ptr->skill_penetration += chara_ptr->a_penetration;
 	creature_ptr->skill_thn += chara_ptr->a_thn;
 	creature_ptr->skill_thb += chara_ptr->a_thb;
 	creature_ptr->skill_tht += chara_ptr->a_thb;
@@ -2514,10 +2505,10 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_stl += object_ptr->pval;
 
 		/* Affect searching ability (factor of five) */
-		if(have_flag(flgs, TRAIT_SEARCH)) creature_ptr->skill_srh += (object_ptr->pval * 5);
+		if(have_flag(flgs, TRAIT_SEARCH)) creature_ptr->skill_perception += (object_ptr->pval * 5);
 
 		/* Affect searching frequency (factor of five) */
-		if(have_flag(flgs, TRAIT_SEARCH)) creature_ptr->skill_fos += (object_ptr->pval * 5);
+		if(have_flag(flgs, TRAIT_SEARCH)) creature_ptr->skill_penetration += (object_ptr->pval * 5);
 
 		/* Affect infravision */
 		if(have_flag(flgs, TRAIT_INFRA)) creature_ptr->see_infra += object_ptr->pval;
@@ -2724,8 +2715,8 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->skill_dis = 0;
 	creature_ptr->skill_dev = 0;
 	creature_ptr->skill_stl = 0;
-	creature_ptr->skill_srh = 0;
-	creature_ptr->skill_fos = 0;
+	creature_ptr->skill_perception = 0;
+	creature_ptr->skill_penetration = 0;
 	creature_ptr->skill_thn = 0;
 	creature_ptr->skill_thb = 0;
 	creature_ptr->skill_tht = 0;
@@ -2880,7 +2871,7 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 			creature_ptr->skill_dis += trait_info[i].dis;
 			creature_ptr->skill_dev += trait_info[i].dev;
 			creature_ptr->skill_stl += trait_info[i].stl;
-			creature_ptr->skill_srh += trait_info[i].srh;
+			creature_ptr->skill_perception += trait_info[i].srh;
 			creature_ptr->skill_dig += trait_info[i].dig;
 			creature_ptr->skill_thb += trait_info[i].thb;
 			creature_ptr->skill_thn += trait_info[i].thn;
@@ -3334,8 +3325,8 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 			creature_ptr->skill_dis += authority_info[i].a_dis;
 			creature_ptr->skill_dev += authority_info[i].a_dev;
 			creature_ptr->skill_stl += authority_info[i].a_stl;
-			creature_ptr->skill_srh += authority_info[i].a_srh;
-			creature_ptr->skill_fos += authority_info[i].a_fos;
+			creature_ptr->skill_perception += authority_info[i].a_perception;
+			creature_ptr->skill_penetration += authority_info[i].a_penetration;
 			creature_ptr->skill_thn += authority_info[i].a_thn;
 			creature_ptr->skill_thb += authority_info[i].a_thb;
 			creature_ptr->skill_tht += authority_info[i].a_thb;
@@ -3354,8 +3345,8 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 					creature_ptr->skill_dis += authority_info[i].w_dis;
 					creature_ptr->skill_dev += authority_info[i].w_dev;
 					creature_ptr->skill_stl += authority_info[i].w_stl;
-					creature_ptr->skill_srh += authority_info[i].w_srh;
-					creature_ptr->skill_fos += authority_info[i].w_fos;
+					creature_ptr->skill_perception += authority_info[i].w_perception;
+					creature_ptr->skill_penetration += authority_info[i].w_penetration;
 					creature_ptr->skill_thn += authority_info[i].w_thn;
 					creature_ptr->skill_thb += authority_info[i].w_thb;
 					creature_ptr->skill_tht += authority_info[i].w_thb;

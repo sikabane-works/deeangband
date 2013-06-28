@@ -2204,7 +2204,7 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 	if(floor_ptr->gamble_arena_mode) return;		 // No feeling in the arena
 
 	// Extract delay time
-	delay = MAX(10, 150 - creature_ptr->skill_fos) * (150 - floor_ptr->depth) * TURNS_PER_TICK / 100;
+	delay = MAX(10, 150 - creature_ptr->skill_penetration) * (150 - floor_ptr->depth) * TURNS_PER_TICK / 100;
 	if(game_turn < creature_ptr->feeling_turn + delay && !cheat_xtra) return;
 
 	// No feeling in a quest

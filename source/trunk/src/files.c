@@ -1322,7 +1322,7 @@ static struct
 	{33, 18, -1, 0, 0, 0, "‰ñ”ğ”\—Í  :"},
 	{33, 19, -1, 0, 0, 0, "ˆÓu—Í    :"},
 	{33, 20, -1, 0, 0, 0, "‰B–§”\—Í  :"},
-	{57, 15, -1, 0, 0, 0, "õ“G—Í    :"},
+	{57, 15, -1, 0, 0, 0, "’mŠo—Í    :"},
 	{57, 16, -1, 0, 0, 0, "ŠÏ@—Í    :"},
 	{57, 17, -1, 0, 0, 0, "‰ğœ”\—Í@:"},
 	{57, 18, -1, 0, 0, 0, "–‚–@“¹‹ï  :"},
@@ -1789,8 +1789,8 @@ static void display_player_various(creature_type * creature_ptr)
 	xdis = creature_ptr->skill_dis;
 	xdev = creature_ptr->skill_dev;
 	xstl = creature_ptr->skill_stl;
-	xsrh = creature_ptr->skill_srh;
-	xfos = creature_ptr->skill_fos;
+	xsrh = creature_ptr->skill_perception;
+	xfos = creature_ptr->skill_penetration;
 	xdig = creature_ptr->skill_dig;
 
 	col = likert(desc, xthn, 10);

@@ -400,7 +400,7 @@ void search(creature_type *creature_ptr)
 	cave_type *c_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	chance = creature_ptr->skill_srh; // Start with base search ability
+	chance = creature_ptr->skill_perception; // Start with base search ability
 
 	/* Penalize various conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) chance = chance / 10;

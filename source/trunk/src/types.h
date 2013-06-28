@@ -1148,8 +1148,8 @@ struct race_type
 	STAT r_eva;			/* saving throw */
 	STAT r_vol;			/* saving throw */
 	STAT r_stl;			/* stealth */
-	STAT r_srh;			/* search ability */
-	STAT r_fos;			/* search frequency */
+	STAT r_perception;			/* search ability */
+	STAT r_penetration;			/* search frequency */
 	STAT r_thn;			/* combat (normal) */
 	STAT r_thb;			/* combat (shooting) */
 	SAVING r_ac;
@@ -1163,8 +1163,8 @@ struct race_type
 	STAT r_s_eva;			/* saving throw */
 	STAT r_s_vol;			/* saving throw */
 	STAT r_s_stl;			/* stealth */
-	STAT r_s_srh;			/* search ability */
-	STAT r_s_fos;			/* search frequency */
+	STAT r_s_perception;			/* search ability */
+	STAT r_s_penetration;			/* search frequency */
 	STAT r_s_thn;			/* combat (normal) */
 	STAT r_s_thb;			/* combat (shooting) */
 	SAVING r_s_ac;
@@ -1256,8 +1256,8 @@ struct class_type
 	s16b c_dev;			/* class magic devices */
 	s16b c_sav;			/* class saving throws */
 	s16b c_stl;			/* class stealth */
-	s16b c_srh;			/* class searching ability */
-	s16b c_fos;			/* class searching frequency */
+	s16b c_perception;			/* class searching ability */
+	s16b c_penetration;			/* class searching frequency */
 	s16b c_thn;			/* class to hit (normal) */
 	s16b c_thb;			/* class to hit (bows) */
 
@@ -1265,8 +1265,8 @@ struct class_type
 	s16b x_dev;			/* extra magic devices */
 	s16b x_sav;			/* extra saving throws */
 	s16b x_stl;			/* extra stealth */
-	s16b x_srh;			/* extra searching ability */
-	s16b x_fos;			/* extra searching frequency */
+	s16b x_perception;			/* extra searching ability */
+	s16b x_penetration;			/* extra searching frequency */
 	s16b x_thn;			/* extra to hit (normal) */
 	s16b x_thb;			/* extra to hit (bows) */
 
@@ -1293,8 +1293,8 @@ struct player_patron
 	s16b p_dev;			/* patron magic devices */
 	s16b p_sav;			/* patron saving throw */
 	s16b p_stl;			/* patron stealth */
-	s16b p_srh;			/* patron search ability */
-	s16b p_fos;			/* patron search frequency */
+	s16b p_perception;			/* patron search ability */
+	s16b p_penetration;			/* patron search frequency */
 	s16b p_thn;			/* patron combat (normal) */
 	s16b p_thb;			/* patron combat (shooting) */
 
@@ -1327,8 +1327,8 @@ struct chara_type
 	s16b a_dev;			/* chara magic devices */
 	s16b a_sav;			/* chara saving throw */
 	s16b a_stl;			/* chara stealth */
-	s16b a_srh;			/* chara search ability */
-	s16b a_fos;			/* chara search frequency */
+	s16b a_perception;			/* chara search ability */
+	s16b a_penetration;			/* chara search frequency */
 	s16b a_thn;			/* chara combat (normal) */
 	s16b a_thb;			/* chara combat (shooting) */
 
@@ -1629,8 +1629,8 @@ struct creature_type
 	TRYING skill_dis;		// Skill: Disarming
 	TRYING skill_dev;		// Skill: Magic Devices
 	TRYING skill_stl;		// Skill: Stealth factor
-	TRYING skill_srh;		// Skill: Searching ability
-	TRYING skill_fos;		// Skill: Searching frequency
+	TRYING skill_perception;
+	TRYING skill_penetration;
 	TRYING skill_thn;		// Skill: To hit (normal)
 	TRYING skill_thb;		// Skill: To hit (shooting)
 	TRYING skill_tht;		// Skill: To hit (throwing)
@@ -2148,8 +2148,8 @@ typedef struct authority_type {
 	s16b a_dev;			/* Autority magic devices */
 	s16b a_sav;			/* Autority saving throws */
 	s16b a_stl;			/* Autority stealth */
-	s16b a_srh;			/* Autority searching ability */
-	s16b a_fos;			/* Autority searching frequency */
+	s16b a_perception;			/* Autority searching ability */
+	s16b a_penetration;			/* Autority searching frequency */
 	s16b a_thn;			/* Autority to hit (normal) */
 	s16b a_thb;			/* Autority to hit (bows) */
 
@@ -2157,8 +2157,8 @@ typedef struct authority_type {
 	s16b w_dev;		/* Autority magic devices */
 	s16b w_sav;		/* Autority saving throws */
 	s16b w_stl;		/* Autority stealth */
-	s16b w_srh;		/* Autority searching ability */
-	s16b w_fos;		/* Autority searching frequency */
+	s16b w_perception;		/* Autority searching ability */
+	s16b w_penetration;		/* Autority searching frequency */
 	s16b w_thn;		/* Autority to hit (normal) */
 	s16b w_thb;		/* Autority to hit (bows) */
 

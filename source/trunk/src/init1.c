@@ -4593,12 +4593,12 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_P_SRH:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_srh = (STAT)b;
+				race_ptr->r_perception = (STAT)b;
 				break;
 
 			case RC_INFO_P_FOS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_fos = (STAT)b;
+				race_ptr->r_penetration = (STAT)b;
 				break;
 
 			case RC_INFO_P_THN:
@@ -4648,12 +4648,12 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_H_SRH:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_srh = (STAT)b;
+				race_ptr->r_s_perception = (STAT)b;
 				break;
 
 			case RC_INFO_H_FOS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				race_ptr->r_s_fos = (STAT)b;
+				race_ptr->r_s_penetration = (STAT)b;
 				break;
 
 			case RC_INFO_H_THN:
@@ -5089,12 +5089,12 @@ errr parse_class_info_csv(char *buf, header *head)
 
 				case CL_INFO_C_SRH:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_ptr->c_srh = (s16b)b;
+					class_ptr->c_perception = (s16b)b;
 					break;
 
 				case CL_INFO_C_FOS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_ptr->c_fos = (s16b)b;
+					class_ptr->c_penetration = (s16b)b;
 					break;
 
 				case CL_INFO_C_THN:
@@ -5129,12 +5129,12 @@ errr parse_class_info_csv(char *buf, header *head)
 
 				case CL_INFO_X_SRH:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_ptr->x_srh = (s16b)b;
+					class_ptr->x_perception = (s16b)b;
 					break;
 
 				case CL_INFO_X_FOS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_ptr->x_fos = (s16b)b;
+					class_ptr->x_penetration = (s16b)b;
 					break;
 
 				case CL_INFO_X_THN:
@@ -5368,12 +5368,12 @@ errr parse_chara_info_csv(char *buf, header *head)
 
 				case CH_INFO_C_SRH:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_ptr->a_srh = (s16b)b;
+					chara_ptr->a_perception = (s16b)b;
 					break;
 
 				case CH_INFO_C_FOS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					chara_ptr->a_fos = (s16b)b;
+					chara_ptr->a_penetration = (s16b)b;
 					break;
 
 				case CH_INFO_C_THN:
@@ -6008,12 +6008,12 @@ errr parse_authority_info_csv(char *buf, header *head)
 
 			case AU_INFO_A_SRH:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				authority_info[n].a_srh = (s16b)b;
+				authority_info[n].a_perception = (s16b)b;
 				break;
 
 			case AU_INFO_A_FOS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				authority_info[n].a_fos = (s16b)b;
+				authority_info[n].a_penetration = (s16b)b;
 				break;
 
 			case AU_INFO_A_THN:
@@ -6053,12 +6053,12 @@ errr parse_authority_info_csv(char *buf, header *head)
 
 			case AU_INFO_W_SRH:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				authority_info[n].w_srh = (s16b)b;
+				authority_info[n].w_perception = (s16b)b;
 				break;
 
 			case AU_INFO_W_FOS:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				authority_info[n].w_fos = (s16b)b;
+				authority_info[n].w_penetration = (s16b)b;
 				break;
 
 			case AU_INFO_W_THN:

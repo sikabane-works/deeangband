@@ -4511,7 +4511,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, COODINATE
 		}
 
 		/* Spontaneous Searching */
-		if((creature_ptr->skill_fos >= 50) || (0 == randint0(50 - creature_ptr->skill_fos))) search(creature_ptr);
+		if((creature_ptr->skill_penetration >= 50) || (0 == randint0(50 - creature_ptr->skill_penetration))) search(creature_ptr);
 
 		/* Continuous Searching */
 		if(creature_ptr->action == ACTION_SEARCH) search(creature_ptr);
