@@ -1161,10 +1161,13 @@ static POWER set_initiative(creature_type *attacker_ptr, creature_type *target_p
 
 static object_type* select_weapon(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if(is_valid_object(&attacker_ptr->organ_object[INVENTORY_ID_HAND]))
+	int num;
+	num = get_equipped_slot_num(attacker_ptr, INVENTORY_ID_HAND);
+	if(attacker_ptr->item_slot_num[INVENTORY_ID_HAND] > num && is_valid_object(&attacker_ptr->organ_object[INVENTORY_ID_HAND]))
 	{
-		return &attacker_ptr->organ_object[INVENTORY_ID_HAND];
+		if(one_in_(num + 1)) return &attacker_ptr->organ_object[INVENTORY_ID_HAND];
 	}
+	if(num > 0) return get_equipped_slot_ptr(attacker_ptr, INVENTORY_ID_HAND, randint1(num));
 	else return NULL;
 }
 
@@ -1231,7 +1234,7 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	while(successing_attack)
 	{
 		weapon_ptr = select_weapon(attacker_ptr, target_ptr);
-		if(weapon_ptr) do_one_attack(attacker_ptr, target_ptr, weapon_ptr, &initiative, mode);
+		if(is_valid_object(weapon_ptr)) do_one_attack(attacker_ptr, target_ptr, weapon_ptr, &initiative, mode);
 		else successing_attack = FALSE;
 		if(initiative < 0) successing_attack = FALSE;
 		if(IS_DEAD(target_ptr)) return TRUE;

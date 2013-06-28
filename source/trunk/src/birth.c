@@ -1524,12 +1524,8 @@ static int get_creature_sex(creature_type *creature_ptr, species_type *species_p
 	se[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-#if JP
-		put_str("性別を選択して下さい(赤字の性別には種族ペナルティがかかります):", 0, 0);
-#else
-		put_str("Select a sex(Red entries have race penalty) ", 0, 0);
-#endif
-		i = get_selection(&se_info, se);
+	put_str(MES_BIRTH_SEX, 0, 0);
+	i = get_selection(&se_info, se);
 
 	if(i >= 0)
 	{
@@ -1624,11 +1620,7 @@ static int get_creature_class(creature_type *creature_ptr, species_type *species
 	ce[se_info.num].l_color = TERM_L_UMBER;
 	se_info.num++;
 
-#if JP
-	put_str("職業を選択して下さい(緑字の職業には種族相性ボーナスがつきます):", 0, 0);
-#else
-	put_str("Select a class(Any green entries have race bonus):", 0, 0);
-#endif
+	put_str(MES_BIRTH_CLASS, 0, 0);
 
 	if(!npc) put_initial_status(creature_ptr);
 	i = get_selection(&se_info, ce);
@@ -2231,10 +2223,7 @@ static void edit_history(creature_type *creature_ptr)
 		int skey;
 		char c;
 
-		for (i = 0; i < HISTORY_ROW; i++)
-		{
-			put_str(creature_ptr->history[i], i + 4, 3);
-		}
+		for (i = 0; i < HISTORY_ROW; i++) put_str(creature_ptr->history[i], i + 4, 3);
 #ifdef JP
 		if(iskanji2(creature_ptr->history[y], x))
 			c_put_str(TERM_L_BLUE, format("%c%c", creature_ptr->history[y][x],creature_ptr->history[y][x+1]), y + 4, x + 3);
@@ -2368,10 +2357,7 @@ static void edit_history(creature_type *creature_ptr)
 					if(y > HISTORY_ROW - 1) y = 0;
 				}
 
-				if(iskanji2(creature_ptr->history[y], x+1))
-				{
-					creature_ptr->history[y][x+2] = ' ';
-				}
+				if(iskanji2(creature_ptr->history[y], x+1)) creature_ptr->history[y][x+2] = ' ';
 
 				creature_ptr->history[y][x++] = c;
 

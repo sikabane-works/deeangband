@@ -2319,6 +2319,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_BIRTH_MAIN_RACE_MODIFY "の主種族修正"
 #define MES_BIRTH_ELDAR "エルダールの副種族を選択して下さい:"
 #define MES_BIRTH_DRAGONBONE "竜族の副種族を選択して下さい:"
+#define MES_BIRTH_SEX "性別を選択して下さい(赤字の性別には種族ペナルティがかかります):"
+#define MES_BIRTH_CLASS "職業を選択して下さい(緑字の職業には種族相性ボーナスがつきます):"
 #else
 #define MES_BIRTH_SELECT_CAMPAIGN "Select Campaign"
 #define MES_BIRTH_PROFILE_LOAD_ASK "Load profile preference file? "
@@ -2333,6 +2335,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_BIRTH_MAIN_RACE_MODIFY "'s Main-Race modification"
 #define MES_BIRTH_ELDAR "Select a sub-race of Eldar:"
 #define MES_BIRTH_DRAGONBONE "Select a sub-race of Dragonbone:"
+#define MES_BIRTH_SEX "Select a sex(Red entries have race penalty) "
+#define MES_BIRTH_CLASS "Select a class(Any green entries have race bonus):"
 #endif
 
 #ifdef JP
