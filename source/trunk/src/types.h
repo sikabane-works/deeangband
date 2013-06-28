@@ -1179,28 +1179,25 @@ struct race_type
 	u32b b_age;			/* base age */
 	u32b m_age;			/* mod age */
 
-	u32b m_b_ht;		/* base height (males) */
-	u32b m_m_ht;		/* mod height (males) */
-	u32b m_b_wt;		/* base weight (males) */
-	u32b m_m_wt;		/* mod weight (males) */
+	HEIGHT m_b_ht;		/* base height (males) */
+	HEIGHT m_m_ht;		/* mod height (males) */
+	WEIGHT m_b_wt;		/* base weight (males) */
+	WEIGHT m_m_wt;		/* mod weight (males) */
 
-	u32b f_b_ht;		/* base height (females) */
-	u32b f_m_ht;		/* mod height (females)	  */
-	u32b f_b_wt;		/* base weight (females) */
-	u32b f_m_wt;		/* mod weight (females) */
+	HEIGHT f_b_ht;		/* base height (females) */
+	HEIGHT f_m_ht;		/* mod height (females)	  */
+	WEIGHT f_b_wt;		/* base weight (females) */
+	WEIGHT f_m_wt;		/* mod weight (females) */
 
 	CREATURE_LEV lev;
-	s16b dr;
+	CREATURE_LEV dr;
 	s32b good;
 	s32b evil;
 	s32b order;
 	s32b chaos;
 	s32b balance;
 
-	byte infra;			/* Infra-vision	range */
-	byte sub_infra;			/* Infra-vision	range */
-
-	u32b choice;        /* Legal class choices */
+	FLAGS_32 choice;        /* Legal class choices */
 
 	traits_precondition p_flags;
 	traits_precondition h_flags;
@@ -1289,14 +1286,14 @@ struct player_patron
 
 	STAT p_adj[STAT_MAX];		/* patron stat bonuses */
 
-	s16b p_dis;			/* patron disarming */
-	s16b p_dev;			/* patron magic devices */
-	s16b p_sav;			/* patron saving throw */
-	s16b p_stl;			/* patron stealth */
-	s16b p_perception;			/* patron search ability */
-	s16b p_penetration;			/* patron search frequency */
-	s16b p_thn;			/* patron combat (normal) */
-	s16b p_thb;			/* patron combat (shooting) */
+	TRYING p_dis;			/* patron disarming */
+	TRYING p_dev;			/* patron magic devices */
+	TRYING p_sav;			/* patron saving throw */
+	TRYING p_stl;			/* patron stealth */
+	TRYING p_perception;			/* patron search ability */
+	TRYING p_penetration;			/* patron search frequency */
+	TRYING p_thn;			/* patron combat (normal) */
+	TRYING p_thb;			/* patron combat (shooting) */
 
 	s16b p_mhp;			/* patron hit-dice modifier */
 
@@ -1323,16 +1320,16 @@ struct chara_type
 
 	STAT a_adj[STAT_MAX];		/* chara stat bonuses */
 
-	s16b a_dis;			/* chara disarming */
-	s16b a_dev;			/* chara magic devices */
-	s16b a_sav;			/* chara saving throw */
-	s16b a_stl;			/* chara stealth */
-	s16b a_perception;			/* chara search ability */
-	s16b a_penetration;			/* chara search frequency */
-	s16b a_thn;			/* chara combat (normal) */
-	s16b a_thb;			/* chara combat (shooting) */
+	TRYING a_dis;			/* chara disarming */
+	TRYING a_dev;			/* chara magic devices */
+	TRYING a_sav;			/* chara saving throw */
+	TRYING a_stl;			/* chara stealth */
+	TRYING a_perception;			/* chara search ability */
+	TRYING a_penetration;			/* chara search frequency */
+	TRYING a_thn;			/* chara combat (normal) */
+	TRYING a_thb;			/* chara combat (shooting) */
 
-	s16b a_mhp;			/* patron hit-dice modifier */
+	TRYING a_mhp;			/* patron hit-dice modifier */
 	s16b m_pena;
 
 	byte no;			/* Japanese "no" */
