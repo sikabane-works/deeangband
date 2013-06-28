@@ -1993,12 +1993,12 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_thb += mimic_ptr->r_thb;
 		creature_ptr->skill_tht += mimic_ptr->r_thb;
 
-		creature_ptr->to_ac += mimic_ptr->r_ac;
-		creature_ptr->dis_to_ac += mimic_ptr->r_ac;
-		creature_ptr->to_ev += mimic_ptr->r_ev;
-		creature_ptr->dis_to_ev += mimic_ptr->r_ev;
-		creature_ptr->to_vo += mimic_ptr->r_vo;
-		creature_ptr->dis_to_vo += mimic_ptr->r_vo;
+		creature_ptr->ac += mimic_ptr->r_ac;
+		creature_ptr->dis_ac += mimic_ptr->r_ac;
+		creature_ptr->ev += mimic_ptr->r_ev;
+		creature_ptr->dis_ev += mimic_ptr->r_ev;
+		creature_ptr->vo += mimic_ptr->r_vo;
+		creature_ptr->dis_vo += mimic_ptr->r_vo;
 	}
 	else if(IS_PURE(creature_ptr))
 	{
@@ -2011,12 +2011,12 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_thb += race1_ptr->r_thb;
 		creature_ptr->skill_tht += race1_ptr->r_thb;
 
-		creature_ptr->to_ac += race1_ptr->r_ac;
-		creature_ptr->dis_to_ac += race1_ptr->r_ac;
-		creature_ptr->to_ev += race1_ptr->r_ev;
-		creature_ptr->dis_to_ev += race1_ptr->r_ev;
-		creature_ptr->to_vo += race1_ptr->r_vo;
-		creature_ptr->dis_to_vo += race1_ptr->r_vo;
+		creature_ptr->ac += race1_ptr->r_ac;
+		creature_ptr->dis_ac += race1_ptr->r_ac;
+		creature_ptr->ev += race1_ptr->r_ev;
+		creature_ptr->dis_ev += race1_ptr->r_ev;
+		creature_ptr->vo += race1_ptr->r_vo;
+		creature_ptr->dis_vo += race1_ptr->r_vo;
 	}
 	else
 	{
@@ -2029,20 +2029,18 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_thb += race1_ptr->r_s_thb + race2_ptr->r_s_thb;
 		creature_ptr->skill_tht += race1_ptr->r_s_thb + race2_ptr->r_s_thb;
 
-		creature_ptr->to_ac += race1_ptr->r_s_ac;
-		creature_ptr->dis_to_ac += race1_ptr->r_s_ac;
-		creature_ptr->to_ac += race2_ptr->r_s_ac;
-		creature_ptr->dis_to_ac += race2_ptr->r_s_ac;
-
-		creature_ptr->to_ev += race1_ptr->r_s_ev;
-		creature_ptr->dis_to_ev += race1_ptr->r_s_ev;
-		creature_ptr->to_ev += race2_ptr->r_s_ev;
-		creature_ptr->dis_to_ev += race2_ptr->r_s_ev;
-
-		creature_ptr->to_vo += race1_ptr->r_s_vo;
-		creature_ptr->dis_to_vo += race1_ptr->r_s_vo;
-		creature_ptr->to_vo += race2_ptr->r_s_vo;
-		creature_ptr->dis_to_vo += race2_ptr->r_s_vo;
+		creature_ptr->ac += race1_ptr->r_s_ac;
+		creature_ptr->dis_ac += race1_ptr->r_s_ac;
+		creature_ptr->ac += race2_ptr->r_s_ac;
+		creature_ptr->dis_ac += race2_ptr->r_s_ac;
+		creature_ptr->ev += race1_ptr->r_s_ev;
+		creature_ptr->dis_ev += race1_ptr->r_s_ev;
+		creature_ptr->ev += race2_ptr->r_s_ev;
+		creature_ptr->dis_ev += race2_ptr->r_s_ev;
+		creature_ptr->vo += race1_ptr->r_s_vo;
+		creature_ptr->dis_vo += race1_ptr->r_s_vo;
+		creature_ptr->vo += race2_ptr->r_s_vo;
+		creature_ptr->dis_vo += race2_ptr->r_s_vo;
 	}
 
 	// Species
