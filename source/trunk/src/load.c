@@ -702,7 +702,7 @@ static errr rd_creature(creature_type *creature_ptr)
 	READ_REALM_ID(&creature_ptr->realm1);
 	READ_REALM_ID(&creature_ptr->realm2);
 
-	rd_s16b(&creature_ptr->camp_idx);
+	READ_CAMP_ID(&creature_ptr->camp_idx);
 	READ_SPECIES_ID(&creature_ptr->master_creature_idx);
 
 	// Special Race/Class info

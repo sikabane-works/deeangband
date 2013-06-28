@@ -66,6 +66,10 @@ typedef enum CHARA_ID CHARA_ID;
 #define READ_CHARA_ID(VALUE) rd_s32b((s32b *)VALUE);
 #define WRITE_CHARA_ID(VALUE) wr_s32b((s32b)VALUE);
 
+typedef s32b CAMP_ID;
+#define READ_CAMP_ID(VALUE) rd_s32b((CAMP_ID *)VALUE);
+#define WRITE_CAMP_ID(VALUE) wr_s32b((CAMP_ID)VALUE);
+
 typedef s32b SEX_ID;
 #define READ_SEX_ID(VALUE) rd_s32b((SEX_ID *)VALUE);
 #define WRITE_SEX_ID(VALUE) wr_s32b((SEX_ID)VALUE);
@@ -1396,7 +1400,7 @@ struct creature_type
 
 	GAME_TURN action_turn;		// Action turn
 
-	s16b camp_idx;				// Camp
+	CAMP_ID camp_idx;				// Camp
 	SPECIES_ID master_creature_idx;	// Master
 
 	STAT hitdice;		// Hit dice
