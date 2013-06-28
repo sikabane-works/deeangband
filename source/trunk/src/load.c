@@ -812,7 +812,6 @@ static errr rd_creature(creature_type *creature_ptr)
 	}
 
 	READ_DUNGEON_ID(&creature_ptr->recall_dungeon);
-	rd_s16b(&creature_ptr->see_infra);
 	READ_SPECIES_ID(&creature_ptr->patron_idx);
 	READ_SPECIES_ID(&creature_ptr->father_idx);
 	READ_SPECIES_ID(&creature_ptr->mother_idx);

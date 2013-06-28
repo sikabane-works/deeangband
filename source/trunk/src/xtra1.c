@@ -2040,8 +2040,6 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->vo += race2_ptr->r_s_vo;
 		creature_ptr->dis_vo += race2_ptr->r_s_vo;
 	}
-
-	creature_ptr->see_infra += MAX(race1_ptr->infra, race2_ptr->infra); // Base infravision (purely racial)
 }
 
 
@@ -2508,9 +2506,6 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		/* Affect searching frequency (factor of five) */
 		if(have_flag(flgs, TRAIT_SEARCH)) creature_ptr->skill_penetration += (object_ptr->pval * 5);
 
-		/* Affect infravision */
-		if(have_flag(flgs, TRAIT_INFRA)) creature_ptr->see_infra += object_ptr->pval;
-
 		/* Affect digging (factor of 20) */
 		if(have_flag(flgs, TRAIT_TUNNEL)) creature_ptr->skill_digging += (object_ptr->pval * 20);
 
@@ -2719,7 +2714,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->skill_shooting = 0;
 	creature_ptr->skill_throwing = 0;
 	creature_ptr->skill_digging = 0;
-	creature_ptr->see_infra = 0;
 
 	// Clear all the flags
 	//TODO creature_ptr->cursed = 0L;
@@ -2874,9 +2868,6 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 			creature_ptr->skill_shooting += trait_info[i].thb;
 			creature_ptr->skill_melee += trait_info[i].thn;
 			creature_ptr->skill_throwing += trait_info[i].tht;
-
-			creature_ptr->see_infra += trait_info[i].infra;
-
 			creature_ptr->ac += trait_info[i].ac;
 			creature_ptr->ev += trait_info[i].ev;
 			creature_ptr->vo += trait_info[i].vo;

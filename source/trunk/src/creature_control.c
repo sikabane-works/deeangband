@@ -2768,13 +2768,11 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 			if(creature_ptr->concent >= CONCENT_RADAR_THRESHOLD) easy = flag = TRUE;
 
 			/* Use "infravision" */
-			if(d <= creature_ptr->see_infra)
+			if(has_trait(creature_ptr, TRAIT_INFRA))
 			{
 				/* Handle "cold blooded" creatures */
 				if(has_trait(target_ptr, TRAIT_COLD_BLOOD) || !has_trait(target_ptr, TRAIT_AURA_FIRE)) do_cold_blood = TRUE;
-
-				/* Handle "warm blooded" creatures */
-				else easy = flag = TRUE;
+				else easy = flag = TRUE; /* Handle "warm blooded" creatures */
 			}
 
 			/* Use "illumination" */

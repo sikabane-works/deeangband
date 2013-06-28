@@ -1621,10 +1621,7 @@ struct creature_type
 	bool can_melee[MAX_MELEE_TYPE];
 	STAT action_cost[MAX_MELEE_TYPE];		// Action point
 	STAT action_priority[MAX_MELEE_TYPE];	// Action priority
-
 	bool no_flowed;
-
-	s16b see_infra;		// Infravision range
 
 	TRYING skill_disarm;		// Skill: Disarming
 	TRYING skill_device;		// Skill: Magic Devices

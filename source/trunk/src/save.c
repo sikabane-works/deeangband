@@ -425,8 +425,6 @@ static void wr_creature(creature_type *creature_ptr)
 	WRITE_TRAIT_ID(-1);
 	WRITE_DUNGEON_ID(creature_ptr->recall_dungeon);
 
-	wr_s16b(creature_ptr->see_infra);
-
 	WRITE_SPECIES_ID(creature_ptr->patron_idx);
 	WRITE_SPECIES_ID(creature_ptr->father_idx);
 	WRITE_SPECIES_ID(creature_ptr->mother_idx);

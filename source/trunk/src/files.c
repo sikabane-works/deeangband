@@ -1841,7 +1841,7 @@ static void display_player_various(creature_type * creature_ptr)
 	display_player_one_line(ENTRY_AVG_DMG, desc, TERM_L_BLUE);
 */
 
-	display_player_one_line(ENTRY_INFRA, format("%d feet", creature_ptr->see_infra * 10), TERM_WHITE);
+	//display_player_one_line(ENTRY_INFRA, format("%d feet", creature_ptr->see_infra * 10), TERM_WHITE);
 }
 
 /* Mode flags for displaying player flags */
