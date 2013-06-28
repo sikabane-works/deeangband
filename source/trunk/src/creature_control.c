@@ -2821,8 +2821,7 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 			}
 
 			/* Eldritch Horror */
-			if(has_trait_species(&species_info[target_ptr->ap_species_idx], TRAIT_ELDRITCH_HORROR))
-				sanity_blast(creature_ptr, target_ptr);
+			if(has_trait_species(&species_info[target_ptr->ap_species_idx], TRAIT_ELDRITCH_HORROR)) sanity_blast(creature_ptr, target_ptr);
 
 			/* Disturb on appearance */
 			if(disturb_near && (projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, target_ptr->fy, target_ptr->fx)))
@@ -2832,11 +2831,9 @@ void update_creature_view(creature_type *creature_ptr, CREATURE_ID creature_idx,
 		}
 	}
 
-	/* The creature is not visible */
-	else
+	else /* The creature is not visible */
 	{
-		/* It was previously seen */
-		if(target_ptr->see_others)
+		if(target_ptr->see_others) /* It was previously seen */
 		{
 			target_ptr->see_others = FALSE; /* Mark as not visible */
 			lite_spot(floor_ptr, fy, fx); /* Erase the creature */
