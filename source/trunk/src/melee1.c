@@ -1230,6 +1230,7 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 	if(kawarimi(target_ptr, TRUE)) return FALSE; // Ceased by Kawarimi
 
 	initiative = set_initiative(attacker_ptr, target_ptr);
+	if(wizard) msg_format("(INI:%d)", initiative);
 
 	while(successing_attack)
 	{
@@ -1237,7 +1238,7 @@ bool close_combat(creature_type *attacker_ptr, COODINATES y, COODINATES x, FLAGS
 		if(is_valid_object(weapon_ptr))
 		{
 			do_one_attack(attacker_ptr, target_ptr, weapon_ptr, &initiative, mode);
-			if(wizard) msg_format("(Left INI:%d)", initiative);
+			if(wizard) msg_format("(INI:%d)", initiative);
 		}
 		else successing_attack = FALSE;
 		if(initiative < 0) successing_attack = FALSE;
