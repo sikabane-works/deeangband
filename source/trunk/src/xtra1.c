@@ -1993,12 +1993,12 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_thb += mimic_ptr->r_thb;
 		creature_ptr->skill_tht += mimic_ptr->r_thb;
 
-		creature_ptr->to_ac += mimic_ptr->ac_base + (mimic_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ac += mimic_ptr->ac_base + (mimic_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->to_ev += mimic_ptr->ev_base + (mimic_ptr->ev_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ev += mimic_ptr->ev_base + (mimic_ptr->ev_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->to_vo += mimic_ptr->ev_base + (mimic_ptr->vo_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_vo += mimic_ptr->ev_base + (mimic_ptr->vo_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->to_ac += mimic_ptr->r_ac;
+		creature_ptr->dis_to_ac += mimic_ptr->r_ac;
+		creature_ptr->to_ev += mimic_ptr->r_ev;
+		creature_ptr->dis_to_ev += mimic_ptr->r_ev;
+		creature_ptr->to_vo += mimic_ptr->r_vo;
+		creature_ptr->dis_to_vo += mimic_ptr->r_vo;
 	}
 	else if(IS_PURE(creature_ptr))
 	{
@@ -2011,13 +2011,12 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_thb += race1_ptr->r_thb;
 		creature_ptr->skill_tht += race1_ptr->r_thb;
 
-		creature_ptr->to_ac += race1_ptr->ac_base + (race1_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ac += race1_ptr->ac_base + (race1_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->to_ev += race1_ptr->ev_base + (race1_ptr->ev_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ev += race1_ptr->ev_base + (race1_ptr->ev_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->to_vo += race1_ptr->vo_base + (race1_ptr->vo_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_vo += race1_ptr->vo_base + (race1_ptr->vo_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-
+		creature_ptr->to_ac += race1_ptr->r_ac;
+		creature_ptr->dis_to_ac += race1_ptr->r_ac;
+		creature_ptr->to_ev += race1_ptr->r_ev;
+		creature_ptr->dis_to_ev += race1_ptr->r_ev;
+		creature_ptr->to_vo += race1_ptr->r_vo;
+		creature_ptr->dis_to_vo += race1_ptr->r_vo;
 	}
 	else
 	{
@@ -2030,21 +2029,20 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_thb += race1_ptr->r_s_thb + race2_ptr->r_s_thb;
 		creature_ptr->skill_tht += race1_ptr->r_s_thb + race2_ptr->r_s_thb;
 
-		creature_ptr->to_ac += race1_ptr->ac_s_base + (race1_ptr->ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ac += race1_ptr->ac_s_base + (race1_ptr->ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->to_ac += race2_ptr->ac_s_base + (race2_ptr->ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ac += race2_ptr->ac_s_base + (race2_ptr->ac_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->to_ac += race1_ptr->r_s_ac;
+		creature_ptr->dis_to_ac += race1_ptr->r_s_ac;
+		creature_ptr->to_ac += race2_ptr->r_s_ac;
+		creature_ptr->dis_to_ac += race2_ptr->r_s_ac;
 
-		creature_ptr->to_ev += race1_ptr->ev_s_base + (race1_ptr->ev_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ev += race1_ptr->ev_s_base + (race1_ptr->ev_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->to_ev += race2_ptr->ev_s_base + (race2_ptr->ev_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_ev += race2_ptr->ev_s_base + (race2_ptr->ev_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
+		creature_ptr->to_ev += race1_ptr->r_s_ev;
+		creature_ptr->dis_to_ev += race1_ptr->r_s_ev;
+		creature_ptr->to_ev += race2_ptr->r_s_ev;
+		creature_ptr->dis_to_ev += race2_ptr->r_s_ev;
 
-		creature_ptr->to_vo += race1_ptr->vo_s_base + (race1_ptr->vo_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_vo += race1_ptr->vo_s_base + (race1_ptr->vo_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->to_vo += race2_ptr->vo_s_base + (race2_ptr->vo_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-		creature_ptr->dis_to_vo += race2_ptr->vo_s_base + (race2_ptr->vo_s_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
-
+		creature_ptr->to_vo += race1_ptr->r_s_vo;
+		creature_ptr->dis_to_vo += race1_ptr->r_s_vo;
+		creature_ptr->to_vo += race2_ptr->r_s_vo;
+		creature_ptr->dis_to_vo += race2_ptr->r_s_vo;
 	}
 
 	// Species

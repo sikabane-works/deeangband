@@ -1198,20 +1198,7 @@ struct race_type
 	s32b balance;
 
 	byte infra;			/* Infra-vision	range */
-	SAVING ac_base;
-	SAVING ac_plus;
-	SAVING ev_base;
-	SAVING ev_plus;
-	SAVING vo_base;
-	SAVING vo_plus;
-
 	byte sub_infra;			/* Infra-vision	range */
-	SAVING ac_s_base;
-	SAVING ac_s_plus;
-	SAVING ev_s_base;
-	SAVING ev_s_plus;
-	SAVING vo_s_base;
-	SAVING vo_s_plus;
 
 	u32b choice;        /* Legal class choices */
 
