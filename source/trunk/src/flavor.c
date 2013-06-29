@@ -1196,11 +1196,11 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 
 	char            p1 = '(', p2 = ')';
 	char            c1 = '{', c2 = '}';
-	char            f1 = '<', f2 = '>';
 
 	char            tmp_val[MAX_NLEN+160];
 	char            tmp_val2[MAX_NLEN+10];
 	char            fake_insc_buf[30];
+	char tmp[50];
 
 	u32b flgs[MAX_TRAITS_FLAG];
 	//object_type *bow_ptr;
@@ -1787,10 +1787,8 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 #else
 	if(object_is_smith(owner_ptr, object_ptr))
 	{
-		if(!object_ptr->creator_idx)
-			t = object_desc_str(t,format(" of %s the Smith", owner_ptr->name));
-		else
-			t = object_desc_str(t, format(" of %s", species_name + species_info[object_ptr->creator_idx].name));
+		if(!object_ptr->creator_idx) t = object_desc_str(t,format(" of %s the Smith", owner_ptr->name));
+		else t = object_desc_str(t, format(" of %s", species_name + species_info[object_ptr->creator_idx].name));
 	}
 
 	/* Hack -- Append "Artifact" or "Special" names */
@@ -1917,12 +1915,8 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 	/* Fitting Size */
 	if(object_ptr->size_lower && object_ptr->size_upper)
 	{
-		t = object_desc_chr(t, ' ');
-		t = object_desc_chr(t, f1);
-		t = object_desc_num(t, object_ptr->size_lower);
-		t = object_desc_chr(t, ':');
-		t = object_desc_int(t, object_ptr->size_upper);
-		t = object_desc_chr(t, f2);
+		sprintf(tmp, " <%d,%d>", object_ptr->size_lower, object_ptr->size_upper);
+		strcat(t, tmp);
 	}
 
 	/* Dump base weapon info */
@@ -2075,18 +2069,13 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 	/* Add the armor bonuses */
 	if(known)
 	{
-		/* Show the armor class info */
-		if(show_armour)
+		if(show_armour) /* Show the armor class info */
 		{
-			char tmp[50];
 			sprintf(tmp, " [%d%+d,%d%+d,%d%+d]", object_ptr->ac, object_ptr->to_ac, object_ptr->ev, object_ptr->to_ev, object_ptr->vo, object_ptr->to_vo);
 			strcat(t, tmp);
 		}
-
-		/* No base armor, but does increase armor */
-		else if(object_ptr->to_ac || object_ptr->to_ev || object_ptr->to_vo)
+		else if(object_ptr->to_ac || object_ptr->to_ev || object_ptr->to_vo) /* No base armor, but does increase armor */
 		{
-			char tmp[50];
 			sprintf(tmp, " [%+d,%+d,%+d]", object_ptr->to_ac, object_ptr->to_ev, object_ptr->to_vo);
 			strcat(t, tmp);
 		}
