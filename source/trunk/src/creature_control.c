@@ -3373,6 +3373,7 @@ void deal_item(creature_type *creature_ptr)
 
 			/* Hack -- Give the player an object */
 			generate_object(object_ptr, lookup_kind(tv, sv));
+			modify_size(creature_ptr, object_ptr);
 
 			/* Assassins begin the game with a poisoned dagger */
 			if((tv == TV_SWORD || tv == TV_HAFTED) && (creature_ptr->class_idx == CLASS_ROGUE && creature_ptr->realm1 == REALM_DEATH)) // Only assassins get a poisoned weapon
