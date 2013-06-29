@@ -908,18 +908,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 			slot[k] = i;
 			num[k] = j;
 
-			if(m < 0)
-			{
-				if(i == INVENTORY_ID_INVENTORY || (!(flags & SHOW_ITEM_EQUIPMENT) && !is_valid_object(object_ptr))) continue;
-				else
-				{
-					out_index[k] = m;
-					out_color[k] = TERM_L_DARK;
-					(void)object_desc(object_name, &creature_ptr->organ_object[i], 0);
-					(void)strcpy(out_desc[k], object_name);
-				}
-			}
-			else
+			if(m >= 0)
 			{
 				object_ptr = &creature_ptr->inventory[m];
 				if(!is_valid_object(object_ptr)) continue;
@@ -932,6 +921,17 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 					(void)strcpy(out_desc[k], object_name);
 				}
 				else continue;
+			}
+			else /* Check replacing object */
+			{
+				if(i == INVENTORY_ID_INVENTORY || (!(flags & SHOW_ITEM_EQUIPMENT) && !is_valid_object(object_ptr))) continue;
+				else
+				{
+					out_index[k] = m;
+					out_color[k] = TERM_L_DARK;
+					(void)object_desc(object_name, &creature_ptr->organ_object[i], 0);
+					(void)strcpy(out_desc[k], object_name);
+				}
 			}
 
 			l = strlen(out_desc[k]); /* Find the predicted "line length" */
