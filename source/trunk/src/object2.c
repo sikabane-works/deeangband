@@ -2275,6 +2275,14 @@ void apply_bodysize_boost(creature_type *user_ptr, object_type *object_ptr)
 	}
 }
 
+bool modify_size(creature_type *owner_ptr, object_type *object_ptr)
+{
+	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
+	if(owner_ptr->size > object_kind_ptr->max_size && owner_ptr->size < object_kind_ptr->min_size) return FALSE;
+	object_ptr->size_lower = owner_ptr->size + object_kind_ptr->min_size_permit;
+	object_ptr->size_upper = owner_ptr->size + object_kind_ptr->max_size_permit;
+	return TRUE;
+}
 
 /*
 * Complete the "creation" of an object by applying "magic" to the item
