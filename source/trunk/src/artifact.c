@@ -1749,7 +1749,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 }
 
 
-bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, ARTIFACT_ID a_idx)
+bool create_named_art(creature_type *creature_ptr, object_type *object_ptr, ARTIFACT_ID a_idx)
 {
 	int i;
 
@@ -1764,38 +1764,38 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, ARTIF
 	if(!i) return FALSE;
 
 	/* Create the artifact */
-	generate_object(quest_ptr, i);
+	generate_object(object_ptr, i);
 
 	/* Save the name */
-	quest_ptr->art_id = (byte)a_idx;
+	object_ptr->art_id = (byte)a_idx;
 
 	/* Extract the fields */
-	quest_ptr->ac = a_ptr->ac;
-	quest_ptr->ev = a_ptr->ev;
-	quest_ptr->vo = a_ptr->vo;
-	quest_ptr->size_lower = a_ptr->size_lower; 
-	quest_ptr->size_upper = a_ptr->size_upper; 
-	quest_ptr->dd = a_ptr->dd;
-	quest_ptr->ds = a_ptr->ds;
-	quest_ptr->to_ac = a_ptr->to_ac;
-	quest_ptr->to_ev = a_ptr->to_ev;
-	quest_ptr->to_vo = a_ptr->to_vo;
-	quest_ptr->to_hit = a_ptr->to_hit;
-	quest_ptr->to_damage = a_ptr->to_damage;
-	quest_ptr->weight = a_ptr->weight;
-	quest_ptr->fuel = a_ptr->fuel;
-	quest_ptr->charge_const = a_ptr->charge_const;
-	quest_ptr->charge_dice = a_ptr->charge_dice;
+	object_ptr->ac = a_ptr->ac;
+	object_ptr->ev = a_ptr->ev;
+	object_ptr->vo = a_ptr->vo;
+	object_ptr->size_lower = a_ptr->size_lower; 
+	object_ptr->size_upper = a_ptr->size_upper; 
+	object_ptr->dd = a_ptr->dd;
+	object_ptr->ds = a_ptr->ds;
+	object_ptr->to_ac = a_ptr->to_ac;
+	object_ptr->to_ev = a_ptr->to_ev;
+	object_ptr->to_vo = a_ptr->to_vo;
+	object_ptr->to_hit = a_ptr->to_hit;
+	object_ptr->to_damage = a_ptr->to_damage;
+	object_ptr->weight = a_ptr->weight;
+	object_ptr->fuel = a_ptr->fuel;
+	object_ptr->charge_const = a_ptr->charge_const;
+	object_ptr->charge_dice = a_ptr->charge_dice;
 
 	/* Hack -- extract the "cursed" flag */
-	if(have_flag(a_ptr->flags, TRAIT_CURSED)) add_flag(quest_ptr->curse_flags, TRAIT_CURSED);
-	if(have_flag(a_ptr->flags, TRAIT_HEAVY_CURSE)) add_flag(quest_ptr->curse_flags, TRAIT_HEAVY_CURSE);
-	if(have_flag(a_ptr->flags, TRAIT_DIVINE_CURSE)) add_flag(quest_ptr->curse_flags, TRAIT_DIVINE_CURSE);
-	if(have_flag(a_ptr->flags, TRAIT_RANDOM_CURSE0)) quest_ptr->curse_flags[0] |= get_curse(0, quest_ptr);
-	if(have_flag(a_ptr->flags, TRAIT_RANDOM_CURSE1)) quest_ptr->curse_flags[0] |= get_curse(1, quest_ptr);
-	if(have_flag(a_ptr->flags, TRAIT_RANDOM_CURSE2)) quest_ptr->curse_flags[0] |= get_curse(2, quest_ptr);
+	if(have_flag(a_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+	if(have_flag(a_ptr->flags, TRAIT_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+	if(have_flag(a_ptr->flags, TRAIT_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
+	if(have_flag(a_ptr->flags, TRAIT_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
+	if(have_flag(a_ptr->flags, TRAIT_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
+	if(have_flag(a_ptr->flags, TRAIT_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
 
-	random_artifact_resistance(creature_ptr, quest_ptr, a_ptr);
+	random_artifact_resistance(creature_ptr, object_ptr, a_ptr);
 	return TRUE;
 }
 

@@ -292,30 +292,30 @@ static void chest_death(bool scatter, floor_type *floor_ptr, COODINATES y, COODI
 	FLOOR_LEV level;
 
 	object_type forge;
-	object_type *quest_ptr;
-	object_type *object_ptr = &object_list[object_idx];
+	object_type *object1_ptr = &object_list[object_idx];
+	object_type *object2_ptr;
 
-	small = (object_ptr->sval < SV_CHEST_MIN_LARGE); // Small chests often hold "gold"
-	number = (object_ptr->sval % SV_CHEST_MIN_LARGE) * 2; // Determine how much to drop (see above)
+	small = (object1_ptr->sval < SV_CHEST_MIN_LARGE); // Small chests often hold "gold"
+	number = (object1_ptr->sval % SV_CHEST_MIN_LARGE) * 2; // Determine how much to drop (see above)
 
-	if(object_ptr->sval == SV_CHEST_KANDUME)
+	if(object1_ptr->sval == SV_CHEST_KANDUME)
 	{
 		number = 5;
 		small = FALSE;
 		mode |= AM_GREAT;
-		level = object_ptr->chest_value;
+		level = object1_ptr->chest_value;
 	}
-	else level = (FLOOR_LEV)ABS(object_ptr->pval) + 10; // Determine the "value" of the items
-	if(!object_ptr->pval) number = 0; // Zero pval means empty chest
+	else level = (FLOOR_LEV)ABS(object1_ptr->pval) + 10; // Determine the "value" of the items
+	if(!object1_ptr->pval) number = 0; // Zero pval means empty chest
 
 	for (; number > 0; --number) // Drop some objects (non-chests)
 	{
-		quest_ptr = &forge; // Get local object
-		object_wipe(quest_ptr); // Wipe the object
+		object2_ptr = &forge; // Get local object
+		object_wipe(object2_ptr); // Wipe the object
 
 		// Small chests often drop gold
-		if(small && (PROB_PERCENT(25))) if(!make_gold(floor_ptr, quest_ptr, 0, 0)) continue; // Make some gold
-		else if(!make_random_object(quest_ptr, mode, level)) continue; // Make object
+		if(small && (PROB_PERCENT(25))) if(!make_gold(floor_ptr, object2_ptr, 0, 0)) continue; // Make some gold
+		else if(!make_random_object(object2_ptr, mode, level)) continue; // Make object
 
 		if(scatter) // If chest scatters its contents, pick any floor square.
 		{
@@ -328,14 +328,14 @@ static void chest_death(bool scatter, floor_type *floor_ptr, COODINATES y, COODI
 
 				// Must be an empty floor.
 				if(!cave_empty_bold(floor_ptr, y, x)) continue;
-				drop_near(floor_ptr, quest_ptr, -1, y, x); // Place the object there.
+				drop_near(floor_ptr, object2_ptr, -1, y, x); // Place the object there.
 				break;
 			}
 		}
-		else drop_near(floor_ptr, quest_ptr, -1, y, x); // Normally, drop object near the chest.
+		else drop_near(floor_ptr, object2_ptr, -1, y, x); // Normally, drop object near the chest.
 	}
-	object_ptr->pval = 0; // Empty
-	object_known(object_ptr); // Known
+	object1_ptr->pval = 0; // Empty
+	object_known(object1_ptr); // Known
 }
 
 

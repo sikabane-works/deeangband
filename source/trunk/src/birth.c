@@ -976,14 +976,10 @@ void chara_detail(int code)
 		stat_names[STAT_STR], stat_names[STAT_INT], stat_names[STAT_WIS],
 		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], KW_EXP), base+1, 24);
 
-	sprintf(buf, "%+2d      %+2d      %+2d      %+2d       %+2d      %+2d     %+4d%% ",
-		chara_info[code].a_adj[STAT_STR],
-		chara_info[code].a_adj[STAT_INT],
-		chara_info[code].a_adj[STAT_WIS],
-		chara_info[code].a_adj[STAT_DEX],
-		chara_info[code].a_adj[STAT_CON],
-		chara_info[code].a_adj[STAT_CHA],
-		0);
+	sprintf(buf, "%+2d      %+2d      %+2d      %+2d      %+2d      %+2d     %+4d%% ",
+		chara_info[code].a_adj[STAT_STR], chara_info[code].a_adj[STAT_INT],
+		chara_info[code].a_adj[STAT_WIS], chara_info[code].a_adj[STAT_DEX],
+		chara_info[code].a_adj[STAT_CON], chara_info[code].a_adj[STAT_CHA], 0);
 	c_put_str(TERM_L_BLUE, buf, base+2, 24);
 
 	roff_to_buf(chara_text + chara_info[code].text, 56, temp, sizeof(temp));
@@ -1020,8 +1016,7 @@ void realm_detail(int code)
 	e = FALSE;
 	for (i = 0; i < 18; i++)
 	{
-		if(!e)
-			if(t[0] == 0) e = TRUE;
+		if(!e) if(t[0] == 0) e = TRUE;
 		else
 		{
 			prt(t, base + i, 24);
@@ -1038,8 +1033,7 @@ void starting_point_detail(int code)
 	char temp[58*18];
 	cptr t;
 
-	for (i = 0; i < 22; i++)
-		prt("                                                                       ", base + i, 24);
+	for (i = 0; i < 22; i++) prt("                                                                       ", base + i, 24);
 
 	if(code < 0) return;
 
@@ -1048,8 +1042,7 @@ void starting_point_detail(int code)
 	e = FALSE;
 	for (i = 0; i < 18; i++)
 	{
-		if(!e)
-			if(t[0] == 0) e = TRUE;
+		if(!e) if(t[0] == 0) e = TRUE;
 		else
 		{
 			prt(t, base + i, 24);
