@@ -1451,6 +1451,7 @@ void object_copy(object_type *object1_ptr, object_type *object2_ptr)
 void generate_object(object_type *object_ptr, OBJECT_KIND_ID k_idx)
 {
 	int i;
+	BODY_SIZE size;
 	object_kind *object_kind_ptr = &object_kind_info[k_idx];
 	object_wipe(object_ptr); /* Clear the record */
 	object_ptr->k_idx = k_idx; /* Save the kind index */
@@ -1490,6 +1491,14 @@ void generate_object(object_type *object_ptr, OBJECT_KIND_ID k_idx)
 
 	/* Hack -- worthless items are always "broken" */
 	if(object_kind_info[object_ptr->k_idx].cost <= 0) object_ptr->ident |= (IDENT_BROKEN);
+
+	if(object_is_armour(object_ptr))
+	{
+		size = rand_range(object_kind_ptr->min_size, object_kind_ptr->max_size);
+		object_ptr->size_lower = size + object_kind_ptr->min_size_permit;
+		object_ptr->size_upper = size + object_kind_ptr->max_size_permit;
+	}
+
 
 	/* Hack -- cursed items are always "cursed" */
 	if(have_flag(object_kind_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
@@ -2279,7 +2288,6 @@ bool modify_size(creature_type *owner_ptr, object_type *object_ptr)
 {
 	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	if(!object_is_armour(object_ptr)) return FALSE;
-	if(object_ptr->tval == TV_SHIELD) return FALSE;
 	if(owner_ptr->size > object_kind_ptr->max_size && owner_ptr->size < object_kind_ptr->min_size) return FALSE;
 	object_ptr->size_lower = owner_ptr->size + object_kind_ptr->min_size_permit;
 	object_ptr->size_upper = owner_ptr->size + object_kind_ptr->max_size_permit;
