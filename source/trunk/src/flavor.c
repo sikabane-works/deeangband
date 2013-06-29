@@ -1716,11 +1716,7 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 #endif
 
 		/* Normal */
-		else
-		{
-			/* Copy */
-			*t++ = *s++;
-		}
+		else *t++ = *s++; /* Copy */
 	}
 
 	*t = '\0';
@@ -1931,16 +1927,9 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		case TV_SWORD:
 		case TV_DIGGING:
 		case TV_ORGAN:
-
-		/* Append a "damage" string */
-		t = object_desc_chr(t, ' ');
-		t = object_desc_chr(t, p1);
-		t = object_desc_num(t, object_ptr->dd);
-		t = object_desc_chr(t, 'd');
-		t = object_desc_num(t, object_ptr->ds);
-		t = object_desc_chr(t, p2);
-		
-		break; /* All done */
+			sprintf(tmp, " (%dd%d)", object_ptr->dd, object_ptr->ds); /* Append a "damage" string */
+			strcat(t, tmp);
+			break; /* All done */
 		/* Bows get a special "damage string" */
 		case TV_BOW:
 
@@ -1967,30 +1956,22 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		/* Show the tohit/todam on request */
 		if(show_weapon)
 		{
-			t = object_desc_chr(t, ' ');
-			t = object_desc_chr(t, p1);
-			t = object_desc_int(t, object_ptr->to_hit);
-			t = object_desc_chr(t, ',');
-			t = object_desc_int(t, object_ptr->to_damage);
-			t = object_desc_chr(t, p2);
+			sprintf(tmp, " (%+d,%+d)", object_ptr->to_hit, object_ptr->to_damage);
+			strcat(t, tmp);
 		}
 
 		/* Show the tohit if needed */
 		else if(object_ptr->to_hit)
 		{
-			t = object_desc_chr(t, ' ');
-			t = object_desc_chr(t, p1);
-			t = object_desc_int(t, object_ptr->to_hit);
-			t = object_desc_chr(t, p2);
+			sprintf(tmp, " (%+d)", object_ptr->to_hit);
+			strcat(t, tmp);
 		}
 
 		/* Show the todam if needed */
 		else if(object_ptr->to_damage)
 		{
-			t = object_desc_chr(t, ' ');
-			t = object_desc_chr(t, p1);
-			t = object_desc_int(t, object_ptr->to_damage);
-			t = object_desc_chr(t, p2);
+			sprintf(tmp, " (%+d)", object_ptr->to_damage);
+			strcat(t, tmp);
 		}
 	}
 
