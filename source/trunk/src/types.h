@@ -455,6 +455,8 @@ struct object_kind
 
 	BODY_SIZE min_size;      // size limit
 	BODY_SIZE max_size;      // size limit
+	BODY_SIZE min_size_permit;      // size limit
+	BODY_SIZE max_size_permit;      // size limit
 	INVENTORY_ID slot;          // equipment slot
 };
 

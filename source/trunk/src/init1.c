@@ -1815,9 +1815,12 @@ enum OBJECT_KIND_INFO {
 	OK_INFO_DESCRIPTION,
 	OK_INFO_E_DESCRIPTION,
 	OK_INFO_COMMENT,
-	OK_INFO_MIN_SIZE,
 
+	OK_INFO_MIN_SIZE,
 	OK_INFO_MAX_SIZE,
+	OK_INFO_MIN_SIZE_PERMIT,
+	OK_INFO_MAX_SIZE_PERMIT,
+
 	OK_INFO_SLOT,
 	OK_INFO_AP_RATE,
 	OBJECT_KIND_INFO_CSV_COLUMNS
@@ -1875,6 +1878,8 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 
 	"MIN_SIZE",
 	"MAX_SIZE",
+	"MIN_SIZE_PERMIT",
+	"MAX_SIZE_PERMIT",
 	"SLOT",
 	"AP_RATE"
 };
@@ -2181,17 +2186,23 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_MIN_SIZE:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->min_size = (s16b)b;
-				else
-					object_kind_ptr->min_size = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->min_size = (BODY_SIZE)b;
+				else object_kind_ptr->min_size = 0;
 				break;
 
 			case OK_INFO_MAX_SIZE:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->max_size = (s16b)b;
-				else
-					object_kind_ptr->max_size = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->max_size = (BODY_SIZE)b;
+				else object_kind_ptr->max_size = 0;
+				break;
+
+			case OK_INFO_MIN_SIZE_PERMIT:
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->min_size_permit = (BODY_SIZE)b;
+				else object_kind_ptr->min_size = 0;
+				break;
+
+			case OK_INFO_MAX_SIZE_PERMIT:
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->max_size_permit = (BODY_SIZE)b;
+				else object_kind_ptr->max_size = 0;
 				break;
 
 			case OK_INFO_SLOT:
