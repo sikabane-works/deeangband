@@ -356,9 +356,9 @@ static char *object_desc_str(char *t, cptr s)
  * Print an unsigned number "n" into a string "t", as if by
  * sprintf(t, "%u", n), and return a pointer to the terminator.
  */
-static char *object_desc_num(char *t, uint n)
+static char *object_desc_num(char *t, int n)
 {
-	uint p;
+	int p;
 
 	/* Find "size" of "n" */
 	for (p = 1; n >= p * 10; p = p * 10) /* loop */;
@@ -1182,7 +1182,6 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 	cptr            kindname = object_kind_name + object_kind_info[object_ptr->k_idx].name;
 	cptr            basenm = kindname;
 	cptr            modstr = "";
-
 	int             power;
 
 	bool            aware = FALSE;
@@ -1196,7 +1195,6 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 	char            *t;
 
 	char            p1 = '(', p2 = ')';
-	char            b1 = '[', b2 = ']';
 	char            c1 = '{', c2 = '}';
 	char            f1 = '<', f2 = '>';
 
@@ -2080,44 +2078,26 @@ void object_desc(char *buf, object_type *object_ptr, FLAGS_32 mode)
 		/* Show the armor class info */
 		if(show_armour)
 		{
-			t = object_desc_chr(t, ' ');
-			t = object_desc_chr(t, b1);
-			t = object_desc_num(t, object_ptr->ac);
-			t = object_desc_int(t, object_ptr->to_ac);
-			t = object_desc_chr(t, ',');
-			t = object_desc_num(t, object_ptr->ev);
-			t = object_desc_int(t, object_ptr->to_ev);
-			t = object_desc_chr(t, ',');
-			t = object_desc_num(t, object_ptr->vo);
-			t = object_desc_int(t, object_ptr->to_vo);
-			t = object_desc_chr(t, b2);
+			char tmp[50];
+			sprintf(tmp, " [%d%+d,%d%+d,%d%+d]", object_ptr->ac, object_ptr->to_ac, object_ptr->ev, object_ptr->to_ev, object_ptr->vo, object_ptr->to_vo);
+			strcat(t, tmp);
 		}
 
 		/* No base armor, but does increase armor */
 		else if(object_ptr->to_ac || object_ptr->to_ev || object_ptr->to_vo)
 		{
-			t = object_desc_chr(t, ' ');
-			t = object_desc_chr(t, b1);
-			t = object_desc_int(t, object_ptr->to_ac);
-			t = object_desc_chr(t, ',');
-			t = object_desc_int(t, object_ptr->to_ev);
-			t = object_desc_chr(t, ',');
-			t = object_desc_int(t, object_ptr->to_vo);
-			t = object_desc_chr(t, b2);
+			char tmp[50];
+			sprintf(tmp, " [%+d,%+d,%+d]", object_ptr->to_ac, object_ptr->to_ev, object_ptr->to_vo);
+			strcat(t, tmp);
 		}
 	}
 
 	/* Hack -- always show base armor */
 	else if(show_armour)
 	{
-		t = object_desc_chr(t, ' ');
-		t = object_desc_chr(t, b1);
-		t = object_desc_num(t, object_ptr->ac);
-		t = object_desc_chr(t, ',');
-		t = object_desc_num(t, object_ptr->ev);
-		t = object_desc_chr(t, ',');
-		t = object_desc_num(t, object_ptr->vo);
-		t = object_desc_chr(t, b2);
+		char tmp[50];
+		sprintf(tmp, " [%d,%d,%d]", object_ptr->ac, object_ptr->ev, object_ptr->vo);
+		strcat(t, tmp);
 	}
 
 

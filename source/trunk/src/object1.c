@@ -1211,28 +1211,13 @@ int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode)
 	for (this_object_idx = floor_ptr->cave[y][x].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *object_ptr;
-
-		/* Acquire object */
-		object_ptr = &object_list[this_object_idx];
-
-		/* Acquire next object */
-		next_object_idx = object_ptr->next_object_idx;
-
-		/* Item tester */
-		if((mode & 0x01) && !item_tester_okay(player_ptr, object_ptr, NULL, 0)) continue;
-
-		/* Marked */
-		if((mode & 0x02) && !(object_ptr->marked & OM_FOUND)) continue;
-
-		/* Accept this item */
-		/* XXX Hack -- Enforce limit */
-		if(num < 23)
-			items[num] = this_object_idx;
-
+		object_ptr = &object_list[this_object_idx]; /* Acquire object */
+		next_object_idx = object_ptr->next_object_idx; /* Acquire next object */
+		if((mode & 0x01) && !item_tester_okay(player_ptr, object_ptr, NULL, 0)) continue; /* Item tester */
+		if((mode & 0x02) && !(object_ptr->marked & OM_FOUND)) continue; /* Marked */
+		if(num < 23) items[num] = this_object_idx; /* Accept this item */ /* XXX Hack -- Enforce limit */
 		num++;
-
-		/* Only one */
-		if(mode & 0x04) break;
+		if(mode & 0x04) break; /* Only one */
 	}
 
 	return num;
@@ -1244,12 +1229,9 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 {
 	int i, j, k, l;
 	int col, len;
-
 	object_type *object_ptr;
-
 	char object_name[MAX_NLEN];
-
-	char tmp_val[80];
+	char tmp_val[MAX_NLEN];
 
 	int out_index[23];
 	byte out_color[23];
@@ -1278,26 +1260,14 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 
 		/* Save the index */
 		out_index[k] = i;
-
-		/* Acquire inventory color */
-		out_color[k] = tval_to_acttr[object_ptr->tval & 0x7F];
-
-		/* Save the object description */
-		strcpy(out_desc[k], object_name);
-
-		/* Find the predicted "line length" */
-		l = strlen(out_desc[k]) + 5;
-
-		/* Be sure to account for the weight */
-		l += 9;
+		out_color[k] = tval_to_acttr[object_ptr->tval & 0x7F]; /* Acquire inventory color */
+		strcpy(out_desc[k], object_name); /* Save the object description */
+		l = strlen(out_desc[k]) + 5; /* Find the predicted "line length" */
+		l += 9; /* Be sure to account for the weight */
 
 		if(object_ptr->tval != TV_GOLD) dont_need_to_show_weights = FALSE;
-
-		/* Maintain the maximum length */
-		if(l > len) len = l;
-
-		/* Advance to next "line" */
-		k++;
+		if(l > len) len = l; /* Maintain the maximum length */
+		k++; /* Advance to next "line" */
 	}
 
 	if(dont_need_to_show_weights) len -= 9;
@@ -1313,13 +1283,9 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 	/* Output each entry */
 	for (j = 0; j < k; j++)
 	{
-		/* Get the index */
-		i = floor_list[out_index[j]];
-
+		i = floor_list[out_index[j]]; /* Get the index */
 		object_ptr = &object_list[i];
-
-		/* Clear the line */
-		prt("", j + 1, col ? col - 2 : col);
+		prt("", j + 1, col ? col - 2 : col); /* Clear the line */
 
 		if(use_menu && target_item)
 		{
@@ -1330,11 +1296,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 			}
 			else strcpy(tmp_val, "   ");
 		}
-		else
-		{
-			/* Prepare an index --(-- */
-			sprintf(tmp_val, "%c)", floor_label[j]);
-		}
+		else sprintf(tmp_val, "%c)", floor_label[j]); /* Prepare an index --(-- */
 
 		/* Clear the line with the (possibly indented) index */
 		put_str(tmp_val, j + 1, col);
