@@ -515,7 +515,7 @@ struct artifact_type
 	FLOOR_ID floor_idx;          /* Leaved on this location last time */
 
 	GAME_TIME fuel;
-	s16b ap_rate;		// AP rate
+	s16b ap_rate; /* AP rate */
 
 	s16b charge_const;
 	s16b charge_dice;
@@ -636,9 +636,7 @@ struct species_type
 	STAT stat_max_max[STAT_MAX];		/* Maximal "maximal" stat values */
 	STAT stat_bonus;
 	s16b base_hp[CREATURE_MAX_LEVEL];
-
 	s32b karmas[MAX_KARMA];
-
 	char history[HISTORY_ROW][HISTORY_COL];
 
 	HEIGHT m_b_ht; /* base height (males) */
@@ -673,11 +671,8 @@ struct species_type
 	OBJECT_EGO_ID artifact_ego[INVEN_TOTAL];
 
 	s32b exp;				/* Exp value for kill */
-
 	byte freq_spell;		/* Spell frequency */
-
 	traits_precondition flags;
-
 
 	SPECIES_ID next_species_idx;
 	u32b next_exp;
@@ -694,7 +689,7 @@ struct species_type
 	POPULATION max_num;			/* Maximum population allowed per level */
 	POPULATION cur_num;			/* Creature population on current level */
 
-	s16b floor_idx;          /* Location of unique creature */
+	FLOOR_ID floor_idx;          /* Location of unique creature */
 
 	s16b r_sights;			/* Count sightings of this creature */
 	s16b r_deaths;			/* Count deaths from this creature */
@@ -705,10 +700,7 @@ struct species_type
 
 	byte r_wake;			/* Number of times woken up (?) */
 	byte r_ignore;			/* Number of times ignored (?) */
-
-	byte r_xtra1;			/* Something (unused) */
-	byte r_xtra2;			/* Something (unused) */
-
+	byte r_xtra1;
 	byte r_cast_spell;		/* Max number of other spells seen */
 
 	s16b slot_hand;
@@ -721,7 +713,6 @@ struct species_type
 	s16b slot_feet;
 	s16b slot_tail;
 	s16b slot_intake;
-
 };
 
 

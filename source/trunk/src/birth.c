@@ -793,16 +793,14 @@ void race_detail(int code)
 		prt("                                                                       ", base + i, 24);
 	if(code < 0) return;
 
-#ifdef JP
 	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
-	put_str("‚ÌŽåŽí‘°C³", base, 24+strlen(race_info[code].title));
+	put_str(MES_BIRTH_MAIN_RACE_MODIFY, base, 24+strlen(race_info[code].title));
+#ifdef JP
 	put_str("Šî‘bƒŒƒxƒ‹:   Šî‘b_Ši:", base, 53);
 #else
-	c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
-	put_str("'s Main-Race modification", base, 24+strlen(race_info[code].title));
 	put_str("Base Level:   Base DR :", base, 53);
 #endif
-	put_str(format("%8s%8s%8s%8s%8s%8s%8s",
+	put_str(format("%-8s%-8s%-8s%-8s%-8s%-8s%-8s",
 		stat_names[STAT_STR], stat_names[STAT_INT], stat_names[STAT_WIS],
 		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], KW_EXP), base+1, 24);
 
@@ -870,7 +868,7 @@ void subrace_detail(int code)
 		c_put_str(TERM_L_BLUE, race_info[code].title, base, 24);
 		put_str("'s Sub-Race modification", base, 24+strlen(race_info[code].title));
 #endif
-		put_str(format("%8s%8s%8s%8s%8s%8s%8s",
+		put_str(format("%-8s%-8s%-8s%-8s%-8s%-8s%8s",
 			stat_names[STAT_STR], stat_names[STAT_INT], stat_names[STAT_WIS],
 			stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], KW_EXP), base+1, 24);
 
@@ -931,12 +929,12 @@ void class_detail(int code)
 
 	c_put_str(TERM_L_BLUE, class_info[code].title, base, 24);
 	put_str(MES_BIRTH_MAIN_RACE_MODIFY, base, 24+strlen(class_info[code].title));
-	put_str(format("%8s%8s%8s%8s%8s%8s%8s",
+	put_str(format("%-8s%-8s%-8s%-8s%-8s%-8s%8s",
 		stat_names[STAT_STR], stat_names[STAT_INT], stat_names[STAT_WIS],
 		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], KW_EXP), base+1, 24);
 
 
-	sprintf(buf, "%+2d      %+2d      %+2d      %+2d       %+2d      %+2d     %+4d%% ",
+	sprintf(buf, "%+2d      %+2d      %+2d      %+2d      %+2d      %+2d     %+4d%% ",
 		class_info[code].c_adj[STAT_STR],
 		class_info[code].c_adj[STAT_INT],
 		class_info[code].c_adj[STAT_WIS],
@@ -974,7 +972,7 @@ void chara_detail(int code)
 
 	c_put_str(TERM_L_BLUE, chara_info[code].title, base, 24);
 	put_str(MES_BIRTH_MAIN_RACE_MODIFY, base, 24+strlen(chara_info[code].title));
-	put_str(format("%8s%8s%8s%8s%8s%8s%8s",
+	put_str(format("%-8s%-8s%-8s%-8s%-8s%-8s%8s",
 		stat_names[STAT_STR], stat_names[STAT_INT], stat_names[STAT_WIS],
 		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], KW_EXP), base+1, 24);
 

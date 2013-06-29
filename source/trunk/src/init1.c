@@ -2056,10 +2056,8 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_SPEED:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->speed = (byte)b;
-				else
-					object_kind_ptr->speed = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->speed = (SPEED)b;
+				else object_kind_ptr->speed = 0;
 				break;
 
 			case OK_INFO_MAGIC_MASTERY:
@@ -2070,52 +2068,40 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_DEPTH:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->level = (byte)b;
-				else
-					object_kind_ptr->level = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->level = (FLOOR_LEV)b;
+				else object_kind_ptr->level = 0;
 				break;
 
 			case OK_INFO_WEIGHT:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->weight = (s16b)b;
-				else
-					object_kind_ptr->weight = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->weight = (s16b)b;
+				else object_kind_ptr->weight = 0;
 				break;
 
 			case OK_INFO_COST:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->cost = (s32b)b;
-				else
-					object_kind_ptr->cost = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->cost = (s32b)b;
+				else object_kind_ptr->cost = 0;
 				break;
 
 			case OK_INFO_BASE_AC:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->ac = (byte)b;
-				else
-					object_kind_ptr->ac = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->ac = (SAVING)b;
+				else object_kind_ptr->ac = 0;
 				break;
 
 			case OK_INFO_BASE_EV:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->ev = (byte)b;
-				else
-					object_kind_ptr->ev = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->ev = (SAVING)b;
+				else object_kind_ptr->ev = 0;
 				break;
 
 			case OK_INFO_BASE_VO:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->vo = (byte)b;
-				else
-					object_kind_ptr->vo = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->vo = (SAVING)b;
+				else object_kind_ptr->vo = 0;
 				break;
 
 			case OK_INFO_BASE_DAMAGE:
 				if(sscanf(tmp, "%dd%d", &b, &c) == 2)
 				{
-					object_kind_ptr->dd = (byte)b;
-					object_kind_ptr->ds = (byte)c;
+					object_kind_ptr->dd = (DICE_NUM)b;
+					object_kind_ptr->ds = (DICE_SIDE)c;
 				}
 				else
 				{
@@ -2125,38 +2111,28 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_PLUS_HIT:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->to_hit = (s16b)b;
-				else
-					object_kind_ptr->to_hit = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->to_hit = (STAT)b;
+				else object_kind_ptr->to_hit = 0;
 				break;
 
 			case OK_INFO_PLUS_DAM:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->to_damage = (s16b)b;
-				else
-					object_kind_ptr->to_damage = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->to_damage = (STAT)b;
+				else object_kind_ptr->to_damage = 0;
 				break;
 
 			case OK_INFO_PLUS_AC:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->to_ac = (s16b)b;
-				else
-					object_kind_ptr->to_ac = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->to_ac = (SAVING)b;
+				else object_kind_ptr->to_ac = 0;
 				break;
 
 			case OK_INFO_PLUS_EV:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->to_ev = (s16b)b;
-				else
-					object_kind_ptr->to_ev = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->to_ev = (SAVING)b;
+				else object_kind_ptr->to_ev = 0;
 				break;
 
 			case OK_INFO_PLUS_VO:
-				if(sscanf(tmp, "%d", &b) == 1)
-					object_kind_ptr->to_vo = (s16b)b;
-				else
-					object_kind_ptr->to_vo = 0;
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->to_vo = (SAVING)b;
+				else object_kind_ptr->to_vo = 0;
 				break;
 
 			case OK_INFO_BOW_MUL:
