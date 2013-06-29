@@ -884,8 +884,8 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 	char out_desc[INVEN_TOTAL][MAX_NLEN];
 	int target_item_label = 0;
 	int wid, hgt, wgt;
-	char inven_label[52 + 1];
-	char buf[80];
+	char inven_label[100];
+	char buf[MAX_NLEN];
 
 	int slot[INVEN_TOTAL];
 	int num[INVEN_TOTAL];
@@ -895,7 +895,8 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 	len = wid - col - 1; /* Default "max-length" */
 	prepare_label_string(creature_ptr, inven_label, USE_INVEN);
 
-	for(k = 0, i = 0; i < MAX_INVENTORY_IDS; i++)
+	k = 0;
+	for(i = 0; i < MAX_INVENTORY_IDS; i++)
 	{
 		if(i == INVENTORY_ID_INVENTORY && !(flags & SHOW_ITEM_INVENTORY)) continue;
 		if(i != INVENTORY_ID_INVENTORY && !(flags & SHOW_ITEM_EQUIPMENT)) continue;
@@ -909,7 +910,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 
 			if(m < 0)
 			{
-				if(i == INVENTORY_ID_INVENTORY && !(flags & SHOW_ITEM_EQUIPMENT) && !is_valid_object(object_ptr)) continue;
+				if(i == INVENTORY_ID_INVENTORY || (!(flags & SHOW_ITEM_EQUIPMENT) && !is_valid_object(object_ptr))) continue;
 				else
 				{
 					out_index[k] = m;
@@ -950,7 +951,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, FLAGS_32 flags,
 	if(flags & SHOW_ITEM_RIGHT_SET) col = (len > wid - 9) ? 0 : (wid - len - 9);
 	else col = 1;
 
-	if(!k)
+	if(k <= 0) /* No List*/
 	{
 		if(flags & SHOW_ITEM_EQUIPMENT) put_str(MES_OBJECT_NO_EQIUPMENT, 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
 		else if(flags & SHOW_ITEM_INVENTORY) put_str(MES_OBJECT_NO_INVENTORY, 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
