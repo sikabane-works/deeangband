@@ -31,10 +31,10 @@
 #define is_pval_flag(INDEX)			((STAT_STR <= (INDEX) && (INDEX) <= TRAIT_MAGIC_MASTERY) || (TRAIT_STEALTH <= (INDEX) && (INDEX) <= TRAIT_BLOWS))
 #define have_pval_flags(ARRAY)		!!((ARRAY)[0] & (0x00003f7f))
 
-#define IS_EQUIPPED(OBJECT) ((OBJECT)->equipped_slot_type != INVENTORY_ID_INVENTORY)
+#define IS_EQUIPPED(OBJECT) ((OBJECT)->equipped_slot_type != SLOT_ID_INVENTORY)
 #define HAS_AUTHORITY(CR, N) ((CR)->authority[(N) / 32] & (0x01 << (N) % 32)) 
 #define SUITABLE_CLASS(CR, CLS_IDX)	(race_info[(CR)->race_idx1].choice & (0x01 << (CLS_IDX)) || race_info[(CR)->race_idx2].choice & (0x01 << (CLS_IDX)))
-#define GET_INVENTORY_ID_TYPE(CR, I) (object_kind_info[(CR)->inventory[(I)].k_idx].slot)
+#define GET_SLOT_ID_TYPE(CR, I) (object_kind_info[(CR)->inventory[(I)].k_idx].slot)
 #define WIELD_SLOT(O) (object_kind_info[(O)->k_idx].slot)
 #define IS_DEAD(CR) ((CR)->chp < 0)
 #define GET_FLOOR_PTR(CR) ((CR) && (CR)->floor_idx ? &floor_list[(CR)->floor_idx] : CURRENT_FLOOR_PTR)

@@ -117,7 +117,7 @@ static bool item_tester_hook_wear(creature_type *creature_ptr, object_type *obje
 		if(creature_ptr->sex == SEX_MALE) return FALSE;
 
 	/* Check for a usable slot */
-	if(WIELD_SLOT(object_ptr) != INVENTORY_ID_INVENTORY) return TRUE;
+	if(WIELD_SLOT(object_ptr) != SLOT_ID_INVENTORY) return TRUE;
 
 	/* Assume not wearable */
 	return FALSE;
@@ -142,7 +142,7 @@ bool item_tester_hook_hand(creature_type *creature_ptr, object_type *object_ptr)
 {
 	if(!is_valid_creature(creature_ptr)) return FALSE;
 	if(!is_valid_object(object_ptr)) return FALSE;
-	if(WIELD_SLOT(object_ptr) == INVENTORY_ID_HAND) return TRUE; // Check for a usable slot
+	if(WIELD_SLOT(object_ptr) == SLOT_ID_HAND) return TRUE; // Check for a usable slot
 	return FALSE; // Assume not wearable
 }
 
@@ -623,7 +623,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 	cost_tactical_energy(creature_ptr, 50); // Take a partial turn
 
 	/* Access the lantern */
-	object2_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0);
+	object2_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_LITE, 0);
 	object2_ptr->fuel += object1_ptr->fuel;
 
 	msg_print(MES_LITE_FUEL_LAMP);
@@ -670,7 +670,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 	cost_tactical_energy(creature_ptr, 50); // Take a partial turn
 
 	/* Access the primary torch */
-	object2_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0);
+	object2_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_LITE, 0);
 
 	object2_ptr->fuel += object1_ptr->fuel + 5;
 
@@ -704,7 +704,7 @@ void do_cmd_refill(creature_type *creature_ptr)
 {
 	object_type *object1_ptr;
 
-	object1_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0);
+	object1_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_LITE, 0);
 	free_posture(creature_ptr);
 
 	if(object1_ptr->tval != TV_LITE) msg_print(MES_LITE_NONE);

@@ -1726,7 +1726,7 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 		creature_ptr->cumber_glove = FALSE;
 
 		/* Get the gloves */
-		object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_ARMS, 0);
+		object_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_ARMS, 0);
 
 		/* Examine the gloves */
 		object_flags(object_ptr, flgs);
@@ -1891,7 +1891,7 @@ static void calc_lite(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 
 		// Examine actual lites
-		if(GET_INVENTORY_ID_TYPE(creature_ptr, i) == INVENTORY_ID_LITE && (object_ptr->k_idx) && (object_ptr->tval == TV_LITE))
+		if(GET_SLOT_ID_TYPE(creature_ptr, i) == SLOT_ID_LITE && (object_ptr->k_idx) && (object_ptr->tval == TV_LITE))
 		{
 			if(object_ptr->ego_id == EGO_LITE_DARKNESS)
 			{
@@ -2100,15 +2100,15 @@ static void set_class_bonuses(creature_type *creature_ptr)
 				creature_ptr->speed -= (creature_ptr->lev) / 10;
 				creature_ptr->skill_stealth -= (creature_ptr->lev)/10;
 			}
-			else if((!get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 0)->k_idx || creature_ptr->can_melee[0]) &&
-			         (!get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 1)->k_idx || creature_ptr->can_melee[1]))
+			else if((!get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, 0)->k_idx || creature_ptr->can_melee[0]) &&
+			         (!get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, 1)->k_idx || creature_ptr->can_melee[1]))
 			{
 				creature_ptr->speed += 3;
 				if(!has_trait(creature_ptr, TRAIT_AGILE_RACE)) creature_ptr->speed += (creature_ptr->lev) / 10;
 				creature_ptr->skill_stealth += (creature_ptr->lev)/10;
 			}
-			if((!get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 0)->k_idx || creature_ptr->can_melee[0]) &&
-			    (!get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 1)->k_idx || creature_ptr->can_melee[1]))
+			if((!get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, 0)->k_idx || creature_ptr->can_melee[0]) &&
+			    (!get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, 1)->k_idx || creature_ptr->can_melee[1]))
 			{
 				creature_ptr->to_ac += creature_ptr->lev / 2 + 5;
 				creature_ptr->dis_to_ac += creature_ptr->lev / 2 + 5;
@@ -2172,32 +2172,32 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_WANT_LIGHT_WEIGHT) && !heavy_armor(creature_ptr))
 	{
 		/* TODO Monks get extra ac for armour _not worn_
-		if(!(creature_ptr->inventory[INVENTORY_ID_BODY].k_idx))
+		if(!(creature_ptr->inventory[SLOT_ID_BODY].k_idx))
 		{
 			creature_ptr->to_ac += (creature_ptr->lev * 3) / 2;
 			creature_ptr->dis_to_ac += (creature_ptr->lev * 3) / 2;
 		}
-		if(!(creature_ptr->inventory[INVENTORY_ID_OUTER].k_idx) && (creature_ptr->lev > 15))
+		if(!(creature_ptr->inventory[SLOT_ID_OUTER].k_idx) && (creature_ptr->lev > 15))
 		{
 			creature_ptr->to_ac += ((creature_ptr->lev - 13) / 3);
 			creature_ptr->dis_to_ac += ((creature_ptr->lev - 13) / 3);
 		}
-		if(!(creature_ptr->inventory[INVENTORY_ID_2NDARM].k_idx) && (creature_ptr->lev > 10))
+		if(!(creature_ptr->inventory[SLOT_ID_2NDARM].k_idx) && (creature_ptr->lev > 10))
 		{
 			creature_ptr->to_ac += ((creature_ptr->lev - 8) / 3);
 			creature_ptr->dis_to_ac += ((creature_ptr->lev - 8) / 3);
 		}
-		if(!(creature_ptr->inventory[INVENTORY_ID_1STHEAD].k_idx) && (creature_ptr->lev > 4))
+		if(!(creature_ptr->inventory[SLOT_ID_1STHEAD].k_idx) && (creature_ptr->lev > 4))
 		{
 			creature_ptr->to_ac += (creature_ptr->lev - 2) / 3;
 			creature_ptr->dis_to_ac += (creature_ptr->lev -2) / 3;
 		}
-		if(!(creature_ptr->inventory[INVENTORY_ID_1STHANDS].k_idx))
+		if(!(creature_ptr->inventory[SLOT_ID_1STHANDS].k_idx))
 		{
 			creature_ptr->to_ac += (creature_ptr->lev / 2);
 			creature_ptr->dis_to_ac += (creature_ptr->lev / 2);
 		}
-		if(!(creature_ptr->inventory[INVENTORY_ID_FEET].k_idx))
+		if(!(creature_ptr->inventory[SLOT_ID_FEET].k_idx))
 		{
 			creature_ptr->to_ac += (creature_ptr->lev / 3);
 			creature_ptr->dis_to_ac += (creature_ptr->lev / 3);
@@ -2467,7 +2467,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		slot = GET_INVENTORY_ID_TYPE(creature_ptr, i);
+		slot = GET_SLOT_ID_TYPE(creature_ptr, i);
 		object_ptr = &creature_ptr->inventory[i];
 
 		if(!IS_EQUIPPED(object_ptr)) continue; // Skip no equip
@@ -2602,10 +2602,10 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		}
 
 		/* Hack -- do not apply "weapon" bonuses */
-		if(slot == INVENTORY_ID_HAND && get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > i) continue;
+		if(slot == SLOT_ID_HAND && get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > i) continue;
 
 		/* Hack -- do not apply "bow" bonuses */
-		if(slot == INVENTORY_ID_BOW) continue;
+		if(slot == SLOT_ID_BOW) continue;
 
 		bonus_to_hit = object_ptr->to_hit;
 		bonus_to_damage = object_ptr->to_damage;
@@ -2627,17 +2627,17 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if(object_is_known(object_ptr)) creature_ptr->dis_to_hit_b += bonus_to_hit;
 
 		/* To Melee */
-		if(GET_INVENTORY_ID_TYPE(creature_ptr, i) == INVENTORY_ID_RING && !creature_ptr->two_handed)
+		if(GET_SLOT_ID_TYPE(creature_ptr, i) == SLOT_ID_RING && !creature_ptr->two_handed)
 		{
 			/* Apply the bonuses to hit/damage */
-			creature_ptr->to_hit[get_equipped_slot_idx(creature_ptr, INVENTORY_ID_RING, i)] += bonus_to_hit;
-			creature_ptr->to_damage[get_equipped_slot_idx(creature_ptr, INVENTORY_ID_RING, i)] += bonus_to_damage;
+			creature_ptr->to_hit[get_equipped_slot_idx(creature_ptr, SLOT_ID_RING, i)] += bonus_to_hit;
+			creature_ptr->to_damage[get_equipped_slot_idx(creature_ptr, SLOT_ID_RING, i)] += bonus_to_damage;
 
 			/* Apply the mental bonuses tp hit/damage, if known */
 			if(object_is_known(object_ptr))
 			{
-				creature_ptr->dis_to_hit[get_equipped_slot_idx(creature_ptr, INVENTORY_ID_RING, i)] += bonus_to_hit;
-				creature_ptr->dis_to_damage[get_equipped_slot_idx(creature_ptr, INVENTORY_ID_RING, i)] += bonus_to_damage;
+				creature_ptr->dis_to_hit[get_equipped_slot_idx(creature_ptr, SLOT_ID_RING, i)] += bonus_to_hit;
+				creature_ptr->dis_to_damage[get_equipped_slot_idx(creature_ptr, SLOT_ID_RING, i)] += bonus_to_damage;
 			}
 		}
 		else if(creature_ptr->can_melee[0] && creature_ptr->can_melee[1])
@@ -2763,7 +2763,7 @@ static void set_karma_bonuses(creature_type *creature_ptr)
 		creature_ptr->chaos_exp += creature_ptr->karmas[i] * karma[i].chaos_adj;
 	}
 
-	if(get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, i)->art_id == ART_IRON_BALL) creature_ptr->good_rank -= 300;
+	if(get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, i)->art_id == ART_IRON_BALL) creature_ptr->good_rank -= 300;
 
 	creature_ptr->good_rank = calc_rank(creature_ptr->good_exp);
 	creature_ptr->evil_rank = calc_rank(creature_ptr->evil_exp);
@@ -2787,7 +2787,7 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 	if(creature_ptr->old_heavy_shoot != creature_ptr->heavy_shoot)
 	{
 		if(creature_ptr->heavy_shoot) msg_print(MES_EQUIP_HEAVY_BOW);
-		else if(get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BOW, 0)->k_idx)
+		else if(get_equipped_slot_ptr(creature_ptr, SLOT_ID_BOW, 0)->k_idx)
 			msg_print(MES_EQUIP_FITTING_BOW);
 		else
 			msg_print(MES_EQUIP_RELIEVE_HEAVY_BOW);
@@ -2801,7 +2801,7 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 		{
 			if(creature_ptr->heavy_wield[i])
 				msg_print(MES_EQUIP_HEAVY_WEAPON);
-			else if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0)
+			else if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 0)
 				msg_print(MES_EQUIP_FITTING_WEAPON);
 			else if(creature_ptr->heavy_wield[1-i])
 				msg_print(MES_EQUIP_HEAVY_WEAPON_STILL);
@@ -2817,7 +2817,7 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 				msg_print(MES_EQUIP_NO_RIDING_WEAPON);
 			else if(!creature_ptr->riding)
 				msg_print(MES_EQUIP_SUITABLE_WALKING_WEAPON);
-			else if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0)
+			else if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 0)
 				msg_print(MES_EQUIP_RIDING_WEAPON);
 			creature_ptr->old_riding_wield[i] = creature_ptr->riding_wield[i];
 		}
@@ -2913,10 +2913,10 @@ static void set_melee_status(creature_type *creature_ptr)
 	hold = calc_equipping_weight_limit(creature_ptr); // Obtain the equipment value
 
 	// Examine the "current bow"
-	bow_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BOW, 0);
+	bow_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_BOW, 0);
 
-	if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0) creature_ptr->can_melee[0] = TRUE;
-	if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 1)
+	if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 0) creature_ptr->can_melee[0] = TRUE;
+	if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 1)
 	{
 		creature_ptr->can_melee[1] = TRUE;
 		if(!creature_ptr->can_melee[0]) default_hand = 1;
@@ -2925,12 +2925,12 @@ static void set_melee_status(creature_type *creature_ptr)
 	if(CAN_TWO_HANDS_WIELDING(creature_ptr))
 	{
 		if(creature_ptr->can_melee[0] && (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_LARM) &&
-			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 0)))
+			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, 0)))
 		{
 			//TODO creature_ptr->two_handed = TRUE;
 		}
 		else if(creature_ptr->can_melee[1] && (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_RARM) &&
-			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 1)))
+			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, 1)))
 		{
 			//TODO creature_ptr->two_handed = TRUE;
 		}
@@ -3047,7 +3047,7 @@ static void set_melee_status(creature_type *creature_ptr)
 	{
 	//TODO: adjust
 	/*
-	if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 1)
+	if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 1)
 	{
 		int penalty1, penalty2;
 		penalty1 = ((100 - creature_ptr->skill_exp[SKILL_MULTI_WEAPON] / 160) - (130 - creature_ptr->inventory[].weight) / 8);
@@ -3094,7 +3094,7 @@ static void set_melee_status(creature_type *creature_ptr)
 	*/
 
 		/* Examine the "main weapon" */
-		weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, i);
+		weapon_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, i);
 
 		object_flags(weapon_ptr, flgs);
 
@@ -3194,9 +3194,9 @@ static void set_melee_status(creature_type *creature_ptr)
 
 	for (i = 0; i < MAX_WEAPONS; i++)
 	{
-		weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, i); 
+		weapon_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, i); 
 
-		if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0)
+		if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 0)
 		{
 			int boost = 0;
 			//TODO calc boost.
@@ -3387,7 +3387,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 		case CLASS_MONK:
 		case CLASS_FORCETRAINER:
 		case CLASS_BERSERKER:
-			if((empty_hands(creature_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND))
+			if((empty_hands(creature_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(creature_ptr, SLOT_ID_HAND))
 				creature_ptr->riding_two_handed = TRUE;
 			break;
 		}
@@ -3521,7 +3521,7 @@ static OBJECT_KIND_ID grab_object_kind_tag(cptr what)
 static int grab_slot(cptr what)
 {
 	int i;
-	for(i = 0; i < MAX_INVENTORY_IDS; i++)
+	for(i = 0; i < MAX_SLOT_IDS; i++)
 	{
 		if(streq(what, equip_slot_flags[i])) return i;
 	}
@@ -3556,7 +3556,7 @@ static void set_organ_melee(creature_type *creature_ptr)
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	int i;
 	char *offset;
-	for(i = 0; i < MAX_INVENTORY_IDS; i++) object_wipe(&creature_ptr->organ_object[i]);
+	for(i = 0; i < MAX_SLOT_IDS; i++) object_wipe(&creature_ptr->organ_object[i]);
 
 	offset = race_tag + race_ptr->special_melee_tag;
 	while(TRUE) /* from race definition */
@@ -4047,7 +4047,7 @@ s16b empty_hands(creature_type *creature_ptr, bool riding_control)
 	int i;
 
 	for(i = 0; i < MAX_WEAPONS; i++)
-		if(!get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, i)->k_idx) status |= 0x0001 << i;
+		if(!get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, i)->k_idx) status |= 0x0001 << i;
 
 	if(riding_control && status && creature_ptr->riding && !(creature_ptr->pet_extra_flags & PF_RYOUTE))
 	{

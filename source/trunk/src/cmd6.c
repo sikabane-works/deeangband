@@ -652,12 +652,12 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 		case SV_SCROLL_CURSE_WEAPON:
 		{
 			k = 0;
-			if(get_equipped_slot_ptr(caster_ptr, INVENTORY_ID_LITE, 0))
+			if(get_equipped_slot_ptr(caster_ptr, SLOT_ID_LITE, 0))
 			{
-				k = get_equipped_slot_idx(caster_ptr, INVENTORY_ID_HAND, 0);
-				if(get_equipped_slot_ptr(caster_ptr, INVENTORY_ID_LITE, 0) && one_in_(2)) k = get_equipped_slot_idx(caster_ptr, INVENTORY_ID_HAND, 0);
+				k = get_equipped_slot_idx(caster_ptr, SLOT_ID_HAND, 0);
+				if(get_equipped_slot_ptr(caster_ptr, SLOT_ID_LITE, 0) && one_in_(2)) k = get_equipped_slot_idx(caster_ptr, SLOT_ID_HAND, 0);
 			}
-			else if(get_equipped_slot_ptr(caster_ptr, INVENTORY_ID_LITE, 0)) k = get_equipped_slot_idx(caster_ptr, INVENTORY_ID_HAND, 0);
+			else if(get_equipped_slot_ptr(caster_ptr, SLOT_ID_LITE, 0)) k = get_equipped_slot_idx(caster_ptr, SLOT_ID_HAND, 0);
 			if(k && curse_weapon(caster_ptr, FALSE, k)) ident = TRUE;
 			break;
 		}
@@ -2174,7 +2174,7 @@ void do_cmd_use(creature_type *creature_ptr)
 		case TV_ARROW:
 		case TV_BOLT:
 		{
-			do_cmd_fire_aux(creature_ptr, item, get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BOW, 1));
+			do_cmd_fire_aux(creature_ptr, item, get_equipped_slot_ptr(creature_ptr, SLOT_ID_BOW, 1));
 			break;
 		}
 

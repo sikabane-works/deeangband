@@ -703,7 +703,7 @@ static int wield_one(creature_type *creature_ptr, int item, FLAGS_32 flags)
 	object_type *i_ptr; 
 	object_type object_type_body; 
  
-	INVENTORY_ID slot; 
+	SLOT_ID slot; 
 
 	object_ptr = &creature_ptr->inventory[item]; 
 
@@ -716,7 +716,7 @@ static int wield_one(creature_type *creature_ptr, int item, FLAGS_32 flags)
 	// Make sure we can wield it and that there's nothing else in that slot
 	slot = WIELD_SLOT(object_ptr);
 
-	if(slot == INVENTORY_ID_INVENTORY) return -1; 
+	if(slot == SLOT_ID_INVENTORY) return -1; 
 	if(creature_ptr->inventory[slot].k_idx) return -1; 
  
 	i_ptr = &object_type_body; 
@@ -758,7 +758,7 @@ static void wield_all(creature_type *creature_ptr, FLAGS_32 flags)
 // Add an outfit object
 void add_item_to_creature(creature_type *creature_ptr, object_type *object_ptr, FLAGS_32 flags)
 {
-	INVENTORY_ID slot;
+	SLOT_ID slot;
 
 	if(is_player(creature_ptr) && (flags & ADD_OUTFIT_EQUIP))
 	{

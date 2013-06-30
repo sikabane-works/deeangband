@@ -1858,7 +1858,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 	creature_ptr->is_fired = FALSE;	/* not fired yet */
 
 	/* Get the "bow" (if any) */
-	j_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BOW, 0);
+	j_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_BOW, 0);
 
 	/* Require a launcher */
 	if(!j_ptr->tval)

@@ -265,7 +265,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	//TODO old pval status
 
 	/* Access the current weapon */
-	object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 0);
+	object_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, 0);
 
 	screen_save();
 

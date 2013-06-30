@@ -18,7 +18,7 @@
 * Note that this code must remove any location/stack information
 * from the object once it is placed into the inventory.
 */
-INVENTORY_ID inven_carry(creature_type *creature_ptr, object_type *object_ptr)
+SLOT_ID inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int i, j, k;
 	int n = -1;

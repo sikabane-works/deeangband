@@ -977,11 +977,11 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			}
 		}
 
-		if(get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0)->tval &&
-			(get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0)->ego_id != EGO_LITE_DARKNESS) &&
+		if(get_equipped_slot_ptr(creature_ptr, SLOT_ID_LITE, 0)->tval &&
+			(get_equipped_slot_ptr(creature_ptr, SLOT_ID_LITE, 0)->ego_id != EGO_LITE_DARKNESS) &&
 			!has_trait(creature_ptr, TRAIT_RES_LITE))
 		{
-			object_type * object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0);
+			object_type * object_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_LITE, 0);
 			char object_name [MAX_NLEN];
 			char ouch [MAX_NLEN+40];
 
@@ -1267,7 +1267,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 static void process_world_aux_light(creature_type *creature_ptr)
 {
 	/* Check for light being wielded */
-	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0);
+	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_LITE, 0);
 
 	if(!is_valid_creature(creature_ptr)) return;
 
@@ -1464,7 +1464,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			heal_creature(creature_ptr, 10);
 		}
 
-		object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0);
+		object_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_LITE, 0);
 
 		/* Absorb some fuel in the current lite */
 		if(object_ptr->tval == TV_LITE)
@@ -1649,12 +1649,12 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->wt / 6), COD_TRIPPING, NULL, -1);
 		msg_print(NULL);
 
-		i = get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND);
+		i = get_equipped_slot_num(creature_ptr, SLOT_ID_HAND);
 		if(i > 0)
 		{
 			int j = randint0(i);
-			object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, j);
-			slot = get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, j);
+			object_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, j);
+			slot = get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, j);
 		}
 
 		if(slot && !object_is_cursed(object_ptr))
@@ -1851,7 +1851,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Rarely, take damage from the Jewel of Judgement */
 	if(one_in_(999) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
-		//object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0);
+		//object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_LITE, 0);
 		//TODO if(object_ptr->art_id == ART_JUDGE)
 	}
 }

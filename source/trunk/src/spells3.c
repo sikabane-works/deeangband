@@ -385,7 +385,7 @@ bool teleport_player_aux(creature_type *creature_ptr, COODINATES dis, FLAGS_32 m
 	sound(SOUND_TELEPORT);
 
 #ifdef JP
-	if((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BOW, 0)))
+	if((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, SLOT_ID_BOW, 0)))
 		msg_format("w‚±‚Á‚¿‚¾‚ŸA%sx", creature_ptr->name);
 #endif
 
@@ -1218,7 +1218,7 @@ void apply_nexus(creature_type *m_ptr)
 void phlogiston(creature_type *creature_ptr)
 {
 	int max_flog = 0;
-	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_LITE, 0);
+	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_LITE, 0);
 
 	/* It's a lamp */
 	if((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_LANTERN)) max_flog = FUEL_LAMP;
@@ -3874,7 +3874,7 @@ bool curse_armor(creature_type *creature_ptr)
 	char object_name[MAX_NLEN];
 
 	/* Curse the body armor */
-	object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BODY, 0);
+	object_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_BODY, 0);
 
 	/* Nothing to curse */
 	if(!is_valid_object(object_ptr)) return FALSE;

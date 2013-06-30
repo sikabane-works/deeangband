@@ -90,7 +90,7 @@ extern u32b fake_spell_flags[4];
 extern s32b realm_choices1[];
 extern s32b realm_choices2[];
 extern cptr realm_names[];
-extern cptr equip_slot_flags[MAX_INVENTORY_IDS];
+extern cptr equip_slot_flags[MAX_SLOT_IDS];
 
 #ifdef JP
 extern cptr E_realm_names[];
@@ -868,7 +868,7 @@ extern void object_flags_known(object_type *object_ptr, FLAGS_32 flgs[MAX_TRAITS
 extern bool screen_object(object_type *object_ptr, FLAGS_32 mode);
 extern char index_to_label(int i);
 extern s16b label_to_item(creature_type *creature_ptr, int c);
-extern cptr mention_use_idx(creature_type *creature_ptr, INVENTORY_ID slot, int num);
+extern cptr mention_use_idx(creature_type *creature_ptr, SLOT_ID slot, int num);
 extern cptr mention_use_ptr(creature_type *creature_ptr, object_type *object_ptr);
 extern cptr describe_use(creature_type *creature_ptr, int i);
 extern bool check_book_realm(creature_type *creature_ptr, const TVAL book_tval, const SVAL book_sval);
@@ -932,7 +932,7 @@ extern void floor_item_describe(creature_type *creature_type, int item);
 extern void floor_item_increase(int item, int num);
 extern void floor_item_optimize(int item);
 extern bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b o_value, object_type *j_ptr);
-extern INVENTORY_ID inven_takeoff(creature_type *creature_ptr, int item, int amt);
+extern SLOT_ID inven_takeoff(creature_type *creature_ptr, int item, int amt);
 extern void inven_drop(creature_type *creature_ptr, int item, int amt);
 extern void combine_pack(creature_type *creature_ptr);
 extern void reorder_pack(creature_type *creature_ptr);

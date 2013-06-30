@@ -1484,10 +1484,7 @@ void generate_object(object_type *object_ptr, OBJECT_KIND_ID k_idx)
 	object_ptr->charge_const = object_kind_ptr->charge_const;
 	object_ptr->charge_dice = object_kind_ptr->charge_dice;
 
-	for(i = 0; i < MAX_TRAITS; i++)
-	{
-		if(object_kind_ptr->add_creature_traits.add_lev[i]) add_flag(object_ptr->trait_flags, i);
-	}
+	for(i = 0; i < MAX_TRAITS; i++) if(object_kind_ptr->add_creature_traits.add_lev[i]) add_flag(object_ptr->trait_flags, i);
 
 	/* Hack -- worthless items are always "broken" */
 	if(object_kind_info[object_ptr->k_idx].cost <= 0) object_ptr->ident |= (IDENT_BROKEN);
@@ -1498,7 +1495,6 @@ void generate_object(object_type *object_ptr, OBJECT_KIND_ID k_idx)
 		object_ptr->size_lower = size + object_kind_ptr->min_size_permit;
 		object_ptr->size_upper = size + object_kind_ptr->max_size_permit;
 	}
-
 
 	/* Hack -- cursed items are always "cursed" */
 	if(have_flag(object_kind_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
@@ -2122,7 +2118,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 					{
 						bool okay_flag = TRUE;
 
-						object_ptr->ego_id = get_random_ego(INVENTORY_ID_LITE, TRUE);
+						object_ptr->ego_id = get_random_ego(SLOT_ID_LITE, TRUE);
 
 						switch (object_ptr->ego_id)
 						{
@@ -2137,7 +2133,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			}
 			else if(power == -2)
 			{
-				object_ptr->ego_id = get_random_ego(INVENTORY_ID_LITE, FALSE);
+				object_ptr->ego_id = get_random_ego(SLOT_ID_LITE, FALSE);
 
 				switch (object_ptr->ego_id)
 				{
@@ -3346,9 +3342,9 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b 
 *
 * Return the inventory slot into which the item is placed.
 */
-INVENTORY_ID inven_takeoff(creature_type *creature_ptr, int item, int amt)
+SLOT_ID inven_takeoff(creature_type *creature_ptr, int item, int amt)
 {
-	INVENTORY_ID slot;
+	SLOT_ID slot;
 	object_type forge;
 	object_type *object1_ptr, *object2_ptr;
 	char object_name[MAX_NLEN];
@@ -3356,7 +3352,7 @@ INVENTORY_ID inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	// Get the item to take off
 	object1_ptr = &creature_ptr->inventory[item];
 
-	object1_ptr->equipped_slot_type = INVENTORY_ID_INVENTORY;
+	object1_ptr->equipped_slot_type = SLOT_ID_INVENTORY;
 	object1_ptr->equipped_slot_num = 0;
 
 	if(amt <= 0) return (-1);
@@ -3372,15 +3368,15 @@ INVENTORY_ID inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	// Carry the object
 	slot = inven_carry(creature_ptr, object2_ptr);
 
-	if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_HAND && object_is_melee_weapon(creature_ptr, object1_ptr))
+	if(GET_SLOT_ID_TYPE(creature_ptr, item) == SLOT_ID_HAND && object_is_melee_weapon(creature_ptr, object1_ptr))
 	{
 		MES_EQUIP_TAKEOFF1(object2_ptr, index_to_label(slot));
 	}
-	else if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_BOW)
+	else if(GET_SLOT_ID_TYPE(creature_ptr, item) == SLOT_ID_BOW)
 	{
 		MES_EQUIP_TAKEOFF2(object2_ptr, index_to_label(slot));
 	}
-	else if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_LITE)
+	else if(GET_SLOT_ID_TYPE(creature_ptr, item) == SLOT_ID_LITE)
 	{
 		MES_EQUIP_TAKEOFF3(object2_ptr, index_to_label(slot));
 	}
@@ -3427,7 +3423,7 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 
 	object_drop_ptr->number = amt;
 	object_drop_ptr->equipped_slot_num = 0;
-	object_drop_ptr->equipped_slot_type = INVENTORY_ID_INVENTORY;
+	object_drop_ptr->equipped_slot_type = SLOT_ID_INVENTORY;
 
 	object_desc(object_name, object_drop_ptr, 0);
 	msg_format(MES_OBJECT_DROPPED(object_name, index_to_label(item)));
@@ -5573,7 +5569,7 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	u32b        new_curse;
 	u32b oflgs[MAX_TRAITS_FLAG];
 	//TODO SELECT
-	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_HAND, 0);
+	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, SLOT_ID_HAND, 0);
 	char object_name[MAX_NLEN];
 
 	if(randint1(100) > chance) return;

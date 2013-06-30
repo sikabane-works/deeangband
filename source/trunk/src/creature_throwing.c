@@ -790,7 +790,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	if(shuriken) item = shuriken;
 	else if(boomerang)
 	{
-		if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND))
+		if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND))
 		{
 			if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_THROW, MES_OBJECT_NO_THROW, (USE_EQUIP), item_tester_hook_boomerang, 0))
 			{
@@ -1121,7 +1121,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	if(come_back)
 	{
-		if(GET_INVENTORY_ID_TYPE(creature_ptr, item) == INVENTORY_ID_ARMS)
+		if(GET_SLOT_ID_TYPE(creature_ptr, item) == SLOT_ID_ARMS)
 		{
 			/* Access the wield slot */
 			object1_ptr = &creature_ptr->inventory[item];

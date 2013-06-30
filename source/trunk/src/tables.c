@@ -4116,7 +4116,7 @@ cptr realm_jouhou[MAX_REALMS] =
 };
 
 // Equip Slot Flags
-cptr equip_slot_flags[MAX_INVENTORY_IDS] =
+cptr equip_slot_flags[MAX_SLOT_IDS] =
 {
 	"INVENTORY",
 	"HAND",

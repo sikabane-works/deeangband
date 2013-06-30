@@ -306,9 +306,9 @@ typedef s32b PROB;
 #define READ_PROB(VALUE) rd_s32b((PROB *)VALUE);
 #define WRITE_PROB(VALUE) wr_s32b((PROB)VALUE);
 
-typedef enum INVENTORY_ID INVENTORY_ID;
-#define READ_INVENTORY_ID(VALUE) rd_s32b((s32b *)VALUE);
-#define WRITE_INVENTORY_ID(VALUE) wr_s32b((s32b)VALUE);
+typedef enum SLOT_ID SLOT_ID;
+#define READ_SLOT_ID(VALUE) rd_s32b((s32b *)VALUE);
+#define WRITE_SLOT_ID(VALUE) wr_s32b((s32b)VALUE);
 
 typedef s32b FORGED_ID;
 #define READ_FORGED_ID(VALUE) rd_s32b((FORGED_ID *)VALUE);
@@ -457,7 +457,7 @@ struct object_kind
 	BODY_SIZE max_size;      // size limit
 	BODY_SIZE min_size_permit;      // size limit
 	BODY_SIZE max_size_permit;      // size limit
-	INVENTORY_ID slot;          // equipment slot
+	SLOT_ID slot;          // equipment slot
 };
 
 
@@ -535,7 +535,7 @@ struct ego_item_type
 	STRING_OFFSET text;			/* Text (offset) */
 
 	PERCENT ap_rate;		// AP rate
-	INVENTORY_ID slot;			/* Standard slot value */
+	SLOT_ID slot;			/* Standard slot value */
 	byte rating;		/* Rating boost */
 
 	FLOOR_LEV level;	/* Minimum level */
@@ -925,7 +925,7 @@ struct object_type
 	SPECIES_ID creator_idx; /* Creator */
 	SPECIES_ID source_idx; /* Item Source */
 
-	INVENTORY_ID equipped_slot_type;
+	SLOT_ID equipped_slot_type;
 	QUANTITY equipped_slot_num;
 };
 
@@ -1417,8 +1417,8 @@ struct creature_type
 	object_type inventory[INVEN_TOTAL];  // Inventory
 	s16b iven_fitting_rate[INVEN_TOTAL]; // Inventory Fitting Rate
 	byte equip_now[INVEN_TOTAL];         // equipment flag
-	QUANTITY item_slot_num[MAX_INVENTORY_IDS];
-	object_type organ_object[MAX_INVENTORY_IDS];
+	QUANTITY item_slot_num[MAX_SLOT_IDS];
+	object_type organ_object[MAX_SLOT_IDS];
 
 	PRICE au;			// Current Gold
 

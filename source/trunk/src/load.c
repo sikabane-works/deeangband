@@ -361,7 +361,7 @@ static errr rd_object(object_type *object_ptr)
 	READ_SPECIES_ID(&object_ptr->creator_idx);
 	READ_SPECIES_ID(&object_ptr->source_idx);
 
-	READ_INVENTORY_ID(&object_ptr->equipped_slot_type);
+	READ_SLOT_ID(&object_ptr->equipped_slot_type);
 	READ_QUANTITY(&object_ptr->equipped_slot_num);
 
 	READ_BODY_SIZE(&object_ptr->size_upper);
@@ -734,7 +734,7 @@ static errr rd_creature(creature_type *creature_ptr)
 		return LOAD_ERROR_INVALID_OBJECT;
 	}
 
-	//TODO for (i = 0; i < MAX_INVENTORY_IDS; i++) READ_OBJECT_KIND_ID(&creature_ptr->organ_id[i]);
+	//TODO for (i = 0; i < MAX_SLOT_IDS; i++) READ_OBJECT_KIND_ID(&creature_ptr->organ_id[i]);
 
 	// Read the stat info
 	for (i = 0; i < STAT_MAX; i++) READ_STAT(&creature_ptr->stat_max[i]);

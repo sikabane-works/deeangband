@@ -2206,7 +2206,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_SLOT:
-				for(j = 0; j < MAX_INVENTORY_IDS; j++)
+				for(j = 0; j < MAX_SLOT_IDS; j++)
 				{
 					if(streq(equip_slot_flags[j], tmp))
 					{
@@ -2214,7 +2214,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 						break;
 					}
 				}
-				if(j == MAX_INVENTORY_IDS)
+				if(j == MAX_SLOT_IDS)
 					return PARSE_ERROR_GENERIC;
 				break;
 
@@ -2741,7 +2741,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 				break;
 
 			case OBJECT_EGO_INFO_SLOT:
-				for(j = 0; j < MAX_INVENTORY_IDS; j++)
+				for(j = 0; j < MAX_SLOT_IDS; j++)
 				{
 					if(streq(equip_slot_flags[j], tmp))
 					{
@@ -2749,7 +2749,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 						break;
 					}
 				}
-				if(j == MAX_INVENTORY_IDS) return PARSE_ERROR_GENERIC;
+				if(j == MAX_SLOT_IDS) return PARSE_ERROR_GENERIC;
 				break;
 
 			case OBJECT_EGO_INFO_RATING:

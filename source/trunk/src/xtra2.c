@@ -2929,26 +2929,26 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_CURSE_WP:
-			if(!get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0) break;
+			if(!get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 0) break;
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_CURSE_WEAPON);
 			reward = format(MES_DIARY_PATRON_DESTROYED(object_name));
-			dummy = get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 0);
-			if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0)
+			dummy = get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 0);
+			if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 0)
 			{
-				dummy = get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 1);
-				if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0 && one_in_(2))
-					dummy = get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 0);
+				dummy = get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 1);
+				if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 0 && one_in_(2))
+					dummy = get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 0);
 			}
 			object_desc(object_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
 			(void)curse_weapon(creature_ptr, FALSE, dummy);
 			break;
 
 		case REW_CURSE_AR:
-			if(!get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BODY, 0)->k_idx) break;
+			if(!get_equipped_slot_ptr(creature_ptr, SLOT_ID_BODY, 0)->k_idx) break;
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			reward = format(MES_DIARY_PATRON_DESTROYED(object_name));
-			object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BODY, 1), OD_NAME_ONLY);
+			object_desc(object_name, get_equipped_slot_ptr(creature_ptr, SLOT_ID_BODY, 1), OD_NAME_ONLY);
 			(void)curse_armor(creature_ptr);
 			break;
 
@@ -2968,13 +2968,13 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			case 3:
 				if(one_in_(2))
 				{
-					if(!get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0) break;
-					dummy = get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 0);
-					if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0)
+					if(!get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 0) break;
+					dummy = get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 0);
+					if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 0)
 					{
-						dummy = get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 1);
-						if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0 && one_in_(2))
-							dummy = get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 0);
+						dummy = get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 1);
+						if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 0 && one_in_(2))
+							dummy = get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 0);
 					}
 					object_desc(object_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
 					(void)curse_weapon(creature_ptr, FALSE, dummy);
@@ -2982,8 +2982,8 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 				}
 				else
 				{
-					if(!get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BODY, 0)->k_idx) break;
-					object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVENTORY_ID_BODY, 0), OD_NAME_ONLY);
+					if(!get_equipped_slot_ptr(creature_ptr, SLOT_ID_BODY, 0)->k_idx) break;
+					object_desc(object_name, get_equipped_slot_ptr(creature_ptr, SLOT_ID_BODY, 0), OD_NAME_ONLY);
 					(void)curse_armor(creature_ptr);
 					reward = format(MES_DIARY_PATRON_DESTROYED(object_name));
 				}
@@ -3008,14 +3008,14 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			{
 				dummy = 0;
 
-				if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 0)
+				if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 0)
 				{
-					dummy = get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 0);
-					if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 1 && one_in_(2))
-						dummy = get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 1);
+					dummy = get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 0);
+					if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 1 && one_in_(2))
+						dummy = get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 1);
 				}
-				else if(get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND) > 1)
-					dummy = get_equipped_slot_idx(creature_ptr, INVENTORY_ID_HAND, 1);
+				else if(get_equipped_slot_num(creature_ptr, SLOT_ID_HAND) > 1)
+					dummy = get_equipped_slot_idx(creature_ptr, SLOT_ID_HAND, 1);
 
 				if(dummy) (void)curse_weapon(creature_ptr, FALSE, dummy);
 			}

@@ -346,7 +346,7 @@ static void wr_creature(creature_type *creature_ptr)
 		wr_object(object_ptr);	// Dump object
 	}
 
-	//TODO for (i = 0; i < MAX_INVENTORY_IDS; i++) WRITE_OBJECT_KIND_ID(creature_ptr->organ_id[i]);
+	//TODO for (i = 0; i < MAX_SLOT_IDS; i++) WRITE_OBJECT_KIND_ID(creature_ptr->organ_id[i]);
 
 	/* Add a sentinel */
 	wr_u16b(0xFFFF);

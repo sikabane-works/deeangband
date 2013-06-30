@@ -308,7 +308,7 @@ static bool creature_has_no_spellbooks(creature_type *creature_ptr)
 
 static void confirm_use_force(creature_type *creature_ptr, bool browse_only)
 {
-	INVENTORY_ID item;
+	SLOT_ID item;
 	char which;
 
 	/* Get the item index */
@@ -1253,9 +1253,9 @@ void do_cmd_pet(creature_type *master_ptr)
 	if(master_ptr->riding)
 	{
 		if((master_ptr->can_melee[0] && (empty_hands(master_ptr, FALSE) == EMPTY_HAND_LARM) &&
-			object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVENTORY_ID_HAND, 0))) ||
+			object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, SLOT_ID_HAND, 0))) ||
 			(master_ptr->can_melee[1] && (empty_hands(master_ptr, FALSE) == EMPTY_HAND_RARM) &&
-			object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVENTORY_ID_HAND, 1))))
+			object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, SLOT_ID_HAND, 1))))
 		{
 			if(master_ptr->pet_extra_flags & PF_RYOUTE) power_desc[num] = MES_COMBATOP_WEAPON_ONE_HANDED;
 			else power_desc[num] = MES_COMBATOP_WEAPON_TWO_HANDED;
@@ -1276,7 +1276,7 @@ void do_cmd_pet(creature_type *master_ptr)
 						power_desc[num] = MES_COMBATOP_BAREHAND_TWO_HANDED;
 					powers[num++] = PET_RYOUTE;
 				}
-				else if((empty_hands(master_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(master_ptr, INVENTORY_ID_HAND))
+				else if((empty_hands(master_ptr, FALSE) != EMPTY_HAND_NONE) && !get_equipped_slot_num(master_ptr, SLOT_ID_HAND))
 				{
 					if(master_ptr->pet_extra_flags & PF_RYOUTE)
 						power_desc[num] = MES_COMBATOP_BAREHAND_OFF;

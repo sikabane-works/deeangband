@@ -139,7 +139,7 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 	if(HEX_SPELLING(target_ptr, HEX_SHADOW_CLOAK) && !IS_DEAD(target_ptr))
 	{
 		POWER dam = 1;
-		object_type *object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_HAND, 0);
+		object_type *object_ptr = get_equipped_slot_ptr(target_ptr, SLOT_ID_HAND, 0);
 
 		if(!has_trait(attacker_ptr, TRAIT_RES_DARK))
 		{
@@ -150,7 +150,7 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 			}
 
 			/* Cursed armor makes damages doubled */
-			object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_BODY, 0);
+			object_ptr = get_equipped_slot_ptr(target_ptr, SLOT_ID_BODY, 0);
 			if((object_ptr->k_idx) && object_is_cursed(object_ptr)) dam *= 2;
 			creature_desc(attacker_name, attacker_ptr, 0);
 			msg_format(MES_MELEE_SHADOW_AURA(attacker_ptr));
@@ -160,10 +160,10 @@ static void counter_aura(creature_type *attacker_ptr, creature_type *target_ptr)
 			int j;
 			int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 			int typ[4][2] = {
-			{ INVENTORY_ID_HEAD, DO_EFFECT_CONF_OTHERS },
-			{ INVENTORY_ID_HAND, DO_EFFECT_OLD_SLEEP },
-			{ INVENTORY_ID_ARM, DO_EFFECT_TURN_ALL },
-			{ INVENTORY_ID_FEET, DO_EFFECT_SLOW_OTHERS }
+			{ SLOT_ID_HEAD, DO_EFFECT_CONF_OTHERS },
+			{ SLOT_ID_HAND, DO_EFFECT_OLD_SLEEP },
+			{ SLOT_ID_ARM, DO_EFFECT_TURN_ALL },
+			{ SLOT_ID_FEET, DO_EFFECT_SLOW_OTHERS }
 			};
 
 			// Some cursed armours gives an extra effect
@@ -575,7 +575,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		if(has_trait_object(weapon_ptr, TRAIT_EAT_LITE))
 		{
-			object_ptr = get_equipped_slot_ptr(target_ptr, INVENTORY_ID_LITE, 0); /* Access the lite */
+			object_ptr = get_equipped_slot_ptr(target_ptr, SLOT_ID_LITE, 0); /* Access the lite */
 
 			if((object_ptr->fuel > 0) && (!object_is_fixed_artifact(object_ptr))) /* Drain fuel */
 			{
@@ -714,7 +714,7 @@ static void do_one_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 			else k = 1;
 		}
-		else if((attacker_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(attacker_ptr, INVENTORY_ID_HAND) && ((attacker_ptr->cur_lite <= 0) || one_in_(7)))
+		else if((attacker_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(attacker_ptr, SLOT_ID_HAND) && ((attacker_ptr->cur_lite <= 0) || one_in_(7)))
 		{
 			if(one_in_(ambush ? 13 : (back_stab || fatal_spot) ? 15 : 27))
 			{
@@ -1039,7 +1039,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 
 	if(IS_FEMALE(target_ptr) && has_trait(target_ptr, TRAIT_HUMANOID) && !(has_trait(attacker_ptr, TRAIT_STUN) || !has_trait(attacker_ptr, TRAIT_CONFUSED) || !has_trait(attacker_ptr, TRAIT_HALLUCINATION) || !is_seen(attacker_ptr, target_ptr)))
 	{
-		n = get_equipped_slot_num(attacker_ptr, INVENTORY_ID_HAND);
+		n = get_equipped_slot_num(attacker_ptr, SLOT_ID_HAND);
 		for(i = 0; i < n; i++)
 		{
 			if(has_trait(attacker_ptr, TRAIT_ZANTETSU_EFFECT))
@@ -1104,7 +1104,7 @@ static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_
 		creature_desc(attacker_name, attacker_ptr, 0);
 		creature_desc(target_name, target_ptr, 0);
 
-		n = get_equipped_slot_num(attacker_ptr, INVENTORY_ID_HAND);
+		n = get_equipped_slot_num(attacker_ptr, SLOT_ID_HAND);
 		for(i = 0; i < n; i++)
 		{
 			if(is_valid_object(&attacker_ptr->inventory[i]))
@@ -1162,12 +1162,12 @@ static POWER set_initiative(creature_type *attacker_ptr, creature_type *target_p
 static object_type* select_weapon(creature_type *attacker_ptr, creature_type *target_ptr)
 {
 	int num;
-	num = get_equipped_slot_num(attacker_ptr, INVENTORY_ID_HAND);
-	if(attacker_ptr->item_slot_num[INVENTORY_ID_HAND] > num && is_valid_object(&attacker_ptr->organ_object[INVENTORY_ID_HAND]))
+	num = get_equipped_slot_num(attacker_ptr, SLOT_ID_HAND);
+	if(attacker_ptr->item_slot_num[SLOT_ID_HAND] > num && is_valid_object(&attacker_ptr->organ_object[SLOT_ID_HAND]))
 	{
-		if(one_in_(num + 1)) return &attacker_ptr->organ_object[INVENTORY_ID_HAND];
+		if(one_in_(num + 1)) return &attacker_ptr->organ_object[SLOT_ID_HAND];
 	}
-	if(num > 0) return get_equipped_slot_ptr(attacker_ptr, INVENTORY_ID_HAND, randint0(num));
+	if(num > 0) return get_equipped_slot_ptr(attacker_ptr, SLOT_ID_HAND, randint0(num));
 	else return NULL;
 }
 

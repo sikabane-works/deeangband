@@ -1647,11 +1647,11 @@ void calc_android_exp(creature_type *creature_ptr)
 		object_type *quest_ptr = &forge;
 		u32b value, exp;
 		int level = MAX(object_kind_info[object_ptr->k_idx].level - 8, 1);
-		slot = GET_INVENTORY_ID_TYPE(creature_ptr, i);
+		slot = GET_SLOT_ID_TYPE(creature_ptr, i);
 
 		if(!IS_EQUIPPED(object_ptr)) continue;
 
-		if(slot == INVENTORY_ID_RING || slot == INVENTORY_ID_AMULET || slot == INVENTORY_ID_LITE)
+		if(slot == SLOT_ID_RING || slot == SLOT_ID_AMULET || slot == SLOT_ID_LITE)
 			continue;
 
 		if(!is_valid_object(object_ptr)) continue;
@@ -1723,10 +1723,10 @@ void calc_android_exp(creature_type *creature_ptr)
 			if(value > 100000L)
 				exp += (value - 100000L) * level / 4;
 		}
-		if(slot == INVENTORY_ID_HAND || slot == INVENTORY_ID_BOW) total_exp += exp / 48;
+		if(slot == SLOT_ID_HAND || slot == SLOT_ID_BOW) total_exp += exp / 48;
 		else total_exp += exp / 16;
 
-		if(GET_INVENTORY_ID_TYPE(creature_ptr, i) == INVENTORY_ID_BODY) total_exp += exp / 32;
+		if(GET_SLOT_ID_TYPE(creature_ptr, i) == SLOT_ID_BODY) total_exp += exp / 32;
 	}
 
 	creature_ptr->exp = creature_ptr->max_exp = total_exp;
@@ -1782,7 +1782,7 @@ bool choose_ele_attack(creature_type *creature_ptr)
 	int num;
 	char choice;
 
-	if(!get_equipped_slot_num(creature_ptr, INVENTORY_ID_HAND))
+	if(!get_equipped_slot_num(creature_ptr, SLOT_ID_HAND))
 	{
 		msg_format(MES_PREVENT_BLAND_ATTACK_BY_NO_WEAPON);
 		return FALSE;
