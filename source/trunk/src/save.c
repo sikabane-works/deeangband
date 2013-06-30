@@ -889,7 +889,7 @@ static errr wr_quests(void)
 	for (i = 0; i < max_quests; i++)
 	{
 		/* Save status for every quest */
-		wr_s16b(quest[i].status);
+		WRITE_QUEST_STATUS(quest[i].status);
 
 		/* And the dungeon level too */
 		/* (prevents problems with multi-level quests) */

@@ -1288,7 +1288,7 @@ static errr rd_quests(void)
 	{
 		if(i < max_quests)
 		{
-			rd_s16b(&quest[i].status);
+			READ_QUEST_STATUS(&quest[i].status);
 			READ_FLOOR_LEV(&quest[i].level);
 			READ_CREATURE_LEV(&quest[i].complev);
 

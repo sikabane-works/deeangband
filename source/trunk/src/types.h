@@ -327,8 +327,12 @@ typedef s32b MOVE_COST;
 #define WRITE_MOVE_COST(VALUE) wr_s32b((MOVE_COST)VALUE);
 
 typedef enum QUEST_TYPE QUEST_TYPE;
-#define READ_QUEST_TYPE(VALUE) rd_u32b((QUEST_TYPE *)VALUE);
-#define WRITE_QUEST_TYPE(VALUE) wr_u32b((QUEST_TYPE)VALUE);
+#define READ_QUEST_TYPE(VALUE) rd_s32b((s32b *)VALUE);
+#define WRITE_QUEST_TYPE(VALUE) wr_s32b((s32b)VALUE);
+
+typedef enum QUEST_STATUS QUEST_STATUS;
+#define READ_QUEST_STATUS(VALUE) rd_s32b((s32b *)VALUE);
+#define WRITE_QUEST_STATUS(VALUE) wr_s32b((s32b)VALUE);
 
 /*
  * Creature flags
@@ -989,7 +993,7 @@ typedef struct quest_type quest_type;
 
 struct quest_type
 {
-	s16b status;            /* Is the quest taken, completed, finished? */
+	QUEST_STATUS status;            /* Is the quest taken, completed, finished? */
 	QUEST_TYPE type; /* The quest type */
 
 	char name[60]; /* Quest name */
