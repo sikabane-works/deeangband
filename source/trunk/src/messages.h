@@ -438,6 +438,7 @@
 #define KW_LAST_POET "辞世の句"
 #define KW_UNDEFINED "未定義"
 #define KW_HELPFILE "ヘルプ・ファイル"
+#define KW_POWER "能力"
 #else
 #define KW_MORE "-more-"
 #define KW_CREATURE "creatures"
@@ -581,6 +582,7 @@
 #define KW_LAST_POET "Last poet"
 #define KW_UNDEFINED "undefined"
 #define KW_HELPFILE "Help file"
+#define KW_POWER "Power"
 #endif
 
 #ifdef JP

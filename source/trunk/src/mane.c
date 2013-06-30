@@ -85,11 +85,6 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 	char            choice;
 	char            out_val[160];
 	char            comment[80];
-#ifdef JP
-	cptr            p = "”\—Í";
-#else
-	cptr            p = "power";
-#endif
 
 	trait_type spell_;
 	bool flag, redraw;
@@ -99,7 +94,7 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 	redraw = FALSE; /* No redraw yet */
 
 	num = creature_ptr->mane_num;
-	(void)strnfmt(out_val, 78, MES_MIMIC_WHICH_TRAIT(I2A(0), I2A(num - 1), p)); /* Build a prompt (accept all spells) */
+	(void)strnfmt(out_val, 78, MES_MIMIC_WHICH_TRAIT(I2A(0), I2A(num - 1), KW_POWER)); /* Build a prompt (accept all spells) */
 
 	choice= ESCAPE; /* Get a spell from the user */
 	while (!flag)

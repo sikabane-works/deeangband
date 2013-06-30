@@ -888,12 +888,8 @@ static errr wr_quests(void)
 
 	for (i = 0; i < max_quests; i++)
 	{
-		/* Save status for every quest */
-		WRITE_QUEST_STATUS(quest[i].status);
-
-		/* And the dungeon level too */
-		/* (prevents problems with multi-level quests) */
-		WRITE_FLOOR_LEV(quest[i].level);
+		WRITE_QUEST_STATUS(quest[i].status); /* Save status for every quest */
+		WRITE_FLOOR_LEV(quest[i].level); /* And the dungeon level too (prevents problems with multi-level quests) */
 		WRITE_CREATURE_LEV(quest[i].complev);
 
 		/* Save quest status if quest is running */
@@ -908,7 +904,6 @@ static errr wr_quests(void)
 			WRITE_DUNGEON_ID(quest[i].dungeon);
 		}
 	}
-
 	return SUCCESS;
 }
 
@@ -923,7 +918,6 @@ static bool wr_artifacts(void)
 		WRITE_QUANTITY(a_ptr->cur_num);
 		WRITE_FLOOR_ID(a_ptr->floor_idx);
 	}
-
 	return SUCCESS;
 }
 
