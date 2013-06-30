@@ -3624,15 +3624,10 @@ static void dump_aux_creatures(FILE *fff)
 		ang_sort(who, &why, uniq_total, ang_sort_comp_hook, ang_sort_swap_hook); /* Sort the array by dungeon depth of creatures */
 		fprintf(fff, MES_INTERFACE_DEFEATED_UNIQUE_TOP(MIN(uniq_total, 10)));
 
-		/* Print top 10 */
 		for (k = uniq_total - 1; k >= 0 && k >= uniq_total - 10; k--)
 		{
-			species_type *species_ptr = &species_info[who[k]];
-#ifdef JP
-			fprintf(fff, "  %-40s (ƒŒƒxƒ‹%3d)\n", (species_name + species_ptr->name), species_ptr->level); 
-#else
-			fprintf(fff, "  %-40s (level %3d)\n", (species_name + species_ptr->name), species_ptr->level); 
-#endif
+			species_type *species_ptr = &species_info[who[k]]; /* Print top 10 */
+			fprintf(fff, "  %-40s (%s%3d)\n", (species_name + species_ptr->name), KW_LEVEL, species_ptr->level); 
 		}
 
 	}
@@ -3963,20 +3958,12 @@ static void show_file_aux_line(cptr str, int cy, cptr shower)
 			}
 			else
 			{
-				/* Found a tag_str, and get a tag color */
-				i += sizeof(tag_str)-1;
-
-				/* Get tag color */
-				color = color_char_to_acttr(str[i]);
-
-				/* Illegal color tag */
-				if(color == 255 || str[i+1] == '\0')
+				i += sizeof(tag_str)-1; /* Found a tag_str, and get a tag color */
+				color = color_char_to_acttr(str[i]); /* Get tag color */
+				if(color == 255 || str[i+1] == '\0') /* Illegal color tag */
 				{
-					/* Illegal color tag */
-					color = TERM_WHITE;
-
-					/* Print the broken tag as a string */
-					Term_addstr(-1, TERM_WHITE, tag_str);
+					color = TERM_WHITE; /* Illegal color tag */
+					Term_addstr(-1, TERM_WHITE, tag_str); /* Print the broken tag as a string */
 					cx += sizeof(tag_str)-1;
 				}
 				else
@@ -4018,23 +4005,13 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	char shower_str[81];
 	char back_str[81];
 
-	/* String to show */
-	cptr shower = NULL;
+	cptr shower = NULL; /* String to show */
 
-	/* Filename */
 	char filename[1024];
-
-	/* Describe this thing */
 	char caption[128];
-
-	/* Path buffer */
-	char path[1024];
-
-	/* General buffer */
-	char buf[1024];
-
-	/* Sub-menu information */
-	char hook[68][32];
+	char path[1024]; /* Path buffer */
+	char buf[1024]; /* General buffer */
+	char hook[68][32]; /* Sub-menu information */
 
 	bool reverse = (line < 0);
 
@@ -4043,25 +4020,15 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	Term_get_size(&wid, &hgt);
 	rows = hgt - 4;
 
-	/* Wipe finder */
-	strcpy(finder_str, "");
+	strcpy(finder_str, ""); /* Wipe finder */
+	strcpy(shower_str, ""); /* Wipe shower */
+	strcpy(caption, ""); /* Wipe caption */
 
-	/* Wipe shower */
-	strcpy(shower_str, "");
-
-	/* Wipe caption */
-	strcpy(caption, "");
-
-	/* Wipe the hooks */
-	for (i = 0; i < 68; i++) hook[i][0] = '\0';
-
-	/* Copy the filename */
-	strcpy(filename, name);
-
+	for (i = 0; i < 68; i++) hook[i][0] = '\0'; /* Wipe the hooks */
+	strcpy(filename, name); /* Copy the filename */
 	n = strlen(filename);
 
-	/* Extract the tag from the filename */
-	for (i = 0; i < n; i++)
+	for (i = 0; i < n; i++) /* Extract the tag from the filename */
 	{
 		if(filename[i] == '#')
 		{
