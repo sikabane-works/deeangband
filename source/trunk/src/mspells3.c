@@ -605,7 +605,6 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 {
 	KEY n = 0;
 	int chance, need_mana;
-	int minfail = 0;
 	trait_type *spell;
 	bool cast;
 
@@ -640,32 +639,15 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 
 	/* Reduce failure rate by INT/WIS adjustment */
 	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[STAT_INT]] - 1);
-
 	chance = mod_spell_chance_1(creature_ptr, chance);
 
 	/* Not enough mana to cast */
-	if(need_mana > creature_ptr->csp)
-	{
-		chance += 5 * (need_mana - creature_ptr->csp);
-	}
+	if(need_mana > creature_ptr->csp) chance += 5 * (need_mana - creature_ptr->csp);
 
-	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[creature_ptr->stat_ind[STAT_INT]];
-
-	/* Minimum failure rate */
-	if(chance < minfail) chance = minfail;
-
-	/* Stunning makes spells harder */
-	if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-	else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
-
-	/* Always a 5 percent chance of working */
-	if(chance > MAX_CHANCE) chance = MAX_CHANCE;
-
+	chance += calc_trait_difficulty(creature_ptr, 0, STAT_INT);
 	chance = mod_spell_chance_2(creature_ptr, chance);
 
-	/* Failed spell */
-	if(PROB_PERCENT(chance))
+	if(PROB_PERCENT(chance)) /* Failed spell */
 	{
 		if(flush_failure) flush();
 		msg_format(MES_CAST_FAILED("Dammy"));
