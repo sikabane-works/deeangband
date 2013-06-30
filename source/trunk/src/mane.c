@@ -135,8 +135,6 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 {
 	int n = 0, j;
 	int chance;
-	int minfail = 0;
-	trait_type spell_;
 	bool cast;
 
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) /* not if confused */
@@ -152,30 +150,7 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 	}
 
 	if(!get_mane_power(creature_ptr, &n, baigaesi)) return FALSE; /* get power */
-
-	spell_ = trait_info[creature_ptr->mane_spell[n]];
-
-	/* Spell failure chance */
-	chance = spell_.fail;
-
-	/* Reduce failure rate by "effective" level adjustment */
-	//if(lev_bonus > spell_level) chance -= 3 * (lev_bonus - spell.level);
-
-	/* Reduce failure rate by 1 stat and DEX adjustment */
-	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell_.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
-
-	chance += creature_ptr->to_m_chance;
-
-	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[creature_ptr->stat_ind[spell_.use_stat]];
-
-	/* Minimum failure rate */
-	if(chance < minfail) chance = minfail;
-
-	/* Stunning makes spells harder */
-	if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-	else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
-	if(chance > MAX_CHANCE) chance = MAX_CHANCE; /* Always a 5 percent chance of working */
+	chance = calc_trait_difficulty(creature_ptr, creature_ptr->mane_spell[n], STAT_DEX);
 
 	/* Failed spell */
 	if(PROB_PERCENT(chance))
