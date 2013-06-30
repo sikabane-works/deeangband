@@ -520,7 +520,6 @@ static int get_mind_power(creature_type *caster_ptr, KEY *sn, bool only_browse)
 	KEY num = 0;
 	COODINATES y = 1;
 	COODINATES x = 10;
-	int             minfail = 0;
 	CREATURE_LEV lev_bonus = caster_ptr->lev;
 	int             chance = 0;
 	int             ask = TRUE;
@@ -673,6 +672,7 @@ static int get_mind_power(creature_type *caster_ptr, KEY *sn, bool only_browse)
 				for (i = 0; i < MAX_MIND_POWERS; i++)
 				{
 					int mana_cost;
+					TRAIT_ID trait_id = 0; /* TODO:Dammy */
 					spell = mind_ptr->info[i]; /* Access the spell */
 					if(spell.min_lev > lev_bonus)   break;
 					chance = spell.fail;
@@ -701,24 +701,10 @@ static int get_mind_power(creature_type *caster_ptr, KEY *sn, bool only_browse)
 						}
 
 						chance += caster_ptr->to_m_chance;
-
-						/* Extract the minimum failure rate */
-						minfail = adj_mag_fail[caster_ptr->stat_ind[magic_info[caster_ptr->class_idx].spell_stat]];
-
-						/* Minimum failure rate */
-						if(chance < minfail) chance = minfail;
-
-						/* Stunning makes spells harder */
-						if(caster_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-						else if(has_trait(caster_ptr, TRAIT_STUN)) chance += 15;
-
-						if(use_mind == MIND_KI) if(heavy_armor(caster_ptr)) chance += 5;
-						/* Always a 5 percent chance of working */
-						if(chance > MAX_CHANCE) chance = MAX_CHANCE;
+						chance += calc_trait_difficulty(caster_ptr, trait_id, magic_info[caster_ptr->class_idx].spell_stat);
 					}
 
-					/* Get info */
-					mindcraft_info(caster_ptr, comment, use_mind, i);
+					mindcraft_info(caster_ptr, comment, use_mind, i); /* Get info */
 
 					if(use_menu)
 					{
