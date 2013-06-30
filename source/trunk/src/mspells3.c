@@ -244,7 +244,6 @@ static int get_learned_power(creature_type *creature_ptr, KEY *sn)
 	int             num = 0;
 	int             y = 1;
 	int             x = 18;
-	int             minfail = 0;
 	int             chance = 0;
 	int             ask = TRUE, mode = 0;
 	int             spellnum[MAX_TRAITS];
@@ -515,32 +514,11 @@ static int get_learned_power(creature_type *creature_ptr, KEY *sn)
 					//else chance += (spell.level - lev_bonus);
 
 					/* Reduce failure rate by INT/WIS adjustment */
-					chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[STAT_INT]] - 1);
 
 					chance = mod_spell_chance_1(creature_ptr, chance);
-
-					need_mana = mod_need_mana(creature_ptr, trait_info[spellnum[i]].mp_cost, 0, REALM_NONE);
-
-					/* Not enough mana to cast */
-					if(need_mana > creature_ptr->csp)
-					{
-						chance += 5 * (need_mana - creature_ptr->csp);
-					}
-
-					/* Extract the minimum failure rate */
-					minfail = adj_mag_fail[creature_ptr->stat_ind[STAT_INT]];
-
-					/* Minimum failure rate */
-					if(chance < minfail) chance = minfail;
-
-					/* Stunning makes spells harder */
-					if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-					else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
-
-					/* Always a 5 percent chance of working */
-					if(chance > MAX_CHANCE) chance = MAX_CHANCE;
-
+					chance += calc_trait_difficulty(creature_ptr, 0, STAT_INT);
 					chance = mod_spell_chance_2(creature_ptr, chance);
+					need_mana = mod_need_mana(creature_ptr, trait_info[spellnum[i]].mp_cost, 0, REALM_NONE);
 
 					/* Get info */
 					learnedungeon_info(creature_ptr, comment, spellnum[i]);
