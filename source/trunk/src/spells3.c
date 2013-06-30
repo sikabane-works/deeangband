@@ -2963,7 +2963,6 @@ void display_spell_list(creature_type *creature_ptr)
 		int             i;
 		int             y = 1;
 		int             x = 1;
-		int             minfail = 0;
 		int             lev_bonus = creature_ptr->lev;
 		int             chance = 0;
 		mind_type       spell;
@@ -3024,18 +3023,7 @@ void display_spell_list(creature_type *creature_ptr)
 				}
 			}
 
-			/* Extract the minimum failure rate */
-			minfail = adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]];
-
-			/* Minimum failure rate */
-			if(chance < minfail) chance = minfail;
-
-			/* Stunning makes spells harder */
-			if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-			else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
-
-			/* Always a 5 percent chance of working */
-			if(chance > MAX_CHANCE) chance = MAX_CHANCE;
+			chance = calc_trait_difficulty(creature_ptr, 0, magic_info[creature_ptr->class_idx].spell_stat);
 
 			/* Get info */
 			mindcraft_info(creature_ptr, comment, use_mind, i);
