@@ -4045,39 +4045,25 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	if(what)
 	{
 		strcpy(caption, what);
-
-		/* Access the "file" */
-		strcpy(path, name);
-
-		/* Open */
-		fff = my_fopen(path, "r");
+		strcpy(path, name); /* Access the "file" */
+		fff = my_fopen(path, "r"); /* Open */
 	}
 
-	/* Look in "help" */
-	if(!fff)
+	if(!fff) /* Look in "help" */
 	{
-#ifdef JP
-		sprintf(caption, "ヘルプ・ファイル'%s'", name);
-#else
-		sprintf(caption, "Help file '%s'", name);
-#endif
+		sprintf(caption, "%s '%s'", KW_HELPFILE, name);
 		path_build(path, sizeof(path), ANGBAND_DIR_HELP, name);
-
 		fff = my_fopen(path, "r");
 	}
 
-	/* Look in "info" */
-	if(!fff)
+	if(!fff) /* Look in "info" */
 	{
 		sprintf(caption, MES_SYS_SPOILER_FILE(name));
-
 		path_build(path, sizeof(path), ANGBAND_DIR_INFO, name);
-
 		fff = my_fopen(path, "r");
 	}
 
-	/* Look in "info" */
-	if(!fff)
+	if(!fff) /* Look in "info" */
 	{
 		path_build(path, sizeof(path), ANGBAND_DIR, name);
 		for (i = 0; path[i]; i++) if('\\' == path[i]) path[i] = PATH_SEP[0];
@@ -4093,38 +4079,26 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		return TRUE;
 	}
 
-
-	/* Pre-Parse the file */
-	while (TRUE)
+	while (TRUE) /* Pre-Parse the file */
 	{
 		char *str = buf;
-
-		/* Read a line or stop */
-		if(my_fgets(fff, buf, sizeof(buf))) break;
-
-		/* XXX Parse "menu" items */
-		if(prefix(str, "***** "))
+		if(my_fgets(fff, buf, sizeof(buf))) break; /* Read a line or stop */
+		if(prefix(str, "***** ")) /* XXX Parse "menu" items */
 		{
 			/* Notice "menu" requests */
 			if((str[6] == '[') && isalpha(str[7]))
 			{
 				/* Extract the menu item */
 				int k = str[7] - 'A';
-
-				/* This is a menu file */
-				menu = TRUE;
+				menu = TRUE; /* This is a menu file */
 
 				if((str[8] == ']') && (str[9] == ' '))
 				{
-					/* Extract the menu item */
-					strncpy(hook[k], str + 10, 31);
-
-					/* Make sure it's null-terminated */
-					hook[k][31] = '\0';
+					strncpy(hook[k], str + 10, 31); /* Extract the menu item */
+					hook[k][31] = '\0'; /* Make sure it's null-terminated */
 				}
 			}
-			/* Notice "tag" requests */
-			else if(str[6] == '<')
+			else if(str[6] == '<') /* Notice "tag" requests */
 			{
 				size_t len = strlen(str);
 
@@ -4134,25 +4108,15 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 					if(tag && streq(str + 7, tag)) line = next;
 				}
 			}
-
-			/* Skip this */
-			continue;
+			continue; /* Skip this */
 		}
-
-		/* Count the "real" lines */
-		next++;
+		next++; /* Count the "real" lines */
 	}
-
-	/* Save the number of "real" lines */
-	size = next;
-
-	/* start from bottom when reverse mode */
-	if(line == -1) line = ((size-1)/rows)*rows;
-
+	size = next; /* Save the number of "real" lines */
+	if(line == -1) line = ((size-1)/rows)*rows; /* start from bottom when reverse mode */
 	Term_clear();
 
-	/* Display the file */
-	while (TRUE)
+	while (TRUE) /* Display the file */
 	{
 		/* Restart when necessary */
 		if(line >= size - rows) line = size - rows;

@@ -436,6 +436,7 @@
 #define KW_LAST_WORD "断末魔の叫び"
 #define KW_LAST_POET "辞世の句"
 #define KW_UNDEFINED "未定義"
+#define KW_HELPFILE "ヘルプ・ファイル"
 #else
 #define KW_MORE "-more-"
 #define KW_CREATURE "creatures"
@@ -578,6 +579,7 @@
 #define KW_LAST_WORD "Last word"
 #define KW_LAST_POET "Last poet"
 #define KW_UNDEFINED "undefined"
+#define KW_HELPFILE "Help file"
 #endif
 
 #ifdef JP
