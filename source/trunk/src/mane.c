@@ -12,52 +12,7 @@
 
 #include "angband.h"
 
-
 static POWER damage;
-
-static void mane_info(creature_type *creature_ptr, char *p, POWER power, POWER dam)
-{
-	int lev_bonus = creature_ptr->lev;
-	static const char s_dam[] = KW_DAM;
-	cptr s_dur = KW_DURING;
-	cptr s_range = KW_RANGE;
-	cptr s_heal = KW_HEAL;
-
-	strcpy(p, "");
-
-	if((power > 2 && power < 41) || (power > 41 && power < 59) || (power == 75))
-		sprintf(p, " %s%d", s_dam, dam);
-	else
-	{
-		switch (power)
-		{
-			case 41:
-				sprintf(p, " %sd%d+%d", s_heal, lev_bonus * 3, lev_bonus);
-				break;
-			case 64:
-				sprintf(p, " %sd%d+%d", s_dur, 20+lev_bonus, lev_bonus);
-				break;
-			case 66:
-				sprintf(p, " %s%d", s_heal, lev_bonus*6);
-				break;
-			case 67:
-				sprintf(p, " %sd7+7", s_dur);
-				break;
-			case 68:
-				sprintf(p, " %s10", s_range);
-				break;
-			case 69:
-				sprintf(p, " %s%d", s_range, lev_bonus * 5);
-				break;
-			case 79:
-				sprintf(p, " %s5", s_range);
-				break;
-			default:
-				break;
-		}
-	}
-}
-
 
 /*
  * Allow user to choose a imitation.
@@ -136,7 +91,6 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 					chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell_.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
 
 					//if(spell.manedam) chance = chance * creature_ptr->mane_dam[i] / spell.manedam;
-
 					chance += creature_ptr->to_m_chance;
 
 					/* Extract the minimum failure rate */
@@ -149,19 +103,13 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 					if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 					else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
-					/* Always a 5 percent chance of working */
-					if(chance > MAX_CHANCE) chance = MAX_CHANCE;
-
-					/* Get info */
-					mane_info(creature_ptr, comment, creature_ptr->mane_spell[i], (baigaesi ? creature_ptr->mane_dam[i]*2 : creature_ptr->mane_dam[i]));
+					if(chance > MAX_CHANCE) chance = MAX_CHANCE; /* Always a 5 percent chance of working */
 
 					/* Dump the spell --(-- */
 					sprintf(psi_desc, "  %c) %-30s %3d%%%s", I2A(i), spell_.title, chance, comment);
 					prt(psi_desc, y + i + 1, x);
 				}
-
-				/* Clear the bottom line */
-				prt("", y + i + 1, x);
+				prt("", y + i + 1, x); /* Clear the bottom line */
 			}
 
 			else
@@ -254,9 +202,7 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 	/* Stunning makes spells harder */
 	if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
 	else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
-
-	/* Always a 5 percent chance of working */
-	if(chance > MAX_CHANCE) chance = MAX_CHANCE;
+	if(chance > MAX_CHANCE) chance = MAX_CHANCE; /* Always a 5 percent chance of working */
 
 	/* Failed spell */
 	if(PROB_PERCENT(chance))
