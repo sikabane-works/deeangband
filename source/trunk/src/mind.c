@@ -859,19 +859,14 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		(void)set_timed_trait(caster_ptr, TRAIT_FAST, b, TRUE);
 		break;
 
-	case 10:
-		/* Telekinesis */
+	case 10: /* Telekinesis */
 		if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-
 		fetch(caster_ptr, MAX_RANGE, dir, lev_bonus * 15, FALSE);
-
 		break;
-	case 11:
-		/* Psychic Drain */
+
+	case 11: /* Psychic Drain */
 		if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-
 		b = diceroll(lev_bonus / 2, 6);
-
 		/* This is always a radius-0 ball now */
 		if(cast_ball(caster_ptr, DO_EFFECT_PSI_DRAIN, dir, b, 0)) cost_tactical_energy(caster_ptr, randint1(150));
 		break;
@@ -1279,8 +1274,7 @@ void do_cmd_mind(creature_type *caster_ptr)
 	floor_type      *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	KEY n = 0;
 	int b = 0;
-	int             chance;
-	int             minfail = 0;
+	PROB chance;
 	int             lev_bonus = caster_ptr->lev;
 	int             old_csp = caster_ptr->csp;
 	mind_type       spell;
@@ -1352,22 +1346,11 @@ void do_cmd_mind(creature_type *caster_ptr)
 		chance -= 3 * (lev_bonus - spell.min_lev);
 		chance += caster_ptr->to_m_chance;
 
-		/* Reduce failure rate by INT/WIS adjustment */
-		chance -= 3 * (adj_mag_stat[caster_ptr->stat_ind[magic_info[caster_ptr->class_idx].spell_stat]] - 1);
-
 		/* Not enough mana to cast */
 		if((mana_cost > caster_ptr->csp) && (use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU))
 			chance += 5 * (mana_cost - caster_ptr->csp);
 
-		/* Extract the minimum failure rate */
-		minfail = adj_mag_fail[caster_ptr->stat_ind[magic_info[caster_ptr->class_idx].spell_stat]];
-
-		/* Minimum failure rate */
-		if(chance < minfail) chance = minfail;
-
-		/* Stunning makes spells harder */
-		if(caster_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-		else if(has_trait(caster_ptr, TRAIT_STUN)) chance += 15;
+		chance += calc_trait_difficulty(caster_ptr, 0, magic_info[caster_ptr->class_idx].spell_stat);
 
 		if(use_mind == MIND_KI && heavy_armor(caster_ptr)) chance += 5;
 	}
