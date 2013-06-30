@@ -431,10 +431,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 #endif /* CHECK_MODIFICATION_TIME */
 
 		/* Attempt to parse the "raw" file */
-		if(!err)
-			err = init_info_raw(fd, head);
-
-		/* Close it */
+		if(!err) err = init_info_raw(fd, head);
 		(void)fd_close(fd);
 	}
 
@@ -473,14 +470,11 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		err = init_info_csv(fp, buf, head, head->parse_info_txt);
 		if(!err &&head->parse_reprocess) err = head->parse_reprocess(head);
 
-		/* Close it */
 		my_fclose(fp);
 
-		/* Errors */
 		if(err)
 		{
 			cptr oops;
-
 #ifdef JP
 			// Error string
 			oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "未知の");
@@ -558,11 +552,9 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		if(fd < 0) quit(format("Cannot load '%s.raw' file.", filename));
 #endif
 
-
 		/* Attempt to parse the "raw" file */
 		err = init_info_raw(fd, head);
 
-		/* Close it */
 		(void)fd_close(fd);
 
 #ifdef JP
@@ -623,10 +615,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 #endif /* CHECK_MODIFICATION_TIME */
 
 		/* Attempt to parse the "raw" file */
-		if(!err)
-			err = init_info_raw(fd, head);
-
-		/* Close it */
+		if(!err) err = init_info_raw(fd, head);
 		(void)fd_close(fd);
 	}
 
@@ -667,7 +656,6 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		/* Parse the file */
 		err = init_info_txt(fp, buf, head, head->parse_info_txt);
 
-		/* Close it */
 		my_fclose(fp);
 
 		if(err)
@@ -761,9 +749,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		/* Attempt to parse the "raw" file */
 		err = init_info_raw(fd, head);
 
-		/* Close it */
 		(void)fd_close(fd);
-
 #ifdef JP
 		if(err) quit(format("'%s_j.raw'ファイルを解析できません。", filename));
 #else
@@ -1695,7 +1681,6 @@ void init_angband(void)
 		}
 	}
 
-	/* Close it */
 	(void)fd_close(fd);
 
 	/*** Initialize some arrays ***/

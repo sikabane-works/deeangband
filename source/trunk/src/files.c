@@ -4125,7 +4125,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 		/* Re-open the file if needed */
 		if(next > line)
 		{
-			/* Close it */
 			my_fclose(fff);
 
 			/* Hack -- Re-Open the file */
@@ -4378,8 +4377,6 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 
 			strcpy (xtmp, "");
 			if(!get_string(PROMPT_FILE, xtmp, 80)) continue;
-
-			/* Close it */
 			my_fclose(fff);
 
 			path_build(buff, sizeof(buff), ANGBAND_DIR_USER, xtmp);
@@ -4400,10 +4397,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 			my_fputs(ffp, xtmp, 80);
 			my_fputs(ffp, "\n", 80);
 
-			while (!my_fgets(fff, buff, sizeof(buff)))
-				my_fputs(ffp, buff, 80);
-
-			/* Close it */
+			while (!my_fgets(fff, buff, sizeof(buff))) my_fputs(ffp, buff, 80);
 			my_fclose(fff);
 			my_fclose(ffp);
 

@@ -1574,15 +1574,8 @@ static void do_cmd_dump_options(void)
 	/* Free the "exist" array (2-dimension) */
 	C_KILL(*exist, NUM_O_BIT * NUM_O_SET, int);
 	C_KILL(exist, NUM_O_SET, int *);
-
-	/* Close it */
 	my_fclose(fff);
-
-#ifdef JP
-	msg_format("オプションbit使用状況をファイル %s に書き出しました。", buf);
-#else
-	msg_format("Option bits usage dump saved to file %s.", buf);
-#endif
+	msg_format(MES_SYS_WRITE_OPTION_BIT_FILE(buf));
 }
 
 #ifdef ALLOW_SPOILERS
