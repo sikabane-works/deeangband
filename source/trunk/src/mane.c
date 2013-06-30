@@ -34,7 +34,6 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 	int             num = 0;
 	int             y = 1;
 	int             x = 18;
-	int             minfail = 0;
 	int             chance = 0;
 	int             ask;
 	char            choice;
@@ -79,33 +78,7 @@ static int get_mane_power(creature_type *creature_ptr, int *sn, bool baigaesi)
 				/* Dump the spells */
 				for (i = 0; i < num; i++)
 				{
-					/* Access the spell */
-					spell_ = trait_info[creature_ptr->mane_spell[i]];
-
-					chance = spell_.fail;
-
-					/* Reduce failure rate by "effective" level adjustment */
-					//TODO if(lev_bonus > spell_.le) chance -= 3 * (lev_bonus - spell.level);
-
-					/* Reduce failure rate by INT/WIS adjustment */
-					chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell_.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
-
-					//if(spell.manedam) chance = chance * creature_ptr->mane_dam[i] / spell.manedam;
-					chance += creature_ptr->to_m_chance;
-
-					/* Extract the minimum failure rate */
-					minfail = adj_mag_fail[creature_ptr->stat_ind[spell_.use_stat]];
-
-					/* Minimum failure rate */
-					if(chance < minfail) chance = minfail;
-
-					/* Stunning makes spells harder */
-					if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-					else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
-
-					if(chance > MAX_CHANCE) chance = MAX_CHANCE; /* Always a 5 percent chance of working */
-
-					/* Dump the spell --(-- */
+					chance = calc_trait_difficulty(creature_ptr, creature_ptr->mane_spell[i], STAT_DEX);
 					sprintf(psi_desc, "  %c) %-30s %3d%%%s", I2A(i), spell_.title, chance, comment);
 					prt(psi_desc, y + i + 1, x);
 				}
