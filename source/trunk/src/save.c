@@ -901,7 +901,7 @@ static errr wr_quests(void)
 		{
 			WRITE_POPULATION(quest[i].cur_num);
 			WRITE_POPULATION(quest[i].max_num);
-			wr_s16b(quest[i].type);
+			WRITE_QUEST_TYPE(quest[i].type);
 			WRITE_SPECIES_ID(quest[i].species_idx);
 			WRITE_OBJECT_KIND_ID(quest[i].k_idx);
 			wr_byte(quest[i].flags);

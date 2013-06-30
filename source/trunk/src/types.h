@@ -326,6 +326,10 @@ typedef s32b MOVE_COST;
 #define READ_MOVE_COST(VALUE) rd_s32b((MOVE_COST *)VALUE);
 #define WRITE_MOVE_COST(VALUE) wr_s32b((MOVE_COST)VALUE);
 
+typedef enum QUEST_TYPE QUEST_TYPE;
+#define READ_QUEST_TYPE(VALUE) rd_u32b((QUEST_TYPE *)VALUE);
+#define WRITE_QUEST_TYPE(VALUE) wr_u32b((QUEST_TYPE)VALUE);
+
 /*
  * Creature flags
  */
@@ -903,18 +907,18 @@ struct object_type
 	DICE_NUM dd;
 	DICE_SIDE ds; /* Damage dice/sides */
 
-	GAME_TIME timeout;		/* Timeout Counter */
+	GAME_TIME timeout; /* Timeout Counter */
 	GAME_TIME charge_const;
 	GAME_TIME charge_dice;
 	QUANTITY charge_num;
 
-	byte ident;			/* Special flags  */
-	byte marked;		/* Object is marked */
+	byte ident; /* Special flags  */
+	byte marked; /* Object is marked */
 
 	STRING_OFFSET inscription; /* Inscription index */
 	STRING_OFFSET art_name; /* Artifact name (random artifacts) */
 
-	byte feeling;          /* Game generated inscription number (eg, pseudo-id) */
+	byte feeling; /* Game generated inscription number (eg, pseudo-id) */
 
 	FLAGS_32 trait_flags[MAX_TRAITS_FLAG];
 	FLAGS_32 curse_flags[MAX_TRAITS_FLAG]; // Flags for curse
@@ -969,7 +973,6 @@ typedef struct option_type option_type;
 struct option_type
 {
 	bool	*o_var;
-
 	byte	o_norm;
 	byte	o_page;
 	byte	o_set;
@@ -987,12 +990,11 @@ typedef struct quest_type quest_type;
 struct quest_type
 {
 	s16b status;            /* Is the quest taken, completed, finished? */
+	QUEST_TYPE type; /* The quest type */
 
-	s16b type;              /* The quest type */
-
-	char name[60];          /* Quest name */
-	FLOOR_LEV level;             /* Dungeon level */
-	SPECIES_ID species_idx;             /* Creature race */
+	char name[60]; /* Quest name */
+	FLOOR_LEV level; /* Dungeon level */
+	SPECIES_ID species_idx; /* Creature race */
 
 	POPULATION cur_num;           /* Number killed */
 	POPULATION max_num;           /* Number required */

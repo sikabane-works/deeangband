@@ -2461,8 +2461,9 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 {
 	int i;
 	object_type *object_ptr;
-	STAT bonus_to_hit, bonus_to_damage, slot;
-	u32b flgs[MAX_TRAITS_FLAG];
+	STAT bonus_to_hit, bonus_to_damage;
+	SLOT_ID slot;
+	FLAGS_32 flgs[MAX_TRAITS_FLAG];
 	int default_hand = 1;
 
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -2472,9 +2473,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 		if(!IS_EQUIPPED(object_ptr)) continue; // Skip no equip
 		if(!is_valid_object(object_ptr)) continue; // Skip non-objects
-
-		/* Extract the item flags */
-		object_flags(object_ptr, flgs);
+		object_flags(object_ptr, flgs); /* Extract the item flags */
 
 		//TODO creature_ptr->cursed |= (object_ptr->curse_flags[0] & (0xFFFFFFF0L));
 

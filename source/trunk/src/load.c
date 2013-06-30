@@ -1298,7 +1298,7 @@ static errr rd_quests(void)
 			{
 				READ_POPULATION(&quest[i].cur_num);
 				READ_POPULATION(&quest[i].max_num);
-				rd_s16b(&quest[i].type);
+				READ_QUEST_TYPE(&quest[i].type);
 
 				/* Load quest creature index */
 				READ_SPECIES_ID(&quest[i].species_idx);
