@@ -2165,13 +2165,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DRAIN_MANA:
-#ifdef JP
-		if(caster_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", caster_name);
-		else msg_print("精神エネルギーを吸い取られてしまった！");
-#else
-		if(caster_ptr != NULL) msg_format("%^s draws psychic energy from you!", caster_name);
-		else msg_print("Your psychic energy is drawn!");
-#endif
+		if(caster_ptr != NULL) msg_format(MES_EFFECT_DRAIN_MANA(caster_ptr));
+		else msg_print(MES_EFFECT_DRAIN_MANA2);
 		dam = target_ptr->csp;
 		learn_trait(target_ptr, spell);
 		prepare_redraw(PR_MANA);

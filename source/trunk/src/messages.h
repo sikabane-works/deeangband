@@ -2270,6 +2270,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_HEAVY_REDUCE_STAT_ALL(TARGET) "%sの能力が大きく衰えた。", (TARGET)->name
 #define MES_EFFECT_GENOCIDE(TARGET) "%sは消滅した！", (TARGET)->name
 #define MES_EFFECT_TELE_AWAY(CASTER) "%sにテレポートさせられた。", (CASTER)->name
+#define MES_EFFECT_DRAIN_MANA(CASTER) "%^sに精神エネルギーを吸い取られてしまった！", (CASTER)->name
+#define MES_EFFECT_DRAIN_MANA2 "精神エネルギーを吸い取られてしまった！"
 #else
 #define MES_EFFECT_KILL_ACID (plural ? " melt!" : " melts!")
 #define MES_EFFECT_KILL_FIRE (plural ? " burn up!" : " burns up!")
@@ -2307,6 +2309,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 #define MES_EFFECT_HEAVY_REDUCE_STAT_ALL(TARGET) "%s is not as powerful as you used to be...", (TARGET)->name, (STAT)
 #define MES_EFFECT_GENOCIDE(TARGET) "%^s disappered!", (TARGET)->name
 #define MES_EFFECT_TELE_AWAY(CASTER) "%^s teleports you away.", (CASTER)->name
+#define MES_EFFECT_DRAIN_MANA(CASTER) "%^s draws psychic energy from you!", (CASTER)->name
+#define MES_EFFECT_DRAIN_MANA2 "Your psychic energy is drawn!"
 #endif
 
 #ifdef JP

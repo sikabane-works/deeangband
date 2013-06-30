@@ -1560,13 +1560,9 @@ static void do_cmd_dump_options(void)
 			if(exist[i][j])
 			{
 				option_type *ot_ptr = &option_info[exist[i][j] - 1];
-				fprintf(fff, "  %d -  %02d (%4d) %s\n",
-				        i, j, ot_ptr->o_page, ot_ptr->o_text);
+				fprintf(fff, "  %d -  %02d (%4d) %s\n", i, j, ot_ptr->o_page, ot_ptr->o_text);
 			}
-			else
-			{
-				fprintf(fff, "  %d -  %02d\n", i, j);
-			}
+			else fprintf(fff, "  %d -  %02d\n", i, j);
 		}
 		fputc('\n', fff);
 	}
@@ -1585,14 +1581,10 @@ extern void do_cmd_spoilers(void);
 
 #endif // ALLOW_SPOILERS
 
-
-
 /*
  * Hack -- declare external function
  */
 extern void do_cmd_debug(creature_type *creature_ptr);
-
-
 
 /*
  * Ask for and parse a "debug command"
