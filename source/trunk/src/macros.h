@@ -83,3 +83,9 @@
 
 #define OBJECT_HAVE_FLAVOR(OBJ_KIND) *(object_kind_name + (OBJ_KIND)->flavor_name) != '\0'
 
+#define GET_SPECIES_NAME(SPECIES) species_name + (SPECIES)->name
+#ifdef JP
+#define GET_SPECIES_E_NAME(SPECIES) species_name + (SPECIES)->E_name
+#else
+#define GET_SPECIES_E_NAME(SPECIES) species_name + (SPECIES)->name
+#endif

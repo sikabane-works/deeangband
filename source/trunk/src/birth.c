@@ -911,11 +911,7 @@ void class_detail(int code)
 	put_str("                                                      " , base+1, 24);
 	put_str("                                                      " , base+2, 24);
 
-	for (i = 0; i < 18; i++)
-	{
-		prt("                                                                       ", base+4 + i, 24);
-	}
-
+	for (i = 0; i < 18; i++) prt("                                                                       ", base+4 + i, 24);
 	if(code < 0) return;
 
 	c_put_str(TERM_L_BLUE, class_info[code].title, base, 24);
@@ -923,7 +919,6 @@ void class_detail(int code)
 	put_str(format("%-8s%-8s%-8s%-8s%-8s%-8s%8s",
 		stat_names[STAT_STR], stat_names[STAT_INT], stat_names[STAT_WIS],
 		stat_names[STAT_DEX], stat_names[STAT_CON], stat_names[STAT_CHA], KW_EXP), base+1, 24);
-
 
 	sprintf(buf, "%+2d      %+2d      %+2d      %+2d      %+2d      %+2d     %+4d%% ",
 		class_info[code].c_adj[STAT_STR],
@@ -2325,11 +2320,7 @@ static void edit_history(creature_type *creature_ptr)
 #endif
 		{
 #ifdef JP
-			if(iskanji2(creature_ptr->history[y], x))
-			{
-				creature_ptr->history[y][x+1] = ' ';
-			}
-
+			if(iskanji2(creature_ptr->history[y], x)) creature_ptr->history[y][x+1] = ' ';
 			if(iskanji(c))
 			{
 				if(x > HISTORY_COL - 3)

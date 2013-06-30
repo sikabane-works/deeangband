@@ -2582,12 +2582,8 @@ static bool research_creature(creature_type *creature_ptr)
 #endif
 				if(isupper(temp[xx])) temp[xx] = (char)tolower(temp[xx]);
 			}
-  
-#ifdef JP
-			strcpy(temp2, species_name + species_ptr->E_name);
-#else
-			strcpy(temp2, species_name + species_ptr->name);
-#endif
+
+			strcpy(temp2, GET_SPECIES_E_NAME(species_ptr));
 			for (xx = 0; temp2[xx] && xx < 80; xx++)
 				if(isupper(temp2[xx])) temp2[xx] = (char)tolower(temp2[xx]);
 

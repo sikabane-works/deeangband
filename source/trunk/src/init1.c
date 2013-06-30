@@ -5270,17 +5270,14 @@ errr parse_chara_info_csv(char *buf, header *head)
 			switch(ch_info_csv_code[i])
 			{
 				case CH_INFO_NAME:
-					if(!add_name(&chara_ptr->name, head, tmp))
-						return PARSE_ERROR_OUT_OF_MEMORY;
+					if(!add_name(&chara_ptr->name, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CH_INFO_E_NAME:
 #if JP
-					if(!add_name(&chara_ptr->E_name, head, tmp))
-						return PARSE_ERROR_OUT_OF_MEMORY;
+					if(!add_name(&chara_ptr->E_name, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-					if(!add_name(&chara_ptr->name, head, tmp))
-						return PARSE_ERROR_OUT_OF_MEMORY;
+					if(!add_name(&chara_ptr->name, head, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 					break;
 

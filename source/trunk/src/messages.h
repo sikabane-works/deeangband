@@ -135,7 +135,7 @@
 #define MES_SYS_TMP_FILE_ERROR4 "強制的に削除して実行を続けられます。"
 #define MES_SYS_TMP_FILE_ERROR5 "強制的に削除してもよろしいですか？"
 #define MES_SYS_ABORTED "実行中止"
-
+#define MES_SYS_STOP_RECORDING "録画を終了しました。"
 #else
 
 #define MES_SYS_YOU_DIED(CREATURE) (has_trait((CREATURE), TRAIT_ANDROID) ? "You were broken." : "You died.")
@@ -241,6 +241,7 @@
 #define MES_SYS_TMP_FILE_ERROR4 "you can delete it safely."
 #define MES_SYS_TMP_FILE_ERROR5 "Do you delete old temporal files? "
 #define MES_SYS_ABORTED "Aborted."
+#define MES_SYS_STOP_RECORDING "Stopped recording."
 
 #endif
 

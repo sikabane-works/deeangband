@@ -1328,17 +1328,9 @@ static void spoil_species_info(cptr fname)
 #endif
 		}
 
-		/* Name */
-#ifdef JP
-		sprintf(buf, "%s/%s  (", (species_name + species_ptr->name),(species_name+species_ptr->E_name));  /* ---)--- */
-#else
-		sprintf(buf, "%s  (", (species_name + species_ptr->name));  /* ---)--- */
-#endif
-
+		sprintf(buf, "%s  (", GET_SPECIES_NAME(species_ptr));
 		spoil_out(buf);
-
-		/* Color */
-		spoil_out(attr_to_text(species_ptr));
+		spoil_out(attr_to_text(species_ptr)); /* Color */
 
 		/* Symbol --(-- */
 		sprintf(buf, " '%c')\n", species_ptr->d_char);

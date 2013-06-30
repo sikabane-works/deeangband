@@ -967,16 +967,12 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 			for (xx=0; temp[xx] && xx<80; xx++)
 			{
 #ifdef JP
-				if(iskanji( temp[xx])) { xx++; continue; }
+				if(iskanji(temp[xx])) { xx++; continue; }
 #endif
 				if(isupper(temp[xx])) temp[xx]=(char)tolower(temp[xx]);
 			}
 
-#ifdef JP
-			strcpy(temp2, species_name + species_ptr->E_name);
-#else
-			strcpy(temp2, species_name + species_ptr->name);
-#endif
+			strcpy(temp2, GET_SPECIES_E_NAME(species_ptr));
 			for (xx=0; temp2[xx] && xx<80; xx++) if(isupper(temp2[xx])) temp2[xx]=(char)tolower(temp2[xx]);
 
 #ifdef JP
@@ -1020,26 +1016,13 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		return;
 	}
 
-	/* Sort if needed */
-	if(why == 4)
+	if(why == 4) ang_sort(who, &why, n, ang_sort_comp_hook, ang_sort_swap_hook); /* Sort the array if needed */
+	i = n - 1; /* Start at the end */
+
+	while(TRUE) /* Scan the creature memory */
 	{
-		/* Sort the array */
-		ang_sort(who, &why, n, ang_sort_comp_hook, ang_sort_swap_hook);
-	}
-
-
-	/* Start at the end */
-	i = n - 1;
-
-	/* Scan the creature memory */
-	while(TRUE)
-	{
-		/* Extract a race */
-		species_idx = who[i];
-
-		/* Hack -- Auto-recall */
-		species_type_track(species_idx);
-
+		species_idx = who[i]; /* Extract a race */
+		species_type_track(species_idx); /* Hack -- Auto-recall */
 		handle_stuff(creature_ptr);
 
 		while (TRUE)
@@ -1057,21 +1040,13 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 			Term_addstr(-1, TERM_WHITE, MES_QUERY_INTERFACE_RECALL);
 			query = inkey();
 
-			/* Unrecall */
-			if(recall) screen_load();
-
-			/* Normal commands */
-			if(query != 'r') break;
-
-			/* Toggle recall */
-			recall = !recall;
+			if(recall) screen_load(); /* Unrecall */
+			if(query != 'r') break; /* Normal commands */
+			recall = !recall; /* Toggle recall */
 		}
 
-		/* Stop scanning */
-		if(query == ESCAPE) break;
-
-		/* Move to "prev" creature */
-		if(query == '-')
+		if(query == ESCAPE) break; /* Stop scanning */
+		if(query == '-') /* Move to "prev" creature */
 		{
 			if(++i == n)
 			{

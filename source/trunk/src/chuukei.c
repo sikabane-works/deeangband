@@ -646,11 +646,7 @@ void prepare_movie_hooks(void)
 		disable_chuukei_server();
 #endif
 		fd_close(movie_fd);
-#ifdef JP
-		msg_print("ò^âÊÇèIóπÇµÇ‹ÇµÇΩÅB");
-#else
-		msg_print("Stopped recording.");
-#endif
+		msg_print(MES_SYS_STOP_RECORDING);
 	}
 	else
 	{
@@ -673,10 +669,7 @@ void prepare_movie_hooks(void)
 				if(!get_check(out_val)) return;
 				movie_fd = fd_open(buf, O_WRONLY | O_TRUNC);
 			}
-			else
-			{
-				movie_fd = fd_make(buf, 0644);
-			}
+			else movie_fd = fd_make(buf, 0644);
 
 			if(!movie_fd)
 			{
