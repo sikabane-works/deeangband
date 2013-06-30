@@ -2032,11 +2032,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				note = NULL;
 				msg_format(MES_EFFECT_MIND_BACKFIRE, target_name);
-#ifdef JP
-				msg_print("超能力パワーを吸いとられた！");
-#else
-				msg_print("Your psychic energy is drained!");
-#endif
+				msg_print(MES_EFFECT_MIND_COUNTERDRAIN);
 				creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 				dec_mana(caster_ptr, diceroll(5, dam) / 2);
 				prepare_window(PW_SPELL);
