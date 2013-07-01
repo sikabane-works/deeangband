@@ -2655,13 +2655,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Magic Missile";
 		if(desc) return "Fires a weak bolt of magic.";
 #endif
-    
 		{
-			int dice = 3 + ((lev_bonus - 1) / 5);
-			int sides = 4;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
+			if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_MISSILE, TRUE);
 		}
 		break;
 
@@ -2932,13 +2927,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int base = 12;
-			int sides = 4;
-
-			if(cast)
-			{
-				destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, base + randint1(sides), FALSE);
-			}
+			if(cast) do_active_trait(caster_ptr, TRAIT_STAR_DESTROY, TRUE);
 		}
 		break;
 
@@ -3082,10 +3071,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			if(cast)
-			{
-				brand_weapon(caster_ptr, 2);
-			}
+			if(cast) brand_weapon(caster_ptr, 2);
 		}
 		break;
 
@@ -3097,32 +3083,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Summon Demon";
 		if(desc) return "Summons a demon.";
 #endif
-    
 		{
-			if(cast)
-			{
-				FLAGS_32 mode = 0L;
-				bool pet = !one_in_(3);
-
-				if(pet) mode |= PC_FORCE_PET;
-				else mode |= PC_NO_PET;
-				if(!(pet && (lev_bonus < 50))) mode |= PC_ALLOW_GROUP;
-
-				if(summoning((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_DEMON, mode))
-				{
-					msg_print(MES_TRAP_S_H_DEMON);
-
-					if(pet) msg_print(MES_SUMMON_SERVANT);
-					else
-					{
-#ifdef JP
-						msg_print("「卑しき者よ、我は汝の下僕にあらず！ お前の魂を頂くぞ！」");
-#else
-						msg_print("'NON SERVIAM! Wretch! I shall feast on thy mortal soul!'");
-#endif
-					}
-				}
-			}
+			if(cast) do_active_trait(caster_ptr, TRAIT_S_DEMON, TRUE);
 		}
 		break;
 
@@ -6030,11 +5992,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 3 + (lev_bonus - 1) / 5;
-			int sides = 4;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
+			if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_MISSILE, TRUE);
 		}
 		break;
 
@@ -7225,13 +7183,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int base = 12;
-			int sides = 4;
-
-			if(cast)
-			{
-				destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, base + randint1(sides), FALSE);
-			}
+			if(cast) do_active_trait(caster_ptr, TRAIT_STAR_DESTROY, TRUE);
 		}
 		break;
 
