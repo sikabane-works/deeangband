@@ -3229,14 +3229,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Mana Storm";
 		if(desc) return "Fires an extremely powerful huge ball of pure mana.";
 #endif
-    
-		{
-			POWER dam = 300 + lev_bonus * 4;
-			COODINATES rad = 4;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, dam, rad);
-		}
+		do_active_trait(caster_ptr, TRAIT_BA_MANA, TRUE);
 		break;
 
 	case 30:
@@ -3758,7 +3751,6 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Nether Wave";
 		if(desc) return "Damages all living creatures in sight.";
 #endif
-    
 		{
 			int sides = lev_bonus * 3;
 			if(info) return info_damage(1, sides, 0);
@@ -3774,14 +3766,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Darkness Storm";
 		if(desc) return "Fires a huge ball of darkness.";
 #endif
-    
-		{
-			POWER dam = 100 + lev_bonus * 2;
-			COODINATES rad = 4;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, dam, rad);
-		}
+		do_active_trait(caster_ptr, TRAIT_BA_DARK, TRUE);
 		break;
 
 	case 24:

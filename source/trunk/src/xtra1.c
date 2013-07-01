@@ -1959,7 +1959,6 @@ static void calc_lite(creature_type *creature_ptr)
 	}
 }
 
-
 static void set_race_bonuses(creature_type *creature_ptr)
 {
 	int i;
