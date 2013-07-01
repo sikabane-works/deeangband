@@ -3721,13 +3721,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Restore Life";
 		if(desc) return "Restore lost experience.";
 #endif
-    
-		{
-			if(cast)
-			{
-				restore_exp(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_RESTORE_LIFE, TRUE);
 		break;
 
 	case 29:
