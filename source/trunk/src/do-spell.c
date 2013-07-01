@@ -1407,17 +1407,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport";
 		if(desc) return "Teleport long distance.";
 #endif
-    
-		{
-			COODINATES range = lev_bonus * 5;
-
-			if(info) return info_range(range);
-
-			if(cast)
-			{
-				teleport_creature(caster_ptr, range, 0L);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_ACTIVE_TELEPORT, TRUE);
 		break;
 
 	case 6:
@@ -2765,17 +2755,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport Self";
 		if(desc) return "Teleport long distance.";
 #endif
-    
-		{
-			COODINATES range = lev_bonus * 5;
-
-			if(info) return info_range(range);
-
-			if(cast)
-			{
-				teleport_creature(caster_ptr, range, 0L);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_ACTIVE_TELEPORT, TRUE);
 		break;
 
 	case 8:
@@ -3975,17 +3955,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport";
 		if(desc) return "Teleport long distance.";
 #endif
-    
-		{
-			COODINATES range = lev_bonus * 4;
-
-			if(info) return info_range(range);
-
-			if(cast)
-			{
-				teleport_creature(caster_ptr, range, 0L);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_ACTIVE_TELEPORT, TRUE);
 		break;
 
 	case 5:
@@ -4706,10 +4676,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Blink";
 		if(desc) return "Teleport short distance.";
 #endif
-    
-		{
-			if(cast) do_active_trait(caster_ptr, TRAIT_BLINK, TRUE);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BLINK, TRUE);
 		break;
 
 	case 5:
@@ -4720,9 +4687,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Light Area";
 		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
-		{
-			if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE);
 		break;
 
 	case 6:
@@ -4984,17 +4949,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport";
 		if(desc) return "Teleport long distance.";
 #endif
-    
-		{
-			COODINATES range = lev_bonus * 5;
-
-			if(info) return info_range(range);
-
-			if(cast)
-			{
-				teleport_creature(caster_ptr, range, 0L);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_ACTIVE_TELEPORT, TRUE);
 		break;
 
 	case 20:
