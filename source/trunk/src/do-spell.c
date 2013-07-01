@@ -870,13 +870,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Remove Curse";
 		if(desc) return "Removes normal curses from equipped items.";
 #endif
-
-		{
-			if(cast)
-			{
-				if(remove_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_REMOVE_CURSE_1, TRUE);
 		break;
 
 	case 9:
@@ -1009,13 +1003,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dispel Curse";
 		if(desc) return "Removes normal and heavy curse from equipped items.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(remove_all_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_REMOVE_CURSE_2, TRUE);
 		break;
 
 	case 17:
@@ -5410,13 +5398,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Remove Curse";
 		if(desc) return "Removes normal curses from equipped items.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(remove_curse(creature_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
-			}
-		}
+		if(cast) do_active_trait(creature_ptr, TRAIT_REMOVE_CURSE_1, TRUE);
 		break;
 
 	case 10:
@@ -6766,13 +6748,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Remove Curse";
 		if(desc) return "Removes normal curses from equipped items.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(remove_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_REMOVE_CURSE_1, TRUE);
 		break;
 
 	case 12:
