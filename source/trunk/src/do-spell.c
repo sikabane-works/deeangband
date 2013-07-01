@@ -1511,7 +1511,6 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport Away";
 		if(desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
-    
 		{
 			POWER power = lev_bonus;
 			if(info) return info_power(power);
@@ -1527,18 +1526,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Haste Self";
 		if(desc) return "Hastes you for a while.";
 #endif
-    
-		{
-			int base = lev_bonus;
-			int sides = 20 + lev_bonus;
-
-			if(info) return info_duration(base, sides);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sides) + base, TRUE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_HASTE, TRUE);
 		break;
 
 	case 14:
@@ -5602,18 +5590,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Haste Self";
 		if(desc) return "Hastes you for a while.";
 #endif
-    
-		{
-			int base = lev_bonus;
-			int sides = 20 + lev_bonus;
-
-			if(info) return info_duration(base, sides);
-
-			if(cast)
-			{
-				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(sides) + base, TRUE);
-			}
-		}
+		if(cast) do_active_trait(creature_ptr, TRAIT_HASTE, TRUE);
 		break;
 
 	case 20:
