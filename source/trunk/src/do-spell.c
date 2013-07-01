@@ -1390,18 +1390,8 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Light Area";
 		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
-    
 		{
-			int dice = 2;
-			int sides = lev_bonus / 2;
-			COODINATES rad = (COODINATES)lev_bonus / 10 + 1;
-
-			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				lite_area(caster_ptr, diceroll(dice, sides), rad);
-			}
+			if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE);
 		}
 		break;
 
@@ -2685,16 +2675,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 2;
-			int sides = lev_bonus / 2;
-			COODINATES rad = (COODINATES)(lev_bonus / 10) + 1;
-
-			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				lite_area(caster_ptr, diceroll(dice, sides), rad);
-			}
+			if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE);
 		}
 		break;
 
@@ -4763,16 +4744,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			int dice = 2;
-			int sides = lev_bonus / 2;
-			COODINATES rad = (COODINATES)lev_bonus / 10 + 1;
-
-			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				lite_area(caster_ptr, diceroll(dice, sides), rad);
-			}
+			if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE);
 		}
 		break;
 
