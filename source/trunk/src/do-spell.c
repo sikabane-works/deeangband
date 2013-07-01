@@ -3263,14 +3263,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Stinking Cloud";
 		if(desc) return "Fires a ball of poison.";
 #endif
-    
-		{
-			POWER dam = 10 + lev_bonus / 2;
-			COODINATES rad = 2;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, dam, rad);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BA_POIS, TRUE);
 		break;
 
 	case 4:
@@ -3672,30 +3665,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Raise the Dead";
 		if(desc) return "Summons an undead creature.";
 #endif
-    
-		{
-			if(cast)
-			{
-				int type;
-				bool pet = one_in_(3);
-				FLAGS_32 mode = 0L;
-
-				type = (lev_bonus > 47 ? TRAIT_S_HI_UNDEAD : TRAIT_S_UNDEAD);
-
-				if(!pet || (pet && (lev_bonus > 24) && one_in_(3)))
-					mode |= PC_ALLOW_GROUP;
-
-				if(pet) mode |= PC_FORCE_PET;
-				else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
-
-				if(summoning((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, type, mode))
-				{
-					msg_print(MES_SUMMON_UNDEAD_DONE);
-					if(pet) msg_print(MES_SUMMON_UNDEAD_SUCCESS);
-					else msg_print(MES_SUMMON_UNDEAD_FUMBLE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_UNDEAD, TRUE);
 		break;
 
 	case 26:
