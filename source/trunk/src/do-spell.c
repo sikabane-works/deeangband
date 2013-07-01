@@ -3378,14 +3378,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Nether Bolt";
 		if(desc) return "Fires a bolt or beam of nether.";
 #endif
-    
-		{
-			int dice = 8 + (lev_bonus - 5) / 4;
-			int sides = 8;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_NETH, TRUE);
 		break;
 
 	case 10:
@@ -5853,10 +5846,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Magic Missile";
 		if(desc) return "Fires a weak bolt of magic.";
 #endif
-    
-		{
-			if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_MISSILE, TRUE);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_MISSILE, TRUE);
 		break;
 
 	case 1:
@@ -5952,14 +5942,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Nether Bolt";
 		if(desc) return "Fires a bolt or beam of nether.";
 #endif
-    
-		{
-			int dice = 6 + (lev_bonus - 5) / 4;
-			int sides = 8;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_NETH, TRUE);
 		break;
 
 	case 6:
