@@ -1346,16 +1346,8 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Phase Door";
 		if(desc) return "Teleport short distance.";
 #endif
-    
 		{
-			COODINATES range = 10;
-
-			if(info) return info_range(range);
-
-			if(cast)
-			{
-				teleport_creature(caster_ptr, range, 0L);
-			}
+			if(cast) do_active_trait(caster_ptr, TRAIT_BLINK, TRUE);
 		}
 		break;
 
@@ -3914,14 +3906,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			COODINATES range = 10;
-
-			if(info) return info_range(range);
-
-			if(cast)
-			{
-				teleport_creature(caster_ptr, range, 0L);
-			}
+			if(cast) do_active_trait(caster_ptr, TRAIT_BLINK, TRUE);
 		}
 		break;
 
@@ -4723,14 +4708,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
     
 		{
-			COODINATES range = 10;
-
-			if(info) return info_range(range);
-
-			if(cast)
-			{
-				teleport_creature(caster_ptr, range, 0L);
-			}
+			if(cast) do_active_trait(caster_ptr, TRAIT_BLINK, TRUE);
 		}
 		break;
 
@@ -4742,7 +4720,6 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Light Area";
 		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
-    
 		{
 			if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE);
 		}
