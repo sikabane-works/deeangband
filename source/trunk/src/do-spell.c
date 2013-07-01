@@ -10516,35 +10516,3 @@ cptr do_spell(creature_type *creature_ptr, REALM_ID realm, int spell, int mode)
 	return NULL;
 }
 
-PROB calc_trait_difficulty(creature_type *caster_ptr, TRAIT_ID trait_id, int stat_type)
-{
-	trait_type spell_;
-	PROB chance, minfail;
-	/* Access the spell */
-	spell_ = trait_info[trait_id];
-
-	chance = spell_.fail;
-
-	/* Reduce failure rate by "effective" level adjustment */
-	//TODO if(lev_bonus > spell_.le) chance -= 3 * (lev_bonus - spell.level);
-
-	/* Reduce failure rate by INT/WIS adjustment */
-	chance -= 3 * (adj_mag_stat[caster_ptr->stat_ind[spell_.use_stat]] + adj_mag_stat[caster_ptr->stat_ind[stat_type]] - 2) / 2;
-
-	//if(spell.manedam) chance = chance * caster_ptr->mane_dam[i] / spell.manedam;
-	chance += caster_ptr->to_m_chance;
-
-	/* Extract the minimum failure rate */
-	minfail = adj_mag_fail[caster_ptr->stat_ind[spell_.use_stat]];
-
-	/* Minimum failure rate */
-	if(chance < minfail) chance = minfail;
-
-	/* Stunning makes spells harder */
-	if(caster_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-	else if(has_trait(caster_ptr, TRAIT_STUN)) chance += 15;
-
-	if(chance > MAX_CHANCE) chance = MAX_CHANCE; /* Always a 5 percent chance of working */
-
-	return chance;
-}

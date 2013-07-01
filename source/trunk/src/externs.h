@@ -756,7 +756,6 @@ extern bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, 
 extern void stop_singing(creature_type *creature_ptr);
 extern cptr do_spell(creature_type *creature_ptr, REALM_ID realm, int spell, int mode);
 extern void wild_magic(creature_type *creature_ptr, int spell);
-extern PROB calc_trait_difficulty(creature_type *caster_ptr, TRAIT_ID trait_id, int stat_type);
 
 // flavor.c
 extern void get_table_name_aux(char *out_string);
@@ -1085,6 +1084,7 @@ extern bool pulish_shield(creature_type *creature_ptr);
 extern bool potion_smash_effect(CREATURE_ID who, COODINATES y, COODINATES x, OBJECT_KIND_ID k_idx);
 extern void display_spell_list(creature_type *creature_ptr);
 extern int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, REALM_ID realm);
+extern PROB calc_trait_difficulty(creature_type *caster_ptr, TRAIT_ID trait_id, int stat_type);
 extern int mod_spell_chance_1(creature_type *creature_ptr, int chance);
 extern int mod_spell_chance_2(creature_type *creature_ptr, int chance);
 extern PERCENT spell_chance(creature_type *creature_ptr, TRAIT_ID spell, REALM_ID realm);

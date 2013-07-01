@@ -3152,15 +3152,46 @@ int mod_need_mana(creature_type *creature_ptr, int need_mana, TRAIT_ID spell, RE
 }
 
 
+PROB calc_trait_difficulty(creature_type *caster_ptr, TRAIT_ID trait_id, int stat_type)
+{
+	trait_type spell_;
+	PROB chance, minfail;
+	/* Access the spell */
+	spell_ = trait_info[trait_id];
+
+	chance = spell_.fail;
+
+	/* Reduce failure rate by "effective" level adjustment */
+	//TODO if(lev_bonus > spell_.le) chance -= 3 * (lev_bonus - spell.level);
+
+	/* Reduce failure rate by INT/WIS adjustment */
+	chance -= 3 * (adj_mag_stat[caster_ptr->stat_ind[spell_.use_stat]] + adj_mag_stat[caster_ptr->stat_ind[stat_type]] - 2) / 2;
+
+	//if(spell.manedam) chance = chance * caster_ptr->mane_dam[i] / spell.manedam;
+	chance += caster_ptr->to_m_chance;
+
+	/* Extract the minimum failure rate */
+	minfail = adj_mag_fail[caster_ptr->stat_ind[spell_.use_stat]];
+
+	/* Minimum failure rate */
+	if(chance < minfail) chance = minfail;
+
+	/* Stunning makes spells harder */
+	if(caster_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+	else if(has_trait(caster_ptr, TRAIT_STUN)) chance += 15;
+
+	if(chance > MAX_CHANCE) chance = MAX_CHANCE; /* Always a 5 percent chance of working */
+
+	return chance;
+}
+
 /*
  * Modify spell fail rate
  */
 int mod_spell_chance_1(creature_type *creature_ptr, int chance)
 {
 	chance += creature_ptr->to_m_chance;
-
 	if(has_trait(creature_ptr, TRAIT_HARD_SPELL)) chance += 20;
-
 	if(has_trait(creature_ptr, TRAIT_DEC_MANA) && has_trait(creature_ptr, TRAIT_EASY_SPELL)) chance -= 4;
 	else if(has_trait(creature_ptr, TRAIT_EASY_SPELL)) chance -= 3;
 	else if(has_trait(creature_ptr, TRAIT_DEC_MANA)) chance -= 2;
@@ -3208,8 +3239,7 @@ PERCENT spell_chance(creature_type *creature_ptr, int spell, REALM_ID use_realm)
 	/* Reduce failure rate by INT/WIS adjustment */
 	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] - 1);
 
-	if(creature_ptr->riding)
-		chance += (MAX(species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[SKILL_RIDING] / 100 - 10, 0));
+	if(creature_ptr->riding) chance += (MAX(species_info[creature_list[creature_ptr->riding].species_idx].level - creature_ptr->skill_exp[SKILL_RIDING] / 100 - 10, 0));
 
 	/* Extract mana consumption rate */
 	need_mana = mod_need_mana(creature_ptr, s_ptr->smana, spell, use_realm);
