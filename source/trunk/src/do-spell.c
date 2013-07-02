@@ -6717,31 +6717,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Summon Angel";
 		if(desc) return "Summons an angel.";
 #endif
-    
-		{
-			if(cast)
-			{
-				bool pet = !one_in_(3);
-				FLAGS_32 mode = 0L;
-
-				if(pet) mode |= PC_FORCE_PET;
-				else mode |= PC_NO_PET;
-				if(!(pet && (lev_bonus < 50))) mode |= PC_ALLOW_GROUP;
-
-				if(summoning((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_ANGEL, mode))
-				{
-					if(pet) msg_print(MES_SUMMON_SERVANT);
-					else
-					{
-#ifdef JP
-						msg_print("「我は汝の下僕にあらず！ 悪行者よ、悔い改めよ！」");
-#else
-						msg_print("Mortal! Repent of thy impiousness.");
-#endif
-					}
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_ANGEL, TRUE);
 		break;
 
 	case 24:
@@ -6763,13 +6739,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dispel Curse";
 		if(desc) return "Removes normal and heavy curse from equipped items.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(remove_all_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_REMOVE_CURSE_2, TRUE);
 		break;
 
 	case 26:
