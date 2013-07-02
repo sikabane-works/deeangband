@@ -5969,27 +5969,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Summon Demon";
 		if(desc) return "Summons a demon.";
 #endif
-    
-		{
-			if(cast)
-			{
-				bool pet = !one_in_(3);
-				FLAGS_32 mode = 0L;
-
-				if(pet) mode |= PC_FORCE_PET;
-				else mode |= PC_NO_PET;
-				if(!(pet && (lev_bonus < 50))) mode |= PC_ALLOW_GROUP;
-
-				if(summoning((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, lev_bonus*2/3+randint1(lev_bonus/2), TRAIT_S_DEMON, mode))
-				{
-					msg_print(MES_TRAP_S_H_DEMON);
-					if(pet) msg_print(MES_SUMMON_SERVANT);
-					else msg_print(MES_SUMMON_DEMON_FUMBLE);
-				}
-				else msg_print(MES_SUMMON_DEMON_FAILURE);
-				break;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_DEMON, TRUE);
 		break;
 
 	case 16:
@@ -6151,7 +6131,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Doom Hand";
 		if(desc) return "Attempts to make a creature's HP almost half.";
 #endif
-		if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, MAX_RANGE_SUB, lev_bonus * 2, 0);
+		if(cast) do_active_trait(caster_ptr, TRAIT_HAND_DOOM, TRUE);
 		break;
 
 	case 24:
@@ -6847,10 +6827,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Armageddon";
 		if(desc) return "Destroy everything in nearby area.";
 #endif
-    
-		{
-			if(cast) do_active_trait(caster_ptr, TRAIT_STAR_DESTROY, TRUE);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_STAR_DESTROY, TRUE);
 		break;
 
 	case 28:
