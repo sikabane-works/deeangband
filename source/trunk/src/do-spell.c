@@ -3217,17 +3217,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Poison";
 		if(desc) return "Gives resistance to poison. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, TRUE);
 		break;
 
 	case 6:
@@ -4707,17 +4697,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Lightning";
 		if(desc) return "Gives resistance to electricity. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, TRUE);
 		break;
 
 	case 17:
@@ -4728,17 +4708,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Acid";
 		if(desc) return "Gives resistance to acid. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, TRUE);
 		break;
 
 	case 18:
@@ -5106,17 +5076,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Lightning";
 		if(desc) return "Gives resistance to electricity. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, TRUE);
 		break;
 
 	case 7:
@@ -5127,17 +5087,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Acid";
 		if(desc) return "Gives resistance to acid. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, TRUE);
 		break;
 
 	case 8:
@@ -5180,17 +5130,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Poison";
 		if(desc) return "Gives resistance to poison. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, TRUE);
 		break;
 
 	case 11:
