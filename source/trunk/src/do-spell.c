@@ -5155,19 +5155,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Heroism";
 		if(desc) return "Removes fear, and gives bonus to hit and 10 more HP for a while.";
 #endif
-    
-		{
-			int base = 25;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(creature_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
-				heal_creature(creature_ptr, 10);
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE);
-			}
-		}
+		if(cast) do_active_trait(creature_ptr, TRAIT_BECOME_HERO, TRUE);
 		break;
 
 	case 6:
@@ -6174,19 +6162,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Raise the Morale";
 		if(desc) return "Removes fear, and gives bonus to hit and 10 more HP for a while.";
 #endif
-    
-		{
-			int base = 25;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
-				heal_creature(caster_ptr, 10);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BECOME_HERO, TRUE);
 		break;
 
 	case 25:
@@ -6826,19 +6802,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Heroism";
 		if(desc) return "Removes fear, and gives bonus to hit and 10 more HP for a while.";
 #endif
-    
-		{
-			int base = 25;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
-				heal_creature(caster_ptr, 10);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BECOME_HERO, TRUE);
 		break;
 
 	case 25:
