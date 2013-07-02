@@ -938,17 +938,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Sense Surroundings";
 		if(desc) return "Maps nearby area.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_MAP;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				map_area(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_MAP, TRUE);
 		break;
 
 	case 13:
@@ -1422,18 +1412,8 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 		if(name) return "Magic Mapping";
 		if(desc) return "Maps nearby area.";
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_MAP, TRUE);
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_MAP;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				map_area(caster_ptr, rad);
-			}
-		}
 		break;
 
 	case 9:
@@ -5856,17 +5836,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Vision";
 		if(desc) return "Maps nearby area.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_MAP;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				map_area(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_MAP, TRUE);
 		break;
 
 	case 10:
