@@ -1089,18 +1089,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Alter Reality";
 		if(desc) return "Recreates current dungeon level.";
 #endif
-    
-		{
-			int base = 15;
-			int sides = 20;
-
-			if(info) return info_delay(base, sides);
-
-			if(cast)
-			{
-				alter_reality(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_SHADOW_SHIFT, TRUE);
 		break;
 
 	case 23:
@@ -2866,18 +2855,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Alter Reality";
 		if(desc) return "Recreates current dungeon level.";
 #endif
-    
-		{
-			int base = 15;
-			int sides = 20;
-
-			if(info) return info_delay(base, sides);
-
-			if(cast)
-			{
-				alter_reality(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_SHADOW_SHIFT, TRUE);
 		break;
 
 	case 21:
@@ -2918,9 +2896,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Summon Demon";
 		if(desc) return "Summons a demon.";
 #endif
-		{
-			if(cast) do_active_trait(caster_ptr, TRAIT_S_DEMON, TRUE);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_DEMON, TRUE);
 		break;
 
 	case 24:
@@ -7489,27 +7465,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Ambarkanta";
 		if(desc) return "Recreates current dungeon level.";
 #endif
-    
-		{
-			int base = 15;
-			int sides = 20;
-
-			if(info) return info_delay(base, sides);
-
-			/* Stop singing before start another */
-			if(cast || fail) stop_singing(caster_ptr);
-
-			if(cast)
-			{
-#ifdef JP
-				msg_print("周囲が変化し始めた．．．");
-#else
-				msg_print("You sing of the primeval shaping of Middle-earth...");
-#endif
-
-				alter_reality(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_SHADOW_SHIFT, TRUE);
 		break;
 
 	case 24:

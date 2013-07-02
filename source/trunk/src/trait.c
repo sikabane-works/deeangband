@@ -1767,7 +1767,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 	case TRAIT_SHADOW_SHIFT:
 		alter_reality(caster_ptr);
-
+		break;
 
 	case TRAIT_BERSERK:
 		if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
