@@ -4706,17 +4706,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Fire";
 		if(desc) return "Gives resistance to fire. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, TRUE);
 		break;
 
 	case 16:
@@ -5015,14 +5005,14 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 }
 
 
-static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
+static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	FLOOR_LEV lev_bonus = creature_ptr->lev;
+	FLOOR_LEV lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -5042,7 +5032,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_SEE_INFRA, base + randint1(base), FALSE);
+				set_timed_trait(caster_ptr, TRAIT_SEE_INFRA, base + randint1(base), FALSE);
 			}
 		}
 		break;
@@ -5063,7 +5053,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_REGENERATE, base + randint1(base), FALSE);
+				set_timed_trait(caster_ptr, TRAIT_REGENERATE, base + randint1(base), FALSE);
 			}
 		}
 		break;
@@ -5080,7 +5070,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
+				set_food(caster_ptr, CREATURE_FOOD_MAX - 1);
 			}
 		}
 		break;
@@ -5101,7 +5091,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -5114,17 +5104,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Resist Fire";
 		if(desc) return "Gives resistance to fire. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, TRUE);
 		break;
 
 	case 5:
@@ -5135,7 +5115,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Heroism";
 		if(desc) return "Removes fear, and gives bonus to hit and 10 more HP for a while.";
 #endif
-		if(cast) do_active_trait(creature_ptr, TRAIT_BECOME_HERO, TRUE);
+		if(cast) do_active_trait(caster_ptr, TRAIT_BECOME_HERO, TRUE);
 		break;
 
 	case 6:
@@ -5154,7 +5134,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -5175,7 +5155,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ACID, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -5196,7 +5176,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_SEE_INVISIBLE, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_SEE_INVISIBLE, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -5209,7 +5189,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Remove Curse";
 		if(desc) return "Removes normal curses from equipped items.";
 #endif
-		if(cast) do_active_trait(creature_ptr, TRAIT_REMOVE_CURSE_1, TRUE);
+		if(cast) do_active_trait(caster_ptr, TRAIT_REMOVE_CURSE_1, TRUE);
 		break;
 
 	case 10:
@@ -5228,7 +5208,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -5249,9 +5229,9 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_S_HERO, randint1(base) + base, FALSE);
-				heal_creature(creature_ptr, 30);
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE);
+				set_timed_trait(caster_ptr, TRAIT_S_HERO, randint1(base) + base, FALSE);
+				heal_creature(caster_ptr, 30);
+				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 			}
 		}
 		break;
@@ -5268,7 +5248,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				creature_knowledge(creature_ptr);
+				creature_knowledge(caster_ptr);
 			}
 		}
 		break;
@@ -5290,7 +5270,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_PROT_EVIL, randint1(sides) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -5307,10 +5287,10 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_POISONED, 0, TRUE);
-				set_timed_trait(creature_ptr, TRAIT_STUN, 0, TRUE);
-				set_timed_trait(creature_ptr, TRAIT_CUT, 0, TRUE);
-				set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0, TRUE);
+				set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
+				set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
+				set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
+				set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
 			}
 		}
 		break;
@@ -5331,7 +5311,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!choose_ele_attack(creature_ptr)) return NULL;
+				if(!choose_ele_attack(caster_ptr)) return NULL;
 			}
 		}
 		break;
@@ -5353,7 +5333,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -5375,7 +5355,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_SHIELD, randint1(sides) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_SHIELD, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -5396,11 +5376,11 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ACID, randint1(base) + base, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -5413,7 +5393,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Haste Self";
 		if(desc) return "Hastes you for a while.";
 #endif
-		if(cast) do_active_trait(creature_ptr, TRAIT_HASTE, TRUE);
+		if(cast) do_active_trait(caster_ptr, TRAIT_HASTE, TRUE);
 		break;
 
 	case 20:
@@ -5432,7 +5412,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_PASS_WALL, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_PASS_WALL, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -5449,7 +5429,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				pulish_shield(creature_ptr);
+				pulish_shield(caster_ptr);
 			}
 		}
 		break;
@@ -5466,7 +5446,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(summoning(NULL, creature_ptr->fy, creature_ptr->fx, lev_bonus, TRAIT_S_GOLEM, PC_FORCE_PET)) msg_print(MES_SUMMON_GOLEM_SUCCESS);
+				if(summoning(NULL, caster_ptr->fy, caster_ptr->fx, lev_bonus, TRAIT_S_GOLEM, PC_FORCE_PET)) msg_print(MES_SUMMON_GOLEM_SUCCESS);
 				else msg_print(MES_SUMMON_GOLEM_FAILURE);
 			}
 		}
@@ -5488,7 +5468,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait(creature_ptr, TRAIT_MAGIC_DEF, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_DEF, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -5505,7 +5485,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!mundane_spell(creature_ptr, TRUE)) return NULL;
+				if(!mundane_spell(caster_ptr, TRUE)) return NULL;
 			}
 		}
 		break;
@@ -5522,7 +5502,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_all_curse(creature_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
+				if(remove_all_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
 			}
 		}
 		break;
@@ -5539,7 +5519,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!identify_fully(creature_ptr, FALSE)) return NULL;
+				if(!identify_fully(caster_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -5556,7 +5536,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!enchant_spell(creature_ptr, randint0(4) + 1, randint0(4) + 1, 0, 0, 0)) return NULL;
+				if(!enchant_spell(caster_ptr, randint0(4) + 1, randint0(4) + 1, 0, 0, 0)) return NULL;
 			}
 		}
 		break;
@@ -5573,7 +5553,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!enchant_spell(creature_ptr, 0, 0, randint0(3) + 2, 0, 0)) return NULL;
+				if(!enchant_spell(caster_ptr, 0, 0, randint0(3) + 2, 0, 0)) return NULL;
 			}
 		}
 		break;
@@ -5590,7 +5570,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				brand_weapon(creature_ptr, randint0(18));
+				brand_weapon(caster_ptr, randint0(18));
 			}
 		}
 		break;
@@ -5617,7 +5597,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 					mutation = 77;
 
 				/* Gain the mutation */
-				if(get_mutative_trait(creature_ptr, mutation, TRUE))
+				if(get_mutative_trait(caster_ptr, mutation, TRUE))
 				{
 #ifdef JP
 					msg_print("あなたは生きているカードに変わった。");
@@ -5645,7 +5625,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!choose_ele_immune(creature_ptr, base + randint1(base))) return NULL;
+				if(!choose_ele_immune(caster_ptr, base + randint1(base))) return NULL;
 			}
 		}
 		break;
@@ -5729,17 +5709,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Fire";
 		if(desc) return "Gives resistance to fire, cold and electricity for a while. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, TRUE);
 		break;
 
 	case 4:
@@ -6699,14 +6669,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Star Burst";
 		if(desc) return "Fires a huge ball of powerful light.";
 #endif
-    
-		{
-			POWER dam = 100 + lev_bonus * 2;
-			COODINATES rad = 4;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_LITE, MAX_RANGE_SUB, dam, rad);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BA_LITE, TRUE);
 		break;
 
 	case 23:
