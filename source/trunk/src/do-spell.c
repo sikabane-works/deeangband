@@ -1088,18 +1088,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Word of Recall";
 		if(desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
 #endif
-    
-		{
-			int base = 15;
-			int sides = 20;
-
-			if(info) return info_delay(base, sides);
-
-			if(cast)
-			{
-				if(!word_of_recall(caster_ptr, randint0(21) + 15)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_RECALL, TRUE);
 		break;
 
 	case 22:
@@ -1652,18 +1641,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Word of Recall";
 		if(desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
 #endif
-    
-		{
-			int base = 15;
-			int sides = 20;
-
-			if(info) return info_delay(base, sides);
-
-			if(cast)
-			{
-				if(!word_of_recall(caster_ptr, randint0(21) + 15)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_RECALL, TRUE);
 		break;
 
 	case 23:
@@ -4080,18 +4058,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Word of Recall";
 		if(desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
 #endif
-    
-		{
-			int base = 15;
-			int sides = 20;
-
-			if(info) return info_delay(base, sides);
-
-			if(cast)
-			{
-				if(!word_of_recall(caster_ptr, randint0(21) + 15)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_RECALL, TRUE);
 		break;
 
 	case 15:
@@ -5033,18 +5000,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Word of Recall";
 		if(desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
 #endif
-    
-		{
-			int base = 15;
-			int sides = 20;
-
-			if(info) return info_delay(base, sides);
-
-			if(cast)
-			{
-				if(!word_of_recall(caster_ptr, randint0(21) + 15)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_RECALL, TRUE);
 		break;
 
 	case 31:
