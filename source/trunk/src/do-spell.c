@@ -5181,18 +5181,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Protection from Evil";
 		if(desc) return "Gives aura which protect you from evil creature's physical attack.";
 #endif
-    
-		{
-			int base = 3 * lev_bonus;
-			int sides = 25;
-
-			if(info) return info_duration(base, sides);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(sides) + base, FALSE);
-			}
-		}
+		do_active_trait(caster_ptr, TRAIT_PROT_EVIL, TRUE);
 		break;
 
 	case 14:
@@ -6418,18 +6407,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Protection from Evil";
 		if(desc) return "Gives aura which protect you from evil creature's physical attack.";
 #endif
-    
-		{
-			int base = 25;
-			int sides = 3 * lev_bonus;
-
-			if(info) return info_duration(base, sides);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(sides) + sides, FALSE);
-			}
-		}
+		do_active_trait(caster_ptr, TRAIT_PROT_EVIL, TRUE);
 		break;
 
 	case 14:

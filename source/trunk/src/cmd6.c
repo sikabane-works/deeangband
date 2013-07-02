@@ -808,7 +808,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_SCROLL_PROTECTION_FROM_EVIL:
-			if(add_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * caster_ptr->lev, TRUE)) ident = TRUE;
+			do_active_trait(caster_ptr, TRAIT_PROT_EVIL, TRUE);
 			break;
 
 		case SV_SCROLL_RUNE_OF_PROTECTION:
