@@ -1465,13 +1465,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Identify";
 		if(desc) return "Identifies an item.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!ident_spell(caster_ptr, FALSE)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY, TRUE);
 		break;
 
 	case 10:
@@ -1558,13 +1552,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Identify True";
 		if(desc) return "*Identifies* an item.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!identify_fully(caster_ptr, FALSE)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY_TRUE, TRUE);
 		break;
 
 	case 16:
@@ -4893,13 +4881,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Identify";
 		if(desc) return "Identifies an item.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!ident_spell(caster_ptr, FALSE)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY, TRUE);
 		break;
 
 	case 21:
