@@ -4685,17 +4685,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Cold";
 		if(desc) return "Gives resistance to cold. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, TRUE);
 		break;
 
 	case 15:
@@ -5083,17 +5073,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Cold";
 		if(desc) return "Gives resistance to cold. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, TRUE);
 		break;
 
 	case 4:
