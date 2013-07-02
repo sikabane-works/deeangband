@@ -1282,17 +1282,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Creatures";
 		if(desc) return "Detects all creatures in your vicinity unless invisible.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_creatures_normal(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_SMELL_MON, TRUE);
 		break;
 
 	case 1:
@@ -1412,8 +1402,8 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 		if(name) return "Magic Mapping";
 		if(desc) return "Maps nearby area.";
-		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_MAP, TRUE);
 #endif
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_MAP, TRUE);
 		break;
 
 	case 9:
@@ -1842,17 +1832,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Creatures";
 		if(desc) return "Detects all creatures in your vicinity unless invisible.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_creatures_normal(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_SMELL_MON, TRUE);
 		break;
 
 	case 1:
@@ -4483,17 +4463,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Creatures";
 		if(desc) return "Detects all creatures in your vicinity unless invisible.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_creatures_normal(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_SMELL_MON, TRUE);
 		break;
 
 	case 4:
