@@ -4025,7 +4025,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Lore";
 		if(desc) return "*Identifies* an item.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY_TURE, TRUE);
+		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY_TRUE, TRUE);
 		break;
 
 	case 26:
@@ -4112,18 +4112,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Greater Undead";
 		if(desc) return "Summons a greater undead.";
 #endif
-    
-		{
-			if(cast || fail)
-			{
-				msg_print(MES_SUMMON_TRUMP_GREATER_UNDEAD);
-				/* May allow unique depend on level and dice roll */
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_HI_UNDEAD, PC_ALLOW_UNIQUE))
-				{
-					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_HI_UNDEAD, TRUE);
 		break;
 
 	case 31:
@@ -4134,24 +4123,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Ancient Dragon";
 		if(desc) return "Summons an ancient dragon.";
 #endif
-    
-		{
-			if(cast)
-			{
-				int type;
-
-				if(caster_ptr->class_idx == CLASS_BEASTMASTER) type = TRAIT_S_HI_DRAGON_LIVING;
-				else type = TRAIT_S_HI_DRAGON;
-
-				msg_print(MES_SUMMON_TRUMP_ANCIENT_DRAGON);
-
-				/* May allow unique depend on level and dice roll */
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, type, PC_ALLOW_UNIQUE))
-				{
-					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_HI_DRAGON, TRUE);
 		break;
 	}
 
