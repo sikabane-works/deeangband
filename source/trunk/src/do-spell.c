@@ -3564,17 +3564,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Mass Genocide";
 		if(desc) return "Eliminates all nearby creatures, exhausting you.  Powerful or unique creatures may be able to resist.";
 #endif
-    
-		{
-			POWER power = lev_bonus + 50;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				mass_genocide(caster_ptr, power, TRUE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_GENOCIDE, TRUE);
 		break;
 
 	case 30:
