@@ -1559,10 +1559,6 @@ static int rod_effect(creature_type *caster_ptr, SVAL sval, bool *use_charge, bo
 			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4)) ident = TRUE;
 			break;
 
-		case SV_ROD_TELEPORT_AWAY:
-			if(cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, MAX_SIGHT * 5, -1)) ident = TRUE;
-			break;
-
 		case SV_ROD_DISARMING:
 			if(cast_beam(caster_ptr, DO_EFFECT_KILL_TRAP, MAX_RANGE_SUB, 0, -1)) ident = TRUE;
 			break;

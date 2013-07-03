@@ -2493,6 +2493,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trap / Door Destruction";
 		if(desc) return "Destroys all traps in adjacent squares.";
 #endif
+
 		{
 			COODINATES rad = 1;
 			if(info) return info_radius(rad);
