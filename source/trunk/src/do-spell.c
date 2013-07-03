@@ -1443,11 +1443,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport Away";
 		if(desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
-		{
-			POWER power = lev_bonus;
-			if(info) return info_power(power);
-			if(cast) cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, power, 0);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_TELE_AWAY, TRUE);
 		break;
 
 	case 13:
@@ -2705,12 +2701,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport Other";
 		if(desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
-    
-		{
-			POWER power = lev_bonus;
-			if(info) return info_power(power);
-			if(cast) cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, power, 0);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_TELE_AWAY, TRUE);
 		break;
 
 	case 14:
@@ -3730,12 +3721,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport Away";
 		if(desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
-    
-		{
-			POWER power = lev_bonus;
-			if(info) return info_power(power);
-			if(cast) cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, power, 0);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_TELE_AWAY, TRUE);
 		break;
 
 	case 7:
@@ -4567,13 +4553,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport Away";
 		if(desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
-    
-		{
-			POWER power = lev_bonus;
-
-			if(info) return info_power(power);
-			if(cast) cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, power, 0);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_TELE_AWAY, TRUE);
 		break;
 
 	case 28:
