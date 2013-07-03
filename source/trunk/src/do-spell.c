@@ -2008,14 +2008,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Frost Bolt";
 		if(desc) return "Fires a bolt or beam of cold.";
 #endif
-    
-		{
-			int dice = 3 + (lev_bonus - 5) / 4;
-			int sides = 8;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_COLD, TRUE);
 		break;
 
 	case 10:
@@ -2052,14 +2045,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Fire Bolt";
 		if(desc) return "Fires a bolt or beam of fire.";
 #endif
-    
-		{
-			int dice = 5 + (lev_bonus - 5) / 4;
-			int sides = 8;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_FIRE, TRUE);
 		break;
 
 	case 12:
@@ -2586,14 +2572,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Fire Bolt";
 		if(desc) return "Fires a bolt or beam of fire.";
 #endif
-    
-		{
-			int dice = 8 + (lev_bonus - 5) / 4;
-			int sides = 8;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_FIRE, TRUE);
 		break;
 
 	case 6:
@@ -2715,14 +2694,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Fire Ball";
 		if(desc) return "Fires a ball of fire.";
 #endif
-    
-		{
-			POWER dam = lev_bonus + 55;
-			COODINATES rad = 2;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, dam, rad);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BA_FIRE, TRUE);
 		break;
 
 	case 13:
@@ -4394,14 +4366,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Zap";
 		if(desc) return "Fires a bolt or beam of lightning.";
 #endif
-    
-		{
-			int dice = 3 + (lev_bonus - 1) / 5;
-			int sides = 3;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_ELEC, TRUE);
 		break;
 
 	case 1:
@@ -5711,14 +5676,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Fire Ball";
 		if(desc) return "Fires a ball of fire.";
 #endif
-    
-		{
-			POWER dam = lev_bonus + 55;
-			COODINATES rad = 2;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, dam, rad);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BA_FIRE, TRUE);
 		break;
 
 	case 13:
