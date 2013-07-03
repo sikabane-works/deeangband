@@ -5430,14 +5430,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Nether Ball";
 		if(desc) return "Fires a huge ball of nether.";
 #endif
-    
-		{
-			POWER dam = lev_bonus * 3 / 2 + 100;
-			COODINATES rad = (COODINATES)lev_bonus / 20 + 2;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, dam, rad);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BA_NETH, TRUE);
 		break;
 
 	case 15:
@@ -5880,17 +5873,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Portal";
 		if(desc) return "Teleport medium distance.";
 #endif
-    
-		{
-			COODINATES range = 25 + lev_bonus / 2;
-
-			if(info) return info_range(range);
-
-			if(cast)
-			{
-				teleport_creature(caster_ptr, range, 0L);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_ACTIVE_TELEPORT, TRUE);
 		break;
 
 	case 6:
@@ -6048,18 +6031,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Judgment Thunder";
 		if(desc) return "Fires a powerful bolt of lightning.";
 #endif
-    
-		{
-			POWER dam = lev_bonus * 5;
-
-			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				cast_bolt(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, dam, 0);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_ELEC, TRUE);
 		break;
 
 	case 15:
