@@ -3639,10 +3639,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Phase Door";
 		if(desc) return "Teleport short distance.";
 #endif
-    
-		{
-			if(cast) do_active_trait(caster_ptr, TRAIT_BLINK, TRUE);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BLINK, TRUE);
 		break;
 
 	case 1:
@@ -3653,17 +3650,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Spiders";
 		if(desc) return "Summons spiders.";
 #endif
-    
-		{
-			if(cast || fail)
-			{
-				msg_print(MES_SUMMON_TRUMP_SPIDER);
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_SPIDER, PC_ALLOW_GROUP))
-				{
-					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_SPIDER, TRUE);
 		break;
 
 	case 2:
@@ -3781,19 +3768,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Reach";
 		if(desc) return "Pulls a distant item close to you.";
 #endif
-    
-		{
-			int weight = lev_bonus * 15;
-
-			if(info) return info_weight(weight);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				fetch(caster_ptr, MAX_RANGE_SUB, dir, weight, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_TELEKINES, TRUE);
 		break;
 
 	case 9:
