@@ -3896,18 +3896,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Swap Position";
 		if(desc) return "Swap positions of you and a creature.";
 #endif
-    
-		{
-			if(cast)
-			{
-				bool result;
-
-				result = get_aim_dir(caster_ptr, NO_RANGE_LIMIT, &dir);
-				if(!result) return NULL;
-
-				teleport_swap(caster_ptr, dir);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_SWAP_POS, TRUE);
 		break;
 
 	case 17:
@@ -3918,18 +3907,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Undead";
 		if(desc) return "Summons an undead creature.";
 #endif
-    
-		{
-			if(cast || fail)
-			{
-				msg_print(MES_SUMMON_TRUMP_UNDEAD);
-
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_UNDEAD, 0L))
-				{
-					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_UNDEAD, TRUE);
 		break;
 
 	case 18:
@@ -3940,18 +3918,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Reptiles";
 		if(desc) return "Summons a hydra.";
 #endif
-    
-		{
-			if(cast || fail)
-			{
-				msg_print(MES_SUMMON_TRUMP_REPTILE);
-
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_HYDRA, 0L))
-				{
-					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_HYDRA, TRUE);
 		break;
 
 	case 19:
@@ -3962,25 +3929,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Creatures";
 		if(desc) return "Summons some creatures.";
 #endif
-    
-		{
-			if(cast || fail)
-			{
-				int type;
-				msg_print(MES_SUMMON_TRUMP_CREATURE);
-
-				if(caster_ptr->class_idx == CLASS_BEASTMASTER)
-					type = TRAIT_S_LIVING;
-				else
-					type = 0;
-
-				if(trump_summoning(caster_ptr, (1 + (lev_bonus - 15)/ 10), !fail, caster_ptr->fy, caster_ptr->fx, 0, type, 0L))
-				{
-					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
-				}
-
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, 0, TRUE);
 		break;
 
 	case 20:
