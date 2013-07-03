@@ -5014,14 +5014,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Create Golem";
 		if(desc) return "Creates a golem.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(summoning(NULL, caster_ptr->fy, caster_ptr->fx, lev_bonus, TRAIT_S_GOLEM, PC_FORCE_PET)) msg_print(MES_SUMMON_GOLEM_SUCCESS);
-				else msg_print(MES_SUMMON_GOLEM_FAILURE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_GOLEM, TRUE);
 		break;
 
 	case 23:
@@ -5070,13 +5063,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Remove All Curse";
 		if(desc) return "Removes normal and heavy curse from equipped items.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(remove_all_curse(caster_ptr)) msg_print(MES_REMOVED_OBJECT_CURSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_REMOVE_CURSE_2, TRUE);
 		break;
 
 	case 26:
@@ -5087,13 +5074,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Knowledge True";
 		if(desc) return "*Identifies* an item.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!identify_fully(caster_ptr, FALSE)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY_TRUE, TRUE);
 		break;
 
 	case 27:
@@ -5410,14 +5391,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Plasma bolt";
 		if(desc) return "Fires a bolt or beam of plasma.";
 #endif
-    
-		{
-			int dice = 11 + (lev_bonus - 5) / 4;
-			int sides = 8;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_PLAS, TRUE);
 		break;
 
 	case 12:
