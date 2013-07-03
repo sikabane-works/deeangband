@@ -3779,37 +3779,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Kamikaze";
 		if(desc) return "Summons creatures which explode by itself.";
 #endif
-    
-		{
-			if(cast || fail)
-			{
-				int x, y;
-				int type;
-
-				if(cast)
-				{
-					if(!target_set(caster_ptr, 0, TARGET_KILL)) return NULL;
-					x = target_col;
-					y = target_row;
-				}
-				else
-				{
-					/* Summons near player when failed */
-					x = caster_ptr->fx;
-					y = caster_ptr->fy;
-				}
-
-				if(caster_ptr->class_idx == CLASS_BEASTMASTER) type = TRAIT_S_KAMIKAZE_LIVING;
-				else type = TRAIT_S_KAMIKAZE;
-
-				msg_print(MES_SUMMON_TRUMP_KAMIKAZE);
-
-				if(trump_summoning(caster_ptr, 2 + randint0(lev_bonus / 7), !fail, y, x, 0, type, 0L))
-				{
-					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_KAMIKAZE, TRUE);
 		break;
 
 	case 10:
@@ -3887,18 +3857,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dimension Door";
 		if(desc) return "Teleport to given location.";
 #endif
-    
-		{
-			COODINATES range = lev_bonus / 2 + 10;
-
-			if(info) return info_range(range);
-
-			if(cast)
-			{
-				msg_print(MES_TRAIT_DIMENSION_DOOR_DONE);
-				if(!dimension_door(caster_ptr)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DIMENSION_DOOR, TRUE);
 		break;
 
 	case 14:
