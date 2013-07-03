@@ -3343,19 +3343,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Berserk";
 		if(desc) return "Gives bonus to hit and HP, immunity to fear for a while. But decreases AC.";
 #endif
-    
-		{
-			int base = 25;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_S_HERO, randint1(base) + base, FALSE);
-				heal_creature(caster_ptr, 30);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BERSERK, TRUE);
 		break;
 
 	case 17:
@@ -4548,7 +4536,6 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Objects";
 		if(desc) return "Detects all items in your vicinity.";
 #endif
-    
 		{
 			COODINATES rad = DETECT_RAD_DEFAULT;
 
@@ -5052,19 +5039,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Berserk";
 		if(desc) return "Gives bonus to hit and HP, immunity to fear for a while. But decreases AC.";
 #endif
-    
-		{
-			int base = 25;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_S_HERO, randint1(base) + base, FALSE);
-				heal_creature(caster_ptr, 30);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BERSERK, TRUE);
 		break;
 
 	case 12:
