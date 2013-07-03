@@ -3940,17 +3940,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Hounds";
 		if(desc) return "Summons a group of hounds.";
 #endif
-    
-		{
-			if(cast || fail)
-			{
-				msg_print(MES_SUMMON_TRUMP_HOUND);
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_HOUND, PC_ALLOW_GROUP))
-				{
-					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_HOUND, TRUE);
 		break;
 
 	case 21:
@@ -4013,18 +4003,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Cyberdemon";
 		if(desc) return "Summons a cyber demon.";
 #endif
-    
-		{
-			if(cast || fail)
-			{
-				msg_print(MES_SUMMON_TRUMP_CYBER_DEMON);
-
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_CYBER, 0L))
-				{
-					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_CYBER, TRUE);
 		break;
 
 	case 24:
@@ -4046,13 +4025,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Lore";
 		if(desc) return "*Identifies* an item.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!identify_fully(caster_ptr, FALSE)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY_TURE, TRUE);
 		break;
 
 	case 26:
@@ -4063,7 +4036,6 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Heal Creature";
 		if(desc) return "Heal a creature.";
 #endif
-    
 		{
 			int heal = lev_bonus * 10 + 200;
 
@@ -4096,17 +4068,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Dragon";
 		if(desc) return "Summons a dragon.";
 #endif
-    
-		{
-			if(cast || fail)
-			{
-				msg_print(MES_SUMMON_TRUMP_DRAGON);
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_DRAGON, 0L))
-				{
-					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_DRAGON, TRUE);
 		break;
 
 	case 28:
@@ -4139,17 +4101,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Demon";
 		if(desc) return "Summons a demon.";
 #endif
-    
-		{
-			if(cast || fail)
-			{
-				msg_print(MES_SUMMON_TRUMP_DEMON);
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_DEMON, 0L))
-				{
-					if(fail) msg_print(MES_SUMMON_FUMBLE_CREATURE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_DEMON, TRUE);
 		break;
 
 	case 30:
