@@ -958,12 +958,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Healing";
 		if(desc) return "Much powerful healing magic, and heals cut and stun completely.";
 #endif
-    
-		{
-			int heal = 300;
-			if(info) return info_heal(0, 0, heal);
-			if(cast) heal_creature(caster_ptr, heal);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, 300);
 		break;
 
 	case 15:
@@ -1197,8 +1192,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Healing True";
 		if(desc) return "The greatest healing magic. Heals all HP, cut and stun.";
 #endif
-		if(info) return info_heal(0, 0, 2000);
-		if(cast) heal_creature(caster_ptr, 2000);
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, 2000);
 		break;
 
 	case 30:
@@ -2113,12 +2107,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Herbal Healing";
 		if(desc) return "Heals HP greatly. And heals cut, stun and poison completely.";
 #endif
-    
-		{
-			int heal = 500;
-			if(info) return info_heal(0, 0, heal);
-			if(cast) heal_creature(caster_ptr, heal);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, 500);
 		break;
 
 	case 16:

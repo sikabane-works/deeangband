@@ -278,7 +278,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_HEAL:
-		if(heal_creature(caster_ptr, 300)) effected = TRUE;
+		if(heal_creature(caster_ptr, power)) effected = TRUE;
 		break;
 
 	case TRAIT_GET_ESP:
