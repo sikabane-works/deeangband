@@ -2129,18 +2129,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Stone Skin";
 		if(desc) return "Gives bonus to AC for a while.";
 #endif
-    
-		{
-			int base = 20;
-			int sides = 30;
-
-			if(info) return info_duration(base, sides);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_SHIELD, randint1(sides) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_STONE_SKIN, TRUE, randint1(20) + 30);
 		break;
 
 	case 18:
