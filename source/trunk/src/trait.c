@@ -18,7 +18,12 @@
 #include "floors.h"
 #include "riding.h"
 
-bool do_active_trait(creature_type *caster_ptr, int id, bool message)
+bool do_active_trait_tmp(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER power)
+{
+	return do_active_trait(caster_ptr, id, message);
+}
+
+bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message)
 {
 	trait_type *trait_ptr = &trait_info[id];
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);

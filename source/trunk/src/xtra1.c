@@ -1962,8 +1962,6 @@ static void calc_lite(creature_type *creature_ptr)
 static void set_race_bonuses(creature_type *creature_ptr)
 {
 	int i;
-
-	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 	race_type *race1_ptr  = &race_info[creature_ptr->race_idx1];
 	race_type *race2_ptr = &race_info[creature_ptr->race_idx2];
 	race_type *mimic_ptr = &race_info[creature_ptr->mimic_race_idx];
