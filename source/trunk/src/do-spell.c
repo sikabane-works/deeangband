@@ -1011,17 +1011,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Day of the Dove";
 		if(desc) return "Attempts to charm all creatures in sight.";
 #endif
-    
-		{
-			POWER power = lev_bonus * 2;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				project_all_vision(caster_ptr, DO_EFFECT_CHARM, power);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVES, TRUE, 100);
 		break;
 
 	case 20:
@@ -1482,7 +1472,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Attempts to charm a creature.";
 #endif
 		if(info) return info_power(lev_bonus);
-		if(cast) cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, lev_bonus, 0);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVE, TRUE, 100);
 		break;
 
 	case 18:
@@ -1680,17 +1670,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Charm creatures";
 		if(desc) return "Attempts to charm all creatures in sight.";
 #endif
-    
-		{
-			POWER power = lev_bonus * 2;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				project_all_vision(caster_ptr, DO_EFFECT_CHARM, power);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVES, TRUE, 100);
 		break;
 
 	case 29:
@@ -6683,32 +6663,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Fellowship Chant";
 		if(desc) return "Attempts to charm all creatures in sight.";
 #endif
-
-		/* Stop singing before start another */
-		if(cast || fail) stop_singing(caster_ptr);
-
-		if(cast)
-		{
-#ifdef JP
-			msg_print("安らかなメロディを奏で始めた．．．");
-#else
-			msg_print("You weave a slow, soothing melody of imploration...");
-#endif
-			start_singing(caster_ptr, spell, MUSIC_CHARM);
-		}
-
-		{
-			int dice = 10 + lev_bonus / 15;
-			int sides = 6;
-
-			if(info) return info_power_dice(dice, sides);
-
-			if(cont)
-			{
-				project_all_vision(caster_ptr, DO_EFFECT_CHARM, diceroll(dice, sides));
-			}
-		}
-
+		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVES, TRUE, 100);
+		if(cont) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVES, TRUE, 100);
 		break;
 
 	case 16:
