@@ -843,10 +843,8 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 		if(name) return "Cure Poison";
 		if(desc) return "Cure poison status.";
-#endif    
-		{
-			if(cast) set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-		}
+#endif
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_REMOVE_POISON, TRUE);
 		break;
 
 	case 7:
@@ -4211,7 +4209,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if(name) return "魔法 感知";
+		if(name) return "魔法感知";
 		if(desc) return "近くの魔法がかかったアイテムを感知する。";
 #else
 		if(name) return "Detect Enchantment";
@@ -4258,13 +4256,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Poison";
 		if(desc) return "Cures poison status.";
 #endif
-    
-		{
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_REMOVE_POISON, TRUE);
 		break;
 
 	case 14:
@@ -5690,13 +5682,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Remove Fear";
 		if(desc) return "Removes fear.";
 #endif
-    
-		{
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_REMOVE_FEAR, TRUE);
 		break;
 
 	case 3:
