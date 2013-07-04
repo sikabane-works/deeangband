@@ -1733,6 +1733,7 @@ struct trait_type
 	traits_precondition flags;
 
 	CREATURE_LEV base_level;
+	POWER power;
 	s16b mp_cost;
 	s16b use_stat;
 	s16b fail;

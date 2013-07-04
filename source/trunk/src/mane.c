@@ -162,7 +162,7 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 	else
 	{
 		sound(SOUND_ZAP);
-		cast = do_active_trait(creature_ptr, creature_ptr->mane_spell[n], TRUE);
+		cast = do_active_trait_tmp(creature_ptr, creature_ptr->mane_spell[n], TRUE);
 		if(!cast) return FALSE;
 	}
 

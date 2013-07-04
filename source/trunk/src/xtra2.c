@@ -2925,7 +2925,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_format(MES_PATRON_BOOM_OUT(patron_name));
 			msg_print(MES_PATRON_HEAL_FUL);
 			reward = MES_DIARY_PATRON_HEALING;
-			do_active_trait(creature_ptr, TRAIT_TRUE_HEALING2, TRUE);
+			do_active_trait_tmp(creature_ptr, TRAIT_TRUE_HEALING2, TRUE);
 			break;
 
 		case REW_CURSE_WP:

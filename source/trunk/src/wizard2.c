@@ -986,8 +986,8 @@ static void wiz_create_item(creature_type *creature_ptr)
 // Cure everything instantly
 static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 {
-	do_active_trait(creature_ptr, TRAIT_HEAL, TRUE);
-	do_active_trait(creature_ptr, TRAIT_RESTORE_ALL, TRUE);
+	do_active_trait_tmp(creature_ptr, TRAIT_HEAL, TRUE);
+	do_active_trait_tmp(creature_ptr, TRAIT_RESTORE_ALL, TRUE);
 	(void)set_food(creature_ptr, CREATURE_FOOD_MAX - 1);
 }
 
@@ -1368,7 +1368,7 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 	i = get_selection(&se_info, se);
 	screen_load();
 
-	if(i >= 0) do_active_trait(creature_ptr, i, TRUE);
+	if(i >= 0) do_active_trait_tmp(creature_ptr, i, TRUE);
 }
 
 

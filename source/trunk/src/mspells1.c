@@ -853,7 +853,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 	can_remember = is_original_ap_and_seen(target_ptr, caster_ptr);
 
-	do_active_trait(caster_ptr, thrown_spell, TRUE); // Cast the spell.
+	do_active_trait_tmp(caster_ptr, thrown_spell, TRUE); // Cast the spell.
 
 	if((target_ptr->action == ACTION_LEARN) && thrown_spell > 175)
 	{

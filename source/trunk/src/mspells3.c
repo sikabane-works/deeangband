@@ -656,7 +656,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 	else
 	{
 		sound(SOUND_ZAP);
-		cast = do_active_trait(creature_ptr, n, TRUE);
+		cast = do_active_trait_tmp(creature_ptr, n, TRUE);
 		if(!cast) return FALSE;
 	}
 

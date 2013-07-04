@@ -629,7 +629,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 	switch (pattern_type)
 	{
 	case PATTERN_TILE_END:
-		do_active_trait(creature_ptr, TRAIT_SELF_HEALING_100D100, TRUE);
+		do_active_trait_tmp(creature_ptr, TRAIT_SELF_HEALING_100D100, TRUE);
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx, feat_pattern_old);
 		msg_print(MES_PATTERN_GOAL);
 

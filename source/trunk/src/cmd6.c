@@ -81,7 +81,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 	for(i = 0; i < MAX_TRAITS; i++)
 		if(has_trait_object(object1_ptr, i))
-			do_active_trait(creature_ptr, i, TRUE);
+			do_active_trait_tmp(creature_ptr, i, TRUE);
 
 	if(object1_ptr->tval == TV_FOOD)
 	{
@@ -355,7 +355,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 
 	for(i = 0; i < MAX_TRAITS; i++)
 		if(has_trait_object(object_ptr, i))
-			do_active_trait(caster_ptr, i, FALSE);
+			do_active_trait_tmp(caster_ptr, i, FALSE);
 
 	// Analyze the potion
 	if(quest_ptr->tval == TV_POTION)
@@ -628,7 +628,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 
 	for(i = 0; i < MAX_TRAITS; i++)
 		if(has_trait_object(object_ptr, i))
-			do_active_trait(caster_ptr, i, FALSE);
+			do_active_trait_tmp(caster_ptr, i, FALSE);
 
 	if(object_ptr->tval == TV_SCROLL)
 	{
@@ -803,7 +803,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_SCROLL_PROTECTION_FROM_EVIL:
-			do_active_trait(caster_ptr, TRAIT_PROT_EVIL, TRUE);
+			do_active_trait_tmp(caster_ptr, TRAIT_PROT_EVIL, TRUE);
 			break;
 
 		case SV_SCROLL_RUNE_OF_PROTECTION:
@@ -1220,7 +1220,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 	sound(SOUND_ZAP);	// Sound
 
-	for(i = 0; i < MAX_TRAITS; i++) if(has_trait_object(object_ptr, i)) do_active_trait(creature_ptr, i, FALSE);
+	for(i = 0; i < MAX_TRAITS; i++) if(has_trait_object(object_ptr, i)) do_active_trait_tmp(creature_ptr, i, FALSE);
 
 	ident = staff_effect(creature_ptr, object_ptr->sval, FALSE);
 
@@ -1489,7 +1489,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 
 	for(i = 0; i < MAX_TRAITS; i++)
 		if(has_trait_object(object_ptr, i))
-			do_active_trait(creature_ptr, i, FALSE);
+			do_active_trait_tmp(creature_ptr, i, FALSE);
 
 	ident = wand_effect(creature_ptr, object_ptr->sval, FALSE);
 
@@ -1654,7 +1654,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 
 	for(i = 0; i < MAX_TRAITS; i++)
 		if(has_trait_object(object_ptr, i))
-			do_active_trait(creature_ptr, i, FALSE);
+			do_active_trait_tmp(creature_ptr, i, FALSE);
 
 	ident = rod_effect(creature_ptr, object_ptr->sval, &use_charge, FALSE);
 	if(use_charge)
@@ -1822,7 +1822,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	}
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(has_trait_object(object_ptr, i)) do_active_trait(creature_ptr, i, FALSE);
+		if(has_trait_object(object_ptr, i)) do_active_trait_tmp(creature_ptr, i, FALSE);
 
 	if(object_ptr->tval == TV_RING)
 	{

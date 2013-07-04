@@ -2841,7 +2841,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		break;
 
 	case BUILDING_FUNCTION_RESTORE: // needs work
-		if(do_active_trait(creature_ptr, TRAIT_RESTORE_ALL, TRUE)) paid = TRUE;
+		if(do_active_trait_tmp(creature_ptr, TRAIT_RESTORE_ALL, TRUE)) paid = TRUE;
 		break;
 
 	case BUILDING_FUNCTION_ENCHANT_ARROWS:
