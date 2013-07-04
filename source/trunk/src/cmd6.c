@@ -1317,10 +1317,6 @@ static int wand_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1)) ident = TRUE;
 			break;
 
-		case SV_WAND_TELEPORT_AWAY:
-			if(cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, MAX_SIGHT * 5, -1)) ident = TRUE;
-			break;
-
 		case SV_WAND_DISARMING:
 			if(cast_beam(caster_ptr, DO_EFFECT_KILL_TRAP, MAX_RANGE_SUB, 0, -1)) ident = TRUE;
 			break;
@@ -1543,11 +1539,6 @@ static int rod_effect(creature_type *caster_ptr, SVAL sval, bool *use_charge, bo
 		case SV_ROD_DETECT_DOOR:
 			if(detect_doors(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			if(detect_stairs(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			break;
-
-		case SV_ROD_IDENTIFY:
-			if(!ident_spell(caster_ptr, FALSE)) *use_charge = FALSE;
-			ident = TRUE;
 			break;
 
 		case SV_ROD_DETECTION:
