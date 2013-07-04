@@ -856,10 +856,8 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 		if(name) return "Satisfy Hunger";
 		if(desc) return "Satisfies hunger.";
-#endif    
-		{
-			if(cast) set_food(caster_ptr, CREATURE_FOOD_MAX - 1);
-		}
+#endif
+		if(cast) do_active_trait(caster_ptr, TRAIT_SATIATE, TRUE);
 		break;
 
 	case 8:
@@ -4478,13 +4476,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Satisfy Hunger";
 		if(desc) return "Satisfies hunger.";
 #endif
-    
-		{
-			if(cast)
-			{
-				set_food(caster_ptr, CREATURE_FOOD_MAX - 1);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_SATIATE, TRUE);
 		break;
 
 	case 24:
@@ -4702,13 +4694,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Satisfy Hunger";
 		if(desc) return "Satisfies hunger.";
 #endif
-    
-		{
-			if(cast)
-			{
-				set_food(caster_ptr, CREATURE_FOOD_MAX - 1);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_SATIATE, TRUE);
 		break;
 
 	case 3:

@@ -713,11 +713,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			ident = TRUE;
 			break;
 
-		case SV_SCROLL_STAR_IDENTIFY:
-			if(!identify_fully(caster_ptr, FALSE)) used_up = FALSE;
-			ident = TRUE;
-			break;
-
 		case SV_SCROLL_ENCHANT_ARMOR:
 			ident = TRUE;
 			if(!enchant_spell(caster_ptr, 0, 0, 1, 0, 0)) used_up = FALSE;
