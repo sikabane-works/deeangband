@@ -734,14 +734,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Light Wounds";
 		if(desc) return "Heals cut and HP a little.";
 #endif
-    
-		{
-			int dice = 2;
-			int sides = 10;
-
-			if(info) return info_heal(dice, sides, 0);
-			if(cast) heal_creature(caster_ptr, diceroll(dice, sides));
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(2, 10));
 		break;
 
 	case 1:
@@ -827,13 +820,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Medium Wounds";
 		if(desc) return "Heals cut and HP more.";
 #endif
-   		{
-			int dice = 4;
-			int sides = 10;
-
-			if(info) return info_heal(dice, sides, 0);
-			if(cast) heal_creature(caster_ptr, diceroll(dice, sides));
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(4, 10));
 		break;
 
 	case 6:
@@ -895,13 +882,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Critical Wounds";
 		if(desc) return "Heals cut, stun and HP greatly.";
 #endif
-    
-		{
-			int dice = 8;
-			int sides = 10;
-			if(info) return info_heal(dice, sides, 0);
-			if(cast) heal_creature(caster_ptr, diceroll(dice, sides));
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(8, 10));
 		break;
 
 	case 11:
@@ -4136,13 +4117,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Light Wounds";
 		if(desc) return "Heals cut and HP a little.";
 #endif
-    
-		{
-			int dice = 2;
-			int sides = 8;
-			if(info) return info_heal(dice, sides, 0);
-			if(cast) heal_creature(caster_ptr, diceroll(dice, sides));
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(2, 10));
 		break;
 
 	case 8:
@@ -4311,14 +4286,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Medium Wounds";
 		if(desc) return "Heals cut and HP more.";
 #endif
-    
-		{
-			int dice = 4;
-			int sides = 8;
-
-			if(info) return info_heal(dice, sides, 0);
-			if(cast) heal_creature(caster_ptr, diceroll(dice, sides));
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(4, 10));
 		break;
 
 	case 19:
@@ -8315,16 +8283,8 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure light wounds";
 		if(desc) return "Heals cut and HP a little.";
 #endif
-		if(info) return info_heal(1, 10, 0);
-		if(cast)
-		{
-#ifdef JP
-			msg_print("気分が良くなってくる。");
-#else
-			msg_print("You feel better and better.");
-#endif
-		}
-		if(cast || cont) heal_creature(caster_ptr, diceroll(1, 10));
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(1, 10));
+		if(cont) do_active_trait(caster_ptr, TRAIT_HEAL, FALSE, diceroll(1, 10));
 		break;
 
 	case 2:
@@ -8546,16 +8506,8 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure serious wounds";
 		if(desc) return "Heals cut and HP more.";
 #endif
-		if(info) return info_heal(2, 10, 0);
-		if(cast)
-		{
-#ifdef JP
-			msg_print("気分が良くなってくる。");
-#else
-			msg_print("You feel better and better.");
-#endif
-		}
-		if(cast || cont) heal_creature(caster_ptr, diceroll(2, 10));
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(2, 10));
+		if(cont) do_active_trait(caster_ptr, TRAIT_HEAL, FALSE, diceroll(2, 10));
 		break;
 
 	case 10:
@@ -8717,16 +8669,8 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure critical wounds";
 		if(desc) return "Heals cut and HP greatry.";
 #endif
-		if(info) return info_heal(4, 10, 0);
-		if(cast)
-		{
-#ifdef JP
-			msg_print("気分が良くなってくる。");
-#else
-			msg_print("You feel better and better.");
-#endif
-		}
-		if(cast || cont) heal_creature(caster_ptr, diceroll(4, 10));
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(4, 10));
+		if(cont) do_active_trait(caster_ptr, TRAIT_HEAL, FALSE, diceroll(4, 10));
 		break;
 
 	case 18:
