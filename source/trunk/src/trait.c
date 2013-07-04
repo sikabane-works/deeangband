@@ -432,18 +432,16 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_MULTI_BLESS_1:
-		{
-			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, FALSE);
-			(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(50) + 50, FALSE);
-			(void)heal_creature(caster_ptr, 10);
-			(void)set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(50) + 50, FALSE);
-			(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(50) + 50, FALSE);
-			(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(50) + 50, FALSE);
-			(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(50) + 50, FALSE);
-			(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(50) + 50, FALSE);
-			(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(50) + 50, FALSE);
-			break;
-		}
+		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, FALSE);
+		(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(50) + 50, FALSE);
+		(void)heal_creature(caster_ptr, 10);
+		(void)set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(50) + 50, FALSE);
+		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(50) + 50, FALSE);
+		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(50) + 50, FALSE);
+		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(50) + 50, FALSE);
+		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(50) + 50, FALSE);
+		(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(50) + 50, FALSE);
+		break;
 
 	case TRAIT_HEAVENLY_CHOIR:
 		(void)set_timed_trait(caster_ptr, TRAIT_HERO, randint1(25) + 25, TRUE);

@@ -2220,13 +2220,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Stone Tell";
 		if(desc) return "*Identifies* an item.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!identify_fully(caster_ptr, FALSE)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY_TRUE, TRUE);
 		break;
 
 	case 22:
@@ -2271,17 +2265,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Earthquake";
 		if(desc) return "Shakes dungeon structure, and results in random swapping of floors and walls.";
 #endif
-    
-		{
-			COODINATES rad = 10;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_EARTHQUAKE, TRUE);
 		break;
 
 	case 25:
@@ -4984,7 +4968,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Polish Shield";
 		if(desc) return "Makes a shield a shield of reflection.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_PURISH_SHEILD, TRUE);
+		if(cast) do_active_trait(caster_ptr, TRAIT_PURISH_SHIELD, TRUE);
 				break;
 
 	case 22:
@@ -7982,10 +7966,8 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if(floor_ptr->cave[y][x].creature_idx)
-				close_combat(caster_ptr, y, x, HISSATSU_QUAKE);
-			else
-				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
+			if(floor_ptr->cave[y][x].creature_idx) close_combat(caster_ptr, y, x, HISSATSU_QUAKE);
+			else earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
 		}
 		break;
 
