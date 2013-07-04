@@ -1111,6 +1111,10 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			break;
 		}
 
+	case TRAIT_PURISH_SHIELD:
+		pulish_shield(caster_ptr);
+		break;
+
 	case TRAIT_SPECIAL:
 		{
 			switch (caster_ptr->species_idx)

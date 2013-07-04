@@ -4984,14 +4984,8 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Polish Shield";
 		if(desc) return "Makes a shield a shield of reflection.";
 #endif
-    
-		{
-			if(cast)
-			{
-				pulish_shield(caster_ptr);
-			}
-		}
-		break;
+		if(cast) do_active_trait(caster_ptr, TRAIT_PURISH_SHEILD, TRUE);
+				break;
 
 	case 22:
 #ifdef JP
