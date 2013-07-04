@@ -2168,21 +2168,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resistance True";
 		if(desc) return "Gives resistance to fire, cold, electricity, acid and poison for a while. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_ELEMENT, TRUE);
 		break;
 
 	case 19:
@@ -4911,21 +4897,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resistance";
 		if(desc) return "Gives resistance to fire, cold, electricity, acid and poison for a while. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_ELEMENT, TRUE);
 		break;
 
 	case 19:
@@ -4969,7 +4941,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Makes a shield a shield of reflection.";
 #endif
 		if(cast) do_active_trait(caster_ptr, TRAIT_PURISH_SHIELD, TRUE);
-				break;
+		break;
 
 	case 22:
 #ifdef JP
@@ -6900,20 +6872,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Finrod's Resistance";
 		if(desc) return "Gives resistance to fire, cold, electricity, acid and poison. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
-    
 		/* Stop singing before start another */
 		if(cast || fail) stop_singing(caster_ptr);
-
-		if(cast)
-		{
-#ifdef JP
-			msg_print("å≥ëfÇÃóÕÇ…ëŒÇ∑ÇÈîEëœÇÃâÃÇâÃÇ¡ÇΩÅB");
-#else
-			msg_print("You sing a song of perseverance against powers...");
-#endif
-			start_singing(caster_ptr, spell, MUSIC_RESIST);
-		}
-
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_ELEMENT, TRUE);
 		break;
 
 	case 18:
