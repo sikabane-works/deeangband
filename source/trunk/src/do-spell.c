@@ -1514,18 +1514,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Sense Minds";
 		if(desc) return "Gives telepathy for a while.";
 #endif
-    
-		{
-			int base = 25;
-			int sides = 30;
-
-			if(info) return info_duration(base, sides);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ESP, TRUE, 50);
 		break;
 
 	case 19:
@@ -3640,18 +3629,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Spying";
 		if(desc) return "Gives telepathy for a while.";
 #endif
-    
-		{
-			int base = 25;
-			int sides = 30;
-
-			if(info) return info_duration(base, sides);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ESP, TRUE, 50);
 		break;
 
 	case 6:
@@ -4825,18 +4803,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Telepathy";
 		if(desc) return "Gives telepathy for a while.";
 #endif
-    
-		{
-			int base = 25;
-			int sides = 30;
-
-			if(info) return info_duration(base, sides);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ESP, TRUE, 50);
 		break;
 
 	case 17:
@@ -5361,18 +5328,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Devilish Eye";
 		if(desc) return "Gives telepathy for a while.";
 #endif
-    
-		{
-			int base = 30;
-			int sides = 25;
-
-			if(info) return info_duration(base, sides);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_ESP, randint1(base) + sides, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ESP, TRUE, 50);
 		break;
 
 	case 17:
