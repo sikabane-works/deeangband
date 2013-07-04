@@ -289,6 +289,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * caster_ptr->lev, FALSE);
 		break;
 
+	case TRAIT_RESIST:
 	case TRAIT_MAGIC_RES_ELEMENT:
 		if(set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(40) + 40, FALSE)) effected = TRUE;
 		if(set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(40) + 40, FALSE)) effected = TRUE;
@@ -1939,39 +1940,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			for (i = 0; i < 8; i++)
 			{
 				summoning(NULL, caster_ptr->fy, caster_ptr->fx, user_level, TRAIT_S_MOLD, PC_FORCE_PET);
-			}
-		}
-		break;
-
-	case TRAIT_RESIST:
-		{
-			int num = user_level / 10;
-			int dur = randint1(20) + 20;
-
-			if(randint0(5) < num)
-			{
-				(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, dur, FALSE);
-				num--;
-			}
-			if(randint0(4) < num)
-			{
-				(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, dur, FALSE);
-				num--;
-			}
-			if(randint0(3) < num)
-			{
-				(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
-				num--;
-			}
-			if(randint0(2) < num)
-			{
-				(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
-				num--;
-			}
-			if(num)
-			{
-				(void)set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, dur, FALSE);
-				num--;
 			}
 		}
 		break;
