@@ -358,6 +358,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + (COODINATES)randint0(5), FALSE)) effected = TRUE;
 		break;
 
+	case TRAIT_STAIR_BUILDING:
+		stair_creation(caster_ptr, floor_ptr);
+		break;
+
 	case TRAIT_MAGIC_CHARGE_2:
 		recharge(caster_ptr, 130);
 		break;

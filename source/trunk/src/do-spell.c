@@ -2118,13 +2118,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Stair Building";
 		if(desc) return "Creates a stair which goes down or up.";
 #endif
-    
-		{
-			if(cast)
-			{
-				stair_creation(caster_ptr, floor_ptr);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_STAIR_BUILDING, TRUE, 0);
 		break;
 
 	case 17:
