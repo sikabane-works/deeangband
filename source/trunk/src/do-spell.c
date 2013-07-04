@@ -3301,7 +3301,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Animate dead";
 		if(desc) return "Resurrects nearby corpse and skeletons. And makes these your pets.";
 #endif
-		if(cast) project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1);
+		if(cast) do_active_trait(caster_ptr, TRAIT_ANIM_DEAD, TRUE);
 		break;
 
 	case 15:
@@ -6840,21 +6840,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Firiel's Song";
 		if(desc) return "Resurrects nearby corpse and skeletons. And makes these your pets.";
 #endif
-    
-		{
-			/* Stop singing before start another */
-			if(cast || fail) stop_singing(caster_ptr);
-
-			if(cast)
-			{
-#ifdef JP
-				msg_print("生命と復活のテーマを奏で始めた．．．");
-#else
-				msg_print("The themes of life and revival are woven into your song...");
-#endif
-				project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_ANIM_DEAD, TRUE);
 		break;
 
 	case 15:
@@ -8917,15 +8903,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Animate Dead";
 		if(desc) return "Raises corpses and skeletons from dead.";
 #endif
-		if(cast)
-		{
-#ifdef JP
-			msg_print("死者への呼びかけを始めた。");
-#else
-			msg_print("You start to call deads.!");
-#endif
-		}
-		if(cast || cont) project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1);
+		if(cast) do_active_trait(caster_ptr, TRAIT_ANIM_DEAD, TRUE);
 		break;
 
 	case 20:
