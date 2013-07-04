@@ -761,14 +761,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cause Light Wounds";
 		if(desc) return "Wounds a creature a little unless resisted.";
 #endif
-    
-		{
-			int dice = 3 + (lev_bonus - 1) / 5;
-			int sides = 4;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_WOUNDS, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_CAUSE_1, TRUE, 100);
 		break;
 
 	case 3:
@@ -864,14 +857,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cause Medium Wounds";
 		if(desc) return "Wounds a creature unless resisted.";
 #endif
-    
-		{
-			int sides = 8 + (lev_bonus - 5) / 4;
-			int dice = 8;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_WOUNDS, MAX_RANGE_SUB, diceroll(sides, dice), 0);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_CAUSE_2, TRUE, 100);
 		break;
 
 	case 10:
@@ -1022,14 +1008,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cause Critical Wounds";
 		if(desc) return "Wounds a creature critically unless resisted.";
 #endif
-    
-		{
-			int dice = 5 + (lev_bonus - 5) / 3;
-			int sides = 15;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_WOUNDS, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_CAUSE_3, TRUE, 100);
 		break;
 
 	case 21:
