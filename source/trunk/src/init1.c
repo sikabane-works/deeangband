@@ -4048,8 +4048,6 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_INFO_INFRA:
-					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_ptr->infra = (s16b)b;
 				break;
 
 				case TRAIT_INFO_HITD_M:

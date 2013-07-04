@@ -1704,7 +1704,7 @@ struct trait_type
 	traits_precondition alias;
 	FLAGS_32 reverse_alias[MAX_TRAITS_FLAG];
 	byte effect_type;
-	s16b adj[STAT_MAX];
+	STAT adj[STAT_MAX];
 	SAVING ac;
 	SAVING ev;
 	SAVING vo;
@@ -1717,7 +1717,6 @@ struct trait_type
 	TRYING thb;		/* Skill: To hit (shooting) */
 	TRYING tht;		/* Skill: To hit (throwing) */
 	TRYING dig;		/* Skill: Digging */
-	s16b infra;
 	s16b hitd_m;
 	s16b exp;
 	s16b charge;	// Base Charge
