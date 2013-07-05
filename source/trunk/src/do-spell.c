@@ -1019,7 +1019,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Word of Recall";
 		if(desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
 #endif
-		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_RECALL, TRUE);
+		if(cast) do_active_trait(caster_ptr, TRAIT_RECALL, TRUE, 100);
 		break;
 
 	case 22:
@@ -1030,7 +1030,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Alter Reality";
 		if(desc) return "Recreates current dungeon level.";
 #endif
-		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SHADOW_SHIFT, TRUE);
+		if(cast) do_active_trait(caster_ptr, TRAIT_SHADOW_SHIFT, TRUE, 100);
 		break;
 
 	case 23:
@@ -1041,7 +1041,6 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Warding True";
 		if(desc) return "Creates glyphs in all adjacent squares and under you.";
 #endif
-    
 		{
 			COODINATES rad = 1;
 
@@ -1080,7 +1079,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detection";
 		if(desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
 #endif
-		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_DETECT_ALL, TRUE);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_ALL, TRUE, 100);
 		break;
 
 	case 26:
@@ -1112,13 +1111,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Clairvoyance";
 		if(desc) return "Maps and lights whole dungeon level. Knows all objects location. And gives telepathy for a while.";
 #endif
-    
-		{
-			if(cast)
-			{
-				wiz_lite(floor_ptr, caster_ptr, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_ENLIGHTENMENT, TRUE, 100);
 		break;
 
 	case 28:
@@ -1129,7 +1122,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Restoration";
 		if(desc) return "Restores all stats and experience.";
 #endif
-		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_RESTORE_ALL, TRUE);
+		if(cast) do_active_trait(caster_ptr, TRAIT_RESTORE_ALL, TRUE, 100);
 		break;
 
 	case 29:
@@ -1151,7 +1144,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Holy Vision";
 		if(desc) return "*Identifies* an item.";
 #endif
-		if(cast)
+		if(cast) 
 		{
 			if(!identify_fully(caster_ptr, FALSE)) return NULL;
 		}
