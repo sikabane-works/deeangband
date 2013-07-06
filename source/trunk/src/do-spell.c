@@ -7125,11 +7125,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Ferocity";
 		if(desc) return "Detects all creatures except mindless in your vicinity.";
 #endif
-    
-		if(cast)
-		{
-			detect_creatures_mind(caster_ptr, DETECT_RAD_DEFAULT);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_FELOCITY, TRUE, 100);
 		break;
 
 	case 5:

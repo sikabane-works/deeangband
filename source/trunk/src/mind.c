@@ -1111,7 +1111,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		return mirror_tunnel(caster_ptr);
 
 	case 17:
-		return word_of_recall(caster_ptr, randint0(21) + 15);
+		return do_active_trait(caster_ptr, TRAIT_RECALL, TRUE, 100);
 
 	case 18:
 		set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
@@ -1145,8 +1145,7 @@ static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 	switch (spell)
 	{
 	case 0:
-		detect_creatures_mind(caster_ptr, DETECT_RAD_DEFAULT);
-		break;
+		do_active_trait(caster_ptr, TRAIT_DETECT_FELOCITY, TRUE, 100);
 	case 1:
 	case 2:
 		{

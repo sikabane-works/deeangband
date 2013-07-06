@@ -323,6 +323,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		effected = TRUE;
 		break;
 
+	case TRAIT_DETECT_FELOCITY:
+		detect_creatures_mind(caster_ptr, DETECT_RAD_DEFAULT);
+		break;
+
 	case TRAIT_DETECT_ALL:
 		detect_all(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
