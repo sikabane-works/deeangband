@@ -768,16 +768,6 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
 		if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
-
-
-		{
-			int dice = 2;
-			int sides = lev_bonus / 2;
-			COODINATES rad = (COODINATES)lev_bonus / 10 + 1;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) lite_area(caster_ptr, diceroll(dice, sides), rad);
-		}
 		break;
 
 	case 4:
@@ -788,18 +778,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Doors & Traps";
 		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
-    	{
-			COODINATES rad = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_traps(caster_ptr, rad, TRUE);
-				detect_doors(caster_ptr, rad);
-				detect_stairs(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_DOOR_TRAP, TRUE, 100);
 		break;
 
 	case 5:
@@ -1225,19 +1204,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Doors and Traps";
 		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_traps(caster_ptr, rad, TRUE);
-				detect_doors(caster_ptr, rad);
-				detect_stairs(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_DOOR_TRAP, TRUE, 100);
 		break;
 
 	case 3:
@@ -4041,19 +4008,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Doors & Traps";
 		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_traps(caster_ptr, rad, TRUE);
-				detect_doors(caster_ptr, rad);
-				detect_stairs(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_DOOR_TRAP, TRUE, 100);
 		break;
 
 	case 9:
