@@ -1849,7 +1849,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_SMELL_MET:
 		stop_mouth(caster_ptr);
-		(void)detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
+		detect_treasure(caster_ptr, power / 5);
+		detect_objects_gold(caster_ptr, power / 5);
 		break;
 
 	case TRAIT_SMELL_MON:

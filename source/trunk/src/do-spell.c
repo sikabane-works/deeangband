@@ -4102,18 +4102,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Treasure";
 		if(desc) return "Detects all treasures in your vicinity.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_treasure(caster_ptr, rad);
-				detect_objects_gold(caster_ptr, rad);
-			}
-		}
+		do_active_trait(caster_ptr, TRAIT_SMELL_MET, TRUE, 100);
 		break;
 
 	case 11:
