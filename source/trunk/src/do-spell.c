@@ -429,7 +429,7 @@ static void cast_shuffle(creature_type *caster_ptr)
 	else if(die < 42)
 	{
 		msg_print(SHUFFLE_JUSTICE);
-		set_timed_trait(caster_ptr, TRAIT_BLESSED, caster_ptr->lev, FALSE);
+		do_active_trait(caster_ptr, TRAIT_BLESSING_SELF, FALSE, 100);
 	}
 	else if(die < 47)
 	{
@@ -745,12 +745,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Bless";
 		if(desc) return "Gives bonus to hit and AC for a few turns.";
 #endif
-    
-		{
-			int base = 12;
-			if(info) return info_duration(base, base);
-			if(cast) set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BLESSING_SELF, TRUE, 100);
 		break;
 
 	case 2:
@@ -4984,17 +4979,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Evil Bless";
 		if(desc) return "Gives bonus to hit and AC for a few turns.";
 #endif
-    
-		{
-			int base = 12;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BLESSING_SELF, TRUE, 100);
 		break;
 
 	case 3:
