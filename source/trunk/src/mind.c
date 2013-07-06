@@ -920,7 +920,7 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 		cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5) + boost / 12, 4), 0);
 		break;
 	case 1:
-		(void)lite_area(caster_ptr, diceroll(2, (COODINATES)(lev_bonus / 2)), (COODINATES)(lev_bonus / 10) + 1);
+		do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
 		break;
 	case 2:
 		set_timed_trait(caster_ptr, TRAIT_LEVITATION, randint1(30) + 30 + boost / 5, FALSE);
@@ -1043,7 +1043,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		teleport_creature(caster_ptr, 10, 0L);
 		break;
 	case 4: /* mirror of light */
-		(void)lite_area(caster_ptr, diceroll(2, (COODINATES)(lev_bonus / 2)), (COODINATES)(lev_bonus / 10) + 1);
+		do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
 		break;
 	case 5: /* mirror of wandering */
 		teleport_creature(caster_ptr, (COODINATES)lev_bonus * 5, 0L);

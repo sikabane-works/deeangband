@@ -767,7 +767,9 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Call Light";
 		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
-    
+		if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
+
+
 		{
 			int dice = 2;
 			int sides = lev_bonus / 2;
@@ -1789,25 +1791,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Daylight";
 		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
-    
-		{
-			int dice = 2;
-			int sides = lev_bonus / 2;
-			COODINATES rad = (COODINATES)(lev_bonus / 10) + 1;
-
-			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				lite_area(caster_ptr, diceroll(dice, sides), rad);
-
-				if(has_trait(caster_ptr, TRAIT_HURT_LITE) && !has_trait(caster_ptr, TRAIT_RES_LITE))
-				{
-					msg_format(MES_DAMAGE_SUNLIGHT(caster_ptr));
-					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(2, 2), COD_SUNLIGHT, NULL, -1);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
 		break;
 
 	case 5:
@@ -6244,28 +6228,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Song of the Sun";
 		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
-    
-		/* Stop singing before start another */
-		if(cast || fail) stop_singing(caster_ptr);
-
-		{
-			int dice = 2;
-			int sides = lev_bonus / 2;
-			COODINATES rad = (COODINATES)lev_bonus / 10 + 1;
-
-			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-#ifdef JP
-				msg_print("åıÇËãPÇ≠âÃÇ™ï”ÇËÇè∆ÇÁÇµÇΩÅB");
-#else
-				msg_print("Your uplifting song brings brightness to dark places...");
-#endif
-
-				lite_area(caster_ptr, diceroll(dice, sides), rad);
-			}
-		}
+		if(cast || cont) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
 		break;
 
 	case 6:
