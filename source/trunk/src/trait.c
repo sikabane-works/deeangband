@@ -2020,6 +2020,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		effected = TRUE;
 		break;
 
+	case TRAIT_BLESSING_SELF:
+		set_timed_trait(caster_ptr, TRAIT_BLESSED, 100, FALSE);
+		break;
+
 	case TRAIT_RES_STR:
 		if(do_res_stat(caster_ptr, STAT_STR)) effected = TRUE;
 		break;
