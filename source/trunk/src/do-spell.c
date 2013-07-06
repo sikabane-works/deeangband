@@ -1614,24 +1614,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Clairvoyance";
 		if(desc) return "Maps and lights whole dungeon level. Knows all objects location. And gives telepathy for a while.";
 #endif
-    
-		{
-			int base = 25;
-			int sides = 30;
-
-			if(info) return info_duration(base, sides);
-
-			if(cast)
-			{
-
-				wiz_lite(floor_ptr, caster_ptr, FALSE);
-
-				if(!has_trait(caster_ptr, TRAIT_ESP))
-				{
-					set_timed_trait(caster_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_ENLIGHTENMENT, TRUE, 100);
 		break;
 
 	case 28:
@@ -3973,7 +3956,6 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	FLOOR_LEV lev_bonus = caster_ptr->lev;
 
@@ -4441,23 +4423,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Clairvoyance";
 		if(desc) return "Maps and lights whole dungeon level. Knows all objects location. And gives telepathy for a while.";
 #endif
-    
-		{
-			int base = 25;
-			int sides = 30;
-
-			if(info) return info_duration(base, sides);
-
-			if(cast)
-			{
-				wiz_lite(floor_ptr, caster_ptr, FALSE);
-
-				if(!has_trait(caster_ptr, TRAIT_ESP))
-				{
-					set_timed_trait(caster_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_ENLIGHTENMENT, TRUE, 100);
 		break;
 	}
 
