@@ -1081,10 +1081,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Holy Vision";
 		if(desc) return "*Identifies* an item.";
 #endif
-		if(cast) 
-		{
-			if(!identify_fully(caster_ptr, FALSE)) return NULL;
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY_TRUE, TRUE, 100);
 		break;
 
 	case 31:
@@ -1095,25 +1092,9 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Ultimate Resistance";
 		if(desc) return "Gives ultimate resistance, bonus to AC and speed.";
 #endif
-    
-		{
-			int base = lev_bonus / 2;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				int v = randint1(base) + base;
-				set_timed_trait(caster_ptr, TRAIT_FAST, v, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, v, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, v, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, v, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, v, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, v, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_ULTRA_RES, v, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ULTRA_RESISTANCE, TRUE, lev_bonus / 2);
 		break;
+
 	}
 
 	return "";

@@ -298,6 +298,19 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(40) + 40, FALSE)) effected = TRUE;
 		break;
 
+	case TRAIT_GET_ULTRA_RESISTANCE:
+		{
+			int v = randint1(power) + power;
+			set_timed_trait(caster_ptr, TRAIT_FAST, v, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, v, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, v, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, v, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, v, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, v, FALSE);
+			set_timed_trait(caster_ptr, TRAIT_ULTRA_RES, v, FALSE);
+		}
+		break;
+
 		//TODO Remove duplicated process
 	case TRAIT_HASTE:
 		if(set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20, TRUE))
