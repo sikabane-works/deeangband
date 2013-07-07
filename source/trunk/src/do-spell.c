@@ -1445,13 +1445,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Probing";
 		if(desc) return "Proves all creatures' alignment, HP, speed and their true character.";
 #endif
-    
-		{
-			if(cast)
-			{
-				probing(GET_FLOOR_PTR(caster_ptr));
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SCAN_CREATURE, TRUE);
 		break;
 
 	case 25:
