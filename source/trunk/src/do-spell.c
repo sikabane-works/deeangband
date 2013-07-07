@@ -943,14 +943,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dispel Undead";
 		if(desc) return "Damages all undead creatures in sight.";
 #endif
-    
-		{
-			int dice = 1;
-			int sides = lev_bonus * 5;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, diceroll(dice, sides));
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DISPEL_UNDEAD, TRUE, lev_bonus * 5);
 		break;
 
 	case 19:
@@ -5751,7 +5744,6 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dispel Undead & Demons";
 		if(desc) return "Damages all undead and demons in sight.";
 #endif
-    
 		{
 			int sides = lev_bonus * 4;
 

@@ -811,10 +811,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			ident = TRUE;
 			break;
 
-		case SV_SCROLL_DISPEL_UNDEAD:
-			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, 80)) ident = TRUE;
-			break;
-
 		case SV_SCROLL_SPELL:
 			caster_ptr->add_spells++;
 			prepare_update(caster_ptr, CRU_SPELLS);
