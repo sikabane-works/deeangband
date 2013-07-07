@@ -1410,18 +1410,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dimension Door";
 		if(desc) return "Teleport to given location.";
 #endif
-    
-		{
-			COODINATES range = lev_bonus / 2 + 10;
-
-			if(info) return info_range(range);
-
-			if(cast)
-			{
-				msg_print(MES_TRAIT_DIMENSION_DOOR_DONE);
-				if(!dimension_door(caster_ptr)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DIMENSION_DOOR, TRUE, lev_bonus / 2 + 10);
 		break;
 
 	case 24:
