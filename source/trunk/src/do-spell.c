@@ -1207,17 +1207,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Recharging";
 		if(desc) return "Recharges staffs, wands or rods.";
 #endif
-    
-		{
-			POWER power = lev_bonus * 4;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(!recharge(caster_ptr, power)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_CHARGE_2, TRUE, lev_bonus * 4);
 		break;
 
 	case 8:
@@ -2478,17 +2468,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Arcane Binding";
 		if(desc) return "Recharges staffs, wands or rods.";
 #endif
-    
-		{
-			POWER power = 90;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				if(!recharge(caster_ptr, power)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_CHARGE_2, TRUE, 90);
 		break;
 
 	case 19:
@@ -8344,13 +8324,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Recharging";
 		if(desc) return "Recharges a magic device.";
 #endif
-		power = lev_bonus * 2;
-		if(info) return info_power(power);
-		if(cast)
-		{
-			if(!recharge(caster_ptr, power)) return NULL;
-			add = FALSE;
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_CHARGE_2, TRUE, lev_bonus * 2);
 		break;
 
 	case 19:
