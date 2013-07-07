@@ -910,13 +910,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Glyph of Warding";
 		if(desc) return "Sets a glyph on the floor beneath you. Creatures cannot attack you if you are on a glyph, but can try to break glyph.";
 #endif
-    
-		{
-			if(cast)
-			{
-				warding_glyph(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_PROTECT_RUNE, TRUE, 300);
 		break;
 
 	case 16:
@@ -938,13 +932,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Perception";
 		if(desc) return "Identifies an item.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!ident_spell(caster_ptr, FALSE)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY, TRUE, 100);
 		break;
 
 	case 18:
@@ -6783,22 +6771,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Endurance";
 		if(desc) return "Sets a glyph on the floor beneath you. Creatures cannot attack you if you are on a glyph, but can try to break glyph.";
 #endif
-    
-		{
-			/* Stop singing before start another */
-			if(cast || fail) stop_singing(caster_ptr);
-
-			if(cast)
-			{
-#ifdef JP
-				msg_print("歌が神聖な場を作り出した．．．");
-#else
-				msg_print("The holy power of the Music is creating sacred field...");
-#endif
-
-				warding_glyph(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_PROTECT_RUNE, TRUE);
 		break;
 
 	case 27:
