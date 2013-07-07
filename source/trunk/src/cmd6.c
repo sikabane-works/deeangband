@@ -459,13 +459,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
 			break;
 
-		case SV_POTION_SELF_KNOWLEDGE:
-			msg_print(MES_TRAIT_KNOWLEDGE);
-			msg_print(NULL);
-			creature_knowledge(caster_ptr);
-			effected = TRUE;
-			break;
-
 		case SV_POTION_EXPERIENCE:
 			if(has_trait(caster_ptr, TRAIT_ANDROID)) break;
 			if(caster_ptr->exp < CREATURE_MAX_EXP)
