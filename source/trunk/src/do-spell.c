@@ -2435,15 +2435,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Call Chaos";
 		if(desc) return "Generate random kind of balls or beams.";
 #endif
-    
-		{
-			if(info) return format("%s150 / 250", s_dam);
-
-			if(cast)
-			{
-				call_chaos(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_CALL_CHAOS, TRUE, lev_bonus * 2);
 		break;
 
 	case 28:

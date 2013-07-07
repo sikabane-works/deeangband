@@ -1513,10 +1513,6 @@ static int rod_effect(creature_type *caster_ptr, SVAL sval, bool *use_charge, bo
 			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
 			break;
 
-		case SV_ROD_HAVOC:
-			call_chaos(caster_ptr);
-			ident = TRUE;
-			break;
 	}
 	return ident;
 }
