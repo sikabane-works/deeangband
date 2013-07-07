@@ -1130,9 +1130,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Phase Door";
 		if(desc) return "Teleport short distance.";
 #endif
-		{
-			if(cast) do_active_trait_tmp(caster_ptr, TRAIT_BLINK, TRUE);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_BLINK, TRUE);
 		break;
 
 	case 2:
@@ -1154,9 +1152,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Light Area";
 		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
-		{
-			if(cast) do_active_trait_tmp(caster_ptr, TRAIT_LIGHT_AREA, TRUE);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_LIGHT_AREA, TRUE);
 		break;
 
 	case 4:
@@ -1190,13 +1186,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Sleep Creature";
 		if(desc) return "Attempts to sleep a creature.";
 #endif
-    
-		{
-			POWER power = lev_bonus;
-
-			if(info) return info_power(power);
-			if(cast) cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SLEPT, TRUE);
 		break;
 
 	case 7:
@@ -2720,13 +2710,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Black Sleep";
 		if(desc) return "Attempts to sleep a creature.";
 #endif
-    
-		{
-			POWER power = lev_bonus;
-
-			if(info) return info_power(power);
-			if(cast) cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SLEPT, TRUE);
 		break;
 
 	case 5:
