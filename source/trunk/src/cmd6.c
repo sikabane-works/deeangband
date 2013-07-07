@@ -128,10 +128,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0, TRUE)) ident = TRUE;
 				break;
 
-			case SV_FOOD_CURE_PARANOIA:
-				if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0, TRUE)) ident = TRUE;
-				break;
-
 			case SV_FOOD_CURE_CONFUSION:
 				if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0, TRUE)) ident = TRUE;
 				break;
@@ -453,10 +449,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 
 		case SV_POTION_SLOW_POISON:
 			if(set_timed_trait(caster_ptr, TRAIT_POISONED, caster_ptr->timed_trait[TRAIT_POISONED] / 2, TRUE)) effected = TRUE;
-			break;
-
-		case SV_POTION_BOLDNESS:
-			if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE)) effected = TRUE;
 			break;
 
 		case SV_POTION_EXPERIENCE:
