@@ -1904,14 +1904,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Whirlpool";
 		if(desc) return "Fires a huge ball of water.";
 #endif
-    
-		{
-			POWER dam = 100 + lev_bonus * 3 / 2;
-			COODINATES rad = (COODINATES)lev_bonus / 12 + 1;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_WATER, MAX_RANGE_SUB, dam, rad);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_WATER_STORM, TRUE);
 		break;
 
 	case 29:
