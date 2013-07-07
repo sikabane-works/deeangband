@@ -1075,15 +1075,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			ident = TRUE;
 			break;
 
-		case SV_STAFF_EARTHQUAKES:
-			if(earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10)) ident = TRUE;
-			else msg_print(MES_EARTHQUAKE_CANCELED);
-			break;
-
-		case SV_STAFF_ANIMATE_DEAD:
-			if(project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1)) ident = TRUE;
-			break;
-
 		case SV_STAFF_MSTORM:
 			msg_print(MES_TRAIT_MANA_FIELD_DONE);
 			project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, (randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
