@@ -451,17 +451,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			if(set_timed_trait(caster_ptr, TRAIT_POISONED, caster_ptr->timed_trait[TRAIT_POISONED] / 2, TRUE)) effected = TRUE;
 			break;
 
-		case SV_POTION_EXPERIENCE:
-			if(has_trait(caster_ptr, TRAIT_ANDROID)) break;
-			if(caster_ptr->exp < CREATURE_MAX_EXP)
-			{
-				s32b ee = (caster_ptr->exp / 2) + 10;
-				if(ee > 100000L) ee = 100000L;
-				gain_exp(caster_ptr, ee, 0, TRUE);
-				effected = TRUE;
-			}
-			break;
-
 		case SV_POTION_CURING:
 			effected |= (heal_creature(caster_ptr, 50));
 			break;

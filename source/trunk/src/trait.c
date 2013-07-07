@@ -2271,6 +2271,16 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_GAIN_EXP:
+		if(caster_ptr->exp < CREATURE_MAX_EXP)
+		{
+			s32b ee = (caster_ptr->exp / 2) + 10;
+			if(ee > 100000L) ee = 100000L;
+			gain_exp(caster_ptr, ee, 0, TRUE);
+			effected = TRUE;
+		}
+		break;
+
 	case 3: /* TRAIT_LAUNCHER */
 		/* Gives a multiplier of 2 at first, up to 3 at 40th */
 		if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE;
