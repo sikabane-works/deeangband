@@ -1538,8 +1538,6 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	static const char s_dam[] = KW_DAM;
 	static const char s_rng[] = KW_RAN;
-
-	DIRECTION dir;
 	FLOOR_LEV lev_bonus = caster_ptr->lev;
 
 	switch (spell)
@@ -1959,31 +1957,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cyclone";
 		if(desc) return "Attacks all adjacent creatures.";
 #endif
-    
-		{
-			if(cast)
-			{
-				int y = 0, x = 0;
-				cave_type       *c_ptr;
-				creature_type    *m_ptr;
-
-				for (dir = 0; dir < 8; dir++)
-				{
-					y = caster_ptr->fy + ddy_ddd[dir];
-					x = caster_ptr->fx + ddx_ddd[dir];
-					c_ptr = &floor_ptr->cave[y][x];
-
-					/* Get the creature */
-					m_ptr = &creature_list[c_ptr->creature_idx];
-
-					/* Hack -- attack creatures */
-					if(c_ptr->creature_idx && (m_ptr->see_others || CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)))
-					{
-						close_combat(caster_ptr, y, x, 0);
-					}
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MASSACRE, TRUE, 100);
 		break;
 
 	case 26:

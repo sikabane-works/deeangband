@@ -1158,7 +1158,7 @@ static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 		earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 8 + (COODINATES)randint0(5));
 		break;
 	case 4:
-		massacre(caster_ptr);
+		do_active_trait(caster_ptr, TRAIT_MASSACRE, TRUE, 100);
 		break;
 	default:
 		msg_warning(MES_SYS_OUT_OF_SWITCH);
