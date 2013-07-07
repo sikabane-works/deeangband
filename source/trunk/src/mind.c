@@ -1237,7 +1237,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		(void)teleport_swap(caster_ptr, dir);
 		break;
 	case 15:
-		explosive_rune(caster_ptr);
+		do_active_trait_tmp(caster_ptr, TRAIT_EXPLOSIVE_RUNE, TRUE);
 		break;
 	case 16:
 		(void)set_timed_trait(caster_ptr, TRAIT_PASS_WALL, randint1(caster_ptr->lev/2) + caster_ptr->lev/2, FALSE);

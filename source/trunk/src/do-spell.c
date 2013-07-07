@@ -1432,19 +1432,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Explosive Rune";
 		if(desc) return "Sets a glyph under you. The glyph will explode when a creature moves on it.";
 #endif
-    
-		{
-			int dice = 7;
-			int sides = 7;
-			int base = lev_bonus;
-
-			if(info) return info_damage(dice, sides, base);
-
-			if(cast)
-			{
-				explosive_rune(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_EXPLOSIVE_RUNE, TRUE);
 		break;
 
 	case 26:
