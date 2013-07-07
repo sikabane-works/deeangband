@@ -860,8 +860,7 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 10: /* Telekinesis */
-		if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		fetch(caster_ptr, MAX_RANGE, dir, lev_bonus * 15, FALSE);
+		do_active_trait(caster_ptr, TRAIT_TELEKINES, TRUE, lev_bonus * 15);
 		break;
 
 	case 11: /* Psychic Drain */

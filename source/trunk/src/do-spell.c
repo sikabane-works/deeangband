@@ -1103,13 +1103,10 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 
 static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
-
-	DIRECTION dir;
 	POWER lev_bonus = (POWER)caster_ptr->lev;
 
 	switch (spell)
@@ -1479,19 +1476,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Telekinesis";
 		if(desc) return "Pulls a distant item close to you.";
 #endif
-    
-		{
-			int weight = lev_bonus * 15;
-
-			if(info) return info_weight(weight);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
-				fetch(caster_ptr, MAX_RANGE, dir, weight, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_TELEKINES, TRUE, lev_bonus * 15);
 		break;
 
 	case 27:
