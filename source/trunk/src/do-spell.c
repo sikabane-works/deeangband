@@ -1873,13 +1873,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Wall of Stone";
 		if(desc) return "Creates granite walls in all adjacent squares.";
 #endif
-    
-		{
-			if(cast)
-			{
-				wall_stone(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_STONE_WALL, TRUE);
 		break;
 
 	case 23:
