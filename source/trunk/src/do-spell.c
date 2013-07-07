@@ -1564,25 +1564,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Produce Food";
 		if(desc) return "Produces a Ration of Food.";
 #endif
-    
-		{
-			if(cast)
-			{
-				object_type forge, *quest_ptr = &forge;
-
-#ifdef JP
-				msg_print("H—¿‚ð¶¬‚µ‚½B");
-#else
-				msg_print("A food ration is produced.");
-#endif
-
-				/* Create the food ration */
-				generate_object(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION));
-
-				/* Drop the object from heaven */
-				drop_near(floor_ptr, quest_ptr, -1, caster_ptr->fy, caster_ptr->fx);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_CREATE_FOOD, TRUE);
 		break;
 
 	case 4:
