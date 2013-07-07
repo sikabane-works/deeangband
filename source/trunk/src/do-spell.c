@@ -2515,15 +2515,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Unlife";
 		if(desc) return "Detects all nonliving creatures in your vicinity.";
 #endif
-    
-		{
-			DIRECTION rad = DETECT_RAD_DEFAULT;
-			if(info) return info_radius(rad);
-			if(cast)
-			{
-				detect_creatures_nonliving(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_NONLIVING, TRUE, 100);
 		break;
 
 	case 1:
@@ -2534,7 +2526,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Malediction";
 		if(desc) return "Fires a tiny ball of evil power which hurts good creatures greatly.";
 #endif
-		do_active_trait_tmp(caster_ptr, TRAIT_MALEDICTION, TRUE);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_MALEDICTION, TRUE);
 		break;
 
 	case 2:
@@ -4542,17 +4534,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Unlife";
 		if(desc) return "Detects all nonliving creatures in your vicinity.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_creatures_nonliving(caster_ptr, rad);
-			}
-		}
+		if(cast)do_active_trait(caster_ptr, TRAIT_DETECT_NONLIVING, TRUE, 100);
 		break;
 
 	case 2:
