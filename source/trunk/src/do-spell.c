@@ -1580,19 +1580,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Doors and Traps";
 		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_traps(caster_ptr, rad, TRUE);
-				detect_doors(caster_ptr, rad);
-				detect_stairs(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_DETECT_DOOR_TRAP, TRUE);
 		break;
 
 	case 3:
