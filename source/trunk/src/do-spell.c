@@ -511,7 +511,7 @@ static void cast_shuffle(creature_type *caster_ptr)
 
 
 // Drop 10+1d10 meteor ball at random places near the player
-static void cast_meteor(creature_type *caster_ptr, POWER dam, COODINATES rad)
+void cast_meteor(creature_type *caster_ptr, POWER dam, COODINATES rad)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i, d;
@@ -2473,18 +2473,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Meteor Swarm";
 		if(desc) return "Makes meteor balls fall down to nearby random locations.";
 #endif
-    
-		{
-			POWER dam = lev_bonus * 2;
-			COODINATES rad = 2;
-
-			if(info) return info_multi_damage(dam);
-
-			if(cast)
-			{
-				cast_meteor(caster_ptr, dam, rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_METEOR_SWARM, TRUE, lev_bonus * 2);
 		break;
 
 	case 26:

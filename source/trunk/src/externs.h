@@ -756,6 +756,7 @@ extern bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, 
 extern void stop_singing(creature_type *creature_ptr);
 extern cptr do_spell(creature_type *creature_ptr, REALM_ID realm, int spell, int mode);
 extern void wild_magic(creature_type *creature_ptr, int spell);
+extern void cast_meteor(creature_type *caster_ptr, POWER dam, COODINATES rad);
 
 // flavor.c
 extern void get_table_name_aux(char *out_string);

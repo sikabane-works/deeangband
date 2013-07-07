@@ -1065,6 +1065,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		wall_stone(caster_ptr);
 		break;
 
+	case TRAIT_METEOR_SWARM:
+		cast_meteor(caster_ptr, power, 2);
+		break;
+
 	case TRAIT_BLINK:
 		if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
 		else
