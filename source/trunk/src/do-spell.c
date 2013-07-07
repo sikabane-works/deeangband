@@ -2585,33 +2585,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Malediction";
 		if(desc) return "Fires a tiny ball of evil power which hurts good creatures greatly.";
 #endif
-    
-		{
-			int dice = 3 + (lev_bonus - 1) / 5;
-			int sides = 4;
-			COODINATES rad = 0;
-
-			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, diceroll(dice, sides), rad);
-
-				if(one_in_(5))
-				{
-					/* Special effect first */
-					int effect = randint1(1000);
-					if(effect == 666)
-						cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, lev_bonus * 200, 0);
-					else if(effect < 500)
-						cast_ball_hide(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, lev_bonus, 0);
-					else if(effect < 800)
-						cast_ball_hide(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, lev_bonus, 0);
-					else
-						cast_ball_hide(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, lev_bonus, 0);
-				}
-			}
-		}
+		do_active_trait_tmp(caster_ptr, TRAIT_MALEDICTION, TRUE);
 		break;
 
 	case 2:

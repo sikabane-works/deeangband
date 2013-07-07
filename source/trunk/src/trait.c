@@ -1069,6 +1069,29 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_meteor(caster_ptr, power, 2);
 		break;
 
+	case TRAIT_MALEDICTION:
+		{
+			int dice = 3 + (power - 1) / 5;
+			int sides = 4;
+			COODINATES rad = 0;
+				cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, diceroll(dice, sides), rad);
+
+				if(one_in_(5))
+				{
+					/* Special effect first */
+					int effect = randint1(1000);
+					if(effect == 666)
+						cast_ball_hide(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, power * 200, 0);
+					else if(effect < 500)
+						cast_ball_hide(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, power, 0);
+					else if(effect < 800)
+						cast_ball_hide(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, power, 0);
+					else
+						cast_ball_hide(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, 0);
+				}
+		}
+		break;
+
 	case TRAIT_BLINK:
 		if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
 		else
