@@ -744,12 +744,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			break;
 		}
 
-		case SV_SCROLL_SATISFY_HUNGER:
-		{
-			if(set_food(caster_ptr, CREATURE_FOOD_MAX - 1)) ident = TRUE;
-			break;
-		}
-
 		case SV_SCROLL_BLESSING:
 			if(add_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(12) + 6, TRUE)) ident = TRUE;
 			break;
