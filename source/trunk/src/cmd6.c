@@ -451,10 +451,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			if(set_timed_trait(caster_ptr, TRAIT_POISONED, caster_ptr->timed_trait[TRAIT_POISONED] / 2, TRUE)) effected = TRUE;
 			break;
 
-		case SV_POTION_CURING:
-			effected |= (heal_creature(caster_ptr, 50));
-			break;
-
 		case SV_POTION_NEW_LIFE:
 			do_cmd_rerate(caster_ptr, FALSE);
 			get_max_stats(caster_ptr);

@@ -2454,14 +2454,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Polymorph Self";
 		if(desc) return "Polymorphs yourself.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!get_check(MES_POLYSELF_ASK)) return NULL;
-				do_poly_self(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_POLYMORPH, TRUE, lev_bonus * 2);
 		break;
 
 	case 29:
@@ -2483,11 +2476,9 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Breathe Logrus";
 		if(desc) return "Fires an extremely powerful ball of chaos.";
 #endif
-    
 		{
 			POWER dam = caster_ptr->chp;
 			COODINATES rad = 2;
-
 			if(info) return info_damage(0, 0, dam);
 			if(cast) cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, dam, rad);
 		}
@@ -2501,15 +2492,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Call the Void";
 		if(desc) return "Fires rockets, mana balls and nuclear waste balls in all directions each unless you are not adjacent to any walls. Otherwise *destroys* huge area.";
 #endif
-    
-		{
-			if(info) return format("%s3 * 175", s_dam);
-
-			if(cast)
-			{
-				call_the_void(caster_ptr);
-			}
-		}
+		do_active_trait_tmp(caster_ptr, TRAIT_CALL_THE_VOID, TRUE);
 		break;
 	}
 
