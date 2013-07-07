@@ -1883,13 +1883,6 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Fires a huge ball of cold.";
 #endif
     
-		{
-			POWER dam = 70 + lev_bonus * 3 / 2;
-			COODINATES rad = (COODINATES)lev_bonus / 12 + 1;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, dam, rad);
-		}
 		break;
 
 	case 27:
