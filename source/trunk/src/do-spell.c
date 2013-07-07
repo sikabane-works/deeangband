@@ -998,17 +998,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Warding True";
 		if(desc) return "Creates glyphs in all adjacent squares and under you.";
 #endif
-		{
-			COODINATES rad = 1;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				warding_glyph(caster_ptr);
-				project(0, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_GLYPH, PROJECT_GRID | PROJECT_ITEM, -1);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_PROTECT_RUNE, TRUE, 2);
 		break;
 
 	case 24:
@@ -1047,17 +1037,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Annihilate Undead";
 		if(desc) return "Eliminates all nearby undead creatures, exhausting you.  Powerful or unique creatures may be able to resist.";
 #endif
-    
-		{
-			POWER power = lev_bonus + 50;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				mass_genocide_undead(caster_ptr, power, TRUE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_GENOCIDE_UNDEAD, TRUE, lev_bonus + 50);
 		break;
 
 	case 27:
@@ -5765,7 +5745,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dispel Evil";
 		if(desc) return "Damages all evil creatures in sight.";
 #endif
-		do_active_trait(caster_ptr, TRAIT_DISPEL_EVIL_1, TRUElev_bonus * 4);
+		do_active_trait(caster_ptr, TRAIT_DISPEL_EVIL_1, TRUE, lev_bonus * 4);
 		break;
 
 	case 21:
