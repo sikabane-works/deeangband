@@ -2704,28 +2704,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Vampiric Drain";
 		if(desc) return "Absorbs some HP from a creature and gives them to you. You will also gain nutritional sustenance from this.";
 #endif
-    
-		{
-			int dice = 1;
-			int sides = lev_bonus * 2;
-			int base = lev_bonus * 2;
-
-			if(info) return info_damage(dice, sides, base);
-
-			if(cast)
-			{
-				POWER dam = base + diceroll(dice, sides);
-				if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1))
-				{
-					heal_creature(caster_ptr, dam);
-					dam = caster_ptr->food + MIN(5000, 100 * dam);
-
-					/* Not gorged already */
-					if(caster_ptr->food < CREATURE_FOOD_MAX)
-						set_food(caster_ptr, dam >= CREATURE_FOOD_MAX ? CREATURE_FOOD_MAX - 1 : dam);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_VAMPIRIC_DRAIN_1, TRUE, 100);
 		break;
 
 	case 14:
@@ -2860,21 +2839,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Vampirism True";
 		if(desc) return "Fires 3 bolts. Each of the bolts absorbs some HP from a creature and gives them to you.";
 #endif
-    
-		{
-			POWER dam = 100;
-
-			if(info) return format("%s3*%d", s_dam, dam);
-
-			if(cast)
-			{
-				int i;
-				for (i = 0; i < 3; i++)
-				{
-					if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, dam, -1)) heal_creature(caster_ptr, dam);
-				}
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_VAMPIRIC_DRAIN_1, TRUE, 300);
 		break;
 
 	case 22:
