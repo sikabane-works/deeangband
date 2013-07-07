@@ -1476,13 +1476,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Alchemy";
 		if(desc) return "Turns an item into 1/3 of its value in gold.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!alchemy(caster_ptr)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MIDAS_TCH, TRUE, 100);
 		break;
 
 	case 30:
