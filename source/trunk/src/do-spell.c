@@ -2898,20 +2898,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Esoteria";
 		if(desc) return "Identifies an item. Or *identifies* an item at higher level.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(randint1(50) > lev_bonus)
-				{
-					if(!ident_spell(caster_ptr, FALSE)) return NULL;
-				}
-				else
-				{
-					if(!identify_fully(caster_ptr, FALSE)) return NULL;
-				}
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_IDENTIFY_TRUE, TRUE);
 		break;
 
 	case 27:
