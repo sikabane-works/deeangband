@@ -1391,13 +1391,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport to town";
 		if(desc) return "Teleport to a town which you choose in a moment. Can only be used outdoors.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!tele_town(caster_ptr)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_TELEPORT_TOWN, TRUE, 50);
 		break;
 
 	case 20:
