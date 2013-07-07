@@ -1739,21 +1739,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Summon Animal";
 		if(desc) return "Summons an animal.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!(summoning(NULL, caster_ptr->fy, caster_ptr->fx, lev_bonus, TRAIT_S_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET))))
-				{
-#ifdef JP
-					msg_print("ìÆï®ÇÕåªÇÍÇ»Ç©Ç¡ÇΩÅB");
-#else
-					msg_print("No animals arrive.");
-#endif
-				}
-				break;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_ANIMAL, TRUE, 100);
 		break;
 
 	case 15:
