@@ -754,12 +754,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			break;
 		}
 
-		case SV_SCROLL_DETECT_ITEM:
-		{
-			if(detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			break;
-		}
-
 		case SV_SCROLL_DETECT_DOOR:
 		{
 			if(detect_doors(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
@@ -1065,10 +1059,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 		case SV_STAFF_DETECT_GOLD:
 			if(detect_treasure(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			if(detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			break;
-
-		case SV_STAFF_DETECT_ITEM:
-			if(detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 
 		case SV_STAFF_DETECT_DOOR:

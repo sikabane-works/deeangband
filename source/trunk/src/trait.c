@@ -2031,6 +2031,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		effected = TRUE;
 		break;
 
+	case TRAIT_DETECT_OBJECT:
+		(void)detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
+		break;
+
 	case TRAIT_BLESSING_SELF:
 		set_timed_trait(caster_ptr, TRAIT_BLESSED, 100, FALSE);
 		break;
