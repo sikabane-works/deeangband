@@ -2537,15 +2537,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Evil";
 		if(desc) return "Detects all evil creatures in your vicinity.";
 #endif
-    
-		{
-			DIRECTION rad = DETECT_RAD_DEFAULT;
-			if(info) return info_radius(rad);
-			if(cast)
-			{
-				detect_creatures_evil(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_DETECT_EVIL, TRUE);
 		break;
 
 	case 3:
@@ -5087,17 +5079,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Evil";
 		if(desc) return "Detects all evil creatures in your vicinity.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_creatures_evil(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_DETECT_EVIL, TRUE);
 		break;
 
 	case 2:

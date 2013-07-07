@@ -1047,10 +1047,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			if(detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 
-		case SV_STAFF_DETECT_EVIL:
-			if(detect_creatures_evil(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			break;
-
 		case SV_STAFF_SLEEP_MONSTERS:
 			if(project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, caster_ptr->lev)) ident = TRUE;
 			break;
