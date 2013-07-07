@@ -1503,18 +1503,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Globe of Invulnerability";
 		if(desc) return "Generates barrier which completely protect you from almost all damages. Takes a few your turns when the barrier breaks or duration time is exceeded.";
 #endif
-    
-		{
-			int base = 4;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(base) + base, FALSE);
-			}
-		}
-		break;
+		if(cast) do_active_trait(caster_ptr, TRAIT_INVULNER, TRUE, 100);
 	}
 
 	return "";
