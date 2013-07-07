@@ -5765,13 +5765,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dispel Evil";
 		if(desc) return "Damages all evil creatures in sight.";
 #endif
-    
-		{
-			int sides = lev_bonus * 4;
-
-			if(info) return info_damage(1, sides, 0);
-			if(cast) project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, randint1(sides));
-		}
+		do_active_trait(caster_ptr, TRAIT_DISPEL_EVIL_1, TRUElev_bonus * 4);
 		break;
 
 	case 21:
