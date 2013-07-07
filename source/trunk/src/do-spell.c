@@ -1900,19 +1900,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Lightning Storm";
 		if(desc) return "Fires a huge electric ball.";
 #endif
-    
-		{
-			POWER dam = 90 + lev_bonus * 3 / 2;
-			COODINATES rad = (COODINATES)lev_bonus / 12 + 1;
-
-			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				cast_ball(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, dam, rad);
-				break;
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_LIGHTNING_STORM, TRUE);
 		break;
 
 	case 28:
