@@ -1048,6 +1048,18 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr,DO_EFFECT_MISSILE, MAX_RANGE_SUB, damage, 0);
 		break;
 
+	case TRAIT_MANA_BURST:
+		{
+			int dice = 3;
+			int sides = 5;
+			COODINATES rad = (power < 30) ? 2 : 3;
+			int base;
+			base = power + power / 2;
+
+			cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
+		}
+		break;
+
 	case TRAIT_SHRIEK:
 		stop_mouth(caster_ptr);
 		SELF_FIELD(caster_ptr, DO_EFFECT_SOUND, 2 * user_level, 8, -1);
@@ -2408,7 +2420,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			result = get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir);
 			target_pet = old_target_pet; /* Restore target_pet option */
 
-			if(!result) return NULL;
+			if(!result) break;
 			cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, heal, -1);
 		}
 		break;

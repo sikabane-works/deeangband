@@ -1884,21 +1884,6 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Mana Burst";
 		if(desc) return "Fires a ball of magic.";
 #endif
-    
-		{
-			int dice = 3;
-			int sides = 5;
-			COODINATES rad = (lev_bonus < 30) ? 2 : 3;
-			int base;
-
-			if(has_trait(caster_ptr, TRAIT_MAGIC_SPECIALIST))
-				base = lev_bonus + lev_bonus / 2;
-			else
-				base = lev_bonus + lev_bonus / 4;
-
-			if(info) return info_damage(dice, sides, base);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
-		}
 		break;
 
 	case 5:
