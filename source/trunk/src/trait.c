@@ -2438,6 +2438,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		brand_weapon(caster_ptr, randint0(2));
 		break;
 
+	case TRAIT_WANDER:
+		cast_wonder(caster_ptr);
+		break;
+
+
 	case 3: /* TRAIT_LAUNCHER */
 		/* Gives a multiplier of 2 at first, up to 3 at 40th */
 		if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE;
