@@ -1144,8 +1144,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Confuse Creature";
 		if(desc) return "Attempts to confuse a creature.";
 #endif
-		if(info) return info_power((lev_bonus * 3) / 2);
-		if(cast) cast_bolt(caster_ptr, DO_EFFECT_CONF_OTHERS, MAX_RANGE_SUB, (lev_bonus * 3) / 2, -1);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_CONF, TRUE);
 		break;
 
 	case 5:
