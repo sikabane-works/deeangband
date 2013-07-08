@@ -2058,19 +2058,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Chain Lightning";
 		if(desc) return "Fires lightning beams in all directions.";
 #endif
-    
-		{
-			int dice = 5 + lev_bonus / 10;
-			int sides = 8;
-
-			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				for (dir = 0; dir <= 9; dir++)
-					cast_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_CHAIN_LIGHTNING, TRUE, 90);
 		break;
 
 	case 18:
