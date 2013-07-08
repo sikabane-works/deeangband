@@ -2170,19 +2170,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Sonic Boom";
 		if(desc) return "Generates a ball of sound centered on you.";
 #endif
-    
-		{
-			POWER dam = 60 + lev_bonus;
-			COODINATES rad = (COODINATES)lev_bonus / 10 + 2;
-
-			if(info) return info_damage(0, 0, dam/2);
-
-			if(cast)
-			{
-				msg_print(MES_TRAIT_SONIC_BOOM);
-				project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, DO_EFFECT_SOUND, PROJECT_KILL | PROJECT_ITEM, -1);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SONIC_BOOM, TRUE);
 		break;
 
 	case 11:
