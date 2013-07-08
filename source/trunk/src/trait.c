@@ -2289,6 +2289,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_LIGHTNING_BEAM:
+		{
+			int dice = 3 + (power - 1) / 5;
+			int sides = 4;
+			COODINATES range = power / 6 + 2;
+			cast_beam(caster_ptr, DO_EFFECT_ELEC, range, diceroll(dice, sides), 0);
+		}
+		break;
+
 	case TRAIT_LIGHTNING_STORM:
 		{
 			POWER dam = 90 + power * 3 / 2;

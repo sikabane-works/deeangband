@@ -1482,15 +1482,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Lightning";
 		if(desc) return "Fires a short beam of lightning.";
 #endif
-    
-		{
-			int dice = 3 + (lev_bonus - 1) / 5;
-			int sides = 4;
-			COODINATES range = lev_bonus / 6 + 2;
-
-			if(info) return format("%s%dd%d %s%d", s_dam, dice, sides, s_rng, range);
-			if(cast) cast_beam(caster_ptr, DO_EFFECT_ELEC, range, diceroll(dice, sides), 0);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_LIGHTNING_BEAM, TRUE);
 		break;
 
 	case 2:
