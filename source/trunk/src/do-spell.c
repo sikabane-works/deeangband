@@ -1451,14 +1451,10 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
-	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
-
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	static const char s_dam[] = KW_DAM;
 	static const char s_rng[] = KW_RAN;
-	FLOOR_LEV lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -1844,9 +1840,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Magic Missile";
 		if(desc) return "Fires a weak bolt of magic.";
 #endif
-		{
-			if(cast) do_active_trait_tmp(caster_ptr, TRAIT_MAGIC_MISSILE, TRUE);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_MAGIC_MISSILE, TRUE);
 		break;
 
 	case 1:
@@ -1857,12 +1851,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trap / Door Destruction";
 		if(desc) return "Destroys all traps in adjacent squares.";
 #endif
-
-		{
-			COODINATES rad = 1;
-			if(info) return info_radius(rad);
-			if(cast) project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_DESTROY_DOOR_TRAP, TRUE);
 		break;
 
 	case 2:
