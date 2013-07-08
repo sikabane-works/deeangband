@@ -855,18 +855,8 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Heat and Cold";
 		if(desc) return "Gives resistance to fire and cold. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, TRUE, 20);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, TRUE, 20);
 		break;
 
 	case 12:
@@ -1595,18 +1585,9 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Environment";
 		if(desc) return "Gives resistance to fire, cold and electricity for a while. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, TRUE, 20);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, TRUE, 20);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, TRUE, 20);
 		break;
 
 	case 7:
