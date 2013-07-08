@@ -2374,6 +2374,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 		}
 
+	case TRAIT_GET_CONFUSING_MELEE:
+		set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE);
+		prepare_redraw(PR_STATUS);
+		break;
 
 	case TRAIT_GAIN_EXP:
 		if(caster_ptr->exp < CREATURE_MAX_EXP)

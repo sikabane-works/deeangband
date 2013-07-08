@@ -1873,10 +1873,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Flash of Light";
 		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
-    
-		{
-			if(cast) do_active_trait_tmp(caster_ptr, TRAIT_LIGHT_AREA, TRUE);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_LIGHT_AREA, TRUE);
 		break;
 
 	case 3:
@@ -1887,17 +1884,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Touch of Confusion";
 		if(desc) return "Attempts to confuse the next creature that you hit.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!has_trait(caster_ptr, TRAIT_CONFUSING_MELEE))
-				{
-					set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE);
-					prepare_redraw(PR_STATUS);
-				}
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_GET_CONFUSING_MELEE, TRUE);
 		break;
 
 	case 4:
