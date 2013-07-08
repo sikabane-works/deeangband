@@ -3590,15 +3590,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Stone to Mud";
 		if(desc) return "Turns one rock square to mud.";
 #endif
-    
-		{
-			int dice = 1;
-			int sides = 30;
-			int base = 20;
-
-			if(info) return info_damage(dice, sides, base);
-			if(cast) cast_bolt(caster_ptr, DO_EFFECT_KILL_WALL, MAX_RANGE_SUB, 20 + randint1(30), -1);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_STONE_TO_MUD, TRUE, 100);
 		break;
 
 	case 22:
