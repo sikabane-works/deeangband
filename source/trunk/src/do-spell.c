@@ -1320,7 +1320,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Self Knowledge";
 		if(desc) return "Gives you useful info regarding your current resistances, the powers of your weapon and maximum limits of your stats.";
 #endif
-		if(cast) creature_knowledge(caster_ptr);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SELF_KNOWLEDGE, TRUE);
 		break;
 
 	case 21:
@@ -3984,7 +3984,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Self Knowledge";
 		if(desc) return "Gives you useful info regarding your current resistances, the powers of your weapon and maximum limits of your stats.";
 #endif
-		if(cast) creature_knowledge(caster_ptr);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SELF_KNOWLEDGE, TRUE);
 		break;
 
 	case 13:

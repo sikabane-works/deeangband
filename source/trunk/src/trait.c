@@ -2077,6 +2077,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 2 * user_level, id);
 		break;
 
+	case TRAIT_SELF_KNOWLEDGE:
+		creature_knowledge(caster_ptr);
+		break;
+
 	case TRAIT_ENLIGHTENMENT:
 		msg_print(MES_DETECT_ENLIGHTMENT);
 		wiz_lite(floor_ptr, caster_ptr, FALSE);

@@ -76,11 +76,8 @@ bool cast_ball_hide(creature_type *caster_ptr, int typ, COODINATES range, POWER 
 * attributes, a screenful at a time.  (There are a LOT of attributes to
 * list.  It will probably take 2 or 3 screens for a powerful character whose
 * using several artifacts...) -CFT
-*
 * It is now a lot more efficient. -BEN-
-*
 * See also "identify_fully(creature_ptr, )".
-*
 *  Use the "show_file()" method, perhaps.
 */
 void creature_knowledge(creature_type *creature_ptr)
