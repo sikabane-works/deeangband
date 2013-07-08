@@ -1791,25 +1791,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Call Sunlight";
 		if(desc) return "Generates ball of light centered on you. Maps and lights whole dungeon level. Knows all objects location.";
 #endif
-    
-		{
-			POWER dam = 150;
-			COODINATES rad = 8;
-
-			if(info) return info_damage(0, 0, dam/2);
-
-			if(cast)
-			{
-				SELF_FIELD(caster_ptr, DO_EFFECT_LITE, dam, rad, -1);
-				wiz_lite(floor_ptr, caster_ptr, FALSE);
-
-				if(has_trait(caster_ptr, TRAIT_HURT_LITE) && !has_trait(caster_ptr, TRAIT_RES_LITE))
-				{
-					msg_format(MES_DAMAGE_SUNLIGHT(caster_ptr));
-					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_SUNLIGHT, NULL, -1);
-				}
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_CALL_SUNLIGHT, TRUE);
 		break;
 
 	case 30:
