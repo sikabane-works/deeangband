@@ -1868,6 +1868,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else (void)project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, user_level);
 		break;
 
+	case TRAIT_MASS_SLEEP:
+		project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, power);
+		break;
+
 	case TRAIT_EXPAND_HLIZN:
 		(void)set_timed_trait(caster_ptr, TRAIT_TSUBURERU, randint1(20) + 30, FALSE);
 		break;

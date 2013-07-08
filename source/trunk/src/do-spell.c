@@ -715,11 +715,8 @@ void stop_singing(creature_type *creature_ptr)
 
 static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
-	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	int lev_bonus = caster_ptr->lev;
@@ -999,13 +996,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Sterilization";
 		if(desc) return "Prevents any breeders on current level from breeding.";
 #endif
-    
-		{
-			if(cast)
-			{
-				floor_ptr->num_of_reproduction += MAX_REPRO;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_STERILITY, TRUE, 100);
 		break;
 
 	case 25:
@@ -1232,13 +1223,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Mass Sleep";
 		if(desc) return "Attempts to sleep all creatures in sight.";
 #endif
-    
-		{
-			POWER power = lev_bonus;
-
-			if(info) return info_power(power);
-			if(cast) project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, power);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_MASS_SLEEP, TRUE);
 		break;
 
 	case 12:
