@@ -1086,7 +1086,6 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
-	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 	POWER lev_bonus = (POWER)caster_ptr->lev;
 
@@ -1526,12 +1525,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Animal Taming";
 		if(desc) return "Attempts to charm an animal.";
 #endif
-    
-		{
-			POWER power = lev_bonus;
-			if(info) return info_power(power);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, power, 0);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_CHARM_ANIMAL, TRUE, 100);
 		break;
 
 	case 6:
