@@ -1802,13 +1802,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Elemental Branding";
 		if(desc) return "Makes current weapon fire or frost branded.";
 #endif
-    
-		{
-			if(cast)
-			{
-				brand_weapon(caster_ptr, randint0(2));
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_ELEMENTAL_BRAND, TRUE);
 		break;
 
 	case 31:
