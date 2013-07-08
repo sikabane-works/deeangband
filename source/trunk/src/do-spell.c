@@ -875,7 +875,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Turn Undead";
 		if(desc) return "Attempts to scare undead creatures in sight.";
 #endif
-		if(cast) project_all_vision(caster_ptr, DO_EFFECT_TURN_UNDEAD, caster_ptr->lev);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_TURN_UNDEAD, TRUE);
 		break;
 
 	case 14:
