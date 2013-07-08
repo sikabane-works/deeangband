@@ -1549,14 +1549,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Wounds & Poison";
 		if(desc) return "Heals all cut and poison status. Heals HP a little.";
 #endif
-    
-		{
-			int dice = 2;
-			int sides = 8;
-
-			if(info) return info_heal(dice, sides, 0);
-			if(cast) heal_creature(caster_ptr, diceroll(dice, sides));
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, 20);
 		break;
 
 	case 8:
@@ -1589,22 +1582,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Nature Awareness";
 		if(desc) return "Maps nearby area. Detects all creatures, traps, doors and stairs.";
 #endif
-    
-		{
-			COODINATES rad1 = DETECT_RAD_MAP;
-			COODINATES rad2 = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(MAX(rad1, rad2));
-
-			if(cast)
-			{
-				map_area(caster_ptr, rad1);
-				detect_traps(caster_ptr, rad2, TRUE);
-				detect_doors(caster_ptr, rad2);
-				detect_stairs(caster_ptr, rad2);
-				detect_creatures_normal(caster_ptr, rad2);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_NATURE_AWARENESS, TRUE);
 		break;
 
 	case 11:

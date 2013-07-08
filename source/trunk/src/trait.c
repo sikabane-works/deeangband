@@ -360,6 +360,18 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		detect_all(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 
+	case TRAIT_NATURE_AWARENESS:
+		{
+		COODINATES rad1 = DETECT_RAD_MAP;
+		COODINATES rad2 = DETECT_RAD_DEFAULT;
+		map_area(caster_ptr, rad1);
+		detect_traps(caster_ptr, rad2, TRUE);
+		detect_doors(caster_ptr, rad2);
+		detect_stairs(caster_ptr, rad2);
+		detect_creatures_normal(caster_ptr, rad2);
+		break;
+		}
+
 	case TRAIT_IDENTIFY:
 		if(ident_spell(caster_ptr, FALSE)) return TRUE;
 		break;
