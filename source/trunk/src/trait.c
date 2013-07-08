@@ -1089,6 +1089,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE);
 		break;
 
+	case TRAIT_CREATE_FOREST:
+		project(0, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_TREE, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
+		break;
+
 	case TRAIT_STONE_WALL:
 		wall_stone(caster_ptr);
 		break;
