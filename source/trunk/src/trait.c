@@ -1829,6 +1829,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 
+	case TRAIT_DETECT_ITEM_GOLD:
+		detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
+		detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
+		detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT);
+		break;
+
 	case TRAIT_CREATE_FOOD:
 		{
 			object_type *quest_ptr;

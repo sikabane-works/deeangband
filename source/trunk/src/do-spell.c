@@ -1276,19 +1276,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect items and Treasure";
 		if(desc) return "Detects all treasures and items in your vicinity.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_objects_normal(caster_ptr, rad);
-				detect_treasure(caster_ptr, rad);
-				detect_objects_gold(caster_ptr, rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_ITEM_GOLD, TRUE, 100);
 		break;
 
 	case 17:
@@ -1299,7 +1287,6 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Charm Creature";
 		if(desc) return "Attempts to charm a creature.";
 #endif
-		if(info) return info_power(lev_bonus);
 		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVE, TRUE, 100);
 		break;
 
