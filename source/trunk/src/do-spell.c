@@ -3371,29 +3371,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Heal Creature";
 		if(desc) return "Heal a creature.";
 #endif
-		{
-			int heal = lev_bonus * 10 + 200;
-
-			if(info) return info_heal(0, 0, heal);
-
-			if(cast)
-			{
-				bool result;
-
-				/* Temporary enable target_pet option */
-				bool old_target_pet = target_pet;
-				target_pet = TRUE;
-
-				result = get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir);
-
-				/* Restore target_pet option */
-				target_pet = old_target_pet;
-
-				if(!result) return NULL;
-				cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, heal, -1);
-			}
-		}
-		break;
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_HEAL_OTHER, TRUE);
 
 	case 27:
 #ifdef JP

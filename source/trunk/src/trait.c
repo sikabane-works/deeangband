@@ -2302,6 +2302,21 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_HEAL_OTHER:
+		{
+			int heal = power + 200;
+			bool result;
+			bool old_target_pet = target_pet; /* Temporary enable target_pet option */
+			target_pet = TRUE;
+
+			result = get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir);
+			target_pet = old_target_pet; /* Restore target_pet option */
+
+			if(!result) return NULL;
+			cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, heal, -1);
+		}
+		break;
+
 	case 3: /* TRAIT_LAUNCHER */
 		/* Gives a multiplier of 2 at first, up to 3 at 40th */
 		if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE;
