@@ -2362,6 +2362,19 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_NATURE_WRATH:
+		{
+			int d_dam = 4 * power;
+			int b_dam = (100 + power) * 2;
+			int b_rad = 1 + power / 12;
+			int q_rad = 20 + power / 2;
+
+				project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
+				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
+				project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
+		}
+
+
 	case TRAIT_GAIN_EXP:
 		if(caster_ptr->exp < CREATURE_MAX_EXP)
 		{

@@ -1813,22 +1813,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Nature's Wrath";
 		if(desc) return "Damages all creatures in sight. Makes quake. Generates disintegration ball centered on you.";
 #endif
-    
-		{
-			int d_dam = 4 * lev_bonus;
-			int b_dam = (100 + lev_bonus) * 2;
-			int b_rad = 1 + lev_bonus / 12;
-			int q_rad = 20 + lev_bonus / 2;
-
-			if(info) return format("%s%d+%d", s_dam, d_dam, b_dam/2);
-
-			if(cast)
-			{
-				project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
-				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
-				project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_NATURE_WRATH, TRUE);
 		break;
 	}
 
