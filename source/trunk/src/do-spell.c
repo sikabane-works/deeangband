@@ -1604,13 +1604,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Ray of Sunlight";
 		if(desc) return "Fires a beam of light which damages to light-sensitive creatures.";
 #endif
-    
-		{
-			int dice = 6;
-			int sides = 8;
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SUNLIGHT, TRUE);
 		break;
 
 	case 13:
@@ -3615,14 +3609,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Ray of Light";
 		if(desc) return "Fires a beam of light which damages to light-sensitive creatures.";
 #endif
-    
-		{
-			int dice = 6;
-			int sides = 8;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_beam(caster_ptr, DO_EFFECT_LITE_WEAK, MAX_RANGE_SUB, diceroll(6, 8), -1);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SUNLIGHT, TRUE);
 		break;
 
 	case 23:
