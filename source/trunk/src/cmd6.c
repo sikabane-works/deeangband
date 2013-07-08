@@ -656,31 +656,8 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			break;
 		}
 
-		case SV_SCROLL_TRAIT_S_PET:
-		{
-			if(summoning(NULL, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_FORCE_PET)))
-			{
-				ident = TRUE;
-			}
-			break;
-		}
-
-		case SV_SCROLL_TRAIT_S_KIN:
-		{
-			if(summon_kin_player(caster_ptr, caster_ptr->lev, caster_ptr->fy, caster_ptr->fx, (PC_FORCE_PET | PC_ALLOW_GROUP)))
-			{
-				ident = TRUE;
-			}
-			break;
-		}
-
 		case SV_SCROLL_TRAP_CREATION:
 			if(project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1)) ident = TRUE;
-			break;
-
-		case SV_SCROLL_TELEPORT_LEVEL:
-			(void)teleport_level(caster_ptr, 0);
-			ident = TRUE;
 			break;
 
 		case SV_SCROLL_ENCHANT_ARMOR:

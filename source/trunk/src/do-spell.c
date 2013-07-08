@@ -1371,14 +1371,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport Level";
 		if(desc) return "Teleport to up or down stairs in a moment.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!get_check(MES_GET_CHECK_LEVEL_TELEPORT)) return NULL;
-				teleport_level(caster_ptr, 0);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_TELE_LEVEL, TRUE);
 		break;
 
 	case 22:
@@ -3200,14 +3193,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport Level";
 		if(desc) return "Teleport to up or down stairs in a moment.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!get_check(MES_GET_CHECK_LEVEL_TELEPORT)) return NULL;
-				teleport_level(caster_ptr, 0);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_TELE_LEVEL, TRUE);
 		break;
 
 	case 13:
@@ -3852,14 +3838,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport Level";
 		if(desc) return "Teleport to up or down stairs in a moment.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!get_check(MES_GET_CHECK_LEVEL_TELEPORT)) return NULL;
-				teleport_level(caster_ptr, 0);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_TELE_LEVEL, TRUE);
 		break;
 
 	case 27:
