@@ -1430,12 +1430,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Banishment";
 		if(desc) return "Teleports all creatures in sight away unless resisted.";
 #endif
-    
-		{
-			POWER power = lev_bonus * 4;
-			if(info) return info_power(power);
-			if(cast) project_all_vision(caster_ptr, DO_EFFECT_AWAY_ALL, power);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_TELE_AWAY, TRUE, 100);
 		break;
 
 	case 31:
@@ -3153,13 +3148,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Banish";
 		if(desc) return "Teleports all creatures in sight away unless resisted.";
 #endif
-    
-		{
-			POWER power = lev_bonus * 4;
-
-			if(info) return info_power(power);
-			if(cast) project_all_vision(caster_ptr, DO_EFFECT_AWAY_ALL, power);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_TELE_AWAY, TRUE, 100);
 		break;
 
 	case 16:

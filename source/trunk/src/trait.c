@@ -166,6 +166,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0);
 		break;
 
+	case TRAIT_MASS_TELE_AWAY:
+		(void)cast_beam(caster_ptr, DO_EFFECT_AWAY_ALL, MAX_RANGE_SUB, user_level, 0);
+		break;
+
 	case TRAIT_TELE_LEVEL:
 		teleport_level(caster_ptr, 0);
 		break;
