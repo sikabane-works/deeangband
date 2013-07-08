@@ -1179,6 +1179,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
+	case TRAIT_FORCE_FIST:
+		{
+			int dice = 8 + ((power - 5) / 4);
+			int sides = 8;
+			cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, diceroll(dice, sides), 0);
+		}
+		break;
+
 	case TRAIT_PURISH_SHIELD:
 		pulish_shield(caster_ptr);
 		break;

@@ -2100,19 +2100,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Fist of Force";
 		if(desc) return "Fires a tiny ball of disintegration.";
 #endif
-    
-		{
-			int dice = 8 + ((lev_bonus - 5) / 4);
-			int sides = 8;
-
-			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-			}
-		}
-		break;
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_FORCE_FIST, TRUE);
 
 	case 7:
 #ifdef JP
