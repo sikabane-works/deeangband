@@ -1692,12 +1692,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Animal Friendship";
 		if(desc) return "Attempts to charm all animals in sight.";
 #endif
-    
-		{
-			POWER power = lev_bonus * 2;
-			if(info) return info_power(power);
-			if(cast) project_all_vision(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, power);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_CHARM_ANIMALS, TRUE);
 		break;
 
 	case 21:
