@@ -3414,18 +3414,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Meteor";
 		if(desc) return "Makes meteor balls fall down to nearby random locations.";
 #endif
-    
-		{
-			POWER dam = lev_bonus * 2;
-			COODINATES rad = 2;
-
-			if(info) return info_multi_damage(dam);
-
-			if(cast)
-			{
-				cast_meteor(caster_ptr, dam, rad);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_METEOR_SWARM, TRUE);
 		break;
 
 	case 29:
