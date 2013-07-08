@@ -1725,13 +1725,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Protect from Corrosion";
 		if(desc) return "Makes an equipment acid-proof.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!rustproof(caster_ptr)) return NULL;
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_RUSTPROOF, TRUE);
 		break;
 
 	case 24:
