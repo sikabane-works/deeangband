@@ -1604,6 +1604,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		else msg_print(MES_CONVERT_FAILED);
 		break;
 
+	case TRAIT_MASS_SLOW:
+		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level);
+		break;
+
 	case TRAIT_CONFUSING_LIGHT:
 		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, user_level);
 		project_all_vision(caster_ptr, DO_EFFECT_STUN, user_level * 4);

@@ -1615,17 +1615,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Entangle";
 		if(desc) return "Attempts to slow all creatures in sight.";
 #endif
-    
-		{
-			POWER power = lev_bonus;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_SLOW, TRUE, 100);
 		break;
 
 	case 14:
@@ -5391,30 +5381,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Song of Holding";
 		if(desc) return "Attempts to slow all creatures in sight.";
 #endif
-    
-		/* Stop singing before start another */
 		if(cast || fail) stop_singing(caster_ptr);
-
-		if(cast)
-		{
-#ifdef JP
-			msg_print("ゆっくりとしたメロディを口ずさみ始めた．．．");
-#else
-			msg_print("You start humming a slow, steady melody...");
-#endif
-			start_singing(caster_ptr, spell, MUSIC_SLOW);
-		}
-
-		{
-			POWER power = lev_bonus;
-
-			if(info) return info_power(power);
-
-			if(cont)
-			{
-				project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_SLOW, TRUE, 100);
 		break;
 
 	case 1:
