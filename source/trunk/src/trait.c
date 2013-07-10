@@ -445,6 +445,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1);
 		break;
 
+	case TRAIT_BA_DISI:
+		{
+			POWER dam = power + 70;
+			COODINATES rad = 3 + (COODINATES)power / 40;
+			cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, dam, rad);
+		}
+
 	case TRAIT_BA_FIRE_L:
 		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 400, 3, id);
 		break;

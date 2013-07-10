@@ -2049,14 +2049,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Disintegrate";
 		if(desc) return "Fires a huge ball of disintegration.";
 #endif
-    
-		{
-			POWER dam = lev_bonus + 70;
-			COODINATES rad = 3 + (COODINATES)lev_bonus / 40;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, dam, rad);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_BA_DISI, TRUE);
 		break;
 
 	case 20:
