@@ -1827,7 +1827,6 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 	static const char s_dam[] = KW_DAM;
 	static const char s_random[] = KW_RANDOM;
 
-	DIRECTION dir;
 	COODINATES lev_bonus = caster_ptr->lev;
 
 	switch (spell)
@@ -2071,12 +2070,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Magic Rocket";
 		if(desc) return "Fires a magic rocket.";
 #endif
-    	{
-			POWER dam = 120 + lev_bonus * 2;
-			COODINATES rad = 2;
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_grenade(caster_ptr, DO_EFFECT_ROCKET, MAX_RANGE_SUB, dam, rad);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ROCKET, TRUE);
 		break;
 
 	case 22:
