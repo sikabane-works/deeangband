@@ -585,7 +585,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)summoning(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, TRAIT_S_DAWN_LEGION, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
-
 	case TRAIT_ADD_FIRE_BRAND:
 		(void)brand_bolts(caster_ptr);
 		break;
@@ -2469,6 +2468,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_ENCHANT_CHAOS_BRAND:
 		brand_weapon(caster_ptr, 2);
+		break;
+
+	case TRAIT_ENCHANT_POISON_BRAND:
+		brand_weapon(caster_ptr, 3);
 		break;
 
 	case TRAIT_WANDER:

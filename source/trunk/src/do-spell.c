@@ -2355,13 +2355,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Poison Branding";
 		if(desc) return "Makes current weapon poison branded.";
 #endif
-    
-		{
-			if(cast)
-			{
-				brand_weapon(caster_ptr, 3);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_POISON_BRAND, TRUE);
 		break;
 
 	case 13:
