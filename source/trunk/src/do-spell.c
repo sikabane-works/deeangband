@@ -122,7 +122,7 @@ static cptr info_weight(int weight)
 }
 
 // Prepare standard probability to become beam for cast_bolt_or_beam()
-static int beam_chance(creature_type *creature_ptr)
+int beam_chance(creature_type *creature_ptr)
 {
 	if(has_trait(creature_ptr, TRAIT_MAGIC_SPECIALIST)) return creature_ptr->lev;
 	return creature_ptr->lev / 2;
@@ -1926,15 +1926,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Wonder";
 		if(desc) return "Fires something with random effects.";
 #endif
-    
-		{
-			if(info) return s_random;
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_WANDER, TRUE, 100);
 		break;
 
 	case 9:
@@ -1945,13 +1937,8 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Chaos Bolt";
 		if(desc) return "Fires a bolt or ball of chaos.";
 #endif
-    
-		{
-			int dice = 10 + (lev_bonus - 5) / 4;
-			int sides = 8;
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_CHAO, TRUE, 100);
+
 		break;
 
 	case 10:

@@ -2442,6 +2442,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_wonder(caster_ptr);
 		break;
 
+	case TRAIT_BO_CHAO:
+		{
+			int dice = 10 + (power - 5) / 4;
+			int sides = 8;
+			cast_bolt_or_beam(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
+		}
+		break;
+
 
 	case 3: /* TRAIT_LAUNCHER */
 		/* Gives a multiplier of 2 at first, up to 3 at 40th */
