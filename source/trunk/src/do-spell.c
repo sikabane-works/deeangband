@@ -205,7 +205,7 @@ void cast_wonder(creature_type *caster_ptr)
 }
 
 
-static void cast_invoke_spirits(creature_type *caster_ptr)
+void cast_invoke_spirits(creature_type *caster_ptr)
 {
 	//TODO: target
 	COODINATES y = 0, x = 0;
@@ -2410,16 +2410,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Invoke Spirits";
 		if(desc) return "Causes random effects.";
 #endif
-    
-		{
-			if(info) return s_random;
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				cast_invoke_spirits(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_INVOKE_SPIRITS, TRUE);
 		break;
 
 	case 18:

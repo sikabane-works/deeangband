@@ -2478,6 +2478,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_wonder(caster_ptr);
 		break;
 
+	case TRAIT_INVOKE_SPIRITS:
+		cast_invoke_spirits(caster_ptr);
+		break;
+
 	case TRAIT_BO_CHAO:
 		{
 			int dice = 10 + (power - 5) / 4;
