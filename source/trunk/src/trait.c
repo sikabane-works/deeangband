@@ -2458,6 +2458,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_POLYMORPH_OTHER:
+		cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, power, -1);
+		break;
+
 	case 3: /* TRAIT_LAUNCHER */
 		/* Gives a multiplier of 2 at first, up to 3 at 40th */
 		if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE;

@@ -1238,10 +1238,6 @@ static int wand_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			if(cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
 			break;
 
-		case SV_WAND_POLYMORPH:
-			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
-			break;
-
 		case SV_WAND_CHARM_MONSTER:
 			ident = cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, MAX(20, caster_ptr->lev), 0);
 			break;
@@ -1457,10 +1453,6 @@ static int rod_effect(creature_type *caster_ptr, SVAL sval, bool *use_charge, bo
 
 		case SV_ROD_SLEEP_MONSTER:
 			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
-			break;
-
-		case SV_ROD_POLYMORPH:
-			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
 			break;
 
 	}

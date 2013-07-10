@@ -2016,7 +2016,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Attempts to polymorph a creature.";
 #endif
 		if(info) return info_power(lev_bonus);
-		if(cast) cast_bolt(caster_ptr, DO_EFFECT_OLD_POLY, MAX_RANGE_SUB, lev_bonus, -1);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_POLYMORPH_OTHER, TRUE);
 		break;
 
 	case 17:
