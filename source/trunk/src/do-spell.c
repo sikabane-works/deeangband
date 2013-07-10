@@ -2081,10 +2081,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Chaos Branding";
 		if(desc) return "Makes current weapon a Chaotic weapon.";
 #endif
-    
-		{
-			if(cast) brand_weapon(caster_ptr, 2);
-		}
+		if(cast)do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_CHAOS_BRAND, TRUE);
 		break;
 
 	case 23:
