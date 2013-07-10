@@ -452,6 +452,16 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, dam, rad);
 		}
 
+	case TRAIT_BA_DRAI:
+		{
+			int dice = 3;
+			int sides = 6;
+			COODINATES rad = (power < 30) ? 2 : 3;
+			int base;
+			base = power + power / 2;
+			cast_ball(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, diceroll(dice, dice) + base, rad);
+		}
+
 	case TRAIT_BA_FIRE_L:
 		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 400, 3, id);
 		break;

@@ -2311,21 +2311,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Orb of Entropy";
 		if(desc) return "Fires a ball which damages living creatures.";
 #endif
-    
-		{
-			int dice = 3;
-			int sides = 6;
-			COODINATES rad = (lev_bonus < 30) ? 2 : 3;
-			int base;
-
-			if(has_trait(caster_ptr, TRAIT_MAGIC_SPECIALIST))
-				base = lev_bonus + lev_bonus / 2;
-			else
-				base = lev_bonus + lev_bonus / 4;
-
-			if(info) return info_damage(dice, sides, base);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, diceroll(dice, dice) + base, rad);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_BA_DRAI, TRUE);
 		break;
 
 	case 9:
