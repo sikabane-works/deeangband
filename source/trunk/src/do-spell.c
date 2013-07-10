@@ -2300,10 +2300,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Enslave Undead";
 		if(desc) return "Attempts to charm an undead creature.";
 #endif
-   		{
-			if(info) return info_power(lev_bonus);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_CONTROL_UNDEAD, MAX_RANGE_SUB, lev_bonus, 0);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_CHARM_UNDEAD, TRUE);
 		break;
 
 	case 8:
