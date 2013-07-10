@@ -1960,14 +1960,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Doom Bolt";
 		if(desc) return "Fires a beam of pure mana.";
 #endif
-    
-		{
-			int dice = 11 + (lev_bonus - 5) / 4;
-			int sides = 8;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_beam(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_BO_MANA, TRUE);
 		break;
 
 	case 12:
@@ -2000,10 +1993,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Word of Destruction";
 		if(desc) return "Destroy everything in nearby area.";
 #endif
-    
-		{
-			if(cast) do_active_trait_tmp(caster_ptr, TRAIT_STAR_DESTROY, TRUE);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_STAR_DESTROY, TRUE);
 		break;
 
 	case 15:
@@ -2014,14 +2004,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Invoke Logrus";
 		if(desc) return "Fires a huge ball of chaos.";
 #endif
-    
-		{
-			POWER dam = lev_bonus * 2 + 99;
-			COODINATES rad = (COODINATES)lev_bonus / 5;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, dam, rad);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_STORM_CHAOS, TRUE);
 		break;
 
 	case 16:
