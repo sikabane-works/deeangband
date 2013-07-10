@@ -186,6 +186,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)mass_genocide(caster_ptr, 200, TRUE);
 		break;
 
+	case TRAIT_GENOCIDE_ONE:
+		cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0);
+		break;
+
 	case TRAIT_CHARM_ANIMAL:
 		cast_ball(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, MAX_RANGE_SUB, user_level, 0);
 		break;

@@ -2344,12 +2344,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Genocide One";
 		if(desc) return "Attempts to vanish a creature.";
 #endif
-    
-		{
-			POWER power = lev_bonus + 50;
-			if(info) return info_power(power);
-			if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, power, 0);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_GENOCIDE_ONE, TRUE);
 		break;
 
 	case 12:
