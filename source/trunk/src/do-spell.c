@@ -2289,16 +2289,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Horrify";
 		if(desc) return "Attempts to scare and stun a creature.";
 #endif
-    
-		{
-			POWER power = lev_bonus;
-			if(info) return info_power(power);
-			if(cast)
-			{
-				cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, lev_bonus, -1);
-				cast_bolt(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, -1);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SCARE, TRUE);
 		break;
 
 	case 7:
