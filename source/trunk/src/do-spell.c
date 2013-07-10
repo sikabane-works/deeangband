@@ -2333,16 +2333,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cloud kill";
 		if(desc) return "Generate a ball of poison centered on you.";
 #endif
-    
-		{
-			POWER dam = (30 + lev_bonus) * 2;
-			COODINATES rad = lev_bonus / 10 + 2;
-			if(info) return info_damage(0, 0, dam/2);
-			if(cast)
-			{
-				project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, DO_EFFECT_POIS, PROJECT_KILL | PROJECT_ITEM, -1);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_BA_POIS, TRUE);
 		break;
 
 	case 11:
