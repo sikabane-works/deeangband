@@ -2388,17 +2388,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Genocide";
 		if(desc) return "Eliminates an entire class of creature, exhausting you.  Powerful or unique creatures may resist.";
 #endif
-    
-		{
-			POWER power = lev_bonus+50;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				symbol_genocide(caster_ptr, power, TRUE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SYMBOL_GENOCIDE, TRUE);
 		break;
 
 	case 16:
