@@ -885,6 +885,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		breath(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, damage, 3, id);
 		break;
 
+	case TRAIT_BE_GRAV:
+		{
+			int dice = 9 + (power - 5) / 4;
+			int sides = 8;
+			cast_beam(caster_ptr, DO_EFFECT_GRAVITY, MAX_RANGE_SUB, diceroll(dice, sides), 0);
+		}
+		break;
+
+
 	case TRAIT_BR_SHAR:
 		if(caster_ptr->species_idx == SPECIES_BOTEI) msg_format(MES_TRAIT_BR_SHAR_BOTEI);
 		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
