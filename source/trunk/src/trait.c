@@ -1931,6 +1931,18 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(heal_creature(caster_ptr, 30)) effected = TRUE;
 		break;
 
+	case TRAIT_BATTLE_FRENZY:
+		{
+			int b_base = 25;
+			int sp_base = power / 2;
+			int sp_sides = 20 + power / 2;
+
+				set_timed_trait(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, FALSE);
+				heal_creature(caster_ptr, 30);
+				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
+				set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base, TRUE);
+		}
+
 	case TRAIT_THROW_BOULDER:
 		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, (3 * user_level) / 2, 0);
 		break;

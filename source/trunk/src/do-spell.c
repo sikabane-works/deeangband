@@ -2419,22 +2419,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Battle Frenzy";
 		if(desc) return "Gives another bonus to hit and HP, immunity to fear for a while. Hastes you. But decreases AC.";
 #endif
-    
-		{
-			int b_base = 25;
-			int sp_base = lev_bonus / 2;
-			int sp_sides = 20 + lev_bonus / 2;
-
-			if(info) return info_duration(b_base, b_base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, FALSE);
-				heal_creature(caster_ptr, 30);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-				set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base, TRUE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_BATTLE_FRENZY, TRUE);
 		break;
 
 	case 20:
