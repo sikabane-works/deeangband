@@ -2169,12 +2169,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Breathe Logrus";
 		if(desc) return "Fires an extremely powerful ball of chaos.";
 #endif
-		{
-			POWER dam = caster_ptr->chp;
-			COODINATES rad = 2;
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_CHAOS, MAX_RANGE_SUB, dam, rad);
-		}
+		do_active_trait_tmp(caster_ptr, TRAIT_BA_CHAO, TRUE);
 		break;
 
 	case 31:
@@ -2203,7 +2198,6 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 	static const char s_dam[] = KW_DAM;
 	static const char s_random[] = KW_RANDOM;
 
-	DIRECTION dir;
 	COODINATES lev_bonus = caster_ptr->lev;
 
 	switch (spell)
