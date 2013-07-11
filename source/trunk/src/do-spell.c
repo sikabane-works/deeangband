@@ -2430,13 +2430,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Vampiric Branding";
 		if(desc) return "Makes current weapon Vampiric.";
 #endif
-    
-		{
-			if(cast)
-			{
-				brand_weapon(caster_ptr, 4);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_VAMPIRIC_BRAND, TRUE);
 		break;
 
 	case 21:
