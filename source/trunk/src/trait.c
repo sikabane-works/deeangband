@@ -2490,6 +2490,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_STORM_FIRE:
+		{
+			POWER dam = 300 + 3 * power;
+			DIRECTION rad = 8;
+			SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
+		}
+
 	case TRAIT_STORM_CHAOS:
 		{
 			POWER dam = power * 2 + 99;

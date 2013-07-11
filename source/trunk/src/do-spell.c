@@ -2081,7 +2081,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Chaos Branding";
 		if(desc) return "Makes current weapon a Chaotic weapon.";
 #endif
-		if(cast)do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_CHAOS_BRAND, TRUE);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_CHAOS_BRAND, TRUE);
 		break;
 
 	case 23:
@@ -2125,14 +2125,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Flame Strike";
 		if(desc) return "Generate a huge ball of fire centered on you.";
 #endif
-    
-		{
-			POWER dam = 300 + 3 * lev_bonus;
-			DIRECTION rad = 8;
-
-			if(info) return info_damage(0, 0, dam/2);
-			if(cast) SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_STORM_FIRE, TRUE, lev_bonus * 2);
 		break;
 
 	case 27:
