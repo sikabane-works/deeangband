@@ -161,6 +161,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_DEATH_RAY:
+		cast_bolt(caster_ptr, DO_EFFECT_DEATH_RAY, MAX_RANGE_SUB, caster_ptr->lev, -1);
+		break;
+
 	case TRAIT_EARTHQUAKE:
 		earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
 		break;
@@ -466,7 +470,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_BA_DRAI:
 		{
 			int dice = 3;
-			int sides = 6;
 			COODINATES rad = (power < 30) ? 2 : 3;
 			int base;
 			base = power + power / 2;
@@ -1940,7 +1943,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_BATTLE_FRENZY:
 		{
-			int b_base = 25;
 			int sp_base = power / 2;
 			int sp_sides = 20 + power / 2;
 
