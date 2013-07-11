@@ -1046,6 +1046,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		//breath(target_row, target_col,caster_ptr, DO_EFFECT_LITE, damage, 4, FALSE, TRAIT_BA_LITE);
 		break;
 
+	case TRAIT_BO_DARK:
+		{
+		int dice = 4 + (power - 5) / 4;
+		int sides = 8;
+		cast_bolt(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
+		}
+		break;
+
 	case TRAIT_BO_NETH:
 		damage = 30 + diceroll(5, 5) + (user_level * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
 		cast_bolt(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, damage, TRAIT_BO_NETH);

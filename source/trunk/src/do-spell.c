@@ -2408,14 +2408,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dark Bolt";
 		if(desc) return "Fires a bolt or beam of darkness.";
 #endif
-    
-		{
-			int dice = 4 + (lev_bonus - 5) / 4;
-			int sides = 8;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_DARK, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr));
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_BO_DARK, TRUE);
 		break;
 
 	case 19:
