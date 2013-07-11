@@ -2452,11 +2452,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Nether Wave";
 		if(desc) return "Damages all living creatures in sight.";
 #endif
-		{
-			int sides = lev_bonus * 3;
-			if(info) return info_damage(1, sides, 0);
-			if(cast) project_all_vision(caster_ptr, DO_EFFECT_DISP_LIVING, randint1(sides));
-		}
+		do_active_trait_tmp(caster_ptr, TRAIT_DISPEL_LIVES, TRUE);
 		break;
 
 	case 23:

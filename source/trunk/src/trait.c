@@ -154,6 +154,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, caster_ptr->lev * 5);
 		break;
 
+	case TRAIT_DISPEL_LIVES:
+		{
+			int sides = power;
+			project_all_vision(caster_ptr, DO_EFFECT_DISP_LIVING, randint1(sides));
+		}
+		break;
+
 	case TRAIT_EARTHQUAKE:
 		earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
 		break;
