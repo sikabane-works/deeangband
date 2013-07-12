@@ -2540,18 +2540,6 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Fires a powerful ball of evil power. Hurts good creatures greatly.";
 #endif
     
-		{
-			POWER dam = 666;
-			COODINATES rad = 3;
-
-			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, dam, rad);
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), COD_HELLFIRE_RISK, NULL, -1);
-			}
-		}
 		break;
 
 	case 31:

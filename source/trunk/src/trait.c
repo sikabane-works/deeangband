@@ -1653,6 +1653,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_beam(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, user_level * 3, 0);
 		break;
 
+	case TRAIT_HELLFIRE:
+		{
+			POWER dam = 666;
+			COODINATES rad = 3;
+			cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, dam, rad);
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), COD_HELLFIRE_RISK, NULL, -1);
+		}
+		break;
+
 	case TRAIT_HP_TO_SP_ACTIVE:
 		{
 			int gain_sp = take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, COD_HP_TO_MP, NULL, -1) / 5;
