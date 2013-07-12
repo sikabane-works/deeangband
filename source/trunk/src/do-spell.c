@@ -2507,18 +2507,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Polymorph Vampire";
 		if(desc) return "Mimic a vampire for a while. Loses abilities of original race and gets abilities as a vampire.";
 #endif
-    
-		{
-			int base = 10 + lev_bonus / 2;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_VAMPIRE, base + randint1(base), TRUE);
-			}
-		}
-		break;
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_POLYMORPH_VAMPIRE, TRUE);
 
 	case 28:
 #ifdef JP

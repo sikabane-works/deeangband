@@ -2107,6 +2107,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		do_poly_self(caster_ptr);
 		break;
 
+	case TRAIT_POLYMORPH_VAMPIRE:
+		{
+			int base = 10 + power / 2;
+			set_timed_trait(caster_ptr, TRAIT_VAMPIRE, base + randint1(base), TRUE);
+		}
+		break;
+
 		/* Summon pet molds around the player */
 	case TRAIT_GROW_MOLD:
 		{
