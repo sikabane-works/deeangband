@@ -2192,13 +2192,10 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
-	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	static const char s_dam[] = KW_DAM;
 	static const char s_random[] = KW_RANDOM;
-
-	COODINATES lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -2539,7 +2536,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Hellfire";
 		if(desc) return "Fires a powerful ball of evil power. Hurts good creatures greatly.";
 #endif
-    
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_HELLFIRE, TRUE);
 		break;
 
 	case 31:
@@ -2550,17 +2547,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Wraithform";
 		if(desc) return "Becomes wraith form which gives ability to pass walls and makes all damages half.";
 #endif
-    
-		{
-			int base = lev_bonus / 2;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_WRAITH_FORM, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_WRAITH_FORM, TRUE);
 		break;
 	}
 
