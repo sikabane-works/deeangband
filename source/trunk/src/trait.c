@@ -2567,6 +2567,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_BO_JAM:
+		cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1);
+		break;
+
 	case TRAIT_STORM_FIRE:
 		{
 			POWER dam = 300 + 3 * power;

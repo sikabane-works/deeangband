@@ -2987,7 +2987,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Wizard Lock";
 		if(desc) return "Locks a door.";
 #endif
-		if(cast) cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_BO_JAM, TRUE);
 		break;
 
 	case 2:
