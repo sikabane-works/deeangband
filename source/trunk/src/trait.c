@@ -2283,6 +2283,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		//TODO Erase
 		break;
 
+	case TRAIT_SUCCUBUS_KISS:
+		{
+			POWER dam = 100 + power * 2;
+			COODINATES rad = 4;
+			cast_ball(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, dam, rad);
+		}
+		break;
+
 	case TRAIT_STERILITY:
 		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, COD_ABSTINENCE, NULL, -1);
 		floor_ptr->num_of_reproduction += MAX_REPRO;

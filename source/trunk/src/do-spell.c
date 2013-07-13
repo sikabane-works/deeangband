@@ -3926,13 +3926,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Kiss of Succubus";
 		if(desc) return "Fires a ball of nexus.";
 #endif
-    
-		{
-			POWER dam = 100 + lev_bonus * 2;
-			COODINATES rad = 4;
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_NEXUS, MAX_RANGE_SUB, dam, rad);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SUCCUBUS_KISS, TRUE);
 		break;
 
 	case 23:
