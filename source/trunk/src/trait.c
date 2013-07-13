@@ -2629,6 +2629,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		set_timed_trait(caster_ptr, TRAIT_RES_NETH, randint1(power) + power, FALSE);
 		break;
 
+	case TRAIT_GET_RES_TIME:
+		set_timed_trait(caster_ptr, TRAIT_RES_TIME, randint1(power) + power, FALSE);
+		break;
+
 	case TRAIT_GET_CONFUSING_MELEE:
 		set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE);
 		prepare_redraw(PR_STATUS);
