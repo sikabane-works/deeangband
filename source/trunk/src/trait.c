@@ -2229,6 +2229,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_POLYMORPH_DEMON:
+		{
+			int base = 10 + power / 2;
+			caster_ptr->mimic_race_idx = RACE_DEMON;
+			set_timed_trait(caster_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
+		}
+		break;
+
 	case TRAIT_LIVING_TRUMP:
 		{
 				int mutation;

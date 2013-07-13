@@ -3904,17 +3904,6 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Mimic a demon for a while. Loses abilities of original race and gets abilities as a demon.";
 #endif
     
-		{
-			int base = 10 + lev_bonus / 2;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				caster_ptr->mimic_race_idx = RACE_DEMON;
-				set_timed_trait(caster_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
-			}
-		}
 		break;
 
 	case 21:
