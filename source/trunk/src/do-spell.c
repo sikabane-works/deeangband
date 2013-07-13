@@ -3461,7 +3461,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Protection from Evil";
 		if(desc) return "Gives aura which protect you from evil creature's physical attack.";
 #endif
-		do_active_trait_tmp(caster_ptr, TRAIT_PROT_EVIL, TRUE);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_PROT_EVIL, TRUE);
 		break;
 
 	case 14:
@@ -3472,7 +3472,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure";
 		if(desc) return "Heals poison, stun, cut and hallucination completely.";
 #endif
-		do_active_trait_tmp(caster_ptr, TRAIT_CURING, TRUE);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_CURING, TRUE);
 		break;
 
 	case 15:
@@ -3483,17 +3483,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Mana Branding";
 		if(desc) return "Makes current weapon some elemental branded. You must wield weapons.";
 #endif
-    
-		{
-			int base = lev_bonus / 2;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				if(!choose_ele_attack(caster_ptr)) return NULL;
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_GET_ELEMENT_BRAND, TRUE);
 		break;
 
 	case 16:
