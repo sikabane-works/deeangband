@@ -2269,6 +2269,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_SCATTER_EVIL:
+		cast_ball(caster_ptr, DO_EFFECT_AWAY_EVIL, MAX_RANGE_SUB, power, 0);
+		break;
+
 	case TRAIT_LIVING_TRUMP:
 		{
 				int mutation;

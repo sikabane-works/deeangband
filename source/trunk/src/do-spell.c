@@ -4142,12 +4142,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Scatter Evil";
 		if(desc) return "Attempts to teleport an evil creature away.";
 #endif
-    
-		{
-			POWER power = MAX_SIGHT * 5;
-			if(info) return info_power(power);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_AWAY_EVIL, MAX_RANGE_SUB, power, 0);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SCATTER_EVIL, TRUE);
 		break;
 
 	case 9:
