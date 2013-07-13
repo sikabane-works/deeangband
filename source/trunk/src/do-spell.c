@@ -4003,14 +4003,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Nether Storm";
 		if(desc) return "Generate a huge ball of nether.";
 #endif
-    
-		{
-			POWER dam = lev_bonus * 15;
-			COODINATES rad = (COODINATES)lev_bonus / 5;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_NETHER, MAX_RANGE_SUB, dam, rad);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_STORM_NETHER, TRUE);
 		break;
 
 	case 30:
