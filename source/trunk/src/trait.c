@@ -2273,6 +2273,17 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_ball(caster_ptr, DO_EFFECT_AWAY_EVIL, MAX_RANGE_SUB, power, 0);
 		break;
 
+	case TRAIT_BA_HOLYFIRE:
+		{
+			int dice = 3;
+			int sides = 6;
+			COODINATES rad = (power < 30) ? 2 : 3;
+			int base;
+
+			base = power + power / 3;
+			cast_ball(caster_ptr, DO_EFFECT_HOLY_FIRE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
+		}
+
 	case TRAIT_LIVING_TRUMP:
 		{
 				int mutation;
