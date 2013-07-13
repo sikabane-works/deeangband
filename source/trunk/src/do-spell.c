@@ -3332,17 +3332,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Regeneration";
 		if(desc) return "Gives regeneration ability for a while.";
 #endif
-    
-		{
-			int base = 80;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_REGENERATE, base + randint1(base), FALSE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_GET_REGENERATE, TRUE);
 		break;
 
 	case 2:

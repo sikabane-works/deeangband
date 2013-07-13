@@ -341,6 +341,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_GET_REGENERATE:
+		{
+			int base = 24;
+			set_timed_trait(caster_ptr, TRAIT_REGENERATE, base + randint1(base), FALSE);
+		}
+		break;
+
 	case TRAIT_PROT_EVIL:
 		(void)set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * caster_ptr->lev, FALSE);
 		break;
