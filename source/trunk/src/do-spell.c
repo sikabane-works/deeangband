@@ -4014,20 +4014,8 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Bloody Curse";
 		if(desc) return "Puts blood curse which damages and causes various effects on a creature. You also take damage.";
 #endif
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_CAUSE_BLOODY_CURSE, TRUE);
     
-		{
-			POWER dam = 600;
-			COODINATES rad = 0;
-
-			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				cast_ball_hide(caster_ptr, DO_EFFECT_BLOOD_CURSE, MAX_RANGE_SUB, dam, rad);
-				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), COD_BLOOD_CURSE, NULL, -1);
-			}
-		}
-		break;
 
 	case 31:
 #ifdef JP
