@@ -4100,11 +4100,6 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Sanctuary";
 		if(desc) return "Attempts to sleep creatures in the adjacent squares.";
 #endif
-   		{
-			POWER power = lev_bonus;
-			if(info) return info_power(power);
-			if(cast) project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
-		}
 		break;
 
 	case 5:

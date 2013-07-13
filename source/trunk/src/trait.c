@@ -2257,6 +2257,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_SANCTUARY:
+		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
+		break;
 
 	case TRAIT_LIVING_TRUMP:
 		{
