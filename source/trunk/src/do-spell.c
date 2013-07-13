@@ -3761,18 +3761,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Hellish Flame";
 		if(desc) return "Fires a ball of evil power. Hurts good creatures greatly.";
 #endif
-    
-		{
-			int dice = 3;
-			int sides = 6;
-			COODINATES rad = (lev_bonus < 30) ? 2 : 3;
-			int base;
-			base = lev_bonus + lev_bonus / 3;
-
-			if(info) return info_damage(dice, sides, base);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
-		}
-		break;
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_BA_HELLFIRE, TRUE);
 
 	case 8:
 #ifdef JP

@@ -553,12 +553,24 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1);
 		break;
 
+	case TRAIT_BA_HELLFIRE:
+		{
+			int dice = 3;
+			int sides = 6;
+			COODINATES rad = (power < 30) ? 2 : 3;
+			int base;
+			base = power + power / 3;
+			cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
+		}
+		break;
+
 	case TRAIT_BA_DISI:
 		{
 			POWER dam = power + 70;
 			COODINATES rad = 3 + (COODINATES)power / 40;
 			cast_ball(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, dam, rad);
 		}
+		break;
 
 	case TRAIT_BA_DRAI:
 		{
@@ -568,6 +580,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			base = power + power / 2;
 			cast_ball(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, diceroll(dice, dice) + base, rad);
 		}
+		break;
 
 	case TRAIT_BA_FIRE_L:
 		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_FIRE, 400, 3, id);
