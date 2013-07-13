@@ -3018,7 +3018,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trap & Door Destruction";
 		if(desc) return "Fires a beam which destroy traps and doors.";
 #endif
-   		if(cast) cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_DESTROY_DOOR_TRAP_BEAM, TRUE); 
 		break;
 
 	case 7:
@@ -3051,13 +3051,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Phlogiston";
 		if(desc) return "Adds more turns of light to a lantern or torch.";
 #endif
-    
-		{
-			if(cast)
-			{
-				phlogiston(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_PHLOGISTON, TRUE, 100);
 		break;
 
 	case 10:

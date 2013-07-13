@@ -435,8 +435,16 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_food(caster_ptr, CREATURE_FOOD_MAX - 1);
 		break;
 
+	case TRAIT_PHLOGISTON:
+		phlogiston(caster_ptr);
+		break;
+
 	case TRAIT_DESTROY_DOOR_TRAP:
 		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1);
+		break;
+
+	case TRAIT_DESTROY_DOOR_TRAP_BEAM:
+		cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1);
 		break;
 
 	case TRAIT_STONE_TO_MUD:
