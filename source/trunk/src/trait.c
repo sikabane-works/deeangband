@@ -2284,6 +2284,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			cast_ball(caster_ptr, DO_EFFECT_HOLY_FIRE, MAX_RANGE_SUB, diceroll(dice, sides) + base, rad);
 		}
 
+	case TRAIT_EXORCISM:
+		{
+			int sides = power;
+			project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
+			project_all_vision(caster_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
+			project_all_vision(caster_ptr, DO_EFFECT_TURN_EVIL, power);
+		}
+		break;
+
 	case TRAIT_LIVING_TRUMP:
 		{
 				int mutation;

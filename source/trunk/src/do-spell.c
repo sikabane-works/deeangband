@@ -4164,20 +4164,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Exorcism";
 		if(desc) return "Damages all undead and demons in sight, and scares all evil creatures in sight.";
 #endif
-    
-		{
-			int sides = lev_bonus;
-			POWER power = lev_bonus;
-
-			if(info) return info_damage(1, sides, 0);
-
-			if(cast)
-			{
-				project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
-				project_all_vision(caster_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
-				project_all_vision(caster_ptr, DO_EFFECT_TURN_EVIL, power);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_EXORCISM, TRUE);
 		break;
 
 	case 11:
