@@ -378,6 +378,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		effected = lite_area(caster_ptr, diceroll(2, 15), 3);
 		break;
 
+	case TRAIT_DETECT_INVISIBLE:
+		detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT);
+		break;
+
 	case TRAIT_DETECT_MAP:
 		map_area(caster_ptr, DETECT_RAD_MAP);
 		effected = TRUE;
