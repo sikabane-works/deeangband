@@ -2302,6 +2302,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_DISCHARGE_MINION:
+		discharge_minion(caster_ptr);
+		break;
+
 	case TRAIT_STERILITY:
 		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, COD_ABSTINENCE, NULL, -1);
 		floor_ptr->num_of_reproduction += MAX_REPRO;

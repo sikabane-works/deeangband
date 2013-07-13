@@ -3981,13 +3981,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Explode Pets";
 		if(desc) return "Makes all pets explode.";
 #endif
-    
-		{
-			if(cast)
-			{
-				discharge_minion(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_DISCHARGE_MINION, TRUE);
 		break;
 
 	case 28:
