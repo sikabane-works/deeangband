@@ -4089,12 +4089,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Scare Creature";
 		if(desc) return "Attempts to scare a creature.";
 #endif
-    
-		{
-			POWER power = lev_bonus;
-			if(info) return info_power(power);
-			if(cast) cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, lev_bonus, -1);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_TERROR, TRUE);
 		break;
 
 	case 4:

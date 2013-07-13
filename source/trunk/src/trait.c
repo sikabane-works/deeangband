@@ -2251,7 +2251,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_PUNISHMENT:
 		{
-			int dice = 3 + (lev_bonus - 1) / 5;
+			int dice = 3 + (power - 1) / 5;
 			int sides = 4;
 			cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
 		}
