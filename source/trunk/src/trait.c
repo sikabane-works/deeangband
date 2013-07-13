@@ -2645,6 +2645,19 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_DEVIL_CLOAK:
+		{
+			int base = 20;
+				int dur = randint1(base) + base;
+					
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_AURA_FIRE, dur, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
+				break;
+		}
+		break;
+
 	case TRAIT_ENCHANT_REMOVE:
 		mundane_spell(caster_ptr, FALSE);
 		break;

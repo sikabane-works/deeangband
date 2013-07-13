@@ -3871,23 +3871,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Devil Cloak";
 		if(desc) return "Removes fear. Gives resistance to fire and cold, and aura of fire. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				int dur = randint1(base) + base;
-					
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_AURA_FIRE, dur, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-				break;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_DEVIL_CLOAK, TRUE, 50);
 		break;
 
 	case 18:
