@@ -3227,16 +3227,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Conjure Elemental";
 		if(desc) return "Summons an elemental.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!summoning(NULL, caster_ptr->fy, caster_ptr->fx, lev_bonus, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_FORCE_PET)))
-				{
-					msg_print(MES_SUMMON_ELEMENTAL_FAILED);
-				}
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_S_ELEMENTAL, TRUE);
 		break;
 
 	case 26:
@@ -3269,27 +3260,9 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Elemental Ball";
 		if(desc) return "Fires a ball of some elements.";
 #endif
-    
-		{
-			POWER dam = 75 + lev_bonus;
-			COODINATES rad = 2;
-
-			if(info) return info_damage(0, 0, dam);
-
-			if(cast)
-			{
-				int type;
-				switch (randint1(4))
-				{
-					case 1:  type = DO_EFFECT_FIRE; break;
-					case 2:  type = DO_EFFECT_ELEC; break;
-					case 3:  type = DO_EFFECT_COLD; break;
-					default: type = DO_EFFECT_ACID; break;
-				}
-				cast_ball(caster_ptr, type, MAX_RANGE_SUB, dam, rad);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ELEMENTAL_BALL, TRUE);
 		break;
+
 
 	case 29:
 #ifdef JP
