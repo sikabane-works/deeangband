@@ -686,13 +686,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			break;
 		}
 
-		case SV_SCROLL_MUNDANITY:
-		{
-			ident = TRUE;
-			if(!mundane_spell(caster_ptr, FALSE)) used_up = FALSE;
-			break;
-		}
-
 		case SV_SCROLL_DETECT_GOLD:
 		{
 			if(detect_treasure(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;

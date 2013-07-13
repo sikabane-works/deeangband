@@ -2628,6 +2628,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_ENCHANT_REMOVE:
+		mundane_spell(caster_ptr, FALSE);
+		break;
+
 	case TRAIT_ENCHANT_WEAPON_BOOST:
 		enchant_spell(caster_ptr, randint0(4) + 1, randint0(4) + 1, 0, 0, 0);
 		break;

@@ -3579,13 +3579,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Remove Enchantment";
 		if(desc) return "Removes all magics completely from any weapon or armor.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!mundane_spell(caster_ptr, TRUE)) return NULL;
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_REMOVE, TRUE);
 		break;
 
 	case 25:
