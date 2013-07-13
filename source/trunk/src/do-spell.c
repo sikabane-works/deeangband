@@ -3893,6 +3893,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Plasma Ball";
 		if(desc) return "Fires a ball of plasma.";
 #endif    
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_PLAS, TRUE, 50);
 		break;
 
 	case 20:
@@ -3903,7 +3904,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Polymorph Demon";
 		if(desc) return "Mimic a demon for a while. Loses abilities of original race and gets abilities as a demon.";
 #endif
-    
+		if(cast) do_active_trait(caster_ptr, TRAIT_POLYMORPH_DEMON, TRUE, 50);
 		break;
 
 	case 21:
@@ -3914,19 +3915,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Nather Wave";
 		if(desc) return "Damages all creatures in sight. Hurts good creatures greatly.";
 #endif
-    
-		{
-			int sides1 = lev_bonus * 2;
-			int sides2 = lev_bonus * 2;
-
-			if(info) return format("%sd%d+d%d", s_dam, sides1, sides2);
-
-			if(cast)
-			{
-				project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, randint1(sides1));
-				project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, randint1(sides2));
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_WAVE_NETHER, TRUE, 50);
 		break;
 
 	case 22:

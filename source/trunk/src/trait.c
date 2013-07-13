@@ -2272,6 +2272,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_WAVE_NETHER:
+	{
+			project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, randint1(power));
+			project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, randint1(power));
+	}
+	break;
+
 	case TRAIT_WEIGH_MAG:
 		//TODO Erase
 		break;
