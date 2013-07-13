@@ -3321,17 +3321,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Infravision";
 		if(desc) return "Gives infravision for a while.";
 #endif
-    
-		{
-			int base = 100;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_SEE_INFRA, base + randint1(base), FALSE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SEE_INFRA, TRUE);
 		break;
 
 	case 1:

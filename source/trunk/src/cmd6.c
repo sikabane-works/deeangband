@@ -439,10 +439,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			effected = TRUE;
 			break;
 
-		case SV_POTION_INFRAVISION:
-			if(add_timed_trait(caster_ptr, TRAIT_SEE_INFRA, 100 + randint1(100), TRUE)) effected = TRUE;
-			break;
-
 		case SV_POTION_SLOW_POISON:
 			if(set_timed_trait(caster_ptr, TRAIT_POISONED, caster_ptr->timed_trait[TRAIT_POISONED] / 2, TRUE)) effected = TRUE;
 			break;
