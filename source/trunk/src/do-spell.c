@@ -4121,19 +4121,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Star Dust";
 		if(desc) return "Fires many bolts of light near the target.";
 #endif
-    
-		{
-			int dice = 3 + (lev_bonus - 1) / 9;
-			int sides = 2;
-
-			if(info) return info_multi_damage_dice(dice, sides);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				fire_blast(caster_ptr, DO_EFFECT_LITE, dir, dice, sides, 10, 3);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_STAR_DUST, TRUE);
 		break;
 
 	case 7:

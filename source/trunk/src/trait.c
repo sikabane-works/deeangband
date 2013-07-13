@@ -2261,6 +2261,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, caster_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1);
 		break;
 
+	case TRAIT_STAR_DUST:
+		{
+			int dice = 3 + (lev_bonus - 1) / 9;
+			int sides = 2;
+			fire_blast(caster_ptr, DO_EFFECT_LITE, dir, dice, sides, 10, 3);
+		}
+		break;
+
 	case TRAIT_LIVING_TRUMP:
 		{
 				int mutation;
