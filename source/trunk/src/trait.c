@@ -2648,6 +2648,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		brand_weapon(caster_ptr, 5);
 		break;
 
+	case TRAIT_ENCHANT_RANDOM_BRAND:
+		brand_weapon(caster_ptr, randint0(18));
+		break;
+
 	case TRAIT_WANDER:
 		cast_wonder(caster_ptr);
 		break;

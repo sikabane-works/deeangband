@@ -3642,12 +3642,6 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Attempts to increase +AC of an armor.";
 #endif
 		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_ARMOR_BOOST, TRUE);
-
-		{
-			if(cast)
-			{
-			}
-		}
 		break;
 
 	case 29:
@@ -3658,13 +3652,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Brand Weapon";
 		if(desc) return "Makes current weapon a random ego weapon.";
 #endif
-    
-		{
-			if(cast)
-			{
-				brand_weapon(caster_ptr, randint0(18));
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_RANDOM_BRAND, TRUE);
 		break;
 
 	case 30:
@@ -3675,30 +3663,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Living Trump";
 		if(desc) return "Gives mutation which makes you teleport randomly or makes you able to teleport at will.";
 #endif
-    
-		{
-			if(cast)
-			{
-				int mutation;
-
-				if(one_in_(7))
-					/* Teleport control */
-					mutation = 12;
-				else
-					/* Random teleportation (uncontrolled) */
-					mutation = 77;
-
-				/* Gain the mutation */
-				if(get_mutative_trait(caster_ptr, mutation, TRUE))
-				{
-#ifdef JP
-					msg_print("あなたは生きているカードに変わった。");
-#else
-					msg_print("You have turned into a Living Trump.");
-#endif
-				}
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_LIVING_TRUMP, TRUE);
 		break;
 
 	case 31:
