@@ -309,6 +309,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE);
 		break;
 
+	case TRAIT_GET_SEE_INVISIBLE:
+		{
+			int base = 24;
+			set_timed_trait(caster_ptr, TRAIT_SEE_INVISIBLE, randint1(base) + base, FALSE);
+		}
+		break;
+
 	case TRAIT_PROT_EVIL:
 		(void)set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * caster_ptr->lev, FALSE);
 		break;

@@ -3216,17 +3216,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "See Invisible";
 		if(desc) return "Gives see invisible for a while.";
 #endif
-    
-		{
-			int base = 24;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_SEE_INVISIBLE, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_GET_SEE_INVISIBLE, TRUE);
 		break;
 
 	case 25:
@@ -3466,17 +3456,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "See Invisibility";
 		if(desc) return "Gives see invisible for a while.";
 #endif
-    
-		{
-			int base = 24;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_SEE_INVISIBLE, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_GET_SEE_INVISIBLE, TRUE);
 		break;
 
 	case 9:
@@ -4608,17 +4588,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Sense Unseen";
 		if(desc) return "Gives see invisible for a while.";
 #endif
-    
-		{
-			int base = 24;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_SEE_INVISIBLE, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_GET_SEE_INVISIBLE, TRUE);
 		break;
 
 	case 13:
