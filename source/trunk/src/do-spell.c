@@ -2816,13 +2816,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Branding";
 		if(desc) return "Makes current weapon a Trump weapon.";
 #endif
-    
-		{
-			if(cast)
-			{
-				brand_weapon(caster_ptr, 5);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_TRUMP_BRAND, TRUE);
 		break;
 
 	case 22:
