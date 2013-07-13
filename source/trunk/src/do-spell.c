@@ -3794,17 +3794,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Nether";
 		if(desc) return "Gives resistance to nether for a while.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_RES_NETH, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_GET_RES_NETH, TRUE);
 		break;
 
 	case 11:
