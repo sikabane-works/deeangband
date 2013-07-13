@@ -2559,14 +2559,12 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
-	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 	bool fail = (mode == SPELL_FAIL) ? TRUE : FALSE;
 
 	static const char s_random[] = KW_RANDOM;
 
 	DIRECTION dir;
-	CREATURE_LEV lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -2699,16 +2697,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Phantasmal Servant";
 		if(desc) return "Summons a ghost.";
 #endif
-    
-		{
-			/* Phantasmal Servant is not summoned as enemy when failed */
-			if(cast)
-			{
-				FLOOR_LEV summon_lev = lev_bonus * 2 / 3 + (FLOOR_LEV)randint1(lev_bonus / 2);
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, (summon_lev * 3 / 2), TRAIT_S_PHANTOM, 0L))
-					msg_print(MES_SUMMON_SERVANT);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_S_PHANTOM, TRUE);
 		break;
 
 	case 11:
