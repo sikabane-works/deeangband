@@ -2611,13 +2611,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Reset Recall";
 		if(desc) return "Resets the 'deepest' level for recall spell.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!reset_recall(caster_ptr)) return NULL;
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_RESET_RECALL, TRUE);
 		break;
 
 	case 4:

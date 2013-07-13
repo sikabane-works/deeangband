@@ -834,12 +834,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			break;
 		}
 
-		case SV_SCROLL_RESET_RECALL:
-		{
-			ident = TRUE;
-			if(!reset_recall(caster_ptr)) used_up = FALSE;
-			break;
-		}
 	}
 	}
 	else if(object_ptr->art_id == ART_GHB)

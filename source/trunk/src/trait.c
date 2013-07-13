@@ -351,6 +351,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_shuffle(caster_ptr);
 		break;
 
+	case TRAIT_RESET_RECALL:
+		reset_recall(caster_ptr);
+		break;
+
 
 		//TODO Remove duplicated process
 	case TRAIT_ILLUMINE:
