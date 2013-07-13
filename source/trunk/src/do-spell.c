@@ -3893,13 +3893,6 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Plasma Ball";
 		if(desc) return "Fires a ball of plasma.";
 #endif    
-		{
-			POWER dam = lev_bonus * 3 / 2 + 80;
-			COODINATES rad = 2 + (COODINATES)lev_bonus / 40;
-
-			if(info) return info_damage(0, 0, dam);
-			if(cast) cast_ball(caster_ptr, DO_EFFECT_PLASMA, MAX_RANGE_SUB, dam, rad);
-		}
 		break;
 
 	case 20:
