@@ -2151,6 +2151,30 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_LIVING_TRUMP:
+		{
+				int mutation;
+
+				//TODO
+				if(one_in_(7))
+					/* Teleport control */
+					mutation = 12;
+				else
+					/* Random teleportation (uncontrolled) */
+					mutation = 77;
+
+				/* Gain the mutation */
+				if(get_mutative_trait(caster_ptr, mutation, TRUE))
+				{
+#ifdef JP
+					msg_print("あなたは生きているカードに変わった。");
+#else
+					msg_print("You have turned into a Living Trump.");
+#endif
+				}
+		}
+		break;
+
 		/* Summon pet molds around the player */
 	case TRAIT_GROW_MOLD:
 		{

@@ -2828,30 +2828,6 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Gives mutation which makes you teleport randomly or makes you able to teleport at will.";
 #endif
     
-		{
-			if(cast)
-			{
-				int mutation;
-
-				//TODO
-				if(one_in_(7))
-					/* Teleport control */
-					mutation = 12;
-				else
-					/* Random teleportation (uncontrolled) */
-					mutation = 77;
-
-				/* Gain the mutation */
-				if(get_mutative_trait(caster_ptr, mutation, TRUE))
-				{
-#ifdef JP
-					msg_print("あなたは生きているカードに変わった。");
-#else
-					msg_print("You have turned into a Living Trump.");
-#endif
-				}
-			}
-		}
 		break;
 
 	case 23:
