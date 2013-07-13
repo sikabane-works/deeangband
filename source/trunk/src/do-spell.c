@@ -3970,20 +3970,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Insanity Circle";
 		if(desc) return "Generate balls of chaos, confusion and charm centered on you.";
 #endif
-    
-		{
-			POWER dam = 50 + lev_bonus;
-			COODINATES rad = 3 + (COODINATES)lev_bonus / 20;
-
-			if(info) return format("%s%d+%d", s_dam, dam/2, dam/2);
-
-			if(cast)
-			{
-				SELF_FIELD(caster_ptr, DO_EFFECT_CHAOS, dam, rad, -1);
-				SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, dam, rad, -1);
-				SELF_FIELD(caster_ptr, DO_EFFECT_CHARM, dam, rad, -1);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_INSANITY_CIRCLE, TRUE);
 		break;
 
 	case 27:
