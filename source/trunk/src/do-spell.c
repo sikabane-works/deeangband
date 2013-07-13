@@ -3539,17 +3539,6 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Gives ability to pass walls for a while.";
 #endif
     
-		{
-			int base = lev_bonus / 2;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_PASS_WALL, randint1(base) + base, FALSE);
-			}
-		}
-		break;
 
 	case 21:
 #ifdef JP
