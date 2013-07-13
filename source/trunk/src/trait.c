@@ -343,6 +343,21 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(75) + 75, TRUE);
 		break;
 
+	case TRAIT_HASTE_OTHER:
+		{
+				bool result;
+
+				/* Temporary enable target_pet option */
+				bool old_target_pet = target_pet;
+				target_pet = TRUE;
+
+				/* Restore target_pet option */
+				target_pet = old_target_pet;
+
+				cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1);
+		}
+		break;
+
 	case TRAIT_WRAITH_FORM:
 		set_timed_trait(caster_ptr, TRAIT_WRAITH_FORM, randint1(user_level / 2) + (user_level / 2), FALSE);
 		break;

@@ -2564,8 +2564,6 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 	static const char s_random[] = KW_RANDOM;
 
-	DIRECTION dir;
-
 	switch (spell)
 	{
 	case 0:
@@ -2708,25 +2706,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Haste Creature";
 		if(desc) return "Hastes a creature.";
 #endif
-    
-		{
-			if(cast)
-			{
-				bool result;
-
-				/* Temporary enable target_pet option */
-				bool old_target_pet = target_pet;
-				target_pet = TRUE;
-
-				result = get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir);
-
-				/* Restore target_pet option */
-				target_pet = old_target_pet;
-
-				if(!result) return NULL;
-				cast_bolt(caster_ptr, DO_EFFECT_SPEED_OTHERS, MAX_RANGE_SUB, caster_ptr->lev, -1);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_HASTE_OTHER, TRUE);
 		break;
 
 	case 12:
