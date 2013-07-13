@@ -324,7 +324,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_GET_ELEMENT_BRAND:
-		if(!choose_ele_attack(caster_ptr)) return NULL;
+		choose_ele_attack(caster_ptr);
 		break;
 
 	case TRAIT_GET_ESP:
@@ -2618,6 +2618,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			if(!result) break;
 			cast_bolt(caster_ptr, DO_EFFECT_OLD_HEAL, MAX_RANGE_SUB, heal, -1);
 		}
+		break;
+
+	case TRAIT_ENCHANT_WEAPON_BOOST:
+		enchant_spell(caster_ptr, randint0(4) + 1, randint0(4) + 1, 0, 0, 0);
 		break;
 
 	case TRAIT_ENCHANT_ELEMENTAL_BRAND:

@@ -3630,13 +3630,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Enchant Weapon";
 		if(desc) return "Attempts to increase +to-hit, +to-dam of a weapon.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!enchant_spell(caster_ptr, randint0(4) + 1, randint0(4) + 1, 0, 0, 0)) return NULL;
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_WEAPON_BOOST, TRUE);
 		break;
 
 	case 28:
