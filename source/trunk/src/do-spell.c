@@ -3306,8 +3306,6 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	FLOOR_LEV lev_bonus = caster_ptr->lev;
-
 	switch (spell)
 	{
 	case 0:
@@ -3747,18 +3745,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Horrify";
 		if(desc) return "Attempts to scare and stun a creature.";
 #endif
-    
-		{
-			POWER power = lev_bonus;
-
-			if(info) return info_power(power);
-
-			if(cast)
-			{
-				cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, lev_bonus, -1);
-				cast_bolt(caster_ptr, DO_EFFECT_STUN, MAX_RANGE_SUB, power, -1);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_TERROR, TRUE);
 		break;
 
 	case 5:
