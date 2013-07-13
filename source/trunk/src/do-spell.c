@@ -3674,17 +3674,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Immunity";
 		if(desc) return "Gives an immunity to fire, cold, electricity or acid for a while.";
 #endif
-    
-		{
-			int base = 13;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				if(!choose_ele_immune(caster_ptr, base + randint1(base))) return NULL;
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_GET_IMMUNE, TRUE);
 		break;
 	}
 

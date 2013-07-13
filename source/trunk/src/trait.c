@@ -327,6 +327,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		choose_ele_attack(caster_ptr);
 		break;
 
+	case TRAIT_GET_IMMUNE:
+		choose_ele_immune(caster_ptr, 10 + randint1(10));
+		break;
+
 	case TRAIT_GET_ESP:
 		(void)set_timed_trait(caster_ptr, TRAIT_ESP, randint1(30) + 25, FALSE);
 		break;
