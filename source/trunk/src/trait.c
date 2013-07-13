@@ -222,6 +222,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_CHARM, user_level * 2);
 		break;
 
+	case TRAIT_S_GREATER_DEMON:
+		cast_summon_greater_demon(caster_ptr);
+		break;
+
 	case TRAIT_S_ANIMAL:
 		(void)summoning(caster_ptr, caster_ptr->fy, caster_ptr->fx, user_level, TRAIT_S_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;

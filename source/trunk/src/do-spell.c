@@ -647,7 +647,7 @@ static bool item_tester_offer(creature_type *creature_ptr, object_type *object_p
 /*
  * Daemon spell Summon Greater Demon
  */
-static bool cast_summon_greater_demon(creature_type *creature_ptr)
+bool cast_summon_greater_demon(creature_type *creature_ptr)
 {
 	int lev_bonus = creature_ptr->lev;
 	OBJECT_ID item;
@@ -3992,13 +3992,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Summon Greater Demon";
 		if(desc) return "Summons greater demon. It need to sacrifice a corpse of human ('p','h' or 't').";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!cast_summon_greater_demon(caster_ptr)) return NULL;
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_S_GREATER_DEMON, TRUE);
 		break;
 
 	case 29:
