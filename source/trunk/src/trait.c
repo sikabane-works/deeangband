@@ -2658,6 +2658,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_FLOW_LAVA:
+		{
+			POWER dam = (55 + power) * 2;
+			COODINATES rad = 3;
+			SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
+			cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, MAX_RANGE_SUB, 2 + randint1(2), rad);
+		}
+
 	case TRAIT_ENCHANT_REMOVE:
 		mundane_spell(caster_ptr, FALSE);
 		break;

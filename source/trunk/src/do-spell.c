@@ -3882,19 +3882,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "The Flow of Lava";
 		if(desc) return "Generates a ball of fire centered on you which transforms floors to magma.";
 #endif
-    
-		{
-			POWER dam = (55 + lev_bonus) * 2;
-			COODINATES rad = 3;
-
-			if(info) return info_damage(0, 0, dam/2);
-
-			if(cast)
-			{
-				SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, dam, rad, -1);
-				cast_ball_hide(caster_ptr, DO_EFFECT_LAVA_FLOW, MAX_RANGE_SUB, 2 + randint1(2), rad);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_FLOW_LAVA, TRUE, 50);
 		break;
 
 	case 19:
