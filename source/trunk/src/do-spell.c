@@ -3568,17 +3568,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Magical armor";
 		if(desc) return "Gives resistance to magic, bonus to AC, resistance to confusion, blindness, reflection, free action and levitation for a while.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_MAGIC_DEF, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_GET_MAGIC_DEF, TRUE);
 		break;
 
 	case 24:

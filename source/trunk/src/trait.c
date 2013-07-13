@@ -323,6 +323,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(heal_creature(caster_ptr, power)) effected = TRUE;
 		break;
 
+	case TRAIT_GET_MAGIC_DEF:
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_DEF, randint1(power) + power, FALSE);
+		break;
+
 	case TRAIT_GET_ELEMENT_BRAND:
 		choose_ele_attack(caster_ptr);
 		break;
