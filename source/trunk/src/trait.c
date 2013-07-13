@@ -2661,6 +2661,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		brand_weapon(caster_ptr, randint0(2));
 		break;
 
+	case TRAIT_ENCHANT_FIRE_BRAND:
+		brand_weapon(caster_ptr, 1);
+		break;
+
 	case TRAIT_ENCHANT_CHAOS_BRAND:
 		brand_weapon(caster_ptr, 2);
 		break;

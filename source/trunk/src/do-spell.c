@@ -3827,13 +3827,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Fire Branding";
 		if(desc) return "Makes current weapon fire branded.";
 #endif
-    
-		{
-			if(cast)
-			{
-				brand_weapon(caster_ptr, 1);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_FIRE_BRAND, TRUE);
 		break;
 
 	case 14:
