@@ -2624,6 +2624,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		enchant_spell(caster_ptr, randint0(4) + 1, randint0(4) + 1, 0, 0, 0);
 		break;
 
+	case TRAIT_ENCHANT_ARMOR_BOOST:
+		enchant_spell(caster_ptr, 0, 0, randint0(3) + 2, 0, 0);
+		break;
+
 	case TRAIT_ENCHANT_ELEMENTAL_BRAND:
 		brand_weapon(caster_ptr, randint0(2));
 		break;

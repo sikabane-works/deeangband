@@ -3641,11 +3641,11 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Enchant Armor";
 		if(desc) return "Attempts to increase +AC of an armor.";
 #endif
-    
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ENCHANT_ARMOR_BOOST, TRUE);
+
 		{
 			if(cast)
 			{
-				if(!enchant_spell(caster_ptr, 0, 0, randint0(3) + 2, 0, 0)) return NULL;
 			}
 		}
 		break;
