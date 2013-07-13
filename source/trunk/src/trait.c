@@ -2263,7 +2263,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_STAR_DUST:
 		{
-			int dice = 3 + (lev_bonus - 1) / 9;
+			int dice = 3 + (power - 1) / 9;
 			int sides = 2;
 			fire_blast(caster_ptr, DO_EFFECT_LITE, dir, dice, sides, 10, 3);
 		}

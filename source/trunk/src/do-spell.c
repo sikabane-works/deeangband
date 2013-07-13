@@ -4043,7 +4043,6 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	DIRECTION dir;
 	COODINATES lev_bonus = caster_ptr->lev;
 
 	switch (spell)
@@ -4132,15 +4131,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Purify";
 		if(desc) return "Heals all cut, stun and poison status.";
 #endif
-    
-		{
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
-				set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-				set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_CURING, TRUE);
 		break;
 
 	case 8:
