@@ -3303,7 +3303,6 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
-	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	switch (spell)
@@ -3751,16 +3750,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Summon Manes";
 		if(desc) return "Summons a manes.";
 #endif
-    
-		{
-			if(cast)
-			{
-				if(!summoning(NULL, caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3) / 2, TRAIT_S_MANES, (PC_ALLOW_GROUP | PC_FORCE_PET)))
-				{
-					msg_print(MES_SUMMON_MANES_FAILURE);
-				}
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_S_MANES, TRUE);
 		break;
 
 	case 7:
