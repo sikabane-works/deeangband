@@ -2937,10 +2937,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
-	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
-
-	FLOOR_LEV lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -3475,16 +3472,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure";
 		if(desc) return "Heals poison, stun, cut and hallucination completely.";
 #endif
-    
-		{
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_POISONED, 0, TRUE);
-				set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
-				set_timed_trait(caster_ptr, TRAIT_CUT, 0, TRUE);
-				set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0, TRUE);
-			}
-		}
+		do_active_trait_tmp(caster_ptr, TRAIT_CURING, TRUE);
 		break;
 
 	case 15:
