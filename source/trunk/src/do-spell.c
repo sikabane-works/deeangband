@@ -3073,17 +3073,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Enchantment";
 		if(desc) return "Detects all magical items in your vicinity.";
 #endif
-    
-		{
-			COODINATES rad = DETECT_RAD_DEFAULT;
-
-			if(info) return info_radius(rad);
-
-			if(cast)
-			{
-				detect_objects_magic(caster_ptr, rad);
-			}
-		}
+		do_active_trait(caster_ptr, TRAIT_DETECT_OBJECT_MAGIC, TRUE, 100);
 		break;
 
 	case 12:

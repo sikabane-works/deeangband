@@ -17,6 +17,7 @@
 #include "files.h"
 #include "floors.h"
 #include "riding.h"
+#include "mutation.h"
 
 bool do_active_trait_tmp(creature_type *caster_ptr, TRAIT_ID id, bool message)
 {
@@ -345,8 +346,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_HASTE_OTHER:
 		{
-				bool result;
-
 				/* Temporary enable target_pet option */
 				bool old_target_pet = target_pet;
 				target_pet = TRUE;
@@ -2291,6 +2290,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_DETECT_OBJECT:
 		(void)detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
+		break;
+
+	case TRAIT_DETECT_OBJECT_MAGIC:
+		(void)detect_objects_magic(caster_ptr, DETECT_RAD_DEFAULT);
 		break;
 
 	case TRAIT_BLESSING_SELF:
