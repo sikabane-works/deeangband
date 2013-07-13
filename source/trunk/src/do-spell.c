@@ -4015,7 +4015,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Puts blood curse which damages and causes various effects on a creature. You also take damage.";
 #endif
 		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_CAUSE_BLOODY_CURSE, TRUE);
-    
+		break;
 
 	case 31:
 #ifdef JP
@@ -4025,19 +4025,9 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Polymorph Demonlord";
 		if(desc) return "Mimic a demon lord for a while. Loses abilities of original race and gets great abilities as a demon lord. Even hard walls can't stop your walking.";
 #endif
-    
-		{
-			int base = 15;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				caster_ptr->mimic_race_idx = RACE_FIEND_LORD;
-				set_timed_trait(caster_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_POLYMORPH_DEMONLORD, TRUE);
 		break;
+
 	}
 
 	return "";
@@ -4066,14 +4056,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Punishment";
 		if(desc) return "Fires a bolt or beam of lightning.";
 #endif
-    
-		{
-			int dice = 3 + (lev_bonus - 1) / 5;
-			int sides = 4;
-
-			if(info) return info_damage(dice, sides, 0);
-			if(cast) cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_PUNISHMENT, TRUE);
 		break;
 
 	case 1:

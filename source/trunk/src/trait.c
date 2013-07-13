@@ -2241,6 +2241,23 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_POLYMORPH_DEMONLORD:
+		{
+			int base = 10 + power / 2;
+			caster_ptr->mimic_race_idx = RACE_FIEND_LORD;
+			set_timed_trait(caster_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
+		}
+		break;
+
+	case TRAIT_PUNISHMENT:
+		{
+			int dice = 3 + (lev_bonus - 1) / 5;
+			int sides = 4;
+			cast_bolt_or_beam(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, diceroll(dice, sides), beam_chance(caster_ptr) - 10);
+		}
+		break;
+
+
 	case TRAIT_LIVING_TRUMP:
 		{
 				int mutation;
