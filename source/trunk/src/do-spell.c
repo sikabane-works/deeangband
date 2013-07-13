@@ -362,7 +362,7 @@ void wild_magic(creature_type *caster_ptr, int spell)
 }
 
 
-static void cast_shuffle(creature_type *caster_ptr)
+void cast_shuffle(creature_type *caster_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int lev_bonus = caster_ptr->lev;
@@ -2600,15 +2600,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Shuffle";
 		if(desc) return "Causes random effects.";
 #endif
-    
-		{
-			if(info) return s_random;
-
-			if(cast)
-			{
-				cast_shuffle(caster_ptr);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_SHUFFLE, TRUE);
 		break;
 
 	case 3:

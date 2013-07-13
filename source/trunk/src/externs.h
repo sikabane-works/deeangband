@@ -760,6 +760,7 @@ extern void cast_meteor(creature_type *caster_ptr, POWER dam, COODINATES rad);
 extern void cast_wonder(creature_type *caster_ptr);
 extern int beam_chance(creature_type *creature_ptr);
 extern void cast_invoke_spirits(creature_type *caster_ptr);
+extern void cast_shuffle(creature_type *caster_ptr);
 
 // flavor.c
 extern void get_table_name_aux(char *out_string);

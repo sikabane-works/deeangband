@@ -347,6 +347,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		set_timed_trait(caster_ptr, TRAIT_WRAITH_FORM, randint1(user_level / 2) + (user_level / 2), FALSE);
 		break;
 
+	case TRAIT_SHUFFLE:
+		cast_shuffle(caster_ptr);
+		break;
+
+
 		//TODO Remove duplicated process
 	case TRAIT_ILLUMINE:
 	case TRAIT_LIGHT_AREA:
