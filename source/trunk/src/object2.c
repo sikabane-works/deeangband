@@ -2216,26 +2216,20 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 	case TV_STATUE:
 		{
-			PVAL i = 1;
+			SPECIES_ID i = 1;
 			species_type *species_ptr;
 
-			/* Pick a random creature race */
-			while(TRUE)
+			while(TRUE) /* Pick a random creature race */
 			{
-				i = (PVAL)randint1(max_species_idx - 1);
-
+				i = (SPECIES_ID)randint1(max_species_idx - 1);
 				species_ptr = &species_info[i];
-
-				/* Ignore dead creatures */
-				if(!species_ptr->rarity) continue;
-
+				if(!species_ptr->rarity) continue; /* Ignore dead creatures */
 				break;
 			}
 
-			object_ptr->pval = i;
+			object_ptr->source_idx = i;
 			object_aware(object_ptr);
 			object_known(object_ptr);
-
 			break;
 		}
 
@@ -3300,8 +3294,8 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b 
 	case TV_STATUE:
 	case TV_CORPSE:
 	case TV_CAPTURE:
-		if(species_info[object_ptr->pval].level < species_info[object2_ptr->pval].level) return TRUE;
-		if((species_info[object_ptr->pval].level == species_info[object2_ptr->pval].level) && (object_ptr->pval < object2_ptr->pval)) return TRUE;
+		if(species_info[object_ptr->source_idx].level < species_info[object2_ptr->source_idx].level) return TRUE;
+		if((species_info[object_ptr->source_idx].level == species_info[object2_ptr->source_idx].level) && (object_ptr->source_idx < object2_ptr->source_idx)) return TRUE;
 		return FALSE;
 
 	case TV_SHOT:
