@@ -2293,6 +2293,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_DOMINATE_DEMON:
+		cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, power, 0);
+		break;
+
 	case TRAIT_LIVING_TRUMP:
 		{
 				int mutation;
