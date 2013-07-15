@@ -1781,6 +1781,7 @@ enum OBJECT_KIND_INFO {
 	OK_INFO_TVAL,
 	OK_INFO_SVAL,
 	OK_INFO_PVAL,
+	OK_INFO_FUEL,
 
 	OK_INFO_STR,
 	OK_INFO_INT,
@@ -1840,6 +1841,7 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"TVAL",
 	"SVAL",
 	"PVAL",
+	"FUEL",
 
 	"STR",
 	"INT",
@@ -2002,6 +2004,11 @@ errr parse_object_kind_csv(char *buf, header *head)
 					object_kind_ptr->pval = (byte)b;
 				else
 					object_kind_ptr->pval = 0;
+				break;
+
+			case OK_INFO_FUEL:
+				if(sscanf(tmp, "%d", &b) == 1) object_kind_ptr->fuel = (GAME_TIME)b;
+				else object_kind_ptr->fuel = 0;
 				break;
 
 			case OK_INFO_STR:

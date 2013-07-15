@@ -412,6 +412,7 @@ struct object_kind
 	TVAL tval;			/* Object type */
 	SVAL sval;			/* Object sub type */
 	PVAL pval;			/* Object extra info */
+	GAME_TIME fuel;
 
 	STAT stat_val[STAT_MAX]; // Stat
 

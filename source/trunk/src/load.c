@@ -371,9 +371,12 @@ static errr rd_object(object_type *object_ptr)
 	for(i = 0; i < MAX_TRAITS_FLAG; i++) READ_FLAGS_32(&object_ptr->trait_flags[i]);
 	for(i = 0; i < MAX_TRAITS_FLAG; i++) READ_FLAGS_32(&object_ptr->curse_flags[i]);
 
+	READ_GAME_TIME(&object_ptr->fuel);
+
 	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	object_ptr->tval = object_kind_ptr->tval;
 	object_ptr->sval = object_kind_ptr->sval;
+
 
 	return LOAD_ERROR_NONE;
 }

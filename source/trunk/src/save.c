@@ -152,6 +152,7 @@ static void wr_object(object_type *object_ptr)
 	for(i = 0; i < MAX_TRAITS_FLAG; i++) WRITE_FLAGS_32(object_ptr->trait_flags[i]);
 	for(i = 0; i < MAX_TRAITS_FLAG; i++) WRITE_FLAGS_32(object_ptr->curse_flags[i]);
 
+	WRITE_GAME_TIME(object_ptr->fuel);
 
 }
 
