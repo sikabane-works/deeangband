@@ -2651,31 +2651,20 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 	for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *object_ptr;
-
-		/* Access the object */
-		object_ptr = &object_list[this_object_idx];
-
+		object_ptr = &object_list[this_object_idx]; /* Access the object */
 		object_desc(object_name, object_ptr, 0);
 
-		/* Access the next object */
-		next_object_idx = object_ptr->next_object_idx;
+		next_object_idx = object_ptr->next_object_idx; /* Access the next object */
+		disturb(player_ptr, 0, 0); /* Hack -- disturb */
 
-		/* Hack -- disturb */
-		disturb(player_ptr, 0, 0);
-
-		/* Pick up gold */
-		if(object_ptr->tval == TV_GOLD)
+		if(object_ptr->tval == TV_GOLD) /* Pick up gold */
 		{
 			msg_format(MES_GET_MONEY, (long)object_ptr->pval, object_name);
-
-			/* Collect the gold */
-			creature_ptr->au += object_ptr->pval;
+			creature_ptr->au += object_ptr->pval; /* Collect the gold */
 
 			prepare_redraw(PR_GOLD);
 			prepare_window(PW_PLAYER);
-
-			/* Delete the gold */
-			delete_object_idx(this_object_idx);
+			delete_object_idx(this_object_idx); /* Delete the gold */
 
 			/* Check the next object */
 			continue;
