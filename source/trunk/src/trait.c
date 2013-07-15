@@ -1374,6 +1374,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		set_timed_trait(caster_ptr, TRAIT_EYE_EYE, randint1(10) + 10, FALSE);
 		break;
 
+	case TRAIT_WRAITH_OF_GOD:
+		cast_wrath_of_the_god(caster_ptr, power, 2);
+		break;
+
 	case TRAIT_GRENADE:
 		{
 			int num = 1 + randint1(3);

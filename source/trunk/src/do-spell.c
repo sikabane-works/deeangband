@@ -551,7 +551,7 @@ void cast_meteor(creature_type *caster_ptr, POWER dam, COODINATES rad)
 
 
 // Drop 10+1d10 disintegration ball at random places near the target
-static bool cast_wrath_of_the_god(creature_type *creature_ptr, POWER dam, COODINATES rad)
+bool cast_wrath_of_the_god(creature_type *creature_ptr, POWER dam, COODINATES rad)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	COODINATES x, y, tx, ty, nx, ny;
@@ -4369,18 +4369,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Wrath of the God";
 		if(desc) return "Drops many balls of disintegration near the target.";
 #endif
-    
-		{
-			POWER dam = lev_bonus * 3 + 25;
-			COODINATES rad = 2;
-
-			if(info) return info_multi_damage(dam);
-
-			if(cast)
-			{
-				if(!cast_wrath_of_the_god(caster_ptr, dam, rad)) return NULL;
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_WRAITH_OF_GOD, TRUE);
 		break;
 
 	case 30:
