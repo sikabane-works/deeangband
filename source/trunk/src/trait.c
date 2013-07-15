@@ -155,6 +155,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, caster_ptr->lev * 5);
 		break;
 
+	case TRAIT_DISPEL_UNDEAD_DEMON:
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, randint1(power));
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_DEMON, randint1(power));
+		break;
+
+
 	case TRAIT_DISPEL_LIVES:
 		{
 			int sides = power;
@@ -2704,6 +2710,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
 				project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 		}
+
+	case TRAIT_ARREST_EVIL:
+		cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, power * 2, 0);
+		break;
 
 	case TRAIT_GET_HOLY_AURA:
 		set_timed_trait(caster_ptr, TRAIT_HOLY_AURA, randint1(power) + power, FALSE);

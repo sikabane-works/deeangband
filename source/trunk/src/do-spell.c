@@ -4237,8 +4237,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Arrest";
 		if(desc) return "Attempts to paralyze an evil creature.";
 #endif
-		if(info) return info_power(lev_bonus * 2);
-		if(cast) cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, lev_bonus * 2, 0);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_ARREST_EVIL, TRUE);
 		break;
 
 	case 18:
@@ -4260,18 +4259,8 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dispel Undead & Demons";
 		if(desc) return "Damages all undead and demons in sight.";
 #endif
-		{
-			int sides = lev_bonus * 4;
-
-			if(info) return info_damage(1, sides, 0);
-
-			if(cast)
-			{
-				project_all_vision(caster_ptr, DO_EFFECT_DISP_UNDEAD, randint1(sides));
-				project_all_vision(caster_ptr, DO_EFFECT_DISP_DEMON, randint1(sides));
-			}
-		}
-		break;
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_DISPEL_UNDEAD_DEMON, TRUE);
+				break;
 
 	case 20:
 #ifdef JP
