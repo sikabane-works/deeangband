@@ -4125,7 +4125,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_SONIC_BOOM "ƒh[ƒ“I•”‰®‚ª—h‚ê‚½I"
 #define MES_TRAIT_CRACK_DONE "•Ší‚ð‘å‚«‚­U‚è‰º‚ë‚µ‚½B"
 #define MES_TRAIT_WARCRY_DONE "—Y‹©‚Ñ‚ð‚ ‚°‚½I"
-#define MES_TRAIT_MOON_DAZZING_DONE "•Ší‚ð•s‹K‘¥‚É—h‚ç‚µ‚½DDD"
+#define MES_TRAIT_MOON_DAZZLING_DONE "•Ší‚ð•s‹K‘¥‚É—h‚ç‚µ‚½DDD"
 #define MES_TRAIT_WARNING_DONE(OBJECT) "%s‚ª‰s‚­k‚¦‚½I", (OBJECT)->name
 #define MES_TRAIT_WARNING_DONE2(OBJECT) "%s‚ªk‚¦‚½I", (OBJECT)->name
 #else
@@ -4243,7 +4243,7 @@ static cptr desc_stat_neg[] =
 #define MES_TRAIT_SONIC_BOOM "BOOM! Shake the room!"
 #define MES_TRAIT_CRACK_DONE "You swing your weapon downward."
 #define MES_TRAIT_WARCRY_DONE "You roar out!"
-#define MES_TRAIT_MOON_DAZZING_DONE "You irregularly wave your weapon..."
+#define MES_TRAIT_MOON_DAZZLING_DONE "You irregularly wave your weapon..."
 #define MES_TRAIT_WARNING_DONE(OBJECT) "Your %s pulsates sharply!", (OBJECT)->name
 #define MES_TRAIT_WARNING_DONE2(OBJECT) "Your %s pulsates!", (OBJECT)->name
 #endif

@@ -6099,14 +6099,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Moon Dazzling";
 		if(desc) return "Attempts to stun, confuse and sleep all waking creatures.";
 #endif
-    
-		if(cast)
-		{
-			msg_print(MES_TRAIT_MOON_DAZZING_DONE);
-			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, lev_bonus * 4);
-			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, lev_bonus * 4);
-			project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, lev_bonus * 4);
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_MOON_DAZZLING, TRUE, 100);
 		break;
 
 	case 26:

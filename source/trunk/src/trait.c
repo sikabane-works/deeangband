@@ -490,6 +490,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(identify_fully(caster_ptr, FALSE)) return TRUE;
 		break;
 
+	case TRAIT_MOON_DAZZLING:
+		msg_print(MES_TRAIT_MOON_DAZZLING_DONE);
+		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
+		project_all_vision(caster_ptr, DO_EFFECT_ENGETSU, power * 4);
+		break;
+
 	case TRAIT_WEAPON_MASTER_JUDGE:
 		if(power > 44)
 		{
