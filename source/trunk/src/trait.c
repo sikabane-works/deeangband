@@ -1374,8 +1374,26 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		set_timed_trait(caster_ptr, TRAIT_EYE_EYE, randint1(10) + 10, FALSE);
 		break;
 
-	case TRAIT_WRAITH_OF_GOD:
+	case TRAIT_WRATH_OF_GOD:
 		cast_wrath_of_the_god(caster_ptr, power, 2);
+		break;
+
+	case TRAIT_DIVINE_INTERVENTION:
+		{
+			int b_dam = power * 11;
+			int d_dam = power * 4;
+			int heal = 100;
+			POWER power = power * 4;
+
+			project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_HOLY_FIRE, PROJECT_KILL, -1);
+			project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
+			project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power);
+			project_all_vision(caster_ptr, DO_EFFECT_STUN, power);
+			project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
+			project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, power);
+			project_all_vision(caster_ptr, DO_EFFECT_STASIS, power);
+			heal_creature(caster_ptr, heal);
+		}
 		break;
 
 	case TRAIT_GRENADE:

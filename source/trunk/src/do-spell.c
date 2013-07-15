@@ -3692,7 +3692,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Unlife";
 		if(desc) return "Detects all nonliving creatures in your vicinity.";
 #endif
-		if(cast)do_active_trait(caster_ptr, TRAIT_DETECT_NONLIVING, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_NONLIVING, TRUE, 100);
 		break;
 
 	case 2:
@@ -4369,7 +4369,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Wrath of the God";
 		if(desc) return "Drops many balls of disintegration near the target.";
 #endif
-		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_WRAITH_OF_GOD, TRUE);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_WRATH_OF_GOD, TRUE);
 		break;
 
 	case 30:
@@ -4380,31 +4380,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Divine Intervention";
 		if(desc) return "Damages all adjacent creatures with holy power. Damages and attempt to slow, stun, confuse, scare and freeze all creatures in sight. And heals HP.";
 #endif
-    
-		{
-			int b_dam = lev_bonus * 11;
-			int d_dam = lev_bonus * 4;
-			int heal = 100;
-			POWER power = lev_bonus * 4;
-
-#ifdef JP
-			if(info) return format("‰ñ%d/‘¹%d+%d", heal, d_dam, b_dam/2);
-#else
-			if(info) return format("h%d/dm%d+%d", heal, d_dam, b_dam/2);
-#endif
-
-			if(cast)
-			{
-				project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_HOLY_FIRE, PROJECT_KILL, -1);
-				project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
-				project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, power);
-				project_all_vision(caster_ptr, DO_EFFECT_STUN, power);
-				project_all_vision(caster_ptr, DO_EFFECT_CONF_OTHERS, power);
-				project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, power);
-				project_all_vision(caster_ptr, DO_EFFECT_STASIS, power);
-				heal_creature(caster_ptr, heal);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_DIVINE_INTERVENTION, TRUE);
 		break;
 
 	case 31:
