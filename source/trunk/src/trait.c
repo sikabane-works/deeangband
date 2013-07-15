@@ -1383,7 +1383,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			int b_dam = power * 11;
 			int d_dam = power * 4;
 			int heal = 100;
-			POWER power = power * 4;
 
 			project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_HOLY_FIRE, PROJECT_KILL, -1);
 			project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, d_dam);
@@ -2893,6 +2892,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_INVOKE_SPIRITS:
 		cast_invoke_spirits(caster_ptr);
 		break;
+
+	case TRAIT_BO_SOUN:
+		{
+			int dice = 4 + (power - 1) / 5;
+			int sides = 4;
+			cast_bolt(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, diceroll(dice, sides), 0);
+		}
 
 	case TRAIT_BO_CHAO:
 		{

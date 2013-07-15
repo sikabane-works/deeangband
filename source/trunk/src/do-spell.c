@@ -4463,19 +4463,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
     
 		/* Stop singing before start another */
 		if(cast || fail) stop_singing(caster_ptr);
-
-		{
-			int dice = 4 + (lev_bonus - 1) / 5;
-			int sides = 4;
-
-			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-				cast_bolt(caster_ptr, DO_EFFECT_SOUND, MAX_RANGE_SUB, diceroll(dice, sides), 0);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_SOUN, TRUE, 100);
 		break;
 
 	case 3:
