@@ -3667,12 +3667,9 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
-	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
 	static const char s_dam[] = KW_DAM;
-
-	FLOOR_LEV lev_bonus = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -4218,23 +4215,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Holy Word";
 		if(desc) return "Damages all evil creatures in sight, heals HP somewhat, and completely heals poison, fear, stun and cut status.";
 #endif
-    
-		{
-			POWER dam_sides = lev_bonus * 6;
-			int heal = 100;
-
-#ifdef JP
-			if(info) return format("‘¹:1d%d/‰ñ%d", dam_sides, heal);
-#else
-			if(info) return format("dam:d%d/h%d", dam_sides, heal);
-#endif
-
-			if(cast)
-			{
-				project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, randint1(dam_sides));
-				heal_creature(caster_ptr, heal);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_HOLY_WORD, TRUE);
 		break;
 
 	case 16:
@@ -4245,7 +4226,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Unbarring Ways";
 		if(desc) return "Fires a beam which destroy traps and doors.";
 #endif
-		if(cast) cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1);
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_DESTROY_DOOR_TRAP_BEAM, TRUE);
 		break;
 
 	case 17:

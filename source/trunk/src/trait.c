@@ -2293,6 +2293,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_HOLY_WORD:
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, randint1(power));
+		heal_creature(caster_ptr, power);
+		break;
+
 	case TRAIT_DOMINATE_DEMON:
 		cast_ball(caster_ptr, DO_EFFECT_CONTROL_DEMON, MAX_RANGE_SUB, power, 0);
 		break;
