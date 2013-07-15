@@ -4249,17 +4249,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Holy Aura";
 		if(desc) return "Gives aura of holy power which injures evil creatures which attacked you for a while.";
 #endif
-    
-		{
-			int base = 20;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_HOLY_AURA, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_GET_HOLY_AURA, TRUE);
 		break;
 
 	case 19:

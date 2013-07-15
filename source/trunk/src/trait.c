@@ -2705,6 +2705,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 				project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 		}
 
+	case TRAIT_GET_HOLY_AURA:
+		set_timed_trait(caster_ptr, TRAIT_HOLY_AURA, randint1(power) + power, FALSE);
+		break;
+
 	case TRAIT_GET_RES_NETH:
 		set_timed_trait(caster_ptr, TRAIT_RES_NETH, randint1(power) + power, FALSE);
 		break;
