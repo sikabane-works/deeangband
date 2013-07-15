@@ -2054,10 +2054,9 @@ static bool item_creature_okay(SPECIES_ID species_idx)
 
 
 /*
-* Apply magic to an item known to be "boring"
-*
-* Hack -- note the special code for various items
-*/
+ * Apply magic to an item known to be "boring"
+ * Hack -- note the special code for various items
+ */
 static void generate_other_magic_item(creature_type *creature_ptr, object_type *object_ptr, int level, POWER power)
 {
 	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
@@ -2086,8 +2085,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 		}
 	case TV_FLASK:
 		{
-			object_ptr->fuel = object_ptr->pval;
-			object_ptr->pval = 0;
+			object_ptr->fuel = object_ptr->fuel;
 			break;
 		}
 
@@ -2096,15 +2094,13 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			/* Hack -- Torches -- random fuel */
 			if(object_ptr->sval == SV_LITE_TORCH)
 			{
-				if(object_ptr->pval > 0) object_ptr->fuel = (s16b)randint1(object_ptr->pval);
-				object_ptr->pval = 0;
+				if(object_ptr->fuel > 0) object_ptr->fuel = (s16b)randint1(object_ptr->fuel);
 			}
 
 			/* Hack -- Lanterns -- random fuel */
 			if(object_ptr->sval == SV_LITE_LANTERN)
 			{
-				if(object_ptr->pval > 0) object_ptr->fuel = (s16b)randint1(object_ptr->pval);
-				object_ptr->pval = 0;
+				if(object_ptr->fuel > 0) object_ptr->fuel = (s16b)randint1(object_ptr->fuel);
 			}
 
 			if(power > 2) /* power > 2 is debug only */
@@ -2122,7 +2118,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 						switch (object_ptr->ego_id)
 						{
 							case EGO_LITE_LONG:
-							if(object_ptr->sval == SV_LITE_FEANOR) okay_flag = FALSE;
+								if(object_ptr->sval == SV_LITE_FEANOR) okay_flag = FALSE;
 						}
 						if(okay_flag)
 							break;
