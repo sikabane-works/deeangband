@@ -4336,13 +4336,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Banish Evil";
 		if(desc) return "Teleports all evil creatures in sight away unless resisted.";
 #endif
-    
-		{
-			POWER power = 100;
-
-			if(info) return info_power(power);
-			if(cast) project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, power);
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_BANISH_EVIL, TRUE);
 		break;
 
 	case 27:
