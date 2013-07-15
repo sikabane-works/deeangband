@@ -185,7 +185,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	if(has_trait(creature_ptr, TRAIT_BLOOD_DRINKER))
 	{
 		// Reduced nutritional benefit
-		(void)set_food(creature_ptr, creature_ptr->food + (object1_ptr->pval / 10));
+		(void)set_food(creature_ptr, creature_ptr->food + (object1_ptr->fuel / 10));
 		msg_print(MES_EAT_LESS_EFFECT_BY_VAMPIRE);
 		// Hungry
 		if(creature_ptr->food < CREATURE_FOOD_ALERT) msg_print(MES_EAT_LESS_EFFECT_BY_VAMPIRE2);
@@ -268,13 +268,13 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	else if(has_trait(creature_ptr, TRAIT_NONLIVING) || has_trait(creature_ptr, TRAIT_UNDEAD) || has_trait(creature_ptr, TRAIT_DEMON))
 	{
 		msg_print(MES_EAT_LESS_EFFECT_MORTAL_FOOD);
-		set_food(creature_ptr, creature_ptr->food + ((object1_ptr->pval) / 20));
+		set_food(creature_ptr, creature_ptr->food + ((object1_ptr->fuel) / 20));
 	}
 	else if(object1_ptr->tval == TV_FOOD && object1_ptr->sval == SV_FOOD_WAYBREAD)
 	{
 		set_food(creature_ptr, MAX(creature_ptr->food, CREATURE_FOOD_MAX - 1)); /* Waybread is always fully satisfying. */
 	}
-	else (void)set_food(creature_ptr, creature_ptr->food + object1_ptr->pval); /* Food can feed the player */
+	else (void)set_food(creature_ptr, creature_ptr->food + object1_ptr->fuel); /* Food can feed the player */
 
 	increase_item(creature_ptr, item, -1, TRUE);
 }
@@ -317,10 +317,9 @@ void do_cmd_eat_food(creature_type *creature_ptr)
 static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 {
 	floor_type  *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int         effected, lev, i;
-	object_type	*object_ptr;
+	int effected, lev, i;
+	object_type	*object_ptr, *object2_ptr;
 	object_type forge;
-	object_type *quest_ptr;
 
 	cost_tactical_energy(caster_ptr, 100); // Take a turn
 
@@ -337,9 +336,9 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 	object_ptr = GET_ITEM(caster_ptr, item);
 
 	// Get local object
-	quest_ptr = &forge;
-	object_copy(quest_ptr, object_ptr);
-	quest_ptr->number = 1;
+	object2_ptr = &forge;
+	object_copy(object2_ptr, object_ptr);
+	object2_ptr->number = 1;
 
 	// Reduce and describe inventory or floor item
 	increase_item(caster_ptr, item, -1, TRUE);
@@ -347,16 +346,16 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 	sound(SOUND_QUAFF);	// Sound
 	effected = FALSE; // Not effectedified yet
 
-	lev = object_kind_info[quest_ptr->k_idx].level; // Object level
+	lev = object_kind_info[object2_ptr->k_idx].level; // Object level
 
 	for(i = 0; i < MAX_TRAITS; i++)
 		if(has_trait_object(object_ptr, i))
 			do_active_trait_tmp(caster_ptr, i, FALSE);
 
 	// Analyze the potion
-	if(quest_ptr->tval == TV_POTION)
+	if(object2_ptr->tval == TV_POTION)
 	{
-		switch (quest_ptr->sval)
+		switch (object2_ptr->sval)
 		{
 		case SV_POTION_WATER:
 			msg_print(MES_QUAFF_WATER);
@@ -484,19 +483,19 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 	if(has_trait(caster_ptr, TRAIT_SKELETON))
 	{
 		msg_print(MES_QUAFF_SKELETON_EFFECT);
-		(void)potion_smash_effect(0, caster_ptr->fy, caster_ptr->fx, quest_ptr->k_idx);
+		(void)potion_smash_effect(0, caster_ptr->fy, caster_ptr->fx, object2_ptr->k_idx);
 	}
 
 	/* Combine / Reorder the pack (later) */
 	prepare_update(caster_ptr, CRU_COMBINE | CRU_REORDER);
 
 	/* The item has been tried */
-	object_tried(quest_ptr);
+	object_tried(object2_ptr);
 
 	/* An identification was made */
-	if(effected && !object_is_aware(quest_ptr))
+	if(effected && !object_is_aware(object2_ptr))
 	{
-		object_aware(quest_ptr);
+		object_aware(object2_ptr);
 		gain_exp(caster_ptr, (lev + (caster_ptr->lev >> 1)) / caster_ptr->lev, 0, FALSE);
 	}
 
@@ -505,20 +504,20 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 
 	if(has_trait(caster_ptr, TRAIT_FLASK_DRINKER))
 	{
-		if(quest_ptr->tval == TV_FLASK)
+		if(object2_ptr->tval == TV_FLASK)
 		{
 			msg_print(MES_QUAFF_FLASK);
 			set_food(caster_ptr, caster_ptr->food + 5000);
 		}
-		else set_food(caster_ptr, caster_ptr->food + ((quest_ptr->pval) / 20));
+		else set_food(caster_ptr, caster_ptr->food + ((object2_ptr->fuel) / 20));
 	}
 
 	if(IS_RACE(caster_ptr, RACE_ENT))
 	{
 		msg_print(MES_QUAFF_MOIST);
-		set_food(caster_ptr, MIN(caster_ptr->food + quest_ptr->pval + MAX(0, quest_ptr->pval * 10) + 2000, CREATURE_FOOD_MAX - 1));
+		set_food(caster_ptr, MIN(caster_ptr->food + object2_ptr->fuel + MAX(0, object2_ptr->fuel * 10) + 2000, CREATURE_FOOD_MAX - 1));
 	}
-	else (void)set_food(caster_ptr, caster_ptr->food + quest_ptr->pval);
+	else (void)set_food(caster_ptr, caster_ptr->food + object2_ptr->fuel);
 
 }
 
