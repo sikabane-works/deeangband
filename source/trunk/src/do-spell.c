@@ -4260,7 +4260,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Damages all undead and demons in sight.";
 #endif
 		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_DISPEL_UNDEAD_DEMON, TRUE);
-				break;
+		break;
 
 	case 20:
 #ifdef JP
@@ -4270,7 +4270,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dispel Evil";
 		if(desc) return "Damages all evil creatures in sight.";
 #endif
-		do_active_trait(caster_ptr, TRAIT_DISPEL_EVIL_1, TRUE, lev_bonus * 4);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DISPEL_EVIL_1, TRUE, lev_bonus * 4);
 		break;
 
 	case 21:
@@ -4281,13 +4281,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Holy Blade";
 		if(desc) return "Makes current weapon especially deadly against evil creatures.";
 #endif
-    
-		{
-			if(cast)
-			{
-				brand_weapon(caster_ptr, 13);
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_ENCHANT_HOLY_BRAND, TRUE, lev_bonus * 4);
 		break;
 
 	case 22:
