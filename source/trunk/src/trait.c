@@ -1370,6 +1370,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			break;
 		}
 
+	case TRAIT_GET_EYE_FOR_EYE:
+		set_timed_trait(caster_ptr, TRAIT_EYE_EYE, randint1(10) + 10, FALSE);
+		break;
+
 	case TRAIT_GRENADE:
 		{
 			int num = 1 + randint1(3);

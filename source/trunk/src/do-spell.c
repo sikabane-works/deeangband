@@ -4358,17 +4358,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "An Eye for an Eye";
 		if(desc) return "Gives special aura for a while. When you are attacked by a creature, the creature are injured with same amount of damage as you take.";
 #endif
-    
-		{
-			int base = 10;
-
-			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait(caster_ptr, TRAIT_EYE_EYE, randint1(base) + base, FALSE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_GET_EYE_FOR_EYE, TRUE);
 		break;
 
 	case 29:
