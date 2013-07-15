@@ -855,16 +855,6 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	}
 
 	/* The light is getting dim */
-	else if(object_ptr->ego_id == EGO_LITE_LONG)
-	{
-		if((object_ptr->fuel < 50) && (!(object_ptr->fuel % 5)) && (game_turn % (TURNS_PER_TICK * 2)))
-		{
-			if(disturb_minor) disturb(player_ptr, 0, 0);
-			msg_print(MES_LITE_FAINT);
-		}
-	}
-
-	/* The light is getting dim */
 	else if((object_ptr->fuel < 100) && (!(object_ptr->fuel % 10)))
 	{
 		if(disturb_minor) disturb(player_ptr, 0, 0);
@@ -1277,15 +1267,8 @@ static void process_world_aux_light(creature_type *creature_ptr)
 		/* Hack -- Use some fuel (except on artifacts) */
 		if(!(object_is_fixed_artifact(object_ptr) || object_ptr->sval == SV_LITE_FEANOR) && (object_ptr->fuel > 0))
 		{
-			/* Decrease life-span */
-			if(object_ptr->ego_id == EGO_LITE_LONG)
-			{
-				if(game_turn % (TURNS_PER_TICK * 2)) object_ptr->fuel--;
-			}
-			else object_ptr->fuel--;
-
-			/* Notice interesting fuel steps */
-			notice_lite_change(creature_ptr, object_ptr);
+			object_ptr->fuel--;
+			notice_lite_change(creature_ptr, object_ptr); /* Notice interesting fuel steps */
 		}
 	}
 }

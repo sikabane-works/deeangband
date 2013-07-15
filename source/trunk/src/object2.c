@@ -2117,14 +2117,11 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 					while(TRUE)
 					{
 						bool okay_flag = TRUE;
-
 						object_ptr->ego_id = get_random_ego(SLOT_ID_LITE, TRUE);
-
 						switch (object_ptr->ego_id)
 						{
-						case EGO_LITE_LONG:
-							if(object_ptr->sval == SV_LITE_FEANOR)
-								okay_flag = FALSE;
+							case EGO_LITE_LONG:
+							if(object_ptr->sval == SV_LITE_FEANOR) okay_flag = FALSE;
 						}
 						if(okay_flag)
 							break;
