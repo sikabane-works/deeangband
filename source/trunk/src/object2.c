@@ -2664,8 +2664,8 @@ bool make_gold(floor_type *floor_ptr, object_type *object2_ptr, int value, int c
 	generate_object(object2_ptr, OBJ_GOLD_LIST + i); /* Prepare a gold object */
 	base = object_kind_info[OBJ_GOLD_LIST+i].cost; /* Hack -- Base coin cost */
 
-	if(value <= 0) object2_ptr->pval = (PVAL)(base + (8 * randint1(base)) + randint1(8));
-	else object2_ptr->pval = (PVAL)value;
+	if(value <= 0) object2_ptr->volume = (QUANTITY)(base + (8 * randint1(base)) + randint1(8));
+	else object2_ptr->volume = (QUANTITY)value;
 
 	return TRUE;
 }

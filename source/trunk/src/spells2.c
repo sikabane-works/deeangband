@@ -474,11 +474,8 @@ bool detect_objects_gold(creature_type *creature_ptr, COODINATES range)
 		{
 			/* Hack -- memorize it */
 			object_ptr->marked |= OM_FOUND;
-
 			lite_spot(floor_ptr, y, x);
-
-			/* Detect */
-			detect = TRUE;
+			detect = TRUE; /* Detect */
 		}
 	}
 
@@ -524,13 +521,9 @@ bool detect_objects_normal(creature_type *creature_ptr, COODINATES range)
 		/* Detect "real" objects */
 		if(object_ptr->tval != TV_GOLD)
 		{
-			/* Hack -- memorize it */
-			object_ptr->marked |= OM_FOUND;
-
+			object_ptr->marked |= OM_FOUND; /* Hack -- memorize it */
 			lite_spot(floor_ptr, y, x);
-
-			/* Detect */
-			detect = TRUE;
+			detect = TRUE; /* Detect */
 		}
 	}
 

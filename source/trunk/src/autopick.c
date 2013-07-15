@@ -1482,7 +1482,6 @@ static bool is_opt_confirm_destroy(creature_type *creature_ptr, object_type *obj
 	}
 
 	if(object_ptr->tval == TV_GOLD) return FALSE;
-
 	return TRUE;
 }
 

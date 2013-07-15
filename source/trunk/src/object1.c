@@ -2659,7 +2659,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 
 		if(object_ptr->tval == TV_GOLD) /* Pick up gold */
 		{
-			msg_format(MES_GET_MONEY, (long)object_ptr->pval, object_name);
+			msg_format(MES_GET_MONEY, (long)object_ptr->volume, object_name);
 			creature_ptr->au += object_ptr->pval; /* Collect the gold */
 
 			prepare_redraw(PR_GOLD);
