@@ -490,6 +490,17 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(identify_fully(caster_ptr, FALSE)) return TRUE;
 		break;
 
+	case TRAIT_WEAPON_MASTER_JUDGE:
+		if(power > 44)
+		{
+			if(!identify_fully(caster_ptr, TRUE)) return TRUE;
+		}
+		else
+		{
+			if(!ident_spell(caster_ptr, TRUE)) return TRUE;
+		}
+		break;
+
 	case TRAIT_EXPLOSIVE_RUNE:
 		explosive_rune(caster_ptr);
 		break;

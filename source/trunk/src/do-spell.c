@@ -5663,18 +5663,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Judge";
 		if(desc) return "Identifies a weapon or armor. Or *identifies* these at level 45.";
 #endif
-    
-		if(cast)
-		{
-			if(lev_bonus > 44)
-			{
-				if(!identify_fully(caster_ptr, TRUE)) return NULL;
-			}
-			else
-			{
-				if(!ident_spell(caster_ptr, TRUE)) return NULL;
-			}
-		}
+		if(cast) do_active_trait(caster_ptr, TRAIT_WEAPON_MASTER_JUDGE, TRUE, 100);
 		break;
 
 	case 12:
