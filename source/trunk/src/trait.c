@@ -1396,6 +1396,35 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_CRUSADE:
+			{
+				int base = 25;
+				int sp_sides = 20 + power;
+				int sp_base = power;
+
+				int i;
+				project_all_vision(caster_ptr, DO_EFFECT_CRUSADE, caster_ptr->lev * 4);
+				for (i = 0; i < 12; i++)
+				{
+					int attempt = 10;
+					COODINATES my = 0, mx = 0;
+
+					while (attempt--)
+					{
+						scatter(floor_ptr, &my, &mx, caster_ptr->fy, caster_ptr->fx, 4, 0);
+						if(cave_empty_bold2(floor_ptr, my, mx)) break; // Require empty grids
+					}
+					if(attempt < 0) continue;
+					summoning(NULL, my, mx, power, TRAIT_S_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
+				}
+				set_timed_trait(caster_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(base) + base, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
+			}
+		break;
+
 	case TRAIT_GRENADE:
 		{
 			int num = 1 + randint1(3);

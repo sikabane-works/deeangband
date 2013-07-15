@@ -4391,36 +4391,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Crusade";
 		if(desc) return "Attempts to charm all good creatures in sight, and scare all non-charmed creatures, and summons great number of knights, and gives heroism, bless, speed and protection from evil.";
 #endif
-    
-		{
-			if(cast)
-			{
-				int base = 25;
-				int sp_sides = 20 + lev_bonus;
-				int sp_base = lev_bonus;
-
-				int i;
-				project_all_vision(caster_ptr, DO_EFFECT_CRUSADE, caster_ptr->lev * 4);
-				for (i = 0; i < 12; i++)
-				{
-					int attempt = 10;
-					COODINATES my = 0, mx = 0;
-
-					while (attempt--)
-					{
-						scatter(floor_ptr, &my, &mx, caster_ptr->fy, caster_ptr->fx, 4, 0);
-						if(cave_empty_bold2(floor_ptr, my, mx)) break; // Require empty grids
-					}
-					if(attempt < 0) continue;
-					summoning(NULL, my, mx, lev_bonus, TRAIT_S_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
-				}
-				set_timed_trait(caster_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(base) + base, FALSE);
-				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-			}
-		}
+		if(cast) do_active_trait_tmp(caster_ptr, TRAIT_CRUSADE, TRUE);
 		break;
 	}
 
