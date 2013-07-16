@@ -678,20 +678,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			break;
 		}
 
-		case SV_SCROLL_RECHARGING:
-		{
-			if(!recharge(caster_ptr, 130)) used_up = FALSE;
-			ident = TRUE;
-			break;
-		}
-
-		case SV_SCROLL_DETECT_DOOR:
-		{
-			if(detect_doors(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if(detect_stairs(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			break;
-		}
-
 		case SV_SCROLL_MONSTER_CONFUSION:
 			if(set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE)) ident = TRUE;
 			break;
