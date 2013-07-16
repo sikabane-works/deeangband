@@ -686,11 +686,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			do_active_trait_tmp(caster_ptr, TRAIT_PROT_EVIL, TRUE);
 			break;
 
-		case SV_SCROLL_RUNE_OF_PROTECTION:
-			warding_glyph(caster_ptr);
-			ident = TRUE;
-			break;
-
 		case SV_SCROLL_SPELL:
 			caster_ptr->add_spells++;
 			prepare_update(caster_ptr, CRU_SPELLS);
