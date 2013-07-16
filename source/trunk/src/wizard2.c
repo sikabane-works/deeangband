@@ -689,7 +689,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
  * counter flags to prevent weirdness.  We use the items to collect
  * statistics on item creation relative to the initial item.
  */
-static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
+static void wiz_statistics(creature_type *creature_ptr, object_type *object2_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	u32b i, matches, better, worse, other, correct;
@@ -699,7 +699,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 	FLAGS_32 mode;
 
 	object_type forge;
-	object_type	*quest_ptr;
+	object_type	*object1_ptr;
 
 	cptr q = "Rolls: %ld  Correct: %ld  Matches: %ld  Better: %ld  Worse: %ld  Other: %ld";
 	cptr p = "Enter number of items to roll: ";
@@ -707,7 +707,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 
 
 	/*  Mega-Hack -- allow multiple artifacts */
-	if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->art_id].cur_num = 0;
+	if(object_is_fixed_artifact(object2_ptr)) artifact_info[object2_ptr->art_id].cur_num = 0;
 
 
 	/* Interact */
@@ -716,7 +716,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 		cptr pmt = "Roll for [n]ormal, [g]ood, or [e]xcellent treasure? ";
 
 		/* Display item */
-		wiz_display_item(object_ptr);
+		wiz_display_item(object2_ptr);
 
 		/* Get choices */
 		if(!get_com(pmt, &ch, FALSE)) break;
@@ -775,44 +775,43 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 				Term_fresh();
 			}
 
-
-			quest_ptr = &forge;
+			object1_ptr = &forge;
 
 			/* Wipe the object */
-			object_wipe(quest_ptr);
+			object_wipe(object1_ptr);
 
 			/* Create an object */
-			make_random_object(quest_ptr, mode, floor_ptr->object_level);
+			make_random_object(object1_ptr, mode, floor_ptr->object_level);
 
 			/*  Mega-Hack -- allow multiple artifacts */
-			if(object_is_fixed_artifact(quest_ptr)) artifact_info[quest_ptr->art_id].cur_num = 0;
+			if(object_is_fixed_artifact(object1_ptr)) artifact_info[object1_ptr->art_id].cur_num = 0;
 
 
 			/* Test for the same tval and sval. */
-			if((object_ptr->tval) != (quest_ptr->tval)) continue;
-			if((object_ptr->sval) != (quest_ptr->sval)) continue;
+			if((object2_ptr->tval) != (object1_ptr->tval)) continue;
+			if((object2_ptr->sval) != (object1_ptr->sval)) continue;
 
 			/* One more correct item */
 			correct++;
 
 			/* Check for match */
-			if((quest_ptr->pval == object_ptr->pval) && (quest_ptr->to_ac == object_ptr->to_ac) &&
-				(quest_ptr->to_hit == object_ptr->to_hit) && (quest_ptr->to_damage == object_ptr->to_damage) &&
-				(quest_ptr->art_id == object_ptr->art_id))
+			if((object1_ptr->to_ac == object2_ptr->to_ac) && (object1_ptr->to_ev == object2_ptr->to_ev) && (object1_ptr->to_vo == object2_ptr->to_vo) &&
+				(object1_ptr->to_hit == object2_ptr->to_hit) && (object1_ptr->to_damage == object2_ptr->to_damage) &&
+				(object1_ptr->art_id == object2_ptr->art_id))
 			{
 				matches++;
 			}
 
 			/* Check for better */
-			else if((quest_ptr->pval >= object_ptr->pval) && (quest_ptr->to_ac >= object_ptr->to_ac) &&
-				(quest_ptr->to_hit >= object_ptr->to_hit) && (quest_ptr->to_damage >= object_ptr->to_damage))
+			else if((object1_ptr->to_ac >= object2_ptr->to_ac) && (object1_ptr->to_ev >= object2_ptr->to_ev) && (object1_ptr->to_vo >= object2_ptr->to_vo) &&
+				(object1_ptr->to_hit >= object2_ptr->to_hit) && (object1_ptr->to_damage >= object2_ptr->to_damage))
 			{
 				better++;
 			}
 
 			/* Check for worse */
-			else if((quest_ptr->pval <= object_ptr->pval) && (quest_ptr->to_ac <= object_ptr->to_ac) &&
-				(quest_ptr->to_hit <= object_ptr->to_hit) && (quest_ptr->to_damage <= object_ptr->to_damage))
+			else if((object1_ptr->to_ac <= object2_ptr->to_ac) && (object1_ptr->to_ev <= object2_ptr->to_ev) && (object1_ptr->to_vo <= object2_ptr->to_vo) &&
+				(object1_ptr->to_hit <= object2_ptr->to_hit) && (object1_ptr->to_damage <= object2_ptr->to_damage))
 			{
 				worse++;
 			}
@@ -828,7 +827,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 
 
 	/* Hack -- Normally only make a single artifact */
-	if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->art_id].cur_num = 1;
+	if(object_is_fixed_artifact(object2_ptr)) artifact_info[object2_ptr->art_id].cur_num = 1;
 }
 
 
