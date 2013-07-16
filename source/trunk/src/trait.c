@@ -2549,7 +2549,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_BLESSING_SELF:
-		set_timed_trait(caster_ptr, TRAIT_BLESSED, 100, FALSE);
+		set_timed_trait(caster_ptr, TRAIT_BLESSED, power, FALSE);
 		break;
 
 	case TRAIT_RES_STR:

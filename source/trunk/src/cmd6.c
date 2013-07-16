@@ -705,18 +705,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			break;
 		}
 
-		case SV_SCROLL_BLESSING:
-			if(add_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(12) + 6, TRUE)) ident = TRUE;
-			break;
-
-		case SV_SCROLL_HOLY_CHANT:
-			if(add_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(24) + 12, TRUE)) ident = TRUE;
-			break;
-
-		case SV_SCROLL_HOLY_PRAYER:
-			if(add_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(48) + 24, TRUE)) ident = TRUE;
-			break;
-
 		case SV_SCROLL_MONSTER_CONFUSION:
 			if(set_timed_trait(caster_ptr, TRAIT_CONFUSING_MELEE, PERMANENT_TIMED, TRUE)) ident = TRUE;
 			break;
