@@ -596,14 +596,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 	/* Analyze the scroll */
 	switch (object_ptr->sval)
 	{
-		case SV_SCROLL_DARKNESS:
-		{
-			if(!(has_trait(caster_ptr, TRAIT_NO_BLIND)) && !has_trait(caster_ptr, TRAIT_RES_DARK))
-				(void)add_timed_trait(caster_ptr, TRAIT_BLIND, 3 + randint1(5), FALSE);
-			if(unlite_area(caster_ptr, 10, 3)) ident = TRUE;
-			break;
-		}
-
 		case SV_SCROLL_CURSE_ARMOR:
 		{
 			if(curse_armor(caster_ptr)) ident = TRUE;
@@ -875,12 +867,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 
 	switch (sval) /* Analyze the staff */
 	{
-		case SV_STAFF_DARKNESS:
-			if(!(has_trait(caster_ptr, TRAIT_NO_BLIND)) && !has_trait(caster_ptr, TRAIT_RES_DARK))
-				if(add_timed_trait(caster_ptr, TRAIT_BLIND, 3 + randint1(5), FALSE)) ident = TRUE;
-			if(unlite_area(caster_ptr, 10, 3)) ident = TRUE;
-			break;
-
 		case SV_STAFF_SLOWNESS:
 			if(add_timed_trait(caster_ptr, TRAIT_SLOW, randint1(30) + 15, TRUE)) ident = TRUE;
 			break;
