@@ -552,7 +552,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 {
 	int i, k, used_up, ident, lev;
 	object_type *object_ptr;
-	char Rumor[1024];
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	object_ptr = GET_ITEM(caster_ptr, item);
@@ -1299,16 +1298,6 @@ static int rod_effect(creature_type *caster_ptr, SVAL sval, bool *use_charge, bo
 	/* Analyze the rod */
 	switch (sval)
 	{
-		case SV_ROD_DETECT_DOOR:
-			if(detect_doors(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if(detect_stairs(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			break;
-
-		case SV_ROD_DETECTION:
-			detect_all(caster_ptr, DETECT_RAD_DEFAULT);
-			ident = TRUE;
-			break;
-
 		case SV_ROD_PESTICIDE:
 			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4)) ident = TRUE;
 			break;
