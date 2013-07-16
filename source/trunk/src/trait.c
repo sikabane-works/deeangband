@@ -2106,6 +2106,9 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 	case TRAIT_DETECT_TRAPS:
 		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
 
+	case TRAIT_DETECT_DOOR:
+		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
+
 	case TRAIT_DETECT_DOOR_TRAP:
 		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
 		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);

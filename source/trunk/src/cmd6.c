@@ -685,23 +685,10 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			break;
 		}
 
-		case SV_SCROLL_DETECT_GOLD:
-		{
-			if(detect_treasure(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if(detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			break;
-		}
-
 		case SV_SCROLL_DETECT_DOOR:
 		{
 			if(detect_doors(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			if(detect_stairs(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			break;
-		}
-
-		case SV_SCROLL_DETECT_INVIS:
-		{
-			if(detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
