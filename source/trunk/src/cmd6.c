@@ -692,16 +692,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			ident = TRUE;
 			break;
 
-		case SV_SCROLL_GENOCIDE:
-			(void)symbol_genocide(caster_ptr, 300, TRUE);
-			ident = TRUE;
-			break;
-
-		case SV_SCROLL_MASS_GENOCIDE:
-			(void)mass_genocide(caster_ptr, 300, TRUE);
-			ident = TRUE;
-			break;
-
 		case SV_SCROLL_ACQUIREMENT:
 			acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, 1, TRUE, FALSE);
 			ident = TRUE;
