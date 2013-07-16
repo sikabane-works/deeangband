@@ -692,16 +692,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
 			ident = TRUE;
 			break;
 
-		case SV_SCROLL_ACQUIREMENT:
-			acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, 1, TRUE, FALSE);
-			ident = TRUE;
-			break;
-
-		case SV_SCROLL_STAR_ACQUIREMENT:
-			acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, randint1(2) + 1, TRUE, FALSE);
-			ident = TRUE;
-			break;
-
 		case SV_SCROLL_FIRE:
 			SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 666, 4, -1);
 			if(!has_trait(caster_ptr, TRAIT_RES_FIRE) || has_trait(caster_ptr, TRAIT_IM_FIRE))

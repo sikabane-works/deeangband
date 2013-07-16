@@ -2131,6 +2131,14 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_ACQUIREMENT1:
+		acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, 1, TRUE, FALSE);
+		break;
+
+	case TRAIT_ACQUIREMENT2:
+		acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, randint1(2) + 1, TRUE, FALSE);
+		break;
+
 	case TRAIT_SHADOW_SHIFT:
 		alter_reality(caster_ptr);
 		break;
