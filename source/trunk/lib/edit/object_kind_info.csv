@@ -599,7 +599,7 @@ ID,TAG,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,SVAL,STR,INT,WIS,DEX
 638,597,[柳生武芸帳],,[Yagyuu Bugeichou],,?,o,INVENTORY,HISSATSU_BOOK,1,0,0,0,0,0,0,0,0,0,0,0,0,20,13,100,1000,0,0,0,0,0,,1d1,0,0,0,0,0,0,5,15,-2,2,20/1,BOOK,,,
 639,598,[五輪書],,[Gorinnosho],,?,u,INVENTORY,HISSATSU_BOOK,2,0,0,0,0,0,0,0,0,0,0,0,0,50,13,100,25000,0,0,0,0,0,,1d1,0,0,0,0,0,0,5,15,-2,2,50/1,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|BOOK|GOOD_ITEM,,,
 640,599,[北辰一刀流皆伝],,[Hokusin Ittouryuu Kaiden],,?,u,INVENTORY,HISSATSU_BOOK,3,0,0,0,0,0,0,0,0,0,0,0,0,90,13,100,100000,0,0,0,0,0,,1d1,0,0,0,0,0,0,5,15,-2,2,90/3,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|BOOK|GOOD_ITEM,,,
-641,600,消滅,六角形の,Annihilation,Hexagonal,-0,r,INVENTORY,WAND,31,0,0,0,0,0,0,0,0,0,0,4,0,60,4,100,10000,0,0,0,0,0,,1d1,0,0,0,0,0,0,5,15,-2,2,60/4,,それは使うと1体のモンスターを現在の階から消し去る。抵抗されると無効。,It removes a monster from current dungeon level unless resisted when you use it.,
+641,600,消滅,六角形の,Annihilation,Hexagonal,-0,r,INVENTORY,WAND,31,0,0,0,0,0,0,0,0,0,0,4,0,60,4,100,10000,0,0,0,0,0,,1d1,0,0,0,0,0,0,5,15,-2,2,60/4,GENOCIDE_ONE,それは使うと1体のモンスターを現在の階から消し去る。抵抗されると無効。,It removes a monster from current dungeon level unless resisted when you use it.,
 642,601,反感,イリヂウムの,Aggravate Monster,Uridium,-0,R,INVENTORY,ROD,30,0,0,0,0,0,0,0,0,0,0,0,0,30,4,100,0,9,0,0,0,0,,1d1,0,0,0,0,0,0,5,15,-2,2,15/8:30/2,WOODEN_CRAPPING,それは振ると自分の周辺のモンスターを怒らせる。,It aggravates monsters in your vicinity when you zap it.,
 643,602,#の写真,,& Photograph~ of #,,~,s,INVENTORY,STATUE,50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100,0,0,0,0,0,0,,1d1,0,0,0,0,0,0,5,15,-2,2,0/255,,,,
 644,603,魔法道具支配,ミスリルの,Magic Device Mastery,Mithril,"""",B,AMULET,AMULET,23,0,0,0,0,0,0,0,0,5,0,0,0,35,1,100,1000,0,0,0,0,0,,1d1,0,0,0,0,0,0,5,15,-2,2,35/4,MAGIC_MASTERY|HIDE_TYPE,,,

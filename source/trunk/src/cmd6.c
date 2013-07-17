@@ -1129,11 +1129,6 @@ static int wand_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			cast_bolt(caster_ptr, DO_EFFECT_METEOR, MAX_RANGE_SUB, diceroll(15 + caster_ptr->lev / 3, 13), 0);
 			ident = TRUE;
 			break;
-
-		case SV_WAND_GENOCIDE:
-			cast_ball_hide(caster_ptr, DO_EFFECT_GENOCIDE, MAX_RANGE_SUB, magic ? caster_ptr->lev + 50 : 250, 0);
-			ident = TRUE;
-			break;
 	}
 	return ident;
 }
