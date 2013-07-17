@@ -1087,10 +1087,6 @@ static int wand_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_CLONE, MAX_RANGE_SUB, 0, -1)) ident = TRUE;
 			break;
 
-		case SV_WAND_TRAP_DOOR_DEST:
-			if(cast_beam(caster_ptr, DO_EFFECT_KILL_DOOR, MAX_RANGE_SUB, 0, -1)) ident = TRUE;
-			break;
-
 		case SV_WAND_SLEEP_MONSTER:
 			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
 			break;
