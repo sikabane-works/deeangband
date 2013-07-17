@@ -1087,44 +1087,6 @@ static int wand_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 #endif
 			break;
 
-		case SV_WAND_DRAGON_FIRE:
-			breath(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, 200, 3, -1);
-			ident = TRUE;
-			break;
-
-		case SV_WAND_DRAGON_COLD:
-			breath(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 180, 3, -1);
-			ident = TRUE;
-			break;
-
-		case SV_WAND_DRAGON_BREATH:
-			switch (randint1(5))
-			{
-				case 1:
-					breath(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, 240, 3, -1);
-					break;
-				case 2:
-					breath(caster_ptr, DO_EFFECT_ELEC, MAX_RANGE_SUB, 210, 3, -1);
-					break;
-				case 3:
-					breath(caster_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, 240, 3, -1);
-					break;
-				case 4:
-					breath(caster_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 210, 3, -1);
-					break;
-				default:
-					breath(caster_ptr, DO_EFFECT_POIS, MAX_RANGE_SUB, 180, 3, -1);
-					break;
-			}
-
-			ident = TRUE;
-			break;
-
-		case SV_WAND_DISINTEGRATE:
-			breath(caster_ptr, DO_EFFECT_DISINTEGRATE, MAX_RANGE_SUB, 200 + randint1(caster_ptr->lev * 2), 2, -1);
-			ident = TRUE;
-			break;
-
 		case SV_WAND_STRIKING:
 			cast_bolt(caster_ptr, DO_EFFECT_METEOR, MAX_RANGE_SUB, diceroll(15 + caster_ptr->lev / 3, 13), 0);
 			ident = TRUE;
