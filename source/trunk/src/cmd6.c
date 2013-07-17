@@ -1200,16 +1200,6 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
 	do_cmd_aim_wand_aux(creature_ptr, item);
 }
 
-
-static int rod_effect(creature_type *caster_ptr, SVAL sval, bool *use_charge, bool magic)
-{
-	int ident = FALSE;
-
-	/* Unused */
-	(void)magic;
-	return ident;
-}
-
 /*
  * Activate (zap) a Rod
  *
@@ -1298,10 +1288,10 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	sound(SOUND_ZAP);
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(has_trait_object(object_ptr, i))
-			do_active_trait_tmp(creature_ptr, i, FALSE);
+	{
+		if(has_trait_object(object_ptr, i)) do_active_trait_tmp(creature_ptr, i, FALSE);
+	}
 
-	ident = rod_effect(creature_ptr, object_ptr->sval, &use_charge, FALSE);
 	if(use_charge)
 	{
 		object_ptr->timeout += object_ptr->charge_const; // Increase the timeout
@@ -2297,8 +2287,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 		if(tval == TV_ROD)
 		{
 			if((sval >= SV_ROD_MIN_DIRECTION) && (sval != SV_ROD_HAVOC) && (sval != SV_ROD_AGGRAVATE) && (sval != SV_ROD_PESTICIDE))
-				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-			rod_effect(creature_ptr, sval, &use_charge, TRUE);
+			//TODO do_active_trait()
 			if(!use_charge) return;
 		}
 		else if(tval == TV_WAND)
