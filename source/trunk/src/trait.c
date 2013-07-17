@@ -197,6 +197,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_PESTICIDE:
+	case TRAIT_DISPEL_SMALL_LIFE:
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4);
 		break;
 
@@ -804,10 +805,6 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
 		if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
 		project_all_vision(caster_ptr, DO_EFFECT_TURN_ALL, (3 * caster_ptr->lev / 2) + 10);
-		break;
-
-	case TRAIT_DISPEL_SMALL_LIFE:
-		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4);
 		break;
 
 	case TRAIT_BLAZING_LIGHT:
@@ -2440,9 +2437,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 
 	case TRAIT_WAVE_NETHER:
 	{
-			project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, randint1(power));
-			project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, randint1(power));
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, randint1(power));
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, randint1(power));
 	}
+	break;
+
+	case TRAIT_DISPEL_ALL:
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, power);
 	break;
 
 	case TRAIT_WEIGH_MAG:
