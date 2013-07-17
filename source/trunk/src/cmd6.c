@@ -1079,10 +1079,6 @@ static int wand_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 	/* Analyze the wand */
 	switch (sval)
 	{
-		case SV_WAND_SLEEP_MONSTER:
-			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
-			break;
-
 		case SV_WAND_FEAR_MONSTER:
 			if(cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
 			break;
