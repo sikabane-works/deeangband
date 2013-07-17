@@ -1207,19 +1207,6 @@ static int rod_effect(creature_type *caster_ptr, SVAL sval, bool *use_charge, bo
 
 	/* Unused */
 	(void)magic;
-
-	/* Analyze the rod */
-	switch (sval)
-	{
-		case SV_ROD_PESTICIDE:
-			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4)) ident = TRUE;
-			break;
-
-		case SV_ROD_SLEEP_MONSTER:
-			if(cast_bolt(caster_ptr, DO_EFFECT_OLD_SLEEP, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
-			break;
-
-	}
 	return ident;
 }
 

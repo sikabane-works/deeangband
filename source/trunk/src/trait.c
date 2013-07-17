@@ -196,6 +196,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_AWAY_EVIL, 100);
 		break;
 
+	case TRAIT_PESTICIDE:
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 4);
+		break;
+
 	case TRAIT_SYMBOL_GENOCIDE:
 		(void)symbol_genocide(caster_ptr, 200, TRUE);
 		break;
