@@ -1076,22 +1076,6 @@ static int wand_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 		}
 	}
 
-	/* Analyze the wand */
-	switch (sval)
-	{
-		case SV_WAND_WONDER:
-#ifdef JP
-			msg_print("おっと、謎の魔法棒を始動させた。");
-#else
-			msg_print("Oops.  Wand of wonder activated.");
-#endif
-			break;
-
-		case SV_WAND_STRIKING:
-			cast_bolt(caster_ptr, DO_EFFECT_METEOR, MAX_RANGE_SUB, diceroll(15 + caster_ptr->lev / 3, 13), 0);
-			ident = TRUE;
-			break;
-	}
 	return ident;
 }
 
