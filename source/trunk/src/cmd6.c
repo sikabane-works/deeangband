@@ -869,20 +869,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			break;
 		}
 
-		case SV_STAFF_DETECT_GOLD:
-			if(detect_treasure(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if(detect_objects_gold(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			break;
-
-		case SV_STAFF_DETECT_DOOR:
-			if(detect_doors(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if(detect_stairs(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			break;
-
-		case SV_STAFF_DETECT_INVIS:
-			if(detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			break;
-
 		case SV_STAFF_SLEEP_MONSTERS:
 			if(project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, caster_ptr->lev)) ident = TRUE;
 			break;
@@ -1180,7 +1166,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
  */
 static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 {
-	int ident, chance, lev, fail, i;
+	int ident = FALSE, chance, lev, fail, i;
 	object_type *object_ptr;
 	bool success;
 
