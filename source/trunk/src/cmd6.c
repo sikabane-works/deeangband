@@ -1049,37 +1049,6 @@ void do_cmd_use_staff(creature_type *creature_ptr)
 	do_cmd_use_staff_aux(creature_ptr, item);
 }
 
-
-static int wand_effect(creature_type *caster_ptr, SVAL sval, bool magic)
-{
-	int ident = FALSE;
-
-	/* XXX Hack -- Wand of wonder can do anything before it */
-	if(sval == SV_WAND_WONDER)
-	{
-		// TODO: add Karma of Fortune feature.
-		int vir = 0;
-		sval = (SVAL)randint0(SV_WAND_WONDER);
-
-		if(vir)
-		{
-			if(caster_ptr->karmas[vir - 1] > 0)
-			{
-				while (randint1(300) < caster_ptr->karmas[vir - 1]) sval++;
-				if(sval > SV_WAND_COLD_BALL) sval = (SVAL)randint0(4) + SV_WAND_ACID_BALL;
-			}
-			else
-			{
-				while (randint1(300) < (0-caster_ptr->karmas[vir - 1])) sval--;
-				if(sval < SV_WAND_HEAL_OTHER_CREATURE) sval = (SVAL)randint0(3) + SV_WAND_HEAL_OTHER_CREATURE;
-			}
-		}
-	}
-
-	return ident;
-}
-
-
 /*
  * Aim a wand (from the pack or floor).
  *
@@ -1102,7 +1071,7 @@ static int wand_effect(creature_type *caster_ptr, SVAL sval, bool magic)
  */
 static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 {
-	int lev, ident, chance, i;
+	int lev, ident = FALSE, chance, i;
 	DIRECTION dir;
 	object_type *object_ptr;
 	bool old_target_pet = target_pet;
@@ -1168,10 +1137,9 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	sound(SOUND_ZAP);
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(has_trait_object(object_ptr, i))
-			do_active_trait_tmp(creature_ptr, i, FALSE);
-
-	ident = wand_effect(creature_ptr, object_ptr->sval, FALSE);
+	{
+		if(has_trait_object(object_ptr, i)) do_active_trait_tmp(creature_ptr, i, FALSE);
+	}
 
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER); // Combine / Reorder the pack (later)
 
@@ -2283,17 +2251,13 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	}
 	else
 	{
-		DIRECTION dir = 0;
 		if(tval == TV_ROD)
 		{
-			if((sval >= SV_ROD_MIN_DIRECTION) && (sval != SV_ROD_HAVOC) && (sval != SV_ROD_AGGRAVATE) && (sval != SV_ROD_PESTICIDE))
 			//TODO do_active_trait()
-			if(!use_charge) return;
 		}
 		else if(tval == TV_WAND)
 		{
-			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-			wand_effect(creature_ptr, sval, TRUE);
+			//TODO do_active_trait()
 		}
 		else
 		{
