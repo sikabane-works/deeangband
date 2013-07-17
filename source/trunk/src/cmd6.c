@@ -1079,14 +1079,6 @@ static int wand_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 	/* Analyze the wand */
 	switch (sval)
 	{
-		case SV_WAND_FEAR_MONSTER:
-			if(cast_bolt(caster_ptr, DO_EFFECT_TURN_ALL, MAX_RANGE_SUB, caster_ptr->lev, -1)) ident = TRUE;
-			break;
-
-		case SV_WAND_CHARM_MONSTER:
-			ident = cast_ball(caster_ptr, DO_EFFECT_CHARM, MAX_RANGE_SUB, MAX(20, caster_ptr->lev), 0);
-			break;
-
 		case SV_WAND_WONDER:
 #ifdef JP
 			msg_print("おっと、謎の魔法棒を始動させた。");
