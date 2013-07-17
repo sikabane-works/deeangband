@@ -892,11 +892,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			if(heal_creature(caster_ptr, 50)) ident = TRUE;
 			break;
 
-		case SV_STAFF_GENOCIDE:
-			(void)symbol_genocide(caster_ptr, (magic ? caster_ptr->lev + 50 : 200), TRUE);
-			ident = TRUE;
-			break;
-
 		case SV_STAFF_MSTORM:
 			msg_print(MES_TRAIT_MANA_FIELD_DONE);
 			project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, (randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
