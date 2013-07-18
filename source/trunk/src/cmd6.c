@@ -832,16 +832,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 
 	switch (sval) /* Analyze the staff */
 	{
-		case SV_STAFF_MSTORM:
-			msg_print(MES_TRAIT_MANA_FIELD_DONE);
-			project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, (randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
-			if(!saving_throw(caster_ptr, SAVING_VO, 120, 0))
-			{
-				(void)take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_UNCONTROLED_MANA_FIELD, NULL, -1);
-			}
-			ident = TRUE;
-			break;
-
 		case SV_STAFF_NOTHING:
 			msg_print(MES_NO_HAPPEN);
 			if(has_trait(caster_ptr, TRAIT_MAGIC_EATER)) msg_print(MES_OBJECT_WASTE_FOOD);

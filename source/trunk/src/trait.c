@@ -1338,6 +1338,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		wall_stone(caster_ptr);
 		break;
 
+	case TRAIT_STORM_MANA:
+		msg_print(MES_TRAIT_MANA_FIELD_DONE);
+		project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, (randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
+		if(!saving_throw(caster_ptr, SAVING_VO, 120, 0))
+		{
+			(void)take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, COD_UNCONTROLED_MANA_FIELD, NULL, -1);
+		}
+		break;
+
 	case TRAIT_METEOR_SWARM:
 		cast_meteor(caster_ptr, power, 2);
 		break;
