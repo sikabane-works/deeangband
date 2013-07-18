@@ -832,11 +832,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 
 	switch (sval) /* Analyze the staff */
 	{
-
-		case SV_STAFF_SLOW_MONSTERS:
-			if(project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev)) ident = TRUE;
-			break;
-
 		case SV_STAFF_MSTORM:
 			msg_print(MES_TRAIT_MANA_FIELD_DONE);
 			project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, (randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
