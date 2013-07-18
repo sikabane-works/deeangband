@@ -408,6 +408,28 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_SPLASH_LITE:
+		{
+			int num = diceroll(5, 3);
+			COODINATES y, x;
+			int attempts;
+
+			for (k = 0; k < num; k++)
+			{
+				attempts = 1000;
+				y = caster_ptr->fy;
+				x = caster_ptr->fx;
+				while (attempts--)
+				{
+					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
+					if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
+					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
+				}
+				project(caster_ptr, 0, 0, y, x, diceroll(6 + caster_ptr->lev / 8, 10), DO_EFFECT_LITE_WEAK, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
+			}
+			break;
+		}
+
 		//TODO Remove duplicated process
 	case TRAIT_HASTE:
 		if(set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20, TRUE))
@@ -2124,7 +2146,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
 
 	case TRAIT_DETECT_DOOR:
-		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
+		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
 
 	case TRAIT_DETECT_DOOR_TRAP:
 		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);

@@ -832,34 +832,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 
 	switch (sval) /* Analyze the staff */
 	{
-		case SV_STAFF_SUMMONING:
-			for (k = 0; k < randint1(4); k++)
-				if(summoning(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
-					ident = TRUE;
-			break;
-
-		case SV_STAFF_STARLITE:
-		{
-			int num = diceroll(5, 3);
-			COODINATES y, x;
-			int attempts;
-
-			for (k = 0; k < num; k++)
-			{
-				attempts = 1000;
-				y = caster_ptr->fy;
-				x = caster_ptr->fx;
-				while (attempts--)
-				{
-					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
-					if(!CAVE_HAVE_FLAG_BOLD(floor_ptr, y, x, FF_PROJECT)) continue;
-					if(!CREATURE_BOLD(caster_ptr, y, x)) break;
-				}
-				project(caster_ptr, 0, 0, y, x, diceroll(6 + caster_ptr->lev / 8, 10), DO_EFFECT_LITE_WEAK, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
-			}
-			ident = TRUE;
-			break;
-		}
 
 		case SV_STAFF_SLEEP_MONSTERS:
 			if(project_all_vision(caster_ptr, DO_EFFECT_OLD_SLEEP, caster_ptr->lev)) ident = TRUE;
