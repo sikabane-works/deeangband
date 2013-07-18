@@ -841,13 +841,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			if(project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev)) ident = TRUE;
 			break;
 
-		case SV_STAFF_HOLINESS:
-			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, 150)) ident = TRUE;
-			k = 3 * caster_ptr->lev;
-			if(add_timed_trait(caster_ptr, TRAIT_PROT_EVIL, (magic ? 0 : randint1(25) + k, 0), TRUE)) ident = TRUE;
-			if(heal_creature(caster_ptr, 50)) ident = TRUE;
-			break;
-
 		case SV_STAFF_MSTORM:
 			msg_print(MES_TRAIT_MANA_FIELD_DONE);
 			project(caster_ptr, 0, 5, caster_ptr->fy, caster_ptr->fx, (randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);

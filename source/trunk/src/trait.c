@@ -151,6 +151,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, caster_ptr->lev * 5);
 		break;
 
+	case TRAIT_HOLINESS:
+		project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, 150);
+		add_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * caster_ptr->lev, TRUE);
+		heal_creature(caster_ptr, 50);
+		break;
+
 	case TRAIT_DISPEL_GOOD_1:
 		project_all_vision(caster_ptr, DO_EFFECT_DISP_GOOD, caster_ptr->lev * 5);
 		break;
