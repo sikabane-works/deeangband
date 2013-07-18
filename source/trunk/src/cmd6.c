@@ -836,10 +836,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			if(add_timed_trait(caster_ptr, TRAIT_SLOW, randint1(30) + 15, TRUE)) ident = TRUE;
 			break;
 
-		case SV_STAFF_HASTE_MONSTERS:
-			if(project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, caster_ptr->lev)) ident = TRUE;
-			break;
-
 		case SV_STAFF_SUMMONING:
 			for (k = 0; k < randint1(4); k++)
 				if(summoning(0, caster_ptr->fy, caster_ptr->fx, floor_ptr->depth, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))

@@ -430,6 +430,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_HASTE_OTHERS:
+		project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, caster_ptr->lev);
+		break;
+
 	case TRAIT_WRAITH_FORM:
 		set_timed_trait(caster_ptr, TRAIT_WRAITH_FORM, randint1(user_level / 2) + (user_level / 2), FALSE);
 		break;
