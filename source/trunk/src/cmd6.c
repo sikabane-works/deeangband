@@ -823,27 +823,6 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	do_cmd_read_scroll_aux(creature_ptr, item);	// Read the scroll
 }
 
-
-static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
-{
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int k;
-	int ident = FALSE;
-
-	switch (sval) /* Analyze the staff */
-	{
-		case SV_STAFF_NOTHING:
-			msg_print(MES_NO_HAPPEN);
-			if(has_trait(caster_ptr, TRAIT_MAGIC_EATER)) msg_print(MES_OBJECT_WASTE_FOOD);
-			break;
-
-		default:
-			ident = TRUE;
-			break;
-	}
-	return ident;
-}
-
 /*
  * Use a staff.-RAK-
  * One charge of one staff disappears.
@@ -910,9 +889,16 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 	sound(SOUND_ZAP);	// Sound
 
-	for(i = 0; i < MAX_TRAITS; i++) if(has_trait_object(object_ptr, i)) do_active_trait_tmp(creature_ptr, i, FALSE);
+	for(i = 0; i < MAX_TRAITS; i++)
+	{
+		if(has_trait_object(object_ptr, i)) do_active_trait_tmp(creature_ptr, i, FALSE);
+	}
 
-	ident = staff_effect(creature_ptr, object_ptr->sval, FALSE);
+	if(object_ptr->sval == SV_STAFF_NOTHING)
+	{
+		msg_print(MES_NO_HAPPEN);
+		if(has_trait(creature_ptr, TRAIT_MAGIC_EATER)) msg_print(MES_OBJECT_WASTE_FOOD);
+	}
 
 	/* Combine / Reorder the pack (later) */
 	prepare_update(creature_ptr, CRU_COMBINE | CRU_REORDER);
@@ -921,7 +907,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	object_tried(object_ptr);
 
 	/* An identification was made */
-	if(ident && !object_is_aware(object_ptr))
+	if(!object_is_aware(object_ptr))
 	{
 		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, 0, FALSE);
@@ -2113,7 +2099,6 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	OBJECT_KIND_ID k_idx;
 	TVAL tval;
 	SVAL sval;
-	bool use_charge = TRUE;
 
 	// Not when confused
 	if(!only_browse && has_trait(creature_ptr, TRAIT_CONFUSED))
@@ -2172,8 +2157,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 		}
 		else
 		{
-			staff_effect(creature_ptr, sval, TRUE);
-			if(!use_charge) return;
+			//TODO do_active_trait()
 		}
 	}
 	cost_tactical_energy(creature_ptr, 100);
