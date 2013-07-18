@@ -430,6 +430,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_SLOW_SELF:
+		add_timed_trait(caster_ptr, TRAIT_SLOW, randint1(30) + 15, TRUE);
+		break;
+
 	case TRAIT_HASTE_OTHERS:
 		project_all_vision(caster_ptr, DO_EFFECT_SPEED_OTHERS, caster_ptr->lev);
 		break;
