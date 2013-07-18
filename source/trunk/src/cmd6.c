@@ -877,14 +877,6 @@ static int staff_effect(creature_type *caster_ptr, SVAL sval, bool magic)
 			if(project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev)) ident = TRUE;
 			break;
 
-		case SV_STAFF_DISPEL_EVIL:
-			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, 80)) ident = TRUE;
-			break;
-
-		case SV_STAFF_POWER:
-			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_ALL, 150)) ident = TRUE;
-			break;
-
 		case SV_STAFF_HOLINESS:
 			if(project_all_vision(caster_ptr, DO_EFFECT_DISP_EVIL, 150)) ident = TRUE;
 			k = 3 * caster_ptr->lev;
