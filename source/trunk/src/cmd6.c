@@ -548,7 +548,7 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 // Certain scrolls can be "aborted" without losing the scroll.  These
 // include scrolls with no effects but recharge or identify, which are
 // cancelled before use.  XXX Reading them still takes a turn, though.
-static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item)
+static void exe_scroll(creature_type *caster_ptr, int item)
 {
 	int i, k, used_up, ident, lev;
 	object_type *object_ptr;
@@ -820,7 +820,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	if(!get_item(creature_ptr, &item, MES_SCROLL_WHICH_READ, MES_SCROLL_NO_READ, (USE_INVEN | USE_FLOOR), item_tester_hook_readable, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	do_cmd_read_scroll_aux(creature_ptr, item);	// Read the scroll
+	exe_scroll(creature_ptr, item);	// Read the scroll
 }
 
 /*
@@ -828,7 +828,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
  * One charge of one staff disappears.
  * Hack -- staffs of identify can be "cancelled".
  */
-static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
+static void exe_staff(creature_type *creature_ptr, int item)
 {
 	int chance, lev, i;
 	object_type *object_ptr;
@@ -943,7 +943,7 @@ void do_cmd_use_staff(creature_type *creature_ptr)
 	OBJECT_ID item;
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_STAFF, MES_OBJECT_NO_STAFF, (USE_INVEN | USE_FLOOR), NULL, TV_STAFF)) return;
-	do_cmd_use_staff_aux(creature_ptr, item);
+	exe_staff(creature_ptr, item);
 }
 
 /*
@@ -966,7 +966,7 @@ void do_cmd_use_staff(creature_type *creature_ptr)
  * basic "bolt" rods, but the basic "ball" wands do the same damage
  * as the basic "ball" rods.
  */
-static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
+static void exe_wand(creature_type *creature_ptr, int item)
 {
 	int lev, ident = FALSE, chance, i;
 	DIRECTION dir;
@@ -1062,7 +1062,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
 	OBJECT_ID item;
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_WAND, MES_OBJECT_NO_WAND, (USE_INVEN | USE_FLOOR), NULL, TV_WAND)) return;
-	do_cmd_aim_wand_aux(creature_ptr, item);
+	exe_wand(creature_ptr, item);
 }
 
 /*
@@ -1075,7 +1075,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
  *
  * pvals are defined for each rod in object_kind_info. -LM-
  */
-static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
+static void exe_rod(creature_type *creature_ptr, int item)
 {
 	int ident = FALSE, chance, lev, fail, i;
 	object_type *object_ptr;
@@ -1181,7 +1181,7 @@ void do_cmd_zap_rod(creature_type *creature_ptr)
 	OBJECT_ID item;
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_ROD, MES_OBJECT_NO_ROD, (USE_INVEN | USE_FLOOR), NULL, TV_ROD)) return;
-	do_cmd_zap_rod_aux(creature_ptr, item);
+	exe_rod(creature_ptr, item);
 }
 
 // Hook to determine if an object is activatable
@@ -1395,15 +1395,15 @@ void do_cmd_use(creature_type *creature_ptr)
 			break;
 
 		case TV_WAND:
-			do_cmd_aim_wand_aux(creature_ptr, item);
+			exe_wand(creature_ptr, item);
 			break;
 
 		case TV_STAFF:
-			do_cmd_use_staff_aux(creature_ptr, item);
+			exe_staff(creature_ptr, item);
 			break;
 
 		case TV_ROD:
-			do_cmd_zap_rod_aux(creature_ptr, item);
+			exe_rod(creature_ptr, item);
 			break;
 
 		case TV_POTION:
@@ -1430,7 +1430,7 @@ void do_cmd_use(creature_type *creature_ptr)
 				return;
 			}
 
-		  do_cmd_read_scroll_aux(creature_ptr, item);
+		  exe_scroll(creature_ptr, item);
 		  break;
 		}
 
