@@ -830,7 +830,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
  */
 static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 {
-	int ident, chance, lev, i;
+	int chance, lev, i;
 	object_type *object_ptr;
 
 	/* Hack -- let staffs of identify get aborted */
@@ -1245,11 +1245,9 @@ bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
  */
 static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 {
-	DIRECTION dir;
 	int lev, chance, fail, i;
 	object_type *object_ptr;
 	bool success;
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	object_ptr = GET_ITEM(creature_ptr, item);
 	cost_tactical_energy(creature_ptr, 100); // Take a turn
@@ -1307,35 +1305,17 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	msg_print(MES_AVTIVATE_DONE);
 	sound(SOUND_ZAP); // Sound
 
-	if(object_is_random_artifact(object_ptr))
-	{
-		(void)activate_object(creature_ptr, object_ptr);
-		prepare_window(PW_INVEN | PW_EQUIP);
-		return;	// Success
-	}
-
-	/* Artifacts */
-	else if(object_is_fixed_artifact(object_ptr))
-	{
-		prepare_window(PW_INVEN | PW_EQUIP);
-		return;
-	}
-
 	for(i = 0; i < MAX_TRAITS; i++)
 	{
 		if(has_trait_object(object_ptr, i)) do_active_trait_tmp(creature_ptr, i, FALSE);
 	}
 
+	if(object_ptr)
+	{
+		object_ptr->timeout = object_ptr->charge_const;
+		if(object_ptr->charge_dice) object_ptr->timeout += randint1(object_ptr->charge_dice);
+	}
 
-	if(object_ptr->tval == TV_WHISTLE)
-	{
-		object_ptr->timeout = 100+randint1(100);
-		return;
-	}
-	else if(object_ptr->tval == TV_CAPTURE)
-	{
-	}
-	msg_print(MES_OBJECT_ACTIVATE_NONE);
 }
 
 void do_cmd_activate(creature_type *creature_ptr)

@@ -1653,25 +1653,6 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	return TRUE;
 }
 
-
-bool activate_object(creature_type *creature_ptr, object_type *object_ptr)
-{
-	int i;
-
-	for(i = 0; i < MAX_TRAITS; i++)
-		if(trait_info[i].effect_type && have_flag(object_ptr->trait_flags, i))
-			do_active_trait_tmp(creature_ptr, i, FALSE);
-
-	if(object_ptr)
-	{
-		object_ptr->timeout = object_ptr->charge_const;
-		if(object_ptr->charge_dice) object_ptr->timeout += randint1(object_ptr->charge_dice);
-	}
-
-	return TRUE;
-}
-
-
 void get_bloody_moon_flags(object_type *object_ptr)
 {
 	int dummy, i;
