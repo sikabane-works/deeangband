@@ -1333,28 +1333,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			switch (object_ptr->ego_id)
 			{
 
-			case EGO_RING_DRAGON_F:
-				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-				breath(creature_ptr, DO_EFFECT_FIRE, MAX_RANGE_SUB, 200, 2, -1);
-				if(object_ptr->sval == SV_RING_FLAMES)
-				{
-					(void)set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, FALSE);
-					object_ptr->timeout = 200;
-				}
-				else object_ptr->timeout = 250;
-				break;
-
-			case EGO_RING_DRAGON_C:
-				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-				breath(creature_ptr, DO_EFFECT_COLD, MAX_RANGE_SUB, 200, 2, -1);
-				if(object_ptr->sval == SV_RING_ICE)
-				{
-					(void)set_timed_trait(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
-					object_ptr->timeout = 200;
-				}
-				else object_ptr->timeout = 250;
-				break;
-
 			default:
 				success = FALSE;
 				break;
