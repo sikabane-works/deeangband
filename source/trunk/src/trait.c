@@ -1393,6 +1393,39 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 			}
 			break;
 
+	case TRAIT_FETCH_CREATURE:
+		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
+		if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
+		{
+			int pet_ctr, i;
+			CREATURE_ID *who;
+			int max_pet = 0;
+			u16b dummy_why;
+
+			/* Allocate the "who" array */
+			C_MAKE(who, max_creature_idx, CREATURE_ID);
+
+			/* Process the creatures (backwards) */
+			for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
+			{
+				if(is_pet(player_ptr, &creature_list[pet_ctr]) && (caster_ptr->riding != pet_ctr))
+				  who[max_pet++] = pet_ctr;
+			}
+
+			ang_sort(who, &dummy_why, max_pet, ang_sort_comp_pet, ang_sort_swap_hook);
+
+			/* Process the creatures (backwards) */
+			for (i = 0; i < max_pet; i++)
+			{
+				pet_ctr = who[i];
+				teleport_creature_to2(pet_ctr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
+			}
+
+			/* Free the "who" array */
+			C_KILL(who, max_creature_idx, CREATURE_ID);
+		}
+		break;
+
 	case TRAIT_WORLD:
 		caster_ptr->time_stopper = TRUE;
 		msg_print(NULL);

@@ -94,3 +94,4 @@ extern void do_cmd_use(creature_type *creature_ptr);
 extern void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse);
 extern void do_cmd_help(void);
 
+extern bool ang_sort_comp_pet(vptr u, vptr v, int a, int b);

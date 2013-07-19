@@ -1204,7 +1204,7 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
 	return FALSE;	// Assume not
 }
 
-static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
+bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
 {
 	u16b *who = (u16b*)(u);
 
@@ -1322,60 +1322,13 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	}
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(has_trait_object(object_ptr, i)) do_active_trait_tmp(creature_ptr, i, FALSE);
-
-	if(object_ptr->tval == TV_RING)
 	{
-		if(object_is_ego(object_ptr))
-		{
-			bool success = TRUE;
-
-			switch (object_ptr->ego_id)
-			{
-
-			default:
-				success = FALSE;
-				break;
-			}
-			if(success) return;
-		}
-
-		prepare_window(PW_INVEN | PW_EQUIP);
-		return; // Success
+		if(has_trait_object(object_ptr, i)) do_active_trait_tmp(creature_ptr, i, FALSE);
 	}
 
-	else if(object_ptr->tval == TV_WHISTLE)
+
+	if(object_ptr->tval == TV_WHISTLE)
 	{
-		if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
-		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
-		{
-			int pet_ctr, i;
-			CREATURE_ID *who;
-			int max_pet = 0;
-			u16b dummy_why;
-
-			/* Allocate the "who" array */
-			C_MAKE(who, max_creature_idx, CREATURE_ID);
-
-			/* Process the creatures (backwards) */
-			for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
-			{
-				if(is_pet(player_ptr, &creature_list[pet_ctr]) && (creature_ptr->riding != pet_ctr))
-				  who[max_pet++] = pet_ctr;
-			}
-
-			ang_sort(who, &dummy_why, max_pet, ang_sort_comp_pet, ang_sort_swap_hook);
-
-			/* Process the creatures (backwards) */
-			for (i = 0; i < max_pet; i++)
-			{
-				pet_ctr = who[i];
-				teleport_creature_to2(pet_ctr, creature_ptr->fy, creature_ptr->fx, 100, TELEPORT_PASSIVE);
-			}
-
-			/* Free the "who" array */
-			C_KILL(who, max_creature_idx, CREATURE_ID);
-		}
 		object_ptr->timeout = 100+randint1(100);
 		return;
 	}
