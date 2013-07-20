@@ -127,6 +127,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_ball(caster_ptr, DO_EFFECT_PSI_DRAIN, dir, diceroll(caster_ptr->lev / 2, 6), 0);
 		break;
 
+	case TRAIT_TRAP_WALK:
+		walk_creature(caster_ptr, dir, easy_disarm, TRUE);
+		break;
+
 	case TRAIT_WHIRLWIND:
 		for (dir = 0; dir <= DIRECTION_NUM; dir++)
 		{

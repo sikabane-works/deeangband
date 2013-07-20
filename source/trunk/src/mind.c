@@ -1073,15 +1073,13 @@ static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 	{
 	case 0:
 		do_active_trait(caster_ptr, TRAIT_DETECT_FELOCITY, TRUE, 100);
+		break;
 	case 1:
+		do_active_trait(caster_ptr, TRAIT_TRAP_WALK, TRUE, 100);
+		break;
 	case 2:
-		{
-			if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
-			y = caster_ptr->fy + ddy[dir];
-			x = caster_ptr->fx + ddx[dir];
-			walk_creature(caster_ptr, dir, easy_disarm, TRUE);
-			break;
-		}
+		do_active_trait(caster_ptr, TRAIT_TRAP_WALK, TRUE, 100);
+		break;
 	case 3:
 		do_active_trait_tmp(caster_ptr, TRAIT_EARTHQUAKE, TRUE);
 		break;
