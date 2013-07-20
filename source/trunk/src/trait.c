@@ -123,6 +123,15 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		for (i = 0; i < 3; i++) if(cast_bolt(caster_ptr, DO_EFFECT_OLD_DRAIN, MAX_RANGE_SUB, 100, -1)) heal_creature(caster_ptr, 100);
 		break;
 
+	case TRAIT_GET_KAWARIMI:
+		if(!(caster_ptr->posture & NINJA_KAWARIMI))
+		{
+			msg_print(MES_TRAIT_NINJA_EVADE);
+			caster_ptr->posture |= NINJA_KAWARIMI;
+			prepare_redraw(PR_STATUS);
+		}
+		break;
+
 	case TRAIT_PSI_DRAIN:
 		cast_ball(caster_ptr, DO_EFFECT_PSI_DRAIN, dir, diceroll(caster_ptr->lev / 2, 6), 0);
 		break;

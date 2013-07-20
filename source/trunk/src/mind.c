@@ -1109,12 +1109,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		do_active_trait_tmp(caster_ptr, TRAIT_BLINK, TRUE);
 		break;
 	case 3:
-		if(!(caster_ptr->posture & NINJA_KAWARIMI))
-		{
-			msg_print(MES_TRAIT_NINJA_EVADE);
-			caster_ptr->posture |= NINJA_KAWARIMI;
-			prepare_redraw(PR_STATUS);
-		}
+		do_active_trait_tmp(caster_ptr, TRAIT_GET_KAWARIMI, TRUE);
 		break;
 	case 4:
 		do_active_trait_tmp(caster_ptr, TRAIT_ACTIVE_TELEPORT, TRUE);
