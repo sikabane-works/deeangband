@@ -2439,6 +2439,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((user_level - 1) / 5), 3), 0);
 		break;
 
+	case TRAIT_MIND_WAVE:
+		msg_print(MES_TRAIT_MIND_WAVE);
+		(void)project_all_vision(caster_ptr, DO_EFFECT_PSI, randint1(user_level * ((user_level - 5) / 10 + 1)));
+		break;
+
 	case TRAIT_RADIATION:
 		SELF_FIELD(caster_ptr, DO_EFFECT_NUKE, ((COODINATES)user_level * 2), 3 + ((COODINATES)user_level / 20), -1);
 		break;

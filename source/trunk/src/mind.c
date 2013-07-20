@@ -826,13 +826,11 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 	case 7:
 		do_active_trait_tmp(caster_ptr, TRAIT_IDENTIFY, FALSE);
 		break;
+
 	case 8: /* Mindwave */
-		msg_print(MES_TRAIT_MIND_WAVE);
-		if(lev_bonus < 25)
-			project(caster_ptr, 0, 2 + lev_bonus / 10, caster_ptr->fy, caster_ptr->fx, (lev_bonus * 3), DO_EFFECT_PSI, PROJECT_KILL, -1);
-		else
-			(void)project_all_vision(caster_ptr, DO_EFFECT_PSI, randint1(lev_bonus * ((lev_bonus - 5) / 10 + 1)));
+		do_active_trait_tmp(caster_ptr, TRAIT_MIND_WAVE, FALSE);
 		break;
+
 	case 9: /* Adrenaline */
 		set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
 		set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
