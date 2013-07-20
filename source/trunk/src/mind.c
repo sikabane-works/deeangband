@@ -916,6 +916,7 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 		cast_beam(caster_ptr, DO_EFFECT_MISSILE, lev_bonus / 8 + 3, diceroll(5 + ((lev_bonus - 1) / 5) + boost / 10, 5), 0);
 		break;
 	case 4:
+		do_active_trait(caster_ptr, TRAIT_GET_RESIST_MAGIC, TRUE, 100);
 		break;
 	case 5:
 		msg_print(MES_TRAIT_FORCE_IMPROVE);
@@ -961,9 +962,11 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 			else msg_print(MES_NO_HAPPEN);
 			break;
 		}
+
 	case 11:
-		SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 200 + (2 * lev_bonus) + boost * 2, 10, -1);
+		do_active_trait(caster_ptr, TRAIT_STORM_FIRE, TRUE, 100);
 		break;
+
 	case 12:
 		cast_beam(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (lev_bonus / 2) + boost * 3 / 10, 15), 0);
 		break;
