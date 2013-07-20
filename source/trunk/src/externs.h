@@ -1091,6 +1091,7 @@ extern bool pulish_shield(creature_type *creature_ptr);
 extern bool potion_smash_effect(CREATURE_ID who, COODINATES y, COODINATES x, OBJECT_KIND_ID k_idx);
 extern void display_spell_list(creature_type *creature_ptr);
 extern int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, REALM_ID realm);
+extern PROB calc_device_difficulty(creature_type *caster_ptr, object_type *object_ptr);
 extern PROB calc_trait_difficulty(creature_type *caster_ptr, TRAIT_ID trait_id, int stat_type);
 extern int mod_spell_chance_1(creature_type *creature_ptr, int chance);
 extern int mod_spell_chance_2(creature_type *creature_ptr, int chance);

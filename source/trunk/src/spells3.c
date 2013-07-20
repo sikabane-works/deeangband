@@ -3151,6 +3151,27 @@ int mod_need_mana(creature_type *creature_ptr, int need_mana, TRAIT_ID spell, RE
 	return need_mana;
 }
 
+PROB calc_device_difficulty(creature_type *caster_ptr, object_type *object_ptr)
+{
+	int lev, chance, fail;
+
+	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
+	if(object_is_fixed_artifact(object_ptr)) lev = artifact_info[object_ptr->art_id].level; // Hack -- use artifact level instead
+
+	// TODO calc lev by activation
+	lev = 10;
+	if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) && object_ptr->ego_id) lev = object_ego_info[object_ptr->ego_id].level;
+
+	chance = caster_ptr->skill_device; // Base chance of success
+	if(has_trait(caster_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
+	fail = lev + 5;
+	if(chance > fail) fail -= (chance - fail) * 2;
+	else chance -= (fail - chance)*2;
+	if(fail < USE_DEVICE) fail = USE_DEVICE;
+	if(chance < USE_DEVICE) chance = USE_DEVICE;
+
+	return chance;
+}
 
 PROB calc_trait_difficulty(creature_type *caster_ptr, TRAIT_ID trait_id, int stat_type)
 {

@@ -1246,20 +1246,6 @@ static void exe_activate(creature_type *creature_ptr, int item)
 	object_ptr = GET_ITEM(creature_ptr, item);
 	cost_tactical_energy(creature_ptr, 100); // Take a turn
 
-	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
-	if(object_is_fixed_artifact(object_ptr)) lev = artifact_info[object_ptr->art_id].level; // Hack -- use artifact level instead
-
-	// TODO calc lev by activation
-	lev = 10;
-	if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) && object_ptr->ego_id) lev = object_ego_info[object_ptr->ego_id].level;
-
-	chance = creature_ptr->skill_device; // Base chance of success
-	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
-	fail = lev + 5;
-	if(chance > fail) fail -= (chance - fail) * 2;
-	else chance -= (fail - chance)*2;
-	if(fail < USE_DEVICE) fail = USE_DEVICE;
-	if(chance < USE_DEVICE) chance = USE_DEVICE;
 
 	if(creature_ptr->time_stopper)
 	{
