@@ -820,13 +820,8 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		cast_ball(caster_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((lev_bonus - 5) / 4), 8), (lev_bonus > 20 ? (lev_bonus - 20) / 8 + 1 : 0));
 		break;
 	case 6:
-		/* Character Armour */
-		set_timed_trait(caster_ptr, TRAIT_SHIELD, lev_bonus, FALSE);
-		if(lev_bonus > 14) set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, lev_bonus, FALSE);
-		if(lev_bonus > 19) set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, lev_bonus, FALSE);
-		if(lev_bonus > 24) set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, lev_bonus, FALSE);
-		if(lev_bonus > 29) set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, lev_bonus, FALSE);
-		if(lev_bonus > 34) set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, lev_bonus, FALSE);
+		do_active_trait_tmp(caster_ptr, TRAIT_STONE_SKIN, FALSE);
+		do_active_trait_tmp(caster_ptr, TRAIT_MAGIC_RES_ELEMENT, FALSE);
 		break;
 	case 7:
 		do_active_trait_tmp(caster_ptr, TRAIT_IDENTIFY, FALSE);
