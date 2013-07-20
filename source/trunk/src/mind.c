@@ -968,8 +968,8 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 12:
-		cast_beam(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (lev_bonus / 2) + boost * 3 / 10, 15), 0);
 		break;
+
 	case 13:
 		break;
 	default:

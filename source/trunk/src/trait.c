@@ -3177,6 +3177,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_JAM_DOOR, MAX_RANGE_SUB, 20 + randint1(30), -1);
 		break;
 
+	case TRAIT_BEAM_MANA:
+		cast_beam(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (power / 20), 15), 0);
+		break;
+
 	case TRAIT_STORM_FIRE:
 		{
 			POWER dam = 300 + 3 * power;
