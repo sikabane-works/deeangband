@@ -904,37 +904,34 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 	case 0:
 		do_active_trait(caster_ptr, TRAIT_MISSILE, TRUE, 100);
 		break;
+
 	case 1:
 		do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
 		break;
+
 	case 2:
 		set_timed_trait(caster_ptr, TRAIT_LEVITATION, randint1(30) + 30 + boost / 5, FALSE);
 		break;
+
 	case 3:
 		if(!get_aim_dir(caster_ptr, (COODINATES)lev_bonus / 8 + 3, &dir)) return FALSE;
 		cast_beam(caster_ptr, DO_EFFECT_MISSILE, lev_bonus / 8 + 3, diceroll(5 + ((lev_bonus - 1) / 5) + boost / 10, 5), 0);
 		break;
+
 	case 4:
 		do_active_trait(caster_ptr, TRAIT_GET_RESIST_MAGIC, TRUE, 100);
 		break;
+
 	case 5:
-		msg_print(MES_TRAIT_FORCE_IMPROVE);
-		caster_ptr->charged_force += (70 + lev_bonus);
-		prepare_update(caster_ptr, CRU_BONUS);
-		if(randint1(caster_ptr->charged_force) > (lev_bonus * 4 + 120))
-		{
-			msg_print(MES_TRAIT_FORCE_EXPRODE);
-			cast_ball(caster_ptr, DO_EFFECT_MANA, 0, caster_ptr->charged_force / 2, 10);
-			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, caster_ptr->charged_force / 2, COD_UNC_FORCE, NULL, -1);
-		}
-		else return TRUE;
+		do_active_trait(caster_ptr, TRAIT_IMPROVE_FORCE, TRUE, 100);
 		break;
+
 	case 6:
 		do_active_trait(caster_ptr, TRAIT_GET_AURA_MANA, TRUE, 100);
 		break;
 
 	case 7:
-		shock_wave(caster_ptr);
+		//do_active_trait(caster_ptr, TRAIT_SHOCK_WAVE, TRUE, 100);
 		break;
 
 	case 8:
