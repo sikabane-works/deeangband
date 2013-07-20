@@ -788,21 +788,8 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 
 	switch (spell)
 	{
-	case 0: /* Precog */
-		if(lev_bonus > 44) wiz_lite(floor_ptr, caster_ptr, FALSE);
-		else if(lev_bonus > 19) map_area(caster_ptr, DETECT_RAD_MAP);
-		if(lev_bonus < 30)
-		{
-			b = detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
-			if(lev_bonus > 14) b |= detect_creatures_invis(caster_ptr, DETECT_RAD_DEFAULT);
-			if(lev_bonus > 4)  {
-				b |= detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
-				b |= detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
-			}
-		}
-		else b = detect_all(caster_ptr, DETECT_RAD_DEFAULT);
-		if((lev_bonus > 24) && (lev_bonus < 40)) set_timed_trait(caster_ptr, TRAIT_ESP, lev_bonus, FALSE);
-		if(!b) msg_print(MES_TRAIT_PRECOG_NO_DANGER);
+	case 0:
+		do_active_trait_tmp(caster_ptr, TRAIT_DETECT_CREATURE, FALSE);
 		break;
 	case 1:
 		do_active_trait_tmp(caster_ptr, TRAIT_MIND_BLST, FALSE);
