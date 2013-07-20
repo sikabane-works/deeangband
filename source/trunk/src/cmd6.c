@@ -830,7 +830,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
  */
 static void exe_staff(creature_type *creature_ptr, int item)
 {
-	int chance, lev, i;
+	int chance, i;
 	object_type *object_ptr;
 
 	/* Hack -- let staffs of identify get aborted */
@@ -846,13 +846,7 @@ static void exe_staff(creature_type *creature_ptr, int item)
 
 	cost_tactical_energy(creature_ptr, 100); // Take a turn
 
-	// Extract the item level
-	lev = object_kind_info[object_ptr->k_idx].level;
-	if(lev > 50) lev = 50 + (lev - 50) / 2;
-	chance = creature_ptr->skill_device; // Base chance of success
-	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; /* Confusion hurts skill */
-	chance = chance - lev; /* Hight level objects are harder */
-	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1)) chance = USE_DEVICE; /* Give everyone a (slight) chance */
+	chance = calc_device_difficulty(creature_ptr, object_ptr);
 
 	if(creature_ptr->time_stopper)
 	{
@@ -908,7 +902,6 @@ static void exe_staff(creature_type *creature_ptr, int item)
 	if(!object_is_aware(object_ptr))
 	{
 		object_aware(object_ptr);
-		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, 0, FALSE);
 	}
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -966,7 +959,7 @@ void do_cmd_use_staff(creature_type *creature_ptr)
  */
 static void exe_wand(creature_type *creature_ptr, int item)
 {
-	int lev, ident = FALSE, chance, i;
+	int chance, ident = FALSE, i;
 	DIRECTION dir;
 	object_type *object_ptr;
 	bool old_target_pet = target_pet;
@@ -988,13 +981,7 @@ static void exe_wand(creature_type *creature_ptr, int item)
 	target_pet = old_target_pet;
 
 	cost_tactical_energy(creature_ptr, 100); // Take a turn
-
-	lev = object_kind_info[object_ptr->k_idx].level; // Get the level
-	if(lev > 50) lev = 50 + (lev - 50) / 2;
-	chance = creature_ptr->skill_device; // Base chance of success
-	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
-	chance = chance - lev; // Hight level objects are harder
-	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1)) chance = USE_DEVICE; // Give everyone a (slight) chance
+	chance = calc_device_difficulty(creature_ptr, object_ptr);
 
 	if(creature_ptr->time_stopper)
 	{
@@ -1039,7 +1026,6 @@ static void exe_wand(creature_type *creature_ptr, int item)
 	if(ident && !object_is_aware(object_ptr)) // Apply identification
 	{
 		object_aware(object_ptr);
-		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, 0, FALSE);
 	}
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -1072,7 +1058,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
  */
 static void exe_rod(creature_type *creature_ptr, int item)
 {
-	int ident = FALSE, chance, lev, fail, i;
+	int ident = FALSE, chance, fail = 0, i;
 	object_type *object_ptr;
 	bool success;
 
@@ -1089,15 +1075,7 @@ static void exe_rod(creature_type *creature_ptr, int item)
 		return;
 	}
 
-	cost_tactical_energy(creature_ptr, 100); // Take a turn
-	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
-	chance = creature_ptr->skill_device; // Base chance of success
-	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
-	fail = lev + 5;
-	if(chance > fail) fail -= (chance - fail)*2;
-	else chance -= (fail - chance)*2;
-	if(fail < USE_DEVICE) fail = USE_DEVICE;
-	if(chance < USE_DEVICE) chance = USE_DEVICE;
+	chance = calc_device_difficulty(creature_ptr, object_ptr);
 
 	if(creature_ptr->time_stopper)
 	{
@@ -1163,7 +1141,6 @@ static void exe_rod(creature_type *creature_ptr, int item)
 	if(ident && !object_is_aware(object_ptr)) // Successfully determined the object function
 	{
 		object_aware(object_ptr);
-		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev, 0, FALSE);
 	}
 
 	prepare_window(PW_INVEN | PW_EQUIP | PW_PLAYER);
@@ -1239,13 +1216,14 @@ bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
  */
 static void exe_activate(creature_type *creature_ptr, int item)
 {
-	int lev, chance, fail, i;
+	int chance, fail = 0, i;
 	object_type *object_ptr;
 	bool success;
 
 	object_ptr = GET_ITEM(creature_ptr, item);
 	cost_tactical_energy(creature_ptr, 100); // Take a turn
 
+	chance = calc_device_difficulty(creature_ptr, object_ptr);
 
 	if(creature_ptr->time_stopper)
 	{
