@@ -2054,20 +2054,8 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_PANIC_HIT:
-		{
-			if(floor_ptr->cave[y][x].creature_idx)
-			{
-				close_combat(caster_ptr, y, x, 0);
-				if(randint0(caster_ptr->skill_disarm) < 7) msg_print(MES_FAILED_RUNAWAY);
-				else teleport_creature(caster_ptr, 30, 0L);
-			}
-			else
-			{
-				msg_print(MES_NO_DICRECTION_CREATURE);
-				msg_print(NULL);
-			}
-			break;
-		}
+		hit_and_away(caster_ptr);
+		break;
 
 	case TRAIT_SCAN_CREATURE:
 		probing(floor_ptr);
