@@ -781,7 +781,6 @@ static int get_mind_power(creature_type *caster_ptr, KEY *sn, bool only_browse)
 
 static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int b = 0;
 	DIRECTION dir;
 	CREATURE_LEV lev_bonus = caster_ptr->lev;
@@ -813,24 +812,13 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 	case 7:
 		do_active_trait_tmp(caster_ptr, TRAIT_IDENTIFY, FALSE);
 		break;
-
-	case 8: /* Mindwave */
+	case 8:
 		do_active_trait_tmp(caster_ptr, TRAIT_MIND_WAVE, FALSE);
 		break;
 
 	case 9: /* Adrenaline */
-		set_timed_trait(caster_ptr, TRAIT_AFRAID, 0, TRUE);
-		set_timed_trait(caster_ptr, TRAIT_STUN, 0, TRUE);
-
-		/*
-		* Only heal when Adrenalin Channeling is not active. We check
-		* that by checking if the player isn't fast and 'heroed' atm.
-		*/
-		if(!has_trait(caster_ptr, TRAIT_FAST) || !has_trait(caster_ptr, TRAIT_HERO)) heal_creature(caster_ptr, lev_bonus);
-
-		b = 10 + randint1((lev_bonus * 3) / 2);
-		(void)set_timed_trait(caster_ptr, TRAIT_HERO, b, FALSE);
-		(void)set_timed_trait(caster_ptr, TRAIT_FAST, b, TRUE);
+		do_active_trait_tmp(caster_ptr, TRAIT_BECOME_HERO, FALSE);
+		do_active_trait_tmp(caster_ptr, TRAIT_HASTE, FALSE);
 		break;
 
 	case 10: /* Telekinesis */
