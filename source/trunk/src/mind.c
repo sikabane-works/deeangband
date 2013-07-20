@@ -781,8 +781,6 @@ static int get_mind_power(creature_type *caster_ptr, KEY *sn, bool only_browse)
 
 static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 {
-	int b = 0;
-	DIRECTION dir;
 	CREATURE_LEV lev_bonus = caster_ptr->lev;
 
 	switch (spell)
@@ -825,7 +823,8 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		do_active_trait(caster_ptr, TRAIT_TELEKINES, TRUE, lev_bonus * 15);
 		break;
 
-	case 11: /* Psychic Drain */
+	case 11:
+		do_active_trait(caster_ptr, TRAIT_PSI_DRAIN, TRUE, lev_bonus * 15);
 		break;
 
 	case 12:
@@ -833,20 +832,7 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 13:
-		if(caster_ptr->time_stopper)
-		{
-			msg_print(MES_TRAIT_WORLD_ALREADY_STOP);
-			return FALSE;
-		}
-		caster_ptr->time_stopper = TRUE;
-		msg_print(MES_TRAIT_WORLD_DONE);
-		msg_print(NULL);
-		caster_ptr->energy_need -= 1000 + (100 + (s16b)caster_ptr->csp - 50) * TURNS_PER_TICK / 10; /* TODO Hack */
-
-		prepare_redraw(PR_MAP);
-		prepare_update(caster_ptr, PU_CREATURES);
-		prepare_window(PW_OVERHEAD | PW_DUNGEON);
-		handle_stuff(caster_ptr);
+		do_active_trait_tmp(caster_ptr, TRAIT_WORLD, TRUE);
 		break;
 
 	default:
