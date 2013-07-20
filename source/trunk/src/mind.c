@@ -804,7 +804,7 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		do_active_trait_tmp(caster_ptr, TRAIT_CHARM_OTHER, FALSE);
 		break;
 	case 5:
-		cast_ball(caster_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((lev_bonus - 5) / 4), 8), (lev_bonus > 20 ? (lev_bonus - 20) / 8 + 1 : 0));
+		do_active_trait_tmp(caster_ptr, TRAIT_PULVERISE, FALSE);
 		break;
 	case 6:
 		do_active_trait_tmp(caster_ptr, TRAIT_STONE_SKIN, FALSE);

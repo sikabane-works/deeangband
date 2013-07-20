@@ -870,6 +870,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		fetch(caster_ptr, MAX_RANGE, dir, user_level * 10, TRUE);
 		break;
 
+	case TRAIT_PULVERISE:
+		cast_ball(caster_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((user_level - 5) / 4), 8), (user_level > 20 ? (user_level - 20) / 8 + 1 : 0));
+		break;
+
 	case TRAIT_STAR_BALL:
 		cast_ball_aux(y, x, caster_ptr, DO_EFFECT_LITE, 200, 3, id);
 		break;
