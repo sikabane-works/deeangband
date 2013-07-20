@@ -826,10 +826,6 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 11: /* Psychic Drain */
-		if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-		b = diceroll(lev_bonus / 2, 6);
-		/* This is always a radius-0 ball now */
-		if(cast_ball(caster_ptr, DO_EFFECT_PSI_DRAIN, dir, b, 0)) cost_tactical_energy(caster_ptr, randint1(150));
 		break;
 
 	case 12:
