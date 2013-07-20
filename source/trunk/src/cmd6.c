@@ -849,11 +849,9 @@ static void exe_staff(creature_type *creature_ptr, int item)
 	// Extract the item level
 	lev = object_kind_info[object_ptr->k_idx].level;
 	if(lev > 50) lev = 50 + (lev - 50) / 2;
-
 	chance = creature_ptr->skill_device; // Base chance of success
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; /* Confusion hurts skill */
 	chance = chance - lev; /* Hight level objects are harder */
-
 	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1)) chance = USE_DEVICE; /* Give everyone a (slight) chance */
 
 	if(creature_ptr->time_stopper)
@@ -993,13 +991,10 @@ static void exe_wand(creature_type *creature_ptr, int item)
 
 	lev = object_kind_info[object_ptr->k_idx].level; // Get the level
 	if(lev > 50) lev = 50 + (lev - 50) / 2;
-
 	chance = creature_ptr->skill_device; // Base chance of success
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
 	chance = chance - lev; // Hight level objects are harder
-
-	// Give everyone a (slight) chance
-	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1)) chance = USE_DEVICE;
+	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1)) chance = USE_DEVICE; // Give everyone a (slight) chance
 
 	if(creature_ptr->time_stopper)
 	{
@@ -1098,7 +1093,6 @@ static void exe_rod(creature_type *creature_ptr, int item)
 	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
 	chance = creature_ptr->skill_device; // Base chance of success
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
-
 	fail = lev + 5;
 	if(chance > fail) fail -= (chance - fail)*2;
 	else chance -= (fail - chance)*2;
@@ -1243,7 +1237,7 @@ bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
  * Note that it always takes a turn to activate an artifact, even if
  * the user hits "escape" at the "direction" prompt.
  */
-static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
+static void exe_activate(creature_type *creature_ptr, int item)
 {
 	int lev, chance, fail, i;
 	object_type *object_ptr;
@@ -1261,7 +1255,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 	chance = creature_ptr->skill_device; // Base chance of success
 	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
-
 	fail = lev + 5;
 	if(chance > fail) fail -= (chance - fail) * 2;
 	else chance -= (fail - chance)*2;
@@ -1323,7 +1316,7 @@ void do_cmd_activate(creature_type *creature_ptr)
 	OBJECT_ID item;
 	if(has_trait(creature_ptr, TRAIT_POSTURE_MUSOU) || has_trait(creature_ptr, TRAIT_POSTURE_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 	if(!get_item(creature_ptr, &item, MES_OBJECT_WHICH_ACTIVATE, MES_OBJECT_NO_ACTIVATE, (USE_EQUIP), item_tester_hook_activate, 0)) return;
-	do_cmd_activate_aux(creature_ptr, item);
+	exe_activate(creature_ptr, item);
 }
 
 /*
@@ -1446,7 +1439,7 @@ void do_cmd_use(creature_type *creature_ptr)
 		/* Activate an artifact */
 		default:
 		{
-			do_cmd_activate_aux(creature_ptr, item);
+			exe_activate(creature_ptr, item);
 			break;
 		}
 	}
