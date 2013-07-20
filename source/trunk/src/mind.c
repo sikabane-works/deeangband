@@ -950,28 +950,23 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 			dispel_creature(caster_ptr);
 			break;
 		}
-	case 10:
-		{
-			int i;
-			bool success = FALSE;
 
-			for (i = 0; i < 1 + boost/100; i++)
-				if(summoning(NULL, caster_ptr->fy, caster_ptr->fx, lev_bonus, TRAIT_S_PHANTOM, PC_FORCE_PET))
-					success = TRUE;
-			if(success) msg_print(MES_SUMMON_SERVANT);
-			else msg_print(MES_NO_HAPPEN);
-			break;
-		}
+	case 10:
+		do_active_trait(caster_ptr, TRAIT_S_PHANTOM, TRUE, 100);
+		break;
 
 	case 11:
 		do_active_trait(caster_ptr, TRAIT_STORM_FIRE, TRUE, 100);
 		break;
 
 	case 12:
+		do_active_trait(caster_ptr, TRAIT_BEAM_MANA, TRUE, 100);
 		break;
 
 	case 13:
+		do_active_trait(caster_ptr, TRAIT_GET_LIGHT_SPEED, TRUE, 100);
 		break;
+
 	default:
 		msg_warning(MES_SYS_OUT_OF_SWITCH);
 	}
