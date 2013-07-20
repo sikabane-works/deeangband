@@ -1192,7 +1192,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		if(caster_ptr->lev > 44) wiz_lite(floor_ptr, caster_ptr, TRUE);
 		break;
 	case 2:
-		teleport_creature(caster_ptr, 10, 0L);
+		do_active_trait_tmp(caster_ptr, TRAIT_BLINK, TRUE);
 		break;
 	case 3:
 		if(!(caster_ptr->posture & NINJA_KAWARIMI))
@@ -1203,7 +1203,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		}
 		break;
 	case 4:
-		teleport_creature(caster_ptr, caster_ptr->lev * 5, 0L);
+		do_active_trait_tmp(caster_ptr, TRAIT_ACTIVE_TELEPORT, TRUE);
 		break;
 	case 5:
 		hit_and_away(caster_ptr);
@@ -1212,7 +1212,8 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		(void)cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, caster_ptr->lev*2, 0);
 		break;
 	case 7:
-		return ident_spell(caster_ptr, FALSE);
+		do_active_trait_tmp(caster_ptr, TRAIT_IDENTIFY, TRUE);
+		break;
 	case 8:
 		set_timed_trait(caster_ptr, TRAIT_LEVITATION, randint1(20) + 20, FALSE);
 		break;
