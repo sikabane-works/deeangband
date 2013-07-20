@@ -932,10 +932,13 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 	case 6:
 		do_active_trait(caster_ptr, TRAIT_GET_AURA_MANA, TRUE, 100);
 		break;
+
 	case 7:
 		shock_wave(caster_ptr);
+		break;
+
 	case 8:
-		cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(10, 6) + lev_bonus * 3 / 2 + boost * 3 / 5, (lev_bonus < 30) ? 2 : 3);
+		do_active_trait(caster_ptr, TRAIT_BAZOOKA, TRUE, 100);
 		break;
 
 	case 9:
