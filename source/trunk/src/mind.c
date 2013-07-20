@@ -931,7 +931,7 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 		else return TRUE;
 		break;
 	case 6:
-		set_timed_trait(caster_ptr, TRAIT_AURA_MANA, randint1(lev_bonus / 2) + 15 + boost / 7, FALSE);
+		do_active_trait(caster_ptr, TRAIT_GET_AURA_MANA, TRUE, 100);
 		break;
 	case 7:
 		shock_wave(caster_ptr);

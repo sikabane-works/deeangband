@@ -3026,6 +3026,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, MAX_RANGE_SUB, power * 2, 0);
 		break;
 
+	case TRAIT_GET_AURA_MANA:
+		set_timed_trait(caster_ptr, TRAIT_AURA_MANA, randint1(power) + power, FALSE);
+		break;
+
 	case TRAIT_GET_HOLY_AURA:
 		set_timed_trait(caster_ptr, TRAIT_HOLY_AURA, randint1(power) + power, FALSE);
 		break;
