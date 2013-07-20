@@ -931,7 +931,7 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 7:
-		//do_active_trait(caster_ptr, TRAIT_SHOCK_WAVE, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_SHOCK_WAVE, TRUE, 100);
 		break;
 
 	case 8:
