@@ -21,10 +21,10 @@
 
 bool do_active_trait_tmp(creature_type *caster_ptr, TRAIT_ID id, bool message)
 {
-	return do_active_trait(caster_ptr, id, message, 100);
+	return do_active_trait(caster_ptr, id, message, 100, 0L);
 }
 
-bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER power)
+bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER power, FLAGS_32 option)
 {
 	trait_type *trait_ptr = &trait_info[id];
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);

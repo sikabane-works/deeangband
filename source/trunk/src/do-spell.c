@@ -429,7 +429,7 @@ void cast_shuffle(creature_type *caster_ptr)
 	else if(die < 42)
 	{
 		msg_print(SHUFFLE_JUSTICE);
-		do_active_trait(caster_ptr, TRAIT_BLESSING_SELF, FALSE, 100);
+		do_active_trait(caster_ptr, TRAIT_BLESSING_SELF, FALSE, 100, 0L);
 	}
 	else if(die < 47)
 	{
@@ -731,7 +731,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Light Wounds";
 		if(desc) return "Heals cut and HP a little.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(2, 10));
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(2, 10), 0L);
 		break;
 
 	case 1:
@@ -742,7 +742,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Bless";
 		if(desc) return "Gives bonus to hit and AC for a few turns.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_BLESSING_SELF, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_BLESSING_SELF, TRUE, 100, 0L);
 		break;
 
 	case 2:
@@ -753,7 +753,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cause Light Wounds";
 		if(desc) return "Wounds a creature a little unless resisted.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_CAUSE_1, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_CAUSE_1, TRUE, 100, 0L);
 		break;
 
 	case 3:
@@ -764,7 +764,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Call Light";
 		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100, 0L);
 		break;
 
 	case 4:
@@ -775,7 +775,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Doors & Traps";
 		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_DOOR_TRAP, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_DOOR_TRAP, TRUE, 100, 0L);
 		break;
 
 	case 5:
@@ -786,7 +786,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Medium Wounds";
 		if(desc) return "Heals cut and HP more.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(4, 10));
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(4, 10), 0L);
 		break;
 
 	case 6:
@@ -830,7 +830,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cause Medium Wounds";
 		if(desc) return "Wounds a creature unless resisted.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_CAUSE_2, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_CAUSE_2, TRUE, 100, 0L);
 		break;
 
 	case 10:
@@ -841,7 +841,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Critical Wounds";
 		if(desc) return "Heals cut, stun and HP greatly.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(8, 10));
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(8, 10), 0L);
 		break;
 
 	case 11:
@@ -852,8 +852,8 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Heat and Cold";
 		if(desc) return "Gives resistance to fire and cold. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, TRUE, 20);
-		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, TRUE, 20);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, TRUE, 20, 0L);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, TRUE, 20, 0L);
 		break;
 
 	case 12:
@@ -886,7 +886,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Healing";
 		if(desc) return "Much powerful healing magic, and heals cut and stun completely.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, 300);
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, 300, 0L);
 		break;
 
 	case 15:
@@ -897,7 +897,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Glyph of Warding";
 		if(desc) return "Sets a glyph on the floor beneath you. Creatures cannot attack you if you are on a glyph, but can try to break glyph.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_PROTECT_RUNE, TRUE, 300);
+		if(cast) do_active_trait(caster_ptr, TRAIT_PROTECT_RUNE, TRUE, 300, 0L);
 		break;
 
 	case 16:
@@ -919,7 +919,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Perception";
 		if(desc) return "Identifies an item.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY, TRUE, 100, 0L);
 		break;
 
 	case 18:
@@ -930,7 +930,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dispel Undead";
 		if(desc) return "Damages all undead creatures in sight.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DISPEL_UNDEAD, TRUE, lev_bonus * 5);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DISPEL_UNDEAD, TRUE, lev_bonus * 5, 0L);
 		break;
 
 	case 19:
@@ -941,7 +941,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Day of the Dove";
 		if(desc) return "Attempts to charm all creatures in sight.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVES, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVES, TRUE, 100, 0L);
 		break;
 
 	case 20:
@@ -952,7 +952,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cause Critical Wounds";
 		if(desc) return "Wounds a creature critically unless resisted.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_CAUSE_3, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_CAUSE_3, TRUE, 100, 0L);
 		break;
 
 	case 21:
@@ -963,7 +963,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Word of Recall";
 		if(desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_RECALL, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_RECALL, TRUE, 100, 0L);
 		break;
 
 	case 22:
@@ -974,7 +974,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Alter Reality";
 		if(desc) return "Recreates current dungeon level.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_SHADOW_SHIFT, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_SHADOW_SHIFT, TRUE, 100, 0L);
 		break;
 
 	case 23:
@@ -985,7 +985,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Warding True";
 		if(desc) return "Creates glyphs in all adjacent squares and under you.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_PROTECT_RUNE, TRUE, 2);
+		if(cast) do_active_trait(caster_ptr, TRAIT_PROTECT_RUNE, TRUE, 2, 0L);
 		break;
 
 	case 24:
@@ -996,7 +996,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Sterilization";
 		if(desc) return "Prevents any breeders on current level from breeding.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_STERILITY, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_STERILITY, TRUE, 100, 0L);
 		break;
 
 	case 25:
@@ -1007,7 +1007,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detection";
 		if(desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_ALL, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_ALL, TRUE, 100, 0L);
 		break;
 
 	case 26:
@@ -1018,7 +1018,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Annihilate Undead";
 		if(desc) return "Eliminates all nearby undead creatures, exhausting you.  Powerful or unique creatures may be able to resist.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_GENOCIDE_UNDEAD, TRUE, lev_bonus + 50);
+		if(cast) do_active_trait(caster_ptr, TRAIT_GENOCIDE_UNDEAD, TRUE, lev_bonus + 50, 0L);
 		break;
 
 	case 27:
@@ -1029,7 +1029,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Clairvoyance";
 		if(desc) return "Maps and lights whole dungeon level. Knows all objects location. And gives telepathy for a while.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_ENLIGHTENMENT, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_ENLIGHTENMENT, TRUE, 100, 0L);
 		break;
 
 	case 28:
@@ -1040,7 +1040,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Restoration";
 		if(desc) return "Restores all stats and experience.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_RESTORE_ALL, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_RESTORE_ALL, TRUE, 100, 0L);
 		break;
 
 	case 29:
@@ -1051,7 +1051,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Healing True";
 		if(desc) return "The greatest healing magic. Heals all HP, cut and stun.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, 2000);
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, 2000, 0L);
 		break;
 
 	case 30:
@@ -1062,7 +1062,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Holy Vision";
 		if(desc) return "*Identifies* an item.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY_TRUE, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_IDENTIFY_TRUE, TRUE, 100, 0L);
 		break;
 
 	case 31:
@@ -1073,7 +1073,7 @@ static cptr do_life_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Ultimate Resistance";
 		if(desc) return "Gives ultimate resistance, bonus to AC and speed.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ULTRA_RESISTANCE, TRUE, lev_bonus / 2);
+		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ULTRA_RESISTANCE, TRUE, lev_bonus / 2, 0L);
 		break;
 
 	}
@@ -1121,7 +1121,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Doors and Traps";
 		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_DOOR_TRAP, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_DOOR_TRAP, TRUE, 100, 0L);
 		break;
 
 	case 3:
@@ -1176,7 +1176,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Recharging";
 		if(desc) return "Recharges staffs, wands or rods.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_CHARGE_2, TRUE, lev_bonus * 4);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_CHARGE_2, TRUE, lev_bonus * 4, 0L);
 		break;
 
 	case 8:
@@ -1275,7 +1275,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect items and Treasure";
 		if(desc) return "Detects all treasures and items in your vicinity.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_ITEM_GOLD, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_ITEM_GOLD, TRUE, 100, 0L);
 		break;
 
 	case 17:
@@ -1286,7 +1286,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Charm Creature";
 		if(desc) return "Attempts to charm a creature.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVE, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVE, TRUE, 100, 0L);
 		break;
 
 	case 18:
@@ -1297,7 +1297,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Sense Minds";
 		if(desc) return "Gives telepathy for a while.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ESP, TRUE, 50);
+		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ESP, TRUE, 50, 0L);
 		break;
 
 	case 19:
@@ -1308,7 +1308,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Teleport to town";
 		if(desc) return "Teleport to a town which you choose in a moment. Can only be used outdoors.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_TELEPORT_TOWN, TRUE, 50);
+		if(cast) do_active_trait(caster_ptr, TRAIT_TELEPORT_TOWN, TRUE, 50, 0L);
 		break;
 
 	case 20:
@@ -1352,7 +1352,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dimension Door";
 		if(desc) return "Teleport to given location.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DIMENSION_DOOR, TRUE, lev_bonus / 2 + 10);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DIMENSION_DOOR, TRUE, lev_bonus / 2 + 10, 0L);
 		break;
 
 	case 24:
@@ -1385,7 +1385,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Telekinesis";
 		if(desc) return "Pulls a distant item close to you.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_TELEKINES, TRUE, lev_bonus * 15);
+		if(cast) do_active_trait(caster_ptr, TRAIT_TELEKINES, TRUE, lev_bonus * 15, 0L);
 		break;
 
 	case 27:
@@ -1396,7 +1396,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Clairvoyance";
 		if(desc) return "Maps and lights whole dungeon level. Knows all objects location. And gives telepathy for a while.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_ENLIGHTENMENT, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_ENLIGHTENMENT, TRUE, 100, 0L);
 		break;
 
 	case 28:
@@ -1407,7 +1407,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Charm creatures";
 		if(desc) return "Attempts to charm all creatures in sight.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVES, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVES, TRUE, 100, 0L);
 		break;
 
 	case 29:
@@ -1418,7 +1418,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Alchemy";
 		if(desc) return "Turns an item into 1/3 of its value in gold.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_MIDAS_TCH, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MIDAS_TCH, TRUE, 100, 0L);
 		break;
 
 	case 30:
@@ -1429,7 +1429,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Banishment";
 		if(desc) return "Teleports all creatures in sight away unless resisted.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_TELE_AWAY, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_TELE_AWAY, TRUE, 100, 0L);
 		break;
 
 	case 31:
@@ -1440,7 +1440,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Globe of Invulnerability";
 		if(desc) return "Generates barrier which completely protect you from almost all damages. Takes a few your turns when the barrier breaks or duration time is exceeded.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_INVULNER, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_INVULNER, TRUE, 100, 0L);
 	}
 
 	return "";
@@ -1510,7 +1510,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Daylight";
 		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100, 0L);
 		break;
 
 	case 5:
@@ -1521,7 +1521,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Animal Taming";
 		if(desc) return "Attempts to charm an animal.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_CHARM_ANIMAL, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_CHARM_ANIMAL, TRUE, 100, 0L);
 		break;
 
 	case 6:
@@ -1532,9 +1532,9 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Resist Environment";
 		if(desc) return "Gives resistance to fire, cold and electricity for a while. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, TRUE, 20);
-		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, TRUE, 20);
-		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, TRUE, 20);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, TRUE, 20, 0L);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, TRUE, 20, 0L);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, TRUE, 20, 0L);
 		break;
 
 	case 7:
@@ -1545,7 +1545,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Wounds & Poison";
 		if(desc) return "Heals all cut and poison status. Heals HP a little.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, 20);
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, 20, 0L);
 		break;
 
 	case 8:
@@ -1556,7 +1556,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Stone to Mud";
 		if(desc) return "Turns one rock square to mud.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_STONE_TO_MUD, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_STONE_TO_MUD, TRUE, 100, 0L);
 		break;
 
 	case 9:
@@ -1611,7 +1611,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Entangle";
 		if(desc) return "Attempts to slow all creatures in sight.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_SLOW, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_SLOW, TRUE, 100, 0L);
 		break;
 
 	case 14:
@@ -1622,7 +1622,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Summon Animal";
 		if(desc) return "Summons an animal.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_S_ANIMAL, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_S_ANIMAL, TRUE, 100, 0L);
 		break;
 
 	case 15:
@@ -1633,7 +1633,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Herbal Healing";
 		if(desc) return "Heals HP greatly. And heals cut, stun and poison completely.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, 500);
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, 500, 0L);
 		break;
 
 	case 16:
@@ -1644,7 +1644,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Stair Building";
 		if(desc) return "Creates a stair which goes down or up.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_STAIR_BUILDING, TRUE, 0);
+		if(cast) do_active_trait(caster_ptr, TRAIT_STAIR_BUILDING, TRUE, 0, 0L);
 		break;
 
 	case 17:
@@ -1655,7 +1655,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Stone Skin";
 		if(desc) return "Gives bonus to AC for a while.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_STONE_SKIN, TRUE, randint1(20) + 30);
+		if(cast) do_active_trait(caster_ptr, TRAIT_STONE_SKIN, TRUE, randint1(20) + 30, 0L);
 		break;
 
 	case 18:
@@ -1743,7 +1743,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cyclone";
 		if(desc) return "Attacks all adjacent creatures.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_MASSACRE, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MASSACRE, TRUE, 100, 0L);
 		break;
 
 	case 26:
@@ -1925,7 +1925,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Wonder";
 		if(desc) return "Fires something with random effects.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_WANDER, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_WANDER, TRUE, 100, 0L);
 		break;
 
 	case 9:
@@ -1936,7 +1936,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Chaos Bolt";
 		if(desc) return "Fires a bolt or ball of chaos.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_BO_CHAO, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_CHAO, TRUE, 100, 0L);
 
 		break;
 
@@ -2026,7 +2026,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Chain Lightning";
 		if(desc) return "Fires lightning beams in all directions.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_CHAIN_LIGHTNING, TRUE, 90);
+		if(cast) do_active_trait(caster_ptr, TRAIT_CHAIN_LIGHTNING, TRUE, 90, 0L);
 		break;
 
 	case 18:
@@ -2037,7 +2037,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Arcane Binding";
 		if(desc) return "Recharges staffs, wands or rods.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_CHARGE_2, TRUE, 90);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_CHARGE_2, TRUE, 90, 0L);
 		break;
 
 	case 19:
@@ -2114,7 +2114,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Meteor Swarm";
 		if(desc) return "Makes meteor balls fall down to nearby random locations.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_METEOR_SWARM, TRUE, lev_bonus * 2);
+		if(cast) do_active_trait(caster_ptr, TRAIT_METEOR_SWARM, TRUE, lev_bonus * 2, 0L);
 		break;
 
 	case 26:
@@ -2125,7 +2125,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Flame Strike";
 		if(desc) return "Generate a huge ball of fire centered on you.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_STORM_FIRE, TRUE, lev_bonus * 2);
+		if(cast) do_active_trait(caster_ptr, TRAIT_STORM_FIRE, TRUE, lev_bonus * 2, 0L);
 		break;
 
 	case 27:
@@ -2136,7 +2136,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Call Chaos";
 		if(desc) return "Generate random kind of balls or beams.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_CALL_CHAOS, TRUE, lev_bonus * 2);
+		if(cast) do_active_trait(caster_ptr, TRAIT_CALL_CHAOS, TRUE, lev_bonus * 2, 0L);
 		break;
 
 	case 28:
@@ -2147,7 +2147,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Polymorph Self";
 		if(desc) return "Polymorphs yourself.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_POLYMORPH, TRUE, lev_bonus * 2);
+		if(cast) do_active_trait(caster_ptr, TRAIT_POLYMORPH, TRUE, lev_bonus * 2, 0L);
 		break;
 
 	case 29:
@@ -2207,7 +2207,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Unlife";
 		if(desc) return "Detects all nonliving creatures in your vicinity.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_NONLIVING, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_NONLIVING, TRUE, 100, 0L);
 		break;
 
 	case 1:
@@ -2350,7 +2350,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Vampiric Drain";
 		if(desc) return "Absorbs some HP from a creature and gives them to you. You will also gain nutritional sustenance from this.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_VAMPIRIC_DRAIN_1, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_VAMPIRIC_DRAIN_1, TRUE, 100, 0L);
 		break;
 
 	case 14:
@@ -2438,7 +2438,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Vampirism True";
 		if(desc) return "Fires 3 bolts. Each of the bolts absorbs some HP from a creature and gives them to you.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_VAMPIRIC_DRAIN_1, TRUE, 300);
+		if(cast) do_active_trait(caster_ptr, TRAIT_VAMPIRIC_DRAIN_1, TRUE, 300, 0L);
 		break;
 
 	case 22:
@@ -2629,7 +2629,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Trump Spying";
 		if(desc) return "Gives telepathy for a while.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ESP, TRUE, 50);
+		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ESP, TRUE, 50, 0L);
 		break;
 
 	case 6:
@@ -2750,7 +2750,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Banish";
 		if(desc) return "Teleports all creatures in sight away unless resisted.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_TELE_AWAY, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_TELE_AWAY, TRUE, 100, 0L);
 		break;
 
 	case 16:
@@ -3026,7 +3026,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Light Wounds";
 		if(desc) return "Heals cut and HP a little.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(2, 10));
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(2, 10), 0L);
 		break;
 
 	case 8:
@@ -3037,7 +3037,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Doors & Traps";
 		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_DOOR_TRAP, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_DOOR_TRAP, TRUE, 100, 0L);
 		break;
 
 	case 9:
@@ -3048,7 +3048,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Phlogiston";
 		if(desc) return "Adds more turns of light to a lantern or torch.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_PHLOGISTON, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_PHLOGISTON, TRUE, 100, 0L);
 		break;
 
 	case 10:
@@ -3059,7 +3059,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Treasure";
 		if(desc) return "Detects all treasures in your vicinity.";
 #endif
-		do_active_trait(caster_ptr, TRAIT_SMELL_MET, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_SMELL_MET, TRUE, 100, 0L);
 		break;
 
 	case 11:
@@ -3070,7 +3070,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Enchantment";
 		if(desc) return "Detects all magical items in your vicinity.";
 #endif
-		do_active_trait(caster_ptr, TRAIT_DETECT_OBJECT_MAGIC, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_DETECT_OBJECT_MAGIC, TRUE, 100, 0L);
 		break;
 
 	case 12:
@@ -3081,7 +3081,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Objects";
 		if(desc) return "Detects all items in your vicinity.";
 #endif
-		do_active_trait(caster_ptr, TRAIT_DETECT_OBJECT, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_DETECT_OBJECT, TRUE, 100, 0L);
 		break;
 
 	case 13:
@@ -3147,7 +3147,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure Medium Wounds";
 		if(desc) return "Heals cut and HP more.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(4, 10));
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(4, 10), 0L);
 		break;
 
 	case 19:
@@ -3180,7 +3180,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Stone to Mud";
 		if(desc) return "Turns one rock square to mud.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_STONE_TO_MUD, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_STONE_TO_MUD, TRUE, 100, 0L);
 		break;
 
 	case 22:
@@ -3291,7 +3291,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Clairvoyance";
 		if(desc) return "Maps and lights whole dungeon level. Knows all objects location. And gives telepathy for a while.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_ENLIGHTENMENT, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_ENLIGHTENMENT, TRUE, 100, 0L);
 		break;
 	}
 
@@ -3491,7 +3491,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Telepathy";
 		if(desc) return "Gives telepathy for a while.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ESP, TRUE, 50);
+		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ESP, TRUE, 50, 0L);
 		break;
 
 	case 17:
@@ -3502,7 +3502,7 @@ static cptr do_craft_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Stone Skin";
 		if(desc) return "Gives bonus to AC for a while.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_STONE_SKIN, TRUE, 50);
+		if(cast) do_active_trait(caster_ptr, TRAIT_STONE_SKIN, TRUE, 50, 0L);
 		break;
 
 	case 18:
@@ -3692,7 +3692,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Unlife";
 		if(desc) return "Detects all nonliving creatures in your vicinity.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_NONLIVING, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_NONLIVING, TRUE, 100, 0L);
 		break;
 
 	case 2:
@@ -3703,7 +3703,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Evil Bless";
 		if(desc) return "Gives bonus to hit and AC for a few turns.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_BLESSING_SELF, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_BLESSING_SELF, TRUE, 100, 0L);
 		break;
 
 	case 3:
@@ -3856,7 +3856,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Devilish Eye";
 		if(desc) return "Gives telepathy for a while.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ESP, TRUE, 50);
+		if(cast) do_active_trait(caster_ptr, TRAIT_GET_ESP, TRUE, 50, 0L);
 		break;
 
 	case 17:
@@ -3867,7 +3867,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Devil Cloak";
 		if(desc) return "Removes fear. Gives resistance to fire and cold, and aura of fire. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DEVIL_CLOAK, TRUE, 50);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DEVIL_CLOAK, TRUE, 50, 0L);
 		break;
 
 	case 18:
@@ -3878,7 +3878,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "The Flow of Lava";
 		if(desc) return "Generates a ball of fire centered on you which transforms floors to magma.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_FLOW_LAVA, TRUE, 50);
+		if(cast) do_active_trait(caster_ptr, TRAIT_FLOW_LAVA, TRUE, 50, 0L);
 		break;
 
 	case 19:
@@ -3889,7 +3889,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Plasma Ball";
 		if(desc) return "Fires a ball of plasma.";
 #endif    
-		if(cast) do_active_trait(caster_ptr, TRAIT_BO_PLAS, TRUE, 50);
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_PLAS, TRUE, 50, 0L);
 		break;
 
 	case 20:
@@ -3900,7 +3900,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Polymorph Demon";
 		if(desc) return "Mimic a demon for a while. Loses abilities of original race and gets abilities as a demon.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_POLYMORPH_DEMON, TRUE, 50);
+		if(cast) do_active_trait(caster_ptr, TRAIT_POLYMORPH_DEMON, TRUE, 50, 0L);
 		break;
 
 	case 21:
@@ -3911,7 +3911,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Nather Wave";
 		if(desc) return "Damages all creatures in sight. Hurts good creatures greatly.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_WAVE_NETHER, TRUE, 50);
+		if(cast) do_active_trait(caster_ptr, TRAIT_WAVE_NETHER, TRUE, 50, 0L);
 		break;
 
 	case 22:
@@ -4270,7 +4270,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Dispel Evil";
 		if(desc) return "Damages all evil creatures in sight.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DISPEL_EVIL_1, TRUE, lev_bonus * 4);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DISPEL_EVIL_1, TRUE, lev_bonus * 4, 0L);
 		break;
 
 	case 21:
@@ -4281,7 +4281,7 @@ static cptr do_crusade_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Holy Blade";
 		if(desc) return "Makes current weapon especially deadly against evil creatures.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_ENCHANT_HOLY_BRAND, TRUE, lev_bonus * 4);
+		if(cast) do_active_trait(caster_ptr, TRAIT_ENCHANT_HOLY_BRAND, TRUE, lev_bonus * 4, 0L);
 		break;
 
 	case 22:
@@ -4426,7 +4426,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if(desc) return "Attempts to slow all creatures in sight.";
 #endif
 		if(cast || fail) stop_singing(caster_ptr);
-		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_SLOW, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MASS_SLOW, TRUE, 100, 0L);
 		break;
 
 	case 1:
@@ -4463,7 +4463,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
     
 		/* Stop singing before start another */
 		if(cast || fail) stop_singing(caster_ptr);
-		if(cast) do_active_trait(caster_ptr, TRAIT_BO_SOUN, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_BO_SOUN, TRUE, 100, 0L);
 		break;
 
 	case 3:
@@ -4542,7 +4542,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Song of the Sun";
 		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
-		if(cast || cont) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
+		if(cast || cont) do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100, 0L);
 		break;
 
 	case 6:
@@ -4852,8 +4852,8 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Fellowship Chant";
 		if(desc) return "Attempts to charm all creatures in sight.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVES, TRUE, 100);
-		if(cont) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVES, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVES, TRUE, 100, 0L);
+		if(cont) do_active_trait(caster_ptr, TRAIT_DOMINATE_LIVES, TRUE, 100, 0L);
 		break;
 
 	case 16:
@@ -5424,7 +5424,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Detect Ferocity";
 		if(desc) return "Detects all creatures except mindless in your vicinity.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_FELOCITY, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_DETECT_FELOCITY, TRUE, 100, 0L);
 		break;
 
 	case 5:
@@ -5663,7 +5663,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Judge";
 		if(desc) return "Identifies a weapon or armor. Or *identifies* these at level 45.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_WEAPON_MASTER_JUDGE, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_WEAPON_MASTER_JUDGE, TRUE, 100, 0L);
 		break;
 
 	case 12:
@@ -6099,7 +6099,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Moon Dazzling";
 		if(desc) return "Attempts to stun, confuse and sleep all waking creatures.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_MOON_DAZZLING, TRUE, 100);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MOON_DAZZLING, TRUE, 100, 0L);
 		break;
 
 	case 26:
@@ -6391,8 +6391,8 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure light wounds";
 		if(desc) return "Heals cut and HP a little.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(1, 10));
-		if(cont) do_active_trait(caster_ptr, TRAIT_HEAL, FALSE, diceroll(1, 10));
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(1, 10), 0L);
+		if(cont) do_active_trait(caster_ptr, TRAIT_HEAL, FALSE, diceroll(1, 10), 0L);
 		break;
 
 	case 2:
@@ -6614,8 +6614,8 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure serious wounds";
 		if(desc) return "Heals cut and HP more.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(2, 10));
-		if(cont) do_active_trait(caster_ptr, TRAIT_HEAL, FALSE, diceroll(2, 10));
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(2, 10), 0L);
+		if(cont) do_active_trait(caster_ptr, TRAIT_HEAL, FALSE, diceroll(2, 10), 0L);
 		break;
 
 	case 10:
@@ -6777,8 +6777,8 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Cure critical wounds";
 		if(desc) return "Heals cut and HP greatry.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(4, 10));
-		if(cont) do_active_trait(caster_ptr, TRAIT_HEAL, FALSE, diceroll(4, 10));
+		if(cast) do_active_trait(caster_ptr, TRAIT_HEAL, TRUE, diceroll(4, 10), 0L);
+		if(cont) do_active_trait(caster_ptr, TRAIT_HEAL, FALSE, diceroll(4, 10), 0L);
 		break;
 
 	case 18:
@@ -6789,7 +6789,7 @@ static cptr do_hex_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Recharging";
 		if(desc) return "Recharges a magic device.";
 #endif
-		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_CHARGE_2, TRUE, lev_bonus * 2);
+		if(cast) do_active_trait(caster_ptr, TRAIT_MAGIC_CHARGE_2, TRUE, lev_bonus * 2, 0L);
 		break;
 
 	case 19:

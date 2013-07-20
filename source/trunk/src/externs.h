@@ -1545,7 +1545,7 @@ extern void do_creature_riding_control(creature_type *creature_ptr);
 extern void add_floor_turn(floor_type *floor_ptr, int num);
 
 // trait.c
-extern bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER power);
+extern bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER power, FLAGS_32 option);
 extern bool do_active_trait_tmp(creature_type *user_ptr, TRAIT_ID id, bool message);
 
 // creature_hook.c

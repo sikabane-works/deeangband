@@ -820,15 +820,15 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 10: /* Telekinesis */
-		do_active_trait(caster_ptr, TRAIT_TELEKINES, TRUE, lev_bonus * 15);
+		do_active_trait(caster_ptr, TRAIT_TELEKINES, TRUE, lev_bonus * 15, 0L);
 		break;
 
 	case 11:
-		do_active_trait(caster_ptr, TRAIT_PSI_DRAIN, TRUE, lev_bonus * 15);
+		do_active_trait(caster_ptr, TRAIT_PSI_DRAIN, TRUE, lev_bonus * 15, 0L);
 		break;
 
 	case 12:
-		do_active_trait(caster_ptr, TRAIT_PSY_SPEAR, TRUE, lev_bonus * 15);
+		do_active_trait(caster_ptr, TRAIT_PSY_SPEAR, TRUE, lev_bonus * 15, 0L);
 		break;
 
 	case 13:
@@ -857,59 +857,59 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 	switch (spell)
 	{
 	case 0:
-		do_active_trait(caster_ptr, TRAIT_MISSILE, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_MISSILE, TRUE, 100, 0L);
 		break;
 
 	case 1:
-		do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100, 0L);
 		break;
 
 	case 2:
-		do_active_trait(caster_ptr, TRAIT_GET_LEVITATION, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_GET_LEVITATION, TRUE, 100, 0L);
 		break;
 
 	case 3:
-		do_active_trait(caster_ptr, TRAIT_BO_MANA, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_BO_MANA, TRUE, 100, 0L);
 		break;
 
 	case 4:
-		do_active_trait(caster_ptr, TRAIT_GET_RESIST_MAGIC, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_GET_RESIST_MAGIC, TRUE, 100, 0L);
 		break;
 
 	case 5:
-		do_active_trait(caster_ptr, TRAIT_IMPROVE_FORCE, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_IMPROVE_FORCE, TRUE, 100, 0L);
 		break;
 
 	case 6:
-		do_active_trait(caster_ptr, TRAIT_GET_AURA_MANA, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_GET_AURA_MANA, TRUE, 100, 0L);
 		break;
 
 	case 7:
-		do_active_trait(caster_ptr, TRAIT_SHOCK_WAVE, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_SHOCK_WAVE, TRUE, 100, 0L);
 		break;
 
 	case 8:
-		do_active_trait(caster_ptr, TRAIT_BAZOOKA, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_BAZOOKA, TRUE, 100, 0L);
 		break;
 
 	case 9:
-		do_active_trait(caster_ptr, TRAIT_DISPEL, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_DISPEL, TRUE, 100, 0L);
 		break;
 
 	case 10:
-		do_active_trait(caster_ptr, TRAIT_S_PHANTOM, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_S_PHANTOM, TRUE, 100, 0L);
 		break;
 
 	case 11:
-		do_active_trait(caster_ptr, TRAIT_STORM_FIRE, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_STORM_FIRE, TRUE, 100, 0L);
 		break;
 
 	case 12:
-		do_active_trait(caster_ptr, TRAIT_BEAM_MANA, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_BEAM_MANA, TRUE, 100, 0L);
 		break;
 
 	case 13:
-		do_active_trait(caster_ptr, TRAIT_GET_LIGHT_SPEED, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_GET_LIGHT_SPEED, TRUE, 100, 0L);
 		break;
 
 	default:
@@ -970,7 +970,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		teleport_creature(caster_ptr, 10, 0L);
 		break;
 	case 4: /* mirror of light */
-		do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100, 0L);
 		break;
 	case 5: /* mirror of wandering */
 		teleport_creature(caster_ptr, (COODINATES)lev_bonus * 5, 0L);
@@ -1038,7 +1038,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		return mirror_tunnel(caster_ptr);
 
 	case 17:
-		return do_active_trait(caster_ptr, TRAIT_RECALL, TRUE, 100);
+		return do_active_trait(caster_ptr, TRAIT_RECALL, TRUE, 100, 0L);
 
 	case 18:
 		set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
@@ -1069,19 +1069,19 @@ static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 	switch (spell)
 	{
 	case 0:
-		do_active_trait(caster_ptr, TRAIT_DETECT_FELOCITY, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_DETECT_FELOCITY, TRUE, 100, 0L);
 		break;
 	case 1:
-		do_active_trait(caster_ptr, TRAIT_TRAP_WALK, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_TRAP_WALK, TRUE, 100, 0L);
 		break;
 	case 2:
-		do_active_trait(caster_ptr, TRAIT_TRAP_WALK, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_TRAP_WALK, TRUE, 100, 0L);
 		break;
 	case 3:
 		do_active_trait_tmp(caster_ptr, TRAIT_EARTHQUAKE, TRUE);
 		break;
 	case 4:
-		do_active_trait(caster_ptr, TRAIT_MASSACRE, TRUE, 100);
+		do_active_trait(caster_ptr, TRAIT_MASSACRE, TRUE, 100, 0L);
 		break;
 	default:
 		msg_warning(MES_SYS_OUT_OF_SWITCH);
