@@ -893,7 +893,6 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 */
 static bool cast_force_spell(creature_type *caster_ptr, int spell)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	DIRECTION dir;
 	FLOOR_LEV lev_bonus = caster_ptr->lev;
 	int boost = caster_ptr->charged_force;
@@ -938,18 +937,10 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 	case 8:
 		cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(10, 6) + lev_bonus * 3 / 2 + boost * 3 / 5, (lev_bonus < 30) ? 2 : 3);
 		break;
-	case 9:
-		{
-			CREATURE_ID creature_idx;
 
-			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			creature_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-			if(!creature_idx) break;
-			if(!player_has_los_bold(target_row, target_col)) break;
-			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-			dispel_creature(caster_ptr);
-			break;
-		}
+	case 9:
+		do_active_trait(caster_ptr, TRAIT_DISPEL, TRUE, 100);
+		break;
 
 	case 10:
 		do_active_trait(caster_ptr, TRAIT_S_PHANTOM, TRUE, 100);
