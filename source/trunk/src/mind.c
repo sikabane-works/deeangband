@@ -1065,9 +1065,6 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 // is 'berserker'.
 static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 {
-	COODINATES y, x;
-	DIRECTION dir;
-
 	// spell code
 	switch (spell)
 	{
@@ -1098,7 +1095,6 @@ static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 // is 'ninja'.
 static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	DIRECTION dir;
 
 	switch (spell)
@@ -1107,15 +1103,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		do_active_trait_tmp(caster_ptr, TRAIT_DARKNESS, TRUE);
 		break;
 	case 1:
-		detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
-		if(caster_ptr->lev > 4)
-		{
-			detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
-			detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
-			detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
-		}
-		if(caster_ptr->lev > 14) detect_objects_normal(caster_ptr, DETECT_RAD_DEFAULT);
-		if(caster_ptr->lev > 44) wiz_lite(floor_ptr, caster_ptr, TRUE);
+		do_active_trait_tmp(caster_ptr, TRAIT_DETECT_CREATURE, TRUE);
 		break;
 	case 2:
 		do_active_trait_tmp(caster_ptr, TRAIT_BLINK, TRUE);
