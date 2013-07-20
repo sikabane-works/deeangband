@@ -805,8 +805,7 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		if(!b) msg_print(MES_TRAIT_PRECOG_NO_DANGER);
 		break;
 	case 1:
-		if(randint1(100) < lev_bonus * 2) cast_beam(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 4), (3 + lev_bonus / 15)), 0);
-		else cast_ball(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 4), (3 + lev_bonus / 15)), 0);
+		do_active_trait_tmp(caster_ptr, TRAIT_MIND_BLST, FALSE);
 		break;
 	case 2:
 		do_active_trait_tmp(caster_ptr, TRAIT_BLINK, FALSE);
@@ -814,13 +813,8 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 	case 3:
 		do_active_trait_tmp(caster_ptr, TRAIT_ACTIVE_TELEPORT, FALSE);
 		break;
-	case 4: /* Domination */
-		if(lev_bonus < 30)
-		{
-			if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-			cast_ball(caster_ptr, DO_EFFECT_DOMINATION, dir, lev_bonus, 0);
-		}
-		else project_all_vision(caster_ptr, DO_EFFECT_CHARM, lev_bonus * 2);
+	case 4:
+		do_active_trait_tmp(caster_ptr, TRAIT_CHARM_OTHER, FALSE);
 		break;
 	case 5:
 		cast_ball(caster_ptr, DO_EFFECT_TELEKINESIS, MAX_RANGE_SUB, diceroll(8 + ((lev_bonus - 5) / 4), 8), (lev_bonus > 20 ? (lev_bonus - 20) / 8 + 1 : 0));
@@ -834,9 +828,9 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		if(lev_bonus > 29) set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, lev_bonus, FALSE);
 		if(lev_bonus > 34) set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, lev_bonus, FALSE);
 		break;
-	case 7: /* Psychometry */
-		if(lev_bonus < 25) return psychometry(caster_ptr);
-		else return ident_spell(caster_ptr, FALSE);
+	case 7:
+		do_active_trait_tmp(caster_ptr, TRAIT_IDENTIFY, FALSE);
+		break;
 	case 8: /* Mindwave */
 		msg_print(MES_TRAIT_MIND_WAVE);
 		if(lev_bonus < 25)
@@ -871,7 +865,7 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 12:
-		cast_beam(caster_ptr, DO_EFFECT_PSY_SPEAR, MAX_RANGE_SUB, randint1(lev_bonus * 3) + lev_bonus * 3, 0);
+		do_active_trait(caster_ptr, TRAIT_PSY_SPEAR, TRUE, lev_bonus * 15);
 		break;
 
 	case 13:
