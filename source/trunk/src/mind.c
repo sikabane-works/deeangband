@@ -969,7 +969,6 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 		cast_beam(caster_ptr, DO_EFFECT_MANA, MAX_RANGE_SUB, diceroll(10 + (lev_bonus / 2) + boost * 3 / 10, 15), 0);
 		break;
 	case 13:
-		set_timed_trait(caster_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16 + boost / 20, FALSE);
 		break;
 	default:
 		msg_warning(MES_SYS_OUT_OF_SWITCH);

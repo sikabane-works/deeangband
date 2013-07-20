@@ -442,6 +442,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(75) + 75, TRUE);
 		break;
 
+	case TRAIT_GET_LIGHT_SPEED:
+		set_timed_trait(caster_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16, FALSE); // TODO BOOST
+		break;
+
 	case TRAIT_HASTE_OTHER:
 		{
 				/* Temporary enable target_pet option */
