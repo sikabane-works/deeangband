@@ -808,11 +808,11 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 		if(randint1(100) < lev_bonus * 2) cast_beam(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 4), (3 + lev_bonus / 15)), 0);
 		else cast_ball(caster_ptr, DO_EFFECT_PSI, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 4), (3 + lev_bonus / 15)), 0);
 		break;
-	case 2: /* Minor displace */
-		teleport_creature(caster_ptr, 10, 0L);
+	case 2:
+		do_active_trait_tmp(caster_ptr, TRAIT_BLINK, FALSE);
 		break;
-	case 3: /* Major displace */
-		teleport_creature(caster_ptr, (COODINATES)lev_bonus * 5, 0L);
+	case 3:
+		do_active_trait_tmp(caster_ptr, TRAIT_ACTIVE_TELEPORT, FALSE);
 		break;
 	case 4: /* Domination */
 		if(lev_bonus < 30)
@@ -1241,7 +1241,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		do_active_trait_tmp(caster_ptr, TRAIT_EXPLOSIVE_RUNE, TRUE);
 		break;
 	case 16:
-		(void)set_timed_trait(caster_ptr, TRAIT_PASS_WALL, randint1(caster_ptr->lev/2) + caster_ptr->lev/2, FALSE);
+		do_active_trait_tmp(caster_ptr, TRAIT_GET_PASS_WALL, TRUE);
 		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, caster_ptr->lev, FALSE);
 		break;
 	case 17:

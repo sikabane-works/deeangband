@@ -382,10 +382,7 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		break;
 
 	case TRAIT_GET_PASS_WALL:
-		{
-			int base = power / 2;
-			set_timed_trait(caster_ptr, TRAIT_PASS_WALL, randint1(base) + base, FALSE);
-		}
+		set_timed_trait(caster_ptr, TRAIT_PASS_WALL, randint1(power) + power, FALSE);
 		break;
 
 	case TRAIT_PROT_EVIL:
