@@ -2452,6 +2452,11 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		shock_wave(caster_ptr);
 		break;
 
+	case TRAIT_GET_LEVITATION:
+		set_timed_trait(caster_ptr, TRAIT_LEVITATION, randint1(30) + 30, FALSE);
+		break;
+
+
 	case TRAIT_VTELEPORT:
 		teleport_creature(caster_ptr, 10 + 4 * (COODINATES)user_level, 0L);
 		break;

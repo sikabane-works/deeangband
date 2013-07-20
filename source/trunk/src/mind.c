@@ -893,8 +893,6 @@ static bool cast_mindcrafter_spell(creature_type *caster_ptr, int spell)
 */
 static bool cast_force_spell(creature_type *caster_ptr, int spell)
 {
-	DIRECTION dir;
-	FLOOR_LEV lev_bonus = caster_ptr->lev;
 	int boost = caster_ptr->charged_force;
 
 	if(heavy_armor(caster_ptr)) boost /= 2;
@@ -910,12 +908,11 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 2:
-		set_timed_trait(caster_ptr, TRAIT_LEVITATION, randint1(30) + 30 + boost / 5, FALSE);
+		do_active_trait(caster_ptr, TRAIT_GET_LEVITATION, TRUE, 100);
 		break;
 
 	case 3:
-		if(!get_aim_dir(caster_ptr, (COODINATES)lev_bonus / 8 + 3, &dir)) return FALSE;
-		cast_beam(caster_ptr, DO_EFFECT_MISSILE, lev_bonus / 8 + 3, diceroll(5 + ((lev_bonus - 1) / 5) + boost / 10, 5), 0);
+		do_active_trait(caster_ptr, TRAIT_BO_MANA, TRUE, 100);
 		break;
 
 	case 4:
