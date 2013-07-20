@@ -1155,7 +1155,7 @@ static bool cast_berserk_spell(creature_type *caster_ptr, int spell)
 			break;
 		}
 	case 3:
-		earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 8 + (COODINATES)randint0(5));
+		do_active_trait_tmp(caster_ptr, TRAIT_EARTHQUAKE, TRUE);
 		break;
 	case 4:
 		do_active_trait(caster_ptr, TRAIT_MASSACRE, TRUE, 100);
@@ -1178,7 +1178,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 	switch (spell)
 	{
 	case 0:
-		(void)unlite_area(caster_ptr, 0, 3);
+		do_active_trait_tmp(caster_ptr, TRAIT_DARKNESS, TRUE);
 		break;
 	case 1:
 		detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
