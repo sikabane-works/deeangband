@@ -910,7 +910,7 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 	switch (spell)
 	{
 	case 0:
-		cast_ball(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, diceroll(3 + ((lev_bonus - 1) / 5) + boost / 12, 4), 0);
+		do_active_trait(caster_ptr, TRAIT_MISSILE, TRUE, 100);
 		break;
 	case 1:
 		do_active_trait(caster_ptr, TRAIT_LIGHT_AREA, TRUE, 100);
