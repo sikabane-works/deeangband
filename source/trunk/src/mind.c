@@ -916,7 +916,6 @@ static bool cast_force_spell(creature_type *caster_ptr, int spell)
 		cast_beam(caster_ptr, DO_EFFECT_MISSILE, lev_bonus / 8 + 3, diceroll(5 + ((lev_bonus - 1) / 5) + boost / 10, 5), 0);
 		break;
 	case 4:
-		set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, randint1(20) + 20 + boost / 5, FALSE);
 		break;
 	case 5:
 		msg_print(MES_TRAIT_FORCE_IMPROVE);
