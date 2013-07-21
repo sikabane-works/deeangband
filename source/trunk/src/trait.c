@@ -1377,6 +1377,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_meteor(caster_ptr, power, 2);
 		break;
 
+	case TRAIT_FIRE_SWARM:
+		rengoku_kaen(caster_ptr);
+		break;
+
 	case TRAIT_MALEDICTION:
 		{
 			int dice = 3 + (power - 1) / 5;

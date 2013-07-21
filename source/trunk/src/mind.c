@@ -1148,7 +1148,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		break;
 	case 16:
 		do_active_trait_tmp(caster_ptr, TRAIT_GET_PASS_WALL, TRUE);
-		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, caster_ptr->lev, FALSE);
+		do_active_trait_tmp(caster_ptr, TRAIT_MAGIC_RES_ACID, TRUE);
 		break;
 	case 17:
 		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
@@ -1157,7 +1157,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		teleport_creature(caster_ptr, 30, 0L);
 		break;
 	case 18:
-		rengoku_kaen(caster_ptr);
+		do_active_trait_tmp(caster_ptr, TRAIT_FIRE_SWARM, TRUE);
 		break;
 	case 19:
 		return do_active_trait(caster_ptr, TRAIT_GET_MULTI_SHADOW, TRUE, 100, 0L);
