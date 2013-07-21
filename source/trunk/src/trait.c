@@ -1381,6 +1381,13 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		rengoku_kaen(caster_ptr);
 		break;
 
+	case TRAIT_HIDE_IN_MYST:
+		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
+		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
+		teleport_creature(caster_ptr, 30, 0L);
+		break;
+
 	case TRAIT_MALEDICTION:
 		{
 			int dice = 3 + (power - 1) / 5;

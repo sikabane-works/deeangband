@@ -1151,16 +1151,12 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		do_active_trait_tmp(caster_ptr, TRAIT_MAGIC_RES_ACID, TRUE);
 		break;
 	case 17:
-		SELF_FIELD(caster_ptr, DO_EFFECT_POIS, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_OLD_DRAIN, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
-		SELF_FIELD(caster_ptr, DO_EFFECT_CONFUSION, 75 + caster_ptr->lev * 2 / 3, caster_ptr->lev / 5 + 2, -1);
-		teleport_creature(caster_ptr, 30, 0L);
 		break;
 	case 18:
 		do_active_trait_tmp(caster_ptr, TRAIT_FIRE_SWARM, TRUE);
 		break;
 	case 19:
-		return do_active_trait(caster_ptr, TRAIT_GET_MULTI_SHADOW, TRUE, 100, 0L);
+		do_active_trait(caster_ptr, TRAIT_GET_MULTI_SHADOW, TRUE, 100, 0L);
 		break;
 	default:
 		msg_warning(MES_SYS_OUT_OF_SWITCH);
