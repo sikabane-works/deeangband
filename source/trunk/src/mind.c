@@ -1129,7 +1129,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		do_active_trait_tmp(caster_ptr, TRAIT_KATON, TRUE);
 		break;
 	case 10:
-		return rush_attack(caster_ptr, NULL);
+		do_active_trait_tmp(caster_ptr, TRAIT_RUSH_ATTACK, TRUE);
 	case 11:
 		spreading_throw(caster_ptr);
 		break;
