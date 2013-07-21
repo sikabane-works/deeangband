@@ -1117,7 +1117,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		do_active_trait_tmp(caster_ptr, TRAIT_PANIC_HIT, TRUE);
 		break;
 	case 6:
-		(void)cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, MAX_RANGE_SUB, caster_ptr->lev*2, 0);
+		do_active_trait_tmp(caster_ptr, TRAIT_ARREST_CREATURE, TRUE);
 		break;
 	case 7:
 		do_active_trait_tmp(caster_ptr, TRAIT_IDENTIFY, TRUE);
