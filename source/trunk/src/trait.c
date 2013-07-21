@@ -1411,6 +1411,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_SEEKER_RAY:
+		cast_beam(caster_ptr, DO_EFFECT_SEEKER, MAX_RANGE_SUB, diceroll(11+(lev_bonus-5)/4,8), 0);
+		break;
+
 	case TRAIT_BLINK:
 		if(teleport_barrier(target_ptr, caster_ptr)) msg_format(MES_TRAIT_TELEPORT_BLOCK(caster_ptr));
 		else

@@ -1003,7 +1003,6 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		break;
 		/* seeker ray */
 	case 10:
-		cast_beam(caster_ptr, DO_EFFECT_SEEKER, MAX_RANGE_SUB, diceroll(11+(lev_bonus-5)/4,8), 0);
 		break;
 		/* seal of mirror */
 	case 11:
