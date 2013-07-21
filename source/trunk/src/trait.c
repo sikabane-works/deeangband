@@ -2057,6 +2057,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		hit_and_away(caster_ptr);
 		break;
 
+	case TRAIT_KATON:
+		SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 50 + caster_ptr->lev, caster_ptr->lev / 10 + 2, -1);
+		teleport_creature(caster_ptr, 30, 0L);
+		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, caster_ptr->lev, FALSE);
+		break;
+
 	case TRAIT_SCAN_CREATURE:
 		probing(floor_ptr);
 		break;

@@ -1123,12 +1123,10 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		do_active_trait_tmp(caster_ptr, TRAIT_IDENTIFY, TRUE);
 		break;
 	case 8:
-		set_timed_trait(caster_ptr, TRAIT_LEVITATION, randint1(20) + 20, FALSE);
+		do_active_trait_tmp(caster_ptr, TRAIT_GET_LEVITATION, TRUE);
 		break;
 	case 9:
-		SELF_FIELD(caster_ptr, DO_EFFECT_FIRE, 50 + caster_ptr->lev, caster_ptr->lev / 10 + 2, -1);
-		teleport_creature(caster_ptr, 30, 0L);
-		set_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, caster_ptr->lev, FALSE);
+		do_active_trait_tmp(caster_ptr, TRAIT_KATON, TRUE);
 		break;
 	case 10:
 		return rush_attack(caster_ptr, NULL);
