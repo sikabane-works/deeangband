@@ -991,6 +991,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 	case 8:
 		cast_ball(caster_ptr, DO_EFFECT_SHARDS, MAX_RANGE_SUB, (COODINATES)diceroll(8 + ((lev_bonus - 5) / 4), 8), (COODINATES)(lev_bonus > 20 ? (lev_bonus - 20) / 8 + 1 : 0));
 		break;
+
 		/* mirror sleeping */
 	case 9:
 		for(x=0;x<floor_ptr->width;x++){
@@ -1002,14 +1003,17 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		}
 		break;
 		/* seeker ray */
+
 	case 10:
 		do_active_trait(caster_ptr, TRAIT_SEEKER_RAY, TRUE, 100, 0L);
 		break;
 		/* seal of mirror */
+
 	case 11:
 		seal_of_mirror(caster_ptr, lev_bonus * 4 + 100);
 		break;
 		/* shield of water */
+
 	case 12:
 		tmp = 20 + randint1(20);
 		set_timed_trait(caster_ptr, TRAIT_SHIELD, tmp, FALSE);
@@ -1017,10 +1021,12 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		if(lev_bonus > 39) set_timed_trait(caster_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
 		break;
 		/* super ray */
+
 	case 13:
 		cast_beam(caster_ptr, DO_EFFECT_SUPER_RAY, MAX_RANGE_SUB, 150+randint1(2*lev_bonus), 0);
 		break;
 		/* illusion light */
+
 	case 14:
 		tmp = is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]) ? 4 : 3;
 		project_all_vision(caster_ptr, DO_EFFECT_SLOW_OTHERS, caster_ptr->lev);
@@ -1030,6 +1036,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		project_all_vision(caster_ptr, DO_EFFECT_STASIS, lev_bonus*tmp);
 		break;
 		/* mirror shift */
+
 	case 15:
 		if(!is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]))
 		{
@@ -1054,7 +1061,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 20: /* mirror of Ruffnor */
-		(void)set_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(4)+4,FALSE);
+		return do_active_trait(caster_ptr, TRAIT_INVULNER, TRUE, 100, 0L);
 		break;
 
 	default:
