@@ -1041,8 +1041,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		return do_active_trait(caster_ptr, TRAIT_RECALL, TRUE, 100, 0L);
 
 	case 18:
-		set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
-		break;
+		return do_active_trait(caster_ptr, TRAIT_GET_MULTI_SHADOW, TRUE, 100, 0L);
 
 	case 19:
 		if(!binding_field(caster_ptr, MAX_RANGE, lev_bonus * 11 + 5)) msg_print(MES_TRAIT_MIRROR_BINDING_FAILED);
@@ -1163,7 +1162,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		rengoku_kaen(caster_ptr);
 		break;
 	case 19:
-		set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
+		return do_active_trait(caster_ptr, TRAIT_GET_MULTI_SHADOW, TRUE, 100, 0L);
 		break;
 	default:
 		msg_warning(MES_SYS_OUT_OF_SWITCH);

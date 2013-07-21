@@ -3082,6 +3082,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		prepare_redraw(PR_STATUS);
 		break;
 
+	case TRAIT_GET_MULTI_SHADOW:
+		set_timed_trait(caster_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
+		break;
+
 	case TRAIT_GAIN_EXP:
 		if(caster_ptr->exp < CREATURE_MAX_EXP)
 		{
