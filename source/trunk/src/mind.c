@@ -980,7 +980,6 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		break;
 
 	case 6: /* robe of dust */
-		set_timed_trait(caster_ptr, TRAIT_DUST_ROBE, 20 + randint1(20), FALSE);
 		break;
 
 	case 7: /* banishing mirror */
@@ -1003,6 +1002,7 @@ static bool cast_mirror_spell(creature_type *caster_ptr, int spell)
 		break;
 		/* seeker ray */
 	case 10:
+		do_active_trait(caster_ptr, TRAIT_SEEKER_RAY, TRUE, 100, 0L);
 		break;
 		/* seal of mirror */
 	case 11:

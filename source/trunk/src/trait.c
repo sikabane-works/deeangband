@@ -1411,8 +1411,12 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		}
 		break;
 
+	case TRAIT_GET_DUST_ROBE:
+		set_timed_trait(caster_ptr, TRAIT_DUST_ROBE, 20 + randint1(20), FALSE);
+		break;
+
 	case TRAIT_SEEKER_RAY:
-		cast_beam(caster_ptr, DO_EFFECT_SEEKER, MAX_RANGE_SUB, diceroll(11+(lev_bonus-5)/4,8), 0);
+		cast_beam(caster_ptr, DO_EFFECT_SEEKER, MAX_RANGE_SUB, diceroll(11+(caster_ptr->lev-5)/4,8), 0);
 		break;
 
 	case TRAIT_BLINK:
