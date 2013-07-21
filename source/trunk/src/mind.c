@@ -1141,8 +1141,7 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		do_active_trait_tmp(caster_ptr, TRAIT_SMOKE_BALL, TRUE);
 		break;
 	case 14:
-		if(!get_aim_dir(caster_ptr, NO_RANGE_LIMIT, &dir)) return FALSE;
-		(void)teleport_swap(caster_ptr, dir);
+		do_active_trait_tmp(caster_ptr, TRAIT_SWAP_POS, TRUE);
 		break;
 	case 15:
 		do_active_trait_tmp(caster_ptr, TRAIT_EXPLOSIVE_RUNE, TRUE);
