@@ -1130,8 +1130,9 @@ static bool cast_ninja_spell(creature_type *caster_ptr, int spell)
 		break;
 	case 10:
 		do_active_trait_tmp(caster_ptr, TRAIT_RUSH_ATTACK, TRUE);
+		break;
 	case 11:
-		spreading_throw(caster_ptr);
+		do_active_trait_tmp(caster_ptr, TRAIT_SPREADING_THROW, TRUE);
 		break;
 	case 12:
 		chain_hook(caster_ptr);

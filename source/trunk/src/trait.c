@@ -2402,6 +2402,10 @@ bool do_active_trait(creature_type *caster_ptr, TRAIT_ID id, bool message, POWER
 		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, MAX_RANGE_SUB, (3 * user_level) / 2, 0);
 		break;
 
+	case TRAIT_SPREADING_THROW:
+		spreading_throw(caster_ptr);
+		break;
+
 	case TRAIT_SPIT_ACID:
 		stop_mouth(caster_ptr);
 		if(user_level < 25) cast_bolt(caster_ptr, DO_EFFECT_ACID, MAX_RANGE_SUB, user_level, 0);
